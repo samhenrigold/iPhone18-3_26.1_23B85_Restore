@@ -1,1181 +1,3 @@
-uint64_t AVE_Prop_AVC_SetNumberOfSlices(_DWORD *a1, const char **a2, const __CFString *a3, const __CFNumber *a4)
-{
-  valuePtr = 0;
-  if (a1 && a2 && a3 && a4)
-  {
-    TypeID = CFNumberGetTypeID();
-    if (TypeID == CFGetTypeID(a4))
-    {
-      v9 = AVE_DevCap_Find(a1[17]);
-      if (v9)
-      {
-        v10 = v9;
-        CFNumberGetValue(a4, kCFNumberSInt32Type, &valuePtr);
-        v11 = valuePtr;
-        if ((valuePtr - 1) >= 0x20)
-        {
-          if (AVE_Log_CheckLevel(0x1Eu, 4))
-          {
-            v32 = AVE_Log_CheckConsole(0x1Eu);
-            CurrTime = AVE_GetCurrTime();
-            LevelStr = AVE_Log_GetLevelStr(4);
-            if (v32)
-            {
-              printf("%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d [%d, %d]\n", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetNumberOfSlices", 6797, "numberOfSlices <= ((32) < (256) ? (32) : (256)) && numberOfSlices >= 1", a1, *(a1 + 7), a2, a3, a4, valuePtr, 1, 32);
-              CurrTime = AVE_GetCurrTime();
-              LevelStr = AVE_Log_GetLevelStr(4);
-              v35 = *(a1 + 7);
-            }
-
-            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d [%d, %d]", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetNumberOfSlices", 6797, "numberOfSlices <= ((32) < (256) ? (32) : (256)) && numberOfSlices >= 1", a1);
-          }
-
-          return 4294965292;
-        }
-
-        else
-        {
-          a1[4251] = valuePtr;
-          SliceMap = AVE_Enc_GenerateSliceMap(v11, a1[361], *(*(v10 + 7) + 16), *(a1 + 10248), a1 + 2563);
-          if (SliceMap)
-          {
-            v13 = SliceMap;
-            if (AVE_Log_CheckLevel(0x1Eu, 4))
-            {
-              v14 = AVE_Log_CheckConsole(0x1Eu);
-              v15 = AVE_GetCurrTime();
-              v16 = AVE_Log_GetLevelStr(4);
-              if (v14)
-              {
-                printf("%lld %d AVE %s: %s:%d %s | fail to generate slice map %d %d %d %d %p %d\n", v15, 30, v16, "AVE_Prop_AVC_SetNumberOfSlices", 6809, "ret == 0", valuePtr, a1[361], *(*(v10 + 7) + 16), *(a1 + 10248), a1 + 2563, v13);
-                v15 = AVE_GetCurrTime();
-                v16 = AVE_Log_GetLevelStr(4);
-                v17 = *(*(v10 + 7) + 16);
-                v45 = *(a1 + 10248);
-                v44 = a1[361];
-              }
-
-              syslog(3, "%lld %d AVE %s: %s:%d %s | fail to generate slice map %d %d %d %d %p %d", v15, 30, v16, "AVE_Prop_AVC_SetNumberOfSlices");
-            }
-          }
-
-          else
-          {
-            if (AVE_Log_CheckLevel(0x1Eu, 7))
-            {
-              v36 = AVE_Log_CheckConsole(0x1Eu);
-              v37 = AVE_GetCurrTime();
-              v38 = AVE_Log_GetLevelStr(7);
-              v39 = *a2;
-              if (v36)
-              {
-                printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", v37, 30, v38, a1, *(a1 + 7), *a2, valuePtr);
-                v37 = AVE_GetCurrTime();
-                AVE_Log_GetLevelStr(7);
-                v40 = *(a1 + 7);
-              }
-
-              v43 = *a2;
-              syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", v37);
-            }
-
-            return 0;
-          }
-        }
-      }
-
-      else
-      {
-        if (AVE_Log_CheckLevel(0x1Eu, 4))
-        {
-          v28 = AVE_Log_CheckConsole(0x1Eu);
-          v29 = AVE_GetCurrTime();
-          v30 = AVE_Log_GetLevelStr(4);
-          if (v28)
-          {
-            printf("%lld %d AVE %s: %s:%d %s | fail to find device capability %p %p %p %d\n", v29, 30, v30, "AVE_Prop_AVC_SetNumberOfSlices", 6787, "pDevCap != __null", a1, a3, a4, a1[17]);
-            v29 = AVE_GetCurrTime();
-            v30 = AVE_Log_GetLevelStr(4);
-            v31 = a1[17];
-          }
-
-          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to find device capability %p %p %p %d", v29, 30, v30, "AVE_Prop_AVC_SetNumberOfSlices");
-        }
-
-        return 4294966294;
-      }
-    }
-
-    else
-    {
-      if (AVE_Log_CheckLevel(0x1Eu, 4))
-      {
-        v22 = AVE_Log_CheckConsole(0x1Eu);
-        v23 = AVE_GetCurrTime();
-        v24 = AVE_Log_GetLevelStr(4);
-        v25 = *(a1 + 7);
-        v26 = CFGetTypeID(a4);
-        if (v22)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v23, 30, v24, "AVE_Prop_AVC_SetNumberOfSlices", 6782, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v25, a2, a3, a4, v26);
-          v23 = AVE_GetCurrTime();
-          v24 = AVE_Log_GetLevelStr(4);
-          v27 = *(a1 + 7);
-          CFGetTypeID(a4);
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v23, 30, v24, "AVE_Prop_AVC_SetNumberOfSlices", 6782, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
-      }
-
-      return 4294965293;
-    }
-  }
-
-  else
-  {
-    if (AVE_Log_CheckLevel(0x1Eu, 4))
-    {
-      v18 = AVE_Log_CheckConsole(0x1Eu);
-      v19 = AVE_GetCurrTime();
-      v20 = AVE_Log_GetLevelStr(4);
-      if (v18)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v19, 30, v20, "AVE_Prop_AVC_SetNumberOfSlices", 6772, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v21 = AVE_GetCurrTime();
-        v42 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v21, 30, v42, "AVE_Prop_AVC_SetNumberOfSlices");
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v20, "AVE_Prop_AVC_SetNumberOfSlices");
-      }
-    }
-
-    return 4294966295;
-  }
-
-  return v13;
-}
-
-uint64_t AVE_Prop_AVC_GetNumberOfSlices(_DWORD *a1, const char **a2, CFAllocatorRef allocator, const __CFString *a4, CFNumberRef *a5)
-{
-  if (a1 && a2 && a4 && a5)
-  {
-    valuePtr = a1[2563];
-    v10 = CFNumberCreate(allocator, kCFNumberSInt32Type, &valuePtr);
-    if (v10)
-    {
-      v11 = v10;
-      *a5 = v10;
-      result = AVE_Log_CheckLevel(0x1Eu, 7);
-      if (result)
-      {
-        v13 = AVE_Log_CheckConsole(0x1Eu);
-        CurrTime = AVE_GetCurrTime();
-        LevelStr = AVE_Log_GetLevelStr(7);
-        if (v13)
-        {
-          printf("%lld %d AVE %s: %p %lld GetProp %s: %d %p\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr, v11);
-          CurrTime = AVE_GetCurrTime();
-          AVE_Log_GetLevelStr(7);
-          v16 = *(a1 + 7);
-          v26 = *a2;
-        }
-
-        syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d %p", CurrTime, 30);
-        return 0;
-      }
-    }
-
-    else
-    {
-      if (AVE_Log_CheckLevel(0x1Eu, 4))
-      {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v22, 30, v23, "AVE_Prop_AVC_GetNumberOfSlices", 6851, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-          v24 = *(a1 + 7);
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v22, 30, v23, "AVE_Prop_AVC_GetNumberOfSlices", 6851, "pNum != __null", a1);
-      }
-
-      return 4294966293;
-    }
-  }
-
-  else
-  {
-    if (AVE_Log_CheckLevel(0x1Eu, 4))
-    {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetNumberOfSlices", 6841, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v25, "AVE_Prop_AVC_GetNumberOfSlices", 6841);
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetNumberOfSlices", 6841);
-      }
-    }
-
-    return 4294966295;
-  }
-
-  return result;
-}
-
-uint64_t AVE_Prop_AVC_SetH264EntropyMode(_DWORD *a1, const char **a2, const __CFString *a3, const void *a4)
-{
-  if (a1 && a2 && a3 && a4)
-  {
-    TypeID = CFStringGetTypeID();
-    if (TypeID == CFGetTypeID(a4))
-    {
-      if (CFEqual(a4, *MEMORY[0x29EDBCF30]))
-      {
-        v9 = 0;
-        goto LABEL_19;
-      }
-
-      if (CFEqual(a4, *MEMORY[0x29EDBCF28]))
-      {
-        v9 = 1;
-LABEL_19:
-        a1[4271] = v9;
-        a1[4114] = v9;
-        result = AVE_Log_CheckLevel(0x1Eu, 7);
-        if (result)
-        {
-          v21 = AVE_Log_CheckConsole(0x1Eu);
-          CurrTime = AVE_GetCurrTime();
-          LevelStr = AVE_Log_GetLevelStr(7);
-          v24 = *a2;
-          if (v21)
-          {
-            printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, v9);
-            CurrTime = AVE_GetCurrTime();
-            AVE_Log_GetLevelStr(7);
-            v25 = *(a1 + 7);
-          }
-
-          v31 = *a2;
-          syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", CurrTime);
-          return 0;
-        }
-
-        return result;
-      }
-
-      if (AVE_Log_CheckLevel(0x1Eu, 4))
-      {
-        v26 = AVE_Log_CheckConsole(0x1Eu);
-        v27 = AVE_GetCurrTime();
-        v28 = AVE_Log_GetLevelStr(4);
-        if (v26)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d\n", v27, 30, v28, "AVE_Prop_AVC_SetH264EntropyMode", 6909, "eEntropyMode != EntropyModeUNDEFINED", a1, *(a1 + 7), a2, a3, a4, 2);
-          v27 = AVE_GetCurrTime();
-          v28 = AVE_Log_GetLevelStr(4);
-          v29 = *(a1 + 7);
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d", v27, 30, v28, "AVE_Prop_AVC_SetH264EntropyMode", 6909, "eEntropyMode != EntropyModeUNDEFINED");
-      }
-
-      return 4294965292;
-    }
-
-    else
-    {
-      if (AVE_Log_CheckLevel(0x1Eu, 4))
-      {
-        v14 = AVE_Log_CheckConsole(0x1Eu);
-        v15 = AVE_GetCurrTime();
-        v16 = AVE_Log_GetLevelStr(4);
-        v17 = *(a1 + 7);
-        v18 = CFGetTypeID(a4);
-        if (v14)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v15, 30, v16, "AVE_Prop_AVC_SetH264EntropyMode", 6893, "CFStringGetTypeID() == CFGetTypeID(pValue)", a1, v17, a2, a3, a4, v18);
-          v15 = AVE_GetCurrTime();
-          v16 = AVE_Log_GetLevelStr(4);
-          v19 = *(a1 + 7);
-          CFGetTypeID(a4);
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v15, 30, v16, "AVE_Prop_AVC_SetH264EntropyMode", 6893, "CFStringGetTypeID() == CFGetTypeID(pValue)");
-      }
-
-      return 4294965293;
-    }
-  }
-
-  else
-  {
-    if (AVE_Log_CheckLevel(0x1Eu, 4))
-    {
-      v10 = AVE_Log_CheckConsole(0x1Eu);
-      v11 = AVE_GetCurrTime();
-      v12 = AVE_Log_GetLevelStr(4);
-      if (v10)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v11, 30, v12, "AVE_Prop_AVC_SetH264EntropyMode", 6883, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v13 = AVE_GetCurrTime();
-        v30 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v13, 30, v30, "AVE_Prop_AVC_SetH264EntropyMode");
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v11, 30, v12, "AVE_Prop_AVC_SetH264EntropyMode");
-      }
-    }
-
-    return 4294966295;
-  }
-}
-
-uint64_t AVE_Prop_AVC_GetH264EntropyMode(_DWORD *a1, const char **a2, const __CFAllocator *a3, const __CFString *a4, void *a5)
-{
-  if (a1 && a2 && a4 && a5)
-  {
-    v10 = a1[4114];
-    v11 = MEMORY[0x29EDBCF30];
-    if (v10)
-    {
-      if (v10 == 1)
-      {
-        v11 = MEMORY[0x29EDBCF28];
-      }
-
-      else if (a1[3433] == 1)
-      {
-        v11 = MEMORY[0x29EDBCF28];
-      }
-    }
-
-    *a5 = *v11;
-    result = AVE_Log_CheckLevel(0x1Eu, 7);
-    if (result)
-    {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      CurrTime = AVE_GetCurrTime();
-      LevelStr = AVE_Log_GetLevelStr(7);
-      if (v17)
-      {
-        printf("%lld %d AVE %s: %p %lld GetProp %s: %d %d\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, v10, a1[3433]);
-        CurrTime = AVE_GetCurrTime();
-        AVE_Log_GetLevelStr(7);
-        v20 = *(a1 + 7);
-        v23 = a1[3433];
-        v22 = *a2;
-      }
-
-      syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d %d", CurrTime);
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (AVE_Log_CheckLevel(0x1Eu, 4))
-    {
-      v12 = AVE_Log_CheckConsole(0x1Eu);
-      v13 = AVE_GetCurrTime();
-      v14 = AVE_Log_GetLevelStr(4);
-      if (v12)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v13, 30, v14, "AVE_Prop_AVC_GetH264EntropyMode", 6944, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4, a5);
-        v15 = AVE_GetCurrTime();
-        v21 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v15, 30, v21, "AVE_Prop_AVC_GetH264EntropyMode", 6944);
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v13, 30, v14, "AVE_Prop_AVC_GetH264EntropyMode", 6944);
-      }
-    }
-
-    return 4294966295;
-  }
-
-  return result;
-}
-
-uint64_t AVE_Prop_AVC_SetEnableTransform8x8(_DWORD *a1, const char **a2, const __CFString *a3, const __CFBoolean *a4)
-{
-  if (a1 && a2 && a3 && a4)
-  {
-    TypeID = CFBooleanGetTypeID();
-    if (TypeID == CFGetTypeID(a4))
-    {
-      v9 = CFBooleanGetValue(a4) != 0;
-      a1[4272] = v9;
-      *(a1 + 13807) = v9;
-      a1[2544] = 2 * v9;
-      result = AVE_Log_CheckLevel(0x1Eu, 7);
-      if (result)
-      {
-        v11 = AVE_Log_CheckConsole(0x1Eu);
-        CurrTime = AVE_GetCurrTime();
-        LevelStr = AVE_Log_GetLevelStr(7);
-        v14 = *a2;
-        if (v11)
-        {
-          printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, v9);
-          CurrTime = AVE_GetCurrTime();
-          AVE_Log_GetLevelStr(7);
-          v15 = *(a1 + 7);
-        }
-
-        v27 = *a2;
-        syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", CurrTime);
-        return 0;
-      }
-    }
-
-    else
-    {
-      if (AVE_Log_CheckLevel(0x1Eu, 4))
-      {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = *(a1 + 7);
-        v24 = CFGetTypeID(a4);
-        if (v20)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetEnableTransform8x8", 7007, "CFBooleanGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = *(a1 + 7);
-          CFGetTypeID(a4);
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetEnableTransform8x8", 7007, "CFBooleanGetTypeID() == CFGetTypeID(pValue)");
-      }
-
-      return 4294965293;
-    }
-  }
-
-  else
-  {
-    if (AVE_Log_CheckLevel(0x1Eu, 4))
-    {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetEnableTransform8x8", 6997, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v26 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v26, "AVE_Prop_AVC_SetEnableTransform8x8");
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetEnableTransform8x8");
-      }
-    }
-
-    return 4294966295;
-  }
-
-  return result;
-}
-
-uint64_t AVE_Prop_AVC_GetEnableTransform8x8(_BYTE *a1, const char **a2, const __CFAllocator *a3, const __CFString *a4, void *a5)
-{
-  if (a1 && a2 && a4 && a5)
-  {
-    v10 = a1[13807];
-    v11 = MEMORY[0x29EDB8F00];
-    if (!a1[13807])
-    {
-      v11 = MEMORY[0x29EDB8EF8];
-    }
-
-    *a5 = *v11;
-    result = AVE_Log_CheckLevel(0x1Eu, 7);
-    if (result)
-    {
-      v13 = AVE_Log_CheckConsole(0x1Eu);
-      CurrTime = AVE_GetCurrTime();
-      LevelStr = AVE_Log_GetLevelStr(7);
-      v16 = *a2;
-      if (v13)
-      {
-        printf("%lld %d AVE %s: %p %lld GetProp %s: %d\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, v10);
-        CurrTime = AVE_GetCurrTime();
-        AVE_Log_GetLevelStr(7);
-        v17 = *(a1 + 7);
-      }
-
-      v23 = *a2;
-      syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d", CurrTime);
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (AVE_Log_CheckLevel(0x1Eu, 4))
-    {
-      v18 = AVE_Log_CheckConsole(0x1Eu);
-      v19 = AVE_GetCurrTime();
-      v20 = AVE_Log_GetLevelStr(4);
-      if (v18)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v19, 30, v20, "AVE_Prop_AVC_GetEnableTransform8x8", 7054, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4, a5);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v21, 30, v22, "AVE_Prop_AVC_GetEnableTransform8x8", 7054);
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v20, "AVE_Prop_AVC_GetEnableTransform8x8", 7054);
-      }
-    }
-
-    return 4294966295;
-  }
-
-  return result;
-}
-
-uint64_t AVE_Prop_AVC_SetMotionEstimationSearchMode(void *a1, const char **a2, const __CFString *a3, const void *a4)
-{
-  valuePtr = -1;
-  if (a1 && a2 && a3 && a4)
-  {
-    TypeID = CFNumberGetTypeID();
-    if (TypeID != CFGetTypeID(a4))
-    {
-      if (AVE_Log_CheckLevel(0x1Eu, 4))
-      {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        CurrTime = AVE_GetCurrTime();
-        LevelStr = AVE_Log_GetLevelStr(4);
-        v23 = *(a1 + 7);
-        v24 = CFGetTypeID(a4);
-        if (v20)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetMotionEstimationSearchMode", 7103, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          CurrTime = AVE_GetCurrTime();
-          LevelStr = AVE_Log_GetLevelStr(4);
-          v25 = *(a1 + 7);
-          CFGetTypeID(a4);
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetMotionEstimationSearchMode", 7103, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
-      }
-
-      return 4294965293;
-    }
-
-    CFNumberGetValue(a4, kCFNumberSInt32Type, &valuePtr);
-    if ((valuePtr & 0x80000000) == 0)
-    {
-      if (AVE_DevCap_FindSearchRangeMode(*(a1 + 17), 1, 1, valuePtr))
-      {
-        v9 = valuePtr;
-        *(a1 + 4253) = valuePtr;
-        *(a1 + 5084) = v9;
-        result = AVE_Log_CheckLevel(0x1Eu, 7);
-        if (result)
-        {
-          v11 = AVE_Log_CheckConsole(0x1Eu);
-          v12 = AVE_GetCurrTime();
-          v13 = AVE_Log_GetLevelStr(7);
-          v14 = *a2;
-          if (v11)
-          {
-            printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", v12, 30, v13, a1, *(a1 + 7), *a2, valuePtr);
-            v12 = AVE_GetCurrTime();
-            AVE_Log_GetLevelStr(7);
-            v15 = *(a1 + 7);
-          }
-
-          v35 = *a2;
-          syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", v12);
-          return 0;
-        }
-
-        return result;
-      }
-
-      if (AVE_Log_CheckLevel(0x1Eu, 4))
-      {
-        v30 = AVE_Log_CheckConsole(0x1Eu);
-        v31 = AVE_GetCurrTime();
-        v32 = AVE_Log_GetLevelStr(4);
-        if (v30)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | fail to find search range mode %p %lld %p %p %p %d\n", v31, 30, v32, "AVE_Prop_AVC_SetMotionEstimationSearchMode", 7119, "pSREntry != __null", a1, *(a1 + 7), a2, a3, a4, valuePtr);
-          v31 = AVE_GetCurrTime();
-          v32 = AVE_Log_GetLevelStr(4);
-          v33 = *(a1 + 7);
-        }
-
-        else
-        {
-          v36 = *(a1 + 7);
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to find search range mode %p %lld %p %p %p %d", v31, 30, v32, "AVE_Prop_AVC_SetMotionEstimationSearchMode", 7119, "pSREntry != __null");
-      }
-
-      return 4294965293;
-    }
-
-    if (AVE_Log_CheckLevel(0x1Eu, 4))
-    {
-      v26 = AVE_Log_CheckConsole(0x1Eu);
-      v27 = AVE_GetCurrTime();
-      v28 = AVE_Log_GetLevelStr(4);
-      if (v26)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d\n", v27, 30, v28, "AVE_Prop_AVC_SetMotionEstimationSearchMode", 7112, "iMotionSearchRangeMode >= 0", a1, *(a1 + 7), a2, a3, a4, valuePtr);
-        v27 = AVE_GetCurrTime();
-        v28 = AVE_Log_GetLevelStr(4);
-        v29 = *(a1 + 7);
-      }
-
-      syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d", v27, 30, v28, "AVE_Prop_AVC_SetMotionEstimationSearchMode", 7112, "iMotionSearchRangeMode >= 0");
-    }
-
-    return 4294965292;
-  }
-
-  else
-  {
-    if (AVE_Log_CheckLevel(0x1Eu, 4))
-    {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetMotionEstimationSearchMode", 7093, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v34 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v34, "AVE_Prop_AVC_SetMotionEstimationSearchMode");
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetMotionEstimationSearchMode");
-      }
-    }
-
-    return 4294966295;
-  }
-}
-
-uint64_t AVE_Prop_AVC_GetMotionEstimationSearchMode(void *a1, const char **a2, CFAllocatorRef allocator, const __CFString *a4, CFNumberRef *a5)
-{
-  if (a1 && a2 && a4 && a5)
-  {
-    valuePtr = *(a1 + 5084);
-    v10 = CFNumberCreate(allocator, kCFNumberSInt32Type, &valuePtr);
-    if (v10)
-    {
-      v11 = v10;
-      *a5 = v10;
-      result = AVE_Log_CheckLevel(0x1Eu, 7);
-      if (result)
-      {
-        v13 = AVE_Log_CheckConsole(0x1Eu);
-        CurrTime = AVE_GetCurrTime();
-        LevelStr = AVE_Log_GetLevelStr(7);
-        if (v13)
-        {
-          printf("%lld %d AVE %s: %p %lld GetProp %s: %d %p\n", CurrTime, 30, LevelStr, a1, a1[7], *a2, valuePtr, v11);
-          CurrTime = AVE_GetCurrTime();
-          AVE_Log_GetLevelStr(7);
-          v16 = a1[7];
-          v26 = *a2;
-        }
-
-        syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d %p", CurrTime, 30);
-        return 0;
-      }
-    }
-
-    else
-    {
-      if (AVE_Log_CheckLevel(0x1Eu, 4))
-      {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v22, 30, v23, "AVE_Prop_AVC_GetMotionEstimationSearchMode", 7165, "pNum != __null", a1, a1[7], a2, allocator, a4, a5, valuePtr);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-          v24 = a1[7];
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v22, 30, v23, "AVE_Prop_AVC_GetMotionEstimationSearchMode", 7165, "pNum != __null", a1);
-      }
-
-      return 4294966293;
-    }
-  }
-
-  else
-  {
-    if (AVE_Log_CheckLevel(0x1Eu, 4))
-    {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetMotionEstimationSearchMode", 7155, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v25, "AVE_Prop_AVC_GetMotionEstimationSearchMode", 7155);
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetMotionEstimationSearchMode", 7155);
-      }
-    }
-
-    return 4294966295;
-  }
-
-  return result;
-}
-
-uint64_t AVE_Prop_AVC_GetSupportedMotionSearchModes(unsigned int *a1, const char **a2, const __CFAllocator *a3, const __CFString *a4, __CFArray **a5)
-{
-  if (a1 && a2 && a4 && a5)
-  {
-    SearchRange = AVE_DevCap_FindSearchRange(a1[17], 1, 1);
-    if (SearchRange)
-    {
-      v11 = SearchRange;
-      Mutable = CFArrayCreateMutable(a3, 0, MEMORY[0x29EDB9000]);
-      if (Mutable)
-      {
-        v13 = Mutable;
-        Array = AVE_SearchRange_MakeArray(v11 + 1, *v11, Mutable);
-        if (Array)
-        {
-          v15 = Array;
-          if (AVE_Log_CheckLevel(0x1Eu, 4))
-          {
-            v16 = AVE_Log_CheckConsole(0x1Eu);
-            CurrTime = AVE_GetCurrTime();
-            LevelStr = AVE_Log_GetLevelStr(4);
-            if (v16)
-            {
-              printf("%lld %d AVE %s: %s:%d %s | fail to make CFMutableArrayRef %p %lld %p %p %p %p %d\n", CurrTime, 30, LevelStr, "AVE_Prop_AVC_GetSupportedMotionSearchModes", 7217, "ret == 0", a1, *(a1 + 7), a2, a3, a4, a5, *v11);
-              CurrTime = AVE_GetCurrTime();
-              LevelStr = AVE_Log_GetLevelStr(4);
-              v42 = *v11;
-              v41 = *(a1 + 7);
-            }
-
-            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to make CFMutableArrayRef %p %lld %p %p %p %p %d", CurrTime, 30, LevelStr, "AVE_Prop_AVC_GetSupportedMotionSearchModes", 7217, "ret == 0", a1);
-          }
-        }
-
-        else
-        {
-          *a5 = v13;
-          if (AVE_Log_CheckLevel(0x1Eu, 7))
-          {
-            v31 = AVE_Log_CheckConsole(0x1Eu);
-            v32 = AVE_GetCurrTime();
-            v33 = AVE_Log_GetLevelStr(7);
-            v34 = *v11;
-            if (v31)
-            {
-              printf("%lld %d AVE %s: %p %lld GetProp %s: %d %p\n", v32, 30, v33, a1, *(a1 + 7), *a2, *v11, v13);
-              v32 = AVE_GetCurrTime();
-              AVE_Log_GetLevelStr(7);
-              v35 = *(a1 + 7);
-              v39 = *v11;
-              v38 = *a2;
-            }
-
-            else
-            {
-              v40 = *v11;
-            }
-
-            syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d %p", v32, 30);
-          }
-
-          return 0;
-        }
-      }
-
-      else
-      {
-        if (AVE_Log_CheckLevel(0x1Eu, 4))
-        {
-          v27 = AVE_Log_CheckConsole(0x1Eu);
-          v28 = AVE_GetCurrTime();
-          v29 = AVE_Log_GetLevelStr(4);
-          if (v27)
-          {
-            printf("%lld %d AVE %s: %s:%d %s | fail to create CFMutableArrayRef %p %lld %p %p %p %p\n", v28, 30, v29, "AVE_Prop_AVC_GetSupportedMotionSearchModes", 7212, "pArray != __null", a1, *(a1 + 7), a2, a3, a4, a5);
-            v28 = AVE_GetCurrTime();
-            v29 = AVE_Log_GetLevelStr(4);
-            v30 = *(a1 + 7);
-          }
-
-          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFMutableArrayRef %p %lld %p %p %p %p", v28, 30, v29, "AVE_Prop_AVC_GetSupportedMotionSearchModes", 7212, "pArray != __null");
-        }
-
-        return 4294966293;
-      }
-    }
-
-    else
-    {
-      if (AVE_Log_CheckLevel(0x1Eu, 4))
-      {
-        v23 = AVE_Log_CheckConsole(0x1Eu);
-        v24 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        if (v23)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | fail to get search range %p %lld %p %p %p %p %d\n", v24, 30, v25, "AVE_Prop_AVC_GetSupportedMotionSearchModes", 7207, "pSR != __null", a1, *(a1 + 7), a2, a3, a4, a5, a1[17]);
-          v24 = AVE_GetCurrTime();
-          v25 = AVE_Log_GetLevelStr(4);
-          v26 = *(a1 + 7);
-          v43 = a1[17];
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to get search range %p %lld %p %p %p %p %d", v24, 30, v25, "AVE_Prop_AVC_GetSupportedMotionSearchModes", 7207, "pSR != __null", a1);
-      }
-
-      return 4294966294;
-    }
-  }
-
-  else
-  {
-    if (AVE_Log_CheckLevel(0x1Eu, 4))
-    {
-      v19 = AVE_Log_CheckConsole(0x1Eu);
-      v20 = AVE_GetCurrTime();
-      v21 = AVE_Log_GetLevelStr(4);
-      if (v19)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v20, 30, v21, "AVE_Prop_AVC_GetSupportedMotionSearchModes", 7199, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4, a5);
-        v22 = AVE_GetCurrTime();
-        v37 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v22, 30, v37, "AVE_Prop_AVC_GetSupportedMotionSearchModes", 7199);
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v21, "AVE_Prop_AVC_GetSupportedMotionSearchModes", 7199);
-      }
-    }
-
-    return 4294966295;
-  }
-
-  return v15;
-}
-
-uint64_t AVE_Prop_AVC_SetEnableStatsCollect(void *a1, const char **a2, const __CFString *a3, const __CFNumber *a4)
-{
-  valuePtr = 0;
-  if (a1 && a2 && a3 && a4)
-  {
-    TypeID = CFNumberGetTypeID();
-    if (TypeID == CFGetTypeID(a4))
-    {
-      CFNumberGetValue(a4, kCFNumberSInt32Type, &valuePtr);
-      v9 = valuePtr;
-      if (valuePtr < 0)
-      {
-        if (AVE_Log_CheckLevel(0x1Eu, 4))
-        {
-          v26 = AVE_Log_CheckConsole(0x1Eu);
-          CurrTime = AVE_GetCurrTime();
-          LevelStr = AVE_Log_GetLevelStr(4);
-          if (v26)
-          {
-            printf("%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d\n", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetEnableStatsCollect", 7269, "iEnableStatsCollect >= 0", a1, a1[7], a2, a3, a4, valuePtr);
-            CurrTime = AVE_GetCurrTime();
-            LevelStr = AVE_Log_GetLevelStr(4);
-            v29 = a1[7];
-          }
-
-          syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetEnableStatsCollect", 7269, "iEnableStatsCollect >= 0");
-        }
-
-        return 4294965292;
-      }
-
-      else
-      {
-        *(a1 + 4254) = valuePtr;
-        *(a1 + 366) = v9;
-        result = AVE_Log_CheckLevel(0x1Eu, 7);
-        if (result)
-        {
-          v11 = AVE_Log_CheckConsole(0x1Eu);
-          v12 = AVE_GetCurrTime();
-          v13 = AVE_Log_GetLevelStr(7);
-          v14 = *a2;
-          if (v11)
-          {
-            printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", v12, 30, v13, a1, a1[7], *a2, valuePtr);
-            v12 = AVE_GetCurrTime();
-            AVE_Log_GetLevelStr(7);
-            v15 = a1[7];
-          }
-
-          v31 = *a2;
-          syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", v12);
-          return 0;
-        }
-      }
-    }
-
-    else
-    {
-      if (AVE_Log_CheckLevel(0x1Eu, 4))
-      {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = a1[7];
-        v24 = CFGetTypeID(a4);
-        if (v20)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetEnableStatsCollect", 7260, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = a1[7];
-          CFGetTypeID(a4);
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetEnableStatsCollect", 7260, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
-      }
-
-      return 4294965293;
-    }
-  }
-
-  else
-  {
-    if (AVE_Log_CheckLevel(0x1Eu, 4))
-    {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetEnableStatsCollect", 7250, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v30 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v30, "AVE_Prop_AVC_SetEnableStatsCollect");
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetEnableStatsCollect");
-      }
-    }
-
-    return 4294966295;
-  }
-
-  return result;
-}
-
-uint64_t AVE_Prop_AVC_GetEnableStatsCollect(_DWORD *a1, const char **a2, CFAllocatorRef allocator, const __CFString *a4, CFNumberRef *a5)
-{
-  if (a1 && a2 && a4 && a5)
-  {
-    valuePtr = a1[366];
-    v10 = CFNumberCreate(allocator, kCFNumberSInt32Type, &valuePtr);
-    if (v10)
-    {
-      v11 = v10;
-      *a5 = v10;
-      result = AVE_Log_CheckLevel(0x1Eu, 7);
-      if (result)
-      {
-        v13 = AVE_Log_CheckConsole(0x1Eu);
-        CurrTime = AVE_GetCurrTime();
-        LevelStr = AVE_Log_GetLevelStr(7);
-        if (v13)
-        {
-          printf("%lld %d AVE %s: %p %lld GetProp %s: %d %p\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr, v11);
-          CurrTime = AVE_GetCurrTime();
-          AVE_Log_GetLevelStr(7);
-          v16 = *(a1 + 7);
-          v26 = *a2;
-        }
-
-        syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d %p", CurrTime, 30);
-        return 0;
-      }
-    }
-
-    else
-    {
-      if (AVE_Log_CheckLevel(0x1Eu, 4))
-      {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v22, 30, v23, "AVE_Prop_AVC_GetEnableStatsCollect", 7315, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-          v24 = *(a1 + 7);
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v22, 30, v23, "AVE_Prop_AVC_GetEnableStatsCollect", 7315, "pNum != __null", a1);
-      }
-
-      return 4294966293;
-    }
-  }
-
-  else
-  {
-    if (AVE_Log_CheckLevel(0x1Eu, 4))
-    {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetEnableStatsCollect", 7305, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v25, "AVE_Prop_AVC_GetEnableStatsCollect", 7305);
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetEnableStatsCollect", 7305);
-      }
-    }
-
-    return 4294966295;
-  }
-
-  return result;
-}
-
-uint64_t AVE_Prop_AVC_SetCalculateMeanSquaredError(_DWORD *a1, const char **a2, const __CFString *a3, const __CFBoolean *a4)
-{
-  if (a1 && a2 && a3 && a4)
-  {
-    TypeID = CFBooleanGetTypeID();
-    if (TypeID == CFGetTypeID(a4))
-    {
-      v9 = CFBooleanGetValue(a4) != 0;
-      a1[4255] = v9;
-      *(a1 + 181) = *(a1 + 181) & 0xFFFFFFFFF7FFFFFFLL | (v9 << 27);
-      result = AVE_Log_CheckLevel(0x1Eu, 7);
-      if (result)
-      {
-        v11 = AVE_Log_CheckConsole(0x1Eu);
-        CurrTime = AVE_GetCurrTime();
-        LevelStr = AVE_Log_GetLevelStr(7);
-        v14 = *a2;
-        if (v11)
-        {
-          printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, v9);
-          CurrTime = AVE_GetCurrTime();
-          AVE_Log_GetLevelStr(7);
-          v15 = *(a1 + 7);
-        }
-
-        v27 = *a2;
-        syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", CurrTime);
-        return 0;
-      }
-    }
-
-    else
-    {
-      if (AVE_Log_CheckLevel(0x1Eu, 4))
-      {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = *(a1 + 7);
-        v24 = CFGetTypeID(a4);
-        if (v20)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetCalculateMeanSquaredError", 7358, "CFBooleanGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = *(a1 + 7);
-          CFGetTypeID(a4);
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetCalculateMeanSquaredError", 7358, "CFBooleanGetTypeID() == CFGetTypeID(pValue)");
-      }
-
-      return 4294965293;
-    }
-  }
-
-  else
-  {
-    if (AVE_Log_CheckLevel(0x1Eu, 4))
-    {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetCalculateMeanSquaredError", 7348, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v26 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v26, "AVE_Prop_AVC_SetCalculateMeanSquaredError");
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetCalculateMeanSquaredError");
-      }
-    }
-
-    return 4294966295;
-  }
-
-  return result;
-}
-
 uint64_t AVE_Prop_AVC_GetCalculateMeanSquaredError(void *a1, const char **a2, const __CFAllocator *a3, const __CFString *a4, void *a5)
 {
   if (a1 && a2 && a4 && a5)
@@ -1194,16 +16,13 @@ uint64_t AVE_Prop_AVC_GetCalculateMeanSquaredError(void *a1, const char **a2, co
       v13 = AVE_Log_CheckConsole(0x1Eu);
       CurrTime = AVE_GetCurrTime();
       LevelStr = AVE_Log_GetLevelStr(7);
-      v16 = *a2;
       if (v13)
       {
         printf("%lld %d AVE %s: %p %lld GetProp %s: %d\n", CurrTime, 30, LevelStr, a1, a1[7], *a2, v10 >> 27);
         CurrTime = AVE_GetCurrTime();
         AVE_Log_GetLevelStr(7);
-        v17 = a1[7];
       }
 
-      v23 = *a2;
       syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d", CurrTime);
       return 0;
     }
@@ -1213,20 +32,20 @@ uint64_t AVE_Prop_AVC_GetCalculateMeanSquaredError(void *a1, const char **a2, co
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v18 = AVE_Log_CheckConsole(0x1Eu);
-      v19 = AVE_GetCurrTime();
-      v20 = AVE_Log_GetLevelStr(4);
-      if (v18)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v19, 30, v20, "AVE_Prop_AVC_GetCalculateMeanSquaredError", 7403, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4, a5);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v21, 30, v22, "AVE_Prop_AVC_GetCalculateMeanSquaredError", 7403);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetCalculateMeanSquaredError", 7403, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v20, "AVE_Prop_AVC_GetCalculateMeanSquaredError", 7403);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v20, "AVE_Prop_AVC_GetCalculateMeanSquaredError", 7403);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetCalculateMeanSquaredError", 7403);
       }
     }
 
@@ -1236,7 +55,7 @@ uint64_t AVE_Prop_AVC_GetCalculateMeanSquaredError(void *a1, const char **a2, co
   return result;
 }
 
-uint64_t AVE_Prop_AVC_SetEnableMCTF(unsigned int *a1, const char **a2, const __CFString *a3, const __CFBoolean *a4)
+uint64_t AVE_Prop_AVC_SetEnableMCTF(_DWORD *a1, const char **a2, const __CFString *a3, const __CFBoolean *a4)
 {
   if (a1 && a2 && a3 && a4)
   {
@@ -1270,7 +89,7 @@ uint64_t AVE_Prop_AVC_SetEnableMCTF(unsigned int *a1, const char **a2, const __C
         v14 = a1[3014] + 8;
       }
 
-      updated = AVE_UpdatePixelBufferDict(a1[17], a1[16], v12, 1, a1[2863], a1[2864], a1[360], a1[361], v14, v13, 0x414C4C20u, *(a1 + 2));
+      updated = AVE_UpdatePixelBufferDict(a1[17], a1[16], v12, 1, a1[2863], a1[2864], a1[360], a1[361], v14, v13, 0x1414C4C20, *(a1 + 2));
       if (updated)
       {
         v16 = updated;
@@ -1282,12 +101,15 @@ uint64_t AVE_Prop_AVC_SetEnableMCTF(unsigned int *a1, const char **a2, const __C
           if (v17)
           {
             printf("%lld %d AVE %s: %s:%d %s | fail to update pixel buffer dictionary %p %lld %p %p %p %d\n", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetEnableMCTF", 7485, "ret == 0", a1, *(a1 + 7), a2, a3, a4, v16);
-            CurrTime = AVE_GetCurrTime();
-            LevelStr = AVE_Log_GetLevelStr(4);
-            v20 = *(a1 + 7);
+            v20 = AVE_GetCurrTime();
+            v34 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to update pixel buffer dictionary %p %lld %p %p %p %d", v20, 30, v34, "AVE_Prop_AVC_SetEnableMCTF", 7485, "ret == 0");
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to update pixel buffer dictionary %p %lld %p %p %p %d", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetEnableMCTF", 7485, "ret == 0");
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to update pixel buffer dictionary %p %lld %p %p %p %d", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetEnableMCTF", 7485, "ret == 0");
+          }
         }
       }
 
@@ -1296,20 +118,17 @@ uint64_t AVE_Prop_AVC_SetEnableMCTF(unsigned int *a1, const char **a2, const __C
 LABEL_39:
         if (AVE_Log_CheckLevel(0x1Eu, 7))
         {
-          v31 = AVE_Log_CheckConsole(0x1Eu);
-          v32 = AVE_GetCurrTime();
-          v33 = AVE_Log_GetLevelStr(7);
-          v34 = *a2;
-          if (v31)
+          v30 = AVE_Log_CheckConsole(0x1Eu);
+          v31 = AVE_GetCurrTime();
+          v32 = AVE_Log_GetLevelStr(7);
+          if (v30)
           {
-            printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", v32, 30, v33, a1, *(a1 + 7), *a2, v10);
-            v32 = AVE_GetCurrTime();
+            printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", v31, 30, v32, a1, *(a1 + 7), *a2, v10);
+            v31 = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(7);
-            v35 = *(a1 + 7);
           }
 
-          v38 = *a2;
-          syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", v32);
+          syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", v31);
         }
 
         return 0;
@@ -1330,7 +149,6 @@ LABEL_39:
           printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v26, 30, v27, "AVE_Prop_AVC_SetEnableMCTF", 7450, "CFBooleanGetTypeID() == CFGetTypeID(pValue)", a1, v28, a2, a3, a4, v29);
           v26 = AVE_GetCurrTime();
           v27 = AVE_Log_GetLevelStr(4);
-          v30 = *(a1 + 7);
           CFGetTypeID(a4);
         }
 
@@ -1352,8 +170,8 @@ LABEL_39:
       {
         printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v22, 30, v23, "AVE_Prop_AVC_SetEnableMCTF", 7440, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
         v24 = AVE_GetCurrTime();
-        v37 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v24, 30, v37, "AVE_Prop_AVC_SetEnableMCTF");
+        v35 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v24, 30, v35, "AVE_Prop_AVC_SetEnableMCTF");
       }
 
       else
@@ -1387,16 +205,13 @@ uint64_t AVE_Prop_AVC_GetEnableMCTF(_DWORD *a1, const char **a2, const __CFAlloc
       v14 = AVE_Log_CheckConsole(0x1Eu);
       CurrTime = AVE_GetCurrTime();
       LevelStr = AVE_Log_GetLevelStr(7);
-      v17 = *a2;
       if (v14)
       {
         printf("%lld %d AVE %s: %p %lld GetProp %s: %d\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, v13);
         CurrTime = AVE_GetCurrTime();
         AVE_Log_GetLevelStr(7);
-        v18 = *(a1 + 7);
       }
 
-      v24 = *a2;
       syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d", CurrTime);
       return 0;
     }
@@ -1406,20 +221,20 @@ uint64_t AVE_Prop_AVC_GetEnableMCTF(_DWORD *a1, const char **a2, const __CFAlloc
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v19 = AVE_Log_CheckConsole(0x1Eu);
-      v20 = AVE_GetCurrTime();
-      v21 = AVE_Log_GetLevelStr(4);
-      if (v19)
+      v17 = AVE_Log_CheckConsole(0x1Eu);
+      v18 = AVE_GetCurrTime();
+      v19 = AVE_Log_GetLevelStr(4);
+      if (v17)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v20, 30, v21, "AVE_Prop_AVC_GetEnableMCTF", 7517, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4, a5);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v22, 30, v23, "AVE_Prop_AVC_GetEnableMCTF", 7517);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetEnableMCTF", 7517, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4, a5);
+        v20 = AVE_GetCurrTime();
+        v21 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v21, "AVE_Prop_AVC_GetEnableMCTF", 7517);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v21, "AVE_Prop_AVC_GetEnableMCTF", 7517);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetEnableMCTF", 7517);
       }
     }
 
@@ -1445,16 +260,13 @@ uint64_t AVE_Prop_AVC_SetVideoResolutionAdaptation(_DWORD *a1, const char **a2, 
         v11 = AVE_Log_CheckConsole(0x1Eu);
         CurrTime = AVE_GetCurrTime();
         LevelStr = AVE_Log_GetLevelStr(7);
-        v14 = *a2;
         if (v11)
         {
           printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, v9);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v15 = *(a1 + 7);
         }
 
-        v27 = *a2;
         syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", CurrTime);
         return 0;
       }
@@ -1464,21 +276,20 @@ uint64_t AVE_Prop_AVC_SetVideoResolutionAdaptation(_DWORD *a1, const char **a2, 
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = *(a1 + 7);
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = *(a1 + 7);
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetVideoResolutionAdaptation", 7565, "CFBooleanGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetVideoResolutionAdaptation", 7565, "CFBooleanGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetVideoResolutionAdaptation", 7565, "CFBooleanGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetVideoResolutionAdaptation", 7565, "CFBooleanGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -1489,20 +300,20 @@ uint64_t AVE_Prop_AVC_SetVideoResolutionAdaptation(_DWORD *a1, const char **a2, 
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetVideoResolutionAdaptation", 7555, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v26 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v26, "AVE_Prop_AVC_SetVideoResolutionAdaptation");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetVideoResolutionAdaptation", 7555, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v23 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v23, "AVE_Prop_AVC_SetVideoResolutionAdaptation");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetVideoResolutionAdaptation");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetVideoResolutionAdaptation");
       }
     }
 
@@ -1530,16 +341,13 @@ uint64_t AVE_Prop_AVC_GetVideoResolutionAdaptation(void *a1, const char **a2, co
       v13 = AVE_Log_CheckConsole(0x1Eu);
       CurrTime = AVE_GetCurrTime();
       LevelStr = AVE_Log_GetLevelStr(7);
-      v16 = *a2;
       if (v13)
       {
         printf("%lld %d AVE %s: %p %lld GetProp %s: %d\n", CurrTime, 30, LevelStr, a1, a1[7], *a2, v10 >> 5);
         CurrTime = AVE_GetCurrTime();
         AVE_Log_GetLevelStr(7);
-        v17 = a1[7];
       }
 
-      v23 = *a2;
       syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d", CurrTime);
       return 0;
     }
@@ -1549,20 +357,20 @@ uint64_t AVE_Prop_AVC_GetVideoResolutionAdaptation(void *a1, const char **a2, co
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v18 = AVE_Log_CheckConsole(0x1Eu);
-      v19 = AVE_GetCurrTime();
-      v20 = AVE_Log_GetLevelStr(4);
-      if (v18)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v19, 30, v20, "AVE_Prop_AVC_GetVideoResolutionAdaptation", 7610, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4, a5);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v21, 30, v22, "AVE_Prop_AVC_GetVideoResolutionAdaptation", 7610);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetVideoResolutionAdaptation", 7610, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v20, "AVE_Prop_AVC_GetVideoResolutionAdaptation", 7610);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v20, "AVE_Prop_AVC_GetVideoResolutionAdaptation", 7610);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetVideoResolutionAdaptation", 7610);
       }
     }
 
@@ -1586,18 +394,21 @@ uint64_t AVE_Prop_AVC_SetVideoResolutionAdaptationType(void *a1, const char **a2
       {
         if (AVE_Log_CheckLevel(0x1Eu, 4))
         {
-          v26 = AVE_Log_CheckConsole(0x1Eu);
+          v23 = AVE_Log_CheckConsole(0x1Eu);
           CurrTime = AVE_GetCurrTime();
           LevelStr = AVE_Log_GetLevelStr(4);
-          if (v26)
+          if (v23)
           {
             printf("%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d\n", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetVideoResolutionAdaptationType", 7666, "iVRAType >= 0", a1, a1[7], a2, a3, a4, valuePtr);
-            CurrTime = AVE_GetCurrTime();
-            LevelStr = AVE_Log_GetLevelStr(4);
-            v29 = a1[7];
+            v26 = AVE_GetCurrTime();
+            v28 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d", v26, 30, v28, "AVE_Prop_AVC_SetVideoResolutionAdaptationType", 7666, "iVRAType >= 0");
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetVideoResolutionAdaptationType", 7666, "iVRAType >= 0");
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetVideoResolutionAdaptationType", 7666, "iVRAType >= 0");
+          }
         }
 
         return 4294965292;
@@ -1613,16 +424,13 @@ uint64_t AVE_Prop_AVC_SetVideoResolutionAdaptationType(void *a1, const char **a2
           v11 = AVE_Log_CheckConsole(0x1Eu);
           v12 = AVE_GetCurrTime();
           v13 = AVE_Log_GetLevelStr(7);
-          v14 = *a2;
           if (v11)
           {
             printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", v12, 30, v13, a1, a1[7], *a2, valuePtr);
             v12 = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(7);
-            v15 = a1[7];
           }
 
-          v31 = *a2;
           syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", v12);
           return 0;
         }
@@ -1633,21 +441,20 @@ uint64_t AVE_Prop_AVC_SetVideoResolutionAdaptationType(void *a1, const char **a2
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = a1[7];
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = a1[7];
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetVideoResolutionAdaptationType", 7658, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = a1[7];
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetVideoResolutionAdaptationType", 7658, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetVideoResolutionAdaptationType", 7658, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetVideoResolutionAdaptationType", 7658, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -1658,20 +465,20 @@ uint64_t AVE_Prop_AVC_SetVideoResolutionAdaptationType(void *a1, const char **a2
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetVideoResolutionAdaptationType", 7648, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v30 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v30, "AVE_Prop_AVC_SetVideoResolutionAdaptationType");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetVideoResolutionAdaptationType", 7648, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v27, "AVE_Prop_AVC_SetVideoResolutionAdaptationType");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetVideoResolutionAdaptationType");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetVideoResolutionAdaptationType");
       }
     }
 
@@ -1702,8 +509,6 @@ uint64_t AVE_Prop_AVC_GetVideoResolutionAdaptationType(_DWORD *a1, const char **
           printf("%lld %d AVE %s: %p %lld GetProp %s: %d %p\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr, v11);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v16 = *(a1 + 7);
-          v26 = *a2;
         }
 
         syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d %p", CurrTime, 30);
@@ -1715,18 +520,21 @@ uint64_t AVE_Prop_AVC_GetVideoResolutionAdaptationType(_DWORD *a1, const char **
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v22, 30, v23, "AVE_Prop_AVC_GetVideoResolutionAdaptationType", 7712, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-          v24 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v21, 30, v22, "AVE_Prop_AVC_GetVideoResolutionAdaptationType", 7712, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v23, 30, v25, "AVE_Prop_AVC_GetVideoResolutionAdaptationType", 7712, "pNum != __null", a1);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v22, 30, v23, "AVE_Prop_AVC_GetVideoResolutionAdaptationType", 7712, "pNum != __null", a1);
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v21, 30, v22, "AVE_Prop_AVC_GetVideoResolutionAdaptationType", 7712, "pNum != __null", a1);
+        }
       }
 
       return 4294966293;
@@ -1737,20 +545,20 @@ uint64_t AVE_Prop_AVC_GetVideoResolutionAdaptationType(_DWORD *a1, const char **
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetVideoResolutionAdaptationType", 7702, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v25, "AVE_Prop_AVC_GetVideoResolutionAdaptationType", 7702);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetVideoResolutionAdaptationType", 7702, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetVideoResolutionAdaptationType", 7702);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetVideoResolutionAdaptationType", 7702);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetVideoResolutionAdaptationType", 7702);
       }
     }
 
@@ -1812,19 +620,16 @@ LABEL_31:
         result = AVE_Log_CheckLevel(0x1Eu, 7);
         if (result)
         {
-          v21 = AVE_Log_CheckConsole(0x1Eu);
+          v20 = AVE_Log_CheckConsole(0x1Eu);
           CurrTime = AVE_GetCurrTime();
           LevelStr = AVE_Log_GetLevelStr(7);
-          v24 = *a2;
-          if (v21)
+          if (v20)
           {
             printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, v9);
             CurrTime = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(7);
-            v25 = *(a1 + 7);
           }
 
-          v31 = *a2;
           syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", CurrTime);
           return 0;
         }
@@ -1834,18 +639,21 @@ LABEL_31:
 
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v26 = AVE_Log_CheckConsole(0x1Eu);
-        v27 = AVE_GetCurrTime();
-        v28 = AVE_Log_GetLevelStr(4);
-        if (v26)
+        v23 = AVE_Log_CheckConsole(0x1Eu);
+        v24 = AVE_GetCurrTime();
+        v25 = AVE_Log_GetLevelStr(4);
+        if (v23)
         {
-          printf("%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d\n", v27, 30, v28, "AVE_Prop_AVC_SetiChatUsageString", 7791, "iFTUsageType != -1", a1, *(a1 + 7), a2, a3, a4, -1);
-          v27 = AVE_GetCurrTime();
+          printf("%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d\n", v24, 30, v25, "AVE_Prop_AVC_SetiChatUsageString", 7791, "iFTUsageType != -1", a1, *(a1 + 7), a2, a3, a4, -1);
+          v26 = AVE_GetCurrTime();
           v28 = AVE_Log_GetLevelStr(4);
-          v29 = *(a1 + 7);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d", v26, 30, v28, "AVE_Prop_AVC_SetiChatUsageString", 7791, "iFTUsageType != -1");
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d", v27, 30, v28, "AVE_Prop_AVC_SetiChatUsageString", 7791, "iFTUsageType != -1");
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d", v24, 30, v25, "AVE_Prop_AVC_SetiChatUsageString", 7791, "iFTUsageType != -1");
+        }
       }
 
       return 4294965292;
@@ -1865,7 +673,6 @@ LABEL_31:
           printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v15, 30, v16, "AVE_Prop_AVC_SetiChatUsageString", 7755, "CFStringGetTypeID() == CFGetTypeID(pValue)", a1, v17, a2, a3, a4, v18);
           v15 = AVE_GetCurrTime();
           v16 = AVE_Log_GetLevelStr(4);
-          v19 = *(a1 + 7);
           CFGetTypeID(a4);
         }
 
@@ -1887,8 +694,8 @@ LABEL_31:
       {
         printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v11, 30, v12, "AVE_Prop_AVC_SetiChatUsageString", 7745, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
         v13 = AVE_GetCurrTime();
-        v30 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v13, 30, v30, "AVE_Prop_AVC_SetiChatUsageString");
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v13, 30, v27, "AVE_Prop_AVC_SetiChatUsageString");
       }
 
       else
@@ -1928,8 +735,6 @@ uint64_t AVE_Prop_AVC_GetiChatUsageString(void *a1, const char **a2, const __CFA
         printf("%lld %d AVE %s: %p %lld GetProp %s: %d %p\n", CurrTime, 30, LevelStr, a1, a1[7], *a2, v10, 0);
         CurrTime = AVE_GetCurrTime();
         AVE_Log_GetLevelStr(7);
-        v20 = a1[7];
-        v22 = *a2;
       }
 
       syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d %p", CurrTime, 30);
@@ -1948,8 +753,8 @@ uint64_t AVE_Prop_AVC_GetiChatUsageString(void *a1, const char **a2, const __CFA
       {
         printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v13, 30, v14, "AVE_Prop_AVC_GetiChatUsageString", 7828, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4, a5);
         v15 = AVE_GetCurrTime();
-        v21 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v15, 30, v21, "AVE_Prop_AVC_GetiChatUsageString", 7828);
+        v20 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v15, 30, v20, "AVE_Prop_AVC_GetiChatUsageString", 7828);
       }
 
       else
@@ -1979,16 +784,13 @@ uint64_t AVE_Prop_AVC_SetEnableUserQPForFacetime(_DWORD *a1, const char **a2, co
         v11 = AVE_Log_CheckConsole(0x1Eu);
         CurrTime = AVE_GetCurrTime();
         LevelStr = AVE_Log_GetLevelStr(7);
-        v14 = *a2;
         if (v11)
         {
           printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, v9);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v15 = *(a1 + 7);
         }
 
-        v27 = *a2;
         syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", CurrTime);
         return 0;
       }
@@ -1998,21 +800,20 @@ uint64_t AVE_Prop_AVC_SetEnableUserQPForFacetime(_DWORD *a1, const char **a2, co
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = *(a1 + 7);
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = *(a1 + 7);
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetEnableUserQPForFacetime", 7907, "CFBooleanGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetEnableUserQPForFacetime", 7907, "CFBooleanGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetEnableUserQPForFacetime", 7907, "CFBooleanGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetEnableUserQPForFacetime", 7907, "CFBooleanGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -2023,20 +824,20 @@ uint64_t AVE_Prop_AVC_SetEnableUserQPForFacetime(_DWORD *a1, const char **a2, co
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetEnableUserQPForFacetime", 7897, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v26 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v26, "AVE_Prop_AVC_SetEnableUserQPForFacetime");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetEnableUserQPForFacetime", 7897, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v23 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v23, "AVE_Prop_AVC_SetEnableUserQPForFacetime");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetEnableUserQPForFacetime");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetEnableUserQPForFacetime");
       }
     }
 
@@ -2065,16 +866,13 @@ uint64_t AVE_Prop_AVC_GetEnableUserQPForFacetime(_DWORD *a1, const char **a2, co
       v14 = AVE_Log_CheckConsole(0x1Eu);
       CurrTime = AVE_GetCurrTime();
       LevelStr = AVE_Log_GetLevelStr(7);
-      v17 = *a2;
       if (v14)
       {
         printf("%lld %d AVE %s: %p %lld GetProp %s: %d\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, v13);
         CurrTime = AVE_GetCurrTime();
         AVE_Log_GetLevelStr(7);
-        v18 = *(a1 + 7);
       }
 
-      v24 = *a2;
       syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d", CurrTime);
       return 0;
     }
@@ -2084,20 +882,20 @@ uint64_t AVE_Prop_AVC_GetEnableUserQPForFacetime(_DWORD *a1, const char **a2, co
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v19 = AVE_Log_CheckConsole(0x1Eu);
-      v20 = AVE_GetCurrTime();
-      v21 = AVE_Log_GetLevelStr(4);
-      if (v19)
+      v17 = AVE_Log_CheckConsole(0x1Eu);
+      v18 = AVE_GetCurrTime();
+      v19 = AVE_Log_GetLevelStr(4);
+      if (v17)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v20, 30, v21, "AVE_Prop_AVC_GetEnableUserQPForFacetime", 7945, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4, a5);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v22, 30, v23, "AVE_Prop_AVC_GetEnableUserQPForFacetime", 7945);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetEnableUserQPForFacetime", 7945, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4, a5);
+        v20 = AVE_GetCurrTime();
+        v21 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v21, "AVE_Prop_AVC_GetEnableUserQPForFacetime", 7945);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v21, "AVE_Prop_AVC_GetEnableUserQPForFacetime", 7945);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetEnableUserQPForFacetime", 7945);
       }
     }
 
@@ -2119,23 +917,23 @@ uint64_t AVE_Prop_AVC_SetUsage(_DWORD *a1, const char **a2, const __CFString *a3
       LevelStr = AVE_Log_GetLevelStr(4);
       if (!v11)
       {
-        v43 = a3;
-        v45 = a4;
-        v41 = a1;
-        v42 = a2;
-        v38 = 7984;
-        v39 = "pINS != __null && pEntry != __null && pKey != __null && pValue != __null";
-        v37 = LevelStr;
-        v21 = "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p";
+        v40 = a3;
+        v41 = a4;
+        v38 = a1;
+        v39 = a2;
+        v36 = 7984;
+        v37 = "pINS != __null && pEntry != __null && pKey != __null && pValue != __null";
+        v34 = LevelStr;
+        v20 = "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p";
 LABEL_21:
-        syslog(3, v21, CurrTime, 30, v37, "AVE_Prop_AVC_SetUsage", v38, v39, v41, v42, v43, v45, v46, v47, v48, v49);
+        syslog(3, v20, CurrTime, 30, v34, "AVE_Prop_AVC_SetUsage", v36, v37, v38, v39, v40, v41, v42, v43, v44, v45);
         return 4294966295;
       }
 
       printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetUsage", 7984, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
       v14 = AVE_GetCurrTime();
-      v36 = AVE_Log_GetLevelStr(4);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v14, 30, v36, "AVE_Prop_AVC_SetUsage");
+      v33 = AVE_Log_GetLevelStr(4);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v14, 30, v33, "AVE_Prop_AVC_SetUsage");
     }
 
     return 4294966295;
@@ -2164,23 +962,20 @@ LABEL_21:
           a1[2723] = 1;
 LABEL_34:
           *(a1 + 10780) = v9;
-LABEL_42:
+LABEL_41:
           if (AVE_Log_CheckLevel(0x1Eu, 7))
           {
-            v30 = AVE_Log_CheckConsole(0x1Eu);
-            v31 = AVE_GetCurrTime();
-            v32 = AVE_Log_GetLevelStr(7);
-            v33 = *a2;
-            if (v30)
+            v29 = AVE_Log_CheckConsole(0x1Eu);
+            v30 = AVE_GetCurrTime();
+            v31 = AVE_Log_GetLevelStr(7);
+            if (v29)
             {
-              printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", v31, 30, v32, a1, *(a1 + 7), *a2, valuePtr);
-              v31 = AVE_GetCurrTime();
+              printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", v30, 30, v31, a1, *(a1 + 7), *a2, valuePtr);
+              v30 = AVE_GetCurrTime();
               AVE_Log_GetLevelStr(7);
-              v34 = *(a1 + 7);
             }
 
-            v40 = *a2;
-            syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", v31);
+            syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", v30);
           }
 
           return v10;
@@ -2195,7 +990,7 @@ LABEL_42:
           a1[2723] = v9;
           *(a1 + 10780) = 1;
           *(a1 + 138) |= 0x80uLL;
-          goto LABEL_42;
+          goto LABEL_41;
         }
 
         if (v9 == 38)
@@ -2210,52 +1005,53 @@ LABEL_33:
 
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v26 = AVE_Log_CheckConsole(0x1Eu);
-        v27 = AVE_GetCurrTime();
-        v28 = AVE_Log_GetLevelStr(4);
-        if (v26)
+        v25 = AVE_Log_CheckConsole(0x1Eu);
+        v26 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        if (v25)
         {
-          printf("%lld %d AVE %s: kVTCompressionPropertyKey_Usage %d not supportd %p %lld %p %p %p\n", v27, 30, v28, valuePtr, a1, *(a1 + 7), a2, a3, a4);
-          v27 = AVE_GetCurrTime();
-          v28 = AVE_Log_GetLevelStr(4);
-          v29 = *(a1 + 7);
+          printf("%lld %d AVE %s: kVTCompressionPropertyKey_Usage %d not supportd %p %lld %p %p %p\n", v26, 30, v27, valuePtr, a1, *(a1 + 7), a2, a3, a4);
+          v28 = AVE_GetCurrTime();
+          v35 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: kVTCompressionPropertyKey_Usage %d not supportd %p %lld %p %p %p", v28, 30, v35);
         }
 
-        syslog(3, "%lld %d AVE %s: kVTCompressionPropertyKey_Usage %d not supportd %p %lld %p %p %p", v27, 30, v28);
+        else
+        {
+          syslog(3, "%lld %d AVE %s: kVTCompressionPropertyKey_Usage %d not supportd %p %lld %p %p %p", v26, 30, v27);
+        }
       }
 
       v10 = 4294965292;
-      goto LABEL_42;
+      goto LABEL_41;
     }
 
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v22 = AVE_Log_CheckConsole(0x1Eu);
+      v21 = AVE_Log_CheckConsole(0x1Eu);
       CurrTime = AVE_GetCurrTime();
-      v23 = AVE_Log_GetLevelStr(4);
-      if (v22)
+      v22 = AVE_Log_GetLevelStr(4);
+      if (v21)
       {
-        printf("%lld %d AVE %s: %s:%d %s | bUsageModeSet = %d and called again with new value  %p %lld %p %p %p %d %d\n", CurrTime, 30, v23, "AVE_Prop_AVC_SetUsage", 8013, "bUsageModeChanged == false", *(a1 + 10780), a1, *(a1 + 7), a2, a3, a4, valuePtr, a1[2723]);
-        v24 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        v50 = a1[2723];
-        v44 = *(a1 + 7);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | bUsageModeSet = %d and called again with new value  %p %lld %p %p %p %d %d", v24, 30, v25, "AVE_Prop_AVC_SetUsage", 8013, "bUsageModeChanged == false", *(a1 + 10780));
+        printf("%lld %d AVE %s: %s:%d %s | bUsageModeSet = %d and called again with new value  %p %lld %p %p %p %d %d\n", CurrTime, 30, v22, "AVE_Prop_AVC_SetUsage", 8013, "bUsageModeChanged == false", *(a1 + 10780), a1, *(a1 + 7), a2, a3, a4, valuePtr, a1[2723]);
+        v23 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | bUsageModeSet = %d and called again with new value  %p %lld %p %p %p %d %d", v23, 30, v24, "AVE_Prop_AVC_SetUsage", 8013, "bUsageModeChanged == false", *(a1 + 10780));
         return 4294966295;
       }
 
-      v48 = valuePtr;
-      v49 = a1[2723];
-      v46 = a3;
-      v47 = a4;
-      v43 = *(a1 + 7);
-      v45 = a2;
-      v41 = *(a1 + 10780);
-      v42 = a1;
-      v38 = 8013;
-      v39 = "bUsageModeChanged == false";
-      v37 = v23;
-      v21 = "%lld %d AVE %s: %s:%d %s | bUsageModeSet = %d and called again with new value  %p %lld %p %p %p %d %d";
+      v44 = valuePtr;
+      v45 = a1[2723];
+      v42 = a3;
+      v43 = a4;
+      v40 = *(a1 + 7);
+      v41 = a2;
+      v38 = *(a1 + 10780);
+      v39 = a1;
+      v36 = 8013;
+      v37 = "bUsageModeChanged == false";
+      v34 = v22;
+      v20 = "%lld %d AVE %s: %s:%d %s | bUsageModeSet = %d and called again with new value  %p %lld %p %p %p %d %d";
       goto LABEL_21;
     }
 
@@ -2274,7 +1070,6 @@ LABEL_33:
       printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v16, 30, v17, "AVE_Prop_AVC_SetUsage", 7994, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v18, a2, a3, a4, v19);
       v16 = AVE_GetCurrTime();
       v17 = AVE_Log_GetLevelStr(4);
-      v20 = *(a1 + 7);
       CFGetTypeID(a4);
     }
 
@@ -2305,8 +1100,6 @@ uint64_t AVE_Prop_AVC_GetUsage(_DWORD *a1, const char **a2, CFAllocatorRef alloc
           printf("%lld %d AVE %s: %p %lld GetProp %s: %d %p\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr, v11);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v16 = *(a1 + 7);
-          v26 = *a2;
         }
 
         syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d %p", CurrTime, 30);
@@ -2318,18 +1111,21 @@ uint64_t AVE_Prop_AVC_GetUsage(_DWORD *a1, const char **a2, CFAllocatorRef alloc
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v22, 30, v23, "AVE_Prop_AVC_GetUsage", 8095, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-          v24 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v21, 30, v22, "AVE_Prop_AVC_GetUsage", 8095, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v23, 30, v25, "AVE_Prop_AVC_GetUsage", 8095, "pNum != __null", a1);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v22, 30, v23, "AVE_Prop_AVC_GetUsage", 8095, "pNum != __null", a1);
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v21, 30, v22, "AVE_Prop_AVC_GetUsage", 8095, "pNum != __null", a1);
+        }
       }
 
       return 4294966293;
@@ -2340,20 +1136,20 @@ uint64_t AVE_Prop_AVC_GetUsage(_DWORD *a1, const char **a2, CFAllocatorRef alloc
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetUsage", 8085, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v25, "AVE_Prop_AVC_GetUsage", 8085);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetUsage", 8085, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetUsage", 8085);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetUsage", 8085);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetUsage", 8085);
       }
     }
 
@@ -2379,16 +1175,13 @@ uint64_t AVE_Prop_AVC_SetEncodesDepth(_DWORD *a1, const char **a2, const __CFStr
         v11 = AVE_Log_CheckConsole(0x1Eu);
         CurrTime = AVE_GetCurrTime();
         LevelStr = AVE_Log_GetLevelStr(7);
-        v14 = *a2;
         if (v11)
         {
           printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, v9);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v15 = *(a1 + 7);
         }
 
-        v27 = *a2;
         syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", CurrTime);
         return 0;
       }
@@ -2398,21 +1191,20 @@ uint64_t AVE_Prop_AVC_SetEncodesDepth(_DWORD *a1, const char **a2, const __CFStr
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = *(a1 + 7);
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = *(a1 + 7);
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetEncodesDepth", 8137, "CFBooleanGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetEncodesDepth", 8137, "CFBooleanGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetEncodesDepth", 8137, "CFBooleanGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetEncodesDepth", 8137, "CFBooleanGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -2423,20 +1215,20 @@ uint64_t AVE_Prop_AVC_SetEncodesDepth(_DWORD *a1, const char **a2, const __CFStr
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetEncodesDepth", 8127, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v26 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v26, "AVE_Prop_AVC_SetEncodesDepth");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetEncodesDepth", 8127, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v23 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v23, "AVE_Prop_AVC_SetEncodesDepth");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetEncodesDepth");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetEncodesDepth");
       }
     }
 
@@ -2464,17 +1256,14 @@ uint64_t AVE_Prop_AVC_GetEncodesDepth(_DWORD *a1, const char **a2, const __CFAll
       v13 = AVE_Log_CheckConsole(0x1Eu);
       CurrTime = AVE_GetCurrTime();
       LevelStr = AVE_Log_GetLevelStr(7);
-      v16 = *a2;
-      v17 = v10 >> 26;
+      v16 = v10 >> 26;
       if (v13)
       {
-        printf("%lld %d AVE %s: %p %lld GetProp %s: %d\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, v17);
+        printf("%lld %d AVE %s: %p %lld GetProp %s: %d\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, v16);
         CurrTime = AVE_GetCurrTime();
         AVE_Log_GetLevelStr(7);
-        v18 = *(a1 + 7);
       }
 
-      v24 = *a2;
       syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d", CurrTime);
       return 0;
     }
@@ -2484,20 +1273,20 @@ uint64_t AVE_Prop_AVC_GetEncodesDepth(_DWORD *a1, const char **a2, const __CFAll
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v19 = AVE_Log_CheckConsole(0x1Eu);
-      v20 = AVE_GetCurrTime();
-      v21 = AVE_Log_GetLevelStr(4);
-      if (v19)
+      v17 = AVE_Log_CheckConsole(0x1Eu);
+      v18 = AVE_GetCurrTime();
+      v19 = AVE_Log_GetLevelStr(4);
+      if (v17)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v20, 30, v21, "AVE_Prop_AVC_GetEncodesDepth", 8182, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4, a5);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v22, 30, v23, "AVE_Prop_AVC_GetEncodesDepth", 8182);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetEncodesDepth", 8182, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4, a5);
+        v20 = AVE_GetCurrTime();
+        v21 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v21, "AVE_Prop_AVC_GetEncodesDepth", 8182);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v21, "AVE_Prop_AVC_GetEncodesDepth", 8182);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetEncodesDepth", 8182);
       }
     }
 
@@ -2523,16 +1312,13 @@ uint64_t AVE_Prop_AVC_SetEncodesDisparity(_DWORD *a1, const char **a2, const __C
         v11 = AVE_Log_CheckConsole(0x1Eu);
         CurrTime = AVE_GetCurrTime();
         LevelStr = AVE_Log_GetLevelStr(7);
-        v14 = *a2;
         if (v11)
         {
           printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, v9);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v15 = *(a1 + 7);
         }
 
-        v27 = *a2;
         syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", CurrTime);
         return 0;
       }
@@ -2542,21 +1328,20 @@ uint64_t AVE_Prop_AVC_SetEncodesDisparity(_DWORD *a1, const char **a2, const __C
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = *(a1 + 7);
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = *(a1 + 7);
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetEncodesDisparity", 8230, "CFBooleanGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetEncodesDisparity", 8230, "CFBooleanGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetEncodesDisparity", 8230, "CFBooleanGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetEncodesDisparity", 8230, "CFBooleanGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -2567,20 +1352,20 @@ uint64_t AVE_Prop_AVC_SetEncodesDisparity(_DWORD *a1, const char **a2, const __C
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetEncodesDisparity", 8220, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v26 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v26, "AVE_Prop_AVC_SetEncodesDisparity");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetEncodesDisparity", 8220, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v23 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v23, "AVE_Prop_AVC_SetEncodesDisparity");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetEncodesDisparity");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetEncodesDisparity");
       }
     }
 
@@ -2608,17 +1393,14 @@ uint64_t AVE_Prop_AVC_GetEncodesDisparity(_DWORD *a1, const char **a2, const __C
       v13 = AVE_Log_CheckConsole(0x1Eu);
       CurrTime = AVE_GetCurrTime();
       LevelStr = AVE_Log_GetLevelStr(7);
-      v16 = *a2;
-      v17 = v10 >> 26;
+      v16 = v10 >> 26;
       if (v13)
       {
-        printf("%lld %d AVE %s: %p %lld GetProp %s: %d\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, v17);
+        printf("%lld %d AVE %s: %p %lld GetProp %s: %d\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, v16);
         CurrTime = AVE_GetCurrTime();
         AVE_Log_GetLevelStr(7);
-        v18 = *(a1 + 7);
       }
 
-      v24 = *a2;
       syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d", CurrTime);
       return 0;
     }
@@ -2628,20 +1410,20 @@ uint64_t AVE_Prop_AVC_GetEncodesDisparity(_DWORD *a1, const char **a2, const __C
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v19 = AVE_Log_CheckConsole(0x1Eu);
-      v20 = AVE_GetCurrTime();
-      v21 = AVE_Log_GetLevelStr(4);
-      if (v19)
+      v17 = AVE_Log_CheckConsole(0x1Eu);
+      v18 = AVE_GetCurrTime();
+      v19 = AVE_Log_GetLevelStr(4);
+      if (v17)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v20, 30, v21, "AVE_Prop_AVC_GetEncodesDisparity", 8275, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4, a5);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v22, 30, v23, "AVE_Prop_AVC_GetEncodesDisparity", 8275);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetEncodesDisparity", 8275, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4, a5);
+        v20 = AVE_GetCurrTime();
+        v21 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v21, "AVE_Prop_AVC_GetEncodesDisparity", 8275);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v21, "AVE_Prop_AVC_GetEncodesDisparity", 8275);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetEncodesDisparity", 8275);
       }
     }
 
@@ -2667,16 +1449,13 @@ uint64_t AVE_Prop_AVC_SetEnsureTIJacinto4Compatibility(_DWORD *a1, const char **
         v11 = AVE_Log_CheckConsole(0x1Eu);
         CurrTime = AVE_GetCurrTime();
         LevelStr = AVE_Log_GetLevelStr(7);
-        v14 = *a2;
         if (v11)
         {
           printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, v9);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v15 = *(a1 + 7);
         }
 
-        v27 = *a2;
         syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", CurrTime);
         return 0;
       }
@@ -2686,21 +1465,20 @@ uint64_t AVE_Prop_AVC_SetEnsureTIJacinto4Compatibility(_DWORD *a1, const char **
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = *(a1 + 7);
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = *(a1 + 7);
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetEnsureTIJacinto4Compatibility", 8323, "CFBooleanGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetEnsureTIJacinto4Compatibility", 8323, "CFBooleanGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetEnsureTIJacinto4Compatibility", 8323, "CFBooleanGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetEnsureTIJacinto4Compatibility", 8323, "CFBooleanGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -2711,20 +1489,20 @@ uint64_t AVE_Prop_AVC_SetEnsureTIJacinto4Compatibility(_DWORD *a1, const char **
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetEnsureTIJacinto4Compatibility", 8313, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v26 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v26, "AVE_Prop_AVC_SetEnsureTIJacinto4Compatibility");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetEnsureTIJacinto4Compatibility", 8313, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v23 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v23, "AVE_Prop_AVC_SetEnsureTIJacinto4Compatibility");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetEnsureTIJacinto4Compatibility");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetEnsureTIJacinto4Compatibility");
       }
     }
 
@@ -2752,17 +1530,14 @@ uint64_t AVE_Prop_AVC_GetEnsureTIJacinto4Compatibility(_DWORD *a1, const char **
       v13 = AVE_Log_CheckConsole(0x1Eu);
       CurrTime = AVE_GetCurrTime();
       LevelStr = AVE_Log_GetLevelStr(7);
-      v16 = *a2;
-      v17 = v10 >> 2;
+      v16 = v10 >> 2;
       if (v13)
       {
-        printf("%lld %d AVE %s: %p %lld GetProp %s: %d\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, v17);
+        printf("%lld %d AVE %s: %p %lld GetProp %s: %d\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, v16);
         CurrTime = AVE_GetCurrTime();
         AVE_Log_GetLevelStr(7);
-        v18 = *(a1 + 7);
       }
 
-      v24 = *a2;
       syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d", CurrTime);
       return 0;
     }
@@ -2772,20 +1547,20 @@ uint64_t AVE_Prop_AVC_GetEnsureTIJacinto4Compatibility(_DWORD *a1, const char **
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v19 = AVE_Log_CheckConsole(0x1Eu);
-      v20 = AVE_GetCurrTime();
-      v21 = AVE_Log_GetLevelStr(4);
-      if (v19)
+      v17 = AVE_Log_CheckConsole(0x1Eu);
+      v18 = AVE_GetCurrTime();
+      v19 = AVE_Log_GetLevelStr(4);
+      if (v17)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v20, 30, v21, "AVE_Prop_AVC_GetEnsureTIJacinto4Compatibility", 8368, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4, a5);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v22, 30, v23, "AVE_Prop_AVC_GetEnsureTIJacinto4Compatibility", 8368);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetEnsureTIJacinto4Compatibility", 8368, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4, a5);
+        v20 = AVE_GetCurrTime();
+        v21 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v21, "AVE_Prop_AVC_GetEnsureTIJacinto4Compatibility", 8368);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v21, "AVE_Prop_AVC_GetEnsureTIJacinto4Compatibility", 8368);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetEnsureTIJacinto4Compatibility", 8368);
       }
     }
 
@@ -2809,18 +1584,21 @@ uint64_t AVE_Prop_AVC_SetSourceFrameCount(void *a1, const char **a2, const __CFS
       {
         if (AVE_Log_CheckLevel(0x1Eu, 4))
         {
-          v26 = AVE_Log_CheckConsole(0x1Eu);
+          v23 = AVE_Log_CheckConsole(0x1Eu);
           CurrTime = AVE_GetCurrTime();
           LevelStr = AVE_Log_GetLevelStr(4);
-          if (v26)
+          if (v23)
           {
             printf("%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d\n", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetSourceFrameCount", 8425, "iSourceFrameCount >= 0", a1, a1[7], a2, a3, a4, valuePtr);
-            CurrTime = AVE_GetCurrTime();
-            LevelStr = AVE_Log_GetLevelStr(4);
-            v29 = a1[7];
+            v26 = AVE_GetCurrTime();
+            v28 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d", v26, 30, v28, "AVE_Prop_AVC_SetSourceFrameCount", 8425, "iSourceFrameCount >= 0");
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetSourceFrameCount", 8425, "iSourceFrameCount >= 0");
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetSourceFrameCount", 8425, "iSourceFrameCount >= 0");
+          }
         }
 
         return 4294965292;
@@ -2836,16 +1614,13 @@ uint64_t AVE_Prop_AVC_SetSourceFrameCount(void *a1, const char **a2, const __CFS
           v11 = AVE_Log_CheckConsole(0x1Eu);
           v12 = AVE_GetCurrTime();
           v13 = AVE_Log_GetLevelStr(7);
-          v14 = *a2;
           if (v11)
           {
             printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", v12, 30, v13, a1, a1[7], *a2, valuePtr);
             v12 = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(7);
-            v15 = a1[7];
           }
 
-          v31 = *a2;
           syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", v12);
           return 0;
         }
@@ -2856,21 +1631,20 @@ uint64_t AVE_Prop_AVC_SetSourceFrameCount(void *a1, const char **a2, const __CFS
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = a1[7];
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = a1[7];
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetSourceFrameCount", 8416, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = a1[7];
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetSourceFrameCount", 8416, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetSourceFrameCount", 8416, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetSourceFrameCount", 8416, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -2881,20 +1655,20 @@ uint64_t AVE_Prop_AVC_SetSourceFrameCount(void *a1, const char **a2, const __CFS
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetSourceFrameCount", 8406, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v30 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v30, "AVE_Prop_AVC_SetSourceFrameCount");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetSourceFrameCount", 8406, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v27, "AVE_Prop_AVC_SetSourceFrameCount");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetSourceFrameCount");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetSourceFrameCount");
       }
     }
 
@@ -2925,8 +1699,6 @@ uint64_t AVE_Prop_AVC_GetSourceFrameCount(_DWORD *a1, const char **a2, CFAllocat
           printf("%lld %d AVE %s: %p %lld GetProp %s: %d %p\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr, v11);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v16 = *(a1 + 7);
-          v26 = *a2;
         }
 
         syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d %p", CurrTime, 30);
@@ -2938,18 +1710,21 @@ uint64_t AVE_Prop_AVC_GetSourceFrameCount(_DWORD *a1, const char **a2, CFAllocat
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v22, 30, v23, "AVE_Prop_AVC_GetSourceFrameCount", 8471, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-          v24 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v21, 30, v22, "AVE_Prop_AVC_GetSourceFrameCount", 8471, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v23, 30, v25, "AVE_Prop_AVC_GetSourceFrameCount", 8471, "pNum != __null", a1);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v22, 30, v23, "AVE_Prop_AVC_GetSourceFrameCount", 8471, "pNum != __null", a1);
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v21, 30, v22, "AVE_Prop_AVC_GetSourceFrameCount", 8471, "pNum != __null", a1);
+        }
       }
 
       return 4294966293;
@@ -2960,20 +1735,20 @@ uint64_t AVE_Prop_AVC_GetSourceFrameCount(_DWORD *a1, const char **a2, CFAllocat
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetSourceFrameCount", 8461, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v25, "AVE_Prop_AVC_GetSourceFrameCount", 8461);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetSourceFrameCount", 8461, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetSourceFrameCount", 8461);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetSourceFrameCount", 8461);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetSourceFrameCount", 8461);
       }
     }
 
@@ -2996,18 +1771,21 @@ uint64_t AVE_Prop_AVC_SetExpectedDuration(double *a1, const char **a2, const __C
       {
         if (AVE_Log_CheckLevel(0x1Eu, 4))
         {
-          v24 = AVE_Log_CheckConsole(0x1Eu);
+          v22 = AVE_Log_CheckConsole(0x1Eu);
           CurrTime = AVE_GetCurrTime();
           LevelStr = AVE_Log_GetLevelStr(4);
-          if (v24)
+          if (v22)
           {
             printf("%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %f\n", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetExpectedDuration", 8523, "fDuration > 0.0", a1, *(a1 + 7), a2, a3, a4, valuePtr);
-            CurrTime = AVE_GetCurrTime();
-            LevelStr = AVE_Log_GetLevelStr(4);
-            v27 = *(a1 + 7);
+            v25 = AVE_GetCurrTime();
+            v27 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %f", v25, 30, v27, "AVE_Prop_AVC_SetExpectedDuration", 8523);
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %f", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetExpectedDuration", 8523);
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %f", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetExpectedDuration", 8523);
+          }
         }
 
         return 4294965292;
@@ -3027,8 +1805,6 @@ uint64_t AVE_Prop_AVC_SetExpectedDuration(double *a1, const char **a2, const __C
             printf("%lld %d AVE %s: %p %lld SetProp %s: %f\n", v11, 30, v12, a1, *(a1 + 7), *a2, valuePtr);
             AVE_GetCurrTime();
             AVE_Log_GetLevelStr(7);
-            v13 = *(a1 + 7);
-            v29 = *a2;
           }
 
           syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %f");
@@ -3041,21 +1817,20 @@ uint64_t AVE_Prop_AVC_SetExpectedDuration(double *a1, const char **a2, const __C
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v18 = AVE_Log_CheckConsole(0x1Eu);
-        v19 = AVE_GetCurrTime();
-        v20 = AVE_Log_GetLevelStr(4);
-        v21 = *(a1 + 7);
-        v22 = CFGetTypeID(a4);
-        if (v18)
+        v17 = AVE_Log_CheckConsole(0x1Eu);
+        v18 = AVE_GetCurrTime();
+        v19 = AVE_Log_GetLevelStr(4);
+        v20 = *(a1 + 7);
+        v21 = CFGetTypeID(a4);
+        if (v17)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetExpectedDuration", 8514, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
-          v19 = AVE_GetCurrTime();
-          v20 = AVE_Log_GetLevelStr(4);
-          v23 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v18, 30, v19, "AVE_Prop_AVC_SetExpectedDuration", 8514, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v20, a2, a3, a4, v21);
+          v18 = AVE_GetCurrTime();
+          v19 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetExpectedDuration", 8514, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v18, 30, v19, "AVE_Prop_AVC_SetExpectedDuration", 8514, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -3066,20 +1841,20 @@ uint64_t AVE_Prop_AVC_SetExpectedDuration(double *a1, const char **a2, const __C
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v14 = AVE_Log_CheckConsole(0x1Eu);
-      v15 = AVE_GetCurrTime();
-      v16 = AVE_Log_GetLevelStr(4);
-      if (v14)
+      v13 = AVE_Log_CheckConsole(0x1Eu);
+      v14 = AVE_GetCurrTime();
+      v15 = AVE_Log_GetLevelStr(4);
+      if (v13)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetExpectedDuration", 8504, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v17 = AVE_GetCurrTime();
-        v28 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v28, "AVE_Prop_AVC_SetExpectedDuration");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v14, 30, v15, "AVE_Prop_AVC_SetExpectedDuration", 8504, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v16 = AVE_GetCurrTime();
+        v26 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v16, 30, v26, "AVE_Prop_AVC_SetExpectedDuration");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetExpectedDuration");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v14, 30, v15, "AVE_Prop_AVC_SetExpectedDuration");
       }
     }
 
@@ -3110,8 +1885,6 @@ uint64_t AVE_Prop_AVC_GetExpectedDuration(double *a1, const char **a2, CFAllocat
           printf("%lld %d AVE %s: %p %lld GetProp %s: %f %p\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr, v11);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v16 = *(a1 + 7);
-          v26 = *a2;
         }
 
         syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %f %p", CurrTime);
@@ -3123,18 +1896,21 @@ uint64_t AVE_Prop_AVC_GetExpectedDuration(double *a1, const char **a2, CFAllocat
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %f\n", v22, 30, v23, "AVE_Prop_AVC_GetExpectedDuration", 8570, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-          v24 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %f\n", v21, 30, v22, "AVE_Prop_AVC_GetExpectedDuration", 8570, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %f", v23, 30, v25, "AVE_Prop_AVC_GetExpectedDuration", 8570, "pNum != __null");
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %f", v22, 30, v23, "AVE_Prop_AVC_GetExpectedDuration", 8570, "pNum != __null");
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %f", v21, 30, v22, "AVE_Prop_AVC_GetExpectedDuration", 8570, "pNum != __null");
+        }
       }
 
       return 4294966293;
@@ -3145,20 +1921,20 @@ uint64_t AVE_Prop_AVC_GetExpectedDuration(double *a1, const char **a2, CFAllocat
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetExpectedDuration", 8559, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v25, "AVE_Prop_AVC_GetExpectedDuration", 8559);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetExpectedDuration", 8559, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetExpectedDuration", 8559);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetExpectedDuration", 8559);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetExpectedDuration", 8559);
       }
     }
 
@@ -3182,23 +1958,21 @@ uint64_t AVE_Prop_AVC_SetQuantizationScalingMatrixPreset(void *a1, const char **
       {
         if (AVE_Log_CheckLevel(0x1Eu, 4))
         {
-          v30 = AVE_Log_CheckConsole(0x1Eu);
+          v26 = AVE_Log_CheckConsole(0x1Eu);
           CurrTime = AVE_GetCurrTime();
           LevelStr = AVE_Log_GetLevelStr(4);
-          if (v30)
+          if (v26)
           {
             printf("%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d\n", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetQuantizationScalingMatrixPreset", 8622, "iQSMatrixPreset > 0", a1, a1[7], a2, a3, a4, valuePtr);
-            CurrTime = AVE_GetCurrTime();
-            LevelStr = AVE_Log_GetLevelStr(4);
-            v33 = a1[7];
+            v29 = AVE_GetCurrTime();
+            v31 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d", v29, 30, v31, "AVE_Prop_AVC_SetQuantizationScalingMatrixPreset", 8622, "iQSMatrixPreset > 0");
           }
 
           else
           {
-            v36 = a1[7];
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetQuantizationScalingMatrixPreset", 8622, "iQSMatrixPreset > 0");
           }
-
-          syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetQuantizationScalingMatrixPreset", 8622, "iQSMatrixPreset > 0");
         }
       }
 
@@ -3215,16 +1989,13 @@ uint64_t AVE_Prop_AVC_SetQuantizationScalingMatrixPreset(void *a1, const char **
             v11 = AVE_Log_CheckConsole(0x1Eu);
             v12 = AVE_GetCurrTime();
             v13 = AVE_Log_GetLevelStr(7);
-            v14 = *a2;
             if (v11)
             {
               printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", v12, 30, v13, a1, a1[7], *a2, valuePtr);
               v12 = AVE_GetCurrTime();
               AVE_Log_GetLevelStr(7);
-              v15 = a1[7];
             }
 
-            v35 = *a2;
             syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", v12);
             return 0;
           }
@@ -3235,23 +2006,17 @@ uint64_t AVE_Prop_AVC_SetQuantizationScalingMatrixPreset(void *a1, const char **
         *(a1 + 3016) = 0;
         if (AVE_Log_CheckLevel(0x1Eu, 4))
         {
-          v26 = AVE_Log_CheckConsole(0x1Eu);
-          v27 = AVE_GetCurrTime();
-          v28 = AVE_Log_GetLevelStr(4);
-          if (v26)
+          v23 = AVE_Log_CheckConsole(0x1Eu);
+          v24 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          if (v23)
           {
-            printf("%lld %d AVE %s: %s:%d %s | QuantizationScalingMatrixPreset value %d not supported %p %lld %p %p %p [%d, %d]\n", v27, 30, v28, "AVE_Prop_AVC_SetQuantizationScalingMatrixPreset", 8655, "false", valuePtr, a1, a1[7], a2, a3, a4, 2, 3);
-            v27 = AVE_GetCurrTime();
-            v28 = AVE_Log_GetLevelStr(4);
-            v29 = a1[7];
+            printf("%lld %d AVE %s: %s:%d %s | QuantizationScalingMatrixPreset value %d not supported %p %lld %p %p %p [%d, %d]\n", v24, 30, v25, "AVE_Prop_AVC_SetQuantizationScalingMatrixPreset", 8655, "false", valuePtr, a1, a1[7], a2, a3, a4, 2, 3);
+            v24 = AVE_GetCurrTime();
+            v25 = AVE_Log_GetLevelStr(4);
           }
 
-          else
-          {
-            v37 = a1[7];
-          }
-
-          syslog(3, "%lld %d AVE %s: %s:%d %s | QuantizationScalingMatrixPreset value %d not supported %p %lld %p %p %p [%d, %d]", v27, 30, v28, "AVE_Prop_AVC_SetQuantizationScalingMatrixPreset", 8655, "false", valuePtr);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | QuantizationScalingMatrixPreset value %d not supported %p %lld %p %p %p [%d, %d]", v24, 30, v25, "AVE_Prop_AVC_SetQuantizationScalingMatrixPreset", 8655, "false", valuePtr);
         }
       }
 
@@ -3260,21 +2025,20 @@ uint64_t AVE_Prop_AVC_SetQuantizationScalingMatrixPreset(void *a1, const char **
 
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v20 = AVE_Log_CheckConsole(0x1Eu);
-      v21 = AVE_GetCurrTime();
-      v22 = AVE_Log_GetLevelStr(4);
-      v23 = a1[7];
-      v24 = CFGetTypeID(a4);
-      if (v20)
+      v18 = AVE_Log_CheckConsole(0x1Eu);
+      v19 = AVE_GetCurrTime();
+      v20 = AVE_Log_GetLevelStr(4);
+      v21 = a1[7];
+      v22 = CFGetTypeID(a4);
+      if (v18)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetQuantizationScalingMatrixPreset", 8613, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v25 = a1[7];
+        printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetQuantizationScalingMatrixPreset", 8613, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
         CFGetTypeID(a4);
       }
 
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetQuantizationScalingMatrixPreset", 8613, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetQuantizationScalingMatrixPreset", 8613, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
     }
 
     return 4294965293;
@@ -3284,20 +2048,20 @@ uint64_t AVE_Prop_AVC_SetQuantizationScalingMatrixPreset(void *a1, const char **
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetQuantizationScalingMatrixPreset", 8603, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v34 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v34, "AVE_Prop_AVC_SetQuantizationScalingMatrixPreset");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetQuantizationScalingMatrixPreset", 8603, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v30 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v30, "AVE_Prop_AVC_SetQuantizationScalingMatrixPreset");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetQuantizationScalingMatrixPreset");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetQuantizationScalingMatrixPreset");
       }
     }
 
@@ -3339,10 +2103,9 @@ uint64_t AVE_Prop_AVC_GetQuantizationScalingMatrixPreset(_DWORD *a1, const char 
             v16 = 8702;
             printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", CurrTime, 30, LevelStr, "AVE_Prop_AVC_GetQuantizationScalingMatrixPreset", 8702, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
 LABEL_41:
-            v38 = AVE_GetCurrTime();
+            v37 = AVE_GetCurrTime();
             v39 = AVE_Log_GetLevelStr(4);
-            v40 = *(a1 + 7);
-            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v38, 30, v39, "AVE_Prop_AVC_GetQuantizationScalingMatrixPreset", v16, "pNum != __null", a1);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v37, 30, v39, "AVE_Prop_AVC_GetQuantizationScalingMatrixPreset", v16, "pNum != __null", a1);
           }
 
           return 4294966293;
@@ -3357,17 +2120,17 @@ LABEL_41:
         {
           if (AVE_Log_CheckLevel(0x1Eu, 4))
           {
-            v35 = AVE_Log_CheckConsole(0x1Eu);
-            v36 = AVE_GetCurrTime();
-            v37 = AVE_Log_GetLevelStr(4);
-            if (!v35)
+            v34 = AVE_Log_CheckConsole(0x1Eu);
+            v35 = AVE_GetCurrTime();
+            v36 = AVE_Log_GetLevelStr(4);
+            if (!v34)
             {
-              syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v36, 30, v37, "AVE_Prop_AVC_GetQuantizationScalingMatrixPreset", 8710, "pNum != __null", a1);
+              syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v35, 30, v36, "AVE_Prop_AVC_GetQuantizationScalingMatrixPreset", 8710, "pNum != __null", a1);
               return 4294966293;
             }
 
             v16 = 8710;
-            printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v36, 30, v37, "AVE_Prop_AVC_GetQuantizationScalingMatrixPreset", 8710, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
+            printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v35, 30, v36, "AVE_Prop_AVC_GetQuantizationScalingMatrixPreset", 8710, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
             goto LABEL_41;
           }
 
@@ -3474,8 +2237,6 @@ LABEL_34:
         printf("%lld %d AVE %s: %p %lld GetProp %s: %d %p\n", v32, 30, v33, a1, *(a1 + 7), *a2, valuePtr, v10);
         v32 = AVE_GetCurrTime();
         AVE_Log_GetLevelStr(7);
-        v34 = *(a1 + 7);
-        v42 = *a2;
       }
 
       syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d %p", v32, 30);
@@ -3494,8 +2255,8 @@ LABEL_34:
     {
       printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetQuantizationScalingMatrixPreset", 8691, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
       v20 = AVE_GetCurrTime();
-      v41 = AVE_Log_GetLevelStr(4);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v41, "AVE_Prop_AVC_GetQuantizationScalingMatrixPreset", 8691);
+      v38 = AVE_Log_GetLevelStr(4);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v38, "AVE_Prop_AVC_GetQuantizationScalingMatrixPreset", 8691);
     }
 
     else
@@ -3515,16 +2276,13 @@ uint64_t AVE_Prop_AVC_GetUsingHardwareAcceleratedVideoEncoder(void *a1, const ch
     v7 = AVE_Log_CheckConsole(0x1Eu);
     CurrTime = AVE_GetCurrTime();
     LevelStr = AVE_Log_GetLevelStr(7);
-    v10 = *a2;
     if (v7)
     {
       printf("%lld %d AVE %s: %p %lld GetProp %s: %d\n", CurrTime, 30, LevelStr, a1, a1[7], *a2, 1);
       CurrTime = AVE_GetCurrTime();
       AVE_Log_GetLevelStr(7);
-      v11 = a1[7];
     }
 
-    v13 = *a2;
     syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d", CurrTime);
   }
 
@@ -3546,16 +2304,13 @@ uint64_t AVE_Prop_AVC_SetParavirtualized(_DWORD *a1, const char **a2, const __CF
         v11 = AVE_Log_CheckConsole(0x1Eu);
         CurrTime = AVE_GetCurrTime();
         LevelStr = AVE_Log_GetLevelStr(7);
-        v14 = *a2;
         if (v11)
         {
           printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, v9);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v15 = *(a1 + 7);
         }
 
-        v27 = *a2;
         syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", CurrTime);
         return 0;
       }
@@ -3565,21 +2320,20 @@ uint64_t AVE_Prop_AVC_SetParavirtualized(_DWORD *a1, const char **a2, const __CF
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = *(a1 + 7);
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = *(a1 + 7);
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetParavirtualized", 8807, "CFBooleanGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetParavirtualized", 8807, "CFBooleanGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetParavirtualized", 8807, "CFBooleanGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetParavirtualized", 8807, "CFBooleanGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -3590,20 +2344,20 @@ uint64_t AVE_Prop_AVC_SetParavirtualized(_DWORD *a1, const char **a2, const __CF
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetParavirtualized", 8797, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v26 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v26, "AVE_Prop_AVC_SetParavirtualized");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetParavirtualized", 8797, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v23 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v23, "AVE_Prop_AVC_SetParavirtualized");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetParavirtualized");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetParavirtualized");
       }
     }
 
@@ -3632,16 +2386,13 @@ uint64_t AVE_Prop_AVC_GetParavirtualized(_DWORD *a1, const char **a2, const __CF
       v14 = AVE_Log_CheckConsole(0x1Eu);
       CurrTime = AVE_GetCurrTime();
       LevelStr = AVE_Log_GetLevelStr(7);
-      v17 = *a2;
       if (v14)
       {
         printf("%lld %d AVE %s: %p %lld GetProp %s: %d\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, v13);
         CurrTime = AVE_GetCurrTime();
         AVE_Log_GetLevelStr(7);
-        v18 = *(a1 + 7);
       }
 
-      v24 = *a2;
       syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d", CurrTime);
       return 0;
     }
@@ -3651,20 +2402,20 @@ uint64_t AVE_Prop_AVC_GetParavirtualized(_DWORD *a1, const char **a2, const __CF
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v19 = AVE_Log_CheckConsole(0x1Eu);
-      v20 = AVE_GetCurrTime();
-      v21 = AVE_Log_GetLevelStr(4);
-      if (v19)
+      v17 = AVE_Log_CheckConsole(0x1Eu);
+      v18 = AVE_GetCurrTime();
+      v19 = AVE_Log_GetLevelStr(4);
+      if (v17)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v20, 30, v21, "AVE_Prop_AVC_GetParavirtualized", 8845, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4, a5);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v22, 30, v23, "AVE_Prop_AVC_GetParavirtualized", 8845);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetParavirtualized", 8845, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4, a5);
+        v20 = AVE_GetCurrTime();
+        v21 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v21, "AVE_Prop_AVC_GetParavirtualized", 8845);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v21, "AVE_Prop_AVC_GetParavirtualized", 8845);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetParavirtualized", 8845);
       }
     }
 
@@ -3687,18 +2438,11 @@ uint64_t AVE_Prop_AVC_GetSupportedPresetDictionaries(void *a1, const char **a2, 
         v12 = AVE_Log_CheckConsole(0x1Eu);
         CurrTime = AVE_GetCurrTime();
         LevelStr = AVE_Log_GetLevelStr(5);
-        v15 = *(a1 + 7);
         if (v12)
         {
           printf("%lld %d AVE %s: %s:%d preset dictionary reference count %p %lld %d\n", CurrTime, 30, LevelStr, "AVE_Prop_AVC_GetSupportedPresetDictionaries", 8899, a1, *(a1 + 7), v11);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(5);
-          v16 = *(a1 + 7);
-        }
-
-        else
-        {
-          v36 = *(a1 + 7);
         }
 
         syslog(3, "%lld %d AVE %s: %s:%d preset dictionary reference count %p %lld %d", CurrTime, 30);
@@ -3709,27 +2453,17 @@ uint64_t AVE_Prop_AVC_GetSupportedPresetDictionaries(void *a1, const char **a2, 
       result = AVE_Log_CheckLevel(0x1Eu, 7);
       if (result)
       {
-        v26 = AVE_Log_CheckConsole(0x1Eu);
-        v27 = AVE_GetCurrTime();
-        v28 = AVE_Log_GetLevelStr(7);
-        v29 = *a2;
-        if (v26)
+        v24 = AVE_Log_CheckConsole(0x1Eu);
+        v25 = AVE_GetCurrTime();
+        v26 = AVE_Log_GetLevelStr(7);
+        if (v24)
         {
-          printf("%lld %d AVE %s: %p %lld GetProp %s: %p\n", v27, 30, v28, a1, *(a1 + 7), *a2, *(a1 + 13));
-          v27 = AVE_GetCurrTime();
+          printf("%lld %d AVE %s: %p %lld GetProp %s: %p\n", v25, 30, v26, a1, *(a1 + 7), *a2, *(a1 + 13));
+          v25 = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v30 = *(a1 + 7);
-          v31 = *a2;
-          v34 = *a2;
-          v37 = *(a1 + 13);
         }
 
-        else
-        {
-          v35 = *a2;
-        }
-
-        syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %p", v27);
+        syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %p", v25);
         return 0;
       }
     }
@@ -3738,20 +2472,20 @@ uint64_t AVE_Prop_AVC_GetSupportedPresetDictionaries(void *a1, const char **a2, 
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
+        v19 = AVE_Log_CheckConsole(0x1Eu);
+        v20 = AVE_GetCurrTime();
+        v21 = AVE_Log_GetLevelStr(4);
+        if (v19)
         {
-          printf("%lld %d AVE %s: %s:%d %s | preset dictionary not ready %p %p %p %p %p\n", v22, 30, v23, "AVE_Prop_AVC_GetSupportedPresetDictionaries", 8892, "psINS->pPresetDict != __null", a1, a2, a3, a4, a5);
-          v24 = AVE_GetCurrTime();
-          v33 = AVE_Log_GetLevelStr(4);
-          syslog(3, "%lld %d AVE %s: %s:%d %s | preset dictionary not ready %p %p %p %p %p", v24, 30, v33, "AVE_Prop_AVC_GetSupportedPresetDictionaries", 8892);
+          printf("%lld %d AVE %s: %s:%d %s | preset dictionary not ready %p %p %p %p %p\n", v20, 30, v21, "AVE_Prop_AVC_GetSupportedPresetDictionaries", 8892, "psINS->pPresetDict != __null", a1, a2, a3, a4, a5);
+          v22 = AVE_GetCurrTime();
+          v28 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | preset dictionary not ready %p %p %p %p %p", v22, 30, v28, "AVE_Prop_AVC_GetSupportedPresetDictionaries", 8892);
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: %s:%d %s | preset dictionary not ready %p %p %p %p %p", v22, 30, v23, "AVE_Prop_AVC_GetSupportedPresetDictionaries", 8892);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | preset dictionary not ready %p %p %p %p %p", v20, 30, v21, "AVE_Prop_AVC_GetSupportedPresetDictionaries", 8892);
         }
       }
 
@@ -3763,20 +2497,20 @@ uint64_t AVE_Prop_AVC_GetSupportedPresetDictionaries(void *a1, const char **a2, 
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
+      v15 = AVE_Log_CheckConsole(0x1Eu);
+      v16 = AVE_GetCurrTime();
+      v17 = AVE_Log_GetLevelStr(4);
+      if (v15)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetSupportedPresetDictionaries", 8884, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v32 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v32, "AVE_Prop_AVC_GetSupportedPresetDictionaries", 8884);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v16, 30, v17, "AVE_Prop_AVC_GetSupportedPresetDictionaries", 8884, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4, a5);
+        v18 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v27, "AVE_Prop_AVC_GetSupportedPresetDictionaries", 8884);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetSupportedPresetDictionaries", 8884);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v16, 30, v17, "AVE_Prop_AVC_GetSupportedPresetDictionaries", 8884);
       }
     }
 
@@ -3806,16 +2540,13 @@ uint64_t AVE_Prop_AVC_SetSwFeatureOn(void *a1, const char **a2, const __CFString
           v11 = AVE_Log_CheckConsole(0x1Eu);
           CurrTime = AVE_GetCurrTime();
           LevelStr = AVE_Log_GetLevelStr(7);
-          v14 = *a2;
           if (v11)
           {
             printf("%lld %d AVE %s: %p %lld SetProp %s: 0x%llx\n", CurrTime, 30, LevelStr, a1, a1[7], *a2, valuePtr);
             CurrTime = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(7);
-            v15 = a1[7];
           }
 
-          v31 = *a2;
           syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: 0x%llx", CurrTime);
           return 0;
         }
@@ -3825,18 +2556,21 @@ uint64_t AVE_Prop_AVC_SetSwFeatureOn(void *a1, const char **a2, const __CFString
       {
         if (AVE_Log_CheckLevel(0x1Eu, 4))
         {
-          v26 = AVE_Log_CheckConsole(0x1Eu);
-          v27 = AVE_GetCurrTime();
-          v28 = AVE_Log_GetLevelStr(4);
-          if (v26)
+          v23 = AVE_Log_CheckConsole(0x1Eu);
+          v24 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          if (v23)
           {
-            printf("%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx\n", v27, 30, v28, "AVE_Prop_AVC_SetSwFeatureOn", 8956, "iFeature != 0", a1, a1[7], a2, a3, a4, valuePtr);
-            v27 = AVE_GetCurrTime();
+            printf("%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx\n", v24, 30, v25, "AVE_Prop_AVC_SetSwFeatureOn", 8956, "iFeature != 0", a1, a1[7], a2, a3, a4, valuePtr);
+            v26 = AVE_GetCurrTime();
             v28 = AVE_Log_GetLevelStr(4);
-            v29 = a1[7];
+            syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx", v26, 30, v28, "AVE_Prop_AVC_SetSwFeatureOn", 8956, "iFeature != 0");
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx", v27, 30, v28, "AVE_Prop_AVC_SetSwFeatureOn", 8956, "iFeature != 0");
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx", v24, 30, v25, "AVE_Prop_AVC_SetSwFeatureOn", 8956, "iFeature != 0");
+          }
         }
 
         return 4294965292;
@@ -3847,21 +2581,20 @@ uint64_t AVE_Prop_AVC_SetSwFeatureOn(void *a1, const char **a2, const __CFString
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = a1[7];
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = a1[7];
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetSwFeatureOn", 8947, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = a1[7];
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetSwFeatureOn", 8947, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetSwFeatureOn", 8947, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetSwFeatureOn", 8947, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -3872,20 +2605,20 @@ uint64_t AVE_Prop_AVC_SetSwFeatureOn(void *a1, const char **a2, const __CFString
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetSwFeatureOn", 8937, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v30 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v30, "AVE_Prop_AVC_SetSwFeatureOn");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetSwFeatureOn", 8937, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v27, "AVE_Prop_AVC_SetSwFeatureOn");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetSwFeatureOn");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetSwFeatureOn");
       }
     }
 
@@ -3916,8 +2649,6 @@ uint64_t AVE_Prop_AVC_GetSwFeatureOn(void *a1, const char **a2, CFAllocatorRef a
           printf("%lld %d AVE %s: %p %lld GetProp %s: 0x%llx %p\n", CurrTime, 30, LevelStr, a1, a1[7], *a2, valuePtr, v11);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v16 = a1[7];
-          v26 = *a2;
         }
 
         syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: 0x%llx %p", CurrTime, 30);
@@ -3929,18 +2660,21 @@ uint64_t AVE_Prop_AVC_GetSwFeatureOn(void *a1, const char **a2, CFAllocatorRef a
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx\n", v22, 30, v23, "AVE_Prop_AVC_GetSwFeatureOn", 9002, "pNum != __null", a1, a1[7], a2, allocator, a4, a5, valuePtr);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-          v24 = a1[7];
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx\n", v21, 30, v22, "AVE_Prop_AVC_GetSwFeatureOn", 9002, "pNum != __null", a1, a1[7], a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx", v23, 30, v25, "AVE_Prop_AVC_GetSwFeatureOn", 9002, "pNum != __null", a1);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx", v22, 30, v23, "AVE_Prop_AVC_GetSwFeatureOn", 9002, "pNum != __null", a1);
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx", v21, 30, v22, "AVE_Prop_AVC_GetSwFeatureOn", 9002, "pNum != __null", a1);
+        }
       }
 
       return 4294966293;
@@ -3951,20 +2685,20 @@ uint64_t AVE_Prop_AVC_GetSwFeatureOn(void *a1, const char **a2, CFAllocatorRef a
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetSwFeatureOn", 8992, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v25, "AVE_Prop_AVC_GetSwFeatureOn", 8992);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetSwFeatureOn", 8992, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetSwFeatureOn", 8992);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetSwFeatureOn", 8992);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetSwFeatureOn", 8992);
       }
     }
 
@@ -3994,16 +2728,13 @@ uint64_t AVE_Prop_AVC_SetSwFeatureOff(void *a1, const char **a2, const __CFStrin
           v11 = AVE_Log_CheckConsole(0x1Eu);
           CurrTime = AVE_GetCurrTime();
           LevelStr = AVE_Log_GetLevelStr(7);
-          v14 = *a2;
           if (v11)
           {
             printf("%lld %d AVE %s: %p %lld SetProp %s: 0x%llx\n", CurrTime, 30, LevelStr, a1, a1[7], *a2, valuePtr);
             CurrTime = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(7);
-            v15 = a1[7];
           }
 
-          v31 = *a2;
           syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: 0x%llx", CurrTime);
           return 0;
         }
@@ -4013,18 +2744,21 @@ uint64_t AVE_Prop_AVC_SetSwFeatureOff(void *a1, const char **a2, const __CFStrin
       {
         if (AVE_Log_CheckLevel(0x1Eu, 4))
         {
-          v26 = AVE_Log_CheckConsole(0x1Eu);
-          v27 = AVE_GetCurrTime();
-          v28 = AVE_Log_GetLevelStr(4);
-          if (v26)
+          v23 = AVE_Log_CheckConsole(0x1Eu);
+          v24 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          if (v23)
           {
-            printf("%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx\n", v27, 30, v28, "AVE_Prop_AVC_SetSwFeatureOff", 9053, "iFeature != 0", a1, a1[7], a2, a3, a4, valuePtr);
-            v27 = AVE_GetCurrTime();
+            printf("%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx\n", v24, 30, v25, "AVE_Prop_AVC_SetSwFeatureOff", 9053, "iFeature != 0", a1, a1[7], a2, a3, a4, valuePtr);
+            v26 = AVE_GetCurrTime();
             v28 = AVE_Log_GetLevelStr(4);
-            v29 = a1[7];
+            syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx", v26, 30, v28, "AVE_Prop_AVC_SetSwFeatureOff", 9053, "iFeature != 0");
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx", v27, 30, v28, "AVE_Prop_AVC_SetSwFeatureOff", 9053, "iFeature != 0");
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx", v24, 30, v25, "AVE_Prop_AVC_SetSwFeatureOff", 9053, "iFeature != 0");
+          }
         }
 
         return 4294965292;
@@ -4035,21 +2769,20 @@ uint64_t AVE_Prop_AVC_SetSwFeatureOff(void *a1, const char **a2, const __CFStrin
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = a1[7];
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = a1[7];
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetSwFeatureOff", 9044, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = a1[7];
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetSwFeatureOff", 9044, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetSwFeatureOff", 9044, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetSwFeatureOff", 9044, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -4060,20 +2793,20 @@ uint64_t AVE_Prop_AVC_SetSwFeatureOff(void *a1, const char **a2, const __CFStrin
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetSwFeatureOff", 9034, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v30 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v30, "AVE_Prop_AVC_SetSwFeatureOff");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetSwFeatureOff", 9034, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v27, "AVE_Prop_AVC_SetSwFeatureOff");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetSwFeatureOff");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetSwFeatureOff");
       }
     }
 
@@ -4104,8 +2837,6 @@ uint64_t AVE_Prop_AVC_GetSwFeatureOff(void *a1, const char **a2, CFAllocatorRef 
           printf("%lld %d AVE %s: %p %lld GetProp %s: 0x%llx %p\n", CurrTime, 30, LevelStr, a1, a1[7], *a2, valuePtr, v11);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v16 = a1[7];
-          v26 = *a2;
         }
 
         syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: 0x%llx %p", CurrTime, 30);
@@ -4117,18 +2848,21 @@ uint64_t AVE_Prop_AVC_GetSwFeatureOff(void *a1, const char **a2, CFAllocatorRef 
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx\n", v22, 30, v23, "AVE_Prop_AVC_GetSwFeatureOff", 9099, "pNum != __null", a1, a1[7], a2, allocator, a4, a5, valuePtr);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-          v24 = a1[7];
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx\n", v21, 30, v22, "AVE_Prop_AVC_GetSwFeatureOff", 9099, "pNum != __null", a1, a1[7], a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx", v23, 30, v25, "AVE_Prop_AVC_GetSwFeatureOff", 9099, "pNum != __null", a1);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx", v22, 30, v23, "AVE_Prop_AVC_GetSwFeatureOff", 9099, "pNum != __null", a1);
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx", v21, 30, v22, "AVE_Prop_AVC_GetSwFeatureOff", 9099, "pNum != __null", a1);
+        }
       }
 
       return 4294966293;
@@ -4139,20 +2873,20 @@ uint64_t AVE_Prop_AVC_GetSwFeatureOff(void *a1, const char **a2, CFAllocatorRef 
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetSwFeatureOff", 9089, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v25, "AVE_Prop_AVC_GetSwFeatureOff", 9089);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetSwFeatureOff", 9089, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetSwFeatureOff", 9089);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetSwFeatureOff", 9089);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetSwFeatureOff", 9089);
       }
     }
 
@@ -4182,16 +2916,13 @@ uint64_t AVE_Prop_AVC_SetHwFeatureOn(void *a1, const char **a2, const __CFString
           v11 = AVE_Log_CheckConsole(0x1Eu);
           CurrTime = AVE_GetCurrTime();
           LevelStr = AVE_Log_GetLevelStr(7);
-          v14 = *a2;
           if (v11)
           {
             printf("%lld %d AVE %s: %p %lld SetProp %s: 0x%llx\n", CurrTime, 30, LevelStr, a1, a1[7], *a2, valuePtr);
             CurrTime = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(7);
-            v15 = a1[7];
           }
 
-          v31 = *a2;
           syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: 0x%llx", CurrTime);
           return 0;
         }
@@ -4201,18 +2932,21 @@ uint64_t AVE_Prop_AVC_SetHwFeatureOn(void *a1, const char **a2, const __CFString
       {
         if (AVE_Log_CheckLevel(0x1Eu, 4))
         {
-          v26 = AVE_Log_CheckConsole(0x1Eu);
-          v27 = AVE_GetCurrTime();
-          v28 = AVE_Log_GetLevelStr(4);
-          if (v26)
+          v23 = AVE_Log_CheckConsole(0x1Eu);
+          v24 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          if (v23)
           {
-            printf("%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx\n", v27, 30, v28, "AVE_Prop_AVC_SetHwFeatureOn", 9150, "iFeature != 0", a1, a1[7], a2, a3, a4, valuePtr);
-            v27 = AVE_GetCurrTime();
+            printf("%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx\n", v24, 30, v25, "AVE_Prop_AVC_SetHwFeatureOn", 9150, "iFeature != 0", a1, a1[7], a2, a3, a4, valuePtr);
+            v26 = AVE_GetCurrTime();
             v28 = AVE_Log_GetLevelStr(4);
-            v29 = a1[7];
+            syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx", v26, 30, v28, "AVE_Prop_AVC_SetHwFeatureOn", 9150, "iFeature != 0");
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx", v27, 30, v28, "AVE_Prop_AVC_SetHwFeatureOn", 9150, "iFeature != 0");
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx", v24, 30, v25, "AVE_Prop_AVC_SetHwFeatureOn", 9150, "iFeature != 0");
+          }
         }
 
         return 4294965292;
@@ -4223,21 +2957,20 @@ uint64_t AVE_Prop_AVC_SetHwFeatureOn(void *a1, const char **a2, const __CFString
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = a1[7];
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = a1[7];
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetHwFeatureOn", 9141, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = a1[7];
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetHwFeatureOn", 9141, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetHwFeatureOn", 9141, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetHwFeatureOn", 9141, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -4248,20 +2981,20 @@ uint64_t AVE_Prop_AVC_SetHwFeatureOn(void *a1, const char **a2, const __CFString
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetHwFeatureOn", 9131, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v30 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v30, "AVE_Prop_AVC_SetHwFeatureOn");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetHwFeatureOn", 9131, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v27, "AVE_Prop_AVC_SetHwFeatureOn");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetHwFeatureOn");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetHwFeatureOn");
       }
     }
 
@@ -4292,8 +3025,6 @@ uint64_t AVE_Prop_AVC_GetHwFeatureOn(void *a1, const char **a2, CFAllocatorRef a
           printf("%lld %d AVE %s: %p %lld GetProp %s: 0x%llx %p\n", CurrTime, 30, LevelStr, a1, a1[7], *a2, valuePtr, v11);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v16 = a1[7];
-          v26 = *a2;
         }
 
         syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: 0x%llx %p", CurrTime, 30);
@@ -4305,18 +3036,21 @@ uint64_t AVE_Prop_AVC_GetHwFeatureOn(void *a1, const char **a2, CFAllocatorRef a
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx\n", v22, 30, v23, "AVE_Prop_AVC_GetHwFeatureOn", 9196, "pNum != __null", a1, a1[7], a2, allocator, a4, a5, valuePtr);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-          v24 = a1[7];
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx\n", v21, 30, v22, "AVE_Prop_AVC_GetHwFeatureOn", 9196, "pNum != __null", a1, a1[7], a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx", v23, 30, v25, "AVE_Prop_AVC_GetHwFeatureOn", 9196, "pNum != __null", a1);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx", v22, 30, v23, "AVE_Prop_AVC_GetHwFeatureOn", 9196, "pNum != __null", a1);
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx", v21, 30, v22, "AVE_Prop_AVC_GetHwFeatureOn", 9196, "pNum != __null", a1);
+        }
       }
 
       return 4294966293;
@@ -4327,20 +3061,20 @@ uint64_t AVE_Prop_AVC_GetHwFeatureOn(void *a1, const char **a2, CFAllocatorRef a
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetHwFeatureOn", 9186, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v25, "AVE_Prop_AVC_GetHwFeatureOn", 9186);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetHwFeatureOn", 9186, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetHwFeatureOn", 9186);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetHwFeatureOn", 9186);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetHwFeatureOn", 9186);
       }
     }
 
@@ -4370,16 +3104,13 @@ uint64_t AVE_Prop_AVC_SetHwFeatureOff(void *a1, const char **a2, const __CFStrin
           v11 = AVE_Log_CheckConsole(0x1Eu);
           CurrTime = AVE_GetCurrTime();
           LevelStr = AVE_Log_GetLevelStr(7);
-          v14 = *a2;
           if (v11)
           {
             printf("%lld %d AVE %s: %p %lld SetProp %s: 0x%llx\n", CurrTime, 30, LevelStr, a1, a1[7], *a2, valuePtr);
             CurrTime = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(7);
-            v15 = a1[7];
           }
 
-          v31 = *a2;
           syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: 0x%llx", CurrTime);
           return 0;
         }
@@ -4389,18 +3120,21 @@ uint64_t AVE_Prop_AVC_SetHwFeatureOff(void *a1, const char **a2, const __CFStrin
       {
         if (AVE_Log_CheckLevel(0x1Eu, 4))
         {
-          v26 = AVE_Log_CheckConsole(0x1Eu);
-          v27 = AVE_GetCurrTime();
-          v28 = AVE_Log_GetLevelStr(4);
-          if (v26)
+          v23 = AVE_Log_CheckConsole(0x1Eu);
+          v24 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          if (v23)
           {
-            printf("%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx\n", v27, 30, v28, "AVE_Prop_AVC_SetHwFeatureOff", 9247, "iFeature != 0", a1, a1[7], a2, a3, a4, valuePtr);
-            v27 = AVE_GetCurrTime();
+            printf("%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx\n", v24, 30, v25, "AVE_Prop_AVC_SetHwFeatureOff", 9247, "iFeature != 0", a1, a1[7], a2, a3, a4, valuePtr);
+            v26 = AVE_GetCurrTime();
             v28 = AVE_Log_GetLevelStr(4);
-            v29 = a1[7];
+            syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx", v26, 30, v28, "AVE_Prop_AVC_SetHwFeatureOff", 9247, "iFeature != 0");
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx", v27, 30, v28, "AVE_Prop_AVC_SetHwFeatureOff", 9247, "iFeature != 0");
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx", v24, 30, v25, "AVE_Prop_AVC_SetHwFeatureOff", 9247, "iFeature != 0");
+          }
         }
 
         return 4294965292;
@@ -4411,21 +3145,20 @@ uint64_t AVE_Prop_AVC_SetHwFeatureOff(void *a1, const char **a2, const __CFStrin
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = a1[7];
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = a1[7];
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetHwFeatureOff", 9238, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = a1[7];
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetHwFeatureOff", 9238, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetHwFeatureOff", 9238, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetHwFeatureOff", 9238, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -4436,20 +3169,20 @@ uint64_t AVE_Prop_AVC_SetHwFeatureOff(void *a1, const char **a2, const __CFStrin
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetHwFeatureOff", 9228, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v30 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v30, "AVE_Prop_AVC_SetHwFeatureOff");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetHwFeatureOff", 9228, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v27, "AVE_Prop_AVC_SetHwFeatureOff");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetHwFeatureOff");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetHwFeatureOff");
       }
     }
 
@@ -4480,8 +3213,6 @@ uint64_t AVE_Prop_AVC_GetHwFeatureOff(void *a1, const char **a2, CFAllocatorRef 
           printf("%lld %d AVE %s: %p %lld GetProp %s: 0x%llx %p\n", CurrTime, 30, LevelStr, a1, a1[7], *a2, valuePtr, v11);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v16 = a1[7];
-          v26 = *a2;
         }
 
         syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: 0x%llx %p", CurrTime, 30);
@@ -4493,18 +3224,21 @@ uint64_t AVE_Prop_AVC_GetHwFeatureOff(void *a1, const char **a2, CFAllocatorRef 
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx\n", v22, 30, v23, "AVE_Prop_AVC_GetHwFeatureOff", 9293, "pNum != __null", a1, a1[7], a2, allocator, a4, a5, valuePtr);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-          v24 = a1[7];
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx\n", v21, 30, v22, "AVE_Prop_AVC_GetHwFeatureOff", 9293, "pNum != __null", a1, a1[7], a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx", v23, 30, v25, "AVE_Prop_AVC_GetHwFeatureOff", 9293, "pNum != __null", a1);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx", v22, 30, v23, "AVE_Prop_AVC_GetHwFeatureOff", 9293, "pNum != __null", a1);
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx", v21, 30, v22, "AVE_Prop_AVC_GetHwFeatureOff", 9293, "pNum != __null", a1);
+        }
       }
 
       return 4294966293;
@@ -4515,20 +3249,20 @@ uint64_t AVE_Prop_AVC_GetHwFeatureOff(void *a1, const char **a2, CFAllocatorRef 
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetHwFeatureOff", 9283, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v25, "AVE_Prop_AVC_GetHwFeatureOff", 9283);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetHwFeatureOff", 9283, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetHwFeatureOff", 9283);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetHwFeatureOff", 9283);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetHwFeatureOff", 9283);
       }
     }
 
@@ -4558,16 +3292,13 @@ uint64_t AVE_Prop_AVC_SetPerfFeatureOn(_DWORD *a1, const char **a2, const __CFSt
           v11 = AVE_Log_CheckConsole(0x1Eu);
           CurrTime = AVE_GetCurrTime();
           LevelStr = AVE_Log_GetLevelStr(7);
-          v14 = *a2;
           if (v11)
           {
             printf("%lld %d AVE %s: %p %lld SetProp %s: 0x%x\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr);
             CurrTime = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(7);
-            v15 = *(a1 + 7);
           }
 
-          v31 = *a2;
           syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: 0x%x", CurrTime);
           return 0;
         }
@@ -4577,18 +3308,21 @@ uint64_t AVE_Prop_AVC_SetPerfFeatureOn(_DWORD *a1, const char **a2, const __CFSt
       {
         if (AVE_Log_CheckLevel(0x1Eu, 4))
         {
-          v26 = AVE_Log_CheckConsole(0x1Eu);
-          v27 = AVE_GetCurrTime();
-          v28 = AVE_Log_GetLevelStr(4);
-          if (v26)
+          v23 = AVE_Log_CheckConsole(0x1Eu);
+          v24 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          if (v23)
           {
-            printf("%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%x\n", v27, 30, v28, "AVE_Prop_AVC_SetPerfFeatureOn", 9344, "iFeature != 0", a1, *(a1 + 7), a2, a3, a4, valuePtr);
-            v27 = AVE_GetCurrTime();
+            printf("%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%x\n", v24, 30, v25, "AVE_Prop_AVC_SetPerfFeatureOn", 9344, "iFeature != 0", a1, *(a1 + 7), a2, a3, a4, valuePtr);
+            v26 = AVE_GetCurrTime();
             v28 = AVE_Log_GetLevelStr(4);
-            v29 = *(a1 + 7);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%x", v26, 30, v28, "AVE_Prop_AVC_SetPerfFeatureOn", 9344, "iFeature != 0");
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%x", v27, 30, v28, "AVE_Prop_AVC_SetPerfFeatureOn", 9344, "iFeature != 0");
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%x", v24, 30, v25, "AVE_Prop_AVC_SetPerfFeatureOn", 9344, "iFeature != 0");
+          }
         }
 
         return 4294965292;
@@ -4599,21 +3333,20 @@ uint64_t AVE_Prop_AVC_SetPerfFeatureOn(_DWORD *a1, const char **a2, const __CFSt
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = *(a1 + 7);
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = *(a1 + 7);
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetPerfFeatureOn", 9335, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetPerfFeatureOn", 9335, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetPerfFeatureOn", 9335, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetPerfFeatureOn", 9335, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -4624,20 +3357,20 @@ uint64_t AVE_Prop_AVC_SetPerfFeatureOn(_DWORD *a1, const char **a2, const __CFSt
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetPerfFeatureOn", 9325, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v30 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v30, "AVE_Prop_AVC_SetPerfFeatureOn");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetPerfFeatureOn", 9325, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v27, "AVE_Prop_AVC_SetPerfFeatureOn");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetPerfFeatureOn");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetPerfFeatureOn");
       }
     }
 
@@ -4668,8 +3401,6 @@ uint64_t AVE_Prop_AVC_GetPerfFeatureOn(_DWORD *a1, const char **a2, CFAllocatorR
           printf("%lld %d AVE %s: %p %lld GetProp %s: 0x%x %p\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr, v11);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v16 = *(a1 + 7);
-          v26 = *a2;
         }
 
         syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: 0x%x %p", CurrTime, 30);
@@ -4681,18 +3412,21 @@ uint64_t AVE_Prop_AVC_GetPerfFeatureOn(_DWORD *a1, const char **a2, CFAllocatorR
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%x\n", v22, 30, v23, "AVE_Prop_AVC_GetPerfFeatureOn", 9390, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-          v24 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%x\n", v21, 30, v22, "AVE_Prop_AVC_GetPerfFeatureOn", 9390, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%x", v23, 30, v25, "AVE_Prop_AVC_GetPerfFeatureOn", 9390, "pNum != __null", a1);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%x", v22, 30, v23, "AVE_Prop_AVC_GetPerfFeatureOn", 9390, "pNum != __null", a1);
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%x", v21, 30, v22, "AVE_Prop_AVC_GetPerfFeatureOn", 9390, "pNum != __null", a1);
+        }
       }
 
       return 4294966293;
@@ -4703,20 +3437,20 @@ uint64_t AVE_Prop_AVC_GetPerfFeatureOn(_DWORD *a1, const char **a2, CFAllocatorR
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetPerfFeatureOn", 9380, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v25, "AVE_Prop_AVC_GetPerfFeatureOn", 9380);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetPerfFeatureOn", 9380, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetPerfFeatureOn", 9380);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetPerfFeatureOn", 9380);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetPerfFeatureOn", 9380);
       }
     }
 
@@ -4746,16 +3480,13 @@ uint64_t AVE_Prop_AVC_SetPerfFeatureOff(_DWORD *a1, const char **a2, const __CFS
           v11 = AVE_Log_CheckConsole(0x1Eu);
           CurrTime = AVE_GetCurrTime();
           LevelStr = AVE_Log_GetLevelStr(7);
-          v14 = *a2;
           if (v11)
           {
             printf("%lld %d AVE %s: %p %lld SetProp %s: 0x%x\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr);
             CurrTime = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(7);
-            v15 = *(a1 + 7);
           }
 
-          v31 = *a2;
           syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: 0x%x", CurrTime);
           return 0;
         }
@@ -4765,18 +3496,21 @@ uint64_t AVE_Prop_AVC_SetPerfFeatureOff(_DWORD *a1, const char **a2, const __CFS
       {
         if (AVE_Log_CheckLevel(0x1Eu, 4))
         {
-          v26 = AVE_Log_CheckConsole(0x1Eu);
-          v27 = AVE_GetCurrTime();
-          v28 = AVE_Log_GetLevelStr(4);
-          if (v26)
+          v23 = AVE_Log_CheckConsole(0x1Eu);
+          v24 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          if (v23)
           {
-            printf("%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%x\n", v27, 30, v28, "AVE_Prop_AVC_SetPerfFeatureOff", 9441, "iFeature != 0", a1, *(a1 + 7), a2, a3, a4, valuePtr);
-            v27 = AVE_GetCurrTime();
+            printf("%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%x\n", v24, 30, v25, "AVE_Prop_AVC_SetPerfFeatureOff", 9441, "iFeature != 0", a1, *(a1 + 7), a2, a3, a4, valuePtr);
+            v26 = AVE_GetCurrTime();
             v28 = AVE_Log_GetLevelStr(4);
-            v29 = *(a1 + 7);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%x", v26, 30, v28, "AVE_Prop_AVC_SetPerfFeatureOff", 9441, "iFeature != 0");
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%x", v27, 30, v28, "AVE_Prop_AVC_SetPerfFeatureOff", 9441, "iFeature != 0");
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%x", v24, 30, v25, "AVE_Prop_AVC_SetPerfFeatureOff", 9441, "iFeature != 0");
+          }
         }
 
         return 4294965292;
@@ -4787,21 +3521,20 @@ uint64_t AVE_Prop_AVC_SetPerfFeatureOff(_DWORD *a1, const char **a2, const __CFS
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = *(a1 + 7);
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = *(a1 + 7);
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetPerfFeatureOff", 9432, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetPerfFeatureOff", 9432, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetPerfFeatureOff", 9432, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetPerfFeatureOff", 9432, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -4812,20 +3545,20 @@ uint64_t AVE_Prop_AVC_SetPerfFeatureOff(_DWORD *a1, const char **a2, const __CFS
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetPerfFeatureOff", 9422, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v30 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v30, "AVE_Prop_AVC_SetPerfFeatureOff");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetPerfFeatureOff", 9422, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v27, "AVE_Prop_AVC_SetPerfFeatureOff");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetPerfFeatureOff");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetPerfFeatureOff");
       }
     }
 
@@ -4856,8 +3589,6 @@ uint64_t AVE_Prop_AVC_GetPerfFeatureOff(_DWORD *a1, const char **a2, CFAllocator
           printf("%lld %d AVE %s: %p %lld GetProp %s: 0x%x %p\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr, v11);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v16 = *(a1 + 7);
-          v26 = *a2;
         }
 
         syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: 0x%x %p", CurrTime, 30);
@@ -4869,18 +3600,21 @@ uint64_t AVE_Prop_AVC_GetPerfFeatureOff(_DWORD *a1, const char **a2, CFAllocator
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%x\n", v22, 30, v23, "AVE_Prop_AVC_GetPerfFeatureOff", 9487, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-          v24 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%x\n", v21, 30, v22, "AVE_Prop_AVC_GetPerfFeatureOff", 9487, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%x", v23, 30, v25, "AVE_Prop_AVC_GetPerfFeatureOff", 9487, "pNum != __null", a1);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%x", v22, 30, v23, "AVE_Prop_AVC_GetPerfFeatureOff", 9487, "pNum != __null", a1);
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%x", v21, 30, v22, "AVE_Prop_AVC_GetPerfFeatureOff", 9487, "pNum != __null", a1);
+        }
       }
 
       return 4294966293;
@@ -4891,20 +3625,20 @@ uint64_t AVE_Prop_AVC_GetPerfFeatureOff(_DWORD *a1, const char **a2, CFAllocator
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetPerfFeatureOff", 9477, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v25, "AVE_Prop_AVC_GetPerfFeatureOff", 9477);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetPerfFeatureOff", 9477, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetPerfFeatureOff", 9477);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetPerfFeatureOff", 9477);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetPerfFeatureOff", 9477);
       }
     }
 
@@ -4928,18 +3662,21 @@ uint64_t AVE_Prop_AVC_SetSVENum(void *a1, const char **a2, const __CFString *a3,
       {
         if (AVE_Log_CheckLevel(0x1Eu, 4))
         {
-          v26 = AVE_Log_CheckConsole(0x1Eu);
+          v23 = AVE_Log_CheckConsole(0x1Eu);
           CurrTime = AVE_GetCurrTime();
           LevelStr = AVE_Log_GetLevelStr(4);
-          if (v26)
+          if (v23)
           {
             printf("%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d (%d, %d]\n", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetSVENum", 9538, "iNum > 0 && iNum <= 4", a1, a1[7], a2, a3, a4, valuePtr, 0, 4);
-            CurrTime = AVE_GetCurrTime();
-            LevelStr = AVE_Log_GetLevelStr(4);
-            v29 = a1[7];
+            v26 = AVE_GetCurrTime();
+            v28 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d (%d, %d]", v26, 30, v28, "AVE_Prop_AVC_SetSVENum", 9538, "iNum > 0 && iNum <= 4", a1);
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d (%d, %d]", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetSVENum", 9538, "iNum > 0 && iNum <= 4", a1);
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d (%d, %d]", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetSVENum", 9538, "iNum > 0 && iNum <= 4", a1);
+          }
         }
 
         return 4294965292;
@@ -4955,16 +3692,13 @@ uint64_t AVE_Prop_AVC_SetSVENum(void *a1, const char **a2, const __CFString *a3,
           v11 = AVE_Log_CheckConsole(0x1Eu);
           v12 = AVE_GetCurrTime();
           v13 = AVE_Log_GetLevelStr(7);
-          v14 = *a2;
           if (v11)
           {
             printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", v12, 30, v13, a1, a1[7], *a2, valuePtr);
             v12 = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(7);
-            v15 = a1[7];
           }
 
-          v31 = *a2;
           syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", v12);
           return 0;
         }
@@ -4975,21 +3709,20 @@ uint64_t AVE_Prop_AVC_SetSVENum(void *a1, const char **a2, const __CFString *a3,
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = a1[7];
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = a1[7];
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetSVENum", 9529, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = a1[7];
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetSVENum", 9529, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetSVENum", 9529, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetSVENum", 9529, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -5000,20 +3733,20 @@ uint64_t AVE_Prop_AVC_SetSVENum(void *a1, const char **a2, const __CFString *a3,
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetSVENum", 9519, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v30 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v30, "AVE_Prop_AVC_SetSVENum");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetSVENum", 9519, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v27, "AVE_Prop_AVC_SetSVENum");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetSVENum");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetSVENum");
       }
     }
 
@@ -5044,8 +3777,6 @@ uint64_t AVE_Prop_AVC_GetSVENum(_DWORD *a1, const char **a2, CFAllocatorRef allo
           printf("%lld %d AVE %s: %p %lld GetProp %s: %d %p\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr, v11);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v16 = *(a1 + 7);
-          v26 = *a2;
         }
 
         syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d %p", CurrTime, 30);
@@ -5057,18 +3788,21 @@ uint64_t AVE_Prop_AVC_GetSVENum(_DWORD *a1, const char **a2, CFAllocatorRef allo
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v22, 30, v23, "AVE_Prop_AVC_GetSVENum", 9584, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-          v24 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v21, 30, v22, "AVE_Prop_AVC_GetSVENum", 9584, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v23, 30, v25, "AVE_Prop_AVC_GetSVENum", 9584, "pNum != __null", a1);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v22, 30, v23, "AVE_Prop_AVC_GetSVENum", 9584, "pNum != __null", a1);
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v21, 30, v22, "AVE_Prop_AVC_GetSVENum", 9584, "pNum != __null", a1);
+        }
       }
 
       return 4294966293;
@@ -5079,20 +3813,20 @@ uint64_t AVE_Prop_AVC_GetSVENum(_DWORD *a1, const char **a2, CFAllocatorRef allo
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetSVENum", 9574, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v25, "AVE_Prop_AVC_GetSVENum", 9574);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetSVENum", 9574, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetSVENum", 9574);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetSVENum", 9574);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetSVENum", 9574);
       }
     }
 
@@ -5102,33 +3836,36 @@ uint64_t AVE_Prop_AVC_GetSVENum(_DWORD *a1, const char **a2, CFAllocatorRef allo
   return result;
 }
 
-uint64_t AVE_Prop_AVC_SetSVEMap(void *a1, const char **a2, const __CFString *a3, const __CFString *a4)
+uint64_t AVE_Prop_AVC_SetSVEMap(char *a1, const char **a2, const __CFString *a3, const __CFString *a4)
 {
   if (a1 && a2 && a3 && a4)
   {
     TypeID = CFStringGetTypeID();
     if (TypeID == CFGetTypeID(a4))
     {
-      Str = AVE_CFStr_GetStr(a4, a1 + 17140, 128);
-      AVE_SNPrintf(a1 + 17140, 128, "%s", v10, v11, v12, v13, v14, Str);
-      v15 = AVE_DLB_ParseCfg(a1 + 17140, a1 + 2866);
-      if (v15)
+      Str = AVE_CFStr_GetStr(a4, a1 + 17140, 0x80u);
+      AVE_SNPrintf(a1 + 17140, 128, "%s", Str);
+      v10 = AVE_DLB_ParseCfg(a1 + 17140, a1 + 2866);
+      if (v10)
       {
-        v16 = v15;
+        v11 = v10;
         if (AVE_Log_CheckLevel(0x1Eu, 4))
         {
-          v17 = AVE_Log_CheckConsole(0x1Eu);
+          v12 = AVE_Log_CheckConsole(0x1Eu);
           CurrTime = AVE_GetCurrTime();
           LevelStr = AVE_Log_GetLevelStr(4);
-          if (v17)
+          if (v12)
           {
-            printf("%lld %d AVE %s: %s:%d %s | fail to parse DLB configuration %p %lld %p %p %p %d\n", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetSVEMap", 9636, "ret == 0", a1, *(a1 + 7), a2, a3, a4, v16);
-            CurrTime = AVE_GetCurrTime();
-            LevelStr = AVE_Log_GetLevelStr(4);
-            v20 = *(a1 + 7);
+            printf("%lld %d AVE %s: %s:%d %s | fail to parse DLB configuration %p %lld %p %p %p %d\n", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetSVEMap", 9636, "ret == 0", a1, *(a1 + 7), a2, a3, a4, v11);
+            v15 = AVE_GetCurrTime();
+            v29 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to parse DLB configuration %p %lld %p %p %p %d", v15, 30, v29, "AVE_Prop_AVC_SetSVEMap", 9636, "ret == 0");
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to parse DLB configuration %p %lld %p %p %p %d", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetSVEMap", 9636, "ret == 0");
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to parse DLB configuration %p %lld %p %p %p %d", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetSVEMap", 9636, "ret == 0");
+          }
         }
       }
 
@@ -5136,20 +3873,17 @@ uint64_t AVE_Prop_AVC_SetSVEMap(void *a1, const char **a2, const __CFString *a3,
       {
         if (AVE_Log_CheckLevel(0x1Eu, 7))
         {
-          v31 = AVE_Log_CheckConsole(0x1Eu);
-          v32 = AVE_GetCurrTime();
-          v33 = AVE_Log_GetLevelStr(7);
-          v34 = *a2;
-          if (v31)
+          v25 = AVE_Log_CheckConsole(0x1Eu);
+          v26 = AVE_GetCurrTime();
+          v27 = AVE_Log_GetLevelStr(7);
+          if (v25)
           {
-            printf("%lld %d AVE %s: %p %lld SetProp %s: %s\n", v32, 30, v33, a1, *(a1 + 7), *a2, a1 + 17140);
-            v32 = AVE_GetCurrTime();
+            printf("%lld %d AVE %s: %p %lld SetProp %s: %s\n", v26, 30, v27, a1, *(a1 + 7), *a2, a1 + 17140);
+            v26 = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(7);
-            v35 = *(a1 + 7);
           }
 
-          v38 = *a2;
-          syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %s", v32);
+          syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %s", v26);
         }
 
         return 0;
@@ -5160,21 +3894,20 @@ uint64_t AVE_Prop_AVC_SetSVEMap(void *a1, const char **a2, const __CFString *a3,
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v25 = AVE_Log_CheckConsole(0x1Eu);
-        v26 = AVE_GetCurrTime();
-        v27 = AVE_Log_GetLevelStr(4);
-        v28 = *(a1 + 7);
-        v29 = CFGetTypeID(a4);
-        if (v25)
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        v23 = *(a1 + 7);
+        v24 = CFGetTypeID(a4);
+        if (v20)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v26, 30, v27, "AVE_Prop_AVC_SetSVEMap", 9626, "CFStringGetTypeID() == CFGetTypeID(pValue)", a1, v28, a2, a3, a4, v29);
-          v26 = AVE_GetCurrTime();
-          v27 = AVE_Log_GetLevelStr(4);
-          v30 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetSVEMap", 9626, "CFStringGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
+          v21 = AVE_GetCurrTime();
+          v22 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v26, 30, v27, "AVE_Prop_AVC_SetSVEMap", 9626, "CFStringGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetSVEMap", 9626, "CFStringGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -5185,27 +3918,27 @@ uint64_t AVE_Prop_AVC_SetSVEMap(void *a1, const char **a2, const __CFString *a3,
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v21 = AVE_Log_CheckConsole(0x1Eu);
-      v22 = AVE_GetCurrTime();
-      v23 = AVE_Log_GetLevelStr(4);
-      if (v21)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v22, 30, v23, "AVE_Prop_AVC_SetSVEMap", 9616, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v24 = AVE_GetCurrTime();
-        v37 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v24, 30, v37, "AVE_Prop_AVC_SetSVEMap");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetSVEMap", 9616, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v19 = AVE_GetCurrTime();
+        v30 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v30, "AVE_Prop_AVC_SetSVEMap");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v22, 30, v23, "AVE_Prop_AVC_SetSVEMap");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetSVEMap");
       }
     }
 
     return 4294966295;
   }
 
-  return v16;
+  return v11;
 }
 
 uint64_t AVE_Prop_AVC_GetSVEMap(const char *a1, const char **a2, CFAllocatorRef alloc, const __CFString *a4, CFStringRef *a5)
@@ -5222,16 +3955,13 @@ uint64_t AVE_Prop_AVC_GetSVEMap(const char *a1, const char **a2, CFAllocatorRef 
         v12 = AVE_Log_CheckConsole(0x1Eu);
         CurrTime = AVE_GetCurrTime();
         LevelStr = AVE_Log_GetLevelStr(7);
-        v15 = *a2;
         if (v12)
         {
           printf("%lld %d AVE %s: %p %lld GetProp %s: %s\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, a1 + 17140);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v16 = *(a1 + 7);
         }
 
-        v27 = *a2;
         syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %s", CurrTime);
         return 0;
       }
@@ -5241,20 +3971,20 @@ uint64_t AVE_Prop_AVC_GetSVEMap(const char *a1, const char **a2, CFAllocatorRef 
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
+        v19 = AVE_Log_CheckConsole(0x1Eu);
+        v20 = AVE_GetCurrTime();
+        v21 = AVE_Log_GetLevelStr(4);
+        if (v19)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFString %p %p %p %p %s\n", v22, 30, v23, "AVE_Prop_AVC_GetSVEMap", 9677, "pStr != __null", a1, alloc, a4, a5, a1 + 17140);
-          v24 = AVE_GetCurrTime();
-          v26 = AVE_Log_GetLevelStr(4);
-          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFString %p %p %p %p %s", v24, 30, v26, "AVE_Prop_AVC_GetSVEMap", 9677);
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFString %p %p %p %p %s\n", v20, 30, v21, "AVE_Prop_AVC_GetSVEMap", 9677, "pStr != __null", a1, alloc, a4, a5, a1 + 17140);
+          v22 = AVE_GetCurrTime();
+          v24 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFString %p %p %p %p %s", v22, 30, v24, "AVE_Prop_AVC_GetSVEMap", 9677);
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFString %p %p %p %p %s", v22, 30, v23, "AVE_Prop_AVC_GetSVEMap", 9677);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFString %p %p %p %p %s", v20, 30, v21, "AVE_Prop_AVC_GetSVEMap", 9677);
         }
       }
 
@@ -5266,20 +3996,20 @@ uint64_t AVE_Prop_AVC_GetSVEMap(const char *a1, const char **a2, CFAllocatorRef 
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
+      v15 = AVE_Log_CheckConsole(0x1Eu);
+      v16 = AVE_GetCurrTime();
+      v17 = AVE_Log_GetLevelStr(4);
+      if (v15)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetSVEMap", 9668, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v20, 30, v25, "AVE_Prop_AVC_GetSVEMap");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v16, 30, v17, "AVE_Prop_AVC_GetSVEMap", 9668, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a4, a5);
+        v18 = AVE_GetCurrTime();
+        v23 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v18, 30, v23, "AVE_Prop_AVC_GetSVEMap");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetSVEMap");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v16, 30, v17, "AVE_Prop_AVC_GetSVEMap");
       }
     }
 
@@ -5303,18 +4033,21 @@ uint64_t AVE_Prop_AVC_SetSVESchedMode(void *a1, const char **a2, const __CFStrin
       {
         if (AVE_Log_CheckLevel(0x1Eu, 4))
         {
-          v26 = AVE_Log_CheckConsole(0x1Eu);
+          v23 = AVE_Log_CheckConsole(0x1Eu);
           CurrTime = AVE_GetCurrTime();
           LevelStr = AVE_Log_GetLevelStr(4);
-          if (v26)
+          if (v23)
           {
             printf("%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d [%d, %d)\n", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetSVESchedMode", 9729, "iMode >= 0 && iMode < 2", a1, a1[7], a2, a3, a4, valuePtr, 0, 2);
-            CurrTime = AVE_GetCurrTime();
-            LevelStr = AVE_Log_GetLevelStr(4);
-            v29 = a1[7];
+            v26 = AVE_GetCurrTime();
+            v28 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d [%d, %d)", v26, 30, v28, "AVE_Prop_AVC_SetSVESchedMode", 9729, "iMode >= 0 && iMode < 2", a1);
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d [%d, %d)", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetSVESchedMode", 9729, "iMode >= 0 && iMode < 2", a1);
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d [%d, %d)", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetSVESchedMode", 9729, "iMode >= 0 && iMode < 2", a1);
+          }
         }
 
         return 4294965292;
@@ -5330,16 +4063,13 @@ uint64_t AVE_Prop_AVC_SetSVESchedMode(void *a1, const char **a2, const __CFStrin
           v11 = AVE_Log_CheckConsole(0x1Eu);
           v12 = AVE_GetCurrTime();
           v13 = AVE_Log_GetLevelStr(7);
-          v14 = *a2;
           if (v11)
           {
             printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", v12, 30, v13, a1, a1[7], *a2, valuePtr);
             v12 = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(7);
-            v15 = a1[7];
           }
 
-          v31 = *a2;
           syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", v12);
           return 0;
         }
@@ -5350,21 +4080,20 @@ uint64_t AVE_Prop_AVC_SetSVESchedMode(void *a1, const char **a2, const __CFStrin
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = a1[7];
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = a1[7];
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetSVESchedMode", 9719, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = a1[7];
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetSVESchedMode", 9719, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetSVESchedMode", 9719, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetSVESchedMode", 9719, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -5375,20 +4104,20 @@ uint64_t AVE_Prop_AVC_SetSVESchedMode(void *a1, const char **a2, const __CFStrin
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetSVESchedMode", 9709, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v30 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v30, "AVE_Prop_AVC_SetSVESchedMode");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetSVESchedMode", 9709, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v27, "AVE_Prop_AVC_SetSVESchedMode");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetSVESchedMode");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetSVESchedMode");
       }
     }
 
@@ -5419,8 +4148,6 @@ uint64_t AVE_Prop_AVC_GetSVESchedMode(_DWORD *a1, const char **a2, CFAllocatorRe
           printf("%lld %d AVE %s: %p %lld GetProp %s: %d %p\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr, v11);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v16 = *(a1 + 7);
-          v26 = *a2;
         }
 
         syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d %p", CurrTime, 30);
@@ -5432,18 +4159,21 @@ uint64_t AVE_Prop_AVC_GetSVESchedMode(_DWORD *a1, const char **a2, CFAllocatorRe
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v22, 30, v23, "AVE_Prop_AVC_GetSVESchedMode", 9775, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-          v24 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v21, 30, v22, "AVE_Prop_AVC_GetSVESchedMode", 9775, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v23, 30, v25, "AVE_Prop_AVC_GetSVESchedMode", 9775, "pNum != __null", a1);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v22, 30, v23, "AVE_Prop_AVC_GetSVESchedMode", 9775, "pNum != __null", a1);
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v21, 30, v22, "AVE_Prop_AVC_GetSVESchedMode", 9775, "pNum != __null", a1);
+        }
       }
 
       return 4294966293;
@@ -5454,20 +4184,20 @@ uint64_t AVE_Prop_AVC_GetSVESchedMode(_DWORD *a1, const char **a2, CFAllocatorRe
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetSVESchedMode", 9765, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v25, "AVE_Prop_AVC_GetSVESchedMode", 9765);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetSVESchedMode", 9765, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetSVESchedMode", 9765);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetSVESchedMode", 9765);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetSVESchedMode", 9765);
       }
     }
 
@@ -5491,18 +4221,21 @@ uint64_t AVE_Prop_AVC_SetDLBType(void *a1, const char **a2, const __CFString *a3
       {
         if (AVE_Log_CheckLevel(0x1Eu, 4))
         {
-          v26 = AVE_Log_CheckConsole(0x1Eu);
+          v23 = AVE_Log_CheckConsole(0x1Eu);
           CurrTime = AVE_GetCurrTime();
           LevelStr = AVE_Log_GetLevelStr(4);
-          if (v26)
+          if (v23)
           {
             printf("%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d [%d, %d]\n", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetDLBType", 9826, "iType >= 0 && iType <= 1", a1, a1[7], a2, a3, a4, valuePtr, 0, 1);
-            CurrTime = AVE_GetCurrTime();
-            LevelStr = AVE_Log_GetLevelStr(4);
-            v29 = a1[7];
+            v26 = AVE_GetCurrTime();
+            v28 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d [%d, %d]", v26, 30, v28, "AVE_Prop_AVC_SetDLBType", 9826, "iType >= 0 && iType <= 1", a1);
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d [%d, %d]", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetDLBType", 9826, "iType >= 0 && iType <= 1", a1);
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d [%d, %d]", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetDLBType", 9826, "iType >= 0 && iType <= 1", a1);
+          }
         }
 
         return 4294965292;
@@ -5518,16 +4251,13 @@ uint64_t AVE_Prop_AVC_SetDLBType(void *a1, const char **a2, const __CFString *a3
           v11 = AVE_Log_CheckConsole(0x1Eu);
           v12 = AVE_GetCurrTime();
           v13 = AVE_Log_GetLevelStr(7);
-          v14 = *a2;
           if (v11)
           {
             printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", v12, 30, v13, a1, a1[7], *a2, valuePtr);
             v12 = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(7);
-            v15 = a1[7];
           }
 
-          v31 = *a2;
           syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", v12);
           return 0;
         }
@@ -5538,21 +4268,20 @@ uint64_t AVE_Prop_AVC_SetDLBType(void *a1, const char **a2, const __CFString *a3
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = a1[7];
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = a1[7];
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetDLBType", 9817, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = a1[7];
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetDLBType", 9817, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetDLBType", 9817, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetDLBType", 9817, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -5563,20 +4292,20 @@ uint64_t AVE_Prop_AVC_SetDLBType(void *a1, const char **a2, const __CFString *a3
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetDLBType", 9807, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v30 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v30, "AVE_Prop_AVC_SetDLBType");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetDLBType", 9807, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v27, "AVE_Prop_AVC_SetDLBType");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetDLBType");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetDLBType");
       }
     }
 
@@ -5607,8 +4336,6 @@ uint64_t AVE_Prop_AVC_GetDLBType(_DWORD *a1, const char **a2, CFAllocatorRef all
           printf("%lld %d AVE %s: %p %lld GetProp %s: %d %p\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr, v11);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v16 = *(a1 + 7);
-          v26 = *a2;
         }
 
         syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d %p", CurrTime, 30);
@@ -5620,18 +4347,21 @@ uint64_t AVE_Prop_AVC_GetDLBType(_DWORD *a1, const char **a2, CFAllocatorRef all
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v22, 30, v23, "AVE_Prop_AVC_GetDLBType", 9872, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-          v24 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v21, 30, v22, "AVE_Prop_AVC_GetDLBType", 9872, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v23, 30, v25, "AVE_Prop_AVC_GetDLBType", 9872, "pNum != __null", a1);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v22, 30, v23, "AVE_Prop_AVC_GetDLBType", 9872, "pNum != __null", a1);
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v21, 30, v22, "AVE_Prop_AVC_GetDLBType", 9872, "pNum != __null", a1);
+        }
       }
 
       return 4294966293;
@@ -5642,20 +4372,20 @@ uint64_t AVE_Prop_AVC_GetDLBType(_DWORD *a1, const char **a2, CFAllocatorRef all
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetDLBType", 9862, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v25, "AVE_Prop_AVC_GetDLBType", 9862);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetDLBType", 9862, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetDLBType", 9862);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetDLBType", 9862);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetDLBType", 9862);
       }
     }
 
@@ -5683,16 +4413,13 @@ uint64_t AVE_Prop_AVC_SetDebugFeature(void *a1, const char **a2, const __CFStrin
         v11 = AVE_Log_CheckConsole(0x1Eu);
         CurrTime = AVE_GetCurrTime();
         LevelStr = AVE_Log_GetLevelStr(7);
-        v14 = *a2;
         if (v11)
         {
           printf("%lld %d AVE %s: %p %lld SetProp %s: 0x%llx\n", CurrTime, 30, LevelStr, a1, a1[7], *a2, valuePtr);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v15 = a1[7];
         }
 
-        v27 = *a2;
         syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: 0x%llx", CurrTime);
         return 0;
       }
@@ -5702,21 +4429,20 @@ uint64_t AVE_Prop_AVC_SetDebugFeature(void *a1, const char **a2, const __CFStrin
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = a1[7];
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = a1[7];
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetDebugFeature", 9914, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = a1[7];
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetDebugFeature", 9914, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetDebugFeature", 9914, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetDebugFeature", 9914, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -5727,20 +4453,20 @@ uint64_t AVE_Prop_AVC_SetDebugFeature(void *a1, const char **a2, const __CFStrin
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetDebugFeature", 9904, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v26 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v26, "AVE_Prop_AVC_SetDebugFeature");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetDebugFeature", 9904, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v23 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v23, "AVE_Prop_AVC_SetDebugFeature");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetDebugFeature");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetDebugFeature");
       }
     }
 
@@ -5771,8 +4497,6 @@ uint64_t AVE_Prop_AVC_GetDebugFeature(void *a1, const char **a2, CFAllocatorRef 
           printf("%lld %d AVE %s: %p %lld GetProp %s: 0x%llx %p\n", CurrTime, 30, LevelStr, a1, a1[7], *a2, valuePtr, v11);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v16 = a1[7];
-          v26 = *a2;
         }
 
         syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: 0x%llx %p", CurrTime, 30);
@@ -5784,18 +4508,21 @@ uint64_t AVE_Prop_AVC_GetDebugFeature(void *a1, const char **a2, CFAllocatorRef 
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx\n", v22, 30, v23, "AVE_Prop_AVC_GetDebugFeature", 9963, "pNum != __null", a1, a1[7], a2, allocator, a4, a5, valuePtr);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-          v24 = a1[7];
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx\n", v21, 30, v22, "AVE_Prop_AVC_GetDebugFeature", 9963, "pNum != __null", a1, a1[7], a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx", v23, 30, v25, "AVE_Prop_AVC_GetDebugFeature", 9963, "pNum != __null", a1);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx", v22, 30, v23, "AVE_Prop_AVC_GetDebugFeature", 9963, "pNum != __null", a1);
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx", v21, 30, v22, "AVE_Prop_AVC_GetDebugFeature", 9963, "pNum != __null", a1);
+        }
       }
 
       return 4294966293;
@@ -5806,20 +4533,20 @@ uint64_t AVE_Prop_AVC_GetDebugFeature(void *a1, const char **a2, CFAllocatorRef 
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetDebugFeature", 9953, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v25, "AVE_Prop_AVC_GetDebugFeature", 9953);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetDebugFeature", 9953, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetDebugFeature", 9953);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetDebugFeature", 9953);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetDebugFeature", 9953);
       }
     }
 
@@ -5836,25 +4563,22 @@ uint64_t AVE_Prop_AVC_SetSessionName(char *a1, const char **a2, const __CFString
     TypeID = CFStringGetTypeID();
     if (TypeID == CFGetTypeID(a4))
     {
-      Str = AVE_CFStr_GetStr(a4, a1 + 17288, 512);
-      AVE_SNPrintf(a1 + 17288, 512, "%s", v10, v11, v12, v13, v14, Str);
+      Str = AVE_CFStr_GetStr(a4, a1 + 17288, 0x200u);
+      AVE_SNPrintf(a1 + 17288, 512, "%s", Str);
       AVE_StrNCpy(a1 + 160, a1 + 17288, 512);
       result = AVE_Log_CheckLevel(0x1Eu, 7);
       if (result)
       {
-        v16 = AVE_Log_CheckConsole(0x1Eu);
+        v11 = AVE_Log_CheckConsole(0x1Eu);
         CurrTime = AVE_GetCurrTime();
         LevelStr = AVE_Log_GetLevelStr(7);
-        v19 = *a2;
-        if (v16)
+        if (v11)
         {
           printf("%lld %d AVE %s: %p %lld SetProp %s: %s\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, a1 + 17288);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v20 = *(a1 + 7);
         }
 
-        v32 = *a2;
         syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %s", CurrTime);
         return 0;
       }
@@ -5864,21 +4588,20 @@ uint64_t AVE_Prop_AVC_SetSessionName(char *a1, const char **a2, const __CFString
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v25 = AVE_Log_CheckConsole(0x1Eu);
-        v26 = AVE_GetCurrTime();
-        v27 = AVE_Log_GetLevelStr(4);
-        v28 = *(a1 + 7);
-        v29 = CFGetTypeID(a4);
-        if (v25)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = *(a1 + 7);
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v26, 30, v27, "AVE_Prop_AVC_SetSessionName", 10005, "CFStringGetTypeID() == CFGetTypeID(pValue)", a1, v28, a2, a3, a4, v29);
-          v26 = AVE_GetCurrTime();
-          v27 = AVE_Log_GetLevelStr(4);
-          v30 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetSessionName", 10005, "CFStringGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v26, 30, v27, "AVE_Prop_AVC_SetSessionName", 10005, "CFStringGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetSessionName", 10005, "CFStringGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -5889,20 +4612,20 @@ uint64_t AVE_Prop_AVC_SetSessionName(char *a1, const char **a2, const __CFString
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v21 = AVE_Log_CheckConsole(0x1Eu);
-      v22 = AVE_GetCurrTime();
-      v23 = AVE_Log_GetLevelStr(4);
-      if (v21)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v22, 30, v23, "AVE_Prop_AVC_SetSessionName", 9995, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v24 = AVE_GetCurrTime();
-        v31 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v24, 30, v31, "AVE_Prop_AVC_SetSessionName");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetSessionName", 9995, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v23 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v23, "AVE_Prop_AVC_SetSessionName");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v22, 30, v23, "AVE_Prop_AVC_SetSessionName");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetSessionName");
       }
     }
 
@@ -5926,16 +4649,13 @@ uint64_t AVE_Prop_AVC_GetSessionName(const char *a1, const char **a2, CFAllocato
         v12 = AVE_Log_CheckConsole(0x1Eu);
         CurrTime = AVE_GetCurrTime();
         LevelStr = AVE_Log_GetLevelStr(7);
-        v15 = *a2;
         if (v12)
         {
           printf("%lld %d AVE %s: %p %lld GetProp %s: %s\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, a1 + 17288);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v16 = *(a1 + 7);
         }
 
-        v27 = *a2;
         syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %s", CurrTime);
         return 0;
       }
@@ -5945,20 +4665,20 @@ uint64_t AVE_Prop_AVC_GetSessionName(const char *a1, const char **a2, CFAllocato
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
+        v19 = AVE_Log_CheckConsole(0x1Eu);
+        v20 = AVE_GetCurrTime();
+        v21 = AVE_Log_GetLevelStr(4);
+        if (v19)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFString %p %p %p %p %s\n", v22, 30, v23, "AVE_Prop_AVC_GetSessionName", 10054, "pStr != __null", a1, alloc, a4, a5, a1 + 17288);
-          v24 = AVE_GetCurrTime();
-          v26 = AVE_Log_GetLevelStr(4);
-          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFString %p %p %p %p %s", v24, 30, v26, "AVE_Prop_AVC_GetSessionName", 10054);
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFString %p %p %p %p %s\n", v20, 30, v21, "AVE_Prop_AVC_GetSessionName", 10054, "pStr != __null", a1, alloc, a4, a5, a1 + 17288);
+          v22 = AVE_GetCurrTime();
+          v24 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFString %p %p %p %p %s", v22, 30, v24, "AVE_Prop_AVC_GetSessionName", 10054);
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFString %p %p %p %p %s", v22, 30, v23, "AVE_Prop_AVC_GetSessionName", 10054);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFString %p %p %p %p %s", v20, 30, v21, "AVE_Prop_AVC_GetSessionName", 10054);
         }
       }
 
@@ -5970,20 +4690,20 @@ uint64_t AVE_Prop_AVC_GetSessionName(const char *a1, const char **a2, CFAllocato
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
+      v15 = AVE_Log_CheckConsole(0x1Eu);
+      v16 = AVE_GetCurrTime();
+      v17 = AVE_Log_GetLevelStr(4);
+      if (v15)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetSessionName", 10045, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v20, 30, v25, "AVE_Prop_AVC_GetSessionName");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v16, 30, v17, "AVE_Prop_AVC_GetSessionName", 10045, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a4, a5);
+        v18 = AVE_GetCurrTime();
+        v23 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v18, 30, v23, "AVE_Prop_AVC_GetSessionName");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetSessionName");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v16, 30, v17, "AVE_Prop_AVC_GetSessionName");
       }
     }
 
@@ -6013,16 +4733,13 @@ uint64_t AVE_Prop_AVC_SetAlgFeatureOn(void *a1, const char **a2, const __CFStrin
           v11 = AVE_Log_CheckConsole(0x1Eu);
           CurrTime = AVE_GetCurrTime();
           LevelStr = AVE_Log_GetLevelStr(7);
-          v14 = *a2;
           if (v11)
           {
             printf("%lld %d AVE %s: %p %lld SetProp %s: 0x%llx\n", CurrTime, 30, LevelStr, a1, a1[7], *a2, valuePtr);
             CurrTime = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(7);
-            v15 = a1[7];
           }
 
-          v31 = *a2;
           syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: 0x%llx", CurrTime);
           return 0;
         }
@@ -6032,18 +4749,21 @@ uint64_t AVE_Prop_AVC_SetAlgFeatureOn(void *a1, const char **a2, const __CFStrin
       {
         if (AVE_Log_CheckLevel(0x1Eu, 4))
         {
-          v26 = AVE_Log_CheckConsole(0x1Eu);
-          v27 = AVE_GetCurrTime();
-          v28 = AVE_Log_GetLevelStr(4);
-          if (v26)
+          v23 = AVE_Log_CheckConsole(0x1Eu);
+          v24 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          if (v23)
           {
-            printf("%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx\n", v27, 30, v28, "AVE_Prop_AVC_SetAlgFeatureOn", 10105, "iFeature != 0", a1, a1[7], a2, a3, a4, valuePtr);
-            v27 = AVE_GetCurrTime();
+            printf("%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx\n", v24, 30, v25, "AVE_Prop_AVC_SetAlgFeatureOn", 10105, "iFeature != 0", a1, a1[7], a2, a3, a4, valuePtr);
+            v26 = AVE_GetCurrTime();
             v28 = AVE_Log_GetLevelStr(4);
-            v29 = a1[7];
+            syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx", v26, 30, v28, "AVE_Prop_AVC_SetAlgFeatureOn", 10105, "iFeature != 0");
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx", v27, 30, v28, "AVE_Prop_AVC_SetAlgFeatureOn", 10105, "iFeature != 0");
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx", v24, 30, v25, "AVE_Prop_AVC_SetAlgFeatureOn", 10105, "iFeature != 0");
+          }
         }
 
         return 4294965292;
@@ -6054,21 +4774,20 @@ uint64_t AVE_Prop_AVC_SetAlgFeatureOn(void *a1, const char **a2, const __CFStrin
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = a1[7];
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = a1[7];
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetAlgFeatureOn", 10096, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = a1[7];
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetAlgFeatureOn", 10096, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetAlgFeatureOn", 10096, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetAlgFeatureOn", 10096, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -6079,20 +4798,20 @@ uint64_t AVE_Prop_AVC_SetAlgFeatureOn(void *a1, const char **a2, const __CFStrin
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetAlgFeatureOn", 10086, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v30 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v30, "AVE_Prop_AVC_SetAlgFeatureOn");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetAlgFeatureOn", 10086, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v27, "AVE_Prop_AVC_SetAlgFeatureOn");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetAlgFeatureOn");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetAlgFeatureOn");
       }
     }
 
@@ -6123,8 +4842,6 @@ uint64_t AVE_Prop_AVC_GetAlgFeatureOn(void *a1, const char **a2, CFAllocatorRef 
           printf("%lld %d AVE %s: %p %lld GetProp %s: 0x%llx %p\n", CurrTime, 30, LevelStr, a1, a1[7], *a2, valuePtr, v11);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v16 = a1[7];
-          v26 = *a2;
         }
 
         syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: 0x%llx %p", CurrTime, 30);
@@ -6136,18 +4853,21 @@ uint64_t AVE_Prop_AVC_GetAlgFeatureOn(void *a1, const char **a2, CFAllocatorRef 
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx\n", v22, 30, v23, "AVE_Prop_AVC_GetAlgFeatureOn", 10151, "pNum != __null", a1, a1[7], a2, allocator, a4, a5, valuePtr);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-          v24 = a1[7];
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx\n", v21, 30, v22, "AVE_Prop_AVC_GetAlgFeatureOn", 10151, "pNum != __null", a1, a1[7], a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx", v23, 30, v25, "AVE_Prop_AVC_GetAlgFeatureOn", 10151, "pNum != __null", a1);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx", v22, 30, v23, "AVE_Prop_AVC_GetAlgFeatureOn", 10151, "pNum != __null", a1);
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx", v21, 30, v22, "AVE_Prop_AVC_GetAlgFeatureOn", 10151, "pNum != __null", a1);
+        }
       }
 
       return 4294966293;
@@ -6158,20 +4878,20 @@ uint64_t AVE_Prop_AVC_GetAlgFeatureOn(void *a1, const char **a2, CFAllocatorRef 
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetAlgFeatureOn", 10141, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v25, "AVE_Prop_AVC_GetAlgFeatureOn", 10141);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetAlgFeatureOn", 10141, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetAlgFeatureOn", 10141);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetAlgFeatureOn", 10141);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetAlgFeatureOn", 10141);
       }
     }
 
@@ -6201,16 +4921,13 @@ uint64_t AVE_Prop_AVC_SetAlgFeatureOff(void *a1, const char **a2, const __CFStri
           v11 = AVE_Log_CheckConsole(0x1Eu);
           CurrTime = AVE_GetCurrTime();
           LevelStr = AVE_Log_GetLevelStr(7);
-          v14 = *a2;
           if (v11)
           {
             printf("%lld %d AVE %s: %p %lld SetProp %s: 0x%llx\n", CurrTime, 30, LevelStr, a1, a1[7], *a2, valuePtr);
             CurrTime = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(7);
-            v15 = a1[7];
           }
 
-          v31 = *a2;
           syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: 0x%llx", CurrTime);
           return 0;
         }
@@ -6220,18 +4937,21 @@ uint64_t AVE_Prop_AVC_SetAlgFeatureOff(void *a1, const char **a2, const __CFStri
       {
         if (AVE_Log_CheckLevel(0x1Eu, 4))
         {
-          v26 = AVE_Log_CheckConsole(0x1Eu);
-          v27 = AVE_GetCurrTime();
-          v28 = AVE_Log_GetLevelStr(4);
-          if (v26)
+          v23 = AVE_Log_CheckConsole(0x1Eu);
+          v24 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          if (v23)
           {
-            printf("%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx\n", v27, 30, v28, "AVE_Prop_AVC_SetAlgFeatureOff", 10202, "iFeature != 0", a1, a1[7], a2, a3, a4, valuePtr);
-            v27 = AVE_GetCurrTime();
+            printf("%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx\n", v24, 30, v25, "AVE_Prop_AVC_SetAlgFeatureOff", 10202, "iFeature != 0", a1, a1[7], a2, a3, a4, valuePtr);
+            v26 = AVE_GetCurrTime();
             v28 = AVE_Log_GetLevelStr(4);
-            v29 = a1[7];
+            syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx", v26, 30, v28, "AVE_Prop_AVC_SetAlgFeatureOff", 10202, "iFeature != 0");
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx", v27, 30, v28, "AVE_Prop_AVC_SetAlgFeatureOff", 10202, "iFeature != 0");
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx", v24, 30, v25, "AVE_Prop_AVC_SetAlgFeatureOff", 10202, "iFeature != 0");
+          }
         }
 
         return 4294965292;
@@ -6242,21 +4962,20 @@ uint64_t AVE_Prop_AVC_SetAlgFeatureOff(void *a1, const char **a2, const __CFStri
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = a1[7];
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = a1[7];
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetAlgFeatureOff", 10193, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = a1[7];
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetAlgFeatureOff", 10193, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetAlgFeatureOff", 10193, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetAlgFeatureOff", 10193, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -6267,20 +4986,20 @@ uint64_t AVE_Prop_AVC_SetAlgFeatureOff(void *a1, const char **a2, const __CFStri
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetAlgFeatureOff", 10183, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v30 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v30, "AVE_Prop_AVC_SetAlgFeatureOff");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetAlgFeatureOff", 10183, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v27, "AVE_Prop_AVC_SetAlgFeatureOff");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetAlgFeatureOff");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetAlgFeatureOff");
       }
     }
 
@@ -6311,8 +5030,6 @@ uint64_t AVE_Prop_AVC_GetAlgFeatureOff(void *a1, const char **a2, CFAllocatorRef
           printf("%lld %d AVE %s: %p %lld GetProp %s: 0x%llx %p\n", CurrTime, 30, LevelStr, a1, a1[7], *a2, valuePtr, v11);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v16 = a1[7];
-          v26 = *a2;
         }
 
         syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: 0x%llx %p", CurrTime, 30);
@@ -6324,18 +5041,21 @@ uint64_t AVE_Prop_AVC_GetAlgFeatureOff(void *a1, const char **a2, CFAllocatorRef
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx\n", v22, 30, v23, "AVE_Prop_AVC_GetAlgFeatureOff", 10248, "pNum != __null", a1, a1[7], a2, allocator, a4, a5, valuePtr);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-          v24 = a1[7];
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx\n", v21, 30, v22, "AVE_Prop_AVC_GetAlgFeatureOff", 10248, "pNum != __null", a1, a1[7], a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx", v23, 30, v25, "AVE_Prop_AVC_GetAlgFeatureOff", 10248, "pNum != __null", a1);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx", v22, 30, v23, "AVE_Prop_AVC_GetAlgFeatureOff", 10248, "pNum != __null", a1);
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx", v21, 30, v22, "AVE_Prop_AVC_GetAlgFeatureOff", 10248, "pNum != __null", a1);
+        }
       }
 
       return 4294966293;
@@ -6346,20 +5066,20 @@ uint64_t AVE_Prop_AVC_GetAlgFeatureOff(void *a1, const char **a2, CFAllocatorRef
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetAlgFeatureOff", 10238, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v25, "AVE_Prop_AVC_GetAlgFeatureOff", 10238);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetAlgFeatureOff", 10238, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetAlgFeatureOff", 10238);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetAlgFeatureOff", 10238);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetAlgFeatureOff", 10238);
       }
     }
 
@@ -6383,18 +5103,21 @@ uint64_t AVE_Prop_AVC_SetInitialQPI(void *a1, const char **a2, const __CFString 
       {
         if (AVE_Log_CheckLevel(0x1Eu, 4))
         {
-          v26 = AVE_Log_CheckConsole(0x1Eu);
+          v23 = AVE_Log_CheckConsole(0x1Eu);
           CurrTime = AVE_GetCurrTime();
           LevelStr = AVE_Log_GetLevelStr(4);
-          if (v26)
+          if (v23)
           {
             printf("%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d [%d, %d]\n", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetInitialQPI", 10300, "iInitialQP >= ((((-6) * ((8) - 8))) < (((-6) * ((10) - 8))) ? (((-6) * ((8) - 8))) : (((-6) * ((10) - 8)))) && iInitialQP <= (((51)) > ((51)) ? ((51)) : ((51)))", a1, a1[7], a2, a3, a4, valuePtr, -12, 51);
-            CurrTime = AVE_GetCurrTime();
-            LevelStr = AVE_Log_GetLevelStr(4);
-            v29 = a1[7];
+            v26 = AVE_GetCurrTime();
+            v28 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d [%d, %d]", v26, 30, v28, "AVE_Prop_AVC_SetInitialQPI", 10300, "iInitialQP >= ((((-6) * ((8) - 8))) < (((-6) * ((10) - 8))) ? (((-6) * ((8) - 8))) : (((-6) * ((10) - 8)))) && iInitialQP <= (((51)) > ((51)) ? ((51)) : ((51)))", a1);
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d [%d, %d]", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetInitialQPI", 10300, "iInitialQP >= ((((-6) * ((8) - 8))) < (((-6) * ((10) - 8))) ? (((-6) * ((8) - 8))) : (((-6) * ((10) - 8)))) && iInitialQP <= (((51)) > ((51)) ? ((51)) : ((51)))", a1);
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d [%d, %d]", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetInitialQPI", 10300, "iInitialQP >= ((((-6) * ((8) - 8))) < (((-6) * ((10) - 8))) ? (((-6) * ((8) - 8))) : (((-6) * ((10) - 8)))) && iInitialQP <= (((51)) > ((51)) ? ((51)) : ((51)))", a1);
+          }
         }
 
         return 4294965292;
@@ -6411,16 +5134,13 @@ uint64_t AVE_Prop_AVC_SetInitialQPI(void *a1, const char **a2, const __CFString 
           v11 = AVE_Log_CheckConsole(0x1Eu);
           v12 = AVE_GetCurrTime();
           v13 = AVE_Log_GetLevelStr(7);
-          v14 = *a2;
           if (v11)
           {
             printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", v12, 30, v13, a1, a1[7], *a2, valuePtr);
             v12 = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(7);
-            v15 = a1[7];
           }
 
-          v31 = *a2;
           syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", v12);
           return 0;
         }
@@ -6431,21 +5151,20 @@ uint64_t AVE_Prop_AVC_SetInitialQPI(void *a1, const char **a2, const __CFString 
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = a1[7];
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = a1[7];
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetInitialQPI", 10290, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = a1[7];
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetInitialQPI", 10290, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetInitialQPI", 10290, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetInitialQPI", 10290, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -6456,20 +5175,20 @@ uint64_t AVE_Prop_AVC_SetInitialQPI(void *a1, const char **a2, const __CFString 
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetInitialQPI", 10280, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v30 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v30, "AVE_Prop_AVC_SetInitialQPI");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetInitialQPI", 10280, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v27, "AVE_Prop_AVC_SetInitialQPI");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetInitialQPI");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetInitialQPI");
       }
     }
 
@@ -6500,8 +5219,6 @@ uint64_t AVE_Prop_AVC_GetInitialQPI(_DWORD *a1, const char **a2, CFAllocatorRef 
           printf("%lld %d AVE %s: %p %lld GetProp %s: %d %p\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr, v11);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v16 = *(a1 + 7);
-          v26 = *a2;
         }
 
         syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d %p", CurrTime, 30);
@@ -6513,18 +5230,21 @@ uint64_t AVE_Prop_AVC_GetInitialQPI(_DWORD *a1, const char **a2, CFAllocatorRef 
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v22, 30, v23, "AVE_Prop_AVC_GetInitialQPI", 10347, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-          v24 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v21, 30, v22, "AVE_Prop_AVC_GetInitialQPI", 10347, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v23, 30, v25, "AVE_Prop_AVC_GetInitialQPI", 10347, "pNum != __null", a1);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v22, 30, v23, "AVE_Prop_AVC_GetInitialQPI", 10347, "pNum != __null", a1);
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v21, 30, v22, "AVE_Prop_AVC_GetInitialQPI", 10347, "pNum != __null", a1);
+        }
       }
 
       return 4294966293;
@@ -6535,20 +5255,20 @@ uint64_t AVE_Prop_AVC_GetInitialQPI(_DWORD *a1, const char **a2, CFAllocatorRef 
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetInitialQPI", 10337, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v25, "AVE_Prop_AVC_GetInitialQPI", 10337);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetInitialQPI", 10337, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetInitialQPI", 10337);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetInitialQPI", 10337);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetInitialQPI", 10337);
       }
     }
 
@@ -6572,18 +5292,21 @@ uint64_t AVE_Prop_AVC_SetInitialQPP(void *a1, const char **a2, const __CFString 
       {
         if (AVE_Log_CheckLevel(0x1Eu, 4))
         {
-          v26 = AVE_Log_CheckConsole(0x1Eu);
+          v23 = AVE_Log_CheckConsole(0x1Eu);
           CurrTime = AVE_GetCurrTime();
           LevelStr = AVE_Log_GetLevelStr(4);
-          if (v26)
+          if (v23)
           {
             printf("%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d [%d, %d]\n", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetInitialQPP", 10399, "iInitialQP >= ((((-6) * ((8) - 8))) < (((-6) * ((10) - 8))) ? (((-6) * ((8) - 8))) : (((-6) * ((10) - 8)))) && iInitialQP <= (((51)) > ((51)) ? ((51)) : ((51)))", a1, a1[7], a2, a3, a4, valuePtr, -12, 51);
-            CurrTime = AVE_GetCurrTime();
-            LevelStr = AVE_Log_GetLevelStr(4);
-            v29 = a1[7];
+            v26 = AVE_GetCurrTime();
+            v28 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d [%d, %d]", v26, 30, v28, "AVE_Prop_AVC_SetInitialQPP", 10399, "iInitialQP >= ((((-6) * ((8) - 8))) < (((-6) * ((10) - 8))) ? (((-6) * ((8) - 8))) : (((-6) * ((10) - 8)))) && iInitialQP <= (((51)) > ((51)) ? ((51)) : ((51)))", a1);
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d [%d, %d]", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetInitialQPP", 10399, "iInitialQP >= ((((-6) * ((8) - 8))) < (((-6) * ((10) - 8))) ? (((-6) * ((8) - 8))) : (((-6) * ((10) - 8)))) && iInitialQP <= (((51)) > ((51)) ? ((51)) : ((51)))", a1);
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d [%d, %d]", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetInitialQPP", 10399, "iInitialQP >= ((((-6) * ((8) - 8))) < (((-6) * ((10) - 8))) ? (((-6) * ((8) - 8))) : (((-6) * ((10) - 8)))) && iInitialQP <= (((51)) > ((51)) ? ((51)) : ((51)))", a1);
+          }
         }
 
         return 4294965292;
@@ -6600,16 +5323,13 @@ uint64_t AVE_Prop_AVC_SetInitialQPP(void *a1, const char **a2, const __CFString 
           v11 = AVE_Log_CheckConsole(0x1Eu);
           v12 = AVE_GetCurrTime();
           v13 = AVE_Log_GetLevelStr(7);
-          v14 = *a2;
           if (v11)
           {
             printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", v12, 30, v13, a1, a1[7], *a2, valuePtr);
             v12 = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(7);
-            v15 = a1[7];
           }
 
-          v31 = *a2;
           syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", v12);
           return 0;
         }
@@ -6620,21 +5340,20 @@ uint64_t AVE_Prop_AVC_SetInitialQPP(void *a1, const char **a2, const __CFString 
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = a1[7];
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = a1[7];
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetInitialQPP", 10389, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = a1[7];
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetInitialQPP", 10389, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetInitialQPP", 10389, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetInitialQPP", 10389, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -6645,20 +5364,20 @@ uint64_t AVE_Prop_AVC_SetInitialQPP(void *a1, const char **a2, const __CFString 
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetInitialQPP", 10379, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v30 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v30, "AVE_Prop_AVC_SetInitialQPP");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetInitialQPP", 10379, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v27, "AVE_Prop_AVC_SetInitialQPP");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetInitialQPP");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetInitialQPP");
       }
     }
 
@@ -6689,8 +5408,6 @@ uint64_t AVE_Prop_AVC_GetInitialQPP(_DWORD *a1, const char **a2, CFAllocatorRef 
           printf("%lld %d AVE %s: %p %lld GetProp %s: %d %p\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr, v11);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v16 = *(a1 + 7);
-          v26 = *a2;
         }
 
         syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d %p", CurrTime, 30);
@@ -6702,18 +5419,21 @@ uint64_t AVE_Prop_AVC_GetInitialQPP(_DWORD *a1, const char **a2, CFAllocatorRef 
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v22, 30, v23, "AVE_Prop_AVC_GetInitialQPP", 10446, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-          v24 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v21, 30, v22, "AVE_Prop_AVC_GetInitialQPP", 10446, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v23, 30, v25, "AVE_Prop_AVC_GetInitialQPP", 10446, "pNum != __null", a1);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v22, 30, v23, "AVE_Prop_AVC_GetInitialQPP", 10446, "pNum != __null", a1);
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v21, 30, v22, "AVE_Prop_AVC_GetInitialQPP", 10446, "pNum != __null", a1);
+        }
       }
 
       return 4294966293;
@@ -6724,20 +5444,20 @@ uint64_t AVE_Prop_AVC_GetInitialQPP(_DWORD *a1, const char **a2, CFAllocatorRef 
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetInitialQPP", 10436, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v25, "AVE_Prop_AVC_GetInitialQPP", 10436);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetInitialQPP", 10436, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetInitialQPP", 10436);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetInitialQPP", 10436);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetInitialQPP", 10436);
       }
     }
 
@@ -6761,18 +5481,21 @@ uint64_t AVE_Prop_AVC_SetInitialQPB(void *a1, const char **a2, const __CFString 
       {
         if (AVE_Log_CheckLevel(0x1Eu, 4))
         {
-          v26 = AVE_Log_CheckConsole(0x1Eu);
+          v23 = AVE_Log_CheckConsole(0x1Eu);
           CurrTime = AVE_GetCurrTime();
           LevelStr = AVE_Log_GetLevelStr(4);
-          if (v26)
+          if (v23)
           {
             printf("%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d [%d, %d]\n", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetInitialQPB", 10498, "iInitialQP >= ((((-6) * ((8) - 8))) < (((-6) * ((10) - 8))) ? (((-6) * ((8) - 8))) : (((-6) * ((10) - 8)))) && iInitialQP <= (((51)) > ((51)) ? ((51)) : ((51)))", a1, a1[7], a2, a3, a4, valuePtr, -12, 51);
-            CurrTime = AVE_GetCurrTime();
-            LevelStr = AVE_Log_GetLevelStr(4);
-            v29 = a1[7];
+            v26 = AVE_GetCurrTime();
+            v28 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d [%d, %d]", v26, 30, v28, "AVE_Prop_AVC_SetInitialQPB", 10498, "iInitialQP >= ((((-6) * ((8) - 8))) < (((-6) * ((10) - 8))) ? (((-6) * ((8) - 8))) : (((-6) * ((10) - 8)))) && iInitialQP <= (((51)) > ((51)) ? ((51)) : ((51)))", a1);
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d [%d, %d]", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetInitialQPB", 10498, "iInitialQP >= ((((-6) * ((8) - 8))) < (((-6) * ((10) - 8))) ? (((-6) * ((8) - 8))) : (((-6) * ((10) - 8)))) && iInitialQP <= (((51)) > ((51)) ? ((51)) : ((51)))", a1);
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d [%d, %d]", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetInitialQPB", 10498, "iInitialQP >= ((((-6) * ((8) - 8))) < (((-6) * ((10) - 8))) ? (((-6) * ((8) - 8))) : (((-6) * ((10) - 8)))) && iInitialQP <= (((51)) > ((51)) ? ((51)) : ((51)))", a1);
+          }
         }
 
         return 4294965292;
@@ -6789,16 +5512,13 @@ uint64_t AVE_Prop_AVC_SetInitialQPB(void *a1, const char **a2, const __CFString 
           v11 = AVE_Log_CheckConsole(0x1Eu);
           v12 = AVE_GetCurrTime();
           v13 = AVE_Log_GetLevelStr(7);
-          v14 = *a2;
           if (v11)
           {
             printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", v12, 30, v13, a1, a1[7], *a2, valuePtr);
             v12 = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(7);
-            v15 = a1[7];
           }
 
-          v31 = *a2;
           syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", v12);
           return 0;
         }
@@ -6809,21 +5529,20 @@ uint64_t AVE_Prop_AVC_SetInitialQPB(void *a1, const char **a2, const __CFString 
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = a1[7];
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = a1[7];
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetInitialQPB", 10488, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = a1[7];
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetInitialQPB", 10488, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetInitialQPB", 10488, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetInitialQPB", 10488, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -6834,20 +5553,20 @@ uint64_t AVE_Prop_AVC_SetInitialQPB(void *a1, const char **a2, const __CFString 
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetInitialQPB", 10478, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v30 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v30, "AVE_Prop_AVC_SetInitialQPB");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetInitialQPB", 10478, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v27, "AVE_Prop_AVC_SetInitialQPB");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetInitialQPB");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetInitialQPB");
       }
     }
 
@@ -6878,8 +5597,6 @@ uint64_t AVE_Prop_AVC_GetInitialQPB(_DWORD *a1, const char **a2, CFAllocatorRef 
           printf("%lld %d AVE %s: %p %lld GetProp %s: %d %p\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr, v11);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v16 = *(a1 + 7);
-          v26 = *a2;
         }
 
         syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d %p", CurrTime, 30);
@@ -6891,18 +5608,21 @@ uint64_t AVE_Prop_AVC_GetInitialQPB(_DWORD *a1, const char **a2, CFAllocatorRef 
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v22, 30, v23, "AVE_Prop_AVC_GetInitialQPB", 10545, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-          v24 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v21, 30, v22, "AVE_Prop_AVC_GetInitialQPB", 10545, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v23, 30, v25, "AVE_Prop_AVC_GetInitialQPB", 10545, "pNum != __null", a1);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v22, 30, v23, "AVE_Prop_AVC_GetInitialQPB", 10545, "pNum != __null", a1);
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v21, 30, v22, "AVE_Prop_AVC_GetInitialQPB", 10545, "pNum != __null", a1);
+        }
       }
 
       return 4294966293;
@@ -6913,20 +5633,20 @@ uint64_t AVE_Prop_AVC_GetInitialQPB(_DWORD *a1, const char **a2, CFAllocatorRef 
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetInitialQPB", 10535, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v25, "AVE_Prop_AVC_GetInitialQPB", 10535);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetInitialQPB", 10535, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetInitialQPB", 10535);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetInitialQPB", 10535);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetInitialQPB", 10535);
       }
     }
 
@@ -6956,16 +5676,13 @@ uint64_t AVE_Prop_AVC_SetRCFeatureOn(void *a1, const char **a2, const __CFString
           v11 = AVE_Log_CheckConsole(0x1Eu);
           CurrTime = AVE_GetCurrTime();
           LevelStr = AVE_Log_GetLevelStr(7);
-          v14 = *a2;
           if (v11)
           {
             printf("%lld %d AVE %s: %p %lld SetProp %s: 0x%llx\n", CurrTime, 30, LevelStr, a1, a1[7], *a2, valuePtr);
             CurrTime = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(7);
-            v15 = a1[7];
           }
 
-          v31 = *a2;
           syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: 0x%llx", CurrTime);
           return 0;
         }
@@ -6975,18 +5692,21 @@ uint64_t AVE_Prop_AVC_SetRCFeatureOn(void *a1, const char **a2, const __CFString
       {
         if (AVE_Log_CheckLevel(0x1Eu, 4))
         {
-          v26 = AVE_Log_CheckConsole(0x1Eu);
-          v27 = AVE_GetCurrTime();
-          v28 = AVE_Log_GetLevelStr(4);
-          if (v26)
+          v23 = AVE_Log_CheckConsole(0x1Eu);
+          v24 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          if (v23)
           {
-            printf("%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx\n", v27, 30, v28, "AVE_Prop_AVC_SetRCFeatureOn", 10596, "iFeature != 0", a1, a1[7], a2, a3, a4, valuePtr);
-            v27 = AVE_GetCurrTime();
+            printf("%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx\n", v24, 30, v25, "AVE_Prop_AVC_SetRCFeatureOn", 10596, "iFeature != 0", a1, a1[7], a2, a3, a4, valuePtr);
+            v26 = AVE_GetCurrTime();
             v28 = AVE_Log_GetLevelStr(4);
-            v29 = a1[7];
+            syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx", v26, 30, v28, "AVE_Prop_AVC_SetRCFeatureOn", 10596, "iFeature != 0");
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx", v27, 30, v28, "AVE_Prop_AVC_SetRCFeatureOn", 10596, "iFeature != 0");
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx", v24, 30, v25, "AVE_Prop_AVC_SetRCFeatureOn", 10596, "iFeature != 0");
+          }
         }
 
         return 4294965292;
@@ -6997,21 +5717,20 @@ uint64_t AVE_Prop_AVC_SetRCFeatureOn(void *a1, const char **a2, const __CFString
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = a1[7];
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = a1[7];
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetRCFeatureOn", 10587, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = a1[7];
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetRCFeatureOn", 10587, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetRCFeatureOn", 10587, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetRCFeatureOn", 10587, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -7022,20 +5741,20 @@ uint64_t AVE_Prop_AVC_SetRCFeatureOn(void *a1, const char **a2, const __CFString
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetRCFeatureOn", 10577, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v30 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v30, "AVE_Prop_AVC_SetRCFeatureOn");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetRCFeatureOn", 10577, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v27, "AVE_Prop_AVC_SetRCFeatureOn");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetRCFeatureOn");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetRCFeatureOn");
       }
     }
 
@@ -7066,8 +5785,6 @@ uint64_t AVE_Prop_AVC_GetRCFeatureOn(void *a1, const char **a2, CFAllocatorRef a
           printf("%lld %d AVE %s: %p %lld GetProp %s: 0x%llx %p\n", CurrTime, 30, LevelStr, a1, a1[7], *a2, valuePtr, v11);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v16 = a1[7];
-          v26 = *a2;
         }
 
         syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: 0x%llx %p", CurrTime, 30);
@@ -7079,18 +5796,21 @@ uint64_t AVE_Prop_AVC_GetRCFeatureOn(void *a1, const char **a2, CFAllocatorRef a
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx\n", v22, 30, v23, "AVE_Prop_AVC_GetRCFeatureOn", 10642, "pNum != __null", a1, a1[7], a2, allocator, a4, a5, valuePtr);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-          v24 = a1[7];
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx\n", v21, 30, v22, "AVE_Prop_AVC_GetRCFeatureOn", 10642, "pNum != __null", a1, a1[7], a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx", v23, 30, v25, "AVE_Prop_AVC_GetRCFeatureOn", 10642, "pNum != __null", a1);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx", v22, 30, v23, "AVE_Prop_AVC_GetRCFeatureOn", 10642, "pNum != __null", a1);
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx", v21, 30, v22, "AVE_Prop_AVC_GetRCFeatureOn", 10642, "pNum != __null", a1);
+        }
       }
 
       return 4294966293;
@@ -7101,20 +5821,20 @@ uint64_t AVE_Prop_AVC_GetRCFeatureOn(void *a1, const char **a2, CFAllocatorRef a
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetRCFeatureOn", 10632, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v25, "AVE_Prop_AVC_GetRCFeatureOn", 10632);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetRCFeatureOn", 10632, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetRCFeatureOn", 10632);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetRCFeatureOn", 10632);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetRCFeatureOn", 10632);
       }
     }
 
@@ -7144,16 +5864,13 @@ uint64_t AVE_Prop_AVC_SetRCFeatureOff(void *a1, const char **a2, const __CFStrin
           v11 = AVE_Log_CheckConsole(0x1Eu);
           CurrTime = AVE_GetCurrTime();
           LevelStr = AVE_Log_GetLevelStr(7);
-          v14 = *a2;
           if (v11)
           {
             printf("%lld %d AVE %s: %p %lld SetProp %s: 0x%llx\n", CurrTime, 30, LevelStr, a1, a1[7], *a2, valuePtr);
             CurrTime = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(7);
-            v15 = a1[7];
           }
 
-          v31 = *a2;
           syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: 0x%llx", CurrTime);
           return 0;
         }
@@ -7163,18 +5880,21 @@ uint64_t AVE_Prop_AVC_SetRCFeatureOff(void *a1, const char **a2, const __CFStrin
       {
         if (AVE_Log_CheckLevel(0x1Eu, 4))
         {
-          v26 = AVE_Log_CheckConsole(0x1Eu);
-          v27 = AVE_GetCurrTime();
-          v28 = AVE_Log_GetLevelStr(4);
-          if (v26)
+          v23 = AVE_Log_CheckConsole(0x1Eu);
+          v24 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          if (v23)
           {
-            printf("%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx\n", v27, 30, v28, "AVE_Prop_AVC_SetRCFeatureOff", 10693, "iFeature != 0", a1, a1[7], a2, a3, a4, valuePtr);
-            v27 = AVE_GetCurrTime();
+            printf("%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx\n", v24, 30, v25, "AVE_Prop_AVC_SetRCFeatureOff", 10693, "iFeature != 0", a1, a1[7], a2, a3, a4, valuePtr);
+            v26 = AVE_GetCurrTime();
             v28 = AVE_Log_GetLevelStr(4);
-            v29 = a1[7];
+            syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx", v26, 30, v28, "AVE_Prop_AVC_SetRCFeatureOff", 10693, "iFeature != 0");
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx", v27, 30, v28, "AVE_Prop_AVC_SetRCFeatureOff", 10693, "iFeature != 0");
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%llx", v24, 30, v25, "AVE_Prop_AVC_SetRCFeatureOff", 10693, "iFeature != 0");
+          }
         }
 
         return 4294965292;
@@ -7185,21 +5905,20 @@ uint64_t AVE_Prop_AVC_SetRCFeatureOff(void *a1, const char **a2, const __CFStrin
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = a1[7];
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = a1[7];
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetRCFeatureOff", 10684, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = a1[7];
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetRCFeatureOff", 10684, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetRCFeatureOff", 10684, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetRCFeatureOff", 10684, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -7210,20 +5929,20 @@ uint64_t AVE_Prop_AVC_SetRCFeatureOff(void *a1, const char **a2, const __CFStrin
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetRCFeatureOff", 10674, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v30 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v30, "AVE_Prop_AVC_SetRCFeatureOff");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetRCFeatureOff", 10674, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v27, "AVE_Prop_AVC_SetRCFeatureOff");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetRCFeatureOff");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetRCFeatureOff");
       }
     }
 
@@ -7254,8 +5973,6 @@ uint64_t AVE_Prop_AVC_GetRCFeatureOff(void *a1, const char **a2, CFAllocatorRef 
           printf("%lld %d AVE %s: %p %lld GetProp %s: 0x%llx %p\n", CurrTime, 30, LevelStr, a1, a1[7], *a2, valuePtr, v11);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v16 = a1[7];
-          v26 = *a2;
         }
 
         syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: 0x%llx %p", CurrTime, 30);
@@ -7267,18 +5984,21 @@ uint64_t AVE_Prop_AVC_GetRCFeatureOff(void *a1, const char **a2, CFAllocatorRef 
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx\n", v22, 30, v23, "AVE_Prop_AVC_GetRCFeatureOff", 10739, "pNum != __null", a1, a1[7], a2, allocator, a4, a5, valuePtr);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-          v24 = a1[7];
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx\n", v21, 30, v22, "AVE_Prop_AVC_GetRCFeatureOff", 10739, "pNum != __null", a1, a1[7], a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx", v23, 30, v25, "AVE_Prop_AVC_GetRCFeatureOff", 10739, "pNum != __null", a1);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx", v22, 30, v23, "AVE_Prop_AVC_GetRCFeatureOff", 10739, "pNum != __null", a1);
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%llx", v21, 30, v22, "AVE_Prop_AVC_GetRCFeatureOff", 10739, "pNum != __null", a1);
+        }
       }
 
       return 4294966293;
@@ -7289,20 +6009,20 @@ uint64_t AVE_Prop_AVC_GetRCFeatureOff(void *a1, const char **a2, CFAllocatorRef 
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetRCFeatureOff", 10729, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v25, "AVE_Prop_AVC_GetRCFeatureOff", 10729);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetRCFeatureOff", 10729, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetRCFeatureOff", 10729);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetRCFeatureOff", 10729);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetRCFeatureOff", 10729);
       }
     }
 
@@ -7328,16 +6048,13 @@ uint64_t AVE_Prop_AVC_SetLowDelay(_DWORD *a1, const char **a2, const __CFString 
         v11 = AVE_Log_CheckConsole(0x1Eu);
         CurrTime = AVE_GetCurrTime();
         LevelStr = AVE_Log_GetLevelStr(7);
-        v14 = *a2;
         if (v11)
         {
           printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, v9);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v15 = *(a1 + 7);
         }
 
-        v27 = *a2;
         syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", CurrTime);
         return 0;
       }
@@ -7347,21 +6064,20 @@ uint64_t AVE_Prop_AVC_SetLowDelay(_DWORD *a1, const char **a2, const __CFString 
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = *(a1 + 7);
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = *(a1 + 7);
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetLowDelay", 10781, "CFBooleanGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetLowDelay", 10781, "CFBooleanGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetLowDelay", 10781, "CFBooleanGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetLowDelay", 10781, "CFBooleanGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -7372,20 +6088,20 @@ uint64_t AVE_Prop_AVC_SetLowDelay(_DWORD *a1, const char **a2, const __CFString 
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetLowDelay", 10771, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v26 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v26, "AVE_Prop_AVC_SetLowDelay");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetLowDelay", 10771, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v23 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v23, "AVE_Prop_AVC_SetLowDelay");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetLowDelay");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetLowDelay");
       }
     }
 
@@ -7414,16 +6130,13 @@ uint64_t AVE_Prop_AVC_GetLowDelay(_DWORD *a1, const char **a2, const __CFAllocat
       v14 = AVE_Log_CheckConsole(0x1Eu);
       CurrTime = AVE_GetCurrTime();
       LevelStr = AVE_Log_GetLevelStr(7);
-      v17 = *a2;
       if (v14)
       {
         printf("%lld %d AVE %s: %p %lld GetProp %s: %d\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, v13);
         CurrTime = AVE_GetCurrTime();
         AVE_Log_GetLevelStr(7);
-        v18 = *(a1 + 7);
       }
 
-      v24 = *a2;
       syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d", CurrTime);
       return 0;
     }
@@ -7433,20 +6146,20 @@ uint64_t AVE_Prop_AVC_GetLowDelay(_DWORD *a1, const char **a2, const __CFAllocat
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v19 = AVE_Log_CheckConsole(0x1Eu);
-      v20 = AVE_GetCurrTime();
-      v21 = AVE_Log_GetLevelStr(4);
-      if (v19)
+      v17 = AVE_Log_CheckConsole(0x1Eu);
+      v18 = AVE_GetCurrTime();
+      v19 = AVE_Log_GetLevelStr(4);
+      if (v17)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v20, 30, v21, "AVE_Prop_AVC_GetLowDelay", 10818, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4, a5);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v22, 30, v23, "AVE_Prop_AVC_GetLowDelay", 10818);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetLowDelay", 10818, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4, a5);
+        v20 = AVE_GetCurrTime();
+        v21 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v21, "AVE_Prop_AVC_GetLowDelay", 10818);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v21, "AVE_Prop_AVC_GetLowDelay", 10818);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetLowDelay", 10818);
       }
     }
 
@@ -7470,18 +6183,21 @@ uint64_t AVE_Prop_AVC_SetRCMode(void *a1, const char **a2, const __CFString *a3,
       {
         if (AVE_Log_CheckLevel(0x1Eu, 4))
         {
-          v26 = AVE_Log_CheckConsole(0x1Eu);
+          v23 = AVE_Log_CheckConsole(0x1Eu);
           CurrTime = AVE_GetCurrTime();
           LevelStr = AVE_Log_GetLevelStr(4);
-          if (v26)
+          if (v23)
           {
             printf("%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d (%d, %d]\n", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetRCMode", 10874, "iRCMode > AVE_RCMode_None && iRCMode <= AVE_RCMode_HwVal", a1, a1[7], a2, a3, a4, valuePtr, 0, 100);
-            CurrTime = AVE_GetCurrTime();
-            LevelStr = AVE_Log_GetLevelStr(4);
-            v29 = a1[7];
+            v26 = AVE_GetCurrTime();
+            v28 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d (%d, %d]", v26, 30, v28, "AVE_Prop_AVC_SetRCMode", 10874, "iRCMode > AVE_RCMode_None && iRCMode <= AVE_RCMode_HwVal", a1);
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d (%d, %d]", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetRCMode", 10874, "iRCMode > AVE_RCMode_None && iRCMode <= AVE_RCMode_HwVal", a1);
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d (%d, %d]", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetRCMode", 10874, "iRCMode > AVE_RCMode_None && iRCMode <= AVE_RCMode_HwVal", a1);
+          }
         }
 
         return 4294965292;
@@ -7498,16 +6214,13 @@ uint64_t AVE_Prop_AVC_SetRCMode(void *a1, const char **a2, const __CFString *a3,
           v11 = AVE_Log_CheckConsole(0x1Eu);
           v12 = AVE_GetCurrTime();
           v13 = AVE_Log_GetLevelStr(7);
-          v14 = *a2;
           if (v11)
           {
             printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", v12, 30, v13, a1, a1[7], *a2, valuePtr);
             v12 = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(7);
-            v15 = a1[7];
           }
 
-          v31 = *a2;
           syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", v12);
           return 0;
         }
@@ -7518,21 +6231,20 @@ uint64_t AVE_Prop_AVC_SetRCMode(void *a1, const char **a2, const __CFString *a3,
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = a1[7];
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = a1[7];
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetRCMode", 10865, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = a1[7];
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetRCMode", 10865, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetRCMode", 10865, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetRCMode", 10865, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -7543,20 +6255,20 @@ uint64_t AVE_Prop_AVC_SetRCMode(void *a1, const char **a2, const __CFString *a3,
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetRCMode", 10855, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v30 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v30, "AVE_Prop_AVC_SetRCMode");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetRCMode", 10855, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v27, "AVE_Prop_AVC_SetRCMode");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetRCMode");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetRCMode");
       }
     }
 
@@ -7587,8 +6299,6 @@ uint64_t AVE_Prop_AVC_GetRCMode(_DWORD *a1, const char **a2, CFAllocatorRef allo
           printf("%lld %d AVE %s: %p %lld GetProp %s: %d %p\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr, v11);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v16 = *(a1 + 7);
-          v26 = *a2;
         }
 
         syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d %p", CurrTime, 30);
@@ -7600,18 +6310,21 @@ uint64_t AVE_Prop_AVC_GetRCMode(_DWORD *a1, const char **a2, CFAllocatorRef allo
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v22, 30, v23, "AVE_Prop_AVC_GetRCMode", 10921, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-          v24 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v21, 30, v22, "AVE_Prop_AVC_GetRCMode", 10921, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v23, 30, v25, "AVE_Prop_AVC_GetRCMode", 10921, "pNum != __null", a1);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v22, 30, v23, "AVE_Prop_AVC_GetRCMode", 10921, "pNum != __null", a1);
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v21, 30, v22, "AVE_Prop_AVC_GetRCMode", 10921, "pNum != __null", a1);
+        }
       }
 
       return 4294966293;
@@ -7622,20 +6335,20 @@ uint64_t AVE_Prop_AVC_GetRCMode(_DWORD *a1, const char **a2, CFAllocatorRef allo
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetRCMode", 10911, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v25, "AVE_Prop_AVC_GetRCMode", 10911);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetRCMode", 10911, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetRCMode", 10911);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetRCMode", 10911);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetRCMode", 10911);
       }
     }
 
@@ -7659,18 +6372,21 @@ uint64_t AVE_Prop_AVC_SetBitRate(void *a1, const char **a2, const __CFString *a3
       {
         if (AVE_Log_CheckLevel(0x1Eu, 4))
         {
-          v26 = AVE_Log_CheckConsole(0x1Eu);
+          v23 = AVE_Log_CheckConsole(0x1Eu);
           CurrTime = AVE_GetCurrTime();
           LevelStr = AVE_Log_GetLevelStr(4);
-          if (v26)
+          if (v23)
           {
             printf("%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d\n", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetBitRate", 10972, "iBitRate > 0", a1, a1[7], a2, a3, a4, valuePtr);
-            CurrTime = AVE_GetCurrTime();
-            LevelStr = AVE_Log_GetLevelStr(4);
-            v29 = a1[7];
+            v26 = AVE_GetCurrTime();
+            v28 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d", v26, 30, v28, "AVE_Prop_AVC_SetBitRate", 10972, "iBitRate > 0");
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetBitRate", 10972, "iBitRate > 0");
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetBitRate", 10972, "iBitRate > 0");
+          }
         }
 
         return 4294965292;
@@ -7687,16 +6403,13 @@ uint64_t AVE_Prop_AVC_SetBitRate(void *a1, const char **a2, const __CFString *a3
           v11 = AVE_Log_CheckConsole(0x1Eu);
           v12 = AVE_GetCurrTime();
           v13 = AVE_Log_GetLevelStr(7);
-          v14 = *a2;
           if (v11)
           {
             printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", v12, 30, v13, a1, a1[7], *a2, valuePtr);
             v12 = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(7);
-            v15 = a1[7];
           }
 
-          v31 = *a2;
           syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", v12);
           return 0;
         }
@@ -7707,21 +6420,20 @@ uint64_t AVE_Prop_AVC_SetBitRate(void *a1, const char **a2, const __CFString *a3
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = a1[7];
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = a1[7];
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetBitRate", 10963, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = a1[7];
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetBitRate", 10963, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetBitRate", 10963, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetBitRate", 10963, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -7732,20 +6444,20 @@ uint64_t AVE_Prop_AVC_SetBitRate(void *a1, const char **a2, const __CFString *a3
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetBitRate", 10953, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v30 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v30, "AVE_Prop_AVC_SetBitRate");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetBitRate", 10953, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v27, "AVE_Prop_AVC_SetBitRate");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetBitRate");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetBitRate");
       }
     }
 
@@ -7776,8 +6488,6 @@ uint64_t AVE_Prop_AVC_GetBitRate(_DWORD *a1, const char **a2, CFAllocatorRef all
           printf("%lld %d AVE %s: %p %lld GetProp %s: %d %p\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr, v11);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v16 = *(a1 + 7);
-          v26 = *a2;
         }
 
         syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d %p", CurrTime, 30);
@@ -7789,18 +6499,21 @@ uint64_t AVE_Prop_AVC_GetBitRate(_DWORD *a1, const char **a2, CFAllocatorRef all
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v22, 30, v23, "AVE_Prop_AVC_GetBitRate", 11019, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-          v24 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v21, 30, v22, "AVE_Prop_AVC_GetBitRate", 11019, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v23, 30, v25, "AVE_Prop_AVC_GetBitRate", 11019, "pNum != __null", a1);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v22, 30, v23, "AVE_Prop_AVC_GetBitRate", 11019, "pNum != __null", a1);
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v21, 30, v22, "AVE_Prop_AVC_GetBitRate", 11019, "pNum != __null", a1);
+        }
       }
 
       return 4294966293;
@@ -7811,20 +6524,20 @@ uint64_t AVE_Prop_AVC_GetBitRate(_DWORD *a1, const char **a2, CFAllocatorRef all
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetBitRate", 11009, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v25, "AVE_Prop_AVC_GetBitRate", 11009);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetBitRate", 11009, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetBitRate", 11009);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetBitRate", 11009);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetBitRate", 11009);
       }
     }
 
@@ -7850,16 +6563,13 @@ uint64_t AVE_Prop_AVC_SetSkipCountingPSHeaders(_DWORD *a1, const char **a2, cons
         v11 = AVE_Log_CheckConsole(0x1Eu);
         CurrTime = AVE_GetCurrTime();
         LevelStr = AVE_Log_GetLevelStr(7);
-        v14 = *a2;
         if (v11)
         {
           printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, v9);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v15 = *(a1 + 7);
         }
 
-        v27 = *a2;
         syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", CurrTime);
         return 0;
       }
@@ -7869,21 +6579,20 @@ uint64_t AVE_Prop_AVC_SetSkipCountingPSHeaders(_DWORD *a1, const char **a2, cons
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = *(a1 + 7);
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = *(a1 + 7);
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetSkipCountingPSHeaders", 11062, "CFBooleanGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetSkipCountingPSHeaders", 11062, "CFBooleanGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetSkipCountingPSHeaders", 11062, "CFBooleanGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetSkipCountingPSHeaders", 11062, "CFBooleanGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -7894,20 +6603,20 @@ uint64_t AVE_Prop_AVC_SetSkipCountingPSHeaders(_DWORD *a1, const char **a2, cons
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetSkipCountingPSHeaders", 11052, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v26 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v26, "AVE_Prop_AVC_SetSkipCountingPSHeaders");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetSkipCountingPSHeaders", 11052, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v23 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v23, "AVE_Prop_AVC_SetSkipCountingPSHeaders");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetSkipCountingPSHeaders");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetSkipCountingPSHeaders");
       }
     }
 
@@ -7935,16 +6644,13 @@ uint64_t AVE_Prop_AVC_GetSkipCountingPSHeaders(void *a1, const char **a2, const 
       v13 = AVE_Log_CheckConsole(0x1Eu);
       CurrTime = AVE_GetCurrTime();
       LevelStr = AVE_Log_GetLevelStr(7);
-      v16 = *a2;
       if (v13)
       {
         printf("%lld %d AVE %s: %p %lld GetProp %s: %d\n", CurrTime, 30, LevelStr, a1, a1[7], *a2, v10 >> 2);
         CurrTime = AVE_GetCurrTime();
         AVE_Log_GetLevelStr(7);
-        v17 = a1[7];
       }
 
-      v23 = *a2;
       syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d", CurrTime);
       return 0;
     }
@@ -7954,20 +6660,20 @@ uint64_t AVE_Prop_AVC_GetSkipCountingPSHeaders(void *a1, const char **a2, const 
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v18 = AVE_Log_CheckConsole(0x1Eu);
-      v19 = AVE_GetCurrTime();
-      v20 = AVE_Log_GetLevelStr(4);
-      if (v18)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v19, 30, v20, "AVE_Prop_AVC_GetSkipCountingPSHeaders", 11106, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4, a5);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v21, 30, v22, "AVE_Prop_AVC_GetSkipCountingPSHeaders", 11106);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetSkipCountingPSHeaders", 11106, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v20, "AVE_Prop_AVC_GetSkipCountingPSHeaders", 11106);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v20, "AVE_Prop_AVC_GetSkipCountingPSHeaders", 11106);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetSkipCountingPSHeaders", 11106);
       }
     }
 
@@ -7980,7 +6686,7 @@ uint64_t AVE_Prop_AVC_GetSkipCountingPSHeaders(void *a1, const char **a2, const 
 uint64_t AVE_Prop_AVC_SetVBVBufferSize(void *a1, const char **a2, const __CFString *a3, const __CFNumber *a4)
 {
   v8 = AVE_DW_Get();
-  v44 = 0.0;
+  v38 = 0.0;
   valuePtr = 0.0;
   if (a1 && a2 && a3 && a4)
   {
@@ -7994,18 +6700,21 @@ uint64_t AVE_Prop_AVC_SetVBVBufferSize(void *a1, const char **a2, const __CFStri
       {
         if (AVE_Log_CheckLevel(0x1Eu, 4))
         {
-          v30 = AVE_Log_CheckConsole(0x1Eu);
+          v27 = AVE_Log_CheckConsole(0x1Eu);
           CurrTime = AVE_GetCurrTime();
           LevelStr = AVE_Log_GetLevelStr(4);
-          if (v30)
+          if (v27)
           {
             printf("%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %f\n", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetVBVBufferSize", 11165, "fVBVBufferSize > 0.0", a1, *(a1 + 7), a2, a3, a4, valuePtr);
-            CurrTime = AVE_GetCurrTime();
-            LevelStr = AVE_Log_GetLevelStr(4);
-            v33 = *(a1 + 7);
+            v30 = AVE_GetCurrTime();
+            v37 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %f", v30, 30, v37, "AVE_Prop_AVC_SetVBVBufferSize", 11165);
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %f", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetVBVBufferSize", 11165);
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %f", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetVBVBufferSize", 11165);
+          }
         }
 
         return 4294965292;
@@ -8014,7 +6723,7 @@ uint64_t AVE_Prop_AVC_SetVBVBufferSize(void *a1, const char **a2, const __CFStri
       else
       {
         *(a1 + 2233) = valuePtr;
-        v12 = AVE_RC_DecideVBVBufferSize(v9[104], v11, *(a1 + 2104), *(a1 + 140), &v44);
+        v12 = AVE_RC_DecideVBVBufferSize(v9[104], v11, *(a1 + 2104), *(a1 + 140), &v38);
         if (v12)
         {
           v13 = v12;
@@ -8023,42 +6732,34 @@ uint64_t AVE_Prop_AVC_SetVBVBufferSize(void *a1, const char **a2, const __CFStri
             v14 = AVE_Log_CheckConsole(0x1Eu);
             v15 = AVE_GetCurrTime();
             v16 = AVE_Log_GetLevelStr(4);
-            v17 = *(a1 + 140);
             if (v14)
             {
               printf("%lld %d AVE %s: %s:%d %s | Decide VBVMaxBufferSize fail %p %lld %p %p %p %f %f %f 0x%llx\n", v15, 30, v16, "AVE_Prop_AVC_SetVBVBufferSize", 11174, "ret == 0", a1, *(a1 + 7), a2, a3, a4, v9[104], valuePtr, *(a1 + 2104), *(a1 + 140));
-              v15 = AVE_GetCurrTime();
-              v16 = AVE_Log_GetLevelStr(4);
-              v18 = *(v9 + 104);
-              v19 = *(a1 + 2104);
-              v42 = *(a1 + 140);
-              v41 = *(a1 + 7);
+              v17 = AVE_GetCurrTime();
+              v35 = AVE_Log_GetLevelStr(4);
+              syslog(3, "%lld %d AVE %s: %s:%d %s | Decide VBVMaxBufferSize fail %p %lld %p %p %p %f %f %f 0x%llx", v17, 30, v35, "AVE_Prop_AVC_SetVBVBufferSize", 11174, "ret == 0");
             }
 
             else
             {
-              v43 = *(a1 + 140);
+              syslog(3, "%lld %d AVE %s: %s:%d %s | Decide VBVMaxBufferSize fail %p %lld %p %p %p %f %f %f 0x%llx", v15, 30, v16, "AVE_Prop_AVC_SetVBVBufferSize", 11174, "ret == 0");
             }
-
-            syslog(3, "%lld %d AVE %s: %s:%d %s | Decide VBVMaxBufferSize fail %p %lld %p %p %p %f %f %f 0x%llx", v15, 30, v16, "AVE_Prop_AVC_SetVBVBufferSize", 11174, "ret == 0");
           }
         }
 
         else
         {
-          *(a1 + 152) = v44;
+          *(a1 + 152) = v38;
           if (AVE_Log_CheckLevel(0x1Eu, 7))
           {
-            v34 = AVE_Log_CheckConsole(0x1Eu);
-            v35 = AVE_GetCurrTime();
-            v36 = AVE_Log_GetLevelStr(7);
-            if (v34)
+            v31 = AVE_Log_CheckConsole(0x1Eu);
+            v32 = AVE_GetCurrTime();
+            v33 = AVE_Log_GetLevelStr(7);
+            if (v31)
             {
-              printf("%lld %d AVE %s: %p %lld SetProp %s: %f %f\n", v35, 30, v36, a1, *(a1 + 7), *a2, valuePtr, v44);
+              printf("%lld %d AVE %s: %p %lld SetProp %s: %f %f\n", v32, 30, v33, a1, *(a1 + 7), *a2, valuePtr, v38);
               AVE_GetCurrTime();
               AVE_Log_GetLevelStr(7);
-              v37 = *(a1 + 7);
-              v40 = *a2;
             }
 
             syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %f %f");
@@ -8073,21 +6774,20 @@ uint64_t AVE_Prop_AVC_SetVBVBufferSize(void *a1, const char **a2, const __CFStri
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v24 = AVE_Log_CheckConsole(0x1Eu);
-        v25 = AVE_GetCurrTime();
-        v26 = AVE_Log_GetLevelStr(4);
-        v27 = *(a1 + 7);
-        v28 = CFGetTypeID(a4);
-        if (v24)
+        v22 = AVE_Log_CheckConsole(0x1Eu);
+        v23 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        v25 = *(a1 + 7);
+        v26 = CFGetTypeID(a4);
+        if (v22)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v25, 30, v26, "AVE_Prop_AVC_SetVBVBufferSize", 11156, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v27, a2, a3, a4, v28);
-          v25 = AVE_GetCurrTime();
-          v26 = AVE_Log_GetLevelStr(4);
-          v29 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v23, 30, v24, "AVE_Prop_AVC_SetVBVBufferSize", 11156, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v25, a2, a3, a4, v26);
+          v23 = AVE_GetCurrTime();
+          v24 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v25, 30, v26, "AVE_Prop_AVC_SetVBVBufferSize", 11156, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v23, 30, v24, "AVE_Prop_AVC_SetVBVBufferSize", 11156, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -8098,20 +6798,20 @@ uint64_t AVE_Prop_AVC_SetVBVBufferSize(void *a1, const char **a2, const __CFStri
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v20 = AVE_Log_CheckConsole(0x1Eu);
-      v21 = AVE_GetCurrTime();
-      v22 = AVE_Log_GetLevelStr(4);
-      if (v20)
+      v18 = AVE_Log_CheckConsole(0x1Eu);
+      v19 = AVE_GetCurrTime();
+      v20 = AVE_Log_GetLevelStr(4);
+      if (v18)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v21, 30, v22, "AVE_Prop_AVC_SetVBVBufferSize", 11146, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v23 = AVE_GetCurrTime();
-        v39 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v23, 30, v39, "AVE_Prop_AVC_SetVBVBufferSize");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v19, 30, v20, "AVE_Prop_AVC_SetVBVBufferSize", 11146, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v21 = AVE_GetCurrTime();
+        v36 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v21, 30, v36, "AVE_Prop_AVC_SetVBVBufferSize");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v21, 30, v22, "AVE_Prop_AVC_SetVBVBufferSize");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v20, "AVE_Prop_AVC_SetVBVBufferSize");
       }
     }
 
@@ -8142,8 +6842,6 @@ uint64_t AVE_Prop_AVC_GetVBVBufferSize(double *a1, const char **a2, CFAllocatorR
           printf("%lld %d AVE %s: %p %lld GetProp %s: %f %p\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr, v11);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v16 = *(a1 + 7);
-          v26 = *a2;
         }
 
         syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %f %p", CurrTime);
@@ -8155,18 +6853,21 @@ uint64_t AVE_Prop_AVC_GetVBVBufferSize(double *a1, const char **a2, CFAllocatorR
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %f\n", v22, 30, v23, "AVE_Prop_AVC_GetVBVBufferSize", 11218, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-          v24 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %f\n", v21, 30, v22, "AVE_Prop_AVC_GetVBVBufferSize", 11218, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %f", v23, 30, v25, "AVE_Prop_AVC_GetVBVBufferSize", 11218, "pNum != __null");
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %f", v22, 30, v23, "AVE_Prop_AVC_GetVBVBufferSize", 11218, "pNum != __null");
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %f", v21, 30, v22, "AVE_Prop_AVC_GetVBVBufferSize", 11218, "pNum != __null");
+        }
       }
 
       return 4294966293;
@@ -8177,20 +6878,20 @@ uint64_t AVE_Prop_AVC_GetVBVBufferSize(double *a1, const char **a2, CFAllocatorR
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetVBVBufferSize", 11208, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v25, "AVE_Prop_AVC_GetVBVBufferSize", 11208);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetVBVBufferSize", 11208, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetVBVBufferSize", 11208);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetVBVBufferSize", 11208);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetVBVBufferSize", 11208);
       }
     }
 
@@ -8203,7 +6904,7 @@ uint64_t AVE_Prop_AVC_GetVBVBufferSize(double *a1, const char **a2, CFAllocatorR
 uint64_t AVE_Prop_AVC_SetVBVInitialDelay(void *a1, const char **a2, const __CFString *a3, const __CFNumber *a4)
 {
   v8 = AVE_DW_Get();
-  v45 = 0.0;
+  v38 = 0.0;
   valuePtr = 0.0;
   if (a1 && a2 && a3 && a4)
   {
@@ -8216,52 +6917,43 @@ uint64_t AVE_Prop_AVC_SetVBVInitialDelay(void *a1, const char **a2, const __CFSt
       if (valuePtr >= 0.0)
       {
         *(a1 + 2234) = valuePtr;
-        v27 = AVE_RC_DecideVBVInitialDelay(v9[105], v11, *(a1 + 2105), *(a1 + 152), *(a1 + 140), &v45);
-        if (v27)
+        v26 = AVE_RC_DecideVBVInitialDelay(v9[105], v11, *(a1 + 2105), *(a1 + 152), *(a1 + 140), &v38);
+        if (v26)
         {
-          v26 = v27;
+          v25 = v26;
           if (AVE_Log_CheckLevel(0x1Eu, 4))
           {
-            v28 = AVE_Log_CheckConsole(0x1Eu);
+            v27 = AVE_Log_CheckConsole(0x1Eu);
             CurrTime = AVE_GetCurrTime();
             LevelStr = AVE_Log_GetLevelStr(4);
-            v31 = *(a1 + 140);
-            if (v28)
+            if (v27)
             {
               printf("%lld %d AVE %s: %s:%d %s | Decide VBVInitialDelay fail %p %lld %p %p %p %f %f %f %f 0x%llx\n", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetVBVInitialDelay", 11284, "ret == 0", a1, *(a1 + 7), a2, a3, a4, v9[105], valuePtr, *(a1 + 2105), *(a1 + 152), *(a1 + 140));
-              CurrTime = AVE_GetCurrTime();
-              LevelStr = AVE_Log_GetLevelStr(4);
-              v32 = *(v9 + 105);
-              v33 = *(a1 + 2105);
-              v34 = *(a1 + 152);
-              v43 = *(a1 + 140);
-              v42 = *(a1 + 7);
+              v30 = AVE_GetCurrTime();
+              v37 = AVE_Log_GetLevelStr(4);
+              syslog(3, "%lld %d AVE %s: %s:%d %s | Decide VBVInitialDelay fail %p %lld %p %p %p %f %f %f %f 0x%llx", v30, 30, v37, "AVE_Prop_AVC_SetVBVInitialDelay", 11284, "ret == 0");
             }
 
             else
             {
-              v44 = *(a1 + 140);
+              syslog(3, "%lld %d AVE %s: %s:%d %s | Decide VBVInitialDelay fail %p %lld %p %p %p %f %f %f %f 0x%llx", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetVBVInitialDelay", 11284, "ret == 0");
             }
-
-            syslog(3, "%lld %d AVE %s: %s:%d %s | Decide VBVInitialDelay fail %p %lld %p %p %p %f %f %f %f 0x%llx", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetVBVInitialDelay", 11284, "ret == 0");
           }
         }
 
         else
         {
-          *(a1 + 153) = v45;
+          *(a1 + 153) = v38;
           if (AVE_Log_CheckLevel(0x1Eu, 7))
           {
-            v35 = AVE_Log_CheckConsole(0x1Eu);
-            v36 = AVE_GetCurrTime();
-            v37 = AVE_Log_GetLevelStr(7);
-            if (v35)
+            v31 = AVE_Log_CheckConsole(0x1Eu);
+            v32 = AVE_GetCurrTime();
+            v33 = AVE_Log_GetLevelStr(7);
+            if (v31)
             {
-              printf("%lld %d AVE %s: %p %lld SetProp %s: %f %f\n", v36, 30, v37, a1, *(a1 + 7), *a2, valuePtr, v45);
+              printf("%lld %d AVE %s: %p %lld SetProp %s: %f %f\n", v32, 30, v33, a1, *(a1 + 7), *a2, valuePtr, v38);
               AVE_GetCurrTime();
               AVE_Log_GetLevelStr(7);
-              v38 = *(a1 + 7);
-              v41 = *a2;
             }
 
             syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %f %f");
@@ -8281,12 +6973,15 @@ uint64_t AVE_Prop_AVC_SetVBVInitialDelay(void *a1, const char **a2, const __CFSt
           if (v12)
           {
             printf("%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %f\n", v13, 30, v14, "AVE_Prop_AVC_SetVBVInitialDelay", 11271, "fVBVInitialDelay >= 0.0", a1, *(a1 + 7), a2, a3, a4, valuePtr);
-            v13 = AVE_GetCurrTime();
-            v14 = AVE_Log_GetLevelStr(4);
-            v15 = *(a1 + 7);
+            v15 = AVE_GetCurrTime();
+            v35 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %f", v15, 30, v35, "AVE_Prop_AVC_SetVBVInitialDelay", 11271);
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %f", v13, 30, v14, "AVE_Prop_AVC_SetVBVInitialDelay", 11271);
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %f", v13, 30, v14, "AVE_Prop_AVC_SetVBVInitialDelay", 11271);
+          }
         }
 
         return 4294965292;
@@ -8307,7 +7002,6 @@ uint64_t AVE_Prop_AVC_SetVBVInitialDelay(void *a1, const char **a2, const __CFSt
           printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetVBVInitialDelay", 11262, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
           v21 = AVE_GetCurrTime();
           v22 = AVE_Log_GetLevelStr(4);
-          v25 = *(a1 + 7);
           CFGetTypeID(a4);
         }
 
@@ -8329,8 +7023,8 @@ uint64_t AVE_Prop_AVC_SetVBVInitialDelay(void *a1, const char **a2, const __CFSt
       {
         printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetVBVInitialDelay", 11252, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
         v19 = AVE_GetCurrTime();
-        v40 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v40, "AVE_Prop_AVC_SetVBVInitialDelay");
+        v36 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v36, "AVE_Prop_AVC_SetVBVInitialDelay");
       }
 
       else
@@ -8342,7 +7036,7 @@ uint64_t AVE_Prop_AVC_SetVBVInitialDelay(void *a1, const char **a2, const __CFSt
     return 4294966295;
   }
 
-  return v26;
+  return v25;
 }
 
 uint64_t AVE_Prop_AVC_GetVBVInitialDelay(double *a1, const char **a2, CFAllocatorRef allocator, const __CFString *a4, CFNumberRef *a5)
@@ -8366,8 +7060,6 @@ uint64_t AVE_Prop_AVC_GetVBVInitialDelay(double *a1, const char **a2, CFAllocato
           printf("%lld %d AVE %s: %p %lld GetProp %s: %f %p\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr, v11);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v16 = *(a1 + 7);
-          v26 = *a2;
         }
 
         syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %f %p", CurrTime);
@@ -8379,18 +7071,21 @@ uint64_t AVE_Prop_AVC_GetVBVInitialDelay(double *a1, const char **a2, CFAllocato
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %f\n", v22, 30, v23, "AVE_Prop_AVC_GetVBVInitialDelay", 11327, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-          v24 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %f\n", v21, 30, v22, "AVE_Prop_AVC_GetVBVInitialDelay", 11327, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %f", v23, 30, v25, "AVE_Prop_AVC_GetVBVInitialDelay", 11327, "pNum != __null");
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %f", v22, 30, v23, "AVE_Prop_AVC_GetVBVInitialDelay", 11327, "pNum != __null");
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %f", v21, 30, v22, "AVE_Prop_AVC_GetVBVInitialDelay", 11327, "pNum != __null");
+        }
       }
 
       return 4294966293;
@@ -8401,20 +7096,20 @@ uint64_t AVE_Prop_AVC_GetVBVInitialDelay(double *a1, const char **a2, CFAllocato
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetVBVInitialDelay", 11317, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v25, "AVE_Prop_AVC_GetVBVInitialDelay", 11317);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetVBVInitialDelay", 11317, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetVBVInitialDelay", 11317);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetVBVInitialDelay", 11317);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetVBVInitialDelay", 11317);
       }
     }
 
@@ -8444,16 +7139,13 @@ uint64_t AVE_Prop_AVC_SetGOPFeatureOn(_DWORD *a1, const char **a2, const __CFStr
           v11 = AVE_Log_CheckConsole(0x1Eu);
           CurrTime = AVE_GetCurrTime();
           LevelStr = AVE_Log_GetLevelStr(7);
-          v14 = *a2;
           if (v11)
           {
             printf("%lld %d AVE %s: %p %lld SetProp %s: 0x%x\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr);
             CurrTime = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(7);
-            v15 = *(a1 + 7);
           }
 
-          v31 = *a2;
           syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: 0x%x", CurrTime);
           return 0;
         }
@@ -8463,18 +7155,21 @@ uint64_t AVE_Prop_AVC_SetGOPFeatureOn(_DWORD *a1, const char **a2, const __CFStr
       {
         if (AVE_Log_CheckLevel(0x1Eu, 4))
         {
-          v26 = AVE_Log_CheckConsole(0x1Eu);
-          v27 = AVE_GetCurrTime();
-          v28 = AVE_Log_GetLevelStr(4);
-          if (v26)
+          v23 = AVE_Log_CheckConsole(0x1Eu);
+          v24 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          if (v23)
           {
-            printf("%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%x\n", v27, 30, v28, "AVE_Prop_AVC_SetGOPFeatureOn", 11378, "iFeature != 0", a1, *(a1 + 7), a2, a3, a4, valuePtr);
-            v27 = AVE_GetCurrTime();
+            printf("%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%x\n", v24, 30, v25, "AVE_Prop_AVC_SetGOPFeatureOn", 11378, "iFeature != 0", a1, *(a1 + 7), a2, a3, a4, valuePtr);
+            v26 = AVE_GetCurrTime();
             v28 = AVE_Log_GetLevelStr(4);
-            v29 = *(a1 + 7);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%x", v26, 30, v28, "AVE_Prop_AVC_SetGOPFeatureOn", 11378, "iFeature != 0");
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%x", v27, 30, v28, "AVE_Prop_AVC_SetGOPFeatureOn", 11378, "iFeature != 0");
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%x", v24, 30, v25, "AVE_Prop_AVC_SetGOPFeatureOn", 11378, "iFeature != 0");
+          }
         }
 
         return 4294965292;
@@ -8485,21 +7180,20 @@ uint64_t AVE_Prop_AVC_SetGOPFeatureOn(_DWORD *a1, const char **a2, const __CFStr
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = *(a1 + 7);
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = *(a1 + 7);
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetGOPFeatureOn", 11369, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetGOPFeatureOn", 11369, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetGOPFeatureOn", 11369, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetGOPFeatureOn", 11369, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -8510,20 +7204,20 @@ uint64_t AVE_Prop_AVC_SetGOPFeatureOn(_DWORD *a1, const char **a2, const __CFStr
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetGOPFeatureOn", 11359, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v30 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v30, "AVE_Prop_AVC_SetGOPFeatureOn");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetGOPFeatureOn", 11359, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v27, "AVE_Prop_AVC_SetGOPFeatureOn");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetGOPFeatureOn");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetGOPFeatureOn");
       }
     }
 
@@ -8554,8 +7248,6 @@ uint64_t AVE_Prop_AVC_GetGOPFeatureOn(_DWORD *a1, const char **a2, CFAllocatorRe
           printf("%lld %d AVE %s: %p %lld GetProp %s: 0x%x %p\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr, v11);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v16 = *(a1 + 7);
-          v26 = *a2;
         }
 
         syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: 0x%x %p", CurrTime, 30);
@@ -8567,18 +7259,21 @@ uint64_t AVE_Prop_AVC_GetGOPFeatureOn(_DWORD *a1, const char **a2, CFAllocatorRe
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%x\n", v22, 30, v23, "AVE_Prop_AVC_GetGOPFeatureOn", 11424, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-          v24 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%x\n", v21, 30, v22, "AVE_Prop_AVC_GetGOPFeatureOn", 11424, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%x", v23, 30, v25, "AVE_Prop_AVC_GetGOPFeatureOn", 11424, "pNum != __null", a1);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%x", v22, 30, v23, "AVE_Prop_AVC_GetGOPFeatureOn", 11424, "pNum != __null", a1);
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%x", v21, 30, v22, "AVE_Prop_AVC_GetGOPFeatureOn", 11424, "pNum != __null", a1);
+        }
       }
 
       return 4294966293;
@@ -8589,20 +7284,20 @@ uint64_t AVE_Prop_AVC_GetGOPFeatureOn(_DWORD *a1, const char **a2, CFAllocatorRe
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetGOPFeatureOn", 11414, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v25, "AVE_Prop_AVC_GetGOPFeatureOn", 11414);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetGOPFeatureOn", 11414, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetGOPFeatureOn", 11414);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetGOPFeatureOn", 11414);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetGOPFeatureOn", 11414);
       }
     }
 
@@ -8632,16 +7327,13 @@ uint64_t AVE_Prop_AVC_SetGOPFeatureOff(_DWORD *a1, const char **a2, const __CFSt
           v11 = AVE_Log_CheckConsole(0x1Eu);
           CurrTime = AVE_GetCurrTime();
           LevelStr = AVE_Log_GetLevelStr(7);
-          v14 = *a2;
           if (v11)
           {
             printf("%lld %d AVE %s: %p %lld SetProp %s: 0x%x\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr);
             CurrTime = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(7);
-            v15 = *(a1 + 7);
           }
 
-          v31 = *a2;
           syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: 0x%x", CurrTime);
           return 0;
         }
@@ -8651,18 +7343,21 @@ uint64_t AVE_Prop_AVC_SetGOPFeatureOff(_DWORD *a1, const char **a2, const __CFSt
       {
         if (AVE_Log_CheckLevel(0x1Eu, 4))
         {
-          v26 = AVE_Log_CheckConsole(0x1Eu);
-          v27 = AVE_GetCurrTime();
-          v28 = AVE_Log_GetLevelStr(4);
-          if (v26)
+          v23 = AVE_Log_CheckConsole(0x1Eu);
+          v24 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          if (v23)
           {
-            printf("%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%x\n", v27, 30, v28, "AVE_Prop_AVC_SetGOPFeatureOff", 11475, "iFeature != 0", a1, *(a1 + 7), a2, a3, a4, valuePtr);
-            v27 = AVE_GetCurrTime();
+            printf("%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%x\n", v24, 30, v25, "AVE_Prop_AVC_SetGOPFeatureOff", 11475, "iFeature != 0", a1, *(a1 + 7), a2, a3, a4, valuePtr);
+            v26 = AVE_GetCurrTime();
             v28 = AVE_Log_GetLevelStr(4);
-            v29 = *(a1 + 7);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%x", v26, 30, v28, "AVE_Prop_AVC_SetGOPFeatureOff", 11475, "iFeature != 0");
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%x", v27, 30, v28, "AVE_Prop_AVC_SetGOPFeatureOff", 11475, "iFeature != 0");
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%x", v24, 30, v25, "AVE_Prop_AVC_SetGOPFeatureOff", 11475, "iFeature != 0");
+          }
         }
 
         return 4294965292;
@@ -8673,21 +7368,20 @@ uint64_t AVE_Prop_AVC_SetGOPFeatureOff(_DWORD *a1, const char **a2, const __CFSt
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = *(a1 + 7);
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = *(a1 + 7);
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetGOPFeatureOff", 11466, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetGOPFeatureOff", 11466, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetGOPFeatureOff", 11466, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetGOPFeatureOff", 11466, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -8698,20 +7392,20 @@ uint64_t AVE_Prop_AVC_SetGOPFeatureOff(_DWORD *a1, const char **a2, const __CFSt
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetGOPFeatureOff", 11456, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v30 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v30, "AVE_Prop_AVC_SetGOPFeatureOff");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetGOPFeatureOff", 11456, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v27, "AVE_Prop_AVC_SetGOPFeatureOff");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetGOPFeatureOff");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetGOPFeatureOff");
       }
     }
 
@@ -8742,8 +7436,6 @@ uint64_t AVE_Prop_AVC_GetGOPFeatureOff(_DWORD *a1, const char **a2, CFAllocatorR
           printf("%lld %d AVE %s: %p %lld GetProp %s: 0x%x %p\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr, v11);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v16 = *(a1 + 7);
-          v26 = *a2;
         }
 
         syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: 0x%x %p", CurrTime, 30);
@@ -8755,18 +7447,21 @@ uint64_t AVE_Prop_AVC_GetGOPFeatureOff(_DWORD *a1, const char **a2, CFAllocatorR
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%x\n", v22, 30, v23, "AVE_Prop_AVC_GetGOPFeatureOff", 11521, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-          v24 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%x\n", v21, 30, v22, "AVE_Prop_AVC_GetGOPFeatureOff", 11521, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%x", v23, 30, v25, "AVE_Prop_AVC_GetGOPFeatureOff", 11521, "pNum != __null", a1);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%x", v22, 30, v23, "AVE_Prop_AVC_GetGOPFeatureOff", 11521, "pNum != __null", a1);
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%x", v21, 30, v22, "AVE_Prop_AVC_GetGOPFeatureOff", 11521, "pNum != __null", a1);
+        }
       }
 
       return 4294966293;
@@ -8777,20 +7472,20 @@ uint64_t AVE_Prop_AVC_GetGOPFeatureOff(_DWORD *a1, const char **a2, CFAllocatorR
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetGOPFeatureOff", 11511, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v25, "AVE_Prop_AVC_GetGOPFeatureOff", 11511);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetGOPFeatureOff", 11511, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetGOPFeatureOff", 11511);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetGOPFeatureOff", 11511);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetGOPFeatureOff", 11511);
       }
     }
 
@@ -8814,18 +7509,21 @@ uint64_t AVE_Prop_AVC_SetNumOfPFrame(void *a1, const char **a2, const __CFString
       {
         if (AVE_Log_CheckLevel(0x1Eu, 4))
         {
-          v26 = AVE_Log_CheckConsole(0x1Eu);
+          v23 = AVE_Log_CheckConsole(0x1Eu);
           CurrTime = AVE_GetCurrTime();
           LevelStr = AVE_Log_GetLevelStr(4);
-          if (v26)
+          if (v23)
           {
             printf("%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d\n", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetNumOfPFrame", 11573, "iNumOfPFrame >= 0", a1, a1[7], a2, a3, a4, valuePtr);
-            CurrTime = AVE_GetCurrTime();
-            LevelStr = AVE_Log_GetLevelStr(4);
-            v29 = a1[7];
+            v26 = AVE_GetCurrTime();
+            v28 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d", v26, 30, v28, "AVE_Prop_AVC_SetNumOfPFrame", 11573, "iNumOfPFrame >= 0");
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetNumOfPFrame", 11573, "iNumOfPFrame >= 0");
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetNumOfPFrame", 11573, "iNumOfPFrame >= 0");
+          }
         }
 
         return 4294965292;
@@ -8841,16 +7539,13 @@ uint64_t AVE_Prop_AVC_SetNumOfPFrame(void *a1, const char **a2, const __CFString
           v11 = AVE_Log_CheckConsole(0x1Eu);
           v12 = AVE_GetCurrTime();
           v13 = AVE_Log_GetLevelStr(7);
-          v14 = *a2;
           if (v11)
           {
             printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", v12, 30, v13, a1, a1[7], *a2, valuePtr);
             v12 = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(7);
-            v15 = a1[7];
           }
 
-          v31 = *a2;
           syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", v12);
           return 0;
         }
@@ -8861,21 +7556,20 @@ uint64_t AVE_Prop_AVC_SetNumOfPFrame(void *a1, const char **a2, const __CFString
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = a1[7];
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = a1[7];
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetNumOfPFrame", 11563, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = a1[7];
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetNumOfPFrame", 11563, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetNumOfPFrame", 11563, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetNumOfPFrame", 11563, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -8886,20 +7580,20 @@ uint64_t AVE_Prop_AVC_SetNumOfPFrame(void *a1, const char **a2, const __CFString
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetNumOfPFrame", 11553, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v30 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v30, "AVE_Prop_AVC_SetNumOfPFrame");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetNumOfPFrame", 11553, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v27, "AVE_Prop_AVC_SetNumOfPFrame");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetNumOfPFrame");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetNumOfPFrame");
       }
     }
 
@@ -8930,8 +7624,6 @@ uint64_t AVE_Prop_AVC_GetNumOfPFrame(_DWORD *a1, const char **a2, CFAllocatorRef
           printf("%lld %d AVE %s: %p %lld GetProp %s: %d %p\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr, v11);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v16 = *(a1 + 7);
-          v26 = *a2;
         }
 
         syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d %p", CurrTime, 30);
@@ -8943,18 +7635,21 @@ uint64_t AVE_Prop_AVC_GetNumOfPFrame(_DWORD *a1, const char **a2, CFAllocatorRef
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v22, 30, v23, "AVE_Prop_AVC_GetNumOfPFrame", 11619, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-          v24 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v21, 30, v22, "AVE_Prop_AVC_GetNumOfPFrame", 11619, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v23, 30, v25, "AVE_Prop_AVC_GetNumOfPFrame", 11619, "pNum != __null", a1);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v22, 30, v23, "AVE_Prop_AVC_GetNumOfPFrame", 11619, "pNum != __null", a1);
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v21, 30, v22, "AVE_Prop_AVC_GetNumOfPFrame", 11619, "pNum != __null", a1);
+        }
       }
 
       return 4294966293;
@@ -8965,20 +7660,20 @@ uint64_t AVE_Prop_AVC_GetNumOfPFrame(_DWORD *a1, const char **a2, CFAllocatorRef
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetNumOfPFrame", 11609, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v25, "AVE_Prop_AVC_GetNumOfPFrame", 11609);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetNumOfPFrame", 11609, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetNumOfPFrame", 11609);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetNumOfPFrame", 11609);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetNumOfPFrame", 11609);
       }
     }
 
@@ -9002,18 +7697,21 @@ uint64_t AVE_Prop_AVC_SetNumOfBFrame(void *a1, const char **a2, const __CFString
       {
         if (AVE_Log_CheckLevel(0x1Eu, 4))
         {
-          v26 = AVE_Log_CheckConsole(0x1Eu);
+          v23 = AVE_Log_CheckConsole(0x1Eu);
           CurrTime = AVE_GetCurrTime();
           LevelStr = AVE_Log_GetLevelStr(4);
-          if (v26)
+          if (v23)
           {
             printf("%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d [%d, %d]\n", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetNumOfBFrame", 11671, "(iNumOfBFrame >= 0) && (iNumOfBFrame <= 3)", a1, a1[7], a2, a3, a4, valuePtr, 0, 3);
-            CurrTime = AVE_GetCurrTime();
-            LevelStr = AVE_Log_GetLevelStr(4);
-            v29 = a1[7];
+            v26 = AVE_GetCurrTime();
+            v28 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d [%d, %d]", v26, 30, v28, "AVE_Prop_AVC_SetNumOfBFrame", 11671, "(iNumOfBFrame >= 0) && (iNumOfBFrame <= 3)", a1);
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d [%d, %d]", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetNumOfBFrame", 11671, "(iNumOfBFrame >= 0) && (iNumOfBFrame <= 3)", a1);
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d [%d, %d]", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetNumOfBFrame", 11671, "(iNumOfBFrame >= 0) && (iNumOfBFrame <= 3)", a1);
+          }
         }
 
         return 4294965292;
@@ -9029,16 +7727,13 @@ uint64_t AVE_Prop_AVC_SetNumOfBFrame(void *a1, const char **a2, const __CFString
           v11 = AVE_Log_CheckConsole(0x1Eu);
           v12 = AVE_GetCurrTime();
           v13 = AVE_Log_GetLevelStr(7);
-          v14 = *a2;
           if (v11)
           {
             printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", v12, 30, v13, a1, a1[7], *a2, valuePtr);
             v12 = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(7);
-            v15 = a1[7];
           }
 
-          v31 = *a2;
           syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", v12);
           return 0;
         }
@@ -9049,21 +7744,20 @@ uint64_t AVE_Prop_AVC_SetNumOfBFrame(void *a1, const char **a2, const __CFString
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = a1[7];
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = a1[7];
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetNumOfBFrame", 11661, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = a1[7];
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetNumOfBFrame", 11661, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetNumOfBFrame", 11661, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetNumOfBFrame", 11661, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -9074,20 +7768,20 @@ uint64_t AVE_Prop_AVC_SetNumOfBFrame(void *a1, const char **a2, const __CFString
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetNumOfBFrame", 11651, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v30 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v30, "AVE_Prop_AVC_SetNumOfBFrame");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetNumOfBFrame", 11651, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v27, "AVE_Prop_AVC_SetNumOfBFrame");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetNumOfBFrame");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetNumOfBFrame");
       }
     }
 
@@ -9118,8 +7812,6 @@ uint64_t AVE_Prop_AVC_GetNumOfBFrame(_DWORD *a1, const char **a2, CFAllocatorRef
           printf("%lld %d AVE %s: %p %lld GetProp %s: %d %p\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr, v11);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v16 = *(a1 + 7);
-          v26 = *a2;
         }
 
         syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d %p", CurrTime, 30);
@@ -9131,18 +7823,21 @@ uint64_t AVE_Prop_AVC_GetNumOfBFrame(_DWORD *a1, const char **a2, CFAllocatorRef
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v22, 30, v23, "AVE_Prop_AVC_GetNumOfBFrame", 11717, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-          v24 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v21, 30, v22, "AVE_Prop_AVC_GetNumOfBFrame", 11717, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v23, 30, v25, "AVE_Prop_AVC_GetNumOfBFrame", 11717, "pNum != __null", a1);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v22, 30, v23, "AVE_Prop_AVC_GetNumOfBFrame", 11717, "pNum != __null", a1);
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v21, 30, v22, "AVE_Prop_AVC_GetNumOfBFrame", 11717, "pNum != __null", a1);
+        }
       }
 
       return 4294966293;
@@ -9153,20 +7848,20 @@ uint64_t AVE_Prop_AVC_GetNumOfBFrame(_DWORD *a1, const char **a2, CFAllocatorRef
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetNumOfBFrame", 11707, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v25, "AVE_Prop_AVC_GetNumOfBFrame", 11707);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetNumOfBFrame", 11707, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetNumOfBFrame", 11707);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetNumOfBFrame", 11707);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetNumOfBFrame", 11707);
       }
     }
 
@@ -9190,18 +7885,21 @@ uint64_t AVE_Prop_AVC_SetNumOfGOPLayer(void *a1, const char **a2, const __CFStri
       {
         if (AVE_Log_CheckLevel(0x1Eu, 4))
         {
-          v26 = AVE_Log_CheckConsole(0x1Eu);
+          v23 = AVE_Log_CheckConsole(0x1Eu);
           CurrTime = AVE_GetCurrTime();
           LevelStr = AVE_Log_GetLevelStr(4);
-          if (v26)
+          if (v23)
           {
             printf("%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d [%d, %d]\n", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetNumOfGOPLayer", 11768, "iNumOfGOPLayer >= 1 && iNumOfGOPLayer <= 4", a1, a1[7], a2, a3, a4, valuePtr, 1, 4);
-            CurrTime = AVE_GetCurrTime();
-            LevelStr = AVE_Log_GetLevelStr(4);
-            v29 = a1[7];
+            v26 = AVE_GetCurrTime();
+            v28 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d [%d, %d]", v26, 30, v28, "AVE_Prop_AVC_SetNumOfGOPLayer", 11768, "iNumOfGOPLayer >= 1 && iNumOfGOPLayer <= 4", a1);
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d [%d, %d]", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetNumOfGOPLayer", 11768, "iNumOfGOPLayer >= 1 && iNumOfGOPLayer <= 4", a1);
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d [%d, %d]", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetNumOfGOPLayer", 11768, "iNumOfGOPLayer >= 1 && iNumOfGOPLayer <= 4", a1);
+          }
         }
 
         return 4294965292;
@@ -9217,16 +7915,13 @@ uint64_t AVE_Prop_AVC_SetNumOfGOPLayer(void *a1, const char **a2, const __CFStri
           v11 = AVE_Log_CheckConsole(0x1Eu);
           v12 = AVE_GetCurrTime();
           v13 = AVE_Log_GetLevelStr(7);
-          v14 = *a2;
           if (v11)
           {
             printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", v12, 30, v13, a1, a1[7], *a2, valuePtr);
             v12 = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(7);
-            v15 = a1[7];
           }
 
-          v31 = *a2;
           syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", v12);
           return 0;
         }
@@ -9237,21 +7932,20 @@ uint64_t AVE_Prop_AVC_SetNumOfGOPLayer(void *a1, const char **a2, const __CFStri
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = a1[7];
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = a1[7];
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetNumOfGOPLayer", 11759, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = a1[7];
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetNumOfGOPLayer", 11759, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetNumOfGOPLayer", 11759, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetNumOfGOPLayer", 11759, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -9262,20 +7956,20 @@ uint64_t AVE_Prop_AVC_SetNumOfGOPLayer(void *a1, const char **a2, const __CFStri
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetNumOfGOPLayer", 11749, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v30 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v30, "AVE_Prop_AVC_SetNumOfGOPLayer");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetNumOfGOPLayer", 11749, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v27, "AVE_Prop_AVC_SetNumOfGOPLayer");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetNumOfGOPLayer");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetNumOfGOPLayer");
       }
     }
 
@@ -9306,8 +8000,6 @@ uint64_t AVE_Prop_AVC_GetNumOfGOPLayer(_DWORD *a1, const char **a2, CFAllocatorR
           printf("%lld %d AVE %s: %p %lld GetProp %s: %d %p\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr, v11);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v16 = *(a1 + 7);
-          v26 = *a2;
         }
 
         syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d %p", CurrTime, 30);
@@ -9319,18 +8011,21 @@ uint64_t AVE_Prop_AVC_GetNumOfGOPLayer(_DWORD *a1, const char **a2, CFAllocatorR
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v22, 30, v23, "AVE_Prop_AVC_GetNumOfGOPLayer", 11814, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-          v24 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v21, 30, v22, "AVE_Prop_AVC_GetNumOfGOPLayer", 11814, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v23, 30, v25, "AVE_Prop_AVC_GetNumOfGOPLayer", 11814, "pNum != __null", a1);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v22, 30, v23, "AVE_Prop_AVC_GetNumOfGOPLayer", 11814, "pNum != __null", a1);
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v21, 30, v22, "AVE_Prop_AVC_GetNumOfGOPLayer", 11814, "pNum != __null", a1);
+        }
       }
 
       return 4294966293;
@@ -9341,20 +8036,20 @@ uint64_t AVE_Prop_AVC_GetNumOfGOPLayer(_DWORD *a1, const char **a2, CFAllocatorR
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetNumOfGOPLayer", 11804, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v25, "AVE_Prop_AVC_GetNumOfGOPLayer", 11804);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetNumOfGOPLayer", 11804, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetNumOfGOPLayer", 11804);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetNumOfGOPLayer", 11804);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetNumOfGOPLayer", 11804);
       }
     }
 
@@ -9378,18 +8073,21 @@ uint64_t AVE_Prop_AVC_SetNumOfTemporalLayer(void *a1, const char **a2, const __C
       {
         if (AVE_Log_CheckLevel(0x1Eu, 4))
         {
-          v26 = AVE_Log_CheckConsole(0x1Eu);
+          v23 = AVE_Log_CheckConsole(0x1Eu);
           CurrTime = AVE_GetCurrTime();
           LevelStr = AVE_Log_GetLevelStr(4);
-          if (v26)
+          if (v23)
           {
             printf("%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d [%d, %d]\n", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetNumOfTemporalLayer", 11866, "(iNumOfTemporalLayer > 0) && (iNumOfTemporalLayer <= 4)", a1, a1[7], a2, a3, a4, valuePtr, 0, 4);
-            CurrTime = AVE_GetCurrTime();
-            LevelStr = AVE_Log_GetLevelStr(4);
-            v29 = a1[7];
+            v26 = AVE_GetCurrTime();
+            v28 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d [%d, %d]", v26, 30, v28, "AVE_Prop_AVC_SetNumOfTemporalLayer", 11866, "(iNumOfTemporalLayer > 0) && (iNumOfTemporalLayer <= 4)", a1);
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d [%d, %d]", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetNumOfTemporalLayer", 11866, "(iNumOfTemporalLayer > 0) && (iNumOfTemporalLayer <= 4)", a1);
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d [%d, %d]", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetNumOfTemporalLayer", 11866, "(iNumOfTemporalLayer > 0) && (iNumOfTemporalLayer <= 4)", a1);
+          }
         }
 
         return 4294965292;
@@ -9405,16 +8103,13 @@ uint64_t AVE_Prop_AVC_SetNumOfTemporalLayer(void *a1, const char **a2, const __C
           v11 = AVE_Log_CheckConsole(0x1Eu);
           v12 = AVE_GetCurrTime();
           v13 = AVE_Log_GetLevelStr(7);
-          v14 = *a2;
           if (v11)
           {
             printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", v12, 30, v13, a1, a1[7], *a2, valuePtr);
             v12 = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(7);
-            v15 = a1[7];
           }
 
-          v31 = *a2;
           syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", v12);
           return 0;
         }
@@ -9425,21 +8120,20 @@ uint64_t AVE_Prop_AVC_SetNumOfTemporalLayer(void *a1, const char **a2, const __C
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = a1[7];
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = a1[7];
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetNumOfTemporalLayer", 11856, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = a1[7];
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetNumOfTemporalLayer", 11856, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetNumOfTemporalLayer", 11856, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetNumOfTemporalLayer", 11856, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -9450,20 +8144,20 @@ uint64_t AVE_Prop_AVC_SetNumOfTemporalLayer(void *a1, const char **a2, const __C
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetNumOfTemporalLayer", 11846, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v30 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v30, "AVE_Prop_AVC_SetNumOfTemporalLayer");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetNumOfTemporalLayer", 11846, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v27, "AVE_Prop_AVC_SetNumOfTemporalLayer");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetNumOfTemporalLayer");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetNumOfTemporalLayer");
       }
     }
 
@@ -9494,8 +8188,6 @@ uint64_t AVE_Prop_AVC_GetNumOfTemporalLayer(_DWORD *a1, const char **a2, CFAlloc
           printf("%lld %d AVE %s: %p %lld GetProp %s: %d %p\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr, v11);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v16 = *(a1 + 7);
-          v26 = *a2;
         }
 
         syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d %p", CurrTime, 30);
@@ -9507,18 +8199,21 @@ uint64_t AVE_Prop_AVC_GetNumOfTemporalLayer(_DWORD *a1, const char **a2, CFAlloc
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v22, 30, v23, "AVE_Prop_AVC_GetNumOfTemporalLayer", 11912, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-          v24 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v21, 30, v22, "AVE_Prop_AVC_GetNumOfTemporalLayer", 11912, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v23, 30, v25, "AVE_Prop_AVC_GetNumOfTemporalLayer", 11912, "pNum != __null", a1);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v22, 30, v23, "AVE_Prop_AVC_GetNumOfTemporalLayer", 11912, "pNum != __null", a1);
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v21, 30, v22, "AVE_Prop_AVC_GetNumOfTemporalLayer", 11912, "pNum != __null", a1);
+        }
       }
 
       return 4294966293;
@@ -9529,20 +8224,20 @@ uint64_t AVE_Prop_AVC_GetNumOfTemporalLayer(_DWORD *a1, const char **a2, CFAlloc
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_AVC_GetNumOfTemporalLayer", 11902, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v25, "AVE_Prop_AVC_GetNumOfTemporalLayer", 11902);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetNumOfTemporalLayer", 11902, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetNumOfTemporalLayer", 11902);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_AVC_GetNumOfTemporalLayer", 11902);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetNumOfTemporalLayer", 11902);
       }
     }
 
@@ -9572,16 +8267,13 @@ uint64_t AVE_Prop_AVC_SetRefFeatureOn(_DWORD *a1, const char **a2, const __CFStr
           v11 = AVE_Log_CheckConsole(0x1Eu);
           CurrTime = AVE_GetCurrTime();
           LevelStr = AVE_Log_GetLevelStr(7);
-          v14 = *a2;
           if (v11)
           {
             printf("%lld %d AVE %s: %p %lld SetProp %s: 0x%x\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr);
             CurrTime = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(7);
-            v15 = *(a1 + 7);
           }
 
-          v31 = *a2;
           syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: 0x%x", CurrTime);
           return 0;
         }
@@ -9591,18 +8283,21 @@ uint64_t AVE_Prop_AVC_SetRefFeatureOn(_DWORD *a1, const char **a2, const __CFStr
       {
         if (AVE_Log_CheckLevel(0x1Eu, 4))
         {
-          v26 = AVE_Log_CheckConsole(0x1Eu);
-          v27 = AVE_GetCurrTime();
-          v28 = AVE_Log_GetLevelStr(4);
-          if (v26)
+          v23 = AVE_Log_CheckConsole(0x1Eu);
+          v24 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          if (v23)
           {
-            printf("%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%x\n", v27, 30, v28, "AVE_Prop_AVC_SetRefFeatureOn", 11963, "iFeature != 0", a1, *(a1 + 7), a2, a3, a4, valuePtr);
-            v27 = AVE_GetCurrTime();
+            printf("%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%x\n", v24, 30, v25, "AVE_Prop_AVC_SetRefFeatureOn", 11963, "iFeature != 0", a1, *(a1 + 7), a2, a3, a4, valuePtr);
+            v26 = AVE_GetCurrTime();
             v28 = AVE_Log_GetLevelStr(4);
-            v29 = *(a1 + 7);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%x", v26, 30, v28, "AVE_Prop_AVC_SetRefFeatureOn", 11963, "iFeature != 0");
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%x", v27, 30, v28, "AVE_Prop_AVC_SetRefFeatureOn", 11963, "iFeature != 0");
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%x", v24, 30, v25, "AVE_Prop_AVC_SetRefFeatureOn", 11963, "iFeature != 0");
+          }
         }
 
         return 4294965292;
@@ -9613,24 +8308,103 @@ uint64_t AVE_Prop_AVC_SetRefFeatureOn(_DWORD *a1, const char **a2, const __CFStr
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = *(a1 + 7);
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = *(a1 + 7);
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_AVC_SetRefFeatureOn", 11954, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetRefFeatureOn", 11954, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_AVC_SetRefFeatureOn", 11954, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetRefFeatureOn", 11954, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
+    }
+  }
+
+  else
+  {
+    if (AVE_Log_CheckLevel(0x1Eu, 4))
+    {
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetRefFeatureOn", 11944, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v27, "AVE_Prop_AVC_SetRefFeatureOn");
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetRefFeatureOn");
+      }
+    }
+
+    return 4294966295;
+  }
+
+  return result;
+}
+
+uint64_t AVE_Prop_AVC_GetRefFeatureOn(_DWORD *a1, const char **a2, CFAllocatorRef allocator, const __CFString *a4, CFNumberRef *a5)
+{
+  if (a1 && a2 && a4 && a5)
+  {
+    valuePtr = a1[324];
+    v10 = CFNumberCreate(allocator, kCFNumberSInt32Type, &valuePtr);
+    if (v10)
+    {
+      v11 = v10;
+      *a5 = v10;
+      result = AVE_Log_CheckLevel(0x1Eu, 7);
+      if (result)
+      {
+        v13 = AVE_Log_CheckConsole(0x1Eu);
+        CurrTime = AVE_GetCurrTime();
+        LevelStr = AVE_Log_GetLevelStr(7);
+        if (v13)
+        {
+          printf("%lld %d AVE %s: %p %lld GetProp %s: 0x%x %p\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr, v11);
+          CurrTime = AVE_GetCurrTime();
+          AVE_Log_GetLevelStr(7);
+        }
+
+        syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: 0x%x %p", CurrTime, 30);
+        return 0;
+      }
+    }
+
+    else
+    {
+      if (AVE_Log_CheckLevel(0x1Eu, 4))
+      {
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%x\n", v21, 30, v22, "AVE_Prop_AVC_GetRefFeatureOn", 12009, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%x", v23, 30, v25, "AVE_Prop_AVC_GetRefFeatureOn", 12009, "pNum != __null", a1);
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%x", v21, 30, v22, "AVE_Prop_AVC_GetRefFeatureOn", 12009, "pNum != __null", a1);
+        }
+      }
+
+      return 4294966293;
     }
   }
 
@@ -9643,15 +8417,1223 @@ uint64_t AVE_Prop_AVC_SetRefFeatureOn(_DWORD *a1, const char **a2, const __CFStr
       v18 = AVE_Log_GetLevelStr(4);
       if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_SetRefFeatureOn", 11944, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetRefFeatureOn", 11999, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
         v19 = AVE_GetCurrTime();
-        v30 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v30, "AVE_Prop_AVC_SetRefFeatureOn");
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetRefFeatureOn", 11999);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_SetRefFeatureOn");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetRefFeatureOn", 11999);
+      }
+    }
+
+    return 4294966295;
+  }
+
+  return result;
+}
+
+uint64_t AVE_Prop_AVC_SetRefFeatureOff(_DWORD *a1, const char **a2, const __CFString *a3, const __CFNumber *a4)
+{
+  valuePtr = 0;
+  if (a1 && a2 && a3 && a4)
+  {
+    TypeID = CFNumberGetTypeID();
+    if (TypeID == CFGetTypeID(a4))
+    {
+      CFNumberGetValue(a4, kCFNumberSInt32Type, &valuePtr);
+      v9 = valuePtr;
+      if (valuePtr)
+      {
+        a1[4477] = valuePtr;
+        a1[324] &= ~v9;
+        result = AVE_Log_CheckLevel(0x1Eu, 7);
+        if (result)
+        {
+          v11 = AVE_Log_CheckConsole(0x1Eu);
+          CurrTime = AVE_GetCurrTime();
+          LevelStr = AVE_Log_GetLevelStr(7);
+          if (v11)
+          {
+            printf("%lld %d AVE %s: %p %lld SetProp %s: 0x%x\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr);
+            CurrTime = AVE_GetCurrTime();
+            AVE_Log_GetLevelStr(7);
+          }
+
+          syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: 0x%x", CurrTime);
+          return 0;
+        }
+      }
+
+      else
+      {
+        if (AVE_Log_CheckLevel(0x1Eu, 4))
+        {
+          v23 = AVE_Log_CheckConsole(0x1Eu);
+          v24 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          if (v23)
+          {
+            printf("%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%x\n", v24, 30, v25, "AVE_Prop_AVC_SetRefFeatureOff", 12060, "iFeature != 0", a1, *(a1 + 7), a2, a3, a4, valuePtr);
+            v26 = AVE_GetCurrTime();
+            v28 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%x", v26, 30, v28, "AVE_Prop_AVC_SetRefFeatureOff", 12060, "iFeature != 0");
+          }
+
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%x", v24, 30, v25, "AVE_Prop_AVC_SetRefFeatureOff", 12060, "iFeature != 0");
+          }
+        }
+
+        return 4294965292;
+      }
+    }
+
+    else
+    {
+      if (AVE_Log_CheckLevel(0x1Eu, 4))
+      {
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = *(a1 + 7);
+        v22 = CFGetTypeID(a4);
+        if (v18)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetRefFeatureOff", 12051, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
+          CFGetTypeID(a4);
+        }
+
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetRefFeatureOff", 12051, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+      }
+
+      return 4294965293;
+    }
+  }
+
+  else
+  {
+    if (AVE_Log_CheckLevel(0x1Eu, 4))
+    {
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetRefFeatureOff", 12041, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v27, "AVE_Prop_AVC_SetRefFeatureOff");
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetRefFeatureOff");
+      }
+    }
+
+    return 4294966295;
+  }
+
+  return result;
+}
+
+uint64_t AVE_Prop_AVC_GetRefFeatureOff(_DWORD *a1, const char **a2, CFAllocatorRef allocator, const __CFString *a4, CFNumberRef *a5)
+{
+  if (a1 && a2 && a4 && a5)
+  {
+    valuePtr = ~a1[324];
+    v10 = CFNumberCreate(allocator, kCFNumberSInt32Type, &valuePtr);
+    if (v10)
+    {
+      v11 = v10;
+      *a5 = v10;
+      result = AVE_Log_CheckLevel(0x1Eu, 7);
+      if (result)
+      {
+        v13 = AVE_Log_CheckConsole(0x1Eu);
+        CurrTime = AVE_GetCurrTime();
+        LevelStr = AVE_Log_GetLevelStr(7);
+        if (v13)
+        {
+          printf("%lld %d AVE %s: %p %lld GetProp %s: 0x%x %p\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr, v11);
+          CurrTime = AVE_GetCurrTime();
+          AVE_Log_GetLevelStr(7);
+        }
+
+        syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: 0x%x %p", CurrTime, 30);
+        return 0;
+      }
+    }
+
+    else
+    {
+      if (AVE_Log_CheckLevel(0x1Eu, 4))
+      {
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%x\n", v21, 30, v22, "AVE_Prop_AVC_GetRefFeatureOff", 12106, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%x", v23, 30, v25, "AVE_Prop_AVC_GetRefFeatureOff", 12106, "pNum != __null", a1);
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%x", v21, 30, v22, "AVE_Prop_AVC_GetRefFeatureOff", 12106, "pNum != __null", a1);
+        }
+      }
+
+      return 4294966293;
+    }
+  }
+
+  else
+  {
+    if (AVE_Log_CheckLevel(0x1Eu, 4))
+    {
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetRefFeatureOff", 12096, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetRefFeatureOff", 12096);
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetRefFeatureOff", 12096);
+      }
+    }
+
+    return 4294966295;
+  }
+
+  return result;
+}
+
+uint64_t AVE_Prop_AVC_SetRefNumOfPFrame(void *a1, const char **a2, const __CFString *a3, const __CFNumber *a4)
+{
+  valuePtr = 0;
+  if (a1 && a2 && a3 && a4)
+  {
+    TypeID = CFNumberGetTypeID();
+    if (TypeID == CFGetTypeID(a4))
+    {
+      CFNumberGetValue(a4, kCFNumberSInt32Type, &valuePtr);
+      v9 = valuePtr;
+      if ((valuePtr - 1) >= 4)
+      {
+        if (AVE_Log_CheckLevel(0x1Eu, 4))
+        {
+          v23 = AVE_Log_CheckConsole(0x1Eu);
+          CurrTime = AVE_GetCurrTime();
+          LevelStr = AVE_Log_GetLevelStr(4);
+          if (v23)
+          {
+            printf("%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d\n", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetRefNumOfPFrame", 12158, "(iRefNumOfPFrame > 0) && (iRefNumOfPFrame <= 4)", a1, a1[7], a2, a3, a4, valuePtr);
+            v26 = AVE_GetCurrTime();
+            v28 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d", v26, 30, v28, "AVE_Prop_AVC_SetRefNumOfPFrame", 12158, "(iRefNumOfPFrame > 0) && (iRefNumOfPFrame <= 4)");
+          }
+
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetRefNumOfPFrame", 12158, "(iRefNumOfPFrame > 0) && (iRefNumOfPFrame <= 4)");
+          }
+        }
+
+        return 4294965292;
+      }
+
+      else
+      {
+        *(a1 + 4478) = valuePtr;
+        *(a1 + 327) = v9;
+        result = AVE_Log_CheckLevel(0x1Eu, 7);
+        if (result)
+        {
+          v11 = AVE_Log_CheckConsole(0x1Eu);
+          v12 = AVE_GetCurrTime();
+          v13 = AVE_Log_GetLevelStr(7);
+          if (v11)
+          {
+            printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", v12, 30, v13, a1, a1[7], *a2, valuePtr);
+            v12 = AVE_GetCurrTime();
+            AVE_Log_GetLevelStr(7);
+          }
+
+          syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", v12);
+          return 0;
+        }
+      }
+    }
+
+    else
+    {
+      if (AVE_Log_CheckLevel(0x1Eu, 4))
+      {
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = a1[7];
+        v22 = CFGetTypeID(a4);
+        if (v18)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetRefNumOfPFrame", 12148, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
+          CFGetTypeID(a4);
+        }
+
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetRefNumOfPFrame", 12148, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+      }
+
+      return 4294965293;
+    }
+  }
+
+  else
+  {
+    if (AVE_Log_CheckLevel(0x1Eu, 4))
+    {
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetRefNumOfPFrame", 12138, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v27, "AVE_Prop_AVC_SetRefNumOfPFrame");
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetRefNumOfPFrame");
+      }
+    }
+
+    return 4294966295;
+  }
+
+  return result;
+}
+
+uint64_t AVE_Prop_AVC_GetRefNumOfPFrame(_DWORD *a1, const char **a2, CFAllocatorRef allocator, const __CFString *a4, CFNumberRef *a5)
+{
+  if (a1 && a2 && a4 && a5)
+  {
+    valuePtr = a1[327];
+    v10 = CFNumberCreate(allocator, kCFNumberSInt32Type, &valuePtr);
+    if (v10)
+    {
+      v11 = v10;
+      *a5 = v10;
+      result = AVE_Log_CheckLevel(0x1Eu, 7);
+      if (result)
+      {
+        v13 = AVE_Log_CheckConsole(0x1Eu);
+        CurrTime = AVE_GetCurrTime();
+        LevelStr = AVE_Log_GetLevelStr(7);
+        if (v13)
+        {
+          printf("%lld %d AVE %s: %p %lld GetProp %s: %d %p\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr, v11);
+          CurrTime = AVE_GetCurrTime();
+          AVE_Log_GetLevelStr(7);
+        }
+
+        syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d %p", CurrTime, 30);
+        return 0;
+      }
+    }
+
+    else
+    {
+      if (AVE_Log_CheckLevel(0x1Eu, 4))
+      {
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v21, 30, v22, "AVE_Prop_AVC_GetRefNumOfPFrame", 12204, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v23, 30, v25, "AVE_Prop_AVC_GetRefNumOfPFrame", 12204, "pNum != __null", a1);
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v21, 30, v22, "AVE_Prop_AVC_GetRefNumOfPFrame", 12204, "pNum != __null", a1);
+        }
+      }
+
+      return 4294966293;
+    }
+  }
+
+  else
+  {
+    if (AVE_Log_CheckLevel(0x1Eu, 4))
+    {
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetRefNumOfPFrame", 12194, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetRefNumOfPFrame", 12194);
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetRefNumOfPFrame", 12194);
+      }
+    }
+
+    return 4294966295;
+  }
+
+  return result;
+}
+
+uint64_t AVE_Prop_AVC_SetRefNumOfBFrame(void *a1, const char **a2, const __CFString *a3, const __CFNumber *a4)
+{
+  valuePtr = 0;
+  if (a1 && a2 && a3 && a4)
+  {
+    TypeID = CFNumberGetTypeID();
+    if (TypeID == CFGetTypeID(a4))
+    {
+      CFNumberGetValue(a4, kCFNumberSInt32Type, &valuePtr);
+      v9 = valuePtr;
+      if ((valuePtr - 2) >= 3)
+      {
+        if (AVE_Log_CheckLevel(0x1Eu, 4))
+        {
+          v23 = AVE_Log_CheckConsole(0x1Eu);
+          CurrTime = AVE_GetCurrTime();
+          LevelStr = AVE_Log_GetLevelStr(4);
+          if (v23)
+          {
+            printf("%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d [%d, %d]\n", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetRefNumOfBFrame", 12256, "(iRefNumOfBFrame > 1) && (iRefNumOfBFrame <= 4)", a1, a1[7], a2, a3, a4, valuePtr, 0, 3);
+            v26 = AVE_GetCurrTime();
+            v28 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d [%d, %d]", v26, 30, v28, "AVE_Prop_AVC_SetRefNumOfBFrame", 12256, "(iRefNumOfBFrame > 1) && (iRefNumOfBFrame <= 4)", a1);
+          }
+
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d [%d, %d]", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetRefNumOfBFrame", 12256, "(iRefNumOfBFrame > 1) && (iRefNumOfBFrame <= 4)", a1);
+          }
+        }
+
+        return 4294965292;
+      }
+
+      else
+      {
+        *(a1 + 4479) = valuePtr;
+        *(a1 + 328) = v9;
+        result = AVE_Log_CheckLevel(0x1Eu, 7);
+        if (result)
+        {
+          v11 = AVE_Log_CheckConsole(0x1Eu);
+          v12 = AVE_GetCurrTime();
+          v13 = AVE_Log_GetLevelStr(7);
+          if (v11)
+          {
+            printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", v12, 30, v13, a1, a1[7], *a2, valuePtr);
+            v12 = AVE_GetCurrTime();
+            AVE_Log_GetLevelStr(7);
+          }
+
+          syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", v12);
+          return 0;
+        }
+      }
+    }
+
+    else
+    {
+      if (AVE_Log_CheckLevel(0x1Eu, 4))
+      {
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = a1[7];
+        v22 = CFGetTypeID(a4);
+        if (v18)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetRefNumOfBFrame", 12246, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
+          CFGetTypeID(a4);
+        }
+
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetRefNumOfBFrame", 12246, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+      }
+
+      return 4294965293;
+    }
+  }
+
+  else
+  {
+    if (AVE_Log_CheckLevel(0x1Eu, 4))
+    {
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetRefNumOfBFrame", 12236, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v27, "AVE_Prop_AVC_SetRefNumOfBFrame");
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetRefNumOfBFrame");
+      }
+    }
+
+    return 4294966295;
+  }
+
+  return result;
+}
+
+uint64_t AVE_Prop_AVC_GetRefNumOfBFrame(_DWORD *a1, const char **a2, CFAllocatorRef allocator, const __CFString *a4, CFNumberRef *a5)
+{
+  if (a1 && a2 && a4 && a5)
+  {
+    valuePtr = a1[328];
+    v10 = CFNumberCreate(allocator, kCFNumberSInt32Type, &valuePtr);
+    if (v10)
+    {
+      v11 = v10;
+      *a5 = v10;
+      result = AVE_Log_CheckLevel(0x1Eu, 7);
+      if (result)
+      {
+        v13 = AVE_Log_CheckConsole(0x1Eu);
+        CurrTime = AVE_GetCurrTime();
+        LevelStr = AVE_Log_GetLevelStr(7);
+        if (v13)
+        {
+          printf("%lld %d AVE %s: %p %lld GetProp %s: %d %p\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr, v11);
+          CurrTime = AVE_GetCurrTime();
+          AVE_Log_GetLevelStr(7);
+        }
+
+        syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d %p", CurrTime, 30);
+        return 0;
+      }
+    }
+
+    else
+    {
+      if (AVE_Log_CheckLevel(0x1Eu, 4))
+      {
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v21, 30, v22, "AVE_Prop_AVC_GetRefNumOfBFrame", 12302, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v23, 30, v25, "AVE_Prop_AVC_GetRefNumOfBFrame", 12302, "pNum != __null", a1);
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v21, 30, v22, "AVE_Prop_AVC_GetRefNumOfBFrame", 12302, "pNum != __null", a1);
+        }
+      }
+
+      return 4294966293;
+    }
+  }
+
+  else
+  {
+    if (AVE_Log_CheckLevel(0x1Eu, 4))
+    {
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetRefNumOfBFrame", 12292, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetRefNumOfBFrame", 12292);
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetRefNumOfBFrame", 12292);
+      }
+    }
+
+    return 4294966295;
+  }
+
+  return result;
+}
+
+uint64_t AVE_Prop_AVC_SetQPModFeatureOn(_DWORD *a1, const char **a2, const __CFString *a3, const __CFNumber *a4)
+{
+  valuePtr = 0;
+  if (a1 && a2 && a3 && a4)
+  {
+    TypeID = CFNumberGetTypeID();
+    if (TypeID == CFGetTypeID(a4))
+    {
+      CFNumberGetValue(a4, kCFNumberSInt32Type, &valuePtr);
+      v9 = valuePtr;
+      if (valuePtr)
+      {
+        a1[4480] = valuePtr;
+        a1[334] |= v9;
+        result = AVE_Log_CheckLevel(0x1Eu, 7);
+        if (result)
+        {
+          v11 = AVE_Log_CheckConsole(0x1Eu);
+          CurrTime = AVE_GetCurrTime();
+          LevelStr = AVE_Log_GetLevelStr(7);
+          if (v11)
+          {
+            printf("%lld %d AVE %s: %p %lld SetProp %s: 0x%x\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr);
+            CurrTime = AVE_GetCurrTime();
+            AVE_Log_GetLevelStr(7);
+          }
+
+          syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: 0x%x", CurrTime);
+          return 0;
+        }
+      }
+
+      else
+      {
+        if (AVE_Log_CheckLevel(0x1Eu, 4))
+        {
+          v23 = AVE_Log_CheckConsole(0x1Eu);
+          v24 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          if (v23)
+          {
+            printf("%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%x\n", v24, 30, v25, "AVE_Prop_AVC_SetQPModFeatureOn", 12353, "iFeature != 0", a1, *(a1 + 7), a2, a3, a4, valuePtr);
+            v26 = AVE_GetCurrTime();
+            v28 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%x", v26, 30, v28, "AVE_Prop_AVC_SetQPModFeatureOn", 12353, "iFeature != 0");
+          }
+
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%x", v24, 30, v25, "AVE_Prop_AVC_SetQPModFeatureOn", 12353, "iFeature != 0");
+          }
+        }
+
+        return 4294965292;
+      }
+    }
+
+    else
+    {
+      if (AVE_Log_CheckLevel(0x1Eu, 4))
+      {
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = *(a1 + 7);
+        v22 = CFGetTypeID(a4);
+        if (v18)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetQPModFeatureOn", 12344, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
+          CFGetTypeID(a4);
+        }
+
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetQPModFeatureOn", 12344, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+      }
+
+      return 4294965293;
+    }
+  }
+
+  else
+  {
+    if (AVE_Log_CheckLevel(0x1Eu, 4))
+    {
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetQPModFeatureOn", 12334, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v27, "AVE_Prop_AVC_SetQPModFeatureOn");
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetQPModFeatureOn");
+      }
+    }
+
+    return 4294966295;
+  }
+
+  return result;
+}
+
+uint64_t AVE_Prop_AVC_GetQPModFeatureOn(_DWORD *a1, const char **a2, CFAllocatorRef allocator, const __CFString *a4, CFNumberRef *a5)
+{
+  if (a1 && a2 && a4 && a5)
+  {
+    valuePtr = a1[334];
+    v10 = CFNumberCreate(allocator, kCFNumberSInt32Type, &valuePtr);
+    if (v10)
+    {
+      v11 = v10;
+      *a5 = v10;
+      result = AVE_Log_CheckLevel(0x1Eu, 7);
+      if (result)
+      {
+        v13 = AVE_Log_CheckConsole(0x1Eu);
+        CurrTime = AVE_GetCurrTime();
+        LevelStr = AVE_Log_GetLevelStr(7);
+        if (v13)
+        {
+          printf("%lld %d AVE %s: %p %lld GetProp %s: 0x%x %p\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr, v11);
+          CurrTime = AVE_GetCurrTime();
+          AVE_Log_GetLevelStr(7);
+        }
+
+        syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: 0x%x %p", CurrTime, 30);
+        return 0;
+      }
+    }
+
+    else
+    {
+      if (AVE_Log_CheckLevel(0x1Eu, 4))
+      {
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%x\n", v21, 30, v22, "AVE_Prop_AVC_GetQPModFeatureOn", 12399, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%x", v23, 30, v25, "AVE_Prop_AVC_GetQPModFeatureOn", 12399, "pNum != __null", a1);
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%x", v21, 30, v22, "AVE_Prop_AVC_GetQPModFeatureOn", 12399, "pNum != __null", a1);
+        }
+      }
+
+      return 4294966293;
+    }
+  }
+
+  else
+  {
+    if (AVE_Log_CheckLevel(0x1Eu, 4))
+    {
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetQPModFeatureOn", 12389, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetQPModFeatureOn", 12389);
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetQPModFeatureOn", 12389);
+      }
+    }
+
+    return 4294966295;
+  }
+
+  return result;
+}
+
+uint64_t AVE_Prop_AVC_SetQPModFeatureOff(_DWORD *a1, const char **a2, const __CFString *a3, const __CFNumber *a4)
+{
+  valuePtr = 0;
+  if (a1 && a2 && a3 && a4)
+  {
+    TypeID = CFNumberGetTypeID();
+    if (TypeID == CFGetTypeID(a4))
+    {
+      CFNumberGetValue(a4, kCFNumberSInt32Type, &valuePtr);
+      v9 = valuePtr;
+      if (valuePtr)
+      {
+        a1[4481] = valuePtr;
+        a1[334] &= ~v9;
+        result = AVE_Log_CheckLevel(0x1Eu, 7);
+        if (result)
+        {
+          v11 = AVE_Log_CheckConsole(0x1Eu);
+          CurrTime = AVE_GetCurrTime();
+          LevelStr = AVE_Log_GetLevelStr(7);
+          if (v11)
+          {
+            printf("%lld %d AVE %s: %p %lld SetProp %s: 0x%x\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr);
+            CurrTime = AVE_GetCurrTime();
+            AVE_Log_GetLevelStr(7);
+          }
+
+          syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: 0x%x", CurrTime);
+          return 0;
+        }
+      }
+
+      else
+      {
+        if (AVE_Log_CheckLevel(0x1Eu, 4))
+        {
+          v23 = AVE_Log_CheckConsole(0x1Eu);
+          v24 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          if (v23)
+          {
+            printf("%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%x\n", v24, 30, v25, "AVE_Prop_AVC_SetQPModFeatureOff", 12450, "iFeature != 0", a1, *(a1 + 7), a2, a3, a4, valuePtr);
+            v26 = AVE_GetCurrTime();
+            v28 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%x", v26, 30, v28, "AVE_Prop_AVC_SetQPModFeatureOff", 12450, "iFeature != 0");
+          }
+
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%x", v24, 30, v25, "AVE_Prop_AVC_SetQPModFeatureOff", 12450, "iFeature != 0");
+          }
+        }
+
+        return 4294965292;
+      }
+    }
+
+    else
+    {
+      if (AVE_Log_CheckLevel(0x1Eu, 4))
+      {
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = *(a1 + 7);
+        v22 = CFGetTypeID(a4);
+        if (v18)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetQPModFeatureOff", 12441, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
+          CFGetTypeID(a4);
+        }
+
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetQPModFeatureOff", 12441, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+      }
+
+      return 4294965293;
+    }
+  }
+
+  else
+  {
+    if (AVE_Log_CheckLevel(0x1Eu, 4))
+    {
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetQPModFeatureOff", 12431, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v27, "AVE_Prop_AVC_SetQPModFeatureOff");
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetQPModFeatureOff");
+      }
+    }
+
+    return 4294966295;
+  }
+
+  return result;
+}
+
+uint64_t AVE_Prop_AVC_GetQPModFeatureOff(_DWORD *a1, const char **a2, CFAllocatorRef allocator, const __CFString *a4, CFNumberRef *a5)
+{
+  if (a1 && a2 && a4 && a5)
+  {
+    valuePtr = ~a1[334];
+    v10 = CFNumberCreate(allocator, kCFNumberSInt32Type, &valuePtr);
+    if (v10)
+    {
+      v11 = v10;
+      *a5 = v10;
+      result = AVE_Log_CheckLevel(0x1Eu, 7);
+      if (result)
+      {
+        v13 = AVE_Log_CheckConsole(0x1Eu);
+        CurrTime = AVE_GetCurrTime();
+        LevelStr = AVE_Log_GetLevelStr(7);
+        if (v13)
+        {
+          printf("%lld %d AVE %s: %p %lld GetProp %s: 0x%x %p\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr, v11);
+          CurrTime = AVE_GetCurrTime();
+          AVE_Log_GetLevelStr(7);
+        }
+
+        syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: 0x%x %p", CurrTime, 30);
+        return 0;
+      }
+    }
+
+    else
+    {
+      if (AVE_Log_CheckLevel(0x1Eu, 4))
+      {
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%x\n", v21, 30, v22, "AVE_Prop_AVC_GetQPModFeatureOff", 12496, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%x", v23, 30, v25, "AVE_Prop_AVC_GetQPModFeatureOff", 12496, "pNum != __null", a1);
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p 0x%x", v21, 30, v22, "AVE_Prop_AVC_GetQPModFeatureOff", 12496, "pNum != __null", a1);
+        }
+      }
+
+      return 4294966293;
+    }
+  }
+
+  else
+  {
+    if (AVE_Log_CheckLevel(0x1Eu, 4))
+    {
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetQPModFeatureOff", 12486, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetQPModFeatureOff", 12486);
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetQPModFeatureOff", 12486);
+      }
+    }
+
+    return 4294966295;
+  }
+
+  return result;
+}
+
+uint64_t AVE_Prop_AVC_SetQPModLevel(void *a1, void *a2, const __CFString *a3, const __CFNumber *a4)
+{
+  valuePtr = 0;
+  if (a1 && a2 && a3 && a4)
+  {
+    TypeID = CFNumberGetTypeID();
+    if (TypeID == CFGetTypeID(a4))
+    {
+      CFNumberGetValue(a4, kCFNumberSInt32Type, &valuePtr);
+      if (AVE_Log_CheckLevel(0x1Eu, 4))
+      {
+        v9 = AVE_Log_CheckConsole(0x1Eu);
+        CurrTime = AVE_GetCurrTime();
+        LevelStr = AVE_Log_GetLevelStr(4);
+        if (v9)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d (%d, %d)\n", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetQPModLevel", 12548, "AVE_QPModLevel_None < iQPModLevel && iQPModLevel < AVE_QPModLevel_Max", a1, a1[7], a2, a3, a4, valuePtr, 0, 1);
+          v12 = AVE_GetCurrTime();
+          v23 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d (%d, %d)", v12, 30, v23, "AVE_Prop_AVC_SetQPModLevel", 12548, "AVE_QPModLevel_None < iQPModLevel && iQPModLevel < AVE_QPModLevel_Max", a1);
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d (%d, %d)", CurrTime, 30, LevelStr, "AVE_Prop_AVC_SetQPModLevel", 12548, "AVE_QPModLevel_None < iQPModLevel && iQPModLevel < AVE_QPModLevel_Max", a1);
+        }
+      }
+
+      return 4294965292;
+    }
+
+    else
+    {
+      if (AVE_Log_CheckLevel(0x1Eu, 4))
+      {
+        v17 = AVE_Log_CheckConsole(0x1Eu);
+        v18 = AVE_GetCurrTime();
+        v19 = AVE_Log_GetLevelStr(4);
+        v20 = a1[7];
+        v21 = CFGetTypeID(a4);
+        if (v17)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v18, 30, v19, "AVE_Prop_AVC_SetQPModLevel", 12538, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v20, a2, a3, a4, v21);
+          v18 = AVE_GetCurrTime();
+          v19 = AVE_Log_GetLevelStr(4);
+          CFGetTypeID(a4);
+        }
+
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v18, 30, v19, "AVE_Prop_AVC_SetQPModLevel", 12538, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+      }
+
+      return 4294965293;
+    }
+  }
+
+  else
+  {
+    if (AVE_Log_CheckLevel(0x1Eu, 4))
+    {
+      v13 = AVE_Log_CheckConsole(0x1Eu);
+      v14 = AVE_GetCurrTime();
+      v15 = AVE_Log_GetLevelStr(4);
+      if (v13)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v14, 30, v15, "AVE_Prop_AVC_SetQPModLevel", 12528, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v16 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v16, 30, v24, "AVE_Prop_AVC_SetQPModLevel");
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v14, 30, v15, "AVE_Prop_AVC_SetQPModLevel");
+      }
+    }
+
+    return 4294966295;
+  }
+}
+
+uint64_t AVE_Prop_AVC_GetQPModLevel(_DWORD *a1, const char **a2, CFAllocatorRef allocator, const __CFString *a4, CFNumberRef *a5)
+{
+  if (a1 && a2 && a4 && a5)
+  {
+    valuePtr = a1[335];
+    v10 = CFNumberCreate(allocator, kCFNumberSInt32Type, &valuePtr);
+    if (v10)
+    {
+      v11 = v10;
+      *a5 = v10;
+      result = AVE_Log_CheckLevel(0x1Eu, 7);
+      if (result)
+      {
+        v13 = AVE_Log_CheckConsole(0x1Eu);
+        CurrTime = AVE_GetCurrTime();
+        LevelStr = AVE_Log_GetLevelStr(7);
+        if (v13)
+        {
+          printf("%lld %d AVE %s: %p %lld GetProp %s: %d %p\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr, v11);
+          CurrTime = AVE_GetCurrTime();
+          AVE_Log_GetLevelStr(7);
+        }
+
+        syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d %p", CurrTime, 30);
+        return 0;
+      }
+    }
+
+    else
+    {
+      if (AVE_Log_CheckLevel(0x1Eu, 4))
+      {
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v21, 30, v22, "AVE_Prop_AVC_GetQPModLevel", 12596, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v23, 30, v25, "AVE_Prop_AVC_GetQPModLevel", 12596, "pNum != __null", a1);
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v21, 30, v22, "AVE_Prop_AVC_GetQPModLevel", 12596, "pNum != __null", a1);
+        }
+      }
+
+      return 4294966293;
+    }
+  }
+
+  else
+  {
+    if (AVE_Log_CheckLevel(0x1Eu, 4))
+    {
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_AVC_GetQPModLevel", 12585, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_AVC_GetQPModLevel", 12585);
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_AVC_GetQPModLevel", 12585);
+      }
+    }
+
+    return 4294966295;
+  }
+
+  return result;
+}
+
+uint64_t AVE_Prop_AVC_SetLambdaModFeatureOn(_DWORD *a1, const char **a2, const __CFString *a3, const __CFNumber *a4)
+{
+  valuePtr = 0;
+  if (a1 && a2 && a3 && a4)
+  {
+    TypeID = CFNumberGetTypeID();
+    if (TypeID == CFGetTypeID(a4))
+    {
+      CFNumberGetValue(a4, kCFNumberSInt32Type, &valuePtr);
+      v9 = valuePtr;
+      if (valuePtr)
+      {
+        a1[4483] = valuePtr;
+        a1[338] |= v9;
+        result = AVE_Log_CheckLevel(0x1Eu, 7);
+        if (result)
+        {
+          v11 = AVE_Log_CheckConsole(0x1Eu);
+          CurrTime = AVE_GetCurrTime();
+          LevelStr = AVE_Log_GetLevelStr(7);
+          if (v11)
+          {
+            printf("%lld %d AVE %s: %p %lld SetProp %s: 0x%x\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr);
+            CurrTime = AVE_GetCurrTime();
+            AVE_Log_GetLevelStr(7);
+          }
+
+          syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: 0x%x", CurrTime);
+          return 0;
+        }
+      }
+
+      else
+      {
+        if (AVE_Log_CheckLevel(0x1Eu, 4))
+        {
+          v23 = AVE_Log_CheckConsole(0x1Eu);
+          v24 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          if (v23)
+          {
+            printf("%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%x\n", v24, 30, v25, "AVE_Prop_AVC_SetLambdaModFeatureOn", 12648, "iFeature != 0", a1, *(a1 + 7), a2, a3, a4, valuePtr);
+            v26 = AVE_GetCurrTime();
+            v28 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%x", v26, 30, v28, "AVE_Prop_AVC_SetLambdaModFeatureOn", 12648, "iFeature != 0");
+          }
+
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | No set features %p %lld %p %p %p 0x%x", v24, 30, v25, "AVE_Prop_AVC_SetLambdaModFeatureOn", 12648, "iFeature != 0");
+          }
+        }
+
+        return 4294965292;
+      }
+    }
+
+    else
+    {
+      if (AVE_Log_CheckLevel(0x1Eu, 4))
+      {
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = *(a1 + 7);
+        v22 = CFGetTypeID(a4);
+        if (v18)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_AVC_SetLambdaModFeatureOn", 12639, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
+          CFGetTypeID(a4);
+        }
+
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_AVC_SetLambdaModFeatureOn", 12639, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+      }
+
+      return 4294965293;
+    }
+  }
+
+  else
+  {
+    if (AVE_Log_CheckLevel(0x1Eu, 4))
+    {
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_AVC_SetLambdaModFeatureOn", 12629, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v27, "AVE_Prop_AVC_SetLambdaModFeatureOn");
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_AVC_SetLambdaModFeatureOn");
       }
     }
 

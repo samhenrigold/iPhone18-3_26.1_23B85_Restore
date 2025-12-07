@@ -29,7 +29,7 @@
 
 - (id)_finishCoding
 {
-  if (RBSAtomicSetFlag(1u, &self->_finalized))
+  if (RBSAtomicSetFlag(1, &self->_finalized))
   {
     archiver = self->_archiver;
     if (archiver)
@@ -113,7 +113,7 @@
 {
   objectCopy = object;
   keyCopy = key;
-  if (RBSAtomicGetFlag(&self->_finalized))
+  if (RBSAtomicGetFlag(&self->_finalized, v7))
   {
     [RBSXPCCoder encodeObject:forKey:];
     if (keyCopy)

@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)locationTypeAsString:(int)string;
 - (int)StringAsLocationType:(id)type;
 - (int)locationType;
 - (unint64_t)hash;
@@ -24,6 +25,26 @@
   {
     return 1;
   }
+}
+
+- (id)locationTypeAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"CurrentLocation";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"CachedLocation";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsLocationType:(id)type
@@ -89,7 +110,6 @@
 {
   if (*&self->_has)
   {
-    locationType = self->_locationType;
     PBDataWriterWriteInt32Field();
   }
 }

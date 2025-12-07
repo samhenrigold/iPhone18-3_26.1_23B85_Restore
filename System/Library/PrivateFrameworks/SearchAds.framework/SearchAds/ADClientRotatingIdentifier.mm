@@ -11,14 +11,11 @@
 
 - (NSString)value
 {
-  v2 = (self + OBJC_IVAR___ADClientRotatingIdentifier_value);
   swift_beginAccess();
-  v4 = *v2;
-  v3 = v2[1];
 
-  v5 = sub_264E56384();
+  v2 = sub_264E56384();
 
-  return v5;
+  return v2;
 }
 
 - (void)setValue:(id)value
@@ -27,7 +24,6 @@
   v6 = v5;
   v7 = (self + OBJC_IVAR___ADClientRotatingIdentifier_value);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }

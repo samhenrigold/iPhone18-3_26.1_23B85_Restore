@@ -158,27 +158,26 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1003D27D0();
+  sub_1003D27D0(v2);
 }
 
 - (void)viewWillAppear:(BOOL)appear
 {
   selfCopy = self;
-  sub_1003D2C64(appear);
+  sub_1003D2C64(appear, v4);
 }
 
 - (void)viewWillDisappear:(BOOL)disappear
 {
-  disappearCopy = disappear;
   selfCopy = self;
-  sub_1003D3158(disappearCopy);
+  sub_1003D3158(disappear);
 }
 
 - (void)traitCollectionDidChange:(id)change
 {
   changeCopy = change;
   selfCopy = self;
-  sub_1003D3484(change);
+  sub_1003D3484(change, v6);
 }
 
 - (void)toggleEditingActionWithSender:(id)sender

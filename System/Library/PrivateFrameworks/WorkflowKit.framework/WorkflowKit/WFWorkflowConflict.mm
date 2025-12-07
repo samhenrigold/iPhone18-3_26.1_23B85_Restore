@@ -1,9 +1,27 @@
 @interface WFWorkflowConflict
 - (BOOL)isEqual:(id)equal;
 - (id)description;
+- (id)resolutionKeepingLocal:(BOOL)local keepingRemote:(BOOL)remote;
 @end
 
 @implementation WFWorkflowConflict
+
+- (id)resolutionKeepingLocal:(BOOL)local keepingRemote:(BOOL)remote
+{
+  remoteCopy = remote;
+  localCopy = local;
+  v7 = objc_opt_new();
+  localWorkflowID = [(WFWorkflowConflict *)self localWorkflowID];
+  [v7 setLocalWorkflowID:localWorkflowID];
+
+  remoteWorkflowID = [(WFWorkflowConflict *)self remoteWorkflowID];
+  [v7 setRemoteWorkflowID:remoteWorkflowID];
+
+  [v7 setKeepLocal:localCopy];
+  [v7 setKeepRemote:remoteCopy];
+
+  return v7;
+}
 
 - (BOOL)isEqual:(id)equal
 {

@@ -399,7 +399,7 @@ void __63__NTKRichComplicationRectangularDailyGraphView__addConstraints__block_i
   return v11;
 }
 
-uint64_t __73__NTKRichComplicationRectangularDailyGraphView__datesForGraphInTimezone___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__73__NTKRichComplicationRectangularDailyGraphView__datesForGraphInTimezone___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) addObject:a2];
   v7 = *(*(a1 + 40) + 8);

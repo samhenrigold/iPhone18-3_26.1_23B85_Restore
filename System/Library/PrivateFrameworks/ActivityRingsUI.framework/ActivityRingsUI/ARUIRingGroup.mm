@@ -1059,7 +1059,7 @@ uint64_t __51__ARUIRingGroup_playSpriteAnimationWithCompletion___block_invoke_3(
   v22 = *MEMORY[0x1E69E9840];
   celebrationCopy = celebration;
   completionCopy = completion;
-  v10 = arui_rings_log();
+  v10 = arui_rings_log(completionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -1220,24 +1220,23 @@ void __42__ARUIRingGroup_setFrame_ofSpriteAtIndex___block_invoke(uint64_t a1, ui
   [(ARUIRingGroupAnimationState *)v11 setTimingFunction:v12];
 
   [(ARUIRingGroupAnimationState *)v11 setCompletion:completionCopy];
-  v13 = arui_rings_log();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
-  {
-    [ARUIRingGroup animateWithDuration:v11 animations:v13 curve:? completion:?];
-  }
-
-  [ARUIRingGroupAnimationState pushAnimationState:v11];
-  v14 = arui_rings_log();
+  v14 = arui_rings_log(v13);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    [ARUIRingGroup animateWithDuration:v14 animations:? curve:? completion:?];
+    [ARUIRingGroup animateWithDuration:v11 animations:v14 curve:? completion:?];
+  }
+
+  v15 = arui_rings_log([ARUIRingGroupAnimationState pushAnimationState:v11]);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  {
+    [ARUIRingGroup animateWithDuration:v15 animations:? curve:? completion:?];
   }
 
   animationsCopy[2](animationsCopy);
-  v15 = arui_rings_log();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v17 = arui_rings_log(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
-    [ARUIRingGroup animateWithDuration:v11 animations:v15 curve:? completion:?];
+    [ARUIRingGroup animateWithDuration:v11 animations:v17 curve:? completion:?];
   }
 
   +[ARUIRingGroupAnimationState popAnimationState];
@@ -1845,54 +1844,54 @@ uint64_t __120__ARUIRingGroup_Activity__setActiveEnergyPercentage_exerciseMinute
 
   if (v10 == 3)
   {
-    v18 = 0;
-    v19 = &v18;
-    v20 = 0x2020000000;
-    v21 = 1;
+    v19 = 0;
+    v20 = &v19;
+    v21 = 0x2020000000;
+    v22 = 1;
     rings2 = [(ARUIRingGroup *)self rings];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __79__ARUIRingGroup_Activity__setIsStandalonePhoneFitnessMode_animated_completion___block_invoke;
-    v17[3] = &unk_1E83CE5C8;
-    v17[4] = &v18;
-    [rings2 enumerateObjectsUsingBlock:v17];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __79__ARUIRingGroup_Activity__setIsStandalonePhoneFitnessMode_animated_completion___block_invoke;
+    v18[3] = &unk_1E83CE5C8;
+    v18[4] = &v19;
+    [rings2 enumerateObjectsUsingBlock:v18];
 
     if (animatedCopy)
     {
-      LOBYTE(animatedCopy) = *(v19 + 24) ^ 1;
+      LOBYTE(animatedCopy) = *(v20 + 24) ^ 1;
     }
 
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __79__ARUIRingGroup_Activity__setIsStandalonePhoneFitnessMode_animated_completion___block_invoke_2;
-    v15[3] = &unk_1E83CE5F0;
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __79__ARUIRingGroup_Activity__setIsStandalonePhoneFitnessMode_animated_completion___block_invoke_2;
+    v16[3] = &unk_1E83CE5F0;
     modeCopy = mode;
-    v15[4] = self;
-    v12 = MEMORY[0x1D3875270](v15);
-    v13 = v12;
+    v16[4] = self;
+    v13 = MEMORY[0x1D3875270](v16);
+    v14 = v13;
     if (animatedCopy)
     {
-      [ARUIRingGroup animateWithDuration:v12 animations:completionCopy completion:3.0];
+      [ARUIRingGroup animateWithDuration:v13 animations:completionCopy completion:3.0];
     }
 
     else
     {
-      (*(v12 + 16))(v12);
+      (*(v13 + 16))(v13);
       if (completionCopy)
       {
         completionCopy[2](completionCopy);
       }
     }
 
-    _Block_object_dispose(&v18, 8);
+    _Block_object_dispose(&v19, 8);
   }
 
   else
   {
-    v14 = arui_rings_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    v15 = arui_rings_log(v11);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
-      [ARUIRingGroup(Activity) setIsStandalonePhoneFitnessMode:v14 animated:? completion:?];
+      [ARUIRingGroup(Activity) setIsStandalonePhoneFitnessMode:v15 animated:? completion:?];
     }
   }
 }

@@ -21,27 +21,25 @@
 
 - (void)_removeNotification
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = [(STKAlertSessionManager *)self log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v7 = @"SIMToolkit_Carrier";
+    v6 = @"SIMToolkit_Carrier";
     _os_log_impl(&dword_262BB4000, v3, OS_LOG_TYPE_DEFAULT, "Remove notifications with Identifier='%@'", buf, 0xCu);
   }
 
   v4 = [objc_alloc(MEMORY[0x277CBEA60]) initWithObjects:{@"SIMToolkit_Carrier", 0}];
   [(UNUserNotificationCenter *)self->_userNotificationCenter removePendingNotificationRequestsWithIdentifiers:v4];
   [(UNUserNotificationCenter *)self->_userNotificationCenter removeDeliveredNotificationsWithIdentifiers:v4];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (STKSIMToolkitAlertSessionManager)initWithSubscriptionMonitor:(id)monitor
 {
   monitorCopy = monitor;
   v6 = objc_opt_new();
-  v7 = STKSIMToolkitLog();
+  v7 = STKSIMToolkitLog(v6);
   v35.receiver = self;
   v35.super_class = STKSIMToolkitAlertSessionManager;
   v8 = [(STKAlertSessionManager *)&v35 initWithEventQueue:v6 logger:v7];
@@ -112,10 +110,7 @@
 uint64_t __64__STKSIMToolkitAlertSessionManager_initWithSubscriptionMonitor___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) _queue_startListening];
-  v2 = [[STKTelephonySelectionListItemsProvider alloc] initWithTelephonyClient:*(*(a1 + 32) + 40)];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 112);
-  *(v3 + 112) = v2;
+  *(*(a1 + 32) + 112) = [[STKTelephonySelectionListItemsProvider alloc] initWithTelephonyClient:*(*(a1 + 32) + 40)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -163,11 +158,10 @@ id __64__STKSIMToolkitAlertSessionManager_initWithSubscriptionMonitor___block_in
 
 - (void)_showNotification
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_262BB4000, a2, OS_LOG_TYPE_ERROR, "Something wrong with localization; using default language: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_262BB4000, a2, OS_LOG_TYPE_ERROR, "Something wrong with localization; using default language: %@", &v2, 0xCu);
 }
 
 void __53__STKSIMToolkitAlertSessionManager__showNotification__block_invoke(uint64_t a1, void *a2)
@@ -187,7 +181,7 @@ void __53__STKSIMToolkitAlertSessionManager__showNotification__block_invoke(uint
 
 - (BOOL)_showAfterDeviceUnlock:(unint64_t)unlock
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   if (self->_lock_deviceLocked)
   {
@@ -229,27 +223,26 @@ void __53__STKSIMToolkitAlertSessionManager__showNotification__block_invoke(uint
       v13 = "device unlocked in-time";
     }
 
-    v16 = 136315394;
-    v17 = v12;
-    v18 = 2080;
-    v19 = v13;
-    _os_log_impl(&dword_262BB4000, v11, OS_LOG_TYPE_DEFAULT, "%s STK alert; %s", &v16, 0x16u);
+    v15 = 136315394;
+    v16 = v12;
+    v17 = 2080;
+    v18 = v13;
+    _os_log_impl(&dword_262BB4000, v11, OS_LOG_TYPE_DEFAULT, "%s STK alert; %s", &v15, 0x16u);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (id)remoteAlertDescriptorForSession:(id)session
 {
-  v111 = *MEMORY[0x277D85DE8];
+  v110 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v5 = sessionCopy;
     options = [v5 options];
-    v83 = v5;
+    v82 = v5;
     event = [v5 event];
     v8 = [options valueForKey:*MEMORY[0x277CC40D8]];
     intValue = [v8 intValue];
@@ -259,29 +252,29 @@ void __53__STKSIMToolkitAlertSessionManager__showNotification__block_invoke(uint
     {
       currentSession = self->_currentSession;
       *buf = 134218240;
-      v108 = currentSession;
-      v109 = 2048;
-      v110 = intValue;
+      v107 = currentSession;
+      v108 = 2048;
+      v109 = intValue;
       _os_log_impl(&dword_262BB4000, v10, OS_LOG_TYPE_DEFAULT, "Session <%p> - SlotID %ld", buf, 0x16u);
     }
 
     v12 = [(STKCarrierSubscriptionMonitor *)self->_subscriptionMonitor subscriptionContextForSlot:intValue];
     if ([(STKCarrierSubscriptionMonitor *)self->_subscriptionMonitor numAvailableSubscriptions]< 2)
     {
-      v82 = 0;
-      v85 = 0;
+      v81 = 0;
+      v84 = 0;
     }
 
     else
     {
       telephonyClient = self->_telephonyClient;
-      v106 = 0;
-      v85 = [(CoreTelephonyClient *)telephonyClient getSimLabel:v12 error:&v106];
-      v14 = v106;
+      v105 = 0;
+      v84 = [(CoreTelephonyClient *)telephonyClient getSimLabel:v12 error:&v105];
+      v14 = v105;
       if (v14)
       {
         v15 = v14;
-        v82 = v14;
+        v81 = v14;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
           [(STKSIMToolkitAlertSessionManager *)intValue remoteAlertDescriptorForSession:v12, v15];
@@ -290,30 +283,30 @@ void __53__STKSIMToolkitAlertSessionManager__showNotification__block_invoke(uint
 
       else
       {
-        v82 = 0;
+        v81 = 0;
       }
     }
 
     [options bs_safeStringForKey:*MEMORY[0x277CC40E0]];
-    v90 = v89 = options;
+    v89 = v88 = options;
     v16 = [(STKSIMToolkitAlertSessionManager *)self _newSessionBehaviorFromOptions:options];
     v19 = [objc_alloc(MEMORY[0x277CC3620]) initWithBundleType:1];
     v20 = self->_telephonyClient;
-    v105[1] = 0;
-    v86 = v19;
+    v104[1] = 0;
+    v85 = v19;
     v21 = [CoreTelephonyClient copyCarrierBundleValueWithDefault:v20 key:"copyCarrierBundleValueWithDefault:key:bundleType:error:" bundleType:v12 error:@"AllowSTKAlertInLockScreen"];
     v22 = 0;
-    v87 = v21;
-    v88 = v12;
+    v86 = v21;
+    v87 = v12;
     if (v21 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
       v23 = [(STKAlertSessionManager *)self log];
       if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v108 = @"AllowSTKAlertInLockScreen";
-        v109 = 2112;
-        v110 = v21;
+        v107 = @"AllowSTKAlertInLockScreen";
+        v108 = 2112;
+        v109 = v21;
         _os_log_impl(&dword_262BB4000, v23, OS_LOG_TYPE_DEFAULT, "Carrier bundle: key=%@; value=%@", buf, 0x16u);
       }
 
@@ -341,34 +334,34 @@ void __53__STKSIMToolkitAlertSessionManager__showNotification__block_invoke(uint
       }
 
       *buf = 136315138;
-      v108 = v27;
+      v107 = v27;
       _os_log_impl(&dword_262BB4000, v26, OS_LOG_TYPE_DEFAULT, "%s STK alerts when device is locked", buf, 0xCu);
     }
 
     if (bOOLValue)
     {
-      v81 = v22;
+      v80 = v22;
       v29 = v5;
-      v28 = v85;
+      v28 = v84;
     }
 
     else
     {
       v30 = self->_telephonyClient;
-      v105[0] = v22;
-      v31 = [(CoreTelephonyClient *)v30 copyCarrierBundleValueWithDefault:v88 key:@"STKAlertLockScreenNotificationTimeoutSeconds" bundleType:v86 error:v105];
-      v32 = v105[0];
+      v104[0] = v22;
+      v31 = [(CoreTelephonyClient *)v30 copyCarrierBundleValueWithDefault:v87 key:@"STKAlertLockScreenNotificationTimeoutSeconds" bundleType:v85 error:v104];
+      v32 = v104[0];
 
-      v81 = v32;
+      v80 = v32;
       if (v31 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
       {
         v33 = [(STKAlertSessionManager *)self log];
         if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v108 = @"STKAlertLockScreenNotificationTimeoutSeconds";
-          v109 = 2112;
-          v110 = v31;
+          v107 = @"STKAlertLockScreenNotificationTimeoutSeconds";
+          v108 = 2112;
+          v109 = v31;
           _os_log_impl(&dword_262BB4000, v33, OS_LOG_TYPE_DEFAULT, "Carrier bundle: key=%@; value=%@", buf, 0x16u);
         }
 
@@ -395,29 +388,29 @@ void __53__STKSIMToolkitAlertSessionManager__showNotification__block_invoke(uint
         v35 = 29;
       }
 
-      v28 = v85;
+      v28 = v84;
       v37 = [(STKAlertSessionManager *)self log];
       if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v108 = v35;
+        v107 = v35;
         _os_log_impl(&dword_262BB4000, v37, OS_LOG_TYPE_DEFAULT, "Show STK alerts notification with timeout = %ld secs", buf, 0xCu);
       }
 
       v38 = [(STKSIMToolkitAlertSessionManager *)self _showAfterDeviceUnlock:v35];
       if (!v38)
       {
-        v29 = v83;
-        [v83 sendResponse:2];
+        v29 = v82;
+        [v82 sendResponse:2];
         v44 = 0;
         v18 = 0;
-        v48 = v82;
+        v48 = v81;
 LABEL_83:
 
         goto LABEL_84;
       }
 
-      v29 = v83;
+      v29 = v82;
     }
 
     v39 = 0;
@@ -427,37 +420,37 @@ LABEL_83:
       {
         if (event == 5)
         {
-          if (v90)
+          if (v89)
           {
             v40 = [STKTextSessionData alloc];
             text = [v28 text];
-            v42 = [(STKTextSessionData *)v40 initWithText:v90 simLabel:text];
+            v42 = [(STKTextSessionData *)v40 initWithText:v89 simLabel:text];
 
             v43 = [STKTextSessionAction alloc];
-            v103[0] = MEMORY[0x277D85DD0];
-            v103[1] = 3221225472;
-            v103[2] = __68__STKSIMToolkitAlertSessionManager_remoteAlertDescriptorForSession___block_invoke;
-            v103[3] = &unk_279B4C5F8;
-            v104 = v29;
-            v44 = [(STKTextSessionAction *)v43 initWithBehavior:v16 inputData:v42 response:v103];
+            v102[0] = MEMORY[0x277D85DD0];
+            v102[1] = 3221225472;
+            v102[2] = __68__STKSIMToolkitAlertSessionManager_remoteAlertDescriptorForSession___block_invoke;
+            v102[3] = &unk_279B4C5F8;
+            v103 = v29;
+            v44 = [(STKTextSessionAction *)v43 initWithBehavior:v16 inputData:v42 response:v102];
             v39 = @"STKTextAlertViewController";
-            v45 = v104;
+            v45 = v103;
 LABEL_79:
-            v48 = v82;
+            v48 = v81;
 LABEL_80:
 
 LABEL_81:
 LABEL_82:
-            v21 = v87;
+            v21 = v86;
             v18 = [[_STKRemoteAlertDescriptor alloc] initWithAction:v44 viewControllerName:v39];
             goto LABEL_83;
           }
 
-          v90 = 0;
+          v89 = 0;
           v39 = 0;
           v44 = 0;
 LABEL_89:
-          v48 = v82;
+          v48 = v81;
           goto LABEL_82;
         }
 
@@ -467,8 +460,8 @@ LABEL_74:
       }
 
 LABEL_49:
-      v46 = v90;
-      if (!v90)
+      v46 = v89;
+      if (!v89)
       {
         if (event == 2)
         {
@@ -486,24 +479,24 @@ LABEL_49:
           v47 = MEMORY[0x277CC40C0];
         }
 
-        v46 = [v89 bs_safeStringForKey:*v47];
+        v46 = [v88 bs_safeStringForKey:*v47];
       }
 
 LABEL_78:
       v74 = [STKNotifySessionData alloc];
       text2 = [v28 text];
-      v90 = v46;
+      v89 = v46;
       v42 = [(STKNotifySessionData *)v74 initWithText:v46 simLabel:text2 notifyType:event];
 
       v76 = [STKNotifySessionAction alloc];
-      v91[0] = MEMORY[0x277D85DD0];
-      v91[1] = 3221225472;
-      v91[2] = __68__STKSIMToolkitAlertSessionManager_remoteAlertDescriptorForSession___block_invoke_7;
-      v91[3] = &unk_279B4C5F8;
-      v92 = v29;
-      v44 = [(STKTextSessionAction *)v76 initWithBehavior:v16 inputData:v42 response:v91];
+      v90[0] = MEMORY[0x277D85DD0];
+      v90[1] = 3221225472;
+      v90[2] = __68__STKSIMToolkitAlertSessionManager_remoteAlertDescriptorForSession___block_invoke_7;
+      v90[3] = &unk_279B4C5F8;
+      v91 = v29;
+      v44 = [(STKTextSessionAction *)v76 initWithBehavior:v16 inputData:v42 response:v90];
       v39 = @"STKNotifyAlertViewController";
-      v45 = v92;
+      v45 = v91;
       goto LABEL_79;
     }
 
@@ -511,22 +504,22 @@ LABEL_78:
     {
       if (event == 8)
       {
-        v70 = [(STKTelephonyListItemsProvider *)self->_listItemsProvider selectionListItemsForContext:v88 options:v89];
+        v70 = [(STKTelephonyListItemsProvider *)self->_listItemsProvider selectionListItemsForContext:v87 options:v88];
         v42 = [(STKSIMToolkitAlertSessionManager *)self _listItemsFromCTItems:v70];
 
         if ([(STKNotifySessionData *)v42 count])
         {
           v71 = [STKListItemsSessionData alloc];
           text3 = [v28 text];
-          v45 = [(STKListItemsSessionData *)v71 initWithText:v90 simLabel:text3 listItems:v42];
+          v45 = [(STKListItemsSessionData *)v71 initWithText:v89 simLabel:text3 listItems:v42];
 
           v73 = [STKListItemsSessionAction alloc];
-          v95[0] = MEMORY[0x277D85DD0];
-          v95[1] = 3221225472;
-          v95[2] = __68__STKSIMToolkitAlertSessionManager_remoteAlertDescriptorForSession___block_invoke_5;
-          v95[3] = &unk_279B4C780;
-          v96 = v29;
-          v44 = [(STKListItemsSessionAction *)v73 initWithBehavior:v16 inputData:v45 response:v95];
+          v94[0] = MEMORY[0x277D85DD0];
+          v94[1] = 3221225472;
+          v94[2] = __68__STKSIMToolkitAlertSessionManager_remoteAlertDescriptorForSession___block_invoke_5;
+          v94[3] = &unk_279B4C780;
+          v95 = v29;
+          v44 = [(STKListItemsSessionAction *)v73 initWithBehavior:v16 inputData:v45 response:v94];
 
           v39 = @"STKListDisplayAlertViewController";
           goto LABEL_79;
@@ -543,10 +536,10 @@ LABEL_78:
           goto LABEL_74;
         }
 
-        v42 = [v89 bs_safeObjectForKey:*MEMORY[0x277CC3F10] ofType:objc_opt_class()];
+        v42 = [v88 bs_safeObjectForKey:*MEMORY[0x277CC3F10] ofType:objc_opt_class()];
         if (v42)
         {
-          v49 = [v89 bs_safeObjectForKey:*MEMORY[0x277CC3F18] ofType:objc_opt_class()];
+          v49 = [v88 bs_safeObjectForKey:*MEMORY[0x277CC3F18] ofType:objc_opt_class()];
           if (v49)
           {
             v50 = v49;
@@ -558,18 +551,18 @@ LABEL_78:
           }
 
           v51 = [STKMutableCallSetupSessionData alloc];
-          v28 = v85;
-          text4 = [v85 text];
-          v45 = [(STKCallSetupSessionData *)v51 initWithText:v90 simLabel:text4 phoneNumber:v42];
+          v28 = v84;
+          text4 = [v84 text];
+          v45 = [(STKCallSetupSessionData *)v51 initWithText:v89 simLabel:text4 phoneNumber:v42];
 
           [(STKListItemsSessionData *)v45 setIsHighPriority:CFEqual(v50, *MEMORY[0x277CC3F20]) != 0];
           v53 = [STKCallSetupSessionAction alloc];
-          v93[0] = MEMORY[0x277D85DD0];
-          v93[1] = 3221225472;
-          v93[2] = __68__STKSIMToolkitAlertSessionManager_remoteAlertDescriptorForSession___block_invoke_6;
-          v93[3] = &unk_279B4C5F8;
-          v94 = v29;
-          v44 = [(STKTextSessionAction *)v53 initWithBehavior:v16 inputData:v45 response:v93];
+          v92[0] = MEMORY[0x277D85DD0];
+          v92[1] = 3221225472;
+          v92[2] = __68__STKSIMToolkitAlertSessionManager_remoteAlertDescriptorForSession___block_invoke_6;
+          v92[3] = &unk_279B4C5F8;
+          v93 = v29;
+          v44 = [(STKTextSessionAction *)v53 initWithBehavior:v16 inputData:v45 response:v92];
 
           v39 = @"STKSetupCallAlertViewController";
           goto LABEL_79;
@@ -577,10 +570,10 @@ LABEL_78:
 
         v39 = 0;
         v44 = 0;
-        v28 = v85;
+        v28 = v84;
       }
 
-      v48 = v82;
+      v48 = v81;
       goto LABEL_81;
     }
 
@@ -603,58 +596,58 @@ LABEL_78:
       v57 = &stru_287584798;
     }
 
-    v58 = [v89 bs_safeStringForKey:v55];
+    v58 = [v88 bs_safeStringForKey:v55];
     v59 = *MEMORY[0x277CC3FA0];
     v60 = [v58 isEqualToString:*MEMORY[0x277CC3FA0]];
 
     v61 = [STKMutableTextInputSessionData alloc];
     text5 = [v28 text];
-    v42 = [(STKTextInputSessionData *)v61 initWithText:v90 simLabel:text5];
+    v42 = [(STKTextInputSessionData *)v61 initWithText:v89 simLabel:text5];
 
-    -[STKNotifySessionData setIsSecure:](v42, "setIsSecure:", [v89 bs_BOOLForKey:*MEMORY[0x277CC3F70]]);
-    v63 = [v89 bs_safeStringForKey:*MEMORY[0x277CC3F60]];
+    -[STKNotifySessionData setIsSecure:](v42, "setIsSecure:", [v88 bs_BOOLForKey:*MEMORY[0x277CC3F70]]);
+    v63 = [v88 bs_safeStringForKey:*MEMORY[0x277CC3F60]];
     [(STKNotifySessionData *)v42 setDefaultText:v63];
 
     [(STKNotifySessionData *)v42 setIsDigitsOnly:v60];
-    v64 = [v89 bs_safeNumberForKey:*MEMORY[0x277CC3F80]];
+    v64 = [v88 bs_safeNumberForKey:*MEMORY[0x277CC3F80]];
     v45 = v64;
     if (v64)
     {
       [(STKNotifySessionData *)v42 setMinimumInputLength:[(STKListItemsSessionData *)v64 unsignedIntegerValue]];
     }
 
-    v65 = [v89 bs_safeNumberForKey:*MEMORY[0x277CC3F78]];
+    v65 = [v88 bs_safeNumberForKey:*MEMORY[0x277CC3F78]];
     v66 = v65;
     if (v65)
     {
       -[STKNotifySessionData setMaximumInputLength:](v42, "setMaximumInputLength:", [v65 unsignedIntegerValue]);
     }
 
-    v67 = [v89 bs_safeNumberForKey:*MEMORY[0x277CC3F68]];
-    v84 = v67;
+    v67 = [v88 bs_safeNumberForKey:*MEMORY[0x277CC3F68]];
+    v83 = v67;
     if (v67 && ([v67 BOOLValue] & 1) == 0)
     {
-      v79 = [STKTextInputSessionAction alloc];
-      v101[0] = MEMORY[0x277D85DD0];
-      v101[1] = 3221225472;
-      v101[2] = __68__STKSIMToolkitAlertSessionManager_remoteAlertDescriptorForSession___block_invoke_2;
-      v101[3] = &unk_279B4C758;
-      v69 = &v102;
-      v102 = v29;
-      v44 = [(STKTextInputSessionAction *)v79 initWithBehavior:v16 inputData:v42 response:v101];
+      v78 = [STKTextInputSessionAction alloc];
+      v100[0] = MEMORY[0x277D85DD0];
+      v100[1] = 3221225472;
+      v100[2] = __68__STKSIMToolkitAlertSessionManager_remoteAlertDescriptorForSession___block_invoke_2;
+      v100[3] = &unk_279B4C758;
+      v69 = &v101;
+      v101 = v29;
+      v44 = [(STKTextInputSessionAction *)v78 initWithBehavior:v16 inputData:v42 response:v100];
       v39 = @"STKOneShotInputAlertViewController";
     }
 
     else if (CFEqual(v57, *MEMORY[0x277CC3F98]))
     {
       v68 = [STKYesNoSessionAction alloc];
-      v99[0] = MEMORY[0x277D85DD0];
-      v99[1] = 3221225472;
-      v99[2] = __68__STKSIMToolkitAlertSessionManager_remoteAlertDescriptorForSession___block_invoke_3;
-      v99[3] = &unk_279B4C780;
-      v69 = &v100;
-      v100 = v29;
-      v44 = [(STKYesNoSessionAction *)v68 initWithBehavior:v16 inputData:v42 response:v99];
+      v98[0] = MEMORY[0x277D85DD0];
+      v98[1] = 3221225472;
+      v98[2] = __68__STKSIMToolkitAlertSessionManager_remoteAlertDescriptorForSession___block_invoke_3;
+      v98[3] = &unk_279B4C780;
+      v69 = &v99;
+      v99 = v29;
+      v44 = [(STKYesNoSessionAction *)v68 initWithBehavior:v16 inputData:v42 response:v98];
       v39 = @"STKYesNoInputAlertViewController";
     }
 
@@ -667,20 +660,20 @@ LABEL_78:
         goto LABEL_97;
       }
 
-      v80 = [STKTextInputSessionAction alloc];
-      v97[0] = MEMORY[0x277D85DD0];
-      v97[1] = 3221225472;
-      v97[2] = __68__STKSIMToolkitAlertSessionManager_remoteAlertDescriptorForSession___block_invoke_4;
-      v97[3] = &unk_279B4C758;
-      v69 = &v98;
-      v98 = v29;
-      v44 = [(STKTextInputSessionAction *)v80 initWithBehavior:v16 inputData:v42 response:v97];
+      v79 = [STKTextInputSessionAction alloc];
+      v96[0] = MEMORY[0x277D85DD0];
+      v96[1] = 3221225472;
+      v96[2] = __68__STKSIMToolkitAlertSessionManager_remoteAlertDescriptorForSession___block_invoke_4;
+      v96[3] = &unk_279B4C758;
+      v69 = &v97;
+      v97 = v29;
+      v44 = [(STKTextInputSessionAction *)v79 initWithBehavior:v16 inputData:v42 response:v96];
       v39 = @"STKStandardInputAlertViewController";
     }
 
-    v28 = v85;
+    v28 = v84;
 LABEL_97:
-    v48 = v82;
+    v48 = v81;
 
     goto LABEL_80;
   }
@@ -690,14 +683,12 @@ LABEL_97:
   {
     v17 = self->_currentSession;
     *buf = 134217984;
-    v108 = v17;
+    v107 = v17;
     _os_log_impl(&dword_262BB4000, v16, OS_LOG_TYPE_DEFAULT, "Session <%p> - session isKindOfClass is NULL", buf, 0xCu);
   }
 
   v18 = 0;
 LABEL_84:
-
-  v77 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -782,7 +773,7 @@ uint64_t __68__STKSIMToolkitAlertSessionManager_remoteAlertDescriptorForSession_
 
 void __67__STKSIMToolkitAlertSessionManager_remoteAlertHandleDidDeactivate___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 136) alertHandle];
   v3 = *(a1 + 40);
 
@@ -792,15 +783,13 @@ void __67__STKSIMToolkitAlertSessionManager_remoteAlertHandleDidDeactivate___blo
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(*(a1 + 32) + 136);
-      v7 = 134217984;
-      v8 = v5;
-      _os_log_impl(&dword_262BB4000, v4, OS_LOG_TYPE_DEFAULT, "Session <%p> - AlertHandleDeactivated", &v7, 0xCu);
+      v6 = 134217984;
+      v7 = v5;
+      _os_log_impl(&dword_262BB4000, v4, OS_LOG_TYPE_DEFAULT, "Session <%p> - AlertHandleDeactivated", &v6, 0xCu);
     }
 
     [*(a1 + 32) _queue_setCurrentSession:0];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteAlertHandle:(id)handle didInvalidateWithError:(id)error
@@ -823,7 +812,7 @@ void __67__STKSIMToolkitAlertSessionManager_remoteAlertHandleDidDeactivate___blo
 
 void __77__STKSIMToolkitAlertSessionManager_remoteAlertHandle_didInvalidateWithError___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 136) alertHandle];
   v3 = *(a1 + 40);
 
@@ -834,17 +823,15 @@ void __77__STKSIMToolkitAlertSessionManager_remoteAlertHandle_didInvalidateWithE
     {
       v5 = *(*(a1 + 32) + 136);
       v6 = *(a1 + 48);
-      v8 = 134218242;
-      v9 = v5;
-      v10 = 2114;
-      v11 = v6;
-      _os_log_impl(&dword_262BB4000, v4, OS_LOG_TYPE_DEFAULT, "Session <%p> - AlertHandleInvalidated with error: %{public}@", &v8, 0x16u);
+      v7 = 134218242;
+      v8 = v5;
+      v9 = 2114;
+      v10 = v6;
+      _os_log_impl(&dword_262BB4000, v4, OS_LOG_TYPE_DEFAULT, "Session <%p> - AlertHandleInvalidated with error: %{public}@", &v7, 0x16u);
     }
 
     [*(a1 + 32) _queue_setCurrentSession:0];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userEventDidOccur:(id)occur
@@ -943,7 +930,6 @@ void __54__STKSIMToolkitAlertSessionManager_userEventDidOccur___block_invoke(uin
 - (void)_queue_setCurrentSession:(id)session
 {
   sessionCopy = session;
-  queue = self->_queue;
   BSDispatchQueueAssert();
   currentSession = self->_currentSession;
   if (currentSession != sessionCopy)
@@ -954,9 +940,9 @@ void __54__STKSIMToolkitAlertSessionManager_userEventDidOccur___block_invoke(uin
     [(STKAlertSession *)self->_currentSession invalidate];
   }
 
-  v8 = self->_currentSession;
+  v7 = self->_currentSession;
   self->_currentSession = sessionCopy;
-  v9 = sessionCopy;
+  v8 = sessionCopy;
 
   alertHandle2 = [(STKAlertSession *)self->_currentSession alertHandle];
 
@@ -965,83 +951,82 @@ void __54__STKSIMToolkitAlertSessionManager_userEventDidOccur___block_invoke(uin
 
 - (void)_queue_handleSIMToolkitEvent:(int64_t)event responder:(id)responder userInfo:(id)info
 {
-  v99 = *MEMORY[0x277D85DE8];
+  v96 = *MEMORY[0x277D85DE8];
   responderCopy = responder;
   infoCopy = info;
-  queue = self->_queue;
   BSDispatchQueueAssert();
-  v11 = [(STKAlertSessionManager *)self log];
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v10 = [(STKAlertSessionManager *)self log];
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = NSStringFromSTKSIMToolkitEvent(event);
+    v11 = NSStringFromSTKSIMToolkitEvent(event);
     *buf = 138543618;
-    *&buf[4] = v12;
+    *&buf[4] = v11;
     *&buf[12] = 2112;
     *&buf[14] = infoCopy;
-    _os_log_impl(&dword_262BB4000, v11, OS_LOG_TYPE_DEFAULT, "Event received: %{public}@ with options: %@", buf, 0x16u);
+    _os_log_impl(&dword_262BB4000, v10, OS_LOG_TYPE_DEFAULT, "Event received: %{public}@ with options: %@", buf, 0x16u);
   }
 
   if (event != 14)
   {
-    v74 = self->_currentSession;
-    behavior = [(STKSIMToolkitAlertSession *)v74 behavior];
+    v71 = self->_currentSession;
+    behavior = [(STKSIMToolkitAlertSession *)v71 behavior];
     if ([behavior dismissesAfterUserEvent])
     {
-      hasSentResponse = [(STKAlertSession *)v74 hasSentResponse];
+      hasSentResponse = [(STKAlertSession *)v71 hasSentResponse];
 
       if (!hasSentResponse)
       {
         goto LABEL_14;
       }
 
-      v18 = [(STKAlertSessionManager *)self log];
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v17 = [(STKAlertSessionManager *)self log];
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         currentSession = self->_currentSession;
         *buf = 134217984;
         *&buf[4] = currentSession;
-        _os_log_impl(&dword_262BB4000, v18, OS_LOG_TYPE_DEFAULT, "Session <%p> - Dismissing because [currentAlert dismissesAfterNextEvent] && [currentAlert hasSentResponse]", buf, 0xCu);
+        _os_log_impl(&dword_262BB4000, v17, OS_LOG_TYPE_DEFAULT, "Session <%p> - Dismissing because [currentAlert dismissesAfterNextEvent] && [currentAlert hasSentResponse]", buf, 0xCu);
       }
 
       [(STKSIMToolkitAlertSessionManager *)self _queue_setCurrentSession:0];
-      behavior = v74;
-      v74 = 0;
+      behavior = v71;
+      v71 = 0;
     }
 
 LABEL_14:
     if (event == 7)
     {
-      v24 = [(STKAlertSessionManager *)self log];
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v23 = [(STKAlertSessionManager *)self log];
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218242;
         *&buf[4] = self;
         *&buf[12] = 2114;
         *&buf[14] = infoCopy;
-        _os_log_impl(&dword_262BB4000, v24, OS_LOG_TYPE_DEFAULT, "Session <%p> - Play Tone userInfo: %{public}@", buf, 0x16u);
+        _os_log_impl(&dword_262BB4000, v23, OS_LOG_TYPE_DEFAULT, "Session <%p> - Play Tone userInfo: %{public}@", buf, 0x16u);
       }
 
-      v71 = [STKSoundFactory soundForOptions:infoCopy];
+      v68 = [STKSoundFactory soundForOptions:infoCopy];
     }
 
     else
     {
       if (event == 13)
       {
-        v20 = *MEMORY[0x277CC40C8];
-        v71 = [infoCopy objectForKey:*MEMORY[0x277CC40C8]];
-        options = [(STKAlertSession *)v74 options];
-        v70 = [options objectForKey:v20];
+        v19 = *MEMORY[0x277CC40C8];
+        v68 = [infoCopy objectForKey:*MEMORY[0x277CC40C8]];
+        options = [(STKAlertSession *)v71 options];
+        v67 = [options objectForKey:v19];
 
-        if (v74 && BSEqualObjects())
+        if (v71 && BSEqualObjects())
         {
-          v22 = [(STKAlertSessionManager *)self log];
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+          v21 = [(STKAlertSessionManager *)self log];
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
           {
-            v23 = self->_currentSession;
+            v22 = self->_currentSession;
             *buf = 134217984;
-            *&buf[4] = v23;
-            _os_log_impl(&dword_262BB4000, v22, OS_LOG_TYPE_DEFAULT, "Session <%p> - Dismissing because kCTSIMToolkitSessionCompleteNotification", buf, 0xCu);
+            *&buf[4] = v22;
+            _os_log_impl(&dword_262BB4000, v21, OS_LOG_TYPE_DEFAULT, "Session <%p> - Dismissing because kCTSIMToolkitSessionCompleteNotification", buf, 0xCu);
           }
 
           [(STKSIMToolkitAlertSessionManager *)self _queue_setCurrentSession:0];
@@ -1050,26 +1035,26 @@ LABEL_14:
         goto LABEL_104;
       }
 
-      v71 = 0;
+      v68 = 0;
     }
 
-    v70 = [(STKSIMToolkitAlertSessionManager *)self _newSessionBehaviorFromOptions:infoCopy];
-    v25 = [STKSIMToolkitAlertSession alloc];
-    v26 = [(STKAlertSessionManager *)self log];
-    v72 = [(STKSIMToolkitAlertSession *)v25 initWithLogger:v26 responseProvider:responderCopy event:event options:infoCopy behavior:v70 sound:v71];
+    v67 = [(STKSIMToolkitAlertSessionManager *)self _newSessionBehaviorFromOptions:infoCopy];
+    v24 = [STKSIMToolkitAlertSession alloc];
+    v25 = [(STKAlertSessionManager *)self log];
+    v69 = [(STKSIMToolkitAlertSession *)v24 initWithLogger:v25 responseProvider:responderCopy event:event options:infoCopy behavior:v67 sound:v68];
 
-    if (v74 && ![(STKAlertSession *)v74 hasSentResponse])
+    if (v71 && ![(STKAlertSession *)v71 hasSentResponse])
     {
-      v28 = [(STKAlertSessionManager *)self log];
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v27 = [(STKAlertSessionManager *)self log];
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        *&buf[4] = v72;
-        _os_log_impl(&dword_262BB4000, v28, OS_LOG_TYPE_DEFAULT, "Session <%p> - Returning early because an existing session already exists and needs a response", buf, 0xCu);
+        *&buf[4] = v69;
+        _os_log_impl(&dword_262BB4000, v27, OS_LOG_TYPE_DEFAULT, "Session <%p> - Returning early because an existing session already exists and needs a response", buf, 0xCu);
       }
 
-      [(STKAlertSession *)v72 sendResponse:5];
-      [(STKAlertSession *)v72 invalidate];
+      [(STKAlertSession *)v69 sendResponse:5];
+      [(STKAlertSession *)v69 invalidate];
       goto LABEL_103;
     }
 
@@ -1077,26 +1062,26 @@ LABEL_14:
     {
       if (event == 5)
       {
-        v40 = [(STKAlertSessionManager *)self log];
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+        v39 = [(STKAlertSessionManager *)self log];
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          *&buf[4] = v72;
-          _os_log_impl(&dword_262BB4000, v40, OS_LOG_TYPE_DEFAULT, "Session <%p> - Text session", buf, 0xCu);
+          *&buf[4] = v69;
+          _os_log_impl(&dword_262BB4000, v39, OS_LOG_TYPE_DEFAULT, "Session <%p> - Text session", buf, 0xCu);
         }
 
-        v41 = [infoCopy bs_safeStringForKey:*MEMORY[0x277CC3F50]];
-        if (v41)
+        v40 = [infoCopy bs_safeStringForKey:*MEMORY[0x277CC3F50]];
+        if (v40)
         {
-          v42 = v41;
+          v41 = v40;
         }
 
         else
         {
-          v42 = &stru_287584798;
+          v41 = &stru_287584798;
         }
 
-        if (!CFEqual(v42, *MEMORY[0x277CC3F58]))
+        if (!CFEqual(v41, *MEMORY[0x277CC3F58]))
         {
           out_token = -1;
           state64 = 0;
@@ -1107,95 +1092,95 @@ LABEL_14:
             notify_cancel(out_token);
           }
 
-          v67 = state64;
-          v43 = dispatch_semaphore_create(0);
+          v64 = state64;
+          v42 = dispatch_semaphore_create(0);
           configurationForDefaultMainDisplayMonitor = [MEMORY[0x277D0AD20] configurationForDefaultMainDisplayMonitor];
           *buf = 0;
           *&buf[8] = buf;
           *&buf[16] = 0x3032000000;
-          v96 = __Block_byref_object_copy__0;
-          v97 = __Block_byref_object_dispose__0;
-          v98 = 0;
-          v81[0] = MEMORY[0x277D85DD0];
-          v81[1] = 3221225472;
-          v81[2] = __84__STKSIMToolkitAlertSessionManager__queue_handleSIMToolkitEvent_responder_userInfo___block_invoke;
-          v81[3] = &unk_279B4C7D0;
-          v83 = buf;
-          v44 = v43;
-          v82 = v44;
-          [configurationForDefaultMainDisplayMonitor setTransitionHandler:v81];
-          v68 = [MEMORY[0x277D0AD08] monitorWithConfiguration:configurationForDefaultMainDisplayMonitor];
-          v66 = v44;
-          dispatch_semaphore_wait(v44, 0xFFFFFFFFFFFFFFFFLL);
-          v45 = [MEMORY[0x277CBEB18] arrayWithCapacity:4];
-          v79 = 0u;
-          v80 = 0u;
+          v93 = __Block_byref_object_copy__0;
+          v94 = __Block_byref_object_dispose__0;
+          v95 = 0;
+          v78[0] = MEMORY[0x277D85DD0];
+          v78[1] = 3221225472;
+          v78[2] = __84__STKSIMToolkitAlertSessionManager__queue_handleSIMToolkitEvent_responder_userInfo___block_invoke;
+          v78[3] = &unk_279B4C7D0;
+          v80 = buf;
+          v43 = v42;
+          v79 = v43;
+          [configurationForDefaultMainDisplayMonitor setTransitionHandler:v78];
+          v65 = [MEMORY[0x277D0AD08] monitorWithConfiguration:configurationForDefaultMainDisplayMonitor];
+          v63 = v43;
+          dispatch_semaphore_wait(v43, 0xFFFFFFFFFFFFFFFFLL);
+          v44 = [MEMORY[0x277CBEB18] arrayWithCapacity:4];
+          v76 = 0u;
           v77 = 0u;
-          v78 = 0u;
+          v74 = 0u;
+          v75 = 0u;
           elements = [*(*&buf[8] + 40) elements];
-          v47 = [elements countByEnumeratingWithState:&v77 objects:v94 count:16];
-          if (v47)
+          v46 = [elements countByEnumeratingWithState:&v74 objects:v91 count:16];
+          if (v46)
           {
-            v48 = *v78;
+            v47 = *v75;
             do
             {
-              for (i = 0; i != v47; ++i)
+              for (i = 0; i != v46; ++i)
               {
-                if (*v78 != v48)
+                if (*v75 != v47)
                 {
                   objc_enumerationMutation(elements);
                 }
 
-                v50 = *(*(&v77 + 1) + 8 * i);
-                if ([v50 isUIApplicationElement])
+                v49 = *(*(&v74 + 1) + 8 * i);
+                if ([v49 isUIApplicationElement])
                 {
-                  bundleIdentifier = [v50 bundleIdentifier];
-                  v52 = [bundleIdentifier length] == 0;
+                  bundleIdentifier = [v49 bundleIdentifier];
+                  v51 = [bundleIdentifier length] == 0;
 
-                  if (!v52)
+                  if (!v51)
                   {
-                    bundleIdentifier2 = [v50 bundleIdentifier];
-                    [v45 addObject:bundleIdentifier2];
+                    bundleIdentifier2 = [v49 bundleIdentifier];
+                    [v44 addObject:bundleIdentifier2];
                   }
                 }
               }
 
-              v47 = [elements countByEnumeratingWithState:&v77 objects:v94 count:16];
+              v46 = [elements countByEnumeratingWithState:&v74 objects:v91 count:16];
             }
 
-            while (v47);
+            while (v46);
           }
 
-          [v68 invalidate];
-          if (v67 || [v45 count] && (objc_msgSend(v45, "isEqual:", &unk_28758C110) & 1) == 0)
+          [v65 invalidate];
+          if (v64 || [v44 count] && (objc_msgSend(v44, "isEqual:", &unk_28758C110) & 1) == 0)
           {
-            v54 = [(STKAlertSessionManager *)self log];
-            if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+            v53 = [(STKAlertSessionManager *)self log];
+            if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
             {
-              v55 = [v45 count];
-              *v86 = 134218754;
-              v87 = v72;
-              v88 = 1024;
-              v89 = v67 != 0;
-              v90 = 1024;
-              v91 = v55;
-              v92 = 2112;
-              v93 = v45;
-              _os_log_impl(&dword_262BB4000, v54, OS_LOG_TYPE_DEFAULT, "Session <%p> - Sending busy response because locked: %d, applicationCount: %d, applications: %@", v86, 0x22u);
+              v54 = [v44 count];
+              *v83 = 134218754;
+              v84 = v69;
+              v85 = 1024;
+              v86 = v64 != 0;
+              v87 = 1024;
+              v88 = v54;
+              v89 = 2112;
+              v90 = v44;
+              _os_log_impl(&dword_262BB4000, v53, OS_LOG_TYPE_DEFAULT, "Session <%p> - Sending busy response because locked: %d, applicationCount: %d, applications: %@", v83, 0x22u);
             }
 
-            [(STKAlertSession *)v72 sendResponse:5];
-            [(STKAlertSession *)v72 invalidate];
-            v56 = 0;
+            [(STKAlertSession *)v69 sendResponse:5];
+            [(STKAlertSession *)v69 invalidate];
+            v55 = 0;
           }
 
           else
           {
-            v56 = 1;
+            v55 = 1;
           }
 
           _Block_object_dispose(buf, 8);
-          if ((v56 & 1) == 0)
+          if ((v55 & 1) == 0)
           {
             goto LABEL_103;
           }
@@ -1204,49 +1189,48 @@ LABEL_14:
 
       else if (event == 9)
       {
-        v29 = [(STKAlertSessionManager *)self log];
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+        v28 = [(STKAlertSessionManager *)self log];
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          *&buf[4] = v72;
-          _os_log_impl(&dword_262BB4000, v29, OS_LOG_TYPE_DEFAULT, "Session <%p> - Call setup session", buf, 0xCu);
+          *&buf[4] = v69;
+          _os_log_impl(&dword_262BB4000, v28, OS_LOG_TYPE_DEFAULT, "Session <%p> - Call setup session", buf, 0xCu);
         }
 
         mEMORY[0x277CF0CA8] = [MEMORY[0x277CF0CA8] sharedInstance];
-        v31 = [mEMORY[0x277CF0CA8] deviceClass] == 0;
+        v30 = [mEMORY[0x277CF0CA8] deviceClass] == 0;
 
-        if (!v31)
+        if (!v30)
         {
-          v32 = [(STKAlertSessionManager *)self log];
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+          v31 = [(STKAlertSessionManager *)self log];
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134217984;
-            *&buf[4] = v72;
-            _os_log_impl(&dword_262BB4000, v32, OS_LOG_TYPE_DEFAULT, "Session <%p> - Call setup session not supported", buf, 0xCu);
+            *&buf[4] = v69;
+            _os_log_impl(&dword_262BB4000, v31, OS_LOG_TYPE_DEFAULT, "Session <%p> - Call setup session not supported", buf, 0xCu);
           }
 
-          [(STKAlertSession *)v72 sendResponse:6];
-          [(STKAlertSession *)v72 invalidate];
+          [(STKAlertSession *)v69 sendResponse:6];
+          [(STKAlertSession *)v69 invalidate];
           goto LABEL_103;
         }
 
-        v58 = [infoCopy bs_safeStringForKey:*MEMORY[0x277CC3F18]];
-        v59 = *MEMORY[0x277CC3F28];
+        v57 = [infoCopy bs_safeStringForKey:*MEMORY[0x277CC3F18]];
         if (BSEqualStrings())
         {
-          v60 = CTCopyCurrentCalls();
-          if ([v60 count])
+          v58 = CTCopyCurrentCalls();
+          if ([v58 count])
           {
-            v61 = [(STKAlertSessionManager *)self log];
-            if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
+            v59 = [(STKAlertSessionManager *)self log];
+            if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 134217984;
-              *&buf[4] = v72;
-              _os_log_impl(&dword_262BB4000, v61, OS_LOG_TYPE_DEFAULT, "Session <%p> - Call setup session busy (has existing phone calls)", buf, 0xCu);
+              *&buf[4] = v69;
+              _os_log_impl(&dword_262BB4000, v59, OS_LOG_TYPE_DEFAULT, "Session <%p> - Call setup session busy (has existing phone calls)", buf, 0xCu);
             }
 
-            [(STKAlertSession *)v72 sendResponse:5];
-            [(STKAlertSession *)v72 invalidate];
+            [(STKAlertSession *)v69 sendResponse:5];
+            [(STKAlertSession *)v69 invalidate];
 
             goto LABEL_103;
           }
@@ -1258,18 +1242,18 @@ LABEL_14:
 
     if (event == 10)
     {
-      v33 = [(STKAlertSessionManager *)self log];
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+      v32 = [(STKAlertSessionManager *)self log];
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        *&buf[4] = v72;
-        _os_log_impl(&dword_262BB4000, v33, OS_LOG_TYPE_DEFAULT, "Session <%p> - Idle text session", buf, 0xCu);
+        *&buf[4] = v69;
+        _os_log_impl(&dword_262BB4000, v32, OS_LOG_TYPE_DEFAULT, "Session <%p> - Idle text session", buf, 0xCu);
       }
 
-      v34 = [infoCopy bs_safeStringForKey:*MEMORY[0x277CC40E0]];
+      v33 = [infoCopy bs_safeStringForKey:*MEMORY[0x277CC40E0]];
       SBSSetIdleText();
-      [(STKAlertSession *)v72 sendResponse:0];
-      [(STKAlertSession *)v72 invalidate];
+      [(STKAlertSession *)v69 sendResponse:0];
+      [(STKAlertSession *)v69 invalidate];
 
       goto LABEL_103;
     }
@@ -1278,16 +1262,16 @@ LABEL_14:
     {
       if (event == 12)
       {
-        v27 = [(STKAlertSessionManager *)self log];
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+        v26 = [(STKAlertSessionManager *)self log];
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          *&buf[4] = v72;
-          _os_log_impl(&dword_262BB4000, v27, OS_LOG_TYPE_DEFAULT, "Session <%p> - Language session", buf, 0xCu);
+          *&buf[4] = v69;
+          _os_log_impl(&dword_262BB4000, v26, OS_LOG_TYPE_DEFAULT, "Session <%p> - Language session", buf, 0xCu);
         }
 
-        [(STKAlertSession *)v72 sendResponse:0];
-        [(STKAlertSession *)v72 invalidate];
+        [(STKAlertSession *)v69 sendResponse:0];
+        [(STKAlertSession *)v69 invalidate];
 LABEL_103:
 
 LABEL_104:
@@ -1295,90 +1279,90 @@ LABEL_104:
       }
 
 LABEL_96:
-      v62 = [infoCopy objectForKey:*MEMORY[0x277CC3FC8]];
-      v63 = v62;
-      if (v62 && [v62 BOOLValue])
+      v60 = [infoCopy objectForKey:*MEMORY[0x277CC3FC8]];
+      v61 = v60;
+      if (v60 && [v60 BOOLValue])
       {
-        v64 = [(STKAlertSessionManager *)self log];
-        if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
+        v62 = [(STKAlertSessionManager *)self log];
+        if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          *&buf[4] = v72;
-          _os_log_impl(&dword_262BB4000, v64, OS_LOG_TYPE_DEFAULT, "Session <%p> - Not presenting because it asked not to be presented", buf, 0xCu);
+          *&buf[4] = v69;
+          _os_log_impl(&dword_262BB4000, v62, OS_LOG_TYPE_DEFAULT, "Session <%p> - Not presenting because it asked not to be presented", buf, 0xCu);
         }
 
-        [(STKAlertSession *)v72 sendResponse:0];
-        [(STKAlertSession *)v72 invalidate];
+        [(STKAlertSession *)v69 sendResponse:0];
+        [(STKAlertSession *)v69 invalidate];
       }
 
       else
       {
-        v75[0] = MEMORY[0x277D85DD0];
-        v75[1] = 3221225472;
-        v75[2] = __84__STKSIMToolkitAlertSessionManager__queue_handleSIMToolkitEvent_responder_userInfo___block_invoke_110;
-        v75[3] = &unk_279B4C620;
-        v75[4] = self;
-        v76 = v72;
-        [(STKAlertSessionManager *)self enqueuePresentationForSession:v76 completion:v75];
+        v72[0] = MEMORY[0x277D85DD0];
+        v72[1] = 3221225472;
+        v72[2] = __84__STKSIMToolkitAlertSessionManager__queue_handleSIMToolkitEvent_responder_userInfo___block_invoke_110;
+        v72[3] = &unk_279B4C620;
+        v72[4] = self;
+        v73 = v69;
+        [(STKAlertSessionManager *)self enqueuePresentationForSession:v73 completion:v72];
       }
 
       goto LABEL_103;
     }
 
-    v35 = [(STKAlertSessionManager *)self log];
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+    v34 = [(STKAlertSessionManager *)self log];
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      *&buf[4] = v72;
-      _os_log_impl(&dword_262BB4000, v35, OS_LOG_TYPE_DEFAULT, "Session <%p> - Local information session", buf, 0xCu);
+      *&buf[4] = v69;
+      _os_log_impl(&dword_262BB4000, v34, OS_LOG_TYPE_DEFAULT, "Session <%p> - Local information session", buf, 0xCu);
     }
 
-    v36 = CFPreferencesCopyValue(@"AppleLanguages", *MEMORY[0x277CBF008], *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
-    v37 = v36;
-    if (v36 && CFArrayGetCount(v36) >= 1 && (Value = CFArrayGetValueAtIndex(v37, 0)) != 0)
+    v35 = CFPreferencesCopyValue(@"AppleLanguages", *MEMORY[0x277CBF008], *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
+    v36 = v35;
+    if (v35 && CFArrayGetCount(v35) >= 1 && (Value = CFArrayGetValueAtIndex(v36, 0)) != 0)
     {
-      v39 = 0;
+      v38 = 0;
     }
 
     else
     {
-      v57 = CFLocaleCopyCurrent();
-      v39 = v57;
-      if (!v57 || (Value = CFLocaleGetValue(v57, *MEMORY[0x277CBEED0])) == 0)
+      v56 = CFLocaleCopyCurrent();
+      v38 = v56;
+      if (!v56 || (Value = CFLocaleGetValue(v56, *MEMORY[0x277CBEED0])) == 0)
       {
-        [(STKAlertSession *)v72 sendResponse:3, Value];
+        [(STKAlertSession *)v69 sendResponse:3, Value];
         goto LABEL_80;
       }
     }
 
-    [(STKAlertSession *)v72 sendResponse:0 withStringResult:Value];
+    [(STKAlertSession *)v69 sendResponse:0 withStringResult:Value];
 LABEL_80:
-    [(STKAlertSession *)v72 invalidate];
-    if (v37)
+    [(STKAlertSession *)v69 invalidate];
+    if (v36)
     {
-      CFRelease(v37);
+      CFRelease(v36);
     }
 
-    if (v39)
+    if (v38)
     {
-      CFRelease(v39);
+      CFRelease(v38);
     }
 
     goto LABEL_103;
   }
 
-  v13 = [(STKAlertSessionManager *)self log];
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v12 = [(STKAlertSessionManager *)self log];
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_262BB4000, v13, OS_LOG_TYPE_DEFAULT, "Requested user attention", buf, 2u);
+    _os_log_impl(&dword_262BB4000, v12, OS_LOG_TYPE_DEFAULT, "Requested user attention", buf, 2u);
   }
 
   if (!self->_userEventMonitor)
   {
-    v14 = objc_alloc_init(STKUserEventMonitor);
+    v13 = objc_alloc_init(STKUserEventMonitor);
     userEventMonitor = self->_userEventMonitor;
-    self->_userEventMonitor = v14;
+    self->_userEventMonitor = v13;
 
     objc_storeStrong(&self->_userEventResponder, responder);
     [(STKUserEventMonitor *)self->_userEventMonitor setDelegate:self];
@@ -1386,8 +1370,6 @@ LABEL_80:
   }
 
 LABEL_105:
-
-  v65 = *MEMORY[0x277D85DE8];
 }
 
 void __84__STKSIMToolkitAlertSessionManager__queue_handleSIMToolkitEvent_responder_userInfo___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -1421,32 +1403,32 @@ void __84__STKSIMToolkitAlertSessionManager__queue_handleSIMToolkitEvent_respond
 
 - (id)_listItemsFromCTItems:(id)items
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   v4 = itemsCopy;
   if (itemsCopy && [itemsCopy count])
   {
     array = [MEMORY[0x277CBEB18] array];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v19;
+      v9 = *v18;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v19 != v9)
+          if (*v18 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v18 + 1) + 8 * i);
+          v11 = *(*(&v17 + 1) + 8 * i);
           text = [v11 text];
 
           if (text)
@@ -1458,7 +1440,7 @@ void __84__STKSIMToolkitAlertSessionManager__queue_handleSIMToolkitEvent_respond
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v8);
@@ -1470,8 +1452,6 @@ void __84__STKSIMToolkitAlertSessionManager__queue_handleSIMToolkitEvent_respond
     array = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return array;
 }
 
@@ -1482,79 +1462,47 @@ void __84__STKSIMToolkitAlertSessionManager__queue_handleSIMToolkitEvent_respond
   v5 = [optionsCopy bs_safeStringForKey:*MEMORY[0x277CC3F40]];
   if (v5)
   {
-    v6 = *MEMORY[0x277CC3F48];
-    v7 = BSEqualStrings();
+    v6 = BSEqualStrings();
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  v8 = [optionsCopy bs_safeNumberForKey:*MEMORY[0x277CC40E8]];
-  [v8 doubleValue];
+  v7 = [optionsCopy bs_safeNumberForKey:*MEMORY[0x277CC40E8]];
+  [v7 doubleValue];
   [(STKMutableSessionBehavior *)v4 setTimeout:?];
 
-  [(STKMutableSessionBehavior *)v4 setShouldSendResponseUponDisplay:v7];
-  [(STKMutableSessionBehavior *)v4 setDismissesAfterUserEvent:v7];
+  [(STKMutableSessionBehavior *)v4 setShouldSendResponseUponDisplay:v6];
+  [(STKMutableSessionBehavior *)v4 setDismissesAfterUserEvent:v6];
 
   return v4;
 }
 
 - (void)_queue_startListening
 {
-  queue = self->_queue;
   BSDispatchQueueAssert();
   if (!self->_serverConnection)
   {
-    v4 = *MEMORY[0x277CBECE8];
-    v5 = _CTServerConnectionCreate();
-    self->_serverConnection = v5;
-    if (v5)
+    v3 = _CTServerConnectionCreate();
+    self->_serverConnection = v3;
+    if (v3)
     {
-      v6 = self->_queue;
       _CTServerConnectionSetTargetQueue();
-      serverConnection = self->_serverConnection;
-      v8 = *MEMORY[0x277CC3F38];
       _CTServerConnectionRegisterForNotification();
-      v9 = self->_serverConnection;
-      v10 = *MEMORY[0x277CC40A0];
       _CTServerConnectionRegisterForNotification();
-      v11 = self->_serverConnection;
-      v12 = *MEMORY[0x277CC40A8];
       _CTServerConnectionRegisterForNotification();
-      v13 = self->_serverConnection;
-      v14 = *MEMORY[0x277CC40B8];
       _CTServerConnectionRegisterForNotification();
-      v15 = self->_serverConnection;
-      v16 = *MEMORY[0x277CC4098];
       _CTServerConnectionRegisterForNotification();
-      v17 = self->_serverConnection;
-      v18 = *MEMORY[0x277CC3F88];
       _CTServerConnectionRegisterForNotification();
-      v19 = self->_serverConnection;
-      v20 = *MEMORY[0x277CC4060];
       _CTServerConnectionRegisterForNotification();
-      v21 = self->_serverConnection;
-      v22 = *MEMORY[0x277CC3F30];
       _CTServerConnectionRegisterForNotification();
-      v23 = self->_serverConnection;
-      v24 = *MEMORY[0x277CC3F08];
       _CTServerConnectionRegisterForNotification();
-      v25 = self->_serverConnection;
-      v26 = *MEMORY[0x277CC3FB0];
       _CTServerConnectionRegisterForNotification();
-      v27 = self->_serverConnection;
-      v28 = *MEMORY[0x277CC3FC0];
       _CTServerConnectionRegisterForNotification();
-      v29 = self->_serverConnection;
-      v30 = *MEMORY[0x277CC3FB8];
       _CTServerConnectionRegisterForNotification();
-      v31 = self->_serverConnection;
-      v32 = *MEMORY[0x277CC40D0];
       _CTServerConnectionRegisterForNotification();
-      v33 = self->_serverConnection;
-      v34 = *MEMORY[0x277CC4090];
       _CTServerConnectionRegisterForNotification();
     }
   }
@@ -1568,42 +1516,36 @@ void __84__STKSIMToolkitAlertSessionManager__queue_handleSIMToolkitEvent_respond
 
 void __53__STKSIMToolkitAlertSessionManager__showNotification__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_262BB4000, a2, OS_LOG_TYPE_ERROR, "Unable to add notification request %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_262BB4000, a2, OS_LOG_TYPE_ERROR, "Unable to add notification request %@", &v2, 0xCu);
 }
 
 - (void)remoteAlertDescriptorForSession:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v6 = 136315650;
-  v7 = CTSubscriptionSlotAsString();
-  v8 = 2048;
-  v9 = a2;
-  v10 = 2112;
-  v11 = a3;
-  _os_log_error_impl(&dword_262BB4000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Getting Sim label failed for %s and context(%p) with error %@", &v6, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
+  v5 = 136315650;
+  v6 = CTSubscriptionSlotAsString();
+  v7 = 2048;
+  v8 = a2;
+  v9 = 2112;
+  v10 = a3;
+  _os_log_error_impl(&dword_262BB4000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Getting Sim label failed for %s and context(%p) with error %@", &v5, 0x20u);
 }
 
 - (void)remoteAlertDescriptorForSession:.cold.2()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 138412802;
+  v2 = 138412802;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_262BB4000, v0, v1, "Carrier bundle: key=%@; value=%@; error:%@", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_262BB4000, v0, v1, "Carrier bundle: key=%@; value=%@; error:%@", v2);
 }
 
 - (void)remoteAlertDescriptorForSession:.cold.3()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 138412802;
+  v2 = 138412802;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_262BB4000, v0, v1, "Carrier bundle: key=%@; value=%@; error:%@; ", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_262BB4000, v0, v1, "Carrier bundle: key=%@; value=%@; error:%@; ", v2);
 }
 
 @end

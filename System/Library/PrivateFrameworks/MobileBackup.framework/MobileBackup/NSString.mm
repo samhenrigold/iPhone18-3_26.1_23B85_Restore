@@ -3,7 +3,7 @@
 
 @implementation NSString
 
-uint64_t __60__NSString_MobileBackup__mb_stringByAppendingGreenteaSuffix__block_invoke(uint64_t a1)
+void *__60__NSString_MobileBackup__mb_stringByAppendingGreenteaSuffix__block_invoke(uint64_t a1)
 {
   v2 = dlopen("/System/Library/Frameworks/IOKit.framework/IOKit", 5);
   if (!v2)

@@ -5354,7 +5354,7 @@ LABEL_7:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [v3 doubleValue];
+      objc_msgSend_doubleValue(v3);
       v4 = v5;
     }
   }
@@ -5391,7 +5391,7 @@ LABEL_7:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [v3 doubleValue];
+      objc_msgSend_doubleValue(v3);
       v4 = v5;
     }
   }

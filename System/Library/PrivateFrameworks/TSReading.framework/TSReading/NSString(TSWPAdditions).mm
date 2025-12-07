@@ -5,13 +5,13 @@
 + (void)stringForValue:()TSWPAdditions withPageNumberFormat:;
 - (BOOL)isAllWhitespaceInRange:()TSWPAdditions;
 - (CFIndex)rangeOfWordAtCharacterIndex:()TSWPAdditions range:includePreviousWord:;
+- (NSUInteger)findIndexOfCharacter:()TSWPAdditions range:;
 - (__CFString)replaceOccurrencesOfCharactersInSet:()TSWPAdditions minimumConsecutiveLength:replaceString:;
 - (__CFString)stringByNormalizingParagraphBreaks;
 - (uint64_t)contentsScript;
 - (uint64_t)contentsScriptInRange:()TSWPAdditions;
-- (uint64_t)findIndexOfCharacter:()TSWPAdditions range:;
 - (uint64_t)rangeOfCharactersFromSet:()TSWPAdditions index:;
-- (uint64_t)utf32CharacterAtIndex:()TSWPAdditions;
+- (unint64_t)utf32CharacterAtIndex:()TSWPAdditions;
 @end
 
 @implementation NSString(TSWPAdditions)
@@ -241,7 +241,7 @@ LABEL_56:
   return selfCopy;
 }
 
-- (uint64_t)findIndexOfCharacter:()TSWPAdditions range:
+- (NSUInteger)findIndexOfCharacter:()TSWPAdditions range:
 {
   v36.length = [(__CFString *)self length];
   v34.location = a4;
@@ -1507,7 +1507,7 @@ LABEL_19:
       {
 LABEL_12:
 
-        return [v4 lowercaseString];
+        return [v5 lowercaseString];
       }
 
       return 0;
@@ -1515,7 +1515,7 @@ LABEL_12:
   }
 }
 
-- (uint64_t)utf32CharacterAtIndex:()TSWPAdditions
+- (unint64_t)utf32CharacterAtIndex:()TSWPAdditions
 {
   v5 = [self length];
   if (v5 <= a3)

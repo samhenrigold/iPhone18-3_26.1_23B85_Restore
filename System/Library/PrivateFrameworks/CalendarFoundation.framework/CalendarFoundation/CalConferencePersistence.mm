@@ -22,44 +22,42 @@
 
 void __52__CalConferencePersistence__knownPersistenceFormats__block_invoke()
 {
-  v5[2] = *MEMORY[0x1E69E9840];
+  v4[2] = *MEMORY[0x1E69E9840];
   v0 = objc_alloc_init(CalAppleConferenceFormat);
-  v5[0] = v0;
+  v4[0] = v0;
   v1 = objc_alloc_init(CalGoogleConferenceFormat);
-  v5[1] = v1;
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:2];
+  v4[1] = v1;
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:2];
   v3 = _knownPersistenceFormats_formats;
   _knownPersistenceFormats_formats = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (id)serializeConference:(id)conference serializationBlockTitle:(id)title
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   conferenceCopy = conference;
   titleCopy = title;
   if ([conferenceCopy isWritable])
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     _knownPersistenceFormats = [self _knownPersistenceFormats];
-    v9 = [_knownPersistenceFormats countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v9 = [_knownPersistenceFormats countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v9)
     {
-      v10 = *v16;
+      v10 = *v15;
       while (2)
       {
         for (i = 0; i != v9; i = i + 1)
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(_knownPersistenceFormats);
           }
 
-          v12 = *(*(&v15 + 1) + 8 * i);
+          v12 = *(*(&v14 + 1) + 8 * i);
           if ([v12 supportsSerializingConferenceWithSource:{objc_msgSend(conferenceCopy, "source")}])
           {
             v9 = [v12 serializeConference:conferenceCopy serializationBlockTitle:titleCopy];
@@ -67,7 +65,7 @@ void __52__CalConferencePersistence__knownPersistenceFormats__block_invoke()
           }
         }
 
-        v9 = [_knownPersistenceFormats countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [_knownPersistenceFormats countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v9)
         {
           continue;
@@ -85,48 +83,44 @@ LABEL_13:
     v9 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 + (id)deserializeConference:(id)conference
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   conferenceCopy = conference;
   array = [MEMORY[0x1E695DF70] array];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   _knownPersistenceFormats = [self _knownPersistenceFormats];
-  v7 = [_knownPersistenceFormats countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [_knownPersistenceFormats countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(_knownPersistenceFormats);
         }
 
-        v11 = [*(*(&v15 + 1) + 8 * i) deserializeConferences:conferenceCopy];
+        v11 = [*(*(&v14 + 1) + 8 * i) deserializeConferences:conferenceCopy];
         [array addObjectsFromArray:v11];
       }
 
-      v8 = [_knownPersistenceFormats countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [_knownPersistenceFormats countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
 
   firstObject = [array firstObject];
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return firstObject;
 }

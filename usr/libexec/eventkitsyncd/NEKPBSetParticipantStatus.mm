@@ -75,32 +75,30 @@
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    status = self->_status;
     PBDataWriterWriteUint32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    span = self->_span;
     PBDataWriterWriteUint32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_itemIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_storeIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -172,7 +170,6 @@
     goto LABEL_16;
   }
 
-  v5 = *(equalCopy + 32);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 32) & 2) == 0 || self->_status != *(equalCopy + 5))
@@ -184,7 +181,7 @@
   else if ((*(equalCopy + 32) & 2) != 0)
   {
 LABEL_16:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_17;
   }
 
@@ -210,17 +207,17 @@ LABEL_16:
   storeIdentifier = self->_storeIdentifier;
   if (storeIdentifier | *(equalCopy + 3))
   {
-    v8 = [(NSString *)storeIdentifier isEqual:?];
+    v7 = [(NSString *)storeIdentifier isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_17:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

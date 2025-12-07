@@ -2,6 +2,8 @@
 + (UIEdgeInsets)languageAwareOutsetsForString:(id)string withFont:(id)font;
 + (id)_excessiveLineHeightCharacterSet;
 + (id)fontDescriptorWithMonospacedDigitsForFontDescriptor:(id)descriptor;
++ (id)preferredFontForTextStyle:(id)style traits:(unsigned int)traits;
++ (id)staticPreferredFontForTextStyle:(id)style traits:(unsigned int)traits;
 @end
 
 @implementation HUFontUtilities
@@ -25,25 +27,39 @@ uint64_t __51__HUFontUtilities__excessiveLineHeightCharacterSet__block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
++ (id)staticPreferredFontForTextStyle:(id)style traits:(unsigned int)traits
+{
+  v4 = [MEMORY[0x277D74308] defaultFontDescriptorWithTextStyle:style addingSymbolicTraits:*&traits options:0];
+  v5 = [MEMORY[0x277D742F8] fontWithDescriptor:v4 size:0.0];
+
+  return v5;
+}
+
++ (id)preferredFontForTextStyle:(id)style traits:(unsigned int)traits
+{
+  v4 = [MEMORY[0x277D74308] preferredFontDescriptorWithTextStyle:style addingSymbolicTraits:*&traits options:0];
+  v5 = [MEMORY[0x277D742F8] fontWithDescriptor:v4 size:0.0];
+
+  return v5;
+}
+
 + (id)fontDescriptorWithMonospacedDigitsForFontDescriptor:(id)descriptor
 {
-  v18[1] = *MEMORY[0x277D85DE8];
-  v17 = *MEMORY[0x277D74330];
+  v17[1] = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D74330];
   v3 = *MEMORY[0x277D74390];
-  v12 = *MEMORY[0x277D743A0];
-  v13 = v3;
-  v14 = &unk_286676B40;
-  v15 = &unk_286676B58;
+  v11 = *MEMORY[0x277D743A0];
+  v12 = v3;
+  v13 = &unk_286676B40;
+  v14 = &unk_286676B58;
   v4 = MEMORY[0x277CBEAC0];
   descriptorCopy = descriptor;
-  v6 = [v4 dictionaryWithObjects:&v14 forKeys:&v12 count:2];
-  v16 = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:{1, v12, v13, v14, v15}];
-  v18[0] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+  v6 = [v4 dictionaryWithObjects:&v13 forKeys:&v11 count:2];
+  v15 = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:{1, v11, v12, v13, v14}];
+  v17[0] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
   v9 = [descriptorCopy fontDescriptorByAddingAttributes:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

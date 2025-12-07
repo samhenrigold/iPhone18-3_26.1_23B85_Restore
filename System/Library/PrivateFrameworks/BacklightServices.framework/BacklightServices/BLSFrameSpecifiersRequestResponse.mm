@@ -7,54 +7,52 @@
 
 - (BLSFrameSpecifiersRequestResponse)initWithDateSpecifiers:(id)specifiers
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   specifiersCopy = specifiers;
   v5 = objc_alloc_init(MEMORY[0x277CF0C80]);
   empty = xpc_array_create_empty();
+  v16 = 0u;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
   v7 = specifiersCopy;
-  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v17;
     do
     {
       v11 = 0;
       do
       {
-        if (*v19 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * v11);
-        v13 = BSCreateSerializedBSXPCEncodableObject();
-        if (v13)
+        v12 = BSCreateSerializedBSXPCEncodableObject();
+        if (v12)
         {
-          xpc_array_append_value(empty, v13);
+          xpc_array_append_value(empty, v12);
         }
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
   }
 
   [v5 setObject:empty forSetting:1];
-  v17.receiver = self;
-  v17.super_class = BLSFrameSpecifiersRequestResponse;
-  v14 = [(BLSFrameSpecifiersRequestResponse *)&v17 initWithInfo:v5 error:0];
+  v15.receiver = self;
+  v15.super_class = BLSFrameSpecifiersRequestResponse;
+  v13 = [(BLSFrameSpecifiersRequestResponse *)&v15 initWithInfo:v5 error:0];
 
-  v15 = *MEMORY[0x277D85DE8];
-  return v14;
+  return v13;
 }
 
 - (NSArray)dateSpecifiers
@@ -79,15 +77,16 @@
         {
           v11 = BSCreateDeserializedBSXPCEncodableObjectFromXPCDictionary();
           objc_opt_class();
-          if (objc_opt_isKindOfClass())
+          isKindOfClass = objc_opt_isKindOfClass();
+          if (isKindOfClass)
           {
             [v7 addObject:v11];
           }
 
           else
           {
-            v12 = bls_scenes_log();
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+            v13 = bls_scenes_log(isKindOfClass);
+            if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
             {
               *buf = v15;
               selfCopy = self;
@@ -95,7 +94,7 @@
               v19 = v11;
               v20 = 2114;
               v21 = v10;
-              _os_log_fault_impl(&dword_21FE25000, v12, OS_LOG_TYPE_FAULT, "%p %{public}@ is not of type BLSAlwaysOnDateSpecifier from %{public}@", buf, 0x20u);
+              _os_log_fault_impl(&dword_21FE25000, v13, OS_LOG_TYPE_FAULT, "%p %{public}@ is not of type BLSAlwaysOnDateSpecifier from %{public}@", buf, 0x20u);
             }
           }
         }
@@ -113,8 +112,6 @@
   {
     v5 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

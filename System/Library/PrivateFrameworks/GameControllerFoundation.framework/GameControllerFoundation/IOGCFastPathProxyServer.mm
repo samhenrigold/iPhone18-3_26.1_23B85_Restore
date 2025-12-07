@@ -48,16 +48,16 @@ void __46__IOGCFastPathProxyServer_initWithServerName___block_invoke(uint64_t a1
     v16.opaque[0] = 0;
     v16.opaque[1] = 0;
     os_activity_scope_enter(v5, &v16);
-    v13 = _gc_log_iokit();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v14 = _gc_log_iokit(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
       v18 = v2;
-      _os_log_impl(&dword_1D2C3B000, v13, OS_LOG_TYPE_INFO, "Accepting connection '%@' to fast path proxy.", buf, 0xCu);
+      _os_log_impl(&dword_1D2C3B000, v14, OS_LOG_TYPE_INFO, "Accepting connection '%@' to fast path proxy.", buf, 0xCu);
     }
 
-    v14 = [_IOGCFastPathProxyClient withIncomingConnection:v2];
-    if (!v14)
+    v15 = [_IOGCFastPathProxyClient withIncomingConnection:v2];
+    if (!v15)
     {
       xpc_connection_cancel(v2);
     }
@@ -68,7 +68,7 @@ void __46__IOGCFastPathProxyServer_initWithServerName___block_invoke(uint64_t a1
   else
   {
     v4 = v3 == MEMORY[0x1E69E9E98];
-    v5 = _gc_log_iokit();
+    v5 = _gc_log_iokit(v3);
     v6 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
     if (v4)
     {
@@ -83,8 +83,6 @@ void __46__IOGCFastPathProxyServer_initWithServerName___block_invoke(uint64_t a1
       __46__IOGCFastPathProxyServer_initWithServerName___block_invoke_cold_1(v2, v5, v7, v8, v9, v10, v11, v12);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (IOGCFastPathProxyServer)init
@@ -96,16 +94,16 @@ void __46__IOGCFastPathProxyServer_initWithServerName___block_invoke(uint64_t a1
 
 void __46__IOGCFastPathProxyServer_initWithServerName___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5_6(&dword_1D2C3B000, a2, a3, "Unknown event: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_5_6(&dword_1D2C3B000, a2, a3, "Unknown event: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __46__IOGCFastPathProxyServer_initWithServerName___block_invoke_cold_2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5_6(&dword_1D2C3B000, a2, a3, "Error: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_5_6(&dword_1D2C3B000, a2, a3, "Error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

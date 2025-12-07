@@ -37,7 +37,7 @@
 - (NSString)vendorAdHocOfferID;
 - (NSString)vendorID;
 - (id)_dateFromDateString:(uint64_t)string;
-- (id)_valueForKey:(uint64_t)key ofType:(uint64_t)type;
+- (id)_valueForKey:(uint64_t)key ofType:;
 @end
 
 @implementation ASDSubscriptionEntitlement
@@ -69,97 +69,97 @@
 
 - (NSNumber)appAdamID
 {
-  objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [ASDSubscriptionEntitlement _valueForKey:@"appAdamId" ofType:?];
+  return [(ASDSubscriptionEntitlement *)self _valueForKey:v3 ofType:?];
 }
 
-- (id)_valueForKey:(uint64_t)key ofType:(uint64_t)type
+- (id)_valueForKey:(uint64_t)key ofType:
 {
-  if (key)
+  if (self)
   {
-    v2 = [*(key + 8) valueForKey:type];
-    v3 = [v2 copy];
+    v3 = [*(self + 8) valueForKey:a2];
+    v4 = [v3 copy];
 
     if (objc_opt_isKindOfClass())
     {
-      v4 = v3;
+      v5 = v4;
     }
 
     else
     {
-      v4 = 0;
+      v5 = 0;
     }
 
-    v5 = v4;
+    v6 = v5;
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 - (NSNumber)appVersion
 {
-  objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [ASDSubscriptionEntitlement _valueForKey:@"appVersion" ofType:?];
+  return [(ASDSubscriptionEntitlement *)self _valueForKey:v3 ofType:?];
 }
 
 - (BOOL)autoRenewEnabled
 {
-  objc_opt_class();
-  v3 = [ASDSubscriptionEntitlement _valueForKey:@"autoRenew" ofType:?];
-  bOOLValue = [v3 BOOLValue];
+  v3 = objc_opt_class();
+  v4 = [(ASDSubscriptionEntitlement *)self _valueForKey:v3 ofType:?];
+  bOOLValue = [v4 BOOLValue];
 
   return bOOLValue;
 }
 
 - (NSString)chargeCountryCode
 {
-  objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [ASDSubscriptionEntitlement _valueForKey:@"chargeCountryCode" ofType:?];
+  return [(ASDSubscriptionEntitlement *)self _valueForKey:v3 ofType:?];
 }
 
 - (NSString)chargeCurrencyCode
 {
-  objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [ASDSubscriptionEntitlement _valueForKey:@"chargeCurrencyCode" ofType:?];
+  return [(ASDSubscriptionEntitlement *)self _valueForKey:v3 ofType:?];
 }
 
 - (NSNumber)chargeStoreFrontID
 {
-  objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [ASDSubscriptionEntitlement _valueForKey:@"chargeStoreFrontId" ofType:?];
+  return [(ASDSubscriptionEntitlement *)self _valueForKey:v3 ofType:?];
 }
 
 - (NSString)entitlementOriginType
 {
-  objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [ASDSubscriptionEntitlement _valueForKey:@"entitlementOriginType" ofType:?];
+  return [(ASDSubscriptionEntitlement *)self _valueForKey:v3 ofType:?];
 }
 
 - (NSNumber)entitlementSourceAdamID
 {
-  objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [ASDSubscriptionEntitlement _valueForKey:@"entitlementSourceAdamId" ofType:?];
+  return [(ASDSubscriptionEntitlement *)self _valueForKey:v3 ofType:?];
 }
 
 - (NSDate)expiryDate
 {
-  objc_opt_class();
-  v3 = [ASDSubscriptionEntitlement _valueForKey:@"expireDate" ofType:?];
-  v4 = [(ASDSubscriptionEntitlement *)self _dateFromDateString:v3];
+  v3 = objc_opt_class();
+  v4 = [(ASDSubscriptionEntitlement *)self _valueForKey:v3 ofType:?];
+  v5 = [(ASDSubscriptionEntitlement *)self _dateFromDateString:v4];
 
-  return v4;
+  return v5;
 }
 
 - (id)_dateFromDateString:(uint64_t)string
@@ -181,196 +181,196 @@
 
 - (NSString)externalSubscriptionID
 {
-  objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [ASDSubscriptionEntitlement _valueForKey:@"externalSubscriptionId" ofType:?];
+  return [(ASDSubscriptionEntitlement *)self _valueForKey:v3 ofType:?];
 }
 
 - (NSNumber)familyID
 {
-  objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [ASDSubscriptionEntitlement _valueForKey:@"familyId" ofType:?];
+  return [(ASDSubscriptionEntitlement *)self _valueForKey:v3 ofType:?];
 }
 
 - (NSNumber)familyRank
 {
-  objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [ASDSubscriptionEntitlement _valueForKey:@"familyRank" ofType:?];
+  return [(ASDSubscriptionEntitlement *)self _valueForKey:v3 ofType:?];
 }
 
 - (NSNumber)featureAccessTypeID
 {
-  objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [ASDSubscriptionEntitlement _valueForKey:@"featureAccessTypeId" ofType:?];
+  return [(ASDSubscriptionEntitlement *)self _valueForKey:v3 ofType:?];
 }
 
 - (NSNumber)freeTrialPeriodID
 {
-  objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [ASDSubscriptionEntitlement _valueForKey:@"freeTrialPeriodId" ofType:?];
+  return [(ASDSubscriptionEntitlement *)self _valueForKey:v3 ofType:?];
 }
 
 - (NSNumber)inAppAdamID
 {
-  objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [ASDSubscriptionEntitlement _valueForKey:@"inAppAdamId" ofType:?];
+  return [(ASDSubscriptionEntitlement *)self _valueForKey:v3 ofType:?];
 }
 
 - (NSString)inAppVersion
 {
-  objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [ASDSubscriptionEntitlement _valueForKey:@"inAppVersion" ofType:?];
+  return [(ASDSubscriptionEntitlement *)self _valueForKey:v3 ofType:?];
 }
 
 - (NSNumber)initialPurchaseTimestamp
 {
-  objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [ASDSubscriptionEntitlement _valueForKey:@"initialPurchaseTimestamp" ofType:?];
+  return [(ASDSubscriptionEntitlement *)self _valueForKey:v3 ofType:?];
 }
 
 - (BOOL)isTrialPeriod
 {
-  objc_opt_class();
-  v3 = [ASDSubscriptionEntitlement _valueForKey:@"isTrialPeriod" ofType:?];
-  bOOLValue = [v3 BOOLValue];
+  v3 = objc_opt_class();
+  v4 = [(ASDSubscriptionEntitlement *)self _valueForKey:v3 ofType:?];
+  bOOLValue = [v4 BOOLValue];
 
   return bOOLValue;
 }
 
 - (BOOL)isOfferPeriod
 {
-  objc_opt_class();
-  v3 = [ASDSubscriptionEntitlement _valueForKey:@"isOfferPeriod" ofType:?];
-  bOOLValue = [v3 BOOLValue];
+  v3 = objc_opt_class();
+  v4 = [(ASDSubscriptionEntitlement *)self _valueForKey:v3 ofType:?];
+  bOOLValue = [v4 BOOLValue];
 
   return bOOLValue;
 }
 
 - (BOOL)isPurchaser
 {
-  objc_opt_class();
-  v3 = [ASDSubscriptionEntitlement _valueForKey:@"isPurchaser" ofType:?];
-  bOOLValue = [v3 BOOLValue];
+  v3 = objc_opt_class();
+  v4 = [(ASDSubscriptionEntitlement *)self _valueForKey:v3 ofType:?];
+  bOOLValue = [v4 BOOLValue];
 
   return bOOLValue;
 }
 
 - (BOOL)isNewsAppPurchase
 {
-  objc_opt_class();
-  v3 = [ASDSubscriptionEntitlement _valueForKey:@"isNewsAppPurchase" ofType:?];
-  bOOLValue = [v3 BOOLValue];
+  v3 = objc_opt_class();
+  v4 = [(ASDSubscriptionEntitlement *)self _valueForKey:v3 ofType:?];
+  bOOLValue = [v4 BOOLValue];
 
   return bOOLValue;
 }
 
 - (BOOL)isInGracePeriod
 {
-  objc_opt_class();
-  v3 = [ASDSubscriptionEntitlement _valueForKey:@"isGracePeriod" ofType:?];
-  bOOLValue = [v3 BOOLValue];
+  v3 = objc_opt_class();
+  v4 = [(ASDSubscriptionEntitlement *)self _valueForKey:v3 ofType:?];
+  bOOLValue = [v4 BOOLValue];
 
   return bOOLValue;
 }
 
 - (NSString)offerID
 {
-  objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [ASDSubscriptionEntitlement _valueForKey:@"offerIdentifier" ofType:?];
+  return [(ASDSubscriptionEntitlement *)self _valueForKey:v3 ofType:?];
 }
 
 - (NSNumber)originalPurchaseDownloadID
 {
-  objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [ASDSubscriptionEntitlement _valueForKey:@"originalPurchaseDownloadId" ofType:?];
+  return [(ASDSubscriptionEntitlement *)self _valueForKey:v3 ofType:?];
 }
 
 - (NSString)poolType
 {
-  objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [ASDSubscriptionEntitlement _valueForKey:@"poolType" ofType:?];
+  return [(ASDSubscriptionEntitlement *)self _valueForKey:v3 ofType:?];
 }
 
 - (NSString)productCode
 {
-  objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [ASDSubscriptionEntitlement _valueForKey:@"productCode" ofType:?];
+  return [(ASDSubscriptionEntitlement *)self _valueForKey:v3 ofType:?];
 }
 
 - (NSNumber)promoScenarioID
 {
-  objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [ASDSubscriptionEntitlement _valueForKey:@"promoScenarioId" ofType:?];
+  return [(ASDSubscriptionEntitlement *)self _valueForKey:v3 ofType:?];
 }
 
 - (NSNumber)purchasabilityType
 {
-  objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [ASDSubscriptionEntitlement _valueForKey:@"purchasabilityType" ofType:?];
+  return [(ASDSubscriptionEntitlement *)self _valueForKey:v3 ofType:?];
 }
 
 - (NSNumber)purchaseDownloadID
 {
-  objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [ASDSubscriptionEntitlement _valueForKey:@"purchaseDownloadId" ofType:?];
+  return [(ASDSubscriptionEntitlement *)self _valueForKey:v3 ofType:?];
 }
 
 - (NSNumber)serviceBeginsTimestamp
 {
-  objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [ASDSubscriptionEntitlement _valueForKey:@"serviceBeginsTimestamp" ofType:?];
+  return [(ASDSubscriptionEntitlement *)self _valueForKey:v3 ofType:?];
 }
 
 - (NSDate)startDate
 {
-  objc_opt_class();
-  v3 = [ASDSubscriptionEntitlement _valueForKey:@"startDate" ofType:?];
-  v4 = [(ASDSubscriptionEntitlement *)self _dateFromDateString:v3];
+  v3 = objc_opt_class();
+  v4 = [(ASDSubscriptionEntitlement *)self _valueForKey:v3 ofType:?];
+  v5 = [(ASDSubscriptionEntitlement *)self _dateFromDateString:v4];
 
-  return v4;
+  return v5;
 }
 
 - (NSNumber)subscriptionBundleID
 {
-  objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [ASDSubscriptionEntitlement _valueForKey:@"subscriptionBundleId" ofType:?];
+  return [(ASDSubscriptionEntitlement *)self _valueForKey:v3 ofType:?];
 }
 
 - (NSNumber)quantity
 {
-  objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [ASDSubscriptionEntitlement _valueForKey:@"quantity" ofType:?];
+  return [(ASDSubscriptionEntitlement *)self _valueForKey:v3 ofType:?];
 }
 
 - (NSString)vendorAdHocOfferID
 {
-  objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [ASDSubscriptionEntitlement _valueForKey:@"vendorAdHocOfferId" ofType:?];
+  return [(ASDSubscriptionEntitlement *)self _valueForKey:v3 ofType:?];
 }
 
 - (NSString)vendorID
 {
-  objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [ASDSubscriptionEntitlement _valueForKey:@"vendorIdentifier" ofType:?];
+  return [(ASDSubscriptionEntitlement *)self _valueForKey:v3 ofType:?];
 }
 
 - (ASDSubscriptionEntitlement)initWithCoder:(id)coder

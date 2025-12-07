@@ -184,8 +184,8 @@ LABEL_6:
     [v17 setMenu:v19];
 
     [v17 setTranslatesAutoresizingMaskIntoConstraints:0];
-    contentView = [(UITableViewCell *)selfCopy->_cell contentView];
-    [contentView addSubview:v17];
+    v20 = objc_msgSend_contentView(selfCopy->_cell);
+    [v20 addSubview:v17];
 
     v21 = MEMORY[0x1E696ACD8];
     textLabel = [(UITableViewCell *)selfCopy->_cell textLabel];
@@ -193,8 +193,8 @@ LABEL_6:
     [v23 setActive:1];
 
     v24 = MEMORY[0x1E696ACD8];
-    contentView2 = [(UITableViewCell *)selfCopy->_cell contentView];
-    v26 = [v24 constraintWithItem:v17 attribute:6 relatedBy:0 toItem:contentView2 attribute:6 multiplier:1.0 constant:-20.0];
+    v25 = objc_msgSend_contentView(selfCopy->_cell);
+    v26 = [v24 constraintWithItem:v17 attribute:6 relatedBy:0 toItem:v25 attribute:6 multiplier:1.0 constant:-20.0];
     [v26 setActive:1];
 
     goto LABEL_17;

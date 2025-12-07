@@ -19,15 +19,15 @@
   v13 = [(HDCloudSyncOperation *)&v21 initWithConfiguration:configuration cloudState:0];
   if (v13)
   {
-    v14 = [saveCopy copy];
+    v14 = objc_msgSend_copy(saveCopy);
     allRecordsToSave = v13->_allRecordsToSave;
     v13->_allRecordsToSave = v14;
 
-    v16 = [pushCopy copy];
+    v16 = objc_msgSend_copy(pushCopy);
     participantZoneIDsWithNewTransactionsToPush = v13->_participantZoneIDsWithNewTransactionsToPush;
     v13->_participantZoneIDsWithNewTransactionsToPush = v16;
 
-    v18 = [dCopy copy];
+    v18 = objc_msgSend_copy(dCopy);
     existingTransactionRecordsByZoneID = v13->_existingTransactionRecordsByZoneID;
     v13->_existingTransactionRecordsByZoneID = v18;
   }
@@ -52,7 +52,7 @@
 
 void __52__HDCloudSyncSharedSummaryPushPruningOperation_main__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = [*(a1 + 32) _recordIDsForTransactions:a2];
   v4 = [v3 hk_minus:*(a1 + 40)];
 
@@ -68,19 +68,17 @@ void __52__HDCloudSyncSharedSummaryPushPruningOperation_main__block_invoke_2(uin
   else
   {
     _HKInitializeLogging();
-    v10 = *MEMORY[0x277CCC328];
+    v9 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
     {
-      v11 = *(a1 + 32);
-      v12 = 138543362;
-      v13 = v11;
-      _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: [summary-sharing] No records found to push or prune.", &v12, 0xCu);
+      v10 = *(a1 + 32);
+      v11 = 138543362;
+      v12 = v10;
+      _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: [summary-sharing] No records found to push or prune.", &v11, 0xCu);
     }
 
     [*(a1 + 32) finishWithSuccess:1 error:0];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_findTransactionsToDelete:(id)delete existingTransactionRecordsByZoneID:(id)d completion:(id)completion
@@ -119,82 +117,82 @@ void __52__HDCloudSyncSharedSummaryPushPruningOperation_main__block_invoke_2(uin
 
 void __120__HDCloudSyncSharedSummaryPushPruningOperation__findTransactionsToDelete_existingTransactionRecordsByZoneID_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v3 = a3;
   v4 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v42 objects:v47 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v41 objects:v46 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v43;
+    v8 = *v42;
     do
     {
       v9 = 0;
       do
       {
-        if (*v43 != v8)
+        if (*v42 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [*(*(&v42 + 1) + 8 * v9) sourceDeviceIdentifier];
+        v10 = [*(*(&v41 + 1) + 8 * v9) sourceDeviceIdentifier];
         [v4 addObject:v10];
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v42 objects:v47 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v41 objects:v46 count:16];
     }
 
     while (v7);
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   obj = v4;
-  v11 = [obj countByEnumeratingWithState:&v38 objects:v46 count:16];
+  v11 = [obj countByEnumeratingWithState:&v37 objects:v45 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v39;
-    v14 = v37;
-    v29 = v34;
+    v13 = *v38;
+    v14 = v36;
+    v28 = v33;
     v15 = &unk_27861AD78;
     do
     {
       v16 = 0;
       do
       {
-        if (*v39 != v13)
+        if (*v38 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v38 + 1) + 8 * v16);
-        v36[0] = MEMORY[0x277D85DD0];
-        v36[1] = 3221225472;
-        v37[0] = __120__HDCloudSyncSharedSummaryPushPruningOperation__findTransactionsToDelete_existingTransactionRecordsByZoneID_completion___block_invoke_2;
-        v37[1] = v15;
-        v37[2] = v17;
-        v18 = [v5 hk_filter:{v36, v29}];
+        v17 = *(*(&v37 + 1) + 8 * v16);
+        v35[0] = MEMORY[0x277D85DD0];
+        v35[1] = 3221225472;
+        v36[0] = __120__HDCloudSyncSharedSummaryPushPruningOperation__findTransactionsToDelete_existingTransactionRecordsByZoneID_completion___block_invoke_2;
+        v36[1] = v15;
+        v36[2] = v17;
+        v18 = [v5 hk_filter:{v35, v28}];
         if ([v18 count] >= 2)
         {
           v19 = [v18 hk_firstSortedObjectWithComparison:&__block_literal_global_297];
-          v33[0] = MEMORY[0x277D85DD0];
-          v33[1] = 3221225472;
-          v34[0] = __120__HDCloudSyncSharedSummaryPushPruningOperation__findTransactionsToDelete_existingTransactionRecordsByZoneID_completion___block_invoke_4;
-          v34[1] = &unk_278629BB8;
-          v35 = v19;
-          v32 = v19;
-          [v18 objectsPassingTest:v33];
+          v32[0] = MEMORY[0x277D85DD0];
+          v32[1] = 3221225472;
+          v33[0] = __120__HDCloudSyncSharedSummaryPushPruningOperation__findTransactionsToDelete_existingTransactionRecordsByZoneID_completion___block_invoke_4;
+          v33[1] = &unk_278629BB8;
+          v34 = v19;
+          v31 = v19;
+          [v18 objectsPassingTest:v32];
           v20 = v12;
           v21 = v14;
           v22 = v13;
@@ -215,13 +213,11 @@ void __120__HDCloudSyncSharedSummaryPushPruningOperation__findTransactionsToDele
       }
 
       while (v12 != v16);
-      v12 = [obj countByEnumeratingWithState:&v38 objects:v46 count:16];
+      v12 = [obj countByEnumeratingWithState:&v37 objects:v45 count:16];
     }
 
     while (v12);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __120__HDCloudSyncSharedSummaryPushPruningOperation__findTransactionsToDelete_existingTransactionRecordsByZoneID_completion___block_invoke_2(uint64_t a1, void *a2)
@@ -280,80 +276,76 @@ uint64_t __120__HDCloudSyncSharedSummaryPushPruningOperation__findTransactionsTo
 
 void __120__HDCloudSyncSharedSummaryPushPruningOperation__findTransactionsToDelete_existingTransactionRecordsByZoneID_completion___block_invoke_5(uint64_t a1, void *a2, void *a3)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
   if (v5)
   {
-    v23 = v6;
-    v29 = 0u;
-    v30 = 0u;
+    v20 = v6;
+    v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     obj = *(a1 + 48);
-    v8 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v8 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v28;
+      v10 = *v25;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v28 != v10)
+          if (*v25 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
           v12 = MEMORY[0x277CBEB58];
-          v13 = [*(a1 + 56) objectForKeyedSubscript:{*(*(&v27 + 1) + 8 * i), v23}];
+          v13 = [*(a1 + 56) objectForKeyedSubscript:{*(*(&v24 + 1) + 8 * i), v20}];
           v14 = [v12 setWithSet:v13];
 
           if (v14)
           {
-            v25[0] = MEMORY[0x277D85DD0];
-            v25[1] = 3221225472;
-            v25[2] = __120__HDCloudSyncSharedSummaryPushPruningOperation__findTransactionsToDelete_existingTransactionRecordsByZoneID_completion___block_invoke_300;
-            v25[3] = &unk_27861AD78;
-            v26 = v5;
-            v15 = [v14 hk_filter:v25];
+            v22[0] = MEMORY[0x277D85DD0];
+            v22[1] = 3221225472;
+            v22[2] = __120__HDCloudSyncSharedSummaryPushPruningOperation__findTransactionsToDelete_existingTransactionRecordsByZoneID_completion___block_invoke_300;
+            v22[3] = &unk_27861AD78;
+            v23 = v5;
+            v15 = [v14 hk_filter:v22];
             v16 = *(a1 + 40);
             v17 = [v15 allObjects];
             [v16 addObjectsFromArray:v17];
           }
         }
 
-        v9 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v9 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v9);
     }
 
-    v18 = *(a1 + 40);
     (*(*(a1 + 64) + 16))();
-    v7 = v23;
+    v7 = v20;
   }
 
   else
   {
     _HKInitializeLogging();
-    v19 = *MEMORY[0x277CCC328];
+    v18 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v22 = *(a1 + 32);
+      v19 = *(a1 + 32);
       *buf = 138543618;
-      v33 = v22;
-      v34 = 2114;
-      v35 = v7;
-      _os_log_error_impl(&dword_228986000, v19, OS_LOG_TYPE_ERROR, "%{public}@: [summary-sharing] Error fetching device identifier. Unable to attempt to prune previously existing transactions for this device. %{public}@", buf, 0x16u);
+      v30 = v19;
+      v31 = 2114;
+      v32 = v7;
+      _os_log_error_impl(&dword_228986000, v18, OS_LOG_TYPE_ERROR, "%{public}@: [summary-sharing] Error fetching device identifier. Unable to attempt to prune previously existing transactions for this device. %{public}@", buf, 0x16u);
     }
 
-    v20 = *(a1 + 40);
     (*(*(a1 + 64) + 16))();
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __120__HDCloudSyncSharedSummaryPushPruningOperation__findTransactionsToDelete_existingTransactionRecordsByZoneID_completion___block_invoke_300(uint64_t a1, void *a2)
@@ -382,36 +374,36 @@ uint64_t __120__HDCloudSyncSharedSummaryPushPruningOperation__findTransactionsTo
 
 - (id)_recordIDsForTransactions:(id)transactions
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   transactionsCopy = transactions;
   v4 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   obj = transactionsCopy;
-  v5 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v17;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * i);
+        v9 = *(*(&v16 + 1) + 8 * i);
         summaryIdentifiers = [v9 summaryIdentifiers];
-        v16[0] = MEMORY[0x277D85DD0];
-        v16[1] = 3221225472;
-        v16[2] = __74__HDCloudSyncSharedSummaryPushPruningOperation__recordIDsForTransactions___block_invoke;
-        v16[3] = &unk_278629C30;
-        v16[4] = v9;
-        v11 = [summaryIdentifiers hk_map:v16];
+        v15[0] = MEMORY[0x277D85DD0];
+        v15[1] = 3221225472;
+        v15[2] = __74__HDCloudSyncSharedSummaryPushPruningOperation__recordIDsForTransactions___block_invoke;
+        v15[3] = &unk_278629C30;
+        v15[4] = v9;
+        v11 = [summaryIdentifiers hk_map:v15];
 
         recordID = [v9 recordID];
         [v4 addObject:recordID];
@@ -419,13 +411,11 @@ uint64_t __120__HDCloudSyncSharedSummaryPushPruningOperation__findTransactionsTo
         [v4 addObjectsFromArray:v11];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v6);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -455,7 +445,7 @@ id __74__HDCloudSyncSharedSummaryPushPruningOperation__recordIDsForTransactions_
 
 uint64_t __82__HDCloudSyncSharedSummaryPushPruningOperation__filterRecordsThatExistInTheCloud___block_invoke(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 recordID];
   v5 = [v4 zoneID];
@@ -473,9 +463,9 @@ uint64_t __82__HDCloudSyncSharedSummaryPushPruningOperation__filterRecordsThatEx
   v16 = [(HDCloudSyncCachedZone *)v11 initForZoneIdentifier:v10 repository:v13 accessibilityAssertion:v15];
 
   v17 = [v3 recordID];
-  v27 = 0;
-  v18 = [v16 containsRecordWithRecordID:v17 error:&v27];
-  v19 = v27;
+  v26 = 0;
+  v18 = [v16 containsRecordWithRecordID:v17 error:&v26];
+  v19 = v26;
 
   if (v18 != 1)
   {
@@ -489,23 +479,22 @@ uint64_t __82__HDCloudSyncSharedSummaryPushPruningOperation__filterRecordsThatEx
     v20 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v24 = *(a1 + 32);
-      v25 = v20;
-      v26 = [v3 recordID];
+      v23 = *(a1 + 32);
+      v24 = v20;
+      v25 = [v3 recordID];
       *buf = 138543874;
-      v29 = v24;
-      v30 = 2114;
-      v31 = v26;
-      v32 = 2114;
-      v33 = v19;
-      _os_log_error_impl(&dword_228986000, v25, OS_LOG_TYPE_ERROR, "%{public}@ [summary-sharing] Failed to fetch status of summary record %{public}@, %{public}@", buf, 0x20u);
+      v28 = v23;
+      v29 = 2114;
+      v30 = v25;
+      v31 = 2114;
+      v32 = v19;
+      _os_log_error_impl(&dword_228986000, v24, OS_LOG_TYPE_ERROR, "%{public}@ [summary-sharing] Failed to fetch status of summary record %{public}@, %{public}@", buf, 0x20u);
     }
   }
 
   v21 = 0;
 LABEL_7:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -538,23 +527,21 @@ LABEL_7:
 
 void __90__HDCloudSyncSharedSummaryPushPruningOperation__modifyRecordsAndFinish_recordIDsToDelete___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = a3;
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 32);
-    v8 = 138543618;
-    v9 = v7;
-    v10 = 2114;
-    v11 = v4;
-    _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "%{public}@: [summary-sharing] Failed to modify records: %{public}@", &v8, 0x16u);
+    v6 = *(a1 + 32);
+    v7 = 138543618;
+    v8 = v6;
+    v9 = 2114;
+    v10 = v4;
+    _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "%{public}@: [summary-sharing] Failed to modify records: %{public}@", &v7, 0x16u);
   }
 
   [*(a1 + 32) finishWithSuccess:0 error:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

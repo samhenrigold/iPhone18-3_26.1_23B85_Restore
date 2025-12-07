@@ -76,7 +76,7 @@ LABEL_6:
 
 void __37__TRITempDirScopeGuard_initWithPath___block_invoke(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (([MEMORY[0x277CCAA00] triIdempotentCreateDirectoryOrFaultWithPath:*(a1 + 32)] & 1) == 0)
   {
@@ -85,25 +85,25 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  bzero(v26, 0x400uLL);
+  bzero(v25, 0x400uLL);
   *__error() = 0;
-  v4 = realpath_DARWIN_EXTSN([*(a1 + 32) fileSystemRepresentation], v26);
+  v4 = realpath_DARWIN_EXTSN([*(a1 + 32) fileSystemRepresentation], v25);
   if (!v4)
   {
     v13 = TRILogCategory_Server();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v16 = *(a1 + 32);
-      v17 = __error();
-      v18 = strerror(*v17);
-      v19 = *__error();
-      v20 = 138543874;
-      v21 = v16;
-      v22 = 2080;
-      v23 = v18;
-      v24 = 1024;
-      v25 = v19;
-      _os_log_error_impl(&dword_26F567000, v13, OS_LOG_TYPE_ERROR, "Unable to canonicalize %{public}@: %s (%d)", &v20, 0x1Cu);
+      v15 = *(a1 + 32);
+      v16 = __error();
+      v17 = strerror(*v16);
+      v18 = *__error();
+      v19 = 138543874;
+      v20 = v15;
+      v21 = 2080;
+      v22 = v17;
+      v23 = 1024;
+      v24 = v18;
+      _os_log_error_impl(&dword_26F567000, v13, OS_LOG_TYPE_ERROR, "Unable to canonicalize %{public}@: %s (%d)", &v19, 0x1Cu);
     }
 
     goto LABEL_12;
@@ -116,9 +116,9 @@ LABEL_12:
     v14 = TRILogCategory_Server();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v20 = 136315138;
-      v21 = v5;
-      _os_log_error_impl(&dword_26F567000, v14, OS_LOG_TYPE_ERROR, "Canonicalized path is not Unicode: %s", &v20, 0xCu);
+      v19 = 136315138;
+      v20 = v5;
+      _os_log_error_impl(&dword_26F567000, v14, OS_LOG_TYPE_ERROR, "Canonicalized path is not Unicode: %s", &v19, 0xCu);
     }
 
     goto LABEL_12;
@@ -145,7 +145,6 @@ LABEL_12:
   }
 
 LABEL_13:
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)dispose
@@ -171,7 +170,7 @@ LABEL_13:
 
 void __31__TRITempDirScopeGuard_dispose__block_invoke(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
   if ((v4[8] & 1) == 0)
@@ -181,8 +180,8 @@ void __31__TRITempDirScopeGuard_dispose__block_invoke(uint64_t a1, void *a2)
 
     if (!v6)
     {
-      v19 = [MEMORY[0x277CCA890] currentHandler];
-      [v19 handleFailureInMethod:*(a1 + 48) object:*(a1 + 32) file:@"TRITempDirScopeGuard.m" lineNumber:99 description:{@"Invalid parameter not satisfying: %@", @"prevRefCountBoxed != nil"}];
+      v18 = [MEMORY[0x277CCA890] currentHandler];
+      [v18 handleFailureInMethod:*(a1 + 48) object:*(a1 + 32) file:@"TRITempDirScopeGuard.m" lineNumber:99 description:{@"Invalid parameter not satisfying: %@", @"prevRefCountBoxed != nil"}];
     }
 
     v7 = [v6 intValue];
@@ -200,7 +199,7 @@ void __31__TRITempDirScopeGuard_dispose__block_invoke(uint64_t a1, void *a2)
       {
         v9 = [*(a1 + 32) path];
         *buf = 138543362;
-        v22 = v9;
+        v21 = v9;
         _os_log_impl(&dword_26F567000, v8, OS_LOG_TYPE_INFO, "TRITempDirScopeGuard cleaning up: %{public}@", buf, 0xCu);
       }
 
@@ -209,20 +208,20 @@ void __31__TRITempDirScopeGuard_dispose__block_invoke(uint64_t a1, void *a2)
 
       v11 = [MEMORY[0x277CCAA00] defaultManager];
       v12 = [*(a1 + 32) path];
-      v20 = 0;
-      v13 = [v11 triForceRemoveItemAtPath:v12 error:&v20];
-      v14 = v20;
+      v19 = 0;
+      v13 = [v11 triForceRemoveItemAtPath:v12 error:&v19];
+      v14 = v19;
 
       if ((v13 & 1) == 0)
       {
         v15 = TRILogCategory_Server();
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          v18 = [*(a1 + 32) path];
+          v17 = [*(a1 + 32) path];
           *buf = 138543618;
-          v22 = v18;
-          v23 = 2114;
-          v24 = v14;
+          v21 = v17;
+          v22 = 2114;
+          v23 = v14;
           _os_log_error_impl(&dword_26F567000, v15, OS_LOG_TYPE_ERROR, "TRITempDirScopeGuard failed to clean up %{public}@: %{public}@", buf, 0x16u);
         }
 
@@ -232,8 +231,6 @@ void __31__TRITempDirScopeGuard_dispose__block_invoke(uint64_t a1, void *a2)
 
     *(*(a1 + 32) + 8) = 1;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc

@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)providerAsString:(int)string;
 - (int)StringAsProvider:(id)provider;
 - (int)provider;
 - (unint64_t)hash;
@@ -40,6 +41,19 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)providerAsString:(int)string
+{
+  if (string >= 5)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32D98[string];
+  }
 }
 
 - (int)StringAsProvider:(id)provider
@@ -113,14 +127,12 @@
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    provider = self->_provider;
 
     PBDataWriterWriteInt32Field();
   }

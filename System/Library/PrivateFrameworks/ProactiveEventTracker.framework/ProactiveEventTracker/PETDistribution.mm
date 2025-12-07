@@ -385,7 +385,6 @@ LABEL_6:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    min = self->_min;
     PBDataWriterWriteDoubleField();
     has = self->_has;
     if ((has & 1) == 0)
@@ -405,7 +404,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  max = self->_max;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 2) == 0)
@@ -420,12 +418,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  mean = self->_mean;
   PBDataWriterWriteDoubleField();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_5:
-    variance = self->_variance;
     PBDataWriterWriteDoubleField();
   }
 

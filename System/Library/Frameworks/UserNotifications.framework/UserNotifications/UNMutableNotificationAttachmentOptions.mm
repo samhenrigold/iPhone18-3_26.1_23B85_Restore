@@ -7,9 +7,7 @@
 
 - (void)setThumbnailGeneratorUserInfo:(id)info
 {
-  v4 = [info copy];
-  thumbnailGeneratorUserInfo = self->super._thumbnailGeneratorUserInfo;
-  self->super._thumbnailGeneratorUserInfo = v4;
+  self->super._thumbnailGeneratorUserInfo = [info copy];
 
   MEMORY[0x1EEE66BB8]();
 }

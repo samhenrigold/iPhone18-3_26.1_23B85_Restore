@@ -64,10 +64,9 @@
 
 + (id)contentCategories
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = *MEMORY[0x1E6996FD8];
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = *MEMORY[0x1E6996FD8];
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -92,18 +91,16 @@
 
 + (id)propertyBuilders
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E6996D90];
   v3 = WFLocalizedContentPropertyNameMarker(@"Genre");
   v4 = [v2 keyPath:@"object.genre" name:v3 class:objc_opt_class()];
-  v11[0] = v4;
+  v10[0] = v4;
   v5 = MEMORY[0x1E6996D90];
   v6 = WFLocalizedContentPropertyNameMarker(@"Type");
   v7 = [v5 keyPath:@"object.type" name:v6 class:objc_opt_class()];
-  v11[1] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10[1] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
 
   return v8;
 }

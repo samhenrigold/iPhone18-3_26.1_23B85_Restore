@@ -142,28 +142,28 @@
 
 - (NSDictionary)localizedPhrasesByBasePhraseTemplate
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   orderedPhrases = [(LNAutoShortcut *)self orderedPhrases];
-  v5 = [orderedPhrases countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [orderedPhrases countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(orderedPhrases);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         basePhraseTemplate = [v9 basePhraseTemplate];
         v11 = [v3 objectForKeyedSubscript:basePhraseTemplate];
 
@@ -180,78 +180,74 @@
         }
       }
 
-      v6 = [orderedPhrases countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [orderedPhrases countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (NSArray)localizedPhrases
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
   localizedPhrasesByBasePhraseTemplate = [(LNAutoShortcut *)self localizedPhrasesByBasePhraseTemplate];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v5 = [localizedPhrasesByBasePhraseTemplate countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v5 = [localizedPhrasesByBasePhraseTemplate countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v23;
+    v7 = *v22;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v23 != v7)
+        if (*v22 != v7)
         {
           objc_enumerationMutation(localizedPhrasesByBasePhraseTemplate);
         }
 
-        v9 = *(*(&v22 + 1) + 8 * i);
+        v9 = *(*(&v21 + 1) + 8 * i);
+        v17 = 0u;
         v18 = 0u;
         v19 = 0u;
         v20 = 0u;
-        v21 = 0u;
         v10 = [localizedPhrasesByBasePhraseTemplate objectForKeyedSubscript:{v9, 0}];
-        v11 = [v10 countByEnumeratingWithState:&v18 objects:v26 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v17 objects:v25 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v19;
+          v13 = *v18;
           do
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v19 != v13)
+              if (*v18 != v13)
               {
                 objc_enumerationMutation(v10);
               }
 
-              localizedPhrase = [*(*(&v18 + 1) + 8 * j) localizedPhrase];
+              localizedPhrase = [*(*(&v17 + 1) + 8 * j) localizedPhrase];
               [v3 addObject:localizedPhrase];
             }
 
-            v12 = [v10 countByEnumeratingWithState:&v18 objects:v26 count:16];
+            v12 = [v10 countByEnumeratingWithState:&v17 objects:v25 count:16];
           }
 
           while (v12);
         }
       }
 
-      v6 = [localizedPhrasesByBasePhraseTemplate countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v6 = [localizedPhrasesByBasePhraseTemplate countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v6);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

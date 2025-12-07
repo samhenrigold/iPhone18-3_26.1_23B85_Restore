@@ -12,14 +12,15 @@
 
 + (id)_defaultDescriptionForCADErrorCode:()EventKit
 {
-  v4 = EKBundle();
+  v3 = a3;
+  v4 = EKBundle(self);
   v5 = v4;
-  if ((a3 - 1001) > 0x15 || ((0x3FFEC1u >> (a3 + 23)) & 1) == 0 || ([v4 localizedStringForKey:off_1E77FE9D8[a3 - 1001] value:&stru_1F1B49D68 table:0], (v6 = objc_claimAutoreleasedReturnValue()) == 0))
+  if ((v3 - 1001) > 0x15 || ((0x3FFEC1u >> (v3 + 23)) & 1) == 0 || ([v4 localizedStringForKey:off_1E77FE9D8[v3 - 1001] value:&stru_1F1B49D68 table:0], (v6 = objc_claimAutoreleasedReturnValue()) == 0))
   {
     v7 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_FAULT))
     {
-      [(NSError(EventKit) *)a3 _defaultDescriptionForCADErrorCode:v7];
+      [(NSError(EventKit) *)v3 _defaultDescriptionForCADErrorCode:v7];
     }
 
     v6 = 0;
@@ -30,7 +31,7 @@
 
 + (__CFString)_defaultDescriptionForEKErrorCode:()EventKit
 {
-  v4 = EKBundle();
+  v4 = EKBundle(self);
   v5 = v4;
   v6 = 0;
   switch(a3)
@@ -284,11 +285,10 @@ LABEL_54:
 
 + (void)_defaultDescriptionForCADErrorCode:()EventKit .cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_fault_impl(&dword_1A805E000, a2, OS_LOG_TYPE_FAULT, "Unexpected error code given to +_defaultDescriptionForCADErrorCode: %d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_fault_impl(&dword_1A805E000, a2, OS_LOG_TYPE_FAULT, "Unexpected error code given to +_defaultDescriptionForCADErrorCode: %d", v2, 8u);
 }
 
 @end

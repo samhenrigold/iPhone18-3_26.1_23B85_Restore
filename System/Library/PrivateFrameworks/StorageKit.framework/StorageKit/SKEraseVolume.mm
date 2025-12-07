@@ -106,7 +106,7 @@ uint64_t __52__SKEraseVolume_initWithChildDisk_descriptor_error___block_invoke(u
 
 + (id)eraseVolumeWithChildDisk:(id)disk descriptor:(id)descriptor error:(id *)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   diskCopy = disk;
   descriptorCopy = descriptor;
   objc_opt_class();
@@ -129,11 +129,11 @@ LABEL_8:
   v14 = SKGetOSLog();
   if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
-    v20 = 136315394;
-    v21 = "+[SKEraseVolume eraseVolumeWithChildDisk:descriptor:error:]";
-    v22 = 2112;
-    v23 = v9;
-    _os_log_impl(&dword_26BBB8000, v14, OS_LOG_TYPE_ERROR, "%s: More than 1 volume on %@ physical store", &v20, 0x16u);
+    v19 = 136315394;
+    v20 = "+[SKEraseVolume eraseVolumeWithChildDisk:descriptor:error:]";
+    v21 = 2112;
+    v22 = v9;
+    _os_log_impl(&dword_26BBB8000, v14, OS_LOG_TYPE_ERROR, "%s: More than 1 volume on %@ physical store", &v19, 0x16u);
   }
 
   volumes = [v11 volumes];
@@ -141,7 +141,6 @@ LABEL_8:
   v17 = [SKError nilWithError:v16 error:error];
 
 LABEL_9:
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -202,7 +201,7 @@ LABEL_9:
 
 - (id)eraseProgressReportingWithCompletionBlock:(id)block
 {
-  v21[3] = *MEMORY[0x277D85DE8];
+  v20[3] = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v5 = [SKProgress progressWithTotalUnitCount:100];
   [v5 setCancellable:0];
@@ -211,27 +210,27 @@ LABEL_9:
 
   if (validateForErase)
   {
-    v20[0] = kSKAPFSDiskUnmountIgnoreGroup;
-    v20[1] = @"kSKDiskMountOptionRecursive";
-    v21[0] = MEMORY[0x277CBEC38];
-    v21[1] = MEMORY[0x277CBEC38];
-    v20[2] = @"kSKDiskMountOptionForce";
+    v19[0] = kSKAPFSDiskUnmountIgnoreGroup;
+    v19[1] = @"kSKDiskMountOptionRecursive";
+    v20[0] = MEMORY[0x277CBEC38];
+    v20[1] = MEMORY[0x277CBEC38];
+    v19[2] = @"kSKDiskMountOptionForce";
     v8 = [MEMORY[0x277CCABB0] numberWithBool:{-[SKEraseVolume forceUnmount](self, "forceUnmount")}];
-    v21[2] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:3];
+    v20[2] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:3];
 
     disk = [(SKEraseVolume *)self disk];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __59__SKEraseVolume_eraseProgressReportingWithCompletionBlock___block_invoke;
-    v17[3] = &unk_279D1F998;
-    v19 = blockCopy;
-    v17[4] = self;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __59__SKEraseVolume_eraseProgressReportingWithCompletionBlock___block_invoke;
+    v16[3] = &unk_279D1F998;
+    v18 = blockCopy;
+    v16[4] = self;
     v11 = v5;
-    v18 = v11;
-    [disk unmountWithOptions:v9 completionBlock:v17];
+    v17 = v11;
+    [disk unmountWithOptions:v9 completionBlock:v16];
 
-    v12 = v18;
+    v12 = v17;
     v13 = v11;
   }
 
@@ -241,8 +240,6 @@ LABEL_9:
     (*(blockCopy + 2))(blockCopy, 0, v14);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
@@ -250,33 +247,32 @@ void __59__SKEraseVolume_eraseProgressReportingWithCompletionBlock___block_invok
 {
   if (a2)
   {
-    v3 = *(a1 + 48);
-    v4 = *(*(a1 + 48) + 16);
+    v3 = *(*(a1 + 48) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = +[SKHelperClient sharedClient];
-    v6 = *(a1 + 32);
-    v9 = MEMORY[0x277D85DD0];
-    v10 = 3221225472;
-    v11 = __59__SKEraseVolume_eraseProgressReportingWithCompletionBlock___block_invoke_2;
-    v12 = &unk_279D1FA38;
-    v7 = *(a1 + 48);
-    v13 = *(a1 + 32);
-    v14 = v7;
-    v8 = [v5 eraseWithEraser:v6 completionBlock:&v9];
+    v4 = +[SKHelperClient sharedClient];
+    v5 = *(a1 + 32);
+    v8 = MEMORY[0x277D85DD0];
+    v9 = 3221225472;
+    v10 = __59__SKEraseVolume_eraseProgressReportingWithCompletionBlock___block_invoke_2;
+    v11 = &unk_279D1FA38;
+    v6 = *(a1 + 48);
+    v12 = *(a1 + 32);
+    v13 = v6;
+    v7 = [v4 eraseWithEraser:v5 completionBlock:&v8];
 
-    [*(a1 + 40) setCompletedUnitCount:{10, v9, v10, v11, v12}];
-    [*(a1 + 40) chainChildProgress:v8 withPendingUnitCount:90];
+    [*(a1 + 40) setCompletedUnitCount:{10, v8, v9, v10, v11}];
+    [*(a1 + 40) chainChildProgress:v7 withPendingUnitCount:90];
   }
 }
 
 void __59__SKEraseVolume_eraseProgressReportingWithCompletionBlock___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -288,9 +284,9 @@ void __59__SKEraseVolume_eraseProgressReportingWithCompletionBlock___block_invok
   {
     if (!v5)
     {
-      v13 = *(a1 + 40);
-      v14 = [SKError errorWithCode:117 disks:MEMORY[0x277CBEBF8] userInfo:0];
-      (*(v13 + 16))(v13, 0, v14);
+      v12 = *(a1 + 40);
+      v13 = [SKError errorWithCode:117 disks:MEMORY[0x277CBEBF8] userInfo:0];
+      (*(v12 + 16))(v12, 0, v13);
 
       goto LABEL_13;
     }
@@ -307,11 +303,11 @@ void __59__SKEraseVolume_eraseProgressReportingWithCompletionBlock___block_invok
         v11 = SKGetOSLog();
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
-          v20 = 136315394;
-          v21 = "[SKEraseVolume eraseProgressReportingWithCompletionBlock:]_block_invoke";
-          v22 = 2112;
-          v23 = v10;
-          _os_log_impl(&dword_26BBB8000, v11, OS_LOG_TYPE_DEFAULT, "%s: The new APFS volume is: %@", &v20, 0x16u);
+          v19 = 136315394;
+          v20 = "[SKEraseVolume eraseProgressReportingWithCompletionBlock:]_block_invoke";
+          v21 = 2112;
+          v22 = v10;
+          _os_log_impl(&dword_26BBB8000, v11, OS_LOG_TYPE_DEFAULT, "%s: The new APFS volume is: %@", &v19, 0x16u);
         }
 
         v5 = v10;
@@ -319,11 +315,11 @@ void __59__SKEraseVolume_eraseProgressReportingWithCompletionBlock___block_invok
 
       else
       {
-        if (![v8 isLiveFSAPFSDisk] || (objc_msgSend(*(a1 + 32), "descriptor"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "filesystem"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "isEncrypted"), v16, v15, !v17))
+        if (![v8 isLiveFSAPFSDisk] || (objc_msgSend(*(a1 + 32), "descriptor"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "filesystem"), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "isEncrypted"), v15, v14, !v16))
         {
-          v18 = *(a1 + 40);
-          v19 = [SKError errorWithCode:117 debugDescription:@"No APFS volumes found after erase" error:0];
-          (*(v18 + 16))(v18, 0, v19);
+          v17 = *(a1 + 40);
+          v18 = [SKError errorWithCode:117 debugDescription:@"No APFS volumes found after erase" error:0];
+          (*(v17 + 16))(v17, 0, v18);
 
           goto LABEL_12;
         }
@@ -331,11 +327,11 @@ void __59__SKEraseVolume_eraseProgressReportingWithCompletionBlock___block_invok
         v11 = SKGetOSLog();
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
-          v20 = 136315394;
-          v21 = "[SKEraseVolume eraseProgressReportingWithCompletionBlock:]_block_invoke_2";
-          v22 = 2112;
-          v23 = v5;
-          _os_log_impl(&dword_26BBB8000, v11, OS_LOG_TYPE_DEFAULT, "%s: Volume was formatted to encrypted APFS, returning %@", &v20, 0x16u);
+          v19 = 136315394;
+          v20 = "[SKEraseVolume eraseProgressReportingWithCompletionBlock:]_block_invoke_2";
+          v21 = 2112;
+          v22 = v5;
+          _os_log_impl(&dword_26BBB8000, v11, OS_LOG_TYPE_DEFAULT, "%s: Volume was formatted to encrypted APFS, returning %@", &v19, 0x16u);
         }
       }
     }
@@ -347,7 +343,6 @@ void __59__SKEraseVolume_eraseProgressReportingWithCompletionBlock___block_invok
 LABEL_12:
 
 LABEL_13:
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)description
@@ -459,7 +454,7 @@ uint64_t __39__SKEraseVolume_formattableFilesystems__block_invoke(uint64_t a1, v
 
 - (id)validateWithError:(id *)error
 {
-  v65[3] = *MEMORY[0x277D85DE8];
+  v64[3] = *MEMORY[0x277D85DE8];
   disk = [(SKEraseVolume *)self disk];
 
   if (!disk)
@@ -468,13 +463,13 @@ uint64_t __39__SKEraseVolume_formattableFilesystems__block_invoke(uint64_t a1, v
     goto LABEL_53;
   }
 
-  v65[0] = kSKDiskTypeGPTWholeDisk[0];
-  v65[1] = kSKDiskTypeMBRWholeDisk[0];
-  v65[2] = kSKDiskTypeAPMWholeDisk[0];
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v65 count:3];
+  v64[0] = kSKDiskTypeGPTWholeDisk[0];
+  v64[1] = kSKDiskTypeMBRWholeDisk[0];
+  v64[2] = kSKDiskTypeAPMWholeDisk[0];
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v64 count:3];
   disk2 = [(SKEraseVolume *)self disk];
   v10 = [disk2 isMemberOfClass:objc_opt_class()];
-  v58 = v8;
+  v57 = v8;
   if (v10)
   {
     v11 = 0;
@@ -524,7 +519,7 @@ LABEL_36:
     selfCopy = [SKError nilWithPOSIXCode:45 debugDescription:v46 error:error];
 
 LABEL_51:
-    v21 = v58;
+    v21 = v57;
     goto LABEL_52;
   }
 
@@ -549,7 +544,7 @@ LABEL_15:
     }
 
     disk6 = [(SKEraseVolume *)self disk];
-    v21 = v58;
+    v21 = v57;
     if ([disk6 hasVolumeSiblings])
     {
       v22 = SKGetOSLog();
@@ -557,9 +552,9 @@ LABEL_15:
       {
         container = [disk6 container];
         *buf = 136315394;
-        v60 = "[SKEraseVolume validateWithError:]";
-        v61 = 2112;
-        v62 = container;
+        v59 = "[SKEraseVolume validateWithError:]";
+        v60 = 2112;
+        v61 = container;
         _os_log_impl(&dword_26BBB8000, v22, OS_LOG_TYPE_ERROR, "%s: More than 1 volume on %@ container", buf, 0x16u);
       }
 
@@ -580,7 +575,7 @@ LABEL_22:
     disk7 = [(SKEraseVolume *)self disk];
     isLiveFSAPFSDisk = [disk7 isLiveFSAPFSDisk];
 
-    v21 = v58;
+    v21 = v57;
     if (!isLiveFSAPFSDisk)
     {
       goto LABEL_30;
@@ -594,9 +589,9 @@ LABEL_22:
       {
         container3 = [disk6 container];
         *buf = 136315394;
-        v60 = "[SKEraseVolume validateWithError:]";
-        v61 = 2112;
-        v62 = container3;
+        v59 = "[SKEraseVolume validateWithError:]";
+        v60 = 2112;
+        v61 = container3;
         _os_log_impl(&dword_26BBB8000, v29, OS_LOG_TYPE_ERROR, "%s: More than 1 volume on %@ container, erase will be destructive", buf, 0x16u);
       }
 
@@ -624,7 +619,7 @@ LABEL_47:
 
   else
   {
-    v21 = v58;
+    v21 = v57;
   }
 
 LABEL_30:
@@ -642,11 +637,11 @@ LABEL_30:
       filesystem3 = [descriptor3 filesystem];
       formattableFilesystems = [(SKEraseVolume *)self formattableFilesystems];
       *buf = 136315650;
-      v60 = "[SKEraseVolume validateWithError:]";
-      v61 = 2112;
-      v62 = filesystem3;
-      v63 = 2112;
-      v64 = formattableFilesystems;
+      v59 = "[SKEraseVolume validateWithError:]";
+      v60 = 2112;
+      v61 = filesystem3;
+      v62 = 2112;
+      v63 = formattableFilesystems;
       _os_log_impl(&dword_26BBB8000, v47, OS_LOG_TYPE_ERROR, "%s: FS to format %@ not found in supported filesystems %@", buf, 0x20u);
     }
 
@@ -676,7 +671,7 @@ LABEL_30:
   {
     childCount = [container2 childCount];
 
-    v21 = v58;
+    v21 = v57;
     if (childCount > 1)
     {
       goto LABEL_43;
@@ -686,7 +681,7 @@ LABEL_30:
   else
   {
 
-    v21 = v58;
+    v21 = v57;
   }
 
   type3 = [container2 type];
@@ -714,7 +709,6 @@ LABEL_44:
 
 LABEL_52:
 LABEL_53:
-  v56 = *MEMORY[0x277D85DE8];
 
   return selfCopy;
 }

@@ -55,7 +55,7 @@
 
   selfCopy = self;
   sub_1000039D0(animated, v6, v7);
-  sub_100003ED4(v6);
+  sub_100003ED4(v6, v7);
 }
 
 - (void)blockInput

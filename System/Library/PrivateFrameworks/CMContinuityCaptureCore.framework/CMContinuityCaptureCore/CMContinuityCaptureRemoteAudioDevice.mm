@@ -74,7 +74,7 @@
 
 void __94__CMContinuityCaptureRemoteAudioDevice_initWithCapabilities_compositeDelegate_captureSession___block_invoke(uint64_t a1)
 {
-  v2 = [MEMORY[0x277CE5AC8] defaultDeviceWithMediaType:*MEMORY[0x277CE5E48]];
+  v2 = [MEMORY[0x277CE5AC8] defaultDeviceWithMediaType:?];
   v3 = *(a1 + 32);
   v4 = *(v3 + 376);
   *(v3 + 376) = v2;
@@ -122,9 +122,9 @@ void __87__CMContinuityCaptureRemoteAudioDevice_observeValueForKeyPath_ofObject_
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (WeakRetained)
   {
-    v3 = WeakRetained;
-    [WeakRetained _observeValueForKeyPath:*(a1 + 32) ofObject:*(a1 + 40) change:*(a1 + 48) context:*(a1 + 64)];
-    WeakRetained = v3;
+    v2 = WeakRetained;
+    [WeakRetained _observeValueForKeyPath:? ofObject:? change:? context:?];
+    WeakRetained = v2;
   }
 }
 
@@ -135,57 +135,56 @@ void __87__CMContinuityCaptureRemoteAudioDevice_observeValueForKeyPath_ofObject_
   queue = [(CMContinuityCaptureDeviceBase *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  LODWORD(queue) = [pathCopy isEqualToString:@"active"];
+  LODWORD(queue) = [pathCopy isEqualToString:?];
   if (!queue)
   {
     goto LABEL_13;
   }
 
-  v11 = *MEMORY[0x277CCA2F0];
-  v12 = [changeCopy objectForKeyedSubscript:*MEMORY[0x277CCA2F0]];
-  if ([v12 BOOLValue])
+  v11 = [changeCopy objectForKeyedSubscript:?];
+  if ([v11 BOOLValue])
   {
   }
 
   else
   {
-    v13 = [changeCopy objectForKeyedSubscript:*MEMORY[0x277CCA300]];
-    bOOLValue = [v13 BOOLValue];
+    v12 = [changeCopy objectForKeyedSubscript:?];
+    bOOLValue = [v12 BOOLValue];
 
     if (bOOLValue)
     {
-      v15 = CMContinuityCaptureLog(2);
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v14 = CMContinuityCaptureLog(2);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = 138543362;
+        v18 = 138543362;
         selfCopy2 = self;
-        _os_log_impl(&dword_242545000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ active 1 -> 0", &v19, 0xCu);
+        _os_log_impl(&dword_242545000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ active 1 -> 0", &v18, 0xCu);
       }
 
-      [(CMContinuityCaptureRemoteAudioDevice *)self stopCaptureStack:4 completion:&__block_literal_global_19];
+      [CMContinuityCaptureRemoteAudioDevice stopCaptureStack:"stopCaptureStack:completion:" completion:?];
       goto LABEL_13;
     }
   }
 
-  v16 = [changeCopy objectForKeyedSubscript:v11];
-  if (([v16 BOOLValue]& 1) == 0)
+  v15 = [changeCopy objectForKeyedSubscript:?];
+  if (([v15 BOOLValue]& 1) == 0)
   {
 LABEL_12:
 
     goto LABEL_13;
   }
 
-  v17 = [changeCopy objectForKeyedSubscript:*MEMORY[0x277CCA300]];
-  bOOLValue2 = [v17 BOOLValue];
+  v16 = [changeCopy objectForKeyedSubscript:?];
+  bOOLValue2 = [v16 BOOLValue];
 
   if ((bOOLValue2 & 1) == 0)
   {
-    v16 = CMContinuityCaptureLog(2);
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v15 = CMContinuityCaptureLog(2);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138543362;
+      v18 = 138543362;
       selfCopy2 = self;
-      _os_log_impl(&dword_242545000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ active 0 -> 1", &v19, 0xCu);
+      _os_log_impl(&dword_242545000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ active 0 -> 1", &v18, 0xCu);
     }
 
     goto LABEL_12;
@@ -390,8 +389,8 @@ void __65__CMContinuityCaptureRemoteAudioDevice_postAVCStreamInterruption__block
     v2 = [WeakRetained compositeDelegate];
     if (v2)
     {
-      v3 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"ContinuityCapture" code:-1007 userInfo:0];
-      [v2 connectionInterrupted:v3 forDevice:0];
+      v3 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:? code:? userInfo:?];
+      [v2 connectionInterrupted:? forDevice:?];
     }
 
     WeakRetained = v4;
@@ -475,7 +474,7 @@ void __61__CMContinuityCaptureRemoteAudioDevice_streamDidRTCPTimeOut___block_inv
   {
     avcStreamInput = self->_avcStreamInput;
     v13 = 0;
-    v10 = [(AVCStreamInput *)avcStreamInput pushSampleBuffer:frame error:&v13];
+    v10 = [AVCStreamInput pushSampleBuffer:"pushSampleBuffer:error:" error:?];
     v11 = v13;
     if ((v10 & 1) == 0)
     {
@@ -499,59 +498,54 @@ void __61__CMContinuityCaptureRemoteAudioDevice_streamDidRTCPTimeOut___block_inv
 {
   transportStream = [(CMContinuityCaptureDeviceBase *)self transportStream];
   compositeDelegate = [(CMContinuityCaptureDeviceBase *)self compositeDelegate];
-  v7 = compositeDelegate;
+  v6 = compositeDelegate;
   if (compositeDelegate)
   {
     server = [compositeDelegate server];
-    v9 = CMContinuityCaptureLog(2);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v8 = CMContinuityCaptureLog(2);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
       selfCopy2 = self;
-      v44 = 2080;
-      v45 = "[CMContinuityCaptureRemoteAudioDevice newAudioStreamCurrentConfiguration:]";
-      _os_log_impl(&dword_242545000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ %s", buf, 0x16u);
+      v40 = 2080;
+      v41 = "[CMContinuityCaptureRemoteAudioDevice newAudioStreamCurrentConfiguration:]";
+      _os_log_impl(&dword_242545000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ %s", buf, 0x16u);
     }
 
+    v9 = 0;
     v10 = 0;
     v11 = 0;
-    v12 = 0;
     if (transportStream && server)
     {
       activeConfiguration = [(CMContinuityCaptureDeviceBase *)self activeConfiguration];
       sessionID = [activeConfiguration sessionID];
-      v10 = [transportStream cipherKeyforSessionID:sessionID];
+      v9 = [transportStream cipherKeyforSessionID:?];
 
-      if (v10)
+      if (v9)
       {
         avcStreamNegotiator = [(CMContinuityCaptureDeviceBase *)self avcStreamNegotiator];
-        v52 = 0;
-        v12 = [avcStreamNegotiator generateMediaStreamConfigurationWithError:&v52];
-        v11 = v52;
+        v48 = 0;
+        v11 = [avcStreamNegotiator generateMediaStreamConfigurationWithError:?];
+        v10 = v48;
 
-        if (v12)
+        if (v11)
         {
-          [v12 setRtcpSendInterval:1.0];
-          [v12 setRtcpTimeOutEnabled:1];
-          currentTransport = [server currentTransport];
-          v17 = 12.0;
-          if (currentTransport == 2)
-          {
-            v17 = 8.0;
-          }
-
-          [v12 setRtcpTimeOutInterval:v17];
-          [v12 setSRTPCipherSuite:5];
-          [v12 setSRTCPCipherSuite:5];
-          [v12 setSendMediaKey:v10];
-          [v12 setReceiveMediaKey:v10];
-          [v12 setStreamInputID:configuration];
+          [v11 setRtcpSendInterval:?];
+          [v11 setRtcpTimeOutEnabled:?];
+          [server currentTransport];
+          [v11 setRtcpTimeOutInterval:?];
+          [v11 setSRTPCipherSuite:?];
+          [v11 setSRTCPCipherSuite:?];
+          [v11 setSendMediaKey:?];
+          [v11 setReceiveMediaKey:?];
+          [v11 setStreamInputID:?];
           timeSyncClock = [server timeSyncClock];
 
           if (timeSyncClock)
           {
             timeSyncClock2 = [server timeSyncClock];
-            [v12 setNetworkClockID:{objc_msgSend(timeSyncClock2, "clockIdentifier")}];
+            [timeSyncClock2 clockIdentifier];
+            [v11 setNetworkClockID:?];
           }
 
           activeConfiguration2 = [(CMContinuityCaptureDeviceBase *)self activeConfiguration];
@@ -559,87 +553,86 @@ void __61__CMContinuityCaptureRemoteAudioDevice_streamDidRTCPTimeOut___block_inv
 
           if (audioDeviceMode == 1684434036 || audioDeviceMode == 1667329132)
           {
-            [v12 setJitterBufferMode:2];
-            [v12 setFixedJitterBufferSize:20];
+            [v11 setJitterBufferMode:?];
+            [v11 setFixedJitterBufferSize:?];
             activeConfiguration3 = [(CMContinuityCaptureDeviceBase *)self activeConfiguration];
             [activeConfiguration3 audioBlockSize];
-            v24 = (v23 * 1000.0);
-            audio = [v12 audio];
-            [audio setPtime:v24];
+            audio = [v11 audio];
+            [audio setPtime:?];
 
             activeConfiguration4 = [(CMContinuityCaptureDeviceBase *)self activeConfiguration];
-            LODWORD(v24) = [activeConfiguration4 audioDeviceMode];
+            audioDeviceMode2 = [activeConfiguration4 audioDeviceMode];
 
-            if (v24 == 1667329132)
+            if (audioDeviceMode2 == 1667329132)
             {
-              audio2 = [v12 audio];
-              [audio2 setCodecType:16];
+              audio2 = [v11 audio];
+              [audio2 setCodecType:?];
 
-              audio3 = [v12 audio];
-              [audio3 setChannelCount:4];
+              audio3 = [v11 audio];
+              [audio3 setChannelCount:?];
             }
           }
 
-          v29 = CMContinuityCaptureLog(2);
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+          v25 = CMContinuityCaptureLog(2);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
           {
             compositeDelegate2 = [(CMContinuityCaptureDeviceBase *)self compositeDelegate];
             currentSessionID = [compositeDelegate2 currentSessionID];
-            v30 = v11;
-            networkClockID = [v12 networkClockID];
-            v32 = v10;
-            v33 = server;
-            v34 = v7;
-            v35 = transportStream;
-            localSSRC = [v12 localSSRC];
-            remoteSSRC = [v12 remoteSSRC];
+            v26 = v10;
+            networkClockID = [v11 networkClockID];
+            v28 = v9;
+            v29 = server;
+            v30 = v6;
+            v31 = transportStream;
+            localSSRC = [v11 localSSRC];
+            remoteSSRC = [v11 remoteSSRC];
             *buf = 138413314;
             selfCopy2 = self;
-            v44 = 2048;
-            v45 = currentSessionID;
-            v46 = 2048;
-            v47 = networkClockID;
-            v11 = v30;
-            v48 = 1024;
-            v49 = localSSRC;
-            transportStream = v35;
-            v7 = v34;
-            server = v33;
-            v10 = v32;
-            v50 = 1024;
-            v51 = remoteSSRC;
-            _os_log_impl(&dword_242545000, v29, OS_LOG_TYPE_DEFAULT, "%@ [sessionID:%llx] networkClockID %llu localSSRC %x remoteSSRC %x", buf, 0x2Cu);
+            v40 = 2048;
+            v41 = currentSessionID;
+            v42 = 2048;
+            v43 = networkClockID;
+            v10 = v26;
+            v44 = 1024;
+            v45 = localSSRC;
+            transportStream = v31;
+            v6 = v30;
+            server = v29;
+            v9 = v28;
+            v46 = 1024;
+            v47 = remoteSSRC;
+            _os_log_impl(&dword_242545000, v25, OS_LOG_TYPE_DEFAULT, "%@ [sessionID:%llx] networkClockID %llu localSSRC %x remoteSSRC %x", buf, 0x2Cu);
           }
         }
 
         else
         {
-          v29 = CMContinuityCaptureLog(2);
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+          v25 = CMContinuityCaptureLog(2);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
           {
             [CMContinuityCaptureRemoteAudioDevice newAudioStreamCurrentConfiguration:];
           }
 
-          v12 = 0;
+          v11 = 0;
         }
       }
 
       else
       {
+        v10 = 0;
         v11 = 0;
-        v12 = 0;
       }
     }
 
-    v38 = v12;
+    v34 = v11;
   }
 
   else
   {
-    v38 = 0;
+    v34 = 0;
   }
 
-  return v38;
+  return v34;
 }
 
 - (void)stopCaptureStack:(unint64_t)stack completion:(id)completion
@@ -676,7 +669,7 @@ void __61__CMContinuityCaptureRemoteAudioDevice_streamDidRTCPTimeOut___block_inv
 
     if (completionCopy)
     {
-      v11 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"ContinuityCapture" code:3 userInfo:0];
+      v11 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:? code:? userInfo:?];
       completionCopy[2](completionCopy, v11);
     }
   }
@@ -704,7 +697,7 @@ void __61__CMContinuityCaptureRemoteAudioDevice_streamDidRTCPTimeOut___block_inv
     }
 
     stopAVConferenceStack = [(CMContinuityCaptureRemoteAudioDevice *)self stopAVConferenceStack];
-    [(CMContinuityCaptureRemoteAudioDevice *)self stopCameraCaptureStack:stack];
+    [(CMContinuityCaptureRemoteAudioDevice *)self stopCameraCaptureStack:?];
     if ((stack & 4) != 0)
     {
       v17 = self->_avcAudioStream;
@@ -766,7 +759,7 @@ uint64_t __68__CMContinuityCaptureRemoteAudioDevice_stopCaptureStack_completion_
   v2.receiver = self;
   v2.super_class = CMContinuityCaptureRemoteAudioDevice;
   [(CMContinuityCaptureDeviceBase *)&v2 invalidate];
-  [CMContinuityCaptureRemoteCompositeDevice setWombatMode:0];
+  [CMContinuityCaptureRemoteCompositeDevice setWombatMode:?];
 }
 
 - (BOOL)startCameraCaptureStack:(unint64_t)stack
@@ -782,7 +775,7 @@ uint64_t __68__CMContinuityCaptureRemoteAudioDevice_stopCaptureStack_completion_
     if (self->_captureStackActive || [(CMContinuityCaptureDeviceBase *)self invalidated])
     {
       v34 = 0;
-      goto LABEL_32;
+      goto LABEL_31;
     }
 
     v9 = objc_opt_new();
@@ -809,135 +802,124 @@ uint64_t __68__CMContinuityCaptureRemoteAudioDevice_stopCaptureStack_completion_
     }
 
     v15 = +[CMContinuityCaptureMSNExceptionMonitor sharedMonitor];
-    [v15 incrementExceptionCountForEntity:{-[CMContinuityCaptureDeviceBase entity](self, "entity")}];
+    [(CMContinuityCaptureDeviceBase *)self entity];
+    [v15 incrementExceptionCountForEntity:?];
 
     captureSession = [(CMContinuityCaptureRemoteAudioDevice *)self captureSession];
     [captureSession willConfigure];
 
-    if (self->_audioDevice || ([MEMORY[0x277CE5AC8] defaultDeviceWithMediaType:*MEMORY[0x277CE5E48]], v17 = objc_claimAutoreleasedReturnValue(), v18 = self->_audioDevice, self->_audioDevice = v17, v18, self->_audioDevice))
+    if (self->_audioDevice || ([MEMORY[0x277CE5AC8] defaultDeviceWithMediaType:?], v17 = objc_claimAutoreleasedReturnValue(), audioDevice = self->_audioDevice, self->_audioDevice = v17, audioDevice, self->_audioDevice))
     {
       timeSyncClock = [server timeSyncClock];
       clockDeviceUID = [timeSyncClock clockDeviceUID];
-      [(AVCaptureDevice *)self->_audioDevice setClientAudioClockDeviceUID:clockDeviceUID];
+      [(AVCaptureDevice *)self->_audioDevice setClientAudioClockDeviceUID:?];
 
       v21 = MEMORY[0x277CCABB0];
       activeConfiguration = [(CMContinuityCaptureDeviceBase *)self activeConfiguration];
       [activeConfiguration audioBlockSize];
       v23 = [v21 numberWithDouble:?];
-      [(AVCaptureDevice *)self->_audioDevice setPreferredIOBufferDuration:v23];
+      [(AVCaptureDevice *)self->_audioDevice setPreferredIOBufferDuration:?];
 
-      audioDevice = self->_audioDevice;
       v50 = 0;
-      v25 = [MEMORY[0x277CE5AD8] deviceInputWithDevice:audioDevice error:&v50];
-      v26 = v50;
+      v24 = [MEMORY[0x277CE5AD8] deviceInputWithDevice:? error:?];
+      v25 = 0;
       audioDeviceInput = self->_audioDeviceInput;
-      self->_audioDeviceInput = v25;
+      self->_audioDeviceInput = v24;
 
       if (self->_audioDeviceInput)
       {
         activeConfiguration2 = [(CMContinuityCaptureDeviceBase *)self activeConfiguration];
         audioDeviceMode = [activeConfiguration2 audioDeviceMode];
 
-        v30 = CMContinuityCaptureLog(2);
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+        v29 = CMContinuityCaptureLog(2);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
-          v31 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:audioDeviceMode];
+          v30 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:?];
           *buf = 138543618;
           selfCopy4 = self;
           v53 = 2112;
-          v54 = v31;
-          _os_log_impl(&dword_242545000, v30, OS_LOG_TYPE_DEFAULT, " %{public}@ got mode %@", buf, 0x16u);
+          v54 = v30;
+          _os_log_impl(&dword_242545000, v29, OS_LOG_TYPE_DEFAULT, " %{public}@ got mode %@", buf, 0x16u);
         }
 
-        switch(audioDeviceMode)
+        if (audioDeviceMode != 1667329132 && audioDeviceMode != 1987010925)
         {
-          case 0x63616C6C:
-            v33 = 5;
-            goto LABEL_25;
-          case 0x766F616D:
-            v33 = 7;
-            goto LABEL_25;
-          case 0x64666C74:
-            v32 = CMContinuityCaptureDevicePosition();
-            if (v32)
-            {
-              if (v32 != 1)
-              {
-                if (v32 == 2)
-                {
-                  v33 = 4;
+          if (audioDeviceMode != 1684434036)
+          {
 LABEL_25:
-                  [(AVCaptureDeviceInput *)self->_audioDeviceInput setAudioCaptureMode:v33];
-                  break;
-                }
-
-                break;
-              }
-            }
-
-            else
+            v36 = CMContinuityCaptureLog(2);
+            if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
             {
-              v35 = CMContinuityCaptureLog(2);
-              if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
-              {
-                [CMContinuityCaptureRemoteAudioDevice startCameraCaptureStack:];
-              }
+              v37 = self->_audioDeviceInput;
+              *buf = 138543618;
+              selfCopy4 = self;
+              v53 = 2112;
+              v54 = v37;
+              _os_log_impl(&dword_242545000, v36, OS_LOG_TYPE_DEFAULT, " %{public}@ input %@", buf, 0x16u);
             }
 
-            v33 = 3;
-            goto LABEL_25;
+            v38 = objc_alloc_init(MEMORY[0x277CE5AA0]);
+            audioDataOutput = self->_audioDataOutput;
+            self->_audioDataOutput = v38;
+
+            v40 = self->_audioDataOutput;
+            queue2 = [(CMContinuityCaptureDeviceBase *)self queue];
+            [AVCaptureAudioDataOutput setSampleBufferDelegate:v40 queue:"setSampleBufferDelegate:queue:"];
+
+            captureSession2 = [(CMContinuityCaptureRemoteAudioDevice *)self captureSession];
+            [captureSession2 configureSessionWithInput:? andOutput:?];
+
+            captureSession3 = [(CMContinuityCaptureRemoteAudioDevice *)self captureSession];
+            [captureSession3 didConfigure];
+
+            self->_audioBufferOutputCounter = 0;
+            self->_audioBufferDropCounter = 0;
+            self->_audioSampleRate = 0.0;
+            self->_audioBytesPerSample = 0;
+            [(CMContinuityCaptureRemoteAudioDevice *)self _resetNetworkSampleTime];
+            captureSession4 = [(CMContinuityCaptureRemoteAudioDevice *)self captureSession];
+            [captureSession4 start];
+
+            v45 = CMContinuityCaptureLog(2);
+            if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+            {
+              captureSession5 = [(CMContinuityCaptureRemoteAudioDevice *)self captureSession];
+              state = [captureSession5 state];
+              *buf = 138543618;
+              selfCopy4 = self;
+              v53 = 1024;
+              LODWORD(v54) = state;
+              _os_log_impl(&dword_242545000, v45, OS_LOG_TYPE_DEFAULT, " %{public}@ state %d", buf, 0x12u);
+            }
+
+            self->_captureStackActive = 1;
+            v49.receiver = self;
+            v49.super_class = CMContinuityCaptureRemoteAudioDevice;
+            v34 = [(CMContinuityCaptureDeviceBase *)&v49 startCameraCaptureStack:stack];
+            goto LABEL_30;
+          }
+
+          v33 = CMContinuityCaptureDevicePosition(v31, v32);
+          if (v33)
+          {
+            if (v33 != 1 && v33 != 2)
+            {
+              goto LABEL_25;
+            }
+          }
+
+          else
+          {
+            v35 = CMContinuityCaptureLog(2);
+            if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+            {
+              [CMContinuityCaptureRemoteAudioDevice startCameraCaptureStack:];
+            }
+          }
         }
 
-        v36 = CMContinuityCaptureLog(2);
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
-        {
-          v37 = self->_audioDeviceInput;
-          *buf = 138543618;
-          selfCopy4 = self;
-          v53 = 2112;
-          v54 = v37;
-          _os_log_impl(&dword_242545000, v36, OS_LOG_TYPE_DEFAULT, " %{public}@ input %@", buf, 0x16u);
-        }
-
-        v38 = objc_alloc_init(MEMORY[0x277CE5AA0]);
-        audioDataOutput = self->_audioDataOutput;
-        self->_audioDataOutput = v38;
-
-        v40 = self->_audioDataOutput;
-        queue2 = [(CMContinuityCaptureDeviceBase *)self queue];
-        [(AVCaptureAudioDataOutput *)v40 setSampleBufferDelegate:self queue:queue2];
-
-        captureSession2 = [(CMContinuityCaptureRemoteAudioDevice *)self captureSession];
-        [captureSession2 configureSessionWithInput:self->_audioDeviceInput andOutput:self->_audioDataOutput];
-
-        captureSession3 = [(CMContinuityCaptureRemoteAudioDevice *)self captureSession];
-        [captureSession3 didConfigure];
-
-        self->_audioBufferOutputCounter = 0;
-        self->_audioBufferDropCounter = 0;
-        self->_audioSampleRate = 0.0;
-        self->_audioBytesPerSample = 0;
-        [(CMContinuityCaptureRemoteAudioDevice *)self _resetNetworkSampleTime];
-        captureSession4 = [(CMContinuityCaptureRemoteAudioDevice *)self captureSession];
-        [captureSession4 start];
-
-        v45 = CMContinuityCaptureLog(2);
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
-        {
-          captureSession5 = [(CMContinuityCaptureRemoteAudioDevice *)self captureSession];
-          state = [captureSession5 state];
-          *buf = 138543618;
-          selfCopy4 = self;
-          v53 = 1024;
-          LODWORD(v54) = state;
-          _os_log_impl(&dword_242545000, v45, OS_LOG_TYPE_DEFAULT, " %{public}@ state %d", buf, 0x12u);
-        }
-
-        self->_captureStackActive = 1;
-        v49.receiver = self;
-        v49.super_class = CMContinuityCaptureRemoteAudioDevice;
-        v34 = [(CMContinuityCaptureDeviceBase *)&v49 startCameraCaptureStack:stack];
-        goto LABEL_31;
+        [(AVCaptureDeviceInput *)self->_audioDeviceInput setAudioCaptureMode:?];
+        goto LABEL_25;
       }
 
       [CMContinuityCaptureRemoteAudioDevice startCameraCaptureStack:];
@@ -945,22 +927,22 @@ LABEL_25:
 
     else
     {
-      v26 = CMContinuityCaptureLog(2);
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v25 = CMContinuityCaptureLog(2);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         [CMContinuityCaptureRemoteAudioDevice startCameraCaptureStack:];
       }
     }
 
     v34 = 0;
-LABEL_31:
+LABEL_30:
 
-LABEL_32:
-    goto LABEL_33;
+LABEL_31:
+    goto LABEL_32;
   }
 
   v34 = 0;
-LABEL_33:
+LABEL_32:
 
   return v34;
 }
@@ -1000,29 +982,29 @@ void __77__CMContinuityCaptureRemoteAudioDevice_handleSynchronizeAudioClockCompl
 
 - (void)captureOutput:(id)output didOutputSampleBuffer:(opaqueCMSampleBuffer *)buffer fromConnection:(id)connection
 {
-  v7 = [(CMContinuityCaptureDeviceBase *)self queue:output];
-  dispatch_assert_queue_V2(v7);
+  queue = [(CMContinuityCaptureDeviceBase *)self queue];
+  dispatch_assert_queue_V2(queue);
 
   ++self->_audioBufferOutputCounter;
   if (self->_avcStreamInputActive)
   {
 
-    [(CMContinuityCaptureRemoteAudioDevice *)self _processIncomingAudioBuffer:buffer];
+    [(CMContinuityCaptureRemoteAudioDevice *)self _processIncomingAudioBuffer:?];
   }
 }
 
 - (void)captureOutput:(id)output didDropSampleBuffer:(opaqueCMSampleBuffer *)buffer fromConnection:(id)connection
 {
   ++self->_audioBufferDropCounter;
-  v6 = [(CMContinuityCaptureDeviceBase *)self queue:output];
-  dispatch_assert_queue_V2(v6);
+  queue = [(CMContinuityCaptureDeviceBase *)self queue];
+  dispatch_assert_queue_V2(queue);
 
-  if ([(CMContinuityCaptureRemoteAudioDevice *)self _shouldPrintDroppedSampleBufferLog:self->_audioBufferDropCounter])
+  if ([(CMContinuityCaptureRemoteAudioDevice *)self _shouldPrintDroppedSampleBufferLog:?])
   {
     v7 = CMContinuityCaptureLog(2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [CMContinuityCaptureRemoteAudioDevice captureOutput:&self->_audioBufferDropCounter didDropSampleBuffer:? fromConnection:?];
+      [CMContinuityCaptureRemoteAudioDevice captureOutput:didDropSampleBuffer:fromConnection:];
     }
   }
 }
@@ -1056,16 +1038,16 @@ void __77__CMContinuityCaptureRemoteAudioDevice_handleSynchronizeAudioClockCompl
   if (self->_audioSampleRate == 0.0)
   {
 LABEL_25:
-    v31 = CMContinuityCaptureLog(2);
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    v30 = CMContinuityCaptureLog(2);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       audioSampleRate = self->_audioSampleRate;
       audioBytesPerSample = self->_audioBytesPerSample;
-      LODWORD(v38.value) = 134218240;
-      *(&v38.value + 4) = audioSampleRate;
-      LOWORD(v38.flags) = 1024;
-      *(&v38.flags + 2) = audioBytesPerSample;
-      _os_log_error_impl(&dword_242545000, v31, OS_LOG_TYPE_ERROR, "Trying to process audio buffer but couldn't retrieve valid audioSampleRate %f and audioBytesPerSample %d", &v38, 0x12u);
+      LODWORD(v37.value) = 134218240;
+      *(&v37.value + 4) = audioSampleRate;
+      LOWORD(v37.flags) = 1024;
+      *(&v37.flags + 2) = audioBytesPerSample;
+      _os_log_error_impl(&dword_242545000, v30, OS_LOG_TYPE_ERROR, "Trying to process audio buffer but couldn't retrieve valid audioSampleRate %f and audioBytesPerSample %d", &v37, 0x12u);
     }
   }
 
@@ -1086,7 +1068,7 @@ LABEL_25:
       if (v10 < v11 && v13 == self->_requiredAudioSampleCountPerBuffer)
       {
 LABEL_15:
-        [(CMContinuityCaptureRemoteAudioDevice *)self _dispatchAudioFrame:buffer];
+        [(CMContinuityCaptureRemoteAudioDevice *)self _dispatchAudioFrame:?];
         return;
       }
 
@@ -1101,36 +1083,35 @@ LABEL_15:
         goto LABEL_15;
       }
 
-      v34 = [MEMORY[0x277CBEB28] dataWithData:self->_remainingAudioDataFromPreviousSbuf];
-      [v34 appendBytes:dataPointerOut length:totalLengthOut];
+      v33 = [MEMORY[0x277CBEB28] dataWithData:?];
+      [v33 appendBytes:? length:?];
       requiredAudioSampleCountPerBuffer = self->_requiredAudioSampleCountPerBuffer;
       v18 = v13 / requiredAudioSampleCountPerBuffer;
       CMSampleBufferGetPresentationTimeStamp(&lhs, buffer);
       CMTimeMake(&rhs, v12, self->_audioSampleRate);
-      CMTimeSubtract(&v38, &lhs, &rhs);
+      CMTimeSubtract(&v37, &lhs, &rhs);
       if (v13 >= requiredAudioSampleCountPerBuffer)
       {
         v19 = 0;
-        value = v38.value;
-        v21 = *&v38.timescale;
-        epoch = v38.epoch;
+        value = v37.value;
+        v21 = *&v37.timescale;
+        epoch = v37.epoch;
         do
         {
           v23 = self->_requiredAudioSampleCountPerBuffer;
-          memset(&v38, 170, sizeof(v38));
+          memset(&v37, 170, sizeof(v37));
           CMTimeMake(&lhs, v23 * v19, self->_audioSampleRate);
           rhs.value = value;
           *&rhs.timescale = v21;
           rhs.epoch = epoch;
-          CMTimeAdd(&v38, &rhs, &lhs);
-          v24 = self->_audioBytesPerSample * self->_requiredAudioSampleCountPerBuffer;
-          lhs = v38;
-          desc = [(CMContinuityCaptureRemoteAudioDevice *)self _createSampleBufferForAudioData:v34 dataRange:(v24 * v19) pts:v24 formatDescription:&lhs, desc];
-          if (desc)
+          CMTimeAdd(&v37, &rhs, &lhs);
+          lhs = v37;
+          v24 = [CMContinuityCaptureRemoteAudioDevice _createSampleBufferForAudioData:"_createSampleBufferForAudioData:dataRange:pts:formatDescription:" dataRange:? pts:? formatDescription:?];
+          if (v24)
           {
-            v26 = desc;
-            [(CMContinuityCaptureRemoteAudioDevice *)self _dispatchAudioFrame:desc];
-            CFRelease(v26);
+            v25 = v24;
+            [(CMContinuityCaptureRemoteAudioDevice *)self _dispatchAudioFrame:?];
+            CFRelease(v25);
           }
 
           ++v19;
@@ -1139,9 +1120,8 @@ LABEL_15:
         while (v18 > v19);
       }
 
-      v27 = v18 * self->_requiredAudioSampleCountPerBuffer * self->_audioBytesPerSample;
-      v28 = [v34 length];
-      if (v28 == v27)
+      v26 = v18 * self->_requiredAudioSampleCountPerBuffer * self->_audioBytesPerSample;
+      if ([v33 length] == v26)
       {
         remainingAudioDataFromPreviousSbuf = self->_remainingAudioDataFromPreviousSbuf;
         self->_remainingAudioDataFromPreviousSbuf = 0;
@@ -1149,9 +1129,11 @@ LABEL_15:
 
       else
       {
-        v30 = [MEMORY[0x277CBEA90] dataWithBytes:objc_msgSend(v34 length:{"bytes") + v27, v28 - v27}];
+        v28 = MEMORY[0x277CBEA90];
+        [v33 bytes];
+        v29 = [v28 dataWithBytes:? length:?];
         remainingAudioDataFromPreviousSbuf = self->_remainingAudioDataFromPreviousSbuf;
-        self->_remainingAudioDataFromPreviousSbuf = v30;
+        self->_remainingAudioDataFromPreviousSbuf = v29;
       }
     }
   }
@@ -1201,7 +1183,7 @@ LABEL_15:
 
     else
     {
-      memcpy(dataPointerOut, ([dataCopy bytes] + location), length);
+      memcpy(dataPointerOut, [dataCopy bytes] + location, length);
       CMTimeMake(&v25.duration, 1, *p_mSampleRate);
       v25.presentationTimeStamp = *pts;
       v25.decodeTimeStamp = **&MEMORY[0x277CC0898];
@@ -1224,7 +1206,7 @@ LABEL_15:
     v22 = CMContinuityCaptureLog(2);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      [CMContinuityCaptureRemoteAudioDevice _createSampleBufferForAudioData:v14 dataRange:&self->_requiredAudioSampleCountPerBuffer pts:? formatDescription:?];
+      [CMContinuityCaptureRemoteAudioDevice _createSampleBufferForAudioData:dataRange:pts:formatDescription:];
     }
   }
 
@@ -1280,17 +1262,12 @@ LABEL_7:
 {
   objc_initWeak(&location, self);
   NumSamples = CMSampleBufferGetNumSamples(frame);
-  entity = [(CMContinuityCaptureDeviceBase *)self entity];
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __60__CMContinuityCaptureRemoteAudioDevice__dispatchAudioFrame___block_invoke;
-  v7[3] = &unk_278D5D7F8;
-  objc_copyWeak(v8, &location);
-  v7[4] = self;
-  v8[1] = frame;
-  v8[2] = NumSamples;
-  [(CMContinuityCaptureRemoteAudioDevice *)self dispatchFrame:frame entity:entity completion:v7];
-  objc_destroyWeak(v8);
+  [(CMContinuityCaptureDeviceBase *)self entity];
+  objc_copyWeak(v6, &location);
+  v6[1] = frame;
+  v6[2] = NumSamples;
+  [CMContinuityCaptureRemoteAudioDevice dispatchFrame:"dispatchFrame:entity:completion:" entity:? completion:?];
+  objc_destroyWeak(v6);
   objc_destroyWeak(&location);
 }
 
@@ -1317,106 +1294,104 @@ LABEL_23:
     v10 = v9;
     if (!v3)
     {
-      v14 = *(v5 + 328);
-      if ((*(v5 + 320) & 1) == 0 && (!v14 || (v14 - *(v5 + 336)) / *(v5 + 296) > 0.05))
+      v16 = v5[41];
+      if ((v5[40] & 1) == 0 && (!v16 || (v16 - v5[42]) / *(v5 + 37) > 0.05))
       {
-        v15 = [v9 timeSyncClock];
+        v17 = [v9 timeSyncClock];
 
-        v14 = *(v5 + 328);
-        if (v15)
+        v16 = v5[41];
+        if (v17)
         {
-          *(v5 + 336) = v14;
+          v5[42] = v16;
           HostTimeClock = CMClockGetHostTimeClock();
-          v17 = [v5 captureSession];
-          v18 = [v17 synchronizationClock];
+          v19 = [v5 captureSession];
+          v20 = [v19 synchronizationClock];
 
           memset(&v42, 170, sizeof(v42));
           CMSampleBufferGetPresentationTimeStamp(&v42, *(a1 + 48));
           memset(&v41, 170, sizeof(v41));
           time = v42;
-          CMSyncConvertTime(&v41, &time, v18, HostTimeClock);
-          v19 = [v10 timeSyncClock];
-          time = v41;
-          v20 = [v19 domainTimeForMachAbsoluteTime:CMClockConvertHostTimeToSystemUnits(&time)];
-
+          CMSyncConvertTime(&v41, &time, v20, HostTimeClock);
           v21 = [v10 timeSyncClock];
-          v22 = [v21 grandMasterIdentifier];
+          time = v41;
+          CMClockConvertHostTimeToSystemUnits(&time);
+          v22 = [v21 domainTimeForMachAbsoluteTime:?];
 
-          v23 = CMContinuityCaptureLog(2);
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+          v23 = [v10 timeSyncClock];
+          [v23 grandMasterIdentifier];
+
+          v24 = CMContinuityCaptureLog(2);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
             time = v42;
             Seconds = CMTimeGetSeconds(&time);
             time = v41;
-            v25 = CMTimeGetSeconds(&time);
+            v26 = CMTimeGetSeconds(&time);
             time = v41;
-            v31 = CMClockConvertHostTimeToSystemUnits(&time);
-            [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v20];
-            v26 = v32 = v22;
-            CMTimeMake(&time, v20, 1000000000);
-            v27 = CMTimeGetSeconds(&time);
-            v28 = *MEMORY[0x277D714E8];
-            v29 = v20 != *MEMORY[0x277D714E8];
+            v32 = CMClockConvertHostTimeToSystemUnits(&time);
+            v27 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:?];
+            CMTimeMake(&time, v22, 1000000000);
+            v28 = CMTimeGetSeconds(&time);
+            v29 = *MEMORY[0x277D714E8];
+            v30 = v22 != *MEMORY[0x277D714E8];
             LODWORD(time.value) = 134219266;
             *(&time.value + 4) = Seconds;
             LOWORD(time.flags) = 2048;
-            *(&time.flags + 2) = v25;
+            *(&time.flags + 2) = v26;
             HIWORD(time.epoch) = 2048;
-            v34 = v31;
+            v34 = v32;
             v35 = 2112;
-            v36 = v26;
+            v36 = v27;
             v37 = 2048;
-            v38 = v27;
+            v38 = v28;
             v39 = 1024;
-            v40 = v29;
-            _os_log_impl(&dword_242545000, v23, OS_LOG_TYPE_DEFAULT, "Converted audio PTS %.4f to host time PTS %.4f, mach_absolute_time %llu networkTime %@ %.5f valid %d", &time, 0x3Au);
-
-            v22 = v32;
+            v40 = v30;
+            _os_log_impl(&dword_242545000, v24, OS_LOG_TYPE_DEFAULT, "Converted audio PTS %.4f to host time PTS %.4f, mach_absolute_time %llu networkTime %@ %.5f valid %d", &time, 0x3Au);
           }
 
           else
           {
-            v28 = *MEMORY[0x277D714E8];
+            v29 = *MEMORY[0x277D714E8];
           }
 
-          if (v20 != v28)
+          if (v22 != v29)
           {
-            v30 = [v5 transportDevice];
-            [v30 synchronizeAudioClockWithSampleTime:*(v5 + 328) networkTime:v20 clockGrandMasterIdentifier:v22];
+            v31 = [v5 transportDevice];
+            [v31 synchronizeAudioClockWithSampleTime:? networkTime:? clockGrandMasterIdentifier:?];
           }
 
-          v14 = *(v5 + 328);
+          v16 = v5[41];
         }
       }
 
-      *(v5 + 328) = v14 + *(a1 + 56);
+      v5[41] = v16 + *(a1 + 56);
       goto LABEL_22;
     }
 
     v11 = [v3 domain];
-    v12 = [v11 isEqualToString:@"ContinuityCapture"];
+    v12 = [v11 isEqualToString:?];
 
     if (v12)
     {
-      v13 = CMContinuityCaptureLog(2);
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v15 = CMContinuityCaptureLog(2);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        __60__CMContinuityCaptureRemoteAudioDevice__dispatchAudioFrame___block_invoke_cold_2(v5);
+        __60__CMContinuityCaptureRemoteAudioDevice__dispatchAudioFrame___block_invoke_cold_2();
       }
     }
 
     else
     {
       *(v5 + 320) = 0;
-      if (!CMContinityCaptureDebugLogEnabled())
+      if (!CMContinityCaptureDebugLogEnabled(v13, v14))
       {
 LABEL_22:
 
         goto LABEL_23;
       }
 
-      v13 = CMContinuityCaptureLog(2);
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v15 = CMContinuityCaptureLog(2);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         __60__CMContinuityCaptureRemoteAudioDevice__dispatchAudioFrame___block_invoke_cold_1();
       }
@@ -1435,7 +1410,7 @@ LABEL_24:
   if (type == 3)
   {
     name = [eventCopy name];
-    v11 = [name isEqualToString:@"kCMContinuityCaptureEventStreamInterrupted"];
+    v11 = [name isEqualToString:?];
 
     if (v11)
     {
@@ -1461,10 +1436,11 @@ LABEL_24:
   errorCopy = error;
   v11 = CMContinuityCaptureRemoteEventToBeRelayedList();
   v12 = CMContinuityCaptureRemoteEventToBeRelayedListEvenWhenDropped();
-  if ([v11 containsObject:nameCopy] && (!errorCopy || objc_msgSend(errorCopy, "code") != 1 && (objc_msgSend(errorCopy, "code") != 2 || objc_msgSend(v12, "containsObject:", nameCopy))))
+  if ([v11 containsObject:?] && (!errorCopy || objc_msgSend(errorCopy, "code") != 1 && (objc_msgSend(errorCopy, "code") != 2 || objc_msgSend(v12, "containsObject:"))))
   {
     transportDevice = [(CMContinuityCaptureDeviceBase *)self transportDevice];
-    [transportDevice postEvent:nameCopy entity:-[CMContinuityCaptureDeviceBase entity](self data:{"entity"), dataCopy}];
+    [(CMContinuityCaptureDeviceBase *)self entity];
+    [transportDevice postEvent:? entity:? data:?];
   }
 
   v14.receiver = self;
@@ -1527,7 +1503,7 @@ LABEL_9:
 
   avcStreamNegotiator2 = [(CMContinuityCaptureDeviceBase *)self avcStreamNegotiator];
   v24 = 0;
-  v11 = [avcStreamNegotiator2 generateMediaStreamInitOptionsWithError:&v24];
+  v11 = [avcStreamNegotiator2 generateMediaStreamInitOptionsWithError:?];
   v12 = v24;
   dictionary = [v11 mutableCopy];
 
@@ -1538,15 +1514,15 @@ LABEL_9:
 
 LABEL_12:
   sessionUUID = [server sessionUUID];
-  [dictionary setObject:sessionUUID forKeyedSubscript:*MEMORY[0x277CE57D8]];
+  [dictionary setObject:? forKeyedSubscript:?];
 
   v23 = v12;
-  v16 = [objc_alloc(MEMORY[0x277CE56E8]) initWithRTPNWConnectionClientID:streamUUID rtcpNWConnectionClientID:0 options:dictionary error:&v23];
+  v16 = [objc_alloc(MEMORY[0x277CE56E8]) initWithRTPNWConnectionClientID:? rtcpNWConnectionClientID:? options:? error:?];
   v17 = v23;
 
   if (v16)
   {
-    [v16 setDelegate:self];
+    [v16 setDelegate:?];
     v18 = CMContinuityCaptureLog(2);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
@@ -1586,8 +1562,8 @@ LABEL_16:
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     OUTLINED_FUNCTION_13();
-    v51 = 2080;
-    v52 = "[CMContinuityCaptureRemoteAudioDevice startAVConferenceStack:]";
+    v50 = 2080;
+    v51 = "[CMContinuityCaptureRemoteAudioDevice startAVConferenceStack:]";
     OUTLINED_FUNCTION_10_2();
     _os_log_impl(v6, v7, OS_LOG_TYPE_DEFAULT, v8, v9, 0x16u);
   }
@@ -1604,7 +1580,7 @@ LABEL_16:
 
     if (!self->_avcAudioStream)
     {
-      v29 = 0;
+      v28 = 0;
       goto LABEL_19;
     }
   }
@@ -1626,101 +1602,101 @@ LABEL_16:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       OUTLINED_FUNCTION_13();
-      v51 = 1024;
-      LODWORD(v52) = v15;
+      v50 = 1024;
+      LODWORD(v51) = v15;
       OUTLINED_FUNCTION_10_2();
-      _os_log_error_impl(v39, v40, OS_LOG_TYPE_ERROR, v41, v42, 0x12u);
+      _os_log_error_impl(v38, v39, OS_LOG_TYPE_ERROR, v40, v41, 0x12u);
     }
 
-    v35 = 0;
+    v34 = 0;
     goto LABEL_29;
   }
 
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = self->_avcAudioStream;
     OUTLINED_FUNCTION_13();
-    v51 = 2048;
-    v52 = v20;
-    v53 = 2112;
-    v54 = v21;
+    v50 = 2048;
+    v51 = v19;
+    v52 = 2112;
+    v53 = v20;
     OUTLINED_FUNCTION_10_2();
-    _os_log_impl(v22, v23, OS_LOG_TYPE_DEFAULT, v24, v25, 0x20u);
+    _os_log_impl(v21, v22, OS_LOG_TYPE_DEFAULT, v23, v24, 0x20u);
   }
 
   [(CMContinuityCaptureRemoteAudioDevice *)self _resetNetworkSampleTime];
-  v26 = objc_alloc(MEMORY[0x277CE5748]);
+  v25 = objc_alloc(MEMORY[0x277CE5748]);
   queue = [(CMContinuityCaptureDeviceBase *)self queue];
-  v49 = 0;
-  v28 = [v26 initWithDelegate:self delegateQueue:queue format:formatDescriptionOut options:0 error:&v49];
-  v29 = v49;
+  v48 = 0;
+  v27 = [v25 initWithDelegate:? delegateQueue:? format:? options:? error:?];
+  v28 = 0;
   avcStreamInput = self->_avcStreamInput;
-  self->_avcStreamInput = v28;
+  self->_avcStreamInput = v27;
 
   if (formatDescriptionOut)
   {
     CFRelease(formatDescriptionOut);
   }
 
-  v31 = self->_avcStreamInput;
-  if (!v31)
+  v30 = self->_avcStreamInput;
+  if (!v30)
   {
     v18 = CMContinuityCaptureLog(2);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       OUTLINED_FUNCTION_13();
-      v51 = 2112;
-      v52 = v29;
+      v50 = 2112;
+      v51 = v28;
       OUTLINED_FUNCTION_10_2();
-      _os_log_error_impl(v43, v44, OS_LOG_TYPE_ERROR, v45, v46, 0x16u);
+      _os_log_error_impl(v42, v43, OS_LOG_TYPE_ERROR, v44, v45, 0x16u);
     }
 
-    v36 = 0;
-    v35 = v29;
+    v35 = 0;
+    v34 = v28;
     goto LABEL_16;
   }
 
-  v32 = [(CMContinuityCaptureRemoteAudioDevice *)self newAudioStreamCurrentConfiguration:[(AVCStreamInput *)v31 streamInputID]];
-  if (!v32)
+  [(AVCStreamInput *)v30 streamInputID];
+  v31 = [(CMContinuityCaptureRemoteAudioDevice *)self newAudioStreamCurrentConfiguration:?];
+  if (!v31)
   {
 LABEL_19:
-    v36 = 0;
+    v35 = 0;
     goto LABEL_17;
   }
 
-  v18 = v32;
-  v33 = self->_avcAudioStream;
-  v48 = v29;
-  v34 = [(AVCAudioStream *)v33 configure:v18 error:&v48];
-  v35 = v48;
+  v18 = v31;
+  v32 = self->_avcAudioStream;
+  v47 = v28;
+  v33 = [AVCAudioStream configure:v32 error:"configure:error:"];
+  v34 = v28;
 
-  if ((v34 & 1) == 0)
+  if ((v33 & 1) == 0)
   {
-    v38 = CMContinuityCaptureLog(2);
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+    v37 = CMContinuityCaptureLog(2);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
       OUTLINED_FUNCTION_13();
-      v51 = 2112;
-      v52 = v35;
-      _os_log_error_impl(&dword_242545000, v38, OS_LOG_TYPE_ERROR, "%{public}@ AVCAudioStream configure error %@", buf, 0x16u);
+      v50 = 2112;
+      v51 = v34;
+      _os_log_error_impl(&dword_242545000, v37, OS_LOG_TYPE_ERROR, "%{public}@ AVCAudioStream configure error %@", buf, 0x16u);
     }
 
 LABEL_29:
-    v36 = 0;
+    v35 = 0;
     goto LABEL_16;
   }
 
   [(AVCAudioStream *)self->_avcAudioStream start];
-  v36 = 1;
+  v35 = 1;
 LABEL_16:
 
-  v29 = v35;
+  v28 = v34;
 LABEL_17:
-  v47.receiver = self;
-  v47.super_class = CMContinuityCaptureRemoteAudioDevice;
-  [(CMContinuityCaptureDeviceBase *)&v47 startAVConferenceStack:stack];
+  v46.receiver = self;
+  v46.super_class = CMContinuityCaptureRemoteAudioDevice;
+  [(CMContinuityCaptureDeviceBase *)&v46 startAVConferenceStack:stack];
 
-  return v36;
+  return v35;
 }
 
 - (BOOL)stopAVConferenceStack
@@ -1768,8 +1744,8 @@ LABEL_17:
     *&v30[14] = [compositeDelegate currentSessionID];
     *&v30[22] = 2080;
     v31 = "[CMContinuityCaptureRemoteAudioDevice stopCameraCaptureStack:]";
-    LOWORD(v33) = 1024;
-    *(&v33 + 2) = stackCopy;
+    LOWORD(v32) = 1024;
+    *(&v32 + 2) = stackCopy;
     OUTLINED_FUNCTION_3_3();
     _os_log_impl(v8, v9, v10, v11, v12, 0x26u);
   }
@@ -1811,15 +1787,14 @@ LABEL_17:
   }
 
   v21 = [CMContinuityCaptureMSNExceptionMonitor sharedMonitor:*v30];
-  [v21 decrementExceptionCountForEntity:{-[CMContinuityCaptureDeviceBase entity](self, "entity")}];
+  [(CMContinuityCaptureDeviceBase *)self entity];
+  [v21 decrementExceptionCountForEntity:?];
 
   v22 = CMContinuityCaptureLog(2);
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     compositeDelegate2 = [(CMContinuityCaptureDeviceBase *)self compositeDelegate];
     [compositeDelegate2 currentSessionID];
-    cameraCaptureStreamSessionID = self->_cameraCaptureStreamSessionID;
-    audioBufferDropCounter = self->_audioBufferDropCounter;
     OUTLINED_FUNCTION_3_3();
     _os_log_impl(v24, v25, v26, v27, v28, 0x2Au);
   }
@@ -1856,13 +1831,6 @@ LABEL_17:
   }
 }
 
-- (void)captureOutput:(uint64_t)a1 didDropSampleBuffer:(uint64_t *)a2 fromConnection:.cold.1(uint64_t a1, uint64_t *a2)
-{
-  v7 = *a2;
-  OUTLINED_FUNCTION_0_8();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-}
-
 - (void)_processIncomingAudioBuffer:.cold.1()
 {
   v0 = CMContinuityCaptureLog(2);
@@ -1871,20 +1839,6 @@ LABEL_17:
     OUTLINED_FUNCTION_1_2();
     _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
   }
-}
-
-- (void)_createSampleBufferForAudioData:(uint64_t)a1 dataRange:(int *)a2 pts:formatDescription:.cold.1(uint64_t a1, int *a2)
-{
-  v7 = *a2;
-  OUTLINED_FUNCTION_0_8();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xEu);
-}
-
-void __60__CMContinuityCaptureRemoteAudioDevice__dispatchAudioFrame___block_invoke_cold_2(uint64_t a1)
-{
-  v6 = *(a1 + 280);
-  OUTLINED_FUNCTION_6_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 @end

@@ -7,50 +7,48 @@ void __49___LTOfflineSpeechSynthesizer_speak_withContext___block_invoke(uint64_t
 {
   v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = _LTOSLogTTS();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v4 = _LTOSLogTTS(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = 138412290;
     v6 = v2;
-    _os_log_impl(&dword_232E53000, v3, OS_LOG_TYPE_INFO, "Received offline TTS metrics:%@ ", &v5, 0xCu);
+    _os_log_impl(&dword_232E53000, v4, OS_LOG_TYPE_INFO, "Received offline TTS metrics:%@ ", &v5, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __49___LTOfflineSpeechSynthesizer_speak_withContext___block_invoke_9(uint64_t a1, void *a2)
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = WeakRetained;
+  v6 = WeakRetained;
   if (WeakRetained)
   {
     if (v3)
     {
-      [v3 asbd];
-      v5[2] = v17;
-      v5[3] = v18;
-      *(v5 + 8) = v19;
-      [v3 asbd];
-      if (v16 == 1819304813)
+      objc_msgSend_asbd(v3);
+      *(v6 + 32) = v18;
+      *(v6 + 48) = v19;
+      *(v6 + 64) = v20;
+      objc_msgSend_asbd(v3);
+      if (v17 == 1819304813)
       {
-        v6 = *(v5 + 9);
-        v7 = [v3 audioData];
-        [v6 addObject:v7];
+        v7 = *(v6 + 72);
+        v8 = [v3 audioData];
+        [v7 addObject:v8];
 
         goto LABEL_10;
       }
 
-      [v3 asbd];
-      if (v15 == 1869641075)
+      WeakRetained = objc_msgSend_asbd(v3);
+      if (v16 == 1869641075)
       {
-        v8 = *(v5 + 9);
-        v9 = *(v5 + 11);
-        v10 = [v3 audioData];
-        v11 = [v3 packetCount];
-        v12 = [v3 packetDescriptions];
-        v13 = [v9 extractAudioChunksFromOpusWithData:v10 packetCount:v11 packetDescriptions:v12];
-        [v8 addObjectsFromArray:v13];
+        v9 = *(v6 + 72);
+        v10 = *(v6 + 88);
+        v11 = [v3 audioData];
+        v12 = [v3 packetCount];
+        v13 = [v3 packetDescriptions];
+        v14 = [v10 extractAudioChunksFromOpusWithData:v11 packetCount:v12 packetDescriptions:v13];
+        [v9 addObjectsFromArray:v14];
 
         goto LABEL_10;
       }
@@ -58,15 +56,15 @@ void __49___LTOfflineSpeechSynthesizer_speak_withContext___block_invoke_9(uint64
 
     else
     {
-      WeakRetained[8] = 0;
-      *(WeakRetained + 2) = 0u;
-      *(WeakRetained + 3) = 0u;
+      *(WeakRetained + 64) = 0;
+      *(WeakRetained + 32) = 0u;
+      *(WeakRetained + 48) = 0u;
     }
 
-    v14 = _LTOSLogTTS();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = _LTOSLogTTS(WeakRetained, v5);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      __49___LTOfflineSpeechSynthesizer_speak_withContext___block_invoke_9_cold_1(v14);
+      __49___LTOfflineSpeechSynthesizer_speak_withContext___block_invoke_9_cold_1(v15);
     }
   }
 
@@ -88,42 +86,43 @@ void __49___LTOfflineSpeechSynthesizer_speak_withContext___block_invoke_2(uint64
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v6 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = _LTOSLogTTS();
-    v6 = v5;
+    v7 = _LTOSLogTTS(WeakRetained, v5);
+    v8 = v7;
     if (v3)
     {
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        __49___LTOfflineSpeechSynthesizer_speak_withContext___block_invoke_2_cold_1(v3, v6);
+        __49___LTOfflineSpeechSynthesizer_speak_withContext___block_invoke_2_cold_1(v3, v8);
       }
     }
 
-    else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_232E53000, v6, OS_LOG_TYPE_INFO, "Finished offline TTS, successfully", buf, 2u);
+      _os_log_impl(&dword_232E53000, v8, OS_LOG_TYPE_INFO, "Finished offline TTS, successfully", buf, 2u);
     }
 
-    if (WeakRetained[1])
+    if (v6[1])
     {
-      v7 = dispatch_time(0, 300000000);
+      v9 = dispatch_time(0, 300000000);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __49___LTOfflineSpeechSynthesizer_speak_withContext___block_invoke_13;
       block[3] = &unk_2789B5968;
-      block[4] = WeakRetained;
-      v9 = *(a1 + 32);
-      v10 = v3;
-      dispatch_after(v7, MEMORY[0x277D85CD0], block);
+      block[4] = v6;
+      v11 = *(a1 + 32);
+      v12 = v3;
+      dispatch_after(v9, MEMORY[0x277D85CD0], block);
     }
   }
 }
 
 void __49___LTOfflineSpeechSynthesizer_speak_withContext___block_invoke_13(void *a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v3 = *(v2 + 80);
   if (v3)
@@ -138,96 +137,92 @@ void __49___LTOfflineSpeechSynthesizer_speak_withContext___block_invoke_13(void 
   }
 
   v5 = *(v2 + 48);
-  v25 = *(v2 + 32);
-  v26 = v5;
-  v27 = *(v2 + 64);
+  v27 = *(v2 + 32);
+  v28 = v5;
+  v29 = *(v2 + 64);
   if (*(v2 + 40) == 1869641075)
   {
     v6 = *(v2 + 88);
-    v24 = 0;
+    v26 = 0;
     v7 = *(v2 + 48);
     *buf = *(v2 + 32);
-    v29 = v7;
+    v31 = v7;
     v8 = *(v2 + 72);
-    v30 = *(v2 + 64);
-    v9 = [v6 decodeTo48KHzPCMFromChunks:v8 from:buf outError:&v24];
-    v10 = v24;
-    v11 = *(a1[4] + 88);
-    if (v11)
+    v32 = *(v2 + 64);
+    v9 = [v6 decodeTo48KHzPCMFromChunks:v8 from:buf outError:&v26];
+    v11 = v26;
+    v12 = *(a1[4] + 88);
+    if (v12)
     {
-      [v11 get48khzPCMDescription];
+      v12 = objc_msgSend_get48khzPCMDescription(v12);
     }
 
     else
     {
-      v30 = 0;
+      v32 = 0;
       *buf = 0u;
-      v29 = 0u;
+      v31 = 0u;
     }
 
-    v25 = *buf;
-    v26 = v29;
-    v27 = v30;
-    if (v10)
+    v27 = *buf;
+    v28 = v31;
+    v29 = v32;
+    if (v11)
     {
-      v14 = _LTOSLogTTS();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = _LTOSLogTTS(v12, v10);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        __49___LTOfflineSpeechSynthesizer_speak_withContext___block_invoke_13_cold_1(v10, v14);
+        __49___LTOfflineSpeechSynthesizer_speak_withContext___block_invoke_13_cold_1(v11, v15);
       }
     }
   }
 
   else
   {
-    v12 = objc_alloc_init(MEMORY[0x277CBEB28]);
-    v13 = *(a1[4] + 72);
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __49___LTOfflineSpeechSynthesizer_speak_withContext___block_invoke_16;
-    v22[3] = &unk_2789B6FC8;
-    v9 = v12;
-    v23 = v9;
-    [v13 enumerateObjectsUsingBlock:v22];
-    v10 = v23;
+    v13 = objc_alloc_init(MEMORY[0x277CBEB28]);
+    v14 = *(a1[4] + 72);
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __49___LTOfflineSpeechSynthesizer_speak_withContext___block_invoke_16;
+    v24[3] = &unk_2789B6FC8;
+    v9 = v13;
+    v25 = v9;
+    [v14 enumerateObjectsUsingBlock:v24];
+    v11 = v25;
   }
 
-  v15 = _LTOSLogTTS();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+  v18 = _LTOSLogTTS(v16, v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
-    v16 = v15;
-    v17 = [v9 length];
+    v19 = v18;
+    v20 = [v9 length];
     *buf = 134217984;
-    *&buf[4] = v17;
-    _os_log_impl(&dword_232E53000, v16, OS_LOG_TYPE_INFO, "Converted to %ld bytes", buf, 0xCu);
+    *&buf[4] = v20;
+    _os_log_impl(&dword_232E53000, v19, OS_LOG_TYPE_INFO, "Converted to %ld bytes", buf, 0xCu);
   }
 
-  v18 = [_LTAudioData alloc];
-  *buf = v25;
-  v29 = v26;
-  v30 = v27;
-  v19 = [(_LTAudioData *)v18 initWithASBD:buf rawData:v9 wordTimingInfo:v4];
-  (*(*(a1[4] + 8) + 16))(*(a1[4] + 8), v19, a1[6], v20);
-
-  v21 = *MEMORY[0x277D85DE8];
+  v21 = [_LTAudioData alloc];
+  *buf = v27;
+  v31 = v28;
+  v32 = v29;
+  v22 = [(_LTAudioData *)v21 initWithASBD:buf rawData:v9 wordTimingInfo:v4];
+  (*(*(a1[4] + 8) + 16))(*(a1[4] + 8), v22, a1[6], v23);
 }
 
 void __49___LTOfflineSpeechSynthesizer_speak_withContext___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_232E53000, a2, OS_LOG_TYPE_ERROR, "Encountered error when speaking TTS: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_232E53000, a2, OS_LOG_TYPE_ERROR, "Encountered error when speaking TTS: %@", &v2, 0xCu);
 }
 
 void __49___LTOfflineSpeechSynthesizer_speak_withContext___block_invoke_13_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_232E53000, a2, OS_LOG_TYPE_ERROR, "Decoding to PCM 48kHz failed: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_232E53000, a2, OS_LOG_TYPE_ERROR, "Decoding to PCM 48kHz failed: %@", &v2, 0xCu);
 }
 
 @end

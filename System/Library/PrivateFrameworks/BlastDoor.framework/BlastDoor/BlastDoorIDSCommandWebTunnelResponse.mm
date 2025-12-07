@@ -68,18 +68,16 @@
 {
   if (*&self->iDSCommandWebTunnelResponse[OBJC_IVAR___BlastDoorIDSCommandWebTunnelResponse_iDSCommandWebTunnelResponse + 88])
   {
-    v2 = *&self->iDSCommandWebTunnelResponse[OBJC_IVAR___BlastDoorIDSCommandWebTunnelResponse_iDSCommandWebTunnelResponse + 80];
-    v3 = *&self->iDSCommandWebTunnelResponse[OBJC_IVAR___BlastDoorIDSCommandWebTunnelResponse_iDSCommandWebTunnelResponse + 88];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (BlastDoorAPSUserPayloadHttpHeaders)httpHeaders
@@ -157,18 +155,16 @@
 {
   if (*&self->iDSCommandWebTunnelResponse[OBJC_IVAR___BlastDoorIDSCommandWebTunnelResponse_iDSCommandWebTunnelResponse + 216])
   {
-    v2 = *&self->iDSCommandWebTunnelResponse[OBJC_IVAR___BlastDoorIDSCommandWebTunnelResponse_iDSCommandWebTunnelResponse + 208];
-    v3 = *&self->iDSCommandWebTunnelResponse[OBJC_IVAR___BlastDoorIDSCommandWebTunnelResponse_iDSCommandWebTunnelResponse + 216];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (int64_t)httpResponseStatus
@@ -188,18 +184,16 @@
 {
   if (*&self->iDSCommandWebTunnelResponse[OBJC_IVAR___BlastDoorIDSCommandWebTunnelResponse_iDSCommandWebTunnelResponse + 264])
   {
-    v2 = *&self->iDSCommandWebTunnelResponse[OBJC_IVAR___BlastDoorIDSCommandWebTunnelResponse_iDSCommandWebTunnelResponse + 256];
-    v3 = *&self->iDSCommandWebTunnelResponse[OBJC_IVAR___BlastDoorIDSCommandWebTunnelResponse_iDSCommandWebTunnelResponse + 264];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (BlastDoorIDSCommandWebTunnelResponse)init

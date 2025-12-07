@@ -58,108 +58,108 @@
 
 - (NTKCGalleryCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier
 {
-  v73[3] = *MEMORY[0x277D85DE8];
-  v71.receiver = self;
-  v71.super_class = NTKCGalleryCell;
-  v4 = [(NTKCGalleryCell *)&v71 initWithStyle:0 reuseIdentifier:identifier];
+  v77[3] = *MEMORY[0x277D85DE8];
+  v75.receiver = self;
+  v75.super_class = NTKCGalleryCell;
+  v4 = [(NTKCGalleryCell *)&v75 initWithStyle:0 reuseIdentifier:identifier];
   if (v4)
   {
     v5 = BPSBackgroundColor();
     [(NTKCGalleryCell *)v4 setBackgroundColor:v5];
 
-    v6 = NTKCScreenEdgeMargin();
-    v7 = objc_opt_new();
-    v8 = BPSTextColor();
-    [v7 setTextColor:v8];
+    v8 = NTKCScreenEdgeMargin(v6, v7);
+    v9 = objc_opt_new();
+    v10 = BPSTextColor();
+    [v9 setTextColor:v10];
 
-    [v7 setNumberOfLines:0];
-    [v7 setTranslatesAutoresizingMaskIntoConstraints:0];
-    LODWORD(v9) = 1053609165;
-    [v7 _setHyphenationFactor:v9];
-    [v7 setLineBreakMode:0];
-    [(NTKCGalleryCell *)v4 setTitle:v7];
+    [v9 setNumberOfLines:0];
+    [v9 setTranslatesAutoresizingMaskIntoConstraints:0];
+    LODWORD(v11) = 1053609165;
+    [v9 _setHyphenationFactor:v11];
+    [v9 setLineBreakMode:0];
+    [(NTKCGalleryCell *)v4 setTitle:v9];
 
-    v10 = objc_opt_new();
-    [(NTKCGalleryCell *)v4 setTitleStack:v10];
+    v12 = objc_opt_new();
+    [(NTKCGalleryCell *)v4 setTitleStack:v12];
 
-    [(UIStackView *)v4->_titleStack setLayoutMargins:0.0, v6, 0.0, v6];
+    [(UIStackView *)v4->_titleStack setLayoutMargins:0.0, v8, 0.0, v8];
     [(UIStackView *)v4->_titleStack setLayoutMarginsRelativeArrangement:1];
     [(UIStackView *)v4->_titleStack addArrangedSubview:v4->_title];
-    v11 = objc_opt_new();
-    v12 = BPSTextColor();
-    [v11 setTextColor:v12];
+    v13 = objc_opt_new();
+    v14 = BPSTextColor();
+    [v13 setTextColor:v14];
 
-    [v11 setNumberOfLines:0];
-    [v11 setTranslatesAutoresizingMaskIntoConstraints:0];
-    LODWORD(v13) = 1053609165;
-    [v11 _setHyphenationFactor:v13];
-    [v11 setLineBreakMode:0];
-    [(NTKCGalleryCell *)v4 setFooter:v11];
+    [v13 setNumberOfLines:0];
+    [v13 setTranslatesAutoresizingMaskIntoConstraints:0];
+    LODWORD(v15) = 1053609165;
+    [v13 _setHyphenationFactor:v15];
+    [v13 setLineBreakMode:0];
+    [(NTKCGalleryCell *)v4 setFooter:v13];
 
-    v14 = objc_opt_new();
-    [(NTKCGalleryCell *)v4 setFooterStack:v14];
+    v16 = objc_opt_new();
+    [(NTKCGalleryCell *)v4 setFooterStack:v16];
 
-    [(UIStackView *)v4->_footerStack setLayoutMargins:0.0, v6, 0.0, v6];
+    [(UIStackView *)v4->_footerStack setLayoutMargins:0.0, v8, 0.0, v8];
     [(UIStackView *)v4->_footerStack setLayoutMarginsRelativeArrangement:1];
     [(UIStackView *)v4->_footerStack addArrangedSubview:v4->_footer];
-    v15 = objc_opt_new();
-    [(NTKCGalleryCell *)v4 setLayout:v15];
+    v17 = objc_opt_new();
+    [(NTKCGalleryCell *)v4 setLayout:v17];
 
     [(UICollectionViewFlowLayout *)v4->_layout _setWantsRightToLeftHorizontalMirroringIfNeeded:1];
-    [(UICollectionViewFlowLayout *)v4->_layout setScrollDirection:1];
-    v16 = NTKCScreenStyle();
-    v17 = 15.0;
-    if (v16 == -1)
+    v18 = [(UICollectionViewFlowLayout *)v4->_layout setScrollDirection:1];
+    v20 = NTKCScreenStyle(v18, v19);
+    v21 = 15.0;
+    if (v20 == -1)
     {
-      v17 = 11.0;
+      v21 = 11.0;
     }
 
-    [(UICollectionViewFlowLayout *)v4->_layout setMinimumLineSpacing:v17];
-    v18 = objc_alloc(MEMORY[0x277D752A0]);
-    v19 = [v18 initWithFrame:v4->_layout collectionViewLayout:{*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)}];
-    [(NTKCGalleryCell *)v4 setCollectionView:v19];
+    [(UICollectionViewFlowLayout *)v4->_layout setMinimumLineSpacing:v21];
+    v22 = objc_alloc(MEMORY[0x277D752A0]);
+    v23 = [v22 initWithFrame:v4->_layout collectionViewLayout:{*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)}];
+    [(NTKCGalleryCell *)v4 setCollectionView:v23];
 
     collectionView = [(NTKCGalleryCell *)v4 collectionView];
     layer = [collectionView layer];
     [layer setAllowsGroupOpacity:0];
 
     collectionView = v4->_collectionView;
-    v23 = objc_opt_class();
-    v24 = +[_NTKCGalleryCollectionCell classicReuseIdentifier];
-    [(UICollectionView *)collectionView registerClass:v23 forCellWithReuseIdentifier:v24];
+    v27 = objc_opt_class();
+    v28 = +[_NTKCGalleryCollectionCell classicReuseIdentifier];
+    [(UICollectionView *)collectionView registerClass:v27 forCellWithReuseIdentifier:v28];
 
-    v25 = v4->_collectionView;
-    v26 = objc_opt_class();
-    v27 = +[_NTKCGalleryCollectionCell luxoReuseIdentifier];
-    [(UICollectionView *)v25 registerClass:v26 forCellWithReuseIdentifier:v27];
+    v29 = v4->_collectionView;
+    v30 = objc_opt_class();
+    v31 = +[_NTKCGalleryCollectionCell luxoReuseIdentifier];
+    [(UICollectionView *)v29 registerClass:v30 forCellWithReuseIdentifier:v31];
 
-    v28 = v4->_collectionView;
-    v29 = objc_opt_class();
-    v30 = +[_NTKCGalleryCollectionCell aloeReuseIdentifier];
-    [(UICollectionView *)v28 registerClass:v29 forCellWithReuseIdentifier:v30];
+    v32 = v4->_collectionView;
+    v33 = objc_opt_class();
+    v34 = +[_NTKCGalleryCollectionCell aloeReuseIdentifier];
+    [(UICollectionView *)v32 registerClass:v33 forCellWithReuseIdentifier:v34];
 
-    v31 = v4->_collectionView;
-    v32 = objc_opt_class();
-    v33 = +[_NTKCGalleryCollectionCell agaveReuseIdentifier];
-    [(UICollectionView *)v31 registerClass:v32 forCellWithReuseIdentifier:v33];
+    v35 = v4->_collectionView;
+    v36 = objc_opt_class();
+    v37 = +[_NTKCGalleryCollectionCell agaveReuseIdentifier];
+    [(UICollectionView *)v35 registerClass:v36 forCellWithReuseIdentifier:v37];
 
-    v34 = v4->_collectionView;
-    v35 = objc_opt_class();
-    v36 = +[_NTKCGalleryCollectionCell avoniaReuseIdentifier];
-    [(UICollectionView *)v34 registerClass:v35 forCellWithReuseIdentifier:v36];
+    v38 = v4->_collectionView;
+    v39 = objc_opt_class();
+    v40 = +[_NTKCGalleryCollectionCell avoniaReuseIdentifier];
+    [(UICollectionView *)v38 registerClass:v39 forCellWithReuseIdentifier:v40];
 
-    v37 = v4->_collectionView;
-    v38 = objc_opt_class();
-    v39 = +[_NTKCGalleryCollectionCell begoniaReuseIdentifier];
-    [(UICollectionView *)v37 registerClass:v38 forCellWithReuseIdentifier:v39];
+    v41 = v4->_collectionView;
+    v42 = objc_opt_class();
+    v43 = +[_NTKCGalleryCollectionCell begoniaReuseIdentifier];
+    [(UICollectionView *)v41 registerClass:v42 forCellWithReuseIdentifier:v43];
 
-    v40 = v4->_collectionView;
-    v41 = objc_opt_class();
-    v42 = *MEMORY[0x277D767D0];
-    v43 = +[_NTKCGalleryCollectionFooter reuseIdentifier];
-    [(UICollectionView *)v40 registerClass:v41 forSupplementaryViewOfKind:v42 withReuseIdentifier:v43];
+    v44 = v4->_collectionView;
+    v45 = objc_opt_class();
+    v46 = *MEMORY[0x277D767D0];
+    v47 = +[_NTKCGalleryCollectionFooter reuseIdentifier];
+    [(UICollectionView *)v44 registerClass:v45 forSupplementaryViewOfKind:v46 withReuseIdentifier:v47];
 
-    [(UICollectionView *)v4->_collectionView setContentInset:0.0, v6, 0.0, v6];
+    [(UICollectionView *)v4->_collectionView setContentInset:0.0, v8, 0.0, v8];
     [(UICollectionView *)v4->_collectionView setBackgroundColor:0];
     [(UICollectionView *)v4->_collectionView setAlwaysBounceHorizontal:1];
     [(UICollectionView *)v4->_collectionView setShowsVerticalScrollIndicator:0];
@@ -168,13 +168,13 @@
     [(UICollectionView *)v4->_collectionView setDataSource:v4];
     [(UICollectionView *)v4->_collectionView setClipsToBounds:0];
     v4->_selectedIndex = 0x7FFFFFFFFFFFFFFFLL;
-    v44 = objc_alloc(MEMORY[0x277D75A68]);
-    v73[0] = v4->_titleStack;
-    v73[1] = v4->_collectionView;
-    v73[2] = v4->_footerStack;
-    v45 = [MEMORY[0x277CBEA60] arrayWithObjects:v73 count:3];
-    v46 = [v44 initWithArrangedSubviews:v45];
-    [(NTKCGalleryCell *)v4 setContentStack:v46];
+    v48 = objc_alloc(MEMORY[0x277D75A68]);
+    v77[0] = v4->_titleStack;
+    v77[1] = v4->_collectionView;
+    v77[2] = v4->_footerStack;
+    v49 = [MEMORY[0x277CBEA60] arrayWithObjects:v77 count:3];
+    v50 = [v48 initWithArrangedSubviews:v49];
+    [(NTKCGalleryCell *)v4 setContentStack:v50];
 
     [(UIStackView *)v4->_contentStack setAxis:1];
     [(UIStackView *)v4->_contentStack setCustomSpacing:v4->_titleStack afterView:11.0];
@@ -186,37 +186,37 @@
     contentView2 = [(NTKCGalleryCell *)v4 contentView];
     leadingAnchor = [contentView2 leadingAnchor];
     leadingAnchor2 = [(UIStackView *)v4->_contentStack leadingAnchor];
-    v51 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v55 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
 
     contentView3 = [(NTKCGalleryCell *)v4 contentView];
     trailingAnchor = [contentView3 trailingAnchor];
     trailingAnchor2 = [(UIStackView *)v4->_contentStack trailingAnchor];
-    v55 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+    v59 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
 
     topAnchor = [(UIStackView *)v4->_contentStack topAnchor];
     contentView4 = [(NTKCGalleryCell *)v4 contentView];
     topAnchor2 = [contentView4 topAnchor];
-    v59 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:9.0];
+    v63 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:9.0];
 
     contentView5 = [(NTKCGalleryCell *)v4 contentView];
     bottomAnchor = [contentView5 bottomAnchor];
     bottomAnchor2 = [(UIStackView *)v4->_contentStack bottomAnchor];
-    v63 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:25.0];
+    v67 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:25.0];
 
-    LODWORD(v64) = 1132068864;
-    [v63 setPriority:v64];
+    LODWORD(v68) = 1132068864;
+    [v67 setPriority:v68];
     heightAnchor = [(UICollectionView *)v4->_collectionView heightAnchor];
-    v66 = [heightAnchor constraintEqualToConstant:0.0];
+    v70 = [heightAnchor constraintEqualToConstant:0.0];
     cvHeightConstraint = v4->_cvHeightConstraint;
-    v4->_cvHeightConstraint = v66;
+    v4->_cvHeightConstraint = v70;
 
-    v72[0] = v51;
-    v72[1] = v55;
-    v72[2] = v59;
-    v72[3] = v63;
-    v72[4] = v4->_cvHeightConstraint;
-    v68 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:5];
-    [MEMORY[0x277CCAAD0] activateConstraints:v68];
+    v76[0] = v55;
+    v76[1] = v59;
+    v76[2] = v63;
+    v76[3] = v67;
+    v76[4] = v4->_cvHeightConstraint;
+    v72 = [MEMORY[0x277CBEA60] arrayWithObjects:v76 count:5];
+    [MEMORY[0x277CCAAD0] activateConstraints:v72];
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter addObserver:v4 selector:sel__fontSizeDidChange name:*MEMORY[0x277D76810] object:0];
 
@@ -925,19 +925,19 @@ uint64_t __33__NTKCGalleryCell_setCollection___block_invoke_2_90(uint64_t a1)
   font = [textProperties font];
   [(UILabel *)self->_title setFont:font];
 
-  v5 = NTKCScreenStyle();
-  v6 = MEMORY[0x277D76968];
-  if (v5 != -1)
+  v7 = NTKCScreenStyle(v5, v6);
+  v8 = MEMORY[0x277D76968];
+  if (v7 != -1)
   {
-    v6 = MEMORY[0x277D769C0];
+    v8 = MEMORY[0x277D769C0];
   }
 
-  v7 = [MEMORY[0x277D74310] preferredFontDescriptorWithTextStyle:*v6];
-  v8 = [v7 fontDescriptorWithSymbolicTraits:0x8000];
+  v9 = [MEMORY[0x277D74310] preferredFontDescriptorWithTextStyle:*v8];
+  v10 = [v9 fontDescriptorWithSymbolicTraits:0x8000];
 
-  v9 = [MEMORY[0x277D74300] fontWithDescriptor:v8 size:0.0];
+  v11 = [MEMORY[0x277D74300] fontWithDescriptor:v10 size:0.0];
 
-  [(UILabel *)self->_footer setFont:v9];
+  [(UILabel *)self->_footer setFont:v11];
   [(NTKCGalleryCell *)self _configureViews];
 }
 

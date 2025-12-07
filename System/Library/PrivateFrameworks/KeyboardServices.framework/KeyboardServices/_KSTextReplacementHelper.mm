@@ -95,7 +95,8 @@
     v6 = 3;
   }
 
-  if ([shortcut length] > 0x7D0)
+  _containsEmoji = [shortcut length];
+  if (_containsEmoji > 0x7D0)
   {
     v6 = 5;
   }
@@ -106,61 +107,68 @@
   }
 
   _containsIdeographicCharacters = [phrase _containsIdeographicCharacters];
-  v10 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@" "];
-  v11 = [phrase stringByTrimmingCharactersInSet:v10];
-  v12 = [v11 length];
+  v11 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@" "];
+  v12 = [phrase stringByTrimmingCharactersInSet:v11];
+  v13 = [v12 length];
 
-  if (v12)
+  if (v13)
   {
-    if ([shortcut length])
+    _containsEmoji = [shortcut length];
+    if (_containsEmoji)
     {
-      v13 = 0;
+      v14 = 0;
     }
 
     else
     {
-      v13 = v12 == 1;
+      v14 = v13 == 1;
     }
 
-    v14 = !v13;
-    if ((v14 | _containsIdeographicCharacters))
+    v15 = !v14;
+    if ((v15 | _containsIdeographicCharacters))
     {
       if (shortcut)
       {
         whitespaceCharacterSet = [MEMORY[0x277CCA900] whitespaceCharacterSet];
-        v16 = [shortcut rangeOfCharacterFromSet:whitespaceCharacterSet];
+        v17 = [shortcut rangeOfCharacterFromSet:whitespaceCharacterSet];
 
-        if (v16 != 0x7FFFFFFFFFFFFFFFLL)
+        if (v17 != 0x7FFFFFFFFFFFFFFFLL)
         {
           v6 = 4;
           goto LABEL_6;
         }
       }
 
-      if ([shortcut _containsEmoji])
+      _containsEmoji = [shortcut _containsEmoji];
+      if (_containsEmoji)
       {
         v6 = 7;
       }
 
       else
       {
-        _containsCJKSymbolsAndPunctuation = [shortcut _containsCJKSymbolsAndPunctuation];
-        if (_containsCJKSymbolsAndPunctuation & 1) != 0 || ((_containsIdeographicCharacters ^ 1))
+        _containsEmoji = [shortcut _containsCJKSymbolsAndPunctuation];
+        if (_containsEmoji & 1) != 0 || ((_containsIdeographicCharacters ^ 1))
         {
-          if (_containsCJKSymbolsAndPunctuation)
+          if (_containsEmoji)
           {
             v6 = 8;
             goto LABEL_6;
           }
         }
 
-        else if (![shortcut length])
+        else
         {
-          v6 = 9;
-          goto LABEL_6;
+          _containsEmoji = [shortcut length];
+          if (!_containsEmoji)
+          {
+            v6 = 9;
+            goto LABEL_6;
+          }
         }
 
-        if (![shortcut _containsIdeographicCharacters])
+        _containsEmoji = [shortcut _containsIdeographicCharacters];
+        if (!_containsEmoji)
         {
           v6 = 0;
           goto LABEL_9;
@@ -182,10 +190,10 @@
   }
 
 LABEL_6:
-  v7 = KSCategory();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = KSCategory(_containsEmoji);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    [(_KSTextReplacementHelper *)v6 validateTextReplacement:v7];
+    [(_KSTextReplacementHelper *)v6 validateTextReplacement:v8];
   }
 
 LABEL_9:
@@ -194,32 +202,28 @@ LABEL_9:
 
 + (id)errorWithCode:(int64_t)code forEntry:(id)entry
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCA9B8];
-  v12 = @"_KSTextReplacementEntryDidFailErrorKey";
-  v13[0] = entry;
+  v11 = @"_KSTextReplacementEntryDidFailErrorKey";
+  v12[0] = entry;
   v6 = MEMORY[0x277CBEAC0];
   entryCopy = entry;
-  v8 = [v6 dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v8 = [v6 dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v9 = [v5 errorWithDomain:@"KSTextReplacementErrorDomain" code:code userInfo:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 + (id)errorWithCode:(int64_t)code description:(id)description
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCA9B8];
-  v12 = *MEMORY[0x277CCA470];
-  v13[0] = description;
+  v11 = *MEMORY[0x277CCA470];
+  v12[0] = description;
   v6 = MEMORY[0x277CBEAC0];
   descriptionCopy = description;
-  v8 = [v6 dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v8 = [v6 dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v9 = [v5 errorWithDomain:@"KSTextReplacementErrorDomain" code:code userInfo:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -460,12 +464,12 @@ LABEL_9:
 
 + (id)fetchConfigurationPlist
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v2 = KSCategory();
+  v12 = *MEMORY[0x277D85DE8];
+  v2 = KSCategory(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v12 = "+[_KSTextReplacementHelper fetchConfigurationPlist]";
+    v11 = "+[_KSTextReplacementHelper fetchConfigurationPlist]";
     _os_log_impl(&dword_2557E2000, v2, OS_LOG_TYPE_INFO, "%s  Fetching configuration plist", buf, 0xCu);
   }
 
@@ -475,9 +479,9 @@ LABEL_9:
 
   if (v5)
   {
-    v10 = 0;
-    v6 = [MEMORY[0x277CCAC58] propertyListWithData:v5 options:0 format:0 error:&v10];
-    v7 = v10;
+    v9 = 0;
+    v6 = [MEMORY[0x277CCAC58] propertyListWithData:v5 options:0 format:0 error:&v9];
+    v7 = v9;
   }
 
   else
@@ -486,22 +490,18 @@ LABEL_9:
     v6 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 + (void)validateTextReplacement:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = [_KSTextReplacementHelper errorStringForCode:a1];
-  v5 = 136315394;
-  v6 = "+[_KSTextReplacementHelper validateTextReplacement:]";
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_2557E2000, a2, OS_LOG_TYPE_ERROR, "%s  >>> ERROR: invalid TR entry, error: %@", &v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 136315394;
+  v5 = "+[_KSTextReplacementHelper validateTextReplacement:]";
+  v6 = 2112;
+  v7 = v3;
+  _os_log_error_impl(&dword_2557E2000, a2, OS_LOG_TYPE_ERROR, "%s  >>> ERROR: invalid TR entry, error: %@", &v4, 0x16u);
 }
 
 @end

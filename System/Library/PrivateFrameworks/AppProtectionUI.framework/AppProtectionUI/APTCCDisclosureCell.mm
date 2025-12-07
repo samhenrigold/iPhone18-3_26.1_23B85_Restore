@@ -78,7 +78,7 @@ id __53__APTCCDisclosureCell_initWithStyle_reuseIdentifier___block_invoke(uint64
     if ([v14 placeholder])
     {
       v15 = self->_bundleID;
-      v16 = APUIImageIOQueue();
+      v16 = APUIImageIOQueue(v15);
       v22 = MEMORY[0x1E69E9820];
       v23 = 3221225472;
       v24 = __42__APTCCDisclosureCell_configureForRecord___block_invoke;
@@ -117,7 +117,7 @@ void __42__APTCCDisclosureCell_configureForRecord___block_invoke(uint64_t a1)
   dispatch_sync(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __42__APTCCDisclosureCell_configureForRecord___block_invoke_2(void *a1)
+void *__42__APTCCDisclosureCell_configureForRecord___block_invoke_2(void *a1)
 {
   result = [*(a1[4] + 1024) isEqual:a1[5]];
   if (result)

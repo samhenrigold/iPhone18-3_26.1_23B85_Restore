@@ -19,38 +19,38 @@
 
 - (void)commitObjectsWrappers:(id)wrappers
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   wrappersCopy = wrappers;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     *buf = 134217984;
-    v39 = [wrappersCopy count];
+    v38 = [wrappersCopy count];
     _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Updating objects for %ld items.", buf, 0xCu);
   }
 
   v5 = [(MSObjectQueue *)self _statementLabel:@"commitObjectWrappers" query:"update or ignore Queue set size = ?, object = ?, errorCount = ? where rowid = ?;"];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   v6 = wrappersCopy;
-  v7 = [v6 countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v34;
+    v9 = *v33;
     v10 = MEMORY[0x277D86220];
-    v30 = v6;
+    v29 = v6;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v34 != v9)
+        if (*v33 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v33 + 1) + 8 * i);
+        v12 = *(*(&v32 + 1) + 8 * i);
         v13 = objc_autoreleasePoolPush();
         v14 = sqlite3_reset(v5);
         if (v14)
@@ -63,7 +63,7 @@
 
 LABEL_13:
           *buf = 67109120;
-          LODWORD(v39) = v15;
+          LODWORD(v38) = v15;
           _os_log_error_impl(&dword_245B99000, v10, OS_LOG_TYPE_ERROR, "SQL operation failed with code %d", buf, 8u);
           goto LABEL_32;
         }
@@ -82,20 +82,20 @@ LABEL_13:
 
         v17 = MEMORY[0x277CCAAB0];
         object = [v12 object];
-        v32 = 0;
-        v19 = [v17 archivedDataWithRootObject:object requiringSecureCoding:1 error:&v32];
-        v31 = v32;
+        v31 = 0;
+        v19 = [v17 archivedDataWithRootObject:object requiringSecureCoding:1 error:&v31];
+        v30 = v31;
 
         if (!v19)
         {
           v20 = MEMORY[0x277CCACA8];
-          userInfo = [v31 userInfo];
-          v22 = [v20 stringWithFormat:@"Failed to archive an MSObjectWrapper object. Error: %@ Info: %@", v31, userInfo];
+          userInfo = [v30 userInfo];
+          v22 = [v20 stringWithFormat:@"Failed to archive an MSObjectWrapper object. Error: %@ Info: %@", v30, userInfo];
 
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v39 = v22;
+            v38 = v22;
             _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
           }
         }
@@ -111,7 +111,7 @@ LABEL_13:
         {
           v25 = v24;
           v10 = MEMORY[0x277D86220];
-          v6 = v30;
+          v6 = v29;
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
             goto LABEL_30;
@@ -121,7 +121,7 @@ LABEL_13:
         else
         {
           v26 = sqlite3_bind_int(v5, 3, [v12 errorCount]);
-          v6 = v30;
+          v6 = v29;
           if (v26)
           {
             v25 = v26;
@@ -152,7 +152,7 @@ LABEL_13:
 
 LABEL_30:
               *buf = 67109120;
-              LODWORD(v39) = v25;
+              LODWORD(v38) = v25;
               _os_log_error_impl(&dword_245B99000, v10, OS_LOG_TYPE_ERROR, "SQL operation failed with code %d", buf, 8u);
               goto LABEL_31;
             }
@@ -171,51 +171,50 @@ LABEL_32:
         objc_autoreleasePoolPop(v13);
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
     while (v8);
   }
 
   sqlite3_reset(v5);
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)commitErrorCountsForObjectWrappers:(id)wrappers
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   wrappersCopy = wrappers;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     *buf = 134217984;
-    v28 = [wrappersCopy count];
+    v27 = [wrappersCopy count];
     _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Commiting error counts for %ld items.", buf, 0xCu);
   }
 
   v5 = [(MSObjectQueue *)self _statementLabel:@"commitErrorCountsForObjectWrappers" query:"update or ignore Queue set errorCount = ? where rowid = ?;"];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v6 = wrappersCopy;
-  v7 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (!v7)
   {
     goto LABEL_24;
   }
 
   v8 = v7;
-  v9 = *v23;
+  v9 = *v22;
   while (2)
   {
     for (i = 0; i != v8; ++i)
     {
-      if (*v23 != v9)
+      if (*v22 != v9)
       {
         objc_enumerationMutation(v6);
       }
 
-      v11 = *(*(&v22 + 1) + 8 * i);
+      v11 = *(*(&v21 + 1) + 8 * i);
       v12 = sqlite3_reset(v5);
       if (v12)
       {
@@ -226,7 +225,7 @@ LABEL_32:
         }
 
         *buf = 67109120;
-        LODWORD(v28) = v16;
+        LODWORD(v27) = v16;
         v17 = MEMORY[0x277D86220];
 LABEL_23:
         _os_log_error_impl(&dword_245B99000, v17, OS_LOG_TYPE_ERROR, "SQL operation failed with code %d", buf, 8u);
@@ -243,7 +242,7 @@ LABEL_23:
         }
 
         *buf = 67109120;
-        LODWORD(v28) = v18;
+        LODWORD(v27) = v18;
         v17 = MEMORY[0x277D86220];
         goto LABEL_23;
       }
@@ -258,7 +257,7 @@ LABEL_23:
         }
 
         *buf = 67109120;
-        LODWORD(v28) = v19;
+        LODWORD(v27) = v19;
         v17 = MEMORY[0x277D86220];
         goto LABEL_23;
       }
@@ -273,13 +272,13 @@ LABEL_23:
         }
 
         *buf = 67109120;
-        LODWORD(v28) = v20;
+        LODWORD(v27) = v20;
         v17 = MEMORY[0x277D86220];
         goto LABEL_23;
       }
     }
 
-    v8 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v8 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v8)
     {
       continue;
@@ -291,16 +290,15 @@ LABEL_23:
 LABEL_24:
 
   sqlite3_reset(v5);
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAllObjectWrappersFromQueue
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v7[0]) = 0;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Removing all entries from the queue.", v7, 2u);
+    LOWORD(v6[0]) = 0;
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Removing all entries from the queue.", v6, 2u);
   }
 
   v3 = [(MSObjectQueue *)self _statementLabel:@"removeAllObjectWrappersFromQueue" query:"delete from Queue;"];
@@ -310,51 +308,50 @@ LABEL_24:
     v5 = v4;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v7[0] = 67109120;
-      v7[1] = v5;
-      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "SQL operation failed with code %d", v7, 8u);
+      v6[0] = 67109120;
+      v6[1] = v5;
+      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "SQL operation failed with code %d", v6, 8u);
     }
   }
 
   sqlite3_reset(v3);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeObjectWrappersFromQueue:(id)queue
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     *buf = 134217984;
-    v26 = [queueCopy count];
+    v25 = [queueCopy count];
     _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Removing %ld entries from the queue.", buf, 0xCu);
   }
 
   v5 = [(MSObjectQueue *)self _statementLabel:@"removeObjectWrappersFromQueue" query:"delete from Queue where rowid = ?;"];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v6 = queueCopy;
-  v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (!v7)
   {
     goto LABEL_19;
   }
 
   v8 = v7;
-  v9 = *v21;
+  v9 = *v20;
   while (2)
   {
     for (i = 0; i != v8; ++i)
     {
-      if (*v21 != v9)
+      if (*v20 != v9)
       {
         objc_enumerationMutation(v6);
       }
 
-      v11 = *(*(&v20 + 1) + 8 * i);
+      v11 = *(*(&v19 + 1) + 8 * i);
       v12 = sqlite3_reset(v5);
       if (v12)
       {
@@ -365,7 +362,7 @@ LABEL_24:
         }
 
         *buf = 67109120;
-        LODWORD(v26) = v15;
+        LODWORD(v25) = v15;
         v16 = MEMORY[0x277D86220];
 LABEL_21:
         _os_log_error_impl(&dword_245B99000, v16, OS_LOG_TYPE_ERROR, "SQL operation failed with code %d", buf, 8u);
@@ -382,7 +379,7 @@ LABEL_21:
         }
 
         *buf = 67109120;
-        LODWORD(v26) = v17;
+        LODWORD(v25) = v17;
         v16 = MEMORY[0x277D86220];
         goto LABEL_21;
       }
@@ -397,13 +394,13 @@ LABEL_21:
         }
 
         *buf = 67109120;
-        LODWORD(v26) = v18;
+        LODWORD(v25) = v18;
         v16 = MEMORY[0x277D86220];
         goto LABEL_21;
       }
     }
 
-    v8 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v8)
     {
       continue;
@@ -415,17 +412,16 @@ LABEL_21:
 LABEL_19:
 
   sqlite3_reset(v5);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)allObjectWrappersOrderedByDescendingErrorCountMaxCount:(int64_t)count
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v19 = 134217984;
+    v18 = 134217984;
     countCopy = count;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Retrieving up to %lld items from queue ordered by errorCount.", &v19, 0xCu);
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Retrieving up to %lld items from queue ordered by errorCount.", &v18, 0xCu);
   }
 
   v5 = [(MSObjectQueue *)self _statementLabel:@"allObjectsWrapperOrderedByDescendingErrorCountMaxCount" query:"select rowid, size, errorCount, object from Queue order by errorCount desc limit ?;"];
@@ -435,11 +431,11 @@ LABEL_19:
     v7 = v6;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v19 = 67109120;
+      v18 = 67109120;
       LODWORD(countCopy) = v7;
       v8 = MEMORY[0x277D86220];
 LABEL_24:
-      _os_log_error_impl(&dword_245B99000, v8, OS_LOG_TYPE_ERROR, "SQL operation failed with code %d", &v19, 8u);
+      _os_log_error_impl(&dword_245B99000, v8, OS_LOG_TYPE_ERROR, "SQL operation failed with code %d", &v18, 8u);
       goto LABEL_8;
     }
 
@@ -452,7 +448,7 @@ LABEL_24:
     v10 = v9;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v19 = 67109120;
+      v18 = 67109120;
       LODWORD(countCopy) = v10;
       v8 = MEMORY[0x277D86220];
       goto LABEL_24;
@@ -466,26 +462,26 @@ LABEL_8:
   array = [MEMORY[0x277CBEB18] array];
   while (1)
   {
-    v15 = sqlite3_step(v5);
-    if (v15 != 100)
+    v14 = sqlite3_step(v5);
+    if (v14 != 100)
     {
       break;
     }
 
-    v16 = [(MSObjectQueue *)self _objectWrapperFromQueueQuery:v5 outSize:0];
-    [array addObject:v16];
+    v15 = [(MSObjectQueue *)self _objectWrapperFromQueueQuery:v5 outSize:0];
+    [array addObject:v15];
   }
 
-  v17 = v15;
-  if (v15 == 101)
+  v16 = v14;
+  if (v14 == 101)
   {
     sqlite3_reset(v5);
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v18 = [array count];
-      v19 = 134217984;
-      countCopy = v18;
-      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Fetched %ld objects from the queue.", &v19, 0xCu);
+      v17 = [array count];
+      v18 = 134217984;
+      countCopy = v17;
+      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Fetched %ld objects from the queue.", &v18, 0xCu);
     }
 
     v11 = array;
@@ -495,9 +491,9 @@ LABEL_8:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v19 = 67109120;
-      LODWORD(countCopy) = v17;
-      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "sqlite error while fetching objects from the queue. Status: %d", &v19, 8u);
+      v18 = 67109120;
+      LODWORD(countCopy) = v16;
+      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "sqlite error while fetching objects from the queue. Status: %d", &v18, 8u);
     }
 
     sqlite3_reset(v5);
@@ -505,21 +501,20 @@ LABEL_8:
   }
 
 LABEL_9:
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (id)smallestObjectWrappersTargetTotalSize:(int64_t)size maxCount:(int64_t)count
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    *v24 = 134218240;
-    *&v24[4] = count;
-    v25 = 2048;
+    *v23 = 134218240;
+    *&v23[4] = count;
+    v24 = 2048;
     sizeCopy = size;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Retrieving up to %lld items from queue, target size: %lld bytes.", v24, 0x16u);
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Retrieving up to %lld items from queue, target size: %lld bytes.", v23, 0x16u);
   }
 
   v7 = [(MSObjectQueue *)self _statementLabel:@"smallestObjectReferencesTargetTotalSize" query:"select rowid, size, errorCount, object from Queue where size != 0 order by size asc limit ?;"];
@@ -529,11 +524,11 @@ LABEL_9:
     v9 = v8;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      *v24 = 67109120;
-      *&v24[4] = v9;
+      *v23 = 67109120;
+      *&v23[4] = v9;
       v10 = MEMORY[0x277D86220];
 LABEL_30:
-      _os_log_error_impl(&dword_245B99000, v10, OS_LOG_TYPE_ERROR, "SQL operation failed with code %d", v24, 8u);
+      _os_log_error_impl(&dword_245B99000, v10, OS_LOG_TYPE_ERROR, "SQL operation failed with code %d", v23, 8u);
       goto LABEL_8;
     }
 
@@ -546,8 +541,8 @@ LABEL_30:
     v12 = v11;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      *v24 = 67109120;
-      *&v24[4] = v12;
+      *v23 = 67109120;
+      *&v23[4] = v12;
       v10 = MEMORY[0x277D86220];
       goto LABEL_30;
     }
@@ -563,24 +558,24 @@ LABEL_8:
     goto LABEL_22;
   }
 
-  v18 = 0;
+  v17 = 0;
   while (1)
   {
-    v19 = sqlite3_step(v7);
-    if (v19 != 100)
+    v18 = sqlite3_step(v7);
+    if (v18 != 100)
     {
       break;
     }
 
-    *v24 = 0;
-    v20 = [(MSObjectQueue *)self _objectWrapperFromQueueQuery:v7 outSize:v24];
-    [array addObject:v20];
+    *v23 = 0;
+    v19 = [(MSObjectQueue *)self _objectWrapperFromQueueQuery:v7 outSize:v23];
+    [array addObject:v19];
 
-    v21 = *v24;
+    v20 = *v23;
     if ([array count] < count)
     {
-      v18 += v21;
-      if (v18 < size)
+      v17 += v20;
+      if (v17 < size)
       {
         continue;
       }
@@ -589,17 +584,17 @@ LABEL_8:
     goto LABEL_22;
   }
 
-  v22 = v19;
-  if (v19 == 101)
+  v21 = v18;
+  if (v18 == 101)
   {
 LABEL_22:
     sqlite3_reset(v7);
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v23 = [array count];
-      *v24 = 134217984;
-      *&v24[4] = v23;
-      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Fetched %ld objects from the queue.", v24, 0xCu);
+      v22 = [array count];
+      *v23 = 134217984;
+      *&v23[4] = v22;
+      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Fetched %ld objects from the queue.", v23, 0xCu);
     }
 
     v13 = array;
@@ -609,9 +604,9 @@ LABEL_22:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      *v24 = 67109120;
-      *&v24[4] = v22;
-      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "sqlite error while fetching objects from the queue. Status: %d", v24, 8u);
+      *v23 = 67109120;
+      *&v23[4] = v21;
+      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "sqlite error while fetching objects from the queue. Status: %d", v23, 8u);
     }
 
     sqlite3_reset(v7);
@@ -619,19 +614,18 @@ LABEL_22:
   }
 
 LABEL_9:
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 - (id)objectWrappersWithZeroSizeMaxCount:(int64_t)count
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v19 = 134217984;
+    v18 = 134217984;
     countCopy = count;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Retrieving up to %lld items from queue with zero size.", &v19, 0xCu);
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Retrieving up to %lld items from queue with zero size.", &v18, 0xCu);
   }
 
   v5 = [(MSObjectQueue *)self _statementLabel:@"objectWrappersWithZeroSizeMaxCount" query:"select rowid, size, errorCount, object from Queue where size = 0 limit ?;"];
@@ -641,11 +635,11 @@ LABEL_9:
     v7 = v6;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v19 = 67109120;
+      v18 = 67109120;
       LODWORD(countCopy) = v7;
       v8 = MEMORY[0x277D86220];
 LABEL_24:
-      _os_log_error_impl(&dword_245B99000, v8, OS_LOG_TYPE_ERROR, "SQL operation failed with code %d", &v19, 8u);
+      _os_log_error_impl(&dword_245B99000, v8, OS_LOG_TYPE_ERROR, "SQL operation failed with code %d", &v18, 8u);
       goto LABEL_8;
     }
 
@@ -658,7 +652,7 @@ LABEL_24:
     v10 = v9;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v19 = 67109120;
+      v18 = 67109120;
       LODWORD(countCopy) = v10;
       v8 = MEMORY[0x277D86220];
       goto LABEL_24;
@@ -672,26 +666,26 @@ LABEL_8:
   array = [MEMORY[0x277CBEB18] array];
   while (1)
   {
-    v15 = sqlite3_step(v5);
-    if (v15 != 100)
+    v14 = sqlite3_step(v5);
+    if (v14 != 100)
     {
       break;
     }
 
-    v16 = [(MSObjectQueue *)self _objectWrapperFromQueueQuery:v5 outSize:0];
-    [array addObject:v16];
+    v15 = [(MSObjectQueue *)self _objectWrapperFromQueueQuery:v5 outSize:0];
+    [array addObject:v15];
   }
 
-  v17 = v15;
-  if (v15 == 101)
+  v16 = v14;
+  if (v14 == 101)
   {
     sqlite3_reset(v5);
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v18 = [array count];
-      v19 = 134217984;
-      countCopy = v18;
-      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Fetched %ld objects from the queue.", &v19, 0xCu);
+      v17 = [array count];
+      v18 = 134217984;
+      countCopy = v17;
+      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Fetched %ld objects from the queue.", &v18, 0xCu);
     }
 
     v11 = array;
@@ -701,9 +695,9 @@ LABEL_8:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v19 = 67109120;
-      LODWORD(countCopy) = v17;
-      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "sqlite error while fetching objects from the queue. Status: %d", &v19, 8u);
+      v18 = 67109120;
+      LODWORD(countCopy) = v16;
+      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "sqlite error while fetching objects from the queue. Status: %d", &v18, 8u);
     }
 
     sqlite3_reset(v5);
@@ -711,19 +705,18 @@ LABEL_8:
   }
 
 LABEL_9:
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (id)allObjectWrappersMaxCount:(int64_t)count
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v19 = 134217984;
+    v18 = 134217984;
     countCopy = count;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Retrieving up to %lld items from queue.", &v19, 0xCu);
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Retrieving up to %lld items from queue.", &v18, 0xCu);
   }
 
   v5 = [(MSObjectQueue *)self _statementLabel:@"allObjectWrappersMaxCount" query:"select rowid, size, errorCount, object from Queue limit ?;"];
@@ -733,11 +726,11 @@ LABEL_9:
     v7 = v6;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v19 = 67109120;
+      v18 = 67109120;
       LODWORD(countCopy) = v7;
       v8 = MEMORY[0x277D86220];
 LABEL_24:
-      _os_log_error_impl(&dword_245B99000, v8, OS_LOG_TYPE_ERROR, "SQL operation failed with code %d", &v19, 8u);
+      _os_log_error_impl(&dword_245B99000, v8, OS_LOG_TYPE_ERROR, "SQL operation failed with code %d", &v18, 8u);
       goto LABEL_8;
     }
 
@@ -750,7 +743,7 @@ LABEL_24:
     v10 = v9;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v19 = 67109120;
+      v18 = 67109120;
       LODWORD(countCopy) = v10;
       v8 = MEMORY[0x277D86220];
       goto LABEL_24;
@@ -764,26 +757,26 @@ LABEL_8:
   array = [MEMORY[0x277CBEB18] array];
   while (1)
   {
-    v15 = sqlite3_step(v5);
-    if (v15 != 100)
+    v14 = sqlite3_step(v5);
+    if (v14 != 100)
     {
       break;
     }
 
-    v16 = [(MSObjectQueue *)self _objectWrapperFromQueueQuery:v5 outSize:0];
-    [array addObject:v16];
+    v15 = [(MSObjectQueue *)self _objectWrapperFromQueueQuery:v5 outSize:0];
+    [array addObject:v15];
   }
 
-  v17 = v15;
-  if (v15 == 101)
+  v16 = v14;
+  if (v14 == 101)
   {
     sqlite3_reset(v5);
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v18 = [array count];
-      v19 = 134217984;
-      countCopy = v18;
-      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Fetched %ld objects from the queue.", &v19, 0xCu);
+      v17 = [array count];
+      v18 = 134217984;
+      countCopy = v17;
+      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Fetched %ld objects from the queue.", &v18, 0xCu);
     }
 
     v11 = array;
@@ -793,9 +786,9 @@ LABEL_8:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v19 = 67109120;
-      LODWORD(countCopy) = v17;
-      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "sqlite error while fetching objects from the queue. Status: %d", &v19, 8u);
+      v18 = 67109120;
+      LODWORD(countCopy) = v16;
+      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "sqlite error while fetching objects from the queue. Status: %d", &v18, 8u);
     }
 
     sqlite3_reset(v5);
@@ -803,22 +796,21 @@ LABEL_8:
   }
 
 LABEL_9:
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (id)_objectWrapperFromQueueQuery:(sqlite3_stmt *)query outSize:(int64_t *)size
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v6 = sqlite3_column_int64(query, 0);
   v7 = sqlite3_column_int64(query, 1);
   v8 = sqlite3_column_int(query, 2);
   v9 = sqlite3_column_blob(query, 3);
   v10 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytesNoCopy:v9 length:sqlite3_column_bytes(query freeWhenDone:{3), 0}];
-  v16 = 0;
-  v11 = [MEMORY[0x277CCAAC8] MSSafeUnarchiveObjectWithData:v10 outError:&v16];
-  v12 = v16;
+  v15 = 0;
+  v11 = [MEMORY[0x277CCAAC8] MSSafeUnarchiveObjectWithData:v10 outError:&v15];
+  v12 = v15;
   if (!v12 || !os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     if (!size)
@@ -830,7 +822,7 @@ LABEL_9:
   }
 
   *buf = 138543362;
-  v18 = v12;
+  v17 = v12;
   _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to unarchive object. Error: %{public}@", buf, 0xCu);
   if (size)
   {
@@ -843,48 +835,46 @@ LABEL_5:
   [v13 setUniqueID:v6];
   [v13 setErrorCount:v8];
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (void)appendObjectWrappers:(id)wrappers
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   wrappersCopy = wrappers;
   selfCopy = self;
   v5 = [(MSObjectQueue *)self _statementLabel:@"appendObjectWrappers" query:"insert into Queue (size, object) values (?, ?);"];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   obj = wrappersCopy;
-  v6 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
+  v6 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v36;
+    v8 = *v35;
     v9 = 0x277CCA000uLL;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v36 != v8)
+        if (*v35 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v35 + 1) + 8 * i);
+        v11 = *(*(&v34 + 1) + 8 * i);
         v12 = objc_autoreleasePoolPush();
         v13 = *(v9 + 2736);
         object = [v11 object];
-        v34 = 0;
-        v15 = [v13 archivedDataWithRootObject:object requiringSecureCoding:1 error:&v34];
-        v16 = v34;
+        v33 = 0;
+        v15 = [v13 archivedDataWithRootObject:object requiringSecureCoding:1 error:&v33];
+        v16 = v33;
 
         if (!v15)
         {
-          v33 = v12;
+          v32 = v12;
           v17 = v5;
           v18 = v7;
           v19 = v8;
@@ -896,7 +886,7 @@ LABEL_5:
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v40 = v23;
+            v39 = v23;
             _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
           }
 
@@ -904,7 +894,7 @@ LABEL_5:
           v8 = v19;
           v7 = v18;
           v5 = v17;
-          v12 = v33;
+          v12 = v32;
         }
 
         v24 = sqlite3_reset(v5);
@@ -918,7 +908,7 @@ LABEL_5:
 
 LABEL_23:
           *buf = 67109120;
-          LODWORD(v40) = v25;
+          LODWORD(v39) = v25;
           _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "SQL operation failed with code %d", buf, 8u);
           goto LABEL_24;
         }
@@ -971,14 +961,13 @@ LABEL_24:
         objc_autoreleasePoolPop(v12);
       }
 
-      v7 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
+      v7 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
     }
 
     while (v7);
   }
 
   sqlite3_reset(v5);
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)count
@@ -1007,7 +996,7 @@ LABEL_5:
 
 - (sqlite3_stmt)_statementLabel:(id)label query:(const char *)query
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   labelCopy = label;
   if (CFDictionaryContainsKey(self->_statements, labelCopy))
   {
@@ -1033,7 +1022,6 @@ LABEL_5:
     Value = ppStmt;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return Value;
 }
 
@@ -1078,12 +1066,12 @@ LABEL_5:
 
 - (MSObjectQueue)initWithPath:(id)path
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   pathCopy = path;
-  v24.receiver = self;
-  v24.super_class = MSObjectQueue;
+  v23.receiver = self;
+  v23.super_class = MSObjectQueue;
   ppStmt = 0;
-  v5 = [(MSObjectQueue *)&v24 init];
+  v5 = [(MSObjectQueue *)&v23 init];
   if (!v5)
   {
     goto LABEL_19;
@@ -1095,22 +1083,22 @@ LABEL_5:
 
   if (!sqlite3_open([pathCopy fileSystemRepresentation], &v5->_db))
   {
-    v23 = 0;
-    if (sqlite3_exec(v5->_db, "pragma journal_mode = wal;", 0, 0, &v23) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    v22 = 0;
+    if (sqlite3_exec(v5->_db, "pragma journal_mode = wal;", 0, 0, &v22) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v27 = v5;
-      v28 = 2082;
-      v29 = v23;
+      v26 = v5;
+      v27 = 2082;
+      v28 = v22;
       _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Could not set journal mode. Ignoring. Error: %{public}s", buf, 0x16u);
     }
 
-    if (sqlite3_exec(v5->_db, "create table if not exists Properties(\n   key             text primary key,\n   value           text\n);\ncreate table if not exists Queue (\n   size            integer,\n   object          blob,\n   errorCount      integer\n);\ncreate index if not exists QueueBySize on Queue (size asc);\n", 0, 0, &v23))
+    if (sqlite3_exec(v5->_db, "create table if not exists Properties(\n   key             text primary key,\n   value           text\n);\ncreate table if not exists Queue (\n   size            integer,\n   object          blob,\n   errorCount      integer\n);\ncreate index if not exists QueueBySize on Queue (size asc);\n", 0, 0, &v22))
     {
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
 LABEL_10:
-        sqlite3_free(v23);
+        sqlite3_free(v22);
 LABEL_13:
         v10 = 1;
 LABEL_14:
@@ -1131,11 +1119,11 @@ LABEL_19:
       }
 
       *buf = 136446210;
-      v27 = v23;
-      v16 = MEMORY[0x277D86220];
-      v17 = "Could not create tables. Error: %{public}s";
+      v26 = v22;
+      v15 = MEMORY[0x277D86220];
+      v16 = "Could not create tables. Error: %{public}s";
 LABEL_35:
-      _os_log_error_impl(&dword_245B99000, v16, OS_LOG_TYPE_ERROR, v17, buf, 0xCu);
+      _os_log_error_impl(&dword_245B99000, v15, OS_LOG_TYPE_ERROR, v16, buf, 0xCu);
       goto LABEL_10;
     }
 
@@ -1149,18 +1137,18 @@ LABEL_35:
       }
 
       *buf = 67109120;
-      LODWORD(v27) = v9;
-      v20 = MEMORY[0x277D86220];
-      v21 = "SQL operation failed with code %d";
+      LODWORD(v26) = v9;
+      v19 = MEMORY[0x277D86220];
+      v20 = "SQL operation failed with code %d";
       goto LABEL_38;
     }
 
-    v14 = sqlite3_step(ppStmt);
-    if (v14 == 100)
+    v13 = sqlite3_step(ppStmt);
+    if (v13 == 100)
     {
-      v18 = sqlite3_column_text(ppStmt, 0);
-      v19 = v18;
-      if (*v18 != 48 || v18[1])
+      v17 = sqlite3_column_text(ppStmt, 0);
+      v18 = v17;
+      if (*v17 != 48 || v17[1])
       {
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
@@ -1168,20 +1156,20 @@ LABEL_35:
         }
 
         *buf = 136446210;
-        v27 = v19;
-        v20 = MEMORY[0x277D86220];
-        v21 = "Wrong database version. Expected 0. Actual: %{public}s";
-        v22 = 12;
+        v26 = v18;
+        v19 = MEMORY[0x277D86220];
+        v20 = "Wrong database version. Expected 0. Actual: %{public}s";
+        v21 = 12;
 LABEL_39:
-        _os_log_error_impl(&dword_245B99000, v20, OS_LOG_TYPE_ERROR, v21, buf, v22);
+        _os_log_error_impl(&dword_245B99000, v19, OS_LOG_TYPE_ERROR, v20, buf, v21);
         goto LABEL_13;
       }
     }
 
     else
     {
-      v15 = v14;
-      if (v14 != 101)
+      v14 = v13;
+      if (v13 != 101)
       {
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
@@ -1189,11 +1177,11 @@ LABEL_39:
         }
 
         *buf = 67109120;
-        LODWORD(v27) = v15;
-        v20 = MEMORY[0x277D86220];
-        v21 = "Could not retrieve database version. SQLITE error: %d";
+        LODWORD(v26) = v14;
+        v19 = MEMORY[0x277D86220];
+        v20 = "Could not retrieve database version. SQLITE error: %d";
 LABEL_38:
-        v22 = 8;
+        v21 = 8;
         goto LABEL_39;
       }
 
@@ -1203,7 +1191,7 @@ LABEL_38:
         _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Setting version number in queue database", buf, 2u);
       }
 
-      if (sqlite3_exec(v5->_db, "insert or replace into Properties (key, value) values ('version', '0');", 0, 0, &v23))
+      if (sqlite3_exec(v5->_db, "insert or replace into Properties (key, value) values ('version', '0');", 0, 0, &v22))
       {
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
@@ -1211,9 +1199,9 @@ LABEL_38:
         }
 
         *buf = 136446210;
-        v27 = v23;
-        v16 = MEMORY[0x277D86220];
-        v17 = "Could not update version number. Error: %{public}s";
+        v26 = v22;
+        v15 = MEMORY[0x277D86220];
+        v16 = "Could not update version number. Error: %{public}s";
         goto LABEL_35;
       }
     }
@@ -1225,7 +1213,7 @@ LABEL_38:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v27 = pathCopy;
+    v26 = pathCopy;
     _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not create sqlite3 object queue at path %@", buf, 0xCu);
   }
 
@@ -1233,7 +1221,6 @@ LABEL_17:
   v11 = 0;
 LABEL_20:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

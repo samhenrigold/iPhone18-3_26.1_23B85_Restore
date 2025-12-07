@@ -1,3 +1,223 @@
+void llvm::function_ref<void ()(mlir::Operation *)>::callback_fn<GPU::BaseOpHandler * GPURegionRuntime::createOp<GPU::ACoshOpHandler>(mlir::Operation *,GPU::MPSGraphKernelDAG *)::{lambda(mlir::Operation *)#1}>(uint64_t a1, uint64_t a2)
+{
+  if (!*(a2 + 36))
+  {
+    return;
+  }
+
+  if (**a1)
+  {
+LABEL_8:
+    v7 = *(a1 + 8);
+    v10 = *(a2 + 24);
+    std::vector<mlir::Value>::push_back[abi:ne200100](v7, &v10);
+    return;
+  }
+
+  v2 = a1;
+  v3 = a2;
+  v10 = a2 - 16;
+  DefiningOp = mlir::Value::getDefiningOp(&v10);
+  if (!DefiningOp)
+  {
+    a2 = v3;
+    a1 = v2;
+    goto LABEL_8;
+  }
+
+  v5 = DefiningOp;
+  {
+    {
+      v8 = llvm::getTypeName<mlir::OpTrait::ConstantLike<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ConstantLike>(void)::Empty>>();
+      mlir::detail::TypeIDResolver<mlir::OpTrait::ConstantLike<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ConstantLike>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v8, v9);
+    }
+  }
+
+  v6 = (*(**(v5 + 48) + 32))(*(v5 + 48), mlir::detail::TypeIDResolver<mlir::OpTrait::ConstantLike<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ConstantLike>(void)::Empty>,void>::resolveTypeID(void)::id);
+  a2 = v3;
+  a1 = v2;
+  if ((v6 & 1) == 0)
+  {
+    goto LABEL_8;
+  }
+}
+
+void llvm::function_ref<void ()(mlir::Operation *)>::callback_fn<GPU::BaseOpHandler * GPURegionRuntime::createOp<GPU::AddOpHandler>(mlir::Operation *,GPU::MPSGraphKernelDAG *)::{lambda(mlir::Operation *)#1}>(uint64_t a1, uint64_t a2)
+{
+  if (!*(a2 + 36))
+  {
+    return;
+  }
+
+  if (**a1)
+  {
+LABEL_8:
+    v7 = *(a1 + 8);
+    v10 = *(a2 + 24);
+    std::vector<mlir::Value>::push_back[abi:ne200100](v7, &v10);
+    return;
+  }
+
+  v2 = a1;
+  v3 = a2;
+  v10 = a2 - 16;
+  DefiningOp = mlir::Value::getDefiningOp(&v10);
+  if (!DefiningOp)
+  {
+    a2 = v3;
+    a1 = v2;
+    goto LABEL_8;
+  }
+
+  v5 = DefiningOp;
+  {
+    {
+      v8 = llvm::getTypeName<mlir::OpTrait::ConstantLike<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ConstantLike>(void)::Empty>>();
+      mlir::detail::TypeIDResolver<mlir::OpTrait::ConstantLike<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ConstantLike>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v8, v9);
+    }
+  }
+
+  v6 = (*(**(v5 + 48) + 32))(*(v5 + 48), mlir::detail::TypeIDResolver<mlir::OpTrait::ConstantLike<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ConstantLike>(void)::Empty>,void>::resolveTypeID(void)::id);
+  a2 = v3;
+  a1 = v2;
+  if ((v6 & 1) == 0)
+  {
+    goto LABEL_8;
+  }
+}
+
+void llvm::function_ref<void ()(mlir::Operation *)>::callback_fn<GPU::BaseOpHandler * GPURegionRuntime::createOp<GPU::AllocOpHandler>(mlir::Operation *,GPU::MPSGraphKernelDAG *)::{lambda(mlir::Operation *)#1}>(uint64_t a1, uint64_t a2)
+{
+  if (!*(a2 + 36))
+  {
+    return;
+  }
+
+  if (**a1)
+  {
+LABEL_8:
+    v7 = *(a1 + 8);
+    v10 = *(a2 + 24);
+    std::vector<mlir::Value>::push_back[abi:ne200100](v7, &v10);
+    return;
+  }
+
+  v2 = a1;
+  v3 = a2;
+  v10 = a2 - 16;
+  DefiningOp = mlir::Value::getDefiningOp(&v10);
+  if (!DefiningOp)
+  {
+    a2 = v3;
+    a1 = v2;
+    goto LABEL_8;
+  }
+
+  v5 = DefiningOp;
+  {
+    {
+      v8 = llvm::getTypeName<mlir::OpTrait::ConstantLike<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ConstantLike>(void)::Empty>>();
+      mlir::detail::TypeIDResolver<mlir::OpTrait::ConstantLike<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ConstantLike>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v8, v9);
+    }
+  }
+
+  v6 = (*(**(v5 + 48) + 32))(*(v5 + 48), mlir::detail::TypeIDResolver<mlir::OpTrait::ConstantLike<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ConstantLike>(void)::Empty>,void>::resolveTypeID(void)::id);
+  a2 = v3;
+  a1 = v2;
+  if ((v6 & 1) == 0)
+  {
+    goto LABEL_8;
+  }
+}
+
+void llvm::function_ref<void ()(mlir::Operation *)>::callback_fn<GPU::BaseOpHandler * GPURegionRuntime::createOp<GPU::AndOpHandler>(mlir::Operation *,GPU::MPSGraphKernelDAG *)::{lambda(mlir::Operation *)#1}>(uint64_t a1, uint64_t a2)
+{
+  if (!*(a2 + 36))
+  {
+    return;
+  }
+
+  if (**a1)
+  {
+LABEL_8:
+    v7 = *(a1 + 8);
+    v10 = *(a2 + 24);
+    std::vector<mlir::Value>::push_back[abi:ne200100](v7, &v10);
+    return;
+  }
+
+  v2 = a1;
+  v3 = a2;
+  v10 = a2 - 16;
+  DefiningOp = mlir::Value::getDefiningOp(&v10);
+  if (!DefiningOp)
+  {
+    a2 = v3;
+    a1 = v2;
+    goto LABEL_8;
+  }
+
+  v5 = DefiningOp;
+  {
+    {
+      v8 = llvm::getTypeName<mlir::OpTrait::ConstantLike<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ConstantLike>(void)::Empty>>();
+      mlir::detail::TypeIDResolver<mlir::OpTrait::ConstantLike<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ConstantLike>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v8, v9);
+    }
+  }
+
+  v6 = (*(**(v5 + 48) + 32))(*(v5 + 48), mlir::detail::TypeIDResolver<mlir::OpTrait::ConstantLike<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ConstantLike>(void)::Empty>,void>::resolveTypeID(void)::id);
+  a2 = v3;
+  a1 = v2;
+  if ((v6 & 1) == 0)
+  {
+    goto LABEL_8;
+  }
+}
+
+void llvm::function_ref<void ()(mlir::Operation *)>::callback_fn<GPU::BaseOpHandler * GPURegionRuntime::createOp<GPU::ASinOpHandler>(mlir::Operation *,GPU::MPSGraphKernelDAG *)::{lambda(mlir::Operation *)#1}>(uint64_t a1, uint64_t a2)
+{
+  if (!*(a2 + 36))
+  {
+    return;
+  }
+
+  if (**a1)
+  {
+LABEL_8:
+    v7 = *(a1 + 8);
+    v10 = *(a2 + 24);
+    std::vector<mlir::Value>::push_back[abi:ne200100](v7, &v10);
+    return;
+  }
+
+  v2 = a1;
+  v3 = a2;
+  v10 = a2 - 16;
+  DefiningOp = mlir::Value::getDefiningOp(&v10);
+  if (!DefiningOp)
+  {
+    a2 = v3;
+    a1 = v2;
+    goto LABEL_8;
+  }
+
+  v5 = DefiningOp;
+  {
+    {
+      v8 = llvm::getTypeName<mlir::OpTrait::ConstantLike<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ConstantLike>(void)::Empty>>();
+      mlir::detail::TypeIDResolver<mlir::OpTrait::ConstantLike<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ConstantLike>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v8, v9);
+    }
+  }
+
+  v6 = (*(**(v5 + 48) + 32))(*(v5 + 48), mlir::detail::TypeIDResolver<mlir::OpTrait::ConstantLike<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ConstantLike>(void)::Empty>,void>::resolveTypeID(void)::id);
+  a2 = v3;
+  a1 = v2;
+  if ((v6 & 1) == 0)
+  {
+    goto LABEL_8;
+  }
+}
+
 void llvm::function_ref<void ()(mlir::Operation *)>::callback_fn<GPU::BaseOpHandler * GPURegionRuntime::createOp<GPU::ASinhOpHandler>(mlir::Operation *,GPU::MPSGraphKernelDAG *)::{lambda(mlir::Operation *)#1}>(uint64_t a1, uint64_t a2)
 {
   if (!*(a2 + 36))
@@ -9364,261 +9584,5 @@ LABEL_8:
   if ((v6 & 1) == 0)
   {
     goto LABEL_8;
-  }
-}
-
-void llvm::function_ref<void ()(mlir::Operation *)>::callback_fn<GPU::BaseOpHandler * GPURegionRuntime::createOp<GPU::QuantizedMatMulOpHandler>(mlir::Operation *,GPU::MPSGraphKernelDAG *)::{lambda(mlir::Operation *)#1}>(uint64_t a1, uint64_t a2)
-{
-  if (!*(a2 + 36))
-  {
-    return;
-  }
-
-  if (**a1)
-  {
-LABEL_8:
-    v7 = *(a1 + 8);
-    v10 = *(a2 + 24);
-    std::vector<mlir::Value>::push_back[abi:ne200100](v7, &v10);
-    return;
-  }
-
-  v2 = a1;
-  v3 = a2;
-  v10 = a2 - 16;
-  DefiningOp = mlir::Value::getDefiningOp(&v10);
-  if (!DefiningOp)
-  {
-    a2 = v3;
-    a1 = v2;
-    goto LABEL_8;
-  }
-
-  v5 = DefiningOp;
-  {
-    {
-      v8 = llvm::getTypeName<mlir::OpTrait::ConstantLike<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ConstantLike>(void)::Empty>>();
-      mlir::detail::TypeIDResolver<mlir::OpTrait::ConstantLike<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ConstantLike>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v8, v9);
-    }
-  }
-
-  v6 = (*(**(v5 + 48) + 32))(*(v5 + 48), mlir::detail::TypeIDResolver<mlir::OpTrait::ConstantLike<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ConstantLike>(void)::Empty>,void>::resolveTypeID(void)::id);
-  a2 = v3;
-  a1 = v2;
-  if ((v6 & 1) == 0)
-  {
-    goto LABEL_8;
-  }
-}
-
-void llvm::function_ref<void ()(mlir::Operation *)>::callback_fn<GPURegionRuntime::evaluateOps(GPU::EncodeDescriptor *,NSArray<MPSGraphTensorData *> *,NSArray<MPSGraphTensorData *> *)::$_0>(uint64_t a1, uint64_t a2)
-{
-  ParentOp = mlir::Block::getParentOp(*(a2 + 16));
-  if (ParentOp)
-  {
-    v5 = *(*(ParentOp + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::mpsx::StitchedOp,void>::id;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  if (!v5 && *(*(a2 + 48) + 16) != &mlir::detail::TypeIDResolver<mlir::mps::ConstantOp,void>::id)
-  {
-    v49 = 0;
-    v48 = MPSDataTypeInvalid;
-    v6 = computeProducedValues(a2, 0, 1, &v49, &v48);
-    if (v6)
-    {
-      v7 = *(a1 + 8);
-      ++**a1;
-      *v7 += v49;
-    }
-
-    v8 = *(a1 + 16);
-    if (v6 > *v8)
-    {
-      *v8 = v6;
-      v9 = *(a1 + 32);
-      **(a1 + 24) = v48;
-      v9[1] = *v9;
-      if ((*(a2 + 46) & 0x80) != 0)
-      {
-        v10 = *(a2 + 68);
-        if (v10)
-        {
-          v11 = 0;
-          v12 = &mlir::detail::TypeIDResolver<mlir::RankedTensorType,void>::id;
-          v13 = *(a2 + 72);
-          v45 = *(a2 + 68);
-          while (1)
-          {
-            v15 = *(v13 + 32 * v11 + 24);
-            v16 = *(v15 + 8) & 0xFFFFFFFFFFFFFFF8;
-            if (!v16)
-            {
-              goto LABEL_14;
-            }
-
-            v17 = *(*v16 + 136);
-            if (v17 != v12)
-            {
-              v16 = 0;
-            }
-
-            v47 = v16;
-            if (v17 != v12)
-            {
-              goto LABEL_14;
-            }
-
-            Value = mlir::ArrayAttr::getValue(&v47);
-            if (!v19)
-            {
-              v28 = 1;
-              goto LABEL_28;
-            }
-
-            v20 = (v19 - 1) & 0x1FFFFFFFFFFFFFFFLL;
-            if (!v20)
-            {
-              break;
-            }
-
-            v21 = v20 + 1;
-            v22 = (v20 + 1) & 0x3FFFFFFFFFFFFFFELL;
-            v23 = (Value + 8 * v22);
-            v24 = (Value + 8);
-            v25 = v22;
-            v26 = 1;
-            v27 = 1;
-            do
-            {
-              v26 *= *(v24 - 1);
-              v27 *= *v24;
-              v24 += 2;
-              v25 -= 2;
-            }
-
-            while (v25);
-            v28 = v27 * v26;
-            if (v21 != v22)
-            {
-              goto LABEL_27;
-            }
-
-LABEL_28:
-            ElementTypeOrSelf = mlir::getElementTypeOrSelf(v15);
-            if (mlir::Type::isF16(&ElementTypeOrSelf) || mlir::Type::isInteger(&ElementTypeOrSelf, 16))
-            {
-              v30 = 2 * v28;
-              v31 = *(a1 + 32);
-              v33 = *(v31 + 8);
-              v32 = *(v31 + 16);
-              if (v33 >= v32)
-              {
-                goto LABEL_35;
-              }
-            }
-
-            else
-            {
-              isInteger = mlir::Type::isInteger(&ElementTypeOrSelf, 8);
-              v35 = 4;
-              if (isInteger)
-              {
-                v35 = 1;
-              }
-
-              v30 = v35 * v28;
-              v31 = *(a1 + 32);
-              v33 = *(v31 + 8);
-              v32 = *(v31 + 16);
-              if (v33 >= v32)
-              {
-LABEL_35:
-                v36 = v13;
-                v37 = a1;
-                v38 = v12;
-                v39 = *v31;
-                v40 = v33 - *v31;
-                v41 = v40 >> 3;
-                v42 = (v40 >> 3) + 1;
-                if (v42 >> 61)
-                {
-                  std::vector<long>::__throw_length_error[abi:ne200100]();
-                }
-
-                v43 = v32 - v39;
-                if (v43 >> 2 > v42)
-                {
-                  v42 = v43 >> 2;
-                }
-
-                if (v43 >= 0x7FFFFFFFFFFFFFF8)
-                {
-                  v44 = 0x1FFFFFFFFFFFFFFFLL;
-                }
-
-                else
-                {
-                  v44 = v42;
-                }
-
-                if (v44)
-                {
-                  if (!(v44 >> 61))
-                  {
-                    operator new();
-                  }
-
-                  std::__throw_bad_array_new_length[abi:ne200100]();
-                }
-
-                *(8 * v41) = v30;
-                v14 = 8 * v41 + 8;
-                memcpy(0, v39, v40);
-                *v31 = 0;
-                *(v31 + 8) = v14;
-                *(v31 + 16) = 0;
-                if (v39)
-                {
-                  operator delete(v39);
-                }
-
-                v12 = v38;
-                a1 = v37;
-                v13 = v36;
-                v10 = v45;
-                goto LABEL_13;
-              }
-            }
-
-            *v33 = v30;
-            v14 = (v33 + 1);
-LABEL_13:
-            *(v31 + 8) = v14;
-LABEL_14:
-            if (++v11 == v10)
-            {
-              return;
-            }
-          }
-
-          v28 = 1;
-          v23 = Value;
-          do
-          {
-LABEL_27:
-            v29 = *v23++;
-            v28 *= v29;
-          }
-
-          while (v23 != (Value + 8 * v19));
-          goto LABEL_28;
-        }
-      }
-    }
   }
 }

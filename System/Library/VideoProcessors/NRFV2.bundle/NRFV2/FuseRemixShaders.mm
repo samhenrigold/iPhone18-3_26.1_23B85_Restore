@@ -1,6 +1,8 @@
 @interface FuseRemixShaders
++ (id)getShaderNameWithIsLuma:(BOOL)luma isTopBand:(BOOL)band;
 + (unsigned)getIdxForOptionsWithIsLuma:(BOOL)luma isTopBand:(BOOL)band isBand0:(BOOL)band0 isFirstBatch:(BOOL)batch isLastBatch:(BOOL)lastBatch usePatchBasedFusion:(BOOL)fusion useGpuCSC:(BOOL)c ggmEnabled:(BOOL)self0;
 - (FuseRemixShaders)initWithMetal:(id)metal pixelFormatLuma:(unint64_t)luma pixelFormatChroma:(unint64_t)chroma;
+- (id)getFragmentShaderWithIsLuma:(BOOL)luma isTopBand:(BOOL)band isBand0:(BOOL)band0 isFirstBatch:(BOOL)batch isLastBatch:(BOOL)lastBatch usePatchBasedFusion:(BOOL)fusion useGpuCSC:(BOOL)c ggmEnabled:(BOOL)self0;
 @end
 
 @implementation FuseRemixShaders
@@ -82,6 +84,33 @@
   }
 
   return v19 | v20;
+}
+
++ (id)getShaderNameWithIsLuma:(BOOL)luma isTopBand:(BOOL)band
+{
+  v4 = @"Chroma";
+  if (luma)
+  {
+    v4 = @"Luma";
+  }
+
+  if (band)
+  {
+    return objc_msgSend_stringWithFormat_(MEMORY[0x29EDBA0F8], a2, @"Fuse%@%@Band_Frag", band, v4, @"Top");
+  }
+
+  else
+  {
+    return objc_msgSend_stringWithFormat_(MEMORY[0x29EDBA0F8], a2, @"Fuse%@%@Band_Frag", band, v4, &stru_2A1CB0660);
+  }
+}
+
+- (id)getFragmentShaderWithIsLuma:(BOOL)luma isTopBand:(BOOL)band isBand0:(BOOL)band0 isFirstBatch:(BOOL)batch isLastBatch:(BOOL)lastBatch usePatchBasedFusion:(BOOL)fusion useGpuCSC:(BOOL)c ggmEnabled:(BOOL)self0
+{
+  v12 = __PAIR16__(enabled, c);
+  v10 = self->shaders[objc_msgSend_getIdxForOptionsWithIsLuma_isTopBand_isBand0_isFirstBatch_isLastBatch_usePatchBasedFusion_useGpuCSC_ggmEnabled_(FuseRemixShaders, a2, luma, band, band0, batch, lastBatch, fusion, v12)];
+
+  return v10;
 }
 
 - (FuseRemixShaders)initWithMetal:(id)metal pixelFormatLuma:(unint64_t)luma pixelFormatChroma:(unint64_t)chroma

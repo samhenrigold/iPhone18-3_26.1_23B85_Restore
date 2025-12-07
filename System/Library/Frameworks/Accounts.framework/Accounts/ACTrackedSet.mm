@@ -62,22 +62,22 @@
 
 - (ACTrackedSet)initWithCoder:(id)coder
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   if (!coderCopy)
   {
     [ACTrackedSet initWithCoder:];
   }
 
-  v17.receiver = self;
-  v17.super_class = ACTrackedSet;
-  v5 = [(ACTrackedSet *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = ACTrackedSet;
+  v5 = [(ACTrackedSet *)&v16 init];
   if (v5)
   {
     allowedClasses = [coderCopy allowedClasses];
-    v18[0] = objc_opt_class();
-    v18[1] = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
+    v17[0] = objc_opt_class();
+    v17[1] = objc_opt_class();
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
     v8 = [allowedClasses setByAddingObjectsFromArray:v7];
 
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"_underlyingSet"];
@@ -91,7 +91,6 @@
     v5->_changesDictionary = v13;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -164,7 +163,7 @@ LABEL_3:
 
 - (id)_initWithEnumerable:(id)enumerable count:(unint64_t)count
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   enumerableCopy = enumerable;
   if (!enumerableCopy)
   {
@@ -177,39 +176,38 @@ LABEL_3:
   }
 
   v8 = v7;
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v9 = enumerableCopy;
-  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
     v12 = 0;
-    v13 = *v19;
+    v13 = *v18;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v13)
+        if (*v18 != v13)
         {
           objc_enumerationMutation(v9);
         }
 
-        v8[v12++] = *(*(&v18 + 1) + 8 * i);
+        v8[v12++] = *(*(&v17 + 1) + 8 * i);
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v11);
   }
 
-  v15 = [(ACTrackedSet *)self initWithObjects:v8 count:count, v18];
+  v15 = [(ACTrackedSet *)self initWithObjects:v8 count:count, v17];
   free(v8);
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

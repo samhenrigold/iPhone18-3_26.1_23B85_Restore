@@ -155,13 +155,22 @@
   return v19 & 1;
 }
 
-uint64_t __51__PXSelectionContainer_hasAnyChangesFromSelection___block_invoke(void *a1, __int128 *a2, _BYTE *a3)
+void *__51__PXSelectionContainer_hasAnyChangesFromSelection___block_invoke(void *a1, const char *a2, _BYTE *a3)
 {
-  v13 = 0;
-  v11 = 0u;
-  v12 = 0u;
+  v11 = 0;
+  v9 = 0u;
+  v10 = 0u;
   v5 = a1[4];
-  if (v5 && (v6 = a2[1], v9 = *a2, v10 = v6, result = [v5 indexPathAfterApplyingChangesToIndexPath:&v9 hasIncrementalChanges:0 objectChanged:&v13], (v13 & 1) != 0) || (v8 = a1[5], v9 = v11, v10 = v12, result = objc_msgSend(v8, "containsIndexPath:", &v9), (result & 1) == 0))
+  if (v5)
+  {
+    objc_msgSend_indexPathAfterApplyingChangesToIndexPath_hasIncrementalChanges_objectChanged_(v5, *a2, *(a2 + 1), *(a2 + 2), *(a2 + 3));
+  }
+
+  v6 = a1[5];
+  v8[0] = v9;
+  v8[1] = v10;
+  result = [v6 containsIndexPath:v8];
+  if ((result & 1) == 0)
   {
     *(*(a1[6] + 8) + 24) = 1;
     *a3 = 1;

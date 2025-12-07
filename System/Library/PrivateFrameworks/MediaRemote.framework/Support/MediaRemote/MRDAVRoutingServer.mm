@@ -3,6 +3,7 @@
 - (BOOL)_shouldIgnorePortStatusFailureForRouteWithUID:(id)d previouslyCachedRouteUID:(id *)iD;
 - (BOOL)isSilentPrimary;
 - (BOOL)routeIsActiveWithUID:(id)d;
+- (BOOL)setPickedRoute:(id)route withPassword:(id)password options:(unsigned int)options;
 - (MRDAVRoutingServer)initWithRoutingDataSource:(id)source;
 - (MRDAVRoutingServer)initWithRoutingDataSource:(id)source hostedRoutingService:(id)service systemEndpointController:(id)controller autoConnectionController:(id)connectionController homeServer:(id)server avOutputDeviceAuthorizationSession:(id)session;
 - (MSVSystemDialog)activeDialog;
@@ -24,6 +25,7 @@
 - (void)_clientInvalidatedNotification:(id)notification;
 - (void)_failedToConnectToOutputDeviceNotification:(id)notification;
 - (void)_handleAddVirtualOutputDeviceMessage:(id)message fromClient:(id)client;
+- (void)_handleAuthenticationFailureForRoute:(id)route withOptions:(unsigned int)options;
 - (void)_handleAuthorizationRequest:(id)request;
 - (void)_handleClearAllAVRoutePasswordsMessage:(id)message fromClient:(id)client;
 - (void)_handleClusterErrorStatus:(int)status forRoute:(id)route;
@@ -78,6 +80,7 @@
 - (void)_launchTVClusterSettings;
 - (void)_loadMostRecentlyPicked;
 - (void)_postExternalScreenDidChange;
+- (void)_postRouteStatusDidChangeNotificationForRoute:(id)route newStatus:(int)status;
 - (void)_presentPasswordDialogForRoute:(id)route withOptions:(unsigned int)options;
 - (void)_reevaluateAirplayActive;
 - (void)_registerNotifications;
@@ -488,6 +491,17 @@ LABEL_19:
   }
 
   return v4;
+}
+
+- (BOOL)setPickedRoute:(id)route withPassword:(id)password options:(unsigned int)options
+{
+  v5 = *&options;
+  passwordCopy = password;
+  routeCopy = route;
+  v10 = [[MRDAVRoute alloc] initWithDictionary:routeCopy];
+
+  LOBYTE(v5) = [(MRDAVRoutingServer *)self _setPickedRoute:v10 withPassword:passwordCopy options:v5];
+  return v5;
 }
 
 - (void)pickCachedRouteWithUID:(id)d
@@ -1514,9 +1528,7 @@ LABEL_16:
 - (void)_handleGetAirPlaySecuritySettingsMessage:(id)message fromClient:(id)client
 {
   messageCopy = message;
-  workerQueue = self->_workerQueue;
-  v8 = messageCopy;
-  v7 = messageCopy;
+  v4 = messageCopy;
   xpc_dictionary_handoff_reply();
 }
 
@@ -1524,10 +1536,8 @@ LABEL_16:
 {
   messageCopy = message;
   clientCopy = client;
-  workerQueue = self->_workerQueue;
-  v11 = clientCopy;
-  v9 = messageCopy;
-  v10 = clientCopy;
+  v6 = messageCopy;
+  v7 = clientCopy;
   xpc_dictionary_handoff_reply();
 }
 
@@ -1569,11 +1579,8 @@ LABEL_16:
 {
   messageCopy = message;
   clientCopy = client;
-  workerQueue = self->_workerQueue;
-  v11 = messageCopy;
-  v12 = clientCopy;
-  v9 = clientCopy;
-  v10 = messageCopy;
+  v5 = clientCopy;
+  v6 = messageCopy;
   xpc_dictionary_handoff_reply();
 }
 
@@ -1581,10 +1588,8 @@ LABEL_16:
 {
   messageCopy = message;
   clientCopy = client;
-  workerQueue = self->_workerQueue;
-  v11 = clientCopy;
-  v9 = messageCopy;
-  v10 = clientCopy;
+  v6 = messageCopy;
+  v7 = clientCopy;
   xpc_dictionary_handoff_reply();
 }
 
@@ -1592,10 +1597,8 @@ LABEL_16:
 {
   messageCopy = message;
   clientCopy = client;
-  workerQueue = self->_workerQueue;
-  v11 = clientCopy;
-  v9 = messageCopy;
-  v10 = clientCopy;
+  v6 = messageCopy;
+  v7 = clientCopy;
   xpc_dictionary_handoff_reply();
 }
 
@@ -1642,9 +1645,7 @@ LABEL_16:
 - (void)_handleGetAirplayStatus:(id)status fromClient:(id)client
 {
   statusCopy = status;
-  workerQueue = self->_workerQueue;
-  v8 = statusCopy;
-  v7 = statusCopy;
+  v4 = statusCopy;
   xpc_dictionary_handoff_reply();
 }
 
@@ -1662,9 +1663,7 @@ LABEL_16:
 - (void)_handleResetOutputContextMessage:(id)message fromClient:(id)client
 {
   messageCopy = message;
-  workerQueue = self->_workerQueue;
-  v8 = messageCopy;
-  v7 = messageCopy;
+  v4 = messageCopy;
   xpc_dictionary_handoff_reply();
 }
 
@@ -1690,11 +1689,8 @@ LABEL_16:
 {
   devicesCopy = devices;
   clientCopy = client;
-  workerQueue = self->_workerQueue;
-  v11 = devicesCopy;
-  v12 = clientCopy;
-  v9 = clientCopy;
-  v10 = devicesCopy;
+  v5 = clientCopy;
+  v6 = devicesCopy;
   xpc_dictionary_handoff_reply();
 }
 
@@ -1702,10 +1698,8 @@ LABEL_16:
 {
   sessionCopy = session;
   clientCopy = client;
-  workerQueue = self->_workerQueue;
-  v11 = clientCopy;
-  v9 = sessionCopy;
-  v10 = clientCopy;
+  v6 = sessionCopy;
+  v7 = clientCopy;
   xpc_dictionary_handoff_reply();
 }
 
@@ -1713,10 +1707,8 @@ LABEL_16:
 {
   sessionCopy = session;
   clientCopy = client;
-  workerQueue = self->_workerQueue;
-  v11 = clientCopy;
-  v9 = sessionCopy;
-  v10 = clientCopy;
+  v6 = sessionCopy;
+  v7 = clientCopy;
   xpc_dictionary_handoff_reply();
 }
 
@@ -1724,13 +1716,12 @@ LABEL_16:
 {
   sessionCopy = session;
   clientCopy = client;
-  v8 = MRCreatePlayerPathFromXPCMessage();
-  workerQueue = self->_workerQueue;
-  v13 = clientCopy;
-  v14 = sessionCopy;
-  v10 = sessionCopy;
-  v11 = v8;
-  v12 = clientCopy;
+  MRCreatePlayerPathFromXPCMessage();
+  v11 = v10 = clientCopy;
+  v12 = sessionCopy;
+  v7 = sessionCopy;
+  v8 = v11;
+  v9 = clientCopy;
   xpc_dictionary_handoff_reply();
 }
 
@@ -1750,18 +1741,14 @@ LABEL_16:
 - (void)_handleMigrateFromEndpointToOutputDevicesMessage:(id)message fromClient:(id)client
 {
   messageCopy = message;
-  workerQueue = self->_workerQueue;
-  v8 = messageCopy;
-  v7 = messageCopy;
+  v4 = messageCopy;
   xpc_dictionary_handoff_reply();
 }
 
 - (void)_handleMigrateFromEndpointToEndpointMessage:(id)message fromClient:(id)client
 {
   messageCopy = message;
-  workerQueue = self->_workerQueue;
-  v8 = messageCopy;
-  v7 = messageCopy;
+  v4 = messageCopy;
   xpc_dictionary_handoff_reply();
 }
 
@@ -1769,11 +1756,8 @@ LABEL_16:
 {
   devicesCopy = devices;
   clientCopy = client;
-  workerQueue = self->_workerQueue;
-  v11 = devicesCopy;
-  v12 = clientCopy;
-  v9 = clientCopy;
-  v10 = devicesCopy;
+  v5 = clientCopy;
+  v6 = devicesCopy;
   xpc_dictionary_handoff_reply();
 }
 
@@ -1781,11 +1765,8 @@ LABEL_16:
 {
   commandCopy = command;
   clientCopy = client;
-  workerQueue = self->_workerQueue;
-  v11 = commandCopy;
-  v12 = clientCopy;
-  v9 = clientCopy;
-  v10 = commandCopy;
+  v5 = clientCopy;
+  v6 = commandCopy;
   xpc_dictionary_handoff_reply();
 }
 
@@ -1793,11 +1774,8 @@ LABEL_16:
 {
   devicesCopy = devices;
   clientCopy = client;
-  workerQueue = self->_workerQueue;
-  v11 = devicesCopy;
-  v12 = clientCopy;
-  v9 = clientCopy;
-  v10 = devicesCopy;
+  v5 = clientCopy;
+  v6 = devicesCopy;
   xpc_dictionary_handoff_reply();
 }
 
@@ -1805,11 +1783,8 @@ LABEL_16:
 {
   leaderCopy = leader;
   clientCopy = client;
-  workerQueue = self->_workerQueue;
-  v11 = leaderCopy;
-  v12 = clientCopy;
-  v9 = clientCopy;
-  v10 = leaderCopy;
+  v5 = clientCopy;
+  v6 = leaderCopy;
   xpc_dictionary_handoff_reply();
 }
 
@@ -1860,18 +1835,14 @@ LABEL_16:
 - (void)_handleModifyOutputContextMessage:(id)message fromClient:(id)client
 {
   messageCopy = message;
-  workerQueue = self->_workerQueue;
-  v8 = messageCopy;
-  v7 = messageCopy;
+  v4 = messageCopy;
   xpc_dictionary_handoff_reply();
 }
 
 - (void)_handleWillStartPlayingInterruptMessage:(id)message fromClient:(id)client
 {
   messageCopy = message;
-  workerQueue = self->_workerQueue;
-  v8 = messageCopy;
-  v7 = messageCopy;
+  v4 = messageCopy;
   xpc_dictionary_handoff_reply();
 }
 
@@ -1947,9 +1918,7 @@ LABEL_16:
 - (void)_handleSearchEndpointsForOutputDeviceUIDsMessage:(id)message fromClient:(id)client
 {
   messageCopy = message;
-  workerQueue = self->_workerQueue;
-  v8 = messageCopy;
-  v7 = messageCopy;
+  v4 = messageCopy;
   xpc_dictionary_handoff_reply();
 }
 
@@ -2088,36 +2057,28 @@ LABEL_16:
 - (void)_handleSendCommandToEachEndpointContainingOutputDeviceUIDsMessage:(id)message fromClient:(id)client
 {
   messageCopy = message;
-  workerQueue = self->_workerQueue;
-  v8 = messageCopy;
-  v7 = messageCopy;
+  v4 = messageCopy;
   xpc_dictionary_handoff_reply();
 }
 
 - (void)_handleSendCommandToNewGroupContainingOutputDeviceUIDsMessage:(id)message fromClient:(id)client
 {
   messageCopy = message;
-  workerQueue = self->_workerQueue;
-  v8 = messageCopy;
-  v7 = messageCopy;
+  v4 = messageCopy;
   xpc_dictionary_handoff_reply();
 }
 
 - (void)_handleSearchEndpointsForRoutingContextUIDMessage:(id)message fromClient:(id)client
 {
   messageCopy = message;
-  workerQueue = self->_workerQueue;
-  v8 = messageCopy;
-  v7 = messageCopy;
+  v4 = messageCopy;
   xpc_dictionary_handoff_reply();
 }
 
 - (void)_handlePrepareGroupForPlaybackMessage:(id)message fromClient:(id)client
 {
   messageCopy = message;
-  workerQueue = self->_workerQueue;
-  v8 = messageCopy;
-  v7 = messageCopy;
+  v4 = messageCopy;
   xpc_dictionary_handoff_reply();
 }
 
@@ -2425,6 +2386,26 @@ LABEL_18:
   [(MRDAVRoutingServer *)self _postRouteStatusDidChangeNotificationForRoute:v7 newStatus:intValue];
 }
 
+- (void)_postRouteStatusDidChangeNotificationForRoute:(id)route newStatus:(int)status
+{
+  v4 = *&status;
+  routeCopy = route;
+  v11 = kMRMediaRemoteRouteStatusUserInfoKey;
+  v6 = [NSNumber numberWithInt:v4];
+  v12 = v6;
+  v7 = [NSDictionary dictionaryWithObjects:&v12 forKeys:&v11 count:1];
+  v8 = [v7 mutableCopy];
+
+  if (routeCopy)
+  {
+    dictionary = [routeCopy dictionary];
+    [v8 setObject:dictionary forKey:kMRMediaRemoteRouteDescriptionUserInfoKey];
+  }
+
+  v10 = +[MRDMediaRemoteServer server];
+  [v10 postClientNotificationNamed:kMRMediaRemoteRouteStatusDidChangeNotification userInfo:v8];
+}
+
 - (void)_handleAuthorizationRequest:(id)request
 {
   requestCopy = request;
@@ -2437,20 +2418,8 @@ LABEL_18:
   if (!v9)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    if ((objc_opt_isKindOfClass() & 1) == 0 || (v12 = self->_routingDataSource, v13 = route, [v13 avOutputDevice], v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "clusterID"), v15 = objc_claimAutoreleasedReturnValue(), -[MRDAVRoutingDataSource authorizationRequestCallbackForRouteID:](v12, "authorizationRequestCallbackForRouteID:", v15), v9 = objc_claimAutoreleasedReturnValue(), v13, v15, v14, !v9))
     {
-      goto LABEL_8;
-    }
-
-    v12 = self->_routingDataSource;
-    v13 = route;
-    avOutputDevice = [v13 avOutputDevice];
-    clusterID = [avOutputDevice clusterID];
-    v9 = [(MRDAVRoutingDataSource *)v12 authorizationRequestCallbackForRouteID:clusterID];
-
-    if (!v9)
-    {
-LABEL_8:
       activePasswordDialog = [(MRDAVRoutingServer *)self activePasswordDialog];
 
       uniqueIdentifier2 = [route uniqueIdentifier];
@@ -2730,102 +2699,101 @@ LABEL_20:
     lastClusterConnectionFailureDate = self->_lastClusterConnectionFailureDate;
     self->_lastClusterConnectionFailureDate = v13;
 
-    v42 = MRLocalizedString();
+    v41 = MRLocalizedString();
     if ((status - 7) <= 2)
     {
-      v15 = *(&off_1004BFB30 + (status - 7));
-      v16 = MRLocalizedString();
+      v15 = MRLocalizedString();
 
-      v42 = v16;
+      v41 = v15;
     }
 
     v11 = MRLocalizedString();
-    v17 = +[NSDate date];
-    v18 = +[NSUUID UUID];
-    uUIDString = [v18 UUIDString];
+    v16 = +[NSDate date];
+    v17 = +[NSUUID UUID];
+    uUIDString = [v17 UUIDString];
 
-    v20 = [[NSMutableString alloc] initWithFormat:@"%@<%@>", @"Dialog.handleClusterErrorStatus", uUIDString];
-    v21 = v20;
+    v19 = [[NSMutableString alloc] initWithFormat:@"%@<%@>", @"Dialog.handleClusterErrorStatus", uUIDString];
+    v20 = v19;
     if (routeCopy)
     {
-      [v20 appendFormat:@" for %@", routeCopy];
+      [v19 appendFormat:@" for %@", routeCopy];
     }
 
-    v22 = _MRLogForCategory();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v21 = _MRLogForCategory();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(buf) = 138543362;
-      *(&buf + 4) = v21;
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", &buf, 0xCu);
+      *(&buf + 4) = v20;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", &buf, 0xCu);
     }
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v65 = 0x3032000000;
-    v66 = sub_1000351DC;
-    v67 = sub_100035AA4;
-    v68 = 0;
-    v58 = 0;
-    v59 = &v58;
-    v60 = 0x3032000000;
-    v61 = sub_1000351DC;
-    v62 = sub_100035AA4;
-    v63 = 0;
-    v52[0] = _NSConcreteStackBlock;
-    v52[1] = 3221225472;
-    v52[2] = sub_100168D0C;
-    v52[3] = &unk_1004BF9C0;
-    v53 = routeCopy;
-    v23 = uUIDString;
-    v54 = v23;
-    v41 = v17;
-    v55 = v41;
-    v56 = &v58;
+    v64 = 0x3032000000;
+    v65 = sub_1000351DC;
+    v66 = sub_100035AA4;
+    v67 = 0;
+    v57 = 0;
+    v58 = &v57;
+    v59 = 0x3032000000;
+    v60 = sub_1000351DC;
+    v61 = sub_100035AA4;
+    v62 = 0;
+    v51[0] = _NSConcreteStackBlock;
+    v51[1] = 3221225472;
+    v51[2] = sub_100168D0C;
+    v51[3] = &unk_1004BF9C0;
+    v52 = routeCopy;
+    v22 = uUIDString;
+    v53 = v22;
+    v40 = v16;
+    v54 = v40;
+    v55 = &v57;
     p_buf = &buf;
-    v24 = objc_retainBlock(v52);
-    v25 = [MRBlockGuard alloc];
-    v50[0] = _NSConcreteStackBlock;
-    v50[1] = 3221225472;
-    v50[2] = sub_100168F88;
-    v50[3] = &unk_1004B6FE8;
-    v26 = v24;
-    v51 = v26;
-    v47[0] = _NSConcreteStackBlock;
-    v47[1] = 3221225472;
-    v47[2] = sub_100168F98;
-    v47[3] = &unk_1004B9BE0;
-    v27 = [v25 initWithTimeout:@"Cluster connect error" reason:v50 handler:300.0];
+    v23 = objc_retainBlock(v51);
+    v24 = [MRBlockGuard alloc];
+    v49[0] = _NSConcreteStackBlock;
+    v49[1] = 3221225472;
+    v49[2] = sub_100168F88;
+    v49[3] = &unk_1004B6FE8;
+    v25 = v23;
+    v50 = v25;
+    v46[0] = _NSConcreteStackBlock;
+    v46[1] = 3221225472;
+    v46[2] = sub_100168F98;
+    v46[3] = &unk_1004B9BE0;
+    v26 = [v24 initWithTimeout:@"Cluster connect error" reason:v49 handler:300.0];
+    v47 = v26;
+    v27 = v25;
     v48 = v27;
-    v28 = v26;
-    v49 = v28;
-    v29 = objc_retainBlock(v47);
-    v30 = +[NSNotificationCenter defaultCenter];
-    v31 = +[MRAVLocalEndpoint sharedLocalEndpoint];
-    v32 = MRAVEndpointDidAddOutputDeviceNotification;
-    v45[0] = _NSConcreteStackBlock;
-    v45[1] = 3221225472;
-    v45[2] = sub_100168FFC;
-    v45[3] = &unk_1004BB320;
-    v33 = v29;
-    v46 = v33;
-    v34 = [v30 addObserverForName:v32 object:v31 queue:0 usingBlock:v45];
-    v35 = *(*(&buf + 1) + 40);
-    *(*(&buf + 1) + 40) = v34;
+    v28 = objc_retainBlock(v46);
+    v29 = +[NSNotificationCenter defaultCenter];
+    v30 = +[MRAVLocalEndpoint sharedLocalEndpoint];
+    v31 = MRAVEndpointDidAddOutputDeviceNotification;
+    v44[0] = _NSConcreteStackBlock;
+    v44[1] = 3221225472;
+    v44[2] = sub_100168FFC;
+    v44[3] = &unk_1004BB320;
+    v32 = v28;
+    v45 = v32;
+    v33 = [v29 addObserverForName:v31 object:v30 queue:0 usingBlock:v44];
+    v34 = *(*(&buf + 1) + 40);
+    *(*(&buf + 1) + 40) = v33;
 
+    v35 = MRLocalizedString();
     v36 = MRLocalizedString();
-    v37 = MRLocalizedString();
-    v43[0] = _NSConcreteStackBlock;
-    v43[1] = 3221225472;
-    v43[2] = sub_100169010;
-    v43[3] = &unk_1004BF9E8;
-    v43[4] = self;
-    v38 = v33;
-    v44 = v38;
-    v39 = [(MRDAVRoutingServer *)self _presentDialogWithTitle:v42 message:v11 defaultButtonTitle:v36 alternateButtonTitle:v37 completion:v43];
-    v40 = v59[5];
-    v59[5] = v39;
+    v42[0] = _NSConcreteStackBlock;
+    v42[1] = 3221225472;
+    v42[2] = sub_100169010;
+    v42[3] = &unk_1004BF9E8;
+    v42[4] = self;
+    v37 = v32;
+    v43 = v37;
+    v38 = [(MRDAVRoutingServer *)self _presentDialogWithTitle:v41 message:v11 defaultButtonTitle:v35 alternateButtonTitle:v36 completion:v42];
+    v39 = v58[5];
+    v58[5] = v38;
 
-    _Block_object_dispose(&v58, 8);
+    _Block_object_dispose(&v57, 8);
     _Block_object_dispose(&buf, 8);
   }
 }
@@ -2978,6 +2946,19 @@ LABEL_20:
   [v18 presentWithCompletion:completionCopy];
 
   return v18;
+}
+
+- (void)_handleAuthenticationFailureForRoute:(id)route withOptions:(unsigned int)options
+{
+  v4 = *&options;
+  routeCopy = route;
+  name = [routeCopy name];
+  MSVKeychainSetKeychainValue();
+
+  if (!self->_activePasswordDialog)
+  {
+    [(MRDAVRoutingServer *)self _presentPasswordDialogForRoute:routeCopy withOptions:v4];
+  }
 }
 
 - (id)_existingKeychainAccountForOutputDevice:(id)device password:(id *)password
@@ -3211,43 +3192,44 @@ LABEL_10:
 {
   if (MRSupportsMediaControlReceiver())
   {
-    v12 = 0;
+    v13 = 0;
     if (sub_10016A440() && (v2 = sub_10016A440(), dlsym(v2, "APReceiverMediaRemoteXPCClient_CopyProperty")))
     {
-      v18 = 0;
-      v19 = &v18;
-      v20 = 0x2020000000;
+      v19 = 0;
+      v20 = &v19;
+      v21 = 0x2020000000;
       v3 = off_100529598;
-      v21 = off_100529598;
+      v22 = off_100529598;
       if (!off_100529598)
       {
-        v13 = _NSConcreteStackBlock;
-        v14 = 3221225472;
-        v15 = sub_10016B9A0;
-        v16 = &unk_1004B8728;
-        v17 = &v18;
+        v14 = _NSConcreteStackBlock;
+        v15 = 3221225472;
+        v16 = sub_10016B9A0;
+        v17 = &unk_1004B8728;
+        v18 = &v19;
         v4 = sub_10016A440();
-        v19[3] = dlsym(v4, "APReceiverMediaRemoteXPCClient_CopyProperty");
-        off_100529598 = *(v17[1] + 24);
-        v3 = v19[3];
+        v20[3] = dlsym(v4, "APReceiverMediaRemoteXPCClient_CopyProperty");
+        off_100529598 = *(v18[1] + 24);
+        v3 = v20[3];
       }
 
-      _Block_object_dispose(&v18, 8);
+      _Block_object_dispose(&v19, 8);
       if (!v3)
       {
-        v11 = sub_1003AA728();
-        _Block_object_dispose(&v18, 8);
-        _Unwind_Resume(v11);
+        sub_1003AA728();
+        v12 = v11;
+        _Block_object_dispose(&v19, 8);
+        _Unwind_Resume(v12);
       }
 
-      v5 = v3(@"AirPlaySecuritySetting", &v12);
+      v5 = v3(@"AirPlaySecuritySetting", &v13);
       v6 = v5;
-      if (v12 || !v5)
+      if (v13 || !v5)
       {
         v8 = _MRLogForCategory();
         if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
-          sub_1003AB690(&v12);
+          sub_1003AB690();
         }
 
         v7 = 0;

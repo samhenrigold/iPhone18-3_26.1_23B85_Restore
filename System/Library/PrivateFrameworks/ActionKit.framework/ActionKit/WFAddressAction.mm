@@ -6,7 +6,7 @@
 
 - (void)runWithInput:(id)input error:(id *)error
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   v6 = [(WFAddressAction *)self parameterValueForKey:@"WFAddressLine1" ofClass:objc_opt_class()];
   v7 = [(WFAddressAction *)self parameterValueForKey:@"WFAddressLine2" ofClass:objc_opt_class()];
   v8 = [(WFAddressAction *)self parameterValueForKey:@"WFCity" ofClass:objc_opt_class()];
@@ -43,19 +43,17 @@
 
   else
   {
-    v19 = *MEMORY[0x277D7CB30];
-    v20 = MEMORY[0x277CCA9B8];
-    v22[0] = *MEMORY[0x277CCA470];
-    v21 = WFLocalizedString(@"No Address");
-    v23[0] = v21;
-    v22[1] = *MEMORY[0x277CCA450];
-    v18 = WFLocalizedString(@"Please enter a valid address into the Street Address action.");
-    v23[1] = v18;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
-    *error = [v20 errorWithDomain:v19 code:5 userInfo:v17];
+    v18 = *MEMORY[0x277D7CB30];
+    v19 = MEMORY[0x277CCA9B8];
+    v21[0] = *MEMORY[0x277CCA470];
+    v20 = WFLocalizedString(@"No Address");
+    v22[0] = v20;
+    v21[1] = *MEMORY[0x277CCA450];
+    v17 = WFLocalizedString(@"Please enter a valid address into the Street Address action.");
+    v22[1] = v17;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
+    *error = [v19 errorWithDomain:v18 code:5 userInfo:v16];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

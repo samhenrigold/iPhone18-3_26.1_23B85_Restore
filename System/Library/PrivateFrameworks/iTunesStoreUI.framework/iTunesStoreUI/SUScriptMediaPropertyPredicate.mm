@@ -79,7 +79,7 @@ LABEL_14:
   return v7;
 }
 
-uint64_t __72__SUScriptMediaPropertyPredicate_initWithProperty_value_comparisonType___block_invoke(uint64_t a1)
+void *__72__SUScriptMediaPropertyPredicate_initWithProperty_value_comparisonType___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   if ([*(a1 + 40) isEqualToString:*MEMORY[0x1E696FBD8]])
@@ -139,7 +139,7 @@ uint64_t __72__SUScriptMediaPropertyPredicate_initWithProperty_value_comparisonT
   return v4;
 }
 
-uint64_t __48__SUScriptMediaPropertyPredicate_comparisonType__block_invoke(uint64_t a1)
+void *__48__SUScriptMediaPropertyPredicate_comparisonType__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(objc_msgSend(*(a1 + 32) "nativeObject")];
   if (result == 1)

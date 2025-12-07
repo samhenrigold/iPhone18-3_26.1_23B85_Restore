@@ -4,10 +4,10 @@
 - (id)showInSearchEnabled:(id)enabled;
 - (id)specifiers;
 - (id)suggestAppClipsEnabled:(id)enabled;
-- (uint64_t)specifiers;
 - (void)setLearnFromAppClipsEnabled:(id)enabled specifier:(id)specifier;
 - (void)setShowInSearchEnabled:(id)enabled specifier:(id)specifier;
 - (void)setSuggestAppClipsEnabled:(id)enabled specifier:(id)specifier;
+- (void)specifiers;
 - (void)viewDidLoad;
 @end
 
@@ -40,23 +40,23 @@
 
 - (id)specifiers
 {
-  v49[5] = *MEMORY[0x277D85DE8];
+  v48[5] = *MEMORY[0x277D85DE8];
   if (!self->_disabledSpotlightBundles)
   {
-    v45 = 0;
-    v46 = &v45;
-    v47 = 0x2020000000;
+    v44 = 0;
+    v45 = &v44;
+    v46 = 0x2020000000;
     v3 = getSPGetDisabledBundleSetSymbolLoc_ptr;
-    v48 = getSPGetDisabledBundleSetSymbolLoc_ptr;
+    v47 = getSPGetDisabledBundleSetSymbolLoc_ptr;
     if (!getSPGetDisabledBundleSetSymbolLoc_ptr)
     {
       v4 = SearchLibrary();
-      v46[3] = dlsym(v4, "SPGetDisabledBundleSet");
-      getSPGetDisabledBundleSetSymbolLoc_ptr = v46[3];
-      v3 = v46[3];
+      v45[3] = dlsym(v4, "SPGetDisabledBundleSet");
+      getSPGetDisabledBundleSetSymbolLoc_ptr = v45[3];
+      v3 = v45[3];
     }
 
-    _Block_object_dispose(&v45, 8);
+    _Block_object_dispose(&v44, 8);
     if (!v3)
     {
       goto LABEL_12;
@@ -69,20 +69,20 @@
 
   if (!self->_disabledSpotlightApps)
   {
-    v45 = 0;
-    v46 = &v45;
-    v47 = 0x2020000000;
+    v44 = 0;
+    v45 = &v44;
+    v46 = 0x2020000000;
     v7 = getSPGetDisabledAppSetSymbolLoc_ptr;
-    v48 = getSPGetDisabledAppSetSymbolLoc_ptr;
+    v47 = getSPGetDisabledAppSetSymbolLoc_ptr;
     if (!getSPGetDisabledAppSetSymbolLoc_ptr)
     {
       v8 = SearchLibrary();
-      v46[3] = dlsym(v8, "SPGetDisabledAppSet");
-      getSPGetDisabledAppSetSymbolLoc_ptr = v46[3];
-      v7 = v46[3];
+      v45[3] = dlsym(v8, "SPGetDisabledAppSet");
+      getSPGetDisabledAppSetSymbolLoc_ptr = v45[3];
+      v7 = v45[3];
     }
 
-    _Block_object_dispose(&v45, 8);
+    _Block_object_dispose(&v44, 8);
     if (v7)
     {
       v9 = v7(1);
@@ -140,12 +140,12 @@ LABEL_11:
 
   [v37 setProperty:MEMORY[0x277CBEC38] forKey:v22];
   [v37 setProperty:MEMORY[0x277CBEC38] forKey:v23];
-  v49[0] = v14;
-  v49[1] = v21;
-  v49[2] = v27;
-  v49[3] = v33;
-  v49[4] = v37;
-  v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:5];
+  v48[0] = v14;
+  v48[1] = v21;
+  v48[2] = v27;
+  v48[3] = v33;
+  v48[4] = v37;
+  v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:5];
   v39 = *MEMORY[0x277D3FC48];
   v40 = *(&self->super.super.super.super.super.isa + v39);
   *(&self->super.super.super.super.super.isa + v39) = v38;
@@ -153,7 +153,6 @@ LABEL_11:
   v41 = *(&self->super.super.super.super.super.isa + v39);
   v42 = v41;
 
-  v43 = *MEMORY[0x277D85DE8];
   return v41;
 }
 
@@ -186,7 +185,7 @@ LABEL_11:
 
 - (void)setShowInSearchEnabled:(id)enabled specifier:(id)specifier
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   bOOLValue = [enabled BOOLValue];
   disabledSpotlightBundles = self->_disabledSpotlightBundles;
   if (bOOLValue)
@@ -203,14 +202,13 @@ LABEL_11:
 
   CFPreferencesSetAppValue(@"SBSearchDisabledBundles", [(NSMutableSet *)self->_disabledSpotlightBundles allObjects], @"com.apple.spotlightui");
   CFPreferencesSetAppValue(@"SBSearchDisabledApps", [(NSMutableSet *)self->_disabledSpotlightApps allObjects], @"com.apple.spotlightui");
-  v9[0] = @"SBSearchDisabledBundles";
-  v9[1] = @"SBSearchDisabledApps";
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
+  v8[0] = @"SBSearchDisabledBundles";
+  v8[1] = @"SBSearchDisabledApps";
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
   [SpotlightSettingsUtilities updateSearchPreferencesModificationForKeys:v7];
 
   CFPreferencesSynchronize(@"com.apple.spotlightui", *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
   notify_post("com.apple.spotlightui.prefschanged");
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)showInSearchEnabled:(id)enabled
@@ -248,11 +246,11 @@ LABEL_11:
   return [v3 numberWithBool:bOOLValue];
 }
 
-- (uint64_t)specifiers
+- (void)specifiers
 {
-  dlerror();
-  v0 = abort_report_np();
-  return SpotlightSettingsInitLogging_cold_1(v0);
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  SpotlightSettingsInitLogging_cold_1();
 }
 
 @end

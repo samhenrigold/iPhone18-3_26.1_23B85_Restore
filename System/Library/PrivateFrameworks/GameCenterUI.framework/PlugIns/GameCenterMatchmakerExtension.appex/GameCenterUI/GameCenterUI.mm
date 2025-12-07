@@ -77,24 +77,23 @@ uint64_t sub_1000042A4(uint64_t result, int a2, int a3)
   return result;
 }
 
-void sub_1000042F8(uint64_t a1, unint64_t *a2)
+void sub_1000042F8(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
   }
 }
 
-uint64_t sub_100004344()
+void sub_100004344()
 {
-  v1 = sub_10000448C();
-  result = nullsub_2(v1);
-  *v0 = result;
-  return result;
+  sub_10000448C();
+  nullsub_2();
+  *v0 = v1;
 }
 
 uint64_t sub_10000436C@<X0>(uint64_t *a1@<X8>)
@@ -104,11 +103,11 @@ uint64_t sub_10000436C@<X0>(uint64_t *a1@<X8>)
   return result;
 }
 
-void sub_1000043A0(uint64_t a1@<X8>)
+void sub_1000043A0(uint64_t a2@<X8>)
 {
   sub_1000043D4();
-  *a1 = v2;
-  *(a1 + 8) = v3 & 1;
+  *a2 = v3;
+  *(a2 + 8) = v4 & 1;
 }
 
 uint64_t sub_1000043E8@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
@@ -120,16 +119,16 @@ uint64_t sub_1000043E8@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
 
 uint64_t sub_100004430()
 {
-  sub_10000448C();
-  result = sub_1000132C4();
+  v1 = sub_10000448C();
+  result = sub_1000132C4(v1);
   *v0 = result;
-  v0[1] = v2;
+  v0[1] = v3;
   return result;
 }
 
 char *sub_100004498(void *a1, char a2)
 {
-  v4 = objc_allocWithZone(type metadata accessor for SharePlayModeChiclet());
+  v4 = objc_allocWithZone(type metadata accessor for SharePlayModeChiclet(0));
   result = sub_1000044E4(a1);
   result[OBJC_IVAR____TtC29GameCenterMatchmakerExtension20SharePlayModeChiclet_isEligibleForGroupSession] = a2;
   return result;
@@ -155,11 +154,11 @@ char *sub_1000044E4(void *a1)
   *(v1 + OBJC_IVAR____TtC29GameCenterMatchmakerExtension20SharePlayModeChiclet_messagesGroupPhotoData) = xmmword_1000166F0;
   *(v1 + OBJC_IVAR____TtC29GameCenterMatchmakerExtension20SharePlayModeChiclet_startStagedActivity) = 0;
   v19 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension20SharePlayModeChiclet_imageLoadQueue;
-  sub_100005F5C(0, &qword_100028880);
+  sub_100005F5C(0, &qword_100028880, OS_dispatch_queue_ptr);
   sub_100014238();
-  sub_100005E68(&qword_100028888, &type metadata accessor for OS_dispatch_queue.Attributes);
-  sub_100005BC4(&qword_100028890);
-  sub_1000063E4(&qword_100028898, &qword_100028890);
+  sub_100005E68(&qword_100028888, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
+  sub_100005BC4(&qword_100028890, qword_1000167C8);
+  sub_1000063E4(&qword_100028898, &qword_100028890, qword_1000167C8);
   sub_100014448();
   (*(v2 + 104))(v5, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v20);
   *(v1 + v19) = sub_1000143D8();
@@ -212,16 +211,16 @@ uint64_t sub_10000495C(void *a1, char *a2)
 {
   v4 = sub_100014228();
   v5 = *(v4 - 8);
-  __chkstk_darwin();
+  __chkstk_darwin(v4);
   v7 = &v49 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v8 = sub_100014248();
   v53 = *(v8 - 8);
   v54 = v8;
-  __chkstk_darwin();
+  __chkstk_darwin(v8);
   v10 = &v49 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = sub_1000141F8();
   v12 = *(v11 - 8);
-  __chkstk_darwin();
+  __chkstk_darwin(v11);
   v14 = &v49 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (a1)
   {
@@ -229,14 +228,14 @@ uint64_t sub_10000495C(void *a1, char *a2)
     v52 = v4;
     v50 = a1;
     v15 = [v50 activeRemoteParticipants];
-    sub_100005F5C(0, &qword_100028848);
+    sub_100005F5C(0, &qword_100028848, TUConversationParticipant_ptr);
     sub_100005D64();
     v16 = sub_100014348();
 
     v17 = sub_100005014(v16);
 
     sub_1000142C8();
-    sub_100005BC4(&qword_100028858);
+    sub_100005BC4(&qword_100028858, &unk_1000167B0);
     v18 = swift_allocObject();
     v49 = xmmword_100016710;
     *(v18 + 16) = xmmword_100016710;
@@ -258,13 +257,13 @@ uint64_t sub_10000495C(void *a1, char *a2)
 
     v26 = &a2[OBJC_IVAR____TtC29GameCenterMatchmakerExtension22MultiplayerModeChiclet_subtitle];
     *v26 = v23;
-    v26[1] = v25;
+    *(v26 + 1) = v25;
 
     v27 = *&a2[OBJC_IVAR____TtC29GameCenterMatchmakerExtension22MultiplayerModeChiclet_primaryMetadata];
     if (v27)
     {
       v28 = *v26;
-      v29 = v26[1];
+      v29 = *(v26 + 1);
       v30 = v27;
 
       sub_100007900(0, 0xE000000000000000, 0, 0xE000000000000000, v28, v29);
@@ -285,9 +284,9 @@ uint64_t sub_10000495C(void *a1, char *a2)
     v35 = a2;
     sub_100014238();
     v55 = &_swiftEmptyArrayStorage;
-    sub_100005E68(&qword_100028868, &type metadata accessor for DispatchWorkItemFlags);
-    sub_100005BC4(&qword_100028870);
-    sub_1000063E4(&qword_100028878, &qword_100028870);
+    sub_100005E68(&qword_100028868, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+    sub_100005BC4(&qword_100028870, "hh");
+    sub_1000063E4(&qword_100028878, &qword_100028870, "hh");
     v36 = v52;
     sub_100014448();
     sub_1000143C8();
@@ -317,13 +316,13 @@ uint64_t sub_10000495C(void *a1, char *a2)
     v42 = sub_1000142C8();
     v43 = &a2[OBJC_IVAR____TtC29GameCenterMatchmakerExtension22MultiplayerModeChiclet_subtitle];
     *v43 = v42;
-    v43[1] = v44;
+    *(v43 + 1) = v44;
 
     v45 = *&a2[OBJC_IVAR____TtC29GameCenterMatchmakerExtension22MultiplayerModeChiclet_primaryMetadata];
     if (v45)
     {
       v46 = *v43;
-      v47 = v43[1];
+      v47 = *(v43 + 1);
       v48 = v45;
 
       sub_100007900(0, 0xE000000000000000, 0, 0xE000000000000000, v46, v47);
@@ -352,28 +351,28 @@ uint64_t sub_100005034(char *a1, void *a2)
 {
   v4 = sub_100014228();
   v45 = *(v4 - 8);
-  __chkstk_darwin();
+  __chkstk_darwin(v4);
   v6 = &v42 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = sub_100014248();
   v43 = *(v7 - 8);
   v44 = v7;
-  __chkstk_darwin();
+  __chkstk_darwin(v7);
   v9 = &v42 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = sub_100005EF8(a2);
   v11 = &a1[OBJC_IVAR____TtC29GameCenterMatchmakerExtension20SharePlayModeChiclet_messagesGroupPhotoData];
   v12 = *&a1[OBJC_IVAR____TtC29GameCenterMatchmakerExtension20SharePlayModeChiclet_messagesGroupPhotoData];
   v13 = *&a1[OBJC_IVAR____TtC29GameCenterMatchmakerExtension20SharePlayModeChiclet_messagesGroupPhotoData + 8];
   *v11 = v10;
-  v11[1] = v14;
+  *(v11 + 1) = v14;
   sub_100005C0C(v12, v13);
-  v15 = v11[1];
+  v15 = *(v11 + 1);
   if (v15 >> 60 != 15)
   {
     goto LABEL_13;
   }
 
   v16 = [a2 activeRemoteParticipants];
-  sub_100005F5C(0, &qword_100028848);
+  sub_100005F5C(0, &qword_100028848, TUConversationParticipant_ptr);
   sub_100005D64();
   v17 = sub_100014348();
 
@@ -418,15 +417,15 @@ uint64_t sub_100005034(char *a1, void *a2)
         }
 
         v31 = *v11;
-        v32 = v11[1];
+        v32 = *(v11 + 1);
         *v11 = v28;
-        v11[1] = v30;
+        *(v11 + 1) = v30;
         sub_100005C0C(v31, v32);
       }
     }
   }
 
-  v15 = v11[1];
+  v15 = *(v11 + 1);
   if (v15 >> 60 == 15)
   {
     v33 = 0;
@@ -442,7 +441,7 @@ LABEL_13:
     sub_100005C0C(v34, v15);
   }
 
-  sub_100005F5C(0, &qword_100028880);
+  sub_100005F5C(0, &qword_100028880, OS_dispatch_queue_ptr);
   v36 = sub_1000143B8();
   v37 = swift_allocObject();
   *(v37 + 16) = v33;
@@ -459,9 +458,9 @@ LABEL_13:
 
   sub_100014238();
   aBlock[0] = &_swiftEmptyArrayStorage;
-  sub_100005E68(&qword_100028868, &type metadata accessor for DispatchWorkItemFlags);
-  sub_100005BC4(&qword_100028870);
-  sub_1000063E4(&qword_100028878, &qword_100028870);
+  sub_100005E68(&qword_100028868, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+  sub_100005BC4(&qword_100028870, "hh");
+  sub_1000063E4(&qword_100028878, &qword_100028870, "hh");
   sub_100014448();
   sub_1000143C8();
   _Block_release(v38);
@@ -503,7 +502,7 @@ void sub_100005630(void *a1, uint64_t a2)
   {
     if (v2)
     {
-      sub_100005BC4(&qword_100028BC0);
+      sub_100005BC4(&qword_100028BC0, &qword_1000167C0);
       inited = swift_initStackObject();
       *(inited + 16) = xmmword_100016720;
       v5 = objc_allocWithZone(UIImageView);
@@ -595,11 +594,11 @@ void sub_100005910()
 id sub_100005964()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for SharePlayModeChiclet();
+  v2.super_class = type metadata accessor for SharePlayModeChiclet(0);
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
-uint64_t type metadata accessor for SharePlayModeChiclet()
+uint64_t type metadata accessor for SharePlayModeChiclet(uint64_t a1)
 {
   result = qword_100028828;
   if (!qword_100028828)
@@ -610,36 +609,36 @@ uint64_t type metadata accessor for SharePlayModeChiclet()
   return result;
 }
 
-void sub_100005A50()
+void sub_100005A50(uint64_t a1)
 {
-  sub_100005B04();
-  if (v0 <= 0x3F)
+  sub_100005B04(319);
+  if (v1 <= 0x3F)
   {
     swift_updateClassMetadata2();
   }
 }
 
-void sub_100005B04()
+void sub_100005B04(uint64_t a1)
 {
   if (!qword_100028838)
   {
     sub_100014168();
-    v0 = sub_100014418();
-    if (!v1)
+    v1 = sub_100014418();
+    if (!v2)
     {
-      atomic_store(v0, &qword_100028838);
+      atomic_store(v1, &qword_100028838);
     }
   }
 }
 
 uint64_t sub_100005B5C(uint64_t a1)
 {
-  v2 = sub_100005BC4(&qword_100028840);
+  v2 = sub_100005BC4(&qword_100028840, &qword_1000167A8);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
-uint64_t sub_100005BC4(uint64_t *a1)
+uint64_t sub_100005BC4(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -661,13 +660,13 @@ uint64_t sub_100005C0C(uint64_t a1, unint64_t a2)
   return a1;
 }
 
-uint64_t sub_100005C20(uint64_t a1, unint64_t a2)
+uint64_t sub_100005C20(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v2;
     }
   }
 }
@@ -692,9 +691,9 @@ uint64_t sub_100005CD0()
   return _swift_deallocClassInstance(v0, 32, 7);
 }
 
-uint64_t sub_100005D18(uint64_t a1)
+uint64_t sub_100005D18(void *a1)
 {
-  v1 = *(*(a1 + 24) - 8);
+  v1 = *(a1[3] - 8);
   if ((*(v1 + 82) & 2) != 0)
   {
   }
@@ -710,7 +709,7 @@ unint64_t sub_100005D64()
   result = qword_100028850;
   if (!qword_100028850)
   {
-    sub_100005F5C(255, &qword_100028848);
+    sub_100005F5C(255, &qword_100028848, TUConversationParticipant_ptr);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_100028850);
   }
@@ -736,7 +735,7 @@ uint64_t sub_100005E20()
   return _swift_deallocObject(v0, 32, 7);
 }
 
-uint64_t sub_100005E68(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_100005E68(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -749,7 +748,7 @@ uint64_t sub_100005E68(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-uint64_t sub_100005EB0(uint64_t *a1)
+uint64_t sub_100005EB0(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -775,7 +774,7 @@ uint64_t sub_100005EF8(void *a1)
   return v3;
 }
 
-uint64_t sub_100005F5C(uint64_t a1, unint64_t *a2)
+uint64_t sub_100005F5C(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
@@ -796,13 +795,13 @@ id sub_100005FA4(uint64_t a1, uint64_t a2, void *a3)
   return v5;
 }
 
-uint64_t sub_100005FF4(uint64_t a1, unint64_t a2)
+uint64_t sub_100005FF4(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v2;
     }
   }
 }
@@ -847,7 +846,7 @@ uint64_t sub_10000611C(uint64_t a1)
   }
 }
 
-void sub_100006170(uint64_t a1, int a2, char a3, uint64_t a4)
+void sub_100006170(uint64_t a1, uint64_t a2, char a3, uint64_t a4)
 {
   v6 = a1;
   if ((a4 & 0xC000000000000001) != 0)
@@ -855,7 +854,7 @@ void sub_100006170(uint64_t a1, int a2, char a3, uint64_t a4)
     if (a3)
     {
       sub_1000144B8();
-      sub_100005F5C(0, &qword_100028848);
+      sub_100005F5C(0, &qword_100028848, TUConversationParticipant_ptr);
       swift_dynamicCast();
       return;
     }
@@ -865,7 +864,7 @@ void sub_100006170(uint64_t a1, int a2, char a3, uint64_t a4)
 
   if (a3)
   {
-    sub_100005F5C(0, &qword_100028848);
+    sub_100005F5C(0, &qword_100028848, TUConversationParticipant_ptr);
     if (sub_100014488() == *(a4 + 36))
     {
       sub_100014498();
@@ -956,21 +955,21 @@ LABEL_8:
   return static __CocoaSet.Index.== infix(_:_:)(a1, a2, a3, a4);
 }
 
-uint64_t sub_1000063B0(uint64_t a1, uint64_t a2, char a3)
+uint64_t sub_1000063B0(uint64_t result, uint64_t a2, char a3)
 {
   if (a3)
   {
   }
 
-  return result;
+  return v3;
 }
 
-uint64_t sub_1000063E4(unint64_t *a1, uint64_t *a2)
+uint64_t sub_1000063E4(unint64_t *a1, uint64_t *a2, uint64_t *a3)
 {
   result = *a1;
   if (!result)
   {
-    sub_100005EB0(a2);
+    sub_100005EB0(a2, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -990,19 +989,19 @@ void sub_10000645C(id a1, char a2, uint64_t a3)
   [v7 pushViewController:a1 animated:a2 & 1];
 }
 
-uint64_t View.GKFocusable(_:)()
+uint64_t View.GKFocusable(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = sub_100014208();
-  v1 = *(v0 - 8);
-  __chkstk_darwin(v0);
-  v3 = v5 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5[1] = &_swiftEmptyArrayStorage;
+  v3 = sub_100014208();
+  v4 = *(v3 - 8);
+  __chkstk_darwin(v3);
+  v6 = v8 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8[1] = &_swiftEmptyArrayStorage;
   sub_100006640();
-  sub_100005BC4(&qword_1000288A8);
+  sub_100005BC4(&qword_1000288A8, qword_1000167E0);
   sub_100006698();
   sub_100014448();
   sub_100014218();
-  return (*(v1 + 8))(v3, v0);
+  return (*(v4 + 8))(v6, v3);
 }
 
 unint64_t sub_100006640()
@@ -1023,7 +1022,7 @@ unint64_t sub_100006698()
   result = qword_1000288B0;
   if (!qword_1000288B0)
   {
-    sub_100005EB0(&qword_1000288A8);
+    sub_100005EB0(&qword_1000288A8, qword_1000167E0);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1000288B0);
   }
@@ -1321,7 +1320,7 @@ LABEL_31:
   sub_10000879C();
   v6 = sub_100014318();
 
-  v7 = sub_100013BB8(v6);
+  v7 = sub_100013BB8();
   for (i = 0; v7 != i; ++i)
   {
     if ((v6 & 0xC000000000000001) != 0)
@@ -1370,7 +1369,7 @@ LABEL_29:
     [v10 removeFromSuperview];
   }
 
-  v13 = sub_100013BB8(a1);
+  v13 = sub_100013BB8();
   for (j = 0; v13 != j; ++j)
   {
     if ((a1 & 0xC000000000000001) != 0)
@@ -1655,7 +1654,7 @@ LABEL_9:
                           sub_1000088EC();
                           v42 = sub_100014318();
 
-                          v43 = sub_100013BB8(v42);
+                          v43 = sub_100013BB8();
                           for (i = 0; v43 != i; ++i)
                           {
                             if ((v42 & 0xC000000000000001) != 0)
@@ -1714,7 +1713,7 @@ LABEL_62:
                           v51 = [v49 arrangedSubviews];
 
                           v52 = sub_100014318();
-                          v53 = sub_100013BB8(v52);
+                          v53 = sub_100013BB8();
                           for (j = 0; v53 != j; ++j)
                           {
                             if ((v52 & 0xC000000000000001) != 0)
@@ -2012,7 +2011,7 @@ LABEL_38:
   [v25 setAccessibilityLabel:v29];
 }
 
-uint64_t sub_1000083CC()
+uint64_t sub_1000083CC(void *a1)
 {
   result = swift_unknownObjectWeakLoadStrong();
   if (!result)
@@ -2141,7 +2140,7 @@ id sub_10000891C()
 id sub_100008938(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
 
-  return objc_msgSendSuper2(&a9, a2, v13, v12, v11, v10);
+  return objc_msgSendSuper2(&a9, a2, a3, a4, a5, a6, a7, a8, v13, v12, v11, v10);
 }
 
 char *sub_100008970(void *a1)
@@ -2220,7 +2219,7 @@ void sub_100008C28(double a1)
   v2 = v1;
   v4 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension23BasicChicletCoordinator_metadataViews;
   swift_beginAccess();
-  if (sub_100013BB8(*(v1 + v4)) < 1)
+  if (sub_100013BB8() < 1)
   {
     v11 = *(v1 + OBJC_IVAR____TtC29GameCenterMatchmakerExtension23BasicChicletCoordinator_chiclet);
     if (!v11)
@@ -2259,7 +2258,7 @@ LABEL_22:
     goto LABEL_16;
   }
 
-  if (sub_100013BB8(*(v2 + v4)) < 2)
+  if (sub_100013BB8() < 2)
   {
     goto LABEL_18;
   }
@@ -2273,7 +2272,7 @@ LABEL_22:
   }
 
   *(v2 + v5) = v7;
-  if (v7 >= sub_100013BB8(*(v2 + v4)))
+  if (v7 >= sub_100013BB8())
   {
     *(v2 + v5) = 0;
   }
@@ -2314,7 +2313,7 @@ uint64_t sub_100008E38()
   swift_beginAccess();
   v12 = v0;
   v2 = *(v0 + v1);
-  result = sub_100013BB8(v2);
+  result = sub_100013BB8();
   if (!result)
   {
 LABEL_13:
@@ -2378,10 +2377,10 @@ void sub_100008FEC()
 
     if (*(v6 + 16))
     {
-      sub_10000BFE8(v6 + 32, v7);
+      sub_10000BFE8(v6 + 32, v9);
 
-      type metadata accessor for ChicletMetadata();
-      sub_10000C4BC();
+      v7 = type metadata accessor for ChicletMetadata();
+      sub_10000C4BC(v7, v8);
     }
 
     else
@@ -2416,16 +2415,16 @@ id sub_100009168(void *a1)
   return v3;
 }
 
-uint64_t sub_100009234()
+uint64_t sub_100009234(uint64_t a1)
 {
   result = GKIsXRUIIdiomShouldUsePadUI();
-  v1 = 14.0;
+  v2 = 14.0;
   if (result)
   {
-    v1 = 16.0;
+    v2 = 16.0;
   }
 
-  qword_100028F38 = *&v1;
+  qword_100028F38 = *&v2;
   return result;
 }
 
@@ -2473,7 +2472,7 @@ LABEL_17:
   [v4 v5];
 
   v6 = [objc_allocWithZone(UIVisualEffectView) init];
-  sub_100005F5C(0, &qword_100028D50);
+  sub_100005F5C(0, &qword_100028D50, UIVisualEffect_ptr);
   isa = sub_100014308().super.isa;
   v8 = sub_10000C478();
   [v8 v9];
@@ -2740,10 +2739,10 @@ LABEL_31:
   v7 = [v6 contentView];
   v8 = [v7 subviews];
 
-  sub_100005F5C(0, &qword_100028950);
+  sub_100005F5C(0, &qword_100028950, UIView_ptr);
   v9 = sub_100014318();
 
-  v10 = sub_100013BB8(v9);
+  v10 = sub_100013BB8();
   for (i = 0; v10 != i; ++i)
   {
     if ((v9 & 0xC000000000000001) != 0)
@@ -2918,10 +2917,10 @@ uint64_t sub_10000A3C4()
   v1 = result;
   v2 = [result subviews];
 
-  sub_100005F5C(0, &qword_100028950);
+  sub_100005F5C(0, &qword_100028950, UIView_ptr);
   v3 = sub_100014318();
 
-  result = sub_100013BB8(v3);
+  result = sub_100013BB8();
   if (result)
   {
     v4 = result;
@@ -2969,7 +2968,7 @@ id sub_10000A4CC(void *a1, double a2)
   return [v6 accessibilityPresentMetadata];
 }
 
-void sub_10000A56C(double a1, uint64_t a2, uint64_t a3, void *a4)
+void sub_10000A56C(uint64_t a1, uint64_t a2, void *a3, double a4)
 {
   Strong = swift_unknownObjectWeakLoadStrong();
   if (!Strong)
@@ -2979,10 +2978,10 @@ void sub_10000A56C(double a1, uint64_t a2, uint64_t a3, void *a4)
   }
 
   v7 = Strong;
-  [Strong addSubview:a4];
+  [Strong addSubview:a3];
 
-  [a4 setTranslatesAutoresizingMaskIntoConstraints:0];
-  v8 = [a4 topAnchor];
+  [a3 setTranslatesAutoresizingMaskIntoConstraints:0];
+  v8 = [a3 topAnchor];
   v9 = swift_unknownObjectWeakLoadStrong();
   if (!v9)
   {
@@ -2997,7 +2996,7 @@ LABEL_8:
   v12 = [v8 constraintLessThanOrEqualToAnchor:v11];
   [v12 setActive:1];
 
-  v13 = [a4 bottomAnchor];
+  v13 = [a3 bottomAnchor];
   v14 = swift_unknownObjectWeakLoadStrong();
   if (!v14)
   {
@@ -3012,7 +3011,7 @@ LABEL_9:
   v17 = [v13 constraintEqualToAnchor:v16];
   [v17 setActive:1];
 
-  v18 = [a4 leftAnchor];
+  v18 = [a3 leftAnchor];
   v19 = swift_unknownObjectWeakLoadStrong();
   if (!v19)
   {
@@ -3027,7 +3026,7 @@ LABEL_10:
   v22 = [v18 constraintEqualToAnchor:v21];
   [v22 setActive:1];
 
-  v23 = [a4 rightAnchor];
+  v23 = [a3 rightAnchor];
   v24 = swift_unknownObjectWeakLoadStrong();
   if (v24)
   {
@@ -3037,7 +3036,7 @@ LABEL_10:
     v27 = [v23 constraintEqualToAnchor:v26];
     [v27 setActive:1];
 
-    sub_10000AD24(a4, 1, nullsub_2, 0, a1);
+    sub_10000AD24(a3, 1, nullsub_2, 0, a4);
     return;
   }
 
@@ -3047,28 +3046,28 @@ LABEL_11:
 
 void *sub_10000A830(uint64_t a1, uint64_t a2, double a3)
 {
-  v46 = a1;
-  v47 = a2;
+  v45 = a1;
+  v46 = a2;
   sub_100014228();
   sub_10000C420();
-  v44 = v5;
-  v45 = v4;
-  (__chkstk_darwin)();
-  v7 = &v40 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v43 = v5;
+  v44 = v4;
+  __chkstk_darwin(v4);
+  v7 = &v39 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_100014248();
   sub_10000C420();
-  v42 = v9;
-  v43 = v8;
-  (__chkstk_darwin)();
-  v11 = &v40 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v41 = v9;
+  v42 = v8;
+  __chkstk_darwin(v8);
+  v11 = &v39 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_100014268();
   sub_10000C420();
-  v40 = v13;
-  v41 = v12;
-  v14 = (__chkstk_darwin)();
-  v16 = &v40 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v39 = v13;
+  v40 = v12;
+  v14 = __chkstk_darwin(v12);
+  v16 = &v39 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v14);
-  v18 = &v40 - v17;
+  v18 = &v39 - v17;
   result = swift_unknownObjectWeakLoadStrong();
   if (!result)
   {
@@ -3081,46 +3080,46 @@ LABEL_12:
   v20 = result;
   v21 = [result subviews];
 
-  sub_100005F5C(0, &qword_100028950);
-  v22 = sub_100014318();
+  sub_100005F5C(0, &qword_100028950, UIView_ptr);
+  sub_100014318();
 
-  v23 = sub_100013BB8(v22);
+  v22 = sub_100013BB8();
 
-  if (v23 < 1)
+  if (v22 < 1)
   {
-    sub_100005F5C(0, &qword_100028880);
-    v33 = sub_1000143B8();
+    sub_100005F5C(0, &qword_100028880, OS_dispatch_queue_ptr);
+    v32 = sub_1000143B8();
     sub_100014258();
     sub_100014278();
-    v34 = v41;
-    v40 = *(v40 + 8);
-    (v40)(v16, v41);
-    v35 = swift_allocObject();
-    v36 = v47;
-    *(v35 + 16) = v46;
-    *(v35 + 24) = v36;
+    v33 = v40;
+    v39 = *(v39 + 8);
+    (v39)(v16, v40);
+    v34 = swift_allocObject();
+    v35 = v46;
+    *(v34 + 16) = v45;
+    *(v34 + 24) = v35;
     aBlock[4] = sub_10000C100;
-    aBlock[5] = v35;
+    aBlock[5] = v34;
     aBlock[0] = _NSConcreteStackBlock;
     aBlock[1] = 1107296256;
     sub_10000C3CC();
-    aBlock[2] = v37;
+    aBlock[2] = v36;
     aBlock[3] = &unk_100020D30;
-    v38 = _Block_copy(aBlock);
+    v37 = _Block_copy(aBlock);
 
     sub_100014238();
     aBlock[0] = &_swiftEmptyArrayStorage;
     sub_10000C12C();
-    sub_100005BC4(&qword_100028870);
+    sub_100005BC4(&qword_100028870, "hh");
     sub_10000C184();
-    v39 = v45;
+    v38 = v44;
     sub_100014448();
     sub_100014398();
-    _Block_release(v38);
+    _Block_release(v37);
 
-    (*(v44 + 8))(v7, v39);
-    (*(v42 + 8))(v11, v43);
-    return (v40)(v18, v34);
+    (*(v43 + 8))(v7, v38);
+    (*(v41 + 8))(v11, v42);
+    return (v39)(v18, v33);
   }
 
   result = swift_unknownObjectWeakLoadStrong();
@@ -3129,33 +3128,33 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  v24 = result;
-  v25 = [result subviews];
+  v23 = result;
+  v24 = [result subviews];
 
-  v26 = sub_100014318();
-  sub_100013BCC(0, (v26 & 0xC000000000000001) == 0, v26);
-  if ((v26 & 0xC000000000000001) != 0)
+  v25 = sub_100014318();
+  sub_100013BCC(0, (v25 & 0xC000000000000001) == 0, v25);
+  if ((v25 & 0xC000000000000001) != 0)
   {
-    v27 = sub_1000144F8();
+    v26 = sub_1000144F8();
   }
 
   else
   {
-    v27 = *(v26 + 32);
+    v26 = *(v25 + 32);
   }
 
-  v28 = v27;
-  v30 = v46;
-  v29 = v47;
+  v27 = v26;
+  v29 = v45;
+  v28 = v46;
 
   sub_10000C4F8();
-  v31 = swift_allocObject();
-  v31[2] = v28;
-  v31[3] = v30;
-  v31[4] = v29;
-  v32 = v28;
+  v30 = swift_allocObject();
+  v30[2] = v27;
+  v30[3] = v29;
+  v30[4] = v28;
+  v31 = v27;
 
-  sub_10000AD24(v32, 0, sub_10000C224, v31, a3);
+  sub_10000AD24(v31, 0, sub_10000C224, v30, a3);
 }
 
 void sub_10000AD24(id a1, char a2, uint64_t a3, uint64_t a4, double a5)
@@ -3234,11 +3233,13 @@ void sub_10000AF60(void *a1, char a2)
   [v8 setAffineTransform:&v12];
 }
 
-uint64_t sub_10000B044(uint64_t a1, uint64_t a2)
+double sub_10000B044(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 32);
 
   v3(a2);
+
+  return result;
 }
 
 void sub_10000B098(uint64_t a1, uint64_t a2)
@@ -3287,7 +3288,7 @@ void sub_10000B16C(char *a1)
     v6 = *&a1[OBJC_IVAR____TtC29GameCenterMatchmakerExtension11ChicletCell_visualEffectView];
     if (v6)
     {
-      sub_100005F5C(0, &qword_100028D50);
+      sub_100005F5C(0, &qword_100028D50, UIVisualEffect_ptr);
       v7 = v6;
       isa = sub_100014308().super.isa;
 
@@ -3304,7 +3305,7 @@ void sub_10000B16C(char *a1)
     v9 = *&a1[OBJC_IVAR____TtC29GameCenterMatchmakerExtension11ChicletCell_visualEffectView];
     if (v9)
     {
-      sub_100005F5C(0, &qword_100028D50);
+      sub_100005F5C(0, &qword_100028D50, UIVisualEffect_ptr);
       v10 = v9;
       v11 = sub_100014308().super.isa;
       [v10 setBackgroundEffects:v11];
@@ -3364,7 +3365,7 @@ id sub_10000B6A8()
   sub_100008904();
   v1 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension11ChicletCell_customBackgroundBlur;
   v2 = [objc_opt_self() _gkGameLayerModuleVisualEffect];
-  sub_100005F5C(0, &qword_100028D50);
+  sub_100005F5C(0, &qword_100028D50, UIVisualEffect_ptr);
   v3 = sub_100014318();
 
   *&v0[v1] = v3;
@@ -3386,7 +3387,7 @@ id sub_10000B7FC(void *a1)
   sub_100008904();
   v3 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension11ChicletCell_customBackgroundBlur;
   v4 = [objc_opt_self() _gkGameLayerModuleVisualEffect];
-  sub_100005F5C(0, &qword_100028D50);
+  sub_100005F5C(0, &qword_100028D50, UIVisualEffect_ptr);
   v5 = sub_100014318();
 
   *&v1[v3] = v5;
@@ -3416,7 +3417,7 @@ uint64_t sub_10000B970()
   swift_unknownObjectWeakDestroy();
 }
 
-void sub_10000BB20(void *a1)
+void sub_10000BB20(char *a1)
 {
   swift_unknownObjectWeakAssign();
   *(v1 + OBJC_IVAR____TtC29GameCenterMatchmakerExtension23BasicChicletCoordinator_currentMetadataIndex) = -1;
@@ -3445,10 +3446,10 @@ void sub_10000BB98()
 
     if (*(v8 + 16))
     {
-      sub_10000BFE8(v8 + 32, v9);
+      sub_10000BFE8(v8 + 32, v11);
 
-      type metadata accessor for ChicletMetadata();
-      sub_10000C4BC();
+      v9 = type metadata accessor for ChicletMetadata();
+      sub_10000C4BC(v9, v10);
     }
 
     else
@@ -3548,7 +3549,7 @@ unint64_t sub_10000C184()
   result = qword_100028878;
   if (!qword_100028878)
   {
-    sub_100005EB0(&qword_100028870);
+    sub_100005EB0(&qword_100028870, "hh");
     result = swift_getWitnessTable();
     atomic_store(result, &qword_100028878);
   }
@@ -3626,7 +3627,7 @@ id sub_10000C4A0()
   return [v0 v4];
 }
 
-uint64_t sub_10000C4BC()
+uint64_t sub_10000C4BC(uint64_t a1, uint64_t a2, ...)
 {
 
   return swift_dynamicCast();
@@ -3810,18 +3811,18 @@ LABEL_16:
 
 void sub_10000C8B8(void *a1, char a2, uint64_t a3, char a4, void (*a5)(uint64_t), uint64_t a6)
 {
-  v36 = a6;
-  v37 = a5;
+  v37 = a6;
+  v38 = a5;
   v10 = sub_100014228();
   sub_10000C420();
-  v35 = v11;
+  v36 = v11;
   __chkstk_darwin(v12);
-  v14 = &v34 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = &v35 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   v15 = sub_100014248();
   sub_10000C420();
   v17 = v16;
   __chkstk_darwin(v18);
-  v20 = &v34 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v20 = &v35 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
   v21 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension42MultiplayerModeSelectionChicletCoordinator_multiplayerViewController;
   v22 = *(v6 + OBJC_IVAR____TtC29GameCenterMatchmakerExtension42MultiplayerModeSelectionChicletCoordinator_multiplayerViewController);
   if (!v22)
@@ -3860,7 +3861,7 @@ LABEL_14:
 
   else
   {
-    sub_100005F5C(0, &qword_100028880);
+    sub_100005F5C(0, &qword_100028880, OS_dispatch_queue_ptr);
     v27 = sub_1000143B8();
     v28 = swift_allocObject();
     *(v28 + 16) = a1;
@@ -3879,23 +3880,24 @@ LABEL_14:
     sub_100014238();
     aBlock[0] = &_swiftEmptyArrayStorage;
     sub_10000C12C();
-    sub_100005BC4(&qword_100028870);
+    sub_100005BC4(&qword_100028870, "hh");
     sub_10000C184();
     sub_100014448();
     sub_1000143C8();
     _Block_release(v29);
 
-    (*(v35 + 8))(v14, v10);
+    (*(v36 + 8))(v14, v10);
     (*(v17 + 8))(v20, v15);
   }
 
-  v32 = v37;
-  if (v37)
+  v32 = v38;
+  if (v38)
   {
+    v33 = v37;
 
-    v32(v33);
+    v32(v34);
 
-    sub_10000D204(v32);
+    sub_10000D204(v32, v33);
   }
 
   else
@@ -3903,7 +3905,7 @@ LABEL_14:
   }
 }
 
-void sub_10000CC2C(void *a1)
+void sub_10000CC2C(char *a1)
 {
   sub_10000BB20(a1);
   v2 = sub_10000CD30();
@@ -3954,7 +3956,7 @@ id sub_10000CDA0(uint64_t a1)
   v5 = objc_opt_self();
   v6 = [v5 configurationWithHierarchicalColor:v4];
 
-  sub_100005F5C(0, &qword_100028B10);
+  sub_100005F5C(0, &qword_100028B10, UIImage_ptr);
   v7 = v6;
   v8 = sub_10000C51C(v2, v1, v6);
   if (!GKIsXRUIIdiom())
@@ -4035,9 +4037,9 @@ uint64_t sub_10000D1EC(uint64_t a1, uint64_t a2)
   *(a1 + 40) = v2;
 }
 
-uint64_t sub_10000D204(uint64_t result)
+double sub_10000D204(uint64_t a1, uint64_t a2)
 {
-  if (result)
+  if (a1)
   {
   }
 
@@ -4181,18 +4183,18 @@ id MultiplayerModeSelectionShimViewController.__deallocating_deinit()
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
-uint64_t MultiplayerModeSelectionViewController.skipModeSelection.getter()
+uint64_t MultiplayerModeSelectionViewController.skipModeSelection.getter(uint64_t a1)
 {
-  v1 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_skipModeSelection;
-  sub_100013C20();
-  return *(v0 + v1);
+  v2 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_skipModeSelection;
+  sub_100013C20(a1);
+  return *(v1 + v2);
 }
 
-uint64_t MultiplayerModeSelectionViewController.skipModeSelection.setter(char a1)
+uint64_t MultiplayerModeSelectionViewController.skipModeSelection.setter(char a1, uint64_t a2)
 {
-  v3 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_skipModeSelection;
-  result = sub_100013E70();
-  *(v1 + v3) = a1;
+  v4 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_skipModeSelection;
+  result = sub_100013E70(v2 + OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_skipModeSelection, a2);
+  *(v2 + v4) = a1;
   return result;
 }
 
@@ -4206,20 +4208,20 @@ void *sub_10000D7A0(size_t a1)
   return malloc(a1);
 }
 
-uint64_t MultiplayerModeSelectionViewController.originalMatchmakingMode.getter()
+uint64_t MultiplayerModeSelectionViewController.originalMatchmakingMode.getter(uint64_t a1)
 {
-  v1 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_originalMatchmakingMode;
-  sub_100013C20();
-  return *(v0 + v1);
+  v2 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_originalMatchmakingMode;
+  sub_100013C20(a1);
+  return *(v1 + v2);
 }
 
-void MultiplayerModeSelectionViewController.originalMatchmakingMode.setter(uint64_t a1)
+void MultiplayerModeSelectionViewController.originalMatchmakingMode.setter(uint64_t a1, uint64_t a2)
 {
-  v3 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_originalMatchmakingMode;
-  sub_100013E70();
-  v4 = *(v1 + v3);
-  *(v1 + v3) = a1;
-  sub_10000D8CC(v4);
+  v4 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_originalMatchmakingMode;
+  sub_100013E70(v2 + OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_originalMatchmakingMode, a2);
+  v5 = *(v2 + v4);
+  *(v2 + v4) = a1;
+  sub_10000D8CC(v5);
 }
 
 void sub_10000D8CC(uint64_t a1)
@@ -4257,30 +4259,30 @@ void sub_10000D8CC(uint64_t a1)
   }
 }
 
-void (*MultiplayerModeSelectionViewController.originalMatchmakingMode.modify(void *a1))(uint64_t a1)
+void (*MultiplayerModeSelectionViewController.originalMatchmakingMode.modify(void *a1))(uint64_t a1, uint64_t a2)
 {
   v3 = sub_10000D7A0(0x28uLL);
   *a1 = v3;
   v3[4] = v1;
   v4 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_originalMatchmakingMode;
-  sub_100013D50();
+  sub_100013D50(v1 + OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_originalMatchmakingMode, v3);
   v3[3] = *(v1 + v4);
   return sub_10000DAE8;
 }
 
-void sub_10000DAE8(uint64_t a1)
+void sub_10000DAE8(uint64_t a1, uint64_t a2)
 {
-  v1 = *a1;
-  MultiplayerModeSelectionViewController.originalMatchmakingMode.setter(*(*a1 + 24));
+  v2 = *a1;
+  MultiplayerModeSelectionViewController.originalMatchmakingMode.setter(*(*a1 + 24), a2);
 
-  free(v1);
+  free(v2);
 }
 
-uint64_t MultiplayerModeSelectionViewController.isEligibleForGroupSession.getter()
+uint64_t MultiplayerModeSelectionViewController.isEligibleForGroupSession.getter(uint64_t a1)
 {
-  v1 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_isEligibleForGroupSession;
-  sub_100013C20();
-  return *(v0 + v1);
+  v2 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_isEligibleForGroupSession;
+  sub_100013C20(a1);
+  return *(v1 + v2);
 }
 
 void (*MultiplayerModeSelectionViewController.isEligibleForGroupSession.modify(void *a1))(uint64_t a1, uint64_t a2)
@@ -4289,22 +4291,22 @@ void (*MultiplayerModeSelectionViewController.isEligibleForGroupSession.modify(v
   *a1 = v3;
   v3[3] = v1;
   v4 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_isEligibleForGroupSession;
-  sub_100013D50();
+  sub_100013D50(v1 + OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_isEligibleForGroupSession, v3);
   *(v3 + 32) = *(v1 + v4);
   return sub_10000DC58;
 }
 
-uint64_t MultiplayerModeSelectionViewController.isEntitledToUseGroupActivities.getter()
+uint64_t MultiplayerModeSelectionViewController.isEntitledToUseGroupActivities.getter(uint64_t a1)
 {
-  v1 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_isEntitledToUseGroupActivities;
-  sub_100013C20();
-  return *(v0 + v1);
+  v2 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_isEntitledToUseGroupActivities;
+  sub_100013C20(a1);
+  return *(v1 + v2);
 }
 
 void sub_10000DD2C(char a1, uint64_t *a2)
 {
   v5 = *a2;
-  sub_100013E70();
+  sub_100013E70(v2 + *a2, a2);
   v6 = *(v2 + v5);
   *(v2 + v5) = a1;
   sub_10000DD7C(v6, a2);
@@ -4314,7 +4316,7 @@ void sub_10000DD7C(char a1, uint64_t *a2)
 {
   v3 = a1 & 1;
   v4 = *a2;
-  sub_100013C6C();
+  sub_100013C6C(v2 + *a2, a2);
   if (*(v2 + v4) != v3)
   {
     sub_100010254();
@@ -4327,7 +4329,7 @@ void (*MultiplayerModeSelectionViewController.isEntitledToUseGroupActivities.mod
   *a1 = v3;
   v3[3] = v1;
   v4 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_isEntitledToUseGroupActivities;
-  sub_100013D50();
+  sub_100013D50(v1 + OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_isEntitledToUseGroupActivities, v3);
   *(v3 + 32) = *(v1 + v4);
   return sub_10000DE40;
 }
@@ -4335,7 +4337,7 @@ void (*MultiplayerModeSelectionViewController.isEntitledToUseGroupActivities.mod
 void sub_10000DE58(uint64_t a1, uint64_t a2, void (*a3)(void))
 {
   v3 = *a1;
-  a3(*(*a1 + 32));
+  (a3)(*(*a1 + 32), a2);
 
   free(v3);
 }
@@ -4372,8 +4374,8 @@ Swift::Void __swiftcall MultiplayerModeSelectionViewController.launchSharePlayCh
       *(v15 + 4) = sub_1000132C8(0xD00000000000001BLL, 0x800000010001AA90, &v18);
       _os_log_impl(&_mh_execute_header, v14, v13, "SharePlay - %s", v15, 0xCu);
       sub_100005D18(v16);
-      sub_100013DFC();
-      sub_100013DFC();
+      sub_100013DFC(v16);
+      sub_100013DFC(v15);
     }
 
     (*(v3 + 8))(v6, v1);
@@ -4391,7 +4393,7 @@ Swift::Void __swiftcall MultiplayerModeSelectionViewController.showLobbyWithOrig
   __chkstk_darwin(v6);
   v10 = &v32 - v9;
   v11 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_originalMatchmakingMode;
-  sub_100013D50();
+  sub_100013D50(&v0[OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_originalMatchmakingMode], &v35);
   if (*&v0[v11] == 2)
   {
     v12 = *&v0[OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_quickMatchModeChiclet];
@@ -4409,9 +4411,9 @@ LABEL_6:
     v33 = 0;
     v34 = 0xE000000000000000;
     sub_1000144E8(70);
-    v35._object = 0x800000010001AB00;
-    v35._countAndFlagsBits = 0xD000000000000044;
-    sub_1000142D8(v35);
+    v36._object = 0x800000010001AB00;
+    v36._countAndFlagsBits = 0xD000000000000044;
+    sub_1000142D8(v36);
     v32 = *&v0[v11];
     type metadata accessor for GKMatchmakingMode(0);
     sub_100014518();
@@ -4427,8 +4429,8 @@ LABEL_6:
       *(v1 + 4) = v27;
       _os_log_impl(&_mh_execute_header, v25, v24, "SharePlay - %s", v1, 0xCu);
       sub_100005D18(v26);
-      sub_100013DFC();
-      sub_100013DFC();
+      sub_100013DFC(v26);
+      sub_100013DFC(v1);
     }
 
     else
@@ -4453,9 +4455,9 @@ LABEL_6:
     v33 = 0;
     v34 = 0xE000000000000000;
     sub_1000144E8(73);
-    v36._countAndFlagsBits = 0xD000000000000047;
-    v36._object = 0x800000010001AAB0;
-    sub_1000142D8(v36);
+    v37._countAndFlagsBits = 0xD000000000000047;
+    v37._object = 0x800000010001AAB0;
+    sub_1000142D8(v37);
     v32 = *&v0[v11];
     type metadata accessor for GKMatchmakingMode(0);
     sub_100014518();
@@ -4471,8 +4473,8 @@ LABEL_6:
       *(v1 + 4) = v31;
       _os_log_impl(&_mh_execute_header, v29, v28, "SharePlay - %s", v1, 0xCu);
       sub_100005D18(v30);
-      sub_100013DFC();
-      sub_100013DFC();
+      sub_100013DFC(v30);
+      sub_100013DFC(v1);
     }
 
     else
@@ -4494,7 +4496,7 @@ void sub_10000E52C(void *a1)
 void sub_10000E574()
 {
 
-  sub_10000D204(*(v0 + OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_dismissHandler));
+  sub_10000D204(*(v0 + OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_dismissHandler), *(v0 + OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_dismissHandler + 8));
   swift_unknownObjectWeakDestroy();
 
   v1 = *(v0 + OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_emptyStateView);
@@ -4521,7 +4523,7 @@ void sub_10000E800()
   isa = [objc_opt_self() _gkGameLayerBackgroundVisualEffect];
   if (!isa)
   {
-    sub_100005F5C(0, &qword_100028D50);
+    sub_100005F5C(0, &qword_100028D50, UIVisualEffect_ptr);
     sub_100014318();
     isa = sub_100014308().super.isa;
   }
@@ -4608,7 +4610,7 @@ LABEL_19:
       goto LABEL_20;
     }
 
-    sub_100005F5C(0, &qword_100028B88);
+    sub_100005F5C(0, &qword_100028B88, UINib_ptr);
     ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
     v15 = [objc_opt_self() bundleForClass:ObjCClassFromMetadata];
     v16 = sub_10000EEDC(0xD000000000000010, 0x800000010001AB70, v15);
@@ -4623,7 +4625,7 @@ LABEL_20:
       return;
     }
 
-    sub_100005F5C(0, &qword_100028B88);
+    sub_100005F5C(0, &qword_100028B88, UINib_ptr);
     type metadata accessor for MultiplayerModeSelectionShimViewController();
     v17 = swift_getObjCClassFromMetadata();
     v18 = sub_100014288();
@@ -4647,7 +4649,7 @@ LABEL_20:
   }
 
   v27 = v26;
-  sub_100005F5C(0, &qword_100028B88);
+  sub_100005F5C(0, &qword_100028B88, UINib_ptr);
   v28 = swift_getObjCClassFromMetadata();
   v29 = [objc_opt_self() bundleForClass:v28];
   v30 = sub_10000EEDC(0xD000000000000011, 0x800000010001AB50, v29);
@@ -4705,11 +4707,11 @@ void sub_10000EF94()
   __chkstk_darwin(v5);
   sub_100013BF4();
   v6 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_skipModeSelection;
-  sub_100013D50();
+  sub_100013D50(v0 + OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_skipModeSelection, &v26);
   if (*(v0 + v6) != 1)
   {
     v11 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_originalMatchmakingMode;
-    sub_100013D50();
+    sub_100013D50(v1 + OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_originalMatchmakingMode, v25);
     v12 = *(v1 + v11);
     if (v12 == 1 || v12 == 3)
     {
@@ -4752,13 +4754,13 @@ void sub_10000EF94()
   {
     v9 = sub_100013F08();
     v10 = swift_slowAlloc();
-    v25 = v10;
+    v25[0] = v10;
     *v9 = 136315138;
-    *(v9 + 4) = sub_1000132C8(0xD00000000000001ELL, 0x800000010001B090, &v25);
+    *(v9 + 4) = sub_1000132C8(0xD00000000000001ELL, 0x800000010001B090, v25);
     _os_log_impl(&_mh_execute_header, v8, v7, "SharePlay - %s", v9, 0xCu);
     sub_100005D18(v10);
-    sub_100013DFC();
-    sub_100013DFC();
+    sub_100013DFC(v10);
+    sub_100013DFC(v9);
   }
 
   (*(v4 + 8))(v0, v2);
@@ -4770,44 +4772,44 @@ LABEL_16:
 Swift::Void __swiftcall MultiplayerModeSelectionViewController.viewWillAppear(_:)(Swift::Bool a1)
 {
   v2 = v1;
-  v15.receiver = v2;
-  v15.super_class = type metadata accessor for MultiplayerModeSelectionViewController();
-  objc_msgSendSuper2(&v15, "viewWillAppear:", a1);
+  v16.receiver = v2;
+  v16.super_class = type metadata accessor for MultiplayerModeSelectionViewController();
+  objc_msgSendSuper2(&v16, "viewWillAppear:", a1);
   v4 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_chiclets;
-  sub_100013C6C();
-  v5 = *&v2[v4];
-  v6 = sub_10000D4D0(v5);
-  if (!v6)
+  sub_100013C6C(&v2[OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_chiclets], v5);
+  v6 = *&v2[v4];
+  v7 = sub_10000D4D0(v6);
+  if (!v7)
   {
 LABEL_9:
     sub_1000100FC();
-    v11 = [objc_allocWithZone(GKAPIReporter) init];
-    v12 = sub_100013CCC();
-    v13 = sub_100014288();
-    v14 = sub_100013C40();
-    [v11 recordPageWithID:v12 pageContext:v13 pageType:v14];
+    v12 = [objc_allocWithZone(GKAPIReporter) init];
+    v13 = sub_100013CCC();
+    v14 = sub_100014288();
+    v15 = sub_100013C40();
+    [v12 recordPageWithID:v13 pageContext:v14 pageType:v15];
 
     return;
   }
 
-  v7 = v6;
-  if (v6 >= 1)
+  v8 = v7;
+  if (v7 >= 1)
   {
 
-    for (i = 0; i != v7; ++i)
+    for (i = 0; i != v8; ++i)
     {
-      if ((v5 & 0xC000000000000001) != 0)
+      if ((v6 & 0xC000000000000001) != 0)
       {
-        v9 = sub_1000144F8();
+        v10 = sub_1000144F8();
       }
 
       else
       {
-        v9 = *(v5 + 8 * i + 32);
+        v10 = *(v6 + 8 * i + 32);
       }
 
-      v10 = v9;
-      (*((swift_isaMask & *v9) + 0xF8))(1);
+      v11 = v10;
+      (*((swift_isaMask & *v10) + 0xF8))(1);
     }
 
     goto LABEL_9;
@@ -4846,7 +4848,7 @@ uint64_t MultiplayerModeSelectionViewController.preferredFocusEnvironments.gette
   if (Strong)
   {
     v2 = Strong;
-    sub_100005BC4(&qword_100028BC0);
+    sub_100005BC4(&qword_100028BC0, &qword_1000167C0);
     v3 = swift_allocObject();
     *(v3 + 16) = xmmword_100016720;
     *(v3 + 32) = v2;
@@ -4857,7 +4859,7 @@ uint64_t MultiplayerModeSelectionViewController.preferredFocusEnvironments.gette
     v6.receiver = v0;
     v6.super_class = type metadata accessor for MultiplayerModeSelectionViewController();
     v4 = objc_msgSendSuper2(&v6, "preferredFocusEnvironments");
-    sub_100005BC4(&qword_100028BB8);
+    sub_100005BC4(&qword_100028BB8, &qword_100016AC8);
     v3 = sub_100014318();
   }
 
@@ -4963,9 +4965,9 @@ Swift::Void __swiftcall MultiplayerModeSelectionViewController.viewSafeAreaInset
 Swift::Void __swiftcall MultiplayerModeSelectionViewController.traitCollectionDidChange(_:)(UITraitCollection_optional a1)
 {
   isa = a1.value.super.isa;
-  v22.receiver = v1;
-  v22.super_class = type metadata accessor for MultiplayerModeSelectionViewController();
-  objc_msgSendSuper2(&v22, "traitCollectionDidChange:", isa);
+  v23.receiver = v1;
+  v23.super_class = type metadata accessor for MultiplayerModeSelectionViewController();
+  objc_msgSendSuper2(&v23, "traitCollectionDidChange:", isa);
   sub_10000F788();
   if (isa)
   {
@@ -4996,28 +4998,28 @@ LABEL_26:
     [Strong reloadData];
 
     v16 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_chiclets;
-    sub_100013C20();
-    v17 = *&v1[v16];
-    v18 = sub_10000D4D0(v17);
+    sub_100013C20(v17);
+    v18 = *&v1[v16];
+    v19 = sub_10000D4D0(v18);
 
-    for (i = 0; v18 != i; ++i)
+    for (i = 0; v19 != i; ++i)
     {
-      if ((v17 & 0xC000000000000001) != 0)
+      if ((v18 & 0xC000000000000001) != 0)
       {
-        v20 = sub_1000144F8();
+        v21 = sub_1000144F8();
       }
 
       else
       {
-        if (i >= *((v17 & 0xFFFFFFFFFFFFFF8) + 0x10))
+        if (i >= *((v18 & 0xFFFFFFFFFFFFFF8) + 0x10))
         {
           goto LABEL_25;
         }
 
-        v20 = *(v17 + 8 * i + 32);
+        v21 = *(v18 + 8 * i + 32);
       }
 
-      v21 = v20;
+      v22 = v21;
       if (__OFADD__(i, 1))
       {
         __break(1u);
@@ -5098,25 +5100,28 @@ void MultiplayerModeSelectionViewController.viewWillTransition(to:with:)(uint64_
   }
 }
 
-void sub_10000FE2C()
+double sub_10000FE2C()
 {
   v1 = *(v0 + OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_dismissHandler);
   if (v1)
   {
-    v2 = objc_allocWithZone(GKAPIReporter);
+    v2 = *(v0 + OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_dismissHandler + 8);
+    v3 = objc_allocWithZone(GKAPIReporter);
 
-    v3 = [v2 init];
-    v4 = sub_100014288();
+    v4 = [v3 init];
     v5 = sub_100014288();
     v6 = sub_100014288();
-    v7 = sub_100013CCC();
-    v8 = sub_100013C40();
-    sub_100013E30(v3, "recordClickWithAction:targetId:targetType:pageId:pageType:");
+    v7 = sub_100014288();
+    v8 = sub_100013CCC();
+    v9 = sub_100013C40();
+    sub_100013E30(v4, "recordClickWithAction:targetId:targetType:pageId:pageType:");
 
     v1();
 
-    sub_10000D204(v1);
+    return sub_10000D204(v1, v2);
   }
+
+  return result;
 }
 
 BOOL sub_10000FFDC()
@@ -5157,7 +5162,7 @@ void sub_1000100FC()
     v1 = Strong;
     v2 = [Strong visibleCells];
 
-    sub_100005F5C(0, &qword_100028D38);
+    sub_100005F5C(0, &qword_100028D38, UICollectionViewCell_ptr);
     v3 = sub_100014318();
 
     v4 = sub_10000D4D0(v3);
@@ -5253,14 +5258,14 @@ LABEL_40:
     v51 = v3;
     swift_slowAlloc();
     v14 = sub_100013EEC();
-    v53 = v14;
+    v58[0] = v14;
     *v5 = 134218498;
     v15 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_originalMatchmakingMode;
-    sub_100013D50();
+    sub_100013D50(&v1[OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_originalMatchmakingMode], &v54);
     *(v5 + 4) = *&v1[v15];
     *(v5 + 12) = 1024;
     v16 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_isEligibleForGroupSession;
-    sub_100013D50();
+    sub_100013D50(&v1[OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_isEligibleForGroupSession], &v53);
     *(v5 + 14) = v1[v16];
     *(v5 + 18) = 2080;
     if (v52)
@@ -5276,8 +5281,8 @@ LABEL_45:
 
       v18 = v17;
 
-      sub_100013890(v18);
-      sub_100005BC4(&qword_100028D40);
+      v57 = sub_100013890(v18);
+      sub_100005BC4(&qword_100028D40, &qword_100016B68);
       v19 = sub_1000142B8();
       v21 = v20;
     }
@@ -5289,13 +5294,13 @@ LABEL_45:
       v19 = 1701736270;
     }
 
-    v22 = sub_1000132C8(v19, v21, &v53);
+    v22 = sub_1000132C8(v19, v21, v58);
 
     *(v5 + 20) = v22;
     _os_log_impl(&_mh_execute_header, v13, v12, "MultiplayerModeSelectionViewController updateChiclets, mode: %ld, isEligibleForGroupSession: %{BOOL}d, has recipients: %s", v5, 0x1Cu);
     sub_100005D18(v14);
-    sub_100013DFC();
-    sub_100013DFC();
+    sub_100013DFC(v14);
+    sub_100013DFC(v5);
 
     (*(v5 + 8))(v0, v51);
   }
@@ -5313,11 +5318,11 @@ LABEL_45:
     goto LABEL_40;
   }
 
-  if ((([v24 isHosted] | v52) & 1) != 0 || (v25 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_isEntitledToUseGroupActivities, sub_100013D50(), v1[v25] != 1) || (v26 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_originalMatchmakingMode, sub_100013D50(), (*&v1[v26] - 1) < 2))
+  if ((([v24 isHosted] | v52) & 1) != 0 || (v25 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_isEntitledToUseGroupActivities, sub_100013D50(&v1[OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_isEntitledToUseGroupActivities], v58), v1[v25] != 1) || (v26 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_originalMatchmakingMode, sub_100013D50(&v1[OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_originalMatchmakingMode], &v56), (*&v1[v26] - 1) < 2))
   {
 LABEL_18:
     v31 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_originalMatchmakingMode;
-    sub_100013D50();
+    sub_100013D50(&v1[OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_originalMatchmakingMode], &v57);
     if (*&v1[v31] == 2)
     {
       goto LABEL_21;
@@ -5443,9 +5448,9 @@ LABEL_37:
   v27 = *&v1[v23];
   if (v27)
   {
-    type metadata accessor for SharePlayModeChiclet();
+    type metadata accessor for SharePlayModeChiclet(0);
     v28 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_isEligibleForGroupSession;
-    sub_100013D50();
+    sub_100013D50(&v1[OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_isEligibleForGroupSession], &v55);
     v29 = sub_100004498(v27, v1[v28]);
     v30 = *&v1[OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_sharePlayModeChiclet];
     *&v1[OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_sharePlayModeChiclet] = v29;
@@ -5601,15 +5606,18 @@ uint64_t static MultiplayerModeSelectionViewController.viewController(request:ga
   *(v17 + OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_multiplayerViewController) = a3;
   v23 = a3;
 
-  MultiplayerModeSelectionViewController.originalMatchmakingMode.setter([v23 matchmakingMode]);
+  v24 = [v23 matchmakingMode];
+  MultiplayerModeSelectionViewController.originalMatchmakingMode.setter(v24, v25);
+
   if (a4)
   {
-    v24 = (v17 + OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_dismissHandler);
-    v25 = *(v17 + OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_dismissHandler);
-    *v24 = a4;
-    v24[1] = a5;
+    v26 = (v17 + OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_dismissHandler);
+    v27 = *(v17 + OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_dismissHandler);
+    v28 = *(v17 + OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_dismissHandler + 8);
+    *v26 = a4;
+    v26[1] = a5;
 
-    sub_10000D204(v25);
+    sub_10000D204(v27, v28);
   }
 
   return v17;
@@ -5676,9 +5684,9 @@ void sub_100011100()
       *v17 = v13;
       v18 = v13;
       _os_log_impl(&_mh_execute_header, v14, v15, "Cannot find chiclet: %@", v16, 0xCu);
-      sub_100013B48(v17, &qword_100028D30);
-      sub_100013DFC();
-      sub_100013DFC();
+      sub_100013B48(v17, &qword_100028D30, &qword_100016B60);
+      sub_100013DFC(v17);
+      sub_100013DFC(v16);
     }
 
     (*(v5 + 8))(v0, v3);
@@ -5821,7 +5829,7 @@ id MultiplayerModeSelectionViewController.init(coder:)(void *a1)
 Swift::Int __swiftcall MultiplayerModeSelectionViewController.collectionView(_:numberOfItemsInSection:)(UICollectionView _, Swift::Int numberOfItemsInSection)
 {
   v3 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_chiclets;
-  sub_100013C20();
+  sub_100013C20(_.super.super.super.super.isa, numberOfItemsInSection);
   v4 = *(v2 + v3);
   if (v4 >> 62)
   {
@@ -5842,7 +5850,7 @@ uint64_t MultiplayerModeSelectionViewController.indexPathForPreferredFocusedView
   return sub_1000063BC(a1, 0, 1, v2);
 }
 
-uint64_t MultiplayerModeSelectionViewController.collectionView(_:cellForItemAt:)(void *a1)
+void *MultiplayerModeSelectionViewController.collectionView(_:cellForItemAt:)(void *a1)
 {
   v2 = v1;
   v4 = [objc_opt_self() currentTraitCollection];
@@ -5862,7 +5870,7 @@ uint64_t MultiplayerModeSelectionViewController.collectionView(_:cellForItemAt:)
 
     v11 = sub_1000141A8();
     v12 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_chiclets;
-    sub_100013D50();
+    sub_100013D50(v2 + OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_chiclets, v45);
     v13 = *(v2 + v12);
     sub_100013860(v11, (v13 & 0xC000000000000001) == 0, v13);
     if ((v13 & 0xC000000000000001) != 0)
@@ -5985,23 +5993,23 @@ void sub_100012044(void *a1)
   [v1 setPosition:?];
 }
 
-void MultiplayerModeSelectionViewController.collectionView(_:didSelectItemAt:)()
+void MultiplayerModeSelectionViewController.collectionView(_:didSelectItemAt:)(uint64_t a1)
 {
-  v1 = v0;
-  v2 = sub_1000141A8();
-  v3 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_chiclets;
-  sub_100013C6C();
-  v4 = *(v1 + v3);
-  sub_100013860(v2, (v4 & 0xC000000000000001) == 0, v4);
-  if ((v4 & 0xC000000000000001) != 0)
+  v2 = v1;
+  v3 = sub_1000141A8();
+  v4 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_chiclets;
+  sub_100013C6C(v2 + OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_chiclets, v5);
+  v6 = *(v2 + v4);
+  sub_100013860(v3, (v6 & 0xC000000000000001) == 0, v6);
+  if ((v6 & 0xC000000000000001) != 0)
   {
 
-    v5 = sub_1000144F8();
+    v7 = sub_1000144F8();
   }
 
   else
   {
-    v5 = *(v4 + 8 * v2 + 32);
+    v7 = *(v6 + 8 * v3 + 32);
   }
 
   sub_100011100();
@@ -6025,10 +6033,10 @@ void MultiplayerModeSelectionViewController.collectionView(_:layout:sizeForItemA
       sub_1000142A8();
       sub_100013CB0();
       sub_100013D68();
-      v8 = v8 && a1 == v7;
-      if (!v8)
+      v9 = v9 && a1 == v8;
+      if (!v9)
       {
-        sub_100013BD0();
+        sub_100013BD0(v7);
         sub_100013E8C();
 
         if (&CFAbsoluteTimeGetCurrent_ptr)
@@ -6039,9 +6047,9 @@ void MultiplayerModeSelectionViewController.collectionView(_:layout:sizeForItemA
         sub_1000142A8();
         sub_100013CB0();
         sub_100013D68();
-        if (!v8 || a1 != v41)
+        if (!v9 || a1 != v47)
         {
-          sub_100013BD0();
+          sub_100013BD0(v46);
           sub_100013E8C();
 
           if (&CFAbsoluteTimeGetCurrent_ptr)
@@ -6052,9 +6060,9 @@ void MultiplayerModeSelectionViewController.collectionView(_:layout:sizeForItemA
           sub_1000142A8();
           sub_100013CB0();
           sub_100013D68();
-          if (!v8 || a1 != v47)
+          if (!v9 || a1 != v54)
           {
-            sub_100013BD0();
+            sub_100013BD0(v53);
             sub_100013E8C();
 
             if (&CFAbsoluteTimeGetCurrent_ptr)
@@ -6063,10 +6071,10 @@ void MultiplayerModeSelectionViewController.collectionView(_:layout:sizeForItemA
             }
 
             sub_1000142A8();
-            v49 = sub_100013CB0();
-            v51 = v50;
+            v56 = sub_100013CB0();
+            v58 = v57;
 
-            if (&CFAbsoluteTimeGetCurrent_ptr != v49 || a1 != v51)
+            if (&CFAbsoluteTimeGetCurrent_ptr != v56 || a1 != v58)
             {
 LABEL_72:
               sub_100013EC8();
@@ -6086,30 +6094,30 @@ LABEL_72:
     goto LABEL_75;
   }
 
-  v9 = objc_opt_self();
-  v10 = [v9 currentTraitCollection];
-  v11 = [v10 preferredContentSizeCategory];
+  v10 = objc_opt_self();
+  v11 = [v10 currentTraitCollection];
+  v12 = [v11 preferredContentSizeCategory];
 
-  v12 = sub_1000143E8();
-  if (v12)
+  v13 = sub_1000143E8();
+  if (v13)
   {
     if (!sub_100013A94())
     {
       if (!sub_10000FFDC())
       {
         [a1 frame];
-        CGRectGetWidth(v53);
-        v43 = [v1 view];
-        if (v43)
+        CGRectGetWidth(v60);
+        v49 = [v1 view];
+        if (v49)
         {
-          v44 = v43;
-          [v43 safeAreaInsets];
+          v50 = v49;
+          [v49 safeAreaInsets];
 
-          v45 = [v1 view];
-          if (v45)
+          v51 = [v1 view];
+          if (v51)
           {
-            v46 = v45;
-            [v45 safeAreaInsets];
+            v52 = v51;
+            [v51 safeAreaInsets];
 
             return;
           }
@@ -6124,26 +6132,26 @@ LABEL_78:
         return;
       }
 
-      v15 = [v1 view];
-      if (v15)
+      v16 = [v1 view];
+      if (v16)
       {
-        v16 = v15;
-        [v15 frame];
+        v17 = v16;
+        [v16 frame];
         sub_100013CF0();
 
         fmin(sub_100013DC4() + -20.0, 335.0);
-        v17 = [v9 currentTraitCollection];
-        v6 = [v17 preferredContentSizeCategory];
+        v18 = [v10 currentTraitCollection];
+        v6 = [v18 preferredContentSizeCategory];
 
         sub_1000142A8();
         sub_100013CB0();
         sub_100013D68();
-        if (!v8 || a1 != v18)
+        if (!v9 || a1 != v20)
         {
-          sub_100013BD0();
+          sub_100013BD0(v19);
           sub_100013E8C();
 
-          if (v12)
+          if (v13)
           {
             goto LABEL_65;
           }
@@ -6151,12 +6159,12 @@ LABEL_78:
           sub_1000142A8();
           sub_100013CB0();
           sub_100013D68();
-          if (!v8 || a1 != v20)
+          if (!v9 || a1 != v23)
           {
-            sub_100013BD0();
+            sub_100013BD0(v22);
             sub_100013E8C();
 
-            if (v12)
+            if (v13)
             {
               goto LABEL_65;
             }
@@ -6164,12 +6172,12 @@ LABEL_78:
             sub_1000142A8();
             sub_100013CB0();
             sub_100013D68();
-            if (!v8 || a1 != v22)
+            if (!v9 || a1 != v26)
             {
-              sub_100013BD0();
+              sub_100013BD0(v25);
               sub_100013E8C();
 
-              if (v12)
+              if (v13)
               {
 LABEL_65:
 
@@ -6177,10 +6185,10 @@ LABEL_65:
               }
 
               sub_1000142A8();
-              v24 = sub_100013CB0();
-              v26 = v25;
+              v28 = sub_100013CB0();
+              v30 = v29;
 
-              if (v12 != v24 || a1 != v26)
+              if (v13 != v28 || a1 != v30)
               {
                 goto LABEL_72;
               }
@@ -6207,11 +6215,11 @@ LABEL_76:
   {
     if (sub_10000FFDC())
     {
-      v13 = [v1 view];
-      if (v13)
+      v14 = [v1 view];
+      if (v14)
       {
-        v14 = v13;
-        [v13 frame];
+        v15 = v14;
+        [v14 frame];
         sub_100013CF0();
 
         fmin(sub_100013DC4() + -20.0, 335.0);
@@ -6223,30 +6231,30 @@ LABEL_75:
       goto LABEL_76;
     }
 
-    v28 = [v1 traitCollection];
-    v29 = [v28 preferredContentSizeCategory];
+    v32 = [v1 traitCollection];
+    v33 = [v32 preferredContentSizeCategory];
 
-    v30 = sub_1000142A8();
-    v32 = v31;
-    if (v30 != sub_1000142A8() || v32 != v33)
+    v34 = sub_1000142A8();
+    v36 = v35;
+    if (v34 != sub_1000142A8() || v36 != v37)
     {
-      v35 = sub_100014548();
+      v39 = sub_100014548();
 
-      if (v35)
+      if (v39)
       {
         return;
       }
 
-      v36 = [v1 traitCollection];
-      v29 = [v36 preferredContentSizeCategory];
+      v40 = [v1 traitCollection];
+      v33 = [v40 preferredContentSizeCategory];
 
       sub_1000142A8();
-      v38 = v37;
+      v42 = v41;
       sub_1000142A8();
       sub_100013D68();
-      if (!v8 || v38 != v39)
+      if (!v9 || v42 != v44)
       {
-        sub_100013BD0();
+        sub_100013BD0(v43);
 
         return;
       }
@@ -6286,7 +6294,7 @@ void MultiplayerModeSelectionViewController.collectionView(_:layout:insetForSect
   if (sub_10000FFDC())
   {
     v20 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_chiclets;
-    sub_100013D50();
+    sub_100013D50(&v3[OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_chiclets], v73);
     v21 = sub_10000D4D0(*&v3[v20]);
     v22 = sub_10000D4D0(*&v5[v20]);
     v23 = v22 - 1;
@@ -6297,8 +6305,8 @@ void MultiplayerModeSelectionViewController.collectionView(_:layout:insetForSect
       {
         [v24 frame];
         sub_100013FA8();
-        v73.origin.x = sub_100013F5C();
-        CGRectGetHeight(v73);
+        v74.origin.x = sub_100013F5C();
+        CGRectGetHeight(v74);
         v25 = sub_100013DE4();
         if (v25)
         {
@@ -6313,7 +6321,7 @@ void MultiplayerModeSelectionViewController.collectionView(_:layout:insetForSect
             sub_100014000(v29);
 
             [a1 frame];
-            Width = CGRectGetWidth(v74);
+            Width = CGRectGetWidth(v75);
             v31 = sub_100013DE4();
             if (v31)
             {
@@ -6365,7 +6373,7 @@ LABEL_27:
   if (sub_100010074())
   {
     [a1 frame];
-    v37 = CGRectGetWidth(v75) - (v19 + v19);
+    v37 = CGRectGetWidth(v76) - (v19 + v19);
     v38 = floor(v37 / (v15 + v19));
     if (v19 * v38 + v15 * (v38 + 1.0) > v37)
     {
@@ -6378,7 +6386,7 @@ LABEL_27:
     }
 
     v40 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_chiclets;
-    sub_100013D50();
+    sub_100013D50(&v5[OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_chiclets], v73);
     v41 = sub_10000D4D0(*&v5[v40]);
     if (v39 <= v41)
     {
@@ -6386,7 +6394,7 @@ LABEL_27:
     }
 
     [a1 frame];
-    CGRectGetWidth(v76);
+    CGRectGetWidth(v77);
     sub_10000D4D0(*&v5[v40]);
     v42 = sub_100013DE4();
     if (v42)
@@ -6398,11 +6406,11 @@ LABEL_27:
       v49 = v48;
       v51 = v50;
 
-      v77.origin.x = v45;
-      v77.origin.y = v47;
-      v77.size.width = v49;
-      v77.size.height = v51;
-      CGRectGetHeight(v77);
+      v78.origin.x = v45;
+      v78.origin.y = v47;
+      v78.size.width = v49;
+      v78.size.height = v51;
+      CGRectGetHeight(v78);
       v52 = sub_100013DE4();
       if (v52)
       {
@@ -6434,7 +6442,7 @@ LABEL_33:
   }
 
   v56 = OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_chiclets;
-  sub_100013D50();
+  sub_100013D50(&v3[OBJC_IVAR____TtC29GameCenterMatchmakerExtension38MultiplayerModeSelectionViewController_chiclets], v73);
   v57 = sub_10000D4D0(*&v3[v56]);
   v58 = sub_10000D4D0(*&v5[v56]);
   v59 = v58 - 1;
@@ -6453,8 +6461,8 @@ LABEL_36:
 
   [v60 frame];
   sub_100013FA8();
-  v78.origin.x = sub_100013F5C();
-  CGRectGetWidth(v78);
+  v79.origin.x = sub_100013F5C();
+  CGRectGetWidth(v79);
   v61 = sub_100013DE4();
   if (!v61)
   {
@@ -6479,7 +6487,7 @@ LABEL_38:
   sub_100014000(v65);
 
   [a1 frame];
-  Height = CGRectGetHeight(v79);
+  Height = CGRectGetHeight(v80);
   v67 = sub_100013DE4();
   if (!v67)
   {
@@ -6618,7 +6626,7 @@ char *sub_1000134B0(uint64_t a1, unint64_t a2)
 
 char *sub_1000134FC(uint64_t a1, unint64_t a2)
 {
-  v4 = HIBYTE(a2) & 0xF;
+  v4 = (HIBYTE(a2) & 0xF);
   if ((a2 & 0x1000000000000000) != 0)
   {
     goto LABEL_19;
@@ -6668,8 +6676,8 @@ char *sub_1000134FC(uint64_t a1, unint64_t a2)
       {
         if ((a1 & 0x1000000000000000) != 0)
         {
-          v8 = (a2 & 0xFFFFFFFFFFFFFFFLL) + 32;
-          v4 = a1 & 0xFFFFFFFFFFFFLL;
+          v8 = ((a2 & 0xFFFFFFFFFFFFFFFLL) + 32);
+          v4 = (a1 & 0xFFFFFFFFFFFFLL);
         }
 
         else
@@ -6797,7 +6805,7 @@ void *sub_1000136F8(uint64_t a1, uint64_t a2)
     return &_swiftEmptyArrayStorage;
   }
 
-  sub_100005BC4(&qword_100028D58);
+  sub_100005BC4(&qword_100028D58, &qword_100016B70);
   v4 = swift_allocObject();
   v5 = j__malloc_size(v4);
   v4[2] = a1;
@@ -6846,7 +6854,7 @@ char *sub_100013768(char *result, int64_t a2, char a3, char *a4)
 
   if (v9)
   {
-    sub_100005BC4(&qword_100028D58);
+    sub_100005BC4(&qword_100028D58, &qword_100016B70);
     v10 = swift_allocObject();
     v11 = j__malloc_size(v10);
     *(v10 + 2) = v8;
@@ -6907,7 +6915,7 @@ uint64_t sub_100013890(void *a1)
     return 0;
   }
 
-  sub_100005F5C(0, &qword_100028D48);
+  sub_100005F5C(0, &qword_100028D48, GKPlayer_ptr);
   v3 = sub_100014318();
 
   return v3;
@@ -6920,21 +6928,21 @@ void sub_100013908(uint64_t a1, uint64_t a2, void *a3, SEL *a4)
   [a3 *a4];
 }
 
-uint64_t sub_100013974()
+uint64_t sub_100013974(uint64_t a1, uint64_t a2)
 {
-  v0 = sub_1000142A8();
-  v2 = v1;
-  if (v0 == sub_1000142A8() && v2 == v3)
+  v2 = sub_1000142A8();
+  v4 = v3;
+  if (v2 == sub_1000142A8() && v4 == v5)
   {
-    v5 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v5 = sub_100014548();
+    v7 = sub_100014548();
   }
 
-  return v5 & 1;
+  return v7 & 1;
 }
 
 uint64_t sub_1000139F8()
@@ -6971,20 +6979,20 @@ uint64_t sub_100013B00()
   return _swift_deallocObject(v0, 24, 7);
 }
 
-uint64_t sub_100013B48(uint64_t a1, uint64_t *a2)
+uint64_t sub_100013B48(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v3 = sub_100005BC4(a2);
-  (*(*(v3 - 8) + 8))(a1, v3);
+  v4 = sub_100005BC4(a2, a3);
+  (*(*(v4 - 8) + 8))(a1, v4);
   return a1;
 }
 
-uint64_t sub_100013BD0()
+uint64_t sub_100013BD0(uint64_t a1)
 {
 
   return sub_100014548();
 }
 
-uint64_t sub_100013C20()
+uint64_t sub_100013C20(uint64_t a1, ...)
 {
 
   return swift_beginAccess();
@@ -6996,7 +7004,7 @@ NSString sub_100013C40()
   return sub_100014288();
 }
 
-uint64_t sub_100013C6C()
+uint64_t sub_100013C6C(uint64_t a1, uint64_t a2, ...)
 {
 
   return swift_beginAccess();
@@ -7034,7 +7042,7 @@ void sub_100013D28(uint64_t a1@<X8>)
   v2[1] = 0xEB000000006C6C65;
 }
 
-uint64_t sub_100013D50()
+uint64_t sub_100013D50(uint64_t a1, uint64_t a2)
 {
 
   return swift_beginAccess();
@@ -7046,7 +7054,7 @@ id sub_100013D94(void *a1)
   return [a1 safeAreaInsets];
 }
 
-double sub_100013DC4()
+CGFloat sub_100013DC4()
 {
   v5 = v1;
   v6 = v2;
@@ -7063,7 +7071,7 @@ id sub_100013DE4()
   return [v0 v3];
 }
 
-uint64_t sub_100013DFC()
+uint64_t sub_100013DFC(uint64_t a1)
 {
 }
 
@@ -7086,7 +7094,7 @@ uint64_t sub_100013E54()
   return sub_100014338();
 }
 
-uint64_t sub_100013E70()
+uint64_t sub_100013E70(uint64_t a1, uint64_t a2, ...)
 {
 
   return swift_beginAccess();

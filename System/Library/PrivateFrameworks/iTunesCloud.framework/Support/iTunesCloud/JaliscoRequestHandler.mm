@@ -4,7 +4,10 @@
 - (float)updateProgress;
 - (id)_DAAPMediaKindFromJaliscoSupportedMediaKind:(int64_t)kind;
 - (id)jaliscoLibraryWithReason:(int64_t)reason;
+- (void)_addLibraryOperation:(id)operation priority:(int)priority noLibraryHandler:(id)handler;
 - (void)_updateJaliscoLibraryWithClientIdentity:(id)identity completion:(id)completion;
+- (void)addOperation:(id)operation priority:(int)priority;
+- (void)cancelAllOperationsAndWaitForOperationsToFinish:(BOOL)finish;
 - (void)cancelOperationsWithCompletionHandler:(id)handler;
 - (void)cancelPendingChangesWithCompletion:(id)completion;
 - (void)dealloc;
@@ -53,6 +56,25 @@
   [(JaliscoRequestHandler *)self updateLibraryWithClientIdentity:identityCopy reason:1001 completionHandler:completionCopy];
 }
 
+- (void)_addLibraryOperation:(id)operation priority:(int)priority noLibraryHandler:(id)handler
+{
+  v6 = *&priority;
+  operationCopy = operation;
+  handlerCopy = handler;
+  jaliscoLibrary = [(JaliscoRequestHandler *)self jaliscoLibrary];
+  v10 = jaliscoLibrary;
+  if (jaliscoLibrary)
+  {
+    [jaliscoLibrary addOperation:operationCopy priority:v6];
+  }
+
+  else if (handlerCopy)
+  {
+    v11 = [NSError ic_cloudClientErrorWithCode:2009 userInfo:0];
+    handlerCopy[2](handlerCopy, v11);
+  }
+}
+
 - (void)loadBooksForStoreIDs:(id)ds clientIdentity:(id)identity withCompletionHandler:(id)handler
 {
   dsCopy = ds;
@@ -80,6 +102,32 @@
 
   objc_destroyWeak(&v18);
   objc_destroyWeak(&location);
+}
+
+- (void)cancelAllOperationsAndWaitForOperationsToFinish:(BOOL)finish
+{
+  finishCopy = finish;
+  v5 = os_log_create("com.apple.amp.itunescloudd", "PurchaseSync");
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543618;
+    selfCopy = self;
+    v11 = 1024;
+    v12 = finishCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ - cancelAllOperationsAndWaitForOperationsToFinish - wait=%{BOOL}u", buf, 0x12u);
+  }
+
+  artworkImporter = [(JaliscoRequestHandler *)self artworkImporter];
+  [artworkImporter cancelAllImportsAndWaitForOperationsToFinish:finishCopy];
+
+  updateLibraryQueue = self->_updateLibraryQueue;
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_1000AB57C;
+  block[3] = &unk_1001DF578;
+  block[4] = self;
+  dispatch_sync(updateLibraryQueue, block);
+  [(CloudLibrary *)self->_jaliscoLibrary cancelAllOperations];
 }
 
 - (void)isMediaKindDisabledForJaliscoLibrary:(int64_t)library withClientIdentity:(id)identity completionHandler:(id)handler
@@ -904,6 +952,17 @@ LABEL_40:
   else if (completionCopy)
   {
     completionCopy[2](completionCopy);
+  }
+}
+
+- (void)addOperation:(id)operation priority:(int)priority
+{
+  if (operation)
+  {
+    v4 = *&priority;
+    operationCopy = operation;
+    jaliscoLibrary = [(JaliscoRequestHandler *)self jaliscoLibrary];
+    [jaliscoLibrary addOperation:operationCopy priority:v4];
   }
 }
 

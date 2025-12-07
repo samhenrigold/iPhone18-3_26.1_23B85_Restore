@@ -66,18 +66,28 @@
 - (int64_t)strictestEventPrivateValue;
 - (unint64_t)lastSyncError;
 - (void)_copyInitialDefaultAlarmSettingsIfNeeded;
+- (void)_countCalendarItemsOfCalType:(int)type resultHandler:(id)handler;
+- (void)_resetInternalStateWithForce:(BOOL)force;
 - (void)countCalendarItemsOfType:(unint64_t)type resultHandler:(id)handler;
 - (void)fetchOfficeHoursWithCompletion:(id)completion onQueue:(id)queue;
 - (void)setAllowsTasks:(BOOL)tasks;
 - (void)setCachedExternalInfo:(id)info;
 - (void)setConstraintsName:(id)name;
+- (void)setDisabled:(BOOL)disabled;
+- (void)setDisplayOrder:(int)order;
 - (void)setFlag2:(int)flag2 value:(BOOL)value;
 - (void)setFlag:(int)flag value:(BOOL)value;
+- (void)setFlags2:(int)flags2;
+- (void)setFlags:(int)flags;
 - (void)setLastSyncError:(unint64_t)error userInfo:(id)info;
 - (void)setOfficeHours:(id)hours withCompletion:(id)completion onQueue:(id)queue;
+- (void)setOnlyCreatorCanModify:(BOOL)modify;
 - (void)setPreferredEventPrivateValue:(int64_t)value;
+- (void)setPreferredEventPrivateValueRaw:(int)raw;
+- (void)setShowsNotifications:(BOOL)notifications;
 - (void)setSourceTypeRaw:(int64_t)raw;
 - (void)setStrictestEventPrivateValue:(int64_t)value;
+- (void)setStrictestEventPrivateValueRaw:(int)raw;
 - (void)setSyncError:(id)error;
 @end
 
@@ -218,27 +228,27 @@ LABEL_7:
 
 - (BOOL)hasOwnerEmailAddress
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   ownerAddresses = [(EKSource *)self ownerAddresses];
-  v3 = [ownerAddresses countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [ownerAddresses countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(ownerAddresses);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
+        v7 = *(*(&v10 + 1) + 8 * i);
         if ([v7 hasMailto] & 1) != 0 || (objc_msgSend(v7, "resemblesEmailAddress"))
         {
           v8 = 1;
@@ -246,7 +256,7 @@ LABEL_7:
         }
       }
 
-      v4 = [ownerAddresses countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [ownerAddresses countByEnumeratingWithState:&v10 objects:v14 count:16];
       v8 = 0;
       if (v4)
       {
@@ -264,7 +274,6 @@ LABEL_7:
 
 LABEL_13:
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -282,13 +291,11 @@ LABEL_13:
 
 void __44__EKSource_knownRelationshipSingleValueKeys__block_invoke()
 {
-  v3[1] = *MEMORY[0x1E69E9840];
-  v3[0] = *MEMORY[0x1E6992D98];
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:1];
+  v2[1] = *MEMORY[0x1E69E9840];
+  v2[0] = *MEMORY[0x1E6992D98];
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:1];
   v1 = knownRelationshipSingleValueKeys_keys_5;
   knownRelationshipSingleValueKeys_keys_5 = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (id)knownIdentityKeysForComparison
@@ -305,13 +312,11 @@ void __44__EKSource_knownRelationshipSingleValueKeys__block_invoke()
 
 void __42__EKSource_knownIdentityKeysForComparison__block_invoke()
 {
-  v3[1] = *MEMORY[0x1E69E9840];
-  v3[0] = *MEMORY[0x1E6992B08];
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:1];
+  v2[1] = *MEMORY[0x1E69E9840];
+  v2[0] = *MEMORY[0x1E6992B08];
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:1];
   v1 = knownIdentityKeysForComparison_keys_10;
   knownIdentityKeysForComparison_keys_10 = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (id)knownSingleValueKeysForComparison
@@ -328,32 +333,34 @@ void __42__EKSource_knownIdentityKeysForComparison__block_invoke()
 
 void __45__EKSource_knownSingleValueKeysForComparison__block_invoke()
 {
-  v4[2] = *MEMORY[0x1E69E9840];
+  v3[2] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E6992D58];
-  v4[0] = *MEMORY[0x1E6992DA0];
-  v4[1] = v0;
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:2];
+  v3[0] = *MEMORY[0x1E6992DA0];
+  v3[1] = v0;
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:2];
   v2 = knownSingleValueKeysForComparison_keys_9;
   knownSingleValueKeysForComparison_keys_9 = v1;
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 + (EKSource)sourceWithEventStore:(id)store
 {
   storeCopy = store;
-  if (!storeCopy && os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
+  if (!storeCopy)
   {
-    +[EKSource sourceWithEventStore:];
+    v5 = EKLogHandle;
+    if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
+    {
+      [(EKSource *)v5 sourceWithEventStore:v6, v7];
+    }
   }
 
-  v5 = objc_alloc_init(EKPersistentSource);
-  [storeCopy _registerObject:v5];
-  v6 = [[self alloc] initWithPersistentObject:v5];
-  v7 = EKUUIDString();
-  [v6 setSourceIdentifier:v7];
+  v8 = objc_alloc_init(EKPersistentSource);
+  [storeCopy _registerObject:v8];
+  v9 = [[self alloc] initWithPersistentObject:v8];
+  v10 = EKUUIDString();
+  [v9 setSourceIdentifier:v10];
 
-  return v6;
+  return v9;
 }
 
 - (void)setSourceTypeRaw:(int64_t)raw
@@ -367,12 +374,13 @@ void __45__EKSource_knownSingleValueKeysForComparison__block_invoke()
   levelCopy = level;
   if (level >= 4)
   {
+    v4 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      +[EKSource _ekPrivacyLevelToCalEventPrivacyLevel:];
+      [(EKSource *)levelCopy _ekPrivacyLevelToCalEventPrivacyLevel:v4, v5];
     }
 
-    return 0;
+    LODWORD(levelCopy) = 0;
   }
 
   return levelCopy;
@@ -380,14 +388,16 @@ void __45__EKSource_knownSingleValueKeysForComparison__block_invoke()
 
 + (int64_t)_calEventPrivacyLevelToEKPrivacyLevel:(int)level
 {
+  v3 = *&level;
   if (level < 4)
   {
     return level;
   }
 
+  v5 = EKLogHandle;
   if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
   {
-    +[EKSource _calEventPrivacyLevelToEKPrivacyLevel:];
+    [(EKSource *)v3 _calEventPrivacyLevelToEKPrivacyLevel:v5, v6];
   }
 
   return 0;
@@ -399,6 +409,12 @@ void __45__EKSource_knownSingleValueKeysForComparison__block_invoke()
   intValue = [v2 intValue];
 
   return intValue;
+}
+
+- (void)setPreferredEventPrivateValueRaw:(int)raw
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*&raw];
+  [(EKObject *)self setSingleChangedValue:v4 forKey:*MEMORY[0x1E6992D78]];
 }
 
 - (int64_t)preferredEventPrivateValue
@@ -422,6 +438,12 @@ void __45__EKSource_knownSingleValueKeysForComparison__block_invoke()
   intValue = [v2 intValue];
 
   return intValue;
+}
+
+- (void)setStrictestEventPrivateValueRaw:(int)raw
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*&raw];
+  [(EKObject *)self setSingleChangedValue:v4 forKey:*MEMORY[0x1E6992D90]];
 }
 
 - (int64_t)strictestEventPrivateValue
@@ -458,9 +480,11 @@ void __45__EKSource_knownSingleValueKeysForComparison__block_invoke()
 
 uint64_t __27__EKSource__eventKitBundle__block_invoke(uint64_t a1)
 {
-  _eventKitBundle_bundle_0 = [MEMORY[0x1E696AAE8] bundleForClass:*(a1 + 32)];
+  v1 = [MEMORY[0x1E696AAE8] bundleForClass:*(a1 + 32)];
+  v2 = _eventKitBundle_bundle_0;
+  _eventKitBundle_bundle_0 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 - (REMObjectID)remAccountObjectID
@@ -531,6 +555,18 @@ uint64_t __27__EKSource__eventKitBundle__block_invoke(uint64_t a1)
   return bOOLValue;
 }
 
+- (void)setOnlyCreatorCanModify:(BOOL)modify
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:modify];
+  [(EKObject *)self setSingleChangedValue:v4 forKey:*MEMORY[0x1E6992D60]];
+}
+
+- (void)setFlags:(int)flags
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithInt:*&flags];
+  [(EKObject *)self setSingleChangedValue:v4 forKey:*MEMORY[0x1E6992D30]];
+}
+
 - (void)setFlag:(int)flag value:(BOOL)value
 {
   if (value)
@@ -552,6 +588,12 @@ uint64_t __27__EKSource__eventKitBundle__block_invoke(uint64_t a1)
   intValue = [v2 intValue];
 
   return intValue;
+}
+
+- (void)setFlags2:(int)flags2
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithInt:*&flags2];
+  [(EKObject *)self setSingleChangedValue:v4 forKey:*MEMORY[0x1E6992D38]];
 }
 
 - (void)setFlag2:(int)flag2 value:(BOOL)value
@@ -577,12 +619,24 @@ uint64_t __27__EKSource__eventKitBundle__block_invoke(uint64_t a1)
   return bOOLValue;
 }
 
+- (void)setShowsNotifications:(BOOL)notifications
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:notifications];
+  [(EKObject *)self setSingleChangedValue:v4 forKey:*MEMORY[0x1E6992D80]];
+}
+
 - (BOOL)disabled
 {
   v2 = [(EKObject *)self singleChangedValueForKey:*MEMORY[0x1E6992D18]];
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setDisabled:(BOOL)disabled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:disabled];
+  [(EKObject *)self setSingleChangedValue:v4 forKey:*MEMORY[0x1E6992D18]];
 }
 
 - (BOOL)allowsTasks
@@ -613,7 +667,7 @@ uint64_t __27__EKSource__eventKitBundle__block_invoke(uint64_t a1)
 
 - (void)setAllowsTasks:(BOOL)tasks
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (tasks)
   {
     if (CalIsReminderBridgeEnabled())
@@ -624,11 +678,11 @@ uint64_t __27__EKSource__eventKitBundle__block_invoke(uint64_t a1)
       {
         v6 = v4;
         externalID = [(EKSource *)self externalID];
-        v9[0] = 67109378;
-        v9[1] = 1;
-        v10 = 2114;
-        v11 = externalID;
-        _os_log_impl(&dword_1A805E000, v6, OS_LOG_TYPE_INFO, "Ignoring attempt to set allowsTasks to %d on source %{public}@. Forcing to NO", v9, 0x12u);
+        v8[0] = 67109378;
+        v8[1] = 1;
+        v9 = 2114;
+        v10 = externalID;
+        _os_log_impl(&dword_1A805E000, v6, OS_LOG_TYPE_INFO, "Ignoring attempt to set allowsTasks to %d on source %{public}@. Forcing to NO", v8, 0x12u);
       }
     }
 
@@ -644,35 +698,34 @@ uint64_t __27__EKSource__eventKitBundle__block_invoke(uint64_t a1)
   }
 
   [(EKSource *)self setFlag:1 value:v5];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (NSSet)calendars
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DFA8] setWithCapacity:0];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   eventStore = [(EKObject *)self eventStore];
   calendars = [eventStore calendars];
 
-  v6 = [calendars countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [calendars countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(calendars);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         source = [v10 source];
         v12 = [source isEqual:self];
 
@@ -682,43 +735,41 @@ uint64_t __27__EKSource__eventKitBundle__block_invoke(uint64_t a1)
         }
       }
 
-      v7 = [calendars countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [calendars countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (NSSet)allCalendars
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DFA8] setWithCapacity:0];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   eventStore = [(EKObject *)self eventStore];
   _allCalendars = [eventStore _allCalendars];
 
-  v6 = [_allCalendars countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [_allCalendars countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(_allCalendars);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         source = [v10 source];
         v12 = [source isEqual:self];
 
@@ -728,13 +779,11 @@ uint64_t __27__EKSource__eventKitBundle__block_invoke(uint64_t a1)
         }
       }
 
-      v7 = [_allCalendars countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [_allCalendars countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -749,29 +798,29 @@ uint64_t __27__EKSource__eventKitBundle__block_invoke(uint64_t a1)
 
 - (id)calendarWithExternalIdentifier:(id)identifier
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   array = [MEMORY[0x1E695DF70] array];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   allCalendars = [(EKSource *)self allCalendars];
-  v7 = [allCalendars countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [allCalendars countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(allCalendars);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         externalID = [v11 externalID];
         v13 = [externalID isEqualToString:identifierCopy];
 
@@ -781,7 +830,7 @@ uint64_t __27__EKSource__eventKitBundle__block_invoke(uint64_t a1)
         }
       }
 
-      v8 = [allCalendars countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [allCalendars countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
@@ -793,8 +842,6 @@ uint64_t __27__EKSource__eventKitBundle__block_invoke(uint64_t a1)
   }
 
   firstObject = [array firstObject];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return firstObject;
 }
@@ -859,7 +906,7 @@ uint64_t __66__EKSource_removeCalendarItemsOlderThanDate_entityTypeMask_error___
     v5 = *(v4 + 40);
     *(v4 + 40) = v3;
 
-    return MEMORY[0x1EEE66BB8]();
+    return MEMORY[0x1EEE66BB8](v3, v5);
   }
 
   return result;
@@ -867,30 +914,30 @@ uint64_t __66__EKSource_removeCalendarItemsOlderThanDate_entityTypeMask_error___
 
 - (id)readWriteCalendarsForEntityType:(unint64_t)type
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = [MEMORY[0x1E695DFA8] setWithCapacity:0];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   eventStore = [(EKObject *)self eventStore];
   v7 = [eventStore calendarsForEntityType:type];
 
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
+        v12 = *(*(&v16 + 1) + 8 * i);
         source = [v12 source];
         if ([source isEqual:self])
         {
@@ -907,13 +954,11 @@ uint64_t __66__EKSource_removeCalendarItemsOlderThanDate_entityTypeMask_error___
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -982,21 +1027,44 @@ uint64_t __66__EKSource_removeCalendarItemsOlderThanDate_entityTypeMask_error___
   [(EKSource *)self _countCalendarItemsOfCalType:v5 resultHandler:handler];
 }
 
+- (void)_countCalendarItemsOfCalType:(int)type resultHandler:(id)handler
+{
+  v4 = *&type;
+  handlerCopy = handler;
+  eventStore = [(EKObject *)self eventStore];
+  connection = [eventStore connection];
+  cADOperationProxy = [connection CADOperationProxy];
+  cADObjectID = [(EKObject *)self CADObjectID];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __55__EKSource__countCalendarItemsOfCalType_resultHandler___block_invoke;
+  v12[3] = &unk_1E7800128;
+  v13 = handlerCopy;
+  v11 = handlerCopy;
+  [cADOperationProxy CADCountCalendarItemsOfType:v4 inSource:cADObjectID reply:v12];
+}
+
 uint64_t __55__EKSource__countCalendarItemsOfCalType_resultHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    [MEMORY[0x1E696ABC0] errorWithCADResult:a2];
-    objc_claimAutoreleasedReturnValue();
+    v3 = [MEMORY[0x1E696ABC0] errorWithCADResult:a2];
   }
 
-  v3 = *(a1 + 32);
-  if (v3)
+  else
   {
-    (*(v3 + 16))();
+    v3 = 0;
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  v4 = *(a1 + 32);
+  if (v4)
+  {
+    v6 = v3;
+    v4 = (*(v4 + 16))();
+    v3 = v6;
+  }
+
+  return MEMORY[0x1EEE66BB8](v4, v3);
 }
 
 - (BOOL)supportsReminderActions
@@ -1025,68 +1093,67 @@ uint64_t __55__EKSource__countCalendarItemsOfCalType_resultHandler___block_invok
 
 - (int)displayOrderForNewCalendar
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   allCalendars = [(EKSource *)self allCalendars];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v3 = [allCalendars countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [allCalendars countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
-    v4 = *v11;
+    v4 = *v10;
     displayOrder = -1;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v11 != v4)
+        if (*v10 != v4)
         {
           objc_enumerationMutation(allCalendars);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * i);
+        v7 = *(*(&v9 + 1) + 8 * i);
         if ([v7 displayOrder] > displayOrder)
         {
           displayOrder = [v7 displayOrder];
         }
       }
 
-      v3 = [allCalendars countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v3 = [allCalendars countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v3);
     LODWORD(v3) = displayOrder + 1;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 - (NSString)symbolicColorForNewCalendar
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   allCalendars = [(EKSource *)self allCalendars];
-  v5 = [allCalendars countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [allCalendars countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v17;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(allCalendars);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * i);
+        v9 = *(*(&v16 + 1) + 8 * i);
         symbolicColorName = [v9 symbolicColorName];
         if (symbolicColorName)
         {
@@ -1101,15 +1168,13 @@ uint64_t __55__EKSource__countCalendarItemsOfCalType_resultHandler___block_invok
         }
       }
 
-      v6 = [allCalendars countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [allCalendars countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v6);
   }
 
   v14 = [MEMORY[0x1E69930B8] symbolicColorForNewCalendarWithExistingSymbolicNames:array];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -1220,33 +1285,33 @@ LABEL_6:
 
 - (id)_calDAVOfficeHoursFromEKOfficeHours:(id)hours
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   hoursCopy = hours;
   if (hoursCopy)
   {
     currentCalendar = [MEMORY[0x1E695DEE8] currentCalendar];
-    v23 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(hoursCopy, "count")}];
+    v22 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(hoursCopy, "count")}];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
-    v20 = hoursCopy;
+    v19 = hoursCopy;
     obj = hoursCopy;
-    v5 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v5 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v5)
     {
       v6 = v5;
-      v22 = *v25;
+      v21 = *v24;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v25 != v22)
+          if (*v24 != v21)
           {
             objc_enumerationMutation(obj);
           }
 
-          v8 = *(*(&v24 + 1) + 8 * i);
+          v8 = *(*(&v23 + 1) + 8 * i);
           v9 = objc_alloc_init(MEMORY[0x1E6999890]);
           [v9 setEnabled:{objc_msgSend(v8, "enabled")}];
           startTime = [v8 startTime];
@@ -1281,26 +1346,24 @@ LABEL_6:
 
           [v9 setStartDate:v12];
           [v9 setEndDate:v16];
-          [v23 addObject:v9];
+          [v22 addObject:v9];
         }
 
-        v6 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v6 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v6);
     }
 
-    hoursCopy = v20;
+    hoursCopy = v19;
   }
 
   else
   {
-    v23 = 0;
+    v22 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
-  return v23;
+  return v22;
 }
 
 - (id)_nsErrorFromSyncError:(id)error event:(id)event
@@ -1420,6 +1483,12 @@ LABEL_6:
   return intValue;
 }
 
+- (void)setDisplayOrder:(int)order
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithInt:*&order];
+  [(EKObject *)self setSingleChangedValue:v4 forKey:*MEMORY[0x1E6992D20]];
+}
+
 - (BOOL)isPrimaryLocalSource
 {
   objectID = [(EKObject *)self objectID];
@@ -1470,13 +1539,13 @@ LABEL_6:
 
 - (BOOL)validate:(id *)validate
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   if (![(EKObject *)self isNew])
   {
     v5 = *MEMORY[0x1E6992D08];
-    v14[0] = *MEMORY[0x1E6992D00];
-    v14[1] = v5;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
+    v13[0] = *MEMORY[0x1E6992D00];
+    v13[1] = v5;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
     v7 = [(EKObject *)self hasUnsavedChangesIgnoreKeys:v6];
 
     if (!v7)
@@ -1495,15 +1564,15 @@ LABEL_6:
     {
 LABEL_5:
       LOBYTE(v8) = 1;
-      goto LABEL_6;
+      return v8;
     }
 
     if (validate)
     {
-      v12 = [MEMORY[0x1E696ABC0] errorWithEKErrorCode:65];
-      v8 = v12;
+      v11 = [MEMORY[0x1E696ABC0] errorWithEKErrorCode:65];
+      v8 = v11;
       LOBYTE(v8) = 0;
-      *validate = v12;
+      *validate = v11;
     }
 
     else
@@ -1512,8 +1581,6 @@ LABEL_5:
     }
   }
 
-LABEL_6:
-  v11 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -1538,22 +1605,22 @@ LABEL_6:
 
 - (BOOL)save:(id *)save
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   if (save)
   {
     *save = 0;
   }
 
   v4 = *MEMORY[0x1E6992D38];
-  v16[0] = *MEMORY[0x1E6992D38];
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+  v15[0] = *MEMORY[0x1E6992D38];
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
   if (![(EKObject *)self hasUnsavedChangesInKeys:v5])
   {
     goto LABEL_6;
   }
 
-  v15 = *MEMORY[0x1E6992D18];
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:1];
+  v14 = *MEMORY[0x1E6992D18];
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v14 count:1];
   if ([(EKObject *)self hasUnsavedChangesInKeys:v6])
   {
 
@@ -1565,17 +1632,17 @@ LABEL_6:
 
   if (isDelegate)
   {
-    v10 = [(EKObject *)self _previousValueForKey:v4];
-    intValue = [v10 intValue];
+    v9 = [(EKObject *)self _previousValueForKey:v4];
+    intValue = [v9 intValue];
 
     isInMainWindow = [(EKSource *)self isInMainWindow];
     isInSeparateWindow = [(EKSource *)self isInSeparateWindow];
     if (isInMainWindow == ((intValue & 0x100) == 0) || ((((intValue & 0x200) == 0) ^ isInSeparateWindow) & 1) == 0)
     {
-      v14 = isInMainWindow || isInSeparateWindow;
+      v13 = isInMainWindow || isInSeparateWindow;
       if ((isInMainWindow || isInSeparateWindow) == [(EKSource *)self disabled])
       {
-        [(EKSource *)self setDisabled:!v14];
+        [(EKSource *)self setDisabled:!v13];
       }
     }
   }
@@ -1584,7 +1651,6 @@ LABEL_7:
   [(EKSource *)self _copyInitialDefaultAlarmSettingsIfNeeded];
   [(EKObject *)self insertPersistentObjectIfNeeded];
   [(EKObject *)self updatePersistentObject];
-  v7 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -1693,7 +1759,7 @@ id __30__EKSource_cachedExternalInfo__block_invoke(uint64_t a1)
     v6 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __32__EKCalendar_cachedExternalInfo__block_invoke_cold_1(v6);
+      __32__EKCalendar_cachedExternalInfo__block_invoke_cold_1(v6, v3);
     }
 
 LABEL_10:
@@ -1783,6 +1849,15 @@ LABEL_8:
   }
 
   return v9;
+}
+
+- (void)_resetInternalStateWithForce:(BOOL)force
+{
+  forceCopy = force;
+  [(EKObject *)self clearCachedValueForKey:@"cachedExternalInfoDictionary"];
+  v5.receiver = self;
+  v5.super_class = EKSource;
+  [(EKObject *)&v5 _resetInternalStateWithForce:forceCopy];
 }
 
 - (NSURL)serverURL
@@ -1915,71 +1990,25 @@ LABEL_8:
   return v5 != 0;
 }
 
-+ (void)_ekPrivacyLevelToCalEventPrivacyLevel:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)_calEventPrivacyLevelToEKPrivacyLevel:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)setConstraintsName:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_4(&dword_1A805E000, v0, v1, "Attempting to set an unrecognized constraints name (%{public}@) with [EKSource setConstraintsName:]. The given name should be a valid .plist resource in CalendarFoundation.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)setConstraintsName:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_4(&dword_1A805E000, v0, v1, "Attempting to set a file name with .plist extension (%{public}@) with [EKSource setConstraintsName:]. Only the name should be supplied without an extension.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)setConstraintsName:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_4(&dword_1A805E000, v0, v1, "Attempting to set a path (%{public}@) with [EKSource setConstraintsName:]. Only the name should be supplied without an extension.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)calendarWithExternalIdentifier:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Source has more than one calendar with the same external Id: %@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 void __30__EKSource_cachedExternalInfo__block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Error deserializing external info: %@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)setCachedExternalInfo:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Error serializing external info: %@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 @end

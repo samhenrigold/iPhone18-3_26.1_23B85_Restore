@@ -17,6 +17,7 @@
 - (void)dealloc;
 - (void)invalidateCache;
 - (void)loadIfNeededWithCompletion:(id)completion;
+- (void)updateConsentStatusForCachedEntry:(id)entry consented:(BOOL)consented;
 @end
 
 @implementation WLKChannelUtilities
@@ -35,9 +36,11 @@
 
 uint64_t __45__WLKChannelUtilities_sharedInstanceFiltered__block_invoke()
 {
-  sharedInstanceFiltered_sharedInstanceFiltered = [[WLKChannelUtilities alloc] initFiltered:1];
+  v0 = [[WLKChannelUtilities alloc] initFiltered:1];
+  v1 = sharedInstanceFiltered_sharedInstanceFiltered;
+  sharedInstanceFiltered_sharedInstanceFiltered = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)sharedInstance
@@ -54,9 +57,11 @@ uint64_t __45__WLKChannelUtilities_sharedInstanceFiltered__block_invoke()
 
 uint64_t __37__WLKChannelUtilities_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance_2 = [[WLKChannelUtilities alloc] initFiltered:0];
+  v0 = [[WLKChannelUtilities alloc] initFiltered:0];
+  v1 = sharedInstance_sharedInstance_2;
+  sharedInstance_sharedInstance_2 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (id)initFiltered:(BOOL)filtered
@@ -92,25 +97,23 @@ void __36__WLKChannelUtilities_initFiltered___block_invoke(uint64_t a1)
   v10 = *MEMORY[0x277D85DE8];
   state64 = 0;
   v2 = getpid();
-  notify_get_state(*(*(a1 + 32) + 32), &state64);
+  state = notify_get_state(*(*(a1 + 32) + 32), &state64);
   if (state64 != v2)
   {
-    v3 = WLKSystemLogObject();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = WLKSystemLogObject(state);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
       v7 = v2;
       v8 = 2048;
       v9 = state64;
-      _os_log_impl(&dword_272A0F000, v3, OS_LOG_TYPE_DEFAULT, "WLKChannelUtilities - Set refresh=YES for next request in process=%llu., Triggered from process=%llu", buf, 0x16u);
+      _os_log_impl(&dword_272A0F000, v4, OS_LOG_TYPE_DEFAULT, "WLKChannelUtilities - Set refresh=YES for next request in process=%llu., Triggered from process=%llu", buf, 0x16u);
     }
 
     os_unfair_lock_lock((*(a1 + 32) + 40));
     *(*(a1 + 32) + 36) = 1;
     os_unfair_lock_unlock((*(a1 + 32) + 40));
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (WLKChannelUtilities)init
@@ -181,7 +184,7 @@ void __36__WLKChannelUtilities_initFiltered___block_invoke(uint64_t a1)
 
 - (id)channelForBundleID:(id)d
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if ([dCopy length])
   {
@@ -195,27 +198,27 @@ void __36__WLKChannelUtilities_initFiltered___block_invoke(uint64_t a1)
 
     else
     {
-      v19 = 0u;
-      v20 = 0u;
-      v17 = 0u;
       v18 = 0u;
+      v19 = 0u;
+      v16 = 0u;
+      v17 = 0u;
       _configuration = [(WLKChannelUtilities *)self _configuration];
       orderedChannels = [_configuration orderedChannels];
 
-      v7 = [orderedChannels countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [orderedChannels countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v7)
       {
-        v10 = *v18;
+        v10 = *v17;
         while (2)
         {
           for (i = 0; i != v7; i = i + 1)
           {
-            if (*v18 != v10)
+            if (*v17 != v10)
             {
               objc_enumerationMutation(orderedChannels);
             }
 
-            v12 = *(*(&v17 + 1) + 8 * i);
+            v12 = *(*(&v16 + 1) + 8 * i);
             appBundleIDs = [v12 appBundleIDs];
             v14 = [appBundleIDs containsObject:dCopy];
 
@@ -226,7 +229,7 @@ void __36__WLKChannelUtilities_initFiltered___block_invoke(uint64_t a1)
             }
           }
 
-          v7 = [orderedChannels countByEnumeratingWithState:&v17 objects:v21 count:16];
+          v7 = [orderedChannels countByEnumeratingWithState:&v16 objects:v20 count:16];
           if (v7)
           {
             continue;
@@ -244,8 +247,6 @@ LABEL_15:
   {
     v7 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -339,59 +340,59 @@ void __42__WLKChannelUtilities__validiTunesBundles__block_invoke()
 
   v5 = completionCopy;
   os_unfair_lock_lock(&self->_lock);
-  if (self->_shouldRefresh || ![(WLKChannelsResponse *)self->_cachedResponse isValidForFiltered:self->_filtered])
+  if (self->_shouldRefresh || (v6 = [(WLKChannelsResponse *)self->_cachedResponse isValidForFiltered:self->_filtered], !v6))
   {
     isChannelsInProgress = self->_isChannelsInProgress;
-    v7 = WLKSystemLogObject();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    v8 = WLKSystemLogObject(v6);
+    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
     if (isChannelsInProgress)
     {
-      if (v8)
+      if (v9)
       {
         LOWORD(buf[0]) = 0;
-        _os_log_impl(&dword_272A0F000, v7, OS_LOG_TYPE_DEFAULT, "WLKChannelUtilities - WLKChannelsRequestOperation in progress. Adding completion to pending list.", buf, 2u);
+        _os_log_impl(&dword_272A0F000, v8, OS_LOG_TYPE_DEFAULT, "WLKChannelUtilities - WLKChannelsRequestOperation in progress. Adding completion to pending list.", buf, 2u);
       }
 
       inFlightcompletionList = self->_inFlightcompletionList;
-      v10 = MEMORY[0x2743D2DF0](v5);
-      [(NSMutableArray *)inFlightcompletionList addObject:v10];
+      v11 = MEMORY[0x2743D2DF0](v5);
+      [(NSMutableArray *)inFlightcompletionList addObject:v11];
 
       os_unfair_lock_unlock(&self->_lock);
     }
 
     else
     {
-      if (v8)
+      if (v9)
       {
         LOWORD(buf[0]) = 0;
-        _os_log_impl(&dword_272A0F000, v7, OS_LOG_TYPE_DEFAULT, "WLKChannelUtilities - WLKChannelsRequestOperation starting.", buf, 2u);
+        _os_log_impl(&dword_272A0F000, v8, OS_LOG_TYPE_DEFAULT, "WLKChannelUtilities - WLKChannelsRequestOperation starting.", buf, 2u);
       }
 
       *&self->_shouldRefresh = 256;
-      v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v12 = self->_inFlightcompletionList;
-      self->_inFlightcompletionList = v11;
-
+      v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
       v13 = self->_inFlightcompletionList;
-      v14 = MEMORY[0x2743D2DF0](v5);
-      [(NSMutableArray *)v13 addObject:v14];
+      self->_inFlightcompletionList = v12;
 
-      v15 = [[WLKChannelsRequestOperation alloc] initWithCaller:0 isFilteredByUserChannels:self->_filtered];
+      v14 = self->_inFlightcompletionList;
+      v15 = MEMORY[0x2743D2DF0](v5);
+      [(NSMutableArray *)v14 addObject:v15];
+
+      v16 = [[WLKChannelsRequestOperation alloc] initWithCaller:0 isFilteredByUserChannels:self->_filtered];
       os_unfair_lock_unlock(&self->_lock);
-      v16 = objc_alloc_init(MEMORY[0x277CCABD8]);
+      v17 = objc_alloc_init(MEMORY[0x277CCABD8]);
       objc_initWeak(buf, self);
-      objc_initWeak(&location, v15);
-      v17 = MEMORY[0x277D85DD0];
-      v18 = 3221225472;
-      v19 = __57__WLKChannelUtilities__loadConfigIfNeededWithCompletion___block_invoke;
-      v20 = &unk_279E60238;
-      objc_copyWeak(&v22, buf);
-      objc_copyWeak(&v23, &location);
+      objc_initWeak(&location, v16);
+      v18 = MEMORY[0x277D85DD0];
+      v19 = 3221225472;
+      v20 = __57__WLKChannelUtilities__loadConfigIfNeededWithCompletion___block_invoke;
+      v21 = &unk_279E60238;
+      objc_copyWeak(&v23, buf);
+      objc_copyWeak(&v24, &location);
       selfCopy = self;
-      [(WLKChannelsRequestOperation *)v15 setCompletionBlock:&v17];
-      [v16 addOperation:{v15, v17, v18, v19, v20}];
+      [(WLKChannelsRequestOperation *)v16 setCompletionBlock:&v18];
+      [v17 addOperation:{v16, v18, v19, v20, v21}];
+      objc_destroyWeak(&v24);
       objc_destroyWeak(&v23);
-      objc_destroyWeak(&v22);
       objc_destroyWeak(&location);
       objc_destroyWeak(buf);
     }
@@ -411,7 +412,7 @@ void __57__WLKChannelUtilities__loadConfigIfNeededWithCompletion___block_invoke(
   v4 = v3;
   if (WeakRetained && v3)
   {
-    v5 = WLKSystemLogObject();
+    v5 = WLKSystemLogObject(v3);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -433,34 +434,49 @@ void __57__WLKChannelUtilities__loadConfigIfNeededWithCompletion___block_invoke(
     *(WeakRetained + 6) = 0;
 
     os_unfair_lock_unlock((*(a1 + 32) + 40));
-    v12 = WLKSystemLogObject();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = WLKSystemLogObject(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v17 = 0;
-      _os_log_impl(&dword_272A0F000, v12, OS_LOG_TYPE_DEFAULT, "WLKChannelUtilities - Calling pending completion list with result.", v17, 2u);
+      *v18 = 0;
+      _os_log_impl(&dword_272A0F000, v13, OS_LOG_TYPE_DEFAULT, "WLKChannelUtilities - Calling pending completion list with result.", v18, 2u);
     }
 
     if ([v10 count])
     {
-      v13 = 0;
+      v14 = 0;
       do
       {
-        v14 = [v10 objectAtIndexedSubscript:v13];
-        v15 = [v4 channelsResponse];
-        v16 = [v4 error];
-        (v14)[2](v14, v15 != 0, v16);
+        v15 = [v10 objectAtIndexedSubscript:v14];
+        v16 = [v4 channelsResponse];
+        v17 = [v4 error];
+        (v15)[2](v15, v16 != 0, v17);
 
-        ++v13;
+        ++v14;
       }
 
-      while (v13 < [v10 count]);
+      while (v14 < [v10 count]);
     }
   }
 }
 
+- (void)updateConsentStatusForCachedEntry:(id)entry consented:(BOOL)consented
+{
+  consentedCopy = consented;
+  entryCopy = entry;
+  os_unfair_lock_lock(&self->_lock);
+  cachedResponse = self->_cachedResponse;
+  if (cachedResponse)
+  {
+    [(WLKChannelsResponse *)cachedResponse modifyConsentStatusForChannelEntry:entryCopy consented:consentedCopy];
+  }
+
+  [(WLKChannelUtilities *)self invalidateCache];
+  os_unfair_lock_unlock(&self->_lock);
+}
+
 - (void)invalidateCache
 {
-  v3 = WLKSystemLogObject();
+  v3 = WLKSystemLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;

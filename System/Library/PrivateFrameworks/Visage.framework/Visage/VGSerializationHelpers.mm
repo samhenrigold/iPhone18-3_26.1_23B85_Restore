@@ -43,16 +43,16 @@
 
 + (__CVBuffer)createPixelBufferFromData:(id)data
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   bytes = [data bytes];
   v4 = *(bytes + 4);
   v5 = *(bytes + 12);
   v6 = *(bytes + 20);
   v7 = *(bytes + 28);
   pixelBuffer = 0;
-  v17 = *MEMORY[0x277CC4DE8];
-  v18[0] = MEMORY[0x277CBEC10];
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+  v16 = *MEMORY[0x277CC4DE8];
+  v17[0] = MEMORY[0x277CBEC10];
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
   if (CVPixelBufferCreate(0, v4, v5, v7, v8, &pixelBuffer))
   {
     v9 = 0;
@@ -82,30 +82,27 @@
     v9 = pixelBuffer;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 + (id)cgRectToDict:(const CGRect *)dict
 {
-  v16[2] = *MEMORY[0x277D85DE8];
-  v15[0] = @"origin";
+  v15[2] = *MEMORY[0x277D85DE8];
+  v14[0] = @"origin";
   v4 = [MEMORY[0x277CCABB0] numberWithDouble:dict->origin.x];
-  v14[0] = v4;
+  v13[0] = v4;
   v5 = [MEMORY[0x277CCABB0] numberWithDouble:dict->origin.y];
-  v14[1] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
-  v15[1] = @"size";
-  v16[0] = v6;
+  v13[1] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+  v14[1] = @"size";
+  v15[0] = v6;
   v7 = [MEMORY[0x277CCABB0] numberWithDouble:dict->size.width];
-  v13[0] = v7;
+  v12[0] = v7;
   v8 = [MEMORY[0x277CCABB0] numberWithDouble:dict->size.height];
-  v13[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
-  v16[1] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v12[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+  v15[1] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
 
   return v10;
 }

@@ -134,7 +134,6 @@ void __51__EKGroupExpansionOperation__processResults_class___block_invoke(uint64
   errorCopy = error;
   if (([(EKGroupExpansionOperation *)self isCancelled]& 1) == 0)
   {
-    resultsSet = self->_resultsSet;
     (*(self->_completionBlock + 2))();
   }
 

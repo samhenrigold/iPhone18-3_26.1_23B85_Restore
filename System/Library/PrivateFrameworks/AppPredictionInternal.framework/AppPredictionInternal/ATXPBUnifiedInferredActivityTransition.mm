@@ -132,7 +132,6 @@ LABEL_5:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    transitionTime = self->_transitionTime;
     PBDataWriterWriteDoubleField();
     has = self->_has;
     if ((has & 8) == 0)
@@ -152,12 +151,10 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  isActivityStart = self->_isActivityStart;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_4:
-    inferredActivity = self->_inferredActivity;
     PBDataWriterWriteInt64Field();
   }
 
@@ -169,7 +166,6 @@ LABEL_5:
 
   if (*&self->_has)
   {
-    confidence = self->_confidence;
     PBDataWriterWriteDoubleField();
   }
 }
@@ -283,7 +279,6 @@ LABEL_5:
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 44);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 44) & 4) == 0 || self->_transitionTime != *(equalCopy + 3))
@@ -304,7 +299,6 @@ LABEL_5:
       goto LABEL_26;
     }
 
-    v7 = *(equalCopy + 40);
     if (self->_isActivityStart)
     {
       if ((*(equalCopy + 40) & 1) == 0)
@@ -347,12 +341,12 @@ LABEL_5:
     }
 
 LABEL_26:
-    v9 = 0;
+    v7 = 0;
     goto LABEL_27;
   }
 
 LABEL_21:
-  v9 = (*(equalCopy + 44) & 1) == 0;
+  v7 = (*(equalCopy + 44) & 1) == 0;
   if (has)
   {
     if ((*(equalCopy + 44) & 1) == 0 || self->_confidence != *(equalCopy + 1))
@@ -360,12 +354,12 @@ LABEL_21:
       goto LABEL_26;
     }
 
-    v9 = 1;
+    v7 = 1;
   }
 
 LABEL_27:
 
-  return v9;
+  return v7;
 }
 
 - (unint64_t)hash
@@ -547,39 +541,37 @@ LABEL_5:
 
 - (id)jsonRepresentation
 {
-  v24[5] = *MEMORY[0x277D85DE8];
-  v23[0] = @"confidence";
+  v23[5] = *MEMORY[0x277D85DE8];
+  v22[0] = @"confidence";
   v3 = MEMORY[0x277CEB600];
   v4 = MEMORY[0x277CCABB0];
   [(ATXPBUnifiedInferredActivityTransition *)self confidence];
-  v22 = [v4 numberWithDouble:?];
-  v5 = [v3 wrapObject:v22];
-  v24[0] = v5;
-  v23[1] = @"inferredActivity";
+  v21 = [v4 numberWithDouble:?];
+  v5 = [v3 wrapObject:v21];
+  v23[0] = v5;
+  v22[1] = @"inferredActivity";
   v6 = MEMORY[0x277CEB600];
   v7 = [MEMORY[0x277CCABB0] numberWithLongLong:{-[ATXPBUnifiedInferredActivityTransition inferredActivity](self, "inferredActivity")}];
   v8 = [v6 wrapObject:v7];
-  v24[1] = v8;
-  v23[2] = @"isActivityStart";
+  v23[1] = v8;
+  v22[2] = @"isActivityStart";
   v9 = MEMORY[0x277CEB600];
   v10 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXPBUnifiedInferredActivityTransition isActivityStart](self, "isActivityStart")}];
   v11 = [v9 wrapObject:v10];
-  v24[2] = v11;
-  v23[3] = @"transitionTime";
+  v23[2] = v11;
+  v22[3] = @"transitionTime";
   v12 = MEMORY[0x277CEB600];
   v13 = MEMORY[0x277CCABB0];
   [(ATXPBUnifiedInferredActivityTransition *)self transitionTime];
   v14 = [v13 numberWithDouble:?];
   v15 = [v12 wrapObject:v14];
-  v24[3] = v15;
-  v23[4] = @"source";
+  v23[3] = v15;
+  v22[4] = @"source";
   v16 = MEMORY[0x277CEB600];
   source = [(ATXPBUnifiedInferredActivityTransition *)self source];
   v18 = [v16 wrapObject:source];
-  v24[4] = v18;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:5];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v23[4] = v18;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:5];
 
   return v19;
 }

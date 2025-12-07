@@ -69,7 +69,7 @@
   selfCopy = self;
   sub_100034C08();
 
-  type metadata accessor for VoicemailAccount();
+  type metadata accessor for VoicemailAccount(0);
   v3.super.isa = sub_1000608BC().super.isa;
 
   return v3.super.isa;
@@ -118,219 +118,219 @@
 {
   v4 = sub_10006036C();
   v5 = *(v4 - 8);
-  __chkstk_darwin(v4);
-  v7 = v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4, v6);
+  v8 = v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10006035C();
-  v8 = self + OBJC_IVAR___MPVoicemailAccountManagerWithDelegateDecorator__vmd;
+  v9 = self + OBJC_IVAR___MPVoicemailAccountManagerWithDelegateDecorator__vmd;
   selfCopy = self;
-  os_unfair_lock_lock(v8);
-  sub_100033A08(v8 + 1, selfCopy, v14);
-  os_unfair_lock_unlock(v8);
-  v10 = v14[1];
+  os_unfair_lock_lock(v9);
+  sub_100033A08(v9 + 1, selfCopy, v15);
+  os_unfair_lock_unlock(v9);
+  v11 = v15[1];
   ObjectType = swift_getObjectType();
-  LOBYTE(v10) = (*(v10 + 88))(v7, ObjectType, v10);
+  LOBYTE(v11) = (*(v11 + 88))(v8, ObjectType, v11);
 
   swift_unknownObjectRelease();
-  (*(v5 + 8))(v7, v4);
-  return v10 & 1;
+  (*(v5 + 8))(v8, v4);
+  return v11 & 1;
 }
 
 - (BOOL)isAccountSubscribed:(id)subscribed
 {
   v4 = sub_10006036C();
   v5 = *(v4 - 8);
-  __chkstk_darwin(v4);
-  v7 = v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4, v6);
+  v8 = v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10006035C();
-  v8 = self + OBJC_IVAR___MPVoicemailAccountManagerWithDelegateDecorator__vmd;
+  v9 = self + OBJC_IVAR___MPVoicemailAccountManagerWithDelegateDecorator__vmd;
   selfCopy = self;
-  os_unfair_lock_lock(v8);
-  sub_100033A08(v8 + 1, selfCopy, v14);
-  os_unfair_lock_unlock(v8);
-  v10 = v14[1];
+  os_unfair_lock_lock(v9);
+  sub_100033A08(v9 + 1, selfCopy, v15);
+  os_unfair_lock_unlock(v9);
+  v11 = v15[1];
   ObjectType = swift_getObjectType();
-  LOBYTE(v10) = (*(v10 + 96))(v7, ObjectType, v10);
+  LOBYTE(v11) = (*(v11 + 96))(v8, ObjectType, v11);
 
   swift_unknownObjectRelease();
-  (*(v5 + 8))(v7, v4);
-  return v10 & 1;
+  (*(v5 + 8))(v8, v4);
+  return v11 & 1;
 }
 
 - (BOOL)isGreetingChangeSupportedForAccountUUID:(id)d
 {
   v4 = sub_10006036C();
   v5 = *(v4 - 8);
-  __chkstk_darwin(v4);
-  v7 = v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4, v6);
+  v8 = v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10006035C();
-  v8 = self + OBJC_IVAR___MPVoicemailAccountManagerWithDelegateDecorator__vmd;
+  v9 = self + OBJC_IVAR___MPVoicemailAccountManagerWithDelegateDecorator__vmd;
   selfCopy = self;
-  os_unfair_lock_lock(v8);
-  sub_100033A08(v8 + 1, selfCopy, v14);
-  os_unfair_lock_unlock(v8);
-  v10 = v14[1];
+  os_unfair_lock_lock(v9);
+  sub_100033A08(v9 + 1, selfCopy, v15);
+  os_unfair_lock_unlock(v9);
+  v11 = v15[1];
   ObjectType = swift_getObjectType();
-  LOBYTE(v10) = (*(v10 + 104))(v7, ObjectType, v10);
+  LOBYTE(v11) = (*(v11 + 104))(v8, ObjectType, v11);
 
   swift_unknownObjectRelease();
-  (*(v5 + 8))(v7, v4);
-  return v10 & 1;
+  (*(v5 + 8))(v8, v4);
+  return v11 & 1;
 }
 
 - (BOOL)isPasscodeChangeSupportedForAccountUUID:(id)d
 {
   v4 = sub_10006036C();
   v5 = *(v4 - 8);
-  __chkstk_darwin(v4);
-  v7 = v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4, v6);
+  v8 = v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10006035C();
-  v8 = self + OBJC_IVAR___MPVoicemailAccountManagerWithDelegateDecorator__vmd;
+  v9 = self + OBJC_IVAR___MPVoicemailAccountManagerWithDelegateDecorator__vmd;
   selfCopy = self;
-  os_unfair_lock_lock(v8);
-  sub_100033A08(v8 + 1, selfCopy, v14);
-  os_unfair_lock_unlock(v8);
-  v10 = v14[1];
+  os_unfair_lock_lock(v9);
+  sub_100033A08(v9 + 1, selfCopy, v15);
+  os_unfair_lock_unlock(v9);
+  v11 = v15[1];
   ObjectType = swift_getObjectType();
-  LOBYTE(v10) = (*(v10 + 112))(v7, ObjectType, v10);
+  LOBYTE(v11) = (*(v11 + 112))(v8, ObjectType, v11);
 
   swift_unknownObjectRelease();
-  (*(v5 + 8))(v7, v4);
-  return v10 & 1;
+  (*(v5 + 8))(v8, v4);
+  return v11 & 1;
 }
 
 - (int64_t)maximumPasscodeLengthForAccountUUID:(id)d
 {
   v4 = sub_10006036C();
   v5 = *(v4 - 8);
-  __chkstk_darwin(v4);
-  v7 = v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4, v6);
+  v8 = v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10006035C();
-  v8 = self + OBJC_IVAR___MPVoicemailAccountManagerWithDelegateDecorator__vmd;
+  v9 = self + OBJC_IVAR___MPVoicemailAccountManagerWithDelegateDecorator__vmd;
   selfCopy = self;
-  os_unfair_lock_lock(v8);
-  sub_100033A08(v8 + 1, selfCopy, v15);
-  os_unfair_lock_unlock(v8);
-  v10 = v15[1];
+  os_unfair_lock_lock(v9);
+  sub_100033A08(v9 + 1, selfCopy, v16);
+  os_unfair_lock_unlock(v9);
+  v11 = v16[1];
   ObjectType = swift_getObjectType();
-  v12 = (*(v10 + 120))(v7, ObjectType, v10);
+  v13 = (*(v11 + 120))(v8, ObjectType, v11);
 
   swift_unknownObjectRelease();
-  (*(v5 + 8))(v7, v4);
-  return v12;
+  (*(v5 + 8))(v8, v4);
+  return v13;
 }
 
 - (int64_t)minimumPasscodeLengthForAccountUUID:(id)d
 {
   v4 = sub_10006036C();
   v5 = *(v4 - 8);
-  __chkstk_darwin(v4);
-  v7 = v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4, v6);
+  v8 = v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10006035C();
-  v8 = self + OBJC_IVAR___MPVoicemailAccountManagerWithDelegateDecorator__vmd;
+  v9 = self + OBJC_IVAR___MPVoicemailAccountManagerWithDelegateDecorator__vmd;
   selfCopy = self;
-  os_unfair_lock_lock(v8);
-  sub_100033A08(v8 + 1, selfCopy, v15);
-  os_unfair_lock_unlock(v8);
-  v10 = v15[1];
+  os_unfair_lock_lock(v9);
+  sub_100033A08(v9 + 1, selfCopy, v16);
+  os_unfair_lock_unlock(v9);
+  v11 = v16[1];
   ObjectType = swift_getObjectType();
-  v12 = (*(v10 + 128))(v7, ObjectType, v10);
+  v13 = (*(v11 + 128))(v8, ObjectType, v11);
 
   swift_unknownObjectRelease();
-  (*(v5 + 8))(v7, v4);
-  return v12;
+  (*(v5 + 8))(v8, v4);
+  return v13;
 }
 
 - (void)setPasscode:(id)passcode forAccountUUID:(id)d completion:(id)completion
 {
   v7 = sub_10006036C();
   v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
-  v10 = v21 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = _Block_copy(completion);
-  v12 = sub_10006081C();
-  v14 = v13;
+  __chkstk_darwin(v7, v9);
+  v11 = v22 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = _Block_copy(completion);
+  v13 = sub_10006081C();
+  v15 = v14;
   sub_10006035C();
-  v15 = swift_allocObject();
-  *(v15 + 16) = v11;
-  v16 = self + OBJC_IVAR___MPVoicemailAccountManagerWithDelegateDecorator__vmd;
+  v16 = swift_allocObject();
+  *(v16 + 16) = v12;
+  v17 = self + OBJC_IVAR___MPVoicemailAccountManagerWithDelegateDecorator__vmd;
   selfCopy = self;
-  os_unfair_lock_lock(v16);
-  sub_100033A08(v16 + 1, selfCopy, v21);
-  os_unfair_lock_unlock(v16);
-  v18 = v21[1];
+  os_unfair_lock_lock(v17);
+  sub_100033A08(v17 + 1, selfCopy, v22);
+  os_unfair_lock_unlock(v17);
+  v19 = v22[1];
   ObjectType = swift_getObjectType();
-  (*(v18 + 136))(v12, v14, v10, sub_10001BE68, v15, ObjectType, v18);
+  (*(v19 + 136))(v13, v15, v11, sub_10001BE68, v16, ObjectType, v19);
 
   swift_unknownObjectRelease();
-  (*(v8 + 8))(v10, v7);
+  (*(v8 + 8))(v11, v7);
 }
 
 - (double)maximumGreetingDurationForAccountUUID:(id)d
 {
   v4 = sub_10006036C();
   v5 = *(v4 - 8);
-  __chkstk_darwin(v4);
-  v7 = v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4, v6);
+  v8 = v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10006035C();
-  v8 = self + OBJC_IVAR___MPVoicemailAccountManagerWithDelegateDecorator__vmd;
+  v9 = self + OBJC_IVAR___MPVoicemailAccountManagerWithDelegateDecorator__vmd;
   selfCopy = self;
-  os_unfair_lock_lock(v8);
-  sub_100033A08(v8 + 1, selfCopy, v15);
-  os_unfair_lock_unlock(v8);
-  v10 = v15[1];
+  os_unfair_lock_lock(v9);
+  sub_100033A08(v9 + 1, selfCopy, v16);
+  os_unfair_lock_unlock(v9);
+  v11 = v16[1];
   ObjectType = swift_getObjectType();
-  v12 = (*(v10 + 144))(v7, ObjectType, v10);
+  v13 = (*(v11 + 144))(v8, ObjectType, v11);
 
   swift_unknownObjectRelease();
-  (*(v5 + 8))(v7, v4);
-  return v12;
+  (*(v5 + 8))(v8, v4);
+  return v13;
 }
 
 - (void)greetingForAccountUUID:(id)d completion:(id)completion
 {
   v6 = sub_10006036C();
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
-  v9 = v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = _Block_copy(completion);
+  __chkstk_darwin(v6, v8);
+  v10 = v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = _Block_copy(completion);
   sub_10006035C();
-  v11 = swift_allocObject();
-  *(v11 + 16) = v10;
-  v12 = self + OBJC_IVAR___MPVoicemailAccountManagerWithDelegateDecorator__vmd;
+  v12 = swift_allocObject();
+  *(v12 + 16) = v11;
+  v13 = self + OBJC_IVAR___MPVoicemailAccountManagerWithDelegateDecorator__vmd;
   selfCopy = self;
-  os_unfair_lock_lock(v12);
-  sub_100033A08(v12 + 1, selfCopy, v17);
-  os_unfair_lock_unlock(v12);
-  v14 = v17[1];
+  os_unfair_lock_lock(v13);
+  sub_100033A08(v13 + 1, selfCopy, v18);
+  os_unfair_lock_unlock(v13);
+  v15 = v18[1];
   ObjectType = swift_getObjectType();
-  (*(v14 + 152))(v9, sub_10001B908, v11, ObjectType, v14);
+  (*(v15 + 152))(v10, sub_10001B908, v12, ObjectType, v15);
 
   swift_unknownObjectRelease();
-  (*(v7 + 8))(v9, v6);
+  (*(v7 + 8))(v10, v6);
 }
 
 - (void)setGreeting:(id)greeting forAccountUUID:(id)d completion:(id)completion
 {
   v8 = sub_10006036C();
   v9 = *(v8 - 8);
-  __chkstk_darwin(v8);
-  v11 = v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = _Block_copy(completion);
+  __chkstk_darwin(v8, v10);
+  v12 = v21 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = _Block_copy(completion);
   sub_10006035C();
-  v13 = swift_allocObject();
-  *(v13 + 16) = v12;
-  v14 = self + OBJC_IVAR___MPVoicemailAccountManagerWithDelegateDecorator__vmd;
+  v14 = swift_allocObject();
+  *(v14 + 16) = v13;
+  v15 = self + OBJC_IVAR___MPVoicemailAccountManagerWithDelegateDecorator__vmd;
   greetingCopy = greeting;
   selfCopy = self;
-  os_unfair_lock_lock(v14);
-  sub_100033A08(v14 + 1, selfCopy, v20);
-  os_unfair_lock_unlock(v14);
-  v17 = v20[1];
+  os_unfair_lock_lock(v15);
+  sub_100033A08(v15 + 1, selfCopy, v21);
+  os_unfair_lock_unlock(v15);
+  v18 = v21[1];
   ObjectType = swift_getObjectType();
-  (*(v17 + 160))(greetingCopy, v11, sub_10001B900, v13, ObjectType, v17);
+  (*(v18 + 160))(greetingCopy, v12, sub_10001B900, v14, ObjectType, v18);
 
   swift_unknownObjectRelease();
-  (*(v9 + 8))(v11, v8);
+  (*(v9 + 8))(v12, v8);
 }
 
 - (id)listenForChangesWithHandler:(id)handler

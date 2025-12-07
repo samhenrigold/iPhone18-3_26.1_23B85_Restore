@@ -277,63 +277,61 @@
 
 - (BOOL)intersectsSet:(id)set
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (set == self)
   {
 LABEL_12:
     LOBYTE(v5) = 1;
-    goto LABEL_13;
+    return v5;
   }
 
   v5 = [set count];
   if (v5)
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
-    v5 = [(MFWeakSet *)self countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
+    v5 = [(MFWeakSet *)self countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v12;
+      v7 = *v11;
 LABEL_5:
       v8 = 0;
       while (1)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(self);
         }
 
-        if ([set containsObject:*(*(&v11 + 1) + 8 * v8)])
+        if ([set containsObject:*(*(&v10 + 1) + 8 * v8)])
         {
           goto LABEL_12;
         }
 
         if (v6 == ++v8)
         {
-          v6 = [(MFWeakSet *)self countByEnumeratingWithState:&v11 objects:v15 count:16];
+          v6 = [(MFWeakSet *)self countByEnumeratingWithState:&v10 objects:v14 count:16];
           LOBYTE(v5) = 0;
           if (v6)
           {
             goto LABEL_5;
           }
 
-          break;
+          return v5;
         }
       }
     }
   }
 
-LABEL_13:
-  v9 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (BOOL)isEqualToSet:(id)set
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (set == self)
   {
     LOBYTE(v6) = 1;
@@ -344,25 +342,25 @@ LABEL_13:
     v5 = [(MFWeakSet *)self count];
     if (v5 == [set count])
     {
-      v14 = 0u;
-      v15 = 0u;
-      v12 = 0u;
       v13 = 0u;
-      v6 = [(MFWeakSet *)self countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v14 = 0u;
+      v11 = 0u;
+      v12 = 0u;
+      v6 = [(MFWeakSet *)self countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v13;
+        v8 = *v12;
 LABEL_5:
         v9 = 0;
         while (1)
         {
-          if (*v13 != v8)
+          if (*v12 != v8)
           {
             objc_enumerationMutation(self);
           }
 
-          LODWORD(v6) = [set containsObject:*(*(&v12 + 1) + 8 * v9)];
+          LODWORD(v6) = [set containsObject:*(*(&v11 + 1) + 8 * v9)];
           if (!v6)
           {
             break;
@@ -370,14 +368,14 @@ LABEL_5:
 
           if (v7 == ++v9)
           {
-            v7 = [(MFWeakSet *)self countByEnumeratingWithState:&v12 objects:v16 count:16];
+            v7 = [(MFWeakSet *)self countByEnumeratingWithState:&v11 objects:v15 count:16];
             LOBYTE(v6) = 1;
             if (v7)
             {
               goto LABEL_5;
             }
 
-            break;
+            return v6;
           }
         }
       }
@@ -389,14 +387,13 @@ LABEL_5:
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (BOOL)isSubsetOfSet:(id)set
 {
-  v17 = *MEMORY[0x1E69E9840];
-  if (set == self || (v14 = 0u, v15 = 0u, v12 = 0u, v13 = 0u, (v5 = [(MFWeakSet *)self countByEnumeratingWithState:&v12 objects:v16 count:16]) == 0))
+  v16 = *MEMORY[0x1E69E9840];
+  if (set == self || (v13 = 0u, v14 = 0u, v11 = 0u, v12 = 0u, (v5 = [(MFWeakSet *)self countByEnumeratingWithState:&v11 objects:v15 count:16]) == 0))
   {
     LOBYTE(v9) = 1;
   }
@@ -404,17 +401,17 @@ LABEL_5:
   else
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
 LABEL_4:
     v8 = 0;
     while (1)
     {
-      if (*v13 != v7)
+      if (*v12 != v7)
       {
         objc_enumerationMutation(self);
       }
 
-      v9 = [set containsObject:*(*(&v12 + 1) + 8 * v8)];
+      v9 = [set containsObject:*(*(&v11 + 1) + 8 * v8)];
       if (!v9)
       {
         break;
@@ -422,64 +419,59 @@ LABEL_4:
 
       if (v6 == ++v8)
       {
-        v6 = [(MFWeakSet *)self countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v6 = [(MFWeakSet *)self countByEnumeratingWithState:&v11 objects:v15 count:16];
         LOBYTE(v9) = 1;
         if (v6)
         {
           goto LABEL_4;
         }
 
-        break;
+        return v9;
       }
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (void)makeObjectsPerformSelector:(SEL)selector withObject:(id)object
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v7 = [(MFWeakSet *)self countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [(MFWeakSet *)self countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(self);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) selector];
+        [*(*(&v11 + 1) + 8 * v10++) selector];
       }
 
       while (v8 != v10);
-      v8 = [(MFWeakSet *)self countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [(MFWeakSet *)self countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)setByAddingObject:(id)object
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = object;
-  result = -[MFWeakSet setByAddingObjectsFromArray:](self, "setByAddingObjectsFromArray:", [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1]);
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = object;
+  return -[MFWeakSet setByAddingObjectsFromArray:](self, "setByAddingObjectsFromArray:", [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1]);
 }
 
 - (id)setByAddingObjectsFromSet:(id)set
@@ -499,37 +491,37 @@ LABEL_4:
 
 - (void)enumerateObjectsWithOptions:(unint64_t)options usingBlock:(id)block
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   _copyAllItems = [(MFWeakSet *)self _copyAllItems];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v6 = [_copyAllItems countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [_copyAllItems countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v14 != v8)
+      if (*v13 != v8)
       {
         objc_enumerationMutation(_copyAllItems);
       }
 
-      v10 = *(*(&v13 + 1) + 8 * v9);
-      v12 = 0;
-      (*(block + 2))(block, v10, &v12);
-      if (v12)
+      v10 = *(*(&v12 + 1) + 8 * v9);
+      v11 = 0;
+      (*(block + 2))(block, v10, &v11);
+      if (v11)
       {
         break;
       }
 
       if (v7 == ++v9)
       {
-        v7 = [_copyAllItems countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [_copyAllItems countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -539,48 +531,46 @@ LABEL_3:
       }
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)objectsWithOptions:(unint64_t)options passingTest:(id)test
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v6 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   _copyAllItems = [(MFWeakSet *)self _copyAllItems];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v8 = [_copyAllItems countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [_copyAllItems countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
 LABEL_3:
     v11 = 0;
     while (1)
     {
-      if (*v17 != v10)
+      if (*v16 != v10)
       {
         objc_enumerationMutation(_copyAllItems);
       }
 
-      v12 = *(*(&v16 + 1) + 8 * v11);
-      v15 = 0;
-      if ((*(test + 2))(test, v12, &v15))
+      v12 = *(*(&v15 + 1) + 8 * v11);
+      v14 = 0;
+      if ((*(test + 2))(test, v12, &v14))
       {
         [v6 addObject:v12];
       }
 
-      if (v15)
+      if (v14)
       {
         break;
       }
 
       if (v9 == ++v11)
       {
-        v9 = [_copyAllItems countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [_copyAllItems countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v9)
         {
           goto LABEL_3;
@@ -591,9 +581,7 @@ LABEL_3:
     }
   }
 
-  result = v6;
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
+  return v6;
 }
 
 + (id)set
@@ -807,33 +795,33 @@ LABEL_3:
 
 - (void)addObjectsFromArray:(id)array
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   [(NSLock *)self->_lock lock];
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
-  v5 = [array countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  v5 = [array countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(array);
         }
 
-        CFDictionaryAddValue(self->_objects, *(*(&v10 + 1) + 8 * v8), [MFWeakReferenceHolder weakReferenceWithObject:*(*(&v10 + 1) + 8 * v8)]);
+        CFDictionaryAddValue(self->_objects, *(*(&v9 + 1) + 8 * v8), [MFWeakReferenceHolder weakReferenceWithObject:*(*(&v9 + 1) + 8 * v8)]);
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [array countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [array countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
@@ -841,92 +829,86 @@ LABEL_3:
 
   ++self->_gen;
   [(NSLock *)self->_lock unlock];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)intersectSet:(id)set
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (set != self)
   {
     _copyAllItems = [(MFWeakSet *)self _copyAllItems];
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
-    v6 = [_copyAllItems countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v6 = [_copyAllItems countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v13;
+      v8 = *v12;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v13 != v8)
+          if (*v12 != v8)
           {
             objc_enumerationMutation(_copyAllItems);
           }
 
-          v10 = *(*(&v12 + 1) + 8 * i);
+          v10 = *(*(&v11 + 1) + 8 * i);
           if (([set containsObject:v10] & 1) == 0)
           {
             [(MFWeakSet *)self removeObject:v10];
           }
         }
 
-        v7 = [_copyAllItems countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v7 = [_copyAllItems countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v7);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)minusSet:(id)set
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (set == self)
   {
-    v10 = *MEMORY[0x1E69E9840];
 
     [(MFWeakSet *)self removeAllObjects];
   }
 
   else
   {
-    v13 = 0u;
-    v14 = 0u;
     v11 = 0u;
     v12 = 0u;
-    v5 = [set countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v9 = 0u;
+    v10 = 0u;
+    v5 = [set countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v12;
+      v7 = *v10;
       do
       {
         v8 = 0;
         do
         {
-          if (*v12 != v7)
+          if (*v10 != v7)
           {
             objc_enumerationMutation(set);
           }
 
-          [(MFWeakSet *)self removeObject:*(*(&v11 + 1) + 8 * v8++)];
+          [(MFWeakSet *)self removeObject:*(*(&v9 + 1) + 8 * v8++)];
         }
 
         while (v6 != v8);
-        v6 = [set countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v6 = [set countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v6);
     }
-
-    v9 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -942,79 +924,75 @@ LABEL_3:
 
 - (void)unionSet:(id)set
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (set != self)
   {
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
     v11 = 0u;
-    v5 = [set countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
+    v5 = [set countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v11;
+      v7 = *v10;
       do
       {
         v8 = 0;
         do
         {
-          if (*v11 != v7)
+          if (*v10 != v7)
           {
             objc_enumerationMutation(set);
           }
 
-          [(MFWeakSet *)self addObject:*(*(&v10 + 1) + 8 * v8++)];
+          [(MFWeakSet *)self addObject:*(*(&v9 + 1) + 8 * v8++)];
         }
 
         while (v6 != v8);
-        v6 = [set countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v6 = [set countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v6);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSet:(id)set
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (set != self)
   {
     [(MFWeakSet *)self removeAllObjects];
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
     v11 = 0u;
-    v5 = [set countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
+    v5 = [set countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v11;
+      v7 = *v10;
       do
       {
         v8 = 0;
         do
         {
-          if (*v11 != v7)
+          if (*v10 != v7)
           {
             objc_enumerationMutation(set);
           }
 
-          [(MFWeakSet *)self addObject:*(*(&v10 + 1) + 8 * v8++)];
+          [(MFWeakSet *)self addObject:*(*(&v9 + 1) + 8 * v8++)];
         }
 
         while (v6 != v8);
-        v6 = [set countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v6 = [set countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v6);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

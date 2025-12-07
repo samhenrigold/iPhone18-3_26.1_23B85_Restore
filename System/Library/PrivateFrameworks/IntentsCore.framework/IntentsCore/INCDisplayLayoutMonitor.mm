@@ -1,6 +1,5 @@
 @interface INCDisplayLayoutMonitor
 + (void)initialize;
-- (BOOL)hasRenderServerAccess;
 - (BOOL)lock_alive;
 - (BOOL)shouldObserveMultipleDisplays;
 - (INCDisplayLayoutMonitor)init;
@@ -89,7 +88,7 @@ void __65__INCDisplayLayoutMonitor_displayMonitor_willDisconnectIdentity___block
 
 - (void)lock_startLayoutMonitorForDisplay:(id)display
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   displayCopy = display;
   if ([displayCopy isMainDisplay])
   {
@@ -112,26 +111,26 @@ void __65__INCDisplayLayoutMonitor_displayMonitor_willDisconnectIdentity___block
 LABEL_7:
       [v6 setNeedsUserInteractivePriority:1];
       objc_initWeak(location, self);
-      v17[0] = MEMORY[0x277D85DD0];
-      v17[1] = 3221225472;
-      v17[2] = __61__INCDisplayLayoutMonitor_lock_startLayoutMonitorForDisplay___block_invoke;
-      v17[3] = &unk_2797E7708;
-      objc_copyWeak(&v19, location);
+      v16[0] = MEMORY[0x277D85DD0];
+      v16[1] = 3221225472;
+      v16[2] = __61__INCDisplayLayoutMonitor_lock_startLayoutMonitorForDisplay___block_invoke;
+      v16[3] = &unk_2797E7708;
+      objc_copyWeak(&v18, location);
       v9 = displayCopy;
-      v18 = v9;
-      [v6 setTransitionHandler:v17];
+      v17 = v9;
+      [v6 setTransitionHandler:v16];
       v10 = [MEMORY[0x277D0AD08] monitorWithConfiguration:v6];
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __61__INCDisplayLayoutMonitor_lock_startLayoutMonitorForDisplay___block_invoke_2;
-      v14[3] = &unk_2797E7730;
-      v14[4] = self;
-      v15 = v9;
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __61__INCDisplayLayoutMonitor_lock_startLayoutMonitorForDisplay___block_invoke_2;
+      v13[3] = &unk_2797E7730;
+      v13[4] = self;
+      v14 = v9;
       v11 = v10;
-      v16 = v11;
-      [(INCDisplayLayoutMonitor *)self executeBlockWithLock:v14];
+      v15 = v11;
+      [(INCDisplayLayoutMonitor *)self executeBlockWithLock:v13];
 
-      objc_destroyWeak(&v19);
+      objc_destroyWeak(&v18);
       objc_destroyWeak(location);
 
       goto LABEL_14;
@@ -167,14 +166,12 @@ LABEL_12:
   {
     *location = 136315394;
     *&location[4] = "[INCDisplayLayoutMonitor lock_startLayoutMonitorForDisplay:]";
-    v21 = 2112;
-    v22 = displayCopy;
+    v20 = 2112;
+    v21 = displayCopy;
     _os_log_error_impl(&dword_255503000, v12, OS_LOG_TYPE_ERROR, "%s Unable to start layout monitoring for display because there wasn't a suitable configuration available: %@", location, 0x16u);
   }
 
 LABEL_14:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __61__INCDisplayLayoutMonitor_lock_startLayoutMonitorForDisplay___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -279,35 +276,35 @@ void __53__INCDisplayLayoutMonitor_lock_currentDisplayLayouts__block_invoke(uint
 
 void __42__INCDisplayLayoutMonitor_lock_invalidate__block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) setAlive:0];
   if ([*(a1 + 32) shouldObserveMultipleDisplays])
   {
-    v16 = 0u;
-    v17 = 0u;
     v14 = 0u;
     v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v2 = [*(a1 + 32) layoutMonitorsByIdentity];
     v3 = [v2 allValues];
 
-    v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v15;
+      v6 = *v13;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v15 != v6)
+          if (*v13 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          [*(*(&v14 + 1) + 8 * i) invalidate];
+          [*(*(&v12 + 1) + 8 * i) invalidate];
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v5);
@@ -321,56 +318,53 @@ void __42__INCDisplayLayoutMonitor_lock_invalidate__block_invoke(uint64_t a1)
 
     v10 = [*(a1 + 32) displayMonitor];
     [v10 invalidate];
-
-    v11 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v13 = [*(a1 + 32) singleDisplayLayoutMonitor];
-    [v13 invalidate];
-    v12 = *MEMORY[0x277D85DE8];
+    v11 = [*(a1 + 32) singleDisplayLayoutMonitor];
+    [v11 invalidate];
   }
 }
 
 - (void)lock_resume
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __38__INCDisplayLayoutMonitor_lock_resume__block_invoke;
-  v22[3] = &unk_2797E7910;
-  v22[4] = self;
-  [(INCDisplayLayoutMonitor *)self executeBlockWithLock:v22];
+  v23 = *MEMORY[0x277D85DE8];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __38__INCDisplayLayoutMonitor_lock_resume__block_invoke;
+  v21[3] = &unk_2797E7910;
+  v21[4] = self;
+  [(INCDisplayLayoutMonitor *)self executeBlockWithLock:v21];
   if ([(INCDisplayLayoutMonitor *)self shouldObserveMultipleDisplays])
   {
     displayMonitor = [(INCDisplayLayoutMonitor *)self displayMonitor];
     [displayMonitor addObserver:self];
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     displayMonitor2 = [(INCDisplayLayoutMonitor *)self displayMonitor];
     connectedIdentities = [displayMonitor2 connectedIdentities];
 
-    v6 = [connectedIdentities countByEnumeratingWithState:&v18 objects:v23 count:16];
+    v6 = [connectedIdentities countByEnumeratingWithState:&v17 objects:v22 count:16];
     if (v6)
     {
-      v7 = *v19;
+      v7 = *v18;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v19 != v7)
+          if (*v18 != v7)
           {
             objc_enumerationMutation(connectedIdentities);
           }
 
-          [(INCDisplayLayoutMonitor *)self lock_startLayoutMonitorForDisplay:*(*(&v18 + 1) + 8 * i)];
+          [(INCDisplayLayoutMonitor *)self lock_startLayoutMonitorForDisplay:*(*(&v17 + 1) + 8 * i)];
         }
 
-        v6 = [connectedIdentities countByEnumeratingWithState:&v18 objects:v23 count:16];
+        v6 = [connectedIdentities countByEnumeratingWithState:&v17 objects:v22 count:16];
       }
 
       while (v6);
@@ -382,21 +376,19 @@ void __42__INCDisplayLayoutMonitor_lock_invalidate__block_invoke(uint64_t a1)
     connectedIdentities = [MEMORY[0x277D0AD20] configurationForDefaultMainDisplayMonitor];
     [connectedIdentities setNeedsUserInteractivePriority:1];
     objc_initWeak(&location, self);
-    v12 = MEMORY[0x277D85DD0];
-    v13 = 3221225472;
-    v14 = __38__INCDisplayLayoutMonitor_lock_resume__block_invoke_2;
-    v15 = &unk_2797E7938;
-    objc_copyWeak(&v16, &location);
-    [connectedIdentities setTransitionHandler:&v12];
-    v9 = [MEMORY[0x277D0AD08] monitorWithConfiguration:{connectedIdentities, v12, v13, v14, v15}];
+    v11 = MEMORY[0x277D85DD0];
+    v12 = 3221225472;
+    v13 = __38__INCDisplayLayoutMonitor_lock_resume__block_invoke_2;
+    v14 = &unk_2797E7938;
+    objc_copyWeak(&v15, &location);
+    [connectedIdentities setTransitionHandler:&v11];
+    v9 = [MEMORY[0x277D0AD08] monitorWithConfiguration:{connectedIdentities, v11, v12, v13, v14}];
     singleDisplayLayoutMonitor = self->_singleDisplayLayoutMonitor;
     self->_singleDisplayLayoutMonitor = v9;
 
-    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v15);
     objc_destroyWeak(&location);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __38__INCDisplayLayoutMonitor_lock_resume__block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
@@ -414,13 +406,6 @@ void __38__INCDisplayLayoutMonitor_lock_resume__block_invoke_2(uint64_t a1, void
     v13 = [v12 identity];
     (v11)[2](v11, v14, v13, v7, v8);
   }
-}
-
-- (BOOL)hasRenderServerAccess
-{
-  getpid();
-  v2 = *MEMORY[0x277D861D8];
-  return sandbox_check() == 0;
 }
 
 - (BOOL)shouldObserveMultipleDisplays
@@ -445,10 +430,10 @@ void __38__INCDisplayLayoutMonitor_lock_resume__block_invoke_2(uint64_t a1, void
 
 - (INCDisplayLayoutMonitor)init
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v13.receiver = self;
-  v13.super_class = INCDisplayLayoutMonitor;
-  v2 = [(INCDisplayLayoutMonitor *)&v13 init];
+  v15 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = INCDisplayLayoutMonitor;
+  v2 = [(INCDisplayLayoutMonitor *)&v12 init];
   v3 = v2;
   if (v2)
   {
@@ -470,7 +455,7 @@ void __38__INCDisplayLayoutMonitor_lock_resume__block_invoke_2(uint64_t a1, void
       if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
-        v15 = "[INCDisplayLayoutMonitor init]";
+        v14 = "[INCDisplayLayoutMonitor init]";
         _os_log_fault_impl(&dword_255503000, v9, OS_LOG_TYPE_FAULT, "%s Process is using INCDisplayLayoutMonitor but doesn't have access to the render server — multiple display observing will not work", buf, 0xCu);
       }
     }
@@ -479,7 +464,6 @@ void __38__INCDisplayLayoutMonitor_lock_resume__block_invoke_2(uint64_t a1, void
     v10 = v3;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

@@ -57,11 +57,11 @@ Swift::Int sub_12F4()
   return sub_65A8();
 }
 
-Swift::Int sub_1368()
+Swift::Int sub_1368(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_6588();
-  sub_6598(v1);
+  sub_6598(v2);
   return sub_65A8();
 }
 
@@ -152,23 +152,22 @@ double sub_14E0()
 
 uint64_t variable initialization expression of HIDSensorTimeFilter.queue()
 {
-  v8 = sub_6478();
-  v0 = *(v8 - 8);
-  v1 = *(v0 + 64);
-  __chkstk_darwin();
-  v3 = v7 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = *(*(sub_6468() - 8) + 64);
-  __chkstk_darwin();
-  v5 = *(*(sub_6398() - 8) + 64);
-  __chkstk_darwin();
-  v7[1] = sub_5B08(0, &qword_10940, OS_dispatch_queue_ptr);
+  v10 = sub_6478();
+  v0 = *(v10 - 8);
+  __chkstk_darwin(v10, v1);
+  v3 = v9 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = sub_6468();
+  __chkstk_darwin(v4, v5);
+  v6 = sub_6398();
+  __chkstk_darwin(v6 - 8, v7);
+  v9[1] = sub_5B08(0, &qword_10940, OS_dispatch_queue_ptr);
   sub_6388();
-  v9 = &_swiftEmptyArrayStorage;
-  sub_2D4C(&qword_10948, &type metadata accessor for OS_dispatch_queue.Attributes);
+  v11 = &_swiftEmptyArrayStorage;
+  sub_2D4C(&qword_10948, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
   sub_1770(&qword_10950, &qword_6D30);
   sub_2D94(&qword_10958, &qword_10950, &qword_6D30);
   sub_64C8();
-  (*(v0 + 104))(v3, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v8);
+  (*(v0 + 104))(v3, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v10);
   return sub_6498();
 }
 
@@ -177,7 +176,6 @@ uint64_t sub_1770(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -190,7 +188,6 @@ uint64_t sub_17B8(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -285,100 +282,90 @@ double variable initialization expression of HIDSensorTimeFilter.latency()
   return result;
 }
 
-uint64_t sub_1D3C()
-{
-  v1 = OBJC_IVAR___HIDSensorTimeFilter_latency;
-  swift_beginAccess();
-  v2 = *(v0 + v1);
-}
-
 uint64_t sub_1D84(uint64_t a1)
 {
   v3 = OBJC_IVAR___HIDSensorTimeFilter_latency;
   swift_beginAccess();
-  v4 = *(v1 + v3);
   *(v1 + v3) = a1;
 }
 
 id HIDSensorTimeFilter.init(service:)(void *a1)
 {
   v2 = v1;
-  v54 = a1;
-  v46 = sub_6338();
-  v45 = *(v46 - 8);
-  v3 = *(v45 + 64);
-  __chkstk_darwin();
-  v55 = &v43 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v52 = a1;
+  v44 = sub_6338();
+  v43 = *(v44 - 8);
+  __chkstk_darwin(v44, v3);
+  v53 = &v41 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   v5 = sub_6478();
-  v52 = *(v5 - 8);
-  v53 = v5;
-  v6 = *(v52 + 64);
-  __chkstk_darwin();
-  v51 = &v43 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = *(*(sub_6468() - 8) + 64);
-  __chkstk_darwin();
-  v9 = *(*(sub_6398() - 8) + 64);
-  __chkstk_darwin();
-  v10 = &v1[OBJC_IVAR___HIDSensorTimeFilter_cancelHandler];
-  *v10 = 0;
-  v10[1] = 0;
-  v47 = v10;
-  v48 = OBJC_IVAR___HIDSensorTimeFilter_eventDispatcher;
+  v50 = *(v5 - 8);
+  v51 = v5;
+  __chkstk_darwin(v5, v6);
+  v49 = &v41 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = sub_6468();
+  __chkstk_darwin(v8, v9);
+  v10 = sub_6398();
+  __chkstk_darwin(v10 - 8, v11);
+  v12 = &v1[OBJC_IVAR___HIDSensorTimeFilter_cancelHandler];
+  *v12 = 0;
+  v12[1] = 0;
+  v45 = v12;
+  v46 = OBJC_IVAR___HIDSensorTimeFilter_eventDispatcher;
   *&v1[OBJC_IVAR___HIDSensorTimeFilter_eventDispatcher] = 0;
-  v11 = OBJC_IVAR___HIDSensorTimeFilter_service;
+  v13 = OBJC_IVAR___HIDSensorTimeFilter_service;
   *&v1[OBJC_IVAR___HIDSensorTimeFilter_service] = 0;
-  v12 = OBJC_IVAR___HIDSensorTimeFilter_queue;
-  v50 = sub_5B08(0, &qword_10940, OS_dispatch_queue_ptr);
-  v49 = &unk_6F00;
+  v14 = OBJC_IVAR___HIDSensorTimeFilter_queue;
+  v48 = sub_5B08(0, &qword_10940, OS_dispatch_queue_ptr);
+  v47 = &qword_6F00;
   sub_6388();
-  *&v62 = &_swiftEmptyArrayStorage;
-  sub_2D4C(&qword_10948, &type metadata accessor for OS_dispatch_queue.Attributes);
+  *&v60 = &_swiftEmptyArrayStorage;
+  sub_2D4C(&qword_10948, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
   sub_1770(&qword_10950, &qword_6D30);
   sub_2D94(&qword_10958, &qword_10950, &qword_6D30);
   sub_64C8();
-  (*(v52 + 104))(v51, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v53);
-  v13 = sub_6498();
-  v53 = v12;
-  *&v1[v12] = v13;
-  v14 = OBJC_IVAR___HIDSensorTimeFilter_serviceID;
+  (*(v50 + 104))(v49, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v51);
+  v15 = sub_6498();
+  v51 = v14;
+  *&v1[v14] = v15;
+  v16 = OBJC_IVAR___HIDSensorTimeFilter_serviceID;
   *&v2[OBJC_IVAR___HIDSensorTimeFilter_serviceID] = 0;
-  v15 = &v2[OBJC_IVAR___HIDSensorTimeFilter_timebaseInfo];
+  v17 = &v2[OBJC_IVAR___HIDSensorTimeFilter_timebaseInfo];
   *&v2[OBJC_IVAR___HIDSensorTimeFilter_timebaseInfo] = 0;
-  v16 = OBJC_IVAR___HIDSensorTimeFilter_timesync;
+  v18 = OBJC_IVAR___HIDSensorTimeFilter_timesync;
   *&v2[OBJC_IVAR___HIDSensorTimeFilter_timesync] = 0;
   *&v2[OBJC_IVAR___HIDSensorTimeFilter_timesyncPrecision] = 0;
   *&v2[OBJC_IVAR___HIDSensorTimeFilter_timesyncState] = 0;
   *&v2[OBJC_IVAR___HIDSensorTimeFilter_reportInterval] = 0;
   v2[OBJC_IVAR___HIDSensorTimeFilter_logEvent] = 0;
-  v17 = OBJC_IVAR___HIDSensorTimeFilter_latency;
+  v19 = OBJC_IVAR___HIDSensorTimeFilter_latency;
   type metadata accessor for Stats();
-  v18 = swift_allocObject();
-  *(v18 + 16) = xmmword_6CE0;
-  *(v18 + 32) = xmmword_6CD0;
-  *&v2[v17] = v18;
-  v19 = *&v2[v11];
-  v52 = v11;
-  v20 = v54;
-  *&v2[v11] = v54;
-  v21 = v20;
+  v20 = swift_allocObject();
+  *(v20 + 16) = xmmword_6CE0;
+  *(v20 + 32) = xmmword_6CD0;
+  *&v2[v19] = v20;
+  v21 = *&v2[v13];
+  v50 = v13;
+  v22 = v52;
+  *&v2[v13] = v52;
+  v23 = v22;
 
-  v22 = [v21 serviceID];
-  *&v2[v14] = v22;
-  *&v62 = 30768;
-  *(&v62 + 1) = 0xE200000000000000;
-  *&v60 = v22;
+  v24 = [v23 serviceID];
+  *&v2[v16] = v24;
+  *&v60 = 30768;
+  *(&v60 + 1) = 0xE200000000000000;
+  *&v58 = v24;
   sub_280C();
-  v64._countAndFlagsBits = sub_6408();
-  sub_63E8(v64);
+  v62._countAndFlagsBits = sub_6408();
+  sub_63E8(v62);
 
-  v23 = *(&v62 + 1);
-  v24 = &v2[OBJC_IVAR___HIDSensorTimeFilter_serviceIDStr];
-  *v24 = v62;
-  v24[1] = v23;
-  v25 = sub_63C8();
-  v26 = [v21 propertyForKey:v25];
+  v25 = *(&v60 + 1);
+  v26 = &v2[OBJC_IVAR___HIDSensorTimeFilter_serviceIDStr];
+  *v26 = v60;
+  v26[1] = v25;
+  v27 = sub_63C8();
+  v28 = [v23 propertyForKey:v27];
 
-  if (v26)
+  if (v28)
   {
     sub_64B8();
     swift_unknownObjectRelease();
@@ -386,38 +373,38 @@ id HIDSensorTimeFilter.init(service:)(void *a1)
 
   else
   {
-    v60 = 0u;
-    v61 = 0u;
+    v58 = 0u;
+    v59 = 0u;
   }
 
-  v62 = v60;
-  v63 = v61;
-  v27 = v55;
-  if (!*(&v61 + 1))
+  v60 = v58;
+  v61 = v59;
+  v29 = v53;
+  if (!*(&v59 + 1))
   {
 
-    sub_5E4C(&v62, &qword_109D0, &qword_6D38);
+    sub_5E4C(&v60, &qword_109D0, &qword_6D38);
     goto LABEL_37;
   }
 
-  v51 = v17;
-  v54 = v16;
+  v49 = v19;
+  v52 = v18;
   sub_5B08(0, &qword_109D8, NSDictionary_ptr);
-  v28 = &type metadata for Any;
+  v30 = &type metadata for Any;
   if ((swift_dynamicCast() & 1) == 0)
   {
 
     goto LABEL_36;
   }
 
-  v29 = v58;
-  *&v60 = 0x73746E656D656C45;
-  *(&v60 + 1) = 0xE800000000000000;
-  v30 = sub_6538();
-  v50 = v29;
-  v31 = [v29 __swift_objectForKeyedSubscript:v30];
+  v31 = v56;
+  *&v58 = 0x73746E656D656C45;
+  *(&v58 + 1) = 0xE800000000000000;
+  v32 = sub_6538();
+  v48 = v31;
+  v33 = [v31 __swift_objectForKeyedSubscript:v32];
   swift_unknownObjectRelease();
-  if (v31)
+  if (v33)
   {
     sub_64B8();
     swift_unknownObjectRelease();
@@ -425,16 +412,16 @@ id HIDSensorTimeFilter.init(service:)(void *a1)
 
   else
   {
-    v60 = 0u;
-    v61 = 0u;
+    v58 = 0u;
+    v59 = 0u;
   }
 
-  v62 = v60;
-  v63 = v61;
-  if (!*(&v61 + 1))
+  v60 = v58;
+  v61 = v59;
+  if (!*(&v59 + 1))
   {
 
-    sub_5E4C(&v62, &qword_109D0, &qword_6D38);
+    sub_5E4C(&v60, &qword_109D0, &qword_6D38);
     goto LABEL_36;
   }
 
@@ -445,29 +432,29 @@ id HIDSensorTimeFilter.init(service:)(void *a1)
     goto LABEL_35;
   }
 
-  v44 = v58;
+  v42 = v56;
   sub_64A8();
   while (1)
   {
     sub_6328();
-    if (!*(&v63 + 1))
+    if (!*(&v61 + 1))
     {
       break;
     }
 
-    sub_2894(&v62, &v60);
+    sub_2894(&v60, &v58);
     if ((swift_dynamicCast() & 1) == 0)
     {
       break;
     }
 
-    v32 = v28;
-    v33 = v58;
-    *&v58 = 0x6761506567617355;
-    *(&v58 + 1) = 0xE900000000000065;
-    v34 = [v33 __swift_objectForKeyedSubscript:sub_6538()];
+    v34 = v30;
+    v35 = v56;
+    *&v56 = 0x6761506567617355;
+    *(&v56 + 1) = 0xE900000000000065;
+    v36 = [v35 __swift_objectForKeyedSubscript:sub_6538()];
     swift_unknownObjectRelease();
-    if (v34)
+    if (v36)
     {
       sub_64B8();
       swift_unknownObjectRelease();
@@ -475,14 +462,14 @@ id HIDSensorTimeFilter.init(service:)(void *a1)
 
     else
     {
-      v58 = 0u;
-      v59 = 0u;
+      v56 = 0u;
+      v57 = 0u;
     }
 
-    v60 = v58;
-    v61 = v59;
-    v28 = v32;
-    if (!*(&v59 + 1))
+    v58 = v56;
+    v59 = v57;
+    v30 = v34;
+    if (!*(&v57 + 1))
     {
 
       goto LABEL_31;
@@ -490,12 +477,12 @@ id HIDSensorTimeFilter.init(service:)(void *a1)
 
     if (swift_dynamicCast())
     {
-      v49 = v57;
-      *&v58 = 0x6567617355;
-      *(&v58 + 1) = 0xE500000000000000;
-      v35 = [v33 __swift_objectForKeyedSubscript:sub_6538()];
+      v47 = v55;
+      *&v56 = 0x6567617355;
+      *(&v56 + 1) = 0xE500000000000000;
+      v37 = [v35 __swift_objectForKeyedSubscript:sub_6538()];
       swift_unknownObjectRelease();
-      if (v35)
+      if (v37)
       {
         sub_64B8();
         swift_unknownObjectRelease();
@@ -504,34 +491,34 @@ id HIDSensorTimeFilter.init(service:)(void *a1)
       else
       {
 
-        v58 = 0u;
-        v59 = 0u;
+        v56 = 0u;
+        v57 = 0u;
       }
 
-      v60 = v58;
-      v61 = v59;
-      v28 = v32;
-      if (*(&v59 + 1))
+      v58 = v56;
+      v59 = v57;
+      v30 = v34;
+      if (*(&v57 + 1))
       {
-        if ((swift_dynamicCast() & 1) != 0 && v57 == &dword_4 && v49 == &off_FF10 + 5)
+        if ((swift_dynamicCast() & 1) != 0 && v55 == &dword_4 && v47 == (&off_FF10 + 5))
         {
-          (*(v45 + 8))(v27, v46);
+          (*(v43 + 8))(v29, v44);
           swift_beginAccess();
-          mach_timebase_info(v15);
+          mach_timebase_info(v17);
           swift_endAccess();
-          v40 = type metadata accessor for HIDSensorTimeFilter();
-          v56.receiver = v2;
-          v56.super_class = v40;
-          v41 = objc_msgSendSuper2(&v56, "init");
+          v38 = type metadata accessor for HIDSensorTimeFilter();
+          v54.receiver = v2;
+          v54.super_class = v38;
+          v39 = objc_msgSendSuper2(&v54, "init");
 
-          return v41;
+          return v39;
         }
       }
 
       else
       {
 LABEL_31:
-        sub_5E4C(&v60, &qword_109D0, &qword_6D38);
+        sub_5E4C(&v58, &qword_109D0, &qword_6D38);
       }
     }
 
@@ -540,21 +527,14 @@ LABEL_31:
     }
   }
 
-  (*(v45 + 8))(v27, v46);
+  (*(v43 + 8))(v29, v44);
 
 LABEL_35:
 LABEL_36:
-  v16 = v54;
-  v17 = v51;
+  v18 = v52;
 LABEL_37:
-  v36 = v47[1];
-  sub_2860(*v47);
-  v37 = *&v2[v48];
+  sub_2860(*v45, v45[1]);
   swift_unknownObjectRelease();
-
-  v38 = v24[1];
-
-  v39 = *&v2[v17];
 
   type metadata accessor for HIDSensorTimeFilter();
   swift_deallocPartialClassInstance();
@@ -573,7 +553,7 @@ unint64_t sub_280C()
   return result;
 }
 
-uint64_t sub_2860(uint64_t result)
+uint64_t sub_2860(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -590,7 +570,7 @@ _OWORD *sub_2894(_OWORD *a1, _OWORD *a2)
   return a2;
 }
 
-uint64_t HIDSensorTimeFilter.description.getter()
+uint64_t HIDSensorTimeFilter.description.getter(uint64_t a1, uint64_t a2)
 {
   swift_getObjectType();
 
@@ -601,13 +581,11 @@ Swift::Void __swiftcall HIDSensorTimeFilter.cancel()()
 {
   v1 = sub_6378();
   v18 = *(v1 - 8);
-  v2 = *(v18 + 64);
-  __chkstk_darwin();
+  __chkstk_darwin(v1, v2);
   v4 = &v16 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   v17 = sub_6398();
   v5 = *(v17 - 8);
-  v6 = *(v5 + 64);
-  v7 = __chkstk_darwin();
+  v7 = __chkstk_darwin(v17, v6);
   v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   (*(&stru_1F8.size + (swift_isaMask & *v0)))(v7);
   v10 = *(v0 + OBJC_IVAR___HIDSensorTimeFilter_service);
@@ -627,7 +605,7 @@ Swift::Void __swiftcall HIDSensorTimeFilter.cancel()()
   v15 = v0;
   sub_6388();
   v19 = &_swiftEmptyArrayStorage;
-  sub_2D4C(&qword_109E8, &type metadata accessor for DispatchWorkItemFlags);
+  sub_2D4C(&qword_109E8, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
   sub_1770(&qword_109F0, &qword_6D40);
   sub_2D94(&qword_109F8, &qword_109F0, &qword_6D40);
   sub_64C8();
@@ -653,13 +631,13 @@ void sub_2CB0()
     v3 = *(v1 + 8);
 
     v2(v4);
-    sub_2860(v2);
+    sub_2860(v2, v3);
     v5 = *v1;
     v6 = *(v1 + 8);
     *v1 = 0;
     *(v1 + 8) = 0;
 
-    sub_2860(v5);
+    sub_2860(v5, v6);
   }
 }
 
@@ -670,7 +648,7 @@ uint64_t sub_2D34(uint64_t a1, uint64_t a2)
   *(a1 + 40) = v2;
 }
 
-uint64_t sub_2D4C(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_2D4C(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1069,18 +1047,16 @@ Swift::Void __swiftcall HIDSensorTimeFilter.setupTimesync()()
 
 uint64_t sub_3EC0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = *(a1 + 32);
-  v5 = *(a1 + 40);
+  v5 = *(a1 + 32);
 
-  v6(a2, a3);
+  v5(a2, a3);
 }
 
 uint64_t sub_3F24(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
 
-  v1(v3);
+  v1(v2);
 }
 
 Swift::Void __swiftcall HIDSensorTimeFilter.destroyTimesync()()
@@ -1102,7 +1078,7 @@ uint64_t HIDSensorTimeFilter.setCancelHandler(_:)(uint64_t a1, uint64_t a2)
   *v3 = a1;
   v3[1] = a2;
 
-  return sub_2860(v4);
+  return sub_2860(v4, v5);
 }
 
 void HIDSensorTimeFilter.setDispatchQueue(_:)(void *a1)
@@ -1114,7 +1090,6 @@ void HIDSensorTimeFilter.setDispatchQueue(_:)(void *a1)
 
 uint64_t HIDSensorTimeFilter.setEventDispatcher(_:)(uint64_t a1)
 {
-  v2 = *(v1 + OBJC_IVAR___HIDSensorTimeFilter_eventDispatcher);
   *(v1 + OBJC_IVAR___HIDSensorTimeFilter_eventDispatcher) = a1;
   swift_unknownObjectRetain();
 
@@ -1251,7 +1226,7 @@ void *sub_4808@<X0>(void *result@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-uint64_t sub_4824(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_4824(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_48F0(v11, 0, 0, 1, a1, a2);
@@ -1351,11 +1326,9 @@ LABEL_8:
 
 char *sub_49FC(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_4A48(a1, a2);
+  v3 = sub_4A48(a1, a2);
   sub_4B78(&off_C510);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *sub_4A48(uint64_t a1, unint64_t a2)
@@ -1455,7 +1428,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -1469,15 +1441,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_4CD8(result, v12, 1, v3);
+  result = sub_4CD8(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -1492,15 +1464,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -1509,12 +1481,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -1622,15 +1594,17 @@ char *sub_4CD8(char *result, int64_t a2, char a3, char *a4)
   return v10;
 }
 
-uint64_t sub_4DCC(uint64_t *a1)
+uint64_t sub_4DCC(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 void *sub_4E18(void *a1)
@@ -1987,12 +1961,11 @@ LABEL_66:
   return a1;
 }
 
-uint64_t sub_5B08(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_5B08(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -2288,12 +2261,12 @@ uint64_t sub_60CC(uint64_t result, int a2, int a3)
   return result;
 }
 
-void sub_6108(uint64_t a1, unint64_t *a2)
+void sub_6108(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -2339,14 +2312,11 @@ uint64_t sub_6234(uint64_t a1, uint64_t a2)
 
 uint64_t *sub_6294(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;

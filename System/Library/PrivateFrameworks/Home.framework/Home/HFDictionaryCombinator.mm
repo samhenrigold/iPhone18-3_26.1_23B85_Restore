@@ -9,32 +9,31 @@
 
 + (BOOL)_isKindOfContainerClass:(id)class
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   classCopy = class;
   if (_MergedGlobals_305 != -1)
   {
     dispatch_once(&_MergedGlobals_305, &__block_literal_global_3_31);
   }
 
+  v9 = 0u;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
   v4 = qword_280E03AE0;
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
-    v6 = *v12;
+    v6 = *v10;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
         if (objc_opt_isKindOfClass())
         {
           LOBYTE(v5) = 1;
@@ -42,7 +41,7 @@
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v5)
       {
         continue;
@@ -54,23 +53,22 @@
 
 LABEL_13:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
-void __50__HFDictionaryCombinator__isKindOfContainerClass___block_invoke_2()
+void __50__HFDictionaryCombinator__isKindOfContainerClass___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v0 = MEMORY[0x277CBEB98];
-  v1 = objc_opt_class();
-  v2 = objc_opt_class();
-  v3 = [v0 setWithObjects:{v1, v2, objc_opt_class(), 0}];
-  v4 = qword_280E03AE0;
-  qword_280E03AE0 = v3;
+  v2 = MEMORY[0x277CBEB98];
+  v3 = objc_opt_class();
+  v4 = objc_opt_class();
+  v5 = [v2 setWithObjects:{v3, v4, objc_opt_class(), 0}];
+  v6 = qword_280E03AE0;
+  qword_280E03AE0 = v5;
 }
 
 - (id)combineResultDictionary:(id)dictionary withResultDictionary:(id)resultDictionary reconcilationHandler:(id)handler
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   resultDictionaryCopy = resultDictionary;
   handlerCopy = handler;
@@ -113,195 +111,193 @@ LABEL_9:
   }
 
   v13 = objc_opt_new();
-  v16 = MEMORY[0x277CBEB98];
-  v63 = dictionaryCopy;
+  v15 = MEMORY[0x277CBEB98];
+  v62 = dictionaryCopy;
   allKeys = [dictionaryCopy allKeys];
-  v18 = [v16 setWithArray:allKeys];
+  v17 = [v15 setWithArray:allKeys];
 
-  v19 = MEMORY[0x277CBEB98];
-  v20 = resultDictionaryCopy;
+  v18 = MEMORY[0x277CBEB98];
+  v19 = resultDictionaryCopy;
   allKeys2 = [resultDictionaryCopy allKeys];
-  v22 = [v19 setWithArray:allKeys2];
+  v21 = [v18 setWithArray:allKeys2];
 
-  v59 = v22;
-  v60 = v18;
-  v23 = [v18 na_setByIntersectingWithSet:v22];
+  v58 = v21;
+  v59 = v17;
+  v22 = [v17 na_setByIntersectingWithSet:v21];
+  v71 = 0u;
   v72 = 0u;
   v73 = 0u;
   v74 = 0u;
-  v75 = 0u;
-  v24 = [v23 countByEnumeratingWithState:&v72 objects:v78 count:16];
-  v61 = v23;
-  if (!v24)
+  v23 = [v22 countByEnumeratingWithState:&v71 objects:v77 count:16];
+  v60 = v22;
+  if (!v23)
   {
     goto LABEL_43;
   }
 
-  v25 = v24;
-  v26 = *v73;
+  v24 = v23;
+  v25 = *v72;
   do
   {
-    for (i = 0; i != v25; ++i)
+    for (i = 0; i != v24; ++i)
     {
-      if (*v73 != v26)
+      if (*v72 != v25)
       {
-        objc_enumerationMutation(v23);
+        objc_enumerationMutation(v22);
       }
 
-      v28 = *(*(&v72 + 1) + 8 * i);
+      v27 = *(*(&v71 + 1) + 8 * i);
       keysToSkip = [(HFDictionaryCombinator *)self keysToSkip];
-      v30 = [keysToSkip containsObject:v28];
+      v29 = [keysToSkip containsObject:v27];
 
-      if ((v30 & 1) == 0)
+      if ((v29 & 1) == 0)
       {
         keysToReconcile = [(HFDictionaryCombinator *)self keysToReconcile];
-        v32 = [keysToReconcile containsObject:v28];
+        v31 = [keysToReconcile containsObject:v27];
 
-        if (v32)
+        if (v31)
         {
-          [(HFDictionaryCombinator *)self _reconcileKey:v28 fromDictionary:v63 andDictionary:v20 intoResultDictionary:v13 withReconcilationHandler:handlerCopy];
+          [(HFDictionaryCombinator *)self _reconcileKey:v27 fromDictionary:v62 andDictionary:v19 intoResultDictionary:v13 withReconcilationHandler:handlerCopy];
           continue;
         }
 
-        v33 = [v63 objectForKeyedSubscript:v28];
-        v34 = [v20 objectForKeyedSubscript:v28];
-        v35 = v34;
-        if (v33)
+        v32 = [v62 objectForKeyedSubscript:v27];
+        v33 = [v19 objectForKeyedSubscript:v27];
+        v34 = v33;
+        if (v32)
         {
-          v36 = v34 == 0;
+          v35 = v33 == 0;
         }
 
         else
         {
-          v36 = 1;
+          v35 = 1;
         }
 
-        if (!v36 && [v33 isEqual:v34])
+        if (!v35 && [v32 isEqual:v33])
         {
-          v37 = v13;
-          v38 = v33;
+          v36 = v13;
+          v37 = v32;
           goto LABEL_38;
         }
 
-        v39 = objc_opt_class();
-        if (v39 == objc_opt_class() && [objc_opt_class() _isKindOfContainerClass:v33])
+        v38 = objc_opt_class();
+        if (v38 == objc_opt_class() && [objc_opt_class() _isKindOfContainerClass:v32])
         {
-          v40 = [(HFDictionaryCombinator *)self _mergeVal1:v33 withVal2:v35];
-          [v13 setObject:v40 forKeyedSubscript:v28];
+          v39 = [(HFDictionaryCombinator *)self _mergeVal1:v32 withVal2:v34];
+          [v13 setObject:v39 forKeyedSubscript:v27];
 
           goto LABEL_34;
         }
 
-        if (!v33 || v35)
+        if (!v32 || v34)
         {
-          v23 = v61;
-          if (v33 || !v35)
+          v22 = v60;
+          if (v32 || !v34)
           {
-            [(HFDictionaryCombinator *)self _reconcileKey:v28 fromDictionary:v63 andDictionary:v20 intoResultDictionary:v13 withReconcilationHandler:handlerCopy];
+            [(HFDictionaryCombinator *)self _reconcileKey:v27 fromDictionary:v62 andDictionary:v19 intoResultDictionary:v13 withReconcilationHandler:handlerCopy];
           }
 
           else
           {
-            v37 = v13;
-            v38 = v35;
+            v36 = v13;
+            v37 = v34;
 LABEL_38:
-            [v37 setObject:v38 forKeyedSubscript:v28];
+            [v36 setObject:v37 forKeyedSubscript:v27];
           }
         }
 
         else
         {
-          [v13 setObject:v33 forKeyedSubscript:v28];
+          [v13 setObject:v32 forKeyedSubscript:v27];
 LABEL_34:
-          v23 = v61;
+          v22 = v60;
         }
 
         continue;
       }
     }
 
-    v25 = [v23 countByEnumeratingWithState:&v72 objects:v78 count:16];
+    v24 = [v22 countByEnumeratingWithState:&v71 objects:v77 count:16];
   }
 
-  while (v25);
+  while (v24);
 LABEL_43:
-  v70 = 0u;
-  v71 = 0u;
-  v68 = 0u;
   v69 = 0u;
-  v41 = [v60 na_setByRemovingObjectsFromSet:v23];
-  v42 = [v41 countByEnumeratingWithState:&v68 objects:v77 count:16];
-  if (v42)
-  {
-    v43 = v42;
-    v44 = *v69;
-    do
-    {
-      for (j = 0; j != v43; ++j)
-      {
-        if (*v69 != v44)
-        {
-          objc_enumerationMutation(v41);
-        }
-
-        v46 = *(*(&v68 + 1) + 8 * j);
-        keysToSkip2 = [(HFDictionaryCombinator *)self keysToSkip];
-        v48 = [keysToSkip2 containsObject:v46];
-
-        if ((v48 & 1) == 0)
-        {
-          v49 = [v63 objectForKeyedSubscript:v46];
-          [v13 setObject:v49 forKeyedSubscript:v46];
-        }
-      }
-
-      v43 = [v41 countByEnumeratingWithState:&v68 objects:v77 count:16];
-    }
-
-    while (v43);
-  }
-
-  v66 = 0u;
+  v70 = 0u;
   v67 = 0u;
-  v64 = 0u;
-  v65 = 0u;
-  v50 = [v59 na_setByRemovingObjectsFromSet:v61];
-  v51 = [v50 countByEnumeratingWithState:&v64 objects:v76 count:16];
-  if (v51)
+  v68 = 0u;
+  v40 = [v59 na_setByRemovingObjectsFromSet:v22];
+  v41 = [v40 countByEnumeratingWithState:&v67 objects:v76 count:16];
+  if (v41)
   {
-    v52 = v51;
-    v53 = *v65;
+    v42 = v41;
+    v43 = *v68;
     do
     {
-      for (k = 0; k != v52; ++k)
+      for (j = 0; j != v42; ++j)
       {
-        if (*v65 != v53)
+        if (*v68 != v43)
         {
-          objc_enumerationMutation(v50);
+          objc_enumerationMutation(v40);
         }
 
-        v55 = *(*(&v64 + 1) + 8 * k);
-        keysToSkip3 = [(HFDictionaryCombinator *)self keysToSkip];
-        v57 = [keysToSkip3 containsObject:v55];
+        v45 = *(*(&v67 + 1) + 8 * j);
+        keysToSkip2 = [(HFDictionaryCombinator *)self keysToSkip];
+        v47 = [keysToSkip2 containsObject:v45];
 
-        if ((v57 & 1) == 0)
+        if ((v47 & 1) == 0)
         {
-          v58 = [v20 objectForKeyedSubscript:v55];
-          [v13 setObject:v58 forKeyedSubscript:v55];
+          v48 = [v62 objectForKeyedSubscript:v45];
+          [v13 setObject:v48 forKeyedSubscript:v45];
         }
       }
 
-      v52 = [v50 countByEnumeratingWithState:&v64 objects:v76 count:16];
+      v42 = [v40 countByEnumeratingWithState:&v67 objects:v76 count:16];
     }
 
-    while (v52);
+    while (v42);
   }
 
-  dictionaryCopy = v63;
-  resultDictionaryCopy = v20;
-LABEL_10:
+  v65 = 0u;
+  v66 = 0u;
+  v63 = 0u;
+  v64 = 0u;
+  v49 = [v58 na_setByRemovingObjectsFromSet:v60];
+  v50 = [v49 countByEnumeratingWithState:&v63 objects:v75 count:16];
+  if (v50)
+  {
+    v51 = v50;
+    v52 = *v64;
+    do
+    {
+      for (k = 0; k != v51; ++k)
+      {
+        if (*v64 != v52)
+        {
+          objc_enumerationMutation(v49);
+        }
 
-  v14 = *MEMORY[0x277D85DE8];
+        v54 = *(*(&v63 + 1) + 8 * k);
+        keysToSkip3 = [(HFDictionaryCombinator *)self keysToSkip];
+        v56 = [keysToSkip3 containsObject:v54];
+
+        if ((v56 & 1) == 0)
+        {
+          v57 = [v19 objectForKeyedSubscript:v54];
+          [v13 setObject:v57 forKeyedSubscript:v54];
+        }
+      }
+
+      v51 = [v49 countByEnumeratingWithState:&v63 objects:v75 count:16];
+    }
+
+    while (v51);
+  }
+
+  dictionaryCopy = v62;
+  resultDictionaryCopy = v19;
+LABEL_10:
 
   return v13;
 }

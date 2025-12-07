@@ -48,9 +48,9 @@
 
 - (ApplicationWorkspace)init
 {
-  v28.receiver = self;
-  v28.super_class = ApplicationWorkspace;
-  v2 = [(ApplicationWorkspace *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = ApplicationWorkspace;
+  v2 = [(ApplicationWorkspace *)&v27 init];
   if (v2)
   {
     v3 = dispatch_queue_create("com.apple.itunesstored.ApplicationWorkspace.callback", 0);
@@ -124,9 +124,8 @@
 
       if (v23)
       {
-        v27[0] = 0;
-        LODWORD(v26) = 2;
-        v24 = _os_log_send_and_compose_impl();
+        v26[0] = 0;
+        v24 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "[ApplicationWorkspace]: Registered user switch stakeholder.", v26, 2);
 
         if (!v24)
         {
@@ -135,7 +134,7 @@ LABEL_15:
           return v2;
         }
 
-        oSLogObject = [NSString stringWithCString:v24 encoding:4, v27, v26];
+        oSLogObject = [NSString stringWithCString:v24 encoding:4];
         free(v24);
         SSFileLog();
       }
@@ -278,7 +277,7 @@ LABEL_15:
 
     LODWORD(v16) = 138412290;
     *(&v16 + 4) = applicationHandle;
-    LODWORD(v15) = 12;
+    v11 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[ApplicationWorkspace]: Skipping queing of placeholder thumbnail operation for %@ because we have one", &v16, 12, v16);
   }
 
   else
@@ -293,41 +292,41 @@ LABEL_15:
     shouldLog2 = [v6 shouldLog];
     if ([v6 shouldLogToDisk])
     {
-      v12 = shouldLog2 | 2;
+      v13 = shouldLog2 | 2;
     }
 
     else
     {
-      v12 = shouldLog2;
+      v13 = shouldLog2;
     }
 
     oSLogObject = [v6 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = v12;
+      v14 = v13;
     }
 
     else
     {
-      v13 = v12 & 2;
+      v14 = v13 & 2;
     }
 
-    if (!v13)
+    if (!v14)
     {
       goto LABEL_24;
     }
 
     LODWORD(v16) = 138412290;
     *(&v16 + 4) = applicationHandle;
-    LODWORD(v15) = 12;
+    v11 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[ApplicationWorkspace]: Added placeholder thumbnail operation for %@", &v16, 12, v16);
   }
 
-  v14 = _os_log_send_and_compose_impl();
+  v15 = v11;
 
-  if (v14)
+  if (v15)
   {
-    oSLogObject = [NSString stringWithCString:v14 encoding:4, &v16, v15, v16];
-    free(v14);
+    oSLogObject = [NSString stringWithCString:v15 encoding:4];
+    free(v15);
     SSFileLog();
 LABEL_24:
   }
@@ -416,16 +415,14 @@ LABEL_24:
   {
     v51 = 138412290;
     v52 = identifierCopy;
-    LODWORD(v37) = 12;
-    v36 = &v51;
-    v11 = _os_log_send_and_compose_impl();
+    v11 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &_mh_execute_header, v9, 1, "[ApplicationWorkspace]: Checking if we are installing item with itemIdentifier: %@", &v51, 12);
 
     if (!v11)
     {
       goto LABEL_12;
     }
 
-    v9 = [NSString stringWithCString:v11 encoding:4, &v51, v37];
+    v9 = [NSString stringWithCString:v11 encoding:4];
     free(v11);
     v36 = v9;
     SSFileLog();
@@ -504,8 +501,7 @@ LABEL_12:
           v51 = 138412290;
           v52 = v14;
           LODWORD(v37) = 12;
-          v36 = &v51;
-          v26 = _os_log_send_and_compose_impl();
+          v26 = _os_log_send_and_compose_impl(v25, 0, 0, 0, &_mh_execute_header, v24, 1, "[ApplicationWorkspace]: Workspace is installing item with itemIdentifier: %@", &v51, v37, v38);
 
           if (!v26)
           {
@@ -515,7 +511,7 @@ LABEL_34:
             goto LABEL_35;
           }
 
-          v24 = [NSString stringWithCString:v26 encoding:4, &v51, v37, v38];
+          v24 = [NSString stringWithCString:v26 encoding:4];
           free(v26);
           v36 = v24;
           SSFileLog();
@@ -570,11 +566,11 @@ LABEL_36:
       v51 = 138412290;
       v52 = v14;
       LODWORD(v37) = 12;
-      v33 = _os_log_send_and_compose_impl();
+      v33 = _os_log_send_and_compose_impl(v32, 0, 0, 0, &_mh_execute_header, v31, 0, "[ApplicationWorkspace]: We are currently installing %@", &v51, v37);
 
       if (v33)
       {
-        v31 = [NSString stringWithCString:v33 encoding:4, &v51, v37];
+        v31 = [NSString stringWithCString:v33 encoding:4];
         free(v33);
         SSFileLog();
         goto LABEL_47;
@@ -623,7 +619,7 @@ LABEL_47:
     block[3] = &unk_100327110;
     block[4] = self;
     dispatch_async(dispatchQueue, block);
-    goto LABEL_15;
+    goto LABEL_16;
   }
 
   v5 = +[SSLogConfig sharedDaemonConfig];
@@ -635,43 +631,47 @@ LABEL_47:
   shouldLog = [v5 shouldLog];
   if ([v5 shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
   oSLogObject = [v5 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
 
   if (!v7)
   {
-    goto LABEL_12;
+    goto LABEL_13;
   }
 
-  v15 = 138412290;
-  v16 = objc_opt_class();
-  v9 = v16;
-  LODWORD(v13) = 12;
-  v10 = _os_log_send_and_compose_impl();
+  v14 = 138412290;
+  v15 = objc_opt_class();
+  v9 = v15;
+  v10 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "[%@] Skipping install placeholder because appstored will", &v14, 12);
 
   if (v10)
   {
-    oSLogObject = [NSString stringWithCString:v10 encoding:4, &v15, v13];
+    oSLogObject = [NSString stringWithCString:v10 encoding:4];
     free(v10);
     SSFileLog();
-LABEL_12:
+LABEL_13:
   }
 
   bundleID = [handleCopy bundleID];
 
   [ApplicationWorkspaceState completeNotificationForInstallingBundleIdentifier:bundleID];
-LABEL_15:
+LABEL_16:
 }
 
 - (BOOL)isInstalledApp:(id)app
@@ -778,50 +778,54 @@ LABEL_11:
   shouldLog = [v5 shouldLog];
   if ([v5 shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
   oSLogObject = [v5 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
 
   if (!v7)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  v17 = 138412546;
-  v18 = objc_opt_class();
-  v19 = 2112;
-  v20 = v4;
-  v9 = v18;
-  LODWORD(v13) = 22;
-  v10 = _os_log_send_and_compose_impl();
+  v16 = 138412546;
+  v17 = objc_opt_class();
+  v18 = 2112;
+  v19 = v4;
+  v9 = v17;
+  v10 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "[%@] Replaying Incomplete Operations before [%@]", &v16, 22);
 
   if (v10)
   {
-    oSLogObject = [NSString stringWithCString:v10 encoding:4, &v17, v13];
+    oSLogObject = [NSString stringWithCString:v10 encoding:4];
     free(v10);
     SSFileLog();
-LABEL_11:
+LABEL_12:
   }
 
   v11 = +[DownloadsDatabase downloadsDatabase];
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_10016ED08;
-  v14[3] = &unk_1003294E0;
-  v15 = v4;
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_10016ED08;
+  v13[3] = &unk_1003294E0;
+  v14 = v4;
   selfCopy = self;
   v12 = v4;
-  [v11 modifyAsyncUsingTransactionBlock:v14];
+  [v11 modifyAsyncUsingTransactionBlock:v13];
 }
 
 - (void)resetProgressForApplicationHandle:(id)handle
@@ -869,16 +873,21 @@ LABEL_11:
   shouldLog = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [v3 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
@@ -888,13 +897,11 @@ LABEL_11:
     LODWORD(v33) = 138412290;
     *(&v33 + 4) = objc_opt_class();
     v7 = *(&v33 + 4);
-    LODWORD(v27) = 12;
-    v26 = &v33;
-    v8 = _os_log_send_and_compose_impl();
+    v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "[%@]: Seeing if we can resume quotas", &v33, 12);
 
     if (v8)
     {
-      v9 = [NSString stringWithCString:v8 encoding:4, &v33, v27];
+      v9 = [NSString stringWithCString:v8 encoding:4];
       free(v8);
       v26 = v9;
       SSFileLog();
@@ -926,23 +933,28 @@ LABEL_11:
       v11 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v11 shouldLog];
+    LODWORD(v12) = [v11 shouldLog];
     shouldLogToDisk = [v11 shouldLogToDisk];
     oSLogObject2 = [v11 OSLogObject];
     v15 = oSLogObject2;
     if (shouldLogToDisk)
     {
-      shouldLog2 |= 2u;
+      LODWORD(v12) = v12 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
     {
-      shouldLog2 &= 2u;
+      v12 = v12;
     }
 
-    if (!shouldLog2)
+    else
     {
-      goto LABEL_31;
+      v12 &= 2u;
+    }
+
+    if (!v12)
+    {
+      goto LABEL_34;
     }
 
     v16 = objc_opt_class();
@@ -953,15 +965,15 @@ LABEL_11:
     v32 = v17;
     v18 = v16;
     LODWORD(v27) = 18;
-    v19 = _os_log_send_and_compose_impl();
+    v19 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &_mh_execute_header, v15, 1, "[%@]: Not resuming quotas due to %i current downloads", &v29, v27);
 
     if (v19)
     {
-LABEL_30:
-      v15 = [NSString stringWithCString:v19 encoding:4, &v29, v27];
+LABEL_33:
+      v15 = [NSString stringWithCString:v19 encoding:4];
       free(v19);
       SSFileLog();
-LABEL_31:
+LABEL_34:
     }
   }
 
@@ -976,23 +988,28 @@ LABEL_31:
       v11 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog3 = [v11 shouldLog];
+    LODWORD(v21) = [v11 shouldLog];
     shouldLogToDisk2 = [v11 shouldLogToDisk];
     oSLogObject3 = [v11 OSLogObject];
     v15 = oSLogObject3;
     if (shouldLogToDisk2)
     {
-      shouldLog3 |= 2u;
+      LODWORD(v21) = v21 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_INFO))
     {
-      shouldLog3 &= 2u;
+      v21 = v21;
     }
 
-    if (!shouldLog3)
+    else
     {
-      goto LABEL_31;
+      v21 &= 2u;
+    }
+
+    if (!v21)
+    {
+      goto LABEL_34;
     }
 
     v24 = objc_opt_class();
@@ -1000,11 +1017,11 @@ LABEL_31:
     v30 = v24;
     v25 = v24;
     LODWORD(v27) = 12;
-    v19 = _os_log_send_and_compose_impl();
+    v19 = _os_log_send_and_compose_impl(v21, 0, 0, 0, &_mh_execute_header, v15, 1, "[%@]: Resuming quotas", &v29, v27);
 
     if (v19)
     {
-      goto LABEL_30;
+      goto LABEL_33;
     }
   }
 
@@ -1051,14 +1068,13 @@ LABEL_31:
     goto LABEL_12;
   }
 
-  v18 = 138412290;
-  v19 = handleCopy;
-  LODWORD(v16) = 12;
-  v14 = _os_log_send_and_compose_impl();
+  v17 = 138412290;
+  v18 = handleCopy;
+  v14 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[ApplicationWorkspace]: Setting placeholder thumbnail icon data for %@", &v17, 12);
 
   if (v14)
   {
-    oSLogObject = [NSString stringWithCString:v14 encoding:4, &v18, v16];
+    oSLogObject = [NSString stringWithCString:v14 encoding:4];
     free(v14);
     SSFileLog();
 LABEL_12:
@@ -1107,46 +1123,50 @@ LABEL_12:
   shouldLog = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [v3 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (!v5)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  v12 = 138412290;
-  v13 = objc_opt_class();
-  v7 = v13;
-  LODWORD(v10) = 12;
-  v8 = _os_log_send_and_compose_impl();
+  v11 = 138412290;
+  v12 = objc_opt_class();
+  v7 = v12;
+  v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "[%@]: Suspending quotas", &v11, 12);
 
   if (v8)
   {
-    oSLogObject = [NSString stringWithCString:v8 encoding:4, &v12, v10];
+    oSLogObject = [NSString stringWithCString:v8 encoding:4];
     free(v8);
     SSFileLog();
-LABEL_11:
+LABEL_12:
   }
 
   v9 = +[UMUserManager sharedManager];
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v11[2] = sub_100170708;
-  v11[3] = &unk_1003276D0;
-  v11[4] = self;
-  [v9 suspendQuotasWithCompletionHandler:v11];
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_100170708;
+  v10[3] = &unk_1003276D0;
+  v10[4] = self;
+  [v9 suspendQuotasWithCompletionHandler:v10];
 }
 
 - (void)uninstallPlaceholderForApplicationHandle:(id)handle
@@ -1221,9 +1241,9 @@ LABEL_11:
     block[1] = 3221225472;
     block[2] = sub_100170E10;
     block[3] = &unk_100327198;
-    v26 = v6;
+    v25 = v6;
     dispatch_async(callbackQueue, block);
-    v13 = v26;
+    v13 = v25;
     goto LABEL_21;
   }
 
@@ -1260,15 +1280,13 @@ LABEL_11:
     goto LABEL_13;
   }
 
-  v27 = 134217984;
+  v26 = 134217984;
   identifierCopy = identifier;
-  LODWORD(v24) = 12;
-  v23 = &v27;
-  v12 = _os_log_send_and_compose_impl();
+  v12 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "[ApplicationWorkspace]: Waiting for pending placeholder installs of download: %lld", &v26);
 
   if (v12)
   {
-    oSLogObject = [NSString stringWithCString:v12 encoding:4, &v27, v24];
+    oSLogObject = [NSString stringWithCString:v12 encoding:4];
     free(v12);
     v23 = oSLogObject;
     SSFileLog();
@@ -1395,39 +1413,42 @@ LABEL_21:
   shouldLog = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v6 = shouldLog | 2;
+    LODWORD(v6) = shouldLog | 2;
   }
 
   else
   {
-    v6 = shouldLog;
+    LODWORD(v6) = shouldLog;
   }
 
   oSLogObject = [v4 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
 
   if (!v6)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
   v8 = [v3 count];
   v56 = 134217984;
   v57 = v8;
-  LODWORD(v44) = 12;
-  v42 = &v56;
-  v9 = _os_log_send_and_compose_impl();
+  v9 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "[ApplicationWorkspace]: About to switch with %lu current install(s)", &v56);
 
   if (v9)
   {
-    oSLogObject = [NSString stringWithCString:v9 encoding:4, &v56, v44];
+    oSLogObject = [NSString stringWithCString:v9 encoding:4];
     free(v9);
-    v42 = oSLogObject;
+    v43 = oSLogObject;
     SSFileLog();
-LABEL_11:
+LABEL_12:
   }
 
   v10 = [UMUserSwitchBlockingTask taskWithName:@"terminate multiuser mode" reason:@"user is going to change"];
@@ -1438,7 +1459,7 @@ LABEL_11:
   if (![v3 count])
   {
     v47 = 0;
-    goto LABEL_59;
+    goto LABEL_61;
   }
 
   v45 = v3;
@@ -1451,7 +1472,7 @@ LABEL_11:
   if (!v13)
   {
     v47 = 0;
-    goto LABEL_58;
+    goto LABEL_60;
   }
 
   v14 = v13;
@@ -1499,22 +1520,20 @@ LABEL_11:
       {
         v56 = 134217984;
         v57 = longLongValue;
-        LODWORD(v44) = 12;
-        v43 = &v56;
-        v23 = _os_log_send_and_compose_impl();
+        v23 = _os_log_send_and_compose_impl(v22, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "[ApplicationWorkspace]: Waiting for downloadID: %lld to finish installing", &v56);
 
         if (!v23)
         {
-          goto LABEL_30;
+          goto LABEL_31;
         }
 
-        oSLogObject2 = [NSString stringWithCString:v23 encoding:4, &v56, v44];
+        oSLogObject2 = [NSString stringWithCString:v23 encoding:4];
         free(v23);
-        v43 = oSLogObject2;
+        v44 = oSLogObject2;
         SSFileLog();
       }
 
-LABEL_30:
+LABEL_31:
       v24 = dispatch_semaphore_create(0);
       v49[0] = _NSConcreteStackBlock;
       v49[1] = 3221225472;
@@ -1556,8 +1575,12 @@ LABEL_30:
 
         if (!v31)
         {
-          goto LABEL_52;
+          goto LABEL_54;
         }
+
+        v56 = 134217984;
+        v57 = longLongValue;
+        v32 = _os_log_send_and_compose_impl(v31, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "[ApplicationWorkspace]: Timed out waiting for downloadID %lld to finish installing", &v56);
       }
 
       else
@@ -1572,106 +1595,105 @@ LABEL_30:
         shouldLog4 = [v27 shouldLog];
         if ([v27 shouldLogToDisk])
         {
-          v33 = shouldLog4 | 2;
+          v34 = shouldLog4 | 2;
         }
 
         else
         {
-          v33 = shouldLog4;
+          v34 = shouldLog4;
         }
 
         oSLogObject3 = [v27 OSLogObject];
         if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_INFO))
         {
-          v34 = v33;
+          v35 = v34;
         }
 
         else
         {
-          v34 = v33 & 2;
+          v35 = v34 & 2;
         }
 
-        if (!v34)
+        if (!v35)
         {
-          goto LABEL_52;
+          goto LABEL_54;
         }
+
+        v56 = 134217984;
+        v57 = longLongValue;
+        v32 = _os_log_send_and_compose_impl(v35, 0, 0, 0, &_mh_execute_header, oSLogObject3, 1, "[ApplicationWorkspace]: Application with downloadID: %lld to finish installing", &v56);
       }
 
-      v56 = 134217984;
-      v57 = longLongValue;
-      LODWORD(v44) = 12;
-      v42 = &v56;
-      v35 = _os_log_send_and_compose_impl();
+      v36 = v32;
 
-      if (!v35)
+      if (!v36)
       {
-        goto LABEL_53;
+        goto LABEL_55;
       }
 
-      oSLogObject3 = [NSString stringWithCString:v35 encoding:4, &v56, v44];
-      free(v35);
-      v42 = oSLogObject3;
+      oSLogObject3 = [NSString stringWithCString:v36 encoding:4];
+      free(v36);
+      v43 = oSLogObject3;
       SSFileLog();
-LABEL_52:
+LABEL_54:
 
-LABEL_53:
+LABEL_55:
     }
 
     v14 = [obj countByEnumeratingWithState:&v51 objects:v55 count:16];
   }
 
   while (v14);
-LABEL_58:
+LABEL_60:
 
   v3 = v45;
-LABEL_59:
-  v36 = +[SSLogConfig sharedDaemonConfig];
-  if (!v36)
+LABEL_61:
+  v37 = +[SSLogConfig sharedDaemonConfig];
+  if (!v37)
   {
-    v36 = +[SSLogConfig sharedConfig];
+    v37 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog5 = [v36 shouldLog];
-  if ([v36 shouldLogToDisk])
+  shouldLog5 = [v37 shouldLog];
+  if ([v37 shouldLogToDisk])
   {
-    v38 = shouldLog5 | 2;
+    v39 = shouldLog5 | 2;
   }
 
   else
   {
-    v38 = shouldLog5;
+    v39 = shouldLog5;
   }
 
-  oSLogObject4 = [v36 OSLogObject];
+  oSLogObject4 = [v37 OSLogObject];
   if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_INFO))
   {
-    v40 = v38;
+    v41 = v39;
   }
 
   else
   {
-    v40 = v38 & 2;
+    v41 = v39 & 2;
   }
 
-  if (v40)
+  if (v41)
   {
     v56 = 134217984;
     v57 = v47;
-    LODWORD(v44) = 12;
-    v41 = _os_log_send_and_compose_impl();
+    v42 = _os_log_send_and_compose_impl(v41, 0, 0, 0, &_mh_execute_header, oSLogObject4, 1, "[ApplicationWorkspace]: Switch complete with %ld install(s) successful", &v56);
 
-    if (v41)
+    if (v42)
     {
-      oSLogObject4 = [NSString stringWithCString:v41 encoding:4, &v56, v44];
-      free(v41);
+      oSLogObject4 = [NSString stringWithCString:v42 encoding:4];
+      free(v42);
       SSFileLog();
-      goto LABEL_70;
+      goto LABEL_72;
     }
   }
 
   else
   {
-LABEL_70:
+LABEL_72:
   }
 
   [v10 end];
@@ -1791,43 +1813,48 @@ LABEL_8:
     shouldLog = [v5 shouldLog];
     if ([v5 shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      LODWORD(v7) = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      LODWORD(v7) = shouldLog;
     }
 
     oSLogObject = [v5 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = v7;
+    }
+
+    else
     {
       v7 &= 2u;
     }
 
     if (v7)
     {
-      [v4 applicationHandle];
-      v12 = v11 = 138412290;
-      LODWORD(v10) = 12;
-      v9 = _os_log_send_and_compose_impl();
+      applicationHandle = [v4 applicationHandle];
+      v11 = 138412290;
+      v12 = applicationHandle;
+      v10 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[ApplicationWorkspace]: Canceled placeholder thumbnail operation for %@ because we are installing", &v11, 12);
 
-      if (!v9)
+      if (!v10)
       {
-LABEL_13:
+LABEL_14:
 
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      oSLogObject = [NSString stringWithCString:v9 encoding:4, &v11, v10];
-      free(v9);
+      oSLogObject = [NSString stringWithCString:v10 encoding:4];
+      free(v10);
       SSFileLog();
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
-LABEL_14:
+LABEL_15:
 }
 
 - (id)_copyCombinedApplicationProgress:(id)progress forApplicationHandle:(id)handle
@@ -2144,47 +2171,51 @@ LABEL_11:
     shouldLog = [v6 shouldLog];
     if ([v6 shouldLogToDisk])
     {
-      v8 = shouldLog | 2;
+      LODWORD(v8) = shouldLog | 2;
     }
 
     else
     {
-      v8 = shouldLog;
+      LODWORD(v8) = shouldLog;
     }
 
     oSLogObject = [v6 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v8 = v8;
+    }
+
+    else
     {
       v8 &= 2u;
     }
 
     if (v8)
     {
-      *v13 = 138412546;
-      *&v13[4] = objc_opt_class();
-      *&v13[12] = 2048;
-      *&v13[14] = identifier;
-      v10 = *&v13[4];
-      LODWORD(v12) = 22;
-      v11 = _os_log_send_and_compose_impl();
+      v12 = 138412546;
+      v13 = objc_opt_class();
+      v14 = 2048;
+      identifierCopy = identifier;
+      v10 = v13;
+      v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[%@] Decrementing pending installs for %lld but none found", &v12, 22);
 
       if (!v11)
       {
-LABEL_14:
+LABEL_15:
 
-        goto LABEL_15;
+        goto LABEL_16;
       }
 
-      oSLogObject = [NSString stringWithCString:v11 encoding:4, v13, v12, *v13, *&v13[16]];
+      oSLogObject = [NSString stringWithCString:v11 encoding:4];
       free(v11);
       SSFileLog();
     }
 
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
   [(NSCountedSet *)self->_pendingInstalls removeObject:v5];
-LABEL_15:
+LABEL_16:
 
   [(NSLock *)self->_lock unlock];
 }

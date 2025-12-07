@@ -163,7 +163,7 @@ LABEL_9:
     v5 = *(MEMORY[0x1E695F050] + 8);
     v6 = *(MEMORY[0x1E695F050] + 16);
     v7 = *(MEMORY[0x1E695F050] + 24);
-    [(UIPDFSelection *)self transform];
+    objc_msgSend_transform(self);
     IsIdentity = CGAffineTransformIsIdentity(&v20);
     if (NumberOfRectsAndTransforms >= 1)
     {
@@ -557,7 +557,7 @@ LABEL_16:
     {
       if (self)
       {
-        [(UIPDFSelection *)self rectangleAtIndex:v5 scale:1.0 inset:-1.0];
+        objc_msgSend_rectangleAtIndex_scale_inset_(self, 1.0, -1.0);
       }
 
       v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"<Rectangle><Point id=bottomLeft x=%g y=%g/><Point id=topLeft x=%g y=%g/><Point id=topRight x=%g y=%g/><Point id=bottomRight x=%g y=%g/></Rectangle>", 0, 0, 0, 0];

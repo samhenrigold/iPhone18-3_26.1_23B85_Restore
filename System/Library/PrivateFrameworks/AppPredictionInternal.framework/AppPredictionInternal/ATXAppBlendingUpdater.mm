@@ -2,6 +2,7 @@
 + (id)clientModelForAppPredictionsForClientModelId:(id)id;
 + (id)clientModelIdForConsumerSubType:(unsigned __int8)type;
 + (id)clientModelSpecForAppPredictionsForClientModelId:(id)id;
++ (void)updateBlendingLayerForConsumerSubType:(unsigned __int8)type;
 @end
 
 @implementation ATXAppBlendingUpdater
@@ -59,33 +60,87 @@ LABEL_5:
   return v7;
 }
 
-void __63__ATXAppBlendingUpdater_updateBlendingLayerForConsumerSubType___block_invoke(uint64_t a1, int a2, void *a3)
++ (void)updateBlendingLayerForConsumerSubType:(unsigned __int8)type
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v5 = a3;
-  if (a2)
+  typeCopy = type;
+  v23 = *MEMORY[0x277D85DE8];
+  assetMappingWithCachedAssets = [MEMORY[0x277CEB3A0] assetMappingWithCachedAssets];
+  appPredictionDirectory = [MEMORY[0x277CEBCB0] appPredictionDirectory];
+  v6 = [appPredictionDirectory stringByAppendingPathComponent:@"caches/ATXCacheFile"];
+  v7 = [assetMappingWithCachedAssets getFullCachePathWithBaseCachePath:v6 consumerSubType:typeCopy];
+
+  v20 = 0;
+  v8 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:v7 options:1 error:&v20];
+  v9 = v20;
+  v10 = v9;
+  if (v8)
   {
-    v6 = __atxlog_handle_default();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v11 = [ATXAppBlendingUpdater clientModelIdForConsumerSubType:typeCopy];
+    if (v11)
     {
-      v7 = [MEMORY[0x277CEBCF0] stringForConsumerSubtype:*(a1 + 32)];
-      v10 = 138412290;
-      v11 = v7;
-      _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "Successfully updated blending for %@", &v10, 0xCu);
+      objc_msgSend_predictionItemsInFeedbackChunkFromCacheFileData_(ATXAppPredictionFeedbackItem);
+      v12 = [objc_opt_class() clientModelSpecForAppPredictionsForClientModelId:v11];
+      v13 = [ATXProactiveSuggestionBuilder proactiveSuggestionsFromAppPredictionItems:buf clientModelSpec:v12 maxSuggestionsToSendToBlendingLayer:75];
+      v14 = [objc_opt_class() clientModelForAppPredictionsForClientModelId:v11];
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __63__ATXAppBlendingUpdater_updateBlendingLayerForConsumerSubType___block_invoke;
+      v18[3] = &__block_descriptor_33_e20_v20__0B8__NSError_12l;
+      v19 = typeCopy;
+      [v14 updateSuggestions:v13 feedbackMetadata:v8 completionHandler:v18];
+
+      v21 = buf;
+      std::vector<ATXPredictionItem>::__destroy_vector::operator()[abi:ne200100](&v21);
+    }
+
+    else
+    {
+      v16 = __atxlog_handle_default(0);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      {
+        v17 = [MEMORY[0x277CEBCF0] stringForConsumerSubtype:typeCopy];
+        [(ATXAppBlendingUpdater *)v17 updateBlendingLayerForConsumerSubType:buf, v16];
+      }
     }
   }
 
   else
   {
-    v6 = __atxlog_handle_default();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v11 = __atxlog_handle_default(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      v15 = [MEMORY[0x277CEBCF0] stringForConsumerSubtype:typeCopy];
+      [(ATXAppBlendingUpdater *)v15 updateBlendingLayerForConsumerSubType:v10, buf];
+    }
+  }
+}
+
+void __63__ATXAppBlendingUpdater_updateBlendingLayerForConsumerSubType___block_invoke(uint64_t a1, int a2, void *a3)
+{
+  v12 = *MEMORY[0x277D85DE8];
+  v5 = a3;
+  v6 = v5;
+  if (a2)
+  {
+    v7 = __atxlog_handle_default(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = [MEMORY[0x277CEBCF0] stringForConsumerSubtype:*(a1 + 32)];
-      __63__ATXAppBlendingUpdater_updateBlendingLayerForConsumerSubType___block_invoke_cold_1(v8, v5, &v10);
+      v10 = 138412290;
+      v11 = v8;
+      _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "Successfully updated blending for %@", &v10, 0xCu);
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
+  else
+  {
+    v7 = __atxlog_handle_default(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      v9 = [MEMORY[0x277CEBCF0] stringForConsumerSubtype:*(a1 + 32)];
+      __63__ATXAppBlendingUpdater_updateBlendingLayerForConsumerSubType___block_invoke_cold_1(v9, v6, &v10);
+    }
+  }
 }
 
 + (void)updateBlendingLayerForConsumerSubType:(os_log_t)log .cold.1(void *a1, uint8_t *buf, os_log_t log)

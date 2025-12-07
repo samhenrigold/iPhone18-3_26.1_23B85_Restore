@@ -9,7 +9,7 @@
 {
   swift_unknownObjectRetain();
 
-  DisplayLayerVisibilityObserver.screenSharingStateMonitor(_:didUpdateScreenSharingBroadcastingState:)();
+  DisplayLayerVisibilityObserver.screenSharingStateMonitor(_:didUpdateScreenSharingBroadcastingState:)(monitor);
   swift_unknownObjectRelease();
 }
 

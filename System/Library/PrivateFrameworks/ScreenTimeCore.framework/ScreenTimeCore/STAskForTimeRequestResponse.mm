@@ -15,7 +15,7 @@
 
 + (id)upsertAskForTimeRequest:(id)request fromUser:(id)user inContext:(id)context error:(id *)error
 {
-  v73 = *MEMORY[0x1E69E9840];
+  v70 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   userCopy = user;
   contextCopy = context;
@@ -24,14 +24,13 @@
   v16 = [self _fetchPredicateForAskForTimeRequest:requestCopy requestingUserDSID:dsid];
   [fetchRequest setPredicate:v16];
 
-  v68 = 0;
-  v17 = [fetchRequest execute:&v68];
-  v18 = v68;
+  v65 = 0;
+  v17 = [fetchRequest execute:&v65];
+  v18 = v65;
   v19 = v18;
   if (v17)
   {
-    v20 = 0x1E695D000;
-    v67 = contextCopy;
+    v64 = contextCopy;
     if ([v17 count])
     {
       firstObject = [v17 firstObject];
@@ -41,27 +40,26 @@
 LABEL_28:
 
         currentCalendar = [MEMORY[0x1E695DEE8] currentCalendar];
-        v57 = *(v20 + 3840);
-        v58 = objc_opt_new();
-        v59 = [currentCalendar nextDateAfterDate:v58 matchingHour:0 minute:0 second:0 options:1024];
-        [(STAskForTimeRequestResponse *)firstObject setExpirationDate:v59];
+        v56 = objc_opt_new();
+        v57 = [currentCalendar nextDateAfterDate:v56 matchingHour:0 minute:0 second:0 options:1024];
+        [(STAskForTimeRequestResponse *)firstObject setExpirationDate:v57];
 
         timeRequested = [requestCopy timeRequested];
         [(STAskForTimeRequestResponse *)firstObject setTimeRequested:timeRequested];
 
         firstObject = firstObject;
-        v25 = firstObject;
+        v24 = firstObject;
 LABEL_29:
 
-        contextCopy = v67;
+        contextCopy = v64;
         goto LABEL_30;
       }
 
       identifier = [(STAskForTimeRequestResponse *)firstObject identifier];
       *buf = 138543618;
-      v70 = firstObject;
-      v71 = 2114;
-      v72 = identifier;
+      v67 = firstObject;
+      v68 = 2114;
+      v69 = identifier;
       _os_log_impl(&dword_1B831F000, requestedResourceIdentifier, OS_LOG_TYPE_DEFAULT, "Updating existing ask for time request %{public}@ with identifier %{public}@", buf, 0x16u);
     }
 
@@ -74,28 +72,28 @@ LABEL_29:
       [(STAskForTimeRequestResponse *)firstObject setFamilyOrganization:organization];
 
       requestedResourceIdentifier = [requestCopy requestedResourceIdentifier];
-      v28 = +[STLog ask];
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v27 = +[STLog ask];
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         [requestCopy requestIdentifier];
-        v29 = v65 = a2;
+        v28 = v62 = a2;
         *buf = 138543618;
-        v70 = requestedResourceIdentifier;
-        v71 = 2114;
-        v72 = v29;
-        _os_log_impl(&dword_1B831F000, v28, OS_LOG_TYPE_DEFAULT, "Adding new ask for time request for resource identifier %{public}@, request %{public}@", buf, 0x16u);
+        v67 = requestedResourceIdentifier;
+        v68 = 2114;
+        v69 = v28;
+        _os_log_impl(&dword_1B831F000, v27, OS_LOG_TYPE_DEFAULT, "Adding new ask for time request for resource identifier %{public}@, request %{public}@", buf, 0x16u);
 
-        a2 = v65;
+        a2 = v62;
       }
 
       usageType = [requestCopy usageType];
       [(STAskForTimeRequestResponse *)firstObject setUsageType:usageType];
       if (usageType == 2)
       {
-        v45 = +[STLog ask];
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
+        v44 = +[STLog ask];
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
         {
-          [(STAskForTimeRequestResponse *)requestedResourceIdentifier upsertAskForTimeRequest:v45 fromUser:v46 inContext:v47 error:v48, v49, v50, v51];
+          [(STAskForTimeRequestResponse *)requestedResourceIdentifier upsertAskForTimeRequest:v44 fromUser:v45 inContext:v46 error:v47, v48, v49, v50];
         }
 
         [(STAskForTimeRequestResponse *)firstObject setRequestedCategoryIdentifier:requestedResourceIdentifier];
@@ -103,10 +101,10 @@ LABEL_29:
 
       else if (usageType == 1)
       {
-        v38 = +[STLog ask];
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+        v37 = +[STLog ask];
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
         {
-          [(STAskForTimeRequestResponse *)requestedResourceIdentifier upsertAskForTimeRequest:v38 fromUser:v39 inContext:v40 error:v41, v42, v43, v44];
+          [(STAskForTimeRequestResponse *)requestedResourceIdentifier upsertAskForTimeRequest:v37 fromUser:v38 inContext:v39 error:v40, v41, v42, v43];
         }
 
         [(STAskForTimeRequestResponse *)firstObject setRequestedWebDomain:requestedResourceIdentifier];
@@ -115,23 +113,22 @@ LABEL_29:
       else if (usageType)
       {
         currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-        v53 = a2;
-        v54 = currentHandler;
-        [currentHandler handleFailureInMethod:v53 object:self file:@"STAskForTimeRequestResponse.m" lineNumber:80 description:{@"Unexpected usage type %ld", usageType}];
+        v52 = a2;
+        v53 = currentHandler;
+        [currentHandler handleFailureInMethod:v52 object:self file:@"STAskForTimeRequestResponse.m" lineNumber:80 description:{@"Unexpected usage type %ld", usageType}];
       }
 
       else
       {
-        v31 = +[STLog ask];
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+        v30 = +[STLog ask];
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
         {
-          [(STAskForTimeRequestResponse *)requestedResourceIdentifier upsertAskForTimeRequest:v31 fromUser:v32 inContext:v33 error:v34, v35, v36, v37];
+          [(STAskForTimeRequestResponse *)requestedResourceIdentifier upsertAskForTimeRequest:v30 fromUser:v31 inContext:v32 error:v33, v34, v35, v36];
         }
 
         [(STAskForTimeRequestResponse *)firstObject setRequestedApplicationBundleIdentifier:requestedResourceIdentifier];
       }
 
-      v20 = 0x1E695D000uLL;
       requestedApplicationBundleIdentifier = [(STAskForTimeRequestResponse *)firstObject requestedApplicationBundleIdentifier];
       if (requestedApplicationBundleIdentifier || ([(STAskForTimeRequestResponse *)firstObject requestedWebDomain], (requestedApplicationBundleIdentifier = objc_claimAutoreleasedReturnValue()) != 0))
       {
@@ -145,11 +142,11 @@ LABEL_29:
         {
           if (errorCopy)
           {
-            v64 = v19;
+            v61 = v19;
             *errorCopy = v19;
           }
 
-          v25 = 0;
+          v24 = 0;
           goto LABEL_29;
         }
       }
@@ -164,26 +161,24 @@ LABEL_29:
 
   if (error)
   {
-    v24 = v18;
-    v25 = 0;
+    v23 = v18;
+    v24 = 0;
     *error = v19;
   }
 
   else
   {
-    v25 = 0;
+    v24 = 0;
   }
 
 LABEL_30:
 
-  v61 = *MEMORY[0x1E69E9840];
-
-  return v25;
+  return v24;
 }
 
 + (id)fetchAskForTimeRequest:(id)request fromUser:(id)user inContext:(id)context error:(id *)error
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   userCopy = user;
   requestCopy = request;
   fetchRequest = [self fetchRequest];
@@ -192,9 +187,9 @@ LABEL_30:
   v13 = [self _fetchPredicateForAskForTimeRequest:requestCopy requestingUserDSID:dsid];
 
   [fetchRequest setPredicate:v13];
-  v23 = 0;
-  v14 = [fetchRequest execute:&v23];
-  v15 = v23;
+  v22 = 0;
+  v14 = [fetchRequest execute:&v22];
+  v15 = v22;
   v16 = v15;
   if (!v14)
   {
@@ -222,21 +217,20 @@ LABEL_8:
   {
     identifier = [firstObject identifier];
     *buf = 138543618;
-    v25 = firstObject;
-    v26 = 2114;
-    v27 = identifier;
+    v24 = firstObject;
+    v25 = 2114;
+    v26 = identifier;
     _os_log_impl(&dword_1B831F000, v18, OS_LOG_TYPE_DEFAULT, "Found existing ask for time request %{public}@ with identifier %{public}@", buf, 0x16u);
   }
 
 LABEL_9:
-  v21 = *MEMORY[0x1E69E9840];
 
   return firstObject;
 }
 
 + (id)_fetchPredicateForAskForTimeRequest:(id)request requestingUserDSID:(id)d
 {
-  v31[2] = *MEMORY[0x1E69E9840];
+  v30[2] = *MEMORY[0x1E69E9840];
   requestCopy = request;
   dCopy = d;
   usageType = [requestCopy usageType];
@@ -274,18 +268,16 @@ LABEL_9:
   v21 = [v19 predicateWithFormat:@"(%K == %@)", @"identifier", requestIdentifier];
 
   v22 = MEMORY[0x1E696AB28];
-  v31[0] = v18;
-  v31[1] = v13;
-  v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:2];
+  v30[0] = v18;
+  v30[1] = v13;
+  v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:2];
   v24 = [v22 andPredicateWithSubpredicates:v23];
 
   v25 = MEMORY[0x1E696AB28];
-  v30[0] = v24;
-  v30[1] = v21;
-  v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:2];
+  v29[0] = v24;
+  v29[1] = v21;
+  v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
   v27 = [v25 orPredicateWithSubpredicates:v26];
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return v27;
 }
@@ -341,7 +333,7 @@ LABEL_9:
     v5 = +[STLog coreDataValidation];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      [STAskForTimeRequestResponse validateForUpdate:update];
+      [STAskForTimeRequestResponse validateForUpdate:];
     }
 
     v7 = 0;
@@ -369,7 +361,7 @@ LABEL_9:
       v6 = +[STLog coreDataValidation];
       if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
-        [STAskForTimeRequestResponse validateForInsert:insert];
+        [STAskForTimeRequestResponse validateForInsert:];
       }
     }
 
@@ -383,7 +375,7 @@ LABEL_9:
     v5 = +[STLog coreDataValidation];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      [STAskForTimeRequestResponse validateForInsert:insert];
+      [STAskForTimeRequestResponse validateForInsert:];
     }
 
     v7 = 0;
@@ -409,7 +401,7 @@ LABEL_9:
       v6 = +[STLog coreDataValidation];
       if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
-        [STAskForTimeRequestResponse validateForDelete:delete];
+        [STAskForTimeRequestResponse validateForDelete:];
       }
     }
 
@@ -423,7 +415,7 @@ LABEL_9:
     v5 = +[STLog coreDataValidation];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      [STAskForTimeRequestResponse validateForDelete:delete];
+      [STAskForTimeRequestResponse validateForDelete:];
     }
 
     v7 = 0;
@@ -434,12 +426,12 @@ LABEL_9:
 
 - (BOOL)_validateRequestingApplication:(id)application
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   applicationCopy = application;
   v4 = +[STAskForTimeRequestResponse fetchRequest];
-  v30 = 0;
-  v5 = [v4 execute:&v30];
-  v6 = v30;
+  v29 = 0;
+  v5 = [v4 execute:&v29];
+  v6 = v29;
   v7 = v6;
   if (!v5)
   {
@@ -448,33 +440,33 @@ LABEL_9:
     goto LABEL_18;
   }
 
-  v25 = v6;
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
+  v24 = v6;
   v27 = 0u;
-  v24 = v5;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v23 = v5;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v26 objects:v33 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v25 objects:v32 count:16];
   if (!v9)
   {
     goto LABEL_16;
   }
 
   v10 = v9;
-  v11 = *v27;
+  v11 = *v26;
   v12 = *MEMORY[0x1E696A578];
   do
   {
     v13 = 0;
     do
     {
-      if (*v27 != v11)
+      if (*v26 != v11)
       {
         objc_enumerationMutation(v8);
       }
 
-      v14 = *(*(&v26 + 1) + 8 * v13);
+      v14 = *(*(&v25 + 1) + 8 * v13);
       requestedApplicationBundleIdentifier = [v14 requestedApplicationBundleIdentifier];
       if (requestedApplicationBundleIdentifier || ([v14 requestedWebDomain], (requestedApplicationBundleIdentifier = objc_claimAutoreleasedReturnValue()) != 0))
       {
@@ -489,9 +481,9 @@ LABEL_10:
       if (!requestedCategoryIdentifier)
       {
         v18 = MEMORY[0x1E696ABC0];
-        v31 = v12;
-        v32 = @"AskForTimeRequestResponse is missing a valid requested application identifer.";
-        v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+        v30 = v12;
+        v31 = @"AskForTimeRequestResponse is missing a valid requested application identifer.";
+        v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
         v19 = [v18 errorWithDomain:@"STErrorDomain" code:561 userInfo:v16];
         [applicationCopy addObject:v19];
 
@@ -503,7 +495,7 @@ LABEL_11:
     }
 
     while (v10 != v13);
-    v20 = [v8 countByEnumeratingWithState:&v26 objects:v33 count:16];
+    v20 = [v8 countByEnumeratingWithState:&v25 objects:v32 count:16];
     v10 = v20;
   }
 
@@ -511,22 +503,21 @@ LABEL_11:
 LABEL_16:
 
   v21 = [applicationCopy count] == 0;
-  v7 = v25;
-  v5 = v24;
+  v7 = v24;
+  v5 = v23;
 LABEL_18:
 
-  v22 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
 - (BOOL)_validateFieldsOfRequesterResponder:(id)responder
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   responderCopy = responder;
   v4 = +[STAskForTimeRequestResponse fetchRequest];
-  v56 = 0;
-  v5 = [v4 execute:&v56];
-  v6 = v56;
+  v55 = 0;
+  v5 = [v4 execute:&v55];
+  v6 = v55;
   v7 = v6;
   if (!v5)
   {
@@ -535,45 +526,45 @@ LABEL_18:
     goto LABEL_33;
   }
 
-  v48 = v6;
-  v49 = v4;
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
+  v47 = v6;
+  v48 = v4;
   v53 = 0u;
-  v47 = v5;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
+  v46 = v5;
   obj = v5;
-  v8 = [obj countByEnumeratingWithState:&v52 objects:v69 count:16];
+  v8 = [obj countByEnumeratingWithState:&v51 objects:v68 count:16];
   if (!v8)
   {
     goto LABEL_31;
   }
 
   v9 = v8;
-  v10 = *v53;
-  v51 = *MEMORY[0x1E696A578];
+  v10 = *v52;
+  v50 = *MEMORY[0x1E696A578];
   do
   {
     v11 = 0;
     do
     {
-      if (*v53 != v10)
+      if (*v52 != v10)
       {
         objc_enumerationMutation(obj);
       }
 
-      v12 = *(*(&v52 + 1) + 8 * v11);
+      v12 = *(*(&v51 + 1) + 8 * v11);
       if (v12)
       {
-        requestingUser = [*(*(&v52 + 1) + 8 * v11) requestingUser];
+        requestingUser = [*(*(&v51 + 1) + 8 * v11) requestingUser];
         respondingUser = [v12 respondingUser];
         v15 = respondingUser;
         if (!(respondingUser | requestingUser))
         {
           v16 = MEMORY[0x1E696ABC0];
-          v67 = v51;
-          v68 = @"AskForTimeRequestResponse is missing a valid responding or requesting user.";
-          v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v68 forKeys:&v67 count:1];
+          v66 = v50;
+          v67 = @"AskForTimeRequestResponse is missing a valid responding or requesting user.";
+          v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
           v18 = v16;
           v19 = 564;
           goto LABEL_10;
@@ -587,9 +578,9 @@ LABEL_18:
           if (familyMemberType != @"Adult")
           {
             v23 = MEMORY[0x1E696ABC0];
-            v65 = v51;
-            v66 = @"AskForTimeRequestResponse responding user is not an adult.";
-            v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
+            v64 = v50;
+            v65 = @"AskForTimeRequestResponse responding user is not an adult.";
+            v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
             v25 = [v23 errorWithDomain:@"STErrorDomain" code:562 userInfo:v24];
             [responderCopy addObject:v25];
           }
@@ -615,9 +606,9 @@ LABEL_18:
           {
 LABEL_19:
             v31 = MEMORY[0x1E696ABC0];
-            v63 = v51;
-            v64 = @"AskForTimeRequestResponse is missing a field from the responding user.";
-            v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
+            v62 = v50;
+            v63 = @"AskForTimeRequestResponse is missing a field from the responding user.";
+            v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
             v33 = [v31 errorWithDomain:@"STErrorDomain" code:562 userInfo:v32];
             [responderCopy addObject:v33];
           }
@@ -628,9 +619,9 @@ LABEL_19:
           if (([requestingUser isManaged] & 1) == 0)
           {
             v34 = MEMORY[0x1E696ABC0];
-            v61 = v51;
-            v62 = @"AskForTimeRequestResponse requesting user is not managed.";
-            v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
+            v60 = v50;
+            v61 = @"AskForTimeRequestResponse requesting user is not managed.";
+            v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
             v36 = [v34 errorWithDomain:@"STErrorDomain" code:565 userInfo:v35];
             [responderCopy addObject:v36];
           }
@@ -640,9 +631,9 @@ LABEL_19:
           if (familyMemberType2 != @"Child")
           {
             v38 = MEMORY[0x1E696ABC0];
-            v59 = v51;
-            v60 = @"AskForTimeRequestResponse requesting user is not a child.";
-            v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
+            v58 = v50;
+            v59 = @"AskForTimeRequestResponse requesting user is not a child.";
+            v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
             v40 = [v38 errorWithDomain:@"STErrorDomain" code:566 userInfo:v39];
             [responderCopy addObject:v40];
           }
@@ -652,13 +643,13 @@ LABEL_19:
           if (!timeRequested)
           {
             v42 = MEMORY[0x1E696ABC0];
-            v57 = v51;
-            v58 = @"AskForTimeRequestResponse is missing a field from the requesting user.";
-            v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
+            v56 = v50;
+            v57 = @"AskForTimeRequestResponse is missing a field from the requesting user.";
+            v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
             v18 = v42;
             v19 = 563;
 LABEL_10:
-            v20 = [v18 errorWithDomain:@"STErrorDomain" code:v19 userInfo:{v17, v47, v48, v49}];
+            v20 = [v18 errorWithDomain:@"STErrorDomain" code:v19 userInfo:{v17, v46, v47, v48}];
             [responderCopy addObject:v20];
           }
         }
@@ -668,7 +659,7 @@ LABEL_10:
     }
 
     while (v9 != v11);
-    v43 = [obj countByEnumeratingWithState:&v52 objects:v69 count:16];
+    v43 = [obj countByEnumeratingWithState:&v51 objects:v68 count:16];
     v9 = v43;
   }
 
@@ -676,69 +667,67 @@ LABEL_10:
 LABEL_31:
 
   v44 = [responderCopy count] == 0;
-  v7 = v48;
-  v4 = v49;
-  v5 = v47;
+  v7 = v47;
+  v4 = v48;
+  v5 = v46;
 LABEL_33:
 
-  v45 = *MEMORY[0x1E69E9840];
   return v44;
 }
 
 + (void)upsertAskForTimeRequest:(uint64_t)a3 fromUser:(uint64_t)a4 inContext:(uint64_t)a5 error:(uint64_t)a6 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3_0(&dword_1B831F000, a2, a3, "Associating category %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_3_0(&dword_1B831F000, a2, a3, "Associating category %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)upsertAskForTimeRequest:(uint64_t)a3 fromUser:(uint64_t)a4 inContext:(uint64_t)a5 error:(uint64_t)a6 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3_0(&dword_1B831F000, a2, a3, "Associating web domain %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_3_0(&dword_1B831F000, a2, a3, "Associating web domain %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)upsertAskForTimeRequest:(uint64_t)a3 fromUser:(uint64_t)a4 inContext:(uint64_t)a5 error:(uint64_t)a6 .cold.3(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3_0(&dword_1B831F000, a2, a3, "Associating app %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_3_0(&dword_1B831F000, a2, a3, "Associating app %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-- (void)validateForUpdate:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)validateForUpdate:.cold.1()
 {
-  OUTLINED_FUNCTION_2_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x1E69E9840]);
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1B831F000, v1, v2, "%{public}s Built-in CoreData Validation for update for AskForMoreTimeRequestResponse failed with: %{public}@", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1B831F000, v0, v1, "%{public}s Built-in CoreData Validation for update for AskForMoreTimeRequestResponse failed with: %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)validateForUpdate:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 136446466;
-  v4 = "[STAskForTimeRequestResponse validateForUpdate:]";
-  v5 = 2114;
-  v6 = a1;
-  _os_log_error_impl(&dword_1B831F000, a2, OS_LOG_TYPE_ERROR, "%{public}s Validate for update on AskForMoreTimeRequestResponse failed with error: %{public}@", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 136446466;
+  v3 = "[STAskForTimeRequestResponse validateForUpdate:]";
+  v4 = 2114;
+  v5 = a1;
+  _os_log_error_impl(&dword_1B831F000, a2, OS_LOG_TYPE_ERROR, "%{public}s Validate for update on AskForMoreTimeRequestResponse failed with error: %{public}@", &v2, 0x16u);
 }
 
-- (void)validateForInsert:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)validateForInsert:.cold.1()
 {
-  OUTLINED_FUNCTION_2_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x1E69E9840]);
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1B831F000, v1, v2, "%{public}s Built-in CoreData Validation for insert on AskForMoreTimeRequestResponse failed with: %{public}@", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1B831F000, v0, v1, "%{public}s Built-in CoreData Validation for insert on AskForMoreTimeRequestResponse failed with: %{public}@", v2, v3, v4, v5, v6);
 }
 
-- (void)validateForDelete:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)validateForDelete:.cold.1()
 {
-  OUTLINED_FUNCTION_2_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x1E69E9840]);
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1B831F000, v1, v2, "%{public}s Built-in CoreData Validation for delete on AskForMoreTimeRequestResponse failed with: %{public}@", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1B831F000, v0, v1, "%{public}s Built-in CoreData Validation for delete on AskForMoreTimeRequestResponse failed with: %{public}@", v2, v3, v4, v5, v6);
 }
 
 @end

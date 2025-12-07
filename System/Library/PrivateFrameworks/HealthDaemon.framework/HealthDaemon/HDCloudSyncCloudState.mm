@@ -34,87 +34,86 @@
 
 - (HDCloudSyncCloudState)initWithZones:(id)zones targets:(id)targets
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   zonesCopy = zones;
   targetsCopy = targets;
   v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v9 = zonesCopy;
-  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v20;
+    v12 = *v19;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v20 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v19 + 1) + 8 * i);
+        v14 = *(*(&v18 + 1) + 8 * i);
         zoneIdentifier = [v14 zoneIdentifier];
         [v8 setObject:v14 forKeyedSubscript:zoneIdentifier];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v11);
   }
 
   v16 = [(HDCloudSyncCloudState *)self initWithZonesByIdentifier:v8 targets:targetsCopy];
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (HDCloudSyncCloudState)initWithZonesByIdentifier:(id)identifier targets:(id)targets
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   targetsCopy = targets;
-  v32.receiver = self;
-  v32.super_class = HDCloudSyncCloudState;
-  v8 = [(HDCloudSyncCloudState *)&v32 init];
+  v31.receiver = self;
+  v31.super_class = HDCloudSyncCloudState;
+  v8 = [(HDCloudSyncCloudState *)&v31 init];
   if (v8)
   {
-    v9 = [identifierCopy copy];
+    v9 = objc_msgSend_copy(identifierCopy);
     zonesByIdentifier = v8->_zonesByIdentifier;
     v8->_zonesByIdentifier = v9;
 
-    v11 = [targetsCopy copy];
+    v11 = objc_msgSend_copy(targetsCopy);
     targets = v8->_targets;
     v8->_targets = v11;
 
     v8->_minimumSupportedProtocolVersion = 1;
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     allValues = [identifierCopy allValues];
-    v14 = [allValues countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v14 = [allValues countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (!v14)
     {
       goto LABEL_18;
     }
 
     v15 = v14;
-    v16 = *v29;
+    v16 = *v28;
     while (1)
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v29 != v16)
+        if (*v28 != v16)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v18 = *(*(&v28 + 1) + 8 * i);
+        v18 = *(*(&v27 + 1) + 8 * i);
         purpose = [v18 purpose];
         if (purpose == 2)
         {
@@ -151,7 +150,7 @@
         }
       }
 
-      v15 = [allValues countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v15 = [allValues countByEnumeratingWithState:&v27 objects:v32 count:16];
       if (!v15)
       {
 LABEL_18:
@@ -161,62 +160,58 @@ LABEL_18:
     }
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (id)cloudStateByAddingZone:(id)zone
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   zoneCopy = zone;
   v4 = MEMORY[0x277CBEA60];
   zoneCopy2 = zone;
   v6 = [v4 arrayWithObjects:&zoneCopy count:1];
 
-  v7 = [(HDCloudSyncCloudState *)self cloudStateByAddingZones:v6, zoneCopy, v11];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = [(HDCloudSyncCloudState *)self cloudStateByAddingZones:v6, zoneCopy, v10];
 
   return v7;
 }
 
 - (id)cloudStateByAddingZones:(id)zones
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   zonesCopy = zones;
   v5 = [(NSDictionary *)self->_zonesByIdentifier mutableCopy];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v6 = zonesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         zoneIdentifier = [v11 zoneIdentifier];
         [v5 setObject:v11 forKeyedSubscript:zoneIdentifier];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
 
   v13 = [[HDCloudSyncCloudState alloc] initWithZonesByIdentifier:v5 targets:self->_targets];
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -305,41 +300,41 @@ uint64_t __51__HDCloudSyncCloudState_cloudStateByRemovingZones___block_invoke_3(
 
 - (id)detailedDescription
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCAB68] stringWithFormat:@"%@\nMinimum supported protocol: %ld\n\n", self, -[HDCloudSyncCloudState minimumSupportedProtocolVersion](self, "minimumSupportedProtocolVersion")];
   allValues = [(NSDictionary *)self->_zonesByIdentifier allValues];
   v5 = [allValues hk_filter:&__block_literal_global_315_0];
 
-  v32 = v5;
+  v31 = v5;
   if ([v5 count])
   {
     [v3 appendFormat:@"Master Records (%ld):\n", objc_msgSend(v5, "count")];
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     v6 = v5;
-    v7 = [v6 countByEnumeratingWithState:&v41 objects:v47 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v40 objects:v46 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v42;
+      v9 = *v41;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v42 != v9)
+          if (*v41 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          masterRecord = [*(*(&v41 + 1) + 8 * i) masterRecord];
+          masterRecord = [*(*(&v40 + 1) + 8 * i) masterRecord];
           v12 = [masterRecord description];
           v13 = [v12 hk_stringIndentedBy:4];
           [v3 appendFormat:@"%@\n\n", v13];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v41 objects:v47 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v40 objects:v46 count:16];
       }
 
       while (v8);
@@ -350,21 +345,21 @@ uint64_t __51__HDCloudSyncCloudState_cloudStateByRemovingZones___block_invoke_3(
   [v3 appendFormat:@"Push Targets (%lu):\n", objc_msgSend(pushTargets, "count")];
   if ([pushTargets count])
   {
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     v15 = pushTargets;
-    v16 = [v15 countByEnumeratingWithState:&v37 objects:v46 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v36 objects:v45 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v38;
+      v18 = *v37;
       do
       {
         for (j = 0; j != v17; ++j)
         {
-          if (*v38 != v18)
+          if (*v37 != v18)
           {
             objc_enumerationMutation(v15);
           }
@@ -376,7 +371,7 @@ uint64_t __51__HDCloudSyncCloudState_cloudStateByRemovingZones___block_invoke_3(
           [v3 appendString:@"\n"];
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v37 objects:v46 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v36 objects:v45 count:16];
       }
 
       while (v17);
@@ -385,21 +380,21 @@ uint64_t __51__HDCloudSyncCloudState_cloudStateByRemovingZones___block_invoke_3(
 
   pullTargets = [(HDCloudSyncCloudState *)self pullTargets];
   [v3 appendFormat:@"\nPull Targets (%lu):\n", objc_msgSend(pullTargets, "count")];
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   v23 = pullTargets;
-  v24 = [v23 countByEnumeratingWithState:&v33 objects:v45 count:16];
+  v24 = [v23 countByEnumeratingWithState:&v32 objects:v44 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v34;
+    v26 = *v33;
     do
     {
       for (k = 0; k != v25; ++k)
       {
-        if (*v34 != v26)
+        if (*v33 != v26)
         {
           objc_enumerationMutation(v23);
         }
@@ -411,13 +406,11 @@ uint64_t __51__HDCloudSyncCloudState_cloudStateByRemovingZones___block_invoke_3(
         [v3 appendString:@"\n"];
       }
 
-      v25 = [v23 countByEnumeratingWithState:&v33 objects:v45 count:16];
+      v25 = [v23 countByEnumeratingWithState:&v32 objects:v44 count:16];
     }
 
     while (v25);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

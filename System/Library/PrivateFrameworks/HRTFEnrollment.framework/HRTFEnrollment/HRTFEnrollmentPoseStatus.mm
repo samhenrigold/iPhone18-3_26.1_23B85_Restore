@@ -12,40 +12,40 @@
 
 - (HRTFEnrollmentPoseStatus)initWithYawPose:(id)pose pitchPose:(id)pitchPose isEarTracking:(unsigned __int8)tracking yawAngle:(double)angle pitchAngle:(double)pitchAngle
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   poseCopy = pose;
   pitchPoseCopy = pitchPose;
-  v60.receiver = self;
-  v60.super_class = HRTFEnrollmentPoseStatus;
-  v14 = [(HRTFEnrollmentPoseStatus *)&v60 init];
+  v59.receiver = self;
+  v59.super_class = HRTFEnrollmentPoseStatus;
+  v14 = [(HRTFEnrollmentPoseStatus *)&v59 init];
   if (v14)
   {
-    v50 = v14;
+    v49 = v14;
     v15 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(poseCopy, "count")}];
     allKeys = [poseCopy allKeys];
     v17 = [allKeys sortedArrayUsingSelector:?];
 
     v18 = v14;
-    v58 = 0u;
-    v59 = 0u;
-    v56 = 0u;
     v57 = 0u;
+    v58 = 0u;
+    v55 = 0u;
+    v56 = 0u;
     obj = v17;
-    v19 = [obj countByEnumeratingWithState:&v56 objects:v62 count:16];
+    v19 = [obj countByEnumeratingWithState:&v55 objects:v61 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v57;
+      v21 = *v56;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v57 != v21)
+          if (*v56 != v21)
           {
             objc_enumerationMutation(obj);
           }
 
-          v23 = *(*(&v56 + 1) + 8 * i);
+          v23 = *(*(&v55 + 1) + 8 * i);
           v24 = [HRTFEnrollmentCaptureAngle alloc];
           [v23 doubleValue];
           v26 = v25;
@@ -55,7 +55,7 @@
           [(NSArray *)v15 addObject:v28];
         }
 
-        v20 = [obj countByEnumeratingWithState:&v56 objects:v62 count:16];
+        v20 = [obj countByEnumeratingWithState:&v55 objects:v61 count:16];
       }
 
       while (v20);
@@ -74,26 +74,26 @@
     allKeys2 = [pitchPoseCopy allKeys];
     v35 = [allKeys2 sortedArrayUsingSelector:sel_compare_];
 
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
     v53 = 0u;
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
     v36 = v35;
-    v37 = [v36 countByEnumeratingWithState:&v52 objects:v61 count:16];
+    v37 = [v36 countByEnumeratingWithState:&v51 objects:v60 count:16];
     if (v37)
     {
       v38 = v37;
-      v39 = *v53;
+      v39 = *v52;
       do
       {
         for (j = 0; j != v38; ++j)
         {
-          if (*v53 != v39)
+          if (*v52 != v39)
           {
             objc_enumerationMutation(v36);
           }
 
-          v41 = *(*(&v52 + 1) + 8 * j);
+          v41 = *(*(&v51 + 1) + 8 * j);
           v42 = [HRTFEnrollmentCaptureAngle alloc];
           [v41 doubleValue];
           v44 = v43;
@@ -103,23 +103,22 @@
           [(NSArray *)v33 addObject:v46];
         }
 
-        v38 = [v36 countByEnumeratingWithState:&v52 objects:v61 count:16];
+        v38 = [v36 countByEnumeratingWithState:&v51 objects:v60 count:16];
       }
 
       while (v38);
     }
 
-    v14 = v50;
-    pitchAngles = v50->_pitchAngles;
-    v50->_pitchAngles = v33;
+    v14 = v49;
+    pitchAngles = v49->_pitchAngles;
+    v49->_pitchAngles = v33;
 
-    v50->_currentYawAngle = angle;
-    v50->_currentPitchAngle = pitchAngle;
-    v50->_hasYawAngle = tracking;
-    v50->_hasPitchAngle = tracking;
+    v49->_currentYawAngle = angle;
+    v49->_currentPitchAngle = pitchAngle;
+    v49->_hasYawAngle = tracking;
+    v49->_hasPitchAngle = tracking;
   }
 
-  v48 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -165,19 +164,19 @@
 
 - (HRTFEnrollmentPoseStatus)initWithCoder:(id)coder
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   if ([coderCopy containsValueForKey:@"YawAngles"] && objc_msgSend(coderCopy, "containsValueForKey:", @"PitchAngles") && objc_msgSend(coderCopy, "containsValueForKey:", @"CurrentYaw") && objc_msgSend(coderCopy, "containsValueForKey:", @"CurrentPitch") && objc_msgSend(coderCopy, "containsValueForKey:", @"HasYaw") && objc_msgSend(coderCopy, "containsValueForKey:", @"HasPitch") && objc_msgSend(coderCopy, "containsValueForKey:", @"FaceBoundingBox.origin.x") && objc_msgSend(coderCopy, "containsValueForKey:", @"FaceBoundingBox.origin.y") && objc_msgSend(coderCopy, "containsValueForKey:", @"FaceBoundingBox.size.width") && objc_msgSend(coderCopy, "containsValueForKey:", @"FaceBoundingBox.size.height"))
   {
-    v22.receiver = self;
-    v22.super_class = HRTFEnrollmentPoseStatus;
-    v5 = [(HRTFEnrollmentPoseStatus *)&v22 init];
+    v21.receiver = self;
+    v21.super_class = HRTFEnrollmentPoseStatus;
+    v5 = [(HRTFEnrollmentPoseStatus *)&v21 init];
     if (v5)
     {
       v6 = MEMORY[0x277CBEB98];
-      v23[0] = objc_opt_class();
-      v23[1] = objc_opt_class();
-      v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+      v22[0] = objc_opt_class();
+      v22[1] = objc_opt_class();
+      v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
       v8 = [v6 setWithArray:v7];
 
       v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"YawAngles"];
@@ -213,36 +212,35 @@
     selfCopy = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (NSArray)remainingYawAngles
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if ([(NSArray *)self->_yawAngles count])
   {
     v3 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSArray count](self->_yawAngles, "count")}];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v4 = self->_yawAngles;
-    v5 = [(NSArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v5 = [(NSArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v16;
+      v7 = *v15;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v16 != v7)
+          if (*v15 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v15 + 1) + 8 * i);
+          v9 = *(*(&v14 + 1) + 8 * i);
           if (([v9 captured] & 1) == 0)
           {
             v10 = MEMORY[0x277CCABB0];
@@ -252,7 +250,7 @@
           }
         }
 
-        v6 = [(NSArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v6 = [(NSArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v6);
@@ -273,38 +271,36 @@
   {
     v12 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 - (NSArray)remainingPitchAngles
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if ([(NSArray *)self->_pitchAngles count])
   {
     v3 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSArray count](self->_pitchAngles, "count")}];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v4 = self->_pitchAngles;
-    v5 = [(NSArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v5 = [(NSArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v16;
+      v7 = *v15;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v16 != v7)
+          if (*v15 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v15 + 1) + 8 * i);
+          v9 = *(*(&v14 + 1) + 8 * i);
           if (([v9 captured] & 1) == 0)
           {
             v10 = MEMORY[0x277CCABB0];
@@ -314,7 +310,7 @@
           }
         }
 
-        v6 = [(NSArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v6 = [(NSArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v6);
@@ -335,8 +331,6 @@
   {
     v12 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

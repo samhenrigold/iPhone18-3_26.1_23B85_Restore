@@ -80,7 +80,7 @@ void __64__SBDoNotDisturbMetric_initWithAnalyticsClient_dndStateService___block_
   dispatch_async(MEMORY[0x277D85CD0], v5);
 }
 
-uint64_t __64__SBDoNotDisturbMetric_initWithAnalyticsClient_dndStateService___block_invoke_2(uint64_t a1)
+void *__64__SBDoNotDisturbMetric_initWithAnalyticsClient_dndStateService___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 40) isActive];
   *(*(a1 + 32) + 8) = result;
@@ -113,7 +113,7 @@ id __64__SBDoNotDisturbMetric_initWithAnalyticsClient_dndStateService___block_in
   return v4;
 }
 
-uint64_t __64__SBDoNotDisturbMetric_initWithAnalyticsClient_dndStateService___block_invoke_4(uint64_t a1)
+void *__64__SBDoNotDisturbMetric_initWithAnalyticsClient_dndStateService___block_invoke_4(uint64_t a1)
 {
   result = [*(a1 + 32) isDoNotDisturbActive];
   *(*(*(a1 + 40) + 8) + 24) = result;

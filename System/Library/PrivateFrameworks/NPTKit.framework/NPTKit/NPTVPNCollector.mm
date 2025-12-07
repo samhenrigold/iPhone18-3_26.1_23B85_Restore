@@ -115,9 +115,9 @@ void __49__NPTVPNCollector_startCollectingWithCompletion___block_invoke(uint64_t
 
 void __49__NPTVPNCollector_startCollectingWithCompletion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v53 = a3;
+  v52 = a3;
   v6 = objc_alloc_init(MEMORY[0x277CCA968]);
   [v6 setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSxxx"];
   v7 = *(a1 + 40);
@@ -129,32 +129,32 @@ void __49__NPTVPNCollector_startCollectingWithCompletion___block_invoke_2(uint64
   v11 = [*(a1 + 40) manager];
   v12 = [v11 connection];
   v13 = [v12 connectedDate];
-  v52 = v6;
+  v51 = v6;
   v14 = [v6 stringFromDate:v13];
-  v51 = a1;
+  v50 = a1;
   [*(a1 + 32) setObject:v14 forKeyedSubscript:@"vpn_connected_date"];
 
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
   v59 = 0u;
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
   v15 = v5;
-  v16 = [v15 countByEnumeratingWithState:&v58 objects:v62 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v57 objects:v61 count:16];
   if (v16)
   {
     v17 = v16;
     v18 = 0;
-    v19 = *v59;
+    v19 = *v58;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v59 != v19)
+        if (*v58 != v19)
         {
           objc_enumerationMutation(v15);
         }
 
-        v21 = *(*(&v58 + 1) + 8 * i);
+        v21 = *(*(&v57 + 1) + 8 * i);
         v22 = [v21 VPN];
 
         if (v22)
@@ -175,7 +175,7 @@ void __49__NPTVPNCollector_startCollectingWithCompletion___block_invoke_2(uint64
         }
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v58 objects:v62 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v57 objects:v61 count:16];
     }
 
     while (v17);
@@ -186,16 +186,16 @@ void __49__NPTVPNCollector_startCollectingWithCompletion___block_invoke_2(uint64
     v18 = 0;
   }
 
-  [*(v51 + 40) setConfig:v18];
+  [*(v50 + 40) setConfig:v18];
   if (v18)
   {
     v27 = [v18 name];
-    [*(v51 + 32) setObject:v27 forKeyedSubscript:@"vpn_name"];
+    [*(v50 + 32) setObject:v27 forKeyedSubscript:@"vpn_name"];
 
     v28 = MEMORY[0x277CCABB0];
     v29 = [v18 VPN];
     v30 = [v28 numberWithBool:{objc_msgSend(v29, "isEnabled")}];
-    [*(v51 + 32) setObject:v30 forKeyedSubscript:@"vpn_enabled"];
+    [*(v50 + 32) setObject:v30 forKeyedSubscript:@"vpn_enabled"];
 
     v31 = [v18 VPN];
     if ([v31 tunnelType] == 1)
@@ -208,52 +208,50 @@ void __49__NPTVPNCollector_startCollectingWithCompletion___block_invoke_2(uint64
       v32 = @"AppProxy";
     }
 
-    [*(v51 + 32) setObject:v32 forKeyedSubscript:@"vpn_tunnel_type"];
+    [*(v50 + 32) setObject:v32 forKeyedSubscript:@"vpn_tunnel_type"];
 
     v33 = [v18 VPN];
     v34 = [v33 protocol];
     v35 = [v34 serverAddress];
-    [*(v51 + 32) setObject:v35 forKeyedSubscript:@"vpn_protocol_server_address"];
+    [*(v50 + 32) setObject:v35 forKeyedSubscript:@"vpn_protocol_server_address"];
 
-    v36 = [*(v51 + 40) manager];
+    v36 = [*(v50 + 40) manager];
     v37 = [v36 protocolConfiguration];
     v38 = [v37 dictionary];
-    [*(v51 + 32) setObject:v38 forKeyedSubscript:@"vpn_protocol"];
+    [*(v50 + 32) setObject:v38 forKeyedSubscript:@"vpn_protocol"];
 
     v39 = dispatch_semaphore_create(0);
-    v54[0] = MEMORY[0x277D85DD0];
-    v54[1] = 3221225472;
-    v54[2] = __49__NPTVPNCollector_startCollectingWithCompletion___block_invoke_41;
-    v54[3] = &unk_2789D40B8;
-    v40 = *(v51 + 40);
-    v55 = *(v51 + 32);
-    v56 = v39;
+    v53[0] = MEMORY[0x277D85DD0];
+    v53[1] = 3221225472;
+    v53[2] = __49__NPTVPNCollector_startCollectingWithCompletion___block_invoke_41;
+    v53[3] = &unk_2789D40B8;
+    v40 = *(v50 + 40);
+    v54 = *(v50 + 32);
+    v55 = v39;
     v41 = v39;
-    [v40 collectVPNAddressesWithCompletion:v54];
+    [v40 collectVPNAddressesWithCompletion:v53];
     v42 = dispatch_walltime(0, 500000000);
     dispatch_semaphore_wait(v41, v42);
   }
 
-  v43 = *(v51 + 32);
-  v44 = [*(v51 + 40) cachedMetadata];
+  v43 = *(v50 + 32);
+  v44 = [*(v50 + 40) cachedMetadata];
   [v44 setObject:v43 forKeyedSubscript:@"initial_state"];
 
   v45 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v46 = v45;
-  if (v53)
+  if (v52)
   {
-    [v45 addObject:v53];
+    [v45 addObject:v52];
   }
 
-  v47 = *(v51 + 48);
+  v47 = *(v50 + 48);
   if (v47)
   {
-    v48 = *(v51 + 32);
+    v48 = *(v50 + 32);
     v49 = [v46 copy];
     (*(v47 + 16))(v47, v48, v49);
   }
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 intptr_t __49__NPTVPNCollector_startCollectingWithCompletion___block_invoke_41(uint64_t a1, uint64_t a2)
@@ -266,30 +264,27 @@ intptr_t __49__NPTVPNCollector_startCollectingWithCompletion___block_invoke_41(u
 
 - (void)collectVPNAddressesWithCompletion:(id)completion
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v10[0] = 0;
-  v10[1] = 0;
+  v9[0] = 0;
+  v9[1] = 0;
   config = [(NPTVPNCollector *)self config];
   identifier = [config identifier];
-  [identifier getUUIDBytes:v10];
+  [identifier getUUIDBytes:v9];
 
   ne_session_create();
   backgroundQueue = [(NPTVPNCollector *)self backgroundQueue];
   v8 = completionCopy;
   ne_session_get_status();
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __53__NPTVPNCollector_collectVPNAddressesWithCompletion___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2 < 2)
   {
-    v6 = *(a1 + 40);
-    v7 = *(*(a1 + 40) + 16);
+    v6 = *(*(a1 + 40) + 16);
 
-    return v7();
+    return v6();
   }
 
   else
@@ -297,8 +292,8 @@ uint64_t __53__NPTVPNCollector_collectVPNAddressesWithCompletion___block_invoke(
     v4 = +[NPTLogger metadata];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_233421000, v4, OS_LOG_TYPE_DEFAULT, "Fetching additional info for VPN", v8, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_233421000, v4, OS_LOG_TYPE_DEFAULT, "Fetching additional info for VPN", v7, 2u);
     }
 
     return [*(a1 + 32) getExtendedStatus:a2 session:*(a1 + 48) completionHandler:*(a1 + 40)];

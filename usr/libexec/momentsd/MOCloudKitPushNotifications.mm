@@ -806,10 +806,9 @@ void __68__MOCloudKitPushNotifications_connection_didReceiveIncomingMessage___bl
       v4 = *(WeakRetained + 5);
       if (v4)
       {
-        v6 = v3;
-        v5 = *(a1 + 40);
+        v5 = v3;
         (*(v4 + 16))();
-        v3 = v6;
+        v3 = v5;
       }
     }
   }
@@ -1040,34 +1039,36 @@ uint64_t __57__MOCloudKitPushNotifications__scheduleDelayedStateCheck__block_inv
   v2 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = WeakRetained[17];
-    if (v3)
+    WeakRetained = WeakRetained[17];
+    if (WeakRetained)
     {
       if ((v2[15] & 1) == 0)
       {
         *(v2 + 120) = 1;
-        v10 = v2;
-        v4 = objc_retainBlock(v3);
-        v5 = v10[17];
-        v10[17] = 0;
+        v9 = v2;
+        v3 = objc_retainBlock(WeakRetained);
+        v4 = v9[17];
+        v9[17] = 0;
 
-        v6 = v10;
-        v7 = v10[16];
-        if (v7)
+        v5 = v9;
+        v6 = v9[16];
+        if (v6)
         {
-          dispatch_source_cancel(v7);
-          v8 = v10[16];
-          v10[16] = 0;
+          dispatch_source_cancel(v6);
+          v7 = v9[16];
+          v9[16] = 0;
 
-          v6 = v10;
+          v5 = v9;
         }
 
-        [v6 _performStateCheckWithHandler:v4];
+        [v5 _performStateCheckWithHandler:v3];
+
+        v2 = v9;
       }
     }
   }
 
-  return _objc_release_x1();
+  return _objc_release_x1(WeakRetained, v2);
 }
 
 - (void)connection:(void *)a1 didReceiveIncomingMessage:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)

@@ -20,7 +20,7 @@
   blockSize = self->_blockSize;
   if (!blockSize)
   {
-    v4 = fskit_std_log();
+    v4 = fskit_std_log(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [(FSStatFSResult *)v4 _fixUpValues];

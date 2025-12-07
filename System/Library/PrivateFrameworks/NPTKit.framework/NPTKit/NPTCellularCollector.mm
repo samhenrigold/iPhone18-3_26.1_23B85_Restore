@@ -128,100 +128,98 @@
 
 - (id)wrmBasebandMetrics
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v26 = v3;
+  v25 = v3;
   if (objc_opt_class())
   {
     v4 = objc_alloc_init(MEMORY[0x277D7BC40]);
     queue = dispatch_queue_create("com.apple.Client.queueBB.wirelesscoexmanager", 0);
     [v4 registerClient:33 queue:?];
     v5 = dispatch_semaphore_create(0);
-    v44[0] = 0;
-    v44[1] = v44;
-    v44[2] = 0x2020000000;
-    v45 = 0;
-    v38 = 0;
-    v39 = &v38;
-    v40 = 0x3032000000;
-    v41 = __Block_byref_object_copy_;
-    v42 = __Block_byref_object_dispose_;
-    v43 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v43[0] = 0;
+    v43[1] = v43;
+    v43[2] = 0x2020000000;
+    v44 = 0;
+    v37 = 0;
+    v38 = &v37;
+    v39 = 0x3032000000;
+    v40 = __Block_byref_object_copy_;
+    v41 = __Block_byref_object_dispose_;
+    v42 = objc_alloc_init(MEMORY[0x277CBEB38]);
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __42__NPTCellularCollector_wrmBasebandMetrics__block_invoke;
     aBlock[3] = &unk_2789D3C48;
     aBlock[4] = self;
-    v36 = &v38;
-    v37 = v44;
+    v35 = &v37;
+    v36 = v43;
     dsema = v5;
-    v35 = dsema;
+    v34 = dsema;
     v6 = _Block_copy(aBlock);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __42__NPTCellularCollector_wrmBasebandMetrics__block_invoke_2;
     block[3] = &unk_2789D3C70;
     v7 = v4;
-    v32 = v7;
-    v23 = v6;
-    v33 = v23;
+    v31 = v7;
+    v22 = v6;
+    v32 = v22;
     dispatch_async(queue, block);
     v8 = dispatch_walltime(0, 1000000000);
     dispatch_semaphore_wait(dsema, v8);
-    v22 = v7;
+    v21 = v7;
     [v7 unregisterClient];
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
-    v9 = [&unk_2848CF440 countByEnumeratingWithState:&v27 objects:v46 count:16];
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v9 = [&unk_2848CF440 countByEnumeratingWithState:&v26 objects:v45 count:16];
     if (v9)
     {
-      v10 = *v28;
+      v10 = *v27;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v28 != v10)
+          if (*v27 != v10)
           {
             objc_enumerationMutation(&unk_2848CF440);
           }
 
-          v12 = *(*(&v27 + 1) + 8 * i);
+          v12 = *(*(&v26 + 1) + 8 * i);
           selfCopy = self;
           objc_sync_enter(selfCopy);
-          v14 = [v39[5] valueForKey:v12];
+          v14 = [v38[5] valueForKey:v12];
           if (v14)
           {
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0 || (v15 = v14, [MEMORY[0x277CCA980] notANumber], v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v15, "isEqualToNumber:", v16), v16, v15, (v17 & 1) == 0))
             {
               v18 = [&unk_2848CF440 objectForKey:v12];
-              [v26 setObject:v14 forKey:v18];
+              [v25 setObject:v14 forKey:v18];
             }
           }
 
           objc_sync_exit(selfCopy);
         }
 
-        v9 = [&unk_2848CF440 countByEnumeratingWithState:&v27 objects:v46 count:16];
+        v9 = [&unk_2848CF440 countByEnumeratingWithState:&v26 objects:v45 count:16];
       }
 
       while (v9);
     }
 
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:v26];
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:v25];
 
-    _Block_object_dispose(&v38, 8);
-    _Block_object_dispose(v44, 8);
+    _Block_object_dispose(&v37, 8);
+    _Block_object_dispose(v43, 8);
   }
 
   else
   {
     v19 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:v3];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -247,20 +245,18 @@ uint64_t __42__NPTCellularCollector_wrmBasebandMetrics__block_invoke_2(uint64_t 
 {
   [*(a1 + 32) getNRPhyMetrics:*(a1 + 40)];
   [*(a1 + 32) getCellularDataMetrics:*(a1 + 40)];
-  v2 = *(a1 + 32);
   if (objc_opt_respondsToSelector())
   {
     [*(a1 + 32) getWiFiBWEstimationMetrics:*(a1 + 40)];
   }
 
-  v3 = *(a1 + 32);
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v5 = *(a1 + 32);
-    v6 = *(a1 + 40);
+    v3 = *(a1 + 32);
+    v4 = *(a1 + 40);
 
-    return [v5 getQSHMetrics:v6];
+    return [v3 getQSHMetrics:v4];
   }
 
   return result;
@@ -449,17 +445,17 @@ LABEL_10:
 
 intptr_t __43__NPTCellularCollector_getCellInfoForSlot___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v3 = [a2 legacyInfo];
-  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     v7 = *MEMORY[0x277CC3880];
     v8 = *MEMORY[0x277CC3890];
     v9 = *MEMORY[0x277CC3888];
@@ -467,12 +463,12 @@ intptr_t __43__NPTCellularCollector_getCellInfoForSlot___block_invoke(uint64_t a
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
+        v11 = *(*(&v14 + 1) + 8 * i);
         v12 = [v11 valueForKey:v7];
         if (([v12 isEqualToString:v8] & 1) != 0 || objc_msgSend(v12, "isEqualToString:", v9))
         {
@@ -480,15 +476,13 @@ intptr_t __43__NPTCellularCollector_getCellInfoForSlot___block_invoke(uint64_t a
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
   }
 
-  result = dispatch_semaphore_signal(*(a1 + 32));
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return dispatch_semaphore_signal(*(a1 + 32));
 }
 
 - (void)startCollectingWithCompletion:(id)completion
@@ -732,14 +726,14 @@ BOOL __54__NPTCellularCollector_startCollectingWithCompletion___block_invoke_2(u
 
 + (id)getPreferredDataSlot
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277CC37B0]);
   v3 = dispatch_get_global_queue(2, 0);
   v4 = [v2 initWithQueue:v3];
 
-  v26 = 0;
-  v5 = [v4 getActiveContexts:&v26];
-  v6 = v26;
+  v25 = 0;
+  v5 = [v4 getActiveContexts:&v25];
+  v6 = v25;
   if (v6)
   {
     v7 = +[NPTLogger cellular];
@@ -753,27 +747,27 @@ BOOL __54__NPTCellularCollector_startCollectingWithCompletion___block_invoke_2(u
 
   else
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     subscriptions = [v5 subscriptions];
-    v10 = [subscriptions countByEnumeratingWithState:&v22 objects:v27 count:16];
+    v10 = [subscriptions countByEnumeratingWithState:&v21 objects:v26 count:16];
     if (v10)
     {
       v11 = v10;
-      v21 = v4;
-      v12 = *v23;
+      v20 = v4;
+      v12 = *v22;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v23 != v12)
+          if (*v22 != v12)
           {
             objc_enumerationMutation(subscriptions);
           }
 
-          v14 = *(*(&v22 + 1) + 8 * i);
+          v14 = *(*(&v21 + 1) + 8 * i);
           uuid = [v14 uuid];
           dataPreferred = [v5 dataPreferred];
           v17 = [uuid isEqual:dataPreferred];
@@ -781,12 +775,12 @@ BOOL __54__NPTCellularCollector_startCollectingWithCompletion___block_invoke_2(u
           if (v17)
           {
             v18 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v14, "slotID")}];
-            v4 = v21;
+            v4 = v20;
             goto LABEL_16;
           }
         }
 
-        v11 = [subscriptions countByEnumeratingWithState:&v22 objects:v27 count:16];
+        v11 = [subscriptions countByEnumeratingWithState:&v21 objects:v26 count:16];
         if (v11)
         {
           continue;
@@ -795,7 +789,7 @@ BOOL __54__NPTCellularCollector_startCollectingWithCompletion___block_invoke_2(u
         break;
       }
 
-      v4 = v21;
+      v4 = v20;
     }
 
     v18 = &unk_2848CF158;
@@ -803,8 +797,6 @@ LABEL_16:
 
     v8 = v18;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -1112,32 +1104,32 @@ BOOL __50__NPTCellularCollector_fetchCellularTPutEstimates__block_invoke_2(uint6
 
 + (id)calculateMaxCellularTPutEstimates:(id)estimates
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   estimatesCopy = estimates;
-  v32 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v31 = estimatesCopy;
+  v31 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v30 = estimatesCopy;
   [estimatesCopy objectForKeyedSubscript:@"events"];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
-  obj = v37 = 0u;
-  v4 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+  obj = v36 = 0u;
+  v4 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v35;
+    v6 = *v34;
     v7 = 0.0;
     v8 = 0.0;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v35 != v6)
+        if (*v34 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v34 + 1) + 8 * i);
+        v10 = *(*(&v33 + 1) + 8 * i);
         v11 = [v10 objectForKeyedSubscript:@"event_type"];
         v12 = [NPTMetadataEventTypeConverter getTypeAsString:27];
 
@@ -1171,7 +1163,7 @@ BOOL __50__NPTCellularCollector_fetchCellularTPutEstimates__block_invoke_2(uint6
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v5 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
     while (v5);
@@ -1184,90 +1176,72 @@ BOOL __50__NPTCellularCollector_fetchCellularTPutEstimates__block_invoke_2(uint6
   }
 
   v27 = [MEMORY[0x277CCABB0] numberWithDouble:v8];
-  [v32 setObject:v27 forKeyedSubscript:@"cellular_max_download_estimate"];
+  [v31 setObject:v27 forKeyedSubscript:@"cellular_max_download_estimate"];
 
   v28 = [MEMORY[0x277CCABB0] numberWithDouble:v7];
-  [v32 setObject:v28 forKeyedSubscript:@"cellular_max_upload_estimate"];
+  [v31 setObject:v28 forKeyedSubscript:@"cellular_max_upload_estimate"];
 
-  v29 = *MEMORY[0x277D85DE8];
-
-  return v32;
+  return v31;
 }
 
 - (void)signalStrengthMeasurements
 {
-  v11 = *MEMORY[0x277D85DE8];
   slotID = [self slotID];
   localizedDescription = [a2 localizedDescription];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getCellularMNCMCCDE
 {
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 - (void)getCellInfoForSlot:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startCollectingWithCompletion:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)getPreferredDataSlot
 {
-  v8 = *MEMORY[0x277D85DE8];
   localizedDescription = [self localizedDescription];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)estimateDidChange:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_233421000, v0, OS_LOG_TYPE_DEBUG, "Cellular Throughput Estimate Changed: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_233421000, v0, OS_LOG_TYPE_DEBUG, "Cellular Throughput Estimate Changed: %@", v1, 0xCu);
 }
 
 - (void)dataStatus:(void *)a1 dataStatusInfo:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = [a1 dictionary];
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_233421000, a2, OS_LOG_TYPE_DEBUG, "Data Status Changed: %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_233421000, a2, OS_LOG_TYPE_DEBUG, "Data Status Changed: %@", v4, 0xCu);
 }
 
 - (void)cellChanged:cell:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_233421000, v0, OS_LOG_TYPE_DEBUG, "Cell changed: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_233421000, v0, OS_LOG_TYPE_DEBUG, "Cell changed: %@", v1, 0xCu);
 }
 
 @end

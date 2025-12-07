@@ -10,7 +10,7 @@
 
 - (__MecabraContext)createMecabraContextFromCandidateContext:(id)context stringContext:(id)stringContext
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   stringContextCopy = stringContext;
   [(TIWordSearch *)self mecabra];
@@ -22,39 +22,37 @@
     MecabraContextAddCandidate();
   }
 
-  v20 = 0u;
-  v21 = 0u;
   v18 = 0u;
   v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v10 = contextCopy;
-  v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v19;
+    v13 = *v17;
     do
     {
       v14 = 0;
       do
       {
-        if (*v19 != v13)
+        if (*v17 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v18 + 1) + 8 * v14);
         MecabraContextAddCandidate();
         ++v14;
       }
 
       while (v12 != v14);
-      v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v12);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return Mutable;
 }
 
@@ -109,7 +107,6 @@ uint64_t __88__TIWordSearchHandwriting_generatePredictionsWithCandidateContext_s
 {
   [*(a1 + 32) mecabra];
   v2 = [*(a1 + 32) createMecabraContextFromCandidateContext:*(a1 + 40) stringContext:*(a1 + 48)];
-  v3 = *(a1 + 64);
   result = MecabraPredictionAnalyzeWithContext();
   if (result)
   {
@@ -167,11 +164,8 @@ uint64_t __88__TIWordSearchHandwriting_generatePredictionsWithCandidateContext_s
 
 uint64_t __43__TIWordSearchHandwriting_acceptCandidate___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) mecabra];
-  v3 = *(a1 + 40);
-  IsPredictionCandidate = MecabraCandidateIsPredictionCandidate();
-  v5 = *(a1 + 40);
-  if (IsPredictionCandidate)
+  v1 = [*(a1 + 32) mecabra];
+  if (MecabraCandidateIsPredictionCandidate())
   {
     MecabraPredictionAcceptCandidate();
   }
@@ -181,12 +175,11 @@ uint64_t __43__TIWordSearchHandwriting_acceptCandidate___block_invoke(uint64_t a
     MecabraAcceptCandidate();
   }
 
-  v6 = *(a1 + 40);
   result = MecabraCandidateGetSurface();
   if (result)
   {
 
-    return MEMORY[0x2821F9020](v2, result);
+    return MEMORY[0x2821F9020](v1, result);
   }
 
   return result;

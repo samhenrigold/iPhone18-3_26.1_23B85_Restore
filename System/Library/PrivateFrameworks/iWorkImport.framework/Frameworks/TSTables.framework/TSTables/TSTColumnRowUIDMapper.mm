@@ -44,14 +44,14 @@
 - (TSTColumnRowUIDMapper)initWithColumnRowUIDMap:(id)map
 {
   mapCopy = map;
-  v13.receiver = self;
-  v13.super_class = TSTColumnRowUIDMapper;
-  v6 = [(TSTColumnRowUIDMapper *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = TSTColumnRowUIDMapper;
+  v6 = [(TSTColumnRowUIDMapper *)&v12 init];
   v7 = v6;
   if (v6)
   {
     objc_storeStrong(&v6->_originalUIDMap, map);
-    v7->_originalVersionCounter = objc_msgSend_versionCounter(mapCopy, v8, v9, v10, v11);
+    v7->_originalVersionCounter = objc_msgSend_versionCounter(mapCopy, v8, v9, v10);
   }
 
   return v7;
@@ -62,43 +62,43 @@
   originalUIDMap = self->_originalUIDMap;
   if (!originalUIDMap)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTColumnRowUIDMapper disconnect]", v3, v4);
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTColumnRowUIDMapper.mm", v10, v11);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v13, v8, v12, 48, 0, "No longer have a mapper - disconnected multiple times?");
+    v6 = MEMORY[0x277D81150];
+    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTColumnRowUIDMapper disconnect]", v3);
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTColumnRowUIDMapper.mm", v9);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v11, v7, v10, 48, 0, "No longer have a mapper - disconnected multiple times?");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16, v17);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13, v14);
     originalUIDMap = self->_originalUIDMap;
   }
 
-  if (objc_msgSend_versionCounter(originalUIDMap, a2, v2, v3, v4) != self->_originalVersionCounter)
+  if (objc_msgSend_versionCounter(originalUIDMap, a2, v2, v3) != self->_originalVersionCounter)
   {
-    v21 = MEMORY[0x277D81150];
-    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "[TSTColumnRowUIDMapper disconnect]", v19, v20);
-    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v23, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTColumnRowUIDMapper.mm", v24, v25);
+    v17 = MEMORY[0x277D81150];
+    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "[TSTColumnRowUIDMapper disconnect]", v16);
+    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTColumnRowUIDMapper.mm", v20);
     originalVersionCounter = self->_originalVersionCounter;
-    v32 = objc_msgSend_versionCounter(self->_originalUIDMap, v28, v29, v30, v31);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v21, v33, v22, v26, 49, 0, "Mappers version counter was already off %lu vs %lu", originalVersionCounter, v32);
+    v26 = objc_msgSend_versionCounter(self->_originalUIDMap, v23, v24, v25);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v27, v18, v21, 49, 0, "Mappers version counter was already off %lu vs %lu", originalVersionCounter, v26);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v34, v35, v36, v37);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v28, v29, v30);
   }
 
-  v38 = [TSTImmutableColumnRowUIDMap alloc];
-  v42 = objc_msgSend_initWithColumnRowUIDMap_(v38, v39, self->_originalUIDMap, v40, v41);
+  v31 = [TSTImmutableColumnRowUIDMap alloc];
+  v34 = objc_msgSend_initWithColumnRowUIDMap_(v31, v32, self->_originalUIDMap, v33);
   copiedUIDMap = self->_copiedUIDMap;
-  self->_copiedUIDMap = v42;
+  self->_copiedUIDMap = v34;
 
-  if (objc_msgSend_versionCounter(self->_originalUIDMap, v44, v45, v46, v47) != self->_originalVersionCounter)
+  if (objc_msgSend_versionCounter(self->_originalUIDMap, v36, v37, v38) != self->_originalVersionCounter)
   {
-    v51 = MEMORY[0x277D81150];
-    v52 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v48, "[TSTColumnRowUIDMapper disconnect]", v49, v50);
-    v56 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v53, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTColumnRowUIDMapper.mm", v54, v55);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v51, v57, v52, v56, 52, 0, "Should have preserved the versionCounter");
+    v41 = MEMORY[0x277D81150];
+    v42 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v39, "[TSTColumnRowUIDMapper disconnect]", v40);
+    v45 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v43, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTColumnRowUIDMapper.mm", v44);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v41, v46, v42, v45, 52, 0, "Should have preserved the versionCounter");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v58, v59, v60, v61);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v47, v48, v49);
   }
 
-  v62 = self->_originalUIDMap;
+  v50 = self->_originalUIDMap;
   self->_originalUIDMap = 0;
 }
 
@@ -110,7 +110,7 @@
     originalUIDMap = self->_copiedUIDMap;
   }
 
-  return objc_msgSend_numberOfColumns(originalUIDMap, a2, v2, v3, v4);
+  return objc_msgSend_numberOfColumns(originalUIDMap, a2, v2, v3);
 }
 
 - (unsigned)numberOfRows
@@ -121,23 +121,23 @@
     originalUIDMap = self->_copiedUIDMap;
   }
 
-  return objc_msgSend_numberOfRows(originalUIDMap, a2, v2, v3, v4);
+  return objc_msgSend_numberOfRows(originalUIDMap, a2, v2, v3);
 }
 
 - (TSKUIDStruct)columnUIDForColumnIndex:(unsigned __int16)index
 {
   if (self->_originalUIDMap)
   {
-    v5 = objc_msgSend_columnUIDForColumnIndex_(self->_originalUIDMap, a2, index, v3, v4);
+    v4 = objc_msgSend_columnUIDForColumnIndex_(self->_originalUIDMap, a2, index, v3);
   }
 
   else
   {
-    v5 = objc_msgSend_columnUIDForColumnIndex_(self->_copiedUIDMap, a2, index, v3, v4);
+    v4 = objc_msgSend_columnUIDForColumnIndex_(self->_copiedUIDMap, a2, index, v3);
   }
 
-  result._upper = v6;
-  result._lower = v5;
+  result._upper = v5;
+  result._lower = v4;
   return result;
 }
 
@@ -149,9 +149,9 @@
     originalUIDMap = self->_copiedUIDMap;
   }
 
-  v7 = objc_msgSend_rowUIDForRowIndex_(originalUIDMap, a2, *&index, v3, v4);
-  result._upper = v8;
-  result._lower = v7;
+  v6 = objc_msgSend_rowUIDForRowIndex_(originalUIDMap, a2, *&index, v3);
+  result._upper = v7;
+  result._lower = v6;
   return result;
 }
 
@@ -159,12 +159,12 @@
 {
   if (self->_originalUIDMap)
   {
-    return objc_msgSend_columnIndexForColumnUID_(self->_originalUIDMap, a2, d._lower, d._upper, v3);
+    return objc_msgSend_columnIndexForColumnUID_(self->_originalUIDMap, a2, d._lower, d._upper);
   }
 
   else
   {
-    return objc_msgSend_columnIndexForColumnUID_(self->_copiedUIDMap, a2, d._lower, d._upper, v3);
+    return objc_msgSend_columnIndexForColumnUID_(self->_copiedUIDMap, a2, d._lower, d._upper);
   }
 }
 
@@ -172,12 +172,12 @@
 {
   if (self->_originalUIDMap)
   {
-    return objc_msgSend_rowIndexForRowUID_(self->_originalUIDMap, a2, d._lower, d._upper, v3);
+    return objc_msgSend_rowIndexForRowUID_(self->_originalUIDMap, a2, d._lower, d._upper);
   }
 
   else
   {
-    return objc_msgSend_rowIndexForRowUID_(self->_copiedUIDMap, a2, d._lower, d._upper, v3);
+    return objc_msgSend_rowIndexForRowUID_(self->_copiedUIDMap, a2, d._lower, d._upper);
   }
 }
 
@@ -185,37 +185,37 @@
 {
   v5 = TSKMakeUIDStructFromUuidT();
 
-  return objc_msgSend_columnIndexForColumnUID_(self, v4, v5, v4, v6);
+  return objc_msgSend_columnIndexForColumnUID_(self, v4, v5, v4);
 }
 
 - (unsigned)rowIndexForUUIDBytes:(unsigned __int8)bytes[16]
 {
   v5 = TSKMakeUIDStructFromUuidT();
 
-  return objc_msgSend_rowIndexForRowUID_(self, v4, v5, v4, v6);
+  return objc_msgSend_rowIndexForRowUID_(self, v4, v5, v4);
 }
 
 - (id)columnUuids
 {
-  v5 = objc_msgSend_columnUIDs(self, a2, v2, v3, v4);
+  v4 = objc_msgSend_columnUIDs(self, a2, v2, v3);
 
-  return sub_2212830D4(v5, v6, v7, v8, v9);
+  return sub_2212830D4(v4, v5, v6, v7);
 }
 
 - (id)rowUuids
 {
-  v5 = objc_msgSend_rowUIDs(self, a2, v2, v3, v4);
+  v4 = objc_msgSend_rowUIDs(self, a2, v2, v3);
 
-  return sub_2212830D4(v5, v6, v7, v8, v9);
+  return sub_2212830D4(v4, v5, v6, v7);
 }
 
 - (void)getUUIDBytes:(unsigned __int8)bytes[16] forColumnIndex:(unsigned __int16)index
 {
   if (bytes)
   {
-    v7[0] = objc_msgSend_columnUIDForColumnIndex_(self, a2, index, index, v4);
-    v7[1] = v6;
-    uuid_copy(bytes, v7);
+    v6[0] = objc_msgSend_columnUIDForColumnIndex_(self, a2, index, index);
+    v6[1] = v5;
+    uuid_copy(bytes, v6);
   }
 }
 
@@ -223,9 +223,9 @@
 {
   if (bytes)
   {
-    v7[0] = objc_msgSend_rowUIDForRowIndex_(self, a2, *&index, *&index, v4);
-    v7[1] = v6;
-    uuid_copy(bytes, v7);
+    v6[0] = objc_msgSend_rowUIDForRowIndex_(self, a2, *&index, *&index);
+    v6[1] = v5;
+    uuid_copy(bytes, v6);
   }
 }
 
@@ -233,10 +233,10 @@
 {
   v6 = a4;
   originalUIDMap = self->_originalUIDMap;
-  v11 = v6;
+  v10 = v6;
   if (originalUIDMap || (originalUIDMap = self->_copiedUIDMap) != 0)
   {
-    objc_msgSend_columnUIDsForColumnIndexes_(originalUIDMap, v6, v6, v7, v8);
+    objc_msgSend_columnUIDsForColumnIndexes_(originalUIDMap, v6, v6, v7);
   }
 
   else
@@ -253,10 +253,10 @@
 {
   v6 = a4;
   originalUIDMap = self->_originalUIDMap;
-  v11 = v6;
+  v10 = v6;
   if (originalUIDMap || (originalUIDMap = self->_copiedUIDMap) != 0)
   {
-    objc_msgSend_rowUIDsForRowIndexes_(originalUIDMap, v6, v6, v7, v8);
+    objc_msgSend_rowUIDsForRowIndexes_(originalUIDMap, v6, v6, v7);
   }
 
   else
@@ -277,9 +277,9 @@
     originalUIDMap = self->_copiedUIDMap;
   }
 
-  v7 = objc_msgSend_mutableColumnIndexesForUIDs_(originalUIDMap, a2, ds, v3, v4);
+  v6 = objc_msgSend_mutableColumnIndexesForUIDs_(originalUIDMap, a2, ds, v3);
 
-  return v7;
+  return v6;
 }
 
 - (id)mutableRowIndexesForUIDs:(const void *)ds
@@ -290,55 +290,55 @@
     originalUIDMap = self->_copiedUIDMap;
   }
 
-  v7 = objc_msgSend_mutableRowIndexesForUIDs_(originalUIDMap, a2, ds, v3, v4);
+  v6 = objc_msgSend_mutableRowIndexesForUIDs_(originalUIDMap, a2, ds, v3);
 
-  return v7;
+  return v6;
 }
 
 - (id)columnIndexesForUIDs:(const void *)ds
 {
-  v5 = objc_msgSend_mutableColumnIndexesForUIDs_(self, a2, ds, v3, v4);
-  if (objc_msgSend_count(v5, v6, v7, v8, v9))
+  v4 = objc_msgSend_mutableColumnIndexesForUIDs_(self, a2, ds, v3);
+  if (objc_msgSend_count(v4, v5, v6, v7))
   {
-    v14 = objc_msgSend_copy(v5, v10, v11, v12, v13);
+    v11 = objc_msgSend_copy(v4, v8, v9, v10);
   }
 
   else
   {
-    v14 = 0;
+    v11 = 0;
   }
 
-  return v14;
+  return v11;
 }
 
 - (id)rowIndexesForUIDs:(const void *)ds
 {
-  v5 = objc_msgSend_mutableRowIndexesForUIDs_(self, a2, ds, v3, v4);
-  if (objc_msgSend_count(v5, v6, v7, v8, v9))
+  v4 = objc_msgSend_mutableRowIndexesForUIDs_(self, a2, ds, v3);
+  if (objc_msgSend_count(v4, v5, v6, v7))
   {
-    v14 = objc_msgSend_copy(v5, v10, v11, v12, v13);
+    v11 = objc_msgSend_copy(v4, v8, v9, v10);
   }
 
   else
   {
-    v14 = 0;
+    v11 = 0;
   }
 
-  return v14;
+  return v11;
 }
 
 - (TSKUIDStructVectorTemplate<TSKUIDStruct>)columnUIDsForColumnRange:(SEL)range
 {
-  v10 = objc_msgSend_indexSetWithIndexesInRange_(MEMORY[0x277CCAA78], range, a4.location, a4.length, v4);
-  objc_msgSend_columnUIDsForColumnIndexes_(self, v6, v10, v7, v8);
+  v8 = objc_msgSend_indexSetWithIndexesInRange_(MEMORY[0x277CCAA78], range, a4.location, a4.length);
+  objc_msgSend_columnUIDsForColumnIndexes_(self, v5, v8, v6);
 
   return result;
 }
 
 - (TSKUIDStructVectorTemplate<TSKUIDStruct>)rowUIDsForRowRange:(SEL)range
 {
-  v10 = objc_msgSend_indexSetWithIndexesInRange_(MEMORY[0x277CCAA78], range, a4.location, a4.length, v4);
-  objc_msgSend_rowUIDsForRowIndexes_(self, v6, v10, v7, v8);
+  v8 = objc_msgSend_indexSetWithIndexesInRange_(MEMORY[0x277CCAA78], range, a4.location, a4.length);
+  objc_msgSend_rowUIDsForRowIndexes_(self, v5, v8, v6);
 
   return result;
 }
@@ -351,9 +351,9 @@
     originalUIDMap = self->_copiedUIDMap;
   }
 
-  v7 = objc_msgSend_columnRangeForUIDs_(originalUIDMap, a2, ds, v3, v4);
-  result.length = v8;
-  result.location = v7;
+  v6 = objc_msgSend_columnRangeForUIDs_(originalUIDMap, a2, ds, v3);
+  result.length = v7;
+  result.location = v6;
   return result;
 }
 
@@ -365,9 +365,9 @@
     originalUIDMap = self->_copiedUIDMap;
   }
 
-  v7 = objc_msgSend_rowRangeForUIDs_(originalUIDMap, a2, ds, v3, v4);
-  result.length = v8;
-  result.location = v7;
+  v6 = objc_msgSend_rowRangeForUIDs_(originalUIDMap, a2, ds, v3);
+  result.length = v7;
+  result.location = v6;
   return result;
 }
 
@@ -379,7 +379,7 @@
     originalUIDMap = self->_copiedUIDMap;
   }
 
-  return objc_msgSend_columnUIDs(originalUIDMap, a2, v2, v3, v4);
+  return objc_msgSend_columnUIDs(originalUIDMap, a2, v2, v3);
 }
 
 - (const)rowUIDs
@@ -390,21 +390,21 @@
     originalUIDMap = self->_copiedUIDMap;
   }
 
-  return objc_msgSend_rowUIDs(originalUIDMap, a2, v2, v3, v4);
+  return objc_msgSend_rowUIDs(originalUIDMap, a2, v2, v3);
 }
 
 - (TSKUIDStructVectorTemplate<TSKUIDStruct>)orderedColumnUidsFromUids:(SEL)uids
 {
-  v11 = objc_msgSend_mutableColumnIndexesForUIDs_(self, uids, a4, v4, v5);
-  objc_msgSend_columnUIDsForColumnIndexes_(self, v7, v11, v8, v9);
+  v9 = objc_msgSend_mutableColumnIndexesForUIDs_(self, uids, a4, v4);
+  objc_msgSend_columnUIDsForColumnIndexes_(self, v6, v9, v7);
 
   return result;
 }
 
 - (TSKUIDStructVectorTemplate<TSKUIDStruct>)orderedRowUidsFromUids:(SEL)uids
 {
-  v11 = objc_msgSend_mutableRowIndexesForUIDs_(self, uids, a4, v4, v5);
-  objc_msgSend_rowUIDsForRowIndexes_(self, v7, v11, v8, v9);
+  v9 = objc_msgSend_mutableRowIndexesForUIDs_(self, uids, a4, v4);
+  objc_msgSend_rowUIDsForRowIndexes_(self, v6, v9, v7);
 
   return result;
 }
@@ -417,9 +417,9 @@
     originalUIDMap = self->_copiedUIDMap;
   }
 
-  v7 = objc_msgSend_range(originalUIDMap, a2, v2, v3, v4);
-  result.size = v8;
-  result.origin = v7;
+  v6 = objc_msgSend_range(originalUIDMap, a2, v2, v3);
+  result.size = v7;
+  result.origin = v6;
   return result;
 }
 
@@ -430,16 +430,16 @@
   originalUIDMap = self->_originalUIDMap;
   if (originalUIDMap)
   {
-    objc_msgSend_UIDSetForIndexes_isRows_(originalUIDMap, v6, indexesCopy, rowsCopy, v7);
+    objc_msgSend_UIDSetForIndexes_isRows_(originalUIDMap, v6, indexesCopy, rowsCopy);
   }
 
   else
   {
-    objc_msgSend_UIDSetForIndexes_isRows_(self->_copiedUIDMap, v6, indexesCopy, rowsCopy, v7);
+    objc_msgSend_UIDSetForIndexes_isRows_(self->_copiedUIDMap, v6, indexesCopy, rowsCopy);
   }
-  v10 = ;
+  v9 = ;
 
-  return v10;
+  return v9;
 }
 
 - (id)mutableIndexesForUIDSet:(id)set isRows:(BOOL)rows
@@ -476,21 +476,21 @@
   originalUIDMap = self->_originalUIDMap;
   if (originalUIDMap)
   {
-    isRows = objc_msgSend_firstUidFromUIDSet_isRows_(originalUIDMap, v6, setCopy, rowsCopy, v7);
+    isRows = objc_msgSend_firstUidFromUIDSet_isRows_(originalUIDMap, v6, setCopy, rowsCopy);
   }
 
   else
   {
-    isRows = objc_msgSend_firstUidFromUIDSet_isRows_(self->_copiedUIDMap, v6, setCopy, rowsCopy, v7);
+    isRows = objc_msgSend_firstUidFromUIDSet_isRows_(self->_copiedUIDMap, v6, setCopy, rowsCopy);
   }
 
-  v12 = isRows;
-  v13 = v11;
+  v11 = isRows;
+  v12 = v10;
 
+  v13 = v11;
   v14 = v12;
-  v15 = v13;
-  result._upper = v15;
-  result._lower = v14;
+  result._upper = v14;
+  result._lower = v13;
   return result;
 }
 
@@ -499,13 +499,13 @@
   result = self->_originalUIDMap;
   if (result)
   {
-    return objc_msgSend_prunedColumnUIDsFromColumnUIDs_(result, ds, a4, v4, v5);
+    return objc_msgSend_prunedColumnUIDsFromColumnUIDs_(result, ds, a4, v4);
   }
 
   result = self->_copiedUIDMap;
   if (result)
   {
-    return objc_msgSend_prunedColumnUIDsFromColumnUIDs_(result, ds, a4, v4, v5);
+    return objc_msgSend_prunedColumnUIDsFromColumnUIDs_(result, ds, a4, v4);
   }
 
   retstr->__begin_ = 0;
@@ -519,13 +519,13 @@
   result = self->_originalUIDMap;
   if (result)
   {
-    return objc_msgSend_prunedRowUIDsFromRowUIDs_(result, ds, a4, v4, v5);
+    return objc_msgSend_prunedRowUIDsFromRowUIDs_(result, ds, a4, v4);
   }
 
   result = self->_copiedUIDMap;
   if (result)
   {
-    return objc_msgSend_prunedRowUIDsFromRowUIDs_(result, ds, a4, v4, v5);
+    return objc_msgSend_prunedRowUIDsFromRowUIDs_(result, ds, a4, v4);
   }
 
   retstr->__begin_ = 0;
@@ -542,9 +542,9 @@
     originalUIDMap = self->_copiedUIDMap;
   }
 
-  v7 = objc_msgSend_cellRangeForUIDRange_(originalUIDMap, a2, range, v3, v4);
-  result.size = v8;
-  result.origin = v7;
+  v6 = objc_msgSend_cellRangeForUIDRange_(originalUIDMap, a2, range, v3);
+  result.size = v7;
+  result.origin = v6;
   return result;
 }
 
@@ -553,13 +553,13 @@
   if (self->_originalUIDMap)
   {
     result = self->_originalUIDMap;
-    return objc_msgSend_cellUIDRangeForCellRange_(result, range, *&a4.origin, *&a4.size, v4);
+    return objc_msgSend_cellUIDRangeForCellRange_(result, range, *&a4.origin, *&a4.size);
   }
 
   result = self->_copiedUIDMap;
   if (result)
   {
-    return objc_msgSend_cellUIDRangeForCellRange_(result, range, *&a4.origin, *&a4.size, v4);
+    return objc_msgSend_cellUIDRangeForCellRange_(result, range, *&a4.origin, *&a4.size);
   }
 
   *&retstr->_colIdList.__cap_ = 0u;
@@ -576,9 +576,9 @@
     originalUIDMap = self->_copiedUIDMap;
   }
 
-  v7 = objc_msgSend_tableRangeCoordinate(originalUIDMap, a2, v2, v3, v4);
-  result._bottomRight = v8;
-  result._topLeft = v7;
+  v6 = objc_msgSend_tableRangeCoordinate(originalUIDMap, a2, v2, v3);
+  result._bottomRight = v7;
+  result._topLeft = v6;
   return result;
 }
 

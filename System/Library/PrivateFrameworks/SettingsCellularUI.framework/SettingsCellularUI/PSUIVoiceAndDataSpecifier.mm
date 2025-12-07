@@ -3,12 +3,14 @@
 - (BOOL)shouldShowCallEndWarningForTargetRATMode:(int)mode currentRATMode:(int)tMode;
 - (PSUIVoiceAndDataSpecifier)initWithHostController:(id)controller subscriptionContext:(id)context groupSpecifierToUpdateFooterFor:(id)for;
 - (PSUIVoiceAndDataSpecifier)initWithHostController:(id)controller subscriptionContext:(id)context groupSpecifierToUpdateFooterFor:(id)for serviceDescriptor:(id)descriptor coreTelephonyClient:(id)client callCache:(id)cache registrationCache:(id)registrationCache carrierBundleCache:(id)self0 simStatusCache:(id)self1 deviceWifiState:(id)self2;
+- (id)createCallMayEndConfirmationSpecifierForTargetRATMode:(int)mode currentRATMode:(int)tMode;
 - (id)getLocalizedStringFromRATMode:(int)mode;
 - (id)getLocalizedStringsFromDataRate:(int64_t)rate;
 - (id)getLogger;
 - (id)getRATMode;
 - (id)getRATModesFromDataRate:(int64_t)rate;
 - (id)getSmartDataModeState;
+- (id)localizedRATModeStringForPrefix:(id)prefix targetMode:(int)mode;
 - (id)localizedWarningStringForKey:(id)key andRATMode:(int)mode;
 - (id)suffixStringFromRATMode:(int)mode;
 - (int)warningRATModeForTargetMode:(int)mode currentMode:(int)currentMode;
@@ -21,6 +23,7 @@
 - (void)setSmartDataModeState:(int)state;
 - (void)setUpInternalState;
 - (void)setUpRATSpecifers;
+- (void)showCallMayEndWarningForTargetRATMode:(int)mode currentRATMode:(int)tMode;
 - (void)startObservingNotifications;
 @end
 
@@ -170,7 +173,7 @@ LABEL_12:
 
 - (void)setUpInternalState
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   self->_3GOverrideTo4G = 0;
   self->_LTEOverrideTo4G = 0;
   self->_LTEOverrideTo4G = [(PSUICoreTelephonyCarrierBundleCache *)self->_carrierBundleCache shouldOverrideLTEto4G:self->_subscriptionContext];
@@ -187,9 +190,9 @@ LABEL_12:
       v4 = "no";
     }
 
-    v15 = 136315138;
-    v16 = v4;
-    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "LTE override to 4G: %s", &v15, 0xCu);
+    v14 = 136315138;
+    v15 = v4;
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "LTE override to 4G: %s", &v14, 0xCu);
   }
 
   v5 = [MEMORY[0x277CCABB0] numberWithBool:self->_LTEOverrideTo4G];
@@ -209,9 +212,9 @@ LABEL_12:
       v7 = "no";
     }
 
-    v15 = 136315138;
-    v16 = v7;
-    _os_log_impl(&dword_2658DE000, getLogger2, OS_LOG_TYPE_DEFAULT, "3G override to 4G: %s", &v15, 0xCu);
+    v14 = 136315138;
+    v15 = v7;
+    _os_log_impl(&dword_2658DE000, getLogger2, OS_LOG_TYPE_DEFAULT, "3G override to 4G: %s", &v14, 0xCu);
   }
 
   v8 = [MEMORY[0x277CCABB0] numberWithBool:self->_3GOverrideTo4G];
@@ -227,21 +230,20 @@ LABEL_12:
   if (os_log_type_enabled(getLogger3, OS_LOG_TYPE_DEFAULT))
   {
     v12 = self->_supportedDataRates;
-    v15 = 138412290;
-    v16 = v12;
-    _os_log_impl(&dword_2658DE000, getLogger3, OS_LOG_TYPE_DEFAULT, "supported cellular data rates: %@", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = v12;
+    _os_log_impl(&dword_2658DE000, getLogger3, OS_LOG_TYPE_DEFAULT, "supported cellular data rates: %@", &v14, 0xCu);
   }
 
   v13 = [MEMORY[0x277CCABB0] numberWithBool:{-[NSArray containsObject:](self->_supportedDataRates, "containsObject:", &unk_287749038)}];
   [(PSUIVoiceAndDataSpecifier *)self setProperty:v13 forKey:0x287736238];
 
   os_unfair_lock_unlock(&self->_sdrLock);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setUpRATSpecifers
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
   array3 = [MEMORY[0x277CBEB18] array];
@@ -254,9 +256,9 @@ LABEL_12:
   {
     if (v8)
     {
-      v10 = 138543362;
-      v11 = array;
-      _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Adding RAT Modes : %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = array;
+      _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Adding RAT Modes : %{public}@", &v9, 0xCu);
     }
 
     [(PSUIVoiceAndDataSpecifier *)self setValues:array3 titles:array shortTitles:array2];
@@ -266,40 +268,38 @@ LABEL_12:
   {
     if (v8)
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "No RAT mode specifiers added.", &v10, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "No RAT mode specifiers added.", &v9, 2u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)populateSpecifiers:(id)specifiers values:(id)values
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   specifiersCopy = specifiers;
   valuesCopy = values;
   os_unfair_lock_lock(&self->_sdrLock);
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   reverseObjectEnumerator = [(NSArray *)self->_supportedDataRates reverseObjectEnumerator];
-  v9 = [reverseObjectEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [reverseObjectEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(reverseObjectEnumerator);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * i);
+        v13 = *(*(&v16 + 1) + 8 * i);
         v14 = -[PSUIVoiceAndDataSpecifier getRATModesFromDataRate:](self, "getRATModesFromDataRate:", [v13 unsignedIntValue]);
         [valuesCopy addObjectsFromArray:v14];
 
@@ -307,14 +307,13 @@ LABEL_12:
         [specifiersCopy addObjectsFromArray:v15];
       }
 
-      v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
   }
 
   os_unfair_lock_unlock(&self->_sdrLock);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getRATMode
@@ -416,7 +415,7 @@ LABEL_25:
 
 - (void)setRATMode:(id)mode specifier:(id)specifier
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   modeCopy = mode;
   v6 = [(PSUIVoiceAndDataSpecifier *)self propertyForKey:0x287736278];
   objc_storeWeak(&self->_drillDownController, v6);
@@ -428,11 +427,11 @@ LABEL_25:
   getLogger = [(PSUIVoiceAndDataSpecifier *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
-    v12[0] = 67109376;
-    v12[1] = intValue;
-    v13 = 1024;
-    v14 = intValue2;
-    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Attempting to set RAT mode to %u from current RAT mode of %u", v12, 0xEu);
+    v11[0] = 67109376;
+    v11[1] = intValue;
+    v12 = 1024;
+    v13 = intValue2;
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Attempting to set RAT mode to %u from current RAT mode of %u", v11, 0xEu);
   }
 
   if (intValue != intValue2)
@@ -447,19 +446,17 @@ LABEL_25:
       [(PSUIVoiceAndDataSpecifier *)self setMaxDataRateForRATMode:intValue];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setMaxDataRateForRATMode:(int)mode
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   [(PSUIVoiceAndDataSpecifier *)self setSmartDataModeState:?];
   getLogger = [(PSUIVoiceAndDataSpecifier *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    LODWORD(v20) = mode;
+    LODWORD(v19) = mode;
     _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "setting RAT Mode to : %d", buf, 8u);
   }
 
@@ -497,9 +494,9 @@ LABEL_25:
     }
 
 LABEL_34:
-    v11 = v17;
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
+    v11 = v16;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
     v12 = __54__PSUIVoiceAndDataSpecifier_setMaxDataRateForRATMode___block_invoke_61;
     goto LABEL_35;
   }
@@ -543,7 +540,7 @@ LABEL_31:
       if (os_log_type_enabled(getLogger3, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v20 = v8;
+        v19 = v8;
         _os_log_impl(&dword_2658DE000, getLogger3, OS_LOG_TYPE_DEFAULT, "Setting Max Data Rate to: %li", buf, 0xCu);
       }
 
@@ -577,22 +574,21 @@ LABEL_15:
     values = [(PSUIVoiceAndDataSpecifier *)self values];
     titleDictionary = [(PSUIVoiceAndDataSpecifier *)self titleDictionary];
     *buf = 138543618;
-    v20 = values;
-    v21 = 2114;
-    v22 = titleDictionary;
+    v19 = values;
+    v20 = 2114;
+    v21 = titleDictionary;
     _os_log_error_impl(&dword_2658DE000, getLogger5, OS_LOG_TYPE_ERROR, "Values were: %{public}@, titles were: %{public}@", buf, 0x16u);
   }
 
-  v11 = v18;
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
+  v11 = v17;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
   v12 = __54__PSUIVoiceAndDataSpecifier_setMaxDataRateForRATMode___block_invoke;
 LABEL_35:
   v11[2] = v12;
   v11[3] = &unk_279BA9D58;
   v11[4] = self;
   dispatch_async(MEMORY[0x277D85CD0], v11);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __54__PSUIVoiceAndDataSpecifier_setMaxDataRateForRATMode___block_invoke(uint64_t a1)
@@ -629,6 +625,86 @@ void __54__PSUIVoiceAndDataSpecifier_setMaxDataRateForRATMode___block_invoke_61(
   slotID = [(CTXPCServiceSubscriptionContext *)self->_subscriptionContext slotID];
 
   return [(PSSimStatusCache *)simStatusCache isSlotActiveDataSlot:slotID];
+}
+
+- (void)showCallMayEndWarningForTargetRATMode:(int)mode currentRATMode:(int)tMode
+{
+  v4 = *&tMode;
+  v5 = *&mode;
+  v14 = *MEMORY[0x277D85DE8];
+  getLogger = [(PSUIVoiceAndDataSpecifier *)self getLogger];
+  if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
+  {
+    LOWORD(v11[0]) = 0;
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "showing call may end warning.", v11, 2u);
+  }
+
+  getLogger2 = [(PSUIVoiceAndDataSpecifier *)self getLogger];
+  if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_DEFAULT))
+  {
+    v11[0] = 67109376;
+    v11[1] = v5;
+    v12 = 1024;
+    v13 = v4;
+    _os_log_impl(&dword_2658DE000, getLogger2, OS_LOG_TYPE_DEFAULT, "targetRATMode: %d is lower than currentRATMode: %d", v11, 0xEu);
+  }
+
+  v9 = [(PSUIVoiceAndDataSpecifier *)self createCallMayEndConfirmationSpecifierForTargetRATMode:v5 currentRATMode:v4];
+  WeakRetained = objc_loadWeakRetained(&self->_drillDownController);
+  [WeakRetained showConfirmationViewForSpecifier:v9];
+}
+
+- (id)createCallMayEndConfirmationSpecifierForTargetRATMode:(int)mode currentRATMode:(int)tMode
+{
+  v4 = *&mode;
+  v6 = [(PSUIVoiceAndDataSpecifier *)self localizedRATModeStringForPrefix:@"DISABLE_RAT" targetMode:*&mode];
+  v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v8 = [v7 localizedStringForKey:@"ON_CALL_OK_DISABLE" value:&stru_287733598 table:@"Cellular"];
+
+  if ([(PSUICoreTelephonyCallCache *)self->_callCache isAnyVOIPCallActive])
+  {
+    if ([(PSUIDeviceWiFiState *)self->_deviceWifiState isConnectedOverWiFi])
+    {
+      v9 = @"RAT_ON_FACETIME_WIFI_WARNING_DISABLE";
+    }
+
+    else
+    {
+      v9 = @"RAT_ON_FACETIME_WARNING_DISABLE";
+    }
+
+    goto LABEL_8;
+  }
+
+  isActiveCallVoLTE = [(PSUICoreTelephonyCallCache *)self->_callCache isActiveCallVoLTE];
+  v11 = &stru_287733598;
+  if (v4 <= 3 && isActiveCallVoLTE)
+  {
+    v9 = @"RAT_ON_CALL_WARNING_DISABLE";
+LABEL_8:
+    v11 = [(PSUIVoiceAndDataSpecifier *)self localizedRATModeStringForPrefix:v9 targetMode:v4];
+  }
+
+  v12 = [MEMORY[0x277D3F9C8] preferenceSpecifierNamed:&stru_287733598 target:self set:0 get:0 detail:0 cell:-1 edit:0];
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v14 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v15 = [v14 localizedStringForKey:@"ON_CALL_CANCEL" value:&stru_287733598 table:@"Cellular"];
+  [dictionary setObject:v15 forKey:*MEMORY[0x277D3FE78]];
+
+  [dictionary setObject:v8 forKey:*MEMORY[0x277D3FE88]];
+  [dictionary setObject:v11 forKey:*MEMORY[0x277D3FE90]];
+  [dictionary setObject:v6 forKey:*MEMORY[0x277D3FE98]];
+  [v12 setupWithDictionary:dictionary];
+  v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v4];
+  [v12 setProperty:v16 forKey:@"newValue"];
+
+  v17 = [MEMORY[0x277CCABB0] numberWithBool:1];
+  [v12 setProperty:v17 forKey:*MEMORY[0x277D3FE80]];
+
+  [v12 setConfirmationAction:sel_acceptedRATSelectionDuringCall_];
+  [v12 setConfirmationCancelAction:sel_canceledRATSelectionDuringCall];
+
+  return v12;
 }
 
 - (void)acceptedRATSelectionDuringCall:(id)call
@@ -668,6 +744,22 @@ void __59__PSUIVoiceAndDataSpecifier_canceledRATSelectionDuringCall__block_invok
 {
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 264));
   [WeakRetained reloadSpecifiers];
+}
+
+- (id)localizedRATModeStringForPrefix:(id)prefix targetMode:(int)mode
+{
+  v4 = *&mode;
+  prefixCopy = prefix;
+  getRATMode = [(PSUIVoiceAndDataSpecifier *)self getRATMode];
+  v8 = -[PSUIVoiceAndDataSpecifier warningRATModeForTargetMode:currentMode:](self, "warningRATModeForTargetMode:currentMode:", v4, [getRATMode intValue]);
+
+  v9 = MEMORY[0x277CCACA8];
+  v10 = [(PSUIVoiceAndDataSpecifier *)self suffixStringFromRATMode:v8];
+  v11 = [v9 stringWithFormat:@"%@_%@", prefixCopy, v10];
+
+  v12 = [(PSUIVoiceAndDataSpecifier *)self localizedWarningStringForKey:v11 andRATMode:v8];
+
+  return v12;
 }
 
 - (int)warningRATModeForTargetMode:(int)mode currentMode:(int)currentMode
@@ -769,23 +861,23 @@ LABEL_17:
 
 - (id)getSmartDataModeState
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   ctClient = self->_ctClient;
   serviceDescriptor = self->_serviceDescriptor;
-  v15 = 0;
-  v5 = [(CoreTelephonyClient *)ctClient smartDataMode:serviceDescriptor error:&v15];
-  v6 = v15;
+  v14 = 0;
+  v5 = [(CoreTelephonyClient *)ctClient smartDataMode:serviceDescriptor error:&v14];
+  v6 = v14;
   getLogger = [(PSUIVoiceAndDataSpecifier *)self getLogger];
   v8 = getLogger;
   if (v6)
   {
     if (os_log_type_enabled(getLogger, OS_LOG_TYPE_ERROR))
     {
-      v14 = self->_serviceDescriptor;
+      v13 = self->_serviceDescriptor;
       *buf = 138412546;
-      v17 = v14;
-      v18 = 2112;
-      v19 = v6;
+      v16 = v13;
+      v17 = 2112;
+      v18 = v6;
       _os_log_error_impl(&dword_2658DE000, v8, OS_LOG_TYPE_ERROR, "Failed to get smart data mode state service: %@, error: %@", buf, 0x16u);
     }
 
@@ -804,23 +896,21 @@ LABEL_17:
       }
 
       *buf = 138412546;
-      v17 = v10;
-      v18 = 2112;
-      v19 = v11;
+      v16 = v10;
+      v17 = 2112;
+      v18 = v11;
       _os_log_impl(&dword_2658DE000, v8, OS_LOG_TYPE_DEFAULT, "Successfully retrieved smart data mode: %@  state for service: %@", buf, 0x16u);
     }
 
     v9 = [MEMORY[0x277CCABB0] numberWithBool:v5];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (void)setSmartDataModeState:(int)state
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   getLogger = [(PSUIVoiceAndDataSpecifier *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
@@ -830,9 +920,9 @@ LABEL_17:
       v6 = "ON";
     }
 
-    v11 = 136315138;
-    v12 = v6;
-    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Setting smart data mode state to %s", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = v6;
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Setting smart data mode state to %s", &v10, 0xCu);
   }
 
   v7 = [(CoreTelephonyClient *)self->_ctClient setSmartDataMode:self->_serviceDescriptor enable:state == 5];
@@ -842,15 +932,13 @@ LABEL_17:
     if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_ERROR))
     {
       serviceDescriptor = self->_serviceDescriptor;
-      v11 = 138412546;
-      v12 = serviceDescriptor;
-      v13 = 2112;
-      v14 = v7;
-      _os_log_error_impl(&dword_2658DE000, getLogger2, OS_LOG_TYPE_ERROR, "Failed to activate smart data mode for service: %@, error: %@", &v11, 0x16u);
+      v10 = 138412546;
+      v11 = serviceDescriptor;
+      v12 = 2112;
+      v13 = v7;
+      _os_log_error_impl(&dword_2658DE000, getLogger2, OS_LOG_TYPE_ERROR, "Failed to activate smart data mode for service: %@, error: %@", &v10, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleMaxDataRateChanged
@@ -872,38 +960,36 @@ void __53__PSUIVoiceAndDataSpecifier_handleMaxDataRateChanged__block_invoke(uint
 
 - (id)getLocalizedStringsFromDataRate:(int64_t)rate
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_new();
   v6 = [(PSUIVoiceAndDataSpecifier *)self getRATModesFromDataRate:rate];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = -[PSUIVoiceAndDataSpecifier getLocalizedStringFromRATMode:](self, "getLocalizedStringFromRATMode:", [*(*(&v14 + 1) + 8 * i) unsignedIntValue]);
+        v11 = -[PSUIVoiceAndDataSpecifier getLocalizedStringFromRATMode:](self, "getLocalizedStringFromRATMode:", [*(*(&v13 + 1) + 8 * i) unsignedIntValue]);
         [v5 addObject:v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

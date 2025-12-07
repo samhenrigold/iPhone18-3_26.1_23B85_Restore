@@ -67,40 +67,36 @@
 
 void __110__SKAPresenceClientConnection_initWithXPCConnection_queue_daemonProtocolDelegate_connectionLifecycleDelegate___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = +[SKAPresenceClientConnection logger];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_loadWeakRetained((a1 + 40));
-    v7 = 134217984;
-    v8 = [v4 processIdentifier];
-    _os_log_impl(&dword_220099000, v3, OS_LOG_TYPE_DEFAULT, "XPC connection to PID %ld interrupted", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = [v4 processIdentifier];
+    _os_log_impl(&dword_220099000, v3, OS_LOG_TYPE_DEFAULT, "XPC connection to PID %ld interrupted", &v6, 0xCu);
   }
 
   v5 = [WeakRetained connectionLifecycleDelegate];
   [v5 presenceClientConnectionWasInterrupted:WeakRetained];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __110__SKAPresenceClientConnection_initWithXPCConnection_queue_daemonProtocolDelegate_connectionLifecycleDelegate___block_invoke_3(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = +[SKAPresenceClientConnection logger];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_loadWeakRetained((a1 + 40));
-    v7 = 134217984;
-    v8 = [v4 processIdentifier];
-    _os_log_impl(&dword_220099000, v3, OS_LOG_TYPE_DEFAULT, "XPC connection to PID %ld invalidated", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = [v4 processIdentifier];
+    _os_log_impl(&dword_220099000, v3, OS_LOG_TYPE_DEFAULT, "XPC connection to PID %ld invalidated", &v6, 0xCu);
   }
 
   v5 = [WeakRetained connectionLifecycleDelegate];
   [v5 presenceClientConnectionWasInvalidated:WeakRetained];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)asynchronousRemoteDaemonDelegateWithErrorHandler:(id)handler
@@ -159,7 +155,7 @@ void __79__SKAPresenceClientConnection_synchronousRemoteDaemonDelegateWithErrorH
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = +[SKAPresenceClientConnection logger];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -169,10 +165,9 @@ void __79__SKAPresenceClientConnection_synchronousRemoteDaemonDelegateWithErrorH
   }
 
   [(NSXPCConnection *)self->_xpcConnection invalidate];
-  v5.receiver = self;
-  v5.super_class = SKAPresenceClientConnection;
-  [(SKAPresenceClientConnection *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = SKAPresenceClientConnection;
+  [(SKAPresenceClientConnection *)&v4 dealloc];
 }
 
 + (BOOL)clientIsEntitledForPresence:(id)presence
@@ -245,31 +240,28 @@ uint64_t __37__SKAPresenceClientConnection_logger__block_invoke()
 
 void __80__SKAPresenceClientConnection_asynchronousRemoteDaemonDelegateWithErrorHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_220099000, a2, OS_LOG_TYPE_ERROR, "XPC Error (async): %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_220099000, a2, OS_LOG_TYPE_ERROR, "XPC Error (async): %{public}@", &v2, 0xCu);
 }
 
 void __79__SKAPresenceClientConnection_synchronousRemoteDaemonDelegateWithErrorHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_220099000, a2, OS_LOG_TYPE_ERROR, "XPC Error (synchronous): %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_220099000, a2, OS_LOG_TYPE_ERROR, "XPC Error (synchronous): %{public}@", &v2, 0xCu);
 }
 
 + (void)clientIsEntitledForPresence:(NSObject *)a3 .cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v6 = 134218242;
-  v7 = [a1 processIdentifier];
-  v8 = 2112;
-  v9 = a2;
-  _os_log_fault_impl(&dword_220099000, a3, OS_LOG_TYPE_FAULT, "XPC connection from PID %ld is attempting to use StatusKit with an unknown client ID: %@. This will result in a connection rejection in the future.", &v6, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v5 = 134218242;
+  v6 = [a1 processIdentifier];
+  v7 = 2112;
+  v8 = a2;
+  _os_log_fault_impl(&dword_220099000, a3, OS_LOG_TYPE_FAULT, "XPC connection from PID %ld is attempting to use StatusKit with an unknown client ID: %@. This will result in a connection rejection in the future.", &v5, 0x16u);
 }
 
 @end

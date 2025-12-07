@@ -3,9 +3,11 @@
 - (__n128)tileCount;
 - (__n128)tileOverlap;
 - (__n128)tileSize;
+- (id)_createOptionsDictionaryForTuningType:(unsigned int)type;
 - (id)_getTuningTypeStringForProcessingType:(unsigned int)type;
 - (int)clearOutputBuffer:(__CVBuffer *)buffer;
 - (int)createInputTiles:(id)tiles atPosition:(id)position inputFullPixelBuffers:(id *)buffers cmdBuffer:;
+- (int)prepareToProcess:(unsigned int)process;
 - (int)prewarm;
 - (int)process;
 - (int)purgeResources;
@@ -37,6 +39,126 @@
   {
     return *(&off_18368 + type - 1);
   }
+}
+
+- (int)prepareToProcess:(unsigned int)process
+{
+  self->_processingType = process;
+  if (process - 6 < 0xFFFFFFFB)
+  {
+    v9 = 0;
+    v37 = -12782;
+    goto LABEL_9;
+  }
+
+  v3 = *&process;
+  v5 = [FigMetalContext alloc];
+  v6 = [NSBundle bundleForClass:objc_opt_class()];
+  v7 = [v5 initWithbundle:v6 andOptionalCommandQueue:self->_metalCommandQueue];
+  metalContext = self->_metalContext;
+  self->_metalContext = v7;
+
+  if (!self->_metalContext)
+  {
+    v9 = 0;
+LABEL_18:
+    v37 = -12786;
+    goto LABEL_9;
+  }
+
+  v9 = objc_opt_new();
+  v10 = [(CMIDeepZoomProcessorV2 *)self _createOptionsDictionaryForTuningType:v3];
+  [v9 setObject:v10 forKeyedSubscript:@"TuningParameters"];
+
+  if (v3 < 2)
+  {
+    v12 = 0;
+    v13 = off_18278;
+  }
+
+  else if (v3 > 2)
+  {
+    if (v3 == 3)
+    {
+      sub_40D8(v9, v11);
+    }
+
+    else if (v3 == 4)
+    {
+      sub_4100(v9, v11);
+    }
+
+    else
+    {
+      sub_40EC(v9, v11);
+    }
+
+    v13 = &off_18288;
+    v12 = v9;
+  }
+
+  else
+  {
+    v12 = 0;
+    v13 = off_18280;
+  }
+
+  v14 = [objc_alloc(*v13) initWithMetalContext:self->_metalContext options:v12];
+  deepZoomMetalStage = self->_deepZoomMetalStage;
+  self->_deepZoomMetalStage = v14;
+
+  v16 = self->_deepZoomMetalStage;
+  if (!v16)
+  {
+    goto LABEL_18;
+  }
+
+  modelNetworkBaseName = [(CMIDeepZoomMetalStageV2 *)v16 modelNetworkBaseName];
+  modelNetworkBaseName = self->_modelNetworkBaseName;
+  self->_modelNetworkBaseName = modelNetworkBaseName;
+
+  modelInputBindingNames = [(CMIDeepZoomMetalStageV2 *)self->_deepZoomMetalStage modelInputBindingNames];
+  modelInputBindingNames = self->_modelInputBindingNames;
+  self->_modelInputBindingNames = modelInputBindingNames;
+
+  modelInputSizes = [(CMIDeepZoomMetalStageV2 *)self->_deepZoomMetalStage modelInputSizes];
+  modelInputSizes = self->_modelInputSizes;
+  self->_modelInputSizes = modelInputSizes;
+
+  modelInputPixelFormats = [(CMIDeepZoomMetalStageV2 *)self->_deepZoomMetalStage modelInputPixelFormats];
+  modelInputPixelFormats = self->_modelInputPixelFormats;
+  self->_modelInputPixelFormats = modelInputPixelFormats;
+
+  modelInputSlicesCount = [(CMIDeepZoomMetalStageV2 *)self->_deepZoomMetalStage modelInputSlicesCount];
+  modelInputSlicesCount = self->_modelInputSlicesCount;
+  self->_modelInputSlicesCount = modelInputSlicesCount;
+
+  modelOutputBindingNames = [(CMIDeepZoomMetalStageV2 *)self->_deepZoomMetalStage modelOutputBindingNames];
+  modelOutputBindingNames = self->_modelOutputBindingNames;
+  self->_modelOutputBindingNames = modelOutputBindingNames;
+
+  modelOutputSizes = [(CMIDeepZoomMetalStageV2 *)self->_deepZoomMetalStage modelOutputSizes];
+  modelOutputSizes = self->_modelOutputSizes;
+  self->_modelOutputSizes = modelOutputSizes;
+
+  modelOutputPixelFormats = [(CMIDeepZoomMetalStageV2 *)self->_deepZoomMetalStage modelOutputPixelFormats];
+  modelOutputPixelFormats = self->_modelOutputPixelFormats;
+  self->_modelOutputPixelFormats = modelOutputPixelFormats;
+
+  modelOutputSlicesCount = [(CMIDeepZoomMetalStageV2 *)self->_deepZoomMetalStage modelOutputSlicesCount];
+  modelOutputSlicesCount = self->_modelOutputSlicesCount;
+  self->_modelOutputSlicesCount = modelOutputSlicesCount;
+
+  [(CMIDeepZoomMetalStageV2 *)self->_deepZoomMetalStage tileSize];
+  *&self->_tileSize[2] = v35;
+  *self->_tileSize = v36;
+  [(CMIDeepZoomMetalStageV2 *)self->_deepZoomMetalStage tileOverlap];
+  v37 = 0;
+  *&self->_tileOverlap[2] = v38;
+  *self->_tileOverlap = v39;
+LABEL_9:
+
+  return v37;
 }
 
 - (int)purgeResources
@@ -244,6 +366,61 @@ LABEL_21:
   }
 
   return v3;
+}
+
+- (id)_createOptionsDictionaryForTuningType:(unsigned int)type
+{
+  v3 = *&type;
+  v5 = objc_opt_new();
+  v6 = [(CMIDeepZoomProcessorV2 *)self _getTuningTypeStringForProcessingType:v3];
+  if (v6)
+  {
+    v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
+    v7 = self->_tuningParameters;
+    v8 = [(NSDictionary *)v7 countByEnumeratingWithState:&v19 objects:v18 count:16];
+    if (v8)
+    {
+      v9 = v8;
+      v10 = *v20;
+      do
+      {
+        for (i = 0; i != v9; i = i + 1)
+        {
+          if (*v20 != v10)
+          {
+            objc_enumerationMutation(v7);
+          }
+
+          v12 = *(*(&v19 + 1) + 8 * i);
+          v13 = [(NSDictionary *)self->_tuningParameters objectForKeyedSubscript:v12];
+          v14 = [v13 objectForKeyedSubscript:v6];
+
+          if (v14)
+          {
+            [v5 setObject:v14 forKeyedSubscript:v12];
+          }
+        }
+
+        v9 = [(NSDictionary *)v7 countByEnumeratingWithState:&v19 objects:v18 count:16];
+      }
+
+      while (v9);
+    }
+
+    v15 = v5;
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  v16 = v15;
+
+  return v15;
 }
 
 - (void)setZoomFactor:(CMIDeepZoomProcessorV2 *)self

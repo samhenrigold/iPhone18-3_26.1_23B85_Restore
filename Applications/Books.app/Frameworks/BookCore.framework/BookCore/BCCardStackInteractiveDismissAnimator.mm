@@ -104,7 +104,7 @@
   v18 = txForCardIndex;
   v29 = v18;
   [v10 addAnimations:v28];
-  if (-[BCCardStackInteractiveDismissAnimator shouldRetainBackgroundAndTitleState](self, "shouldRetainBackgroundAndTitleState") || ([v10 duration], v20 = v19, v26[0] = _NSConcreteStackBlock, v26[1] = 3221225472, v26[2] = sub_392DC, v26[3] = &unk_2C9330, v26[4] = self, v27 = cancellation, objc_msgSend(v10, "addAnimations:", v26), v24[0] = _NSConcreteStackBlock, v24[1] = 3221225472, v24[2] = sub_395CC, v24[3] = &unk_2C9358, v25 = cancellation, v24[4] = self, *&v24[5] = v20, (v21 = objc_msgSend([UIViewPropertyAnimator alloc], "initWithDuration:curve:animations:", 3, v24, v20)) == 0))
+  if (-[BCCardStackInteractiveDismissAnimator shouldRetainBackgroundAndTitleState](self, "shouldRetainBackgroundAndTitleState") || (objc_msgSend_duration(v10), v20 = v19, v26[0] = _NSConcreteStackBlock, v26[1] = 3221225472, v26[2] = sub_392DC, v26[3] = &unk_2C9330, v26[4] = self, v27 = cancellation, [v10 addAnimations:v26], v24[0] = _NSConcreteStackBlock, v24[1] = 3221225472, v24[2] = sub_395CC, v24[3] = &unk_2C9358, v25 = cancellation, v24[4] = self, *&v24[5] = v20, (v21 = objc_msgSend([UIViewPropertyAnimator alloc], "initWithDuration:curve:animations:", 3, v24, v20)) == 0))
   {
     v34 = v10;
     v22 = [NSArray arrayWithObjects:&v34 count:1];
@@ -164,7 +164,7 @@
   v7 = view;
   if (view)
   {
-    [view transform];
+    objc_msgSend_transform(view);
     v8 = v12;
   }
 

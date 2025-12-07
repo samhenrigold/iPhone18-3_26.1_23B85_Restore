@@ -358,7 +358,7 @@
 - (id)decodeObjectOfClass:(Class)class forKey:(id)key error:(id *)error
 {
   keyCopy = key;
-  v9 = sub_10017DAFC();
+  v9 = sub_10017DAFC(keyCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     sub_10022FACC();
@@ -427,7 +427,7 @@ LABEL_15:
 {
   keyCopy = key;
   factoryCopy = factory;
-  v12 = sub_10017DAFC();
+  v12 = sub_10017DAFC(factoryCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
@@ -475,7 +475,7 @@ LABEL_15:
 {
   protocolsCopy = protocols;
   keyCopy = key;
-  v10 = sub_10017DAFC();
+  v10 = sub_10017DAFC(keyCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     sub_10022FB34();
@@ -520,7 +520,7 @@ LABEL_15:
 {
   factoriesCopy = factories;
   keyCopy = key;
-  v10 = sub_10017DAFC();
+  v10 = sub_10017DAFC(keyCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     sub_10022FB9C();
@@ -641,7 +641,7 @@ LABEL_22:
 {
   objectCopy = object;
   protocolsCopy = protocols;
-  v8 = sub_10017DAFC();
+  v8 = sub_10017DAFC(protocolsCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_10022FC04();
@@ -705,7 +705,7 @@ LABEL_16:
 {
   objectCopy = object;
   factoryCopy = factory;
-  v11 = sub_10017DAFC();
+  v11 = sub_10017DAFC(factoryCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
@@ -755,7 +755,7 @@ LABEL_16:
 {
   objectCopy = object;
   typeCopy = type;
-  v11 = sub_10017DAFC();
+  v11 = sub_10017DAFC(typeCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
@@ -799,59 +799,59 @@ LABEL_16:
 {
   nCopy = n;
   factoryCopy = factory;
-  v12 = sub_10017DAFC();
+  v12 = sub_10017DAFC(factoryCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v24 = nCopy;
-    v25 = 2112;
+    v25 = nCopy;
+    v26 = 2112;
     typeCopy = type;
-    v27 = 2112;
-    v28 = factoryCopy;
+    v28 = 2112;
+    v29 = factoryCopy;
     _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "processJSON:%@ forCodableType:%@ usingFactory:%@", buf, 0x20u);
   }
 
-  v13 = sub_10017DAFC();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v14 = sub_10017DAFC(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    sub_10022FC6C(self, v13);
+    sub_10022FC6C(self, v14);
   }
 
   if ([(objc_class *)type conformsToProtocol:&OBJC_PROTOCOL___FMDCodableCollection])
   {
-    v20 = 0;
-    v14 = [(FMDJSONDecoder *)self decodeCollectionOfClass:type fromJSONObject:nCopy usingFactory:factoryCopy error:&v20];
-    v15 = v20;
+    v21 = 0;
+    v15 = [(FMDJSONDecoder *)self decodeCollectionOfClass:type fromJSONObject:nCopy usingFactory:factoryCopy error:&v21];
+    v16 = v21;
 LABEL_9:
-    v16 = v15;
+    v17 = v16;
     goto LABEL_11;
   }
 
   if ([(objc_class *)type conformsToProtocol:&OBJC_PROTOCOL___FMDCodable])
   {
-    v19 = 0;
-    v14 = [(FMDJSONDecoder *)self decodeCodableClass:type withJSONObject:nCopy usingFactory:factoryCopy error:&v19];
-    v15 = v19;
+    v20 = 0;
+    v15 = [(FMDJSONDecoder *)self decodeCodableClass:type withJSONObject:nCopy usingFactory:factoryCopy error:&v20];
+    v16 = v20;
     goto LABEL_9;
   }
 
-  v21 = NSLocalizedFailureReasonErrorKey;
-  v22 = @"Object does not conform to FMDCodable.";
-  v17 = [NSDictionary dictionaryWithObjects:&v22 forKeys:&v21 count:1];
-  v16 = [NSError errorWithDomain:@"FMJSONDecoderErrorDomain" code:0 userInfo:v17];
+  v22 = NSLocalizedFailureReasonErrorKey;
+  v23 = @"Object does not conform to FMDCodable.";
+  v18 = [NSDictionary dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+  v17 = [NSError errorWithDomain:@"FMJSONDecoderErrorDomain" code:0 userInfo:v18];
 
-  v14 = 0;
+  v15 = 0;
 LABEL_11:
-  [FMDJSONDecoder checkAndSetOutError:error WithError:v16];
+  [FMDJSONDecoder checkAndSetOutError:error WithError:v17];
 
-  return v14;
+  return v15;
 }
 
 - (id)decodeCollectionOfClass:(Class)class usingFactory:(id)factory forKey:(id)key error:(id *)error
 {
   factoryCopy = factory;
   keyCopy = key;
-  v12 = sub_10017DAFC();
+  v12 = sub_10017DAFC(keyCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
@@ -888,7 +888,7 @@ LABEL_11:
 {
   objectCopy = object;
   factoryCopy = factory;
-  v12 = sub_10017DAFC();
+  v12 = sub_10017DAFC(factoryCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
@@ -959,37 +959,36 @@ LABEL_14:
   errorCopy = error;
   collectionCopy = collection;
   factoryCopy = factory;
-  v9 = sub_10017DAFC();
+  v9 = sub_10017DAFC(factoryCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     sub_10022FD30();
   }
 
   v10 = +[NSMutableArray array];
+  v36 = 0u;
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
-  v41 = 0u;
   v11 = collectionCopy;
   p_vtable = FMDAccessorySerialNumbers.vtable;
   v13 = &ADClientAddValueForScalarKey_ptr;
-  v34 = [v11 countByEnumeratingWithState:&v38 objects:v42 count:16];
-  if (v34)
+  v32 = [v11 countByEnumeratingWithState:&v36 objects:v40 count:16];
+  if (v32)
   {
-    v33 = *v39;
+    v31 = *v37;
 LABEL_5:
     v14 = 0;
     while (1)
     {
-      if (*v39 != v33)
+      if (*v37 != v31)
       {
         objc_enumerationMutation(v11);
       }
 
-      v15 = *(*(&v38 + 1) + 8 * v14);
+      v15 = *(*(&v36 + 1) + 8 * v14);
       v16 = objc_alloc_init((p_vtable + 337));
       [v16 setFactory:factoryCopy];
-      v17 = v13[510];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -998,17 +997,17 @@ LABEL_5:
 
       if (![(FMDJSONDecoder *)self collectionObjectClass])
       {
-        v29 = objc_opt_class();
-        v35 = 0;
-        v20 = [v16 processJSON:v15 forCodableType:v29 usingFactory:factoryCopy error:&v35];
-        v21 = v35;
+        v27 = objc_opt_class();
+        v33 = 0;
+        v18 = [v16 processJSON:v15 forCodableType:v27 usingFactory:factoryCopy error:&v33];
+        v19 = v33;
 LABEL_14:
-        v28 = v21;
-        if (v28)
+        v26 = v19;
+        if (v26)
         {
 LABEL_18:
 
-          v30 = 0;
+          v28 = 0;
           goto LABEL_19;
         }
 
@@ -1017,31 +1016,31 @@ LABEL_18:
 
       collectionObjectClass = [(FMDJSONDecoder *)self collectionObjectClass];
       [(FMDJSONDecoder *)self collectionObjectKeyType];
-      v23 = factoryCopy;
-      v24 = p_vtable;
-      v25 = v10;
-      v27 = v26 = v11;
-      v36 = 0;
-      v20 = [(FMDJSONDecoder *)self decodeCodableClass:collectionObjectClass withJSONObject:v15 usingObjectKeyType:v27 error:&v36];
-      v28 = v36;
+      v21 = factoryCopy;
+      v22 = p_vtable;
+      v23 = v10;
+      v25 = v24 = v11;
+      v34 = 0;
+      v18 = [(FMDJSONDecoder *)self decodeCodableClass:collectionObjectClass withJSONObject:v15 usingObjectKeyType:v25 error:&v34];
+      v26 = v34;
 
-      v11 = v26;
-      v10 = v25;
-      p_vtable = v24;
-      factoryCopy = v23;
+      v11 = v24;
+      v10 = v23;
+      p_vtable = v22;
+      factoryCopy = v21;
       v13 = &ADClientAddValueForScalarKey_ptr;
-      if (v28)
+      if (v26)
       {
         goto LABEL_18;
       }
 
 LABEL_15:
-      [v10 addObject:{v20, errorCopy}];
+      [v10 addObject:{v18, errorCopy}];
 
-      if (v34 == ++v14)
+      if (v32 == ++v14)
       {
-        v34 = [v11 countByEnumeratingWithState:&v38 objects:v42 count:16];
-        if (v34)
+        v32 = [v11 countByEnumeratingWithState:&v36 objects:v40 count:16];
+        if (v32)
         {
           goto LABEL_5;
         }
@@ -1050,35 +1049,34 @@ LABEL_15:
       }
     }
 
-    v18 = v13[510];
-    v19 = objc_opt_class();
-    v37 = 0;
-    v20 = [v16 processJSON:v15 forCodableType:v19 usingFactory:factoryCopy error:&v37];
-    v21 = v37;
+    v17 = objc_opt_class();
+    v35 = 0;
+    v18 = [v16 processJSON:v15 forCodableType:v17 usingFactory:factoryCopy error:&v35];
+    v19 = v35;
     goto LABEL_14;
   }
 
 LABEL_17:
 
-  v30 = [v13[510] arrayWithArray:v10];
-  v28 = 0;
+  v28 = [v13[510] arrayWithArray:v10];
+  v26 = 0;
 LABEL_19:
-  [p_vtable + 337 checkAndSetOutError:errorCopy WithError:{v28, errorCopy}];
+  [p_vtable + 337 checkAndSetOutError:errorCopy WithError:{v26, errorCopy}];
 
-  return v30;
+  return v28;
 }
 
 - (id)decodeDictionaryCollection:(id)collection usingFactory:(id)factory error:(id *)error
 {
   collectionCopy = collection;
   factoryCopy = factory;
-  v10 = sub_10017DAFC();
+  v10 = sub_10017DAFC(factoryCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v81 = collectionCopy;
-    v82 = 2112;
-    v83 = factoryCopy;
+    v77 = collectionCopy;
+    v78 = 2112;
+    v79 = factoryCopy;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "decodeDictionaryCollection:%@ usingFactory:%@", buf, 0x16u);
   }
 
@@ -1088,32 +1086,31 @@ LABEL_19:
     v12 = [factoryCopy classForObjectInfo:collectionCopy];
     if (v12)
     {
-      v76 = 0;
-      v13 = [(FMDJSONDecoder *)self decodeCodableClass:v12 withJSONObject:collectionCopy usingFactory:factoryCopy error:&v76];
-      v14 = v76;
+      v72 = 0;
+      v13 = [(FMDJSONDecoder *)self decodeCodableClass:v12 withJSONObject:collectionCopy usingFactory:factoryCopy error:&v72];
+      v14 = v72;
       goto LABEL_47;
     }
 
-    v74 = 0u;
-    v75 = 0u;
-    v72 = 0u;
-    v73 = 0u;
+    v70 = 0u;
+    v71 = 0u;
+    v68 = 0u;
+    v69 = 0u;
     v15 = collectionCopy;
-    v16 = [v15 countByEnumeratingWithState:&v72 objects:v79 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v68 objects:v75 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v73;
+      v18 = *v69;
       do
       {
-        for (i = 0; i != v17; i = i + 1)
+        for (i = 0; i != v17; ++i)
         {
-          if (*v73 != v18)
+          if (*v69 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v72 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -1121,49 +1118,46 @@ LABEL_19:
           }
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v72 objects:v79 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v68 objects:v75 count:16];
       }
 
       while (v17);
 
-      v21 = +[NSMutableDictionary dictionary];
-      v68 = 0u;
-      v69 = 0u;
-      v70 = 0u;
-      v71 = 0u;
+      v20 = +[NSMutableDictionary dictionary];
+      v64 = 0u;
+      v65 = 0u;
+      v66 = 0u;
+      v67 = 0u;
       obj = v15;
       p_vtable = FMDAccessorySerialNumbers.vtable;
-      v51 = [obj countByEnumeratingWithState:&v68 objects:v78 count:16];
-      if (v51)
+      v47 = [obj countByEnumeratingWithState:&v64 objects:v74 count:16];
+      if (v47)
       {
-        v50 = *v69;
-        v22 = &ADClientAddValueForScalarKey_ptr;
+        v46 = *v65;
 LABEL_17:
-        v23 = 0;
+        v21 = 0;
         while (1)
         {
-          v24 = v21;
-          if (*v69 != v50)
+          v22 = v20;
+          if (*v65 != v46)
           {
             objc_enumerationMutation(obj);
           }
 
-          v25 = *(*(&v68 + 1) + 8 * v23);
-          v26 = objc_alloc_init((p_vtable + 337));
-          v55 = v25;
-          v27 = [obj objectForKey:v25];
-          v28 = v22[510];
+          v23 = *(*(&v64 + 1) + 8 * v21);
+          v24 = objc_alloc_init((p_vtable + 337));
+          v51 = v23;
+          v25 = [obj objectForKey:v23];
           objc_opt_class();
-          v57 = v27;
-          v58 = v26;
-          v56 = v23;
+          v53 = v25;
+          v54 = v24;
+          v52 = v21;
           if (objc_opt_isKindOfClass())
           {
-            v29 = v22[510];
-            v30 = objc_opt_class();
-            v67 = 0;
-            v31 = [v26 processJSON:v27 forCodableType:v30 usingFactory:factoryCopy error:&v67];
-            v32 = v67;
+            v26 = objc_opt_class();
+            v63 = 0;
+            v27 = [v24 processJSON:v25 forCodableType:v26 usingFactory:factoryCopy error:&v63];
+            v28 = v63;
           }
 
           else
@@ -1171,77 +1165,74 @@ LABEL_17:
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v33 = v27;
-              v34 = [factoryCopy classForObjectInfo:v33];
-              v21 = v24;
-              if (v34)
+              v29 = v25;
+              v30 = [factoryCopy classForObjectInfo:v29];
+              v20 = v22;
+              if (v30)
               {
-                v66 = 0;
-                v53 = [v58 processJSON:v33 forCodableType:v34 usingFactory:factoryCopy error:&v66];
-                v14 = v66;
+                v62 = 0;
+                v49 = [v54 processJSON:v29 forCodableType:v30 usingFactory:factoryCopy error:&v62];
+                v14 = v62;
               }
 
               else if ([(FMDJSONDecoder *)self collectionObjectClass])
               {
                 collectionObjectClass = [(FMDJSONDecoder *)self collectionObjectClass];
                 collectionObjectKeyType = [(FMDJSONDecoder *)self collectionObjectKeyType];
-                v65 = 0;
-                v53 = [(FMDJSONDecoder *)self decodeCodableClass:collectionObjectClass withJSONObject:v33 usingObjectKeyType:collectionObjectKeyType error:&v65];
-                v14 = v65;
-
-                v22 = &ADClientAddValueForScalarKey_ptr;
+                v61 = 0;
+                v49 = [(FMDJSONDecoder *)self decodeCodableClass:collectionObjectClass withJSONObject:v29 usingObjectKeyType:collectionObjectKeyType error:&v61];
+                v14 = v61;
               }
 
               else
               {
-                v53 = +[NSMutableDictionary dictionary];
-                v61 = 0u;
-                v62 = 0u;
-                v63 = 0u;
-                v64 = 0u;
-                v52 = v33;
-                v49 = [v52 countByEnumeratingWithState:&v61 objects:v77 count:16];
-                if (v49)
+                v49 = +[NSMutableDictionary dictionary];
+                v57 = 0u;
+                v58 = 0u;
+                v59 = 0u;
+                v60 = 0u;
+                v48 = v29;
+                v45 = [v48 countByEnumeratingWithState:&v57 objects:v73 count:16];
+                if (v45)
                 {
-                  v46 = v24;
-                  v47 = *v62;
-                  v38 = v58;
-                  v48 = v33;
+                  v42 = v22;
+                  v43 = *v58;
+                  v34 = v54;
+                  v44 = v29;
                   while (2)
                   {
-                    for (j = 0; j != v49; j = j + 1)
+                    for (j = 0; j != v45; j = j + 1)
                     {
-                      if (*v62 != v47)
+                      if (*v58 != v43)
                       {
-                        objc_enumerationMutation(v52);
+                        objc_enumerationMutation(v48);
                       }
 
-                      v40 = *(*(&v61 + 1) + 8 * j);
-                      v41 = [v52 objectForKey:v40];
-                      v42 = [v52 objectForKey:v40];
-                      v43 = objc_opt_class();
-                      v60 = 0;
-                      v44 = [v38 processJSON:v41 forCodableType:v43 usingFactory:factoryCopy error:&v60];
-                      v14 = v60;
+                      v36 = *(*(&v57 + 1) + 8 * j);
+                      v37 = [v48 objectForKey:v36];
+                      v38 = [v48 objectForKey:v36];
+                      v39 = objc_opt_class();
+                      v56 = 0;
+                      v40 = [v34 processJSON:v37 forCodableType:v39 usingFactory:factoryCopy error:&v56];
+                      v14 = v56;
 
                       if (v14)
                       {
 
                         p_vtable = (FMDAccessorySerialNumbers + 24);
-                        v21 = v46;
-                        v22 = &ADClientAddValueForScalarKey_ptr;
-                        v33 = v48;
+                        v20 = v42;
+                        v29 = v44;
                         goto LABEL_41;
                       }
 
-                      [v53 setObject:v44 forKey:v40];
+                      [v49 setObject:v40 forKey:v36];
 
-                      v33 = v48;
-                      v38 = v58;
+                      v29 = v44;
+                      v34 = v54;
                     }
 
-                    v49 = [v52 countByEnumeratingWithState:&v61 objects:v77 count:16];
-                    if (v49)
+                    v45 = [v48 countByEnumeratingWithState:&v57 objects:v73 count:16];
+                    if (v45)
                     {
                       continue;
                     }
@@ -1251,8 +1242,7 @@ LABEL_17:
 
                   v14 = 0;
                   p_vtable = (FMDAccessorySerialNumbers + 24);
-                  v21 = v46;
-                  v22 = &ADClientAddValueForScalarKey_ptr;
+                  v20 = v42;
                 }
 
                 else
@@ -1263,7 +1253,7 @@ LABEL_17:
 LABEL_41:
               }
 
-              v31 = v53;
+              v27 = v49;
               if (v14)
               {
 LABEL_50:
@@ -1275,27 +1265,27 @@ LABEL_50:
               goto LABEL_43;
             }
 
-            v35 = objc_opt_class();
-            v59 = 0;
-            v31 = [v26 processJSON:v27 forCodableType:v35 usingFactory:factoryCopy error:&v59];
-            v32 = v59;
+            v31 = objc_opt_class();
+            v55 = 0;
+            v27 = [v24 processJSON:v25 forCodableType:v31 usingFactory:factoryCopy error:&v55];
+            v28 = v55;
           }
 
-          v14 = v32;
-          v21 = v24;
+          v14 = v28;
+          v20 = v22;
           if (v14)
           {
             goto LABEL_50;
           }
 
 LABEL_43:
-          [v21 setObject:v31 forKey:v55];
+          [v20 setObject:v27 forKey:v51];
 
-          v23 = v56 + 1;
-          if ((v56 + 1) == v51)
+          v21 = v52 + 1;
+          if ((v52 + 1) == v47)
           {
-            v51 = [obj countByEnumeratingWithState:&v68 objects:v78 count:16];
-            if (v51)
+            v47 = [obj countByEnumeratingWithState:&v64 objects:v74 count:16];
+            if (v47)
             {
               goto LABEL_17;
             }
@@ -1305,7 +1295,7 @@ LABEL_43:
         }
       }
 
-      v13 = [NSDictionary dictionaryWithDictionary:v21];
+      v13 = [NSDictionary dictionaryWithDictionary:v20];
       v14 = 0;
 LABEL_51:
     }
@@ -1454,22 +1444,23 @@ LABEL_7:
 + (BOOL)checkAndSetOutError:(id *)error WithError:(id)withError
 {
   withErrorCopy = withError;
+  v6 = withErrorCopy;
   if (withErrorCopy)
   {
-    v6 = sub_10017DAFC();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_10017DAFC(withErrorCopy);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_10022FD98(withErrorCopy, v6);
+      sub_10022FD98(v6, v7);
     }
 
     if (error)
     {
-      v7 = withErrorCopy;
-      *error = withErrorCopy;
+      v8 = v6;
+      *error = v6;
     }
   }
 
-  return withErrorCopy == 0;
+  return v6 == 0;
 }
 
 @end

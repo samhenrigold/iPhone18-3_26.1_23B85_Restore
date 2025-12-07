@@ -48,26 +48,26 @@
 
 - (_NSPersistentHistoryChange)initWithManagedObject:(id)object
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (object && (v5 = *(object + 6)) != 0)
   {
     v6 = *(v5 + 16);
+    v7 = objc_msgSend_valueForKey_(v6, a2, @"CHANGETYPE");
   }
 
   else
   {
     v6 = 0;
+    v7 = objc_msgSend_valueForKey_(0, a2, @"CHANGETYPE");
   }
 
-  if (![v6 valueForKey:@"CHANGETYPE"] || !objc_msgSend(object, "objectID"))
+  if (!v7 || ![object objectID])
   {
-    v17.receiver = self;
-    v17.super_class = _NSPersistentHistoryChange;
-    v11 = [(_NSPersistentHistoryChange *)&v17 init];
+    v16.receiver = self;
+    v16.super_class = _NSPersistentHistoryChange;
+    v11 = [(_NSPersistentHistoryChange *)&v16 init];
     if (!v11)
     {
-LABEL_17:
-      v16 = *MEMORY[0x1E69E9840];
       return v11;
     }
 
@@ -99,29 +99,28 @@ LABEL_19:
 
     _NSCoreDataLog_console(1, "_NSPersistentHistoryChange was created with an empty MO - %@", object);
     objc_autoreleasePoolPop(v12);
-    goto LABEL_17;
+    return v11;
   }
 
-  v7 = [_NSPersistentHistoryChange alloc];
+  v8 = [_NSPersistentHistoryChange alloc];
   objectID = [object objectID];
-  v9 = *MEMORY[0x1E69E9840];
 
-  return [(_NSPersistentHistoryChange *)v7 initWithDictionary:v6 andChangeObjectID:objectID];
+  return [(_NSPersistentHistoryChange *)v8 initWithDictionary:v6 andChangeObjectID:objectID];
 }
 
 - (_NSPersistentHistoryChange)initWithDictionary:(id)dictionary andChangeObjectID:(id)d
 {
   dictionaryCopy = dictionary;
-  v135 = *MEMORY[0x1E69E9840];
+  v134 = *MEMORY[0x1E69E9840];
   v7 = [dictionary count];
   if (!d || !v7)
   {
-    v122.receiver = self;
-    v122.super_class = _NSPersistentHistoryChange;
-    v39 = [(_NSPersistentHistoryChange *)&v122 init];
+    v121.receiver = self;
+    v121.super_class = _NSPersistentHistoryChange;
+    v39 = [(_NSPersistentHistoryChange *)&v121 init];
     if (!v39)
     {
-      goto LABEL_73;
+      return v39;
     }
 
     v40 = objc_autoreleasePoolPush();
@@ -150,86 +149,86 @@ LABEL_138:
 
     _NSCoreDataLog_console(1, "_NSPersistentHistoryChange was created with an empty changeDictionary or changeObjectID");
     objc_autoreleasePoolPop(v40);
-    goto LABEL_73;
+    return v39;
   }
 
   _referenceData64 = [d _referenceData64];
-  v9 = [objc_msgSend(dictionaryCopy valueForKey:{@"CHANGETYPE", "unsignedIntegerValue"}];
-  v10 = [dictionaryCopy valueForKey:@"COLUMNS"];
-  v11 = [objc_msgSend(dictionaryCopy valueForKey:{@"ENTITY", "unsignedLongValue"}];
-  v12 = [objc_msgSend(dictionaryCopy valueForKey:{@"ENTITYPK", "longLongValue"}];
+  unsignedIntegerValue = [objc_msgSend_valueForKey_(dictionaryCopy) unsignedIntegerValue];
+  v10 = objc_msgSend_valueForKey_(dictionaryCopy);
+  unsignedLongValue = [objc_msgSend_valueForKey_(dictionaryCopy) unsignedLongValue];
+  longLongValue = [objc_msgSend_valueForKey_(dictionaryCopy) longLongValue];
   persistentStore = [d persistentStore];
-  v116 = persistentStore;
-  if (!persistentStore || (v11 ? (v14 = v12 < 1) : (v14 = 1), v14))
+  v115 = persistentStore;
+  if (!persistentStore || (unsignedLongValue ? (v14 = longLongValue < 1) : (v14 = 1), v14))
   {
     v44 = _PFLogGetLogStream(17);
     if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
     {
-      model = [(__CFString *)v116 model];
+      model = [(__CFString *)v115 model];
       if (model)
       {
         model = model[4];
       }
 
-      v63 = [model valueForKey:@"name"];
-      if (v63)
+      v62 = objc_msgSend_valueForKey_(model);
+      if (v62)
       {
-        v64 = v63;
+        v63 = v62;
       }
 
       else
       {
-        v64 = @"<null>";
+        v63 = @"<null>";
       }
 
-      model2 = [(__CFString *)v116 model];
+      model2 = [(__CFString *)v115 model];
       if (model2)
       {
         model2 = model2[4];
       }
 
-      v66 = [model2 valueForKey:@"entityID"];
+      v65 = objc_msgSend_valueForKey_(model2);
       *buf = 138413570;
-      if (v66)
+      if (v65)
       {
-        v67 = v66;
+        v66 = v65;
       }
 
       else
       {
+        v66 = @"<null>";
+      }
+
+      v67 = v115;
+      v123 = 0;
+      if (!v115)
+      {
         v67 = @"<null>";
       }
 
-      v68 = v116;
-      v124 = 0;
-      if (!v116)
-      {
-        v68 = @"<null>";
-      }
-
-      v125 = 2048;
-      v126 = v11;
-      v127 = 2048;
-      v128 = v12;
-      v129 = 2112;
-      v130 = v64;
-      v131 = 2112;
-      v132 = v67;
-      v133 = 2112;
-      v134 = v68;
+      v124 = 2048;
+      v125 = unsignedLongValue;
+      v126 = 2048;
+      v127 = longLongValue;
+      v128 = 2112;
+      v129 = v63;
+      v130 = 2112;
+      v131 = v66;
+      v132 = 2112;
+      v133 = v67;
       _os_log_error_impl(&dword_18565F000, v44, OS_LOG_TYPE_ERROR, "CoreData: fault: Unexpectedly nil entry in: entity - %@, entityID - %ld,  pk - %lld,  model - %@ - %@, store - %@\n", buf, 0x3Eu);
     }
 
     v45 = _PFLogGetLogStream(17);
     if (os_log_type_enabled(v45, OS_LOG_TYPE_FAULT))
     {
-      model3 = [(__CFString *)v116 model];
+      model3 = [(__CFString *)v115 model];
       if (model3)
       {
         model3 = model3[4];
       }
 
-      v47 = [model3 valueForKey:@"name"];
+      v47 = objc_msgSend_valueForKey_(model3);
       if (v47)
       {
         v48 = v47;
@@ -240,13 +239,13 @@ LABEL_138:
         v48 = @"<null>";
       }
 
-      model4 = [(__CFString *)v116 model];
+      model4 = [(__CFString *)v115 model];
       if (model4)
       {
         model4 = model4[4];
       }
 
-      v50 = [model4 valueForKey:@"entityID"];
+      v50 = objc_msgSend_valueForKey_(model4);
       *buf = 138413570;
       if (v50)
       {
@@ -258,23 +257,23 @@ LABEL_138:
         v51 = @"<null>";
       }
 
-      v52 = v116;
-      v124 = 0;
-      if (!v116)
+      v52 = v115;
+      v123 = 0;
+      if (!v115)
       {
         v52 = @"<null>";
       }
 
-      v125 = 2048;
-      v126 = v11;
-      v127 = 2048;
-      v128 = v12;
-      v129 = 2112;
-      v130 = v48;
-      v131 = 2112;
-      v132 = v51;
-      v133 = 2112;
-      v134 = v52;
+      v124 = 2048;
+      v125 = unsignedLongValue;
+      v126 = 2048;
+      v127 = longLongValue;
+      v128 = 2112;
+      v129 = v48;
+      v130 = 2112;
+      v131 = v51;
+      v132 = 2112;
+      v133 = v52;
       _os_log_fault_impl(&dword_18565F000, v45, OS_LOG_TYPE_FAULT, "CoreData: Unexpectedly nil entry in: entity - %@, entityID - %ld,  pk - %lld,  model - %@ - %@, store - %@", buf, 0x3Eu);
     }
   }
@@ -285,9 +284,9 @@ LABEL_138:
     v16 = [-[__CFString model](persistentStore "model")];
     if (v16)
     {
-      v117 = v16;
-      v115 = [(__CFString *)v15 newObjectIDForEntity:v16 pk:v12];
-      if (!v115)
+      v116 = v16;
+      v114 = [(__CFString *)v15 newObjectIDForEntity:v16 pk:longLongValue];
+      if (!v114)
       {
         v17 = _PFLogGetLogStream(17);
         if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
@@ -298,47 +297,47 @@ LABEL_138:
             model5 = model5[4];
           }
 
-          v96 = [model5 valueForKey:@"name"];
-          if (v96)
+          v95 = objc_msgSend_valueForKey_(model5);
+          if (v95)
           {
-            v97 = v96;
+            v96 = v95;
           }
 
           else
           {
-            v97 = @"<null>";
+            v96 = @"<null>";
           }
 
-          model6 = [(__CFString *)v116 model];
+          model6 = [(__CFString *)v115 model];
           if (model6)
           {
             model6 = model6[4];
           }
 
-          v99 = [model6 valueForKey:@"entityID"];
+          v98 = objc_msgSend_valueForKey_(model6);
           *buf = 138413570;
-          if (v99)
+          if (v98)
           {
-            v100 = v99;
+            v99 = v98;
           }
 
           else
           {
-            v100 = @"<null>";
+            v99 = @"<null>";
           }
 
-          v124 = v117;
-          v125 = 2048;
-          v126 = v11;
-          v127 = 2048;
-          v128 = v12;
-          v129 = 2112;
-          v130 = v97;
-          v131 = 2112;
-          v132 = v100;
-          v133 = 2112;
-          v15 = v116;
-          v134 = v116;
+          v123 = v116;
+          v124 = 2048;
+          v125 = unsignedLongValue;
+          v126 = 2048;
+          v127 = longLongValue;
+          v128 = 2112;
+          v129 = v96;
+          v130 = 2112;
+          v131 = v99;
+          v132 = 2112;
+          v15 = v115;
+          v133 = v115;
           _os_log_error_impl(&dword_18565F000, v17, OS_LOG_TYPE_ERROR, "CoreData: fault: Unexpected change - objectID failed for entity - %@, entityID - %ld,  pk - %lld,  model - %@ - %@, store - %@\n", buf, 0x3Eu);
         }
 
@@ -351,62 +350,62 @@ LABEL_138:
             model7 = model7[4];
           }
 
-          v102 = [model7 valueForKey:@"name"];
-          if (v102)
+          v101 = objc_msgSend_valueForKey_(model7);
+          if (v101)
           {
-            v103 = v102;
+            v102 = v101;
           }
 
           else
           {
-            v103 = @"<null>";
+            v102 = @"<null>";
           }
 
-          model8 = [(__CFString *)v116 model];
+          model8 = [(__CFString *)v115 model];
           if (model8)
           {
             model8 = model8[4];
           }
 
-          v105 = [model8 valueForKey:@"entityID"];
+          v104 = objc_msgSend_valueForKey_(model8);
           *buf = 138413570;
-          if (v105)
+          if (v104)
           {
-            v106 = v105;
+            v105 = v104;
           }
 
           else
           {
-            v106 = @"<null>";
+            v105 = @"<null>";
           }
 
-          v124 = v117;
-          v125 = 2048;
-          v126 = v11;
-          v127 = 2048;
-          v128 = v12;
-          v129 = 2112;
-          v130 = v103;
-          v131 = 2112;
-          v132 = v106;
-          v133 = 2112;
-          v134 = v116;
+          v123 = v116;
+          v124 = 2048;
+          v125 = unsignedLongValue;
+          v126 = 2048;
+          v127 = longLongValue;
+          v128 = 2112;
+          v129 = v102;
+          v130 = 2112;
+          v131 = v105;
+          v132 = 2112;
+          v133 = v115;
           _os_log_fault_impl(&dword_18565F000, v18, OS_LOG_TYPE_FAULT, "CoreData: Unexpected change - objectID failed for entity - %@, entityID - %ld,  pk - %lld,  model - %@ - %@, store - %@", buf, 0x3Eu);
         }
       }
 
-      if (v9 == 2)
+      if (unsignedIntegerValue == 2)
       {
-        v19 = [_PFPersistentHistoryModel _retainedTombstonesForEntity:v117];
+        v19 = [_PFPersistentHistoryModel _retainedTombstonesForEntity:v116];
         if ([v19 count])
         {
-          v111 = v11;
-          v112 = v12;
-          v107 = _referenceData64;
+          v110 = unsignedLongValue;
+          v111 = longLongValue;
+          v106 = _referenceData64;
           selfCopy = self;
-          v109 = v10;
+          v108 = v10;
           dCopy = d;
-          v118 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v19, "count")}];
+          v117 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v19, "count")}];
           if ([v19 count])
           {
             v20 = 0;
@@ -415,12 +414,12 @@ LABEL_138:
             do
             {
               context = objc_autoreleasePoolPush();
-              v23 = [*(v22 + 3776) stringWithFormat:@"%@%lu", v21, v20];
+              v23 = objc_msgSend_stringWithFormat_(*(v22 + 3776), v21, v20);
               v24 = [dictionaryCopy objectForKey:v23];
               if (v24 != NSKeyValueCoding_NullValue)
               {
-                v119 = [dictionaryCopy objectForKey:v23];
-                if (v119)
+                v118 = [dictionaryCopy objectForKey:v23];
+                if (v118)
                 {
                   v25 = byte_1ED4BEECF;
                   v26 = [v19 objectAtIndexedSubscript:v20];
@@ -431,14 +430,14 @@ LABEL_138:
                     if ([v30 count])
                     {
                       v31 = 0;
-                      v32 = v118;
+                      v32 = v117;
                       do
                       {
                         v33 = objc_autoreleasePoolPush();
                         v34 = [v30 objectAtIndex:v31];
                         if (v31 == [v30 count] - 1)
                         {
-                          [v32 setObject:v119 forKey:v34];
+                          [v32 setObject:v118 forKey:v34];
                         }
 
                         else
@@ -470,7 +469,7 @@ LABEL_138:
 
                   else
                   {
-                    [v118 setObject:v119 forKey:v27];
+                    [v117 setObject:v118 forKey:v27];
                   }
                 }
               }
@@ -482,36 +481,36 @@ LABEL_138:
             while (v20 < [v19 count]);
           }
 
-          if (![v118 count])
+          if (![v117 count])
           {
 
-            v118 = 0;
+            v117 = 0;
           }
 
-          v10 = v109;
+          v10 = v108;
           d = dCopy;
-          _referenceData64 = v107;
+          _referenceData64 = v106;
           self = selfCopy;
-          v9 = 2;
-          v11 = v111;
-          v12 = v112;
+          unsignedIntegerValue = 2;
+          unsignedLongValue = v110;
+          longLongValue = v111;
         }
 
         else
         {
-          v118 = 0;
+          v117 = 0;
         }
 
-        v56 = v115;
+        v56 = v114;
 
         v55 = 1;
       }
 
       else
       {
-        v118 = 0;
+        v117 = 0;
         v55 = 1;
-        v56 = v115;
+        v56 = v114;
       }
 
       goto LABEL_58;
@@ -526,43 +525,43 @@ LABEL_138:
         model9 = model9[4];
       }
 
-      v84 = [model9 valueForKey:@"name"];
-      if (v84)
+      v83 = objc_msgSend_valueForKey_(model9);
+      if (v83)
       {
-        v85 = v84;
+        v84 = v83;
       }
 
       else
       {
-        v85 = @"<null>";
+        v84 = @"<null>";
       }
 
-      model10 = [(__CFString *)v116 model];
+      model10 = [(__CFString *)v115 model];
       if (model10)
       {
         model10 = model10[4];
       }
 
-      v87 = [model10 valueForKey:@"entityID"];
+      v86 = objc_msgSend_valueForKey_(model10);
       *buf = 134218754;
-      if (v87)
+      if (v86)
       {
-        v88 = v87;
+        v87 = v86;
       }
 
       else
       {
-        v88 = @"<null>";
+        v87 = @"<null>";
       }
 
-      v124 = v11;
-      v125 = 2112;
-      v126 = v85;
-      v127 = 2112;
-      v128 = v88;
-      v129 = 2112;
-      v15 = v116;
-      v130 = v116;
+      v123 = unsignedLongValue;
+      v124 = 2112;
+      v125 = v84;
+      v126 = 2112;
+      v127 = v87;
+      v128 = 2112;
+      v15 = v115;
+      v129 = v115;
       _os_log_error_impl(&dword_18565F000, v53, OS_LOG_TYPE_ERROR, "CoreData: fault: Unexpected change - entity ID (%ld) not found in model - %@ - %@, store - %@\n", buf, 0x2Au);
     }
 
@@ -575,53 +574,53 @@ LABEL_138:
         model11 = model11[4];
       }
 
-      v90 = [model11 valueForKey:@"name"];
-      if (v90)
+      v89 = objc_msgSend_valueForKey_(model11);
+      if (v89)
       {
-        v91 = v90;
+        v90 = v89;
       }
 
       else
       {
-        v91 = @"<null>";
+        v90 = @"<null>";
       }
 
-      model12 = [(__CFString *)v116 model];
+      model12 = [(__CFString *)v115 model];
       if (model12)
       {
         model12 = model12[4];
       }
 
-      v93 = [model12 valueForKey:@"entityID"];
+      v92 = objc_msgSend_valueForKey_(model12);
       *buf = 134218754;
-      if (v93)
+      if (v92)
       {
-        v94 = v93;
+        v93 = v92;
       }
 
       else
       {
-        v94 = @"<null>";
+        v93 = @"<null>";
       }
 
-      v124 = v11;
-      v125 = 2112;
-      v126 = v91;
-      v127 = 2112;
-      v128 = v94;
-      v129 = 2112;
-      v130 = v116;
+      v123 = unsignedLongValue;
+      v124 = 2112;
+      v125 = v90;
+      v126 = 2112;
+      v127 = v93;
+      v128 = 2112;
+      v129 = v115;
       _os_log_fault_impl(&dword_18565F000, v54, OS_LOG_TYPE_FAULT, "CoreData: Unexpected change - entity ID (%ld) not found in model - %@ - %@, store - %@", buf, 0x2Au);
       v55 = 0;
+      v116 = 0;
       v117 = 0;
-      v118 = 0;
       goto LABEL_57;
     }
   }
 
   v55 = 0;
+  v116 = 0;
   v117 = 0;
-  v118 = 0;
 LABEL_57:
   v56 = 0;
 LABEL_58:
@@ -630,135 +629,135 @@ LABEL_58:
     v57 = _PFLogGetLogStream(17);
     if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
     {
-      model13 = [(__CFString *)v116 model];
-      v113 = v12;
+      model13 = [(__CFString *)v115 model];
+      v112 = longLongValue;
       if (model13)
       {
         model13 = model13[4];
       }
 
-      v70 = [model13 valueForKey:@"name"];
-      if (v70)
+      v69 = objc_msgSend_valueForKey_(model13);
+      if (v69)
       {
-        v71 = v70;
+        v70 = v69;
       }
 
       else
       {
-        v71 = @"<null>";
+        v70 = @"<null>";
       }
 
-      model14 = [(__CFString *)v116 model];
+      model14 = [(__CFString *)v115 model];
       if (model14)
       {
         model14 = model14[4];
       }
 
-      v73 = [model14 valueForKey:@"entityID"];
+      v72 = objc_msgSend_valueForKey_(model14);
       *buf = 138413570;
-      if (v73)
+      if (v72)
       {
-        v74 = v73;
+        v73 = v72;
       }
 
       else
       {
+        v73 = @"<null>";
+      }
+
+      v74 = v115;
+      v123 = v116;
+      if (!v115)
+      {
         v74 = @"<null>";
       }
 
-      v75 = v116;
-      v124 = v117;
-      if (!v116)
-      {
-        v75 = @"<null>";
-      }
-
-      v125 = 2048;
-      v126 = v11;
-      v127 = 2048;
-      v128 = v113;
-      v129 = 2112;
-      v130 = v71;
-      v12 = v113;
-      v131 = 2112;
-      v132 = v74;
-      v133 = 2112;
-      v134 = v75;
+      v124 = 2048;
+      v125 = unsignedLongValue;
+      v126 = 2048;
+      v127 = v112;
+      v128 = 2112;
+      v129 = v70;
+      longLongValue = v112;
+      v130 = 2112;
+      v131 = v73;
+      v132 = 2112;
+      v133 = v74;
       _os_log_error_impl(&dword_18565F000, v57, OS_LOG_TYPE_ERROR, "CoreData: fault: Unexpectedly corrupt changedObjectID failed for entity - %@, entityID - %ld,  pk - %lld,  model - %@ - %@, store - %@\n", buf, 0x3Eu);
     }
 
     v58 = _PFLogGetLogStream(17);
     if (os_log_type_enabled(v58, OS_LOG_TYPE_FAULT))
     {
-      model15 = [(__CFString *)v116 model];
-      v114 = v12;
+      model15 = [(__CFString *)v115 model];
+      v113 = longLongValue;
       if (model15)
       {
         model15 = model15[4];
       }
 
-      v77 = [model15 valueForKey:@"name"];
-      if (v77)
+      v76 = objc_msgSend_valueForKey_(model15);
+      if (v76)
       {
-        v78 = v77;
+        v77 = v76;
       }
 
       else
       {
-        v78 = @"<null>";
+        v77 = @"<null>";
       }
 
-      model16 = [(__CFString *)v116 model];
+      model16 = [(__CFString *)v115 model];
       if (model16)
       {
         model16 = model16[4];
       }
 
-      v80 = [model16 valueForKey:@"entityID"];
+      v79 = objc_msgSend_valueForKey_(model16);
       *buf = 138413570;
-      if (v80)
+      if (v79)
       {
-        v81 = v80;
+        v80 = v79;
       }
 
       else
       {
+        v80 = @"<null>";
+      }
+
+      v81 = v115;
+      v123 = v116;
+      if (!v115)
+      {
         v81 = @"<null>";
       }
 
-      v82 = v116;
-      v124 = v117;
-      if (!v116)
-      {
-        v82 = @"<null>";
-      }
-
-      v125 = 2048;
-      v126 = v11;
-      v127 = 2048;
-      v128 = v114;
-      v129 = 2112;
-      v130 = v78;
-      v131 = 2112;
-      v132 = v81;
-      v133 = 2112;
-      v134 = v82;
+      v124 = 2048;
+      v125 = unsignedLongValue;
+      v126 = 2048;
+      v127 = v113;
+      v128 = 2112;
+      v129 = v77;
+      v130 = 2112;
+      v131 = v80;
+      v132 = 2112;
+      v133 = v81;
       _os_log_fault_impl(&dword_18565F000, v58, OS_LOG_TYPE_FAULT, "CoreData: Unexpectedly corrupt changedObjectID failed for entity - %@, entityID - %ld,  pk - %lld,  model - %@ - %@, store - %@", buf, 0x3Eu);
     }
   }
 
-  v121.receiver = self;
-  v121.super_class = _NSPersistentHistoryChange;
-  v59 = [(_NSPersistentHistoryChange *)&v121 init];
+  v120.receiver = self;
+  v120.super_class = _NSPersistentHistoryChange;
+  v59 = [(_NSPersistentHistoryChange *)&v120 init];
   v39 = v59;
   if (v59)
   {
     v59->_changeID = _referenceData64;
     v59->_changedObjectID = v56;
-    v39->_changeType = v9;
-    if (v118)
+    v39->_changeType = unsignedIntegerValue;
+    if (v117)
     {
-      v39->_tombstone = v118;
+      v39->_tombstone = v117;
     }
 
     if (v10)
@@ -768,14 +767,12 @@ LABEL_58:
 
     if (v55)
     {
-      v39->_sqlEntity = v117;
+      v39->_sqlEntity = v116;
     }
 
     v39->_backingObjectID = d;
   }
 
-LABEL_73:
-  v60 = *MEMORY[0x1E69E9840];
   return v39;
 }
 
@@ -787,10 +784,10 @@ LABEL_73:
   if (v4)
   {
     v5 = objc_autoreleasePoolPush();
-    v4->_changedObjectID = [coder decodeObjectOfClasses:+[_PFRoutines xpcStoreArchiverObjectIDClassesForSecureCoding]() forKey:@"NSPersistentHistoryChangeObjectID"];
+    v4->_changedObjectID = [coder decodeObjectOfClasses:+[_PFRoutines xpcStoreArchiverObjectIDClassesForSecureCoding](_PFRoutines) forKey:@"NSPersistentHistoryChangeObjectID"];
     v4->_changeID = [objc_msgSend(coder decodeObjectOfClass:objc_opt_class() forKey:{@"NSPersistentHistoryChangeID", "longLongValue"}];
     v4->_changeType = [objc_msgSend(coder decodeObjectOfClass:objc_opt_class() forKey:{@"NSPersistentHistoryChangeType", "integerValue"}];
-    v4->_tombstone = [coder decodeObjectOfClasses:+[_PFRoutines attributeClassesForSecureCoding]() forKey:@"NSPersistentHistoryChangeTombstone"];
+    v4->_tombstone = [coder decodeObjectOfClasses:+[_PFRoutines attributeClassesForSecureCoding](_PFRoutines) forKey:@"NSPersistentHistoryChangeTombstone"];
     v4->_columns = [coder decodeObjectOfClass:objc_opt_class() forKey:@"NSPersistentHistoryChangeColumn"];
     changedObjectID = v4->_changedObjectID;
     if (changedObjectID)
@@ -819,7 +816,7 @@ LABEL_73:
 
 + (CFMutableSetRef)_updatedPropertiesForEntity:(void *)entity andData:
 {
-  v98 = *MEMORY[0x1E69E9840];
+  v97 = *MEMORY[0x1E69E9840];
   objc_opt_self();
   foreignKeyColumns = [a2 foreignKeyColumns];
   foreignEntityKeyColumns = [a2 foreignEntityKeyColumns];
@@ -827,308 +824,303 @@ LABEL_73:
   attributeColumns = [a2 attributeColumns];
   toManyRelationships = [a2 toManyRelationships];
   manyToManyRelationships = [a2 manyToManyRelationships];
-  v65 = attributeColumns;
+  v64 = attributeColumns;
   v11 = [attributeColumns count];
   v12 = [foreignOrderKeyColumns count];
   v13 = [foreignEntityKeyColumns count];
   v14 = [foreignKeyColumns count];
-  v66 = toManyRelationships;
+  v65 = toManyRelationships;
   v15 = [toManyRelationships count];
-  v67 = manyToManyRelationships;
+  v66 = manyToManyRelationships;
   v16 = v12 + v11 + v13 + v14 + v15 + [manyToManyRelationships count];
-  if (v16 <= 8 * [entity length])
+  if (v16 > 8 * [entity length])
   {
-    Mutable = CFSetCreateMutable(*MEMORY[0x1E695E480], 0, 0);
-    v18 = CFBitVectorCreate(0, [entity bytes], v16);
-    v88 = 0u;
-    v89 = 0u;
-    v90 = 0u;
-    v91 = 0u;
-    v19 = [foreignKeyColumns countByEnumeratingWithState:&v88 objects:v97 count:16];
-    if (v19)
+    return 0;
+  }
+
+  Mutable = CFSetCreateMutable(*MEMORY[0x1E695E480], 0, 0);
+  v18 = CFBitVectorCreate(0, [entity bytes], v16);
+  v87 = 0u;
+  v88 = 0u;
+  v89 = 0u;
+  v90 = 0u;
+  v19 = [foreignKeyColumns countByEnumeratingWithState:&v87 objects:v96 count:16];
+  if (v19)
+  {
+    v20 = v19;
+    v21 = 0;
+    v22 = *v88;
+    do
     {
-      v20 = v19;
-      v21 = 0;
-      v22 = *v89;
-      do
+      for (i = 0; i != v20; ++i)
       {
-        for (i = 0; i != v20; ++i)
+        if (*v88 != v22)
         {
-          if (*v89 != v22)
-          {
-            objc_enumerationMutation(foreignKeyColumns);
-          }
-
-          v24 = *(*(&v88 + 1) + 8 * i);
-          if (CFBitVectorGetBitAtIndex(v18, v21))
-          {
-            toOneRelationship = [v24 toOneRelationship];
-            if (toOneRelationship)
-            {
-              propertyDescription = [toOneRelationship propertyDescription];
-              if (propertyDescription)
-              {
-                [(__CFSet *)Mutable addObject:propertyDescription];
-              }
-            }
-          }
-
-          ++v21;
+          objc_enumerationMutation(foreignKeyColumns);
         }
 
-        v20 = [foreignKeyColumns countByEnumeratingWithState:&v88 objects:v97 count:16];
-      }
-
-      while (v20);
-    }
-
-    else
-    {
-      v21 = 0;
-    }
-
-    v86 = 0u;
-    v87 = 0u;
-    v84 = 0u;
-    v85 = 0u;
-    v27 = [foreignEntityKeyColumns countByEnumeratingWithState:&v84 objects:v96 count:16];
-    if (v27)
-    {
-      v28 = v27;
-      v29 = *v85;
-      v30 = v65;
-      do
-      {
-        for (j = 0; j != v28; ++j)
+        v24 = *(*(&v87 + 1) + 8 * i);
+        if (CFBitVectorGetBitAtIndex(v18, v21))
         {
-          if (*v85 != v29)
+          toOneRelationship = [v24 toOneRelationship];
+          if (toOneRelationship)
           {
-            objc_enumerationMutation(foreignEntityKeyColumns);
-          }
-
-          v32 = *(*(&v84 + 1) + 8 * j);
-          if (CFBitVectorGetBitAtIndex(v18, v21))
-          {
-            toOneRelationship2 = [v32 toOneRelationship];
-            if (toOneRelationship2)
+            propertyDescription = [toOneRelationship propertyDescription];
+            if (propertyDescription)
             {
-              propertyDescription2 = [toOneRelationship2 propertyDescription];
-              if (propertyDescription2)
-              {
-                [(__CFSet *)Mutable addObject:propertyDescription2];
-              }
+              [(__CFSet *)Mutable addObject:propertyDescription];
             }
           }
-
-          ++v21;
         }
 
-        v28 = [foreignEntityKeyColumns countByEnumeratingWithState:&v84 objects:v96 count:16];
+        ++v21;
       }
 
-      while (v28);
+      v20 = [foreignKeyColumns countByEnumeratingWithState:&v87 objects:v96 count:16];
     }
 
-    else
-    {
-      v30 = v65;
-    }
-
-    v82 = 0u;
-    v83 = 0u;
-    v80 = 0u;
-    v81 = 0u;
-    v35 = [foreignOrderKeyColumns countByEnumeratingWithState:&v80 objects:v95 count:16];
-    if (v35)
-    {
-      v36 = v35;
-      v37 = *v81;
-      v38 = v66;
-      do
-      {
-        for (k = 0; k != v36; ++k)
-        {
-          if (*v81 != v37)
-          {
-            objc_enumerationMutation(foreignOrderKeyColumns);
-          }
-
-          v40 = *(*(&v80 + 1) + 8 * k);
-          if (CFBitVectorGetBitAtIndex(v18, v21))
-          {
-            toOneRelationship3 = [v40 toOneRelationship];
-            if (toOneRelationship3)
-            {
-              propertyDescription3 = [toOneRelationship3 propertyDescription];
-              if (propertyDescription3)
-              {
-                [(__CFSet *)Mutable addObject:propertyDescription3];
-              }
-            }
-          }
-
-          ++v21;
-        }
-
-        v36 = [foreignOrderKeyColumns countByEnumeratingWithState:&v80 objects:v95 count:16];
-      }
-
-      while (v36);
-    }
-
-    else
-    {
-      v38 = v66;
-    }
-
-    v78 = 0u;
-    v79 = 0u;
-    v76 = 0u;
-    v77 = 0u;
-    v43 = [v30 countByEnumeratingWithState:&v76 objects:v94 count:16];
-    if (v43)
-    {
-      v44 = v43;
-      v45 = *v77;
-      v46 = v67;
-      do
-      {
-        for (m = 0; m != v44; ++m)
-        {
-          if (*v77 != v45)
-          {
-            objc_enumerationMutation(v30);
-          }
-
-          v48 = *(*(&v76 + 1) + 8 * m);
-          if (CFBitVectorGetBitAtIndex(v18, v21))
-          {
-            -[__CFSet addObject:](Mutable, "addObject:", [v48 attributeDescription]);
-          }
-
-          ++v21;
-        }
-
-        v44 = [v30 countByEnumeratingWithState:&v76 objects:v94 count:16];
-      }
-
-      while (v44);
-    }
-
-    else
-    {
-      v46 = v67;
-    }
-
-    v74 = 0u;
-    v75 = 0u;
-    v72 = 0u;
-    v73 = 0u;
-    v49 = [v38 countByEnumeratingWithState:&v72 objects:v93 count:16];
-    if (v49)
-    {
-      v50 = v49;
-      v51 = *v73;
-      do
-      {
-        v52 = 0;
-        do
-        {
-          if (*v73 != v51)
-          {
-            objc_enumerationMutation(v38);
-          }
-
-          v53 = *(*(&v72 + 1) + 8 * v52);
-          if (CFBitVectorGetBitAtIndex(v18, v21))
-          {
-            if (v53)
-            {
-              propertyDescription4 = [v53 propertyDescription];
-            }
-
-            else
-            {
-              propertyDescription4 = 0;
-            }
-
-            [(__CFSet *)Mutable addObject:propertyDescription4];
-          }
-
-          ++v21;
-          ++v52;
-        }
-
-        while (v50 != v52);
-        v55 = [v38 countByEnumeratingWithState:&v72 objects:v93 count:16];
-        v50 = v55;
-      }
-
-      while (v55);
-    }
-
-    v70 = 0u;
-    v71 = 0u;
-    v68 = 0u;
-    v69 = 0u;
-    v56 = [v46 countByEnumeratingWithState:&v68 objects:v92 count:16];
-    if (v56)
-    {
-      v57 = v56;
-      v58 = *v69;
-      do
-      {
-        v59 = 0;
-        do
-        {
-          if (*v69 != v58)
-          {
-            objc_enumerationMutation(v46);
-          }
-
-          v60 = *(*(&v68 + 1) + 8 * v59);
-          if (CFBitVectorGetBitAtIndex(v18, v21))
-          {
-            if (v60)
-            {
-              propertyDescription5 = [v60 propertyDescription];
-            }
-
-            else
-            {
-              propertyDescription5 = 0;
-            }
-
-            [(__CFSet *)Mutable addObject:propertyDescription5];
-          }
-
-          ++v21;
-          ++v59;
-        }
-
-        while (v57 != v59);
-        v62 = [v46 countByEnumeratingWithState:&v68 objects:v92 count:16];
-        v57 = v62;
-      }
-
-      while (v62);
-    }
-
-    CFRelease(v18);
+    while (v20);
   }
 
   else
   {
-    Mutable = 0;
+    v21 = 0;
   }
 
-  v63 = *MEMORY[0x1E69E9840];
+  v85 = 0u;
+  v86 = 0u;
+  v83 = 0u;
+  v84 = 0u;
+  v27 = [foreignEntityKeyColumns countByEnumeratingWithState:&v83 objects:v95 count:16];
+  if (v27)
+  {
+    v28 = v27;
+    v29 = *v84;
+    v30 = v64;
+    do
+    {
+      for (j = 0; j != v28; ++j)
+      {
+        if (*v84 != v29)
+        {
+          objc_enumerationMutation(foreignEntityKeyColumns);
+        }
+
+        v32 = *(*(&v83 + 1) + 8 * j);
+        if (CFBitVectorGetBitAtIndex(v18, v21))
+        {
+          toOneRelationship2 = [v32 toOneRelationship];
+          if (toOneRelationship2)
+          {
+            propertyDescription2 = [toOneRelationship2 propertyDescription];
+            if (propertyDescription2)
+            {
+              [(__CFSet *)Mutable addObject:propertyDescription2];
+            }
+          }
+        }
+
+        ++v21;
+      }
+
+      v28 = [foreignEntityKeyColumns countByEnumeratingWithState:&v83 objects:v95 count:16];
+    }
+
+    while (v28);
+  }
+
+  else
+  {
+    v30 = v64;
+  }
+
+  v81 = 0u;
+  v82 = 0u;
+  v79 = 0u;
+  v80 = 0u;
+  v35 = [foreignOrderKeyColumns countByEnumeratingWithState:&v79 objects:v94 count:16];
+  if (v35)
+  {
+    v36 = v35;
+    v37 = *v80;
+    v38 = v65;
+    do
+    {
+      for (k = 0; k != v36; ++k)
+      {
+        if (*v80 != v37)
+        {
+          objc_enumerationMutation(foreignOrderKeyColumns);
+        }
+
+        v40 = *(*(&v79 + 1) + 8 * k);
+        if (CFBitVectorGetBitAtIndex(v18, v21))
+        {
+          toOneRelationship3 = [v40 toOneRelationship];
+          if (toOneRelationship3)
+          {
+            propertyDescription3 = [toOneRelationship3 propertyDescription];
+            if (propertyDescription3)
+            {
+              [(__CFSet *)Mutable addObject:propertyDescription3];
+            }
+          }
+        }
+
+        ++v21;
+      }
+
+      v36 = [foreignOrderKeyColumns countByEnumeratingWithState:&v79 objects:v94 count:16];
+    }
+
+    while (v36);
+  }
+
+  else
+  {
+    v38 = v65;
+  }
+
+  v77 = 0u;
+  v78 = 0u;
+  v75 = 0u;
+  v76 = 0u;
+  v43 = [v30 countByEnumeratingWithState:&v75 objects:v93 count:16];
+  if (v43)
+  {
+    v44 = v43;
+    v45 = *v76;
+    v46 = v66;
+    do
+    {
+      for (m = 0; m != v44; ++m)
+      {
+        if (*v76 != v45)
+        {
+          objc_enumerationMutation(v30);
+        }
+
+        v48 = *(*(&v75 + 1) + 8 * m);
+        if (CFBitVectorGetBitAtIndex(v18, v21))
+        {
+          -[__CFSet addObject:](Mutable, "addObject:", [v48 attributeDescription]);
+        }
+
+        ++v21;
+      }
+
+      v44 = [v30 countByEnumeratingWithState:&v75 objects:v93 count:16];
+    }
+
+    while (v44);
+  }
+
+  else
+  {
+    v46 = v66;
+  }
+
+  v73 = 0u;
+  v74 = 0u;
+  v71 = 0u;
+  v72 = 0u;
+  v49 = [v38 countByEnumeratingWithState:&v71 objects:v92 count:16];
+  if (v49)
+  {
+    v50 = v49;
+    v51 = *v72;
+    do
+    {
+      v52 = 0;
+      do
+      {
+        if (*v72 != v51)
+        {
+          objc_enumerationMutation(v38);
+        }
+
+        v53 = *(*(&v71 + 1) + 8 * v52);
+        if (CFBitVectorGetBitAtIndex(v18, v21))
+        {
+          if (v53)
+          {
+            propertyDescription4 = [v53 propertyDescription];
+          }
+
+          else
+          {
+            propertyDescription4 = 0;
+          }
+
+          [(__CFSet *)Mutable addObject:propertyDescription4];
+        }
+
+        ++v21;
+        ++v52;
+      }
+
+      while (v50 != v52);
+      v55 = [v38 countByEnumeratingWithState:&v71 objects:v92 count:16];
+      v50 = v55;
+    }
+
+    while (v55);
+  }
+
+  v69 = 0u;
+  v70 = 0u;
+  v67 = 0u;
+  v68 = 0u;
+  v56 = [v46 countByEnumeratingWithState:&v67 objects:v91 count:16];
+  if (v56)
+  {
+    v57 = v56;
+    v58 = *v68;
+    do
+    {
+      v59 = 0;
+      do
+      {
+        if (*v68 != v58)
+        {
+          objc_enumerationMutation(v46);
+        }
+
+        v60 = *(*(&v67 + 1) + 8 * v59);
+        if (CFBitVectorGetBitAtIndex(v18, v21))
+        {
+          if (v60)
+          {
+            propertyDescription5 = [v60 propertyDescription];
+          }
+
+          else
+          {
+            propertyDescription5 = 0;
+          }
+
+          [(__CFSet *)Mutable addObject:propertyDescription5];
+        }
+
+        ++v21;
+        ++v59;
+      }
+
+      while (v57 != v59);
+      v62 = [v46 countByEnumeratingWithState:&v67 objects:v91 count:16];
+      v57 = v62;
+    }
+
+    while (v62);
+  }
+
+  CFRelease(v18);
   return Mutable;
 }
 
 + (void)_propertyDataForEntity:(void *)entity withSetOfPropertyNames:
 {
-  v88 = *MEMORY[0x1E69E9840];
+  v87 = *MEMORY[0x1E69E9840];
   objc_opt_self();
   foreignKeyColumns = [a2 foreignKeyColumns];
   foreignEntityKeyColumns = [a2 foreignEntityKeyColumns];
@@ -1136,41 +1128,41 @@ LABEL_73:
   attributeColumns = [a2 attributeColumns];
   toManyRelationships = [a2 toManyRelationships];
   manyToManyRelationships = [a2 manyToManyRelationships];
-  v56 = attributeColumns;
+  v55 = attributeColumns;
   v11 = [attributeColumns count];
-  v55 = foreignOrderKeyColumns;
+  v54 = foreignOrderKeyColumns;
   v12 = [foreignOrderKeyColumns count] + v11;
-  v54 = foreignEntityKeyColumns;
+  v53 = foreignEntityKeyColumns;
   v13 = [foreignEntityKeyColumns count];
   v14 = v12 + v13 + [foreignKeyColumns count];
-  v57 = toManyRelationships;
+  v56 = toManyRelationships;
   v15 = [toManyRelationships count];
-  v53 = manyToManyRelationships;
+  v52 = manyToManyRelationships;
   v16 = [manyToManyRelationships count];
-  v52 = v14 + v15 + v16;
+  v51 = v14 + v15 + v16;
   MEMORY[0x1EEE9AC00](v16);
-  v18 = &v52 - v17;
-  bzero(&v52 - v17, v19);
-  v80 = 0u;
-  v81 = 0u;
-  v78 = 0u;
+  v18 = &v51 - v17;
+  bzero(&v51 - v17, v19);
   v79 = 0u;
-  v20 = [foreignKeyColumns countByEnumeratingWithState:&v78 objects:v87 count:16];
+  v80 = 0u;
+  v77 = 0u;
+  v78 = 0u;
+  v20 = [foreignKeyColumns countByEnumeratingWithState:&v77 objects:v86 count:16];
   if (v20)
   {
     v21 = v20;
     v22 = 0;
-    v23 = *v79;
+    v23 = *v78;
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v79 != v23)
+        if (*v78 != v23)
         {
           objc_enumerationMutation(foreignKeyColumns);
         }
 
-        if ([entity containsObject:{objc_msgSend(objc_msgSend(*(*(&v78 + 1) + 8 * i), "toOneRelationship", v52), "name")}])
+        if ([entity containsObject:{objc_msgSend(objc_msgSend(*(*(&v77 + 1) + 8 * i), "toOneRelationship", v51), "name")}])
         {
           v18[v22 >> 3] |= 1 << (~v22 & 7);
         }
@@ -1178,7 +1170,7 @@ LABEL_73:
         ++v22;
       }
 
-      v21 = [foreignKeyColumns countByEnumeratingWithState:&v78 objects:v87 count:16];
+      v21 = [foreignKeyColumns countByEnumeratingWithState:&v77 objects:v86 count:16];
     }
 
     while (v21);
@@ -1189,26 +1181,26 @@ LABEL_73:
     v22 = 0;
   }
 
-  v76 = 0u;
-  v77 = 0u;
-  v74 = 0u;
   v75 = 0u;
-  v25 = [v54 countByEnumeratingWithState:&v74 objects:v86 count:{16, v52}];
+  v76 = 0u;
+  v73 = 0u;
+  v74 = 0u;
+  v25 = [v53 countByEnumeratingWithState:&v73 objects:v85 count:{16, v51}];
   if (v25)
   {
     v26 = v25;
-    v27 = *v75;
-    v28 = v53;
+    v27 = *v74;
+    v28 = v52;
     do
     {
       for (j = 0; j != v26; ++j)
       {
-        if (*v75 != v27)
+        if (*v74 != v27)
         {
-          objc_enumerationMutation(v54);
+          objc_enumerationMutation(v53);
         }
 
-        if ([entity containsObject:{objc_msgSend(objc_msgSend(*(*(&v74 + 1) + 8 * j), "toOneRelationship"), "name")}])
+        if ([entity containsObject:{objc_msgSend(objc_msgSend(*(*(&v73 + 1) + 8 * j), "toOneRelationship"), "name")}])
         {
           v18[v22 >> 3] |= 1 << (~v22 & 7);
         }
@@ -1216,7 +1208,7 @@ LABEL_73:
         ++v22;
       }
 
-      v26 = [v54 countByEnumeratingWithState:&v74 objects:v86 count:16];
+      v26 = [v53 countByEnumeratingWithState:&v73 objects:v85 count:16];
     }
 
     while (v26);
@@ -1224,28 +1216,28 @@ LABEL_73:
 
   else
   {
-    v28 = v53;
+    v28 = v52;
   }
 
-  v72 = 0u;
-  v73 = 0u;
-  v70 = 0u;
   v71 = 0u;
-  v30 = [v55 countByEnumeratingWithState:&v70 objects:v85 count:16];
+  v72 = 0u;
+  v69 = 0u;
+  v70 = 0u;
+  v30 = [v54 countByEnumeratingWithState:&v69 objects:v84 count:16];
   if (v30)
   {
     v31 = v30;
-    v32 = *v71;
+    v32 = *v70;
     do
     {
       for (k = 0; k != v31; ++k)
       {
-        if (*v71 != v32)
+        if (*v70 != v32)
         {
-          objc_enumerationMutation(v55);
+          objc_enumerationMutation(v54);
         }
 
-        if ([entity containsObject:{objc_msgSend(objc_msgSend(*(*(&v70 + 1) + 8 * k), "toOneRelationship"), "name")}])
+        if ([entity containsObject:{objc_msgSend(objc_msgSend(*(*(&v69 + 1) + 8 * k), "toOneRelationship"), "name")}])
         {
           v18[v22 >> 3] |= 1 << (~v22 & 7);
         }
@@ -1253,31 +1245,31 @@ LABEL_73:
         ++v22;
       }
 
-      v31 = [v55 countByEnumeratingWithState:&v70 objects:v85 count:16];
+      v31 = [v54 countByEnumeratingWithState:&v69 objects:v84 count:16];
     }
 
     while (v31);
   }
 
-  v68 = 0u;
-  v69 = 0u;
-  v66 = 0u;
   v67 = 0u;
-  v34 = [v56 countByEnumeratingWithState:&v66 objects:v84 count:16];
+  v68 = 0u;
+  v65 = 0u;
+  v66 = 0u;
+  v34 = [v55 countByEnumeratingWithState:&v65 objects:v83 count:16];
   if (v34)
   {
     v35 = v34;
-    v36 = *v67;
+    v36 = *v66;
     do
     {
       for (m = 0; m != v35; ++m)
       {
-        if (*v67 != v36)
+        if (*v66 != v36)
         {
-          objc_enumerationMutation(v56);
+          objc_enumerationMutation(v55);
         }
 
-        if ([entity containsObject:{objc_msgSend(*(*(&v66 + 1) + 8 * m), "name")}])
+        if ([entity containsObject:{objc_msgSend(*(*(&v65 + 1) + 8 * m), "name")}])
         {
           v18[v22 >> 3] |= 1 << (~v22 & 7);
         }
@@ -1285,31 +1277,31 @@ LABEL_73:
         ++v22;
       }
 
-      v35 = [v56 countByEnumeratingWithState:&v66 objects:v84 count:16];
+      v35 = [v55 countByEnumeratingWithState:&v65 objects:v83 count:16];
     }
 
     while (v35);
   }
 
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
   v63 = 0u;
-  v38 = [v57 countByEnumeratingWithState:&v62 objects:v83 count:16];
+  v64 = 0u;
+  v61 = 0u;
+  v62 = 0u;
+  v38 = [v56 countByEnumeratingWithState:&v61 objects:v82 count:16];
   if (v38)
   {
     v39 = v38;
-    v40 = *v63;
+    v40 = *v62;
     do
     {
       for (n = 0; n != v39; ++n)
       {
-        if (*v63 != v40)
+        if (*v62 != v40)
         {
-          objc_enumerationMutation(v57);
+          objc_enumerationMutation(v56);
         }
 
-        if ([entity containsObject:{objc_msgSend(*(*(&v62 + 1) + 8 * n), "name")}])
+        if ([entity containsObject:{objc_msgSend(*(*(&v61 + 1) + 8 * n), "name")}])
         {
           v18[v22 >> 3] |= 1 << (~v22 & 7);
         }
@@ -1317,31 +1309,31 @@ LABEL_73:
         ++v22;
       }
 
-      v39 = [v57 countByEnumeratingWithState:&v62 objects:v83 count:16];
+      v39 = [v56 countByEnumeratingWithState:&v61 objects:v82 count:16];
     }
 
     while (v39);
   }
 
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
   v59 = 0u;
-  v42 = [v28 countByEnumeratingWithState:&v58 objects:v82 count:16];
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
+  v42 = [v28 countByEnumeratingWithState:&v57 objects:v81 count:16];
   if (v42)
   {
     v43 = v42;
-    v44 = *v59;
+    v44 = *v58;
     do
     {
       for (ii = 0; ii != v43; ++ii)
       {
-        if (*v59 != v44)
+        if (*v58 != v44)
         {
           objc_enumerationMutation(v28);
         }
 
-        if ([entity containsObject:{objc_msgSend(*(*(&v58 + 1) + 8 * ii), "name")}])
+        if ([entity containsObject:{objc_msgSend(*(*(&v57 + 1) + 8 * ii), "name")}])
         {
           v18[v22 >> 3] |= 1 << (~v22 & 7);
         }
@@ -1349,27 +1341,26 @@ LABEL_73:
         ++v22;
       }
 
-      v43 = [v28 countByEnumeratingWithState:&v58 objects:v82 count:16];
+      v43 = [v28 countByEnumeratingWithState:&v57 objects:v81 count:16];
     }
 
     while (v43);
   }
 
-  v46 = v52;
-  v47 = CFBitVectorCreate(0, v18, v52);
+  v46 = v51;
+  v47 = CFBitVectorCreate(0, v18, v51);
   v48 = [objc_alloc(MEMORY[0x1E695DF88]) initWithLength:(v46 + 7) >> 3];
   mutableBytes = [v48 mutableBytes];
-  v89.location = 0;
-  v89.length = v46;
-  CFBitVectorGetBits(v47, v89, mutableBytes);
+  v88.location = 0;
+  v88.length = v46;
+  CFBitVectorGetBits(v47, v88, mutableBytes);
   CFRelease(v47);
-  v50 = *MEMORY[0x1E69E9840];
   return v48;
 }
 
 + (void)_dataMaskForEntity:(const __CFBitVector *)entity andDeltaMask:
 {
-  v32[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   objc_opt_self();
   foreignKeyColumns = [a2 foreignKeyColumns];
   foreignEntityKeyColumns = [a2 foreignEntityKeyColumns];
@@ -1385,53 +1376,47 @@ LABEL_73:
   v16 = [manyToManyRelationships count];
   v17 = v14 + v15 + v16;
   MEMORY[0x1EEE9AC00](v16);
-  v19 = v32 - v18;
-  bzero(v32 - v18, v20);
+  v19 = v31 - v18;
+  bzero(v31 - v18, v20);
   Count = CFBitVectorGetCount(entity);
   v22 = Count - 1;
   if (Count < 1)
   {
-LABEL_11:
-    v28 = 0;
+    return 0;
   }
 
-  else
+  v23 = Count;
+  v24 = 0;
+  v25 = 0;
+  do
   {
-    v23 = Count;
-    v24 = 0;
-    v25 = 0;
-    do
+    while (CFBitVectorGetBitAtIndex(entity, v24))
     {
-      while (CFBitVectorGetBitAtIndex(entity, v24))
+      v25 = 1;
+      v19[v24 >> 3] |= 1 << (~v24 & 7);
+      if (v22 == v24++)
       {
-        v25 = 1;
-        v19[v24 >> 3] |= 1 << (~v24 & 7);
-        if (v22 == v24++)
-        {
-          goto LABEL_10;
-        }
+        goto LABEL_10;
       }
-
-      ++v24;
     }
 
-    while (v23 != v24);
-    if ((v25 & 1) == 0)
-    {
-      goto LABEL_11;
-    }
+    ++v24;
+  }
+
+  while (v23 != v24);
+  if ((v25 & 1) == 0)
+  {
+    return 0;
+  }
 
 LABEL_10:
-    v27 = CFBitVectorCreate(0, v19, v17);
-    v28 = [objc_alloc(MEMORY[0x1E695DF88]) initWithLength:(v17 + 7) >> 3];
-    mutableBytes = [v28 mutableBytes];
-    v33.location = 0;
-    v33.length = v17;
-    CFBitVectorGetBits(v27, v33, mutableBytes);
-    CFRelease(v27);
-  }
-
-  v30 = *MEMORY[0x1E69E9840];
+  v27 = CFBitVectorCreate(0, v19, v17);
+  v28 = [objc_alloc(MEMORY[0x1E695DF88]) initWithLength:(v17 + 7) >> 3];
+  mutableBytes = [v28 mutableBytes];
+  v32.location = 0;
+  v32.length = v17;
+  CFBitVectorGetBits(v27, v32, mutableBytes);
+  CFRelease(v27);
   return v28;
 }
 

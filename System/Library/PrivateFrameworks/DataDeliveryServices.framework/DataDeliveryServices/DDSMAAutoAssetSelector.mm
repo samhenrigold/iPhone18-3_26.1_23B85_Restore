@@ -30,70 +30,69 @@
 {
   v10[1] = *MEMORY[0x1E69E9840];
   typeCopy = type;
-  if ([typeCopy isEqualToString:@"com.apple.MobileAsset.LinguisticDataAuto"])
+  v4 = [typeCopy isEqualToString:@"com.apple.MobileAsset.LinguisticDataAuto"];
+  if (v4)
   {
-    v4 = MEMORY[0x1E695DFD8];
+    v5 = MEMORY[0x1E695DFD8];
     v10[0] = @"Priority";
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
-    v6 = [v4 setWithArray:v5];
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+    v7 = [v5 setWithArray:v6];
   }
 
   else
   {
-    v7 = AutoAssetLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = AutoAssetLog(v4);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       +[DDSMAAutoAssetSelector allSupportedLinguisticAssetTypeForAssetType:];
     }
 
-    v6 = objc_opt_new();
+    v7 = objc_opt_new();
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-
-  return v6;
+  return v7;
 }
 
 + (id)createWithQuery:(id)query supportedAssetSpecifiers:(id)specifiers
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v73 = *MEMORY[0x1E69E9840];
   queryCopy = query;
   specifiersCopy = specifiers;
   v7 = objc_opt_new();
   assetType = [queryCopy assetType];
   v9 = [DDSMAAutoAssetSelector allSupportedLinguisticAssetTypeForAssetType:assetType];
 
-  v49 = queryCopy;
+  v50 = queryCopy;
   filter = [queryCopy filter];
   v11 = [filter allowedValuesForKey:@"LinguisticAssetType"];
 
-  v65 = 0u;
   v66 = 0u;
-  v63 = 0u;
+  v67 = 0u;
   v64 = 0u;
+  v65 = 0u;
   v12 = v11;
-  v13 = [v12 countByEnumeratingWithState:&v63 objects:v71 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v64 objects:v72 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v64;
+    v15 = *v65;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v64 != v15)
+        if (*v65 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v63 + 1) + 8 * i);
+        v17 = *(*(&v64 + 1) + 8 * i);
         if ([v9 containsObject:v17])
         {
           [v7 addObject:v17];
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v63 objects:v71 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v64 objects:v72 count:16];
     }
 
     while (v14);
@@ -101,7 +100,7 @@
 
   if ([v12 count] && !objc_msgSend(v7, "count"))
   {
-    v20 = AutoAssetLog();
+    v20 = AutoAssetLog(0);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
       +[DDSMAAutoAssetSelector createWithQuery:supportedAssetSpecifiers:];
@@ -114,7 +113,7 @@
   {
     if (![v7 count])
     {
-      v18 = AutoAssetLog();
+      v18 = AutoAssetLog(0);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         +[DDSMAAutoAssetSelector createWithQuery:supportedAssetSpecifiers:];
@@ -124,22 +123,22 @@
       [v7 addObjectsFromArray:allObjects];
     }
 
-    v41 = v12;
-    v42 = v9;
+    v42 = v12;
+    v43 = v9;
     v20 = objc_opt_new();
-    filter2 = [v49 filter];
-    v46 = [filter2 allowedValuesForKey:@"AssetLocale"];
+    filter2 = [v50 filter];
+    v47 = [filter2 allowedValuesForKey:@"AssetLocale"];
 
-    v61 = 0u;
     v62 = 0u;
-    v59 = 0u;
+    v63 = 0u;
     v60 = 0u;
-    v43 = v7;
+    v61 = 0u;
+    v44 = v7;
     obj = v7;
-    v47 = [obj countByEnumeratingWithState:&v59 objects:v70 count:16];
-    if (v47)
+    v48 = [obj countByEnumeratingWithState:&v60 objects:v71 count:16];
+    if (v48)
     {
-      v45 = *v60;
+      v46 = *v61;
       v22 = @"fil";
       v23 = 0x1E695D000uLL;
       v24 = 0x1E696A000uLL;
@@ -148,101 +147,100 @@
         v25 = 0;
         do
         {
-          if (*v60 != v45)
+          if (*v61 != v46)
           {
             objc_enumerationMutation(obj);
           }
 
-          v48 = v25;
-          v52 = *(*(&v59 + 1) + 8 * v25);
-          v55 = 0u;
+          v49 = v25;
+          v53 = *(*(&v60 + 1) + 8 * v25);
           v56 = 0u;
           v57 = 0u;
           v58 = 0u;
-          v50 = v46;
-          v53 = [v50 countByEnumeratingWithState:&v55 objects:v69 count:16];
-          if (v53)
+          v59 = 0u;
+          v51 = v47;
+          v54 = [v51 countByEnumeratingWithState:&v56 objects:v70 count:16];
+          if (v54)
           {
-            v51 = *v56;
+            v52 = *v57;
             do
             {
-              for (j = 0; j != v53; ++j)
+              for (j = 0; j != v54; ++j)
               {
-                if (*v56 != v51)
+                if (*v57 != v52)
                 {
-                  objc_enumerationMutation(v50);
+                  objc_enumerationMutation(v51);
                 }
 
-                v54 = [*(v23 + 3928) localeWithLocaleIdentifier:*(*(&v55 + 1) + 8 * j)];
-                languageCode = [v54 languageCode];
+                v55 = [*(v23 + 3928) localeWithLocaleIdentifier:*(*(&v56 + 1) + 8 * j)];
+                languageCode = [v55 languageCode];
                 if ([(__CFString *)languageCode isEqualToString:v22])
                 {
 
                   languageCode = @"tl";
                 }
 
-                v28 = [*(v24 + 3776) stringWithFormat:@"%@_%@", v52, languageCode];
-                if ([specifiersCopy containsObject:v28])
+                v28 = [*(v24 + 3776) stringWithFormat:@"%@_%@", v53, languageCode];
+                v29 = [specifiersCopy containsObject:v28];
+                if (v29)
                 {
-                  v29 = [DDSMAAutoAssetSelector alloc];
-                  [v49 assetType];
-                  v30 = v24;
-                  v31 = v23;
-                  v32 = v22;
-                  v33 = v20;
-                  v35 = v34 = specifiersCopy;
-                  v36 = [(DDSMAAutoAssetSelector *)v29 initWithAssetType:v35 assetSpecifier:v28];
+                  v30 = [DDSMAAutoAssetSelector alloc];
+                  [v50 assetType];
+                  v31 = v24;
+                  v32 = v23;
+                  v33 = v22;
+                  v34 = v20;
+                  v36 = v35 = specifiersCopy;
+                  v37 = [(DDSMAAutoAssetSelector *)v30 initWithAssetType:v36 assetSpecifier:v28];
 
-                  specifiersCopy = v34;
-                  v20 = v33;
-                  v22 = v32;
-                  v23 = v31;
-                  v24 = v30;
-                  [v20 addObject:v36];
+                  specifiersCopy = v35;
+                  v20 = v34;
+                  v22 = v33;
+                  v23 = v32;
+                  v24 = v31;
+                  [v20 addObject:v37];
                 }
 
                 else
                 {
-                  v36 = DefaultLog();
-                  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+                  v37 = DefaultLog(v29);
+                  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138412290;
-                    v68 = v28;
-                    _os_log_impl(&dword_1DF7C6000, v36, OS_LOG_TYPE_DEFAULT, "Auto asset specifier: %@ is not supported", buf, 0xCu);
+                    v69 = v28;
+                    _os_log_impl(&dword_1DF7C6000, v37, OS_LOG_TYPE_DEFAULT, "Auto asset specifier: %@ is not supported", buf, 0xCu);
                   }
                 }
               }
 
-              v53 = [v50 countByEnumeratingWithState:&v55 objects:v69 count:16];
+              v54 = [v51 countByEnumeratingWithState:&v56 objects:v70 count:16];
             }
 
-            while (v53);
+            while (v54);
           }
 
-          v25 = v48 + 1;
+          v25 = v49 + 1;
         }
 
-        while (v48 + 1 != v47);
-        v47 = [obj countByEnumeratingWithState:&v59 objects:v70 count:16];
+        while (v49 + 1 != v48);
+        v48 = [obj countByEnumeratingWithState:&v60 objects:v71 count:16];
       }
 
-      while (v47);
+      while (v48);
     }
 
-    v37 = AutoAssetLog();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+    v39 = AutoAssetLog(v38);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
     {
       +[DDSMAAutoAssetSelector createWithQuery:supportedAssetSpecifiers:];
     }
 
     allObjects2 = [v20 allObjects];
 
-    v9 = v42;
-    v7 = v43;
-    v12 = v41;
+    v9 = v43;
+    v7 = v44;
+    v12 = v42;
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 
   return allObjects2;
 }
@@ -285,38 +283,13 @@
   return v8;
 }
 
-+ (void)allSupportedLinguisticAssetTypeForAssetType:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_1DF7C6000, v0, v1, "Supported linguistic asset types are not provided for asset type: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)createWithQuery:supportedAssetSpecifiers:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_1DF7C6000, v0, v1, "LinguisticAssetType is provided in the query does not support auto asset: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)createWithQuery:supportedAssetSpecifiers:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_1DF7C6000, v0, v1, "LinguisticAssetType is not provided in the query: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 + (void)createWithQuery:supportedAssetSpecifiers:.cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_debug_impl(&dword_1DF7C6000, v1, OS_LOG_TYPE_DEBUG, "Created DDSMAAutoAssetSelectors: %@ for query: %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_1DF7C6000, v1, OS_LOG_TYPE_DEBUG, "Created DDSMAAutoAssetSelectors: %@ for query: %@", v2, 0x16u);
 }
 
 @end

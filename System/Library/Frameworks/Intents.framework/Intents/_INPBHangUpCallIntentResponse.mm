@@ -3,6 +3,7 @@
 - (_INPBHangUpCallIntentResponse)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)hungUpCallTypeAsString:(int)string;
 - (int)StringAsHungUpCallType:(id)type;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -107,7 +108,6 @@
   toCopy = to;
   if ([(_INPBHangUpCallIntentResponse *)self hasHungUpCallType])
   {
-    hungUpCallType = self->_hungUpCallType;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -161,6 +161,22 @@
   }
 
   return v4;
+}
+
+- (id)hungUpCallTypeAsString:(int)string
+{
+  v4 = string - 2;
+  if (string - 2) < 9 && ((0x1EFu >> v4))
+  {
+    v5 = off_1E7286FB8[v4];
+  }
+
+  else
+  {
+    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v5;
 }
 
 - (void)setHungUpCallType:(int)type

@@ -37,10 +37,10 @@
 {
   x = offset->x;
   selfCopy = self;
-  v7 = sub_257EBBE70(x);
+  sub_257EBBE70(x);
   if ((v8 & 1) == 0)
   {
-    *&offset->x = v7;
+    offset->x = v7;
   }
 }
 
@@ -67,7 +67,7 @@
   swift_getKeyPath();
   sub_257ECC3F0();
   sub_257ECDD70();
-  sub_257BE4084(v3, &unk_27F8F62F0);
+  sub_257BE4084(v3, &unk_27F8F62F0, &unk_257ED9D30);
 }
 
 - (unint64_t)accessibilityTraits
@@ -124,12 +124,12 @@ LABEL_5:
 
 - (id)_accessibilitySupplementaryFooterViews
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F8F5470);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F8F5470, &unk_257EDBF30);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_257ED6D30;
   selfCopy = self;
   v5 = sub_257EB85FC();
-  *(v3 + 56) = sub_257BD2C2C(0, &unk_281543D80);
+  *(v3 + 56) = sub_257BD2C2C(0, &unk_281543D80, 0x277D75220);
   *(v3 + 32) = v5;
 
   v6 = sub_257ECF7F0();

@@ -64,36 +64,36 @@
 
 id __57__RTLocationOfInterestEnumerationOptions_processingBlock__block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (v3)
   {
     v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v3, "count")}];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = [*(*(&v14 + 1) + 8 * i) pruneVisitsWithDateInterval:{*(*(a1 + 32) + 24), v14}];
+          v11 = [*(*(&v13 + 1) + 8 * i) pruneVisitsWithDateInterval:{*(*(a1 + 32) + 24), v13}];
           [v5 addObject:v11];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -104,8 +104,6 @@ id __57__RTLocationOfInterestEnumerationOptions_processingBlock__block_invoke(ui
   {
     v5 = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

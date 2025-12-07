@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)notificationTypeAsString:(int)string;
 - (int)StringAsNotificationType:(id)type;
 - (int)notificationType;
 - (unint64_t)hash;
@@ -24,6 +25,29 @@
   {
     return 0;
   }
+}
+
+- (id)notificationTypeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"HeartRhythmDataAvailable";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"None";
+  }
+
+  return v4;
 }
 
 - (int)StringAsNotificationType:(id)type
@@ -88,7 +112,6 @@
 {
   if (*&self->_has)
   {
-    notificationType = self->_notificationType;
     PBDataWriterWriteInt32Field();
   }
 }

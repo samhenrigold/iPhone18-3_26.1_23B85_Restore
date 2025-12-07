@@ -10,10 +10,10 @@
 - (_TtC10StickerKit27ActivitityTypeConfiguration)initWithBSXPCCoder:(id)coder
 {
   swift_unknownObjectRetain();
-  sub_19A716EC8(coder);
-  v5 = v4;
+  sub_19A716EC8(coder, v4);
+  v6 = v5;
   swift_unknownObjectRelease();
-  return v5;
+  return v6;
 }
 
 - (void)encodeWithBSXPCCoder:(id)coder
@@ -42,14 +42,14 @@
 
   else
   {
-    memset(v8, 0, sizeof(v8));
+    memset(v9, 0, sizeof(v9));
     selfCopy2 = self;
   }
 
-  v6 = ActivitityTypeConfiguration.isEqual(_:)(v8);
+  v7 = ActivitityTypeConfiguration.isEqual(_:)(v9, v5);
 
-  sub_19A612E20(v8);
-  return v6 & 1;
+  sub_19A612E20(v9);
+  return v7 & 1;
 }
 
 - (_TtC10StickerKit27ActivitityTypeConfiguration)init

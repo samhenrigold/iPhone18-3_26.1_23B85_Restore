@@ -111,12 +111,12 @@
   [(PKMultiStackedLabelCell *)&v4 layoutSubviews];
   contentView = [(PKMultiStackedLabelCell *)self contentView];
   [contentView bounds];
-  [(PKMultiStackedLabelCell *)self _layoutWithBounds:0 isTemplateLayout:?];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self);
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  [(PKMultiStackedLabelCell *)self _layoutWithBounds:1 isTemplateLayout:*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self, a2, 1, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height);
   result.height = v4;
   result.width = v3;
   return result;
@@ -132,8 +132,8 @@
   v11 = x + v10;
   v12 = width - (v10 + PKTableViewCellTextInset());
   [(PKMultiStackedLabelCell *)self _shouldReverseLayoutDirection];
-  v28.size.width = v12;
-  v28.size.height = height + -30.0;
+  v39.size.width = v12;
+  v39.size.height = height + -30.0;
   if ([(NSArray *)self->_textLabels count:*&v11])
   {
     v13 = 0;
@@ -142,38 +142,46 @@
     do
     {
       v15 = [(NSArray *)self->_textLabels objectAtIndexedSubscript:v13];
-      [v15 sizeThatFits:{v28.size.width, v28.size.height}];
-      CGRectDivide(v28, &slice, &v28, v16, CGRectMinYEdge);
-      PKContentAlignmentMake();
-      PKSizeAlignedInRect();
-      v18 = v17;
-      v20 = v19;
-      v22 = v21;
-      v24 = v23;
-      CGRectDivide(v28, &slice, &v28, self->_paddingBetweenRows, CGRectMinYEdge);
+      [v15 sizeThatFits:{v39.size.width, v39.size.height}];
+      v17 = v16;
+      v19 = *&v18;
+      CGRectDivide(v39, &slice, &v39, v18, CGRectMinYEdge);
+      v20 = PKContentAlignmentMake();
+      v21.n128_u64[0] = *&slice.origin.x;
+      v22.n128_u64[0] = *&slice.origin.y;
+      v23.n128_u64[0] = *&slice.size.width;
+      v24.n128_u64[0] = *&slice.size.height;
+      v25.n128_u64[0] = v17;
+      v26.n128_u64[0] = v19;
+      PKSizeAlignedInRect(v20, v25, v26, v21, v22, v23, v24, v27);
+      v29 = v28;
+      v31 = v30;
+      v33 = v32;
+      v35 = v34;
+      CGRectDivide(v39, &slice, &v39, self->_paddingBetweenRows, CGRectMinYEdge);
       paddingBetweenRows = self->_paddingBetweenRows;
       if (!layout)
       {
-        [v15 setFrame:{v18, v20, v22, v24}];
+        [v15 setFrame:{v29, v31, v33, v35}];
       }
 
-      v14 = v14 + v24 + paddingBetweenRows;
+      v14 = v14 + v35 + paddingBetweenRows;
 
       ++v13;
     }
 
     while (v13 < [(NSArray *)self->_textLabels count]);
-    v26 = v14 + 30.0;
+    v37 = v14 + 30.0;
   }
 
   else
   {
-    v26 = 30.0;
+    v37 = 30.0;
   }
 
-  v27 = width;
-  result.height = v26;
-  result.width = v27;
+  v38 = width;
+  result.height = v37;
+  result.width = v38;
   return result;
 }
 

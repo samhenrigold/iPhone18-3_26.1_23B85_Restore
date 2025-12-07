@@ -172,7 +172,7 @@
 
 - (void)setPropertiesBasedOnEvents
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   distantFuture = [MEMORY[0x1E695DF00] distantFuture];
   startDate = self->_startDate;
   self->_startDate = distantFuture;
@@ -181,26 +181,26 @@
   endDate = self->_endDate;
   self->_endDate = distantPast;
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   events = [(PCEventBundle *)self events];
-  v8 = [events countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v8 = [events countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v25;
+    v10 = *v24;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v25 != v10)
+        if (*v24 != v10)
         {
           objc_enumerationMutation(events);
         }
 
-        v12 = *(*(&v24 + 1) + 8 * i);
+        v12 = *(*(&v23 + 1) + 8 * i);
         v13 = self->_startDate;
         startDate = [v12 startDate];
         LODWORD(v13) = [(NSDate *)v13 isAfterDate:startDate];
@@ -225,33 +225,22 @@
         }
       }
 
-      v9 = [events countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v9 = [events countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v9);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (id)localStartDate
 {
   time = [(PCEventBundle *)self time];
-  if (!time)
-  {
-    goto LABEL_4;
-  }
-
-  v4 = time;
-  time2 = [(PCEventBundle *)self time];
-  timeZone = [time2 timeZone];
-
-  if (timeZone)
+  if (time && (v4 = time, -[PCEventBundle time](self, "time"), v5 = objc_claimAutoreleasedReturnValue(), [v5 timeZone], v6 = objc_claimAutoreleasedReturnValue(), v6, v5, v4, v6))
   {
     v7 = objc_alloc(MEMORY[0x1E695DFE8]);
-    time3 = [(PCEventBundle *)self time];
-    timeZone2 = [time3 timeZone];
-    v10 = [v7 initWithName:timeZone2];
+    time2 = [(PCEventBundle *)self time];
+    timeZone = [time2 timeZone];
+    v10 = [v7 initWithName:timeZone];
 
     startDate = [(PCEventBundle *)self startDate];
     startDate2 = [PCTime localTimeOfDate:startDate timeZone:v10];
@@ -259,7 +248,6 @@
 
   else
   {
-LABEL_4:
     startDate2 = [(PCEventBundle *)self startDate];
   }
 
@@ -269,21 +257,12 @@ LABEL_4:
 - (id)localEndDate
 {
   time = [(PCEventBundle *)self time];
-  if (!time)
-  {
-    goto LABEL_4;
-  }
-
-  v4 = time;
-  time2 = [(PCEventBundle *)self time];
-  timeZone = [time2 timeZone];
-
-  if (timeZone)
+  if (time && (v4 = time, -[PCEventBundle time](self, "time"), v5 = objc_claimAutoreleasedReturnValue(), [v5 timeZone], v6 = objc_claimAutoreleasedReturnValue(), v6, v5, v4, v6))
   {
     v7 = objc_alloc(MEMORY[0x1E695DFE8]);
-    time3 = [(PCEventBundle *)self time];
-    timeZone2 = [time3 timeZone];
-    v10 = [v7 initWithName:timeZone2];
+    time2 = [(PCEventBundle *)self time];
+    timeZone = [time2 timeZone];
+    v10 = [v7 initWithName:timeZone];
 
     endDate = [(PCEventBundle *)self endDate];
     endDate2 = [PCTime localTimeOfDate:endDate timeZone:v10];
@@ -291,7 +270,6 @@ LABEL_4:
 
   else
   {
-LABEL_4:
     endDate2 = [(PCEventBundle *)self endDate];
   }
 
@@ -300,7 +278,7 @@ LABEL_4:
 
 - (void)addEvent:(id)event
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   eventCopy = event;
   if (eventCopy)
   {
@@ -319,13 +297,11 @@ LABEL_4:
 
     else
     {
-      v11[0] = eventCopy;
-      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+      v10[0] = eventCopy;
+      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
       [(PCEventBundle *)self setEvents:v8];
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addEvents:(id)events

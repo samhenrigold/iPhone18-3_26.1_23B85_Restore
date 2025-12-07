@@ -22,7 +22,7 @@ BOOL CA::FrameRateArbitrator::RangeSorter<CAFrameIntervalRequest>(_DWORD *a1, _D
   return v5 == v6 && a1[4] < a2[4];
 }
 
-CA::Display::DisplayLink *CA::Display::DisplayLinkItem::set_paused(CA::Display::DisplayLinkItem *this, int a2)
+CA::Display::DisplayLink *CA::Display::DisplayLinkItem::set_paused(CA::Display::DisplayLinkItem *this, unsigned int a2)
 {
   if (BYTE11(xmmword_1ED4E980C) == 1)
   {
@@ -1135,7 +1135,7 @@ LABEL_97:
                   v84 = *(this + 78) != v224 || *(this + 79) != v34;
                   v179 = v84;
                   v85 = *(this + 80);
-                  v187 = this + 152;
+                  v187 = (this + 152);
                   v163 = v221 == v85 && __PAIR128__(__PAIR64__(HIDWORD(v202), DWORD1(v220)), __PAIR64__(v220, DWORD1(v221))) == *(this + 324) && *(this + 340) == v202 && v201 == __PAIR64__(*(this + 86), *(this + 87)) && v200 == *(this + 44) && v199 == *(this + 90);
                   v185 = v34;
                   v192 = v43;
@@ -2880,7 +2880,7 @@ LABEL_12:
   return v9;
 }
 
-uint64_t CA::WindowServer::Display::ModeSet::operator=(uint64_t a1, char **a2)
+char **CA::WindowServer::Display::ModeSet::operator=(char **a1, char **a2)
 {
   v41[1] = *MEMORY[0x1E69E9840];
   if (a1 == a2)
@@ -2891,19 +2891,19 @@ uint64_t CA::WindowServer::Display::ModeSet::operator=(uint64_t a1, char **a2)
   v4 = *a2;
   v5 = a2[1];
   v6 = v5 - *a2;
-  v7 = *(a1 + 16);
+  v7 = a1[2];
   v8 = *a1;
   if (v7 - *a1 < v6)
   {
     v9 = v6 >> 3;
     if (v8)
     {
-      *(a1 + 8) = v8;
+      a1[1] = v8;
       operator delete(v8);
       v7 = 0;
       *a1 = 0;
-      *(a1 + 8) = 0;
-      *(a1 + 16) = 0;
+      a1[1] = 0;
+      a1[2] = 0;
     }
 
     if (!(v9 >> 61))
@@ -2930,7 +2930,7 @@ uint64_t CA::WindowServer::Display::ModeSet::operator=(uint64_t a1, char **a2)
     std::vector<CA::Display::DisplayEDRState *>::__throw_length_error[abi:nn200100]();
   }
 
-  v12 = *(a1 + 8);
+  v12 = a1[1];
   v13 = v12 - v8;
   if (v12 - v8 >= v6)
   {
@@ -2948,7 +2948,7 @@ uint64_t CA::WindowServer::Display::ModeSet::operator=(uint64_t a1, char **a2)
     if (v12 != v8)
     {
       memmove(*a1, *a2, v13);
-      v12 = *(a1 + 8);
+      v12 = a1[1];
     }
 
     if (v5 != v14)
@@ -2959,20 +2959,20 @@ uint64_t CA::WindowServer::Display::ModeSet::operator=(uint64_t a1, char **a2)
     v15 = &v12[v5 - v14];
   }
 
-  *(a1 + 8) = v15;
+  a1[1] = v15;
   v16 = a2[3];
-  v17 = (a2 + 4);
-  if (*(a1 + 40))
+  v17 = a2 + 4;
+  if (a1[5])
   {
-    v18 = *(a1 + 32);
-    v19 = *(a1 + 24);
-    *(a1 + 24) = a1 + 32;
-    *(v18 + 16) = 0;
-    *(a1 + 32) = 0;
-    *(a1 + 40) = 0;
-    if (v19[1])
+    v18 = a1[4];
+    v19 = a1[3];
+    a1[3] = (a1 + 4);
+    *(v18 + 2) = 0;
+    a1[4] = 0;
+    a1[5] = 0;
+    if (*(v19 + 1))
     {
-      v20 = v19[1];
+      v20 = *(v19 + 1);
     }
 
     else
@@ -3001,8 +3001,8 @@ LABEL_42:
         v25 = *(v22 + 14);
         *(v23 + 14) = v25;
         v41[0] = 0;
-        leaf_high = std::__tree<std::tuple<unsigned short,unsigned short>>::__find_leaf_high(a1 + 24, v41, v24, v25);
-        std::__tree<std::tuple<unsigned short,unsigned short>>::__insert_node_at((a1 + 24), v41[0], leaf_high, v23);
+        leaf_high = std::__tree<std::tuple<unsigned short,unsigned short>>::__find_leaf_high((a1 + 3), v41, v24, v25);
+        std::__tree<std::tuple<unsigned short,unsigned short>>::__insert_node_at(a1 + 3, v41[0], leaf_high, v23);
         if (v21)
         {
           v21 = std::__tree<std::tuple<unsigned short,unsigned short>>::_DetachedTreeCache::__detach_next(v21);
@@ -3046,7 +3046,7 @@ LABEL_42:
     std::__tree<std::tuple<unsigned short,unsigned short>>::destroy(v20);
     if (v21)
     {
-      for (i = v21[2]; i; i = i[2])
+      for (i = *(v21 + 2); i; i = *(i + 2))
       {
         v21 = i;
       }
@@ -3062,9 +3062,9 @@ LABEL_43:
     operator new();
   }
 
-  *(a1 + 80) = *(a2 + 20);
+  *(a1 + 20) = *(a2 + 20);
   v31 = a2[8];
-  v32 = *(a1 + 56);
+  v32 = a1[7];
   if (!v32)
   {
     goto LABEL_51;
@@ -3072,25 +3072,25 @@ LABEL_43:
 
   for (j = 0; j != v32; ++j)
   {
-    *(*(a1 + 48) + 8 * j) = 0;
+    *&a1[6][8 * j] = 0;
   }
 
-  v34 = *(a1 + 64);
-  *(a1 + 64) = 0;
-  *(a1 + 72) = 0;
+  v34 = a1[8];
+  a1[8] = 0;
+  a1[9] = 0;
   if (v34)
   {
     while (v31)
     {
       v35 = *(v31 + 2);
-      v34[2] = v35;
+      *(v34 + 2) = v35;
       v36 = *(v31 + 3);
       *(v34 + 8) = *(v31 + 8);
-      v34[3] = v36;
+      *(v34 + 3) = v36;
       v37 = *v34;
-      v34[1] = v35;
-      inserted = std::__hash_table<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>>>::__node_insert_multi_prepare(a1 + 48, v35, v34 + 2);
-      std::__hash_table<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>>>::__node_insert_multi_perform((a1 + 48), v34, inserted);
+      *(v34 + 1) = v35;
+      inserted = std::__hash_table<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>>>::__node_insert_multi_prepare((a1 + 6), v35, v34 + 2);
+      std::__hash_table<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>>>::__node_insert_multi_perform(a1 + 6, v34, inserted);
       v31 = *v31;
       v34 = v37;
       if (!v37)
@@ -3119,7 +3119,7 @@ LABEL_51:
   }
 
 LABEL_54:
-  *(a1 + 88) = *(a2 + 22);
+  *(a1 + 22) = *(a2 + 22);
   return a1;
 }
 
@@ -3290,7 +3290,7 @@ void CA::WindowServer::Display::ModeSet::add_mode(CA::WindowServer::Display::Mod
 
 void CA::WindowServer::Display::ModeSet::set_mig_representation(CA::WindowServer::Display::ModeSet *this, CA::WindowServer::Display::Mode *a2, unsigned int *a3, unsigned int *a4, unsigned int *a5, int a6, PerModeInfo *a7, unint64_t a8, unsigned int a9)
 {
-  v26[2] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   *(this + 1) = *this;
   if (*(this + 9))
   {
@@ -3332,9 +3332,9 @@ void CA::WindowServer::Display::ModeSet::set_mig_representation(CA::WindowServer
       if (a5 == a3)
       {
         v21 = &a4[3 * v18];
-        v26[0] = v20;
-        v26[1] = v26;
-        v22 = std::__hash_table<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 6, v20);
+        v26 = v20;
+        v27[0] = &v26;
+        v22 = std::__hash_table<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 6, v20, v27);
         v23 = *v21;
         *(v22 + 8) = v21[2];
         v22[3] = v23;
@@ -3554,7 +3554,7 @@ void std::vector<CA::Display::DisplayLinkItem *>::insert(uint64_t a1, char *__sr
     else
     {
       *v6 = *(v6 - 1);
-      v9 = v6 + 8;
+      v9 = (v6 + 8);
     }
 
     *(a1 + 8) = v9;
@@ -3800,7 +3800,7 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<CA::Display::DisplayL
   std::vector<CA::Display::DisplayEDRState *>::__throw_length_error[abi:nn200100]();
 }
 
-uint64_t CA::Display::DisplayLinkItem::set_display_active(uint64_t this, int a2)
+void *CA::Display::DisplayLinkItem::set_display_active(void *this, int a2)
 {
   v2 = *(this + 324);
   if (((((v2 & 0x10) == 0) ^ a2) & 1) == 0)
@@ -3810,7 +3810,7 @@ uint64_t CA::Display::DisplayLinkItem::set_display_active(uint64_t this, int a2)
     *(this + 324) = v2 & 0xEF | v5;
     if ((v2 & 1) == 0)
     {
-      [*(this + 256) willChangeValueForKey:@"active"];
+      [*(this + 32) willChangeValueForKey:@"active"];
       if (a2)
       {
         v6 = 8;
@@ -3821,8 +3821,8 @@ uint64_t CA::Display::DisplayLinkItem::set_display_active(uint64_t this, int a2)
         v6 = 0;
       }
 
-      *(v4 + 324) = *(v4 + 324) & 0xF7 | v6;
-      v7 = *(v4 + 256);
+      v4[324] = v4[324] & 0xF7 | v6;
+      v7 = *(v4 + 32);
 
       return [v7 didChangeValueForKey:@"active"];
     }
@@ -4050,6 +4050,7 @@ LABEL_9:
     *&buf[8] = a3;
     *&buf[12] = a4;
     *v72 = a5;
+    *&v72[4] = 0;
     if (a6)
     {
       v20 = 2;
@@ -4316,7 +4317,7 @@ LABEL_88:
 
 void CA::WindowServer::IOMFBDisplay::recompute_server_frame_interval_locked(CA::WindowServer::IOMFBDisplay *this)
 {
-  v135 = *MEMORY[0x1E69E9840];
+  v136 = *MEMORY[0x1E69E9840];
   v2 = *(this + 3531);
   v3 = *(this + 3532);
   if (v2 == v3)
@@ -4331,8 +4332,8 @@ LABEL_4:
   {
     if ((*(v2 + 20) & 1) == 0)
     {
-      LODWORD(v24) = *(v2 + 8);
-      LODWORD(v17) = *(v2 + 12);
+      LODWORD(v25) = *(v2 + 8);
+      LODWORD(v18) = *(v2 + 12);
       v5 = *(v2 + 16);
       goto LABEL_143;
     }
@@ -4340,345 +4341,345 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  v8 = v4 >> 3;
-  v124 = 0;
+  v9 = v4 >> 3;
   v125 = 0;
   v126 = 0;
-  v9 = &CADeviceNeedsDisplayStateControlDependencyWorkaround::b;
+  v127 = 0;
+  v10 = &CADeviceNeedsDisplayStateControlDependencyWorkaround::b;
   if (initialized[0] != -1)
   {
     dispatch_once_f(initialized, 0, init_debug);
-    v9 = &CADeviceNeedsDisplayStateControlDependencyWorkaround::b;
+    v10 = &CADeviceNeedsDisplayStateControlDependencyWorkaround::b;
   }
 
-  v10 = 0xAAAAAAAAAAAAAAABLL * v8;
-  v11 = &CADisplayTimerGetTypeID::type;
+  v11 = 0xAAAAAAAAAAAAAAABLL * v9;
+  v12 = &CADisplayTimerGetTypeID::type;
   if (byte_1ED4E9846 == 1)
   {
-    v124 = 0;
     v125 = 0;
     v126 = 0;
+    v127 = 0;
   }
 
-  v12 = 0;
   v13 = 0;
   v14 = 0;
   v15 = 0;
-  if (v10 <= 1)
+  v16 = 0;
+  if (v11 <= 1)
   {
-    v16 = 1;
+    v17 = 1;
   }
 
   else
   {
-    v16 = v10;
+    v17 = v11;
   }
 
-  v17 = 0xFFFFFFFFLL;
-  v18 = "  candidate: %u %u %u\n";
-  v19 = "    update result: %u %u\n";
-  v20 = v16;
-  LODWORD(v21) = -1;
-  v22 = initialized;
+  v18 = 0xFFFFFFFFLL;
+  v19 = "  candidate: %u %u %u\n";
+  v20 = "    update result: %u %u\n";
+  v21 = v17;
+  LODWORD(v22) = -1;
+  v23 = initialized;
   while (1)
   {
-    v23 = *(this + 3531) + v12;
-    if ((*(v23 + 20) & 1) == 0)
+    v24 = *(this + 3531) + v13;
+    if ((*(v24 + 20) & 1) == 0)
     {
       break;
     }
 
-    v24 = v15;
+    v25 = v16;
 LABEL_60:
-    v12 += 24;
-    v15 = v24;
-    if (!--v20)
+    v13 += 24;
+    v16 = v25;
+    if (!--v21)
     {
       goto LABEL_112;
     }
   }
 
-  LODWORD(v24) = *(v23 + 8);
-  v25 = *(v23 + 12);
-  v13 = v24 == 4 && v25 == 5;
-  if (v24 > 3)
+  LODWORD(v25) = *(v24 + 8);
+  v26 = *(v24 + 12);
+  v14 = v25 == 4 && v26 == 5;
+  if (v25 > 3)
   {
-    if (v24 == 4)
+    if (v25 == 4)
     {
-      if (v25 < 6)
+      if (v26 < 6)
       {
-        LODWORD(v24) = 4;
+        LODWORD(v25) = 4;
       }
 
       else
       {
-        LODWORD(v24) = 3;
+        LODWORD(v25) = 3;
       }
     }
   }
 
-  else if (v25 > 3)
+  else if (v26 > 3)
   {
-    LODWORD(v24) = 2;
+    LODWORD(v25) = 2;
   }
 
-  if (v25 >= 3)
+  if (v26 >= 3)
   {
-    v27 = 3;
-  }
-
-  else
-  {
-    v27 = *(v23 + 12);
-  }
-
-  if (*(v23 + 16) == 2)
-  {
-    v28 = v27;
+    v28 = 3;
   }
 
   else
   {
-    v28 = *(v23 + 12);
+    v28 = *(v24 + 12);
   }
 
-  if (*(v9 + 42) != -1)
+  if (*(v24 + 16) == 2)
   {
-    v113 = v17;
-    v116 = v13;
-    v120 = v10;
+    v29 = v28;
+  }
+
+  else
+  {
+    v29 = *(v24 + 12);
+  }
+
+  if (*(v10 + 42) != -1)
+  {
+    v114 = v18;
+    v117 = v14;
+    v121 = v11;
     dispatch_once_f(initialized, 0, init_debug);
-    v22 = initialized;
-    v19 = "    update result: %u %u\n";
-    v18 = "  candidate: %u %u %u\n";
-    v17 = v113;
-    v13 = v116;
-    v11 = &CADisplayTimerGetTypeID::type;
-    v9 = &CADeviceNeedsDisplayStateControlDependencyWorkaround::b;
-    v10 = v120;
+    v23 = initialized;
+    v20 = "    update result: %u %u\n";
+    v19 = "  candidate: %u %u %u\n";
+    v18 = v114;
+    v14 = v117;
+    v12 = &CADisplayTimerGetTypeID::type;
+    v10 = &CADeviceNeedsDisplayStateControlDependencyWorkaround::b;
+    v11 = v121;
   }
 
-  if (*(v11 + 2118) == 1)
+  if (*(v12 + 2118) == 1)
   {
-    v111 = *(v23 + 12);
-    v112 = *(v23 + 16);
-    v110 = *(v23 + 8);
-    v29 = v18;
-    v114 = v17;
-    v117 = v13;
-    v121 = v10;
-    X::Stream::printf(&v124, v18, v110, v111, v112);
-    v22 = initialized;
-    v19 = "    update result: %u %u\n";
-    v18 = v29;
-    v17 = v114;
-    v13 = v117;
-    v11 = &CADisplayTimerGetTypeID::type;
-    v9 = &CADeviceNeedsDisplayStateControlDependencyWorkaround::b;
-    v10 = v121;
+    v112 = *(v24 + 12);
+    v113 = *(v24 + 16);
+    v111 = *(v24 + 8);
+    v30 = v19;
+    v115 = v18;
+    v118 = v14;
+    v122 = v11;
+    X::Stream::printf(&v125, v19, v111, v112, v113);
+    v23 = initialized;
+    v20 = "    update result: %u %u\n";
+    v19 = v30;
+    v18 = v115;
+    v14 = v118;
+    v12 = &CADisplayTimerGetTypeID::type;
+    v10 = &CADeviceNeedsDisplayStateControlDependencyWorkaround::b;
+    v11 = v122;
   }
 
-  if (v14 <= v24)
+  if (v15 <= v25)
   {
-    v24 = v24;
-  }
-
-  else
-  {
-    v24 = v14;
-  }
-
-  if (v21 >= v28)
-  {
-    v21 = v28;
+    v25 = v25;
   }
 
   else
   {
-    v21 = v21;
+    v25 = v15;
   }
 
-  if (v24 <= v21)
+  if (v22 >= v29)
   {
-    if (*(v9 + 42) != -1)
+    v22 = v29;
+  }
+
+  else
+  {
+    v22 = v22;
+  }
+
+  if (v25 <= v22)
+  {
+    if (*(v10 + 42) != -1)
     {
-      v30 = v22;
-      v122 = v10;
-      v31 = v9;
-      v32 = v11;
-      v33 = v13;
-      dispatch_once_f(v22, 0, init_debug);
-      v22 = v30;
-      v19 = "    update result: %u %u\n";
-      v18 = "  candidate: %u %u %u\n";
-      v13 = v33;
-      v11 = v32;
-      v9 = v31;
-      v10 = v122;
+      v31 = v23;
+      v123 = v11;
+      v32 = v10;
+      v33 = v12;
+      v34 = v14;
+      dispatch_once_f(v23, 0, init_debug);
+      v23 = v31;
+      v20 = "    update result: %u %u\n";
+      v19 = "  candidate: %u %u %u\n";
+      v14 = v34;
+      v12 = v33;
+      v10 = v32;
+      v11 = v123;
     }
 
-    if (*(v11 + 2118) == 1)
+    if (*(v12 + 2118) == 1)
     {
-      v34 = v19;
-      v123 = v10;
-      v35 = v9;
-      v36 = v11;
-      v37 = v13;
-      X::Stream::printf(&v124, v19, v24, v21);
-      v22 = initialized;
-      v19 = v34;
-      v18 = "  candidate: %u %u %u\n";
-      v13 = v37;
-      v11 = v36;
-      v9 = v35;
-      v10 = v123;
+      v35 = v20;
+      v124 = v11;
+      v36 = v10;
+      v37 = v12;
+      v38 = v14;
+      X::Stream::printf(&v125, v20, v25, v22);
+      v23 = initialized;
+      v20 = v35;
+      v19 = "  candidate: %u %u %u\n";
+      v14 = v38;
+      v12 = v37;
+      v10 = v36;
+      v11 = v124;
     }
 
-    v17 = v21;
-    v14 = v24;
+    v18 = v22;
+    v15 = v25;
     goto LABEL_60;
   }
 
-  LODWORD(v24) = v15;
+  LODWORD(v25) = v16;
 LABEL_112:
-  if (!v24 && v17 == -1)
+  if (!v25 && v18 == -1)
   {
-    LODWORD(v24) = 0;
-    LODWORD(v17) = 0;
+    LODWORD(v25) = 0;
+    LODWORD(v18) = 0;
     v5 = 0;
   }
 
   else
   {
-    v81 = 0;
+    v82 = 0;
     v5 = 0;
-    v82 = "  explicit preference for %u\n";
+    v83 = "  explicit preference for %u\n";
     do
     {
-      v83 = *(this + 3531) + v81;
-      if ((*(v83 + 20) & 1) == 0)
+      v84 = *(this + 3531) + v82;
+      if ((*(v84 + 20) & 1) == 0)
       {
-        v84 = *(v83 + 16);
-        v85 = v84 < v24 || v84 > v17;
-        if (!v85 && v5 - 1 >= v84)
+        v85 = *(v84 + 16);
+        v86 = v85 < v25 || v85 > v18;
+        if (!v86 && v5 - 1 >= v85)
         {
-          if (*(v9 + 42) != -1)
+          if (*(v10 + 42) != -1)
           {
-            v87 = v17;
-            v88 = v10;
-            v89 = v9;
-            v90 = v11;
-            v118 = v13;
+            v88 = v18;
+            v89 = v11;
+            v90 = v10;
+            v91 = v12;
+            v119 = v14;
             dispatch_once_f(initialized, 0, init_debug);
-            v82 = "  explicit preference for %u\n";
-            v13 = v118;
-            v11 = v90;
-            v9 = v89;
-            v10 = v88;
-            v17 = v87;
+            v83 = "  explicit preference for %u\n";
+            v14 = v119;
+            v12 = v91;
+            v10 = v90;
+            v11 = v89;
+            v18 = v88;
           }
 
-          if (*(v11 + 2118) == 1)
+          if (*(v12 + 2118) == 1)
           {
-            v91 = v82;
-            v115 = v17;
-            v119 = v13;
-            v92 = v10;
-            v93 = v9;
-            v94 = v11;
-            X::Stream::printf(&v124, v82, v84);
-            v82 = v91;
-            v17 = v115;
-            v13 = v119;
-            v11 = v94;
-            v9 = v93;
-            v10 = v92;
+            v92 = v83;
+            v116 = v18;
+            v120 = v14;
+            v93 = v11;
+            v94 = v10;
+            v95 = v12;
+            X::Stream::printf(&v125, v83, v85);
+            v83 = v92;
+            v18 = v116;
+            v14 = v120;
+            v12 = v95;
+            v10 = v94;
+            v11 = v93;
           }
 
-          v5 = v84;
+          v5 = v85;
         }
       }
 
-      v81 += 24;
-      --v16;
+      v82 += 24;
+      --v17;
     }
 
-    while (v16);
-    if (v13)
+    while (v17);
+    if (v14)
     {
-      v95 = v24 == 3 && v5 == 0;
-      v96 = v95;
-      if (v5 == 3 || v96)
+      v96 = v25 == 3 && v5 == 0;
+      v97 = v96;
+      if (v5 == 3 || v97)
       {
-        LODWORD(v24) = 2;
-        LODWORD(v17) = 2;
+        LODWORD(v25) = 2;
+        LODWORD(v18) = 2;
         v5 = 2;
       }
     }
 
-    if (*(v9 + 42) != -1)
+    if (*(v10 + 42) != -1)
     {
-      v102 = v17;
-      v103 = v10;
+      v103 = v18;
       v104 = v11;
+      v105 = v12;
       dispatch_once_f(initialized, 0, init_debug);
+      v12 = v105;
       v11 = v104;
-      v10 = v103;
-      LODWORD(v17) = v102;
+      LODWORD(v18) = v103;
     }
 
-    if (*(v11 + 2118) == 1)
+    if (*(v12 + 2118) == 1)
     {
-      v105 = v10;
-      v106 = v17;
-      v107 = x_stream_finish(&v124);
-      if (v107)
+      v106 = v11;
+      v107 = v18;
+      v108 = x_stream_finish(&v125);
+      if (v108)
       {
-        v108 = v107;
+        v109 = v108;
         if (x_log_get_frame_rate(void)::once != -1)
         {
           dispatch_once(&x_log_get_frame_rate(void)::once, &__block_literal_global_20391);
         }
 
-        v109 = x_log_get_frame_rate(void)::log;
+        v110 = x_log_get_frame_rate(void)::log;
         if (os_log_type_enabled(x_log_get_frame_rate(void)::log, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136316418;
           *&buf[4] = "CAFrameRateServer: ";
           *&buf[12] = 2048;
-          *&buf[14] = v105;
+          *&buf[14] = v106;
           *&buf[22] = 1024;
-          *&buf[24] = v24;
-          v129 = 1024;
-          v130 = v106;
-          v131 = 1024;
-          v132 = v5;
-          v133 = 2080;
-          v134 = v108;
-          _os_log_impl(&dword_183AA6000, v109, OS_LOG_TYPE_DEFAULT, "%sarbitration among %ld clients yields min:%u max:%u preferred:%u\n%s", buf, 0x32u);
+          *&buf[24] = v25;
+          v130 = 1024;
+          v131 = v107;
+          v132 = 1024;
+          v133 = v5;
+          v134 = 2080;
+          v135 = v109;
+          _os_log_impl(&dword_183AA6000, v110, OS_LOG_TYPE_DEFAULT, "%sarbitration among %ld clients yields min:%u max:%u preferred:%u\n%s", buf, 0x32u);
         }
 
-        free(v108);
+        free(v109);
       }
 
-      LODWORD(v17) = v106;
+      LODWORD(v18) = v107;
     }
   }
 
 LABEL_143:
-  if (v24 && !v5)
+  if (v25 && !v5)
   {
     if ((*(this + 160) & 0x10) != 0)
     {
-      v97 = v17;
-      v98 = (*(*this + 784))(this);
-      v99 = (*(*this + 800))(this);
-      v100 = v97;
-      v5 = v24;
-      if (v98 != v99)
+      v98 = v18;
+      v99 = (*(*this + 784))(this);
+      v100 = (*(*this + 800))(this);
+      v101 = v98;
+      v5 = v25;
+      if (v99 != v100)
       {
-        v5 = v100;
-        if ((*(*this + 800))(this) <= v100)
+        v5 = v101;
+        if ((*(*this + 800))(this) <= v101)
         {
           v5 = (*(*this + 800))(this);
         }
@@ -4687,13 +4688,13 @@ LABEL_143:
 
     else
     {
-      v5 = v24;
+      v5 = v25;
     }
   }
 
 LABEL_5:
   os_unfair_lock_lock(this + 6576);
-  CA::WindowServer::IOMFBDisplay::initialize_timings(this);
+  CA::WindowServer::IOMFBDisplay::initialize_timings(this, v6);
   if (*(this + 3290))
   {
     if (v5)
@@ -4705,88 +4706,88 @@ LABEL_5:
 
       if (v5 == 10)
       {
-        v6 = 5;
+        v7 = 5;
       }
 
       else
       {
-        v6 = 4;
+        v7 = 4;
       }
 
       if (v5 >= 6)
       {
-        v7 = v6;
+        v8 = v7;
       }
 
       else
       {
-        v7 = v5;
+        v8 = v5;
       }
     }
 
     else
     {
-      v7 = 0;
+      v8 = 0;
     }
 
     if ((*(*this + 784))(this) == 1)
     {
-      v38 = 0;
+      v39 = 0;
     }
 
     else
     {
-      v39 = *(this + 3531);
-      v40 = *(this + 3532);
-      if (v39 != v40)
+      v40 = *(this + 3531);
+      v41 = *(this + 3532);
+      if (v40 != v41)
       {
-        while ((*(v39 + 20) & 2) == 0 || (*(v39 + 20) & 1) != 0)
+        while ((*(v40 + 20) & 2) == 0 || (*(v40 + 20) & 1) != 0)
         {
-          v39 += 24;
-          if (v39 == v40)
+          v40 += 24;
+          if (v40 == v41)
           {
             goto LABEL_72;
           }
         }
       }
 
-      if (v39 == v40)
+      if (v40 == v41)
       {
 LABEL_72:
-        v38 = *(this + 29573);
+        v39 = *(this + 29573);
       }
 
       else
       {
-        v38 = 1;
+        v39 = 1;
       }
     }
 
-    v41 = *(this + 7168);
-    v42 = v38 & 1;
-    v43 = mach_absolute_time();
-    v44 = atomic_load((*(this + 3290) + 32));
-    v127 = v44;
-    CA::WindowServer::IOMFBDisplay::flush_timings_locked(this, v43, &v127);
-    v45 = *(this + 3290);
-    if (v127)
+    v42 = *(this + 7168);
+    v43 = v39 & 1;
+    v44 = mach_absolute_time();
+    v45 = atomic_load((*(this + 3290) + 32));
+    v128 = v45;
+    CA::WindowServer::IOMFBDisplay::flush_timings_locked(this, v44, &v128);
+    v46 = *(this + 3290);
+    if (v128)
     {
-      v46 = atomic_load((v45 + 56));
-      if (v46 != v7)
+      v47 = atomic_load((v46 + 56));
+      if (v47 != v8)
       {
         goto LABEL_80;
       }
 
-      v47 = (*(this + 3290) + 41);
+      v48 = (*(this + 3290) + 41);
 LABEL_78:
-      v49 = atomic_load(v47);
-      if (v42 != (v49 & 1))
+      v50 = atomic_load(v48);
+      if (v43 != (v50 & 1))
       {
         goto LABEL_80;
       }
 
-      v50 = atomic_load((*(this + 3290) + 44));
-      if (v50 != v41)
+      v51 = atomic_load((*(this + 3290) + 44));
+      if (v51 != v42)
       {
         goto LABEL_80;
       }
@@ -4794,94 +4795,94 @@ LABEL_78:
 
     else
     {
-      v48 = atomic_load((v45 + 52));
-      if (v48 == v7)
+      v49 = atomic_load((v46 + 52));
+      if (v49 == v8)
       {
-        v47 = (*(this + 3290) + 40);
+        v48 = (*(this + 3290) + 40);
         goto LABEL_78;
       }
 
 LABEL_80:
-      v51 = *(this + 3290);
-      if (v127)
+      v52 = *(this + 3290);
+      if (v128)
       {
-        v52 = (v51 + 72);
+        v53 = (v52 + 72);
       }
 
       else
       {
-        v53 = atomic_load((v51 + 52));
-        if (!v53)
+        v54 = atomic_load((v52 + 52));
+        if (!v54)
         {
-          v53 = (*(*this + 800))(this);
+          v54 = (*(*this + 800))(this);
         }
 
-        v54 = v53;
-        if (v53 == 2 && v7 == 4)
+        v55 = v54;
+        if (v54 == 2 && v8 == 4)
         {
-          v54 = 4;
+          v55 = 4;
         }
 
-        v56 = atomic_load((*(this + 3290) + 16));
-        v57 = v54 * v56;
-        v58 = atomic_load((*(this + 3290) + 64));
-        v59 = atomic_load((*(this + 3290) + 80));
-        v60 = atomic_load((*(this + 3290) + 16));
-        *buf = v58;
-        *&buf[8] = v59;
-        *&buf[16] = v60;
+        v57 = atomic_load((*(this + 3290) + 16));
+        v58 = v55 * v57;
+        v59 = atomic_load((*(this + 3290) + 64));
+        v60 = atomic_load((*(this + 3290) + 80));
         v61 = atomic_load((*(this + 3290) + 16));
-        v62 = v43 + (v61 >> 1);
-        v124 = v57;
-        phase = get_phase(buf, v62, &v124);
-        v64 = v62 - phase + v124;
+        *buf = v59;
+        *&buf[8] = v60;
+        *&buf[16] = v61;
+        v62 = atomic_load((*(this + 3290) + 16));
+        v63 = v44 + (v62 >> 1);
+        v125 = v58;
+        phase = get_phase(buf, v63, &v125);
+        v65 = v63 - phase + v125;
         if (!phase)
         {
-          v64 = v62;
+          v65 = v63;
         }
 
-        v127 = v64;
-        v65 = atomic_load((*(this + 3290) + 16));
-        v127 -= v65 >> 2;
-        v52 = (*(this + 3290) + 64);
+        v128 = v65;
+        v66 = atomic_load((*(this + 3290) + 16));
+        v128 -= v66 >> 2;
+        v53 = (*(this + 3290) + 64);
       }
 
-      v66 = atomic_load(v52);
-      v67 = atomic_load((*(this + 3290) + 52));
-      v68 = atomic_load((*(this + 3290) + 56));
-      v69 = atomic_load((*(this + 3290) + 40));
-      v70 = atomic_load((*(this + 3290) + 41));
-      v71 = atomic_load((*(this + 3290) + 44));
-      v72 = atomic_load((*(this + 3290) + 48));
-      if (v67 == v7 && ((v42 ^ v69) & 1) == 0 && v71 == v41)
+      v67 = atomic_load(v53);
+      v68 = atomic_load((*(this + 3290) + 52));
+      v69 = atomic_load((*(this + 3290) + 56));
+      v70 = atomic_load((*(this + 3290) + 40));
+      v71 = atomic_load((*(this + 3290) + 41));
+      v72 = atomic_load((*(this + 3290) + 44));
+      v73 = atomic_load((*(this + 3290) + 48));
+      if (v68 == v8 && ((v43 ^ v70) & 1) == 0 && v72 == v42)
       {
-        v127 = 0;
+        v128 = 0;
       }
 
-      else if (v68 != v7 || ((v42 ^ v70) & 1) != 0 || v72 != v41)
+      else if (v69 != v8 || ((v43 ^ v71) & 1) != 0 || v73 != v42)
       {
-        v73 = v7;
-        if (!v7)
+        v74 = v8;
+        if (!v8)
         {
-          v73 = (*(*this + 800))(this);
+          v74 = (*(*this + 800))(this);
         }
 
-        v74 = v127;
-        v75 = atomic_load((*(this + 3290) + 80));
-        v76 = (v74 - v75);
-        LODWORD(v74) = atomic_load((*(this + 3290) + 16));
-        v77 = (v66 + vcvtad_u64_f64(v76 / v74)) % v73;
-        if (v77)
+        v75 = v128;
+        v76 = atomic_load((*(this + 3290) + 80));
+        v77 = (v75 - v76);
+        LODWORD(v75) = atomic_load((*(this + 3290) + 16));
+        v78 = (v67 + vcvtad_u64_f64(v77 / v75)) % v74;
+        if (v78)
         {
-          v78 = v73 - v77;
+          v79 = v74 - v78;
         }
 
         else
         {
-          v78 = 0;
+          v79 = 0;
         }
 
-        v66 += v78;
+        v67 += v79;
       }
 
       if (byte_1ED4E9846 == 1)
@@ -4891,28 +4892,28 @@ LABEL_80:
           dispatch_once(&x_log_get_frame_rate(void)::once, &__block_literal_global_20391);
         }
 
-        v101 = x_log_get_frame_rate(void)::log;
+        v102 = x_log_get_frame_rate(void)::log;
         if (os_log_type_enabled(x_log_get_frame_rate(void)::log, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109632;
-          *&buf[4] = v7;
+          *&buf[4] = v8;
           *&buf[8] = 2048;
-          *&buf[10] = v127;
+          *&buf[10] = v128;
           *&buf[18] = 2048;
-          *&buf[20] = v43;
-          _os_log_impl(&dword_183AA6000, v101, OS_LOG_TYPE_DEFAULT, "CAFrameRateServer: enqueing server frame interval %u for %llu. Now is %llu", buf, 0x1Cu);
+          *&buf[20] = v44;
+          _os_log_impl(&dword_183AA6000, v102, OS_LOG_TYPE_DEFAULT, "CAFrameRateServer: enqueing server frame interval %u for %llu. Now is %llu", buf, 0x1Cu);
         }
       }
 
-      v79 = *(this + 3290);
-      add = atomic_fetch_add((v79 + 28), 1u);
-      atomic_store(v127, (v79 + 32));
-      atomic_store(v42, (v79 + 41));
-      atomic_store(v41, (v79 + 48));
-      atomic_store(v7, (v79 + 56));
-      atomic_store(v66, (v79 + 72));
-      atomic_store(add + 2, (v79 + 28));
-      *(this + 29583) = v7 & 1;
+      v80 = *(this + 3290);
+      add = atomic_fetch_add((v80 + 28), 1u);
+      atomic_store(v128, (v80 + 32));
+      atomic_store(v43, (v80 + 41));
+      atomic_store(v42, (v80 + 48));
+      atomic_store(v8, (v80 + 56));
+      atomic_store(v67, (v80 + 72));
+      atomic_store(add + 2, (v80 + 28));
+      *(this + 29583) = v8 & 1;
       atomic_load((*(this + 3290) + 40));
       atomic_load((*(this + 3290) + 41));
       atomic_load((*(this + 3290) + 32));
@@ -9417,7 +9418,7 @@ LABEL_34:
         return 0;
       }
 
-      if (CA::Render::KeyValueArray::get_float_color_key(*(this + 5), 360, &v32))
+      if (CA::Render::KeyValueArray::get_float_color_key(*(this + 5), 0x168, &v32))
       {
         result = 0;
         if (v32.f32[0] != 1.0 || v32.f32[1] != 1.0 || v32.f32[2] != 1.0)
@@ -9712,7 +9713,7 @@ uint64_t CA::WindowServer::AppleInternalDisplay::hardware_minimum_frame_duration
   return v1;
 }
 
-void *CA::Render::encode_set_object(CA::Render *this, CA::Render::Encoder *a2, int a3, CA::Render::Object *a4, CA::Render::Object *a5)
+CA::Render::Encoder *CA::Render::encode_set_object(CA::Render *this, CA::Render::Encoder *a2, int a3, CA::Render::Object *a4, CA::Render::Object *a5)
 {
   v5 = a5;
   v10 = *(this + 4);
@@ -9766,13 +9767,13 @@ uint64_t std::unordered_set<unsigned int>::unordered_set(uint64_t a1, uint64_t a
   std::__hash_table<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(a1, *(i + 4));
+    std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(a1, *(i + 4), i + 4);
   }
 
   return a1;
 }
 
-void *CA::Render::Encoder::encode_object_uncached(void *this, const CA::Render::Object *a2)
+CA::Render::Encoder *CA::Render::Encoder::encode_object_uncached(CA::Render::Encoder *this, const CA::Render::Object *a2)
 {
   v3 = this;
   if (a2)
@@ -9785,14 +9786,14 @@ void *CA::Render::Encoder::encode_object_uncached(void *this, const CA::Render::
     v4 = 0;
   }
 
-  v5 = this[4];
-  if ((v5 + 1) > this[5])
+  v5 = *(this + 4);
+  if ((v5 + 1) > *(this + 5))
   {
     this = CA::Render::Encoder::grow(this, 1);
-    v5 = v3[4];
+    v5 = *(v3 + 4);
   }
 
-  v3[4] = v5 + 1;
+  *(v3 + 4) = v5 + 1;
   *v5 = v4;
   if (v4)
   {

@@ -168,7 +168,7 @@ void __59__MFLibraryReconciler_persistenceDidReconcileProtectedData__block_invok
 
 - (void)_reconcileUsingMessageReconciliationQueries:(uint64_t)queries
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (queries)
   {
@@ -208,7 +208,7 @@ void __59__MFLibraryReconciler_persistenceDidReconcileProtectedData__block_invok
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v21 = v13;
+        v20 = v13;
         _os_log_impl(&dword_1B0389000, v14, OS_LOG_TYPE_DEFAULT, "Context based library message reconciliation finished batch. Reconciled %lu conversations", buf, 0xCu);
       }
 
@@ -220,7 +220,7 @@ void __59__MFLibraryReconciler_persistenceDidReconcileProtectedData__block_invok
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v21 = v9;
+      v20 = v9;
       _os_log_impl(&dword_1B0389000, v15, OS_LOG_TYPE_DEFAULT, "Context based library message reconciliation finished. Reconciled %lu conversations", buf, 0xCu);
     }
 
@@ -229,14 +229,12 @@ void __59__MFLibraryReconciler_persistenceDidReconcileProtectedData__block_invok
     if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
     {
       *buf = 134349312;
-      v21 = 0;
-      v22 = 2050;
-      v23 = v9;
+      v20 = 0;
+      v21 = 2050;
+      v22 = v9;
       _os_signpost_emit_with_name_impl(&dword_1B0389000, v17, OS_SIGNPOST_INTERVAL_END, spid, "MFLibraryContextBasedReconciliation", "ContextType=%{public,signpost.telemetry:number1}ld Conversations=%{public,signpost.telemetry:number2}lu enableTelemetry=YES ", buf, 0x16u);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_shouldUseContextBasedReconciliationWithThreadReconciliationQueries:(unint64_t)queries unreconciledMessages:
@@ -259,7 +257,7 @@ void __59__MFLibraryReconciler_persistenceDidReconcileProtectedData__block_invok
 
 - (void)_reconcileUsingThreadReconciliationQueries:(uint64_t)queries
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (queries)
   {
@@ -299,7 +297,7 @@ void __59__MFLibraryReconciler_persistenceDidReconcileProtectedData__block_invok
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v21 = v13;
+        v20 = v13;
         _os_log_impl(&dword_1B0389000, v14, OS_LOG_TYPE_DEFAULT, "Context based library thread reconciliation finished batch. Reconciled %lu conversations", buf, 0xCu);
       }
 
@@ -311,7 +309,7 @@ void __59__MFLibraryReconciler_persistenceDidReconcileProtectedData__block_invok
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v21 = v9;
+      v20 = v9;
       _os_log_impl(&dword_1B0389000, v15, OS_LOG_TYPE_DEFAULT, "Context based library thread reconciliation finished. Reconciled %lu conversations", buf, 0xCu);
     }
 
@@ -320,19 +318,17 @@ void __59__MFLibraryReconciler_persistenceDidReconcileProtectedData__block_invok
     if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
     {
       *buf = 134349312;
-      v21 = 1;
-      v22 = 2050;
-      v23 = v9;
+      v20 = 1;
+      v21 = 2050;
+      v22 = v9;
       _os_signpost_emit_with_name_impl(&dword_1B0389000, v17, OS_SIGNPOST_INTERVAL_END, spid, "MFLibraryContextBasedReconciliation", "ContextType=%{public,signpost.telemetry:number1}ld Conversations=%{public,signpost.telemetry:number2}lu enableTelemetry=YES ", buf, 0x16u);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_reconcileInboxThreadsAndMessages
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v2 = MFReconciliationSignpostLog();
@@ -371,7 +367,7 @@ void __59__MFLibraryReconciler_persistenceDidReconcileProtectedData__block_invok
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v19 = v11;
+        v18 = v11;
         _os_log_impl(&dword_1B0389000, v12, OS_LOG_TYPE_DEFAULT, "Inbox library reconciliation finished batch. Reconciled %lu conversations", buf, 0xCu);
       }
 
@@ -383,7 +379,7 @@ void __59__MFLibraryReconciler_persistenceDidReconcileProtectedData__block_invok
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v19 = v6;
+      v18 = v6;
       _os_log_impl(&dword_1B0389000, v13, OS_LOG_TYPE_DEFAULT, "Inbox library reconciliation finished. Reconciled %lu conversations", buf, 0xCu);
     }
 
@@ -392,14 +388,12 @@ void __59__MFLibraryReconciler_persistenceDidReconcileProtectedData__block_invok
     if (spid - 1 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v14))
     {
       *buf = 134349312;
-      v19 = 2;
-      v20 = 2050;
-      v21 = v6;
+      v18 = 2;
+      v19 = 2050;
+      v20 = v6;
       _os_signpost_emit_with_name_impl(&dword_1B0389000, v15, OS_SIGNPOST_INTERVAL_END, spid, "MFLibraryContextBasedReconciliation", "ContextType=%{public,signpost.telemetry:number1}ld Conversations=%{public,signpost.telemetry:number2}lu enableTelemetry=YES ", buf, 0x16u);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_reconcileRemainingEntries

@@ -156,11 +156,10 @@ LABEL_9:
 - (void)dealloc
 {
   self->_active = 0;
-  browser = self->_browser;
   remote_device_browser_cancel();
-  v4.receiver = self;
-  v4.super_class = USBListener;
-  [(USBListener *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = USBListener;
+  [(USBListener *)&v3 dealloc];
 }
 
 @end

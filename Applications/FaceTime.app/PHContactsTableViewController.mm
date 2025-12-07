@@ -226,7 +226,7 @@
   handleCopy = handle;
   codeCopy = code;
   type = [handleCopy type];
-  v8 = sub_100003B9C();
+  v8 = sub_100003B9C(type);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
   if (type == 2)
   {
@@ -294,8 +294,8 @@
   contactCopy = contact;
   storeCopy = store;
   v7 = +[CNUIFavoritesEntryPicker descriptorForRequiredKeys];
-  v23 = v7;
-  v8 = [NSArray arrayWithObjects:&v23 count:1];
+  v24 = v7;
+  v8 = [NSArray arrayWithObjects:&v24 count:1];
 
   if ([contactCopy areKeysAvailable:v8])
   {
@@ -312,22 +312,22 @@
     }
 
     identifier = [contactCopy identifier];
-    v16 = 0;
-    v9 = [storeCopy unifiedContactWithIdentifier:identifier keysToFetch:v10 error:&v16];
-    v13 = v16;
+    v17 = 0;
+    v9 = [storeCopy unifiedContactWithIdentifier:identifier keysToFetch:v10 error:&v17];
+    v13 = v17;
 
     if (!v9)
     {
-      v14 = sub_100003B9C();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = sub_100003B9C(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
-        v18 = contactCopy;
-        v19 = 2112;
-        v20 = storeCopy;
-        v21 = 2112;
-        v22 = v13;
-        _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Could not retrieve a compatible contact using contact (%@) and contact store (%@) due to an error (%@).", buf, 0x20u);
+        v19 = contactCopy;
+        v20 = 2112;
+        v21 = storeCopy;
+        v22 = 2112;
+        v23 = v13;
+        _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Could not retrieve a compatible contact using contact (%@) and contact store (%@) due to an error (%@).", buf, 0x20u);
       }
     }
   }

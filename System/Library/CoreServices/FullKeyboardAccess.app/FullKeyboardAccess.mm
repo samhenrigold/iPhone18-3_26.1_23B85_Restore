@@ -312,9 +312,9 @@ void sub_100007FBC(uint64_t a1, void *a2)
   [v5 actionManager:*(a1 + 32) displaySysdiagnoseStatus:v4];
 }
 
-void sub_100009918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100009918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -472,33 +472,33 @@ void sub_10000DDF4(uint64_t a1)
 {
   v2 = +[NSMutableArray array];
   _AXShouldDispatchNonMainThreadCallbacksOnMainThreadPushReason();
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v3 = +[AXElement systemWideElement];
   v4 = [v3 systemApplication];
   v5 = [v4 currentApplications];
 
   obj = v5;
-  v27 = [v5 countByEnumeratingWithState:&v37 objects:v43 count:16];
+  v27 = [v5 countByEnumeratingWithState:&v36 objects:v42 count:16];
   if (v27)
   {
-    v26 = *v38;
+    v26 = *v37;
     do
     {
       for (i = 0; i != v27; i = i + 1)
       {
-        if (*v38 != v26)
+        if (*v37 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = [*(*(&v37 + 1) + 8 * i) focusContainersForCurrentSceneIdentifier:0];
+        v7 = [*(*(&v36 + 1) + 8 * i) focusContainersForCurrentSceneIdentifier:0];
+        v32 = 0u;
         v33 = 0u;
         v34 = 0u;
         v35 = 0u;
-        v36 = 0u;
         v8 = [*(a1 + 32) view];
         v9 = [v8 window];
         v10 = [v9 screen];
@@ -506,67 +506,66 @@ void sub_10000DDF4(uint64_t a1)
         v12 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [v11 displayID]);
         v13 = [v7 objectForKey:v12];
 
-        v14 = [v13 countByEnumeratingWithState:&v33 objects:v42 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v32 objects:v41 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v34;
+          v16 = *v33;
           do
           {
             for (j = 0; j != v15; j = j + 1)
             {
-              if (*v34 != v16)
+              if (*v33 != v16)
               {
                 objc_enumerationMutation(v13);
               }
 
-              v18 = [*(*(&v33 + 1) + 8 * j) elementsForAttribute:95246 parameter:*(a1 + 40)];
+              v18 = [*(*(&v32 + 1) + 8 * j) elementsForAttribute:95246 parameter:*(a1 + 40)];
               [v2 addObjectsFromArray:v18];
             }
 
-            v15 = [v13 countByEnumeratingWithState:&v33 objects:v42 count:16];
+            v15 = [v13 countByEnumeratingWithState:&v32 objects:v41 count:16];
           }
 
           while (v15);
         }
       }
 
-      v27 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
+      v27 = [obj countByEnumeratingWithState:&v36 objects:v42 count:16];
     }
 
     while (v27);
   }
 
   _AXShouldDispatchNonMainThreadCallbacksOnMainThreadPopReason();
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v19 = v2;
-  v20 = [v19 countByEnumeratingWithState:&v29 objects:v41 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v28 objects:v40 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v30;
+    v22 = *v29;
     do
     {
       for (k = 0; k != v21; k = k + 1)
       {
-        if (*v30 != v22)
+        if (*v29 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        [*(*(&v29 + 1) + 8 * k) setTypeaheadQueryString:*(a1 + 40)];
+        [*(*(&v28 + 1) + 8 * k) setTypeaheadQueryString:*(a1 + 40)];
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v29 objects:v41 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v28 objects:v40 count:16];
     }
 
     while (v21);
   }
 
-  v28 = *(a1 + 32);
   v24 = v19;
   AXPerformBlockOnMainThread();
 }

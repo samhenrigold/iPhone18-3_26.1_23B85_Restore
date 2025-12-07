@@ -103,7 +103,7 @@
 
 void __38__CPLReshareScopeTask__doOneIteration__block_invoke(id *a1, uint64_t a2)
 {
-  v83 = *MEMORY[0x1E69E9840];
+  v81 = *MEMORY[0x1E69E9840];
   v3 = [a1[4] isScopeValidInTransaction:a2];
   v4 = a1[4];
   if (v3)
@@ -121,36 +121,36 @@ LABEL_3:
 
       if ([v11 count])
       {
-        v65 = v5;
+        v63 = v5;
         v12 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v11, "count")}];
         v13 = [a1[6] cloudCache];
-        v64 = a1;
-        v68 = [a1[6] remappedRecords];
+        v62 = a1;
+        v66 = [a1[6] remappedRecords];
+        v73 = 0u;
+        v74 = 0u;
         v75 = 0u;
         v76 = 0u;
-        v77 = 0u;
-        v78 = 0u;
-        v63 = v11;
+        v61 = v11;
         v14 = v11;
-        v69 = [v14 countByEnumeratingWithState:&v75 objects:v79 count:16];
-        if (!v69)
+        v67 = [v14 countByEnumeratingWithState:&v73 objects:v77 count:16];
+        if (!v67)
         {
           goto LABEL_25;
         }
 
-        v15 = *v76;
-        v66 = *v76;
-        v67 = v14;
+        v15 = *v74;
+        v64 = *v74;
+        v65 = v14;
         while (1)
         {
-          for (i = 0; i != v69; i = i + 1)
+          for (i = 0; i != v67; i = i + 1)
           {
-            if (*v76 != v15)
+            if (*v74 != v15)
             {
               objc_enumerationMutation(v14);
             }
 
-            v17 = [*(*(&v75 + 1) + 8 * i) record];
+            v17 = [*(*(&v73 + 1) + 8 * i) record];
             v18 = [v17 scopedIdentifier];
             v19 = [v13 targetForRecordWithSharedCloudScopedIdentifier:v18];
 
@@ -179,7 +179,7 @@ LABEL_3:
                   *&buf[12] = 2112;
                   *&buf[14] = v29;
                   *&buf[22] = 2112;
-                  v81 = v19;
+                  v79 = v19;
                   _os_log_impl(&dword_1DC05A000, v20, OS_LOG_TYPE_DEFAULT, "Skipping ignored record %@ as %@ target is not direct: %@", buf, 0x20u);
                 }
               }
@@ -190,7 +190,7 @@ LABEL_3:
               v21 = v13;
               v22 = v12;
               v23 = [v19 scopedIdentifier];
-              v20 = [v68 realScopedIdentifierForRemappedScopedIdentifier:v23];
+              v20 = [v66 realScopedIdentifierForRemappedScopedIdentifier:v23];
 
               v24 = [v20 identifier];
               v25 = [v19 scopedIdentifier];
@@ -201,15 +201,15 @@ LABEL_3:
               {
                 v12 = v22;
                 v13 = v21;
-                v15 = v66;
-                v14 = v67;
+                v15 = v64;
+                v14 = v65;
               }
 
               else
               {
                 v12 = v22;
                 v13 = v21;
-                v15 = v66;
+                v15 = v64;
                 if ((_CPLSilentLogging & 1) == 0)
                 {
                   v30 = __CPLTaskOSLogDomain_7245();
@@ -230,38 +230,38 @@ LABEL_3:
                 v35 = [v19 scopedIdentifier];
                 [v12 setObject:v34 forKeyedSubscript:v35];
 
-                v14 = v67;
+                v14 = v65;
               }
             }
 
 LABEL_23:
           }
 
-          v69 = [v14 countByEnumeratingWithState:&v75 objects:v79 count:16];
-          if (!v69)
+          v67 = [v14 countByEnumeratingWithState:&v73 objects:v77 count:16];
+          if (!v67)
           {
 LABEL_25:
 
             v36 = [v12 count];
-            v37 = v64[4];
+            v37 = v62[4];
             if (v36)
             {
               v38 = v37[18];
-              v71[0] = MEMORY[0x1E69E9820];
-              v71[1] = 3221225472;
-              v71[2] = __38__CPLReshareScopeTask__doOneIteration__block_invoke_18;
-              v71[3] = &unk_1E861B2B8;
-              v71[4] = v37;
-              v72 = v12;
-              v5 = v65;
-              v73 = v65;
-              v74 = v14;
-              v39 = v71;
+              v69[0] = MEMORY[0x1E69E9820];
+              v69[1] = 3221225472;
+              v69[2] = __38__CPLReshareScopeTask__doOneIteration__block_invoke_18;
+              v69[3] = &unk_1E861B2B8;
+              v69[4] = v37;
+              v70 = v12;
+              v5 = v63;
+              v71 = v63;
+              v72 = v14;
+              v39 = v69;
               *buf = MEMORY[0x1E69E9820];
               *&buf[8] = 3221225472;
               *&buf[16] = __cpl_dispatch_async_block_invoke_7243;
-              v81 = &unk_1E861B4E0;
-              v82 = v39;
+              v79 = &unk_1E861B4E0;
+              v80 = v39;
               v40 = v38;
               v41 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, buf);
               dispatch_async(v40, v41);
@@ -270,10 +270,10 @@ LABEL_25:
             else
             {
               [v37 _bumpIgnoredDatesOfRecords:v14 hasResharedSomeRecords:0];
-              v5 = v65;
+              v5 = v63;
             }
 
-            v11 = v63;
+            v11 = v61;
             goto LABEL_45;
           }
         }
@@ -281,11 +281,11 @@ LABEL_25:
 
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v49 = __CPLTaskOSLogDomain_7245();
-        if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+        v48 = __CPLTaskOSLogDomain_7245();
+        if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1DC05A000, v49, OS_LOG_TYPE_DEFAULT, "All eligible ignored records have been process", buf, 2u);
+          _os_log_impl(&dword_1DC05A000, v48, OS_LOG_TYPE_DEFAULT, "All eligible ignored records have been process", buf, 2u);
         }
       }
 
@@ -295,77 +295,75 @@ LABEL_45:
       goto LABEL_46;
     }
 
-    v43 = [a1[5] scopeForSharingScope:v5];
-    v44 = a1[4];
-    v45 = v44[16];
-    v44[16] = v43;
+    v42 = [a1[5] scopeForSharingScope:v5];
+    v43 = a1[4];
+    v44 = v43[16];
+    v43[16] = v42;
 
-    v46 = a1[4];
-    if (v46[16])
+    v45 = a1[4];
+    if (v45[16])
     {
       if (![a1[5] valueForFlag:24 forScope:?])
       {
-        v51 = [a1[5] transportScopeForScope:*(a1[4] + 16)];
-        if (v51)
+        v49 = [a1[5] transportScopeForScope:*(a1[4] + 16)];
+        if (v49)
         {
-          v52 = v51;
-          [*(a1[4] + 17) addTransportScope:v51 forScope:*(a1[4] + 16)];
-          v53 = [a1[4] engineLibrary];
-          v54 = [v53 transport];
-          v55 = [v54 createGroupForReshare];
-          v56 = a1[4];
-          v57 = v56[20];
-          v56[20] = v55;
+          v50 = v49;
+          [*(a1[4] + 17) addTransportScope:v49 forScope:*(a1[4] + 16)];
+          v51 = [a1[4] engineLibrary];
+          v52 = [v51 transport];
+          v53 = [v52 createGroupForReshare];
+          v54 = a1[4];
+          v55 = v54[20];
+          v54[20] = v53;
 
           goto LABEL_3;
         }
 
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v58 = __CPLTaskOSLogDomain_7245();
-          if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+          v56 = __CPLTaskOSLogDomain_7245();
+          if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
           {
-            v59 = *(a1[4] + 16);
+            v57 = *(a1[4] + 16);
             *buf = 138412290;
-            *&buf[4] = v59;
-            _os_log_impl(&dword_1DC05A000, v58, OS_LOG_TYPE_ERROR, "%@ has no transport scope", buf, 0xCu);
+            *&buf[4] = v57;
+            _os_log_impl(&dword_1DC05A000, v56, OS_LOG_TYPE_ERROR, "%@ has no transport scope", buf, 0xCu);
           }
         }
 
-        v60 = a1[4];
-        v61 = [v60[16] scopeIdentifier];
-        v62 = [CPLErrors invalidScopeErrorWithScopeIdentifier:v61];
-        [v60 taskDidFinishWithError:v62];
+        v58 = a1[4];
+        v59 = [v58[16] scopeIdentifier];
+        v60 = [CPLErrors invalidScopeErrorWithScopeIdentifier:v59];
+        [v58 taskDidFinishWithError:v60];
 
 LABEL_46:
-        v50 = *MEMORY[0x1E69E9840];
         return;
       }
 
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v47 = __CPLTaskOSLogDomain_7245();
-        if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+        v46 = __CPLTaskOSLogDomain_7245();
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
         {
-          v48 = *(a1[4] + 16);
+          v47 = *(a1[4] + 16);
           *buf = 138412546;
           *&buf[4] = v5;
           *&buf[12] = 2112;
-          *&buf[14] = v48;
-          _os_log_impl(&dword_1DC05A000, v47, OS_LOG_TYPE_DEFAULT, "Won't reshare ignored records for %@ as %@ is not available", buf, 0x16u);
+          *&buf[14] = v47;
+          _os_log_impl(&dword_1DC05A000, v46, OS_LOG_TYPE_DEFAULT, "Won't reshare ignored records for %@ as %@ is not available", buf, 0x16u);
         }
       }
 
-      v46 = a1[4];
+      v45 = a1[4];
     }
 
-    [v46 taskDidFinishWithError:0];
+    [v45 taskDidFinishWithError:0];
     goto LABEL_46;
   }
 
-  v70 = +[CPLErrors operationCancelledError];
+  v68 = +[CPLErrors operationCancelledError];
   [v4 taskDidFinishWithError:?];
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 void __38__CPLReshareScopeTask__doOneIteration__block_invoke_18(uint64_t a1)
@@ -435,7 +433,7 @@ void __38__CPLReshareScopeTask__doOneIteration__block_invoke_2(uint64_t a1, void
 
 void __38__CPLReshareScopeTask__doOneIteration__block_invoke_3(uint64_t a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(v2 + 152);
   *(v2 + 152) = 0;
@@ -458,9 +456,9 @@ void __38__CPLReshareScopeTask__doOneIteration__block_invoke_3(uint64_t a1)
           {
             v8 = [*(a1 + 48) count];
             *buf = 134218242;
-            v23 = v8;
-            v24 = 2114;
-            v25 = v6;
+            v22 = v8;
+            v23 = 2114;
+            v24 = v6;
             _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_ERROR, "Failed to reshare %lu records - some records have been rejected: %{public}@", buf, 0x16u);
           }
         }
@@ -469,7 +467,7 @@ void __38__CPLReshareScopeTask__doOneIteration__block_invoke_3(uint64_t a1)
         v10 = [*&v6 allKeys];
         [v9 _bumpIgnoredDatesOfRejectedRecords:v10];
 
-        goto LABEL_20;
+        return;
       }
     }
 
@@ -481,9 +479,9 @@ void __38__CPLReshareScopeTask__doOneIteration__block_invoke_3(uint64_t a1)
         v17 = [*(a1 + 48) count];
         v18 = *(a1 + 40);
         *buf = 134218242;
-        v23 = v17;
-        v24 = 2112;
-        v25 = v18;
+        v22 = v17;
+        v23 = 2112;
+        v24 = v18;
         _os_log_impl(&dword_1DC05A000, v16, OS_LOG_TYPE_ERROR, "Failed to reshare %lu records: %@", buf, 0x16u);
       }
     }
@@ -502,27 +500,24 @@ void __38__CPLReshareScopeTask__doOneIteration__block_invoke_3(uint64_t a1)
         v13 = CFAbsoluteTimeGetCurrent() - *(a1 + 64);
         v14 = [*(a1 + 48) allKeys];
         *buf = 134218498;
-        v23 = v12;
-        v24 = 2048;
-        v25 = v13;
-        v26 = 2114;
-        v27 = v14;
+        v22 = v12;
+        v23 = 2048;
+        v24 = v13;
+        v25 = 2114;
+        v26 = v14;
         _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_DEFAULT, "Reshared %lu records successfully in %.1fs:\n%{public}@", buf, 0x20u);
       }
     }
 
     v15 = *(a1 + 32);
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __38__CPLReshareScopeTask__doOneIteration__block_invoke_19;
-    v20[3] = &unk_1E8620848;
-    v21 = *(a1 + 48);
-    [v15 withThroughputReporter:v20];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __38__CPLReshareScopeTask__doOneIteration__block_invoke_19;
+    v19[3] = &unk_1E8620848;
+    v20 = *(a1 + 48);
+    [v15 withThroughputReporter:v19];
     [*(a1 + 32) _bumpIgnoredDatesOfRecords:*(a1 + 56) hasResharedSomeRecords:1];
   }
-
-LABEL_20:
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __38__CPLReshareScopeTask__doOneIteration__block_invoke_19(uint64_t a1, void *a2)
@@ -599,35 +594,35 @@ void __58__CPLReshareScopeTask__bumpIgnoredDatesOfRejectedRecords___block_invoke
 
 uint64_t __58__CPLReshareScopeTask__bumpIgnoredDatesOfRejectedRecords___block_invoke_2(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v4 = [*(a1 + 32) ignoredRecords];
   v5 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:21600.0];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v6 = *(a1 + 40);
-  v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v21;
+    v10 = *v20;
     while (2)
     {
       v11 = 0;
       v12 = v9;
       do
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * v11);
-        v19 = v12;
-        v14 = [v4 setIgnoredDate:v5 forRecordWithScopedIdentifier:v13 error:&v19];
-        v9 = v19;
+        v13 = *(*(&v19 + 1) + 8 * v11);
+        v18 = v12;
+        v14 = [v4 setIgnoredDate:v5 forRecordWithScopedIdentifier:v13 error:&v18];
+        v9 = v18;
 
         if (!v14)
         {
@@ -652,7 +647,7 @@ uint64_t __58__CPLReshareScopeTask__bumpIgnoredDatesOfRejectedRecords___block_in
       }
 
       while (v8 != v11);
-      v8 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v8)
       {
         continue;
@@ -670,7 +665,6 @@ uint64_t __58__CPLReshareScopeTask__bumpIgnoredDatesOfRejectedRecords___block_in
   v16 = 1;
 LABEL_15:
 
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -761,46 +755,46 @@ void __73__CPLReshareScopeTask__bumpIgnoredDatesOfRecords_hasResharedSomeRecords
 
 uint64_t __73__CPLReshareScopeTask__bumpIgnoredDatesOfRecords_hasResharedSomeRecords___block_invoke_2(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v4 = [*(a1 + 32) ignoredRecords];
   v5 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:7200.0];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = *(a1 + 40);
-  v6 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v6 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v6)
   {
     v7 = v6;
-    v19 = a2;
+    v18 = a2;
     v8 = 0;
-    v9 = *v23;
+    v9 = *v22;
     while (2)
     {
       v10 = 0;
       v11 = v8;
       do
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = [*(*(&v22 + 1) + 8 * v10) record];
+        v12 = [*(*(&v21 + 1) + 8 * v10) record];
         v13 = [v12 scopedIdentifier];
-        v21 = v11;
-        v14 = [v4 setIgnoredDate:v5 forRecordWithScopedIdentifier:v13 error:&v21];
-        v8 = v21;
+        v20 = v11;
+        v14 = [v4 setIgnoredDate:v5 forRecordWithScopedIdentifier:v13 error:&v20];
+        v8 = v20;
 
         if (!v14)
         {
 
-          if (v19)
+          if (v18)
           {
             v15 = v8;
             v16 = 0;
-            *v19 = v8;
+            *v18 = v8;
           }
 
           else
@@ -816,7 +810,7 @@ uint64_t __73__CPLReshareScopeTask__bumpIgnoredDatesOfRecords_hasResharedSomeRec
       }
 
       while (v7 != v10);
-      v7 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v7 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v7)
       {
         continue;
@@ -834,7 +828,6 @@ uint64_t __73__CPLReshareScopeTask__bumpIgnoredDatesOfRecords_hasResharedSomeRec
   v16 = 1;
 LABEL_15:
 
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 

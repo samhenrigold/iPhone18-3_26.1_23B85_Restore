@@ -34,53 +34,51 @@
 {
   v23 = *MEMORY[0x1E69E9840];
   blockCopy = block;
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(blockCopy, v5) && _os_feature_enabled_impl())
   {
-    v5 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v5)
+    v6 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v6)
     {
-      v5 = +[SSLogConfig sharedConfig];
+      v6 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v5 shouldLog];
-    if ([v5 shouldLogToDisk])
+    shouldLog = [v6 shouldLog];
+    if ([v6 shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      v8 = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      v8 = shouldLog;
     }
 
-    oSLogObject = [v5 OSLogObject];
+    oSLogObject = [v6 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v9 = v7;
+      v10 = v8;
     }
 
     else
     {
-      v9 = v7 & 2;
+      v10 = v8 & 2;
     }
 
-    if (v9)
+    if (v10)
     {
       v21 = 136446210;
       v22 = "[SSVRepairApplicationRequest startWithResponseBlock:]";
-      LODWORD(v18) = 12;
-      v10 = _os_log_send_and_compose_impl();
 
-      if (!v10)
+      if (!v11)
       {
 LABEL_15:
 
         goto LABEL_16;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v21, v18}];
-      free(v10);
-      SSFileLog(v5, @"%@", v11, v12, v13, v14, v15, v16, oSLogObject);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
+      free(v11);
+      SSFileLog(v6, @"%@", v12, v13, v14, v15, v16, v17, oSLogObject);
     }
 
     goto LABEL_15;
@@ -93,7 +91,7 @@ LABEL_16:
   v19[3] = &unk_1E84ABEF0;
   v19[4] = self;
   v20 = blockCopy;
-  v17 = blockCopy;
+  v18 = blockCopy;
   [(SSRequest *)self _startWithMessageID:148 messageBlock:v19];
 }
 
@@ -112,29 +110,29 @@ void __54__SSVRepairApplicationRequest_startWithResponseBlock___block_invoke(uin
     {
       if (v3 && MEMORY[0x1DA6E0380](v3) == MEMORY[0x1E69E9E80])
       {
-        objc_opt_class();
-        v7 = SSXPCDictionaryCopyCFObjectWithClass(v4, "3");
-        v13 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v14 = xpc_dictionary_get_value(v4, "2");
-        v6 = [v13 initWithXPCEncoding:v14];
+        v13 = objc_opt_class();
+        v7 = SSXPCDictionaryCopyCFObjectWithClass(v4, "3", v13);
+        v14 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v15 = xpc_dictionary_get_value(v4, "2");
+        v6 = [v14 initWithXPCEncoding:v15];
 
         v8 = xpc_dictionary_get_BOOL(v4, "1");
         if (v8)
         {
 LABEL_10:
           v9 = dispatch_get_global_queue(0, 0);
-          v15 = MEMORY[0x1E69E9820];
-          v16 = 3221225472;
-          v17 = __54__SSVRepairApplicationRequest_startWithResponseBlock___block_invoke_2;
-          v18 = &unk_1E84AD020;
+          v16 = MEMORY[0x1E69E9820];
+          v17 = 3221225472;
+          v18 = __54__SSVRepairApplicationRequest_startWithResponseBlock___block_invoke_2;
+          v19 = &unk_1E84AD020;
           v10 = *(a1 + 40);
-          v20 = v6;
-          v21 = v10;
-          v22 = v8;
-          v19 = v7;
+          v21 = v6;
+          v22 = v10;
+          v23 = v8;
+          v20 = v7;
           v11 = v6;
           v12 = v7;
-          dispatch_async(v9, &v15);
+          dispatch_async(v9, &v16);
 
           goto LABEL_11;
         }

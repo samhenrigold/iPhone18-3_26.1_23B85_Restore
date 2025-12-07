@@ -73,7 +73,7 @@ LABEL_4:
   {
     if (v11)
     {
-      [v11 firstItemIndexPath];
+      objc_msgSend_firstItemIndexPath(v11);
     }
 
     else

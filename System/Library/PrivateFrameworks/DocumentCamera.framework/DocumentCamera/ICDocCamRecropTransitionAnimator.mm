@@ -5,8 +5,8 @@
 - (double)matrixTransformingToUnitSquareWithPoints:(double)points y0:(double)y0 x1:(double)x1 y1:(double)y1 x2:(double)x2 y2:(double)y2 x3:(double)x3 y3:(double)y3;
 - (id)imageMeshTransform:(BOOL)transform;
 - (id)scrollViewTransform:(BOOL)transform;
-- (uint64_t)matrixTransformingQuadForOverlayToImageView:(_BYTE *)view;
 - (void)animateTransition:(id)transition;
+- (void)matrixTransformingQuadForOverlayToImageView:(_BYTE *)view;
 - (void)performPopTransitionFromViewController:(id)controller toViewController:(id)viewController transitionContext:(id)context;
 - (void)performPushTransitionFromViewController:(id)controller toViewController:(id)viewController transitionContext:(id)context;
 - (void)performSimpleFadeInFromViewController:(id)controller toViewController:(id)viewController transitionContext:(id)context;
@@ -978,7 +978,7 @@ LABEL_7:
   return v41;
 }
 
-- (uint64_t)matrixTransformingQuadForOverlayToImageView:(_BYTE *)view
+- (void)matrixTransformingQuadForOverlayToImageView:(_BYTE *)view
 {
   v55[8] = *MEMORY[0x277D85DE8];
   startView = [self startView];

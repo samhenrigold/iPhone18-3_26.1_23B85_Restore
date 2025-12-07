@@ -19,7 +19,7 @@ void sub_15F4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a1 + 40) == 1)
   {
-    NSLog(@"WAC: BrowserManager: Extension completed request, items: %@", a3);
+    NSLog(@"WAC: BrowserManager: Extension completed request, items: %@", a2, a3);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -236,9 +236,8 @@ void sub_2348(uint64_t a1, uint64_t a2)
 
 void sub_2388(id *a1, uint64_t a2, void *a3)
 {
-  v15 = a3;
+  v14 = a3;
   v5 = a1[4];
-  v6 = v5[8];
   if (a2 != 3)
   {
     if (a2 == 1)
@@ -261,20 +260,20 @@ LABEL_15:
           v5 = a1[4];
         }
 
-        v7 = &kErrorNone;
+        v6 = &kErrorNone;
         goto LABEL_17;
       }
 
       if (v5[8])
       {
-        NSLog(@"### WAC: %s:%d: status: %d: error: %@", "[EAWiFiUnconfiguredAccessoryBrowserManager configureAccessory:withConfigurationUIOnViewController:]_block_invoke_3", 381, a2, v15);
+        NSLog(@"### WAC: %s:%d: status: %d: error: %@", "[EAWiFiUnconfiguredAccessoryBrowserManager configureAccessory:withConfigurationUIOnViewController:]_block_invoke_3", 381, a2, v14);
         goto LABEL_15;
       }
     }
 
-    v7 = &kErrorUnexpected;
+    v6 = &kErrorUnexpected;
 LABEL_17:
-    [v5 dismissWithStatus:*v7];
+    [v5 dismissWithStatus:*v6];
     goto LABEL_20;
   }
 
@@ -284,27 +283,27 @@ LABEL_17:
     v5 = a1[4];
   }
 
-  v8 = *(v5 + 11);
-  v9 = [a1[5] macAddress];
-  v10 = [v8 objectForKey:v9];
-  [a1[4] setUnconfiguredDeviceID:v10];
+  v7 = *(v5 + 11);
+  v8 = [a1[5] macAddress];
+  v9 = [v7 objectForKey:v8];
+  [a1[4] setUnconfiguredDeviceID:v9];
 
   if (MGGetBoolAnswer())
   {
-    v11 = [a1[5] name];
-    v12 = [NSString stringWithFormat:@"%@ is an unconfigured Home Accessory", v11];
-    v13 = @"SECURE_WAC_WLAN_MESSAGE";
+    v10 = [a1[5] name];
+    v11 = [NSString stringWithFormat:@"%@ is an unconfigured Home Accessory", v10];
+    v12 = @"SECURE_WAC_WLAN_MESSAGE";
   }
 
   else
   {
     NSLog(@"### WAC: %s:%d Other Region SKU", "[EAWiFiUnconfiguredAccessoryBrowserManager configureAccessory:withConfigurationUIOnViewController:]_block_invoke_3", 368);
-    v11 = [a1[5] name];
-    v12 = [NSString stringWithFormat:@"%@ is an unconfigured Home Accessory", v11];
-    v13 = @"SECURE_WAC_WIFI_MESSAGE";
+    v10 = [a1[5] name];
+    v11 = [NSString stringWithFormat:@"%@ is an unconfigured Home Accessory", v10];
+    v12 = @"SECURE_WAC_WIFI_MESSAGE";
   }
 
-  [EAPostAlert EANotificationPostAccessoryNotification:v12 forMsg:v13 forDefaultButton:@"OKAY_STRING" withAlternateButton:@"CANCEL_STRING" forNotification:&qword_CCD8 withCallback:sub_25E4 andTimeout:0.0];
+  [EAPostAlert EANotificationPostAccessoryNotification:v11 forMsg:v12 forDefaultButton:@"OKAY_STRING" withAlternateButton:@"CANCEL_STRING" forNotification:&qword_CCD8 withCallback:sub_25E4 andTimeout:0.0];
 
 LABEL_20:
   WeakRetained = objc_loadWeakRetained(a1 + 6);
@@ -392,7 +391,7 @@ void *sub_3520(void *result, uint64_t a2, uint64_t a3)
   if (a3)
   {
     v3 = result;
-    NSLog(@"%s: failed to launch URL %@, error: %@", "[EAWiFiUnconfiguredAccessoryBrowserManager openURL:]_block_invoke", result[4], a3);
+    NSLog(@"%s: failed to launch URL %@, error: %@", a2, "[EAWiFiUnconfiguredAccessoryBrowserManager openURL:]_block_invoke", result[4], a3);
     v4 = v3[5];
 
     return [v4 dismissWithStatus:4294960560];

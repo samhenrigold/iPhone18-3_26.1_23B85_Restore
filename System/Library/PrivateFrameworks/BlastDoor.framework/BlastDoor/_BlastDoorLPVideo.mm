@@ -11,21 +11,19 @@
 
 - (_BlastDoorLPVideo)init
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v4.receiver = self;
-  v4.super_class = _BlastDoorLPVideo;
-  result = [(_BlastDoorLPVideo *)&v4 init];
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v4 = *MEMORY[0x277D85DE8];
+  v3.receiver = self;
+  v3.super_class = _BlastDoorLPVideo;
+  return [(_BlastDoorLPVideo *)&v3 init];
 }
 
 - (id)_initWithVideo:(id)video
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   videoCopy = video;
-  v16.receiver = self;
-  v16.super_class = _BlastDoorLPVideo;
-  v5 = [(_BlastDoorLPVideo *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = _BlastDoorLPVideo;
+  v5 = [(_BlastDoorLPVideo *)&v15 init];
   v6 = v5;
   if (v5)
   {
@@ -47,17 +45,16 @@
     v13 = v6;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (_BlastDoorLPVideo)initWithCoder:(id)coder
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v20.receiver = self;
-  v20.super_class = _BlastDoorLPVideo;
-  v5 = [(_BlastDoorLPVideo *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = _BlastDoorLPVideo;
+  v5 = [(_BlastDoorLPVideo *)&v19 init];
   if (v5)
   {
     v6 = [coderCopy _bd_lp_strictlyDecodeObjectOfClass:objc_opt_class() forKey:@"streamingURL"];
@@ -87,7 +84,6 @@
     v17 = v5;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -110,11 +106,11 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   equalCopy = equal;
-  v15.receiver = self;
-  v15.super_class = _BlastDoorLPVideo;
-  if ([(_BlastDoorLPVideo *)&v15 isEqual:equalCopy])
+  v14.receiver = self;
+  v14.super_class = _BlastDoorLPVideo;
+  if ([(_BlastDoorLPVideo *)&v14 isEqual:equalCopy])
   {
     v5 = 1;
   }
@@ -152,7 +148,6 @@
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

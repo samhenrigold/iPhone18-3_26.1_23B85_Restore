@@ -432,15 +432,15 @@ LABEL_16:
   }
 }
 
-uint64_t __47__MPUArtworkView__updateHighlightViewAnimated___block_invoke_3(uint64_t result, int a2)
+id *__47__MPUArtworkView__updateHighlightViewAnimated___block_invoke_3(id *result, int a2)
 {
   if (a2)
   {
     v2 = result;
-    result = [*(result + 32) _shouldShowHighlightView];
+    result = [result[4] _shouldShowHighlightView];
     if ((result & 1) == 0)
     {
-      v3 = *(*(v2 + 32) + 528);
+      v3 = *(v2[4] + 66);
 
       return [v3 setHidden:1];
     }

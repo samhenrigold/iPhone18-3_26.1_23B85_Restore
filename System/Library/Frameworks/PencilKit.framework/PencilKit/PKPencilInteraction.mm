@@ -8,39 +8,39 @@
 + (PKPencilInteraction)fallbackPencilInteraction
 {
   objc_opt_self();
-  v0 = [PKPencilInteraction alloc];
-  if (v0)
+  v1 = [PKPencilInteraction alloc];
+  if (v1)
   {
-    v2.receiver = v0;
-    v2.super_class = PKPencilInteraction;
-    v0 = objc_msgSendSuper2(&v2, sel_init);
-    if (v0)
+    v3.receiver = v1;
+    v3.super_class = PKPencilInteraction;
+    v1 = objc_msgSendSuper2(&v3, sel_init);
+    if (v1)
     {
-      v0->_dispatchBehavior = 1;
-      v0->_wantsDoubleTap = 1;
+      v1->_dispatchBehavior = 1;
+      v1->_wantsDoubleTap = 1;
     }
   }
 
-  return v0;
+  return v1;
 }
 
 + (PKPencilInteraction)observerPencilInteraction
 {
   objc_opt_self();
-  v0 = [PKPencilInteraction alloc];
-  if (v0)
+  v1 = [PKPencilInteraction alloc];
+  if (v1)
   {
-    v2.receiver = v0;
-    v2.super_class = PKPencilInteraction;
-    v0 = objc_msgSendSuper2(&v2, sel_init);
-    if (v0)
+    v3.receiver = v1;
+    v3.super_class = PKPencilInteraction;
+    v1 = objc_msgSendSuper2(&v3, sel_init);
+    if (v1)
     {
-      v0->_dispatchBehavior = 2;
-      v0->_wantsDoubleTap = 1;
+      v1->_dispatchBehavior = 2;
+      v1->_wantsDoubleTap = 1;
     }
   }
 
-  return v0;
+  return v1;
 }
 
 @end

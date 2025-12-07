@@ -10,8 +10,8 @@
 
 - (void)dealloc
 {
-  v5 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], a2, v2, v3);
-  objc_msgSend_removeObserver_(v5, v6, self, v7);
+  v4 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], a2, v2);
+  objc_msgSend_removeObserver_(v4, v5, self);
 
   uiWindow = self->_uiWindow;
   uiView = self->_uiView;
@@ -25,56 +25,56 @@
   block[5] = uiView;
   dispatch_async(MEMORY[0x1E69E96A0], block);
 
-  v10.receiver = self;
-  v10.super_class = VFXTextureUIKitSource;
-  [(VFXTextureCoreAnimationSource *)&v10 dealloc];
+  v8.receiver = self;
+  v8.super_class = VFXTextureUIKitSource;
+  [(VFXTextureCoreAnimationSource *)&v8 dealloc];
 }
 
 - (void)setup
 {
-  v5 = objc_msgSend_superlayer(self->_uiWindowLayer, a2, v2, v3);
-  v9 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v6, v7, v8);
+  v4 = objc_msgSend_superlayer(self->_uiWindowLayer, a2, v2);
+  v7 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v5, v6);
 
-  objc_msgSend_addObserver_selector_name_object_(v9, v10, self, sel__layerTreeDidUpdate, @"VFXLayerTreeDidChange", v5);
+  objc_msgSend_addObserver_selector_name_object_(v7, v8, self, sel__layerTreeDidUpdate, @"VFXLayerTreeDidChange", v4);
 }
 
 - (double)layerContentsScaleFactor
 {
-  v4 = objc_msgSend_mainScreen(MEMORY[0x1E69DCEB0], a2, v2, v3);
+  v3 = objc_msgSend_mainScreen(MEMORY[0x1E69DCEB0], a2, v2);
 
-  objc_msgSend_scale(v4, v5, v6, v7);
+  objc_msgSend_scale(v3, v4, v5);
   return result;
 }
 
 - (CGSize)layerSizeInPixels
 {
-  objc_msgSend_bounds(self->_uiWindowLayer, a2, v2, v3);
-  v6 = v5;
-  v8 = v7;
-  objc_msgSend_layerContentsScaleFactor(self, v9, v10, v11);
-  v13 = v12 * v8;
-  if (v12 == 0.0)
+  objc_msgSend_bounds(self->_uiWindowLayer, a2, v2);
+  v5 = v4;
+  v7 = v6;
+  objc_msgSend_layerContentsScaleFactor(self, v8, v9);
+  v11 = v10 * v7;
+  if (v10 == 0.0)
   {
-    v13 = v8;
-    v14 = v6;
+    v11 = v7;
+    v12 = v5;
   }
 
   else
   {
-    v14 = v12 * v6;
+    v12 = v10 * v5;
   }
 
-  result.height = v13;
-  result.width = v14;
+  result.height = v11;
+  result.width = v12;
   return result;
 }
 
 - (void)_layerTreeDidUpdate
 {
-  v5 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], a2, v2, v3);
+  v4 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], a2, v2);
   source = self->_source;
 
-  objc_msgSend_postNotificationName_object_(v5, v6, @"VFXUITreeDidChange", source);
+  objc_msgSend_postNotificationName_object_(v4, v5, @"VFXUITreeDidChange", source);
 }
 
 @end

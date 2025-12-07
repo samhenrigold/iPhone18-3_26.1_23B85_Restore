@@ -3,12 +3,52 @@
 - (AudioComponentDescription)audioComponentDescription;
 - (AudioUnit)audioUnit;
 - (BOOL)loadAudioUnitPresetAtURL:(NSURL *)url error:(NSError *)outError;
+- (BOOL)setValue:(float)value forParam:(unsigned int)param;
 - (NSString)manufacturerName;
 - (NSString)name;
 - (NSUInteger)version;
+- (float)valueForParam:(unsigned int)param;
 @end
 
 @implementation AVAudioUnit
+
+- (float)valueForParam:(unsigned int)param
+{
+  v3 = *&param;
+  AVAudioNodeImplBase::GetAttachAndEngineLock(&v8, self->super._impl);
+  v7 = 0.0;
+  (*(*self->super._impl + 136))(self->super._impl, v3, 0, 0, &v7);
+  v5 = v7;
+  if (v11 == 1)
+  {
+    std::recursive_mutex::unlock(v10);
+  }
+
+  if (v9 == 1)
+  {
+    std::recursive_mutex::unlock(v8);
+  }
+
+  return v5;
+}
+
+- (BOOL)setValue:(float)value forParam:(unsigned int)param
+{
+  v4 = *&param;
+  AVAudioNodeImplBase::GetAttachAndEngineLock(&v9, self->super._impl);
+  v7 = (*(*self->super._impl + 128))(self->super._impl, v4, 0, 0, value);
+  if (v12 == 1)
+  {
+    std::recursive_mutex::unlock(v11);
+  }
+
+  if (v10 == 1)
+  {
+    std::recursive_mutex::unlock(v9);
+  }
+
+  return v7;
+}
 
 - (NSUInteger)version
 {
@@ -199,48 +239,7 @@ LABEL_9:
 
 + (void)instantiateWithComponentDescription:(AudioComponentDescription *)audioComponentDescription options:(AudioComponentInstantiationOptions)options completionHandler:(void *)completionHandler
 {
-  componentType = audioComponentDescription->componentType;
-  v9 = off_1E7EF4C38;
-  if (audioComponentDescription->componentType > 1635085672)
-  {
-    if (componentType == 1635085673 || componentType == 1635085685)
-    {
-      v9 = off_1E7EF4C48;
-      goto LABEL_15;
-    }
-
-    if (componentType != 1635086188)
-    {
-      goto LABEL_13;
-    }
-  }
-
-  else
-  {
-    if (componentType != 1635083875)
-    {
-      if (componentType == 1635083896)
-      {
-        goto LABEL_15;
-      }
-
-      if (componentType == 1635084142)
-      {
-        v9 = off_1E7EF4C40;
-        goto LABEL_15;
-      }
-
-LABEL_13:
-      v9 = off_1E7EF4C10;
-      goto LABEL_15;
-    }
-
-    v9 = off_1E7EF4C50;
-  }
-
-LABEL_15:
-  v11 = *v9;
-  v12 = objc_opt_class();
+  v8 = objc_opt_class();
   Next = AudioComponentFindNext(0, audioComponentDescription);
   if (Next)
   {
@@ -248,23 +247,23 @@ LABEL_15:
     inCompletionHandler[1] = 3221225472;
     inCompletionHandler[2] = __77__AVAudioUnit_instantiateWithComponentDescription_options_completionHandler___block_invoke;
     inCompletionHandler[3] = &unk_1E7EF6918;
-    v17 = *&audioComponentDescription->componentType;
+    v13 = *&audioComponentDescription->componentType;
     componentFlagsMask = audioComponentDescription->componentFlagsMask;
-    inCompletionHandler[4] = v12;
+    inCompletionHandler[4] = v8;
     inCompletionHandler[5] = completionHandler;
     AudioComponentInstantiate(Next, options, inCompletionHandler);
   }
 
   else
   {
-    v14 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:-3000 userInfo:0];
-    v15 = *(completionHandler + 2);
+    v10 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:-3000 userInfo:0];
+    v11 = *(completionHandler + 2);
 
-    v15(completionHandler, 0, v14);
+    v11(completionHandler, 0, v10);
   }
 }
 
-uint64_t __77__AVAudioUnit_instantiateWithComponentDescription_options_completionHandler___block_invoke(uint64_t a1, uint64_t a2, int a3)
+void __77__AVAudioUnit_instantiateWithComponentDescription_options_completionHandler___block_invoke(uint64_t a1, OpaqueAudioComponentInstance *a2, int a3)
 {
   if (a2)
   {
@@ -275,7 +274,7 @@ uint64_t __77__AVAudioUnit_instantiateWithComponentDescription_options_completio
   v4 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:a3 userInfo:0];
   v5 = *(v3 + 16);
 
-  return v5(v3, 0, v4);
+  v5(v3, 0, v4);
 }
 
 @end

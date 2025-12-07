@@ -23,7 +23,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1B377E324();
+  sub_1B377E324(delegate);
 }
 
 - (PUPickerSuggestion)selectedSuggestion
@@ -70,13 +70,13 @@
 - (void)layoutMarginsDidChange
 {
   selfCopy = self;
-  sub_1B377EBD8();
+  sub_1B377EBD8(selfCopy);
 }
 
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1B377ECFC();
+  sub_1B377ECFC(selfCopy);
 }
 
 @end

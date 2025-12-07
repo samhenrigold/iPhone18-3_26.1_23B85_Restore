@@ -9,7 +9,7 @@
 {
   renderableCopy = renderable;
   selfCopy = self;
-  sub_10098F8FC(renderable);
+  sub_10098F8FC(renderable, selfCopy);
 }
 
 - (_TtC8Freeform11CRLSceneRep)initWithLayout:(id)layout canvas:(id)canvas

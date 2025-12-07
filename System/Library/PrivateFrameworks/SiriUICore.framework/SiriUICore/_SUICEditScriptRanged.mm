@@ -6,6 +6,7 @@
 - (void)addToCurrentScriptAtomEditOperation:(int64_t)operation editIndex:(unint64_t)index newText:(id)text indexInArrayB:(unint64_t)b;
 - (void)computeSmallestSingleEdit;
 - (void)finalizeCurrentScriptAtom;
+- (void)initializeCurrentScriptAtom;
 - (void)removeAnyOverlapBetweenIndexOfFirstDifference:(int64_t *)difference andReverseIndexOfLastDifference:(int64_t *)lastDifference shouldShortenFirstDifference:(BOOL)firstDifference;
 @end
 
@@ -135,6 +136,13 @@ LABEL_13:
   }
 
   return v6;
+}
+
+- (void)initializeCurrentScriptAtom
+{
+  currentScriptAtom = self->_currentScriptAtom;
+  self->_currentScriptAtom = 0;
+  MEMORY[0x1EEE66BB8](self, currentScriptAtom);
 }
 
 - (void)addToCurrentScriptAtomEditOperation:(int64_t)operation editIndex:(unint64_t)index newText:(id)text indexInArrayB:(unint64_t)b

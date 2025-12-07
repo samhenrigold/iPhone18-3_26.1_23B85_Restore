@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)sdmTriggerCauseAsString:(int)string;
 - (int)StringAsSdmTriggerCause:(id)cause;
 - (int)sdmTriggerCause;
 - (unint64_t)hash;
@@ -232,6 +233,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFBFF | v3;
+}
+
+- (id)sdmTriggerCauseAsString:(int)string
+{
+  if (string >= 0xC)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_100317280[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsSdmTriggerCause:(id)cause
@@ -538,7 +554,6 @@ LABEL_14:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x80) == 0)
@@ -558,7 +573,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  reason = self->_reason;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -573,7 +587,6 @@ LABEL_4:
   }
 
 LABEL_24:
-  result = self->_result;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -588,7 +601,6 @@ LABEL_5:
   }
 
 LABEL_25:
-  duration = self->_duration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -603,7 +615,6 @@ LABEL_6:
   }
 
 LABEL_26:
-  numBeamFailure = self->_numBeamFailure;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -618,7 +629,6 @@ LABEL_7:
   }
 
 LABEL_27:
-  numBeamRecovery = self->_numBeamRecovery;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -633,7 +643,6 @@ LABEL_8:
   }
 
 LABEL_28:
-  rxBeamSwitch = self->_rxBeamSwitch;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x1000) == 0)
@@ -648,7 +657,6 @@ LABEL_9:
   }
 
 LABEL_29:
-  txBeamSwitch = self->_txBeamSwitch;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -663,7 +671,6 @@ LABEL_10:
   }
 
 LABEL_30:
-  bandInd = self->_bandInd;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -678,12 +685,10 @@ LABEL_11:
   }
 
 LABEL_31:
-  numSubs = self->_numSubs;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_12:
-    psPref = self->_psPref;
     PBDataWriterWriteUint32Field();
   }
 
@@ -693,16 +698,15 @@ LABEL_13:
     PBDataWriterWriteDataField();
   }
 
-  v6 = self->_has;
-  if ((v6 & 0x800) != 0)
+  v5 = self->_has;
+  if ((v5 & 0x800) != 0)
   {
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
-    v6 = self->_has;
-    if ((v6 & 0x2000) == 0)
+    v5 = self->_has;
+    if ((v5 & 0x2000) == 0)
     {
 LABEL_17:
-      if ((v6 & 0x400) == 0)
+      if ((v5 & 0x400) == 0)
       {
         goto LABEL_19;
       }
@@ -716,12 +720,10 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  isDueToSdm = self->_isDueToSdm;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x400) != 0)
   {
 LABEL_18:
-    sdmTriggerCause = self->_sdmTriggerCause;
     PBDataWriterWriteInt32Field();
   }
 
@@ -1319,7 +1321,6 @@ LABEL_77:
     goto LABEL_77;
   }
 
-  v9 = *(equalCopy + 76);
   if (self->_isDueToSdm)
   {
     if ((*(equalCopy + 76) & 1) == 0)

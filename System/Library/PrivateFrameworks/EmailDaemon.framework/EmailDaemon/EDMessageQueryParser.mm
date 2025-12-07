@@ -4,6 +4,7 @@
 - (id)_sqlQueryToCountResultsForQuery:(id)query distinctByGlobalMessageID:(BOOL)d;
 - (id)sqlCountQueryByMailboxForQuery:(id)query;
 - (id)sqlCountQueryForQuery:(id)query;
+- (id)sqlQueryForQuery:(id)query protectedDataAvailable:(BOOL)available;
 - (id)sqlQueryToCountJournaledMessagesForQuery:(id)query;
 - (id)sqlQueryToCountMessagesWithGlobalMessageID:(int64_t)d matchingQuery:(id)query;
 - (void)_modifySelectStatement:(id)statement byAddingAdditionalClause:(id)clause;
@@ -75,7 +76,7 @@ void __27__EDMessageQueryParser_log__block_invoke(uint64_t a1)
 
 - (void)_modifySelectStatement:(id)statement byAddingAdditionalClause:(id)clause
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   statementCopy = statement;
   clauseCopy = clause;
   where = [statementCopy where];
@@ -85,9 +86,9 @@ void __27__EDMessageQueryParser_log__block_invoke(uint64_t a1)
     if (([where isEqual:MEMORY[0x1E695E110]] & 1) == 0)
     {
       v9 = MEMORY[0x1E699B898];
-      v13[0] = v8;
-      v13[1] = clauseCopy;
-      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
+      v12[0] = v8;
+      v12[1] = clauseCopy;
+      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
       v11 = [v9 combined:v10];
 
       v8 = v11;
@@ -100,8 +101,55 @@ void __27__EDMessageQueryParser_log__block_invoke(uint64_t a1)
   }
 
   [statementCopy setWhere:v8];
+}
 
-  v12 = *MEMORY[0x1E69E9840];
+- (id)sqlQueryForQuery:(id)query protectedDataAvailable:(BOOL)available
+{
+  availableCopy = available;
+  queryCopy = query;
+  transformer = [(EDMessageQueryParser *)self transformer];
+  predicate = [queryCopy predicate];
+  v9 = [transformer transformPredicate:predicate];
+
+  v10 = MEMORY[0x1E699B938];
+  sortDescriptors = [queryCopy sortDescriptors];
+  limit = [queryCopy limit];
+  sqlPropertyMapper = [(EDMessageQueryParser *)self sqlPropertyMapper];
+  v14 = [v10 selectStatementForReturnObjectKeypaths:MEMORY[0x1E695E0F0] predicate:v9 sortDescriptors:sortDescriptors limit:limit propertyMapper:sqlPropertyMapper protectedDataAvailable:availableCopy];
+
+  if (([queryCopy queryOptions] & 0x100) != 0)
+  {
+    additionalSQLClauseForJournaledMessages = [(EDMessageQueryParser *)self additionalSQLClauseForJournaledMessages];
+  }
+
+  else
+  {
+    if (([queryCopy queryOptions] & 0x200) != 0)
+    {
+      v16 = 0;
+      goto LABEL_8;
+    }
+
+    additionalSQLClauseForJournaledMessages = [(EDMessageQueryParser *)self additionalSQLClause];
+  }
+
+  v16 = additionalSQLClauseForJournaledMessages;
+  if (additionalSQLClauseForJournaledMessages)
+  {
+    [(EDMessageQueryParser *)self _modifySelectStatement:v14 byAddingAdditionalClause:additionalSQLClauseForJournaledMessages];
+  }
+
+LABEL_8:
+  sortDescriptors2 = [queryCopy sortDescriptors];
+  v18 = [sortDescriptors2 count];
+
+  if (v18)
+  {
+    v19 = +[EDMessagePersistence messagesTableName];
+    [v14 orderByColumn:*MEMORY[0x1E699B768] fromTable:v19 ascending:0];
+  }
+
+  return v14;
 }
 
 - (id)_sqlQueryToCountResultsForQuery:(id)query distinctByGlobalMessageID:(BOOL)d
@@ -162,7 +210,7 @@ void __27__EDMessageQueryParser_log__block_invoke(uint64_t a1)
 
 - (id)sqlQueryToCountMessagesWithGlobalMessageID:(int64_t)d matchingQuery:(id)query
 {
-  v28[3] = *MEMORY[0x1E69E9840];
+  v27[3] = *MEMORY[0x1E69E9840];
   queryCopy = query;
   transformer = [(EDMessageQueryParser *)self transformer];
   predicate = [queryCopy predicate];
@@ -188,11 +236,11 @@ void __27__EDMessageQueryParser_log__block_invoke(uint64_t a1)
     }
 
     v20 = MEMORY[0x1E699B898];
-    v28[0] = v19;
-    v28[1] = where;
+    v27[0] = v19;
+    v27[1] = where;
     additionalSQLClauseForGlobalMessageCountQuery = [(EDMessageQueryParser *)self additionalSQLClauseForGlobalMessageCountQuery];
-    v28[2] = additionalSQLClauseForGlobalMessageCountQuery;
-    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:3];
+    v27[2] = additionalSQLClauseForGlobalMessageCountQuery;
+    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:3];
     v23 = [v20 combined:v22];
 
     where = v23;
@@ -202,15 +250,13 @@ void __27__EDMessageQueryParser_log__block_invoke(uint64_t a1)
   {
     v24 = MEMORY[0x1E699B898];
     additionalSQLClauseForGlobalMessageCountQuery = [(EDMessageQueryParser *)self additionalSQLClauseForGlobalMessageCountQuery];
-    v27[1] = additionalSQLClauseForGlobalMessageCountQuery;
-    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
+    v26[1] = additionalSQLClauseForGlobalMessageCountQuery;
+    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
     where = [v24 combined:v22];
   }
 
 LABEL_6:
   [v12 setWhere:where];
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

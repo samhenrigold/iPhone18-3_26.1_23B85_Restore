@@ -7,34 +7,32 @@
 
 - (void)getPersonalSettingsForSharedUserID:(id)d completion:(id)completion
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   dCopy = d;
   completionCopy = completion;
   v7 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v18 = "[AFDeviceStateConnection getPersonalSettingsForSharedUserID:completion:]";
+    v17 = "[AFDeviceStateConnection getPersonalSettingsForSharedUserID:completion:]";
     _os_log_debug_impl(&dword_1912FE000, v7, OS_LOG_TYPE_DEBUG, "%s ", buf, 0xCu);
   }
 
   v8 = +[AFFlowServiceConnection sharedConnection];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __73__AFDeviceStateConnection_getPersonalSettingsForSharedUserID_completion___block_invoke;
-  v14[3] = &unk_1E7341C88;
-  v15 = dCopy;
-  v16 = completionCopy;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __73__AFDeviceStateConnection_getPersonalSettingsForSharedUserID_completion___block_invoke_3;
-  v12[3] = &unk_1E7348AA8;
-  v13 = v16;
-  v9 = v16;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __73__AFDeviceStateConnection_getPersonalSettingsForSharedUserID_completion___block_invoke;
+  v13[3] = &unk_1E7341C88;
+  v14 = dCopy;
+  v15 = completionCopy;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __73__AFDeviceStateConnection_getPersonalSettingsForSharedUserID_completion___block_invoke_3;
+  v11[3] = &unk_1E7348AA8;
+  v12 = v15;
+  v9 = v15;
   v10 = dCopy;
-  [v8 invokeMethodOnRemoteWithBlock:v14 onError:v12];
-
-  v11 = *MEMORY[0x1E69E9840];
+  [v8 invokeMethodOnRemoteWithBlock:v13 onError:v11];
 }
 
 void __73__AFDeviceStateConnection_getPersonalSettingsForSharedUserID_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -53,21 +51,19 @@ void __73__AFDeviceStateConnection_getPersonalSettingsForSharedUserID_completion
 
 void __73__AFDeviceStateConnection_getPersonalSettingsForSharedUserID_completion___block_invoke_3(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
   {
-    v6 = 136315394;
-    v7 = "[AFDeviceStateConnection getPersonalSettingsForSharedUserID:completion:]_block_invoke_3";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_error_impl(&dword_1912FE000, v4, OS_LOG_TYPE_ERROR, "%s %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[AFDeviceStateConnection getPersonalSettingsForSharedUserID:completion:]_block_invoke_3";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_error_impl(&dword_1912FE000, v4, OS_LOG_TYPE_ERROR, "%s %@", &v5, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __73__AFDeviceStateConnection_getPersonalSettingsForSharedUserID_completion___block_invoke_2(uint64_t a1)
@@ -80,31 +76,29 @@ uint64_t __73__AFDeviceStateConnection_getPersonalSettingsForSharedUserID_comple
 
 - (void)fetchSiriKitAppIdentifiersWithNotificationPreviewRestrictionsWithCompletion:(id)completion
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v4 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v13 = "[AFDeviceStateConnection fetchSiriKitAppIdentifiersWithNotificationPreviewRestrictionsWithCompletion:]";
+    v12 = "[AFDeviceStateConnection fetchSiriKitAppIdentifiersWithNotificationPreviewRestrictionsWithCompletion:]";
     _os_log_debug_impl(&dword_1912FE000, v4, OS_LOG_TYPE_DEBUG, "%s ", buf, 0xCu);
   }
 
   v5 = +[AFFlowServiceConnection sharedConnection];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __103__AFDeviceStateConnection_fetchSiriKitAppIdentifiersWithNotificationPreviewRestrictionsWithCompletion___block_invoke;
-  v10[3] = &unk_1E7341C38;
-  v11 = completionCopy;
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __103__AFDeviceStateConnection_fetchSiriKitAppIdentifiersWithNotificationPreviewRestrictionsWithCompletion___block_invoke_3;
-  v8[3] = &unk_1E7348AA8;
-  v9 = v11;
-  v6 = v11;
-  [v5 invokeMethodOnRemoteWithBlock:v10 onError:v8];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __103__AFDeviceStateConnection_fetchSiriKitAppIdentifiersWithNotificationPreviewRestrictionsWithCompletion___block_invoke;
+  v9[3] = &unk_1E7341C38;
+  v10 = completionCopy;
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __103__AFDeviceStateConnection_fetchSiriKitAppIdentifiersWithNotificationPreviewRestrictionsWithCompletion___block_invoke_3;
+  v7[3] = &unk_1E7348AA8;
+  v8 = v10;
+  v6 = v10;
+  [v5 invokeMethodOnRemoteWithBlock:v9 onError:v7];
 }
 
 void __103__AFDeviceStateConnection_fetchSiriKitAppIdentifiersWithNotificationPreviewRestrictionsWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -122,21 +116,19 @@ void __103__AFDeviceStateConnection_fetchSiriKitAppIdentifiersWithNotificationPr
 
 void __103__AFDeviceStateConnection_fetchSiriKitAppIdentifiersWithNotificationPreviewRestrictionsWithCompletion___block_invoke_3(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
   {
-    v6 = 136315394;
-    v7 = "[AFDeviceStateConnection fetchSiriKitAppIdentifiersWithNotificationPreviewRestrictionsWithCompletion:]_block_invoke_3";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_error_impl(&dword_1912FE000, v4, OS_LOG_TYPE_ERROR, "%s %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[AFDeviceStateConnection fetchSiriKitAppIdentifiersWithNotificationPreviewRestrictionsWithCompletion:]_block_invoke_3";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_error_impl(&dword_1912FE000, v4, OS_LOG_TYPE_ERROR, "%s %@", &v5, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __103__AFDeviceStateConnection_fetchSiriKitAppIdentifiersWithNotificationPreviewRestrictionsWithCompletion___block_invoke_2(uint64_t a1)

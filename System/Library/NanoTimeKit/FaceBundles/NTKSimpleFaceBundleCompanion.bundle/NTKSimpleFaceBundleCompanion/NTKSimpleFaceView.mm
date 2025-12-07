@@ -79,30 +79,29 @@
 
 - (void)layoutSubviews
 {
-  v22.receiver = self;
-  v22.super_class = NTKSimpleFaceView;
-  [(NTKSimpleFaceView *)&v22 layoutSubviews];
+  v21.receiver = self;
+  v21.super_class = NTKSimpleFaceView;
+  [(NTKSimpleFaceView *)&v21 layoutSubviews];
   [(NTKSimpleFaceView *)self bounds];
   v4 = v3;
   v6 = v5;
   v8 = v7;
   v10 = v9;
   [(UIView *)self->_backgroundView ntk_setBoundsAndPositionFromFrame:?];
-  v23.origin.x = v4;
-  v23.origin.y = v6;
-  v23.size.width = v8;
-  v23.size.height = v10;
-  CGRectGetWidth(v23);
-  y = CGPointZero.y;
+  v22.origin.x = v4;
+  v22.origin.y = v6;
+  v22.size.width = v8;
+  v22.size.height = v10;
+  CGRectGetWidth(v22);
   device = [(NTKSimpleFaceView *)self device];
   CLKRectCenteredIntegralRectForDevice();
-  v14 = v13;
-  v16 = v15;
-  v18 = v17;
-  v20 = v19;
+  v13 = v12;
+  v15 = v14;
+  v17 = v16;
+  v19 = v18;
 
   timeView = [(NTKSimpleFaceView *)self timeView];
-  [timeView ntk_setBoundsAndPositionFromFrame:{v14, v16, v18, v20}];
+  [timeView ntk_setBoundsAndPositionFromFrame:{v13, v15, v17, v19}];
 
   [(NTKSimpleFaceView *)self _updateDateComplicationPositionIfNecessary];
   [(NTKSimpleFaceView *)self _updateComplicationOverlapHiding];
@@ -352,40 +351,40 @@
   {
     density = [optionCopy density];
     [(NTKSimpleFaceView *)self _setDensity:density];
-    v33 = 0;
-    v38 = *&CGAffineTransformIdentity.c;
-    v40 = *&CGAffineTransformIdentity.a;
-    v36 = *&CGAffineTransformIdentity.tx;
+    v29 = 0;
+    v34 = *&CGAffineTransformIdentity.c;
+    v36 = *&CGAffineTransformIdentity.a;
+    v32 = *&CGAffineTransformIdentity.tx;
     do
     {
-      if (density == v33)
+      if (density == v29)
       {
-        v34 = [(NTKSimpleFaceView *)self _createTicksViewForDensityIfNeeded:density];
-        v35 = 1.0;
+        v30 = [(NTKSimpleFaceView *)self _createTicksViewForDensityIfNeeded:density];
+        v31 = 1.0;
       }
 
       else
       {
-        v34 = self->_ticksViews[v33];
-        v35 = 0.0;
+        v30 = self->_ticksViews[v29];
+        v31 = 0.0;
       }
 
-      [(NTKSimpleFaceViewTicksView *)v34 setAlpha:v35, v36];
-      v41[0] = v40;
-      v41[1] = v38;
-      v41[2] = v36;
-      [(NTKSimpleFaceViewTicksView *)v34 setTransform:v41];
+      [(NTKSimpleFaceViewTicksView *)v30 setAlpha:v31, v32];
+      v37[0] = v36;
+      v37[1] = v34;
+      v37[2] = v32;
+      [(NTKSimpleFaceViewTicksView *)v30 setTransform:v37];
 
-      v33 = v33 + 1;
+      v29 = v29 + 1;
     }
 
-    while (v33 != &dword_4);
+    while (v29 != &dword_4);
   }
 
   else if (mode == 10)
   {
-    v37 = slotCopy;
-    v39 = optionCopy;
+    v33 = slotCopy;
+    v35 = optionCopy;
     faceColorPalette = [(NTKSimpleFaceView *)self faceColorPalette];
     v12 = [(NTKSimpleFaceView *)self _faceColorSchemeForFaceColorPalette:faceColorPalette];
 
@@ -415,31 +414,27 @@
 
       v21 = v20;
       smallTick = [(NTKSimpleFaceViewTicksView *)v20 smallTick];
-      v23 = self->_ticksSmallColor;
-      v24 = qword_C130[i];
-      v25 = NTKColorByPremultiplyingAlpha();
-      [smallTick setBackgroundColor:{objc_msgSend(v25, "CGColor")}];
+      v23 = NTKColorByPremultiplyingAlpha();
+      [smallTick setBackgroundColor:{objc_msgSend(v23, "CGColor")}];
 
       largeTick = [(NTKSimpleFaceViewTicksView *)v21 largeTick];
-      v27 = self->_ticksLargeColor;
-      v28 = qword_C150[i];
-      v29 = NTKColorByPremultiplyingAlpha();
-      [largeTick setBackgroundColor:{objc_msgSend(v29, "CGColor")}];
+      v25 = NTKColorByPremultiplyingAlpha();
+      [largeTick setBackgroundColor:{objc_msgSend(v25, "CGColor")}];
     }
 
     accentColor2 = [v12 accentColor];
     accentColor = self->_accentColor;
     self->_accentColor = accentColor2;
 
-    v42[0] = _NSConcreteStackBlock;
-    v42[1] = 3221225472;
-    v42[2] = sub_2998;
-    v42[3] = &unk_103E0;
-    v42[4] = self;
-    [(NTKSimpleFaceView *)self enumerateComplicationDisplayWrappersWithBlock:v42];
+    v38[0] = _NSConcreteStackBlock;
+    v38[1] = 3221225472;
+    v38[2] = sub_2998;
+    v38[3] = &unk_103E0;
+    v38[4] = self;
+    [(NTKSimpleFaceView *)self enumerateComplicationDisplayWrappersWithBlock:v38];
 
-    optionCopy = v39;
-    v10 = v37;
+    optionCopy = v35;
+    v10 = v33;
   }
 }
 
@@ -493,19 +488,19 @@
 {
   optionCopy = option;
   toOptionCopy = toOption;
-  v43.receiver = self;
-  v43.super_class = NTKSimpleFaceView;
-  [(NTKSimpleFaceView *)&v43 _applyTransitionFraction:optionCopy fromOption:toOptionCopy toOption:mode forCustomEditMode:slot slot:fraction];
+  v41.receiver = self;
+  v41.super_class = NTKSimpleFaceView;
+  [(NTKSimpleFaceView *)&v41 _applyTransitionFraction:optionCopy fromOption:toOptionCopy toOption:mode forCustomEditMode:slot slot:fraction];
   if (mode == 11)
   {
     density = [optionCopy density];
     density2 = [toOptionCopy density];
-    v34 = 0;
+    v32 = 0;
     do
     {
-      if (density == v34 || density2 == v34)
+      if (density == v32 || density2 == v32)
       {
-        if (density2 == v34)
+        if (density2 == v32)
         {
           fractionCopy = fraction;
         }
@@ -517,32 +512,32 @@
 
         if (density == density2)
         {
-          v36 = 1.0;
+          v34 = 1.0;
         }
 
         else
         {
-          v36 = fractionCopy;
+          v34 = fractionCopy;
         }
 
-        fractionCopy = [(NTKSimpleFaceView *)self _createTicksViewForDensityIfNeeded:v34, fractionCopy];
+        fractionCopy = [(NTKSimpleFaceView *)self _createTicksViewForDensityIfNeeded:v32, fractionCopy];
       }
 
       else
       {
-        fractionCopy = self->_ticksViews[v34];
-        v36 = 0.0;
+        fractionCopy = self->_ticksViews[v32];
+        v34 = 0.0;
       }
 
-      v38 = v36 * v36 * (v36 * -2.0 + 3.0) * 0.2 + 0.8;
+      v36 = v34 * v34 * (v34 * -2.0 + 3.0) * 0.2 + 0.8;
       [(NTKSimpleFaceViewTicksView *)fractionCopy setAlpha:?];
-      CGAffineTransformMakeScale(&v40, v38, v38);
-      [(NTKSimpleFaceViewTicksView *)fractionCopy setTransform:&v40];
+      CGAffineTransformMakeScale(&v38, v36, v36);
+      [(NTKSimpleFaceViewTicksView *)fractionCopy setTransform:&v38];
 
-      v34 = v34 + 1;
+      v32 = v32 + 1;
     }
 
-    while (v34 != &dword_4);
+    while (v32 != &dword_4);
   }
 
   else if (mode == 10)
@@ -560,25 +555,23 @@
     accentColor = [v20 accentColor];
     v23 = [(NTKSimpleFaceView *)self _createTicksViewForDensityIfNeeded:self->_density];
     smallTick = [v23 smallTick];
-    v25 = qword_C130[self->_density];
-    v26 = NTKColorByPremultiplyingAlpha();
-    [smallTick setBackgroundColor:{objc_msgSend(v26, "CGColor")}];
+    v25 = NTKColorByPremultiplyingAlpha();
+    [smallTick setBackgroundColor:{objc_msgSend(v25, "CGColor")}];
 
     largeTick = [v23 largeTick];
-    v28 = qword_C150[self->_density];
-    v29 = NTKColorByPremultiplyingAlpha();
-    [largeTick setBackgroundColor:{objc_msgSend(v29, "CGColor")}];
+    v27 = NTKColorByPremultiplyingAlpha();
+    [largeTick setBackgroundColor:{objc_msgSend(v27, "CGColor")}];
 
     timeView = [(NTKSimpleFaceView *)self timeView];
     [timeView applySecondHandColor:accentColor];
 
-    v41[0] = _NSConcreteStackBlock;
-    v41[1] = 3221225472;
-    v41[2] = sub_2F34;
-    v41[3] = &unk_103E0;
-    v42 = accentColor;
-    v31 = accentColor;
-    [(NTKSimpleFaceView *)self enumerateComplicationDisplayWrappersWithBlock:v41];
+    v39[0] = _NSConcreteStackBlock;
+    v39[1] = 3221225472;
+    v39[2] = sub_2F34;
+    v39[3] = &unk_103E0;
+    v40 = accentColor;
+    v29 = accentColor;
+    [(NTKSimpleFaceView *)self enumerateComplicationDisplayWrappersWithBlock:v39];
   }
 }
 
@@ -932,9 +925,7 @@
   {
     v3 = [UIView alloc];
     [(NTKSimpleFaceView *)self bounds];
-    v4 = [v3 initWithFrame:?];
-    backgroundView = self->_backgroundView;
-    self->_backgroundView = v4;
+    self->_backgroundView = [v3 initWithFrame:?];
 
     _objc_release_x1();
   }
@@ -944,61 +935,60 @@
 {
   viewCopy = view;
   device = [(NTKSimpleFaceView *)self device];
-  v26 = 0;
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
+  v25 = 0;
   v23 = 0u;
-  memset(v21, 0, sizeof(v21));
-  sub_6044(device, v21);
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  memset(v20, 0, sizeof(v20));
+  sub_6044(device, v20);
   [NTKAnalogUtilities dialDiameterForDevice:device];
-  v6 = v5 * 0.5 + *(&v22 + 1);
-  v7 = [CLKFont systemFontOfSize:*&v23];
+  v6 = v5 * 0.5 + *(&v21 + 1);
+  v7 = [CLKFont systemFontOfSize:*&v22];
   [viewCopy center];
-  v18 = v9;
-  v19 = v8;
+  v17 = v9;
+  v18 = v8;
   v10 = 0;
   height = CGSizeZero.height;
-  y = CGPointZero.y;
   do
   {
-    v13 = dword_C170[v10];
-    v14 = objc_opt_new();
-    v15 = [NSString localizedStringWithFormat:@"%02d", v13];
-    [v14 setText:v15];
+    v12 = dword_C170[v10];
+    v13 = objc_opt_new();
+    v14 = [NSString localizedStringWithFormat:@"%02d", v12];
+    [v13 setText:v14];
 
-    [v14 setFont:v7];
-    v16 = +[UIColor whiteColor];
-    [v14 setTextColor:v16];
+    [v13 setFont:v7];
+    v15 = +[UIColor whiteColor];
+    [v13 setTextColor:v15];
 
-    [v14 sizeThatFits:{CGSizeZero.width, height}];
+    [v13 sizeThatFits:{CGSizeZero.width, height}];
     [v7 lineHeight];
     CLKPixelAlignRectForDevice();
-    [v14 setBounds:?];
-    v17 = __sincos_stret(v13 * -6.28318531 / 60.0 + 1.57079633);
-    [v14 setCenter:{v19 + round(v6 * v17.__cosval), v18 - round(v6 * v17.__sinval)}];
-    [viewCopy addSubview:v14];
-    if (v13 > 34)
+    [v13 setBounds:?];
+    v16 = __sincos_stret(v12 * -6.28318531 / 60.0 + 1.57079633);
+    [v13 setCenter:{v18 + round(v6 * v16.__cosval), v17 - round(v6 * v16.__sinval)}];
+    [viewCopy addSubview:v13];
+    if (v12 > 34)
     {
-      if (v13 == 35)
+      if (v12 == 35)
       {
-        [viewCopy setDigit_35:v14];
+        [viewCopy setDigit_35:v13];
       }
 
-      else if (v13 == 55)
+      else if (v12 == 55)
       {
-        [viewCopy setDigit_55:v14];
+        [viewCopy setDigit_55:v13];
       }
     }
 
-    else if (v13 == 5)
+    else if (v12 == 5)
     {
-      [viewCopy setDigit_05:v14];
+      [viewCopy setDigit_05:v13];
     }
 
-    else if (v13 == 25)
+    else if (v12 == 25)
     {
-      [viewCopy setDigit_25:v14];
+      [viewCopy setDigit_25:v13];
     }
 
     ++v10;
@@ -1031,29 +1021,29 @@
     [(UIView *)self->_backgroundView center];
     v11 = v10;
     v13 = v12;
-    v43 = 0;
-    v38 = [(NTKSimpleFaceView *)self _createTicksAndReplicators:&v43 forDensity:needed];
-    v39 = 0u;
-    v40 = 0u;
-    v41 = 0u;
-    v42 = 0u;
-    v37 = v43;
-    allValues = [v37 allValues];
-    v15 = [allValues countByEnumeratingWithState:&v39 objects:v44 count:16];
+    v39 = 0;
+    v34 = [(NTKSimpleFaceView *)self _createTicksAndReplicators:&v39 forDensity:needed];
+    v35 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    v38 = 0u;
+    v33 = v39;
+    allValues = [v33 allValues];
+    v15 = [allValues countByEnumeratingWithState:&v35 objects:v40 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v40;
+      v17 = *v36;
       do
       {
         for (i = 0; i != v16; i = i + 1)
         {
-          if (*v40 != v17)
+          if (*v36 != v17)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v19 = *(*(&v39 + 1) + 8 * i);
+          v19 = *(*(&v35 + 1) + 8 * i);
           v20 = [UIColor colorWithWhite:0.7 alpha:1.0];
           [v19 setContentsMultiplyColor:{objc_msgSend(v20, "CGColor")}];
 
@@ -1062,13 +1052,13 @@
           [layer addSublayer:v19];
         }
 
-        v16 = [allValues countByEnumeratingWithState:&v39 objects:v44 count:16];
+        v16 = [allValues countByEnumeratingWithState:&v35 objects:v40 count:16];
       }
 
       while (v16);
     }
 
-    v22 = [v37 objectForKeyedSubscript:&off_10930];
+    v22 = [v33 objectForKeyedSubscript:&off_10930];
     [(NTKSimpleFaceViewTicksView *)v6 setPills:v22];
 
     if (needed == 3)
@@ -1076,30 +1066,26 @@
       [(NTKSimpleFaceView *)self _addDetailedMinutesToView:v6];
     }
 
-    v23 = [v38 objectForKeyedSubscript:&off_10948];
+    v23 = [v34 objectForKeyedSubscript:&off_10948];
     [(NTKSimpleFaceViewTicksView *)v6 setSmallTick:v23];
 
-    v24 = [v38 objectForKeyedSubscript:&off_10960];
+    v24 = [v34 objectForKeyedSubscript:&off_10960];
     [(NTKSimpleFaceViewTicksView *)v6 setLargeTick:v24];
 
-    v25 = [v38 objectForKeyedSubscript:&off_10930];
+    v25 = [v34 objectForKeyedSubscript:&off_10930];
     [(NTKSimpleFaceViewTicksView *)v6 setPillTick:v25];
 
     smallTick = [(NTKSimpleFaceViewTicksView *)v6 smallTick];
-    ticksSmallColor = self->_ticksSmallColor;
-    v28 = qword_C130[needed];
-    v29 = NTKColorByPremultiplyingAlpha();
-    [smallTick setBackgroundColor:{objc_msgSend(v29, "CGColor")}];
+    v27 = NTKColorByPremultiplyingAlpha();
+    [smallTick setBackgroundColor:{objc_msgSend(v27, "CGColor")}];
 
     largeTick = [(NTKSimpleFaceViewTicksView *)v6 largeTick];
-    ticksLargeColor = self->_ticksLargeColor;
-    v32 = qword_C150[needed];
-    v33 = NTKColorByPremultiplyingAlpha();
-    [largeTick setBackgroundColor:{objc_msgSend(v33, "CGColor")}];
+    v29 = NTKColorByPremultiplyingAlpha();
+    [largeTick setBackgroundColor:{objc_msgSend(v29, "CGColor")}];
 
     pillTick = [(NTKSimpleFaceViewTicksView *)v6 pillTick];
-    v35 = [UIColor colorWithWhite:0.7 alpha:1.0];
-    [pillTick setBackgroundColor:{objc_msgSend(v35, "CGColor")}];
+    v31 = [UIColor colorWithWhite:0.7 alpha:1.0];
+    [pillTick setBackgroundColor:{objc_msgSend(v31, "CGColor")}];
   }
 
   return v6;

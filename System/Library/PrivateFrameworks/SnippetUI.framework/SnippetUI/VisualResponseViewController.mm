@@ -95,8 +95,9 @@
 
 - (void)setIsInAmbient:(BOOL)ambient withScaleFactor:(double)factor
 {
+  ambientCopy = ambient;
   selfCopy = self;
-  VisualResponseViewController.setIsInAmbient(_:withScaleFactor:)(factor);
+  VisualResponseViewController.setIsInAmbient(_:withScaleFactor:)(ambientCopy, factor);
 }
 
 - (void)setPlayerState:(int64_t)state aceId:(id)id
@@ -110,7 +111,7 @@
 - (void)postSiriEvent:(int64_t)event
 {
   selfCopy = self;
-  VisualResponseViewController.postSiriEvent(_:)();
+  VisualResponseViewController.postSiriEvent(_:)(event);
 }
 
 - (void)setCurrentIdiom:(int64_t)idiom
@@ -145,7 +146,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  VisualResponseViewController.interactionDelegate.setter();
+  VisualResponseViewController.interactionDelegate.setter(delegate);
 }
 
 - (int64_t)backgroundMaterial
@@ -168,7 +169,7 @@
   selfCopy = self;
   VisualResponseViewController.aceCommands.getter();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_2803B3630);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_2803B3630, &unk_26A860BE0);
   v3 = sub_26A851A88();
 
   return v3;
@@ -185,7 +186,7 @@
 - (BOOL)requestsKeyWindow
 {
   selfCopy = self;
-  VisualResponseViewController.requestsKeyWindow.getter();
+  VisualResponseViewController.requestsKeyWindow.getter(selfCopy);
 
   return 0;
 }
@@ -200,8 +201,9 @@
 
 - (void)setIsPresentedWithSmartDialogText:(BOOL)text
 {
+  textCopy = text;
   selfCopy = self;
-  VisualResponseViewController.isPresentedWithSmartDialogText.setter();
+  VisualResponseViewController.isPresentedWithSmartDialogText.setter(textCopy);
 }
 
 - (NSString)description

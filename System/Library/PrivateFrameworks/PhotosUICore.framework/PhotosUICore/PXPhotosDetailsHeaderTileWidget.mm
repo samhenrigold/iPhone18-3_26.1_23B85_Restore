@@ -88,7 +88,7 @@
   v9 = currentLayout;
   if (currentLayout)
   {
-    [currentLayout contentTileIdentifier];
+    objc_msgSend_contentTileIdentifier(currentLayout);
   }
 
   else
@@ -130,7 +130,7 @@
     v13 = 0u;
     v14 = 0u;
     v12 = 0u;
-    if (currentLayout && ([currentLayout contentTileIdentifier], v12))
+    if (currentLayout && (objc_msgSend_contentTileIdentifier(currentLayout), v12))
     {
       v10[2] = v14;
       v10[3] = v15;
@@ -284,7 +284,7 @@ LABEL_8:
       v11 = objc_alloc_init(PXTilingLayoutInvalidationContext);
       if (targetLayout)
       {
-        [targetLayout tileIdentifierForTileKind:2];
+        objc_msgSend_tileIdentifierForTileKind_(targetLayout);
       }
 
       else
@@ -546,148 +546,148 @@ void __61__PXPhotosDetailsHeaderTileWidget__tileForIdentifier_layout___block_inv
 {
   currentLayout = [(PXTilingController *)self->_tilingController currentLayout];
   v6 = *(off_1E7722248 + 9);
-  v56 = *(off_1E7722248 + 8);
-  v57 = v6;
+  v66 = *(off_1E7722248 + 8);
+  v67 = v6;
   v7 = *(off_1E7722248 + 11);
-  v58 = *(off_1E7722248 + 10);
-  v59 = v7;
+  v68 = *(off_1E7722248 + 10);
+  v69 = v7;
   v8 = *(off_1E7722248 + 5);
-  v52 = *(off_1E7722248 + 4);
-  v53 = v8;
+  v62 = *(off_1E7722248 + 4);
+  v63 = v8;
   v9 = *(off_1E7722248 + 7);
-  v54 = *(off_1E7722248 + 6);
-  v55 = v9;
+  v64 = *(off_1E7722248 + 6);
+  v65 = v9;
   v10 = *(off_1E7722248 + 1);
-  v48 = *off_1E7722248;
-  v49 = v10;
+  v58 = *off_1E7722248;
+  v59 = v10;
   v11 = *(off_1E7722248 + 3);
-  v50 = *(off_1E7722248 + 2);
-  v51 = v11;
+  v60 = *(off_1E7722248 + 2);
+  v61 = v11;
   v12 = *&identifier->index[5];
-  v38 = *&identifier->index[3];
-  v39 = v12;
-  v40 = *&identifier->index[7];
-  *&v41 = identifier->index[9];
+  v48 = *&identifier->index[3];
+  v49 = v12;
+  v50 = *&identifier->index[7];
+  *&v51 = identifier->index[9];
   v13 = *&identifier->index[1];
-  v36 = *&identifier->length;
-  v37 = v13;
+  v46 = *&identifier->length;
+  v47 = v13;
   v14 = 0;
-  if ([currentLayout getGeometry:&v48 group:0 userData:0 forTileWithIdentifier:&v36])
+  if ([currentLayout getGeometry:&v58 group:0 userData:0 forTileWithIdentifier:&v46])
   {
     v15 = +[PXTilingCoordinateSpaceConverter defaultConverter];
-    contentCoordinateSpaceIdentifier = [(PXTilingController *)self->_tilingController contentCoordinateSpaceIdentifier];
+    [(PXTilingController *)self->_tilingController contentCoordinateSpaceIdentifier];
     if (v15)
     {
-      v35[8] = v56;
-      v35[9] = v57;
-      v35[10] = v58;
-      v35[11] = v59;
-      v35[4] = v52;
-      v35[5] = v53;
-      v35[6] = v54;
-      v35[7] = v55;
-      v35[0] = v48;
-      v35[1] = v49;
-      v35[2] = v50;
-      v35[3] = v51;
-      [v15 convertTileGeometry:v35 toCoordinateSpaceIdentifier:contentCoordinateSpaceIdentifier];
+      v42 = v66;
+      v43 = v67;
+      v44 = v68;
+      v45 = v69;
+      v38 = v62;
+      v39 = v63;
+      v40 = v64;
+      v41 = v65;
+      v34 = v58;
+      v35 = v59;
+      v36 = v60;
+      v37 = v61;
+      objc_msgSend_convertTileGeometry_toCoordinateSpaceIdentifier_(v15);
     }
 
     else
     {
+      v56 = 0u;
+      v57 = 0u;
+      v54 = 0u;
+      v55 = 0u;
+      v52 = 0u;
+      v53 = 0u;
+      v50 = 0u;
+      v51 = 0u;
+      v48 = 0u;
+      v49 = 0u;
       v46 = 0u;
       v47 = 0u;
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
-      v43 = 0u;
-      v40 = 0u;
-      v41 = 0u;
-      v38 = 0u;
-      v39 = 0u;
-      v36 = 0u;
-      v37 = 0u;
     }
 
-    v56 = v44;
-    v57 = v45;
+    v66 = v54;
+    v67 = v55;
+    v68 = v56;
+    v69 = v57;
+    v62 = v50;
+    v63 = v51;
+    v64 = v52;
+    v65 = v53;
     v58 = v46;
     v59 = v47;
-    v52 = v40;
-    v53 = v41;
-    v54 = v42;
-    v55 = v43;
-    v48 = v36;
-    v49 = v37;
-    v50 = v38;
-    v51 = v39;
+    v60 = v48;
+    v61 = v49;
 
-    v17 = [off_1E7721860 alloc];
+    v16 = [off_1E7721860 alloc];
     _scrollViewController = [(PXPhotosDetailsHeaderTileWidget *)self _scrollViewController];
     contentCoordinateSpace = [_scrollViewController contentCoordinateSpace];
-    v14 = [v17 initWithRect:contentCoordinateSpace inCoordinateSpace:{*&v48, *(&v48 + 1), *&v49, *(&v49 + 1)}];
+    v14 = [v16 initWithRect:contentCoordinateSpace inCoordinateSpace:{*&v58, *(&v58 + 1), *&v59, *(&v59 + 1)}];
 
     tilingController = self->_tilingController;
-    v21 = *&identifier->index[5];
-    v38 = *&identifier->index[3];
-    v39 = v21;
-    v40 = *&identifier->index[7];
-    *&v41 = identifier->index[9];
-    v22 = *&identifier->index[1];
-    v36 = *&identifier->length;
-    v37 = v22;
-    v23 = [(PXTilingController *)tilingController imageTileWithIdentifier:&v36];
-    imageRequester = [v23 imageRequester];
+    v20 = *&identifier->index[5];
+    v48 = *&identifier->index[3];
+    v49 = v20;
+    v50 = *&identifier->index[7];
+    *&v51 = identifier->index[9];
+    v21 = *&identifier->index[1];
+    v46 = *&identifier->length;
+    v47 = v21;
+    v22 = [(PXTilingController *)tilingController imageTileWithIdentifier:&v46];
+    imageRequester = [v22 imageRequester];
 
-    v34 = 0;
+    v33 = 0;
     if (currentLayout)
     {
-      [currentLayout tileIdentifierForTileKind:1];
+      objc_msgSend_tileIdentifierForTileKind_(currentLayout);
     }
 
     else
     {
-      *&v41 = 0;
-      v39 = 0u;
-      v40 = 0u;
-      v37 = 0u;
-      v38 = 0u;
-      v36 = 0u;
+      *&v51 = 0;
+      v49 = 0u;
+      v50 = 0u;
+      v47 = 0u;
+      v48 = 0u;
+      v46 = 0u;
     }
 
-    [currentLayout getGeometry:0 group:0 userData:&v34 forTileWithIdentifier:&v36];
-    v25 = v34;
-    viewSpec = [v25 viewSpec];
+    [currentLayout getGeometry:0 group:0 userData:&v33 forTileWithIdentifier:&v46];
+    v24 = v33;
+    viewSpec = [v24 viewSpec];
     [v14 setImageRequester:imageRequester];
-    [v14 setImageContentsRect:{*(&v57 + 1), v58, *&v59}];
+    [v14 setImageContentsRect:{*(&v67 + 1), v68, *&v69}];
     [v14 setImageViewSpec:viewSpec];
-    v27 = self->_tilingController;
+    v26 = self->_tilingController;
     if (currentLayout)
     {
-      [currentLayout tileIdentifierForTileKind:2];
+      objc_msgSend_tileIdentifierForTileKind_(currentLayout);
     }
 
     else
     {
-      *&v41 = 0;
-      v39 = 0u;
-      v40 = 0u;
-      v37 = 0u;
-      v38 = 0u;
-      v36 = 0u;
+      *&v51 = 0;
+      v49 = 0u;
+      v50 = 0u;
+      v47 = 0u;
+      v48 = 0u;
+      v46 = 0u;
     }
 
-    v28 = [(PXTilingController *)v27 titleSubtitleTileWithIdentifier:&v36];
-    v29 = v28;
-    if (v28)
+    v27 = [(PXTilingController *)v26 titleSubtitleTileWithIdentifier:&v46];
+    v28 = v27;
+    if (v27)
     {
-      title = [v28 title];
+      title = [v27 title];
       [v14 setTitle:title];
 
-      subtitle = [v29 subtitle];
+      subtitle = [v28 subtitle];
       [v14 setSubtitle:subtitle];
 
-      labelSpec = [v29 labelSpec];
+      labelSpec = [v28 labelSpec];
       [v14 setTextViewSpec:labelSpec];
     }
 
@@ -806,7 +806,7 @@ PXPhotosDetailsHeaderPlaceholderView *__81__PXPhotosDetailsHeaderTileWidget__con
   v7 = currentLayout;
   if (currentLayout)
   {
-    [currentLayout contentTileIdentifier];
+    objc_msgSend_contentTileIdentifier(currentLayout);
   }
 
   else
@@ -1234,24 +1234,24 @@ PXPhotosDetailsHeaderPlaceholderView *__81__PXPhotosDetailsHeaderTileWidget__con
   {
     if (sourceCopy)
     {
-      v6 = -[PXPhotosDataSource initWithPhotosDataSource:options:]([PXPhotosDataSource alloc], "initWithPhotosDataSource:options:", sourceCopy, [sourceCopy options] | 0x30);
+      0x30 = [[PXPhotosDataSource alloc] initWithPhotosDataSource:sourceCopy options:objc_msgSend_options(sourceCopy) | 0x30];
     }
 
     else
     {
-      v6 = 0;
+      0x30 = 0;
     }
 
     [(PXPhotosDataSource *)self->__photosDataSource unregisterChangeObserver:self];
-    firstAssetCollection = [(PXPhotosDataSource *)v6 firstAssetCollection];
+    firstAssetCollection = [(PXPhotosDataSource *)0x30 firstAssetCollection];
     if (firstAssetCollection)
     {
-      [(PXPhotosDataSource *)v6 setWantsCuration:1 forAssetCollection:firstAssetCollection];
+      [(PXPhotosDataSource *)0x30 setWantsCuration:1 forAssetCollection:firstAssetCollection];
     }
 
     photosDataSource = self->__photosDataSource;
-    self->__photosDataSource = v6;
-    v9 = v6;
+    self->__photosDataSource = 0x30;
+    v9 = 0x30;
 
     [(PXPhotosDataSource *)self->__photosDataSource registerChangeObserver:self];
     v5 = sourceCopy;

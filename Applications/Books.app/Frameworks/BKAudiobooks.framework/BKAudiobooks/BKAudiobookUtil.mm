@@ -34,7 +34,7 @@
         v9 = *(*(&v13 + 1) + 8 * i);
         if (v9)
         {
-          [*(*(&v13 + 1) + 8 * i) timeRangeInAudiobook];
+          objc_msgSend_timeRangeInAudiobook(*(*(&v13 + 1) + 8 * i));
         }
 
         else
@@ -68,9 +68,9 @@ LABEL_14:
 + (id)generateShortTimeRemainingStringFromControls:(id)controls
 {
   controlsCopy = controls;
-  v5 = BKAudiobooksBundle();
+  v5 = BKAudiobooksBundle(controlsCopy);
   v6 = [v5 localizedStringForKey:@"You\\U2019ve finished this audiobook" value:&stru_3D458 table:&stru_3D458];
-  v7 = BKAudiobooksBundle();
+  v7 = BKAudiobooksBundle(v6);
   v8 = [v7 localizedStringForKey:@"%@ left" value:&stru_3D458 table:&stru_3D458];
   v9 = [self _generateShortTimeRemainingStringFromControls:controlsCopy finishedString:v6 unfinishedStringFormat:v8];
 
@@ -80,9 +80,9 @@ LABEL_14:
 + (id)generateShorterTimeRemainingStringFromControls:(id)controls
 {
   controlsCopy = controls;
-  v5 = BKAudiobooksBundle();
+  v5 = BKAudiobooksBundle(controlsCopy);
   v6 = [v5 localizedStringForKey:@"You\\U2019ve finished!" value:&stru_3D458 table:&stru_3D458];
-  v7 = BKAudiobooksBundle();
+  v7 = BKAudiobooksBundle(v6);
   v8 = [v7 localizedStringForKey:@"%@ left" value:&stru_3D458 table:&stru_3D458];
   v9 = [self _generateShortTimeRemainingStringFromControls:controlsCopy finishedString:v6 unfinishedStringFormat:v8];
 

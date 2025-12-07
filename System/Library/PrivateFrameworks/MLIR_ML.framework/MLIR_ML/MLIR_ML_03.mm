@@ -1358,7 +1358,7 @@ EmitterViewerSPI::MPSInstanceNormOpHandler *EmitterViewerSPI::MPSInstanceNormOpH
   }
 
   v17 = [MEMORY[0x277CBEB18] array];
-  mlir::mps::InstanceNormOp::getEpsilon(&v35, &v36);
+  mlir::mps::InstanceNormOp::getEpsilon(&v36, &v35);
   v18 = [[MLViewerNodePropertyDataSPI alloc] initWithName:@"epsilon" dataType:268435488 shape:&unk_2868AFFB0];
   if (v18)
   {
@@ -5731,7 +5731,7 @@ EmitterViewerSPI::MPSNormalizationOpHandler *EmitterViewerSPI::MPSNormalizationO
   }
 
   v20 = [MEMORY[0x277CBEB18] array];
-  mlir::mps::NormalizationOp::getEpsilon(&v38, &v39);
+  mlir::mps::NormalizationOp::getEpsilon(&v39, &v38);
   v21 = [[MLViewerNodePropertyDataSPI alloc] initWithName:@"epsilon" dataType:268435488 shape:&unk_2868B0040];
   if (v21)
   {
@@ -8440,7 +8440,7 @@ EmitterViewerSPI::MPSPruningGradientOpHandler *EmitterViewerSPI::MPSPruningGradi
     [v17 addObject:v26];
   }
 
-  mlir::mps::PruningGradientOp::getSparsity(&v44, &v45);
+  mlir::mps::PruningGradientOp::getSparsity(&v45, &v44);
   v27 = [[MLViewerNodePropertyDataSPI alloc] initWithName:@"sparsity" dataType:268435488 shape:&unk_2868B0178];
   if (v27)
   {
@@ -8586,7 +8586,7 @@ EmitterViewerSPI::MPSPruningOpHandler *EmitterViewerSPI::MPSPruningOpHandler::MP
     [v16 addObject:v25];
   }
 
-  mlir::mps::PruningOp::getSparsity(&v43, &v44);
+  mlir::mps::PruningOp::getSparsity(&v44, &v43);
   v26 = [[MLViewerNodePropertyDataSPI alloc] initWithName:@"sparsity" dataType:268435488 shape:&unk_2868B0190];
   if (v26)
   {
@@ -8839,7 +8839,7 @@ EmitterViewerSPI::MPSRandomNormalOpHandler *EmitterViewerSPI::MPSRandomNormalOpH
 
   v16 = [MEMORY[0x277CBEB18] array];
   mlir::mps::RandomNormalOp::getResultElementType(&v37);
-  mlir::mps::RandomNormalOp::getMean(&v37, &v40);
+  mlir::mps::RandomNormalOp::getMean(&v40, &v37);
   v17 = [[MLViewerNodePropertyDataSPI alloc] initWithName:@"mean" dataType:268435488 shape:&unk_2868B01C0];
   if (v17)
   {
@@ -8849,11 +8849,11 @@ EmitterViewerSPI::MPSRandomNormalOpHandler *EmitterViewerSPI::MPSRandomNormalOpH
     [v16 addObject:v17];
   }
 
-  mlir::mps::RandomNormalOp::getStdDev(&v37, v38);
+  mlir::mps::RandomNormalOp::getStdDev(&v38, &v37);
   v19 = [[MLViewerNodePropertyDataSPI alloc] initWithName:@"std_dev" dataType:268435488 shape:&unk_2868B01D8];
   if (v19)
   {
-    v20 = [MEMORY[0x277CBEA90] dataWithBytes:v38 length:32];
+    v20 = [MEMORY[0x277CBEA90] dataWithBytes:&v38 length:32];
     [(MLViewerNodePropertyDataSPI *)v19 setValue:v20];
 
     [v16 addObject:v19];
@@ -8903,7 +8903,7 @@ EmitterViewerSPI::MPSRandomNormalOpHandler *EmitterViewerSPI::MPSRandomNormalOpH
   return this;
 }
 
-void sub_2564047BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21)
+void sub_2564047BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21)
 {
   llvm::APFloat::~APFloat(&a17);
 
@@ -8989,7 +8989,7 @@ EmitterViewerSPI::MPSRandomTruncatedNormalOpHandler *EmitterViewerSPI::MPSRandom
 
   v15 = [MEMORY[0x277CBEB18] array];
   mlir::mps::RandomTruncatedNormalOp::getResultElementType(&v41);
-  mlir::mps::RandomTruncatedNormalOp::getMean(&v41, &v48);
+  mlir::mps::RandomTruncatedNormalOp::getMean(&v48, &v41);
   v16 = [[MLViewerNodePropertyDataSPI alloc] initWithName:@"mean" dataType:268435488 shape:&unk_2868B01F0];
   if (v16)
   {
@@ -8999,31 +8999,31 @@ EmitterViewerSPI::MPSRandomTruncatedNormalOpHandler *EmitterViewerSPI::MPSRandom
     [v15 addObject:v16];
   }
 
-  mlir::mps::RandomTruncatedNormalOp::getStdDev(&v41, v46);
+  mlir::mps::RandomTruncatedNormalOp::getStdDev(&v46, &v41);
   v18 = [[MLViewerNodePropertyDataSPI alloc] initWithName:@"std_dev" dataType:268435488 shape:&unk_2868B0208];
   if (v18)
   {
-    v19 = [MEMORY[0x277CBEA90] dataWithBytes:v46 length:32];
+    v19 = [MEMORY[0x277CBEA90] dataWithBytes:&v46 length:32];
     [(MLViewerNodePropertyDataSPI *)v18 setValue:v19];
 
     [v15 addObject:v18];
   }
 
-  mlir::mps::RandomTruncatedNormalOp::getMinimum(&v41, v44);
+  mlir::mps::RandomTruncatedNormalOp::getMinimum(&v44, &v41);
   v20 = [[MLViewerNodePropertyDataSPI alloc] initWithName:@"minimum" dataType:268435488 shape:&unk_2868B0220];
   if (v20)
   {
-    v21 = [MEMORY[0x277CBEA90] dataWithBytes:v44 length:32];
+    v21 = [MEMORY[0x277CBEA90] dataWithBytes:&v44 length:32];
     [(MLViewerNodePropertyDataSPI *)v20 setValue:v21];
 
     [v15 addObject:v20];
   }
 
-  mlir::mps::RandomTruncatedNormalOp::getMaximum(&v41, v42);
+  mlir::mps::RandomTruncatedNormalOp::getMaximum(&v42, &v41);
   v22 = [[MLViewerNodePropertyDataSPI alloc] initWithName:@"maximum" dataType:268435488 shape:&unk_2868B0238];
   if (v22)
   {
-    v23 = [MEMORY[0x277CBEA90] dataWithBytes:v42 length:32];
+    v23 = [MEMORY[0x277CBEA90] dataWithBytes:&v42 length:32];
     [(MLViewerNodePropertyDataSPI *)v22 setValue:v23];
 
     [v15 addObject:v22];

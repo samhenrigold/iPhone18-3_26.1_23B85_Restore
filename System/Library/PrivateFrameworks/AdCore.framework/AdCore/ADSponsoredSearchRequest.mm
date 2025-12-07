@@ -257,19 +257,18 @@ LABEL_8:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v14 = toCopy;
+  v7 = toCopy;
   if (self->_properties)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v14;
+    toCopy = v7;
   }
 
   has = self->_has;
   if ((has & 0x40) != 0)
   {
-    isTest = self->_isTest;
     PBDataWriterWriteBOOLField();
-    toCopy = v14;
+    toCopy = v7;
     has = self->_has;
     if ((has & 0x20) == 0)
     {
@@ -288,9 +287,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  isBaseline = self->_isBaseline;
   PBDataWriterWriteBOOLField();
-  toCopy = v14;
+  toCopy = v7;
   has = self->_has;
   if ((has & 8) == 0)
   {
@@ -304,69 +302,64 @@ LABEL_6:
   }
 
 LABEL_29:
-  enableImagesForDupes = self->_enableImagesForDupes;
   PBDataWriterWriteBOOLField();
-  toCopy = v14;
+  toCopy = v7;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_7:
-    supportedODMLVersion = self->_supportedODMLVersion;
     PBDataWriterWriteInt32Field();
-    toCopy = v14;
+    toCopy = v7;
   }
 
 LABEL_8:
   if (self->_experimentID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v14;
+    toCopy = v7;
   }
 
   if (self->_treatmentID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v14;
+    toCopy = v7;
   }
 
   if (self->_deploymentID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v14;
+    toCopy = v7;
   }
 
-  v7 = self->_has;
-  if ((v7 & 0x10) != 0)
+  v6 = self->_has;
+  if ((v6 & 0x10) != 0)
   {
-    inAllocation = self->_inAllocation;
     PBDataWriterWriteBOOLField();
-    toCopy = v14;
-    v7 = self->_has;
+    toCopy = v7;
+    v6 = self->_has;
   }
 
-  if ((v7 & 4) != 0)
+  if ((v6 & 4) != 0)
   {
-    clientExclusive = self->_clientExclusive;
     PBDataWriterWriteBOOLField();
-    toCopy = v14;
+    toCopy = v7;
   }
 
   if (self->_rotatingIdentifiers)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v14;
+    toCopy = v7;
   }
 
   if (*&self->_has)
   {
-    featureEnabledBitmap = self->_featureEnabledBitmap;
     PBDataWriterWriteInt32Field();
-    toCopy = v14;
+    toCopy = v7;
   }
 
   if (self->_jsVersion)
   {
     PBDataWriterWriteStringField();
-    toCopy = v14;
+    toCopy = v7;
   }
 }
 
@@ -594,7 +587,6 @@ LABEL_6:
     }
   }
 
-  v6 = *(equalCopy + 80);
   if ((*&self->_has & 0x40) != 0)
   {
     if ((*(equalCopy + 80) & 0x40) == 0)
@@ -602,7 +594,6 @@ LABEL_6:
       goto LABEL_48;
     }
 
-    v7 = *(equalCopy + 76);
     if (self->_isTest)
     {
       if ((*(equalCopy + 76) & 1) == 0)
@@ -629,7 +620,6 @@ LABEL_6:
       goto LABEL_48;
     }
 
-    v8 = *(equalCopy + 75);
     if (self->_isBaseline)
     {
       if ((*(equalCopy + 75) & 1) == 0)
@@ -656,7 +646,6 @@ LABEL_6:
       goto LABEL_48;
     }
 
-    v9 = *(equalCopy + 73);
     if (self->_enableImagesForDupes)
     {
       if ((*(equalCopy + 73) & 1) == 0)
@@ -714,7 +703,6 @@ LABEL_6:
   }
 
   has = self->_has;
-  v14 = *(equalCopy + 80);
   if ((has & 0x10) != 0)
   {
     if ((*(equalCopy + 80) & 0x10) == 0)
@@ -722,7 +710,6 @@ LABEL_6:
       goto LABEL_48;
     }
 
-    v19 = *(equalCopy + 74);
     if (self->_inAllocation)
     {
       if ((*(equalCopy + 74) & 1) == 0)
@@ -749,7 +736,6 @@ LABEL_6:
       goto LABEL_48;
     }
 
-    v20 = *(equalCopy + 72);
     if (self->_clientExclusive)
     {
       if ((*(equalCopy + 72) & 1) == 0)
@@ -780,7 +766,6 @@ LABEL_6:
     has = self->_has;
   }
 
-  v16 = *(equalCopy + 80);
   if ((has & 1) == 0)
   {
     if ((*(equalCopy + 80) & 1) == 0)
@@ -789,7 +774,7 @@ LABEL_6:
     }
 
 LABEL_48:
-    v17 = 0;
+    v11 = 0;
     goto LABEL_49;
   }
 
@@ -802,17 +787,17 @@ LABEL_62:
   jsVersion = self->_jsVersion;
   if (jsVersion | *(equalCopy + 4))
   {
-    v17 = [(NSString *)jsVersion isEqual:?];
+    v11 = [(NSString *)jsVersion isEqual:?];
   }
 
   else
   {
-    v17 = 1;
+    v11 = 1;
   }
 
 LABEL_49:
 
-  return v17;
+  return v11;
 }
 
 - (unint64_t)hash

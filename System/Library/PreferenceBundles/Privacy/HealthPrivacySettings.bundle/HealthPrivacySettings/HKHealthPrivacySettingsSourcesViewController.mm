@@ -8,6 +8,7 @@
 - (void)handleURL:(id)l withCompletion:(id)completion;
 - (void)setPreferenceValue:(id)value specifier:(id)specifier;
 - (void)showController:(id)controller;
+- (void)showController:(id)controller animate:(BOOL)animate;
 - (void)viewDidLoad;
 @end
 
@@ -148,6 +149,14 @@
   controllerCopy = controller;
   WeakRetained = objc_loadWeakRetained(&self->_parentController);
   [WeakRetained showController:controllerCopy];
+}
+
+- (void)showController:(id)controller animate:(BOOL)animate
+{
+  animateCopy = animate;
+  controllerCopy = controller;
+  WeakRetained = objc_loadWeakRetained(&self->_parentController);
+  [WeakRetained showController:controllerCopy animate:animateCopy];
 }
 
 - (id)_healthPrivacySubSettingViewControllerForResourceDictionary:(id)dictionary

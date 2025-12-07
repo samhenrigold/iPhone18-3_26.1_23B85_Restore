@@ -1,13 +1,31 @@
 @interface MLCTensorData
 + (MLCTensorData)dataWithBytes:(void *)bytes length:(unint64_t)length;
 + (MLCTensorData)dataWithBytesNoCopy:(void *)bytes length:(NSUInteger)length deallocator:(void *)deallocator;
++ (MLCTensorData)dataWithBytesNoCopy:(void *)copy length:(unint64_t)length freeWhenDone:(BOOL)done;
 - (MLCTensorData)initWithData:(void *)data length:(unint64_t)length;
 - (MLCTensorData)initWithDataNoCopy:(void *)copy length:(unint64_t)length deallocator:(id)deallocator;
+- (MLCTensorData)initWithDataNoCopy:(void *)copy length:(unint64_t)length freeWhenDone:(BOOL)done;
 - (NSUInteger)length;
 - (void)bytes;
 @end
 
 @implementation MLCTensorData
+
+- (MLCTensorData)initWithDataNoCopy:(void *)copy length:(unint64_t)length freeWhenDone:(BOOL)done
+{
+  doneCopy = done;
+  v12.receiver = self;
+  v12.super_class = MLCTensorData;
+  v8 = [(MLCTensorData *)&v12 init];
+  if (v8)
+  {
+    v9 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:copy length:length freeWhenDone:doneCopy];
+    data = v8->_data;
+    v8->_data = v9;
+  }
+
+  return v8;
+}
 
 - (MLCTensorData)initWithDataNoCopy:(void *)copy length:(unint64_t)length deallocator:(id)deallocator
 {
@@ -38,6 +56,13 @@
   }
 
   return v6;
+}
+
++ (MLCTensorData)dataWithBytesNoCopy:(void *)copy length:(unint64_t)length freeWhenDone:(BOOL)done
+{
+  v5 = [[self alloc] initWithDataNoCopy:copy length:length freeWhenDone:done];
+
+  return v5;
 }
 
 + (MLCTensorData)dataWithBytes:(void *)bytes length:(unint64_t)length

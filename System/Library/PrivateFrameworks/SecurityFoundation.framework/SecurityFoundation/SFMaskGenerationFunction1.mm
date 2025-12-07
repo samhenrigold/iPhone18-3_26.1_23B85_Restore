@@ -47,10 +47,7 @@
 
 - (void)setDigestOperation:(id)operation
 {
-  v4 = [operation copyWithZone:0];
-  mgf1OperationInternal = self->_mgf1OperationInternal;
-  v6 = mgf1OperationInternal[1];
-  mgf1OperationInternal[1] = v4;
+  *(self->_mgf1OperationInternal + 1) = [operation copyWithZone:0];
 
   MEMORY[0x2821F96F8]();
 }

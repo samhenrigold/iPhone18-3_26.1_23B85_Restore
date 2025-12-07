@@ -33,7 +33,7 @@
 - (void)viewDidLayoutSubviews
 {
   v7.receiver = self;
-  v7.super_class = type metadata accessor for EmojiEditingInputViewController();
+  v7.super_class = type metadata accessor for EmojiEditingInputViewController(0);
   v2 = v7.receiver;
   [(EmojiEditingInputViewController *)&v7 viewDidLayoutSubviews];
   if ((_s11EmojiPoster8FeaturesV18emojiSearchEnabledSbvgZ_0() & 1) != 0 && (v3 = &v2[OBJC_IVAR____TtC11EmojiPoster31EmojiEditingInputViewController_delegate], swift_beginAccess(), swift_unknownObjectWeakLoadStrong()))
@@ -62,10 +62,11 @@
 {
   length = range.length;
   location = range.location;
-  sub_24A021698();
+  v9 = sub_24A021698();
+  v11 = v10;
   viewCopy = view;
   selfCopy = self;
-  LOBYTE(length) = sub_24A013C74(location, length);
+  LOBYTE(length) = sub_24A013C74(location, length, v9, v11);
 
   return length & 1;
 }

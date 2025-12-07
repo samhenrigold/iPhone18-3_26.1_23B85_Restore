@@ -68,7 +68,7 @@
   {
     var0 = typesetter.var0;
     *buf = &identifierCopy;
-    v6 = sub_100263C64(&self->_typesetters, &identifierCopy);
+    v6 = sub_100263C64(&self->_typesetters, &identifierCopy, &unk_101462700, buf);
     v8 = *var0;
     v7 = *(var0 + 1);
     if (v7)

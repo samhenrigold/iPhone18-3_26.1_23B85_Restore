@@ -114,13 +114,12 @@
 
 - (void)initWithCoder:(os_log_t)log .cold.1(os_log_t log)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = 136315394;
-  v3 = "[THThreadNetworkCredentialsActiveDataSetRecord initWithCoder:]";
-  v4 = 1024;
-  v5 = 57;
-  _os_log_error_impl(&dword_23AAC8000, log, OS_LOG_TYPE_ERROR, "%s:%d: Could not decode uniqueIdentifier", &v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v1 = 136315394;
+  v2 = "[THThreadNetworkCredentialsActiveDataSetRecord initWithCoder:]";
+  v3 = 1024;
+  v4 = 57;
+  _os_log_error_impl(&dword_23AAC8000, log, OS_LOG_TYPE_ERROR, "%s:%d: Could not decode uniqueIdentifier", &v1, 0x12u);
 }
 
 @end

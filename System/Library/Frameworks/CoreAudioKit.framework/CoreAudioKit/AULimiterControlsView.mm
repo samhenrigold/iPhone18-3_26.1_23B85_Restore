@@ -25,7 +25,7 @@
   y = bounds.origin.y;
   x = bounds.origin.x;
   selfCopy = self;
-  sub_23714993C(x, y, width, height);
+  sub_23714993C(selfCopy, v7, x, y, width, height);
 }
 
 - (_TtC12CoreAudioKit21AULimiterControlsView)initWithCoder:(id)coder

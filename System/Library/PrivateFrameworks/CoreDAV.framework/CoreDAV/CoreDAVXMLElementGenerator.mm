@@ -78,15 +78,15 @@
 
 - (void)notifyElement:(id)element ofAttributesFound:(id)found
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   elementCopy = element;
   foundCopy = found;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   allKeys = [foundCopy allKeys];
-  v8 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [allKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (!v8)
   {
     v10 = allKeys;
@@ -95,17 +95,17 @@
 
   v9 = v8;
   v10 = 0;
-  v11 = *v19;
+  v11 = *v18;
   do
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v19 != v11)
+      if (*v18 != v11)
       {
         objc_enumerationMutation(allKeys);
       }
 
-      v13 = *(*(&v18 + 1) + 8 * i);
+      v13 = *(*(&v17 + 1) + 8 * i);
       if (!v10)
       {
         v10 = objc_alloc_init(MEMORY[0x277CBEB58]);
@@ -118,7 +118,7 @@
       [v10 addObject:v16];
     }
 
-    v9 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v9 = [allKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
   }
 
   while (v9);
@@ -128,13 +128,11 @@
     [elementCopy parserFoundAttributes:v10];
 LABEL_13:
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isExpectedNameSpace:(id)space andElementName:(id)name
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   spaceCopy = space;
   nameCopy = name;
   element = [(CoreDAVXMLElementGenerator *)self element];
@@ -165,27 +163,26 @@ LABEL_13:
     nameSpace2 = [element3 nameSpace];
     element4 = [(CoreDAVXMLElementGenerator *)self element];
     name2 = [element4 name];
-    v23 = 138413058;
-    v24 = nameSpace2;
-    v25 = 2112;
-    v26 = name2;
-    v27 = 2112;
-    v28 = spaceCopy;
-    v29 = 2112;
-    v30 = nameCopy;
-    _os_log_impl(&dword_2452FB000, v16, OS_LOG_TYPE_DEFAULT, "The expected namespace / name (%@ / %@) didn't match my namespace / name (%@ / %@", &v23, 0x2Au);
+    v22 = 138413058;
+    v23 = nameSpace2;
+    v24 = 2112;
+    v25 = name2;
+    v26 = 2112;
+    v27 = spaceCopy;
+    v28 = 2112;
+    v29 = nameCopy;
+    _os_log_impl(&dword_2452FB000, v16, OS_LOG_TYPE_DEFAULT, "The expected namespace / name (%@ / %@) didn't match my namespace / name (%@ / %@", &v22, 0x2Au);
   }
 
   v13 = 0;
 LABEL_9:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (void)parser:(id)parser didStartElement:(id)element namespaceURI:(id)i qualifiedName:(id)name attributes:(id)attributes
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   parserCopy = parser;
   elementCopy = element;
   iCopy = i;
@@ -200,30 +197,30 @@ LABEL_9:
 
     else if (![(CoreDAVXMLElementGenerator *)self checkedElementValidityIfRootElement])
     {
-      v46 = attributesCopy;
+      v45 = attributesCopy;
       [(CoreDAVXMLElementGenerator *)self setCheckedElementValidityIfRootElement:1];
-      v47 = [(CoreDAVXMLElementGenerator *)self isExpectedNameSpace:iCopy andElementName:elementCopy];
+      v46 = [(CoreDAVXMLElementGenerator *)self isExpectedNameSpace:iCopy andElementName:elementCopy];
       rootErrorGenerator = [parserCopy rootErrorGenerator];
-      v49 = rootErrorGenerator;
-      if (v47)
+      v48 = rootErrorGenerator;
+      if (v46)
       {
 
-        if (v49 != self)
+        if (v48 != self)
         {
           [parserCopy setRootErrorGenerator:0];
         }
 
         element = [(CoreDAVXMLElementGenerator *)self element];
-        attributesCopy = v46;
-        [(CoreDAVXMLElementGenerator *)self notifyElement:element ofAttributesFound:v46];
+        attributesCopy = v45;
+        [(CoreDAVXMLElementGenerator *)self notifyElement:element ofAttributesFound:v45];
       }
 
       else
       {
         if ([(CoreDAVXMLElementGenerator *)rootErrorGenerator isExpectedNameSpace:iCopy andElementName:elementCopy])
         {
-          [parserCopy setDelegate:v49];
-          [(CoreDAVXMLElementGenerator *)v49 parser:parserCopy didStartElement:elementCopy namespaceURI:iCopy qualifiedName:nameCopy attributes:v46];
+          [parserCopy setDelegate:v48];
+          [(CoreDAVXMLElementGenerator *)v48 parser:parserCopy didStartElement:elementCopy namespaceURI:iCopy qualifiedName:nameCopy attributes:v45];
         }
 
         else
@@ -233,7 +230,7 @@ LABEL_9:
           [(CoreDAVXMLElementGenerator *)self noteChildCascadingFailure];
         }
 
-        attributesCopy = v46;
+        attributesCopy = v45;
       }
 
       goto LABEL_31;
@@ -252,7 +249,7 @@ LABEL_9:
 
   elementCopy = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@:%@", iCopy, elementCopy];
   cachedElementParseRules2 = [(CoreDAVXMLElementGenerator *)self cachedElementParseRules];
-  v55 = elementCopy;
+  v54 = elementCopy;
   v23 = [cachedElementParseRules2 objectForKey:elementCopy];
 
   if (v23)
@@ -269,30 +266,30 @@ LABEL_9:
   else
   {
     selfCopy = self;
-    v52 = attributesCopy;
-    v53 = nameCopy;
+    v51 = attributesCopy;
+    v52 = nameCopy;
     v27 = elementCopy;
-    v58 = 0u;
-    v59 = 0u;
-    v56 = 0u;
     v57 = 0u;
-    v54 = parserCopy;
+    v58 = 0u;
+    v55 = 0u;
+    v56 = 0u;
+    v53 = parserCopy;
     parseHints = [parserCopy parseHints];
-    v29 = [parseHints countByEnumeratingWithState:&v56 objects:v62 count:16];
+    v29 = [parseHints countByEnumeratingWithState:&v55 objects:v61 count:16];
     if (v29)
     {
       v30 = v29;
-      v31 = *v57;
+      v31 = *v56;
 LABEL_11:
       v32 = 0;
       while (1)
       {
-        if (*v57 != v31)
+        if (*v56 != v31)
         {
           objc_enumerationMutation(parseHints);
         }
 
-        v33 = *(*(&v56 + 1) + 8 * v32);
+        v33 = *(*(&v55 + 1) + 8 * v32);
         nameSpace = [v33 nameSpace];
         if ([iCopy isEqualToString:nameSpace])
         {
@@ -309,9 +306,9 @@ LABEL_11:
             }
 
             elementCopy = v27;
-            nameCopy = v53;
-            parserCopy = v54;
-            attributesCopy = v52;
+            nameCopy = v52;
+            parserCopy = v53;
+            attributesCopy = v51;
             if (![(CoreDAVItem *)v37 parseClass])
             {
               v38 = +[CoreDAVLogging sharedLogging];
@@ -320,7 +317,7 @@ LABEL_11:
               if (v39 && os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v61 = v37;
+                v60 = v37;
                 _os_log_impl(&dword_2452FB000, v40, OS_LOG_TYPE_ERROR, "\n\n\nHEY YOU GUYS! This parse rule is missing a parse class.  This parse will go poorly. Parse rule %@\n\n\n", buf, 0xCu);
               }
             }
@@ -329,9 +326,9 @@ LABEL_11:
             baseURL2 = [(CoreDAVXMLElementGenerator *)selfCopy baseURL];
             [(CoreDAVXMLElementGenerator *)v41 parserSuggestsBaseURL:baseURL2];
 
-            v43 = [[CoreDAVXMLElementGenerator alloc] initWithParser:v54 parentGenerator:selfCopy parentElementSetter:0 element:v41];
+            v43 = [[CoreDAVXMLElementGenerator alloc] initWithParser:v53 parentGenerator:selfCopy parentElementSetter:0 element:v41];
             [(CoreDAVXMLElementGenerator *)v43 setIsUnrecognized:1];
-            [(CoreDAVXMLElementGenerator *)selfCopy notifyElement:v41 ofAttributesFound:v52];
+            [(CoreDAVXMLElementGenerator *)selfCopy notifyElement:v41 ofAttributesFound:v51];
             [(CoreDAVXMLElementGenerator *)selfCopy setCurrentlyParsingSubItem:v43];
 
             goto LABEL_29;
@@ -344,7 +341,7 @@ LABEL_11:
 
         if (v30 == ++v32)
         {
-          v30 = [parseHints countByEnumeratingWithState:&v56 objects:v62 count:16];
+          v30 = [parseHints countByEnumeratingWithState:&v55 objects:v61 count:16];
           if (v30)
           {
             goto LABEL_11;
@@ -361,20 +358,19 @@ LABEL_28:
     baseURL3 = [(CoreDAVXMLElementGenerator *)selfCopy baseURL];
     [(CoreDAVItem *)v37 parserSuggestsBaseURL:baseURL3];
 
-    parserCopy = v54;
-    v41 = [[CoreDAVXMLElementGenerator alloc] initWithParser:v54 parentGenerator:selfCopy parentElementSetter:0 element:v37];
+    parserCopy = v53;
+    v41 = [[CoreDAVXMLElementGenerator alloc] initWithParser:v53 parentGenerator:selfCopy parentElementSetter:0 element:v37];
     [(CoreDAVXMLElementGenerator *)v41 setIsUnrecognized:1];
-    attributesCopy = v52;
-    [(CoreDAVXMLElementGenerator *)selfCopy notifyElement:v37 ofAttributesFound:v52];
+    attributesCopy = v51;
+    [(CoreDAVXMLElementGenerator *)selfCopy notifyElement:v37 ofAttributesFound:v51];
     [(CoreDAVXMLElementGenerator *)selfCopy setCurrentlyParsingSubItem:v41];
-    nameCopy = v53;
+    nameCopy = v52;
 LABEL_29:
 
     v23 = 0;
   }
 
 LABEL_31:
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 - (void)parser:(id)parser didEndElement:(id)element namespaceURI:(id)i qualifiedName:(id)name

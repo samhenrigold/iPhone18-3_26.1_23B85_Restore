@@ -33,14 +33,15 @@
 + (BOOL)acceptsComplicationType:(unint64_t)NSSComplicationDataSourceClass withFamily:(int64_t)family forDevice:(id)device
 {
   deviceCopy = device;
-  if ([NTKWidgetComplicationMigrationDefines hasMigratedComplicationType:NSSComplicationDataSourceClass family:family forDevice:deviceCopy])
+  v9 = [NTKWidgetComplicationMigrationDefines hasMigratedComplicationType:NSSComplicationDataSourceClass family:family forDevice:deviceCopy];
+  if (v9)
   {
     goto LABEL_13;
   }
 
-  v9 = family == 100 || family == 101;
-  v10 = v9 || family == 102;
-  if (v10 || family == 103)
+  v11 = family == 100 || family == 101;
+  v12 = v11 || family == 102;
+  if (v12 || family == 103)
   {
     goto LABEL_13;
   }
@@ -54,11 +55,11 @@
         +[NTKSampleComplicationDataSource acceptsComplicationType:withFamily:forDevice:];
       }
 
-      v15 = acceptsComplicationType_withFamily_forDevice__specialCasedComplicationTypes;
-      v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:NSSComplicationDataSourceClass];
-      LODWORD(v15) = [v15 containsObject:v16];
+      v17 = acceptsComplicationType_withFamily_forDevice__specialCasedComplicationTypes;
+      v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:NSSComplicationDataSourceClass];
+      LODWORD(v17) = [v17 containsObject:v18];
 
-      if (!v15)
+      if (!v17)
       {
         goto LABEL_13;
       }
@@ -121,7 +122,7 @@
             goto LABEL_13;
           }
 
-          v19 = 6020;
+          v21 = 6020;
           goto LABEL_74;
         }
       }
@@ -155,11 +156,11 @@
           {
             if (NSSComplicationDataSourceClass == 26)
             {
-              NSSComplicationDataSourceClass = getNSSComplicationDataSourceClass();
+              NSSComplicationDataSourceClass = getNSSComplicationDataSourceClass(v9, v10);
               if (objc_opt_respondsToSelector())
               {
-                v17 = [NSSComplicationDataSourceClass nss_newsComplicationTemplateForFamily:family compact:{objc_msgSend(deviceCopy, "sizeClass") == 0}];
-                LOBYTE(NSSComplicationDataSourceClass) = v17 != 0;
+                v19 = [NSSComplicationDataSourceClass nss_newsComplicationTemplateForFamily:family compact:{objc_msgSend(deviceCopy, "sizeClass") == 0}];
+                LOBYTE(NSSComplicationDataSourceClass) = v19 != 0;
 
                 goto LABEL_14;
               }
@@ -188,15 +189,15 @@ LABEL_62:
         {
           if (family)
           {
-            v20 = family == 10;
+            v22 = family == 10;
           }
 
           else
           {
-            v20 = 1;
+            v22 = 1;
           }
 
-          LOBYTE(NSSComplicationDataSourceClass) = v20;
+          LOBYTE(NSSComplicationDataSourceClass) = v22;
           goto LABEL_14;
         }
 
@@ -207,7 +208,7 @@ LABEL_62:
 
         if (family == 3)
         {
-          isRadioPhoneComplicationEnabled = NTKIsConnectivityPhoneComplicationEnabled();
+          isRadioPhoneComplicationEnabled = NTKIsConnectivityPhoneComplicationEnabled(v9, v10);
           goto LABEL_63;
         }
 
@@ -236,9 +237,9 @@ LABEL_13:
           goto LABEL_14;
         }
 
-        v19 = 2058;
+        v21 = 2058;
 LABEL_74:
-        LODWORD(NSSComplicationDataSourceClass) = v19 >> family;
+        LODWORD(NSSComplicationDataSourceClass) = v21 >> family;
         goto LABEL_14;
       }
 
@@ -268,9 +269,9 @@ LABEL_74:
     +[NTKSampleComplicationDataSource acceptsComplicationType:withFamily:forDevice:];
   }
 
-  v13 = acceptsComplicationType_withFamily_forDevice__smallFlatComplications;
-  v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:NSSComplicationDataSourceClass];
-  LOBYTE(NSSComplicationDataSourceClass) = [v13 containsObject:v14];
+  v15 = acceptsComplicationType_withFamily_forDevice__smallFlatComplications;
+  v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:NSSComplicationDataSourceClass];
+  LOBYTE(NSSComplicationDataSourceClass) = [v15 containsObject:v16];
 
 LABEL_14:
   return NSSComplicationDataSourceClass & 1;
@@ -1103,7 +1104,7 @@ LABEL_54:
 {
   family = [(CLKCComplicationDataSource *)self family];
   v4 = @"music";
-  v5 = NTKMusicTintColor();
+  v5 = NTKMusicTintColor(v4);
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __49__NTKSampleComplicationDataSource__musicTemplate__block_invoke;
@@ -1430,7 +1431,7 @@ id __49__NTKSampleComplicationDataSource__radioTemplate__block_invoke(uint64_t a
 {
   family = [(CLKCComplicationDataSource *)self family];
   v4 = @"podcasts";
-  v5 = NTKPodcastsTintColor();
+  v5 = NTKPodcastsTintColor(v4);
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __52__NTKSampleComplicationDataSource__podcastsTemplate__block_invoke;
@@ -1724,17 +1725,17 @@ LABEL_30:
 
 - (id)_newsTemplate
 {
-  v3 = NewsServicesLibraryCore();
+  v3 = NewsServicesLibraryCore(0);
   if (v3)
   {
-    NSSComplicationDataSourceClass = getNSSComplicationDataSourceClass();
+    NSSComplicationDataSourceClass = getNSSComplicationDataSourceClass(v3, v4);
     if (objc_opt_respondsToSelector())
     {
       family = [(CLKCComplicationDataSource *)self family];
       device = [(CLKCComplicationDataSource *)self device];
-      v7 = [device sizeClass] == 0;
+      v8 = [device sizeClass] == 0;
 
-      v3 = [NSSComplicationDataSourceClass nss_newsComplicationTemplateForFamily:family compact:v7];
+      v3 = [NSSComplicationDataSourceClass nss_newsComplicationTemplateForFamily:family compact:v8];
     }
 
     else

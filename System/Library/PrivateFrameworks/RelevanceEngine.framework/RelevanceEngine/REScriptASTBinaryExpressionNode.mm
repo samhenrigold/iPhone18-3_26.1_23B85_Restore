@@ -7,7 +7,7 @@
 
 + (id)parseBuffer:(id)buffer error:(id *)error
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   bufferCopy = buffer;
   currentToken = [bufferCopy currentToken];
   currentToken2 = [bufferCopy currentToken];
@@ -17,14 +17,14 @@
   {
     if (error)
     {
-      v14 = MEMORY[0x277CCACA8];
+      v13 = MEMORY[0x277CCACA8];
       value = [currentToken value];
-      v16 = [v14 stringWithFormat:@"Unexpected token %@ found. Expecting operator token.", value];
+      v15 = [v13 stringWithFormat:@"Unexpected token %@ found. Expecting operator token.", value];
 
-      v18 = @"REErrorTokenKey";
-      v19[0] = currentToken;
-      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
-      *error = RECreateErrorWithCodeMessageAndUseInfo(204, v16, v17);
+      v17 = @"REErrorTokenKey";
+      v18[0] = currentToken;
+      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+      *error = RECreateErrorWithCodeMessageAndUseInfo(204, v15, v16);
     }
 
     v11 = 0;
@@ -47,8 +47,6 @@
       v11 = 0;
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

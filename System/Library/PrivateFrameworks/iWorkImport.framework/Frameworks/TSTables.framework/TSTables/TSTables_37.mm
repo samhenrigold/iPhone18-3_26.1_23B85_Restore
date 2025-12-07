@@ -1,4 +1,4 @@
-uint64_t *TST::CellRange::CopyFrom(uint64_t *this, const Message *a2)
+google::protobuf::UnknownFieldSet *TST::CellRange::CopyFrom(google::protobuf::UnknownFieldSet *this, const Message *a2)
 {
   if (a2 != this)
   {
@@ -11,7 +11,7 @@ uint64_t *TST::CellRange::CopyFrom(uint64_t *this, const Message *a2)
   return this;
 }
 
-uint64_t *TST::CellRange::CopyFrom(uint64_t *this, const TST::CellRange *a2)
+google::protobuf::UnknownFieldSet *TST::CellRange::CopyFrom(google::protobuf::UnknownFieldSet *this, const TST::CellRange *a2)
 {
   if (a2 != this)
   {
@@ -52,7 +52,7 @@ __n128 TST::CellRange::InternalSwap(TST::CellRange *this, TST::CellRange *a2)
   return result;
 }
 
-uint64_t *TST::ExpandedCellRange::clear_origin(TST::ExpandedCellRange *this)
+TSCE::CellCoordinateArchive *TST::ExpandedCellRange::clear_origin(TST::ExpandedCellRange *this)
 {
   result = *(this + 3);
   if (result)
@@ -160,7 +160,7 @@ uint64_t *TST::ExpandedCellRange::default_instance(TST::ExpandedCellRange *this)
   return TST::_ExpandedCellRange_default_instance_;
 }
 
-uint64_t *TST::ExpandedCellRange::Clear(uint64_t *this)
+google::protobuf::UnknownFieldSet *TST::ExpandedCellRange::Clear(google::protobuf::UnknownFieldSet *this)
 {
   v1 = this;
   v2 = *(this + 4);
@@ -168,18 +168,18 @@ uint64_t *TST::ExpandedCellRange::Clear(uint64_t *this)
   {
     if (v2)
     {
-      this = TSCE::CellCoordinateArchive::Clear(this[3]);
+      this = TSCE::CellCoordinateArchive::Clear(*(this + 3));
     }
 
     if ((v2 & 2) != 0)
     {
-      this = TST::ExpandedTableSize::Clear(*(v1 + 32));
+      this = TST::ExpandedTableSize::Clear(*(v1 + 4));
     }
   }
 
   v4 = *(v1 + 8);
   v3 = v1 + 8;
-  *(v3 + 8) = 0;
+  *(v3 + 2) = 0;
   if (v4)
   {
 
@@ -191,118 +191,112 @@ uint64_t *TST::ExpandedCellRange::Clear(uint64_t *this)
 
 google::protobuf::internal *TST::ExpandedCellRange::_InternalParse(uint64_t a1, google::protobuf::internal *a2, uint64_t a3)
 {
-  v18 = a2;
-  while ((sub_221567030(a3, &v18) & 1) == 0)
+  v19 = a2;
+  for (i = *(a3 + 92); (sub_221567030(a3, &v19, i) & 1) == 0; i = *(a3 + 92))
   {
-    v5 = (v18 + 1);
-    v6 = *v18;
-    if ((*v18 & 0x80000000) == 0)
+    v6 = (v19 + 1);
+    v7 = *v19;
+    if ((*v19 & 0x80000000) == 0)
     {
       goto LABEL_6;
     }
 
-    v7 = v6 + (*v5 << 7);
-    v6 = v7 - 128;
-    if ((*v5 & 0x80000000) == 0)
+    v8 = v7 + (*v6 << 7);
+    v7 = v8 - 128;
+    if ((*v6 & 0x80000000) == 0)
     {
-      v5 = (v18 + 2);
+      v6 = (v19 + 2);
 LABEL_6:
-      v18 = v5;
+      v19 = v6;
       goto LABEL_7;
     }
 
-    TagFallback = google::protobuf::internal::ReadTagFallback(v18, (v7 - 128));
-    v18 = TagFallback;
+    TagFallback = google::protobuf::internal::ReadTagFallback(v19, (v8 - 128));
+    v19 = TagFallback;
     if (!TagFallback)
     {
       return 0;
     }
 
-    v5 = TagFallback;
-    v6 = v16;
+    v6 = TagFallback;
+    v7 = v17;
 LABEL_7:
-    if (v6 >> 3 == 2)
+    if (v7 >> 3 == 2)
     {
-      if (v6 != 18)
+      if (v7 == 18)
       {
-        goto LABEL_12;
-      }
-
-      *(a1 + 16) |= 2u;
-      v11 = *(a1 + 32);
-      if (!v11)
-      {
-        v12 = *(a1 + 8);
-        if (v12)
+        *(a1 + 16) |= 2u;
+        v12 = *(a1 + 32);
+        if (!v12)
         {
-          v12 = *(v12 & 0xFFFFFFFFFFFFFFFELL);
+          v13 = *(a1 + 8);
+          if (v13)
+          {
+            v13 = *(v13 & 0xFFFFFFFFFFFFFFFELL);
+          }
+
+          v12 = google::protobuf::Arena::CreateMaybeMessage<TST::ExpandedTableSize>(v13);
+          *(a1 + 32) = v12;
+          v6 = v19;
         }
 
-        v11 = google::protobuf::Arena::CreateMaybeMessage<TST::ExpandedTableSize>(v12);
-        *(a1 + 32) = v11;
-        v5 = v18;
+        v11 = sub_2217019D8(a3, v12, v6);
+        goto LABEL_30;
+      }
+    }
+
+    else if (v7 >> 3 == 1 && v7 == 10)
+    {
+      *(a1 + 16) |= 1u;
+      v14 = *(a1 + 24);
+      if (!v14)
+      {
+        v15 = *(a1 + 8);
+        if (v15)
+        {
+          v15 = *(v15 & 0xFFFFFFFFFFFFFFFELL);
+        }
+
+        v14 = google::protobuf::Arena::CreateMaybeMessage<TSCE::CellCoordinateArchive>(v15);
+        *(a1 + 24) = v14;
+        v6 = v19;
       }
 
-      v10 = sub_2217019D8(a3, v11, v5);
+      v11 = sub_2216F806C(a3, v14, v6);
+      goto LABEL_30;
+    }
+
+    if (v7)
+    {
+      v10 = (v7 & 7) == 4;
     }
 
     else
     {
-      if (v6 >> 3 != 1 || v6 != 10)
-      {
-LABEL_12:
-        if (v6)
-        {
-          v9 = (v6 & 7) == 4;
-        }
-
-        else
-        {
-          v9 = 1;
-        }
-
-        if (v9)
-        {
-          *(a3 + 80) = v6 - 1;
-          return v18;
-        }
-
-        if ((*(a1 + 8) & 1) == 0)
-        {
-          sub_221567188((a1 + 8));
-        }
-
-        v10 = google::protobuf::internal::UnknownFieldParse();
-        goto LABEL_30;
-      }
-
-      *(a1 + 16) |= 1u;
-      v13 = *(a1 + 24);
-      if (!v13)
-      {
-        v14 = *(a1 + 8);
-        if (v14)
-        {
-          v14 = *(v14 & 0xFFFFFFFFFFFFFFFELL);
-        }
-
-        v13 = google::protobuf::Arena::CreateMaybeMessage<TSCE::CellCoordinateArchive>(v14);
-        *(a1 + 24) = v13;
-        v5 = v18;
-      }
-
-      v10 = sub_2216F806C(a3, v13, v5);
+      v10 = 1;
     }
 
+    if (v10)
+    {
+      *(a3 + 80) = v7 - 1;
+      return v19;
+    }
+
+    if ((*(a1 + 8) & 1) == 0)
+    {
+      sub_221567188((a1 + 8));
+    }
+
+    v11 = google::protobuf::internal::UnknownFieldParse();
 LABEL_30:
-    v18 = v10;
-    if (!v10)
+    v19 = v11;
+    if (!v11)
     {
       return 0;
     }
   }
 
-  return v18;
+  return v19;
 }
 
 unsigned __int8 *TST::ExpandedCellRange::_InternalSerialize(TST::ExpandedCellRange *this, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3)
@@ -406,7 +400,7 @@ unsigned __int8 *TST::ExpandedCellRange::_InternalSerialize(TST::ExpandedCellRan
     return a2;
   }
 
-  return MEMORY[0x2821EAC40]((v18 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v18 & 0xFFFFFFFFFFFFFFFELL) + 8, a2, a3);
 }
 
 uint64_t TST::ExpandedCellRange::RequiredFieldsByteSizeFallback(TST::ExpandedCellRange *this)
@@ -551,7 +545,7 @@ uint64_t TST::ExpandedCellRange::MergeFrom(uint64_t this, const TST::ExpandedCel
   return this;
 }
 
-uint64_t *TST::ExpandedCellRange::CopyFrom(uint64_t *this, const Message *a2)
+google::protobuf::UnknownFieldSet *TST::ExpandedCellRange::CopyFrom(google::protobuf::UnknownFieldSet *this, const Message *a2)
 {
   if (a2 != this)
   {
@@ -564,7 +558,7 @@ uint64_t *TST::ExpandedCellRange::CopyFrom(uint64_t *this, const Message *a2)
   return this;
 }
 
-uint64_t *TST::ExpandedCellRange::CopyFrom(uint64_t *this, const TST::ExpandedCellRange *a2)
+google::protobuf::UnknownFieldSet *TST::ExpandedCellRange::CopyFrom(google::protobuf::UnknownFieldSet *this, const TST::ExpandedCellRange *a2)
 {
   if (a2 != this)
   {
@@ -691,7 +685,7 @@ uint64_t *TST::TableSelection::default_instance(TST::TableSelection *this)
   return &TST::_TableSelection_default_instance_;
 }
 
-uint64_t *TST::TableSelection::Clear(uint64_t *this)
+google::protobuf::UnknownFieldSet *TST::TableSelection::Clear(google::protobuf::UnknownFieldSet *this)
 {
   v1 = this;
   v2 = *(this + 4);
@@ -699,23 +693,23 @@ uint64_t *TST::TableSelection::Clear(uint64_t *this)
   {
     if (v2)
     {
-      this = TST::CellRange::Clear(this[3]);
+      this = TST::CellRange::Clear(*(this + 3));
     }
 
     if ((v2 & 2) != 0)
     {
-      this = TST::CellRange::Clear(*(v1 + 32));
+      this = TST::CellRange::Clear(*(v1 + 4));
     }
   }
 
   if ((v2 & 0xC) != 0)
   {
-    *(v1 + 40) = 0;
+    *(v1 + 5) = 0;
   }
 
   v4 = *(v1 + 8);
   v3 = v1 + 8;
-  *(v3 + 8) = 0;
+  *(v3 + 2) = 0;
   if (v4)
   {
 
@@ -729,7 +723,7 @@ google::protobuf::internal *TST::TableSelection::_InternalParse(uint64_t a1, goo
 {
   v27 = a2;
   v5 = 0;
-  if ((sub_221567030(a3, &v27) & 1) == 0)
+  if ((sub_221567030(a3, &v27, *(a3 + 92)) & 1) == 0)
   {
     while (1)
     {
@@ -922,7 +916,7 @@ LABEL_57:
       }
 
 LABEL_47:
-      if (sub_221567030(a3, &v27))
+      if (sub_221567030(a3, &v27, *(a3 + 92)))
       {
         goto LABEL_2;
       }
@@ -1117,7 +1111,7 @@ LABEL_38:
     return a2;
   }
 
-  return MEMORY[0x2821EAC40]((v23 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v23 & 0xFFFFFFFFFFFFFFFELL) + 8, a2, a3);
 }
 
 uint64_t TST::TableSelection::RequiredFieldsByteSizeFallback(TST::TableSelection *this)
@@ -1332,7 +1326,7 @@ LABEL_27:
   return this;
 }
 
-uint64_t *TST::TableSelection::CopyFrom(uint64_t *this, const Message *a2)
+google::protobuf::UnknownFieldSet *TST::TableSelection::CopyFrom(google::protobuf::UnknownFieldSet *this, const Message *a2)
 {
   if (a2 != this)
   {
@@ -1345,7 +1339,7 @@ uint64_t *TST::TableSelection::CopyFrom(uint64_t *this, const Message *a2)
   return this;
 }
 
-uint64_t *TST::TableSelection::CopyFrom(uint64_t *this, const TST::TableSelection *a2)
+google::protobuf::UnknownFieldSet *TST::TableSelection::CopyFrom(google::protobuf::UnknownFieldSet *this, const TST::TableSelection *a2)
 {
   if (a2 != this)
   {
@@ -1468,10 +1462,10 @@ void TST::TileRowInfo::~TileRowInfo(TST::TileRowInfo *this)
   JUMPOUT(0x223DA1450);
 }
 
-uint64_t sub_2215D6180(uint64_t result)
+void *sub_2215D6180(void *result)
 {
   v1 = result;
-  v2 = *(result + 24);
+  v2 = result[3];
   v3 = MEMORY[0x277D80A90];
   if (v2 != MEMORY[0x277D80A90])
   {
@@ -1529,7 +1523,7 @@ void *TST::TileRowInfo::default_instance(TST::TileRowInfo *this)
   return &TST::_TileRowInfo_default_instance_;
 }
 
-uint64_t *TST::TileRowInfo::Clear(TST::TileRowInfo *this)
+google::protobuf::UnknownFieldSet *TST::TileRowInfo::Clear(TST::TileRowInfo *this)
 {
   v1 = *(this + 4);
   if ((v1 & 0xF) != 0)
@@ -1660,7 +1654,7 @@ google::protobuf::internal *TST::TileRowInfo::_InternalParse(uint64_t a1, google
 {
   v36 = a2;
   v5 = 0;
-  if ((sub_221567030(a3, &v36) & 1) == 0)
+  if ((sub_221567030(a3, &v36, *(a3 + 92)) & 1) == 0)
   {
     while (1)
     {
@@ -1913,7 +1907,7 @@ LABEL_18:
       }
 
 LABEL_53:
-      if (sub_221567030(a3, &v36))
+      if (sub_221567030(a3, &v36, *(a3 + 92)))
       {
         goto LABEL_2;
       }
@@ -2183,7 +2177,7 @@ LABEL_50:
     return v4;
   }
 
-  return MEMORY[0x2821EAC40]((v20 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v20 & 0xFFFFFFFFFFFFFFFELL) + 8, v4, a3);
 }
 
 uint64_t TST::TileRowInfo::RequiredFieldsByteSizeFallback(TST::TileRowInfo *this)
@@ -2244,7 +2238,7 @@ LABEL_12:
   return v2;
 }
 
-unint64_t TST::TileRowInfo::ByteSizeLong(TST::TileRowInfo *this)
+uint64_t TST::TileRowInfo::ByteSizeLong(TST::TileRowInfo *this)
 {
   v2 = *(this + 4);
   if ((~v2 & 0x33) != 0)
@@ -2555,7 +2549,7 @@ TST::Tile *TST::Tile::Tile(TST::Tile *this, const TST::Tile *a2)
   {
     v6 = *(a2 + 5);
     v7 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((this + 24));
-    sub_22167D7C0(this + 24, v7, (v6 + 8), v5, **(this + 5) - *(this + 8));
+    sub_22167D7C0(this + 3, v7, (v6 + 8), v5, **(this + 5) - *(this + 8));
     v8 = *(this + 8) + v5;
     *(this + 8) = v8;
     v9 = *(this + 5);
@@ -2599,13 +2593,13 @@ void *TST::Tile::default_instance(TST::Tile *this)
   return &TST::_Tile_default_instance_;
 }
 
-uint64_t *TST::Tile::Clear(uint64_t *this)
+google::protobuf::UnknownFieldSet *TST::Tile::Clear(google::protobuf::UnknownFieldSet *this)
 {
   v1 = this;
   v2 = *(this + 8);
   if (v2 >= 1)
   {
-    v3 = (this[5] + 8);
+    v3 = (*(this + 5) + 8);
     do
     {
       v4 = *v3++;
@@ -2614,19 +2608,19 @@ uint64_t *TST::Tile::Clear(uint64_t *this)
     }
 
     while (v2);
-    *(v1 + 32) = 0;
+    *(v1 + 8) = 0;
   }
 
   if ((*(v1 + 16) & 0x7F) != 0)
   {
-    *(v1 + 48) = 0;
-    *(v1 + 56) = 0;
+    *(v1 + 6) = 0;
+    *(v1 + 7) = 0;
     *(v1 + 62) = 0;
   }
 
   v6 = *(v1 + 8);
   v5 = v1 + 8;
-  *(v5 + 8) = 0;
+  *(v5 + 2) = 0;
   if (v6)
   {
 
@@ -2640,7 +2634,7 @@ google::protobuf::internal *TST::Tile::_InternalParse(uint64_t a1, google::proto
 {
   v58 = a2;
   v5 = 0;
-  if ((sub_221567030(a3, &v58) & 1) == 0)
+  if ((sub_221567030(a3, &v58, *(a3 + 92)) & 1) == 0)
   {
     while (1)
     {
@@ -3017,7 +3011,7 @@ LABEL_18:
       }
 
 LABEL_78:
-      if (sub_221567030(a3, &v58))
+      if (sub_221567030(a3, &v58, *(a3 + 92)))
       {
         goto LABEL_2;
       }
@@ -3408,7 +3402,7 @@ LABEL_80:
     return a2;
   }
 
-  return MEMORY[0x2821EAC40]((v36 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v36 & 0xFFFFFFFFFFFFFFFELL) + 8, a2, a3);
 }
 
 uint64_t TST::Tile::RequiredFieldsByteSizeFallback(TST::Tile *this)
@@ -3551,7 +3545,7 @@ uint64_t TST::Tile::MergeFrom(uint64_t this, const TST::Tile *a2)
   {
     v6 = *(a2 + 5);
     v7 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((v3 + 24));
-    this = sub_22167D7C0(v3 + 24, v7, (v6 + 8), v5, **(v3 + 40) - *(v3 + 32));
+    this = sub_22167D7C0((v3 + 24), v7, (v6 + 8), v5, **(v3 + 40) - *(v3 + 32));
     v8 = *(v3 + 32) + v5;
     *(v3 + 32) = v8;
     v9 = *(v3 + 40);
@@ -3652,7 +3646,7 @@ LABEL_22:
   return this;
 }
 
-uint64_t *TST::Tile::CopyFrom(uint64_t *this, const Message *a2)
+google::protobuf::UnknownFieldSet *TST::Tile::CopyFrom(google::protobuf::UnknownFieldSet *this, const Message *a2)
 {
   if (a2 != this)
   {
@@ -3665,7 +3659,7 @@ uint64_t *TST::Tile::CopyFrom(uint64_t *this, const Message *a2)
   return this;
 }
 
-uint64_t *TST::Tile::CopyFrom(uint64_t *this, const TST::Tile *a2)
+google::protobuf::UnknownFieldSet *TST::Tile::CopyFrom(google::protobuf::UnknownFieldSet *this, const TST::Tile *a2)
 {
   if (a2 != this)
   {
@@ -3824,18 +3818,18 @@ uint64_t *TST::TileStorage_Tile::default_instance(TST::TileStorage_Tile *this)
   return &TST::_TileStorage_Tile_default_instance_;
 }
 
-uint64_t *TST::TileStorage_Tile::Clear(uint64_t *this)
+google::protobuf::UnknownFieldSet *TST::TileStorage_Tile::Clear(google::protobuf::UnknownFieldSet *this)
 {
   v1 = this;
-  if (this[2])
+  if (*(this + 16))
   {
-    this = TSP::Reference::Clear(this[3]);
+    this = TSP::Reference::Clear(*(this + 3));
   }
 
   v3 = *(v1 + 8);
   v2 = v1 + 8;
-  *(v2 + 24) = 0;
-  *(v2 + 8) = 0;
+  *(v2 + 6) = 0;
+  *(v2 + 2) = 0;
   if (v3)
   {
 
@@ -3847,15 +3841,15 @@ uint64_t *TST::TileStorage_Tile::Clear(uint64_t *this)
 
 google::protobuf::internal *TST::TileStorage_Tile::_InternalParse(uint64_t a1, google::protobuf::internal *a2, uint64_t a3)
 {
-  v23 = a2;
+  v22 = a2;
   v5 = 0;
-  if ((sub_221567030(a3, &v23) & 1) == 0)
+  if ((sub_221567030(a3, &v22, *(a3 + 92)) & 1) == 0)
   {
     while (1)
     {
-      v7 = (v23 + 1);
-      v8 = *v23;
-      if ((*v23 & 0x80000000) == 0)
+      v7 = (v22 + 1);
+      v8 = *v22;
+      if ((*v22 & 0x80000000) == 0)
       {
         goto LABEL_6;
       }
@@ -3867,15 +3861,15 @@ google::protobuf::internal *TST::TileStorage_Tile::_InternalParse(uint64_t a1, g
         break;
       }
 
-      TagFallback = google::protobuf::internal::ReadTagFallback(v23, (v9 - 128));
-      v23 = TagFallback;
+      TagFallback = google::protobuf::internal::ReadTagFallback(v22, (v9 - 128));
+      v22 = TagFallback;
       if (!TagFallback)
       {
         goto LABEL_38;
       }
 
       v7 = TagFallback;
-      v8 = v20;
+      v8 = v19;
 LABEL_7:
       if (v8 >> 3 == 2)
       {
@@ -3891,10 +3885,9 @@ LABEL_7:
               v14 = *(v14 & 0xFFFFFFFFFFFFFFFELL);
             }
 
-            v15 = MEMORY[0x223DA0390](v14);
-            LODWORD(v13) = v15;
-            *(a1 + 24) = v15;
-            v7 = v23;
+            v13 = MEMORY[0x223DA0390](v14);
+            *(a1 + 24) = v13;
+            v7 = v22;
           }
 
           v12 = sub_22170B7F8(a3, v13, v7);
@@ -3927,7 +3920,7 @@ LABEL_12:
           v12 = google::protobuf::internal::UnknownFieldParse();
         }
 
-        v23 = v12;
+        v22 = v12;
         if (!v12)
         {
           goto LABEL_38;
@@ -3942,50 +3935,50 @@ LABEL_12:
       }
 
       v5 |= 2u;
-      v16 = (v7 + 1);
-      LODWORD(v17) = *v7;
+      v15 = (v7 + 1);
+      LODWORD(v16) = *v7;
       if ((*v7 & 0x80000000) == 0)
       {
         goto LABEL_30;
       }
 
-      v18 = *v16;
-      v17 = (v17 + (v18 << 7) - 128);
-      if ((v18 & 0x80000000) == 0)
+      v17 = *v15;
+      v16 = (v16 + (v17 << 7) - 128);
+      if ((v17 & 0x80000000) == 0)
       {
-        v16 = (v7 + 2);
+        v15 = (v7 + 2);
 LABEL_30:
-        v23 = v16;
-        *(a1 + 32) = v17;
+        v22 = v15;
+        *(a1 + 32) = v16;
         goto LABEL_31;
       }
 
-      v21 = google::protobuf::internal::VarintParseSlow32(v7, v17);
-      v23 = v21;
-      *(a1 + 32) = v22;
-      if (!v21)
+      v20 = google::protobuf::internal::VarintParseSlow32(v7, v16);
+      v22 = v20;
+      *(a1 + 32) = v21;
+      if (!v20)
       {
 LABEL_38:
-        v23 = 0;
+        v22 = 0;
         goto LABEL_2;
       }
 
 LABEL_31:
-      if (sub_221567030(a3, &v23))
+      if (sub_221567030(a3, &v22, *(a3 + 92)))
       {
         goto LABEL_2;
       }
     }
 
-    v7 = (v23 + 2);
+    v7 = (v22 + 2);
 LABEL_6:
-    v23 = v7;
+    v22 = v7;
     goto LABEL_7;
   }
 
 LABEL_2:
   *(a1 + 16) |= v5;
-  return v23;
+  return v22;
 }
 
 unsigned __int8 *TST::TileStorage_Tile::_InternalSerialize(TST::TileStorage_Tile *this, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3)
@@ -4095,7 +4088,7 @@ LABEL_24:
     return a2;
   }
 
-  return MEMORY[0x2821EAC40]((v16 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v16 & 0xFFFFFFFFFFFFFFFELL) + 8, a2, a3);
 }
 
 uint64_t TST::TileStorage_Tile::RequiredFieldsByteSizeFallback(TST::TileStorage_Tile *this)
@@ -4216,7 +4209,7 @@ uint64_t TST::TileStorage_Tile::MergeFrom(uint64_t this, const TST::TileStorage_
   return this;
 }
 
-uint64_t *TST::TileStorage_Tile::CopyFrom(uint64_t *this, const Message *a2)
+google::protobuf::UnknownFieldSet *TST::TileStorage_Tile::CopyFrom(google::protobuf::UnknownFieldSet *this, const Message *a2)
 {
   if (a2 != this)
   {
@@ -4229,7 +4222,7 @@ uint64_t *TST::TileStorage_Tile::CopyFrom(uint64_t *this, const Message *a2)
   return this;
 }
 
-uint64_t *TST::TileStorage_Tile::CopyFrom(uint64_t *this, const TST::TileStorage_Tile *a2)
+google::protobuf::UnknownFieldSet *TST::TileStorage_Tile::CopyFrom(google::protobuf::UnknownFieldSet *this, const TST::TileStorage_Tile *a2)
 {
   if (a2 != this)
   {
@@ -4303,7 +4296,7 @@ TST::TileStorage *TST::TileStorage::TileStorage(TST::TileStorage *this, const TS
   {
     v6 = *(a2 + 5);
     v7 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((this + 24));
-    sub_22167D904(this + 24, v7, (v6 + 8), v5, **(this + 5) - *(this + 8));
+    sub_22167D904(this + 3, v7, (v6 + 8), v5, **(this + 5) - *(this + 8));
     v8 = *(this + 8) + v5;
     *(this + 8) = v8;
     v9 = *(this + 5);
@@ -4347,13 +4340,13 @@ void *TST::TileStorage::default_instance(TST::TileStorage *this)
   return &TST::_TileStorage_default_instance_;
 }
 
-uint64_t *TST::TileStorage::Clear(uint64_t *this)
+google::protobuf::UnknownFieldSet *TST::TileStorage::Clear(google::protobuf::UnknownFieldSet *this)
 {
   v1 = this;
   v2 = *(this + 8);
   if (v2 >= 1)
   {
-    v3 = (this[5] + 8);
+    v3 = (*(this + 5) + 8);
     do
     {
       v4 = *v3++;
@@ -4362,18 +4355,18 @@ uint64_t *TST::TileStorage::Clear(uint64_t *this)
     }
 
     while (v2);
-    *(v1 + 32) = 0;
+    *(v1 + 8) = 0;
   }
 
   if ((*(v1 + 16) & 3) != 0)
   {
     *(v1 + 52) = 0;
-    *(v1 + 48) = 0;
+    *(v1 + 12) = 0;
   }
 
   v6 = *(v1 + 8);
   v5 = v1 + 8;
-  *(v5 + 8) = 0;
+  *(v5 + 2) = 0;
   if (v6)
   {
 
@@ -4387,7 +4380,7 @@ google::protobuf::internal *TST::TileStorage::_InternalParse(uint64_t a1, google
 {
   v33 = a2;
   v5 = 0;
-  if ((sub_221567030(a3, &v33) & 1) == 0)
+  if ((sub_221567030(a3, &v33, *(a3 + 92)) & 1) == 0)
   {
     while (1)
     {
@@ -4580,7 +4573,7 @@ LABEL_25:
       }
 
 LABEL_31:
-      if (sub_221567030(a3, &v33))
+      if (sub_221567030(a3, &v33, *(a3 + 92)))
       {
         goto LABEL_2;
       }
@@ -4721,7 +4714,7 @@ LABEL_25:
     return a2;
   }
 
-  return MEMORY[0x2821EAC40]((v17 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v17 & 0xFFFFFFFFFFFFFFFELL) + 8, a2, a3);
 }
 
 uint64_t TST::TileStorage::ByteSizeLong(TST::TileStorage *this)
@@ -4810,7 +4803,7 @@ uint64_t TST::TileStorage::MergeFrom(uint64_t this, const TST::TileStorage *a2)
   {
     v6 = *(a2 + 5);
     v7 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((v3 + 24));
-    this = sub_22167D904(v3 + 24, v7, (v6 + 8), v5, **(v3 + 40) - *(v3 + 32));
+    this = sub_22167D904((v3 + 24), v7, (v6 + 8), v5, **(v3 + 40) - *(v3 + 32));
     v8 = *(v3 + 32) + v5;
     *(v3 + 32) = v8;
     v9 = *(v3 + 40);
@@ -4839,7 +4832,7 @@ uint64_t TST::TileStorage::MergeFrom(uint64_t this, const TST::TileStorage *a2)
   return this;
 }
 
-uint64_t *TST::TileStorage::CopyFrom(uint64_t *this, const Message *a2)
+google::protobuf::UnknownFieldSet *TST::TileStorage::CopyFrom(google::protobuf::UnknownFieldSet *this, const Message *a2)
 {
   if (a2 != this)
   {
@@ -4852,7 +4845,7 @@ uint64_t *TST::TileStorage::CopyFrom(uint64_t *this, const Message *a2)
   return this;
 }
 
-uint64_t *TST::TileStorage::CopyFrom(uint64_t *this, const TST::TileStorage *a2)
+google::protobuf::UnknownFieldSet *TST::TileStorage::CopyFrom(google::protobuf::UnknownFieldSet *this, const TST::TileStorage *a2)
 {
   if (a2 != this)
   {
@@ -4910,7 +4903,7 @@ __n128 TST::TileStorage::InternalSwap(__n128 *this, __n128 *a2)
   return result;
 }
 
-uint64_t *TST::PopUpMenuModel_CellValue::clear_BOOLean_value(TST::PopUpMenuModel_CellValue *this)
+google::protobuf::UnknownFieldSet *TST::PopUpMenuModel_CellValue::clear_BOOLean_value(TST::PopUpMenuModel_CellValue *this)
 {
   result = *(this + 3);
   if (result)
@@ -4922,7 +4915,7 @@ uint64_t *TST::PopUpMenuModel_CellValue::clear_BOOLean_value(TST::PopUpMenuModel
   return result;
 }
 
-uint64_t *TST::PopUpMenuModel_CellValue::clear_date_value(TST::PopUpMenuModel_CellValue *this)
+google::protobuf::UnknownFieldSet *TST::PopUpMenuModel_CellValue::clear_date_value(TST::PopUpMenuModel_CellValue *this)
 {
   result = *(this + 4);
   if (result)
@@ -4934,7 +4927,7 @@ uint64_t *TST::PopUpMenuModel_CellValue::clear_date_value(TST::PopUpMenuModel_Ce
   return result;
 }
 
-uint64_t *TST::PopUpMenuModel_CellValue::clear_number_value(TST::PopUpMenuModel_CellValue *this)
+google::protobuf::UnknownFieldSet *TST::PopUpMenuModel_CellValue::clear_number_value(TST::PopUpMenuModel_CellValue *this)
 {
   result = *(this + 5);
   if (result)
@@ -4946,7 +4939,7 @@ uint64_t *TST::PopUpMenuModel_CellValue::clear_number_value(TST::PopUpMenuModel_
   return result;
 }
 
-uint64_t *TST::PopUpMenuModel_CellValue::clear_string_value(TST::PopUpMenuModel_CellValue *this)
+google::protobuf::UnknownFieldSet *TST::PopUpMenuModel_CellValue::clear_string_value(TST::PopUpMenuModel_CellValue *this)
 {
   result = *(this + 6);
   if (result)
@@ -5028,33 +5021,33 @@ void TST::PopUpMenuModel_CellValue::~PopUpMenuModel_CellValue(TST::PopUpMenuMode
   JUMPOUT(0x223DA1450);
 }
 
-void *sub_2215D9C70(void *result)
+TSCE::StringCellValueArchive *sub_2215D9C70(TSCE::StringCellValueArchive *result)
 {
   if (result != &TST::_PopUpMenuModel_CellValue_default_instance_)
   {
     v1 = result;
-    v2 = result[3];
+    v2 = *(result + 3);
     if (v2)
     {
       TSCE::BooleanCellValueArchive::~BooleanCellValueArchive(v2);
       MEMORY[0x223DA1450]();
     }
 
-    v3 = v1[4];
+    v3 = *(v1 + 4);
     if (v3)
     {
       TSCE::DateCellValueArchive::~DateCellValueArchive(v3);
       MEMORY[0x223DA1450]();
     }
 
-    v4 = v1[5];
+    v4 = *(v1 + 5);
     if (v4)
     {
       TSCE::NumberCellValueArchive::~NumberCellValueArchive(v4);
       MEMORY[0x223DA1450]();
     }
 
-    result = v1[6];
+    result = *(v1 + 6);
     if (result)
     {
       TSCE::StringCellValueArchive::~StringCellValueArchive(result);
@@ -5076,7 +5069,7 @@ void *TST::PopUpMenuModel_CellValue::default_instance(TST::PopUpMenuModel_CellVa
   return &TST::_PopUpMenuModel_CellValue_default_instance_;
 }
 
-uint64_t *TST::PopUpMenuModel_CellValue::Clear(uint64_t *this)
+google::protobuf::UnknownFieldSet *TST::PopUpMenuModel_CellValue::Clear(google::protobuf::UnknownFieldSet *this)
 {
   v1 = this;
   v2 = *(this + 4);
@@ -5084,7 +5077,7 @@ uint64_t *TST::PopUpMenuModel_CellValue::Clear(uint64_t *this)
   {
     if (v2)
     {
-      this = TSCE::BooleanCellValueArchive::Clear(this[3]);
+      this = TSCE::BooleanCellValueArchive::Clear(*(this + 3));
       if ((v2 & 2) == 0)
       {
 LABEL_4:
@@ -5102,24 +5095,24 @@ LABEL_4:
       goto LABEL_4;
     }
 
-    this = TSCE::DateCellValueArchive::Clear(*(v1 + 32));
+    this = TSCE::DateCellValueArchive::Clear(*(v1 + 4));
     if ((v2 & 4) == 0)
     {
 LABEL_5:
       if ((v2 & 8) == 0)
       {
 LABEL_7:
-        *(v1 + 56) = 1;
+        *(v1 + 14) = 1;
         goto LABEL_8;
       }
 
 LABEL_6:
-      this = TSCE::StringCellValueArchive::Clear(*(v1 + 48));
+      this = TSCE::StringCellValueArchive::Clear(*(v1 + 6));
       goto LABEL_7;
     }
 
 LABEL_14:
-    this = TSCE::NumberCellValueArchive::Clear(*(v1 + 40));
+    this = TSCE::NumberCellValueArchive::Clear(*(v1 + 5));
     if ((v2 & 8) == 0)
     {
       goto LABEL_7;
@@ -5131,7 +5124,7 @@ LABEL_14:
 LABEL_8:
   v4 = *(v1 + 8);
   v3 = v1 + 8;
-  *(v3 + 8) = 0;
+  *(v3 + 2) = 0;
   if (v4)
   {
 
@@ -5143,214 +5136,205 @@ LABEL_8:
 
 google::protobuf::internal *TST::PopUpMenuModel_CellValue::_InternalParse(uint64_t a1, google::protobuf::internal *a2, uint64_t a3)
 {
-  v26 = a2;
-  while ((sub_221567030(a3, &v26) & 1) == 0)
+  v27 = a2;
+  for (i = *(a3 + 92); (sub_221567030(a3, &v27, i) & 1) == 0; i = *(a3 + 92))
   {
-    v5 = (v26 + 1);
-    v6 = *v26;
-    if (*v26 < 0)
+    v6 = (v27 + 1);
+    v7 = *v27;
+    if ((*v27 & 0x80000000) == 0)
     {
-      v7 = v6 + (*v5 << 7);
-      v6 = v7 - 128;
-      if (*v5 < 0)
-      {
-        TagFallback = google::protobuf::internal::ReadTagFallback(v26, (v7 - 128));
-        v26 = TagFallback;
-        if (!TagFallback)
-        {
-          return 0;
-        }
-
-        v5 = TagFallback;
-        v6 = v24;
-        goto LABEL_7;
-      }
-
-      v5 = (v26 + 2);
+      goto LABEL_6;
     }
 
-    v26 = v5;
-LABEL_7:
-    v8 = v6 >> 3;
-    if (v6 >> 3 > 2)
+    v8 = v7 + (*v6 << 7);
+    v7 = v8 - 128;
+    if ((*v6 & 0x80000000) == 0)
     {
-      if (v8 == 3)
+      v6 = (v27 + 2);
+LABEL_6:
+      v27 = v6;
+      goto LABEL_7;
+    }
+
+    TagFallback = google::protobuf::internal::ReadTagFallback(v27, (v8 - 128));
+    v27 = TagFallback;
+    if (!TagFallback)
+    {
+      return 0;
+    }
+
+    v6 = TagFallback;
+    v7 = v25;
+LABEL_7:
+    v9 = v7 >> 3;
+    if (v7 >> 3 <= 2)
+    {
+      if (v9 == 1)
       {
-        if (v6 != 26)
+        if (v7 == 8)
         {
-          goto LABEL_47;
+          v21 = (v6 + 1);
+          v20 = *v6;
+          if ((v20 & 0x8000000000000000) == 0)
+          {
+            goto LABEL_44;
+          }
+
+          v22 = *v21;
+          v20 = (v22 << 7) + v20 - 128;
+          if (v22 < 0)
+          {
+            v27 = google::protobuf::internal::VarintParseSlow64(v6, v20);
+            if (!v27)
+            {
+              return 0;
+            }
+          }
+
+          else
+          {
+            v21 = (v6 + 2);
+LABEL_44:
+            v27 = v21;
+          }
+
+          if ((v20 - 1) > 4)
+          {
+            sub_2217087CC();
+          }
+
+          else
+          {
+            *(a1 + 16) |= 0x10u;
+            *(a1 + 56) = v20;
+          }
+
+          continue;
+        }
+      }
+
+      else if (v9 == 2 && v7 == 18)
+      {
+        *(a1 + 16) |= 1u;
+        v14 = *(a1 + 24);
+        if (!v14)
+        {
+          v15 = *(a1 + 8);
+          if (v15)
+          {
+            v15 = *(v15 & 0xFFFFFFFFFFFFFFFELL);
+          }
+
+          v14 = google::protobuf::Arena::CreateMaybeMessage<TSCE::BooleanCellValueArchive>(v15, 0);
+          *(a1 + 24) = v14;
+          v6 = v27;
         }
 
+        v12 = sub_2216FECDC(a3, v14, v6);
+        goto LABEL_54;
+      }
+    }
+
+    else if (v9 == 3)
+    {
+      if (v7 == 26)
+      {
         *(a1 + 16) |= 2u;
-        v15 = *(a1 + 32);
-        if (!v15)
+        v16 = *(a1 + 32);
+        if (!v16)
         {
-          v16 = *(a1 + 8);
-          if (v16)
+          v17 = *(a1 + 8);
+          if (v17)
           {
-            v16 = *(v16 & 0xFFFFFFFFFFFFFFFELL);
+            v17 = *(v17 & 0xFFFFFFFFFFFFFFFELL);
           }
 
-          v15 = google::protobuf::Arena::CreateMaybeMessage<TSCE::DateCellValueArchive>(v16);
-          *(a1 + 32) = v15;
-          v5 = v26;
+          v16 = google::protobuf::Arena::CreateMaybeMessage<TSCE::DateCellValueArchive>(v17, 0);
+          *(a1 + 32) = v16;
+          v6 = v27;
         }
 
-        v11 = sub_2216FEDAC(a3, v15, v5);
+        v12 = sub_2216FEDAC(a3, v16, v6);
+        goto LABEL_54;
       }
+    }
 
-      else if (v8 == 4)
+    else if (v9 == 4)
+    {
+      if (v7 == 34)
       {
-        if (v6 != 34)
-        {
-          goto LABEL_47;
-        }
-
         *(a1 + 16) |= 4u;
-        v17 = *(a1 + 40);
-        if (!v17)
+        v18 = *(a1 + 40);
+        if (!v18)
         {
-          v18 = *(a1 + 8);
-          if (v18)
+          v19 = *(a1 + 8);
+          if (v19)
           {
-            v18 = *(v18 & 0xFFFFFFFFFFFFFFFELL);
+            v19 = *(v19 & 0xFFFFFFFFFFFFFFFELL);
           }
 
-          v17 = google::protobuf::Arena::CreateMaybeMessage<TSCE::NumberCellValueArchive>(v18);
-          *(a1 + 40) = v17;
-          v5 = v26;
+          v18 = google::protobuf::Arena::CreateMaybeMessage<TSCE::NumberCellValueArchive>(v19, 0);
+          *(a1 + 40) = v18;
+          v6 = v27;
         }
 
-        v11 = sub_2216FEE7C(a3, v17, v5);
+        v12 = sub_2216FEE7C(a3, v18, v6);
+        goto LABEL_54;
       }
+    }
 
-      else
+    else if (v9 == 5 && v7 == 42)
+    {
+      *(a1 + 16) |= 8u;
+      v10 = *(a1 + 48);
+      if (!v10)
       {
-        if (v8 != 5 || v6 != 42)
+        v11 = *(a1 + 8);
+        if (v11)
         {
-          goto LABEL_47;
+          v11 = *(v11 & 0xFFFFFFFFFFFFFFFELL);
         }
 
-        *(a1 + 16) |= 8u;
-        v9 = *(a1 + 48);
-        if (!v9)
-        {
-          v10 = *(a1 + 8);
-          if (v10)
-          {
-            v10 = *(v10 & 0xFFFFFFFFFFFFFFFELL);
-          }
-
-          v9 = google::protobuf::Arena::CreateMaybeMessage<TSCE::StringCellValueArchive>(v10);
-          *(a1 + 48) = v9;
-          v5 = v26;
-        }
-
-        v11 = sub_2216FEF4C(a3, v9, v5);
+        v10 = google::protobuf::Arena::CreateMaybeMessage<TSCE::StringCellValueArchive>(v11, 0);
+        *(a1 + 48) = v10;
+        v6 = v27;
       }
 
+      v12 = sub_2216FEF4C(a3, v10, v6);
       goto LABEL_54;
     }
 
-    if (v8 == 1)
+    if (v7)
     {
-      if (v6 != 8)
-      {
-        goto LABEL_47;
-      }
-
-      v20 = (v5 + 1);
-      v19 = *v5;
-      if ((v19 & 0x8000000000000000) == 0)
-      {
-        goto LABEL_44;
-      }
-
-      v21 = *v20;
-      v19 = (v21 << 7) + v19 - 128;
-      if ((v21 & 0x80000000) == 0)
-      {
-        v20 = (v5 + 2);
-LABEL_44:
-        v26 = v20;
-        goto LABEL_45;
-      }
-
-      v26 = google::protobuf::internal::VarintParseSlow64(v5, v19);
-      if (!v26)
-      {
-        return 0;
-      }
-
-LABEL_45:
-      if ((v19 - 1) > 4)
-      {
-        sub_2217087CC();
-      }
-
-      else
-      {
-        *(a1 + 16) |= 0x10u;
-        *(a1 + 56) = v19;
-      }
+      v23 = (v7 & 7) == 4;
     }
 
     else
     {
-      if (v8 != 2 || v6 != 18)
-      {
-LABEL_47:
-        if (v6)
-        {
-          v22 = (v6 & 7) == 4;
-        }
+      v23 = 1;
+    }
 
-        else
-        {
-          v22 = 1;
-        }
+    if (v23)
+    {
+      *(a3 + 80) = v7 - 1;
+      return v27;
+    }
 
-        if (v22)
-        {
-          *(a3 + 80) = v6 - 1;
-          return v26;
-        }
+    if ((*(a1 + 8) & 1) == 0)
+    {
+      sub_221567188((a1 + 8));
+    }
 
-        if ((*(a1 + 8) & 1) == 0)
-        {
-          sub_221567188((a1 + 8));
-        }
-
-        v11 = google::protobuf::internal::UnknownFieldParse();
-        goto LABEL_54;
-      }
-
-      *(a1 + 16) |= 1u;
-      v13 = *(a1 + 24);
-      if (!v13)
-      {
-        v14 = *(a1 + 8);
-        if (v14)
-        {
-          v14 = *(v14 & 0xFFFFFFFFFFFFFFFELL);
-        }
-
-        v13 = google::protobuf::Arena::CreateMaybeMessage<TSCE::BooleanCellValueArchive>(v14);
-        *(a1 + 24) = v13;
-        v5 = v26;
-      }
-
-      v11 = sub_2216FECDC(a3, v13, v5);
+    v12 = google::protobuf::internal::UnknownFieldParse();
 LABEL_54:
-      v26 = v11;
-      if (!v11)
-      {
-        return 0;
-      }
+    v27 = v12;
+    if (!v12)
+    {
+      return 0;
     }
   }
 
-  return v26;
+  return v27;
 }
 
 unsigned __int8 *TST::PopUpMenuModel_CellValue::_InternalSerialize(TST::PopUpMenuModel_CellValue *this, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3)
@@ -5629,7 +5613,7 @@ LABEL_58:
     return a2;
   }
 
-  return MEMORY[0x2821EAC40]((v34 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v34 & 0xFFFFFFFFFFFFFFFELL) + 8, a2, a3);
 }
 
 uint64_t TST::PopUpMenuModel_CellValue::ByteSizeLong(TST::PopUpMenuModel_CellValue *this)
@@ -5759,7 +5743,7 @@ uint64_t TST::PopUpMenuModel_CellValue::MergeFrom(uint64_t this, const TST::PopU
           v7 = *(v7 & 0xFFFFFFFFFFFFFFFELL);
         }
 
-        v6 = google::protobuf::Arena::CreateMaybeMessage<TSCE::BooleanCellValueArchive>(v7);
+        v6 = google::protobuf::Arena::CreateMaybeMessage<TSCE::BooleanCellValueArchive>(v7, a2);
         *(v3 + 24) = v6;
       }
 
@@ -5801,7 +5785,7 @@ LABEL_6:
         v10 = *(v10 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v9 = google::protobuf::Arena::CreateMaybeMessage<TSCE::DateCellValueArchive>(v10);
+      v9 = google::protobuf::Arena::CreateMaybeMessage<TSCE::DateCellValueArchive>(v10, a2);
       *(v3 + 32) = v9;
     }
 
@@ -5838,7 +5822,7 @@ LABEL_28:
         v13 = *(v13 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v12 = google::protobuf::Arena::CreateMaybeMessage<TSCE::NumberCellValueArchive>(v13);
+      v12 = google::protobuf::Arena::CreateMaybeMessage<TSCE::NumberCellValueArchive>(v13, a2);
       *(v3 + 40) = v12;
     }
 
@@ -5879,7 +5863,7 @@ LABEL_36:
         v16 = *(v16 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v15 = google::protobuf::Arena::CreateMaybeMessage<TSCE::StringCellValueArchive>(v16);
+      v15 = google::protobuf::Arena::CreateMaybeMessage<TSCE::StringCellValueArchive>(v16, a2);
       *(v3 + 48) = v15;
     }
 
@@ -5905,7 +5889,7 @@ LABEL_36:
   return this;
 }
 
-uint64_t *TST::PopUpMenuModel_CellValue::CopyFrom(uint64_t *this, const Message *a2)
+google::protobuf::UnknownFieldSet *TST::PopUpMenuModel_CellValue::CopyFrom(google::protobuf::UnknownFieldSet *this, const Message *a2)
 {
   if (a2 != this)
   {
@@ -5918,7 +5902,7 @@ uint64_t *TST::PopUpMenuModel_CellValue::CopyFrom(uint64_t *this, const Message 
   return this;
 }
 
-uint64_t *TST::PopUpMenuModel_CellValue::CopyFrom(uint64_t *this, const TST::PopUpMenuModel_CellValue *a2)
+google::protobuf::UnknownFieldSet *TST::PopUpMenuModel_CellValue::CopyFrom(google::protobuf::UnknownFieldSet *this, const TST::PopUpMenuModel_CellValue *a2)
 {
   if (a2 != this)
   {
@@ -6009,13 +5993,13 @@ __n128 TST::PopUpMenuModel_CellValue::InternalSwap(TST::PopUpMenuModel_CellValue
   return result;
 }
 
-uint64_t *TST::PopUpMenuModel::clear_tsce_item(uint64_t *this)
+google::protobuf::UnknownFieldSet *TST::PopUpMenuModel::clear_tsce_item(google::protobuf::UnknownFieldSet *this)
 {
   v1 = *(this + 12);
   if (v1 >= 1)
   {
     v2 = this;
-    v3 = (this[7] + 8);
+    v3 = (*(this + 7) + 8);
     do
     {
       v4 = *v3++;
@@ -6061,7 +6045,7 @@ TST::PopUpMenuModel *TST::PopUpMenuModel::PopUpMenuModel(TST::PopUpMenuModel *th
   *(this + 1) = 0;
   v4 = (this + 8);
   *(this + 2) = 0;
-  v5 = this + 16;
+  v5 = (this + 16);
   *this = &unk_2834B29A8;
   *(this + 3) = 0;
   *(this + 4) = 0;
@@ -6088,7 +6072,7 @@ TST::PopUpMenuModel *TST::PopUpMenuModel::PopUpMenuModel(TST::PopUpMenuModel *th
   {
     v12 = *(a2 + 7);
     v13 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((this + 40));
-    sub_22167DB8C(this + 40, v13, (v12 + 8), v11, **(this + 7) - *(this + 12));
+    sub_22167DB8C(this + 5, v13, (v12 + 8), v11, **(this + 7) - *(this + 12));
     v14 = *(this + 12) + v11;
     *(this + 12) = v14;
     v15 = *(this + 7);
@@ -6138,13 +6122,13 @@ void *TST::PopUpMenuModel::default_instance(TST::PopUpMenuModel *this)
   return &TST::_PopUpMenuModel_default_instance_;
 }
 
-uint64_t *TST::PopUpMenuModel::Clear(uint64_t *this)
+google::protobuf::UnknownFieldSet *TST::PopUpMenuModel::Clear(google::protobuf::UnknownFieldSet *this)
 {
   v1 = this;
   v2 = *(this + 6);
   if (v2 >= 1)
   {
-    v3 = (this[4] + 8);
+    v3 = (*(this + 4) + 8);
     do
     {
       v4 = *v3++;
@@ -6153,13 +6137,13 @@ uint64_t *TST::PopUpMenuModel::Clear(uint64_t *this)
     }
 
     while (v2);
-    *(v1 + 24) = 0;
+    *(v1 + 6) = 0;
   }
 
-  v5 = *(v1 + 48);
+  v5 = *(v1 + 12);
   if (v5 >= 1)
   {
-    v6 = (*(v1 + 56) + 8);
+    v6 = (*(v1 + 7) + 8);
     do
     {
       v7 = *v6++;
@@ -6168,7 +6152,7 @@ uint64_t *TST::PopUpMenuModel::Clear(uint64_t *this)
     }
 
     while (v5);
-    *(v1 + 48) = 0;
+    *(v1 + 12) = 0;
   }
 
   v9 = *(v1 + 8);
@@ -6185,7 +6169,7 @@ uint64_t *TST::PopUpMenuModel::Clear(uint64_t *this)
 google::protobuf::internal *TST::PopUpMenuModel::_InternalParse(uint64_t a1, google::protobuf::internal *a2, uint64_t a3)
 {
   v29 = a2;
-  if ((sub_221567030(a3, &v29) & 1) == 0)
+  if ((sub_221567030(a3, &v29, *(a3 + 92)) & 1) == 0)
   {
     while (1)
     {
@@ -6357,7 +6341,7 @@ LABEL_12:
       }
 
 LABEL_19:
-      if (sub_221567030(a3, &v29))
+      if (sub_221567030(a3, &v29, *(a3 + 92)))
       {
         return v29;
       }
@@ -6480,7 +6464,7 @@ unsigned __int8 *TST::PopUpMenuModel::_InternalSerialize(TST::PopUpMenuModel *th
     return a2;
   }
 
-  return MEMORY[0x2821EAC40]((v21 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v21 & 0xFFFFFFFFFFFFFFFELL) + 8, a2, a3);
 }
 
 uint64_t TST::PopUpMenuModel::ByteSizeLong(TST::PopUpMenuModel *this)
@@ -6585,7 +6569,7 @@ uint64_t TST::PopUpMenuModel::MergeFrom(uint64_t this, const TST::PopUpMenuModel
   {
     v6 = *(a2 + 4);
     v7 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((v3 + 16));
-    this = sub_22167DACC(v3 + 16, v7, (v6 + 8), v5, **(v3 + 32) - *(v3 + 24));
+    this = sub_22167DACC((v3 + 16), v7, (v6 + 8), v5, **(v3 + 32) - *(v3 + 24));
     v8 = *(v3 + 24) + v5;
     *(v3 + 24) = v8;
     v9 = *(v3 + 32);
@@ -6600,7 +6584,7 @@ uint64_t TST::PopUpMenuModel::MergeFrom(uint64_t this, const TST::PopUpMenuModel
   {
     v11 = *(a2 + 7);
     v12 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((v3 + 40));
-    this = sub_22167DB8C(v3 + 40, v12, (v11 + 8), v10, **(v3 + 56) - *(v3 + 48));
+    this = sub_22167DB8C((v3 + 40), v12, (v11 + 8), v10, **(v3 + 56) - *(v3 + 48));
     v13 = *(v3 + 48) + v10;
     *(v3 + 48) = v13;
     v14 = *(v3 + 56);
@@ -6613,7 +6597,7 @@ uint64_t TST::PopUpMenuModel::MergeFrom(uint64_t this, const TST::PopUpMenuModel
   return this;
 }
 
-uint64_t *TST::PopUpMenuModel::CopyFrom(uint64_t *this, const Message *a2)
+google::protobuf::UnknownFieldSet *TST::PopUpMenuModel::CopyFrom(google::protobuf::UnknownFieldSet *this, const Message *a2)
 {
   if (a2 != this)
   {
@@ -6626,7 +6610,7 @@ uint64_t *TST::PopUpMenuModel::CopyFrom(uint64_t *this, const Message *a2)
   return this;
 }
 
-uint64_t *TST::PopUpMenuModel::CopyFrom(uint64_t *this, const TST::PopUpMenuModel *a2)
+google::protobuf::UnknownFieldSet *TST::PopUpMenuModel::CopyFrom(google::protobuf::UnknownFieldSet *this, const TST::PopUpMenuModel *a2)
 {
   if (a2 != this)
   {
@@ -6780,7 +6764,7 @@ void *TST::ImportWarningSetArchive_FormulaImportWarning::default_instance(TST::I
   return &TST::_ImportWarningSetArchive_FormulaImportWarning_default_instance_;
 }
 
-uint64_t *TST::ImportWarningSetArchive_FormulaImportWarning::Clear(TST::ImportWarningSetArchive_FormulaImportWarning *this)
+google::protobuf::UnknownFieldSet *TST::ImportWarningSetArchive_FormulaImportWarning::Clear(TST::ImportWarningSetArchive_FormulaImportWarning *this)
 {
   v1 = *(this + 4);
   if ((v1 & 3) != 0)
@@ -6845,7 +6829,7 @@ google::protobuf::internal *TST::ImportWarningSetArchive_FormulaImportWarning::_
 {
   v24 = a2;
   v5 = 0;
-  if ((sub_221567030(a3, &v24) & 1) == 0)
+  if ((sub_221567030(a3, &v24, *(a3 + 92)) & 1) == 0)
   {
     while (1)
     {
@@ -7008,7 +6992,7 @@ LABEL_21:
       }
 
 LABEL_40:
-      if (sub_221567030(a3, &v24))
+      if (sub_221567030(a3, &v24, *(a3 + 92)))
       {
         goto LABEL_2;
       }
@@ -7165,7 +7149,7 @@ LABEL_28:
     return v4;
   }
 
-  return MEMORY[0x2821EAC40]((v15 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v15 & 0xFFFFFFFFFFFFFFFELL) + 8, v4, a3);
 }
 
 uint64_t TST::ImportWarningSetArchive_FormulaImportWarning::ByteSizeLong(TST::ImportWarningSetArchive_FormulaImportWarning *this)
@@ -7384,13 +7368,13 @@ uint64_t *TST::ImportWarningSetArchive_FormulaImportWarning::InternalSwap(TST::I
   return result;
 }
 
-uint64_t *TST::ImportWarningSetArchive::clear_sorted_warnings(uint64_t *this)
+google::protobuf::UnknownFieldSet *TST::ImportWarningSetArchive::clear_sorted_warnings(google::protobuf::UnknownFieldSet *this)
 {
   v1 = *(this + 8);
   if (v1 >= 1)
   {
     v2 = this;
-    v3 = (this[5] + 8);
+    v3 = (*(this + 5) + 8);
     do
     {
       v4 = *v3++;
@@ -7441,7 +7425,7 @@ TST::ImportWarningSetArchive *TST::ImportWarningSetArchive::ImportWarningSetArch
   {
     v6 = *(a2 + 5);
     v7 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((this + 24));
-    sub_221569A14(this + 24, v7, (v6 + 8), v5, **(this + 5) - *(this + 8));
+    sub_221569A14(this + 3, v7, (v6 + 8), v5, **(this + 5) - *(this + 8));
     v8 = *(this + 8) + v5;
     *(this + 8) = v8;
     v9 = *(this + 5);
@@ -7527,13 +7511,13 @@ void *TST::ImportWarningSetArchive::default_instance(TST::ImportWarningSetArchiv
   return &TST::_ImportWarningSetArchive_default_instance_;
 }
 
-uint64_t *TST::ImportWarningSetArchive::Clear(uint64_t *this)
+google::protobuf::UnknownFieldSet *TST::ImportWarningSetArchive::Clear(google::protobuf::UnknownFieldSet *this)
 {
   v1 = this;
   v2 = *(this + 8);
   if (v2 >= 1)
   {
-    v3 = (this[5] + 8);
+    v3 = (*(this + 5) + 8);
     do
     {
       v4 = *v3++;
@@ -7542,10 +7526,10 @@ uint64_t *TST::ImportWarningSetArchive::Clear(uint64_t *this)
     }
 
     while (v2);
-    *(v1 + 32) = 0;
+    *(v1 + 8) = 0;
   }
 
-  v5 = *(v1 + 16);
+  v5 = *(v1 + 4);
   if ((v5 & 3) != 0)
   {
     if ((v5 & 1) == 0)
@@ -7553,7 +7537,7 @@ uint64_t *TST::ImportWarningSetArchive::Clear(uint64_t *this)
       goto LABEL_9;
     }
 
-    v6 = *(v1 + 48) & 0xFFFFFFFFFFFFFFFELL;
+    v6 = *(v1 + 6) & 0xFFFFFFFFFFFFFFFELL;
     if ((*(v6 + 23) & 0x80000000) == 0)
     {
       *v6 = 0;
@@ -7572,15 +7556,15 @@ LABEL_9:
     if ((v5 & 2) != 0)
     {
 LABEL_10:
-      this = TST::ImportWarningSetArchive_FormulaImportWarning::Clear(*(v1 + 56));
+      this = TST::ImportWarningSetArchive_FormulaImportWarning::Clear(*(v1 + 7));
     }
   }
 
 LABEL_11:
   if ((v5 & 0xFC) != 0)
   {
-    *(v1 + 68) = 0;
-    *(v1 + 64) = 0;
+    *(v1 + 34) = 0;
+    *(v1 + 16) = 0;
   }
 
   if ((v5 & 0xFF00) != 0)
@@ -7590,8 +7574,8 @@ LABEL_11:
 
   v8 = *(v1 + 8);
   v7 = v1 + 8;
-  *(v7 + 70) = 0;
-  *(v7 + 8) = 0;
+  v7[70] = 0;
+  *(v7 + 2) = 0;
   if (v8)
   {
 
@@ -7605,7 +7589,7 @@ google::protobuf::internal *TST::ImportWarningSetArchive::_InternalParse(uint64_
 {
   v99 = a2;
   v5 = 0;
-  if ((sub_221567030(a3, &v99) & 1) == 0)
+  if ((sub_221567030(a3, &v99, *(a3 + 92)) & 1) == 0)
   {
     while (2)
     {
@@ -8244,7 +8228,7 @@ LABEL_147:
               }
 
 LABEL_114:
-              if (sub_221567030(a3, &v99))
+              if (sub_221567030(a3, &v99, *(a3 + 92)))
               {
                 goto LABEL_2;
               }
@@ -8747,7 +8731,7 @@ LABEL_75:
     return v4;
   }
 
-  return MEMORY[0x2821EAC40]((v36 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v36 & 0xFFFFFFFFFFFFFFFELL) + 8, v4, a3);
 }
 
 uint64_t TST::ImportWarningSetArchive::ByteSizeLong(TST::ImportWarningSetArchive *this)
@@ -8878,7 +8862,7 @@ uint64_t TST::ImportWarningSetArchive::MergeFrom(uint64_t this, const TST::Impor
   {
     v6 = *(a2 + 5);
     v7 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((v3 + 24));
-    this = sub_221569A14(v3 + 24, v7, (v6 + 8), v5, **(v3 + 40) - *(v3 + 32));
+    this = sub_221569A14((v3 + 24), v7, (v6 + 8), v5, **(v3 + 40) - *(v3 + 32));
     v8 = *(v3 + 32) + v5;
     *(v3 + 32) = v8;
     v9 = *(v3 + 40);
@@ -9125,7 +9109,7 @@ LABEL_28:
   return this;
 }
 
-uint64_t *TST::ImportWarningSetArchive::CopyFrom(uint64_t *this, const Message *a2)
+google::protobuf::UnknownFieldSet *TST::ImportWarningSetArchive::CopyFrom(google::protobuf::UnknownFieldSet *this, const Message *a2)
 {
   if (a2 != this)
   {
@@ -9138,7 +9122,7 @@ uint64_t *TST::ImportWarningSetArchive::CopyFrom(uint64_t *this, const Message *
   return this;
 }
 
-uint64_t *TST::ImportWarningSetArchive::CopyFrom(uint64_t *this, const TST::ImportWarningSetArchive *a2)
+google::protobuf::UnknownFieldSet *TST::ImportWarningSetArchive::CopyFrom(google::protobuf::UnknownFieldSet *this, const TST::ImportWarningSetArchive *a2)
 {
   if (a2 != this)
   {
@@ -9200,7 +9184,7 @@ __n128 TST::ImportWarningSetArchive::InternalSwap(TST::ImportWarningSetArchive *
   return result;
 }
 
-uint64_t *TST::CellRefImportWarningSetPairArchive::clear_cell_ref(TST::CellRefImportWarningSetPairArchive *this)
+google::protobuf::UnknownFieldSet *TST::CellRefImportWarningSetPairArchive::clear_cell_ref(TST::CellRefImportWarningSetPairArchive *this)
 {
   result = *(this + 3);
   if (result)
@@ -9308,7 +9292,7 @@ uint64_t *TST::CellRefImportWarningSetPairArchive::default_instance(TST::CellRef
   return TST::_CellRefImportWarningSetPairArchive_default_instance_;
 }
 
-uint64_t *TST::CellRefImportWarningSetPairArchive::Clear(uint64_t *this)
+google::protobuf::UnknownFieldSet *TST::CellRefImportWarningSetPairArchive::Clear(google::protobuf::UnknownFieldSet *this)
 {
   v1 = this;
   v2 = *(this + 4);
@@ -9316,18 +9300,18 @@ uint64_t *TST::CellRefImportWarningSetPairArchive::Clear(uint64_t *this)
   {
     if (v2)
     {
-      this = TSCE::CellReferenceArchive::Clear(this[3]);
+      this = TSCE::CellReferenceArchive::Clear(*(this + 3));
     }
 
     if ((v2 & 2) != 0)
     {
-      this = TST::ImportWarningSetArchive::Clear(*(v1 + 32));
+      this = TST::ImportWarningSetArchive::Clear(*(v1 + 4));
     }
   }
 
   v4 = *(v1 + 8);
   v3 = v1 + 8;
-  *(v3 + 8) = 0;
+  *(v3 + 2) = 0;
   if (v4)
   {
 
@@ -9339,118 +9323,112 @@ uint64_t *TST::CellRefImportWarningSetPairArchive::Clear(uint64_t *this)
 
 google::protobuf::internal *TST::CellRefImportWarningSetPairArchive::_InternalParse(uint64_t a1, google::protobuf::internal *a2, uint64_t a3)
 {
-  v18 = a2;
-  while ((sub_221567030(a3, &v18) & 1) == 0)
+  v19 = a2;
+  for (i = *(a3 + 92); (sub_221567030(a3, &v19, i) & 1) == 0; i = *(a3 + 92))
   {
-    v5 = (v18 + 1);
-    v6 = *v18;
-    if ((*v18 & 0x80000000) == 0)
+    v6 = (v19 + 1);
+    v7 = *v19;
+    if ((*v19 & 0x80000000) == 0)
     {
       goto LABEL_6;
     }
 
-    v7 = v6 + (*v5 << 7);
-    v6 = v7 - 128;
-    if ((*v5 & 0x80000000) == 0)
+    v8 = v7 + (*v6 << 7);
+    v7 = v8 - 128;
+    if ((*v6 & 0x80000000) == 0)
     {
-      v5 = (v18 + 2);
+      v6 = (v19 + 2);
 LABEL_6:
-      v18 = v5;
+      v19 = v6;
       goto LABEL_7;
     }
 
-    TagFallback = google::protobuf::internal::ReadTagFallback(v18, (v7 - 128));
-    v18 = TagFallback;
+    TagFallback = google::protobuf::internal::ReadTagFallback(v19, (v8 - 128));
+    v19 = TagFallback;
     if (!TagFallback)
     {
       return 0;
     }
 
-    v5 = TagFallback;
-    v6 = v16;
+    v6 = TagFallback;
+    v7 = v17;
 LABEL_7:
-    if (v6 >> 3 == 3)
+    if (v7 >> 3 == 3)
     {
-      if (v6 != 26)
+      if (v7 == 26)
       {
-        goto LABEL_12;
-      }
-
-      *(a1 + 16) |= 2u;
-      v11 = *(a1 + 32);
-      if (!v11)
-      {
-        v12 = *(a1 + 8);
-        if (v12)
+        *(a1 + 16) |= 2u;
+        v12 = *(a1 + 32);
+        if (!v12)
         {
-          v12 = *(v12 & 0xFFFFFFFFFFFFFFFELL);
+          v13 = *(a1 + 8);
+          if (v13)
+          {
+            v13 = *(v13 & 0xFFFFFFFFFFFFFFFELL);
+          }
+
+          v12 = google::protobuf::Arena::CreateMaybeMessage<TST::ImportWarningSetArchive>(v13);
+          *(a1 + 32) = v12;
+          v6 = v19;
         }
 
-        v11 = google::protobuf::Arena::CreateMaybeMessage<TST::ImportWarningSetArchive>(v12);
-        *(a1 + 32) = v11;
-        v5 = v18;
+        v11 = sub_221701EB8(a3, v12, v6);
+        goto LABEL_30;
+      }
+    }
+
+    else if (v7 >> 3 == 1 && v7 == 10)
+    {
+      *(a1 + 16) |= 1u;
+      v14 = *(a1 + 24);
+      if (!v14)
+      {
+        v15 = *(a1 + 8);
+        if (v15)
+        {
+          v15 = *(v15 & 0xFFFFFFFFFFFFFFFELL);
+        }
+
+        v14 = google::protobuf::Arena::CreateMaybeMessage<TSCE::CellReferenceArchive>(v15);
+        *(a1 + 24) = v14;
+        v6 = v19;
       }
 
-      v10 = sub_221701EB8(a3, v11, v5);
+      v11 = sub_2216F8E3C(a3, v14, v6);
+      goto LABEL_30;
+    }
+
+    if (v7)
+    {
+      v10 = (v7 & 7) == 4;
     }
 
     else
     {
-      if (v6 >> 3 != 1 || v6 != 10)
-      {
-LABEL_12:
-        if (v6)
-        {
-          v9 = (v6 & 7) == 4;
-        }
-
-        else
-        {
-          v9 = 1;
-        }
-
-        if (v9)
-        {
-          *(a3 + 80) = v6 - 1;
-          return v18;
-        }
-
-        if ((*(a1 + 8) & 1) == 0)
-        {
-          sub_221567188((a1 + 8));
-        }
-
-        v10 = google::protobuf::internal::UnknownFieldParse();
-        goto LABEL_30;
-      }
-
-      *(a1 + 16) |= 1u;
-      v13 = *(a1 + 24);
-      if (!v13)
-      {
-        v14 = *(a1 + 8);
-        if (v14)
-        {
-          v14 = *(v14 & 0xFFFFFFFFFFFFFFFELL);
-        }
-
-        v13 = google::protobuf::Arena::CreateMaybeMessage<TSCE::CellReferenceArchive>(v14);
-        *(a1 + 24) = v13;
-        v5 = v18;
-      }
-
-      v10 = sub_2216F8E3C(a3, v13, v5);
+      v10 = 1;
     }
 
+    if (v10)
+    {
+      *(a3 + 80) = v7 - 1;
+      return v19;
+    }
+
+    if ((*(a1 + 8) & 1) == 0)
+    {
+      sub_221567188((a1 + 8));
+    }
+
+    v11 = google::protobuf::internal::UnknownFieldParse();
 LABEL_30:
-    v18 = v10;
-    if (!v10)
+    v19 = v11;
+    if (!v11)
     {
       return 0;
     }
   }
 
-  return v18;
+  return v19;
 }
 
 unsigned __int8 *TST::CellRefImportWarningSetPairArchive::_InternalSerialize(TST::CellRefImportWarningSetPairArchive *this, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3)
@@ -9554,7 +9532,7 @@ unsigned __int8 *TST::CellRefImportWarningSetPairArchive::_InternalSerialize(TST
     return a2;
   }
 
-  return MEMORY[0x2821EAC40]((v18 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v18 & 0xFFFFFFFFFFFFFFFELL) + 8, a2, a3);
 }
 
 uint64_t TST::CellRefImportWarningSetPairArchive::ByteSizeLong(TST::CellRefImportWarningSetPairArchive *this)
@@ -9683,7 +9661,7 @@ uint64_t TST::CellRefImportWarningSetPairArchive::MergeFrom(uint64_t this, const
   return this;
 }
 
-uint64_t *TST::CellRefImportWarningSetPairArchive::CopyFrom(uint64_t *this, const Message *a2)
+google::protobuf::UnknownFieldSet *TST::CellRefImportWarningSetPairArchive::CopyFrom(google::protobuf::UnknownFieldSet *this, const Message *a2)
 {
   if (a2 != this)
   {
@@ -9696,7 +9674,7 @@ uint64_t *TST::CellRefImportWarningSetPairArchive::CopyFrom(uint64_t *this, cons
   return this;
 }
 
-uint64_t *TST::CellRefImportWarningSetPairArchive::CopyFrom(uint64_t *this, const TST::CellRefImportWarningSetPairArchive *a2)
+google::protobuf::UnknownFieldSet *TST::CellRefImportWarningSetPairArchive::CopyFrom(google::protobuf::UnknownFieldSet *this, const TST::CellRefImportWarningSetPairArchive *a2)
 {
   if (a2 != this)
   {
@@ -9770,7 +9748,7 @@ TST::ImportWarningSetByCellRefArchive *TST::ImportWarningSetByCellRefArchive::Im
   *(this + 1) = 0;
   v4 = (this + 8);
   *(this + 2) = 0;
-  v5 = this + 16;
+  v5 = (this + 16);
   *this = &unk_2834B2C68;
   *(this + 3) = 0;
   *(this + 4) = 0;
@@ -9809,4 +9787,43 @@ void TST::ImportWarningSetByCellRefArchive::~ImportWarningSetByCellRefArchive(TS
   TST::ImportWarningSetByCellRefArchive::~ImportWarningSetByCellRefArchive(this);
 
   JUMPOUT(0x223DA1450);
+}
+
+void *TST::ImportWarningSetByCellRefArchive::default_instance(TST::ImportWarningSetByCellRefArchive *this)
+{
+  if (atomic_load_explicit(scc_info_ImportWarningSetByCellRefArchive_TSTArchives_2eproto, memory_order_acquire))
+  {
+    google::protobuf::internal::InitSCCImpl();
+  }
+
+  return &TST::_ImportWarningSetByCellRefArchive_default_instance_;
+}
+
+google::protobuf::UnknownFieldSet *TST::ImportWarningSetByCellRefArchive::Clear(google::protobuf::UnknownFieldSet *this)
+{
+  v1 = this;
+  v2 = *(this + 6);
+  if (v2 >= 1)
+  {
+    v3 = (*(this + 4) + 8);
+    do
+    {
+      v4 = *v3++;
+      this = TST::CellRefImportWarningSetPairArchive::Clear(v4);
+      --v2;
+    }
+
+    while (v2);
+    *(v1 + 6) = 0;
+  }
+
+  v6 = *(v1 + 8);
+  v5 = (v1 + 8);
+  if (v6)
+  {
+
+    return sub_221567398(v5);
+  }
+
+  return this;
 }

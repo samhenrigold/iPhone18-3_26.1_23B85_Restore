@@ -14,9 +14,9 @@
 
 - (void)viewDidLoad
 {
-  v16.receiver = self;
-  v16.super_class = CKRegistrationAccountUIViewController;
-  [(CKRegistrationAccountUIViewController *)&v16 viewDidLoad];
+  v17.receiver = self;
+  v17.super_class = CKRegistrationAccountUIViewController;
+  [(CKRegistrationAccountUIViewController *)&v17 viewDidLoad];
   v3 = objc_alloc_init(MEMORY[0x1E698BB50]);
   authViewController = self->_authViewController;
   self->_authViewController = v3;
@@ -32,13 +32,13 @@
   signInAppIconImage = [v8 signInAppIconImage];
   [(AAUISignInViewController *)v7 setHeaderImage:signInAppIconImage];
 
-  v10 = CKFrameworkBundle();
-  v11 = [v10 localizedStringForKey:@"IMESSAGE_REGISTRATION_BLURB_NO_NEWLINE" value:&stru_1F04268F8 table:@"ChatKit"];
-  [(AAUISignInViewController *)self->_authViewController setMessageLabel:v11];
+  v11 = CKFrameworkBundle(v10);
+  v12 = [v11 localizedStringForKey:@"IMESSAGE_REGISTRATION_BLURB_NO_NEWLINE" value:&stru_1F04268F8 table:@"ChatKit"];
+  [(AAUISignInViewController *)self->_authViewController setMessageLabel:v12];
 
   [(AAUISignInViewController *)self->_authViewController setPrivacyLinkIdentifiers:&unk_1F04E66F0];
-  v12 = +[CKUIBehavior sharedBehaviors];
-  signInTintColor = [v12 signInTintColor];
+  v13 = +[CKUIBehavior sharedBehaviors];
+  signInTintColor = [v13 signInTintColor];
   [(AAUISignInViewController *)self->_authViewController setTintColor:signInTintColor];
 
   [(AAUISignInViewController *)self->_authViewController setDelegate:self];
@@ -72,8 +72,7 @@
 - (id)authenticationContext
 {
   v3 = objc_alloc_init(MEMORY[0x193AF5EC0](@"AKAppleIDAuthenticationInAppContext", @"AuthKitUI"));
-  [v3 setServiceType:4];
-  v4 = CKFrameworkBundle();
+  v4 = CKFrameworkBundle([v3 setServiceType:4]);
   v5 = [v4 localizedStringForKey:@"MADRID" value:&stru_1F04268F8 table:@"ChatKit"];
   [v3 setTitle:v5];
 

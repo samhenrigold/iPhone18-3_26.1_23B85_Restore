@@ -44,8 +44,9 @@
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_1000C3504(appear);
+  sub_1000C3504(appearCopy, selfCopy);
 }
 
 - (void)dismissViewControllerWithTransition:(int)transition completion:(id)completion
@@ -66,7 +67,7 @@
 
   selfCopy = self;
   sub_1000C37B8(v4, v6, v7);
-  sub_1000164A8(v6);
+  sub_1000164A8(v6, v7);
 }
 
 - (_TtC22SubscribePageExtension33PresentationContextViewController)initWithNibName:(id)name bundle:(id)bundle

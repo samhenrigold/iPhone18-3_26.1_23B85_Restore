@@ -55,11 +55,11 @@ uint64_t __38__ANUtils_an_dateFormatterForFilename__block_invoke()
 
 + (BOOL)isHomeAppInstalled
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = @"com.apple.Home";
-  v8 = 0;
-  v3 = [MEMORY[0x277CC1E70] bundleRecordWithBundleIdentifier:v2 allowPlaceholder:0 error:&v8];
-  v4 = v8;
+  v7 = 0;
+  v3 = [MEMORY[0x277CC1E70] bundleRecordWithBundleIdentifier:v2 allowPlaceholder:0 error:&v7];
+  v4 = v7;
   if (v4)
   {
     if (ANLogHandleUtils_once != -1)
@@ -71,18 +71,17 @@ uint64_t __38__ANUtils_an_dateFormatterForFilename__block_invoke()
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 138413058;
-      v10 = &stru_2836DAA20;
-      v11 = 2112;
-      v12 = v2;
-      v13 = 2112;
-      v14 = v3;
-      v15 = 2112;
-      v16 = v4;
+      v9 = &stru_2836DAA20;
+      v10 = 2112;
+      v11 = v2;
+      v12 = 2112;
+      v13 = v3;
+      v14 = 2112;
+      v15 = v4;
       _os_log_impl(&dword_2237C8000, v5, OS_LOG_TYPE_ERROR, "%@Failed to look up bundle record for bundleID (%@), Record: %@ Error: %@", buf, 0x2Au);
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3 != 0;
 }
 

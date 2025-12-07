@@ -180,11 +180,11 @@ void __43__AVTGroupDialCell_stopShimmeringAnimated___block_invoke_2(uint64_t a1)
   [(AVTGroupDialCell *)self shimmerOnceWithCompletion:v5];
 }
 
-uint64_t __35__AVTGroupDialCell_startShimmering__block_invoke(uint64_t result, int a2)
+void *__35__AVTGroupDialCell_startShimmering__block_invoke(void *result, int a2)
 {
   if (a2)
   {
-    v2 = *(result + 32);
+    v2 = result[4];
     v3[0] = MEMORY[0x1E69E9820];
     v3[1] = 3221225472;
     v3[2] = __35__AVTGroupDialCell_startShimmering__block_invoke_2;
@@ -196,11 +196,11 @@ uint64_t __35__AVTGroupDialCell_startShimmering__block_invoke(uint64_t result, i
   return result;
 }
 
-uint64_t __35__AVTGroupDialCell_startShimmering__block_invoke_2(uint64_t result, int a2)
+void *__35__AVTGroupDialCell_startShimmering__block_invoke_2(void *result, int a2)
 {
   if (a2)
   {
-    v2 = *(result + 32);
+    v2 = result[4];
     v3[0] = MEMORY[0x1E69E9820];
     v3[1] = 3221225472;
     v3[2] = __35__AVTGroupDialCell_startShimmering__block_invoke_3;

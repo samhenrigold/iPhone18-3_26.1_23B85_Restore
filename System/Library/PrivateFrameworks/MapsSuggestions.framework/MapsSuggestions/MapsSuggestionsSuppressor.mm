@@ -1,4 +1,5 @@
 @interface MapsSuggestionsSuppressor
+- (BOOL)_loadSuppressedEntries;
 - (BOOL)isSuppressedEntry:(id)entry;
 - (BOOL)loadSuppressedEntries;
 - (BOOL)saveSuppressedEntries;
@@ -20,25 +21,98 @@
 
 - (MapsSuggestionsSuppressor)init
 {
-  v3 = MapsSuggestionsPathForSuppressedEntries();
+  v3 = MapsSuggestionsPathForSuppressedEntries(self);
   v4 = [(MapsSuggestionsSuppressor *)self initWithFilePath:v3];
 
   return v4;
 }
 
-- (uint64_t)_loadSuppressedEntries
+- (BOOL)_loadSuppressedEntries
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v4 = GEOFindOrCreateLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v27 = *MEMORY[0x1E69E9840];
+  if (!self)
   {
-    v5 = *a2;
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&dword_1C5126000, v4, OS_LOG_TYPE_DEBUG, "Suppressed entries file '%{public}@' does not exist. Nothing to load", &v7, 0xCu);
+    return 0;
   }
 
-  return [*(self + 8) removeAllObjects];
+  v2 = (self + 16);
+  if (!*(self + 16))
+  {
+    [MapsSuggestionsSuppressor _loadSuppressedEntries];
+    return 0;
+  }
+
+  innerQueue = [*(self + 24) innerQueue];
+  dispatch_assert_queue_V2(innerQueue);
+
+  defaultManager = [MEMORY[0x1E696AC08] defaultManager];
+  v5 = [defaultManager fileExistsAtPath:*(self + 16)];
+
+  if (v5)
+  {
+    v6 = *v2;
+    v22 = 0;
+    v7 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v6 options:0 error:&v22];
+    v8 = v22;
+    if (v8)
+    {
+      [MapsSuggestionsSuppressor _loadSuppressedEntries];
+      v9 = 0;
+    }
+
+    else if (v7)
+    {
+      selfCopy = self;
+      objc_sync_enter(selfCopy);
+      v11 = objc_alloc(MEMORY[0x1E695DFD8]);
+      v12 = objc_opt_class();
+      v13 = objc_opt_class();
+      v14 = [v11 initWithObjects:{v12, v13, objc_opt_class(), 0}];
+      v21 = 0;
+      v15 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:v14 fromData:v7 error:&v21];
+      v16 = v21;
+      v17 = selfCopy[1];
+      selfCopy[1] = v15;
+
+      v9 = v16 == 0;
+      if (v16)
+      {
+        v18 = GEOFindOrCreateLog();
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 136315394;
+          v24 = "[MapsSuggestionsSuppressor _loadSuppressedEntries]";
+          v25 = 2112;
+          v26 = v16;
+          _os_log_impl(&dword_1C5126000, v18, OS_LOG_TYPE_ERROR, "%s failed with error: %@", buf, 0x16u);
+        }
+
+        [selfCopy[1] removeAllObjects];
+      }
+
+      else
+      {
+        v19 = GEOFindOrCreateLog();
+        [(MapsSuggestionsSuppressor *)v19 _loadSuppressedEntries];
+      }
+
+      objc_sync_exit(selfCopy);
+    }
+
+    else
+    {
+      [(MapsSuggestionsSuppressor *)self _loadSuppressedEntries];
+      v9 = 1;
+    }
+  }
+
+  else
+  {
+    [(MapsSuggestionsSuppressor *)self _loadSuppressedEntries];
+    return 1;
+  }
+
+  return v9;
 }
 
 - (void)_loadSuppressedEntries
@@ -65,50 +139,51 @@
 - (uint64_t)_saveSuppressedEntries
 {
   selfCopy = self;
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (self)
   {
-    v2 = *(self + 16) == 0;
-    v3 = GEOFindOrCreateLog();
-    v4 = v3;
+    v2 = self[2] == 0;
+    v3 = *MEMORY[0x1E69A1B08];
+    v4 = GEOFindOrCreateLog();
+    v5 = v4;
     if (v2)
     {
-      [(MapsSuggestionsSuppressor *)v3 _saveSuppressedEntries];
-      v9 = *buf;
-      selfCopy = v14;
+      [(MapsSuggestionsSuppressor *)v4 _saveSuppressedEntries];
+      v10 = *buf;
+      selfCopy = v15;
     }
 
     else
     {
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
-        v5 = *(selfCopy + 8);
+        v6 = *(selfCopy + 8);
         *buf = 138412290;
-        *&buf[4] = v5;
-        _os_log_impl(&dword_1C5126000, v4, OS_LOG_TYPE_INFO, "Suppressed Entries writing to file are %@", buf, 0xCu);
+        *&buf[4] = v6;
+        _os_log_impl(&dword_1C5126000, v5, OS_LOG_TYPE_INFO, "Suppressed Entries writing to file are %@", buf, 0xCu);
       }
 
-      v6 = selfCopy;
-      objc_sync_enter(v6);
-      v7 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v7 = selfCopy;
+      objc_sync_enter(v7);
+      v8 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        v8 = v6[1];
+        v9 = v7[1];
         *buf = 138412290;
-        *&buf[4] = v8;
-        _os_log_impl(&dword_1C5126000, v7, OS_LOG_TYPE_INFO, "Suppressed Entries writing to file are %@", buf, 0xCu);
+        *&buf[4] = v9;
+        _os_log_impl(&dword_1C5126000, v8, OS_LOG_TYPE_INFO, "Suppressed Entries writing to file are %@", buf, 0xCu);
       }
 
-      v9 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v6[1] requiringSecureCoding:1 error:0];
-      objc_sync_exit(v6);
+      v10 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v7[1] requiringSecureCoding:1 error:0];
+      objc_sync_exit(v7);
 
-      v10 = *(selfCopy + 16);
-      v13 = 0;
-      selfCopy = [v9 writeToFile:v10 options:0 error:&v13];
-      v11 = v13;
+      v11 = *(selfCopy + 16);
+      v14 = 0;
+      selfCopy = [v10 writeToFile:v11 options:0 error:&v14];
+      v12 = v14;
       if ((selfCopy & 1) == 0)
       {
-        [MapsSuggestionsSuppressor _saveSuppressedEntries];
+        [(MapsSuggestionsSuppressor *)v3 _saveSuppressedEntries];
       }
     }
   }
@@ -429,6 +504,21 @@ id __59__MapsSuggestionsSuppressor_test_dateUntilSuppressedEntry___block_invoke(
 
   *a3 = 0;
   *a2 = self;
+}
+
+- (uint64_t)_loadSuppressedEntries
+{
+  v9 = *MEMORY[0x1E69E9840];
+  v4 = GEOFindOrCreateLog();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  {
+    v5 = *a2;
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_1C5126000, v4, OS_LOG_TYPE_DEBUG, "Suppressed entries file '%{public}@' does not exist. Nothing to load", &v7, 0xCu);
+  }
+
+  return [*(self + 8) removeAllObjects];
 }
 
 @end

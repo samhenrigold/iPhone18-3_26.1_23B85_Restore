@@ -84,21 +84,19 @@ uint64_t __43__NLXPCSpellServerClient_spellServerClient__block_invoke(uint64_t a
 
 + (void)requestAssetsForLanguage:(id)language
 {
-  v9[2] = *MEMORY[0x1E69E9840];
+  v8[2] = *MEMORY[0x1E69E9840];
   if (language)
   {
     languageCopy = language;
     spellServerClient = [self spellServerClient];
-    v8[0] = @"Command";
-    v8[1] = @"Language";
-    v9[0] = @"RequestAssets";
-    v9[1] = languageCopy;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
+    v7[0] = @"Command";
+    v7[1] = @"Language";
+    v8[0] = @"RequestAssets";
+    v8[1] = languageCopy;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
     [spellServerClient sendCommand:v6];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -36,31 +36,27 @@ id HDMenstrualCyclesPluginServerInterface()
 
 id HKMCAllNotificationCategories()
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v0 = HKMCPeriodNotificationCategories();
   v1 = HKMCFertileWindowNotificationCategories();
   v2 = [v0 arrayByAddingObjectsFromArray:v1];
 
-  v7[0] = @"MenstrualCyclesAppPlugin.UnconfirmedDeviation";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+  v6[0] = @"MenstrualCyclesAppPlugin.UnconfirmedDeviation";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   v4 = [v2 arrayByAddingObjectsFromArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 id HKMCPeriodNotificationCategories()
 {
-  v5[3] = *MEMORY[0x277D85DE8];
+  v4[3] = *MEMORY[0x277D85DE8];
   v0 = HKMCBeforePeriodStartNotificationCategories();
-  v5[0] = @"MenstrualCyclesAppPlugin.AfterPeriodStart";
-  v5[1] = @"MenstrualCyclesAppPlugin.AfterLoggedPeriodEnd";
-  v5[2] = @"MenstrualCyclesAppPlugin.AfterUnloggedPeriodEnd";
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:3];
+  v4[0] = @"MenstrualCyclesAppPlugin.AfterPeriodStart";
+  v4[1] = @"MenstrualCyclesAppPlugin.AfterLoggedPeriodEnd";
+  v4[2] = @"MenstrualCyclesAppPlugin.AfterUnloggedPeriodEnd";
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:3];
   v2 = [v0 arrayByAddingObjectsFromArray:v1];
-
-  v3 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -85,62 +81,57 @@ id HKMCBeforePeriodStartNotificationCategories()
 
 id HKMCBeforePeriodStartDaysNotificationCategories()
 {
-  v3[10] = *MEMORY[0x277D85DE8];
-  v3[0] = @"MenstrualCyclesAppPlugin.BeforePeriodStart1Day";
-  v3[1] = @"MenstrualCyclesAppPlugin.BeforePeriodStart2Days";
-  v3[2] = @"MenstrualCyclesAppPlugin.BeforePeriodStart3Days";
-  v3[3] = @"MenstrualCyclesAppPlugin.BeforePeriodStart4Days";
-  v3[4] = @"MenstrualCyclesAppPlugin.BeforePeriodStart5Days";
-  v3[5] = @"MenstrualCyclesAppPlugin.BeforePeriodStart6Days";
-  v3[6] = @"MenstrualCyclesAppPlugin.BeforePeriodStart7Days";
-  v3[7] = @"MenstrualCyclesAppPlugin.BeforePeriodStart8Days";
-  v3[8] = @"MenstrualCyclesAppPlugin.BeforePeriodStart9Days";
-  v3[9] = @"MenstrualCyclesAppPlugin.BeforePeriodStart10Days";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:10];
-  v1 = *MEMORY[0x277D85DE8];
+  v2[10] = *MEMORY[0x277D85DE8];
+  v2[0] = @"MenstrualCyclesAppPlugin.BeforePeriodStart1Day";
+  v2[1] = @"MenstrualCyclesAppPlugin.BeforePeriodStart2Days";
+  v2[2] = @"MenstrualCyclesAppPlugin.BeforePeriodStart3Days";
+  v2[3] = @"MenstrualCyclesAppPlugin.BeforePeriodStart4Days";
+  v2[4] = @"MenstrualCyclesAppPlugin.BeforePeriodStart5Days";
+  v2[5] = @"MenstrualCyclesAppPlugin.BeforePeriodStart6Days";
+  v2[6] = @"MenstrualCyclesAppPlugin.BeforePeriodStart7Days";
+  v2[7] = @"MenstrualCyclesAppPlugin.BeforePeriodStart8Days";
+  v2[8] = @"MenstrualCyclesAppPlugin.BeforePeriodStart9Days";
+  v2[9] = @"MenstrualCyclesAppPlugin.BeforePeriodStart10Days";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:10];
 
   return v0;
 }
 
 id HKMCBeforePeriodStartWeeksNotificationCategories()
 {
-  v3[2] = *MEMORY[0x277D85DE8];
-  v3[0] = @"MenstrualCyclesAppPlugin.BeforePeriodStart2Weeks";
-  v3[1] = @"MenstrualCyclesAppPlugin.BeforePeriodStart3Weeks";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:2];
-  v1 = *MEMORY[0x277D85DE8];
+  v2[2] = *MEMORY[0x277D85DE8];
+  v2[0] = @"MenstrualCyclesAppPlugin.BeforePeriodStart2Weeks";
+  v2[1] = @"MenstrualCyclesAppPlugin.BeforePeriodStart3Weeks";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:2];
 
   return v0;
 }
 
 id HKMCBeforeFertileWindowStartDaysNotificationCategories()
 {
-  v3[1] = *MEMORY[0x277D85DE8];
-  v3[0] = @"MenstrualCyclesAppPlugin.BeforeFertileWindowStart3Days";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:1];
-  v1 = *MEMORY[0x277D85DE8];
+  v2[1] = *MEMORY[0x277D85DE8];
+  v2[0] = @"MenstrualCyclesAppPlugin.BeforeFertileWindowStart3Days";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:1];
 
   return v0;
 }
 
 id HKMCSensorBasedFertileWindowNotificationCategories()
 {
-  v3[2] = *MEMORY[0x277D85DE8];
-  v3[0] = @"MenstrualCyclesAppPlugin.UpdatedFertileWindowEnd";
-  v3[1] = @"MenstrualCyclesAppPlugin.OvulationConfirmed";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:2];
-  v1 = *MEMORY[0x277D85DE8];
+  v2[2] = *MEMORY[0x277D85DE8];
+  v2[0] = @"MenstrualCyclesAppPlugin.UpdatedFertileWindowEnd";
+  v2[1] = @"MenstrualCyclesAppPlugin.OvulationConfirmed";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:2];
 
   return v0;
 }
 
 id HKMCSharedPredictionNotificationCategories()
 {
-  v3[2] = *MEMORY[0x277D85DE8];
-  v3[0] = @"MenstrualCyclesAppPlugin.SharedPeriodPrediction";
-  v3[1] = @"MenstrualCyclesAppPlugin.SharedFertileWindowPrediction";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:2];
-  v1 = *MEMORY[0x277D85DE8];
+  v2[2] = *MEMORY[0x277D85DE8];
+  v2[0] = @"MenstrualCyclesAppPlugin.SharedPeriodPrediction";
+  v2[1] = @"MenstrualCyclesAppPlugin.SharedFertileWindowPrediction";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:2];
 
   return v0;
 }
@@ -158,7 +149,7 @@ uint64_t HKMCNotificationDateComponentScalarFromCategory(uint64_t a1)
   return v3;
 }
 
-__CFString *HKMCNotificationCategoryBeforePeriodStartForDays(uint64_t a1)
+__CFString *HKMCNotificationCategoryBeforePeriodStartForDays(unint64_t a1)
 {
   v1 = a1 - 2;
   if (a1 < 2)
@@ -219,14 +210,14 @@ __CFString *HKMCNotificationIdentifierForCategory(void *a1)
 
 id HKMCGenerateHeartRateSamplesMatchingTenthPercentile(void *a1, uint64_t a2, float a3)
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   v4 = a1;
-  v31 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v30 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v5 = [v4 startDate];
   [v5 timeIntervalSinceReferenceDate];
   v7 = v6;
 
-  v30 = v4;
+  v29 = v4;
   v8 = [v4 endDate];
   [v8 timeIntervalSinceReferenceDate];
   v10 = v9;
@@ -263,12 +254,12 @@ id HKMCGenerateHeartRateSamplesMatchingTenthPercentile(void *a1, uint64_t a2, fl
       v21 = MEMORY[0x277CCD800];
       v22 = [MEMORY[0x277CCD830] heartRateType];
       v23 = [MEMORY[0x277CCD7E8] quantityWithUnit:v15 doubleValue:v20];
-      v33 = v17;
-      v34[0] = &unk_2863D2D80;
-      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+      v32 = v17;
+      v33[0] = &unk_2863D2D80;
+      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
       v25 = [v21 quantitySampleWithType:v22 quantity:v23 startDate:v19 endDate:v19 device:v14 metadata:v24];
 
-      [v31 addObject:v25];
+      [v30 addObject:v25];
       v7 = v7 + 300.0;
       ++v16;
     }
@@ -276,9 +267,7 @@ id HKMCGenerateHeartRateSamplesMatchingTenthPercentile(void *a1, uint64_t a2, fl
     while (v7 < v10 && v16 < a2);
   }
 
-  v27 = [v31 copy];
-
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = [v30 copy];
 
   return v27;
 }
@@ -362,19 +351,19 @@ uint64_t HAMenstrualAlgorithmsPhaseFromHKMCCycleFactor(uint64_t a1)
   }
 }
 
-uint64_t HKMCPredictionPrimarySourceFromHAMenstrualAlgorithmsPredictionPrimarySource(unsigned int a1)
+uint64_t HKMCPredictionPrimarySourceFromHAMenstrualAlgorithmsPredictionPrimarySource(uint64_t a1, uint64_t a2)
 {
-  v1 = a1;
+  v2 = a1;
   if (a1 < 4)
   {
     return (a1 + 1);
   }
 
   _HKInitializeLogging();
-  v3 = *MEMORY[0x277CCC2E8];
+  v4 = *MEMORY[0x277CCC2E8];
   if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_FAULT))
   {
-    HKMCPredictionPrimarySourceFromHAMenstrualAlgorithmsPredictionPrimarySource_cold_1(v3, v1);
+    HKMCPredictionPrimarySourceFromHAMenstrualAlgorithmsPredictionPrimarySource_cold_1(v4, v2);
   }
 
   return 1;
@@ -382,70 +371,68 @@ uint64_t HKMCPredictionPrimarySourceFromHAMenstrualAlgorithmsPredictionPrimarySo
 
 void HKMCAppendCycleFactorsPhaseFromDaySummary(void *a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v5 = [v4 startedCycleFactors];
-  v6 = [v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v21;
+    v8 = *v20;
     do
     {
       v9 = 0;
       do
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [v3 beginPhase:HAMenstrualAlgorithmsPhaseFromHKMCCycleFactor(objc_msgSend(*(*(&v20 + 1) + 8 * v9++) onJulianDay:{"integerValue")), objc_msgSend(v4, "dayIndex")}];
+        [v3 beginPhase:HAMenstrualAlgorithmsPhaseFromHKMCCycleFactor(objc_msgSend(*(*(&v19 + 1) + 8 * v9++) onJulianDay:{"integerValue")), objc_msgSend(v4, "dayIndex")}];
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
     while (v7);
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v10 = [v4 endedCycleFactors];
-  v11 = [v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v15 objects:v23 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v17;
+    v13 = *v16;
     do
     {
       v14 = 0;
       do
       {
-        if (*v17 != v13)
+        if (*v16 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [v3 endPhase:HAMenstrualAlgorithmsPhaseFromHKMCCycleFactor(objc_msgSend(*(*(&v16 + 1) + 8 * v14++) onJulianDay:{"integerValue")), objc_msgSend(v4, "dayIndex")}];
+        [v3 endPhase:HAMenstrualAlgorithmsPhaseFromHKMCCycleFactor(objc_msgSend(*(*(&v15 + 1) + 8 * v14++) onJulianDay:{"integerValue")), objc_msgSend(v4, "dayIndex")}];
       }
 
       while (v12 != v14);
-      v12 = [v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v15 objects:v23 count:16];
     }
 
     while (v12);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 id OUTLINED_FUNCTION_0_0(id a1)
@@ -454,10 +441,11 @@ id OUTLINED_FUNCTION_0_0(id a1)
   return a1;
 }
 
-void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 id HKMCDaySummarySymptomArrayFromSymptoms(int a1)
@@ -750,11 +738,11 @@ void sub_25190C390(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_25191091C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_25191091C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 96), 8);
+  _Block_object_dispose((v20 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -772,17 +760,11 @@ void OUTLINED_FUNCTION_1_0(void *a1, uint64_t a2, os_log_t log, const char *a4, 
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void OUTLINED_FUNCTION_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
-}
-
-uint64_t OUTLINED_FUNCTION_4@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(result + 32);
-  return result;
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 uint64_t OUTLINED_FUNCTION_4_0()
@@ -793,21 +775,20 @@ uint64_t OUTLINED_FUNCTION_4_0()
 
 id HKMCAllDisplayTypeIdentifiers()
 {
-  v3[12] = *MEMORY[0x277D85DE8];
-  v3[0] = @"DisplayTypeIdentifierMenstrualFlow";
-  v3[1] = @"DisplayTypeIdentifierBleedingInPregnancyFlow";
-  v3[2] = @"DisplayTypeIdentifierBleedingAfterPregnancyFlow";
-  v3[3] = @"DisplayTypeIdentifierSymptoms";
-  v3[4] = @"DisplayTypeIdentifierIntermenstrualBleeding";
-  v3[5] = @"DisplayTypeIdentifierSexualActivity";
-  v3[6] = @"DisplayTypeIdentifierOvulationTestResult";
-  v3[7] = @"DisplayTypeIdentifierProgesteroneTestResult";
-  v3[8] = @"DisplayTypeIdentifierPregnancyTestResult";
-  v3[9] = @"DisplayTypeIdentifierCervicalMucusQuality";
-  v3[10] = @"DisplayTypeIdentifierBasalBodyTemperature";
-  v3[11] = @"DisplayTypeIdentifierCycleFactors";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:12];
-  v1 = *MEMORY[0x277D85DE8];
+  v2[12] = *MEMORY[0x277D85DE8];
+  v2[0] = @"DisplayTypeIdentifierMenstrualFlow";
+  v2[1] = @"DisplayTypeIdentifierBleedingInPregnancyFlow";
+  v2[2] = @"DisplayTypeIdentifierBleedingAfterPregnancyFlow";
+  v2[3] = @"DisplayTypeIdentifierSymptoms";
+  v2[4] = @"DisplayTypeIdentifierIntermenstrualBleeding";
+  v2[5] = @"DisplayTypeIdentifierSexualActivity";
+  v2[6] = @"DisplayTypeIdentifierOvulationTestResult";
+  v2[7] = @"DisplayTypeIdentifierProgesteroneTestResult";
+  v2[8] = @"DisplayTypeIdentifierPregnancyTestResult";
+  v2[9] = @"DisplayTypeIdentifierCervicalMucusQuality";
+  v2[10] = @"DisplayTypeIdentifierBasalBodyTemperature";
+  v2[11] = @"DisplayTypeIdentifierCycleFactors";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:12];
 
   return v0;
 }
@@ -920,69 +901,65 @@ LABEL_31:
 
 id HKMCSymptomSampleTypes()
 {
-  v25[22] = *MEMORY[0x277D85DE8];
-  v24 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB8C8]];
-  v25[0] = v24;
-  v23 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB8D0]];
-  v25[1] = v23;
-  v22 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB8D8]];
-  v25[2] = v22;
-  v21 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB8F0]];
-  v25[3] = v21;
-  v20 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB908]];
-  v25[4] = v20;
-  v19 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB910]];
-  v25[5] = v19;
-  v18 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB928]];
-  v25[6] = v18;
-  v17 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB930]];
-  v25[7] = v17;
-  v16 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB948]];
-  v25[8] = v16;
-  v15 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB958]];
-  v25[9] = v15;
-  v14 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB970]];
-  v25[10] = v14;
-  v13 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB988]];
-  v25[11] = v13;
+  v24[22] = *MEMORY[0x277D85DE8];
+  v23 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB8C8]];
+  v24[0] = v23;
+  v22 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB8D0]];
+  v24[1] = v22;
+  v21 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB8D8]];
+  v24[2] = v21;
+  v20 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB8F0]];
+  v24[3] = v20;
+  v19 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB908]];
+  v24[4] = v19;
+  v18 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB910]];
+  v24[5] = v18;
+  v17 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB928]];
+  v24[6] = v17;
+  v16 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB930]];
+  v24[7] = v16;
+  v15 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB948]];
+  v24[8] = v15;
+  v14 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB958]];
+  v24[9] = v14;
+  v13 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB970]];
+  v24[10] = v13;
+  v12 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB988]];
+  v24[11] = v12;
   v0 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB998]];
-  v25[12] = v0;
+  v24[12] = v0;
   v1 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB9C0]];
-  v25[13] = v1;
+  v24[13] = v1;
   v2 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCBA18]];
-  v25[14] = v2;
+  v24[14] = v2;
   v3 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCBA20]];
-  v25[15] = v3;
+  v24[15] = v3;
   v4 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCBA38]];
-  v25[16] = v4;
+  v24[16] = v4;
   v5 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCBA40]];
-  v25[17] = v5;
+  v24[17] = v5;
   v6 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCBA48]];
-  v25[18] = v6;
+  v24[18] = v6;
   v7 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCBA58]];
-  v25[19] = v7;
+  v24[19] = v7;
   v8 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCBAC8]];
-  v25[20] = v8;
+  v24[20] = v8;
   v9 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCBAE8]];
-  v25[21] = v9;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:22];
+  v24[21] = v9;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:22];
 
-  v10 = *MEMORY[0x277D85DE8];
-
-  return v12;
+  return v11;
 }
 
 id HKMCCycleFactorsTypes()
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCBA68]];
   v1 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:{*MEMORY[0x277CCB9F0], v0}];
-  v6[1] = v1;
+  v5[1] = v1;
   v2 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB938]];
-  v6[2] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:3];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v5[2] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:3];
 
   return v3;
 }
@@ -1131,33 +1108,33 @@ __CFString *NSStringFromCycleFactor(uint64_t a1)
 
 id NSStringFromCycleFactors(void *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = NSStringFromCycleFactor([*(*(&v12 + 1) + 8 * i) integerValue]);
+        v8 = NSStringFromCycleFactor([*(*(&v11 + 1) + 8 * i) integerValue]);
         [v2 addObject:v8];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -1165,33 +1142,31 @@ id NSStringFromCycleFactors(void *a1)
 
   v9 = [MEMORY[0x277CCACA8] pathWithComponents:v2];
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 uint64_t HKMCAlgorithmSuppressPeriodPredictionsFromCycleFactorSamples(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v1 = a1;
-  v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v2)
   {
-    v3 = *v9;
+    v3 = *v8;
     while (2)
     {
       for (i = 0; i != v2; ++i)
       {
-        if (*v9 != v3)
+        if (*v8 != v3)
         {
           objc_enumerationMutation(v1);
         }
 
-        v5 = *(*(&v8 + 1) + 8 * i);
+        v5 = *(*(&v7 + 1) + 8 * i);
         if ([v5 hkmc_cycleFactor] == 2 && (objc_msgSend(v5, "hasUndeterminedDuration") & 1) != 0)
         {
           v2 = 1;
@@ -1199,7 +1174,7 @@ uint64_t HKMCAlgorithmSuppressPeriodPredictionsFromCycleFactorSamples(void *a1)
         }
       }
 
-      v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v2 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v2)
       {
         continue;
@@ -1211,32 +1186,31 @@ uint64_t HKMCAlgorithmSuppressPeriodPredictionsFromCycleFactorSamples(void *a1)
 
 LABEL_12:
 
-  v6 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 uint64_t HKMCForceDisablePeriodProjectionsFromCycleFactorSamples(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v1 = a1;
-  v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v2)
   {
-    v3 = *v11;
+    v3 = *v10;
     while (2)
     {
       for (i = 0; i != v2; ++i)
       {
-        if (*v11 != v3)
+        if (*v10 != v3)
         {
           objc_enumerationMutation(v1);
         }
 
-        v5 = *(*(&v10 + 1) + 8 * i);
+        v5 = *(*(&v9 + 1) + 8 * i);
         v6 = [v5 hkmc_cycleFactor];
         v7 = v6 == 8 || v6 == 2;
         if (v7 && ([v5 hasUndeterminedDuration] & 1) != 0)
@@ -1246,7 +1220,7 @@ uint64_t HKMCForceDisablePeriodProjectionsFromCycleFactorSamples(void *a1)
         }
       }
 
-      v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v2)
       {
         continue;
@@ -1258,32 +1232,31 @@ uint64_t HKMCForceDisablePeriodProjectionsFromCycleFactorSamples(void *a1)
 
 LABEL_16:
 
-  v8 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 uint64_t HKMCForceDisableFertileWindowProjectionsFromCycleFactorSamples(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v1 = a1;
-  v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v2)
   {
-    v3 = *v11;
+    v3 = *v10;
     while (2)
     {
       for (i = 0; i != v2; ++i)
       {
-        if (*v11 != v3)
+        if (*v10 != v3)
         {
           objc_enumerationMutation(v1);
         }
 
-        v5 = *(*(&v10 + 1) + 8 * i);
+        v5 = *(*(&v9 + 1) + 8 * i);
         v6 = [v5 hkmc_cycleFactor];
         v7 = (v6 - 4) < 6 || v6 == 2;
         if (v7 && ([v5 hasUndeterminedDuration] & 1) != 0)
@@ -1293,7 +1266,7 @@ uint64_t HKMCForceDisableFertileWindowProjectionsFromCycleFactorSamples(void *a1
         }
       }
 
-      v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v2)
       {
         continue;
@@ -1305,7 +1278,6 @@ uint64_t HKMCForceDisableFertileWindowProjectionsFromCycleFactorSamples(void *a1
 
 LABEL_16:
 
-  v8 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -1334,18 +1306,16 @@ id HKCategoryTypeFromDeviationType(void *a1)
 
 id HKMCDeviationSampleTypes()
 {
-  v7[4] = *MEMORY[0x277D85DE8];
+  v6[4] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCBA80]];
-  v7[0] = v0;
+  v6[0] = v0;
   v1 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCBA60]];
-  v7[1] = v1;
+  v6[1] = v1;
   v2 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB9E8]];
-  v7[2] = v2;
+  v6[2] = v2;
   v3 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB9D0]];
-  v7[3] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:4];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6[3] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:4];
 
   return v4;
 }
@@ -1721,92 +1691,86 @@ id HKMCDaySummarySampleTypes()
 
 id HKMCDaySummaryCategoryTypes()
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCBA28]];
-  v17[0] = v0;
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+  v16[0] = v0;
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
 
-  v15 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB900]];
-  v16[0] = v15;
-  v14 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB8F8]];
-  v16[1] = v14;
-  v13 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB9D8]];
-  v16[2] = v13;
+  v14 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB900]];
+  v15[0] = v14;
+  v13 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB8F8]];
+  v15[1] = v13;
+  v12 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB9D8]];
+  v15[2] = v12;
   v2 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCBA98]];
-  v16[3] = v2;
+  v15[3] = v2;
   v3 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB918]];
-  v16[4] = v3;
+  v15[4] = v3;
   v4 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCBA50]];
-  v16[5] = v4;
+  v15[5] = v4;
   v5 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCBA70]];
-  v16[6] = v5;
+  v15[6] = v5;
   v6 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCBA78]];
-  v16[7] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:8];
+  v15[7] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:8];
   v8 = [v1 arrayByAddingObjectsFromArray:v7];
   v9 = HKMCSymptomSampleTypes();
   v10 = [v8 arrayByAddingObjectsFromArray:v9];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 id HKMCDaySummaryQuantityTypes(int a1)
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:*MEMORY[0x277CCC958]];
   v3 = v2;
   if (a1)
   {
-    v9[0] = v2;
+    v8[0] = v2;
     v4 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:*MEMORY[0x277CCC938]];
-    v9[1] = v4;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
+    v8[1] = v4;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
   }
 
   else
   {
-    v8 = v2;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v8 count:1];
+    v7 = v2;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v7 count:1];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 id HKMCCycleChartMainTypes()
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCBA28]];
-  v17[0] = v0;
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+  v16[0] = v0;
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
 
-  v15 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB900]];
-  v16[0] = v15;
-  v14 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB8F8]];
-  v16[1] = v14;
-  v13 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB9D8]];
-  v16[2] = v13;
+  v14 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB900]];
+  v15[0] = v14;
+  v13 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB8F8]];
+  v15[1] = v13;
+  v12 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB9D8]];
+  v15[2] = v12;
   v2 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:*MEMORY[0x277CCC958]];
-  v16[3] = v2;
+  v15[3] = v2;
   v3 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:*MEMORY[0x277CCC938]];
-  v16[4] = v3;
+  v15[4] = v3;
   v4 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCBA98]];
-  v16[5] = v4;
+  v15[5] = v4;
   v5 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCBA50]];
-  v16[6] = v5;
+  v15[6] = v5;
   v6 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCBA78]];
-  v16[7] = v6;
+  v15[7] = v6;
   v7 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCBA70]];
-  v16[8] = v7;
+  v15[8] = v7;
   v8 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB918]];
-  v16[9] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:10];
+  v15[9] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:10];
   v10 = [v1 arrayByAddingObjectsFromArray:v9];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1873,86 +1837,81 @@ void sub_251916A94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id _HKMCMenstruationDisplayTypeIdentifiers()
+id _HKMCMenstruationDisplayTypeIdentifiers(uint64_t a1)
 {
   if (_HKMCMenstruationDisplayTypeIdentifiers_onceToken != -1)
   {
     _HKMCMenstruationDisplayTypeIdentifiers_cold_1();
   }
 
-  v1 = _HKMCMenstruationDisplayTypeIdentifiers_displayTypeIdentifiers;
+  v2 = _HKMCMenstruationDisplayTypeIdentifiers_displayTypeIdentifiers;
 
-  return v1;
+  return v2;
 }
 
 id _HKMCFertilityDisplayTypeIdentifiers()
 {
-  v3[5] = *MEMORY[0x277D85DE8];
-  v3[0] = @"DisplayTypeIdentifierOvulationTestResult";
-  v3[1] = @"DisplayTypeIdentifierPregnancyTestResult";
-  v3[2] = @"DisplayTypeIdentifierProgesteroneTestResult";
-  v3[3] = @"DisplayTypeIdentifierCervicalMucusQuality";
-  v3[4] = @"DisplayTypeIdentifierBasalBodyTemperature";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:5];
-  v1 = *MEMORY[0x277D85DE8];
+  v2[5] = *MEMORY[0x277D85DE8];
+  v2[0] = @"DisplayTypeIdentifierOvulationTestResult";
+  v2[1] = @"DisplayTypeIdentifierPregnancyTestResult";
+  v2[2] = @"DisplayTypeIdentifierProgesteroneTestResult";
+  v2[3] = @"DisplayTypeIdentifierCervicalMucusQuality";
+  v2[4] = @"DisplayTypeIdentifierBasalBodyTemperature";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:5];
 
   return v0;
 }
 
 id _AnalysisSettingKeys()
 {
-  v3[10] = *MEMORY[0x277D85DE8];
-  v3[0] = @"MenstruationProjectionsEnabled";
-  v3[1] = @"FertileWindowProjectionsEnabled";
-  v3[2] = @"SensorBasedProjectionsEnabled";
-  v3[3] = @"WristTemperatureBasedProjectionsEnabled";
-  v3[4] = @"InternalCycleFactorsOverrideEnabled";
-  v3[5] = @"InternalIgnoreOvulationTestResultsEnabled";
-  v3[6] = @"ProlongedDeviationDetectionEnabled";
-  v3[7] = @"SpottingDeviationDetectionEnabled";
-  v3[8] = @"IrregularDeviationDetectionEnabled";
-  v3[9] = @"InfrequentDeviationDetectionEnabled";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:10];
-  v1 = *MEMORY[0x277D85DE8];
+  v2[10] = *MEMORY[0x277D85DE8];
+  v2[0] = @"MenstruationProjectionsEnabled";
+  v2[1] = @"FertileWindowProjectionsEnabled";
+  v2[2] = @"SensorBasedProjectionsEnabled";
+  v2[3] = @"WristTemperatureBasedProjectionsEnabled";
+  v2[4] = @"InternalCycleFactorsOverrideEnabled";
+  v2[5] = @"InternalIgnoreOvulationTestResultsEnabled";
+  v2[6] = @"ProlongedDeviationDetectionEnabled";
+  v2[7] = @"SpottingDeviationDetectionEnabled";
+  v2[8] = @"IrregularDeviationDetectionEnabled";
+  v2[9] = @"InfrequentDeviationDetectionEnabled";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:10];
 
   return v0;
 }
 
 id _NotificationSettingKeys()
 {
-  v3[4] = *MEMORY[0x277D85DE8];
-  v3[0] = @"MenstruationNotificationsEnabled";
-  v3[1] = @"MenstruationNotificationTimeOfDay";
-  v3[2] = @"FertileWindowNotificationsEnabled";
-  v3[3] = @"FertileWindowNotificationTimeOfDay";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:4];
-  v1 = *MEMORY[0x277D85DE8];
+  v2[4] = *MEMORY[0x277D85DE8];
+  v2[0] = @"MenstruationNotificationsEnabled";
+  v2[1] = @"MenstruationNotificationTimeOfDay";
+  v2[2] = @"FertileWindowNotificationsEnabled";
+  v2[3] = @"FertileWindowNotificationTimeOfDay";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:4];
 
   return v0;
 }
 
 id _HiddenDisplayTypeSettingKeys()
 {
-  v3[1] = *MEMORY[0x277D85DE8];
-  v3[0] = @"ShouldHideByDisplayTypeIdentifier";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:1];
-  v1 = *MEMORY[0x277D85DE8];
+  v2[1] = *MEMORY[0x277D85DE8];
+  v2[0] = @"ShouldHideByDisplayTypeIdentifier";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:1];
 
   return v0;
 }
 
 id _AlgorithmVersionMismatchSettingKeys()
 {
-  v3[7] = *MEMORY[0x277D85DE8];
-  v3[0] = @"MenstruationProjectionsDisabledForVersionMismatch";
-  v3[1] = @"FertileWindowProjectionsDisabledForVersionMismatch";
-  v3[2] = @"LocalizedTextForVersionMismatchAndDisabledProjections";
-  v3[3] = @"MenstruationProjectionsAlgorithmAttributesPhone";
-  v3[4] = @"FertileWindowProjectionsAlgorithmAttributesPhone";
-  v3[5] = @"MenstruationProjectionsAlgorithmAttributesWatch";
-  v3[6] = @"FertileWindowProjectionsAlgorithmAttributesWatch";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:7];
-  v1 = *MEMORY[0x277D85DE8];
+  v2[7] = *MEMORY[0x277D85DE8];
+  v2[0] = @"MenstruationProjectionsDisabledForVersionMismatch";
+  v2[1] = @"FertileWindowProjectionsDisabledForVersionMismatch";
+  v2[2] = @"LocalizedTextForVersionMismatchAndDisabledProjections";
+  v2[3] = @"MenstruationProjectionsAlgorithmAttributesPhone";
+  v2[4] = @"FertileWindowProjectionsAlgorithmAttributesPhone";
+  v2[5] = @"MenstruationProjectionsAlgorithmAttributesWatch";
+  v2[6] = @"FertileWindowProjectionsAlgorithmAttributesWatch";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:7];
 
   return v0;
 }
@@ -1965,10 +1924,11 @@ void sub_2519195E4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t OUTLINED_FUNCTION_3_1()
@@ -1990,10 +1950,11 @@ id OUTLINED_FUNCTION_0_4(id a1)
   return a1;
 }
 
-void OUTLINED_FUNCTION_1_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 0x16u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 0x16u);
 }
 
 uint64_t OUTLINED_FUNCTION_3_2()
@@ -2004,7 +1965,6 @@ uint64_t OUTLINED_FUNCTION_3_2()
 
 id OUTLINED_FUNCTION_4_1(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
 
   return a2;
 }
@@ -2024,15 +1984,13 @@ __CFString *HKMCDeviationDetectionAnalyticsKeyFromDeviationType(uint64_t a1)
 
 void HKMCPredictionPrimarySourceFromHAMenstrualAlgorithmsPredictionPrimarySource_cold_1(void *a1, unsigned __int8 a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCABB0];
   v4 = a1;
   v5 = [v3 numberWithUnsignedChar:a2];
-  v7 = 138412290;
-  v8 = v5;
-  _os_log_fault_impl(&dword_2518FC000, v4, OS_LOG_TYPE_FAULT, "Passed an unknown primary source: %@", &v7, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412290;
+  v7 = v5;
+  _os_log_fault_impl(&dword_2518FC000, v4, OS_LOG_TYPE_FAULT, "Passed an unknown primary source: %@", &v6, 0xCu);
 }
 
 void HKMCDataTypeCodeFromMenstrualSymptom_cold_1(uint64_t a1)

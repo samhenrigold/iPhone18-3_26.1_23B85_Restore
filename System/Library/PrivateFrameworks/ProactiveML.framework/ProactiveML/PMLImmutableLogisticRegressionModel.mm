@@ -1,6 +1,8 @@
 @interface PMLImmutableLogisticRegressionModel
+- (PMLImmutableLogisticRegressionModel)initWithChunk:(id)chunk intercept:(BOOL)intercept;
 - (PMLImmutableLogisticRegressionModel)initWithFloatsNoCopy:(const float *)copy count:(int)count intercept:(BOOL)intercept;
 - (PMLImmutableLogisticRegressionModel)initWithPlist:(id)plist chunks:(id)chunks context:(id)context;
+- (PMLImmutableLogisticRegressionModel)initWithWeights:(id)weights intercept:(BOOL)intercept;
 - (id)predict:(id)predict;
 - (id)toPlistWithChunks:(id)chunks;
 @end
@@ -9,7 +11,7 @@
 
 - (id)predict:(id)predict
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   predictCopy = predict;
   v6 = predictCopy;
   if (self->_intercept)
@@ -31,12 +33,10 @@
   v11 = v10;
   *&v10 = v11;
   v12 = [MEMORY[0x277CCABB0] numberWithFloat:v10];
-  v18[0] = v12;
+  v17[0] = v12;
   v13 = [MEMORY[0x277CCABB0] numberWithDouble:1.0 - v11];
-  v18[1] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v17[1] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
 
   return v14;
 }
@@ -54,6 +54,34 @@
   }
 
   return result;
+}
+
+- (PMLImmutableLogisticRegressionModel)initWithChunk:(id)chunk intercept:(BOOL)intercept
+{
+  interceptCopy = intercept;
+  chunkCopy = chunk;
+  v8 = -[PMLImmutableLogisticRegressionModel initWithFloatsNoCopy:count:intercept:](self, "initWithFloatsNoCopy:count:intercept:", [chunkCopy vector], objc_msgSend(chunkCopy, "count"), interceptCopy);
+  v9 = v8;
+  if (v8)
+  {
+    objc_storeStrong(&v8->_backingObject, chunk);
+  }
+
+  return v9;
+}
+
+- (PMLImmutableLogisticRegressionModel)initWithWeights:(id)weights intercept:(BOOL)intercept
+{
+  interceptCopy = intercept;
+  weightsCopy = weights;
+  v8 = -[PMLImmutableLogisticRegressionModel initWithFloatsNoCopy:count:intercept:](self, "initWithFloatsNoCopy:count:intercept:", [weightsCopy values], objc_msgSend(weightsCopy, "length"), interceptCopy);
+  v9 = v8;
+  if (v8)
+  {
+    objc_storeStrong(&v8->_backingObject, weights);
+  }
+
+  return v9;
 }
 
 - (PMLImmutableLogisticRegressionModel)initWithPlist:(id)plist chunks:(id)chunks context:(id)context
@@ -85,19 +113,17 @@
 
 - (id)toPlistWithChunks:(id)chunks
 {
-  v12[2] = *MEMORY[0x277D85DE8];
-  v11[0] = @"WEIGHTS";
+  v11[2] = *MEMORY[0x277D85DE8];
+  v10[0] = @"WEIGHTS";
   chunksCopy = chunks;
   toChunk = [(PMLImmutableLogisticRegressionModel *)self toChunk];
   v6 = internChunk(toChunk, chunksCopy);
 
-  v11[1] = @"INTERCEPT";
-  v12[0] = v6;
+  v10[1] = @"INTERCEPT";
+  v11[0] = v6;
   v7 = [MEMORY[0x277CCABB0] numberWithBool:{-[PMLImmutableLogisticRegressionModel intercept](self, "intercept")}];
-  v12[1] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v11[1] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
 
   return v8;
 }

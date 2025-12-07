@@ -28,28 +28,29 @@ void __35__FAFamilyDetailsCache_sharedCache__block_invoke()
 
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   v3 = sharedCache__sharedCache;
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x2020000000;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
   v4 = getINFamilyDidChangeNotificationSymbolLoc_ptr_0;
-  v10 = getINFamilyDidChangeNotificationSymbolLoc_ptr_0;
+  v11 = getINFamilyDidChangeNotificationSymbolLoc_ptr_0;
   if (!getINFamilyDidChangeNotificationSymbolLoc_ptr_0)
   {
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __getINFamilyDidChangeNotificationSymbolLoc_block_invoke_0;
-    v6[3] = &unk_2782F2988;
-    v6[4] = &v7;
-    __getINFamilyDidChangeNotificationSymbolLoc_block_invoke_0(v6);
-    v4 = v8[3];
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __getINFamilyDidChangeNotificationSymbolLoc_block_invoke_0;
+    v7[3] = &unk_2782F2988;
+    v7[4] = &v8;
+    __getINFamilyDidChangeNotificationSymbolLoc_block_invoke_0(v7);
+    v4 = v9[3];
   }
 
-  _Block_object_dispose(&v7, 8);
+  _Block_object_dispose(&v8, 8);
   if (!v4)
   {
-    v5 = +[FAHomeUISoftLinking getURLScheme];
-    _Block_object_dispose(&v7, 8);
-    _Unwind_Resume(v5);
+    +[FAHomeUISoftLinking getURLScheme];
+    v6 = v5;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v6);
   }
 
   CFNotificationCenterAddObserver(DarwinNotifyCenter, v3, _FAFamilyDetailsCacheFamilyDidChangeNotificationHandler, *v4, 0, CFNotificationSuspensionBehaviorCoalesce);
@@ -119,7 +120,7 @@ void __48__FAFamilyDetailsCache__fetchPendingInviteCount__block_invoke(uint64_t 
 
 void __48__FAFamilyDetailsCache__fetchPendingInviteCount__block_invoke_2(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   v8 = *(a1 + 32);
@@ -137,13 +138,11 @@ void __48__FAFamilyDetailsCache__fetchPendingInviteCount__block_invoke_2(uint64_
     v9 = _AALogSystem();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412290;
-      v12 = v7;
-      _os_log_impl(&dword_21BB35000, v9, OS_LOG_TYPE_DEFAULT, "FAFamilyDetailsCache _fetchPendingInviteCount error %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v7;
+      _os_log_impl(&dword_21BB35000, v9, OS_LOG_TYPE_DEFAULT, "FAFamilyDetailsCache _fetchPendingInviteCount error %@", &v10, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setPendingInviteCount:(unint64_t)count

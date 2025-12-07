@@ -133,8 +133,8 @@
     if (v7)
     {
       visualIdentity = [(CNVisualIdentityPickerViewController *)self visualIdentity];
-      contacts = [visualIdentity contacts];
-      v10 = [contacts count];
+      v9 = objc_msgSend_contacts(visualIdentity);
+      v10 = [v9 count];
 
       if (v10)
       {

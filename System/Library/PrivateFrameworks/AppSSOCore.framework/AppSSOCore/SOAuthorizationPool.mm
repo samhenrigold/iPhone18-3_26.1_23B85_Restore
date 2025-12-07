@@ -36,29 +36,29 @@
 
 - (void)removeAuthorization:(id)authorization
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   authorizationCopy = authorization;
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = selfCopy->_pool;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         authorization = [v10 authorization];
         v12 = authorization == authorizationCopy;
 
@@ -75,7 +75,7 @@
         }
       }
 
-      v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v7)
       {
         continue;
@@ -89,7 +89,6 @@
 LABEL_12:
 
   objc_sync_exit(selfCopy);
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 @end

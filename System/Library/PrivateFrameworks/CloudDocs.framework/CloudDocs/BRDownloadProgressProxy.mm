@@ -73,7 +73,7 @@ void __39__BRDownloadProgressProxy_initWithURL___block_invoke(uint64_t a1)
 
 - (void)_queryDidReceiveUpdate:(id)update
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   updateCopy = update;
   if ([(NSString *)self->_personaID isEqualToString:@"__defaultPersonaID__"]|| (v4 = self->_personaID) == 0)
   {
@@ -95,7 +95,7 @@ void __39__BRDownloadProgressProxy_initWithURL___block_invoke(uint64_t a1)
   mEMORY[0x1E69DF068] = [MEMORY[0x1E69DF068] sharedManager];
   currentPersona = [mEMORY[0x1E69DF068] currentPersona];
 
-  v45 = 0;
+  v44 = 0;
   userPersonaUniqueString = [currentPersona userPersonaUniqueString];
   v9 = userPersonaUniqueString;
   if (userPersonaUniqueString == v5 || [(NSString *)userPersonaUniqueString isEqualToString:v5])
@@ -105,11 +105,11 @@ void __39__BRDownloadProgressProxy_initWithURL___block_invoke(uint64_t a1)
 
   if (voucher_process_can_use_arbitrary_personas())
   {
-    v44 = 0;
-    v23 = [currentPersona copyCurrentPersonaContextWithError:&v44];
-    v24 = v44;
-    v25 = v45;
-    v45 = v23;
+    v43 = 0;
+    v23 = [currentPersona copyCurrentPersonaContextWithError:&v43];
+    v24 = v43;
+    v25 = v44;
+    v44 = v23;
 
     if (v24)
     {
@@ -121,12 +121,12 @@ void __39__BRDownloadProgressProxy_initWithURL___block_invoke(uint64_t a1)
       }
     }
 
-    v42 = [currentPersona br_generateAndRestorePersonaContextWithPersonaUniqueString:v5];
+    v41 = [currentPersona br_generateAndRestorePersonaContextWithPersonaUniqueString:v5];
 
-    if (!v42)
+    if (!v41)
     {
 LABEL_9:
-      v42 = 0;
+      v41 = 0;
       goto LABEL_10;
     }
 
@@ -136,11 +136,11 @@ LABEL_9:
     {
       personaID = self->_personaID;
       *buf = 138412802;
-      v47 = personaID;
-      v48 = 2112;
-      v49 = v42;
-      v50 = 2112;
-      v51 = v28;
+      v46 = personaID;
+      v47 = 2112;
+      v48 = v41;
+      v49 = 2112;
+      v50 = v28;
       _os_log_error_impl(&dword_1AE2A9000, v29, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
     }
 
@@ -156,7 +156,7 @@ LABEL_9:
       __br_notify_register_dispatch_block_invoke_cold_2_0(v28, v29);
     }
 
-    v42 = 0;
+    v41 = 0;
 LABEL_41:
 
     goto LABEL_10;
@@ -169,13 +169,13 @@ LABEL_41:
     __br_notify_register_dispatch_block_invoke_cold_3_0(v36, v37);
   }
 
-  v42 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
+  v41 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
 LABEL_10:
   results = [(NSMetadataQuery *)self->_query results];
   if ([results count])
   {
     v11 = [results objectAtIndexedSubscript:0];
-    v40 = [v11 valueForKey:*MEMORY[0x1E696A6D0]];
+    v39 = [v11 valueForKey:*MEMORY[0x1E696A6D0]];
     v12 = [v11 valueForKey:@"BRMetadataUbiquitousItemDownloadingSizeKey"];
     userInfo = [(BRDownloadProgressProxy *)self userInfo];
     v14 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E696A818]];
@@ -191,7 +191,7 @@ LABEL_10:
 
       else
       {
-        _BRLocalizedStringWithFormat(@"CANCELLING_DOWNLOAD_ITEM_PROGRESS", @"Localizable", v21, v16, v17, v18, v19, v20, v39);
+        _BRLocalizedStringWithFormat(@"CANCELLING_DOWNLOAD_ITEM_PROGRESS", @"Localizable", v21, v16, v17, v18, v19, v20, v38);
       }
     }
 
@@ -205,7 +205,7 @@ LABEL_10:
 
       else
       {
-        _BRLocalizedStringWithFormat(@"DOWNLOAD_ITEM_PROGRESS", @"Localizable", v21, v31, v32, v33, v34, v35, v39);
+        _BRLocalizedStringWithFormat(@"DOWNLOAD_ITEM_PROGRESS", @"Localizable", v21, v31, v32, v33, v34, v35, v38);
       }
     }
     v22 = ;
@@ -219,12 +219,11 @@ LABEL_10:
     else if (v12)
     {
       -[BRDownloadProgressProxy setTotalUnitCount:](self, "setTotalUnitCount:", [v12 longLongValue]);
-      -[BRDownloadProgressProxy setCompletedUnitCount:](self, "setCompletedUnitCount:", [v40 longLongValue] * objc_msgSend(v12, "longLongValue") / 100);
+      -[BRDownloadProgressProxy setCompletedUnitCount:](self, "setCompletedUnitCount:", [v39 longLongValue] * objc_msgSend(v12, "longLongValue") / 100);
     }
   }
 
-  _BRRestorePersona(&v45);
-  v38 = *MEMORY[0x1E69E9840];
+  _BRRestorePersona(&v44);
 }
 
 void __50__BRDownloadProgressProxy__queryDidReceiveUpdate___block_invoke()

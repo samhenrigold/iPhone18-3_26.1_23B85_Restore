@@ -1,25 +1,16 @@
 @interface MCMXPCMessageWithURLBase
 - (MCMXPCMessageWithURLBase)initWithXPCObject:(id)object context:(id)context error:(unint64_t *)error;
-- (NSURL)url;
 @end
 
 @implementation MCMXPCMessageWithURLBase
 
-- (NSURL)url
-{
-  result = self->_url;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
 - (MCMXPCMessageWithURLBase)initWithXPCObject:(id)object context:(id)context error:(unint64_t *)error
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   objectCopy = object;
-  v16.receiver = self;
-  v16.super_class = MCMXPCMessageWithURLBase;
-  v9 = [(MCMXPCMessageBase *)&v16 initWithXPCObject:objectCopy context:context error:error];
+  v15.receiver = self;
+  v15.super_class = MCMXPCMessageWithURLBase;
+  v9 = [(MCMXPCMessageBase *)&v15 initWithXPCObject:objectCopy context:context error:error];
   if (v9)
   {
     string = xpc_dictionary_get_string(objectCopy, "Path");
@@ -42,7 +33,6 @@
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

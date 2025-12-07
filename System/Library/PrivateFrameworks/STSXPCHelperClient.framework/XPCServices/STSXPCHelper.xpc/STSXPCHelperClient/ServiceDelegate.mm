@@ -62,7 +62,7 @@
       v22 = [STSXPCHelper alloc];
       _queue = [v19 _queue];
 
-      v24 = sub_100026CD8(v22, _queue, v21);
+      v24 = sub_100026CD8(&v22->super.isa, _queue, v21);
       if (v21)
       {
         objc_storeStrong(v21 + 2, v24);
@@ -91,10 +91,10 @@
       }
 
       [v19 setExportedObject:v27];
-      v28 = sub_10002DD68();
+      v28 = sub_10002DD68(STSXPCHelper);
       [v19 setExportedInterface:v28];
 
-      v29 = sub_10002DDA0();
+      v29 = sub_10002DDA0(STSXPCHelper);
       [v19 setRemoteObjectInterface:v29];
 
       objc_initWeak(&location, self);

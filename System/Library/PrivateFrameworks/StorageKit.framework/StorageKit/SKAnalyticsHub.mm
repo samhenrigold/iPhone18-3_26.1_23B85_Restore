@@ -19,7 +19,6 @@
   MEMORY[0x26D68F5D0](v4);
   if (*((qword_2814C1B38 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((qword_2814C1B38 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
   {
-    v5 = *((qword_2814C1B38 & 0xFFFFFFFFFFFFFF8) + 0x10);
     sub_26BBE51B8();
   }
 

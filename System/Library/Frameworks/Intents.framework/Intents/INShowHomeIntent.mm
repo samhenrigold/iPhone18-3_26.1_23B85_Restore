@@ -28,8 +28,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v11[2] = *MEMORY[0x1E69E9840];
-  v10[0] = @"filters";
+  v10[2] = *MEMORY[0x1E69E9840];
+  v9[0] = @"filters";
   filters = [(INShowHomeIntent *)self filters];
   null = filters;
   if (!filters)
@@ -37,8 +37,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v10[1] = @"time";
-  v11[0] = null;
+  v9[1] = @"time";
+  v10[0] = null;
   time = [(INShowHomeIntent *)self time];
   null2 = time;
   if (!time)
@@ -46,8 +46,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v11[1] = null2;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[1] = null2;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
   if (!time)
   {
   }
@@ -55,8 +55,6 @@
   if (!filters)
   {
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

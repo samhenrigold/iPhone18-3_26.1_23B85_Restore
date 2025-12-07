@@ -30,7 +30,7 @@
 - (int64_t)level
 {
   serverDictionary = [(ICQDaemonPersisted *)self serverDictionary];
-  v3 = [serverDictionary objectForKeyedSubscript:@"type"];
+  v3 = objc_msgSend_objectForKeyedSubscript_(serverDictionary);
   v4 = _ICQLevelForString(v3);
 
   return v4;
@@ -95,38 +95,36 @@
 
 - (void)cacheLiftUIContent
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   internalAppLaunchLinks = [(ICQDaemonOffer *)self internalAppLaunchLinks];
-  v3 = [internalAppLaunchLinks countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [internalAppLaunchLinks countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(internalAppLaunchLinks);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) cacheLiftUIContentIfNeeded];
+        [*(*(&v7 + 1) + 8 * v6++) cacheLiftUIContentIfNeeded];
       }
 
       while (v4 != v6);
-      v4 = [internalAppLaunchLinks countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [internalAppLaunchLinks countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (ICQDaemonOffer)initWithDictionary:(id)dictionary
@@ -137,7 +135,7 @@
   v5 = [(ICQDaemonPersisted *)&v9 initWithDictionary:dictionaryCopy];
   if (v5)
   {
-    v6 = [dictionaryCopy objectForKeyedSubscript:@"eligibleAppLaunchLinks"];
+    v6 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     savedEligibleAppLaunchLinks = v5->_savedEligibleAppLaunchLinks;
     v5->_savedEligibleAppLaunchLinks = v6;
 
@@ -209,116 +207,116 @@
   self->_notificationID = v7;
 
   serverDictionary3 = [(ICQDaemonPersisted *)self serverDictionary];
-  v10 = _ICQAlertSpecificationForServerDict(serverDictionary3);
+  v11 = _ICQAlertSpecificationForServerDict(serverDictionary3, v10);
   internalAlertSpecification = self->_internalAlertSpecification;
-  self->_internalAlertSpecification = v10;
+  self->_internalAlertSpecification = v11;
 
   serverDictionary4 = [(ICQDaemonPersisted *)self serverDictionary];
-  v13 = [serverDictionary4 objectForKeyedSubscript:@"followUpInfo"];
-  if (!v13)
+  v14 = objc_msgSend_objectForKeyedSubscript_(serverDictionary4);
+  if (!v14)
   {
-    v13 = [serverDictionary4 objectForKeyedSubscript:@"followupInfo"];
-    if (!v13)
+    v14 = objc_msgSend_objectForKeyedSubscript_(serverDictionary4);
+    if (!v14)
     {
-      v14 = _ICQGetLogSystem();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      v15 = _ICQGetLogSystem();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
-        [(ICQDaemonOffer *)v14 _initSubclassFromServerDictionary];
+        [(ICQDaemonOffer *)v15 _initSubclassFromServerDictionary];
       }
 
       goto LABEL_19;
     }
   }
 
-  v14 = v13;
+  v15 = v14;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v20 = _ICQGetLogSystem();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v21 = _ICQGetLogSystem();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      *&buf[4] = v14;
-      _os_log_impl(&dword_275572000, v20, OS_LOG_TYPE_DEFAULT, "followupInfo: expected NSDictionary, got %@", buf, 0xCu);
+      *&buf[4] = v15;
+      _os_log_impl(&dword_275572000, v21, OS_LOG_TYPE_DEFAULT, "followupInfo: expected NSDictionary, got %@", buf, 0xCu);
     }
 
 LABEL_19:
-    v15 = 0;
+    v16 = 0;
     goto LABEL_20;
   }
 
-  v15 = [[_ICQDetailFollowupSpecification alloc] initWithServerDictionary:serverDictionary4];
+  v16 = [[_ICQDetailFollowupSpecification alloc] initWithServerDictionary:serverDictionary4];
   *buf = 0;
   _ICQServerDictToOfferTypeAndLevel(serverDictionary4, buf, 0);
-  [(_ICQFollowupSpecification *)v15 setForAccountGroup:(*buf < 9uLL) & (0x162u >> buf[0])];
-  v16 = serverDictionary4;
-  v17 = [v16 objectForKeyedSubscript:@"followUpInfo"];
-  v18 = v17;
-  if (v17)
+  [(_ICQFollowupSpecification *)v16 setForAccountGroup:(*buf < 9uLL) & (0x162u >> buf[0])];
+  v17 = serverDictionary4;
+  v18 = objc_msgSend_objectForKeyedSubscript_(v17);
+  v19 = v18;
+  if (v18)
   {
-    v19 = v17;
+    v20 = v18;
   }
 
   else
   {
-    v19 = [v16 objectForKeyedSubscript:@"followupInfo"];
+    v20 = objc_msgSend_objectForKeyedSubscript_(v17);
   }
 
-  v21 = v19;
+  v22 = v20;
 
-  v22 = [v21 objectForKeyedSubscript:@"displayStyle"];
-  v23 = [v22 isEqualToString:@"INLINE_EXPANDED"];
+  v23 = objc_msgSend_objectForKeyedSubscript_(v22);
+  v24 = [v23 isEqualToString:@"INLINE_EXPANDED"];
 
-  [(_ICQFollowupSpecification *)v15 setFollowupDisplayStyle:v23];
-  v24 = v16;
-  v25 = [v24 objectForKeyedSubscript:@"followUpInfo"];
-  v26 = v25;
-  if (v25)
+  [(_ICQFollowupSpecification *)v16 setFollowupDisplayStyle:v24];
+  v25 = v17;
+  v26 = objc_msgSend_objectForKeyedSubscript_(v25);
+  v27 = v26;
+  if (v26)
   {
-    v27 = v25;
+    v28 = v26;
   }
 
   else
   {
-    v27 = [v24 objectForKeyedSubscript:@"followupInfo"];
+    v28 = objc_msgSend_objectForKeyedSubscript_(v25);
   }
 
-  v28 = v27;
+  v29 = v28;
 
-  v29 = [v28 objectForKeyedSubscript:@"sfSymbolId"];
+  v30 = objc_msgSend_objectForKeyedSubscript_(v29);
 
-  [(_ICQFollowupSpecification *)v15 setSfSymbolID:v29];
-  v30 = v24;
-  v31 = [v30 objectForKeyedSubscript:@"followUpInfo"];
-  v32 = v31;
-  if (v31)
+  [(_ICQFollowupSpecification *)v16 setSfSymbolID:v30];
+  v31 = v25;
+  v32 = objc_msgSend_objectForKeyedSubscript_(v31);
+  v33 = v32;
+  if (v32)
   {
-    v33 = v31;
+    v34 = v32;
   }
 
   else
   {
-    v33 = [v30 objectForKeyedSubscript:@"followupInfo"];
+    v34 = objc_msgSend_objectForKeyedSubscript_(v31);
   }
 
-  v34 = v33;
+  v35 = v34;
 
-  v35 = [v34 objectForKeyedSubscript:@"sfSymbolBundlePath"];
+  v36 = objc_msgSend_objectForKeyedSubscript_(v35);
 
-  [(_ICQFollowupSpecification *)v15 setSfSymbolBundlePath:v35];
+  [(_ICQFollowupSpecification *)v16 setSfSymbolBundlePath:v36];
 LABEL_20:
 
   internalFollowupSpecification = self->_internalFollowupSpecification;
-  self->_internalFollowupSpecification = &v15->super;
+  self->_internalFollowupSpecification = &v16->super;
 
   serverDictionary5 = [(ICQDaemonPersisted *)self serverDictionary];
-  v38 = [serverDictionary5 objectForKeyedSubscript:@"appLaunchLink"];
-  if (!v38)
+  v39 = objc_msgSend_objectForKeyedSubscript_(serverDictionary5);
+  if (!v39)
   {
-    v39 = _ICQGetLogSystem();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+    v40 = _ICQGetLogSystem();
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
     {
-      [(ICQDaemonOffer *)v39 _initSubclassFromServerDictionary];
+      [(ICQDaemonOffer *)v40 _initSubclassFromServerDictionary];
     }
 
     goto LABEL_35;
@@ -327,64 +325,64 @@ LABEL_20:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v39 = _ICQGetLogSystem();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+    v40 = _ICQGetLogSystem();
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      *&buf[4] = v38;
-      _os_log_impl(&dword_275572000, v39, OS_LOG_TYPE_DEFAULT, "appLaunchLinks: expected NSArray, got %@", buf, 0xCu);
+      *&buf[4] = v39;
+      _os_log_impl(&dword_275572000, v40, OS_LOG_TYPE_DEFAULT, "appLaunchLinks: expected NSArray, got %@", buf, 0xCu);
     }
 
 LABEL_35:
-    v48 = 0;
+    v49 = 0;
     goto LABEL_40;
   }
 
   v55 = serverDictionary5;
-  v39 = [MEMORY[0x277CBEBF8] mutableCopy];
+  v40 = [MEMORY[0x277CBEBF8] mutableCopy];
   v56 = 0u;
   v57 = 0u;
   v58 = 0u;
   v59 = 0u;
-  v40 = v38;
-  v41 = [v40 countByEnumeratingWithState:&v56 objects:buf count:16];
-  if (v41)
+  v41 = v39;
+  v42 = [v41 countByEnumeratingWithState:&v56 objects:buf count:16];
+  if (v42)
   {
-    v42 = v41;
-    v43 = *v57;
+    v43 = v42;
+    v44 = *v57;
     while (2)
     {
-      for (i = 0; i != v42; ++i)
+      for (i = 0; i != v43; ++i)
       {
-        if (*v57 != v43)
+        if (*v57 != v44)
         {
-          objc_enumerationMutation(v40);
+          objc_enumerationMutation(v41);
         }
 
-        v45 = *(*(&v56 + 1) + 8 * i);
+        v46 = *(*(&v56 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v49 = _ICQGetLogSystem();
-          if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+          v50 = _ICQGetLogSystem();
+          if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
           {
             *v60 = 138412290;
-            v61 = v45;
-            _os_log_impl(&dword_275572000, v49, OS_LOG_TYPE_DEFAULT, "appLaunchLink: expected NSDictionary, got %@", v60, 0xCu);
+            v61 = v46;
+            _os_log_impl(&dword_275572000, v50, OS_LOG_TYPE_DEFAULT, "appLaunchLink: expected NSDictionary, got %@", v60, 0xCu);
           }
 
-          v48 = 0;
+          v49 = 0;
           goto LABEL_39;
         }
 
-        v46 = v45;
-        v47 = [[_ICQAppLaunchLink alloc] initWithServerDictionary:v46];
+        v47 = v46;
+        v48 = [[_ICQAppLaunchLink alloc] initWithServerDictionary:v47];
 
-        [v39 addObject:v47];
+        [v40 addObject:v48];
       }
 
-      v42 = [v40 countByEnumeratingWithState:&v56 objects:buf count:16];
-      if (v42)
+      v43 = [v41 countByEnumeratingWithState:&v56 objects:buf count:16];
+      if (v43)
       {
         continue;
       }
@@ -393,25 +391,25 @@ LABEL_35:
     }
   }
 
-  v39 = v39;
-  v48 = v39;
+  v40 = v40;
+  v49 = v40;
 LABEL_39:
   serverDictionary5 = v55;
 LABEL_40:
 
   internalAppLaunchLinks = self->_internalAppLaunchLinks;
-  self->_internalAppLaunchLinks = v48;
+  self->_internalAppLaunchLinks = v49;
 
   if ([(ICQDaemonOffer *)self isBuddyOffer])
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v51 = _ICQGetLogSystem();
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+      v52 = _ICQGetLogSystem();
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_275572000, v51, OS_LOG_TYPE_DEFAULT, "Error: buddy offer object of incorrect class -- will persist at the wrong key", buf, 2u);
+        _os_log_impl(&dword_275572000, v52, OS_LOG_TYPE_DEFAULT, "Error: buddy offer object of incorrect class -- will persist at the wrong key", buf, 2u);
       }
     }
   }
@@ -421,11 +419,11 @@ LABEL_40:
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v52 = _ICQGetLogSystem();
-      if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+      v53 = _ICQGetLogSystem();
+      if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_275572000, v52, OS_LOG_TYPE_DEFAULT, "Error: default offer object of incorrect class -- will persist at the wrong key", buf, 2u);
+        _os_log_impl(&dword_275572000, v53, OS_LOG_TYPE_DEFAULT, "Error: default offer object of incorrect class -- will persist at the wrong key", buf, 2u);
       }
     }
   }
@@ -435,42 +433,40 @@ LABEL_40:
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v53 = _ICQGetLogSystem();
-      if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+      v54 = _ICQGetLogSystem();
+      if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_275572000, v53, OS_LOG_TYPE_DEFAULT, "Error: premium offer object of incorrect class -- will persist at the wrong key", buf, 2u);
+        _os_log_impl(&dword_275572000, v54, OS_LOG_TYPE_DEFAULT, "Error: premium offer object of incorrect class -- will persist at the wrong key", buf, 2u);
       }
     }
   }
-
-  v54 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_eligibleAppLaunchLinks
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEBF8] mutableCopy];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = self->_internalAppLaunchLinks;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         if ([v9 isEligible])
         {
           appId = [v9 appId];
@@ -478,43 +474,42 @@ LABEL_40:
         }
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
 
   v11 = [v3 copy];
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (id)appLaunchLinkForBundleID:(id)d
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if ([(NSArray *)self->_savedEligibleAppLaunchLinks containsObject:dCopy])
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v5 = self->_internalAppLaunchLinks;
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
-      v7 = *v15;
+      v7 = *v14;
       while (2)
       {
         for (i = 0; i != v6; i = i + 1)
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(v5);
           }
 
-          v9 = *(*(&v14 + 1) + 8 * i);
+          v9 = *(*(&v13 + 1) + 8 * i);
           appId = [v9 appId];
           v11 = [appId isEqualToString:dCopy];
 
@@ -525,7 +520,7 @@ LABEL_40:
           }
         }
 
-        v6 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v6)
         {
           continue;
@@ -543,15 +538,13 @@ LABEL_13:
     v6 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (NSDictionary)lockScreenInfo
 {
   serverDictionary = [(ICQDaemonPersisted *)self serverDictionary];
-  v3 = [serverDictionary objectForKeyedSubscript:@"lockScreenInfo"];
+  v3 = objc_msgSend_objectForKeyedSubscript_(serverDictionary);
 
   return v3;
 }
@@ -561,7 +554,7 @@ LABEL_13:
   v26 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   serverDictionary = [(ICQDaemonPersisted *)self serverDictionary];
-  v5 = [serverDictionary objectForKeyedSubscript:@"inlineAlertInfo"];
+  v5 = objc_msgSend_objectForKeyedSubscript_(serverDictionary);
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -591,13 +584,13 @@ LABEL_13:
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v13 = [v12 objectForKeyedSubscript:@"alertKey"];
+            v13 = objc_msgSend_objectForKeyedSubscript_(v12);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) != 0 && [v13 isEqualToString:keyCopy])
             {
-              v14 = _ICQAlertSpecificationForServerDict(v12);
+              v15 = _ICQAlertSpecificationForServerDict(v12, v14);
 
-              v9 = v14;
+              v9 = v15;
             }
           }
 
@@ -632,8 +625,6 @@ LABEL_13:
     v9 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
@@ -651,22 +642,20 @@ LABEL_13:
 
 void __50__ICQDaemonOffer_Internal__defaultPlaceholderKeys__block_invoke()
 {
-  v5[3] = *MEMORY[0x277D85DE8];
+  v4[3] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
-  v5[0] = @"PhotoLibrarySize";
-  v5[1] = @"PhotoLibraryUploadSize";
-  v5[2] = @"PhotosVideosCount";
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:3];
+  v4[0] = @"PhotoLibrarySize";
+  v4[1] = @"PhotoLibraryUploadSize";
+  v4[2] = @"PhotosVideosCount";
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:3];
   v2 = [v0 setWithArray:v1];
   v3 = defaultPlaceholderKeys_sPlaceholderKeysDefault;
   defaultPlaceholderKeys_sPlaceholderKeysDefault = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (id)placeholderKeysInString:(id)string fromKeys:(id)keys
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   v6 = [string componentsSeparatedByString:@"%$"];
   if ([v6 count] >= 2)
@@ -678,26 +667,26 @@ void __50__ICQDaemonOffer_Internal__defaultPlaceholderKeys__block_invoke()
       do
       {
         v10 = [v6 objectAtIndexedSubscript:v9];
+        v18 = 0u;
         v19 = 0u;
         v20 = 0u;
         v21 = 0u;
-        v22 = 0u;
         v11 = keysCopy;
-        v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v20;
+          v14 = *v19;
           while (2)
           {
             for (i = 0; i != v13; ++i)
             {
-              if (*v20 != v14)
+              if (*v19 != v14)
               {
                 objc_enumerationMutation(v11);
               }
 
-              v16 = *(*(&v19 + 1) + 8 * i);
+              v16 = *(*(&v18 + 1) + 8 * i);
               if ([v10 hasPrefix:v16])
               {
                 [v8 addObject:v16];
@@ -705,7 +694,7 @@ void __50__ICQDaemonOffer_Internal__defaultPlaceholderKeys__block_invoke()
               }
             }
 
-            v13 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+            v13 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
             if (v13)
             {
               continue;
@@ -731,14 +720,12 @@ LABEL_15:
     v7 = MEMORY[0x277CBEBF8];
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 + (id)substitutionForPlaceholderKey:(id)key outIsBelowMin:(BOOL *)min
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if ([keyCopy isEqualToString:@"PhotoLibrarySize"])
   {
@@ -760,11 +747,11 @@ LABEL_3:
     v10 = _ICQGetLogSystem();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412546;
-      v18 = v6;
-      v19 = 2048;
-      v20 = 100000000;
-      _os_log_impl(&dword_275572000, v10, OS_LOG_TYPE_DEFAULT, "photosLibraryUploadSize: %@ < %lld -- recommending alternate string", &v17, 0x16u);
+      v16 = 138412546;
+      v17 = v6;
+      v18 = 2048;
+      v19 = 100000000;
+      _os_log_impl(&dword_275572000, v10, OS_LOG_TYPE_DEFAULT, "photosLibraryUploadSize: %@ < %lld -- recommending alternate string", &v16, 0x16u);
     }
 
     v7 = 1;
@@ -783,14 +770,14 @@ LABEL_3:
     v6 = v13;
     if (min && [v13 integerValue] <= 0)
     {
-      v16 = _ICQGetLogSystem();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v15 = _ICQGetLogSystem();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = 138412546;
-        v18 = v6;
-        v19 = 2048;
-        v20 = 1;
-        _os_log_impl(&dword_275572000, v16, OS_LOG_TYPE_DEFAULT, "photosVideosCount: %@ < %lld -- recommending alternate string", &v17, 0x16u);
+        v16 = 138412546;
+        v17 = v6;
+        v18 = 2048;
+        v19 = 1;
+        _os_log_impl(&dword_275572000, v15, OS_LOG_TYPE_DEFAULT, "photosVideosCount: %@ < %lld -- recommending alternate string", &v16, 0x16u);
       }
 
       v7 = 0;
@@ -830,57 +817,55 @@ LABEL_19:
 
 LABEL_20:
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 + (id)substitutionsForPlaceholderKeys:(id)keys checkIfBelowMin:(BOOL)min outIsMissingSubstitution:(BOOL *)substitution
 {
   minCopy = min;
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
-  v23 = objc_opt_new();
+  v22 = objc_opt_new();
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v9 = keysCopy;
-  v10 = [v9 countByEnumeratingWithState:&v25 objects:v33 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v24 objects:v32 count:16];
   if (v10)
   {
     v12 = v10;
-    v13 = *v26;
+    v13 = *v25;
     *&v11 = 138412546;
-    v22 = v11;
+    v21 = v11;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v26 != v13)
+        if (*v25 != v13)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v25 + 1) + 8 * i);
-        v24 = 0;
-        v16 = [self substitutionForPlaceholderKey:v15 outIsBelowMin:{&v24, v22}];
+        v15 = *(*(&v24 + 1) + 8 * i);
+        v23 = 0;
+        v16 = [self substitutionForPlaceholderKey:v15 outIsBelowMin:{&v23, v21}];
         v17 = v16;
-        if (!minCopy || v24 != 1)
+        if (!minCopy || v23 != 1)
         {
           if (v16)
           {
-            [v23 setObject:v16 forKeyedSubscript:v15];
+            [v22 setObject:v16 forKeyedSubscript:v15];
             goto LABEL_15;
           }
 
           v18 = _ICQGetLogSystem();
           if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v22;
-            v30 = @"%$";
-            v31 = 2112;
-            v32 = v15;
+            *buf = v21;
+            v29 = @"%$";
+            v30 = 2112;
+            v31 = v15;
             _os_log_impl(&dword_275572000, v18, OS_LOG_TYPE_DEFAULT, "no substitution for placeholder %@%@", buf, 0x16u);
           }
         }
@@ -893,14 +878,13 @@ LABEL_20:
 LABEL_15:
       }
 
-      v12 = [v9 countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v12 = [v9 countByEnumeratingWithState:&v24 objects:v32 count:16];
     }
 
     while (v12);
   }
 
-  v19 = [v23 copy];
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = [v22 copy];
 
   return v19;
 }
@@ -941,13 +925,13 @@ LABEL_15:
 
 + (id)stringWithPlaceholderFormat:(id)format substitutions:(id)substitutions
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   formatCopy = format;
   substitutionsCopy = substitutions;
   v7 = [formatCopy componentsSeparatedByString:@"%$"];
   if ([v7 count] > 1)
   {
-    v27 = formatCopy;
+    v26 = formatCopy;
     v9 = [v7 objectAtIndexedSubscript:0];
     v10 = [v9 mutableCopy];
 
@@ -957,41 +941,41 @@ LABEL_15:
       do
       {
         v12 = [v7 objectAtIndexedSubscript:v11];
+        v27 = 0u;
         v28 = 0u;
         v29 = 0u;
         v30 = 0u;
-        v31 = 0u;
         v13 = substitutionsCopy;
-        v14 = [v13 countByEnumeratingWithState:&v28 objects:v36 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v27 objects:v35 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v29;
+          v16 = *v28;
           while (2)
           {
             for (i = 0; i != v15; ++i)
             {
-              if (*v29 != v16)
+              if (*v28 != v16)
               {
                 objc_enumerationMutation(v13);
               }
 
-              v18 = *(*(&v28 + 1) + 8 * i);
+              v18 = *(*(&v27 + 1) + 8 * i);
               if ([v12 hasPrefix:v18])
               {
                 v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", @"%$", v18];
                 v21 = _ICQGetLogSystem();
                 if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
                 {
-                  v22 = [v13 objectForKeyedSubscript:v18];
+                  v22 = objc_msgSend_objectForKeyedSubscript_(v13);
                   *buf = 138543618;
-                  v33 = v20;
-                  v34 = 2112;
-                  v35 = v22;
+                  v32 = v20;
+                  v33 = 2112;
+                  v34 = v22;
                   _os_log_impl(&dword_275572000, v21, OS_LOG_TYPE_DEFAULT, "substituting for placeholder %{public}@ = %@", buf, 0x16u);
                 }
 
-                v23 = [v13 objectForKeyedSubscript:v18];
+                v23 = objc_msgSend_objectForKeyedSubscript_(v13);
                 [v10 appendString:v23];
 
                 v24 = [v12 substringFromIndex:{objc_msgSend(v18, "length")}];
@@ -1001,7 +985,7 @@ LABEL_15:
               }
             }
 
-            v15 = [v13 countByEnumeratingWithState:&v28 objects:v36 count:16];
+            v15 = [v13 countByEnumeratingWithState:&v27 objects:v35 count:16];
             if (v15)
             {
               continue;
@@ -1016,7 +1000,7 @@ LABEL_15:
         if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v33 = v13;
+          v32 = v13;
           _os_log_impl(&dword_275572000, v19, OS_LOG_TYPE_DEFAULT, "missing substitution for substring %{public}@", buf, 0xCu);
         }
 
@@ -1031,15 +1015,13 @@ LABEL_19:
 
     v8 = [v10 copy];
 
-    formatCopy = v27;
+    formatCopy = v26;
   }
 
   else
   {
     v8 = formatCopy;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

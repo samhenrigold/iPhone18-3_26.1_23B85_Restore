@@ -10,6 +10,8 @@
 + (unint64_t)_performTCCPreflightRequest;
 + (unint64_t)_trackingAuthorizationStatus;
 + (void)_performTCCAccessRequest:(id)request;
++ (void)_sendRequestTrackingAnalytic:(unint64_t)analytic prompted:(BOOL)prompted deniedReason:(unint64_t)reason;
++ (void)_sendTrackingStatusAnalytic:(unint64_t)analytic prompted:(BOOL)prompted deniedReason:(unint64_t)reason;
 + (void)requestTrackingAuthorizationWithCompletionHandler:(void *)completion;
 @end
 
@@ -76,6 +78,38 @@ void __60__ATTrackingManager__applicationHasDisqualifyingEntitlement__block_invo
   return v3;
 }
 
++ (void)_sendRequestTrackingAnalytic:(unint64_t)analytic prompted:(BOOL)prompted deniedReason:(unint64_t)reason
+{
+  promptedCopy = prompted;
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:analytic];
+  [dictionary setValue:v8 forKey:@"result"];
+
+  v9 = [MEMORY[0x277CCABB0] numberWithBool:promptedCopy];
+  [dictionary setValue:v9 forKey:@"userWasPrompted"];
+
+  v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:reason];
+  [dictionary setValue:v10 forKey:@"reasonDenied"];
+
+  AnalyticsSendEvent();
+}
+
++ (void)_sendTrackingStatusAnalytic:(unint64_t)analytic prompted:(BOOL)prompted deniedReason:(unint64_t)reason
+{
+  promptedCopy = prompted;
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:analytic];
+  [dictionary setValue:v8 forKey:@"result"];
+
+  v9 = [MEMORY[0x277CCABB0] numberWithBool:promptedCopy];
+  [dictionary setValue:v9 forKey:@"userWasPrompted"];
+
+  v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:reason];
+  [dictionary setValue:v10 forKey:@"reasonDenied"];
+
+  AnalyticsSendEvent();
+}
+
 + (id)_TCCServer
 {
   if (_TCCServer_onceToken != -1)
@@ -97,7 +131,7 @@ uint64_t __31__ATTrackingManager__TCCServer__block_invoke()
 
 + (unint64_t)_performTCCPreflightRequest
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138412290;
@@ -107,44 +141,41 @@ uint64_t __31__ATTrackingManager__TCCServer__block_invoke()
   }
 
   _TCCServer = [self _TCCServer];
-  v5 = *MEMORY[0x277D6C238];
-  v6 = tcc_service_singleton_for_CF_name();
-  v7 = tcc_message_options_create();
+  v5 = tcc_service_singleton_for_CF_name();
+  v6 = tcc_message_options_create();
   tcc_message_options_set_reply_handler_policy();
   tcc_message_options_set_request_prompt_policy();
-  v8 = tcc_credential_singleton_for_self();
+  v7 = tcc_credential_singleton_for_self();
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v15 = 0x2020000000;
-  v16 = 1;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __48__ATTrackingManager__performTCCPreflightRequest__block_invoke;
-  v13[3] = &unk_278A07070;
-  v13[4] = &buf;
-  v13[5] = self;
-  v9 = MEMORY[0x2383B6A10](v13);
+  v13 = 0x2020000000;
+  v14 = 1;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __48__ATTrackingManager__performTCCPreflightRequest__block_invoke;
+  v11[3] = &unk_278A07070;
+  v11[4] = &buf;
+  v11[5] = self;
+  v8 = MEMORY[0x2383B6A10](v11);
   tcc_server_message_request_authorization();
-  v10 = *(*(&buf + 1) + 24);
+  v9 = *(*(&buf + 1) + 24);
 
   _Block_object_dispose(&buf, 8);
-  v11 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v9;
 }
 
 void __48__ATTrackingManager__performTCCPreflightRequest__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (!v5 || a3)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 40);
-      v9 = 138412290;
-      v10 = objc_opt_class();
-      v7 = v10;
-      _os_log_impl(&dword_236A7E000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] Received error invoking TCC preflight request.", &v9, 0xCu);
+      v7 = 138412290;
+      v8 = objc_opt_class();
+      v6 = v8;
+      _os_log_impl(&dword_236A7E000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] Received error invoking TCC preflight request.", &v7, 0xCu);
     }
   }
 
@@ -152,55 +183,49 @@ void __48__ATTrackingManager__performTCCPreflightRequest__block_invoke(uint64_t 
   {
     *(*(*(a1 + 32) + 8) + 24) = tcc_authorization_record_get_authorization_right();
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_performTCCAccessRequest:(id)request
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = objc_opt_class();
-    v5 = v18;
+    v16 = objc_opt_class();
+    v5 = v16;
     _os_log_impl(&dword_236A7E000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] Performing TCC Access Request.", buf, 0xCu);
   }
 
   _TCCServer = [self _TCCServer];
-  v7 = *MEMORY[0x277D6C238];
-  v8 = tcc_service_singleton_for_CF_name();
-  v9 = tcc_message_options_create();
+  v7 = tcc_service_singleton_for_CF_name();
+  v8 = tcc_message_options_create();
   tcc_message_options_set_reply_handler_policy();
   tcc_message_options_set_request_prompt_policy();
-  v10 = tcc_credential_singleton_for_self();
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __46__ATTrackingManager__performTCCAccessRequest___block_invoke;
-  v14[3] = &unk_278A07098;
-  v15 = requestCopy;
+  v9 = tcc_credential_singleton_for_self();
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __46__ATTrackingManager__performTCCAccessRequest___block_invoke;
+  v12[3] = &unk_278A07098;
+  v13 = requestCopy;
   selfCopy = self;
-  v11 = requestCopy;
-  v12 = MEMORY[0x2383B6A10](v14);
+  v10 = requestCopy;
+  v11 = MEMORY[0x2383B6A10](v12);
   tcc_server_message_request_authorization();
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __46__ATTrackingManager__performTCCAccessRequest___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (!v5 || a3)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 40);
-      v10 = 138412290;
-      v11 = objc_opt_class();
-      v8 = v11;
-      _os_log_impl(&dword_236A7E000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] Received error invoking TCC access request.", &v10, 0xCu);
+      v8 = 138412290;
+      v9 = objc_opt_class();
+      v7 = v9;
+      _os_log_impl(&dword_236A7E000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] Received error invoking TCC access request.", &v8, 0xCu);
     }
 
     (*(*(a1 + 32) + 16))(*(a1 + 32), 1);
@@ -211,8 +236,6 @@ void __46__ATTrackingManager__performTCCAccessRequest___block_invoke(uint64_t a1
     authorization_right = tcc_authorization_record_get_authorization_right();
     (*(*(a1 + 32) + 16))(*(a1 + 32), authorization_right);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (unint64_t)_trackingAuthorizationStatus
@@ -267,7 +290,7 @@ void __46__ATTrackingManager__performTCCAccessRequest___block_invoke(uint64_t a1
 
 + (ATTrackingManagerAuthorizationStatus)trackingAuthorizationStatus
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -291,7 +314,7 @@ void __46__ATTrackingManager__performTCCAccessRequest___block_invoke(uint64_t a1
       _os_log_impl(&dword_236A7E000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] Call to trackingAuthorizationStatus eligible for rate limiting. Returning %lu", buf, 0x16u);
     }
 
-    v9 = _lastAuthorizationStatus;
+    return _lastAuthorizationStatus;
   }
 
   else
@@ -299,22 +322,22 @@ void __46__ATTrackingManager__performTCCAccessRequest___block_invoke(uint64_t a1
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v25 = 0;
+    v24 = 0;
     selfCopy = self;
     objc_sync_enter(selfCopy);
     _trackingAuthorizationStatus = [selfCopy _trackingAuthorizationStatus];
     *(*&buf[8] + 24) = _trackingAuthorizationStatus;
     objc_sync_exit(selfCopy);
 
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __48__ATTrackingManager_trackingAuthorizationStatus__block_invoke;
-    v19[3] = &unk_278A070C0;
-    v19[4] = buf;
-    v19[5] = selfCopy;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __48__ATTrackingManager_trackingAuthorizationStatus__block_invoke;
+    v18[3] = &unk_278A070C0;
+    v18[4] = buf;
+    v18[5] = selfCopy;
     if (trackingAuthorizationStatus_onceToken != -1)
     {
-      dispatch_once(&trackingAuthorizationStatus_onceToken, v19);
+      dispatch_once(&trackingAuthorizationStatus_onceToken, v18);
     }
 
     _lastTrackingAuthTimestamp = CFAbsoluteTimeGetCurrent();
@@ -325,19 +348,18 @@ void __46__ATTrackingManager__performTCCAccessRequest___block_invoke(uint64_t a1
     {
       v14 = objc_opt_class();
       v15 = *(*&buf[8] + 24);
-      *v20 = 138412546;
-      v21 = v14;
-      v22 = 2048;
-      v23 = v15;
+      *v19 = 138412546;
+      v20 = v14;
+      v21 = 2048;
+      v22 = v15;
       v16 = v14;
-      _os_log_impl(&dword_236A7E000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] Returning from trackingAuthorizationStatus - %lu", v20, 0x16u);
+      _os_log_impl(&dword_236A7E000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] Returning from trackingAuthorizationStatus - %lu", v19, 0x16u);
     }
 
     v9 = *(*&buf[8] + 24);
     _Block_object_dispose(buf, 8);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -383,13 +405,13 @@ void __43__ATTrackingManager_applicationStateActive__block_invoke()
 
 + (void)requestTrackingAuthorizationWithCompletionHandler:(void *)completion
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v4 = completion;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v37 = objc_opt_class();
-    v5 = v37;
+    v36 = objc_opt_class();
+    v5 = v36;
     _os_log_impl(&dword_236A7E000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] requestTrackingAuthorizationWithCompletionHandler API call invoked.", buf, 0xCu);
   }
 
@@ -403,9 +425,9 @@ void __43__ATTrackingManager_applicationStateActive__block_invoke()
       {
         v8 = objc_opt_class();
         *buf = 138412546;
-        v37 = v8;
-        v38 = 2048;
-        v39 = _lastAuthorizationStatus;
+        v36 = v8;
+        v37 = 2048;
+        v38 = _lastAuthorizationStatus;
         v9 = v8;
         _os_log_impl(&dword_236A7E000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] Call to requestTrackingAuthorizationWithCompletionHandler eligible for rate limiting. Returning %lu", buf, 0x16u);
       }
@@ -426,7 +448,7 @@ void __43__ATTrackingManager_applicationStateActive__block_invoke()
         {
           v14 = objc_opt_class();
           *buf = 138412290;
-          v37 = v14;
+          v36 = v14;
           v15 = v14;
           _os_log_impl(&dword_236A7E000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] requestTrackingAuthorizationWithCompletionHandler returning - Restricted due to profile.", buf, 0xCu);
         }
@@ -445,7 +467,7 @@ LABEL_26:
         {
           v18 = objc_opt_class();
           *buf = 138412290;
-          v37 = v18;
+          v36 = v18;
           v19 = v18;
           _os_log_impl(&dword_236A7E000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] requestTrackingAuthorizationWithCompletionHandler returning - Restricted.", buf, 0xCu);
         }
@@ -462,7 +484,7 @@ LABEL_26:
         {
           v16 = objc_opt_class();
           *buf = 138412290;
-          v37 = v16;
+          v36 = v16;
           v17 = v16;
           _os_log_impl(&dword_236A7E000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] requestTrackingAuthorizationWithCompletionHandler returning - Restricted due to permission.", buf, 0xCu);
         }
@@ -490,12 +512,12 @@ LABEL_26:
               _lastAuthorizationStatus = _trackingAuthorizationStatus;
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
               {
-                v25 = objc_opt_class();
+                v24 = objc_opt_class();
                 *buf = 138412546;
-                v37 = v25;
-                v38 = 2048;
-                v39 = _trackingAuthorizationStatus;
-                v26 = v25;
+                v36 = v24;
+                v37 = 2048;
+                v38 = _trackingAuthorizationStatus;
+                v25 = v24;
                 _os_log_impl(&dword_236A7E000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] requestTrackingAuthorizationWithCompletionHandler returning %lu due to backgrounded app.", buf, 0x16u);
               }
 
@@ -504,13 +526,13 @@ LABEL_26:
 
             else
             {
-              v33[0] = MEMORY[0x277D85DD0];
-              v33[1] = 3221225472;
-              v33[2] = __71__ATTrackingManager_requestTrackingAuthorizationWithCompletionHandler___block_invoke;
-              v33[3] = &unk_278A070E8;
+              v32[0] = MEMORY[0x277D85DD0];
+              v32[1] = 3221225472;
+              v32[2] = __71__ATTrackingManager_requestTrackingAuthorizationWithCompletionHandler___block_invoke;
+              v32[3] = &unk_278A070E8;
               selfCopy2 = self;
-              v34 = v4;
-              [self _performTCCAccessRequest:v33];
+              v33 = v4;
+              [self _performTCCAccessRequest:v32];
             }
 
             goto LABEL_27;
@@ -521,10 +543,10 @@ LABEL_26:
           _lastAuthorizationStatus = 2;
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
-            v31 = objc_opt_class();
+            v30 = objc_opt_class();
             *buf = 138412290;
-            v37 = v31;
-            v32 = v31;
+            v36 = v30;
+            v31 = v30;
             _os_log_impl(&dword_236A7E000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] requestTrackingAuthorizationWithCompletionHandler returning - ATT Denied due to tracking toggle.", buf, 0xCu);
           }
         }
@@ -536,10 +558,10 @@ LABEL_26:
           _lastAuthorizationStatus = 2;
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
-            v29 = objc_opt_class();
+            v28 = objc_opt_class();
             *buf = 138412290;
-            v37 = v29;
-            v30 = v29;
+            v36 = v28;
+            v29 = v28;
             _os_log_impl(&dword_236A7E000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] requestTrackingAuthorizationWithCompletionHandler returning Denied due to consent.", buf, 0xCu);
           }
         }
@@ -553,10 +575,10 @@ LABEL_26:
       _lastAuthorizationStatus = 3;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v27 = objc_opt_class();
+        v26 = objc_opt_class();
         *buf = 138412290;
-        v37 = v27;
-        v28 = v27;
+        v36 = v26;
+        v27 = v26;
         _os_log_impl(&dword_236A7E000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] requestTrackingAuthorizationWithCompletionHandler returning Authorized due to consent.", buf, 0xCu);
       }
 
@@ -568,19 +590,17 @@ LABEL_26:
   {
     v10 = objc_opt_class();
     *buf = 138412290;
-    v37 = v10;
+    v36 = v10;
     v11 = v10;
     _os_log_impl(&dword_236A7E000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] requestTrackingAuthorizationWithCompletionHandler API call failed due to missing completion.", buf, 0xCu);
   }
 
 LABEL_27:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __71__ATTrackingManager_requestTrackingAuthorizationWithCompletionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 40);
   if (a2)
   {
@@ -592,11 +612,10 @@ uint64_t __71__ATTrackingManager_requestTrackingAuthorizationWithCompletionHandl
       _lastAuthorizationStatus = 3;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v5 = *(a1 + 40);
-        v13 = 138412290;
-        v14 = objc_opt_class();
-        v6 = v14;
-        _os_log_impl(&dword_236A7E000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] requestTrackingAuthorizationWithCompletionHandler returning - ATT Authorized.", &v13, 0xCu);
+        v9 = 138412290;
+        v10 = objc_opt_class();
+        v5 = v10;
+        _os_log_impl(&dword_236A7E000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] requestTrackingAuthorizationWithCompletionHandler returning - ATT Authorized.", &v9, 0xCu);
 
         v4 = 3;
       }
@@ -610,11 +629,10 @@ uint64_t __71__ATTrackingManager_requestTrackingAuthorizationWithCompletionHandl
       v4 = 0;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v9 = *(a1 + 40);
-        v13 = 138412290;
-        v14 = objc_opt_class();
-        v10 = v14;
-        _os_log_impl(&dword_236A7E000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] requestTrackingAuthorizationWithCompletionHandler returning - ATT not determined.", &v13, 0xCu);
+        v9 = 138412290;
+        v10 = objc_opt_class();
+        v7 = v10;
+        _os_log_impl(&dword_236A7E000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] requestTrackingAuthorizationWithCompletionHandler returning - ATT not determined.", &v9, 0xCu);
 
         v4 = 0;
       }
@@ -629,19 +647,16 @@ uint64_t __71__ATTrackingManager_requestTrackingAuthorizationWithCompletionHandl
     _lastAuthorizationStatus = 2;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 40);
-      v13 = 138412290;
-      v14 = objc_opt_class();
-      v8 = v14;
-      _os_log_impl(&dword_236A7E000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] requestTrackingAuthorizationWithCompletionHandler returning - ATT Denied due to consent.", &v13, 0xCu);
+      v9 = 138412290;
+      v10 = objc_opt_class();
+      v6 = v10;
+      _os_log_impl(&dword_236A7E000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] requestTrackingAuthorizationWithCompletionHandler returning - ATT Denied due to consent.", &v9, 0xCu);
 
       v4 = 2;
     }
   }
 
-  result = (*(*(a1 + 32) + 16))(*(a1 + 32), v4);
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 32) + 16))(*(a1 + 32), v4);
 }
 
 @end

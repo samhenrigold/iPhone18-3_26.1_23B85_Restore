@@ -98,7 +98,7 @@
   [imageCopy frame];
   v21 = v20;
   v23 = v22;
-  [buildCopy duration];
+  objc_msgSend_duration(buildCopy);
   direction = [buildCopy direction];
   if (contextCopy)
   {
@@ -260,7 +260,7 @@
   [(KNBuildConfettiSystem *)self->_particleSystem speedMax];
   *&v27 = v27;
   *&self->_anon_b0[52] = LODWORD(v27);
-  [(KNAnimationEffect *)self perspectiveMVPMatrixWithContext:contextCopy];
+  objc_msgSend_perspectiveMVPMatrixWithContext_(self);
   v28 = v37;
   *&self->_baseTransform.m31 = v36;
   *&self->_baseTransform.m33 = v28;

@@ -32,7 +32,7 @@
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Canceling remote job for %{public}@", buf, 0xCu);
   }
 
-  v12 = sub_1002B0154();
+  v12 = sub_1002B0154(XDCDeviceManager);
   v13 = sub_1002B08FC(v12, deviceCopy);
 
   if (v13 && (v13[18] & 1) != 0)
@@ -41,7 +41,7 @@
     bundleID = [appCopy bundleID];
     sub_10029B38C(v14, bundleID);
 
-    v16 = sub_1002EB36C();
+    v16 = sub_1002EB36C(XDCService);
     v21[0] = _NSConcreteStackBlock;
     v21[1] = 3221225472;
     v21[2] = sub_1001E3F20;
@@ -192,7 +192,7 @@ LABEL_11:
   v12 = Property;
   v13 = [(XDCCancelInstallRequest *)v10 initWithData:v12];
 
-  v14 = sub_1003649C8();
+  v14 = sub_1003649C8(ProgressCache);
   if (v13)
   {
     bundleID = v13->_bundleID;

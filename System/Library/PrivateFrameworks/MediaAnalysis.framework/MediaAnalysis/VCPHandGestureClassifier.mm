@@ -279,32 +279,32 @@ LABEL_22:
 - (int)processPerson:(int)person withObservations:(id)observations andFaceRects:(id)rects faceYaws:(id)yaws
 {
   v8 = *&person;
-  v76 = *MEMORY[0x1E69E9840];
+  v79 = *MEMORY[0x1E69E9840];
   observationsCopy = observations;
   rectsCopy = rects;
   yawsCopy = yaws;
   [(VCPCoreMLFeatureProviderGestureVideo *)self->_featureProvider setCurrentGroupID:v8];
-  v71 = 0u;
+  v74 = 0u;
+  v75 = 0u;
   v72 = 0u;
-  v69 = 0u;
-  v70 = 0u;
+  v73 = 0u;
   v11 = observationsCopy;
   v12 = 0;
   v13 = 0;
-  v14 = [v11 countByEnumeratingWithState:&v69 objects:v75 count:16];
+  v14 = [v11 countByEnumeratingWithState:&v72 objects:v78 count:16];
   if (v14)
   {
-    v15 = *v70;
+    v15 = *v73;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v70 != v15)
+        if (*v73 != v15)
         {
           objc_enumerationMutation(v11);
         }
 
-        v17 = *(*(&v69 + 1) + 8 * i);
+        v17 = *(*(&v72 + 1) + 8 * i);
         if ([(VCPHandObservation *)v17 chirality]== -1)
         {
           if (!v13 || (v20 = handArea(v13), v20 < handArea(v17)))
@@ -328,7 +328,7 @@ LABEL_22:
         }
       }
 
-      v14 = [v11 countByEnumeratingWithState:&v69 objects:v75 count:16];
+      v14 = [v11 countByEnumeratingWithState:&v72 objects:v78 count:16];
     }
 
     while (v14);
@@ -337,81 +337,86 @@ LABEL_22:
   [(VCPCoreMLFeatureProviderGestureVideo *)self->_featureProvider addLeftHand:v13 andRightHand:v12];
   if ([(VCPCoreMLFeatureProviderGestureVideo *)self->_featureProvider ready]&& v13 | v12)
   {
-    if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+    v22 = MediaAnalysisLogLevel();
+    if (v22 >= 6)
     {
-      *buf = 67109120;
-      LODWORD(v74) = v8;
-      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "VCPHandGestureVideoRequest : classify group %d", buf, 8u);
+      v22 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO);
+      if (v22)
+      {
+        *buf = 67109120;
+        LODWORD(v77) = v8;
+        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "VCPHandGestureVideoRequest : classify group %d", buf, 8u);
+      }
     }
 
-    v22 = VCPSignPostLog();
-    spid = os_signpost_id_generate(v22);
+    v23 = VCPSignPostLog(v22);
+    spid = os_signpost_id_generate(v23);
 
-    v23 = VCPSignPostLog();
-    v24 = v23;
-    if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
+    v25 = VCPSignPostLog(v24);
+    v26 = v25;
+    if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v24, OS_SIGNPOST_INTERVAL_BEGIN, spid, "VCPHandGestureVideoRequest_classifier", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v26, OS_SIGNPOST_INTERVAL_BEGIN, spid, "VCPHandGestureVideoRequest_classifier", "", buf, 2u);
     }
 
     [(VCPCoreMLFeatureProviderGestureVideo *)self->_featureProvider setScaleUpSmallHandGroup:1];
     if (!v12)
     {
       [objc_opt_class() enableFlip];
-      if (v32 != 0.0)
+      if (v34 != 0.0)
       {
         dictionaryValue2 = 0;
-        v34 = 0;
+        v36 = 0;
 LABEL_34:
-        [objc_opt_class() enableFlip];
+        enableFlip = [objc_opt_class() enableFlip];
         dictionaryValue = 0;
-        if (v13 && v39 != 0.0)
+        if (v13 && v42 != 0.0)
         {
           [(VCPCoreMLFeatureProviderGestureVideo *)self->_featureProvider setLrFlip:1];
           gestureCoreMLRequest = self->_gestureCoreMLRequest;
-          v60 = dictionaryValue2;
+          v63 = dictionaryValue2;
           if (self->_MLOptions)
           {
             model = [(VCPCoreMLRequest *)gestureCoreMLRequest model];
             featureProvider = self->_featureProvider;
             MLOptions = self->_MLOptions;
-            v45 = &v66;
-            v66 = v34;
-            v46 = [model predictionFromFeatures:featureProvider options:MLOptions error:&v66];
+            v48 = &v69;
+            v69 = v36;
+            v49 = [model predictionFromFeatures:featureProvider options:MLOptions error:&v69];
           }
 
           else
           {
             model = [(VCPCoreMLRequest *)gestureCoreMLRequest model];
-            v50 = self->_featureProvider;
-            v65 = v34;
-            v45 = &v65;
-            v46 = [model predictionFromFeatures:v50 error:&v65];
+            v53 = self->_featureProvider;
+            v68 = v36;
+            v48 = &v68;
+            v49 = [model predictionFromFeatures:v53 error:&v68];
           }
 
-          v51 = v46;
-          v61 = *v45;
+          v54 = v49;
+          v64 = *v48;
 
-          dictionaryValue2 = v60;
-          if (v51)
+          dictionaryValue2 = v63;
+          if (v54)
           {
-            v52 = [v51 featureValueForName:@"classLabel_probs"];
-            v53 = v52;
-            if (v52)
+            v55 = [v54 featureValueForName:@"classLabel_probs"];
+            v56 = v55;
+            if (v55)
             {
-              dictionaryValue = [v52 dictionaryValue];
+              dictionaryValue = [v55 dictionaryValue];
 
 LABEL_51:
-              v54 = VCPSignPostLog();
-              v55 = v54;
-              if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v54))
+              v57 = VCPSignPostLog(enableFlip);
+              v58 = v57;
+              if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v57))
               {
                 *buf = 0;
-                _os_signpost_emit_with_name_impl(&dword_1C9B70000, v55, OS_SIGNPOST_INTERVAL_END, spid, "VCPHandGestureVideoRequest_classifier", "", buf, 2u);
+                _os_signpost_emit_with_name_impl(&dword_1C9B70000, v58, OS_SIGNPOST_INTERVAL_END, spid, "VCPHandGestureVideoRequest_classifier", "", buf, 2u);
               }
 
-              v31 = [(VCPHandGestureClassifier *)self processLeftHand:v13 rightHand:v12 results:dictionaryValue2 resultsFlip:dictionaryValue faceRects:rectsCopy faceYaws:yawsCopy];
+              v33 = [(VCPHandGestureClassifier *)self processLeftHand:v13 rightHand:v12 results:dictionaryValue2 resultsFlip:dictionaryValue faceRects:rectsCopy faceYaws:yawsCopy];
               goto LABEL_63;
             }
 
@@ -424,58 +429,58 @@ LABEL_51:
 
           else if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
-            v56 = [v61 description];
-            v57 = v56;
-            uTF8String = [v56 UTF8String];
+            v59 = [v64 description];
+            v60 = v59;
+            uTF8String = [v59 UTF8String];
             *buf = 136315138;
-            v74 = uTF8String;
+            v77 = uTF8String;
             _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to get output feature %s", buf, 0xCu);
           }
 
           dictionaryValue = 0;
-          v31 = -18;
+          v33 = -18;
 LABEL_63:
 
-          v34 = v61;
+          v36 = v64;
           goto LABEL_64;
         }
 
-        v61 = v34;
+        v64 = v36;
         goto LABEL_51;
       }
     }
 
     [(VCPCoreMLFeatureProviderGestureVideo *)self->_featureProvider setLrFlip:0];
-    v25 = self->_gestureCoreMLRequest;
+    v27 = self->_gestureCoreMLRequest;
     if (self->_MLOptions)
     {
-      model2 = [(VCPCoreMLRequest *)v25 model];
-      v27 = self->_featureProvider;
-      v28 = self->_MLOptions;
-      v29 = &v68;
-      v68 = 0;
-      v30 = [model2 predictionFromFeatures:v27 options:v28 error:&v68];
+      model2 = [(VCPCoreMLRequest *)v27 model];
+      v29 = self->_featureProvider;
+      v30 = self->_MLOptions;
+      v31 = &v71;
+      v71 = 0;
+      v32 = [model2 predictionFromFeatures:v29 options:v30 error:&v71];
     }
 
     else
     {
-      model2 = [(VCPCoreMLRequest *)v25 model];
-      v35 = self->_featureProvider;
-      v67 = 0;
-      v29 = &v67;
-      v30 = [model2 predictionFromFeatures:v35 error:&v67];
+      model2 = [(VCPCoreMLRequest *)v27 model];
+      v37 = self->_featureProvider;
+      v70 = 0;
+      v31 = &v70;
+      v32 = [model2 predictionFromFeatures:v37 error:&v70];
     }
 
-    v36 = v30;
-    v34 = *v29;
+    v38 = v32;
+    v36 = *v31;
 
-    if (v36)
+    if (v38)
     {
-      v37 = [v36 featureValueForName:@"classLabel_probs"];
-      v38 = v37;
-      if (v37)
+      v39 = [v38 featureValueForName:@"classLabel_probs"];
+      v40 = v39;
+      if (v39)
       {
-        dictionaryValue2 = [v37 dictionaryValue];
+        dictionaryValue2 = [v39 dictionaryValue];
 
         goto LABEL_34;
       }
@@ -489,24 +494,24 @@ LABEL_63:
 
     else if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v47 = [v34 description];
-      v48 = v47;
-      uTF8String2 = [v47 UTF8String];
+      v50 = [v36 description];
+      v51 = v50;
+      uTF8String2 = [v50 UTF8String];
       *buf = 136315138;
-      v74 = uTF8String2;
+      v77 = uTF8String2;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to get output feature %s", buf, 0xCu);
     }
 
-    v31 = -18;
+    v33 = -18;
 LABEL_64:
 
     goto LABEL_65;
   }
 
-  v31 = 0;
+  v33 = 0;
 LABEL_65:
 
-  return v31;
+  return v33;
 }
 
 @end

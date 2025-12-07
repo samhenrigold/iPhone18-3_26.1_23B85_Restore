@@ -85,20 +85,20 @@
 
 - (VMUVMRegion)initWithVMRegionData:(_VMUVMRegionData *)data encodedVersion:(int64_t)version simpleSerializer:(id)serializer error:(id *)error
 {
-  v38[1] = *MEMORY[0x1E69E9840];
+  v37[1] = *MEMORY[0x1E69E9840];
   serializerCopy = serializer;
-  v34.receiver = self;
-  v34.super_class = VMUVMRegion;
-  v11 = [(VMUVMRegion *)&v34 init];
+  v33.receiver = self;
+  v33.super_class = VMUVMRegion;
+  v11 = [(VMUVMRegion *)&v33 init];
   if (!v11)
   {
     goto LABEL_6;
   }
 
-  v33 = 0;
+  v32 = 0;
   if (!error)
   {
-    error = &v33;
+    error = &v32;
   }
 
   if (version == 1)
@@ -115,11 +115,11 @@
   if (!data)
   {
     v26 = MEMORY[0x1E696ABC0];
-    v37 = *MEMORY[0x1E696A578];
-    v38[0] = @"The provided memory graph file is corrupted";
+    v36 = *MEMORY[0x1E696A578];
+    v37[0] = @"The provided memory graph file is corrupted";
     v27 = MEMORY[0x1E695DF20];
-    v28 = v38;
-    v29 = &v37;
+    v28 = v37;
+    v29 = &v36;
 LABEL_14:
     v30 = [v27 dictionaryWithObjects:v28 forKeys:v29 count:1];
     *error = [v26 errorWithDomain:@"VMUVMRegionDomain" code:1 userInfo:v30];
@@ -135,11 +135,11 @@ LABEL_15:
   if (!serializerCopy)
   {
     v26 = MEMORY[0x1E696ABC0];
-    v35 = *MEMORY[0x1E696A578];
-    v36 = @"The provided memory graph file is corrupted";
+    v34 = *MEMORY[0x1E696A578];
+    v35 = @"The provided memory graph file is corrupted";
     v27 = MEMORY[0x1E695DF20];
-    v28 = &v36;
-    v29 = &v35;
+    v28 = &v35;
+    v29 = &v34;
     goto LABEL_14;
   }
 
@@ -200,7 +200,6 @@ LABEL_6:
   v12 = v11;
 LABEL_16:
 
-  v31 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -1174,18 +1173,16 @@ LABEL_15:
 
 - (void)breakAtLength:(unint64_t)a1 .cold.1(unint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v4 = memorySizeString(a1);
   v5 = [a2 description];
-  v7 = 134218498;
-  v8 = a1;
-  v9 = 2080;
-  v10 = v4;
-  v11 = 2080;
-  v12 = [v5 UTF8String];
-  _os_log_error_impl(&dword_1C679D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "ignoring request to break region at excess length %llu (%s) for %s\n", &v7, 0x20u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 134218498;
+  v7 = a1;
+  v8 = 2080;
+  v9 = v4;
+  v10 = 2080;
+  v11 = [v5 UTF8String];
+  _os_log_error_impl(&dword_1C679D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "ignoring request to break region at excess length %llu (%s) for %s\n", &v6, 0x20u);
 }
 
 @end

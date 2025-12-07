@@ -72,7 +72,7 @@
 {
   if (!frame)
   {
-    [BWUBNRFProcessorInput addFrame:];
+    [(BWUBNRFProcessorInput *)self addFrame:a2];
     return;
   }
 
@@ -112,7 +112,7 @@ LABEL_11:
     v12 = [v11 objectForKeyedSubscript:*off_1E798B6B0];
     if (v12)
     {
-      if (([v12 isEqualToString:*off_1E798C488] & 1) == 0)
+      if ((objc_msgSend_isEqualToString_(v12) & 1) == 0)
       {
         v13 = [v11 objectForKeyedSubscript:*off_1E798B6B8];
         if (v13)
@@ -432,6 +432,8 @@ LABEL_11:
       v3 = result;
       if (dword_1EB58DE60)
       {
+        v15 = 0;
+        v14 = 0;
         os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
         os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
         OUTLINED_FUNCTION_4_0();
@@ -441,15 +443,15 @@ LABEL_11:
           [objc_msgSend(v2 "settings")];
           OUTLINED_FUNCTION_20();
           OUTLINED_FUNCTION_1_7();
-          OUTLINED_FUNCTION_5_1();
+          OUTLINED_FUNCTION_5_1(v5, v6, v13, v7, &dword_1AC90E000);
         }
 
         OUTLINED_FUNCTION_2_4();
-        OUTLINED_FUNCTION_39_0();
+        OUTLINED_FUNCTION_39_0(v8, v9, v10, v11, v12);
       }
 
       os_unfair_lock_lock(v3 + 2);
-      LOBYTE(v3[6]._os_unfair_lock_opaque) = 1;
+      *(v3 + 24) = 1;
       os_unfair_lock_unlock(v3 + 2);
       *(v2 + 80) = 1;
       return [v2[6] inputReceivedAllFrames:v2];

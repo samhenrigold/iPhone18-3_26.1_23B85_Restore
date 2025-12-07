@@ -22,6 +22,7 @@
 - (void)_handleMessage:(nstat_msg_hdr *)message length:(int64_t)length;
 - (void)_handleReads:(int64_t)reads;
 - (void)_handleRemoveForSource:(id)source;
+- (void)_noteInterfaceSrcRef:(unint64_t)ref forInterface:(unsigned int)interface threshold:(unint64_t)threshold;
 - (void)_removeSourceInternal:(unint64_t)internal;
 - (void)_restartPoll:(id)poll;
 - (void)_sendDetailsRequestMessage:(unint64_t)message;
@@ -30,6 +31,7 @@
 - (void)_sendRemoveSource:(unint64_t)source;
 - (void)_sendUpdateRequestMessage:(unint64_t)message;
 - (void)_setInterfaceTraceFd:(int)fd;
+- (void)_setThreshold:(unint64_t)threshold onInterface:(unsigned int)interface;
 - (void)_startPoll:(id)poll;
 - (void)_startQueuedPoll;
 - (void)_trace:(char *)_trace;
@@ -233,46 +235,47 @@
 
 - (void)_adaptAfterDrop
 {
-  v20 = *MEMORY[0x277D85DE8];
-  [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-  v4 = v3;
-  if (v3 - self->_currentRcvBufTimestamp > 5.0)
+  v21 = *MEMORY[0x277D85DE8];
+  timeIntervalSinceReferenceDate = [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
+  v5 = v4;
+  if (v4 - self->_currentRcvBufTimestamp > 5.0)
   {
     currentRcvBufSize = self->_currentRcvBufSize;
     if (currentRcvBufSize < 0x80000)
     {
-      if ([(NWStatsManager *)self setRcvBufsize:(currentRcvBufSize + 0x10000)])
+      v12 = [(NWStatsManager *)self setRcvBufsize:(currentRcvBufSize + 0x10000)];
+      if (v12)
       {
         ++self->_numAdaptiveRcvBufIncrements;
-        v6 = NStatGetLog();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        v7 = NStatGetLog(v12);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
-          v11 = self->_currentRcvBufSize;
+          v13 = self->_currentRcvBufSize;
           numAdaptiveRcvBufIncrements = self->_numAdaptiveRcvBufIncrements;
-          v16 = 67109376;
-          v17 = v11;
-          v18 = 1024;
-          v19 = numAdaptiveRcvBufIncrements;
-          v8 = "_adaptAfterDrop: updated buffer size to %d, adaptation count %d";
-          v9 = v6;
-          v10 = OS_LOG_TYPE_DEFAULT;
-          v13 = 14;
+          v17 = 67109376;
+          v18 = v13;
+          v19 = 1024;
+          v20 = numAdaptiveRcvBufIncrements;
+          v9 = "_adaptAfterDrop: updated buffer size to %d, adaptation count %d";
+          v10 = v7;
+          v11 = OS_LOG_TYPE_DEFAULT;
+          v15 = 14;
 LABEL_11:
-          _os_log_impl(&dword_25BA3A000, v9, v10, v8, &v16, v13);
+          _os_log_impl(&dword_25BA3A000, v10, v11, v9, &v17, v15);
         }
       }
 
       else
       {
-        v6 = NStatGetLog();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+        v7 = NStatGetLog(v12);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
-          v14 = self->_currentRcvBufSize;
-          v16 = 67109120;
-          v17 = v14;
-          v8 = "_adaptAfterDrop: unable to update buffer size from %d";
-          v9 = v6;
-          v10 = OS_LOG_TYPE_ERROR;
+          v16 = self->_currentRcvBufSize;
+          v17 = 67109120;
+          v18 = v16;
+          v9 = "_adaptAfterDrop: unable to update buffer size from %d";
+          v10 = v7;
+          v11 = OS_LOG_TYPE_ERROR;
           goto LABEL_10;
         }
       }
@@ -280,30 +283,28 @@ LABEL_11:
 
     else
     {
-      v6 = NStatGetLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = NStatGetLog(timeIntervalSinceReferenceDate);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = self->_currentRcvBufSize;
-        v16 = 67109120;
-        v17 = v7;
-        v8 = "_adaptAfterDrop: skip buffer size update as already at maximum %d";
-        v9 = v6;
-        v10 = OS_LOG_TYPE_DEFAULT;
+        v8 = self->_currentRcvBufSize;
+        v17 = 67109120;
+        v18 = v8;
+        v9 = "_adaptAfterDrop: skip buffer size update as already at maximum %d";
+        v10 = v7;
+        v11 = OS_LOG_TYPE_DEFAULT;
 LABEL_10:
-        v13 = 8;
+        v15 = 8;
         goto LABEL_11;
       }
     }
 
-    self->_currentRcvBufTimestamp = v4;
+    self->_currentRcvBufTimestamp = v5;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleMessage:(nstat_msg_hdr *)message length:(int64_t)length
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   clientQueue = [(NWStatsManager *)self clientQueue];
   dispatch_assert_queue_V2(clientQueue);
 
@@ -314,50 +315,46 @@ LABEL_10:
     {
       if (type == 10004)
       {
-        if (length < 0x90)
+        if (length >= 0x90)
         {
-          goto LABEL_133;
+
+          [(NWStatsManager *)self _handleCounts:message];
         }
 
-        v29 = *MEMORY[0x277D85DE8];
-
-        [(NWStatsManager *)self _handleCounts:message];
         return;
       }
 
       if (type != 10006 || length < 0x98)
       {
-        goto LABEL_133;
+        return;
       }
 
       context = message[9].context;
       if (context == 6)
       {
-        if (length < 0x190)
+        if (length >= 0x190)
         {
-          goto LABEL_133;
+          v19 = message[1].context;
+          context_low = LODWORD(message[10].context);
+          v21 = *&message[9].type;
+
+          [(NWStatsManager *)self _noteInterfaceSrcRef:v19 forInterface:context_low threshold:v21];
         }
 
-        v17 = message[1].context;
-        context_low = LODWORD(message[10].context);
-        v19 = *&message[9].type;
-        v20 = *MEMORY[0x277D85DE8];
-
-        [(NWStatsManager *)self _noteInterfaceSrcRef:v17 forInterface:context_low threshold:v19];
         return;
       }
 
-      v22 = NStatGetLog();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v23 = NStatGetLog(v8);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
         LODWORD(lengthCopy4) = context;
-        v23 = "update message for unknown provider %d\n";
+        v24 = "update message for unknown provider %d\n";
 LABEL_79:
-        v33 = v22;
-        v34 = 8;
+        v30 = v23;
+        v31 = 8;
 LABEL_131:
-        _os_log_impl(&dword_25BA3A000, v33, OS_LOG_TYPE_ERROR, v23, buf, v34);
+        _os_log_impl(&dword_25BA3A000, v30, OS_LOG_TYPE_ERROR, v24, buf, v31);
         goto LABEL_132;
       }
 
@@ -366,101 +363,101 @@ LABEL_131:
 
     if (length < 0x1E8)
     {
-      goto LABEL_133;
+      return;
     }
 
-    v21 = message[30].context;
-    if ((v21 & 0xFFFFFFFE) == 2)
+    v22 = message[30].context;
+    if ((v22 & 0xFFFFFFFE) == 2)
     {
       if (length <= 0x33F)
       {
-        v22 = NStatGetLog();
-        if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        v23 = NStatGetLog(v8);
+        if (!os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_132;
         }
 
         *buf = 134218240;
         lengthCopy4 = length;
-        v70 = 2048;
-        v71 = 832;
-        v23 = "TCP details message with size %ld below minimum %ld\n";
+        v65 = 2048;
+        v66 = 832;
+        v24 = "TCP details message with size %ld below minimum %ld\n";
 LABEL_130:
-        v33 = v22;
-        v34 = 22;
+        v30 = v23;
+        v31 = 22;
         goto LABEL_131;
       }
 
       goto LABEL_81;
     }
 
-    if (v21 > 7)
+    if (v22 > 7)
     {
-      if (v21 == 8)
+      if (v22 == 8)
       {
         if (length <= 0x33F)
         {
-          v22 = NStatGetLog();
-          if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+          v23 = NStatGetLog(v8);
+          if (!os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_132;
           }
 
           *buf = 134218240;
           lengthCopy4 = length;
-          v70 = 2048;
-          v71 = 832;
-          v23 = "QUIC details message with size %ld below minimum %ld\n";
+          v65 = 2048;
+          v66 = 832;
+          v24 = "QUIC details message with size %ld below minimum %ld\n";
           goto LABEL_130;
         }
 
         goto LABEL_81;
       }
 
-      if (v21 == 9)
+      if (v22 == 9)
       {
         if (length <= 0x2AF)
         {
-          v22 = NStatGetLog();
-          if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+          v23 = NStatGetLog(v8);
+          if (!os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_132;
           }
 
           *buf = 134218240;
           lengthCopy4 = length;
-          v70 = 2048;
-          v71 = 688;
-          v23 = "Userland connection details message with size %ld below minimum %ld\n";
+          v65 = 2048;
+          v66 = 688;
+          v24 = "Userland connection details message with size %ld below minimum %ld\n";
           goto LABEL_130;
         }
 
         goto LABEL_81;
       }
 
-      if (v21 != 10)
+      if (v22 != 10)
       {
 LABEL_77:
-        v22 = NStatGetLog();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        v23 = NStatGetLog(v8);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          LODWORD(lengthCopy4) = v21;
-          v23 = "details message for unknown provider %d\n";
+          LODWORD(lengthCopy4) = v22;
+          v24 = "details message for unknown provider %d\n";
           goto LABEL_79;
         }
 
 LABEL_132:
 
-        goto LABEL_133;
+        return;
       }
     }
 
-    else if ((v21 - 4) >= 2)
+    else if ((v22 - 4) >= 2)
     {
-      if (v21 == 6)
+      if (v22 == 6)
       {
-        goto LABEL_133;
+        return;
       }
 
       goto LABEL_77;
@@ -468,159 +465,140 @@ LABEL_132:
 
     if (length <= 0x2FF)
     {
-      v22 = NStatGetLog();
-      if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v23 = NStatGetLog(v8);
+      if (!os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_132;
       }
 
       *buf = 134218240;
       lengthCopy4 = length;
-      v70 = 2048;
-      v71 = 768;
-      v23 = "UDP details message with size %ld below minimum %ld\n";
+      v65 = 2048;
+      v66 = 768;
+      v24 = "UDP details message with size %ld below minimum %ld\n";
       goto LABEL_130;
     }
 
 LABEL_81:
     delegate = [(NWStatsManager *)self delegate];
-    v36 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:message[1].context];
+    v33 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:message[1].context];
     internalSources = [(NWStatsManager *)self internalSources];
-    activePoll5 = [internalSources objectForKey:v36];
+    activePoll3 = [internalSources objectForKey:v33];
 
     flags = message->flags;
-    v66 = delegate;
+    v61 = delegate;
     if ((flags & 4) != 0)
     {
-      v40 = 0;
-      v39 = 0;
-      v42 = 2;
-      v41 = 32;
+      v37 = 0;
+      v36 = 0;
+      v39 = 2;
+      v38 = 32;
     }
 
     else if (message->context == 1)
     {
-      v39 = 0;
-      v40 = 1;
-      v41 = 8;
-      v42 = 1;
+      v36 = 0;
+      v37 = 1;
+      v38 = 8;
+      v39 = 1;
     }
 
     else
     {
-      v40 = 0;
-      v39 = *&message[1].type == 0;
-      v41 = 24;
+      v37 = 0;
+      v36 = *&message[1].type == 0;
+      v38 = 24;
       if (*&message[1].type)
       {
-        v42 = 4;
+        v39 = 4;
       }
 
       else
       {
-        v41 = 16;
-        v42 = 3;
+        v38 = 16;
+        v39 = 3;
       }
     }
 
-    ++*(&self->_providerCounts[v21].numSrcsAdded + v41);
-    if (activePoll5)
+    ++*(&self->_providerCounts[v22].numSrcsAdded + v38);
+    if (activePoll3)
     {
-      if (((v40 | [activePoll5 removing]) & 1) == 0)
+      if (((v37 | [activePoll3 removing]) & 1) == 0)
       {
         statsMonitor = [(NWStatsManager *)self statsMonitor];
-        if ([activePoll5 updateWithDetails:message length:length monitor:statsMonitor])
+        if ([activePoll3 updateWithDetails:message length:length monitor:statsMonitor])
         {
 
 LABEL_101:
-          v48 = [activePoll5 createSnapshot:v42 firstOccurrence:{0, v66}];
+          v45 = [activePoll3 createSnapshot:v39 firstOccurrence:{0, v61}];
           if ((message->flags & 4) == 0)
           {
             goto LABEL_104;
           }
 
           internalSources2 = [(NWStatsManager *)self internalSources];
-          [internalSources2 removeObjectForKey:v36];
+          [internalSources2 removeObjectForKey:v33];
 LABEL_103:
 
 LABEL_104:
-          if (v48)
+          if (v45)
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v51 = v48;
-              v52 = v51;
+              v48 = v45;
+              v49 = v48;
               if (self->_trafficDeltaAdjustmentFactor > 0.0)
               {
-                [v51 applyTrafficAdjustmentFactor:?];
+                [v48 applyTrafficAdjustmentFactor:?];
               }
 
               if (self->_checkNESessionManagerVPNs)
               {
-                interfaceIndex = [v52 interfaceIndex];
-                v54 = +[NWStatsInterfaceRegistry sharedInstance];
-                [v54 addInterfaceIndexToRegistry:interfaceIndex];
-                if ([v54 isTrackingInterfaceIndex:interfaceIndex])
+                interfaceIndex = [v49 interfaceIndex];
+                v51 = +[NWStatsInterfaceRegistry sharedInstance];
+                [v51 addInterfaceIndexToRegistry:interfaceIndex];
+                if ([v51 isTrackingInterfaceIndex:interfaceIndex])
                 {
-                  [v52 donateBytesToAccumulator];
+                  [v49 donateBytesToAccumulator];
                 }
 
-                euuid = [v52 euuid];
-                v56 = [v54 machOUUIDBelongsToVPNProvider:euuid];
+                euuid = [v49 euuid];
+                v53 = [v51 machOUUIDBelongsToVPNProvider:euuid];
 
-                if (v56)
+                if (v53)
                 {
-                  [v52 removeBytesFromAccumulator];
+                  [v49 removeBytesFromAccumulator];
                 }
               }
             }
 
-            if (!v39)
+            if (!v36 || (-[NWStatsManager activePoll](self, "activePoll"), (v54 = objc_claimAutoreleasedReturnValue()) == 0) || (v55 = v54, -[NWStatsManager activePoll](self, "activePoll"), v56 = objc_claimAutoreleasedReturnValue(), [v56 deliveryBlock], v57 = objc_claimAutoreleasedReturnValue(), v57, v56, v55, !v57))
             {
-              goto LABEL_119;
-            }
-
-            activePoll = [(NWStatsManager *)self activePoll];
-            if (!activePoll)
-            {
-              goto LABEL_119;
-            }
-
-            v58 = activePoll;
-            activePoll2 = [(NWStatsManager *)self activePoll];
-            deliveryBlock = [activePoll2 deliveryBlock];
-
-            if (!deliveryBlock)
-            {
-LABEL_119:
-              v63 = v66;
+              v60 = v61;
               if (objc_opt_respondsToSelector())
               {
-                [v66 statsManager:self didReceiveNWSnapshot:v48];
+                [v61 statsManager:self didReceiveNWSnapshot:v45];
               }
 
               goto LABEL_124;
             }
 
-            activePoll3 = [(NWStatsManager *)self activePoll];
-            deliveryBlock2 = [activePoll3 deliveryBlock];
-            (deliveryBlock2)[2](deliveryBlock2, v48);
+            activePoll = [(NWStatsManager *)self activePoll];
+            deliveryBlock = [activePoll deliveryBlock];
+            (deliveryBlock)[2](deliveryBlock, v45);
           }
 
 LABEL_123:
-          v63 = v66;
+          v60 = v61;
 LABEL_124:
 
-LABEL_125:
-          v64 = *MEMORY[0x277D85DE8];
-
-          return;
+          goto LABEL_125;
         }
 
-        v50 = message->flags;
+        v47 = message->flags;
 
-        if ((v50 & 4) != 0)
+        if ((v47 & 4) != 0)
         {
           goto LABEL_101;
         }
@@ -629,171 +607,157 @@ LABEL_125:
 
     else
     {
-      if ((v21 & 0xFFFFFFFE) == 2)
+      if ((v22 & 0xFFFFFFFE) == 2)
       {
-        v44 = off_27996D9C0;
+        v41 = off_27996D9C0;
       }
 
       else
       {
-        v45 = v21 - 4;
-        if ((v21 - 4) >= 7 || ((0x73u >> v45) & 1) == 0)
+        v42 = v22 - 4;
+        if ((v22 - 4) >= 7 || ((0x73u >> v42) & 1) == 0)
         {
           [NWStatsManager _handleMessage:length:];
         }
 
-        v44 = off_27996E0D0[v45];
+        v41 = off_27996E0D0[v42];
       }
 
-      v46 = objc_alloc(*v44);
+      v43 = objc_alloc(*v41);
       statsMonitor2 = [(NWStatsManager *)self statsMonitor];
-      activePoll5 = [v46 initWithDetails:message length:length monitor:statsMonitor2];
+      activePoll3 = [v43 initWithDetails:message length:length monitor:statsMonitor2];
 
-      if (activePoll5)
+      if (activePoll3)
       {
-        v48 = [activePoll5 createSnapshot:v42 firstOccurrence:1];
+        v45 = [activePoll3 createSnapshot:v39 firstOccurrence:1];
         if ((flags & 4) != 0)
         {
           goto LABEL_104;
         }
 
         internalSources2 = [(NWStatsManager *)self internalSources];
-        [internalSources2 setObject:activePoll5 forKey:v36];
+        [internalSources2 setObject:activePoll3 forKey:v33];
         goto LABEL_103;
       }
 
-      activePoll5 = 0;
+      activePoll3 = 0;
     }
 
-    v48 = 0;
+    v45 = 0;
     goto LABEL_123;
   }
 
-  if (type)
+  if (!type)
   {
-    if (type != 10001)
+    currentPollReference = self->_currentPollReference;
+    if (!currentPollReference || currentPollReference != message->context)
     {
-      if (type != 10002 || length < 0x18)
-      {
-        goto LABEL_133;
-      }
-
-      v9 = message[1].context;
-      v10 = message->flags;
-      internalSources3 = [(NWStatsManager *)self internalSources];
-      v12 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v9];
-      v13 = [internalSources3 objectForKey:v12];
-
-      if (v10 == 8)
-      {
-        v14 = NStatGetLog();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 134218242;
-          lengthCopy4 = v9;
-          v70 = 2112;
-          v71 = v13;
-          _os_log_impl(&dword_25BA3A000, v14, OS_LOG_TYPE_ERROR, "NSTAT_MSG_TYPE_SRC_REMOVED received reports drop, source ref %lld source %@", buf, 0x16u);
-        }
-
-        [(NWStatsManager *)self _adaptAfterDrop];
-      }
-
-      if (v13)
-      {
-        [(NWStatsManager *)self _removeSourceInternal:v9];
-        switch(v10)
-        {
-          case 0:
-            v15 = 544;
-            goto LABEL_72;
-          case 16:
-            v15 = 560;
-LABEL_72:
-            ++*(&self->super.isa + v15);
-            break;
-          case 8:
-            v15 = 552;
-            goto LABEL_72;
-        }
-      }
-
-      else
-      {
-        switch(v10)
-        {
-          case 0:
-            v15 = 520;
-            goto LABEL_72;
-          case 16:
-            v15 = 536;
-            goto LABEL_72;
-          case 8:
-            v15 = 528;
-            goto LABEL_72;
-        }
-      }
-
-      goto LABEL_133;
-    }
-
-    if (length < 0x20)
-    {
-      goto LABEL_133;
-    }
-
-    v26 = message[1].type;
-    if (v26 > 0xA)
-    {
-      goto LABEL_133;
-    }
-
-    ++self->_providerCounts[v26].numSrcsAdded;
-    if (v26 == 6)
-    {
-      v27 = message[1].context;
-      v28 = *MEMORY[0x277D85DE8];
-
-      [(NWStatsManager *)self _sendUpdateRequestMessage:v27];
       return;
     }
 
-    if (self->_eagerInstantiate)
+    if ((message->flags & 2) == 0 || self->_continuationCount > 0x27)
     {
-      v31 = message[1].context;
-      v32 = *MEMORY[0x277D85DE8];
 
-      [(NWStatsManager *)self _sendDetailsRequestMessage:v31];
+      [(NWStatsManager *)self _handleCompletion:?];
       return;
     }
 
-LABEL_133:
-    v65 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  currentPollReference = self->_currentPollReference;
-  if (!currentPollReference || currentPollReference != message->context)
-  {
-    goto LABEL_133;
-  }
-
-  if ((message->flags & 2) != 0 && self->_continuationCount <= 0x27)
-  {
-    activePoll4 = [(NWStatsManager *)self activePoll];
-    if (!activePoll4)
+    activePoll2 = [(NWStatsManager *)self activePoll];
+    if (!activePoll2)
     {
       [NWStatsManager _handleMessage:length:];
     }
 
-    activePoll5 = [(NWStatsManager *)self activePoll];
+    activePoll3 = [(NWStatsManager *)self activePoll];
     [(NWStatsManager *)self _restartPoll:?];
-    goto LABEL_125;
+LABEL_125:
+
+    return;
   }
 
-  v30 = *MEMORY[0x277D85DE8];
+  if (type == 10001)
+  {
+    if (length >= 0x20)
+    {
+      v27 = message[1].type;
+      if (v27 <= 0xA)
+      {
+        ++self->_providerCounts[v27].numSrcsAdded;
+        if (v27 == 6)
+        {
+          v28 = message[1].context;
 
-  [(NWStatsManager *)self _handleCompletion:?];
+          [(NWStatsManager *)self _sendUpdateRequestMessage:v28];
+        }
+
+        else if (self->_eagerInstantiate)
+        {
+          v29 = message[1].context;
+
+          [(NWStatsManager *)self _sendDetailsRequestMessage:v29];
+        }
+      }
+    }
+  }
+
+  else if (type == 10002 && length >= 0x18)
+  {
+    v10 = message[1].context;
+    v11 = message->flags;
+    internalSources3 = [(NWStatsManager *)self internalSources];
+    v13 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v10];
+    v14 = [internalSources3 objectForKey:v13];
+
+    if (v11 == 8)
+    {
+      v16 = NStatGetLog(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 134218242;
+        lengthCopy4 = v10;
+        v65 = 2112;
+        v66 = v14;
+        _os_log_impl(&dword_25BA3A000, v16, OS_LOG_TYPE_ERROR, "NSTAT_MSG_TYPE_SRC_REMOVED received reports drop, source ref %lld source %@", buf, 0x16u);
+      }
+
+      [(NWStatsManager *)self _adaptAfterDrop];
+    }
+
+    if (v14)
+    {
+      [(NWStatsManager *)self _removeSourceInternal:v10];
+      switch(v11)
+      {
+        case 0:
+          v17 = 544;
+          goto LABEL_72;
+        case 16:
+          v17 = 560;
+LABEL_72:
+          ++*(&self->super.isa + v17);
+          break;
+        case 8:
+          v17 = 552;
+          goto LABEL_72;
+      }
+    }
+
+    else
+    {
+      switch(v11)
+      {
+        case 0:
+          v17 = 520;
+          goto LABEL_72;
+        case 16:
+          v17 = 536;
+          goto LABEL_72;
+        case 8:
+          v17 = 528;
+          goto LABEL_72;
+      }
+    }
+  }
 }
 
 - (void)_drainReadBuffer
@@ -923,7 +887,7 @@ LABEL_133:
 
 - (void)_handleCompletion:(unint64_t)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (completion && self->_currentPollReference == completion)
   {
     self->_currentPollReference = 0;
@@ -951,24 +915,20 @@ LABEL_133:
     {
       [(NWStatsManager *)self _startQueuedPoll];
     }
-
-    v9 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v10 = NStatGetLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = NStatGetLog(self);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       currentPollReference = self->_currentPollReference;
       *buf = 134218240;
-      v15 = currentPollReference;
-      v16 = 2048;
+      v13 = currentPollReference;
+      v14 = 2048;
       completionCopy = completion;
-      _os_log_impl(&dword_25BA3A000, v10, OS_LOG_TYPE_ERROR, "mismatch, _currentPollReference %lld supplied reference %lld", buf, 0x16u);
+      _os_log_impl(&dword_25BA3A000, v9, OS_LOG_TYPE_ERROR, "mismatch, _currentPollReference %lld supplied reference %lld", buf, 0x16u);
     }
-
-    v12 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -990,21 +950,20 @@ LABEL_133:
 
 - (void)_addAllForProvider:(int)provider filter:(unint64_t)filter events:(unint64_t)events
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (provider > 0xA || ((1 << provider) & 0x73C) == 0)
   {
     [NWStatsManager _addAllForProvider:filter:events:];
   }
 
-  v9 = 0u;
-  v6 = 0u;
-  v10 = 0;
-  DWORD2(v6) = 1002;
-  LODWORD(v9) = provider;
+  v8 = 0u;
+  v5 = 0u;
+  v9 = 0;
+  DWORD2(v5) = 1002;
+  LODWORD(v8) = provider;
   filterCopy = filter;
   eventsCopy = events;
-  [(NWStatsManager *)self _sendMessage:&v6 length:56];
-  v5 = *MEMORY[0x277D85DE8];
+  [(NWStatsManager *)self _sendMessage:&v5 length:56];
 }
 
 - (void)_handleCounts:(nstat_msg_src_counts *)counts
@@ -1039,7 +998,7 @@ LABEL_133:
             [delegate statsManager:self thresholdReachedOn:ifIndex];
           }
 
-          goto LABEL_15;
+          return;
         }
       }
 
@@ -1053,110 +1012,304 @@ LABEL_133:
     }
   }
 
-  v11 = NStatGetLog();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = NStatGetLog(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     var1 = counts->var1;
     *buf = 134217984;
     v21 = var1;
-    _os_log_impl(&dword_25BA3A000, v11, OS_LOG_TYPE_DEFAULT, "Unexpected counts message on source ref %lld", buf, 0xCu);
+    _os_log_impl(&dword_25BA3A000, v12, OS_LOG_TYPE_DEFAULT, "Unexpected counts message on source ref %lld", buf, 0xCu);
   }
 
   [(NWStatsManager *)self _sendUpdateRequestMessage:counts->var1];
-LABEL_15:
-  v15 = *MEMORY[0x277D85DE8];
+}
+
+- (void)_noteInterfaceSrcRef:(unint64_t)ref forInterface:(unsigned int)interface threshold:(unint64_t)threshold
+{
+  v31 = *MEMORY[0x277D85DE8];
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v8 = [(NWStatsManager *)self interfaceSources:ref];
+  v9 = [v8 countByEnumeratingWithState:&v20 objects:v30 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v21;
+    while (2)
+    {
+      for (i = 0; i != v10; ++i)
+      {
+        if (*v21 != v11)
+        {
+          objc_enumerationMutation(v8);
+        }
+
+        v13 = *(*(&v20 + 1) + 8 * i);
+        if ([v13 ifIndex] == interface)
+        {
+          if ([v13 srcRef])
+          {
+            srcRef = [v13 srcRef];
+            if (srcRef != ref)
+            {
+              v17 = NStatGetLog(srcRef);
+              if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+              {
+                srcRef2 = [v13 srcRef];
+                *buf = 134218496;
+                refCopy3 = srcRef2;
+                v26 = 2048;
+                refCopy = ref;
+                v28 = 1024;
+                interfaceCopy = interface;
+                _os_log_impl(&dword_25BA3A000, v17, OS_LOG_TYPE_DEFAULT, "Replace source ref %lld with %lld for monitoring interface %u", buf, 0x1Cu);
+              }
+
+              -[NWStatsManager _sendRemoveSource:](self, "_sendRemoveSource:", [v13 srcRef]);
+              [v13 setSrcRef:ref];
+            }
+          }
+
+          else
+          {
+            v19 = NStatGetLog([v13 setSrcRef:ref]);
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 134218240;
+              refCopy3 = ref;
+              v26 = 1024;
+              LODWORD(refCopy) = interface;
+              _os_log_impl(&dword_25BA3A000, v19, OS_LOG_TYPE_DEFAULT, "Adopt source ref %lld to monitor interface %u", buf, 0x12u);
+            }
+          }
+
+          return;
+        }
+      }
+
+      v10 = [v8 countByEnumeratingWithState:&v20 objects:v30 count:16];
+      if (v10)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  v15 = NStatGetLog(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134218240;
+    refCopy3 = ref;
+    v26 = 1024;
+    LODWORD(refCopy) = interface;
+    _os_log_impl(&dword_25BA3A000, v15, OS_LOG_TYPE_DEFAULT, "Discard source ref %lld for interface %u", buf, 0x12u);
+  }
+
+  [(NWStatsManager *)self _sendRemoveSource:ref];
+}
+
+- (void)_setThreshold:(unint64_t)threshold onInterface:(unsigned int)interface
+{
+  v4 = *&interface;
+  v29 = *MEMORY[0x277D85DE8];
+  clientQueue = [(NWStatsManager *)self clientQueue];
+  dispatch_assert_queue_V2(clientQueue);
+
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  interfaceSources = [(NWStatsManager *)self interfaceSources];
+  v9 = [interfaceSources countByEnumeratingWithState:&v17 objects:v28 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = 0;
+    v12 = *v18;
+LABEL_3:
+    v13 = 0;
+    v14 = v11;
+    while (1)
+    {
+      if (*v18 != v12)
+      {
+        objc_enumerationMutation(interfaceSources);
+      }
+
+      v11 = *(*(&v17 + 1) + 8 * v13);
+
+      if ([(NWStatsInterfaceSource *)v11 ifIndex]== v4)
+      {
+        break;
+      }
+
+      ++v13;
+      v14 = v11;
+      if (v10 == v13)
+      {
+        v10 = [interfaceSources countByEnumeratingWithState:&v17 objects:v28 count:16];
+        if (v10)
+        {
+          goto LABEL_3;
+        }
+
+        goto LABEL_10;
+      }
+    }
+
+    if (threshold)
+    {
+      goto LABEL_13;
+    }
+
+    if ([(NWStatsInterfaceSource *)v11 srcRef])
+    {
+      [(NWStatsManager *)self _sendRemoveSource:[(NWStatsInterfaceSource *)v11 srcRef]];
+    }
+
+    interfaceSources2 = [(NWStatsManager *)self interfaceSources];
+    [interfaceSources2 removeObject:v11];
+  }
+
+  else
+  {
+LABEL_10:
+
+    if (threshold)
+    {
+      v11 = objc_alloc_init(NWStatsInterfaceSource);
+      [(NWStatsInterfaceSource *)v11 setIfIndex:v4];
+      [(NWStatsInterfaceSource *)v11 setThreshold:0];
+      [(NWStatsInterfaceSource *)v11 setSrcRef:0];
+      interfaceSources3 = [(NWStatsManager *)self interfaceSources];
+      [interfaceSources3 addObject:v11];
+
+LABEL_13:
+      if ([(NWStatsInterfaceSource *)v11 threshold]!= threshold)
+      {
+        if ([(NWStatsInterfaceSource *)v11 srcRef])
+        {
+          [(NWStatsManager *)self _sendRemoveSource:[(NWStatsInterfaceSource *)v11 srcRef]];
+          [(NWStatsInterfaceSource *)v11 setSrcRef:0];
+        }
+
+        v22 = 0u;
+        v27 = 0u;
+        v26 = 0u;
+        v25 = 0u;
+        v21 = 0;
+        LODWORD(v22) = 1001;
+        DWORD2(v22) = 6;
+        v24 = v4;
+        thresholdCopy = threshold;
+        [(NWStatsInterfaceSource *)v11 setThreshold:threshold];
+        [(NWStatsManager *)self _sendMessage:&v21 length:40];
+      }
+    }
+
+    else
+    {
+      v11 = 0;
+    }
+  }
 }
 
 - (int)_setThresholds:(id)thresholds
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   thresholdsCopy = thresholds;
   v5 = thresholdsCopy;
   if (!thresholdsCopy)
   {
-    v17 = 0;
+    v19 = 0;
     goto LABEL_21;
   }
 
-  v28 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
+  v28 = 0u;
   v6 = thresholdsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v26 objects:v36 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v27 objects:v37 count:16];
   if (!v7)
   {
-    v17 = 0;
+    v19 = 0;
     goto LABEL_20;
   }
 
   v8 = v7;
-  v9 = *v27;
-  v25 = v5;
+  v9 = *v28;
+  v26 = v5;
   while (2)
   {
     for (i = 0; i != v8; ++i)
     {
-      if (*v27 != v9)
+      if (*v28 != v9)
       {
         objc_enumerationMutation(v6);
       }
 
-      v11 = *(*(&v26 + 1) + 8 * i);
+      v11 = *(*(&v27 + 1) + 8 * i);
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0)
+      isKindOfClass = objc_opt_isKindOfClass();
+      if ((isKindOfClass & 1) == 0)
       {
-        v12 = NStatGetLog();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v13 = NStatGetLog(isKindOfClass);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          v18 = objc_opt_class();
-          v19 = NSStringFromClass(v18);
+          v20 = objc_opt_class();
+          v21 = NSStringFromClass(v20);
           *buf = 138412546;
-          v31 = v11;
-          v32 = 2112;
-          v33 = v19;
-          _os_log_impl(&dword_25BA3A000, v12, OS_LOG_TYPE_ERROR, "Incorrect key format for configuring thresholds, %@ has class %@", buf, 0x16u);
+          v32 = v11;
+          v33 = 2112;
+          v34 = v21;
+          _os_log_impl(&dword_25BA3A000, v13, OS_LOG_TYPE_ERROR, "Incorrect key format for configuring thresholds, %@ has class %@", buf, 0x16u);
         }
 
         goto LABEL_19;
       }
 
-      v12 = v11;
-      v13 = [v6 objectForKeyedSubscript:v12];
+      v13 = v11;
+      v14 = [v6 objectForKeyedSubscript:v13];
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0)
+      v15 = objc_opt_isKindOfClass();
+      if ((v15 & 1) == 0)
       {
-        v20 = NStatGetLog();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v22 = NStatGetLog(v15);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
-          v21 = objc_opt_class();
-          v22 = NSStringFromClass(v21);
+          v23 = objc_opt_class();
+          v24 = NSStringFromClass(v23);
           *buf = 138412802;
-          v31 = v13;
-          v32 = 2112;
-          v33 = v22;
-          v34 = 2112;
-          v35 = v12;
-          _os_log_impl(&dword_25BA3A000, v20, OS_LOG_TYPE_ERROR, "Incorrect threshold format %@ of class %@ for configuring interface %@", buf, 0x20u);
+          v32 = v14;
+          v33 = 2112;
+          v34 = v24;
+          v35 = 2112;
+          v36 = v13;
+          _os_log_impl(&dword_25BA3A000, v22, OS_LOG_TYPE_ERROR, "Incorrect threshold format %@ of class %@ for configuring interface %@", buf, 0x20u);
         }
 
 LABEL_19:
-        v5 = v25;
+        v5 = v26;
 
-        v17 = 22;
+        v19 = 22;
         goto LABEL_20;
       }
 
-      v14 = v13;
-      unsignedLongLongValue = [v14 unsignedLongLongValue];
-      unsignedIntegerValue = [v12 unsignedIntegerValue];
+      v16 = v14;
+      unsignedLongLongValue = [v16 unsignedLongLongValue];
+      unsignedIntegerValue = [v13 unsignedIntegerValue];
 
       [(NWStatsManager *)self _setThreshold:unsignedLongLongValue onInterface:unsignedIntegerValue];
     }
 
-    v8 = [v6 countByEnumeratingWithState:&v26 objects:v36 count:16];
-    v17 = 0;
-    v5 = v25;
+    v8 = [v6 countByEnumeratingWithState:&v27 objects:v37 count:16];
+    v19 = 0;
+    v5 = v26;
     if (v8)
     {
       continue;
@@ -1168,8 +1321,7 @@ LABEL_19:
 LABEL_20:
 
 LABEL_21:
-  v23 = *MEMORY[0x277D85DE8];
-  return v17;
+  return v19;
 }
 
 - (void)_setInterfaceTraceFd:(int)fd
@@ -1275,20 +1427,19 @@ LABEL_21:
   bufsizeCopy = bufsize;
   if (self->_currentRcvBufSize == bufsize)
   {
-    goto LABEL_4;
+    return 1;
   }
 
-  if (setsockopt(self->_sockfd, 0xFFFF, 4098, &bufsizeCopy, 4u) != -1)
+  v4 = setsockopt(self->_sockfd, 0xFFFF, 4098, &bufsizeCopy, 4u);
+  if (v4 != -1)
   {
     self->_currentRcvBufSize = bufsizeCopy;
     [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-    self->_currentRcvBufTimestamp = v4;
-LABEL_4:
-    result = 1;
-    goto LABEL_5;
+    self->_currentRcvBufTimestamp = v5;
+    return 1;
   }
 
-  v7 = NStatGetLog();
+  v7 = NStatGetLog(v4);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     currentRcvBufSize = self->_currentRcvBufSize;
@@ -1299,19 +1450,16 @@ LABEL_4:
     _os_log_impl(&dword_25BA3A000, v7, OS_LOG_TYPE_ERROR, "Unable to increment rcv buf size from %d to %d", buf, 0xEu);
   }
 
-  result = 0;
-LABEL_5:
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (NWStatsManager)initWithQueue:(id)queue
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
-  v24.receiver = self;
-  v24.super_class = NWStatsManager;
-  v6 = [(NWStatsManager *)&v24 init];
+  v25.receiver = self;
+  v25.super_class = NWStatsManager;
+  v6 = [(NWStatsManager *)&v25 init];
   if (!v6)
   {
     goto LABEL_15;
@@ -1322,7 +1470,7 @@ LABEL_5:
   {
 LABEL_6:
     v6->_sockfd = -1;
-    v9 = NStatGetLog();
+    v9 = NStatGetLog(v7);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       LOWORD(buf) = 0;
@@ -1334,27 +1482,28 @@ LABEL_6:
 
   v8 = v7;
   buf = 0;
-  v34 = 0;
-  v32 = 0u;
+  v35 = 0;
   v33 = 0u;
+  v34 = 0u;
   *&buf_4[28] = 0u;
-  v31 = 0u;
+  v32 = 0u;
   strcpy(buf_4, "com.apple.network.statistics");
-  if (ioctl(v7, 0xC0644E03uLL, &buf) == -1 || (v27 = 0, *&v26[12] = 0, v28 = 0, *v26 = 139296, *&v26[4] = buf, *&v26[8] = 0, connect(v8, v26, 0x20u)))
+  if (ioctl(v7, 0xC0644E03uLL, &buf) == -1 || (v28 = 0, *&v27[12] = 0, v29 = 0, *v27 = 139296, *&v27[4] = buf, *&v27[8] = 0, connect(v8, v27, 0x20u)))
   {
 LABEL_5:
-    close(v8);
+    v7 = close(v8);
     goto LABEL_6;
   }
 
   v11 = fcntl(v8, 3, 0);
-  if (fcntl(v8, 4, v11 | 4u) == -1)
+  v12 = fcntl(v8, 4, v11 | 4u);
+  if (v12 == -1)
   {
-    v22 = NStatGetLog();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v23 = NStatGetLog(v12);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      *v25 = 0;
-      _os_log_impl(&dword_25BA3A000, v22, OS_LOG_TYPE_ERROR, "Unable to set non-blocking", v25, 2u);
+      *v26 = 0;
+      _os_log_impl(&dword_25BA3A000, v23, OS_LOG_TYPE_ERROR, "Unable to set non-blocking", v26, 2u);
     }
 
     goto LABEL_5;
@@ -1364,21 +1513,21 @@ LABEL_5:
   if ([(NWStatsManager *)v6 setRcvBufsize:0x20000])
   {
     objc_storeStrong(&v6->_clientQueue, queue);
-    v12 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v13 = objc_alloc_init(MEMORY[0x277CBEB38]);
     internalSources = v6->_internalSources;
-    v6->_internalSources = v12;
+    v6->_internalSources = v13;
 
-    v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
     queuedPolls = v6->_queuedPolls;
-    v6->_queuedPolls = v14;
+    v6->_queuedPolls = v15;
 
-    v16 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v17 = objc_alloc_init(MEMORY[0x277CBEB58]);
     interfaceSources = v6->_interfaceSources;
-    v6->_interfaceSources = v16;
+    v6->_interfaceSources = v17;
 
-    v18 = [[NWStatsMonitor alloc] initWithQueue:queueCopy];
+    v19 = [[NWStatsMonitor alloc] initWithQueue:queueCopy];
     statsMonitor = v6->_statsMonitor;
-    v6->_statsMonitor = v18;
+    v6->_statsMonitor = v19;
 
     v6->_nextPollReference = 2;
     if (v6->_clientQueue && v6->_internalSources && v6->_statsMonitor)
@@ -1388,11 +1537,11 @@ LABEL_15:
       goto LABEL_16;
     }
 
-    v23 = NStatGetLog();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v24 = NStatGetLog(v21);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       LOWORD(buf) = 0;
-      _os_log_impl(&dword_25BA3A000, v23, OS_LOG_TYPE_ERROR, "Unable to initialize Sources / queue / monitor", &buf, 2u);
+      _os_log_impl(&dword_25BA3A000, v24, OS_LOG_TYPE_ERROR, "Unable to initialize Sources / queue / monitor", &buf, 2u);
     }
   }
 
@@ -1401,13 +1550,12 @@ LABEL_9:
   v10 = 0;
 LABEL_16:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (int)initialConfigure:(id)configure
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   configureCopy = configure;
   currentRcvBufSize = self->_currentRcvBufSize;
   self->_consecutiveReadLimit = 20;
@@ -1446,7 +1594,7 @@ LABEL_16:
   }
 
 LABEL_7:
-  v16 = NStatGetLog();
+  v16 = NStatGetLog(v9);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
@@ -1477,177 +1625,178 @@ LABEL_10:
   if (v20)
   {
     v21 = [configureCopy objectForKeyedSubscript:@"kNWStatsParameterDomainInfo"];
-    if ([v21 BOOLValue])
+    bOOLValue = [v21 BOOLValue];
+    if (bOOLValue)
     {
       v15 |= 0x20000000000uLL;
-      v22 = NStatGetLog();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v23 = NStatGetLog(bOOLValue);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v82 = v15;
-        _os_log_impl(&dword_25BA3A000, v22, OS_LOG_TYPE_DEFAULT, "initialConfigure set NSTAT_EXTENSION_FILTER_DOMAIN_INFO, filter now 0x%llx", buf, 0xCu);
+        v83 = v15;
+        _os_log_impl(&dword_25BA3A000, v23, OS_LOG_TYPE_DEFAULT, "initialConfigure set NSTAT_EXTENSION_FILTER_DOMAIN_INFO, filter now 0x%llx", buf, 0xCu);
       }
 
       currentRcvBufSize += 0x10000;
     }
   }
 
-  v23 = [configureCopy objectForKeyedSubscript:@"kNWStatsSelectKnownInbound"];
+  v24 = [configureCopy objectForKeyedSubscript:@"kNWStatsSelectKnownInbound"];
 
-  if (v23)
+  if (v24)
   {
-    v24 = [configureCopy objectForKeyedSubscript:@"kNWStatsSelectKnownInbound"];
-    if ([v24 BOOLValue])
+    v25 = [configureCopy objectForKeyedSubscript:@"kNWStatsSelectKnownInbound"];
+    if ([v25 BOOLValue])
     {
       v15 |= 0x4000000uLL;
     }
   }
 
-  v25 = [configureCopy objectForKeyedSubscript:@"kNWStatsSelectKnownOutbound"];
+  v26 = [configureCopy objectForKeyedSubscript:@"kNWStatsSelectKnownOutbound"];
 
-  if (v25)
+  if (v26)
   {
-    v26 = [configureCopy objectForKeyedSubscript:@"kNWStatsSelectKnownOutbound"];
-    if ([v26 BOOLValue])
+    v27 = [configureCopy objectForKeyedSubscript:@"kNWStatsSelectKnownOutbound"];
+    if ([v27 BOOLValue])
     {
       v15 |= 0x8000000uLL;
     }
   }
 
-  v27 = [configureCopy objectForKeyedSubscript:@"kNWStatsSelectKnownListener"];
+  v28 = [configureCopy objectForKeyedSubscript:@"kNWStatsSelectKnownListener"];
 
-  if (v27)
+  if (v28)
   {
-    v28 = [configureCopy objectForKeyedSubscript:@"kNWStatsSelectKnownListener"];
-    if ([v28 BOOLValue])
+    v29 = [configureCopy objectForKeyedSubscript:@"kNWStatsSelectKnownListener"];
+    if ([v29 BOOLValue])
     {
       v15 |= 0x2000000uLL;
     }
   }
 
-  v29 = [configureCopy objectForKeyedSubscript:@"kNWStatsParameterNECPClientTLV"];
+  v30 = [configureCopy objectForKeyedSubscript:@"kNWStatsParameterNECPClientTLV"];
 
-  v76 = currentRcvBufSize;
-  if (v29)
+  v77 = currentRcvBufSize;
+  if (v30)
   {
     v15 |= 0x40000000000uLL;
     connFilter |= 0x40000000000uLL;
-    v30 = NStatGetLog();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    v32 = NStatGetLog(v31);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v82 = v15;
-      _os_log_impl(&dword_25BA3A000, v30, OS_LOG_TYPE_DEFAULT, "initialConfigure set NSTAT_EXTENSION_FILTER_NECP_TLV, filter now 0x%llx", buf, 0xCu);
+      v83 = v15;
+      _os_log_impl(&dword_25BA3A000, v32, OS_LOG_TYPE_DEFAULT, "initialConfigure set NSTAT_EXTENSION_FILTER_NECP_TLV, filter now 0x%llx", buf, 0xCu);
     }
   }
 
-  v31 = [configureCopy objectForKeyedSubscript:@"kNWStatsParameterNECPAncestralClientTLV"];
+  v33 = [configureCopy objectForKeyedSubscript:@"kNWStatsParameterNECPAncestralClientTLV"];
 
-  if (v31)
+  if (v33)
   {
-    v32 = connFilter | 0x80000000000;
+    v34 = connFilter | 0x80000000000;
   }
 
   else
   {
-    v32 = connFilter;
+    v34 = connFilter;
   }
 
-  v33 = [configureCopy objectForKeyedSubscript:@"kNWStatsSelectConnHasNetAccess"];
-
-  if (v33)
-  {
-    v34 = [configureCopy objectForKeyedSubscript:@"kNWStatsSelectConnHasNetAccess"];
-    if ([v34 BOOLValue])
-    {
-      v32 |= 0x1000000uLL;
-    }
-  }
-
-  v35 = [configureCopy objectForKeyedSubscript:@"kNWStatsSelectTuneSkipNoChangeConnOnRefresh"];
+  v35 = [configureCopy objectForKeyedSubscript:@"kNWStatsSelectConnHasNetAccess"];
 
   if (v35)
   {
-    v36 = [configureCopy objectForKeyedSubscript:@"kNWStatsSelectTuneSkipNoChangeConnOnRefresh"];
+    v36 = [configureCopy objectForKeyedSubscript:@"kNWStatsSelectConnHasNetAccess"];
     if ([v36 BOOLValue])
     {
-      v32 |= 0x20000000uLL;
+      v34 |= 0x1000000uLL;
     }
   }
 
-  v37 = [configureCopy objectForKeyedSubscript:@"kNWStatsTuneMaxConsecutiveReads"];
+  v37 = [configureCopy objectForKeyedSubscript:@"kNWStatsSelectTuneSkipNoChangeConnOnRefresh"];
 
   if (v37)
   {
-    v38 = [configureCopy objectForKeyedSubscript:@"kNWStatsTuneMaxConsecutiveReads"];
-    objc_opt_class();
-    v39 = objc_opt_isKindOfClass();
-
-    if (v39)
+    v38 = [configureCopy objectForKeyedSubscript:@"kNWStatsSelectTuneSkipNoChangeConnOnRefresh"];
+    if ([v38 BOOLValue])
     {
-      v40 = [configureCopy objectForKeyedSubscript:@"kNWStatsTuneMaxConsecutiveReads"];
-      self->_consecutiveReadLimit = [v40 intValue];
+      v34 |= 0x20000000uLL;
     }
   }
 
-  v41 = [configureCopy objectForKeyedSubscript:@"kNWStatsSelectTuneSkipNoChangeConnOnClose"];
+  v39 = [configureCopy objectForKeyedSubscript:@"kNWStatsTuneMaxConsecutiveReads"];
 
-  if (v41)
+  if (v39)
   {
-    v42 = [configureCopy objectForKeyedSubscript:@"kNWStatsSelectTuneSkipNoChangeConnOnClose"];
-    if ([v42 BOOLValue])
+    v40 = [configureCopy objectForKeyedSubscript:@"kNWStatsTuneMaxConsecutiveReads"];
+    objc_opt_class();
+    v41 = objc_opt_isKindOfClass();
+
+    if (v41)
     {
-      v32 |= 0x10000000uLL;
+      v42 = [configureCopy objectForKeyedSubscript:@"kNWStatsTuneMaxConsecutiveReads"];
+      self->_consecutiveReadLimit = [v42 intValue];
     }
   }
 
-  v43 = [configureCopy objectForKeyedSubscript:@"kNWStatsOptimizeFrequentRefresh"];
+  v43 = [configureCopy objectForKeyedSubscript:@"kNWStatsSelectTuneSkipNoChangeConnOnClose"];
 
   if (v43)
   {
-    v44 = [configureCopy objectForKeyedSubscript:@"kNWStatsOptimizeFrequentRefresh"];
+    v44 = [configureCopy objectForKeyedSubscript:@"kNWStatsSelectTuneSkipNoChangeConnOnClose"];
     if ([v44 BOOLValue])
+    {
+      v34 |= 0x10000000uLL;
+    }
+  }
+
+  v45 = [configureCopy objectForKeyedSubscript:@"kNWStatsOptimizeFrequentRefresh"];
+
+  if (v45)
+  {
+    v46 = [configureCopy objectForKeyedSubscript:@"kNWStatsOptimizeFrequentRefresh"];
+    if ([v46 BOOLValue])
     {
       [(NWStatsManager *)self setReadBufferSize:0x4000];
       v15 |= 0x2000000000uLL;
     }
   }
 
-  v45 = [configureCopy objectForKeyedSubscript:@"kNWStatsSelectHasTrafficDelta"];
-  if (v45)
+  v47 = [configureCopy objectForKeyedSubscript:@"kNWStatsSelectHasTrafficDelta"];
+  if (v47)
   {
-    v46 = v45;
-    v47 = [configureCopy objectForKeyedSubscript:@"kNWStatsSelectHasTrafficDelta"];
+    v48 = v47;
+    v49 = [configureCopy objectForKeyedSubscript:@"kNWStatsSelectHasTrafficDelta"];
     objc_opt_class();
-    v48 = objc_opt_isKindOfClass();
+    v50 = objc_opt_isKindOfClass();
 
-    if (v48)
+    if (v50)
     {
-      v49 = [configureCopy objectForKeyedSubscript:@"kNWStatsSelectHasTrafficDelta"];
-      if ([v49 BOOLValue])
+      v51 = [configureCopy objectForKeyedSubscript:@"kNWStatsSelectHasTrafficDelta"];
+      if ([v51 BOOLValue])
       {
         v15 |= 0x800000uLL;
       }
     }
   }
 
-  v50 = [configureCopy objectForKeyedSubscript:@"kNWStatsParameterReportOpen"];
+  v52 = [configureCopy objectForKeyedSubscript:@"kNWStatsParameterReportOpen"];
 
-  if (v50)
+  if (v52)
   {
-    v51 = [configureCopy objectForKeyedSubscript:@"kNWStatsParameterReportOpen"];
-    bOOLValue = [v51 BOOLValue];
-    self->_eagerInstantiate = bOOLValue;
-    if (bOOLValue)
+    v53 = [configureCopy objectForKeyedSubscript:@"kNWStatsParameterReportOpen"];
+    bOOLValue2 = [v53 BOOLValue];
+    self->_eagerInstantiate = bOOLValue2;
+    if (bOOLValue2)
     {
-      v53 = [configureCopy objectForKeyedSubscript:@"kNWStatsParameterExperiment"];
+      v55 = [configureCopy objectForKeyedSubscript:@"kNWStatsParameterExperiment"];
 
-      if (v53)
+      if (v55)
       {
-        v54 = [configureCopy objectForKeyedSubscript:@"kNWStatsParameterExperiment"];
-        if ([v54 BOOLValue])
+        v56 = [configureCopy objectForKeyedSubscript:@"kNWStatsParameterExperiment"];
+        if ([v56 BOOLValue])
         {
-          v32 |= 0x200000uLL;
+          v34 |= 0x200000uLL;
           v15 |= 0x200000uLL;
         }
       }
@@ -1655,7 +1804,7 @@ LABEL_10:
 
     if (!self->_eagerInstantiate)
     {
-      v32 |= 0x100000uLL;
+      v34 |= 0x100000uLL;
       v15 |= 0x100000uLL;
     }
   }
@@ -1664,56 +1813,56 @@ LABEL_10:
   {
     self->_eagerInstantiate = 0;
     v15 |= 0x100000uLL;
-    v32 |= 0x100000uLL;
+    v34 |= 0x100000uLL;
   }
 
-  v55 = [configureCopy objectForKeyedSubscript:@"kNWStatsParameterTrafficDeltaAdjustmentFactor"];
+  v57 = [configureCopy objectForKeyedSubscript:@"kNWStatsParameterTrafficDeltaAdjustmentFactor"];
 
-  if (v55)
+  if (v57)
   {
-    v56 = [configureCopy objectForKeyedSubscript:@"kNWStatsParameterTrafficDeltaAdjustmentFactor"];
+    v58 = [configureCopy objectForKeyedSubscript:@"kNWStatsParameterTrafficDeltaAdjustmentFactor"];
     objc_opt_class();
-    v57 = objc_opt_isKindOfClass();
+    v59 = objc_opt_isKindOfClass();
 
-    if (v57)
+    if (v59)
     {
-      v58 = [configureCopy objectForKeyedSubscript:@"kNWStatsParameterTrafficDeltaAdjustmentFactor"];
-      [v58 doubleValue];
-      self->_trafficDeltaAdjustmentFactor = v59;
+      v60 = [configureCopy objectForKeyedSubscript:@"kNWStatsParameterTrafficDeltaAdjustmentFactor"];
+      [v60 doubleValue];
+      self->_trafficDeltaAdjustmentFactor = v61;
     }
   }
 
-  v60 = [configureCopy objectForKeyedSubscript:@"kNWStatsParameterCheckNESessionManagerVPNs"];
+  v62 = [configureCopy objectForKeyedSubscript:@"kNWStatsParameterCheckNESessionManagerVPNs"];
 
-  if (v60)
+  if (v62)
   {
-    v61 = [configureCopy objectForKeyedSubscript:@"kNWStatsParameterCheckNESessionManagerVPNs"];
+    v63 = [configureCopy objectForKeyedSubscript:@"kNWStatsParameterCheckNESessionManagerVPNs"];
     objc_opt_class();
-    v62 = objc_opt_isKindOfClass();
+    v64 = objc_opt_isKindOfClass();
 
-    if (v62)
+    if (v64)
     {
-      v63 = [configureCopy objectForKeyedSubscript:@"kNWStatsParameterCheckNESessionManagerVPNs"];
-      self->_checkNESessionManagerVPNs = [v63 BOOLValue];
+      v65 = [configureCopy objectForKeyedSubscript:@"kNWStatsParameterCheckNESessionManagerVPNs"];
+      self->_checkNESessionManagerVPNs = [v65 BOOLValue];
     }
   }
 
   readBufferSize = [(NWStatsManager *)self readBufferSize];
-  if (!readBufferSize || (v65 = malloc_type_malloc(readBufferSize, 0x46AA3AE4uLL)) == 0)
+  if (!readBufferSize || (v67 = malloc_type_malloc(readBufferSize, 0x46AA3AE4uLL)) == 0)
   {
     __break(1u);
   }
 
-  self->_readBuffer = v65;
-  v66 = dispatch_source_create(MEMORY[0x277D85D28], self->_sockfd, 0, self->_clientQueue);
+  self->_readBuffer = v67;
+  v68 = dispatch_source_create(MEMORY[0x277D85D28], self->_sockfd, 0, self->_clientQueue);
   readSource = self->_readSource;
-  self->_readSource = v66;
+  self->_readSource = v68;
 
-  v68 = self->_readSource;
-  if (!v68)
+  v70 = self->_readSource;
+  if (!v70)
   {
     close(self->_sockfd);
-    v71 = 55;
+    v73 = 55;
     goto LABEL_102;
   }
 
@@ -1722,15 +1871,15 @@ LABEL_10:
   handler[2] = __35__NWStatsManager_initialConfigure___block_invoke;
   handler[3] = &unk_27996DB98;
   handler[4] = self;
-  dispatch_source_set_event_handler(v68, handler);
+  dispatch_source_set_event_handler(v70, handler);
   sockfd = self->_sockfd;
-  v70 = self->_readSource;
-  v78[0] = MEMORY[0x277D85DD0];
-  v78[1] = 3221225472;
-  v78[2] = __35__NWStatsManager_initialConfigure___block_invoke_2;
-  v78[3] = &__block_descriptor_36_e5_v8__0l;
-  v79 = sockfd;
-  dispatch_source_set_cancel_handler(v70, v78);
+  v72 = self->_readSource;
+  v79[0] = MEMORY[0x277D85DD0];
+  v79[1] = 3221225472;
+  v79[2] = __35__NWStatsManager_initialConfigure___block_invoke_2;
+  v79[3] = &__block_descriptor_36_e5_v8__0l;
+  v80 = sockfd;
+  dispatch_source_set_cancel_handler(v72, v79);
   dispatch_resume(self->_readSource);
   [(NWStatsManager *)self _sendDetailsRequestMessage:-1];
   if (v14)
@@ -1796,43 +1945,42 @@ LABEL_94:
   {
     [(NWStatsManager *)self _addAllForProvider:10 filter:v15 events:events];
     [(NWStatsManager *)self _drainReadBuffer];
-    v76 += 0x8000;
+    v77 += 0x8000;
   }
 
   if ([(NWStatsTargetSelector *)v10 shouldAddProvider:9])
   {
-    [(NWStatsManager *)self _addAllForProvider:9 filter:v32 | 0x120000000000 events:events];
+    [(NWStatsManager *)self _addAllForProvider:9 filter:v34 | 0x120000000000 events:events];
     [(NWStatsManager *)self _drainReadBuffer];
-    v72 = v76 + 0x8000;
+    v74 = v77 + 0x8000;
   }
 
   else
   {
-    v72 = v76;
+    v74 = v77;
   }
 
-  [(NWStatsManager *)self setRcvBufsize:v72];
+  [(NWStatsManager *)self setRcvBufsize:v74];
   [(NWStatsManager *)self setConfigured:1];
-  v73 = [configureCopy objectForKeyedSubscript:@"kNWStatsParameterThresholds"];
-  v71 = [(NWStatsManager *)self _setThresholds:v73];
+  v75 = [configureCopy objectForKeyedSubscript:@"kNWStatsParameterThresholds"];
+  v73 = [(NWStatsManager *)self _setThresholds:v75];
 
   if (self->_eagerInstantiate || self->_trafficDeltaAdjustmentFactor > 0.0)
   {
-    v77[0] = MEMORY[0x277D85DD0];
-    v77[1] = 3221225472;
-    v77[2] = __35__NWStatsManager_initialConfigure___block_invoke_3;
-    v77[3] = &unk_27996DB98;
-    v77[4] = self;
-    [(NWStatsManager *)self _refreshUsingBlock:0 completionBlock:v77];
+    v78[0] = MEMORY[0x277D85DD0];
+    v78[1] = 3221225472;
+    v78[2] = __35__NWStatsManager_initialConfigure___block_invoke_3;
+    v78[3] = &unk_27996DB98;
+    v78[4] = self;
+    [(NWStatsManager *)self _refreshUsingBlock:0 completionBlock:v78];
   }
 
 LABEL_102:
 
-  v74 = *MEMORY[0x277D85DE8];
-  return v71;
+  return v73;
 }
 
-uint64_t __35__NWStatsManager_initialConfigure___block_invoke(uint64_t a1)
+void *__35__NWStatsManager_initialConfigure___block_invoke(uint64_t a1)
 {
   *(*(a1 + 32) + 58) = 1;
   result = [*(a1 + 32) _handleReads:*(*(a1 + 32) + 28)];
@@ -1843,7 +1991,7 @@ uint64_t __35__NWStatsManager_initialConfigure___block_invoke(uint64_t a1)
 void __35__NWStatsManager_initialConfigure___block_invoke_3(uint64_t a1)
 {
   *(*(a1 + 32) + 48) = 0;
-  v1 = NStatGetLog();
+  v1 = NStatGetLog(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     *v2 = 0;
@@ -1877,33 +2025,34 @@ void __35__NWStatsManager_initialConfigure___block_invoke_3(uint64_t a1)
 
 - (int)configure:(id)configure
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   configureCopy = configure;
-  if ([(NWStatsManager *)self isInvalidated])
+  isInvalidated = [(NWStatsManager *)self isInvalidated];
+  if (isInvalidated)
   {
-    v5 = NStatGetLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = NStatGetLog(isInvalidated);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v19[0]) = 0;
-      _os_log_impl(&dword_25BA3A000, v5, OS_LOG_TYPE_ERROR, "configure skipped as manager was invalidated", v19, 2u);
+      LOWORD(v20[0]) = 0;
+      _os_log_impl(&dword_25BA3A000, v6, OS_LOG_TYPE_ERROR, "configure skipped as manager was invalidated", v20, 2u);
     }
 
-    v6 = 6;
+    v7 = 6;
   }
 
   else
   {
     Default = CFAllocatorGetDefault();
-    v8 = SecTaskCreateFromSelf(Default);
-    if (v8)
+    v9 = SecTaskCreateFromSelf(Default);
+    if (v9)
     {
-      v9 = v8;
-      v10 = SecTaskCopyValueForEntitlement(v8, @"com.apple.private.network.statistics", 0);
-      bOOLValue = [v10 BOOLValue];
-      v12 = SecTaskCopyValueForEntitlement(v9, @"com.apple.private.coreservices.canmapbundleidtouuid", 0);
+      v10 = v9;
+      v11 = SecTaskCopyValueForEntitlement(v9, @"com.apple.private.network.statistics", 0);
+      bOOLValue = [v11 BOOLValue];
+      v13 = SecTaskCopyValueForEntitlement(v10, @"com.apple.private.coreservices.canmapbundleidtouuid", 0);
 
-      bOOLValue2 = [v12 BOOLValue];
-      CFRelease(v9);
+      bOOLValue2 = [v13 BOOLValue];
+      CFRelease(v10);
 
       if (bOOLValue && bOOLValue2)
       {
@@ -1912,12 +2061,12 @@ void __35__NWStatsManager_initialConfigure___block_invoke_3(uint64_t a1)
 
         if ([(NWStatsManager *)self configured])
         {
-          v6 = [(NWStatsManager *)self reconfigure:configureCopy];
+          v7 = [(NWStatsManager *)self reconfigure:configureCopy];
         }
 
         else
         {
-          v6 = [(NWStatsManager *)self initialConfigure:configureCopy];
+          v7 = [(NWStatsManager *)self initialConfigure:configureCopy];
           [(NWStatsManager *)self setConfigured:1];
         }
 
@@ -1927,40 +2076,39 @@ void __35__NWStatsManager_initialConfigure___block_invoke_3(uint64_t a1)
 
     else
     {
-      v15 = NStatGetLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v17 = NStatGetLog(0);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v19[0]) = 0;
-        _os_log_impl(&dword_25BA3A000, v15, OS_LOG_TYPE_ERROR, "NWStatsManager configure: unable to get task ref for entitlement check", v19, 2u);
+        LOWORD(v20[0]) = 0;
+        _os_log_impl(&dword_25BA3A000, v17, OS_LOG_TYPE_ERROR, "NWStatsManager configure: unable to get task ref for entitlement check", v20, 2u);
       }
 
       bOOLValue = 0;
       bOOLValue2 = 0;
     }
 
-    v16 = NStatGetLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+    v18 = NStatGetLog(v15);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
     {
-      v19[0] = 67109376;
-      v19[1] = bOOLValue;
-      v20 = 1024;
-      v21 = bOOLValue2;
-      _os_log_impl(&dword_25BA3A000, v16, OS_LOG_TYPE_FAULT, "NWStatsManager configure: entitlements not held, netstats %d, mapping %d", v19, 0xEu);
+      v20[0] = 67109376;
+      v20[1] = bOOLValue;
+      v21 = 1024;
+      v22 = bOOLValue2;
+      _os_log_impl(&dword_25BA3A000, v18, OS_LOG_TYPE_FAULT, "NWStatsManager configure: entitlements not held, netstats %d, mapping %d", v20, 0xEu);
     }
 
     [(NWStatsManager *)self invalidate];
-    v6 = 1;
+    v7 = 1;
   }
 
 LABEL_16:
 
-  v17 = *MEMORY[0x277D85DE8];
-  return v6;
+  return v7;
 }
 
 - (int)_refreshUsingBlock:(id)block completionBlock:(id)completionBlock
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   completionBlockCopy = completionBlock;
   queuedPolls = [(NWStatsManager *)self queuedPolls];
@@ -1968,133 +2116,136 @@ LABEL_16:
 
   if (v9 < 4)
   {
-    if ([(NWStatsManager *)self configured])
+    configured = [(NWStatsManager *)self configured];
+    if (configured)
     {
-      if ([(NWStatsManager *)self isInvalidated])
+      isInvalidated = [(NWStatsManager *)self isInvalidated];
+      if (isInvalidated)
       {
-        v12 = NStatGetLog();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v15 = NStatGetLog(isInvalidated);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          LOWORD(v20[0]) = 0;
-          _os_log_impl(&dword_25BA3A000, v12, OS_LOG_TYPE_ERROR, "_refreshUsingBlock skipped as manager was invalidated", v20, 2u);
+          LOWORD(v22[0]) = 0;
+          _os_log_impl(&dword_25BA3A000, v15, OS_LOG_TYPE_ERROR, "_refreshUsingBlock skipped as manager was invalidated", v22, 2u);
         }
 
-        v11 = 6;
+        v12 = 6;
       }
 
       else
       {
-        v14 = objc_alloc_init(NWStatsPollHandler);
-        v15 = v14;
-        if (v14)
+        v17 = objc_alloc_init(NWStatsPollHandler);
+        v18 = v17;
+        if (v17)
         {
-          [(NWStatsPollHandler *)v14 setDeliveryBlock:blockCopy];
-          [(NWStatsPollHandler *)v15 setCompletionBlock:completionBlockCopy];
-          [(NWStatsPollHandler *)v15 setManager:self];
-          [(NWStatsPollHandler *)v15 setSynchronous:0];
+          [(NWStatsPollHandler *)v17 setDeliveryBlock:blockCopy];
+          [(NWStatsPollHandler *)v18 setCompletionBlock:completionBlockCopy];
+          [(NWStatsPollHandler *)v18 setManager:self];
+          [(NWStatsPollHandler *)v18 setSynchronous:0];
           activePoll = [(NWStatsManager *)self activePoll];
 
           if (activePoll)
           {
             queuedPolls2 = [(NWStatsManager *)self queuedPolls];
-            [queuedPolls2 addObject:v15];
+            [queuedPolls2 addObject:v18];
           }
 
           else
           {
-            [(NWStatsManager *)self _startPoll:v15];
+            [(NWStatsManager *)self _startPoll:v18];
           }
 
-          v11 = 0;
+          v12 = 0;
         }
 
         else
         {
-          v11 = 12;
+          v12 = 12;
         }
       }
     }
 
     else
     {
-      v13 = NStatGetLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v16 = NStatGetLog(configured);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v20[0]) = 0;
-        _os_log_impl(&dword_25BA3A000, v13, OS_LOG_TYPE_ERROR, "_refreshUsingBlock skipped as manager not yet configured", v20, 2u);
+        LOWORD(v22[0]) = 0;
+        _os_log_impl(&dword_25BA3A000, v16, OS_LOG_TYPE_ERROR, "_refreshUsingBlock skipped as manager not yet configured", v22, 2u);
       }
 
-      v11 = 19;
+      v12 = 19;
     }
   }
 
   else
   {
-    v10 = NStatGetLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = NStatGetLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v20[0] = 67109120;
-      v20[1] = v9;
-      _os_log_impl(&dword_25BA3A000, v10, OS_LOG_TYPE_ERROR, "_refreshUsingBlock skipped as current outstanding is %d", v20, 8u);
+      v22[0] = 67109120;
+      v22[1] = v9;
+      _os_log_impl(&dword_25BA3A000, v11, OS_LOG_TYPE_ERROR, "_refreshUsingBlock skipped as current outstanding is %d", v22, 8u);
     }
 
-    v11 = 35;
+    v12 = 35;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v12;
 }
 
 - (int)_refreshSyncUsingBlock:(id)block
 {
   blockCopy = block;
-  if ([(NWStatsManager *)self configured])
+  configured = [(NWStatsManager *)self configured];
+  if (configured)
   {
-    if ([(NWStatsManager *)self isInvalidated])
+    isInvalidated = [(NWStatsManager *)self isInvalidated];
+    if (isInvalidated)
     {
-      v5 = NStatGetLog();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v7 = NStatGetLog(isInvalidated);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_25BA3A000, v5, OS_LOG_TYPE_ERROR, "_refreshSyncUsingBlock skipped as manager was invalidated", buf, 2u);
+        _os_log_impl(&dword_25BA3A000, v7, OS_LOG_TYPE_ERROR, "_refreshSyncUsingBlock skipped as manager was invalidated", buf, 2u);
       }
 
-      v6 = 6;
+      v8 = 6;
     }
 
     else if (self->_handlingSocketReads)
     {
-      v9 = NStatGetLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = NStatGetLog(isInvalidated);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        *v15 = 0;
-        _os_log_impl(&dword_25BA3A000, v9, OS_LOG_TYPE_ERROR, "_refreshSyncUsingBlock abort to prevent deadlock", v15, 2u);
+        *v17 = 0;
+        _os_log_impl(&dword_25BA3A000, v11, OS_LOG_TYPE_ERROR, "_refreshSyncUsingBlock abort to prevent deadlock", v17, 2u);
       }
 
-      v6 = 11;
+      v8 = 11;
     }
 
     else
     {
-      v10 = objc_alloc_init(NWStatsPollHandler);
-      v11 = v10;
-      if (v10)
+      v12 = objc_alloc_init(NWStatsPollHandler);
+      v13 = v12;
+      if (v12)
       {
-        [(NWStatsPollHandler *)v10 setDeliveryBlock:blockCopy];
-        [(NWStatsPollHandler *)v11 setCompletionBlock:0];
-        [(NWStatsPollHandler *)v11 setManager:self];
-        [(NWStatsPollHandler *)v11 setSynchronous:1];
+        [(NWStatsPollHandler *)v12 setDeliveryBlock:blockCopy];
+        [(NWStatsPollHandler *)v13 setCompletionBlock:0];
+        [(NWStatsPollHandler *)v13 setManager:self];
+        [(NWStatsPollHandler *)v13 setSynchronous:1];
         activePoll = [(NWStatsManager *)self activePoll];
 
         if (activePoll)
         {
           queuedPolls = [(NWStatsManager *)self queuedPolls];
-          [queuedPolls addObject:v11];
+          [queuedPolls addObject:v13];
         }
 
         else
         {
-          [(NWStatsManager *)self _startPoll:v11];
+          [(NWStatsManager *)self _startPoll:v13];
         }
 
         self->_handlingSocketReads = 1;
@@ -2110,30 +2261,30 @@ LABEL_16:
           [(NWStatsManager *)self _handleReads:1];
         }
 
-        v6 = 0;
+        v8 = 0;
         self->_handlingSocketReads = 0;
       }
 
       else
       {
-        v6 = 12;
+        v8 = 12;
       }
     }
   }
 
   else
   {
-    v7 = NStatGetLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = NStatGetLog(configured);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      *v17 = 0;
-      _os_log_impl(&dword_25BA3A000, v7, OS_LOG_TYPE_ERROR, "_refreshSyncUsingBlock skipped as manager not yet configured", v17, 2u);
+      *v19 = 0;
+      _os_log_impl(&dword_25BA3A000, v9, OS_LOG_TYPE_ERROR, "_refreshSyncUsingBlock skipped as manager not yet configured", v19, 2u);
     }
 
-    v6 = 19;
+    v8 = 19;
   }
 
-  return v6;
+  return v8;
 }
 
 - (void)ignoreSource:(unint64_t)source
@@ -2180,65 +2331,61 @@ LABEL_16:
 
 - (id)getState
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v4 = objc_alloc(MEMORY[0x277CCACA8]);
   internalSources = [(NWStatsManager *)self internalSources];
   v6 = [v4 initWithFormat:@"NWStatsManager %p: Current num sources %d current buf size %d after %d adaptations", self, objc_msgSend(internalSources, "count"), self->_currentRcvBufSize, self->_numAdaptiveRcvBufIncrements];
   [v3 addObject:v6];
 
-  v7 = objc_alloc(MEMORY[0x277CCACA8]);
-  numRemoveSourcesAfterFilter = self->_combinedCounts.numRemoveSourcesAfterFilter;
-  v9 = [v7 initWithFormat:@"NWStatsManager %p: Source removes %lld after filter %lld after drop %lld", self, self->_combinedCounts.numRemoveSources, numRemoveSourcesAfterFilter, self->_combinedCounts.numRemoveSourcesAfterDrop];
-  [v3 addObject:v9];
+  v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"NWStatsManager %p: Source removes %lld after filter %lld after drop %lld", self, self->_combinedCounts.numRemoveSources, self->_combinedCounts.numRemoveSourcesAfterFilter, self->_combinedCounts.numRemoveSourcesAfterDrop];
+  [v3 addObject:v7];
 
-  v10 = objc_alloc(MEMORY[0x277CCACA8]);
-  numRemovesAfterFilter = self->_combinedCounts.numRemovesAfterFilter;
-  v12 = [v10 initWithFormat:@"NWStatsManager %p: No-source removes %lld after filter %lld after drop %lld", self, self->_combinedCounts.numRemoves, numRemovesAfterFilter, self->_combinedCounts.numRemovesAfterDrop];
-  [v3 addObject:v12];
+  v8 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"NWStatsManager %p: No-source removes %lld after filter %lld after drop %lld", self, self->_combinedCounts.numRemoves, self->_combinedCounts.numRemovesAfterFilter, self->_combinedCounts.numRemovesAfterDrop];
+  [v3 addObject:v8];
 
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
-  v62 = 0u;
+  v58 = 0u;
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   queuedPolls = [(NWStatsManager *)self queuedPolls];
-  v14 = [queuedPolls countByEnumeratingWithState:&v61 objects:v67 count:16];
-  if (v14)
+  v10 = [queuedPolls countByEnumeratingWithState:&v56 objects:v62 count:16];
+  if (v10)
   {
-    v15 = v14;
+    v11 = v10;
     selfCopy = self;
-    v17 = 0;
-    v18 = *v62;
+    v13 = 0;
+    v14 = *v57;
     do
     {
-      v19 = 0;
-      v20 = v17;
+      v15 = 0;
+      v16 = v13;
       do
       {
-        if (*v62 != v18)
+        if (*v57 != v14)
         {
           objc_enumerationMutation(queuedPolls);
         }
 
-        v17 = *(*(&v61 + 1) + 8 * v19);
+        v13 = *(*(&v56 + 1) + 8 * v15);
 
-        v21 = [v17 description];
-        [v3 addObject:v21];
+        v17 = [v13 description];
+        [v3 addObject:v17];
 
-        ++v19;
-        v20 = v17;
+        ++v15;
+        v16 = v13;
       }
 
-      while (v15 != v19);
-      v15 = [queuedPolls countByEnumeratingWithState:&v61 objects:v67 count:16];
+      while (v11 != v15);
+      v11 = [queuedPolls countByEnumeratingWithState:&v56 objects:v62 count:16];
     }
 
-    while (v15);
+    while (v11);
 
     self = selfCopy;
   }
 
-  v22 = &off_27996E108;
+  v18 = &off_27996E108;
   p_numDetailsOnClose = &self->_providerCounts[1].numDetailsOnClose;
   for (i = 1; i != 11; ++i)
   {
@@ -2246,142 +2393,143 @@ LABEL_16:
     {
       if (i >= 0xB)
       {
-        v25 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"unknown-%d", i];
+        v21 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"unknown-%d", i];
       }
 
       else
       {
-        v25 = *v22;
+        v21 = *v18;
       }
 
-      v26 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"NWStatsManager %p: %@ src-add %lld details open %lld poll %lld event %lld close %lld", self, v25, *(p_numDetailsOnClose - 4), *(p_numDetailsOnClose - 3), *(p_numDetailsOnClose - 2), *(p_numDetailsOnClose - 1), *p_numDetailsOnClose];
-      [v3 addObject:v26];
+      v22 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"NWStatsManager %p: %@ src-add %lld details open %lld poll %lld event %lld close %lld", self, v21, *(p_numDetailsOnClose - 4), *(p_numDetailsOnClose - 3), *(p_numDetailsOnClose - 2), *(p_numDetailsOnClose - 1), *p_numDetailsOnClose];
+      [v3 addObject:v22];
     }
 
-    ++v22;
+    ++v18;
     p_numDetailsOnClose += 5;
   }
 
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
-  v58 = 0u;
+  v54 = 0u;
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
   selfCopy2 = self;
   obj = [(NWStatsManager *)self interfaceSources];
-  v28 = [obj countByEnumeratingWithState:&v57 objects:v66 count:16];
-  if (v28)
+  v24 = [obj countByEnumeratingWithState:&v52 objects:v61 count:16];
+  if (v24)
   {
-    v29 = v28;
-    v30 = *v58;
+    v25 = v24;
+    v26 = *v53;
     do
     {
-      for (j = 0; j != v29; ++j)
+      for (j = 0; j != v25; ++j)
       {
-        if (*v58 != v30)
+        if (*v53 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v32 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"NWStatsManager %p: monitoring interface %d with srcref %lld threshold %lld", selfCopy2, objc_msgSend(*(*(&v57 + 1) + 8 * j), "ifIndex"), objc_msgSend(*(*(&v57 + 1) + 8 * j), "srcRef"), objc_msgSend(*(*(&v57 + 1) + 8 * j), "threshold")];
-        [v3 addObject:v32];
+        v28 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"NWStatsManager %p: monitoring interface %d with srcref %lld threshold %lld", selfCopy2, objc_msgSend(*(*(&v52 + 1) + 8 * j), "ifIndex"), objc_msgSend(*(*(&v52 + 1) + 8 * j), "srcRef"), objc_msgSend(*(*(&v52 + 1) + 8 * j), "threshold")];
+        [v3 addObject:v28];
       }
 
-      v29 = [obj countByEnumeratingWithState:&v57 objects:v66 count:16];
+      v25 = [obj countByEnumeratingWithState:&v52 objects:v61 count:16];
     }
 
-    while (v29);
+    while (v25);
   }
 
-  v33 = selfCopy2;
+  v29 = selfCopy2;
   internalSources2 = [(NWStatsManager *)selfCopy2 internalSources];
   allKeys = [internalSources2 allKeys];
 
-  v50 = allKeys;
+  v45 = allKeys;
   [allKeys sortedArrayUsingSelector:sel_compare_];
-  v53 = 0u;
-  v54 = 0u;
-  v55 = 0u;
-  obja = v56 = 0u;
-  v36 = [obja countByEnumeratingWithState:&v53 objects:v65 count:16];
-  if (v36)
+  v48 = 0u;
+  v49 = 0u;
+  v50 = 0u;
+  obja = v51 = 0u;
+  v32 = [obja countByEnumeratingWithState:&v48 objects:v60 count:16];
+  if (v32)
   {
-    v37 = v36;
-    v38 = *v54;
+    v33 = v32;
+    v34 = *v49;
     do
     {
-      for (k = 0; k != v37; ++k)
+      for (k = 0; k != v33; ++k)
       {
-        if (*v54 != v38)
+        if (*v49 != v34)
         {
           objc_enumerationMutation(obja);
         }
 
-        v40 = *(*(&v53 + 1) + 8 * k);
-        v41 = objc_alloc(MEMORY[0x277CCACA8]);
-        longLongValue = [v40 longLongValue];
-        internalSources3 = [(NWStatsManager *)v33 internalSources];
-        v44 = [internalSources3 objectForKeyedSubscript:v40];
-        v45 = [v41 initWithFormat:@" ref %6lld --> %@", longLongValue, v44];
-        [v3 addObject:v45];
+        v36 = *(*(&v48 + 1) + 8 * k);
+        v37 = objc_alloc(MEMORY[0x277CCACA8]);
+        longLongValue = [v36 longLongValue];
+        internalSources3 = [(NWStatsManager *)v29 internalSources];
+        v40 = [internalSources3 objectForKeyedSubscript:v36];
+        v41 = [v37 initWithFormat:@" ref %6lld --> %@", longLongValue, v40];
+        [v3 addObject:v41];
       }
 
-      v37 = [obja countByEnumeratingWithState:&v53 objects:v65 count:16];
+      v33 = [obja countByEnumeratingWithState:&v48 objects:v60 count:16];
     }
 
-    while (v37);
+    while (v33);
   }
 
-  if (v33->_checkNESessionManagerVPNs)
+  if (v29->_checkNESessionManagerVPNs)
   {
-    v46 = +[NWStatsInterfaceRegistry sharedInstance];
-    getState = [v46 getState];
+    v42 = +[NWStatsInterfaceRegistry sharedInstance];
+    getState = [v42 getState];
     [v3 addObject:getState];
   }
-
-  v48 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (void)dumpState
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   getState = [(NWStatsManager *)self getState];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v3 = [getState countByEnumeratingWithState:&v10 objects:v16 count:16];
+  v3 = [getState countByEnumeratingWithState:&v9 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
-      for (i = 0; i != v4; ++i)
+      v6 = 0;
+      do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(getState);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * i);
-        v8 = NStatGetLog();
+        v7 = *(*(&v9 + 1) + 8 * v6);
+        v8 = NStatGetLog(v3);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v15 = v7;
+          v14 = v7;
           _os_log_impl(&dword_25BA3A000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
         }
+
+        ++v6;
       }
 
-      v4 = [getState countByEnumeratingWithState:&v10 objects:v16 count:16];
+      while (v4 != v6);
+      v3 = [getState countByEnumeratingWithState:&v9 objects:v15 count:16];
+      v4 = v3;
     }
 
-    while (v4);
+    while (v3);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (id)getKernelMetrics:(id)metrics
@@ -2597,7 +2745,7 @@ LABEL_53:
 
         v4 = *(*(&v28 + 1) + 8 * v3);
         v5 = [v4 objectForKeyedSubscript:@"kNtstatMetricIdPretty"];
-        v6 = NStatGetLog();
+        v6 = NStatGetLog(v5);
         v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
         v23 = v3;
         if (v5)
@@ -2647,14 +2795,15 @@ LABEL_11:
                 }
 
                 v16 = [*(*(&v24 + 1) + 8 * i) objectForKeyedSubscript:@"kNtstatMetricItemPretty"];
+                v17 = v16;
                 if (v16)
                 {
-                  v17 = NStatGetLog();
-                  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+                  v18 = NStatGetLog(v16);
+                  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138543362;
-                    v34 = v16;
-                    _os_log_impl(&dword_25BA3A000, v17, OS_LOG_TYPE_DEFAULT, "Metric:  %{public}@", buf, 0xCu);
+                    v34 = v17;
+                    _os_log_impl(&dword_25BA3A000, v18, OS_LOG_TYPE_DEFAULT, "Metric:  %{public}@", buf, 0xCu);
                   }
                 }
               }
@@ -2675,8 +2824,6 @@ LABEL_11:
 
     while (v21);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 @end

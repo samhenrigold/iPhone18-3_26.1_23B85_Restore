@@ -54,17 +54,17 @@ uint64_t __43__ASDTExclavesSensorManager_forSensorName___block_invoke()
 - (ASDTExclavesSensorManager)initWithSensorName:(id)name
 {
   nameCopy = name;
-  v9.receiver = self;
-  v9.super_class = ASDTExclavesSensorManager;
-  if ([(ASDTExclavesSensorManager *)&v9 init])
+  v7.receiver = self;
+  v7.super_class = ASDTExclavesSensorManager;
+  if ([(ASDTExclavesSensorManager *)&v7 init])
   {
-    uTF8String = [nameCopy UTF8String];
-    ASDT::Exclaves::Sensor::Create(uTF8String, v6);
+    [nameCopy UTF8String];
+    ASDT::Exclaves::Sensor::Create();
   }
 
-  v7 = 0;
+  v5 = 0;
 
-  return v7;
+  return v5;
 }
 
 - (void)ioThreadStartStop:(BOOL)stop withStatusTracker:(void *)tracker
@@ -72,37 +72,35 @@ uint64_t __43__ASDTExclavesSensorManager_forSensorName___block_invoke()
   if (tracker)
   {
     stopCopy = stop;
-    v12 = 0;
-    Status = ASDT::Exclaves::Sensor::GetStatus(self->_sensor.__ptr_, &v12);
-    if (!Status)
+    v11 = 0;
+    if (!ASDT::Exclaves::Sensor::GetStatus(self->_sensor.__ptr_, &v11))
     {
       if (stopCopy)
       {
-        v7 = 1;
+        v6 = 1;
       }
 
       else
       {
-        v7 = 2;
+        v6 = 2;
       }
 
-      v8 = v12;
-      ASDTTime::machAbsoluteTime(Status, v9 + 1);
-      *&v9[0] = -1;
-      v10 = v8;
-      v11 = v7;
-      ASDT::Exclaves::StatusTracker::Push(tracker, v9);
+      v7 = v11;
+      ASDTTime::machAbsoluteTime(v8 + 1);
+      *&v8[0] = -1;
+      v9 = v7;
+      v10 = v6;
+      ASDT::Exclaves::StatusTracker::Push(tracker, v8);
     }
   }
 }
 
 - (void)initWithSensorName:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_241659000, a2, OS_LOG_TYPE_ERROR, "ASDTExclavesSensorManager(%@): Exclaves sensor creation fails unexpectedly.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_241659000, a2, OS_LOG_TYPE_ERROR, "ASDTExclavesSensorManager(%@): Exclaves sensor creation fails unexpectedly.", &v2, 0xCu);
 }
 
 @end

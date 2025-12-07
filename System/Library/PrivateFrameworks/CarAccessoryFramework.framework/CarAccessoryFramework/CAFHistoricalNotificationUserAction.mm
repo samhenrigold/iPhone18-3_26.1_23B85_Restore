@@ -85,8 +85,8 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v13[3] = *MEMORY[0x277D85DE8];
-  v12[0] = @"contentURLAction";
+  v12[3] = *MEMORY[0x277D85DE8];
+  v11[0] = @"contentURLAction";
   contentURLAction = [(CAFHistoricalNotificationUserAction *)self contentURLAction];
   null = contentURLAction;
   if (!contentURLAction)
@@ -94,8 +94,8 @@
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v13[0] = null;
-  v12[1] = @"symbolName";
+  v12[0] = null;
+  v11[1] = @"symbolName";
   symbolName = [(CAFHistoricalNotificationUserAction *)self symbolName];
   null2 = symbolName;
   if (!symbolName)
@@ -103,8 +103,8 @@
     null2 = [MEMORY[0x277CBEB68] null];
   }
 
-  v13[1] = null2;
-  v12[2] = @"userVisibleLabel";
+  v12[1] = null2;
+  v11[2] = @"userVisibleLabel";
   userVisibleLabel = [(CAFHistoricalNotificationUserAction *)self userVisibleLabel];
   null3 = userVisibleLabel;
   if (!userVisibleLabel)
@@ -112,8 +112,8 @@
     null3 = [MEMORY[0x277CBEB68] null];
   }
 
-  v13[2] = null3;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
+  v12[2] = null3;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
   if (!userVisibleLabel)
   {
   }
@@ -125,8 +125,6 @@
   if (!contentURLAction)
   {
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

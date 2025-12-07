@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)prescribedToolAsString:(int)string;
+- (id)queryTypeAsString:(int)string;
 - (int)StringAsPrescribedTool:(id)tool;
 - (int)StringAsQueryType:(id)type;
 - (int)prescribedTool;
@@ -86,7 +88,6 @@ LABEL_3:
     goto LABEL_14;
   }
 
-  v5 = *(equalCopy + 28);
   if (*&self->_has)
   {
     if ((*(equalCopy + 28) & 1) == 0 || self->_prescribedTool != *(equalCopy + 2))
@@ -98,7 +99,7 @@ LABEL_3:
   else if (*(equalCopy + 28))
   {
 LABEL_14:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_15;
   }
 
@@ -118,17 +119,17 @@ LABEL_14:
   query = self->_query;
   if (query | *(equalCopy + 2))
   {
-    v7 = [(SIRINLUEXTERNALNLU_ROUTERAjaxQuery *)query isEqual:?];
+    v6 = [(SIRINLUEXTERNALNLU_ROUTERAjaxQuery *)query isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_15:
 
-  return v7;
+  return v6;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -185,26 +186,24 @@ LABEL_15:
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    prescribedTool = self->_prescribedTool;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    queryType = self->_queryType;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_query)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -294,6 +293,21 @@ LABEL_15:
   return v4;
 }
 
+- (id)queryTypeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E8327EA0[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasQueryType:(BOOL)type
 {
   if (type)
@@ -353,6 +367,21 @@ LABEL_15:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)prescribedToolAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E8327E78[string];
   }
 
   return v4;

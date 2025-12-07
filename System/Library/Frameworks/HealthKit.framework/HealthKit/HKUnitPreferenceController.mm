@@ -109,43 +109,42 @@ uint64_t __81__HKUnitPreferenceController_unitPreferenceControllerWithHealthStor
 void __64__HKUnitPreferenceController_updatePreferredUnit_forObjectType___block_invoke(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v7 = v5;
   if ((a2 & 1) == 0)
   {
-    _HKInitializeLogging();
-    v6 = HKLogInfrastructure();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    _HKInitializeLogging(v5, v6);
+    v10 = HKLogInfrastructure(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __64__HKUnitPreferenceController_updatePreferredUnit_forObjectType___block_invoke_cold_1(a1);
     }
   }
 }
 
-uint64_t __76__HKUnitPreferenceController__fetchHKUnitPreferencesWithAttempt_completion___block_invoke(uint64_t a1, char a2)
+void __76__HKUnitPreferenceController__fetchHKUnitPreferencesWithAttempt_completion___block_invoke(uint64_t a1, char a2)
 {
-  if ((a2 & 1) == 0)
+  if ((a2 & 1) != 0 || (v3 = *(a1 + 48), v3 > 2))
   {
-    v3 = *(a1 + 48);
-    if (v3 <= 2)
+    v4 = *(a1 + 40);
+    if (v4)
     {
-      return __76__HKUnitPreferenceController__fetchHKUnitPreferencesWithAttempt_completion___block_invoke_cold_1(a1, v3);
+      v5 = *(v4 + 16);
+
+      v5();
     }
   }
 
-  result = *(a1 + 40);
-  if (result)
+  else
   {
-    v5 = *(result + 16);
-
-    return v5();
+    __76__HKUnitPreferenceController__fetchHKUnitPreferencesWithAttempt_completion___block_invoke_cold_1(a1, v3);
   }
-
-  return result;
 }
 
 void __70__HKUnitPreferenceController__refreshHKUnitPreferencesWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v5)
   {
     block[0] = MEMORY[0x1E69E9820];
@@ -153,27 +152,28 @@ void __70__HKUnitPreferenceController__refreshHKUnitPreferencesWithCompletion___
     block[2] = __70__HKUnitPreferenceController__refreshHKUnitPreferencesWithCompletion___block_invoke_2;
     block[3] = &unk_1E73766C8;
     block[4] = *(a1 + 32);
-    v10 = v5;
-    v11 = *(a1 + 40);
+    v16 = v5;
+    v17 = *(a1 + 40);
     dispatch_async(MEMORY[0x1E69E96A0], block);
   }
 
   else
   {
-    if ((HKIsUnitTesting() & 1) == 0)
+    v9 = HKIsUnitTesting(v6, v7);
+    if ((v9 & 1) == 0)
     {
-      _HKInitializeLogging();
-      v7 = HKLogInfrastructure();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      _HKInitializeLogging(v9, v10);
+      v13 = HKLogInfrastructure(v11, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         __70__HKUnitPreferenceController__refreshHKUnitPreferencesWithCompletion___block_invoke_cold_1(a1);
       }
     }
 
-    v8 = *(a1 + 40);
-    if (v8)
+    v14 = *(a1 + 40);
+    if (v14)
     {
-      (*(v8 + 16))(v8, 0);
+      (*(v14 + 16))(v14, 0);
     }
   }
 }
@@ -230,25 +230,23 @@ void __70__HKUnitPreferenceController__refreshHKUnitPreferencesWithCompletion___
 
 - (void)_postNotificationWithChangedKeys:(uint64_t)keys
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   if (keys)
   {
-    v8 = @"HKUnitPreferenceControllerUnitPreferenceChangedKey";
-    v9[0] = a2;
+    v7 = @"HKUnitPreferenceControllerUnitPreferenceChangedKey";
+    v8[0] = a2;
     v3 = MEMORY[0x1E695DF20];
     v4 = a2;
-    v5 = [v3 dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    v5 = [v3 dictionaryWithObjects:v8 forKeys:&v7 count:1];
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
 
     [defaultCenter postNotificationName:@"HKUnitPreferenceControllerUnitPreferencesDidChangeNotification" object:keys userInfo:v5];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_lock_updatePreferredUnits:(id)units
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (units)
   {
@@ -256,31 +254,31 @@ void __70__HKUnitPreferenceController__refreshHKUnitPreferencesWithCompletion___
     v4 = [(HKUnitPreferenceController *)units _changedKeysBetweenDictionary:v3 andDictionary:?];
     if ([v4 count])
     {
-      v16 = 0u;
-      v17 = 0u;
-      v14 = 0u;
       v15 = 0u;
+      v16 = 0u;
+      v13 = 0u;
+      v14 = 0u;
       v5 = v4;
-      v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v15;
+        v8 = *v14;
         do
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v15 != v8)
+            if (*v14 != v8)
             {
               objc_enumerationMutation(v5);
             }
 
-            v10 = *(*(&v14 + 1) + 8 * i);
-            v11 = [v3 objectForKeyedSubscript:{v10, v14}];
+            v10 = *(*(&v13 + 1) + 8 * i);
+            v11 = [v3 objectForKeyedSubscript:{v10, v13}];
             [*(units + 1) setObject:v11 forKeyedSubscript:v10];
           }
 
-          v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
         }
 
         while (v7);
@@ -295,40 +293,38 @@ void __70__HKUnitPreferenceController__refreshHKUnitPreferencesWithCompletion___
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return units;
 }
 
 - (id)_changedKeysBetweenDictionary:(void *)dictionary andDictionary:
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a2;
   dictionaryCopy = dictionary;
   if (self)
   {
     self = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v7 = _HKAllQuantityTypes();
-    v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v19;
+      v10 = *v18;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v19 != v10)
+          if (*v18 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v18 + 1) + 8 * i);
-          v13 = [v5 objectForKeyedSubscript:{v12, v18}];
+          v12 = *(*(&v17 + 1) + 8 * i);
+          v13 = [v5 objectForKeyedSubscript:{v12, v17}];
           v14 = [dictionaryCopy objectForKeyedSubscript:v12];
           v15 = v14;
           if (v13 != v14 && (!v14 || ([v13 isEqual:v14] & 1) == 0))
@@ -337,14 +333,12 @@ void __70__HKUnitPreferenceController__refreshHKUnitPreferencesWithCompletion___
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v9);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return self;
 }
@@ -368,46 +362,46 @@ void __70__HKUnitPreferenceController__refreshHKUnitPreferencesWithCompletion___
 
 - (id)_generateDefaultHKUnitPreferences
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v2 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
     v3 = _HKAllQuantityTypes();
-    v4 = [v3 countByEnumeratingWithState:&v32 objects:v36 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v31 objects:v35 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v33;
+      v6 = *v32;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v33 != v6)
+          if (*v32 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = _HKGenerateDefaultUnitForQuantityType(*(*(&v32 + 1) + 8 * i));
+          v8 = _HKGenerateDefaultUnitForQuantityType(*(*(&v31 + 1) + 8 * i));
           OUTLINED_FUNCTION_2_8(v8);
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v31 objects:v35 count:16];
       }
 
       while (v5);
     }
 
-    v31 = [(HKObjectType *)HKCorrelationType correlationTypeForIdentifier:@"HKCorrelationTypeIdentifierBloodPressure"];
+    v30 = [(HKObjectType *)HKCorrelationType correlationTypeForIdentifier:@"HKCorrelationTypeIdentifierBloodPressure"];
     v9 = [HKUnit unitFromString:@"mmHg"];
-    [v2 setObject:v9 forKeyedSubscript:v31];
+    [v2 setObject:v9 forKeyedSubscript:v30];
 
-    v30 = +[HKSeriesType heartbeatSeriesType];
+    v29 = +[HKSeriesType heartbeatSeriesType];
     v10 = [HKUnit unitFromString:@"count/min"];
-    [v2 setObject:v10 forKeyedSubscript:v30];
+    [v2 setObject:v10 forKeyedSubscript:v29];
 
     v11 = +[(HKObjectType *)HKCategoryType];
     v12 = +[HKUnit countUnit];
@@ -448,8 +442,6 @@ void __70__HKUnitPreferenceController__refreshHKUnitPreferencesWithCompletion___
   {
     v27 = 0;
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return v27;
 }
@@ -492,26 +484,16 @@ void __70__HKUnitPreferenceController__refreshHKUnitPreferencesWithCompletion___
 
 void __64__HKUnitPreferenceController_updatePreferredUnit_forObjectType___block_invoke_cold_1(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
-  v4 = *(a1 + 32);
-  v5 = OUTLINED_FUNCTION_1_10(v3);
-  OUTLINED_FUNCTION_3_1(&dword_19197B000, v6, v7, "[%{public}@:%p] Error setting preferred unit: %{public}@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x1E69E9840];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1_10(v1);
+  OUTLINED_FUNCTION_3_1(&dword_19197B000, v3, v4, "[%{public}@:%p] Error setting preferred unit: %{public}@", v5, v6, v7, v8);
 }
 
 void __70__HKUnitPreferenceController__refreshHKUnitPreferencesWithCompletion___block_invoke_cold_1(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
-  v4 = *(a1 + 32);
-  v5 = OUTLINED_FUNCTION_1_10(v3);
-  OUTLINED_FUNCTION_3_1(&dword_19197B000, v6, v7, "[%{public}@:%p] Error fetching preferred units: %{public}@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x1E69E9840];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1_10(v1);
+  OUTLINED_FUNCTION_3_1(&dword_19197B000, v3, v4, "[%{public}@:%p] Error fetching preferred units: %{public}@", v5, v6, v7, v8);
 }
 
 @end

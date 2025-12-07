@@ -145,7 +145,7 @@
 
 - (uint64_t)pu_scrollToItemAtIndexPath:()PhotosUI atScrollPosition:animated:
 {
-  v8 = [self layoutAttributesForItemAtIndexPath:?];
+  v8 = [self layoutAttributesForItemAtIndexPath:a3];
   [v8 frame];
   v10 = v9;
   v12 = v11;

@@ -55,7 +55,7 @@
   v18 = objc_msgSend_bundleForClass_(v15, v17, v16);
   if (!v18)
   {
-    v28 = uni_logger_api();
+    v28 = uni_logger_api(0);
     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       sub_2956CD9CC(v7, v28);
@@ -391,15 +391,15 @@ LABEL_6:
   v36 = v35;
   v38 = v37;
   objc_msgSend_extent(v28, v39, v40);
-  v214.origin.x = v41;
-  v214.origin.y = v42;
-  v214.size.width = v43;
-  v214.size.height = v44;
-  v213.origin.x = v32;
-  v213.origin.y = v34;
-  v213.size.width = v36;
-  v213.size.height = v38;
-  if (!CGRectEqualToRect(v213, v214))
+  v215.origin.x = v41;
+  v215.origin.y = v42;
+  v215.size.width = v43;
+  v215.size.height = v44;
+  v214.origin.x = v32;
+  v214.origin.y = v34;
+  v214.size.width = v36;
+  v214.size.height = v38;
+  if (!CGRectEqualToRect(v214, v215))
   {
     objc_msgSend_extent(v28, v45, v46);
     v48 = v47;
@@ -408,14 +408,14 @@ LABEL_6:
     objc_msgSend_extent(v28, v53, v54);
     v56 = v55;
     objc_msgSend_extent(v21, v57, v58);
-    CGAffineTransformMakeScale(&v211, v52, v56 / v59);
-    v61 = objc_msgSend_imageByApplyingTransform_highQualityDownsample_(v21, v60, &v211, 0);
+    CGAffineTransformMakeScale(&v212, v52, v56 / v59);
+    v61 = objc_msgSend_imageByApplyingTransform_highQualityDownsample_(v21, v60, &v212, 0);
 
     v21 = v61;
   }
 
-  v202 = objc_msgSend__disparityRefinementRGBAGuideKernel(self, v45, v46);
-  if (!v202)
+  v203 = objc_msgSend__disparityRefinementRGBAGuideKernel(self, v45, v46);
+  if (!v203)
   {
     sub_2956CDD08();
   }
@@ -438,18 +438,18 @@ LABEL_6:
   v77 = v76;
   v79 = v78;
   v81 = v80;
-  v210[0] = v21;
-  v210[1] = v28;
-  v198 = v71;
-  v199 = v28;
-  v210[2] = v71;
-  v83 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], v82, v210, 3);
-  v208 = *MEMORY[0x29EDB9250];
+  v211[0] = v21;
+  v211[1] = v28;
+  v199 = v71;
+  v200 = v28;
+  v211[2] = v71;
+  v83 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], v82, v211, 3);
+  v209 = *MEMORY[0x29EDB9250];
   v84 = 0x29EDBA000;
   v86 = objc_msgSend_numberWithInt_(MEMORY[0x29EDBA070], v85, *MEMORY[0x29EDB91F8]);
-  v209 = v86;
-  v88 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v87, &v209, &v208, 1);
-  v90 = objc_msgSend_applyWithExtent_arguments_options_(v202, v89, v83, v88, v75, v77, v79, v81);
+  v210 = v86;
+  v88 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v87, &v210, &v209, 1);
+  v90 = objc_msgSend_applyWithExtent_arguments_options_(v203, v89, v83, v88, v75, v77, v79, v81);
 
   if (!v90)
   {
@@ -459,13 +459,13 @@ LABEL_6:
   v93 = MEMORY[0x29EDB9198];
   objc_msgSend_extent(v14, v91, v92);
   v96 = objc_msgSend_vectorWithCGRect_(v93, v94, v95);
-  v207[0] = v96;
+  v208[0] = v96;
   v97 = MEMORY[0x29EDB9198];
-  v200 = v90;
+  v201 = v90;
   objc_msgSend_extent(v90, v98, v99);
   v102 = objc_msgSend_vectorWithCGRect_(v97, v100, v101);
-  v207[1] = v102;
-  v201 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], v103, v207, 2);
+  v208[1] = v102;
+  v202 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], v103, v208, 2);
 
   v106 = objc_msgSend_inputs(v7, v104, v105);
   v110 = objc_msgSend_objectForKeyedSubscript_(v106, v107, @"subsampleFactor");
@@ -481,16 +481,16 @@ LABEL_6:
     v116 = 8;
   }
 
-  v191 = MEMORY[0x29EDB8E00];
-  v206[0] = @"MPSImageSpatioTemporalGuidedFilter";
-  v205[0] = @"name";
-  v205[1] = @"spatialDiameter";
-  v195 = objc_msgSend_inputs(v7, v117, v118);
-  v194 = objc_msgSend_objectForKeyedSubscript_(v195, v119, @"spatialDiameter");
-  if (v194)
+  v192 = MEMORY[0x29EDB8E00];
+  v207[0] = @"MPSImageSpatioTemporalGuidedFilter";
+  v206[0] = @"name";
+  v206[1] = @"spatialDiameter";
+  v196 = objc_msgSend_inputs(v7, v117, v118);
+  v195 = objc_msgSend_objectForKeyedSubscript_(v196, v119, @"spatialDiameter");
+  if (v195)
   {
-    v188 = objc_msgSend_inputs(v7, v120, v121);
-    v123 = objc_msgSend_objectForKeyedSubscript_(v188, v122, @"spatialDiameter");
+    v189 = objc_msgSend_inputs(v7, v120, v121);
+    v123 = objc_msgSend_objectForKeyedSubscript_(v189, v122, @"spatialDiameter");
   }
 
   else
@@ -498,18 +498,18 @@ LABEL_6:
     v123 = &unk_2A1C94B40;
   }
 
-  v190 = v123;
-  v206[1] = v123;
-  v206[2] = v201;
-  v205[2] = @"imageExtents";
-  v205[3] = @"epsilon";
-  v192 = objc_msgSend_inputs(v7, v120, v121);
-  v127 = objc_msgSend_objectForKeyedSubscript_(v192, v124, @"epsilon");
-  v197 = imageCopy;
+  v191 = v123;
+  v207[1] = v123;
+  v207[2] = v202;
+  v206[2] = @"imageExtents";
+  v206[3] = @"epsilon";
+  v193 = objc_msgSend_inputs(v7, v120, v121);
+  v127 = objc_msgSend_objectForKeyedSubscript_(v193, v124, @"epsilon");
+  v198 = imageCopy;
   if (v127)
   {
-    v187 = objc_msgSend_inputs(v7, v125, v126);
-    v129 = objc_msgSend_objectForKeyedSubscript_(v187, v128, @"epsilon");
+    v188 = objc_msgSend_inputs(v7, v125, v126);
+    v129 = objc_msgSend_objectForKeyedSubscript_(v188, v128, @"epsilon");
   }
 
   else
@@ -517,26 +517,26 @@ LABEL_6:
     v129 = &unk_2A1C95580;
   }
 
-  v189 = v129;
-  v206[3] = v129;
-  v205[4] = @"subsampleFactor";
+  v190 = v129;
+  v207[3] = v129;
+  v206[4] = @"subsampleFactor";
   v130 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x29EDBA070], v125, v116);
-  v206[4] = v130;
-  v205[5] = @"width";
+  v207[4] = v130;
+  v206[5] = @"width";
   v131 = MEMORY[0x29EDBA070];
   objc_msgSend_extent(v14, v132, v133);
   v137 = objc_msgSend_numberWithDouble_(v131, v134, v135, v136);
-  v206[5] = v137;
-  v205[6] = @"height";
+  v207[5] = v137;
+  v206[6] = @"height";
   v138 = MEMORY[0x29EDBA070];
-  v196 = v14;
+  v197 = v14;
   objc_msgSend_extent(v14, v139, v140);
   v144 = objc_msgSend_numberWithDouble_(v138, v141, v142, v143);
-  v206[6] = v144;
-  v205[7] = @"iterations";
+  v207[6] = v144;
+  v206[7] = @"iterations";
   v147 = objc_msgSend_inputs(v7, v145, v146);
   v151 = objc_msgSend_objectForKeyedSubscript_(v147, v148, @"iterations");
-  v193 = v7;
+  v194 = v7;
   if (v151)
   {
     v84 = objc_msgSend_inputs(v7, v149, v150);
@@ -548,9 +548,9 @@ LABEL_6:
     v153 = &unk_2A1C94B70;
   }
 
-  v206[7] = v153;
-  v154 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v149, v206, v205, 8);
-  v156 = objc_msgSend_dictionaryWithDictionary_(v191, v155, v154);
+  v207[7] = v153;
+  v154 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v149, v207, v206, 8);
+  v156 = objc_msgSend_dictionaryWithDictionary_(v192, v155, v154);
 
   if (v151)
   {
@@ -560,32 +560,32 @@ LABEL_6:
   {
   }
 
-  v157 = v200;
-  if (v194)
+  v157 = v201;
+  if (v195)
   {
   }
 
-  objc_msgSend_extent(v200, v158, v159);
+  objc_msgSend_extent(v201, v158, v159);
   v161 = v160;
   v163 = v162;
   v165 = v164;
   v167 = v166;
-  v204[0] = v196;
-  v204[1] = v200;
-  v169 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], v168, v204, 2);
-  v203 = 0;
-  v171 = objc_msgSend_applyWithExtent_inputs_arguments_error_(GuidedFilterProcessor, v170, v169, v156, &v203, v161, v163, v165, v167);
-  v172 = v203;
+  v205[0] = v197;
+  v205[1] = v201;
+  v169 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], v168, v205, 2);
+  v204 = 0;
+  v171 = objc_msgSend_applyWithExtent_inputs_arguments_error_(GuidedFilterProcessor, v170, v169, v156, &v204, v161, v163, v165, v167);
+  v172 = v204;
 
   if (v172)
   {
-    v174 = uni_logger_api();
-    if (os_log_type_enabled(v174, OS_LOG_TYPE_ERROR))
+    v175 = uni_logger_api(v173);
+    if (os_log_type_enabled(v175, OS_LOG_TYPE_ERROR))
     {
-      sub_2956CDBE4(v172, v174);
+      sub_2956CDBE4(v172, v175);
     }
 
-    v175 = 0;
+    v176 = 0;
   }
 
   else
@@ -595,22 +595,22 @@ LABEL_6:
       sub_2956CDCB0();
     }
 
-    v175 = objc_msgSend_imageWithCIImage_(UniImage, v173, v171);
-    v178 = objc_msgSend_inputs(v193, v176, v177);
-    v180 = objc_msgSend_objectForKeyedSubscript_(v178, v179, @"destinationCoefficients");
-    objc_msgSend_setTexture_(v175, v181, v180);
+    v176 = objc_msgSend_imageWithCIImage_(UniImage, v174, v171);
+    v179 = objc_msgSend_inputs(v194, v177, v178);
+    v181 = objc_msgSend_objectForKeyedSubscript_(v179, v180, @"destinationCoefficients");
+    objc_msgSend_setTexture_(v176, v182, v181);
 
-    v184 = objc_msgSend_texture(v175, v182, v183);
-    if (!v184)
+    v185 = objc_msgSend_texture(v176, v183, v184);
+    if (!v185)
     {
       sub_2956CDC84();
     }
 
-    objc_msgSend_setKernel_(v175, v185, v193);
-    v157 = v200;
+    objc_msgSend_setKernel_(v176, v186, v194);
+    v157 = v201;
   }
 
-  return v175;
+  return v176;
 }
 
 - (id)_identifyGPU:(id)u

@@ -2,6 +2,7 @@
 - (_TtC11FMFindingUI26PrecisionVFXViewController)initWithNibName:(id)name bundle:(id)bundle;
 - (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation PrecisionVFXViewController
@@ -10,6 +11,16 @@
 {
   selfCopy = self;
   sub_24A523EC8();
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  selfCopy = self;
+  sub_24A524854();
+  v5.receiver = selfCopy;
+  v5.super_class = type metadata accessor for PrecisionVFXViewController(0);
+  [(PrecisionVFXViewController *)&v5 viewWillAppear:appearCopy];
 }
 
 - (void)viewDidDisappear:(BOOL)disappear

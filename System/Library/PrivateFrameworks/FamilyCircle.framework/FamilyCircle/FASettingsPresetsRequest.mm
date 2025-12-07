@@ -83,7 +83,7 @@ void __40__FASettingsPresetsRequest_fetchPresets__block_invoke(uint64_t a1, void
   v19 = v5;
   v6 = [v4 serviceRemoteObjectWithErrorHandler:v18];
   v7 = *(*(a1 + 32) + 32);
-  v8 = _FALogSystem();
+  v8 = _FALogSystem(v6);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
   if (v7)
   {
@@ -150,7 +150,7 @@ void __46__FASettingsPresetsRequest_fetchCachedPresets__block_invoke(uint64_t a1
   v19 = v5;
   v6 = [v4 serviceRemoteObjectWithErrorHandler:v18];
   v7 = *(*(a1 + 32) + 32);
-  v8 = _FALogSystem();
+  v8 = _FALogSystem(v6);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
   if (v7)
   {

@@ -7,35 +7,33 @@
 
 - (void)rankedTemporalClustersForStartDate:(id)date endDate:(id)endDate queryId:(unint64_t)id
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   endDateCopy = endDate;
   v10 = pp_xpc_server_log_handle();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v21 = dateCopy;
-    v22 = 2112;
-    v23 = endDateCopy;
-    v24 = 2048;
+    v20 = dateCopy;
+    v21 = 2112;
+    v22 = endDateCopy;
+    v23 = 2048;
     idCopy = id;
     _os_log_impl(&dword_23224A000, v10, OS_LOG_TYPE_DEFAULT, "PPTemporalClusterServer: rankedTemporalClustersForStartDate: %@ endDate: %@ queryId: %llu", buf, 0x20u);
   }
 
   queryManager = self->_queryManager;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __92__PPTemporalClusterServerRequestHandler_rankedTemporalClustersForStartDate_endDate_queryId___block_invoke;
-  v15[3] = &unk_278978628;
-  v16 = dateCopy;
-  v17 = endDateCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __92__PPTemporalClusterServerRequestHandler_rankedTemporalClustersForStartDate_endDate_queryId___block_invoke;
+  v14[3] = &unk_278978628;
+  v15 = dateCopy;
+  v16 = endDateCopy;
   selfCopy = self;
   idCopy2 = id;
   v12 = endDateCopy;
   v13 = dateCopy;
-  [(PPXPCServerPipelinedBatchQueryManager *)queryManager runConcurrentlyWithRequestThrottle:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
+  [(PPXPCServerPipelinedBatchQueryManager *)queryManager runConcurrentlyWithRequestThrottle:v14];
 }
 
 void __92__PPTemporalClusterServerRequestHandler_rankedTemporalClustersForStartDate_endDate_queryId___block_invoke(void *a1)
@@ -104,25 +102,24 @@ void __92__PPTemporalClusterServerRequestHandler_rankedTemporalClustersForStartD
   }
 }
 
-uint64_t __92__PPTemporalClusterServerRequestHandler_rankedTemporalClustersForStartDate_endDate_queryId___block_invoke_2(uint64_t a1, BOOL *a2)
+void *__92__PPTemporalClusterServerRequestHandler_rankedTemporalClustersForStartDate_endDate_queryId___block_invoke_2(uint64_t a1, BOOL *a2)
 {
   v4 = [*(a1 + 32) count];
-  v5 = *(a1 + 32);
-  v6 = *(*(*(a1 + 40) + 8) + 24);
-  v7 = v4 - v6;
-  if ((v4 - v6) >= 5)
+  v5 = *(*(*(a1 + 40) + 8) + 24);
+  v6 = v4 - v5;
+  if ((v4 - v5) >= 5)
   {
-    v8 = 5;
+    v7 = 5;
   }
 
   else
   {
-    v8 = v4 - v6;
+    v7 = v4 - v5;
   }
 
   result = [*(a1 + 32) subarrayWithRange:?];
-  *a2 = v7 < 6;
-  *(*(*(a1 + 40) + 8) + 24) += v8;
+  *a2 = v6 < 6;
+  *(*(*(a1 + 40) + 8) + 24) += v7;
   return result;
 }
 

@@ -12,7 +12,7 @@
 {
   v4 = type metadata accessor for IndexPath();
   v5 = *(v4 - 8);
-  __chkstk_darwin(v4);
+  __chkstk_darwin();
   v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
@@ -36,7 +36,7 @@
 
 - (BOOL)gestureRecognizerShouldBegin:(id)begin
 {
-  sub_100009F78(0, &qword_101197A30);
+  sub_100009F78(0, &qword_101197A30, NSObject_ptr);
   beginCopy = begin;
   selfCopy = self;
   panGestureRecognizer = [(NowPlayingQueueViewController.CollectionView *)selfCopy panGestureRecognizer];
@@ -44,19 +44,20 @@
 
   if ((self & 1) != 0 && (v8 = *(&selfCopy->super.super.super.super.super.isa + OBJC_IVAR____TtCC5Music29NowPlayingQueueViewController14CollectionView_shouldRecognizePanGestureBlock)) != 0)
   {
+    v9 = *&selfCopy->interactiveMovementDidBeginBlock[OBJC_IVAR____TtCC5Music29NowPlayingQueueViewController14CollectionView_shouldRecognizePanGestureBlock];
 
-    v9 = v8([beginCopy locationInView:selfCopy]);
+    v10 = v8([beginCopy locationInView:selfCopy]);
 
-    sub_100020438(v8);
+    sub_100020438(v8, v9);
   }
 
   else
   {
 
-    v9 = 1;
+    v10 = 1;
   }
 
-  return v9 & 1;
+  return v10 & 1;
 }
 
 - (_TtCC5Music29NowPlayingQueueViewController14CollectionView)initWithFrame:(CGRect)frame collectionViewLayout:(id)layout

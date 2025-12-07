@@ -101,10 +101,9 @@ LABEL_4:
   v3 = MEMORY[0x277CCACA8];
   bundleId = self->_bundleId;
   v5 = [PMMTypes predictionSourceToString:self->_predictionSource];
-  reason = self->_reason;
-  v7 = [v3 stringWithFormat:@"BundleId: %@\nPredictionSource: %@\nConfidence: %lf\nReason: %ld\nAnchorType: %ld", bundleId, v5, *&self->_confidence, reason, self->_anchorType];
+  v6 = [v3 stringWithFormat:@"BundleId: %@\nPredictionSource: %@\nConfidence: %lf\nReason: %ld\nAnchorType: %ld", bundleId, v5, *&self->_confidence, self->_reason, self->_anchorType];
 
-  return v7;
+  return v6;
 }
 
 @end

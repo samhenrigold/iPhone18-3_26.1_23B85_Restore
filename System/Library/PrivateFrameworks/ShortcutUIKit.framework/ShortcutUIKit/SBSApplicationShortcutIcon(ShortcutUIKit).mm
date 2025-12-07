@@ -12,9 +12,9 @@
     +[SBSApplicationShortcutIcon(ShortcutUIKit) _scui_defaultImage];
   }
 
-  v1 = _scui_defaultImage___defaultImage;
+  v2 = _scui_defaultImage___defaultImage;
 
-  return v1;
+  return v2;
 }
 
 - (id)scui_iconImageWithAssetProvider:()ShortcutUIKit

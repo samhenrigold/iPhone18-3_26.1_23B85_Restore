@@ -125,12 +125,12 @@ void __75__SRUIFCachedPreferences_announceNotificationsInCarPlayTemporarilyDisab
 
 - (void)updatePreferences
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v9 = "[SRUIFCachedPreferences updatePreferences]";
+    v8 = "[SRUIFCachedPreferences updatePreferences]";
     _os_log_impl(&dword_26951F000, v3, OS_LOG_TYPE_DEFAULT, "%s Syncing cached SiriUIPreferences.", buf, 0xCu);
   }
 
@@ -140,11 +140,10 @@ void __75__SRUIFCachedPreferences_announceNotificationsInCarPlayTemporarilyDisab
   block[1] = 3221225472;
   block[2] = __43__SRUIFCachedPreferences_updatePreferences__block_invoke;
   block[3] = &unk_279C61870;
-  objc_copyWeak(&v7, buf);
+  objc_copyWeak(&v6, buf);
   dispatch_async(queue, block);
-  objc_destroyWeak(&v7);
+  objc_destroyWeak(&v6);
   objc_destroyWeak(buf);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __43__SRUIFCachedPreferences_updatePreferences__block_invoke(uint64_t a1)
@@ -195,7 +194,7 @@ void __43__SRUIFCachedPreferences_updatePreferences__block_invoke_2(uint64_t a1,
 
 void __50__SRUIFCachedPreferences_handleAssetStatusUpdated__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
@@ -205,19 +204,17 @@ void __50__SRUIFCachedPreferences_handleAssetStatusUpdated__block_invoke(uint64_
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
       v5 = v2[8];
-      v7 = 136315650;
-      v8 = "[SRUIFCachedPreferences handleAssetStatusUpdated]_block_invoke";
-      v9 = 2112;
-      v10 = v5;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_26951F000, v4, OS_LOG_TYPE_DEFAULT, "%s Updating assets status from %@ to %@", &v7, 0x20u);
+      v6 = 136315650;
+      v7 = "[SRUIFCachedPreferences handleAssetStatusUpdated]_block_invoke";
+      v8 = 2112;
+      v9 = v5;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_26951F000, v4, OS_LOG_TYPE_DEFAULT, "%s Updating assets status from %@ to %@", &v6, 0x20u);
     }
 
     [v2 setAssetStatus:v3];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)siriUODStatusDidChange
@@ -236,7 +233,7 @@ void __50__SRUIFCachedPreferences_handleAssetStatusUpdated__block_invoke(uint64_
 
 void __48__SRUIFCachedPreferences_siriUODStatusDidChange__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
@@ -246,19 +243,17 @@ void __48__SRUIFCachedPreferences_siriUODStatusDidChange__block_invoke(uint64_t 
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
       v5 = v2[7];
-      v7 = 136315650;
-      v8 = "[SRUIFCachedPreferences siriUODStatusDidChange]_block_invoke";
-      v9 = 2112;
-      v10 = v5;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_26951F000, v4, OS_LOG_TYPE_DEFAULT, "%s Updating assistant UOD status from %@ to %@", &v7, 0x20u);
+      v6 = 136315650;
+      v7 = "[SRUIFCachedPreferences siriUODStatusDidChange]_block_invoke";
+      v8 = 2112;
+      v9 = v5;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_26951F000, v4, OS_LOG_TYPE_DEFAULT, "%s Updating assistant UOD status from %@ to %@", &v6, 0x20u);
     }
 
     [v2 setAssistantUODStatus:v3];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __40__SRUIFCachedPreferences_sharedInstance__block_invoke(uint64_t a1)
@@ -527,7 +522,7 @@ void __53__SRUIFCachedPreferences_isStreamingDictationEnabled__block_invoke(uint
 
 void __55__SRUIFCachedPreferences_siriUODAvailabilityDidChange___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -536,19 +531,17 @@ void __55__SRUIFCachedPreferences_siriUODAvailabilityDidChange___block_invoke(ui
     {
       v4 = WeakRetained[48];
       v5 = *(a1 + 40);
-      v7 = 136315650;
-      v8 = "[SRUIFCachedPreferences siriUODAvailabilityDidChange:]_block_invoke";
-      v9 = 1024;
-      v10 = v4;
-      v11 = 1024;
-      v12 = v5;
-      _os_log_impl(&dword_26951F000, v3, OS_LOG_TYPE_DEFAULT, "%s Updating UOD assets available from %{BOOL}d to %{BOOL}d", &v7, 0x18u);
+      v6 = 136315650;
+      v7 = "[SRUIFCachedPreferences siriUODAvailabilityDidChange:]_block_invoke";
+      v8 = 1024;
+      v9 = v4;
+      v10 = 1024;
+      v11 = v5;
+      _os_log_impl(&dword_26951F000, v3, OS_LOG_TYPE_DEFAULT, "%s Updating UOD assets available from %{BOOL}d to %{BOOL}d", &v6, 0x18u);
     }
 
     [WeakRetained setUnderstandingOnDeviceAssetsAvailable:*(a1 + 40)];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setAnnounceNotificationsInCarPlayTemporarilyDisabled:(BOOL)disabled
@@ -618,51 +611,48 @@ void __73__SRUIFCachedPreferences_observeValueForKeyPath_ofObject_change_context
 
 - (void)_notifyObserversOfSettingsChangeWithBlock:(id)block
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (blockCopy)
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v5 = self->_observers;
-    v6 = [(NSHashTable *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v6 = [(NSHashTable *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v12;
+      v8 = *v11;
       do
       {
         v9 = 0;
         do
         {
-          if (*v12 != v8)
+          if (*v11 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          blockCopy[2](blockCopy, *(*(&v11 + 1) + 8 * v9++));
+          blockCopy[2](blockCopy, *(*(&v10 + 1) + 8 * v9++));
         }
 
         while (v7 != v9);
-        v7 = [(NSHashTable *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v7 = [(NSHashTable *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v7);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)init
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[SRUIFCachedPreferences init]";
-  _os_log_debug_impl(&dword_26951F000, log, OS_LOG_TYPE_DEBUG, "%s Initialization complete.", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[SRUIFCachedPreferences init]";
+  _os_log_debug_impl(&dword_26951F000, log, OS_LOG_TYPE_DEBUG, "%s Initialization complete.", &v1, 0xCu);
 }
 
 @end

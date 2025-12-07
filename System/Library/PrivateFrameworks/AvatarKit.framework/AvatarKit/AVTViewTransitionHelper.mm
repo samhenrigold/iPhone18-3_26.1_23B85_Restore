@@ -17,20 +17,20 @@
 
 @implementation AVTViewTransitionHelper
 
-uint64_t __145__AVTViewTransitionHelper_transitionViewToStickerConfiguration_fallbackPose_duration_style_avatar_completionHandler_simultaneousAnimationsBlock___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+void *__145__AVTViewTransitionHelper_transitionViewToStickerConfiguration_fallbackPose_duration_style_avatar_completionHandler_simultaneousAnimationsBlock___block_invoke(void *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (!a4)
   {
-    return [AVTStickerGenerator applyViewTransitionConfiguration:*(result + 32) forLateAdditionOfComponentAssetNode:a3 ofAvatar:a2];
+    return [AVTStickerGenerator applyViewTransitionConfiguration:"applyViewTransitionConfiguration:forLateAdditionOfComponentAssetNode:ofAvatar:" forLateAdditionOfComponentAssetNode:? ofAvatar:?];
   }
 
-  return result;
+  return v4;
 }
 
 uint64_t __145__AVTViewTransitionHelper_transitionViewToStickerConfiguration_fallbackPose_duration_style_avatar_completionHandler_simultaneousAnimationsBlock___block_invoke_2(uint64_t a1)
 {
-  v2 = [AVTStickerGenerator poseByApplyingAdjustmentsForConfiguration:*(a1 + 40) avatar:*(a1 + 32)];
-  [*(a1 + 32) setPose:v2];
+  v2 = [AVTStickerGenerator poseByApplyingAdjustmentsForConfiguration:"poseByApplyingAdjustmentsForConfiguration:avatar:" avatar:?];
+  [*(a1 + 32) setPose:?];
 
   [*(a1 + 32) stopTransitionAnimation];
   result = *(a1 + 48);
@@ -46,7 +46,7 @@ uint64_t __145__AVTViewTransitionHelper_transitionViewToStickerConfiguration_fal
 
 uint64_t __145__AVTViewTransitionHelper_transitionViewToStickerConfiguration_fallbackPose_duration_style_avatar_completionHandler_simultaneousAnimationsBlock___block_invoke_3(uint64_t a1)
 {
-  [*(a1 + 32) setPose:*(a1 + 40)];
+  [*(a1 + 32) setPose:?];
   [*(a1 + 32) stopTransitionAnimation];
   result = *(a1 + 48);
   if (result)
@@ -73,7 +73,7 @@ uint64_t __145__AVTViewTransitionHelper_transitionViewToStickerConfiguration_fal
   transitionTechnique = [(AVTViewTransitionHelper *)self transitionTechnique];
   if (!transitionTechnique)
   {
-    v23 = avt_default_log();
+    v23 = avt_default_log(0);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       [AVTViewTransitionHelper view_performCrossFadeTransitionToStickerConfiguration:v23 fallbackPose:v24 duration:v25 avatar:v26 avatarNode:v27 oldReversionContext:v28 completionHandler:v29 simultaneousAnimationsBlock:v30];
@@ -81,7 +81,7 @@ uint64_t __145__AVTViewTransitionHelper_transitionViewToStickerConfiguration_fal
   }
 
   v41 = nodeCopy;
-  [transitionTechnique setFramebufferTextureOpacity:0.0];
+  [transitionTechnique setFramebufferTextureOpacity:?];
   [(AVTViewTransitionHelper *)self viewBackgroundColor];
   v40 = v31;
   WeakRetained = objc_loadWeakRetained(&self->_view);
@@ -125,15 +125,15 @@ void __187__AVTViewTransitionHelper_view_performCrossFadeTransitionToStickerConf
   v4 = v3;
   if (WeakRetained && v3)
   {
-    [v3 setAvtRendererTechnique:0];
-    v5 = [WeakRetained snapshotViewUsingBackgroundColor:*(a1 + 32)];
+    [v3 setAvtRendererTechnique:?];
+    v5 = [WeakRetained snapshotViewUsingBackgroundColor:?];
     if (v5)
     {
-      [*(a1 + 48) setSnapshotTexture:v5];
-      [v4 setAvtRendererTechnique:*(a1 + 48)];
+      [*(a1 + 48) setSnapshotTexture:?];
+      [v4 setAvtRendererTechnique:?];
     }
 
-    [*(a1 + 56) revertChangesWithScope:0 animationDuration:0.0];
+    [*(a1 + 56) revertChangesWithScope:? animationDuration:?];
     [*(a1 + 64) stopTransitionAnimation];
     if (*(a1 + 72))
     {
@@ -142,12 +142,12 @@ void __187__AVTViewTransitionHelper_view_performCrossFadeTransitionToStickerConf
       WeakRetained[3] = v6;
       v8 = v6;
 
-      [AVTStickerGenerator applyViewTransitionConfiguration:*(a1 + 72) toView:v4 scope:0 options:0 duration:*(a1 + 64) avatar:v8 context:0.0 completionHandler:0];
+      [AVTStickerGenerator applyViewTransitionConfiguration:"applyViewTransitionConfiguration:toView:scope:options:duration:avatar:context:completionHandler:" toView:0 scope:? options:? duration:? avatar:? context:? completionHandler:?];
     }
 
     else
     {
-      [*(a1 + 64) setPose:*(a1 + 80)];
+      [*(a1 + 64) setPose:?];
     }
 
     [MEMORY[0x1E69DF378] flush];
@@ -178,62 +178,49 @@ void __187__AVTViewTransitionHelper_view_performCrossFadeTransitionToStickerConf
     (*(v2 + 16))();
   }
 
-  v3 = [MEMORY[0x1E69793D0] functionWithName:*MEMORY[0x1E6979EB8]];
+  v3 = [MEMORY[0x1E69793D0] functionWithName:?];
   v4 = *(a1 + 32);
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __187__AVTViewTransitionHelper_view_performCrossFadeTransitionToStickerConfiguration_fallbackPose_duration_avatar_avatarNode_oldReversionContext_completionHandler_simultaneousAnimationsBlock___block_invoke_3;
-  v6[3] = &unk_1E7F48050;
-  v12[1] = *(a1 + 88);
-  v5 = v3;
-  v7 = v5;
-  v13 = *(a1 + 96);
-  v8 = *(a1 + 40);
-  objc_copyWeak(v12, (a1 + 80));
-  v9 = *(a1 + 48);
-  v10 = *(a1 + 56);
-  v11 = *(a1 + 72);
-  [v4 addDidUpdateAfterAnimationsEvaluatedAtTimeCallbackForKey:@"sticker-transition" block:v6];
+  v5 = MEMORY[0x1E69E9820];
+  v11[1] = *(a1 + 88);
+  v6 = v3;
+  v12 = *(a1 + 96);
+  v7 = *(a1 + 40);
+  objc_copyWeak(v11, (a1 + 80));
+  v8 = *(a1 + 48);
+  v9 = *(a1 + 56);
+  v10 = *(a1 + 72);
+  [v4 addDidUpdateAfterAnimationsEvaluatedAtTimeCallbackForKey:v5 block:{3221225472, __187__AVTViewTransitionHelper_view_performCrossFadeTransitionToStickerConfiguration_fallbackPose_duration_avatar_avatarNode_oldReversionContext_completionHandler_simultaneousAnimationsBlock___block_invoke_3, &unk_1E7F48050}];
 
-  objc_destroyWeak(v12);
+  objc_destroyWeak(v11);
 }
 
 void __187__AVTViewTransitionHelper_view_performCrossFadeTransitionToStickerConfiguration_fallbackPose_duration_avatar_avatarNode_oldReversionContext_completionHandler_simultaneousAnimationsBlock___block_invoke_3(uint64_t a1, void *a2, double a3, double a4, uint64_t a5, _BYTE *a6)
 {
-  v19 = a2;
+  v16 = a2;
   v10 = (a3 - a4) / *(a1 + 80);
-  *&v10 = v10;
-  *&a4 = fmaxf(fminf(*&v10, 1.0), 0.0);
-  LODWORD(v10) = LODWORD(a4);
-  [*(a1 + 32) _solveForInput:v10];
-  *&v12 = *(a1 + 88) + (v11 * (1.0 - *(a1 + 88)));
-  [*(a1 + 40) setFramebufferTextureOpacity:v12];
+  *&a4 = fmaxf(fminf(v10, 1.0), 0.0);
+  [*(a1 + 32) _solveForInput:?];
+  [*(a1 + 40) setFramebufferTextureOpacity:?];
   if (*&a4 >= 1.0)
   {
     *a6 = 1;
     WeakRetained = objc_loadWeakRetained((a1 + 72));
-    v14 = WeakRetained;
+    v12 = WeakRetained;
     if (WeakRetained)
     {
-      v15 = [WeakRetained avtRendererTechnique];
-      v16 = *(a1 + 40);
+      v13 = [WeakRetained avtRendererTechnique];
+      v14 = *(a1 + 40);
 
-      if (v15 == v16)
+      if (v13 == v14)
       {
-        [v14 setAvtRendererTechnique:0];
+        [v12 setAvtRendererTechnique:?];
       }
     }
 
-    v17 = [AVTStickerGenerator poseByApplyingAdjustmentsForConfiguration:*(a1 + 48) avatar:v19];
-    v18 = v17;
-    if (!v17)
-    {
-      v18 = *(a1 + 56);
-    }
+    v15 = [AVTStickerGenerator poseByApplyingAdjustmentsForConfiguration:"poseByApplyingAdjustmentsForConfiguration:avatar:" avatar:?];
+    [v16 setPose:?];
 
-    [v19 setPose:v18];
-
-    [v19 stopTransitionAnimation];
+    [v16 stopTransitionAnimation];
     if (*(a1 + 64))
     {
       dispatch_async(MEMORY[0x1E69E96A0], *(a1 + 64));
@@ -252,104 +239,97 @@ void __187__AVTViewTransitionHelper_view_performCrossFadeTransitionToStickerConf
     transitionTechnique = [(AVTViewTransitionHelper *)self transitionTechnique];
     if (!transitionTechnique)
     {
-      v18 = avt_default_log();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v16 = avt_default_log(0);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        [AVTViewTransitionHelper view_performCrossFadeTransitionToStickerConfiguration:v18 fallbackPose:v19 duration:v20 avatar:v21 avatarNode:v22 oldReversionContext:v23 completionHandler:v24 simultaneousAnimationsBlock:v25];
+        [AVTViewTransitionHelper view_performCrossFadeTransitionToStickerConfiguration:v16 fallbackPose:v17 duration:v18 avatar:v19 avatarNode:v20 oldReversionContext:v21 completionHandler:v22 simultaneousAnimationsBlock:v23];
       }
     }
 
-    [transitionTechnique setFramebufferTextureOpacity:0.0];
+    [transitionTechnique setFramebufferTextureOpacity:?];
     [(AVTViewTransitionHelper *)self viewBackgroundColor];
-    v38 = v26;
+    v34 = v24;
     renderer = [WeakRetained renderer];
     _renderingQueue = [renderer _renderingQueue];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __143__AVTViewTransitionHelper_coordinator_performCrossFadeTransitionToStickerConfiguration_duration_options_avatar_avatarNode_oldReversionContext___block_invoke;
     block[3] = &unk_1E7F480C8;
-    v29 = WeakRetained;
-    v45 = v29;
+    v38 = WeakRetained;
     selfCopy = self;
-    v44 = v38;
-    v30 = transitionTechnique;
-    v47 = v30;
+    v37 = v34;
+    v27 = transitionTechnique;
+    v40 = v27;
     dispatch_sync(_renderingQueue, block);
 
-    [contextCopy revertChangesWithScope:0 animationDuration:0.0];
-    v31 = objc_alloc_init(AVTStickerConfigurationReversionContext);
+    [contextCopy revertChangesWithScope:? animationDuration:?];
+    v28 = objc_alloc_init(AVTStickerConfigurationReversionContext);
     stickerTransitionReversionContext = self->_stickerTransitionReversionContext;
-    self->_stickerTransitionReversionContext = v31;
+    self->_stickerTransitionReversionContext = v28;
 
-    [AVTStickerGenerator applyViewTransitionConfiguration:configurationCopy toView:v29 scope:0 options:options duration:avatarCopy avatar:self->_stickerTransitionReversionContext context:duration completionHandler:0];
-    v33 = [MEMORY[0x1E69793D0] functionWithName:*MEMORY[0x1E6979EB8]];
-    v39[0] = MEMORY[0x1E69E9820];
-    v39[1] = 3221225472;
-    v39[2] = __143__AVTViewTransitionHelper_coordinator_performCrossFadeTransitionToStickerConfiguration_duration_options_avatar_avatarNode_oldReversionContext___block_invoke_2;
-    v39[3] = &unk_1E7F480F0;
-    durationCopy = duration;
-    v40 = v33;
-    v41 = v30;
-    contextCopy = v30;
-    v34 = v33;
-    [avatarCopy addDidUpdateAfterAnimationsEvaluatedAtTimeCallbackForKey:@"sticker-transition" block:v39];
+    [AVTStickerGenerator applyViewTransitionConfiguration:"applyViewTransitionConfiguration:toView:scope:options:duration:avatar:context:completionHandler:" toView:0 scope:? options:? duration:? avatar:? context:? completionHandler:?];
+    v35 = [MEMORY[0x1E69793D0] functionWithName:?];
+    contextCopy = v27;
+    v30 = v35;
+    [avatarCopy addDidUpdateAfterAnimationsEvaluatedAtTimeCallbackForKey:? block:?];
   }
 
   else
   {
-    v35 = avt_default_log();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    v31 = avt_default_log(0);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
-      [AVTViewTransitionHelper coordinator_performCrossFadeTransitionToStickerConfiguration:v35 duration:v36 options:v37 avatar:? avatarNode:? oldReversionContext:?];
+      [AVTViewTransitionHelper coordinator_performCrossFadeTransitionToStickerConfiguration:v31 duration:v32 options:v33 avatar:? avatarNode:? oldReversionContext:?];
     }
 
-    [contextCopy revertChangesWithScope:0 animationDuration:0.0];
+    [contextCopy revertChangesWithScope:? animationDuration:?];
   }
 }
 
-uint64_t __143__AVTViewTransitionHelper_coordinator_performCrossFadeTransitionToStickerConfiguration_duration_options_avatar_avatarNode_oldReversionContext___block_invoke(uint64_t a1)
+uint64_t __143__AVTViewTransitionHelper_coordinator_performCrossFadeTransitionToStickerConfiguration_duration_options_avatar_avatarNode_oldReversionContext___block_invoke(id *a1)
 {
-  [*(a1 + 48) setAvtRendererTechnique:0];
-  v2 = [*(a1 + 56) snapshotViewUsingBackgroundColor:*(a1 + 32)];
+  [a1[6] setAvtRendererTechnique:?];
+  v2 = [a1[7] snapshotViewUsingBackgroundColor:?];
+  v3 = v2;
   if (v2)
   {
-    [*(a1 + 64) setSnapshotTexture:v2];
-    [*(a1 + 48) setAvtRendererTechnique:*(a1 + 64)];
-    [MEMORY[0x1E69DF378] flush];
+    v5 = v2;
+    [a1[8] setSnapshotTexture:?];
+    [a1[6] setAvtRendererTechnique:?];
+    v2 = [MEMORY[0x1E69DF378] flush];
+    v3 = v5;
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v3);
 }
 
 void __143__AVTViewTransitionHelper_coordinator_performCrossFadeTransitionToStickerConfiguration_duration_options_avatar_avatarNode_oldReversionContext___block_invoke_2(uint64_t a1, double a2, double a3, uint64_t a4, void *a5, _BYTE *a6)
 {
   v10 = a5;
   v11 = (a2 - a3) / *(a1 + 48);
-  *&v11 = v11;
-  *&a3 = fmaxf(fminf(*&v11, 1.0), 0.0);
-  LODWORD(v11) = LODWORD(a3);
-  [*(a1 + 32) _solveForInput:v11];
-  *&v13 = v12 + 0.0;
-  [*(a1 + 40) setFramebufferTextureOpacity:v13];
+  *&a3 = fmaxf(fminf(v11, 1.0), 0.0);
+  [*(a1 + 32) _solveForInput:?];
+  [*(a1 + 40) setFramebufferTextureOpacity:?];
   if (*&a3 >= 1.0)
   {
     *a6 = 1;
-    if ([v10 conformsToProtocol:&unk_1F3A37670])
+    v12 = [v10 conformsToProtocol:?];
+    if (v12)
     {
-      v14 = v10;
-      v15 = [v14 avtRendererTechnique];
-      v16 = *(a1 + 40);
+      v13 = v10;
+      v14 = [v13 avtRendererTechnique];
+      v15 = *(a1 + 40);
 
-      if (v15 == v16)
+      if (v14 == v15)
       {
-        [v14 setAvtRendererTechnique:0];
+        [v13 setAvtRendererTechnique:?];
       }
     }
 
     else
     {
-      v17 = avt_default_log();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v16 = avt_default_log(v12);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         __143__AVTViewTransitionHelper_coordinator_performCrossFadeTransitionToStickerConfiguration_duration_options_avatar_avatarNode_oldReversionContext___block_invoke_2_cold_1();
       }
@@ -367,98 +347,93 @@ void __143__AVTViewTransitionHelper_coordinator_performCrossFadeTransitionToStic
     transitionTechnique = [(AVTViewTransitionHelper *)self transitionTechnique];
     if (!transitionTechnique)
     {
-      v13 = avt_default_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v12 = avt_default_log(0);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        [AVTViewTransitionHelper view_performCrossFadeTransitionToStickerConfiguration:v13 fallbackPose:v14 duration:v15 avatar:v16 avatarNode:v17 oldReversionContext:v18 completionHandler:v19 simultaneousAnimationsBlock:v20];
+        [AVTViewTransitionHelper view_performCrossFadeTransitionToStickerConfiguration:v12 fallbackPose:v13 duration:v14 avatar:v15 avatarNode:v16 oldReversionContext:v17 completionHandler:v18 simultaneousAnimationsBlock:v19];
       }
     }
 
-    [transitionTechnique setFramebufferTextureOpacity:0.0];
+    [transitionTechnique setFramebufferTextureOpacity:?];
     [(AVTViewTransitionHelper *)self viewBackgroundColor];
-    v30 = v21;
+    v29 = v20;
     renderer = [WeakRetained renderer];
     _renderingQueue = [renderer _renderingQueue];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __141__AVTViewTransitionHelper_coordinator_performCrossFadeTransitionOutOfStickerConfigurationWithDuration_avatar_avatarNode_oldReversionContext___block_invoke;
     block[3] = &unk_1E7F480C8;
-    v37 = WeakRetained;
+    v33 = WeakRetained;
     selfCopy = self;
-    v36 = v30;
-    v24 = transitionTechnique;
-    v39 = v24;
+    v32 = v29;
+    v23 = transitionTechnique;
+    v35 = v23;
     dispatch_sync(_renderingQueue, block);
 
-    [contextCopy revertChangesWithScope:0 animationDuration:0.0];
-    v25 = [MEMORY[0x1E69793D0] functionWithName:*MEMORY[0x1E6979EB8]];
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __141__AVTViewTransitionHelper_coordinator_performCrossFadeTransitionOutOfStickerConfigurationWithDuration_avatar_avatarNode_oldReversionContext___block_invoke_2;
-    v31[3] = &unk_1E7F480F0;
-    durationCopy = duration;
-    v32 = v25;
-    v33 = v24;
-    contextCopy = v24;
-    v26 = v25;
-    [avatarCopy addDidUpdateAfterAnimationsEvaluatedAtTimeCallbackForKey:@"sticker-transition" block:v31];
+    [contextCopy revertChangesWithScope:? animationDuration:?];
+    v24 = [MEMORY[0x1E69793D0] functionWithName:?];
+    v30 = v23;
+    contextCopy = v23;
+    v25 = v24;
+    [avatarCopy addDidUpdateAfterAnimationsEvaluatedAtTimeCallbackForKey:? block:?];
   }
 
   else
   {
-    v27 = avt_default_log();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v26 = avt_default_log(0);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      [AVTViewTransitionHelper coordinator_performCrossFadeTransitionToStickerConfiguration:v27 duration:v28 options:v29 avatar:? avatarNode:? oldReversionContext:?];
+      [AVTViewTransitionHelper coordinator_performCrossFadeTransitionToStickerConfiguration:v26 duration:v27 options:v28 avatar:? avatarNode:? oldReversionContext:?];
     }
 
-    [contextCopy revertChangesWithScope:0 animationDuration:0.0];
+    [contextCopy revertChangesWithScope:? animationDuration:?];
   }
 }
 
-uint64_t __141__AVTViewTransitionHelper_coordinator_performCrossFadeTransitionOutOfStickerConfigurationWithDuration_avatar_avatarNode_oldReversionContext___block_invoke(uint64_t a1)
+uint64_t __141__AVTViewTransitionHelper_coordinator_performCrossFadeTransitionOutOfStickerConfigurationWithDuration_avatar_avatarNode_oldReversionContext___block_invoke(id *a1)
 {
-  [*(a1 + 48) setAvtRendererTechnique:0];
-  v2 = [*(a1 + 56) snapshotViewUsingBackgroundColor:*(a1 + 32)];
+  [a1[6] setAvtRendererTechnique:?];
+  v2 = [a1[7] snapshotViewUsingBackgroundColor:?];
+  v3 = v2;
   if (v2)
   {
-    [*(a1 + 64) setSnapshotTexture:v2];
-    [*(a1 + 48) setAvtRendererTechnique:*(a1 + 64)];
-    [MEMORY[0x1E69DF378] flush];
+    v5 = v2;
+    [a1[8] setSnapshotTexture:?];
+    [a1[6] setAvtRendererTechnique:?];
+    v2 = [MEMORY[0x1E69DF378] flush];
+    v3 = v5;
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v3);
 }
 
 void __141__AVTViewTransitionHelper_coordinator_performCrossFadeTransitionOutOfStickerConfigurationWithDuration_avatar_avatarNode_oldReversionContext___block_invoke_2(uint64_t a1, double a2, double a3, uint64_t a4, void *a5, _BYTE *a6)
 {
   v10 = a5;
   v11 = (a2 - a3) / *(a1 + 48);
-  *&v11 = v11;
-  *&a3 = fmaxf(fminf(*&v11, 1.0), 0.0);
-  LODWORD(v11) = LODWORD(a3);
-  [*(a1 + 32) _solveForInput:v11];
-  *&v13 = v12 + 0.0;
-  [*(a1 + 40) setFramebufferTextureOpacity:v13];
+  *&a3 = fmaxf(fminf(v11, 1.0), 0.0);
+  [*(a1 + 32) _solveForInput:?];
+  [*(a1 + 40) setFramebufferTextureOpacity:?];
   if (*&a3 >= 1.0)
   {
     *a6 = 1;
-    if ([v10 conformsToProtocol:&unk_1F3A37670])
+    v12 = [v10 conformsToProtocol:?];
+    if (v12)
     {
-      v14 = v10;
-      v15 = [v14 avtRendererTechnique];
-      v16 = *(a1 + 40);
+      v13 = v10;
+      v14 = [v13 avtRendererTechnique];
+      v15 = *(a1 + 40);
 
-      if (v15 == v16)
+      if (v14 == v15)
       {
-        [v14 setAvtRendererTechnique:0];
+        [v13 setAvtRendererTechnique:?];
       }
     }
 
     else
     {
-      v17 = avt_default_log();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v16 = avt_default_log(v12);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         __143__AVTViewTransitionHelper_coordinator_performCrossFadeTransitionToStickerConfiguration_duration_options_avatar_avatarNode_oldReversionContext___block_invoke_2_cold_1();
       }
@@ -480,7 +455,7 @@ void __141__AVTViewTransitionHelper_coordinator_performCrossFadeTransitionOutOfS
   transitionTechnique = [(AVTViewTransitionHelper *)self transitionTechnique];
   if (!transitionTechnique)
   {
-    v23 = avt_default_log();
+    v23 = avt_default_log(0);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       [AVTViewTransitionHelper view_performCrossFadeTransitionToStickerConfiguration:v23 fallbackPose:v24 duration:v25 avatar:v26 avatarNode:v27 oldReversionContext:v28 completionHandler:v29 simultaneousAnimationsBlock:v30];
@@ -488,7 +463,7 @@ void __141__AVTViewTransitionHelper_coordinator_performCrossFadeTransitionOutOfS
   }
 
   v31 = configurationCopy;
-  [transitionTechnique setFramebufferTextureOpacity:0.0];
+  [transitionTechnique setFramebufferTextureOpacity:?];
   [(AVTViewTransitionHelper *)self viewBackgroundColor];
   v41 = v32;
   WeakRetained = objc_loadWeakRetained(&self->_view);
@@ -532,15 +507,15 @@ void __198__AVTViewTransitionHelper_view_performCrossFadeThenAnimateTransitionTo
   v4 = v3;
   if (WeakRetained && v3)
   {
-    [v3 setAvtRendererTechnique:0];
-    v5 = [WeakRetained snapshotViewUsingBackgroundColor:*(a1 + 32)];
+    [v3 setAvtRendererTechnique:?];
+    v5 = [WeakRetained snapshotViewUsingBackgroundColor:?];
     if (v5)
     {
-      [*(a1 + 48) setSnapshotTexture:v5];
-      [v4 setAvtRendererTechnique:*(a1 + 48)];
+      [*(a1 + 48) setSnapshotTexture:?];
+      [v4 setAvtRendererTechnique:?];
     }
 
-    [*(a1 + 56) revertChangesWithScope:1 animationDuration:0.0];
+    [*(a1 + 56) revertChangesWithScope:? animationDuration:?];
     [MEMORY[0x1E69DF378] flush];
     v6[0] = MEMORY[0x1E69E9820];
     v6[1] = 3221225472;
@@ -572,75 +547,62 @@ void __198__AVTViewTransitionHelper_view_performCrossFadeThenAnimateTransitionTo
     (*(v2 + 16))();
   }
 
-  v21[0] = 0;
-  v21[1] = v21;
-  v21[2] = 0x2020000000;
-  v22 = 0;
-  v3 = [MEMORY[0x1E69793D0] functionWithName:*MEMORY[0x1E6979EB8]];
+  v17[0] = 0;
+  v17[1] = v17;
+  v17[2] = 0x2020000000;
+  v18 = 0;
+  v3 = [MEMORY[0x1E69793D0] functionWithName:?];
   v4 = *(a1 + 32);
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __198__AVTViewTransitionHelper_view_performCrossFadeThenAnimateTransitionToStickerConfiguration_fallbackPose_duration_avatar_avatarNode_oldReversionContext_completionHandler_simultaneousAnimationsBlock___block_invoke_3;
-  v11[3] = &unk_1E7F48118;
-  v19[1] = *(a1 + 112);
-  v5 = v3;
-  v12 = v5;
-  v20 = *(a1 + 120);
-  v6 = *(a1 + 40);
-  v18 = v21;
-  v7 = *(a1 + 48);
-  v10 = *(a1 + 56);
-  v8 = *(&v10 + 1);
-  *&v9 = v6;
-  *(&v9 + 1) = v7;
-  v14 = v10;
-  v13 = v9;
-  v15 = *(a1 + 72);
-  v16 = *(a1 + 80);
-  objc_copyWeak(v19, (a1 + 104));
-  v17 = *(a1 + 96);
-  [v4 addDidUpdateAfterAnimationsEvaluatedAtTimeCallbackForKey:@"sticker-transition" block:v11];
+  v15[1] = *(a1 + 112);
+  v10 = v3;
+  v16 = *(a1 + 120);
+  v5 = *(a1 + 40);
+  v6 = *(a1 + 48);
+  v9 = *(a1 + 56);
+  v7 = *(&v9 + 1);
+  *&v8 = v5;
+  *(&v8 + 1) = v6;
+  v11 = v8;
+  v12 = *(a1 + 72);
+  v13 = *(a1 + 80);
+  objc_copyWeak(v15, (a1 + 104));
+  v14 = *(a1 + 96);
+  [v4 addDidUpdateAfterAnimationsEvaluatedAtTimeCallbackForKey:? block:?];
 
-  objc_destroyWeak(v19);
-  _Block_object_dispose(v21, 8);
+  objc_destroyWeak(v15);
+  _Block_object_dispose(v17, 8);
 }
 
 void __198__AVTViewTransitionHelper_view_performCrossFadeThenAnimateTransitionToStickerConfiguration_fallbackPose_duration_avatar_avatarNode_oldReversionContext_completionHandler_simultaneousAnimationsBlock___block_invoke_3(uint64_t a1, void *a2, double a3, double a4, uint64_t a5, _BYTE *a6)
 {
-  v28 = a2;
+  v24 = a2;
   v10 = (a3 - a4) / *(a1 + 112);
-  *&v10 = v10;
-  v11 = fmaxf(fminf(*&v10, 1.0), 0.0);
-  *&v10 = v11;
-  [*(a1 + 32) _solveForInput:v10];
-  *&v13 = *(a1 + 120) + (fminf(fmaxf(v12 / 0.75, 0.0), 1.0) * (1.0 - *(a1 + 120)));
-  [*(a1 + 40) setFramebufferTextureOpacity:v13];
+  v11 = fmaxf(fminf(v10, 1.0), 0.0);
+  [*(a1 + 32) _solveForInput:?];
+  [*(a1 + 40) setFramebufferTextureOpacity:?];
   if (v11 >= 0.25)
   {
-    v14 = *(*(a1 + 96) + 8);
-    if ((*(v14 + 24) & 1) == 0)
+    v12 = *(*(a1 + 96) + 8);
+    if ((*(v12 + 24) & 1) == 0)
     {
-      *(v14 + 24) = 1;
-      v15 = *(a1 + 112) * 0.75;
+      *(v12 + 24) = 1;
       if (*(a1 + 48))
       {
-        v16 = objc_alloc_init(AVTStickerConfigurationReversionContext);
-        v17 = *(a1 + 56);
-        v18 = *(v17 + 24);
-        *(v17 + 24) = v16;
-        v19 = v16;
+        v13 = objc_alloc_init(AVTStickerConfigurationReversionContext);
+        v14 = *(a1 + 56);
+        v15 = *(v14 + 24);
+        *(v14 + 24) = v13;
+        v16 = v13;
 
-        v20 = v15;
-        [AVTStickerGenerator applyViewTransitionConfiguration:*(a1 + 48) toView:*(a1 + 64) scope:0 options:0 duration:v28 avatar:v19 context:v20 completionHandler:0];
+        [AVTStickerGenerator applyViewTransitionConfiguration:"applyViewTransitionConfiguration:toView:scope:options:duration:avatar:context:completionHandler:" toView:0 scope:? options:? duration:? avatar:? context:? completionHandler:?];
       }
 
       else
       {
-        v20 = v15;
-        [v28 transitionFromPose:0 toPose:*(a1 + 72) duration:0 delay:v20 completionHandler:0.0];
+        [v24 transitionFromPose:? toPose:? duration:? delay:? completionHandler:?];
       }
 
-      [*(a1 + 80) revertChangesWithScope:0 animationDuration:v20];
+      [*(a1 + 80) revertChangesWithScope:? animationDuration:?];
     }
   }
 
@@ -648,32 +610,32 @@ void __198__AVTViewTransitionHelper_view_performCrossFadeThenAnimateTransitionTo
   {
     *a6 = 1;
     WeakRetained = objc_loadWeakRetained((a1 + 104));
-    v22 = WeakRetained;
+    v18 = WeakRetained;
     if (WeakRetained)
     {
-      v23 = [WeakRetained avtRendererTechnique];
-      v24 = *(a1 + 40);
+      v19 = [WeakRetained avtRendererTechnique];
+      v20 = *(a1 + 40);
 
-      if (v23 == v24)
+      if (v19 == v20)
       {
-        [v22 setAvtRendererTechnique:0];
+        [v18 setAvtRendererTechnique:?];
       }
     }
 
-    v25 = *(a1 + 48);
-    if (v25)
+    v21 = *(a1 + 48);
+    if (v21)
     {
-      v26 = [v25 physicalizedPose];
-      v27 = [v26 pose];
-      [v28 setPose:v27];
+      v22 = [v21 physicalizedPose];
+      v23 = [v22 pose];
+      [v24 setPose:?];
     }
 
     else
     {
-      [v28 setPose:*(a1 + 72)];
+      [v24 setPose:?];
     }
 
-    [v28 stopTransitionAnimation];
+    [v24 stopTransitionAnimation];
     if (*(a1 + 88))
     {
       dispatch_async(MEMORY[0x1E69E96A0], *(a1 + 88));
@@ -690,16 +652,16 @@ void __198__AVTViewTransitionHelper_view_performCrossFadeThenAnimateTransitionTo
   transitionTechnique = [(AVTViewTransitionHelper *)self transitionTechnique];
   if (!transitionTechnique)
   {
-    v18 = avt_default_log();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v17 = avt_default_log(0);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [AVTViewTransitionHelper view_performCrossFadeTransitionToStickerConfiguration:v18 fallbackPose:v19 duration:v20 avatar:v21 avatarNode:v22 oldReversionContext:v23 completionHandler:v24 simultaneousAnimationsBlock:v25];
+      [AVTViewTransitionHelper view_performCrossFadeTransitionToStickerConfiguration:v17 fallbackPose:v18 duration:v19 avatar:v20 avatarNode:v21 oldReversionContext:v22 completionHandler:v23 simultaneousAnimationsBlock:v24];
     }
   }
 
-  [transitionTechnique setFramebufferTextureOpacity:0.0];
+  [transitionTechnique setFramebufferTextureOpacity:?];
   [(AVTViewTransitionHelper *)self viewBackgroundColor];
-  v44 = v26;
+  v37 = v25;
   WeakRetained = objc_loadWeakRetained(&self->_view);
   renderer = [WeakRetained renderer];
   _renderingQueue = [renderer _renderingQueue];
@@ -708,45 +670,33 @@ void __198__AVTViewTransitionHelper_view_performCrossFadeThenAnimateTransitionTo
   block[2] = __154__AVTViewTransitionHelper_coordinator_performCrossFadeThenAnimateTransitionToStickerConfiguration_duration_options_avatar_avatarNode_oldReversionContext___block_invoke;
   block[3] = &unk_1E7F48190;
   selfCopy = self;
-  v54 = v44;
-  v30 = transitionTechnique;
-  v56 = v30;
+  v44 = v37;
+  v29 = transitionTechnique;
+  v46 = v29;
   dispatch_sync(_renderingQueue, block);
 
-  [contextCopy revertChangesWithScope:1 animationDuration:0.0];
-  v31 = dispatch_semaphore_create(0);
-  v51[0] = 0;
-  v51[1] = v51;
-  v51[2] = 0x2020000000;
-  v52 = 0;
-  v32 = [MEMORY[0x1E69793D0] functionWithName:*MEMORY[0x1E6979EB8]];
-  v45[0] = MEMORY[0x1E69E9820];
-  v45[1] = 3221225472;
-  v45[2] = __154__AVTViewTransitionHelper_coordinator_performCrossFadeThenAnimateTransitionToStickerConfiguration_duration_options_avatar_avatarNode_oldReversionContext___block_invoke_2;
-  v45[3] = &unk_1E7F481B8;
-  durationCopy = duration;
-  v33 = v32;
-  v46 = v33;
-  v34 = v30;
-  v47 = v34;
-  v49 = v51;
-  v35 = v31;
-  v48 = v35;
-  [avatarCopy addDidUpdateAfterAnimationsEvaluatedAtTimeCallbackForKey:@"sticker-transition" block:v45];
-  v36 = fmin(duration * 10.0, 2.0);
-  v37 = dispatch_time(0, (v36 * 1000000000.0));
-  dispatch_semaphore_wait(v35, v37);
-  v38 = objc_alloc_init(AVTStickerConfigurationReversionContext);
+  [contextCopy revertChangesWithScope:? animationDuration:?];
+  v30 = dispatch_semaphore_create(0);
+  v41[0] = 0;
+  v41[1] = v41;
+  v41[2] = 0x2020000000;
+  v42 = 0;
+  v38 = [MEMORY[0x1E69793D0] functionWithName:?];
+  v39 = v29;
+  v40 = v30;
+  [avatarCopy addDidUpdateAfterAnimationsEvaluatedAtTimeCallbackForKey:? block:?];
+  v31 = fmin(duration * 10.0, 2.0);
+  v32 = dispatch_time(0, (v31 * 1000000000.0));
+  dispatch_semaphore_wait(v40, v32);
+  v33 = objc_alloc_init(AVTStickerConfigurationReversionContext);
   stickerTransitionReversionContext = self->_stickerTransitionReversionContext;
-  self->_stickerTransitionReversionContext = v38;
+  self->_stickerTransitionReversionContext = v33;
 
-  v41 = objc_loadWeakRetained(&self->_view);
-  v39 = duration * 0.75;
-  v42 = v39;
-  [AVTStickerGenerator applyViewTransitionConfiguration:configurationCopy toView:v41 scope:0 options:options duration:avatarCopy avatar:self->_stickerTransitionReversionContext context:v42 completionHandler:0];
+  v35 = objc_loadWeakRetained(&self->_view);
+  [AVTStickerGenerator applyViewTransitionConfiguration:"applyViewTransitionConfiguration:toView:scope:options:duration:avatar:context:completionHandler:" toView:0 scope:? options:? duration:? avatar:? context:? completionHandler:?];
 
-  [contextCopy revertChangesWithScope:0 animationDuration:v42];
-  _Block_object_dispose(v51, 8);
+  [contextCopy revertChangesWithScope:? animationDuration:?];
+  _Block_object_dispose(v41, 8);
 }
 
 void __154__AVTViewTransitionHelper_coordinator_performCrossFadeThenAnimateTransitionToStickerConfiguration_duration_options_avatar_avatarNode_oldReversionContext___block_invoke(uint64_t a1)
@@ -755,12 +705,12 @@ void __154__AVTViewTransitionHelper_coordinator_performCrossFadeThenAnimateTrans
   if (WeakRetained)
   {
     v4 = WeakRetained;
-    [WeakRetained setAvtRendererTechnique:0];
-    v3 = [*(a1 + 48) snapshotViewUsingBackgroundColor:*(a1 + 32)];
+    [WeakRetained setAvtRendererTechnique:?];
+    v3 = [*(a1 + 48) snapshotViewUsingBackgroundColor:?];
     if (v3)
     {
-      [*(a1 + 56) setSnapshotTexture:v3];
-      [v4 setAvtRendererTechnique:*(a1 + 56)];
+      [*(a1 + 56) setSnapshotTexture:?];
+      [v4 setAvtRendererTechnique:?];
       [MEMORY[0x1E69DF378] flush];
     }
 
@@ -772,18 +722,15 @@ void __154__AVTViewTransitionHelper_coordinator_performCrossFadeThenAnimateTrans
 {
   v10 = a5;
   v11 = (a2 - a3) / *(a1 + 64);
-  *&v11 = v11;
-  v12 = fmaxf(fminf(*&v11, 1.0), 0.0);
-  *&v11 = v12;
-  [*(a1 + 32) _solveForInput:v11];
-  *&v14 = fminf(fmaxf(v13 / 0.75, 0.0), 1.0) + 0.0;
-  [*(a1 + 40) setFramebufferTextureOpacity:v14];
+  v12 = fmaxf(fminf(v11, 1.0), 0.0);
+  [*(a1 + 32) _solveForInput:?];
+  [*(a1 + 40) setFramebufferTextureOpacity:?];
   if (v12 >= 0.25)
   {
-    v15 = *(*(a1 + 56) + 8);
-    if ((*(v15 + 24) & 1) == 0)
+    v13 = *(*(a1 + 56) + 8);
+    if ((*(v13 + 24) & 1) == 0)
     {
-      *(v15 + 24) = 1;
+      *(v13 + 24) = 1;
       dispatch_semaphore_signal(*(a1 + 48));
     }
   }
@@ -791,22 +738,23 @@ void __154__AVTViewTransitionHelper_coordinator_performCrossFadeThenAnimateTrans
   if (v12 >= 1.0)
   {
     *a6 = 1;
-    if ([v10 conformsToProtocol:&unk_1F3A37670])
+    v14 = [v10 conformsToProtocol:?];
+    if (v14)
     {
-      v16 = v10;
-      v17 = [v16 avtRendererTechnique];
-      v18 = *(a1 + 40);
+      v15 = v10;
+      v16 = [v15 avtRendererTechnique];
+      v17 = *(a1 + 40);
 
-      if (v17 == v18)
+      if (v16 == v17)
       {
-        [v16 setAvtRendererTechnique:0];
+        [v15 setAvtRendererTechnique:?];
       }
     }
 
     else
     {
-      v19 = avt_default_log();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v18 = avt_default_log(v14);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         __143__AVTViewTransitionHelper_coordinator_performCrossFadeTransitionToStickerConfiguration_duration_options_avatar_avatarNode_oldReversionContext___block_invoke_2_cold_1();
       }
@@ -822,16 +770,16 @@ void __154__AVTViewTransitionHelper_coordinator_performCrossFadeThenAnimateTrans
   transitionTechnique = [(AVTViewTransitionHelper *)self transitionTechnique];
   if (!transitionTechnique)
   {
-    v14 = avt_default_log();
+    v14 = avt_default_log(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [AVTViewTransitionHelper view_performCrossFadeTransitionToStickerConfiguration:v14 fallbackPose:v15 duration:v16 avatar:v17 avatarNode:v18 oldReversionContext:v19 completionHandler:v20 simultaneousAnimationsBlock:v21];
     }
   }
 
-  [transitionTechnique setFramebufferTextureOpacity:0.0];
+  [transitionTechnique setFramebufferTextureOpacity:?];
   [(AVTViewTransitionHelper *)self viewBackgroundColor];
-  v35 = v22;
+  v30 = v22;
   WeakRetained = objc_loadWeakRetained(&self->_view);
   renderer = [WeakRetained renderer];
   _renderingQueue = [renderer _renderingQueue];
@@ -840,38 +788,27 @@ void __154__AVTViewTransitionHelper_coordinator_performCrossFadeThenAnimateTrans
   block[2] = __152__AVTViewTransitionHelper_coordinator_performCrossFadeThenAnimateTransitionOutOfStickerConfigurationWithDuration_avatar_avatarNode_oldReversionContext___block_invoke;
   block[3] = &unk_1E7F48190;
   selfCopy = self;
-  v45 = v35;
+  v37 = v30;
   v26 = transitionTechnique;
-  v47 = v26;
+  v39 = v26;
   dispatch_sync(_renderingQueue, block);
 
-  [contextCopy revertChangesWithScope:1 animationDuration:0.0];
+  [contextCopy revertChangesWithScope:? animationDuration:?];
   v27 = dispatch_semaphore_create(0);
-  v42[0] = 0;
-  v42[1] = v42;
-  v42[2] = 0x2020000000;
-  v43 = 0;
-  v28 = [MEMORY[0x1E69793D0] functionWithName:*MEMORY[0x1E6979EB8]];
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __152__AVTViewTransitionHelper_coordinator_performCrossFadeThenAnimateTransitionOutOfStickerConfigurationWithDuration_avatar_avatarNode_oldReversionContext___block_invoke_2;
-  v36[3] = &unk_1E7F481B8;
-  durationCopy = duration;
-  v29 = v28;
-  v37 = v29;
-  v30 = v26;
-  v38 = v30;
-  v40 = v42;
-  v31 = v27;
-  v39 = v31;
-  [avatarCopy addDidUpdateAfterAnimationsEvaluatedAtTimeCallbackForKey:@"sticker-transition" block:v36];
-  v32 = fmin(duration * 10.0, 2.0);
-  v33 = dispatch_time(0, (v32 * 1000000000.0));
-  dispatch_semaphore_wait(v31, v33);
-  v34 = duration * 0.75;
-  [contextCopy revertChangesWithScope:0 animationDuration:v34];
+  v34[0] = 0;
+  v34[1] = v34;
+  v34[2] = 0x2020000000;
+  v35 = 0;
+  v31 = [MEMORY[0x1E69793D0] functionWithName:?];
+  v32 = v26;
+  v33 = v27;
+  [avatarCopy addDidUpdateAfterAnimationsEvaluatedAtTimeCallbackForKey:? block:?];
+  v28 = fmin(duration * 10.0, 2.0);
+  v29 = dispatch_time(0, (v28 * 1000000000.0));
+  dispatch_semaphore_wait(v33, v29);
+  [contextCopy revertChangesWithScope:? animationDuration:?];
 
-  _Block_object_dispose(v42, 8);
+  _Block_object_dispose(v34, 8);
 }
 
 void __152__AVTViewTransitionHelper_coordinator_performCrossFadeThenAnimateTransitionOutOfStickerConfigurationWithDuration_avatar_avatarNode_oldReversionContext___block_invoke(uint64_t a1)
@@ -880,12 +817,12 @@ void __152__AVTViewTransitionHelper_coordinator_performCrossFadeThenAnimateTrans
   if (WeakRetained)
   {
     v4 = WeakRetained;
-    [WeakRetained setAvtRendererTechnique:0];
-    v3 = [*(a1 + 48) snapshotViewUsingBackgroundColor:*(a1 + 32)];
+    [WeakRetained setAvtRendererTechnique:?];
+    v3 = [*(a1 + 48) snapshotViewUsingBackgroundColor:?];
     if (v3)
     {
-      [*(a1 + 56) setSnapshotTexture:v3];
-      [v4 setAvtRendererTechnique:*(a1 + 56)];
+      [*(a1 + 56) setSnapshotTexture:?];
+      [v4 setAvtRendererTechnique:?];
       [MEMORY[0x1E69DF378] flush];
     }
 
@@ -897,18 +834,15 @@ void __152__AVTViewTransitionHelper_coordinator_performCrossFadeThenAnimateTrans
 {
   v10 = a5;
   v11 = (a2 - a3) / *(a1 + 64);
-  *&v11 = v11;
-  v12 = fmaxf(fminf(*&v11, 1.0), 0.0);
-  *&v11 = v12;
-  [*(a1 + 32) _solveForInput:v11];
-  *&v14 = fminf(fmaxf(v13 / 0.75, 0.0), 1.0) + 0.0;
-  [*(a1 + 40) setFramebufferTextureOpacity:v14];
+  v12 = fmaxf(fminf(v11, 1.0), 0.0);
+  [*(a1 + 32) _solveForInput:?];
+  [*(a1 + 40) setFramebufferTextureOpacity:?];
   if (v12 >= 0.25)
   {
-    v15 = *(*(a1 + 56) + 8);
-    if ((*(v15 + 24) & 1) == 0)
+    v13 = *(*(a1 + 56) + 8);
+    if ((*(v13 + 24) & 1) == 0)
     {
-      *(v15 + 24) = 1;
+      *(v13 + 24) = 1;
       dispatch_semaphore_signal(*(a1 + 48));
     }
   }
@@ -916,22 +850,23 @@ void __152__AVTViewTransitionHelper_coordinator_performCrossFadeThenAnimateTrans
   if (v12 >= 1.0)
   {
     *a6 = 1;
-    if ([v10 conformsToProtocol:&unk_1F3A37670])
+    v14 = [v10 conformsToProtocol:?];
+    if (v14)
     {
-      v16 = v10;
-      v17 = [v16 avtRendererTechnique];
-      v18 = *(a1 + 40);
+      v15 = v10;
+      v16 = [v15 avtRendererTechnique];
+      v17 = *(a1 + 40);
 
-      if (v17 == v18)
+      if (v16 == v17)
       {
-        [v16 setAvtRendererTechnique:0];
+        [v15 setAvtRendererTechnique:?];
       }
     }
 
     else
     {
-      v19 = avt_default_log();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v18 = avt_default_log(v14);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         __143__AVTViewTransitionHelper_coordinator_performCrossFadeTransitionToStickerConfiguration_duration_options_avatar_avatarNode_oldReversionContext___block_invoke_2_cold_1();
       }
@@ -951,7 +886,7 @@ void __152__AVTViewTransitionHelper_coordinator_performCrossFadeThenAnimateTrans
   transitionTechnique = [(AVTViewTransitionHelper *)self transitionTechnique];
   if (!transitionTechnique)
   {
-    v23 = avt_default_log();
+    v23 = avt_default_log(0);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       [AVTViewTransitionHelper view_performCrossFadeTransitionToStickerConfiguration:v23 fallbackPose:v24 duration:v25 avatar:v26 avatarNode:v27 oldReversionContext:v28 completionHandler:v29 simultaneousAnimationsBlock:v30];
@@ -995,42 +930,42 @@ void __152__AVTViewTransitionHelper_coordinator_performCrossFadeThenAnimateTrans
   objc_destroyWeak(location);
 }
 
-void __210__AVTViewTransitionHelper_view_performAnimateThenCrossFadeTransitionFromStickerConfiguration_toStickerConfiguration_duration_avatar_avatarNode_oldReversionContext_completionHandler_simultaneousAnimationsBlock___block_invoke(uint64_t a1)
+void __210__AVTViewTransitionHelper_view_performAnimateThenCrossFadeTransitionFromStickerConfiguration_toStickerConfiguration_duration_avatar_avatarNode_oldReversionContext_completionHandler_simultaneousAnimationsBlock___block_invoke(id *a1)
 {
-  WeakRetained = objc_loadWeakRetained((a1 + 104));
-  v3 = objc_loadWeakRetained((a1 + 112));
+  WeakRetained = objc_loadWeakRetained(a1 + 13);
+  v3 = objc_loadWeakRetained(a1 + 14);
   v4 = v3;
   if (WeakRetained && v3)
   {
-    [*(a1 + 48) stopTransitionAnimation];
-    [*(a1 + 56) revertChangesWithScope:0 animationDuration:0.0];
+    [a1[6] stopTransitionAnimation];
+    [a1[7] revertChangesWithScope:? animationDuration:?];
     v5 = objc_alloc_init(AVTStickerConfigurationReversionContext);
     objc_storeStrong(WeakRetained + 3, v5);
-    [AVTStickerGenerator applyViewTransitionConfiguration:*(a1 + 64) toView:v4 scope:0 options:0 duration:*(a1 + 48) avatar:v5 context:0.0 completionHandler:0];
-    [v4 setAvtRendererTechnique:0];
+    [AVTStickerGenerator applyViewTransitionConfiguration:"applyViewTransitionConfiguration:toView:scope:options:duration:avatar:context:completionHandler:" toView:0 scope:? options:? duration:? avatar:? context:? completionHandler:?];
+    [v4 setAvtRendererTechnique:?];
     [MEMORY[0x1E69DF378] flush];
-    v6 = [WeakRetained snapshotViewUsingBackgroundColor:*(a1 + 32)];
+    v6 = [WeakRetained snapshotViewUsingBackgroundColor:?];
     if (v6)
     {
-      [*(a1 + 72) setSnapshotTexture:v6];
+      [a1[9] setSnapshotTexture:?];
     }
 
-    [(AVTStickerConfigurationReversionContext *)v5 revertChangesWithScope:0 animationDuration:0.0];
-    [AVTStickerGenerator applyViewTransitionConfiguration:*(a1 + 80) toView:v4 scope:0 options:0 duration:*(a1 + 48) avatar:v5 context:0.0 completionHandler:0];
+    [AVTStickerConfigurationReversionContext revertChangesWithScope:v5 animationDuration:"revertChangesWithScope:animationDuration:"];
+    [AVTStickerGenerator applyViewTransitionConfiguration:"applyViewTransitionConfiguration:toView:scope:options:duration:avatar:context:completionHandler:" toView:0 scope:? options:? duration:? avatar:? context:? completionHandler:?];
     [MEMORY[0x1E69DF378] flush];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __210__AVTViewTransitionHelper_view_performAnimateThenCrossFadeTransitionFromStickerConfiguration_toStickerConfiguration_duration_avatar_avatarNode_oldReversionContext_completionHandler_simultaneousAnimationsBlock___block_invoke_2;
     block[3] = &unk_1E7F48208;
-    objc_copyWeak(&v15, (a1 + 104));
-    objc_copyWeak(v16, (a1 + 112));
-    v16[1] = *(a1 + 120);
+    objc_copyWeak(&v15, a1 + 13);
+    objc_copyWeak(v16, a1 + 14);
+    v16[1] = a1[15];
     v9 = v5;
-    v10 = *(a1 + 64);
-    v11 = *(a1 + 48);
-    v13 = *(a1 + 88);
-    v12 = *(a1 + 72);
-    v14 = *(a1 + 96);
+    v10 = a1[8];
+    v11 = a1[6];
+    v13 = a1[11];
+    v12 = a1[9];
+    v14 = a1[12];
     v7 = v5;
     dispatch_async(MEMORY[0x1E69E96A0], block);
 
@@ -1046,60 +981,51 @@ void __210__AVTViewTransitionHelper_view_performAnimateThenCrossFadeTransitionFr
   v4 = v3;
   if (WeakRetained && v3)
   {
-    v5 = *(a1 + 96) * 0.75;
-    [*(a1 + 32) revertChangesWithScope:0 animationDuration:0.0];
-    [AVTStickerGenerator applyViewTransitionConfiguration:*(a1 + 40) toView:v4 scope:1 options:0 duration:*(a1 + 48) avatar:*(a1 + 32) context:v5 completionHandler:0];
-    v6 = *(a1 + 64);
-    if (v6)
+    [*(a1 + 32) revertChangesWithScope:? animationDuration:?];
+    [AVTStickerGenerator applyViewTransitionConfiguration:"applyViewTransitionConfiguration:toView:scope:options:duration:avatar:context:completionHandler:" toView:0 scope:? options:? duration:? avatar:? context:? completionHandler:?];
+    v5 = *(a1 + 64);
+    if (v5)
     {
-      (*(v6 + 16))();
+      (*(v5 + 16))();
     }
 
-    [v4 setAvtRendererTechnique:*(a1 + 56)];
-    [*(a1 + 56) setFramebufferTextureOpacity:0.0];
-    v7 = [MEMORY[0x1E69793D0] functionWithName:*MEMORY[0x1E6979EB8]];
-    v8 = *(a1 + 48);
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __210__AVTViewTransitionHelper_view_performAnimateThenCrossFadeTransitionFromStickerConfiguration_toStickerConfiguration_duration_avatar_avatarNode_oldReversionContext_completionHandler_simultaneousAnimationsBlock___block_invoke_3;
-    v10[3] = &unk_1E7F481E0;
-    v16[1] = *(a1 + 96);
-    v9 = v7;
-    v11 = v9;
-    v12 = *(a1 + 56);
-    objc_copyWeak(v16, (a1 + 88));
-    v13 = *(a1 + 40);
-    v14 = *(a1 + 32);
-    v15 = *(a1 + 72);
-    [v8 addDidUpdateAfterAnimationsEvaluatedAtTimeCallbackForKey:@"sticker-transition" block:v10];
+    [v4 setAvtRendererTechnique:?];
+    [*(a1 + 56) setFramebufferTextureOpacity:?];
+    v6 = [MEMORY[0x1E69793D0] functionWithName:?];
+    v7 = *(a1 + 48);
+    v13[1] = *(a1 + 96);
+    v8 = v6;
+    v9 = *(a1 + 56);
+    objc_copyWeak(v13, (a1 + 88));
+    v10 = *(a1 + 40);
+    v11 = *(a1 + 32);
+    v12 = *(a1 + 72);
+    [v7 addDidUpdateAfterAnimationsEvaluatedAtTimeCallbackForKey:? block:?];
 
-    objc_destroyWeak(v16);
+    objc_destroyWeak(v13);
   }
 }
 
 void __210__AVTViewTransitionHelper_view_performAnimateThenCrossFadeTransitionFromStickerConfiguration_toStickerConfiguration_duration_avatar_avatarNode_oldReversionContext_completionHandler_simultaneousAnimationsBlock___block_invoke_3(uint64_t a1, void *a2, double a3, double a4, uint64_t a5, _BYTE *a6)
 {
-  v16 = a2;
+  v14 = a2;
   v10 = (a3 - a4) / *(a1 + 80);
-  *&v10 = v10;
-  *&a4 = fmaxf(fminf(*&v10, 1.0), 0.0);
-  LODWORD(v10) = LODWORD(a4);
-  [*(a1 + 32) _solveForInput:v10];
-  *&v12 = 1.0 - fminf(fmaxf((v11 + -0.25) / 0.75, 0.0), 1.0);
-  [*(a1 + 40) setFramebufferTextureOpacity:v12];
+  *&a4 = fmaxf(fminf(v10, 1.0), 0.0);
+  [*(a1 + 32) _solveForInput:?];
+  [*(a1 + 40) setFramebufferTextureOpacity:?];
   if (*&a4 >= 1.0)
   {
     *a6 = 1;
     WeakRetained = objc_loadWeakRetained((a1 + 72));
-    [AVTStickerGenerator applyViewTransitionConfiguration:*(a1 + 48) toView:WeakRetained scope:2 options:0 duration:v16 avatar:*(a1 + 56) context:0.0 completionHandler:0];
+    [AVTStickerGenerator applyViewTransitionConfiguration:"applyViewTransitionConfiguration:toView:scope:options:duration:avatar:context:completionHandler:" toView:0 scope:? options:? duration:? avatar:? context:? completionHandler:?];
     if (WeakRetained)
     {
-      v14 = [WeakRetained avtRendererTechnique];
-      v15 = *(a1 + 40);
+      v12 = [WeakRetained avtRendererTechnique];
+      v13 = *(a1 + 40);
 
-      if (v14 == v15)
+      if (v12 == v13)
       {
-        [WeakRetained setAvtRendererTechnique:0];
+        [WeakRetained setAvtRendererTechnique:?];
       }
     }
 
@@ -1117,7 +1043,7 @@ void __210__AVTViewTransitionHelper_view_performAnimateThenCrossFadeTransitionFr
   {
     v4 = [AVTRendererViewTransitionTechnique alloc];
     WeakRetained = objc_loadWeakRetained(&self->_view);
-    v6 = [(AVTRendererViewTransitionTechnique *)v4 initWithWorldRenderer:WeakRetained];
+    v6 = [(AVTRendererViewTransitionTechnique *)v4 initWithWorldRenderer:?];
     v7 = self->_transitionTechnique;
     self->_transitionTechnique = v6;
 
@@ -1129,29 +1055,28 @@ void __210__AVTViewTransitionHelper_view_performAnimateThenCrossFadeTransitionFr
 
 - (__n128)viewBackgroundColor
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x3020000000;
-  v12 = 0;
+  v18 = *MEMORY[0x1E69E9840];
   v13 = 0;
+  v14 = &v13;
+  v15 = 0x3020000000;
+  v16 = 0;
+  v17 = 0;
   WeakRetained = objc_loadWeakRetained((self + 8));
   traitCollection = [WeakRetained traitCollection];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __46__AVTViewTransitionHelper_viewBackgroundColor__block_invoke;
-  v8[3] = &unk_1E7F48258;
-  v8[4] = self;
-  v8[5] = &v9;
-  [traitCollection performAsCurrentTraitCollection:v8];
+  v7 = MEMORY[0x1E69E9820];
+  v8 = 3221225472;
+  v9 = __46__AVTViewTransitionHelper_viewBackgroundColor__block_invoke;
+  v10 = &unk_1E7F48258;
+  selfCopy = self;
+  v12 = &v13;
+  [traitCollection performAsCurrentTraitCollection:?];
 
-  v4 = vmulq_laneq_f32(v10[2], v10[2], 3);
-  v4.i32[3] = HIDWORD(*&v10[2]);
-  v7 = v4;
-  v10[2] = v4;
-  _Block_object_dispose(&v9, 8);
-  v5 = *MEMORY[0x1E69E9840];
-  return v7;
+  v4 = vmulq_laneq_f32(v14[2], v14[2], 3);
+  v4.i32[3] = HIDWORD(*&v14[2]);
+  v6 = v4;
+  v14[2] = v4;
+  _Block_object_dispose(&v13, 8);
+  return v6;
 }
 
 void __46__AVTViewTransitionHelper_viewBackgroundColor__block_invoke(uint64_t a1)
@@ -1166,139 +1091,106 @@ void __46__AVTViewTransitionHelper_viewBackgroundColor__block_invoke(uint64_t a1
 
 - (id)snapshotViewUsingBackgroundColor:(AVTViewTransitionHelper *)self
 {
-  *v48 = v2;
   WeakRetained = objc_loadWeakRetained(&self->_view);
   renderer = [WeakRetained renderer];
 
   device = [renderer device];
   [renderer _backingSize];
-  v9 = v8;
   if (v7)
   {
-    v10 = v9 == 0;
+    v8 = v6 == 0;
   }
 
   else
   {
-    v10 = 1;
+    v8 = 1;
   }
 
-  if (v10)
+  if (v8)
   {
-    v11 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v49 = v7;
-    v12 = [MEMORY[0x1E69741B8] texture2DDescriptorWithPixelFormat:71 width:? height:? mipmapped:?];
-    v13 = 2;
-    [v12 setStorageMode:2];
-    [v12 setUsage:5];
-    v14 = [device newTextureWithDescriptor:v12];
-    v15 = AVTMTLDeviceSupportsMemorylessStorage(device);
-    v16 = objc_loadWeakRetained(&self->_view);
-    antialiasingMode = [v16 antialiasingMode];
-    v18 = antialiasingMode - 1;
-    v19 = 1;
-    if (antialiasingMode == 1)
-    {
-      v19 = 2;
-    }
+    v10 = [MEMORY[0x1E69741B8] texture2DDescriptorWithPixelFormat:? width:? height:? mipmapped:?];
+    [v10 setStorageMode:?];
+    [v10 setUsage:?];
+    v11 = [device newTextureWithDescriptor:?];
+    AVTMTLDeviceSupportsMemorylessStorage(device);
+    v12 = objc_loadWeakRetained(&self->_view);
+    v13 = [v12 antialiasingMode] - 1;
 
-    if (antialiasingMode == 2)
+    v37 = v11;
+    if (v13 > 1)
     {
-      v20 = 4;
+      v36 = 0;
+      v34 = 1;
     }
 
     else
     {
-      v20 = v19;
+      [v10 setStorageMode:?];
+      [v10 setUsage:?];
+      [v10 setTextureType:?];
+      [v10 setSampleCount:?];
+      v34 = 2;
+      v36 = [device newTextureWithDescriptor:?];
     }
 
-    if (v15)
-    {
-      v21 = 3;
-    }
-
-    else
-    {
-      v21 = 2;
-    }
-
-    v47 = v14;
-    if (v18 > 1)
-    {
-      v23 = 0;
-      v46 = 0;
-      v22 = v14;
-      [MEMORY[0x1E69741B8] texture2DDescriptorWithPixelFormat:252 width:v49 height:v9 mipmapped:0, 1];
-    }
-
-    else
-    {
-      [v12 setStorageMode:v21];
-      v13 = 4;
-      [v12 setUsage:4];
-      [v12 setTextureType:4];
-      [v12 setSampleCount:v20];
-      v22 = [device newTextureWithDescriptor:v12];
-      v23 = v14;
-      v46 = v22;
-      [MEMORY[0x1E69741B8] texture2DDescriptorWithPixelFormat:252 width:v49 height:v9 mipmapped:0, 2];
-    }
-    v24 = ;
-    [v24 setStorageMode:v21];
-    [v24 setUsage:4];
-    [v24 setTextureType:v13];
-    [v24 setSampleCount:v20];
-    v45 = device;
-    v25 = [device newTextureWithDescriptor:v24];
+    v14 = [MEMORY[0x1E69741B8] texture2DDescriptorWithPixelFormat:v34 width:? height:? mipmapped:?];
+    [v14 setStorageMode:?];
+    [v14 setUsage:?];
+    [v14 setTextureType:?];
+    [v14 setSampleCount:?];
+    v35 = device;
+    v15 = [device newTextureWithDescriptor:?];
     renderPassDescriptor = [MEMORY[0x1E6974130] renderPassDescriptor];
     colorAttachments = [renderPassDescriptor colorAttachments];
-    v28 = [colorAttachments objectAtIndexedSubscript:0];
-    [v28 setTexture:v22];
+    v18 = [colorAttachments objectAtIndexedSubscript:?];
+    [v18 setTexture:?];
 
     colorAttachments2 = [renderPassDescriptor colorAttachments];
-    v30 = [colorAttachments2 objectAtIndexedSubscript:0];
-    [v30 setResolveTexture:v23];
+    v20 = [colorAttachments2 objectAtIndexedSubscript:?];
+    [v20 setResolveTexture:?];
 
     colorAttachments3 = [renderPassDescriptor colorAttachments];
-    v32 = [colorAttachments3 objectAtIndexedSubscript:0];
-    [v32 setLoadAction:2];
+    v22 = [colorAttachments3 objectAtIndexedSubscript:?];
+    [v22 setLoadAction:?];
 
     colorAttachments4 = [renderPassDescriptor colorAttachments];
-    v34 = [colorAttachments4 objectAtIndexedSubscript:0];
-    [v34 setClearColor:{v48[0], v48[1], v48[2], v48[3]}];
+    v24 = [colorAttachments4 objectAtIndexedSubscript:?];
+    [v24 setClearColor:?];
 
     colorAttachments5 = [renderPassDescriptor colorAttachments];
-    v36 = [colorAttachments5 objectAtIndexedSubscript:0];
-    [v36 setStoreAction:v44];
+    v26 = [colorAttachments5 objectAtIndexedSubscript:?];
+    [v26 setStoreAction:?];
 
     depthAttachment = [renderPassDescriptor depthAttachment];
-    [depthAttachment setTexture:v25];
+    [depthAttachment setTexture:?];
 
     depthAttachment2 = [renderPassDescriptor depthAttachment];
-    [depthAttachment2 setClearDepth:0.0];
+    [depthAttachment2 setClearDepth:?];
 
     depthAttachment3 = [renderPassDescriptor depthAttachment];
-    [depthAttachment3 setLoadAction:2];
+    [depthAttachment3 setLoadAction:?];
 
     depthAttachment4 = [renderPassDescriptor depthAttachment];
-    [depthAttachment4 setStoreAction:0];
+    [depthAttachment4 setStoreAction:?];
 
     commandQueue = [renderer commandQueue];
     commandBuffer = [commandQueue commandBuffer];
 
-    [renderer updateAtTime:CACurrentMediaTime()];
-    [renderer renderWithViewport:commandBuffer commandBuffer:renderPassDescriptor passDescriptor:{0.0, 0.0, v49, v9}];
+    CACurrentMediaTime();
+    [renderer updateAtTime:?];
+    [renderer renderWithViewport:? commandBuffer:? passDescriptor:?];
     [commandBuffer commit];
 
-    device = v45;
-    v11 = v47;
+    device = v35;
+    v9 = v37;
   }
 
-  return v11;
+  return v9;
 }
 
 - (id)initWithView:(id *)view
@@ -1321,7 +1213,7 @@ void __46__AVTViewTransitionHelper_viewBackgroundColor__block_invoke(uint64_t a1
 
 - (void)transitionViewToStickerConfiguration:(void *)configuration fallbackPose:(unint64_t)pose duration:(void *)duration style:(void *)style avatar:(void *)avatar completionHandler:(double)handler simultaneousAnimationsBlock:
 {
-  v81 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   v16 = a2;
   configurationCopy = configuration;
   durationCopy = duration;
@@ -1333,7 +1225,7 @@ void __46__AVTViewTransitionHelper_viewBackgroundColor__block_invoke(uint64_t a1
     if (configurationCopy)
     {
       pose = [durationCopy pose];
-      v22 = [pose isEqualToPose:configurationCopy];
+      v22 = [pose isEqualToPose:?];
     }
 
     else
@@ -1379,28 +1271,28 @@ void __46__AVTViewTransitionHelper_viewBackgroundColor__block_invoke(uint64_t a1
 
       if (!v16 && v26)
       {
-        [durationCopy resetToPhysicsState:0 assumeRestStateIfNil:0];
+        [durationCopy resetToPhysicsState:? assumeRestStateIfNil:?];
       }
 
       objc_opt_class();
-      v67 = v26;
+      v62 = v26;
       if (objc_opt_isKindOfClass())
       {
         v29 = durationCopy;
         v30 = v29;
         if (v16)
         {
-          v77[0] = MEMORY[0x1E69E9820];
-          v77[1] = 3221225472;
-          v77[2] = __145__AVTViewTransitionHelper_transitionViewToStickerConfiguration_fallbackPose_duration_style_avatar_completionHandler_simultaneousAnimationsBlock___block_invoke;
-          v77[3] = &unk_1E7F48000;
-          v78 = v16;
-          [v30 setComponentAssetNodeObservationForStickerBlock:v77];
+          v70[1] = MEMORY[0x1E69E9820];
+          v70[2] = 3221225472;
+          v70[3] = __145__AVTViewTransitionHelper_transitionViewToStickerConfiguration_fallbackPose_duration_style_avatar_completionHandler_simultaneousAnimationsBlock___block_invoke;
+          v70[4] = &unk_1E7F48000;
+          v71 = v16;
+          [v30 setComponentAssetNodeObservationForStickerBlock:?];
         }
 
         else
         {
-          [v29 setComponentAssetNodeObservationForStickerBlock:0];
+          [v29 setComponentAssetNodeObservationForStickerBlock:?];
         }
       }
 
@@ -1421,13 +1313,13 @@ void __46__AVTViewTransitionHelper_viewBackgroundColor__block_invoke(uint64_t a1
 
       if (handler == 0.0)
       {
-        [durationCopy removeDidUpdateAfterAnimationsEvaluatedAtTimeCallbackForKey:@"sticker-transition"];
+        [durationCopy removeDidUpdateAfterAnimationsEvaluatedAtTimeCallbackForKey:?];
         WeakRetained = objc_loadWeakRetained(self + 1);
-        [WeakRetained setAvtRendererTechnique:0];
+        [WeakRetained setAvtRendererTechnique:?];
 
         if (v27)
         {
-          [v27 revertChangesWithScope:0 animationDuration:0.0];
+          [v27 revertChangesWithScope:? animationDuration:?];
         }
 
         [durationCopy stopTransitionAnimation];
@@ -1439,7 +1331,7 @@ void __46__AVTViewTransitionHelper_viewBackgroundColor__block_invoke(uint64_t a1
 
           v38 = v30;
           v39 = objc_loadWeakRetained(self + 1);
-          [AVTStickerGenerator applyViewTransitionConfiguration:v16 toView:v39 scope:0 options:0 duration:durationCopy avatar:self[3] context:0.0 completionHandler:0];
+          [AVTStickerGenerator applyViewTransitionConfiguration:"applyViewTransitionConfiguration:toView:scope:options:duration:avatar:context:completionHandler:" toView:0 scope:? options:? duration:? avatar:? context:? completionHandler:?];
 
           v30 = v38;
           v31 = avatarNode;
@@ -1450,14 +1342,14 @@ void __46__AVTViewTransitionHelper_viewBackgroundColor__block_invoke(uint64_t a1
           v31 = avatarNode;
           if (configurationCopy)
           {
-            [durationCopy setPose:configurationCopy];
+            [durationCopy setPose:?];
           }
         }
 
         if (avatarCopy)
         {
-          v41 = OUTLINED_FUNCTION_3();
-          v42(v41);
+          v42 = OUTLINED_FUNCTION_3();
+          v43(v42);
         }
 
         if (styleCopy)
@@ -1468,117 +1360,111 @@ void __46__AVTViewTransitionHelper_viewBackgroundColor__block_invoke(uint64_t a1
 
       else
       {
-        if (v67)
+        definesPoseOnly = v62;
+        if (v62)
         {
-          definesPoseOnly = [v67 definesPoseOnly];
+          definesPoseOnly = [v62 definesPoseOnly];
+          v41 = definesPoseOnly;
         }
 
         else
         {
-          definesPoseOnly = 1;
+          v41 = 1;
         }
 
-        v66 = v30;
+        v61 = v30;
         if (v16)
         {
-          definesPoseOnly2 = [v16 definesPoseOnly];
+          definesPoseOnly = [v16 definesPoseOnly];
+          v44 = definesPoseOnly;
         }
 
         else
         {
-          definesPoseOnly2 = 1;
+          v44 = 1;
         }
 
-        if (((poseCopy != 1) & definesPoseOnly) == 1 && definesPoseOnly2)
+        if (((poseCopy != 1) & v41) == 1 && v44)
         {
-          [durationCopy removeDidUpdateAfterAnimationsEvaluatedAtTimeCallbackForKey:@"sticker-transition"];
-          v44 = objc_loadWeakRetained(self + 1);
-          [v44 setAvtRendererTechnique:0];
+          [durationCopy removeDidUpdateAfterAnimationsEvaluatedAtTimeCallbackForKey:?];
+          v45 = objc_loadWeakRetained(self + 1);
+          [v45 setAvtRendererTechnique:?];
 
           if (v16)
           {
-            v45 = objc_alloc_init(AVTStickerConfigurationReversionContext);
-            v46 = self[3];
-            self[3] = v45;
+            v46 = objc_alloc_init(AVTStickerConfigurationReversionContext);
+            v47 = self[3];
+            self[3] = v46;
 
-            v63 = objc_loadWeakRetained(self + 1);
-            v64 = self[3];
-            v73[0] = MEMORY[0x1E69E9820];
-            v73[1] = 3221225472;
-            v73[2] = __145__AVTViewTransitionHelper_transitionViewToStickerConfiguration_fallbackPose_duration_style_avatar_completionHandler_simultaneousAnimationsBlock___block_invoke_2;
-            v73[3] = &unk_1E7F48028;
-            v47 = durationCopy;
-            v74 = v47;
-            v65 = &v75;
-            v48 = v16;
-            v75 = v48;
-            v49 = &v76;
-            v76 = styleCopy;
-            v50 = v47;
-            v51 = &v74;
-            [AVTStickerGenerator applyViewTransitionConfiguration:v48 toView:v63 scope:0 options:0 duration:v50 avatar:v64 context:handler completionHandler:v73];
+            v59 = objc_loadWeakRetained(self + 1);
+            v67[0] = MEMORY[0x1E69E9820];
+            v67[1] = 3221225472;
+            v67[2] = __145__AVTViewTransitionHelper_transitionViewToStickerConfiguration_fallbackPose_duration_style_avatar_completionHandler_simultaneousAnimationsBlock___block_invoke_2;
+            v67[3] = &unk_1E7F48028;
+            v68 = durationCopy;
+            v60 = &v69;
+            v69 = v16;
+            v48 = v70;
+            v70[0] = styleCopy;
+            v49 = &v68;
+            [AVTStickerGenerator applyViewTransitionConfiguration:"applyViewTransitionConfiguration:toView:scope:options:duration:avatar:context:completionHandler:" toView:v67 scope:? options:? duration:? avatar:? context:? completionHandler:?];
           }
 
           else
           {
-            v69[0] = MEMORY[0x1E69E9820];
-            v69[1] = 3221225472;
-            v69[2] = __145__AVTViewTransitionHelper_transitionViewToStickerConfiguration_fallbackPose_duration_style_avatar_completionHandler_simultaneousAnimationsBlock___block_invoke_3;
-            v69[3] = &unk_1E7F48028;
-            v51 = &v70;
-            v56 = durationCopy;
-            v70 = v56;
-            v65 = &v71;
-            v57 = configurationCopy;
-            v71 = v57;
-            v49 = &v72;
-            v72 = styleCopy;
-            [v56 transitionFromPose:0 toPose:v57 duration:v69 delay:handler completionHandler:0.0];
+            v49 = &v64;
+            v54 = durationCopy;
+            v64 = v54;
+            v60 = &v65;
+            v65 = configurationCopy;
+            v48 = &v66;
+            v66 = styleCopy;
+            [v54 transitionFromPose:? toPose:? duration:? delay:? completionHandler:?];
           }
 
-          v30 = v66;
+          v30 = v61;
           if (avatarCopy)
           {
-            v58 = OUTLINED_FUNCTION_3();
-            v59(v58);
+            v55 = OUTLINED_FUNCTION_3();
+            v56(v55);
           }
 
-          [v27 revertChangesWithScope:0 animationDuration:handler];
+          [v27 revertChangesWithScope:? animationDuration:?];
           v31 = avatarNode;
         }
 
         else
         {
-          if (poseCopy > 2 && ((definesPoseOnly | definesPoseOnly2) & 1) != 0)
+          if (poseCopy > 2 && ((v41 | v44) & 1) != 0)
           {
             if (poseCopy != 3)
             {
-              v52 = avt_default_log();
-              if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+              v50 = avt_default_log(definesPoseOnly);
+              if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
               {
                 *buf = 136315138;
-                v80 = "style == AVTViewTransitionStyleInternal3DAnimationWithFallbackTemporaryCrossFadeIfNecessary";
-                _os_log_error_impl(&dword_1BB472000, v52, OS_LOG_TYPE_ERROR, "Error: Condition '%s' failed. Failed to resolve the view transition style", buf, 0xCu);
+                v73 = "style == AVTViewTransitionStyleInternal3DAnimationWithFallbackTemporaryCrossFadeIfNecessary";
+                _os_log_error_impl(&dword_1BB472000, v50, OS_LOG_TYPE_ERROR, "Error: Condition '%s' failed. Failed to resolve the view transition style", buf, 0xCu);
               }
             }
 
             v31 = avatarNode;
-            if (definesPoseOnly)
+            if (v41)
             {
-              if (definesPoseOnly2)
+              if (v44)
               {
-                v53 = avt_default_log();
-                if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+                v51 = avt_default_log(definesPoseOnly);
+                if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 0;
-                  OUTLINED_FUNCTION_7(&dword_1BB472000, v53, v54, "Error: Unreachable code: Failed to start an adequate view transition", buf);
+                  OUTLINED_FUNCTION_7(&dword_1BB472000, v51, v52, "Error: Unreachable code: Failed to start an adequate view transition", buf);
                 }
               }
 
               else
               {
                 OUTLINED_FUNCTION_4();
-                [v62 view_performAnimateThenCrossFadeTransitionFromStickerConfiguration:avatarCopy toStickerConfiguration:? duration:? avatar:? avatarNode:? oldReversionContext:? completionHandler:? simultaneousAnimationsBlock:?];
+                [v58 view_performAnimateThenCrossFadeTransitionFromStickerConfiguration:avatarCopy toStickerConfiguration:? duration:? avatar:? avatarNode:? oldReversionContext:? completionHandler:? simultaneousAnimationsBlock:?];
               }
             }
 
@@ -1586,7 +1472,7 @@ void __46__AVTViewTransitionHelper_viewBackgroundColor__block_invoke(uint64_t a1
             {
               OUTLINED_FUNCTION_2_0();
               OUTLINED_FUNCTION_4();
-              [v61 view_performCrossFadeThenAnimateTransitionToStickerConfiguration:? fallbackPose:? duration:? avatar:? avatarNode:? oldReversionContext:? completionHandler:? simultaneousAnimationsBlock:?];
+              [v57 view_performCrossFadeThenAnimateTransitionToStickerConfiguration:? fallbackPose:? duration:? avatar:? avatarNode:? oldReversionContext:? completionHandler:? simultaneousAnimationsBlock:?];
             }
           }
 
@@ -1595,41 +1481,40 @@ void __46__AVTViewTransitionHelper_viewBackgroundColor__block_invoke(uint64_t a1
             OUTLINED_FUNCTION_2_0();
             v31 = avatarNode;
             OUTLINED_FUNCTION_4();
-            [v55 view_performCrossFadeTransitionToStickerConfiguration:? fallbackPose:? duration:? avatar:? avatarNode:? oldReversionContext:? completionHandler:? simultaneousAnimationsBlock:?];
+            [v53 view_performCrossFadeTransitionToStickerConfiguration:? fallbackPose:? duration:? avatar:? avatarNode:? oldReversionContext:? completionHandler:? simultaneousAnimationsBlock:?];
           }
 
-          v30 = v66;
+          v30 = v61;
         }
       }
     }
   }
-
-  v60 = *MEMORY[0x1E69E9840];
 }
 
 - (void)transitionCoordinatorToStickerConfiguration:(unint64_t)configuration duration:(double)duration style:(uint64_t)style options:(void *)options avatar:
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v11 = a2;
   optionsCopy = options;
   v13 = optionsCopy;
   if (self)
   {
     avatarNode = [optionsCopy avatarNode];
+    v15 = avatarNode;
     if (self[2])
     {
-      v15 = avt_default_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = avt_default_log(avatarNode);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v38 = "_stickerConfiguration == nil";
-        _os_log_error_impl(&dword_1BB472000, v15, OS_LOG_TYPE_ERROR, "Error: Condition '%s' failed. Coordinators are not expected to transition from a previous sticker configuration", buf, 0xCu);
+        v30 = "_stickerConfiguration == nil";
+        _os_log_error_impl(&dword_1BB472000, v16, OS_LOG_TYPE_ERROR, "Error: Condition '%s' failed. Coordinators are not expected to transition from a previous sticker configuration", buf, 0xCu);
       }
     }
 
     objc_storeStrong(self + 2, a2);
-    v16 = self[3];
     v17 = self[3];
+    v18 = self[3];
     self[3] = 0;
 
     if (!configuration)
@@ -1639,27 +1524,19 @@ void __46__AVTViewTransitionHelper_viewBackgroundColor__block_invoke(uint64_t a1
 
     if (duration == 0.0)
     {
-      [v13 removeDidUpdateAfterAnimationsEvaluatedAtTimeCallbackForKey:@"sticker-transition"];
+      [v13 removeDidUpdateAfterAnimationsEvaluatedAtTimeCallbackForKey:?];
       WeakRetained = objc_loadWeakRetained(self + 1);
-      [WeakRetained setAvtRendererTechnique:0];
+      [WeakRetained setAvtRendererTechnique:?];
 
-      if (v16)
+      if (v17)
       {
-        [v16 revertChangesWithScope:0 animationDuration:0.0];
+        [v17 revertChangesWithScope:? animationDuration:?];
       }
 
       if (!v11)
       {
-        goto LABEL_22;
+        goto LABEL_21;
       }
-
-      v19 = objc_alloc_init(AVTStickerConfigurationReversionContext);
-      v20 = self[3];
-      self[3] = v19;
-
-      v21 = objc_loadWeakRetained(self + 1);
-      v22 = self[3];
-      v23 = OUTLINED_FUNCTION_6();
     }
 
     else
@@ -1680,82 +1557,76 @@ void __46__AVTViewTransitionHelper_viewBackgroundColor__block_invoke(uint64_t a1
         {
           if (configuration == 3)
           {
-            v33 = OUTLINED_FUNCTION_1_1();
-            [v34 coordinator_performCrossFadeThenAnimateTransitionToStickerConfiguration:v33 duration:? options:? avatar:? avatarNode:? oldReversionContext:?];
+            OUTLINED_FUNCTION_1_1();
+            [v26 coordinator_performCrossFadeThenAnimateTransitionToStickerConfiguration:? duration:? options:? avatar:? avatarNode:? oldReversionContext:?];
           }
 
           else
           {
-            v35 = avt_default_log();
-            if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+            v27 = avt_default_log(definesPoseOnly);
+            if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              OUTLINED_FUNCTION_7(&dword_1BB472000, v35, v36, "Error: Unreachable code: Failed to start an adequate view transition", buf);
+              OUTLINED_FUNCTION_7(&dword_1BB472000, v27, v28, "Error: Unreachable code: Failed to start an adequate view transition", buf);
             }
           }
         }
 
         else
         {
-          v31 = OUTLINED_FUNCTION_1_1();
-          [v32 coordinator_performCrossFadeTransitionToStickerConfiguration:v31 duration:? options:? avatar:? avatarNode:? oldReversionContext:?];
+          OUTLINED_FUNCTION_1_1();
+          [v25 coordinator_performCrossFadeTransitionToStickerConfiguration:? duration:? options:? avatar:? avatarNode:? oldReversionContext:?];
         }
 
-        goto LABEL_22;
+        goto LABEL_21;
       }
 
-      [v13 removeDidUpdateAfterAnimationsEvaluatedAtTimeCallbackForKey:@"sticker-transition"];
-      v26 = objc_loadWeakRetained(self + 1);
-      [v26 setAvtRendererTechnique:0];
-
-      if (v16)
-      {
-        [v16 revertChangesWithScope:0 animationDuration:duration];
-      }
-
-      v27 = objc_alloc_init(AVTStickerConfigurationReversionContext);
-      v28 = self[3];
-      self[3] = v27;
-
+      [v13 removeDidUpdateAfterAnimationsEvaluatedAtTimeCallbackForKey:?];
       v21 = objc_loadWeakRetained(self + 1);
-      v29 = self[3];
-      v23 = OUTLINED_FUNCTION_6();
-      durationCopy = duration;
+      [v21 setAvtRendererTechnique:?];
+
+      if (v17)
+      {
+        [v17 revertChangesWithScope:? animationDuration:?];
+      }
     }
 
-    [v23 applyViewTransitionConfiguration:durationCopy toView:0 scope:? options:? duration:? avatar:? context:? completionHandler:?];
+    v22 = objc_alloc_init(AVTStickerConfigurationReversionContext);
+    v23 = self[3];
+    self[3] = v22;
 
-LABEL_22:
+    v24 = objc_loadWeakRetained(self + 1);
+    [OUTLINED_FUNCTION_6() applyViewTransitionConfiguration:0 toView:? scope:? options:? duration:? avatar:? context:? completionHandler:?];
+
+LABEL_21:
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)transitionCoordinatorOutOfStickerConfigurationWithDuration:(double)duration style:(uint64_t)style options:(void *)options avatar:
 {
   optionsCopy = options;
-  v9 = optionsCopy;
+  v8 = optionsCopy;
   if (self)
   {
     avatarNode = [optionsCopy avatarNode];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v11 = v9;
-      [v11 setComponentAssetNodeObservationForStickerBlock:0];
+      v10 = v8;
+      [v10 setComponentAssetNodeObservationForStickerBlock:?];
     }
 
     else
     {
-      v11 = 0;
+      v10 = 0;
     }
 
+    v11 = *(self + 16);
     v12 = *(self + 16);
-    v13 = *(self + 16);
     *(self + 16) = 0;
 
+    v13 = *(self + 24);
     v14 = *(self + 24);
-    v15 = *(self + 24);
     *(self + 24) = 0;
 
     if (!a2)
@@ -1763,9 +1634,9 @@ LABEL_22:
       a2 = 3;
     }
 
-    if (v12)
+    if (v11)
     {
-      definesPoseOnly = [v12 definesPoseOnly];
+      definesPoseOnly = [v11 definesPoseOnly];
     }
 
     else
@@ -1779,47 +1650,39 @@ LABEL_22:
       {
         if (a2 == 3)
         {
-          v19 = OUTLINED_FUNCTION_5();
-          [v20 coordinator_performCrossFadeThenAnimateTransitionOutOfStickerConfigurationWithDuration:v19 avatar:? avatarNode:? oldReversionContext:?];
+          OUTLINED_FUNCTION_5();
+          [v17 coordinator_performCrossFadeThenAnimateTransitionOutOfStickerConfigurationWithDuration:? avatar:? avatarNode:? oldReversionContext:?];
         }
 
         else
         {
-          v21 = avt_default_log();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+          v18 = avt_default_log(definesPoseOnly);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
-            *v23 = 0;
-            OUTLINED_FUNCTION_7(&dword_1BB472000, v21, v22, "Error: Unreachable code: Failed to start an adequate view transition", v23);
+            *v20 = 0;
+            OUTLINED_FUNCTION_7(&dword_1BB472000, v18, v19, "Error: Unreachable code: Failed to start an adequate view transition", v20);
           }
         }
       }
 
       else
       {
-        v17 = OUTLINED_FUNCTION_5();
-        [v18 coordinator_performCrossFadeTransitionOutOfStickerConfigurationWithDuration:v17 avatar:? avatarNode:? oldReversionContext:?];
+        OUTLINED_FUNCTION_5();
+        [v16 coordinator_performCrossFadeTransitionOutOfStickerConfigurationWithDuration:? avatar:? avatarNode:? oldReversionContext:?];
       }
     }
 
     else
     {
-      [v14 revertChangesWithScope:0 animationDuration:duration];
+      [v13 revertChangesWithScope:? animationDuration:?];
     }
   }
 }
 
 - (void)view_performCrossFadeTransitionToStickerConfiguration:(NSObject *)a1 fallbackPose:(uint64_t)a2 duration:(uint64_t)a3 avatar:(uint64_t)a4 avatarNode:(uint64_t)a5 oldReversionContext:(uint64_t)a6 completionHandler:(uint64_t)a7 simultaneousAnimationsBlock:(uint64_t)a8 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-void __143__AVTViewTransitionHelper_coordinator_performCrossFadeTransitionToStickerConfiguration_duration_options_avatar_avatarNode_oldReversionContext___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_8();
-  OUTLINED_FUNCTION_0(&dword_1BB472000, v0, v1, "Error: %@ does not conform to AVTRendererTechniqueSupport", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "capturedTechnique";
 }
 
 @end

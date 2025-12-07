@@ -22,7 +22,7 @@
     v13 = __Block_byref_object_copy__6;
     v14 = __Block_byref_object_dispose__6;
     v15 = 0;
-    v1 = OUTLINED_FUNCTION_6_2(self);
+    OUTLINED_FUNCTION_6_2();
     OUTLINED_FUNCTION_24(v1, v2, v5, 3221225472, v6, v7, v8, v9);
     v3 = v11[5];
     _Block_object_dispose(&v10, 8);
@@ -58,7 +58,7 @@
 
 + (uint64_t)hasSandboxAccessForIdentifier:(uint64_t)identifier
 {
-  v54[2] = *MEMORY[0x1E69E9840];
+  v52[2] = *MEMORY[0x1E69E9840];
   v2 = a2;
   objc_opt_self();
   v3 = v2;
@@ -66,15 +66,15 @@
   v5 = objc_opt_class();
   if (!v3)
   {
-    v27 = NSStringFromClass(v5);
-    v28 = [v4 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"identifier", v27];
+    v25 = NSStringFromClass(v5);
+    v26 = [v4 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"identifier", v25];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       +[FBWorkspaceConnectionsStateStore hasSandboxAccessForIdentifier:];
     }
 
-    [v28 UTF8String];
+    [v26 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1A8A3EB58);
@@ -86,97 +86,96 @@
   }
 
   v6 = _pathForIdentifierAndBuffer(v3, 0);
-  v54[0] = v6;
+  v52[0] = v6;
   v7 = 1;
-  v34 = v3;
+  v32 = v3;
   v8 = _pathForIdentifierAndBuffer(v3, 1);
-  v54[1] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:2];
+  v52[1] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v52 count:2];
 
-  v41 = 0u;
-  v42 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v31 = [&unk_1F1C10990 countByEnumeratingWithState:&v39 objects:v53 count:16];
-  if (v31)
+  v37 = 0u;
+  v38 = 0u;
+  v29 = [&unk_1F1C10990 countByEnumeratingWithState:&v37 objects:v51 count:16];
+  if (v29)
   {
-    v10 = *v40;
-    v11 = *MEMORY[0x1E69E9BD0];
-    v33 = v9;
-    v30 = *v40;
+    v10 = *v38;
+    v31 = v9;
+    v28 = *v38;
     do
     {
-      v12 = 0;
+      v11 = 0;
       do
       {
-        if (*v40 != v10)
+        if (*v38 != v10)
         {
           objc_enumerationMutation(&unk_1F1C10990);
         }
 
-        v32 = v12;
-        v13 = *(*(&v39 + 1) + 8 * v12);
+        v30 = v11;
+        v12 = *(*(&v37 + 1) + 8 * v11);
+        v33 = 0u;
+        v34 = 0u;
         v35 = 0u;
         v36 = 0u;
-        v37 = 0u;
-        v38 = 0u;
-        v14 = v9;
-        v15 = [v14 countByEnumeratingWithState:&v35 objects:v52 count:16];
-        if (v15)
+        v13 = v9;
+        v14 = [v13 countByEnumeratingWithState:&v33 objects:v50 count:16];
+        if (v14)
         {
-          v16 = v15;
-          v17 = *v36;
+          v15 = v14;
+          v16 = *v34;
           while (2)
           {
-            for (i = 0; i != v16; ++i)
+            for (i = 0; i != v15; ++i)
             {
-              if (*v36 != v17)
+              if (*v34 != v16)
               {
-                objc_enumerationMutation(v14);
+                objc_enumerationMutation(v13);
               }
 
-              v19 = *(*(&v35 + 1) + 8 * i);
+              v18 = *(*(&v33 + 1) + 8 * i);
               *__error() = 0;
               getpid();
-              [v13 UTF8String];
-              uTF8String = [v19 UTF8String];
-              v20 = sandbox_check();
-              if (v20)
+              [v12 UTF8String];
+              uTF8String = [v18 UTF8String];
+              v19 = sandbox_check();
+              if (v19)
               {
-                if (v20 == 1)
+                if (v19 == 1)
                 {
-                  v24 = FBLogCommon();
-                  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+                  v23 = FBLogCommon();
+                  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
                   {
                     +[FBWorkspaceConnectionsStateStore hasSandboxAccessForIdentifier:];
                   }
 
                   v7 = 0;
-                  v9 = v33;
+                  v9 = v31;
                   goto LABEL_26;
                 }
 
-                v21 = __error();
-                strerror_r(*v21, __strerrbuf, 0x100uLL);
-                v22 = FBLogCommon();
-                if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+                v20 = __error();
+                strerror_r(*v20, __strerrbuf, 0x100uLL);
+                v21 = FBLogCommon();
+                if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
                 {
-                  v23 = *__error();
+                  v22 = *__error();
                   *buf = 138413058;
-                  v44 = v13;
-                  v45 = 2112;
-                  v46 = v19;
-                  v47 = 1024;
-                  v48 = v23;
-                  v49 = 2080;
-                  v50 = __strerrbuf;
-                  _os_log_error_impl(&dword_1A89DD000, v22, OS_LOG_TYPE_ERROR, "FBWorkspaceConnectionsStateStore: error in sandbox_check %@ for %@ : errno=%i (%s)", buf, 0x26u);
+                  v42 = v12;
+                  v43 = 2112;
+                  v44 = v18;
+                  v45 = 1024;
+                  v46 = v22;
+                  v47 = 2080;
+                  v48 = __strerrbuf;
+                  _os_log_error_impl(&dword_1A89DD000, v21, OS_LOG_TYPE_ERROR, "FBWorkspaceConnectionsStateStore: error in sandbox_check %@ for %@ : errno=%i (%s)", buf, 0x26u);
                 }
               }
             }
 
-            v16 = [v14 countByEnumeratingWithState:&v35 objects:v52 count:{16, uTF8String}];
-            if (v16)
+            v15 = [v13 countByEnumeratingWithState:&v33 objects:v50 count:{16, uTF8String}];
+            if (v15)
             {
               continue;
             }
@@ -185,22 +184,21 @@
           }
         }
 
-        v12 = v32 + 1;
-        v9 = v33;
-        v10 = v30;
+        v11 = v30 + 1;
+        v9 = v31;
+        v10 = v28;
       }
 
-      while (v32 + 1 != v31);
+      while (v30 + 1 != v29);
       v7 = 1;
-      v31 = [&unk_1F1C10990 countByEnumeratingWithState:&v39 objects:v53 count:16];
+      v29 = [&unk_1F1C10990 countByEnumeratingWithState:&v37 objects:v51 count:16];
     }
 
-    while (v31);
+    while (v29);
   }
 
 LABEL_26:
 
-  v25 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -263,51 +261,49 @@ LABEL_26:
 
 void __56__FBWorkspaceConnectionsStateStore__initWithIdentifier___block_invoke(uint64_t a1)
 {
-  v26 = 0;
-  v3 = a1 + 32;
-  v2 = *(a1 + 32);
-  v4 = [objc_opt_class() _loadStateFromPath:*(*v3 + 8) outGeneration:&v26 + 1 outExisted:&v26];
-  v25 = 0;
-  v5 = *v3;
-  v6 = [objc_opt_class() _loadStateFromPath:*(*v3 + 16) outGeneration:&v25 + 1 outExisted:&v25];
-  v7 = v6;
-  if (v4 | v6)
+  v22 = 0;
+  v1 = a1 + 32;
+  v2 = [objc_opt_class() _loadStateFromPath:*(*(a1 + 32) + 8) outGeneration:&v22 + 1 outExisted:&v22];
+  v21 = 0;
+  v3 = [objc_opt_class() _loadStateFromPath:*(*v1 + 16) outGeneration:&v21 + 1 outExisted:&v21];
+  v4 = v3;
+  if (v2 | v3)
   {
-    if (v4)
+    if (v2)
     {
-      v8 = v6 == 0;
+      v5 = v3 == 0;
     }
 
     else
     {
-      v8 = 1;
+      v5 = 1;
     }
 
-    if (v8)
+    if (v5)
     {
-      if (!v6)
+      if (!v3)
       {
 LABEL_23:
-        v20 = FBLogCommon();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+        v16 = FBLogCommon();
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
-          *v23 = 0;
-          _os_log_impl(&dword_1A89DD000, v20, OS_LOG_TYPE_INFO, "restored previous workspace connections state (1)", v23, 2u);
+          *v19 = 0;
+          _os_log_impl(&dword_1A89DD000, v16, OS_LOG_TYPE_INFO, "restored previous workspace connections state (1)", v19, 2u);
         }
 
-        objc_storeStrong((*v3 + 32), v4);
-        v10 = 3;
-        if (!HIBYTE(v26))
+        objc_storeStrong((*v1 + 32), v2);
+        v7 = 3;
+        if (!HIBYTE(v22))
         {
-          v10 = 1;
+          v7 = 1;
         }
 
 LABEL_27:
-        *(*v3 + 40) = v10;
-        v21 = FBLogCommon();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+        *(*v1 + 40) = v7;
+        v17 = FBLogCommon();
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
         {
-          __56__FBWorkspaceConnectionsStateStore__initWithIdentifier___block_invoke_cold_3(v3);
+          __56__FBWorkspaceConnectionsStateStore__initWithIdentifier___block_invoke_cold_3();
         }
 
         goto LABEL_30;
@@ -316,70 +312,69 @@ LABEL_27:
 
     else
     {
-      v14 = HIBYTE(v26);
-      v15 = HIBYTE(v25);
-      v16 = *v3;
-      v17 = objc_opt_class();
-      v18 = 16;
-      if (v14 == v15)
+      v11 = HIBYTE(v22);
+      v12 = HIBYTE(v21);
+      v13 = objc_opt_class();
+      v14 = 16;
+      if (v11 == v12)
       {
-        v18 = 8;
+        v14 = 8;
       }
 
-      [v17 _unlinkShmPath:*(*v3 + v18) graceful:0];
-      v19 = FBLogCommon();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      [v13 _unlinkShmPath:*(*v1 + v14) graceful:0];
+      v15 = FBLogCommon();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        __56__FBWorkspaceConnectionsStateStore__initWithIdentifier___block_invoke_cold_2(v14 == v15, v19);
+        __56__FBWorkspaceConnectionsStateStore__initWithIdentifier___block_invoke_cold_2(v11 == v12, v15);
       }
 
-      if (v14 != v15)
+      if (v11 != v12)
       {
         goto LABEL_23;
       }
     }
 
-    v9 = FBLogCommon();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v6 = FBLogCommon();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A89DD000, v9, OS_LOG_TYPE_INFO, "restored previous workspace connections state (2)", buf, 2u);
+      _os_log_impl(&dword_1A89DD000, v6, OS_LOG_TYPE_INFO, "restored previous workspace connections state (2)", buf, 2u);
     }
 
-    objc_storeStrong((*v3 + 32), v7);
-    v10 = 2;
-    if (HIBYTE(v25))
+    objc_storeStrong((*v1 + 32), v4);
+    v7 = 2;
+    if (HIBYTE(v21))
     {
-      v10 = 4;
+      v7 = 4;
     }
 
     goto LABEL_27;
   }
 
-  if ((v26 & 1) != 0 || v25 == 1)
+  if ((v22 & 1) != 0 || v21 == 1)
   {
-    v11 = FBLogCommon();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    v8 = FBLogCommon();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      __56__FBWorkspaceConnectionsStateStore__initWithIdentifier___block_invoke_cold_1(a1);
+      __56__FBWorkspaceConnectionsStateStore__initWithIdentifier___block_invoke_cold_1();
     }
   }
 
   else
   {
-    v11 = FBLogCommon();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v8 = FBLogCommon();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v22 = 0;
-      _os_log_impl(&dword_1A89DD000, v11, OS_LOG_TYPE_DEFAULT, "no previous workspace connections state - initializing", v22, 2u);
+      *v18 = 0;
+      _os_log_impl(&dword_1A89DD000, v8, OS_LOG_TYPE_DEFAULT, "no previous workspace connections state - initializing", v18, 2u);
     }
   }
 
-  v12 = objc_opt_new();
-  v13 = *(*v3 + 32);
-  *(*v3 + 32) = v12;
+  v9 = objc_opt_new();
+  v10 = *(*v1 + 32);
+  *(*v1 + 32) = v9;
 
-  *(*v3 + 40) = 0;
+  *(*v1 + 40) = 0;
 LABEL_30:
 }
 
@@ -392,7 +387,7 @@ LABEL_30:
     v5 = v3;
     if (!v5)
     {
-      [FBWorkspaceConnectionsStateStore setState:?];
+      [(FBWorkspaceConnectionsStateStore *)sel_setState_ setState:state];
     }
 
     v6 = v5;
@@ -408,100 +403,97 @@ LABEL_30:
 
 void __45__FBWorkspaceConnectionsStateStore_setState___block_invoke(uint64_t a1)
 {
-  v3 = (a1 + 32);
-  v2 = *(a1 + 32);
-  if (*(v2 + 57) == 1)
+  v1 = (a1 + 32);
+  if (*(*(a1 + 32) + 57) == 1)
   {
     __45__FBWorkspaceConnectionsStateStore_setState___block_invoke_cold_4(a1, (a1 + 32));
   }
 
-  v4 = *(v2 + 32);
-  v6 = *(a1 + 40);
-  v5 = (a1 + 40);
+  v2 = (a1 + 40);
   if ((BSEqualObjects() & 1) == 0)
   {
-    objc_storeStrong((*v3 + 32), *v5);
-    v7 = *(*v3 + 40);
-    if (v7 <= 0)
+    objc_storeStrong((*v1 + 32), *v2);
+    v3 = *(*v1 + 40);
+    if (v3 <= 0)
     {
-      v8 = -(-v7 & 3);
+      v4 = -(-v3 & 3);
     }
 
     else
     {
-      v8 = *(*v3 + 40) & 3;
+      v4 = *(*v1 + 40) & 3;
     }
 
-    v9 = objc_opt_class();
-    v10 = 8;
-    if (((v8 - 1) & 0xFFFFFFFFFFFFFFFDLL) == 0)
+    v5 = objc_opt_class();
+    v6 = 8;
+    if (((v4 - 1) & 0xFFFFFFFFFFFFFFFDLL) == 0)
     {
-      v10 = 16;
+      v6 = 16;
     }
 
-    if ([v9 _storeState:*v5 toPath:*(*v3 + v10) withGeneration:(v8 & 0xFFFFFFFFFFFFFFFELL) == 2 injectedFailure:*v3 + 48])
+    if ([v5 _storeState:*v2 toPath:*(*v1 + v6) withGeneration:(v4 & 0xFFFFFFFFFFFFFFFELL) == 2 injectedFailure:*v1 + 48])
     {
-      v11 = v8 + 1;
-      v12 = FBLogCommon();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v7 = v4 + 1;
+      v8 = FBLogCommon();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        __45__FBWorkspaceConnectionsStateStore_setState___block_invoke_cold_2(v5);
+        __45__FBWorkspaceConnectionsStateStore_setState___block_invoke_cold_2();
       }
 
-      *(*v3 + 40) = v11;
-      if (*(*v3 + 48) == 1)
+      *(*v1 + 40) = v7;
+      if (*(*v1 + 48) == 1)
       {
-        *(*v3 + 48) = 0;
-        v13 = FBLogCommon();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        *(*v1 + 48) = 0;
+        v9 = FBLogCommon();
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
-          __45__FBWorkspaceConnectionsStateStore_setState___block_invoke_cold_3(v7, v3);
+          __45__FBWorkspaceConnectionsStateStore_setState___block_invoke_cold_3();
         }
       }
 
-      else if (v7)
+      else if (v3)
       {
-        v15 = objc_opt_class();
-        v16 = 8;
-        if (((v7 - 2) & 0xFFFFFFFFFFFFFFFDLL) == 0)
+        v11 = objc_opt_class();
+        v12 = 8;
+        if (((v3 - 2) & 0xFFFFFFFFFFFFFFFDLL) == 0)
         {
-          v16 = 16;
+          v12 = 16;
         }
 
-        [v15 _unlinkShmPath:*(*v3 + v16) graceful:0];
+        [v11 _unlinkShmPath:*(*v1 + v12) graceful:0];
       }
     }
 
-    else if (v7)
+    else if (v3)
     {
-      v14 = FBLogCommon();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+      v10 = FBLogCommon();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
-        __45__FBWorkspaceConnectionsStateStore_setState___block_invoke_cold_1(v14);
+        __45__FBWorkspaceConnectionsStateStore_setState___block_invoke_cold_1(v10);
       }
     }
 
     else
     {
-      v17 = *v3;
-      if (*(*v3 + 8) || *(v17 + 16))
+      v13 = *v1;
+      if (*(*v1 + 8) || *(v13 + 16))
       {
-        if (*(v17 + 56))
+        if (*(v13 + 56))
         {
-          v18 = OS_LOG_TYPE_DEBUG;
+          v14 = OS_LOG_TYPE_DEBUG;
         }
 
         else
         {
-          *(v17 + 56) = 1;
-          v18 = OS_LOG_TYPE_ERROR;
+          *(v13 + 56) = 1;
+          v14 = OS_LOG_TYPE_ERROR;
         }
 
-        v19 = FBLogCommon();
-        if (os_log_type_enabled(v19, v18))
+        v15 = FBLogCommon();
+        if (os_log_type_enabled(v15, v14))
         {
-          *v20 = 0;
-          _os_log_impl(&dword_1A89DD000, v19, v18, "failed to write new workspace connections state to shm - are we sandboxed?", v20, 2u);
+          *v16 = 0;
+          _os_log_impl(&dword_1A89DD000, v15, v14, "failed to write new workspace connections state to shm - are we sandboxed?", v16, 2u);
         }
       }
     }
@@ -510,7 +502,7 @@ void __45__FBWorkspaceConnectionsStateStore_setState___block_invoke(uint64_t a1)
 
 + (id)_loadStateFromPath:(id)path outGeneration:(BOOL *)generation outExisted:(BOOL *)existed
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if (pathCopy)
   {
@@ -569,66 +561,66 @@ LABEL_27:
   }
 
   v13 = v12;
-  memset(&v36, 0, sizeof(v36));
-  if (fstat(v11, &v36) || v36.st_size <= v13)
+  memset(&v35, 0, sizeof(v35));
+  if (fstat(v11, &v35) || v35.st_size <= v13)
   {
     v19 = FBLogCommon();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      [FBWorkspaceConnectionsStateStore _loadStateFromPath:pathCopy outGeneration:&v36 outExisted:?];
+      +[FBWorkspaceConnectionsStateStore _loadStateFromPath:outGeneration:outExisted:];
     }
   }
 
   else
   {
     *__error() = 0;
-    v14 = mmap(0, v36.st_size, 1, 1, v11, 0);
+    v14 = mmap(0, v35.st_size, 1, 1, v11, 0);
     v15 = v14;
     if (v14 != -1)
     {
       v16 = *v14;
       if (*v14)
       {
-        v34[3] = 0;
-        v35 = -1;
-        v34[0] = 0;
-        v34[1] = v34;
-        v34[2] = 0x2020000000;
-        v30[0] = MEMORY[0x1E69E9820];
-        v30[1] = 3221225472;
-        v31 = v36;
-        v30[2] = __80__FBWorkspaceConnectionsStateStore__loadStateFromPath_outGeneration_outExisted___block_invoke;
-        v30[3] = &unk_1E783D760;
-        v30[4] = v34;
-        v32 = 1;
-        v33 = v14;
-        v18 = [FBWorkspaceConnectionsState deserializeLength:&v35 fromReader:v30];
-        if (v18 && v35 >= v13 && v35 <= 0x7FFFFFFFFFFFFFFDLL)
+        v33[3] = 0;
+        v34 = -1;
+        v33[0] = 0;
+        v33[1] = v33;
+        v33[2] = 0x2020000000;
+        v29[0] = MEMORY[0x1E69E9820];
+        v29[1] = 3221225472;
+        v30 = v35;
+        v29[2] = __80__FBWorkspaceConnectionsStateStore__loadStateFromPath_outGeneration_outExisted___block_invoke;
+        v29[3] = &unk_1E783D760;
+        v29[4] = v33;
+        v31 = 1;
+        v32 = v14;
+        v18 = [FBWorkspaceConnectionsState deserializeLength:&v34 fromReader:v29];
+        if (v18 && v34 >= v13 && v34 <= 0x7FFFFFFFFFFFFFFDLL)
         {
           *generation = (v16 & 2) != 0;
         }
 
         else
         {
-          v27 = FBLogCommon();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+          v26 = FBLogCommon();
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
             *__strerrbuf = 138413058;
-            v38 = pathCopy;
-            v39 = 2048;
-            v40 = v13;
-            v41 = 2048;
-            v42 = v35;
-            v43 = 2048;
-            v44 = v36.st_size - 1;
-            _os_log_error_impl(&dword_1A89DD000, v27, OS_LOG_TYPE_ERROR, "data length inconsistent in %@ - unlinking : min=%zu actual=%zu expected=%llu", __strerrbuf, 0x2Au);
+            v37 = pathCopy;
+            v38 = 2048;
+            v39 = v13;
+            v40 = 2048;
+            v41 = v34;
+            v42 = 2048;
+            v43 = v35.st_size - 1;
+            _os_log_error_impl(&dword_1A89DD000, v26, OS_LOG_TYPE_ERROR, "data length inconsistent in %@ - unlinking : min=%zu actual=%zu expected=%llu", __strerrbuf, 0x2Au);
           }
 
           [self _unlinkShmPath:pathCopy graceful:0];
           v18 = 0;
         }
 
-        _Block_object_dispose(v34, 8);
+        _Block_object_dispose(v33, 8);
       }
 
       else
@@ -644,12 +636,12 @@ LABEL_27:
       }
 
       *__error() = 0;
-      if (munmap(v15, v36.st_size) == -1)
+      if (munmap(v15, v35.st_size) == -1)
       {
-        v28 = __error();
-        strerror_r(*v28, __strerrbuf, 0x100uLL);
-        v29 = FBLogCommon();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        v27 = __error();
+        strerror_r(*v27, __strerrbuf, 0x100uLL);
+        v28 = FBLogCommon();
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
           +[FBWorkspaceConnectionsStateStore _loadStateFromPath:outGeneration:outExisted:];
         }
@@ -660,8 +652,8 @@ LABEL_27:
       goto LABEL_18;
     }
 
-    v26 = __error();
-    strerror_r(*v26, __strerrbuf, 0x100uLL);
+    v25 = __error();
+    strerror_r(*v25, __strerrbuf, 0x100uLL);
     v19 = FBLogCommon();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
@@ -685,8 +677,6 @@ LABEL_18:
   }
 
 LABEL_28:
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -714,21 +704,21 @@ size_t __80__FBWorkspaceConnectionsStateStore__loadStateFromPath_outGeneration_o
 
 + (void)_unlinkShmPath:(id)path graceful:(BOOL)graceful
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v7 = MEMORY[0x1E696AEC0];
   v8 = objc_opt_class();
   if (!pathCopy)
   {
-    v12 = NSStringFromClass(v8);
-    v13 = [v7 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"shmPath", v12];
+    v11 = NSStringFromClass(v8);
+    v12 = [v7 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"shmPath", v11];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       +[FBWorkspaceConnectionsStateStore _unlinkShmPath:graceful:];
     }
 
-    [v13 UTF8String];
+    [v12 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1A8A3FAD0);
@@ -750,20 +740,18 @@ size_t __80__FBWorkspaceConnectionsStateStore__loadStateFromPath_outGeneration_o
       +[FBWorkspaceConnectionsStateStore _unlinkShmPath:graceful:];
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)_storeState:(id)state toPath:(id)path withGeneration:(BOOL)generation injectedFailure:(int64_t *)failure
 {
   generationCopy = generation;
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   pathCopy = path;
   v13 = stateCopy;
   if (!v13)
   {
-    [FBWorkspaceConnectionsStateStore _storeState:a2 toPath:? withGeneration:? injectedFailure:?];
+    [FBWorkspaceConnectionsStateStore _storeState:a2 toPath:self withGeneration:? injectedFailure:?];
   }
 
   v14 = v13;
@@ -854,19 +842,19 @@ LABEL_13:
       if (v26 != -1)
       {
         v27 = v26;
-        v44[0] = 0;
-        v44[1] = v44;
-        v44[2] = 0x2020000000;
-        v44[3] = 0;
-        v43[0] = MEMORY[0x1E69E9820];
-        v43[1] = 3221225472;
-        v43[2] = __86__FBWorkspaceConnectionsStateStore__storeState_toPath_withGeneration_injectedFailure___block_invoke;
-        v43[3] = &unk_1E783D788;
-        v43[4] = v44;
-        v43[5] = v23;
-        v43[6] = v26;
-        v43[7] = 1;
-        v28 = [v14 serializeToWriter:v43];
+        v43[0] = 0;
+        v43[1] = v43;
+        v43[2] = 0x2020000000;
+        v43[3] = 0;
+        v42[0] = MEMORY[0x1E69E9820];
+        v42[1] = 3221225472;
+        v42[2] = __86__FBWorkspaceConnectionsStateStore__storeState_toPath_withGeneration_injectedFailure___block_invoke;
+        v42[3] = &unk_1E783D788;
+        v42[4] = v43;
+        v42[5] = v23;
+        v42[6] = v26;
+        v42[7] = 1;
+        v28 = [v14 serializeToWriter:v42];
         if (v28 == v23)
         {
           if (*failure == 4)
@@ -885,31 +873,31 @@ LABEL_13:
           {
             if (generationCopy)
             {
-              v36 = 3;
+              v35 = 3;
             }
 
             else
             {
-              v36 = 1;
+              v35 = 1;
             }
 
-            *v27 = v36;
+            *v27 = v35;
             *__error() = 0;
             if (msync(v27, v23 + 1, 16) == -1)
             {
-              v37 = __error();
-              strerror_r(*v37, __strerrbuf, 0x100uLL);
-              v38 = FBLogCommon();
-              if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+              v36 = __error();
+              strerror_r(*v36, __strerrbuf, 0x100uLL);
+              v37 = FBLogCommon();
+              if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
               {
-                v42 = *__error();
+                v41 = *__error();
                 *buf = 138412802;
-                v46 = v15;
-                v47 = 1024;
-                v48 = v42;
-                v49 = 2080;
-                v50 = __strerrbuf;
-                _os_log_error_impl(&dword_1A89DD000, v38, OS_LOG_TYPE_ERROR, "failed to msync %@ : errno=%i (%s)", buf, 0x1Cu);
+                v45 = v15;
+                v46 = 1024;
+                v47 = v41;
+                v48 = 2080;
+                v49 = __strerrbuf;
+                _os_log_error_impl(&dword_1A89DD000, v37, OS_LOG_TYPE_ERROR, "failed to msync %@ : errno=%i (%s)", buf, 0x1Cu);
               }
             }
 
@@ -919,16 +907,16 @@ LABEL_13:
 
         else
         {
-          v35 = FBLogCommon();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+          v34 = FBLogCommon();
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
           {
             *__strerrbuf = 138412802;
-            v52 = v15;
-            v53 = 2048;
-            v54 = v28;
-            v55 = 2048;
-            v56 = v23;
-            _os_log_error_impl(&dword_1A89DD000, v35, OS_LOG_TYPE_ERROR, "data length inconsistent in %@ - unlinking : actual=%zi expected=%zu", __strerrbuf, 0x20u);
+            v51 = v15;
+            v52 = 2048;
+            v53 = v28;
+            v54 = 2048;
+            v55 = v23;
+            _os_log_error_impl(&dword_1A89DD000, v34, OS_LOG_TYPE_ERROR, "data length inconsistent in %@ - unlinking : actual=%zi expected=%zu", __strerrbuf, 0x20u);
           }
 
           [self _unlinkShmPath:v15 graceful:0];
@@ -938,25 +926,25 @@ LABEL_13:
         *__error() = 0;
         if (munmap(v27, v23 + 1) == -1)
         {
-          v39 = __error();
-          strerror_r(*v39, __strerrbuf, 0x100uLL);
-          v40 = FBLogCommon();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+          v38 = __error();
+          strerror_r(*v38, __strerrbuf, 0x100uLL);
+          v39 = FBLogCommon();
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
           {
-            v41 = *__error();
+            v40 = *__error();
             *buf = 138412802;
-            v46 = v15;
-            v47 = 1024;
-            v48 = v41;
-            v49 = 2080;
-            v50 = __strerrbuf;
-            _os_log_error_impl(&dword_1A89DD000, v40, OS_LOG_TYPE_ERROR, "failed to munmap %@ - unlinking : errno=%i (%s)", buf, 0x1Cu);
+            v45 = v15;
+            v46 = 1024;
+            v47 = v40;
+            v48 = 2080;
+            v49 = __strerrbuf;
+            _os_log_error_impl(&dword_1A89DD000, v39, OS_LOG_TYPE_ERROR, "failed to munmap %@ - unlinking : errno=%i (%s)", buf, 0x1Cu);
           }
 
           [self _unlinkShmPath:v15 graceful:0];
         }
 
-        _Block_object_dispose(v44, 8);
+        _Block_object_dispose(v43, 8);
         goto LABEL_36;
       }
 
@@ -999,11 +987,10 @@ LABEL_36:
 
 LABEL_40:
 
-  v33 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
-uint64_t __86__FBWorkspaceConnectionsStateStore__storeState_toPath_withGeneration_injectedFailure___block_invoke(void *a1, const void *a2, size_t a3)
+size_t __86__FBWorkspaceConnectionsStateStore__storeState_toPath_withGeneration_injectedFailure___block_invoke(void *a1, const void *a2, size_t a3)
 {
   v3 = a1[5];
   v4 = v3 - a3;
@@ -1034,46 +1021,34 @@ uint64_t __86__FBWorkspaceConnectionsStateStore__storeState_toPath_withGeneratio
   NSStringFromClass(v5);
   objc_claimAutoreleasedReturnValue();
   v6 = OUTLINED_FUNCTION_16_1();
-  NSStringFromClass(v6);
-  v16 = v15 = v4;
-  v7 = [v2 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@."];
+  v7 = NSStringFromClass(v6);
+  v8 = [v2 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"identifier", v4, v7];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(v3);
     objc_claimAutoreleasedReturnValue();
-    v8 = OUTLINED_FUNCTION_8();
-    v9 = NSStringFromClass(v8);
+    v9 = OUTLINED_FUNCTION_8();
+    v10 = NSStringFromClass(v9);
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, @"identifier", v15, v16, v17, v18);
+    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v11, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v12, v13, v14, v15, v16, v17, v18, v19);
   }
 
-  [v7 UTF8String];
+  [v8 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
-}
-
-+ (void)hasSandboxAccessForIdentifier:.cold.2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_13_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)hasSandboxAccessForIdentifier:.cold.3()
 {
   OUTLINED_FUNCTION_8_0();
-  v11 = *MEMORY[0x1E69E9840];
   v1 = NSStringFromSelector(v0);
   v2 = objc_opt_class();
   v3 = NSStringFromClass(v2);
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_7_0();
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8);
 }
 
 - (void)_initWithIdentifier:(void *)a1 .cold.1(void *a1, const char *a2)
@@ -1087,21 +1062,20 @@ uint64_t __86__FBWorkspaceConnectionsStateStore__storeState_toPath_withGeneratio
   NSStringFromClass(v5);
   objc_claimAutoreleasedReturnValue();
   v6 = OUTLINED_FUNCTION_16_1();
-  NSStringFromClass(v6);
-  v16 = v15 = v4;
-  v7 = [v2 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@."];
+  v7 = NSStringFromClass(v6);
+  v8 = [v2 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"identifier", v4, v7];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(v3);
     objc_claimAutoreleasedReturnValue();
-    v8 = OUTLINED_FUNCTION_8();
-    v9 = NSStringFromClass(v8);
+    v9 = OUTLINED_FUNCTION_8();
+    v10 = NSStringFromClass(v9);
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, @"identifier", v15, v16, v17, v18);
+    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v11, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v12, v13, v14, v15, v16, v17, v18, v19);
   }
 
-  [v7 UTF8String];
+  [v8 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -1136,18 +1110,16 @@ uint64_t __86__FBWorkspaceConnectionsStateStore__storeState_toPath_withGeneratio
   dispatch_async(v15, a3);
 }
 
-void __56__FBWorkspaceConnectionsStateStore__initWithIdentifier___block_invoke_cold_1(uint64_t a1)
+void __56__FBWorkspaceConnectionsStateStore__initWithIdentifier___block_invoke_cold_1()
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 40);
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5_1();
-  _os_log_fault_impl(&dword_1A89DD000, v2, OS_LOG_TYPE_FAULT, "all previous workspace connections states are bad : %@", v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1A89DD000, v0, OS_LOG_TYPE_FAULT, "all previous workspace connections states are bad : %@", v1, 0xCu);
 }
 
 void __56__FBWorkspaceConnectionsStateStore__initWithIdentifier___block_invoke_cold_2(char a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v2 = 2;
@@ -1158,19 +1130,16 @@ void __56__FBWorkspaceConnectionsStateStore__initWithIdentifier___block_invoke_c
     v2 = 1;
   }
 
-  v4[0] = 67109120;
-  v4[1] = v2;
-  _os_log_error_impl(&dword_1A89DD000, a2, OS_LOG_TYPE_ERROR, "previous workspace connections state wasn't clean - resolving latest (%i)", v4, 8u);
-  v3 = *MEMORY[0x1E69E9840];
+  v3[0] = 67109120;
+  v3[1] = v2;
+  _os_log_error_impl(&dword_1A89DD000, a2, OS_LOG_TYPE_ERROR, "previous workspace connections state wasn't clean - resolving latest (%i)", v3, 8u);
 }
 
-void __56__FBWorkspaceConnectionsStateStore__initWithIdentifier___block_invoke_cold_3(uint64_t a1)
+void __56__FBWorkspaceConnectionsStateStore__initWithIdentifier___block_invoke_cold_3()
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(*a1 + 32);
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5_1();
-  _os_log_debug_impl(&dword_1A89DD000, v2, OS_LOG_TYPE_DEBUG, "previous workspace connections = %@", v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1A89DD000, v0, OS_LOG_TYPE_DEBUG, "previous workspace connections = %@", v1, 0xCu);
 }
 
 - (void)setState:(void *)a1 .cold.1(void *a1, char *a2)
@@ -1184,42 +1153,41 @@ void __56__FBWorkspaceConnectionsStateStore__initWithIdentifier___block_invoke_c
 
   v5 = NSStringFromClass(v4);
   v6 = objc_opt_class();
-  NSStringFromClass(v6);
-  v16 = v15 = v5;
-  v7 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@."];
+  v7 = NSStringFromClass(v6);
+  v8 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"state", v5, v7];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
     objc_claimAutoreleasedReturnValue();
-    v8 = OUTLINED_FUNCTION_8();
-    v9 = NSStringFromClass(v8);
+    v9 = OUTLINED_FUNCTION_8();
+    v10 = NSStringFromClass(v9);
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, @"state", v15, v16, v17, v18);
+    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v11, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v12, v13, v14, v15, v16, v17, v18, v19);
   }
 
-  [v7 UTF8String];
+  [v8 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)setState:(const char *)a1 .cold.2(const char *a1)
+- (void)setState:(const char *)a1 .cold.2(const char *a1, uint64_t a2)
 {
-  v2 = MEMORY[0x1E696AEC0];
-  v3 = objc_opt_class();
-  v13 = NSStringFromClass(v3);
-  v4 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@."];
+  v3 = MEMORY[0x1E696AEC0];
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  v6 = [v3 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"state", v5];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v5 = NSStringFromSelector(a1);
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
+    v7 = NSStringFromSelector(a1);
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
     OUTLINED_FUNCTION_0_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, @"state", v13, v14);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, v15, v16);
   }
 
-  [v4 UTF8String];
+  [v6 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -1242,53 +1210,39 @@ void __56__FBWorkspaceConnectionsStateStore__initWithIdentifier___block_invoke_c
   dispatch_async(v10, v4);
 }
 
-void __45__FBWorkspaceConnectionsStateStore_setState___block_invoke_cold_2(uint64_t *a1)
+void __45__FBWorkspaceConnectionsStateStore_setState___block_invoke_cold_2()
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5_1();
-  _os_log_debug_impl(&dword_1A89DD000, v2, OS_LOG_TYPE_DEBUG, "stored new workspace connections = %@", v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1A89DD000, v0, OS_LOG_TYPE_DEBUG, "stored new workspace connections = %@", v1, 0xCu);
 }
 
-void __45__FBWorkspaceConnectionsStateStore_setState___block_invoke_cold_3(uint64_t a1, void *a2)
+void __45__FBWorkspaceConnectionsStateStore_setState___block_invoke_cold_3()
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = 8;
-  if (((a1 - 2) & 0xFFFFFFFFFFFFFFFDLL) == 0)
-  {
-    v2 = 16;
-  }
-
-  v3 = *(*a2 + v2);
   OUTLINED_FUNCTION_5_1();
   OUTLINED_FUNCTION_13_1();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __45__FBWorkspaceConnectionsStateStore_setState___block_invoke_cold_4(uint64_t a1, uint64_t *a2)
+void __45__FBWorkspaceConnectionsStateStore_setState___block_invoke_cold_4(uint64_t a1, void *a2)
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"attemp to set state after invalidation"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"attemp to set state after invalidation"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v5 = NSStringFromSelector(*(a1 + 48));
-    v6 = *a2;
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    v9 = *a2;
+    v4 = NSStringFromSelector(*(a1 + 48));
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_23();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, v15);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11);
   }
 
-  [v4 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
 + (void)_loadStateFromPath:(void *)a1 outGeneration:(char *)a2 outExisted:.cold.1(void *a1, char *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E696AEC0];
   v5 = [a1 classForCoder];
   if (!v5)
@@ -1299,22 +1253,21 @@ void __45__FBWorkspaceConnectionsStateStore_setState___block_invoke_cold_4(uint6
   NSStringFromClass(v5);
   objc_claimAutoreleasedReturnValue();
   v6 = OUTLINED_FUNCTION_16_1();
-  NSStringFromClass(v6);
-  v17 = v16 = a1;
-  v7 = [v4 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@."];
+  v7 = NSStringFromClass(v6);
+  v8 = [v4 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"shmPath", a1, v7];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
     objc_claimAutoreleasedReturnValue();
-    v8 = OUTLINED_FUNCTION_8();
-    v9 = NSStringFromClass(v8);
+    v9 = OUTLINED_FUNCTION_8();
+    v10 = NSStringFromClass(v9);
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, @"shmPath", v16, v17, v18, v19);
+    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v11, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v12, v13, v14, v15, v17, v18, v19, v20);
   }
 
-  v15 = v7;
-  [v7 UTF8String];
+  v16 = v8;
+  [v8 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -1322,64 +1275,44 @@ void __45__FBWorkspaceConnectionsStateStore_setState___block_invoke_cold_4(uint6
 + (void)_loadStateFromPath:outGeneration:outExisted:.cold.2()
 {
   OUTLINED_FUNCTION_2_6();
-  v9 = *MEMORY[0x1E69E9840];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_4_3(&dword_1A89DD000, v1, v2, "failed to read %@ : errno=%i (%s)", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4_3(&dword_1A89DD000, v0, v1, "failed to read %@ : errno=%i (%s)", v2, v3, v4, v5);
 }
 
-+ (void)_loadStateFromPath:(uint64_t)a1 outGeneration:(uint64_t)a2 outExisted:.cold.3(uint64_t a1, uint64_t a2)
++ (void)_loadStateFromPath:outGeneration:outExisted:.cold.3()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = *(a2 + 96);
   OUTLINED_FUNCTION_7_1();
   OUTLINED_FUNCTION_13_1();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)_loadStateFromPath:outGeneration:outExisted:.cold.4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7_1();
-  OUTLINED_FUNCTION_2_1(&dword_1A89DD000, v0, v1, "validity check failed for %@ - unlinking", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 + (void)_loadStateFromPath:outGeneration:outExisted:.cold.5()
 {
   OUTLINED_FUNCTION_2_6();
-  v9 = *MEMORY[0x1E69E9840];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_4_3(&dword_1A89DD000, v1, v2, "failed to munmap %@ - unlinking : errno=%i (%s)", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4_3(&dword_1A89DD000, v0, v1, "failed to munmap %@ - unlinking : errno=%i (%s)", v2, v3, v4, v5);
 }
 
 + (void)_loadStateFromPath:outGeneration:outExisted:.cold.6()
 {
   OUTLINED_FUNCTION_2_6();
-  v9 = *MEMORY[0x1E69E9840];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_4_3(&dword_1A89DD000, v1, v2, "failed to mmap %@ - unlinking : errno=%i (%s)", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4_3(&dword_1A89DD000, v0, v1, "failed to mmap %@ - unlinking : errno=%i (%s)", v2, v3, v4, v5);
 }
 
 + (void)_loadStateFromPath:outGeneration:outExisted:.cold.7()
 {
   OUTLINED_FUNCTION_2_6();
-  v9 = *MEMORY[0x1E69E9840];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_4_3(&dword_1A89DD000, v1, v2, "failed to close read of %@ : errno=%i (%s)", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4_3(&dword_1A89DD000, v0, v1, "failed to close read of %@ : errno=%i (%s)", v2, v3, v4, v5);
 }
 
 + (void)_loadStateFromPath:(char *)a1 outGeneration:outExisted:.cold.8(char *a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"shmLength cannot exceed SSIZE_MAX"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
@@ -1389,7 +1322,7 @@ void __45__FBWorkspaceConnectionsStateStore_setState___block_invoke_cold_4(uint6
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_2_4();
     OUTLINED_FUNCTION_7_0();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   v10 = v2;
@@ -1400,8 +1333,7 @@ void __45__FBWorkspaceConnectionsStateStore_setState___block_invoke_cold_4(uint6
 
 + (void)_loadStateFromPath:(char *)a1 outGeneration:outExisted:.cold.9(char *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"outExisted"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1409,7 +1341,7 @@ void __45__FBWorkspaceConnectionsStateStore_setState___block_invoke_cold_4(uint6
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"outExisted", v11, v12);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -1420,8 +1352,7 @@ void __45__FBWorkspaceConnectionsStateStore_setState___block_invoke_cold_4(uint6
 
 + (void)_loadStateFromPath:(char *)a1 outGeneration:outExisted:.cold.10(char *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"outGenerationTwiddle"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1429,7 +1360,7 @@ void __45__FBWorkspaceConnectionsStateStore_setState___block_invoke_cold_4(uint6
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"outGenerationTwiddle", v11, v12);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -1449,21 +1380,20 @@ void __45__FBWorkspaceConnectionsStateStore_setState___block_invoke_cold_4(uint6
   NSStringFromClass(v5);
   objc_claimAutoreleasedReturnValue();
   v6 = OUTLINED_FUNCTION_16_1();
-  NSStringFromClass(v6);
-  v16 = v15 = v4;
-  v7 = [v2 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@."];
+  v7 = NSStringFromClass(v6);
+  v8 = [v2 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"shmPath", v4, v7];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(v3);
     objc_claimAutoreleasedReturnValue();
-    v8 = OUTLINED_FUNCTION_8();
-    v9 = NSStringFromClass(v8);
+    v9 = OUTLINED_FUNCTION_8();
+    v10 = NSStringFromClass(v9);
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, @"shmPath", v15, v16, v17, v18);
+    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v11, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v12, v13, v14, v15, v16, v17, v18, v19);
   }
 
-  [v7 UTF8String];
+  [v8 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -1471,31 +1401,25 @@ void __45__FBWorkspaceConnectionsStateStore_setState___block_invoke_cold_4(uint6
 + (void)_unlinkShmPath:graceful:.cold.2()
 {
   OUTLINED_FUNCTION_2_6();
-  v9 = *MEMORY[0x1E69E9840];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_4_3(&dword_1A89DD000, v1, v2, "failed to unlink %@ : errno=%i (%s)", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4_3(&dword_1A89DD000, v0, v1, "failed to unlink %@ : errno=%i (%s)", v2, v3, v4, v5);
 }
 
 + (void)_unlinkShmPath:graceful:.cold.3()
 {
   OUTLINED_FUNCTION_8_0();
-  v11 = *MEMORY[0x1E69E9840];
   v1 = NSStringFromSelector(v0);
   v2 = objc_opt_class();
   v3 = NSStringFromClass(v2);
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_7_0();
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8);
 }
 
 + (void)_storeState:(void *)a1 toPath:(char *)a2 withGeneration:injectedFailure:.cold.1(void *a1, char *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   v4 = [a1 classForCoder];
   if (!v4)
@@ -1505,29 +1429,27 @@ void __45__FBWorkspaceConnectionsStateStore_setState___block_invoke_cold_4(uint6
 
   v5 = NSStringFromClass(v4);
   v6 = objc_opt_class();
-  NSStringFromClass(v6);
-  v17 = v16 = v5;
-  v7 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@."];
+  v7 = NSStringFromClass(v6);
+  v8 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"state", v5, v7];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
     objc_claimAutoreleasedReturnValue();
-    v8 = OUTLINED_FUNCTION_8();
-    v9 = NSStringFromClass(v8);
+    v9 = OUTLINED_FUNCTION_8();
+    v10 = NSStringFromClass(v9);
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, @"state", v16, v17, v18, v19);
+    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v11, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v12, v13, v14, v15, v17, v18, v19, v20);
   }
 
-  v15 = v7;
-  [v7 UTF8String];
+  v16 = v8;
+  [v8 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
 + (void)_storeState:(void *)a1 toPath:(char *)a2 withGeneration:injectedFailure:.cold.2(void *a1, char *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E696AEC0];
   v5 = [a1 classForCoder];
   if (!v5)
@@ -1538,22 +1460,21 @@ void __45__FBWorkspaceConnectionsStateStore_setState___block_invoke_cold_4(uint6
   NSStringFromClass(v5);
   objc_claimAutoreleasedReturnValue();
   v6 = OUTLINED_FUNCTION_16_1();
-  NSStringFromClass(v6);
-  v17 = v16 = a1;
-  v7 = [v4 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@."];
+  v7 = NSStringFromClass(v6);
+  v8 = [v4 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"shmPath", a1, v7];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
     objc_claimAutoreleasedReturnValue();
-    v8 = OUTLINED_FUNCTION_8();
-    v9 = NSStringFromClass(v8);
+    v9 = OUTLINED_FUNCTION_8();
+    v10 = NSStringFromClass(v9);
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, @"shmPath", v16, v17, v18, v19);
+    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v11, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v12, v13, v14, v15, v17, v18, v19, v20);
   }
 
-  v15 = v7;
-  [v7 UTF8String];
+  v16 = v8;
+  [v8 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -1561,70 +1482,37 @@ void __45__FBWorkspaceConnectionsStateStore_setState___block_invoke_cold_4(uint6
 + (void)_storeState:toPath:withGeneration:injectedFailure:.cold.3()
 {
   OUTLINED_FUNCTION_2_6();
-  v9 = *MEMORY[0x1E69E9840];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_4_3(&dword_1A89DD000, v1, v2, "failed to create %@ : errno=%i (%s)", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4_3(&dword_1A89DD000, v0, v1, "failed to create %@ : errno=%i (%s)", v2, v3, v4, v5);
 }
 
 + (void)_storeState:toPath:withGeneration:injectedFailure:.cold.4()
 {
   OUTLINED_FUNCTION_2_6();
-  v9 = *MEMORY[0x1E69E9840];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_4_3(&dword_1A89DD000, v1, v2, "failed to set the size of %@ - unlinking : errno=%i (%s)", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)_storeState:toPath:withGeneration:injectedFailure:.cold.5()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7_1();
-  OUTLINED_FUNCTION_2_1(&dword_1A89DD000, v0, v1, "simulating crash after writing data to new buffer : %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4_3(&dword_1A89DD000, v0, v1, "failed to set the size of %@ - unlinking : errno=%i (%s)", v2, v3, v4, v5);
 }
 
 + (void)_storeState:toPath:withGeneration:injectedFailure:.cold.6()
 {
   OUTLINED_FUNCTION_2_6();
-  v9 = *MEMORY[0x1E69E9840];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_4_3(&dword_1A89DD000, v1, v2, "failed to mmap %@ - unlinking : errno=%i (%s)", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)_storeState:toPath:withGeneration:injectedFailure:.cold.7()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7_1();
-  OUTLINED_FUNCTION_2_1(&dword_1A89DD000, v0, v1, "simulating crash after resizing new buffer : %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)_storeState:toPath:withGeneration:injectedFailure:.cold.8()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7_1();
-  OUTLINED_FUNCTION_2_1(&dword_1A89DD000, v0, v1, "simulating crash after opening new buffer : %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4_3(&dword_1A89DD000, v0, v1, "failed to mmap %@ - unlinking : errno=%i (%s)", v2, v3, v4, v5);
 }
 
 + (void)_storeState:toPath:withGeneration:injectedFailure:.cold.9()
 {
   OUTLINED_FUNCTION_2_6();
-  v9 = *MEMORY[0x1E69E9840];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_4_3(&dword_1A89DD000, v1, v2, "failed to close write of %@ : errno=%i (%s)", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4_3(&dword_1A89DD000, v0, v1, "failed to close write of %@ : errno=%i (%s)", v2, v3, v4, v5);
 }
 
 + (void)_storeState:(char *)a1 toPath:withGeneration:injectedFailure:.cold.10(char *a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"shmLength out of range"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
@@ -1634,7 +1522,7 @@ void __45__FBWorkspaceConnectionsStateStore_setState___block_invoke_cold_4(uint6
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_2_4();
     OUTLINED_FUNCTION_7_0();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   v10 = v2;
@@ -1645,8 +1533,7 @@ void __45__FBWorkspaceConnectionsStateStore_setState___block_invoke_cold_4(uint6
 
 + (void)_storeState:(char *)a1 toPath:withGeneration:injectedFailure:.cold.11(char *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"failure"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1654,7 +1541,7 @@ void __45__FBWorkspaceConnectionsStateStore_setState___block_invoke_cold_4(uint6
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"failure", v11, v12);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -1663,25 +1550,24 @@ void __45__FBWorkspaceConnectionsStateStore_setState___block_invoke_cold_4(uint6
   __break(0);
 }
 
-+ (void)_storeState:(const char *)a1 toPath:withGeneration:injectedFailure:.cold.12(const char *a1)
++ (void)_storeState:(const char *)a1 toPath:(uint64_t)a2 withGeneration:injectedFailure:.cold.12(const char *a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v2 = MEMORY[0x1E696AEC0];
-  v3 = objc_opt_class();
-  v14 = NSStringFromClass(v3);
-  v4 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@."];
+  v3 = MEMORY[0x1E696AEC0];
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  v6 = [v3 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"state", v5];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v5 = NSStringFromSelector(a1);
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
+    v7 = NSStringFromSelector(a1);
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
     OUTLINED_FUNCTION_0_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, @"state", v14, v15);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, v16, v17);
   }
 
-  v13 = v4;
-  [v4 UTF8String];
+  v15 = v6;
+  [v6 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

@@ -39,7 +39,7 @@
   if (v13)
   {
     objc_storeStrong(&v13->_protectedDataOperationScheduler, scheduler);
-    v15 = [identifierCopy copy];
+    v15 = objc_msgSend_copy(identifierCopy);
     debugIdentifier = v14->_debugIdentifier;
     v14->_debugIdentifier = v15;
 
@@ -129,7 +129,7 @@ id __58__HDProtectedDataOperation_requestWorkWithPriority_error___block_invoke(u
 
 - (uint64_t)_performStateTransitionWithError:(void *)error block:
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (!self)
   {
@@ -149,9 +149,9 @@ id __58__HDProtectedDataOperation_requestWorkWithPriority_error___block_invoke(u
     v7 = 0;
   }
 
-  v37 = 0;
-  v8 = errorCopy[2](errorCopy, v7, &v37);
-  v9 = v37;
+  v36 = 0;
+  v8 = errorCopy[2](errorCopy, v7, &v36);
+  v9 = v36;
   v10 = v9;
   if (!v8)
   {
@@ -180,7 +180,7 @@ LABEL_14:
   if ([v8 hasNewState])
   {
     newState = [v8 newState];
-    v36 = v10;
+    v35 = v10;
     os_unfair_lock_assert_owner((self + 16));
     v12 = *(self + 24);
     if (v12 > 4)
@@ -219,9 +219,9 @@ LABEL_43:
         v26 = MEMORY[0x277CCA9B8];
         v27 = NSStringFromHDProtectedDataOperationState(*(self + 24));
         v28 = NSStringFromHDProtectedDataOperationState(newState);
-        [v26 hk_assignError:&v36 code:126 format:{@"Invalid attempt to change state from %@ to %@", v27, v28}];
+        [v26 hk_assignError:&v35 code:126 format:{@"Invalid attempt to change state from %@ to %@", v27, v28}];
 
-        v29 = v36;
+        v29 = v35;
         v10 = v29;
         if (!v10)
         {
@@ -260,10 +260,10 @@ LABEL_28:
             v19 = NSStringFromHDProtectedDataOperationState(newState);
             *buf = 138543874;
             selfCopy = self;
-            v41 = 2114;
-            v42 = v18;
-            v43 = 2114;
-            v44 = v19;
+            v40 = 2114;
+            v41 = v18;
+            v42 = 2114;
+            v43 = v19;
             _os_log_impl(&dword_228986000, v17, OS_LOG_TYPE_INFO, "[%{public}@] State will change from %{public}@ to %{public}@", buf, 0x20u);
           }
         }
@@ -308,9 +308,9 @@ LABEL_28:
           oldState = [v20 oldState];
           if (oldState == 6)
           {
-            v34 = *(self + 8);
-            v35 = [self description];
-            [v34 startEnqueuedWorkWithName:v35];
+            v33 = *(self + 8);
+            v34 = [self description];
+            [v33 startEnqueuedWorkWithName:v34];
 
             goto LABEL_55;
           }
@@ -357,12 +357,11 @@ LABEL_55:
 LABEL_47:
   os_unfair_lock_unlock((self + 16));
 LABEL_48:
-  v38 = v14;
+  v37 = v14;
 
-  v30 = v38;
+  v30 = v37;
 LABEL_49:
 
-  v31 = *MEMORY[0x277D85DE8];
   return v30;
 }
 
@@ -399,29 +398,29 @@ id __66__HDProtectedDataOperation__performTransitionToNewStateWithBlock___block_
 
 void __42__HDProtectedDataOperation__startWorkNow___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v6 = *(a1 + 32);
   v7 = a2;
   v8 = a3;
   v9 = a4;
   if (v6)
   {
-    v19[4] = v6;
-    v20 = 0;
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __103__HDProtectedDataOperation__notifyDelegateToPerformWorkWithDatabase_accessibilityAssertion_completion___block_invoke;
-    v19[3] = &unk_27862E6A8;
-    v10 = [(HDProtectedDataOperation *)v6 _performStateTransitionWithError:v19 block:?];
-    v11 = v20;
+    v18[4] = v6;
+    v19 = 0;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __103__HDProtectedDataOperation__notifyDelegateToPerformWorkWithDatabase_accessibilityAssertion_completion___block_invoke;
+    v18[3] = &unk_27862E6A8;
+    v10 = [(HDProtectedDataOperation *)v6 _performStateTransitionWithError:v18 block:?];
+    v11 = v19;
     if (v10)
     {
       *aBlock = MEMORY[0x277D85DD0];
       *&aBlock[8] = 3221225472;
       *&aBlock[16] = __103__HDProtectedDataOperation__notifyDelegateToPerformWorkWithDatabase_accessibilityAssertion_completion___block_invoke_360;
-      v24 = &unk_278614E28;
-      v25 = v6;
-      v26 = v9;
+      v23 = &unk_278614E28;
+      v24 = v6;
+      v25 = v9;
       v12 = _Block_copy(aBlock);
       os_unfair_lock_lock((v6 + 16));
       WeakRetained = objc_loadWeakRetained((v6 + 40));
@@ -434,7 +433,7 @@ void __42__HDProtectedDataOperation__startWorkNow___block_invoke(uint64_t a1, vo
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v22 = v6;
+          v21 = v6;
           _os_log_impl(&dword_228986000, v15, OS_LOG_TYPE_DEFAULT, "[%{public}@] Here we go! Delegate asked to perform work!", buf, 0xCu);
         }
 
@@ -447,7 +446,7 @@ void __42__HDProtectedDataOperation__startWorkNow___block_invoke(uint64_t a1, vo
         if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v22 = v6;
+          v21 = v6;
           _os_log_error_impl(&dword_228986000, v15, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to perform work because delegate is nil!", buf, 0xCu);
         }
 
@@ -471,8 +470,6 @@ void __42__HDProtectedDataOperation__startWorkNow___block_invoke(uint64_t a1, vo
       v9[2](v9);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 id __103__HDProtectedDataOperation__notifyDelegateToPerformWorkWithDatabase_accessibilityAssertion_completion___block_invoke(uint64_t a1, void *a2)

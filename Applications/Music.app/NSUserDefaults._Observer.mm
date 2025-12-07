@@ -8,7 +8,7 @@
 - (_TtCE14MusicUtilitiesCSo14NSUserDefaultsP33_0EE8F48931DDE162065F15584D7CE3A39_Observer)init
 {
   v3 = OBJC_IVAR____TtCE14MusicUtilitiesCSo14NSUserDefaultsP33_0EE8F48931DDE162065F15584D7CE3A39_Observer_registeredSuites;
-  *(&self->super.isa + v3) = sub_10001F644(&_swiftEmptyArrayStorage);
+  *(&self->super.isa + v3) = sub_10001F644(_swiftEmptyArrayStorage);
   v4 = OBJC_IVAR____TtCE14MusicUtilitiesCSo14NSUserDefaultsP33_0EE8F48931DDE162065F15584D7CE3A39_Observer_lock;
   type metadata accessor for UnfairLock();
   v5 = swift_allocObject();

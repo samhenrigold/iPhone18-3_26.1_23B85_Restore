@@ -27,22 +27,20 @@
 
 + (id)EvaluationResponse
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForEvaluationResponse = [self configurationForEvaluationResponse];
   v3 = +[BMFeedbackEvaluationResponse columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Feedback.EvaluationResponse" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Feedback.EvaluationResponse" schema:v9 configuration:configurationForEvaluationResponse];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -62,22 +60,20 @@
 
 + (id)TextImageToImageEvaluationData
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForTextImageToImageEvaluationData = [self configurationForTextImageToImageEvaluationData];
   v3 = +[BMFeedbackTextImageToImageEvaluationData columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Feedback.TextImageToImageEvaluationData" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Feedback.TextImageToImageEvaluationData" schema:v9 configuration:configurationForTextImageToImageEvaluationData];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -100,22 +96,20 @@
 
 + (id)TextToImageEvaluationData
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForTextToImageEvaluationData = [self configurationForTextToImageEvaluationData];
   v3 = +[BMFeedbackTextToImageEvaluationData columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Feedback.TextToImageEvaluationData" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Feedback.TextToImageEvaluationData" schema:v9 configuration:configurationForTextToImageEvaluationData];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -135,22 +129,20 @@
 
 + (id)TextToTextEvaluationData
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForTextToTextEvaluationData = [self configurationForTextToTextEvaluationData];
   v3 = +[BMFeedbackTextToTextEvaluationData columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Feedback.TextToTextEvaluationData" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Feedback.TextToTextEvaluationData" schema:v9 configuration:configurationForTextToTextEvaluationData];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

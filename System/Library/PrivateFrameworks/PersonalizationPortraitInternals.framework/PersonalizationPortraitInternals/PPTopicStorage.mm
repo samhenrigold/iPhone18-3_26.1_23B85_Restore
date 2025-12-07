@@ -16,12 +16,13 @@
 - (BOOL)iterTopicRecordsWithQuery:(id)query error:(id *)error block:(id)block;
 - (BOOL)pruneOrphanedTopicFeedbackCountRecordsWithLimit:(int64_t)limit rowOffset:(unint64_t)offset deletedCount:(unint64_t *)count isComplete:(BOOL *)complete;
 - (PPTopicStorage)initWithDatabase:(id)database;
+- (PPTopicStorage)initWithDatabase:(id)database maxRecords:(unsigned int)records dkStorage:(id)storage loadEmptyDatabaseFromDK:(BOOL)k trialWrapper:(id)wrapper;
 - (id)_createRecordWithStatement:(void *)statement txnWitness:;
 - (id)_deletionQueue;
 - (id)sourceStats:(unint64_t)stats withExcludedAlgorithms:(id)algorithms;
 - (id)tempViewForSourceIdsExcludedAlgorithms:(id)algorithms txnWitness:(id)witness;
-- (uint64_t)_importDKEventsWithShouldContinueBlock:(uint64_t)block remoteEventsOnly:(uint64_t)only isComplete:(uint64_t)complete shouldContinueBlock:;
 - (void)_asyncProcessNewDKEventDeletions;
+- (void)_importDKEventsWithShouldContinueBlock:(uint64_t)block remoteEventsOnly:(uint64_t)only isComplete:(uint64_t)complete shouldContinueBlock:;
 - (void)dealloc;
 - (void)disableSyncForBundleIds:(id)ids;
 - (void)exportRecordsToDKWithShouldContinueBlock:(id)block;
@@ -172,23 +173,22 @@ void __53__PPTopicStorage_sourceStats_withExcludedAlgorithms___block_invoke(uint
     }
 
     [v5 getDoubleForColumnName:"decay_rate" table:"tp_records"];
-    v12 = *MEMORY[0x277D3A758];
     if ((*&v11 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
     {
-      v13 = *MEMORY[0x277D3A758];
+      v12 = *MEMORY[0x277D3A758];
     }
 
     else
     {
-      v13 = v11;
+      v12 = v11;
     }
 
-    v14 = [v5 getNSStringForColumnName:"extraction_os_build" table:"tp_records"];
-    v15 = [v5 getInt64AsNSNumberForColumnName:"extraction_asset_version" table:"tp_records"];
-    v16 = v15;
-    if (v15)
+    v13 = [v5 getNSStringForColumnName:"extraction_os_build" table:"tp_records"];
+    v14 = [v5 getInt64AsNSNumberForColumnName:"extraction_asset_version" table:"tp_records"];
+    v15 = v14;
+    if (v14)
     {
-      unsignedLongValue = [v15 unsignedLongValue];
+      unsignedLongValue = [v14 unsignedLongValue];
     }
 
     else
@@ -197,70 +197,70 @@ void __53__PPTopicStorage_sourceStats_withExcludedAlgorithms___block_invoke(uint
     }
 
     [v5 getDoubleForColumnName:"sentiment_score" table:"tp_records"];
-    v19 = v18;
-    v20 = [v5 getInt64ForColumnName:"is_remote" table:"tp_records"];
-    v21 = [objc_alloc(MEMORY[0x277D3A530]) initWithTopicIdentifier:v7];
-    v22 = [*(self + 40) createSourceWithStatement:v5 txnWitness:statementCopy];
+    v18 = v17;
+    v19 = [v5 getInt64ForColumnName:"is_remote" table:"tp_records"];
+    v20 = [objc_alloc(MEMORY[0x277D3A530]) initWithTopicIdentifier:v7];
+    v21 = [*(self + 40) createSourceWithStatement:v5 txnWitness:statementCopy];
 
-    if (v22)
+    if (v21)
     {
-      if ((*&v19 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
+      if ((*&v18 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
       {
-        v19 = 0.0;
+        v18 = 0.0;
       }
 
-      v23 = objc_opt_new();
-      [v23 setTopic:v21];
-      [v23 setSource:v22];
-      [v23 setAlgorithm:v8];
-      [v23 setInitialScore:v10];
-      [v23 setDecayRate:v13];
-      [v23 setExtractionOsBuild:v14];
-      [v23 setExtractionAssetVersion:unsignedLongValue];
-      [v23 setIsLocal:v20 == 0];
-      [v23 setSentimentScore:v19];
-      v38 = objc_alloc(MEMORY[0x277D3A538]);
-      v37 = [v5 getInt64ForColumnName:"impression_count" table:"tp_records"];
-      v39 = v14;
-      v24 = [v5 getInt64ForColumnName:"occurrences_in_source" table:"tp_records"];
-      v25 = v22;
-      v26 = v16;
-      v27 = v7;
-      v28 = [v5 getInt64ForColumnName:"algorithm_result_position" table:"tp_records"];
-      v29 = v21;
-      v30 = [v5 getInt64ForColumnName:"algorithm_result_count" table:"tp_records"];
-      v31 = [v5 getInt64ForColumnName:"exact_match_in_source_text" table:"tp_records"] != 0;
-      v32 = v28;
-      v7 = v27;
-      v16 = v26;
-      v22 = v25;
-      v33 = v30;
-      v21 = v29;
-      v34 = [v38 initWithImpressionCount:v37 occurrencesInSource:v24 algorithmResultPosition:v32 algorithmResultCount:v33 exactMatchInSourceText:v31];
-      [v23 setMetadata:v34];
+      v22 = objc_opt_new();
+      [v22 setTopic:v20];
+      [v22 setSource:v21];
+      [v22 setAlgorithm:v8];
+      [v22 setInitialScore:v10];
+      [v22 setDecayRate:v12];
+      [v22 setExtractionOsBuild:v13];
+      [v22 setExtractionAssetVersion:unsignedLongValue];
+      [v22 setIsLocal:v19 == 0];
+      [v22 setSentimentScore:v18];
+      v37 = objc_alloc(MEMORY[0x277D3A538]);
+      v36 = [v5 getInt64ForColumnName:"impression_count" table:"tp_records"];
+      v38 = v13;
+      v23 = [v5 getInt64ForColumnName:"occurrences_in_source" table:"tp_records"];
+      v24 = v21;
+      v25 = v15;
+      v26 = v7;
+      v27 = [v5 getInt64ForColumnName:"algorithm_result_position" table:"tp_records"];
+      v28 = v20;
+      v29 = [v5 getInt64ForColumnName:"algorithm_result_count" table:"tp_records"];
+      v30 = [v5 getInt64ForColumnName:"exact_match_in_source_text" table:"tp_records"] != 0;
+      v31 = v27;
+      v7 = v26;
+      v15 = v25;
+      v21 = v24;
+      v32 = v29;
+      v20 = v28;
+      v33 = [v37 initWithImpressionCount:v36 occurrencesInSource:v23 algorithmResultPosition:v31 algorithmResultCount:v32 exactMatchInSourceText:v30];
+      [v22 setMetadata:v33];
 
-      v14 = v39;
+      v13 = v38;
     }
 
     else
     {
-      v35 = pp_topics_log_handle();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+      v34 = pp_topics_log_handle();
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&dword_23224A000, v35, OS_LOG_TYPE_ERROR, "Suppressing construction of topic record due to source with bogus date.", buf, 2u);
+        _os_log_error_impl(&dword_23224A000, v34, OS_LOG_TYPE_ERROR, "Suppressing construction of topic record due to source with bogus date.", buf, 2u);
       }
 
-      v23 = 0;
+      v22 = 0;
     }
   }
 
   else
   {
-    v23 = 0;
+    v22 = 0;
   }
 
-  return v23;
+  return v22;
 }
 
 - (void)exportRecordsToDKWithShouldContinueBlock:(id)block
@@ -268,12 +268,12 @@ void __53__PPTopicStorage_sourceStats_withExcludedAlgorithms___block_invoke(uint
   blockCopy = block;
   if (self->_dkStorage)
   {
-    v30 = 0;
-    v28 = v50;
-    v29 = &v59;
-    v27 = v43;
-    v25 = v32;
-    v26 = v37;
+    v28 = 0;
+    v26 = v48;
+    v27 = &v57;
+    v25 = v41;
+    v23 = v30;
+    v24 = v35;
     v5 = 0x277CBE000uLL;
     do
     {
@@ -282,100 +282,98 @@ void __53__PPTopicStorage_sourceStats_withExcludedAlgorithms___block_invoke(uint
         break;
       }
 
-      v6 = [(PPDKStorage *)self->_dkStorage topicWriteBatchSize:v25];
-      v63[0] = 0;
-      v63[1] = v63;
-      v63[2] = 0x2020000000;
-      v64 = 0;
+      v6 = [(PPDKStorage *)self->_dkStorage topicWriteBatchSize:v23];
       v61[0] = 0;
       v61[1] = v61;
       v61[2] = 0x2020000000;
       v62 = 0;
-      v58[0] = 0;
-      v58[1] = v58;
-      v58[2] = 0x3032000000;
-      v58[3] = __Block_byref_object_copy__21669;
-      v59 = __Block_byref_object_dispose__21670;
+      v59[0] = 0;
+      v59[1] = v59;
+      v59[2] = 0x2020000000;
       v60 = 0;
-      v57[0] = 0;
-      v57[1] = v57;
-      v57[2] = 0x2020000000;
-      v57[3] = 0;
       v56[0] = 0;
       v56[1] = v56;
-      v56[2] = 0x2020000000;
-      v56[3] = 0x7FFFFFFFFFFFFFFFLL;
+      v56[2] = 0x3032000000;
+      v56[3] = __Block_byref_object_copy__21669;
+      v57 = __Block_byref_object_dispose__21670;
+      v58 = 0;
+      v55[0] = 0;
+      v55[1] = v55;
+      v55[2] = 0x2020000000;
+      v55[3] = 0;
+      v54[0] = 0;
+      v54[1] = v54;
+      v54[2] = 0x2020000000;
+      v54[3] = 0x7FFFFFFFFFFFFFFFLL;
       v7 = v5;
-      v8 = *(v5 + 2840);
-      v9 = objc_opt_new();
+      v8 = objc_opt_new();
       aBlock[0] = MEMORY[0x277D85DD0];
       aBlock[1] = 3221225472;
-      v50[0] = __64__PPTopicStorage__generateExportRowIdsWithBatchSize_isComplete___block_invoke;
-      v50[1] = &unk_278977BE8;
-      v52 = v58;
-      v10 = v9;
-      v51 = v10;
-      v53 = v56;
-      v54 = v61;
-      v55 = v57;
-      v11 = _Block_copy(aBlock);
-      v42[0] = MEMORY[0x277D85DD0];
-      v42[1] = 3221225472;
-      v43[0] = __64__PPTopicStorage__generateExportRowIdsWithBatchSize_isComplete___block_invoke_2;
-      v43[1] = &unk_278977C10;
-      v45 = v63;
-      v46 = v58;
-      v12 = v11;
-      v44 = v12;
-      v47 = v57;
-      v48 = v56;
-      v13 = _Block_copy(v42);
+      v48[0] = __64__PPTopicStorage__generateExportRowIdsWithBatchSize_isComplete___block_invoke;
+      v48[1] = &unk_278977BE8;
+      v50 = v56;
+      v9 = v8;
+      v49 = v9;
+      v51 = v54;
+      v52 = v59;
+      v53 = v55;
+      v10 = _Block_copy(aBlock);
+      v40[0] = MEMORY[0x277D85DD0];
+      v40[1] = 3221225472;
+      v41[0] = __64__PPTopicStorage__generateExportRowIdsWithBatchSize_isComplete___block_invoke_2;
+      v41[1] = &unk_278977C10;
+      v43 = v61;
+      v44 = v56;
+      v11 = v10;
+      v42 = v11;
+      v45 = v55;
+      v46 = v54;
+      v12 = _Block_copy(v40);
       db = self->_db;
-      v36[0] = MEMORY[0x277D85DD0];
-      v36[1] = 3221225472;
-      v37[0] = __64__PPTopicStorage__generateExportRowIdsWithBatchSize_isComplete___block_invoke_3;
-      v37[1] = &unk_278977C60;
-      v38 = @"SELECT tp.id, tp.topic_id, src.seconds_from_1970 FROM tp_records AS tp INNER JOIN sources AS src ON tp.source_id = src.id WHERE tp.topic_id NOT IN (SELECT DISTINCT(topic_id) FROM tp_records WHERE is_remote = 0 AND dk_event_id IS NOT NULL) AND tp.is_remote = 0 AND tp.is_sync_eligible = 1 ORDER BY tp.topic_id ASC";
-      v15 = v13;
-      v39 = v15;
-      v40 = v61;
-      v41 = v6;
-      [(PPSQLDatabase *)db readTransactionWithClient:2 block:v36];
-      if ([v10 count] < v6)
+      v34[0] = MEMORY[0x277D85DD0];
+      v34[1] = 3221225472;
+      v35[0] = __64__PPTopicStorage__generateExportRowIdsWithBatchSize_isComplete___block_invoke_3;
+      v35[1] = &unk_278977C60;
+      v36 = @"SELECT tp.id, tp.topic_id, src.seconds_from_1970 FROM tp_records AS tp INNER JOIN sources AS src ON tp.source_id = src.id WHERE tp.topic_id NOT IN (SELECT DISTINCT(topic_id) FROM tp_records WHERE is_remote = 0 AND dk_event_id IS NOT NULL) AND tp.is_remote = 0 AND tp.is_sync_eligible = 1 ORDER BY tp.topic_id ASC";
+      v14 = v12;
+      v37 = v14;
+      v38 = v59;
+      v39 = v6;
+      [(PPSQLDatabase *)db readTransactionWithClient:2 block:v34];
+      if ([v9 count] < v6)
       {
-        v12[2](v12);
-        v30 = 1;
+        v11[2](v11);
+        v28 = 1;
       }
 
-      v16 = v39;
-      v17 = v10;
+      v15 = v37;
+      v16 = v9;
 
+      _Block_object_dispose(v54, 8);
+      _Block_object_dispose(v55, 8);
       _Block_object_dispose(v56, 8);
-      _Block_object_dispose(v57, 8);
-      _Block_object_dispose(v58, 8);
 
+      _Block_object_dispose(v59, 8);
       _Block_object_dispose(v61, 8);
-      _Block_object_dispose(v63, 8);
       v5 = v7;
-      v18 = *(v7 + 2840);
-      v19 = objc_opt_new();
-      v20 = self->_db;
-      v31[0] = MEMORY[0x277D85DD0];
-      v31[1] = 3221225472;
-      v32[0] = __59__PPTopicStorage_exportRecordsToDKWithShouldContinueBlock___block_invoke;
-      v32[1] = &unk_278977BC0;
-      v33 = v17;
+      v17 = objc_opt_new();
+      v18 = self->_db;
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v30[0] = __59__PPTopicStorage_exportRecordsToDKWithShouldContinueBlock___block_invoke;
+      v30[1] = &unk_278977BC0;
+      v31 = v16;
       selfCopy = self;
-      v35 = v19;
-      v21 = v19;
-      v22 = v17;
-      [(PPSQLDatabase *)v20 writeTransactionWithClient:2 timeoutInSeconds:v31 block:2.5];
+      v33 = v17;
+      v19 = v17;
+      v20 = v16;
+      [(PPSQLDatabase *)v18 writeTransactionWithClient:2 timeoutInSeconds:v29 block:2.5];
       dkStorage = self->_dkStorage;
       topicStream = [(PPDKStorage *)dkStorage topicStream];
-      [(PPDKStorage *)dkStorage saveEvents:v21 stream:topicStream maxRetries:-1 retryInterval:blockCopy shouldContinueBlock:5.0];
+      [(PPDKStorage *)dkStorage saveEvents:v19 stream:topicStream maxRetries:-1 retryInterval:blockCopy shouldContinueBlock:5.0];
     }
 
-    while ((v30 & 1) == 0);
+    while ((v28 & 1) == 0);
   }
 }
 
@@ -457,19 +455,17 @@ uint64_t __59__PPTopicStorage_exportRecordsToDKWithShouldContinueBlock___block_i
 
 void __55__PPTopicStorage__populateEvents_statement_txnWitness___block_invoke(uint64_t a1, void *a2)
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v8[0] = 0;
-  v8[1] = 0;
+  v7[2] = *MEMORY[0x277D85DE8];
+  v7[0] = 0;
+  v7[1] = 0;
   v3 = *(a1 + 32);
   v4 = a2;
   v5 = [v3 UUID];
-  [v5 getUUIDBytes:v8];
+  [v5 getUUIDBytes:v7];
 
-  v6 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v8 length:16];
+  v6 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v7 length:16];
   [v4 bindNamedParam:":uuidBlob" toNSData:v6];
   [v4 bindNamedParam:":rowid" toInt64:*(a1 + 40)];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __64__PPTopicStorage__generateExportRowIdsWithBatchSize_isComplete___block_invoke(void *a1)
@@ -563,12 +559,12 @@ uint64_t __64__PPTopicStorage__generateExportRowIdsWithBatchSize_isComplete___bl
   return *v9;
 }
 
-- (uint64_t)_importDKEventsWithShouldContinueBlock:(uint64_t)block remoteEventsOnly:(uint64_t)only isComplete:(uint64_t)complete shouldContinueBlock:
+- (void)_importDKEventsWithShouldContinueBlock:(uint64_t)block remoteEventsOnly:(uint64_t)only isComplete:(uint64_t)complete shouldContinueBlock:
 {
   if (result)
   {
-    v6 = *(result + 32);
-    v7 = *(result + 8);
+    v6 = result[4];
+    v7 = result[1];
     v8[0] = MEMORY[0x277D85DD0];
     v8[1] = 3221225472;
     v8[2] = __105__PPTopicStorage__importDKEventsWithShouldContinueBlock_remoteEventsOnly_isComplete_shouldContinueBlock___block_invoke;
@@ -731,7 +727,7 @@ void __32__PPTopicStorage__deletionQueue__block_invoke()
   return v7;
 }
 
-uint64_t __100__PPTopicStorage_pruneOrphanedTopicFeedbackCountRecordsWithLimit_rowOffset_deletedCount_isComplete___block_invoke(void *a1, uint64_t a2)
+void *__100__PPTopicStorage_pruneOrphanedTopicFeedbackCountRecordsWithLimit_rowOffset_deletedCount_isComplete___block_invoke(void *a1, uint64_t a2)
 {
   result = [*(a1[4] + 32) pruneOrphanedFeedbackCountRecordsWithLimit:a1[6] rowOffset:a1[7] deletedCount:a1[8] txnWitness:a2 isComplete:a1[9]];
   *(*(a1[5] + 8) + 24) = result;
@@ -761,7 +757,7 @@ uint64_t __100__PPTopicStorage_pruneOrphanedTopicFeedbackCountRecordsWithLimit_r
   return db;
 }
 
-uint64_t __66__PPTopicStorage_deleteAllTopicFeedbackCountRecordsOlderThanDate___block_invoke(void *a1, uint64_t a2)
+void *__66__PPTopicStorage_deleteAllTopicFeedbackCountRecordsOlderThanDate___block_invoke(void *a1, uint64_t a2)
 {
   result = [*(a1[4] + 32) deleteFeedbackCountRecordsOlderThanDate:a1[5] txnWitness:a2];
   *(*(a1[6] + 8) + 24) = result;
@@ -1410,58 +1406,57 @@ void __89__PPTopicStorage_deleteAllTopicsOlderThanDate_atLeastOneTopicRemoved_de
 
 - (BOOL)donateTopics:(id)topics source:(id)source algorithm:(unint64_t)algorithm cloudSync:(BOOL)sync decayRate:(double)rate sentimentScore:(double)score exactMatchesInSourceText:(id)text error:(id *)self0
 {
-  v45[1] = *MEMORY[0x277D85DE8];
+  v44[1] = *MEMORY[0x277D85DE8];
   topicsCopy = topics;
   sourceCopy = source;
   textCopy = text;
   v21 = 1;
   if ([topicsCopy count])
   {
-    v40 = 0;
-    v41 = &v40;
-    v42 = 0x2020000000;
-    v43 = 1;
+    v39 = 0;
+    v40 = &v39;
+    v41 = 0x2020000000;
+    v42 = 1;
     db = self->_db;
-    v27 = MEMORY[0x277D85DD0];
-    v28 = 3221225472;
-    v29 = __114__PPTopicStorage_donateTopics_source_algorithm_cloudSync_decayRate_sentimentScore_exactMatchesInSourceText_error___block_invoke;
-    v30 = &unk_278977990;
-    v35 = &v40;
+    v26 = MEMORY[0x277D85DD0];
+    v27 = 3221225472;
+    v28 = __114__PPTopicStorage_donateTopics_source_algorithm_cloudSync_decayRate_sentimentScore_exactMatchesInSourceText_error___block_invoke;
+    v29 = &unk_278977990;
+    v34 = &v39;
     selfCopy = self;
-    v32 = topicsCopy;
-    v33 = sourceCopy;
+    v31 = topicsCopy;
+    v32 = sourceCopy;
     algorithmCopy = algorithm;
     syncCopy = sync;
     rateCopy = rate;
     scoreCopy = score;
-    v34 = textCopy;
-    [(PPSQLDatabase *)db writeTransactionWithClient:2 block:&v27];
-    v21 = *(v41 + 24);
-    if (error && (v41[3] & 1) == 0)
+    v33 = textCopy;
+    [(PPSQLDatabase *)db writeTransactionWithClient:2 block:&v26];
+    v21 = *(v40 + 24);
+    if (error && (v40[3] & 1) == 0)
     {
       v23 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v44 = *MEMORY[0x277CCA450];
-      v45[0] = @"The donated data is invalid.";
-      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:&v44 count:{1, v27, v28, v29, v30, selfCopy, v32, v33}];
+      v43 = *MEMORY[0x277CCA450];
+      v44[0] = @"The donated data is invalid.";
+      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:&v43 count:{1, v26, v27, v28, v29, selfCopy, v31, v32}];
       *error = [v23 initWithDomain:*MEMORY[0x277D3A580] code:9 userInfo:v24];
 
-      v21 = *(v41 + 24);
+      v21 = *(v40 + 24);
     }
 
-    _Block_object_dispose(&v40, 8);
+    _Block_object_dispose(&v39, 8);
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v21 & 1;
 }
 
 void __114__PPTopicStorage_donateTopics_source_algorithm_cloudSync_decayRate_sentimentScore_exactMatchesInSourceText_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a1;
-  v132 = *MEMORY[0x277D85DE8];
+  v131 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
-  v92 = *(a1 + 72);
-  v91 = *(a1 + 96);
+  v91 = *(a1 + 72);
+  v90 = *(a1 + 96);
   v5 = *(a1 + 80);
   v6 = *(a1 + 88);
   v7 = *(a1 + 48);
@@ -1470,36 +1465,36 @@ void __114__PPTopicStorage_donateTopics_source_algorithm_cloudSync_decayRate_sen
   v10 = v7;
   v11 = v8;
   v12 = a2;
-  v93 = v4;
+  v92 = v4;
   if (v4)
   {
     v13 = objc_opt_new();
     v14 = objc_opt_new();
-    v97[0] = MEMORY[0x277D85DD0];
-    v97[1] = 3221225472;
-    v97[2] = __120__PPTopicStorage__donateTopics_source_algorithm_cloudSync_decayRate_sentimentScore_exactMatchesInSourceText_txnWitness___block_invoke;
-    v97[3] = &unk_2789779B8;
+    v96[0] = MEMORY[0x277D85DD0];
+    v96[1] = 3221225472;
+    v96[2] = __120__PPTopicStorage__donateTopics_source_algorithm_cloudSync_decayRate_sentimentScore_exactMatchesInSourceText_txnWitness___block_invoke;
+    v96[3] = &unk_2789779B8;
     v15 = v13;
-    v98 = v15;
-    v99 = v11;
+    v97 = v15;
+    v98 = v11;
     v16 = v14;
-    v100 = v16;
-    [v9 enumerateObjectsUsingBlock:v97];
+    v99 = v16;
+    [v9 enumerateObjectsUsingBlock:v96];
     if ([v15 count])
     {
-      v88 = v16;
-      v89 = v15;
-      v90 = v11;
-      v76 = v3;
+      v87 = v16;
+      v88 = v15;
+      v89 = v11;
+      v75 = v3;
       v17 = v15;
-      v86 = v10;
+      v85 = v10;
       v18 = v10;
-      v85 = v12;
+      v84 = v12;
       v19 = v12;
       if (![v17 count])
       {
-        v74 = [MEMORY[0x277CCA890] currentHandler];
-        [v74 handleFailureInMethod:sel__updatePreexistingTopicsMatchingTopics_source_algorithm_txnWitness_ object:v93 file:@"PPTopicStorage.m" lineNumber:457 description:{@"Invalid parameter not satisfying: %@", @"topics.count > 0"}];
+        v73 = [MEMORY[0x277CCA890] currentHandler];
+        [v73 handleFailureInMethod:sel__updatePreexistingTopicsMatchingTopics_source_algorithm_txnWitness_ object:v92 file:@"PPTopicStorage.m" lineNumber:457 description:{@"Invalid parameter not satisfying: %@", @"topics.count > 0"}];
       }
 
       v20 = +[PPSettings sharedInstance];
@@ -1508,26 +1503,26 @@ void __114__PPTopicStorage_donateTopics_source_algorithm_cloudSync_decayRate_sen
 
       v23 = objc_opt_new();
       v24 = objc_opt_new();
+      v117 = 0u;
       v118 = 0u;
       v119 = 0u;
       v120 = 0u;
-      v121 = 0u;
       obj = v17;
-      v25 = [obj countByEnumeratingWithState:&v118 objects:buf count:16];
+      v25 = [obj countByEnumeratingWithState:&v117 objects:buf count:16];
       if (v25)
       {
         v26 = v25;
-        v27 = *v119;
+        v27 = *v118;
         do
         {
           for (i = 0; i != v26; ++i)
           {
-            if (*v119 != v27)
+            if (*v118 != v27)
             {
               objc_enumerationMutation(obj);
             }
 
-            v29 = *(*(&v118 + 1) + 8 * i);
+            v29 = *(*(&v117 + 1) + 8 * i);
             v30 = [v29 item];
             [v23 setObject:v29 forKeyedSubscript:v30];
 
@@ -1536,19 +1531,19 @@ void __114__PPTopicStorage_donateTopics_source_algorithm_cloudSync_decayRate_sen
             [v24 addObject:v32];
           }
 
-          v26 = [obj countByEnumeratingWithState:&v118 objects:buf count:16];
+          v26 = [obj countByEnumeratingWithState:&v117 objects:buf count:16];
         }
 
         while (v26);
       }
 
-      v87 = v9;
+      v86 = v9;
 
       v33 = [obj count];
       if (v33 != [v23 count])
       {
-        v75 = [MEMORY[0x277CCA890] currentHandler];
-        [v75 handleFailureInMethod:sel__updatePreexistingTopicsMatchingTopics_source_algorithm_txnWitness_ object:v93 file:@"PPTopicStorage.m" lineNumber:466 description:@"scored topics array contains duplicate topics"];
+        v74 = [MEMORY[0x277CCA890] currentHandler];
+        [v74 handleFailureInMethod:sel__updatePreexistingTopicsMatchingTopics_source_algorithm_txnWitness_ object:v92 file:@"PPTopicStorage.m" lineNumber:466 description:@"scored topics array contains duplicate topics"];
       }
 
       v34 = objc_opt_new();
@@ -1562,110 +1557,110 @@ void __114__PPTopicStorage_donateTopics_source_algorithm_cloudSync_decayRate_sen
 
       v38 = [v35 initWithFormat:@"SELECT tp.id, tp.topic_id, tp.initial_score, tp.decay_rate, src.seconds_from_1970 FROM tp_records AS tp INNER JOIN sources AS src ON tp.source_id = src.id WHERE src.bundle_id = :bundleId AND src.group_id %@ AND src.doc_id = :docId AND tp.is_remote = 0 AND tp.algorithm = :algorithm AND tp.topic_id IN _pas_nsset(:uniqueTopicIDs)", v37];
 
-      v96 = v19;
+      v95 = v19;
       v39 = [v19 db];
-      v114[0] = MEMORY[0x277D85DD0];
-      v114[1] = 3221225472;
-      v114[2] = __85__PPTopicStorage__updatePreexistingTopicsMatchingTopics_source_algorithm_txnWitness___block_invoke;
-      v114[3] = &unk_278977918;
+      v113[0] = MEMORY[0x277D85DD0];
+      v113[1] = 3221225472;
+      v113[2] = __85__PPTopicStorage__updatePreexistingTopicsMatchingTopics_source_algorithm_txnWitness___block_invoke;
+      v113[3] = &unk_278977918;
       v40 = v18;
-      v115 = v40;
-      v117 = v92;
-      v79 = v24;
-      v116 = v79;
-      *&v109 = MEMORY[0x277D85DD0];
-      *(&v109 + 1) = 3221225472;
-      *&v110 = __85__PPTopicStorage__updatePreexistingTopicsMatchingTopics_source_algorithm_txnWitness___block_invoke_2;
-      *(&v110 + 1) = &unk_278977940;
-      *&v111 = v93;
+      v114 = v40;
+      v116 = v91;
+      v78 = v24;
+      v115 = v78;
+      *&v108 = MEMORY[0x277D85DD0];
+      *(&v108 + 1) = 3221225472;
+      *&v109 = __85__PPTopicStorage__updatePreexistingTopicsMatchingTopics_source_algorithm_txnWitness___block_invoke_2;
+      *(&v109 + 1) = &unk_278977940;
+      *&v110 = v92;
       v41 = v34;
-      *(&v111 + 1) = v41;
-      v83 = v40;
-      *&v112 = v83;
-      v113 = v22;
-      v77 = v23;
-      *(&v112 + 1) = v77;
-      v81 = v38;
-      [v39 prepAndRunQuery:v38 onPrep:v114 onRow:&v109 onError:0];
+      *(&v110 + 1) = v41;
+      v82 = v40;
+      *&v111 = v82;
+      v112 = v22;
+      v76 = v23;
+      *(&v111 + 1) = v76;
+      v80 = v38;
+      [v39 prepAndRunQuery:v38 onPrep:v113 onRow:&v108 onError:0];
 
-      v107 = 0u;
-      v108 = 0u;
-      v105 = 0u;
       v106 = 0u;
+      v107 = 0u;
+      v104 = 0u;
+      v105 = 0u;
       v42 = v41;
-      v43 = [v42 countByEnumeratingWithState:&v105 objects:v122 count:16];
+      v43 = [v42 countByEnumeratingWithState:&v104 objects:v121 count:16];
       if (v43)
       {
         v44 = v43;
-        v45 = *v106;
+        v45 = *v105;
         do
         {
           for (j = 0; j != v44; ++j)
           {
-            if (*v106 != v45)
+            if (*v105 != v45)
             {
               objc_enumerationMutation(v42);
             }
 
-            v47 = *(*(&v105 + 1) + 8 * j);
-            v48 = [v96 db];
-            v104[0] = MEMORY[0x277D85DD0];
-            v104[1] = 3221225472;
-            v104[2] = __85__PPTopicStorage__updatePreexistingTopicsMatchingTopics_source_algorithm_txnWitness___block_invoke_3;
-            v104[3] = &unk_278978CF8;
-            v104[4] = v47;
-            [v48 prepAndRunQuery:@"UPDATE tp_records SET initial_score = :initialScore onPrep:impression_count = impression_count + 1 WHERE id = :rowId" onRow:v104 onError:{0, 0}];
+            v47 = *(*(&v104 + 1) + 8 * j);
+            v48 = [v95 db];
+            v103[0] = MEMORY[0x277D85DD0];
+            v103[1] = 3221225472;
+            v103[2] = __85__PPTopicStorage__updatePreexistingTopicsMatchingTopics_source_algorithm_txnWitness___block_invoke_3;
+            v103[3] = &unk_278978CF8;
+            v103[4] = v47;
+            [v48 prepAndRunQuery:@"UPDATE tp_records SET initial_score = :initialScore onPrep:impression_count = impression_count + 1 WHERE id = :rowId" onRow:v103 onError:{0, 0}];
           }
 
-          v44 = [v42 countByEnumeratingWithState:&v105 objects:v122 count:16];
+          v44 = [v42 countByEnumeratingWithState:&v104 objects:v121 count:16];
         }
 
         while (v44);
       }
 
       v49 = objc_opt_new();
-      v101[0] = MEMORY[0x277D85DD0];
-      v101[1] = 3221225472;
-      v101[2] = __85__PPTopicStorage__updatePreexistingTopicsMatchingTopics_source_algorithm_txnWitness___block_invoke_4;
-      v101[3] = &unk_278977968;
-      v102 = v77;
+      v100[0] = MEMORY[0x277D85DD0];
+      v100[1] = 3221225472;
+      v100[2] = __85__PPTopicStorage__updatePreexistingTopicsMatchingTopics_source_algorithm_txnWitness___block_invoke_4;
+      v100[3] = &unk_278977968;
+      v101 = v76;
       v50 = v49;
-      v103 = v50;
-      v51 = v77;
-      [obj enumerateObjectsUsingBlock:v101];
-      v52 = v103;
+      v102 = v50;
+      v51 = v76;
+      [obj enumerateObjectsUsingBlock:v100];
+      v52 = v102;
       v53 = v50;
 
       v54 = MEMORY[0x277CCAC30];
-      *&v118 = MEMORY[0x277D85DD0];
-      *(&v118 + 1) = 3221225472;
-      *&v119 = __120__PPTopicStorage__donateTopics_source_algorithm_cloudSync_decayRate_sentimentScore_exactMatchesInSourceText_txnWitness___block_invoke_295;
-      *(&v119 + 1) = &unk_2789779E0;
+      *&v117 = MEMORY[0x277D85DD0];
+      *(&v117 + 1) = 3221225472;
+      *&v118 = __120__PPTopicStorage__donateTopics_source_algorithm_cloudSync_decayRate_sentimentScore_exactMatchesInSourceText_txnWitness___block_invoke_295;
+      *(&v118 + 1) = &unk_2789779E0;
       v55 = v53;
-      *&v120 = v55;
-      [v54 predicateWithBlock:&v118];
-      v82 = v16 = v88;
-      v56 = [v88 filteredArrayUsingPredicate:?];
-      v80 = v56;
+      *&v119 = v55;
+      [v54 predicateWithBlock:&v117];
+      v81 = v16 = v87;
+      v56 = [v87 filteredArrayUsingPredicate:?];
+      v79 = v56;
       if ([v56 count])
       {
-        [*(v93 + 32) truncateRecordsByDroppingOldestMakingRoomForCount:objc_msgSend(v56 txnWitness:{"count"), v96}];
-        v57 = [*(v93 + 40) updateOrCreateRowForSource:v83 addingRefCount:objc_msgSend(v56 txnWitness:{"count"), v96}];
+        [*(v92 + 32) truncateRecordsByDroppingOldestMakingRoomForCount:objc_msgSend(v56 txnWitness:{"count"), v95}];
+        v57 = [*(v92 + 40) updateOrCreateRowForSource:v82 addingRefCount:objc_msgSend(v56 txnWitness:{"count"), v95}];
         v58 = v57 != 0x7FFFFFFFFFFFFFFFLL;
-        v15 = v89;
-        v11 = v90;
+        v15 = v88;
+        v11 = v89;
         if (v57 == 0x7FFFFFFFFFFFFFFFLL)
         {
           obja = pp_topics_log_handle();
-          v12 = v85;
-          v10 = v86;
+          v12 = v84;
+          v10 = v85;
           if (os_log_type_enabled(obja, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
             _os_log_error_impl(&dword_23224A000, obja, OS_LOG_TYPE_ERROR, "Suppressing topic donation due to source with bogus date.", buf, 2u);
           }
 
-          v3 = v76;
+          v3 = v75;
         }
 
         else
@@ -1675,84 +1670,84 @@ void __114__PPTopicStorage_donateTopics_source_algorithm_cloudSync_decayRate_sen
           [v60 weightMultiplier];
           v62 = v61;
 
-          v111 = 0u;
-          v112 = 0u;
-          v109 = 0u;
           v110 = 0u;
+          v111 = 0u;
+          v108 = 0u;
+          v109 = 0u;
           obja = v56;
-          v63 = [obja countByEnumeratingWithState:&v109 objects:buf count:16];
+          v63 = [obja countByEnumeratingWithState:&v108 objects:buf count:16];
           if (v63)
           {
             v64 = v63;
-            v78 = v58;
-            v84 = v55;
-            v65 = *v110;
+            v77 = v58;
+            v83 = v55;
+            v65 = *v109;
             do
             {
               for (k = 0; k != v64; ++k)
               {
-                if (*v110 != v65)
+                if (*v109 != v65)
                 {
                   objc_enumerationMutation(obja);
                 }
 
-                v67 = *(*(&v109 + 1) + 8 * k);
+                v67 = *(*(&v108 + 1) + 8 * k);
                 v68 = [v67 first];
                 v69 = [v67 second];
                 v70 = [v69 BOOLValue];
 
-                v71 = [v96 db];
-                v122[0] = MEMORY[0x277D85DD0];
-                v122[1] = 3221225472;
-                v122[2] = __120__PPTopicStorage__donateTopics_source_algorithm_cloudSync_decayRate_sentimentScore_exactMatchesInSourceText_txnWitness___block_invoke_300;
-                v122[3] = &unk_278977A08;
-                v122[4] = v93;
-                v123 = v68;
-                v124 = v92;
-                v129 = v91;
-                v125 = v5;
-                v126 = v6;
-                v130 = v70;
-                v127 = v62;
-                v128 = v59;
+                v71 = [v95 db];
+                v121[0] = MEMORY[0x277D85DD0];
+                v121[1] = 3221225472;
+                v121[2] = __120__PPTopicStorage__donateTopics_source_algorithm_cloudSync_decayRate_sentimentScore_exactMatchesInSourceText_txnWitness___block_invoke_300;
+                v121[3] = &unk_278977A08;
+                v121[4] = v92;
+                v122 = v68;
+                v123 = v91;
+                v128 = v90;
+                v124 = v5;
+                v125 = v6;
+                v129 = v70;
+                v126 = v62;
+                v127 = v59;
                 v72 = v68;
-                [v71 prepAndRunQuery:@"INSERT INTO tp_records (topic_id onPrep:algorithm onRow:initial_score onError:{decay_rate, sentiment_score, extraction_os_build, extraction_asset_version, source_id, is_remote, is_sync_eligible, occurrences_in_source, algorithm_result_position, algorithm_result_count, exact_match_in_source_text) VALUES (:topic_id, :algorithm, :initialScore, :decayRate, :sentimentScore, :osBuild, :assetVersion, :sourceRowId, 0, :shouldSync, :occurrencesInSource, :algorithmResultPosition, :algorithmResultCount, :exactMatchInSourceText)", v122, 0, 0}];
+                [v71 prepAndRunQuery:@"INSERT INTO tp_records (topic_id onPrep:algorithm onRow:initial_score onError:{decay_rate, sentiment_score, extraction_os_build, extraction_asset_version, source_id, is_remote, is_sync_eligible, occurrences_in_source, algorithm_result_position, algorithm_result_count, exact_match_in_source_text) VALUES (:topic_id, :algorithm, :initialScore, :decayRate, :sentimentScore, :osBuild, :assetVersion, :sourceRowId, 0, :shouldSync, :occurrencesInSource, :algorithmResultPosition, :algorithmResultCount, :exactMatchInSourceText)", v121, 0, 0}];
               }
 
-              v64 = [obja countByEnumeratingWithState:&v109 objects:buf count:16];
+              v64 = [obja countByEnumeratingWithState:&v108 objects:buf count:16];
             }
 
             while (v64);
-            v3 = v76;
-            v12 = v85;
-            v10 = v86;
-            v15 = v89;
-            v11 = v90;
-            v16 = v88;
-            v55 = v84;
-            v58 = v78;
+            v3 = v75;
+            v12 = v84;
+            v10 = v85;
+            v15 = v88;
+            v11 = v89;
+            v16 = v87;
+            v55 = v83;
+            v58 = v77;
           }
 
           else
           {
-            v3 = v76;
-            v12 = v85;
-            v10 = v86;
+            v3 = v75;
+            v12 = v84;
+            v10 = v85;
           }
         }
 
-        v9 = v87;
+        v9 = v86;
       }
 
       else
       {
         v58 = 1;
-        v3 = v76;
-        v10 = v86;
-        v9 = v87;
-        v15 = v89;
-        v11 = v90;
-        v12 = v85;
+        v3 = v75;
+        v10 = v85;
+        v9 = v86;
+        v15 = v88;
+        v11 = v89;
+        v12 = v84;
       }
     }
 
@@ -1775,7 +1770,6 @@ void __114__PPTopicStorage_donateTopics_source_algorithm_cloudSync_decayRate_sen
   }
 
   *(*(*(v3 + 64) + 8) + 24) = v58;
-  v73 = *MEMORY[0x277D85DE8];
 }
 
 void __120__PPTopicStorage__donateTopics_source_algorithm_cloudSync_decayRate_sentimentScore_exactMatchesInSourceText_txnWitness___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -1880,7 +1874,7 @@ void __85__PPTopicStorage__updatePreexistingTopicsMatchingTopics_source_algorith
 
 uint64_t __85__PPTopicStorage__updatePreexistingTopicsMatchingTopics_source_algorithm_txnWitness___block_invoke_2(uint64_t a1, void *a2)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v4 = *(a1 + 64);
   v5 = *(a1 + 48);
@@ -1891,7 +1885,7 @@ uint64_t __85__PPTopicStorage__updatePreexistingTopicsMatchingTopics_source_algo
   v10 = v6;
   if (!v3)
   {
-    v37 = 0;
+    v36 = 0;
     goto LABEL_24;
   }
 
@@ -1911,95 +1905,93 @@ uint64_t __85__PPTopicStorage__updatePreexistingTopicsMatchingTopics_source_algo
   }
 
   [v8 getDoubleForColumnName:"decay_rate" table:"tp_records"];
-  v18 = *MEMORY[0x277D3A758];
   if ((*&v17 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
   {
-    v19 = *MEMORY[0x277D3A758];
+    v18 = *MEMORY[0x277D3A758];
   }
 
   else
   {
-    v19 = v17;
+    v18 = v17;
   }
 
   [v8 getDoubleForColumnName:"seconds_from_1970" table:"sources"];
-  if ((*&v20 & 0x7FFFFFFFFFFFFFFFuLL) < 0x7FF0000000000000)
+  if ((*&v19 & 0x7FFFFFFFFFFFFFFFuLL) < 0x7FF0000000000000)
   {
-    v15 = v20;
+    v15 = v19;
   }
 
-  v21 = [objc_alloc(MEMORY[0x277D3A530]) initWithTopicIdentifier:v13];
-  v22 = [v10 objectForKeyedSubscript:v21];
-  if (v22)
+  v20 = [objc_alloc(MEMORY[0x277D3A530]) initWithTopicIdentifier:v13];
+  v21 = [v10 objectForKeyedSubscript:v20];
+  if (v21)
   {
-    v40 = v12;
-    [v10 setObject:0 forKeyedSubscript:v21];
-    v23 = [v9 bundleId];
-    v41 = v11;
+    v38 = v12;
+    [v10 setObject:0 forKeyedSubscript:v20];
+    v22 = [v9 bundleId];
+    v39 = v11;
     if (_shouldSuppressRepeatedImpressions___pasOnceToken10 != -1)
     {
       dispatch_once(&_shouldSuppressRepeatedImpressions___pasOnceToken10, &__block_literal_global_250);
     }
 
-    v24 = [_shouldSuppressRepeatedImpressions___pasExprOnceResult_21767 containsObject:v23];
+    v23 = [_shouldSuppressRepeatedImpressions___pasExprOnceResult_21767 containsObject:v22];
 
-    if (v24)
+    if (v23)
     {
-      v25 = pp_topics_log_handle();
-      if (!os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+      v24 = pp_topics_log_handle();
+      if (!os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
 LABEL_22:
 
-        v11 = v41;
+        v11 = v39;
         goto LABEL_23;
       }
 
-      v26 = [v9 bundleId];
+      v25 = [v9 bundleId];
       *buf = 138412290;
-      v43 = v26;
-      _os_log_debug_impl(&dword_23224A000, v25, OS_LOG_TYPE_DEBUG, "Suppressing repeated impressions sourced from %@.", buf, 0xCu);
+      v41 = v25;
+      _os_log_debug_impl(&dword_23224A000, v24, OS_LOG_TYPE_DEBUG, "Suppressing repeated impressions sourced from %@.", buf, 0xCu);
     }
 
     else
     {
-      v27 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSince1970:v15];
-      v28 = [v9 date];
-      v29 = v27;
+      v26 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSince1970:v15];
+      v27 = [v9 date];
+      v28 = v26;
       objc_opt_self();
-      [v28 timeIntervalSinceDate:v29];
-      v31 = v30;
+      [v27 timeIntervalSinceDate:v28];
+      v30 = v29;
 
-      if (v31 >= 0.0)
+      if (v30 >= 0.0)
       {
-        v32 = -v19;
-        if (v19 < 0.0)
+        v31 = -v18;
+        if (v18 < 0.0)
         {
-          v32 = -0.0;
+          v31 = -0.0;
         }
 
-        v16 = exp(v32 * v31) * v16;
+        v16 = exp(v31 * v30) * v16;
       }
 
-      [v22 score];
-      v34 = v16 * 0.5 + v33 * v4;
-      v35 = MEMORY[0x277D42648];
-      v25 = [MEMORY[0x277CCABB0] numberWithLongLong:v40];
-      v26 = [MEMORY[0x277CCABB0] numberWithDouble:v34];
-      v36 = [v35 tupleWithFirst:v25 second:v26];
-      [v7 addObject:v36];
+      [v21 score];
+      v33 = v16 * 0.5 + v32 * v4;
+      v34 = MEMORY[0x277D42648];
+      v24 = [MEMORY[0x277CCABB0] numberWithLongLong:v38];
+      v25 = [MEMORY[0x277CCABB0] numberWithDouble:v33];
+      v35 = [v34 tupleWithFirst:v24 second:v25];
+      [v7 addObject:v35];
     }
 
     goto LABEL_22;
   }
 
 LABEL_23:
-  v37 = *MEMORY[0x277D42690];
+  v36 = *MEMORY[0x277D42690];
 
   objc_autoreleasePoolPop(v11);
 LABEL_24:
 
-  v38 = *MEMORY[0x277D85DE8];
-  return v37;
+  return v36;
 }
 
 void __85__PPTopicStorage__updatePreexistingTopicsMatchingTopics_source_algorithm_txnWitness___block_invoke_3(uint64_t a1, void *a2)
@@ -2045,7 +2037,7 @@ void __53__PPTopicStorage__shouldSuppressRepeatedImpressions___block_invoke()
 
 - (BOOL)iterTopicRecordsWithQuery:(id)query error:(id *)error block:(id)block
 {
-  v134 = *MEMORY[0x277D85DE8];
+  v133 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   blockCopy = block;
   context = objc_autoreleasePoolPush();
@@ -2055,7 +2047,7 @@ void __53__PPTopicStorage__shouldSuppressRepeatedImpressions___block_invoke()
     v9 = @"ORDER BY topic_id ASC, src.seconds_from_1970 DESC";
     if ([queryCopy orderByIdentifier])
     {
-      v84 = @"ORDER BY topic_id ASC, src.seconds_from_1970 DESC";
+      v83 = @"ORDER BY topic_id ASC, src.seconds_from_1970 DESC";
     }
 
     else
@@ -2066,7 +2058,7 @@ void __53__PPTopicStorage__shouldSuppressRepeatedImpressions___block_invoke()
         v9 = @"ORDER BY src.seconds_from_1970 DESC";
       }
 
-      v84 = v9;
+      v83 = v9;
       if (!removeNearDuplicates)
       {
         v8 = @"CROSS JOIN";
@@ -2096,7 +2088,7 @@ void __53__PPTopicStorage__shouldSuppressRepeatedImpressions___block_invoke()
       aBlock[1] = 3221225472;
       aBlock[2] = __56__PPTopicStorage_iterTopicRecordsWithQuery_error_block___block_invoke;
       aBlock[3] = &unk_278978CF8;
-      v131 = queryCopy;
+      v130 = queryCopy;
       v18 = _Block_copy(aBlock);
       [v13 addObject:v18];
 
@@ -2121,12 +2113,12 @@ void __53__PPTopicStorage__shouldSuppressRepeatedImpressions___block_invoke()
 
       v22 = [v12 stringByAppendingString:v21];
 
-      v128[0] = MEMORY[0x277D85DD0];
-      v128[1] = 3221225472;
-      v128[2] = __56__PPTopicStorage_iterTopicRecordsWithQuery_error_block___block_invoke_2;
-      v128[3] = &unk_278978CF8;
-      v129 = queryCopy;
-      v23 = _Block_copy(v128);
+      v127[0] = MEMORY[0x277D85DD0];
+      v127[1] = 3221225472;
+      v127[2] = __56__PPTopicStorage_iterTopicRecordsWithQuery_error_block___block_invoke_2;
+      v127[3] = &unk_278978CF8;
+      v128 = queryCopy;
+      v23 = _Block_copy(v127);
       [v13 addObject:v23];
 
       objc_autoreleasePoolPop(v20);
@@ -2158,12 +2150,12 @@ void __53__PPTopicStorage__shouldSuppressRepeatedImpressions___block_invoke()
     {
       v31 = [v12 stringByAppendingString:@"AND src.doc_id IN _pas_nsset(:matchingDocumentIds) "];
 
-      v126[0] = MEMORY[0x277D85DD0];
-      v126[1] = 3221225472;
-      v126[2] = __56__PPTopicStorage_iterTopicRecordsWithQuery_error_block___block_invoke_3;
-      v126[3] = &unk_278978CF8;
-      v127 = matchingDocumentIds;
-      v32 = _Block_copy(v126);
+      v125[0] = MEMORY[0x277D85DD0];
+      v125[1] = 3221225472;
+      v125[2] = __56__PPTopicStorage_iterTopicRecordsWithQuery_error_block___block_invoke_3;
+      v125[3] = &unk_278978CF8;
+      v126 = matchingDocumentIds;
+      v32 = _Block_copy(v125);
       [v13 addObject:v32];
 
       v12 = v31;
@@ -2176,12 +2168,12 @@ void __53__PPTopicStorage__shouldSuppressRepeatedImpressions___block_invoke()
     {
       v35 = [v12 stringByAppendingString:@"AND src.bundle_id IN _pas_nsset(:matchingSourceBundleIds) "];
 
-      v124[0] = MEMORY[0x277D85DD0];
-      v124[1] = 3221225472;
-      v124[2] = __56__PPTopicStorage_iterTopicRecordsWithQuery_error_block___block_invoke_4;
-      v124[3] = &unk_278978CF8;
-      v125 = matchingSourceBundleIds;
-      v36 = _Block_copy(v124);
+      v123[0] = MEMORY[0x277D85DD0];
+      v123[1] = 3221225472;
+      v123[2] = __56__PPTopicStorage_iterTopicRecordsWithQuery_error_block___block_invoke_4;
+      v123[3] = &unk_278978CF8;
+      v124 = matchingSourceBundleIds;
+      v36 = _Block_copy(v123);
       [v13 addObject:v36];
 
       v12 = v35;
@@ -2194,12 +2186,12 @@ void __53__PPTopicStorage__shouldSuppressRepeatedImpressions___block_invoke()
     {
       v39 = [v12 stringByAppendingString:@"AND src.bundle_id NOT IN _pas_nsset(:excludingSourceBundleIds) "];
 
-      v122[0] = MEMORY[0x277D85DD0];
-      v122[1] = 3221225472;
-      v122[2] = __56__PPTopicStorage_iterTopicRecordsWithQuery_error_block___block_invoke_5;
-      v122[3] = &unk_278978CF8;
-      v123 = excludingSourceBundleIds;
-      v40 = _Block_copy(v122);
+      v121[0] = MEMORY[0x277D85DD0];
+      v121[1] = 3221225472;
+      v121[2] = __56__PPTopicStorage_iterTopicRecordsWithQuery_error_block___block_invoke_5;
+      v121[3] = &unk_278978CF8;
+      v122 = excludingSourceBundleIds;
+      v40 = _Block_copy(v121);
       [v13 addObject:v40];
 
       v12 = v39;
@@ -2229,12 +2221,12 @@ void __53__PPTopicStorage__shouldSuppressRepeatedImpressions___block_invoke()
     {
       v51 = [v12 stringByAppendingString:@"AND src.group_id IN _pas_nsset(:matchingGroupIds) "];
 
-      v120[0] = MEMORY[0x277D85DD0];
-      v120[1] = 3221225472;
-      v120[2] = __56__PPTopicStorage_iterTopicRecordsWithQuery_error_block___block_invoke_7;
-      v120[3] = &unk_278978CF8;
-      v121 = matchingGroupIds;
-      v52 = _Block_copy(v120);
+      v119[0] = MEMORY[0x277D85DD0];
+      v119[1] = 3221225472;
+      v119[2] = __56__PPTopicStorage_iterTopicRecordsWithQuery_error_block___block_invoke_7;
+      v119[3] = &unk_278978CF8;
+      v120 = matchingGroupIds;
+      v52 = _Block_copy(v119);
       [v13 addObject:v52];
 
       v12 = v51;
@@ -2247,12 +2239,12 @@ void __53__PPTopicStorage__shouldSuppressRepeatedImpressions___block_invoke()
     {
       v55 = [v12 stringByAppendingString:@"AND tp.algorithm IN _pas_nsset(:matchingAlgorithms) "];
 
-      v118[0] = MEMORY[0x277D85DD0];
-      v118[1] = 3221225472;
-      v118[2] = __56__PPTopicStorage_iterTopicRecordsWithQuery_error_block___block_invoke_8;
-      v118[3] = &unk_278978CF8;
-      v119 = matchingAlgorithms;
-      v56 = _Block_copy(v118);
+      v117[0] = MEMORY[0x277D85DD0];
+      v117[1] = 3221225472;
+      v117[2] = __56__PPTopicStorage_iterTopicRecordsWithQuery_error_block___block_invoke_8;
+      v117[3] = &unk_278978CF8;
+      v118 = matchingAlgorithms;
+      v56 = _Block_copy(v117);
       [v13 addObject:v56];
 
       v12 = v55;
@@ -2265,12 +2257,12 @@ void __53__PPTopicStorage__shouldSuppressRepeatedImpressions___block_invoke()
     {
       v59 = [v12 stringByAppendingString:@"AND tp.algorithm NOT IN _pas_nsset(:excludingAlgorithms) "];
 
-      v116[0] = MEMORY[0x277D85DD0];
-      v116[1] = 3221225472;
-      v116[2] = __56__PPTopicStorage_iterTopicRecordsWithQuery_error_block___block_invoke_9;
-      v116[3] = &unk_278978CF8;
-      v117 = excludingAlgorithms;
-      v60 = _Block_copy(v116);
+      v115[0] = MEMORY[0x277D85DD0];
+      v115[1] = 3221225472;
+      v115[2] = __56__PPTopicStorage_iterTopicRecordsWithQuery_error_block___block_invoke_9;
+      v115[3] = &unk_278978CF8;
+      v116 = excludingAlgorithms;
+      v60 = _Block_copy(v115);
       [v13 addObject:v60];
 
       v12 = v59;
@@ -2283,12 +2275,12 @@ void __53__PPTopicStorage__shouldSuppressRepeatedImpressions___block_invoke()
     {
       v63 = [v12 stringByAppendingString:@"AND tp.topic_id IN _pas_nsset(:matchingTopicIds) "];
 
-      v114[0] = MEMORY[0x277D85DD0];
-      v114[1] = 3221225472;
-      v114[2] = __56__PPTopicStorage_iterTopicRecordsWithQuery_error_block___block_invoke_10;
-      v114[3] = &unk_278978CF8;
-      v115 = matchingTopicIds;
-      v64 = _Block_copy(v114);
+      v113[0] = MEMORY[0x277D85DD0];
+      v113[1] = 3221225472;
+      v113[2] = __56__PPTopicStorage_iterTopicRecordsWithQuery_error_block___block_invoke_10;
+      v113[3] = &unk_278978CF8;
+      v114 = matchingTopicIds;
+      v64 = _Block_copy(v113);
       [v13 addObject:v64];
 
       v12 = v63;
@@ -2309,8 +2301,8 @@ void __53__PPTopicStorage__shouldSuppressRepeatedImpressions___block_invoke()
         v80 = pp_default_log_handle();
         if (os_log_type_enabled(v80, OS_LOG_TYPE_FAULT))
         {
-          *v106 = 0;
-          _os_log_fault_impl(&dword_23224A000, v80, OS_LOG_TYPE_FAULT, "Failed to load topic trie, stops this query.", v106, 2u);
+          *v105 = 0;
+          _os_log_fault_impl(&dword_23224A000, v80, OS_LOG_TYPE_FAULT, "Failed to load topic trie, stops this query.", v105, 2u);
         }
 
         objc_autoreleasePoolPop(v65);
@@ -2320,13 +2312,13 @@ void __53__PPTopicStorage__shouldSuppressRepeatedImpressions___block_invoke()
 
       v70 = [v12 stringByAppendingString:{@"AND _pas_block(:matchingTopicTrieBlock, tp.topic_id) "}];
 
-      v112[0] = MEMORY[0x277D85DD0];
-      v112[1] = 3221225472;
-      v112[2] = __56__PPTopicStorage_iterTopicRecordsWithQuery_error_block___block_invoke_204;
-      v112[3] = &unk_278978CF8;
-      v113 = v69;
+      v111[0] = MEMORY[0x277D85DD0];
+      v111[1] = 3221225472;
+      v111[2] = __56__PPTopicStorage_iterTopicRecordsWithQuery_error_block___block_invoke_204;
+      v111[3] = &unk_278978CF8;
+      v112 = v69;
       v71 = v69;
-      v72 = _Block_copy(v112);
+      v72 = _Block_copy(v111);
       [v13 addObject:v72];
 
       v12 = v70;
@@ -2334,73 +2326,73 @@ void __53__PPTopicStorage__shouldSuppressRepeatedImpressions___block_invoke()
 
     objc_autoreleasePoolPop(v65);
     v73 = objc_autoreleasePoolPush();
-    v74 = [v12 stringByAppendingString:v84];
+    v74 = [v12 stringByAppendingString:v83];
 
     objc_autoreleasePoolPop(v73);
-    *v106 = 0;
-    v107 = v106;
-    v108 = 0x3032000000;
-    v109 = __Block_byref_object_copy__21669;
-    v110 = __Block_byref_object_dispose__21670;
-    v111 = 0;
-    v105[0] = MEMORY[0x277D85DD0];
-    v105[1] = 3221225472;
-    v105[2] = __56__PPTopicStorage_iterTopicRecordsWithQuery_error_block___block_invoke_209;
-    v105[3] = &unk_278977878;
-    v105[4] = v106;
-    v75 = _Block_copy(v105);
-    v104[0] = 0;
-    v104[1] = v104;
-    v104[2] = 0x2020000000;
-    v104[3] = 0;
-    v98 = 0;
-    v99 = &v98;
-    v100 = 0x3032000000;
-    v101 = __Block_byref_object_copy__21669;
-    v102 = __Block_byref_object_dispose__21670;
-    v103 = 0;
+    *v105 = 0;
+    v106 = v105;
+    v107 = 0x3032000000;
+    v108 = __Block_byref_object_copy__21669;
+    v109 = __Block_byref_object_dispose__21670;
+    v110 = 0;
+    v104[0] = MEMORY[0x277D85DD0];
+    v104[1] = 3221225472;
+    v104[2] = __56__PPTopicStorage_iterTopicRecordsWithQuery_error_block___block_invoke_209;
+    v104[3] = &unk_278977878;
+    v104[4] = v105;
+    v75 = _Block_copy(v104);
+    v103[0] = 0;
+    v103[1] = v103;
+    v103[2] = 0x2020000000;
+    v103[3] = 0;
+    v97 = 0;
+    v98 = &v97;
+    v99 = 0x3032000000;
+    v100 = __Block_byref_object_copy__21669;
+    v101 = __Block_byref_object_dispose__21670;
+    v102 = 0;
     db = self->_db;
-    v88[0] = MEMORY[0x277D85DD0];
-    v88[1] = 3221225472;
-    v88[2] = __56__PPTopicStorage_iterTopicRecordsWithQuery_error_block___block_invoke_2_211;
-    v88[3] = &unk_2789778C8;
+    v87[0] = MEMORY[0x277D85DD0];
+    v87[1] = 3221225472;
+    v87[2] = __56__PPTopicStorage_iterTopicRecordsWithQuery_error_block___block_invoke_2_211;
+    v87[3] = &unk_2789778C8;
     v12 = v74;
-    v89 = v12;
-    v90 = v13;
-    v95 = v104;
-    v91 = queryCopy;
+    v88 = v12;
+    v89 = v13;
+    v94 = v103;
+    v90 = queryCopy;
     selfCopy = self;
-    v96 = &v98;
+    v95 = &v97;
     v77 = v75;
-    v93 = v77;
-    v97 = v106;
-    v94 = blockCopy;
-    [(PPSQLDatabase *)db readTransactionWithClient:2 block:v88];
-    if (v99[5])
+    v92 = v77;
+    v96 = v105;
+    v93 = blockCopy;
+    [(PPSQLDatabase *)db readTransactionWithClient:2 block:v87];
+    if (v98[5])
     {
       v78 = pp_default_log_handle();
       if (os_log_type_enabled(v78, OS_LOG_TYPE_FAULT))
       {
-        v83 = [v99[5] count];
+        v82 = [v98[5] count];
         *buf = 134217984;
-        v133 = v83;
+        v132 = v82;
         _os_log_fault_impl(&dword_23224A000, v78, OS_LOG_TYPE_FAULT, "iterTopicRecordsWithQuery encountered %tu sources which did not validate; deleting associated topic records now.", buf, 0xCu);
       }
 
       v79 = self->_db;
-      v87[0] = MEMORY[0x277D85DD0];
-      v87[1] = 3221225472;
-      v87[2] = __56__PPTopicStorage_iterTopicRecordsWithQuery_error_block___block_invoke_219;
-      v87[3] = &unk_278978DE0;
-      v87[4] = self;
-      v87[5] = &v98;
-      [(PPSQLDatabase *)v79 writeTransactionWithClient:2 block:v87];
+      v86[0] = MEMORY[0x277D85DD0];
+      v86[1] = 3221225472;
+      v86[2] = __56__PPTopicStorage_iterTopicRecordsWithQuery_error_block___block_invoke_219;
+      v86[3] = &unk_278978DE0;
+      v86[4] = self;
+      v86[5] = &v97;
+      [(PPSQLDatabase *)v79 writeTransactionWithClient:2 block:v86];
     }
 
-    _Block_object_dispose(&v98, 8);
-    _Block_object_dispose(v104, 8);
+    _Block_object_dispose(&v97, 8);
+    _Block_object_dispose(v103, 8);
 
-    _Block_object_dispose(v106, 8);
+    _Block_object_dispose(v105, 8);
     v10 = 1;
 LABEL_50:
 
@@ -2411,7 +2403,6 @@ LABEL_50:
 LABEL_51:
   objc_autoreleasePoolPop(context);
 
-  v81 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -2453,27 +2444,7 @@ BOOL __56__PPTopicStorage_iterTopicRecordsWithQuery_error_block___block_invoke_2
     if (v5)
     {
       v6 = [v5 algorithm];
-      if (v6 != [v3 algorithm])
-      {
-        goto LABEL_7;
-      }
-
-      v7 = [*(*(*(a1 + 32) + 8) + 40) topic];
-      v8 = [v3 topic];
-      v9 = [v7 isEqualToTopic:v8];
-
-      if (!v9)
-      {
-        goto LABEL_7;
-      }
-
-      v10 = [*(*(*(a1 + 32) + 8) + 40) source];
-      v11 = [v10 bundleId];
-      v12 = [v3 source];
-      v13 = [v12 bundleId];
-      v14 = [v11 isEqualToString:v13];
-
-      if (v14)
+      if (v6 == [v3 algorithm] && (objc_msgSend(*(*(*(a1 + 32) + 8) + 40), "topic"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "topic"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v7, "isEqualToTopic:", v8), v8, v7, v9) && (objc_msgSend(*(*(*(a1 + 32) + 8) + 40), "source"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "bundleId"), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "source"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "bundleId"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v11, "isEqualToString:", v13), v13, v12, v11, v10, v14))
       {
         v15 = [v3 source];
         v16 = [v15 date];
@@ -2485,7 +2456,6 @@ BOOL __56__PPTopicStorage_iterTopicRecordsWithQuery_error_block___block_invoke_2
 
       else
       {
-LABEL_7:
         v4 = 0;
       }
     }
@@ -2552,40 +2522,38 @@ void __56__PPTopicStorage_iterTopicRecordsWithQuery_error_block___block_invoke_2
 
 void __56__PPTopicStorage_iterTopicRecordsWithQuery_error_block___block_invoke_3_212(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        (*(*(*(&v10 + 1) + 8 * v8) + 16))(*(*(&v10 + 1) + 8 * v8));
+        (*(*(*(&v9 + 1) + 8 * v8) + 16))(*(*(&v9 + 1) + 8 * v8));
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __56__PPTopicStorage_iterTopicRecordsWithQuery_error_block___block_invoke_4_213(uint64_t a1, void *a2)
@@ -2727,6 +2695,81 @@ id __56__PPTopicStorage_iterTopicRecordsWithQuery_error_block___block_invoke_2_2
   return v10;
 }
 
+- (PPTopicStorage)initWithDatabase:(id)database maxRecords:(unsigned int)records dkStorage:(id)storage loadEmptyDatabaseFromDK:(BOOL)k trialWrapper:(id)wrapper
+{
+  kCopy = k;
+  v10 = *&records;
+  databaseCopy = database;
+  storageCopy = storage;
+  wrapperCopy = wrapper;
+  if (!databaseCopy)
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"PPTopicStorage.m" lineNumber:65 description:{@"Invalid parameter not satisfying: %@", @"database"}];
+  }
+
+  v38.receiver = self;
+  v38.super_class = PPTopicStorage;
+  v16 = [(PPTopicStorage *)&v38 init];
+  v17 = v16;
+  if (v16)
+  {
+    objc_storeStrong(&v16->_db, database);
+    objc_storeStrong(&v17->_dkStorage, storage);
+    v18 = [[PPSourceStorage alloc] initWithDatabase:v17->_db];
+    sourceStorage = v17->_sourceStorage;
+    v17->_sourceStorage = v18;
+
+    v20 = [PPRecordStorageHelper alloc];
+    v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:"tp_records"];
+    dkStorage = v17->_dkStorage;
+    topicStream = [(PPDKStorage *)dkStorage topicStream];
+    v24 = [(PPRecordStorageHelper *)v20 initWithName:@"Topic" table:v21 clusterIdentifierColumn:@"topic_id" maxRecords:v10 duetStorage:dkStorage duetStream:topicStream sourceStorage:v17->_sourceStorage];
+    storageHelper = v17->_storageHelper;
+    v17->_storageHelper = v24;
+
+    objc_storeStrong(&v17->_trialWrapper, wrapper);
+    v26 = [MEMORY[0x277D425A0] autoreleasingSerialQueueWithLabel:"com.apple.PersonalizationPortrait.Topic.PopulateDatabaseQueue" qosClass:9];
+    populateDatabaseQueue = v17->_populateDatabaseQueue;
+    v17->_populateDatabaseQueue = v26;
+
+    v28 = v17->_dkStorage;
+    if (kCopy && v28)
+    {
+      v29 = v17->_populateDatabaseQueue;
+      block[0] = MEMORY[0x277D85DD0];
+      block[1] = 3221225472;
+      block[2] = __63__PPTopicStorage__asyncPopulateDatabaseFromDKEventsIfNecessary__block_invoke;
+      block[3] = &unk_278977B20;
+      block[4] = v17;
+      block[5] = sel__asyncPopulateDatabaseFromDKEventsIfNecessary;
+      dispatch_async(v29, block);
+      v28 = v17->_dkStorage;
+    }
+
+    if (v28)
+    {
+      objc_initWeak(block, v17);
+      v30 = v17->_dkStorage;
+      v36[0] = MEMORY[0x277D85DD0];
+      v36[1] = 3221225472;
+      v36[2] = __93__PPTopicStorage_initWithDatabase_maxRecords_dkStorage_loadEmptyDatabaseFromDK_trialWrapper___block_invoke;
+      v36[3] = &unk_278977828;
+      objc_copyWeak(&v37, block);
+      v31 = [(PPDKStorage *)v30 registerForTopicsRemoteDeletionWithBlock:v36];
+      deletionObserver = v17->_deletionObserver;
+      v17->_deletionObserver = v31;
+
+      objc_destroyWeak(&v37);
+      objc_destroyWeak(block);
+    }
+
+    [(PPTopicStorage *)v17 _asyncProcessNewDKEventDeletions];
+  }
+
+  return v17;
+}
+
 void __93__PPTopicStorage_initWithDatabase_maxRecords_dkStorage_loadEmptyDatabaseFromDK_trialWrapper___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -2735,15 +2778,15 @@ void __93__PPTopicStorage_initWithDatabase_maxRecords_dkStorage_loadEmptyDatabas
 
 void __63__PPTopicStorage__asyncPopulateDatabaseFromDKEventsIfNecessary__block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 8) handleWithClient:2];
   v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"tp_records"];
   v4 = [v2 numberOfRowsInTable:v3];
 
   if (v4 < 0)
   {
-    v17 = [MEMORY[0x277CCA890] currentHandler];
-    [v17 handleFailureInMethod:*(a1 + 40) object:*(a1 + 32) file:@"PPTopicStorage.m" lineNumber:1030 description:@"negative record count in tp_records"];
+    v16 = [MEMORY[0x277CCA890] currentHandler];
+    [v16 handleFailureInMethod:*(a1 + 40) object:*(a1 + 32) file:@"PPTopicStorage.m" lineNumber:1030 description:@"negative record count in tp_records"];
 
 LABEL_3:
     v5 = pp_topics_log_handle();
@@ -2771,7 +2814,7 @@ LABEL_3:
   v7 = [*(a1 + 32) duetReadBatchSize] + 99999;
   v8 = [*(a1 + 32) duetReadBatchSize];
   v9 = 0;
-  v19 = 0;
+  v18 = 0;
   v10 = v7 / v8;
   do
   {
@@ -2779,20 +2822,20 @@ LABEL_3:
     v12 = [v11 duetReadBatchSize];
     if (v11)
     {
-      [(PPTopicStorage *)v11 _importDKEventsWithShouldContinueBlock:v12 remoteEventsOnly:0 isComplete:&v19 shouldContinueBlock:&__block_literal_global_325_21894];
+      [(PPTopicStorage *)v11 _importDKEventsWithShouldContinueBlock:v12 remoteEventsOnly:0 isComplete:&v18 shouldContinueBlock:&__block_literal_global_325_21894];
     }
 
     ++v9;
   }
 
-  while ((v19 & 1) == 0 && v9 < v10);
-  if ((v19 & 1) == 0)
+  while ((v18 & 1) == 0 && v9 < v10);
+  if ((v18 & 1) == 0)
   {
     v13 = pp_default_log_handle();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
       *buf = 134217984;
-      v21 = v9;
+      v20 = v9;
       _os_log_fault_impl(&dword_23224A000, v13, OS_LOG_TYPE_FAULT, "PPTopicStorage:_asyncPopulateDatabaseFromDKEventsIfNecessary terminated due to excessive loop count %tu", buf, 0xCu);
     }
   }
@@ -2802,21 +2845,19 @@ LABEL_3:
 
   if (v15 < 0)
   {
-    v18 = [MEMORY[0x277CCA890] currentHandler];
-    [v18 handleFailureInMethod:*(a1 + 40) object:*(a1 + 32) file:@"PPTopicStorage.m" lineNumber:1050 description:@"negative record count in tp_records"];
+    v17 = [MEMORY[0x277CCA890] currentHandler];
+    [v17 handleFailureInMethod:*(a1 + 40) object:*(a1 + 32) file:@"PPTopicStorage.m" lineNumber:1050 description:@"negative record count in tp_records"];
   }
 
   v5 = pp_topics_log_handle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v21 = v15;
+    v20 = v15;
     _os_log_impl(&dword_23224A000, v5, OS_LOG_TYPE_DEFAULT, "Completed initial _DKEvent topic import. Database now contains %lld topic records.", buf, 0xCu);
   }
 
 LABEL_20:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

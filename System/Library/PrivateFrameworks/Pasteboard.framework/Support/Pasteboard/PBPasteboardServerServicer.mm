@@ -73,7 +73,7 @@
     [connectionCopy setInvalidationHandler:v29];
     if (connectionCopy)
     {
-      [connectionCopy auditToken];
+      objc_msgSend_auditToken(connectionCopy);
     }
 
     else
@@ -126,7 +126,7 @@
   v18 = clientToServerConnection;
   if (clientToServerConnection)
   {
-    [clientToServerConnection auditToken];
+    objc_msgSend_auditToken(clientToServerConnection);
   }
 
   else
@@ -1259,7 +1259,7 @@ LABEL_9:
     v15 = _PBLog();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v17[0] = 0;
+      *v17 = 0;
       _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Remote contents missing parameters.", v17, 2u);
     }
 

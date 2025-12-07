@@ -678,7 +678,7 @@ LABEL_14:
 
 - (id)accessibilityElements
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   videoView = [(ASCLockupMediaView *)self videoView];
 
@@ -691,58 +691,58 @@ LABEL_14:
     videoView3 = [(ASCLockupMediaView *)self videoView];
     [videoView3 setAccessibilityTraits:v6];
 
-    v9 = ASCLocalizedString(@"AX_VIDEO", v8);
+    v8 = ASCLocalizedString(@"AX_VIDEO");
     videoView4 = [(ASCLockupMediaView *)self videoView];
-    [videoView4 setAccessibilityLabel:v9];
+    [videoView4 setAccessibilityLabel:v8];
 
     videoView5 = [(ASCLockupMediaView *)self videoView];
     [v3 addObject:videoView5];
   }
 
-  v29 = 0u;
-  v30 = 0u;
   v27 = 0u;
   v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   imageViews = [(ASCLockupMediaView *)self imageViews];
-  v13 = [imageViews countByEnumeratingWithState:&v27 objects:v31 count:16];
-  if (v13)
+  v12 = [imageViews countByEnumeratingWithState:&v25 objects:v29 count:16];
+  if (v12)
   {
-    v14 = v13;
-    v15 = *v28;
-    v16 = *MEMORY[0x277D76560];
+    v13 = v12;
+    v14 = *v26;
+    v15 = *MEMORY[0x277D76560];
     do
     {
-      for (i = 0; i != v14; ++i)
+      for (i = 0; i != v13; ++i)
       {
-        if (*v28 != v15)
+        if (*v26 != v14)
         {
           objc_enumerationMutation(imageViews);
         }
 
-        v18 = *(*(&v27 + 1) + 8 * i);
-        artworkView = [v18 artworkView];
+        v17 = *(*(&v25 + 1) + 8 * i);
+        artworkView = [v17 artworkView];
         [artworkView setIsAccessibilityElement:1];
 
-        artworkView2 = [v18 artworkView];
-        [artworkView2 setAccessibilityTraits:v16];
+        artworkView2 = [v17 artworkView];
+        [artworkView2 setAccessibilityTraits:v15];
 
-        v22 = ASCLocalizedString(@"AX_ARTWORK", v21);
-        artworkView3 = [v18 artworkView];
-        [artworkView3 setAccessibilityLabel:v22];
+        v20 = ASCLocalizedString(@"AX_ARTWORK");
+        artworkView3 = [v17 artworkView];
+        [artworkView3 setAccessibilityLabel:v20];
 
-        artworkView4 = [v18 artworkView];
+        artworkView4 = [v17 artworkView];
         [v3 addObject:artworkView4];
       }
 
-      v14 = [imageViews countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v13 = [imageViews countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
-    while (v14);
+    while (v13);
   }
 
-  v25 = [v3 copy];
+  v23 = [v3 copy];
 
-  return v25;
+  return v23;
 }
 
 - (void)layoutMarginsDidChange

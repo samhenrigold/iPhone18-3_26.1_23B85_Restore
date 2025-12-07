@@ -9,13 +9,11 @@
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"data_id";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"data_id";
   v2 = +[(HDDataEntity *)HDSampleEntity];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -101,24 +99,23 @@ id __83__HDCDASampleEntity_insertDataObject_withProvenance_inDatabase_persistent
 void __83__HDCDASampleEntity_insertDataObject_withProvenance_inDatabase_persistentID_error___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
 {
   sqlite3_bind_int64(a2, 1, [*(a1 + 32) longLongValue]);
-  v3 = *(a1 + 40);
-  v4 = _HDSQLiteValueForData();
+  v3 = _HDSQLiteValueForData();
   HDSQLiteBindFoundationValueToStatement();
 
-  v5 = [*(a1 + 48) title];
-  v6 = _HDSQLiteValueForString();
+  v4 = [*(a1 + 48) title];
+  v5 = _HDSQLiteValueForString();
   HDSQLiteBindFoundationValueToStatement();
 
-  v7 = [*(a1 + 48) patientName];
-  v8 = _HDSQLiteValueForString();
+  v6 = [*(a1 + 48) patientName];
+  v7 = _HDSQLiteValueForString();
   HDSQLiteBindFoundationValueToStatement();
 
-  v9 = [*(a1 + 48) authorName];
+  v8 = [*(a1 + 48) authorName];
+  v9 = _HDSQLiteValueForString();
+  HDSQLiteBindFoundationValueToStatement();
+
+  v11 = [*(a1 + 48) custodianName];
   v10 = _HDSQLiteValueForString();
-  HDSQLiteBindFoundationValueToStatement();
-
-  v12 = [*(a1 + 48) custodianName];
-  v11 = _HDSQLiteValueForString();
   HDSQLiteBindFoundationValueToStatement();
 }
 

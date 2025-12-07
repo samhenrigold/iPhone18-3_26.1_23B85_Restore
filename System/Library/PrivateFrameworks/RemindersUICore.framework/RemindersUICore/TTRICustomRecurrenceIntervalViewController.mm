@@ -161,29 +161,30 @@ LABEL_7:
 - (id)pickerView:(id)view accessibilityLabelForComponent:(int64_t)component
 {
   viewCopy = view;
+  v7 = viewCopy;
   if (component == 1)
   {
-    v7 = RemindersUICoreBundleGet();
-    v11 = [v7 localizedStringForKey:@"Unit" value:@"Unit" table:@"Localizable"];
+    v8 = RemindersUICoreBundleGet(viewCopy);
+    v12 = [v8 localizedStringForKey:@"Unit" value:@"Unit" table:@"Localizable"];
     goto LABEL_5;
   }
 
   if (!component)
   {
-    v7 = [(TTRICustomRecurrenceIntervalViewController *)self _pickerViewFrequencyTitleForUnit:2];
-    v8 = MEMORY[0x277CCACA8];
-    v9 = RemindersUICoreBundleGet();
-    v10 = [v9 localizedStringForKey:@"Number of %@" value:@"Number of %@" table:@"Localizable"];
-    v11 = [v8 localizedStringWithFormat:v10, v7];
+    v8 = [(TTRICustomRecurrenceIntervalViewController *)self _pickerViewFrequencyTitleForUnit:2];
+    v9 = MEMORY[0x277CCACA8];
+    v10 = RemindersUICoreBundleGet(v8);
+    v11 = [v10 localizedStringForKey:@"Number of %@" value:@"Number of %@" table:@"Localizable"];
+    v12 = [v9 localizedStringWithFormat:v11, v8];
 
 LABEL_5:
     goto LABEL_7;
   }
 
-  v11 = 0;
+  v12 = 0;
 LABEL_7:
 
-  return v11;
+  return v12;
 }
 
 - (id)_pickerViewFrequencyTitleForUnit:(int64_t)unit
@@ -199,7 +200,7 @@ LABEL_7:
       }
 
       v6 = MEMORY[0x277CCACA8];
-      v7 = RemindersUICoreBundleGet();
+      v7 = RemindersUICoreBundleGet(self);
       v8 = v7;
       v9 = @"CUSTOM_RECURRENCE_INTERVAL_LABEL_WEEKS";
       v10 = @"Weeks";
@@ -208,7 +209,7 @@ LABEL_7:
     else
     {
       v6 = MEMORY[0x277CCACA8];
-      v7 = RemindersUICoreBundleGet();
+      v7 = RemindersUICoreBundleGet(self);
       v8 = v7;
       v9 = @"CUSTOM_RECURRENCE_INTERVAL_LABEL_DAYS";
       v10 = @"Days";
@@ -221,21 +222,21 @@ LABEL_7:
     {
       case 2:
         v6 = MEMORY[0x277CCACA8];
-        v7 = RemindersUICoreBundleGet();
+        v7 = RemindersUICoreBundleGet(self);
         v8 = v7;
         v9 = @"CUSTOM_RECURRENCE_INTERVAL_LABEL_MONTHS";
         v10 = @"Months";
         break;
       case 3:
         v6 = MEMORY[0x277CCACA8];
-        v7 = RemindersUICoreBundleGet();
+        v7 = RemindersUICoreBundleGet(self);
         v8 = v7;
         v9 = @"CUSTOM_RECURRENCE_INTERVAL_LABEL_YEARS";
         v10 = @"Years";
         break;
       case 4:
         v6 = MEMORY[0x277CCACA8];
-        v7 = RemindersUICoreBundleGet();
+        v7 = RemindersUICoreBundleGet(self);
         v8 = v7;
         v9 = @"CUSTOM_RECURRENCE_INTERVAL_LABEL_HOURS";
         v10 = @"Hours";

@@ -217,7 +217,7 @@
       {
 LABEL_12:
         context = self->_context;
-        [v9 extent];
+        objc_msgSend_extent(v9);
         v20 = [(CIContext *)context createCGImage:v9 fromRect:?];
         [layer setContents:v20];
         CGImageRelease(v20);
@@ -1010,7 +1010,7 @@ LABEL_8:
       v10 = player;
       if (player)
       {
-        [player currentTime];
+        objc_msgSend_currentTime(player);
       }
 
       else
@@ -1019,7 +1019,7 @@ LABEL_8:
       }
 
       time2 = v41;
-      [(PUPhotoEditToolController *)self originalAssetTimeForDisplayedTime:&time2];
+      objc_msgSend_originalAssetTimeForDisplayedTime_(self);
       v41 = time1;
       if (!v6 || (time1 = self->_thumbnailTime, time2 = v41, CMTimeCompare(&time1, &time2)))
       {

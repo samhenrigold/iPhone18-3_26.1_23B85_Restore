@@ -1,274 +1,3 @@
-uint64_t std::__function::__value_func<void ()(std::string,std::optional<VinylDriverError>)>::~__value_func[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-void *std::map<subscriber::AuthInfo,std::vector<unsigned char>>::map[abi:ne200100](void *a1, uint64_t a2)
-{
-  a1[2] = 0;
-  a1[1] = 0;
-  *a1 = a1 + 1;
-  std::map<subscriber::AuthInfo,std::vector<unsigned char>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__tree_node<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,void *> *,long>>>(a1, *a2, (a2 + 8));
-  return a1;
-}
-
-uint64_t std::map<subscriber::AuthInfo,std::vector<unsigned char>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__tree_node<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,void *> *,long>>>(uint64_t result, int *a2, int *a3)
-{
-  if (a2 != a3)
-  {
-    v4 = a2;
-    v5 = result;
-    do
-    {
-      result = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_hint_unique_key_args<subscriber::AuthInfo,std::pair<subscriber::AuthInfo const,std::vector<unsigned char>> const&>(v5, v5 + 1, v4 + 8);
-      v6 = *(v4 + 1);
-      if (v6)
-      {
-        do
-        {
-          v7 = v6;
-          v6 = *v6;
-        }
-
-        while (v6);
-      }
-
-      else
-      {
-        do
-        {
-          v7 = *(v4 + 2);
-          v8 = *v7 == v4;
-          v4 = v7;
-        }
-
-        while (!v8);
-      }
-
-      v4 = v7;
-    }
-
-    while (v7 != a3);
-  }
-
-  return result;
-}
-
-uint64_t std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_hint_unique_key_args<subscriber::AuthInfo,std::pair<subscriber::AuthInfo const,std::vector<unsigned char>> const&>(void *a1, uint64_t *a2, int *a3)
-{
-  v4 = 0;
-  v5 = 0;
-  result = *std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__find_equal<subscriber::AuthInfo>(a1, a2, &v5, &v4, a3);
-  if (!result)
-  {
-    std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__construct_node<std::pair<subscriber::AuthInfo const,std::vector<unsigned char>> const&>();
-  }
-
-  return result;
-}
-
-uint64_t *std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__find_equal<subscriber::AuthInfo>(void *a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, int *a5)
-{
-  v5 = a1 + 1;
-  if (a1 + 1 == a2 || (v6 = *a5, v7 = *(a2 + 8), *a5 < v7))
-  {
-    v8 = *a2;
-    if (*a1 == a2)
-    {
-      v10 = a2;
-LABEL_17:
-      if (v8)
-      {
-        *a3 = v10;
-        return v10 + 1;
-      }
-
-      else
-      {
-        *a3 = a2;
-        return a2;
-      }
-    }
-
-    if (v8)
-    {
-      v9 = *a2;
-      do
-      {
-        v10 = v9;
-        v9 = v9[1];
-      }
-
-      while (v9);
-    }
-
-    else
-    {
-      v13 = a2;
-      do
-      {
-        v10 = v13[2];
-        v14 = *v10 == v13;
-        v13 = v10;
-      }
-
-      while (v14);
-    }
-
-    v15 = *a5;
-    if (*(v10 + 8) < *a5)
-    {
-      goto LABEL_17;
-    }
-
-    v16 = *v5;
-    if (*v5)
-    {
-      do
-      {
-        while (1)
-        {
-          v17 = v16;
-          v18 = *(v16 + 32);
-          if (v15 >= v18)
-          {
-            break;
-          }
-
-          v16 = *v17;
-          v5 = v17;
-          if (!*v17)
-          {
-            goto LABEL_29;
-          }
-        }
-
-        if (v18 >= v15)
-        {
-          break;
-        }
-
-        v5 = v17 + 1;
-        v16 = v17[1];
-      }
-
-      while (v16);
-    }
-
-    else
-    {
-      v17 = a1 + 1;
-    }
-
-LABEL_29:
-    *a3 = v17;
-    return v5;
-  }
-
-  if (v7 >= v6)
-  {
-    *a3 = a2;
-    *a4 = a2;
-    return a4;
-  }
-
-  v11 = a2[1];
-  if (v11)
-  {
-    v12 = a2[1];
-    do
-    {
-      a4 = v12;
-      v12 = *v12;
-    }
-
-    while (v12);
-  }
-
-  else
-  {
-    v19 = a2;
-    do
-    {
-      a4 = v19[2];
-      v14 = *a4 == v19;
-      v19 = a4;
-    }
-
-    while (!v14);
-  }
-
-  if (a4 != v5 && v6 >= *(a4 + 8))
-  {
-    v20 = *v5;
-    if (*v5)
-    {
-      do
-      {
-        while (1)
-        {
-          v21 = v20;
-          v22 = *(v20 + 32);
-          if (v6 >= v22)
-          {
-            break;
-          }
-
-          v20 = *v21;
-          v5 = v21;
-          if (!*v21)
-          {
-            goto LABEL_48;
-          }
-        }
-
-        if (v22 >= v6)
-        {
-          break;
-        }
-
-        v5 = v21 + 1;
-        v20 = v21[1];
-      }
-
-      while (v20);
-    }
-
-    else
-    {
-      v21 = a1 + 1;
-    }
-
-LABEL_48:
-    *a3 = v21;
-    return v5;
-  }
-
-  if (v11)
-  {
-    *a3 = a4;
-  }
-
-  else
-  {
-    *a3 = a2;
-    return a2 + 1;
-  }
-
-  return a4;
-}
-
 void sub_2374FCAB4(_Unwind_Exception *a1)
 {
   *v1 = 0;
@@ -276,7 +5,7 @@ void sub_2374FCAB4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -497,16 +226,16 @@ void InterfaceAppMapperService::addInterfaceMapping(os_unfair_lock_s *this, int 
   os_unfair_lock_unlock(this + 6);
 }
 
-uint64_t ___ZN25InterfaceAppMapperService19addInterfaceMappingEji_block_invoke(uint64_t result)
+uint64_t *___ZN25InterfaceAppMapperService19addInterfaceMappingEji_block_invoke(uint64_t *result)
 {
-  v1 = *(*(result + 32) + 40);
+  v1 = *(result[4] + 40);
   if (!v1)
   {
 LABEL_8:
     operator new();
   }
 
-  v2 = *(result + 40);
+  v2 = *(result + 10);
   while (1)
   {
     while (1)
@@ -537,7 +266,7 @@ LABEL_8:
     }
   }
 
-  *(v3 + 8) = *(result + 44);
+  *(v3 + 8) = *(result + 11);
   return result;
 }
 
@@ -701,11 +430,11 @@ void InterfaceAppMapperService::getMapping(os_unfair_lock_s *this)
   os_unfair_lock_unlock(this + 6);
 }
 
-uint64_t ___ZNK25InterfaceAppMapperService10getMappingEv_block_invoke@<X0>(uint64_t result@<X0>, void *a2@<X8>)
+uint64_t *___ZNK25InterfaceAppMapperService10getMappingEv_block_invoke@<X0>(uint64_t *result@<X0>, void *a2@<X8>)
 {
   a2[1] = 0;
   v3 = a2 + 1;
-  v4 = *(result + 32);
+  v4 = result[4];
   a2[2] = 0;
   *a2 = v3;
   v5 = *(v4 + 32);
@@ -848,11 +577,11 @@ void AQMCommandDriver::~AQMCommandDriver(AQMCommandDriver *this)
   ctu::SharedSynchronizable<AttachApnCommandDriver>::~SharedSynchronizable(this + 1);
 }
 
-void sortFrequencyHints(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, unsigned __int16 **a6@<X5>, unsigned __int16 **a7@<X6>, void *a8@<X7>, void *a9@<X8>, unsigned __int16 **a10, unsigned __int16 **a11)
+void sortFrequencyHints(uint64_t **a1@<X0>, uint64_t **a2@<X1>, uint64_t **a3@<X2>, uint64_t **a4@<X3>, uint64_t **a5@<X4>, unsigned __int16 **a6@<X5>, unsigned __int16 **a7@<X6>, void *a8@<X7>, uint64_t **a9@<X8>, unsigned __int16 **a10, unsigned __int16 **a11)
 {
   a9[1] = 0;
   a9[2] = 0;
-  *a9 = a9 + 1;
+  *a9 = (a9 + 1);
   v107[0] = a9;
   v107[1] = a9;
   v107[2] = a1;
@@ -1252,21 +981,21 @@ void sortFrequencyHints(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, ui
   }
 }
 
-void *sortFrequencyHints(ctu::OsLogLogger const*,unsigned long,unsigned long,unsigned long,unsigned long,std::vector<SystemRecordGSM> const&,std::vector<SystemRecordGSM> const&,std::vector<SystemRecordLTE> const&,std::vector<SystemRecordGSM> const&,std::vector<SystemRecordNR> const&)::$_1::operator()(uint64_t *a1, int a2, uint64_t a3, uint64_t a4)
+void *sortFrequencyHints(ctu::OsLogLogger const*,unsigned long,unsigned long,unsigned long,unsigned long,std::vector<SystemRecordGSM> const&,std::vector<SystemRecordGSM> const&,std::vector<SystemRecordLTE> const&,std::vector<SystemRecordGSM> const&,std::vector<SystemRecordNR> const&)::$_1::operator()(uint64_t ***a1, int a2, uint64_t a3, uint64_t a4)
 {
   *__p = 0u;
   v28 = 0u;
   *v25 = 0u;
   v26 = 0u;
   MEMORY[0x2383CD040](v25, a3, a4);
-  v6 = (*a1 + 8);
+  v6 = (*a1 + 1);
   v7 = *v6;
   if (!*v6)
   {
     goto LABEL_11;
   }
 
-  v8 = *a1 + 8;
+  v8 = (*a1 + 1);
   do
   {
     v9 = MCCAndMNC::operator<();
@@ -1295,7 +1024,7 @@ LABEL_11:
     v8 = v6;
   }
 
-  v11 = (*a1 + 8);
+  v11 = *a1 + 1;
   if (v11 == v8)
   {
     sortFrequencyHints(ctu::OsLogLogger const*,unsigned long,unsigned long,unsigned long,unsigned long,std::vector<SystemRecordGSM> const&,std::vector<SystemRecordGSM> const&,std::vector<SystemRecordLTE> const&,std::vector<SystemRecordGSM> const&,std::vector<SystemRecordNR> const&)::$_0::operator()(a1 + 1);
@@ -1411,7 +1140,7 @@ LABEL_51:
 
     if (a2 == 7)
     {
-      if (a1[5] > ((v16[19] - v16[18]) >> 3))
+      if (a1[5] > (v16[19] - v16[18]) >> 3)
       {
         break;
       }
@@ -1429,7 +1158,7 @@ LABEL_51:
       v13 = capabilities::ct::supports5G(v13);
       if (v13)
       {
-        if (a1[6] > ((v16[22] - v16[21]) >> 4))
+        if (a1[6] > (v16[22] - v16[21]) >> 4)
         {
           break;
         }
@@ -1481,50 +1210,49 @@ LABEL_56:
   return v16;
 }
 
-void sortFrequencyHints(ctu::OsLogLogger const*,unsigned long,unsigned long,unsigned long,unsigned long,std::vector<SystemRecordGSM> const&,std::vector<SystemRecordGSM> const&,std::vector<SystemRecordLTE> const&,std::vector<SystemRecordGSM> const&,std::vector<SystemRecordNR> const&)::$_0::operator()(uint64_t *a1)
+void sortFrequencyHints(ctu::OsLogLogger const*,unsigned long,unsigned long,unsigned long,unsigned long,std::vector<SystemRecordGSM> const&,std::vector<SystemRecordGSM> const&,std::vector<SystemRecordLTE> const&,std::vector<SystemRecordGSM> const&,std::vector<SystemRecordNR> const&)::$_0::operator()(uint64_t ***a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
-  memset(v17, 0, sizeof(v17));
-  MEMORY[0x2383CD040](v17);
+  v23 = *MEMORY[0x277D85DE8];
+  memset(v16, 0, sizeof(v16));
+  MEMORY[0x2383CD040](v16);
   v2 = *a1[1];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    MCCAndMNC::getMcc(v7, v17);
-    IntValue = MCC::getIntValue(v7);
-    MCCAndMNC::getMnc(v15, v17);
-    IntegerWidth = MNC::getIntegerWidth(v15);
-    MCCAndMNC::getMnc(v13, v17);
-    v5 = MCC::getIntValue(v13);
+    MCCAndMNC::getMcc(v6, v16);
+    IntValue = MCC::getIntValue(v6);
+    MCCAndMNC::getMnc(v14, v16);
+    IntegerWidth = MNC::getIntegerWidth(v14);
+    MCCAndMNC::getMnc(v12, v16);
+    v5 = MCC::getIntValue(v12);
     *buf = 67109632;
-    v19 = IntValue;
-    v20 = 1024;
-    v21 = IntegerWidth;
-    v22 = 1024;
-    v23 = v5;
+    v18 = IntValue;
+    v19 = 1024;
+    v20 = IntegerWidth;
+    v21 = 1024;
+    v22 = v5;
     _os_log_impl(&dword_2374EE000, v2, OS_LOG_TYPE_DEFAULT, "#I Added entry for PLMN %03d-%0.*d", buf, 0x14u);
-    if (v14 < 0)
+    if (v13 < 0)
     {
-      operator delete(v13[1]);
+      operator delete(v12[1]);
     }
 
-    if (v16 < 0)
+    if (v15 < 0)
     {
-      operator delete(v15[1]);
+      operator delete(v14[1]);
     }
 
-    if (SHIBYTE(v8[1]) < 0)
+    if (SHIBYTE(v7[1]) < 0)
     {
-      operator delete(v7[1]);
+      operator delete(v6[1]);
     }
   }
 
-  v6 = *a1;
-  *v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
   *v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  *v9 = 0u;
+  *v6 = 0u;
   *v7 = 0u;
-  *v8 = 0u;
   operator new();
 }
 
@@ -1744,7 +1472,7 @@ void *CallCommandDriver::CallCommandDriver(void *a1, void *a2, NSObject **a3, ch
   return a1;
 }
 
-void sub_2374FE858(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, dispatch_object_t object, dispatch_object_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, char a17)
+void sub_2374FE858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, dispatch_object_t object, dispatch_object_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, char a17)
 {
   if (object)
   {
@@ -1767,12 +1495,12 @@ void sub_2374FE858(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     std::__shared_weak_count::__release_shared[abi:ne200100](v20);
   }
 
-  MEMORY[0x2383CCDD0](v17 + 40);
+  MEMORY[0x2383CCDD0](v17 + 40, a2, a3, a4, a5, a6, a7, a8);
   ctu::SharedSynchronizable<AttachApnCommandDriver>::~SharedSynchronizable(v18);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -1786,13 +1514,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -1818,24 +1546,24 @@ void CallCommandDriver::~CallCommandDriver(CallCommandDriver *this)
 
 void CallCommandDriver::bootstrap(Registry **a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   std::string::basic_string[abi:ne200100]<0>(&__p, "/cc/props/clir_infos");
-  v11 = &unk_284A7B670;
-  v12 = a1 + 11;
-  v14 = &v11;
+  v10 = &unk_284A7B670;
+  v11 = a1 + 11;
+  v13 = &v10;
   ctu::RestModule::observeProperty();
-  std::__function::__value_func<void ()(xpc::object)>::~__value_func[abi:ne200100](&v11);
-  if (v10 < 0)
+  std::__function::__value_func<void ()(xpc::object)>::~__value_func[abi:ne200100](&v10);
+  if (v9 < 0)
   {
     operator delete(__p);
   }
 
   subscriber::makeSimSlotRange();
-  v2 = v11;
-  v3 = v12;
-  if (v11 != v12)
+  v2 = v10;
+  v3 = v11;
+  if (v10 != v11)
   {
-    v4 = v13;
+    v4 = v12;
     do
     {
       if (v4(*v2))
@@ -1847,7 +1575,7 @@ void CallCommandDriver::bootstrap(Registry **a1)
     }
 
     while (v2 != v3);
-    v5 = v12;
+    v5 = v11;
     while (v2 != v5)
     {
       (*(*a1 + 34))(a1, *v2);
@@ -1860,14 +1588,12 @@ void CallCommandDriver::bootstrap(Registry **a1)
     }
   }
 
-  Registry::createRestModuleOneTimeUseConnection(&v7, a1[6]);
+  Registry::createRestModuleOneTimeUseConnection(&v6, a1[6]);
   ctu::RestModule::connect();
-  if (v8)
+  if (v7)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2374FEB8C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, char a17)
@@ -1882,7 +1608,7 @@ void sub_2374FEB8C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t CallCommandDriver::shouldMTCallContinue(uint64_t a1, int a2, uint64_t a3)
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   cf = 0;
   ServiceMap = Registry::getServiceMap(*(a1 + 48));
   v7 = ServiceMap;
@@ -2014,7 +1740,7 @@ LABEL_22:
   v33 = 1;
   if (a2)
   {
-    v54 = 1;
+    v53 = 1;
     v34 = Registry::getServiceMap(*(a1 + 48));
     v35 = v34;
     v36 = *(MEMORY[0x277CC4410] + 8);
@@ -2071,7 +1797,7 @@ LABEL_46:
         std::__shared_weak_count::__release_shared[abi:ne200100](v41);
       }
 
-      if (v54)
+      if (v53)
       {
         v33 = 1;
         goto LABEL_52;
@@ -2118,22 +1844,21 @@ LABEL_39:
       }
     }
 
-    (*(*v42 + 160))(v42, v47, &v54, 1);
+    (*(*v42 + 160))(v42, v47, &v53, 1);
     goto LABEL_46;
   }
 
 LABEL_52:
   ctu::SharedRef<void const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,void const>::~SharedRef(&cf);
-  v52 = *MEMORY[0x277D85DE8];
   return v33;
 }
 
-void sub_2374FF0C4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2374FF0C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  if ((v3 & 1) == 0)
+  va_start(va, a3);
+  if ((v4 & 1) == 0)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   }
 
   ctu::SharedRef<void const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,void const>::~SharedRef(va);
@@ -2189,17 +1914,16 @@ void CallCommandDriver::endTheConfCall(uint64_t a1)
 
 uint64_t CallCommandDriver::computeClirValue_sync(uint64_t a1, uint64_t a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = *(a2 + 56);
   if (v2 == 3)
   {
-    goto LABEL_27;
+    return 2;
   }
 
   if (v2 != 4)
   {
-    result = v2 == 2;
-    goto LABEL_28;
+    return v2 == 2;
   }
 
   v5 = *(a2 + 16);
@@ -2226,8 +1950,8 @@ uint64_t CallCommandDriver::computeClirValue_sync(uint64_t a1, uint64_t a2)
   }
 
   std::mutex::lock(ServiceMap);
-  *v23 = v8;
-  v12 = std::__hash_table<std::__hash_value_type<unsigned long,std::shared_ptr<void>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::shared_ptr<void>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::shared_ptr<void>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::shared_ptr<void>>>>::find<unsigned long>(&v7[1].__m_.__sig, v23);
+  *v22 = v8;
+  v12 = std::__hash_table<std::__hash_value_type<unsigned long,std::shared_ptr<void>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::shared_ptr<void>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::shared_ptr<void>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::shared_ptr<void>>>>::find<unsigned long>(&v7[1].__m_.__sig, v22);
   if (!v12)
   {
     v14 = 0;
@@ -2246,9 +1970,9 @@ LABEL_15:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       v18 = subscriber::asString();
-      *v23 = 136315138;
-      *&v23[4] = v18;
-      _os_log_impl(&dword_2374EE000, v17, OS_LOG_TYPE_DEFAULT, "#I Checking CLIRInfo with User Default Voice Slot %s for no baseband device", v23, 0xCu);
+      *v22 = 136315138;
+      *&v22[4] = v18;
+      _os_log_impl(&dword_2374EE000, v17, OS_LOG_TYPE_DEFAULT, "#I Checking CLIRInfo with User Default Voice Slot %s for no baseband device", v22, 0xCu);
     }
 
     goto LABEL_17;
@@ -2281,7 +2005,7 @@ LABEL_19:
   v19 = *(a1 + 96);
   if (!v19)
   {
-    goto LABEL_27;
+    return 2;
   }
 
   v20 = *(a1 + 96);
@@ -2297,7 +2021,7 @@ LABEL_24:
     v20 = *v20;
     if (!v20)
     {
-      goto LABEL_27;
+      return 2;
     }
   }
 
@@ -2309,26 +2033,20 @@ LABEL_24:
 
   if (*(std::map<subscriber::SimSlot,rest::ClirInfo>::at(v19, v5) + 1) == 3)
   {
-    goto LABEL_27;
+    return 2;
   }
 
-  if (*std::map<subscriber::SimSlot,rest::ClirInfo>::at(*(a1 + 96), v5) == 3 || !*(std::map<subscriber::SimSlot,rest::ClirInfo>::at(*(a1 + 96), v5) + 8))
+  if (*std::map<subscriber::SimSlot,rest::ClirInfo>::at(*(a1 + 96), v5) != 3 && *(std::map<subscriber::SimSlot,rest::ClirInfo>::at(*(a1 + 96), v5) + 8))
   {
-    result = *(std::map<subscriber::SimSlot,rest::ClirInfo>::at(*(a1 + 96), v5) + 1);
-    goto LABEL_28;
+    if (*(std::map<subscriber::SimSlot,rest::ClirInfo>::at(*(a1 + 96), v5) + 8) != 2)
+    {
+      return *std::map<subscriber::SimSlot,rest::ClirInfo>::at(*(a1 + 96), v5);
+    }
+
+    return 2;
   }
 
-  if (*(std::map<subscriber::SimSlot,rest::ClirInfo>::at(*(a1 + 96), v5) + 8) != 2)
-  {
-    result = *std::map<subscriber::SimSlot,rest::ClirInfo>::at(*(a1 + 96), v5);
-    goto LABEL_28;
-  }
-
-LABEL_27:
-  result = 2;
-LABEL_28:
-  v22 = *MEMORY[0x277D85DE8];
-  return result;
+  return *(std::map<subscriber::SimSlot,rest::ClirInfo>::at(*(a1 + 96), v5) + 1);
 }
 
 void sub_2374FF574(_Unwind_Exception *exception_object)
@@ -2381,17 +2099,15 @@ LABEL_8:
 
 void CallCommandDriver::dumpState(CallCommandDriver *this)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *(this + 5);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(this + 8);
-    v5 = 136315138;
-    v6 = v3;
-    _os_log_impl(&dword_2374EE000, v2, OS_LOG_TYPE_DEFAULT, "#I Command Driver Name: %s", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = v3;
+    _os_log_impl(&dword_2374EE000, v2, OS_LOG_TYPE_DEFAULT, "#I Command Driver Name: %s", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t CallCommandDriver::carrierSupportsCallingTimewithFWIM(uint64_t a1, uint64_t a2, char a3)
@@ -2834,7 +2550,7 @@ uint64_t std::__function::__value_func<void ()(xpc::object)>::~__value_func[abi:
 
 void stk::truncateLanguageIfNeeded(NSObject **a1, std::string *this)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   memset(&__p, 0, sizeof(__p));
   LODWORD(size) = SHIBYTE(this->__r_.__value_.__r.__words[2]);
   if ((size & 0x80000000) != 0)
@@ -2881,9 +2597,9 @@ LABEL_5:
         }
 
         *buf = 136315394;
-        v12 = p_p;
-        v13 = 2080;
-        v14 = v8;
+        v11 = p_p;
+        v12 = 2080;
+        v13 = v8;
         _os_log_impl(&dword_2374EE000, v6, OS_LOG_TYPE_DEFAULT, "#I Truncated language string from '%s' to '%s'", buf, 0x16u);
       }
     }
@@ -2893,8 +2609,6 @@ LABEL_5:
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void sub_237500634(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
@@ -2951,7 +2665,7 @@ void CallAudioDriver::~CallAudioDriver(CallAudioDriver *this)
   ctu::SharedSynchronizable<AttachApnCommandDriver>::~SharedSynchronizable(this + 1);
 }
 
-void CallAudioDriver::bootstrap(uint64_t a1, dispatch_object_t *a2)
+void CallAudioDriver::bootstrap(void *a1, dispatch_object_t *a2)
 {
   v3 = *a2;
   if (*a2)
@@ -2960,10 +2674,9 @@ void CallAudioDriver::bootstrap(uint64_t a1, dispatch_object_t *a2)
     dispatch_group_enter(v3);
   }
 
-  v4 = *(a1 + 16);
+  v4 = a1[2];
   if (v4)
   {
-    v5 = *(a1 + 8);
     if (std::__shared_weak_count::lock(v4))
     {
       operator new();
@@ -2997,7 +2710,7 @@ uint64_t CallAudioDriver::CallAudioDriver(uint64_t a1, uint64_t a2, NSObject **a
   *(a1 + 64) = *a5;
   *a5 = 0;
   *(a5 + 8) = 0;
-  Registry::getTimerService(*a2);
+  Registry::getTimerService((a1 + 80), *a2);
   v13 = *(a2 + 8);
   *(a1 + 96) = *a2;
   *(a1 + 104) = v13;
@@ -3043,7 +2756,7 @@ uint64_t CallAudioDriver::CallAudioDriver(uint64_t a1, uint64_t a2, NSObject **a
   return a1;
 }
 
-void sub_237500998(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, dispatch_object_t object, dispatch_object_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, char a17)
+void sub_237500998(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, dispatch_object_t object, dispatch_object_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, char a17)
 {
   if (object)
   {
@@ -3084,14 +2797,14 @@ void sub_237500998(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     std::__shared_weak_count::__release_shared[abi:ne200100](v23);
   }
 
-  MEMORY[0x2383CCDD0](v17 + 5);
+  MEMORY[0x2383CCDD0](v17 + 5, a2, a3, a4, a5, a6, a7, a8);
   ctu::SharedSynchronizable<AttachApnCommandDriver>::~SharedSynchronizable(v18);
   _Unwind_Resume(a1);
 }
 
-void CallAudioDriver::playLocalDtmfDigits(uint64_t a1, uint64_t *a2)
+void CallAudioDriver::playLocalDtmfDigits(uint64_t a1, uint64_t a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   ServiceMap = Registry::getServiceMap(*(a1 + 96));
   v5 = ServiceMap;
   v6 = *(MEMORY[0x277CC4480] + 8);
@@ -3129,47 +2842,46 @@ void CallAudioDriver::playLocalDtmfDigits(uint64_t a1, uint64_t *a2)
       }
 
 LABEL_12:
-      v15 = *(a1 + 80);
-      std::string::basic_string[abi:ne200100]<0>(v26, *(a1 + 128));
-      *&v20 = a1;
-      *(&v20 + 1) = v12;
+      std::string::basic_string[abi:ne200100]<0>(v24, *(a1 + 128));
+      *&v18 = a1;
+      *(&v18 + 1) = v12;
       if ((v13 & 1) == 0)
       {
         atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
+      v19 = 0;
+      v20 = 0;
       v21 = 0;
+      std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v19, *a2, *(a2 + 8), *(a2 + 8) - *a2);
       v22 = 0;
-      v23 = 0;
-      std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v21, *a2, a2[1], a2[1] - *a2);
-      v24 = 0;
-      v16 = *(a1 + 16);
-      if (v16)
+      v15 = *(a1 + 16);
+      if (v15)
       {
-        v17 = *(a1 + 8);
-        v18 = std::__shared_weak_count::lock(v16);
-        if (v18)
+        v16 = *(a1 + 8);
+        v17 = std::__shared_weak_count::lock(v15);
+        if (v17)
         {
-          v25[0] = v17;
-          v25[1] = v18;
-          atomic_fetch_add_explicit(&v18->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-          std::__shared_weak_count::__release_shared[abi:ne200100](v18);
-          v34 = xmmword_237527E30;
+          v23[0] = v16;
+          v23[1] = v17;
+          atomic_fetch_add_explicit(&v17->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v17);
+          v32 = xmmword_237527E30;
           ctu::TimerService::throwIfPeriodIsZero();
-          v32 = *v26;
-          v33 = v27;
-          v26[1] = 0;
-          v27 = 0;
-          v26[0] = 0;
-          *buf = v20;
-          v29 = v11;
+          v30 = *v24;
+          v31 = v25;
+          v24[1] = 0;
+          v25 = 0;
+          v24[0] = 0;
+          *buf = v18;
+          v27 = v11;
           memset(__p, 0, 24);
-          std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(__p, v21, v22, v22 - v21);
-          __p[3] = v24;
-          v31 = *v25;
-          v25[0] = 0;
-          v25[1] = 0;
-          v35 = 0;
+          std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(__p, v19, v20, v20 - v19);
+          __p[3] = v22;
+          v29 = *v23;
+          v23[0] = 0;
+          v23[1] = 0;
+          v33 = 0;
           operator new();
         }
       }
@@ -3199,20 +2911,16 @@ LABEL_7:
     _os_log_error_impl(&dword_2374EE000, v14, OS_LOG_TYPE_ERROR, "Could not get CallAudioServiceInterface from Registry!", buf, 2u);
     if (v13)
     {
-      goto LABEL_19;
+      return;
     }
-
-    goto LABEL_18;
   }
 
-  if ((v13 & 1) == 0)
+  else if (v13)
   {
-LABEL_18:
-    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
+    return;
   }
 
-LABEL_19:
-  v19 = *MEMORY[0x277D85DE8];
+  std::__shared_weak_count::__release_shared[abi:ne200100](v11);
 }
 
 void sub_237500E48(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28)
@@ -3408,7 +3116,7 @@ LABEL_10:
   return this;
 }
 
-void dispatch::async<void ctu::SharedSynchronizable<CallAudioDriver>::execute_wrapped<CallAudioDriver::bootstrap(dispatch::group_session)::$_0>(CallAudioDriver::bootstrap(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<CallAudioDriver::bootstrap(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<CallAudioDriver::bootstrap(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t a1)
+void dispatch::async<void ctu::SharedSynchronizable<CallAudioDriver>::execute_wrapped<CallAudioDriver::bootstrap(dispatch::group_session)::$_0>(CallAudioDriver::bootstrap(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<CallAudioDriver::bootstrap(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<CallAudioDriver::bootstrap(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
 {
   __p[7] = *MEMORY[0x277D85DE8];
   Registry::createRestModuleOneTimeUseConnection(&v1, *(**a1 + 96));
@@ -3467,31 +3175,31 @@ __n128 std::__function::__func<void ctu::rest::event_sink_impl_t<rest::BundleInf
   return result;
 }
 
-void std::__function::__func<void ctu::rest::event_sink_impl_t<rest::BundleInfoEvent,ctu::rest::path_generator_t<rest::operator_bundle_event>>::bind_impl<void (CallAudioDriver::*&)(rest::BundleInfoEvent const&),CallAudioDriver>(ctu::RestModule &,CallAudioDriver *,void (CallAudioDriver::*&)(rest::BundleInfoEvent const&) &&,std::integral_constant<BOOL,false>)::{lambda(xpc::object const&)#1},std::allocator<xpc::object const&>,void ()(xpc)>::operator()(void *a1)
+void std::__function::__func<void ctu::rest::event_sink_impl_t<rest::BundleInfoEvent,ctu::rest::path_generator_t<rest::operator_bundle_event>>::bind_impl<void (CallAudioDriver::*&)(rest::BundleInfoEvent const&),CallAudioDriver>(ctu::RestModule &,CallAudioDriver *,void (CallAudioDriver::*&)(rest::BundleInfoEvent const&) &&,std::integral_constant<BOOL,false>)::{lambda(xpc::object const&)#1},std::allocator<xpc::object const&>,void ()(xpc)>::operator()(void *a1, rest::BundleInfoEvent *a2, const xpc::object *a3)
 {
-  v5 = 255;
-  *v6 = 0u;
-  v7 = 0u;
+  v7 = 255;
+  *v8 = 0u;
+  v9 = 0u;
   *__p_8 = 0u;
-  v9 = 0;
+  v11 = 0;
   rest::read_rest_value();
-  v2 = a1[2];
-  v3 = a1[3];
-  v4 = (a1[1] + (v3 >> 1));
-  if (v3)
+  v4 = a1[2];
+  v5 = a1[3];
+  v6 = (a1[1] + (v5 >> 1));
+  if (v5)
   {
-    v2 = *(*v4 + v2);
+    v4 = *(*v6 + v4);
   }
 
-  v2(v4, &v5);
+  v4(v6, &v7);
   if (SHIBYTE(__p_8[1]) < 0)
   {
-    operator delete(*(&v7 + 1));
+    operator delete(*(&v9 + 1));
   }
 
-  if (SBYTE7(v7) < 0)
+  if (SBYTE7(v9) < 0)
   {
-    operator delete(v6[0]);
+    operator delete(v8[0]);
   }
 }
 
@@ -3582,7 +3290,7 @@ void sub_237501940(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__function::__func<CallAudioDriver::playLocalDtmfDigits(std::vector<unsigned char> const&)::$_0,std::allocator<CallAudioDriver::playLocalDtmfDigits(std::vector<unsigned char> const&)::$_0>,void ()(void)>::__clone(uint64_t a1, uint64_t a2)
+uint64_t *std::__function::__func<CallAudioDriver::playLocalDtmfDigits(std::vector<unsigned char> const&)::$_0,std::allocator<CallAudioDriver::playLocalDtmfDigits(std::vector<unsigned char> const&)::$_0>,void ()(void)>::__clone(uint64_t a1, uint64_t a2)
 {
   *a2 = &unk_284A7B948;
   *(a2 + 8) = *(a1 + 8);
@@ -3596,7 +3304,7 @@ uint64_t std::__function::__func<CallAudioDriver::playLocalDtmfDigits(std::vecto
   *(a2 + 32) = 0;
   *(a2 + 40) = 0;
   *(a2 + 48) = 0;
-  result = std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a2 + 32, *(a1 + 32), *(a1 + 40), *(a1 + 40) - *(a1 + 32));
+  result = std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>((a2 + 32), *(a1 + 32), *(a1 + 40), *(a1 + 40) - *(a1 + 32));
   v6 = *(a1 + 64);
   *(a2 + 56) = *(a1 + 56);
   *(a2 + 64) = v6;
@@ -3670,7 +3378,7 @@ void std::__function::__func<CallAudioDriver::playLocalDtmfDigits(std::vector<un
 
 void std::__function::__func<CallAudioDriver::playLocalDtmfDigits(std::vector<unsigned char> const&)::$_0,std::allocator<CallAudioDriver::playLocalDtmfDigits(std::vector<unsigned char> const&)::$_0>,void ()(void)>::operator()(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 72);
   if (v2)
   {
@@ -3689,8 +3397,8 @@ void std::__function::__func<CallAudioDriver::playLocalDtmfDigits(std::vector<un
           v9 = *(v3 + 40);
           if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
           {
-            LOWORD(v14[0]) = 0;
-            _os_log_impl(&dword_2374EE000, v9, OS_LOG_TYPE_DEFAULT, "#I Process Remaining Dtmf", v14, 2u);
+            LOWORD(v13[0]) = 0;
+            _os_log_impl(&dword_2374EE000, v9, OS_LOG_TYPE_DEFAULT, "#I Process Remaining Dtmf", v13, 2u);
           }
 
           (*(**(v3 + 48) + 32))(*(v3 + 48));
@@ -3708,12 +3416,12 @@ void std::__function::__func<CallAudioDriver::playLocalDtmfDigits(std::vector<un
           v12 = *(v3 + 40);
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
-            v14[0] = 67109632;
-            v14[1] = v11;
-            v15 = 2048;
-            v16 = v6 + 1;
-            v17 = 2048;
-            v18 = v8;
+            v13[0] = 67109632;
+            v13[1] = v11;
+            v14 = 2048;
+            v15 = v6 + 1;
+            v16 = 2048;
+            v17 = v8;
           }
 
           (*(**(a1 + 16) + 16))(*(a1 + 16), v11);
@@ -3725,8 +3433,6 @@ void std::__function::__func<CallAudioDriver::playLocalDtmfDigits(std::vector<un
       std::__shared_weak_count::__release_shared[abi:ne200100](v5);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t std::__function::__func<CallAudioDriver::playLocalDtmfDigits(std::vector<unsigned char> const&)::$_0,std::allocator<CallAudioDriver::playLocalDtmfDigits(std::vector<unsigned char> const&)::$_0>,void ()(void)>::target(uint64_t a1, uint64_t a2)
@@ -3741,10 +3447,10 @@ uint64_t std::__function::__func<CallAudioDriver::playLocalDtmfDigits(std::vecto
   }
 }
 
-uint64_t event::EventLogger<void ()(subscriber::SimSlot,subscriber::SimCard),event::CSIEventLogger>::~EventLogger(uint64_t a1)
+atomic_uint **event::EventLogger<void ()(subscriber::SimSlot,subscriber::SimCard),event::CSIEventLogger>::~EventLogger(atomic_uint **a1)
 {
   *a1 = &unk_284A7BB50;
-  boost::detail::shared_count::~shared_count((a1 + 16));
+  boost::detail::shared_count::~shared_count(a1 + 2);
   return a1;
 }
 
@@ -3880,7 +3586,6 @@ BOOL std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<ch
     a1 = *a1;
   }
 
-  v6 = *a2;
   if (v5 < 0)
   {
     a2 = *a2;
@@ -3968,8 +3673,7 @@ const char *subscriber::asString(unsigned __int8 *a1)
 void subscriber::SimCommandDriver::setDelegate(uint64_t a1, __int128 *a2)
 {
   v3 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   v4 = *(a1 + 96);
   *(a1 + 88) = v3;
   if (v4)
@@ -3978,57 +3682,55 @@ void subscriber::SimCommandDriver::setDelegate(uint64_t a1, __int128 *a2)
   }
 }
 
-void subscriber::SimCommandDriver::readFile(void **a1, unsigned int *a2, unsigned int a3, uint64_t a4)
+void subscriber::SimCommandDriver::readFile(void **a1, unsigned int *a2, uint64_t a3, uint64_t a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  *v12 = 0u;
-  v13 = 0u;
-  v8 = a2[3];
+  v5 = a3;
+  v21 = *MEMORY[0x277D85DE8];
+  *v10 = 0u;
+  v11 = 0u;
   subscriber::getFileId();
-  if (a3 <= 0x28)
+  if (v5 <= 0x28)
   {
-    if (((1 << a3) & 0x132CFF1CAFLL) != 0)
+    if (((1 << v5) & 0x132CFF1CAFLL) != 0)
     {
-      std::__function::__value_func<void ()(std::shared_ptr<std::vector<unsigned char>>)>::__value_func[abi:ne200100](v22, a4);
-      ((*a1)[2])(a1, a2, v12, v22);
-      std::__function::__value_func<void ()(std::shared_ptr<std::vector<unsigned char>>)>::~__value_func[abi:ne200100](v22);
+      std::__function::__value_func<void ()(std::shared_ptr<std::vector<unsigned char>>)>::__value_func[abi:ne200100](v20, a4);
+      ((*a1)[2])(a1, a2, v10, v20);
+      std::__function::__value_func<void ()(std::shared_ptr<std::vector<unsigned char>>)>::~__value_func[abi:ne200100](v20);
     }
 
     else
     {
-      if (((1 << a3) & 0x6CD300E350) != 0)
+      if (((1 << v5) & 0x6CD300E350) != 0)
       {
-        v14 = a1;
-        v15 = *a2;
-        memset(v16, 0, sizeof(v16));
-        std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(v16, *(a2 + 2), *(a2 + 3), *(a2 + 3) - *(a2 + 2));
-        v17 = a3;
-        v18 = v12[0];
+        v12 = a1;
+        v13 = *a2;
+        memset(v14, 0, sizeof(v14));
+        std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(v14, *(a2 + 2), *(a2 + 3), *(a2 + 3) - *(a2 + 2));
+        v15 = v5;
+        v16 = v10[0];
         __p[1] = 0;
-        v20 = 0;
+        v18 = 0;
         __p[0] = 0;
-        std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(__p, v12[1], v13, (v13 - v12[1]) >> 1);
-        std::__function::__value_func<void ()(std::shared_ptr<std::vector<unsigned char>>)>::__value_func[abi:ne200100](v21, a4);
-        v21[7] = 0;
+        std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(__p, v10[1], v11, (v11 - v10[1]) >> 1);
+        std::__function::__value_func<void ()(std::shared_ptr<std::vector<unsigned char>>)>::__value_func[abi:ne200100](v19, a4);
+        v19[7] = 0;
         operator new();
       }
 
-      v10 = *(*(*a1[6] + 16))(a1[6], *a2);
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v8 = *(*(*a1[6] + 16))(a1[6], *a2);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        *v11 = 0;
-        _os_log_impl(&dword_2374EE000, v10, OS_LOG_TYPE_DEFAULT, "#I Unsupported file type", v11, 2u);
+        v9[0] = 0;
+        _os_log_impl(&dword_2374EE000, v8, OS_LOG_TYPE_DEFAULT, "#I Unsupported file type", v9, 2u);
       }
     }
   }
 
-  if (v12[1])
+  if (v10[1])
   {
-    *&v13 = v12[1];
-    operator delete(v12[1]);
+    *&v11 = v10[1];
+    operator delete(v10[1]);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void sub_237502418(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24)
@@ -4063,22 +3765,21 @@ void *subscriber::SimCommandDriver::readFile(subscriber::SimCardInfo const&,subs
 
 void subscriber::SimCommandDriver::readFile(uint64_t a1, __int128 *a2, __int16 *a3, uint64_t a4)
 {
-  v10[8] = *MEMORY[0x277D85DE8];
-  v6 = *a2;
-  memset(v7, 0, sizeof(v7));
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(v7, *(a2 + 2), *(a2 + 3), *(a2 + 3) - *(a2 + 2));
-  v8 = *a3;
+  v9[8] = *MEMORY[0x277D85DE8];
+  memset(v6, 0, sizeof(v6));
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(v6, *(a2 + 2), *(a2 + 3), *(a2 + 3) - *(a2 + 2));
+  v7 = *a3;
   memset(__p, 0, sizeof(__p));
   std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(__p, *(a3 + 1), *(a3 + 2), (*(a3 + 2) - *(a3 + 1)) >> 1);
-  std::__function::__value_func<void ()(std::shared_ptr<std::vector<unsigned char>>)>::__value_func[abi:ne200100](v10, a4);
-  v10[7] = 0;
+  std::__function::__value_func<void ()(std::shared_ptr<std::vector<unsigned char>>)>::__value_func[abi:ne200100](v9, a4);
+  v9[7] = 0;
   operator new();
 }
 
-void sub_2375026FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2375026FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  std::__function::__value_func<void ()(std::optional<subscriber::SimFileAttributes>,subscriber::SimFileType)>::~__value_func[abi:ne200100](v2 - 104);
+  va_start(va, a3);
+  std::__function::__value_func<void ()(std::optional<subscriber::SimFileAttributes>,subscriber::SimFileType)>::~__value_func[abi:ne200100](v3 - 104);
   subscriber::SimCommandDriver::readFile(subscriber::SimCardInfo const&,subscriber::FileId const&,std::function<void ()(std::shared_ptr<std::vector<unsigned char>>)> const&)::$_0::~$_0(va);
   _Unwind_Resume(a1);
 }
@@ -4118,7 +3819,7 @@ void *subscriber::SimCommandDriver::readFile(subscriber::SimCardInfo const&,subs
   return a1;
 }
 
-uint64_t subscriber::SimCommandDriver::writeFile(void **a1, unsigned int *a2, int a3, uint64_t a4, uint64_t a5)
+uint64_t subscriber::SimCommandDriver::writeFile(void **a1, unsigned int *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (a3 == 36 || a3 == 33)
   {
@@ -4129,7 +3830,7 @@ uint64_t subscriber::SimCommandDriver::writeFile(void **a1, unsigned int *a2, in
 
   else
   {
-    v8 = *(*(*a1[6] + 16))(a1[6], *a2);
+    v8 = *(*(*a1[6] + 16))(a1[6], *a2, a3, a4);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *v9 = 0;
@@ -4140,10 +3841,10 @@ uint64_t subscriber::SimCommandDriver::writeFile(void **a1, unsigned int *a2, in
   }
 }
 
-void subscriber::SimCommandDriver::sendSimDriverInfo(uint64_t a1, unsigned int **a2)
+void subscriber::SimCommandDriver::sendSimDriverInfo(uint64_t a1, char **a2)
 {
   v3 = a1;
-  v77 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 40);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -4155,79 +3856,70 @@ void subscriber::SimCommandDriver::sendSimDriverInfo(uint64_t a1, unsigned int *
 
   v7 = *a2;
   v6 = a2[1];
-  v36 = a2;
+  v26 = a2;
   if (*a2 == v6)
   {
-    v32 = *a2;
+    v23 = *a2;
   }
 
   else
   {
-    v37 = a2[1];
-    v38 = v3;
+    v27 = a2[1];
+    v28 = v3;
     do
     {
       v8 = *(v3 + 40);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         log = v8;
-        v9 = *v7;
-        v44 = subscriber::asString();
-        v10 = v7[1];
-        v43 = subscriber::asString();
-        v46 = "<uninitialized_value>";
-        if (*(v7 + 16) == 1)
+        v34 = subscriber::asString();
+        v33 = subscriber::asString();
+        v36 = "<uninitialized_value>";
+        if (v7[16] == 1)
         {
-          v11 = v7[3];
-          v46 = subscriber::asString();
+          v36 = subscriber::asString();
         }
 
-        v12 = v7[2];
-        v42 = subscriber::asString();
-        v13 = v7[5];
-        v41 = subscriber::asString();
-        if (*(v7 + 25) == 1)
+        v32 = subscriber::asString();
+        v31 = subscriber::asString();
+        if (v7[25] == 1)
         {
-          v14 = *(v7 + 24);
+          v9 = v7[24];
         }
 
         else
         {
-          v14 = 255;
+          v9 = 255;
         }
 
-        v40 = v14;
-        v15 = v7 + 30;
-        if (*(v7 + 143) < 0)
+        v30 = v9;
+        v10 = v7 + 120;
+        if (v7[143] < 0)
         {
-          v15 = *v15;
+          v10 = *v10;
         }
 
-        v39 = v15;
-        if (*(v7 + 26))
+        v29 = v10;
+        if (v7[26])
         {
-          v16 = "enabled";
+          v11 = "enabled";
         }
 
         else
         {
-          v16 = "disabled";
+          v11 = "disabled";
         }
 
-        v17 = *(v7 + 27);
-        v18 = *(v7 + 28);
-        v19 = v7[9];
-        v20 = subscriber::asString();
-        v21 = v7[8];
-        v22 = subscriber::asString();
-        v23 = v7[17];
-        v24 = subscriber::asString();
-        v25 = v7[16];
-        v26 = subscriber::asString();
-        v28 = *(v7 + 12);
-        v27 = *(v7 + 13);
+        v12 = v7[27];
+        v13 = v7[28];
+        v14 = subscriber::asString();
+        v15 = subscriber::asString();
+        v16 = subscriber::asString();
+        v17 = subscriber::asString();
+        v19 = *(v7 + 12);
+        v18 = *(v7 + 13);
         memset(&__p, 0, sizeof(__p));
-        if (v28 != v27)
+        if (v19 != v18)
         {
           subscriber::asShortString();
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -4238,8 +3930,8 @@ void subscriber::SimCommandDriver::sendSimDriverInfo(uint64_t a1, unsigned int *
           __p = buf;
           while (1)
           {
-            v28 += 40;
-            if (v28 == v27)
+            v19 += 40;
+            if (v19 == v18)
             {
               break;
             }
@@ -4288,71 +3980,70 @@ void subscriber::SimCommandDriver::sendSimDriverInfo(uint64_t a1, unsigned int *
         }
 
         LODWORD(buf.__r_.__value_.__l.__data_) = 136318722;
-        *(buf.__r_.__value_.__r.__words + 4) = v44;
+        *(buf.__r_.__value_.__r.__words + 4) = v34;
         WORD2(buf.__r_.__value_.__r.__words[1]) = 2080;
-        *(&buf.__r_.__value_.__r.__words[1] + 6) = v43;
+        *(&buf.__r_.__value_.__r.__words[1] + 6) = v33;
         HIWORD(buf.__r_.__value_.__r.__words[2]) = 2080;
-        v52 = v46;
-        v53 = 2080;
-        v54 = v42;
-        v55 = 2080;
-        v56 = v41;
-        v57 = 1024;
-        v58 = v40;
+        v42 = v36;
+        v43 = 2080;
+        v44 = v32;
+        v45 = 2080;
+        v46 = v31;
+        v47 = 1024;
+        v48 = v30;
+        v49 = 2080;
+        v50 = v29;
+        v51 = 2080;
+        v52 = v11;
+        v53 = 1024;
+        v54 = v12;
+        v55 = 1024;
+        v56 = v13;
+        v57 = 2080;
+        v58 = v14;
         v59 = 2080;
-        v60 = v39;
+        v60 = v15;
         v61 = 2080;
         v62 = v16;
-        v63 = 1024;
+        v63 = 2080;
         v64 = v17;
-        v65 = 1024;
-        v66 = v18;
-        v67 = 2080;
-        v68 = v20;
-        v69 = 2080;
-        v70 = v22;
-        v71 = 2080;
-        v72 = v24;
-        v73 = 2080;
-        v74 = v26;
-        v75 = 2082;
-        v76 = p_p;
+        v65 = 2082;
+        v66 = p_p;
         _os_log_impl(&dword_2374EE000, log, OS_LOG_TYPE_DEFAULT, "#I | slot=%s instance=%s state=%s tray_state=%s vinyl=%s (0x%02x) iccid=%s pin=%s [%u/%u] gw=[%s:%s] 1x=[%s:%s] np=[%{public}s]", &buf, 0x8Cu);
-        v6 = v37;
-        v3 = v38;
+        v6 = v27;
+        v3 = v28;
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
         }
       }
 
-      v7 += 36;
+      v7 += 144;
     }
 
     while (v7 != v6);
-    v32 = *v36;
-    v7 = v36[1];
+    v23 = *v26;
+    v7 = v26[1];
   }
 
-  v33 = *(v3 + 88);
-  memset(v47, 0, sizeof(v47));
-  v49 = v47;
-  if (v7 != v32)
+  v24 = *(v3 + 88);
+  memset(v37, 0, sizeof(v37));
+  v39 = v37;
+  if (v7 != v23)
   {
-    v34 = 0x8E38E38E38E38E39 * ((v7 - v32) >> 4);
-    v50 = 0;
-    if (v34 < 0x1C71C71C71C71C8)
+    v25 = 0x8E38E38E38E38E39 * ((v7 - v23) >> 4);
+    v40 = 0;
+    if (v25 < 0x1C71C71C71C71C8)
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<subscriber::SimDriverInfo>>(v34);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<subscriber::SimDriverInfo>>(v25);
     }
 
     std::vector<unsigned short>::__throw_length_error[abi:ne200100]();
   }
 
-  (*(*v33 + 24))(v33, v47);
-  buf.__r_.__value_.__r.__words[0] = v47;
+  (*(*v24 + 24))(v24, v37);
+  buf.__r_.__value_.__r.__words[0] = v37;
   std::vector<subscriber::SimDriverInfo>::__destroy_vector::operator()[abi:ne200100](&buf);
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void subscriber::SimCommandDriver::sendMSISDNUpdate(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -4392,20 +4083,19 @@ void sub_237503098(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void subscriber::SimCommandDriver::markAllowedToReadCDMAAuxInfo(uint64_t a1)
+void subscriber::SimCommandDriver::markAllowedToReadCDMAAuxInfo(uint64_t a1, uint64_t a2, _BOOL4 a3)
 {
   v5 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 40);
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = *(a1 + 40);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 136315394;
     *&v4[4] = subscriber::asString();
     *&v4[12] = 2080;
     *&v4[14] = CSIBOOLAsString();
-    _os_log_impl(&dword_2374EE000, v2, OS_LOG_TYPE_DEFAULT, "#I %s: Allowed to read CDMA Aux info: %s", v4, 0x16u);
+    _os_log_impl(&dword_2374EE000, v3, OS_LOG_TYPE_DEFAULT, "#I %s: Allowed to read CDMA Aux info: %s", v4, 0x16u);
   }
 
-  v3 = *(a1 + 88);
   *&v4[8] = 0uLL;
   *v4 = &v4[8];
   operator new();
@@ -4413,7 +4103,7 @@ void subscriber::SimCommandDriver::markAllowedToReadCDMAAuxInfo(uint64_t a1)
 
 uint64_t subscriber::SimCommandDriver::markAllowedToReadCDMAAuxInfo(uint64_t result, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (a2[2])
   {
     v3 = result;
@@ -4426,51 +4116,48 @@ uint64_t subscriber::SimCommandDriver::markAllowedToReadCDMAAuxInfo(uint64_t res
         v6 = *(v3 + 40);
         if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
         {
-          v7 = *(v5 + 7);
-          v8 = subscriber::asString();
-          v9 = *(v5 + 32);
-          v10 = CSIBOOLAsString();
+          v7 = subscriber::asString();
+          v8 = CSIBOOLAsString();
           *buf = 136315394;
-          v16 = v8;
-          v17 = 2080;
-          v18 = v10;
+          v13 = v7;
+          v14 = 2080;
+          v15 = v8;
           _os_log_impl(&dword_2374EE000, v6, OS_LOG_TYPE_DEFAULT, "#I %s: Allowed to read CDMA Aux info: %s", buf, 0x16u);
         }
 
-        v11 = v5[1];
-        if (v11)
+        v9 = v5[1];
+        if (v9)
         {
           do
           {
-            v12 = v11;
-            v11 = *v11;
+            v10 = v9;
+            v9 = *v9;
           }
 
-          while (v11);
+          while (v9);
         }
 
         else
         {
           do
           {
-            v12 = v5[2];
-            v13 = *v12 == v5;
-            v5 = v12;
+            v10 = v5[2];
+            v11 = *v10 == v5;
+            v5 = v10;
           }
 
-          while (!v13);
+          while (!v11);
         }
 
-        v5 = v12;
+        v5 = v10;
       }
 
-      while (v12 != v4);
+      while (v10 != v4);
     }
 
-    result = (*(**(v3 + 88) + 32))(*(v3 + 88), a2);
+    return (*(**(v3 + 88) + 32))(*(v3 + 88), a2);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4485,7 +4172,7 @@ BOOL subscriber::SimCommandDriver::allowSimRefresh(subscriber::SimCommandDriver 
   return v1 != 4 && v1 != 8;
 }
 
-void subscriber::SimCommandDriver::bootstrap(uint64_t a1, dispatch_object_t *a2)
+void subscriber::SimCommandDriver::bootstrap(void *a1, dispatch_object_t *a2)
 {
   v3 = *a2;
   if (*a2)
@@ -4494,10 +4181,9 @@ void subscriber::SimCommandDriver::bootstrap(uint64_t a1, dispatch_object_t *a2)
     dispatch_group_enter(v3);
   }
 
-  v4 = *(a1 + 16);
+  v4 = a1[2];
   if (v4)
   {
-    v5 = *(a1 + 8);
     if (std::__shared_weak_count::lock(v4))
     {
       operator new();
@@ -4507,30 +4193,30 @@ void subscriber::SimCommandDriver::bootstrap(uint64_t a1, dispatch_object_t *a2)
   std::__throw_bad_weak_ptr[abi:ne200100]();
 }
 
-void subscriber::SimCommandDriver::SimCommandDriver(void *a1, int a2, NSObject **a3, char *a4)
+void subscriber::SimCommandDriver::SimCommandDriver(void *a1, void *a2, NSObject **a3, char *a4, uint64_t a5)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  ctu::OsLogContext::OsLogContext(v8, *MEMORY[0x277CC4628], a4);
+  v10 = *MEMORY[0x277D85DE8];
+  ctu::OsLogContext::OsLogContext(v9, *MEMORY[0x277CC4628], a4);
   a1[1] = 0;
   a1[2] = 0;
-  v6 = *a3;
+  v7 = *a3;
   a1[3] = *a3;
-  if (v6)
+  if (v7)
   {
-    dispatch_retain(v6);
+    dispatch_retain(v7);
   }
 
   a1[4] = 0;
   ctu::OsLogLogger::OsLogLogger();
-  MEMORY[0x2383CCDC0](a1 + 5, v7);
-  MEMORY[0x2383CCDD0](v7);
-  ctu::OsLogContext::~OsLogContext(v8);
+  MEMORY[0x2383CCDC0](a1 + 5, v8);
+  MEMORY[0x2383CCDD0](v8);
+  ctu::OsLogContext::~OsLogContext(v9);
   operator new();
 }
 
-void sub_237503738(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, dispatch_object_t object, dispatch_object_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, char a19)
+void sub_237503738(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, dispatch_object_t object, dispatch_object_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, char a19)
 {
-  MEMORY[0x2383CD480](v20, 0x10A1C40FF1576FELL);
+  MEMORY[0x2383CD480](v20, 0x10A1C40FF1576FELL, a3, a4, a5, a6, a7, a8);
   MEMORY[0x2383CCDD0](v19 + 40);
   ctu::SharedSynchronizable<AttachApnCommandDriver>::~SharedSynchronizable((v19 + 8));
   _Unwind_Resume(a1);
@@ -4568,35 +4254,33 @@ void subscriber::SimCommandDriver::~SimCommandDriver(subscriber::SimCommandDrive
   ctu::SharedSynchronizable<AttachApnCommandDriver>::~SharedSynchronizable(this + 1);
 }
 
-void subscriber::SimCommandDriver::sendSimReset()
+void subscriber::SimCommandDriver::sendSimReset(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v3 = 0x10F15330000000A0;
-  v4 = 16844163;
-  qmemcpy(v5, "RST", 3);
-  v1 = 0;
-  v2 = 0;
-  v0 = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>();
+  v8 = *MEMORY[0x277D85DE8];
+  v4 = 0x10F15330000000A0;
+  v5 = 16844163;
+  qmemcpy(v6, "RST", sizeof(v6));
+  memset(v3, 0, sizeof(v3));
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(v3, &v4, &v7);
 }
 
-void sub_237503AD4(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_237503AD4(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne200100](va);
-  if (a3)
+  if (a10)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a3);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
   }
 
-  if (a5)
+  if (a12)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a12);
   }
 
-  if (v8)
+  if (v15)
   {
-    operator delete(v8);
+    operator delete(v15);
   }
 
   _Unwind_Resume(a1);
@@ -4804,13 +4488,13 @@ uint64_t subscriber::SimCommandDriver::indexToHardwareSimSlot(subscriber::SimCom
 
 void subscriber::SimCommandDriver::checkSimHwIdConfig_sync(uint64_t a1, __n128 **a2, uint64_t a3)
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   __p = 0;
-  v65 = 0;
-  v66 = 0;
+  v60 = 0;
+  v61 = 0;
   __s2 = 0;
-  v62 = 0;
-  v63 = 0;
+  v57 = 0;
+  v58 = 0;
   v3 = *a2;
   if (*a2 != a2[1])
   {
@@ -4821,19 +4505,19 @@ void subscriber::SimCommandDriver::checkSimHwIdConfig_sync(uint64_t a1, __n128 *
       while (1)
       {
         v7 = *std::map<subscriber::SimSlot,rest::ClirInfo>::at(*(a3 + 8), v3->n128_u32[0]);
-        v8 = v65;
-        if (v65 >= v66)
+        v8 = v60;
+        if (v60 >= v61)
         {
           v10 = __p;
-          v11 = (v65 - __p);
-          v12 = v65 - __p + 1;
+          v11 = (v60 - __p);
+          v12 = v60 - __p + 1;
           if (v12 < 0)
           {
             std::vector<unsigned short>::__throw_length_error[abi:ne200100]();
           }
 
-          v13 = v66 - __p;
-          if (2 * (v66 - __p) > v12)
+          v13 = v61 - __p;
+          if (2 * (v61 - __p) > v12)
           {
             v12 = 2 * v13;
           }
@@ -4857,7 +4541,7 @@ void subscriber::SimCommandDriver::checkSimHwIdConfig_sync(uint64_t a1, __n128 *
           v9 = v11 + 1;
           memcpy(0, v10, v11);
           __p = 0;
-          v66 = 0;
+          v61 = 0;
           if (v10)
           {
             operator delete(v10);
@@ -4866,11 +4550,11 @@ void subscriber::SimCommandDriver::checkSimHwIdConfig_sync(uint64_t a1, __n128 *
 
         else
         {
-          *v65 = v7;
+          *v60 = v7;
           v9 = v8 + 1;
         }
 
-        v65 = v9;
+        v60 = v9;
         if (*std::map<subscriber::SimSlot,rest::ClirInfo>::at(*(a3 + 8), v3->n128_u32[0]))
         {
           break;
@@ -4925,7 +4609,7 @@ LABEL_40:
             v6 = v16 + 1;
             memcpy(0, v15, v16);
             __s2 = 0;
-            v63 = v18;
+            v58 = v18;
             if (v15)
             {
               operator delete(v15);
@@ -4946,38 +4630,36 @@ LABEL_52:
             goto LABEL_62;
           }
 
-          v25 = v3->n128_u32[0];
+          v25 = subscriber::asString();
           v26 = subscriber::asString();
-          v27 = v3->n128_u32[2];
-          v28 = subscriber::asString();
           *buf = 136315394;
-          *&buf[4] = v26;
-          v68 = 2080;
-          v69 = v28;
-          v29 = v24;
-          v30 = "Detected hardware slot configuration mismatch - hardware slot (%s) tray state (%s) when hardware is missing";
-          v31 = 22;
+          *&buf[4] = v25;
+          v63 = 2080;
+          v64 = v26;
+          v27 = v24;
+          v28 = "Detected hardware slot configuration mismatch - hardware slot (%s) tray state (%s) when hardware is missing";
+          v29 = 22;
           goto LABEL_54;
         }
 
-        v6 = v62;
-        v5 = v63;
-        if (v62 >= v63)
+        v6 = v57;
+        v5 = v58;
+        if (v57 >= v58)
         {
           v15 = __s2;
-          v16 = (v62 - __s2);
-          v19 = v62 - __s2 + 1;
+          v16 = (v57 - __s2);
+          v19 = v57 - __s2 + 1;
           if (v19 < 0)
           {
             std::vector<unsigned short>::__throw_length_error[abi:ne200100]();
           }
 
-          if (2 * (v63 - __s2) > v19)
+          if (2 * (v58 - __s2) > v19)
           {
-            v19 = 2 * (v63 - __s2);
+            v19 = 2 * (v58 - __s2);
           }
 
-          if (v63 - __s2 >= 0x3FFFFFFFFFFFFFFFLL)
+          if (v58 - __s2 >= 0x3FFFFFFFFFFFFFFFLL)
           {
             v18 = 0x7FFFFFFFFFFFFFFFLL;
           }
@@ -4998,11 +4680,11 @@ LABEL_52:
 LABEL_31:
         *v6++ = 0;
 LABEL_42:
-        v62 = v6;
+        v57 = v6;
         v20 = std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<subscriber::SimDriverInfo *,subscriber::SimDriverInfo *,subscriber::SimDriverInfo *>(v3 + 9, a2[1], v3);
         for (i = a2[1]; i != v20; std::allocator_traits<std::allocator<subscriber::SimDriverInfo>>::destroy[abi:ne200100]<subscriber::SimDriverInfo,void,0>(i))
         {
-          i -= 144;
+          i -= 36;
         }
 
         a2[1] = v20;
@@ -5022,10 +4704,9 @@ LABEL_42:
         v22 = *(a1 + 40);
         if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
-          v47 = v3->n128_u32[0];
-          v48 = subscriber::asString();
+          v44 = subscriber::asString();
           *buf = 136315138;
-          *&buf[4] = v48;
+          *&buf[4] = v44;
           _os_log_error_impl(&dword_2374EE000, v22, OS_LOG_TYPE_ERROR, "Detected bad EUICC for slot (%s) - hardware could be bad", buf, 0xCu);
         }
 
@@ -5036,21 +4717,20 @@ LABEL_42:
       {
         if (v3[1].n128_u32[1] == 1)
         {
-          v32 = *(a1 + 40);
-          if (!os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+          v30 = *(a1 + 40);
+          if (!os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_65;
           }
 
-          v33 = v3->n128_u32[0];
-          v34 = subscriber::asString();
+          v31 = subscriber::asString();
           *buf = 136315138;
-          *&buf[4] = v34;
-          v29 = v32;
-          v30 = "Detected non-Vinyl capable SIM for expected EUICC for slot (%s)";
-          v31 = 12;
+          *&buf[4] = v31;
+          v27 = v30;
+          v28 = "Detected non-Vinyl capable SIM for expected EUICC for slot (%s)";
+          v29 = 12;
 LABEL_54:
-          _os_log_error_impl(&dword_2374EE000, v29, OS_LOG_TYPE_ERROR, v30, buf, v31);
+          _os_log_error_impl(&dword_2374EE000, v27, OS_LOG_TYPE_ERROR, v28, buf, v29);
           goto LABEL_62;
         }
 
@@ -5061,149 +4741,149 @@ LABEL_54:
 LABEL_62:
       if (v3[1].n128_u32[1] == 5)
       {
-        v35 = v62;
-        v5 = v63;
-        if (v62 >= v63)
+        v32 = v57;
+        v5 = v58;
+        if (v57 >= v58)
         {
-          v37 = __s2;
-          v38 = v62 - __s2;
-          v39 = v62 - __s2 + 1;
-          if (v39 < 0)
+          v34 = __s2;
+          v35 = v57 - __s2;
+          v36 = v57 - __s2 + 1;
+          if (v36 < 0)
           {
             std::vector<unsigned short>::__throw_length_error[abi:ne200100]();
           }
 
-          if (2 * (v63 - __s2) > v39)
+          if (2 * (v58 - __s2) > v36)
           {
-            v39 = 2 * (v63 - __s2);
+            v36 = 2 * (v58 - __s2);
           }
 
-          if (v63 - __s2 >= 0x3FFFFFFFFFFFFFFFLL)
+          if (v58 - __s2 >= 0x3FFFFFFFFFFFFFFFLL)
           {
-            v40 = 0x7FFFFFFFFFFFFFFFLL;
+            v37 = 0x7FFFFFFFFFFFFFFFLL;
           }
 
           else
           {
-            v40 = v39;
+            v37 = v36;
           }
 
-          if (v40)
+          if (v37)
           {
             operator new();
           }
 
-          v45 = (v62 - __s2);
+          v42 = (v57 - __s2);
           v5 = 0;
-          v46 = 3;
+          v43 = 3;
 LABEL_98:
-          *v45 = v46;
-          v6 = v45 + 1;
-          memcpy(0, v37, v38);
+          *v42 = v43;
+          v6 = v42 + 1;
+          memcpy(0, v34, v35);
           __s2 = 0;
-          v63 = 0;
-          if (v37)
+          v58 = 0;
+          if (v34)
           {
-            operator delete(v37);
+            operator delete(v34);
           }
 
           goto LABEL_100;
         }
 
-        v36 = 3;
+        v33 = 3;
         goto LABEL_70;
       }
 
 LABEL_65:
-      v35 = v62;
-      v5 = v63;
+      v32 = v57;
+      v5 = v58;
       if (subscriber::isEsimCapable())
       {
-        if (v62 >= v63)
+        if (v57 >= v58)
         {
-          v37 = __s2;
-          v38 = v62 - __s2;
-          v41 = v62 - __s2 + 1;
-          if (v41 < 0)
+          v34 = __s2;
+          v35 = v57 - __s2;
+          v38 = v57 - __s2 + 1;
+          if (v38 < 0)
           {
             std::vector<unsigned short>::__throw_length_error[abi:ne200100]();
           }
 
-          if (2 * (v63 - __s2) > v41)
+          if (2 * (v58 - __s2) > v38)
           {
-            v41 = 2 * (v63 - __s2);
+            v38 = 2 * (v58 - __s2);
           }
 
-          if (v63 - __s2 >= 0x3FFFFFFFFFFFFFFFLL)
+          if (v58 - __s2 >= 0x3FFFFFFFFFFFFFFFLL)
           {
-            v42 = 0x7FFFFFFFFFFFFFFFLL;
+            v39 = 0x7FFFFFFFFFFFFFFFLL;
           }
 
           else
           {
-            v42 = v41;
+            v39 = v38;
           }
 
-          if (v42)
+          if (v39)
           {
             operator new();
           }
 
-          v45 = (v62 - __s2);
+          v42 = (v57 - __s2);
           v5 = 0;
-          v46 = 2;
+          v43 = 2;
           goto LABEL_98;
         }
 
-        v36 = 2;
+        v33 = 2;
       }
 
       else
       {
-        if (v62 >= v63)
+        if (v57 >= v58)
         {
-          v37 = __s2;
-          v38 = v62 - __s2;
-          v43 = v62 - __s2 + 1;
-          if (v43 < 0)
+          v34 = __s2;
+          v35 = v57 - __s2;
+          v40 = v57 - __s2 + 1;
+          if (v40 < 0)
           {
             std::vector<unsigned short>::__throw_length_error[abi:ne200100]();
           }
 
-          if (2 * (v63 - __s2) > v43)
+          if (2 * (v58 - __s2) > v40)
           {
-            v43 = 2 * (v63 - __s2);
+            v40 = 2 * (v58 - __s2);
           }
 
-          if (v63 - __s2 >= 0x3FFFFFFFFFFFFFFFLL)
+          if (v58 - __s2 >= 0x3FFFFFFFFFFFFFFFLL)
           {
-            v44 = 0x7FFFFFFFFFFFFFFFLL;
+            v41 = 0x7FFFFFFFFFFFFFFFLL;
           }
 
           else
           {
-            v44 = v43;
+            v41 = v40;
           }
 
-          if (v44)
+          if (v41)
           {
             operator new();
           }
 
-          v45 = (v62 - __s2);
+          v42 = (v57 - __s2);
           v5 = 0;
-          v46 = 1;
+          v43 = 1;
           goto LABEL_98;
         }
 
-        v36 = 1;
+        v33 = 1;
       }
 
 LABEL_70:
-      *v35 = v36;
-      v6 = v35 + 1;
+      *v32 = v33;
+      v6 = v32 + 1;
 LABEL_100:
-      v62 = v6;
+      v57 = v6;
       v3 += 9;
       if (v3 == a2[1])
       {
@@ -5214,67 +4894,65 @@ LABEL_100:
 
   v6 = 0;
 LABEL_103:
-  v49 = __s2;
-  if (v65 - __p != v6 - __s2 || memcmp(__p, __s2, v65 - __p))
+  v45 = __s2;
+  if (v60 - __p != v6 - __s2 || memcmp(__p, __s2, v60 - __p))
   {
-    v50 = a1;
-    v51 = *(a1 + 40);
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+    v46 = a1;
+    v47 = *(a1 + 40);
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
     {
       ctu::hex();
-      v53 = v70;
-      v54 = *buf;
+      v48 = v65;
+      v49 = *buf;
       ctu::hex();
-      v55 = buf;
-      if (v53 < 0)
+      v50 = buf;
+      if (v48 < 0)
       {
-        v55 = v54;
+        v50 = v49;
       }
 
-      if (v60 >= 0)
+      if (v55 >= 0)
       {
-        v56 = &v59;
+        v51 = &v54;
       }
 
       else
       {
-        v56 = v59;
+        v51 = v54;
       }
 
-      *v71 = 136315394;
-      v72 = v55;
-      v73 = 2080;
-      v74 = v56;
-      _os_log_error_impl(&dword_2374EE000, v51, OS_LOG_TYPE_ERROR, "Mismatch configuration: Expected (%s) - Calculated (%s)", v71, 0x16u);
-      if (v60 < 0)
+      *v66 = 136315394;
+      v67 = v50;
+      v68 = 2080;
+      v69 = v51;
+      _os_log_error_impl(&dword_2374EE000, v47, OS_LOG_TYPE_ERROR, "Mismatch configuration: Expected (%s) - Calculated (%s)", v66, 0x16u);
+      if (v55 < 0)
       {
-        operator delete(v59);
+        operator delete(v54);
       }
 
-      v50 = a1;
-      if (v70 < 0)
+      v46 = a1;
+      if (v65 < 0)
       {
         operator delete(*buf);
       }
     }
 
-    subscriber::SimCommandDriver::handleSimConfigurationMismatch_sync(v50, &__p, &__s2);
-    v49 = __s2;
+    subscriber::SimCommandDriver::handleSimConfigurationMismatch_sync(v46, &__p, &__s2);
+    v45 = __s2;
   }
 
-  if (v49)
+  if (v45)
   {
-    v62 = v49;
-    operator delete(v49);
+    v57 = v45;
+    operator delete(v45);
   }
 
   if (__p)
   {
-    v65 = __p;
+    v60 = __p;
     operator delete(__p);
   }
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 void sub_237504710(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30)
@@ -5292,7 +4970,7 @@ void sub_237504710(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t subscriber::SimCommandDriver::appendMissingDriverInfo_sync(uint64_t a1, uint64_t *a2)
+uint64_t subscriber::SimCommandDriver::appendMissingDriverInfo_sync(uint64_t a1, char **a2)
 {
   v4 = *a2;
   v3 = a2[1];
@@ -5303,7 +4981,7 @@ uint64_t subscriber::SimCommandDriver::appendMissingDriverInfo_sync(uint64_t a1,
     do
     {
       v7 = *v6;
-      v6 += 36;
+      v6 += 144;
       if (v7 == 2)
       {
         ++v5;
@@ -5366,11 +5044,11 @@ uint64_t subscriber::SimCommandDriver::appendMissingDriverInfo_sync(uint64_t a1,
     *(v15 + 128) = 0u;
     v16 = *a2;
     v17 = a2[1];
-    v18 = v15 + *a2 - v17;
+    v18 = &(*a2)[v15 - v17];
     if (*a2 != v17)
     {
       v19 = *a2;
-      v20 = v15 + *a2 - v17;
+      v20 = &(*a2)[v15 - v17];
       do
       {
         v21 = *v19;
@@ -5465,7 +5143,7 @@ uint64_t subscriber::SimCommandDriver::appendMissingDriverInfo_sync(uint64_t a1,
     std::vector<subscriber::SimDriverInfo>::__throw_out_of_range[abi:ne200100]();
   }
 
-  if (*(*a2 + 8) == 1)
+  if (*(*a2 + 2) == 1)
   {
     v25 = 1;
   }
@@ -5481,14 +5159,14 @@ uint64_t subscriber::SimCommandDriver::appendMissingDriverInfo_sync(uint64_t a1,
 
 uint64_t subscriber::SimCommandDriver::getVinylCapabilitiesFromATR(uint64_t a1, uint64_t *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = *a2;
   v2 = a2[1];
   if (*a2 == v2)
   {
     v9 = 0;
     v10 = 0;
-    goto LABEL_30;
+    return v9 | (v10 << 8);
   }
 
   v4 = v2 - v3;
@@ -5500,7 +5178,7 @@ uint64_t subscriber::SimCommandDriver::getVinylCapabilitiesFromATR(uint64_t a1, 
       goto LABEL_28;
     }
 
-    LOWORD(v22[0]) = 0;
+    LOWORD(v21[0]) = 0;
     v6 = "ATR too short";
 LABEL_5:
     v7 = v5;
@@ -5522,7 +5200,7 @@ LABEL_5:
           goto LABEL_28;
         }
 
-        LOWORD(v22[0]) = 0;
+        LOWORD(v21[0]) = 0;
         v6 = "Invalid interface byte";
         goto LABEL_5;
       }
@@ -5551,7 +5229,7 @@ LABEL_5:
         goto LABEL_28;
       }
 
-      LOWORD(v22[0]) = 0;
+      LOWORD(v21[0]) = 0;
       v6 = "Historical bytes missing";
       goto LABEL_5;
     }
@@ -5581,7 +5259,7 @@ LABEL_5:
           v10 = 1;
           if (v11 + 1 >= v4)
           {
-            goto LABEL_30;
+            return v9 | (v10 << 8);
           }
         }
 
@@ -5596,7 +5274,7 @@ LABEL_5:
           v5 = *(a1 + 40);
           if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
           {
-            LOWORD(v22[0]) = 0;
+            LOWORD(v21[0]) = 0;
             v6 = "ATR too short";
             goto LABEL_5;
           }
@@ -5612,39 +5290,35 @@ LABEL_5:
       goto LABEL_28;
     }
 
-    v22[0] = 67109120;
-    v22[1] = v16;
+    v21[0] = 67109120;
+    v21[1] = v16;
     v6 = "Invalid historical bytes format (0x%02x), expected 0x80";
     v7 = v19;
     v8 = 8;
 LABEL_6:
-    _os_log_error_impl(&dword_2374EE000, v7, OS_LOG_TYPE_ERROR, v6, v22, v8);
+    _os_log_error_impl(&dword_2374EE000, v7, OS_LOG_TYPE_ERROR, v6, v21, v8);
   }
 
 LABEL_28:
   v9 = 0;
 LABEL_29:
   v10 = 1;
-LABEL_30:
-  v20 = *MEMORY[0x277D85DE8];
   return v9 | (v10 << 8);
 }
 
 void subscriber::SimCommandDriver::dumpState(subscriber::SimCommandDriver *this)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (*(this + 121) == 1)
   {
     v2 = *(this + 5);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 136315138;
-      v6 = printers::asString((this + 120), v3);
-      _os_log_impl(&dword_2374EE000, v2, OS_LOG_TYPE_DEFAULT, "#I fLastReportedEuiccHealthState: %s", &v5, 0xCu);
+      v4 = 136315138;
+      v5 = printers::asString((this + 120), v3);
+      _os_log_impl(&dword_2374EE000, v2, OS_LOG_TYPE_DEFAULT, "#I fLastReportedEuiccHealthState: %s", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t subscriber::SimCommandDriver::getCLAFromChannel(subscriber::SimCommandDriver *this, unsigned int a2)
@@ -5658,9 +5332,9 @@ uint64_t subscriber::SimCommandDriver::getCLAFromChannel(subscriber::SimCommandD
   return v2;
 }
 
-BOOL subscriber::SimCommandDriver::parseEapSim(uint64_t a1, os_log_t *a2, int a3, char **a4, uint64_t a5)
+BOOL subscriber::SimCommandDriver::parseEapSim(uint64_t a1, os_log_t *a2, uint64_t a3, char **a4, uint64_t **a5)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   if (a3 == 2)
   {
     v11 = *a4;
@@ -5671,32 +5345,29 @@ BOOL subscriber::SimCommandDriver::parseEapSim(uint64_t a1, os_log_t *a2, int a3
       result = os_log_type_enabled(*a2, OS_LOG_TYPE_ERROR);
       if (!result)
       {
-        goto LABEL_25;
+        return result;
       }
 
       v25 = subscriber::asString();
       v26 = a4[1] - *a4;
       *buf = 136315394;
       *&buf[4] = v25;
-      v42 = 2048;
-      v43 = v26;
+      v41 = 2048;
+      v42 = v26;
       v18 = "SIM authenticate response for card %s should be 14 bytes but is %zd bytes; dropping";
-LABEL_18:
-      v20 = v22;
-      v21 = 22;
-      goto LABEL_24;
+      goto LABEL_18;
     }
 
-    v40 = 3;
-    *buf = &v40;
-    v13 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a5, 3);
+    v39 = 3;
+    *buf = &v39;
+    v13 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a5, 3, buf);
     if (v11 == v12 || (v16 = *v11, v15 = v11 + 1, v14 = v16, v12 - v15 < v16))
     {
       v17 = *a2;
       result = os_log_type_enabled(*a2, OS_LOG_TYPE_ERROR);
       if (!result)
       {
-        goto LABEL_25;
+        return result;
       }
 
       *buf = 0;
@@ -5707,9 +5378,9 @@ LABEL_18:
     {
       v27 = &v15[v14];
       std::vector<unsigned char>::__assign_with_size[abi:ne200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>(v13 + 5, v15, &v15[v14], v14);
-      v40 = 4;
-      *buf = &v40;
-      v28 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a5, 4);
+      v39 = 4;
+      *buf = &v39;
+      v28 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a5, 4, buf);
       if (v27 != v12)
       {
         v31 = *v27;
@@ -5718,55 +5389,59 @@ LABEL_18:
         if (v12 - v30 >= v31)
         {
           std::vector<unsigned char>::__assign_with_size[abi:ne200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>(v28 + 5, v30, &v30[v29], v29);
-          v40 = 3;
-          *buf = &v40;
-          v33 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a5, 3);
-          if (v33[6] - v33[5] == 4)
+          v39 = 3;
+          *buf = &v39;
+          v32 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a5, 3, buf);
+          if (v32[6] - v32[5] == 4)
           {
-            v40 = 4;
-            *buf = &v40;
-            v34 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a5, 4);
-            if (v34[6] - v34[5] == 8)
+            v39 = 4;
+            *buf = &v39;
+            v33 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a5, 4, buf);
+            if (v33[6] - v33[5] == 8)
             {
-              goto LABEL_5;
+              return 1;
             }
 
-            v35 = *a2;
-            result = os_log_type_enabled(v35, OS_LOG_TYPE_ERROR);
+            v34 = *a2;
+            result = os_log_type_enabled(v34, OS_LOG_TYPE_ERROR);
             if (!result)
             {
-              goto LABEL_25;
+              return result;
             }
 
-            v40 = 4;
-            *buf = &v40;
-            v36 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a5, 4);
-            v37 = v36[6] - v36[5];
+            v39 = 4;
+            *buf = &v39;
+            v35 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a5, 4, buf);
+            v36 = v35[6] - v35[5];
             *buf = 134217984;
-            *&buf[4] = v37;
+            *&buf[4] = v36;
             v18 = "EAP-SIM authentication invalid SRES size (%lu)";
           }
 
           else
           {
-            v35 = *a2;
-            result = os_log_type_enabled(v35, OS_LOG_TYPE_ERROR);
+            v34 = *a2;
+            result = os_log_type_enabled(v34, OS_LOG_TYPE_ERROR);
             if (!result)
             {
-              goto LABEL_25;
+              return result;
             }
 
-            v40 = 3;
-            *buf = &v40;
-            v38 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a5, 3);
-            v39 = v38[6] - v38[5];
+            v39 = 3;
+            *buf = &v39;
+            v37 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a5, 3, buf);
+            v38 = v37[6] - v37[5];
             *buf = 134217984;
-            *&buf[4] = v39;
+            *&buf[4] = v38;
             v18 = "EAP-SIM authentication invalid SRES size (%lu)";
           }
 
-          v20 = v35;
-          goto LABEL_13;
+          v20 = v34;
+LABEL_13:
+          v21 = 12;
+LABEL_24:
+          _os_log_error_impl(&dword_2374EE000, v20, OS_LOG_TYPE_ERROR, v18, buf, v21);
+          return 0;
         }
       }
 
@@ -5774,7 +5449,7 @@ LABEL_18:
       result = os_log_type_enabled(*a2, OS_LOG_TYPE_ERROR);
       if (!result)
       {
-        goto LABEL_25;
+        return result;
       }
 
       *buf = 0;
@@ -5792,56 +5467,50 @@ LABEL_18:
     result = os_log_type_enabled(*a2, OS_LOG_TYPE_ERROR);
     if (!result)
     {
-      goto LABEL_25;
+      return result;
     }
 
     *buf = 136315138;
     *&buf[4] = subscriber::asString();
     v18 = "SIM authenticate response invalid card %ss; dropping";
     v20 = v19;
-LABEL_13:
-    v21 = 12;
-LABEL_24:
-    _os_log_error_impl(&dword_2374EE000, v20, OS_LOG_TYPE_ERROR, v18, buf, v21);
-    result = 0;
-    goto LABEL_25;
+    goto LABEL_13;
   }
 
-  if (a4[1] - *a4 != 12)
+  if (a4[1] - *a4 == 12)
   {
-    v22 = *a2;
-    result = os_log_type_enabled(*a2, OS_LOG_TYPE_ERROR);
-    if (!result)
-    {
-      goto LABEL_25;
-    }
+    v39 = 3;
+    *buf = &v39;
+    v8 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a5, 3, buf);
+    std::vector<unsigned char>::__assign_with_size[abi:ne200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>(v8 + 5, *a4, *a4 + 4, 4uLL);
+    v39 = 4;
+    *buf = &v39;
+    v9 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a5, 4, buf);
+    std::vector<unsigned char>::__assign_with_size[abi:ne200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>(v9 + 5, a4[1] - 8, a4[1], 8uLL);
+    return 1;
+  }
 
+  v22 = *a2;
+  result = os_log_type_enabled(*a2, OS_LOG_TYPE_ERROR);
+  if (result)
+  {
     v23 = subscriber::asString();
     v24 = a4[1] - *a4;
     *buf = 136315394;
     *&buf[4] = v23;
-    v42 = 2048;
-    v43 = v24;
+    v41 = 2048;
+    v42 = v24;
     v18 = "SIM authenticate response for card %s should be 12 bytes but is %zd bytes; dropping";
-    goto LABEL_18;
+LABEL_18:
+    v20 = v22;
+    v21 = 22;
+    goto LABEL_24;
   }
 
-  v40 = 3;
-  *buf = &v40;
-  v8 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a5, 3);
-  std::vector<unsigned char>::__assign_with_size[abi:ne200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>(v8 + 5, *a4, *a4 + 4, 4uLL);
-  v40 = 4;
-  *buf = &v40;
-  v9 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a5, 4);
-  std::vector<unsigned char>::__assign_with_size[abi:ne200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>(v9 + 5, a4[1] - 8, a4[1], 8uLL);
-LABEL_5:
-  result = 1;
-LABEL_25:
-  v32 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-BOOL subscriber::SimCommandDriver::parseEapAka(uint64_t a1, os_log_t *a2, unsigned __int8 **a3, uint64_t a4)
+BOOL subscriber::SimCommandDriver::parseEapAka(uint64_t a1, os_log_t *a2, unsigned __int8 **a3, uint64_t **a4)
 {
   v5 = *a3;
   v6 = a3[1];
@@ -5878,7 +5547,7 @@ BOOL subscriber::SimCommandDriver::parseEapAka(uint64_t a1, os_log_t *a2, unsign
 
     v34 = 9;
     *buf = &v34;
-    v9 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a4, 9);
+    v9 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a4, 9, buf);
     if (v5 + 1 == v6 || (v10 = v5[1], v6 - (v5 + 2) < v10))
     {
       v11 = *a2;
@@ -5899,7 +5568,7 @@ BOOL subscriber::SimCommandDriver::parseEapAka(uint64_t a1, os_log_t *a2, unsign
 
   v34 = 5;
   *buf = &v34;
-  v15 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a4, 5);
+  v15 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a4, 5, buf);
   if (v5 + 1 == v6 || (v16 = v5 + 2, v17 = v5[1], v6 - (v5 + 2) < v17))
   {
     v11 = *a2;
@@ -5918,7 +5587,7 @@ BOOL subscriber::SimCommandDriver::parseEapAka(uint64_t a1, os_log_t *a2, unsign
   std::vector<unsigned char>::__assign_with_size[abi:ne200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>(v15 + 5, v16, &v16[v17], v17);
   v34 = 6;
   *buf = &v34;
-  v19 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a4, 6);
+  v19 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a4, 6, buf);
   if (v18 == v6 || (v22 = *v18, v21 = (v18 + 1), v20 = v22, v6 - v21 < v22))
   {
     v11 = *a2;
@@ -5939,7 +5608,7 @@ LABEL_16:
     std::vector<unsigned char>::__assign_with_size[abi:ne200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>(v19 + 5, v21, &v21[v20], v20);
     v34 = 7;
     *buf = &v34;
-    v24 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a4, 7);
+    v24 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a4, 7, buf);
     if (v23 == v6 || (v27 = *v23, v26 = (v23 + 1), v25 = v27, v6 - v26 < v27))
     {
       v11 = *a2;
@@ -5958,7 +5627,7 @@ LABEL_16:
       std::vector<unsigned char>::__assign_with_size[abi:ne200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>(v24 + 5, v26, &v26[v25], v25);
       v34 = 4;
       *buf = &v34;
-      v29 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a4, 4);
+      v29 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a4, 4, buf);
       if (v28 == v6)
       {
         return 1;
@@ -5993,7 +5662,7 @@ LABEL_16:
   return result;
 }
 
-BOOL subscriber::SimCommandDriver::parseImsAka(uint64_t a1, os_log_t *a2, int a3, unsigned __int8 **a4, uint64_t a5)
+BOOL subscriber::SimCommandDriver::parseImsAka(uint64_t a1, os_log_t *a2, int a3, unsigned __int8 **a4, uint64_t **a5)
 {
   v6 = *a4;
   v7 = a4[1];
@@ -6017,7 +5686,7 @@ BOOL subscriber::SimCommandDriver::parseImsAka(uint64_t a1, os_log_t *a2, int a3
   {
     v32 = 9;
     *buf = &v32;
-    v18 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a5, 9);
+    v18 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a5, 9, buf);
     if (v10 == v7 || (v19 = (v6 + 2), v20 = v6[1], v7 - (v6 + 2) < v20))
     {
       v15 = *a2;
@@ -6054,7 +5723,7 @@ BOOL subscriber::SimCommandDriver::parseImsAka(uint64_t a1, os_log_t *a2, int a3
 
     v32 = 5;
     *buf = &v32;
-    v12 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a5, 5);
+    v12 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a5, 5, buf);
     if (v10 == v7 || (v13 = (v6 + 2), v14 = v6[1], v7 - (v6 + 2) < v14))
     {
       v15 = *a2;
@@ -6073,7 +5742,7 @@ BOOL subscriber::SimCommandDriver::parseImsAka(uint64_t a1, os_log_t *a2, int a3
     std::vector<unsigned char>::__assign_with_size[abi:ne200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>(v12 + 5, v13, &v13[v14], v14);
     v32 = 6;
     *buf = &v32;
-    v22 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a5, 6);
+    v22 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a5, 6, buf);
     if (v21 == v7 || (v25 = *v21, v24 = (v21 + 1), v23 = v25, v7 - v24 < v25))
     {
       v15 = *a2;
@@ -6094,7 +5763,7 @@ LABEL_16:
     std::vector<unsigned char>::__assign_with_size[abi:ne200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>(v22 + 5, v24, &v24[v23], v23);
     v32 = 7;
     *buf = &v32;
-    v28 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a5, 7);
+    v28 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a5, 7, buf);
     if (v27 == v7 || (v31 = *v27, v30 = (v27 + 1), v29 = v31, v7 - v30 < v31))
     {
       v15 = *a2;
@@ -6137,7 +5806,7 @@ LABEL_16:
   return result;
 }
 
-BOOL subscriber::SimCommandDriver::parseImsGbaBs(uint64_t a1, os_log_t *a2, unsigned __int8 **a3, uint64_t a4)
+BOOL subscriber::SimCommandDriver::parseImsGbaBs(uint64_t a1, os_log_t *a2, unsigned __int8 **a3, uint64_t **a4)
 {
   v5 = *a3;
   v6 = a3[1];
@@ -6161,7 +5830,7 @@ BOOL subscriber::SimCommandDriver::parseImsGbaBs(uint64_t a1, os_log_t *a2, unsi
   {
     v17 = 9;
     *buf = &v17;
-    v9 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a4, 9);
+    v9 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a4, 9, buf);
     if (v8 == v6 || (v10 = (v5 + 2), v11 = v5[1], v6 - (v5 + 2) < v11))
     {
       v12 = *a2;
@@ -6195,7 +5864,7 @@ BOOL subscriber::SimCommandDriver::parseImsGbaBs(uint64_t a1, os_log_t *a2, unsi
 
     v17 = 5;
     *buf = &v17;
-    v9 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a4, 5);
+    v9 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a4, 5, buf);
     if (v8 == v6 || (v10 = (v5 + 2), v11 = v5[1], v6 - (v5 + 2) < v11))
     {
       v12 = *a2;
@@ -6228,7 +5897,7 @@ LABEL_16:
   return 1;
 }
 
-BOOL subscriber::SimCommandDriver::parseImsGbaNaf(uint64_t a1, os_log_t *a2, unsigned __int8 **a3, uint64_t a4)
+BOOL subscriber::SimCommandDriver::parseImsGbaNaf(uint64_t a1, os_log_t *a2, unsigned __int8 **a3, uint64_t **a4)
 {
   v5 = *a3;
   v6 = a3[1];
@@ -6264,7 +5933,7 @@ LABEL_11:
 
   v16 = 8;
   *buf = &v16;
-  v7 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a4, 8);
+  v7 = std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(a4, 8, buf);
   if (v5 + 1 == v6 || (v8 = (v5 + 2), v9 = v5[1], v6 - (v5 + 2) < v9))
   {
     v10 = *a2;
@@ -6294,17 +5963,17 @@ LABEL_11:
   return 1;
 }
 
-uint64_t boost::signals2::signal<void ()(subscriber::SimSlot,subscriber::SimCard),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(subscriber::SimSlot,subscriber::SimCard)>,boost::function<void ()(boost::signals2::connection const&,subscriber::SimSlot,subscriber::SimCard)>,boost::signals2::mutex>::~signal(uint64_t a1)
+atomic_uint **boost::signals2::signal<void ()(subscriber::SimSlot,subscriber::SimCard),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(subscriber::SimSlot,subscriber::SimCard)>,boost::function<void ()(boost::signals2::connection const&,subscriber::SimSlot,subscriber::SimCard)>,boost::signals2::mutex>::~signal(atomic_uint **a1)
 {
   *a1 = &unk_284A7BB50;
-  boost::detail::shared_count::~shared_count((a1 + 16));
+  boost::detail::shared_count::~shared_count(a1 + 2);
   return a1;
 }
 
-void boost::signals2::signal<void ()(subscriber::SimSlot,subscriber::SimCard),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(subscriber::SimSlot,subscriber::SimCard)>,boost::function<void ()(boost::signals2::connection const&,subscriber::SimSlot,subscriber::SimCard)>,boost::signals2::mutex>::~signal(uint64_t a1)
+void boost::signals2::signal<void ()(subscriber::SimSlot,subscriber::SimCard),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(subscriber::SimSlot,subscriber::SimCard)>,boost::function<void ()(boost::signals2::connection const&,subscriber::SimSlot,subscriber::SimCard)>,boost::signals2::mutex>::~signal(atomic_uint **a1)
 {
   *a1 = &unk_284A7BB50;
-  boost::detail::shared_count::~shared_count((a1 + 16));
+  boost::detail::shared_count::~shared_count(a1 + 2);
 
   JUMPOUT(0x2383CD480);
 }
@@ -6490,7 +6159,7 @@ uint64_t std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<subs
       *(v7 + 32) = a1[v6 + 2].n128_u64[0];
       std::vector<unsigned char>::__move_assign(a3 + v6 * 16 + 40, &a1[v6 + 2].n128_i8[8]);
       *(v7 + 64) = a1[v6 + 4].n128_u64[0];
-      v9 = &a1[v6 + 4].n128_i8[8];
+      v9 = &a1[v6 + 4].n128_u64[1];
       std::vector<unsigned char>::__move_assign(a3 + v6 * 16 + 72, v9);
       v10 = (a3 + v6 * 16 + 96);
       if (*v10)
@@ -6520,14 +6189,14 @@ uint64_t std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<subs
       v6 += 9;
     }
 
-    while (&v9[4].n128_i8[8] != a2);
+    while (v9 + 9 != a2);
     a3 += v6 * 16;
   }
 
   return a3;
 }
 
-void *std::vector<unsigned char>::__assign_with_size[abi:ne200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<unsigned char>::__assign_with_size[abi:ne200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -6621,14 +6290,14 @@ void std::__list_imp<boost::shared_ptr<boost::signals2::detail::connection_body<
     v2 = a1[1];
     v3 = *(*a1 + 1);
     v4 = *v2;
-    *(v4 + 1) = v3;
+    *(v4 + 8) = v3;
     *v3 = v4;
     a1[2] = 0;
     if (v2 != a1)
     {
       do
       {
-        v5 = v2[1];
+        v5 = *(v2 + 1);
         boost::detail::shared_count::~shared_count(v2 + 3);
         operator delete(v2);
         v2 = v5;
@@ -6899,7 +6568,7 @@ uint64_t std::__function::__func<subscriber::SimCommandDriver::readFile(subscrib
   *(a2 + 16) = v5;
   *(a2 + 40) = 0;
   *(a2 + 48) = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a2 + 32, *(a1 + 32), *(a1 + 40), *(a1 + 40) - *(a1 + 32));
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>((a2 + 32), *(a1 + 32), *(a1 + 40), *(a1 + 40) - *(a1 + 32));
   v6 = *(a1 + 56);
   v7 = *(a1 + 64);
   *(a2 + 72) = 0;
@@ -6907,7 +6576,7 @@ uint64_t std::__function::__func<subscriber::SimCommandDriver::readFile(subscrib
   *(a2 + 64) = v7;
   *(a2 + 80) = 0;
   *(a2 + 88) = 0;
-  std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(a2 + 72, *(a1 + 72), *(a1 + 80), (*(a1 + 80) - *(a1 + 72)) >> 1);
+  std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>((a2 + 72), *(a1 + 72), *(a1 + 80), (*(a1 + 80) - *(a1 + 72)) >> 1);
   return std::__function::__value_func<void ()(std::shared_ptr<std::vector<unsigned char>>)>::__value_func[abi:ne200100](a2 + 96, a1 + 96);
 }
 
@@ -7121,13 +6790,13 @@ uint64_t std::__function::__func<subscriber::SimCommandDriver::readFile(subscrib
   *(a2 + 16) = v5;
   *(a2 + 40) = 0;
   *(a2 + 48) = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a2 + 32, *(a1 + 32), *(a1 + 40), *(a1 + 40) - *(a1 + 32));
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>((a2 + 32), *(a1 + 32), *(a1 + 40), *(a1 + 40) - *(a1 + 32));
   v6 = *(a1 + 56);
   *(a2 + 64) = 0;
   *(a2 + 56) = v6;
   *(a2 + 72) = 0;
   *(a2 + 80) = 0;
-  std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(a2 + 64, *(a1 + 64), *(a1 + 72), (*(a1 + 72) - *(a1 + 64)) >> 1);
+  std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>((a2 + 64), *(a1 + 64), *(a1 + 72), (*(a1 + 72) - *(a1 + 64)) >> 1);
   return std::__function::__value_func<void ()(std::shared_ptr<std::vector<unsigned char>>)>::__value_func[abi:ne200100](a2 + 88, a1 + 88);
 }
 
@@ -7191,82 +6860,79 @@ void std::__function::__func<subscriber::SimCommandDriver::readFile(subscriber::
 
 void std::__function::__func<subscriber::SimCommandDriver::readFile(subscriber::SimCardInfo const&,subscriber::FileId const&,std::function<void ()(std::shared_ptr<std::vector<unsigned char>>)> const&)::$_0,std::allocator<subscriber::SimCommandDriver::readFile(subscriber::SimCardInfo const&,subscriber::FileId const&,std::function<void ()(std::shared_ptr<std::vector<unsigned char>>)> const&)::$_0>,void ()(std::optional<subscriber::SimFileAttributes>,subscriber::SimFileType)>::operator()(uint64_t a1, uint64_t *a2, int *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v4 = *a2;
   v5 = *(a1 + 8);
   if ((*a2 & 0x1000000000000) == 0)
   {
-    v6 = *(*(*v5[6] + 16))(v5[6], *(a1 + 16));
+    v6 = *(*(*v5[6] + 16))(v5[6], *(a1 + 16), a3);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v17) = 0;
-      _os_log_error_impl(&dword_2374EE000, v6, OS_LOG_TYPE_ERROR, "Missing file attributes", &v17, 2u);
+      LOWORD(v15) = 0;
+      _os_log_error_impl(&dword_2374EE000, v6, OS_LOG_TYPE_ERROR, "Missing file attributes", &v15, 2u);
     }
 
-    v17 = 0;
-    v18 = 0;
+    v15 = 0;
+    v16 = 0;
     v7 = *(a1 + 112);
     if (!v7)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    (*(*v7 + 48))(v7, &v17);
-    if (v18)
+    (*(*v7 + 48))(v7, &v15);
+    if (v16)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v18);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v16);
     }
 
-    goto LABEL_16;
+    return;
   }
 
   v8 = *a3;
   if (*a3 <= 1)
   {
-    if (v8)
+    if (!v8)
     {
-      if (v8 != 1)
-      {
-        goto LABEL_16;
-      }
-
-LABEL_13:
-      v9 = *(*(*v5[6] + 16))(v5[6], *(a1 + 16));
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-      {
-        LOWORD(v17) = 0;
-        _os_log_impl(&dword_2374EE000, v9, OS_LOG_TYPE_DEFAULT, "#I Unsupported file type", &v17, 2u);
-      }
-
-      goto LABEL_16;
+      std::__function::__value_func<void ()(std::shared_ptr<std::vector<unsigned char>>)>::__value_func[abi:ne200100](&v15, a1 + 88);
+      ((*v5)[2])(v5, a1 + 16, a1 + 56, &v15);
+      std::__function::__value_func<void ()(std::shared_ptr<std::vector<unsigned char>>)>::~__value_func[abi:ne200100](&v15);
+      return;
     }
 
-    std::__function::__value_func<void ()(std::shared_ptr<std::vector<unsigned char>>)>::__value_func[abi:ne200100](&v17, a1 + 88);
-    ((*v5)[2])(v5, a1 + 16, a1 + 56, &v17);
-    std::__function::__value_func<void ()(std::shared_ptr<std::vector<unsigned char>>)>::~__value_func[abi:ne200100](&v17);
-LABEL_16:
-    v10 = *MEMORY[0x277D85DE8];
-    return;
+    if (v8 != 1)
+    {
+      return;
+    }
+
+    goto LABEL_13;
   }
 
   if (v8 != 2)
   {
-    if (v8 == 3)
+    if (v8 != 3)
     {
-      goto LABEL_13;
+      return;
     }
 
-    goto LABEL_16;
+LABEL_13:
+    v9 = *(*(*v5[6] + 16))(v5[6], *(a1 + 16));
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(v15) = 0;
+      _os_log_impl(&dword_2374EE000, v9, OS_LOG_TYPE_DEFAULT, "#I Unsupported file type", &v15, 2u);
+    }
+
+    return;
   }
 
-  v11 = (*v5)[3];
-  v12 = *MEMORY[0x277D85DE8];
-  v13 = a1 + 16;
-  v14 = a1 + 56;
-  v15 = a1 + 88;
-  v16 = *(a1 + 8);
+  v10 = (*v5)[3];
+  v11 = a1 + 16;
+  v12 = a1 + 56;
+  v13 = a1 + 88;
+  v14 = *(a1 + 8);
 
-  v11(v16, v13, v14, WORD1(v4), v15);
+  v10(v14, v11, v12, WORD1(v4), v13);
 }
 
 uint64_t std::__function::__func<subscriber::SimCommandDriver::readFile(subscriber::SimCardInfo const&,subscriber::FileId const&,std::function<void ()(std::shared_ptr<std::vector<unsigned char>>)> const&)::$_0,std::allocator<subscriber::SimCommandDriver::readFile(subscriber::SimCardInfo const&,subscriber::FileId const&,std::function<void ()(std::shared_ptr<std::vector<unsigned char>>)> const&)::$_0>,void ()(std::optional<subscriber::SimFileAttributes>,subscriber::SimFileType)>::target(uint64_t a1, uint64_t a2)
@@ -7283,45 +6949,43 @@ uint64_t std::__function::__func<subscriber::SimCommandDriver::readFile(subscrib
 
 uint64_t *dispatch::async<void ctu::SharedSynchronizable<subscriber::SimCommandDriver>::execute_wrapped<subscriber::SimCommandDriver::bootstrap(dispatch::group_session)::$_0>(subscriber::SimCommandDriver::bootstrap(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<subscriber::SimCommandDriver::bootstrap(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<subscriber::SimCommandDriver::bootstrap(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(void **a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v1 = *a1;
-  v5 = a1;
-  v6 = v1;
+  v4 = a1;
+  v5 = v1;
   v2 = *v1;
   (*(**v1 + 168))(*v1);
   std::string::basic_string[abi:ne200100]<0>(__p, "/cc/props/call_state");
-  v9 = &unk_284A7BF50;
-  v10 = (v2 + 104);
-  v11 = &v9;
+  v8 = &unk_284A7BF50;
+  v9 = (v2 + 104);
+  v10 = &v8;
   ctu::RestModule::observeProperty();
-  std::__function::__value_func<void ()(xpc::object)>::~__value_func[abi:ne200100](&v9);
-  if (v8 < 0)
+  std::__function::__value_func<void ()(xpc::object)>::~__value_func[abi:ne200100](&v8);
+  if (v7 < 0)
   {
     operator delete(__p[0]);
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, "/cc/props/current_calls");
-  v9 = &unk_284A7BFD0;
-  v10 = (v2 + 108);
-  v11 = &v9;
+  v8 = &unk_284A7BFD0;
+  v9 = (v2 + 108);
+  v10 = &v8;
   ctu::RestModule::observeProperty();
-  std::__function::__value_func<void ()(xpc::object)>::~__value_func[abi:ne200100](&v9);
-  if (v8 < 0)
+  std::__function::__value_func<void ()(xpc::object)>::~__value_func[abi:ne200100](&v8);
+  if (v7 < 0)
   {
     operator delete(__p[0]);
   }
 
-  Registry::createRestModuleOneTimeUseConnection(&v9, *(v2 + 56));
+  Registry::createRestModuleOneTimeUseConnection(&v8, *(v2 + 56));
   ctu::RestModule::connect();
-  if (v10)
+  if (v9)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
   }
 
-  std::unique_ptr<CallAudioDriver::bootstrap(dispatch::group_session)::$_0,std::default_delete<CallAudioDriver::bootstrap(dispatch::group_session)::$_0>>::~unique_ptr[abi:ne200100](&v6);
-  result = std::unique_ptr<void ctu::SharedSynchronizable<awd::AppContext>::execute_wrapped<awd::AppContext::updateClientState(awd::ClientState)::$_0>(awd::AppContext::updateClientState(awd::ClientState)::$_0 &&)::{lambda(void)#1},std::default_delete<awd::AppContext::updateClientState(awd::ClientState)::$_0 &&>>::~unique_ptr[abi:ne200100](&v5);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  std::unique_ptr<CallAudioDriver::bootstrap(dispatch::group_session)::$_0,std::default_delete<CallAudioDriver::bootstrap(dispatch::group_session)::$_0>>::~unique_ptr[abi:ne200100](&v5);
+  return std::unique_ptr<void ctu::SharedSynchronizable<awd::AppContext>::execute_wrapped<awd::AppContext::updateClientState(awd::ClientState)::$_0>(awd::AppContext::updateClientState(awd::ClientState)::$_0 &&)::{lambda(void)#1},std::default_delete<awd::AppContext::updateClientState(awd::ClientState)::$_0 &&>>::~unique_ptr[abi:ne200100](&v4);
 }
 
 void sub_2375076F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, char a17, std::__shared_weak_count *a18)
@@ -7491,7 +7155,7 @@ LABEL_27:
       while (1)
       {
         v12 = v10;
-        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(object, v10 + 4) & 0x80) == 0)
+        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(object, v10 + 32) & 0x80) == 0)
         {
           break;
         }
@@ -7509,8 +7173,8 @@ LABEL_27:
         break;
       }
 
-      v11 = v12 + 1;
-      v10 = v12[1];
+      v11 = (v12 + 8);
+      v10 = *(v12 + 1);
       if (!v10)
       {
         goto LABEL_38;
@@ -7583,29 +7247,28 @@ uint64_t std::__function::__func<ctu::rest::property_derived_sink_t<current_call
 
 void std::__function::__func<ctu::rest::property_derived_sink_t<current_calls::last_call_sub_type>::bind(ctu::RestModule &)::{lambda(xpc::object const&)#1},std::allocator<ctu::rest::property_derived_sink_t<current_calls::last_call_sub_type>::bind(ctu::RestModule &)::{lambda(xpc::object const&)#1}>,void ()(xpc::object)>::operator()(uint64_t a1, xpc_object_t *a2)
 {
-  v2 = *(a1 + 8);
-  v3 = *a2;
+  v2 = *a2;
+  v22 = 0;
   v23 = 0;
   v24 = 0;
-  v25 = 0;
-  v4 = MEMORY[0x277D86440];
-  if (v3 && MEMORY[0x2383CD810](v3) == v4)
+  v3 = MEMORY[0x277D86440];
+  if (v2 && MEMORY[0x2383CD810](v2) == v3)
   {
-    xpc_retain(v3);
+    xpc_retain(v2);
   }
 
   else
   {
-    v3 = xpc_null_create();
+    v2 = xpc_null_create();
   }
 
-  v24 = v23;
-  if (MEMORY[0x2383CD810](v3) == v4)
+  v23 = v22;
+  if (MEMORY[0x2383CD810](v2) == v3)
   {
-    object = v3;
-    if (v3)
+    object = v2;
+    if (v2)
     {
-      xpc_retain(v3);
+      xpc_retain(v2);
     }
 
     else
@@ -7613,23 +7276,23 @@ void std::__function::__func<ctu::rest::property_derived_sink_t<current_calls::l
       object = xpc_null_create();
     }
 
-    xpc::array::iterator::iterator(&v20, &object, 0);
+    xpc::array::iterator::iterator(&v19, &object, 0);
     xpc_release(object);
-    v26[0] = v3;
-    if (v3)
+    v25[0] = v2;
+    if (v2)
     {
-      xpc_retain(v3);
+      xpc_retain(v2);
     }
 
     else
     {
-      v26[0] = xpc_null_create();
+      v25[0] = xpc_null_create();
     }
 
-    v19 = v3;
-    if (MEMORY[0x2383CD810](v3) == v4)
+    v18 = v2;
+    if (MEMORY[0x2383CD810](v2) == v3)
     {
-      count = xpc_array_get_count(v3);
+      count = xpc_array_get_count(v2);
     }
 
     else
@@ -7637,117 +7300,117 @@ void std::__function::__func<ctu::rest::property_derived_sink_t<current_calls::l
       count = 0;
     }
 
-    xpc::array::iterator::iterator(&object, v26, count);
-    xpc_release(v26[0]);
-    for (i = v21; i != v28 || v20 != object; i = ++v21)
+    xpc::array::iterator::iterator(&object, v25, count);
+    xpc_release(v25[0]);
+    for (i = v20; i != v27 || v19 != object; i = ++v20)
     {
-      v26[0] = &v20;
-      v26[1] = i;
-      v7 = v24;
-      if (v24 >= v25)
+      v25[0] = &v19;
+      v25[1] = i;
+      v6 = v23;
+      if (v23 >= v24)
       {
-        v9 = v24 - v23;
-        if ((v9 + 1) >> 61)
+        v8 = v23 - v22;
+        if ((v8 + 1) >> 61)
         {
           std::vector<unsigned short>::__throw_length_error[abi:ne200100]();
         }
 
-        v10 = (v25 - v23) >> 2;
-        if (v10 <= v9 + 1)
+        v9 = (v24 - v22) >> 2;
+        if (v9 <= v8 + 1)
         {
-          v10 = v9 + 1;
+          v9 = v8 + 1;
         }
 
-        if (v25 - v23 >= 0x7FFFFFFFFFFFFFF8)
+        if (v24 - v22 >= 0x7FFFFFFFFFFFFFF8)
         {
-          v11 = 0x1FFFFFFFFFFFFFFFLL;
+          v10 = 0x1FFFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v11 = v10;
+          v10 = v9;
         }
 
-        if (v11)
+        if (v10)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<CurrentCallInfo>>(v11);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<CurrentCallInfo>>(v10);
         }
 
-        v12 = (8 * v9);
-        *v12 = 0;
-        *v12 = xpc_null_create();
+        v11 = (8 * v8);
+        *v11 = 0;
+        *v11 = xpc_null_create();
+        v12 = v22;
         v13 = v23;
-        v14 = v24;
-        v15 = 8 * v9 + v23 - v24;
-        if (v23 != v24)
+        v14 = 8 * v8 + v22 - v23;
+        if (v22 != v23)
         {
-          v16 = v23;
-          v17 = (v12 + v23 - v24);
+          v15 = v22;
+          v16 = (v11 + v22 - v23);
           do
           {
-            *v17 = *v16;
-            *v16++ = xpc_null_create();
-            ++v17;
+            *v16 = *v15;
+            *v15++ = xpc_null_create();
+            ++v16;
           }
 
-          while (v16 != v14);
+          while (v15 != v13);
           do
           {
-            std::__destroy_at[abi:ne200100]<CurrentCallInfo,0>(v13++);
+            std::__destroy_at[abi:ne200100]<CurrentCallInfo,0>(v12++);
           }
 
-          while (v13 != v14);
-          v13 = v23;
+          while (v12 != v13);
+          v12 = v22;
         }
 
-        v8 = v12 + 1;
-        v23 = v15;
-        v24 = v8;
-        v25 = 0;
-        if (v13)
+        v7 = v11 + 1;
+        v22 = v14;
+        v23 = v7;
+        v24 = 0;
+        if (v12)
         {
-          operator delete(v13);
+          operator delete(v12);
         }
       }
 
       else
       {
-        *v24 = 0;
-        *v7 = xpc_null_create();
-        v8 = v7 + 1;
+        *v23 = 0;
+        *v6 = xpc_null_create();
+        v7 = v6 + 1;
       }
 
-      v24 = v8;
-      xpc::array::object_proxy::operator xpc::object(v26, &v29);
+      v23 = v7;
+      xpc::array::object_proxy::operator xpc::object(v25, &v28);
       read_rest_value();
-      xpc_release(v29);
+      xpc_release(v28);
     }
 
     xpc_release(object);
-    xpc_release(v20);
-    v3 = v19;
+    xpc_release(v19);
+    v2 = v18;
   }
 
-  xpc_release(v3);
+  xpc_release(v2);
+  v19 = 0;
   v20 = 0;
   v21 = 0;
-  v22 = 0;
-  object = &v20;
-  v18 = v24 - v23;
-  if (v24 != v23)
+  object = &v19;
+  v17 = v23 - v22;
+  if (v23 != v22)
   {
-    v28 = 0;
-    if (!((v18 >> 3) >> 61))
+    v27 = 0;
+    if (!((v17 >> 3) >> 61))
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<CurrentCallInfo>>(v18 >> 3);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<CurrentCallInfo>>(v17 >> 3);
     }
 
     std::vector<unsigned short>::__throw_length_error[abi:ne200100]();
   }
 
-  object = &v20;
+  object = &v19;
   std::vector<CurrentCallInfo>::__destroy_vector::operator()[abi:ne200100](&object);
-  object = &v23;
+  object = &v22;
   std::vector<CurrentCallInfo>::__destroy_vector::operator()[abi:ne200100](&object);
 }
 
@@ -7798,7 +7461,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<CurrentCallInfo>>(uni
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::vector<CurrentCallInfo>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<CurrentCallInfo>::__destroy_vector::operator()[abi:ne200100](xpc_object_t ***a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -7936,10 +7599,10 @@ uint64_t std::__function::__value_func<void ()(BOOL)>::__value_func[abi:ne200100
   return a1;
 }
 
-uint64_t *std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(uint64_t a1, int a2)
+uint64_t **std::__tree<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::__map_value_compare<subscriber::AuthInfo,std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>,std::less<subscriber::AuthInfo>,true>,std::allocator<std::__value_type<subscriber::AuthInfo,std::vector<unsigned char>>>>::__emplace_unique_key_args<subscriber::AuthInfo,std::piecewise_construct_t const&,std::tuple<subscriber::AuthInfo&&>,std::tuple<>>(uint64_t **a1, int a2, _DWORD **a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_8:
     operator new();
@@ -7949,27 +7612,27 @@ LABEL_8:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = *(v2 + 32);
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = *(v3 + 8);
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_8;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
-      return v3;
+      return v4;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -8081,7 +7744,7 @@ void sub_2375090C4(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-void sub_2375090FC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
+void sub_2375090FC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, atomic_uint *a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14)
 {
   std::__tree<STKRegisteredEvent>::destroy(a14);
   std::__list_imp<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot,subscriber::SimCard),boost::function<void ()(subscriber::SimSlot,subscriber::SimCard)>>,boost::signals2::mutex>>>::clear(&a10);
@@ -8156,7 +7819,7 @@ void VinylCommandDriver::VinylCommandDriver(VinylCommandDriver *this, char *a2)
   MEMORY[0x2383CCDD0](v8);
   ctu::OsLogContext::~OsLogContext(v7);
   *this = &unk_284A7C0A0;
-  std::string::basic_string[abi:ne200100]<0>(this + 48, a2);
+  std::string::basic_string[abi:ne200100]<0>(this + 6, a2);
   *(this + 9) = 0;
   *(this + 10) = 0;
   *(this + 11) = 0;
@@ -8220,7 +7883,7 @@ void VinylCommandDriver::queryCsn(void *a1, int a2, uint64_t a3)
   std::__shared_weak_count::__release_shared[abi:ne200100](v7);
 }
 
-void VinylCommandDriver::getSignIdMap(void *a1, int a2, uint64_t *a3, uint64_t a4)
+void VinylCommandDriver::getSignIdMap(void *a1, int a2, uint64_t a3, uint64_t a4)
 {
   v11[0] = MEMORY[0x277D85DD0];
   v11[1] = 1174405120;
@@ -8231,7 +7894,7 @@ void VinylCommandDriver::getSignIdMap(void *a1, int a2, uint64_t *a3, uint64_t a
   __p = 0;
   v13 = 0;
   v14 = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *a3, a3[1], a3[1] - *a3);
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *a3, *(a3 + 8), *(a3 + 8) - *a3);
   v11[4] = a4;
   v6 = a1[2];
   if (!v6 || (v7 = a1[1], (v8 = std::__shared_weak_count::lock(v6)) == 0))
@@ -8289,12 +7952,12 @@ void sub_2375097C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t __copy_helper_block_e8_48c39_ZTSNSt3__16vectorIhNS_9allocatorIhEEEE(uint64_t a1, uint64_t a2)
+uint64_t *__copy_helper_block_e8_48c39_ZTSNSt3__16vectorIhNS_9allocatorIhEEEE(uint64_t a1, uint64_t a2)
 {
   *(a1 + 48) = 0;
   *(a1 + 56) = 0;
-  v2 = a1 + 48;
-  *(v2 + 16) = 0;
+  v2 = (a1 + 48);
+  v2[2] = 0;
   return std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(v2, *(a2 + 48), *(a2 + 56), *(a2 + 56) - *(a2 + 48));
 }
 
@@ -8344,16 +8007,16 @@ void VinylCommandDriver::fetchProfiles(void *a1, int a2, uint64_t a3)
 
 void VinylCommandDriver::activateProfile(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 0x40000000;
-  v14[2] = ___ZN18VinylCommandDriver15activateProfileEN10subscriber7SimSlotENSt3__15arrayIhLm16EEEU13block_pointerFvN3ctu6resultIbNS2_5tupleIJ16VinylDriverErrorhhEEEEEE_block_invoke;
-  v14[3] = &unk_278A33728;
-  v15 = a2;
-  v16 = a3;
-  v17 = a4;
-  v14[4] = a5;
-  v14[5] = a1;
+  v17 = *MEMORY[0x277D85DE8];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 0x40000000;
+  v13[2] = ___ZN18VinylCommandDriver15activateProfileEN10subscriber7SimSlotENSt3__15arrayIhLm16EEEU13block_pointerFvN3ctu6resultIbNS2_5tupleIJ16VinylDriverErrorhhEEEEEE_block_invoke;
+  v13[3] = &unk_278A33728;
+  v14 = a2;
+  v15 = a3;
+  v16 = a4;
+  v13[4] = a5;
+  v13[5] = a1;
   v6 = a1[2];
   if (!v6 || (v7 = a1[1], (v8 = std::__shared_weak_count::lock(v6)) == 0))
   {
@@ -8367,17 +8030,16 @@ void VinylCommandDriver::activateProfile(void *a1, int a2, uint64_t a3, uint64_t
   block[2] = ___ZNK3ctu20SharedSynchronizableI18VinylCommandDriverE15execute_wrappedEU13block_pointerFvvE_block_invoke;
   block[3] = &unk_284A7C748;
   block[5] = v7;
-  v13 = v9;
+  v12 = v9;
   atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-  block[4] = v14;
+  block[4] = v13;
   dispatch_async(v10, block);
-  if (v13)
+  if (v12)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
   }
 
   std::__shared_weak_count::__release_shared[abi:ne200100](v9);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_237509AA8(_Unwind_Exception *a1, int a2)
@@ -8392,16 +8054,16 @@ void sub_237509AA8(_Unwind_Exception *a1, int a2)
 
 void VinylCommandDriver::deactivateProfile(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 0x40000000;
-  v14[2] = ___ZN18VinylCommandDriver17deactivateProfileEN10subscriber7SimSlotENSt3__15arrayIhLm16EEEU13block_pointerFvN3ctu6resultIbNS2_5tupleIJ16VinylDriverErrorhhEEEEEE_block_invoke;
-  v14[3] = &unk_278A33750;
-  v15 = a2;
-  v16 = a3;
-  v17 = a4;
-  v14[4] = a5;
-  v14[5] = a1;
+  v17 = *MEMORY[0x277D85DE8];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 0x40000000;
+  v13[2] = ___ZN18VinylCommandDriver17deactivateProfileEN10subscriber7SimSlotENSt3__15arrayIhLm16EEEU13block_pointerFvN3ctu6resultIbNS2_5tupleIJ16VinylDriverErrorhhEEEEEE_block_invoke;
+  v13[3] = &unk_278A33750;
+  v14 = a2;
+  v15 = a3;
+  v16 = a4;
+  v13[4] = a5;
+  v13[5] = a1;
   v6 = a1[2];
   if (!v6 || (v7 = a1[1], (v8 = std::__shared_weak_count::lock(v6)) == 0))
   {
@@ -8415,17 +8077,16 @@ void VinylCommandDriver::deactivateProfile(void *a1, int a2, uint64_t a3, uint64
   block[2] = ___ZNK3ctu20SharedSynchronizableI18VinylCommandDriverE15execute_wrappedEU13block_pointerFvvE_block_invoke;
   block[3] = &unk_284A7C748;
   block[5] = v7;
-  v13 = v9;
+  v12 = v9;
   atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-  block[4] = v14;
+  block[4] = v13;
   dispatch_async(v10, block);
-  if (v13)
+  if (v12)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
   }
 
   std::__shared_weak_count::__release_shared[abi:ne200100](v9);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_237509C38(_Unwind_Exception *a1, int a2)
@@ -8438,22 +8099,22 @@ void sub_237509C38(_Unwind_Exception *a1, int a2)
   __clang_call_terminate(a1);
 }
 
-void VinylCommandDriver::deleteProfiles(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t a6)
+void VinylCommandDriver::deleteProfiles(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 1174405120;
-  v16[2] = ___ZN18VinylCommandDriver14deleteProfilesEN10subscriber7SimSlotENSt3__15arrayIhLm16EEENS2_6vectorIS4_NS2_9allocatorIS4_EEEEU13block_pointerFvN3ctu6resultIbNS2_5tupleIJ16VinylDriverErrorhhEEEEEE_block_invoke;
-  v16[3] = &unk_284A7C260;
-  v20 = a2;
-  v21 = a3;
-  v22 = a4;
-  v16[5] = a1;
+  v22 = *MEMORY[0x277D85DE8];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 1174405120;
+  v15[2] = ___ZN18VinylCommandDriver14deleteProfilesEN10subscriber7SimSlotENSt3__15arrayIhLm16EEENS2_6vectorIS4_NS2_9allocatorIS4_EEEEU13block_pointerFvN3ctu6resultIbNS2_5tupleIJ16VinylDriverErrorhhEEEEEE_block_invoke;
+  v15[3] = &unk_284A7C260;
+  v19 = a2;
+  v20 = a3;
+  v21 = a4;
+  v15[5] = a1;
   __p = 0;
+  v17 = 0;
   v18 = 0;
-  v19 = 0;
-  std::vector<std::array<unsigned char,16ul>>::__init_with_size[abi:ne200100]<std::array<unsigned char,16ul>*,std::array<unsigned char,16ul>*>(&__p, *a5, a5[1], (a5[1] - *a5) >> 4);
-  v16[4] = a6;
+  std::vector<std::array<unsigned char,16ul>>::__init_with_size[abi:ne200100]<std::array<unsigned char,16ul>*,std::array<unsigned char,16ul>*>(&__p, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 4);
+  v15[4] = a6;
   v8 = a1[2];
   if (!v8 || (v9 = a1[1], (v10 = std::__shared_weak_count::lock(v8)) == 0))
   {
@@ -8462,28 +8123,26 @@ void VinylCommandDriver::deleteProfiles(void *a1, int a2, uint64_t a3, uint64_t 
 
   v11 = v10;
   v12 = a1[3];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 1174405120;
-  v14[2] = ___ZNK3ctu20SharedSynchronizableI18VinylCommandDriverE15execute_wrappedEU13block_pointerFvvE_block_invoke;
-  v14[3] = &unk_284A7C748;
-  v14[5] = v9;
-  v15 = v11;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 1174405120;
+  v13[2] = ___ZNK3ctu20SharedSynchronizableI18VinylCommandDriverE15execute_wrappedEU13block_pointerFvvE_block_invoke;
+  v13[3] = &unk_284A7C748;
+  v13[5] = v9;
+  v14 = v11;
   atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
-  v14[4] = v16;
-  dispatch_async(v12, v14);
-  if (v15)
+  v13[4] = v15;
+  dispatch_async(v12, v13);
+  if (v14)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
   }
 
   std::__shared_weak_count::__release_shared[abi:ne200100](v11);
   if (__p)
   {
-    v18 = __p;
+    v17 = __p;
     operator delete(__p);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void sub_237509DFC(_Unwind_Exception *a1, int a2)
@@ -8528,8 +8187,8 @@ void __copy_helper_block_e8_48c58_ZTSNSt3__16vectorINS_5arrayIhLm16EEENS_9alloca
 {
   *(a1 + 48) = 0;
   *(a1 + 56) = 0;
-  v2 = a1 + 48;
-  *(v2 + 16) = 0;
+  v2 = (a1 + 48);
+  v2[2] = 0;
   std::vector<std::array<unsigned char,16ul>>::__init_with_size[abi:ne200100]<std::array<unsigned char,16ul>*,std::array<unsigned char,16ul>*>(v2, *(a2 + 48), *(a2 + 56), (*(a2 + 56) - *(a2 + 48)) >> 4);
 }
 
@@ -8611,7 +8270,7 @@ void VinylCommandDriver::getFirmwareUpdateData(void *a1, int a2, uint64_t a3)
   std::__shared_weak_count::__release_shared[abi:ne200100](v7);
 }
 
-void VinylCommandDriver::secureAuth(void *a1, int a2, uint64_t *a3, uint64_t a4, uint64_t a5)
+void VinylCommandDriver::secureAuth(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v13[0] = MEMORY[0x277D85DD0];
   v13[1] = 1174405120;
@@ -8622,7 +8281,7 @@ void VinylCommandDriver::secureAuth(void *a1, int a2, uint64_t *a3, uint64_t a4,
   __p = 0;
   v15 = 0;
   v16 = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *a3, a3[1], a3[1] - *a3);
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *a3, *(a3 + 8), *(a3 + 8) - *a3);
   v17 = a4;
   v13[4] = a5;
   v8 = a1[2];
@@ -8655,7 +8314,7 @@ void VinylCommandDriver::secureAuth(void *a1, int a2, uint64_t *a3, uint64_t a4,
   }
 }
 
-void VinylCommandDriver::signPayload(void *a1, int a2, uint64_t *a3, uint64_t a4)
+void VinylCommandDriver::signPayload(void *a1, int a2, uint64_t a3, uint64_t a4)
 {
   v11[0] = MEMORY[0x277D85DD0];
   v11[1] = 1174405120;
@@ -8666,7 +8325,7 @@ void VinylCommandDriver::signPayload(void *a1, int a2, uint64_t *a3, uint64_t a4
   __p = 0;
   v13 = 0;
   v14 = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *a3, a3[1], a3[1] - *a3);
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *a3, *(a3 + 8), *(a3 + 8) - *a3);
   v11[4] = a4;
   v6 = a1[2];
   if (!v6 || (v7 = a1[1], (v8 = std::__shared_weak_count::lock(v6)) == 0))
@@ -8758,7 +8417,7 @@ void VinylCommandDriver::getSessionData(void *a1, int a2, uint64_t a3)
   std::__shared_weak_count::__release_shared[abi:ne200100](v7);
 }
 
-void VinylCommandDriver::clearSessionData(void *a1, int a2, uint64_t *a3, uint64_t a4)
+void VinylCommandDriver::clearSessionData(void *a1, int a2, uint64_t a3, uint64_t a4)
 {
   v11[0] = MEMORY[0x277D85DD0];
   v11[1] = 1174405120;
@@ -8769,7 +8428,7 @@ void VinylCommandDriver::clearSessionData(void *a1, int a2, uint64_t *a3, uint64
   __p = 0;
   v13 = 0;
   v14 = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *a3, a3[1], a3[1] - *a3);
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *a3, *(a3 + 8), *(a3 + 8) - *a3);
   v11[4] = a4;
   v6 = a1[2];
   if (!v6 || (v7 = a1[1], (v8 = std::__shared_weak_count::lock(v6)) == 0))
@@ -8827,15 +8486,14 @@ void sub_23750A848(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void VinylCommandDriver::getVinylSlotTestMode(uint64_t a1, uint64_t a2)
+void VinylCommandDriver::getVinylSlotTestMode(void *a1, uint64_t a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
-  v5 = a1;
-  std::__function::__value_func<void ()(BOOL)>::__value_func[abi:ne200100](v6, a2);
-  v3 = *(a1 + 16);
+  v5[4] = *MEMORY[0x277D85DE8];
+  v4 = a1;
+  std::__function::__value_func<void ()(BOOL)>::__value_func[abi:ne200100](v5, a2);
+  v3 = a1[2];
   if (v3)
   {
-    v4 = *(a1 + 8);
     if (std::__shared_weak_count::lock(v3))
     {
       operator new();
@@ -8855,16 +8513,15 @@ void sub_23750A994(_Unwind_Exception *a1, int a2)
   __clang_call_terminate(a1);
 }
 
-void VinylCommandDriver::enableVinylSlotTestMode(uint64_t a1, char a2, uint64_t a3)
+void VinylCommandDriver::enableVinylSlotTestMode(void *a1, char a2, uint64_t a3)
 {
-  v8[4] = *MEMORY[0x277D85DE8];
-  v6 = a1;
-  v7 = a2;
-  std::__function::__value_func<void ()(BOOL)>::__value_func[abi:ne200100](v8, a3);
-  v4 = *(a1 + 16);
+  v7[4] = *MEMORY[0x277D85DE8];
+  v5 = a1;
+  v6 = a2;
+  std::__function::__value_func<void ()(BOOL)>::__value_func[abi:ne200100](v7, a3);
+  v4 = a1[2];
   if (v4)
   {
-    v5 = *(a1 + 8);
     if (std::__shared_weak_count::lock(v4))
     {
       operator new();
@@ -8918,7 +8575,7 @@ void VinylCommandDriver::getTapeEid(void *a1, int a2, uint64_t a3)
   std::__shared_weak_count::__release_shared[abi:ne200100](v7);
 }
 
-void VinylCommandDriver::enableTapeProfile(void *a1, int a2, uint64_t *a3, uint64_t a4)
+void VinylCommandDriver::enableTapeProfile(void *a1, int a2, uint64_t a3, uint64_t a4)
 {
   v11[0] = MEMORY[0x277D85DD0];
   v11[1] = 1174405120;
@@ -8929,7 +8586,7 @@ void VinylCommandDriver::enableTapeProfile(void *a1, int a2, uint64_t *a3, uint6
   __p = 0;
   v13 = 0;
   v14 = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *a3, a3[1], a3[1] - *a3);
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *a3, *(a3 + 8), *(a3 + 8) - *a3);
   v11[4] = a4;
   v6 = a1[2];
   if (!v6 || (v7 = a1[1], (v8 = std::__shared_weak_count::lock(v6)) == 0))
@@ -8987,7 +8644,7 @@ void sub_23750AE30(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void VinylCommandDriver::disableTapeProfile(void *a1, int a2, uint64_t *a3, char a4, uint64_t a5)
+void VinylCommandDriver::disableTapeProfile(void *a1, int a2, uint64_t a3, char a4, uint64_t a5)
 {
   v13[0] = MEMORY[0x277D85DD0];
   v13[1] = 1174405120;
@@ -8998,7 +8655,7 @@ void VinylCommandDriver::disableTapeProfile(void *a1, int a2, uint64_t *a3, char
   __p = 0;
   v15 = 0;
   v16 = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *a3, a3[1], a3[1] - *a3);
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *a3, *(a3 + 8), *(a3 + 8) - *a3);
   v18 = a4;
   v13[4] = a5;
   v8 = a1[2];
@@ -9057,7 +8714,7 @@ void sub_23750B034(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void VinylCommandDriver::deleteTapeProfile(void *a1, int a2, uint64_t *a3, uint64_t a4)
+void VinylCommandDriver::deleteTapeProfile(void *a1, int a2, uint64_t a3, uint64_t a4)
 {
   v11[0] = MEMORY[0x277D85DD0];
   v11[1] = 1174405120;
@@ -9068,7 +8725,7 @@ void VinylCommandDriver::deleteTapeProfile(void *a1, int a2, uint64_t *a3, uint6
   __p = 0;
   v13 = 0;
   v14 = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *a3, a3[1], a3[1] - *a3);
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *a3, *(a3 + 8), *(a3 + 8) - *a3);
   v11[4] = a4;
   v6 = a1[2];
   if (!v6 || (v7 = a1[1], (v8 = std::__shared_weak_count::lock(v6)) == 0))
@@ -9126,7 +8783,7 @@ void sub_23750B22C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void VinylCommandDriver::getTapeEuiccInfo(void *a1, int a2, uint64_t *a3, uint64_t a4)
+void VinylCommandDriver::getTapeEuiccInfo(void *a1, int a2, uint64_t a3, uint64_t a4)
 {
   v11[0] = MEMORY[0x277D85DD0];
   v11[1] = 1174405120;
@@ -9137,7 +8794,7 @@ void VinylCommandDriver::getTapeEuiccInfo(void *a1, int a2, uint64_t *a3, uint64
   __p = 0;
   v13 = 0;
   v14 = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *a3, a3[1], a3[1] - *a3);
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *a3, *(a3 + 8), *(a3 + 8) - *a3);
   v11[4] = a4;
   v6 = a1[2];
   if (!v6 || (v7 = a1[1], (v8 = std::__shared_weak_count::lock(v6)) == 0))
@@ -9195,7 +8852,7 @@ void sub_23750B424(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void VinylCommandDriver::tapeSetProprietaryData(void *a1, int a2, uint64_t *a3, uint64_t a4)
+void VinylCommandDriver::tapeSetProprietaryData(void *a1, int a2, uint64_t a3, uint64_t a4)
 {
   v11[0] = MEMORY[0x277D85DD0];
   v11[1] = 1174405120;
@@ -9206,7 +8863,7 @@ void VinylCommandDriver::tapeSetProprietaryData(void *a1, int a2, uint64_t *a3, 
   __p = 0;
   v13 = 0;
   v14 = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *a3, a3[1], a3[1] - *a3);
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *a3, *(a3 + 8), *(a3 + 8) - *a3);
   v11[4] = a4;
   v6 = a1[2];
   if (!v6 || (v7 = a1[1], (v8 = std::__shared_weak_count::lock(v6)) == 0))
@@ -9264,7 +8921,7 @@ void sub_23750B630(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void VinylCommandDriver::getTapeEuiccChallenge(void *a1, int a2, uint64_t *a3, uint64_t a4)
+void VinylCommandDriver::getTapeEuiccChallenge(void *a1, int a2, uint64_t a3, uint64_t a4)
 {
   v11[0] = MEMORY[0x277D85DD0];
   v11[1] = 1174405120;
@@ -9275,7 +8932,7 @@ void VinylCommandDriver::getTapeEuiccChallenge(void *a1, int a2, uint64_t *a3, u
   __p = 0;
   v13 = 0;
   v14 = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *a3, a3[1], a3[1] - *a3);
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *a3, *(a3 + 8), *(a3 + 8) - *a3);
   v11[4] = a4;
   v6 = a1[2];
   if (!v6 || (v7 = a1[1], (v8 = std::__shared_weak_count::lock(v6)) == 0))
@@ -9333,7 +8990,7 @@ void sub_23750B828(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void VinylCommandDriver::tapeAuthenticateServer(void *a1, int a2, uint64_t *a3, uint64_t a4)
+void VinylCommandDriver::tapeAuthenticateServer(void *a1, int a2, uint64_t a3, uint64_t a4)
 {
   v11[0] = MEMORY[0x277D85DD0];
   v11[1] = 1174405120;
@@ -9344,7 +9001,7 @@ void VinylCommandDriver::tapeAuthenticateServer(void *a1, int a2, uint64_t *a3, 
   __p = 0;
   v13 = 0;
   v14 = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *a3, a3[1], a3[1] - *a3);
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *a3, *(a3 + 8), *(a3 + 8) - *a3);
   v11[4] = a4;
   v6 = a1[2];
   if (!v6 || (v7 = a1[1], (v8 = std::__shared_weak_count::lock(v6)) == 0))
@@ -9402,7 +9059,7 @@ void sub_23750BA20(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void VinylCommandDriver::tapePrepareDownload(void *a1, int a2, uint64_t *a3, uint64_t a4)
+void VinylCommandDriver::tapePrepareDownload(void *a1, int a2, uint64_t a3, uint64_t a4)
 {
   v11[0] = MEMORY[0x277D85DD0];
   v11[1] = 1174405120;
@@ -9413,7 +9070,7 @@ void VinylCommandDriver::tapePrepareDownload(void *a1, int a2, uint64_t *a3, uin
   __p = 0;
   v13 = 0;
   v14 = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *a3, a3[1], a3[1] - *a3);
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *a3, *(a3 + 8), *(a3 + 8) - *a3);
   v11[4] = a4;
   v6 = a1[2];
   if (!v6 || (v7 = a1[1], (v8 = std::__shared_weak_count::lock(v6)) == 0))
@@ -9471,7 +9128,7 @@ void sub_23750BC18(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void VinylCommandDriver::tapeLoadBoundProfilePackage(void *a1, int a2, uint64_t *a3, uint64_t a4)
+void VinylCommandDriver::tapeLoadBoundProfilePackage(void *a1, int a2, uint64_t a3, uint64_t a4)
 {
   v11[0] = MEMORY[0x277D85DD0];
   v11[1] = 1174405120;
@@ -9482,7 +9139,7 @@ void VinylCommandDriver::tapeLoadBoundProfilePackage(void *a1, int a2, uint64_t 
   __p = 0;
   v13 = 0;
   v14 = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *a3, a3[1], a3[1] - *a3);
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *a3, *(a3 + 8), *(a3 + 8) - *a3);
   v11[4] = a4;
   v6 = a1[2];
   if (!v6 || (v7 = a1[1], (v8 = std::__shared_weak_count::lock(v6)) == 0))
@@ -9540,7 +9197,7 @@ void sub_23750BE10(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void VinylCommandDriver::tapeListProfilesInfo(void *a1, int a2, uint64_t *a3, uint64_t a4)
+void VinylCommandDriver::tapeListProfilesInfo(void *a1, int a2, uint64_t a3, uint64_t a4)
 {
   v11[0] = MEMORY[0x277D85DD0];
   v11[1] = 1174405120;
@@ -9551,7 +9208,7 @@ void VinylCommandDriver::tapeListProfilesInfo(void *a1, int a2, uint64_t *a3, ui
   __p = 0;
   v13 = 0;
   v14 = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *a3, a3[1], a3[1] - *a3);
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *a3, *(a3 + 8), *(a3 + 8) - *a3);
   v11[4] = a4;
   v6 = a1[2];
   if (!v6 || (v7 = a1[1], (v8 = std::__shared_weak_count::lock(v6)) == 0))
@@ -9643,7 +9300,7 @@ void VinylCommandDriver::tapeListNotifications(void *a1, int a2, uint64_t a3)
   std::__shared_weak_count::__release_shared[abi:ne200100](v7);
 }
 
-void VinylCommandDriver::tapeGetNotification(void *a1, int a2, uint64_t *a3, uint64_t a4)
+void VinylCommandDriver::tapeGetNotification(void *a1, int a2, uint64_t a3, uint64_t a4)
 {
   v11[0] = MEMORY[0x277D85DD0];
   v11[1] = 1174405120;
@@ -9654,7 +9311,7 @@ void VinylCommandDriver::tapeGetNotification(void *a1, int a2, uint64_t *a3, uin
   __p = 0;
   v13 = 0;
   v14 = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *a3, a3[1], a3[1] - *a3);
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *a3, *(a3 + 8), *(a3 + 8) - *a3);
   v11[4] = a4;
   v6 = a1[2];
   if (!v6 || (v7 = a1[1], (v8 = std::__shared_weak_count::lock(v6)) == 0))
@@ -9712,7 +9369,7 @@ void sub_23750C360(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void VinylCommandDriver::tapeDeleteNotification(void *a1, int a2, uint64_t *a3, uint64_t a4)
+void VinylCommandDriver::tapeDeleteNotification(void *a1, int a2, uint64_t a3, uint64_t a4)
 {
   v11[0] = MEMORY[0x277D85DD0];
   v11[1] = 1174405120;
@@ -9723,7 +9380,7 @@ void VinylCommandDriver::tapeDeleteNotification(void *a1, int a2, uint64_t *a3, 
   __p = 0;
   v13 = 0;
   v14 = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *a3, a3[1], a3[1] - *a3);
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *a3, *(a3 + 8), *(a3 + 8) - *a3);
   v11[4] = a4;
   v6 = a1[2];
   if (!v6 || (v7 = a1[1], (v8 = std::__shared_weak_count::lock(v6)) == 0))
@@ -9815,7 +9472,7 @@ void VinylCommandDriver::tapeResetMemory(void *a1, int a2, uint64_t a3)
   std::__shared_weak_count::__release_shared[abi:ne200100](v7);
 }
 
-void VinylCommandDriver::tapeCancelSession(void *a1, int a2, uint64_t *a3, uint64_t a4)
+void VinylCommandDriver::tapeCancelSession(void *a1, int a2, uint64_t a3, uint64_t a4)
 {
   v11[0] = MEMORY[0x277D85DD0];
   v11[1] = 1174405120;
@@ -9826,7 +9483,7 @@ void VinylCommandDriver::tapeCancelSession(void *a1, int a2, uint64_t *a3, uint6
   __p = 0;
   v13 = 0;
   v14 = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *a3, a3[1], a3[1] - *a3);
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *a3, *(a3 + 8), *(a3 + 8) - *a3);
   v11[4] = a4;
   v6 = a1[2];
   if (!v6 || (v7 = a1[1], (v8 = std::__shared_weak_count::lock(v6)) == 0))
@@ -9856,4 +9513,319 @@ void VinylCommandDriver::tapeCancelSession(void *a1, int a2, uint64_t *a3, uint6
     v13 = __p;
     operator delete(__p);
   }
+}
+
+void ___ZN18VinylCommandDriver17tapeCancelSessionEN10subscriber7SimSlotENSt3__16vectorIhNS2_9allocatorIhEEEEU13block_pointerFvN3ctu6resultIS6_NS2_5tupleIJ16VinylDriverErrorhhEEEEEE_block_invoke(uint64_t a1)
+{
+  v2 = *(a1 + 72);
+  v5 = 0;
+  v6 = 0;
+  __p = 0;
+  v3 = *(a1 + 40);
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *(a1 + 48), *(a1 + 56), *(a1 + 56) - *(a1 + 48));
+  (*(*v3 + 280))(v3, v2, &__p, *(a1 + 32));
+  if (__p)
+  {
+    v5 = __p;
+    operator delete(__p);
+  }
+}
+
+void sub_23750C8CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void VinylCommandDriver::tapeSetNickname(void *a1, int a2, uint64_t a3, uint64_t a4)
+{
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 1174405120;
+  v11[2] = ___ZN18VinylCommandDriver15tapeSetNicknameEN10subscriber7SimSlotENSt3__16vectorIhNS2_9allocatorIhEEEEU13block_pointerFvN3ctu6resultIS6_NS2_5tupleIJ16VinylDriverErrorhhEEEEEE_block_invoke;
+  v11[3] = &unk_284A7C618;
+  v15 = a2;
+  v11[5] = a1;
+  __p = 0;
+  v13 = 0;
+  v14 = 0;
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *a3, *(a3 + 8), *(a3 + 8) - *a3);
+  v11[4] = a4;
+  v6 = a1[2];
+  if (!v6 || (v7 = a1[1], (v8 = std::__shared_weak_count::lock(v6)) == 0))
+  {
+    std::__throw_bad_weak_ptr[abi:ne200100]();
+  }
+
+  v9 = v8;
+  v10 = a1[3];
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 1174405120;
+  block[2] = ___ZNK3ctu20SharedSynchronizableI18VinylCommandDriverE15execute_wrappedEU13block_pointerFvvE_block_invoke;
+  block[3] = &unk_284A7C748;
+  block[5] = v7;
+  v17 = v9;
+  atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+  block[4] = v11;
+  dispatch_async(v10, block);
+  if (v17)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
+  }
+
+  std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+  if (__p)
+  {
+    v13 = __p;
+    operator delete(__p);
+  }
+}
+
+void ___ZN18VinylCommandDriver15tapeSetNicknameEN10subscriber7SimSlotENSt3__16vectorIhNS2_9allocatorIhEEEEU13block_pointerFvN3ctu6resultIS6_NS2_5tupleIJ16VinylDriverErrorhhEEEEEE_block_invoke(uint64_t a1)
+{
+  v2 = *(a1 + 72);
+  v5 = 0;
+  v6 = 0;
+  __p = 0;
+  v3 = *(a1 + 40);
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *(a1 + 48), *(a1 + 56), *(a1 + 56) - *(a1 + 48));
+  (*(*v3 + 288))(v3, v2, &__p, *(a1 + 32));
+  if (__p)
+  {
+    v5 = __p;
+    operator delete(__p);
+  }
+}
+
+void sub_23750CAD8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void VinylCommandDriver::tapeGetRulesAuthTable(void *a1, int a2, uint64_t a3)
+{
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 0x40000000;
+  v9[2] = ___ZN18VinylCommandDriver21tapeGetRulesAuthTableEN10subscriber7SimSlotEU13block_pointerFvN3ctu6resultINSt3__16vectorIhNS4_9allocatorIhEEEENS4_5tupleIJ16VinylDriverErrorhhEEEEEE_block_invoke;
+  v9[3] = &unk_278A33868;
+  v10 = a2;
+  v9[4] = a3;
+  v9[5] = a1;
+  v4 = a1[2];
+  if (!v4 || (v5 = a1[1], (v6 = std::__shared_weak_count::lock(v4)) == 0))
+  {
+    std::__throw_bad_weak_ptr[abi:ne200100]();
+  }
+
+  v7 = v6;
+  v8 = a1[3];
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 1174405120;
+  block[2] = ___ZNK3ctu20SharedSynchronizableI18VinylCommandDriverE15execute_wrappedEU13block_pointerFvvE_block_invoke;
+  block[3] = &unk_284A7C748;
+  block[5] = v5;
+  v12 = v7;
+  atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+  block[4] = v9;
+  dispatch_async(v8, block);
+  if (v12)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+  }
+
+  std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+}
+
+void VinylCommandDriver::tapeGetDeviceCapabilities(void *a1, uint64_t a2)
+{
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 0x40000000;
+  v8[2] = ___ZN18VinylCommandDriver25tapeGetDeviceCapabilitiesEU13block_pointerFvN3ctu6resultI22TapeDeviceCapabilitiesNSt3__15tupleIJ16VinylDriverErrorhhEEEEEE_block_invoke;
+  v8[3] = &unk_278A33890;
+  v8[4] = a2;
+  v8[5] = a1;
+  v3 = a1[2];
+  if (!v3 || (v4 = a1[1], (v5 = std::__shared_weak_count::lock(v3)) == 0))
+  {
+    std::__throw_bad_weak_ptr[abi:ne200100]();
+  }
+
+  v6 = v5;
+  v7 = a1[3];
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 1174405120;
+  block[2] = ___ZNK3ctu20SharedSynchronizableI18VinylCommandDriverE15execute_wrappedEU13block_pointerFvvE_block_invoke;
+  block[3] = &unk_284A7C748;
+  block[5] = v4;
+  v10 = v6;
+  atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+  block[4] = v8;
+  dispatch_async(v7, block);
+  if (v10)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+  }
+
+  std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+}
+
+uint64_t VinylCommandDriver::setVirtualSimMode(void *a1, char a2, char a3, uint64_t a4)
+{
+  v15 = *MEMORY[0x277D85DE8];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 1174405120;
+  v13[2] = ___ZN18VinylCommandDriver17setVirtualSimModeEbbNSt3__18functionIFvN3ctu6resultIb10VinylErrorEEEEE_block_invoke;
+  v13[3] = &__block_descriptor_tmp_82;
+  v13[4] = a1;
+  v14[32] = a2;
+  v14[33] = a3;
+  std::__function::__value_func<void ()(ctu::result<BOOL,VinylError>)>::__value_func[abi:ne200100](v14, a4);
+  v5 = a1[2];
+  if (!v5 || (v6 = a1[1], (v7 = std::__shared_weak_count::lock(v5)) == 0))
+  {
+    std::__throw_bad_weak_ptr[abi:ne200100]();
+  }
+
+  v8 = v7;
+  v9 = a1[3];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 1174405120;
+  v11[2] = ___ZNK3ctu20SharedSynchronizableI18VinylCommandDriverE15execute_wrappedEU13block_pointerFvvE_block_invoke;
+  v11[3] = &unk_284A7C748;
+  v11[5] = v6;
+  v12 = v8;
+  atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
+  v11[4] = v13;
+  dispatch_async(v9, v11);
+  if (v12)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+  }
+
+  std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+  return std::__function::__value_func<void ()(ctu::result<BOOL,VinylError>)>::~__value_func[abi:ne200100](v14);
+}
+
+void sub_23750CEF4(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+uint64_t ___ZN18VinylCommandDriver17setVirtualSimModeEbbNSt3__18functionIFvN3ctu6resultIb10VinylErrorEEEEE_block_invoke(uint64_t a1)
+{
+  v6 = *MEMORY[0x277D85DE8];
+  v1 = *(a1 + 32);
+  v2 = *(a1 + 72);
+  v3 = *(a1 + 73);
+  std::__function::__value_func<void ()(ctu::result<BOOL,VinylError>)>::__value_func[abi:ne200100](v5, a1 + 40);
+  (*(*v1 + 320))(v1, v2 & 1, v3 & 1, v5);
+  return std::__function::__value_func<void ()(ctu::result<BOOL,VinylError>)>::~__value_func[abi:ne200100](v5);
+}
+
+void sub_23750CFB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::__function::__value_func<void ()(ctu::result<BOOL,VinylError>)>::~__value_func[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+void VinylCommandDriver::requestPairingNonce(void *a1, int a2, uint64_t a3)
+{
+  v7[4] = *MEMORY[0x277D85DE8];
+  v5 = a1;
+  v6 = a2;
+  std::__function::__value_func<void ()(std::vector<unsigned char> const&)>::__value_func[abi:ne200100](v7, a3);
+  v4 = a1[2];
+  if (v4)
+  {
+    if (std::__shared_weak_count::lock(v4))
+    {
+      operator new();
+    }
+  }
+
+  std::__throw_bad_weak_ptr[abi:ne200100]();
+}
+
+void sub_23750D17C(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void VinylCommandDriver::sendPairingSignature(void *a1, int a2, uint64_t a3, uint64_t a4)
+{
+  memset(v7, 0, sizeof(v7));
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(v7, *a3, *(a3 + 8), *(a3 + 8) - *a3);
+  memset(__p, 0, sizeof(__p));
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(__p, *a4, *(a4 + 8), *(a4 + 8) - *a4);
+  v6 = a1[2];
+  if (v6)
+  {
+    if (std::__shared_weak_count::lock(v6))
+    {
+      operator new();
+    }
+  }
+
+  std::__throw_bad_weak_ptr[abi:ne200100]();
+}
+
+void sub_23750D324(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12)
+{
+  v15 = *v13;
+  if (*v13)
+  {
+    *(v12 + 24) = v15;
+    operator delete(v15);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void VinylCommandDriver::readFile(void *a1, unsigned int a2, unsigned int a3, uint64_t a4, __int16 a5, uint64_t a6)
+{
+  v15[4] = *MEMORY[0x277D85DE8];
+  v10 = a1;
+  v11 = a2;
+  v12 = a3;
+  if (*(a4 + 23) < 0)
+  {
+    std::string::__init_copy_ctor_external(&__p, *a4, *(a4 + 8));
+  }
+
+  else
+  {
+    __p = *a4;
+  }
+
+  v14 = a5;
+  std::__function::__value_func<void ()(std::string,std::optional<VinylDriverError>)>::__value_func[abi:ne200100](v15, a6);
+  v9 = a1[2];
+  if (v9)
+  {
+    if (std::__shared_weak_count::lock(v9))
+    {
+      operator new();
+    }
+  }
+
+  std::__throw_bad_weak_ptr[abi:ne200100]();
 }

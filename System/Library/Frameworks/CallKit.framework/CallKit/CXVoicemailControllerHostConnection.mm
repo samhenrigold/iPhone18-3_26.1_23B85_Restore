@@ -38,7 +38,7 @@
     bundleURL = v10->_bundleURL;
     v10->_bundleURL = v16;
 
-    if (v10->_applicationIdentifier && [(CXVoicemailControllerHostConnection *)v10 isPermittedToUsePrivateAPI])
+    if (v10->_applicationIdentifier && (v18 = [(CXVoicemailControllerHostConnection *)v10 isPermittedToUsePrivateAPI], v18))
     {
       objc_storeStrong(&v10->_connection, connection);
       [(NSXPCConnection *)v10->_connection setExportedObject:v10];
@@ -61,13 +61,12 @@
       v29[3] = &unk_1E7C06E50;
       objc_copyWeak(&v30, &location);
       [(NSXPCConnection *)v10->_connection setInvalidationHandler:v29];
-      [(NSXPCConnection *)v10->_connection resume];
-      v20 = CXDefaultLog();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v21 = CXDefaultLog([(NSXPCConnection *)v10->_connection resume]);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
         v36 = v10;
-        _os_log_impl(&dword_1B47F3000, v20, OS_LOG_TYPE_DEFAULT, "Created %@", buf, 0xCu);
+        _os_log_impl(&dword_1B47F3000, v21, OS_LOG_TYPE_DEFAULT, "Created %@", buf, 0xCu);
       }
 
       objc_destroyWeak(&v30);
@@ -77,8 +76,8 @@
 
     else
     {
-      v21 = CXDefaultLog();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v22 = CXDefaultLog(v18);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         v24 = objc_opt_class();
         v25 = v10->_applicationIdentifier;
@@ -95,14 +94,13 @@
         v43 = 2112;
         v44 = connectionCopy;
         v28 = v24;
-        _os_log_error_impl(&dword_1B47F3000, v21, OS_LOG_TYPE_ERROR, "Denying creation of %@ with applicationIdentifier: %@ bundleURL: %@ capabilities: %@ connection: %@", buf, 0x34u);
+        _os_log_error_impl(&dword_1B47F3000, v22, OS_LOG_TYPE_ERROR, "Denying creation of %@ with applicationIdentifier: %@ bundleURL: %@ capabilities: %@ connection: %@", buf, 0x34u);
       }
 
       v10 = 0;
     }
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -121,19 +119,17 @@ void __70__CXVoicemailControllerHostConnection_initWithConnection_serialQueue___
 
 uint64_t __70__CXVoicemailControllerHostConnection_initWithConnection_serialQueue___block_invoke_2(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v7 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Connection interrupted for voicemail controller host connection: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Connection interrupted for voicemail controller host connection: %@", &v5, 0xCu);
   }
 
-  result = [*(*(a1 + 32) + 40) invalidate];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(*(a1 + 32) + 40) invalidate];
 }
 
 void __70__CXVoicemailControllerHostConnection_initWithConnection_serialQueue___block_invoke_3(uint64_t a1)
@@ -151,20 +147,18 @@ void __70__CXVoicemailControllerHostConnection_initWithConnection_serialQueue___
 
 void __70__CXVoicemailControllerHostConnection_initWithConnection_serialQueue___block_invoke_2_4(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v7 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Connection invalidated for voicemail controller host connection: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Connection invalidated for voicemail controller host connection: %@", &v5, 0xCu);
   }
 
   v4 = [*(a1 + 32) delegate];
   [v4 voicemailControllerHostConnectionInvalidated:*(a1 + 32)];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc

@@ -22,37 +22,37 @@
 
 - (BCSLinkItemModel)initWithLinkMessage:(id)message bucketID:(id)d
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v5 = objc_opt_new();
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
   businessLinkContents = [messageCopy businessLinkContents];
-  v7 = [businessLinkContents countByEnumeratingWithState:&v48 objects:v57 count:16];
+  v7 = [businessLinkContents countByEnumeratingWithState:&v47 objects:v56 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v49;
+    v9 = *v48;
     do
     {
       v10 = 0;
       do
       {
-        if (*v49 != v9)
+        if (*v48 != v9)
         {
           objc_enumerationMutation(businessLinkContents);
         }
 
-        v11 = [[BCSBusinessLinkContentItemModel alloc] initWithBusinessLinkContent:*(*(&v48 + 1) + 8 * v10)];
+        v11 = [[BCSBusinessLinkContentItemModel alloc] initWithBusinessLinkContent:*(*(&v47 + 1) + 8 * v10)];
         [v5 addObject:v11];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [businessLinkContents countByEnumeratingWithState:&v48 objects:v57 count:16];
+      v8 = [businessLinkContents countByEnumeratingWithState:&v47 objects:v56 count:16];
     }
 
     while (v8);
@@ -74,48 +74,48 @@
     v15 = ABSLogCommon();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v37 = *__error();
+      v36 = *__error();
       *buf = 67109120;
-      v56 = v37;
+      v55 = v36;
       _os_log_error_impl(&dword_242072000, v15, OS_LOG_TYPE_ERROR, "BCSLinkItemModel: mapItemMUID could not be converted to a number: %d", buf, 8u);
     }
 
 LABEL_13:
-    v41 = 0;
+    v40 = 0;
     goto LABEL_15;
   }
 
-  v41 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v14];
+  v40 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v14];
 LABEL_15:
   array = [MEMORY[0x277CBEB18] array];
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
   categoryStyleAttributes = [messageCopy categoryStyleAttributes];
-  v18 = [categoryStyleAttributes countByEnumeratingWithState:&v44 objects:v54 count:16];
+  v18 = [categoryStyleAttributes countByEnumeratingWithState:&v43 objects:v53 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v45;
+    v20 = *v44;
     do
     {
       v21 = 0;
       do
       {
-        if (*v45 != v20)
+        if (*v44 != v20)
         {
           objc_enumerationMutation(categoryStyleAttributes);
         }
 
-        dictionaryRepresentation = [*(*(&v44 + 1) + 8 * v21) dictionaryRepresentation];
+        dictionaryRepresentation = [*(*(&v43 + 1) + 8 * v21) dictionaryRepresentation];
         [array addObject:dictionaryRepresentation];
 
         ++v21;
       }
 
       while (v19 != v21);
-      v19 = [categoryStyleAttributes countByEnumeratingWithState:&v44 objects:v54 count:16];
+      v19 = [categoryStyleAttributes countByEnumeratingWithState:&v43 objects:v53 count:16];
     }
 
     while (v19);
@@ -123,9 +123,9 @@ LABEL_15:
 
   if ([array count])
   {
-    v52 = @"attribute";
-    v53 = array;
-    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
+    v51 = @"attribute";
+    v52 = array;
+    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
   }
 
   else
@@ -135,7 +135,7 @@ LABEL_15:
 
   v24 = MEMORY[0x277CBEBC0];
   link = [messageCopy link];
-  v39 = [v24 URLWithString:?];
+  v38 = [v24 URLWithString:?];
   bundleId = [messageCopy bundleId];
   heroImage = [messageCopy heroImage];
   iconImage = [messageCopy iconImage];
@@ -144,7 +144,7 @@ LABEL_15:
   v30 = [v28 URLWithString:redirectUrl];
   action = [messageCopy action];
   hasIsPoweredBy = [messageCopy hasIsPoweredBy];
-  v38 = messageCopy;
+  v37 = messageCopy;
   if (hasIsPoweredBy)
   {
     v33 = messageCopy;
@@ -157,126 +157,120 @@ LABEL_15:
     v34 = v23;
   }
 
-  v43 = [(BCSLinkItemModel *)self initWithLinkURL:v39 bundleID:bundleId heroImageURLString:heroImage iconImageURLString:iconImage redirectURL:v30 action:action mapIconStyleAttributes:v34 mapItemMUID:v41 businessLinkContentItemModels:v5 isPoweredBy:hasIsPoweredBy];
+  v42 = [(BCSLinkItemModel *)self initWithLinkURL:v38 bundleID:bundleId heroImageURLString:heroImage iconImageURLString:iconImage redirectURL:v30 action:action mapIconStyleAttributes:v34 mapItemMUID:v40 businessLinkContentItemModels:v5 isPoweredBy:hasIsPoweredBy];
 
-  v35 = *MEMORY[0x277D85DE8];
-  return v43;
+  return v42;
 }
 
 + (id)linkItemModelsFromLinkJSONObj:(id)obj
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = [obj objectForKeyedSubscript:@"records"];
-  v24 = objc_opt_new();
+  v21 = objc_opt_new();
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v31 = 0u;
   obj = v3;
-  v4 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v4 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v29;
-    v7 = 0x277CBE000uLL;
-    v25 = *v29;
+    v6 = *v26;
+    v22 = *v26;
     do
     {
-      v8 = 0;
+      v7 = 0;
       do
       {
-        if (*v29 != v6)
+        if (*v26 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = [*(*(&v28 + 1) + 8 * v8) objectForKeyedSubscript:@"fields"];
-        v10 = [v9 objectForKeyedSubscript:@"message"];
-        if (v10 && (v11 = *(v7 + 2752), objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+        v8 = [*(*(&v25 + 1) + 8 * v7) objectForKeyedSubscript:@"fields"];
+        v9 = [v8 objectForKeyedSubscript:@"message"];
+        if (v9 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
         {
-          v12 = v5;
-          v13 = [v10 objectForKeyedSubscript:@"value"];
-          v14 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v13 options:0];
-          v15 = [[BCSBusinessLinkMessage alloc] initWithData:v14];
-          v16 = [BCSLinkItemModel alloc];
-          v17 = MEMORY[0x277CCACA8];
-          link = [(BCSBusinessLinkMessage *)v15 link];
-          v19 = [v17 stringWithFormat:@"%@", link];
-          v20 = [(BCSLinkItemModel *)v16 initWithLinkMessage:v15 bucketID:v19];
+          v10 = v5;
+          v11 = [v9 objectForKeyedSubscript:@"value"];
+          v12 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v11 options:0];
+          v13 = [[BCSBusinessLinkMessage alloc] initWithData:v12];
+          v14 = [BCSLinkItemModel alloc];
+          v15 = MEMORY[0x277CCACA8];
+          link = [(BCSBusinessLinkMessage *)v13 link];
+          v17 = [v15 stringWithFormat:@"%@", link];
+          v18 = [(BCSLinkItemModel *)v14 initWithLinkMessage:v13 bucketID:v17];
 
-          if (v20)
+          if (v18)
           {
-            [v24 addObject:v20];
-            v5 = v12;
+            [v21 addObject:v18];
+            v5 = v10;
           }
 
           else
           {
-            v21 = ABSLogCommon();
-            v5 = v12;
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+            v19 = ABSLogCommon();
+            v5 = v10;
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_error_impl(&dword_242072000, v21, OS_LOG_TYPE_ERROR, "BCSLinkItemModelFromLinkJSONObj: LinkItemModel object didn't initialize correctly", buf, 2u);
+              _os_log_error_impl(&dword_242072000, v19, OS_LOG_TYPE_ERROR, "BCSLinkItemModelFromLinkJSONObj: LinkItemModel object didn't initialize correctly", buf, 2u);
             }
           }
 
-          v6 = v25;
-
-          v7 = 0x277CBE000;
+          v6 = v22;
         }
 
         else
         {
-          v13 = ABSLogCommon();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          v11 = ABSLogCommon();
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            _os_log_error_impl(&dword_242072000, v13, OS_LOG_TYPE_ERROR, "BCSLinkItemFromLinkJSONObj: Message object is not a dictionary or not initialized", buf, 2u);
+            _os_log_error_impl(&dword_242072000, v11, OS_LOG_TYPE_ERROR, "BCSLinkItemFromLinkJSONObj: Message object is not a dictionary or not initialized", buf, 2u);
           }
         }
 
-        ++v8;
+        ++v7;
       }
 
-      while (v5 != v8);
-      v5 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+      while (v5 != v7);
+      v5 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v5);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
-  return v24;
+  return v21;
 }
 
 + (id)linkItemModelsFromRecords:(id)records
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   recordsCopy = records;
   v4 = objc_opt_new();
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = recordsCopy;
-  v5 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v5 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v23;
+    v7 = *v22;
     do
     {
       v8 = 0;
       do
       {
-        if (*v23 != v7)
+        if (*v22 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = [*(*(&v22 + 1) + 8 * v8) objectForKeyedSubscript:@"message"];
+        v9 = [*(*(&v21 + 1) + 8 * v8) objectForKeyedSubscript:@"message"];
         v10 = [[BCSBusinessLinkMessage alloc] initWithData:v9];
         v11 = [BCSLinkItemModel alloc];
         v12 = MEMORY[0x277CCACA8];
@@ -303,14 +297,13 @@ LABEL_15:
       }
 
       while (v6 != v8);
-      v6 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v6 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v6);
   }
 
   v17 = [v4 copy];
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

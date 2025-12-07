@@ -3,9 +3,9 @@
 
 @implementation UIViewController
 
-void __98__UIViewController_BaseBoardUI__bs_addChildViewController_withSuperview_animated_transitionBlock___block_invoke(uint64_t a1)
+void __98__UIViewController_BaseBoardUI__bs_addChildViewController_withSuperview_animated_transitionBlock___block_invoke(uint64_t a1, char a2)
 {
-  v1 = *(a1 + 32);
+  v2 = *(a1 + 32);
   BSDispatchMain();
 }
 
@@ -41,9 +41,9 @@ void __98__UIViewController_BaseBoardUI__bs_addChildViewController_withSuperview
   (*(*(a1 + 32) + 16))(*(a1 + 32), [v3 isFailed] ^ 1);
 }
 
-void __87__UIViewController_BaseBoardUI__bs_removeChildViewController_animated_transitionBlock___block_invoke(uint64_t a1)
+void __87__UIViewController_BaseBoardUI__bs_removeChildViewController_animated_transitionBlock___block_invoke(uint64_t a1, char a2)
 {
-  v1 = *(a1 + 32);
+  v2 = *(a1 + 32);
   BSDispatchMain();
 }
 

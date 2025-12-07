@@ -65,13 +65,14 @@
   pathCopy = path;
   objectCopy = object;
   changeCopy = change;
-  if ([pathCopy isEqualToString:@"ATXWidgetsForceDayZeroAddSheet"])
+  v13 = [pathCopy isEqualToString:@"ATXWidgetsForceDayZeroAddSheet"];
+  if (v13)
   {
-    v13 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = __atxlog_handle_home_screen(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1BF549000, v13, OS_LOG_TYPE_DEFAULT, "ATXDefaultHomeScreenItemUpdater: force day zero add sheet toggled, refreshing suggestions", buf, 2u);
+      _os_log_impl(&dword_1BF549000, v14, OS_LOG_TYPE_DEFAULT, "ATXDefaultHomeScreenItemUpdater: force day zero add sheet toggled, refreshing suggestions", buf, 2u);
     }
 
     [(ATXDefaultHomeScreenItemUpdater *)self updateDefaultsDueToRelevantHomeScreenConfigUpdate];
@@ -79,9 +80,9 @@
 
   else
   {
-    v14.receiver = self;
-    v14.super_class = ATXDefaultHomeScreenItemUpdater;
-    [(ATXDefaultHomeScreenItemUpdater *)&v14 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
+    v15.receiver = self;
+    v15.super_class = ATXDefaultHomeScreenItemUpdater;
+    [(ATXDefaultHomeScreenItemUpdater *)&v15 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
   }
 }
 
@@ -94,7 +95,7 @@
 
 - (void)updateDefaultsIfNeededWithSystemDescriptors:(id)descriptors installDatesCache:(id)cache reason:(id)reason
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   descriptorsCopy = descriptors;
   cacheCopy = cache;
   reasonCopy = reason;
@@ -112,12 +113,12 @@
 
     else
     {
-      v16 = __atxlog_handle_home_screen();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v17 = __atxlog_handle_home_screen(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = 138412290;
-        v18 = _retrieveLastUpdateDate;
-        _os_log_impl(&dword_1BF549000, v16, OS_LOG_TYPE_DEFAULT, "ATXDefaultHomeScreenItemUpdater: Not updating stack and widget suggestions because last update was recent (%@)", &v17, 0xCu);
+        v18 = 138412290;
+        v19 = _retrieveLastUpdateDate;
+        _os_log_impl(&dword_1BF549000, v17, OS_LOG_TYPE_DEFAULT, "ATXDefaultHomeScreenItemUpdater: Not updating stack and widget suggestions because last update was recent (%@)", &v18, 0xCu);
       }
     }
   }
@@ -128,13 +129,14 @@
   descriptorsCopy = descriptors;
   cacheCopy = cache;
   reasonCopy = reason;
+  v13 = reasonCopy;
   if (descriptorsCopy)
   {
-    v13 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = __atxlog_handle_home_screen(reasonCopy);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1BF549000, v13, OS_LOG_TYPE_DEFAULT, "ATXDefaultHomeScreenItemUpdater: Updating default stack and widget suggestions", buf, 2u);
+      _os_log_impl(&dword_1BF549000, v14, OS_LOG_TYPE_DEFAULT, "ATXDefaultHomeScreenItemUpdater: Updating default stack and widget suggestions", buf, 2u);
     }
 
     internalQueue = self->_internalQueue;
@@ -143,9 +145,9 @@
     block[2] = __118__ATXDefaultHomeScreenItemUpdater_updateDefaultsWithSystemDescriptors_updateCarPlayDefaults_installDatesCache_reason___block_invoke;
     block[3] = &unk_1E80C41E8;
     block[4] = self;
-    v16 = descriptorsCopy;
-    v17 = cacheCopy;
-    v18 = reasonCopy;
+    v17 = descriptorsCopy;
+    v18 = cacheCopy;
+    v19 = v13;
     defaultsCopy = defaults;
     dispatch_async(internalQueue, block);
   }
@@ -175,19 +177,20 @@ uint64_t __118__ATXDefaultHomeScreenItemUpdater_updateDefaultsWithSystemDescript
 
 void __84__ATXDefaultHomeScreenItemUpdater_updateDefaultsDueToRelevantHomeScreenConfigUpdate__block_invoke(uint64_t a1)
 {
-  if ([*(*(a1 + 32) + 16) count])
+  v2 = [*(*(a1 + 32) + 16) count];
+  if (v2)
   {
-    v2 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = __atxlog_handle_home_screen(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_1BF549000, v2, OS_LOG_TYPE_DEFAULT, "ATXDefaultHomeScreenItemUpdater: updating defaults due to relevant home screen config update", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_1BF549000, v3, OS_LOG_TYPE_DEFAULT, "ATXDefaultHomeScreenItemUpdater: updating defaults due to relevant home screen config update", v6, 2u);
     }
 
-    v3 = objc_opt_new();
-    v4 = [v3 rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps];
+    v4 = objc_opt_new();
+    v5 = [v4 rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps];
 
-    [*(a1 + 32) _updateHomeScreenDefaultsOnQueueWithReason:@"Home Screen config update" appLaunchCounts:v4];
+    [*(a1 + 32) _updateHomeScreenDefaultsOnQueueWithReason:@"Home Screen config update" appLaunchCounts:v5];
   }
 }
 
@@ -204,19 +207,20 @@ void __84__ATXDefaultHomeScreenItemUpdater_updateDefaultsDueToRelevantHomeScreen
 
 void __73__ATXDefaultHomeScreenItemUpdater_updateDefaultsDueToAmbientConfigUpdate__block_invoke(uint64_t a1)
 {
-  if ([*(*(a1 + 32) + 16) count])
+  v2 = [*(*(a1 + 32) + 16) count];
+  if (v2)
   {
-    v2 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = __atxlog_handle_home_screen(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_1BF549000, v2, OS_LOG_TYPE_DEFAULT, "ATXDefaultHomeScreenItemUpdater: updating defaults due to ambient config update", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_1BF549000, v3, OS_LOG_TYPE_DEFAULT, "ATXDefaultHomeScreenItemUpdater: updating defaults due to ambient config update", v6, 2u);
     }
 
-    v3 = objc_opt_new();
-    v4 = [v3 rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps];
+    v4 = objc_opt_new();
+    v5 = [v4 rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps];
 
-    [*(a1 + 32) _updateAmbientDefaultsOnQueueWithReason:@"Ambient config update" appLaunchCounts:v4];
+    [*(a1 + 32) _updateAmbientDefaultsOnQueueWithReason:@"Ambient config update" appLaunchCounts:v5];
   }
 }
 
@@ -233,40 +237,41 @@ void __73__ATXDefaultHomeScreenItemUpdater_updateDefaultsDueToAmbientConfigUpdat
 
 void __73__ATXDefaultHomeScreenItemUpdater_updateDefaultsDueToCarPlayConfigUpdate__block_invoke(uint64_t a1)
 {
-  if ([*(*(a1 + 32) + 16) count])
+  v2 = [*(*(a1 + 32) + 16) count];
+  if (v2)
   {
-    v2 = __atxlog_handle_carPlay_widgets();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = __atxlog_handle_carPlay_widgets(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_1BF549000, v2, OS_LOG_TYPE_DEFAULT, "ATXDefaultHomeScreenItemUpdater: updating defaults due to CarPlay config update", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_1BF549000, v3, OS_LOG_TYPE_DEFAULT, "ATXDefaultHomeScreenItemUpdater: updating defaults due to CarPlay config update", v6, 2u);
     }
 
-    v3 = objc_opt_new();
-    v4 = [v3 rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps];
+    v4 = objc_opt_new();
+    v5 = [v4 rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps];
 
-    [*(a1 + 32) _updateCarPlayDefaultsOnQueueWithReason:@"CarPlay config update" appLaunchCounts:v4];
+    [*(a1 + 32) _updateCarPlayDefaultsOnQueueWithReason:@"CarPlay config update" appLaunchCounts:v5];
   }
 }
 
 - (void)_updateAllDefaultsOnQueueWithReason:(id)reason updateCarPlayDefaults:(BOOL)defaults
 {
   defaultsCopy = defaults;
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   dispatch_assert_queue_V2(self->_internalQueue);
-  v7 = __atxlog_handle_home_screen();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = __atxlog_handle_home_screen(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138543362;
-    v11 = reasonCopy;
-    _os_log_impl(&dword_1BF549000, v7, OS_LOG_TYPE_DEFAULT, "ATXDefaultHomeScreenItemUpdater: updating defaults with reason: %{public}@", &v10, 0xCu);
+    v11 = 138543362;
+    v12 = reasonCopy;
+    _os_log_impl(&dword_1BF549000, v8, OS_LOG_TYPE_DEFAULT, "ATXDefaultHomeScreenItemUpdater: updating defaults with reason: %{public}@", &v11, 0xCu);
   }
 
   if ([(NSSet *)self->_descriptors count])
   {
-    v8 = objc_opt_new();
-    rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps = [v8 rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps];
+    v9 = objc_opt_new();
+    rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps = [v9 rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps];
 
     [(ATXDefaultHomeScreenItemUpdater *)self _updateHomeScreenDefaultsOnQueueWithReason:reasonCopy appLaunchCounts:rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps];
     [(ATXDefaultHomeScreenItemUpdater *)self _updateAmbientDefaultsOnQueueWithReason:reasonCopy appLaunchCounts:rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps];
@@ -279,13 +284,13 @@ void __73__ATXDefaultHomeScreenItemUpdater_updateDefaultsDueToCarPlayConfigUpdat
 
 - (void)_updateHomeScreenDefaultsOnQueueWithReason:(id)reason appLaunchCounts:(id)counts
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   countsCopy = counts;
   v6 = os_transaction_create();
   v7 = objc_alloc_init(ATXHomeScreenConfigCache);
-  v23 = 0;
-  v8 = [(ATXHomeScreenConfigCache *)v7 loadHomeScreenPageConfigurationsWithError:&v23];
-  v9 = v23;
+  v24 = 0;
+  v8 = [(ATXHomeScreenConfigCache *)v7 loadHomeScreenPageConfigurationsWithError:&v24];
+  v9 = v24;
   if (v8)
   {
     v10 = v8;
@@ -300,59 +305,60 @@ void __73__ATXDefaultHomeScreenItemUpdater_updateDefaultsDueToCarPlayConfigUpdat
 
   if (v9)
   {
-    v12 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = __atxlog_handle_home_screen(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v25 = "[ATXDefaultHomeScreenItemUpdater _updateHomeScreenDefaultsOnQueueWithReason:appLaunchCounts:]";
-      v26 = 2112;
-      v27 = v9;
-      _os_log_impl(&dword_1BF549000, v12, OS_LOG_TYPE_DEFAULT, "ATXDefaultHomeScreenItemUpdater: %s error fetching home screen config: %@", buf, 0x16u);
+      v26 = "[ATXDefaultHomeScreenItemUpdater _updateHomeScreenDefaultsOnQueueWithReason:appLaunchCounts:]";
+      v27 = 2112;
+      v28 = v9;
+      _os_log_impl(&dword_1BF549000, v13, OS_LOG_TYPE_DEFAULT, "ATXDefaultHomeScreenItemUpdater: %s error fetching home screen config: %@", buf, 0x16u);
     }
   }
 
-  v13 = [ATXDefaultHomeScreenItemProducer alloc];
+  v14 = [ATXDefaultHomeScreenItemProducer alloc];
   descriptors = self->_descriptors;
   descriptorInstallDates = self->_descriptorInstallDates;
   _isDayZeroExperience = [(ATXDefaultHomeScreenItemUpdater *)self _isDayZeroExperience];
-  v17 = -[ATXDefaultHomeScreenItemProducer initWithDescriptors:descriptorInstallDates:homeScreenConfig:isDayZeroExperience:isiPad:spotlightAppLaunchHistogram:appLaunchCounts:](v13, "initWithDescriptors:descriptorInstallDates:homeScreenConfig:isDayZeroExperience:isiPad:spotlightAppLaunchHistogram:appLaunchCounts:", descriptors, descriptorInstallDates, v11, _isDayZeroExperience, [MEMORY[0x1E69C5CF8] isiPad], self->_spotlightAppLaunchHistogram, countsCopy);
+  v18 = -[ATXDefaultHomeScreenItemProducer initWithDescriptors:descriptorInstallDates:homeScreenConfig:isDayZeroExperience:isiPad:spotlightAppLaunchHistogram:appLaunchCounts:](v14, "initWithDescriptors:descriptorInstallDates:homeScreenConfig:isDayZeroExperience:isiPad:spotlightAppLaunchHistogram:appLaunchCounts:", descriptors, descriptorInstallDates, v11, _isDayZeroExperience, [MEMORY[0x1E69C5CF8] isiPad], self->_spotlightAppLaunchHistogram, countsCopy);
 
-  update = [(ATXDefaultHomeScreenItemProducer *)v17 update];
-  v19 = +[ATXDefaultHomeScreenItemManager sharedInstance];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __94__ATXDefaultHomeScreenItemUpdater__updateHomeScreenDefaultsOnQueueWithReason_appLaunchCounts___block_invoke;
-  v21[3] = &unk_1E80C2AF8;
-  v22 = v6;
-  v20 = v6;
-  [v19 writeHomeScreenUpdate:update completionHandler:v21];
+  update = [(ATXDefaultHomeScreenItemProducer *)v18 update];
+  v20 = +[ATXDefaultHomeScreenItemManager sharedInstance];
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __94__ATXDefaultHomeScreenItemUpdater__updateHomeScreenDefaultsOnQueueWithReason_appLaunchCounts___block_invoke;
+  v22[3] = &unk_1E80C2AF8;
+  v23 = v6;
+  v21 = v6;
+  [v20 writeHomeScreenUpdate:update completionHandler:v22];
 }
 
 void __94__ATXDefaultHomeScreenItemUpdater__updateHomeScreenDefaultsOnQueueWithReason_appLaunchCounts___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = __atxlog_handle_home_screen(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __94__ATXDefaultHomeScreenItemUpdater__updateHomeScreenDefaultsOnQueueWithReason_appLaunchCounts___block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      __94__ATXDefaultHomeScreenItemUpdater__updateHomeScreenDefaultsOnQueueWithReason_appLaunchCounts___block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   else
   {
-    v10 = objc_alloc(MEMORY[0x1E695E000]);
-    v3 = [v10 initWithSuiteName:*MEMORY[0x1E698B030]];
-    v11 = [MEMORY[0x1E695DF00] now];
-    [v3 setObject:v11 forKey:@"AddWidgetSuggestionsLastUpdateDate"];
+    v11 = objc_alloc(MEMORY[0x1E695E000]);
+    v4 = [v11 initWithSuiteName:*MEMORY[0x1E698B030]];
+    v12 = [MEMORY[0x1E695DF00] now];
+    [v4 setObject:v12 forKey:@"AddWidgetSuggestionsLastUpdateDate"];
   }
 
-  v12 = __atxlog_handle_home_screen();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v14 = __atxlog_handle_home_screen(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    *v13 = 0;
-    _os_log_impl(&dword_1BF549000, v12, OS_LOG_TYPE_DEFAULT, "ATXDefaultHomeScreenItemUpdater: Finished updating home screen default stack and widget suggestions", v13, 2u);
+    *v15 = 0;
+    _os_log_impl(&dword_1BF549000, v14, OS_LOG_TYPE_DEFAULT, "ATXDefaultHomeScreenItemUpdater: Finished updating home screen default stack and widget suggestions", v15, 2u);
   }
 }
 
@@ -397,10 +403,10 @@ void __91__ATXDefaultHomeScreenItemUpdater__updateAmbientDefaultsOnQueueWithReas
 void __91__ATXDefaultHomeScreenItemUpdater__updateAmbientDefaultsOnQueueWithReason_appLaunchCounts___block_invoke_2(uint64_t a1)
 {
   v19[1] = *MEMORY[0x1E69E9840];
-  v2 = a1 + 32;
+  v2 = (a1 + 32);
   if (*(a1 + 32))
   {
-    v3 = __atxlog_handle_home_screen();
+    v3 = __atxlog_handle_home_screen(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __91__ATXDefaultHomeScreenItemUpdater__updateAmbientDefaultsOnQueueWithReason_appLaunchCounts___block_invoke_2_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
@@ -428,20 +434,21 @@ void __91__ATXDefaultHomeScreenItemUpdater__updateAmbientDefaultsOnQueueWithReas
 void __91__ATXDefaultHomeScreenItemUpdater__updateAmbientDefaultsOnQueueWithReason_appLaunchCounts___block_invoke_2_56(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = __atxlog_handle_home_screen(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __91__ATXDefaultHomeScreenItemUpdater__updateAmbientDefaultsOnQueueWithReason_appLaunchCounts___block_invoke_2_56_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      __91__ATXDefaultHomeScreenItemUpdater__updateAmbientDefaultsOnQueueWithReason_appLaunchCounts___block_invoke_2_56_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
-  v10 = __atxlog_handle_home_screen();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = __atxlog_handle_home_screen(v2);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    *v11 = 0;
-    _os_log_impl(&dword_1BF549000, v10, OS_LOG_TYPE_DEFAULT, "ATXDefaultHomeScreenItemUpdater: Finished updating ambient default stack and widget suggestions", v11, 2u);
+    *v12 = 0;
+    _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_DEFAULT, "ATXDefaultHomeScreenItemUpdater: Finished updating ambient default stack and widget suggestions", v12, 2u);
   }
 }
 
@@ -466,32 +473,33 @@ void __91__ATXDefaultHomeScreenItemUpdater__updateAmbientDefaultsOnQueueWithReas
 void __91__ATXDefaultHomeScreenItemUpdater__updateCarPlayDefaultsOnQueueWithReason_appLaunchCounts___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = __atxlog_handle_carPlay_widgets();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = __atxlog_handle_carPlay_widgets(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __91__ATXDefaultHomeScreenItemUpdater__updateCarPlayDefaultsOnQueueWithReason_appLaunchCounts___block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      __91__ATXDefaultHomeScreenItemUpdater__updateCarPlayDefaultsOnQueueWithReason_appLaunchCounts___block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
-  v10 = __atxlog_handle_carPlay_widgets();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = __atxlog_handle_carPlay_widgets(v2);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    *v11 = 0;
-    _os_log_impl(&dword_1BF549000, v10, OS_LOG_TYPE_DEFAULT, "ATXDefaultHomeScreenItemUpdater: Finished updating CarPlay default stack and widget suggestions", v11, 2u);
+    *v12 = 0;
+    _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_DEFAULT, "ATXDefaultHomeScreenItemUpdater: Finished updating CarPlay default stack and widget suggestions", v12, 2u);
   }
 }
 
 - (BOOL)_isDayZeroExperience
 {
-  if ([MEMORY[0x1E69C5CF8] isInternalBuild] && -[NSUserDefaults BOOLForKey:](self->_userDefaults, "BOOLForKey:", @"ATXWidgetsForceDayZeroAddSheet"))
+  if ([MEMORY[0x1E69C5CF8] isInternalBuild] && (v3 = -[NSUserDefaults BOOLForKey:](self->_userDefaults, "BOOLForKey:", @"ATXWidgetsForceDayZeroAddSheet"), v3))
   {
-    v3 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = __atxlog_handle_home_screen(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_1BF549000, v3, OS_LOG_TYPE_DEFAULT, "ATXDefaultHomeScreenItemUpdater: on day zero path because of user default to force day zero preference", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_1BF549000, v4, OS_LOG_TYPE_DEFAULT, "ATXDefaultHomeScreenItemUpdater: on day zero path because of user default to force day zero preference", v9, 2u);
     }
 
     return 1;
@@ -499,12 +507,12 @@ void __91__ATXDefaultHomeScreenItemUpdater__updateCarPlayDefaultsOnQueueWithReas
 
   else
   {
-    v5 = objc_opt_new();
-    [v5 uniqueAppsLaunchedOverLast28Days];
-    v4 = v6 < 15.0;
+    v6 = objc_opt_new();
+    [v6 uniqueAppsLaunchedOverLast28Days];
+    v5 = v7 < 15.0;
   }
 
-  return v4;
+  return v5;
 }
 
 - (id)_retrieveLastUpdateDate
@@ -548,6 +556,34 @@ void __91__ATXDefaultHomeScreenItemUpdater__updateCarPlayDefaultsOnQueueWithReas
   [v4 setAppBundleId:containerBundleIdentifier];
 
   return v4;
+}
+
+void __94__ATXDefaultHomeScreenItemUpdater__updateHomeScreenDefaultsOnQueueWithReason_appLaunchCounts___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_1BF549000, a2, a3, "ATXDefaultHomeScreenItemUpdater: Error writing home screen defaults to file: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __91__ATXDefaultHomeScreenItemUpdater__updateAmbientDefaultsOnQueueWithReason_appLaunchCounts___block_invoke_2_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_0(&dword_1BF549000, a2, a3, "ATXDefaultHomeScreenItemUpdater: Error reading ambient config stacks: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __91__ATXDefaultHomeScreenItemUpdater__updateAmbientDefaultsOnQueueWithReason_appLaunchCounts___block_invoke_2_56_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_1BF549000, a2, a3, "ATXDefaultHomeScreenItemUpdater: Error writing ambient defaults to file: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __91__ATXDefaultHomeScreenItemUpdater__updateCarPlayDefaultsOnQueueWithReason_appLaunchCounts___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_1BF549000, a2, a3, "ATXDefaultHomeScreenItemUpdater: Error writing CarPlay defaults to file: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

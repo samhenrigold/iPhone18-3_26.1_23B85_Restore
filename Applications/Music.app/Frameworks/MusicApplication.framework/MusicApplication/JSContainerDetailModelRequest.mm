@@ -76,7 +76,7 @@
   {
     v11 = v9;
     v12 = v10;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_DE9BF0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_DE9BF0, &unk_AF87B0);
     v13 = swift_allocObject();
     *(v13 + 16) = xmmword_AF4EC0;
     *(v13 + 32) = v11;

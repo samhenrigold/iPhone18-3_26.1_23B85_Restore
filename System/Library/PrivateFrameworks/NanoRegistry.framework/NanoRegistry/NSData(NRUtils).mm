@@ -46,14 +46,12 @@
 + (id)fromUUID:()NRUtils
 {
   v3 = a3;
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (a3)
   {
-    [a3 getUUIDBytes:v6];
-    v3 = [MEMORY[0x1E695DF88] dataWithBytes:v6 length:16];
+    [a3 getUUIDBytes:v5];
+    v3 = [MEMORY[0x1E695DF88] dataWithBytes:v5 length:16];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -89,10 +87,9 @@
 
 - (id)NRSHA256
 {
-  v5 = *MEMORY[0x1E69E9840];
-  [self NRSHA256:v4];
-  v1 = [MEMORY[0x1E695DEF0] dataWithBytes:v4 length:32];
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  [self NRSHA256:v3];
+  v1 = [MEMORY[0x1E695DEF0] dataWithBytes:v3 length:32];
 
   return v1;
 }

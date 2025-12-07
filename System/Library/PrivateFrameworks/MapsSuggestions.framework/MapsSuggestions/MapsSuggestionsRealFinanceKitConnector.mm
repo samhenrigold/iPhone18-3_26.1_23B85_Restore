@@ -20,7 +20,7 @@
 - (id)currentOrderPickupsWithPeriod:(double)period
 {
   sub_1C514123C(period);
-  type metadata accessor for MapsSuggestionsOrderPickup();
+  type metadata accessor for MapsSuggestionsOrderPickup(0);
   v3 = sub_1C529D7CC();
 
   return v3;

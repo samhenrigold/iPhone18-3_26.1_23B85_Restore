@@ -15,10 +15,12 @@
 - (void)applicationDidEnterBackground;
 - (void)applicationWillEnterForeground;
 - (void)bridgedRightButtonPressed;
+- (void)clientInterface:(id)interface financeInterruptionResolved:(BOOL)resolved;
 - (void)clientInterface:(id)interface overrideCreditCardPresentationFromViewController:(id)controller completion:(id)completion;
 - (void)clientInterface:(id)interface overrideRedeemCameraPerformAction:(int64_t)action withObject:(id)object;
 - (void)clientInterfaceDidFinishLoading:(id)loading;
 - (void)dealloc;
+- (void)dismissHostViewControllerWithResult:(BOOL)result error:(id)error;
 - (void)dismissPresentingBridgedViewController;
 - (void)dismissViewController;
 - (void)keyboardDidChangeFrame:(CGRect)frame animationCurve:(int64_t)curve duration:(double)duration;
@@ -26,13 +28,18 @@
 - (void)loadWithURL:(id)l;
 - (void)navigationItemUpdated;
 - (void)overrideIPadRedeemCamera:(id)camera completion:(id)completion;
+- (void)performRedeemOperationWithCode:(id)code cameraRecognized:(BOOL)recognized completion:(id)completion;
 - (void)popBridgedViewControllersToIndex:(unint64_t)index;
+- (void)presentViewController:(id)controller animated:(BOOL)animated completion:(id)completion;
+- (void)pushBridgedViewController:(id)controller animated:(BOOL)animated;
 - (void)redeemCameraCodeDetected:(id)detected;
 - (void)setBridgedNavigationItemWithOptions:(id)options;
 - (void)setChildViewController:(id)controller;
 - (void)setReferrer:(id)referrer;
 - (void)setUnderlyingViewController:(id)controller;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation ServiceAccountPageViewController
@@ -65,7 +72,6 @@
 - (void)dealloc
 {
   [(SUClientInterface *)self->_clientInterface setDelegate:0];
-  underlyingViewController = self->_underlyingViewController;
   if (objc_opt_respondsToSelector())
   {
     [(ServiceAccountPageEmbedded *)self->_underlyingViewController setEmbeddedParent:0];
@@ -73,13 +79,22 @@
 
   if ((self->_type - 1) <= 1)
   {
-    v4 = +[ServiceBridgedNavigationController sharedController];
-    [v4 synchonrizeContinainerViewControllers];
+    v3 = +[ServiceBridgedNavigationController sharedController];
+    [v3 synchonrizeContinainerViewControllers];
   }
 
-  v5.receiver = self;
-  v5.super_class = ServiceAccountPageViewController;
-  [(ServiceAccountPageViewController *)&v5 dealloc];
+  v4.receiver = self;
+  v4.super_class = ServiceAccountPageViewController;
+  [(ServiceAccountPageViewController *)&v4 dealloc];
+}
+
+- (void)dismissHostViewControllerWithResult:(BOOL)result error:(id)error
+{
+  resultCopy = result;
+  errorCopy = error;
+  _clientViewControllerProxy = [(ServiceAccountPageViewController *)self _clientViewControllerProxy];
+  v7 = [NSNumber numberWithBool:resultCopy];
+  [_clientViewControllerProxy dismissViewControllerWithResult:v7 error:errorCopy];
 }
 
 - (void)viewDidLoad
@@ -155,7 +170,7 @@
 {
   v9 = 0u;
   v10 = 0u;
-  [(ServiceAccountPageViewController *)self _hostAuditToken];
+  objc_msgSend__hostAuditToken(self, a2);
   v7 = v9;
   v8 = v10;
   if (sub_10000D270(&v7, @"com.apple.ios.StoreKit.account-page") || (v7 = v9, v8 = v10, sub_10000D270(&v7, kSSITunesStorePrivateEntitlement)))
@@ -173,6 +188,30 @@
   _clientViewControllerProxy = [(ServiceAccountPageViewController *)self _clientViewControllerProxy];
   v6 = [NSNumber numberWithBool:v4];
   [_clientViewControllerProxy didPrepareWithResult:v6 error:v3];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = ServiceAccountPageViewController;
+  [(ServiceAccountPageViewController *)&v5 viewWillAppear:appear];
+  if ([(ServiceAccountPageViewController *)self type]== 1 && ![(ServiceAccountPageViewController *)self loadFromBridgedNavigation])
+  {
+    v4 = +[ServiceBridgedNavigationController sharedController];
+    [v4 setProxyHandler:self];
+  }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = ServiceAccountPageViewController;
+  [(ServiceAccountPageViewController *)&v5 viewDidAppear:appear];
+  if ([(ServiceAccountPageViewController *)self type]== 1 || [(ServiceAccountPageViewController *)self type]== 2)
+  {
+    v4 = +[ServiceBridgedNavigationController sharedController];
+    [v4 synchonrizeContinainerViewControllers];
+  }
 }
 
 - (id)navigationItem
@@ -222,6 +261,21 @@
   }
 
   return navigationController;
+}
+
+- (void)presentViewController:(id)controller animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  controllerCopy = controller;
+  v8 = +[ServiceBridgedPresentationController sharedController];
+  [(ServiceAccountPageViewController *)self presentationBounds];
+  LODWORD(animatedCopy) = [v8 saveViewController:controllerCopy animated:animatedCopy presentationBounds:self proxyHandler:?];
+
+  if (animatedCopy)
+  {
+    _clientViewControllerProxy = [(ServiceAccountPageViewController *)self _clientViewControllerProxy];
+    [_clientViewControllerProxy presentBridgedViewController];
+  }
 }
 
 - (void)navigationItemUpdated
@@ -280,6 +334,14 @@
   }
 
   return v4;
+}
+
+- (void)pushBridgedViewController:(id)controller animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v7 = [(ServiceAccountPageViewController *)self navigationItemOptionsFromViewController:controller];
+  _clientViewControllerProxy = [(ServiceAccountPageViewController *)self _clientViewControllerProxy];
+  [_clientViewControllerProxy pushBridgedViewControllerAnimated:animatedCopy options:v7];
 }
 
 - (void)popBridgedViewControllersToIndex:(unint64_t)index
@@ -386,6 +448,20 @@
     activeChildViewController = [v3 activeChildViewController];
 
     [activeChildViewController applicationDidEnterBackground];
+  }
+}
+
+- (void)performRedeemOperationWithCode:(id)code cameraRecognized:(BOOL)recognized completion:(id)completion
+{
+  recognizedCopy = recognized;
+  codeCopy = code;
+  completionCopy = completion;
+  WeakRetained = objc_loadWeakRetained(&self->_redeemCameraViewController);
+
+  if (WeakRetained)
+  {
+    v10 = objc_loadWeakRetained(&self->_redeemCameraViewController);
+    [v10 performRedeemOperationWithCode:codeCopy cameraRecognized:recognizedCopy completion:completionCopy];
   }
 }
 
@@ -504,6 +580,13 @@
 
   _clientViewControllerProxy = [(ServiceAccountPageViewController *)self _clientViewControllerProxy];
   [_clientViewControllerProxy overrideRedeemCameraPerformAction:action withObject:objectCopy];
+}
+
+- (void)clientInterface:(id)interface financeInterruptionResolved:(BOOL)resolved
+{
+  resolvedCopy = resolved;
+  _clientViewControllerProxy = [(ServiceAccountPageViewController *)self _clientViewControllerProxy];
+  [_clientViewControllerProxy financeInterruptionResolved:resolvedCopy];
 }
 
 - (void)clientInterfaceDidFinishLoading:(id)loading
@@ -647,13 +730,11 @@ LABEL_13:
     v88 = 2112;
     v89 = _hostApplicationBundleIdentifier;
     v8 = *&location[4];
-    LODWORD(v72) = 22;
-    v71 = location;
-    v9 = _os_log_send_and_compose_impl();
+    v9 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Setting service host registry bundleID: %@", location, 22);
 
     if (v9)
     {
-      v10 = [NSString stringWithCString:v9 encoding:4, location, v72];
+      v10 = [NSString stringWithCString:v9 encoding:4];
       free(v9);
       v71 = v10;
       SSFileLog();
@@ -704,7 +785,7 @@ LABEL_13:
       v89 = v75;
       v19 = v18;
       LODWORD(v72) = 22;
-      v20 = _os_log_send_and_compose_impl();
+      v20 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%{public}@: Using config URL/bag key mapping: %@", location, v72);
 
       if (!v20)
       {
@@ -722,7 +803,7 @@ LABEL_21:
         goto LABEL_63;
       }
 
-      oSLogObject2 = [NSString stringWithCString:v20 encoding:4, location, v72];
+      oSLogObject2 = [NSString stringWithCString:v20 encoding:4];
       free(v20);
       SSFileLog();
     }

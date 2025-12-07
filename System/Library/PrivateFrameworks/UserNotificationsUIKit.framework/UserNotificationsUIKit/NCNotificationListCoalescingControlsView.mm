@@ -198,15 +198,16 @@
 
 - (double)_effectiveValue:(double)value
 {
-  if ([(NCNotificationListCoalescingControlsView *)self adjustsFontForContentSizeCategory])
+  adjustsFontForContentSizeCategory = [(NCNotificationListCoalescingControlsView *)self adjustsFontForContentSizeCategory];
+  if (adjustsFontForContentSizeCategory)
   {
-    v4 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D76968]];
-    [v4 _scaledValueForValue:value];
-    _NCMainScreenScale();
+    v6 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D76968]];
+    v7 = [v6 _scaledValueForValue:value];
+    _NCMainScreenScale(v7, v8);
     UIRoundToScale();
   }
 
-  _NCMainScreenScale();
+  _NCMainScreenScale(adjustsFontForContentSizeCategory, v5);
 
   UICeilToScale();
   return result;
@@ -224,7 +225,7 @@
 
 - (id)_restackButtonTitle
 {
-  v2 = NCUserNotificationsUIKitFrameworkBundle();
+  v2 = NCUserNotificationsUIKitFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"NOTIFICATION_LIST_SHOW_LESS" value:&stru_282FE84F8 table:0];
 
   return v3;
@@ -232,7 +233,7 @@
 
 - (id)_clearButtonTitle
 {
-  v2 = NCUserNotificationsUIKitFrameworkBundle();
+  v2 = NCUserNotificationsUIKitFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"NOTIFICATION_LIST_CLEAR" value:&stru_282FE84F8 table:0];
 
   return v3;
@@ -256,7 +257,7 @@
 - (id)_newRestackButton
 {
   footerCell = self->_footerCell;
-  v4 = NCUserNotificationsUIKitFrameworkBundle();
+  v4 = NCUserNotificationsUIKitFrameworkBundle(self);
   v5 = [v4 localizedStringForKey:@"NOTIFICATION_LIST_CLEAR_ALL" value:&stru_282FE84F8 table:0];
   v6 = [NCToggleControl showLessControlWithMaterialRecipe:1 clearAllText:v5 glyphOrientation:!footerCell];
 
@@ -269,7 +270,7 @@
 
 - (id)_newClearButton
 {
-  v3 = NCUserNotificationsUIKitFrameworkBundle();
+  v3 = NCUserNotificationsUIKitFrameworkBundle(self);
   v4 = [v3 localizedStringForKey:@"NOTIFICATION_LIST_CLEAR_ALL" value:&stru_282FE84F8 table:0];
   v5 = [NCToggleControl dismissControlWithMaterialRecipe:1 clearAllText:v4];
 

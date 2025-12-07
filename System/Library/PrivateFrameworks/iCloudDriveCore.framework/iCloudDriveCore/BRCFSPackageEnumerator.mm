@@ -8,26 +8,26 @@
 
 + (BOOL)enumerateItemsInPackageAtURL:(id)l error:(id *)error usingBlock:(id)block
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   lCopy = l;
   blockCopy = block;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x3032000000;
-  v32 = __Block_byref_object_copy__8;
-  v33 = __Block_byref_object_dispose__8;
-  v34 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy__8;
+  v32 = __Block_byref_object_dispose__8;
+  v33 = 0;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __72__BRCFSPackageEnumerator_enumerateItemsInPackageAtURL_error_usingBlock___block_invoke;
-  v28[3] = &unk_278500E40;
-  v28[4] = &v29;
-  v9 = [defaultManager enumeratorAtURL:lCopy includingPropertiesForKeys:0 options:16 errorHandler:v28];
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __72__BRCFSPackageEnumerator_enumerateItemsInPackageAtURL_error_usingBlock___block_invoke;
+  v27[3] = &unk_278500E40;
+  v27[4] = &v28;
+  v9 = [defaultManager enumeratorAtURL:lCopy includingPropertiesForKeys:0 options:16 errorHandler:v27];
 
   v10 = 0;
   *&v11 = 138412546;
-  v26 = v11;
+  v25 = v11;
   do
   {
     nextObject = [v9 nextObject];
@@ -45,10 +45,10 @@
       v16 = brc_default_log();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
-        *buf = v26;
-        v36 = nextObject;
-        v37 = 2112;
-        v38 = v15;
+        *buf = v25;
+        v35 = nextObject;
+        v36 = 2112;
+        v37 = v15;
         _os_log_debug_impl(&dword_223E7A000, v16, OS_LOG_TYPE_DEBUG, "[DEBUG] Item %@ is excluded from sync. Skipping hierarchy%@", buf, 0x16u);
       }
 
@@ -74,27 +74,27 @@
   }
 
   while ((v17 & 1) == 0);
-  v19 = v30[5];
+  v19 = v29[5];
   if (v19)
   {
     v20 = brc_bread_crumbs();
     v21 = brc_default_log();
     if (os_log_type_enabled(v21, 0x90u))
     {
-      v25 = "(passed to caller)";
+      v24 = "(passed to caller)";
       *buf = 136315906;
-      v36 = "+[BRCFSPackageEnumerator enumerateItemsInPackageAtURL:error:usingBlock:]";
-      v37 = 2080;
+      v35 = "+[BRCFSPackageEnumerator enumerateItemsInPackageAtURL:error:usingBlock:]";
+      v36 = 2080;
       if (!error)
       {
-        v25 = "(ignored by caller)";
+        v24 = "(ignored by caller)";
       }
 
-      v38 = v25;
-      v39 = 2112;
-      v40 = v19;
-      v41 = 2112;
-      v42 = v20;
+      v37 = v24;
+      v38 = 2112;
+      v39 = v19;
+      v40 = 2112;
+      v41 = v20;
       _os_log_error_impl(&dword_223E7A000, v21, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
     }
   }
@@ -105,19 +105,18 @@
     *error = v19;
   }
 
-  _Block_object_dispose(&v29, 8);
-  v23 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v28, 8);
   return v19 == 0;
 }
 
 - (id)initForURL:(id)l boundaryKey:(id)key error:(id *)error
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   lCopy = l;
   keyCopy = key;
-  v38.receiver = self;
-  v38.super_class = BRCFSPackageEnumerator;
-  v11 = [(BRCFSPackageEnumerator *)&v38 init];
+  v37.receiver = self;
+  v37.super_class = BRCFSPackageEnumerator;
+  v11 = [(BRCFSPackageEnumerator *)&v37 init];
   if (!v11)
   {
     goto LABEL_12;
@@ -144,27 +143,27 @@
     goto LABEL_10;
   }
 
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x3032000000;
-  v35 = __Block_byref_object_copy__8;
-  v36 = __Block_byref_object_dispose__8;
-  v37 = 0;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x3032000000;
+  v34 = __Block_byref_object_copy__8;
+  v35 = __Block_byref_object_dispose__8;
+  v36 = 0;
   rootURL = v11->_rootURL;
   obj = 0;
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __55__BRCFSPackageEnumerator_initForURL_boundaryKey_error___block_invoke;
-  v28[3] = &unk_278500E68;
-  v29 = v11;
-  v30 = &v32;
-  [BRCFSPackageEnumerator enumerateItemsInPackageAtURL:rootURL error:&obj usingBlock:v28];
-  objc_storeStrong(&v37, obj);
-  v19 = v33[5];
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __55__BRCFSPackageEnumerator_initForURL_boundaryKey_error___block_invoke;
+  v27[3] = &unk_278500E68;
+  v28 = v11;
+  v29 = &v31;
+  [BRCFSPackageEnumerator enumerateItemsInPackageAtURL:rootURL error:&obj usingBlock:v27];
+  objc_storeStrong(&v36, obj);
+  v19 = v32[5];
   if (!v19)
   {
 
-    _Block_object_dispose(&v32, 8);
+    _Block_object_dispose(&v31, 8);
 LABEL_12:
     v24 = v11;
     goto LABEL_13;
@@ -175,20 +174,20 @@ LABEL_12:
   v22 = brc_default_log();
   if (os_log_type_enabled(v22, 0x90u))
   {
-    v27 = "(passed to caller)";
+    v26 = "(passed to caller)";
     *buf = 136315906;
-    v40 = "[BRCFSPackageEnumerator initForURL:boundaryKey:error:]";
-    v41 = 2080;
+    v39 = "[BRCFSPackageEnumerator initForURL:boundaryKey:error:]";
+    v40 = 2080;
     if (!error)
     {
-      v27 = "(ignored by caller)";
+      v26 = "(ignored by caller)";
     }
 
-    v42 = v27;
-    v43 = 2112;
-    v44 = v20;
-    v45 = 2112;
-    v46 = v21;
+    v41 = v26;
+    v42 = 2112;
+    v43 = v20;
+    v44 = 2112;
+    v45 = v21;
     _os_log_error_impl(&dword_223E7A000, v22, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
   }
 
@@ -198,12 +197,11 @@ LABEL_12:
     *error = v20;
   }
 
-  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v31, 8);
 LABEL_10:
   v24 = 0;
 LABEL_13:
 
-  v25 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
@@ -223,45 +221,45 @@ void __55__BRCFSPackageEnumerator_initForURL_boundaryKey_error___block_invoke(ui
 
 - (BOOL)enumeratePackageItemsWithSortOrder:(unint64_t)order error:(id *)error usingBlock:(id)block
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   blockCopy = block;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy__8;
-  v24 = __Block_byref_object_dispose__8;
-  v25 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__8;
+  v23 = __Block_byref_object_dispose__8;
+  v24 = 0;
   packageItems = self->_packageItems;
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __78__BRCFSPackageEnumerator_enumeratePackageItemsWithSortOrder_error_usingBlock___block_invoke;
-  v17[3] = &unk_278500E90;
-  v17[4] = self;
-  v19 = &v20;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __78__BRCFSPackageEnumerator_enumeratePackageItemsWithSortOrder_error_usingBlock___block_invoke;
+  v16[3] = &unk_278500E90;
+  v16[4] = self;
+  v18 = &v19;
   v9 = blockCopy;
-  v18 = v9;
-  [(BRCSQLBackedSet *)packageItems enumerateObjectsWithSortOrder:2 usingBlock:v17];
-  v10 = v21[5];
+  v17 = v9;
+  [(BRCSQLBackedSet *)packageItems enumerateObjectsWithSortOrder:2 usingBlock:v16];
+  v10 = v20[5];
   if (v10)
   {
     v11 = brc_bread_crumbs();
     v12 = brc_default_log();
     if (os_log_type_enabled(v12, 0x90u))
     {
-      v16 = "(passed to caller)";
+      v15 = "(passed to caller)";
       *buf = 136315906;
-      v27 = "[BRCFSPackageEnumerator enumeratePackageItemsWithSortOrder:error:usingBlock:]";
-      v28 = 2080;
+      v26 = "[BRCFSPackageEnumerator enumeratePackageItemsWithSortOrder:error:usingBlock:]";
+      v27 = 2080;
       if (!error)
       {
-        v16 = "(ignored by caller)";
+        v15 = "(ignored by caller)";
       }
 
-      v29 = v16;
-      v30 = 2112;
-      v31 = v10;
-      v32 = 2112;
-      v33 = v11;
+      v28 = v15;
+      v29 = 2112;
+      v30 = v10;
+      v31 = 2112;
+      v32 = v11;
       _os_log_error_impl(&dword_223E7A000, v12, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
     }
   }
@@ -272,14 +270,13 @@ void __55__BRCFSPackageEnumerator_initForURL_boundaryKey_error___block_invoke(ui
     *error = v10;
   }
 
-  _Block_object_dispose(&v20, 8);
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v19, 8);
   return v10 == 0;
 }
 
 void __78__BRCFSPackageEnumerator_enumeratePackageItemsWithSortOrder_error_usingBlock___block_invoke(void *a1, void *a2, _BYTE *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = objc_autoreleasePoolPush();
   v7 = [*(a1[4] + 8) URLByAppendingPathComponent:v5];
@@ -304,9 +301,9 @@ void __78__BRCFSPackageEnumerator_enumeratePackageItemsWithSortOrder_error_using
       v15 = [v7 path];
       v16 = [v15 fp_obfuscatedPath];
       *buf = 138412546;
-      v27 = v16;
-      v28 = 2112;
-      v29 = v13;
+      v26 = v16;
+      v27 = 2112;
+      v28 = v13;
       _os_log_impl(&dword_223E7A000, v14, OS_LOG_TYPE_DEFAULT, "[WARNING] Ignoring excluded package item from sync %@%@", buf, 0x16u);
     }
 
@@ -321,15 +318,15 @@ void __78__BRCFSPackageEnumerator_enumeratePackageItemsWithSortOrder_error_using
     v20 = brc_default_log();
     if (os_log_type_enabled(v20, 0x90u))
     {
-      v22 = [v7 path];
-      v23 = [v22 fp_obfuscatedPath];
-      v24 = *(*(a1[6] + 8) + 40);
+      v21 = [v7 path];
+      v22 = [v21 fp_obfuscatedPath];
+      v23 = *(*(a1[6] + 8) + 40);
       *buf = 138412802;
-      v27 = v23;
-      v28 = 2112;
-      v29 = v24;
-      v30 = 2112;
-      v31 = v19;
+      v26 = v22;
+      v27 = 2112;
+      v28 = v23;
+      v29 = 2112;
+      v30 = v19;
       _os_log_error_impl(&dword_223E7A000, v20, 0x90u, "[ERROR] Couldn't create import item for %@ - %@%@", buf, 0x20u);
     }
 
@@ -337,18 +334,16 @@ void __78__BRCFSPackageEnumerator_enumeratePackageItemsWithSortOrder_error_using
   }
 
   objc_autoreleasePoolPop(v6);
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initForURL:(uint64_t)a1 boundaryKey:(uint64_t)a2 error:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_debug_impl(&dword_223E7A000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] Creating BRCFSPackageEnumerator for %@%@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_debug_impl(&dword_223E7A000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] Creating BRCFSPackageEnumerator for %@%@", &v3, 0x16u);
 }
 
 @end

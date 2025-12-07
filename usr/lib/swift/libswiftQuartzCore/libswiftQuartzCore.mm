@@ -17,12 +17,12 @@ NSValue __swiftcall CATransform3D._bridgeToObjectiveC()()
   return [objc_allocWithZone(MEMORY[0x29EDBA168]) initWithBytes:v6 objCType:"{CATransform3D=dddddddddddddddd}"];
 }
 
-void type metadata accessor for CACornerRadii(uint64_t a1, unint64_t *a2)
+void type metadata accessor for CACornerRadii(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -339,22 +339,22 @@ uint64_t storeEnumTagSinglePayload for CGSize(uint64_t result, int a2, int a3)
   return result;
 }
 
-double static CATransform3D._unconditionallyBridgeFromObjectiveC(_:)@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
+double static CATransform3D._unconditionallyBridgeFromObjectiveC(_:)@<D0>(_OWORD *a1@<X8>, void *a2@<X0>)
 {
-  specialized static CATransform3D._unconditionallyBridgeFromObjectiveC(_:)(a1, v8);
+  specialized static CATransform3D._unconditionallyBridgeFromObjectiveC(_:)(a2, v8);
   v3 = v12;
-  a2[4] = v11;
-  a2[5] = v3;
+  a1[4] = v11;
+  a1[5] = v3;
   v4 = v14;
-  a2[6] = v13;
-  a2[7] = v4;
+  a1[6] = v13;
+  a1[7] = v4;
   v5 = v8[1];
-  *a2 = v8[0];
-  a2[1] = v5;
+  *a1 = v8[0];
+  a1[1] = v5;
   result = *&v9;
   v7 = v10;
-  a2[2] = v9;
-  a2[3] = v7;
+  a1[2] = v9;
+  a1[3] = v7;
   return result;
 }
 
@@ -376,22 +376,22 @@ id protocol witness for _ObjectiveCBridgeable._bridgeToObjectiveC() in conforman
   return [objc_allocWithZone(MEMORY[0x29EDBA168]) initWithBytes:v6 objCType:"{CATransform3D=dddddddddddddddd}"];
 }
 
-double protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeFromObjectiveC(_:) in conformance CATransform3D@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
+double protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeFromObjectiveC(_:) in conformance CATransform3D@<D0>(_OWORD *a1@<X8>, void *a2@<X0>)
 {
-  specialized static CATransform3D._unconditionallyBridgeFromObjectiveC(_:)(a1, v8);
+  specialized static CATransform3D._unconditionallyBridgeFromObjectiveC(_:)(a2, v8);
   v3 = v12;
-  a2[4] = v11;
-  a2[5] = v3;
+  a1[4] = v11;
+  a1[5] = v3;
   v4 = v14;
-  a2[6] = v13;
-  a2[7] = v4;
+  a1[6] = v13;
+  a1[7] = v4;
   v5 = v8[1];
-  *a2 = v8[0];
-  a2[1] = v5;
+  *a1 = v8[0];
+  a1[1] = v5;
   result = *&v9;
   v7 = v10;
-  a2[2] = v9;
-  a2[3] = v7;
+  a1[2] = v9;
+  a1[3] = v7;
   return result;
 }
 

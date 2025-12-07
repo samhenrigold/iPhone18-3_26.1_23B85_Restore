@@ -71,7 +71,7 @@
 
 - (SIOrderedEventInternal)initWithLogicalTimestamp:(id)timestamp messageUUID:(id)d tluEvent:(id)event
 {
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB4004E0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB4004E0, &qword_1AA72E300);
   MEMORY[0x1EEE9AC00](v8 - 8);
   v10 = &v14 - v9;
   if (d)
@@ -122,7 +122,7 @@
   v6 = v5;
 
   swift_getObjCClassMetadata();
-  v7 = static OrderedEvent.deserialize(from:)();
+  v7 = static OrderedEvent.deserialize(from:)(v4, v6);
   sub_1A9C6BB4C(v4, v6);
 
   return v7;

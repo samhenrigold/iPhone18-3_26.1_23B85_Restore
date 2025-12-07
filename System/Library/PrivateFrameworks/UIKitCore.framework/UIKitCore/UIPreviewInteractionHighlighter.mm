@@ -105,28 +105,28 @@ LABEL_23:
   }
 }
 
-void __82___UIPreviewInteractionHighlighter__updateFromInteraction_fractionComplete_ended___block_invoke_2(uint64_t a1)
+void __82___UIPreviewInteractionHighlighter__updateFromInteraction_fractionComplete_ended___block_invoke_2(uint64_t a1, const char *a2)
 {
-  if ([*(*(a1 + 32) + 72) isEqual:*(a1 + 40)])
+  if (objc_msgSend_isEqual_(*(*(a1 + 32) + 72), a2, *(a1 + 40)))
   {
     if (*(a1 + 56) == 1)
     {
       WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 16));
-      v3 = objc_opt_respondsToSelector();
+      v4 = objc_opt_respondsToSelector();
 
-      if (v3)
+      if (v4)
       {
-        v4 = objc_loadWeakRetained((*(a1 + 32) + 16));
-        [v4 _highlightDidEndForInteraction:*(a1 + 48)];
+        v5 = objc_loadWeakRetained((*(a1 + 32) + 16));
+        [v5 _highlightDidEndForInteraction:*(a1 + 48)];
       }
 
       *(*(a1 + 32) + 65) = 0;
       [*(a1 + 32) _finalizeAfterInteractionIfNeeded];
     }
 
-    v5 = *(a1 + 32);
-    v6 = *(v5 + 72);
-    *(v5 + 72) = 0;
+    v6 = *(a1 + 32);
+    v7 = *(v6 + 72);
+    *(v6 + 72) = 0;
   }
 }
 

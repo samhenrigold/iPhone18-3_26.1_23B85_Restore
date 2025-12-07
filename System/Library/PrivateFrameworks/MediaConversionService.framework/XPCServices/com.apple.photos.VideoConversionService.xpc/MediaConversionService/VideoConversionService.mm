@@ -170,14 +170,7 @@
   optionsCopy = options;
   bookmarkDictionaryCopy = bookmarkDictionary;
   dictionaryCopy = dictionary;
-  v13 = [(VideoConversionService *)self optionsRequirePhotosAdjustmentProcessing:optionsCopy];
-  v14 = &off_10003C550;
-  if (!v13)
-  {
-    v14 = off_10003C548;
-  }
-
-  v15 = *v14;
+  [(VideoConversionService *)self optionsRequirePhotosAdjustmentProcessing:optionsCopy];
   [(VideoConversionService *)self performConversionOfClass:objc_opt_class() forSourceBookmarkDictionary:dictionaryCopy destinationBookmarkDictionary:bookmarkDictionaryCopy options:optionsCopy replyHandler:handlerCopy];
 }
 

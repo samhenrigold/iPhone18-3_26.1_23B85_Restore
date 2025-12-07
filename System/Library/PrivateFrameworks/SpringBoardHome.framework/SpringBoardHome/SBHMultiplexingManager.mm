@@ -558,7 +558,7 @@ LABEL_17:
 LABEL_18:
 
 LABEL_19:
-  v28 = [(NSMutableDictionary *)self->_viewControllersForIdentifier objectForKey:identifierCopy, *v32, *&v32[16], v33, *v34, *&v34[16]];
+  v28 = [(NSMutableDictionary *)self->_viewControllersForIdentifier objectForKey:identifierCopy, *v32, *&v32[8], v33, *v34, *&v34[8]];
   if (!v28 && necessaryCopy)
   {
     v28 = [(NSMutableDictionary *)self->_cachedRecentViewControllersForIdentifier objectForKey:identifierCopy];

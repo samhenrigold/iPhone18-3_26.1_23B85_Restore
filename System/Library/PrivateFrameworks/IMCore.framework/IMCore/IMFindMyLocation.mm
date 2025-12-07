@@ -14,28 +14,25 @@
 {
   fmlLocationCopy = fmlLocation;
   locationCopy = location;
-  v7 = [IMFindMyLocation alloc];
-  v9 = objc_msgSend_initWithFMFLocation_fmlLocation_(v7, v8, locationCopy, fmlLocationCopy);
+  v7 = [[IMFindMyLocation alloc] initWithFMFLocation:locationCopy fmlLocation:fmlLocationCopy];
 
-  return v9;
+  return v7;
 }
 
 + (id)locationWithFMFLocation:(id)location
 {
   locationCopy = location;
-  v4 = [IMFindMyLocation alloc];
-  v6 = objc_msgSend_initWithFMFLocation_fmlLocation_(v4, v5, locationCopy, 0);
+  v4 = [[IMFindMyLocation alloc] initWithFMFLocation:locationCopy fmlLocation:0];
 
-  return v6;
+  return v4;
 }
 
 + (id)locationWithFMLLocation:(id)location
 {
   locationCopy = location;
-  v4 = [IMFindMyLocation alloc];
-  v6 = objc_msgSend_initWithFMFLocation_fmlLocation_(v4, v5, 0, locationCopy);
+  v4 = [[IMFindMyLocation alloc] initWithFMFLocation:0 fmlLocation:locationCopy];
 
-  return v6;
+  return v4;
 }
 
 - (IMFindMyLocation)initWithFMFLocation:(id)location fmlLocation:(id)fmlLocation
@@ -57,38 +54,38 @@
 
 - (NSString)shortAddress
 {
-  v4 = objc_msgSend_fmlLocation(self, a2, v2);
-  if (v4)
+  fmlLocation = [(IMFindMyLocation *)self fmlLocation];
+  if (fmlLocation)
   {
-    v7 = v4;
-    v8 = objc_msgSend_fmlLocation(self, v5, v6);
-    v9 = objc_opt_respondsToSelector();
+    v4 = fmlLocation;
+    fmlLocation2 = [(IMFindMyLocation *)self fmlLocation];
+    v6 = objc_opt_respondsToSelector();
 
-    if (v9)
+    if (v6)
     {
-      v10 = objc_msgSend_fmlLocation(self, v5, v6);
-      v13 = objc_msgSend_coarseAddressLabel(v10, v11, v12);
+      fmlLocation3 = [(IMFindMyLocation *)self fmlLocation];
+      coarseAddressLabel = [fmlLocation3 coarseAddressLabel];
 LABEL_6:
-      v20 = v13;
+      v11 = coarseAddressLabel;
 
       goto LABEL_8;
     }
   }
 
-  v14 = objc_msgSend_fmfLocation(self, v5, v6);
-  v15 = objc_opt_respondsToSelector();
+  fmfLocation = [(IMFindMyLocation *)self fmfLocation];
+  v10 = objc_opt_respondsToSelector();
 
-  if (v15)
+  if (v10)
   {
-    v10 = objc_msgSend_fmfLocation(self, v16, v17);
-    v13 = objc_msgSend_shortAddress(v10, v18, v19);
+    fmlLocation3 = [(IMFindMyLocation *)self fmfLocation];
+    coarseAddressLabel = [fmlLocation3 shortAddress];
     goto LABEL_6;
   }
 
-  v20 = 0;
+  v11 = 0;
 LABEL_8:
 
-  return v20;
+  return v11;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -96,7 +93,7 @@ LABEL_8:
   equalCopy = equal;
   if (equalCopy == self)
   {
-    v26 = 1;
+    v14 = 1;
   }
 
   else
@@ -105,17 +102,17 @@ LABEL_8:
     if (objc_opt_isKindOfClass())
     {
       v6 = equalCopy;
-      v11 = objc_msgSend_fmfLocation(self, v7, v8);
-      if (v11 || (objc_msgSend_fmfLocation(v6, v9, v10), (v3 = objc_claimAutoreleasedReturnValue()) != 0))
+      fmfLocation = [(IMFindMyLocation *)self fmfLocation];
+      if (fmfLocation || ([(IMFindMyLocation *)v6 fmfLocation], (v3 = objc_claimAutoreleasedReturnValue()) != 0))
       {
-        v12 = objc_msgSend_fmfLocation(self, v9, v10);
-        v15 = objc_msgSend_fmfLocation(v6, v13, v14);
-        isEqual = objc_msgSend_isEqual_(v12, v16, v15);
+        fmfLocation2 = [(IMFindMyLocation *)self fmfLocation];
+        fmfLocation3 = [(IMFindMyLocation *)v6 fmfLocation];
+        v10 = [fmfLocation2 isEqual:fmfLocation3];
 
-        if (v11)
+        if (fmfLocation)
         {
 
-          if (isEqual)
+          if (v10)
           {
             goto LABEL_7;
           }
@@ -124,27 +121,27 @@ LABEL_8:
         else
         {
 
-          if (isEqual)
+          if (v10)
           {
             goto LABEL_7;
           }
         }
 
-        v26 = 0;
+        v14 = 0;
 LABEL_18:
 
         goto LABEL_19;
       }
 
 LABEL_7:
-      v20 = objc_msgSend_fmlLocation(self, v9, v10);
-      if (v20 || (objc_msgSend_fmlLocation(v6, v18, v19), (v3 = objc_claimAutoreleasedReturnValue()) != 0))
+      fmlLocation = [(IMFindMyLocation *)self fmlLocation];
+      if (fmlLocation || ([(IMFindMyLocation *)v6 fmlLocation], (v3 = objc_claimAutoreleasedReturnValue()) != 0))
       {
-        v21 = objc_msgSend_fmlLocation(self, v18, v19);
-        v24 = objc_msgSend_fmlLocation(v6, v22, v23);
-        v26 = objc_msgSend_isEqual_(v21, v25, v24);
+        fmlLocation2 = [(IMFindMyLocation *)self fmlLocation];
+        fmlLocation3 = [(IMFindMyLocation *)v6 fmlLocation];
+        v14 = [fmlLocation2 isEqual:fmlLocation3];
 
-        if (v20)
+        if (fmlLocation)
         {
 LABEL_17:
 
@@ -154,28 +151,28 @@ LABEL_17:
 
       else
       {
-        v26 = 1;
+        v14 = 1;
       }
 
       goto LABEL_17;
     }
 
-    v26 = 0;
+    v14 = 0;
   }
 
 LABEL_19:
 
-  return v26;
+  return v14;
 }
 
 - (unint64_t)hash
 {
-  v4 = objc_msgSend_fmfLocation(self, a2, v2);
-  v7 = objc_msgSend_hash(v4, v5, v6);
-  v10 = objc_msgSend_fmlLocation(self, v8, v9);
-  v13 = objc_msgSend_hash(v10, v11, v12);
+  fmfLocation = [(IMFindMyLocation *)self fmfLocation];
+  v4 = [fmfLocation hash];
+  fmlLocation = [(IMFindMyLocation *)self fmlLocation];
+  v6 = [fmlLocation hash];
 
-  return v13 ^ v7;
+  return v6 ^ v4;
 }
 
 @end

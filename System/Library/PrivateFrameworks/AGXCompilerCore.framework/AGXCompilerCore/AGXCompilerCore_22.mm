@@ -1,4131 +1,3 @@
-uint64_t std::__function::__func<AGCModule<AGX::BVHBuilderProgramKey>::compileLLVMObject(AGCTargetContext *,char **,unsigned long *,char **,char **,unsigned long *)::{lambda(AGCDeserializedReply const&)#1},std::allocator<AGCModule<AGX::BVHBuilderProgramKey>::compileLLVMObject(AGCTargetContext *,char **,unsigned long *,char **,char **,unsigned long *)::{lambda(AGCDeserializedReply const&)#1}>,void ()(AGCDeserializedReply const&)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_2825BEA08;
-  a2[1] = v2;
-  return result;
-}
-
-void ProgramKey<(_AGCStreamToken)24,(AGX::DriverShaderCompilationMode)1>::serialize(uint64_t a1, uint64_t *a2, void *a3)
-{
-  v5 = (a1 + 16);
-  *(a1 + 24) = *(a1 + 16);
-  v7 = *(a1 + 8) | 0x100;
-  std::vector<flatbuffers::Offset<AGCCodeTranslator::VertexShaderOutIterator>>::push_back[abi:nn200100](a1 + 16, &v7);
-  v8 = 96;
-  std::vector<flatbuffers::Offset<AGCCodeTranslator::VertexShaderOutIterator>>::push_back[abi:nn200100](v5, &v8);
-  v6 = *v5;
-  *a2 = *v5;
-  *a3 = v5[1] - v6;
-}
-
-void AGX::BVHBuilderProgramKey::serialize(AGX::BVHBuilderProgramKey *this, std::vector<unsigned int>::pointer *a2, unint64_t *a3)
-{
-  v5 = (this + 16);
-  *(this + 3) = *(this + 2);
-  v9 = *(this + 8) | 0x100;
-  std::vector<flatbuffers::Offset<AGCCodeTranslator::VertexShaderOutIterator>>::push_back[abi:nn200100](this + 16, &v9);
-  v6 = v5->__end_ - v5->__begin_;
-  std::vector<unsigned int>::resize(v5, (v6 >> 2) + 2);
-  v7 = (v5->__begin_ + v6);
-  *v7 = ((LODWORD(v5->__end_) - v5->__begin_) >> 2 << 8) | 0x55;
-  v7[1] = v5[1].__begin_;
-  v10 = 96;
-  std::vector<flatbuffers::Offset<AGCCodeTranslator::VertexShaderOutIterator>>::push_back[abi:nn200100](v5, &v10);
-  begin = v5->__begin_;
-  *a2 = v5->__begin_;
-  *a3 = v5->__end_ - begin;
-}
-
-uint64_t std::__function::__func<AGCModule<AGX::EndOfTileProgramKey>::compileLLVMObject(AGCTargetContext *,char **,unsigned long *,char **,char **,unsigned long *)::{lambda(AGCDeserializedReply const&)#1},std::allocator<AGCModule<AGX::EndOfTileProgramKey>::compileLLVMObject(AGCTargetContext *,char **,unsigned long *,char **,char **,unsigned long *)::{lambda(AGCDeserializedReply const&)#1}>,void ()(AGCDeserializedReply const&)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_2825BE9C0;
-  a2[1] = v2;
-  return result;
-}
-
-void ProgramKey<(_AGCStreamToken)19,(AGX::DriverShaderCompilationMode)0>::serialize(uint64_t a1, uint64_t *a2, void *a3)
-{
-  v5 = (a1 + 16);
-  *(a1 + 24) = *(a1 + 16);
-  v7 = *(a1 + 8) | 0x100;
-  std::vector<flatbuffers::Offset<AGCCodeTranslator::VertexShaderOutIterator>>::push_back[abi:nn200100](a1 + 16, &v7);
-  v8 = 96;
-  std::vector<flatbuffers::Offset<AGCCodeTranslator::VertexShaderOutIterator>>::push_back[abi:nn200100](v5, &v8);
-  v6 = *v5;
-  *a2 = *v5;
-  *a3 = v5[1] - v6;
-}
-
-BOOL AGX::EndOfTileProgramKey::isPrecompiledToPipelineCache(AGX::EndOfTileProgramKey *this)
-{
-  v8 = 19;
-  v10 = 0;
-  v11 = 0;
-  v9 = 0;
-  v7 = &unk_2825BF7B0;
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  memset(v16, 0, sizeof(v16));
-  if (AGX::EndOfTileProgramKey::operator==(this, &v7))
-  {
-    return 1;
-  }
-
-  v3 = 0;
-  for (i = 40; i != 108; i += 4)
-  {
-    v3 |= *(this + i) != 0;
-  }
-
-  LOBYTE(v5) = 0;
-  for (j = 40; j != 108; j += 4)
-  {
-    v5 = v5 & 1 | ((*(this + j) & 0x2000000) != 0);
-  }
-
-  v18 = 19;
-  v20 = 0;
-  v21 = 0;
-  v19 = 0;
-  v17 = &unk_2825BF7B0;
-  v26 = 0;
-  *(v27 + 6) = 0;
-  v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v27[0] = 0x200000000000000;
-  LODWORD(v22) = v3 & 1 | (v5 << 25);
-  return AGX::EndOfTileProgramKey::operator==(&v17, this);
-}
-
-BOOL AGX::EndOfTileProgramKey::operator==(uint64_t a1, uint64_t a2)
-{
-  v2 = 0;
-  for (i = 40; i != 108; i += 4)
-  {
-    v2 |= (*(a2 + i) ^ *(a1 + i));
-  }
-
-  return (*(a2 + 112) ^ *(a1 + 112) | (*(a2 + 120) ^ *(a1 + 120)) | (*(a2 + 122) ^ *(a1 + 122)) | (*(a2 + 124) ^ *(a1 + 124)) | v2) == 0;
-}
-
-void AGX::EndOfTileProgramKey::serialize(AGX::EndOfTileProgramKey *this, const void **a2, unint64_t *a3)
-{
-  v5 = this + 16;
-  *(this + 3) = *(this + 2);
-  v12 = *(this + 8) | 0x100;
-  std::vector<flatbuffers::Offset<AGCCodeTranslator::VertexShaderOutIterator>>::push_back[abi:nn200100](this + 16, &v12);
-  v6 = *(v5 + 1) - *v5;
-  std::vector<unsigned int>::resize(v5, (v6 >> 2) + 22);
-  v7 = *v5 + v6;
-  *v7 = ((*(v5 + 2) - *v5) >> 2 << 8) | 0x45;
-  *(v7 + 4) = *(v5 + 24);
-  v8 = *(v5 + 40);
-  v9 = *(v5 + 56);
-  v10 = *(v5 + 72);
-  *(v7 + 68) = *(v5 + 88);
-  *(v7 + 52) = v10;
-  *(v7 + 36) = v9;
-  *(v7 + 20) = v8;
-  v13 = 96;
-  std::vector<flatbuffers::Offset<AGCCodeTranslator::VertexShaderOutIterator>>::push_back[abi:nn200100](v5, &v13);
-  v11 = *v5;
-  *a2 = *v5;
-  *a3 = *(v5 + 1) - v11;
-}
-
-uint64_t std::__function::__func<AGCModule<AGX::BackgroundObjectProgramKey>::compileLLVMObject(AGCTargetContext *,char **,unsigned long *,char **,char **,unsigned long *)::{lambda(AGCDeserializedReply const&)#1},std::allocator<AGCModule<AGX::BackgroundObjectProgramKey>::compileLLVMObject(AGCTargetContext *,char **,unsigned long *,char **,char **,unsigned long *)::{lambda(AGCDeserializedReply const&)#1}>,void ()(AGCDeserializedReply const&)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_2825BE978;
-  a2[1] = v2;
-  return result;
-}
-
-void ProgramKey<(_AGCStreamToken)13,(AGX::DriverShaderCompilationMode)0>::serialize(uint64_t a1, uint64_t *a2, void *a3)
-{
-  v5 = (a1 + 16);
-  *(a1 + 24) = *(a1 + 16);
-  v7 = *(a1 + 8) | 0x100;
-  std::vector<flatbuffers::Offset<AGCCodeTranslator::VertexShaderOutIterator>>::push_back[abi:nn200100](a1 + 16, &v7);
-  v8 = 96;
-  std::vector<flatbuffers::Offset<AGCCodeTranslator::VertexShaderOutIterator>>::push_back[abi:nn200100](v5, &v8);
-  v6 = *v5;
-  *a2 = *v5;
-  *a3 = v5[1] - v6;
-}
-
-uint64_t AGX::BackgroundObjectProgramKey::isPrecompiledToPipelineCache(AGX::BackgroundObjectProgramKey *this)
-{
-  v1 = *(this + 18);
-  v2 = 1;
-  v13 = 0u;
-  v14 = 0u;
-  v12 = 0u;
-  WORD6(v14) = 256;
-  v3 = v1 & 0x10000000 | (((3 - __clz(1 << ((v1 >> 10) & 3) << 24)) & 3) << 10) | 0x400000;
-  LODWORD(v14) = v3;
-  for (i = 40; i != 72; i += 4)
-  {
-    v2 &= *&v11[i] == *(this + i);
-  }
-
-  v5 = *(this + 10);
-  if (v3 != v1 || *(&v14 + 1) != v5)
-  {
-    v2 = 0;
-  }
-
-  if (v2)
-  {
-    return 1;
-  }
-
-  v13 = 0u;
-  v14 = 0u;
-  v12 = 0u;
-  LOBYTE(v8) = 1;
-  for (j = 40; j != 72; j += 4)
-  {
-    v8 = v8 & (*(this + j) == *&v11[j]);
-  }
-
-  if (v1)
-  {
-    v10 = 0;
-  }
-
-  else
-  {
-    v10 = v5 == 0;
-  }
-
-  if (v10)
-  {
-    return v8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void AGX::BackgroundObjectProgramKey::serialize(AGX::BackgroundObjectProgramKey *this, const void **a2, unint64_t *a3)
-{
-  v5 = this + 16;
-  *(this + 3) = *(this + 2);
-  v13 = *(this + 8) | 0x100;
-  std::vector<flatbuffers::Offset<AGCCodeTranslator::VertexShaderOutIterator>>::push_back[abi:nn200100](this + 16, &v13);
-  v6 = *(v5 + 1) - *v5;
-  std::vector<unsigned int>::resize(v5, (v6 >> 2) + 4);
-  v7 = *v5 + v6;
-  *v7 = ((*(v5 + 2) - *v5) >> 2 << 8) | 0x44;
-  *(v7 + 4) = *(v5 + 8);
-  v8 = *(v5 + 1) - *v5;
-  std::vector<unsigned int>::resize(v5, (v8 >> 2) + 12);
-  v9 = *v5 + v8;
-  *v9 = ((*(v5 + 2) - *v5) >> 2 << 8) | 0x42;
-  v10 = *(v5 + 24);
-  v11 = *(v5 + 40);
-  *(v9 + 36) = *(v5 + 7);
-  *(v9 + 20) = v11;
-  *(v9 + 4) = v10;
-  v14 = 96;
-  std::vector<flatbuffers::Offset<AGCCodeTranslator::VertexShaderOutIterator>>::push_back[abi:nn200100](v5, &v14);
-  v12 = *v5;
-  *a2 = *v5;
-  *a3 = *(v5 + 1) - v12;
-}
-
-uint64_t AIRNTEmitPipelineImageInternal(int a1, unsigned __int8 *a2, const char *a3, AGCTarget *this, Air::FunctionScript *a5, void *a6, void *a7, void **a8, void *a9, char *a10)
-{
-  v14 = this;
-  v175 = *MEMORY[0x277D85DE8];
-  v17 = AGCTarget::CPUSubtypeToTargetArch(this, a2, a3);
-  if (!v17)
-  {
-    std::to_string(&v125, v14);
-    v29 = std::string::insert(&v125, 0, "Unknown AGC target for CPU subtype: ");
-    v31 = v29->__r_.__value_.__r.__words[2];
-    v144 = *&v29->__r_.__value_.__l.__data_;
-    v145 = v31;
-    v29->__r_.__value_.__l.__size_ = 0;
-    v29->__r_.__value_.__r.__words[2] = 0;
-    v29->__r_.__value_.__r.__words[0] = 0;
-    v32 = SHIBYTE(v145);
-    v33 = v144;
-    if (v145 >= 0)
-    {
-      v34 = &v144;
-    }
-
-    else
-    {
-      v34 = v144;
-    }
-
-    AGCError::logError(a10, v34, v30);
-    if (v32 < 0)
-    {
-      operator delete(v33);
-    }
-
-    if (SHIBYTE(v125.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v125.__r_.__value_.__l.__data_);
-    }
-
-    goto LABEL_23;
-  }
-
-  v18 = v17;
-  v85 = a6;
-  TargetContext = AGCNativeTranslator::getTargetContext(v17);
-  v21 = *AGCNativeTranslator::getTargetContext(v18);
-  if (!v21)
-  {
-    v35 = "AGX key factory does not exist for target architecture.";
-    v36 = a10;
-LABEL_22:
-    AGCError::logError(v36, v35, v20);
-LABEL_23:
-    v37 = 0;
-    goto LABEL_125;
-  }
-
-  v22 = (a5 - *a5);
-  v23 = *v22;
-  if (v23 >= 9 && v22[4])
-  {
-    if (v23 >= 0xB && *(a5 + v22[4]) == 1)
-    {
-      v25 = v22[5];
-      if (v22[5])
-      {
-        if (a2[232])
-        {
-          v26 = TargetContext;
-          v27 = a5 + v25;
-          v28 = *(a5 + v25);
-          if (a2[199] < 0)
-          {
-            std::string::__init_copy_ctor_external(&v141, *(a2 + 22), *(a2 + 23));
-          }
-
-          else
-          {
-            v141 = *(a2 + 176);
-          }
-
-          if (a2[223] < 0)
-          {
-            std::string::__init_copy_ctor_external(&v142, *(a2 + 25), *(a2 + 26));
-          }
-
-          else
-          {
-            v142 = *(a2 + 200);
-          }
-
-          v143 = a2[224];
-          v140 = 0;
-          v138 = 0;
-          v139 = 0;
-          v137 = 0;
-          v135 = 0;
-          v136 = 0;
-          (*(*v21 + 16))(&v125, v21, &v27[v28], &v141, 0, &v138, &v135, 0);
-          if (v135)
-          {
-            v136 = v135;
-            operator delete(v135);
-          }
-
-          if (v138)
-          {
-            v139 = v138;
-            operator delete(v138);
-          }
-
-          if (SHIBYTE(v142.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(v142.__r_.__value_.__l.__data_);
-          }
-
-          if (SHIBYTE(v141.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(v141.__r_.__value_.__l.__data_);
-          }
-
-          v72 = v128 & 0xFFFFF1FFF27FFFFFLL | (a2[9] << 23) | (a2[10] << 24) | (a2[11] << 27);
-          v73 = a2[3];
-          v74 = a2[4];
-          v75 = a2[5];
-          HIDWORD(v127) = HIDWORD(v127) & 0x8BFFFEF4 | (*a2 << 26) | (a2[1] << 8) | (a2[2] << 28) | (a2[6] << 29) | (a2[8] << 30) | a2[16] | (2 * a2[17]) | (8 * a2[18]);
-          v128 = v72 | (v73 << 41) | (v74 << 42) | (v75 << 43) | (a2[19] << 26);
-          v76 = *a3;
-          *a3 = 0;
-          *&v144 = &unk_2825BE340;
-          AGX::Impl::VertexProgramKey::VertexProgramKey((&v144 + 8), &v125);
-          MEMORY[0x20F32FFB0](&v163);
-          v164 = v76;
-          v165 = 0;
-          v166 = 0;
-          *&v144 = &unk_2825BE310;
-          v37 = AGCModule<AGX::Impl::VertexProgramKey>::compileLLVMObject(&v144, *(v26 + 8), v85, a7, a10, a8, a9);
-          v77 = v164;
-          *&v144 = &unk_2825BE340;
-          v164 = 0;
-          if (v77)
-          {
-            (*(*v77 + 8))(v77);
-          }
-
-          llvm::LLVMContext::~LLVMContext(&v163);
-          AGX::Impl::VertexProgramKey::~VertexProgramKey(&v144 + 1);
-          AGX::Impl::VertexProgramKey::~VertexProgramKey(&v125.__r_.__value_.__l.__data_);
-          goto LABEL_125;
-        }
-
-        goto LABEL_148;
-      }
-    }
-
-    if (v22[4])
-    {
-      if (v23 >= 0xB && *(a5 + v22[4]) == 2)
-      {
-        v39 = v22[5];
-        if (v22[5])
-        {
-          if (a2[168])
-          {
-            v40 = a5 + v39;
-            v41 = *(a5 + v39);
-            v42 = a2[96];
-            v123 = 0;
-            v124 = 0;
-            v121 = 0;
-            v122 = 0;
-            __p = 0;
-            v120 = 0;
-            (*(*v21 + 40))(&v125, v21, &v40[v41], v42, 0, &v122, &__p, *(a2 + 38), *(a2 + 39), *(a2 + 40));
-            if (__p)
-            {
-              v120 = __p;
-              operator delete(__p);
-            }
-
-            if (v122)
-            {
-              v123 = v122;
-              operator delete(v122);
-            }
-
-            v43 = TargetContext;
-            v44 = HIDWORD(v132) & 0xFFFFC777 | (8 * a2[12]) | (a2[3] << 11) | (a2[4] << 12) | (a2[5] << 13) | (a2[19] << 7);
-            HIDWORD(v131) = HIDWORD(v131) & 0x8BFFFEF4 | (*a2 << 26) | (a2[1] << 8) | (a2[2] << 28) | (a2[6] << 29) | (a2[8] << 30) | a2[16] | (2 * a2[17]) | (8 * a2[18]);
-            HIDWORD(v132) = v44;
-            if (a2[96] == 1)
-            {
-              if (a2[127] < 0)
-              {
-                std::string::__init_copy_ctor_external(&v117, *(a2 + 13), *(a2 + 14));
-              }
-
-              else
-              {
-                v117 = *(a2 + 104);
-              }
-
-              if (a2[151] < 0)
-              {
-                std::string::__init_copy_ctor_external(&v118, *(a2 + 16), *(a2 + 17));
-              }
-
-              else
-              {
-                v118 = *(a2 + 128);
-              }
-
-              AGX::Impl::FragmentProgramKey::setVertexVaryings(&v125, &v117);
-              if (SHIBYTE(v118.__r_.__value_.__r.__words[2]) < 0)
-              {
-                operator delete(v118.__r_.__value_.__l.__data_);
-              }
-
-              if (SHIBYTE(v117.__r_.__value_.__r.__words[2]) < 0)
-              {
-                operator delete(v117.__r_.__value_.__l.__data_);
-              }
-            }
-
-            v79 = *a3;
-            *a3 = 0;
-            *&v144 = &unk_2825BE428;
-            AGX::Impl::FragmentProgramKey::FragmentProgramKey((&v144 + 8), &v125);
-            MEMORY[0x20F32FFB0](&v167);
-            v168 = v79;
-            v169 = 0;
-            v170 = 0;
-            *&v144 = &unk_2825BE3F8;
-            v171 = 0u;
-            v172 = 0u;
-            v173 = 0u;
-            v174 = 0;
-            v37 = AGCModule<AGX::Impl::FragmentProgramKey>::compileLLVMObject(&v144, *(v43 + 8), v85, a7, a10, a8, a9);
-            *&v144 = &unk_2825BE3F8;
-            if (SHIBYTE(v173) < 0)
-            {
-              operator delete(*(&v172 + 1));
-            }
-
-            if (SBYTE7(v172) < 0)
-            {
-              operator delete(v171);
-            }
-
-            v80 = v168;
-            *&v144 = &unk_2825BE428;
-            v168 = 0;
-            if (v80)
-            {
-              (*(*v80 + 8))(v80);
-            }
-
-            llvm::LLVMContext::~LLVMContext(&v167);
-            AGX::Impl::FragmentProgramKey::~FragmentProgramKey((&v144 + 8));
-            AGX::Impl::FragmentProgramKey::~FragmentProgramKey(&v125);
-            goto LABEL_125;
-          }
-
-LABEL_148:
-          std::__throw_bad_optional_access[abi:nn200100]();
-          goto LABEL_149;
-        }
-      }
-
-      if (v22[4])
-      {
-        if (v23 >= 0xB && *(a5 + v22[4]) == 3)
-        {
-          v45 = v22[5];
-          if (v22[5])
-          {
-            v46 = a5 + v45;
-            v47 = *(a5 + v45);
-            v115 = 0;
-            v116 = 0;
-            v113 = 0;
-            v114 = 0;
-            v111 = 0;
-            v112 = 0;
-            (*(*v21 + 48))(&v125, v21, &v46[v47], 0, &v114, &v111);
-            if (v111)
-            {
-              v112 = v111;
-              operator delete(v111);
-            }
-
-            v84 = TargetContext;
-            if (v114)
-            {
-              v115 = v114;
-              operator delete(v114);
-            }
-
-            v48 = v128 & 0xFFFFC63B | (4 * a2[13]) | (a2[14] << 6) | (a2[15] << 7) | (a2[3] << 11) | (a2[4] << 12) | (a2[5] << 13) | (a2[19] << 8);
-            HIDWORD(v127) = HIDWORD(v127) & 0x8BFFFEF4 | (*a2 << 26) | (a2[1] << 8) | (a2[2] << 28) | (a2[6] << 29) | (a2[8] << 30) | a2[16] | (2 * a2[17]) | (8 * a2[18]);
-            LODWORD(v128) = v48;
-            v49 = *a3;
-            *a3 = 0;
-            *&v144 = &unk_2825BE4A0;
-            *(&v144 + 1) = &unk_2825BE4D0;
-            LODWORD(v145) = v125.__r_.__value_.__r.__words[1];
-            v148 = 0;
-            v146 = 0;
-            v147 = 0;
-            v50 = v126 - v125.__r_.__value_.__r.__words[2];
-            if (v126 != v125.__r_.__value_.__r.__words[2])
-            {
-              if (!((v50 >> 2) >> 62))
-              {
-                std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned int>>(v50 >> 2);
-              }
-
-LABEL_149:
-              std::string::__throw_length_error[abi:nn200100]();
-            }
-
-            v149 = v127;
-            *(&v144 + 1) = &unk_2825BF9D8;
-            v150 = v128;
-            if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
-            {
-              std::string::__init_copy_ctor_external(&v151, __s.__r_.__value_.__l.__data_, __s.__r_.__value_.__l.__size_);
-            }
-
-            else
-            {
-              v151 = __s;
-            }
-
-            v152 = v130;
-            v155 = 0;
-            v153 = 0;
-            __dst = 0;
-            if (v132 != v131)
-            {
-              std::vector<MTLUINT256_t>::__vallocate[abi:nn200100](&v153, (v132 - v131) >> 5);
-            }
-
-            v157 = 0;
-            v156 = 0;
-            v158 = 0;
-            if (v134 != v133)
-            {
-              std::vector<MTLUINT256_t>::__vallocate[abi:nn200100](&v156, (v134 - v133) >> 5);
-            }
-
-            MEMORY[0x20F32FFB0](&v159);
-            v160 = v49;
-            v161 = 0;
-            v162 = 0;
-            *&v144 = &unk_2825BE470;
-            v37 = AGCModule<AGX::Impl::ComputeProgramKey>::compileLLVMObject(&v144, *(v84 + 8), v85, a7, a10, a8, a9);
-            v83 = v160;
-            *&v144 = &unk_2825BE4A0;
-            v160 = 0;
-            if (v83)
-            {
-              (*(*v83 + 8))(v83);
-            }
-
-            llvm::LLVMContext::~LLVMContext(&v159);
-            *(&v144 + 1) = &unk_2825BF9D8;
-            if (v156)
-            {
-              v157 = v156;
-              operator delete(v156);
-            }
-
-            if (v153)
-            {
-              __dst = v153;
-              operator delete(v153);
-            }
-
-            if (SHIBYTE(v151.__r_.__value_.__r.__words[2]) < 0)
-            {
-              operator delete(v151.__r_.__value_.__l.__data_);
-            }
-
-            *(&v144 + 1) = &unk_2825BE4D0;
-            if (v146)
-            {
-              v147 = v146;
-              operator delete(v146);
-            }
-
-            v125.__r_.__value_.__r.__words[0] = &unk_2825BF9D8;
-            if (v133)
-            {
-              v134 = v133;
-              operator delete(v133);
-            }
-
-            if (v131)
-            {
-              v132 = v131;
-              operator delete(v131);
-            }
-
-            if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
-            {
-              operator delete(__s.__r_.__value_.__l.__data_);
-            }
-
-            v67 = &unk_2825BE4D0;
-            goto LABEL_85;
-          }
-        }
-
-        if (v22[4])
-        {
-          if (v23 >= 0xB && *(a5 + v22[4]) == 4)
-          {
-            v51 = v22[5];
-            if (v51)
-            {
-              v52 = *(a5 + v51);
-              v109 = 0;
-              v110 = 0;
-              v107 = 0;
-              v108 = 0;
-              v105 = 0;
-              v106 = 0;
-              (*(*v21 + 56))(&v125, v21, a5 + v51 + v52, &v108, &v105);
-              if (v105)
-              {
-                v106 = v105;
-                operator delete(v105);
-              }
-
-              if (v108)
-              {
-                v109 = v108;
-                operator delete(v108);
-              }
-
-              AGX::DeviceOptions::modifyContextState<_AGCFragmentContextStateAGP>(a2, &v127);
-              AGX::CompileOptions::modifyContextState<_AGCFragmentContextStateAGP>(a2 + 16, &v127);
-              v53 = *a3;
-              *a3 = 0;
-              v104 = v53;
-              AGCTileFunction::AGCTileFunction(&v144, &v104, &v125);
-              if (v104)
-              {
-                (*(*v104 + 8))(v104);
-              }
-
-              v37 = AGCModule<AGX::Impl::TileProgramKey>::compileLLVMObject(&v144, *(TargetContext + 8), v85, a7, a10, a8, a9);
-              AGCTileFunction::~AGCTileFunction(&v144);
-              AGX::Impl::TileProgramKey::~TileProgramKey(&v125);
-              goto LABEL_125;
-            }
-          }
-        }
-      }
-    }
-  }
-
-  v54 = TargetContext;
-  v55 = Air::FunctionScript::function_as_mesh(a5);
-  if (!v55)
-  {
-    v60 = Air::FunctionScript::function_as_object(a5);
-    if (v60)
-    {
-      if ((a2[242] & 1) == 0)
-      {
-        goto LABEL_148;
-      }
-
-      v61 = a2[240];
-      v62 = a2[241];
-      v94 = 0;
-      v95 = 0;
-      v92 = 0;
-      v93 = 0;
-      v90 = 0;
-      v91 = 0;
-      (*(*v21 + 24))(&v125, v21, v60, v61, v62, 0, &v93, &v90);
-      if (v90)
-      {
-        v91 = v90;
-        operator delete(v90);
-      }
-
-      if (v93)
-      {
-        v94 = v93;
-        operator delete(v93);
-      }
-
-      AGX::DeviceOptions::modifyContextState<_AGCObjectContextStateAGP>(a2, &v127);
-      HIDWORD(v127) = HIDWORD(v127) & 0xFFFFFFF4 | a2[16] | (2 * a2[17]) | (8 * a2[18]);
-      v63 = *a3;
-      *a3 = 0;
-      v89 = v63;
-      AGCObjectFunction::AGCObjectFunction(&v144, &v89, &v125);
-      if (v89)
-      {
-        (*(*v89 + 8))(v89);
-      }
-
-      v37 = AGCModule<AGX::Impl::ObjectProgramKey>::compileLLVMObject(&v144, *(TargetContext + 8), v85, a7, a10, a8, a9);
-      AGCObjectFunction::~AGCObjectFunction(&v144);
-      AGX::Impl::ObjectProgramKey::~ObjectProgramKey(&v125);
-      goto LABEL_125;
-    }
-
-    v64 = Air::FunctionScript::function_as_visible(a5);
-    if (v64)
-    {
-      (*(*v21 + 64))(&v125, v21, v64);
-      AGX::Impl::DynamicLibraryKey::setDeviceOptions(&v125, a2);
-      LODWORD(v127) = v127 & 0xFFFFFFF4 | a2[16] | (2 * a2[17]) | (8 * a2[18]);
-      v65 = *a3;
-      *a3 = 0;
-      v88 = v65;
-      AGCDylib::AGCDylib(&v144, &v88, &v125);
-      v66 = v88;
-      if (v88)
-      {
-LABEL_83:
-        (*(*v66 + 8))(v66);
-      }
-
-LABEL_84:
-      v37 = AGCModule<AGX::Impl::DynamicLibraryKey>::compileLLVMObject(&v144, *(v54 + 8), v85, a7, a10);
-      AGCDylib::~AGCDylib(&v144);
-      v67 = &unk_2825BE090;
-LABEL_85:
-      v125.__r_.__value_.__r.__words[0] = v67;
-      if (v125.__r_.__value_.__r.__words[2])
-      {
-        v126 = v125.__r_.__value_.__r.__words[2];
-        operator delete(v125.__r_.__value_.__r.__words[2]);
-      }
-
-      goto LABEL_125;
-    }
-
-    v68 = Air::FunctionScript::function_as_intersection(a5);
-    if (v68)
-    {
-      v69 = v68;
-      v70 = AGCTarget::Get(v18);
-      if (!((*v70)[3])(v70))
-      {
-        (*(*v21 + 88))(&v125, v21, v69);
-        LODWORD(v127) = v127 & 0xFF9BFFC7 | (a2[3] << 18) | (a2[4] << 21) | (a2[5] << 22) | (8 * a2[16]) | (16 * a2[17]) | (32 * a2[18]);
-        v78 = *a3;
-        *a3 = 0;
-        v86 = v78;
-        AGCIntersectionFunction::AGCIntersectionFunction(&v144, &v86, &v125);
-        if (v86)
-        {
-          (*(*v86 + 8))(v86);
-        }
-
-        v37 = AGCModule<AGX::Impl::UserIntersectionProgramKey>::compileLLVMObject(&v144, *(v54 + 8), v85, a7, a10);
-        AGCIntersectionFunction::~AGCIntersectionFunction(&v144);
-        AGX::Impl::UserIntersectionProgramKey::~UserIntersectionProgramKey(&v125);
-        goto LABEL_125;
-      }
-
-      (*(*v21 + 72))(&v125, v21, v69);
-      AGX::Impl::DynamicLibraryKey::setDeviceOptions(&v125, a2);
-      LODWORD(v127) = v127 & 0xFFFFFFF4 | a2[16] | (2 * a2[17]) | (8 * a2[18]);
-      v71 = *a3;
-      *a3 = 0;
-      v87 = v71;
-      AGCDylib::AGCDylib(&v144, &v87, &v125);
-      v66 = v87;
-      if (v87)
-      {
-        goto LABEL_83;
-      }
-
-      goto LABEL_84;
-    }
-
-    v35 = "Unsupported function script.";
-    v36 = a10;
-    goto LABEL_22;
-  }
-
-  if ((a2[88] & 1) == 0)
-  {
-    goto LABEL_148;
-  }
-
-  v56 = v55;
-  AGX::FragmentProgramVaryings::FragmentProgramVaryings(&v103, a2 + 2);
-  v57 = a2[24];
-  v58 = a2[25];
-  v101 = 0;
-  v102 = 0;
-  v99 = 0;
-  v100 = 0;
-  v97 = 0;
-  v98 = 0;
-  (*(*v21 + 32))(&v125, v21, v56, &v103, v57, v58, 0, &v100, &v97, 0);
-  if (v97)
-  {
-    v98 = v97;
-    operator delete(v97);
-  }
-
-  if (v100)
-  {
-    v101 = v100;
-    operator delete(v100);
-  }
-
-  AGX::FragmentProgramVaryings::~FragmentProgramVaryings(&v103.__r_.__value_.__l.__data_);
-  AGX::DeviceOptions::modifyContextState<_AGCMeshContextStateAGP>(a2, &v127);
-  HIDWORD(v127) = HIDWORD(v127) & 0xFFFFFFF4 | a2[16] | (2 * a2[17]) | (8 * a2[18]);
-  v59 = *a3;
-  *a3 = 0;
-  v96 = v59;
-  AGCMeshFunction::AGCMeshFunction(&v144, &v96, &v125);
-  if (v96)
-  {
-    (*(*v96 + 8))(v96);
-  }
-
-  v37 = AGCModule<AGX::Impl::MeshProgramKey>::compileLLVMObject(&v144, *(v54 + 8), v85, a7, a10, a8, a9);
-  AGCMeshFunction::~AGCMeshFunction(&v144);
-  AGX::Impl::MeshProgramKey::~MeshProgramKey(&v125.__r_.__value_.__l.__data_);
-LABEL_125:
-  v81 = *MEMORY[0x277D85DE8];
-  return v37;
-}
-
-AGX::Impl::VertexProgramKey *AGX::Impl::VertexProgramKey::VertexProgramKey(AGX::Impl::VertexProgramKey *this, const AGX::Impl::VertexProgramKey *a2)
-{
-  *this = &unk_2825BE3B8;
-  *(this + 2) = *(a2 + 2);
-  std::vector<unsigned int>::vector[abi:nn200100](this + 2, a2 + 2);
-  *this = &unk_2825BE370;
-  v4 = *(a2 + 40);
-  *(this + 7) = *(a2 + 7);
-  *(this + 40) = v4;
-  if (*(a2 + 87) < 0)
-  {
-    std::string::__init_copy_ctor_external((this + 64), *(a2 + 8), *(a2 + 9));
-  }
-
-  else
-  {
-    v5 = *(a2 + 4);
-    *(this + 10) = *(a2 + 10);
-    *(this + 4) = v5;
-  }
-
-  *(this + 22) = *(a2 + 22);
-  std::vector<MTLUINT256_t>::vector[abi:nn200100](this + 12, a2 + 12);
-  std::vector<MTLUINT256_t>::vector[abi:nn200100](this + 15, a2 + 15);
-  *this = &unk_2825BF870;
-  if (*(a2 + 167) < 0)
-  {
-    std::string::__init_copy_ctor_external(this + 6, *(a2 + 18), *(a2 + 19));
-  }
-
-  else
-  {
-    v6 = *(a2 + 9);
-    *(this + 20) = *(a2 + 20);
-    *(this + 9) = v6;
-  }
-
-  if (*(a2 + 191) < 0)
-  {
-    std::string::__init_copy_ctor_external(this + 7, *(a2 + 21), *(a2 + 22));
-  }
-
-  else
-  {
-    v7 = *(a2 + 168);
-    *(this + 23) = *(a2 + 23);
-    *(this + 168) = v7;
-  }
-
-  *(this + 192) = *(a2 + 192);
-  return this;
-}
-
-uint64_t AGCModule<AGX::Impl::VertexProgramKey>::compileLLVMObject(uint64_t a1, unsigned int a2, void *a3, void *a4, char *a5, void **a6, void *a7)
-{
-  v8 = a6;
-  v87 = *MEMORY[0x277D85DE8];
-  if (a6)
-  {
-    v14 = a7 == 0;
-  }
-
-  else
-  {
-    v14 = 1;
-  }
-
-  v15 = !v14;
-  v16 = mach_absolute_time();
-  v18 = *AGCPerThreadContext::getTargetContext(a2);
-  if (!v18)
-  {
-    v29 = "Failed to initialize AGX backend for target architecture.";
-LABEL_56:
-    AGCError::logError(a5, v29, v17);
-LABEL_57:
-    v49 = 0;
-    goto LABEL_87;
-  }
-
-  *(v18 + 1953) = 0;
-  v19 = *(a1 + 216);
-  v71 = a1;
-  if (v19)
-  {
-    (*(*v19 + 24))(&v82);
-    if (BYTE8(v82))
-    {
-      v20 = v82;
-      *&v82 = 0;
-      v79 = v20;
-      llvm::toString(v84, &v79);
-      v21 = std::string::insert(v84, 0, "Error parsing bitcode file: ");
-      v23 = v21->__r_.__value_.__r.__words[2];
-      *c.count = *&v21->__r_.__value_.__l.__data_;
-      *&c.hash[2] = v23;
-      v21->__r_.__value_.__l.__size_ = 0;
-      v21->__r_.__value_.__r.__words[2] = 0;
-      v21->__r_.__value_.__r.__words[0] = 0;
-      v24 = SHIBYTE(c.hash[3]);
-      v25 = *c.count;
-      if ((c.hash[3] & 0x80000000) == 0)
-      {
-        p_c = &c;
-      }
-
-      else
-      {
-        p_c = *c.count;
-      }
-
-      AGCError::logError(a5, p_c, v22);
-      if (v24 < 0)
-      {
-        operator delete(v25);
-      }
-
-      if ((v84[23] & 0x80000000) != 0)
-      {
-        operator delete(*v84);
-      }
-
-      if (v79)
-      {
-        (*(*v79 + 8))(v79);
-      }
-
-      v27 = 0;
-      v28 = 0;
-    }
-
-    else
-    {
-      v27 = v82;
-      v85 = 260;
-      *v84 = v82 + 216;
-      MEMORY[0x20F330F20](&c, v84);
-      if (c.hash[4] == 49 && c.hash[6] == 1 && (AGCOSVersion::AGCOSVersion(v84, &c), pluginSupportsOSVersion(*v84)) && ((llvm::Triple::getEnvironmentName(&c), !v30) || c.wbuf[0] == 21))
-      {
-        AGCTargetOS::AGCTargetOS(v84, &c);
-        v28 = 1;
-      }
-
-      else
-      {
-        v69 = v15;
-        v70 = v16;
-        v31 = v8;
-        v32 = a3;
-        v33 = a4;
-        std::operator+<char>();
-        v35 = v84[23];
-        v36 = *v84;
-        if (v84[23] >= 0)
-        {
-          v37 = v84;
-        }
-
-        else
-        {
-          v37 = *v84;
-        }
-
-        AGCError::logError(a5, v37, v34);
-        if (v35 < 0)
-        {
-          operator delete(v36);
-        }
-
-        v28 = 0;
-        a4 = v33;
-        a3 = v32;
-        v8 = v31;
-        v16 = v70;
-        v15 = v69;
-      }
-
-      if (SHIBYTE(c.hash[3]) < 0)
-      {
-        operator delete(*c.count);
-      }
-    }
-
-    if (BYTE8(v82))
-    {
-      v38 = v82;
-      *&v82 = 0;
-      if (v38)
-      {
-        (*(*v38 + 8))(v38);
-      }
-    }
-
-    if (!v28)
-    {
-      goto LABEL_57;
-    }
-  }
-
-  else
-  {
-    v27 = 0;
-  }
-
-  v39 = (**v71)(v71, v18, v71 + 208, v27);
-  if (!v39)
-  {
-    v29 = "Cannot create AGC LLVM object.";
-    goto LABEL_56;
-  }
-
-  v41 = v39;
-  {
-    AGCEnv::isEnabled(void)::is_internal = os_variant_has_internal_diagnostics();
-  }
-
-  v68 = a4;
-  if (AGCEnv::isEnabled(void)::is_internal == 1 && (Value = AGCEnv::getValue("AGC_ENABLE_PER_OBJECT_STATUS_FILE", v40)) != 0 && *Value != 48 && (v43 = atoi(Value), v43))
-  {
-    AGCPrinterFactory::Get(v43);
-    v44 = (*(*v41 + 48))(v41);
-    std::string::basic_string[abi:nn200100]<0>(v77, v44);
-    (*(*v41 + 40))(__p, v41);
-    if (*(v71 + 256) == 1)
-    {
-      v45 = *(v71 + 240);
-      v82 = *(v71 + 224);
-      v83 = v45;
-    }
-
-    else
-    {
-      llvm::SHA256::SHA256(&v80);
-      v64 = *(v71 + 216);
-      if (v64)
-      {
-        (*(*v64 + 32))(v64, &v80);
-      }
-
-      memset(v84, 0, sizeof(v84));
-      CC_SHA256_Init(&c);
-      (**(v71 + 8))(v71 + 8, &c);
-      CC_SHA256_Final(v84, &c);
-      llvm::SHA256::update();
-      llvm::SHA256::final(&c, &v80);
-      v65 = *(v71 + 256);
-      v66 = *&c.hash[2];
-      *(v71 + 224) = *c.count;
-      *(v71 + 240) = v66;
-      if ((v65 & 1) == 0)
-      {
-        *(v71 + 256) = 1;
-      }
-
-      v67 = *(v71 + 240);
-      v82 = *(v71 + 224);
-      v83 = v67;
-      llvm::SHA256::~SHA256(&v80);
-    }
-
-    *c.count = v82;
-    *&c.hash[2] = v83;
-    LOBYTE(c.hash[6]) = 1;
-    AGCPrinterFactory::createObjectPrinter(v84, 0, v77, __p, &c);
-    v47 = *v84;
-    if (v76 < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    if (v78 < 0)
-    {
-      operator delete(v77[0]);
-    }
-
-    v46 = v47;
-  }
-
-  else
-  {
-    v46 = 0;
-    v47 = *(v18 + 2032);
-  }
-
-  (*(*v41 + 64))(v41, v47);
-  if ((*(*v41 + 16))(v41))
-  {
-    v48 = v16;
-    memset(&c, 0, 32);
-    v80 = 0;
-    v81[0] = &unk_2825BEA50;
-    v81[1] = v71;
-    v81[3] = v81;
-    *&v82 = 0;
-    v49 = (*(*v41 + 24))(v41, &v82, &v80, &c, v81);
-    std::__function::__value_func<void ()(AGCDeserializedReply const&)>::~__value_func[abi:nn200100](v81);
-    if (v15)
-    {
-      v72 = a3;
-      *v8 = malloc_type_malloc(0x20uLL, 0x1000040E0EAB150uLL);
-      *a7 = 32;
-      v50 = mach_absolute_time() - v48;
-      if (getTimebaseInfo(void)::once != -1)
-      {
-        dispatch_once(&getTimebaseInfo(void)::once, &__block_literal_global_16695);
-      }
-
-      *c.hash = v50 * getTimebaseInfo(void)::sTimebaseInfo / *algn_28117E63C;
-      *&c.hash[2] = *c.hash - *&c.hash[4];
-      v51 = *v8;
-      v52 = *&c.hash[2];
-      *v51 = *c.count;
-      v51[1] = v52;
-      a3 = v72;
-    }
-
-    if (v49)
-    {
-      *a3 = v82;
-      *v68 = v80;
-    }
-
-    else
-    {
-      std::string::basic_string[abi:nn200100]<0>(v84, "Error occurred composing compiler reply.");
-      if ((v84[23] & 0x80000000) != 0)
-      {
-        std::string::__init_copy_ctor_external(&v73, *v84, *&v84[8]);
-      }
-
-      else
-      {
-        v73 = *v84;
-      }
-
-      v56 = &v73;
-      if ((v73.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-      {
-        v56 = v73.__r_.__value_.__r.__words[0];
-      }
-
-      AGCTargetPrinter::printMessage(*(v41 + 1696), "** Compilation failed with error: %s **", v56);
-      if (SHIBYTE(v73.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v73.__r_.__value_.__l.__data_);
-      }
-
-      v58 = v84[23];
-      v59 = *v84;
-      if (v84[23] >= 0)
-      {
-        v60 = v84;
-      }
-
-      else
-      {
-        v60 = *v84;
-      }
-
-      AGCError::logError(a5, v60, v57);
-      if (v58 < 0)
-      {
-        operator delete(v59);
-      }
-    }
-  }
-
-  else
-  {
-    if (*(v41 + 1679) < 0)
-    {
-      std::string::__init_copy_ctor_external(&v74, *(v41 + 1656), *(v41 + 1664));
-    }
-
-    else
-    {
-      v74 = *(v41 + 1656);
-    }
-
-    v53 = &v74;
-    if ((v74.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-    {
-      v53 = v74.__r_.__value_.__r.__words[0];
-    }
-
-    AGCTargetPrinter::printMessage(*(v41 + 1696), "** Compilation failed with error: %s **", v53);
-    if (SHIBYTE(v74.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v74.__r_.__value_.__l.__data_);
-    }
-
-    if (*(v41 + 1679) >= 0)
-    {
-      v55 = (v41 + 1656);
-    }
-
-    else
-    {
-      v55 = *(v41 + 1656);
-    }
-
-    AGCError::logError(a5, v55, v54);
-    v49 = 0;
-  }
-
-  if (v46)
-  {
-    v61 = *v46;
-    if (*v46 && v61 != MEMORY[0x277D82670])
-    {
-      (*(*v61 + 8))(v61);
-      *v46 = 0;
-    }
-
-    MEMORY[0x20F331DC0](v46, 0x1020C409DFBF432);
-  }
-
-  (*(*v41 + 8))(v41);
-LABEL_87:
-  v62 = *MEMORY[0x277D85DE8];
-  return v49;
-}
-
-void AGX::Impl::VertexProgramKey::~VertexProgramKey(void **this)
-{
-  *this = &unk_2825BF870;
-  if (*(this + 191) < 0)
-  {
-    operator delete(this[21]);
-  }
-
-  if (*(this + 167) < 0)
-  {
-    operator delete(this[18]);
-  }
-
-  *this = &unk_2825BE370;
-  v2 = this[15];
-  if (v2)
-  {
-    this[16] = v2;
-    operator delete(v2);
-  }
-
-  v3 = this[12];
-  if (v3)
-  {
-    this[13] = v3;
-    operator delete(v3);
-  }
-
-  if (*(this + 87) < 0)
-  {
-    operator delete(this[8]);
-  }
-
-  *this = &unk_2825BE3B8;
-  v4 = this[2];
-  if (v4)
-  {
-    this[3] = v4;
-    operator delete(v4);
-  }
-}
-
-__n128 AGX::Impl::FragmentProgramKey::setVertexVaryings(uint64_t a1, __int128 *a2)
-{
-  if (*(a1 + 175) < 0)
-  {
-    operator delete(*(a1 + 152));
-  }
-
-  v4 = *a2;
-  *(a1 + 168) = *(a2 + 2);
-  *(a1 + 152) = v4;
-  *(a2 + 23) = 0;
-  *a2 = 0;
-  if (*(a1 + 199) < 0)
-  {
-    operator delete(*(a1 + 176));
-  }
-
-  result = *(a2 + 24);
-  *(a1 + 192) = *(a2 + 5);
-  *(a1 + 176) = result;
-  *(a2 + 47) = 0;
-  *(a2 + 24) = 0;
-  return result;
-}
-
-uint64_t AGCModule<AGX::Impl::FragmentProgramKey>::compileLLVMObject(uint64_t a1, unsigned int a2, void *a3, void *a4, char *a5, void **a6, void *a7)
-{
-  v8 = a6;
-  v86 = *MEMORY[0x277D85DE8];
-  if (a6)
-  {
-    v14 = a7 == 0;
-  }
-
-  else
-  {
-    v14 = 1;
-  }
-
-  v15 = !v14;
-  v16 = mach_absolute_time();
-  v18 = *AGCPerThreadContext::getTargetContext(a2);
-  if (!v18)
-  {
-    v29 = "Failed to initialize AGX backend for target architecture.";
-LABEL_56:
-    AGCError::logError(a5, v29, v17);
-LABEL_57:
-    v48 = 0;
-    goto LABEL_87;
-  }
-
-  *(v18 + 1953) = 0;
-  v19 = *(a1 + 296);
-  v71 = v15;
-  if (v19)
-  {
-    (*(*v19 + 24))(&v81);
-    if (BYTE8(v81))
-    {
-      v20 = v81;
-      *&v81 = 0;
-      v78 = v20;
-      llvm::toString(v83, &v78);
-      v21 = std::string::insert(v83, 0, "Error parsing bitcode file: ");
-      v23 = v21->__r_.__value_.__r.__words[2];
-      *c.count = *&v21->__r_.__value_.__l.__data_;
-      *&c.hash[2] = v23;
-      v21->__r_.__value_.__l.__size_ = 0;
-      v21->__r_.__value_.__r.__words[2] = 0;
-      v21->__r_.__value_.__r.__words[0] = 0;
-      v24 = SHIBYTE(c.hash[3]);
-      v25 = *c.count;
-      if ((c.hash[3] & 0x80000000) == 0)
-      {
-        p_c = &c;
-      }
-
-      else
-      {
-        p_c = *c.count;
-      }
-
-      AGCError::logError(a5, p_c, v22);
-      if (v24 < 0)
-      {
-        operator delete(v25);
-      }
-
-      if ((v83[23] & 0x80000000) != 0)
-      {
-        operator delete(*v83);
-      }
-
-      if (v78)
-      {
-        (*(*v78 + 8))(v78);
-      }
-
-      v27 = 0;
-      v28 = 0;
-    }
-
-    else
-    {
-      v27 = v81;
-      v84 = 260;
-      *v83 = v81 + 216;
-      MEMORY[0x20F330F20](&c, v83);
-      if (c.hash[4] == 49 && c.hash[6] == 1 && (AGCOSVersion::AGCOSVersion(v83, &c), pluginSupportsOSVersion(*v83)) && ((llvm::Triple::getEnvironmentName(&c), !v30) || c.wbuf[0] == 21))
-      {
-        AGCTargetOS::AGCTargetOS(v83, &c);
-        AGX::Impl::FragmentProgramKey::legalizeStateForTargetOS((a1 + 8), v83);
-        v28 = 1;
-      }
-
-      else
-      {
-        v69 = v16;
-        v70 = v8;
-        v31 = a3;
-        v32 = a4;
-        std::operator+<char>();
-        v34 = v83[23];
-        v35 = *v83;
-        if (v83[23] >= 0)
-        {
-          v36 = v83;
-        }
-
-        else
-        {
-          v36 = *v83;
-        }
-
-        AGCError::logError(a5, v36, v33);
-        if (v34 < 0)
-        {
-          operator delete(v35);
-        }
-
-        v28 = 0;
-        a4 = v32;
-        a3 = v31;
-        v8 = v70;
-        v16 = v69;
-      }
-
-      if (SHIBYTE(c.hash[3]) < 0)
-      {
-        operator delete(*c.count);
-      }
-    }
-
-    if (BYTE8(v81))
-    {
-      v37 = v81;
-      *&v81 = 0;
-      if (v37)
-      {
-        (*(*v37 + 8))(v37);
-      }
-    }
-
-    if (!v28)
-    {
-      goto LABEL_57;
-    }
-  }
-
-  else
-  {
-    v27 = 0;
-  }
-
-  v38 = (**a1)(a1, v18, a1 + 288, v27);
-  if (!v38)
-  {
-    v29 = "Cannot create AGC LLVM object.";
-    goto LABEL_56;
-  }
-
-  v40 = v38;
-  {
-    AGCEnv::isEnabled(void)::is_internal = os_variant_has_internal_diagnostics();
-  }
-
-  v68 = a4;
-  if (AGCEnv::isEnabled(void)::is_internal == 1 && (Value = AGCEnv::getValue("AGC_ENABLE_PER_OBJECT_STATUS_FILE", v39)) != 0 && *Value != 48 && (v42 = atoi(Value), v42))
-  {
-    AGCPrinterFactory::Get(v42);
-    v43 = (*(*v40 + 48))(v40);
-    std::string::basic_string[abi:nn200100]<0>(v76, v43);
-    (*(*v40 + 40))(__p, v40);
-    if (*(a1 + 336) == 1)
-    {
-      v44 = *(a1 + 320);
-      v81 = *(a1 + 304);
-      v82 = v44;
-    }
-
-    else
-    {
-      llvm::SHA256::SHA256(&v79);
-      v64 = *(a1 + 296);
-      if (v64)
-      {
-        (*(*v64 + 32))(v64, &v79);
-      }
-
-      memset(v83, 0, sizeof(v83));
-      CC_SHA256_Init(&c);
-      (**(a1 + 8))(a1 + 8, &c);
-      CC_SHA256_Final(v83, &c);
-      llvm::SHA256::update();
-      llvm::SHA256::final(&c, &v79);
-      v65 = *(a1 + 336);
-      v66 = *&c.hash[2];
-      *(a1 + 304) = *c.count;
-      *(a1 + 320) = v66;
-      if ((v65 & 1) == 0)
-      {
-        *(a1 + 336) = 1;
-      }
-
-      v67 = *(a1 + 320);
-      v81 = *(a1 + 304);
-      v82 = v67;
-      llvm::SHA256::~SHA256(&v79);
-    }
-
-    *c.count = v81;
-    *&c.hash[2] = v82;
-    LOBYTE(c.hash[6]) = 1;
-    AGCPrinterFactory::createObjectPrinter(v83, 0, v76, __p, &c);
-    v47 = *v83;
-    if (v75 < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    v45 = v16;
-    if (v77 < 0)
-    {
-      operator delete(v76[0]);
-    }
-
-    v46 = v47;
-  }
-
-  else
-  {
-    v45 = v16;
-    v46 = 0;
-    v47 = *(v18 + 2032);
-  }
-
-  (*(*v40 + 64))(v40, v47);
-  if ((*(*v40 + 16))(v40))
-  {
-    memset(&c, 0, 32);
-    v79 = 0;
-    v80[0] = &unk_2825BE8A0;
-    v80[1] = a1;
-    v80[3] = v80;
-    *&v81 = 0;
-    v48 = (*(*v40 + 24))(v40, &v81, &v79, &c, v80);
-    std::__function::__value_func<void ()(AGCDeserializedReply const&)>::~__value_func[abi:nn200100](v80);
-    if (v71)
-    {
-      v49 = a3;
-      *v8 = malloc_type_malloc(0x20uLL, 0x1000040E0EAB150uLL);
-      *a7 = 32;
-      v50 = mach_absolute_time() - v45;
-      if (getTimebaseInfo(void)::once != -1)
-      {
-        dispatch_once(&getTimebaseInfo(void)::once, &__block_literal_global_16695);
-      }
-
-      *c.hash = v50 * getTimebaseInfo(void)::sTimebaseInfo / *algn_28117E63C;
-      *&c.hash[2] = *c.hash - *&c.hash[4];
-      v51 = *v8;
-      v52 = *&c.hash[2];
-      *v51 = *c.count;
-      v51[1] = v52;
-      a3 = v49;
-    }
-
-    if (v48)
-    {
-      *a3 = v81;
-      *v68 = v79;
-    }
-
-    else
-    {
-      std::string::basic_string[abi:nn200100]<0>(v83, "Error occurred composing compiler reply.");
-      if ((v83[23] & 0x80000000) != 0)
-      {
-        std::string::__init_copy_ctor_external(&v72, *v83, *&v83[8]);
-      }
-
-      else
-      {
-        v72 = *v83;
-      }
-
-      v56 = &v72;
-      if ((v72.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-      {
-        v56 = v72.__r_.__value_.__r.__words[0];
-      }
-
-      AGCTargetPrinter::printMessage(*(v40 + 1696), "** Compilation failed with error: %s **", v56);
-      if (SHIBYTE(v72.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v72.__r_.__value_.__l.__data_);
-      }
-
-      v58 = v83[23];
-      v59 = *v83;
-      if (v83[23] >= 0)
-      {
-        v60 = v83;
-      }
-
-      else
-      {
-        v60 = *v83;
-      }
-
-      AGCError::logError(a5, v60, v57);
-      if (v58 < 0)
-      {
-        operator delete(v59);
-      }
-    }
-  }
-
-  else
-  {
-    if (*(v40 + 1679) < 0)
-    {
-      std::string::__init_copy_ctor_external(&v73, *(v40 + 1656), *(v40 + 1664));
-    }
-
-    else
-    {
-      v73 = *(v40 + 1656);
-    }
-
-    v53 = &v73;
-    if ((v73.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-    {
-      v53 = v73.__r_.__value_.__r.__words[0];
-    }
-
-    AGCTargetPrinter::printMessage(*(v40 + 1696), "** Compilation failed with error: %s **", v53);
-    if (SHIBYTE(v73.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v73.__r_.__value_.__l.__data_);
-    }
-
-    if (*(v40 + 1679) >= 0)
-    {
-      v55 = (v40 + 1656);
-    }
-
-    else
-    {
-      v55 = *(v40 + 1656);
-    }
-
-    AGCError::logError(a5, v55, v54);
-    v48 = 0;
-  }
-
-  if (v46)
-  {
-    v61 = *v46;
-    if (*v46 && v61 != MEMORY[0x277D82670])
-    {
-      (*(*v61 + 8))(v61);
-      *v46 = 0;
-    }
-
-    MEMORY[0x20F331DC0](v46, 0x1020C409DFBF432);
-  }
-
-  (*(*v40 + 8))(v40);
-LABEL_87:
-  v62 = *MEMORY[0x277D85DE8];
-  return v48;
-}
-
-void AGX::Impl::FragmentProgramKey::~FragmentProgramKey(AGX::Impl::FragmentProgramKey *this)
-{
-  *this = &unk_2825BF948;
-  v2 = *(this + 32);
-  if (v2)
-  {
-    *(this + 33) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *(this + 29);
-  if (v3)
-  {
-    *(this + 30) = v3;
-    operator delete(v3);
-  }
-
-  if (*(this + 223) < 0)
-  {
-    operator delete(*(this + 25));
-  }
-
-  if (*(this + 199) < 0)
-  {
-    operator delete(*(this + 22));
-  }
-
-  if (*(this + 175) < 0)
-  {
-    operator delete(*(this + 19));
-  }
-
-  *this = &unk_2825BFA50;
-  v4 = *(this + 2);
-  if (v4)
-  {
-    *(this + 3) = v4;
-    operator delete(v4);
-  }
-}
-
-{
-  AGX::Impl::FragmentProgramKey::~FragmentProgramKey(this);
-
-  JUMPOUT(0x20F331DC0);
-}
-
-uint64_t AGCModule<AGX::Impl::ComputeProgramKey>::compileLLVMObject(uint64_t a1, unsigned int a2, void *a3, void *a4, char *a5, void **a6, void *a7)
-{
-  v8 = a6;
-  v87 = *MEMORY[0x277D85DE8];
-  if (a6)
-  {
-    v14 = a7 == 0;
-  }
-
-  else
-  {
-    v14 = 1;
-  }
-
-  v15 = !v14;
-  v16 = mach_absolute_time();
-  v18 = *AGCPerThreadContext::getTargetContext(a2);
-  if (!v18)
-  {
-    v29 = "Failed to initialize AGX backend for target architecture.";
-LABEL_56:
-    AGCError::logError(a5, v29, v17);
-LABEL_57:
-    v49 = 0;
-    goto LABEL_87;
-  }
-
-  *(v18 + 1953) = 0;
-  v19 = *(a1 + 160);
-  v71 = a1;
-  if (v19)
-  {
-    (*(*v19 + 24))(&v82);
-    if (BYTE8(v82))
-    {
-      v20 = v82;
-      *&v82 = 0;
-      v79 = v20;
-      llvm::toString(v84, &v79);
-      v21 = std::string::insert(v84, 0, "Error parsing bitcode file: ");
-      v23 = v21->__r_.__value_.__r.__words[2];
-      *c.count = *&v21->__r_.__value_.__l.__data_;
-      *&c.hash[2] = v23;
-      v21->__r_.__value_.__l.__size_ = 0;
-      v21->__r_.__value_.__r.__words[2] = 0;
-      v21->__r_.__value_.__r.__words[0] = 0;
-      v24 = SHIBYTE(c.hash[3]);
-      v25 = *c.count;
-      if ((c.hash[3] & 0x80000000) == 0)
-      {
-        p_c = &c;
-      }
-
-      else
-      {
-        p_c = *c.count;
-      }
-
-      AGCError::logError(a5, p_c, v22);
-      if (v24 < 0)
-      {
-        operator delete(v25);
-      }
-
-      if ((v84[23] & 0x80000000) != 0)
-      {
-        operator delete(*v84);
-      }
-
-      if (v79)
-      {
-        (*(*v79 + 8))(v79);
-      }
-
-      v27 = 0;
-      v28 = 0;
-    }
-
-    else
-    {
-      v27 = v82;
-      v85 = 260;
-      *v84 = v82 + 216;
-      MEMORY[0x20F330F20](&c, v84);
-      if (c.hash[4] == 49 && c.hash[6] == 1 && (AGCOSVersion::AGCOSVersion(v84, &c), pluginSupportsOSVersion(*v84)) && ((llvm::Triple::getEnvironmentName(&c), !v30) || c.wbuf[0] == 21))
-      {
-        AGCTargetOS::AGCTargetOS(v84, &c);
-        v28 = 1;
-      }
-
-      else
-      {
-        v69 = v15;
-        v70 = v16;
-        v31 = v8;
-        v32 = a3;
-        v33 = a4;
-        std::operator+<char>();
-        v35 = v84[23];
-        v36 = *v84;
-        if (v84[23] >= 0)
-        {
-          v37 = v84;
-        }
-
-        else
-        {
-          v37 = *v84;
-        }
-
-        AGCError::logError(a5, v37, v34);
-        if (v35 < 0)
-        {
-          operator delete(v36);
-        }
-
-        v28 = 0;
-        a4 = v33;
-        a3 = v32;
-        v8 = v31;
-        v16 = v70;
-        v15 = v69;
-      }
-
-      if (SHIBYTE(c.hash[3]) < 0)
-      {
-        operator delete(*c.count);
-      }
-    }
-
-    if (BYTE8(v82))
-    {
-      v38 = v82;
-      *&v82 = 0;
-      if (v38)
-      {
-        (*(*v38 + 8))(v38);
-      }
-    }
-
-    if (!v28)
-    {
-      goto LABEL_57;
-    }
-  }
-
-  else
-  {
-    v27 = 0;
-  }
-
-  v39 = (**v71)(v71, v18, v71 + 152, v27);
-  if (!v39)
-  {
-    v29 = "Cannot create AGC LLVM object.";
-    goto LABEL_56;
-  }
-
-  v41 = v39;
-  {
-    AGCEnv::isEnabled(void)::is_internal = os_variant_has_internal_diagnostics();
-  }
-
-  v68 = a4;
-  if (AGCEnv::isEnabled(void)::is_internal == 1 && (Value = AGCEnv::getValue("AGC_ENABLE_PER_OBJECT_STATUS_FILE", v40)) != 0 && *Value != 48 && (v43 = atoi(Value), v43))
-  {
-    AGCPrinterFactory::Get(v43);
-    v44 = (*(*v41 + 48))(v41);
-    std::string::basic_string[abi:nn200100]<0>(v77, v44);
-    (*(*v41 + 40))(__p, v41);
-    if (*(v71 + 200) == 1)
-    {
-      v45 = *(v71 + 184);
-      v82 = *(v71 + 168);
-      v83 = v45;
-    }
-
-    else
-    {
-      llvm::SHA256::SHA256(&v80);
-      v64 = *(v71 + 160);
-      if (v64)
-      {
-        (*(*v64 + 32))(v64, &v80);
-      }
-
-      memset(v84, 0, sizeof(v84));
-      CC_SHA256_Init(&c);
-      (**(v71 + 8))(v71 + 8, &c);
-      CC_SHA256_Final(v84, &c);
-      llvm::SHA256::update();
-      llvm::SHA256::final(&c, &v80);
-      v65 = *(v71 + 200);
-      v66 = *&c.hash[2];
-      *(v71 + 168) = *c.count;
-      *(v71 + 184) = v66;
-      if ((v65 & 1) == 0)
-      {
-        *(v71 + 200) = 1;
-      }
-
-      v67 = *(v71 + 184);
-      v82 = *(v71 + 168);
-      v83 = v67;
-      llvm::SHA256::~SHA256(&v80);
-    }
-
-    *c.count = v82;
-    *&c.hash[2] = v83;
-    LOBYTE(c.hash[6]) = 1;
-    AGCPrinterFactory::createObjectPrinter(v84, 0, v77, __p, &c);
-    v47 = *v84;
-    if (v76 < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    if (v78 < 0)
-    {
-      operator delete(v77[0]);
-    }
-
-    v46 = v47;
-  }
-
-  else
-  {
-    v46 = 0;
-    v47 = *(v18 + 2032);
-  }
-
-  (*(*v41 + 64))(v41, v47);
-  if ((*(*v41 + 16))(v41))
-  {
-    v48 = v16;
-    memset(&c, 0, 32);
-    v80 = 0;
-    v81[0] = &unk_2825BEA98;
-    v81[1] = v71;
-    v81[3] = v81;
-    *&v82 = 0;
-    v49 = (*(*v41 + 24))(v41, &v82, &v80, &c, v81);
-    std::__function::__value_func<void ()(AGCDeserializedReply const&)>::~__value_func[abi:nn200100](v81);
-    if (v15)
-    {
-      v72 = a3;
-      *v8 = malloc_type_malloc(0x20uLL, 0x1000040E0EAB150uLL);
-      *a7 = 32;
-      v50 = mach_absolute_time() - v48;
-      if (getTimebaseInfo(void)::once != -1)
-      {
-        dispatch_once(&getTimebaseInfo(void)::once, &__block_literal_global_16695);
-      }
-
-      *c.hash = v50 * getTimebaseInfo(void)::sTimebaseInfo / *algn_28117E63C;
-      *&c.hash[2] = *c.hash - *&c.hash[4];
-      v51 = *v8;
-      v52 = *&c.hash[2];
-      *v51 = *c.count;
-      v51[1] = v52;
-      a3 = v72;
-    }
-
-    if (v49)
-    {
-      *a3 = v82;
-      *v68 = v80;
-    }
-
-    else
-    {
-      std::string::basic_string[abi:nn200100]<0>(v84, "Error occurred composing compiler reply.");
-      if ((v84[23] & 0x80000000) != 0)
-      {
-        std::string::__init_copy_ctor_external(&v73, *v84, *&v84[8]);
-      }
-
-      else
-      {
-        v73 = *v84;
-      }
-
-      v56 = &v73;
-      if ((v73.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-      {
-        v56 = v73.__r_.__value_.__r.__words[0];
-      }
-
-      AGCTargetPrinter::printMessage(*(v41 + 1696), "** Compilation failed with error: %s **", v56);
-      if (SHIBYTE(v73.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v73.__r_.__value_.__l.__data_);
-      }
-
-      v58 = v84[23];
-      v59 = *v84;
-      if (v84[23] >= 0)
-      {
-        v60 = v84;
-      }
-
-      else
-      {
-        v60 = *v84;
-      }
-
-      AGCError::logError(a5, v60, v57);
-      if (v58 < 0)
-      {
-        operator delete(v59);
-      }
-    }
-  }
-
-  else
-  {
-    if (*(v41 + 1679) < 0)
-    {
-      std::string::__init_copy_ctor_external(&v74, *(v41 + 1656), *(v41 + 1664));
-    }
-
-    else
-    {
-      v74 = *(v41 + 1656);
-    }
-
-    v53 = &v74;
-    if ((v74.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-    {
-      v53 = v74.__r_.__value_.__r.__words[0];
-    }
-
-    AGCTargetPrinter::printMessage(*(v41 + 1696), "** Compilation failed with error: %s **", v53);
-    if (SHIBYTE(v74.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v74.__r_.__value_.__l.__data_);
-    }
-
-    if (*(v41 + 1679) >= 0)
-    {
-      v55 = (v41 + 1656);
-    }
-
-    else
-    {
-      v55 = *(v41 + 1656);
-    }
-
-    AGCError::logError(a5, v55, v54);
-    v49 = 0;
-  }
-
-  if (v46)
-  {
-    v61 = *v46;
-    if (*v46 && v61 != MEMORY[0x277D82670])
-    {
-      (*(*v61 + 8))(v61);
-      *v46 = 0;
-    }
-
-    MEMORY[0x20F331DC0](v46, 0x1020C409DFBF432);
-  }
-
-  (*(*v41 + 8))(v41);
-LABEL_87:
-  v62 = *MEMORY[0x277D85DE8];
-  return v49;
-}
-
-_BYTE *AGX::DeviceOptions::modifyContextState<_AGCFragmentContextStateAGP>(_BYTE *result, uint64_t a2)
-{
-  v2 = *(a2 + 60) & 0xFBFFFFFF | ((*result & 1) << 26);
-  *(a2 + 60) = v2;
-  v3 = v2 & 0xFFFFFEFF | ((result[1] & 1) << 8);
-  *(a2 + 60) = v3;
-  v4 = v3 & 0xEFFFFFFF | ((result[2] & 1) << 28);
-  *(a2 + 60) = v4;
-  v5 = v4 & 0xDFFFFFFF | ((result[6] & 1) << 29);
-  *(a2 + 60) = v5;
-  *(a2 + 60) = v5 & 0xBFFFFFFF | ((result[8] & 1) << 30);
-  v6 = *(a2 + 68) & 0xFFFFFFF7 | (8 * (result[12] & 1));
-  *(a2 + 68) = v6;
-  v7 = v6 & 0xFFFFF7FF | ((result[3] & 1) << 11);
-  *(a2 + 68) = v7;
-  v8 = v7 & 0xFFFFEFFF | ((result[4] & 1) << 12);
-  *(a2 + 68) = v8;
-  *(a2 + 68) = v8 & 0xFFFFDFFF | ((result[5] & 1) << 13);
-  return result;
-}
-
-unsigned __int8 *AGX::CompileOptions::modifyContextState<_AGCFragmentContextStateAGP>(unsigned __int8 *result, uint64_t a2)
-{
-  v2 = *(a2 + 60) & 0xFFFFFFFE | *result;
-  *(a2 + 60) = v2;
-  v3 = v2 & 0xFFFFFFFD | (2 * (result[1] & 1));
-  *(a2 + 60) = v3;
-  *(a2 + 60) = v3 & 0xFFFFFFF7 | (8 * (result[2] & 1));
-  *(a2 + 68) = *(a2 + 68) & 0xFFFFFF7F | ((result[3] & 1) << 7);
-  return result;
-}
-
-uint64_t AGCTileFunction::AGCTileFunction(uint64_t a1, uint64_t *a2, uint64_t a3)
-{
-  v5 = *a2;
-  *a2 = 0;
-  *a1 = &unk_2825BE540;
-  *(a1 + 8) = &unk_2825BE570;
-  *(a1 + 16) = *(a3 + 8);
-  std::vector<unsigned int>::vector[abi:nn200100]((a1 + 24), (a3 + 16));
-  *(a1 + 8) = &unk_2825BF998;
-  v6 = *(a3 + 40);
-  v7 = *(a3 + 56);
-  v8 = *(a3 + 88);
-  *(a1 + 80) = *(a3 + 72);
-  *(a1 + 96) = v8;
-  *(a1 + 48) = v6;
-  *(a1 + 64) = v7;
-  v9 = *(a3 + 104);
-  v10 = *(a3 + 120);
-  v11 = *(a3 + 136);
-  *(a1 + 160) = *(a3 + 152);
-  *(a1 + 128) = v10;
-  *(a1 + 144) = v11;
-  *(a1 + 112) = v9;
-  std::vector<MTLUINT256_t>::vector[abi:nn200100]((a1 + 168), (a3 + 160));
-  std::vector<MTLUINT256_t>::vector[abi:nn200100]((a1 + 192), (a3 + 184));
-  MEMORY[0x20F32FFB0](a1 + 216);
-  *(a1 + 224) = v5;
-  *(a1 + 232) = 0;
-  *(a1 + 264) = 0;
-  *a1 = &unk_2825BE510;
-  AGCTileFunction::init(a1);
-  return a1;
-}
-
-uint64_t AGCModule<AGX::Impl::TileProgramKey>::compileLLVMObject(uint64_t a1, unsigned int a2, void *a3, void *a4, char *a5, void **a6, void *a7)
-{
-  v8 = a6;
-  v87 = *MEMORY[0x277D85DE8];
-  if (a6)
-  {
-    v14 = a7 == 0;
-  }
-
-  else
-  {
-    v14 = 1;
-  }
-
-  v15 = !v14;
-  v16 = mach_absolute_time();
-  v18 = *AGCPerThreadContext::getTargetContext(a2);
-  if (!v18)
-  {
-    v29 = "Failed to initialize AGX backend for target architecture.";
-LABEL_56:
-    AGCError::logError(a5, v29, v17);
-LABEL_57:
-    v49 = 0;
-    goto LABEL_87;
-  }
-
-  *(v18 + 1953) = 0;
-  v19 = *(a1 + 224);
-  v71 = a1;
-  if (v19)
-  {
-    (*(*v19 + 24))(&v82);
-    if (BYTE8(v82))
-    {
-      v20 = v82;
-      *&v82 = 0;
-      v79 = v20;
-      llvm::toString(v84, &v79);
-      v21 = std::string::insert(v84, 0, "Error parsing bitcode file: ");
-      v23 = v21->__r_.__value_.__r.__words[2];
-      *c.count = *&v21->__r_.__value_.__l.__data_;
-      *&c.hash[2] = v23;
-      v21->__r_.__value_.__l.__size_ = 0;
-      v21->__r_.__value_.__r.__words[2] = 0;
-      v21->__r_.__value_.__r.__words[0] = 0;
-      v24 = SHIBYTE(c.hash[3]);
-      v25 = *c.count;
-      if ((c.hash[3] & 0x80000000) == 0)
-      {
-        p_c = &c;
-      }
-
-      else
-      {
-        p_c = *c.count;
-      }
-
-      AGCError::logError(a5, p_c, v22);
-      if (v24 < 0)
-      {
-        operator delete(v25);
-      }
-
-      if ((v84[23] & 0x80000000) != 0)
-      {
-        operator delete(*v84);
-      }
-
-      if (v79)
-      {
-        (*(*v79 + 8))(v79);
-      }
-
-      v27 = 0;
-      v28 = 0;
-    }
-
-    else
-    {
-      v27 = v82;
-      v85 = 260;
-      *v84 = v82 + 216;
-      MEMORY[0x20F330F20](&c, v84);
-      if (c.hash[4] == 49 && c.hash[6] == 1 && (AGCOSVersion::AGCOSVersion(v84, &c), pluginSupportsOSVersion(*v84)) && ((llvm::Triple::getEnvironmentName(&c), !v30) || c.wbuf[0] == 21))
-      {
-        AGCTargetOS::AGCTargetOS(v84, &c);
-        v28 = 1;
-      }
-
-      else
-      {
-        v69 = v15;
-        v70 = v16;
-        v31 = v8;
-        v32 = a3;
-        v33 = a4;
-        std::operator+<char>();
-        v35 = v84[23];
-        v36 = *v84;
-        if (v84[23] >= 0)
-        {
-          v37 = v84;
-        }
-
-        else
-        {
-          v37 = *v84;
-        }
-
-        AGCError::logError(a5, v37, v34);
-        if (v35 < 0)
-        {
-          operator delete(v36);
-        }
-
-        v28 = 0;
-        a4 = v33;
-        a3 = v32;
-        v8 = v31;
-        v16 = v70;
-        v15 = v69;
-      }
-
-      if (SHIBYTE(c.hash[3]) < 0)
-      {
-        operator delete(*c.count);
-      }
-    }
-
-    if (BYTE8(v82))
-    {
-      v38 = v82;
-      *&v82 = 0;
-      if (v38)
-      {
-        (*(*v38 + 8))(v38);
-      }
-    }
-
-    if (!v28)
-    {
-      goto LABEL_57;
-    }
-  }
-
-  else
-  {
-    v27 = 0;
-  }
-
-  v39 = (**v71)(v71, v18, v71 + 216, v27);
-  if (!v39)
-  {
-    v29 = "Cannot create AGC LLVM object.";
-    goto LABEL_56;
-  }
-
-  v41 = v39;
-  {
-    AGCEnv::isEnabled(void)::is_internal = os_variant_has_internal_diagnostics();
-  }
-
-  v68 = a4;
-  if (AGCEnv::isEnabled(void)::is_internal == 1 && (Value = AGCEnv::getValue("AGC_ENABLE_PER_OBJECT_STATUS_FILE", v40)) != 0 && *Value != 48 && (v43 = atoi(Value), v43))
-  {
-    AGCPrinterFactory::Get(v43);
-    v44 = (*(*v41 + 48))(v41);
-    std::string::basic_string[abi:nn200100]<0>(v77, v44);
-    (*(*v41 + 40))(__p, v41);
-    if (*(v71 + 264) == 1)
-    {
-      v45 = *(v71 + 248);
-      v82 = *(v71 + 232);
-      v83 = v45;
-    }
-
-    else
-    {
-      llvm::SHA256::SHA256(&v80);
-      v64 = *(v71 + 224);
-      if (v64)
-      {
-        (*(*v64 + 32))(v64, &v80);
-      }
-
-      memset(v84, 0, sizeof(v84));
-      CC_SHA256_Init(&c);
-      (**(v71 + 8))(v71 + 8, &c);
-      CC_SHA256_Final(v84, &c);
-      llvm::SHA256::update();
-      llvm::SHA256::final(&c, &v80);
-      v65 = *(v71 + 264);
-      v66 = *&c.hash[2];
-      *(v71 + 232) = *c.count;
-      *(v71 + 248) = v66;
-      if ((v65 & 1) == 0)
-      {
-        *(v71 + 264) = 1;
-      }
-
-      v67 = *(v71 + 248);
-      v82 = *(v71 + 232);
-      v83 = v67;
-      llvm::SHA256::~SHA256(&v80);
-    }
-
-    *c.count = v82;
-    *&c.hash[2] = v83;
-    LOBYTE(c.hash[6]) = 1;
-    AGCPrinterFactory::createObjectPrinter(v84, 0, v77, __p, &c);
-    v47 = *v84;
-    if (v76 < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    if (v78 < 0)
-    {
-      operator delete(v77[0]);
-    }
-
-    v46 = v47;
-  }
-
-  else
-  {
-    v46 = 0;
-    v47 = *(v18 + 2032);
-  }
-
-  (*(*v41 + 64))(v41, v47);
-  if ((*(*v41 + 16))(v41))
-  {
-    v48 = v16;
-    memset(&c, 0, 32);
-    v80 = 0;
-    v81[0] = &unk_2825BEAE0;
-    v81[1] = v71;
-    v81[3] = v81;
-    *&v82 = 0;
-    v49 = (*(*v41 + 24))(v41, &v82, &v80, &c, v81);
-    std::__function::__value_func<void ()(AGCDeserializedReply const&)>::~__value_func[abi:nn200100](v81);
-    if (v15)
-    {
-      v72 = a3;
-      *v8 = malloc_type_malloc(0x20uLL, 0x1000040E0EAB150uLL);
-      *a7 = 32;
-      v50 = mach_absolute_time() - v48;
-      if (getTimebaseInfo(void)::once != -1)
-      {
-        dispatch_once(&getTimebaseInfo(void)::once, &__block_literal_global_16695);
-      }
-
-      *c.hash = v50 * getTimebaseInfo(void)::sTimebaseInfo / *algn_28117E63C;
-      *&c.hash[2] = *c.hash - *&c.hash[4];
-      v51 = *v8;
-      v52 = *&c.hash[2];
-      *v51 = *c.count;
-      v51[1] = v52;
-      a3 = v72;
-    }
-
-    if (v49)
-    {
-      *a3 = v82;
-      *v68 = v80;
-    }
-
-    else
-    {
-      std::string::basic_string[abi:nn200100]<0>(v84, "Error occurred composing compiler reply.");
-      if ((v84[23] & 0x80000000) != 0)
-      {
-        std::string::__init_copy_ctor_external(&v73, *v84, *&v84[8]);
-      }
-
-      else
-      {
-        v73 = *v84;
-      }
-
-      v56 = &v73;
-      if ((v73.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-      {
-        v56 = v73.__r_.__value_.__r.__words[0];
-      }
-
-      AGCTargetPrinter::printMessage(*(v41 + 1696), "** Compilation failed with error: %s **", v56);
-      if (SHIBYTE(v73.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v73.__r_.__value_.__l.__data_);
-      }
-
-      v58 = v84[23];
-      v59 = *v84;
-      if (v84[23] >= 0)
-      {
-        v60 = v84;
-      }
-
-      else
-      {
-        v60 = *v84;
-      }
-
-      AGCError::logError(a5, v60, v57);
-      if (v58 < 0)
-      {
-        operator delete(v59);
-      }
-    }
-  }
-
-  else
-  {
-    if (*(v41 + 1679) < 0)
-    {
-      std::string::__init_copy_ctor_external(&v74, *(v41 + 1656), *(v41 + 1664));
-    }
-
-    else
-    {
-      v74 = *(v41 + 1656);
-    }
-
-    v53 = &v74;
-    if ((v74.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-    {
-      v53 = v74.__r_.__value_.__r.__words[0];
-    }
-
-    AGCTargetPrinter::printMessage(*(v41 + 1696), "** Compilation failed with error: %s **", v53);
-    if (SHIBYTE(v74.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v74.__r_.__value_.__l.__data_);
-    }
-
-    if (*(v41 + 1679) >= 0)
-    {
-      v55 = (v41 + 1656);
-    }
-
-    else
-    {
-      v55 = *(v41 + 1656);
-    }
-
-    AGCError::logError(a5, v55, v54);
-    v49 = 0;
-  }
-
-  if (v46)
-  {
-    v61 = *v46;
-    if (*v46 && v61 != MEMORY[0x277D82670])
-    {
-      (*(*v61 + 8))(v61);
-      *v46 = 0;
-    }
-
-    MEMORY[0x20F331DC0](v46, 0x1020C409DFBF432);
-  }
-
-  (*(*v41 + 8))(v41);
-LABEL_87:
-  v62 = *MEMORY[0x277D85DE8];
-  return v49;
-}
-
-void AGCTileFunction::~AGCTileFunction(AGCTileFunction *this)
-{
-  *this = &unk_2825BE540;
-  v2 = *(this + 28);
-  *(this + 28) = 0;
-  if (v2)
-  {
-    (*(*v2 + 8))(v2);
-  }
-
-  llvm::LLVMContext::~LLVMContext((this + 216));
-  *(this + 1) = &unk_2825BF998;
-  v3 = *(this + 24);
-  if (v3)
-  {
-    *(this + 25) = v3;
-    operator delete(v3);
-  }
-
-  v4 = *(this + 21);
-  if (v4)
-  {
-    *(this + 22) = v4;
-    operator delete(v4);
-  }
-
-  *(this + 1) = &unk_2825BE570;
-  v5 = *(this + 3);
-  if (v5)
-  {
-    *(this + 4) = v5;
-    operator delete(v5);
-  }
-}
-
-void AGX::Impl::TileProgramKey::~TileProgramKey(AGX::Impl::TileProgramKey *this)
-{
-  *this = &unk_2825BF998;
-  v2 = *(this + 23);
-  if (v2)
-  {
-    *(this + 24) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *(this + 20);
-  if (v3)
-  {
-    *(this + 21) = v3;
-    operator delete(v3);
-  }
-
-  *this = &unk_2825BE570;
-  v4 = *(this + 2);
-  if (v4)
-  {
-    *(this + 3) = v4;
-    operator delete(v4);
-  }
-}
-
-uint64_t Air::FunctionScript::function_as_mesh(Air::FunctionScript *this)
-{
-  v1 = (this - *this);
-  v2 = *v1;
-  if (v2 >= 9 && v1[4] && (v2 >= 0xB ? (v3 = *(this + v1[4]) == 8) : (v3 = 0), v3 && (v4 = v1[5]) != 0))
-  {
-    return this + v4 + *(this + v4);
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-std::string *AGX::FragmentProgramVaryings::FragmentProgramVaryings(std::string *this, __int128 *a2)
-{
-  if (*(a2 + 23) < 0)
-  {
-    std::string::__init_copy_ctor_external(this, *a2, *(a2 + 1));
-  }
-
-  else
-  {
-    v4 = *a2;
-    this->__r_.__value_.__r.__words[2] = *(a2 + 2);
-    *&this->__r_.__value_.__l.__data_ = v4;
-  }
-
-  if (*(a2 + 47) < 0)
-  {
-    std::string::__init_copy_ctor_external(this + 1, *(a2 + 3), *(a2 + 4));
-  }
-
-  else
-  {
-    v5 = *(a2 + 24);
-    this[1].__r_.__value_.__r.__words[2] = *(a2 + 5);
-    *&this[1].__r_.__value_.__l.__data_ = v5;
-  }
-
-  this[2].__r_.__value_.__s.__data_[0] = *(a2 + 48);
-  return this;
-}
-
-void AGX::FragmentProgramVaryings::~FragmentProgramVaryings(void **this)
-{
-  if (*(this + 47) < 0)
-  {
-    operator delete(this[3]);
-  }
-
-  if (*(this + 23) < 0)
-  {
-    operator delete(*this);
-  }
-}
-
-_BYTE *AGX::DeviceOptions::modifyContextState<_AGCMeshContextStateAGP>(_BYTE *result, uint64_t a2)
-{
-  v2 = *(a2 + 16);
-  v3 = *(a2 + 12) & 0xFBFFFFFF | ((*result & 1) << 26);
-  *(a2 + 12) = v3;
-  v4 = v3 & 0xFFFFFEFF | ((result[1] & 1) << 8);
-  *(a2 + 12) = v4;
-  v5 = v4 & 0xEFFFFFFF | ((result[2] & 1) << 28);
-  *(a2 + 12) = v5;
-  v6 = v5 & 0xDFFFFFFF | ((result[6] & 1) << 29);
-  *(a2 + 12) = v6;
-  *(a2 + 12) = v6 & 0xBFFFFFFF | ((result[8] & 1) << 30);
-  v7 = v2 & 0xFFFFFDFF | ((result[3] & 1) << 9);
-  *(a2 + 16) = v7;
-  v8 = v7 & 0xFFFFFBFF | ((result[4] & 1) << 10);
-  *(a2 + 16) = v8;
-  *(a2 + 16) = v8 & 0xFFFFF7FF | ((result[5] & 1) << 11);
-  return result;
-}
-
-uint64_t AGCMeshFunction::AGCMeshFunction(uint64_t a1, uint64_t *a2, AGX::Impl::MeshProgramKey *a3)
-{
-  v4 = *a2;
-  *a2 = 0;
-  *a1 = &unk_2825BE5E0;
-  AGX::Impl::MeshProgramKey::MeshProgramKey((a1 + 8), a3);
-  MEMORY[0x20F32FFB0](a1 + 216);
-  *(a1 + 224) = v4;
-  *(a1 + 232) = 0;
-  *(a1 + 264) = 0;
-  *a1 = &unk_2825BE5B0;
-  *(a1 + 272) = 0u;
-  *(a1 + 288) = 0u;
-  *(a1 + 304) = 0u;
-  *(a1 + 320) = 0;
-  return a1;
-}
-
-uint64_t AGCModule<AGX::Impl::MeshProgramKey>::compileLLVMObject(uint64_t a1, unsigned int a2, void *a3, void *a4, char *a5, void **a6, void *a7)
-{
-  v8 = a6;
-  v87 = *MEMORY[0x277D85DE8];
-  if (a6)
-  {
-    v14 = a7 == 0;
-  }
-
-  else
-  {
-    v14 = 1;
-  }
-
-  v15 = !v14;
-  v16 = mach_absolute_time();
-  v18 = *AGCPerThreadContext::getTargetContext(a2);
-  if (!v18)
-  {
-    v29 = "Failed to initialize AGX backend for target architecture.";
-LABEL_56:
-    AGCError::logError(a5, v29, v17);
-LABEL_57:
-    v49 = 0;
-    goto LABEL_87;
-  }
-
-  *(v18 + 1953) = 0;
-  v19 = *(a1 + 224);
-  v71 = a1;
-  if (v19)
-  {
-    (*(*v19 + 24))(&v82);
-    if (BYTE8(v82))
-    {
-      v20 = v82;
-      *&v82 = 0;
-      v79 = v20;
-      llvm::toString(v84, &v79);
-      v21 = std::string::insert(v84, 0, "Error parsing bitcode file: ");
-      v23 = v21->__r_.__value_.__r.__words[2];
-      *c.count = *&v21->__r_.__value_.__l.__data_;
-      *&c.hash[2] = v23;
-      v21->__r_.__value_.__l.__size_ = 0;
-      v21->__r_.__value_.__r.__words[2] = 0;
-      v21->__r_.__value_.__r.__words[0] = 0;
-      v24 = SHIBYTE(c.hash[3]);
-      v25 = *c.count;
-      if ((c.hash[3] & 0x80000000) == 0)
-      {
-        p_c = &c;
-      }
-
-      else
-      {
-        p_c = *c.count;
-      }
-
-      AGCError::logError(a5, p_c, v22);
-      if (v24 < 0)
-      {
-        operator delete(v25);
-      }
-
-      if ((v84[23] & 0x80000000) != 0)
-      {
-        operator delete(*v84);
-      }
-
-      if (v79)
-      {
-        (*(*v79 + 8))(v79);
-      }
-
-      v27 = 0;
-      v28 = 0;
-    }
-
-    else
-    {
-      v27 = v82;
-      v85 = 260;
-      *v84 = v82 + 216;
-      MEMORY[0x20F330F20](&c, v84);
-      if (c.hash[4] == 49 && c.hash[6] == 1 && (AGCOSVersion::AGCOSVersion(v84, &c), pluginSupportsOSVersion(*v84)) && ((llvm::Triple::getEnvironmentName(&c), !v30) || c.wbuf[0] == 21))
-      {
-        AGCTargetOS::AGCTargetOS(v84, &c);
-        v28 = 1;
-      }
-
-      else
-      {
-        v69 = v15;
-        v70 = v16;
-        v31 = v8;
-        v32 = a3;
-        v33 = a4;
-        std::operator+<char>();
-        v35 = v84[23];
-        v36 = *v84;
-        if (v84[23] >= 0)
-        {
-          v37 = v84;
-        }
-
-        else
-        {
-          v37 = *v84;
-        }
-
-        AGCError::logError(a5, v37, v34);
-        if (v35 < 0)
-        {
-          operator delete(v36);
-        }
-
-        v28 = 0;
-        a4 = v33;
-        a3 = v32;
-        v8 = v31;
-        v16 = v70;
-        v15 = v69;
-      }
-
-      if (SHIBYTE(c.hash[3]) < 0)
-      {
-        operator delete(*c.count);
-      }
-    }
-
-    if (BYTE8(v82))
-    {
-      v38 = v82;
-      *&v82 = 0;
-      if (v38)
-      {
-        (*(*v38 + 8))(v38);
-      }
-    }
-
-    if (!v28)
-    {
-      goto LABEL_57;
-    }
-  }
-
-  else
-  {
-    v27 = 0;
-  }
-
-  v39 = (**v71)(v71, v18, v71 + 216, v27);
-  if (!v39)
-  {
-    v29 = "Cannot create AGC LLVM object.";
-    goto LABEL_56;
-  }
-
-  v41 = v39;
-  {
-    AGCEnv::isEnabled(void)::is_internal = os_variant_has_internal_diagnostics();
-  }
-
-  v68 = a4;
-  if (AGCEnv::isEnabled(void)::is_internal == 1 && (Value = AGCEnv::getValue("AGC_ENABLE_PER_OBJECT_STATUS_FILE", v40)) != 0 && *Value != 48 && (v43 = atoi(Value), v43))
-  {
-    AGCPrinterFactory::Get(v43);
-    v44 = (*(*v41 + 48))(v41);
-    std::string::basic_string[abi:nn200100]<0>(v77, v44);
-    (*(*v41 + 40))(__p, v41);
-    if (*(v71 + 264) == 1)
-    {
-      v45 = *(v71 + 248);
-      v82 = *(v71 + 232);
-      v83 = v45;
-    }
-
-    else
-    {
-      llvm::SHA256::SHA256(&v80);
-      v64 = *(v71 + 224);
-      if (v64)
-      {
-        (*(*v64 + 32))(v64, &v80);
-      }
-
-      memset(v84, 0, sizeof(v84));
-      CC_SHA256_Init(&c);
-      (**(v71 + 8))(v71 + 8, &c);
-      CC_SHA256_Final(v84, &c);
-      llvm::SHA256::update();
-      llvm::SHA256::final(&c, &v80);
-      v65 = *(v71 + 264);
-      v66 = *&c.hash[2];
-      *(v71 + 232) = *c.count;
-      *(v71 + 248) = v66;
-      if ((v65 & 1) == 0)
-      {
-        *(v71 + 264) = 1;
-      }
-
-      v67 = *(v71 + 248);
-      v82 = *(v71 + 232);
-      v83 = v67;
-      llvm::SHA256::~SHA256(&v80);
-    }
-
-    *c.count = v82;
-    *&c.hash[2] = v83;
-    LOBYTE(c.hash[6]) = 1;
-    AGCPrinterFactory::createObjectPrinter(v84, 0, v77, __p, &c);
-    v47 = *v84;
-    if (v76 < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    if (v78 < 0)
-    {
-      operator delete(v77[0]);
-    }
-
-    v46 = v47;
-  }
-
-  else
-  {
-    v46 = 0;
-    v47 = *(v18 + 2032);
-  }
-
-  (*(*v41 + 64))(v41, v47);
-  if ((*(*v41 + 16))(v41))
-  {
-    v48 = v16;
-    memset(&c, 0, 32);
-    v80 = 0;
-    v81[0] = &unk_2825BE698;
-    v81[1] = v71;
-    v81[3] = v81;
-    *&v82 = 0;
-    v49 = (*(*v41 + 24))(v41, &v82, &v80, &c, v81);
-    std::__function::__value_func<void ()(AGCDeserializedReply const&)>::~__value_func[abi:nn200100](v81);
-    if (v15)
-    {
-      v72 = a3;
-      *v8 = malloc_type_malloc(0x20uLL, 0x1000040E0EAB150uLL);
-      *a7 = 32;
-      v50 = mach_absolute_time() - v48;
-      if (getTimebaseInfo(void)::once != -1)
-      {
-        dispatch_once(&getTimebaseInfo(void)::once, &__block_literal_global_16695);
-      }
-
-      *c.hash = v50 * getTimebaseInfo(void)::sTimebaseInfo / *algn_28117E63C;
-      *&c.hash[2] = *c.hash - *&c.hash[4];
-      v51 = *v8;
-      v52 = *&c.hash[2];
-      *v51 = *c.count;
-      v51[1] = v52;
-      a3 = v72;
-    }
-
-    if (v49)
-    {
-      *a3 = v82;
-      *v68 = v80;
-    }
-
-    else
-    {
-      std::string::basic_string[abi:nn200100]<0>(v84, "Error occurred composing compiler reply.");
-      if ((v84[23] & 0x80000000) != 0)
-      {
-        std::string::__init_copy_ctor_external(&v73, *v84, *&v84[8]);
-      }
-
-      else
-      {
-        v73 = *v84;
-      }
-
-      v56 = &v73;
-      if ((v73.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-      {
-        v56 = v73.__r_.__value_.__r.__words[0];
-      }
-
-      AGCTargetPrinter::printMessage(*(v41 + 1696), "** Compilation failed with error: %s **", v56);
-      if (SHIBYTE(v73.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v73.__r_.__value_.__l.__data_);
-      }
-
-      v58 = v84[23];
-      v59 = *v84;
-      if (v84[23] >= 0)
-      {
-        v60 = v84;
-      }
-
-      else
-      {
-        v60 = *v84;
-      }
-
-      AGCError::logError(a5, v60, v57);
-      if (v58 < 0)
-      {
-        operator delete(v59);
-      }
-    }
-  }
-
-  else
-  {
-    if (*(v41 + 1679) < 0)
-    {
-      std::string::__init_copy_ctor_external(&v74, *(v41 + 1656), *(v41 + 1664));
-    }
-
-    else
-    {
-      v74 = *(v41 + 1656);
-    }
-
-    v53 = &v74;
-    if ((v74.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-    {
-      v53 = v74.__r_.__value_.__r.__words[0];
-    }
-
-    AGCTargetPrinter::printMessage(*(v41 + 1696), "** Compilation failed with error: %s **", v53);
-    if (SHIBYTE(v74.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v74.__r_.__value_.__l.__data_);
-    }
-
-    if (*(v41 + 1679) >= 0)
-    {
-      v55 = (v41 + 1656);
-    }
-
-    else
-    {
-      v55 = *(v41 + 1656);
-    }
-
-    AGCError::logError(a5, v55, v54);
-    v49 = 0;
-  }
-
-  if (v46)
-  {
-    v61 = *v46;
-    if (*v46 && v61 != MEMORY[0x277D82670])
-    {
-      (*(*v61 + 8))(v61);
-      *v46 = 0;
-    }
-
-    MEMORY[0x20F331DC0](v46, 0x1020C409DFBF432);
-  }
-
-  (*(*v41 + 8))(v41);
-LABEL_87:
-  v62 = *MEMORY[0x277D85DE8];
-  return v49;
-}
-
-void AGCMeshFunction::~AGCMeshFunction(void **this)
-{
-  *this = &unk_2825BE5B0;
-  if (*(this + 319) < 0)
-  {
-    operator delete(this[37]);
-  }
-
-  if (*(this + 295) < 0)
-  {
-    operator delete(this[34]);
-  }
-
-  *this = &unk_2825BE5E0;
-  v2 = this[28];
-  this[28] = 0;
-  if (v2)
-  {
-    (*(*v2 + 8))(v2);
-  }
-
-  llvm::LLVMContext::~LLVMContext((this + 27));
-  AGX::Impl::MeshProgramKey::~MeshProgramKey(this + 1);
-}
-
-void AGX::Impl::MeshProgramKey::~MeshProgramKey(void **this)
-{
-  *this = &unk_2825BF8B8;
-  if (*(this + 199) < 0)
-  {
-    operator delete(this[22]);
-  }
-
-  if (*(this + 175) < 0)
-  {
-    operator delete(this[19]);
-  }
-
-  *this = &unk_2825BE610;
-  v2 = this[16];
-  if (v2)
-  {
-    this[17] = v2;
-    operator delete(v2);
-  }
-
-  v3 = this[13];
-  if (v3)
-  {
-    this[14] = v3;
-    operator delete(v3);
-  }
-
-  if (*(this + 95) < 0)
-  {
-    operator delete(this[9]);
-  }
-
-  *this = &unk_2825BE658;
-  v4 = this[2];
-  if (v4)
-  {
-    this[3] = v4;
-    operator delete(v4);
-  }
-}
-
-uint64_t Air::FunctionScript::function_as_object(Air::FunctionScript *this)
-{
-  v1 = (this - *this);
-  v2 = *v1;
-  if (v2 >= 9 && v1[4] && (v2 >= 0xB ? (v3 = *(this + v1[4]) == 7) : (v3 = 0), v3 && (v4 = v1[5]) != 0))
-  {
-    return this + v4 + *(this + v4);
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-_BYTE *AGX::DeviceOptions::modifyContextState<_AGCObjectContextStateAGP>(_BYTE *result, uint64_t a2)
-{
-  v2 = *(a2 + 16);
-  v3 = *(a2 + 12) & 0xFBFFFFFF | ((*result & 1) << 26);
-  *(a2 + 12) = v3;
-  v4 = v3 & 0xFFFFFEFF | ((result[1] & 1) << 8);
-  *(a2 + 12) = v4;
-  v5 = v4 & 0xEFFFFFFF | ((result[2] & 1) << 28);
-  *(a2 + 12) = v5;
-  v6 = v5 & 0xDFFFFFFF | ((result[6] & 1) << 29);
-  *(a2 + 12) = v6;
-  *(a2 + 12) = v6 & 0xBFFFFFFF | ((result[8] & 1) << 30);
-  v7 = v2 & 0xFFFFFF7F | ((result[3] & 1) << 7);
-  *(a2 + 16) = v7;
-  v8 = v7 & 0xFFFFFEFF | ((result[4] & 1) << 8);
-  *(a2 + 16) = v8;
-  *(a2 + 16) = v8 & 0xFFFFFDFF | ((result[5] & 1) << 9);
-  return result;
-}
-
-uint64_t AGCObjectFunction::AGCObjectFunction(uint64_t a1, uint64_t *a2, uint64_t a3)
-{
-  v5 = *a2;
-  *a2 = 0;
-  *a1 = &unk_2825BE710;
-  *(a1 + 8) = &unk_2825BE788;
-  *(a1 + 16) = *(a3 + 8);
-  std::vector<unsigned int>::vector[abi:nn200100]((a1 + 24), (a3 + 16));
-  *(a1 + 8) = &unk_2825BE740;
-  v6 = *(a3 + 56);
-  *(a1 + 48) = *(a3 + 40);
-  *(a1 + 64) = v6;
-  if (*(a3 + 95) < 0)
-  {
-    std::string::__init_copy_ctor_external((a1 + 80), *(a3 + 72), *(a3 + 80));
-  }
-
-  else
-  {
-    v7 = *(a3 + 72);
-    *(a1 + 96) = *(a3 + 88);
-    *(a1 + 80) = v7;
-  }
-
-  *(a1 + 104) = *(a3 + 96);
-  std::vector<MTLUINT256_t>::vector[abi:nn200100]((a1 + 112), (a3 + 104));
-  std::vector<MTLUINT256_t>::vector[abi:nn200100]((a1 + 136), (a3 + 128));
-  *(a1 + 8) = &unk_2825BF900;
-  MEMORY[0x20F32FFB0](a1 + 160);
-  *(a1 + 168) = v5;
-  *(a1 + 176) = 0;
-  *(a1 + 208) = 0;
-  *a1 = &unk_2825BE6E0;
-  return a1;
-}
-
-uint64_t AGCModule<AGX::Impl::ObjectProgramKey>::compileLLVMObject(uint64_t a1, unsigned int a2, void *a3, void *a4, char *a5, void **a6, void *a7)
-{
-  v8 = a6;
-  v87 = *MEMORY[0x277D85DE8];
-  if (a6)
-  {
-    v14 = a7 == 0;
-  }
-
-  else
-  {
-    v14 = 1;
-  }
-
-  v15 = !v14;
-  v16 = mach_absolute_time();
-  v18 = *AGCPerThreadContext::getTargetContext(a2);
-  if (!v18)
-  {
-    v29 = "Failed to initialize AGX backend for target architecture.";
-LABEL_56:
-    AGCError::logError(a5, v29, v17);
-LABEL_57:
-    v49 = 0;
-    goto LABEL_87;
-  }
-
-  *(v18 + 1953) = 0;
-  v19 = *(a1 + 168);
-  v71 = a1;
-  if (v19)
-  {
-    (*(*v19 + 24))(&v82);
-    if (BYTE8(v82))
-    {
-      v20 = v82;
-      *&v82 = 0;
-      v79 = v20;
-      llvm::toString(v84, &v79);
-      v21 = std::string::insert(v84, 0, "Error parsing bitcode file: ");
-      v23 = v21->__r_.__value_.__r.__words[2];
-      *c.count = *&v21->__r_.__value_.__l.__data_;
-      *&c.hash[2] = v23;
-      v21->__r_.__value_.__l.__size_ = 0;
-      v21->__r_.__value_.__r.__words[2] = 0;
-      v21->__r_.__value_.__r.__words[0] = 0;
-      v24 = SHIBYTE(c.hash[3]);
-      v25 = *c.count;
-      if ((c.hash[3] & 0x80000000) == 0)
-      {
-        p_c = &c;
-      }
-
-      else
-      {
-        p_c = *c.count;
-      }
-
-      AGCError::logError(a5, p_c, v22);
-      if (v24 < 0)
-      {
-        operator delete(v25);
-      }
-
-      if ((v84[23] & 0x80000000) != 0)
-      {
-        operator delete(*v84);
-      }
-
-      if (v79)
-      {
-        (*(*v79 + 8))(v79);
-      }
-
-      v27 = 0;
-      v28 = 0;
-    }
-
-    else
-    {
-      v27 = v82;
-      v85 = 260;
-      *v84 = v82 + 216;
-      MEMORY[0x20F330F20](&c, v84);
-      if (c.hash[4] == 49 && c.hash[6] == 1 && (AGCOSVersion::AGCOSVersion(v84, &c), pluginSupportsOSVersion(*v84)) && ((llvm::Triple::getEnvironmentName(&c), !v30) || c.wbuf[0] == 21))
-      {
-        AGCTargetOS::AGCTargetOS(v84, &c);
-        v28 = 1;
-      }
-
-      else
-      {
-        v69 = v15;
-        v70 = v16;
-        v31 = v8;
-        v32 = a3;
-        v33 = a4;
-        std::operator+<char>();
-        v35 = v84[23];
-        v36 = *v84;
-        if (v84[23] >= 0)
-        {
-          v37 = v84;
-        }
-
-        else
-        {
-          v37 = *v84;
-        }
-
-        AGCError::logError(a5, v37, v34);
-        if (v35 < 0)
-        {
-          operator delete(v36);
-        }
-
-        v28 = 0;
-        a4 = v33;
-        a3 = v32;
-        v8 = v31;
-        v16 = v70;
-        v15 = v69;
-      }
-
-      if (SHIBYTE(c.hash[3]) < 0)
-      {
-        operator delete(*c.count);
-      }
-    }
-
-    if (BYTE8(v82))
-    {
-      v38 = v82;
-      *&v82 = 0;
-      if (v38)
-      {
-        (*(*v38 + 8))(v38);
-      }
-    }
-
-    if (!v28)
-    {
-      goto LABEL_57;
-    }
-  }
-
-  else
-  {
-    v27 = 0;
-  }
-
-  v39 = (**v71)(v71, v18, v71 + 160, v27);
-  if (!v39)
-  {
-    v29 = "Cannot create AGC LLVM object.";
-    goto LABEL_56;
-  }
-
-  v41 = v39;
-  {
-    AGCEnv::isEnabled(void)::is_internal = os_variant_has_internal_diagnostics();
-  }
-
-  v68 = a4;
-  if (AGCEnv::isEnabled(void)::is_internal == 1 && (Value = AGCEnv::getValue("AGC_ENABLE_PER_OBJECT_STATUS_FILE", v40)) != 0 && *Value != 48 && (v43 = atoi(Value), v43))
-  {
-    AGCPrinterFactory::Get(v43);
-    v44 = (*(*v41 + 48))(v41);
-    std::string::basic_string[abi:nn200100]<0>(v77, v44);
-    (*(*v41 + 40))(__p, v41);
-    if (*(v71 + 208) == 1)
-    {
-      v45 = *(v71 + 192);
-      v82 = *(v71 + 176);
-      v83 = v45;
-    }
-
-    else
-    {
-      llvm::SHA256::SHA256(&v80);
-      v64 = *(v71 + 168);
-      if (v64)
-      {
-        (*(*v64 + 32))(v64, &v80);
-      }
-
-      memset(v84, 0, sizeof(v84));
-      CC_SHA256_Init(&c);
-      (**(v71 + 8))(v71 + 8, &c);
-      CC_SHA256_Final(v84, &c);
-      llvm::SHA256::update();
-      llvm::SHA256::final(&c, &v80);
-      v65 = *(v71 + 208);
-      v66 = *&c.hash[2];
-      *(v71 + 176) = *c.count;
-      *(v71 + 192) = v66;
-      if ((v65 & 1) == 0)
-      {
-        *(v71 + 208) = 1;
-      }
-
-      v67 = *(v71 + 192);
-      v82 = *(v71 + 176);
-      v83 = v67;
-      llvm::SHA256::~SHA256(&v80);
-    }
-
-    *c.count = v82;
-    *&c.hash[2] = v83;
-    LOBYTE(c.hash[6]) = 1;
-    AGCPrinterFactory::createObjectPrinter(v84, 0, v77, __p, &c);
-    v47 = *v84;
-    if (v76 < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    if (v78 < 0)
-    {
-      operator delete(v77[0]);
-    }
-
-    v46 = v47;
-  }
-
-  else
-  {
-    v46 = 0;
-    v47 = *(v18 + 2032);
-  }
-
-  (*(*v41 + 64))(v41, v47);
-  if ((*(*v41 + 16))(v41))
-  {
-    v48 = v16;
-    memset(&c, 0, 32);
-    v80 = 0;
-    v81[0] = &unk_2825BE7C8;
-    v81[1] = v71;
-    v81[3] = v81;
-    *&v82 = 0;
-    v49 = (*(*v41 + 24))(v41, &v82, &v80, &c, v81);
-    std::__function::__value_func<void ()(AGCDeserializedReply const&)>::~__value_func[abi:nn200100](v81);
-    if (v15)
-    {
-      v72 = a3;
-      *v8 = malloc_type_malloc(0x20uLL, 0x1000040E0EAB150uLL);
-      *a7 = 32;
-      v50 = mach_absolute_time() - v48;
-      if (getTimebaseInfo(void)::once != -1)
-      {
-        dispatch_once(&getTimebaseInfo(void)::once, &__block_literal_global_16695);
-      }
-
-      *c.hash = v50 * getTimebaseInfo(void)::sTimebaseInfo / *algn_28117E63C;
-      *&c.hash[2] = *c.hash - *&c.hash[4];
-      v51 = *v8;
-      v52 = *&c.hash[2];
-      *v51 = *c.count;
-      v51[1] = v52;
-      a3 = v72;
-    }
-
-    if (v49)
-    {
-      *a3 = v82;
-      *v68 = v80;
-    }
-
-    else
-    {
-      std::string::basic_string[abi:nn200100]<0>(v84, "Error occurred composing compiler reply.");
-      if ((v84[23] & 0x80000000) != 0)
-      {
-        std::string::__init_copy_ctor_external(&v73, *v84, *&v84[8]);
-      }
-
-      else
-      {
-        v73 = *v84;
-      }
-
-      v56 = &v73;
-      if ((v73.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-      {
-        v56 = v73.__r_.__value_.__r.__words[0];
-      }
-
-      AGCTargetPrinter::printMessage(*(v41 + 1696), "** Compilation failed with error: %s **", v56);
-      if (SHIBYTE(v73.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v73.__r_.__value_.__l.__data_);
-      }
-
-      v58 = v84[23];
-      v59 = *v84;
-      if (v84[23] >= 0)
-      {
-        v60 = v84;
-      }
-
-      else
-      {
-        v60 = *v84;
-      }
-
-      AGCError::logError(a5, v60, v57);
-      if (v58 < 0)
-      {
-        operator delete(v59);
-      }
-    }
-  }
-
-  else
-  {
-    if (*(v41 + 1679) < 0)
-    {
-      std::string::__init_copy_ctor_external(&v74, *(v41 + 1656), *(v41 + 1664));
-    }
-
-    else
-    {
-      v74 = *(v41 + 1656);
-    }
-
-    v53 = &v74;
-    if ((v74.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-    {
-      v53 = v74.__r_.__value_.__r.__words[0];
-    }
-
-    AGCTargetPrinter::printMessage(*(v41 + 1696), "** Compilation failed with error: %s **", v53);
-    if (SHIBYTE(v74.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v74.__r_.__value_.__l.__data_);
-    }
-
-    if (*(v41 + 1679) >= 0)
-    {
-      v55 = (v41 + 1656);
-    }
-
-    else
-    {
-      v55 = *(v41 + 1656);
-    }
-
-    AGCError::logError(a5, v55, v54);
-    v49 = 0;
-  }
-
-  if (v46)
-  {
-    v61 = *v46;
-    if (*v46 && v61 != MEMORY[0x277D82670])
-    {
-      (*(*v61 + 8))(v61);
-      *v46 = 0;
-    }
-
-    MEMORY[0x20F331DC0](v46, 0x1020C409DFBF432);
-  }
-
-  (*(*v41 + 8))(v41);
-LABEL_87:
-  v62 = *MEMORY[0x277D85DE8];
-  return v49;
-}
-
-void AGCObjectFunction::~AGCObjectFunction(AGCObjectFunction *this)
-{
-  *this = &unk_2825BE710;
-  v2 = *(this + 21);
-  *(this + 21) = 0;
-  if (v2)
-  {
-    (*(*v2 + 8))(v2);
-  }
-
-  llvm::LLVMContext::~LLVMContext((this + 160));
-  *(this + 1) = &unk_2825BE740;
-  v3 = *(this + 17);
-  if (v3)
-  {
-    *(this + 18) = v3;
-    operator delete(v3);
-  }
-
-  v4 = *(this + 14);
-  if (v4)
-  {
-    *(this + 15) = v4;
-    operator delete(v4);
-  }
-
-  if (*(this + 103) < 0)
-  {
-    operator delete(*(this + 10));
-  }
-
-  *(this + 1) = &unk_2825BE788;
-  v5 = *(this + 3);
-  if (v5)
-  {
-    *(this + 4) = v5;
-    operator delete(v5);
-  }
-}
-
-void AGX::Impl::ObjectProgramKey::~ObjectProgramKey(AGX::Impl::ObjectProgramKey *this)
-{
-  *this = &unk_2825BE740;
-  v2 = *(this + 16);
-  if (v2)
-  {
-    *(this + 17) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *(this + 13);
-  if (v3)
-  {
-    *(this + 14) = v3;
-    operator delete(v3);
-  }
-
-  if (*(this + 95) < 0)
-  {
-    operator delete(*(this + 9));
-  }
-
-  *this = &unk_2825BE788;
-  v4 = *(this + 2);
-  if (v4)
-  {
-    *(this + 3) = v4;
-    operator delete(v4);
-  }
-}
-
-uint64_t AGX::Impl::DynamicLibraryKey::setDeviceOptions(uint64_t result, _BYTE *a2)
-{
-  v2 = *(result + 44);
-  v3 = *(result + 40) & 0xFBFFFFFF | ((*a2 & 1) << 26);
-  *(result + 40) = v3;
-  v4 = v3 & 0xFFFFFEFF | ((a2[1] & 1) << 8);
-  *(result + 40) = v4;
-  v5 = v4 & 0xEFFFFFFF | ((a2[2] & 1) << 28);
-  *(result + 40) = v5;
-  v6 = v5 & 0xDFFFFFFF | ((a2[6] & 1) << 29);
-  *(result + 40) = v6;
-  *(result + 40) = v6 & 0xBFFFFFFF | ((a2[8] & 1) << 30);
-  v7 = v2 & 0xFFFFFFFD | (2 * (a2[4] & 1));
-  *(result + 44) = v7;
-  *(result + 44) = v7 & 0xFFFFFFFB | (4 * (a2[5] & 1));
-  return result;
-}
-
-uint64_t AGCDylib::AGCDylib(uint64_t a1, uint64_t *a2, uint64_t a3)
-{
-  v5 = *a2;
-  *a2 = 0;
-  *a1 = &unk_2825BE060;
-  *(a1 + 8) = &unk_2825BE090;
-  *(a1 + 16) = *(a3 + 8);
-  std::vector<unsigned int>::vector[abi:nn200100]((a1 + 24), (a3 + 16));
-  *(a1 + 8) = &unk_2825BF6F0;
-  *(a1 + 48) = *(a3 + 40);
-  MEMORY[0x20F32FFB0](a1 + 56);
-  *(a1 + 64) = v5;
-  *(a1 + 72) = 0;
-  *(a1 + 104) = 0;
-  *a1 = &unk_2825BE030;
-  return a1;
-}
-
-void AGCDylib::~AGCDylib(AGCDylib *this)
-{
-  *this = &unk_2825BE060;
-  v2 = *(this + 8);
-  *(this + 8) = 0;
-  if (v2)
-  {
-    (*(*v2 + 8))(v2);
-  }
-
-  llvm::LLVMContext::~LLVMContext((this + 56));
-  *(this + 1) = &unk_2825BE090;
-  v3 = *(this + 3);
-  if (v3)
-  {
-    *(this + 4) = v3;
-    operator delete(v3);
-  }
-}
-
-uint64_t AGCIntersectionFunction::AGCIntersectionFunction(uint64_t a1, uint64_t *a2, uint64_t a3)
-{
-  v5 = *a2;
-  *a2 = 0;
-  *a1 = &unk_2825BE100;
-  *(a1 + 8) = &unk_2825BE130;
-  *(a1 + 16) = *(a3 + 8);
-  std::vector<unsigned int>::vector[abi:nn200100]((a1 + 24), (a3 + 16));
-  *(a1 + 8) = &unk_2825BF730;
-  *(a1 + 48) = *(a3 + 40);
-  std::vector<MTLUINT256_t>::vector[abi:nn200100]((a1 + 56), (a3 + 48));
-  MEMORY[0x20F32FFB0](a1 + 80);
-  *(a1 + 88) = v5;
-  *(a1 + 96) = 0;
-  *(a1 + 128) = 0;
-  *a1 = &unk_2825BE0D0;
-  return a1;
-}
-
-void AGCIntersectionFunction::~AGCIntersectionFunction(AGCIntersectionFunction *this)
-{
-  *this = &unk_2825BE100;
-  v2 = *(this + 11);
-  *(this + 11) = 0;
-  if (v2)
-  {
-    (*(*v2 + 8))(v2);
-  }
-
-  llvm::LLVMContext::~LLVMContext((this + 80));
-  *(this + 1) = &unk_2825BF730;
-  v3 = *(this + 7);
-  if (v3)
-  {
-    *(this + 8) = v3;
-    operator delete(v3);
-  }
-
-  *(this + 1) = &unk_2825BE130;
-  v4 = *(this + 3);
-  if (v4)
-  {
-    *(this + 4) = v4;
-    operator delete(v4);
-  }
-}
-
-void AGX::Impl::UserIntersectionProgramKey::~UserIntersectionProgramKey(AGX::Impl::UserIntersectionProgramKey *this)
-{
-  *this = &unk_2825BF730;
-  v2 = *(this + 6);
-  if (v2)
-  {
-    *(this + 7) = v2;
-    operator delete(v2);
-  }
-
-  *this = &unk_2825BE130;
-  v3 = *(this + 2);
-  if (v3)
-  {
-    *(this + 3) = v3;
-    operator delete(v3);
-  }
-}
-
-void ProgramKey<(_AGCStreamToken)9,(AGX::DriverShaderCompilationMode)0>::serialize(uint64_t a1, uint64_t *a2, void *a3)
-{
-  v5 = (a1 + 16);
-  *(a1 + 24) = *(a1 + 16);
-  v7 = *(a1 + 8) | 0x100;
-  std::vector<flatbuffers::Offset<AGCCodeTranslator::VertexShaderOutIterator>>::push_back[abi:nn200100](a1 + 16, &v7);
-  v8 = 96;
-  std::vector<flatbuffers::Offset<AGCCodeTranslator::VertexShaderOutIterator>>::push_back[abi:nn200100](v5, &v8);
-  v6 = *v5;
-  *a2 = *v5;
-  *a3 = v5[1] - v6;
-}
-
-void AGX::GeometrySharedKey<_AGCObjectContextStateAGP,(_AGCStreamToken)9>::serialize(uint64_t a1, std::vector<unsigned int>::pointer *a2, void *a3)
-{
-  v6 = (a1 + 16);
-  *(a1 + 24) = *(a1 + 16);
-  v11 = *(a1 + 8) | 0x100;
-  std::vector<flatbuffers::Offset<AGCCodeTranslator::VertexShaderOutIterator>>::push_back[abi:nn200100](a1 + 16, &v11);
-  v7 = *(a1 + 24) - v6->__begin_;
-  std::vector<unsigned int>::resize(v6, (v7 >> 2) + 10);
-  v8 = v6->__begin_ + v7;
-  *v8 = ((*(a1 + 24) - v6->__begin_) >> 2 << 8) | 0x3D;
-  v9 = *(a1 + 40);
-  *(v8 + 20) = *(a1 + 56);
-  *(v8 + 4) = v9;
-  (*(*a1 + 48))(a1);
-  v12 = 96;
-  std::vector<flatbuffers::Offset<AGCCodeTranslator::VertexShaderOutIterator>>::push_back[abi:nn200100](v6, &v12);
-  begin = v6->__begin_;
-  *a2 = v6->__begin_;
-  *a3 = *(a1 + 24) - begin;
-}
-
-uint64_t std::__function::__func<AGCModule<AGX::Impl::ObjectProgramKey>::compileLLVMObject(AGCTargetContext *,char **,unsigned long *,char **,char **,unsigned long *)::{lambda(AGCDeserializedReply const&)#1},std::allocator<AGCModule<AGX::Impl::ObjectProgramKey>::compileLLVMObject(AGCTargetContext *,char **,unsigned long *,char **,char **,unsigned long *)::{lambda(AGCDeserializedReply const&)#1}>,void ()(AGCDeserializedReply const&)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_2825BE7C8;
-  a2[1] = v2;
-  return result;
-}
-
-void ProgramKey<(_AGCStreamToken)10,(AGX::DriverShaderCompilationMode)0>::serialize(uint64_t a1, uint64_t *a2, void *a3)
-{
-  v5 = (a1 + 16);
-  *(a1 + 24) = *(a1 + 16);
-  v7 = *(a1 + 8) | 0x100;
-  std::vector<flatbuffers::Offset<AGCCodeTranslator::VertexShaderOutIterator>>::push_back[abi:nn200100](a1 + 16, &v7);
-  v8 = 96;
-  std::vector<flatbuffers::Offset<AGCCodeTranslator::VertexShaderOutIterator>>::push_back[abi:nn200100](v5, &v8);
-  v6 = *v5;
-  *a2 = *v5;
-  *a3 = v5[1] - v6;
-}
-
-void AGX::GeometrySharedKey<_AGCMeshContextStateAGP,(_AGCStreamToken)10>::serialize(uint64_t a1, std::vector<unsigned int>::pointer *a2, void *a3)
-{
-  v6 = (a1 + 16);
-  *(a1 + 24) = *(a1 + 16);
-  v11 = *(a1 + 8) | 0x100;
-  std::vector<flatbuffers::Offset<AGCCodeTranslator::VertexShaderOutIterator>>::push_back[abi:nn200100](a1 + 16, &v11);
-  v7 = *(a1 + 24) - v6->__begin_;
-  std::vector<unsigned int>::resize(v6, (v7 >> 2) + 10);
-  v8 = v6->__begin_ + v7;
-  *v8 = ((*(a1 + 24) - v6->__begin_) >> 2 << 8) | 0x3E;
-  v9 = *(a1 + 40);
-  *(v8 + 20) = *(a1 + 56);
-  *(v8 + 4) = v9;
-  (*(*a1 + 48))(a1);
-  v12 = 96;
-  std::vector<flatbuffers::Offset<AGCCodeTranslator::VertexShaderOutIterator>>::push_back[abi:nn200100](v6, &v12);
-  begin = v6->__begin_;
-  *a2 = v6->__begin_;
-  *a3 = *(a1 + 24) - begin;
-}
-
-std::string *AGCMeshFunction::cacheMetadata(uint64_t a1, uint64_t a2)
-{
-  std::string::operator=((a2 + 72), (a1 + 272));
-  result = std::string::operator=((a2 + 96), (a1 + 296));
-  *(a2 + 120) = *(a1 + 320);
-  return result;
-}
-
-std::string *AGCMeshFunction::extractMetadata(uint64_t a1, uint64_t a2)
-{
-  std::string::operator=((a1 + 272), (a2 + 72));
-  result = std::string::operator=((a1 + 296), (a2 + 96));
-  *(a1 + 320) = *(a2 + 120);
-  return result;
-}
-
-void AGCMeshFunction::extractMetadata(uint64_t a1, uint64_t a2)
-{
-  v44[2] = *MEMORY[0x277D85DE8];
-  if ((*(a1 + 64) & 0x80) == 0)
-  {
-    goto LABEL_33;
-  }
-
-  v4 = 0;
-  v44[0] = 0;
-  *(v44 + 7) = 0;
-  v43[0] = 0;
-  *(v43 + 7) = 0;
-  if (*(a2 + 464))
-  {
-    v5 = *(a2 + 472) == 0;
-  }
-
-  else
-  {
-    v5 = 1;
-  }
-
-  v6 = 464;
-  if (v5)
-  {
-    v6 = 1024;
-  }
-
-  v7 = a2 + 1024;
-  if (!v5)
-  {
-    v7 = a2 + 464;
-  }
-
-  v8 = *(a2 + v6);
-  if (v8)
-  {
-    v9 = *(v7 + 8) == 0;
-  }
-
-  else
-  {
-    v9 = 1;
-  }
-
-  if (!v9)
-  {
-    v4 = (v8 + *v8);
-  }
-
-  v10 = (v4 - *v4);
-  if (*v10 >= 0xDu && (v11 = v10[6]) != 0)
-  {
-    v12 = (v4 + v11 + *(v4 + v11));
-  }
-
-  else
-  {
-    v12 = 0;
-  }
-
-  v13 = (v12 - *v12);
-  v14 = *v13;
-  if (v14 < 0xB)
-  {
-    goto LABEL_25;
-  }
-
-  if (v13[5])
-  {
-    v15 = (v12 + v13[5] + *(v12 + v13[5]));
-  }
-
-  else
-  {
-    v15 = 0;
-  }
-
-  if (v14 < 0xD || (v16 = v13[6]) == 0)
-  {
-    v17 = 0;
-    if (!v15)
-    {
-      goto LABEL_25;
-    }
-
-LABEL_27:
-    std::string::basic_string[abi:nn200100](&v40, v15 + 1, *v15);
-    v19 = v42;
-    v18 = v40;
-    v44[0] = *v41;
-    *(v44 + 7) = *&v41[7];
-    std::string::basic_string[abi:nn200100](&v40, v17 + 1, *v17);
-    v21 = v42;
-    v20 = v40;
-    v43[0] = *v41;
-    *(v43 + 7) = *&v41[7];
-    goto LABEL_28;
-  }
-
-  v17 = (v12 + v16 + *(v12 + v16));
-  if (v15)
-  {
-    goto LABEL_27;
-  }
-
-LABEL_25:
-  v18 = 0;
-  v19 = 0;
-  v20 = 0;
-  v21 = 0;
-LABEL_28:
-  if (*(a1 + 295) < 0)
-  {
-    operator delete(*(a1 + 272));
-  }
-
-  v22 = v44[0];
-  *(a1 + 272) = v18;
-  *(a1 + 280) = v22;
-  *(a1 + 287) = *(v44 + 7);
-  *(a1 + 295) = v19;
-  if (*(a1 + 319) < 0)
-  {
-    operator delete(*(a1 + 296));
-  }
-
-  v23 = v43[0];
-  *(a1 + 296) = v20;
-  *(a1 + 304) = v23;
-  *(a1 + 311) = *(v43 + 7);
-  *(a1 + 319) = v21;
-LABEL_33:
-  v24 = a2 + 1024;
-  if (*(a2 + 464))
-  {
-    v25 = *(a2 + 472) == 0;
-  }
-
-  else
-  {
-    v25 = 1;
-  }
-
-  v26 = 464;
-  if (v25)
-  {
-    v26 = 1024;
-  }
-
-  else
-  {
-    v24 = a2 + 464;
-  }
-
-  v27 = *(a2 + v26);
-  v28 = *(v24 + 8);
-  if (v27)
-  {
-    v29 = v28 == 0;
-  }
-
-  else
-  {
-    v29 = 1;
-  }
-
-  if (v29)
-  {
-    v30 = 0;
-  }
-
-  else
-  {
-    v30 = (v27 + *v27);
-  }
-
-  v31 = (v30 - *v30);
-  if (*v31 >= 0x17u && (v32 = v31[11]) != 0)
-  {
-    v33 = (v30 + v32 + *(v30 + v32));
-  }
-
-  else
-  {
-    v33 = 0;
-  }
-
-  v34 = (v33 - *v33);
-  v35 = *v34;
-  if (v35 <= 0x32)
-  {
-    v38 = 0;
-    *(a1 + 320) = 0;
-  }
-
-  else
-  {
-    v36 = v34[25];
-    if (v34[25])
-    {
-      LOBYTE(v36) = *(v33 + v36) != 0;
-    }
-
-    *(a1 + 320) = v36;
-    v38 = v35 >= 0x3B && (v37 = v34[29]) != 0 && *(v33 + v37) != 0;
-  }
-
-  *(a1 + 321) = v38;
-  v39 = *MEMORY[0x277D85DE8];
-}
-
 uint64_t AGCMeshFunction::createLLVMObject(uint64_t a1, uint64_t a2)
 {
   v3 = *(a2 + 32);
@@ -4134,33 +6,10 @@ uint64_t AGCMeshFunction::createLLVMObject(uint64_t a1, uint64_t a2)
     return (*(*v3 + 128))();
   }
 
-  if (*(a1 + 183) < 0)
-  {
-    if (*(a1 + 168))
-    {
-      v5 = *(a1 + 160);
-    }
-  }
-
   else
   {
-    *(a1 + 183);
+    return (*(*v3 + 120))();
   }
-
-  if (*(a1 + 207) < 0)
-  {
-    if (*(a1 + 192))
-    {
-      v6 = *(a1 + 184);
-    }
-  }
-
-  else
-  {
-    *(a1 + 207);
-  }
-
-  return (*(*v3 + 120))();
 }
 
 uint64_t std::__function::__func<AGCModule<AGX::Impl::MeshProgramKey>::compileLLVMObject(AGCTargetContext *,char **,unsigned long *,char **,char **,unsigned long *)::{lambda(AGCDeserializedReply const&)#1},std::allocator<AGCModule<AGX::Impl::MeshProgramKey>::compileLLVMObject(AGCTargetContext *,char **,unsigned long *,char **,char **,unsigned long *)::{lambda(AGCDeserializedReply const&)#1}>,void ()(AGCDeserializedReply const&)>::__clone(uint64_t result, void *a2)
@@ -4247,30 +96,29 @@ uint64_t std::__function::__func<AGCModule<AGX::Impl::TileProgramKey>::compileLL
 
 llvm::Module *AGCTileFunction::init(AGCTileFunction *this)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  result = (*(**(this + 28) + 16))(&v6);
-  if ((v7 & 1) == 0)
+  v7 = *MEMORY[0x277D85DE8];
+  result = (*(**(this + 28) + 16))(&v5);
+  if ((v6 & 1) == 0)
   {
-    v4 = "air.kernel";
-    v5 = 259;
-    result = llvm::Module::getNamedMetadata(v6, &v4);
+    v3 = "air.kernel";
+    v4 = 259;
+    result = llvm::Module::getNamedMetadata(v5, &v3);
     if (result)
     {
       *(this + 38) = *(this + 38) & 0xFFFFFCFF | (((3 - __clz(1 << ((*(this + 38) >> 10) & 3) << 24)) & 3) << 8);
     }
   }
 
-  if (v7)
+  if (v6)
   {
-    result = v6;
-    v6 = 0;
+    result = v5;
+    v5 = 0;
     if (result)
     {
-      result = (*(*result + 8))(result);
+      return (*(*result + 8))(result);
     }
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4349,11 +197,11 @@ std::string *AGCFragmentFunction::extractMetadata(uint64_t a1, uint64_t a2)
 void AGCFragmentFunction::extractMetadata(uint64_t a1, uint64_t a2)
 {
   v3 = 0;
-  v32[2] = *MEMORY[0x277D85DE8];
-  v32[0] = 0;
-  *(v32 + 7) = 0;
+  v31[2] = *MEMORY[0x277D85DE8];
   v31[0] = 0;
   *(v31 + 7) = 0;
+  v30[0] = 0;
+  *(v30 + 7) = 0;
   if (*(a2 + 464))
   {
     v4 = *(a2 + 472) == 0;
@@ -4445,84 +293,52 @@ LABEL_25:
     }
   }
 
-  std::string::basic_string[abi:nn200100](&v28, v14 + 1, *v14);
-  v17 = v30;
-  v20 = v28;
-  v32[0] = *v29;
-  *(v32 + 7) = *&v29[7];
-  std::string::basic_string[abi:nn200100](&v28, v16 + 1, *v16);
-  v19 = v30;
-  v25 = *v11;
-  v18 = v28;
-  v31[0] = *v29;
-  *(v31 + 7) = *&v29[7];
-  v26 = (v11 - v25);
-  if (*v26 < 0x17u)
+  std::string::basic_string[abi:nn200100](&v27, v14 + 1, *v14);
+  v17 = v29;
+  v20 = v27;
+  v31[0] = *v28;
+  *(v31 + 7) = *&v28[7];
+  std::string::basic_string[abi:nn200100](&v27, v16 + 1, *v16);
+  v19 = v29;
+  v24 = *v11;
+  v18 = v27;
+  v30[0] = *v28;
+  *(v30 + 7) = *&v28[7];
+  v25 = (v11 - v24);
+  if (*v25 < 0x17u)
   {
     goto LABEL_25;
   }
 
-  v27 = v26[11];
-  if (!v27)
+  v26 = v25[11];
+  if (!v26)
   {
     goto LABEL_25;
   }
 
-  v21 = *(v11 + v27) != 0;
+  v21 = *(v11 + v26) != 0;
 LABEL_26:
   if (*(a1 + 367) < 0)
   {
     operator delete(*(a1 + 344));
   }
 
-  v22 = v32[0];
+  v22 = v31[0];
   *(a1 + 344) = v20;
   *(a1 + 352) = v22;
-  *(a1 + 359) = *(v32 + 7);
+  *(a1 + 359) = *(v31 + 7);
   *(a1 + 367) = v17;
   if (*(a1 + 391) < 0)
   {
     operator delete(*(a1 + 368));
   }
 
-  v23 = v31[0];
+  v23 = v30[0];
   *(a1 + 368) = v18;
   *(a1 + 376) = v23;
-  *(a1 + 383) = *(v31 + 7);
+  *(a1 + 383) = *(v30 + 7);
   *(a1 + 391) = v19;
   *(a1 + 392) = v21;
-  v24 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t AGCFragmentFunction::createLLVMObject(uint64_t a1, uint64_t a2)
-{
-  if (*(a1 + 183) < 0)
-  {
-    if (*(a1 + 168))
-    {
-      v2 = *(a1 + 160);
-    }
-  }
-
-  else
-  {
-    *(a1 + 183);
-  }
-
-  if (*(a1 + 207) < 0)
-  {
-    if (*(a1 + 192))
-    {
-      v3 = *(a1 + 184);
-    }
-  }
-
-  else
-  {
-    *(a1 + 207);
-  }
-
-  return (*(**(a2 + 32) + 64))(*(a2 + 32));
 }
 
 uint64_t AGX::Impl::FragmentProgramKey::legalizeStateForTargetOS(AGX::Impl::FragmentProgramKey *this, const AGCTargetOS *a2)
@@ -4751,28 +567,28 @@ void *AGCVertexFunction::createLLVMObject(AGCVertexFunction *this, AGCLLVMCtx *a
 uint64_t AIRNTEmitPipelineImages(int a1, uint64_t *a2, const char *a3, int a4, int a5, AGCTarget *this, Air::PipelineScript *a7, int a8, __int128 a9, char *a10)
 {
   v11 = this;
-  v119[24] = *MEMORY[0x277D85DE8];
+  v110[24] = *MEMORY[0x277D85DE8];
   v14 = AGCTarget::CPUSubtypeToTargetArch(this, a2, a3);
   if (!v14)
   {
-    std::to_string(&v90, v11);
-    v28 = std::string::insert(&v90, 0, "Unknown AGC target for CPU subtype: ");
+    std::to_string(&v81, v11);
+    v28 = std::string::insert(&v81, 0, "Unknown AGC target for CPU subtype: ");
     v30 = v28->__r_.__value_.__r.__words[2];
-    v106 = *&v28->__r_.__value_.__l.__data_;
-    v107 = v30;
+    v97 = *&v28->__r_.__value_.__l.__data_;
+    v98 = v30;
     v28->__r_.__value_.__l.__size_ = 0;
     v28->__r_.__value_.__r.__words[2] = 0;
     v28->__r_.__value_.__r.__words[0] = 0;
-    v31 = SHIBYTE(v107);
-    v32 = v106;
-    if (SHIBYTE(v107) >= 0)
+    v31 = SHIBYTE(v98);
+    v32 = v97;
+    if (SHIBYTE(v98) >= 0)
     {
-      v33 = &v106;
+      v33 = &v97;
     }
 
     else
     {
-      v33 = v106;
+      v33 = v97;
     }
 
     AGCError::logError(a10, v33, v29);
@@ -4781,12 +597,12 @@ uint64_t AIRNTEmitPipelineImages(int a1, uint64_t *a2, const char *a3, int a4, i
       operator delete(v32);
     }
 
-    if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v81.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v90.__r_.__value_.__l.__data_);
+      operator delete(v81.__r_.__value_.__l.__data_);
     }
 
-    goto LABEL_46;
+    return 0;
   }
 
   v15 = v14;
@@ -4797,9 +613,7 @@ uint64_t AIRNTEmitPipelineImages(int a1, uint64_t *a2, const char *a3, int a4, i
     v34 = "AGX key factory does not exist for target architecture.";
 LABEL_45:
     AGCError::logError(a10, v34, v17);
-LABEL_46:
-    v48 = 0;
-    goto LABEL_49;
+    return 0;
   }
 
   v19 = (a7 - *a7);
@@ -4810,25 +624,25 @@ LABEL_41:
     v45 = Air::PipelineScript::pipeline_as_mesh_render(a7);
     if (v45)
     {
-      *&v106 = TargetContext;
-      *(&v106 + 1) = a7;
-      v107 = v45;
-      v108 = a2;
-      v109 = a3;
-      v110 = a10;
-      v111 = a9;
-      *&v112[16] = 0u;
-      *v113 = 0u;
+      *&v97 = TargetContext;
+      *(&v97 + 1) = a7;
+      v98 = v45;
+      v99 = a2;
+      v100 = a3;
+      v101 = a10;
+      v102 = a9;
+      *&v103[16] = 0u;
+      *v104 = 0u;
       *__dst = 0u;
-      *v115 = 0u;
-      memset(v116, 0, 42);
-      *v112 = *TargetContext;
+      *v106 = 0u;
+      memset(v107, 0, 42);
+      *v103 = *TargetContext;
       v46 = (v45 - *v45);
       v47 = *v46 < 5u || v46[2] == 0;
-      v112[8] = v47;
-      v48 = AGCMeshPipeline::compile(&v106);
-      AGCMeshPipeline::~AGCMeshPipeline(&v106);
-      goto LABEL_49;
+      v103[8] = v47;
+      v48 = AGCMeshPipeline::compile(&v97);
+      AGCMeshPipeline::~AGCMeshPipeline(&v97);
+      return v48;
     }
 
     v34 = "Unsupported pipeline script.";
@@ -4855,75 +669,72 @@ LABEL_41:
           v39 = 0;
         }
 
-        v72 = 0;
-        v73 = 0;
-        v74 = 0;
-        v70 = 0;
-        v71 = 0;
+        v63 = 0;
+        v64 = 0;
+        v65 = 0;
+        v61 = 0;
+        v62 = 0;
         __p = 0;
-        (*(*v18 + 48))(&v90, v18, v39, 0, &v72, &__p);
+        (*(*v18 + 48))(&v81, v18, v39, 0, &v63, &__p);
         if (__p)
         {
-          v70 = __p;
+          v61 = __p;
           operator delete(__p);
         }
 
-        if (v72)
+        if (v63)
         {
-          v73 = v72;
-          operator delete(v72);
+          v64 = v63;
+          operator delete(v63);
         }
 
-        v51 = *a2;
-        v59 = *a2;
-        v61 = *a3;
-        *&v106 = &unk_2825BE4A0;
-        *(&v106 + 1) = &unk_2825BE4D0;
-        LODWORD(v107) = v90.__r_.__value_.__r.__words[1];
-        v110 = 0;
-        v108 = 0;
-        v109 = 0;
-        v52 = v91 - v90.__r_.__value_.__r.__words[2];
-        if (v91 == v90.__r_.__value_.__r.__words[2])
+        *&v97 = &unk_2825BE4A0;
+        *(&v97 + 1) = &unk_2825BE4D0;
+        LODWORD(v98) = v81.__r_.__value_.__r.__words[1];
+        v101 = 0;
+        v99 = 0;
+        v100 = 0;
+        v50 = v82 - v81.__r_.__value_.__r.__words[2];
+        if (v82 == v81.__r_.__value_.__r.__words[2])
         {
-          *(&v106 + 1) = &unk_2825BF9D8;
-          v111 = v92;
-          *v112 = *v93;
-          if ((v93[31] & 0x80000000) != 0)
+          *(&v97 + 1) = &unk_2825BF9D8;
+          v102 = v83;
+          *v103 = *v84;
+          if ((v84[31] & 0x80000000) != 0)
           {
-            std::string::__init_copy_ctor_external(&v112[8], *&v93[8], *&v93[16]);
+            std::string::__init_copy_ctor_external(&v103[8], *&v84[8], *&v84[16]);
           }
 
           else
           {
-            *&v112[8] = *&v93[8];
-            *&v112[24] = *&v93[24];
+            *&v103[8] = *&v84[8];
+            *&v103[24] = *&v84[24];
           }
 
-          LOBYTE(v113[0]) = v94;
+          LOBYTE(v104[0]) = v85;
           __dst[1] = 0;
-          v113[1] = 0;
+          v104[1] = 0;
           __dst[0] = 0;
-          if (v95 != *(&v94 + 1))
+          if (v86 != *(&v85 + 1))
           {
-            std::vector<MTLUINT256_t>::__vallocate[abi:nn200100](&v113[1], (v95 - *(&v94 + 1)) >> 5);
+            std::vector<MTLUINT256_t>::__vallocate[abi:nn200100](&v104[1], (v86 - *(&v85 + 1)) >> 5);
           }
 
-          v115[1] = 0;
-          v115[0] = 0;
-          *v116 = 0;
-          if (*(&v96 + 1) != v96)
+          v106[1] = 0;
+          v106[0] = 0;
+          *v107 = 0;
+          if (*(&v87 + 1) != v87)
           {
-            std::vector<MTLUINT256_t>::__vallocate[abi:nn200100](v115, (*(&v96 + 1) - v96) >> 5);
+            std::vector<MTLUINT256_t>::__vallocate[abi:nn200100](v106, (*(&v87 + 1) - v87) >> 5);
           }
 
-          MEMORY[0x20F32FFB0](&v116[8]);
+          MEMORY[0x20F32FFB0](&v107[8]);
           operator new();
         }
 
-        if (!((v52 >> 2) >> 62))
+        if (!((v50 >> 2) >> 62))
         {
-          std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned int>>(v52 >> 2);
+          std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned int>>(v50 >> 2);
         }
 
         goto LABEL_110;
@@ -4948,67 +759,64 @@ LABEL_41:
               v44 = 0;
             }
 
-            v66 = 0;
-            v67 = 0;
-            v68 = 0;
-            v64 = 0;
-            v65 = 0;
-            v63 = 0;
-            (*(*v18 + 56))(&v90, v18, v44, &v66, &v63);
-            if (v63)
+            v57 = 0;
+            v58 = 0;
+            v59 = 0;
+            v55 = 0;
+            v56 = 0;
+            v54 = 0;
+            (*(*v18 + 56))(&v81, v18, v44, &v57, &v54);
+            if (v54)
             {
-              v64 = v63;
-              operator delete(v63);
+              v55 = v54;
+              operator delete(v54);
             }
 
-            if (v66)
+            if (v57)
             {
-              v67 = v66;
-              operator delete(v66);
+              v58 = v57;
+              operator delete(v57);
             }
 
-            v55 = *a2;
-            v60 = *a2;
-            v62 = *a3;
-            *&v106 = &unk_2825BE540;
-            *(&v106 + 1) = &unk_2825BE570;
-            LODWORD(v107) = v90.__r_.__value_.__r.__words[1];
-            v110 = 0;
-            v108 = 0;
-            v109 = 0;
-            v56 = v91 - v90.__r_.__value_.__r.__words[2];
-            if (v91 == v90.__r_.__value_.__r.__words[2])
+            *&v97 = &unk_2825BE540;
+            *(&v97 + 1) = &unk_2825BE570;
+            LODWORD(v98) = v81.__r_.__value_.__r.__words[1];
+            v101 = 0;
+            v99 = 0;
+            v100 = 0;
+            v53 = v82 - v81.__r_.__value_.__r.__words[2];
+            if (v82 == v81.__r_.__value_.__r.__words[2])
             {
-              *(&v106 + 1) = &unk_2825BF998;
-              *__dst = v95;
-              *v115 = v96;
-              *v116 = v97;
-              v111 = v92;
-              *v112 = *v93;
-              *&v112[16] = *&v93[16];
-              *v113 = v94;
-              *&v116[16] = v98;
-              memset(&v116[24], 0, 24);
-              if (v100 != v99)
+              *(&v97 + 1) = &unk_2825BF998;
+              *__dst = v86;
+              *v106 = v87;
+              *v107 = v88;
+              v102 = v83;
+              *v103 = *v84;
+              *&v103[16] = *&v84[16];
+              *v104 = v85;
+              *&v107[16] = v89;
+              memset(&v107[24], 0, 24);
+              if (v91 != v90)
               {
-                std::vector<MTLUINT256_t>::__vallocate[abi:nn200100](&v116[24], (v100 - v99) >> 5);
+                std::vector<MTLUINT256_t>::__vallocate[abi:nn200100](&v107[24], (v91 - v90) >> 5);
               }
 
-              v117[1] = 0;
-              v117[0] = 0;
-              v118 = 0;
-              if (v102 != v101)
+              v108[1] = 0;
+              v108[0] = 0;
+              v109 = 0;
+              if (v93 != v92)
               {
-                std::vector<MTLUINT256_t>::__vallocate[abi:nn200100](v117, (v102 - v101) >> 5);
+                std::vector<MTLUINT256_t>::__vallocate[abi:nn200100](v108, (v93 - v92) >> 5);
               }
 
-              MEMORY[0x20F32FFB0](v119);
+              MEMORY[0x20F32FFB0](v110);
               operator new();
             }
 
-            if (!((v56 >> 2) >> 62))
+            if (!((v53 >> 2) >> 62))
             {
-              std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned int>>(v56 >> 2);
+              std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned int>>(v53 >> 2);
             }
 
 LABEL_110:
@@ -5022,9 +830,9 @@ LABEL_110:
   }
 
   v22 = (a7 + v19[5] + *(a7 + v19[5]));
-  v105 = 0;
-  memset(v104, 0, sizeof(v104));
-  v103 = 0u;
+  v96 = 0;
+  memset(v95, 0, sizeof(v95));
+  v94 = 0u;
   v23 = *v22;
   v24 = -v23;
   v25 = v22 - v23;
@@ -5043,76 +851,13 @@ LABEL_110:
         v27 = 0;
       }
 
-      v87 = 0;
-      v88 = 0;
-      v89 = 0;
-      v85 = 0;
-      v86 = 0;
-      v84 = 0;
-      (*(*v18 + 40))(&v90, v18, v27, 0, 0, &v87, &v84, 0, 0, 0);
-      if (v84)
-      {
-        v85 = v84;
-        operator delete(v84);
-      }
-
-      if (v87)
-      {
-        v88 = v87;
-        operator delete(v87);
-      }
-
-      AGCModule<AGX::Impl::FragmentProgramKey>::AGCModule(&v106, a2[1], *(a3 + 1), &v90);
-    }
-
-    goto LABEL_67;
-  }
-
-  if (v26 >= 5)
-  {
-LABEL_67:
-    v53 = v22 + v24;
-    if (*(v53 + 2))
-    {
-      if (v26 >= 9 && *(v53 + 4))
-      {
-        v54 = v22 + *(v53 + 4) + *(v22 + *(v53 + 4));
-      }
-
-      else
-      {
-        v54 = 0;
-      }
-
-      if (SHIBYTE(v104[0]) < 0)
-      {
-        std::string::__init_copy_ctor_external(&v81, v103, *(&v103 + 1));
-      }
-
-      else
-      {
-        *&v81.__r_.__value_.__l.__data_ = v103;
-        v81.__r_.__value_.__r.__words[2] = v104[0];
-      }
-
-      if (SHIBYTE(v104[3]) < 0)
-      {
-        std::string::__init_copy_ctor_external(&v82, v104[1], v104[2]);
-      }
-
-      else
-      {
-        v82 = *&v104[1];
-      }
-
-      v83 = v105;
+      v78 = 0;
       v79 = 0;
       v80 = 0;
-      v77 = 0;
-      v78 = 0;
-      v75 = 0;
       v76 = 0;
-      (*(*v18 + 16))(&v90, v18, v54, &v81, 0, &v78, &v75, 0);
+      v77 = 0;
+      v75 = 0;
+      (*(*v18 + 40))(&v81, v18, v27, 0, 0, &v78, &v75, 0, 0, 0);
       if (v75)
       {
         v76 = v75;
@@ -5125,42 +870,101 @@ LABEL_67:
         operator delete(v78);
       }
 
-      if (SHIBYTE(v82.__r_.__value_.__r.__words[2]) < 0)
+      AGCModule<AGX::Impl::FragmentProgramKey>::AGCModule(&v97, a2[1], *(a3 + 1), &v81);
+    }
+
+    goto LABEL_67;
+  }
+
+  if (v26 >= 5)
+  {
+LABEL_67:
+    v51 = v22 + v24;
+    if (*(v51 + 2))
+    {
+      if (v26 >= 9 && *(v51 + 4))
       {
-        operator delete(v82.__r_.__value_.__l.__data_);
+        v52 = v22 + *(v51 + 4) + *(v22 + *(v51 + 4));
       }
 
-      if (SHIBYTE(v81.__r_.__value_.__r.__words[2]) < 0)
+      else
       {
-        operator delete(v81.__r_.__value_.__l.__data_);
+        v52 = 0;
       }
 
-      v57 = *a2;
-      v58 = *a3;
-      *&v106 = &unk_2825BE340;
-      AGX::Impl::VertexProgramKey::VertexProgramKey((&v106 + 8), &v90);
-      MEMORY[0x20F32FFB0](&v118);
+      if (SHIBYTE(v95[0]) < 0)
+      {
+        std::string::__init_copy_ctor_external(&v72, v94, *(&v94 + 1));
+      }
+
+      else
+      {
+        *&v72.__r_.__value_.__l.__data_ = v94;
+        v72.__r_.__value_.__r.__words[2] = v95[0];
+      }
+
+      if (SHIBYTE(v95[3]) < 0)
+      {
+        std::string::__init_copy_ctor_external(&v73, v95[1], v95[2]);
+      }
+
+      else
+      {
+        v73 = *&v95[1];
+      }
+
+      v74 = v96;
+      v70 = 0;
+      v71 = 0;
+      v68 = 0;
+      v69 = 0;
+      v66 = 0;
+      v67 = 0;
+      (*(*v18 + 16))(&v81, v18, v52, &v72, 0, &v69, &v66, 0);
+      if (v66)
+      {
+        v67 = v66;
+        operator delete(v66);
+      }
+
+      if (v69)
+      {
+        v70 = v69;
+        operator delete(v69);
+      }
+
+      if (SHIBYTE(v73.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v73.__r_.__value_.__l.__data_);
+      }
+
+      if (SHIBYTE(v72.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v72.__r_.__value_.__l.__data_);
+      }
+
+      *&v97 = &unk_2825BE340;
+      AGX::Impl::VertexProgramKey::VertexProgramKey((&v97 + 8), &v81);
+      MEMORY[0x20F32FFB0](&v109);
       operator new();
     }
   }
 
   v48 = 1;
-  if (SHIBYTE(v104[3]) < 0)
+  if (SHIBYTE(v95[3]) < 0)
   {
-    operator delete(v104[1]);
+    operator delete(v95[1]);
   }
 
-  if (SHIBYTE(v104[0]) < 0)
+  if (SHIBYTE(v95[0]) < 0)
   {
-    operator delete(v103);
+    operator delete(v94);
   }
 
-LABEL_49:
-  v49 = *MEMORY[0x277D85DE8];
   return v48;
 }
 
-void AGCModule<AGX::Impl::FragmentProgramKey>::AGCModule(void *a1, int a2, int a3, AGX::Impl::FragmentProgramKey *a4)
+void AGCModule<AGX::Impl::FragmentProgramKey>::AGCModule(void *a1, uint64_t a2, uint64_t a3, AGX::Impl::FragmentProgramKey *a4)
 {
   *a1 = &unk_2825BE428;
   AGX::Impl::FragmentProgramKey::FragmentProgramKey((a1 + 1), a4);
@@ -5185,102 +989,85 @@ uint64_t Air::PipelineScript::pipeline_as_mesh_render(Air::PipelineScript *this)
 
 uint64_t AGCMeshPipeline::compile(AGCMeshPipeline *this)
 {
-  v43[7] = *MEMORY[0x277D85DE8];
+  v34[7] = *MEMORY[0x277D85DE8];
   v2 = (*(this + 2) - **(this + 2));
   if (*v2 >= 5u && v2[2])
   {
-    v3 = **(this + 3);
-    v4 = **(this + 4);
     AGCMeshPipeline::compileMeshStage(this);
-    v5 = *(this + 8);
-    v6 = *(this + 2);
-    v7 = (v6 - *v6);
-    if (*v7 >= 0xBu)
-    {
-      v8 = v7[5];
-      if (v8)
-      {
-        v9 = v6 + v8 + *(v6 + v8);
-      }
-    }
-
-    v13 = *(this + 184);
-    v14 = *(this + 185);
-    v32 = 0;
-    v33 = 0;
-    v30 = 0;
-    v31 = 0;
+    v3 = *(this + 8);
+    v23 = 0;
+    v24 = 0;
+    v21 = 0;
+    v22 = 0;
     __p = 0;
-    v29 = 0;
-    (*(*v5 + 24))(&v16);
+    v20 = 0;
+    (*(*v3 + 24))(&v7);
     if (__p)
     {
-      v29 = __p;
+      v20 = __p;
       operator delete(__p);
     }
 
-    if (v31)
+    if (v22)
     {
-      v32 = v31;
-      operator delete(v31);
+      v23 = v22;
+      operator delete(v22);
     }
 
-    v31 = &unk_2825BE710;
-    v32 = &unk_2825BE788;
-    LODWORD(v33) = v17;
-    v35 = 0;
-    v36 = 0;
-    v34 = 0;
-    v15 = v19 - v18;
-    if (v19 != v18)
+    v22 = &unk_2825BE710;
+    v23 = &unk_2825BE788;
+    LODWORD(v24) = v8;
+    v26 = 0;
+    v27 = 0;
+    v25 = 0;
+    v6 = v10 - v9;
+    if (v10 != v9)
     {
-      if (!((v15 >> 2) >> 62))
+      if (!((v6 >> 2) >> 62))
       {
-        std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned int>>(v15 >> 2);
+        std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned int>>(v6 >> 2);
       }
 
       std::string::__throw_length_error[abi:nn200100]();
     }
 
-    v32 = &unk_2825BE740;
-    v37 = v20;
-    v38 = v21;
-    if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
+    v23 = &unk_2825BE740;
+    v28 = v11;
+    v29 = v12;
+    if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v39, v22.__r_.__value_.__l.__data_, v22.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v30, v13.__r_.__value_.__l.__data_, v13.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v39 = v22;
+      v30 = v13;
     }
 
-    v40 = v23;
-    memset(v41, 0, sizeof(v41));
-    if (v25 != v24)
+    v31 = v14;
+    memset(v32, 0, sizeof(v32));
+    if (v16 != v15)
     {
-      std::vector<MTLUINT256_t>::__vallocate[abi:nn200100](v41, (v25 - v24) >> 5);
+      std::vector<MTLUINT256_t>::__vallocate[abi:nn200100](v32, (v16 - v15) >> 5);
     }
 
-    memset(v42, 0, sizeof(v42));
-    if (v27 != v26)
+    memset(v33, 0, sizeof(v33));
+    if (v18 != v17)
     {
-      std::vector<MTLUINT256_t>::__vallocate[abi:nn200100](v42, (v27 - v26) >> 5);
+      std::vector<MTLUINT256_t>::__vallocate[abi:nn200100](v33, (v18 - v17) >> 5);
     }
 
-    v32 = &unk_2825BF900;
-    MEMORY[0x20F32FFB0](v43);
+    v23 = &unk_2825BF900;
+    MEMORY[0x20F32FFB0](v34);
     operator new();
   }
 
-  v10 = *(this + 6);
-  if (v10 && *(this + 7))
+  v4 = *(this + 6);
+  if (v4 && *(this + 7))
   {
-    *v10 = 0;
+    *v4 = 0;
     **(this + 7) = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return AGCMeshPipeline::compileMeshStage(this);
 }
@@ -5310,145 +1097,129 @@ void AGCMeshPipeline::~AGCMeshPipeline(void **this)
 
 uint64_t AGCMeshPipeline::compileMeshStage(AGCMeshPipeline *this)
 {
-  v38 = *MEMORY[0x277D85DE8];
-  v1 = *(this + 2);
-  v2 = (v1 - *v1);
-  v3 = *v2;
-  if (v3 >= 7 && v2[3])
+  v29 = *MEMORY[0x277D85DE8];
+  v1 = (*(this + 2) - **(this + 2));
+  v2 = *v1;
+  if (v2 >= 7 && v1[3])
   {
-    v5 = *(this + 3);
-    v6 = *(this + 4);
-    v7 = *(v5 + 8);
-    v8 = *(v6 + 8);
-    if (v3 >= 9 && v2[4])
+    v4 = *(*(this + 3) + 8);
+    v5 = *(*(this + 4) + 8);
+    if (v2 >= 9 && v1[4])
     {
-      v9 = *(this + 8);
-      if (v3 >= 0xD)
-      {
-        v10 = v2[6];
-        if (v10)
-        {
-          v11 = v1 + v10 + *(v1 + v10);
-        }
-      }
-
-      v13 = *(v5 + 16);
-      v14 = *(v6 + 16);
-      v34 = 0;
-      v32 = 0u;
-      v33 = 0u;
-      v31 = 0u;
-      v15 = *(this + 72);
-      v29 = 0;
-      v30 = 0;
-      v27 = 0;
-      v28 = 0;
+      v6 = *(this + 8);
+      v25 = 0;
+      v23 = 0u;
+      v24 = 0u;
+      v22 = 0u;
+      v20 = 0;
+      v21 = 0;
+      v18 = 0;
+      v19 = 0;
       __p = 0;
-      v26 = 0;
-      (*(*v9 + 32))(v24);
+      v17 = 0;
+      (*(*v6 + 32))(v15);
       if (__p)
       {
-        v26 = __p;
+        v17 = __p;
         operator delete(__p);
       }
 
-      if (v28)
+      if (v19)
       {
-        v29 = v28;
-        operator delete(v28);
+        v20 = v19;
+        operator delete(v19);
       }
 
-      if (SHIBYTE(v33) < 0)
+      if (SHIBYTE(v24) < 0)
       {
-        operator delete(*(&v32 + 1));
+        operator delete(*(&v23 + 1));
       }
 
-      if (SBYTE7(v32) < 0)
+      if (SBYTE7(v23) < 0)
       {
-        operator delete(v31);
+        operator delete(v22);
       }
 
-      AGCModule<AGX::Impl::MeshProgramKey>::AGCModule(&v35, *(*(this + 3) + 8), *(*(this + 4) + 8), v24);
+      AGCModule<AGX::Impl::MeshProgramKey>::AGCModule(&v26, *(*(this + 3) + 8), *(*(this + 4) + 8), v15);
     }
 
-    v12 = *(this + 6);
-    if (v12 && *(this + 7))
+    v7 = *(this + 6);
+    if (v7 && *(this + 7))
     {
-      *(v12 + 16) = 0;
+      *(v7 + 16) = 0;
       *(*(this + 7) + 16) = 0;
     }
 
-    v16 = *(this + 2);
-    v17 = (v16 - *v16);
-    if (*v17 >= 0xDu && (v18 = v17[6]) != 0)
+    v8 = *(this + 2);
+    v9 = (v8 - *v8);
+    if (*v9 >= 0xDu && (v10 = v9[6]) != 0)
     {
-      v19 = v16 + v18 + *(v16 + v18);
+      v11 = v8 + v10 + *(v8 + v10);
     }
 
     else
     {
-      v19 = 0;
+      v11 = 0;
     }
 
-    v20 = *(this + 8);
+    v12 = *(this + 8);
     if (*(this + 151) < 0)
     {
-      std::string::__init_copy_ctor_external(&v35, *(this + 16), *(this + 17));
+      std::string::__init_copy_ctor_external(&v26, *(this + 16), *(this + 17));
     }
 
     else
     {
-      v35 = *(this + 128);
+      v26 = *(this + 128);
     }
 
     if (*(this + 175) < 0)
     {
-      std::string::__init_copy_ctor_external(&v36, *(this + 19), *(this + 20));
+      std::string::__init_copy_ctor_external(&v27, *(this + 19), *(this + 20));
     }
 
     else
     {
-      v36 = *(this + 152);
+      v27 = *(this + 152);
     }
 
-    v37 = *(this + 176);
-    v21 = *(this + 72);
-    *&v32 = 0;
-    v30 = 0;
-    v31 = 0uLL;
-    v28 = 0;
-    v29 = 0;
-    (*(*v20 + 32))(v24, v20, v19, &v35, 0, v21, 0, &v31, &v28, 0);
-    if (v28)
+    v28 = *(this + 176);
+    v13 = *(this + 72);
+    *&v23 = 0;
+    v21 = 0;
+    v22 = 0uLL;
+    v19 = 0;
+    v20 = 0;
+    (*(*v12 + 32))(v15, v12, v11, &v26, 0, v13, 0, &v22, &v19, 0);
+    if (v19)
     {
-      v29 = v28;
-      operator delete(v28);
+      v20 = v19;
+      operator delete(v19);
     }
 
-    if (v31)
+    if (v22)
     {
-      *(&v31 + 1) = v31;
-      operator delete(v31);
+      *(&v22 + 1) = v22;
+      operator delete(v22);
     }
 
-    if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v36.__r_.__value_.__l.__data_);
+      operator delete(v27.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v35.__r_.__value_.__l.__data_);
+      operator delete(v26.__r_.__value_.__l.__data_);
     }
 
-    AGCModule<AGX::Impl::MeshProgramKey>::AGCModule(&v35, v7, v8, v24);
+    AGCModule<AGX::Impl::MeshProgramKey>::AGCModule(&v26, v4, v5, v15);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
-void AGCModule<AGX::Impl::MeshProgramKey>::AGCModule(void *a1, int a2, int a3, AGX::Impl::MeshProgramKey *a4)
+void AGCModule<AGX::Impl::MeshProgramKey>::AGCModule(void *a1, uint64_t a2, uint64_t a3, AGX::Impl::MeshProgramKey *a4)
 {
   *a1 = &unk_2825BE5E0;
   AGX::Impl::MeshProgramKey::MeshProgramKey((a1 + 1), a4);
@@ -5456,7 +1227,7 @@ void AGCModule<AGX::Impl::MeshProgramKey>::AGCModule(void *a1, int a2, int a3, A
   operator new();
 }
 
-void *AIRNTGetLegalizationPasses(int a1, unsigned int a2, AGCTarget *this, void *a4, void *a5)
+void *AIRNTGetLegalizationPasses(int a1, unsigned int a2, AGCTarget *this, uint64_t *a4, void *a5)
 {
   v7 = AGCTarget::CPUSubtypeToTargetArch(this, a2, this);
   v11 = 0;
@@ -5467,17 +1238,17 @@ void *AIRNTGetLegalizationPasses(int a1, unsigned int a2, AGCTarget *this, void 
   return result;
 }
 
-void std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:nn200100](std::regex_traits<char> *a1, const char *a2)
+void std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:nn200100](std::regex_traits<char> *a1, char *a2)
 {
-  v3 = std::regex_traits<char>::regex_traits(a1);
-  v3[2].__ct_ = 0;
-  *&v3[1].__col_ = 0u;
-  *&v3[1].__loc_.__locale_ = 0u;
-  strlen(a2);
-  std::basic_regex<char,std::regex_traits<char>>::__parse<char const*>();
+  v4 = std::regex_traits<char>::regex_traits(a1);
+  v4[2].__ct_ = 0;
+  *&v4[1].__col_ = 0u;
+  *&v4[1].__loc_.__locale_ = 0u;
+  v5 = strlen(a2);
+  std::basic_regex<char,std::regex_traits<char>>::__parse<char const*>(a1, a2, &a2[v5]);
 }
 
-uint64_t std::regex_match[abi:nn200100]<std::__wrap_iter<char const*>,std::allocator<std::sub_match<std::__wrap_iter<char const*>>>,char,std::regex_traits<char>>(const char *a1, const char *a2, uint64_t *a3, uint64_t a4)
+uint64_t std::regex_match[abi:nn200100]<std::__wrap_iter<char const*>,std::allocator<std::sub_match<std::__wrap_iter<char const*>>>,char,std::regex_traits<char>>(uint64_t a1, const char *a2, uint64_t *a3, uint64_t a4)
 {
   v138 = 0uLL;
   v139 = 0;
@@ -5510,7 +1281,7 @@ uint64_t std::regex_match[abi:nn200100]<std::__wrap_iter<char const*>,std::alloc
     goto LABEL_162;
   }
 
-  v134 = a2 - a1;
+  v134 = &a2[-a1];
   if (!*(a4 + 28))
   {
     v145 = 0u;
@@ -5842,7 +1613,7 @@ LABEL_140:
         {
           begin = v136.__begin_;
           v136.__begin_->first = v133;
-          begin->second = &v133[v52];
+          begin->second = &v52[v133];
           LOBYTE(v44) = 1;
           begin->matched = 1;
         }
@@ -6171,7 +1942,7 @@ LABEL_55:
   {
     v38 = v136.__begin_;
     v136.__begin_->first = v133;
-    v38->second = &v133[v14];
+    v38->second = &v14[v133];
     v38->matched = 1;
     if (v11)
     {
@@ -6381,7 +2152,7 @@ LABEL_182:
   return result;
 }
 
-uint64_t _ZNSt3__13mapIN4llvm9StringRefEZN21NumericPackUnpackPass3runERNS1_8FunctionERNS1_15AnalysisManagerIS4_JEEEE17QuantizedTypeInfoNS_4lessIS2_EENS_9allocatorINS_4pairIKS2_S9_EEEEEixERSE_(uint64_t a1, __int128 *a2)
+uint64_t _ZNSt3__13mapIN4llvm9StringRefEZN21NumericPackUnpackPass3runERNS1_8FunctionERNS1_15AnalysisManagerIS4_JEEEE17QuantizedTypeInfoNS_4lessIS2_EENS_9allocatorINS_4pairIKS2_S9_EEEEEixERSE_(uint64_t a1, _OWORD *a2)
 {
   v2 = *_ZNSt3__16__treeINS_12__value_typeIN4llvm9StringRefEZN21NumericPackUnpackPass3runERNS2_8FunctionERNS2_15AnalysisManagerIS5_JEEEE17QuantizedTypeInfoEENS_19__map_value_compareIS3_SB_NS_4lessIS3_EELb1EEENS_9allocatorISB_EEE12__find_equalIS3_EERPNS_16__tree_node_baseIPvEERPNS_15__tree_end_nodeISN_EERKT_(a1, &v4, a2);
   if (!v2)
@@ -6392,10 +2163,10 @@ uint64_t _ZNSt3__13mapIN4llvm9StringRefEZN21NumericPackUnpackPass3runERNS1_8Func
   return v2 + 48;
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,char const*>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,char const*>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,char const*>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int a2)
+uint64_t **std::__tree<std::__value_type<unsigned int,char const*>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,char const*>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,char const*>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t **a1, unsigned int a2, _DWORD **a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_7:
     operator new();
@@ -6405,37 +2176,37 @@ LABEL_7:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = *(v2 + 32);
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = *(v3 + 8);
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_7;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
-      return v3;
+      return v4;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
   }
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,llvm::Type *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,llvm::Type *>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,llvm::Type *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int a2)
+uint64_t **std::__tree<std::__value_type<unsigned int,llvm::Type *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,llvm::Type *>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,llvm::Type *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t **a1, unsigned int a2, _DWORD **a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_7:
     operator new();
@@ -6445,27 +2216,27 @@ LABEL_7:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = *(v2 + 32);
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = *(v3 + 8);
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_7;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
-      return v3;
+      return v4;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
@@ -6559,7 +2330,7 @@ void std::vector<std::sub_match<char const*>>::assign(std::vector<std::csub_matc
   }
 }
 
-void std::vector<std::sub_match<char const*>>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<std::sub_match<char const*>>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -6727,7 +2498,7 @@ LABEL_23:
   std::vector<std::__state<char>>::__destroy_vector::operator()[abi:nn200100](v33);
 }
 
-void std::vector<std::__state<char>>::push_back[abi:nn200100](uint64_t *a1, uint64_t a2)
+void std::vector<std::__state<char>>::push_back[abi:nn200100](unint64_t *a1, uint64_t a2)
 {
   v3 = a1[1];
   v4 = a1[2];
@@ -7005,32 +2776,32 @@ void std::allocator<std::__state<char>>::destroy[abi:nn200100](void *a1)
   }
 }
 
-void *std::vector<std::sub_match<char const*>>::vector[abi:nn200100](void *result, void *a2)
+uint64_t *std::vector<std::sub_match<char const*>>::vector[abi:nn200100](uint64_t *a1, __int128 **a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v2 = a2[1];
   if (v2 != *a2)
   {
-    std::vector<std::sub_match<char const*>>::__vallocate[abi:nn200100](result, 0xAAAAAAAAAAAAAAABLL * ((v2 - *a2) >> 3));
+    std::vector<std::sub_match<char const*>>::__vallocate[abi:nn200100](a1, 0xAAAAAAAAAAAAAAABLL * ((v2 - *a2) >> 3));
   }
 
-  return result;
+  return a1;
 }
 
-void *std::vector<std::pair<unsigned long,char const*>>::vector[abi:nn200100](void *result, void *a2)
+uint64_t *std::vector<std::pair<unsigned long,char const*>>::vector[abi:nn200100](uint64_t *a1, __int128 **a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v2 = a2[1];
   if (v2 != *a2)
   {
-    std::vector<std::pair<unsigned long,char const*>>::__vallocate[abi:nn200100](result, (v2 - *a2) >> 4);
+    std::vector<std::pair<unsigned long,char const*>>::__vallocate[abi:nn200100](a1, v2 - *a2);
   }
 
-  return result;
+  return a1;
 }
 
 void std::vector<std::__state<char>>::__destroy_vector::operator()[abi:nn200100](void ***a1)
@@ -7059,7 +2830,7 @@ void std::vector<std::__state<char>>::__destroy_vector::operator()[abi:nn200100]
   }
 }
 
-void std::vector<std::pair<unsigned long,char const*>>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<std::pair<unsigned long,char const*>>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -7079,33 +2850,32 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<std::pair<unsigned lo
   std::string::__throw_length_error[abi:nn200100]();
 }
 
-__n128 std::deque<std::__state<char>>::push_back(uint64_t a1, uint64_t a2)
+__n128 std::deque<std::__state<char>>::push_back(unint64_t *a1, uint64_t a2)
 {
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
-  v6 = *(a1 + 8);
-  v7 = v5 - v6;
-  if (v5 == v6)
+  v4 = a1[2];
+  v5 = a1[1];
+  v6 = v4 - v5;
+  if (v4 == v5)
   {
-    v8 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v8 = 42 * ((v5 - v6) >> 3) - 1;
+    v7 = 42 * ((v4 - v5) >> 3) - 1;
   }
 
-  v9 = *(a1 + 32);
-  v10 = *(a1 + 40) + v9;
-  if (v8 == v10)
+  v8 = a1[4];
+  v9 = a1[5] + v8;
+  if (v7 == v9)
   {
-    if (v9 < 0x2A)
+    if (v8 < 0x2A)
     {
-      v11 = *(a1 + 24);
-      v12 = &v11[-*a1];
-      if (v7 < v12)
+      v10 = a1[3];
+      v11 = v10 - *a1;
+      if (v6 < v11)
       {
-        if (v11 != v5)
+        if (v10 != v4)
         {
           operator new();
         }
@@ -7113,53 +2883,53 @@ __n128 std::deque<std::__state<char>>::push_back(uint64_t a1, uint64_t a2)
         operator new();
       }
 
-      if (v11 == *a1)
+      if (v10 == *a1)
       {
-        v13 = 1;
+        v12 = 1;
       }
 
       else
       {
-        v13 = v12 >> 2;
+        v12 = v11 >> 2;
       }
 
-      v19 = a1;
-      std::__allocate_at_least[abi:nn200100]<std::allocator<llvm::User *>>(v13);
+      v18 = a1;
+      std::__allocate_at_least[abi:nn200100]<std::allocator<llvm::User *>>(v12);
     }
 
-    *(a1 + 32) = v9 - 42;
-    *&v18 = *v6;
-    *(a1 + 8) = v6 + 8;
-    std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(a1, &v18);
-    v6 = *(a1 + 8);
-    v10 = *(a1 + 40) + *(a1 + 32);
+    a1[4] = v8 - 42;
+    *&v17 = *v5;
+    a1[1] = (v5 + 8);
+    std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(a1, &v17);
+    v5 = a1[1];
+    v9 = a1[5] + a1[4];
   }
 
-  v14 = *&v6[8 * (v10 / 0x2A)] - 4032 * (v10 / 0x2A) + 96 * v10;
-  v15 = *(a2 + 16);
-  *v14 = *a2;
-  *(v14 + 16) = v15;
-  *(v14 + 40) = 0;
-  *(v14 + 48) = 0;
-  *(v14 + 32) = 0;
-  *(v14 + 32) = *(a2 + 32);
-  *(v14 + 48) = *(a2 + 48);
+  v13 = *&v5[8 * (v9 / 0x2A)] - 4032 * (v9 / 0x2A) + 96 * v9;
+  v14 = *(a2 + 16);
+  *v13 = *a2;
+  *(v13 + 16) = v14;
+  *(v13 + 40) = 0;
+  *(v13 + 48) = 0;
+  *(v13 + 32) = 0;
+  *(v13 + 32) = *(a2 + 32);
+  *(v13 + 48) = *(a2 + 48);
   *(a2 + 32) = 0;
   *(a2 + 40) = 0;
   *(a2 + 48) = 0;
-  *(v14 + 56) = 0;
-  *(v14 + 64) = 0;
-  *(v14 + 72) = 0;
+  *(v13 + 56) = 0;
+  *(v13 + 64) = 0;
+  *(v13 + 72) = 0;
   result = *(a2 + 56);
-  *(v14 + 56) = result;
-  *(v14 + 72) = *(a2 + 72);
+  *(v13 + 56) = result;
+  *(v13 + 72) = *(a2 + 72);
   *(a2 + 56) = 0;
   *(a2 + 64) = 0;
   *(a2 + 72) = 0;
-  v17 = *(a2 + 80);
-  *(v14 + 85) = *(a2 + 85);
-  *(v14 + 80) = v17;
-  ++*(a1 + 40);
+  v16 = *(a2 + 80);
+  *(v13 + 85) = *(a2 + 85);
+  *(v13 + 80) = v16;
+  ++a1[5];
   return result;
 }
 
@@ -7189,14 +2959,13 @@ void std::deque<std::__state<char>>::pop_back(void *a1)
   }
 }
 
-const void **std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_front<std::__state<char> *>(const void **result, void *a2)
+void std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_front<std::__state<char> *>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -7216,42 +2985,40 @@ const void **std::__split_buffer<std::__state<char> *,std::allocator<std::__stat
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
-void *std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(void *result, void *a2)
+void std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
       std::__allocate_at_least[abi:nn200100]<std::allocator<llvm::User *>>(v11);
@@ -7263,18 +3030,17 @@ void *std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char>
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
 std::regex_traits<char> *__cdecl std::regex_traits<char>::regex_traits(std::regex_traits<char> *this)
@@ -7336,44 +3102,40 @@ std::string *std::basic_regex<char,std::regex_traits<char>>::__parse_ecma_exp<ch
   return v7;
 }
 
-std::string *std::basic_regex<char,std::regex_traits<char>>::__parse_basic_reg_exp<char const*>(std::basic_regex<char> *this, std::string *a2, std::string *a3)
+void std::basic_regex<char,std::regex_traits<char>>::__parse_basic_reg_exp<char const*>(std::basic_regex<char> *this, std::string *a2, std::string *a3)
 {
   v3 = a2;
-  if (a2 == a3)
+  if (a2 != a3)
   {
-    return v3;
-  }
-
-  if (a2->__r_.__value_.__s.__data_[0] == 94)
-  {
-    std::basic_regex<char,std::regex_traits<char>>::__push_l_anchor(this);
-    v3 = (v3 + 1);
-  }
-
-  if (v3 != a3)
-  {
-    do
+    if (a2->__r_.__value_.__s.__data_[0] == 94)
     {
-      v6 = v3;
-      v7 = std::basic_regex<char,std::regex_traits<char>>::__parse_simple_RE<char const*>(this, v3, a3);
-      v3 = v7;
-    }
-
-    while (v7 != v6);
-    if (v6 != a3 && (&v7->__r_.__value_.__l.__data_ + 1) == a3 && v7->__r_.__value_.__s.__data_[0] == 36)
-    {
-      std::basic_regex<char,std::regex_traits<char>>::__push_r_anchor(this);
+      std::basic_regex<char,std::regex_traits<char>>::__push_l_anchor(this);
       v3 = (v3 + 1);
     }
-  }
 
-  if (v3 == a3)
-  {
-    return v3;
-  }
+    if (v3 != a3)
+    {
+      do
+      {
+        v6 = v3;
+        v7 = std::basic_regex<char,std::regex_traits<char>>::__parse_simple_RE<char const*>(this, v3, a3);
+        v3 = v7;
+      }
 
-  v9 = std::__throw_regex_error[abi:nn200100]<(std::regex_constants::error_type)17>();
-  return std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(v9);
+      while (v7 != v6);
+      if (v6 != a3 && (&v7->__r_.__value_.__l.__data_ + 1) == a3 && v7->__r_.__value_.__s.__data_[0] == 36)
+      {
+        std::basic_regex<char,std::regex_traits<char>>::__push_r_anchor(this);
+        v3 = (v3 + 1);
+      }
+    }
+
+    if (v3 != a3)
+    {
+      v8 = std::__throw_regex_error[abi:nn200100]<(std::regex_constants::error_type)17>();
+      std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(v8, v9, v10);
+    }
+  }
 }
 
 void std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(std::basic_regex<char> *a1, std::string *a2, std::string *a3)
@@ -7600,8 +3362,8 @@ LABEL_26:
             std::basic_regex<char,std::regex_traits<char>>::__push_begin_marked_subexpression(a1);
             v19 = *(a1 + 28);
             ++*(a1 + 36);
-            v20 = std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(a1);
-            if (v20 == a3 || (v11 = v20, v20->__r_.__value_.__s.__data_[0] != 41))
+            std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(a1, v11->__r_.__value_.__r.__words + 1, a3);
+            if (v20 == a3 || (v11 = v20, *v20 != 41))
             {
               v22 = std::__throw_regex_error[abi:nn200100]<(std::regex_constants::error_type)17>();
               std::basic_regex<char,std::regex_traits<char>>::__push_l_anchor(v22);
@@ -8166,7 +3928,7 @@ std::string *std::basic_regex<char,std::regex_traits<char>>::__parse_bracket_exp
       goto LABEL_243;
     }
 
-    v5 = a2->__r_.__value_.__s.__data_[1] == 94 ? &a2->__r_.__value_.__s.__data_[2] : (&a2->__r_.__value_.__l.__data_ + 1);
+    v5 = a2->__r_.__value_.__s.__data_[1] == 94 ? &a2->__r_.__value_.__s.__data_[2] : &a2->__r_.__value_.__l.__data_ + 1;
     started = std::basic_regex<char,std::regex_traits<char>>::__start_matching_list(a1, a2->__r_.__value_.__s.__data_[1] == 94);
     if (v5 == a3)
     {
@@ -8174,10 +3936,10 @@ std::string *std::basic_regex<char,std::regex_traits<char>>::__parse_bracket_exp
     }
 
     v7 = started;
-    if ((*(a1 + 24) & 0x1F0) != 0 && v5->__r_.__value_.__s.__data_[0] == 93)
+    if ((*(a1 + 24) & 0x1F0) != 0 && *v5 == 93)
     {
       std::__bracket_expression<char,std::regex_traits<char>>::__add_char[abi:nn200100](started, 93);
-      v5 = (v5 + 1);
+      ++v5;
     }
 
     if (v5 != a3)
@@ -8192,7 +3954,7 @@ std::string *std::basic_regex<char,std::regex_traits<char>>::__parse_bracket_exp
           goto LABEL_15;
         }
 
-        v10 = v5->__r_.__value_.__s.__data_[0];
+        v10 = *v5;
         v9 = v5;
         if (v10 == 93)
         {
@@ -8200,13 +3962,13 @@ std::string *std::basic_regex<char,std::regex_traits<char>>::__parse_bracket_exp
         }
 
         memset(&v87, 0, sizeof(v87));
-        if ((&v5->__r_.__value_.__l.__data_ + 1) != a3 && v10 == 91)
+        if (v5 + 1 != a3 && v10 == 91)
         {
-          v13 = v5->__r_.__value_.__s.__data_[1];
+          v13 = v5[1];
           switch(v13)
           {
             case '.':
-              v9 = std::basic_regex<char,std::regex_traits<char>>::__parse_collating_symbol<char const*>(a1, &v5->__r_.__value_.__s.__data_[2], a3, &v87);
+              v9 = std::basic_regex<char,std::regex_traits<char>>::__parse_collating_symbol<char const*>(a1, v5 + 2, a3, &v87);
               v11 = (*(a1 + 24) & 0x1F0);
               size = HIBYTE(v87.__r_.__value_.__r.__words[2]);
               if ((v87.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
@@ -8221,14 +3983,14 @@ std::string *std::basic_regex<char,std::regex_traits<char>>::__parse_bracket_exp
 
               goto LABEL_31;
             case ':':
-              if (a3 - &v5->__r_.__value_.__s.__data_[2] < 2)
+              if (a3 - (v5 + 2) < 2)
               {
                 goto LABEL_243;
               }
 
               v20 = v83 - v5;
-              v15 = &v5->__r_.__value_.__s.__data_[2];
-              for (i = &v5->__r_.__value_.__s.__data_[2]; ; v15 = i)
+              v15 = (v5 + 2);
+              for (i = (v5 + 2); ; v15 = i)
               {
                 v22 = i->__r_.__value_.__s.__data_[0];
                 i = (i + 1);
@@ -8251,7 +4013,7 @@ std::string *std::basic_regex<char,std::regex_traits<char>>::__parse_bracket_exp
               }
 
               v26 = *(a1 + 24);
-              std::string::__init_with_size[abi:nn200100]<char *,char *>(&__dst, &v5->__r_.__value_.__s.__data_[2], v15, v15 - &v5->__r_.__value_.__s.__data_[2]);
+              std::string::__init_with_size[abi:nn200100]<char *,char *>(&__dst, v5 + 2, v15, v15 - (v5 + 2));
               end_high = HIBYTE(__dst.__end_);
               if (SHIBYTE(__dst.__end_) >= 0)
               {
@@ -8294,14 +4056,14 @@ std::string *std::basic_regex<char,std::regex_traits<char>>::__parse_bracket_exp
               *(v7 + 160) |= classname;
               goto LABEL_143;
             case '=':
-              if (a3 - &v5->__r_.__value_.__s.__data_[2] < 2)
+              if (a3 - (v5 + 2) < 2)
               {
                 goto LABEL_243;
               }
 
               v14 = v83 - v5;
-              v15 = &v5->__r_.__value_.__s.__data_[2];
-              for (j = &v5->__r_.__value_.__s.__data_[2]; ; v15 = j)
+              v15 = (v5 + 2);
+              for (j = (v5 + 2); ; v15 = j)
               {
                 v17 = j->__r_.__value_.__s.__data_[0];
                 j = (j + 1);
@@ -8323,7 +4085,7 @@ std::string *std::basic_regex<char,std::regex_traits<char>>::__parse_bracket_exp
                 goto LABEL_243;
               }
 
-              std::regex_traits<char>::__lookup_collatename<char const*>(__p, a1, &v5->__r_.__value_.__s.__data_[2], v15);
+              std::regex_traits<char>::__lookup_collatename<char const*>(__p, a1, v5 + 2, v15);
               v24 = SHIBYTE(v91);
               if ((SHIBYTE(v91) & 0x8000000000000000) != 0)
               {
@@ -9064,15 +4826,15 @@ LABEL_14:
 
   else
   {
-    std::regex_traits<char>::__lookup_collatename<char const*>(&v16, a1, __src, v6);
+    std::regex_traits<char>::__lookup_collatename<char const*>(&v17, a1, __src, v6);
     if (*(a4 + 23) < 0)
     {
       operator delete(*a4);
     }
 
-    *a4 = v16;
-    v9 = v17;
-    *(a4 + 16) = v17;
+    *a4 = v17;
+    v9 = v18;
+    *(a4 + 16) = v18;
     v10 = HIBYTE(v9);
     if ((v10 & 0x80u) != 0)
     {
@@ -9086,10 +4848,10 @@ LABEL_14:
   }
 
   v12 = std::__throw_regex_error[abi:nn200100]<(std::regex_constants::error_type)17>();
-  return std::basic_regex<char,std::regex_traits<char>>::__parse_class_escape<char const*>(v12, v13, v14, v15);
+  return std::basic_regex<char,std::regex_traits<char>>::__parse_class_escape<char const*>(v12, v13, v14, v15, v16);
 }
 
-void std::basic_regex<char,std::regex_traits<char>>::__parse_class_escape<char const*>(std::basic_regex<char> *a1, std::basic_regex<char>::value_type *a2, std::basic_regex<char>::value_type *a3, std::string *this, uint64_t a5)
+void std::basic_regex<char,std::regex_traits<char>>::__parse_class_escape<char const*>(std::basic_regex<char> *a1, std::string::value_type *a2, std::string::value_type *a3, std::string *this, uint64_t a5)
 {
   if (a2 == a3)
   {
@@ -9365,14 +5127,14 @@ LABEL_32:
 
 LABEL_51:
   v11 = std::__throw_regex_error[abi:nn200100]<(std::regex_constants::error_type)17>();
-  return std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:nn200100](v11);
+  return std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:nn200100](v11, v12, v13);
 }
 
-void std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:nn200100](uint64_t a1, unsigned __int8 a2, uint64_t a3)
+void std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:nn200100](uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a1 + 169) == 1)
   {
-    v5 = (*(**(a1 + 24) + 40))(*(a1 + 24));
+    v5 = (*(**(a1 + 24) + 40))(*(a1 + 24), a2);
     v11 = v5 | ((*(**(a1 + 24) + 40))(*(a1 + 24), a3) << 8);
     v6 = a1 + 112;
     v7 = &v11;
@@ -9399,7 +5161,7 @@ void std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:
   std::vector<std::pair<char,char>>::push_back[abi:nn200100](v6, v7);
 }
 
-void std::vector<std::pair<char,char>>::push_back[abi:nn200100](uint64_t a1, _WORD *a2)
+void std::vector<std::pair<char,char>>::push_back[abi:nn200100](uint64_t a1, __int16 *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -9509,19 +5271,16 @@ void std::vector<std::pair<std::string,std::string>>::push_back[abi:nn200100](vo
     v12 = 48 * v8;
     *v12 = *a2;
     *(v12 + 16) = *(a2 + 2);
-    *a2 = 0;
-    *(a2 + 1) = 0;
+    *a2 = 0uLL;
     v13 = *(a2 + 24);
-    *(a2 + 2) = 0;
-    *(a2 + 3) = 0;
+    a2[1] = 0uLL;
     *(v12 + 40) = *(a2 + 5);
-    *(a2 + 4) = 0;
-    *(a2 + 5) = 0;
-    v7 = 48 * v8 + 48;
+    a2[2] = 0uLL;
+    v7 = (48 * v8 + 48);
     v14 = *a1;
     v15 = a1[1] - *a1;
     *(v12 + 24) = v13;
-    v16 = 48 * v8 - v15;
+    v16 = (48 * v8 - v15);
     memcpy((v12 - v15), v14, v15);
     *a1 = v16;
     a1[1] = v7;
@@ -9537,16 +5296,14 @@ void std::vector<std::pair<std::string,std::string>>::push_back[abi:nn200100](vo
     v5 = *a2;
     *(v3 + 2) = *(a2 + 2);
     *v3 = v5;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v6 = *(a2 + 24);
     *(v3 + 5) = *(a2 + 5);
     *(v3 + 24) = v6;
-    *(a2 + 4) = 0;
-    *(a2 + 5) = 0;
+    a2[2] = 0uLL;
     *(a2 + 3) = 0;
-    v7 = (v3 + 48);
+    v7 = v3 + 48;
   }
 
   a1[1] = v7;
@@ -9717,7 +5474,7 @@ std::locale *std::__match_char_icase<char,std::regex_traits<char>>::~__match_cha
   return a1;
 }
 
-void std::basic_regex<char,std::regex_traits<char>>::__parse_character_escape<char const*>(std::basic_regex<char> *a1, std::basic_regex<char>::value_type *a2, std::basic_regex<char>::value_type *a3, std::string *this)
+void std::basic_regex<char,std::regex_traits<char>>::__parse_character_escape<char const*>(std::basic_regex<char> *a1, std::string::value_type *a2, std::string::value_type *a3, std::string *this)
 {
   v4 = a2;
   if (a2 != a3)
@@ -9944,5 +5701,4404 @@ LABEL_60:
 LABEL_67:
     v16 = std::__throw_regex_error[abi:nn200100]<(std::regex_constants::error_type)17>();
     std::vector<char>::push_back[abi:nn200100](v16, v17);
+  }
+}
+
+void std::vector<char>::push_back[abi:nn200100](uint64_t a1, char *a2)
+{
+  v4 = *(a1 + 8);
+  v3 = *(a1 + 16);
+  if (v4 >= v3)
+  {
+    v6 = *a1;
+    v7 = &v4[-*a1];
+    v8 = (v7 + 1);
+    if ((v7 + 1) < 0)
+    {
+      std::string::__throw_length_error[abi:nn200100]();
+    }
+
+    v9 = v3 - v6;
+    if (2 * v9 > v8)
+    {
+      v8 = 2 * v9;
+    }
+
+    if (v9 >= 0x3FFFFFFFFFFFFFFFLL)
+    {
+      v10 = 0x7FFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v10 = v8;
+    }
+
+    if (v10)
+    {
+      operator new();
+    }
+
+    v11 = &v4[-*a1];
+    *v7 = *a2;
+    v5 = v7 + 1;
+    memcpy(0, v6, v11);
+    *a1 = 0;
+    *(a1 + 8) = v7 + 1;
+    *(a1 + 16) = 0;
+    if (v6)
+    {
+      operator delete(v6);
+    }
+  }
+
+  else
+  {
+    *v4 = *a2;
+    v5 = v4 + 1;
+  }
+
+  *(a1 + 8) = v5;
+}
+
+void std::regex_traits<char>::__lookup_collatename<char const*>(uint64_t a1, uint64_t a2, _BYTE *__src, _BYTE *a4)
+{
+  std::string::__init_with_size[abi:nn200100]<char *,char *>(&__s, __src, a4, a4 - __src);
+  *a1 = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
+  {
+    if (!__s.__r_.__value_.__l.__size_)
+    {
+      goto LABEL_9;
+    }
+
+    p_s = __s.__r_.__value_.__r.__words[0];
+  }
+
+  else
+  {
+    if (!*(&__s.__r_.__value_.__s + 23))
+    {
+      return;
+    }
+
+    p_s = &__s;
+  }
+
+  std::__get_collation_name(&v11, p_s);
+  *a1 = *&v11.__r_.__value_.__l.__data_;
+  v7 = v11.__r_.__value_.__r.__words[2];
+  *(a1 + 16) = *(&v11.__r_.__value_.__l + 2);
+  v8 = HIBYTE(v7);
+  if ((v8 & 0x80u) != 0)
+  {
+    v8 = *(a1 + 8);
+  }
+
+  if (v8)
+  {
+    goto LABEL_9;
+  }
+
+  if ((SHIBYTE(__s.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
+  {
+    if (__s.__r_.__value_.__l.__size_ >= 3)
+    {
+      goto LABEL_9;
+    }
+  }
+
+  else if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) >= 3)
+  {
+    return;
+  }
+
+  (*(**(a2 + 16) + 32))(&v11);
+  if (*(a1 + 23) < 0)
+  {
+    operator delete(*a1);
+  }
+
+  *a1 = v11;
+  if ((*(a1 + 23) & 0x80000000) == 0)
+  {
+    v9 = *(a1 + 23);
+    if (v9 != 12 && v9 != 1)
+    {
+      *a1 = 0;
+      *(a1 + 23) = 0;
+      goto LABEL_9;
+    }
+
+    goto LABEL_23;
+  }
+
+  v10 = *(a1 + 8);
+  if (v10 == 1 || v10 == 12)
+  {
+LABEL_23:
+    std::string::operator=(a1, &__s);
+    goto LABEL_9;
+  }
+
+  **a1 = 0;
+  *(a1 + 8) = 0;
+LABEL_9:
+  if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__s.__r_.__value_.__l.__data_);
+  }
+}
+
+void std::__bracket_expression<char,std::regex_traits<char>>::__exec(const std::__bracket_expression<char, std::regex_traits<char>> *this, std::__bracket_expression<char, std::regex_traits<char>>::__state *a2)
+{
+  current = a2->__current_;
+  last = a2->__last_;
+  if (current == last)
+  {
+    v9 = 0;
+    negate = this->__negate_;
+    goto LABEL_87;
+  }
+
+  if (!this->__might_have_digraph_ || current + 1 == last)
+  {
+    goto LABEL_64;
+  }
+
+  LOBYTE(__src) = *current;
+  v6 = current[1];
+  HIBYTE(__src) = current[1];
+  if (this->__icase_)
+  {
+    LOBYTE(__src) = (this->__traits_.__ct_->do_tolower)(this->__traits_.__ct_);
+    HIBYTE(__src) = (this->__traits_.__ct_->do_tolower)(this->__traits_.__ct_, v6);
+  }
+
+  *(&__s.__r_.__value_.__s + 23) = 2;
+  LOWORD(__s.__r_.__value_.__l.__data_) = __src;
+  __s.__r_.__value_.__s.__data_[2] = 0;
+  std::__get_collation_name(&v113, &__s);
+  __p = v113;
+  size = HIBYTE(v113.__r_.__value_.__r.__words[2]);
+  v8 = SHIBYTE(v113.__r_.__value_.__r.__words[2]);
+  if ((v113.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  {
+    size = v113.__r_.__value_.__l.__size_;
+  }
+
+  if (size)
+  {
+    goto LABEL_9;
+  }
+
+  if ((SHIBYTE(__s.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
+  {
+    if (__s.__r_.__value_.__l.__size_ >= 3)
+    {
+      goto LABEL_9;
+    }
+  }
+
+  else if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) >= 3)
+  {
+    goto LABEL_14;
+  }
+
+  (*(*this->__traits_.__col_ + 32))(&v113);
+  if (v8 < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+
+  __p = v113;
+  if ((SHIBYTE(v113.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  {
+    if (HIBYTE(v113.__r_.__value_.__r.__words[2]) != 12 && HIBYTE(v113.__r_.__value_.__r.__words[2]) != 1)
+    {
+      __p.__r_.__value_.__s.__data_[0] = 0;
+      *(&__p.__r_.__value_.__s + 23) = 0;
+      goto LABEL_9;
+    }
+
+    goto LABEL_178;
+  }
+
+  if (__p.__r_.__value_.__l.__size_ == 1 || __p.__r_.__value_.__l.__size_ == 12)
+  {
+LABEL_178:
+    std::string::operator=(&__p, &__s);
+    goto LABEL_9;
+  }
+
+  *__p.__r_.__value_.__l.__data_ = 0;
+  __p.__r_.__value_.__l.__size_ = 0;
+LABEL_9:
+  if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__s.__r_.__value_.__l.__data_);
+  }
+
+LABEL_14:
+  if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  {
+    if (*(&__p.__r_.__value_.__s + 23))
+    {
+      goto LABEL_16;
+    }
+
+LABEL_64:
+    negate = 0;
+    v9 = 1;
+    goto LABEL_65;
+  }
+
+  v39 = __p.__r_.__value_.__l.__size_;
+  operator delete(__p.__r_.__value_.__l.__data_);
+  if (!v39)
+  {
+    goto LABEL_64;
+  }
+
+LABEL_16:
+  begin = this->__digraphs_.__begin_;
+  v12 = this->__digraphs_.__end_ - begin;
+  if (v12)
+  {
+    v13 = v12 >> 1;
+    if ((v12 >> 1) <= 1)
+    {
+      v13 = 1;
+    }
+
+    p_second = &begin->second;
+    while (__src != *(p_second - 1) || HIBYTE(__src) != *p_second)
+    {
+      p_second += 2;
+      if (!--v13)
+      {
+        goto LABEL_25;
+      }
+    }
+
+    goto LABEL_231;
+  }
+
+LABEL_25:
+  if (this->__collate_ && this->__ranges_.__begin_ != this->__ranges_.__end_)
+  {
+    p_s = &__s;
+    std::regex_traits<char>::transform<char *>(&__s, &this->__traits_, &__src, &v113);
+    v17 = this->__ranges_.__begin_;
+    v18 = HIBYTE(__s.__r_.__value_.__r.__words[2]);
+    v19 = this->__ranges_.__end_ - v17;
+    if (v19)
+    {
+      v20 = 0xAAAAAAAAAAAAAAABLL * (v19 >> 4);
+      v108 = HIBYTE(__s.__r_.__value_.__r.__words[2]);
+      if ((__s.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v21 = HIBYTE(__s.__r_.__value_.__r.__words[2]);
+      }
+
+      else
+      {
+        v21 = __s.__r_.__value_.__l.__size_;
+      }
+
+      if ((__s.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      {
+        p_s = __s.__r_.__value_.__r.__words[0];
+      }
+
+      v22 = v20 <= 1 ? 1 : 0xAAAAAAAAAAAAAAABLL * (v19 >> 4);
+      v23 = &v17->second.__r_.__value_.__r.__words[2] + 7;
+      v24 = 1;
+      v25 = 1;
+      while (1)
+      {
+        v26 = *(v23 - 24);
+        if (v26 >= 0)
+        {
+          v27 = *(v23 - 24);
+        }
+
+        else
+        {
+          v27 = *(v23 - 39);
+        }
+
+        if (v26 >= 0)
+        {
+          v28 = (v23 - 47);
+        }
+
+        else
+        {
+          v28 = *(v23 - 47);
+        }
+
+        if (v27 >= v21)
+        {
+          v29 = v21;
+        }
+
+        else
+        {
+          v29 = v27;
+        }
+
+        v30 = memcmp(p_s, v28, v29);
+        v31 = v21 >= v27;
+        if (v30)
+        {
+          v31 = v30 >= 0;
+        }
+
+        if (v31)
+        {
+          v32 = *v23;
+          if (v32 >= 0)
+          {
+            v33 = *v23;
+          }
+
+          else
+          {
+            v33 = *(v23 - 15);
+          }
+
+          if (v32 >= 0)
+          {
+            v34 = (v23 - 23);
+          }
+
+          else
+          {
+            v34 = *(v23 - 23);
+          }
+
+          if (v21 >= v33)
+          {
+            v35 = v33;
+          }
+
+          else
+          {
+            v35 = v21;
+          }
+
+          v36 = memcmp(v34, p_s, v35);
+          v37 = v33 >= v21;
+          if (v36)
+          {
+            v37 = v36 >= 0;
+          }
+
+          if (v37)
+          {
+            break;
+          }
+        }
+
+        v25 = v24++ < v20;
+        v23 += 48;
+        if (!--v22)
+        {
+          v38 = 0;
+          goto LABEL_181;
+        }
+      }
+
+      v38 = 5;
+LABEL_181:
+      v18 = v108;
+    }
+
+    else
+    {
+      v25 = 0;
+      v38 = 0;
+    }
+
+    if (v18 < 0)
+    {
+      operator delete(__s.__r_.__value_.__l.__data_);
+    }
+
+    if (v25)
+    {
+      v88 = 1;
+      goto LABEL_211;
+    }
+  }
+
+  if (this->__equivalences_.__begin_ == this->__equivalences_.__end_)
+  {
+    v88 = 0;
+    goto LABEL_213;
+  }
+
+  v89 = &__s;
+  std::regex_traits<char>::__transform_primary<char *>(&__s, &this->__traits_, &__src, &v113);
+  v90 = this->__equivalences_.__begin_;
+  v91 = HIBYTE(__s.__r_.__value_.__r.__words[2]);
+  v92 = this->__equivalences_.__end_ - v90;
+  if (v92)
+  {
+    v93 = 0xAAAAAAAAAAAAAAABLL * (v92 >> 3);
+    if ((__s.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v94 = HIBYTE(__s.__r_.__value_.__r.__words[2]);
+    }
+
+    else
+    {
+      v94 = __s.__r_.__value_.__l.__size_;
+    }
+
+    if ((__s.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    {
+      v89 = __s.__r_.__value_.__r.__words[0];
+    }
+
+    if (v93 <= 1)
+    {
+      v95 = 1;
+    }
+
+    else
+    {
+      v95 = 0xAAAAAAAAAAAAAAABLL * (v92 >> 3);
+    }
+
+    v96 = 1;
+    v97 = 1;
+    while (1)
+    {
+      v98 = HIBYTE(v90->__r_.__value_.__r.__words[2]);
+      v99 = v98;
+      if ((v98 & 0x80u) != 0)
+      {
+        v98 = v90->__r_.__value_.__l.__size_;
+      }
+
+      if (v94 == v98)
+      {
+        v100 = v99 >= 0 ? v90 : v90->__r_.__value_.__r.__words[0];
+        if (!memcmp(v89, v100, v94))
+        {
+          break;
+        }
+      }
+
+      v97 = v96++ < v93;
+      ++v90;
+      if (!--v95)
+      {
+        goto LABEL_208;
+      }
+    }
+
+    v88 = 1;
+    v38 = 5;
+    if (v91 < 0)
+    {
+LABEL_209:
+      operator delete(__s.__r_.__value_.__l.__data_);
+    }
+  }
+
+  else
+  {
+    v97 = 0;
+LABEL_208:
+    v38 = 0;
+    v88 = 0;
+    if (v91 < 0)
+    {
+      goto LABEL_209;
+    }
+  }
+
+  if (!v97)
+  {
+LABEL_213:
+    if (__src < 0)
+    {
+      neg_mask = this->__neg_mask_;
+    }
+
+    else
+    {
+      mask = this->__mask_;
+      tab = this->__traits_.__ct_->__tab_;
+      v103 = tab[__src];
+      if (((v103 & mask) != 0 || __src == 95 && (mask & 0x80) != 0) && (SHIBYTE(__src) & 0x8000000000000000) == 0 && ((tab[SHIBYTE(__src)] & mask) != 0 || (mask & 0x80) != 0 && SHIBYTE(__src) == 95))
+      {
+        goto LABEL_231;
+      }
+
+      neg_mask = this->__neg_mask_;
+      if ((v103 & neg_mask) != 0 || __src == 95 && (neg_mask & 0x80) != 0)
+      {
+LABEL_230:
+        negate = v88;
+LABEL_232:
+        v9 = 2;
+        goto LABEL_87;
+      }
+    }
+
+    if ((SHIBYTE(__src) & 0x8000000000000000) == 0)
+    {
+      if ((this->__traits_.__ct_->__tab_[SHIBYTE(__src)] & neg_mask) == 0)
+      {
+        negate = 1;
+        if (SHIBYTE(__src) != 95 || (neg_mask & 0x80) == 0)
+        {
+          goto LABEL_232;
+        }
+      }
+
+      goto LABEL_230;
+    }
+
+LABEL_231:
+    negate = 1;
+    goto LABEL_232;
+  }
+
+LABEL_211:
+  v9 = 2;
+  negate = v88;
+  if (v38)
+  {
+    goto LABEL_87;
+  }
+
+LABEL_65:
+  v40 = *a2->__current_;
+  v113.__r_.__value_.__s.__data_[0] = *a2->__current_;
+  if (this->__icase_)
+  {
+    LODWORD(v40) = (this->__traits_.__ct_->do_tolower)(this->__traits_.__ct_, v40);
+    v113.__r_.__value_.__s.__data_[0] = v40;
+  }
+
+  v41 = this->__chars_.__begin_;
+  v42 = this->__chars_.__end_ - v41;
+  if (v42)
+  {
+    if (v42 <= 1)
+    {
+      v42 = 1;
+    }
+
+    do
+    {
+      v43 = *v41++;
+      if (v43 == v40)
+      {
+        goto LABEL_86;
+      }
+    }
+
+    while (--v42);
+  }
+
+  v44 = this->__neg_mask_;
+  if (v44 || this->__neg_chars_.__begin_ != this->__neg_chars_.__end_)
+  {
+    if ((v40 & 0x80000000) != 0 || (this->__traits_.__ct_->__tab_[v40] & v44) == 0)
+    {
+      v45 = (v40 == 95) & (v44 >> 7);
+    }
+
+    else
+    {
+      LOBYTE(v45) = 1;
+    }
+
+    end = this->__neg_chars_.__end_;
+    v47 = memchr(this->__neg_chars_.__begin_, v40, end - this->__neg_chars_.__begin_);
+    v48 = !v47 || v47 == end;
+    v49 = !v48;
+    if ((v45 & 1) == 0 && !v49)
+    {
+LABEL_86:
+      negate = 1;
+      goto LABEL_87;
+    }
+  }
+
+  v52 = this->__ranges_.__begin_;
+  v53 = this->__ranges_.__end_;
+  if (v52 != v53)
+  {
+    if (this->__collate_)
+    {
+      std::regex_traits<char>::transform<char *>(&__s, &this->__traits_, &v113, &v113.__r_.__value_.__s.__data_[1]);
+      v52 = this->__ranges_.__begin_;
+      v53 = this->__ranges_.__end_;
+      v54 = HIBYTE(__s.__r_.__value_.__r.__words[2]);
+    }
+
+    else
+    {
+      v54 = 1;
+      *(&__s.__r_.__value_.__s + 23) = 1;
+      LOWORD(__s.__r_.__value_.__l.__data_) = v40;
+    }
+
+    v55 = v53 - v52;
+    if (v55)
+    {
+      v109 = v9;
+      v105 = negate;
+      v106 = v54;
+      v56 = 0xAAAAAAAAAAAAAAABLL * (v55 >> 4);
+      if ((v54 & 0x80u) == 0)
+      {
+        v57 = v54;
+      }
+
+      else
+      {
+        v57 = __s.__r_.__value_.__l.__size_;
+      }
+
+      if ((v54 & 0x80u) == 0)
+      {
+        v58 = &__s;
+      }
+
+      else
+      {
+        v58 = __s.__r_.__value_.__r.__words[0];
+      }
+
+      if (v56 <= 1)
+      {
+        v59 = 1;
+      }
+
+      else
+      {
+        v59 = 0xAAAAAAAAAAAAAAABLL * (v55 >> 4);
+      }
+
+      v60 = &v52->second.__r_.__value_.__r.__words[2] + 7;
+      v61 = 1;
+      v62 = 1;
+      while (1)
+      {
+        v63 = *(v60 - 24);
+        if (v63 >= 0)
+        {
+          v64 = *(v60 - 24);
+        }
+
+        else
+        {
+          v64 = *(v60 - 39);
+        }
+
+        if (v63 >= 0)
+        {
+          v65 = (v60 - 47);
+        }
+
+        else
+        {
+          v65 = *(v60 - 47);
+        }
+
+        if (v64 >= v57)
+        {
+          v66 = v57;
+        }
+
+        else
+        {
+          v66 = v64;
+        }
+
+        v67 = memcmp(v58, v65, v66);
+        v68 = v57 >= v64;
+        if (v67)
+        {
+          v68 = v67 >= 0;
+        }
+
+        if (v68)
+        {
+          v69 = *v60;
+          if (v69 >= 0)
+          {
+            v70 = *v60;
+          }
+
+          else
+          {
+            v70 = *(v60 - 15);
+          }
+
+          if (v69 >= 0)
+          {
+            v71 = (v60 - 23);
+          }
+
+          else
+          {
+            v71 = *(v60 - 23);
+          }
+
+          if (v57 >= v70)
+          {
+            v72 = v70;
+          }
+
+          else
+          {
+            v72 = v57;
+          }
+
+          v73 = memcmp(v71, v58, v72);
+          v74 = v70 >= v57;
+          if (v73)
+          {
+            v74 = v73 >= 0;
+          }
+
+          if (v74)
+          {
+            break;
+          }
+        }
+
+        v62 = v61++ < v56;
+        v60 += 48;
+        if (!--v59)
+        {
+          negate = v105;
+          goto LABEL_142;
+        }
+      }
+
+      negate = 1;
+LABEL_142:
+      v9 = v109;
+      if ((v106 & 0x80) == 0)
+      {
+LABEL_144:
+        if (v62)
+        {
+          goto LABEL_87;
+        }
+
+        goto LABEL_145;
+      }
+    }
+
+    else
+    {
+      v62 = 0;
+      if ((v54 & 0x80) == 0)
+      {
+        goto LABEL_144;
+      }
+    }
+
+    operator delete(__s.__r_.__value_.__l.__data_);
+    goto LABEL_144;
+  }
+
+LABEL_145:
+  if (this->__equivalences_.__begin_ == this->__equivalences_.__end_)
+  {
+    goto LABEL_171;
+  }
+
+  v75 = &__s;
+  std::regex_traits<char>::__transform_primary<char *>(&__s, &this->__traits_, &v113, &v113.__r_.__value_.__s.__data_[1]);
+  v76 = this->__equivalences_.__begin_;
+  v77 = this->__equivalences_.__end_ - v76;
+  if (!v77)
+  {
+    v82 = 0;
+    if ((*(&__s.__r_.__value_.__s + 23) & 0x80) == 0)
+    {
+      goto LABEL_170;
+    }
+
+    goto LABEL_169;
+  }
+
+  v107 = HIBYTE(__s.__r_.__value_.__r.__words[2]);
+  v110 = v9;
+  v78 = 0xAAAAAAAAAAAAAAABLL * (v77 >> 3);
+  if ((__s.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v79 = HIBYTE(__s.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    v79 = __s.__r_.__value_.__l.__size_;
+  }
+
+  if ((__s.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  {
+    v75 = __s.__r_.__value_.__r.__words[0];
+  }
+
+  if (v78 <= 1)
+  {
+    v80 = 1;
+  }
+
+  else
+  {
+    v80 = 0xAAAAAAAAAAAAAAABLL * (v77 >> 3);
+  }
+
+  v81 = 1;
+  v82 = 1;
+  while (1)
+  {
+    v83 = HIBYTE(v76->__r_.__value_.__r.__words[2]);
+    v84 = v83;
+    if ((v83 & 0x80u) != 0)
+    {
+      v83 = v76->__r_.__value_.__l.__size_;
+    }
+
+    if (v79 == v83)
+    {
+      v85 = v84 >= 0 ? v76 : v76->__r_.__value_.__r.__words[0];
+      if (!memcmp(v75, v85, v79))
+      {
+        break;
+      }
+    }
+
+    v82 = v81++ < v78;
+    ++v76;
+    if (!--v80)
+    {
+      goto LABEL_168;
+    }
+  }
+
+  negate = 1;
+LABEL_168:
+  v9 = v110;
+  if (v107 < 0)
+  {
+LABEL_169:
+    operator delete(__s.__r_.__value_.__l.__data_);
+  }
+
+LABEL_170:
+  if (v82)
+  {
+    goto LABEL_87;
+  }
+
+LABEL_171:
+  v86 = this->__mask_;
+  if ((v113.__r_.__value_.__s.__data_[0] & 0x8000000000000000) == 0 && (this->__traits_.__ct_->__tab_[v113.__r_.__value_.__s.__data_[0]] & v86) != 0)
+  {
+    goto LABEL_86;
+  }
+
+  v87 = (v86 >> 7) & 1;
+  if (v113.__r_.__value_.__s.__data_[0] != 95)
+  {
+    LOBYTE(v87) = 0;
+  }
+
+  negate |= v87;
+LABEL_87:
+  if (this->__negate_ == (negate & 1))
+  {
+    first = 0;
+    v51 = -993;
+  }
+
+  else
+  {
+    a2->__current_ += v9;
+    first = this->__first_;
+    v51 = -995;
+  }
+
+  a2->__do_ = v51;
+  a2->__node_ = first;
+}
+
+void std::regex_traits<char>::transform<char *>(int a1, uint64_t a2, _BYTE *__src, _BYTE *a4)
+{
+  std::string::__init_with_size[abi:nn200100]<char *,char *>(__p, __src, a4, a4 - __src);
+  v5 = v8;
+  if ((v8 & 0x80u) == 0)
+  {
+    v6 = __p;
+  }
+
+  else
+  {
+    v6 = __p[0];
+  }
+
+  if ((v8 & 0x80u) != 0)
+  {
+    v5 = __p[1];
+  }
+
+  (*(**(a2 + 16) + 32))(*(a2 + 16), v6, v6 + v5);
+  if (v8 < 0)
+  {
+    operator delete(__p[0]);
+  }
+}
+
+void std::regex_traits<char>::__transform_primary<char *>(uint64_t a1, uint64_t a2, _BYTE *__src, _BYTE *a4)
+{
+  std::string::__init_with_size[abi:nn200100]<char *,char *>(__p, __src, a4, a4 - __src);
+  v6 = v12;
+  if ((v12 & 0x80u) == 0)
+  {
+    v7 = __p;
+  }
+
+  else
+  {
+    v7 = __p[0];
+  }
+
+  if ((v12 & 0x80u) != 0)
+  {
+    v6 = __p[1];
+  }
+
+  (*(**(a2 + 16) + 32))(*(a2 + 16), v7, v7 + v6);
+  v8 = *(a1 + 23);
+  v9 = v8;
+  if ((v8 & 0x80u) != 0)
+  {
+    v8 = *(a1 + 8);
+  }
+
+  if (v8 != 1)
+  {
+    if (v8 == 12)
+    {
+      if (v9 >= 0)
+      {
+        v10 = a1;
+      }
+
+      else
+      {
+        v10 = *a1;
+      }
+
+      v10[11] = v10[3];
+    }
+
+    else if (v9 < 0)
+    {
+      **a1 = 0;
+      *(a1 + 8) = 0;
+    }
+
+    else
+    {
+      *a1 = 0;
+      *(a1 + 23) = 0;
+    }
+  }
+
+  if (v12 < 0)
+  {
+    operator delete(__p[0]);
+  }
+}
+
+void *std::string::__init_with_size[abi:nn200100]<char *,char *>(void *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
+{
+  if (a4 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::string::__throw_length_error[abi:nn200100]();
+  }
+
+  v4 = __dst;
+  if (a4 > 0x16)
+  {
+    operator new();
+  }
+
+  *(__dst + 23) = a4;
+  v5 = a3 - __src;
+  if (a3 != __src)
+  {
+    __dst = memmove(__dst, __src, v5);
+  }
+
+  *(v4 + v5) = 0;
+  return __dst;
+}
+
+void std::__bracket_expression<char,std::regex_traits<char>>::~__bracket_expression(std::locale *a1)
+{
+  std::__bracket_expression<char,std::regex_traits<char>>::~__bracket_expression(a1);
+
+  JUMPOUT(0x20F331DC0);
+}
+
+std::locale *std::__bracket_expression<char,std::regex_traits<char>>::~__bracket_expression(std::locale *a1)
+{
+  v10 = &a1[17];
+  std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v10);
+  locale = a1[14].__locale_;
+  if (locale)
+  {
+    a1[15].__locale_ = locale;
+    operator delete(locale);
+  }
+
+  v3 = a1[11].__locale_;
+  if (v3)
+  {
+    v4 = a1[12].__locale_;
+    v5 = a1[11].__locale_;
+    if (v4 != v3)
+    {
+      do
+      {
+        v4 = (v4 - 48);
+        std::allocator<std::pair<std::string,std::string>>::destroy[abi:nn200100](v4);
+      }
+
+      while (v4 != v3);
+      v5 = a1[11].__locale_;
+    }
+
+    a1[12].__locale_ = v3;
+    operator delete(v5);
+  }
+
+  v6 = a1[8].__locale_;
+  if (v6)
+  {
+    a1[9].__locale_ = v6;
+    operator delete(v6);
+  }
+
+  v7 = a1[5].__locale_;
+  if (v7)
+  {
+    a1[6].__locale_ = v7;
+    operator delete(v7);
+  }
+
+  std::locale::~locale(a1 + 2);
+  v8 = a1[1].__locale_;
+  if (v8)
+  {
+    (*(*v8 + 8))(v8);
+  }
+
+  return a1;
+}
+
+uint64_t std::__match_any<char>::__exec(uint64_t result, uint64_t a2)
+{
+  v2 = *(a2 + 16);
+  if (v2 == *(a2 + 24) || !*v2)
+  {
+    v3 = 0;
+    *a2 = -993;
+  }
+
+  else
+  {
+    *a2 = -995;
+    *(a2 + 16) = v2 + 1;
+    v3 = *(result + 8);
+  }
+
+  *(a2 + 80) = v3;
+  return result;
+}
+
+void std::__match_any<char>::~__match_any(void (__cdecl ***a1)(std::__owns_one_state<char> *__hidden this))
+{
+  v1 = a1[1];
+  if (v1)
+  {
+    (*(*v1 + 1))(v1);
+  }
+
+  JUMPOUT(0x20F331DC0);
+}
+
+void (__cdecl ***std::__match_any<char>::~__match_any(void (__cdecl ***a1)(std::__owns_one_state<char> *__hidden this)))(std::__owns_one_state<char> *__hidden this)
+{
+  v2 = a1[1];
+  if (v2)
+  {
+    (*(*v2 + 1))(v2);
+  }
+
+  return a1;
+}
+
+BOOL std::basic_regex<char,std::regex_traits<char>>::__test_back_ref(std::basic_regex<char> *this, char a2)
+{
+  if ((a2 & 0xF8) != 0x30 && (a2 & 0xFE) != 0x38 || a2 - 49 > 8)
+  {
+    return 0;
+  }
+
+  if (a2 - 48 > this->__marked_count_)
+  {
+    v3 = std::__throw_regex_error[abi:nn200100]<(std::regex_constants::error_type)17>();
+    std::basic_regex<char,std::regex_traits<char>>::__push_back_ref(v3, v4);
+  }
+
+  else
+  {
+    std::basic_regex<char,std::regex_traits<char>>::__push_back_ref(this, a2 - 48);
+    return 1;
+  }
+
+  return result;
+}
+
+void std::basic_regex<char,std::regex_traits<char>>::__push_back_ref(std::basic_regex<char> *this, int __i)
+{
+  flags = this->__flags_;
+  if ((flags & 1) == 0)
+  {
+    if ((flags & 8) == 0)
+    {
+      operator new();
+    }
+
+    operator new();
+  }
+
+  operator new();
+}
+
+void std::__back_ref<char>::__exec(uint64_t result, uint64_t a2)
+{
+  v2 = *(result + 16);
+  v3 = *(a2 + 32);
+  if (0xAAAAAAAAAAAAAAABLL * ((*(a2 + 40) - v3) >> 3) < v2)
+  {
+    v10 = std::__throw_regex_error[abi:nn200100]<(std::regex_constants::error_type)17>();
+    std::__back_ref<char>::~__back_ref(v10);
+  }
+
+  else
+  {
+    v5 = v3 + 24 * (v2 - 1);
+    if (*(v5 + 16) == 1 && (v7 = *(v5 + 8) - *v5, v8 = *(a2 + 16), *(a2 + 24) - v8 >= v7) && !memcmp(*v5, *(a2 + 16), v7))
+    {
+      *a2 = -994;
+      *(a2 + 16) = v8 + v7;
+      v9 = *(result + 8);
+    }
+
+    else
+    {
+      v9 = 0;
+      *a2 = -993;
+    }
+
+    *(a2 + 80) = v9;
+  }
+}
+
+void std::__back_ref<char>::~__back_ref(void (__cdecl ***a1)(std::__owns_one_state<char> *__hidden this))
+{
+  v1 = a1[1];
+  if (v1)
+  {
+    (*(*v1 + 1))(v1);
+  }
+
+  JUMPOUT(0x20F331DC0);
+}
+
+void (__cdecl ***std::__back_ref<char>::~__back_ref(void (__cdecl ***a1)(std::__owns_one_state<char> *__hidden this)))(std::__owns_one_state<char> *__hidden this)
+{
+  v2 = a1[1];
+  if (v2)
+  {
+    (*(*v2 + 1))(v2);
+  }
+
+  return a1;
+}
+
+uint64_t std::__back_ref_collate<char,std::regex_traits<char>>::__exec(uint64_t result, uint64_t a2)
+{
+  v2 = *(a2 + 32) + 24 * (*(result + 40) - 1);
+  if (*(v2 + 16) == 1)
+  {
+    v3 = *v2;
+    v4 = *(v2 + 8) - *v2;
+    v5 = *(a2 + 16);
+    if (*(a2 + 24) - v5 >= v4)
+    {
+      if (v4 < 1)
+      {
+LABEL_9:
+        *a2 = -994;
+        *(a2 + 16) = v5 + v4;
+        v6 = *(result + 8);
+        goto LABEL_4;
+      }
+
+      v7 = v4;
+      v8 = *(a2 + 16);
+      while (1)
+      {
+        v10 = *v3++;
+        v9 = v10;
+        v11 = *v8++;
+        if (v9 != v11)
+        {
+          break;
+        }
+
+        if (!--v7)
+        {
+          goto LABEL_9;
+        }
+      }
+    }
+  }
+
+  v6 = 0;
+  *a2 = -993;
+LABEL_4:
+  *(a2 + 80) = v6;
+  return result;
+}
+
+void std::__back_ref_collate<char,std::regex_traits<char>>::~__back_ref_collate(std::locale *a1)
+{
+  a1->__locale_ = &unk_2825BEDA0;
+  std::locale::~locale(a1 + 2);
+  locale = a1[1].__locale_;
+  if (locale)
+  {
+    (*(*locale + 8))(locale);
+  }
+
+  JUMPOUT(0x20F331DC0);
+}
+
+std::locale *std::__back_ref_collate<char,std::regex_traits<char>>::~__back_ref_collate(std::locale *a1)
+{
+  a1->__locale_ = &unk_2825BEDA0;
+  std::locale::~locale(a1 + 2);
+  locale = a1[1].__locale_;
+  if (locale)
+  {
+    (*(*locale + 8))(locale);
+  }
+
+  return a1;
+}
+
+uint64_t std::__back_ref_icase<char,std::regex_traits<char>>::__exec(uint64_t result, uint64_t a2)
+{
+  v3 = *(a2 + 32) + 24 * (*(result + 40) - 1);
+  if (*(v3 + 16) == 1)
+  {
+    v4 = *(v3 + 8) - *v3;
+    v5 = *(a2 + 16);
+    if (*(a2 + 24) - v5 >= v4)
+    {
+      v7 = result;
+      if (v4 < 1)
+      {
+LABEL_10:
+        *a2 = -994;
+        *(a2 + 16) = v5 + v4;
+        v6 = *(v7 + 8);
+        goto LABEL_4;
+      }
+
+      v8 = 0;
+      while (1)
+      {
+        v9 = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*v3 + v8));
+        result = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*(a2 + 16) + v8));
+        if (v9 != result)
+        {
+          break;
+        }
+
+        if (v4 == ++v8)
+        {
+          v5 = *(a2 + 16);
+          goto LABEL_10;
+        }
+      }
+    }
+  }
+
+  v6 = 0;
+  *a2 = -993;
+LABEL_4:
+  *(a2 + 80) = v6;
+  return result;
+}
+
+void std::__back_ref_icase<char,std::regex_traits<char>>::~__back_ref_icase(std::locale *a1)
+{
+  a1->__locale_ = &unk_2825BED70;
+  std::locale::~locale(a1 + 2);
+  locale = a1[1].__locale_;
+  if (locale)
+  {
+    (*(*locale + 8))(locale);
+  }
+
+  JUMPOUT(0x20F331DC0);
+}
+
+std::locale *std::__back_ref_icase<char,std::regex_traits<char>>::~__back_ref_icase(std::locale *a1)
+{
+  a1->__locale_ = &unk_2825BED70;
+  std::locale::~locale(a1 + 2);
+  locale = a1[1].__locale_;
+  if (locale)
+  {
+    (*(*locale + 8))(locale);
+  }
+
+  return a1;
+}
+
+std::string *std::basic_regex<char,std::regex_traits<char>>::__parse_simple_RE<char const*>(std::basic_regex<char> *a1, std::string *a2, std::string *a3)
+{
+  v3 = a2;
+  if (a2 == a3)
+  {
+    return v3;
+  }
+
+  end = a1->__end_;
+  marked_count = a1->__marked_count_;
+  v9 = (&a2->__r_.__value_.__l.__data_ + 1);
+  v8 = a2->__r_.__value_.__s.__data_[0];
+  if ((&a2->__r_.__value_.__l.__data_ + 1) == a3 && v8 == 36 || ((v8 - 46) <= 0x2E ? (v10 = ((1 << (v8 - 46)) & 0x600000000001) == 0) : (v10 = 1), !v10))
+  {
+    v11 = std::basic_regex<char,std::regex_traits<char>>::__parse_QUOTED_CHAR<char const*>(a1, a2, a3);
+    v9 = v11;
+    if (v11 == v3)
+    {
+      if (v11->__r_.__value_.__s.__data_[0] == 46)
+      {
+        operator new();
+      }
+
+      v9 = std::basic_regex<char,std::regex_traits<char>>::__parse_bracket_expression<char const*>(a1, v3, a3);
+    }
+
+    if (v9 == v3 && v9 != a3 && (&v9->__r_.__value_.__l.__data_ + 1) != a3 && v9->__r_.__value_.__s.__data_[0] == 92)
+    {
+      v12 = v9->__r_.__value_.__s.__data_[1];
+      if (v12 == 40)
+      {
+        v13 = &v9->__r_.__value_.__s.__data_[2];
+        std::basic_regex<char,std::regex_traits<char>>::__push_begin_marked_subexpression(a1);
+        v14 = a1->__marked_count_;
+        do
+        {
+          v15 = v13;
+          v16 = std::basic_regex<char,std::regex_traits<char>>::__parse_simple_RE<char const*>(a1, v13, a3);
+          v13 = v16;
+        }
+
+        while (v16 != v15);
+        if (v15 == a3 || (v16 + 1) == a3 || *v16 != 92 || *(v16 + 1) != 41)
+        {
+          std::__throw_regex_error[abi:nn200100]<(std::regex_constants::error_type)17>();
+          goto LABEL_54;
+        }
+
+        v9 = (v16 + 2);
+        std::basic_regex<char,std::regex_traits<char>>::__push_end_marked_subexpression(a1, v14);
+      }
+
+      else
+      {
+        v17 = std::basic_regex<char,std::regex_traits<char>>::__test_back_ref(a1, v12);
+        v18 = 2;
+        if (!v17)
+        {
+          v18 = 0;
+        }
+
+        v9 = (v9 + v18);
+      }
+    }
+
+    if (v9 == v3)
+    {
+      return v3;
+    }
+  }
+
+  else
+  {
+    std::basic_regex<char,std::regex_traits<char>>::__push_char(a1, v8);
+  }
+
+  if (v9 == a3)
+  {
+    return v9;
+  }
+
+  v19 = a1->__marked_count_ + 1;
+  v20 = v9->__r_.__value_.__s.__data_[0];
+  if (v20 == 42)
+  {
+    std::basic_regex<char,std::regex_traits<char>>::__push_loop(a1, 0, 0xFFFFFFFFFFFFFFFFLL, end, marked_count + 1, a1->__marked_count_ + 1, 1);
+    return (&v9->__r_.__value_.__l.__data_ + 1);
+  }
+
+  if ((&v9->__r_.__value_.__l.__data_ + 1) == a3 || v20 != 92 || v9->__r_.__value_.__s.__data_[1] != 123)
+  {
+    return v9;
+  }
+
+  LODWORD(__max) = 0;
+  v21 = std::basic_regex<char,std::regex_traits<char>>::__parse_DUP_COUNT<char const*>(&v9->__r_.__value_.__s.__data_[2], a3, &__max);
+  if (v21 == &v9->__r_.__value_.__s.__data_[2])
+  {
+    goto LABEL_55;
+  }
+
+  if (v21 == a3)
+  {
+    goto LABEL_54;
+  }
+
+  v22 = (&v21->__r_.__value_.__l.__data_ + 1);
+  v23 = v21->__r_.__value_.__s.__data_[0];
+  if (v23 != 44)
+  {
+    if (v22 != a3 && v23 == 92 && v22->__r_.__value_.__s.__data_[0] == 125)
+    {
+      v3 = &v21->__r_.__value_.__s.__data_[2];
+      std::basic_regex<char,std::regex_traits<char>>::__push_loop(a1, __max, __max, end, marked_count + 1, v19, 1);
+      return v3;
+    }
+
+    goto LABEL_54;
+  }
+
+  v34 = -1;
+  v24 = std::basic_regex<char,std::regex_traits<char>>::__parse_DUP_COUNT<char const*>(&v21->__r_.__value_.__s.__data_[1], a3, &v34);
+  if (v24 == a3 || (v25 = v24, v24 + 1 == a3) || *v24 != 92 || (v26 = v24[1], v27 = v26 == 125, v26 != 125))
+  {
+LABEL_54:
+    std::__throw_regex_error[abi:nn200100]<(std::regex_constants::error_type)17>();
+    goto LABEL_55;
+  }
+
+  v28 = v34;
+  if (v34 == -1)
+  {
+    v29 = a1;
+    v28 = -1;
+    goto LABEL_52;
+  }
+
+  if (v34 >= __max)
+  {
+    v29 = a1;
+LABEL_52:
+    std::basic_regex<char,std::regex_traits<char>>::__push_loop(v29, __max, v28, end, marked_count + 1, v19, 1);
+    return &v25[2 * v27];
+  }
+
+LABEL_55:
+  v31 = std::__throw_regex_error[abi:nn200100]<(std::regex_constants::error_type)17>();
+  return std::basic_regex<char,std::regex_traits<char>>::__parse_QUOTED_CHAR<char const*>(v31, v32, v33);
+}
+
+_BYTE *std::basic_regex<char,std::regex_traits<char>>::__parse_QUOTED_CHAR<char const*>(std::basic_regex<char> *a1, _BYTE *a2, _BYTE *a3)
+{
+  v3 = a2;
+  if (a2 != a3 && a2 + 1 != a3 && *a2 == 92)
+  {
+    v4 = a2[1];
+    if ((v4 - 36) <= 0x3A && ((1 << (v4 - 36)) & 0x580000000000441) != 0)
+    {
+      std::basic_regex<char,std::regex_traits<char>>::__push_char(a1, v4);
+      v3 += 2;
+    }
+  }
+
+  return v3;
+}
+
+void std::basic_regex<char,std::regex_traits<char>>::__parse_term<char const*>(std::basic_regex<char> *a1, std::string *a2, std::string *a3)
+{
+  if (a2 == a3)
+  {
+    return;
+  }
+
+  v6 = a2->__r_.__value_.__s.__data_[0];
+  if (v6 > 0x5B)
+  {
+    if (v6 == 92)
+    {
+      if ((&a2->__r_.__value_.__l.__data_ + 1) == a3)
+      {
+        end = a1->__end_;
+        marked_count = a1->__marked_count_;
+        goto LABEL_36;
+      }
+
+      v13 = a2->__r_.__value_.__s.__data_[1];
+      if (v13 == 66)
+      {
+        v14 = 1;
+      }
+
+      else
+      {
+        if (v13 != 98)
+        {
+          goto LABEL_27;
+        }
+
+        v14 = 0;
+      }
+
+      std::basic_regex<char,std::regex_traits<char>>::__push_word_boundary(a1, v14);
+      return;
+    }
+
+    if (v6 == 94)
+    {
+      std::basic_regex<char,std::regex_traits<char>>::__push_l_anchor(a1);
+      return;
+    }
+  }
+
+  else
+  {
+    if (v6 == 36)
+    {
+      std::basic_regex<char,std::regex_traits<char>>::__push_r_anchor(a1);
+      return;
+    }
+
+    if (v6 == 40)
+    {
+      if ((&a2->__r_.__value_.__l.__data_ + 1) == a3)
+      {
+        end = a1->__end_;
+        marked_count = a1->__marked_count_;
+LABEL_41:
+        if ((&a2->__r_.__value_.__l.__data_ + 1) == a3)
+        {
+LABEL_96:
+          std::__throw_regex_error[abi:nn200100]<(std::regex_constants::error_type)17>();
+LABEL_97:
+          std::__throw_regex_error[abi:nn200100]<(std::regex_constants::error_type)17>();
+          goto LABEL_98;
+        }
+
+        if (&a2->__r_.__value_.__s.__data_[2] != a3 && a2->__r_.__value_.__s.__data_[1] == 63 && a2->__r_.__value_.__s.__data_[2] == 58)
+        {
+          p_open_count = &a1->__open_count_;
+          ++a1->__open_count_;
+          v21 = std::basic_regex<char,std::regex_traits<char>>::__parse_ecma_exp<char const*>(a1, &a2->__r_.__value_.__s.__data_[3], a3);
+          if (v21 == a3)
+          {
+            goto LABEL_96;
+          }
+
+          v22 = v21;
+          if (v21->__r_.__value_.__s.__data_[0] != 41)
+          {
+            goto LABEL_96;
+          }
+        }
+
+        else
+        {
+          std::basic_regex<char,std::regex_traits<char>>::__push_begin_marked_subexpression(a1);
+          v23 = a1->__marked_count_;
+          p_open_count = &a1->__open_count_;
+          ++a1->__open_count_;
+          v24 = std::basic_regex<char,std::regex_traits<char>>::__parse_ecma_exp<char const*>(a1, &a2->__r_.__value_.__s.__data_[1], a3);
+          if (v24 == a3)
+          {
+            goto LABEL_96;
+          }
+
+          v22 = v24;
+          if (v24->__r_.__value_.__s.__data_[0] != 41)
+          {
+            goto LABEL_96;
+          }
+
+          std::basic_regex<char,std::regex_traits<char>>::__push_end_marked_subexpression(a1, v23);
+        }
+
+        --*p_open_count;
+        v25 = (&v22->__r_.__value_.__l.__data_ + 1);
+LABEL_53:
+        if (v25 == a2)
+        {
+          return;
+        }
+
+        goto LABEL_93;
+      }
+
+      if (a2->__r_.__value_.__s.__data_[1] != 63 || &a2->__r_.__value_.__s.__data_[2] == a3)
+      {
+        goto LABEL_27;
+      }
+
+      v7 = a2->__r_.__value_.__s.__data_[2];
+      if (v7 == 33)
+      {
+        std::regex_traits<char>::regex_traits(&v40.__traits_);
+        memset(&v40.__flags_, 0, 40);
+        v40.__flags_ = a1->__flags_;
+        v8 = std::basic_regex<char,std::regex_traits<char>>::__parse<char const*>(&v40, &a2->__r_.__value_.__s.__data_[3], a3);
+        v9 = v40.__marked_count_;
+        v10 = a1->__marked_count_;
+        v11 = a1;
+        v12 = 1;
+LABEL_24:
+        std::basic_regex<char,std::regex_traits<char>>::__push_lookahead(v11, &v40, v12, v10);
+        a1->__marked_count_ += v9;
+        if (v8 == a3 || *v8 != 41)
+        {
+          goto LABEL_96;
+        }
+
+        std::basic_regex<char,std::regex_traits<char>>::~basic_regex(&v40.__traits_.__loc_);
+        if ((v8 + 1) != a2)
+        {
+          return;
+        }
+
+        goto LABEL_27;
+      }
+
+      if (v7 == 61)
+      {
+        std::regex_traits<char>::regex_traits(&v40.__traits_);
+        memset(&v40.__flags_, 0, 40);
+        v40.__flags_ = a1->__flags_;
+        v8 = std::basic_regex<char,std::regex_traits<char>>::__parse<char const*>(&v40, &a2->__r_.__value_.__s.__data_[3], a3);
+        v9 = v40.__marked_count_;
+        v10 = a1->__marked_count_;
+        v11 = a1;
+        v12 = 0;
+        goto LABEL_24;
+      }
+
+LABEL_27:
+      v6 = a2->__r_.__value_.__s.__data_[0];
+    }
+  }
+
+  end = a1->__end_;
+  marked_count = a1->__marked_count_;
+  if (v6 <= 62)
+  {
+    if (v6 > 40)
+    {
+      if (v6 == 41)
+      {
+        return;
+      }
+
+      if (v6 == 46)
+      {
+        operator new();
+      }
+
+      if ((v6 - 42) < 2)
+      {
+        goto LABEL_98;
+      }
+
+      goto LABEL_80;
+    }
+
+    if (v6 == 36)
+    {
+      return;
+    }
+
+    if (v6 != 40)
+    {
+      goto LABEL_80;
+    }
+
+    goto LABEL_41;
+  }
+
+  v17 = (v6 - 92);
+  if (v17 <= 0x21)
+  {
+    if (((1 << (v6 - 92)) & 0x300000006) != 0)
+    {
+      return;
+    }
+
+    if (v6 == 92)
+    {
+LABEL_36:
+      v18 = (&a2->__r_.__value_.__l.__data_ + 1);
+      if ((&a2->__r_.__value_.__l.__data_ + 1) == a3)
+      {
+LABEL_99:
+        v39 = std::__throw_regex_error[abi:nn200100]<(std::regex_constants::error_type)17>();
+        std::__match_any_but_newline<char>::~__match_any_but_newline(v39);
+        return;
+      }
+
+      v19 = v18->__r_.__value_.__s.__data_[0];
+      if (v19 == 48)
+      {
+        std::basic_regex<char,std::regex_traits<char>>::__push_char(a1, 0);
+LABEL_92:
+        v25 = &a2->__r_.__value_.__s.__data_[2];
+        goto LABEL_93;
+      }
+
+      if ((v19 - 49) <= 8)
+      {
+        v26 = (v19 - 48);
+        v25 = &a2->__r_.__value_.__s.__data_[2];
+        if (&a2->__r_.__value_.__s.__data_[2] != a3)
+        {
+          while (1)
+          {
+            v27 = v25->__r_.__value_.__s.__data_[0];
+            if ((v27 - 48) > 9)
+            {
+              break;
+            }
+
+            if (v26 >= 0x19999999)
+            {
+              goto LABEL_97;
+            }
+
+            v26 = v27 + 10 * v26 - 48;
+            v25 = (v25 + 1);
+            if (v25 == a3)
+            {
+              v25 = a3;
+              break;
+            }
+          }
+
+          if (!v26)
+          {
+            goto LABEL_97;
+          }
+        }
+
+        if (v26 > marked_count)
+        {
+          goto LABEL_97;
+        }
+
+        std::basic_regex<char,std::regex_traits<char>>::__push_back_ref(a1, v26);
+        if (v25 != v18)
+        {
+          goto LABEL_53;
+        }
+
+        v19 = v18->__r_.__value_.__s.__data_[0];
+      }
+
+      if (v19 > 99)
+      {
+        if (v19 == 119)
+        {
+          v28 = a1;
+          v29 = 0;
+          goto LABEL_84;
+        }
+
+        if (v19 == 115)
+        {
+          v36 = a1;
+          v37 = 0;
+LABEL_90:
+          started = std::basic_regex<char,std::regex_traits<char>>::__start_matching_list(v36, v37);
+          v33 = started->__mask_ | 0x4000;
+          goto LABEL_91;
+        }
+
+        if (v19 != 100)
+        {
+          goto LABEL_85;
+        }
+
+        v30 = a1;
+        v31 = 0;
+      }
+
+      else
+      {
+        if (v19 != 68)
+        {
+          if (v19 != 83)
+          {
+            if (v19 == 87)
+            {
+              v28 = a1;
+              v29 = 1;
+LABEL_84:
+              v34 = std::basic_regex<char,std::regex_traits<char>>::__start_matching_list(v28, v29);
+              v34->__mask_ |= 0x500u;
+              std::__bracket_expression<char,std::regex_traits<char>>::__add_char[abi:nn200100](v34, 95);
+              goto LABEL_92;
+            }
+
+LABEL_85:
+            std::basic_regex<char,std::regex_traits<char>>::__parse_character_escape<char const*>(a1, &a2->__r_.__value_.__s.__data_[1], a3, 0);
+            if (v35 == v18)
+            {
+              v25 = a2;
+            }
+
+            else
+            {
+              v25 = v35;
+            }
+
+            goto LABEL_53;
+          }
+
+          v36 = a1;
+          v37 = 1;
+          goto LABEL_90;
+        }
+
+        v30 = a1;
+        v31 = 1;
+      }
+
+      started = std::basic_regex<char,std::regex_traits<char>>::__start_matching_list(v30, v31);
+      v33 = started->__mask_ | 0x400;
+LABEL_91:
+      started->__mask_ = v33;
+      goto LABEL_92;
+    }
+
+    if (v17 == 31)
+    {
+      goto LABEL_98;
+    }
+  }
+
+  if (v6 == 91)
+  {
+    v25 = std::basic_regex<char,std::regex_traits<char>>::__parse_bracket_expression<char const*>(a1, a2, a3);
+    goto LABEL_53;
+  }
+
+  if (v6 == 63)
+  {
+LABEL_98:
+    std::__throw_regex_error[abi:nn200100]<(std::regex_constants::error_type)17>();
+    goto LABEL_99;
+  }
+
+LABEL_80:
+  std::basic_regex<char,std::regex_traits<char>>::__push_char(a1, v6);
+  v25 = (&a2->__r_.__value_.__l.__data_ + 1);
+LABEL_93:
+  v38 = a1->__marked_count_ + 1;
+
+  std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_dupl_symbol<char const*>(a1, v25, a3, end, marked_count + 1, v38);
+}
+
+void std::__match_any_but_newline<char>::~__match_any_but_newline(void (__cdecl ***a1)(std::__owns_one_state<char> *__hidden this))
+{
+  v1 = a1[1];
+  if (v1)
+  {
+    (*(*v1 + 1))(v1);
+  }
+
+  JUMPOUT(0x20F331DC0);
+}
+
+void (__cdecl ***std::__match_any_but_newline<char>::~__match_any_but_newline(void (__cdecl ***a1)(std::__owns_one_state<char> *__hidden this)))(std::__owns_one_state<char> *__hidden this)
+{
+  v2 = a1[1];
+  if (v2)
+  {
+    (*(*v2 + 1))(v2);
+  }
+
+  return a1;
+}
+
+void std::basic_regex<char,std::regex_traits<char>>::~basic_regex(std::locale *this)
+{
+  locale = this[6].__locale_;
+  if (locale)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](locale);
+  }
+
+  std::locale::~locale(this);
+}
+
+void std::__lookahead<char,std::regex_traits<char>>::__exec(uint64_t a1, uint64_t a2)
+{
+  v20 = 0;
+  v21 = 0;
+  v22 = 0;
+  memset(&v23, 0, 17);
+  v24 = 0;
+  v25 = 0;
+  memset(&__p, 0, sizeof(__p));
+  v4 = (*(a1 + 44) + 1);
+  v5 = *(a2 + 16);
+  v19.first = *(a2 + 24);
+  v19.second = v19.first;
+  v19.matched = 0;
+  std::vector<std::sub_match<char const*>>::assign(&__p, v4, &v19);
+  v20 = v5;
+  v21 = v5;
+  v22 = 0;
+  v23 = v19;
+  v25 = v5;
+  v24 = 1;
+  v6 = *(a2 + 16);
+  if (v6 == *(a2 + 8))
+  {
+    v7 = *(a2 + 92);
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(a1 + 16, v6, *(a2 + 24), &__p, *(a2 + 88) & 0xFBF | 0x40, v7);
+  if (*(a1 + 84) == v8)
+  {
+    *a2 = -993;
+    *(a2 + 80) = 0;
+    begin = __p.__begin_;
+    goto LABEL_10;
+  }
+
+  *a2 = -994;
+  *(a2 + 80) = *(a1 + 8);
+  begin = __p.__begin_;
+  v10 = 0xAAAAAAAAAAAAAAABLL * ((__p.__end_ - __p.__begin_) >> 3);
+  if (v10 < 2)
+  {
+LABEL_10:
+    if (!begin)
+    {
+      return;
+    }
+
+    goto LABEL_11;
+  }
+
+  v11 = *(a1 + 80);
+  v12 = *(a2 + 32);
+  v13 = 2;
+  v14 = 1;
+  do
+  {
+    v15 = &begin[v14];
+    v16 = v12 + 24 * (v11 + v13 - 2);
+    *v16 = v15->std::pair<const char *, const char *>;
+    *(v16 + 16) = v15->matched;
+    v14 = v13;
+  }
+
+  while (v10 > v13++);
+LABEL_11:
+
+  operator delete(begin);
+}
+
+void std::__lookahead<char,std::regex_traits<char>>::~__lookahead(std::locale *a1)
+{
+  a1->__locale_ = &unk_2825BEC80;
+  locale = a1[8].__locale_;
+  if (locale)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](locale);
+  }
+
+  std::locale::~locale(a1 + 2);
+  v3 = a1[1].__locale_;
+  if (v3)
+  {
+    (*(*v3 + 8))(v3);
+  }
+
+  JUMPOUT(0x20F331DC0);
+}
+
+std::locale *std::__lookahead<char,std::regex_traits<char>>::~__lookahead(std::locale *a1)
+{
+  a1->__locale_ = &unk_2825BEC80;
+  locale = a1[8].__locale_;
+  if (locale)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](locale);
+  }
+
+  std::locale::~locale(a1 + 2);
+  v3 = a1[1].__locale_;
+  if (v3)
+  {
+    (*(*v3 + 8))(v3);
+  }
+
+  return a1;
+}
+
+uint64_t std::__word_boundary<char,std::regex_traits<char>>::__exec(uint64_t result, uint64_t a2)
+{
+  v2 = *(a2 + 8);
+  v3 = *(a2 + 24);
+  if (v2 == v3)
+  {
+    goto LABEL_17;
+  }
+
+  v4 = *(a2 + 16);
+  if (v4 == v3)
+  {
+    if ((*(a2 + 88) & 8) == 0)
+    {
+      v6 = *(v4 - 1);
+      goto LABEL_13;
+    }
+
+LABEL_17:
+    v10 = 0;
+    goto LABEL_25;
+  }
+
+  if (v4 == v2)
+  {
+    v5 = *(a2 + 88);
+    if ((v5 & 0x80) == 0)
+    {
+      if ((v5 & 4) == 0)
+      {
+        v6 = *v4;
+LABEL_13:
+        if (v6 == 95 || (v6 & 0x80) == 0 && (*(*(*(result + 24) + 16) + 4 * v6) & 0x500) != 0)
+        {
+          v10 = 1;
+          goto LABEL_25;
+        }
+
+        goto LABEL_17;
+      }
+
+      goto LABEL_17;
+    }
+  }
+
+  v7 = *(v4 - 1);
+  v8 = *v4;
+  v9 = v7 == 95 || (v7 & 0x80) == 0 && (*(*(*(result + 24) + 16) + 4 * v7) & 0x500) != 0;
+  v11 = v8 == 95 || (v8 & 0x80) == 0 && (*(*(*(result + 24) + 16) + 4 * v8) & 0x500) != 0;
+  v10 = v9 != v11;
+LABEL_25:
+  if (*(result + 40) == v10)
+  {
+    v12 = 0;
+    v13 = -993;
+  }
+
+  else
+  {
+    v12 = *(result + 8);
+    v13 = -994;
+  }
+
+  *a2 = v13;
+  *(a2 + 80) = v12;
+  return result;
+}
+
+void std::__word_boundary<char,std::regex_traits<char>>::~__word_boundary(std::locale *a1)
+{
+  a1->__locale_ = &unk_2825BEC50;
+  std::locale::~locale(a1 + 2);
+  locale = a1[1].__locale_;
+  if (locale)
+  {
+    (*(*locale + 8))(locale);
+  }
+
+  JUMPOUT(0x20F331DC0);
+}
+
+std::locale *std::__word_boundary<char,std::regex_traits<char>>::~__word_boundary(std::locale *a1)
+{
+  a1->__locale_ = &unk_2825BEC50;
+  std::locale::~locale(a1 + 2);
+  locale = a1[1].__locale_;
+  if (locale)
+  {
+    (*(*locale + 8))(locale);
+  }
+
+  return a1;
+}
+
+uint64_t std::__shared_ptr_pointer<std::__empty_state<char> *,std::shared_ptr<std::__empty_state<char>>::__shared_ptr_default_delete<std::__empty_state<char>,std::__empty_state<char>>,std::allocator<std::__empty_state<char>>>::__on_zero_shared(uint64_t a1)
+{
+  result = *(a1 + 24);
+  if (result)
+  {
+    return (*(*result + 8))();
+  }
+
+  return result;
+}
+
+void std::__shared_ptr_pointer<std::__empty_state<char> *,std::shared_ptr<std::__empty_state<char>>::__shared_ptr_default_delete<std::__empty_state<char>,std::__empty_state<char>>,std::allocator<std::__empty_state<char>>>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
+{
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x20F331DC0);
+}
+
+void std::__empty_state<char>::~__empty_state(void (__cdecl ***a1)(std::__owns_one_state<char> *__hidden this))
+{
+  v1 = a1[1];
+  if (v1)
+  {
+    (*(*v1 + 1))(v1);
+  }
+
+  JUMPOUT(0x20F331DC0);
+}
+
+void (__cdecl ***std::__empty_state<char>::~__empty_state(void (__cdecl ***a1)(std::__owns_one_state<char> *__hidden this)))(std::__owns_one_state<char> *__hidden this)
+{
+  v2 = a1[1];
+  if (v2)
+  {
+    (*(*v2 + 1))(v2);
+  }
+
+  return a1;
+}
+
+void *std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::_DetachedTreeCache::__detach_next(uint64_t a1)
+{
+  result = *(a1 + 16);
+  if (result)
+  {
+    v3 = *result;
+    if (*result == a1)
+    {
+      *result = 0;
+      while (1)
+      {
+        v4 = result[1];
+        if (!v4)
+        {
+          break;
+        }
+
+        do
+        {
+          result = v4;
+          v4 = *v4;
+        }
+
+        while (v4);
+      }
+    }
+
+    else
+    {
+      for (result[1] = 0; v3; v3 = result[1])
+      {
+        do
+        {
+          result = v3;
+          v3 = *v3;
+        }
+
+        while (v3);
+      }
+    }
+  }
+
+  return result;
+}
+
+void parseLoadStoreFunction(llvm::Function *a1, llvm::Value *a2)
+{
+  v12[6] = *MEMORY[0x277D85DE8];
+  *(a1 + 24) = 0u;
+  *(a1 + 11) = 0;
+  *(a1 + 72) = 0u;
+  *(a1 + 56) = 0u;
+  *(a1 + 40) = 0u;
+  Name = llvm::Value::getName(a2);
+  v4 = 4;
+  if (v3 < 4)
+  {
+    v4 = v3;
+  }
+
+  v5 = v4 + Name;
+  v6 = v3 - v4;
+  v10 = v12;
+  v11 = 0x300000000;
+  llvm::StringRef::split();
+  v7 = &v9;
+  v8 = 0x300000000;
+  llvm::SmallVectorBase<unsigned int>::grow_pod();
+}
+
+void std::vector<llvm::Type *>::__insert_with_size[abi:nn200100]<llvm::Type * const*,llvm::Type * const*>(uint64_t *a1, char *__src, char *a3, uint64_t a4)
+{
+  if (a4 < 1)
+  {
+    return;
+  }
+
+  v5 = __src;
+  v8 = a1[1];
+  v7 = a1[2];
+  if (a4 > (v7 - v8) >> 3)
+  {
+    v9 = *a1;
+    v10 = a4 + ((v8 - *a1) >> 3);
+    if (v10 >> 61)
+    {
+      std::string::__throw_length_error[abi:nn200100]();
+    }
+
+    v11 = v7 - v9;
+    if (v11 >> 2 > v10)
+    {
+      v10 = v11 >> 2;
+    }
+
+    if (v11 >= 0x7FFFFFFFFFFFFFF8)
+    {
+      v12 = 0x1FFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v12 = v10;
+    }
+
+    v13 = -v9 >> 3;
+    if (v12)
+    {
+      std::__allocate_at_least[abi:nn200100]<std::allocator<llvm::User *>>(v12);
+    }
+
+    v25 = 8 * v13;
+    v26 = (8 * v13 + 8 * a4);
+    v27 = 8 * a4;
+    v28 = v25;
+    do
+    {
+      v29 = *v5;
+      v5 += 8;
+      *v28++ = v29;
+      v27 -= 8;
+    }
+
+    while (v27);
+    memcpy(v26, 0, a1[1]);
+    v30 = *a1;
+    v31 = v26 + a1[1];
+    a1[1] = 0;
+    v32 = v25 + v30;
+    memcpy((v25 + v30), v30, -v30);
+    v33 = *a1;
+    *a1 = v32;
+    a1[1] = v31;
+    a1[2] = 0;
+    if (v33)
+    {
+
+      operator delete(v33);
+    }
+
+    return;
+  }
+
+  if (v8 >> 3 >= a4)
+  {
+    v17 = v8 - 8 * a4;
+    if (v17 >= v8)
+    {
+      v19 = a1[1];
+    }
+
+    else
+    {
+      v18 = (v8 - 8 * a4);
+      v19 = a1[1];
+      do
+      {
+        v20 = *v18++;
+        *v19++ = v20;
+      }
+
+      while (v18 < v8);
+    }
+
+    a1[1] = v19;
+    if (v8 != 8 * a4)
+    {
+      memmove((8 * a4), 0, v17);
+    }
+
+    v34 = v5;
+    v35 = 8 * a4;
+    goto LABEL_39;
+  }
+
+  v14 = &__src[v8];
+  v15 = a1[1];
+  while (v14 != a3)
+  {
+    v16 = *v14;
+    v14 += 8;
+    *v15++ = v16;
+  }
+
+  a1[1] = v15;
+  if (v8 >> 3 >= 1)
+  {
+    v21 = &v15[-a4];
+    if (v21 >= v8)
+    {
+      v23 = v15;
+    }
+
+    else
+    {
+      v22 = &v15[-a4];
+      v23 = v15;
+      do
+      {
+        v24 = *v22++;
+        *v23++ = v24;
+      }
+
+      while (v22 < v8);
+    }
+
+    a1[1] = v23;
+    if (v15 != (8 * a4))
+    {
+      memmove((8 * a4), 0, v21);
+    }
+
+    if (v8)
+    {
+      v34 = v5;
+      v35 = v8;
+LABEL_39:
+
+      memmove(0, v34, v35);
+    }
+  }
+}
+
+uint64_t std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, void *a2, __int128 **a3)
+{
+  v3 = *std::__tree<std::__value_type<std::string,MTLCompilerDataType>,std::__map_value_compare<std::string,std::__value_type<std::string,MTLCompilerDataType>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MTLCompilerDataType>>>::__find_equal<std::string>(a1, &v5, a2);
+  if (!v3)
+  {
+    operator new();
+  }
+
+  return v3;
+}
+
+uint64_t *std::__tree<std::__value_type<std::string,llvm::Type *>,std::__map_value_compare<std::string,std::__value_type<std::string,llvm::Type *>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,llvm::Type *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, void *a2, __int128 **a3)
+{
+  v3 = *std::__tree<std::__value_type<std::string,MTLCompilerDataType>,std::__map_value_compare<std::string,std::__value_type<std::string,MTLCompilerDataType>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MTLCompilerDataType>>>::__find_equal<std::string>(a1, &v5, a2);
+  if (!v3)
+  {
+    operator new();
+  }
+
+  return v3;
+}
+
+void AGCSimdMatrix::buildSimdMatrixMultiplyAccumulate(uint64_t a1, uint64_t *a2)
+{
+  v336[4] = *MEMORY[0x277D85DE8];
+  v4 = *(a2 - 4);
+  if (!v4 || *(v4 + 16) || *(v4 + 24) != a2[9])
+  {
+    v4 = 0;
+  }
+
+  Name = llvm::Value::getName(v4);
+  v259 = v5;
+  v249 = a1;
+  {
+    std::string::basic_string[abi:nn200100]<0>(v328, "_16x16_");
+    if ((v328[23] & 0x80000000) != 0)
+    {
+      std::string::__init_copy_ctor_external(&v288, *v328, *&v328[8]);
+    }
+
+    else
+    {
+      v288 = *v328;
+    }
+
+    v289 = 0x1000000010;
+    v290 = 16;
+    std::string::basic_string[abi:nn200100]<0>(&__src, "_16x16x16_");
+    if (SHIBYTE(__src.__r_.__value_.__r.__words[2]) < 0)
+    {
+      std::string::__init_copy_ctor_external(&v291, __src.__r_.__value_.__l.__data_, __src.__r_.__value_.__l.__size_);
+    }
+
+    else
+    {
+      v291 = __src;
+    }
+
+    v292 = 0x1000000010;
+    v293 = 16;
+    std::string::basic_string[abi:nn200100]<0>(&v309, "_16x8x16_");
+    if (SHIBYTE(v309.__r_.__value_.__r.__words[2]) < 0)
+    {
+      std::string::__init_copy_ctor_external(&v294, v309.__r_.__value_.__l.__data_, v309.__r_.__value_.__l.__size_);
+    }
+
+    else
+    {
+      v294 = v309;
+    }
+
+    v295 = 0x800000010;
+    v296 = 16;
+    std::string::basic_string[abi:nn200100]<0>(&v317, "_8x16x16_");
+    if (SHIBYTE(v317.__r_.__value_.__r.__words[2]) < 0)
+    {
+      std::string::__init_copy_ctor_external(&v297, v317.__r_.__value_.__l.__data_, v317.__r_.__value_.__l.__size_);
+    }
+
+    else
+    {
+      v297 = v317;
+    }
+
+    v298 = 0x1000000008;
+    v299 = 16;
+    std::string::basic_string[abi:nn200100]<0>(v315, "_16x16x32_");
+    if ((v315[23] & 0x80000000) != 0)
+    {
+      std::string::__init_copy_ctor_external(&v300, *v315, *&v315[8]);
+    }
+
+    else
+    {
+      v300 = *v315;
+    }
+
+    v301 = 0x1000000010;
+    v302 = 32;
+    std::string::basic_string[abi:nn200100]<0>(&__sz, "_16x8x32_");
+    if (SHIBYTE(__sz.__r_.__value_.__r.__words[2]) < 0)
+    {
+      std::string::__init_copy_ctor_external(&v303, __sz.__r_.__value_.__l.__data_, __sz.__r_.__value_.__l.__size_);
+    }
+
+    else
+    {
+      v303 = __sz;
+    }
+
+    v304 = 0x800000010;
+    v305 = 32;
+    std::string::basic_string[abi:nn200100]<0>(&v274, "_8x16x32_");
+    if (SHIBYTE(v274.__r_.__value_.__r.__words[2]) < 0)
+    {
+      std::string::__init_copy_ctor_external(&v306, v274.__r_.__value_.__l.__data_, v274.__r_.__value_.__l.__size_);
+    }
+
+    else
+    {
+      v306 = v274;
+    }
+
+    v234 = 0;
+    v307 = 0x1000000008;
+    v308 = 32;
+    AGCSimdMatrix::buildSimdMatrixMultiplyAccumulate(llvm::CallInst *)::supportedGemmSizes = 0u;
+    *&qword_27C8DB7F8 = 0u;
+    dword_27C8DB808 = 1065353216;
+    do
+    {
+      std::__hash_table<std::__hash_value_type<std::string,std::array<int,3ul>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::array<int,3ul>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::array<int,3ul>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::array<int,3ul>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::array<int,3ul>> const&>(&v288 + v234 * 8, &v288 + v234 * 8);
+      v234 += 5;
+    }
+
+    while (v234 != 35);
+    do
+    {
+      if (v284[v234 * 8] < 0)
+      {
+        operator delete(v283.__r_.__value_.__r.__words[v234 + 1]);
+      }
+
+      v234 -= 5;
+    }
+
+    while (v234 * 8);
+    if (SHIBYTE(v274.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v274.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(__sz.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(__sz.__r_.__value_.__l.__data_);
+    }
+
+    if ((v315[23] & 0x80000000) != 0)
+    {
+      operator delete(*v315);
+    }
+
+    if (SHIBYTE(v317.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v317.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v309.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v309.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(__src.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(__src.__r_.__value_.__l.__data_);
+    }
+
+    if ((v328[23] & 0x80000000) != 0)
+    {
+      operator delete(*v328);
+    }
+
+    __cxa_atexit(std::unordered_map<std::string,std::array<int,3ul>>::~unordered_map[abi:nn200100], &AGCSimdMatrix::buildSimdMatrixMultiplyAccumulate(llvm::CallInst *)::supportedGemmSizes, &dword_20E4E1000);
+  }
+
+  v6 = &qword_27C8DB7F8;
+  while (1)
+  {
+    v6 = *v6;
+    if (!v6)
+    {
+      break;
+    }
+
+    if (llvm::StringRef::find() != -1)
+    {
+      v8 = *(v6 + 10);
+      v7 = *(v6 + 11);
+      v9 = *(v6 + 12);
+      goto LABEL_11;
+    }
+  }
+
+  v9 = 0;
+  v7 = 0;
+  v8 = 0;
+LABEL_11:
+  v288.__r_.__value_.__r.__words[0] = &v288.__r_.__value_.__r.__words[2];
+  v288.__r_.__value_.__l.__size_ = 0xA00000000;
+  llvm::StringRef::split();
+  v10 = LODWORD(v288.__r_.__value_.__r.__words[1]);
+  v11 = llvm::StringRef::find();
+  v12 = v288.__r_.__value_.__r.__words[0] + 16 * v10;
+  v257 = *(v12 - 16);
+  if (v11 == -1)
+  {
+    v15 = *(v12 - 32);
+    v255 = *(v12 - 48);
+    v256 = v15;
+    v14 = -4;
+  }
+
+  else
+  {
+    v13 = *(v12 - 48);
+    v255 = *(v12 - 64);
+    v256 = v13;
+    v14 = -6;
+  }
+
+  v16 = v14 + v10;
+  v254 = *(v288.__r_.__value_.__r.__words[0] + 16 * v16);
+  if (llvm::StringRef::find() != -1)
+  {
+    v16 -= llvm::StringRef::find() != -1;
+  }
+
+  v17 = v288.__r_.__value_.__r.__words[0] + 16 * v16;
+  v242 = **(v17 - 16);
+  v239 = **(v17 - 32);
+  v18 = llvm::StringRef::find();
+  v19 = &a2[-4 * (*(a2 + 5) & 0x7FFFFFF)];
+  if (v11 == -1)
+  {
+    v237 = 0;
+    v238 = 0;
+    v235 = 0;
+    v236 = 0;
+    ShuffleVector = *v19;
+    v247 = v19[8];
+    v245 = v19[16];
+    v240 = v19[12];
+    v241 = v19[4];
+    goto LABEL_40;
+  }
+
+  ShuffleVector = v19[12];
+  v247 = v19[20];
+  v245 = v19[40];
+  v240 = v19[24];
+  v241 = v19[16];
+  v21 = v19[8];
+  if (*(v21 + 16) != 16)
+  {
+    v21 = 0;
+  }
+
+  v22 = *(v21 + 32);
+  if (v22 > 0x40)
+  {
+    v23 = llvm::APInt::countLeadingZerosSlowCase((v21 + 24)) == v22;
+  }
+
+  else
+  {
+    v23 = *(v21 + 24) == 0;
+  }
+
+  v24 = v23;
+  v25 = v19[36];
+  if (*(v25 + 16) != 16)
+  {
+    v25 = 0;
+  }
+
+  v26 = *(v25 + 32);
+  if (v26 > 0x40)
+  {
+    v27 = llvm::APInt::countLeadingZerosSlowCase((v25 + 24)) == v26;
+  }
+
+  else
+  {
+    v27 = *(v25 + 24) == 0;
+  }
+
+  v28 = v27;
+  if (v24)
+  {
+    v29 = 0;
+    v30 = 0;
+    if (v28)
+    {
+      v236 = 0;
+      v237 = 0;
+      v238 = 0;
+      v235 = 0;
+      goto LABEL_40;
+    }
+  }
+
+  else
+  {
+    v30 = *v19;
+    v29 = v19[4];
+    if (v28)
+    {
+      v237 = *v19;
+      v238 = v19[4];
+      v235 = 0;
+      v236 = 0;
+      goto LABEL_40;
+    }
+  }
+
+  v237 = v30;
+  v238 = v29;
+  v235 = v19[32];
+  v236 = v19[28];
+LABEL_40:
+  v243 = a2;
+  llvm::StringRef::str(&v253, &v254);
+  llvm::StringRef::str(&v252, &v255);
+  llvm::StringRef::str(&v251, &v256);
+  llvm::StringRef::str(&__p, &v257);
+  v287 = v8;
+  v286 = v7;
+  v285 = v9;
+  v244 = *(*(a1 + 464) + 1939);
+  v31 = SHIBYTE(v253.__r_.__value_.__r.__words[2]);
+  v32 = *&v253.__r_.__value_.__l.__data_;
+  if ((v253.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v33 = &v253;
+  }
+
+  else
+  {
+    v33 = v253.__r_.__value_.__r.__words[0];
+  }
+
+  if ((v253.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    size = SHIBYTE(v253.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    size = v253.__r_.__value_.__l.__size_;
+  }
+
+  v35 = v33 + size;
+  if (size >= 4)
+  {
+    v36 = v33;
+    v37 = size;
+    v38 = v33;
+    while (1)
+    {
+      v39 = memchr(v38, 118, v37 - 3);
+      if (!v39)
+      {
+        goto LABEL_55;
+      }
+
+      if (*v39 == 942813558)
+      {
+        break;
+      }
+
+      v38 = (v39 + 1);
+      v37 = v35 - v38;
+      if (v35 - v38 < 4)
+      {
+        goto LABEL_55;
+      }
+    }
+
+    if (v39 != v35 && v39 - v33 != -1)
+    {
+      v40 = 1;
+      goto LABEL_65;
+    }
+
+    do
+    {
+LABEL_55:
+      v41 = memchr(v36, 118, size - 3);
+      if (!v41)
+      {
+        break;
+      }
+
+      if (*v41 == 909455990)
+      {
+        goto LABEL_59;
+      }
+
+      v36 = (v41 + 1);
+      size = v35 - (v41 + 1);
+    }
+
+    while (size > 3);
+  }
+
+  v41 = v35;
+LABEL_59:
+  v40 = v41 != v35 && v41 - v33 != -1;
+LABEL_65:
+  v43 = v249;
+  if (v31 < 0)
+  {
+    std::string::__init_copy_ctor_external(&v283, v32, *(&v32 + 1));
+  }
+
+  else
+  {
+    v283 = v253;
+  }
+
+  if (SHIBYTE(v252.__r_.__value_.__r.__words[2]) < 0)
+  {
+    std::string::__init_copy_ctor_external(&v282, v252.__r_.__value_.__l.__data_, v252.__r_.__value_.__l.__size_);
+  }
+
+  else
+  {
+    v282 = v252;
+  }
+
+  if (SHIBYTE(v251.__r_.__value_.__r.__words[2]) < 0)
+  {
+    std::string::__init_copy_ctor_external(&v281, v251.__r_.__value_.__l.__data_, v251.__r_.__value_.__l.__size_);
+  }
+
+  else
+  {
+    v281 = v251;
+  }
+
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    std::string::__init_copy_ctor_external(&v280, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+  }
+
+  else
+  {
+    v280 = __p;
+  }
+
+  if ((v253.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v44 = &v253;
+  }
+
+  else
+  {
+    v44 = v253.__r_.__value_.__r.__words[0];
+  }
+
+  if ((v253.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v45 = SHIBYTE(v253.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    v45 = v253.__r_.__value_.__l.__size_;
+  }
+
+  if ((*(*llvm::StringMap<AGCSimdMatrix::OpLoweringInfo,llvm::MallocAllocator>::try_emplace<>((v249 + 488), v44, v45) + 48) & 1) == 0)
+  {
+    if (v40)
+    {
+      v46 = 0;
+    }
+
+    else
+    {
+      v46 = 5;
+    }
+
+    v47 = (v286 * v287) >> v46;
+    std::string::basic_string[abi:nn200100]<0>(&__src, "v");
+    std::to_string(&v309, v47);
+    if ((v309.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v48 = &v309;
+    }
+
+    else
+    {
+      v48 = v309.__r_.__value_.__r.__words[0];
+    }
+
+    if ((v309.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v49 = HIBYTE(v309.__r_.__value_.__r.__words[2]);
+    }
+
+    else
+    {
+      v49 = v309.__r_.__value_.__l.__size_;
+    }
+
+    v50 = std::string::append(&__src, v48, v49);
+    v51 = v50->__r_.__value_.__r.__words[2];
+    *v328 = *&v50->__r_.__value_.__l.__data_;
+    *&v328[16] = v51;
+    v50->__r_.__value_.__l.__size_ = 0;
+    v50->__r_.__value_.__r.__words[2] = 0;
+    v50->__r_.__value_.__r.__words[0] = 0;
+    if (v244)
+    {
+      v52 = "f16";
+    }
+
+    else
+    {
+      v52 = "f32";
+    }
+
+    v53 = std::string::append(v328, v52);
+    v54 = v53->__r_.__value_.__r.__words[0];
+    v317.__r_.__value_.__r.__words[0] = v53->__r_.__value_.__l.__size_;
+    *(v317.__r_.__value_.__r.__words + 7) = *(&v53->__r_.__value_.__r.__words[1] + 7);
+    v55 = HIBYTE(v53->__r_.__value_.__r.__words[2]);
+    v53->__r_.__value_.__l.__size_ = 0;
+    v53->__r_.__value_.__r.__words[2] = 0;
+    v53->__r_.__value_.__r.__words[0] = 0;
+    if (SHIBYTE(v283.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v283.__r_.__value_.__l.__data_);
+    }
+
+    v283.__r_.__value_.__r.__words[0] = v54;
+    v283.__r_.__value_.__l.__size_ = v317.__r_.__value_.__r.__words[0];
+    *(&v283.__r_.__value_.__r.__words[1] + 7) = *(v317.__r_.__value_.__r.__words + 7);
+    *(&v283.__r_.__value_.__s + 23) = v55;
+    if ((v328[23] & 0x80000000) != 0)
+    {
+      operator delete(*v328);
+    }
+
+    if (SHIBYTE(v309.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v309.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(__src.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(__src.__r_.__value_.__l.__data_);
+    }
+  }
+
+  if ((v252.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v56 = &v252;
+  }
+
+  else
+  {
+    v56 = v252.__r_.__value_.__r.__words[0];
+  }
+
+  if ((v252.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v57 = SHIBYTE(v252.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    v57 = v252.__r_.__value_.__l.__size_;
+  }
+
+  if ((*(*llvm::StringMap<AGCSimdMatrix::OpLoweringInfo,llvm::MallocAllocator>::try_emplace<>((v249 + 488), v56, v57) + 49) & 1) == 0)
+  {
+    if (v40)
+    {
+      v58 = 0;
+    }
+
+    else
+    {
+      v58 = 5;
+    }
+
+    v59 = (v285 * v287) >> v58;
+    std::string::basic_string[abi:nn200100]<0>(&__src, "v");
+    std::to_string(&v309, v59);
+    if ((v309.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v60 = &v309;
+    }
+
+    else
+    {
+      v60 = v309.__r_.__value_.__r.__words[0];
+    }
+
+    if ((v309.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v61 = HIBYTE(v309.__r_.__value_.__r.__words[2]);
+    }
+
+    else
+    {
+      v61 = v309.__r_.__value_.__l.__size_;
+    }
+
+    v62 = std::string::append(&__src, v60, v61);
+    v63 = v62->__r_.__value_.__r.__words[2];
+    *v328 = *&v62->__r_.__value_.__l.__data_;
+    *&v328[16] = v63;
+    v62->__r_.__value_.__l.__size_ = 0;
+    v62->__r_.__value_.__r.__words[2] = 0;
+    v62->__r_.__value_.__r.__words[0] = 0;
+    v64 = std::string::append(v328, "bf16");
+    v65 = v64->__r_.__value_.__r.__words[0];
+    v317.__r_.__value_.__r.__words[0] = v64->__r_.__value_.__l.__size_;
+    *(v317.__r_.__value_.__r.__words + 7) = *(&v64->__r_.__value_.__r.__words[1] + 7);
+    v66 = HIBYTE(v64->__r_.__value_.__r.__words[2]);
+    v64->__r_.__value_.__l.__size_ = 0;
+    v64->__r_.__value_.__r.__words[2] = 0;
+    v64->__r_.__value_.__r.__words[0] = 0;
+    if (SHIBYTE(v282.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v282.__r_.__value_.__l.__data_);
+    }
+
+    v282.__r_.__value_.__r.__words[0] = v65;
+    v282.__r_.__value_.__l.__size_ = v317.__r_.__value_.__r.__words[0];
+    *(&v282.__r_.__value_.__r.__words[1] + 7) = *(v317.__r_.__value_.__r.__words + 7);
+    *(&v282.__r_.__value_.__s + 23) = v66;
+    if ((v328[23] & 0x80000000) != 0)
+    {
+      operator delete(*v328);
+    }
+
+    if (SHIBYTE(v309.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v309.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(__src.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(__src.__r_.__value_.__l.__data_);
+    }
+
+    v67 = *(v249 + 464);
+    *&__sz.__r_.__value_.__l.__data_ = *(v249 + 56);
+    llvm::IRBuilderBase::getCurrentDebugLocation(&__sz.__r_.__value_.__r.__words[2], (v249 + 8));
+    v279 = *(v249 + 104);
+    if (SHIBYTE(v252.__r_.__value_.__r.__words[2]) < 0)
+    {
+      std::string::__init_copy_ctor_external(&v277, v252.__r_.__value_.__l.__data_, v252.__r_.__value_.__l.__size_);
+    }
+
+    else
+    {
+      v277 = v252;
+    }
+
+    if (SHIBYTE(v282.__r_.__value_.__r.__words[2]) < 0)
+    {
+      std::string::__init_copy_ctor_external(&v276, v282.__r_.__value_.__l.__data_, v282.__r_.__value_.__l.__size_);
+    }
+
+    else
+    {
+      v276 = v282;
+    }
+
+    ShuffleVector = (*(*v67 + 776))(v67, &__sz, ShuffleVector, &v277, &v276, 0);
+    if (SHIBYTE(v276.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v276.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v277.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v277.__r_.__value_.__l.__data_);
+    }
+
+    if (__sz.__r_.__value_.__r.__words[2])
+    {
+      llvm::MetadataTracking::untrack();
+    }
+  }
+
+  if ((v251.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v68 = &v251;
+  }
+
+  else
+  {
+    v68 = v251.__r_.__value_.__r.__words[0];
+  }
+
+  if ((v251.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v69 = SHIBYTE(v251.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    v69 = v251.__r_.__value_.__l.__size_;
+  }
+
+  if ((*(*llvm::StringMap<AGCSimdMatrix::OpLoweringInfo,llvm::MallocAllocator>::try_emplace<>((v249 + 488), v68, v69) + 49) & 1) == 0)
+  {
+    if (v40)
+    {
+      v70 = 0;
+    }
+
+    else
+    {
+      v70 = 5;
+    }
+
+    v71 = (v286 * v285) >> v70;
+    std::string::basic_string[abi:nn200100]<0>(&__src, "v");
+    std::to_string(&v309, v71);
+    if ((v309.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v72 = &v309;
+    }
+
+    else
+    {
+      v72 = v309.__r_.__value_.__r.__words[0];
+    }
+
+    if ((v309.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v73 = HIBYTE(v309.__r_.__value_.__r.__words[2]);
+    }
+
+    else
+    {
+      v73 = v309.__r_.__value_.__l.__size_;
+    }
+
+    v74 = std::string::append(&__src, v72, v73);
+    v75 = v74->__r_.__value_.__r.__words[2];
+    *v328 = *&v74->__r_.__value_.__l.__data_;
+    *&v328[16] = v75;
+    v74->__r_.__value_.__l.__size_ = 0;
+    v74->__r_.__value_.__r.__words[2] = 0;
+    v74->__r_.__value_.__r.__words[0] = 0;
+    v76 = std::string::append(v328, "bf16");
+    v77 = v76->__r_.__value_.__r.__words[0];
+    v317.__r_.__value_.__r.__words[0] = v76->__r_.__value_.__l.__size_;
+    *(v317.__r_.__value_.__r.__words + 7) = *(&v76->__r_.__value_.__r.__words[1] + 7);
+    v78 = HIBYTE(v76->__r_.__value_.__r.__words[2]);
+    v76->__r_.__value_.__l.__size_ = 0;
+    v76->__r_.__value_.__r.__words[2] = 0;
+    v76->__r_.__value_.__r.__words[0] = 0;
+    if (SHIBYTE(v281.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v281.__r_.__value_.__l.__data_);
+    }
+
+    v281.__r_.__value_.__r.__words[0] = v77;
+    v281.__r_.__value_.__l.__size_ = v317.__r_.__value_.__r.__words[0];
+    *(&v281.__r_.__value_.__r.__words[1] + 7) = *(v317.__r_.__value_.__r.__words + 7);
+    *(&v281.__r_.__value_.__s + 23) = v78;
+    if ((v328[23] & 0x80000000) != 0)
+    {
+      operator delete(*v328);
+    }
+
+    if (SHIBYTE(v309.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v309.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(__src.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(__src.__r_.__value_.__l.__data_);
+    }
+
+    v79 = *(v249 + 464);
+    *&v274.__r_.__value_.__l.__data_ = *(v249 + 56);
+    llvm::IRBuilderBase::getCurrentDebugLocation(&v274.__r_.__value_.__r.__words[2], (v249 + 8));
+    v275 = *(v249 + 104);
+    if (SHIBYTE(v251.__r_.__value_.__r.__words[2]) < 0)
+    {
+      std::string::__init_copy_ctor_external(&v273, v251.__r_.__value_.__l.__data_, v251.__r_.__value_.__l.__size_);
+    }
+
+    else
+    {
+      v273 = v251;
+    }
+
+    if (SHIBYTE(v281.__r_.__value_.__r.__words[2]) < 0)
+    {
+      std::string::__init_copy_ctor_external(&v272, v281.__r_.__value_.__l.__data_, v281.__r_.__value_.__l.__size_);
+    }
+
+    else
+    {
+      v272 = v281;
+    }
+
+    v247 = (*(*v79 + 776))(v79, &v274, v247, &v273, &v272, 0);
+    if (SHIBYTE(v272.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v272.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v273.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v273.__r_.__value_.__l.__data_);
+    }
+
+    if (v274.__r_.__value_.__r.__words[2])
+    {
+      llvm::MetadataTracking::untrack();
+    }
+  }
+
+  {
+    *v328 = "v8f8e4m3fn";
+    *&v328[8] = 10;
+    std::string::basic_string[abi:nn200100]<0>(&v328[16], "pn8e4m3");
+    *(&v329 + 1) = "v4f8e4m3fn";
+    *&v330 = 10;
+    std::string::basic_string[abi:nn200100]<0>(&v330 + 1, "pn4e4m3");
+    v333 = "v8f8e5m2";
+    v334 = 8;
+    std::string::basic_string[abi:nn200100]<0>(v335, "pn8e5m2");
+    v335[3] = "v4f8e5m2";
+    v335[4] = 8;
+    std::string::basic_string[abi:nn200100]<0>(v336, "pn4e5m2");
+    llvm::StringMap<std::string,llvm::MallocAllocator>::StringMap(v328, 4);
+    for (i = 0; i != -20; i -= 5)
+    {
+      if (SHIBYTE(v336[i + 2]) < 0)
+      {
+        operator delete(v336[i]);
+      }
+    }
+
+    __cxa_atexit(llvm::StringMap<std::string,llvm::MallocAllocator>::~StringMap, &AGCSimdMatrix::buildSimdMatrixMultiplyAccumulateImpl(unsigned int,unsigned int,unsigned int,llvm::Type *,llvm::Value *,llvm::Value *,llvm::Value *,llvm::Value *,llvm::Value *,llvm::Value *,llvm::Value *,llvm::Value *,llvm::Value *,std::string const&,std::string const&,std::string const&,std::string const&,BOOL,BOOL,BOOL)::airAccumulatorsFP8, &dword_20E4E1000);
+    v43 = v249;
+  }
+
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    p_p = &__p;
+  }
+
+  else
+  {
+    p_p = __p.__r_.__value_.__r.__words[0];
+  }
+
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v81 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    v81 = __p.__r_.__value_.__l.__size_;
+  }
+
+  if ((*(*llvm::StringMap<AGCSimdMatrix::OpLoweringInfo,llvm::MallocAllocator>::try_emplace<>((v43 + 488), p_p, v81) + 48) & 1) == 0)
+  {
+    if (v40)
+    {
+      v82 = 0;
+    }
+
+    else
+    {
+      v82 = 5;
+    }
+
+    v83 = (v286 * v287) >> v82;
+    std::string::basic_string[abi:nn200100]<0>(&__src, "v");
+    std::to_string(&v309, v83);
+    if ((v309.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v84 = &v309;
+    }
+
+    else
+    {
+      v84 = v309.__r_.__value_.__r.__words[0];
+    }
+
+    if ((v309.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v85 = HIBYTE(v309.__r_.__value_.__r.__words[2]);
+    }
+
+    else
+    {
+      v85 = v309.__r_.__value_.__l.__size_;
+    }
+
+    v86 = std::string::append(&__src, v84, v85);
+    v87 = v86->__r_.__value_.__r.__words[2];
+    *v328 = *&v86->__r_.__value_.__l.__data_;
+    *&v328[16] = v87;
+    v86->__r_.__value_.__l.__size_ = 0;
+    v86->__r_.__value_.__r.__words[2] = 0;
+    v86->__r_.__value_.__r.__words[0] = 0;
+    if (v244)
+    {
+      v88 = "f16";
+    }
+
+    else
+    {
+      v88 = "f32";
+    }
+
+    v89 = std::string::append(v328, v88);
+    v90 = v89->__r_.__value_.__r.__words[0];
+    v317.__r_.__value_.__r.__words[0] = v89->__r_.__value_.__l.__size_;
+    *(v317.__r_.__value_.__r.__words + 7) = *(&v89->__r_.__value_.__r.__words[1] + 7);
+    v91 = HIBYTE(v89->__r_.__value_.__r.__words[2]);
+    v89->__r_.__value_.__l.__size_ = 0;
+    v89->__r_.__value_.__r.__words[2] = 0;
+    v89->__r_.__value_.__r.__words[0] = 0;
+    if (SHIBYTE(v280.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v280.__r_.__value_.__l.__data_);
+    }
+
+    v280.__r_.__value_.__r.__words[0] = v90;
+    v280.__r_.__value_.__l.__size_ = v317.__r_.__value_.__r.__words[0];
+    *(&v280.__r_.__value_.__r.__words[1] + 7) = *(v317.__r_.__value_.__r.__words + 7);
+    *(&v280.__r_.__value_.__s + 23) = v91;
+    if ((v328[23] & 0x80000000) != 0)
+    {
+      operator delete(*v328);
+    }
+
+    if (SHIBYTE(v309.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v309.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(__src.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(__src.__r_.__value_.__l.__data_);
+    }
+
+    if (!v244 || (Key = llvm::StringMapImpl::FindKey(), Key == -1) || Key == dword_27C8DB820)
+    {
+      std::string::basic_string[abi:nn200100]<0>(&v317, "air.convert.f.");
+      if ((v280.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v105 = &v280;
+      }
+
+      else
+      {
+        v105 = v280.__r_.__value_.__r.__words[0];
+      }
+
+      if ((v280.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v106 = HIBYTE(v280.__r_.__value_.__r.__words[2]);
+      }
+
+      else
+      {
+        v106 = v280.__r_.__value_.__l.__size_;
+      }
+
+      v107 = std::string::append(&v317, v105, v106);
+      v108 = v107->__r_.__value_.__r.__words[2];
+      *&v309.__r_.__value_.__l.__data_ = *&v107->__r_.__value_.__l.__data_;
+      v309.__r_.__value_.__r.__words[2] = v108;
+      v107->__r_.__value_.__l.__size_ = 0;
+      v107->__r_.__value_.__r.__words[2] = 0;
+      v107->__r_.__value_.__r.__words[0] = 0;
+      v109 = std::string::append(&v309, ".f.");
+      v110 = v109->__r_.__value_.__r.__words[2];
+      *v328 = *&v109->__r_.__value_.__l.__data_;
+      *&v328[16] = v110;
+      v109->__r_.__value_.__l.__size_ = 0;
+      v109->__r_.__value_.__r.__words[2] = 0;
+      v109->__r_.__value_.__r.__words[0] = 0;
+      if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v103 = &__p;
+      }
+
+      else
+      {
+        v103 = __p.__r_.__value_.__r.__words[0];
+      }
+
+      if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v104 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+      }
+
+      else
+      {
+        v104 = __p.__r_.__value_.__l.__size_;
+      }
+    }
+
+    else
+    {
+      std::string::basic_string[abi:nn200100]<0>(&v317, "air.dequantize_unpack.");
+      if ((v280.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v93 = &v280;
+      }
+
+      else
+      {
+        v93 = v280.__r_.__value_.__r.__words[0];
+      }
+
+      if ((v280.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v94 = HIBYTE(v280.__r_.__value_.__r.__words[2]);
+      }
+
+      else
+      {
+        v94 = v280.__r_.__value_.__l.__size_;
+      }
+
+      v95 = std::string::append(&v317, v93, v94);
+      v96 = v95->__r_.__value_.__r.__words[2];
+      *&v309.__r_.__value_.__l.__data_ = *&v95->__r_.__value_.__l.__data_;
+      v309.__r_.__value_.__r.__words[2] = v96;
+      v95->__r_.__value_.__l.__size_ = 0;
+      v95->__r_.__value_.__r.__words[2] = 0;
+      v95->__r_.__value_.__r.__words[0] = 0;
+      v97 = std::string::append(&v309, ".");
+      v98 = v97->__r_.__value_.__r.__words[2];
+      *v328 = *&v97->__r_.__value_.__l.__data_;
+      *&v328[16] = v98;
+      v97->__r_.__value_.__l.__size_ = 0;
+      v97->__r_.__value_.__r.__words[2] = 0;
+      v97->__r_.__value_.__r.__words[0] = 0;
+      if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v99 = &__p;
+      }
+
+      else
+      {
+        v99 = __p.__r_.__value_.__r.__words[0];
+      }
+
+      if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v100 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
+      }
+
+      else
+      {
+        v100 = __p.__r_.__value_.__l.__size_;
+      }
+
+      v101 = llvm::StringMap<std::string,llvm::MallocAllocator>::try_emplace<>(&AGCSimdMatrix::buildSimdMatrixMultiplyAccumulateImpl(unsigned int,unsigned int,unsigned int,llvm::Type *,llvm::Value *,llvm::Value *,llvm::Value *,llvm::Value *,llvm::Value *,llvm::Value *,llvm::Value *,llvm::Value *,llvm::Value *,std::string const&,std::string const&,std::string const&,std::string const&,BOOL,BOOL,BOOL)::airAccumulatorsFP8, v99, v100);
+      v102 = *(*v101 + 31);
+      if (v102 >= 0)
+      {
+        v103 = (*v101 + 8);
+      }
+
+      else
+      {
+        v103 = *(*v101 + 8);
+      }
+
+      if (v102 >= 0)
+      {
+        v104 = *(*v101 + 31);
+      }
+
+      else
+      {
+        v104 = *(*v101 + 16);
+      }
+    }
+
+    v111 = std::string::append(v328, v103, v104);
+    v112 = v111->__r_.__value_.__r.__words[2];
+    *&__src.__r_.__value_.__l.__data_ = *&v111->__r_.__value_.__l.__data_;
+    __src.__r_.__value_.__r.__words[2] = v112;
+    v111->__r_.__value_.__l.__size_ = 0;
+    v111->__r_.__value_.__r.__words[2] = 0;
+    v111->__r_.__value_.__r.__words[0] = 0;
+    if ((v328[23] & 0x80000000) != 0)
+    {
+      operator delete(*v328);
+    }
+
+    if (SHIBYTE(v309.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v309.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v317.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v317.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(__src.__r_.__value_.__r.__words[2]) < 0)
+    {
+      p_src = __src.__r_.__value_.__r.__words[0];
+      if (!__src.__r_.__value_.__r.__words[0])
+      {
+LABEL_247:
+        llvm::FixedVectorType::get();
+        *v328 = *v245;
+        llvm::FunctionType::get();
+        llvm::Module::getOrInsertFunction();
+        v309.__r_.__value_.__r.__words[0] = v245;
+        LOWORD(v329) = 257;
+        v245 = llvm::IRBuilderBase::CreateCall((v43 + 8), *(v114 + 24), v114, &v309, 1, v328);
+        if (SHIBYTE(__src.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(__src.__r_.__value_.__l.__data_);
+        }
+
+        goto LABEL_249;
+      }
+    }
+
+    else
+    {
+      p_src = &__src;
+    }
+
+    strlen(p_src);
+    goto LABEL_247;
+  }
+
+LABEL_249:
+  if ((v283.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v115 = &v283;
+  }
+
+  else
+  {
+    v115 = v283.__r_.__value_.__r.__words[0];
+  }
+
+  if ((v283.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v116 = SHIBYTE(v283.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    v116 = v283.__r_.__value_.__l.__size_;
+  }
+
+  v117 = *llvm::StringMap<AGCSimdMatrix::OpLoweringInfo,llvm::MallocAllocator>::try_emplace<>((v43 + 488), v115, v116);
+  if ((v282.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v118 = &v282;
+  }
+
+  else
+  {
+    v118 = v282.__r_.__value_.__r.__words[0];
+  }
+
+  if ((v282.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v119 = SHIBYTE(v282.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    v119 = v282.__r_.__value_.__l.__size_;
+  }
+
+  v120 = *llvm::StringMap<AGCSimdMatrix::OpLoweringInfo,llvm::MallocAllocator>::try_emplace<>((v43 + 488), v118, v119);
+  if ((v281.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v121 = &v281;
+  }
+
+  else
+  {
+    v121 = v281.__r_.__value_.__r.__words[0];
+  }
+
+  if ((v281.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v122 = SHIBYTE(v281.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    v122 = v281.__r_.__value_.__l.__size_;
+  }
+
+  v123 = v43;
+  v124 = *llvm::StringMap<AGCSimdMatrix::OpLoweringInfo,llvm::MallocAllocator>::try_emplace<>((v43 + 488), v121, v122);
+  if ((v280.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v125 = &v280;
+  }
+
+  else
+  {
+    v125 = v280.__r_.__value_.__r.__words[0];
+  }
+
+  if ((v280.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v126 = SHIBYTE(v280.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    v126 = v280.__r_.__value_.__l.__size_;
+  }
+
+  v127 = llvm::StringMap<AGCSimdMatrix::OpLoweringInfo,llvm::MallocAllocator>::try_emplace<>((v43 + 488), v125, v126);
+  v128 = *v127;
+  v271 = *(**(*(*v127 + 8) + 16) + 8) < 7u;
+  memset(&v309, 0, sizeof(v309));
+  std::string::reserve(&v309, 0x32uLL);
+  std::string::append(&v309, "llvm.agx3");
+  if (v271)
+  {
+    v129 = ".fgemm";
+  }
+
+  else
+  {
+    v129 = ".igemm";
+  }
+
+  std::string::append(&v309, v129);
+  v130 = *(v117 + 39);
+  if (v130 >= 0)
+  {
+    v131 = (v117 + 16);
+  }
+
+  else
+  {
+    v131 = *(v117 + 16);
+  }
+
+  if (v130 >= 0)
+  {
+    v132 = *(v117 + 39);
+  }
+
+  else
+  {
+    v132 = *(v117 + 24);
+  }
+
+  std::string::append(&v309, v131, v132);
+  v133 = *(v120 + 39);
+  if (v133 >= 0)
+  {
+    v134 = (v120 + 16);
+  }
+
+  else
+  {
+    v134 = *(v120 + 16);
+  }
+
+  if (v133 >= 0)
+  {
+    v135 = *(v120 + 39);
+  }
+
+  else
+  {
+    v135 = *(v120 + 24);
+  }
+
+  std::string::append(&v309, v134, v135);
+  v136 = *(v124 + 39);
+  if (v136 >= 0)
+  {
+    v137 = (v124 + 16);
+  }
+
+  else
+  {
+    v137 = *(v124 + 16);
+  }
+
+  if (v136 >= 0)
+  {
+    v138 = *(v124 + 39);
+  }
+
+  else
+  {
+    v138 = *(v124 + 24);
+  }
+
+  std::string::append(&v309, v137, v138);
+  v139 = *(v128 + 39);
+  if (v139 >= 0)
+  {
+    v140 = (v128 + 16);
+  }
+
+  else
+  {
+    v140 = *(v128 + 16);
+  }
+
+  if (v139 >= 0)
+  {
+    v141 = *(v128 + 39);
+  }
+
+  else
+  {
+    v141 = *(v128 + 24);
+  }
+
+  std::string::append(&v309, v140, v141);
+  v142 = *(v123 + 192);
+  __src.__r_.__value_.__r.__words[0] = *(v123 + 184);
+  __src.__r_.__value_.__l.__size_ = __src.__r_.__value_.__r.__words[0];
+  __src.__r_.__value_.__r.__words[2] = __src.__r_.__value_.__r.__words[0];
+  v320 = v142;
+  v321 = *(v120 + 8);
+  v322 = v142;
+  v323 = *(v124 + 8);
+  v324 = v142;
+  v325 = *(v128 + 8);
+  v326 = v142;
+  *v328 = &v328[16];
+  *&v328[8] = 0xC00000000;
+  llvm::SmallVectorImpl<llvm::Type *>::append<llvm::Type * const*,void>(v328, &__src, v327);
+  if (v271)
+  {
+    llvm::SmallVectorTemplateBase<llvm::Metadata *,true>::push_back(v328, *(v249 + 192));
+    llvm::SmallVectorTemplateBase<llvm::Metadata *,true>::push_back(v328, *(v249 + 192));
+  }
+
+  if ((SHIBYTE(v309.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  {
+    v143 = &v309;
+LABEL_305:
+    strlen(v143);
+    goto LABEL_306;
+  }
+
+  v143 = v309.__r_.__value_.__r.__words[0];
+  if (v309.__r_.__value_.__r.__words[0])
+  {
+    goto LABEL_305;
+  }
+
+LABEL_306:
+  llvm::FunctionType::get();
+  llvm::Module::getOrInsertFunction();
+  v246 = v144;
+  if (*v328 != &v328[16])
+  {
+    free(*v328);
+  }
+
+  if (SHIBYTE(v309.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v309.__r_.__value_.__l.__data_);
+    if (!v40)
+    {
+      goto LABEL_314;
+    }
+  }
+
+  else if (!v40)
+  {
+    goto LABEL_314;
+  }
+
+  v145 = 0;
+  v330 = 0u;
+  v329 = 0u;
+  memset(v328, 0, sizeof(v328));
+  do
+  {
+    *&v328[8 * v145++] = llvm::ConstantInt::get();
+  }
+
+  while (v145 != 8);
+  v146 = llvm::ConstantVector::get();
+  LOWORD(v321) = 257;
+  ShuffleVector = llvm::IRBuilderBase::CreateShuffleVector((v249 + 8), ShuffleVector, ShuffleVector, v146, &__src);
+  v147 = llvm::ConstantVector::get();
+  LOWORD(v321) = 257;
+  v247 = llvm::IRBuilderBase::CreateShuffleVector((v249 + 8), v247, v247, v147, &__src);
+  v148 = llvm::ConstantVector::get();
+  LOWORD(v321) = 257;
+  v245 = llvm::IRBuilderBase::CreateShuffleVector((v249 + 8), v245, v245, v148, &__src);
+LABEL_314:
+  *v328 = llvm::ConstantInt::get();
+  *&v328[8] = llvm::ConstantInt::get();
+  *&v328[16] = llvm::ConstantInt::get();
+  *&v328[24] = llvm::ConstantInt::get();
+  v149 = llvm::ConstantVector::get();
+  if (SHIBYTE(v282.__r_.__value_.__r.__words[2]) < 0)
+  {
+    if (v282.__r_.__value_.__l.__size_ != 5)
+    {
+      goto LABEL_325;
+    }
+
+    v150 = v282.__r_.__value_.__r.__words[0];
+  }
+
+  else
+  {
+    if (SHIBYTE(v282.__r_.__value_.__r.__words[2]) != 5)
+    {
+      goto LABEL_325;
+    }
+
+    v150 = &v282;
+  }
+
+  data = v150->__r_.__value_.__l.__data_;
+  v152 = v150->__r_.__value_.__s.__data_[4];
+  if (data == 1765305968 && v152 == 51)
+  {
+    v154 = llvm::UndefValue::get();
+    LOWORD(v329) = 257;
+    ShuffleVector = llvm::IRBuilderBase::CreateShuffleVector((v249 + 8), ShuffleVector, v154, v149, v328);
+  }
+
+LABEL_325:
+  if (SHIBYTE(v281.__r_.__value_.__r.__words[2]) < 0)
+  {
+    if (v281.__r_.__value_.__l.__size_ != 5)
+    {
+      goto LABEL_336;
+    }
+
+    v155 = v281.__r_.__value_.__r.__words[0];
+  }
+
+  else
+  {
+    if (SHIBYTE(v281.__r_.__value_.__r.__words[2]) != 5)
+    {
+      goto LABEL_336;
+    }
+
+    v155 = &v281;
+  }
+
+  v156 = v155->__r_.__value_.__l.__data_;
+  v157 = v155->__r_.__value_.__s.__data_[4];
+  if (v156 == 1765305968 && v157 == 51)
+  {
+    v159 = llvm::UndefValue::get();
+    LOWORD(v329) = 257;
+    v247 = llvm::IRBuilderBase::CreateShuffleVector((v249 + 8), v247, v159, v149, v328);
+  }
+
+LABEL_336:
+  v160 = v239 == 115;
+  v161 = v242 == 115;
+  v162 = *(v120 + 8);
+  LOWORD(v329) = 257;
+  Cast = llvm::IRBuilderBase::CreateCast(v249 + 8, 49, ShuffleVector, v162, v328);
+  v163 = *(v124 + 8);
+  LOWORD(v329) = 257;
+  v269 = llvm::IRBuilderBase::CreateCast(v249 + 8, 49, v247, v163, v328);
+  v164 = *(v128 + 8);
+  LOWORD(v329) = 257;
+  v268 = llvm::IRBuilderBase::CreateCast(v249 + 8, 49, v245, v164, v328);
+  v266 = AGCSimdMatrix::buildSimdMatrixMultiplyAccumulateImpl(unsigned int,unsigned int,unsigned int,llvm::Type *,llvm::Value *,llvm::Value *,llvm::Value *,llvm::Value *,llvm::Value *,llvm::Value *,llvm::Value *,llvm::Value *,llvm::Value *,std::string const&,std::string const&,std::string const&,std::string const&,BOOL,BOOL,BOOL)::$_0::operator()(v249, v237, v238, v287);
+  v267 = v165;
+  v265[0] = AGCSimdMatrix::buildSimdMatrixMultiplyAccumulateImpl(unsigned int,unsigned int,unsigned int,llvm::Type *,llvm::Value *,llvm::Value *,llvm::Value *,llvm::Value *,llvm::Value *,llvm::Value *,llvm::Value *,llvm::Value *,llvm::Value *,std::string const&,std::string const&,std::string const&,std::string const&,BOOL,BOOL,BOOL)::$_0::operator()(v249, v236, v235, v286);
+  v265[1] = v166;
+  v169 = *(v120 + 40) & 0xF | (v160 << 6) & 0xFFFFE07F | ((*(v120 + 44) & 7) << 7) & 0xE3FF | ((BYTE2(v267) & 1) << 10) & 0xE7FF | ((v267 & 3) << 11);
+  v264 = *(v120 + 40) & 0xF | (v160 << 6) & 0xE07F | ((*(v120 + 44) & 7) << 7) & 0xE3FF | ((BYTE2(v267) & 1) << 10) & 0xE7FF | ((v267 & 3) << 11);
+  v170 = (v166 >> 6) & 0x400 | ((*(v124 + 44) & 7) << 7) & 0xE7FF | ((v166 & 3) << 11) | *(v124 + 40) & 0xF | (v161 << 6);
+  v263 = (v166 >> 6) & 0x400 | ((*(v124 + 44) & 7) << 7) & 0xE7FF | ((v166 & 3) << 11) | *(v124 + 40) & 0xF | (v161 << 6);
+  v262 = *(v128 + 40) & 0xF;
+  v261 = *(v117 + 40) & 0xF | (32 * (v18 != -1));
+  *v328 = &v266;
+  *&v328[8] = v265;
+  *&v328[16] = v249;
+  *&v328[24] = &v287;
+  *&v329 = &v286;
+  *(&v329 + 1) = &v285;
+  *&v330 = &v261;
+  *(&v330 + 1) = &Cast;
+  v331 = &v264;
+  v332 = &v269;
+  v333 = &v263;
+  v334 = &v268;
+  v335[0] = &v262;
+  v335[1] = &v271;
+  if (*(v241 + 16) != 16 || *(v240 + 16) != 16)
+  {
+    v174 = *(v249 + 56);
+    __src.__r_.__value_.__r.__words[0] = "gemm.switch.merge";
+    LOWORD(v321) = 259;
+    v175 = llvm::BasicBlock::splitBasicBlock();
+    v248 = v174;
+    v178 = *(v174 + 5);
+    v177 = (v174 + 40);
+    v176 = v178;
+    if (v178 == v177)
+    {
+      v181 = 0;
+    }
+
+    else
+    {
+      v179 = (v176 - 3);
+      if (v176)
+      {
+        v180 = v176 - 3;
+      }
+
+      else
+      {
+        v180 = 0;
+      }
+
+      if (*(v180 + 16) - 29 >= 0xB)
+      {
+        v181 = 0;
+      }
+
+      else
+      {
+        v181 = v179;
+      }
+    }
+
+    llvm::Instruction::eraseFromParent(v181);
+    *(v249 + 56) = v248;
+    *(v249 + 64) = v177;
+    v182 = *(v249 + 200);
+    LOWORD(v321) = 257;
+    v183 = llvm::IRBuilderBase::CreateCast(v249 + 8, 39, v240, v182, &__src);
+    v184 = *(v249 + 200);
+    v311 = 257;
+    v185 = llvm::IRBuilderBase::CreateCast(v249 + 8, 39, v241, v184, &v309);
+    v318 = 257;
+    v186 = llvm::ConstantInt::get();
+    Shl = llvm::IRBuilderBase::CreateShl((v249 + 8), v185, v186, &v317);
+    v316 = 257;
+    v188 = llvm::IRBuilderBase::CreateOr((v249 + 8), v183, Shl, v315);
+    llvm::IRBuilderBase::CreateSwitch((v249 + 8), v188, v175, 4);
+    memset(v315, 0, sizeof(v315));
+    memset(v314, 0, sizeof(v314));
+    std::string::basic_string[abi:nn200100]<0>(&v309, "NN");
+    std::string::basic_string[abi:nn200100]<0>(&v310, "NT");
+    std::string::basic_string[abi:nn200100]<0>(v312, "TN");
+    std::string::basic_string[abi:nn200100]<0>(v313, "TT");
+    __src.__r_.__value_.__r.__words[0] = "gemm.switch";
+    __src.__r_.__value_.__r.__words[2] = &v309;
+    LOWORD(v321) = 1027;
+    operator new();
+  }
+
+  v171 = (v241 + 24);
+  if (*(v241 + 32) >= 0x41u)
+  {
+    v171 = *v171;
+  }
+
+  v264 = (32 * (*v171 & 1)) | v169;
+  v172 = (v240 + 24);
+  if (*(v240 + 32) >= 0x41u)
+  {
+    v172 = *v172;
+  }
+
+  v263 = (32 * (*v172 & 1)) | v170;
+  AGCSimdMatrix::buildSimdMatrixMultiplyAccumulateImpl(unsigned int,unsigned int,unsigned int,llvm::Type *,llvm::Value *,llvm::Value *,llvm::Value *,llvm::Value *,llvm::Value *,llvm::Value *,llvm::Value *,llvm::Value *,llvm::Value *,std::string const&,std::string const&,std::string const&,std::string const&,BOOL,BOOL,BOOL)::$_2::operator()(&__src, v328, v167, v168);
+  v311 = 257;
+  v173 = llvm::IRBuilderBase::CreateCall((v249 + 8), *(v246 + 24), v246, __src.__r_.__value_.__l.__data_, LODWORD(__src.__r_.__value_.__r.__words[1]), &v309);
+  if (__src.__r_.__value_.__l.__data_ != &__src.__r_.__value_.__r.__words[2])
+  {
+    free(__src.__r_.__value_.__l.__data_);
+  }
+
+  if ((v253.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v189 = HIBYTE(v253.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    v189 = v253.__r_.__value_.__l.__size_;
+  }
+
+  v190 = HIBYTE(v283.__r_.__value_.__r.__words[2]);
+  if ((v283.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  {
+    v190 = v283.__r_.__value_.__l.__size_;
+  }
+
+  if (v189 != v190 || ((v253.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v191 = &v253) : (v191 = v253.__r_.__value_.__r.__words[0]), (v283.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v192 = &v283) : (v192 = v283.__r_.__value_.__r.__words[0]), memcmp(v191, v192, v189)))
+  {
+    if (v244)
+    {
+      v193 = llvm::StringMapImpl::FindKey();
+      if (v193 != -1 && v193 != dword_27C8DB820)
+      {
+        if (v18 == -1)
+        {
+          v207 = &unk_20E75F419;
+        }
+
+        else
+        {
+          v207 = "_saturate";
+        }
+
+        std::string::basic_string[abi:nn200100]<0>(&v260, v207);
+        v208 = std::string::insert(&v260, 0, "air.quantize");
+        v209 = v208->__r_.__value_.__r.__words[2];
+        *v314 = *&v208->__r_.__value_.__l.__data_;
+        *&v314[16] = v209;
+        v208->__r_.__value_.__l.__size_ = 0;
+        v208->__r_.__value_.__r.__words[2] = 0;
+        v208->__r_.__value_.__r.__words[0] = 0;
+        v210 = std::string::append(v314, "_pack.");
+        v211 = v210->__r_.__value_.__r.__words[2];
+        *v315 = *&v210->__r_.__value_.__l.__data_;
+        *&v315[16] = v211;
+        v210->__r_.__value_.__l.__size_ = 0;
+        v210->__r_.__value_.__r.__words[2] = 0;
+        v210->__r_.__value_.__r.__words[0] = 0;
+        if ((v253.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          v212 = &v253;
+        }
+
+        else
+        {
+          v212 = v253.__r_.__value_.__r.__words[0];
+        }
+
+        if ((v253.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          v213 = SHIBYTE(v253.__r_.__value_.__r.__words[2]);
+        }
+
+        else
+        {
+          v213 = v253.__r_.__value_.__l.__size_;
+        }
+
+        v214 = llvm::StringMap<std::string,llvm::MallocAllocator>::try_emplace<>(&AGCSimdMatrix::buildSimdMatrixMultiplyAccumulateImpl(unsigned int,unsigned int,unsigned int,llvm::Type *,llvm::Value *,llvm::Value *,llvm::Value *,llvm::Value *,llvm::Value *,llvm::Value *,llvm::Value *,llvm::Value *,llvm::Value *,std::string const&,std::string const&,std::string const&,std::string const&,BOOL,BOOL,BOOL)::airAccumulatorsFP8, v212, v213);
+        v215 = *(*v214 + 31);
+        if (v215 >= 0)
+        {
+          v216 = (*v214 + 8);
+        }
+
+        else
+        {
+          v216 = *(*v214 + 8);
+        }
+
+        if (v215 >= 0)
+        {
+          v217 = *(*v214 + 31);
+        }
+
+        else
+        {
+          v217 = *(*v214 + 16);
+        }
+
+        v218 = std::string::append(v315, v216, v217);
+        v219 = v218->__r_.__value_.__r.__words[2];
+        *&v317.__r_.__value_.__l.__data_ = *&v218->__r_.__value_.__l.__data_;
+        v317.__r_.__value_.__r.__words[2] = v219;
+        v218->__r_.__value_.__l.__size_ = 0;
+        v218->__r_.__value_.__r.__words[2] = 0;
+        v218->__r_.__value_.__r.__words[0] = 0;
+        v220 = std::string::append(&v317, ".");
+        v221 = v220->__r_.__value_.__r.__words[2];
+        *&__src.__r_.__value_.__l.__data_ = *&v220->__r_.__value_.__l.__data_;
+        __src.__r_.__value_.__r.__words[2] = v221;
+        v220->__r_.__value_.__l.__size_ = 0;
+        v220->__r_.__value_.__r.__words[2] = 0;
+        v220->__r_.__value_.__r.__words[0] = 0;
+        if ((v283.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          v222 = &v283;
+        }
+
+        else
+        {
+          v222 = v283.__r_.__value_.__r.__words[0];
+        }
+
+        if ((v283.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          v223 = HIBYTE(v283.__r_.__value_.__r.__words[2]);
+        }
+
+        else
+        {
+          v223 = v283.__r_.__value_.__l.__size_;
+        }
+
+        v224 = std::string::append(&__src, v222, v223);
+        v225 = v224->__r_.__value_.__r.__words[2];
+        *&v309.__r_.__value_.__l.__data_ = *&v224->__r_.__value_.__l.__data_;
+        v309.__r_.__value_.__r.__words[2] = v225;
+        v224->__r_.__value_.__l.__size_ = 0;
+        v224->__r_.__value_.__r.__words[2] = 0;
+        v224->__r_.__value_.__r.__words[0] = 0;
+        if (SHIBYTE(__src.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(__src.__r_.__value_.__l.__data_);
+        }
+
+        if (SHIBYTE(v317.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v317.__r_.__value_.__l.__data_);
+        }
+
+        if ((v315[23] & 0x80000000) != 0)
+        {
+          operator delete(*v315);
+        }
+
+        if ((v314[23] & 0x80000000) != 0)
+        {
+          operator delete(*v314);
+        }
+
+        if (SHIBYTE(v260.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v260.__r_.__value_.__l.__data_);
+        }
+
+        if (SHIBYTE(v309.__r_.__value_.__r.__words[2]) < 0)
+        {
+          v226 = v309.__r_.__value_.__r.__words[0];
+          if (!v309.__r_.__value_.__r.__words[0])
+          {
+            goto LABEL_424;
+          }
+        }
+
+        else
+        {
+          v226 = &v309;
+        }
+
+        strlen(v226);
+LABEL_424:
+        v227 = *(v249 + 200);
+        __src.__r_.__value_.__r.__words[0] = *v173;
+        __src.__r_.__value_.__l.__size_ = v227;
+        llvm::FunctionType::get();
+        llvm::Module::getOrInsertFunction();
+        v229 = v228;
+        v317.__r_.__value_.__r.__words[0] = v173;
+        v317.__r_.__value_.__l.__size_ = llvm::ConstantInt::get();
+        LOWORD(v321) = 257;
+        v204 = *(v229 + 24);
+        v205 = (v249 + 8);
+        v203 = v229;
+        v206 = 2;
+LABEL_425:
+        v173 = llvm::IRBuilderBase::CreateCall(v205, v204, v203, &v317, v206, &__src);
+        if (SHIBYTE(v309.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v309.__r_.__value_.__l.__data_);
+        }
+
+        goto LABEL_427;
+      }
+    }
+
+    std::operator+<char>();
+    v195 = std::string::append(&v317, ".f.");
+    v196 = v195->__r_.__value_.__r.__words[2];
+    *&__src.__r_.__value_.__l.__data_ = *&v195->__r_.__value_.__l.__data_;
+    __src.__r_.__value_.__r.__words[2] = v196;
+    v195->__r_.__value_.__l.__size_ = 0;
+    v195->__r_.__value_.__r.__words[2] = 0;
+    v195->__r_.__value_.__r.__words[0] = 0;
+    if ((v283.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v197 = &v283;
+    }
+
+    else
+    {
+      v197 = v283.__r_.__value_.__r.__words[0];
+    }
+
+    if ((v283.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v198 = HIBYTE(v283.__r_.__value_.__r.__words[2]);
+    }
+
+    else
+    {
+      v198 = v283.__r_.__value_.__l.__size_;
+    }
+
+    v199 = std::string::append(&__src, v197, v198);
+    v200 = v199->__r_.__value_.__r.__words[2];
+    *&v309.__r_.__value_.__l.__data_ = *&v199->__r_.__value_.__l.__data_;
+    v309.__r_.__value_.__r.__words[2] = v200;
+    v199->__r_.__value_.__l.__size_ = 0;
+    v199->__r_.__value_.__r.__words[2] = 0;
+    v199->__r_.__value_.__r.__words[0] = 0;
+    if (SHIBYTE(__src.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(__src.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v317.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v317.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v309.__r_.__value_.__r.__words[2]) < 0)
+    {
+      v201 = v309.__r_.__value_.__r.__words[0];
+      if (!v309.__r_.__value_.__r.__words[0])
+      {
+        goto LABEL_386;
+      }
+    }
+
+    else
+    {
+      v201 = &v309;
+    }
+
+    strlen(v201);
+LABEL_386:
+    __src.__r_.__value_.__r.__words[0] = *v173;
+    llvm::FunctionType::get();
+    llvm::Module::getOrInsertFunction();
+    v203 = v202;
+    v317.__r_.__value_.__r.__words[0] = v173;
+    LOWORD(v321) = 257;
+    v204 = *(v202 + 24);
+    v205 = (v249 + 8);
+    v206 = 1;
+    goto LABEL_425;
+  }
+
+LABEL_427:
+  if (v40)
+  {
+    v230 = (v287 * v286);
+    llvm::UndefValue::get();
+    if (v230)
+    {
+      std::__allocate_at_least[abi:nn200100]<std::allocator<llvm::User *>>(v230);
+    }
+
+    if ((v286 * v287) >= 0x20)
+    {
+      v231 = 0;
+      do
+      {
+        *(8 * v231++) = llvm::ConstantInt::get();
+      }
+
+      while (v231 < (v286 * v287) >> 5);
+    }
+
+    v232 = llvm::ConstantVector::get();
+    LOWORD(v321) = 257;
+    llvm::IRBuilderBase::CreateShuffleVector((v249 + 8), v173, v173, v232, &__src);
+  }
+
+  if (SHIBYTE(v280.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v280.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v281.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v281.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v282.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v282.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v283.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v283.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v251.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v251.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v252.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v252.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v253.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v253.__r_.__value_.__l.__data_);
+  }
+
+  llvm::Value::replaceAllUsesWith();
+  llvm::Instruction::eraseFromParent(v243);
+  if (v288.__r_.__value_.__l.__data_ != &v288.__r_.__value_.__r.__words[2])
+  {
+    free(v288.__r_.__value_.__l.__data_);
   }
 }

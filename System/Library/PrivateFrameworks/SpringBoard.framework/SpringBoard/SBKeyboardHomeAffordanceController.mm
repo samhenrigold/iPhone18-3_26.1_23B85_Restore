@@ -385,8 +385,7 @@ LABEL_18:
   if (homeGrabberView && self->_isHomeGrabberContainingViewAlwaysPortrait && [(SBHomeGrabberRotationView *)homeGrabberView orientation]!= orientation)
   {
     v8 = [SBAnimationUtilities animationSettingsForRotationFromInterfaceOrientation:[(SBHomeGrabberRotationView *)self->_homeGrabberView orientation] toInterfaceOrientation:orientation];
-    [(SBHomeGrabberRotationView *)self->_homeGrabberView setOrientation:orientation animated:1 rotationSettings:v8];
-    v9 = SBLogHomeAffordance();
+    v9 = SBLogHomeAffordance([(SBHomeGrabberRotationView *)self->_homeGrabberView setOrientation:orientation animated:1 rotationSettings:v8]);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       grabberView = [(SBHomeGrabberRotationView *)self->_homeGrabberView grabberView];

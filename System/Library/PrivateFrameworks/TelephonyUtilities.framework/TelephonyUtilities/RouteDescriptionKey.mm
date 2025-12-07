@@ -30,10 +30,10 @@ void *__getAVSystemController_RouteDescriptionKey_AVAudioRouteNameSymbolLoc_bloc
   return result;
 }
 
-void *__getAVSystemController_RouteDescriptionKey_RouteUIDSymbolLoc_block_invoke_0(uint64_t a1)
+void *__getAVSystemController_RouteDescriptionKey_RouteUIDSymbolLoc_block_invoke_0(uint64_t a1, uint64_t a2)
 {
-  v2 = MediaExperienceLibrary_0();
-  result = dlsym(v2, "AVSystemController_RouteDescriptionKey_RouteUID");
+  v3 = MediaExperienceLibrary_0();
+  result = dlsym(v3, "AVSystemController_RouteDescriptionKey_RouteUID");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getAVSystemController_RouteDescriptionKey_RouteUIDSymbolLoc_ptr_0 = *(*(*(a1 + 32) + 8) + 24);
   return result;

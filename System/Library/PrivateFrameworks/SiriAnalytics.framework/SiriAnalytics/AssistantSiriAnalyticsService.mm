@@ -20,7 +20,10 @@
 - (void)handler:(id)handler resetLogicalClockWithCompletion:(id)completion;
 - (void)handler:(id)handler runPipelineWithCompletion:(id)completion;
 - (void)handler:(id)handler saveState:(id)state forPluginName:(id)name completion:(id)completion;
+- (void)handler:(id)handler setKillSwitchEnabled:(BOOL)enabled completion:(id)completion;
 - (void)handler:(id)handler unorderedMessagesReceived:(id)received topic:(id)topic;
+- (void)handler:(id)handler vendResource:(int64_t)resource readonly:(BOOL)readonly completion:(id)completion;
+- (void)handler:(id)handler vendSandboxExtensionWithResource:(int64_t)resource readonly:(BOOL)readonly completion:(id)completion;
 - (void)registerMessageResolver:(id)resolver;
 - (void)registerSensitiveConditionsObserver:(id)observer;
 - (void)sensitiveCondition:(int)condition endedAt:(unint64_t)at;
@@ -53,7 +56,7 @@
 
 - (void)_pruneStorageWithCompletion:(id)completion
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if (SiriAnalyticsLoggingInit_once != -1)
   {
@@ -64,7 +67,7 @@
   if (os_log_type_enabled(SiriAnalyticsLogContextAssistant, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v12 = "[AssistantSiriAnalyticsService _pruneStorageWithCompletion:]";
+    v11 = "[AssistantSiriAnalyticsService _pruneStorageWithCompletion:]";
     _os_log_debug_impl(&dword_1D9863000, v5, OS_LOG_TYPE_DEBUG, "%s ", buf, 0xCu);
   }
 
@@ -72,15 +75,13 @@
   aBlock[1] = 3221225472;
   aBlock[2] = __61__AssistantSiriAnalyticsService__pruneStorageWithCompletion___block_invoke;
   aBlock[3] = &unk_1E8587C18;
-  v10 = completionCopy;
+  v9 = completionCopy;
   v6 = completionCopy;
   v7 = _Block_copy(aBlock);
   [(SiriAnalyticsMetastore *)self->_metastore prune];
   [(SiriAnalyticsMessageStore *)self->_messageStore prune];
   [(SiriAnalyticsRawUnifiedStream *)self->_rawUnifiedStream prune];
   [(SiriAnalyticsMessageStaging *)self->_messageStaging pruneWithCompletionHandler:v7];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __61__AssistantSiriAnalyticsService__pruneStorageWithCompletion___block_invoke(uint64_t a1)
@@ -113,7 +114,7 @@ uint64_t __61__AssistantSiriAnalyticsService__pruneStorageWithCompletion___block
 
 - (void)handler:(id)handler saveState:(id)state forPluginName:(id)name completion:(id)completion
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   nameCopy = name;
   completionCopy = completion;
@@ -126,27 +127,25 @@ uint64_t __61__AssistantSiriAnalyticsService__pruneStorageWithCompletion___block
   if (os_log_type_enabled(SiriAnalyticsLogContextAssistant, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v23 = "[AssistantSiriAnalyticsService handler:saveState:forPluginName:completion:]";
-    v24 = 2112;
-    v25 = nameCopy;
+    v22 = "[AssistantSiriAnalyticsService handler:saveState:forPluginName:completion:]";
+    v23 = 2112;
+    v24 = nameCopy;
     _os_log_impl(&dword_1D9863000, v12, OS_LOG_TYPE_INFO, "%s plugin: %@", buf, 0x16u);
   }
 
   queue = self->_queue;
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __76__AssistantSiriAnalyticsService_handler_saveState_forPluginName_completion___block_invoke;
-  v18[3] = &unk_1E8587C40;
-  v18[4] = self;
-  v19 = stateCopy;
-  v20 = nameCopy;
-  v21 = completionCopy;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __76__AssistantSiriAnalyticsService_handler_saveState_forPluginName_completion___block_invoke;
+  v17[3] = &unk_1E8587C40;
+  v17[4] = self;
+  v18 = stateCopy;
+  v19 = nameCopy;
+  v20 = completionCopy;
   v14 = completionCopy;
   v15 = nameCopy;
   v16 = stateCopy;
-  dispatch_async(queue, v18);
-
-  v17 = *MEMORY[0x1E69E9840];
+  dispatch_async(queue, v17);
 }
 
 uint64_t __76__AssistantSiriAnalyticsService_handler_saveState_forPluginName_completion___block_invoke(void *a1)
@@ -165,7 +164,7 @@ uint64_t __76__AssistantSiriAnalyticsService_handler_saveState_forPluginName_com
 
 - (void)handler:(id)handler fetchStateForPluginName:(id)name completion:(id)completion
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   completionCopy = completion;
   if (SiriAnalyticsLoggingInit_once != -1)
@@ -177,9 +176,9 @@ uint64_t __76__AssistantSiriAnalyticsService_handler_saveState_forPluginName_com
   if (os_log_type_enabled(SiriAnalyticsLogContextAssistant, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v18 = "[AssistantSiriAnalyticsService handler:fetchStateForPluginName:completion:]";
-    v19 = 2112;
-    v20 = nameCopy;
+    v17 = "[AssistantSiriAnalyticsService handler:fetchStateForPluginName:completion:]";
+    v18 = 2112;
+    v19 = nameCopy;
     _os_log_impl(&dword_1D9863000, v9, OS_LOG_TYPE_INFO, "%s plugin: %@", buf, 0x16u);
   }
 
@@ -189,13 +188,11 @@ uint64_t __76__AssistantSiriAnalyticsService_handler_saveState_forPluginName_com
   block[2] = __76__AssistantSiriAnalyticsService_handler_fetchStateForPluginName_completion___block_invoke;
   block[3] = &unk_1E8587CE0;
   block[4] = self;
-  v15 = nameCopy;
-  v16 = completionCopy;
+  v14 = nameCopy;
+  v15 = completionCopy;
   v11 = completionCopy;
   v12 = nameCopy;
   dispatch_async(queue, block);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __76__AssistantSiriAnalyticsService_handler_fetchStateForPluginName_completion___block_invoke(void *a1)
@@ -294,6 +291,20 @@ uint64_t __67__AssistantSiriAnalyticsService_handler_runPipelineWithCompletion__
   return result;
 }
 
+- (void)handler:(id)handler setKillSwitchEnabled:(BOOL)enabled completion:(id)completion
+{
+  enabledCopy = enabled;
+  completionCopy = completion;
+  [(SiriAnalyticsPreferences *)self->_preferences setKillSwitchEnabled:enabledCopy];
+  [(SiriAnalyticsPreferences *)self->_preferences synchronize];
+  v7 = completionCopy;
+  if (completionCopy)
+  {
+    (*(completionCopy + 2))(completionCopy, 1, 0);
+    v7 = completionCopy;
+  }
+}
+
 - (void)handler:(id)handler fetchKillSwitchWithCompletion:(id)completion
 {
   if (completion)
@@ -304,9 +315,260 @@ uint64_t __67__AssistantSiriAnalyticsService_handler_runPipelineWithCompletion__
   }
 }
 
+- (void)handler:(id)handler vendResource:(int64_t)resource readonly:(BOOL)readonly completion:(id)completion
+{
+  readonlyCopy = readonly;
+  v28 = *MEMORY[0x1E69E9840];
+  handlerCopy = handler;
+  completionCopy = completion;
+  if (SiriAnalyticsLoggingInit_once != -1)
+  {
+    dispatch_once(&SiriAnalyticsLoggingInit_once, &__block_literal_global_701);
+  }
+
+  v11 = SiriAnalyticsLogContextAssistant;
+  if (os_log_type_enabled(SiriAnalyticsLogContextAssistant, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 136315650;
+    *&buf[4] = "[AssistantSiriAnalyticsService handler:vendResource:readonly:completion:]";
+    *&buf[12] = 2048;
+    *&buf[14] = resource;
+    *&buf[22] = 2048;
+    *&buf[24] = readonlyCopy;
+    _os_log_debug_impl(&dword_1D9863000, v11, OS_LOG_TYPE_DEBUG, "%s Vending sandbox extension for resource: %ld, readonly: %ld", buf, 0x20u);
+  }
+
+  v12 = +[SiriAnalyticsPersistentStorage dataVault];
+  entitlements = [handlerCopy entitlements];
+  extendedEntitlements = [entitlements extendedEntitlements];
+  if (handlerCopy)
+  {
+    objc_msgSend_auditToken(handlerCopy);
+  }
+
+  else
+  {
+    memset(buf, 0, sizeof(buf));
+  }
+
+  v24 = 0;
+  v22 = readonlyCopy;
+  v15 = [v12 vendAccessFor:resource withEntitlements:extendedEntitlements auditToken:buf readonly:readonlyCopy error:&v24];
+  v16 = v24;
+
+  if (SiriAnalyticsLoggingInit_once == -1)
+  {
+    if (v16)
+    {
+      goto LABEL_10;
+    }
+
+LABEL_16:
+    v18 = SiriAnalyticsLogContextAssistant;
+    if (os_log_type_enabled(SiriAnalyticsLogContextAssistant, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 136315650;
+      *&buf[4] = "[AssistantSiriAnalyticsService handler:vendResource:readonly:completion:]";
+      *&buf[12] = 2048;
+      *&buf[14] = resource;
+      *&buf[22] = 2048;
+      *&buf[24] = v22;
+      _os_log_debug_impl(&dword_1D9863000, v18, OS_LOG_TYPE_DEBUG, "%s Vended sandbox extension for resource: %ld, readonly: %ld", buf, 0x20u);
+    }
+
+    v19 = +[SiriAnalyticsPersistentStorage dataVault];
+    v23 = 0;
+    v20 = [v19 vendedResourceUrlFor:resource error:&v23];
+    v16 = v23;
+
+    if (!v16)
+    {
+      goto LABEL_22;
+    }
+
+    if (SiriAnalyticsLoggingInit_once != -1)
+    {
+      dispatch_once(&SiriAnalyticsLoggingInit_once, &__block_literal_global_701);
+    }
+
+    v21 = SiriAnalyticsLogContextXPC;
+    if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315906;
+      *&buf[4] = "[AssistantSiriAnalyticsService handler:vendResource:readonly:completion:]";
+      *&buf[12] = 2048;
+      *&buf[14] = resource;
+      *&buf[22] = 2048;
+      *&buf[24] = v22;
+      v26 = 2112;
+      v27 = v16;
+      _os_log_error_impl(&dword_1D9863000, v21, OS_LOG_TYPE_ERROR, "%s Error vending sandbox extension for resource: %ld, readonly: %ld, error: %@", buf, 0x2Au);
+      if (!completionCopy)
+      {
+        goto LABEL_24;
+      }
+    }
+
+    else
+    {
+LABEL_22:
+      if (!completionCopy)
+      {
+LABEL_24:
+
+        goto LABEL_25;
+      }
+    }
+
+    completionCopy[2](completionCopy, v15, v20, v16);
+    goto LABEL_24;
+  }
+
+  dispatch_once(&SiriAnalyticsLoggingInit_once, &__block_literal_global_701);
+  if (!v16)
+  {
+    goto LABEL_16;
+  }
+
+LABEL_10:
+  v17 = SiriAnalyticsLogContextXPC;
+  if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 136315906;
+    *&buf[4] = "[AssistantSiriAnalyticsService handler:vendResource:readonly:completion:]";
+    *&buf[12] = 2048;
+    *&buf[14] = resource;
+    *&buf[22] = 2048;
+    *&buf[24] = v22;
+    v26 = 2112;
+    v27 = v16;
+    _os_log_error_impl(&dword_1D9863000, v17, OS_LOG_TYPE_ERROR, "%s Error vending sandbox extension for resource: %ld, readonly: %ld, error: %@", buf, 0x2Au);
+    if (!completionCopy)
+    {
+      goto LABEL_25;
+    }
+
+    goto LABEL_12;
+  }
+
+  if (completionCopy)
+  {
+LABEL_12:
+    completionCopy[2](completionCopy, 0, 0, v16);
+  }
+
+LABEL_25:
+}
+
+- (void)handler:(id)handler vendSandboxExtensionWithResource:(int64_t)resource readonly:(BOOL)readonly completion:(id)completion
+{
+  readonlyCopy = readonly;
+  v23 = *MEMORY[0x1E69E9840];
+  handlerCopy = handler;
+  completionCopy = completion;
+  if (SiriAnalyticsLoggingInit_once != -1)
+  {
+    dispatch_once(&SiriAnalyticsLoggingInit_once, &__block_literal_global_701);
+  }
+
+  v11 = SiriAnalyticsLogContextAssistant;
+  if (os_log_type_enabled(SiriAnalyticsLogContextAssistant, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 136315650;
+    *&buf[4] = "[AssistantSiriAnalyticsService handler:vendSandboxExtensionWithResource:readonly:completion:]";
+    *&buf[12] = 2048;
+    *&buf[14] = resource;
+    *&buf[22] = 2048;
+    *&buf[24] = readonlyCopy;
+    _os_log_debug_impl(&dword_1D9863000, v11, OS_LOG_TYPE_DEBUG, "%s Vending sandbox extension for resource: %ld, readonly: %ld", buf, 0x20u);
+  }
+
+  v12 = +[SiriAnalyticsPersistentStorage dataVault];
+  entitlements = [handlerCopy entitlements];
+  extendedEntitlements = [entitlements extendedEntitlements];
+  if (handlerCopy)
+  {
+    objc_msgSend_auditToken(handlerCopy);
+  }
+
+  else
+  {
+    memset(buf, 0, sizeof(buf));
+  }
+
+  v19 = 0;
+  v15 = [v12 vendAccessFor:resource withEntitlements:extendedEntitlements auditToken:buf readonly:readonlyCopy error:&v19];
+  v16 = v19;
+
+  if (SiriAnalyticsLoggingInit_once == -1)
+  {
+    if (v16)
+    {
+      goto LABEL_10;
+    }
+  }
+
+  else
+  {
+    dispatch_once(&SiriAnalyticsLoggingInit_once, &__block_literal_global_701);
+    if (v16)
+    {
+LABEL_10:
+      v17 = SiriAnalyticsLogContextXPC;
+      if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315906;
+        *&buf[4] = "[AssistantSiriAnalyticsService handler:vendSandboxExtensionWithResource:readonly:completion:]";
+        *&buf[12] = 2048;
+        *&buf[14] = resource;
+        *&buf[22] = 2048;
+        *&buf[24] = readonlyCopy;
+        v21 = 2112;
+        v22 = v16;
+        _os_log_error_impl(&dword_1D9863000, v17, OS_LOG_TYPE_ERROR, "%s Error vending sandbox extension for resource: %ld, readonly: %ld, error: %@", buf, 0x2Au);
+        if (!completionCopy)
+        {
+          goto LABEL_17;
+        }
+
+        goto LABEL_16;
+      }
+
+      goto LABEL_15;
+    }
+  }
+
+  v18 = SiriAnalyticsLogContextAssistant;
+  if (os_log_type_enabled(SiriAnalyticsLogContextAssistant, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 136315650;
+    *&buf[4] = "[AssistantSiriAnalyticsService handler:vendSandboxExtensionWithResource:readonly:completion:]";
+    *&buf[12] = 2048;
+    *&buf[14] = resource;
+    *&buf[22] = 2048;
+    *&buf[24] = readonlyCopy;
+    _os_log_debug_impl(&dword_1D9863000, v18, OS_LOG_TYPE_DEBUG, "%s Vended sandbox extension for resource: %ld, readonly: %ld", buf, 0x20u);
+    if (!completionCopy)
+    {
+      goto LABEL_17;
+    }
+
+    goto LABEL_16;
+  }
+
+LABEL_15:
+  if (completionCopy)
+  {
+LABEL_16:
+    completionCopy[2](completionCopy, v15, v16);
+  }
+
+LABEL_17:
+}
+
 - (void)handler:(id)handler resetLogicalClockWithCompletion:(id)completion
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if (SiriAnalyticsLoggingInit_once != -1)
   {
@@ -317,20 +579,18 @@ uint64_t __67__AssistantSiriAnalyticsService_handler_runPipelineWithCompletion__
   if (os_log_type_enabled(SiriAnalyticsLogContextAssistant, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v13 = "[AssistantSiriAnalyticsService handler:resetLogicalClockWithCompletion:]";
+    v12 = "[AssistantSiriAnalyticsService handler:resetLogicalClockWithCompletion:]";
     _os_log_debug_impl(&dword_1D9863000, v6, OS_LOG_TYPE_DEBUG, "%s Resetting logical clock", buf, 0xCu);
   }
 
   whiteRose = self->_whiteRose;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __73__AssistantSiriAnalyticsService_handler_resetLogicalClockWithCompletion___block_invoke;
-  v10[3] = &unk_1E85879E0;
-  v11 = completionCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __73__AssistantSiriAnalyticsService_handler_resetLogicalClockWithCompletion___block_invoke;
+  v9[3] = &unk_1E85879E0;
+  v10 = completionCopy;
   v8 = completionCopy;
-  [(SiriAnalyticsWhiteRose *)whiteRose destroyActiveClockWithReason:3 completion:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  [(SiriAnalyticsWhiteRose *)whiteRose destroyActiveClockWithReason:3 completion:v9];
 }
 
 uint64_t __73__AssistantSiriAnalyticsService_handler_resetLogicalClockWithCompletion___block_invoke(uint64_t a1, uint64_t a2)
@@ -364,61 +624,59 @@ uint64_t __73__AssistantSiriAnalyticsService_handler_resetLogicalClockWithComple
 
 - (void)handler:(id)handler unorderedMessagesReceived:(id)received topic:(id)topic
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   receivedCopy = received;
   topicCopy = topic;
   if ([(AssistantSiriAnalyticsService *)self _analyticsEnabled])
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
-    v16 = receivedCopy;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    v15 = receivedCopy;
     obj = receivedCopy;
-    v9 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v9 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v20;
+      v11 = *v19;
       do
       {
         v12 = 0;
         do
         {
-          if (*v20 != v11)
+          if (*v19 != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v19 + 1) + 8 * v12);
+          v13 = *(*(&v18 + 1) + 8 * v12);
           directUpload = [(SiriAnalyticsMessageTopics *)self->_messageTopics directUpload];
-          v18[0] = MEMORY[0x1E69E9820];
-          v18[1] = 3221225472;
-          v18[2] = __73__AssistantSiriAnalyticsService_handler_unorderedMessagesReceived_topic___block_invoke;
-          v18[3] = &unk_1E8587238;
-          v18[4] = self;
-          v18[5] = v13;
-          [directUpload append:v13 topic:topicCopy completionHandler:v18];
+          v17[0] = MEMORY[0x1E69E9820];
+          v17[1] = 3221225472;
+          v17[2] = __73__AssistantSiriAnalyticsService_handler_unorderedMessagesReceived_topic___block_invoke;
+          v17[3] = &unk_1E8587238;
+          v17[4] = self;
+          v17[5] = v13;
+          [directUpload append:v13 topic:topicCopy completionHandler:v17];
 
           ++v12;
         }
 
         while (v10 != v12);
-        v10 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v10 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v10);
     }
 
-    receivedCopy = v16;
+    receivedCopy = v15;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __73__AssistantSiriAnalyticsService_handler_unorderedMessagesReceived_topic___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
@@ -435,15 +693,13 @@ void __73__AssistantSiriAnalyticsService_handler_unorderedMessagesReceived_topic
     v6 = SiriAnalyticsLogContextAssistant;
     if (os_log_type_enabled(SiriAnalyticsLogContextAssistant, OS_LOG_TYPE_ERROR))
     {
-      v8 = 136315394;
-      v9 = "[AssistantSiriAnalyticsService handler:unorderedMessagesReceived:topic:]_block_invoke";
-      v10 = 2112;
-      v11 = v5;
-      _os_log_error_impl(&dword_1D9863000, v6, OS_LOG_TYPE_ERROR, "%s Failed to persist message: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[AssistantSiriAnalyticsService handler:unorderedMessagesReceived:topic:]_block_invoke";
+      v9 = 2112;
+      v10 = v5;
+      _os_log_error_impl(&dword_1D9863000, v6, OS_LOG_TYPE_ERROR, "%s Failed to persist message: %@", &v7, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handler:(id)handler messagesReceived:(id)received
@@ -527,9 +783,7 @@ void __58__AssistantSiriAnalyticsService_handler_messagesReceived___block_invoke
 
 - (void)_setupIncomingConnections
 {
-  v3 = [[SiriAnalyticsXPCServiceListener alloc] initWithMachServiceName:@"com.apple.siri.analytics.assistant" entitlementsKey:@"com.apple.siri.analytics.assistant" queue:self->_queue delegate:self];
-  siriAnalyticsListener = self->_siriAnalyticsListener;
-  self->_siriAnalyticsListener = v3;
+  self->_siriAnalyticsListener = [[SiriAnalyticsXPCServiceListener alloc] initWithMachServiceName:@"com.apple.siri.analytics.assistant" entitlementsKey:@"com.apple.siri.analytics.assistant" queue:self->_queue delegate:self];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -675,7 +929,7 @@ void __65__AssistantSiriAnalyticsService__bootstrapStorageWithCompletion___block
 
 - (void)_buildDependenciesOnQueue
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(SiriAnalyticsPreferences);
   preferences = self->_preferences;
   self->_preferences = v3;
@@ -704,8 +958,8 @@ LABEL_6:
     v7 = self->_preferences;
     v8 = v6;
     *buf = 136315394;
-    v68 = "[AssistantSiriAnalyticsService _buildDependenciesOnQueue]";
-    v69 = 2048;
+    v67 = "[AssistantSiriAnalyticsService _buildDependenciesOnQueue]";
+    v68 = 2048;
     selfCopy = [(SiriAnalyticsPreferences *)v7 killSwitchEnabled];
     _os_log_impl(&dword_1D9863000, v8, OS_LOG_TYPE_INFO, "%s 💀 kill switch enabled with pref: %ld", buf, 0x16u);
 
@@ -719,13 +973,13 @@ LABEL_8:
     queue = self->_queue;
     killSwitchEnabled = self->_killSwitchEnabled;
     *buf = 136315906;
-    v68 = "[AssistantSiriAnalyticsService _buildDependenciesOnQueue]";
-    v69 = 2112;
+    v67 = "[AssistantSiriAnalyticsService _buildDependenciesOnQueue]";
+    v68 = 2112;
     selfCopy = self;
-    v71 = 2112;
-    v72 = queue;
-    v73 = 2048;
-    v74 = killSwitchEnabled;
+    v70 = 2112;
+    v71 = queue;
+    v72 = 2048;
+    v73 = killSwitchEnabled;
     _os_log_impl(&dword_1D9863000, v9, OS_LOG_TYPE_INFO, "%s Analytics service: %@ created on queue: %@ with killSwitchEnabled: %ld", buf, 0x2Au);
   }
 
@@ -794,22 +1048,22 @@ LABEL_8:
     objc_initWeak(buf, self);
     v43 = [SiriAnalyticsClockInactivityScheduler alloc];
     v44 = self->_queue;
-    v65[0] = MEMORY[0x1E69E9820];
-    v65[1] = 3221225472;
-    v65[2] = __58__AssistantSiriAnalyticsService__buildDependenciesOnQueue__block_invoke;
-    v65[3] = &unk_1E85871C0;
-    objc_copyWeak(&v66, buf);
-    v63[0] = MEMORY[0x1E69E9820];
-    v63[1] = 3221225472;
-    v63[2] = __58__AssistantSiriAnalyticsService__buildDependenciesOnQueue__block_invoke_3;
-    v63[3] = &unk_1E85871C0;
-    objc_copyWeak(&v64, buf);
-    v45 = [(SiriAnalyticsClockInactivityScheduler *)v43 initWithSeconds:30 queue:v44 expiration:v65 creation:v63];
+    v64[0] = MEMORY[0x1E69E9820];
+    v64[1] = 3221225472;
+    v64[2] = __58__AssistantSiriAnalyticsService__buildDependenciesOnQueue__block_invoke;
+    v64[3] = &unk_1E85871C0;
+    objc_copyWeak(&v65, buf);
+    v62[0] = MEMORY[0x1E69E9820];
+    v62[1] = 3221225472;
+    v62[2] = __58__AssistantSiriAnalyticsService__buildDependenciesOnQueue__block_invoke_3;
+    v62[3] = &unk_1E85871C0;
+    objc_copyWeak(&v63, buf);
+    v45 = [(SiriAnalyticsClockInactivityScheduler *)v43 initWithSeconds:30 queue:v44 expiration:v64 creation:v62];
     inactivityScheduler = self->_inactivityScheduler;
     self->_inactivityScheduler = v45;
 
-    objc_destroyWeak(&v64);
-    objc_destroyWeak(&v66);
+    objc_destroyWeak(&v63);
+    objc_destroyWeak(&v65);
     objc_destroyWeak(buf);
   }
 
@@ -840,7 +1094,6 @@ LABEL_8:
   *p_userHistoryPolicy = v59;
 
   [*p_userHistoryPolicy startObserving];
-  v62 = *MEMORY[0x1E69E9840];
 }
 
 void __58__AssistantSiriAnalyticsService__buildDependenciesOnQueue__block_invoke(uint64_t a1, void *a2)

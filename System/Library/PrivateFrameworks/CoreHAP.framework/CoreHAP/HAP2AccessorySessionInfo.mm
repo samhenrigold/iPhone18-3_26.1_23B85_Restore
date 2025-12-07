@@ -1,5 +1,6 @@
 @interface HAP2AccessorySessionInfo
 - (HAP2AccessorySessionInfo)init;
+- (HAP2AccessorySessionInfo)initWithNumIPs:(unint64_t)ps numIPsTried:(unint64_t)tried numBonjourNames:(unint64_t)names ipAddress:(id)address serviceName:(id)name resolveAttempted:(BOOL)attempted;
 - (id)description;
 - (void)resetWithNumIPs:(unint64_t)ps numIPsTried:(unint64_t)tried numBonjourNames:(unint64_t)names ipAddress:(id)address serviceName:(id)name resolveAttempted:(BOOL)attempted;
 @end
@@ -46,7 +47,7 @@
 
 - (void)resetWithNumIPs:(unint64_t)ps numIPsTried:(unint64_t)tried numBonjourNames:(unint64_t)names ipAddress:(id)address serviceName:(id)name resolveAttempted:(BOOL)attempted
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   addressCopy = address;
   nameCopy = name;
   self->_numIPAddresses = ps;
@@ -62,15 +63,31 @@
   {
     v20 = HMFGetLogIdentifier();
     v21 = [(HAP2AccessorySessionInfo *)selfCopy description];
-    v23 = 138543618;
-    v24 = v20;
-    v25 = 2112;
-    v26 = v21;
-    _os_log_impl(&dword_22AADC000, v19, OS_LOG_TYPE_DEBUG, "%{public}@%@", &v23, 0x16u);
+    v22 = 138543618;
+    v23 = v20;
+    v24 = 2112;
+    v25 = v21;
+    _os_log_impl(&dword_22AADC000, v19, OS_LOG_TYPE_DEBUG, "%{public}@%@", &v22, 0x16u);
   }
 
   objc_autoreleasePoolPop(v17);
-  v22 = *MEMORY[0x277D85DE8];
+}
+
+- (HAP2AccessorySessionInfo)initWithNumIPs:(unint64_t)ps numIPsTried:(unint64_t)tried numBonjourNames:(unint64_t)names ipAddress:(id)address serviceName:(id)name resolveAttempted:(BOOL)attempted
+{
+  attemptedCopy = attempted;
+  addressCopy = address;
+  nameCopy = name;
+  v19.receiver = self;
+  v19.super_class = HAP2AccessorySessionInfo;
+  v16 = [(HAP2AccessorySessionInfo *)&v19 init];
+  v17 = v16;
+  if (v16)
+  {
+    [(HAP2AccessorySessionInfo *)v16 resetWithNumIPs:ps numIPsTried:tried numBonjourNames:names ipAddress:addressCopy serviceName:nameCopy resolveAttempted:attemptedCopy];
+  }
+
+  return v17;
 }
 
 - (HAP2AccessorySessionInfo)init

@@ -9,6 +9,7 @@
 - (MURelatedPlacesSectionControllerDelegate)relatedPlacesDelegate;
 - (UIView)sectionView;
 - (id)_moduleTitle;
+- (int)analyticsModuleTypeForAction:(int)action presentationOptions:(id)options;
 - (unint64_t)numInlineItems;
 - (void)_buildInitialContent;
 - (void)_cancelFollowUpRequestIfNeeded;
@@ -97,6 +98,27 @@
     }
 
     [(MUPlaceSectionController *)self captureInfoCardAction:v5 eventValue:0 feedbackType:0];
+  }
+}
+
+- (int)analyticsModuleTypeForAction:(int)action presentationOptions:(id)options
+{
+  if ([(MURelatedPlaceSectionControllerConfiguration *)self->_configuration dataSource:*&action]== 1)
+  {
+    return 43;
+  }
+
+  effectiveRelatedPlaceList = [(MURelatedPlacesSectionController *)self effectiveRelatedPlaceList];
+  hasInitialData = [effectiveRelatedPlaceList hasInitialData];
+
+  if (hasInitialData)
+  {
+    return 38;
+  }
+
+  else
+  {
+    return 26;
   }
 }
 
@@ -515,25 +537,23 @@ id __73__MURelatedPlacesSectionController__refineHikingTrailListWithCompletion__
 
 - (void)_refinePlaceAndNotifyDelegate:(id)delegate
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
   v5 = [objc_alloc(MEMORY[0x1E696F280]) initWithGEOMapItemIdentifier:delegateCopy];
   mEMORY[0x1E696F298] = [MEMORY[0x1E696F298] sharedService];
-  v13[0] = v5;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+  v12[0] = v5;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
   v8 = [mEMORY[0x1E696F298] ticketForIdentifiers:v7 traits:0];
 
   objc_initWeak(&location, self);
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __66__MURelatedPlacesSectionController__refinePlaceAndNotifyDelegate___block_invoke;
-  v10[3] = &unk_1E8219220;
-  objc_copyWeak(&v11, &location);
-  [v8 submitWithHandler:v10 networkActivity:0];
-  objc_destroyWeak(&v11);
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __66__MURelatedPlacesSectionController__refinePlaceAndNotifyDelegate___block_invoke;
+  v9[3] = &unk_1E8219220;
+  objc_copyWeak(&v10, &location);
+  [v8 submitWithHandler:v9 networkActivity:0];
+  objc_destroyWeak(&v10);
   objc_destroyWeak(&location);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __66__MURelatedPlacesSectionController__refinePlaceAndNotifyDelegate___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -795,7 +815,7 @@ LABEL_8:
 
 void __70__MURelatedPlacesSectionController_performNearbyPlacesFollowUpRequest__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -810,11 +830,11 @@ void __70__MURelatedPlacesSectionController_performNearbyPlacesFollowUpRequest__
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         v10 = [v8 mapItem];
-        v23 = 134218242;
-        v24 = [v10 _muid];
-        v25 = 2112;
-        v26 = v6;
-        _os_log_impl(&dword_1C5620000, v9, OS_LOG_TYPE_ERROR, "MURelatedPlacesSectionController: Error Fetching nearby places via follow-up request: muid: %llu, %@", &v23, 0x16u);
+        v22 = 134218242;
+        v23 = [v10 _muid];
+        v24 = 2112;
+        v25 = v6;
+        _os_log_impl(&dword_1C5620000, v9, OS_LOG_TYPE_ERROR, "MURelatedPlacesSectionController: Error Fetching nearby places via follow-up request: muid: %llu, %@", &v22, 0x16u);
       }
     }
 
@@ -832,11 +852,11 @@ void __70__MURelatedPlacesSectionController_performNearbyPlacesFollowUpRequest__
         v17 = [v16 _muid];
         v18 = [v13 placeTemplates];
         v19 = [v18 count];
-        v23 = 134218240;
-        v24 = v17;
-        v25 = 2048;
-        v26 = v19;
-        _os_log_impl(&dword_1C5620000, v15, OS_LOG_TYPE_INFO, "MURelatedPlacesSectionController: Follow-Up request for muid: %llu succeeded with %lu template items", &v23, 0x16u);
+        v22 = 134218240;
+        v23 = v17;
+        v24 = 2048;
+        v25 = v19;
+        _os_log_impl(&dword_1C5620000, v15, OS_LOG_TYPE_INFO, "MURelatedPlacesSectionController: Follow-Up request for muid: %llu succeeded with %lu template items", &v22, 0x16u);
       }
 
       [v8 _updateWithListFromFollowUpRequest:v13];
@@ -848,14 +868,12 @@ void __70__MURelatedPlacesSectionController_performNearbyPlacesFollowUpRequest__
       {
         v20 = [v8 mapItem];
         v21 = [v20 _muid];
-        v23 = 134217984;
-        v24 = v21;
-        _os_log_impl(&dword_1C5620000, v15, OS_LOG_TYPE_ERROR, "MURelatedPlacesSectionController: Follow-up request for muid: %llu succeeded but did not return relatedPlaceList", &v23, 0xCu);
+        v22 = 134217984;
+        v23 = v21;
+        _os_log_impl(&dword_1C5620000, v15, OS_LOG_TYPE_ERROR, "MURelatedPlacesSectionController: Follow-up request for muid: %llu succeeded but did not return relatedPlaceList", &v22, 0xCu);
       }
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_displayTilesForViewModels:(id)models
@@ -1000,38 +1018,38 @@ void __50__MURelatedPlacesSectionController__updateSection__block_invoke(uint64_
 
 - (void)_buildInitialContent
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (![(MURelatedPlacesSectionController *)self needsToPerformRefinement])
   {
     v3 = objc_opt_new();
     dataSource = [(MURelatedPlaceSectionControllerConfiguration *)self->_configuration dataSource];
     if (dataSource == 1)
     {
-      v18 = v3;
+      v17 = v3;
       array = [MEMORY[0x1E695DF70] array];
+      v18 = 0u;
       v19 = 0u;
       v20 = 0u;
       v21 = 0u;
-      v22 = 0u;
       trailHead = [(MURelatedPlaceSectionControllerConfiguration *)self->_configuration trailHead];
       trails = [trailHead trails];
 
-      v9 = [trails countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v9 = [trails countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v20;
+        v11 = *v19;
         do
         {
           v12 = 0;
           do
           {
-            if (*v20 != v11)
+            if (*v19 != v11)
             {
               objc_enumerationMutation(trails);
             }
 
-            v13 = *(*(&v19 + 1) + 8 * v12);
+            v13 = *(*(&v18 + 1) + 8 * v12);
             v14 = [MUPlaceHikingTileViewModel alloc];
             mapItem = [(MUPlaceSectionController *)self mapItem];
             v16 = -[MUPlaceHikingTileViewModel initWithGEOTrail:hikingItemType:](v14, "initWithGEOTrail:hikingItemType:", v13, [mapItem _mapsui_associatedHikingItemType]);
@@ -1041,7 +1059,7 @@ void __50__MURelatedPlacesSectionController__updateSection__block_invoke(uint64_
           }
 
           while (v10 != v12);
-          v10 = [trails countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v10 = [trails countByEnumeratingWithState:&v18 objects:v22 count:16];
         }
 
         while (v10);
@@ -1061,8 +1079,6 @@ void __50__MURelatedPlacesSectionController__updateSection__block_invoke(uint64_
 
     [(MURelatedPlacesSectionController *)self _displayTilesForViewModels:array];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setupSectionView

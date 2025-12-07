@@ -14,22 +14,22 @@
   if (v11)
   {
     transaction = [configurationCopy transaction];
-    v13 = [transaction copy];
+    v13 = objc_msgSend_copy(transaction);
     transaction = v11->_transaction;
     v11->_transaction = v13;
 
     package = [configurationCopy package];
-    v16 = [package copy];
+    v16 = objc_msgSend_copy(package);
     package = v11->_package;
     v11->_package = v16;
 
     includedIdentifiers = [configurationCopy includedIdentifiers];
-    v19 = [includedIdentifiers copy];
+    v19 = objc_msgSend_copy(includedIdentifiers);
     includedIdentifiers = v11->_includedIdentifiers;
     v11->_includedIdentifiers = v19;
 
     includedObjectTypes = [configurationCopy includedObjectTypes];
-    v22 = [includedObjectTypes copy];
+    v22 = objc_msgSend_copy(includedObjectTypes);
     includedObjectTypes = v11->_includedObjectTypes;
     v11->_includedObjectTypes = v22;
   }

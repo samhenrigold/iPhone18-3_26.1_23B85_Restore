@@ -87,25 +87,7 @@
     identifier2 = [(CALNNotificationAction *)actionCopy identifier];
     v7 = CalEqualStrings();
 
-    if (!v7)
-    {
-      goto LABEL_6;
-    }
-
-    title = [(CALNNotificationAction *)self title];
-    title2 = [(CALNNotificationAction *)actionCopy title];
-    v10 = CalEqualStrings();
-
-    if (!v10)
-    {
-      goto LABEL_6;
-    }
-
-    systemImageName = [(CALNNotificationAction *)self systemImageName];
-    systemImageName2 = [(CALNNotificationAction *)actionCopy systemImageName];
-    v13 = CalEqualStrings();
-
-    if (v13)
+    if (v7 && ([(CALNNotificationAction *)self title], v8 = objc_claimAutoreleasedReturnValue(), [(CALNNotificationAction *)actionCopy title], v9 = objc_claimAutoreleasedReturnValue(), v10 = CalEqualStrings(), v9, v8, v10) && ([(CALNNotificationAction *)self systemImageName], v11 = objc_claimAutoreleasedReturnValue(), [(CALNNotificationAction *)actionCopy systemImageName], v12 = objc_claimAutoreleasedReturnValue(), v13 = CalEqualStrings(), v12, v11, v13))
     {
       v14 = [(CALNNotificationAction *)self url];
       v15 = [(CALNNotificationAction *)actionCopy url];
@@ -114,7 +96,6 @@
 
     else
     {
-LABEL_6:
       v16 = 0;
     }
   }

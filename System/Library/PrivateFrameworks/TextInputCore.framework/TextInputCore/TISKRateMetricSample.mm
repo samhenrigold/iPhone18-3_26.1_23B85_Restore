@@ -64,16 +64,16 @@
 
 - (void)merge:(id)merge
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   mergeCopy = merge;
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
     v5 = IXADefaultLogFacility();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s [SensorKit] [rateMetricSample merge: other doesn't respond to countFactor selector %d : %d", "-[TISKRateMetricSample merge:]", self->_countFactor, objc_msgSend(mergeCopy, "countFactor")];
+      v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s [SensorKit] [rateMetricSample merge: other doesn't respond to countFactor selector %d : %d", "-[TISKRateMetricSample merge:]", self->_countFactor, objc_msgSend(mergeCopy, "countFactor")];
       *buf = 138412290;
-      v17 = v11;
+      v16 = v10;
       _os_log_error_impl(&dword_22CA55000, v5, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
     }
   }
@@ -84,12 +84,12 @@
     v6 = IXADefaultLogFacility();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v12 = MEMORY[0x277CCACA8];
+      v11 = MEMORY[0x277CCACA8];
       durationFactor = self->_durationFactor;
       [mergeCopy durationFactor];
-      v15 = [v12 stringWithFormat:@"%s [SensorKit] [rateMetricSample merge: other doesn't respond to durationFactor selector %f : %f", "-[TISKRateMetricSample merge:]", *&durationFactor, v14];
+      v14 = [v11 stringWithFormat:@"%s [SensorKit] [rateMetricSample merge: other doesn't respond to durationFactor selector %f : %f", "-[TISKRateMetricSample merge:]", *&durationFactor, v13];
       *buf = 138412290;
-      v17 = v15;
+      v16 = v14;
       _os_log_error_impl(&dword_22CA55000, v6, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
     }
   }
@@ -98,8 +98,6 @@
   v8 = v7;
   [mergeCopy durationFactor];
   [(TISKRateMetricSample *)self setDurationFactor:v8 + v9];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)rate

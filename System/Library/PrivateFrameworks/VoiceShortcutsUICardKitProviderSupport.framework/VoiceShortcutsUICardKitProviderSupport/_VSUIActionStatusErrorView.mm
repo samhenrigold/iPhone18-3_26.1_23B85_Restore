@@ -53,7 +53,7 @@
 
 - (void)_setUpViews
 {
-  v63[13] = *MEMORY[0x277D85DE8];
+  v62[13] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D756B8]);
   v4 = *MEMORY[0x277CBF3A0];
   v5 = *(MEMORY[0x277CBF3A0] + 8);
@@ -88,11 +88,11 @@
   [(_VSUIActionStatusErrorView *)self setErrorIconBackgroundView:v13];
   v16 = MEMORY[0x277D755B8];
   v17 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v62 = [v16 imageNamed:@"ActionErrorAlert" inBundle:v17];
+  v61 = [v16 imageNamed:@"ActionErrorAlert" inBundle:v17];
 
   v18 = objc_alloc(MEMORY[0x277D755E8]);
   systemGrayColor = [MEMORY[0x277D75348] systemGrayColor];
-  v20 = [v62 _flatImageWithColor:systemGrayColor];
+  v20 = [v61 _flatImageWithColor:systemGrayColor];
   v21 = [v18 initWithImage:v20];
 
   layer2 = [v21 layer];
@@ -102,60 +102,58 @@
   [v21 setTranslatesAutoresizingMaskIntoConstraints:0];
   [(_VSUIActionStatusErrorView *)self addSubview:v21];
   [(_VSUIActionStatusErrorView *)self setErrorIconView:v21];
-  v48 = MEMORY[0x277CCAAD0];
+  v47 = MEMORY[0x277CCAAD0];
   widthAnchor = [v13 widthAnchor];
-  v60 = [widthAnchor constraintEqualToConstant:24.0];
-  v63[0] = v60;
+  v59 = [widthAnchor constraintEqualToConstant:24.0];
+  v62[0] = v59;
   heightAnchor = [v13 heightAnchor];
-  v58 = [heightAnchor constraintEqualToConstant:24.0];
-  v63[1] = v58;
+  v57 = [heightAnchor constraintEqualToConstant:24.0];
+  v62[1] = v57;
   trailingAnchor = [v13 trailingAnchor];
   trailingAnchor2 = [(_VSUIActionStatusErrorView *)self trailingAnchor];
-  v55 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-15.0];
-  v63[2] = v55;
+  v54 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-15.0];
+  v62[2] = v54;
   centerYAnchor = [v13 centerYAnchor];
   centerYAnchor2 = [v8 centerYAnchor];
-  v52 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v63[3] = v52;
+  v51 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
+  v62[3] = v51;
   leadingAnchor = [v8 leadingAnchor];
   leadingAnchor2 = [(_VSUIActionStatusErrorView *)self leadingAnchor];
-  v49 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:15.0];
-  v63[4] = v49;
+  v48 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:15.0];
+  v62[4] = v48;
   trailingAnchor3 = [v8 trailingAnchor];
   leadingAnchor3 = [v13 leadingAnchor];
-  v45 = [trailingAnchor3 constraintEqualToAnchor:leadingAnchor3 constant:-10.0];
-  v63[5] = v45;
+  v44 = [trailingAnchor3 constraintEqualToAnchor:leadingAnchor3 constant:-10.0];
+  v62[5] = v44;
   topAnchor = [v8 topAnchor];
   topAnchor2 = [(_VSUIActionStatusErrorView *)self topAnchor];
-  v42 = [topAnchor constraintGreaterThanOrEqualToAnchor:topAnchor2];
-  v63[6] = v42;
+  v41 = [topAnchor constraintGreaterThanOrEqualToAnchor:topAnchor2];
+  v62[6] = v41;
   bottomAnchor = [v8 bottomAnchor];
   bottomAnchor2 = [(_VSUIActionStatusErrorView *)self bottomAnchor];
-  v38 = [bottomAnchor constraintLessThanOrEqualToAnchor:bottomAnchor2];
-  v63[7] = v38;
+  v37 = [bottomAnchor constraintLessThanOrEqualToAnchor:bottomAnchor2];
+  v62[7] = v37;
   centerYAnchor3 = [v8 centerYAnchor];
   centerYAnchor4 = [(_VSUIActionStatusErrorView *)self centerYAnchor];
-  v35 = [centerYAnchor3 constraintEqualToAnchor:centerYAnchor4];
-  v63[8] = v35;
+  v34 = [centerYAnchor3 constraintEqualToAnchor:centerYAnchor4];
+  v62[8] = v34;
   widthAnchor2 = [v21 widthAnchor];
-  v33 = [widthAnchor2 constraintEqualToConstant:20.0];
-  v63[9] = v33;
+  v32 = [widthAnchor2 constraintEqualToConstant:20.0];
+  v62[9] = v32;
   heightAnchor2 = [v21 heightAnchor];
   v23 = [heightAnchor2 constraintEqualToConstant:20.0];
-  v63[10] = v23;
-  v41 = v21;
+  v62[10] = v23;
+  v40 = v21;
   centerYAnchor5 = [v21 centerYAnchor];
   centerYAnchor6 = [v13 centerYAnchor];
   v26 = [centerYAnchor5 constraintEqualToAnchor:centerYAnchor6 constant:0.0];
-  v63[11] = v26;
+  v62[11] = v26;
   centerXAnchor = [v21 centerXAnchor];
   centerXAnchor2 = [v13 centerXAnchor];
   v29 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2 constant:0.0];
-  v63[12] = v29;
-  v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:13];
-  [v48 activateConstraints:v30];
-
-  v31 = *MEMORY[0x277D85DE8];
+  v62[12] = v29;
+  v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:13];
+  [v47 activateConstraints:v30];
 }
 
 @end

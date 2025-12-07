@@ -288,7 +288,7 @@ void __29__SBVolumeControl_toggleMute__block_invoke(uint64_t a1, void *a2)
   v7 = +[SBLockScreenManager sharedInstance];
   isUILocked = [v7 isUILocked];
   presentedVolumeHUDViewController = [(SBVolumeControl *)self presentedVolumeHUDViewController];
-  v10 = SBLogButtonsVolume();
+  v10 = SBLogButtonsVolume(presentedVolumeHUDViewController);
   v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
   if (type == 103)
   {
@@ -541,14 +541,14 @@ void __40__SBVolumeControl__getMediaVolumeForIAP__block_invoke(uint64_t a1, void
 
 - (BOOL)_isCategoryAlwaysHidden:(id)hidden
 {
-  if (([(NSMutableSet *)self->_alwaysHiddenCategories containsObject:hidden]& 1) != 0)
+  if (objc_msgSend_containsObject_(self->_alwaysHiddenCategories, a2, hidden))
   {
     return 1;
   }
 
   alwaysHiddenCategories = self->_alwaysHiddenCategories;
 
-  return [(NSMutableSet *)alwaysHiddenCategories containsObject:@"com.apple.springboard.volumeControl.HUDCategories.all"];
+  return objc_msgSend_containsObject_(alwaysHiddenCategories);
 }
 
 - (BOOL)_isHUDDisplayableWithReason:(id *)reason
@@ -1154,7 +1154,7 @@ LABEL_12:
 
 - (void)_effectiveVolumeChanged:(id)changed
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   userInfo = [changedCopy userInfo];
   [userInfo objectForKey:*MEMORY[0x277D26BB8]];
@@ -1166,11 +1166,11 @@ LABEL_12:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543874;
-      v47 = v6;
-      v48 = 2114;
-      v49 = v7;
-      v50 = 2048;
-      v51 = changedCopy;
+      v49 = v6;
+      v50 = 2114;
+      v51 = v7;
+      v52 = 2048;
+      v53 = changedCopy;
       _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "_effectiveVolumeChanged for '%{public}@' for reason: %{public}@/%p", buf, 0x20u);
     }
 
@@ -1189,12 +1189,12 @@ LABEL_12:
     v12 = [v7 isEqualToString:@"CategoryChange"];
     if ((v10 & 1) != 0 || (v11 & 1) != 0 || v12)
     {
-      v41 = v9;
+      v43 = v9;
       v13 = [userInfo objectForKey:*MEMORY[0x277D26BC8]];
       [v13 floatValue];
       v15 = v14;
 
-      v44 = COERCE_DOUBLE([(NSString *)self->_lastEventCategory copy]);
+      v46 = COERCE_DOUBLE([(NSString *)self->_lastEventCategory copy]);
       mode = self->_mode;
       objc_storeStrong(&self->_lastEventCategory, *&v6);
       v17 = self->_lastEventCategory;
@@ -1230,113 +1230,113 @@ LABEL_12:
         v21 = SBLogAudioControl();
         if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
-          NSStringFromSBVolumeMode(mode);
-          v42 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-          v22 = NSStringFromSBVolumeMode(self->_mode);
+          NSStringFromSBVolumeMode(mode, v22);
+          v44 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+          v24 = NSStringFromSBVolumeMode(self->_mode, v23);
           *buf = 138543618;
-          v47 = v42;
-          v48 = 2114;
-          v49 = v22;
-          v23 = v22;
+          v49 = v44;
+          v50 = 2114;
+          v51 = v24;
+          v25 = v24;
           _os_log_impl(&dword_21ED4E000, v21, OS_LOG_TYPE_DEFAULT, "Updating Mode from '%{public}@' -> '%{public}@'", buf, 0x16u);
         }
       }
 
       if ((v19 & 1) == 0)
       {
-        v24 = SBLogAudioControl();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        v26 = SBLogAudioControl();
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
           lastEventCategory = self->_lastEventCategory;
           *buf = 138543618;
-          v47 = v44;
-          v48 = 2114;
-          v49 = lastEventCategory;
-          _os_log_impl(&dword_21ED4E000, v24, OS_LOG_TYPE_DEFAULT, "Updating Last Event category from '%{public}@' -> '%{public}@'", buf, 0x16u);
+          v49 = v46;
+          v50 = 2114;
+          v51 = lastEventCategory;
+          _os_log_impl(&dword_21ED4E000, v26, OS_LOG_TYPE_DEFAULT, "Updating Last Event category from '%{public}@' -> '%{public}@'", buf, 0x16u);
         }
       }
 
       *&v20 = v15;
       [(SBVolumeControl *)self _updateEffectiveVolume:v20];
-      v26 = SBLogAudioControl();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v28 = SBLogAudioControl();
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v47 = v15;
-        _os_log_impl(&dword_21ED4E000, v26, OS_LOG_TYPE_DEFAULT, "Caching newEffectiveVolume: %f from AVSystemController", buf, 0xCu);
+        v49 = v15;
+        _os_log_impl(&dword_21ED4E000, v28, OS_LOG_TYPE_DEFAULT, "Caching newEffectiveVolume: %f from AVSystemController", buf, 0xCu);
       }
 
-      v43 = v10;
+      v45 = v10;
 
-      v45 = 0;
-      v27 = [(SBVolumeControl *)self _isHUDDisplayableWithReason:&v45];
-      v28 = COERCE_DOUBLE(v45);
-      if (!v27)
+      v47 = 0;
+      v29 = [(SBVolumeControl *)self _isHUDDisplayableWithReason:&v47];
+      v30 = COERCE_DOUBLE(v47);
+      if (!v29)
       {
-        v29 = SBLogAudioControl();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+        v31 = SBLogAudioControl();
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v47 = v28;
-          _os_log_impl(&dword_21ED4E000, v29, OS_LOG_TYPE_DEFAULT, "HUD is not displayable; %{public}@", buf, 0xCu);
+          v49 = v30;
+          _os_log_impl(&dword_21ED4E000, v31, OS_LOG_TYPE_DEFAULT, "HUD is not displayable; %{public}@", buf, 0xCu);
         }
       }
 
-      v30 = [userInfo objectForKey:*MEMORY[0x277D26BC0]];
-      bOOLValue = [v30 BOOLValue];
+      v32 = [userInfo objectForKey:*MEMORY[0x277D26BC0]];
+      bOOLValue = [v32 BOOLValue];
 
-      if ((v43 & bOOLValue) == 1)
+      if ((v45 & bOOLValue) == 1)
       {
-        v32 = SBLogAudioControl();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+        v34 = SBLogAudioControl();
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_21ED4E000, v32, OS_LOG_TYPE_DEFAULT, "Volume change is explicitly suppressing HUD presentation", buf, 2u);
+          _os_log_impl(&dword_21ED4E000, v34, OS_LOG_TYPE_DEFAULT, "Volume change is explicitly suppressing HUD presentation", buf, 2u);
         }
       }
 
-      if (((v43 ^ 1 | bOOLValue) & 1) != 0 || !v27)
+      if (((v45 ^ 1 | bOOLValue) & 1) != 0 || !v29)
       {
         presentedVolumeHUDViewController = [(SBVolumeControl *)self presentedVolumeHUDViewController];
         if (presentedVolumeHUDViewController)
         {
-          v37 = v27;
+          v39 = v29;
         }
 
         else
         {
-          v37 = 0;
+          v39 = 0;
         }
 
-        if (v37)
+        if (v39)
         {
-          v38 = [(NSString *)self->_lastEventCategory copy];
+          v40 = [(NSString *)self->_lastEventCategory copy];
           lastDisplayedCategory = self->_lastDisplayedCategory;
-          self->_lastDisplayedCategory = v38;
+          self->_lastDisplayedCategory = v40;
 
-          *&v40 = v15;
-          [presentedVolumeHUDViewController noteValueDidChange:v40];
+          *&v42 = v15;
+          [presentedVolumeHUDViewController noteValueDidChange:v42];
         }
       }
 
       else
       {
-        v33 = [(NSString *)self->_lastEventCategory copy];
-        v34 = self->_lastDisplayedCategory;
-        self->_lastDisplayedCategory = v33;
+        v35 = [(NSString *)self->_lastEventCategory copy];
+        v36 = self->_lastDisplayedCategory;
+        self->_lastDisplayedCategory = v35;
 
-        *&v35 = v15;
-        [(SBVolumeControl *)self _presentVolumeHUDWithVolume:v35];
+        *&v37 = v15;
+        [(SBVolumeControl *)self _presentVolumeHUDWithVolume:v37];
       }
 
-      if (v43 && self->_mode == 3)
+      if (v45 && self->_mode == 3)
       {
-        if (v27)
+        if (v29)
         {
           [(SBRingerControl *)self->_ringerControl activateRingerHUDForVolumeChangeWithInitialVolume:v15];
         }
 
-        [(SBRingerControl *)self->_ringerControl setVolume:v41 forKeyPress:v15];
+        [(SBRingerControl *)self->_ringerControl setVolume:v43 forKeyPress:v15];
       }
     }
   }
@@ -1347,7 +1347,7 @@ LABEL_12:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v47 = v6;
+      v49 = v6;
       _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "_effectiveVolumeChanged for '%{public}@' but volume category is not displayed by SBVolumeControl", buf, 0xCu);
     }
   }

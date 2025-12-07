@@ -8,10 +8,10 @@
 
 + (id)getSsrBootIntentWithError:(id *)error
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v21 = 0;
-  v4 = [CRNVRAMController readNVRAMValueForKey:@"diagnostic-boot-intent" error:&v21];
-  v5 = v21;
+  v23 = *MEMORY[0x1E69E9840];
+  v20 = 0;
+  v4 = [CRNVRAMController readNVRAMValueForKey:@"diagnostic-boot-intent" error:&v20];
+  v5 = v20;
   v6 = handleForCategory(0);
   v7 = v6;
   if (v4)
@@ -37,16 +37,16 @@
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v23 = v4;
+    v22 = v4;
     _os_log_impl(&dword_1CEDC5000, v7, OS_LOG_TYPE_DEFAULT, "readNVRAMValueForKey value: %@", buf, 0xCu);
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v20 = 0;
-    v11 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v4 options:0 error:&v20];
-    v5 = v20;
+    v19 = 0;
+    v11 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v4 options:0 error:&v19];
+    v5 = v19;
     if (v11)
     {
       v12 = [v11 objectForKeyedSubscript:@"purpose"];
@@ -59,7 +59,7 @@
           if ([v9 isEqual:@"self-service-repair"])
           {
             v13 = objc_opt_new();
-            [v13 setObject:v9 forKeyedSubscript:@"purpose"];
+            objc_msgSend_setObject_forKeyedSubscript_(v13);
             v14 = [v11 objectForKeyedSubscript:@"wifi-credentials"];
 
             if (!v14)
@@ -164,8 +164,6 @@ LABEL_7:
 LABEL_35:
   v17 = [v13 copy];
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return v17;
 }
 
@@ -193,7 +191,7 @@ LABEL_35:
     }
 
     v11 = [v9 base64EncodedStringWithOptions:0];
-    [v7 setObject:v11 forKeyedSubscript:@"wifi-credentials"];
+    objc_msgSend_setObject_forKeyedSubscript_(v7);
   }
 
   if (![MEMORY[0x1E696ACB0] isValidJSONObject:v7])

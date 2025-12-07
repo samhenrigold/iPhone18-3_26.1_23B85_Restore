@@ -798,7 +798,7 @@ void __92__VKRoadFeatureAccessibilityElement__roadSuffixRangeForCommonRoadAbbrev
   }
 }
 
-void __48__VKRoadFeatureAccessibilityElement__updatePath__block_invoke(uint64_t a1, void *a2, unint64_t a3)
+void __48__VKRoadFeatureAccessibilityElement__updatePath__block_invoke(uint64_t a1, void *a2, char *a3)
 {
   v5 = a2;
   [v5 CGPointValue];

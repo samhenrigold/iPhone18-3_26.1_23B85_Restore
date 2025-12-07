@@ -7,8 +7,6 @@
 
 - (NSString)description
 {
-  v4 = *(&self->super.isa + OBJC_IVAR___BlastDoorSMSCTPartPlain_sMSCTPartPlain);
-  v5 = *&self->sMSCTPartPlain[OBJC_IVAR___BlastDoorSMSCTPartPlain_sMSCTPartPlain];
 
   sub_2146D9608();
   v2 = sub_2146D9588();

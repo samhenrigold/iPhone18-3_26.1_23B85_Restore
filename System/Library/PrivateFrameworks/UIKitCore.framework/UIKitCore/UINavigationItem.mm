@@ -1547,9 +1547,9 @@ LABEL_9:
     {
       if (v12 && v13)
       {
-        v15 = [(NSAttributedString *)v12 isEqual:v13];
+        isEqual = objc_msgSend_isEqual_(v12);
 
-        if (v15)
+        if (isEqual)
         {
           goto LABEL_27;
         }
@@ -1729,10 +1729,10 @@ LABEL_8:
     goto LABEL_19;
   }
 
-  v7 = [(NSAttributedString *)v5 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v5, v6, v6);
 
   v8 = v17;
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     goto LABEL_8;
   }
@@ -1763,10 +1763,10 @@ LABEL_11:
     goto LABEL_8;
   }
 
-  v7 = [(NSString *)v13 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v13);
 
   v8 = v13;
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     v10 = [(NSString *)v8 copy];
@@ -1805,9 +1805,9 @@ LABEL_11:
     goto LABEL_8;
   }
 
-  v8 = [(UIView *)v6 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v6, v7, v7);
 
-  if ((v8 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     objc_storeStrong(&self->_largeTitleView, view);
@@ -1894,10 +1894,10 @@ LABEL_11:
     goto LABEL_8;
   }
 
-  v7 = [(NSAttributedString *)v13 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v13);
 
   v8 = v13;
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     v10 = [(NSAttributedString *)v8 copy];
@@ -1939,9 +1939,9 @@ LABEL_11:
     goto LABEL_8;
   }
 
-  v8 = [(UIView *)v11 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v11);
 
-  if ((v8 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     objc_storeStrong(&self->_subtitleView, view);
@@ -1998,10 +1998,10 @@ LABEL_11:
     goto LABEL_8;
   }
 
-  v7 = [(NSAttributedString *)v13 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v13);
 
   v8 = v13;
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     v10 = [(NSAttributedString *)v8 copy];
@@ -2053,9 +2053,9 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v8 = [(UIView *)v11 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v11);
 
-  if ((v8 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     goto LABEL_8;
   }
@@ -2103,7 +2103,7 @@ LABEL_13:
 - (void)_setWeeTitle:(id)title
 {
   titleCopy = title;
-  if (![(NSString *)self->__weeTitle isEqualToString:?])
+  if ((objc_msgSend_isEqualToString_(self->__weeTitle) & 1) == 0)
   {
     v4 = [titleCopy copy];
     weeTitle = self->__weeTitle;
@@ -2226,9 +2226,9 @@ LABEL_13:
 
   if (v6 && v5)
   {
-    v7 = [(UIBarAppearance *)v5 isEqual:v6];
+    isEqual = objc_msgSend_isEqual_(v5, v6, v6);
 
-    if (v7)
+    if (isEqual)
     {
       goto LABEL_12;
     }
@@ -2274,9 +2274,9 @@ LABEL_12:
 
   if (v6 && v5)
   {
-    v7 = [(UIBarAppearance *)v5 isEqual:v6];
+    isEqual = objc_msgSend_isEqual_(v5, v6, v6);
 
-    if (v7)
+    if (isEqual)
     {
       goto LABEL_12;
     }
@@ -2322,9 +2322,9 @@ LABEL_12:
 
   if (v6 && v5)
   {
-    v7 = [(UIBarAppearance *)v5 isEqual:v6];
+    isEqual = objc_msgSend_isEqual_(v5, v6, v6);
 
-    if (v7)
+    if (isEqual)
     {
       goto LABEL_12;
     }
@@ -2370,9 +2370,9 @@ LABEL_12:
 
   if (v6 && v5)
   {
-    v7 = [(UIBarAppearance *)v5 isEqual:v6];
+    isEqual = objc_msgSend_isEqual_(v5, v6, v6);
 
-    if (v7)
+    if (isEqual)
     {
       goto LABEL_12;
     }
@@ -2426,9 +2426,9 @@ LABEL_12:
   if (self->_backButtonTitle != titleCopy)
   {
     v17 = titleCopy;
-    v8 = [(NSString *)titleCopy isEqualToString:?];
+    isEqualToString = objc_msgSend_isEqualToString_(titleCopy);
     v7 = v17;
-    if (!v8)
+    if ((isEqualToString & 1) == 0)
     {
       v9 = [(NSString *)v17 copy];
       backButtonTitle = self->_backButtonTitle;
@@ -3417,7 +3417,7 @@ void __60__UINavigationItem__setAlwaysUseManualScrollEdgeAppearance___block_invo
 {
   v1 = [MEMORY[0x1E696AAE8] mainBundle];
   v0 = [v1 bundleIdentifier];
-  _MergedGlobals_1008 = [@"com.apple.MobileSMS" isEqualToString:v0];
+  _MergedGlobals_1008 = objc_msgSend_isEqualToString_(@"com.apple.MobileSMS");
 }
 
 - (void)_setManualScrollEdgeAppearanceProgress:(double)progress
@@ -3690,7 +3690,7 @@ LABEL_26:
   }
 }
 
-uint64_t __64__UINavigationItem__partitionGroupsIntoSections_sectionHandler___block_invoke(uint64_t a1)
+void *__64__UINavigationItem__partitionGroupsIntoSections_sectionHandler___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) count];
   if (result)
@@ -4132,9 +4132,9 @@ LABEL_38:
     goto LABEL_10;
   }
 
-  v9 = [(NSArray *)v6 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v6);
 
-  if ((v9 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_10:
     _updateItemOwners(self->_leftBarButtonItems, 0);
@@ -4196,9 +4196,9 @@ LABEL_15:
     goto LABEL_10;
   }
 
-  v9 = [(NSArray *)v6 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v6);
 
-  if ((v9 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_10:
     _updateItemOwners(self->_rightBarButtonItems, 0);
@@ -4258,10 +4258,10 @@ LABEL_11:
     goto LABEL_10;
   }
 
-  v8 = [(NSArray *)WeakRetained isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(WeakRetained, v7, v7);
 
   v9 = v13;
-  if ((v8 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_10:
     _updateItemGroupOwners(self->_leadingItemGroups, 0);
@@ -4311,9 +4311,9 @@ LABEL_12:
     goto LABEL_10;
   }
 
-  v8 = [(NSArray *)v6 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v6, v7, v7);
 
-  if ((v8 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_10:
     _updateItemGroupOwners(self->_centerItemGroups, 0);
@@ -4369,10 +4369,10 @@ LABEL_11:
     goto LABEL_10;
   }
 
-  v8 = [(NSArray *)WeakRetained isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(WeakRetained, v7, v7);
 
   v9 = v13;
-  if ((v8 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_10:
     _updateItemGroupOwners(self->_trailingItemGroups, 0);
@@ -4622,10 +4622,10 @@ LABEL_10:
     goto LABEL_8;
   }
 
-  v7 = [(NSString *)v5 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v5, v6, v6);
 
   v8 = v13;
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     v9 = [(NSString *)v13 copy];
@@ -5459,7 +5459,7 @@ LABEL_13:
     v17 = [MEMORY[0x1E696AD98] numberWithInteger:metrics];
     [(NSMutableDictionary *)v16 setObject:v13 forKeyedSubscript:v17];
 
-    if (!v19 || ([v19 isEqual:v13] & 1) == 0)
+    if (!v19 || (objc_msgSend_isEqual_(v19) & 1) == 0)
     {
       WeakRetained = objc_loadWeakRetained(&self->__changeObserver);
       [WeakRetained navigationItemUpdatedCanvasView:self];

@@ -25,9 +25,11 @@
 {
   v4 = _Block_copy(completion);
   v5 = swift_allocObject();
-  *(v5 + 16) = v4;
+  *(v5 + 2) = v4;
   selfCopy = self;
   sub_18FFEC3EC(sub_18FFEE81C, v5);
+
+  v5, v7, v8, v9, v10, v11, v12, v13;
 }
 
 @end

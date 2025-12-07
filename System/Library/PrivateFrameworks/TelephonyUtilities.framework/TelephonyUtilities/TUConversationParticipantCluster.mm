@@ -212,16 +212,14 @@
 
 - (id)queryItemsWithNamePrefix:(id)prefix
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   prefixCopy = prefix;
   v5 = [(TUConversationParticipantCluster *)self uuidQueryItemWithNamePrefix:prefixCopy];
-  v10[0] = v5;
+  v9[0] = v5;
   v6 = [(TUConversationParticipantCluster *)self typeQueryItemWithNamePrefix:prefixCopy];
 
-  v10[1] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[1] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
 
   return v7;
 }

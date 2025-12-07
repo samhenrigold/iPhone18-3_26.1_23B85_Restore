@@ -3,6 +3,9 @@
 - (void)cameraButtonService:(id)service didUpdateButtonAction:(unsigned __int8)action;
 - (void)cameraButtonService:(id)service didUpdateChildrenIdentifiers:(id)identifiers;
 - (void)cameraButtonService:(id)service didUpdateContentURLAction:(id)action;
+- (void)cameraButtonService:(id)service didUpdateDisabled:(BOOL)disabled;
+- (void)cameraButtonService:(id)service didUpdateHidden:(BOOL)hidden;
+- (void)cameraButtonService:(id)service didUpdateSelected:(BOOL)selected;
 - (void)cameraButtonService:(id)service didUpdateSelectedEntryIndex:(unsigned __int8)index;
 - (void)cameraButtonService:(id)service didUpdateSortOrder:(unsigned __int8)order;
 - (void)serviceDidFinishGroupUpdate:(id)update;
@@ -25,47 +28,82 @@
 
 - (void)cameraButtonService:(id)service didUpdateButtonAction:(unsigned __int8)action
 {
+  actionCopy = action;
   serviceCopy = service;
   selfCopy = self;
-  CAFCameraButtonObservable.cameraButtonService(_:didUpdateButtonAction:)(selfCopy, action);
+  CAFCameraButtonObservable.cameraButtonService(_:didUpdateButtonAction:)(selfCopy, actionCopy);
 }
 
 - (void)cameraButtonService:(id)service didUpdateContentURLAction:(id)action
 {
   if (action)
   {
-    static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v8 = v7;
+  }
+
+  else
+  {
+    v6 = 0;
+    v8 = 0;
   }
 
   serviceCopy = service;
   selfCopy = self;
-  CAFCameraButtonObservable.cameraButtonService(_:didUpdateContentURLAction:)();
+  CAFCameraButtonObservable.cameraButtonService(_:didUpdateContentURLAction:)(selfCopy, v6, v8);
 }
 
 - (void)cameraButtonService:(id)service didUpdateSortOrder:(unsigned __int8)order
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFCameraButtonObservable.cameraButtonService(_:didUpdateSortOrder:)();
+  CAFCameraButtonObservable.cameraButtonService(_:didUpdateSortOrder:)(selfCopy, order);
+}
+
+- (void)cameraButtonService:(id)service didUpdateDisabled:(BOOL)disabled
+{
+  serviceCopy = service;
+  selfCopy = self;
+  CAFCameraButtonObservable.cameraButtonService(_:didUpdateDisabled:)(selfCopy, disabled);
+}
+
+- (void)cameraButtonService:(id)service didUpdateSelected:(BOOL)selected
+{
+  serviceCopy = service;
+  selfCopy = self;
+  CAFCameraButtonObservable.cameraButtonService(_:didUpdateSelected:)(selfCopy, selected);
+}
+
+- (void)cameraButtonService:(id)service didUpdateHidden:(BOOL)hidden
+{
+  serviceCopy = service;
+  selfCopy = self;
+  CAFCameraButtonObservable.cameraButtonService(_:didUpdateHidden:)(selfCopy, hidden);
 }
 
 - (void)cameraButtonService:(id)service didUpdateChildrenIdentifiers:(id)identifiers
 {
   if (identifiers)
   {
-    static Array._unconditionallyBridgeFromObjectiveC(_:)();
+    v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  }
+
+  else
+  {
+    v6 = 0;
   }
 
   serviceCopy = service;
   selfCopy = self;
-  CAFCameraButtonObservable.cameraButtonService(_:didUpdateChildrenIdentifiers:)();
+  CAFCameraButtonObservable.cameraButtonService(_:didUpdateChildrenIdentifiers:)(selfCopy, v6);
 }
 
 - (void)cameraButtonService:(id)service didUpdateSelectedEntryIndex:(unsigned __int8)index
 {
+  indexCopy = index;
   serviceCopy = service;
   selfCopy = self;
-  CAFCameraButtonObservable.cameraButtonService(_:didUpdateSelectedEntryIndex:)(selfCopy, index);
+  CAFCameraButtonObservable.cameraButtonService(_:didUpdateSelectedEntryIndex:)(selfCopy, indexCopy);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

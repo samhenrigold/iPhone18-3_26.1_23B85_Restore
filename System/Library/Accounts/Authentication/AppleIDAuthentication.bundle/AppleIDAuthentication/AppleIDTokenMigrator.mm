@@ -10,7 +10,7 @@
 
 - (id)migrateAppleIDBasedCredentialForAccount:(id)account
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v32 = *MEMORY[0x29EDCA608];
   accountCopy = account;
   v5 = [(AppleIDTokenMigrator *)self _potentialServiceNamesForTokenOfAccount:accountCopy];
   if (v5)
@@ -40,36 +40,36 @@
       }
     }
 
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v13 = v5;
-    v11 = [v13 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v11 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v11)
     {
-      v24 = v9;
+      v23 = v9;
       v14 = 0;
-      v15 = *v27;
+      v15 = *v26;
       do
       {
         v16 = 0;
         v17 = v14;
         do
         {
-          if (*v27 != v15)
+          if (*v26 != v15)
           {
             objc_enumerationMutation(v13);
           }
 
-          v14 = [(AppleIDTokenMigrator *)self _mostRecentTokenWithServiceName:*(*(&v26 + 1) + 8 * v16) matchingAccountNames:v6, v24];
+          v14 = [(AppleIDTokenMigrator *)self _mostRecentTokenWithServiceName:*(*(&v25 + 1) + 8 * v16) matchingAccountNames:v6, v23];
 
           v16 = v16 + 1;
           v17 = v14;
         }
 
         while (v11 != v16);
-        v11 = [v13 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v11 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
       while (v11);
@@ -77,7 +77,7 @@
       if (!v14)
       {
         v11 = 0;
-        v9 = v24;
+        v9 = v23;
 LABEL_31:
 
         goto LABEL_32;
@@ -86,9 +86,9 @@ LABEL_31:
       v11 = objc_alloc_init(MEMORY[0x29EDB83C0]);
       [v11 setToken:v14];
       [accountCopy setCredential:v11];
-      v25 = 0;
-      [MEMORY[0x29EDBDFF8] setCredentialForAccount:accountCopy error:&v25];
-      v18 = v25;
+      v24 = 0;
+      [MEMORY[0x29EDBDFF8] setCredentialForAccount:accountCopy error:&v24];
+      v18 = v24;
       v19 = _AALogSystem();
       v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
       if (v18)
@@ -97,7 +97,7 @@ LABEL_31:
         {
           shortDebugName = [accountCopy shortDebugName];
           *buf = 138412290;
-          v32 = shortDebugName;
+          v31 = shortDebugName;
           _os_log_impl(&dword_29C7FE000, v19, OS_LOG_TYPE_DEFAULT, "AppleIDTokenMigrator failed to save the new credential for account %@.", buf, 0xCu);
         }
       }
@@ -107,14 +107,14 @@ LABEL_31:
         if (v20)
         {
           *buf = 138412290;
-          v32 = v13;
+          v31 = v13;
           _os_log_impl(&dword_29C7FE000, v19, OS_LOG_TYPE_DEFAULT, "Remove old Apple ID credential items: %@", buf, 0xCu);
         }
 
         [(AppleIDTokenMigrator *)self _removeKeychainItemForUsernames:v6 services:v13];
       }
 
-      v9 = v24;
+      v9 = v23;
     }
 
     else
@@ -131,14 +131,12 @@ LABEL_31:
   {
     shortDebugName2 = [accountCopy shortDebugName];
     *buf = 138412290;
-    v32 = shortDebugName2;
+    v31 = shortDebugName2;
     _os_log_impl(&dword_29C7FE000, v6, OS_LOG_TYPE_DEFAULT, "AppleIDTokenMigrator could not figure out a service name for this account's token: %@", buf, 0xCu);
   }
 
   v11 = 0;
 LABEL_32:
-
-  v22 = *MEMORY[0x29EDCA608];
 
   return v11;
 }
@@ -168,46 +166,46 @@ LABEL_32:
 
 - (id)_mostRecentTokenWithServiceName:(id)name matchingAccountNames:(id)names
 {
-  v64 = *MEMORY[0x29EDCA608];
+  v63 = *MEMORY[0x29EDCA608];
   nameCopy = name;
   namesCopy = names;
-  v46 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
+  v45 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
   obj = namesCopy;
-  v8 = [obj countByEnumeratingWithState:&v51 objects:v63 count:16];
+  v8 = [obj countByEnumeratingWithState:&v50 objects:v62 count:16];
   if (v8)
   {
     v10 = v8;
-    v11 = *v52;
+    v11 = *v51;
     v12 = *MEMORY[0x29EDBBCD0];
     v13 = *MEMORY[0x29EDBBC08];
     *&v9 = 67109120;
-    v38 = v9;
+    v37 = v9;
     selfCopy = self;
-    v41 = nameCopy;
-    v39 = *v52;
+    v40 = nameCopy;
+    v38 = *v51;
     do
     {
       v14 = 0;
-      v42 = v10;
+      v41 = v10;
       do
       {
-        if (*v52 != v11)
+        if (*v51 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = [(AppleIDTokenMigrator *)self _newKeychainQueryForAllItemsMatchingAccountName:*(*(&v51 + 1) + 8 * v14) serviceName:nameCopy, v38];
+        v15 = [(AppleIDTokenMigrator *)self _newKeychainQueryForAllItemsMatchingAccountName:*(*(&v50 + 1) + 8 * v14) serviceName:nameCopy, v37];
         *result = 0;
         v16 = SecItemCopyMatching(v15, result);
         v17 = _AALogSystem();
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = v38;
-          v62 = v16;
+          *buf = v37;
+          v61 = v16;
           _os_log_impl(&dword_29C7FE000, v17, OS_LOG_TYPE_DEFAULT, "AppleIDTokenMigrator: SecItemCopyMatching returned %d", buf, 8u);
         }
 
@@ -223,28 +221,28 @@ LABEL_32:
 
         if (!v18)
         {
-          v44 = v15;
-          v45 = v14;
+          v43 = v15;
+          v44 = v14;
           v19 = *result;
+          v46 = 0u;
           v47 = 0u;
           v48 = 0u;
           v49 = 0u;
-          v50 = 0u;
-          v20 = [v19 countByEnumeratingWithState:&v47 objects:v60 count:16];
+          v20 = [v19 countByEnumeratingWithState:&v46 objects:v59 count:16];
           if (v20)
           {
             v21 = v20;
-            v22 = *v48;
+            v22 = *v47;
             do
             {
               for (i = 0; i != v21; ++i)
               {
-                if (*v48 != v22)
+                if (*v47 != v22)
                 {
                   objc_enumerationMutation(v19);
                 }
 
-                v24 = *(*(&v47 + 1) + 8 * i);
+                v24 = *(*(&v46 + 1) + 8 * i);
                 v25 = [v24 objectForKey:v12];
                 v26 = [v24 objectForKey:v13];
                 v27 = [objc_alloc(MEMORY[0x29EDBA0F8]) initWithData:v25 encoding:4];
@@ -261,27 +259,27 @@ LABEL_32:
 
                 if (!v29)
                 {
-                  v58[0] = @"token";
-                  v58[1] = @"date-last-modified";
-                  v59[0] = v27;
-                  v59[1] = v26;
-                  v30 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v59 forKeys:v58 count:2];
-                  [v46 addObject:v30];
+                  v57[0] = @"token";
+                  v57[1] = @"date-last-modified";
+                  v58[0] = v27;
+                  v58[1] = v26;
+                  v30 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v58 forKeys:v57 count:2];
+                  [v45 addObject:v30];
                 }
               }
 
-              v21 = [v19 countByEnumeratingWithState:&v47 objects:v60 count:16];
+              v21 = [v19 countByEnumeratingWithState:&v46 objects:v59 count:16];
             }
 
             while (v21);
           }
 
           self = selfCopy;
-          nameCopy = v41;
-          v11 = v39;
-          v10 = v42;
-          v15 = v44;
-          v14 = v45;
+          nameCopy = v40;
+          v11 = v38;
+          v10 = v41;
+          v15 = v43;
+          v14 = v44;
         }
 
         CFRelease(v15);
@@ -294,7 +292,7 @@ LABEL_32:
       }
 
       while (v14 != v10);
-      v10 = [obj countByEnumeratingWithState:&v51 objects:v63 count:16];
+      v10 = [obj countByEnumeratingWithState:&v50 objects:v62 count:16];
     }
 
     while (v10);
@@ -303,18 +301,18 @@ LABEL_32:
   v31 = _AALogSystem();
   if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
   {
-    v32 = [v46 count];
+    v32 = [v45 count];
     *result = 134218242;
     *&result[4] = v32;
-    v56 = 2112;
-    v57 = nameCopy;
+    v55 = 2112;
+    v56 = nameCopy;
     _os_log_impl(&dword_29C7FE000, v31, OS_LOG_TYPE_DEFAULT, "AppleIDtokenMigrator found %ld tokens in the keychain with service name %@.", result, 0x16u);
   }
 
-  if ([v46 count])
+  if ([v45 count])
   {
-    v33 = [v46 sortedArrayUsingComparator:&unk_2A23C7F70];
-    lastObject = [v46 lastObject];
+    v33 = [v45 sortedArrayUsingComparator:&unk_2A23C7F70];
+    lastObject = [v45 lastObject];
     v35 = [lastObject objectForKeyedSubscript:@"token"];
   }
 
@@ -322,8 +320,6 @@ LABEL_32:
   {
     v35 = 0;
   }
-
-  v36 = *MEMORY[0x29EDCA608];
 
   return v35;
 }
@@ -347,21 +343,21 @@ LABEL_32:
 
 - (void)_removeKeychainItemForUsernames:(id)usernames services:(id)services
 {
-  v42 = *MEMORY[0x29EDCA608];
+  v41 = *MEMORY[0x29EDCA608];
   usernamesCopy = usernames;
   servicesCopy = services;
   if ([servicesCopy count] && objc_msgSend(usernamesCopy, "count"))
   {
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
-    v19 = usernamesCopy;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    v18 = usernamesCopy;
     obj = usernamesCopy;
-    v23 = [obj countByEnumeratingWithState:&v32 objects:v41 count:16];
-    if (v23)
+    v22 = [obj countByEnumeratingWithState:&v31 objects:v40 count:16];
+    if (v22)
     {
-      v21 = *v33;
+      v20 = *v32;
       key = *MEMORY[0x29EDBBC30];
       allocator = *MEMORY[0x29EDB8ED8];
       v6 = *MEMORY[0x29EDBBC40];
@@ -372,33 +368,33 @@ LABEL_32:
         v9 = 0;
         do
         {
-          if (*v33 != v21)
+          if (*v32 != v20)
           {
             objc_enumerationMutation(obj);
           }
 
-          v24 = v9;
-          v10 = *(*(&v32 + 1) + 8 * v9);
+          v23 = v9;
+          v10 = *(*(&v31 + 1) + 8 * v9);
+          v27 = 0u;
           v28 = 0u;
           v29 = 0u;
           v30 = 0u;
-          v31 = 0u;
-          v25 = servicesCopy;
-          v11 = [v25 countByEnumeratingWithState:&v28 objects:v40 count:16];
+          v24 = servicesCopy;
+          v11 = [v24 countByEnumeratingWithState:&v27 objects:v39 count:16];
           if (v11)
           {
             v12 = v11;
-            v13 = *v29;
+            v13 = *v28;
             do
             {
               for (i = 0; i != v12; ++i)
               {
-                if (*v29 != v13)
+                if (*v28 != v13)
                 {
-                  objc_enumerationMutation(v25);
+                  objc_enumerationMutation(v24);
                 }
 
-                v15 = *(*(&v28 + 1) + 8 * i);
+                v15 = *(*(&v27 + 1) + 8 * i);
                 Mutable = CFDictionaryCreateMutable(allocator, 0, 0, 0);
                 CFDictionaryAddValue(Mutable, key, v6);
                 CFDictionaryAddValue(Mutable, v7, v10);
@@ -409,9 +405,9 @@ LABEL_32:
                   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138412546;
-                    v37 = v15;
-                    v38 = 2112;
-                    v39 = v10;
+                    v36 = v15;
+                    v37 = 2112;
+                    v38 = v10;
                     _os_log_impl(&dword_29C7FE000, v17, OS_LOG_TYPE_DEFAULT, "We couldn't remove %@ for %@ from the keychain", buf, 0x16u);
                   }
                 }
@@ -419,26 +415,24 @@ LABEL_32:
                 CFRelease(Mutable);
               }
 
-              v12 = [v25 countByEnumeratingWithState:&v28 objects:v40 count:16];
+              v12 = [v24 countByEnumeratingWithState:&v27 objects:v39 count:16];
             }
 
             while (v12);
           }
 
-          v9 = v24 + 1;
+          v9 = v23 + 1;
         }
 
-        while (v24 + 1 != v23);
-        v23 = [obj countByEnumeratingWithState:&v32 objects:v41 count:16];
+        while (v23 + 1 != v22);
+        v22 = [obj countByEnumeratingWithState:&v31 objects:v40 count:16];
       }
 
-      while (v23);
+      while (v22);
     }
 
-    usernamesCopy = v19;
+    usernamesCopy = v18;
   }
-
-  v18 = *MEMORY[0x29EDCA608];
 }
 
 @end

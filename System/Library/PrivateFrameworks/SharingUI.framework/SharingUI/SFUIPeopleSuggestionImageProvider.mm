@@ -470,7 +470,7 @@ LABEL_11:
       }
     }
 
-    [(SFUIPeopleSuggestionImageProvider *)self _deliverIconImage:v19 identifier:v6 isUTI:v7 error:0, *v22];
+    [(SFUIPeopleSuggestionImageProvider *)self _deliverIconImage:v19 identifier:v6 isUTI:v7 error:0, *v22, *&v22[8]];
   }
 
 LABEL_26:

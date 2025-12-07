@@ -445,7 +445,7 @@ uint64_t __60__SBExposeWindowingModifier_scaleForLayoutRole_inAppLayout___block_
     [windowingSettings switcherCornerRadius];
   }
 
-  [(SBExposeWindowingModifier *)self frameForItem:v6];
+  objc_msgSend_frameForItem_(self);
   SBRectCornerRadiiForRadius();
   SBWindowingItemCornersMake(15, retstr, v11, v12, v13, v14);
 
@@ -465,7 +465,7 @@ uint64_t __60__SBExposeWindowingModifier_scaleForLayoutRole_inAppLayout___block_
   v22 = *MEMORY[0x277D85DE8];
   appLayout = [a4 appLayout];
   v7 = [(SBAppLayout *)self->_organicExposeAppLayout isEqual:appLayout];
-  if (appLayout && [(NSArray *)self->_allAppLayouts containsObject:appLayout])
+  if (appLayout && objc_msgSend_containsObject_(self->_allAppLayouts))
   {
     v19 = 0u;
     v20 = 0u;
@@ -695,11 +695,11 @@ void __70__SBExposeWindowingModifier_neighboringAppLayoutsForFocusedAppLayout___
 
           v15 = *(*(&v28 + 1) + 8 * i);
           v16 = [v15 itemForLayoutRole:1];
-          if ([bs_set containsObject:v16])
+          if (objc_msgSend_containsObject_(bs_set))
           {
-            v17 = [(NSArray *)v8 containsObject:v15];
+            v17 = objc_msgSend_containsObject_(v8);
 
-            if (!v17)
+            if ((v17 & 1) == 0)
             {
               [(NSArray *)v8 addObject:v15];
             }
@@ -950,9 +950,9 @@ LABEL_11:
 - (double)snapshotScaleForLayoutRole:(int64_t)role inAppLayout:(id)layout
 {
   layoutCopy = layout;
-  if ([(NSSet *)self->_visibleItems containsObject:layoutCopy])
+  if (objc_msgSend_containsObject_(self->_visibleItems))
   {
-    [(SBExposeWindowingModifier *)self frameForItem:layoutCopy];
+    objc_msgSend_frameForItem_(self);
     Computed = SBWindowingItemFrameGetComputed(&v14);
     v9 = v8;
   }
@@ -1051,7 +1051,7 @@ LABEL_11:
   v15 = v14;
   appLayouts = [(SBExposeWindowingModifier *)self appLayouts];
   v17 = [appLayouts objectAtIndex:index];
-  [(SBExposeWindowingModifier *)self frameForItem:v17];
+  objc_msgSend_frameForItem_(self);
   Computed = SBWindowingItemFrameGetComputed(&v32);
   v20 = v19;
   v22 = v21;
@@ -1147,7 +1147,7 @@ LABEL_20:
   else
   {
     v9 = [(NSArray *)v5 objectAtIndex:search];
-    v10 = [visibleItems containsObject:v9];
+    v10 = objc_msgSend_containsObject_(visibleItems);
 
     v11 = v6 - 1;
     if (v6 <= 0)
@@ -1166,7 +1166,7 @@ LABEL_20:
   if (search >= (search % numberOfRowsInGridSwitcher) && search < v6)
   {
     v15 = [(NSArray *)v5 objectAtIndex:search];
-    v16 = [visibleItems containsObject:v15];
+    v16 = objc_msgSend_containsObject_(visibleItems);
 
     v17 = 0x7FFFFFFFFFFFFFFFLL;
     if (v16)
@@ -1175,7 +1175,7 @@ LABEL_20:
       {
         search -= numberOfRowsInGridSwitcher;
         v19 = [(NSArray *)v5 objectAtIndex:?];
-        v20 = [visibleItems containsObject:v19];
+        v20 = objc_msgSend_containsObject_(visibleItems);
 
         if ((v20 & 1) == 0)
         {
@@ -1196,7 +1196,7 @@ LABEL_23:
     }
 
     v21 = [(NSArray *)self->_effectiveRecentAppLayouts objectAtIndex:search];
-    [(SBExposeWindowingModifier *)self frameForItem:v21];
+    objc_msgSend_frameForItem_(self);
     Computed = SBWindowingItemFrameGetComputed(v34);
     v24 = v23;
     v26 = v25;
@@ -1682,7 +1682,7 @@ void __53__SBExposeWindowingModifier_layoutViewModelsIfNeeded__block_invoke(uint
   *(v5 + 40) = v4;
 }
 
-BOOL __53__SBExposeWindowingModifier_layoutViewModelsIfNeeded__block_invoke_2(uint64_t a1, uint64_t a2)
+BOOL __53__SBExposeWindowingModifier_layoutViewModelsIfNeeded__block_invoke_2(uint64_t a1, const char *a2)
 {
   v13 = 0u;
   v14 = 0u;
@@ -1693,7 +1693,7 @@ BOOL __53__SBExposeWindowingModifier_layoutViewModelsIfNeeded__block_invoke_2(ui
   v3 = *(a1 + 32);
   if (v3)
   {
-    [v3 frameForItem:a2];
+    objc_msgSend_frameForItem_(v3, a2, a2);
   }
 
   v8[2] = v11;
@@ -1798,7 +1798,7 @@ LABEL_13:
 LABEL_17:
     peekingAppLayout = v12;
     desktopSpaceDisplayItems = [(SBExposeWindowingModifier *)self desktopSpaceDisplayItems];
-    v14 = [desktopSpaceDisplayItems containsObject:v7];
+    v14 = objc_msgSend_containsObject_(desktopSpaceDisplayItems);
 
     if (v14)
     {
@@ -2162,7 +2162,7 @@ LABEL_19:
   displayItemInSlideOver = [(SBExposeWindowingModifier *)selfCopy displayItemInSlideOver];
   if (displayItemInSlideOver)
   {
-    if ([bs_set containsObject:displayItemInSlideOver])
+    if (objc_msgSend_containsObject_(bs_set))
     {
       appLayout = [(SBExposeWindowingModifier *)selfCopy appLayout];
       v9 = [(SBExposeWindowingModifier *)selfCopy layoutAttributesForDisplayItem:displayItemInSlideOver inAppLayout:appLayout];
@@ -2497,7 +2497,7 @@ LABEL_60:
     }
   }
 
-  if (![v54 containsObject:v31] || objc_msgSend(v35, "count") && (objc_msgSend(v54, "firstObject"), v71 = objc_claimAutoreleasedReturnValue(), v72 = objc_msgSend(v71, "containsAllItemsFromSet:", v35), v71, (v72 & 1) == 0))
+  if (!objc_msgSend_containsObject_(v54) || [v35 count] && (objc_msgSend(v54, "firstObject"), v71 = objc_claimAutoreleasedReturnValue(), v72 = objc_msgSend(v71, "containsAllItemsFromSet:", v35), v71, (v72 & 1) == 0))
   {
     [v54 insertObject:v31 atIndex:0];
     v96[0] = MEMORY[0x277D85DD0];
@@ -2527,7 +2527,7 @@ LABEL_77:
       allItems4 = [(SBAppLayout *)v31 allItems];
       [allItems4 firstObject];
       v81 = v80 = v30;
-      v82 = [v78 containsObject:v81];
+      v82 = objc_msgSend_containsObject_(v78);
 
       v30 = v80;
       v33 = v77;

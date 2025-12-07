@@ -1,6 +1,8 @@
 @interface USTrustIdentifier
++ (id)identifierWithIdentifier:(id)identifier trusted:(BOOL)trusted;
 - (BOOL)isEqual:(id)equal;
 - (USTrustIdentifier)initWithCoder:(id)coder;
+- (USTrustIdentifier)initWithIdentifier:(id)identifier trusted:(BOOL)trusted;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (unint64_t)hash;
@@ -9,6 +11,27 @@
 @end
 
 @implementation USTrustIdentifier
+
++ (id)identifierWithIdentifier:(id)identifier trusted:(BOOL)trusted
+{
+  trustedCopy = trusted;
+  identifierCopy = identifier;
+  v7 = [[self alloc] initWithIdentifier:identifierCopy trusted:trustedCopy];
+
+  return v7;
+}
+
+- (USTrustIdentifier)initWithIdentifier:(id)identifier trusted:(BOOL)trusted
+{
+  trustedCopy = trusted;
+  v8.receiver = self;
+  v8.super_class = USTrustIdentifier;
+  identifierCopy = identifier;
+  v6 = [(USTrustIdentifier *)&v8 init];
+  [(USTrustIdentifier *)v6 _USTrustIdentifierCommonInitWithIdentifier:identifierCopy trusted:trustedCopy, v8.receiver, v8.super_class];
+
+  return v6;
+}
 
 - (USTrustIdentifier)initWithCoder:(id)coder
 {
@@ -126,13 +149,12 @@
 
 - (void)initWithCoder:(uint64_t)a1 .cold.1(uint64_t a1, char a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 138543618;
-  v4 = a1;
-  v5 = 1026;
-  v6 = a2 & 1;
-  _os_log_fault_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Failed to decode USTrustIdentifier with identifier: %{public}@, hasTrustedKey: %{public}d", &v3, 0x12u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 138543618;
+  v3 = a1;
+  v4 = 1026;
+  v5 = a2 & 1;
+  _os_log_fault_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Failed to decode USTrustIdentifier with identifier: %{public}@, hasTrustedKey: %{public}d", &v2, 0x12u);
 }
 
 @end

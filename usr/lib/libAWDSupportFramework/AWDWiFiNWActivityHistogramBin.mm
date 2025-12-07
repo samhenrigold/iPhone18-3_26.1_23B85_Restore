@@ -54,7 +54,6 @@
 
   if (*&self->_has)
   {
-    hits = self->_hits;
 
     PBDataWriterWriteUint64Field();
   }

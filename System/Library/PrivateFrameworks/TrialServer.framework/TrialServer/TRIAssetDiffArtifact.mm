@@ -20,33 +20,32 @@
 
 + (id)allReferencedCKRecordKeys
 {
-  v8[6] = *MEMORY[0x277D85DE8];
+  v7[6] = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D73868];
-  v8[0] = *MEMORY[0x277D73870];
-  v8[1] = v2;
+  v7[0] = *MEMORY[0x277D73870];
+  v7[1] = v2;
   v3 = *MEMORY[0x277D73850];
-  v8[2] = *MEMORY[0x277D73858];
-  v8[3] = v3;
+  v7[2] = *MEMORY[0x277D73858];
+  v7[3] = v3;
   v4 = *MEMORY[0x277D73878];
-  v8[4] = *MEMORY[0x277D73860];
-  v8[5] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:6];
-  v6 = *MEMORY[0x277D85DE8];
+  v7[4] = *MEMORY[0x277D73860];
+  v7[5] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:6];
 
   return v5;
 }
 
 + (id)artifactFromCKRecord:(id)record
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   recordCopy = record;
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __55__TRIAssetDiffArtifact_CloudKit__artifactFromCKRecord___block_invoke;
-  v33[3] = &unk_279DDEF30;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __55__TRIAssetDiffArtifact_CloudKit__artifactFromCKRecord___block_invoke;
+  v32[3] = &unk_279DDEF30;
   v5 = recordCopy;
-  v34 = v5;
-  v6 = MEMORY[0x2743948D0](v33);
+  v33 = v5;
+  v6 = MEMORY[0x2743948D0](v32);
   values = [v5 values];
   v8 = values;
   if (!values)
@@ -56,7 +55,7 @@
     {
       recordID = [v5 recordID];
       *buf = 138412290;
-      v36 = recordID;
+      v35 = recordID;
       _os_log_error_impl(&dword_26F567000, v10, OS_LOG_TYPE_ERROR, "Could not create AssetDiff artifact from CloudKit record %@.", buf, 0xCu);
     }
 
@@ -100,8 +99,8 @@ LABEL_32:
     }
 
     v17 = *MEMORY[0x277D73860];
-    v32 = [v8 triNumberValueForField:*MEMORY[0x277D73860] isNestedValue:0];
-    if (!v32)
+    v31 = [v8 triNumberValueForField:*MEMORY[0x277D73860] isNestedValue:0];
+    if (!v31)
     {
       v6[2](v6, v17);
       v20 = 0;
@@ -111,8 +110,8 @@ LABEL_31:
     }
 
     v18 = *MEMORY[0x277D73878];
-    v31 = [v8 triDataForField:*MEMORY[0x277D73878]];
-    if (!v31)
+    v30 = [v8 triDataForField:*MEMORY[0x277D73878]];
+    if (!v30)
     {
       v6[2](v6, v18);
       v20 = 0;
@@ -121,30 +120,30 @@ LABEL_30:
       goto LABEL_31;
     }
 
-    v30 = TRIValidateAssetId();
+    v29 = TRIValidateAssetId();
     v19 = TRIValidateAssetId();
     v20 = 0;
-    if (!v30 || !v19)
+    if (!v29 || !v19)
     {
 LABEL_29:
 
       goto LABEL_30;
     }
 
-    v29 = v19;
+    v28 = v19;
     fileURL = [v16 fileURL];
     if (fileURL)
     {
       recordID2 = [v5 recordID];
-      v23 = [self _signature:v14 onFileURL:fileURL fromCloudKitRecordId:recordID2 isValidUsingPublicCertificate:v31];
+      v23 = [self _signature:v14 onFileURL:fileURL fromCloudKitRecordId:recordID2 isValidUsingPublicCertificate:v30];
 
       if (v23)
       {
         v24 = fileURL;
-        v20 = -[TRIAssetDiffArtifact initWithSourceAssetId:destAssetId:diffSignature:diff:diffSize:publicCertificate:]([TRIAssetDiffArtifact alloc], "initWithSourceAssetId:destAssetId:diffSignature:diff:diffSize:publicCertificate:", v30, v29, v14, fileURL, [v32 longLongValue], v31);
+        v20 = -[TRIAssetDiffArtifact initWithSourceAssetId:destAssetId:diffSignature:diff:diffSize:publicCertificate:]([TRIAssetDiffArtifact alloc], "initWithSourceAssetId:destAssetId:diffSignature:diff:diffSize:publicCertificate:", v29, v28, v14, fileURL, [v31 longLongValue], v30);
 LABEL_28:
 
-        v19 = v29;
+        v19 = v28;
         goto LABEL_29;
       }
 
@@ -158,7 +157,7 @@ LABEL_28:
       if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v36 = v15;
+        v35 = v15;
         _os_log_error_impl(&dword_26F567000, v26, OS_LOG_TYPE_ERROR, "CKAsset for %@ has no fileURL.", buf, 0xCu);
       }
     }
@@ -172,32 +171,29 @@ LABEL_28:
 LABEL_34:
 
 LABEL_35:
-  v27 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
 
 void __55__TRIAssetDiffArtifact_CloudKit__artifactFromCKRecord___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = [*(a1 + 32) recordID];
-    v7 = 138412546;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_26F567000, v4, OS_LOG_TYPE_ERROR, "AssetDiff in CloudKit record %@ has missing or corrupt %{public}@.", &v7, 0x16u);
+    v5 = [*(a1 + 32) recordID];
+    v6 = 138412546;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_26F567000, v4, OS_LOG_TYPE_ERROR, "AssetDiff in CloudKit record %@ has missing or corrupt %{public}@.", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)_signature:(id)_signature onFileURL:(id)l fromCloudKitRecordId:(id)id isValidUsingPublicCertificate:(id)certificate
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   _signatureCopy = _signature;
   lCopy = l;
   idCopy = id;
@@ -224,7 +220,7 @@ LABEL_9:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v23 = idCopy;
+      v22 = idCopy;
       _os_log_error_impl(&dword_26F567000, v18, OS_LOG_TYPE_ERROR, "Unable to validate signature on assetDiff from CKRecordID %@", buf, 0xCu);
     }
 
@@ -234,7 +230,6 @@ LABEL_9:
   v17 = 1;
 LABEL_10:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -399,99 +394,8 @@ LABEL_6:
 {
   artifactCopy = artifact;
   v5 = artifactCopy;
-  if (!artifactCopy)
+  if (!artifactCopy || (v6 = self->_sourceAssetId == 0, [artifactCopy sourceAssetId], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (sourceAssetId = self->_sourceAssetId) != 0 && (objc_msgSend(v5, "sourceAssetId"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[TRIAssetId isEqual:](sourceAssetId, "isEqual:", v10), v10, !v11) || (v12 = self->_destAssetId == 0, objc_msgSend(v5, "destAssetId"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 != 0, v13, v12 == v14) || (destAssetId = self->_destAssetId) != 0 && (objc_msgSend(v5, "destAssetId"), v16 = objc_claimAutoreleasedReturnValue(), v17 = -[TRIAssetId isEqual:](destAssetId, "isEqual:", v16), v16, !v17) || (v18 = self->_diffSignature == 0, objc_msgSend(v5, "diffSignature"), v19 = objc_claimAutoreleasedReturnValue(), v20 = v19 != 0, v19, v18 == v20) || (diffSignature = self->_diffSignature) != 0 && (objc_msgSend(v5, "diffSignature"), v22 = objc_claimAutoreleasedReturnValue(), v23 = -[NSString isEqual:](diffSignature, "isEqual:", v22), v22, !v23) || (v24 = self->_diff == 0, objc_msgSend(v5, "diff"), v25 = objc_claimAutoreleasedReturnValue(), v26 = v25 != 0, v25, v24 == v26) || (diff = self->_diff) != 0 && (objc_msgSend(v5, "diff"), v28 = objc_claimAutoreleasedReturnValue(), v29 = -[NSURL isEqual:](diff, "isEqual:", v28), v28, !v29) || (diffSize = self->_diffSize, diffSize != objc_msgSend(v5, "diffSize")) || (v31 = self->_publicCertificate == 0, objc_msgSend(v5, "publicCertificate"), v32 = objc_claimAutoreleasedReturnValue(), v33 = v32 != 0, v32, v31 == v33))
   {
-    goto LABEL_18;
-  }
-
-  v6 = self->_sourceAssetId == 0;
-  sourceAssetId = [artifactCopy sourceAssetId];
-  v8 = sourceAssetId != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_18;
-  }
-
-  sourceAssetId = self->_sourceAssetId;
-  if (sourceAssetId)
-  {
-    sourceAssetId2 = [v5 sourceAssetId];
-    v11 = [(TRIAssetId *)sourceAssetId isEqual:sourceAssetId2];
-
-    if (!v11)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  v12 = self->_destAssetId == 0;
-  destAssetId = [v5 destAssetId];
-  v14 = destAssetId != 0;
-
-  if (v12 == v14)
-  {
-    goto LABEL_18;
-  }
-
-  destAssetId = self->_destAssetId;
-  if (destAssetId)
-  {
-    destAssetId2 = [v5 destAssetId];
-    v17 = [(TRIAssetId *)destAssetId isEqual:destAssetId2];
-
-    if (!v17)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  v18 = self->_diffSignature == 0;
-  diffSignature = [v5 diffSignature];
-  v20 = diffSignature != 0;
-
-  if (v18 == v20)
-  {
-    goto LABEL_18;
-  }
-
-  diffSignature = self->_diffSignature;
-  if (diffSignature)
-  {
-    diffSignature2 = [v5 diffSignature];
-    v23 = [(NSString *)diffSignature isEqual:diffSignature2];
-
-    if (!v23)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  v24 = self->_diff == 0;
-  diff = [v5 diff];
-  v26 = diff != 0;
-
-  if (v24 == v26)
-  {
-    goto LABEL_18;
-  }
-
-  diff = self->_diff;
-  if (diff)
-  {
-    diff2 = [v5 diff];
-    v29 = [(NSURL *)diff isEqual:diff2];
-
-    if (!v29)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  diffSize = self->_diffSize;
-  if (diffSize != [v5 diffSize] || (v31 = self->_publicCertificate == 0, objc_msgSend(v5, "publicCertificate"), v32 = objc_claimAutoreleasedReturnValue(), v33 = v32 != 0, v32, v31 == v33))
-  {
-LABEL_18:
     v36 = 0;
   }
 

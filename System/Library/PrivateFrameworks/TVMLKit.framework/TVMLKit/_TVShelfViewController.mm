@@ -463,7 +463,7 @@ LABEL_17:
     v14 = v13;
     if (v13)
     {
-      [v13 tv_cellMetricsValue];
+      objc_msgSend_tv_cellMetricsValue(v13);
       v12 = v18;
       v10 = v17;
     }
@@ -534,7 +534,7 @@ LABEL_17:
   v24 = [collectionView2 visibleSupplementaryViewsOfKind:@"TVShelfLayoutElementKindHeader"];
 
   v27 = relayout || (-[_TVShelfViewLayout minimumInteritemSpacing](collectionViewLayout, "minimumInteritemSpacing"), v25 != v12) || (-[_TVShelfViewLayout minimumLineSpacing](collectionViewLayout, "minimumLineSpacing"), v26 != v15) || [v24 count] != 0;
-  [(_TVMLCollectionViewController *)self cellMetrics];
+  objc_msgSend_cellMetrics(self);
   [(_TVMLShelfViewLayout *)collectionViewLayout setCellMetrics:&v39];
   if (tv_rowCount <= 1)
   {
@@ -664,7 +664,7 @@ LABEL_8:
       v28 = 0u;
       if (layoutCopy)
       {
-        [layoutCopy cellMetrics];
+        objc_msgSend_cellMetrics(layoutCopy, 0, 0, 0, 0, 0, 0, 0, 0);
       }
 
       [viewCopy bounds];
@@ -879,7 +879,7 @@ LABEL_8:
 - (void)updateWithViewElement:(id)element
 {
   elementCopy = element;
-  [_TVLockupFactory cellMetricsForCollectionElement:elementCopy];
+  objc_msgSend_cellMetricsForCollectionElement_(_TVLockupFactory);
   [(_TVShelfViewController *)self updateWithViewElement:elementCopy cellMetrics:&v5];
 }
 

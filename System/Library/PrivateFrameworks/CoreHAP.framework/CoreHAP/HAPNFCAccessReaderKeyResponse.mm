@@ -96,28 +96,28 @@ LABEL_15:
 
 - (id)serializeWithError:(id *)error
 {
-  v43 = *MEMORY[0x277D85DE8];
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
+  v42 = *MEMORY[0x277D85DE8];
   v40 = 0u;
-  v37 = 0u;
+  v41 = 0u;
   v38 = 0u;
-  v35 = 0u;
+  v39 = 0u;
   v36 = 0u;
-  v33 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
+  v25 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v21 = 0u;
   TLV8BufferInit();
   identifier = [(HAPNFCAccessReaderKeyResponse *)self identifier];
 
@@ -129,9 +129,9 @@ LABEL_10:
     if (statusCode)
     {
       statusCode2 = [(HAPNFCAccessReaderKeyResponse *)self statusCode];
-      v20 = 0;
-      v7 = [statusCode2 serializeWithError:&v20];
-      v8 = v20;
+      v19 = 0;
+      v7 = [statusCode2 serializeWithError:&v19];
+      v8 = v19;
 
       if (v8)
       {
@@ -158,15 +158,15 @@ LABEL_16:
       }
     }
 
-    v16 = [MEMORY[0x277CBEA90] dataWithBytes:v22 length:?];
+    v16 = [MEMORY[0x277CBEA90] dataWithBytes:v21 length:?];
     v8 = 0;
     goto LABEL_21;
   }
 
   identifier2 = [(HAPNFCAccessReaderKeyResponse *)self identifier];
-  v21 = 0;
-  v7 = [identifier2 serializeWithError:&v21];
-  v8 = v21;
+  v20 = 0;
+  v7 = [identifier2 serializeWithError:&v20];
+  v8 = v20;
 
   if (!v8)
   {
@@ -208,8 +208,6 @@ LABEL_20:
   v16 = 0;
 LABEL_21:
   TLV8BufferFree();
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

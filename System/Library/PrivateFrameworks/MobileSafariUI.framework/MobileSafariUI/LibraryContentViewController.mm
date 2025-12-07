@@ -83,7 +83,7 @@
 
   v8 = sub_215A0DF44(action, v10);
 
-  sub_21583F14C(v10, &qword_27CA7E2E0);
+  sub_21583F14C(v10, &qword_27CA7E2E0, &unk_215A969A0);
   return v8 & 1;
 }
 
@@ -135,7 +135,7 @@
   viewCopy = view;
   cellCopy = cell;
   selfCopy = self;
-  sub_215A1185C();
+  sub_215A1185C(v11);
 
   (*(v9 + 8))(v11, v8);
 }
@@ -227,11 +227,11 @@
   viewCopy = view;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_215A11D58(viewCopy);
+  sub_215A11D58(viewCopy, v10);
 
   swift_unknownObjectRelease();
   (*(v8 + 8))(v10, v7);
-  sub_2159F7DA8(0, &qword_27CA7E2B0);
+  sub_2159F7DA8(0, &qword_27CA7E2B0, 0x277D75470);
   v13 = sub_215A705D0();
 
   return v13;
@@ -247,11 +247,11 @@
   viewCopy = view;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_215A11EA4();
+  sub_215A11EA4(v11);
 
   swift_unknownObjectRelease();
   (*(v9 + 8))(v11, v8);
-  sub_2159F7DA8(0, &qword_27CA7E2B0);
+  sub_2159F7DA8(0, &qword_27CA7E2B0, 0x277D75470);
   v14 = sub_215A705D0();
 
   return v14;
@@ -269,7 +269,7 @@
 
 - (id)collectionView:(id)view dropSessionDidUpdate:(id)update withDestinationIndexPath:(id)path
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA7DF78);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA7DF78, &unk_215A96CE0);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v18 - v10;
   if (path)
@@ -291,7 +291,7 @@
   v16 = sub_215A11F60(update, v11);
 
   swift_unknownObjectRelease();
-  sub_21583F14C(v11, &qword_27CA7DF78);
+  sub_21583F14C(v11, &qword_27CA7DF78, &unk_215A96CE0);
 
   return v16;
 }

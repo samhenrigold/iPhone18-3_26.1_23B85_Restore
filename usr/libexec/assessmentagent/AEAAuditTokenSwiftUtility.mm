@@ -23,7 +23,7 @@
   isKindOfClass = objc_opt_isKindOfClass();
   if (v9 && (isKindOfClass & 1) != 0)
   {
-    [v9 underlyingToken];
+    objc_msgSend_underlyingToken(v9);
   }
 
   else
@@ -32,7 +32,7 @@
     v7 = v6;
     if (v6)
     {
-      [v6 underlyingToken];
+      objc_msgSend_underlyingToken(v6);
     }
 
     else

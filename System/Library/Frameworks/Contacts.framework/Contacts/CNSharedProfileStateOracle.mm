@@ -1900,7 +1900,7 @@ LABEL_19:
           {
             if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
             {
-              [CNSharedProfileStateOracle updateContactForDeclinedActionType:error:];
+              [CNSharedProfileStateOracle updateContactForDeclinedActionType:? error:?];
             }
 
             freeze = 0;
@@ -2724,14 +2724,14 @@ uint64_t __44__CNSharedProfileStateOracle_firstSharedIn___block_invoke(uint64_t 
 {
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_1954A0000, v2, v3, "Failed to find matching contact with error: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_0(&dword_1954A0000, v2, v3, "Failed to find matching contact with error: %@", v4, v5, v6, v7);
 }
 
 - (void)targetProfileForActionType:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 contact];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_1954A0000, v2, v3, "No recent avatar or poster available for contact %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_0(&dword_1954A0000, v2, v3, "No recent avatar or poster available for contact %@", v4, v5, v6, v7);
 }
 
 - (void)targetProfileForActionType:(void *)a1 .cold.2(void *a1)
@@ -2739,49 +2739,49 @@ uint64_t __44__CNSharedProfileStateOracle_firstSharedIn___block_invoke(uint64_t 
   v1 = [a1 contact];
   v2 = [v1 identifier];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_1954A0000, v3, v4, "Contact (%{public}@) has an archived and current nickname containing the same photo and wallpaper, this will result in an action that shows no change", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_0_0(&dword_1954A0000, v3, v4, "Contact (%{public}@) has an archived and current nickname containing the same photo and wallpaper, this will result in an action that shows no change", v5, v6, v7, v8);
 }
 
 - (void)updateContactForActionType:(uint64_t)a1 error:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
 {
   v2 = [objc_opt_class() descriptionForActionType:a2];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_1954A0000, v3, v4, "Error updating contact for actionType %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_0_0(&dword_1954A0000, v3, v4, "Error updating contact for actionType %@", v5, v6, v7, v8);
 }
 
 - (void)updateContactAndNicknamesForAutoUpdateWithError:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 contact];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_1954A0000, v2, v3, "Attempting to auto-update a contact %@ without auto-update enabled", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_0(&dword_1954A0000, v2, v3, "Attempting to auto-update a contact %@ without auto-update enabled", v4, v5, v6, v7);
 }
 
-- (void)updateContactForDeclinedActionType:error:.cold.1()
+- (void)updateContactForDeclinedActionType:(uint64_t)a1 error:.cold.1(uint64_t a1)
 {
-  v0 = [objc_opt_class() descriptionForActionType:2];
+  v1 = [objc_opt_class() descriptionForActionType:2];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_1954A0000, v1, v2, "Error updating contact for declined actionType %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0_0(&dword_1954A0000, v2, v3, "Error updating contact for declined actionType %@", v4, v5, v6, v7);
 }
 
 - (void)saveUpdatedContact:(id *)a1 error:.cold.1(id *a1)
 {
   v1 = [*a1 localizedDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_1954A0000, v2, v3, "Error saving contact: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_0(&dword_1954A0000, v2, v3, "Error saving contact: %@", v4, v5, v6, v7);
 }
 
 - (void)saveContactImage:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_1954A0000, v2, v3, "Failed to save contact image to recents, %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_0(&dword_1954A0000, v2, v3, "Failed to save contact image to recents, %@", v4, v5, v6, v7);
 }
 
 - (void)saveContactPoster:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_1954A0000, v2, v3, "Failed to save contact poster to recents, %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_0(&dword_1954A0000, v2, v3, "Failed to save contact poster to recents, %@", v4, v5, v6, v7);
 }
 
 @end

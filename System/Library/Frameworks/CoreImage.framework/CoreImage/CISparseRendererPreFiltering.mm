@@ -10,7 +10,7 @@
 - (id)_kernel:(BOOL)_kernel
 {
   _kernelCopy = _kernel;
-  v4 = SDOFV2MetalLibURL();
+  v4 = SDOFV2MetalLibURL(self, a2);
   if (_kernelCopy)
   {
     v5 = @"_sparserendering_prefilter_x";

@@ -10,9 +10,9 @@
 
 - (MPSCNNDilatedPoolingMax)initWithDevice:(id)device kernelWidth:(NSUInteger)kernelWidth kernelHeight:(NSUInteger)kernelHeight dilationRateX:(NSUInteger)dilationRateX dilationRateY:(NSUInteger)dilationRateY strideInPixelsX:(NSUInteger)strideInPixelsX strideInPixelsY:(NSUInteger)strideInPixelsY
 {
-  v28.receiver = self;
-  v28.super_class = MPSCNNDilatedPoolingMax;
-  v11 = [(MPSCNNPooling *)&v28 initWithDevice:device kernelWidth:kernelWidth kernelHeight:kernelHeight strideInPixelsX:strideInPixelsX strideInPixelsY:strideInPixelsY];
+  v34.receiver = self;
+  v34.super_class = MPSCNNDilatedPoolingMax;
+  v11 = [(MPSCNNPooling *)&v34 initWithDevice:device kernelWidth:kernelWidth kernelHeight:kernelHeight strideInPixelsX:strideInPixelsX strideInPixelsY:strideInPixelsY];
   v19 = v11;
   if (!v11)
   {
@@ -36,14 +36,18 @@
 
     if (MTLReportFailureTypeEnabled())
     {
-      goto LABEL_9;
+      v32 = @"dilationRateY (%lu) must be > 0";
+      v33 = 4013;
+      goto LABEL_10;
     }
   }
 
   else if (MTLReportFailureTypeEnabled())
   {
-LABEL_9:
-    MTLReportFailure();
+    v32 = @"dilationRateX (%lu) must be > 0";
+    v33 = 4012;
+LABEL_10:
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNPooling.mm", v33, v32, v28, v29, v30, v31);
   }
 
   return 0;
@@ -51,9 +55,9 @@ LABEL_9:
 
 - (MPSCNNDilatedPoolingMax)initWithCoder:(NSCoder *)aDecoder device:(id)device
 {
-  v22.receiver = self;
-  v22.super_class = MPSCNNDilatedPoolingMax;
-  v4 = [(MPSCNNPooling *)&v22 initWithCoder:aDecoder device:device];
+  v26.receiver = self;
+  v26.super_class = MPSCNNDilatedPoolingMax;
+  v4 = [(MPSCNNPooling *)&v26 initWithCoder:aDecoder device:device];
   v12 = v4;
   if (!v4)
   {
@@ -75,7 +79,7 @@ LABEL_9:
   {
     v21 = objc_opt_class();
     NSStringFromClass(v21);
-    MTLReportFailure();
+    MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNPooling.mm", 0xFF0, @"[%@ initWithCoder:device:] Failed: unsupported file version.", v22, v23, v24, v25);
   }
 
   return 0;

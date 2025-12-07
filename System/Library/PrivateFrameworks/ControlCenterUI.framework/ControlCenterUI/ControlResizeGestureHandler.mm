@@ -22,13 +22,14 @@
   {
     if (state == 1)
     {
-      sub_21EA5E1B0();
-      v8 = *self->onBegin;
-      if (v8)
+      sub_21EA5E1B0(v8);
+      v9 = *self->onBegin;
+      if (v9)
       {
+        v10 = *&self->onBegin[8];
 
-        v8(self);
-        sub_21E9FFAF0(v8);
+        v9(self);
+        sub_21E9FFAF0(v9, v10);
       }
     }
 

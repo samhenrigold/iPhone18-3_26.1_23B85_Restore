@@ -1,9 +1,16 @@
 @interface SGM2EventBannerConfirmed
 - (BOOL)isEqual:(id)equal;
 - (NSString)key;
+- (id)appAsString:(int)string;
+- (id)categoryAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)dateAdjAsString:(int)string;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)duraAdjAsString:(int)string;
+- (id)extractedAsString:(int)string;
+- (id)stateAsString:(int)string;
+- (id)titleAdjAsString:(int)string;
 - (int)StringAsApp:(id)app;
 - (int)StringAsCategory:(id)category;
 - (int)StringAsDateAdj:(id)adj;
@@ -557,19 +564,18 @@ LABEL_11:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v13 = toCopy;
+  v6 = toCopy;
   if (self->_key)
   {
     PBDataWriterWriteStringField();
-    toCopy = v13;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    app = self->_app;
     PBDataWriterWriteInt32Field();
-    toCopy = v13;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -588,9 +594,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  category = self->_category;
   PBDataWriterWriteInt32Field();
-  toCopy = v13;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x10) == 0)
   {
@@ -604,9 +609,8 @@ LABEL_6:
   }
 
 LABEL_16:
-  extracted = self->_extracted;
   PBDataWriterWriteInt32Field();
-  toCopy = v13;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x20) == 0)
   {
@@ -620,9 +624,8 @@ LABEL_7:
   }
 
 LABEL_17:
-  state = self->_state;
   PBDataWriterWriteInt32Field();
-  toCopy = v13;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x40) == 0)
   {
@@ -636,9 +639,8 @@ LABEL_8:
   }
 
 LABEL_18:
-  titleAdj = self->_titleAdj;
   PBDataWriterWriteInt32Field();
-  toCopy = v13;
+  toCopy = v6;
   has = self->_has;
   if ((has & 4) == 0)
   {
@@ -652,15 +654,13 @@ LABEL_9:
   }
 
 LABEL_19:
-  dateAdj = self->_dateAdj;
   PBDataWriterWriteInt32Field();
-  toCopy = v13;
+  toCopy = v6;
   if ((*&self->_has & 8) != 0)
   {
 LABEL_10:
-    duraAdj = self->_duraAdj;
     PBDataWriterWriteInt32Field();
-    toCopy = v13;
+    toCopy = v6;
   }
 
 LABEL_11:
@@ -910,6 +910,21 @@ LABEL_41:
   return v4;
 }
 
+- (id)duraAdjAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFC810[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasDuraAdj:(BOOL)adj
 {
   if (adj)
@@ -999,6 +1014,21 @@ LABEL_41:
   return v4;
 }
 
+- (id)dateAdjAsString:(int)string
+{
+  if (string >= 0xA)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFC7C0[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasDateAdj:(BOOL)adj
 {
   if (adj)
@@ -1063,6 +1093,21 @@ LABEL_41:
   return v4;
 }
 
+- (id)titleAdjAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFC798[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasTitleAdj:(BOOL)adj
 {
   if (adj)
@@ -1117,6 +1162,21 @@ LABEL_41:
   return v4;
 }
 
+- (id)stateAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFC780[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasState:(BOOL)state
 {
   if (state)
@@ -1156,6 +1216,29 @@ LABEL_41:
   else
   {
     v4 = [extractedCopy isEqualToString:@"SGMEventExtractionTypeTemplate"];
+  }
+
+  return v4;
+}
+
+- (id)extractedAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"SGMEventExtractionTypeTemplate";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"SGMEventExtractionTypeICal";
   }
 
   return v4;
@@ -1260,6 +1343,21 @@ LABEL_41:
   return v4;
 }
 
+- (id)categoryAsString:(int)string
+{
+  if (string >= 0xC)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFC720[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasCategory:(BOOL)category
 {
   if (category)
@@ -1309,6 +1407,21 @@ LABEL_41:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)appAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFC708[string];
   }
 
   return v4;

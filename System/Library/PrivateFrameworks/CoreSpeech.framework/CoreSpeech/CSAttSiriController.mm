@@ -16,6 +16,7 @@
 - (void)_fetchMitigationAssets;
 - (void)_fetchRequiredAssets;
 - (void)_fetchVoiceTriggerAssets;
+- (void)_forceBuildGraph:(BOOL)graph;
 - (void)_handleCCTriggeredRequestStart;
 - (void)_handleCCTriggeredRequestStop;
 - (void)_handleStartProcessingWithRecordContext:(id)context withAudioStartStreamOptions:(id)options completion:(id)completion;
@@ -959,6 +960,124 @@ LABEL_11:
   block[3] = &unk_100253C20;
   block[4] = self;
   dispatch_async(mitigationAssetFetchQueue, block);
+}
+
+- (void)_forceBuildGraph:(BOOL)graph
+{
+  graphCopy = graph;
+  v30 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  obj = self->_nodesCache;
+  v5 = [(NSMapTable *)obj countByEnumeratingWithState:&v30 objects:v39 count:16];
+  if (v5)
+  {
+    v7 = v5;
+    v8 = *v31;
+    *&v6 = 136315394;
+    v22 = v6;
+    v23 = *v31;
+    do
+    {
+      v9 = 0;
+      v24 = v7;
+      do
+      {
+        if (*v31 != v8)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v10 = [(NSMapTable *)self->_nodesCache objectForKey:*(*(&v30 + 1) + 8 * v9), v22];
+        if ([v10 isReady])
+        {
+          v11 = !graphCopy;
+        }
+
+        else
+        {
+          v11 = 0;
+        }
+
+        if (!v11)
+        {
+          v28 = 0u;
+          v29 = 0u;
+          v26 = 0u;
+          v27 = 0u;
+          requiredNodes = [v10 requiredNodes];
+          v13 = [requiredNodes countByEnumeratingWithState:&v26 objects:v38 count:16];
+          if (!v13)
+          {
+
+            [v10 setIsReady:1];
+LABEL_23:
+            v21 = CSLogContextFacilityCoreSpeech;
+            if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = v22;
+              v35 = "[CSAttSiriController _forceBuildGraph:]";
+              v36 = 2112;
+              v37 = v10;
+              _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "%s %@ is ready", buf, 0x16u);
+            }
+
+            goto LABEL_25;
+          }
+
+          v14 = v13;
+          v15 = graphCopy;
+          v16 = *v27;
+          v17 = 1;
+          do
+          {
+            for (i = 0; i != v14; i = i + 1)
+            {
+              if (*v27 != v16)
+              {
+                objc_enumerationMutation(requiredNodes);
+              }
+
+              v19 = [(NSMapTable *)self->_nodesCache objectForKey:*(*(&v26 + 1) + 8 * i)];
+              v20 = v19;
+              if (v19)
+              {
+                [v19 addReceiver:v10];
+              }
+
+              else
+              {
+                v17 = 0;
+              }
+            }
+
+            v14 = [requiredNodes countByEnumeratingWithState:&v26 objects:v38 count:16];
+          }
+
+          while (v14);
+
+          [v10 setIsReady:v17 & 1];
+          graphCopy = v15;
+          v8 = v23;
+          v7 = v24;
+          if (v17)
+          {
+            goto LABEL_23;
+          }
+        }
+
+LABEL_25:
+
+        v9 = v9 + 1;
+      }
+
+      while (v9 != v7);
+      v7 = [(NSMapTable *)obj countByEnumeratingWithState:&v30 objects:v39 count:16];
+    }
+
+    while (v7);
+  }
 }
 
 - (void)_reconfigureRequiredNodes:(id)nodes enforceAttendingAudioNode:(BOOL)node

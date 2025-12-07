@@ -48,18 +48,18 @@
 
 - (id)dictionaryRepresentation
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   if ([(TVRCPlayItemInfo *)self hasMediaIdentifierAndKind])
   {
-    v14[0] = @"IdentifierKey";
+    v13[0] = @"IdentifierKey";
     mediaIdentifier = [(TVRCPlayItemInfo *)self mediaIdentifier];
-    v15[0] = mediaIdentifier;
-    v14[1] = @"KindKey";
+    v14[0] = mediaIdentifier;
+    v13[1] = @"KindKey";
     kind = [(TVRCPlayItemInfo *)self kind];
-    v15[1] = kind;
+    v14[1] = kind;
     v5 = MEMORY[0x277CBEAC0];
-    v6 = v15;
-    v7 = v14;
+    v6 = v14;
+    v7 = v13;
     v8 = 2;
 LABEL_5:
     v9 = [v5 dictionaryWithObjects:v6 forKeys:v7 count:v8];
@@ -69,20 +69,19 @@ LABEL_5:
 
   if ([(TVRCPlayItemInfo *)self hasURL])
   {
-    v12 = @"TVRCURLKey";
+    v11 = @"TVRCURLKey";
     mediaIdentifier = [(TVRCPlayItemInfo *)self url];
     kind = [mediaIdentifier absoluteString];
-    v13 = kind;
+    v12 = kind;
     v5 = MEMORY[0x277CBEAC0];
-    v6 = &v13;
-    v7 = &v12;
+    v6 = &v12;
+    v7 = &v11;
     v8 = 1;
     goto LABEL_5;
   }
 
   v9 = MEMORY[0x277CBEC10];
 LABEL_7:
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

@@ -24,8 +24,8 @@
 
 - (int)pid
 {
-  auditToken = [(_SBKeyboardServiceClient *)self auditToken];
-  v3 = [auditToken pid];
+  v2 = objc_msgSend_auditToken(self, a2);
+  v3 = [v2 pid];
 
   return v3;
 }
@@ -33,9 +33,9 @@
 - (BSAuditToken)auditToken
 {
   remoteProcess = [(BSServiceConnectionContext *)self->_connectionContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v3 = objc_msgSend_auditToken(remoteProcess);
 
-  return auditToken;
+  return v3;
 }
 
 - (id)description

@@ -17,7 +17,7 @@
 
 - (void)_bridgedUpdateConfigurationUsingState:(id)state
 {
-  v4 = sub_1000F24EC(&qword_100AF16C0);
+  v4 = sub_1000F24EC(&qword_100AF16C0, &qword_100942DF0);
   __chkstk_darwin(v4 - 8);
   v6 = &v16 - v5;
   v7 = type metadata accessor for UICellConfigurationState();
@@ -27,7 +27,7 @@
   static UICellConfigurationState._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   isa = UICellConfigurationState._bridgeToObjectiveC()().super.super.isa;
-  v13 = type metadata accessor for JournalEntryCollectionViewCell();
+  v13 = type metadata accessor for JournalEntryCollectionViewCell(0);
   v16.receiver = selfCopy;
   v16.super_class = v13;
   [(JournalEntryCollectionViewCell *)&v16 _bridgedUpdateConfigurationUsingState:isa];
@@ -119,7 +119,7 @@
   }
 
   v7.receiver = self;
-  v7.super_class = type metadata accessor for JournalEntryCollectionViewCell();
+  v7.super_class = type metadata accessor for JournalEntryCollectionViewCell(0);
   [(JournalEntryCollectionViewCell *)&v7 setAccessibilityUserInputLabels:v5.super.isa];
 }
 
@@ -155,21 +155,21 @@
 - (BOOL)accessibilityActivate
 {
   selfCopy = self;
-  v3 = sub_100602880();
+  v4 = sub_100602880(selfCopy, v3);
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (NSArray)accessibilityCustomActions
 {
   v9.receiver = self;
-  v9.super_class = type metadata accessor for JournalEntryCollectionViewCell();
+  v9.super_class = type metadata accessor for JournalEntryCollectionViewCell(0);
   v2 = v9.receiver;
   accessibilityCustomActions = [(JournalEntryCollectionViewCell *)&v9 accessibilityCustomActions];
   if (accessibilityCustomActions)
   {
     v4 = accessibilityCustomActions;
-    sub_1000065A8(0, &qword_100AD86C0);
+    sub_1000065A8(0, &qword_100AD86C0, UIAccessibilityCustomAction_ptr);
     v5 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
@@ -182,7 +182,7 @@
   v6 = sub_1006009BC();
   sub_1006ADFF8(v6);
 
-  sub_1000065A8(0, &qword_100AD86C0);
+  sub_1000065A8(0, &qword_100AD86C0, UIAccessibilityCustomAction_ptr);
   v7.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v7.super.isa;
@@ -206,7 +206,7 @@
 
   v8 = sub_100602DD0(action, v10);
 
-  sub_100004F84(v10, &qword_100AD13D0);
+  sub_100004F84(v10, &qword_100AD13D0, &unk_100942DB0);
   return v8 & 1;
 }
 

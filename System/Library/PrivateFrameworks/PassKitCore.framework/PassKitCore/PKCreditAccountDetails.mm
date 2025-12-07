@@ -239,9 +239,9 @@ LABEL_16:
 
         if (identifierCopy && identifier)
         {
-          v13 = [identifier isEqualToString:v11];
+          isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-          if (v13)
+          if (isEqualToString)
           {
             goto LABEL_16;
           }
@@ -410,9 +410,9 @@ LABEL_17:
 
           if (cardCopy && identifier)
           {
-            v15 = [identifier isEqualToString:v13];
+            isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-            if (v15)
+            if (isEqualToString)
             {
               goto LABEL_17;
             }
@@ -477,9 +477,9 @@ LABEL_16:
 
         if (identifierCopy && identifier)
         {
-          v13 = [identifier isEqualToString:v11];
+          isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-          if (v13)
+          if (isEqualToString)
           {
             goto LABEL_16;
           }

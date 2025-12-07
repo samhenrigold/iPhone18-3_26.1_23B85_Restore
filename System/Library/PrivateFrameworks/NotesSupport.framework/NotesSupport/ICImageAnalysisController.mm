@@ -195,6 +195,20 @@ LABEL_26:
   }
 }
 
+- (void)analyzeSearchableItems:(void *)a1 completion:.cold.1(void *a1)
+{
+  LODWORD(v7) = 134217984;
+  *(&v7 + 4) = [a1 count];
+  OUTLINED_FUNCTION_0_2(&dword_1D4576000, v1, v2, "[JIT] Enqueuing %lu searchable items", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
+void __63__ICImageAnalysisController_analyzeSearchableItems_completion___block_invoke_cold_1(uint64_t a1)
+{
+  LODWORD(v7) = 134217984;
+  *(&v7 + 4) = [*(a1 + 32) count];
+  OUTLINED_FUNCTION_0_2(&dword_1D4576000, v1, v2, "[JIT] Processing %lu searchable items", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
 void __63__ICImageAnalysisController_analyzeSearchableItems_completion___block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
   v4 = *MEMORY[0x1E69E9840];

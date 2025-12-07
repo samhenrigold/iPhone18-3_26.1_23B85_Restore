@@ -83,14 +83,14 @@
 
 - (BOOL)_parseFromTLVData
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CFEC08] wrappertlv:1 name:@"kVideoAttributesImageWidth"];
   v4 = [MEMORY[0x277CFEC08] wrappertlv:2 name:@"kVideoAttributesImageHeight"];
   v5 = [MEMORY[0x277CFEC08] wrappertlv:3 name:@"kVideoAttributesFrameRate"];
-  v16[0] = v3;
-  v16[1] = v4;
-  v16[2] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
+  v15[0] = v3;
+  v15[1] = v4;
+  v15[2] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
   v7 = [(HAPTLVBase *)self _parse:v6];
   if (v7)
   {
@@ -109,7 +109,6 @@
     translateResolutionWidthHeight(self->_imageWidth, self->_imageHeight, &self->_resolution);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

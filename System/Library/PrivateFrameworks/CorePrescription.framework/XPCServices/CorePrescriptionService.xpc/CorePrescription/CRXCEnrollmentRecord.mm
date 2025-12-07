@@ -18,22 +18,21 @@
 - (NSDate)modifiedDate
 {
   v3 = sub_100006940(&unk_1000B88B0, &qword_100086A40);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = &v13 - v5;
-  sub_10001A8DC(self + OBJC_IVAR___CRXCEnrollmentRecord_modifiedDate, &v13 - v5, &unk_1000B88B0, &qword_100086A40);
-  v7 = sub_100080D98();
-  v8 = *(v7 - 8);
-  v9 = (*(v8 + 48))(v6, 1, v7);
-  v10 = 0;
-  if (v9 != 1)
+  __chkstk_darwin(v3 - 8, v4, v5);
+  v7 = &v14 - v6;
+  sub_10001A8DC(self + OBJC_IVAR___CRXCEnrollmentRecord_modifiedDate, &v14 - v6, &unk_1000B88B0, &qword_100086A40);
+  v8 = sub_100080D98();
+  v9 = *(v8 - 8);
+  v10 = (*(v9 + 48))(v7, 1, v8);
+  v11 = 0;
+  if (v10 != 1)
   {
     isa = sub_100080D48().super.isa;
-    (*(v8 + 8))(v6, v7);
-    v10 = isa;
+    (*(v9 + 8))(v7, v8);
+    v11 = isa;
   }
 
-  return v10;
+  return v11;
 }
 
 - (BOOL)isEqual:(id)equal

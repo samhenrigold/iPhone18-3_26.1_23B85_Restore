@@ -54,53 +54,49 @@
 
 + (BOOL)isEnabled
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = +[CDMFeatureFlags isSSUEnabled];
   if (!v2)
   {
     v3 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v6 = 136315138;
-      v7 = "+[CDMSSUService isEnabled]";
+      v5 = 136315138;
+      v6 = "+[CDMSSUService isEnabled]";
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
 - (id)handleRequestCommandTypeNames
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFD8];
   v3 = +[(CDMBaseCommand *)CDMSSURequestCommand];
-  v8[0] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   v5 = [v2 setWithArray:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 + (id)getCDMServiceAssetConfig
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(CDMServiceAssetConfig);
-  v9 = @"ssu_encoder";
-  v10[0] = @"com.apple.siri.nl.ssu.encoder";
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v9 count:1];
-  v10[1] = @"com.apple.siri.nl.ssu.datasets";
-  v11[0] = v3;
-  v8 = @"ssu_datasets";
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v8 count:1];
-  v11[1] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v8 = @"ssu_encoder";
+  v9[0] = @"com.apple.siri.nl.ssu.encoder";
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v8 count:1];
+  v9[1] = @"com.apple.siri.nl.ssu.datasets";
+  v10[0] = v3;
+  v7 = @"ssu_datasets";
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v7 count:1];
+  v10[1] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
   [(CDMServiceAssetConfig *)v2 addCDMFactorToFoldersMapping:v5 forAssetSet:0];
 
   [(CDMServiceAssetConfig *)v2 setIsAssetRequiredForSetup:0];
-  v6 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -116,14 +112,14 @@
 
 - (void)forceFullCacheUpdateIfEnabled
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (+[CDMFeatureFlags isSSUCacheUpdateOnEveryRequestEnabled])
   {
     v3 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v16 = "[CDMSSUService forceFullCacheUpdateIfEnabled]";
+      v15 = "[CDMSSUService forceFullCacheUpdateIfEnabled]";
       _os_log_debug_impl(&dword_1DC287000, v3, OS_LOG_TYPE_DEBUG, "%s Forcing full cache update due to feature flag", buf, 0xCu);
     }
 
@@ -133,39 +129,37 @@
     v6 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v12 = [lookupAllSSUEnabledApps count];
+      v11 = [lookupAllSSUEnabledApps count];
       *buf = 136315394;
-      v16 = "[CDMSSUService forceFullCacheUpdateIfEnabled]";
-      v17 = 2048;
-      v18 = v12;
+      v15 = "[CDMSSUService forceFullCacheUpdateIfEnabled]";
+      v16 = 2048;
+      v17 = v11;
       _os_log_debug_impl(&dword_1DC287000, v6, OS_LOG_TYPE_DEBUG, "%s Found %lu SSU-enabled apps on device", buf, 0x16u);
     }
 
     matcher = self->__matcher;
-    v14 = 0;
-    v8 = [(SNLPSSUMatcher *)matcher performFullCacheUpdate:lookupAllSSUEnabledApps error:&v14];
-    v9 = v14;
+    v13 = 0;
+    v8 = [(SNLPSSUMatcher *)matcher performFullCacheUpdate:lookupAllSSUEnabledApps error:&v13];
+    v9 = v13;
     if ((v8 & 1) == 0)
     {
       v10 = CDMOSLoggerForCategory(0);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v13 = [CDMPlatformUtils prettyPrintError:v9];
+        v12 = [CDMPlatformUtils prettyPrintError:v9];
         *buf = 136315394;
-        v16 = "[CDMSSUService forceFullCacheUpdateIfEnabled]";
-        v17 = 2112;
-        v18 = v13;
+        v15 = "[CDMSSUService forceFullCacheUpdateIfEnabled]";
+        v16 = 2112;
+        v17 = v12;
         _os_log_error_impl(&dword_1DC287000, v10, OS_LOG_TYPE_ERROR, "%s [ERR]: Failed to perform full cache update with error: %@. We will continue processing, despite this failure.", buf, 0x16u);
       }
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performAppRescanForSandboxInstalledApps
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   installedAppProvider = [(SSUSystemState *)self->__systemState installedAppProvider];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
@@ -176,37 +170,37 @@
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v25 = "[CDMSSUService performAppRescanForSandboxInstalledApps]";
+      v24 = "[CDMSSUService performAppRescanForSandboxInstalledApps]";
       _os_log_debug_impl(&dword_1DC287000, v5, OS_LOG_TYPE_DEBUG, "%s Performing app rescan due to service state directory apps", buf, 0xCu);
     }
 
     installedAppProvider2 = [(SSUSystemState *)self->__systemState installedAppProvider];
     lookupAllSSUEnabledApps = [installedAppProvider2 lookupAllSSUEnabledApps];
 
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v8 = lookupAllSSUEnabledApps;
-    v9 = [v8 countByEnumeratingWithState:&v20 objects:v28 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v19 objects:v27 count:16];
     if (v9)
     {
-      v10 = *v21;
+      v10 = *v20;
       do
       {
         v11 = 0;
         do
         {
-          if (*v21 != v10)
+          if (*v20 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v20 + 1) + 8 * v11);
+          v12 = *(*(&v19 + 1) + 8 * v11);
           matcher = self->__matcher;
-          v19 = 0;
-          v14 = [(SNLPSSUMatcher *)matcher registerApp:v12 error:&v19];
-          v15 = v19;
+          v18 = 0;
+          v14 = [(SNLPSSUMatcher *)matcher registerApp:v12 error:&v18];
+          v15 = v18;
           if ((v14 & 1) == 0)
           {
             v16 = CDMOSLoggerForCategory(0);
@@ -214,9 +208,9 @@
             {
               v17 = [CDMPlatformUtils prettyPrintError:v15];
               *buf = 136315394;
-              v25 = "[CDMSSUService performAppRescanForSandboxInstalledApps]";
-              v26 = 2112;
-              v27 = v17;
+              v24 = "[CDMSSUService performAppRescanForSandboxInstalledApps]";
+              v25 = 2112;
+              v26 = v17;
               _os_log_error_impl(&dword_1DC287000, v16, OS_LOG_TYPE_ERROR, "%s [ERR]: Failed to register app: %@. We will continue processing, despite this failure.", buf, 0x16u);
             }
           }
@@ -225,14 +219,12 @@
         }
 
         while (v9 != v11);
-        v9 = [v8 countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v19 objects:v27 count:16];
       }
 
       while (v9);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 + (void)dispatchAsyncWithTransaction:(id)transaction block:(id)block
@@ -253,32 +245,30 @@
 
 + (id)getMatcherWithAssetCollection:(id)collection systemState:(id)state
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v10 = 0;
-  v4 = [self acquireOrBuildMatcher:collection systemState:state error:&v10];
-  v5 = v10;
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0;
+  v4 = [self acquireOrBuildMatcher:collection systemState:state error:&v9];
+  v5 = v9;
   if (!v4)
   {
     v6 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v9 = [CDMPlatformUtils prettyPrintError:v5];
+      v8 = [CDMPlatformUtils prettyPrintError:v5];
       *buf = 136315394;
-      v12 = "+[CDMSSUService(SystemEvent) getMatcherWithAssetCollection:systemState:]";
-      v13 = 2112;
-      v14 = v9;
+      v11 = "+[CDMSSUService(SystemEvent) getMatcherWithAssetCollection:systemState:]";
+      v12 = 2112;
+      v13 = v8;
       _os_log_error_impl(&dword_1DC287000, v6, OS_LOG_TYPE_ERROR, "%s [ERR]: Could not acquire/build SNLPSSUMatcher instance: %@.", buf, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 + (void)handleXPCEventApplicationInner:(id)inner assetCollection:(id)collection block:(id)block
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   innerCopy = inner;
   collectionCopy = collection;
   blockCopy = block;
@@ -288,7 +278,7 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v28 = "+[CDMSSUService(SystemEvent) handleXPCEventApplicationInner:assetCollection:block:]";
+      v27 = "+[CDMSSUService(SystemEvent) handleXPCEventApplicationInner:assetCollection:block:]";
       _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s Received placeholder application XPC event. We only want to action non-placeholder ones. Aborting XPC event handling.", buf, 0xCu);
     }
   }
@@ -313,15 +303,15 @@
       v17 = [self getMatcherWithAssetCollection:collectionCopy systemState:v16];
       if (v17)
       {
-        v22[0] = MEMORY[0x1E69E9820];
-        v22[1] = 3221225472;
-        v22[2] = __83__CDMSSUService_SystemEvent__handleXPCEventApplicationInner_assetCollection_block___block_invoke;
-        v22[3] = &unk_1E862EBA0;
-        v26 = blockCopy;
-        v23 = v16;
-        v24 = v17;
-        v25 = v11;
-        [self dispatchAsyncWithTransaction:collectionCopy block:v22];
+        v21[0] = MEMORY[0x1E69E9820];
+        v21[1] = 3221225472;
+        v21[2] = __83__CDMSSUService_SystemEvent__handleXPCEventApplicationInner_assetCollection_block___block_invoke;
+        v21[3] = &unk_1E862EBA0;
+        v25 = blockCopy;
+        v22 = v16;
+        v23 = v17;
+        v24 = v11;
+        [self dispatchAsyncWithTransaction:collectionCopy block:v21];
         v18 = CDMLogContext;
         v19 = v18;
         if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
@@ -330,7 +320,7 @@
           _os_signpost_emit_with_name_impl(&dword_1DC287000, v19, OS_SIGNPOST_INTERVAL_END, v12, "CDMSSUService+SystemEvent enqueue for handling", "", buf, 2u);
         }
 
-        v20 = v26;
+        v20 = v25;
       }
 
       else
@@ -339,7 +329,7 @@
         if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315138;
-          v28 = "+[CDMSSUService(SystemEvent) handleXPCEventApplicationInner:assetCollection:block:]";
+          v27 = "+[CDMSSUService(SystemEvent) handleXPCEventApplicationInner:assetCollection:block:]";
           _os_log_error_impl(&dword_1DC287000, v20, OS_LOG_TYPE_ERROR, "%s [ERR]: Could not get matcher. Aborting XPC event handling.", buf, 0xCu);
         }
       }
@@ -351,13 +341,11 @@
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v28 = "+[CDMSSUService(SystemEvent) handleXPCEventApplicationInner:assetCollection:block:]";
+        v27 = "+[CDMSSUService(SystemEvent) handleXPCEventApplicationInner:assetCollection:block:]";
         _os_log_error_impl(&dword_1DC287000, v16, OS_LOG_TYPE_ERROR, "%s [ERR]: Failed to extract app bundle ID from XPC event. Aborting XPC event handling.", buf, 0xCu);
       }
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __83__CDMSSUService_SystemEvent__handleXPCEventApplicationInner_assetCollection_block___block_invoke(uint64_t a1)
@@ -369,7 +357,7 @@ void __83__CDMSSUService_SystemEvent__handleXPCEventApplicationInner_assetCollec
 
 + (void)performFullCacheUpdate:(id)update assetCollection:(id)collection systemState:(id)state
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   collectionCopy = collection;
   updateCopy = update;
@@ -377,7 +365,7 @@ void __83__CDMSSUService_SystemEvent__handleXPCEventApplicationInner_assetCollec
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v21 = "+[CDMSSUService(SystemEvent) performFullCacheUpdate:assetCollection:systemState:]";
+    v20 = "+[CDMSSUService(SystemEvent) performFullCacheUpdate:assetCollection:systemState:]";
     _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s Performing full cache update", buf, 0xCu);
   }
 
@@ -388,52 +376,48 @@ void __83__CDMSSUService_SystemEvent__handleXPCEventApplicationInner_assetCollec
   v14 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    v17 = [lookupAllSSUEnabledApps count];
+    v16 = [lookupAllSSUEnabledApps count];
     *buf = 136315394;
-    v21 = "+[CDMSSUService(SystemEvent) performFullCacheUpdate:assetCollection:systemState:]";
-    v22 = 2048;
-    v23 = v17;
+    v20 = "+[CDMSSUService(SystemEvent) performFullCacheUpdate:assetCollection:systemState:]";
+    v21 = 2048;
+    v22 = v16;
     _os_log_debug_impl(&dword_1DC287000, v14, OS_LOG_TYPE_DEBUG, "%s Found %lu SSU-enabled apps on device", buf, 0x16u);
   }
 
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __81__CDMSSUService_SystemEvent__performFullCacheUpdate_assetCollection_systemState___block_invoke;
-  v18[3] = &unk_1E862EB78;
-  v19 = lookupAllSSUEnabledApps;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __81__CDMSSUService_SystemEvent__performFullCacheUpdate_assetCollection_systemState___block_invoke;
+  v17[3] = &unk_1E862EB78;
+  v18 = lookupAllSSUEnabledApps;
   v15 = lookupAllSSUEnabledApps;
-  [self fetchVoiceShortcutsWithMatcher:updateCopy assetCollection:collectionCopy block:v18];
-
-  v16 = *MEMORY[0x1E69E9840];
+  [self fetchVoiceShortcutsWithMatcher:updateCopy assetCollection:collectionCopy block:v17];
 }
 
 void __81__CDMSSUService_SystemEvent__performFullCacheUpdate_assetCollection_systemState___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
-  v9 = 0;
-  v4 = [a2 performFullCacheUpdateWithUserShortcuts:a3 applicationInfos:v3 error:&v9];
-  v5 = v9;
+  v8 = 0;
+  v4 = [a2 performFullCacheUpdateWithUserShortcuts:a3 applicationInfos:v3 error:&v8];
+  v5 = v8;
   if ((v4 & 1) == 0)
   {
     v6 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = [CDMPlatformUtils prettyPrintError:v5];
+      v7 = [CDMPlatformUtils prettyPrintError:v5];
       *buf = 136315394;
-      v11 = "+[CDMSSUService(SystemEvent) performFullCacheUpdate:assetCollection:systemState:]_block_invoke";
-      v12 = 2112;
-      v13 = v8;
+      v10 = "+[CDMSSUService(SystemEvent) performFullCacheUpdate:assetCollection:systemState:]_block_invoke";
+      v11 = 2112;
+      v12 = v7;
       _os_log_error_impl(&dword_1DC287000, v6, OS_LOG_TYPE_ERROR, "%s [ERR]: Failed to perform full cache update with error: %@.", buf, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (void)handleVoiceShortcutsCompletion:(id)completion voiceShortcuts:(id)shortcuts voiceShortcutsError:(id)error block:(id)block
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   shortcutsCopy = shortcuts;
   errorCopy = error;
@@ -451,7 +435,7 @@ void __81__CDMSSUService_SystemEvent__performFullCacheUpdate_assetCollection_sys
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v43 = "+[CDMSSUService(SystemEvent) handleVoiceShortcutsCompletion:voiceShortcuts:voiceShortcutsError:block:]";
+    v42 = "+[CDMSSUService(SystemEvent) handleVoiceShortcutsCompletion:voiceShortcuts:voiceShortcutsError:block:]";
     _os_log_debug_impl(&dword_1DC287000, v16, OS_LOG_TYPE_DEBUG, "%s Fetch voice shortcuts completion handler called", buf, 0xCu);
   }
 
@@ -460,40 +444,40 @@ void __81__CDMSSUService_SystemEvent__performFullCacheUpdate_assetCollection_sys
   if (shortcutsCopy)
   {
     spid = v13;
-    v34 = v13 - 1;
-    v35 = errorCopy;
-    v36 = completionCopy;
+    v33 = v13 - 1;
+    v34 = errorCopy;
+    v35 = completionCopy;
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
-      v32 = [shortcutsCopy count];
+      v31 = [shortcutsCopy count];
       *buf = 136315394;
-      v43 = "+[CDMSSUService(SystemEvent) handleVoiceShortcutsCompletion:voiceShortcuts:voiceShortcutsError:block:]";
-      v44 = 2048;
-      v45 = v32;
+      v42 = "+[CDMSSUService(SystemEvent) handleVoiceShortcutsCompletion:voiceShortcuts:voiceShortcutsError:block:]";
+      v43 = 2048;
+      v44 = v31;
       _os_log_debug_impl(&dword_1DC287000, v18, OS_LOG_TYPE_DEBUG, "%s Received %lu voice shortcuts. Extracting identifiers/phrases from these.", buf, 0x16u);
     }
 
     v18 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(shortcutsCopy, "count")}];
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
     v19 = shortcutsCopy;
-    v20 = [v19 countByEnumeratingWithState:&v37 objects:v41 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v36 objects:v40 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v38;
+      v22 = *v37;
       do
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v38 != v22)
+          if (*v37 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          v24 = *(*(&v37 + 1) + 8 * i);
+          v24 = *(*(&v36 + 1) + 8 * i);
           v25 = objc_alloc(MEMORY[0x1E69D1498]);
           identifier = [v24 identifier];
           phrase = [v24 phrase];
@@ -502,40 +486,38 @@ void __81__CDMSSUService_SystemEvent__performFullCacheUpdate_assetCollection_sys
           [v18 addObject:v28];
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v37 objects:v41 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v36 objects:v40 count:16];
       }
 
       while (v21);
     }
 
-    completionCopy = v36;
-    (blockCopy)[2](blockCopy, v36, v18);
+    completionCopy = v35;
+    (blockCopy)[2](blockCopy, v35, v18);
     v29 = CDMLogContext;
     v30 = v29;
-    if (v34 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v29))
+    if (v33 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v29))
     {
       *buf = 0;
       _os_signpost_emit_with_name_impl(&dword_1DC287000, v30, OS_SIGNPOST_INTERVAL_END, spid, "CDMSSUService+SystemEvent handle user shortcuts completion", "", buf, 2u);
     }
 
-    errorCopy = v35;
+    errorCopy = v34;
   }
 
   else if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v43 = "+[CDMSSUService(SystemEvent) handleVoiceShortcutsCompletion:voiceShortcuts:voiceShortcutsError:block:]";
-    v44 = 2112;
-    v45 = errorCopy;
+    v42 = "+[CDMSSUService(SystemEvent) handleVoiceShortcutsCompletion:voiceShortcuts:voiceShortcutsError:block:]";
+    v43 = 2112;
+    v44 = errorCopy;
     _os_log_error_impl(&dword_1DC287000, v18, OS_LOG_TYPE_ERROR, "%s [ERR]: Hit error fetching voice shortcuts: %@. Aborting handling.", buf, 0x16u);
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 + (void)fetchVoiceShortcutsWithMatcher:(id)matcher assetCollection:(id)collection block:(id)block
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   matcherCopy = matcher;
   collectionCopy = collection;
   blockCopy = block;
@@ -549,32 +531,32 @@ void __81__CDMSSUService_SystemEvent__performFullCacheUpdate_assetCollection_sys
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy__1098;
-  v35 = __Block_byref_object_dispose__1099;
-  v36 = os_transaction_create();
-  v30[0] = 0;
-  v30[1] = v30;
-  v30[2] = 0x2020000000;
-  v31 = 0;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__1098;
+  v34 = __Block_byref_object_dispose__1099;
+  v35 = os_transaction_create();
+  v29[0] = 0;
+  v29[1] = v29;
+  v29[2] = 0x2020000000;
+  v30 = 0;
   [self getCompletionBlockTimeoutSeconds];
   v13 = v12;
   standardClient = [MEMORY[0x1E69E0938] standardClient];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __83__CDMSSUService_SystemEvent__fetchVoiceShortcutsWithMatcher_assetCollection_block___block_invoke;
-  v22[3] = &unk_1E862EB50;
-  v26 = v30;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __83__CDMSSUService_SystemEvent__fetchVoiceShortcutsWithMatcher_assetCollection_block___block_invoke;
+  v21[3] = &unk_1E862EB50;
+  v25 = v29;
   p_buf = &buf;
-  v28 = v13;
+  v27 = v13;
   v15 = collectionCopy;
-  v23 = v15;
+  v22 = v15;
   selfCopy = self;
   v16 = matcherCopy;
-  v24 = v16;
+  v23 = v16;
   v17 = blockCopy;
-  v25 = v17;
-  [standardClient getVoiceShortcutsWithCompletion:v22];
+  v24 = v17;
+  [standardClient getVoiceShortcutsWithCompletion:v21];
 
   v18 = dispatch_time(0, (v13 * 1000000000.0));
   getSystemEventTimeoutQueue = [self getSystemEventTimeoutQueue];
@@ -583,44 +565,39 @@ void __81__CDMSSUService_SystemEvent__performFullCacheUpdate_assetCollection_sys
   block[2] = __83__CDMSSUService_SystemEvent__fetchVoiceShortcutsWithMatcher_assetCollection_block___block_invoke_409;
   block[3] = &unk_1E862EED0;
   *&block[7] = v13;
-  block[4] = v30;
+  block[4] = v29;
   block[5] = &buf;
   block[6] = self;
   dispatch_after(v18, getSystemEventTimeoutQueue, block);
 
-  _Block_object_dispose(v30, 8);
+  _Block_object_dispose(v29, 8);
   _Block_object_dispose(&buf, 8);
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __83__CDMSSUService_SystemEvent__fetchVoiceShortcutsWithMatcher_assetCollection_block___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   *(*(*(a1 + 56) + 8) + 24) = 1;
   if (*(*(*(a1 + 64) + 8) + 40))
   {
     v6 = *(a1 + 80);
     v7 = *(a1 + 40);
     v8 = *(a1 + 48);
-    v13 = *(a1 + 32);
+    v11 = *(a1 + 32);
     [v6 handleVoiceShortcutsCompletion:v7 voiceShortcuts:a2 voiceShortcutsError:a3 block:v8];
-    v9 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v10 = CDMOSLoggerForCategory(0);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v9 = CDMOSLoggerForCategory(0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v11 = *(a1 + 72);
+      v10 = *(a1 + 72);
       *buf = 136315394;
-      v15 = "+[CDMSSUService(SystemEvent) fetchVoiceShortcutsWithMatcher:assetCollection:block:]_block_invoke";
-      v16 = 2048;
-      v17 = v11;
+      v13 = "+[CDMSSUService(SystemEvent) fetchVoiceShortcutsWithMatcher:assetCollection:block:]_block_invoke";
+      v14 = 2048;
+      v15 = v10;
     }
-
-    v12 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -639,29 +616,28 @@ void __83__CDMSSUService_SystemEvent__fetchVoiceShortcutsWithMatcher_assetCollec
 
 + (void)handleFetchVoiceShortcutsTimeout:(double)timeout transactionPtr:(id *)ptr
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v6 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v8 = 136315394;
-    v9 = "+[CDMSSUService(SystemEvent) handleFetchVoiceShortcutsTimeout:transactionPtr:]";
-    v10 = 2048;
+    v7 = 136315394;
+    v8 = "+[CDMSSUService(SystemEvent) handleFetchVoiceShortcutsTimeout:transactionPtr:]";
+    v9 = 2048;
     timeoutCopy = timeout;
   }
 
   *ptr = 0;
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (void)handlePostInstall:(id)install
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   installCopy = install;
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v23 = "+[CDMSSUService(SystemEvent) handlePostInstall:]";
+    v22 = "+[CDMSSUService(SystemEvent) handlePostInstall:]";
     _os_log_debug_impl(&dword_1DC287000, v5, OS_LOG_TYPE_DEBUG, "%s Handling post install event by adding a block to the event queue", buf, 0xCu);
   }
 
@@ -672,19 +648,19 @@ void __83__CDMSSUService_SystemEvent__fetchVoiceShortcutsWithMatcher_assetCollec
   v9 = v8;
   if (v8)
   {
-    v14 = MEMORY[0x1E69E9820];
-    v15 = 3221225472;
-    v16 = __48__CDMSSUService_SystemEvent__handlePostInstall___block_invoke;
-    v17 = &unk_1E862EB28;
+    v13 = MEMORY[0x1E69E9820];
+    v14 = 3221225472;
+    v15 = __48__CDMSSUService_SystemEvent__handlePostInstall___block_invoke;
+    v16 = &unk_1E862EB28;
     selfCopy = self;
-    v18 = v8;
+    v17 = v8;
     v10 = installCopy;
-    v19 = v10;
-    v20 = v7;
-    v11 = _Block_copy(&v14);
-    [self dispatchAsyncWithTransaction:v10 block:{v11, v14, v15, v16, v17}];
+    v18 = v10;
+    v19 = v7;
+    v11 = _Block_copy(&v13);
+    [self dispatchAsyncWithTransaction:v10 block:{v11, v13, v14, v15, v16}];
 
-    v12 = v18;
+    v12 = v17;
   }
 
   else
@@ -693,23 +669,21 @@ void __83__CDMSSUService_SystemEvent__fetchVoiceShortcutsWithMatcher_assetCollec
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v23 = "+[CDMSSUService(SystemEvent) handlePostInstall:]";
+      v22 = "+[CDMSSUService(SystemEvent) handlePostInstall:]";
       _os_log_error_impl(&dword_1DC287000, v12, OS_LOG_TYPE_ERROR, "%s [ERR]: Could not get matcher. Aborting post install handling.", buf, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __48__CDMSSUService_SystemEvent__handlePostInstall___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 136315138;
-    v10 = "+[CDMSSUService(SystemEvent) handlePostInstall:]_block_invoke";
-    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Handling post install event (inner block)", &v9, 0xCu);
+    v8 = 136315138;
+    v9 = "+[CDMSSUService(SystemEvent) handlePostInstall:]_block_invoke";
+    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Handling post install event (inner block)", &v8, 0xCu);
   }
 
   v3 = os_signpost_id_generate(CDMLogContext);
@@ -717,8 +691,8 @@ void __48__CDMSSUService_SystemEvent__handlePostInstall___block_invoke(uint64_t 
   v5 = v4;
   if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    LOWORD(v9) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1DC287000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v3, "[CDMSSUService+SystemEvent handlePostInstall]", "", &v9, 2u);
+    LOWORD(v8) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1DC287000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v3, "[CDMSSUService+SystemEvent handlePostInstall]", "", &v8, 2u);
   }
 
   [*(a1 + 56) performFullCacheUpdate:*(a1 + 32) assetCollection:*(a1 + 40) systemState:*(a1 + 48)];
@@ -726,22 +700,20 @@ void __48__CDMSSUService_SystemEvent__handlePostInstall___block_invoke(uint64_t 
   v7 = v6;
   if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
   {
-    LOWORD(v9) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1DC287000, v7, OS_SIGNPOST_INTERVAL_END, v3, "[CDMSSUService+SystemEvent handlePostInstall]", "", &v9, 2u);
+    LOWORD(v8) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1DC287000, v7, OS_SIGNPOST_INTERVAL_END, v3, "[CDMSSUService+SystemEvent handlePostInstall]", "", &v8, 2u);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (void)handleMaintenanceMode:(id)mode
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   modeCopy = mode;
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v23 = "+[CDMSSUService(SystemEvent) handleMaintenanceMode:]";
+    v22 = "+[CDMSSUService(SystemEvent) handleMaintenanceMode:]";
     _os_log_debug_impl(&dword_1DC287000, v5, OS_LOG_TYPE_DEBUG, "%s Handling maintenance mode event by adding a block to the event queue", buf, 0xCu);
   }
 
@@ -752,19 +724,19 @@ void __48__CDMSSUService_SystemEvent__handlePostInstall___block_invoke(uint64_t 
   v9 = v8;
   if (v8)
   {
-    v14 = MEMORY[0x1E69E9820];
-    v15 = 3221225472;
-    v16 = __52__CDMSSUService_SystemEvent__handleMaintenanceMode___block_invoke;
-    v17 = &unk_1E862EB28;
+    v13 = MEMORY[0x1E69E9820];
+    v14 = 3221225472;
+    v15 = __52__CDMSSUService_SystemEvent__handleMaintenanceMode___block_invoke;
+    v16 = &unk_1E862EB28;
     selfCopy = self;
-    v18 = v8;
+    v17 = v8;
     v10 = modeCopy;
-    v19 = v10;
-    v20 = v7;
-    v11 = _Block_copy(&v14);
-    [self dispatchAsyncWithTransaction:v10 block:{v11, v14, v15, v16, v17}];
+    v18 = v10;
+    v19 = v7;
+    v11 = _Block_copy(&v13);
+    [self dispatchAsyncWithTransaction:v10 block:{v11, v13, v14, v15, v16}];
 
-    v12 = v18;
+    v12 = v17;
   }
 
   else
@@ -773,23 +745,21 @@ void __48__CDMSSUService_SystemEvent__handlePostInstall___block_invoke(uint64_t 
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v23 = "+[CDMSSUService(SystemEvent) handleMaintenanceMode:]";
+      v22 = "+[CDMSSUService(SystemEvent) handleMaintenanceMode:]";
       _os_log_error_impl(&dword_1DC287000, v12, OS_LOG_TYPE_ERROR, "%s [ERR]: Could not get matcher. Aborting maintanence mode handling.", buf, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __52__CDMSSUService_SystemEvent__handleMaintenanceMode___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 136315138;
-    v10 = "+[CDMSSUService(SystemEvent) handleMaintenanceMode:]_block_invoke";
-    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Handling maintenance mode event (inner block)", &v9, 0xCu);
+    v8 = 136315138;
+    v9 = "+[CDMSSUService(SystemEvent) handleMaintenanceMode:]_block_invoke";
+    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Handling maintenance mode event (inner block)", &v8, 0xCu);
   }
 
   v3 = os_signpost_id_generate(CDMLogContext);
@@ -797,8 +767,8 @@ void __52__CDMSSUService_SystemEvent__handleMaintenanceMode___block_invoke(uint6
   v5 = v4;
   if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    LOWORD(v9) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1DC287000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v3, "[CDMSSUService+SystemEvent handleMaintenanceMode]", "", &v9, 2u);
+    LOWORD(v8) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1DC287000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v3, "[CDMSSUService+SystemEvent handleMaintenanceMode]", "", &v8, 2u);
   }
 
   [*(a1 + 56) performFullCacheUpdate:*(a1 + 32) assetCollection:*(a1 + 40) systemState:*(a1 + 48)];
@@ -806,22 +776,20 @@ void __52__CDMSSUService_SystemEvent__handleMaintenanceMode___block_invoke(uint6
   v7 = v6;
   if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
   {
-    LOWORD(v9) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1DC287000, v7, OS_SIGNPOST_INTERVAL_END, v3, "[CDMSSUService+SystemEvent handleMaintenanceMode]", "", &v9, 2u);
+    LOWORD(v8) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1DC287000, v7, OS_SIGNPOST_INTERVAL_END, v3, "[CDMSSUService+SystemEvent handleMaintenanceMode]", "", &v8, 2u);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (void)handleTrialAssetUpdate:(id)update
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   updateCopy = update;
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v23 = "+[CDMSSUService(SystemEvent) handleTrialAssetUpdate:]";
+    v22 = "+[CDMSSUService(SystemEvent) handleTrialAssetUpdate:]";
     _os_log_debug_impl(&dword_1DC287000, v5, OS_LOG_TYPE_DEBUG, "%s Handling Trial asset update event by adding a block to the event queue", buf, 0xCu);
   }
 
@@ -832,19 +800,19 @@ void __52__CDMSSUService_SystemEvent__handleMaintenanceMode___block_invoke(uint6
   v9 = v8;
   if (v8)
   {
-    v14 = MEMORY[0x1E69E9820];
-    v15 = 3221225472;
-    v16 = __53__CDMSSUService_SystemEvent__handleTrialAssetUpdate___block_invoke;
-    v17 = &unk_1E862EB28;
+    v13 = MEMORY[0x1E69E9820];
+    v14 = 3221225472;
+    v15 = __53__CDMSSUService_SystemEvent__handleTrialAssetUpdate___block_invoke;
+    v16 = &unk_1E862EB28;
     selfCopy = self;
-    v18 = v8;
+    v17 = v8;
     v10 = updateCopy;
-    v19 = v10;
-    v20 = v7;
-    v11 = _Block_copy(&v14);
-    [self dispatchAsyncWithTransaction:v10 block:{v11, v14, v15, v16, v17}];
+    v18 = v10;
+    v19 = v7;
+    v11 = _Block_copy(&v13);
+    [self dispatchAsyncWithTransaction:v10 block:{v11, v13, v14, v15, v16}];
 
-    v12 = v18;
+    v12 = v17;
   }
 
   else
@@ -853,23 +821,21 @@ void __52__CDMSSUService_SystemEvent__handleMaintenanceMode___block_invoke(uint6
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v23 = "+[CDMSSUService(SystemEvent) handleTrialAssetUpdate:]";
+      v22 = "+[CDMSSUService(SystemEvent) handleTrialAssetUpdate:]";
       _os_log_error_impl(&dword_1DC287000, v12, OS_LOG_TYPE_ERROR, "%s [ERR]: Could not get matcher. Aborting Trial asset update handling.", buf, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __53__CDMSSUService_SystemEvent__handleTrialAssetUpdate___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 136315138;
-    v10 = "+[CDMSSUService(SystemEvent) handleTrialAssetUpdate:]_block_invoke";
-    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Handling Trial asset update event (inner block)", &v9, 0xCu);
+    v8 = 136315138;
+    v9 = "+[CDMSSUService(SystemEvent) handleTrialAssetUpdate:]_block_invoke";
+    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Handling Trial asset update event (inner block)", &v8, 0xCu);
   }
 
   v3 = os_signpost_id_generate(CDMLogContext);
@@ -877,8 +843,8 @@ void __53__CDMSSUService_SystemEvent__handleTrialAssetUpdate___block_invoke(uint
   v5 = v4;
   if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    LOWORD(v9) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1DC287000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v3, "CDMSSUService+SystemEvent handle Trial asset update", "", &v9, 2u);
+    LOWORD(v8) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1DC287000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v3, "CDMSSUService+SystemEvent handle Trial asset update", "", &v8, 2u);
   }
 
   [*(a1 + 56) performFullCacheUpdate:*(a1 + 32) assetCollection:*(a1 + 40) systemState:*(a1 + 48)];
@@ -886,16 +852,14 @@ void __53__CDMSSUService_SystemEvent__handleTrialAssetUpdate___block_invoke(uint
   v7 = v6;
   if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
   {
-    LOWORD(v9) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1DC287000, v7, OS_SIGNPOST_INTERVAL_END, v3, "CDMSSUService+SystemEvent handle Trial asset update", "", &v9, 2u);
+    LOWORD(v8) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1DC287000, v7, OS_SIGNPOST_INTERVAL_END, v3, "CDMSSUService+SystemEvent handle Trial asset update", "", &v8, 2u);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (void)handleXPCActivity:(id)activity withAssets:(id)assets withSelfMetadata:(id)metadata
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   assetsCopy = assets;
   if (+[CDMFeatureFlags isSSUEnableIndexingEnabled])
@@ -915,13 +879,13 @@ void __53__CDMSSUService_SystemEvent__handleTrialAssetUpdate___block_invoke(uint
     v9 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315394;
-      v13 = "+[CDMSSUService(SystemEvent) handleXPCActivity:withAssets:withSelfMetadata:]";
-      v14 = 2112;
-      v15 = activityCopy;
+      v11 = 136315394;
+      v12 = "+[CDMSSUService(SystemEvent) handleXPCActivity:withAssets:withSelfMetadata:]";
+      v13 = 2112;
+      v14 = activityCopy;
       v10 = "%s [ERR]: Unhandled activity type: %@";
 LABEL_12:
-      _os_log_error_impl(&dword_1DC287000, v9, OS_LOG_TYPE_ERROR, v10, &v12, 0x16u);
+      _os_log_error_impl(&dword_1DC287000, v9, OS_LOG_TYPE_ERROR, v10, &v11, 0x16u);
     }
   }
 
@@ -930,22 +894,21 @@ LABEL_12:
     v9 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315394;
-      v13 = "+[CDMSSUService(SystemEvent) handleXPCActivity:withAssets:withSelfMetadata:]";
-      v14 = 2048;
-      v15 = activityCopy;
+      v11 = 136315394;
+      v12 = "+[CDMSSUService(SystemEvent) handleXPCActivity:withAssets:withSelfMetadata:]";
+      v13 = 2048;
+      v14 = activityCopy;
       v10 = "%s [ERR]: handleXPCActivity:withAssets: called for activity type %ld with SSU indexing FF disabled";
       goto LABEL_12;
     }
   }
 
 LABEL_10:
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (void)handleXPCEvent:(id)event fromStream:(id)stream withAssets:(id)assets withSelfMetadata:(id)metadata
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   streamCopy = stream;
   assetsCopy = assets;
@@ -980,13 +943,13 @@ LABEL_10:
         v15 = CDMOSLoggerForCategory(0);
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          v17 = 136315650;
-          v18 = "+[CDMSSUService(SystemEvent) handleXPCEvent:fromStream:withAssets:withSelfMetadata:]";
-          v19 = 2112;
-          v20 = streamCopy;
-          v21 = 2112;
-          v22 = v13;
-          _os_log_error_impl(&dword_1DC287000, v15, OS_LOG_TYPE_ERROR, "%s [ERR]: Unhandled XPC event with streamName=%@, eventName=%@", &v17, 0x20u);
+          v16 = 136315650;
+          v17 = "+[CDMSSUService(SystemEvent) handleXPCEvent:fromStream:withAssets:withSelfMetadata:]";
+          v18 = 2112;
+          v19 = streamCopy;
+          v20 = 2112;
+          v21 = v13;
+          _os_log_error_impl(&dword_1DC287000, v15, OS_LOG_TYPE_ERROR, "%s [ERR]: Unhandled XPC event with streamName=%@, eventName=%@", &v16, 0x20u);
         }
       }
     }
@@ -996,11 +959,11 @@ LABEL_10:
       v14 = CDMOSLoggerForCategory(0);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v17 = 136315394;
-        v18 = "+[CDMSSUService(SystemEvent) handleXPCEvent:fromStream:withAssets:withSelfMetadata:]";
-        v19 = 2048;
-        v20 = eventCopy;
-        _os_log_error_impl(&dword_1DC287000, v14, OS_LOG_TYPE_ERROR, "%s [ERR]: Could not extract XPC event name for event %p", &v17, 0x16u);
+        v16 = 136315394;
+        v17 = "+[CDMSSUService(SystemEvent) handleXPCEvent:fromStream:withAssets:withSelfMetadata:]";
+        v18 = 2048;
+        v19 = eventCopy;
+        _os_log_error_impl(&dword_1DC287000, v14, OS_LOG_TYPE_ERROR, "%s [ERR]: Could not extract XPC event name for event %p", &v16, 0x16u);
       }
 
       v13 = 0;
@@ -1012,25 +975,23 @@ LABEL_10:
     v13 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      v17 = 136315138;
-      v18 = "+[CDMSSUService(SystemEvent) handleXPCEvent:fromStream:withAssets:withSelfMetadata:]";
-      _os_log_debug_impl(&dword_1DC287000, v13, OS_LOG_TYPE_DEBUG, "%s handleXPCEvent:fromStream:withAssets: called with SSU indexing FF disabled", &v17, 0xCu);
+      v16 = 136315138;
+      v17 = "+[CDMSSUService(SystemEvent) handleXPCEvent:fromStream:withAssets:withSelfMetadata:]";
+      _os_log_debug_impl(&dword_1DC287000, v13, OS_LOG_TYPE_DEBUG, "%s handleXPCEvent:fromStream:withAssets: called with SSU indexing FF disabled", &v16, 0xCu);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 + (void)handleXPCEventShortcutsDatabaseChanged:(id)changed
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   changedCopy = changed;
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v11 = 136315138;
-    v12 = "+[CDMSSUService(SystemEvent) handleXPCEventShortcutsDatabaseChanged:]";
-    _os_log_debug_impl(&dword_1DC287000, v5, OS_LOG_TYPE_DEBUG, "%s Handling shortcuts database changed notification", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = "+[CDMSSUService(SystemEvent) handleXPCEventShortcutsDatabaseChanged:]";
+    _os_log_debug_impl(&dword_1DC287000, v5, OS_LOG_TYPE_DEBUG, "%s Handling shortcuts database changed notification", &v10, 0xCu);
   }
 
   languageCode = [changedCopy languageCode];
@@ -1047,41 +1008,37 @@ LABEL_10:
     v9 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315138;
-      v12 = "+[CDMSSUService(SystemEvent) handleXPCEventShortcutsDatabaseChanged:]";
-      _os_log_error_impl(&dword_1DC287000, v9, OS_LOG_TYPE_ERROR, "%s [ERR]: Could not get matcher. Aborting Trial asset update handling.", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "+[CDMSSUService(SystemEvent) handleXPCEventShortcutsDatabaseChanged:]";
+      _os_log_error_impl(&dword_1DC287000, v9, OS_LOG_TYPE_ERROR, "%s [ERR]: Could not get matcher. Aborting Trial asset update handling.", &v10, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __69__CDMSSUService_SystemEvent__handleXPCEventShortcutsDatabaseChanged___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v8 = 0;
-  v3 = [a2 handleUserShortcutsDatabaseChanged:a3 error:&v8];
-  v4 = v8;
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0;
+  v3 = [a2 handleUserShortcutsDatabaseChanged:a3 error:&v7];
+  v4 = v7;
   if ((v3 & 1) == 0)
   {
     v5 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = [CDMPlatformUtils prettyPrintError:v4];
+      v6 = [CDMPlatformUtils prettyPrintError:v4];
       *buf = 136315394;
-      v10 = "+[CDMSSUService(SystemEvent) handleXPCEventShortcutsDatabaseChanged:]_block_invoke";
-      v11 = 2112;
-      v12 = v7;
+      v9 = "+[CDMSSUService(SystemEvent) handleXPCEventShortcutsDatabaseChanged:]_block_invoke";
+      v10 = 2112;
+      v11 = v6;
       _os_log_error_impl(&dword_1DC287000, v5, OS_LOG_TYPE_ERROR, "%s [ERR]: Error handling shortcuts database changed notification: %@.", buf, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __84__CDMSSUService_SystemEvent__handleXPCEventApplicationUnregistered_assetCollection___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = a4;
   v6 = CDMLogContext;
   v7 = a3;
@@ -1098,16 +1055,16 @@ void __84__CDMSSUService_SystemEvent__handleXPCEventApplicationUnregistered_asse
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v24 = "+[CDMSSUService(SystemEvent) handleXPCEventApplicationUnregistered:assetCollection:]_block_invoke";
-    v25 = 2112;
-    v26 = v5;
+    v23 = "+[CDMSSUService(SystemEvent) handleXPCEventApplicationUnregistered:assetCollection:]_block_invoke";
+    v24 = 2112;
+    v25 = v5;
     _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s Handling SSUXPCStreamEventTypeApplicationUnregistered for bundleId: %@", buf, 0x16u);
   }
 
-  v22 = 0;
-  v12 = [v7 deregisterApp:v5 error:&v22];
+  v21 = 0;
+  v12 = [v7 deregisterApp:v5 error:&v21];
 
-  v13 = v22;
+  v13 = v21;
   v14 = v13;
   if ((v12 & 1) == 0)
   {
@@ -1119,22 +1076,22 @@ void __84__CDMSSUService_SystemEvent__handleXPCEventApplicationUnregistered_asse
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315394;
-        v24 = "+[CDMSSUService(SystemEvent) handleXPCEventApplicationUnregistered:assetCollection:]_block_invoke";
-        v25 = 2112;
-        v26 = v5;
+        v23 = "+[CDMSSUService(SystemEvent) handleXPCEventApplicationUnregistered:assetCollection:]_block_invoke";
+        v24 = 2112;
+        v25 = v5;
         _os_log_debug_impl(&dword_1DC287000, v17, OS_LOG_TYPE_DEBUG, "%s App %@ is not registered. Doing nothing.", buf, 0x16u);
       }
     }
 
     else if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v21 = [CDMPlatformUtils prettyPrintError:v14];
+      v20 = [CDMPlatformUtils prettyPrintError:v14];
       *buf = 136315650;
-      v24 = "+[CDMSSUService(SystemEvent) handleXPCEventApplicationUnregistered:assetCollection:]_block_invoke";
-      v25 = 2112;
-      v26 = v5;
-      v27 = 2112;
-      v28 = v21;
+      v23 = "+[CDMSSUService(SystemEvent) handleXPCEventApplicationUnregistered:assetCollection:]_block_invoke";
+      v24 = 2112;
+      v25 = v5;
+      v26 = 2112;
+      v27 = v20;
       _os_log_error_impl(&dword_1DC287000, v17, OS_LOG_TYPE_ERROR, "%s [ERR]: Error deregistering app %@: Error: %@.", buf, 0x20u);
     }
   }
@@ -1146,13 +1103,11 @@ void __84__CDMSSUService_SystemEvent__handleXPCEventApplicationUnregistered_asse
     *buf = 0;
     _os_signpost_emit_with_name_impl(&dword_1DC287000, v19, OS_SIGNPOST_INTERVAL_END, v8, "[CDMSSUService+SystemEvent handleXPCEventApplicationUnregistered]", "", buf, 2u);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __82__CDMSSUService_SystemEvent__handleXPCEventApplicationRegistered_assetCollection___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   v8 = CDMLogContext;
@@ -1170,9 +1125,9 @@ void __82__CDMSSUService_SystemEvent__handleXPCEventApplicationRegistered_assetC
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v24 = "+[CDMSSUService(SystemEvent) handleXPCEventApplicationRegistered:assetCollection:]_block_invoke";
-    v25 = 2112;
-    v26 = v7;
+    v23 = "+[CDMSSUService(SystemEvent) handleXPCEventApplicationRegistered:assetCollection:]_block_invoke";
+    v24 = 2112;
+    v25 = v7;
     _os_log_debug_impl(&dword_1DC287000, v13, OS_LOG_TYPE_DEBUG, "%s Handling SSUXPCStreamEventTypeApplicationRegistered for bundleId: %@", buf, 0x16u);
   }
 
@@ -1180,21 +1135,21 @@ void __82__CDMSSUService_SystemEvent__handleXPCEventApplicationRegistered_assetC
 
   if (v14)
   {
-    v22 = 0;
-    v15 = [v6 registerApp:v14 error:&v22];
-    v16 = v22;
+    v21 = 0;
+    v15 = [v6 registerApp:v14 error:&v21];
+    v16 = v21;
     if ((v15 & 1) == 0)
     {
       v17 = CDMOSLoggerForCategory(0);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v21 = [CDMPlatformUtils prettyPrintError:v16];
+        v20 = [CDMPlatformUtils prettyPrintError:v16];
         *buf = 136315650;
-        v24 = "+[CDMSSUService(SystemEvent) handleXPCEventApplicationRegistered:assetCollection:]_block_invoke";
-        v25 = 2112;
-        v26 = v7;
-        v27 = 2112;
-        v28 = v21;
+        v23 = "+[CDMSSUService(SystemEvent) handleXPCEventApplicationRegistered:assetCollection:]_block_invoke";
+        v24 = 2112;
+        v25 = v7;
+        v26 = 2112;
+        v27 = v20;
         _os_log_error_impl(&dword_1DC287000, v17, OS_LOG_TYPE_ERROR, "%s [ERR]: Error registering app %@: Error: %@.", buf, 0x20u);
       }
     }
@@ -1214,14 +1169,12 @@ void __82__CDMSSUService_SystemEvent__handleXPCEventApplicationRegistered_assetC
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v24 = "+[CDMSSUService(SystemEvent) handleXPCEventApplicationRegistered:assetCollection:]_block_invoke";
-      v25 = 2112;
-      v26 = v7;
+      v23 = "+[CDMSSUService(SystemEvent) handleXPCEventApplicationRegistered:assetCollection:]_block_invoke";
+      v24 = 2112;
+      v25 = v7;
       _os_log_debug_impl(&dword_1DC287000, v16, OS_LOG_TYPE_DEBUG, "%s Could not lookup SSU app info for the bundle ID: %@. This is likely because the app is not SSU-enabled. Aborting.", buf, 0x16u);
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 + (id)getSystemEventTimeoutQueue
@@ -1270,44 +1223,44 @@ void __55__CDMSSUService_SystemEvent__getSystemEventStreamQueue__block_invoke()
 
 - (void)forceAppsRescanIfEnabled
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (+[CDMFeatureFlags isSSUCacheUpdateOnEveryRequestEnabled])
   {
     v3 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v23 = "[CDMSSUService forceAppsRescanIfEnabled]";
+      v22 = "[CDMSSUService forceAppsRescanIfEnabled]";
       _os_log_debug_impl(&dword_1DC287000, v3, OS_LOG_TYPE_DEBUG, "%s Forcing app rescan due to feature flag", buf, 0xCu);
     }
 
     installedAppProvider = [(SSUSystemState *)self->__systemState installedAppProvider];
     lookupAllSSUEnabledApps = [installedAppProvider lookupAllSSUEnabledApps];
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v6 = lookupAllSSUEnabledApps;
-    v7 = [v6 countByEnumeratingWithState:&v18 objects:v26 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v17 objects:v25 count:16];
     if (v7)
     {
-      v8 = *v19;
+      v8 = *v18;
       do
       {
         v9 = 0;
         do
         {
-          if (*v19 != v8)
+          if (*v18 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = *(*(&v18 + 1) + 8 * v9);
+          v10 = *(*(&v17 + 1) + 8 * v9);
           matcher = self->__matcher;
-          v17 = 0;
-          v12 = [(SNLPSSUMatcher *)matcher registerApp:v10 error:&v17];
-          v13 = v17;
+          v16 = 0;
+          v12 = [(SNLPSSUMatcher *)matcher registerApp:v10 error:&v16];
+          v13 = v16;
           if ((v12 & 1) == 0)
           {
             v14 = CDMOSLoggerForCategory(0);
@@ -1315,9 +1268,9 @@ void __55__CDMSSUService_SystemEvent__getSystemEventStreamQueue__block_invoke()
             {
               v15 = [CDMPlatformUtils prettyPrintError:v13];
               *buf = 136315394;
-              v23 = "[CDMSSUService forceAppsRescanIfEnabled]";
-              v24 = 2112;
-              v25 = v15;
+              v22 = "[CDMSSUService forceAppsRescanIfEnabled]";
+              v23 = 2112;
+              v24 = v15;
               _os_log_error_impl(&dword_1DC287000, v14, OS_LOG_TYPE_ERROR, "%s [ERR]: Failed to register app: %@. We will continue processing, despite this failure.", buf, 0x16u);
             }
           }
@@ -1326,82 +1279,74 @@ void __55__CDMSSUService_SystemEvent__getSystemEventStreamQueue__block_invoke()
         }
 
         while (v7 != v9);
-        v7 = [v6 countByEnumeratingWithState:&v18 objects:v26 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v17 objects:v25 count:16];
       }
 
       while (v7);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)failSetupWithErrorDescription:(id)description
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
   self->super.super._serviceState = 4;
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v10 = 136315394;
-    v11 = "[CDMSSUService failSetupWithErrorDescription:]";
-    v12 = 2112;
-    v13 = descriptionCopy;
-    _os_log_error_impl(&dword_1DC287000, v5, OS_LOG_TYPE_ERROR, "%s [ERR]: Aborting [CDMSSUService setup:] due to error: %@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[CDMSSUService failSetupWithErrorDescription:]";
+    v11 = 2112;
+    v12 = descriptionCopy;
+    _os_log_error_impl(&dword_1DC287000, v5, OS_LOG_TYPE_ERROR, "%s [ERR]: Aborting [CDMSSUService setup:] due to error: %@", &v9, 0x16u);
   }
 
   createSetupResponseCommand = [(CDMBaseService *)self createSetupResponseCommand];
   v7 = [(CDMBaseService *)self createErrorWithCode:4 description:descriptionCopy];
   [createSetupResponseCommand setCmdError:v7];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return createSetupResponseCommand;
 }
 
 - (id)errorSetupWithErrorDescription:(id)description
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
   self->super.super._serviceState = 3;
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v10 = 136315394;
-    v11 = "[CDMSSUService errorSetupWithErrorDescription:]";
-    v12 = 2112;
-    v13 = descriptionCopy;
-    _os_log_error_impl(&dword_1DC287000, v5, OS_LOG_TYPE_ERROR, "%s [ERR]: Error [CDMSSUService setup:] due to error: %@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[CDMSSUService errorSetupWithErrorDescription:]";
+    v11 = 2112;
+    v12 = descriptionCopy;
+    _os_log_error_impl(&dword_1DC287000, v5, OS_LOG_TYPE_ERROR, "%s [ERR]: Error [CDMSSUService setup:] due to error: %@", &v9, 0x16u);
   }
 
   createSetupResponseCommand = [(CDMBaseService *)self createSetupResponseCommand];
   v7 = [(CDMBaseService *)self createErrorWithCode:4 description:descriptionCopy];
   [createSetupResponseCommand setCmdError:v7];
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return createSetupResponseCommand;
 }
 
 - (id)abortHandleWithErrorCode:(int64_t)code description:(id)description
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
   v7 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v12 = 136315394;
-    v13 = "[CDMSSUService abortHandleWithErrorCode:description:]";
-    v14 = 2112;
-    v15 = descriptionCopy;
-    _os_log_error_impl(&dword_1DC287000, v7, OS_LOG_TYPE_ERROR, "%s [ERR]: Aborting [CDMSSUService handle:] due to error: %@", &v12, 0x16u);
+    v11 = 136315394;
+    v12 = "[CDMSSUService abortHandleWithErrorCode:description:]";
+    v13 = 2112;
+    v14 = descriptionCopy;
+    _os_log_error_impl(&dword_1DC287000, v7, OS_LOG_TYPE_ERROR, "%s [ERR]: Aborting [CDMSSUService handle:] due to error: %@", &v11, 0x16u);
   }
 
   v8 = [(CDMBaseService *)self createErrorWithCode:code description:descriptionCopy];
   v9 = [[CDMSSUResponseCommand alloc] initWithCmdError:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -1436,13 +1381,13 @@ uint64_t __55__CDMSSUService_executeMatcherRequestBlockWithTimeout___block_invok
 
 - (id)setup:(id)setup
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   setupCopy = setup;
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v42 = "[CDMSSUService setup:]";
+    v41 = "[CDMSSUService setup:]";
     _os_log_debug_impl(&dword_1DC287000, v5, OS_LOG_TYPE_DEBUG, "%s Running [CDMSSUService setup:]", buf, 0xCu);
   }
 
@@ -1487,9 +1432,9 @@ uint64_t __55__CDMSSUService_executeMatcherRequestBlockWithTimeout___block_invok
   dynamicConfig7 = [setupCopy dynamicConfig];
   assetCollection = [dynamicConfig7 assetCollection];
   v31 = self->__systemState;
-  v40 = 0;
-  v32 = [v28 acquireOrBuildMatcher:assetCollection systemState:v31 error:&v40];
-  v33 = v40;
+  v39 = 0;
+  v32 = [v28 acquireOrBuildMatcher:assetCollection systemState:v31 error:&v39];
+  v33 = v39;
 
   if (v32)
   {
@@ -1518,14 +1463,12 @@ uint64_t __55__CDMSSUService_executeMatcherRequestBlockWithTimeout___block_invok
     createSetupResponseCommand = ;
   }
 
-  v38 = *MEMORY[0x1E69E9840];
-
   return createSetupResponseCommand;
 }
 
 - (id)handle:(id)handle
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -1545,23 +1488,23 @@ uint64_t __55__CDMSSUService_executeMatcherRequestBlockWithTimeout___block_invok
   parserRequest = [handleCopy parserRequest];
   if (+[CDMFeatureFlags isLogNluEnabled])
   {
-    v34 = 0;
-    v7 = [CDMNluLogUtil writeSSURequestToDisk:parserRequest error:&v34];
+    v33 = 0;
+    v7 = [CDMNluLogUtil writeSSURequestToDisk:parserRequest error:&v33];
   }
 
   [(CDMSSUService *)self forceAppsRescanIfEnabled];
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v40 = 0x3032000000;
-  v41 = __Block_byref_object_copy__2742;
-  v42 = __Block_byref_object_dispose__2743;
-  v43 = 0;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3032000000;
-  v31 = __Block_byref_object_copy__2742;
-  v32 = __Block_byref_object_dispose__2743;
-  v33 = 0;
+  v39 = 0x3032000000;
+  v40 = __Block_byref_object_copy__2742;
+  v41 = __Block_byref_object_dispose__2743;
+  v42 = 0;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy__2742;
+  v31 = __Block_byref_object_dispose__2743;
+  v32 = 0;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __24__CDMSSUService_handle___block_invoke;
@@ -1569,17 +1512,17 @@ uint64_t __55__CDMSSUService_executeMatcherRequestBlockWithTimeout___block_invok
   p_buf = &buf;
   aBlock[4] = self;
   v8 = parserRequest;
-  v25 = v8;
-  v27 = &v28;
+  v24 = v8;
+  v26 = &v27;
   v9 = _Block_copy(aBlock);
   if (+[CDMUserDefaultsUtils isSSURequestTimeoutDisabled])
   {
     v10 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      *v35 = 136315138;
-      v36 = "[CDMSSUService handle:]";
-      _os_log_debug_impl(&dword_1DC287000, v10, OS_LOG_TYPE_DEBUG, "%s Executing [CDMSSUService handle] without a timeout because user defaults flag is enabled.", v35, 0xCu);
+      *v34 = 136315138;
+      v35 = "[CDMSSUService handle:]";
+      _os_log_debug_impl(&dword_1DC287000, v10, OS_LOG_TYPE_DEBUG, "%s Executing [CDMSSUService handle] without a timeout because user defaults flag is enabled.", v34, 0xCu);
     }
 
     v9[2](v9);
@@ -1591,11 +1534,11 @@ uint64_t __55__CDMSSUService_executeMatcherRequestBlockWithTimeout___block_invok
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       matcherRequestTimeoutSec = self->__matcherRequestTimeoutSec;
-      *v35 = 136315394;
-      v36 = "[CDMSSUService handle:]";
-      v37 = 2048;
-      v38 = matcherRequestTimeoutSec;
-      _os_log_error_impl(&dword_1DC287000, v12, OS_LOG_TYPE_ERROR, "%s [ERR]: The call to [SNLPSSUMatcher responseForRequest:error:] timed out after %f seconds. Returning empty parse list.", v35, 0x16u);
+      *v34 = 136315394;
+      v35 = "[CDMSSUService handle:]";
+      v36 = 2048;
+      v37 = matcherRequestTimeoutSec;
+      _os_log_error_impl(&dword_1DC287000, v12, OS_LOG_TYPE_ERROR, "%s [ERR]: The call to [SNLPSSUMatcher responseForRequest:error:] timed out after %f seconds. Returning empty parse list.", v34, 0x16u);
     }
 
     v13 = objc_alloc_init(MEMORY[0x1E69D13B0]);
@@ -1608,8 +1551,8 @@ uint64_t __55__CDMSSUService_executeMatcherRequestBlockWithTimeout___block_invok
     if (+[CDMFeatureFlags isLogNluEnabled])
     {
       v15 = *(*(&buf + 1) + 40);
-      v23 = 0;
-      v16 = [CDMNluLogUtil writeSSUResponseToDisk:v15 error:&v23];
+      v22 = 0;
+      v16 = [CDMNluLogUtil writeSSUResponseToDisk:v15 error:&v22];
     }
 
     v17 = [CDMSSUResponseCommand alloc];
@@ -1618,7 +1561,7 @@ uint64_t __55__CDMSSUService_executeMatcherRequestBlockWithTimeout___block_invok
   }
 
   v18 = MEMORY[0x1E696AEC0];
-  v19 = [CDMPlatformUtils prettyPrintError:v29[5]];
+  v19 = [CDMPlatformUtils prettyPrintError:v28[5]];
   v13 = [v18 stringWithFormat:@"Cannot handle request since the underlying SNLPSSUMatcher instance encountered an error: %@", v19];
 
   v14 = [(CDMSSUService *)self abortHandleWithErrorCode:4 description:v13];
@@ -1626,12 +1569,10 @@ LABEL_20:
   v11 = v14;
 
 LABEL_21:
-  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v27, 8);
 
   _Block_object_dispose(&buf, 8);
 LABEL_22:
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -1662,7 +1603,7 @@ void __24__CDMSSUService_handle___block_invoke(uint64_t a1)
 
 + (id)buildSystemStateForSsuSandboxDirectories:(id)directories locale:(id)locale
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   directoriesCopy = directories;
   localeCopy = locale;
   v7 = [SSUInstalledAppProviderSandbox alloc];
@@ -1677,9 +1618,9 @@ void __24__CDMSSUService_handle___block_invoke(uint64_t a1)
   {
     if (v12)
     {
-      v20 = 136315138;
-      v21 = "+[CDMSSUService(SystemState) buildSystemStateForSsuSandboxDirectories:locale:]";
-      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s Using SSU service state directory cache subdirectory via SSUCacheDirectoryProviderSandbox", &v20, 0xCu);
+      v19 = 136315138;
+      v20 = "+[CDMSSUService(SystemState) buildSystemStateForSsuSandboxDirectories:locale:]";
+      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s Using SSU service state directory cache subdirectory via SSUCacheDirectoryProviderSandbox", &v19, 0xCu);
     }
 
     v13 = [SSUCacheDirectoryProviderSandbox alloc];
@@ -1693,9 +1634,9 @@ void __24__CDMSSUService_handle___block_invoke(uint64_t a1)
   {
     if (v12)
     {
-      v20 = 136315138;
-      v21 = "+[CDMSSUService(SystemState) buildSystemStateForSsuSandboxDirectories:locale:]";
-      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s Using temporary cache directory", &v20, 0xCu);
+      v19 = 136315138;
+      v20 = "+[CDMSSUService(SystemState) buildSystemStateForSsuSandboxDirectories:locale:]";
+      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s Using temporary cache directory", &v19, 0xCu);
     }
 
     v15 = objc_alloc_init(SSUCacheDirectoryProviderTemporary);
@@ -1704,48 +1645,46 @@ void __24__CDMSSUService_handle___block_invoke(uint64_t a1)
 
   v17 = v16;
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return v17;
 }
 
 + (id)lookupSSUSandboxDirectories:(id)directories
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   directoriesCopy = directories;
-  v27 = 0;
+  v26 = 0;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v5 = [defaultManager fileExistsAtPath:directoriesCopy isDirectory:&v27];
+  v5 = [defaultManager fileExistsAtPath:directoriesCopy isDirectory:&v26];
 
-  if (v5 && (v27 & 1) != 0)
+  if (v5 && (v26 & 1) != 0)
   {
     v6 = objc_opt_class();
     v7 = NSStringFromClass(v6);
     v8 = [(__CFString *)directoriesCopy stringByAppendingPathComponent:v7];
-    v26 = 0;
+    v25 = 0;
     defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-    v10 = [defaultManager2 fileExistsAtPath:v8 isDirectory:&v26];
+    v10 = [defaultManager2 fileExistsAtPath:v8 isDirectory:&v25];
 
     if (v10)
     {
-      if (v26)
+      if (v25)
       {
         v11 = [v8 stringByAppendingPathComponent:@"installed_apps"];
-        v25 = 0;
+        v24 = 0;
         defaultManager3 = [MEMORY[0x1E696AC08] defaultManager];
-        v13 = [defaultManager3 fileExistsAtPath:v11 isDirectory:&v25];
+        v13 = [defaultManager3 fileExistsAtPath:v11 isDirectory:&v24];
 
-        if (!v13 || (v25 & 1) == 0)
+        if (!v13 || (v24 & 1) == 0)
         {
           v14 = CDMOSLoggerForCategory(0);
           if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315650;
-            v29 = "+[CDMSSUService(SystemState) lookupSSUSandboxDirectories:]";
-            v30 = 2112;
-            v31 = v8;
-            v32 = 2112;
-            v33 = @"installed_apps";
+            v28 = "+[CDMSSUService(SystemState) lookupSSUSandboxDirectories:]";
+            v29 = 2112;
+            v30 = v8;
+            v31 = 2112;
+            v32 = @"installed_apps";
             _os_log_error_impl(&dword_1DC287000, v14, OS_LOG_TYPE_ERROR, "%s [ERR]: The given service state directory %@ folder does not have a %@ subdirectory. Ignoring service state directory and falling back on device state.", buf, 0x20u);
           }
 
@@ -1754,13 +1693,13 @@ void __24__CDMSSUService_handle___block_invoke(uint64_t a1)
         }
 
         v14 = [v8 stringByAppendingPathComponent:@"cache"];
-        v24 = 0;
+        v23 = 0;
         defaultManager4 = [MEMORY[0x1E696AC08] defaultManager];
-        v16 = [defaultManager4 fileExistsAtPath:v14 isDirectory:&v24];
+        v16 = [defaultManager4 fileExistsAtPath:v14 isDirectory:&v23];
 
         if (v16)
         {
-          if (v24 == 1)
+          if (v23 == 1)
           {
             v17 = [MEMORY[0x1E695DFF8] fileURLWithPath:v14];
 LABEL_28:
@@ -1778,11 +1717,11 @@ LABEL_29:
           if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315650;
-            v29 = "+[CDMSSUService(SystemState) lookupSSUSandboxDirectories:]";
-            v30 = 2112;
-            v31 = v8;
-            v32 = 2112;
-            v33 = @"cache";
+            v28 = "+[CDMSSUService(SystemState) lookupSSUSandboxDirectories:]";
+            v29 = 2112;
+            v30 = v8;
+            v31 = 2112;
+            v32 = @"cache";
             _os_log_error_impl(&dword_1DC287000, v20, OS_LOG_TYPE_ERROR, "%s [ERR]: The given service state directory %@ folder has a non-folder cache subdirectory %@. Ignoring it.", buf, 0x20u);
           }
         }
@@ -1793,7 +1732,7 @@ LABEL_29:
           if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315138;
-            v29 = "+[CDMSSUService(SystemState) lookupSSUSandboxDirectories:]";
+            v28 = "+[CDMSSUService(SystemState) lookupSSUSandboxDirectories:]";
             _os_log_debug_impl(&dword_1DC287000, v19, OS_LOG_TYPE_DEBUG, "%s Optional SSU cache subdirectory does not exist in the service state directory", buf, 0xCu);
           }
         }
@@ -1806,9 +1745,9 @@ LABEL_29:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v29 = "+[CDMSSUService(SystemState) lookupSSUSandboxDirectories:]";
-        v30 = 2112;
-        v31 = v8;
+        v28 = "+[CDMSSUService(SystemState) lookupSSUSandboxDirectories:]";
+        v29 = 2112;
+        v30 = v8;
         _os_log_error_impl(&dword_1DC287000, v11, OS_LOG_TYPE_ERROR, "%s [ERR]: The given service state directory has a non-directory file: %@. Ignoring service state directory and falling back on device state.", buf, 0x16u);
       }
     }
@@ -1819,11 +1758,11 @@ LABEL_29:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315650;
-        v29 = "+[CDMSSUService(SystemState) lookupSSUSandboxDirectories:]";
-        v30 = 2112;
-        v31 = v7;
-        v32 = 2112;
-        v33 = directoriesCopy;
+        v28 = "+[CDMSSUService(SystemState) lookupSSUSandboxDirectories:]";
+        v29 = 2112;
+        v30 = v7;
+        v31 = 2112;
+        v32 = directoriesCopy;
         _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s The given service state directory does not contain a %@ subdirectory: %@. Ignoring service state directory and falling back on device state.", buf, 0x20u);
       }
     }
@@ -1838,23 +1777,21 @@ LABEL_30:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v29 = "+[CDMSSUService(SystemState) lookupSSUSandboxDirectories:]";
-    v30 = 2112;
-    v31 = directoriesCopy;
+    v28 = "+[CDMSSUService(SystemState) lookupSSUSandboxDirectories:]";
+    v29 = 2112;
+    v30 = directoriesCopy;
     _os_log_error_impl(&dword_1DC287000, v7, OS_LOG_TYPE_ERROR, "%s [ERR]: The given service state directory does not exist or is not a directory: %@. Ignoring service state directory and falling back on device state.", buf, 0x16u);
   }
 
   v18 = 0;
 LABEL_31:
 
-  v22 = *MEMORY[0x1E69E9840];
-
   return v18;
 }
 
 + (id)buildSystemStateForServiceStateDirectory:(id)directory locale:(id)locale
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   directoryCopy = directory;
   localeCopy = locale;
   if (!directoryCopy)
@@ -1865,9 +1802,9 @@ LABEL_31:
   v8 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v16 = 136315138;
-    v17 = "+[CDMSSUService(SystemState) buildSystemStateForServiceStateDirectory:locale:]";
-    _os_log_debug_impl(&dword_1DC287000, v8, OS_LOG_TYPE_DEBUG, "%s Service state directory supplied: looking for CDMSSUService subdirectory", &v16, 0xCu);
+    v15 = 136315138;
+    v16 = "+[CDMSSUService(SystemState) buildSystemStateForServiceStateDirectory:locale:]";
+    _os_log_debug_impl(&dword_1DC287000, v8, OS_LOG_TYPE_DEBUG, "%s Service state directory supplied: looking for CDMSSUService subdirectory", &v15, 0xCu);
   }
 
   v9 = [self lookupSSUSandboxDirectories:directoryCopy];
@@ -1877,9 +1814,9 @@ LABEL_31:
     v11 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v16 = 136315138;
-      v17 = "+[CDMSSUService(SystemState) buildSystemStateForServiceStateDirectory:locale:]";
-      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s Building SSU system state from sandbox directories", &v16, 0xCu);
+      v15 = 136315138;
+      v16 = "+[CDMSSUService(SystemState) buildSystemStateForServiceStateDirectory:locale:]";
+      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s Building SSU system state from sandbox directories", &v15, 0xCu);
     }
 
     v12 = [self buildSystemStateForSsuSandboxDirectories:v10 locale:localeCopy];
@@ -1891,22 +1828,20 @@ LABEL_8:
     v13 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      v16 = 136315138;
-      v17 = "+[CDMSSUService(SystemState) buildSystemStateForServiceStateDirectory:locale:]";
-      _os_log_debug_impl(&dword_1DC287000, v13, OS_LOG_TYPE_DEBUG, "%s Building device SSU system state", &v16, 0xCu);
+      v15 = 136315138;
+      v16 = "+[CDMSSUService(SystemState) buildSystemStateForServiceStateDirectory:locale:]";
+      _os_log_debug_impl(&dword_1DC287000, v13, OS_LOG_TYPE_DEBUG, "%s Building device SSU system state", &v15, 0xCu);
     }
 
     v12 = [self buildDeviceSystemStateLocale:localeCopy];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 + (id)getAssetsDirectory:(id)directory factorName:(id)name error:(id *)error
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v9 = [directory getAssetBundlePathForFactorName:nameCopy];
   if (v9)
@@ -1924,20 +1859,20 @@ LABEL_8:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v26 = "+[CDMSSUService(Matcher) getAssetsDirectory:factorName:error:]";
-        v27 = 2112;
-        v28 = nameCopy;
+        v25 = "+[CDMSSUService(Matcher) getAssetsDirectory:factorName:error:]";
+        v26 = 2112;
+        v27 = nameCopy;
         _os_log_error_impl(&dword_1DC287000, v16, OS_LOG_TYPE_ERROR, "%s [ERR]: Failed to get asset directory URL for factor: %@", buf, 0x16u);
       }
 
       if (error)
       {
         v17 = *MEMORY[0x1E696A588];
-        v21[0] = *MEMORY[0x1E696A578];
-        v21[1] = v17;
-        v22[0] = @"Could not acquire/build SNLPSSUMatcher instance.";
-        v22[1] = @"Could not find SSU assets directory inside asset bundle";
-        v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:2];
+        v20[0] = *MEMORY[0x1E696A578];
+        v20[1] = v17;
+        v21[0] = @"Could not acquire/build SNLPSSUMatcher instance.";
+        v21[1] = @"Could not find SSU assets directory inside asset bundle";
+        v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
         *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"CDMSSUServiceMatcherErrorDomain" code:1 userInfo:v18];
       }
 
@@ -1952,21 +1887,21 @@ LABEL_8:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v26 = "+[CDMSSUService(Matcher) getAssetsDirectory:factorName:error:]";
-    v27 = 2112;
-    v28 = nameCopy;
+    v25 = "+[CDMSSUService(Matcher) getAssetsDirectory:factorName:error:]";
+    v26 = 2112;
+    v27 = nameCopy;
     _os_log_error_impl(&dword_1DC287000, v13, OS_LOG_TYPE_ERROR, "%s [ERR]: Failed to get asset bundle for factor: %@", buf, 0x16u);
   }
 
   if (error)
   {
     v14 = *MEMORY[0x1E696A588];
-    v23[0] = *MEMORY[0x1E696A578];
-    v23[1] = v14;
-    v24[0] = @"Could not acquire/build SNLPSSUMatcher instance.";
+    v22[0] = *MEMORY[0x1E696A578];
+    v22[1] = v14;
+    v23[0] = @"Could not acquire/build SNLPSSUMatcher instance.";
     nameCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"Could not find SSU service asset bundle for factor %@", nameCopy];
-    v24[1] = nameCopy;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
+    v23[1] = nameCopy;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
 
     [MEMORY[0x1E696ABC0] errorWithDomain:@"CDMSSUServiceMatcherErrorDomain" code:1 userInfo:v11];
     *error = v12 = 0;
@@ -1978,21 +1913,19 @@ LABEL_13:
   v12 = 0;
 LABEL_14:
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 + (id)assetDirectoryURLForServiceAssetBundle:(id)bundle
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   bundleCopy = bundle;
   resourcePath = [bundleCopy resourcePath];
-  v11 = 0;
+  v10 = 0;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v6 = [defaultManager fileExistsAtPath:resourcePath isDirectory:&v11];
+  v6 = [defaultManager fileExistsAtPath:resourcePath isDirectory:&v10];
 
-  if (v6 && (v11 & 1) != 0)
+  if (v6 && (v10 & 1) != 0)
   {
     v7 = [MEMORY[0x1E695DFF8] fileURLWithPath:resourcePath isDirectory:1];
   }
@@ -2003,23 +1936,21 @@ LABEL_14:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v13 = "+[CDMSSUService(Matcher) assetDirectoryURLForServiceAssetBundle:]";
-      v14 = 2112;
-      v15 = resourcePath;
+      v12 = "+[CDMSSUService(Matcher) assetDirectoryURLForServiceAssetBundle:]";
+      v13 = 2112;
+      v14 = resourcePath;
       _os_log_error_impl(&dword_1DC287000, v8, OS_LOG_TYPE_ERROR, "%s [ERR]: SSU assets path does not exist or is not a directory: %@", buf, 0x16u);
     }
 
     v7 = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 + (id)acquireOrBuildMatcher:(id)matcher systemState:(id)state error:(id *)error
 {
-  v28[2] = *MEMORY[0x1E69E9840];
+  v27[2] = *MEMORY[0x1E69E9840];
   matcherCopy = matcher;
   stateCopy = state;
   v10 = [self getAssetsDirectory:matcherCopy factorName:@"com.apple.siri.nl.ssu.encoder" error:error];
@@ -2029,9 +1960,9 @@ LABEL_14:
   if (v10 && v11)
   {
     cacheDirectoryProvider = [stateCopy cacheDirectoryProvider];
-    v26 = 0;
-    v15 = [cacheDirectoryProvider lookupOrCreateCacheDirectory:&v26];
-    v16 = v26;
+    v25 = 0;
+    v15 = [cacheDirectoryProvider lookupOrCreateCacheDirectory:&v25];
+    v16 = v25;
 
     if (v15)
     {
@@ -2049,15 +1980,15 @@ LABEL_14:
       }
 
       v19 = *MEMORY[0x1E696A578];
-      v28[0] = @"Could not acquire/build SNLPSSUMatcher instance.";
+      v27[0] = @"Could not acquire/build SNLPSSUMatcher instance.";
       v20 = *MEMORY[0x1E696A588];
-      v27[0] = v19;
-      v27[1] = v20;
+      v26[0] = v19;
+      v26[1] = v20;
       v21 = MEMORY[0x1E696AEC0];
       v22 = [CDMPlatformUtils prettyPrintError:v16];
       v23 = [v21 stringWithFormat:@"Could not lookup/create SSU cache directory: %@", v22];
-      v28[1] = v23;
-      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:2];
+      v27[1] = v23;
+      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:2];
 
       [MEMORY[0x1E696ABC0] errorWithDomain:@"CDMSSUServiceMatcherErrorDomain" code:1 userInfo:v17];
       *error = v13 = 0;
@@ -2065,8 +1996,6 @@ LABEL_14:
 
 LABEL_8:
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

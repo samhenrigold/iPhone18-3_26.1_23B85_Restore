@@ -25,7 +25,7 @@
 
 - (void)addAttributes:(id)attributes forApp:(id)app
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   attributesCopy = attributes;
   if (attributesCopy)
   {
@@ -40,12 +40,10 @@
   v8 = attributesCopy;
   appCopy = app;
   managedApps = [(DMFFetchAppInfoResultObject *)self managedApps];
-  v13 = @"Attributes";
-  v14[0] = v7;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v12 = @"Attributes";
+  v13[0] = v7;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   [managedApps setValue:v11 forKey:appCopy];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (DMFFetchAppInfoResultObject)initWithCoder:(id)coder

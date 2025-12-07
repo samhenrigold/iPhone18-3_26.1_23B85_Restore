@@ -10,7 +10,7 @@
 {
   lCopy = l;
   pathExtension = [lCopy pathExtension];
-  v6 = [pathExtension isEqualToString:@"json"];
+  v6 = objc_msgSend_isEqualToString_(pathExtension);
 
   if (v6)
   {
@@ -105,7 +105,7 @@
 {
   instanceCopy = instance;
   parametersCopy = parameters;
-  if ([kind isEqualToString:self->_kind])
+  if (objc_msgSend_isEqualToString_(kind))
   {
     instanceMap = self->_instanceMap;
     v11 = [[_TUIFeedCaptureInstanceKey alloc] initWithInstance:instanceCopy options:parametersCopy];

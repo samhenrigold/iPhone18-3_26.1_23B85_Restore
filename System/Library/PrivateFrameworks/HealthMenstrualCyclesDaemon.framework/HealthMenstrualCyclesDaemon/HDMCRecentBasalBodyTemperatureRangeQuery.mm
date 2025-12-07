@@ -6,7 +6,7 @@
 - (id)rangeWithError:(id *)error;
 - (uint64_t)enumerateValuesInTransaction:(uint64_t)transaction handler:(void *)handler error:(void *)error;
 - (uint64_t)enumerateValuesWithHandler:(uint64_t)handler error:;
-- (void)accumulateSortedValuesWithError:(void *)error@<X8>;
+- (void)accumulateSortedValuesWithError:(uint64_t *)error@<X8>;
 @end
 
 @implementation HDMCRecentBasalBodyTemperatureRangeQuery
@@ -99,50 +99,48 @@ LABEL_9:
   return v17;
 }
 
-- (void)accumulateSortedValuesWithError:(void *)error@<X8>
+- (void)accumulateSortedValuesWithError:(uint64_t *)error@<X8>
 {
   if (self)
   {
-    v16 = 0;
-    v17 = &v16;
-    v18 = 0x4812000000;
-    v19 = __Block_byref_object_copy__8;
-    v20 = __Block_byref_object_dispose__8;
-    v21 = &unk_22946575F;
-    v23 = 0;
-    v24 = 0;
-    __p = 0;
     v14 = 0;
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __76__HDMCRecentBasalBodyTemperatureRangeQuery_accumulateSortedValuesWithError___block_invoke;
-    v15[3] = &unk_27865B048;
-    v15[4] = &v16;
-    v5 = [(HDMCRecentBasalBodyTemperatureRangeQuery *)self enumerateValuesWithHandler:v15 error:&v14];
-    v6 = v14;
+    v15 = &v14;
+    v16 = 0x4812000000;
+    v17 = __Block_byref_object_copy__8;
+    v18 = __Block_byref_object_dispose__8;
+    v19 = &unk_22946575F;
+    v21 = 0;
+    v22 = 0;
+    __p = 0;
+    v12 = 0;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __76__HDMCRecentBasalBodyTemperatureRangeQuery_accumulateSortedValuesWithError___block_invoke;
+    v13[3] = &unk_27865B048;
+    v13[4] = &v14;
+    v5 = [(HDMCRecentBasalBodyTemperatureRangeQuery *)self enumerateValuesWithHandler:v13 error:&v12];
+    v6 = v12;
     v7 = v6;
     if (v5)
     {
-      v8 = v17[6];
-      v9 = v17[7];
       std::__sort<std::__less<double,double> &,double *>();
-      v10 = v17;
+      v8 = v15;
       error[1] = 0;
       error[2] = 0;
       *error = 0;
-      std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(error, v10[6], v10[7], (v10[7] - v10[6]) >> 3);
+      std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(error, v8[6], v8[7], (v8[7] - v8[6]) >> 3);
     }
 
     else
     {
-      v11 = v6;
-      v12 = v11;
-      if (v11)
+      v9 = v6;
+      v10 = v9;
+      if (v9)
       {
         if (a2)
         {
-          v13 = v11;
-          *a2 = v12;
+          v11 = v9;
+          *a2 = v10;
         }
 
         else
@@ -156,10 +154,10 @@ LABEL_9:
       error[2] = 0;
     }
 
-    _Block_object_dispose(&v16, 8);
+    _Block_object_dispose(&v14, 8);
     if (__p)
     {
-      v23 = __p;
+      v21 = __p;
       operator delete(__p);
     }
   }
@@ -259,22 +257,22 @@ uint64_t __76__HDMCRecentBasalBodyTemperatureRangeQuery_accumulateSortedValuesWi
 
 - (uint64_t)enumerateValuesInTransaction:(uint64_t)transaction handler:(void *)handler error:(void *)error
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   errorCopy = error;
   if (transaction)
   {
     v7 = [(HDMCRecentBasalBodyTemperatureRangeQuery *)transaction _basalBodyTemperatureDescendingEndDateQueryWithTransaction:handlerCopy limit:*(transaction + 16)];
-    v16[0] = *MEMORY[0x277D10498];
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
-    v15 = 0;
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __87__HDMCRecentBasalBodyTemperatureRangeQuery_enumerateValuesInTransaction_handler_error___block_invoke;
-    v13[3] = &unk_27865B098;
-    v14 = errorCopy;
-    v9 = [v7 enumerateProperties:v8 error:&v15 enumerationHandler:v13];
-    v10 = v15;
+    v15[0] = *MEMORY[0x277D10498];
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+    v14 = 0;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __87__HDMCRecentBasalBodyTemperatureRangeQuery_enumerateValuesInTransaction_handler_error___block_invoke;
+    v12[3] = &unk_27865B098;
+    v13 = errorCopy;
+    v9 = [v7 enumerateProperties:v8 error:&v14 enumerationHandler:v12];
+    v10 = v14;
   }
 
   else
@@ -282,13 +280,12 @@ uint64_t __76__HDMCRecentBasalBodyTemperatureRangeQuery_accumulateSortedValuesWi
     v9 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (id)_basalBodyTemperatureDescendingEndDateQueryWithTransaction:(uint64_t)transaction limit:
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (self)
   {
@@ -298,8 +295,8 @@ uint64_t __76__HDMCRecentBasalBodyTemperatureRangeQuery_accumulateSortedValuesWi
     v8 = objc_opt_class();
     v9 = [v5 databaseForEntityClass:v8];
     v10 = [MEMORY[0x277D10B68] orderingTermWithProperty:*MEMORY[0x277D104A8] entityClass:objc_opt_class() ascending:0];
-    v15[0] = v10;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+    v14[0] = v10;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
 
     v12 = [v8 queryWithDatabase:v9 predicate:v7 limit:transaction orderingTerms:v11 groupBy:0];
   }
@@ -308,8 +305,6 @@ uint64_t __76__HDMCRecentBasalBodyTemperatureRangeQuery_accumulateSortedValuesWi
   {
     v12 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -324,7 +319,7 @@ uint64_t __87__HDMCRecentBasalBodyTemperatureRangeQuery_enumerateValuesInTransac
 
 + (id)recentRangeForAnalysisWithProfile:(id)profile
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   _HKInitializeLogging();
   v5 = MEMORY[0x277CCC2E8];
@@ -336,9 +331,9 @@ uint64_t __87__HDMCRecentBasalBodyTemperatureRangeQuery_enumerateValuesInTransac
   }
 
   v7 = [[self alloc] initWithProfile:profileCopy sampleLimit:90 upperQuantileBound:0.9 lowerQuantileBound:0.1];
-  v17 = 0;
-  v8 = [v7 rangeWithError:&v17];
-  v9 = v17;
+  v16 = 0;
+  v8 = [v7 rangeWithError:&v16];
+  v9 = v16;
   v10 = v9;
   if (!v8 && ([v9 hk_isHealthKitErrorWithCode:11] & 1) == 0)
   {
@@ -355,11 +350,9 @@ uint64_t __87__HDMCRecentBasalBodyTemperatureRangeQuery_enumerateValuesInTransac
   v13 = *v5;
   if (os_signpost_enabled(*v5))
   {
-    *v16 = 0;
-    _os_signpost_emit_with_name_impl(&dword_2293D1000, v13, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "recentRangeForAnalysis", "", v16, 2u);
+    *v15 = 0;
+    _os_signpost_emit_with_name_impl(&dword_2293D1000, v13, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "recentRangeForAnalysis", "", v15, 2u);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

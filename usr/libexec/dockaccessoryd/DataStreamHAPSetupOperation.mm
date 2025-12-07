@@ -62,7 +62,7 @@
   else
   {
     selfCopy = self;
-    v10 = sub_10007FAA0();
+    v10 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = sub_10007FAFC(selfCopy);
@@ -92,7 +92,7 @@
 - (void)startSetup
 {
   selfCopy = self;
-  v3 = sub_10007FAA0();
+  v3 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = sub_10007FAFC(selfCopy);
@@ -134,7 +134,7 @@
   else
   {
     v17 = selfCopy;
-    v18 = sub_10007FAA0();
+    v18 = sub_10007FAA0(v17);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       v19 = sub_10007FAFC(v17);
@@ -156,7 +156,7 @@
   sessionIdentifier = [parameters sessionIdentifier];
 
   selfCopy = self;
-  v8 = sub_10007FAA0();
+  v8 = sub_10007FAA0(selfCopy);
   v9 = v8;
   if (sessionIdentifier)
   {
@@ -178,7 +178,7 @@
     -[DataStreamHAPSetupOperation setSessionIdentifier:](selfCopy, "setSessionIdentifier:", [value integerValue]);
 
     v16 = selfCopy;
-    v17 = sub_10007FAA0();
+    v17 = sub_10007FAA0(v16);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       v18 = sub_10007FAFC(v16);

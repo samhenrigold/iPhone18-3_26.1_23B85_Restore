@@ -7,94 +7,94 @@ void VTUISetSiriEnabled(uint64_t a1)
 
   if (v5)
   {
-    v6 = +[BPSBridgeAppContext shared];
-    v7 = [v6 activeDevice];
+    v8 = +[BPSBridgeAppContext shared];
+    v9 = [v8 activeDevice];
 
-    v8 = [[NPSDomainAccessor alloc] initWithDomain:@"com.apple.assistant.nano" pairedDevice:v7];
-    v9 = [NSNumber numberWithBool:a1];
-    [v8 setObject:v9 forKey:@"Assistant Enabled"];
-    [v8 setObject:v9 forKey:@"Dictation Enabled"];
-    v10 = [v8 synchronize];
-    v11 = objc_opt_new();
-    v12 = [v8 domain];
-    v13 = [NSSet setWithObjects:@"Assistant Enabled", @"Dictation Enabled", 0];
-    [v11 synchronizeNanoDomain:v12 keys:v13];
+    v10 = [[NPSDomainAccessor alloc] initWithDomain:@"com.apple.assistant.nano" pairedDevice:v9];
+    v11 = [NSNumber numberWithBool:a1];
+    [v10 setObject:v11 forKey:@"Assistant Enabled"];
+    [v10 setObject:v11 forKey:@"Dictation Enabled"];
+    v12 = [v10 synchronize];
+    v13 = objc_opt_new();
+    v14 = [v10 domain];
+    v15 = [NSSet setWithObjects:@"Assistant Enabled", @"Dictation Enabled", 0];
+    [v13 synchronizeNanoDomain:v14 keys:v15];
   }
 
   else
   {
-    v7 = [sub_121C() sharedPreferences];
-    [v7 setAssistantIsEnabled:a1];
+    v9 = [sub_121C(v6 v7)];
+    [v9 setAssistantIsEnabled:a1];
   }
 
   if (a1)
   {
-    v14 = +[NSLocale currentLocale];
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x2020000000;
-    v15 = off_CBA8;
-    v23 = off_CBA8;
+    v18 = +[NSLocale currentLocale];
+    v25 = 0;
+    v26 = &v25;
+    v27 = 0x2020000000;
+    v19 = off_CBA8;
+    v28 = off_CBA8;
     if (!off_CBA8)
     {
-      v19[0] = _NSConcreteStackBlock;
-      v19[1] = 3221225472;
-      v19[2] = sub_2044;
-      v19[3] = &unk_8240;
-      v19[4] = &v20;
-      sub_2044(v19);
-      v15 = v21[3];
+      v24[0] = _NSConcreteStackBlock;
+      v24[1] = 3221225472;
+      v24[2] = sub_2044;
+      v24[3] = &unk_8240;
+      v24[4] = &v25;
+      sub_2044(v24);
+      v19 = v26[3];
     }
 
-    _Block_object_dispose(&v20, 8);
-    if (!v15)
+    _Block_object_dispose(&v25, 8);
+    if (!v19)
     {
       sub_4398();
     }
 
-    v16 = v15(v14);
-    v17 = [sub_121C() sharedPreferences];
-    [v17 setLanguageCode:v16];
+    v20 = v19(v18);
+    v22 = [sub_121C(v20 v21)];
+    [v22 setLanguageCode:v20];
   }
 
-  v18 = [sub_121C() sharedPreferences];
-  [v18 synchronize];
+  v23 = [sub_121C(v16 v17)];
+  [v23 synchronize];
 }
 
-void sub_1204(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1204(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id sub_121C()
+id sub_121C(uint64_t a1, uint64_t a2)
 {
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2050000000;
-  v0 = qword_CB98;
-  v7 = qword_CB98;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2050000000;
+  v2 = qword_CB98;
+  v9 = qword_CB98;
   if (!qword_CB98)
   {
-    v3[0] = _NSConcreteStackBlock;
-    v3[1] = 3221225472;
-    v3[2] = sub_1E78;
-    v3[3] = &unk_8240;
-    v3[4] = &v4;
-    sub_1E78(v3);
-    v0 = v5[3];
+    v5[0] = _NSConcreteStackBlock;
+    v5[1] = 3221225472;
+    v5[2] = sub_1E78;
+    v5[3] = &unk_8240;
+    v5[4] = &v6;
+    sub_1E78(v5, a2);
+    v2 = v7[3];
   }
 
-  v1 = v0;
-  _Block_object_dispose(&v4, 8);
+  v3 = v2;
+  _Block_object_dispose(&v6, 8);
 
-  return v1;
+  return v3;
 }
 
-void sub_12E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_12E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -117,21 +117,21 @@ uint64_t shouldShowSiriOptInPage()
   return BPSShouldOfferSiriForDeviceLanguage();
 }
 
-id VTUISiriScreenStringForDevice()
+id VTUISiriScreenStringForDevice(uint64_t a1)
 {
   if (BPSIsDeviceCompatibleWithVersions())
   {
-    v0 = [@"Screen-Siri" stringByAppendingString:BPSMajorVersion3_x_x_Suffix];
+    v1 = [@"Screen-Siri" stringByAppendingString:BPSMajorVersion3_x_x_Suffix];
   }
 
   else
   {
-    v0 = @"Screen-Siri";
+    v1 = @"Screen-Siri";
   }
 
-  v1 = [NSString stringWithFormat:@"DeviceAssets/%@", v0];
+  v2 = [NSString stringWithFormat:@"DeviceAssets/%@", v1];
 
-  return v1;
+  return v2;
 }
 
 id VTUISiriScreenDeviceAssetVideoController()
@@ -143,14 +143,14 @@ id VTUISiriScreenDeviceAssetVideoController()
   return v2;
 }
 
-void sub_1644(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1644(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-Class sub_1E78(uint64_t a1)
+Class sub_1E78(uint64_t a1, uint64_t a2)
 {
   sub_1ED0();
   result = objc_getClass("AFPreferences");
@@ -183,7 +183,7 @@ uint64_t sub_1ED0()
   v1 = v3[0];
   if (!qword_CBA0)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -198,7 +198,6 @@ LABEL_7:
 
 uint64_t sub_1FD0(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_CBA0 = result;
   return result;
@@ -229,7 +228,7 @@ void *sub_2044(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -246,7 +245,6 @@ LABEL_5:
 
 uint64_t sub_2184(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_CBB0 = result;
   return result;
@@ -259,6 +257,13 @@ void *sub_21F8(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = result;
   off_CBB8 = *(*(*(a1 + 32) + 8) + 24);
   return result;
+}
+
+void sub_2430(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_2470(uint64_t a1, void *a2)
@@ -301,9 +306,9 @@ void sub_253C(uint64_t a1)
   }
 }
 
-void sub_27CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_27CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -332,9 +337,9 @@ id sub_28E8()
   return v1;
 }
 
-void sub_29B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_29B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -371,7 +376,7 @@ void sub_2B84()
   v0 = v1[0];
   if (!qword_CBC8)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -384,7 +389,6 @@ LABEL_7:
 
 uint64_t sub_2C80(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_CBC8 = result;
   return result;
@@ -414,7 +418,7 @@ Class sub_2CF4(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -434,7 +438,6 @@ LABEL_4:
 
 uint64_t sub_2E38(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_CBD8 = result;
   return result;
@@ -458,6 +461,13 @@ void VTUITinkerSetSiriEnabled(uint64_t a1)
 {
   v2 = +[BPSBridgeAppContext shared];
   [v2 tellWatchToSetSiriEnabled:a1];
+}
+
+void sub_3888(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_38C8(uint64_t a1, void *a2)
@@ -500,9 +510,9 @@ void sub_3994(uint64_t a1)
   }
 }
 
-void sub_3C24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_3C24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -531,9 +541,9 @@ id sub_3D40()
   return v1;
 }
 
-void sub_3E08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_3E08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -570,7 +580,7 @@ void sub_4018()
   v0 = v1[0];
   if (!qword_CBF0)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -583,7 +593,6 @@ LABEL_7:
 
 uint64_t sub_4114(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_CBF0 = result;
   return result;
@@ -613,7 +622,7 @@ Class sub_4188(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -633,7 +642,6 @@ LABEL_4:
 
 uint64_t sub_42CC(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_CC00 = result;
   return result;
@@ -655,18 +663,18 @@ Class sub_4340(uint64_t a1)
 
 void sub_4398()
 {
-  dlerror();
-  v0 = abort_report_np();
-  sub_43BC(v0);
+  v0 = dlerror();
+  v1 = abort_report_np("%s", v0);
+  sub_43BC(v1);
 }
 
-void sub_43BC()
+void sub_43BC(uint64_t a1)
 {
-  v0 = pbb_bridge_log();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = pbb_bridge_log();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_0, v0, OS_LOG_TYPE_DEFAULT, "Siri pane should have been skipped! Siri disabled on Phone, and Siri on Phone does not support System Language", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_0, v1, OS_LOG_TYPE_DEFAULT, "Siri pane should have been skipped! Siri disabled on Phone, and Siri on Phone does not support System Language", v2, 2u);
   }
 
   abort();

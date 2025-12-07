@@ -7,7 +7,7 @@
 - (void)setValue:(int64_t)value
 {
   selfCopy = self;
-  ConversationControlsJoinCallCountdownView.CountingLayer.value.setter(value);
+  ConversationControlsJoinCallCountdownView.CountingLayer.value.setter(value, selfCopy);
 }
 
 @end

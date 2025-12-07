@@ -2,6 +2,9 @@
 + (OS_os_log)log;
 - (BOOL)openContactsURL:(id)l;
 - (BOOL)runTest:(id)test options:(id)options;
+- (BOOL)showContactFromURLReader:(id)reader setEditing:(BOOL)editing;
+- (BOOL)showContactWithIdentifier:(id)identifier setEditing:(BOOL)editing;
+- (BOOL)showContactWithLegacyIdentifier:(int)identifier setEditing:(BOOL)editing;
 - (BOOL)showMeContact;
 - (BOOL)splitViewControllerIsDisplayingList;
 - (ContactsSceneDelegate)init;
@@ -238,9 +241,9 @@ LABEL_7:
   applicationCopy = application;
   managerCopy = manager;
   providerCopy = provider;
-  v42.receiver = self;
-  v42.super_class = ContactsSceneDelegate;
-  v12 = [(ContactsSceneDelegate *)&v42 init];
+  v41.receiver = self;
+  v41.super_class = ContactsSceneDelegate;
+  v12 = [(ContactsSceneDelegate *)&v41 init];
   v13 = v12;
   if (v12)
   {
@@ -258,13 +261,9 @@ LABEL_7:
       v18 = +[CNUIContactsEnvironment currentEnvironment];
       runningInContactsAppOniPad = [v18 runningInContactsAppOniPad];
 
-      if (runningInContactsAppOniPad)
+      if (runningInContactsAppOniPad && (objc_opt_respondsToSelector() & 1) != 0)
       {
-        v20 = v13->_splitViewController;
-        if (objc_opt_respondsToSelector())
-        {
-          [(ContactsSplitViewController *)v13->_splitViewController _setShowsSeparators:0];
-        }
+        [(ContactsSplitViewController *)v13->_splitViewController _setShowsSeparators:0];
       }
     }
 
@@ -272,40 +271,40 @@ LABEL_7:
     {
     }
 
-    v21 = [CNVCardImportController alloc];
+    v20 = [CNVCardImportController alloc];
     splitViewController = [(ContactsSceneDelegate *)v13 splitViewController];
     store = [splitViewController store];
-    v24 = [v21 initWithContactStore:store presentationDelegate:v13];
+    v23 = [v20 initWithContactStore:store presentationDelegate:v13];
     vCardImportController = v13->_vCardImportController;
-    v13->_vCardImportController = v24;
+    v13->_vCardImportController = v23;
 
     [(CNVCardImportController *)v13->_vCardImportController setDelegate:v13];
-    v26 = [NSBundle bundleForClass:objc_opt_class()];
+    v25 = [NSBundle bundleForClass:objc_opt_class()];
     bundle = v13->_bundle;
-    v13->_bundle = v26;
+    v13->_bundle = v25;
 
     [CNContactsAppIntentDependencyManager setupAppIntentDependenciesWithActionPerformer:v13];
-    v28 = [CNUIUserActivityRestorer alloc];
+    v27 = [CNUIUserActivityRestorer alloc];
     splitViewController2 = [(ContactsSceneDelegate *)v13 splitViewController];
     store2 = [splitViewController2 store];
-    v31 = [v28 initWithContactStore:store2];
+    v30 = [v27 initWithContactStore:store2];
     activityRestorer = v13->_activityRestorer;
-    v13->_activityRestorer = v31;
+    v13->_activityRestorer = v30;
 
-    v33 = [CNUserActivityRestorerDelegate alloc];
+    v32 = [CNUserActivityRestorerDelegate alloc];
     splitViewController3 = [(ContactsSceneDelegate *)v13 splitViewController];
-    v35 = [(CNUserActivityRestorerDelegate *)v33 initWithContactsSplitViewController:splitViewController3];
+    v34 = [(CNUserActivityRestorerDelegate *)v32 initWithContactsSplitViewController:splitViewController3];
     activityRestorerDelegate = v13->_activityRestorerDelegate;
-    v13->_activityRestorerDelegate = v35;
+    v13->_activityRestorerDelegate = v34;
 
     activityRestorerDelegate = [(ContactsSceneDelegate *)v13 activityRestorerDelegate];
     [(CNUIUserActivityRestorer *)v13->_activityRestorer setDelegate:activityRestorerDelegate];
 
-    v38 = +[NSMutableArray array];
+    v37 = +[NSMutableArray array];
     actionsDelayedUntilSceneInitialization = v13->_actionsDelayedUntilSceneInitialization;
-    v13->_actionsDelayedUntilSceneInitialization = v38;
+    v13->_actionsDelayedUntilSceneInitialization = v37;
 
-    v40 = v13;
+    v39 = v13;
   }
 
   return v13;
@@ -657,6 +656,39 @@ LABEL_10:
   return v16;
 }
 
+- (BOOL)showContactFromURLReader:(id)reader setEditing:(BOOL)editing
+{
+  editingCopy = editing;
+  readerCopy = reader;
+  v7 = CNIsStringEmpty;
+  identifierFound = [readerCopy identifierFound];
+  LOBYTE(v7) = (*(v7 + 16))(v7, identifierFound);
+
+  if (v7)
+  {
+    legacyIdentifierFound = [readerCopy legacyIdentifierFound];
+    if (!legacyIdentifierFound || (v10 = legacyIdentifierFound, [readerCopy legacyIdentifierFound], v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "intValue"), v11, v10, (v12 & 0x80000000) != 0))
+    {
+      v15 = 0;
+      goto LABEL_8;
+    }
+
+    legacyIdentifierFound2 = [readerCopy legacyIdentifierFound];
+    v14 = -[ContactsSceneDelegate showContactWithLegacyIdentifier:setEditing:](self, "showContactWithLegacyIdentifier:setEditing:", [legacyIdentifierFound2 intValue], editingCopy);
+  }
+
+  else
+  {
+    legacyIdentifierFound2 = [readerCopy identifierFound];
+    v14 = [(ContactsSceneDelegate *)self showContactWithIdentifier:legacyIdentifierFound2 setEditing:editingCopy];
+  }
+
+  v15 = v14;
+
+LABEL_8:
+  return v15;
+}
+
 - (id)showMeCardShortcutItem
 {
   splitViewController = [(ContactsSceneDelegate *)self splitViewController];
@@ -747,6 +779,94 @@ LABEL_10:
   editingCopy = editing;
   v7 = contactCopy;
   [(ContactsSceneDelegate *)self executeActionDelayedUntilSceneInitialization:v9];
+}
+
+- (BOOL)showContactWithIdentifier:(id)identifier setEditing:(BOOL)editing
+{
+  editingCopy = editing;
+  identifierCopy = identifier;
+  if ((*(CNIsStringEmpty + 16))(CNIsStringEmpty, identifierCopy))
+  {
+    v17 = [NSException exceptionWithName:NSInternalInconsistencyException reason:@"identifier passed to showContactWithIdentifier is empty" userInfo:0];
+    objc_exception_throw(v17);
+  }
+
+  splitViewController = [(ContactsSceneDelegate *)self splitViewController];
+  store = [splitViewController store];
+  v9 = +[CNContactViewController descriptorForRequiredKeys];
+  v19 = v9;
+  v10 = [NSArray arrayWithObjects:&v19 count:1];
+  v18 = 0;
+  v11 = [store unifiedContactWithIdentifier:identifierCopy keysToFetch:v10 error:&v18];
+  v12 = v18;
+
+  if (v12)
+  {
+    v13 = 1;
+  }
+
+  else
+  {
+    v13 = v11 == 0;
+  }
+
+  v14 = !v13;
+  if (v13)
+  {
+    v15 = [objc_opt_class() log];
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      sub_10000F5A4(identifierCopy, v12, v15);
+    }
+  }
+
+  else
+  {
+    [(ContactsSceneDelegate *)self showContact:v11 setEditing:editingCopy];
+  }
+
+  return v14;
+}
+
+- (BOOL)showContactWithLegacyIdentifier:(int)identifier setEditing:(BOOL)editing
+{
+  if (identifier < 0)
+  {
+    v17 = [NSException exceptionWithName:NSInternalInconsistencyException reason:@"legacyIdentifier cannot be negative" userInfo:0];
+    objc_exception_throw(v17);
+  }
+
+  editingCopy = editing;
+  v5 = *&identifier;
+  splitViewController = [(ContactsSceneDelegate *)self splitViewController];
+  store = [splitViewController store];
+  v9 = [CNContact predicateForLegacyIdentifier:v5];
+  v10 = +[CNContactViewController descriptorForRequiredKeys];
+  v19 = v10;
+  v11 = [NSArray arrayWithObjects:&v19 count:1];
+  v18 = 0;
+  v12 = [store unifiedContactsMatchingPredicate:v9 keysToFetch:v11 error:&v18];
+  v13 = v18;
+
+  if (v13 || ((*(CNIsArrayEmpty + 16))(CNIsArrayEmpty, v12) & 1) != 0)
+  {
+    firstObject = [objc_opt_class() log];
+    if (os_log_type_enabled(firstObject, OS_LOG_TYPE_ERROR))
+    {
+      sub_10000F62C(v13, v5, firstObject);
+    }
+
+    v15 = 0;
+  }
+
+  else
+  {
+    firstObject = [v12 firstObject];
+    [(ContactsSceneDelegate *)self showContact:firstObject setEditing:editingCopy];
+    v15 = 1;
+  }
+
+  return v15;
 }
 
 - (void)vCardImportController:(id)controller presentViewController:(id)viewController animated:(BOOL)animated

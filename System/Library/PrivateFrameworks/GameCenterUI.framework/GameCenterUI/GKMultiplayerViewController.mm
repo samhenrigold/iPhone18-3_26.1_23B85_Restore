@@ -339,21 +339,21 @@ void __73__GKMultiplayerViewController_sendInvitesToPlayersInOriginalMatchReques
   }
 }
 
-void __73__GKMultiplayerViewController_sendInvitesToPlayersInOriginalMatchRequest__block_invoke_117(uint64_t a1)
+void __73__GKMultiplayerViewController_sendInvitesToPlayersInOriginalMatchRequest__block_invoke_117(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (!*MEMORY[0x277D0C2A0])
   {
-    v2 = GKOSLoggers();
+    v3 = GKOSLoggers();
   }
 
-  v3 = *MEMORY[0x277D0C2B0];
+  v4 = *MEMORY[0x277D0C2B0];
   if (os_log_type_enabled(*MEMORY[0x277D0C2B0], OS_LOG_TYPE_INFO))
   {
-    v4 = *(a1 + 32);
-    v5 = 138412290;
-    v6 = v4;
-    _os_log_impl(&dword_24DE53000, v3, OS_LOG_TYPE_INFO, "Invitation sent to recipients in the match request: %@", &v5, 0xCu);
+    v5 = *(a1 + 32);
+    v6 = 138412290;
+    v7 = v5;
+    _os_log_impl(&dword_24DE53000, v4, OS_LOG_TYPE_INFO, "Invitation sent to recipients in the match request: %@", &v6, 0xCu);
   }
 }
 
@@ -1889,10 +1889,11 @@ void __70__GKMultiplayerViewController_inviteContactPlayers_source_completion___
   [v5 isICloudAvailableWithHandler:v8];
 }
 
-void __70__GKMultiplayerViewController_inviteContactPlayers_source_completion___block_invoke_2_196(uint64_t a1, int a2, void *a3)
+void __70__GKMultiplayerViewController_inviteContactPlayers_source_completion___block_invoke_2_196(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
-  if (a2)
+  if (v3)
   {
     v6 = [*(a1 + 32) messagesInviteStatus];
   }
@@ -1903,7 +1904,7 @@ void __70__GKMultiplayerViewController_inviteContactPlayers_source_completion___
   }
 
   [*(a1 + 32) setMessagesInviteStatus:v6];
-  if (v5 || (a2 & 1) == 0)
+  if (v5 || (v3 & 1) == 0)
   {
     [*(a1 + 40) setError:v5];
     if (!*MEMORY[0x277D0C2A0])
@@ -1914,7 +1915,7 @@ void __70__GKMultiplayerViewController_inviteContactPlayers_source_completion___
     v13 = *MEMORY[0x277D0C2B0];
     if (os_log_type_enabled(*MEMORY[0x277D0C2B0], OS_LOG_TYPE_ERROR))
     {
-      __70__GKMultiplayerViewController_inviteContactPlayers_source_completion___block_invoke_2_196_cold_1(v13, a2, v5);
+      __70__GKMultiplayerViewController_inviteContactPlayers_source_completion___block_invoke_2_196_cold_1(v13, v3, v5);
     }
 
     (*(*(a1 + 56) + 16))();
@@ -2422,31 +2423,31 @@ void __70__GKMultiplayerViewController_inviteContactPlayers_source_completion___
   dispatch_async(MEMORY[0x277D85CD0], v6);
 }
 
-void __56__GKMultiplayerViewController_handleServiceUnavailable___block_invoke(uint64_t a1)
+void __56__GKMultiplayerViewController_handleServiceUnavailable___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = MEMORY[0x277D75110];
-  v3 = GKGameCenterUIFrameworkBundle();
-  v4 = GKGetLocalizedStringFromTableInBundle();
-  v5 = [v2 alertControllerWithTitle:0 message:v4 preferredStyle:1];
+  v3 = MEMORY[0x277D75110];
+  v4 = GKGameCenterUIFrameworkBundle();
+  v5 = GKGetLocalizedStringFromTableInBundle();
+  v6 = [v3 alertControllerWithTitle:0 message:v5 preferredStyle:1];
 
-  v6 = MEMORY[0x277D750F8];
-  v7 = GKGameCenterUIFrameworkBundle();
-  v8 = GKGetLocalizedStringFromTableInBundle();
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __56__GKMultiplayerViewController_handleServiceUnavailable___block_invoke_2;
-  v14[3] = &unk_279669C68;
-  v14[4] = *(a1 + 40);
-  v9 = [v6 actionWithTitle:v8 style:1 handler:v14];
+  v7 = MEMORY[0x277D750F8];
+  v8 = GKGameCenterUIFrameworkBundle();
+  v9 = GKGetLocalizedStringFromTableInBundle();
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __56__GKMultiplayerViewController_handleServiceUnavailable___block_invoke_2;
+  v15[3] = &unk_279669C68;
+  v15[4] = *(a1 + 40);
+  v10 = [v7 actionWithTitle:v9 style:1 handler:v15];
 
-  v10 = MEMORY[0x277D750F8];
-  v11 = GKGameCenterUIFrameworkBundle();
-  v12 = GKGetLocalizedStringFromTableInBundle();
-  v13 = [v10 actionWithTitle:v12 style:0 handler:&__block_literal_global_232];
+  v11 = MEMORY[0x277D750F8];
+  v12 = GKGameCenterUIFrameworkBundle();
+  v13 = GKGetLocalizedStringFromTableInBundle();
+  v14 = [v11 actionWithTitle:v13 style:0 handler:&__block_literal_global_232];
 
-  [v5 addAction:v9];
-  [v5 addAction:v13];
-  [*(a1 + 40) presentViewController:v5 animated:1 completion:0];
+  [v6 addAction:v10];
+  [v6 addAction:v14];
+  [*(a1 + 40) presentViewController:v6 animated:1 completion:0];
 }
 
 void __56__GKMultiplayerViewController_handleServiceUnavailable___block_invoke_3()

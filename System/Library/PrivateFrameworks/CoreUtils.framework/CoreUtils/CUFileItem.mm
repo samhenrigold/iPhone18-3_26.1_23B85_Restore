@@ -39,44 +39,44 @@
 - (CUFileItem)initWithDictionary:(id)dictionary error:(id *)error
 {
   dictionaryCopy = dictionary;
-  v12 = [(CUFileItem *)self init];
-  if (v12)
+  v7 = [(CUFileItem *)self init];
+  if (v7)
   {
-    v21 = 0;
-    Int64Ranged = CFDictionaryGetInt64Ranged(dictionaryCopy, &unk_1F06A2F80, 0, 0xFFFFFFFFLL, &v21);
-    if (!v21)
+    v15 = 0;
+    Int64Ranged = CFDictionaryGetInt64Ranged(dictionaryCopy, &unk_1F06A2F80, 0, 0xFFFFFFFFLL, &v15);
+    if (!v15)
     {
-      v12->_flags = Int64Ranged;
+      v7->_flags = Int64Ranged;
     }
 
     TypeID = CFStringGetTypeID();
-    v15 = CFDictionaryGetTypedValue(dictionaryCopy, &unk_1F06A2F98, TypeID, 0);
-    if (v15)
+    v10 = CFDictionaryGetTypedValue(dictionaryCopy, &unk_1F06A2F98, TypeID, 0);
+    if (v10)
     {
-      objc_storeStrong(&v12->_name, v15);
+      objc_storeStrong(&v7->_name, v10);
     }
 
-    Int64 = CFDictionaryGetInt64(dictionaryCopy, &unk_1F06A2FB0, &v21);
-    if (!v21)
+    Int64 = CFDictionaryGetInt64(dictionaryCopy, &unk_1F06A2FB0, &v15);
+    if (!v15)
     {
-      v12->_size = Int64;
+      v7->_size = Int64;
     }
 
-    v17 = CFDictionaryGetInt64Ranged(dictionaryCopy, &unk_1F06A2FC8, 0xFFFFFFFF80000000, 0x7FFFFFFFLL, &v21);
-    if (!v21)
+    v12 = CFDictionaryGetInt64Ranged(dictionaryCopy, &unk_1F06A2FC8, 0xFFFFFFFF80000000, 0x7FFFFFFFLL, &v15);
+    if (!v15)
     {
-      v12->_type = v17;
+      v7->_type = v12;
     }
 
-    v18 = v12;
+    v13 = v7;
   }
 
   else if (error)
   {
-    *error = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960596, "Init failed", v7, v8, v9, v10, v11, v20);
+    *error = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960596, "Init failed");
   }
 
-  return v12;
+  return v7;
 }
 
 @end

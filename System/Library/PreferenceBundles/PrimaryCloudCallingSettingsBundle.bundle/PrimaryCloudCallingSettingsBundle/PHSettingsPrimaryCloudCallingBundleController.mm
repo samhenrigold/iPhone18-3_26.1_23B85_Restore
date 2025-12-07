@@ -48,49 +48,39 @@
 
     if (!v5 || v8)
     {
-      v14 = [NSBundle bundleForClass:objc_opt_class()];
-      v9 = [v14 localizedStringForKey:@"PRIMARY_CLOUD_CALLING_CELL_TITLE" value:&stru_C920 table:@"PrimaryCloudCallingSettings"];
+      v15 = [NSBundle bundleForClass:objc_opt_class()];
+      v10 = [v15 localizedStringForKey:@"PRIMARY_CLOUD_CALLING_CELL_TITLE" value:&stru_C920 table:@"PrimaryCloudCallingSettings"];
 
       parentListController = [(PHSettingsPrimaryCloudCallingBundleController *)self parentListController];
-      v16 = [(PHSettingsPrimaryCloudCallingBundleController *)self isStateDrivenNavigationPossibleWithParentController:parentListController];
+      v17 = [(PHSettingsPrimaryCloudCallingBundleController *)self isStateDrivenNavigationPossibleWithParentController:parentListController];
 
-      if (v16)
+      if (v17)
       {
-        v17 = 0;
+        v18 = 0;
       }
 
       else
       {
-        v17 = objc_opt_class();
+        v18 = objc_opt_class();
       }
 
-      v18 = [PSSpecifier preferenceSpecifierNamed:v9 target:self set:0 get:"labelValue" detail:v17 cell:2 edit:0];
-      [v18 setIdentifier:@"PRIMARY_CLOUD_CALLING"];
-      if (v16)
+      v19 = [PSSpecifier preferenceSpecifierNamed:v10 target:self set:0 get:"labelValue" detail:v18 cell:2 edit:0];
+      [v19 setIdentifier:@"PRIMARY_CLOUD_CALLING"];
+      if (v17)
       {
-        [v18 setButtonAction:"performButtonActionForSpecifier:"];
+        [v19 setButtonAction:"performButtonActionForSpecifier:"];
       }
 
-      v19 = [NSArray arrayWithObject:v18];
-      [(PHSettingsPrimaryCloudCallingBundleController *)self setSpecifiersArray:v19];
+      v20 = [NSArray arrayWithObject:v19];
+      [(PHSettingsPrimaryCloudCallingBundleController *)self setSpecifiersArray:v20];
     }
 
     else
     {
-      v9 = PHDefaultLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = PHDefaultLog(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         if (+[TUCallCapabilities supportsThumperCalling])
-        {
-          v10 = @"YES";
-        }
-
-        else
-        {
-          v10 = @"NO";
-        }
-
-        if (+[TUCallCapabilities supportsRelayCalling])
         {
           v11 = @"YES";
         }
@@ -100,7 +90,7 @@
           v11 = @"NO";
         }
 
-        if (+[TUCallCapabilities supportsPrimaryCalling])
+        if (+[TUCallCapabilities supportsRelayCalling])
         {
           v12 = @"YES";
         }
@@ -110,8 +100,7 @@
           v12 = @"NO";
         }
 
-        *buf = 138413314;
-        if (+[TUCallCapabilities supportsDisplayingFaceTimeVideoCalls])
+        if (+[TUCallCapabilities supportsPrimaryCalling])
         {
           v13 = @"YES";
         }
@@ -121,16 +110,27 @@
           v13 = @"NO";
         }
 
-        v23 = v10;
-        v24 = 2112;
-        v25 = v11;
-        v26 = 2112;
-        v27 = v12;
-        v28 = 2112;
-        v29 = v13;
-        v30 = 2112;
-        v31 = @"NO";
-        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "[WARN] Not showing the primary cloud-calling settings because: ((supportsThumperCalling:%@ || supportsRelayCalling:%@) && supportsPrimaryCalling:%@ && supportsDisplayingFaceTimeVideoCalls:%@) || otherDevicesAvailable:%@", buf, 0x34u);
+        *buf = 138413314;
+        if (+[TUCallCapabilities supportsDisplayingFaceTimeVideoCalls])
+        {
+          v14 = @"YES";
+        }
+
+        else
+        {
+          v14 = @"NO";
+        }
+
+        v24 = v11;
+        v25 = 2112;
+        v26 = v12;
+        v27 = 2112;
+        v28 = v13;
+        v29 = 2112;
+        v30 = v14;
+        v31 = 2112;
+        v32 = @"NO";
+        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "[WARN] Not showing the primary cloud-calling settings because: ((supportsThumperCalling:%@ || supportsRelayCalling:%@) && supportsPrimaryCalling:%@ && supportsDisplayingFaceTimeVideoCalls:%@) || otherDevicesAvailable:%@", buf, 0x34u);
       }
     }
   }
@@ -198,12 +198,12 @@
 
   if (!specifiersArray)
   {
-    v6 = PHDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = PHDefaultLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v9 = changedCopy;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Received capability changed notification: %@. Reloading specifiers", buf, 0xCu);
+      v10 = changedCopy;
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Received capability changed notification: %@. Reloading specifiers", buf, 0xCu);
     }
 
     block[0] = _NSConcreteStackBlock;
@@ -219,9 +219,8 @@
 {
   v4 = sub_6CD8();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin();
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_6D18();
   sub_6D08();
   sub_6CF8();
@@ -235,25 +234,23 @@
   sub_6D28();
 
   LOBYTE(traitCollection) = sub_6CB8();
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 
   return traitCollection & 1;
 }
 
 - (void)handleUserDidTapOnMainSpecifier:(id)specifier parentController:(id)controller
 {
-  v18 = sub_6CD8();
-  v5 = *(v18 - 8);
-  v6 = *(v5 + 64);
+  v15 = sub_6CD8();
+  v5 = *(v15 - 8);
   __chkstk_darwin();
-  v8 = &v17 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = *(*(sub_6D48() - 8) + 64);
+  v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_6D48();
   __chkstk_darwin();
-  v10 = sub_6CA8();
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
+  v8 = sub_6CA8();
+  v9 = *(v8 - 8);
   __chkstk_darwin();
-  v14 = &v17 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_6D18();
   sub_6D08();
   sub_6CF8();
@@ -271,8 +268,8 @@
   sub_66C8();
   sub_6CC8();
 
-  (*(v5 + 8))(v8, v18);
-  (*(v11 + 8))(v14, v10);
+  (*(v5 + 8))(v7, v15);
+  (*(v9 + 8))(v11, v8);
 }
 
 @end

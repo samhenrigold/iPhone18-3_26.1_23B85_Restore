@@ -153,7 +153,7 @@ LABEL_12:
       }
     }
 
-    v14 = AVLocalizedErrorWithUnderlyingOSStatus(-12161, 0);
+    v14 = AVLocalizedErrorWithUnderlyingOSStatus(4294955135, 0);
   }
 
   else

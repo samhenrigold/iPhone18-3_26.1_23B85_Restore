@@ -38,7 +38,7 @@
   coderCopy = coder;
   v5 = MEMORY[0x1E69C5D78];
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_notification_categorization();
+  v7 = __atxlog_handle_notification_categorization(v6);
   v8 = [v5 robustDecodeObjectOfClass:v6 forKey:@"textMessage" withCoder:coderCopy expectNonNull:1 errorDomain:@"ATXMessageContextRequestErrorDomain" errorCode:-1 logHandle:v7];
 
   error = [coderCopy error];
@@ -52,7 +52,7 @@
   {
     v11 = MEMORY[0x1E69C5D78];
     v12 = objc_opt_class();
-    v13 = __atxlog_handle_notification_categorization();
+    v13 = __atxlog_handle_notification_categorization(v12);
     v14 = [v11 robustDecodeObjectOfClass:v12 forKey:@"contextRequestSignals" withCoder:coderCopy expectNonNull:0 errorDomain:@"ATXMessageContextRequestErrorDomain" errorCode:-1 logHandle:v13];
 
     error2 = [coderCopy error];

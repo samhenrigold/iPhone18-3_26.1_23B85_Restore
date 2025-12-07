@@ -87,7 +87,7 @@
   v2[2] = sub_100098BC4;
   v2[3] = &unk_100186D90;
   v2[4] = self;
-  sub_100014400(v2);
+  sub_100014400(v2, 1);
 }
 
 - (void)closeDatabase
@@ -122,39 +122,40 @@
     v6[3] = &unk_100188728;
     v6[4] = self;
     v7 = blockCopy;
-    sub_100014400(v6);
+    sub_100014400(v6, 0);
   }
 }
 
 - (void)performBlock:(id)block afterDelay:(double)delay
 {
   blockCopy = block;
-  v6 = blockCopy;
+  v7 = blockCopy;
   if (blockCopy)
   {
-    v7[0] = _NSConcreteStackBlock;
-    v7[1] = 3221225472;
-    v7[2] = sub_10009903C;
-    v7[3] = &unk_100188728;
-    v7[4] = self;
-    v8 = blockCopy;
-    sub_1000B27CC(v7);
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_10009903C;
+    v8[3] = &unk_100188728;
+    v8[4] = self;
+    v9 = blockCopy;
+    sub_1000B27CC(v8, delay);
   }
 }
 
 - (void)performBlock:(id)block waitUntilDone:(BOOL)done
 {
+  doneCopy = done;
   blockCopy = block;
-  v6 = blockCopy;
+  v7 = blockCopy;
   if (blockCopy)
   {
-    v7[0] = _NSConcreteStackBlock;
-    v7[1] = 3221225472;
-    v7[2] = sub_100099184;
-    v7[3] = &unk_100188728;
-    v7[4] = self;
-    v8 = blockCopy;
-    sub_100014400(v7);
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_100099184;
+    v8[3] = &unk_100188728;
+    v8[4] = self;
+    v9 = blockCopy;
+    sub_100014400(v8, doneCopy);
   }
 }
 
@@ -233,7 +234,8 @@ LABEL_6:
   tokensCopy = tokens;
   if (+[APSLog shouldReduceLogging])
   {
-    if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
+    v11 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG);
+    if (!v11)
     {
       goto LABEL_7;
     }
@@ -241,16 +243,17 @@ LABEL_6:
     name = [environmentCopy name];
     *buf = 138412802;
     selfCopy2 = self;
-    v25 = 2112;
-    v26 = topicCopy;
-    v27 = 2112;
-    v28 = name;
-    v12 = OS_LOG_TYPE_DEBUG;
+    v26 = 2112;
+    v27 = topicCopy;
+    v28 = 2112;
+    v29 = name;
+    v13 = OS_LOG_TYPE_DEBUG;
   }
 
   else
   {
-    if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    v11 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT);
+    if (!v11)
     {
       goto LABEL_7;
     }
@@ -258,43 +261,43 @@ LABEL_6:
     name = [environmentCopy name];
     *buf = 138412802;
     selfCopy2 = self;
-    v25 = 2112;
-    v26 = topicCopy;
-    v27 = 2112;
-    v28 = name;
-    v12 = OS_LOG_TYPE_DEFAULT;
+    v26 = 2112;
+    v27 = topicCopy;
+    v28 = 2112;
+    v29 = name;
+    v13 = OS_LOG_TYPE_DEFAULT;
   }
 
-  _os_log_impl(&_mh_execute_header, &_os_log_default, v12, "%@ deleting older low-priority incoming messages for topic %@ environment %@ if needed to maintain queue of one", buf, 0x20u);
+  _os_log_impl(&_mh_execute_header, &_os_log_default, v13, "%@ deleting older low-priority incoming messages for topic %@ environment %@ if needed to maintain queue of one", buf, 0x20u);
 
 LABEL_7:
-  sub_1000145A0();
-  v20 = 0u;
+  sub_1000145A0(v11);
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
-  v13 = tokensCopy;
-  v14 = [v13 countByEnumeratingWithState:&v18 objects:v22 count:16];
-  if (v14)
+  v20 = 0u;
+  v14 = tokensCopy;
+  v15 = [v14 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  if (v15)
   {
-    v15 = v14;
-    v16 = *v19;
+    v16 = v15;
+    v17 = *v20;
     do
     {
-      for (i = 0; i != v15; i = i + 1)
+      for (i = 0; i != v16; i = i + 1)
       {
-        if (*v19 != v16)
+        if (*v20 != v17)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v14);
         }
 
-        sub_1000B6238(topicCopy, 1, [environmentCopy name], *(*(&v18 + 1) + 8 * i));
+        sub_1000B6238(topicCopy, 1, [environmentCopy name], *(*(&v19 + 1) + 8 * i));
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
-    while (v15);
+    while (v16);
   }
 }
 

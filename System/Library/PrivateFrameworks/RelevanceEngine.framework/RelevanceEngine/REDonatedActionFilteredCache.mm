@@ -125,28 +125,28 @@
 
 uint64_t __65__REDonatedActionFilteredCache_fetchAllUniqueActions_completion___block_invoke(void *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
+  v16 = *MEMORY[0x277D85DE8];
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v2 = *(a1[4] + 24);
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     do
     {
       v6 = 0;
       do
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = [*(a1[4] + 24) objectForKey:{*(*(&v12 + 1) + 8 * v6), v12}];
+        v7 = [*(a1[4] + 24) objectForKey:{*(*(&v11 + 1) + 8 * v6), v11}];
         v8 = a1[5];
         v9 = [v7 action];
         (*(v8 + 16))(v8, v9);
@@ -155,7 +155,7 @@ uint64_t __65__REDonatedActionFilteredCache_fetchAllUniqueActions_completion___b
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
@@ -164,10 +164,9 @@ uint64_t __65__REDonatedActionFilteredCache_fetchAllUniqueActions_completion___b
   result = a1[6];
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -426,29 +425,29 @@ LABEL_10:
 
 - (void)_queue_removeDonation:(id)donation
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v4 = [donation objectForKeyedSubscript:@"uuid"];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v5 = self->_actions;
-  v6 = [(NSMapTable *)v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [(NSMapTable *)v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v20 != v8)
+      if (*v19 != v8)
       {
         objc_enumerationMutation(v5);
       }
 
-      v10 = *(*(&v19 + 1) + 8 * v9);
-      v11 = [(NSMapTable *)self->_actions objectForKey:v10, v19];
+      v10 = *(*(&v18 + 1) + 8 * v9);
+      v11 = [(NSMapTable *)self->_actions objectForKey:v10, v18];
       uuids = [v11 uuids];
       v13 = [uuids containsObject:v4];
 
@@ -459,7 +458,7 @@ LABEL_3:
 
       if (v7 == ++v9)
       {
-        v7 = [(NSMapTable *)v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v7 = [(NSMapTable *)v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -506,34 +505,32 @@ LABEL_13:
       [(REDonatedActionFilteredCache *)v4 _queue_removeDonation:v11];
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_removeDonationsForBundleIdentifier:(id)identifier
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v4 = self->_actions;
-  v5 = [(NSMapTable *)v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = [(NSMapTable *)v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v20;
+    v7 = *v19;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v20 != v7)
+      if (*v19 != v7)
       {
         objc_enumerationMutation(v4);
       }
 
-      v9 = *(*(&v19 + 1) + 8 * v8);
+      v9 = *(*(&v18 + 1) + 8 * v8);
       v10 = [(NSMapTable *)self->_actions objectForKey:v9];
       action = [v10 action];
       bundleIdentifier = [action bundleIdentifier];
@@ -546,7 +543,7 @@ LABEL_3:
 
       if (v6 == ++v8)
       {
-        v6 = [(NSMapTable *)v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v6 = [(NSMapTable *)v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -586,8 +583,6 @@ LABEL_14:
       [(REDonatedActionFilteredCache *)identifierCopy _queue_removeDonationsForBundleIdentifier:v10];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)_queue_performedTodayCountForBundleIdentifer:(id)identifer actionIdentifier:(unint64_t)identifier
@@ -681,14 +676,14 @@ LABEL_14:
 
 - (void)_refreshAllDonations:(id)donations
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   donationsCopy = donations;
   v5 = RELogForDomain(14);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     name = [donationsCopy name];
     *buf = 138543362;
-    v14 = name;
+    v13 = name;
     _os_log_impl(&dword_22859F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ received.", buf, 0xCu);
   }
 
@@ -696,15 +691,13 @@ LABEL_14:
   v8 = [@"REShowRecentDeveloperDonationsChangedNotification" isEqualToString:name2];
 
   queue = self->_queue;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __53__REDonatedActionFilteredCache__refreshAllDonations___block_invoke;
-  v11[3] = &unk_2785FA448;
-  v11[4] = self;
-  v12 = v8;
-  dispatch_async(queue, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __53__REDonatedActionFilteredCache__refreshAllDonations___block_invoke;
+  v10[3] = &unk_2785FA448;
+  v10[4] = self;
+  v11 = v8;
+  dispatch_async(queue, v10);
 }
 
 void __53__REDonatedActionFilteredCache__refreshAllDonations___block_invoke(uint64_t a1)
@@ -723,33 +716,29 @@ void __53__REDonatedActionFilteredCache__refreshAllDonations___block_invoke(uint
 
 - (void)_queue_removeDonation:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "filtered action cache didn't contain action value with uuid: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "filtered action cache didn't contain action value with uuid: %@", &v2, 0xCu);
 }
 
 - (void)_queue_removeDonationsForBundleIdentifier:(NSObject *)a3 .cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [a1 uuids];
-  v7 = 134218242;
-  v8 = [v5 count];
-  v9 = 2114;
-  v10 = a2;
-  _os_log_error_impl(&dword_22859F000, a3, OS_LOG_TYPE_ERROR, "Remove %lu actions for %{public}@.", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 134218242;
+  v7 = [v5 count];
+  v8 = 2114;
+  v9 = a2;
+  _os_log_error_impl(&dword_22859F000, a3, OS_LOG_TYPE_ERROR, "Remove %lu actions for %{public}@.", &v6, 0x16u);
 }
 
 - (void)_queue_removeDonationsForBundleIdentifier:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "Attempted to remove %{public}@ actions, but none were found in filtered action cache.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "Attempted to remove %{public}@ actions, but none were found in filtered action cache.", &v2, 0xCu);
 }
 
 @end

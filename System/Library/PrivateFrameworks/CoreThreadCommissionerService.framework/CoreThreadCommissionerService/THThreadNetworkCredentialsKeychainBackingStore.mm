@@ -49,12 +49,15 @@
 - (id)getAllPrefEntries;
 - (id)getNetworkSignature;
 - (id)getNumberOfPrefEntriesForTheCount:(int)count;
+- (id)getNumberOfRecordsForKeychainAccessGroup:(id)group count:(int)count;
 - (id)getOneRecordForNetwork:(id)network;
 - (id)getPrefEntriesForLabelAsSSID:(id)d;
 - (id)getPrefEntriesForSSID:(id)d;
 - (id)getPrefEntriesForSSIDAndSignature:(id)signature;
 - (id)getPrefEntriesForSignature:(id)signature;
+- (id)getPreferredNetwork:(BOOL)network skipScan:(BOOL)scan;
 - (id)getPreferredNetworkWithRecords;
+- (id)getRecordForPreferredNetwork:(BOOL)network anyDsFormat:(BOOL)format skipScan:(BOOL)scan;
 - (id)getTheKeyFromPreferredNetworkEntry:(id)entry;
 - (id)getTheMdnsMatchingEntryFromTheList:(id)list;
 - (id)matchPreferredNetworkWithMdns:(id)mdns;
@@ -1900,6 +1903,257 @@ LABEL_17:
   dispatch_async(v5, v7);
 }
 
+- (id)getRecordForPreferredNetwork:(BOOL)network anyDsFormat:(BOOL)format skipScan:(BOOL)scan
+{
+  v76 = 0;
+  v77 = &v76;
+  v78 = 0x3032000000;
+  v79 = sub_10001DFBC;
+  v80 = sub_10001DFCC;
+  v81 = 0;
+  v70 = 0;
+  v71 = &v70;
+  v72 = 0x3032000000;
+  v73 = sub_10001DFBC;
+  v74 = sub_10001DFCC;
+  v75 = 0;
+  v5 = [(THThreadNetworkCredentialsKeychainBackingStore *)self getPreferredNetwork:network skipScan:scan];
+  v6 = v77[5];
+  v77[5] = v5;
+
+  v7 = v77[5];
+  if (!v7)
+  {
+    v58 = sub_10001B194(1);
+    if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+    {
+      sub_10003C7B4();
+    }
+
+    credentialsDataSetRecord7 = 0;
+LABEL_44:
+
+    goto LABEL_45;
+  }
+
+  credentialsDataSetRecord = [v7 credentialsDataSetRecord];
+  if (!credentialsDataSetRecord)
+  {
+    goto LABEL_12;
+  }
+
+  credentialsDataSetRecord2 = [v77[5] credentialsDataSetRecord];
+  credentialsDataSet = [credentialsDataSetRecord2 credentialsDataSet];
+  dataSetArray = [credentialsDataSet dataSetArray];
+  if (!dataSetArray)
+  {
+
+    goto LABEL_12;
+  }
+
+  credentialsDataSetRecord3 = [v77[5] credentialsDataSetRecord];
+  credentialsDataSet2 = [credentialsDataSetRecord3 credentialsDataSet];
+  dataSetArray2 = [credentialsDataSet2 dataSetArray];
+  v15 = [dataSetArray2 length] == 0;
+
+  if (v15)
+  {
+LABEL_12:
+    v24 = sub_10001B194(1);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    {
+      network = [v77[5] network];
+      networkName = [network networkName];
+      network2 = [v77[5] network];
+      extendedPANID = [network2 extendedPANID];
+      *buf = 136315906;
+      v84 = "[THThreadNetworkCredentialsKeychainBackingStore getRecordForPreferredNetwork:anyDsFormat:skipScan:]";
+      v85 = 1024;
+      v86 = 1873;
+      v87 = 2112;
+      v88 = networkName;
+      v89 = 2112;
+      v90 = extendedPANID;
+      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "%s : %d - Request to fetch all active dataset records for preferred network (name=%@, xpanid=%@)", buf, 0x26u);
+    }
+
+    network3 = [v77[5] network];
+    v58 = [THThreadNetworkCredentialsActiveDataSetRecord keyChainQueryForFetchActiveDataSetRecordsOperationForNetwork:network3];
+
+    v69 = 0;
+    v56 = [(THThreadNetworkCredentialsKeychainBackingStore *)self _doFetchActiveDataSetRecords:v58 error:&v69];
+    v55 = v69;
+    v30 = sub_10001B194(1);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+    {
+      v31 = [v56 count];
+      *buf = 136315650;
+      v84 = "[THThreadNetworkCredentialsKeychainBackingStore getRecordForPreferredNetwork:anyDsFormat:skipScan:]";
+      v85 = 1024;
+      v86 = 1879;
+      v87 = 2048;
+      v88 = v31;
+      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, "%s:%d: Active dataset records size is: %lu", buf, 0x1Cu);
+    }
+
+    allObjects = [v56 allObjects];
+    v57 = [NSMutableArray arrayWithArray:allObjects];
+
+    if (v57)
+    {
+      [v57 sortUsingComparator:&stru_100079130];
+      v67 = 0u;
+      v68 = 0u;
+      v65 = 0u;
+      v66 = 0u;
+      obj = v57;
+      v33 = [obj countByEnumeratingWithState:&v65 objects:v82 count:16];
+      if (v33)
+      {
+        v62 = *v66;
+        do
+        {
+          for (i = 0; i != v33; i = i + 1)
+          {
+            if (*v66 != v62)
+            {
+              objc_enumerationMutation(obj);
+            }
+
+            v35 = *(*(&v65 + 1) + 8 * i);
+            borderAgent = [v35 borderAgent];
+            discriminatorId = [borderAgent discriminatorId];
+            if (discriminatorId)
+            {
+              credentialsDataSet3 = [v35 credentialsDataSet];
+              dataSetArray3 = [credentialsDataSet3 dataSetArray];
+              v40 = dataSetArray3 == 0;
+              if (dataSetArray3 && !format)
+              {
+                credentialsDataSet4 = [v35 credentialsDataSet];
+                dataSetArray4 = [credentialsDataSet4 dataSetArray];
+                v43 = [(THThreadNetworkCredentialsKeychainBackingStore *)self areValidDataSetTLVs:dataSetArray4];
+
+                v40 = v43 ^ 1;
+              }
+
+              if (!v40)
+              {
+                objc_storeStrong(v71 + 5, v35);
+                goto LABEL_37;
+              }
+            }
+
+            else
+            {
+            }
+
+            v44 = sub_10001B194(1);
+            if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
+            {
+              network4 = [v35 network];
+              networkName2 = [network4 networkName];
+              *buf = 136315650;
+              v84 = "[THThreadNetworkCredentialsKeychainBackingStore getRecordForPreferredNetwork:anyDsFormat:skipScan:]";
+              v85 = 1024;
+              v86 = 1909;
+              v87 = 2112;
+              v88 = networkName2;
+              _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_INFO, "%s : %d : skipping older format credentials : name : %@", buf, 0x1Cu);
+            }
+          }
+
+          v33 = [obj countByEnumeratingWithState:&v65 objects:v82 count:16];
+        }
+
+        while (v33);
+      }
+
+LABEL_37:
+
+      if (v71[5])
+      {
+        v48 = sub_10001B194(1);
+        if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
+        {
+          network5 = [v71[5] network];
+          networkName3 = [network5 networkName];
+          *buf = 136315650;
+          v84 = "[THThreadNetworkCredentialsKeychainBackingStore getRecordForPreferredNetwork:anyDsFormat:skipScan:]";
+          v85 = 1024;
+          v86 = 1918;
+          v87 = 2112;
+          v88 = networkName3;
+          _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_INFO, "%s : %d : Check if require to update preferred network with record : name : %@", buf, 0x1Cu);
+        }
+
+        credentialsDataSetRecord4 = [v77[5] credentialsDataSetRecord];
+        v52 = credentialsDataSetRecord4 == 0;
+
+        if (v52)
+        {
+          objc_initWeak(buf, self);
+          v53 = dispatch_get_global_queue(0, 0);
+          block[0] = _NSConcreteStackBlock;
+          block[1] = 3221225472;
+          block[2] = sub_100026638;
+          block[3] = &unk_100079158;
+          objc_copyWeak(&v64, buf);
+          block[4] = &v70;
+          block[5] = &v76;
+          dispatch_async(v53, block);
+
+          objc_destroyWeak(&v64);
+          objc_destroyWeak(buf);
+        }
+      }
+
+      credentialsDataSetRecord7 = v71[5];
+    }
+
+    else
+    {
+      v47 = sub_10001B194(1);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+      {
+        sub_10003C730();
+      }
+
+      credentialsDataSetRecord7 = 0;
+    }
+
+    goto LABEL_44;
+  }
+
+  v16 = sub_10001B194(1);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+  {
+    credentialsDataSetRecord5 = [v77[5] credentialsDataSetRecord];
+    network6 = [credentialsDataSetRecord5 network];
+    networkName4 = [network6 networkName];
+    credentialsDataSetRecord6 = [v77[5] credentialsDataSetRecord];
+    credentialsDataSet5 = [credentialsDataSetRecord6 credentialsDataSet];
+    dataSetArray5 = [credentialsDataSet5 dataSetArray];
+    *buf = 136315906;
+    v84 = "[THThreadNetworkCredentialsKeychainBackingStore getRecordForPreferredNetwork:anyDsFormat:skipScan:]";
+    v85 = 1024;
+    v86 = 1869;
+    v87 = 2112;
+    v88 = networkName4;
+    v89 = 2112;
+    v90 = dataSetArray5;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "%s:%d: This preferred network entry has record associated with it, returning the same record : %@, dataset : %@", buf, 0x26u);
+  }
+
+  credentialsDataSetRecord7 = [v77[5] credentialsDataSetRecord];
+LABEL_45:
+  _Block_object_dispose(&v70, 8);
+
+  _Block_object_dispose(&v76, 8);
+
+  return credentialsDataSetRecord7;
+}
+
 - (void)retrievePreferredNetworkOfAnyDSFormatWithCompletion:(id)completion
 {
   completionCopy = completion;
@@ -2191,6 +2445,50 @@ LABEL_19:
   }
 
   return v7;
+}
+
+- (id)getNumberOfRecordsForKeychainAccessGroup:(id)group count:(int)count
+{
+  v4 = *&count;
+  groupCopy = group;
+  v7 = [THThreadNetworkCredentialsActiveDataSetRecord keyChainQueryFetchForNumberOfActiveDataSetOperationForKeychainAccessGroup:groupCopy count:v4];
+  if (!v7)
+  {
+    v8 = sub_10001B194(1);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      sub_10003DA68();
+    }
+  }
+
+  v14 = 0;
+  v9 = [(THThreadNetworkCredentialsKeychainBackingStore *)self _doFetchActiveDataSetRecords:v7 error:&v14];
+  v10 = sub_10001B194(1);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  {
+    v11 = [v9 count];
+    *buf = 136315906;
+    v16 = "[THThreadNetworkCredentialsKeychainBackingStore getNumberOfRecordsForKeychainAccessGroup:count:]";
+    v17 = 1024;
+    v18 = 2551;
+    v19 = 1024;
+    v20 = v4;
+    v21 = 2048;
+    v22 = v11;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "%s:%d: Fetched Active dataset records for the count : %d, size of the recods is: %lu", buf, 0x22u);
+  }
+
+  if (v9 && [v9 count])
+  {
+    v12 = v9;
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  return v12;
 }
 
 - (BOOL)deleteAllRecordsForKeychainAccessGroup:(id)group
@@ -5700,6 +5998,261 @@ LABEL_30:
   return v17;
 }
 
+- (id)getPreferredNetwork:(BOOL)network skipScan:(BOOL)scan
+{
+  scanCopy = scan;
+  networkCopy = network;
+  v7 = sub_10001B194(1);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315650;
+    v57 = "[THThreadNetworkCredentialsKeychainBackingStore getPreferredNetwork:skipScan:]";
+    v58 = 1024;
+    v59 = 4366;
+    v60 = 1024;
+    LODWORD(v61) = networkCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s:%d: Get preferred NW, onlyMdns : %d", buf, 0x18u);
+  }
+
+  getNetworkSignature = [(THThreadNetworkCredentialsKeychainBackingStore *)self getNetworkSignature];
+  if (!getNetworkSignature)
+  {
+    v10 = sub_10001B194(1);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      sub_1000405E4();
+    }
+
+    goto LABEL_25;
+  }
+
+  if ([(THThreadNetworkCredentialsKeychainBackingStore *)self wifiInfoAvailable:getNetworkSignature])
+  {
+    v9 = [(THThreadNetworkCredentialsKeychainBackingStore *)self getPrefEntriesForSSID:getNetworkSignature];
+    v10 = v9;
+    if (v9 && [v9 count])
+    {
+      v11 = [(THThreadNetworkCredentialsKeychainBackingStore *)self getPrefEntriesForSignature:getNetworkSignature];
+      goto LABEL_12;
+    }
+
+    v14 = [(THThreadNetworkCredentialsKeychainBackingStore *)self getPrefEntriesForLabelAsSSID:getNetworkSignature];
+
+    v11 = 0;
+    v12 = 0;
+    v13 = 0;
+    v10 = v14;
+    if (v14)
+    {
+LABEL_12:
+      v12 = v10;
+      v13 = v11;
+      if ([v10 count])
+      {
+        goto LABEL_14;
+      }
+    }
+  }
+
+  else
+  {
+    v12 = 0;
+    v13 = 0;
+  }
+
+  v10 = [(THThreadNetworkCredentialsKeychainBackingStore *)self getPrefEntriesForSignature:getNetworkSignature];
+
+  if (!v10)
+  {
+    goto LABEL_21;
+  }
+
+LABEL_14:
+  if (![v10 count])
+  {
+LABEL_21:
+    v21 = sub_10001B194(1);
+    v22 = v21;
+    if (scanCopy)
+    {
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      {
+        sub_100040560();
+      }
+
+LABEL_25:
+      v23 = 0;
+      goto LABEL_54;
+    }
+
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    {
+      v24 = [v10 count];
+      ipv4NwSignature = [getNetworkSignature ipv4NwSignature];
+      ipv6NwSignature = [getNetworkSignature ipv6NwSignature];
+      *buf = 136316162;
+      v57 = "[THThreadNetworkCredentialsKeychainBackingStore getPreferredNetwork:skipScan:]";
+      v58 = 1024;
+      v59 = 4425;
+      v60 = 2048;
+      v61 = v24;
+      v62 = 2112;
+      v63 = ipv4NwSignature;
+      v64 = 2112;
+      v65 = ipv6NwSignature;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "%s : %d - Finding network on mdns and checking if it matches to any of the preferred network entry, because, at present, Preferred Networks in Database = %lu, for network signature(ipv4 : %@, ipv6 : %@)", buf, 0x30u);
+    }
+
+    getAllPrefEntries = [(THThreadNetworkCredentialsKeychainBackingStore *)self getAllPrefEntries];
+    v28 = getAllPrefEntries;
+    if (getAllPrefEntries && [getAllPrefEntries count])
+    {
+      v29 = sub_10001B194(1);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      {
+        sub_100040448(v28);
+      }
+
+      v23 = [(THThreadNetworkCredentialsKeychainBackingStore *)self sortAndReturnPreferredNetwork:v28 onlyMdns:1];
+      if (!v23)
+      {
+        goto LABEL_53;
+      }
+
+      v30 = [(THThreadNetworkCredentialsKeychainBackingStore *)self checkIfNetworkSignatureUpdateIsRequiredForPreferredNetwork:v23 nwSignature:getNetworkSignature];
+      v31 = v30;
+      if (v30)
+      {
+        v32 = v30;
+
+        v23 = v32;
+      }
+
+      v33 = sub_10001B194(1);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+      {
+        network = [v23 network];
+        networkName = [network networkName];
+        network2 = [v23 network];
+        extendedPANID = [network2 extendedPANID];
+        networkSignature = [v23 networkSignature];
+        wifiSSID = [networkSignature wifiSSID];
+        if (wifiSSID)
+        {
+          networkSignature2 = [v23 networkSignature];
+          wifiSSID2 = [networkSignature2 wifiSSID];
+        }
+
+        else
+        {
+          wifiSSID2 = &stru_100079A28;
+        }
+
+        credentialsDataSetRecord = [v23 credentialsDataSetRecord];
+        networkSignature3 = [v23 networkSignature];
+        wifiPassword = [networkSignature3 wifiPassword];
+        *buf = 136316674;
+        v57 = "[THThreadNetworkCredentialsKeychainBackingStore getPreferredNetwork:skipScan:]";
+        v58 = 1024;
+        v59 = 4452;
+        v60 = 2112;
+        v61 = networkName;
+        v62 = 2112;
+        v63 = extendedPANID;
+        v64 = 2112;
+        v65 = wifiSSID2;
+        v66 = 2048;
+        v67 = credentialsDataSetRecord;
+        v68 = 2112;
+        v69 = wifiPassword;
+        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_INFO, "%s:%d: Returning the preferred network : (name : %@ | xpanid : %@), ssid : %@, DS Record = %p, label = %@", buf, 0x44u);
+
+        if (wifiSSID)
+        {
+        }
+      }
+    }
+
+    else
+    {
+      v31 = sub_10001B194(1);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      {
+        sub_1000404DC();
+      }
+
+      v23 = 0;
+    }
+
+LABEL_53:
+    goto LABEL_54;
+  }
+
+  v15 = [(THThreadNetworkCredentialsKeychainBackingStore *)self sortAndReturnPreferredNetwork:v10 onlyMdns:networkCopy];
+  if (v15)
+  {
+    v16 = [(THThreadNetworkCredentialsKeychainBackingStore *)self checkIfNetworkSignatureUpdateIsRequiredForPreferredNetwork:v15 nwSignature:getNetworkSignature signaturePrefEntries:v13];
+    v17 = v16;
+    if (v16)
+    {
+      v18 = v16;
+
+      v15 = v18;
+    }
+
+    v19 = sub_10001B194(1);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    {
+      network3 = [v15 network];
+      networkName2 = [network3 networkName];
+      network4 = [v15 network];
+      extendedPANID2 = [network4 extendedPANID];
+      networkSignature4 = [v15 networkSignature];
+      wifiSSID3 = [networkSignature4 wifiSSID];
+      if (wifiSSID3)
+      {
+        networkSignature5 = [v15 networkSignature];
+        wifiSSID4 = [networkSignature5 wifiSSID];
+      }
+
+      else
+      {
+        wifiSSID4 = &stru_100079A28;
+      }
+
+      credentialsDataSetRecord2 = [v15 credentialsDataSetRecord];
+      networkSignature6 = [v15 networkSignature];
+      wifiPassword2 = [networkSignature6 wifiPassword];
+      *buf = 136316674;
+      v57 = "[THThreadNetworkCredentialsKeychainBackingStore getPreferredNetwork:skipScan:]";
+      v58 = 1024;
+      v59 = 4413;
+      v60 = 2112;
+      v61 = networkName2;
+      v62 = 2112;
+      v63 = extendedPANID2;
+      v64 = 2112;
+      v65 = wifiSSID4;
+      v66 = 2048;
+      v67 = credentialsDataSetRecord2;
+      v68 = 2112;
+      v69 = wifiPassword2;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "%s:%d: Returning the preferred network : (name : %@ | xpanid : %@), ssid : %@, DS Record = %p, label = %@", buf, 0x44u);
+
+      if (wifiSSID3)
+      {
+      }
+    }
+  }
+
+  v23 = v15;
+
+  v10 = v23;
+LABEL_54:
+
+  return v23;
+}
+
 - (BOOL)DBGstorePreferred:(id)preferred
 {
   preferredCopy = preferred;
@@ -8011,7 +8564,7 @@ LABEL_91:
             v24 = sub_10001B194(1);
             if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
             {
-              sub_100042368(&bytes[v17]);
+              sub_100042368();
             }
 
             goto LABEL_127;

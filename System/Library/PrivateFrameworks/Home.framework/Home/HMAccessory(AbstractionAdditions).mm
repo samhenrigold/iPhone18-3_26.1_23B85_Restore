@@ -162,30 +162,14 @@ LABEL_14:
 
 - (id)hf_itemClass
 {
-  if ([self hf_isRemoteControl])
+  if (([self hf_isRemoteControl] & 1) == 0 && (objc_msgSend(self, "hf_isMediaAccessory") & 1) == 0)
   {
-    v2 = off_277DF0210;
+    [self hf_isSupportedAccessory];
   }
 
-  else if ([self hf_isMediaAccessory])
-  {
-    v2 = off_277DEFD10;
-  }
+  v2 = objc_opt_class();
 
-  else
-  {
-    hf_isSupportedAccessory = [self hf_isSupportedAccessory];
-    v2 = off_277DEFAD8;
-    if (hf_isSupportedAccessory)
-    {
-      v2 = off_277DEF2B0;
-    }
-  }
-
-  v4 = *v2;
-  v5 = objc_opt_class();
-
-  return v5;
+  return v2;
 }
 
 - (id)hf_containedServices

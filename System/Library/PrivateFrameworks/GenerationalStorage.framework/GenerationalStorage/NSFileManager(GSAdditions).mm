@@ -6,7 +6,7 @@
 
 - (id)gs_createTemporarySubdirectoryOfItem:()GSAdditions withTemplate:error:
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   v9 = open(".", 256);
@@ -26,7 +26,7 @@
   v11 = v10;
   if ((v10 & 0x80000000) == 0 && (MEMORY[0x253054EB0](v10) & 0x80000000) == 0)
   {
-    if (([v8 getFileSystemRepresentation:v16 maxLength:1024] & 1) == 0)
+    if (([v8 getFileSystemRepresentation:v15 maxLength:1024] & 1) == 0)
     {
       v13 = 0;
       *__error() = 63;
@@ -38,10 +38,10 @@
       goto LABEL_13;
     }
 
-    if (mkdtemp(v16))
+    if (mkdtemp(v15))
     {
       MEMORY[0x253054EB0](v9);
-      v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:v16];
+      v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:v15];
       v13 = [v7 stringByAppendingPathComponent:v12];
 
       if (!a5)
@@ -71,8 +71,6 @@ LABEL_13:
   {
     close(v9);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

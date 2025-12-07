@@ -10,25 +10,25 @@
   ptr = self->super._ptr;
   if (ptr && munmap(ptr, self->super._sz) == -1)
   {
-    v4 = *__error();
+    __error();
     _os_assumes_log();
   }
 
-  v5.receiver = self;
-  v5.super_class = _OSLogChunkFile;
-  [(_OSLogChunkFile *)&v5 dealloc];
+  v4.receiver = self;
+  v4.super_class = _OSLogChunkFile;
+  [(_OSLogChunkFile *)&v4 dealloc];
 }
 
 - (_OSLogChunkFile)initWithFileDescriptor:(int)descriptor error:(id *)error
 {
-  v25[128] = *MEMORY[0x277D85DE8];
-  v25[0] = 0;
+  v24[128] = *MEMORY[0x277D85DE8];
+  v24[0] = 0;
   v7 = _os_trace_mmap();
   if (v7)
   {
     v8 = v7;
-    v9 = v25[0];
-    if (fcntl(descriptor, 50, v25, 1024) == -1)
+    v9 = v24[0];
+    if (fcntl(descriptor, 50, v24, 1024) == -1)
     {
       if (error)
       {
@@ -40,7 +40,7 @@
 
     else
     {
-      v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:v25];
+      v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:v24];
       pathComponents = [v10 pathComponents];
       v12 = [pathComponents count];
       v13 = v12 - 1;
@@ -49,9 +49,9 @@
         v16 = [pathComponents objectAtIndexedSubscript:v12 - 2];
         v17 = [pathComponents objectAtIndexedSubscript:v13];
         v18 = MEMORY[0x277CCACA8];
-        v24[0] = v16;
-        v24[1] = v17;
-        v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
+        v23[0] = v16;
+        v23[1] = v17;
+        v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
         v14 = [v18 pathWithComponents:v19];
       }
 
@@ -68,9 +68,9 @@
 
       if (v14)
       {
-        v23.receiver = self;
-        v23.super_class = _OSLogChunkFile;
-        v20 = [(_OSLogChunkStore *)&v23 initWithBytes:v8 size:v9];
+        v22.receiver = self;
+        v22.super_class = _OSLogChunkFile;
+        v20 = [(_OSLogChunkStore *)&v22 initWithBytes:v8 size:v9];
         self = v20;
         if (v20)
         {
@@ -96,7 +96,6 @@ LABEL_18:
   selfCopy = 0;
 LABEL_19:
 
-  v21 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

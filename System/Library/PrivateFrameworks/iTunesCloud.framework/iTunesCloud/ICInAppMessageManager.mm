@@ -70,9 +70,11 @@
 
 uint64_t __38__ICInAppMessageManager_sharedManager__block_invoke()
 {
-  sharedManager_sSharedManager = [[ICInAppMessageManager alloc] _init];
+  v0 = [[ICInAppMessageManager alloc] _init];
+  v1 = sharedManager_sSharedManager;
+  sharedManager_sSharedManager = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)_init
@@ -282,7 +284,7 @@ uint64_t __60__ICInAppMessageManager__supportedInterfaceForXPCConnection__block_
   v8 = connectionCopy;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   else
@@ -6548,21 +6550,21 @@ void __43__ICInAppMessageManager_startSystemService__block_invoke(uint64_t a1, v
   }
 }
 
-uint64_t __43__ICInAppMessageManager_startSystemService__block_invoke_3(uint64_t result, uint64_t a2, char a3)
+id *__43__ICInAppMessageManager_startSystemService__block_invoke_3(id *result, uint64_t a2, char a3)
 {
   if ((a3 & 1) == 0)
   {
-    return [*(result + 32) _performSyncRetryIfPending:1];
+    return [result[4] _performSyncRetryIfPending:1];
   }
 
   return result;
 }
 
-uint64_t __43__ICInAppMessageManager_startSystemService__block_invoke_4(uint64_t result, uint64_t a2, char a3)
+id *__43__ICInAppMessageManager_startSystemService__block_invoke_4(id *result, uint64_t a2, char a3)
 {
   if ((a3 & 1) == 0)
   {
-    return [*(result + 32) _performSyncRetryIfPending:1];
+    return [result[4] _performSyncRetryIfPending:1];
   }
 
   return result;

@@ -1,134 +1,596 @@
+uint64_t sub_1AAE775D8(_OWORD *a1, uint64_t a2)
+{
+  v2 = a1[7];
+  v14[6] = a1[6];
+  v14[7] = v2;
+  v3 = a1[9];
+  v14[8] = a1[8];
+  v4 = a1[3];
+  v14[2] = a1[2];
+  v14[3] = v4;
+  v5 = a1[5];
+  v14[4] = a1[4];
+  v14[5] = v5;
+  v6 = a1[1];
+  v14[0] = *a1;
+  v14[1] = v6;
+  v7 = a1[14];
+  v8 = a1[16];
+  v9 = a1[17];
+  v15[6] = a1[15];
+  v15[7] = v8;
+  v15[8] = v9;
+  v10 = a1[10];
+  v11 = a1[12];
+  v12 = a1[13];
+  v15[2] = a1[11];
+  v15[3] = v11;
+  v15[4] = v12;
+  v15[5] = v7;
+  v15[0] = v3;
+  v15[1] = v10;
+  *(*a2 + 1266) = 1;
+  return sub_1AACD2B20(v14, v15);
+}
+
+void *SectorMark.init<A>(angle:innerRadius:outerRadius:roundInnerVertex:angularInset:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, uint64_t a4@<X3>, int a5@<W4>, int a6@<W5>, double a7@<X6>, char a8@<W7>, void *a9@<X8>, uint64_t a10, uint64_t a11)
+{
+  v25 = a5;
+  v26 = a6;
+  v24 = a4;
+  v23 = a3;
+  v27 = a9;
+  v15 = type metadata accessor for PlottableValue(0, a10, a11, a4);
+  v16 = *(v15 - 8);
+  v17 = MEMORY[0x1EEE9AC00](v15);
+  v19 = &v22[-v18];
+  (*(v16 + 16))(&v22[-v18], a1, v15, v17);
+  v20 = a7;
+  if (a8)
+  {
+    v20 = 0.0;
+  }
+
+  sub_1AAE75070(v19, a2, v23, v24, v25, v26, a10, a11, v28, v20);
+  (*(v16 + 8))(a1, v15);
+  return memcpy(v27, v28, 0x149uLL);
+}
+
+uint64_t sub_1AAE777C8(uint64_t a1, uint64_t a2)
+{
+  v4 = type metadata accessor for SgSector(0);
+  (*(*(v4 - 8) + 32))(a2, a1, v4);
+  return a2;
+}
+
+uint64_t sub_1AAE77834(uint64_t a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 329))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = (*(a1 + 48) >> 3) & 0xFFFFFFE0 | (*(a1 + 48) >> 2) & 0x1F;
+  if (v2 > 0x80000000)
+  {
+    v3 = ~v2;
+  }
+
+  else
+  {
+    v3 = -1;
+  }
+
+  return (v3 + 1);
+}
+
+double sub_1AAE77888(uint64_t a1, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    result = 0.0;
+    *(a1 + 248) = 0u;
+    *(a1 + 232) = 0u;
+    *(a1 + 216) = 0u;
+    *(a1 + 200) = 0u;
+    *(a1 + 184) = 0u;
+    *(a1 + 168) = 0u;
+    *(a1 + 152) = 0u;
+    *(a1 + 136) = 0u;
+    *(a1 + 120) = 0u;
+    *(a1 + 104) = 0u;
+    *(a1 + 88) = 0u;
+    *(a1 + 72) = 0u;
+    *(a1 + 56) = 0u;
+    *(a1 + 40) = 0u;
+    *(a1 + 24) = 0u;
+    *(a1 + 8) = 0u;
+    *(a1 + 328) = 0;
+    *(a1 + 312) = 0u;
+    *(a1 + 296) = 0u;
+    *(a1 + 280) = 0u;
+    *(a1 + 264) = 0u;
+    *a1 = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
+    {
+      *(a1 + 329) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      result = 0.0;
+      *(a1 + 16) = 0u;
+      *(a1 + 32) = 0u;
+      *a1 = 0u;
+      *(a1 + 48) = (8 * -a2) & 0x7FFFFFF00 | (4 * (-a2 & 0x1FLL));
+      *(a1 + 56) = 0u;
+      *(a1 + 72) = 0u;
+      *(a1 + 88) = 0u;
+      *(a1 + 104) = 0u;
+      *(a1 + 120) = 0u;
+      *(a1 + 136) = 0;
+      return result;
+    }
+
+    *(a1 + 329) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+uint64_t SectorPlot<A>.body.getter(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  v2 = *(v1 - 8);
+  MEMORY[0x1EEE9AC00](a1);
+  v4 = &v6 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_1AACE0800();
+  sub_1AACE0800();
+  return (*(v2 + 8))(v4, v1);
+}
+
+uint64_t SectorPlot.init<A, B>(_:angle:innerRadius:outerRadius:angularInset:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, __int128 *a3@<X2>, __int128 *a4@<X3>, uint64_t a5@<X4>, int a6@<W5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10, uint64_t a11)
+{
+  v62 = a8;
+  v67 = a6;
+  v66 = a5;
+  v68 = a9;
+  v69 = a2;
+  v59 = a1;
+  v63 = a11;
+  v56 = a10;
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v58 = type metadata accessor for PlottableProjection(0, AssociatedTypeWitness, a8, a11);
+  v17 = *(v58 - 8);
+  v18 = *(v17 + 64);
+  MEMORY[0x1EEE9AC00](v58);
+  v55 = &v54 - v19;
+  v60 = *(a7 - 8);
+  v20 = v60;
+  MEMORY[0x1EEE9AC00](v21);
+  v23 = &v54 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v57 = v23;
+  v25 = type metadata accessor for VectorizedSectorPlotContent(0, a7, a10, v24);
+  v64 = *(v25 - 8);
+  v65 = v25;
+  MEMORY[0x1EEE9AC00](v25);
+  v61 = &v54 - v26;
+  v27 = a3[5];
+  v74 = a3[4];
+  v75 = v27;
+  v76 = a3[6];
+  v77 = *(a3 + 112);
+  v28 = a3[1];
+  v70 = *a3;
+  v71 = v28;
+  v29 = a3[3];
+  v72 = a3[2];
+  v73 = v29;
+  v30 = *a4;
+  v31 = a4[1];
+  v32 = a4[3];
+  v80 = a4[2];
+  v81 = v32;
+  v78 = v30;
+  v79 = v31;
+  v33 = a4[4];
+  v34 = a4[5];
+  v35 = a4[6];
+  v85 = *(a4 + 112);
+  v83 = v34;
+  v84 = v35;
+  v82 = v33;
+  (*(v20 + 16))(v23, a1, a7);
+  v36 = v55;
+  v37 = v58;
+  (*(v17 + 16))(v55, v69, v58);
+  v38 = (*(v17 + 80) + 48) & ~*(v17 + 80);
+  v54 = (v38 + v18 + 127) & 0xFFFFFFFFFFFFFFF8;
+  v39 = swift_allocObject();
+  v41 = v62;
+  v40 = v63;
+  *(v39 + 2) = a7;
+  *(v39 + 3) = v41;
+  v42 = v56;
+  *(v39 + 4) = v56;
+  *(v39 + 5) = v40;
+  (*(v17 + 32))(&v39[v38], v36, v37);
+  v43 = &v39[(v38 + v18 + 7) & 0xFFFFFFFFFFFFFFF8];
+  v44 = v73;
+  *(v43 + 2) = v72;
+  *(v43 + 3) = v44;
+  v45 = v71;
+  *v43 = v70;
+  *(v43 + 1) = v45;
+  v43[112] = v77;
+  v46 = v76;
+  *(v43 + 5) = v75;
+  *(v43 + 6) = v46;
+  *(v43 + 4) = v74;
+  v47 = &v39[v54];
+  v48 = v83;
+  *(v47 + 4) = v82;
+  *(v47 + 5) = v48;
+  *(v47 + 6) = v84;
+  v47[112] = v85;
+  v49 = v79;
+  *v47 = v78;
+  *(v47 + 1) = v49;
+  v50 = v81;
+  *(v47 + 2) = v80;
+  *(v47 + 3) = v50;
+  v51 = &v39[(v38 + v18 + 247) & 0xFFFFFFFFFFFFFFF8];
+  *v51 = v66;
+  v51[8] = v67 & 1;
+  v52 = v61;
+  sub_1AAE7834C(v57, sub_1AAE7822C, v39, a7, &type metadata for SectorMark, v42, &protocol witness table for SectorMark, v61);
+  (*(v17 + 8))(v69, v37);
+  (*(v60 + 8))(v59, a7);
+  return (*(v64 + 32))(v68, v52, v65);
+}
+
+void *sub_1AAE77E94@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, double a5@<X4>, int a6@<W5>, uint64_t a8@<X7>, void *a9@<X8>, uint64_t a10, uint64_t a11)
+{
+  v62 = a6;
+  v63 = a5;
+  v64 = a9;
+  v61 = a4;
+  v59 = a2;
+  v65 = a1;
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v14 = type metadata accessor for PlottableProjection(0, AssociatedTypeWitness, a8, a11);
+  v55 = *(v14 - 8);
+  v56 = v14;
+  MEMORY[0x1EEE9AC00](v14);
+  v54 = &v53 - v15;
+  v16 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](v17);
+  v19 = &v53 - v18;
+  v58 = a8;
+  v60 = a11;
+  v21 = type metadata accessor for PlottableValue(0, a8, a11, v20);
+  v22 = MEMORY[0x1EEE9AC00](v21 - 8);
+  v24 = &v53 - v23;
+  v57 = &v53 - v23;
+  v53 = *(v16 + 16);
+  v25 = v19;
+  v26 = v19;
+  v27 = v65;
+  v53(v25, v65, AssociatedTypeWitness, v22);
+  v28 = v54;
+  (*(v55 + 16))(v54, v59, v56);
+  v29 = v28;
+  v30 = AssociatedTypeWitness;
+  sub_1AAF30D00(v26, v29, a8, AssociatedTypeWitness, a11, v24);
+  v31 = v26;
+  v32 = v53;
+  (v53)(v26, v27, v30);
+  v33 = *(a3 + 64);
+  v34 = *(a3 + 96);
+  v67[5] = *(a3 + 80);
+  v67[6] = v34;
+  v35 = *(a3 + 16);
+  v67[0] = *a3;
+  v36 = *(a3 + 32);
+  v37 = *(a3 + 48);
+  v67[1] = v35;
+  v67[2] = v36;
+  LOBYTE(v67[7]) = *(a3 + 112);
+  v67[3] = v37;
+  v67[4] = v33;
+  v40 = type metadata accessor for MarkDimensions(0, v30, v38, v39);
+  v41 = *(*(v40 - 8) + 16);
+  (v41)(v66, a3, v40);
+  v59 = sub_1AAF312D4(v31, v67, v30, v42);
+  LODWORD(a3) = v43;
+  v32(v31, v65, v30);
+  v44 = *(v61 + 64);
+  v45 = *(v61 + 96);
+  v67[5] = *(v61 + 80);
+  v67[6] = v45;
+  v46 = *(v61 + 16);
+  v67[0] = *v61;
+  v47 = *(v61 + 32);
+  v48 = *(v61 + 48);
+  v67[1] = v46;
+  v67[2] = v47;
+  LOBYTE(v67[7]) = *(v61 + 112);
+  v67[3] = v48;
+  v67[4] = v44;
+  v41(v66);
+  v50 = sub_1AAF312D4(v31, v67, v30, v49);
+  SectorMark.init<A>(angle:innerRadius:outerRadius:angularInset:)(v57, v59, a3, v50, v51, v63, v62 & 1, v58, v67, v60);
+  return memcpy(v64, v67, 0x149uLL);
+}
+
+void *sub_1AAE7822C@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+{
+  v5 = v2[3];
+  v7 = v2[4];
+  v6 = v2[5];
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v9 = *(type metadata accessor for PlottableProjection(0, AssociatedTypeWitness, v5, v6) - 8);
+  v10 = (*(v9 + 80) + 48) & ~*(v9 + 80);
+  return sub_1AAE77E94(a1, v2 + v10, v2 + ((v10 + *(v9 + 64) + 7) & 0xFFFFFFFFFFFFFFF8), v2 + ((v10 + *(v9 + 64) + 127) & 0xFFFFFFFFFFFFFFF8), *(v2 + ((v10 + *(v9 + 64) + 247) & 0xFFFFFFFFFFFFFFF8)), *(v2 + ((v10 + *(v9 + 64) + 247) & 0xFFFFFFFFFFFFFFF8) + 8), v5, a2, v7, v6);
+}
+
+uint64_t sub_1AAE7834C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X8>)
+{
+  v16 = *(a4 - 8);
+  v17 = MEMORY[0x1EEE9AC00](a1);
+  v19 = &v23 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v16 + 16))(v19, a1, v20, v17);
+  v21 = sub_1AAF311A4(v19, a2, a3, a4, a5, a6, a7, a8);
+  return (*(v16 + 8))(a1, a4, v21);
+}
+
+uint64_t SectorPlot.init<A, B>(_:angle:innerRadius:outerRadius:angularInset:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, __int128 *a3@<X2>, __int128 *a4@<X3>, void *a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10)
+{
+  v54 = a8;
+  v58 = a7;
+  v64 = a1;
+  v65 = a2;
+  v62 = a5;
+  v63 = a9;
+  v59 = a10;
+  v55 = type metadata accessor for PlottableProjection(0, *(*a5 + *MEMORY[0x1E69E77B0]), a7, a10);
+  v14 = *(v55 - 8);
+  v15 = *(v14 + 64);
+  MEMORY[0x1EEE9AC00](v55);
+  v17 = &v52 - v16;
+  v56 = *(a6 - 8);
+  v18 = v56;
+  MEMORY[0x1EEE9AC00](v19);
+  v21 = &v52 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v53 = v21;
+  v23 = type metadata accessor for VectorizedSectorPlotContent(0, a6, a8, v22);
+  v60 = *(v23 - 8);
+  v61 = v23;
+  MEMORY[0x1EEE9AC00](v23);
+  v57 = &v52 - v24;
+  v25 = a3[5];
+  v70 = a3[4];
+  v71 = v25;
+  v72 = a3[6];
+  v73 = *(a3 + 112);
+  v26 = a3[1];
+  v66 = *a3;
+  v67 = v26;
+  v27 = a3[3];
+  v68 = a3[2];
+  v69 = v27;
+  v28 = *a4;
+  v29 = a4[1];
+  v30 = a4[3];
+  v76 = a4[2];
+  v77 = v30;
+  v74 = v28;
+  v75 = v29;
+  v31 = a4[4];
+  v32 = a4[5];
+  v33 = a4[6];
+  v81 = *(a4 + 112);
+  v79 = v32;
+  v80 = v33;
+  v78 = v31;
+  v34 = *(v18 + 16);
+  v52 = a6;
+  v34(v21, v64, a6);
+  v35 = v55;
+  (*(v14 + 16))(v17, v65, v55);
+  v36 = (*(v14 + 80) + 48) & ~*(v14 + 80);
+  v37 = swift_allocObject();
+  v39 = v58;
+  v38 = v59;
+  *(v37 + 2) = a6;
+  *(v37 + 3) = v39;
+  v40 = v54;
+  *(v37 + 4) = v54;
+  *(v37 + 5) = v38;
+  (*(v14 + 32))(&v37[v36], v17, v35);
+  v41 = &v37[(v36 + v15 + 7) & 0xFFFFFFFFFFFFFFF8];
+  v42 = v69;
+  *(v41 + 2) = v68;
+  *(v41 + 3) = v42;
+  v43 = v67;
+  *v41 = v66;
+  *(v41 + 1) = v43;
+  v41[112] = v73;
+  v44 = v72;
+  *(v41 + 5) = v71;
+  *(v41 + 6) = v44;
+  *(v41 + 4) = v70;
+  v45 = &v37[(v36 + v15 + 127) & 0xFFFFFFFFFFFFFFF8];
+  v46 = v79;
+  *(v45 + 4) = v78;
+  *(v45 + 5) = v46;
+  *(v45 + 6) = v80;
+  v45[112] = v81;
+  v47 = v75;
+  *v45 = v74;
+  *(v45 + 1) = v47;
+  v48 = v77;
+  *(v45 + 2) = v76;
+  *(v45 + 3) = v48;
+  *&v37[(v36 + v15 + 247) & 0xFFFFFFFFFFFFFFF8] = v62;
+  v49 = v57;
+  v50 = v52;
+  sub_1AAE7834C(v53, sub_1AAE78C20, v37, v52, &type metadata for SectorMark, v40, &protocol witness table for SectorMark, v57);
+  (*(v14 + 8))(v65, v35);
+  (*(v56 + 8))(v64, v50);
+  return (*(v60 + 32))(v63, v49, v61);
+}
+
 void *sub_1AAE7887C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, void *a5@<X4>, uint64_t a6@<X6>, void *a7@<X8>, uint64_t a8)
 {
-  v49 = a4;
-  v50 = a5;
-  v45 = a1;
-  v46 = a2;
-  v51 = a7;
+  v54 = a4;
+  v55 = a5;
+  v50 = a1;
+  v51 = a2;
+  v56 = a7;
   v10 = *(*a5 + *MEMORY[0x1E69E77B0]);
-  v52 = a8;
-  v11 = type metadata accessor for PlottableProjection();
-  v43 = *(v11 - 8);
-  v44 = v11;
+  v57 = a8;
+  v11 = type metadata accessor for PlottableProjection(0, v10, a6, a8);
+  v48 = *(v11 - 8);
+  v49 = v11;
   MEMORY[0x1EEE9AC00](v11);
-  v41 = &v40 - v12;
+  v46 = &v45 - v12;
   v13 = *(v10 - 8);
   MEMORY[0x1EEE9AC00](v14);
-  v16 = &v40 - v15;
-  v48 = a6;
-  v17 = type metadata accessor for PlottableValue();
-  v18 = MEMORY[0x1EEE9AC00](v17 - 8);
-  v20 = &v40 - v19;
-  v47 = &v40 - v19;
-  v21 = *(v13 + 16);
-  v22 = v45;
-  v21(v16, v45, v10, v18);
-  v42 = v13 + 16;
-  v23 = v41;
-  (*(v43 + 16))(v41, v46, v44);
-  sub_1AAF30D00(v16, v23, a6, v10, v52, v20);
-  (v21)(v16, v22, v10);
-  v24 = *(a3 + 64);
-  v25 = *(a3 + 96);
-  v54[5] = *(a3 + 80);
-  v54[6] = v25;
-  v26 = *(a3 + 16);
-  v54[0] = *a3;
-  v27 = *(a3 + 32);
-  v28 = *(a3 + 48);
-  v54[1] = v26;
-  v54[2] = v27;
-  LOBYTE(v54[7]) = *(a3 + 112);
-  v54[3] = v28;
-  v54[4] = v24;
-  v29 = type metadata accessor for MarkDimensions();
-  v30 = *(*(v29 - 8) + 16);
-  v30(v53, a3, v29);
-  v46 = sub_1AAF312D4(v16, v54, v10);
-  LODWORD(v44) = v31;
-  (v21)(v16, v22, v10);
-  v32 = *(v49 + 64);
-  v33 = *(v49 + 96);
-  v54[5] = *(v49 + 80);
-  v54[6] = v33;
-  v34 = *(v49 + 16);
-  v54[0] = *v49;
-  v35 = *(v49 + 32);
-  v36 = *(v49 + 48);
-  v54[1] = v34;
-  v54[2] = v35;
-  LOBYTE(v54[7]) = *(v49 + 112);
-  v54[3] = v36;
-  v54[4] = v32;
-  (v30)(v53);
-  v37 = sub_1AAF312D4(v16, v54, v10);
-  LODWORD(v20) = v38;
+  v16 = &v45 - v15;
+  v53 = a6;
+  v18 = type metadata accessor for PlottableValue(0, a6, a8, v17);
+  v19 = MEMORY[0x1EEE9AC00](v18 - 8);
+  v21 = &v45 - v20;
+  v52 = &v45 - v20;
+  v22 = *(v13 + 16);
+  v23 = v50;
+  v22(v16, v50, v10, v19);
+  v47 = v13 + 16;
+  v24 = v46;
+  (*(v48 + 16))(v46, v51, v49);
+  sub_1AAF30D00(v16, v24, a6, v10, v57, v21);
+  (v22)(v16, v23, v10);
+  v25 = *(a3 + 64);
+  v26 = *(a3 + 96);
+  v59[5] = *(a3 + 80);
+  v59[6] = v26;
+  v27 = *(a3 + 16);
+  v59[0] = *a3;
+  v28 = *(a3 + 32);
+  v29 = *(a3 + 48);
+  v59[1] = v27;
+  v59[2] = v28;
+  LOBYTE(v59[7]) = *(a3 + 112);
+  v59[3] = v29;
+  v59[4] = v25;
+  v32 = type metadata accessor for MarkDimensions(0, v10, v30, v31);
+  v33 = *(*(v32 - 8) + 16);
+  v33(v58, a3, v32);
+  v51 = sub_1AAF312D4(v16, v59, v10, v34);
+  LODWORD(v49) = v35;
+  (v22)(v16, v23, v10);
+  v36 = *(v54 + 64);
+  v37 = *(v54 + 96);
+  v59[5] = *(v54 + 80);
+  v59[6] = v37;
+  v38 = *(v54 + 16);
+  v59[0] = *v54;
+  v39 = *(v54 + 32);
+  v40 = *(v54 + 48);
+  v59[1] = v38;
+  v59[2] = v39;
+  LOBYTE(v59[7]) = *(v54 + 112);
+  v59[3] = v40;
+  v59[4] = v36;
+  (v33)(v58);
+  v42 = sub_1AAF312D4(v16, v59, v10, v41);
+  LODWORD(v21) = v43;
   swift_getAtKeyPath();
-  SectorMark.init<A>(angle:innerRadius:outerRadius:angularInset:)(v47, v46, v44, v37, v20, v53[0], 0, v48, v54, v52);
-  return memcpy(v51, v54, 0x149uLL);
+  SectorMark.init<A>(angle:innerRadius:outerRadius:angularInset:)(v52, v51, v49, v42, v21, v58[0], 0, v53, v59, v57);
+  return memcpy(v56, v59, 0x149uLL);
 }
 
 void *sub_1AAE78C20@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   v5 = *(v2 + 24);
   v6 = *(v2 + 40);
-  swift_getAssociatedTypeWitness();
-  v7 = *(type metadata accessor for PlottableProjection() - 8);
-  v8 = (*(v7 + 80) + 48) & ~*(v7 + 80);
-  return sub_1AAE7887C(a1, v2 + v8, v2 + ((v8 + *(v7 + 64) + 7) & 0xFFFFFFFFFFFFFFF8), v2 + ((v8 + *(v7 + 64) + 127) & 0xFFFFFFFFFFFFFFF8), *(v2 + ((v8 + *(v7 + 64) + 247) & 0xFFFFFFFFFFFFFFF8)), v5, a2, v6);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v8 = *(type metadata accessor for PlottableProjection(0, AssociatedTypeWitness, v5, v6) - 8);
+  v9 = (*(v8 + 80) + 48) & ~*(v8 + 80);
+  return sub_1AAE7887C(a1, v2 + v9, v2 + ((v9 + *(v8 + 64) + 7) & 0xFFFFFFFFFFFFFFF8), v2 + ((v9 + *(v8 + 64) + 127) & 0xFFFFFFFFFFFFFFF8), *(v2 + ((v9 + *(v8 + 64) + 247) & 0xFFFFFFFFFFFFFFF8)), v5, a2, v6);
 }
 
-uint64_t VectorizedSectorPlotContent.body.getter()
+uint64_t VectorizedSectorPlotContent.body.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1 = type metadata accessor for Vectorizer();
-  v2 = *(v1 - 8);
-  MEMORY[0x1EEE9AC00](v1);
-  v4 = &v6 - v3;
-  sub_1AACE0800(v0, v1, &off_1EE75E640);
-  sub_1AACE0800(v4, v1, &off_1EE75E640);
-  return (*(v2 + 8))(v4, v1);
+  v4 = type metadata accessor for Vectorizer(0, *(a1 + 16), *(a1 + 24), a4);
+  v5 = *(v4 - 8);
+  MEMORY[0x1EEE9AC00](v4);
+  v7 = &v9 - v6;
+  sub_1AACE0800();
+  sub_1AACE0800();
+  return (*(v5 + 8))(v7, v4);
 }
 
-uint64_t sub_1AAE78E78(uint64_t a1)
-{
-  result = swift_getWitnessTable();
-  *(a1 + 8) = result;
-  return result;
-}
-
-uint64_t sub_1AAE78ECC(uint64_t a1)
+uint64_t sub_1AAE78E78(uint64_t a1, uint64_t a2)
 {
   result = swift_getWitnessTable();
   *(a1 + 8) = result;
   return result;
 }
 
-void sub_1AAE78F68()
+uint64_t sub_1AAE78ECC(uint64_t a1, uint64_t a2)
+{
+  result = swift_getWitnessTable();
+  *(a1 + 8) = result;
+  return result;
+}
+
+void sub_1AAE78F68(void *a1)
 {
   sub_1AAE842D8(319, &qword_1ED9B4438, MEMORY[0x1E69E6720]);
-  if (v0 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    sub_1AAE796C4();
-    if (v1 <= 0x3F)
+    sub_1AAE796C4(319);
+    if (v3 <= 0x3F)
     {
+      v4 = a1[2];
       sub_1AAF90774();
-      if (v2 <= 0x3F)
+      if (v5 <= 0x3F)
       {
         swift_getTupleTypeMetadata2();
-        if (v3 <= 0x3F)
+        if (v6 <= 0x3F)
         {
-          type metadata accessor for PlottableProjection();
-          if (v4 <= 0x3F)
+          type metadata accessor for PlottableProjection(319, v4, a1[3], a1[4]);
+          if (v7 <= 0x3F)
           {
             swift_getTupleTypeMetadata2();
-            if (v5 <= 0x3F)
+            if (v10 <= 0x3F)
             {
-              type metadata accessor for MarkDimensions();
+              type metadata accessor for MarkDimensions(255, v4, v8, v9);
               swift_getTupleTypeMetadata2();
-              if (v6 <= 0x3F)
+              if (v11 <= 0x3F)
               {
                 swift_getTupleTypeMetadata2();
-                if (v7 <= 0x3F)
+                if (v12 <= 0x3F)
                 {
                   swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
                 }
@@ -507,13 +969,13 @@ LABEL_37:
   }
 }
 
-void sub_1AAE796C4()
+void sub_1AAE796C4(uint64_t a1)
 {
   if (!qword_1EB4261C8)
   {
     sub_1AAE842D8(255, &qword_1ED9B4438, MEMORY[0x1E69E6720]);
     TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(TupleTypeMetadata2, &qword_1EB4261C8);
     }
@@ -728,13 +1190,13 @@ uint64_t sub_1AAE799EC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v4 = sub_1AAF8CA64();
   v5 = *(v4 - 8);
-  v6 = MEMORY[0x1EEE9AC00](v4);
-  v44 = &v40 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = MEMORY[0x1EEE9AC00](v6);
-  v43 = &v40 - v9;
-  v10 = MEMORY[0x1EEE9AC00](v8);
-  v12 = &v40 - v11;
-  MEMORY[0x1EEE9AC00](v10);
+  MEMORY[0x1EEE9AC00](v4);
+  v44 = &v40 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v43 = &v40 - v8;
+  MEMORY[0x1EEE9AC00](v9);
+  v11 = &v40 - v10;
+  MEMORY[0x1EEE9AC00](v12);
   v14 = &v40 - v13;
   sub_1AACD6DF8(0, &qword_1ED9B0BE8, type metadata accessor for PlottableValue.Storage);
   MEMORY[0x1EEE9AC00](v15);
@@ -748,18 +1210,18 @@ uint64_t sub_1AAE799EC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   sub_1AAE7B790(a1 + *(v19 + 36), v17, &qword_1ED9B0BE8, type metadata accessor for PlottableValue.Storage, sub_1AACD6DF8);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    sub_1AACD6E60();
+    sub_1AACD6E60(0);
     v21 = *(v20 + 48);
     v22 = v5[4];
     v42 = v14;
     v22(v14, v17, v4);
-    v41 = v12;
-    v22(v12, &v17[v21], v4);
+    v41 = v11;
+    v22(v11, &v17[v21], v4);
     v23 = v5[2];
     v24 = v43;
     v23(v43, v14, v4);
     v25 = v44;
-    v23(v44, v12, v4);
+    v23(v44, v11, v4);
     v27 = v46;
     v26 = v47;
     v28 = v45;
@@ -783,7 +1245,7 @@ uint64_t sub_1AAE799EC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   else
   {
     (v5[4])(v14, v17, v4);
-    (v5[2])(v12, v14, v4);
+    (v5[2])(v11, v14, v4);
     v27 = v46;
     v35 = v47;
     v28 = v45;
@@ -793,7 +1255,7 @@ uint64_t sub_1AAE799EC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
     v30 = v38;
     sub_1AAE838F8(a1);
     v39 = v5[1];
-    v39(v12, v4);
+    v39(v11, v4);
     result = (v39)(v14, v4);
     v37 = 1;
     v32 = 0;
@@ -984,22 +1446,22 @@ uint64_t sub_1AAE7A58C(uint64_t a1)
   }
 }
 
-uint64_t sub_1AAE7A634()
+uint64_t sub_1AAE7A634(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(v0 + 8);
-  v3 = *(v0 + 16);
+  v2 = *v1;
+  v3 = *(v1 + 8);
+  v4 = *(v1 + 16);
   sub_1AAF90694();
-  if (v3 < 0)
+  if (v4 < 0)
   {
     MEMORY[0x1AC5992C0](1);
-    sub_1AACDC020(v5, v1, v2, v3 & 1);
+    sub_1AACDC020(v6, v2, v3, v4 & 1);
   }
 
   else
   {
     MEMORY[0x1AC5992C0](0);
-    sub_1AAE86E08(v5, v1, v2, v3);
+    sub_1AAE86E08(v6, v2, v3, v4);
   }
 
   return sub_1AAF906F4();
@@ -1007,77 +1469,77 @@ uint64_t sub_1AAE7A634()
 
 uint64_t sub_1AAE7A6D8@<X0>(char **a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, _OWORD *a6@<X8>)
 {
-  v112 = a2;
-  v114 = a1;
-  v109 = a6;
-  sub_1AACD57C4();
-  v90 = v9;
+  v114 = a2;
+  v116 = a1;
+  v111 = a6;
+  sub_1AACD57C4(0);
+  v92 = v9;
   MEMORY[0x1EEE9AC00](v9);
-  v89 = &v84 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v91 = &v86 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v11);
-  v88 = &v84 - v12;
-  sub_1AACD6C54();
-  v93 = v13;
+  v90 = &v86 - v12;
+  sub_1AACD6C54(0);
+  v95 = v13;
   MEMORY[0x1EEE9AC00](v13);
-  v91 = &v84 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v93 = &v86 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v15);
-  v87 = &v84 - v16;
+  v89 = &v86 - v16;
   sub_1AACD6DF8(0, qword_1ED9B13F0, type metadata accessor for PlottableValue);
-  v86 = v17;
+  v88 = v17;
   MEMORY[0x1EEE9AC00](v17);
-  v92 = (&v84 - v18);
+  v94 = (&v86 - v18);
   v19 = sub_1AAF8CA64();
-  v107 = *(v19 - 8);
+  v109 = *(v19 - 8);
   MEMORY[0x1EEE9AC00](v19);
-  v94 = &v84 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v96 = &v86 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v21);
-  v97 = &v84 - v22;
+  v99 = &v86 - v22;
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v95 = &v84 - v23;
+  v97 = &v86 - v23;
   sub_1AACD6D40(0, &qword_1ED9B1678, MEMORY[0x1E6968130], MEMORY[0x1E69E6720]);
   MEMORY[0x1EEE9AC00](v24 - 8);
-  v26 = &v84 - v25;
-  v106 = sub_1AAF8C6F4();
+  v26 = &v86 - v25;
+  v108 = sub_1AAF8C6F4();
+  v107 = *(v108 - 8);
+  MEMORY[0x1EEE9AC00](v108);
+  v100 = &v86 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v106 = sub_1AAF8CBA4();
   v105 = *(v106 - 8);
   MEMORY[0x1EEE9AC00](v106);
-  v98 = &v84 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v104 = sub_1AAF8CBA4();
-  v103 = *(v104 - 8);
+  v103 = &v86 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v104 = sub_1AAF8CB94();
+  v102 = *(v104 - 8);
   MEMORY[0x1EEE9AC00](v104);
-  v101 = &v84 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v102 = sub_1AAF8CB94();
-  v100 = *(v102 - 8);
-  MEMORY[0x1EEE9AC00](v102);
-  v99 = &v84 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v110 = *(a4 - 8);
+  v101 = &v86 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v112 = *(a4 - 8);
   MEMORY[0x1EEE9AC00](v30);
-  v32 = &v84 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v33 = type metadata accessor for PlottableValue();
-  MEMORY[0x1EEE9AC00](v33 - 8);
-  v35 = &v84 - v34;
-  v36 = type metadata accessor for PlottableProjection.Storage();
-  v37 = *(v36 - 8);
-  MEMORY[0x1EEE9AC00](v36);
-  v39 = &v84 - v38;
-  v113 = a3;
-  v111 = a5;
-  v40 = type metadata accessor for PlottableProjection();
-  (*(v37 + 16))(v39, v114 + *(v40 + 44), v36);
+  v32 = &v86 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v34 = type metadata accessor for PlottableValue(0, a4, a5, v33);
+  MEMORY[0x1EEE9AC00](v34 - 8);
+  v36 = (&v86 - v35);
+  v37 = type metadata accessor for PlottableProjection.Storage(0, a3, a4, a5);
+  v38 = *(v37 - 8);
+  MEMORY[0x1EEE9AC00](v37);
+  v40 = &v86 - v39;
+  v115 = a3;
+  v113 = a5;
+  v41 = type metadata accessor for PlottableProjection(0, a3, a4, a5);
+  (*(v38 + 16))(v40, v116 + *(v41 + 44), v37);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  v108 = v40;
+  v110 = v41;
   if (EnumCaseMultiPayload <= 1)
   {
     if (!EnumCaseMultiPayload)
     {
-      v50 = v110;
-      (*(v110 + 4))(v32, v39, a4);
-      v42 = v114;
-      v51 = v111;
-      static PlottableValue.value(_:_:)(*v114, v114[1], *(v114 + 16), v114[3], a4, v35);
-      sub_1AACD6F84(v35, a4, v51, &v116);
-      (*(*(v113 - 8) + 8))(v112);
-      (*(v50 + 1))(v32, a4);
+      v52 = v112;
+      (*(v112 + 4))(v32, v40, a4);
+      v43 = v116;
+      v53 = v113;
+      static PlottableValue.value(_:_:)(*v116, v116[1], *(v116 + 16), v116[3], a4, v113, v36);
+      sub_1AACD6F84(v36, a4, v53, &v118);
+      (*(*(v115 - 8) + 8))(v114);
+      (*(v52 + 1))(v32, a4);
       goto LABEL_10;
     }
   }
@@ -1086,121 +1548,121 @@ uint64_t sub_1AAE7A6D8@<X0>(char **a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, 
   {
     if (EnumCaseMultiPayload == 2)
     {
-      v42 = v114;
-      v43 = *v114;
-      v44 = v114[1];
-      v45 = *(v114 + 16);
-      v46 = v114[3];
-      v47 = v112;
+      v43 = v116;
+      v44 = *v116;
+      v45 = v116[1];
+      v46 = *(v116 + 16);
+      v47 = v116[3];
+      v48 = v114;
       swift_getAtKeyPath();
-      v48 = v44;
-      v49 = v111;
-      static PlottableValue.value(_:_:)(v43, v48, v45, v46, a4, v35);
-      (*(v110 + 1))(v32, a4);
-      sub_1AACD6F84(v35, a4, v49, &v116);
+      v49 = v45;
+      v50 = v113;
+      v51 = static PlottableValue.value(_:_:)(v44, v49, v46, v47, a4, v113, v36);
+      (*(v112 + 1))(v32, a4, v51);
+      sub_1AACD6F84(v36, a4, v50, &v118);
 
-      (*(*(v113 - 8) + 8))(v47);
+      (*(*(v115 - 8) + 8))(v48);
 LABEL_10:
-      result = (*(*(v108 - 8) + 8))(v42);
-      v78 = v120;
-      v79 = v118;
-      v115 = v117 & 1;
-      v80 = v117 & 1;
-      v81 = v109;
-      *v109 = v116;
-      *(v81 + 16) = v80;
-      *(v81 + 3) = v79;
-      v81[2] = v119;
-      *(v81 + 48) = v78;
-      *(v81 + 56) = v121;
+      result = (*(*(v110 - 8) + 8))(v43);
+      v80 = v122;
+      v81 = v120;
+      v117 = v119 & 1;
+      v82 = v119 & 1;
+      v83 = v111;
+      *v111 = v118;
+      *(v83 + 16) = v82;
+      *(v83 + 3) = v81;
+      v83[2] = v121;
+      *(v83 + 48) = v80;
+      *(v83 + 56) = v123;
       return result;
     }
 
-    v85 = v26;
+    v87 = v26;
     if (EnumCaseMultiPayload != 4)
     {
-      v83 = *(v37 + 8);
-      a4 = v36;
+      v85 = *(v38 + 8);
+      a4 = v37;
       goto LABEL_15;
     }
 
-    v52 = *v39;
+    v54 = *v40;
     sub_1AAF90774();
-    v53 = v102;
-    v54 = v104;
+    v55 = v104;
+    v56 = v106;
     TupleTypeMetadata3 = swift_getTupleTypeMetadata3();
-    v56 = *(TupleTypeMetadata3 + 64);
-    (*(v100 + 32))(v99, &v39[*(TupleTypeMetadata3 + 48)], v53);
-    (*(v103 + 32))(v101, &v39[v56], v54);
-    v84 = v52;
+    v58 = *(TupleTypeMetadata3 + 64);
+    (*(v102 + 32))(v101, &v40[*(TupleTypeMetadata3 + 48)], v55);
+    (*(v105 + 32))(v103, &v40[v58], v56);
+    v86 = v54;
     swift_getAtKeyPath();
-    (*(v111 + 24))(a4);
-    (*(v110 + 1))(v32, a4);
-    v39 = v97;
+    (*(v113 + 24))(a4);
+    (*(v112 + 1))(v32, a4);
+    v40 = v99;
     swift_dynamicCast();
-    v57 = v85;
+    v59 = v87;
     sub_1AAF8CAD4();
-    AssociatedTypeWitness = *(v107 + 8);
-    AssociatedTypeWitness(v39, v19);
-    v58 = v105;
-    a4 = v106;
-    if ((*(v105 + 48))(v57, 1, v106) != 1)
+    AssociatedTypeWitness = *(v109 + 8);
+    AssociatedTypeWitness(v40, v19);
+    v60 = v107;
+    a4 = v108;
+    if ((*(v107 + 48))(v59, 1, v108) != 1)
     {
-      (*(v58 + 32))(v98, v57, a4);
-      v59 = v114[1];
-      v95 = *v114;
-      v85 = v59;
-      LODWORD(v111) = *(v114 + 16);
-      v60 = v114[3];
+      (*(v60 + 32))(v100, v59, a4);
+      v61 = v116[1];
+      v97 = *v116;
+      v87 = v61;
+      LODWORD(v113) = *(v116 + 16);
+      v62 = v116[3];
       sub_1AAF8C6E4();
-      v61 = v39;
-      v39 = v94;
+      v63 = v40;
+      v40 = v96;
       sub_1AAF8C6D4();
-      sub_1AACECB5C(&qword_1ED9B6BA8, MEMORY[0x1E6969530]);
+      sub_1AACECB5C(&qword_1ED9B6BA8, MEMORY[0x1E6969530], MEMORY[0x1E6969548]);
       if (sub_1AAF8F584())
       {
-        v110 = v60;
-        v62 = *(v107 + 32);
-        v63 = v88;
-        v62(v88, v61, v19);
-        v64 = v90;
-        v62((v63 + *(v90 + 48)), v39, v19);
-        v65 = v89;
-        sub_1AAE8432C(v63, v89, sub_1AACD57C4);
-        v66 = *(v64 + 48);
-        v67 = v87;
-        v62(v87, v65, v19);
-        v68 = AssociatedTypeWitness;
-        AssociatedTypeWitness((v65 + v66), v19);
-        sub_1AACD58FC(v63, v65, sub_1AACD57C4);
-        v69 = v93;
-        v62((v67 + *(v93 + 36)), (v65 + *(v64 + 48)), v19);
-        v68(v65, v19);
-        v70 = v91;
-        sub_1AACD58FC(v67, v91, sub_1AACD6C54);
-        v71 = v92;
-        v72 = v95;
-        v73 = v85;
-        *v92 = v95;
-        *(v71 + 8) = v73;
-        *(v71 + 16) = v111;
-        *(v71 + 24) = v110;
-        v74 = v71 + *(v86 + 36);
-        sub_1AACD6E60();
-        v76 = *(v75 + 48);
-        v62(v74, v70, v19);
-        v62((v74 + v76), (v70 + *(v69 + 36)), v19);
+        v112 = v62;
+        v64 = *(v109 + 32);
+        v65 = v90;
+        v64(v90, v63, v19);
+        v66 = v92;
+        v64((v65 + *(v92 + 48)), v40, v19);
+        v67 = v91;
+        sub_1AAE8432C(v65, v91, sub_1AACD57C4);
+        v68 = *(v66 + 48);
+        v69 = v89;
+        v64(v89, v67, v19);
+        v70 = AssociatedTypeWitness;
+        AssociatedTypeWitness((v67 + v68), v19);
+        sub_1AACD58FC(v65, v67, sub_1AACD57C4);
+        v71 = v95;
+        v64((v69 + *(v95 + 36)), (v67 + *(v66 + 48)), v19);
+        v70(v67, v19);
+        v72 = v93;
+        sub_1AACD58FC(v69, v93, sub_1AACD6C54);
+        v73 = v94;
+        v74 = v97;
+        v75 = v87;
+        *v94 = v97;
+        *(v73 + 8) = v75;
+        *(v73 + 16) = v113;
+        *(v73 + 24) = v112;
+        v76 = v73 + *(v88 + 36);
+        sub_1AACD6E60(0);
+        v78 = *(v77 + 48);
+        v64(v76, v72, v19);
+        v64((v76 + v78), (v72 + *(v71 + 36)), v19);
         sub_1AACD6DF8(0, &qword_1ED9B0BE8, type metadata accessor for PlottableValue.Storage);
         swift_storeEnumTagMultiPayload();
-        sub_1AACD7304(v72, v73, v111);
+        sub_1AACD7304(v74, v75, v113);
 
-        sub_1AAE799EC(v71, &v116);
+        sub_1AAE799EC(v73, &v118);
 
-        (*(*(v113 - 8) + 8))(v112);
-        (*(v105 + 8))(v98, v106);
-        (*(v103 + 8))(v101, v104);
-        (*(v100 + 8))(v99, v102);
-        v42 = v114;
+        (*(*(v115 - 8) + 8))(v114);
+        (*(v107 + 8))(v100, v108);
+        (*(v105 + 8))(v103, v106);
+        (*(v102 + 8))(v101, v104);
+        v43 = v116;
         goto LABEL_10;
       }
 
@@ -1211,10 +1673,10 @@ LABEL_10:
   }
 
   TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-  v83 = *(v110 + 1);
-  v83(&v39[*(TupleTypeMetadata2 + 48)], a4);
+  v85 = *(v112 + 1);
+  v85(&v40[*(TupleTypeMetadata2 + 48)], a4);
 LABEL_15:
-  v83(v39, a4);
+  v85(v40, a4);
   result = sub_1AAF902C4();
   __break(1u);
   return result;
@@ -1261,22 +1723,22 @@ uint64_t sub_1AAE7B59C(uint64_t a1)
   }
 }
 
-uint64_t sub_1AAE7B644()
+uint64_t sub_1AAE7B644(uint64_t a1)
 {
-  v1 = *(v0 + 32);
-  v2 = *(v0 + 40);
-  v3 = *(v0 + 48);
+  v2 = *(v1 + 32);
+  v3 = *(v1 + 40);
+  v4 = *(v1 + 48);
   sub_1AAF90694();
-  if (v3 < 0)
+  if (v4 < 0)
   {
     MEMORY[0x1AC5992C0](1);
-    sub_1AACDC020(v5, v1, v2, v3 & 1);
+    sub_1AACDC020(v6, v2, v3, v4 & 1);
   }
 
   else
   {
     MEMORY[0x1AC5992C0](0);
-    sub_1AAE86E08(v5, v1, v2, v3);
+    sub_1AAE86E08(v6, v2, v3, v4);
   }
 
   return sub_1AAF906F4();
@@ -1301,280 +1763,280 @@ uint64_t sub_1AAE7B790(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return a2;
 }
 
-uint64_t sub_1AAE7B800@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, _OWORD *a6@<X8>)
+uint64_t sub_1AAE7B800@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, _OWORD *a6@<X8>)
 {
-  v136 = a2;
-  v137 = a1;
-  v132 = a6;
+  v142 = a2;
+  v143 = a1;
+  v138 = a6;
   sub_1AACD6DF8(0, qword_1ED9B13F0, type metadata accessor for PlottableValue);
-  v118 = v9;
+  v124 = v9;
   MEMORY[0x1EEE9AC00](v9);
-  v109 = &v108 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v115 = &v114 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v11);
-  v111 = (&v108 - v12);
+  v117 = (&v114 - v12);
   MEMORY[0x1EEE9AC00](v13);
-  v110 = (&v108 - v14);
-  v129 = sub_1AAF8CA64();
-  v117 = *(v129 - 1);
-  MEMORY[0x1EEE9AC00](v129);
-  v116 = &v108 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v116 = (&v114 - v14);
+  v135 = sub_1AAF8CA64();
+  v123 = *(v135 - 1);
+  MEMORY[0x1EEE9AC00](v135);
+  v122 = &v114 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v113 = &v108 - v16;
+  v119 = &v114 - v16;
   sub_1AACD6D40(0, &qword_1ED9B1678, MEMORY[0x1E6968130], MEMORY[0x1E69E6720]);
   MEMORY[0x1EEE9AC00](v17 - 8);
-  v115 = &v108 - v18;
+  v121 = &v114 - v18;
   v19 = sub_1AAF8C6F4();
-  v125 = *(v19 - 8);
-  v126 = v19;
+  v131 = *(v19 - 8);
+  v132 = v19;
   MEMORY[0x1EEE9AC00](v19);
-  v128 = &v108 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v134 = &v114 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
   v21 = sub_1AAF8CBA4();
-  v123 = *(v21 - 8);
-  v124 = v21;
+  v129 = *(v21 - 8);
+  v130 = v21;
   MEMORY[0x1EEE9AC00](v21);
-  v121 = &v108 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v122 = sub_1AAF8CB94();
-  v120 = *(v122 - 8);
-  MEMORY[0x1EEE9AC00](v122);
-  v119 = &v108 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v24 = type metadata accessor for PlottableValue();
-  v130 = *(v24 - 8);
-  v131 = v24;
-  MEMORY[0x1EEE9AC00](v24);
-  v127 = &v108 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v26);
-  v28 = &v108 - v27;
-  v135 = *(a4 - 8);
-  MEMORY[0x1EEE9AC00](v29);
-  v31 = &v108 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v32);
-  v34 = &v108 - v33;
-  v35 = type metadata accessor for PlottableProjection.Storage();
-  v36 = *(v35 - 8);
-  MEMORY[0x1EEE9AC00](v35);
-  v38 = (&v108 - v37);
-  v133 = a5;
-  v134 = a3;
-  v39 = type metadata accessor for PlottableProjection();
-  (*(v36 + 16))(v38, v137 + *(v39 + 44), v35);
+  v127 = &v114 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v128 = sub_1AAF8CB94();
+  v126 = *(v128 - 8);
+  MEMORY[0x1EEE9AC00](v128);
+  v125 = &v114 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v25 = type metadata accessor for PlottableValue(0, a4, a5, v24);
+  v136 = *(v25 - 8);
+  v137 = v25;
+  MEMORY[0x1EEE9AC00](v25);
+  v133 = &v114 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v27);
+  v29 = &v114 - v28;
+  v141 = *(a4 - 8);
+  MEMORY[0x1EEE9AC00](v30);
+  v32 = &v114 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v33);
+  v35 = &v114 - v34;
+  v36 = type metadata accessor for PlottableProjection.Storage(0, a3, a4, a5);
+  v37 = *(v36 - 8);
+  MEMORY[0x1EEE9AC00](v36);
+  v39 = (&v114 - v38);
+  v139 = a5;
+  v140 = a3;
+  v40 = type metadata accessor for PlottableProjection(0, a3, a4, a5);
+  (*(v37 + 16))(v39, v143 + *(v40 + 44), v36);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload <= 1)
   {
     if (EnumCaseMultiPayload)
     {
-      v89 = *(swift_getTupleTypeMetadata2() + 48);
-      v112 = v39;
-      v90 = *(v135 + 32);
-      v90(v34, v38, a4);
-      v90(v31, (v38 + v89), a4);
-      v91 = *v137;
-      v92 = *(v137 + 8);
-      LOBYTE(v89) = *(v137 + 16);
-      v93 = *(v137 + 24);
-      v94 = v28;
-      v95 = *v137;
-      v129 = v28;
-      v96 = v133;
-      static PlottableValue.value(_:_:)(v95, v92, v89, v93, a4, v94);
-      v97 = v127;
-      static PlottableValue.value(_:_:)(v91, v92, v89, v93, a4, v127);
-      v98 = v129;
-      v99 = sub_1AAE83D50(v129, v97, a4, v96, &v138);
-      v100 = v131;
-      v101 = *(v130 + 8);
-      v101(v97, v131, v99);
-      (v101)(v98, v100);
-      (*(*(v134 - 8) + 8))(v136);
-      v102 = *(v135 + 8);
-      v102(v31, a4);
-      v102(v34, a4);
+      v95 = *(swift_getTupleTypeMetadata2() + 48);
+      v118 = v40;
+      v96 = *(v141 + 32);
+      v96(v35, v39, a4);
+      v96(v32, (v39 + v95), a4);
+      v97 = *v143;
+      v98 = v143[1];
+      LOBYTE(v95) = *(v143 + 16);
+      v99 = v143[3];
+      v100 = v29;
+      v101 = *v143;
+      v135 = v29;
+      v102 = v139;
+      static PlottableValue.value(_:_:)(v101, v98, v95, v99, a4, v139, v100);
+      v103 = v133;
+      static PlottableValue.value(_:_:)(v97, v98, v95, v99, a4, v102, v133);
+      v104 = v135;
+      v105 = sub_1AAE83D50(v135, v103, a4, v102, &v144);
+      v106 = v137;
+      v107 = *(v136 + 8);
+      v107(v103, v137, v105);
+      (v107)(v104, v106);
+      (*(*(v140 - 8) + 8))(v142);
+      v108 = *(v141 + 8);
+      v108(v32, a4);
+      v108(v35, a4);
       goto LABEL_12;
     }
 
-    v53 = v135;
-    (*(v135 + 32))(v34, v38, a4);
-    v54 = v137;
-    v55 = v133;
-    static PlottableValue.value(_:_:)(*v137, *(v137 + 8), *(v137 + 16), *(v137 + 24), a4, v28);
-    v56 = sub_1AAE83B9C(v28, a4, v55, &v138);
-    (*(v130 + 8))(v28, v131, v56);
-    (*(*(v134 - 8) + 8))(v136);
-    (*(v53 + 8))(v34, a4);
+    v56 = v141;
+    (*(v141 + 32))(v35, v39, a4);
+    v57 = v143;
+    v58 = v139;
+    static PlottableValue.value(_:_:)(*v143, v143[1], *(v143 + 16), v143[3], a4, v139, v29);
+    v60 = sub_1AAE83B9C(v29, a4, v58, v59, &v144);
+    (*(v136 + 8))(v29, v137, v60);
+    (*(*(v140 - 8) + 8))(v142);
+    (*(v56 + 8))(v35, a4);
     goto LABEL_8;
   }
 
   if (EnumCaseMultiPayload == 2)
   {
-    v129 = *v38;
-    v54 = v137;
-    v57 = *v137;
-    v58 = *(v137 + 8);
-    v59 = *(v137 + 16);
-    v60 = *(v137 + 24);
+    v135 = *v39;
+    v57 = v143;
+    v61 = *v143;
+    v62 = v143[1];
+    v63 = *(v143 + 16);
+    v64 = v143[3];
     swift_getAtKeyPath();
-    v61 = v57;
-    v62 = v133;
-    static PlottableValue.value(_:_:)(v61, v58, v59, v60, a4, v28);
-    (*(v135 + 8))(v34, a4);
-    v63 = sub_1AAE83B9C(v28, a4, v62, &v138);
-    (*(v130 + 8))(v28, v131, v63);
+    v65 = v61;
+    v66 = v139;
+    v67 = static PlottableValue.value(_:_:)(v65, v62, v63, v64, a4, v139, v29);
+    (*(v141 + 8))(v35, a4, v67);
+    v69 = sub_1AAE83B9C(v29, a4, v66, v68, &v144);
+    (*(v136 + 8))(v29, v137, v69);
 
-    (*(*(v134 - 8) + 8))(v136);
+    (*(*(v140 - 8) + 8))(v142);
 LABEL_8:
-    result = (*(*(v39 - 8) + 8))(v54, v39);
+    result = (*(*(v40 - 8) + 8))(v57, v40);
 LABEL_13:
-    v103 = v132;
-    v104 = v145;
-    v132[6] = v144;
-    v103[7] = v104;
-    v103[8] = v146;
-    v105 = v141;
-    v103[2] = v140;
-    v103[3] = v105;
-    v106 = v143;
-    v103[4] = v142;
-    v103[5] = v106;
-    v107 = v139;
-    *v103 = v138;
-    v103[1] = v107;
+    v109 = v138;
+    v110 = v151;
+    v138[6] = v150;
+    v109[7] = v110;
+    v109[8] = v152;
+    v111 = v147;
+    v109[2] = v146;
+    v109[3] = v111;
+    v112 = v149;
+    v109[4] = v148;
+    v109[5] = v112;
+    v113 = v145;
+    *v109 = v144;
+    v109[1] = v113;
     return result;
   }
 
-  v112 = v39;
+  v118 = v40;
   if (EnumCaseMultiPayload == 3)
   {
-    v128 = *v38;
-    v42 = *(v137 + 8);
-    v126 = *v137;
-    v41 = v126;
-    v43 = *(v137 + 16);
-    LODWORD(v125) = v43;
-    v44 = *(v137 + 24);
+    v134 = *v39;
+    v43 = v143[1];
+    v132 = *v143;
+    v42 = v132;
+    v44 = *(v143 + 16);
+    LODWORD(v131) = v44;
+    v45 = v143[3];
     swift_getAtKeyPath();
-    v45 = v28;
-    v129 = v28;
-    v46 = v133;
-    static PlottableValue.value(_:_:)(v41, v42, v43, v44, a4, v45);
-    v47 = *(v135 + 8);
-    v47(v34, a4);
+    v46 = v29;
+    v135 = v29;
+    v47 = v139;
+    v48 = static PlottableValue.value(_:_:)(v42, v43, v44, v45, a4, v139, v46);
+    v49 = *(v141 + 8);
+    v49(v35, a4, v48);
     swift_getAtKeyPath();
-    v48 = v127;
-    static PlottableValue.value(_:_:)(v126, v42, v125, v44, a4, v127);
-    v47(v34, a4);
-    v49 = v129;
-    v50 = sub_1AAE83D50(v129, v48, a4, v46, &v138);
-    v51 = v131;
-    v52 = *(v130 + 8);
-    v52(v48, v131, v50);
-    (v52)(v49, v51);
+    v50 = v133;
+    v51 = static PlottableValue.value(_:_:)(v132, v43, v131, v45, a4, v47, v133);
+    v49(v35, a4, v51);
+    v52 = v135;
+    v53 = sub_1AAE83D50(v135, v50, a4, v47, &v144);
+    v54 = v137;
+    v55 = *(v136 + 8);
+    v55(v50, v137, v53);
+    (v55)(v52, v54);
 
-    (*(*(v134 - 8) + 8))(v136);
+    (*(*(v140 - 8) + 8))(v142);
 LABEL_12:
-    result = (*(*(v112 - 8) + 8))(v137, v112);
+    result = (*(*(v118 - 8) + 8))(v143, v118);
     goto LABEL_13;
   }
 
-  v65 = *v38;
+  v71 = *v39;
   sub_1AAF90774();
-  v66 = v122;
-  v67 = v124;
+  v72 = v128;
+  v73 = v130;
   TupleTypeMetadata3 = swift_getTupleTypeMetadata3();
-  v69 = *(TupleTypeMetadata3 + 64);
-  (*(v120 + 32))(v119, v38 + *(TupleTypeMetadata3 + 48), v66);
-  (*(v123 + 32))(v121, v38 + v69, v67);
-  v131 = v65;
+  v75 = *(TupleTypeMetadata3 + 64);
+  (*(v126 + 32))(v125, v39 + *(TupleTypeMetadata3 + 48), v72);
+  (*(v129 + 32))(v127, v39 + v75, v73);
+  v137 = v71;
   swift_getAtKeyPath();
-  (*(v133 + 24))(a4);
-  (*(v135 + 8))(v34, a4);
-  v70 = v116;
-  v71 = v129;
+  (*(v139 + 24))(a4);
+  (*(v141 + 8))(v35, a4);
+  v76 = v122;
+  v77 = v135;
   swift_dynamicCast();
-  v72 = v115;
+  v78 = v121;
   sub_1AAF8CAD4();
-  v73 = v117;
-  (*(v117 + 8))(v70, v71);
-  v74 = v125;
-  result = (*(v125 + 48))(v72, 1, v126);
+  v79 = v123;
+  (*(v123 + 8))(v76, v77);
+  v80 = v131;
+  result = (*(v131 + 48))(v78, 1, v132);
   if (result != 1)
   {
-    (*(v74 + 32))();
-    v75 = *v137;
-    v76 = *(v137 + 8);
-    v77 = *(v137 + 16);
-    v133 = *(v137 + 24);
-    v78 = v133;
+    (*(v80 + 32))();
+    v81 = *v143;
+    v82 = v143[1];
+    v83 = *(v143 + 16);
+    v139 = v143[3];
+    v84 = v139;
     sub_1AAF8C6E4();
-    v79 = v110;
-    *v110 = v75;
-    *(v79 + 8) = v76;
-    *(v79 + 16) = v77;
-    *(v79 + 24) = v78;
-    v80 = *(v118 + 36);
-    v135 = *(v73 + 32);
-    (v135)(v79 + v80, v70, v129);
+    v85 = v116;
+    *v116 = v81;
+    *(v85 + 8) = v82;
+    *(v85 + 16) = v83;
+    *(v85 + 24) = v84;
+    v86 = *(v124 + 36);
+    v141 = *(v79 + 32);
+    (v141)(v85 + v86, v76, v135);
     sub_1AACD6DF8(0, &qword_1ED9B0BE8, type metadata accessor for PlottableValue.Storage);
     swift_storeEnumTagMultiPayload();
-    v81 = v75;
-    v82 = v75;
-    v83 = v76;
-    v84 = v76;
-    LOBYTE(v76) = v77;
-    sub_1AACD7304(v82, v84, v77);
-    v85 = v133;
+    v87 = v81;
+    v88 = v81;
+    v89 = v82;
+    v90 = v82;
+    LOBYTE(v82) = v83;
+    sub_1AACD7304(v88, v90, v83);
+    v91 = v139;
 
     sub_1AAF8C6D4();
-    v86 = v111;
-    *v111 = v81;
-    *(v86 + 8) = v83;
-    *(v86 + 16) = v76;
-    *(v86 + 24) = v85;
-    (v135)(v86 + *(v118 + 36), v70, v129);
+    v92 = v117;
+    *v117 = v87;
+    *(v92 + 8) = v89;
+    *(v92 + 16) = v82;
+    *(v92 + 24) = v91;
+    (v141)(v92 + *(v124 + 36), v76, v135);
     swift_storeEnumTagMultiPayload();
-    v87 = v109;
-    sub_1AAE7B790(v79, v109, qword_1ED9B13F0, type metadata accessor for PlottableValue, sub_1AACD6DF8);
-    sub_1AACD7304(v81, v83, v76);
+    v93 = v115;
+    sub_1AAE7B790(v85, v115, qword_1ED9B13F0, type metadata accessor for PlottableValue, sub_1AACD6DF8);
+    sub_1AACD7304(v87, v89, v82);
 
-    sub_1AAE799EC(v87, &v147);
-    sub_1AAE7B790(v86, v87, qword_1ED9B13F0, type metadata accessor for PlottableValue, sub_1AACD6DF8);
-    sub_1AAE799EC(v87, v152);
+    sub_1AAE799EC(v93, &v153);
+    sub_1AAE7B790(v92, v93, qword_1ED9B13F0, type metadata accessor for PlottableValue, sub_1AACD6DF8);
+    sub_1AAE799EC(v93, v158);
 
-    (*(*(v134 - 8) + 8))(v136);
-    sub_1AAE838F8(v86);
-    sub_1AAE838F8(v79);
-    (*(v125 + 8))(v128, v126);
-    (*(v123 + 8))(v121, v124);
-    (*(v120 + 8))(v119, v122);
-    v156 = v149;
-    v157 = v150;
-    v154 = v147;
-    v155 = v148;
-    *(&v158[2] + 8) = v152[2];
-    *(&v158[3] + 8) = v152[3];
-    *&v158[0] = v151;
-    *(&v158[4] + 1) = v153;
-    *(v158 + 8) = v152[0];
-    *(&v158[1] + 8) = v152[1];
-    v165 = v158[2];
-    v166 = v158[3];
-    v167 = v158[4];
-    v161 = v149;
-    v162 = v150;
-    v163 = v158[0];
-    v164 = v158[1];
-    v159 = v147;
-    v160 = v148;
-    v88 = sub_1AAE52954(&v159);
-    result = (*(*(v112 - 8) + 8))(v137, v88);
+    (*(*(v140 - 8) + 8))(v142);
+    sub_1AAE838F8(v92);
+    sub_1AAE838F8(v85);
+    (*(v131 + 8))(v134, v132);
+    (*(v129 + 8))(v127, v130);
+    (*(v126 + 8))(v125, v128);
+    v162 = v155;
+    v163 = v156;
+    v160 = v153;
+    v161 = v154;
+    *(&v164[2] + 8) = v158[2];
+    *(&v164[3] + 8) = v158[3];
+    *&v164[0] = v157;
+    *(&v164[4] + 1) = v159;
+    *(v164 + 8) = v158[0];
+    *(&v164[1] + 8) = v158[1];
+    v171 = v164[2];
+    v172 = v164[3];
+    v173 = v164[4];
+    v167 = v155;
+    v168 = v156;
+    v169 = v164[0];
+    v170 = v164[1];
+    v165 = v153;
+    v166 = v154;
+    v94 = sub_1AAE52954(&v165);
+    result = (*(*(v118 - 8) + 8))(v143, v94);
+    v150 = v171;
+    v151 = v172;
+    v152 = v173;
+    v146 = v167;
+    v147 = v168;
+    v148 = v169;
+    v149 = v170;
     v144 = v165;
     v145 = v166;
-    v146 = v167;
-    v140 = v161;
-    v141 = v162;
-    v142 = v163;
-    v143 = v164;
-    v138 = v159;
-    v139 = v160;
     goto LABEL_13;
   }
 
@@ -1582,178 +2044,178 @@ LABEL_12:
   return result;
 }
 
-uint64_t sub_1AAE7C71C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, _OWORD *a7@<X8>)
+uint64_t sub_1AAE7C71C@<X0>(uint64_t *a1@<X0>, char *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, _OWORD *a7@<X8>)
 {
-  v98 = a3;
-  v101 = a2;
-  v95 = a7;
-  v92 = type metadata accessor for PlottableValue();
-  v91 = *(v92 - 8);
-  MEMORY[0x1EEE9AC00](v92);
-  v89 = &v83 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v100 = a3;
+  v103 = a2;
+  v97 = a7;
+  v94 = type metadata accessor for PlottableValue(0, a5, a6, a4);
+  v93 = *(v94 - 8);
+  MEMORY[0x1EEE9AC00](v94);
+  v91 = &v85 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v12);
-  v97 = &v83 - v13;
-  v93 = *(a5 - 8);
+  v99 = &v85 - v13;
+  v95 = *(a5 - 8);
   MEMORY[0x1EEE9AC00](v14);
-  v84 = &v83 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v86 = &v85 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v16);
-  v85 = &v83 - v17;
-  v18 = type metadata accessor for PlottableProjection.Storage();
+  v87 = &v85 - v17;
+  v18 = type metadata accessor for PlottableProjection.Storage(0, a4, a5, a6);
   v19 = *(v18 - 8);
   MEMORY[0x1EEE9AC00](v18);
-  v21 = (&v83 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v21 = (&v85 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0));
   MEMORY[0x1EEE9AC00](v22);
-  v83 = &v83 - v23;
+  v85 = &v85 - v23;
   MEMORY[0x1EEE9AC00](v24);
-  v26 = &v83 - v25;
+  v26 = &v85 - v25;
   TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
   v28 = TupleTypeMetadata2 - 8;
   MEMORY[0x1EEE9AC00](TupleTypeMetadata2);
-  v30 = &v83 - v29;
-  v94 = a4;
-  v88 = a5;
-  v90 = a6;
-  v87 = type metadata accessor for PlottableProjection();
-  v31 = *(v87 + 44);
+  v30 = &v85 - v29;
+  v96 = a4;
+  v90 = a5;
+  v92 = a6;
+  v89 = type metadata accessor for PlottableProjection(0, a4, a5, a6);
+  v31 = *(v89 + 44);
   v32 = &v30[*(v28 + 56)];
-  v96 = v19;
+  v98 = v19;
   v33 = *(v19 + 16);
   v34 = a1;
   v33(v30, a1 + v31, v18);
-  v33(v32, v101 + v31, v18);
-  v100 = v30;
-  v99 = v18;
+  v33(v32, &v103[v31], v18);
+  v102 = v30;
+  v101 = v18;
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  v86 = a1;
+  v88 = a1;
   if (EnumCaseMultiPayload > 1)
   {
     if (EnumCaseMultiPayload == 2)
     {
-      v33(v21, v100, v99);
+      v33(v21, v102, v101);
       v50 = *v21;
       if (swift_getEnumCaseMultiPayload() == 2)
       {
-        v84 = *v32;
+        v86 = *v32;
         v52 = *a1;
-        v51 = *(a1 + 8);
+        v51 = a1[1];
         v53 = *(a1 + 16);
-        v54 = *(a1 + 24);
-        v55 = v85;
+        v54 = a1[3];
+        v55 = v87;
         swift_getAtKeyPath();
-        v56 = v88;
-        v83 = v50;
-        v57 = v90;
-        static PlottableValue.value(_:_:)(v52, v51, v53, v54, v88, v97);
-        v93 = *(v93 + 8);
-        (v93)(v55, v56);
-        v43 = v101;
-        v58 = *v101;
-        v59 = *(v101 + 8);
-        LOBYTE(v54) = *(v101 + 16);
-        v60 = *(v101 + 24);
+        v56 = v90;
+        v85 = v50;
+        v57 = v92;
+        v58 = static PlottableValue.value(_:_:)(v52, v51, v53, v54, v90, v92, v99);
+        v95 = *(v95 + 8);
+        (v95)(v55, v56, v58);
+        v43 = v103;
+        v59 = *v103;
+        v60 = *(v103 + 1);
+        LOBYTE(v54) = v103[16];
+        v61 = *(v103 + 3);
         swift_getAtKeyPath();
-        v61 = v89;
-        static PlottableValue.value(_:_:)(v58, v59, v54, v60, v56, v89);
-        (v93)(v55, v56);
-        v62 = v97;
-        v63 = sub_1AAE83D50(v97, v61, v56, v57, v102);
-        v64 = *(v91 + 8);
-        v65 = v92;
-        v64(v61, v92, v63);
-        (v64)(v62, v65);
+        v62 = v91;
+        v63 = static PlottableValue.value(_:_:)(v59, v60, v54, v61, v56, v57, v91);
+        (v95)(v55, v56, v63);
+        v64 = v99;
+        v65 = sub_1AAE83D50(v99, v62, v56, v57, v104);
+        v66 = *(v93 + 8);
+        v67 = v94;
+        v66(v62, v94, v65);
+        (v66)(v64, v67);
 
-        (*(*(v94 - 8) + 8))(v98);
+        (*(*(v96 - 8) + 8))(v100);
         goto LABEL_8;
       }
     }
 
     else if (EnumCaseMultiPayload == 3 && swift_getEnumCaseMultiPayload() == 3)
     {
-      v78 = *(v96 + 8);
-      v78(v32, v99);
-      v78(v100, v99);
+      v80 = *(v98 + 8);
+      v80(v32, v101);
+      v80(v102, v101);
     }
   }
 
   else if (EnumCaseMultiPayload)
   {
-    v33(v83, v100, v99);
-    v74 = *(swift_getTupleTypeMetadata2() + 48);
+    v33(v85, v102, v101);
+    v76 = *(swift_getTupleTypeMetadata2() + 48);
     if (swift_getEnumCaseMultiPayload() == 1)
     {
-      v75 = *(v93 + 8);
-      v76 = v88;
-      v75(&v32[v74], v88);
-      v75(v32, v76);
-      v77 = v83;
-      v75(&v83[v74], v76);
-      v75(v77, v76);
-      (*(v96 + 8))(v100, v99);
+      v77 = *(v95 + 8);
+      v78 = v90;
+      v77(&v32[v76], v90);
+      v77(v32, v78);
+      v79 = v85;
+      v77(&v85[v76], v78);
+      v77(v79, v78);
+      (*(v98 + 8))(v102, v101);
     }
 
     else
     {
-      v79 = *(v93 + 8);
-      v80 = v83;
-      v81 = &v83[v74];
-      v82 = v88;
-      v79(v81, v88);
-      v79(v80, v82);
+      v81 = *(v95 + 8);
+      v82 = v85;
+      v83 = &v85[v76];
+      v84 = v90;
+      v81(v83, v90);
+      v81(v82, v84);
     }
   }
 
   else
   {
-    v33(v26, v100, v99);
+    v33(v26, v102, v101);
     if (!swift_getEnumCaseMultiPayload())
     {
-      v36 = v93;
-      v37 = *(v93 + 32);
-      v38 = v85;
-      v39 = v88;
-      v37(v85, v26, v88);
-      v40 = v84;
-      v37(v84, v32, v39);
-      v41 = v97;
-      v42 = v90;
-      static PlottableValue.value(_:_:)(*v34, *(v34 + 8), *(v34 + 16), *(v34 + 24), v39, v97);
-      v43 = v101;
-      v44 = v89;
-      static PlottableValue.value(_:_:)(*v101, *(v101 + 8), *(v101 + 16), *(v101 + 24), v39, v89);
-      v45 = sub_1AAE83D50(v41, v44, v39, v42, v102);
-      v46 = *(v91 + 8);
+      v36 = v95;
+      v37 = *(v95 + 32);
+      v38 = v87;
+      v39 = v90;
+      v37(v87, v26, v90);
+      v40 = v86;
+      v37(v86, v32, v39);
+      v41 = v99;
+      v42 = v92;
+      static PlottableValue.value(_:_:)(*v34, v34[1], *(v34 + 16), v34[3], v39, v92, v99);
+      v43 = v103;
+      v44 = v91;
+      static PlottableValue.value(_:_:)(*v103, *(v103 + 1), v103[16], *(v103 + 3), v39, v42, v91);
+      v45 = sub_1AAE83D50(v41, v44, v39, v42, v104);
+      v46 = *(v93 + 8);
       v47 = v44;
-      v48 = v92;
-      v46(v47, v92, v45);
+      v48 = v94;
+      v46(v47, v94, v45);
       (v46)(v41, v48);
-      (*(*(v94 - 8) + 8))(v98);
+      (*(*(v96 - 8) + 8))(v100);
       v49 = *(v36 + 8);
       v49(v40, v39);
       v49(v38, v39);
 LABEL_8:
-      v66 = v87;
-      v67 = *(*(v87 - 8) + 8);
-      v67(v43, v87);
-      v67(v86, v66);
-      result = (*(v96 + 8))(v100, v99);
-      v69 = v102[7];
-      v70 = v95;
-      v95[6] = v102[6];
-      v70[7] = v69;
-      v70[8] = v102[8];
-      v71 = v102[3];
-      v70[2] = v102[2];
-      v70[3] = v71;
-      v72 = v102[5];
-      v70[4] = v102[4];
-      v70[5] = v72;
-      v73 = v102[1];
-      *v70 = v102[0];
-      v70[1] = v73;
+      v68 = v89;
+      v69 = *(*(v89 - 8) + 8);
+      v69(v43, v89);
+      v69(v88, v68);
+      result = (*(v98 + 8))(v102, v101);
+      v71 = v104[7];
+      v72 = v97;
+      v97[6] = v104[6];
+      v72[7] = v71;
+      v72[8] = v104[8];
+      v73 = v104[3];
+      v72[2] = v104[2];
+      v72[3] = v73;
+      v74 = v104[5];
+      v72[4] = v104[4];
+      v72[5] = v74;
+      v75 = v104[1];
+      *v72 = v104[0];
+      v72[1] = v75;
       return result;
     }
 
-    (*(v93 + 8))(v26, v88);
+    (*(v95 + 8))(v26, v90);
   }
 
   result = sub_1AAF902C4();
@@ -1761,334 +2223,334 @@ LABEL_8:
   return result;
 }
 
-uint64_t sub_1AAE7D160@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, _OWORD *a7@<X8>)
+uint64_t sub_1AAE7D160@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, _OWORD *a7@<X8>)
 {
-  v155 = a7;
+  v165 = a7;
   sub_1AACD6DF8(0, qword_1ED9B13F0, type metadata accessor for PlottableValue);
-  v137 = v13;
+  v147 = v13;
   MEMORY[0x1EEE9AC00](v13);
-  v128 = &v127 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v138 = &v137 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v15);
-  v130 = (&v127 - v16);
+  v140 = (&v137 - v16);
   MEMORY[0x1EEE9AC00](v17);
-  v129 = (&v127 - v18);
-  v145 = sub_1AAF8CA64();
-  v143 = *(v145 - 8);
-  MEMORY[0x1EEE9AC00](v145);
-  v135 = &v127 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v139 = (&v137 - v18);
+  v155 = sub_1AAF8CA64();
+  v153 = *(v155 - 8);
+  MEMORY[0x1EEE9AC00](v155);
+  v145 = &v137 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v132 = &v127 - v20;
+  v142 = &v137 - v20;
   sub_1AACD6D40(0, &qword_1ED9B1678, MEMORY[0x1E6968130], MEMORY[0x1E69E6720]);
   MEMORY[0x1EEE9AC00](v21 - 8);
-  v134 = &v127 - v22;
-  v146 = sub_1AAF8C6F4();
-  v144 = *(v146 - 8);
-  MEMORY[0x1EEE9AC00](v146);
-  v151 = &v127 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v158 = sub_1AAF8CBA4();
-  v142 = *(v158 - 8);
-  MEMORY[0x1EEE9AC00](v158);
-  v140 = &v127 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v141 = sub_1AAF8CB94();
-  v139 = *(v141 - 8);
-  MEMORY[0x1EEE9AC00](v141);
-  v138 = &v127 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v26 = type metadata accessor for PlottableValue();
-  v153 = *(v26 - 8);
-  v154 = v26;
-  MEMORY[0x1EEE9AC00](v26);
-  v150 = &v127 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v28);
-  v156 = &v127 - v29;
-  v159 = *(a5 - 8);
-  MEMORY[0x1EEE9AC00](v30);
-  v149 = &v127 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v32);
-  v157 = &v127 - v33;
-  v34 = a4;
-  v35 = type metadata accessor for PlottableProjection.Storage();
-  v36 = *(v35 - 8);
-  MEMORY[0x1EEE9AC00](v35);
-  v38 = (&v127 - v37);
-  v39 = *(a2 + 96);
-  v192 = *(a2 + 80);
-  v193 = v39;
-  v40 = *(a2 + 64);
-  v194 = *(a2 + 112);
-  v41 = *(a2 + 16);
-  v191[0] = *a2;
-  v191[1] = v41;
-  v42 = *(a2 + 48);
-  v191[2] = *(a2 + 32);
-  v191[3] = v42;
-  v191[4] = v40;
-  v43 = v193;
-  v160 = a3;
-  if (v193 == 255)
+  v144 = &v137 - v22;
+  v156 = sub_1AAF8C6F4();
+  v154 = *(v156 - 8);
+  MEMORY[0x1EEE9AC00](v156);
+  v161 = &v137 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v168 = sub_1AAF8CBA4();
+  v152 = *(v168 - 8);
+  MEMORY[0x1EEE9AC00](v168);
+  v150 = &v137 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v151 = sub_1AAF8CB94();
+  v149 = *(v151 - 8);
+  MEMORY[0x1EEE9AC00](v151);
+  v148 = &v137 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v27 = type metadata accessor for PlottableValue(0, a5, a6, v26);
+  v163 = *(v27 - 8);
+  v164 = v27;
+  MEMORY[0x1EEE9AC00](v27);
+  v160 = &v137 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v29);
+  v166 = &v137 - v30;
+  v169 = *(a5 - 8);
+  MEMORY[0x1EEE9AC00](v31);
+  v159 = &v137 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v33);
+  v167 = &v137 - v34;
+  v35 = a4;
+  v36 = type metadata accessor for PlottableProjection.Storage(0, a4, a5, a6);
+  v37 = *(v36 - 8);
+  MEMORY[0x1EEE9AC00](v36);
+  v39 = (&v137 - v38);
+  v40 = *(a2 + 96);
+  v202 = *(a2 + 80);
+  v203 = v40;
+  v41 = *(a2 + 64);
+  v204 = *(a2 + 112);
+  v42 = *(a2 + 16);
+  v201[0] = *a2;
+  v201[1] = v42;
+  v43 = *(a2 + 48);
+  v201[2] = *(a2 + 32);
+  v201[3] = v43;
+  v201[4] = v41;
+  v44 = v203;
+  v170 = a3;
+  if (v203 == 255)
   {
-    v147 = 0;
-    LODWORD(v148) = 3;
+    v157 = 0;
+    LODWORD(v158) = 3;
   }
 
   else
   {
-    LODWORD(v148) = LOBYTE(v191[0]);
-    if (LOBYTE(v191[0]) == 3)
+    LODWORD(v158) = LOBYTE(v201[0]);
+    if (LOBYTE(v201[0]) == 3)
     {
       goto LABEL_20;
     }
 
-    v44 = a1;
-    v45 = *(&v192 + 1);
-    sub_1AAE64F50(*(&v192 + 1), v193 & 1);
-    v46 = sub_1AAF31474(v160, v45, v43 & 1);
-    v47 = type metadata accessor for MarkDimensions.Storage();
-    (*(*(v47 - 8) + 8))(v191 + 8, v47);
-    v147 = *&v46;
-    a1 = v44;
+    v45 = a1;
+    v46 = *(&v202 + 1);
+    sub_1AAE64F50(*(&v202 + 1), v203 & 1);
+    v47 = sub_1AAF31474(v170, v46, v44 & 1);
+    v50 = type metadata accessor for MarkDimensions.Storage(0, v35, v48, v49);
+    (*(*(v50 - 8) + 8))(v201 + 8, v50);
+    v157 = *&v47;
+    a1 = v45;
   }
 
-  v48 = type metadata accessor for PlottableProjection();
-  (*(v36 + 16))(v38, a1 + *(v48 + 44), v35);
+  v51 = type metadata accessor for PlottableProjection(0, v35, a5, a6);
+  (*(v37 + 16))(v39, a1 + *(v51 + 44), v36);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  v50 = v158;
+  v55 = v168;
   if (EnumCaseMultiPayload <= 1)
   {
     if (EnumCaseMultiPayload)
     {
-      v152 = v34;
-      v105 = type metadata accessor for MarkDimensions();
-      (*(*(v105 - 8) + 8))(v191, v105);
-      v106 = *(swift_getTupleTypeMetadata2() + 48);
-      v107 = a6;
-      v108 = *(v159 + 32);
-      v109 = v157;
-      v108(v157, v38, a5);
-      v108(v149, (v38 + v106), a5);
-      v136 = a1;
-      v110 = *a1;
-      v111 = *(a1 + 8);
-      v112 = *(v136 + 16);
-      v131 = v48;
-      v113 = *(v136 + 24);
-      v114 = v156;
-      static PlottableValue.value(_:_:)(v110, v111, v112, v113, a5, v156);
-      v115 = v150;
-      v116 = v112;
-      v117 = v149;
-      static PlottableValue.value(_:_:)(v110, v111, v116, v113, a5, v150);
-      v118 = sub_1AAE83D50(v114, v115, a5, v107, &v161);
-      v119 = v154;
-      v120 = *(v153 + 8);
-      v120(v115, v154, v118);
-      (v120)(v114, v119);
-      (*(*(v152 - 8) + 8))(v160);
-      v121 = *(v159 + 8);
-      v121(v117, a5);
-      v121(v109, a5);
+      v162 = v35;
+      v115 = type metadata accessor for MarkDimensions(0, v35, v53, v54);
+      (*(*(v115 - 8) + 8))(v201, v115);
+      v116 = *(swift_getTupleTypeMetadata2() + 48);
+      v117 = a6;
+      v118 = *(v169 + 32);
+      v119 = v167;
+      v118(v167, v39, a5);
+      v118(v159, (v39 + v116), a5);
+      v146 = a1;
+      v120 = *a1;
+      v121 = a1[1];
+      v122 = *(v146 + 16);
+      v141 = v51;
+      v123 = v146[3];
+      v124 = v166;
+      static PlottableValue.value(_:_:)(v120, v121, v122, v123, a5, v117, v166);
+      v125 = v160;
+      v126 = v122;
+      v127 = v159;
+      static PlottableValue.value(_:_:)(v120, v121, v126, v123, a5, v117, v160);
+      v128 = sub_1AAE83D50(v124, v125, a5, v117, &v171);
+      v129 = v164;
+      v130 = *(v163 + 8);
+      v130(v125, v164, v128);
+      (v130)(v124, v129);
+      (*(*(v162 - 8) + 8))(v170);
+      v131 = *(v169 + 8);
+      v131(v127, a5);
+      v131(v119, a5);
       goto LABEL_16;
     }
 
-    v66 = type metadata accessor for MarkDimensions();
-    (*(*(v66 - 8) + 8))(v191, v66);
-    v67 = v159;
-    v68 = v157;
-    (*(v159 + 32))(v157, v38, a5);
-    v69 = v156;
-    static PlottableValue.value(_:_:)(*a1, *(a1 + 8), *(a1 + 16), *(a1 + 24), a5, v156);
-    v70 = sub_1AAE83EF8(v69, v147, v148, a5, a6, &v161);
-    (*(v153 + 8))(v69, v154, v70);
-    (*(*(v34 - 8) + 8))(v160, v34);
-    (*(v67 + 8))(v68, a5);
-    v71 = *(*(v48 - 8) + 8);
-    v72 = a1;
+    v73 = type metadata accessor for MarkDimensions(0, v35, v53, v54);
+    (*(*(v73 - 8) + 8))(v201, v73);
+    v74 = v169;
+    v75 = v167;
+    (*(v169 + 32))(v167, v39, a5);
+    v76 = v166;
+    static PlottableValue.value(_:_:)(*a1, a1[1], *(a1 + 16), a1[3], a5, a6, v166);
+    v77 = sub_1AAE83EF8(v76, v157, v158, a5, a6, &v171);
+    (*(v163 + 8))(v76, v164, v77);
+    (*(*(v35 - 8) + 8))(v170, v35);
+    (*(v74 + 8))(v75, a5);
+    v78 = *(*(v51 - 8) + 8);
+    v79 = a1;
 LABEL_12:
-    v81 = v48;
+    v89 = v51;
 LABEL_17:
-    result = v71(v72, v81);
+    result = v78(v79, v89);
     goto LABEL_18;
   }
 
-  v152 = v34;
+  v162 = v35;
   if (EnumCaseMultiPayload == 2)
   {
-    v73 = type metadata accessor for MarkDimensions();
-    (*(*(v73 - 8) + 8))(v191, v73);
-    v158 = *v38;
-    v74 = a1;
-    v75 = *a1;
-    v151 = *(v74 + 8);
-    v76 = *(v74 + 16);
-    v77 = *(v74 + 24);
-    v78 = v157;
+    v80 = type metadata accessor for MarkDimensions(0, v35, v53, v54);
+    (*(*(v80 - 8) + 8))(v201, v80);
+    v168 = *v39;
+    v81 = a1;
+    v82 = *a1;
+    v161 = v81[1];
+    v83 = *(v81 + 16);
+    v84 = v81[3];
+    v85 = v167;
     swift_getAtKeyPath();
-    v79 = v156;
-    static PlottableValue.value(_:_:)(v75, v151, v76, v77, a5, v156);
-    (*(v159 + 8))(v78, a5);
-    v80 = sub_1AAE83EF8(v79, v147, v148, a5, a6, &v161);
-    (*(v153 + 8))(v79, v154, v80);
+    v86 = v166;
+    v87 = static PlottableValue.value(_:_:)(v82, v161, v83, v84, a5, a6, v166);
+    (*(v169 + 8))(v85, a5, v87);
+    v88 = sub_1AAE83EF8(v86, v157, v158, a5, a6, &v171);
+    (*(v163 + 8))(v86, v164, v88);
 
-    (*(*(v152 - 8) + 8))(v160);
-    v71 = *(*(v48 - 8) + 8);
-    v72 = v74;
+    (*(*(v162 - 8) + 8))(v170);
+    v78 = *(*(v51 - 8) + 8);
+    v79 = v81;
     goto LABEL_12;
   }
 
-  v131 = v48;
-  v136 = a1;
+  v141 = v51;
+  v146 = a1;
   if (EnumCaseMultiPayload == 3)
   {
-    v51 = type metadata accessor for MarkDimensions();
-    (*(*(v51 - 8) + 8))(v191, v51);
-    v52 = v38[1];
-    v158 = *v38;
-    v151 = v52;
-    v53 = a6;
-    v55 = *a1;
-    v54 = *(a1 + 8);
-    v56 = *(a1 + 16);
-    v57 = *(a1 + 24);
-    v148 = v55;
-    v149 = v57;
-    v58 = v157;
+    v56 = type metadata accessor for MarkDimensions(0, v35, v53, v54);
+    (*(*(v56 - 8) + 8))(v201, v56);
+    v57 = v39[1];
+    v168 = *v39;
+    v161 = v57;
+    v58 = a6;
+    v60 = *a1;
+    v59 = a1[1];
+    v61 = *(a1 + 16);
+    v62 = a1[3];
+    v158 = v60;
+    v159 = v62;
+    v63 = v167;
     swift_getAtKeyPath();
-    static PlottableValue.value(_:_:)(v55, v54, v56, v57, a5, v156);
-    v59 = *(v159 + 8);
-    v59(v58, a5);
+    v64 = static PlottableValue.value(_:_:)(v60, v59, v61, v62, a5, a6, v166);
+    v65 = *(v169 + 8);
+    v65(v63, a5, v64);
     swift_getAtKeyPath();
-    v60 = v150;
-    v61 = v53;
-    static PlottableValue.value(_:_:)(v148, v54, v56, v149, a5, v150);
-    v59(v58, a5);
-    v62 = v156;
-    v63 = sub_1AAE83D50(v156, v60, a5, v61, &v161);
-    v64 = v154;
-    v65 = *(v153 + 8);
-    v65(v60, v154, v63);
-    (v65)(v62, v64);
+    v66 = v160;
+    v67 = v58;
+    v68 = static PlottableValue.value(_:_:)(v158, v59, v61, v159, a5, v58, v160);
+    v65(v63, a5, v68);
+    v69 = v166;
+    v70 = sub_1AAE83D50(v166, v66, a5, v67, &v171);
+    v71 = v164;
+    v72 = *(v163 + 8);
+    v72(v66, v164, v70);
+    (v72)(v69, v71);
 
-    (*(*(v152 - 8) + 8))(v160);
+    (*(*(v162 - 8) + 8))(v170);
 LABEL_16:
-    v81 = v131;
-    v71 = *(*(v131 - 8) + 8);
-    v72 = v136;
+    v89 = v141;
+    v78 = *(*(v141 - 8) + 8);
+    v79 = v146;
     goto LABEL_17;
   }
 
-  v82 = *v38;
+  v90 = *v39;
   sub_1AAF90774();
-  v83 = v141;
+  v91 = v151;
   TupleTypeMetadata3 = swift_getTupleTypeMetadata3();
-  v85 = *(TupleTypeMetadata3 + 64);
-  (*(v139 + 32))(v138, v38 + *(TupleTypeMetadata3 + 48), v83);
-  (*(v142 + 32))(v140, v38 + v85, v50);
-  v86 = v157;
-  v156 = v82;
+  v93 = *(TupleTypeMetadata3 + 64);
+  (*(v149 + 32))(v148, v39 + *(TupleTypeMetadata3 + 48), v91);
+  (*(v152 + 32))(v150, v39 + v93, v55);
+  v94 = v167;
+  v166 = v90;
   swift_getAtKeyPath();
   (*(a6 + 24))(a5, a6);
-  (*(v159 + 8))(v86, a5);
-  v87 = v135;
-  v88 = v145;
+  (*(v169 + 8))(v94, a5);
+  v95 = v145;
+  v96 = v155;
   swift_dynamicCast();
-  v89 = v134;
+  v97 = v144;
   sub_1AAF8CAD4();
-  (*(v143 + 8))(v87, v88);
-  v90 = v144;
-  if ((*(v144 + 48))(v89, 1, v146) != 1)
+  (*(v153 + 8))(v95, v96);
+  v98 = v154;
+  if ((*(v154 + 48))(v97, 1, v156) != 1)
   {
-    v91 = type metadata accessor for MarkDimensions();
-    (*(*(v91 - 8) + 8))(v191, v91);
-    (*(v90 + 32))();
-    v92 = *v136;
-    v93 = *(v136 + 8);
-    v94 = *(v136 + 16);
-    v95 = *(v136 + 24);
+    v101 = type metadata accessor for MarkDimensions(0, v35, v99, v100);
+    (*(*(v101 - 8) + 8))(v201, v101);
+    (*(v98 + 32))();
+    v102 = *v146;
+    v103 = v146[1];
+    v104 = *(v146 + 16);
+    v105 = v146[3];
     sub_1AAF8C6E4();
-    v96 = v129;
-    *v129 = v92;
-    *(v96 + 8) = v93;
-    *(v96 + 16) = v94;
-    *(v96 + 24) = v95;
-    v97 = *(v137 + 36);
-    v159 = *(v143 + 32);
-    v98 = v145;
-    (v159)(v96 + v97, v87, v145);
+    v106 = v139;
+    *v139 = v102;
+    *(v106 + 8) = v103;
+    *(v106 + 16) = v104;
+    *(v106 + 24) = v105;
+    v107 = *(v147 + 36);
+    v169 = *(v153 + 32);
+    v108 = v155;
+    (v169)(v106 + v107, v95, v155);
     sub_1AACD6DF8(0, &qword_1ED9B0BE8, type metadata accessor for PlottableValue.Storage);
-    v153 = v99;
+    v163 = v109;
     swift_storeEnumTagMultiPayload();
-    v157 = v93;
-    LODWORD(v154) = v94;
-    sub_1AACD7304(v92, v93, v94);
+    v167 = v103;
+    LODWORD(v164) = v104;
+    sub_1AACD7304(v102, v103, v104);
 
     sub_1AAF8C6D4();
-    v100 = v98;
-    v101 = v130;
-    *v130 = v92;
-    *(v101 + 8) = v93;
-    *(v101 + 16) = v94;
-    *(v101 + 24) = v95;
-    (v159)(v101 + *(v137 + 36), v87, v100);
+    v110 = v108;
+    v111 = v140;
+    *v140 = v102;
+    *(v111 + 8) = v103;
+    *(v111 + 16) = v104;
+    *(v111 + 24) = v105;
+    (v169)(v111 + *(v147 + 36), v95, v110);
     swift_storeEnumTagMultiPayload();
-    v102 = v128;
-    sub_1AAE7B790(v96, v128, qword_1ED9B13F0, type metadata accessor for PlottableValue, sub_1AACD6DF8);
-    sub_1AACD7304(v92, v157, v154);
+    v112 = v138;
+    sub_1AAE7B790(v106, v138, qword_1ED9B13F0, type metadata accessor for PlottableValue, sub_1AACD6DF8);
+    sub_1AACD7304(v102, v167, v164);
 
-    sub_1AAE799EC(v102, &v170);
-    sub_1AAE7B790(v101, v102, qword_1ED9B13F0, type metadata accessor for PlottableValue, sub_1AACD6DF8);
-    sub_1AAE799EC(v102, v175);
+    sub_1AAE799EC(v112, &v180);
+    sub_1AAE7B790(v111, v112, qword_1ED9B13F0, type metadata accessor for PlottableValue, sub_1AACD6DF8);
+    sub_1AAE799EC(v112, v185);
 
-    (*(*(v152 - 8) + 8))(v160);
-    sub_1AAE838F8(v101);
-    sub_1AAE838F8(v96);
-    (*(v144 + 8))(v151, v146);
-    (*(v142 + 8))(v140, v158);
-    (*(v139 + 8))(v138, v141);
-    v179 = v172;
-    v180 = v173;
-    v177 = v170;
-    v178 = v171;
-    *(&v181[2] + 8) = v175[2];
-    *(&v181[3] + 8) = v175[3];
-    *&v181[0] = v174;
-    *(&v181[4] + 1) = v176;
-    *(v181 + 8) = v175[0];
-    *(&v181[1] + 8) = v175[1];
-    v188 = v181[2];
-    v189 = v181[3];
-    v190 = v181[4];
-    v184 = v172;
-    v185 = v173;
-    v186 = v181[0];
-    v187 = v181[1];
-    v182 = v170;
-    v183 = v171;
-    v103 = sub_1AAE52954(&v182);
-    result = (*(*(v131 - 8) + 8))(v136, v103);
-    v167 = v188;
-    v168 = v189;
-    v169 = v190;
-    v163 = v184;
-    v164 = v185;
-    v165 = v186;
-    v166 = v187;
-    v161 = v182;
-    v162 = v183;
+    (*(*(v162 - 8) + 8))(v170);
+    sub_1AAE838F8(v111);
+    sub_1AAE838F8(v106);
+    (*(v154 + 8))(v161, v156);
+    (*(v152 + 8))(v150, v168);
+    (*(v149 + 8))(v148, v151);
+    v189 = v182;
+    v190 = v183;
+    v187 = v180;
+    v188 = v181;
+    *(&v191[2] + 8) = v185[2];
+    *(&v191[3] + 8) = v185[3];
+    *&v191[0] = v184;
+    *(&v191[4] + 1) = v186;
+    *(v191 + 8) = v185[0];
+    *(&v191[1] + 8) = v185[1];
+    v198 = v191[2];
+    v199 = v191[3];
+    v200 = v191[4];
+    v194 = v182;
+    v195 = v183;
+    v196 = v191[0];
+    v197 = v191[1];
+    v192 = v180;
+    v193 = v181;
+    v113 = sub_1AAE52954(&v192);
+    result = (*(*(v141 - 8) + 8))(v146, v113);
+    v177 = v198;
+    v178 = v199;
+    v179 = v200;
+    v173 = v194;
+    v174 = v195;
+    v175 = v196;
+    v176 = v197;
+    v171 = v192;
+    v172 = v193;
 LABEL_18:
-    v122 = v155;
-    v123 = v168;
-    v155[6] = v167;
-    v122[7] = v123;
-    v122[8] = v169;
-    v124 = v164;
-    v122[2] = v163;
-    v122[3] = v124;
-    v125 = v166;
-    v122[4] = v165;
-    v122[5] = v125;
-    v126 = v162;
-    *v122 = v161;
-    v122[1] = v126;
+    v132 = v165;
+    v133 = v178;
+    v165[6] = v177;
+    v132[7] = v133;
+    v132[8] = v179;
+    v134 = v174;
+    v132[2] = v173;
+    v132[3] = v134;
+    v135 = v176;
+    v132[4] = v175;
+    v132[5] = v135;
+    v136 = v172;
+    *v132 = v171;
+    v132[1] = v136;
     return result;
   }
 
@@ -2101,129 +2563,129 @@ LABEL_20:
 
 __n128 sub_1AAE7E33C@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
-  v81 = a2;
-  v83 = *(a3 - 8);
+  v86 = a2;
+  v88 = *(a3 - 8);
   MEMORY[0x1EEE9AC00](a1);
-  v75 = &v72 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = type metadata accessor for PlottableProjection();
-  v79 = *(v12 - 8);
-  MEMORY[0x1EEE9AC00](v12);
-  v14 = &v72 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v80 = &v77 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = type metadata accessor for PlottableProjection(0, v12, v13, v14);
+  v84 = *(v15 - 8);
   MEMORY[0x1EEE9AC00](v15);
-  v17 = &v72 - v16;
+  v17 = &v77 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v18);
-  v78 = &v72 - v19;
-  MEMORY[0x1EEE9AC00](v20);
-  v82 = &v72 - v21;
-  v76 = a4;
-  v77 = a5;
-  v22 = type metadata accessor for BoundingSectionSpecification();
-  v23 = *(v22 - 8);
-  v24 = MEMORY[0x1EEE9AC00](v22);
-  v26 = &v72 - v25;
-  v27 = *(v23 + 16);
-  v80 = a1;
-  v27(&v72 - v25, a1, v22, v24);
+  v20 = (&v77 - v19);
+  MEMORY[0x1EEE9AC00](v21);
+  v83 = &v77 - v22;
+  MEMORY[0x1EEE9AC00](v23);
+  v87 = &v77 - v24;
+  v81 = a4;
+  v82 = a5;
+  v25 = type metadata accessor for BoundingSectionSpecification(0, a3, a4, a5);
+  v26 = *(v25 - 8);
+  v27 = MEMORY[0x1EEE9AC00](v25);
+  v29 = &v77 - v28;
+  v30 = *(v26 + 16);
+  v85 = a1;
+  v30(&v77 - v28, a1, v25, v27);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload > 3)
   {
     if (EnumCaseMultiPayload > 5)
     {
-      v74 = v12;
+      v79 = v15;
       if (EnumCaseMultiPayload == 6)
       {
-        type metadata accessor for MarkDimensions();
-        v40 = &v26[*(swift_getTupleTypeMetadata2() + 48)];
-        v41 = *(v40 + 5);
-        v84[4] = *(v40 + 4);
-        v84[5] = v41;
-        v84[6] = *(v40 + 6);
-        v85 = v40[112];
-        v42 = *(v40 + 1);
-        v84[0] = *v40;
-        v84[1] = v42;
-        v43 = *(v40 + 3);
-        v84[2] = *(v40 + 2);
-        v84[3] = v43;
-        v44 = v79;
-        v45 = v82;
-        (*(v79 + 32))(v82, v26, v12);
-        v46 = v78;
-        (*(v44 + 16))(v78, v45, v12);
-        v47 = v83;
-        v48 = v75;
-        v49 = v81;
-        (*(v83 + 16))(v75, v81, a3);
-        sub_1AAE7D160(v46, v84, v48, a3, v76, v77, &v86);
-        (*(v47 + 8))(v49, a3);
-        (*(v23 + 8))(v80, v22);
-        (*(v44 + 8))(v82, v74);
+        type metadata accessor for MarkDimensions(255, a3, v32, v33);
+        v45 = &v29[*(swift_getTupleTypeMetadata2() + 48)];
+        v46 = *(v45 + 5);
+        v89[4] = *(v45 + 4);
+        v89[5] = v46;
+        v89[6] = *(v45 + 6);
+        v90 = v45[112];
+        v47 = *(v45 + 1);
+        v89[0] = *v45;
+        v89[1] = v47;
+        v48 = *(v45 + 3);
+        v89[2] = *(v45 + 2);
+        v89[3] = v48;
+        v49 = v84;
+        v50 = v87;
+        (*(v84 + 32))(v87, v29, v15);
+        v51 = v83;
+        (*(v49 + 16))(v83, v50, v15);
+        v52 = v88;
+        v53 = v80;
+        v54 = v86;
+        (*(v88 + 16))(v80, v86, a3);
+        sub_1AAE7D160(v51, v89, v53, a3, v81, v82, &v91);
+        (*(v52 + 8))(v54, a3);
+        (*(v26 + 8))(v85, v25);
+        (*(v49 + 8))(v87, v79);
         goto LABEL_19;
       }
 
-      v61 = &v26[*(swift_getTupleTypeMetadata2() + 48)];
-      v62 = *(v61 + 4);
-      v63 = *(v61 + 5);
-      v64 = v61[48];
-      sub_1AAD0E818(*(v61 + 1), *(v61 + 2), v61[24]);
-      sub_1AADB2F88(v62, v63, v64);
-      v30 = v79;
-      v65 = v82;
-      (*(v79 + 32))(v82, v26, v12);
-      v66 = v78;
-      (*(v30 + 16))(v78, v65, v12);
-      v34 = v83;
-      v67 = v75;
-      v36 = v81;
-      (*(v83 + 16))(v75, v81, a3);
-      v37 = v66;
-      v38 = v67;
+      v66 = &v29[*(swift_getTupleTypeMetadata2() + 48)];
+      v67 = *(v66 + 4);
+      v68 = *(v66 + 5);
+      v69 = v66[48];
+      sub_1AAD0E818(*(v66 + 1), *(v66 + 2), v66[24]);
+      sub_1AADB2F88(v67, v68, v69);
+      v35 = v84;
+      v70 = v87;
+      (*(v84 + 32))(v87, v29, v15);
+      v71 = v83;
+      (*(v35 + 16))(v83, v70, v15);
+      v39 = v88;
+      v72 = v80;
+      v41 = v86;
+      (*(v88 + 16))(v80, v86, a3);
+      v42 = v71;
+      v43 = v72;
     }
 
     else
     {
       if (EnumCaseMultiPayload != 4)
       {
-        v53 = v12;
-        v72 = *(swift_getTupleTypeMetadata2() + 48);
-        v73 = v23;
-        v54 = *(v79 + 32);
-        v54(v82, v26, v12);
-        v54(v78, &v26[v72], v12);
-        v55 = *(v79 + 16);
-        v55(v17, v82, v53);
-        v55(v14, v78, v53);
-        v56 = v75;
-        v57 = v81;
-        (*(v83 + 16))(v75, v81, a3);
-        sub_1AAE7C71C(v17, v14, v56, a3, v76, v77, &v86);
-        (*(v83 + 8))(v57, a3);
-        (*(v73 + 8))(v80, v22);
-        v58 = *(v79 + 8);
-        v58(v78, v53);
-        v58(v82, v53);
+        v58 = v15;
+        v77 = *(swift_getTupleTypeMetadata2() + 48);
+        v78 = v26;
+        v59 = *(v84 + 32);
+        v59(v87, v29, v15);
+        v59(v83, &v29[v77], v15);
+        v60 = *(v84 + 16);
+        v60(v20, v87, v58);
+        v60(v17, v83, v58);
+        v61 = v80;
+        v62 = v86;
+        (*(v88 + 16))(v80, v86, a3);
+        sub_1AAE7C71C(v20, v17, v61, a3, v81, v82, &v91);
+        (*(v88 + 8))(v62, a3);
+        (*(v78 + 8))(v85, v25);
+        v63 = *(v84 + 8);
+        v63(v83, v58);
+        v63(v87, v58);
         goto LABEL_19;
       }
 
-      v30 = v79;
-      v31 = *(v79 + 32);
-      v32 = v82;
-      v74 = v12;
-      v31(v82, v26, v12);
-      v33 = v78;
-      (*(v30 + 16))(v78, v32, v12);
-      v34 = v83;
-      v35 = v75;
-      v36 = v81;
-      (*(v83 + 16))(v75, v81, a3);
-      v37 = v33;
-      v38 = v35;
+      v35 = v84;
+      v36 = *(v84 + 32);
+      v37 = v87;
+      v79 = v15;
+      v36(v87, v29, v15);
+      v38 = v83;
+      (*(v35 + 16))(v83, v37, v15);
+      v39 = v88;
+      v40 = v80;
+      v41 = v86;
+      (*(v88 + 16))(v80, v86, a3);
+      v42 = v38;
+      v43 = v40;
     }
 
-    sub_1AAE7B800(v37, v38, a3, v76, v77, &v86);
-    (*(v34 + 8))(v36, a3);
-    (*(v23 + 8))(v80, v22);
-    (*(v30 + 8))(v82, v74);
+    sub_1AAE7B800(v42, v43, a3, v81, v82, &v91);
+    (*(v39 + 8))(v41, a3);
+    (*(v26 + 8))(v85, v25);
+    (*(v35 + 8))(v87, v79);
     goto LABEL_19;
   }
 
@@ -2231,228 +2693,228 @@ __n128 sub_1AAE7E33C@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, 
   {
     if (EnumCaseMultiPayload == 2)
     {
-      v39 = v81;
+      v44 = v86;
       swift_getAtKeyPath();
-      *&v96 = v95;
-      BYTE8(v96) = 0;
-      sub_1AAD59F90(&v96);
-      v92 = v102;
+      *&v101 = v100;
+      BYTE8(v101) = 0;
+      sub_1AAD59F90(&v101);
+      v97 = v107;
+      v98 = v108;
+      v99 = v109;
       v93 = v103;
       v94 = v104;
-      v88 = v98;
-      v89 = v99;
-      v90 = v100;
+      v95 = v105;
+      v96 = v106;
       v91 = v101;
-      v86 = v96;
-      v87 = v97;
+      v92 = v102;
 
-      (*(v83 + 8))(v39, a3);
+      (*(v88 + 8))(v44, a3);
     }
 
     else
     {
-      v59 = v83;
-      v60 = v81;
-      sub_1AAE83CB0(&v86);
+      v64 = v88;
+      v65 = v86;
+      sub_1AAE83CB0(&v91);
 
-      (*(v59 + 8))(v60, a3);
+      (*(v64 + 8))(v65, a3);
     }
 
-    (*(v23 + 8))(v80, v22);
+    (*(v26 + 8))(v85, v25);
   }
 
   else
   {
     if (EnumCaseMultiPayload)
     {
-      (*(v83 + 8))(v81, a3);
-      (*(v23 + 8))(v80, v22);
-      v50 = v26[8];
-      v51 = *(v26 + 2);
-      v52 = v26[24];
-      *&v96 = *v26;
-      BYTE8(v96) = v50;
-      v97.n128_u64[0] = v51;
-      v97.n128_u8[8] = v52;
-      sub_1AAE52D28(&v96);
+      (*(v88 + 8))(v86, a3);
+      (*(v26 + 8))(v85, v25);
+      v55 = v29[8];
+      v56 = *(v29 + 2);
+      v57 = v29[24];
+      *&v101 = *v29;
+      BYTE8(v101) = v55;
+      v102.n128_u64[0] = v56;
+      v102.n128_u8[8] = v57;
+      sub_1AAE52D28(&v101);
     }
 
     else
     {
-      (*(v83 + 8))(v81, a3);
-      (*(v23 + 8))(v80, v22);
-      v29 = v26[8];
-      *&v96 = *v26;
-      BYTE8(v96) = v29;
-      sub_1AAD59F90(&v96);
+      (*(v88 + 8))(v86, a3);
+      (*(v26 + 8))(v85, v25);
+      v34 = v29[8];
+      *&v101 = *v29;
+      BYTE8(v101) = v34;
+      sub_1AAD59F90(&v101);
     }
 
-    v92 = v102;
+    v97 = v107;
+    v98 = v108;
+    v99 = v109;
     v93 = v103;
     v94 = v104;
-    v88 = v98;
-    v89 = v99;
-    v90 = v100;
+    v95 = v105;
+    v96 = v106;
     v91 = v101;
-    v86 = v96;
-    v87 = v97;
+    v92 = v102;
   }
 
 LABEL_19:
-  v68 = v93;
-  *(a6 + 96) = v92;
-  *(a6 + 112) = v68;
-  *(a6 + 128) = v94;
-  v69 = v89;
-  *(a6 + 32) = v88;
-  *(a6 + 48) = v69;
-  v70 = v91;
-  *(a6 + 64) = v90;
-  *(a6 + 80) = v70;
-  result = v87;
-  *a6 = v86;
+  v73 = v98;
+  *(a6 + 96) = v97;
+  *(a6 + 112) = v73;
+  *(a6 + 128) = v99;
+  v74 = v94;
+  *(a6 + 32) = v93;
+  *(a6 + 48) = v74;
+  v75 = v96;
+  *(a6 + 64) = v95;
+  *(a6 + 80) = v75;
+  result = v92;
+  *a6 = v91;
   *(a6 + 16) = result;
   return result;
 }
 
-uint64_t sub_1AAE7EC08(uint64_t a1, _OWORD *a2, void *a3, uint64_t a4, uint64_t a5, double a6, double a7, double a8, double a9, double a10, double a11, double a12)
+uint64_t sub_1AAE7EC08(uint64_t a1, _OWORD *a2, void *a3, char *a4, uint64_t a5, double a6, double a7, double a8, double a9, double a10, double a11, double a12)
 {
-  v534.i64[0] = a1;
+  v589.i64[0] = a1;
   v22 = *a2;
-  v580 = a2[1];
-  v579 = v22;
+  v635 = a2[1];
+  v634 = v22;
   v23 = a2[2];
   v24 = a2[3];
-  *(v584 + 9) = *(a2 + 89);
+  *(v639 + 9) = *(a2 + 89);
   v25 = a2[4];
   v26 = a2[5];
-  v530 = a2;
-  v584[0] = v26;
-  v583 = v25;
-  v581 = v23;
-  v582 = v24;
+  v585 = a2;
+  v639[0] = v26;
+  v638 = v25;
+  v636 = v23;
+  v637 = v24;
   v28 = a3[2];
   v27 = a3[3];
   v29 = a3[4];
-  v30 = type metadata accessor for PlottableProjection.Storage();
+  v30 = type metadata accessor for PlottableProjection.Storage(255, v28, v27, v29);
   TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
   MEMORY[0x1EEE9AC00](TupleTypeMetadata2);
-  v522 = v484 - v31;
-  sub_1AAE8402C();
+  v577 = v539 - v31;
+  sub_1AAE8402C(255);
   v33 = v32;
-  v524 = a5;
+  v579 = a5;
   v34 = *(*(a5 + 8) + 8);
   v35 = *(v34 + 8);
-  v36 = sub_1AACECB5C(&qword_1EB4261E8, sub_1AAE8402C);
-  *&v545[0] = a4;
-  v484[5] = v36;
-  v484[6] = v33;
-  *(&v545[0] + 1) = v33;
-  *&v545[1] = v35;
-  *(&v545[1] + 1) = v36;
+  v36 = sub_1AACECB5C(&qword_1EB4261E8, sub_1AAE8402C, MEMORY[0x1E69E6AA8]);
+  *&v600[0] = a4;
+  v539[5] = v36;
+  v539[6] = v33;
+  *(&v600[0] + 1) = v33;
+  *&v600[1] = v35;
+  *(&v600[1] + 1) = v36;
   v37 = sub_1AAF90104();
-  v492 = *(v37 - 8);
-  v493 = v37;
+  v547 = *(v37 - 8);
+  v548 = v37;
   MEMORY[0x1EEE9AC00](v37);
-  v489 = v484 - v38;
+  v544 = v539 - v38;
   sub_1AACD6D40(255, &qword_1EB4261F0, sub_1AAE8412C, MEMORY[0x1E69E62F8]);
   v40 = v39;
   v41 = sub_1AAE84188();
-  *&v545[0] = a4;
-  v484[3] = v41;
-  v484[4] = v40;
-  *(&v545[0] + 1) = v40;
-  *&v545[1] = v35;
-  *(&v545[1] + 1) = v41;
+  *&v600[0] = a4;
+  v539[3] = v41;
+  v539[4] = v40;
+  *(&v600[0] + 1) = v40;
+  *&v600[1] = v35;
+  *(&v600[1] + 1) = v41;
   v42 = sub_1AAF90104();
-  v486 = *(v42 - 8);
-  v487 = v42;
+  v541 = *(v42 - 8);
+  v542 = v42;
   MEMORY[0x1EEE9AC00](v42);
-  v485 = v484 - v43;
+  v540 = v539 - v43;
   v44 = sub_1AAF8CBA4();
-  v510 = *(v44 - 8);
-  v511 = v44;
+  v565 = *(v44 - 8);
+  v566 = v44;
   MEMORY[0x1EEE9AC00](v44);
-  v495 = v484 - ((v45 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v550 = v539 - ((v45 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v46);
-  v506 = v484 - v47;
+  v561 = v539 - v47;
   v48 = sub_1AAF8CB94();
-  v508 = *(v48 - 8);
-  v509 = v48;
+  v563 = *(v48 - 8);
+  v564 = v48;
   MEMORY[0x1EEE9AC00](v48);
-  v494 = v484 - ((v49 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v549 = v539 - ((v49 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v50);
-  v505 = v484 - v51;
-  v523 = *(v27 - 8);
+  v560 = v539 - v51;
+  v578 = *(v27 - 8);
   MEMORY[0x1EEE9AC00](v52);
-  v497 = v484 - ((v53 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v552 = v539 - ((v53 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v54);
-  v496 = v484 - v55;
+  v551 = v539 - v55;
   MEMORY[0x1EEE9AC00](v56);
-  v500 = v484 - v57;
+  v555 = v539 - v57;
   MEMORY[0x1EEE9AC00](v58);
-  v504 = v484 - v59;
+  v559 = v539 - v59;
   MEMORY[0x1EEE9AC00](v60);
-  v503 = v484 - v61;
+  v558 = v539 - v61;
   MEMORY[0x1EEE9AC00](v62);
-  v502 = v484 - v63;
+  v557 = v539 - v63;
   MEMORY[0x1EEE9AC00](v64);
-  v499 = v484 - v65;
+  v554 = v539 - v65;
   MEMORY[0x1EEE9AC00](v66);
-  v498 = v484 - v67;
+  v553 = v539 - v67;
   MEMORY[0x1EEE9AC00](v68);
-  v501 = v484 - v69;
+  v556 = v539 - v69;
   sub_1AAE842D8(255, &qword_1ED9B2A88, MEMORY[0x1E69E62F8]);
   v71 = v70;
   v72 = sub_1AAE840B8();
-  *&v545[0] = a4;
-  v484[1] = v72;
-  v484[2] = v71;
-  *(&v545[0] + 1) = v71;
-  v507 = v35;
-  *&v545[1] = v35;
-  *(&v545[1] + 1) = v72;
+  *&v600[0] = a4;
+  v539[1] = v72;
+  v539[2] = v71;
+  *(&v600[0] + 1) = v71;
+  v562 = v35;
+  *&v600[1] = v35;
+  *(&v600[1] + 1) = v72;
   v73 = sub_1AAF90104();
-  v490 = *(v73 - 8);
-  v491 = v73;
+  v545 = *(v73 - 8);
+  v546 = v73;
   MEMORY[0x1EEE9AC00](v73);
-  v488 = v484 - v74;
-  v528 = v30;
-  v526 = *(v30 - 8);
+  v543 = v539 - v74;
+  v583 = v30;
+  v581 = *(v30 - 1);
   MEMORY[0x1EEE9AC00](v75);
-  v520 = (v484 - ((v76 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v575 = v539 - ((v76 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v77);
-  v484[0] = v484 - v78;
+  v539[0] = v539 - v78;
   MEMORY[0x1EEE9AC00](v79);
-  v81 = v484 - v80;
+  v81 = v539 - v80;
   MEMORY[0x1EEE9AC00](v82);
-  v84 = (v484 - v83);
+  v84 = (v539 - v83);
   MEMORY[0x1EEE9AC00](v85);
-  v517 = (v484 - v86);
+  v572 = v539 - v86;
   MEMORY[0x1EEE9AC00](v87);
-  v89 = (v484 - v88);
-  v519 = v28;
-  v527 = v27;
-  v529 = v29;
-  v90 = type metadata accessor for PlottableProjection();
+  v89 = v539 - v88;
+  v574 = v28;
+  v582 = v27;
+  v584 = v29;
+  v90 = type metadata accessor for PlottableProjection(0, v28, v27, v29);
   v91 = *(v90 - 8);
-  v531 = v90;
-  v532 = v91;
+  v586 = v90;
+  v587 = v91;
   MEMORY[0x1EEE9AC00](v90);
-  v513 = v484 - ((v92 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v568 = v539 - ((v92 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v93);
-  v515 = v484 - v94;
+  v570 = v539 - v94;
   MEMORY[0x1EEE9AC00](v95);
-  v516 = v484 - v96;
+  v571 = v539 - v96;
   MEMORY[0x1EEE9AC00](v97);
-  v518 = v484 - v98;
+  v573 = v539 - v98;
   MEMORY[0x1EEE9AC00](v99);
-  v514 = v484 - v100;
+  v569 = v539 - v100;
   v101 = *(a3 - 1);
   MEMORY[0x1EEE9AC00](v102);
-  v104 = v484 - ((v103 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v525 = a4;
-  v521 = v34;
+  v104 = v539 - ((v103 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v580 = a4;
+  v576 = v34;
   v105 = sub_1AAF8FB84();
   v106 = MEMORY[0x1E69E7CC0];
   if (v105)
@@ -2460,95 +2922,95 @@ uint64_t sub_1AAE7EC08(uint64_t a1, _OWORD *a2, void *a3, uint64_t a4, uint64_t 
     return v106;
   }
 
-  (*(v101 + 16))(v104, COERCE_DOUBLE(*&v533), a3);
+  (*(v101 + 16))(v104, COERCE_DOUBLE(*&v588), a3);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload <= 3)
   {
     if (EnumCaseMultiPayload > 1)
     {
-      v131 = *v104;
+      v135 = *v104;
       if (EnumCaseMultiPayload == 2)
       {
         MEMORY[0x1EEE9AC00](EnumCaseMultiPayload);
-        v132 = v525;
-        v484[-8] = v527;
-        v484[-7] = v132;
-        v133 = v524;
-        v484[-6] = v529;
-        v484[-5] = v133;
-        *&v484[-4] = v131;
-        *&v484[-3] = a6;
-        v482 = *&a7;
-        v483 = a8;
+        v136 = v580;
+        v539[-8] = v582;
+        v539[-7] = v136;
+        v137 = v579;
+        v539[-6] = v584;
+        v539[-5] = v137;
+        *&v539[-4] = v135;
+        *&v539[-3] = a6;
+        v537 = *&a7;
+        v538 = a8;
         sub_1AAE8412C();
-        v106 = sub_1AACB00E0(sub_1AAE8428C, &v484[-10], v132, v134, MEMORY[0x1E69E73E0], v521, MEMORY[0x1E69E7410], v135);
+        v106 = sub_1AACB00E0(sub_1AAE8428C, &v539[-10], v136, v138, MEMORY[0x1E69E73E0], v576, MEMORY[0x1E69E7410], v139);
       }
 
       else
       {
-        v183 = *(v104 + 1);
+        v190 = *(v104 + 1);
         MEMORY[0x1EEE9AC00](EnumCaseMultiPayload);
-        v184 = v525;
-        v484[-10] = v527;
-        v484[-9] = v184;
-        v185 = v524;
-        v484[-8] = v529;
-        v484[-7] = v185;
-        *&v484[-6] = v131;
-        *&v484[-5] = a6;
-        *&v484[-4] = a7;
-        *&v484[-3] = a8;
-        v482 = v183;
+        v191 = v580;
+        v539[-10] = v582;
+        v539[-9] = v191;
+        v192 = v579;
+        v539[-8] = v584;
+        v539[-7] = v192;
+        *&v539[-6] = v135;
+        *&v539[-5] = a6;
+        *&v539[-4] = a7;
+        *&v539[-3] = a8;
+        v537 = v190;
         sub_1AAE8412C();
-        v106 = sub_1AACB00E0(sub_1AAE84210, &v484[-12], v184, v186, MEMORY[0x1E69E73E0], v521, MEMORY[0x1E69E7410], v187);
+        v106 = sub_1AACB00E0(sub_1AAE84210, &v539[-12], v191, v193, MEMORY[0x1E69E73E0], v576, MEMORY[0x1E69E7410], v194);
       }
     }
 
     else if (EnumCaseMultiPayload)
     {
-      v152 = *v104;
+      v156 = *v104;
       if (v104[8])
       {
-        v152 = a11;
+        v156 = a11;
       }
 
-      v153 = v152 + a7;
+      v157 = v156 + a7;
       if (v104[24])
       {
-        v154 = a12;
+        v158 = a12;
       }
 
       else
       {
-        v154 = *(v104 + 2);
+        v158 = *(v104 + 2);
       }
 
-      v155 = v154 + a8;
+      v159 = v158 + a8;
       sub_1AACD6D40(0, &qword_1EB423018, sub_1AAE8412C, MEMORY[0x1E69E6F90]);
       v106 = swift_allocObject();
       *(v106 + 16) = xmmword_1AAF92AB0;
-      *(v106 + 32) = v153;
-      *(v106 + 40) = v155;
+      *(v106 + 32) = v157;
+      *(v106 + 40) = v159;
     }
 
     else
     {
       if (v104[8])
       {
-        v109 = (a11 + a12) * 0.5;
+        v111 = (a11 + a12) * 0.5;
       }
 
       else
       {
-        v109 = *v104;
+        v111 = *v104;
       }
 
-      v208 = v109 + a6;
+      v216 = v111 + a6;
       sub_1AACD6D40(0, &qword_1EB423018, sub_1AAE8412C, MEMORY[0x1E69E6F90]);
       v106 = swift_allocObject();
       *(v106 + 16) = xmmword_1AAF92AB0;
-      *(v106 + 32) = v208;
-      *(v106 + 40) = v208;
+      *(v106 + 32) = v216;
+      *(v106 + 40) = v216;
     }
 
     return v106;
@@ -2558,1226 +3020,1227 @@ uint64_t sub_1AAE7EC08(uint64_t a1, _OWORD *a2, void *a3, uint64_t a4, uint64_t 
   {
     if (EnumCaseMultiPayload == 6)
     {
-      v136 = v519;
-      *&v137 = COERCE_DOUBLE(type metadata accessor for MarkDimensions());
-      v138 = v531;
-      v139 = &v104[*(swift_getTupleTypeMetadata2() + 48)];
-      v140 = *(v139 + 5);
-      v545[4] = *(v139 + 4);
-      v545[5] = v140;
-      v545[6] = *(v139 + 6);
-      v546 = v139[112];
-      v141 = *(v139 + 1);
-      v545[0] = *v139;
-      v545[1] = v141;
-      v142 = *(v139 + 3);
-      v545[2] = *(v139 + 2);
-      v545[3] = v142;
-      v143 = v514;
-      (*(v532 + 32))(v514, v104, v138);
-      v144 = v530;
-      v145 = *(v530 + 104);
-      v146 = v523;
-      if (v145 != 255)
+      v140 = v574;
+      *&v141 = COERCE_DOUBLE(type metadata accessor for MarkDimensions(255, v574, v109, v110));
+      v142 = v586;
+      v143 = &v104[*(swift_getTupleTypeMetadata2() + 48)];
+      v144 = *(v143 + 5);
+      v600[4] = *(v143 + 4);
+      v600[5] = v144;
+      v600[6] = *(v143 + 6);
+      v601 = v143[112];
+      v145 = *(v143 + 1);
+      v600[0] = *v143;
+      v600[1] = v145;
+      v146 = *(v143 + 3);
+      v600[2] = *(v143 + 2);
+      v600[3] = v146;
+      v147 = v569;
+      (*(v587 + 32))(v569, v104, v142);
+      v148 = v585;
+      v149 = *(v585 + 104);
+      v150 = v578;
+      if (v149 != 255)
       {
-        v147 = v530[5];
-        v553 = v530[4];
-        v554 = v147;
-        v555 = *(v530 + 12);
-        v148 = v530[3];
-        v551 = v530[2];
-        v552 = v148;
-        v149 = v530[1];
-        v549 = *v530;
-        v550 = v149;
-        (*(v526 + 16))(v89, &v143[*(v138 + 44)], v528);
-        v150 = swift_getEnumCaseMultiPayload();
-        v533 = *&v137;
-        if (v150 <= 1)
+        v151 = v585[5];
+        v608 = v585[4];
+        v609 = v151;
+        v610 = *(v585 + 12);
+        v152 = v585[3];
+        v606 = v585[2];
+        v607 = v152;
+        v153 = v585[1];
+        v604 = *v585;
+        v605 = v153;
+        (v581[2])(v89, &v147[*(v142 + 44)], v583);
+        v154 = swift_getEnumCaseMultiPayload();
+        v588 = *&v141;
+        if (v154 <= 1)
         {
-          if (v150)
+          if (v154)
           {
-            v330 = v527;
-            v331 = *(swift_getTupleTypeMetadata2() + 48);
-            v332 = *(v146 + 32);
-            v332(v498, v89, v330);
-            v333 = (v332)(v499, v89 + v331, v330);
-            if (v145)
+            v348 = v582;
+            v349 = *(swift_getTupleTypeMetadata2() + 48);
+            v350 = *(v150 + 32);
+            v350(v553, v89, v348);
+            v351 = (v350)(v554, &v89[v349], v348);
+            if (v149)
             {
-              LODWORD(v483) = 0;
-              v481 = 397;
+              LODWORD(v538) = 0;
+              v536 = 397;
               goto LABEL_201;
             }
 
-            v557[3] = v553;
-            v557[4] = v554;
-            *&v557[5] = v555;
-            v556 = v549;
-            v557[0] = v550;
-            v557[2] = v552;
-            v557[1] = v551;
-            if (LOBYTE(v545[6]) == 255)
+            v612[3] = v608;
+            v612[4] = v609;
+            *&v612[5] = v610;
+            v611 = v604;
+            v612[0] = v605;
+            v612[2] = v607;
+            v612[1] = v606;
+            if (LOBYTE(v600[6]) == 255)
             {
-              sub_1AAE6433C(&v574);
+              sub_1AAE6433C(&v629);
             }
 
             else
             {
-              v576 = *(&v545[2] + 8);
-              v577 = *(&v545[3] + 8);
-              v578[0] = *(&v545[4] + 8);
-              *&v578[1] = *(&v545[5] + 1);
-              v574 = *(v545 + 8);
-              v575 = *(&v545[1] + 8);
-              BYTE8(v578[1]) = v545[6];
+              v631 = *(&v600[2] + 8);
+              v632 = *(&v600[3] + 8);
+              v633[0] = *(&v600[4] + 8);
+              *&v633[1] = *(&v600[5] + 1);
+              v629 = *(v600 + 8);
+              v630 = *(&v600[1] + 8);
+              BYTE8(v633[1]) = v600[6];
             }
 
-            v528 = v484;
-            v537 = v576;
-            v538[0] = v577;
-            v538[1] = v578[0];
-            *(&v538[1] + 9) = *(v578 + 9);
-            v535 = v574;
-            v536 = v575;
-            MEMORY[0x1EEE9AC00](v333);
-            v395 = v527;
-            v484[-12] = v136;
-            v484[-11] = v395;
-            v396 = v524;
-            v397 = v525;
-            v398 = v529;
-            v484[-10] = v525;
-            v484[-9] = v398;
-            v484[-8] = v396;
-            v484[-7] = &v535;
-            v400 = v498;
-            v399 = v499;
-            v484[-6] = &v556;
-            v484[-5] = v400;
-            v484[-4] = v399;
-            *&v484[-3] = a7;
-            v482 = *&a8;
-            sub_1AAE8432C(v144, &v547, sub_1AACCF364);
-            sub_1AAE8432C(v144, &v547, sub_1AACCF364);
-            v401 = type metadata accessor for MarkDimensions.Storage();
-            (*(*(v401 - 8) + 16))(&v547, v545 + 8, v401);
+            v583 = v539;
+            v592 = v631;
+            v593[0] = v632;
+            v593[1] = v633[0];
+            *(&v593[1] + 9) = *(v633 + 9);
+            v590 = v629;
+            v591 = v630;
+            MEMORY[0x1EEE9AC00](v351);
+            v425 = v582;
+            v539[-12] = v140;
+            v539[-11] = v425;
+            v426 = v579;
+            v427 = v580;
+            v428 = v584;
+            v539[-10] = v580;
+            v539[-9] = v428;
+            v539[-8] = v426;
+            v539[-7] = &v590;
+            v430 = v553;
+            v429 = v554;
+            v539[-6] = &v611;
+            v539[-5] = v430;
+            v539[-4] = v429;
+            *&v539[-3] = a7;
+            v537 = *&a8;
+            sub_1AAE8432C(v148, &v602, sub_1AACCF364);
+            sub_1AAE8432C(v148, &v602, sub_1AACCF364);
+            v433 = type metadata accessor for MarkDimensions.Storage(0, v140, v431, v432);
+            (*(*(v433 - 8) + 16))(&v602, v600 + 8, v433);
             sub_1AAE8412C();
-            v404 = sub_1AACB00E0(sub_1AAE84394, &v484[-14], v397, v402, MEMORY[0x1E69E73E0], v521, MEMORY[0x1E69E7410], v403);
-            v405 = type metadata accessor for MappedCoefficients();
-            (*(*(v405 - 8) + 8))(&v574, v405);
-            sub_1AAE52094(v144);
-            sub_1AAE52094(v144);
-            (*(*(*&v533 - 8) + 8))(v545);
-            (*(v532 + 8))(v514, v531);
-            v406 = *(v523 + 8);
-            v406(v399, v395);
-            v406(v400, v395);
-            return v404;
+            v436 = sub_1AACB00E0(sub_1AAE84394, &v539[-14], v427, v434, MEMORY[0x1E69E73E0], v576, MEMORY[0x1E69E7410], v435);
+            v439 = type metadata accessor for MappedCoefficients(0, v140, v437, v438);
+            (*(*(v439 - 8) + 8))(&v629, v439);
+            sub_1AAE52094(v148);
+            sub_1AAE52094(v148);
+            (*(*(*&v588 - 8) + 8))(v600);
+            (*(v587 + 8))(v569, v586);
+            v440 = *(v578 + 8);
+            v440(v429, v425);
+            v440(v430, v425);
+            return v436;
           }
 
           else
           {
-            (*(v146 + 32))(v501, v89, v527);
-            if (v145)
+            (*(v150 + 32))(v556, v89, v582);
+            if (v149)
             {
-              v557[3] = v553;
-              v557[4] = v554;
-              *&v557[5] = v555;
-              v556 = v549;
-              v557[0] = v550;
-              v557[2] = v552;
-              v557[1] = v551;
-              if (LOBYTE(v545[6]) == 255)
+              v612[3] = v608;
+              v612[4] = v609;
+              *&v612[5] = v610;
+              v611 = v604;
+              v612[0] = v605;
+              v612[2] = v607;
+              v612[1] = v606;
+              if (LOBYTE(v600[6]) == 255)
               {
-                sub_1AAE6433C(&v540);
+                sub_1AAE6433C(&v595);
               }
 
               else
               {
-                v542 = *(&v545[2] + 8);
-                v543 = *(&v545[3] + 8);
-                v544[0] = *(&v545[4] + 8);
-                *&v544[1] = *(&v545[5] + 1);
-                v540 = *(v545 + 8);
-                v541 = *(&v545[1] + 8);
-                BYTE8(v544[1]) = v545[6];
+                v597 = *(&v600[2] + 8);
+                v598 = *(&v600[3] + 8);
+                v599[0] = *(&v600[4] + 8);
+                *&v599[1] = *(&v600[5] + 1);
+                v595 = *(v600 + 8);
+                v596 = *(&v600[1] + 8);
+                BYTE8(v599[1]) = v600[6];
               }
 
-              v576 = v542;
-              v577 = v543;
-              v578[0] = v544[0];
-              *(v578 + 9) = *(v544 + 9);
-              v574 = v540;
-              v575 = v541;
-              v538[1] = v557[3];
-              v538[2] = v557[4];
-              v539 = *&v557[5];
-              v535 = v556;
-              v536 = v557[0];
-              v537 = v557[1];
-              v538[0] = v557[2];
-              sub_1AAE8432C(v144, &v547, sub_1AACCF364);
-              sub_1AAE8432C(v144, &v547, sub_1AACCF364);
-              v441 = type metadata accessor for MarkDimensions.Storage();
-              (*(*(v441 - 8) + 16))(&v547, v545 + 8, v441);
-              sub_1AAE28BBC(0, qword_1ED9B40B8);
-              v442 = v501;
-              v443 = v527;
-              v444 = v529;
-              v445 = sub_1AAF3C35C(v501);
-              v528 = v484;
-              v446 = MEMORY[0x1EEE9AC00](v445);
-              v484[-12] = v136;
-              v484[-11] = v443;
-              v447 = v524;
-              v448 = v525;
-              v484[-10] = v525;
-              v484[-9] = v444;
-              v484[-8] = v447;
-              v484[-7] = &v556;
-              v484[-6] = &v574;
-              *&v484[-5] = v446;
-              *&v484[-4] = a7;
-              *&v484[-3] = a9;
-              v482 = *&a10;
-              v483 = a8;
+              v631 = v597;
+              v632 = v598;
+              v633[0] = v599[0];
+              *(v633 + 9) = *(v599 + 9);
+              v629 = v595;
+              v630 = v596;
+              v593[1] = v612[3];
+              v593[2] = v612[4];
+              v594 = *&v612[5];
+              v590 = v611;
+              v591 = v612[0];
+              v592 = v612[1];
+              v593[0] = v612[2];
+              sub_1AAE8432C(v148, &v602, sub_1AACCF364);
+              sub_1AAE8432C(v148, &v602, sub_1AACCF364);
+              v487 = type metadata accessor for MarkDimensions.Storage(0, v140, v485, v486);
+              (*(*(v487 - 8) + 16))(&v602, v600 + 8, v487);
+              sub_1AAE28BBC(0, qword_1ED9B40B8, MEMORY[0x1E69E6158], v488);
+              v489 = v556;
+              v490 = v582;
+              v491 = v584;
+              sub_1AAF3C35C(v556, v492, v582);
+              v583 = v539;
+              v494 = MEMORY[0x1EEE9AC00](v493);
+              v539[-12] = v140;
+              v539[-11] = v490;
+              v495 = v579;
+              v496 = v580;
+              v539[-10] = v580;
+              v539[-9] = v491;
+              v539[-8] = v495;
+              v539[-7] = &v611;
+              v539[-6] = &v629;
+              *&v539[-5] = v494;
+              *&v539[-4] = a7;
+              *&v539[-3] = a9;
+              v537 = *&a10;
+              v538 = a8;
               sub_1AAE8412C();
-              v106 = sub_1AACB00E0(sub_1AAE844E8, &v484[-14], v448, v449, MEMORY[0x1E69E73E0], v521, MEMORY[0x1E69E7410], v450);
-              sub_1AAE52094(v144);
-              v451 = type metadata accessor for MappedCoefficients();
-              (*(*(v451 - 8) + 8))(&v540, v451);
+              v106 = sub_1AACB00E0(sub_1AAE844E8, &v539[-14], v496, v497, MEMORY[0x1E69E73E0], v576, MEMORY[0x1E69E7410], v498);
+              sub_1AAE52094(v148);
+              v501 = type metadata accessor for MappedCoefficients(0, v140, v499, v500);
+              (*(*(v501 - 8) + 8))(&v595, v501);
             }
 
             else
             {
-              if (LOBYTE(v545[6]) == 255)
+              if (LOBYTE(v600[6]) == 255)
               {
-                sub_1AAE642DC(&v574);
+                sub_1AAE642DC(&v629);
               }
 
               else
               {
-                v576 = *(&v545[2] + 8);
-                v577 = *(&v545[3] + 8);
-                v578[0] = *(&v545[4] + 8);
-                *&v578[1] = *(&v545[5] + 1);
-                v574 = *(v545 + 8);
-                v575 = *(&v545[1] + 8);
-                BYTE8(v578[1]) = v545[6];
+                v631 = *(&v600[2] + 8);
+                v632 = *(&v600[3] + 8);
+                v633[0] = *(&v600[4] + 8);
+                *&v633[1] = *(&v600[5] + 1);
+                v629 = *(v600 + 8);
+                v630 = *(&v600[1] + 8);
+                BYTE8(v633[1]) = v600[6];
               }
 
-              v537 = v576;
-              v538[0] = v577;
-              v538[1] = v578[0];
-              *(&v538[1] + 9) = *(v578 + 9);
-              v535 = v574;
-              v536 = v575;
-              v557[3] = v553;
-              v557[4] = v554;
-              *&v557[5] = v555;
-              v556 = v549;
-              v557[0] = v550;
-              v557[2] = v552;
-              v557[1] = v551;
-              sub_1AAE8432C(v144, &v547, sub_1AACCF364);
-              v452 = type metadata accessor for MarkDimensions.Storage();
-              (*(*(v452 - 8) + 16))(&v547, v545 + 8, v452);
-              sub_1AAE28BBC(0, &qword_1ED9B4070);
-              v442 = v501;
-              v443 = v527;
-              v453 = v529;
-              v455 = sub_1AAF3CCD4(v501, v454, v527, v529);
-              v528 = v484;
-              v456 = MEMORY[0x1EEE9AC00](v455);
-              v484[-10] = v136;
-              v484[-9] = v443;
-              v457 = v524;
-              v458 = v525;
-              v484[-8] = v525;
-              v484[-7] = v453;
-              v484[-6] = v457;
-              v484[-5] = &v535;
-              *&v484[-4] = v456;
-              *&v484[-3] = a7;
-              v482 = *&a8;
+              v592 = v631;
+              v593[0] = v632;
+              v593[1] = v633[0];
+              *(&v593[1] + 9) = *(v633 + 9);
+              v590 = v629;
+              v591 = v630;
+              v612[3] = v608;
+              v612[4] = v609;
+              *&v612[5] = v610;
+              v611 = v604;
+              v612[0] = v605;
+              v612[2] = v607;
+              v612[1] = v606;
+              sub_1AAE8432C(v148, &v602, sub_1AACCF364);
+              v504 = type metadata accessor for MarkDimensions.Storage(0, v140, v502, v503);
+              (*(*(v504 - 8) + 16))(&v602, v600 + 8, v504);
+              sub_1AAE28BBC(0, &qword_1ED9B4070, MEMORY[0x1E69E63B0], v505);
+              v489 = v556;
+              v490 = v582;
+              v506 = v584;
+              v508 = sub_1AAF3CCD4(v556, v507, v582, v584);
+              v583 = v539;
+              v509 = MEMORY[0x1EEE9AC00](v508);
+              v539[-10] = v140;
+              v539[-9] = v490;
+              v510 = v579;
+              v511 = v580;
+              v539[-8] = v580;
+              v539[-7] = v506;
+              v539[-6] = v510;
+              v539[-5] = &v590;
+              *&v539[-4] = v509;
+              *&v539[-3] = a7;
+              v537 = *&a8;
               sub_1AAE8412C();
-              v106 = sub_1AACB00E0(sub_1AAE8459C, &v484[-12], v458, v459, MEMORY[0x1E69E73E0], v521, MEMORY[0x1E69E7410], v460);
-              v461 = type metadata accessor for MappedCoefficients();
-              (*(*(v461 - 8) + 8))(&v574, v461);
+              v106 = sub_1AACB00E0(sub_1AAE8459C, &v539[-12], v511, v512, MEMORY[0x1E69E73E0], v576, MEMORY[0x1E69E7410], v513);
+              v516 = type metadata accessor for MappedCoefficients(0, v140, v514, v515);
+              (*(*(v516 - 8) + 8))(&v629, v516);
             }
 
-            sub_1AAE52094(v144);
-            (*(*(*&v533 - 8) + 8))(v545);
-            (*(v146 + 8))(v442, v443);
-            (*(v532 + 8))(v514, v138);
+            sub_1AAE52094(v148);
+            (*(*(*&v588 - 8) + 8))(v600);
+            (*(v150 + 8))(v489, v490);
+            (*(v587 + 8))(v569, v142);
           }
 
           return v106;
         }
 
-        if (v150 == 2)
+        if (v154 == 2)
         {
-          v296 = *v89;
-          v528 = *v89;
-          if (v145)
+          v312 = *v89;
+          v583 = *v89;
+          if (v149)
           {
-            v557[3] = v553;
-            v557[4] = v554;
-            *&v557[5] = v555;
-            v556 = v549;
-            v557[0] = v550;
-            v557[2] = v552;
-            v557[1] = v551;
-            if (LOBYTE(v545[6]) == 255)
+            v612[3] = v608;
+            v612[4] = v609;
+            *&v612[5] = v610;
+            v611 = v604;
+            v612[0] = v605;
+            v612[2] = v607;
+            v612[1] = v606;
+            if (LOBYTE(v600[6]) == 255)
             {
-              sub_1AAE6433C(&v540);
+              sub_1AAE6433C(&v595);
             }
 
             else
             {
-              v542 = *(&v545[2] + 8);
-              v543 = *(&v545[3] + 8);
-              v544[0] = *(&v545[4] + 8);
-              *&v544[1] = *(&v545[5] + 1);
-              v540 = *(v545 + 8);
-              v541 = *(&v545[1] + 8);
-              BYTE8(v544[1]) = v545[6];
+              v597 = *(&v600[2] + 8);
+              v598 = *(&v600[3] + 8);
+              v599[0] = *(&v600[4] + 8);
+              *&v599[1] = *(&v600[5] + 1);
+              v595 = *(v600 + 8);
+              v596 = *(&v600[1] + 8);
+              BYTE8(v599[1]) = v600[6];
             }
 
-            v576 = v542;
-            v577 = v543;
-            v578[0] = v544[0];
-            *(v578 + 9) = *(v544 + 9);
-            v574 = v540;
-            v575 = v541;
-            v538[1] = v557[3];
-            v538[2] = v557[4];
-            v539 = *&v557[5];
-            v535 = v556;
-            v536 = v557[0];
-            v537 = v557[1];
-            v538[0] = v557[2];
-            sub_1AAE8432C(v144, &v547, sub_1AACCF364);
-            sub_1AAE8432C(v144, &v547, sub_1AACCF364);
-            v407 = type metadata accessor for MarkDimensions.Storage();
-            (*(*(v407 - 8) + 16))(&v547, v545 + 8, v407);
-            sub_1AAE28BBC(0, qword_1ED9B40B8);
-            v408 = v525;
-            v409 = v529;
-            v410 = v136;
-            v411 = v524;
-            *&v547 = sub_1AAF3CB18(v534.i64[0], v296, v412, v525, v529, v524);
-            v413 = v488;
+            v631 = v597;
+            v632 = v598;
+            v633[0] = v599[0];
+            *(v633 + 9) = *(v599 + 9);
+            v629 = v595;
+            v630 = v596;
+            v593[1] = v612[3];
+            v593[2] = v612[4];
+            v594 = *&v612[5];
+            v590 = v611;
+            v591 = v612[0];
+            v592 = v612[1];
+            v593[0] = v612[2];
+            sub_1AAE8432C(v148, &v602, sub_1AACCF364);
+            sub_1AAE8432C(v148, &v602, sub_1AACCF364);
+            v443 = type metadata accessor for MarkDimensions.Storage(0, v140, v441, v442);
+            (*(*(v443 - 8) + 16))(&v602, v600 + 8, v443);
+            sub_1AAE28BBC(0, qword_1ED9B40B8, MEMORY[0x1E69E6158], v444);
+            v445 = v580;
+            v446 = v584;
+            v447 = v140;
+            v448 = v579;
+            *&v602 = sub_1AAF3CB18(v589.i64[0], v312, v449, v580, v584, v579);
+            v450 = v543;
             sub_1AAF90584();
 
-            MEMORY[0x1EEE9AC00](v414);
-            v415 = v527;
-            v484[-12] = v410;
-            v484[-11] = v415;
-            v484[-10] = v408;
-            v484[-9] = v409;
-            v484[-8] = v411;
-            v484[-7] = &v556;
-            v484[-6] = &v574;
-            *&v484[-5] = a7;
-            *&v484[-4] = a9;
-            *&v484[-3] = a10;
-            MEMORY[0x1EEE9AC00](v416);
-            v484[-8] = v410;
-            v484[-7] = v417;
-            v484[-6] = v408;
-            v484[-5] = v409;
-            v484[-4] = v411;
-            v484[-3] = sub_1AAE84624;
-            v482 = v418;
+            MEMORY[0x1EEE9AC00](v451);
+            v452 = v582;
+            v539[-12] = v447;
+            v539[-11] = v452;
+            v539[-10] = v445;
+            v539[-9] = v446;
+            v539[-8] = v448;
+            v539[-7] = &v611;
+            v539[-6] = &v629;
+            *&v539[-5] = a7;
+            *&v539[-4] = a9;
+            *&v539[-3] = a10;
+            MEMORY[0x1EEE9AC00](v453);
+            v539[-8] = v447;
+            v539[-7] = v454;
+            v539[-6] = v445;
+            v539[-5] = v446;
+            v539[-4] = v448;
+            v539[-3] = sub_1AAE84624;
+            v537 = v455;
             sub_1AAE8412C();
-            v420 = v419;
-            v421 = v491;
+            v457 = v456;
+            v458 = v546;
             WitnessTable = swift_getWitnessTable();
-            v106 = sub_1AAE79E0C(sub_1AAE846C0, &v484[-10], v421, v420, MEMORY[0x1E69E73E0], WitnessTable, MEMORY[0x1E69E7410], v423);
+            v106 = sub_1AAE79E0C(sub_1AAE846C0, &v539[-10], v458, v457, MEMORY[0x1E69E73E0], WitnessTable, MEMORY[0x1E69E7410], v460);
 
-            sub_1AAE52094(v144);
-            v424 = type metadata accessor for MappedCoefficients();
-            (*(*(v424 - 8) + 8))(&v540, v424);
+            sub_1AAE52094(v148);
+            v463 = type metadata accessor for MappedCoefficients(0, v447, v461, v462);
+            (*(*(v463 - 8) + 8))(&v595, v463);
           }
 
           else
           {
-            if (LOBYTE(v545[6]) == 255)
+            if (LOBYTE(v600[6]) == 255)
             {
-              sub_1AAE642DC(&v574);
+              sub_1AAE642DC(&v629);
             }
 
             else
             {
-              v576 = *(&v545[2] + 8);
-              v577 = *(&v545[3] + 8);
-              v578[0] = *(&v545[4] + 8);
-              *&v578[1] = *(&v545[5] + 1);
-              v574 = *(v545 + 8);
-              v575 = *(&v545[1] + 8);
-              BYTE8(v578[1]) = v545[6];
+              v631 = *(&v600[2] + 8);
+              v632 = *(&v600[3] + 8);
+              v633[0] = *(&v600[4] + 8);
+              *&v633[1] = *(&v600[5] + 1);
+              v629 = *(v600 + 8);
+              v630 = *(&v600[1] + 8);
+              BYTE8(v633[1]) = v600[6];
             }
 
-            v537 = v576;
-            v538[0] = v577;
-            v538[1] = v578[0];
-            *(&v538[1] + 9) = *(v578 + 9);
-            v535 = v574;
-            v536 = v575;
-            v557[3] = v553;
-            v557[4] = v554;
-            *&v557[5] = v555;
-            v556 = v549;
-            v557[0] = v550;
-            v557[2] = v552;
-            v557[1] = v551;
-            sub_1AAE8432C(v144, &v547, sub_1AACCF364);
-            v425 = type metadata accessor for MarkDimensions.Storage();
-            (*(*(v425 - 8) + 16))(&v547, v545 + 8, v425);
-            sub_1AAE28BBC(0, &qword_1ED9B4070);
-            v426 = v525;
-            v427 = v529;
-            v428 = v136;
-            v429 = v524;
-            *&v547 = sub_1AAF3C45C(v534.i64[0], v296, v430, v525, v529, v524);
-            v413 = v488;
+            v592 = v631;
+            v593[0] = v632;
+            v593[1] = v633[0];
+            *(&v593[1] + 9) = *(v633 + 9);
+            v590 = v629;
+            v591 = v630;
+            v612[3] = v608;
+            v612[4] = v609;
+            *&v612[5] = v610;
+            v611 = v604;
+            v612[0] = v605;
+            v612[2] = v607;
+            v612[1] = v606;
+            sub_1AAE8432C(v148, &v602, sub_1AACCF364);
+            v466 = type metadata accessor for MarkDimensions.Storage(0, v140, v464, v465);
+            (*(*(v466 - 8) + 16))(&v602, v600 + 8, v466);
+            sub_1AAE28BBC(0, &qword_1ED9B4070, MEMORY[0x1E69E63B0], v467);
+            v468 = v580;
+            v469 = v584;
+            v470 = v140;
+            v471 = v579;
+            *&v602 = sub_1AAF3C45C(v589.i64[0], v312, v472, v580, v584, v579);
+            v450 = v543;
             sub_1AAF90584();
 
-            MEMORY[0x1EEE9AC00](v431);
-            v432 = v527;
-            v484[-8] = v428;
-            v484[-7] = v432;
-            v484[-6] = v426;
-            v484[-5] = v427;
-            v484[-4] = v429;
-            v484[-3] = &v535;
-            v483 = a8;
-            MEMORY[0x1EEE9AC00](v433);
-            v484[-8] = v428;
-            v484[-7] = v434;
-            v484[-6] = v426;
-            v484[-5] = v427;
-            v484[-4] = v429;
-            v484[-3] = sub_1AAE846D8;
-            v482 = v435;
+            MEMORY[0x1EEE9AC00](v473);
+            v474 = v582;
+            v539[-8] = v470;
+            v539[-7] = v474;
+            v539[-6] = v468;
+            v539[-5] = v469;
+            v539[-4] = v471;
+            v539[-3] = &v590;
+            v538 = a8;
+            MEMORY[0x1EEE9AC00](v475);
+            v539[-8] = v470;
+            v539[-7] = v476;
+            v539[-6] = v468;
+            v539[-5] = v469;
+            v539[-4] = v471;
+            v539[-3] = sub_1AAE846D8;
+            v537 = v477;
             sub_1AAE8412C();
-            v437 = v436;
-            v421 = v491;
-            v438 = swift_getWitnessTable();
-            v106 = sub_1AAE79E0C(sub_1AAE847D8, &v484[-10], v421, v437, MEMORY[0x1E69E73E0], v438, MEMORY[0x1E69E7410], v439);
-            v440 = type metadata accessor for MappedCoefficients();
-            (*(*(v440 - 8) + 8))(&v574, v440);
+            v479 = v478;
+            v458 = v546;
+            v480 = swift_getWitnessTable();
+            v106 = sub_1AAE79E0C(sub_1AAE847D8, &v539[-10], v458, v479, MEMORY[0x1E69E73E0], v480, MEMORY[0x1E69E7410], v481);
+            v484 = type metadata accessor for MappedCoefficients(0, v470, v482, v483);
+            (*(*(v484 - 8) + 8))(&v629, v484);
           }
 
-          (*(*(*&v533 - 8) + 8))(v545);
-          sub_1AAE52094(v144);
-          (*(v490 + 8))(v413, v421);
-          (*(v532 + 8))(v143, v531);
+          (*(*(*&v588 - 8) + 8))(v600);
+          sub_1AAE52094(v148);
+          (*(v545 + 8))(v450, v458);
+          (*(v587 + 8))(v147, v586);
           return v106;
         }
 
-        if (v150 == 3)
+        if (v154 == 3)
         {
-          if (v145)
+          if (v149)
           {
-            LODWORD(v483) = 0;
-            v481 = 383;
+            LODWORD(v538) = 0;
+            v536 = 383;
             goto LABEL_201;
           }
 
-          v151 = *v89;
-          v528 = v89[1];
-          v557[3] = v553;
-          v557[4] = v554;
-          *&v557[5] = v555;
-          v556 = v549;
-          v557[0] = v550;
-          v557[2] = v552;
-          v557[1] = v551;
-          if (LOBYTE(v545[6]) == 255)
+          v155 = *v89;
+          v583 = *(v89 + 1);
+          v612[3] = v608;
+          v612[4] = v609;
+          *&v612[5] = v610;
+          v611 = v604;
+          v612[0] = v605;
+          v612[2] = v607;
+          v612[1] = v606;
+          if (LOBYTE(v600[6]) == 255)
           {
-            sub_1AAE6433C(&v540);
+            sub_1AAE6433C(&v595);
           }
 
           else
           {
-            v542 = *(&v545[2] + 8);
-            v543 = *(&v545[3] + 8);
-            v544[0] = *(&v545[4] + 8);
-            *&v544[1] = *(&v545[5] + 1);
-            v540 = *(v545 + 8);
-            v541 = *(&v545[1] + 8);
-            BYTE8(v544[1]) = v545[6];
+            v597 = *(&v600[2] + 8);
+            v598 = *(&v600[3] + 8);
+            v599[0] = *(&v600[4] + 8);
+            *&v599[1] = *(&v600[5] + 1);
+            v595 = *(v600 + 8);
+            v596 = *(&v600[1] + 8);
+            BYTE8(v599[1]) = v600[6];
           }
 
-          v576 = v542;
-          v577 = v543;
-          v578[0] = v544[0];
-          *(v578 + 9) = *(v544 + 9);
-          v574 = v540;
-          v575 = v541;
-          v538[1] = v553;
-          v538[2] = v554;
-          v539 = v555;
-          v535 = v549;
-          v536 = v550;
-          v537 = v551;
-          v538[0] = v552;
-          sub_1AAE8432C(v144, &v547, sub_1AACCF364);
-          v354 = type metadata accessor for MarkDimensions.Storage();
-          (*(*(v354 - 8) + 16))(&v547, v545 + 8, v354);
-          sub_1AAE28BBC(0, &qword_1ED9B4070);
-          v356 = v355;
-          v357 = v534.i64[0];
-          v358 = v151;
-          v526 = v151;
-          v360 = v524;
-          v359 = v525;
-          v361 = v136;
-          v362 = v529;
-          v363 = sub_1AAF3C45C(v534.i64[0], v358, v355, v525, v529, v524);
-          v548[3] = v557[3];
-          v548[4] = v557[4];
-          *&v548[5] = *&v557[5];
-          v547 = v556;
-          v548[0] = v557[0];
-          v548[1] = v557[1];
-          v548[2] = v557[2];
-          v364 = sub_1AAF3C45C(v357, v528, v356, v359, v362, v360);
-          *&v547 = v363;
-          *(&v547 + 1) = v364;
-          v365 = v489;
+          v631 = v597;
+          v632 = v598;
+          v633[0] = v599[0];
+          *(v633 + 9) = *(v599 + 9);
+          v629 = v595;
+          v630 = v596;
+          v593[1] = v608;
+          v593[2] = v609;
+          v594 = v610;
+          v590 = v604;
+          v591 = v605;
+          v592 = v606;
+          v593[0] = v607;
+          sub_1AAE8432C(v148, &v602, sub_1AACCF364);
+          v376 = type metadata accessor for MarkDimensions.Storage(0, v140, v374, v375);
+          (*(*(v376 - 8) + 16))(&v602, v600 + 8, v376);
+          sub_1AAE28BBC(0, &qword_1ED9B4070, MEMORY[0x1E69E63B0], v377);
+          v379 = v378;
+          v380 = v589.i64[0];
+          v381 = v155;
+          v581 = v155;
+          v383 = v579;
+          v382 = v580;
+          v384 = v140;
+          v385 = v584;
+          v386 = sub_1AAF3C45C(v589.i64[0], v381, v378, v580, v584, v579);
+          v603[3] = v612[3];
+          v603[4] = v612[4];
+          *&v603[5] = *&v612[5];
+          v602 = v611;
+          v603[0] = v612[0];
+          v603[1] = v612[1];
+          v603[2] = v612[2];
+          v387 = sub_1AAF3C45C(v380, v583, v379, v382, v385, v383);
+          *&v602 = v386;
+          *(&v602 + 1) = v387;
+          v388 = v544;
           sub_1AAF90584();
 
-          MEMORY[0x1EEE9AC00](v366);
-          v367 = v527;
-          v484[-8] = v361;
-          v484[-7] = v367;
-          v484[-6] = v359;
-          v484[-5] = v362;
-          v484[-4] = v360;
-          v484[-3] = &v574;
-          v483 = a8;
-          MEMORY[0x1EEE9AC00](v368);
-          v484[-8] = v361;
-          v484[-7] = v369;
-          v484[-6] = v359;
-          v484[-5] = v362;
-          v484[-4] = v360;
-          v484[-3] = sub_1AAE847BC;
-          v482 = v370;
+          MEMORY[0x1EEE9AC00](v389);
+          v390 = v582;
+          v539[-8] = v384;
+          v539[-7] = v390;
+          v539[-6] = v382;
+          v539[-5] = v385;
+          v539[-4] = v383;
+          v539[-3] = &v629;
+          v538 = a8;
+          MEMORY[0x1EEE9AC00](v391);
+          v539[-8] = v384;
+          v539[-7] = v392;
+          v539[-6] = v382;
+          v539[-5] = v385;
+          v539[-4] = v383;
+          v539[-3] = sub_1AAE847BC;
+          v537 = v393;
           sub_1AAE8412C();
-          v372 = v371;
-          v373 = v493;
-          v374 = swift_getWitnessTable();
-          v106 = sub_1AAE79E0C(sub_1AAE843D8, &v484[-10], v373, v372, MEMORY[0x1E69E73E0], v374, MEMORY[0x1E69E7410], v375);
-          v376 = type metadata accessor for MappedCoefficients();
-          (*(*(v376 - 8) + 8))(&v540, v376);
+          v395 = v394;
+          v396 = v548;
+          v397 = swift_getWitnessTable();
+          v106 = sub_1AAE79E0C(sub_1AAE843D8, &v539[-10], v396, v395, MEMORY[0x1E69E73E0], v397, MEMORY[0x1E69E7410], v398);
+          v401 = type metadata accessor for MappedCoefficients(0, v384, v399, v400);
+          (*(*(v401 - 8) + 8))(&v595, v401);
 
-          sub_1AAE52094(v144);
-          (*(*(*&v533 - 8) + 8))(v545);
-          (*(v492 + 8))(v365, v373);
-          (*(v532 + 8))(v514, v531);
+          sub_1AAE52094(v148);
+          (*(*(*&v588 - 8) + 8))(v600);
+          (*(v547 + 8))(v388, v396);
+          (*(v587 + 8))(v569, v586);
           return v106;
         }
 
-        v528 = *v89;
+        v583 = *v89;
         sub_1AAF90774();
-        v315 = v509;
-        v316 = v511;
+        v332 = v564;
+        v333 = v566;
         TupleTypeMetadata3 = swift_getTupleTypeMetadata3();
-        v318 = *(TupleTypeMetadata3 + 64);
-        (*(v508 + 32))(v505, v89 + *(TupleTypeMetadata3 + 48), v315);
-        (*(v510 + 32))(v506, v89 + v318, v316);
-        if ((v145 & 1) == 0)
+        v335 = *(TupleTypeMetadata3 + 64);
+        (*(v563 + 32))(v560, &v89[*(TupleTypeMetadata3 + 48)], v332);
+        (*(v565 + 32))(v561, &v89[v335], v333);
+        if ((v149 & 1) == 0)
         {
-          if (LOBYTE(v545[6]) == 255)
+          if (LOBYTE(v600[6]) == 255)
           {
-            sub_1AAE6433C(&v574);
+            sub_1AAE6433C(&v629);
           }
 
           else
           {
-            v576 = *(&v545[2] + 8);
-            v577 = *(&v545[3] + 8);
-            v578[0] = *(&v545[4] + 8);
-            *&v578[1] = *(&v545[5] + 1);
-            v574 = *(v545 + 8);
-            v575 = *(&v545[1] + 8);
-            BYTE8(v578[1]) = v545[6];
+            v631 = *(&v600[2] + 8);
+            v632 = *(&v600[3] + 8);
+            v633[0] = *(&v600[4] + 8);
+            *&v633[1] = *(&v600[5] + 1);
+            v629 = *(v600 + 8);
+            v630 = *(&v600[1] + 8);
+            BYTE8(v633[1]) = v600[6];
           }
 
-          v537 = v576;
-          v538[0] = v577;
-          v538[1] = v578[0];
-          *(&v538[1] + 9) = *(v578 + 9);
-          v535 = v574;
-          v536 = v575;
-          v557[3] = v553;
-          v557[4] = v554;
-          *&v557[5] = v555;
-          v556 = v549;
-          v557[0] = v550;
-          v557[2] = v552;
-          v557[1] = v551;
-          sub_1AAE8432C(v144, &v547, sub_1AACCF364);
-          v377 = type metadata accessor for MarkDimensions.Storage();
-          (*(*(v377 - 8) + 16))(&v547, v545 + 8, v377);
-          sub_1AAE28BBC(0, &qword_1ED9B4070);
-          v378 = v529;
-          v379 = v525;
-          v380 = v136;
-          v381 = v524;
-          *&v547 = sub_1AAF3CD40(v534.i64[0], v528, v505, v506, v382, v525, v529, v524);
-          v383 = v485;
+          v592 = v631;
+          v593[0] = v632;
+          v593[1] = v633[0];
+          *(&v593[1] + 9) = *(v633 + 9);
+          v590 = v629;
+          v591 = v630;
+          v612[3] = v608;
+          v612[4] = v609;
+          *&v612[5] = v610;
+          v611 = v604;
+          v612[0] = v605;
+          v612[2] = v607;
+          v612[1] = v606;
+          sub_1AAE8432C(v148, &v602, sub_1AACCF364);
+          v404 = type metadata accessor for MarkDimensions.Storage(0, v140, v402, v403);
+          (*(*(v404 - 8) + 16))(&v602, v600 + 8, v404);
+          sub_1AAE28BBC(0, &qword_1ED9B4070, MEMORY[0x1E69E63B0], v405);
+          v406 = v584;
+          v407 = v580;
+          v408 = v140;
+          v409 = v579;
+          *&v602 = sub_1AAF3CD40(v589.i64[0], v583, v560, v561, v410, v580, v584, v579);
+          v411 = v540;
           sub_1AAF90584();
 
-          MEMORY[0x1EEE9AC00](v384);
-          v385 = v527;
-          v484[-8] = v380;
-          v484[-7] = v385;
-          v484[-6] = v379;
-          v484[-5] = v378;
-          v484[-4] = v381;
-          v484[-3] = &v535;
-          v483 = a8;
-          MEMORY[0x1EEE9AC00](v386);
-          v484[-8] = v380;
-          v484[-7] = v387;
-          v484[-6] = v379;
-          v484[-5] = v378;
-          v484[-4] = v381;
-          v484[-3] = sub_1AAE843F0;
-          v482 = v388;
+          MEMORY[0x1EEE9AC00](v412);
+          v413 = v582;
+          v539[-8] = v408;
+          v539[-7] = v413;
+          v539[-6] = v407;
+          v539[-5] = v406;
+          v539[-4] = v409;
+          v539[-3] = &v590;
+          v538 = a8;
+          MEMORY[0x1EEE9AC00](v414);
+          v539[-8] = v408;
+          v539[-7] = v415;
+          v539[-6] = v407;
+          v539[-5] = v406;
+          v539[-4] = v409;
+          v539[-3] = sub_1AAE843F0;
+          v537 = v416;
           sub_1AAE8412C();
-          v390 = v389;
-          v391 = v487;
-          v392 = swift_getWitnessTable();
-          v106 = sub_1AAE79E0C(sub_1AAE847C0, &v484[-10], v391, v390, MEMORY[0x1E69E73E0], v392, MEMORY[0x1E69E7410], v393);
-          v394 = type metadata accessor for MappedCoefficients();
-          (*(*(v394 - 8) + 8))(&v574, v394);
+          v418 = v417;
+          v419 = v542;
+          v420 = swift_getWitnessTable();
+          v106 = sub_1AAE79E0C(sub_1AAE847C0, &v539[-10], v419, v418, MEMORY[0x1E69E73E0], v420, MEMORY[0x1E69E7410], v421);
+          v424 = type metadata accessor for MappedCoefficients(0, v408, v422, v423);
+          (*(*(v424 - 8) + 8))(&v629, v424);
 
-          sub_1AAE52094(v144);
-          (*(*(*&v533 - 8) + 8))(v545);
-          (*(v486 + 8))(v383, v391);
-          (*(v510 + 8))(v506, v511);
-          (*(v508 + 8))(v505, v509);
-          (*(v532 + 8))(v514, v531);
+          sub_1AAE52094(v148);
+          (*(*(*&v588 - 8) + 8))(v600);
+          (*(v541 + 8))(v411, v419);
+          (*(v565 + 8))(v561, v566);
+          (*(v563 + 8))(v560, v564);
+          (*(v587 + 8))(v569, v586);
           return v106;
         }
 
-        LODWORD(v483) = 0;
-        v470 = 369;
+        LODWORD(v538) = 0;
+        v525 = 369;
         goto LABEL_193;
       }
 
-      LODWORD(v483) = 0;
-      v462 = 308;
+      LODWORD(v538) = 0;
+      v517 = 308;
     }
 
     else
     {
-      v188 = v531;
-      v189 = &v104[*(swift_getTupleTypeMetadata2() + 48)];
-      v190 = *(v189 + 4);
-      v191 = *(v189 + 5);
-      v192 = v189[48];
-      sub_1AAD0E818(*(v189 + 1), *(v189 + 2), v189[24]);
-      sub_1AADB2F88(v190, v191, v192);
-      v193 = v518;
-      (*(v532 + 32))(v518, v104, v188);
-      v194 = v530;
-      v195 = *(v530 + 104);
-      v196 = v527;
-      v197 = v523;
-      if (v195 != 255)
+      v195 = v586;
+      v196 = &v104[*(swift_getTupleTypeMetadata2() + 48)];
+      v197 = *(v196 + 4);
+      v198 = *(v196 + 5);
+      v199 = v196[48];
+      sub_1AAD0E818(*(v196 + 1), *(v196 + 2), v196[24]);
+      sub_1AADB2F88(v197, v198, v199);
+      v200 = v573;
+      (*(v587 + 32))(v573, v104, v195);
+      v201 = v585;
+      v202 = *(v585 + 104);
+      v203 = v582;
+      v204 = v578;
+      if (v202 != 255)
       {
-        v199 = *v530;
-        v198 = *(v530 + 1);
-        v200 = v530[4];
-        v560 = v530[3];
-        v561 = v200;
-        v562 = v530[5];
-        v563 = *(v530 + 12);
-        v201 = v530[2];
-        v558 = v530[1];
-        v559 = v201;
-        (*(v526 + 16))(v517, &v193[*(v188 + 44)], v528);
-        v202 = swift_getEnumCaseMultiPayload();
-        if (v202 > 1)
+        v206 = *v585;
+        v205 = *(v585 + 1);
+        v207 = v585[4];
+        v615 = v585[3];
+        v616 = v207;
+        v617 = v585[5];
+        v618 = *(v585 + 12);
+        v208 = v585[2];
+        v613 = v585[1];
+        v614 = v208;
+        (v581[2])(v572, &v200[*(v195 + 44)], v583);
+        v209 = swift_getEnumCaseMultiPayload();
+        if (v209 > 1)
         {
-          if (v202 == 2)
+          if (v209 == 2)
           {
-            v239 = v518;
-            if ((v195 & 1) == 0)
+            v248 = v573;
+            if ((v202 & 1) == 0)
             {
-              v240 = *v517;
-              *&v556 = 0;
-              v545[4] = v583;
-              v545[5] = v584[0];
-              *(&v545[5] + 9) = *(v584 + 9);
-              v545[0] = v579;
-              v545[1] = v580;
-              v545[2] = v581;
-              v545[3] = v582;
-              sub_1AAE7B790(v545, &v547, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
-              v199(&v547, &v556);
-              v241 = v547;
-              *&v547 = v199;
-              *(&v547 + 1) = v198;
-              v548[2] = v560;
-              v548[3] = v561;
-              v548[4] = v562;
-              *&v548[5] = v563;
-              v548[0] = v558;
-              v548[1] = v559;
-              sub_1AAE28BBC(0, &qword_1ED9B4070);
-              v243 = sub_1AAF3C45C(v534.i64[0], v240, v242, v525, v529, v524);
-              v244 = *(v243 + 16);
-              if (v244)
+              v249 = *v572;
+              *&v611 = 0;
+              v600[4] = v638;
+              v600[5] = v639[0];
+              *(&v600[5] + 9) = *(v639 + 9);
+              v600[0] = v634;
+              v600[1] = v635;
+              v600[2] = v636;
+              v600[3] = v637;
+              sub_1AAE7B790(v600, &v602, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
+              v206(&v602, &v611);
+              v250 = v602;
+              *&v602 = v206;
+              *(&v602 + 1) = v205;
+              v603[2] = v615;
+              v603[3] = v616;
+              v603[4] = v617;
+              *&v603[5] = v618;
+              v603[0] = v613;
+              v603[1] = v614;
+              sub_1AAE28BBC(0, &qword_1ED9B4070, MEMORY[0x1E69E63B0], v251);
+              v253 = sub_1AAF3C45C(v589.i64[0], v249, v252, v580, v584, v579);
+              v254 = *(v253 + 16);
+              if (v254)
               {
-                *&v547 = MEMORY[0x1E69E7CC0];
-                sub_1AAD41468(0, v244, 0);
-                v106 = v547;
-                v245 = *(v547 + 16);
-                v246 = 16 * v245;
-                v247 = 32;
+                *&v602 = MEMORY[0x1E69E7CC0];
+                sub_1AAD41468(0, v254, 0);
+                v106 = v602;
+                v255 = *(v602 + 16);
+                v256 = 16 * v255;
+                v257 = 32;
                 do
                 {
-                  v248 = *(v243 + v247);
-                  *&v547 = v106;
-                  v249 = *(v106 + 24);
-                  v250 = v245 + 1;
-                  if (v245 >= v249 >> 1)
+                  v258 = *(v253 + v257);
+                  *&v602 = v106;
+                  v259 = *(v106 + 24);
+                  v260 = v255 + 1;
+                  if (v255 >= v259 >> 1)
                   {
-                    sub_1AAD41468((v249 > 1), v245 + 1, 1);
-                    v106 = v547;
+                    sub_1AAD41468((v259 > 1), v255 + 1, 1);
+                    v106 = v602;
                   }
 
-                  *(v106 + 16) = v250;
-                  v251 = v106 + v246;
-                  *(v251 + 32) = v241;
-                  *(v251 + 40) = v248;
-                  v246 += 16;
-                  v247 += 8;
-                  v245 = v250;
-                  --v244;
+                  *(v106 + 16) = v260;
+                  v261 = v106 + v256;
+                  *(v261 + 32) = v250;
+                  *(v261 + 40) = v258;
+                  v256 += 16;
+                  v257 += 8;
+                  v255 = v260;
+                  --v254;
                 }
 
-                while (v244);
+                while (v254);
 
-                sub_1AAE52094(v530);
-                (*(v532 + 8))(v239, v188);
+                sub_1AAE52094(v585);
+                (*(v587 + 8))(v248, v195);
                 return v106;
               }
 
-              sub_1AAE52094(v194);
-              (*(v532 + 8))(v239, v188);
+              sub_1AAE52094(v201);
+              (*(v587 + 8))(v248, v195);
               return MEMORY[0x1E69E7CC0];
             }
 
-            LODWORD(v483) = 0;
-            v470 = 409;
+            LODWORD(v538) = 0;
+            v525 = 409;
 LABEL_193:
-            v482 = v470;
+            v537 = v525;
             goto LABEL_194;
           }
 
-          if (v202 == 3)
+          if (v209 == 3)
           {
-            v545[4] = v583;
-            v545[5] = v584[0];
-            *(&v545[5] + 9) = *(v584 + 9);
-            v545[0] = v579;
-            v545[1] = v580;
-            v545[2] = v581;
-            v545[3] = v582;
-            sub_1AAE7B790(v545, &v547, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
-            (*(v526 + 8))(v517, v528);
+            v600[4] = v638;
+            v600[5] = v639[0];
+            *(&v600[5] + 9) = *(v639 + 9);
+            v600[0] = v634;
+            v600[1] = v635;
+            v600[2] = v636;
+            v600[3] = v637;
+            sub_1AAE7B790(v600, &v602, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
+            (v581[1])(v572, v583);
           }
 
           else
           {
-            v476 = v517;
-            v545[4] = v583;
-            v545[5] = v584[0];
-            *(&v545[5] + 9) = *(v584 + 9);
-            v545[0] = v579;
-            v545[1] = v580;
-            v545[2] = v581;
-            v545[3] = v582;
-            sub_1AAE7B790(v545, &v547, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
+            v531 = v572;
+            v600[4] = v638;
+            v600[5] = v639[0];
+            *(&v600[5] + 9) = *(v639 + 9);
+            v600[0] = v634;
+            v600[1] = v635;
+            v600[2] = v636;
+            v600[3] = v637;
+            sub_1AAE7B790(v600, &v602, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
 
             sub_1AAF90774();
-            v477 = v509;
-            v478 = v511;
-            v479 = swift_getTupleTypeMetadata3();
-            v480 = *(v479 + 48);
-            (*(v510 + 8))(v476 + *(v479 + 64), v478);
-            (*(v508 + 8))(v476 + v480, v477);
+            v532 = v564;
+            v533 = v566;
+            v534 = swift_getTupleTypeMetadata3();
+            v535 = *(v534 + 48);
+            (*(v565 + 8))(&v531[*(v534 + 64)], v533);
+            (*(v563 + 8))(&v531[v535], v532);
           }
         }
 
         else
         {
-          if (!v202)
+          if (!v209)
           {
-            v203 = v502;
-            (*(v197 + 32))(v502, v517, v196);
-            v204 = v518;
-            if ((v195 & 1) == 0)
+            v210 = v557;
+            (*(v204 + 32))(v557, v572, v203);
+            v211 = v573;
+            if ((v202 & 1) == 0)
             {
-              *&v556 = 0;
-              v545[4] = v583;
-              v545[5] = v584[0];
-              *(&v545[5] + 9) = *(v584 + 9);
-              v545[0] = v579;
-              v545[1] = v580;
-              v545[2] = v581;
-              v545[3] = v582;
-              sub_1AAE7B790(v545, &v547, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
-              v199(&v547, &v556);
-              v205 = v547;
-              *&v547 = v199;
-              *(&v547 + 1) = v198;
-              v548[2] = v560;
-              v548[3] = v561;
-              v548[4] = v562;
-              *&v548[5] = v563;
-              v548[0] = v558;
-              v548[1] = v559;
-              sub_1AAE28BBC(0, &qword_1ED9B4070);
-              sub_1AAF3CCD4(v203, v206, v196, v529);
-              v207 = v556;
+              *&v611 = 0;
+              v600[4] = v638;
+              v600[5] = v639[0];
+              *(&v600[5] + 9) = *(v639 + 9);
+              v600[0] = v634;
+              v600[1] = v635;
+              v600[2] = v636;
+              v600[3] = v637;
+              sub_1AAE7B790(v600, &v602, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
+              v206(&v602, &v611);
+              v212 = v602;
+              *&v602 = v206;
+              *(&v602 + 1) = v205;
+              v603[2] = v615;
+              v603[3] = v616;
+              v603[4] = v617;
+              *&v603[5] = v618;
+              v603[0] = v613;
+              v603[1] = v614;
+              sub_1AAE28BBC(0, &qword_1ED9B4070, MEMORY[0x1E69E63B0], v213);
+              sub_1AAF3CCD4(v210, v214, v203, v584);
+              v215 = v611;
               sub_1AACD6D40(0, &qword_1EB423018, sub_1AAE8412C, MEMORY[0x1E69E6F90]);
               v106 = swift_allocObject();
               *(v106 + 16) = xmmword_1AAF92AB0;
-              *(v106 + 32) = v205;
-              *(v106 + 40) = v207;
-              sub_1AAE52094(v194);
-              (*(v197 + 8))(v203, v196);
-              (*(v532 + 8))(v204, v188);
+              *(v106 + 32) = v212;
+              *(v106 + 40) = v215;
+              sub_1AAE52094(v201);
+              (*(v204 + 8))(v210, v203);
+              (*(v587 + 8))(v211, v195);
               return v106;
             }
 
-            LODWORD(v483) = 0;
-            v470 = 418;
+            LODWORD(v538) = 0;
+            v525 = 418;
             goto LABEL_193;
           }
 
-          v467 = *(swift_getTupleTypeMetadata2() + 48);
-          v545[4] = v583;
-          v545[5] = v584[0];
-          *(&v545[5] + 9) = *(v584 + 9);
-          v545[0] = v579;
-          v545[1] = v580;
-          v545[2] = v581;
-          v545[3] = v582;
-          sub_1AAE7B790(v545, &v547, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
-          v468 = *(v197 + 8);
-          v469 = v517;
-          v468(v517 + v467, v196);
-          v468(v469, v196);
+          v522 = *(swift_getTupleTypeMetadata2() + 48);
+          v600[4] = v638;
+          v600[5] = v639[0];
+          *(&v600[5] + 9) = *(v639 + 9);
+          v600[0] = v634;
+          v600[1] = v635;
+          v600[2] = v636;
+          v600[3] = v637;
+          sub_1AAE7B790(v600, &v602, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
+          v523 = *(v204 + 8);
+          v524 = v572;
+          v523(&v572[v522], v203);
+          v523(v524, v203);
         }
 
-        LODWORD(v483) = 0;
-        v470 = 421;
+        LODWORD(v538) = 0;
+        v525 = 421;
         goto LABEL_193;
       }
 
-      LODWORD(v483) = 0;
-      v462 = 401;
+      LODWORD(v538) = 0;
+      v517 = 401;
     }
 
-    v482 = v462;
+    v537 = v517;
     goto LABEL_194;
   }
 
   if (EnumCaseMultiPayload != 4)
   {
-    v156 = v531;
-    v157 = *(swift_getTupleTypeMetadata2() + 48);
-    v158 = *(v532 + 32);
-    v159 = v516;
-    v158(v516, v104, v156);
-    v160 = &v104[v157];
-    v161 = v515;
-    v158(v515, v160, v156);
-    LODWORD(v520) = *(v530 + 104);
-    if (v520 == 255)
+    v160 = v586;
+    v161 = *(swift_getTupleTypeMetadata2() + 48);
+    v162 = *(v587 + 32);
+    v163 = v571;
+    v162(v571, v104, v160);
+    v164 = &v104[v161];
+    v165 = v570;
+    v162(v570, v164, v160);
+    LODWORD(v575) = *(v585 + 104);
+    if (v575 == 255)
     {
-      LODWORD(v483) = 0;
-      v482 = 424;
+      LODWORD(v538) = 0;
+      v537 = 424;
       goto LABEL_194;
     }
 
-    v533 = *(v530 + 2);
-    LODWORD(v521) = *(v530 + 24);
-    v568 = *v530;
-    v162 = *(v530 + 57);
-    *(v567 + 15) = *(v530 + 88);
-    v163 = *(v530 + 73);
-    v566 = v162;
-    v567[0] = v163;
-    v164 = *(v530 + 25);
-    v565 = *(v530 + 41);
-    v564 = v164;
-    v165 = *(v156 + 44);
-    v166 = *(v526 + 16);
-    v167 = &v159[v165];
-    v168 = &v522[*(TupleTypeMetadata2 + 48)];
-    v169 = v528;
-    v166(v522, v167, v528);
-    v166(v168, &v161[v165], v169);
-    v170 = swift_getEnumCaseMultiPayload();
-    if (v170 <= 1)
+    v588 = *(v585 + 2);
+    LODWORD(v576) = *(v585 + 24);
+    v623 = *v585;
+    v166 = *(v585 + 57);
+    *(v622 + 15) = *(v585 + 88);
+    v167 = *(v585 + 73);
+    v621 = v166;
+    v622[0] = v167;
+    v168 = *(v585 + 25);
+    v620 = *(v585 + 41);
+    v619 = v168;
+    v169 = *(v160 + 44);
+    v170 = v581[2];
+    v171 = &v163[v169];
+    v172 = &v577[*(TupleTypeMetadata2 + 48)];
+    v173 = v583;
+    v170(v577, v171, v583);
+    v170(v172, &v165[v169], v173);
+    v174 = swift_getEnumCaseMultiPayload();
+    if (v174 <= 1)
     {
-      if (!v170)
+      if (!v174)
       {
-        v166(v81, v522, v528);
-        v171 = swift_getEnumCaseMultiPayload();
-        v172 = v531;
-        v173 = v527;
-        v174 = v168;
-        v175 = v503;
-        v176 = v504;
-        if (!v171)
+        v170(v81, v577, v583);
+        v175 = swift_getEnumCaseMultiPayload();
+        v176 = v586;
+        v177 = v582;
+        v178 = v172;
+        v179 = v558;
+        v180 = v559;
+        if (!v175)
         {
-          v177 = *(v523 + 32);
-          v177(v503, v81, v527);
-          v177(v176, v174, v173);
-          if (v520)
+          v181 = *(v578 + 32);
+          v181(v558, v81, v582);
+          v181(v180, v178, v177);
+          if (v575)
           {
-            v574 = v568;
-            v178 = v521;
-            LOBYTE(v540) = v521;
-            v537 = v566;
-            v538[0] = v567[0];
-            *(v538 + 15) = *(v567 + 15);
-            v535 = v564;
-            v536 = v565;
+            v629 = v623;
+            v182 = v576;
+            LOBYTE(v595) = v576;
+            v592 = v621;
+            v593[0] = v622[0];
+            *(v593 + 15) = *(v622 + 15);
+            v590 = v619;
+            v591 = v620;
             sub_1AACD6D40(0, &qword_1EB423018, sub_1AAE8412C, MEMORY[0x1E69E6F90]);
-            v179 = swift_allocObject();
-            *(v179 + 16) = xmmword_1AAF92AB0;
-            v556 = v568;
-            v180 = v533;
-            *v557 = v533;
-            BYTE8(v557[0]) = v178;
-            *(&v557[1] + 9) = v565;
-            *(&v557[2] + 9) = v566;
-            *(&v557[3] + 9) = v567[0];
-            *(&v557[4] + 8) = *(v567 + 15);
-            *(v557 + 9) = v564;
-            v545[0] = v579;
-            v545[1] = v580;
-            *(&v545[5] + 9) = *(v584 + 9);
-            v545[4] = v583;
-            v545[5] = v584[0];
-            v545[2] = v581;
-            v545[3] = v582;
-            sub_1AAE7B790(v545, &v547, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
-            sub_1AAE28BBC(0, qword_1ED9B40B8);
-            sub_1AAF3C35C(v175);
-            *(v179 + 32) = *&v547 + a7 + a9;
-            v547 = v574;
-            *v548 = v180;
-            BYTE8(v548[0]) = v540;
-            *(&v548[1] + 9) = v536;
-            *(&v548[2] + 9) = v537;
-            *(&v548[3] + 9) = v538[0];
-            *(&v548[4] + 8) = *(v538 + 15);
-            *(v548 + 9) = v535;
-            sub_1AAF3C35C(v176);
-            v181 = v180;
-            if (v540)
+            v183 = swift_allocObject();
+            *(v183 + 16) = xmmword_1AAF92AB0;
+            v611 = v623;
+            v184 = v588;
+            *v612 = v588;
+            BYTE8(v612[0]) = v182;
+            *(&v612[1] + 9) = v620;
+            *(&v612[2] + 9) = v621;
+            *(&v612[3] + 9) = v622[0];
+            *(&v612[4] + 8) = *(v622 + 15);
+            *(v612 + 9) = v619;
+            v600[0] = v634;
+            v600[1] = v635;
+            *(&v600[5] + 9) = *(v639 + 9);
+            v600[4] = v638;
+            v600[5] = v639[0];
+            v600[2] = v636;
+            v600[3] = v637;
+            sub_1AAE7B790(v600, &v602, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
+            sub_1AAE28BBC(0, qword_1ED9B40B8, MEMORY[0x1E69E6158], v185);
+            v187 = v186;
+            sub_1AAF3C35C(v179, v186, v177);
+            *(v183 + 32) = *&v602 + a7 + a9;
+            v602 = v629;
+            *v603 = v184;
+            BYTE8(v603[0]) = v595;
+            *(&v603[1] + 9) = v591;
+            *(&v603[2] + 9) = v592;
+            *(&v603[3] + 9) = v593[0];
+            *(&v603[4] + 8) = *(v593 + 15);
+            *(v603 + 9) = v590;
+            sub_1AAF3C35C(v180, v187, v177);
+            v188 = v184;
+            if (v595)
             {
-              v181 = 0.0;
+              v188 = 0.0;
             }
 
-            v182 = v179;
-            *(v179 + 40) = *&v556 + v181 + a8 - a10;
+            v189 = v183;
+            *(v183 + 40) = *&v611 + v188 + a8 - a10;
           }
 
           else
           {
-            v574 = v568;
-            v537 = v566;
-            v538[0] = v567[0];
-            *(v538 + 15) = *(v567 + 15);
-            v535 = v564;
-            v536 = v565;
+            v629 = v623;
+            v592 = v621;
+            v593[0] = v622[0];
+            *(v593 + 15) = *(v622 + 15);
+            v590 = v619;
+            v591 = v620;
             sub_1AACD6D40(0, &qword_1EB423018, sub_1AAE8412C, MEMORY[0x1E69E6F90]);
-            v258 = swift_allocObject();
-            *(v258 + 16) = xmmword_1AAF92AB0;
-            v556 = v568;
-            v259 = v533;
-            *v557 = v533;
-            v260 = v521;
-            BYTE8(v557[0]) = v521;
-            *(&v557[1] + 9) = v565;
-            *(&v557[2] + 9) = v566;
-            *(&v557[3] + 9) = v567[0];
-            *(&v557[4] + 8) = *(v567 + 15);
-            *(v557 + 9) = v564;
-            v545[0] = v579;
-            v545[1] = v580;
-            *(&v545[5] + 9) = *(v584 + 9);
-            v545[4] = v583;
-            v545[5] = v584[0];
-            v545[2] = v581;
-            v545[3] = v582;
-            sub_1AAE7B790(v545, &v547, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
-            sub_1AAE28BBC(0, &qword_1ED9B4070);
-            v262 = v261;
-            v263 = v529;
-            sub_1AAF3CCD4(v175, v261, v173, v529);
-            v547 = v574;
-            *v548 = v259;
-            BYTE8(v548[0]) = v260;
-            v172 = v531;
-            *(&v548[1] + 9) = v536;
-            *(&v548[2] + 9) = v537;
-            *(&v548[3] + 9) = v538[0];
-            *(&v548[4] + 8) = *(v538 + 15);
-            *(v548 + 9) = v535;
-            v182 = v258;
-            sub_1AAF3CCD4(v176, v262, v173, v263);
+            v270 = swift_allocObject();
+            *(v270 + 16) = xmmword_1AAF92AB0;
+            v611 = v623;
+            v271 = v588;
+            *v612 = v588;
+            v272 = v576;
+            BYTE8(v612[0]) = v576;
+            *(&v612[1] + 9) = v620;
+            *(&v612[2] + 9) = v621;
+            *(&v612[3] + 9) = v622[0];
+            *(&v612[4] + 8) = *(v622 + 15);
+            *(v612 + 9) = v619;
+            v600[0] = v634;
+            v600[1] = v635;
+            *(&v600[5] + 9) = *(v639 + 9);
+            v600[4] = v638;
+            v600[5] = v639[0];
+            v600[2] = v636;
+            v600[3] = v637;
+            sub_1AAE7B790(v600, &v602, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
+            sub_1AAE28BBC(0, &qword_1ED9B4070, MEMORY[0x1E69E63B0], v273);
+            v275 = v274;
+            v276 = v584;
+            sub_1AAF3CCD4(v179, v274, v177, v584);
+            v602 = v629;
+            *v603 = v271;
+            BYTE8(v603[0]) = v272;
+            v176 = v586;
+            *(&v603[1] + 9) = v591;
+            *(&v603[2] + 9) = v592;
+            *(&v603[3] + 9) = v593[0];
+            *(&v603[4] + 8) = *(v593 + 15);
+            *(v603 + 9) = v590;
+            v189 = v270;
+            sub_1AAF3CCD4(v180, v275, v177, v276);
           }
 
-          sub_1AAE52094(v530);
-          v264 = v175;
-          v266 = v515;
-          v265 = v516;
-          v267 = *(v523 + 8);
-          v267(v176, v173);
-          v267(v264, v173);
-          v268 = *(v532 + 8);
-          v268(v266, v172);
-          v269 = v265;
-          v270 = v172;
+          sub_1AAE52094(v585);
+          v277 = v179;
+          v279 = v570;
+          v278 = v571;
+          v280 = *(v578 + 8);
+          v280(v180, v177);
+          v280(v277, v177);
+          v281 = *(v587 + 8);
+          v281(v279, v176);
+          v282 = v278;
+          v283 = v176;
           goto LABEL_142;
         }
 
-        v545[4] = v583;
-        v545[5] = v584[0];
-        *(&v545[5] + 9) = *(v584 + 9);
-        v545[0] = v579;
-        v545[1] = v580;
-        v545[2] = v581;
-        v545[3] = v582;
-        sub_1AAE7B790(v545, &v547, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
-        (*(v523 + 8))(v81, v173);
+        v600[4] = v638;
+        v600[5] = v639[0];
+        *(&v600[5] + 9) = *(v639 + 9);
+        v600[0] = v634;
+        v600[1] = v635;
+        v600[2] = v636;
+        v600[3] = v637;
+        sub_1AAE7B790(v600, &v602, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
+        (*(v578 + 8))(v81, v177);
         goto LABEL_190;
       }
 
-      v166(v484[0], v522, v528);
-      v463 = *(swift_getTupleTypeMetadata2() + 48);
+      v170(v539[0], v577, v583);
+      v518 = *(swift_getTupleTypeMetadata2() + 48);
       if (swift_getEnumCaseMultiPayload() == 1)
       {
-        v545[4] = v583;
-        v545[5] = v584[0];
-        *(&v545[5] + 9) = *(v584 + 9);
-        v545[0] = v579;
-        v545[1] = v580;
-        v545[2] = v581;
-        v545[3] = v582;
-        sub_1AAE7B790(v545, &v547, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
-        v464 = *(v523 + 8);
-        v465 = v527;
-        v464(v168 + v463, v527);
-        v464(v168, v465);
-        v466 = v484[0];
-        v464((v484[0] + v463), v465);
-        v464(v466, v465);
-        (*(v526 + 8))(v522, v528);
+        v600[4] = v638;
+        v600[5] = v639[0];
+        *(&v600[5] + 9) = *(v639 + 9);
+        v600[0] = v634;
+        v600[1] = v635;
+        v600[2] = v636;
+        v600[3] = v637;
+        sub_1AAE7B790(v600, &v602, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
+        v519 = *(v578 + 8);
+        v520 = v582;
+        v519(&v172[v518], v582);
+        v519(v172, v520);
+        v521 = v539[0];
+        v519((v539[0] + v518), v520);
+        v519(v521, v520);
+        (v581[1])(v577, v583);
 LABEL_183:
-        LODWORD(v483) = 0;
-        v482 = 444;
+        LODWORD(v538) = 0;
+        v537 = 444;
         goto LABEL_194;
       }
 
-      v545[4] = v583;
-      v545[5] = v584[0];
-      *(&v545[5] + 9) = *(v584 + 9);
-      v545[0] = v579;
-      v545[1] = v580;
-      v545[2] = v581;
-      v545[3] = v582;
-      sub_1AAE7B790(v545, &v547, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
-      v472 = *(v523 + 8);
-      v473 = v484[0];
-      v474 = v484[0] + v463;
-      v475 = v527;
-      v472(v474, v527);
-      v472(v473, v475);
+      v600[4] = v638;
+      v600[5] = v639[0];
+      *(&v600[5] + 9) = *(v639 + 9);
+      v600[0] = v634;
+      v600[1] = v635;
+      v600[2] = v636;
+      v600[3] = v637;
+      sub_1AAE7B790(v600, &v602, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
+      v527 = *(v578 + 8);
+      v528 = v539[0];
+      v529 = v539[0] + v518;
+      v530 = v582;
+      v527(v529, v582);
+      v527(v528, v530);
       goto LABEL_190;
     }
 
-    if (v170 != 2)
+    if (v174 != 2)
     {
-      if (v170 == 3 && swift_getEnumCaseMultiPayload() == 3)
+      if (v174 == 3 && swift_getEnumCaseMultiPayload() == 3)
       {
-        v545[4] = v583;
-        v545[5] = v584[0];
-        *(&v545[5] + 9) = *(v584 + 9);
-        v545[0] = v579;
-        v545[1] = v580;
-        v545[2] = v581;
-        v545[3] = v582;
-        sub_1AAE7B790(v545, &v547, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
-        v471 = *(v526 + 8);
-        v471(v168, v528);
-        v471(v522, v528);
+        v600[4] = v638;
+        v600[5] = v639[0];
+        *(&v600[5] + 9) = *(v639 + 9);
+        v600[0] = v634;
+        v600[1] = v635;
+        v600[2] = v636;
+        v600[3] = v637;
+        sub_1AAE7B790(v600, &v602, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
+        v526 = v581[1];
+        v526(v172, v583);
+        v526(v577, v583);
         goto LABEL_183;
       }
 
-      v545[4] = v583;
-      v545[5] = v584[0];
-      *(&v545[5] + 9) = *(v584 + 9);
-      v545[0] = v579;
-      v545[1] = v580;
-      v545[2] = v581;
-      v545[3] = v582;
-      sub_1AAE7B790(v545, &v547, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
+      v600[4] = v638;
+      v600[5] = v639[0];
+      *(&v600[5] + 9) = *(v639 + 9);
+      v600[0] = v634;
+      v600[1] = v635;
+      v600[2] = v636;
+      v600[3] = v637;
+      sub_1AAE7B790(v600, &v602, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
 LABEL_190:
-      LODWORD(v483) = 0;
-      v470 = 446;
+      LODWORD(v538) = 0;
+      v525 = 446;
       goto LABEL_193;
     }
 
-    v166(v84, v522, v528);
-    v209 = *v84;
+    v170(v84, v577, v583);
+    v217 = *v84;
     if (swift_getEnumCaseMultiPayload() != 2)
     {
-      v545[4] = v583;
-      v545[5] = v584[0];
-      *(&v545[5] + 9) = *(v584 + 9);
-      v545[0] = v579;
-      v545[1] = v580;
-      v545[2] = v581;
-      v545[3] = v582;
-      sub_1AAE7B790(v545, &v547, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
+      v600[4] = v638;
+      v600[5] = v639[0];
+      *(&v600[5] + 9) = *(v639 + 9);
+      v600[0] = v634;
+      v600[1] = v635;
+      v600[2] = v636;
+      v600[3] = v637;
+      sub_1AAE7B790(v600, &v602, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
 
       goto LABEL_190;
     }
 
-    v210 = *v168;
-    v211 = v533;
-    v527 = v209;
-    if (v520)
+    v218 = *v172;
+    v219 = v588;
+    v582 = v217;
+    if (v575)
     {
-      v537 = v566;
-      v538[0] = v567[0];
-      *(v538 + 15) = *(v567 + 15);
-      v535 = v564;
-      v536 = v565;
-      v574 = v568;
-      v556 = v568;
-      LOBYTE(v540) = v521;
-      *v557 = v533;
-      BYTE8(v557[0]) = v521;
-      *(&v557[1] + 9) = v565;
-      *(&v557[2] + 9) = v566;
-      *(&v557[3] + 9) = v567[0];
-      *(&v557[4] + 8) = *(v567 + 15);
-      *(v557 + 9) = v564;
-      v545[0] = v579;
-      v545[1] = v580;
-      *(&v545[5] + 9) = *(v584 + 9);
-      v545[4] = v583;
-      v545[5] = v584[0];
-      v545[2] = v581;
-      v545[3] = v582;
-      sub_1AAE8432C(v530, &v547, sub_1AACCF364);
-      sub_1AAE7B790(v545, &v547, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
-      sub_1AAE28BBC(0, qword_1ED9B40B8);
-      v213 = v212;
-      v214 = v534.i64[0];
-      v215 = v209;
-      v217 = v524;
-      v216 = v525;
-      v218 = v529;
-      v219 = sub_1AAF3CB18(v534.i64[0], v215, v212, v525, v529, v524);
-      v547 = v574;
-      *(&v548[1] + 9) = v536;
-      *(&v548[2] + 9) = v537;
-      *(&v548[3] + 9) = v538[0];
-      *(&v548[4] + 8) = *(v538 + 15);
-      *v548 = v211;
-      BYTE8(v548[0]) = v540;
-      *(v548 + 9) = v535;
-      v521 = v210;
-      v220 = sub_1AAF3CB18(v214, v210, v213, v216, v218, v217);
-      v221 = v220;
-      v529 = v484;
-      v222 = *(v219 + 16);
-      v223 = *(v220 + 16);
-      if (v223 >= v222)
+      v592 = v621;
+      v593[0] = v622[0];
+      *(v593 + 15) = *(v622 + 15);
+      v590 = v619;
+      v591 = v620;
+      v629 = v623;
+      v611 = v623;
+      LOBYTE(v595) = v576;
+      *v612 = v588;
+      BYTE8(v612[0]) = v576;
+      *(&v612[1] + 9) = v620;
+      *(&v612[2] + 9) = v621;
+      *(&v612[3] + 9) = v622[0];
+      *(&v612[4] + 8) = *(v622 + 15);
+      *(v612 + 9) = v619;
+      v600[0] = v634;
+      v600[1] = v635;
+      *(&v600[5] + 9) = *(v639 + 9);
+      v600[4] = v638;
+      v600[5] = v639[0];
+      v600[2] = v636;
+      v600[3] = v637;
+      sub_1AAE8432C(v585, &v602, sub_1AACCF364);
+      sub_1AAE7B790(v600, &v602, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
+      sub_1AAE28BBC(0, qword_1ED9B40B8, MEMORY[0x1E69E6158], v220);
+      v222 = v221;
+      v223 = v589.i64[0];
+      v224 = v217;
+      v226 = v579;
+      v225 = v580;
+      v227 = v584;
+      v228 = sub_1AAF3CB18(v589.i64[0], v224, v221, v580, v584, v579);
+      v602 = v629;
+      *(&v603[1] + 9) = v591;
+      *(&v603[2] + 9) = v592;
+      *(&v603[3] + 9) = v593[0];
+      *(&v603[4] + 8) = *(v593 + 15);
+      *v603 = v219;
+      BYTE8(v603[0]) = v595;
+      *(v603 + 9) = v590;
+      v576 = v218;
+      v229 = sub_1AAF3CB18(v223, v218, v222, v225, v227, v226);
+      v230 = v229;
+      v584 = v539;
+      v231 = *(v228 + 16);
+      v232 = *(v229 + 16);
+      if (v232 >= v231)
       {
-        v224 = *(v219 + 16);
+        v233 = *(v228 + 16);
       }
 
       else
       {
-        v224 = *(v220 + 16);
+        v233 = *(v229 + 16);
       }
 
-      *&v547 = MEMORY[0x1E69E7CC0];
-      sub_1AAD41468(0, v224, 0);
-      v225 = v547;
-      v523 = v219;
-      v534.i64[0] = v221;
-      if (v224)
+      *&v602 = MEMORY[0x1E69E7CC0];
+      sub_1AAD41468(0, v233, 0);
+      v234 = v602;
+      v578 = v228;
+      v589.i64[0] = v230;
+      if (v233)
       {
-        v226 = (v219 + 32);
-        v227 = (v221 + 32);
-        if (v540)
+        v235 = (v228 + 32);
+        v236 = (v230 + 32);
+        if (v595)
         {
-          v228 = 0.0;
+          v237 = 0.0;
         }
 
         else
         {
-          v228 = v533;
+          v237 = v588;
         }
 
-        v229 = v224;
-        v230 = v222;
-        v231 = v223;
-        v232 = v222;
-        v233 = v223;
-        while (v230)
+        v238 = v233;
+        v239 = v231;
+        v240 = v232;
+        v241 = v231;
+        v242 = v232;
+        while (v239)
         {
-          if (!v231)
+          if (!v240)
           {
             goto LABEL_165;
           }
 
-          v234 = *v226;
-          v235 = *v227;
-          *&v547 = v225;
-          v237 = *(v225 + 16);
-          v236 = *(v225 + 24);
-          if (v237 >= v236 >> 1)
+          v243 = *v235;
+          v244 = *v236;
+          *&v602 = v234;
+          v246 = *(v234 + 16);
+          v245 = *(v234 + 24);
+          if (v246 >= v245 >> 1)
           {
-            v524 = v233;
-            v525 = v232;
-            sub_1AAD41468((v236 > 1), v237 + 1, 1);
-            v233 = v524;
-            v232 = v525;
-            v225 = v547;
+            v579 = v242;
+            v580 = v241;
+            sub_1AAD41468((v245 > 1), v246 + 1, 1);
+            v242 = v579;
+            v241 = v580;
+            v234 = v602;
           }
 
-          *(v225 + 16) = v237 + 1;
-          v238 = v225 + 16 * v237;
-          --v231;
-          *(v238 + 32) = v234 + a7 + a9;
-          *(v238 + 40) = v228 + v235 + a8 - a10;
-          --v230;
-          ++v227;
-          ++v226;
-          if (!--v229)
+          *(v234 + 16) = v246 + 1;
+          v247 = v234 + 16 * v246;
+          --v240;
+          *(v247 + 32) = v243 + a7 + a9;
+          *(v247 + 40) = v237 + v244 + a8 - a10;
+          --v239;
+          ++v236;
+          ++v235;
+          if (!--v238)
           {
             goto LABEL_130;
           }
@@ -3791,60 +4254,60 @@ LABEL_166:
         goto LABEL_167;
       }
 
-      v232 = v222;
-      v233 = v223;
+      v241 = v231;
+      v242 = v232;
 LABEL_130:
-      v343 = v531;
-      if (v232 > v233)
+      v363 = v586;
+      if (v241 > v242)
       {
-        v344 = v523;
-        v345 = v534.i64[0] + 32;
-        if (v540)
+        v364 = v578;
+        v365 = v589.i64[0] + 32;
+        if (v595)
         {
-          v346 = 0.0;
+          v366 = 0.0;
         }
 
         else
         {
-          v346 = v533;
+          v366 = v588;
         }
 
-        while (v224 < v232)
+        while (v233 < v241)
         {
-          v347 = v224 + 1;
-          if (__OFADD__(v224, 1))
+          v367 = (v233 + 1);
+          if (__OFADD__(v233, 1))
           {
             goto LABEL_168;
           }
 
-          if (v233 != v224)
+          if (v242 != v233)
           {
-            if (v224 >= v233)
+            if (v233 >= v242)
             {
               goto LABEL_169;
             }
 
-            v348 = *(v344 + 32 + 8 * v224);
-            v349 = *(v345 + 8 * v224);
-            *&v547 = v225;
-            v351 = *(v225 + 16);
-            v350 = *(v225 + 24);
-            if (v351 >= v350 >> 1)
+            v368 = *(v364 + 32 + 8 * v233);
+            v369 = *(v365 + 8 * v233);
+            *&v602 = v234;
+            v371 = *(v234 + 16);
+            v370 = *(v234 + 24);
+            if (v371 >= v370 >> 1)
             {
-              v524 = v233;
-              v525 = v232;
-              sub_1AAD41468((v350 > 1), v351 + 1, 1);
-              v233 = v524;
-              v232 = v525;
-              v225 = v547;
+              v579 = v242;
+              v580 = v241;
+              sub_1AAD41468((v370 > 1), v371 + 1, 1);
+              v242 = v579;
+              v241 = v580;
+              v234 = v602;
             }
 
-            *(v225 + 16) = v351 + 1;
-            v352 = v225 + 16 * v351;
-            *(v352 + 32) = v348 + a7 + a9;
-            *(v352 + 40) = v349 + v346 + a8 - a10;
-            ++v224;
-            if (v347 != v232)
+            *(v234 + 16) = v371 + 1;
+            v372 = v234 + 16 * v371;
+            *(v372 + 32) = v368 + a7 + a9;
+            *(v372 + 40) = v369 + v366 + a8 - a10;
+            ++v233;
+            if (v367 != v241)
             {
               continue;
             }
@@ -3860,549 +4323,551 @@ LABEL_168:
 LABEL_169:
         __break(1u);
 LABEL_170:
-        LODWORD(v483) = 0;
-        v482 = 449;
+        LODWORD(v538) = 0;
+        v537 = 449;
         goto LABEL_194;
       }
 
 LABEL_141:
-      v182 = v225;
+      v189 = v234;
 
-      v353 = v530;
-      sub_1AAE52094(v530);
+      v373 = v585;
+      sub_1AAE52094(v585);
 
-      sub_1AAE52094(v353);
-      v268 = *(v532 + 8);
-      v268(v515, v343);
-      v269 = v516;
-      v270 = v343;
+      sub_1AAE52094(v373);
+      v281 = *(v587 + 8);
+      v281(v570, v363);
+      v282 = v571;
+      v283 = v363;
     }
 
     else
     {
-      v537 = v566;
-      v538[0] = v567[0];
-      *(v538 + 15) = *(v567 + 15);
-      v535 = v564;
-      v536 = v565;
-      v574 = v568;
-      v556 = v568;
-      *v557 = v533;
-      BYTE8(v557[0]) = v521;
-      *(&v557[1] + 9) = v565;
-      *(&v557[2] + 9) = v566;
-      *(&v557[3] + 9) = v567[0];
-      *(&v557[4] + 8) = *(v567 + 15);
-      *(v557 + 9) = v564;
-      v545[0] = v579;
-      v545[1] = v580;
-      *(&v545[5] + 9) = *(v584 + 9);
-      v545[4] = v583;
-      v545[5] = v584[0];
-      v545[2] = v581;
-      v545[3] = v582;
-      sub_1AAE7B790(v545, &v547, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
-      sub_1AAE28BBC(0, &qword_1ED9B4070);
-      v272 = v271;
-      v273 = v211;
-      v274 = v534.i64[0];
-      v275 = v209;
-      v276 = v525;
-      v277 = v529;
-      v278 = v210;
-      v279 = v524;
-      v280 = sub_1AAF3C45C(v534.i64[0], v275, v271, v525, v529, v524);
-      v547 = v574;
-      *(&v548[1] + 9) = v536;
-      *(&v548[2] + 9) = v537;
-      *(&v548[3] + 9) = v538[0];
-      *(&v548[4] + 8) = *(v538 + 15);
-      *v548 = v273;
-      BYTE8(v548[0]) = v521;
-      *(v548 + 9) = v535;
-      v281 = sub_1AAF3C45C(v274, v278, v272, v276, v277, v279);
-      v182 = sub_1AAF2F80C(v280, v281);
+      v592 = v621;
+      v593[0] = v622[0];
+      *(v593 + 15) = *(v622 + 15);
+      v590 = v619;
+      v591 = v620;
+      v629 = v623;
+      v611 = v623;
+      *v612 = v588;
+      BYTE8(v612[0]) = v576;
+      *(&v612[1] + 9) = v620;
+      *(&v612[2] + 9) = v621;
+      *(&v612[3] + 9) = v622[0];
+      *(&v612[4] + 8) = *(v622 + 15);
+      *(v612 + 9) = v619;
+      v600[0] = v634;
+      v600[1] = v635;
+      *(&v600[5] + 9) = *(v639 + 9);
+      v600[4] = v638;
+      v600[5] = v639[0];
+      v600[2] = v636;
+      v600[3] = v637;
+      sub_1AAE7B790(v600, &v602, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
+      sub_1AAE28BBC(0, &qword_1ED9B4070, MEMORY[0x1E69E63B0], v284);
+      v286 = v285;
+      v287 = v219;
+      v288 = v589.i64[0];
+      v289 = v217;
+      v290 = v580;
+      v291 = v584;
+      v292 = v218;
+      v293 = v579;
+      v294 = sub_1AAF3C45C(v589.i64[0], v289, v285, v580, v584, v579);
+      v602 = v629;
+      *(&v603[1] + 9) = v591;
+      *(&v603[2] + 9) = v592;
+      *(&v603[3] + 9) = v593[0];
+      *(&v603[4] + 8) = *(v593 + 15);
+      *v603 = v287;
+      BYTE8(v603[0]) = v576;
+      *(v603 + 9) = v590;
+      v295 = sub_1AAF3C45C(v288, v292, v286, v290, v291, v293);
+      sub_1AAF2F80C(v294, v295);
+      v189 = v296;
 
-      sub_1AAE52094(v530);
-      v282 = v531;
-      v268 = *(v532 + 8);
-      v268(v515, v531);
-      v269 = v516;
-      v270 = v282;
+      sub_1AAE52094(v585);
+      v297 = v586;
+      v281 = *(v587 + 8);
+      v281(v570, v586);
+      v282 = v571;
+      v283 = v297;
     }
 
 LABEL_142:
-    v268(v269, v270);
-    (*(v526 + 8))(v522, v528);
-    return v182;
+    v281(v282, v283);
+    (v581[1])(v577, v583);
+    return v189;
   }
 
-  v110 = v531;
-  v111 = v513;
-  (*(v532 + 32))(v513, v104, v531);
-  v112 = v530;
-  v113 = *(v530 + 104);
-  if (v113 == 255)
+  v112 = v586;
+  v113 = v568;
+  (*(v587 + 32))(v568, v104, v586);
+  v114 = v585;
+  v115 = *(v585 + 104);
+  if (v115 == 255)
   {
     goto LABEL_170;
   }
 
-  v114 = *(v530 + 2);
-  LODWORD(v533) = *(v530 + 24);
-  v573 = *v530;
-  v115 = *(v530 + 73);
-  v571 = *(v530 + 57);
-  v572[0] = v115;
-  *(v572 + 15) = *(v530 + 88);
-  v116 = *(v530 + 25);
-  v570 = *(v530 + 41);
-  v569 = v116;
-  (*(v526 + 16))(v520, &v111[*(v110 + 44)], v528);
-  v117 = swift_getEnumCaseMultiPayload();
-  if (v117 <= 1)
+  v116 = *(v585 + 2);
+  LODWORD(v588) = *(v585 + 24);
+  v628 = *v585;
+  v117 = *(v585 + 73);
+  v626 = *(v585 + 57);
+  v627[0] = v117;
+  *(v627 + 15) = *(v585 + 88);
+  v118 = *(v585 + 25);
+  v625 = *(v585 + 41);
+  v624 = v118;
+  (v581[2])(v575, &v113[*(v112 + 44)], v583);
+  v119 = swift_getEnumCaseMultiPayload();
+  if (v119 <= 1)
   {
-    if (v117)
+    if (v119)
     {
-      v319 = v527;
-      v320 = *(swift_getTupleTypeMetadata2() + 48);
-      v321 = *(v523 + 32);
-      v322 = v520;
-      v321(v496, v520, v319);
-      v321(v497, (v322 + v320), v319);
-      if (v113)
+      v336 = v582;
+      v337 = *(swift_getTupleTypeMetadata2() + 48);
+      v338 = *(v578 + 32);
+      v339 = v575;
+      v338(v551, v575, v336);
+      v338(v552, &v339[v337], v336);
+      if (v115)
       {
-        LODWORD(v483) = 0;
-        v481 = 481;
+        LODWORD(v538) = 0;
+        v536 = 481;
         goto LABEL_201;
       }
 
-      v574 = v573;
-      v537 = v571;
-      v538[0] = v572[0];
-      *(v538 + 15) = *(v572 + 15);
-      v535 = v569;
-      v536 = v570;
+      v629 = v628;
+      v592 = v626;
+      v593[0] = v627[0];
+      *(v593 + 15) = *(v627 + 15);
+      v590 = v624;
+      v591 = v625;
       sub_1AACD6D40(0, &qword_1EB423018, sub_1AAE8412C, MEMORY[0x1E69E6F90]);
-      v323 = swift_allocObject();
-      *(v323 + 16) = xmmword_1AAF92AB0;
-      v556 = v573;
-      *v557 = v114;
-      BYTE8(v557[0]) = LOBYTE(v533);
-      *(&v557[1] + 9) = v570;
-      *(&v557[2] + 9) = v571;
-      *(&v557[3] + 9) = v572[0];
-      *(&v557[4] + 8) = *(v572 + 15);
-      *(v557 + 9) = v569;
-      v545[0] = v579;
-      v545[1] = v580;
-      *(&v545[5] + 9) = *(v584 + 9);
-      v545[4] = v583;
-      v545[5] = v584[0];
-      v545[2] = v581;
-      v545[3] = v582;
-      sub_1AAE7B790(v545, &v547, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
-      sub_1AAE28BBC(0, &qword_1ED9B4070);
-      v325 = v324;
-      v326 = v496;
-      v327 = v529;
-      sub_1AAF3CCD4(v496, v324, v319, v529);
-      v547 = v574;
-      *v548 = v114;
-      BYTE8(v548[0]) = LOBYTE(v533);
-      *(&v548[1] + 9) = v536;
-      *(&v548[2] + 9) = v537;
-      *(&v548[3] + 9) = v538[0];
-      *(&v548[4] + 8) = *(v538 + 15);
-      *(v548 + 9) = v535;
-      v328 = v497;
-      sub_1AAF3CCD4(v497, v325, v319, v327);
-      sub_1AAE52094(v112);
-      v329 = *(v523 + 8);
-      v329(v328, v319);
-      v329(v326, v319);
-      v106 = v323;
+      v340 = swift_allocObject();
+      *(v340 + 16) = xmmword_1AAF92AB0;
+      v611 = v628;
+      *v612 = v116;
+      BYTE8(v612[0]) = LOBYTE(v588);
+      *(&v612[1] + 9) = v625;
+      *(&v612[2] + 9) = v626;
+      *(&v612[3] + 9) = v627[0];
+      *(&v612[4] + 8) = *(v627 + 15);
+      *(v612 + 9) = v624;
+      v600[0] = v634;
+      v600[1] = v635;
+      *(&v600[5] + 9) = *(v639 + 9);
+      v600[4] = v638;
+      v600[5] = v639[0];
+      v600[2] = v636;
+      v600[3] = v637;
+      sub_1AAE7B790(v600, &v602, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
+      sub_1AAE28BBC(0, &qword_1ED9B4070, MEMORY[0x1E69E63B0], v341);
+      v343 = v342;
+      v344 = v551;
+      v345 = v584;
+      sub_1AAF3CCD4(v551, v342, v336, v584);
+      v602 = v629;
+      *v603 = v116;
+      BYTE8(v603[0]) = LOBYTE(v588);
+      *(&v603[1] + 9) = v591;
+      *(&v603[2] + 9) = v592;
+      *(&v603[3] + 9) = v593[0];
+      *(&v603[4] + 8) = *(v593 + 15);
+      *(v603 + 9) = v590;
+      v346 = v552;
+      sub_1AAF3CCD4(v552, v343, v336, v345);
+      sub_1AAE52094(v114);
+      v347 = *(v578 + 8);
+      v347(v346, v336);
+      v347(v344, v336);
+      v106 = v340;
     }
 
     else
     {
-      v252 = v523;
-      v253 = v527;
-      (*(v523 + 32))(v500, v520, v527);
-      if (v113)
+      v262 = v578;
+      v263 = v582;
+      (*(v578 + 32))(v555, v575, v582);
+      if (v115)
       {
-        v556 = v573;
-        LOBYTE(v535) = LOBYTE(v533);
-        *v557 = v114;
-        BYTE8(v557[0]) = LOBYTE(v533);
-        *(&v557[1] + 9) = v570;
-        *(&v557[2] + 9) = v571;
-        *(&v557[3] + 9) = v572[0];
-        *(&v557[4] + 8) = *(v572 + 15);
-        *(v557 + 9) = v569;
-        v545[0] = v579;
-        v545[1] = v580;
-        *(&v545[5] + 9) = *(v584 + 9);
-        v545[4] = v583;
-        v545[5] = v584[0];
-        v545[2] = v581;
-        v545[3] = v582;
-        sub_1AAE7B790(v545, &v547, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
-        sub_1AAE28BBC(0, qword_1ED9B40B8);
-        v254 = v500;
-        sub_1AAF3C35C(v500);
-        v255 = *&v547;
+        v611 = v628;
+        LOBYTE(v590) = LOBYTE(v588);
+        *v612 = v116;
+        BYTE8(v612[0]) = LOBYTE(v588);
+        *(&v612[1] + 9) = v625;
+        *(&v612[2] + 9) = v626;
+        *(&v612[3] + 9) = v627[0];
+        *(&v612[4] + 8) = *(v627 + 15);
+        *(v612 + 9) = v624;
+        v600[0] = v634;
+        v600[1] = v635;
+        *(&v600[5] + 9) = *(v639 + 9);
+        v600[4] = v638;
+        v600[5] = v639[0];
+        v600[2] = v636;
+        v600[3] = v637;
+        sub_1AAE7B790(v600, &v602, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
+        sub_1AAE28BBC(0, qword_1ED9B40B8, MEMORY[0x1E69E6158], v264);
+        v265 = v555;
+        sub_1AAF3C35C(v555, v266, v263);
+        v267 = *&v602;
         sub_1AACD6D40(0, &qword_1EB423018, sub_1AAE8412C, MEMORY[0x1E69E6F90]);
-        v256 = swift_allocObject();
-        v106 = v256;
-        *(v256 + 16) = xmmword_1AAF92AB0;
-        v257 = v114;
-        if (v535)
+        v268 = swift_allocObject();
+        v106 = v268;
+        *(v268 + 16) = xmmword_1AAF92AB0;
+        v269 = v116;
+        if (v590)
         {
-          v257 = 0.0;
+          v269 = 0.0;
         }
 
-        *(v256 + 32) = v255 + a7 + a9;
-        *(v256 + 40) = v255 + v257 + a8 - a10;
+        *(v268 + 32) = v267 + a7 + a9;
+        *(v268 + 40) = v267 + v269 + a8 - a10;
       }
 
       else
       {
-        v556 = v573;
-        *v557 = v114;
-        BYTE8(v557[0]) = LOBYTE(v533);
-        *(&v557[1] + 9) = v570;
-        *(&v557[2] + 9) = v571;
-        *(&v557[3] + 9) = v572[0];
-        *(&v557[4] + 8) = *(v572 + 15);
-        *(v557 + 9) = v569;
-        v545[0] = v579;
-        v545[1] = v580;
-        *(&v545[5] + 9) = *(v584 + 9);
-        v545[4] = v583;
-        v545[5] = v584[0];
-        v545[2] = v581;
-        v545[3] = v582;
-        sub_1AAE7B790(v545, &v547, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
-        sub_1AAE28BBC(0, &qword_1ED9B4070);
-        v254 = v500;
-        sub_1AAF3CCD4(v500, v341, v253, v529);
-        v342 = v547;
+        v611 = v628;
+        *v612 = v116;
+        BYTE8(v612[0]) = LOBYTE(v588);
+        *(&v612[1] + 9) = v625;
+        *(&v612[2] + 9) = v626;
+        *(&v612[3] + 9) = v627[0];
+        *(&v612[4] + 8) = *(v627 + 15);
+        *(v612 + 9) = v624;
+        v600[0] = v634;
+        v600[1] = v635;
+        *(&v600[5] + 9) = *(v639 + 9);
+        v600[4] = v638;
+        v600[5] = v639[0];
+        v600[2] = v636;
+        v600[3] = v637;
+        sub_1AAE7B790(v600, &v602, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
+        sub_1AAE28BBC(0, &qword_1ED9B4070, MEMORY[0x1E69E63B0], v360);
+        v265 = v555;
+        sub_1AAF3CCD4(v555, v361, v263, v584);
+        v362 = v602;
         sub_1AACD6D40(0, &qword_1EB423018, sub_1AAE8412C, MEMORY[0x1E69E6F90]);
         v106 = swift_allocObject();
         *(v106 + 16) = xmmword_1AAF92AB0;
-        *(v106 + 32) = v342;
-        *(v106 + 40) = v342;
+        *(v106 + 32) = v362;
+        *(v106 + 40) = v362;
       }
 
-      sub_1AAE52094(v112);
-      (*(v252 + 8))(v254, v253);
+      sub_1AAE52094(v114);
+      (*(v262 + 8))(v265, v263);
     }
 
-    (*(v532 + 8))(v111, v531);
+    (*(v587 + 8))(v113, v586);
     return v106;
   }
 
-  if (v117 == 2)
+  if (v119 == 2)
   {
-    v283 = *v520;
-    if (v113)
+    v298 = *v575;
+    if (v115)
     {
-      v556 = v573;
-      LOBYTE(v535) = LOBYTE(v533);
-      *v557 = v114;
-      BYTE8(v557[0]) = LOBYTE(v533);
-      *(&v557[1] + 9) = v570;
-      *(&v557[2] + 9) = v571;
-      *(&v557[3] + 9) = v572[0];
-      *(&v557[4] + 8) = *(v572 + 15);
-      *(v557 + 9) = v569;
-      v545[0] = v579;
-      v545[1] = v580;
-      *(&v545[5] + 9) = *(v584 + 9);
-      v545[4] = v583;
-      v545[5] = v584[0];
-      v545[2] = v581;
-      v545[3] = v582;
-      sub_1AAE7B790(v545, &v547, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
-      sub_1AAE28BBC(0, qword_1ED9B40B8);
-      v285 = sub_1AAF3CB18(v534.i64[0], v283, v284, v525, v529, v524);
-      v286 = *(v285 + 16);
-      if (v286)
+      v611 = v628;
+      LOBYTE(v590) = LOBYTE(v588);
+      *v612 = v116;
+      BYTE8(v612[0]) = LOBYTE(v588);
+      *(&v612[1] + 9) = v625;
+      *(&v612[2] + 9) = v626;
+      *(&v612[3] + 9) = v627[0];
+      *(&v612[4] + 8) = *(v627 + 15);
+      *(v612 + 9) = v624;
+      v600[0] = v634;
+      v600[1] = v635;
+      *(&v600[5] + 9) = *(v639 + 9);
+      v600[4] = v638;
+      v600[5] = v639[0];
+      v600[2] = v636;
+      v600[3] = v637;
+      sub_1AAE7B790(v600, &v602, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
+      sub_1AAE28BBC(0, qword_1ED9B40B8, MEMORY[0x1E69E6158], v299);
+      v301 = sub_1AAF3CB18(v589.i64[0], v298, v300, v580, v584, v579);
+      v302 = *(v301 + 16);
+      if (v302)
       {
-        *&v547 = MEMORY[0x1E69E7CC0];
-        sub_1AAD41468(0, v286, 0);
-        v106 = v547;
-        if (v535)
+        *&v602 = MEMORY[0x1E69E7CC0];
+        sub_1AAD41468(0, v302, 0);
+        v106 = v602;
+        if (v590)
         {
-          v287 = 0.0;
+          v303 = 0.0;
         }
 
         else
         {
-          v287 = v114;
+          v303 = v116;
         }
 
-        v288 = *(v547 + 16);
-        v289 = 16 * v288;
-        v290 = 32;
-        v291 = v531;
+        v304 = *(v602 + 16);
+        v305 = 16 * v304;
+        v306 = 32;
+        v307 = v586;
         do
         {
-          v292 = *(v285 + v290);
-          *&v547 = v106;
-          v293 = *(v106 + 24);
-          v294 = v288 + 1;
-          if (v288 >= v293 >> 1)
+          v308 = *(v301 + v306);
+          *&v602 = v106;
+          v309 = *(v106 + 24);
+          v310 = v304 + 1;
+          if (v304 >= v309 >> 1)
           {
-            sub_1AAD41468((v293 > 1), v288 + 1, 1);
-            v106 = v547;
+            sub_1AAD41468((v309 > 1), v304 + 1, 1);
+            v106 = v602;
           }
 
-          *(v106 + 16) = v294;
-          v295 = v106 + v289;
-          *(v295 + 32) = v292 + a7 + a9;
-          *(v295 + 40) = v287 + v292 + a8 - a10;
-          v289 += 16;
-          v290 += 8;
-          v288 = v294;
-          --v286;
+          *(v106 + 16) = v310;
+          v311 = v106 + v305;
+          *(v311 + 32) = v308 + a7 + a9;
+          *(v311 + 40) = v303 + v308 + a8 - a10;
+          v305 += 16;
+          v306 += 8;
+          v304 = v310;
+          --v302;
         }
 
-        while (v286);
+        while (v302);
 
 LABEL_153:
-        sub_1AAE52094(v530);
-        (*(v532 + 8))(v513, v291);
+        sub_1AAE52094(v585);
+        (*(v587 + 8))(v568, v307);
         return v106;
       }
     }
 
     else
     {
-      v556 = v573;
-      *v557 = v114;
-      BYTE8(v557[0]) = LOBYTE(v533);
-      *(&v557[1] + 9) = v570;
-      *(&v557[2] + 9) = v571;
-      *(&v557[3] + 9) = v572[0];
-      *(&v557[4] + 8) = *(v572 + 15);
-      *(v557 + 9) = v569;
-      v545[0] = v579;
-      v545[1] = v580;
-      *(&v545[5] + 9) = *(v584 + 9);
-      v545[4] = v583;
-      v545[5] = v584[0];
-      v545[2] = v581;
-      v545[3] = v582;
-      sub_1AAE7B790(v545, &v547, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
-      sub_1AAE28BBC(0, &qword_1ED9B4070);
-      v335 = sub_1AAF3C45C(v534.i64[0], v283, v334, v525, v529, v524);
-      v336 = *(v335 + 16);
-      if (v336)
+      v611 = v628;
+      *v612 = v116;
+      BYTE8(v612[0]) = LOBYTE(v588);
+      *(&v612[1] + 9) = v625;
+      *(&v612[2] + 9) = v626;
+      *(&v612[3] + 9) = v627[0];
+      *(&v612[4] + 8) = *(v627 + 15);
+      *(v612 + 9) = v624;
+      v600[0] = v634;
+      v600[1] = v635;
+      *(&v600[5] + 9) = *(v639 + 9);
+      v600[4] = v638;
+      v600[5] = v639[0];
+      v600[2] = v636;
+      v600[3] = v637;
+      sub_1AAE7B790(v600, &v602, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
+      sub_1AAE28BBC(0, &qword_1ED9B4070, MEMORY[0x1E69E63B0], v352);
+      v354 = sub_1AAF3C45C(v589.i64[0], v298, v353, v580, v584, v579);
+      v355 = *(v354 + 16);
+      if (v355)
       {
-        *&v547 = MEMORY[0x1E69E7CC0];
-        sub_1AAD41468(0, v336, 0);
-        v106 = v547;
-        v338 = *(v547 + 16);
-        v339 = 32;
-        v291 = v531;
+        *&v602 = MEMORY[0x1E69E7CC0];
+        sub_1AAD41468(0, v355, 0);
+        v106 = v602;
+        v357 = *(v602 + 16);
+        v358 = 32;
+        v307 = v586;
         do
         {
-          v337.i64[0] = *(v335 + v339);
-          *&v547 = v106;
-          v340 = *(v106 + 24);
-          if (v338 >= v340 >> 1)
+          v356.i64[0] = *(v354 + v358);
+          *&v602 = v106;
+          v359 = *(v106 + 24);
+          if (v357 >= v359 >> 1)
           {
-            v534 = v337;
-            sub_1AAD41468((v340 > 1), v338 + 1, 1);
-            v337.i64[0] = v534.i64[0];
-            v106 = v547;
+            v589 = v356;
+            sub_1AAD41468((v359 > 1), v357 + 1, 1);
+            v356.i64[0] = v589.i64[0];
+            v106 = v602;
           }
 
-          *(v106 + 16) = v338 + 1;
-          v337 = vdupq_lane_s64(v337.i64[0], 0);
-          *(v106 + 16 * v338 + 32) = v337;
-          v339 += 8;
-          ++v338;
-          --v336;
+          *(v106 + 16) = v357 + 1;
+          v356 = vdupq_lane_s64(v356.i64[0], 0);
+          *(v106 + 16 * v357 + 32) = v356;
+          v358 += 8;
+          ++v357;
+          --v355;
         }
 
-        while (v336);
+        while (v355);
 
         goto LABEL_153;
       }
     }
 
-    sub_1AAE52094(v530);
+    sub_1AAE52094(v585);
 LABEL_147:
-    (*(v532 + 8))(v513, v531);
+    (*(v587 + 8))(v568, v586);
     return MEMORY[0x1E69E7CC0];
   }
 
-  if (v117 == 3)
+  if (v119 == 3)
   {
-    if (v113)
+    if (v115)
     {
       while (1)
       {
-        LODWORD(v483) = 0;
-        v481 = 465;
+        LODWORD(v538) = 0;
+        v536 = 465;
 LABEL_201:
-        v482 = v481;
+        v537 = v536;
 LABEL_194:
         sub_1AAF902C4();
         __break(1u);
       }
     }
 
-    v537 = v571;
-    v538[0] = v572[0];
-    *(v538 + 15) = *(v572 + 15);
-    v535 = v569;
-    v536 = v570;
-    v574 = v573;
-    v556 = v573;
-    v118 = v520[1];
-    v527 = *v520;
-    v119 = v527;
-    v528 = v118;
-    *v557 = v114;
-    v120 = LOBYTE(v533);
-    BYTE8(v557[0]) = LOBYTE(v533);
-    *(&v557[1] + 9) = v570;
-    *(&v557[2] + 9) = v571;
-    *(&v557[3] + 9) = v572[0];
-    *(&v557[4] + 8) = *(v572 + 15);
-    *(v557 + 9) = v569;
-    v545[0] = v579;
-    v545[1] = v580;
-    *(&v545[5] + 9) = *(v584 + 9);
-    v545[4] = v583;
-    v545[5] = v584[0];
-    v545[2] = v581;
-    v545[3] = v582;
-    sub_1AAE7B790(v545, &v547, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
-    sub_1AAE28BBC(0, &qword_1ED9B4070);
-    v122 = v121;
-    v123 = v534.i64[0];
-    v124 = v119;
-    v125 = v114;
-    v127 = v524;
-    v126 = v525;
-    v128 = v529;
-    v129 = sub_1AAF3C45C(v534.i64[0], v124, v121, v525, v529, v524);
-    v547 = v574;
-    *(&v548[1] + 9) = v536;
-    *(&v548[2] + 9) = v537;
-    *(&v548[3] + 9) = v538[0];
-    *(&v548[4] + 8) = *(v538 + 15);
-    *v548 = v125;
-    BYTE8(v548[0]) = v120;
-    *(v548 + 9) = v535;
-    v130 = sub_1AAF3C45C(v123, v528, v122, v126, v128, v127);
-    v106 = sub_1AAF2F80C(v129, v130);
+    v592 = v626;
+    v593[0] = v627[0];
+    *(v593 + 15) = *(v627 + 15);
+    v590 = v624;
+    v591 = v625;
+    v629 = v628;
+    v611 = v628;
+    v120 = *(v575 + 1);
+    v582 = *v575;
+    v121 = v582;
+    v583 = v120;
+    *v612 = v116;
+    v122 = LOBYTE(v588);
+    BYTE8(v612[0]) = LOBYTE(v588);
+    *(&v612[1] + 9) = v625;
+    *(&v612[2] + 9) = v626;
+    *(&v612[3] + 9) = v627[0];
+    *(&v612[4] + 8) = *(v627 + 15);
+    *(v612 + 9) = v624;
+    v600[0] = v634;
+    v600[1] = v635;
+    *(&v600[5] + 9) = *(v639 + 9);
+    v600[4] = v638;
+    v600[5] = v639[0];
+    v600[2] = v636;
+    v600[3] = v637;
+    sub_1AAE7B790(v600, &v602, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
+    sub_1AAE28BBC(0, &qword_1ED9B4070, MEMORY[0x1E69E63B0], v123);
+    v125 = v124;
+    v126 = v589.i64[0];
+    v127 = v121;
+    v128 = v116;
+    v130 = v579;
+    v129 = v580;
+    v131 = v584;
+    v132 = sub_1AAF3C45C(v589.i64[0], v127, v124, v580, v584, v579);
+    v602 = v629;
+    *(&v603[1] + 9) = v591;
+    *(&v603[2] + 9) = v592;
+    *(&v603[3] + 9) = v593[0];
+    *(&v603[4] + 8) = *(v593 + 15);
+    *v603 = v128;
+    BYTE8(v603[0]) = v122;
+    *(v603 + 9) = v590;
+    v133 = sub_1AAF3C45C(v126, v583, v125, v129, v131, v130);
+    sub_1AAF2F80C(v132, v133);
+    v106 = v134;
 
-    sub_1AAE52094(v530);
-    (*(v532 + 8))(v513, v531);
+    sub_1AAE52094(v585);
+    (*(v587 + 8))(v568, v586);
     return v106;
   }
 
-  v297 = v520;
-  v528 = *v520;
+  v313 = v575;
+  v583 = *v575;
   sub_1AAF90774();
-  v298 = v509;
-  v299 = v511;
-  v300 = swift_getTupleTypeMetadata3();
-  v301 = *(v300 + 64);
-  v302 = v494;
-  (*(v508 + 32))(v494, v297 + *(v300 + 48), v298);
-  v303 = v297 + v301;
-  v304 = v495;
-  (*(v510 + 32))(v495, v303, v299);
-  if (v113)
+  v314 = v564;
+  v315 = v566;
+  v316 = swift_getTupleTypeMetadata3();
+  v317 = *(v316 + 64);
+  v318 = v549;
+  (*(v563 + 32))(v549, &v313[*(v316 + 48)], v314);
+  v319 = &v313[v317];
+  v320 = v550;
+  (*(v565 + 32))(v550, v319, v315);
+  if (v115)
   {
-    LODWORD(v483) = 0;
-    v470 = 491;
+    LODWORD(v538) = 0;
+    v525 = 491;
     goto LABEL_193;
   }
 
-  v556 = v573;
-  *v557 = v114;
-  BYTE8(v557[0]) = LOBYTE(v533);
-  *(&v557[1] + 9) = v570;
-  *(&v557[2] + 9) = v571;
-  *(&v557[3] + 9) = v572[0];
-  *(&v557[4] + 8) = *(v572 + 15);
-  *(v557 + 9) = v569;
-  v545[0] = v579;
-  v545[1] = v580;
-  *(&v545[5] + 9) = *(v584 + 9);
-  v545[4] = v583;
-  v545[5] = v584[0];
-  v545[2] = v581;
-  v545[3] = v582;
-  sub_1AAE7B790(v545, &v547, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
-  sub_1AAE28BBC(0, &qword_1ED9B4070);
-  v306 = sub_1AAF3CD40(v534.i64[0], v528, v302, v304, v305, v525, v529, v524);
-  v307 = *(v306 + 16);
-  if (!v307)
+  v611 = v628;
+  *v612 = v116;
+  BYTE8(v612[0]) = LOBYTE(v588);
+  *(&v612[1] + 9) = v625;
+  *(&v612[2] + 9) = v626;
+  *(&v612[3] + 9) = v627[0];
+  *(&v612[4] + 8) = *(v627 + 15);
+  *(v612 + 9) = v624;
+  v600[0] = v634;
+  v600[1] = v635;
+  *(&v600[5] + 9) = *(v639 + 9);
+  v600[4] = v638;
+  v600[5] = v639[0];
+  v600[2] = v636;
+  v600[3] = v637;
+  sub_1AAE7B790(v600, &v602, &qword_1ED9B3E38, type metadata accessor for AnyConcreteScale, sub_1AAE842D8);
+  sub_1AAE28BBC(0, &qword_1ED9B4070, MEMORY[0x1E69E63B0], v321);
+  v323 = sub_1AAF3CD40(v589.i64[0], v583, v318, v320, v322, v580, v584, v579);
+  v324 = *(v323 + 16);
+  if (!v324)
   {
 
-    sub_1AAE52094(v530);
-    (*(v510 + 8))(v304, v511);
-    (*(v508 + 8))(v302, v509);
+    sub_1AAE52094(v585);
+    (*(v565 + 8))(v320, v566);
+    (*(v563 + 8))(v318, v564);
     goto LABEL_147;
   }
 
-  *&v547 = MEMORY[0x1E69E7CC0];
-  sub_1AAD41468(0, v307, 0);
-  v308 = 0;
-  v106 = v547;
-  v309 = (v306 + 40);
-  v310 = v531;
+  *&v602 = MEMORY[0x1E69E7CC0];
+  sub_1AAD41468(0, v324, 0);
+  v325 = 0;
+  v106 = v602;
+  v326 = (v323 + 40);
+  v327 = v586;
   do
   {
-    if (v308 >= *(v306 + 16))
+    if (v325 >= *(v323 + 16))
     {
       goto LABEL_166;
     }
 
-    v311 = *(v309 - 1);
-    v312 = *v309;
-    *&v547 = v106;
-    v314 = *(v106 + 16);
-    v313 = *(v106 + 24);
-    if (v314 >= v313 >> 1)
+    v328 = *(v326 - 1);
+    v329 = *v326;
+    *&v602 = v106;
+    v331 = *(v106 + 16);
+    v330 = *(v106 + 24);
+    if (v331 >= v330 >> 1)
     {
-      sub_1AAD41468((v313 > 1), v314 + 1, 1);
-      v106 = v547;
+      sub_1AAD41468((v330 > 1), v331 + 1, 1);
+      v106 = v602;
     }
 
-    ++v308;
-    *(v106 + 16) = v314 + 1;
-    *(v106 + 16 * v314 + 32) = vdupq_lane_s64(COERCE__INT64((v311 + v312) * 0.5), 0);
-    v309 += 2;
+    ++v325;
+    *(v106 + 16) = v331 + 1;
+    *(v106 + 16 * v331 + 32) = vdupq_lane_s64(COERCE__INT64((v328 + v329) * 0.5), 0);
+    v326 += 2;
   }
 
-  while (v307 != v308);
+  while (v324 != v325);
 
-  sub_1AAE52094(v530);
-  (*(v510 + 8))(v495, v511);
-  (*(v508 + 8))(v494, v509);
-  (*(v532 + 8))(v513, v310);
+  sub_1AAE52094(v585);
+  (*(v565 + 8))(v550, v566);
+  (*(v563 + 8))(v549, v564);
+  (*(v587 + 8))(v568, v327);
   return v106;
 }
 
-double sub_1AAE837A8@<D0>(uint64_t a1@<X0>, uint64_t a2@<X3>, uint64_t a3@<X4>, uint64_t a4@<X6>, double *a5@<X8>, double a6@<D0>, double a7@<D1>, uint64_t a8)
+double sub_1AAE837A8@<D0>(uint64_t a1@<X0>, uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X5>, uint64_t a6@<X6>, double *a7@<X8>, double a8@<D0>, double a9@<D1>, uint64_t a10)
 {
-  sub_1AAE28BBC(0, &qword_1ED9B4070);
-  v16 = v15;
-  sub_1AAF3CCD4(a2, v15, a4, a8);
-  sub_1AAF3CCD4(a3, v16, a4, a8);
-  type metadata accessor for MappedCoefficients();
-  result = sub_1AAE643A8(a1, v20, v19) + a6;
-  *a5 = result;
-  a5[1] = v18 + a7;
+  sub_1AAE28BBC(0, &qword_1ED9B4070, MEMORY[0x1E69E63B0], a3);
+  v18 = v17;
+  sub_1AAF3CCD4(a3, v17, a6, a10);
+  sub_1AAF3CCD4(a4, v18, a6, a10);
+  v21 = type metadata accessor for MappedCoefficients(0, a5, v19, v20);
+  result = sub_1AAE643A8(a1, v21, v26, v25) + a8;
+  *a7 = result;
+  a7[1] = v23 + a9;
   return result;
 }
 
@@ -4469,7 +4934,7 @@ uint64_t sub_1AAE83970(uint64_t a1, uint64_t a2, char a3, uint64_t a4, uint64_t 
   return 0;
 }
 
-BOOL sub_1AAE83A88(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, char a7, uint64_t a8, double a9, double a10, double a11, double a12, double a13, double a14, double a15, double a16, uint64_t a17, uint64_t a18, uint64_t a19, double a20, double a21, char a22)
+BOOL sub_1AAE83A88(uint64_t a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, char a7, uint64_t a8, double a9, double a10, double a11, double a12, double a13, double a14, double a15, double a16, uint64_t a17, char a18, uint64_t a19, double a20, double a21, char a22)
 {
   if ((sub_1AAF8EA14() & 1) == 0)
   {
@@ -4527,62 +4992,62 @@ BOOL sub_1AAE83A88(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   return *&a5 == a20;
 }
 
-__n128 sub_1AAE83B9C@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+__n128 sub_1AAE83B9C@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v8 = type metadata accessor for PlottableValue();
-  v9 = MEMORY[0x1EEE9AC00](v8);
-  v11 = v17 - v10;
-  (*(v12 + 16))(v17 - v10, a1, v9);
-  sub_1AACD6F84(v11, a2, a3, v17);
-  sub_1AAE4637C(v17);
-  v13 = v17[7];
-  *(a4 + 96) = v17[6];
-  *(a4 + 112) = v13;
-  *(a4 + 128) = v17[8];
-  v14 = v17[3];
-  *(a4 + 32) = v17[2];
-  *(a4 + 48) = v14;
-  v15 = v17[5];
-  *(a4 + 64) = v17[4];
-  *(a4 + 80) = v15;
-  result = v17[1];
-  *a4 = v17[0];
-  *(a4 + 16) = result;
+  v9 = type metadata accessor for PlottableValue(0, a2, a3, a4);
+  v10 = MEMORY[0x1EEE9AC00](v9);
+  v12 = (v18 - v11);
+  (*(v13 + 16))(v18 - v11, a1, v10);
+  sub_1AACD6F84(v12, a2, a3, v18);
+  sub_1AAE4637C(v18);
+  v14 = v18[7];
+  *(a5 + 96) = v18[6];
+  *(a5 + 112) = v14;
+  *(a5 + 128) = v18[8];
+  v15 = v18[3];
+  *(a5 + 32) = v18[2];
+  *(a5 + 48) = v15;
+  v16 = v18[5];
+  *(a5 + 64) = v18[4];
+  *(a5 + 80) = v16;
+  result = v18[1];
+  *a5 = v18[0];
+  *(a5 + 16) = result;
   return result;
 }
 
-__n128 sub_1AAE83CB0@<Q0>(uint64_t a1@<X8>)
+__n128 sub_1AAE83CB0@<Q0>(uint64_t a4@<X8>)
 {
   swift_getAtKeyPath();
   swift_getAtKeyPath();
-  *&v8 = v7;
-  BYTE8(v8) = 0;
-  v9.n128_u64[0] = v6;
-  v9.n128_u8[8] = 0;
-  sub_1AAE52D28(&v8);
-  v2 = v15;
-  *(a1 + 96) = v14;
-  *(a1 + 112) = v2;
-  *(a1 + 128) = v16;
-  v3 = v11;
-  *(a1 + 32) = v10;
-  *(a1 + 48) = v3;
-  v4 = v13;
-  *(a1 + 64) = v12;
-  *(a1 + 80) = v4;
-  result = v9;
-  *a1 = v8;
-  *(a1 + 16) = result;
+  *&v12 = v11;
+  BYTE8(v12) = 0;
+  v13.n128_u64[0] = v10;
+  v13.n128_u8[8] = 0;
+  sub_1AAE52D28(&v12);
+  v6 = v19;
+  *(a4 + 96) = v18;
+  *(a4 + 112) = v6;
+  *(a4 + 128) = v20;
+  v7 = v15;
+  *(a4 + 32) = v14;
+  *(a4 + 48) = v7;
+  v8 = v17;
+  *(a4 + 64) = v16;
+  *(a4 + 80) = v8;
+  result = v13;
+  *a4 = v12;
+  *(a4 + 16) = result;
   return result;
 }
 
 __n128 sub_1AAE83D50@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
   v19 = a2;
-  v9 = type metadata accessor for PlottableValue();
+  v9 = type metadata accessor for PlottableValue(0, a3, a4, a4);
   v10 = *(v9 - 8);
   v11 = MEMORY[0x1EEE9AC00](v9);
-  v13 = &v19 - v12;
+  v13 = (&v19 - v12);
   v14 = *(v10 + 16);
   v14(&v19 - v12, a1, v9, v11);
   sub_1AACD6F84(v13, a3, a4, &v20);
@@ -4621,9 +5086,9 @@ __n128 sub_1AAE83D50@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, 
 
 __n128 sub_1AAE83EF8@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
-  v12 = type metadata accessor for PlottableValue();
+  v12 = type metadata accessor for PlottableValue(0, a4, a5, a4);
   v13 = MEMORY[0x1EEE9AC00](v12);
-  v15 = v21 - v14;
+  v15 = (v21 - v14);
   (*(v16 + 16))(v21 - v14, a1, v13);
   sub_1AACD6F84(v15, a4, a5, v21);
   *(&v22 + 1) = a2;
@@ -4645,16 +5110,16 @@ __n128 sub_1AAE83EF8@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint
   return result;
 }
 
-void sub_1AAE8402C()
+void sub_1AAE8402C(uint64_t a1)
 {
   if (!qword_1EB4261D8)
   {
     sub_1AAE842D8(255, &qword_1ED9B2A88, MEMORY[0x1E69E62F8]);
     sub_1AAE840B8();
-    v0 = sub_1AAF90104();
-    if (!v1)
+    v1 = sub_1AAF90104();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1EB4261D8);
+      atomic_store(v1, &qword_1EB4261D8);
     }
   }
 }
@@ -4697,25 +5162,25 @@ unint64_t sub_1AAE84188()
   return result;
 }
 
-double sub_1AAE84210@<D0>(double *a1@<X8>)
+double sub_1AAE84210@<D0>(double *a2@<X8>)
 {
-  v3 = *(v1 + 64);
-  v4 = *(v1 + 72);
+  v5 = *(v3 + 64);
+  v6 = *(v3 + 72);
   swift_getAtKeyPath();
   swift_getAtKeyPath();
-  result = v4 + v6;
-  *a1 = v3 + v6;
-  a1[1] = v4 + v6;
+  result = v6 + v8;
+  *a2 = v5 + v8;
+  a2[1] = v6 + v8;
   return result;
 }
 
-double sub_1AAE8428C@<D0>(double *a1@<X8>)
+double sub_1AAE8428C@<D0>(double *a2@<X8>)
 {
-  v3 = *(v1 + 56);
+  v5 = *(v3 + 56);
   swift_getAtKeyPath();
-  result = v3 + v5;
-  *a1 = v3 + v5;
-  a1[1] = v3 + v5;
+  result = v5 + v7;
+  *a2 = v5 + v7;
+  a2[1] = v5 + v7;
   return result;
 }
 
@@ -4738,11 +5203,11 @@ uint64_t sub_1AAE8432C(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
   return a2;
 }
 
-double sub_1AAE843F4(uint64_t a1, double a2, double a3)
+double sub_1AAE843F4(uint64_t a1, double a2, double a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v7 = *(v3 + 64);
-  type metadata accessor for MappedCoefficients();
-  return v7 + sub_1AAE643A8(a1, a2, a3);
+  v10 = *(v6 + 64);
+  v11 = type metadata accessor for MappedCoefficients(0, *(v6 + 16), a5, a6);
+  return v10 + sub_1AAE643A8(a1, v11, a2, a3);
 }
 
 void sub_1AAE84468(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -4754,61 +5219,61 @@ void sub_1AAE84468(uint64_t a1@<X0>, uint64_t a2@<X8>)
   *(a2 + 8) = v7;
 }
 
-double sub_1AAE844E8@<D0>(uint64_t a1@<X0>, double *a2@<X8>)
+double sub_1AAE844E8@<D0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, double *a4@<X8>)
 {
-  v5 = *(v2 + 56);
-  v6 = *(v2 + 72);
-  v7 = *(v2 + 80);
-  v8 = *(v2 + 88);
-  v9 = *(v2 + 96);
-  v10 = *(v2 + 104);
-  v11 = *(v5 + 16);
-  if (*(v5 + 24))
+  v7 = *(v4 + 56);
+  v8 = *(v4 + 72);
+  v9 = *(v4 + 80);
+  v10 = *(v4 + 88);
+  v11 = *(v4 + 96);
+  v12 = *(v4 + 104);
+  v13 = *(v7 + 16);
+  if (*(v7 + 24))
+  {
+    v13 = 0.0;
+  }
+
+  v14 = v8 + v13;
+  v15 = type metadata accessor for MappedCoefficients(0, *(v4 + 16), a2, a3);
+  result = v10 + v9 + sub_1AAE643A8(a1, v15, v8, v14);
+  *a4 = result;
+  a4[1] = v12 + v17 - v11;
+  return result;
+}
+
+double sub_1AAE8459C@<D0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, double *a4@<X8>)
+{
+  v7 = *(v4 + 64);
+  v8 = *(v4 + 72);
+  v9 = *(v4 + 80);
+  v10 = type metadata accessor for MappedCoefficients(0, *(v4 + 16), a2, a3);
+  result = v8 + sub_1AAE643A8(a1, v10, v7, v7);
+  *a4 = result;
+  a4[1] = v9 + v12;
+  return result;
+}
+
+double sub_1AAE84624(uint64_t a1, double a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v8 = *(v5 + 56);
+  v9 = *(v5 + 72);
+  v10 = *(v5 + 80);
+  v11 = *(v8 + 16);
+  if (*(v8 + 24))
   {
     v11 = 0.0;
   }
 
-  v12 = v6 + v11;
-  type metadata accessor for MappedCoefficients();
-  result = v8 + v7 + sub_1AAE643A8(a1, v6, v12);
-  *a2 = result;
-  a2[1] = v10 + v14 - v9;
-  return result;
+  v12 = v11 + a2;
+  v13 = type metadata accessor for MappedCoefficients(0, *(v5 + 16), a4, a5);
+  return v10 + v9 + sub_1AAE643A8(a1, v13, a2, v12);
 }
 
-double sub_1AAE8459C@<D0>(uint64_t a1@<X0>, double *a2@<X8>)
+double sub_1AAE846D8(uint64_t a1, double a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v5 = v2[8];
-  v6 = v2[9];
-  v7 = v2[10];
-  type metadata accessor for MappedCoefficients();
-  result = v6 + sub_1AAE643A8(a1, v5, v5);
-  *a2 = result;
-  a2[1] = v7 + v9;
-  return result;
-}
-
-double sub_1AAE84624(uint64_t a1, double a2)
-{
-  v5 = *(v2 + 56);
-  v6 = *(v2 + 72);
-  v7 = *(v2 + 80);
-  v8 = *(v5 + 16);
-  if (*(v5 + 24))
-  {
-    v8 = 0.0;
-  }
-
-  v9 = v8 + a2;
-  type metadata accessor for MappedCoefficients();
-  return v7 + v6 + sub_1AAE643A8(a1, a2, v9);
-}
-
-double sub_1AAE846D8(uint64_t a1, double a2)
-{
-  v5 = *(v2 + 64);
-  type metadata accessor for MappedCoefficients();
-  return v5 + sub_1AAE643A8(a1, a2, a2);
+  v8 = *(v5 + 64);
+  v9 = type metadata accessor for MappedCoefficients(0, *(v5 + 16), a4, a5);
+  return v8 + sub_1AAE643A8(a1, v9, a2, a2);
 }
 
 void sub_1AAE84748(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -4961,29 +5426,29 @@ uint64_t sub_1AAE84A68(uint64_t a1, uint64_t a2, unsigned __int8 a3, uint64_t a4
   return sub_1AAF904F4();
 }
 
-uint64_t sub_1AAE84B68@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AAE84B68@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  (*(AssociatedConformanceWitness + 16))(&v12, AssociatedTypeWitness, AssociatedConformanceWitness);
-  v6 = v12;
-  if (v12 == 14)
+  (*(AssociatedConformanceWitness + 16))(&v17, AssociatedTypeWitness, AssociatedConformanceWitness);
+  v11 = v17;
+  if (v17 == 14)
   {
-    v7 = type metadata accessor for CategoryValueBindingBox();
+    v12 = type metadata accessor for CategoryValueBindingBox(0, a2, a3, v10);
   }
 
   else
   {
-    v7 = type metadata accessor for NumberValueBindingBox();
+    v12 = type metadata accessor for NumberValueBindingBox(0, a2, a3, v10);
   }
 
-  v8 = v6 != 14;
-  *(a2 + 24) = v7;
-  *(a2 + 32) = swift_getWitnessTable();
-  v9 = sub_1AACB2508(a2);
-  v10 = sub_1AAF8EF74();
-  result = (*(*(v10 - 8) + 32))(v9, a1, v10);
-  *(a2 + 40) = v8;
+  v13 = v11 != 14;
+  *(a4 + 24) = v12;
+  *(a4 + 32) = swift_getWitnessTable();
+  v14 = sub_1AACB2508(a4);
+  v15 = sub_1AAF8EF74();
+  result = (*(*(v15 - 8) + 32))(v14, a1, v15);
+  *(a4 + 40) = v13;
   return result;
 }
 
@@ -5012,7 +5477,7 @@ uint64_t sub_1AAE84CD4()
   return v3;
 }
 
-uint64_t sub_1AAE84DC0(uint64_t a1, uint64_t a2, unsigned __int8 a3)
+double sub_1AAE84DC0(uint64_t a1, uint64_t a2, char a3)
 {
   v4 = v3;
   sub_1AAE89AD4(v4, v20);
@@ -5064,11 +5529,11 @@ LABEL_9:
   return sub_1AACB634C(v17);
 }
 
-void *sub_1AAE84F4C(uint64_t a1, uint64_t a2, unsigned __int8 a3, uint64_t a4, uint64_t a5, unsigned __int8 a6)
+void sub_1AAE84F4C(uint64_t a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5, char a6)
 {
   v7 = v6;
-  sub_1AAE89C44(v7, v21);
-  sub_1AACBB198(v21, v22);
+  sub_1AAE89C44(v7, v20);
+  sub_1AACBB198(v20, v21);
   if (a3 == 255)
   {
     goto LABEL_7;
@@ -5085,11 +5550,13 @@ void *sub_1AAE84F4C(uint64_t a1, uint64_t a2, unsigned __int8 a3, uint64_t a4, u
     if (a6 == 255)
     {
 LABEL_8:
-      v14 = v23;
-      v15 = v24;
-      sub_1AACBB42C(v22, v23);
+      v14 = v22;
+      v15 = v23;
+      sub_1AACBB42C(v21, v22);
       (*(v15 + 24))(0, 0, 1, v14, v15);
-      return sub_1AACB634C(v22);
+LABEL_9:
+      sub_1AACB634C(v21);
+      return;
     }
 
 LABEL_7:
@@ -5097,37 +5564,36 @@ LABEL_7:
     goto LABEL_8;
   }
 
+  v16 = v22;
   v17 = v23;
-  v18 = v24;
-  result = sub_1AACBB42C(v22, v23);
+  sub_1AACBB42C(v21, v22);
   if (*&a4 >= *&a1)
   {
-    v19 = *&a1;
+    v18 = a1;
   }
 
   else
   {
-    v19 = *&a4;
+    v18 = a4;
   }
 
   if (*&a1 > *&a4)
   {
-    v20 = *&a1;
+    v19 = a1;
   }
 
   else
   {
-    v20 = *&a4;
+    v19 = a4;
   }
 
-  if (v19 <= v20)
+  if (*&v18 <= *&v19)
   {
-    (*(v18 + 24))(COERCE_DOUBLE(*&v19), COERCE_DOUBLE(*&v20), 0, v17, v18);
-    return sub_1AACB634C(v22);
+    (*(v17 + 24))(v18, v19, 0, v16, v17);
+    goto LABEL_9;
   }
 
   __break(1u);
-  return result;
 }
 
 uint64_t sub_1AAE85094(uint64_t a1, uint64_t a2, char a3)
@@ -5172,7 +5638,7 @@ uint64_t sub_1AAE85094(uint64_t a1, uint64_t a2, char a3)
   }
 
   sub_1AACB634C(v18);
-  return sub_1AAE89C7C(v19, &qword_1EB426328);
+  return sub_1AAE89C7C(v19, &qword_1EB426328, &type metadata for AnyPrimitivePlottableBinding, &type metadata for AnyPrimitivePlottable);
 }
 
 uint64_t PrimitivePlottableProtocol.init(primitivePlottable:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
@@ -5372,19 +5838,19 @@ LABEL_18:
   return v35;
 }
 
-uint64_t sub_1AAE859A4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X8>)
+uint64_t sub_1AAE859A4@<X0>(uint64_t a1@<X0>, uint64_t a3@<X2>, uint64_t a6@<X8>)
 {
-  v5 = *(a2 - 8);
-  v6 = *(v5 + 64);
+  v8 = *(a3 - 8);
+  v9 = *(v8 + 64);
   MEMORY[0x1EEE9AC00](a1);
-  v9[1] = round(*v7);
+  v12[1] = round(*v10);
   sub_1AAD46810();
   sub_1AAF8FF14();
   result = swift_getAssociatedTypeWitness();
-  if (v6 == *(*(result - 8) + 64))
+  if (v9 == *(*(result - 8) + 64))
   {
-    (*(*(result - 8) + 16))(a3, v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), result);
-    return (*(v5 + 8))(v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), a2);
+    (*(*(result - 8) + 16))(a6, v12 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0), result);
+    return (*(v8 + 8))(v12 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0), a3);
   }
 
   else
@@ -5395,26 +5861,26 @@ uint64_t sub_1AAE859A4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X8>
   return result;
 }
 
-uint64_t sub_1AAE85B40@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, double *a3@<X8>)
+uint64_t sub_1AAE85B40@<X0>(uint64_t a1@<X0>, uint64_t a3@<X2>, double *a6@<X8>)
 {
-  v5 = *(a2 - 8);
+  v9 = *(a3 - 8);
   MEMORY[0x1EEE9AC00](a1);
-  v7 = v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  sub_1AACB09D0(AssociatedTypeWitness, a2, v7);
+  sub_1AACB09D0(a1, AssociatedTypeWitness, a3, v11);
   if (sub_1AAF8FEF4() < 65)
   {
-    v11 = sub_1AAF8FF04();
-    v12 = sub_1AAF8FEE4();
-    result = (*(v5 + 8))(v7, a2);
-    if (v11)
+    v15 = sub_1AAF8FF04();
+    v16 = sub_1AAF8FEE4();
+    result = (*(v9 + 8))(v11, a3);
+    if (v15)
     {
-      v10 = v12;
+      v14 = v16;
     }
 
     else
     {
-      v10 = v12;
+      v14 = v16;
     }
   }
 
@@ -5423,11 +5889,11 @@ uint64_t sub_1AAE85B40@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, double *a3@<X8>)
     sub_1AAD46810();
     sub_1AADF2540();
     sub_1AAF8F364();
-    result = (*(v5 + 8))(v7, a2);
-    v10 = *&v13[1];
+    result = (*(v9 + 8))(v11, a3);
+    v14 = *&v17[1];
   }
 
-  *a3 = v10;
+  *a6 = v14;
   return result;
 }
 
@@ -5469,17 +5935,17 @@ uint64_t sub_1AAE85D08(uint64_t a1, uint64_t (*a2)(uint64_t), uint64_t a3, uint6
   return v26;
 }
 
-uint64_t sub_1AAE85F04@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X8>)
+uint64_t sub_1AAE85F04@<X0>(uint64_t a1@<X0>, uint64_t a3@<X2>, uint64_t a5@<X8>)
 {
-  v5 = *(a2 - 8);
-  v6 = *(v5 + 64);
+  v7 = *(a3 - 8);
+  v8 = *(v7 + 64);
   MEMORY[0x1EEE9AC00](a1);
   sub_1AAF8F374();
   result = swift_getAssociatedTypeWitness();
-  if (v6 == *(*(result - 8) + 64))
+  if (v8 == *(*(result - 8) + 64))
   {
-    (*(*(result - 8) + 16))(a3, &v8 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), result);
-    return (*(v5 + 8))(&v8 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), a2);
+    (*(*(result - 8) + 16))(a5, &v10 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0), result);
+    return (*(v7 + 8))(&v10 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0), a3);
   }
 
   else
@@ -5499,12 +5965,12 @@ uint64_t sub_1AAE86078(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return (*(a5 + 32))(v11, a3, a5);
 }
 
-uint64_t sub_1AAE86190(uint64_t a1, uint64_t a2, uint64_t a3)
+void *sub_1AAE86190(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   MEMORY[0x1EEE9AC00](a1);
-  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  sub_1AACB09D0(AssociatedTypeWitness, a3, v5);
+  sub_1AACB09D0(a1, AssociatedTypeWitness, a3, v8);
   sub_1AAD46810();
   return sub_1AAF8F354();
 }
@@ -5543,12 +6009,12 @@ uint64_t sub_1AAE8628C(uint64_t a1, uint64_t (*a2)(uint64_t), uint64_t a3, uint6
   return v20;
 }
 
-uint64_t sub_1AAE86490@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X8>)
+uint64_t sub_1AAE86490@<X0>(uint64_t a1@<X0>, uint64_t a3@<X2>, uint64_t a5@<X8>)
 {
   result = swift_getAssociatedTypeWitness();
-  if (*(*(a2 - 8) + 64) == *(*(result - 8) + 64))
+  if (*(*(a3 - 8) + 64) == *(*(result - 8) + 64))
   {
-    return (*(*(result - 8) + 16))(a3, a1, result);
+    return (*(*(result - 8) + 16))(a5, a1, result);
   }
 
   __break(1u);
@@ -5557,26 +6023,26 @@ uint64_t sub_1AAE86490@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X8>
 
 uint64_t sub_1AAE8656C(uint64_t a1, uint64_t (*a2)(uint64_t), uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v26 = a1;
-  v24 = a4;
-  v25 = a5;
+  v29 = a1;
+  v27 = a4;
+  v28 = a5;
   sub_1AAE8C594(0, &qword_1ED9B2A30, MEMORY[0x1E69E63B0], MEMORY[0x1E69E62F8]);
   v9 = v8;
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   v11 = sub_1AAE8AE18();
   v12 = MEMORY[0x1E69E73E0];
   v13 = MEMORY[0x1E69E7410];
-  v26 = sub_1AACB00E0(sub_1AAE8B110, v23, v9, AssociatedTypeWitness, MEMORY[0x1E69E73E0], v11, MEMORY[0x1E69E7410], v14);
-  v22[6] = a4;
-  v22[7] = a5;
-  v22[8] = a4;
+  v29 = sub_1AACB00E0(sub_1AAE8B110, v26, v9, AssociatedTypeWitness, MEMORY[0x1E69E73E0], v11, MEMORY[0x1E69E7410], v14);
+  v23 = a4;
+  v24 = a5;
+  v25 = a4;
   sub_1AAF8F914();
   swift_getWitnessTable();
   v15 = sub_1AAF8F764();
 
   v16 = a2(v15);
 
-  v26 = v16;
+  v29 = v16;
   v22[2] = a4;
   v22[3] = a5;
   v17 = sub_1AAF8F914();
@@ -5586,11 +6052,11 @@ uint64_t sub_1AAE8656C(uint64_t a1, uint64_t (*a2)(uint64_t), uint64_t a3, uint6
   return v20;
 }
 
-void sub_1AAE86770(double *a1@<X0>, uint64_t a2@<X8>)
+void sub_1AAE86770(double *a1@<X0>, uint64_t a4@<X8>)
 {
-  v3 = *a1;
+  v5 = *a1;
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  sub_1AAE85308(AssociatedTypeWitness, a2, v3);
+  sub_1AAE85308(AssociatedTypeWitness, a4, v5);
 }
 
 uint64_t sub_1AAE867D4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -5602,91 +6068,91 @@ uint64_t sub_1AAE867D4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   return (*(a4 + 32))(v10, a3, a4);
 }
 
-uint64_t Plottable<>.init(primitivePlottable:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t Plottable<>.init(primitivePlottable:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a5@<X8>)
 {
-  v8 = sub_1AAF8FE74();
-  v9 = *(v8 - 8);
-  MEMORY[0x1EEE9AC00](v8);
-  v11 = v15 - v10;
-  v15[0] = a1;
-  v15[1] = a2;
+  v9 = sub_1AAF8FE74();
+  v10 = *(v9 - 8);
+  MEMORY[0x1EEE9AC00](v9);
+  v12 = v16 - v11;
+  v16[0] = a1;
+  v16[1] = a2;
   sub_1AAF8F804();
-  v12 = *(a3 - 8);
-  if ((*(v12 + 48))(v11, 1, a3))
+  v13 = *(a3 - 8);
+  if ((*(v13 + 48))(v12, 1, a3))
   {
-    (*(v9 + 8))(v11, v8);
-    v13 = 1;
+    (*(v10 + 8))(v12, v9);
+    v14 = 1;
   }
 
   else
   {
-    (*(v12 + 32))(a4, v11, a3);
-    v13 = 0;
+    (*(v13 + 32))(a5, v12, a3);
+    v14 = 0;
   }
 
-  return (*(v12 + 56))(a4, v13, 1, a3);
+  return (*(v13 + 56))(a5, v14, 1, a3);
 }
 
-uint64_t sub_1AAE86AAC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AAE86AAC@<X0>(uint64_t a1@<X0>, uint64_t a6@<X8>)
 {
   MEMORY[0x1EEE9AC00](a1);
-  if (v3)
+  if (v7)
   {
     AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-    v5 = *(*(AssociatedTypeWitness - 8) + 56);
+    v9 = *(*(AssociatedTypeWitness - 8) + 56);
 
-    return v5(a2, 1, 1, AssociatedTypeWitness);
+    return v9(a6, 1, 1, AssociatedTypeWitness);
   }
 
   else
   {
     sub_1AAD46810();
     sub_1AAF8FF14();
-    v7 = swift_getAssociatedTypeWitness();
+    v11 = swift_getAssociatedTypeWitness();
     if (swift_dynamicCast())
     {
-      v8 = a2;
-      v9 = 0;
+      v12 = a6;
+      v13 = 0;
     }
 
     else
     {
-      v8 = a2;
-      v9 = 1;
+      v12 = a6;
+      v13 = 1;
     }
 
-    return (*(*(v7 - 8) + 56))(v8, v9, 1, v7);
+    return (*(*(v11 - 8) + 56))(v12, v13, 1, v11);
   }
 }
 
-uint64_t sub_1AAE86C6C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AAE86C6C@<X0>(uint64_t a1@<X0>, uint64_t a5@<X8>)
 {
   MEMORY[0x1EEE9AC00](a1);
-  if (v3)
+  if (v6)
   {
     AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-    v5 = *(*(AssociatedTypeWitness - 8) + 56);
+    v8 = *(*(AssociatedTypeWitness - 8) + 56);
 
-    return v5(a2, 1, 1, AssociatedTypeWitness);
+    return v8(a5, 1, 1, AssociatedTypeWitness);
   }
 
   else
   {
     sub_1AAF8F374();
-    v7 = swift_getAssociatedTypeWitness();
+    v10 = swift_getAssociatedTypeWitness();
     if (swift_dynamicCast())
     {
-      v8 = a2;
-      v9 = 0;
+      v11 = a5;
+      v12 = 0;
     }
 
     else
     {
-      v8 = a2;
-      v9 = 1;
+      v11 = a5;
+      v12 = 1;
     }
 
-    return (*(*(v7 - 8) + 56))(v8, v9, 1, v7);
+    return (*(*(v10 - 8) + 56))(v11, v12, 1, v10);
   }
 }
 
@@ -5702,7 +6168,7 @@ uint64_t sub_1AAE86E08(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
   {
     v5 = 1;
 LABEL_5:
-    MEMORY[0x1AC5992C0](v5);
+    MEMORY[0x1AC5992C0](v5, a2, a3);
     if ((a2 & 0x7FFFFFFFFFFFFFFFLL) != 0)
     {
       v6 = a2;
@@ -5731,13 +6197,13 @@ uint64_t sub_1AAE86E98()
   return sub_1AAF906F4();
 }
 
-uint64_t sub_1AAE86F00()
+uint64_t sub_1AAE86F00(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(v0 + 8);
-  v3 = *(v0 + 16);
+  v2 = *v1;
+  v3 = *(v1 + 8);
+  v4 = *(v1 + 16);
   sub_1AAF90694();
-  sub_1AAE86E08(v5, v1, v2, v3);
+  sub_1AAE86E08(v6, v2, v3, v4);
   return sub_1AAF906F4();
 }
 
@@ -5790,13 +6256,13 @@ uint64_t sub_1AAE87034()
   return sub_1AAF906F4();
 }
 
-uint64_t sub_1AAE8709C()
+uint64_t sub_1AAE8709C(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(v0 + 8);
-  v3 = *(v0 + 16);
+  v2 = *v1;
+  v3 = *(v1 + 8);
+  v4 = *(v1 + 16);
   sub_1AAF90694();
-  sub_1AACDC020(v5, v1, v2, v3);
+  sub_1AACDC020(v6, v2, v3, v4);
   return sub_1AAF906F4();
 }
 
@@ -5823,99 +6289,99 @@ BOOL sub_1AAE870F4(uint64_t a1, uint64_t a2)
   return 0;
 }
 
-double sub_1AAE87140@<D0>(double *a1@<X8>)
+double sub_1AAE87140@<D0>(uint64_t a1@<X0>, double *a4@<X8>)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  sub_1AACB09D0(AssociatedTypeWitness, MEMORY[0x1E69E7230], &v4);
-  result = v4;
-  *a1 = result;
+  sub_1AACB09D0(a1, AssociatedTypeWitness, MEMORY[0x1E69E7230], &v8);
+  result = v8;
+  *a4 = result;
   return result;
 }
 
-double sub_1AAE871D0@<D0>(double *a1@<X8>)
+double sub_1AAE871D0@<D0>(uint64_t a1@<X0>, double *a4@<X8>)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  sub_1AACB09D0(AssociatedTypeWitness, MEMORY[0x1E69E7290], &v5);
-  v3.i16[0] = v5;
-  result = vmovl_s16(v3).i32[0];
-  *a1 = result;
+  sub_1AACB09D0(a1, AssociatedTypeWitness, MEMORY[0x1E69E7290], &v9);
+  v7.i16[0] = v9;
+  result = vmovl_s16(v7).i32[0];
+  *a4 = result;
   return result;
 }
 
-double sub_1AAE87268@<D0>(double *a1@<X8>)
+double sub_1AAE87268@<D0>(uint64_t a1@<X0>, double *a4@<X8>)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  sub_1AACB09D0(AssociatedTypeWitness, MEMORY[0x1E69E72F0], &v4);
-  result = v4;
-  *a1 = result;
+  sub_1AACB09D0(a1, AssociatedTypeWitness, MEMORY[0x1E69E72F0], &v8);
+  result = v8;
+  *a4 = result;
   return result;
 }
 
-double sub_1AAE872FC@<D0>(uint64_t a1@<X4>, double *a2@<X8>)
+double sub_1AAE872FC@<D0>(uint64_t a1@<X0>, uint64_t a4@<X4>, double *a5@<X8>)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  sub_1AACB09D0(AssociatedTypeWitness, a1, &v6);
-  result = v6;
-  *a2 = v6;
+  sub_1AACB09D0(a1, AssociatedTypeWitness, a4, &v10);
+  result = v10;
+  *a5 = v10;
   return result;
 }
 
-double sub_1AAE87394@<D0>(double *a1@<X8>)
+double sub_1AAE87394@<D0>(uint64_t a1@<X0>, double *a4@<X8>)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  sub_1AACB09D0(AssociatedTypeWitness, MEMORY[0x1E69E7508], &v5);
-  LOBYTE(v3) = v5;
-  result = v3;
-  *a1 = result;
+  sub_1AACB09D0(a1, AssociatedTypeWitness, MEMORY[0x1E69E7508], &v9);
+  LOBYTE(v7) = v9;
+  result = v7;
+  *a4 = result;
   return result;
 }
 
-double sub_1AAE87424@<D0>(double *a1@<X8>)
+double sub_1AAE87424@<D0>(uint64_t a1@<X0>, double *a4@<X8>)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  sub_1AACB09D0(AssociatedTypeWitness, MEMORY[0x1E69E75F8], &v5);
-  LOWORD(v3) = v5;
-  result = v3;
-  *a1 = result;
+  sub_1AACB09D0(a1, AssociatedTypeWitness, MEMORY[0x1E69E75F8], &v9);
+  LOWORD(v7) = v9;
+  result = v7;
+  *a4 = result;
   return result;
 }
 
-double sub_1AAE874B4@<D0>(double *a1@<X8>)
+double sub_1AAE874B4@<D0>(uint64_t a1@<X0>, double *a4@<X8>)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  sub_1AACB09D0(AssociatedTypeWitness, MEMORY[0x1E69E7668], &v5);
-  LODWORD(v3) = v5;
-  result = v3;
-  *a1 = result;
+  sub_1AACB09D0(a1, AssociatedTypeWitness, MEMORY[0x1E69E7668], &v9);
+  LODWORD(v7) = v9;
+  result = v7;
+  *a4 = result;
   return result;
 }
 
-double sub_1AAE87544@<D0>(uint64_t a1@<X4>, double *a2@<X8>)
+double sub_1AAE87544@<D0>(uint64_t a1@<X0>, uint64_t a4@<X4>, double *a5@<X8>)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  sub_1AACB09D0(AssociatedTypeWitness, a1, &v6);
-  result = v6;
-  *a2 = v6;
+  sub_1AACB09D0(a1, AssociatedTypeWitness, a4, &v10);
+  result = v10;
+  *a5 = v10;
   return result;
 }
 
-double sub_1AAE875DC@<D0>(double *a1@<X8>)
+double sub_1AAE875DC@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, double *a4@<X8>)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  sub_1AACB09D0(AssociatedTypeWitness, MEMORY[0x1E69E7788], &v9);
-  _H0 = v9;
+  sub_1AACB09D0(a1, AssociatedTypeWitness, MEMORY[0x1E69E7788], &v13);
+  _H0 = v13;
   __asm { FCVT            D0, H0 }
 
-  *a1 = result;
+  *a4 = result;
   return result;
 }
 
-double sub_1AAE8766C@<D0>(double *a1@<X8>)
+double sub_1AAE8766C@<D0>(uint64_t a1@<X0>, double *a4@<X8>)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  sub_1AACB09D0(AssociatedTypeWitness, MEMORY[0x1E69E6448], &v4);
-  result = v4;
-  *a1 = v4;
+  sub_1AACB09D0(a1, AssociatedTypeWitness, MEMORY[0x1E69E6448], &v8);
+  result = v8;
+  *a4 = v8;
   return result;
 }
 
@@ -5985,7 +6451,7 @@ uint64_t sub_1AAE87888(uint64_t a1, uint64_t a2, uint64_t a3)
   v14 = &v19 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v15);
   v17 = &v19 - v16;
-  sub_1AACFB938(a1, a2, 2, v6, *(a3 + 24), v10);
+  sub_1AACFB938(a1, a2, 2u, v6, *(a3 + 24), v10);
   if ((*(v11 + 48))(v10, 1, v6) == 1)
   {
     return (*(v8 + 8))(v10, v7);
@@ -6100,13 +6566,13 @@ uint64_t sub_1AAE881E8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return v14;
 }
 
-uint64_t sub_1AAE8827C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AAE8827C@<X0>(uint64_t a1@<X0>, uint64_t a3@<X8>)
 {
   sub_1AAF8FE74();
-  v4 = sub_1AAF8EF74();
-  v5 = *(*(v4 - 8) + 32);
+  v5 = sub_1AAF8EF74();
+  v6 = *(*(v5 - 8) + 32);
 
-  return v5(a2, a1, v4);
+  return v6(a3, a1, v5);
 }
 
 uint64_t sub_1AAE882FC(uint64_t a1, uint64_t a2, char a3, void *a4)
@@ -6227,62 +6693,62 @@ LABEL_7:
   return result;
 }
 
-uint64_t sub_1AAE889B0(uint64_t a1, uint64_t a2)
+uint64_t sub_1AAE889B0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   sub_1AAF8F5D4();
   sub_1AAF8FE74();
-  v7 = sub_1AAF8EF74();
-  v8 = a2;
-  v9 = 3;
-  sub_1AACBC418(a1, sub_1AAE8C668, &v6, v7, MEMORY[0x1E69E73E0], MEMORY[0x1E69E6370], MEMORY[0x1E69E7410], v4);
-  return v10;
+  v10 = sub_1AAF8EF74();
+  v11 = a2;
+  v12 = 3;
+  sub_1AACBC418(a1, sub_1AAE8C668, &v9, v10, MEMORY[0x1E69E73E0], MEMORY[0x1E69E6370], MEMORY[0x1E69E7410], v7);
+  return v13;
 }
 
-uint64_t sub_1AAE88A60@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AAE88A60@<X0>(uint64_t a1@<X0>, uint64_t a4@<X8>)
 {
   sub_1AAF8F5D4();
   sub_1AAF8FE74();
-  v4 = sub_1AAF8EF74();
-  v5 = *(*(v4 - 8) + 32);
+  v6 = sub_1AAF8EF74();
+  v7 = *(*(v6 - 8) + 32);
 
-  return v5(a2, a1, v4);
+  return v7(a4, a1, v6);
 }
 
-uint64_t sub_1AAE88B00@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AAE88B00@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  (*(AssociatedConformanceWitness + 16))(&v10, AssociatedTypeWitness, AssociatedConformanceWitness);
-  v6 = v10;
-  if (v10 == 14)
+  (*(AssociatedConformanceWitness + 16))(&v15, AssociatedTypeWitness, AssociatedConformanceWitness);
+  v11 = v15;
+  if (v15 == 14)
   {
-    v7 = type metadata accessor for CategoryOptionalValueBindingBox();
+    v12 = type metadata accessor for CategoryOptionalValueBindingBox(0, a2, a3, v10);
   }
 
   else
   {
-    v7 = type metadata accessor for NumberOptionalValueBindingBox();
+    v12 = type metadata accessor for NumberOptionalValueBindingBox(0, a2, a3, v10);
   }
 
-  *(a2 + 24) = v7;
-  *(a2 + 32) = swift_getWitnessTable();
-  v8 = sub_1AACB2508(a2);
-  result = sub_1AAE8827C(a1, v8);
-  *(a2 + 40) = v6 != 14;
+  *(a4 + 24) = v12;
+  *(a4 + 32) = swift_getWitnessTable();
+  v13 = sub_1AACB2508(a4);
+  result = sub_1AAE8827C(a1, v13);
+  *(a4 + 40) = v11 != 14;
   return result;
 }
 
-uint64_t sub_1AAE88C3C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AAE88C3C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  (*(AssociatedConformanceWitness + 16))(&v9, AssociatedTypeWitness, AssociatedConformanceWitness);
-  v6 = v9 != 13;
-  *(a2 + 24) = type metadata accessor for NumberOptionalRangeBindingBox();
-  *(a2 + 32) = swift_getWitnessTable();
-  v7 = sub_1AACB2508(a2);
-  result = sub_1AAE88A60(a1, v7);
-  *(a2 + 40) = v6;
+  (*(AssociatedConformanceWitness + 16))(&v15, AssociatedTypeWitness, AssociatedConformanceWitness);
+  v12 = v15 != 13;
+  *(a5 + 24) = type metadata accessor for NumberOptionalRangeBindingBox(0, a2, a3, a4);
+  *(a5 + 32) = swift_getWitnessTable();
+  v13 = sub_1AACB2508(a5);
+  result = sub_1AAE88A60(a1, v13);
+  *(a5 + 40) = v12;
   return result;
 }
 
@@ -6371,7 +6837,7 @@ Swift::UInt8_optional __swiftcall UInt8.init(primitivePlottable:)(Swift::UInt8 p
   return result;
 }
 
-uint64_t sub_1AAE894A8()
+uint64_t sub_1AAE894A8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
@@ -6636,82 +7102,86 @@ unint64_t sub_1AAE897B8()
 
 uint64_t sub_1AAE8980C(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  sub_1AAE8A0B4(a1, v9);
-  sub_1AAE8A0B4(a2, v10);
-  if ((v9[40] & 1) == 0)
+  v13 = *MEMORY[0x1E69E9840];
+  sub_1AAE8A0B4(a1, v10);
+  sub_1AAE8A0B4(a2, v11);
+  if ((v10[40] & 1) == 0)
   {
-    sub_1AAE8A0B4(v9, v8);
-    if ((v11 & 1) == 0)
+    sub_1AAE8A0B4(v10, v9);
+    if ((v12 & 1) == 0)
     {
-      sub_1AACBB198(v8, v7);
-      sub_1AACBB198(v10, v6);
+      sub_1AACBB198(v9, v8);
+      sub_1AACBB198(v11, v7);
       v3 = &unk_1EB426348;
+      v4 = &protocol descriptor for CategoryValueBindingProtocol;
       goto LABEL_7;
     }
 
 LABEL_5:
-    sub_1AACB634C(v8);
-    sub_1AAE89C7C(v9, &qword_1EB426338);
+    sub_1AACB634C(v9);
+    sub_1AAE89C7C(v10, &qword_1EB426338, &type metadata for AnyPrimitivePlottableBinding, &type metadata for AnyPrimitivePlottableBinding);
     return 0;
   }
 
-  sub_1AAE8A0B4(v9, v8);
-  if (v11 != 1)
+  sub_1AAE8A0B4(v10, v9);
+  if (v12 != 1)
   {
     goto LABEL_5;
   }
 
-  sub_1AACBB198(v8, v7);
-  sub_1AACBB198(v10, v6);
+  sub_1AACBB198(v9, v8);
+  sub_1AACBB198(v11, v7);
   v3 = &unk_1EB426340;
+  v4 = &protocol descriptor for NumberValueBindingProtocol;
 LABEL_7:
-  sub_1AAD45E1C(0, v3);
-  v5 = AGCompareValues();
-  sub_1AACB634C(v6);
+  sub_1AAD45E1C(0, v3, v4);
+  v6 = AGCompareValues();
   sub_1AACB634C(v7);
-  sub_1AAE04B10(v9);
-  return v5;
+  sub_1AACB634C(v8);
+  sub_1AAE04B10(v10);
+  return v6;
 }
 
 uint64_t sub_1AAE89970(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  sub_1AAE89AD4(a1, v9);
-  sub_1AAE89AD4(a2, v10);
-  if ((v9[40] & 1) == 0)
+  v13 = *MEMORY[0x1E69E9840];
+  sub_1AAE89AD4(a1, v10);
+  sub_1AAE89AD4(a2, v11);
+  if ((v10[40] & 1) == 0)
   {
-    sub_1AAE89AD4(v9, v8);
-    if ((v11 & 1) == 0)
+    sub_1AAE89AD4(v10, v9);
+    if ((v12 & 1) == 0)
     {
-      sub_1AACBB198(v8, v7);
-      sub_1AACBB198(v10, v6);
+      sub_1AACBB198(v9, v8);
+      sub_1AACBB198(v11, v7);
       v3 = &unk_1EB426310;
+      v4 = &protocol descriptor for CategoryOptionalValueBindingProtocol;
       goto LABEL_7;
     }
 
 LABEL_5:
-    sub_1AACB634C(v8);
-    sub_1AAE89C7C(v9, &qword_1EB426308);
+    sub_1AACB634C(v9);
+    sub_1AAE89C7C(v10, &qword_1EB426308, &type metadata for AnyPrimitivePlottableOptionalBinding, &type metadata for AnyPrimitivePlottableOptionalBinding);
     return 0;
   }
 
-  sub_1AAE89AD4(v9, v8);
-  if (v11 != 1)
+  sub_1AAE89AD4(v10, v9);
+  if (v12 != 1)
   {
     goto LABEL_5;
   }
 
-  sub_1AACBB198(v8, v7);
-  sub_1AACBB198(v10, v6);
+  sub_1AACBB198(v9, v8);
+  sub_1AACBB198(v11, v7);
   v3 = &qword_1EB424280;
+  v4 = &protocol descriptor for NumberOptionalValueBindingProtocol;
 LABEL_7:
-  sub_1AAD45E1C(0, v3);
-  v5 = AGCompareValues();
-  sub_1AACB634C(v6);
+  sub_1AAD45E1C(0, v3, v4);
+  v6 = AGCompareValues();
   sub_1AACB634C(v7);
-  sub_1AAD9E1BC(v9);
-  return v5;
+  sub_1AACB634C(v8);
+  sub_1AAD9E1BC(v10);
+  return v6;
 }
 
 uint64_t sub_1AAE89B0C(uint64_t a1, uint64_t a2)
@@ -6726,7 +7196,7 @@ uint64_t sub_1AAE89B0C(uint64_t a1, uint64_t a2)
     {
 LABEL_3:
       sub_1AACB634C(v7);
-      sub_1AAE89C7C(v8, &qword_1EB426318);
+      sub_1AAE89C7C(v8, &qword_1EB426318, &type metadata for AnyPrimitivePlottableRangeBinding, &type metadata for AnyPrimitivePlottableRangeBinding);
       return 0;
     }
   }
@@ -6742,7 +7212,7 @@ LABEL_3:
 
   sub_1AACBB198(v7, v6);
   sub_1AACBB198(v9, v5);
-  sub_1AAD45E1C(0, &qword_1EB426320);
+  sub_1AAD45E1C(0, &qword_1EB426320, &protocol descriptor for NumberOptionalRangeBindingProtocol);
   v4 = AGCompareValues();
   sub_1AACB634C(v5);
   sub_1AACB634C(v6);
@@ -6750,10 +7220,10 @@ LABEL_3:
   return v4;
 }
 
-uint64_t sub_1AAE89C7C(uint64_t a1, unint64_t *a2)
+uint64_t sub_1AAE89C7C(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  sub_1AACC9AC0(0, a2);
-  (*(*(v3 - 8) + 8))(a1, v3);
+  sub_1AACC9AC0(0, a2, a3, a4);
+  (*(*(v5 - 8) + 8))(a1, v5);
   return a1;
 }
 
@@ -6964,15 +7434,15 @@ uint64_t sub_1AAE8A220(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return result;
 }
 
-void sub_1AAE8A740()
+void sub_1AAE8A740(uint64_t a1)
 {
   if (!qword_1EB4235F0)
   {
     sub_1AAD580CC();
-    v0 = sub_1AAF90634();
-    if (!v1)
+    v1 = sub_1AAF90634();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1EB4235F0);
+      atomic_store(v1, &qword_1EB4235F0);
     }
   }
 }
@@ -7122,17 +7592,17 @@ unint64_t sub_1AAE8AE18()
   return result;
 }
 
-uint64_t sub_1AAE8B090@<X0>(uint64_t a1@<X8>)
+uint64_t sub_1AAE8B090@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v3 = *(v1 + 24);
+  v5 = *(v2 + 24);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  return sub_1AACB09D0(AssociatedTypeWitness, v3, a1);
+  return sub_1AACB09D0(a1, AssociatedTypeWitness, v5, a2);
 }
 
-uint64_t sub_1AAE8B180()
+uint64_t sub_1AAE8B180(uint64_t a1)
 {
   result = sub_1AAF8EF74();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -7454,11 +7924,11 @@ LABEL_31:
   }
 }
 
-uint64_t sub_1AAE8B5D4()
+uint64_t sub_1AAE8B5D4(uint64_t a1)
 {
   sub_1AAF8FE74();
   result = sub_1AAF8EF74();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -7886,12 +8356,12 @@ LABEL_37:
   }
 }
 
-uint64_t sub_1AAE8BB0C()
+uint64_t sub_1AAE8BB0C(uint64_t a1)
 {
   sub_1AAF8F5D4();
   sub_1AAF8FE74();
   result = sub_1AAF8EF74();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -8601,35 +9071,35 @@ unint64_t sub_1AAE8C2F4()
   return result;
 }
 
-uint64_t sub_1AAE8C348(uint64_t a1)
+uint64_t sub_1AAE8C348(uint64_t a1, uint64_t a2)
 {
   result = swift_getWitnessTable();
   *(a1 + 8) = result;
   return result;
 }
 
-uint64_t sub_1AAE8C384(uint64_t a1)
+uint64_t sub_1AAE8C384(uint64_t a1, uint64_t a2)
 {
   result = swift_getWitnessTable();
   *(a1 + 8) = result;
   return result;
 }
 
-uint64_t sub_1AAE8C3C0(uint64_t a1)
+uint64_t sub_1AAE8C3C0(uint64_t a1, uint64_t a2)
 {
   result = swift_getWitnessTable();
   *(a1 + 8) = result;
   return result;
 }
 
-uint64_t sub_1AAE8C3FC(uint64_t a1)
+uint64_t sub_1AAE8C3FC(uint64_t a1, uint64_t a2)
 {
   result = swift_getWitnessTable();
   *(a1 + 8) = result;
   return result;
 }
 
-uint64_t sub_1AAE8C438(uint64_t a1)
+uint64_t sub_1AAE8C438(uint64_t a1, uint64_t a2)
 {
   result = swift_getWitnessTable();
   *(a1 + 8) = result;
@@ -8655,7 +9125,7 @@ uint64_t sub_1AAE8C52C@<X0>(uint64_t *a1@<X0>, char *a2@<X8>)
   v6 = *a1;
   v7 = a1[1];
 
-  return sub_1AACFB938(v6, v7, 2, v5, v4, a2);
+  return sub_1AACFB938(v6, v7, 2u, v5, v4, a2);
 }
 
 void sub_1AAE8C594(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t (*a4)(void, uint64_t))
@@ -8680,120 +9150,124 @@ uint64_t sub_1AAE8C6C0(uint64_t a1, uint64_t a2, uint64_t a3)
   return sub_1AAE91D80(v7, v11, a1, a2, v7, v9, a3, v8, v10);
 }
 
-uint64_t sub_1AAE8C744@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
+uint64_t sub_1AAE8C744@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a9@<X8>)
 {
-  *a7 = a1;
-  *(a7 + 8) = a2;
-  *(a7 + 16) = a3 & 1;
-  *(a7 + 24) = a4;
-  v9 = a7 + *(type metadata accessor for PlottableValue() + 36);
-  v10 = *(swift_getTupleTypeMetadata2() + 48);
-  v11 = *(*(a6 - 8) + 32);
-  v11(v9, a5, a6);
-  v12 = sub_1AAF8FCA4();
-  v11(v9 + v10, a5 + *(v12 + 36), a6);
-  type metadata accessor for PlottableValue.Storage();
+  *a9 = a1;
+  *(a9 + 8) = a2;
+  *(a9 + 16) = a3 & 1;
+  *(a9 + 24) = a4;
+  v12 = a9 + *(type metadata accessor for PlottableValue(0, a6, a7, a4) + 36);
+  v13 = *(swift_getTupleTypeMetadata2() + 48);
+  v14 = *(*(a6 - 8) + 32);
+  v14(v12, a5, a6);
+  v15 = sub_1AAF8FCA4();
+  v14(v12 + v13, a5 + *(v15 + 36), a6);
+  type metadata accessor for PlottableValue.Storage(0, a6, a7, v16);
 
   return swift_storeEnumTagMultiPayload();
 }
 
-uint64_t static PlottableValue.value<>(_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
+double static PlottableValue.value<>(_:_:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a9@<X8>)
 {
-  v14 = sub_1AAF8FCA4();
-  v15 = MEMORY[0x1EEE9AC00](v14);
-  v17 = &v20[-v16];
-  (*(v18 + 16))(&v20[-v16], a5, v15);
-  sub_1AAE8C744(a1, a2, a3 & 1, a4, v17, a6, a7);
+  v17 = sub_1AAF8FCA4();
+  v18 = MEMORY[0x1EEE9AC00](v17);
+  v20 = &v23[-v19];
+  (*(v21 + 16))(&v23[-v19], a5, v18);
+  sub_1AAE8C744(a1, a2, a3 & 1, a4, v20, a6, a7, a9);
   sub_1AACD7304(a1, a2, a3 & 1);
-}
 
-uint64_t sub_1AAE8C998@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t *a4@<X8>)
-{
-  v8 = type metadata accessor for PlottableProjection();
-  a4[3] = v8;
-  a4[4] = swift_getWitnessTable();
-  v9 = sub_1AACB2508(a4);
-  result = (*(*(v8 - 8) + 32))(v9, a1, v8);
-  a4[5] = a2;
-  a4[6] = a3;
   return result;
 }
 
-uint64_t sub_1AAE8CA40@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AAE8C998@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
 {
-  v5 = *(a1 + 16);
-  v6 = type metadata accessor for PlottableValue.Storage();
-  v7 = MEMORY[0x1EEE9AC00](v6);
-  v9 = &v14 - v8;
-  (*(v10 + 16))(&v14 - v8, v2 + *(a1 + 36), v6, v7);
+  v9 = type metadata accessor for PlottableProjection(0, a2, a3, a4);
+  a5[3] = v9;
+  a5[4] = swift_getWitnessTable();
+  v10 = sub_1AACB2508(a5);
+  result = (*(*(v9 - 8) + 32))(v10, a1, v9);
+  a5[5] = a3;
+  a5[6] = a4;
+  return result;
+}
+
+uint64_t sub_1AAE8CA40@<X0>(uint64_t a1@<X0>, uint64_t a2@<X3>, uint64_t a3@<X8>)
+{
+  v6 = *(a1 + 16);
+  v7 = type metadata accessor for PlottableValue.Storage(0, v6, *(a1 + 24), a2);
+  v8 = MEMORY[0x1EEE9AC00](v7);
+  v10 = &v15 - v9;
+  (*(v11 + 16))(&v15 - v9, v3 + *(a1 + 36), v7, v8);
   if (swift_getEnumCaseMultiPayload() != 1)
   {
-    return (*(*(v5 - 8) + 32))(a2, v9, v5);
+    return (*(*(v6 - 8) + 32))(a3, v10, v6);
   }
 
-  v11 = *(swift_getTupleTypeMetadata2() + 48);
-  v12 = *(v5 - 8);
-  (*(v12 + 32))(a2, v9, v5);
-  return (*(v12 + 8))(&v9[v11], v5);
+  v12 = *(swift_getTupleTypeMetadata2() + 48);
+  v13 = *(v6 - 8);
+  (*(v13 + 32))(a3, v10, v6);
+  return (*(v13 + 8))(&v10[v12], v6);
 }
 
-uint64_t static PlottableValue.value(_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X5>, uint64_t a6@<X8>)
+double static PlottableValue.value(_:_:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X5>, uint64_t a6@<X6>, uint64_t a7@<X8>)
 {
-  v12 = MEMORY[0x1EEE9AC00](a1);
-  v14 = &v19 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v15 + 16))(v14, v16, v17, v12);
-  sub_1AACD6EC4(a1, a2, a3 & 1, a4, v14, a5, a6);
+  v14 = MEMORY[0x1EEE9AC00](a1);
+  v16 = &v21 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v17 + 16))(v16, v18, v19, v14);
+  sub_1AACD6EC4(a1, a2, a3 & 1, a4, v16, a5, a6, a7);
   sub_1AACD7304(a1, a2, a3 & 1);
+
+  return result;
 }
 
-uint64_t static PlottableValue.value<A>(_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t static PlottableValue.value<A>(_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a5@<X4>, uint64_t a7@<X8>)
 {
-  v7 = *(a3 - 8);
+  v11 = *(a3 - 8);
   MEMORY[0x1EEE9AC00](a1);
-  v9 = &v22[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v11 = MEMORY[0x1EEE9AC00](v10);
-  (*(v13 + 16))(&v22[-((v12 + 15) & 0xFFFFFFFFFFFFFFF0)], v11);
-  v14 = sub_1AAF8EA64();
-  v16 = v15;
-  v18 = v17;
-  v20 = v19;
-  (*(v7 + 16))(v9, a2, a3);
-  return sub_1AACD6EC4(v14, v16, v18 & 1, v20, v9, a3, a4);
-}
-
-uint64_t static PlottableValue.value<>(_:_:)@<X0>(uint64_t a1@<X4>, uint64_t a2@<X5>, uint64_t a3@<X6>, uint64_t a4@<X8>)
-{
-  v19 = a4;
-  v20 = a3;
-  v6 = sub_1AAF8FCA4();
-  v7 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00](v6);
-  v9 = &v18 - v8;
-
-  v10 = sub_1AAF8EA44();
-  v12 = v11;
-  v14 = v13;
-  v16 = v15;
-  (*(v7 + 16))(v9, a1, v6);
-  return sub_1AAE8C744(v10, v12, v14 & 1, v16, v9, a2, v19);
-}
-
-uint64_t static PlottableValue.value<A>(_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
-{
-  v26 = a6;
-  v27 = a5;
-  v10 = sub_1AAF8FCA4();
-  v11 = *(v10 - 8);
-  MEMORY[0x1EEE9AC00](v10);
-  v13 = &v25 - v12;
+  v13 = &v26[-((v12 + 15) & 0xFFFFFFFFFFFFFFF0)];
   v15 = MEMORY[0x1EEE9AC00](v14);
-  (*(v17 + 16))(&v25 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0), a1, a4, v15);
+  (*(v17 + 16))(&v26[-((v16 + 15) & 0xFFFFFFFFFFFFFFF0)], v15);
   v18 = sub_1AAF8EA64();
   v20 = v19;
-  LOBYTE(a4) = v21;
-  v23 = v22;
-  (*(v11 + 16))(v13, a2, v10);
-  return sub_1AAE8C744(v18, v20, a4 & 1, v23, v13, a3, v26);
+  v22 = v21;
+  v24 = v23;
+  (*(v11 + 16))(v13, a2, a3);
+  return sub_1AACD6EC4(v18, v20, v22 & 1, v24, v13, a3, a5, a7);
+}
+
+uint64_t static PlottableValue.value<>(_:_:)@<X0>(uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a9@<X8>)
+{
+  v24 = a9;
+  v25 = a7;
+  v11 = sub_1AAF8FCA4();
+  v12 = *(v11 - 8);
+  MEMORY[0x1EEE9AC00](v11);
+  v14 = &v23 - v13;
+
+  v15 = sub_1AAF8EA44();
+  v17 = v16;
+  v19 = v18;
+  v21 = v20;
+  (*(v12 + 16))(v14, a5, v11);
+  return sub_1AAE8C744(v15, v17, v19 & 1, v21, v14, a6, v25, v24);
+}
+
+uint64_t static PlottableValue.value<A>(_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a8@<X8>)
+{
+  v28 = a8;
+  v29 = a5;
+  v12 = sub_1AAF8FCA4();
+  v13 = *(v12 - 8);
+  MEMORY[0x1EEE9AC00](v12);
+  v15 = &v27 - v14;
+  v17 = MEMORY[0x1EEE9AC00](v16);
+  (*(v19 + 16))(&v27 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0), a1, a4, v17);
+  v20 = sub_1AAF8EA64();
+  v22 = v21;
+  LOBYTE(a4) = v23;
+  v25 = v24;
+  (*(v13 + 16))(v15, a2, v12);
+  return sub_1AAE8C744(v20, v22, a4 & 1, v25, v15, a3, v29, v28);
 }
 
 uint64_t sub_1AAE8D1FC(uint64_t a1)
@@ -8803,7 +9277,7 @@ uint64_t sub_1AAE8D1FC(uint64_t a1)
   return a1;
 }
 
-uint64_t static PlottableValue.value<>(_:_:unit:calendar:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t *a8@<X8>)
+void static PlottableValue.value<>(_:_:unit:calendar:)(uint64_t a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t *a8@<X8>)
 {
   v72 = a6;
   v73 = a5;
@@ -8812,7 +9286,7 @@ uint64_t static PlottableValue.value<>(_:_:unit:calendar:)@<X0>(uint64_t a1@<X0>
   v67 = a1;
   v68 = a2;
   v66 = a8;
-  sub_1AACD57C4();
+  sub_1AACD57C4(0);
   v64 = v9;
   MEMORY[0x1EEE9AC00](v9);
   v63 = &v57 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -8824,7 +9298,7 @@ uint64_t static PlottableValue.value<>(_:_:unit:calendar:)@<X0>(uint64_t a1@<X0>
   v71 = &v57 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v14);
   v69 = &v57 - v15;
-  sub_1AACD6C54();
+  sub_1AACD6C54(0);
   v62 = v16;
   MEMORY[0x1EEE9AC00](v16);
   v61 = &v57 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -8861,9 +9335,9 @@ uint64_t static PlottableValue.value<>(_:_:unit:calendar:)@<X0>(uint64_t a1@<X0>
   }
 
   sub_1AAF8CAD4();
-  result = (*(v24 + 48))(v22, 1, v23);
+  v35 = (*(v24 + 48))(v22, 1, v23);
   v36 = v71;
-  if (result != 1)
+  if (v35 != 1)
   {
     (*(v24 + 32))(v26, v22, v23);
     v37 = v69;
@@ -8873,7 +9347,7 @@ uint64_t static PlottableValue.value<>(_:_:unit:calendar:)@<X0>(uint64_t a1@<X0>
     v38 = v70;
     v39 = sub_1AAF8F584();
     (*(v24 + 8))(v26, v23);
-    result = (*(v31 + 8))(v33, v30);
+    (*(v31 + 8))(v33, v30);
     if (v39)
     {
       v41 = v59;
@@ -8905,23 +9379,24 @@ uint64_t static PlottableValue.value<>(_:_:unit:calendar:)@<X0>(uint64_t a1@<X0>
       v50[3] = v74;
       sub_1AACD6DF8(0, qword_1ED9B13F0, type metadata accessor for PlottableValue);
       v54 = v50 + *(v53 + 36);
-      sub_1AACD6E60();
+      sub_1AACD6E60(0);
       v56 = *(v55 + 48);
       v42(v54, v49, v38);
       v42(&v54[v56], (v49 + *(v48 + 36)), v38);
       sub_1AACD6DF8(0, &qword_1ED9B0BE8, type metadata accessor for PlottableValue.Storage);
       swift_storeEnumTagMultiPayload();
       sub_1AACD7304(v51, v52, v45);
+
+      return;
     }
 
     __break(1u);
   }
 
   __break(1u);
-  return result;
 }
 
-uint64_t static PlottableValue.value<A>(_:_:unit:calendar:)@<X0>(uint64_t a1@<X0>, char *a2@<X1>, unint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
+uint64_t static PlottableValue.value<A>(_:_:unit:calendar:)@<X0>(uint64_t a1@<X0>, char *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
 {
   v60 = a5;
   v61 = a6;
@@ -8929,7 +9404,7 @@ uint64_t static PlottableValue.value<A>(_:_:unit:calendar:)@<X0>(uint64_t a1@<X0
   v66 = a2;
   v58 = a7;
   v59 = a1;
-  sub_1AACD57C4();
+  sub_1AACD57C4(0);
   v9 = v8;
   MEMORY[0x1EEE9AC00](v8);
   v56 = &v50 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -8940,8 +9415,8 @@ uint64_t static PlottableValue.value<A>(_:_:unit:calendar:)@<X0>(uint64_t a1@<X0
   MEMORY[0x1EEE9AC00](v64);
   v63 = &v50 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v14);
-  v62 = &v50 - v15;
-  sub_1AACD6C54();
+  v62 = (&v50 - v15);
+  sub_1AACD6C54(0);
   v57 = v16;
   MEMORY[0x1EEE9AC00](v16);
   v53 = &v50 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -8983,12 +9458,12 @@ uint64_t static PlottableValue.value<A>(_:_:unit:calendar:)@<X0>(uint64_t a1@<X0
   sub_1AAF8CAD4();
   v34 = v21;
   v35 = v67;
-  result = (*(v21 + 6))(v20, 1, v67);
+  result = (v21[6])(v20, 1, v67);
   if (result != 1)
   {
-    v37 = *(v21 + 4);
+    v37 = v21[4];
     v38 = v23;
-    v37(v23, v20, v35);
+    (v37)(v23, v20, v35);
     v39 = v62;
     sub_1AAF8C6E4();
     v40 = v63;
@@ -9019,7 +9494,7 @@ uint64_t static PlottableValue.value<A>(_:_:unit:calendar:)@<X0>(uint64_t a1@<X0
       v49(v46, v42);
       static PlottableValue.value<A>(_:_:)(v59, v48, v42, v60, &protocol witness table for Date, v58);
       sub_1AAE8DF20(v48);
-      (*(v62 + 1))(v66, v67);
+      v62[1](v66, v67);
       return (*(v51 + 8))(v63, v52);
     }
 
@@ -9032,52 +9507,52 @@ uint64_t static PlottableValue.value<A>(_:_:unit:calendar:)@<X0>(uint64_t a1@<X0
 
 uint64_t sub_1AAE8DF20(uint64_t a1)
 {
-  sub_1AACD6C54();
+  sub_1AACD6C54(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
-uint64_t sub_1AAE8DF7C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X6>, uint64_t a7@<X8>)
+uint64_t sub_1AAE8DF7C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>)
 {
-  *a7 = a1;
-  *(a7 + 8) = a2;
-  *(a7 + 16) = a3 & 1;
-  *(a7 + 24) = a4;
-  v10 = type metadata accessor for PlottableProjection();
-  (*(*(a6 - 8) + 32))(a7 + *(v10 + 44), a5, a6);
-  type metadata accessor for PlottableProjection.Storage();
+  *a9 = a1;
+  *(a9 + 8) = a2;
+  *(a9 + 16) = a3 & 1;
+  *(a9 + 24) = a4;
+  v14 = type metadata accessor for PlottableProjection(0, a6, a7, a8);
+  (*(*(a7 - 8) + 32))(a9 + *(v14 + 44), a5, a7);
+  type metadata accessor for PlottableProjection.Storage(0, a6, a7, a8);
 
   return swift_storeEnumTagMultiPayload();
 }
 
 uint64_t sub_1AAE8E048@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>)
 {
-  v41 = a8;
-  v44 = a5;
-  v39 = a4;
-  v38 = a3;
-  v36 = a1;
-  v37 = a2;
+  v42 = a8;
+  v45 = a5;
+  v40 = a4;
+  v39 = a3;
+  v37 = a1;
+  v38 = a2;
   sub_1AACD6DA4(0, &qword_1ED9B1678, MEMORY[0x1E6968130]);
   MEMORY[0x1EEE9AC00](v12 - 8);
-  v14 = &v33 - v13;
+  v14 = &v34 - v13;
   v15 = sub_1AAF8C6F4();
-  v42 = *(v15 - 8);
-  v43 = v15;
+  v43 = *(v15 - 8);
+  v44 = v15;
   MEMORY[0x1EEE9AC00](v15);
-  v17 = &v33 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = &v34 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1AACD6DA4(0, &qword_1ED9B6B90, MEMORY[0x1E6969AE8]);
   MEMORY[0x1EEE9AC00](v18 - 8);
-  v20 = &v33 - v19;
+  v20 = &v34 - v19;
   v21 = sub_1AAF8CBA4();
   v22 = *(v21 - 8);
   MEMORY[0x1EEE9AC00](v21);
-  v24 = &v33 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v40 = a7;
+  v24 = &v34 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v41 = a7;
   sub_1AACD5668(a7, v20);
   v25 = *(v22 + 48);
   v26 = v25(v20, 1, v21);
-  v35 = v21;
+  v36 = v21;
   if (v26 == 1)
   {
     sub_1AAF8CB34();
@@ -9092,11 +9567,11 @@ uint64_t sub_1AAE8E048@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, uin
     (*(v22 + 32))(v24, v20, v21);
   }
 
-  v34 = a6;
+  v35 = a6;
   sub_1AAF8CAD4();
-  v27 = v42;
-  v28 = v43;
-  result = (*(v42 + 48))(v14, 1, v43);
+  v27 = v43;
+  v28 = v44;
+  result = (*(v43 + 48))(v14, 1, v44);
   if (result == 1)
   {
     __break(1u);
@@ -9105,72 +9580,78 @@ uint64_t sub_1AAE8E048@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, uin
   else
   {
     (*(v27 + 32))(v17, v14, v28);
-    v30 = v37;
-    *a9 = v36;
+    v30 = v38;
+    *a9 = v37;
     *(a9 + 8) = v30;
-    *(a9 + 16) = v38 & 1;
-    *(a9 + 24) = v39;
+    *(a9 + 16) = v39 & 1;
+    *(a9 + 24) = v40;
     v31 = sub_1AAF8CA64();
-    type metadata accessor for PlottableProjection();
-    sub_1AACD6E60();
+    v32 = v42;
+    type metadata accessor for PlottableProjection(0, v42, v31, &protocol witness table for Date);
+    sub_1AACD6E60(0);
     sub_1AAF8C6E4();
     sub_1AAF8C6D4();
-    sub_1AAE8D1FC(v40);
-    v32 = sub_1AAF8CB94();
-    (*(*(v32 - 8) + 8))(v34, v32);
-    (*(*(v31 - 8) + 8))(v44, v31);
+    sub_1AAE8D1FC(v41);
+    v33 = sub_1AAF8CB94();
+    (*(*(v33 - 8) + 8))(v35, v33);
+    (*(*(v31 - 8) + 8))(v45, v31);
     (*(v27 + 8))(v17, v28);
-    (*(v22 + 8))(v24, v35);
-    type metadata accessor for PlottableProjection.Storage();
+    (*(v22 + 8))(v24, v36);
+    type metadata accessor for PlottableProjection.Storage(0, v32, v31, &protocol witness table for Date);
     return swift_storeEnumTagMultiPayload();
   }
 
   return result;
 }
 
-uint64_t sub_1AAE8E47C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X7>, uint64_t a8@<X8>)
+uint64_t sub_1AAE8E47C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10)
 {
-  *a8 = a1;
-  *(a8 + 8) = a2;
-  *(a8 + 16) = a3 & 1;
-  *(a8 + 24) = a4;
-  v11 = a8 + *(type metadata accessor for PlottableProjection() + 44);
-  v12 = *(swift_getTupleTypeMetadata2() + 48);
-  v13 = *(*(a7 - 8) + 32);
-  v13(v11, a5, a7);
-  v13(v11 + v12, a6, a7);
-  type metadata accessor for PlottableProjection.Storage();
+  *a9 = a1;
+  *(a9 + 8) = a2;
+  *(a9 + 16) = a3 & 1;
+  *(a9 + 24) = a4;
+  v14 = a9 + *(type metadata accessor for PlottableProjection(0, a7, a8, a10) + 44);
+  v15 = *(swift_getTupleTypeMetadata2() + 48);
+  v16 = *(*(a8 - 8) + 32);
+  v16(v14, a5, a8);
+  v16(v14 + v15, a6, a8);
+  type metadata accessor for PlottableProjection.Storage(0, a7, a8, a10);
 
   return swift_storeEnumTagMultiPayload();
 }
 
-uint64_t sub_1AAE8E594@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+uint64_t sub_1AAE8E594@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, uint64_t *a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
 {
-  *a6 = a1;
-  *(a6 + 8) = a2;
-  *(a6 + 16) = a3 & 1;
-  *(a6 + 24) = a4;
-  *(a6 + *(type metadata accessor for PlottableProjection() + 44)) = a5;
-  type metadata accessor for PlottableProjection.Storage();
+  v9 = *a5;
+  *a7 = a1;
+  *(a7 + 8) = a2;
+  *(a7 + 16) = a3 & 1;
+  v10 = MEMORY[0x1E69E77B0];
+  *(a7 + 24) = a4;
+  v11 = (v9 + *v10);
+  v12 = *v11;
+  v13 = v11[1];
+  *(a7 + *(type metadata accessor for PlottableProjection(0, *v11, v13, a6) + 44)) = a5;
+  type metadata accessor for PlottableProjection.Storage(0, v12, v13, a6);
 
   return swift_storeEnumTagMultiPayload();
 }
 
 uint64_t sub_1AAE8E660@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, uint64_t a4@<X3>, uint64_t *a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>)
 {
-  v32 = a6;
-  v33 = a8;
-  v31 = a4;
-  v30 = a3;
-  v28 = *a5;
-  v29 = a2;
+  v37 = a6;
+  v38 = a8;
+  v36 = a4;
+  v35 = a3;
+  v33 = *a5;
+  v34 = a2;
   sub_1AACD6DA4(0, &qword_1ED9B6B90, MEMORY[0x1E6969AE8]);
   MEMORY[0x1EEE9AC00](v13 - 8);
-  v15 = &v28 - v14;
+  v15 = &v33 - v14;
   v16 = sub_1AAF8CBA4();
   v17 = *(v16 - 8);
   MEMORY[0x1EEE9AC00](v16);
-  v19 = &v28 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = &v33 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1AACD5668(a7, v15);
   v20 = *(v17 + 48);
   if (v20(v15, 1, v16) == 1)
@@ -9189,34 +9670,44 @@ uint64_t sub_1AAE8E660@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, uin
     (*(v17 + 32))(v19, v15, v16);
   }
 
-  v21 = v29;
+  v22 = v33;
+  v21 = v34;
   *a9 = a1;
   *(a9 + 8) = v21;
-  *(a9 + 16) = v30 & 1;
-  *(a9 + 24) = v31;
-  v22 = (a9 + *(type metadata accessor for PlottableProjection() + 44));
+  *(a9 + 16) = v35 & 1;
+  *(a9 + 24) = v36;
+  v23 = (v22 + *MEMORY[0x1E69E77B0]);
+  v24 = *v23;
+  v25 = v23[1];
+  v26 = v38;
+  v27 = (a9 + *(type metadata accessor for PlottableProjection(0, *v23, v25, v38) + 44));
   sub_1AAF90774();
-  v23 = sub_1AAF8CB94();
+  v28 = sub_1AAF8CB94();
   TupleTypeMetadata3 = swift_getTupleTypeMetadata3();
-  v25 = *(TupleTypeMetadata3 + 48);
-  v26 = *(TupleTypeMetadata3 + 64);
-  *v22 = a5;
-  (*(*(v23 - 8) + 32))(&v22[v25], v32, v23);
-  (*(v17 + 32))(&v22[v26], v19, v16);
-  type metadata accessor for PlottableProjection.Storage();
+  v30 = *(TupleTypeMetadata3 + 48);
+  v31 = *(TupleTypeMetadata3 + 64);
+  *v27 = a5;
+  (*(*(v28 - 8) + 32))(&v27[v30], v37, v28);
+  (*(v17 + 32))(&v27[v31], v19, v16);
+  type metadata accessor for PlottableProjection.Storage(0, v24, v25, v26);
   return swift_storeEnumTagMultiPayload();
 }
 
-uint64_t sub_1AAE8E960@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
+uint64_t sub_1AAE8E960@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, uint64_t *a5@<X4>, uint64_t *a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X8>)
 {
-  *a7 = a1;
-  *(a7 + 8) = a2;
-  *(a7 + 16) = a3 & 1;
-  *(a7 + 24) = a4;
-  v9 = (a7 + *(type metadata accessor for PlottableProjection() + 44));
-  *v9 = a5;
-  v9[1] = a6;
-  type metadata accessor for PlottableProjection.Storage();
+  v12 = *a5;
+  *a8 = a1;
+  *(a8 + 8) = a2;
+  *(a8 + 16) = a3 & 1;
+  v13 = MEMORY[0x1E69E77B0];
+  *(a8 + 24) = a4;
+  v14 = (v12 + *v13);
+  v15 = *v14;
+  v16 = v14[1];
+  v17 = (a8 + *(type metadata accessor for PlottableProjection(0, *v14, v16, a7) + 44));
+  *v17 = a5;
+  v17[1] = a6;
+  type metadata accessor for PlottableProjection.Storage(0, v15, v16, a7);
 
   return swift_storeEnumTagMultiPayload();
 }
@@ -9231,46 +9722,58 @@ uint64_t sub_1AAE8EA34@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   return v6(a2, 0, 1, a1);
 }
 
-uint64_t static PlottableProjection.value(_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+double static PlottableProjection.value(_:_:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, uint64_t *a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
 {
-  sub_1AAE8E594(a1, a2, a3 & 1, a4, a5, a6);
+  sub_1AAE8E594(a1, a2, a3 & 1, a4, a5, a6, a7);
   sub_1AACD7304(a1, a2, a3 & 1);
+
+  return result;
 }
 
-uint64_t static PlottableProjection.value<A>(_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+double static PlottableProjection.value<A>(_:_:)@<D0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a4@<X3>, uint64_t a6@<X8>)
 {
-  v5 = MEMORY[0x1EEE9AC00](a1);
-  (*(v7 + 16))(&v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), v5);
-  v8 = sub_1AAF8EA64();
-  sub_1AAE8E594(v8, v10, v9 & 1, v11, a2, a3);
+  v9 = MEMORY[0x1EEE9AC00](a1);
+  (*(v11 + 16))(&v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), v9);
+  v12 = sub_1AAF8EA64();
+  sub_1AAE8E594(v12, v14, v13 & 1, v15, a2, a4, a6);
+
+  return result;
 }
 
-uint64_t static PlottableProjection.value(_:_:)@<X0>(uint64_t a1@<X4>, uint64_t a2@<X8>)
+double static PlottableProjection.value(_:_:)@<D0>(uint64_t *a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
 {
 
-  v4 = sub_1AAF8EA44();
-  sub_1AAE8E594(v4, v6, v5 & 1, v7, a1, a2);
+  v10 = sub_1AAF8EA44();
+  sub_1AAE8E594(v10, v12, v11 & 1, v13, a5, a6, a7);
+
+  return result;
 }
 
-uint64_t static PlottableProjection.value<>(_:_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
+double static PlottableProjection.value<>(_:_:_:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, uint64_t *a5@<X4>, uint64_t *a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X8>)
 {
-  sub_1AAE8E960(a1, a2, a3 & 1, a4, a5, a6, a7);
+  sub_1AAE8E960(a1, a2, a3 & 1, a4, a5, a6, a7, a8);
   sub_1AACD7304(a1, a2, a3 & 1);
+
+  return result;
 }
 
-uint64_t static PlottableProjection.value<A>(_:_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+double static PlottableProjection.value<A>(_:_:_:)@<D0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, uint64_t a5@<X4>, uint64_t a7@<X8>)
 {
-  v7 = MEMORY[0x1EEE9AC00](a1);
-  (*(v9 + 16))(&v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0), v7);
-  v10 = sub_1AAF8EA64();
-  sub_1AAE8E960(v10, v12, v11 & 1, v13, a2, a3, a4);
+  v11 = MEMORY[0x1EEE9AC00](a1);
+  (*(v13 + 16))(&v19 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0), v11);
+  v14 = sub_1AAF8EA64();
+  sub_1AAE8E960(v14, v16, v15 & 1, v17, a2, a3, a5, a7);
+
+  return result;
 }
 
-uint64_t static PlottableProjection.value<>(_:_:_:)@<X0>(uint64_t a1@<X4>, uint64_t a2@<X5>, uint64_t a3@<X8>)
+double static PlottableProjection.value<>(_:_:_:)@<D0>(uint64_t *a5@<X4>, uint64_t *a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X8>)
 {
 
-  v6 = sub_1AAF8EA44();
-  sub_1AAE8E960(v6, v8, v7 & 1, v9, a1, a2, a3);
+  v12 = sub_1AAF8EA44();
+  sub_1AAE8E960(v12, v14, v13 & 1, v15, a5, a6, a7, a8);
+
+  return result;
 }
 
 uint64_t static PlottableProjection<>.value(_:_:unit:calendar:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, uint64_t *a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>)
@@ -9289,673 +9792,91 @@ uint64_t static PlottableProjection<>.value(_:_:unit:calendar:)@<X0>(uint64_t a1
   return sub_1AAE8E660(a1, a2, a3 & 1, a4, a5, v23, v19, v26[0], a9);
 }
 
-uint64_t static PlottableProjection<>.value<A>(_:_:unit:calendar:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
+uint64_t static PlottableProjection<>.value<A>(_:_:unit:calendar:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a8@<X8>)
 {
-  v30 = a7;
-  v31 = a6;
-  v29 = a4;
-  sub_1AACD6DA4(0, &qword_1ED9B6B90, MEMORY[0x1E6969AE8]);
-  MEMORY[0x1EEE9AC00](v11 - 8);
-  v13 = &v29 - v12;
-  v14 = sub_1AAF8CB94();
-  v15 = *(v14 - 8);
-  MEMORY[0x1EEE9AC00](v14);
-  v17 = &v29 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = MEMORY[0x1EEE9AC00](v18);
-  (*(v21 + 16))(&v29 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0), a1, a5, v19);
-  v22 = sub_1AAF8EA64();
-  v24 = v23;
-  LOBYTE(a5) = v25;
-  v27 = v26;
-  (*(v15 + 16))(v17, a3, v14);
-  sub_1AACD5668(v29, v13);
-
-  return sub_1AAE8E660(v22, v24, a5 & 1, v27, a2, v17, v13, v31, v30);
-}
-
-uint64_t static PlottableProjection<>.value(_:_:unit:calendar:)@<X0>(uint64_t *a1@<X4>, uint64_t a2@<X5>, uint64_t a3@<X6>, uint64_t a4@<X7>, uint64_t a5@<X8>)
-{
-  v23 = a5;
-  v24 = a4;
-  v22 = a3;
-  sub_1AACD6DA4(0, &qword_1ED9B6B90, MEMORY[0x1E6969AE8]);
-  MEMORY[0x1EEE9AC00](v7 - 8);
-  v9 = &v22 - v8;
-  v10 = sub_1AAF8CB94();
-  v11 = *(v10 - 8);
-  MEMORY[0x1EEE9AC00](v10);
-  v13 = &v22 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-
-  v14 = sub_1AAF8EA44();
-  v16 = v15;
-  v18 = v17;
-  v20 = v19;
-  (*(v11 + 16))(v13, a2, v10);
-  sub_1AACD5668(v22, v9);
-
-  return sub_1AAE8E660(v14, v16, v18 & 1, v20, a1, v13, v9, v24, v23);
-}
-
-uint64_t static PlottableProjection.value(_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X6>, uint64_t a6@<X8>)
-{
-  v12 = MEMORY[0x1EEE9AC00](a1);
-  v14 = &v19 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v15 + 16))(v14, v16, v17, v12);
-  sub_1AAE8DF7C(a1, a2, a3 & 1, a4, v14, a5, a6);
-  sub_1AACD7304(a1, a2, a3 & 1);
-}
-
-uint64_t static PlottableProjection.value<A>(_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X3>, uint64_t a4@<X5>, uint64_t a5@<X8>)
-{
-  v23[0] = a4;
-  v8 = *(a3 - 8);
-  MEMORY[0x1EEE9AC00](a1);
-  v10 = v23 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = MEMORY[0x1EEE9AC00](v11);
-  (*(v14 + 16))(v23 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0), v12);
-  v15 = sub_1AAF8EA64();
-  v17 = v16;
-  v19 = v18;
-  v21 = v20;
-  (*(v8 + 16))(v10, a2, a3);
-  return sub_1AAE8DF7C(v15, v17, v19 & 1, v21, v10, a3, a5);
-}
-
-uint64_t static PlottableProjection.value(_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X4>, uint64_t a3@<X6>, uint64_t a4@<X7>, uint64_t a5@<X8>)
-{
-  v19 = a4;
-  v8 = *(a3 - 8);
-  MEMORY[0x1EEE9AC00](a1);
-  v10 = &v19 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-
-  v11 = sub_1AAF8EA44();
-  v13 = v12;
-  v15 = v14;
-  v17 = v16;
-  (*(v8 + 16))(v10, a2, a3);
-  return sub_1AAE8DF7C(v11, v13, v15 & 1, v17, v10, a3, a5);
-}
-
-uint64_t static PlottableProjection.value<>(_:_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X5>, uint64_t a6@<X6>, uint64_t a7@<X7>, uint64_t a8@<X8>)
-{
-  v25 = a8;
-  v26 = a6;
-  v24 = a5;
-  v13 = *(a7 - 8);
-  MEMORY[0x1EEE9AC00](a1);
-  v15 = &v24 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = MEMORY[0x1EEE9AC00](v16);
-  v19 = &v24 - v18;
-  v20 = *(v13 + 16);
-  v20(&v24 - v18, v21, v22, v17);
-  (v20)(v15, v24, a7);
-  sub_1AAE8E47C(a1, a2, a3 & 1, a4, v19, v15, a7, v25);
-  sub_1AACD7304(a1, a2, a3 & 1);
-}
-
-uint64_t static PlottableProjection.value<A>(_:_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X6>, uint64_t a7@<X8>)
-{
-  v31 = a6;
-  v32 = a4;
-  v29 = a3;
-  v30 = a7;
-  v9 = *(a5 - 8);
-  MEMORY[0x1EEE9AC00](a1);
-  v11 = &v28 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v12);
-  v14 = &v28 - v13;
-  v16 = MEMORY[0x1EEE9AC00](v15);
-  (*(v18 + 16))(&v28 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0), v16);
-  v19 = sub_1AAF8EA64();
-  v21 = v20;
-  v23 = v22;
-  v25 = v24;
-  v26 = *(v9 + 16);
-  v26(v14, a2, a5);
-  v26(v11, v29, a5);
-  return sub_1AAE8E47C(v19, v21, v23 & 1, v25, v14, v11, a5, v30);
-}
-
-uint64_t static PlottableProjection.value<>(_:_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X4>, uint64_t a3@<X5>, uint64_t a4@<X6>, uint64_t a5@<X7>, uint64_t a6@<X8>)
-{
-  v25 = a6;
-  v26 = a4;
-  v23 = a2;
-  v24 = a3;
-  v7 = *(a5 - 8);
-  MEMORY[0x1EEE9AC00](a1);
-  v9 = &v22 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v10);
-  v12 = &v22 - v11;
-
-  v13 = sub_1AAF8EA44();
-  v15 = v14;
-  v17 = v16;
-  v19 = v18;
-  v20 = *(v7 + 16);
-  v20(v12, v23, a5);
-  v20(v9, v24, a5);
-  return sub_1AAE8E47C(v13, v15, v17 & 1, v19, v12, v9, a5, v25);
-}
-
-uint64_t static PlottableProjection<>.value(_:_:unit:calendar:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>)
-{
-  v30 = a9;
   v31 = a8;
-  v28 = a6;
-  v29 = a7;
+  v32 = a6;
+  v30 = a4;
   sub_1AACD6DA4(0, &qword_1ED9B6B90, MEMORY[0x1E6969AE8]);
-  MEMORY[0x1EEE9AC00](v14 - 8);
-  v16 = &v27 - v15;
-  v17 = sub_1AAF8CB94();
-  v18 = *(v17 - 8);
-  MEMORY[0x1EEE9AC00](v17);
-  v20 = &v27 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21 = sub_1AAF8CA64();
-  v22 = MEMORY[0x1EEE9AC00](v21);
-  v24 = &v27 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v25 + 16))(v24, a5, v22);
-  (*(v18 + 16))(v20, v28, v17);
-  sub_1AACD5668(v29, v16);
-  sub_1AACD7304(a1, a2, a3 & 1);
-
-  return sub_1AAE8E048(a1, a2, a3 & 1, a4, v24, v20, v16, v31, v30);
-}
-
-uint64_t static PlottableProjection<>.value<A>(_:_:unit:calendar:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
-{
-  v35 = a7;
-  v36 = a5;
-  v33 = a3;
-  v34 = a4;
-  v32 = a2;
-  sub_1AACD6DA4(0, &qword_1ED9B6B90, MEMORY[0x1E6969AE8]);
-  MEMORY[0x1EEE9AC00](v9 - 8);
-  v11 = &v30 - v10;
-  v31 = sub_1AAF8CB94();
-  v12 = *(v31 - 8);
-  MEMORY[0x1EEE9AC00](v31);
-  v14 = &v30 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = sub_1AAF8CA64();
+  MEMORY[0x1EEE9AC00](v12 - 8);
+  v14 = &v30 - v13;
+  v15 = sub_1AAF8CB94();
   v16 = *(v15 - 8);
   MEMORY[0x1EEE9AC00](v15);
   v18 = &v30 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
   v20 = MEMORY[0x1EEE9AC00](v19);
-  (*(v22 + 16))(&v30 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0), a1, a6, v20);
+  (*(v22 + 16))(&v30 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0), a1, a5, v20);
   v23 = sub_1AAF8EA64();
   v25 = v24;
-  LOBYTE(a6) = v26;
+  LOBYTE(a5) = v26;
   v28 = v27;
-  (*(v16 + 16))(v18, v32, v15);
-  (*(v12 + 16))(v14, v33, v31);
-  sub_1AACD5668(v34, v11);
-  return sub_1AAE8E048(v23, v25, a6 & 1, v28, v18, v14, v11, v36, v35);
+  (*(v16 + 16))(v18, a3, v15);
+  sub_1AACD5668(v30, v14);
+
+  return sub_1AAE8E660(v23, v25, a5 & 1, v28, a2, v18, v14, v32, v31);
 }
 
-uint64_t static PlottableProjection<>.value(_:_:unit:calendar:)@<X0>(uint64_t a1@<X4>, uint64_t a2@<X5>, uint64_t a3@<X6>, uint64_t a4@<X7>, uint64_t a5@<X8>)
+uint64_t static PlottableProjection<>.value(_:_:unit:calendar:)@<X0>(uint64_t *a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>)
 {
-  v28 = a5;
-  v29 = a4;
-  v26 = a2;
-  v27 = a3;
-  v25 = a1;
+  v27 = a9;
+  v28 = a8;
+  v26 = a7;
   sub_1AACD6DA4(0, &qword_1ED9B6B90, MEMORY[0x1E6969AE8]);
-  MEMORY[0x1EEE9AC00](v5 - 8);
-  v7 = &v23 - v6;
-  v24 = sub_1AAF8CB94();
-  v8 = *(v24 - 8);
-  MEMORY[0x1EEE9AC00](v24);
-  v10 = &v23 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = sub_1AAF8CA64();
-  v12 = *(v11 - 8);
-  MEMORY[0x1EEE9AC00](v11);
-  v14 = &v23 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v11 - 8);
+  v13 = &v26 - v12;
+  v14 = sub_1AAF8CB94();
+  v15 = *(v14 - 8);
+  MEMORY[0x1EEE9AC00](v14);
+  v17 = &v26 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
 
-  v15 = sub_1AAF8EA44();
-  v17 = v16;
-  v19 = v18;
+  v18 = sub_1AAF8EA44();
+  v20 = v19;
+  v22 = v21;
+  v24 = v23;
+  (*(v15 + 16))(v17, a6, v14);
+  sub_1AACD5668(v26, v13);
+
+  return sub_1AAE8E660(v18, v20, v22 & 1, v24, a5, v17, v13, v28, v27);
+}
+
+double static PlottableProjection.value(_:_:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X5>, uint64_t a6@<X6>, uint64_t a7@<X7>, uint64_t a8@<X8>)
+{
+  v16 = MEMORY[0x1EEE9AC00](a1);
+  v18 = &v23 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v19 + 16))(v18, v20, v21, v16);
+  sub_1AAE8DF7C(a1, a2, a3 & 1, a4, v18, a5, a6, a7, a8);
+  sub_1AACD7304(a1, a2, a3 & 1);
+
+  return result;
+}
+
+uint64_t static PlottableProjection.value<A>(_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a6@<X5>, uint64_t a8@<X8>)
+{
+  v27[0] = a6;
+  v12 = *(a4 - 8);
+  MEMORY[0x1EEE9AC00](a1);
+  v14 = v27 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = MEMORY[0x1EEE9AC00](v15);
+  (*(v18 + 16))(v27 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0), v16);
+  v19 = sub_1AAF8EA64();
   v21 = v20;
-  (*(v12 + 16))(v14, v25, v11);
-  (*(v8 + 16))(v10, v26, v24);
-  sub_1AACD5668(v27, v7);
-  return sub_1AAE8E048(v15, v17, v19 & 1, v21, v14, v10, v7, v29, v28);
+  v23 = v22;
+  v25 = v24;
+  (*(v12 + 16))(v14, a2, a4);
+  return sub_1AAE8DF7C(v19, v21, v23 & 1, v25, v14, a3, a4, v27[0], a8);
 }
 
-uint64_t sub_1AAE905F8(unsigned __int16 *a1, int a2, uint64_t a3)
+uint64_t static PlottableProjection.value(_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>)
 {
-  v3 = *(*(a3 + 16) - 8);
-  v4 = *(v3 + 64);
-  v5 = *(v3 + 80);
-  v6 = ((v4 + v5) & ~v5) + v4;
-  if (v6 <= v4)
-  {
-    v6 = *(v3 + 64);
-  }
-
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if ((a2 & 0x80000000) == 0)
-  {
-    goto LABEL_5;
-  }
-
-  v9 = ((v5 + 32) & ~v5) + v6 + 1;
-  v10 = 8 * v9;
-  if (v9 > 3)
-  {
-    goto LABEL_10;
-  }
-
-  v12 = (a2 - 0x7FFFFFFF + ~(-1 << v10)) >> v10;
-  if (v12 > 0xFFFE)
-  {
-    v11 = *(a1 + v9);
-    if (!v11)
-    {
-      goto LABEL_5;
-    }
-
-    goto LABEL_19;
-  }
-
-  if (v12 <= 0xFE)
-  {
-    if (!v12)
-    {
-      goto LABEL_5;
-    }
-
-LABEL_10:
-    v11 = *(a1 + v9);
-    if (!*(a1 + v9))
-    {
-      goto LABEL_5;
-    }
-
-    goto LABEL_19;
-  }
-
-  v11 = *(a1 + v9);
-  if (!*(a1 + v9))
-  {
-LABEL_5:
-    v7 = *(a1 + 3);
-    if (v7 >= 0xFFFFFFFF)
-    {
-      LODWORD(v7) = -1;
-    }
-
-    return (v7 + 1);
-  }
-
-LABEL_19:
-  v13 = (v11 - 1) << v10;
-  if (v9 > 3)
-  {
-    v13 = 0;
-  }
-
-  if (v9)
-  {
-    if (v9 > 3)
-    {
-      LODWORD(v9) = 4;
-    }
-
-    if (v9 > 2)
-    {
-      if (v9 == 3)
-      {
-        LODWORD(v9) = *a1 | (*(a1 + 2) << 16);
-      }
-
-      else
-      {
-        LODWORD(v9) = *a1;
-      }
-    }
-
-    else if (v9 == 1)
-    {
-      LODWORD(v9) = *a1;
-    }
-
-    else
-    {
-      LODWORD(v9) = *a1;
-    }
-  }
-
-  return (v9 | v13) ^ 0x80000000;
-}
-
-unsigned int *sub_1AAE90758(unsigned int *result, int a2, int a3, uint64_t a4)
-{
-  v4 = *(*(a4 + 16) - 8);
-  v5 = *(v4 + 64);
-  v6 = *(v4 + 80);
-  if (((v5 + v6) & ~v6) + v5 > v5)
-  {
-    v5 += (v5 + v6) & ~v6;
-  }
-
-  v7 = ((v6 + 32) & ~v6) + v5 + 1;
-  if ((a3 & 0x80000000) == 0)
-  {
-    v8 = 0;
-    if (a2 < 0)
-    {
-      goto LABEL_17;
-    }
-
-LABEL_26:
-    if (v8 > 1)
-    {
-      if (v8 != 2)
-      {
-        *(result + v7) = 0;
-        if (!a2)
-        {
-          return result;
-        }
-
-LABEL_33:
-        *(result + 3) = (a2 - 1);
-        return result;
-      }
-
-      *(result + v7) = 0;
-    }
-
-    else if (v8)
-    {
-      *(result + v7) = 0;
-      if (!a2)
-      {
-        return result;
-      }
-
-      goto LABEL_33;
-    }
-
-    if (!a2)
-    {
-      return result;
-    }
-
-    goto LABEL_33;
-  }
-
-  if (v7 <= 3)
-  {
-    v9 = (a3 - 0x7FFFFFFF + ~(-1 << (8 * v7))) >> (8 * v7);
-    if (v9 > 0xFFFE)
-    {
-      v8 = 4;
-      if (a2 < 0)
-      {
-        goto LABEL_17;
-      }
-
-      goto LABEL_26;
-    }
-
-    if (v9 < 0xFF)
-    {
-      v10 = 1;
-    }
-
-    else
-    {
-      v10 = 2;
-    }
-
-    if (v9)
-    {
-      v8 = v10;
-    }
-
-    else
-    {
-      v8 = 0;
-    }
-
-    if ((a2 & 0x80000000) == 0)
-    {
-      goto LABEL_26;
-    }
-  }
-
-  else
-  {
-    v8 = 1;
-    if ((a2 & 0x80000000) == 0)
-    {
-      goto LABEL_26;
-    }
-  }
-
-LABEL_17:
-  v11 = a2 & 0x7FFFFFFF;
-  if (v7 >= 4)
-  {
-    v12 = result;
-    bzero(result, v7);
-    result = v12;
-    *v12 = v11;
-    v13 = 1;
-    if (v8 > 1)
-    {
-      goto LABEL_42;
-    }
-
-    goto LABEL_39;
-  }
-
-  v13 = (v11 >> (8 * v7)) + 1;
-  if (!v7)
-  {
-LABEL_38:
-    if (v8 > 1)
-    {
-      goto LABEL_42;
-    }
-
-    goto LABEL_39;
-  }
-
-  v14 = a2;
-  v15 = a2 & ~(-1 << (8 * v7));
-  v16 = result;
-  bzero(result, v7);
-  result = v16;
-  if (v7 == 3)
-  {
-    *v16 = v15;
-    *(v16 + 2) = BYTE2(v15);
-    goto LABEL_38;
-  }
-
-  if (v7 == 2)
-  {
-    *v16 = v15;
-    if (v8 > 1)
-    {
-LABEL_42:
-      if (v8 == 2)
-      {
-        *(result + v7) = v13;
-      }
-
-      else
-      {
-        *(result + v7) = v13;
-      }
-
-      return result;
-    }
-  }
-
-  else
-  {
-    *v16 = v14;
-    if (v8 > 1)
-    {
-      goto LABEL_42;
-    }
-  }
-
-LABEL_39:
-  if (v8)
-  {
-    *(result + v7) = v13;
-  }
-
-  return result;
-}
-
-uint64_t sub_1AAE90960()
-{
-  result = type metadata accessor for PlottableProjection.Storage();
-  if (v1 <= 0x3F)
-  {
-    swift_cvw_initStructMetadataWithLayoutString();
-    return 0;
-  }
-
-  return result;
-}
-
-uint64_t sub_1AAE909E4(unsigned __int16 *a1, int a2, uint64_t a3)
-{
-  v5 = *(*(a3 + 24) - 8);
-  v6 = *(v5 + 64);
-  v7 = *(v5 + 80);
-  if (((v6 + v7) & ~v7) + v6 <= v6)
-  {
-    v8 = v6;
-  }
-
-  else
-  {
-    v8 = ((v6 + v7) & ~v7) + v6;
-  }
-
-  v9 = *(sub_1AAF8CB94() - 8);
-  v10 = *(v9 + 80);
-  v11 = *(v9 + 64);
-  v12 = *(sub_1AAF8CBA4() - 8);
-  v13 = *(v12 + 80);
-  v14 = ((((v10 + 8) & ~v10) + v11 + v13) & ~v13) + *(v12 + 64);
-  if (v8 > v14)
-  {
-    v14 = v8;
-  }
-
-  if (v14 <= 0x10)
-  {
-    v14 = 16;
-  }
-
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if ((a2 & 0x80000000) == 0)
-  {
-    goto LABEL_10;
-  }
-
-  v17 = v14 + (((v10 | v13 | v7) & 0xF8 ^ 0x1F8) & ((v10 | v13 | v7) + 32)) + 1;
-  v18 = 8 * v17;
-  if (v17 > 3)
-  {
-    goto LABEL_15;
-  }
-
-  v20 = (a2 - 0x7FFFFFFF + ~(-1 << v18)) >> v18;
-  if (v20 > 0xFFFE)
-  {
-    v19 = *(a1 + v17);
-    if (!v19)
-    {
-      goto LABEL_10;
-    }
-
-    goto LABEL_24;
-  }
-
-  if (v20 <= 0xFE)
-  {
-    if (!v20)
-    {
-      goto LABEL_10;
-    }
-
-LABEL_15:
-    v19 = *(a1 + v17);
-    if (!*(a1 + v17))
-    {
-      goto LABEL_10;
-    }
-
-    goto LABEL_24;
-  }
-
-  v19 = *(a1 + v17);
-  if (!*(a1 + v17))
-  {
-LABEL_10:
-    v15 = *(a1 + 3);
-    if (v15 >= 0xFFFFFFFF)
-    {
-      LODWORD(v15) = -1;
-    }
-
-    return (v15 + 1);
-  }
-
-LABEL_24:
-  v21 = (v19 - 1) << v18;
-  if (v17 > 3)
-  {
-    v21 = 0;
-  }
-
-  if (v17)
-  {
-    if (v17 > 3)
-    {
-      LODWORD(v17) = 4;
-    }
-
-    if (v17 > 2)
-    {
-      if (v17 == 3)
-      {
-        LODWORD(v17) = *a1 | (*(a1 + 2) << 16);
-      }
-
-      else
-      {
-        LODWORD(v17) = *a1;
-      }
-    }
-
-    else if (v17 == 1)
-    {
-      LODWORD(v17) = *a1;
-    }
-
-    else
-    {
-      LODWORD(v17) = *a1;
-    }
-  }
-
-  return (v17 | v21) ^ 0x80000000;
+  v24 = a8;
+  v13 = *(a7 - 8);
+  MEMORY[0x1EEE9AC00](a1);
+  v15 = &v24 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+
+  v16 = sub_1AAF8EA44();
+  v18 = v17;
+  v20 = v19;
+  v22 = v21;
+  (*(v13 + 16))(v15, a5, a7);
+  return sub_1AAE8DF7C(v16, v18, v20 & 1, v22, v15, a6, a7, v24, a9);
 }

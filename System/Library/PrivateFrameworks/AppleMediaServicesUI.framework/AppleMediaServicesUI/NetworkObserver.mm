@@ -19,16 +19,15 @@
 {
   v8 = type metadata accessor for URL();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   __chkstk_darwin(v8);
-  v12 = &v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   sessionCopy = session;
   taskCopy = task;
   selfCopy = self;
-  sub_10017B528(sessionCopy, taskCopy, v12);
+  sub_10017B528(sessionCopy, taskCopy, v11);
 
-  (*(v9 + 8))(v12, v8);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (void)URLSession:(id)session task:(id)task didCompleteWithError:(id)error

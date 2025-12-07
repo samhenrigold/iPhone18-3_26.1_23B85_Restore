@@ -1,5 +1,6 @@
 @interface NSObject(UIAccessibilityAutomation)
 - (NSString)_accessibilityUserTestingElementType;
+- (char)_accessibilityUserTestingChildrenCount;
 - (id)_accessibilityAncestry;
 - (id)_accessibilityBaseImplementationUserTestingChildren;
 - (id)_accessibilityUserTestingChildrenWithRange:()UIAccessibilityAutomation;
@@ -12,7 +13,6 @@
 - (id)_accessibilityUserTestingSnapshotWithOptions:()UIAccessibilityAutomation;
 - (id)_accessibilityUserTestingSupplementaryViews:()UIAccessibilityAutomation;
 - (uint64_t)_accessibilityAutomationType;
-- (uint64_t)_accessibilityUserTestingChildrenCount;
 - (uint64_t)_accessibilityUserTestingIsElementClassAcceptable;
 - (void)_setAccessibilityAutomationType:()UIAccessibilityAutomation;
 @end
@@ -79,10 +79,10 @@ LABEL_16:
 
 - (id)_accessibilityUserTestingElementBaseType
 {
-  v0 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v1 = objc_opt_class();
-  v2 = [MEMORY[0x1E696AAE8] bundleForClass:v1];
-  if (v2 == v0)
+  v1 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v2 = objc_opt_class();
+  v3 = [MEMORY[0x1E696AAE8] bundleForClass:v2];
+  if (v3 == v1)
   {
 LABEL_4:
   }
@@ -91,25 +91,25 @@ LABEL_4:
   {
     while (1)
     {
-      v3 = objc_opt_class();
+      v4 = objc_opt_class();
 
-      if (v1 == v3)
+      if (v2 == v4)
       {
         break;
       }
 
-      v1 = [v1 superclass];
-      v2 = [MEMORY[0x1E696AAE8] bundleForClass:v1];
-      if (v2 == v0)
+      v2 = [v2 superclass];
+      v3 = [MEMORY[0x1E696AAE8] bundleForClass:v2];
+      if (v3 == v1)
       {
         goto LABEL_4;
       }
     }
   }
 
-  v4 = NSStringFromClass(v1);
+  v5 = NSStringFromClass(v2);
 
-  return v4;
+  return v5;
 }
 
 - (void)_setAccessibilityAutomationType:()UIAccessibilityAutomation
@@ -187,9 +187,9 @@ LABEL_4:
 
 - (NSString)_accessibilityUserTestingElementType
 {
-  v0 = objc_opt_class();
+  v1 = objc_opt_class();
 
-  return NSStringFromClass(v0);
+  return NSStringFromClass(v1);
 }
 
 - (id)_accessibilityUserTestingParent
@@ -354,7 +354,7 @@ LABEL_16:
   return array;
 }
 
-- (uint64_t)_accessibilityUserTestingChildrenCount
+- (char)_accessibilityUserTestingChildrenCount
 {
   v2 = [self _accessibilityBoolValueForKey:@"AXPerformingChildrenCount"];
   [self _accessibilitySetBoolValue:1 forKey:@"AXPerformingChildrenCount"];
@@ -1085,7 +1085,7 @@ LABEL_16:
   v1 = objc_opt_class();
   v2 = [v0 objectForKeyedSubscript:@"UIAccessibilitySnapshotKeyElement"];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_2(&dword_1A9B83000, v3, v4, "Setting root snapshot element: %{private}@, %{private}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1_2(&dword_1A9B83000, v3, v4, "Setting root snapshot element: %{private}@, %{private}@", v5, v6, v7, v8);
 }
 
 @end

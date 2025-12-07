@@ -16,8 +16,6 @@ void __benchmark_SwapEnd_block_invoke(uint64_t a1)
       if (!*(v5 + 2044))
       {
 LABEL_10:
-        v11 = *(a1 + 56);
-        v12 = *(a1 + 48);
         (*(a1 + 32))();
         v9 = v4;
 LABEL_14:

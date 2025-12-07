@@ -1017,7 +1017,7 @@ void __74__AMSURLSession_URLSession_dataTask_didReceiveResponse_completionHandle
   [v19 finishWithResult:v24];
 }
 
-void __74__AMSURLSession_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke_4(uint64_t a1)
+void __74__AMSURLSession_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke_4(SEL *a1)
 {
   v19 = *MEMORY[0x1E69E9840];
   v2 = +[AMSUnitTests isRunningUnitTests];
@@ -1039,13 +1039,13 @@ void __74__AMSURLSession_URLSession_dataTask_didReceiveResponse_completionHandle
       if (v6)
       {
         v9 = AMSLogKey();
-        a1 = NSStringFromSelector(*(a1 + 40));
+        a1 = NSStringFromSelector(a1[5]);
         [v7 stringWithFormat:@"%@: [%@] %@ ", v8, v9, a1];
       }
 
       else
       {
-        v9 = NSStringFromSelector(*(a1 + 40));
+        v9 = NSStringFromSelector(a1[5]);
         [v7 stringWithFormat:@"%@: %@ ", v8, v9];
       }
       v10 = ;
@@ -1080,13 +1080,13 @@ void __74__AMSURLSession_URLSession_dataTask_didReceiveResponse_completionHandle
       if (v12)
       {
         v15 = AMSLogKey();
-        a1 = NSStringFromSelector(*(a1 + 40));
+        a1 = NSStringFromSelector(a1[5]);
         [v13 stringWithFormat:@"%@: [%@] %@ ", v14, v15, a1];
       }
 
       else
       {
-        v15 = NSStringFromSelector(*(a1 + 40));
+        v15 = NSStringFromSelector(a1[5]);
         [v13 stringWithFormat:@"%@: %@ ", v14, v15];
       }
       v16 = ;
@@ -1483,7 +1483,7 @@ LABEL_16:
   _Block_object_dispose(&v43, 8);
 }
 
-void __71__AMSURLSession_URLSession_task_didReceiveChallenge_completionHandler___block_invoke(uint64_t a1)
+void __71__AMSURLSession_URLSession_task_didReceiveChallenge_completionHandler___block_invoke(SEL *a1)
 {
   v19 = *MEMORY[0x1E69E9840];
   v2 = +[AMSUnitTests isRunningUnitTests];
@@ -1505,13 +1505,13 @@ void __71__AMSURLSession_URLSession_task_didReceiveChallenge_completionHandler__
       if (v6)
       {
         v9 = AMSLogKey();
-        a1 = NSStringFromSelector(*(a1 + 40));
+        a1 = NSStringFromSelector(a1[5]);
         [v7 stringWithFormat:@"%@: [%@] %@ ", v8, v9, a1];
       }
 
       else
       {
-        v9 = NSStringFromSelector(*(a1 + 40));
+        v9 = NSStringFromSelector(a1[5]);
         [v7 stringWithFormat:@"%@: %@ ", v8, v9];
       }
       v10 = ;
@@ -1546,13 +1546,13 @@ void __71__AMSURLSession_URLSession_task_didReceiveChallenge_completionHandler__
       if (v12)
       {
         v15 = AMSLogKey();
-        a1 = NSStringFromSelector(*(a1 + 40));
+        a1 = NSStringFromSelector(a1[5]);
         [v13 stringWithFormat:@"%@: [%@] %@ ", v14, v15, a1];
       }
 
       else
       {
-        v15 = NSStringFromSelector(*(a1 + 40));
+        v15 = NSStringFromSelector(a1[5]);
         [v13 stringWithFormat:@"%@: %@ ", v14, v15];
       }
       v16 = ;
@@ -1766,7 +1766,7 @@ void __89__AMSURLSession_URLSession_task_willPerformHTTPRedirection_newRequest_c
   }
 }
 
-void __89__AMSURLSession_URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler___block_invoke_4(uint64_t a1)
+void __89__AMSURLSession_URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler___block_invoke_4(SEL *a1)
 {
   v19 = *MEMORY[0x1E69E9840];
   v2 = +[AMSUnitTests isRunningUnitTests];
@@ -1788,13 +1788,13 @@ void __89__AMSURLSession_URLSession_task_willPerformHTTPRedirection_newRequest_c
       if (v6)
       {
         v9 = AMSLogKey();
-        a1 = NSStringFromSelector(*(a1 + 40));
+        a1 = NSStringFromSelector(a1[5]);
         [v7 stringWithFormat:@"%@: [%@] %@ ", v8, v9, a1];
       }
 
       else
       {
-        v9 = NSStringFromSelector(*(a1 + 40));
+        v9 = NSStringFromSelector(a1[5]);
         [v7 stringWithFormat:@"%@: %@ ", v8, v9];
       }
       v10 = ;
@@ -1829,13 +1829,13 @@ void __89__AMSURLSession_URLSession_task_willPerformHTTPRedirection_newRequest_c
       if (v12)
       {
         v15 = AMSLogKey();
-        a1 = NSStringFromSelector(*(a1 + 40));
+        a1 = NSStringFromSelector(a1[5]);
         [v13 stringWithFormat:@"%@: [%@] %@ ", v14, v15, a1];
       }
 
       else
       {
-        v15 = NSStringFromSelector(*(a1 + 40));
+        v15 = NSStringFromSelector(a1[5]);
         [v13 stringWithFormat:@"%@: %@ ", v14, v15];
       }
       v16 = ;

@@ -78,7 +78,7 @@
 
       if (dict)
       {
-        v24 = [dict objectForKeyedSubscript:*MEMORY[0x1E6990F78]];
+        v24 = objc_msgSend_objectForKeyedSubscript_(dict);
         if (v24)
         {
           v25 = v24;
@@ -86,7 +86,7 @@
           -[AVMetadataFaceObjectInternal setLeftEyeClosedConfidence:](v22->_internal, "setLeftEyeClosedConfidence:", [v25 intValue]);
         }
 
-        v26 = [dict objectForKeyedSubscript:*MEMORY[0x1E6990F80]];
+        v26 = objc_msgSend_objectForKeyedSubscript_(dict);
         if (v26)
         {
           v27 = v26;
@@ -94,7 +94,7 @@
           -[AVMetadataFaceObjectInternal setRightEyeClosedConfidence:](v22->_internal, "setRightEyeClosedConfidence:", [v27 intValue]);
         }
 
-        v28 = [dict objectForKeyedSubscript:*MEMORY[0x1E6991110]];
+        v28 = objc_msgSend_objectForKeyedSubscript_(dict);
         if (v28)
         {
           v29 = v28;
@@ -102,7 +102,7 @@
           -[AVMetadataFaceObjectInternal setSmileConfidence:](v22->_internal, "setSmileConfidence:", [v29 intValue]);
         }
 
-        v30 = [dict objectForKeyedSubscript:*MEMORY[0x1E6991070]];
+        v30 = objc_msgSend_objectForKeyedSubscript_(dict);
         v31 = MEMORY[0x1E695F058];
         if (v30)
         {
@@ -113,7 +113,7 @@
           [(AVMetadataFaceObjectInternal *)v22->_internal setLeftEyeBounds:*&v47.origin, *&v47.size];
         }
 
-        v33 = [dict objectForKeyedSubscript:*MEMORY[0x1E69910E0]];
+        v33 = objc_msgSend_objectForKeyedSubscript_(dict);
         if (v33)
         {
           v34 = *(v31 + 16);
@@ -123,7 +123,7 @@
           [(AVMetadataFaceObjectInternal *)v22->_internal setRightEyeBounds:*&v47.origin, *&v47.size];
         }
 
-        v35 = [dict objectForKeyedSubscript:*MEMORY[0x1E6990FA0]];
+        v35 = objc_msgSend_objectForKeyedSubscript_(dict);
         if (v35)
         {
           v36 = v35;
@@ -131,7 +131,7 @@
           -[AVMetadataFaceObjectInternal setConfidence:](v22->_internal, "setConfidence:", ([v36 intValue] / 1000.0));
         }
 
-        v37 = [dict objectForKeyedSubscript:*MEMORY[0x1E6990F68]];
+        v37 = objc_msgSend_objectForKeyedSubscript_(dict);
         if (v37)
         {
           v38 = v37;
@@ -139,7 +139,7 @@
           -[AVMetadataFaceObjectInternal setPayingAttention:](v22->_internal, "setPayingAttention:", [v38 BOOLValue]);
         }
 
-        v39 = [dict objectForKeyedSubscript:*MEMORY[0x1E6990FE8]];
+        v39 = objc_msgSend_objectForKeyedSubscript_(dict);
         if (v39)
         {
           v40 = v39;
@@ -147,7 +147,7 @@
           -[AVMetadataFaceObjectInternal setDistance:](v22->_internal, "setDistance:", [v40 intValue]);
         }
 
-        v41 = [dict objectForKeyedSubscript:*MEMORY[0x1E6991008]];
+        v41 = objc_msgSend_objectForKeyedSubscript_(dict);
         if (v41)
         {
           v42 = v41;
@@ -155,7 +155,7 @@
           -[AVMetadataFaceObjectInternal setOrientation:](v22->_internal, "setOrientation:", [v42 intValue]);
         }
 
-        v43 = [dict objectForKeyedSubscript:*MEMORY[0x1E6991000]];
+        v43 = objc_msgSend_objectForKeyedSubscript_(dict);
         if (v43)
         {
           v44 = v43;
@@ -229,7 +229,7 @@ LABEL_34:
   y = v9[1];
   width = v9[2];
   height = v9[3];
-  v15 = [dictionary objectForKeyedSubscript:*MEMORY[0x1E69910D8]];
+  v15 = objc_msgSend_objectForKeyedSubscript_(dictionary, a2, *MEMORY[0x1E69910D8]);
   if (v15)
   {
     memset(&rect, 0, sizeof(rect));
@@ -252,8 +252,8 @@ LABEL_34:
     }
   }
 
-  v23 = [dictionary objectForKeyedSubscript:*MEMORY[0x1E6990FF0]];
-  if (v23 || (v23 = [dictionary objectForKeyedSubscript:*MEMORY[0x1E6990E68]]) != 0)
+  v23 = objc_msgSend_objectForKeyedSubscript_(dictionary);
+  if (v23 || (v23 = objc_msgSend_objectForKeyedSubscript_(dictionary)) != 0)
   {
     integerValue = [v23 integerValue];
   }
@@ -263,7 +263,7 @@ LABEL_34:
     integerValue = 0;
   }
 
-  v25 = [dictionary objectForKeyedSubscript:*MEMORY[0x1E6990F58]];
+  v25 = objc_msgSend_objectForKeyedSubscript_(dictionary);
   v26 = v25;
   v27 = 0.0;
   v28 = 0.0;
@@ -273,7 +273,7 @@ LABEL_34:
     v28 = v29;
   }
 
-  v30 = [dictionary objectForKeyedSubscript:*MEMORY[0x1E6990F60]];
+  v30 = objc_msgSend_objectForKeyedSubscript_(dictionary);
   v31 = v30;
   if (v30)
   {
@@ -281,7 +281,7 @@ LABEL_34:
     v27 = v32;
   }
 
-  v33 = [dictionary objectForKeyedSubscript:*MEMORY[0x1E6990F50]];
+  v33 = objc_msgSend_objectForKeyedSubscript_(dictionary);
   v34 = v33;
   if (v33)
   {
@@ -309,10 +309,10 @@ LABEL_34:
   v49 = 0.0;
   if (object)
   {
-    [object time];
+    objc_msgSend_time(object);
     v46 = 0uLL;
     v47 = 0;
-    [object duration];
+    objc_msgSend_duration(object);
   }
 
   else
@@ -523,7 +523,7 @@ LABEL_15:
   v21 = [v11 stringWithFormat:@"<%@: %p, faceID=%d, bounds={%.1f, %.1f %.1fx%.1f}, rollAngle=%.1f, yawAngle=%.1f, pitchAngle=%.1f", v13, self, faceID, v4, v6, v8, v10, *&v16, *&v15, *&v20];
   if (self)
   {
-    [(AVMetadataObject *)self time];
+    objc_msgSend_time(self);
     v22 = v24;
   }
 
@@ -724,7 +724,7 @@ LABEL_39:
   else
   {
     v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v5, v6))
     {
       objc_exception_throw(v5);
     }
@@ -748,7 +748,7 @@ LABEL_39:
   else
   {
     v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v5, v6))
     {
       objc_exception_throw(v5);
     }
@@ -772,7 +772,7 @@ LABEL_39:
   else
   {
     v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v5, v6))
     {
       objc_exception_throw(v5);
     }
@@ -794,7 +794,7 @@ LABEL_39:
   else
   {
     v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v5, v6))
     {
       objc_exception_throw(v5);
     }
@@ -816,7 +816,7 @@ LABEL_39:
   else
   {
     v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v5, v6))
     {
       objc_exception_throw(v5);
     }
@@ -836,7 +836,7 @@ LABEL_39:
   else
   {
     v7 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v7, v8))
     {
       objc_exception_throw(v7);
     }
@@ -865,7 +865,7 @@ LABEL_39:
   else
   {
     v7 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v7, v8))
     {
       objc_exception_throw(v7);
     }
@@ -896,7 +896,7 @@ LABEL_39:
   else
   {
     v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v5, v6))
     {
       objc_exception_throw(v5);
     }
@@ -920,7 +920,7 @@ LABEL_39:
   else
   {
     v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v5, v6))
     {
       objc_exception_throw(v5);
     }
@@ -944,7 +944,7 @@ LABEL_39:
   else
   {
     v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v5, v6))
     {
       objc_exception_throw(v5);
     }
@@ -957,7 +957,7 @@ LABEL_39:
 - (double)payingAttentionConfidence
 {
   v2 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v2, v3))
   {
     objc_exception_throw(v2);
   }
@@ -978,7 +978,7 @@ LABEL_39:
   else
   {
     v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v5, v6))
     {
       objc_exception_throw(v5);
     }
@@ -1002,7 +1002,7 @@ LABEL_39:
   else
   {
     v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v5, v6))
     {
       objc_exception_throw(v5);
     }
@@ -1024,7 +1024,7 @@ LABEL_39:
   else
   {
     v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v5, v6))
     {
       objc_exception_throw(v5);
     }

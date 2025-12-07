@@ -75,8 +75,8 @@
   {
     v2->mViewScale = 1.0;
     v2->mUnscaledSize = vdupq_n_s64(0x4059000000000000uLL);
-    *&v2->mContentInset.top = TSDEdgeInsetsZero;
-    *&v2->mContentInset.bottom = *&qword_26CA652C0;
+    *&v2->mContentInset.top = *TSDEdgeInsetsZero;
+    *&v2->mContentInset.bottom = *&TSDEdgeInsetsZero[16];
     v2->mInfos = objc_alloc_init(MEMORY[0x277CBEA60]);
     v3->mTopLevelReps = objc_alloc_init(MEMORY[0x277CBEA60]);
     v3->mAllReps = objc_alloc_init(MEMORY[0x277CBEB98]);
@@ -1097,7 +1097,7 @@ LABEL_11:
     v8 = v35.size.height;
   }
 
-  v17 = TSDRoundedRect(x, y, v9, v8);
+  v17 = TSDRoundedRect(self, x, y, v9, v8);
   v19 = v18;
   v21 = v20;
   v23 = v22;
@@ -1624,23 +1624,23 @@ LABEL_52:
   return 1;
 }
 
-uint64_t __36__TSDCanvas_p_updateRepsFromLayouts__block_invoke()
+uint64_t __36__TSDCanvas_p_updateRepsFromLayouts__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   objc_opt_class();
-  v0 = TSUDynamicCast();
+  v3 = TSUDynamicCast();
   objc_opt_class();
-  v1 = TSUDynamicCast();
-  if ([v0 forcesPlacementOnTop] && (objc_msgSend(v1, "forcesPlacementOnTop") & 1) != 0)
+  v4 = TSUDynamicCast();
+  if ([v3 forcesPlacementOnTop] && (objc_msgSend(v4, "forcesPlacementOnTop") & 1) != 0)
   {
     return 0;
   }
 
-  if ([v0 forcesPlacementOnTop])
+  if ([v3 forcesPlacementOnTop])
   {
     return 1;
   }
 
-  return [v1 forcesPlacementOnTop] << 63 >> 63;
+  return [v4 forcesPlacementOnTop] << 63 >> 63;
 }
 
 - (void)p_removeAllReps

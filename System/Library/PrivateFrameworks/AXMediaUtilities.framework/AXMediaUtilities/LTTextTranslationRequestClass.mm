@@ -15,7 +15,7 @@ AXMVisionResult *__get_LTTextTranslationRequestClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __get_LTTextTranslationRequestClass_block_invoke_cold_1();
+    __get_LTTextTranslationRequestClass_block_invoke_cold_1();
     return [(AXMVisionResult *)v3 resultWithImage:v4 features:v5 orientation:v6 metricSession:v7, v8];
   }
 

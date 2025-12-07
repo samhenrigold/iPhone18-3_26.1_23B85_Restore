@@ -292,16 +292,16 @@ void sub_4E38(uint64_t a1, uint64_t a2)
   [v48 setDefaultLayoutRule:v49 forState:a2];
 }
 
-id _MonogramDarkForegroundColor()
+id _MonogramDarkForegroundColor(uint64_t a1)
 {
   if (qword_15698 != -1)
   {
     sub_7CB0();
   }
 
-  v1 = qword_15690;
+  v2 = qword_15690;
 
-  return v1;
+  return v2;
 }
 
 void sub_5930(uint64_t a1, void *a2, void *a3)

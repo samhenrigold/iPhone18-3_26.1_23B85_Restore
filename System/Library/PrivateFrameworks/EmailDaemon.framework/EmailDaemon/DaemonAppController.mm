@@ -165,9 +165,9 @@ LABEL_15:
 
 - (DaemonAppController)init
 {
-  v113.receiver = self;
-  v113.super_class = DaemonAppController;
-  v2 = [(DaemonAppController *)&v113 init];
+  v112.receiver = self;
+  v112.super_class = DaemonAppController;
+  v2 = [(DaemonAppController *)&v112 init];
   v3 = v2;
   if (v2)
   {
@@ -188,19 +188,18 @@ LABEL_15:
       v8 = *(v2 + 13);
       *(v2 + 13) = v7;
 
-      v9 = *(v2 + 13);
       EFRegisterContentProtectionObserver();
       dispatch_semaphore_wait(*(v2 + 12), 0xFFFFFFFFFFFFFFFFLL);
-      v10 = *(v2 + 12);
+      v9 = *(v2 + 12);
       *(v2 + 12) = 0;
 
-      v11 = *(v2 + 13);
+      v10 = *(v2 + 13);
       *(v2 + 13) = 0;
     }
 
-    v12 = [EFProcessTransaction transactionWithDescription:@"DaemonAppController startup"];
-    v13 = *(v2 + 15);
-    *(v2 + 15) = v12;
+    v11 = [EFProcessTransaction transactionWithDescription:@"DaemonAppController startup"];
+    v12 = *(v2 + 15);
+    *(v2 + 15) = v11;
 
     if (notify_register_dispatch("AppleLanguagePreferencesChangedNotification", v2 + 14, &_dispatch_main_q, &stru_100156788))
     {
@@ -208,50 +207,50 @@ LABEL_15:
     }
 
     MFSetUserAgent();
-    v14 = +[MFMailMessageLibrary defaultInstance];
-    v15 = *(v2 + 2);
-    *(v2 + 2) = v14;
+    v13 = +[MFMailMessageLibrary defaultInstance];
+    v14 = *(v2 + 2);
+    *(v2 + 2) = v13;
 
     if (_os_feature_enabled_impl() && EMIsGreymatterSupported())
     {
       [*(v2 + 2) addPostMigrationStep:objc_opt_class()];
     }
 
-    v16 = [[MFAttachmentLibraryManager alloc] initWithPrimaryLibrary:*(v2 + 2)];
-    v17 = *(v2 + 1);
-    *(v2 + 1) = v16;
+    v15 = [[MFAttachmentLibraryManager alloc] initWithPrimaryLibrary:*(v2 + 2)];
+    v16 = *(v2 + 1);
+    *(v2 + 1) = v15;
 
-    v18 = [UNUserNotificationCenter alloc];
-    v19 = [v18 initWithBundleIdentifier:kMFMobileMailBundleIdentifier];
-    v20 = *(v2 + 14);
-    *(v2 + 14) = v19;
+    v17 = [UNUserNotificationCenter alloc];
+    v18 = [v17 initWithBundleIdentifier:kMFMobileMailBundleIdentifier];
+    v19 = *(v2 + 14);
+    *(v2 + 14) = v18;
 
-    v21 = objc_alloc_init(EMFocusController);
-    v22 = *(v2 + 34);
-    *(v2 + 34) = v21;
+    v20 = objc_alloc_init(EMFocusController);
+    v21 = *(v2 + 34);
+    *(v2 + 34) = v20;
 
-    v23 = [[MFDaemonAccountsProvider alloc] initWithFocusController:*(v2 + 34)];
-    objc_storeStrong(v2 + 18, v23);
-    v24 = objc_alloc_init(EDSyncableSettings);
-    v25 = *(v2 + 25);
-    *(v2 + 25) = v24;
+    v22 = [[MFDaemonAccountsProvider alloc] initWithFocusController:*(v2 + 34)];
+    objc_storeStrong(v2 + 18, v22);
+    v23 = objc_alloc_init(EDSyncableSettings);
+    v24 = *(v2 + 25);
+    *(v2 + 25) = v23;
 
     [*(v2 + 25) setProxyChangeHandler:&stru_1001567C8];
-    v26 = +[NSUserDefaults em_userDefaults];
-    v27 = [v26 integerForKey:EMUserDefaultLoadRemoteContentKey];
+    v25 = +[NSUserDefaults em_userDefaults];
+    v26 = [v25 integerForKey:EMUserDefaultLoadRemoteContentKey];
 
-    if (v27)
+    if (v26)
     {
       objc_initWeak(buf, v2);
-      v28 = +[EFScheduler globalAsyncScheduler];
-      v111[0] = _NSConcreteStackBlock;
-      v111[1] = 3221225472;
-      v111[2] = sub_10000FC0C;
-      v111[3] = &unk_1001567F0;
-      objc_copyWeak(&v112, buf);
-      [v28 performBlock:v111];
+      v27 = +[EFScheduler globalAsyncScheduler];
+      v110[0] = _NSConcreteStackBlock;
+      v110[1] = 3221225472;
+      v110[2] = sub_10000FC0C;
+      v110[3] = &unk_1001567F0;
+      objc_copyWeak(&v111, buf);
+      [v27 performBlock:v110];
 
-      objc_destroyWeak(&v112);
+      objc_destroyWeak(&v111);
       objc_destroyWeak(buf);
     }
 
@@ -261,90 +260,90 @@ LABEL_15:
     }
 
     persistence = [*(v2 + 2) persistence];
-    v30 = *(v2 + 4);
+    v29 = *(v2 + 4);
     *(v2 + 4) = persistence;
 
-    [*(v2 + 4) setAccountsProvider:v23];
-    v31 = [EDVIPManager alloc];
-    v32 = +[EMPersistenceLayoutManager mailDataDirectory];
-    v33 = [v31 initWithDirectoryURL:v32 accountsProvider:*(v2 + 18) delegate:v2];
-    [*(v2 + 4) setVipManager:v33];
+    [*(v2 + 4) setAccountsProvider:v22];
+    v30 = [EDVIPManager alloc];
+    v31 = +[EMPersistenceLayoutManager mailDataDirectory];
+    v32 = [v30 initWithDirectoryURL:v31 accountsProvider:*(v2 + 18) delegate:v2];
+    [*(v2 + 4) setVipManager:v32];
 
-    v34 = +[MFUserProfileProvider_iOS defaultProvider];
-    [*(v2 + 4) setUserProfileProvider:v34];
+    v33 = +[MFUserProfileProvider_iOS defaultProvider];
+    [*(v2 + 4) setUserProfileProvider:v33];
 
-    v35 = [[MFMailboxProvider alloc] initWithAccountsProvider:v23];
-    v36 = *(v2 + 9);
-    *(v2 + 9) = v35;
+    v34 = [[MFMailboxProvider alloc] initWithAccountsProvider:v22];
+    v35 = *(v2 + 9);
+    *(v2 + 9) = v34;
 
-    v37 = [MFRemoteSearchProvider_iOS alloc];
+    v36 = [MFRemoteSearchProvider_iOS alloc];
     messagePersistence = [*(v2 + 4) messagePersistence];
-    v39 = [(MFRemoteSearchProvider_iOS *)v37 initWithMessagePersistence:messagePersistence];
-    v40 = *(v2 + 10);
-    *(v2 + 10) = v39;
+    v38 = [(MFRemoteSearchProvider_iOS *)v36 initWithMessagePersistence:messagePersistence];
+    v39 = *(v2 + 10);
+    *(v2 + 10) = v38;
 
-    objc_initWeak(&location, v23);
-    v108[0] = _NSConcreteStackBlock;
-    v108[1] = 3221225472;
-    v108[2] = sub_10000FC74;
-    v108[3] = &unk_100156818;
-    objc_copyWeak(&v109, &location);
-    v41 = [EFFuture lazyFutureWithBlock:v108];
-    v42 = *(v2 + 37);
-    *(v2 + 37) = v41;
+    objc_initWeak(&location, v22);
+    v107[0] = _NSConcreteStackBlock;
+    v107[1] = 3221225472;
+    v107[2] = sub_10000FC74;
+    v107[3] = &unk_100156818;
+    objc_copyWeak(&v108, &location);
+    v40 = [EFFuture lazyFutureWithBlock:v107];
+    v41 = *(v2 + 37);
+    *(v2 + 37) = v40;
 
     objc_initWeak(&from, *(v2 + 37));
-    v105[0] = _NSConcreteStackBlock;
-    v105[1] = 3221225472;
-    v105[2] = sub_10000FD04;
-    v105[3] = &unk_100156840;
-    objc_copyWeak(&v106, &from);
-    v94 = objc_retainBlock(v105);
-    [*(v2 + 4) setUpWithMailboxProvider:*(v2 + 9) remoteSearchProvider:*(v2 + 10) serverMessagesIndexerProvider:v94];
-    v43 = [MFMailPurgeableStorage alloc];
+    v104[0] = _NSConcreteStackBlock;
+    v104[1] = 3221225472;
+    v104[2] = sub_10000FD04;
+    v104[3] = &unk_100156840;
+    objc_copyWeak(&v105, &from);
+    v93 = objc_retainBlock(v104);
+    [*(v2 + 4) setUpWithMailboxProvider:*(v2 + 9) remoteSearchProvider:*(v2 + 10) serverMessagesIndexerProvider:v93];
+    v42 = [MFMailPurgeableStorage alloc];
     accountsProvider = [v2 accountsProvider];
-    v45 = [(MFMailPurgeableStorage *)v43 initWithAccountsProvider:accountsProvider];
-    [v2 setPurgeableStorage:v45];
+    v44 = [(MFMailPurgeableStorage *)v42 initWithAccountsProvider:accountsProvider];
+    [v2 setPurgeableStorage:v44];
 
-    v46 = [MFMailPurgeableStorageMonitor alloc];
+    v45 = [MFMailPurgeableStorageMonitor alloc];
     purgeableStorage = [v2 purgeableStorage];
-    v48 = [(MFMailPurgeableStorageMonitor *)v46 initWithPurgeableStorage:purgeableStorage];
-    [v2 setPurgeableStorageMonitor:v48];
+    v47 = [(MFMailPurgeableStorageMonitor *)v45 initWithPurgeableStorage:purgeableStorage];
+    [v2 setPurgeableStorageMonitor:v47];
 
-    v49 = [MFMessageRuleLibraryHook alloc];
+    v48 = [MFMessageRuleLibraryHook alloc];
     messageChangeManager = [*(v2 + 4) messageChangeManager];
-    v51 = [(MFMessageRuleLibraryHook *)v49 initWithMessageChangeManager:messageChangeManager];
-    v52 = *(v2 + 3);
-    *(v2 + 3) = v51;
+    v50 = [(MFMessageRuleLibraryHook *)v48 initWithMessageChangeManager:messageChangeManager];
+    v51 = *(v2 + 3);
+    *(v2 + 3) = v50;
 
     hookRegistry = [*(v2 + 4) hookRegistry];
     [hookRegistry registerMessageChangeHookResponder:*(v2 + 3)];
 
     messagePersistence2 = [*(v2 + 4) messagePersistence];
     [messagePersistence2 setSummaryLoaderProvider:v2];
-    v55 = [OutgoingMessageRepository_iOS alloc];
+    v54 = [OutgoingMessageRepository_iOS alloc];
     messageChangeManager2 = [*(v2 + 4) messageChangeManager];
-    v57 = [(OutgoingMessageRepository_iOS *)v55 initWithMessagePersistence:messagePersistence2 messageChangeManager:messageChangeManager2];
+    v56 = [(OutgoingMessageRepository_iOS *)v54 initWithMessagePersistence:messagePersistence2 messageChangeManager:messageChangeManager2];
 
-    objc_storeStrong(v2 + 35, v57);
-    v58 = [[MFListUnsubscribeHandler_iOS alloc] initWithOutgoingMessageRepository:v57];
-    [(MFPersistence_iOS *)v3->_persistence setListUnsubscribeHandler:v58];
+    objc_storeStrong(v2 + 35, v56);
+    v57 = [[MFListUnsubscribeHandler_iOS alloc] initWithOutgoingMessageRepository:v56];
+    [(MFPersistence_iOS *)v3->_persistence setListUnsubscribeHandler:v57];
     *buf = 0;
-    v100 = buf;
-    v101 = 0x3032000000;
-    v102 = sub_10000FD60;
-    v103 = sub_10000FD70;
-    v104 = 0;
-    v96[0] = _NSConcreteStackBlock;
-    v96[1] = 3221225472;
-    v96[2] = sub_10000FD78;
-    v96[3] = &unk_100156868;
-    v98 = buf;
-    v59 = messagePersistence2;
-    v97 = v59;
-    v60 = objc_retainBlock(v96);
-    [MFLibraryCompressionActivityManager scheduleLibraryCompressionIfNeededRequiringClassA:v60];
-    [MFMarkLibraryPurgeableActivityManager scheduleIfNeededRequiringClassA:v60];
+    v99 = buf;
+    v100 = 0x3032000000;
+    v101 = sub_10000FD60;
+    v102 = sub_10000FD70;
+    v103 = 0;
+    v95[0] = _NSConcreteStackBlock;
+    v95[1] = 3221225472;
+    v95[2] = sub_10000FD78;
+    v95[3] = &unk_100156868;
+    v97 = buf;
+    v58 = messagePersistence2;
+    v96 = v58;
+    v59 = objc_retainBlock(v95);
+    [MFLibraryCompressionActivityManager scheduleLibraryCompressionIfNeededRequiringClassA:v59];
+    [MFMarkLibraryPurgeableActivityManager scheduleIfNeededRequiringClassA:v59];
     blockedSenderManager = [(MFPersistence_iOS *)v3->_persistence blockedSenderManager];
     blockedSenderManager = v3->_blockedSenderManager;
     v3->_blockedSenderManager = blockedSenderManager;
@@ -353,9 +352,9 @@ LABEL_15:
     [VIPManager setBackingManager:vipManager];
 
     MFRegisterPowerObserver();
-    v64 = objc_alloc_init(EMCoreAnalyticsCollector);
+    v63 = objc_alloc_init(EMCoreAnalyticsCollector);
     coreAnalyticsCollector = v3->_coreAnalyticsCollector;
-    v3->_coreAnalyticsCollector = v64;
+    v3->_coreAnalyticsCollector = v63;
 
     categoryPersistence = [(MFPersistence_iOS *)v3->_persistence categoryPersistence];
     analyticsLogger = [categoryPersistence analyticsLogger];
@@ -365,53 +364,53 @@ LABEL_15:
     accountsProvider2 = [(MFPersistence_iOS *)v3->_persistence accountsProvider];
     [(EDCategoryCoreAnalyticsLogger *)v3->_categoryCoreAnalyticsLogger setAccountsProvider:accountsProvider2];
 
-    v70 = +[DaemonAppController log];
-    if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
+    v69 = +[DaemonAppController log];
+    if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
     {
-      *v95 = 0;
-      _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_DEFAULT, "[BlackPearl] [AccountMapper] AccountMapper initialized...", v95, 2u);
+      *v94 = 0;
+      _os_log_impl(&_mh_execute_header, v69, OS_LOG_TYPE_DEFAULT, "[BlackPearl] [AccountMapper] AccountMapper initialized...", v94, 2u);
     }
 
-    v71 = [FavoritesPersistence alloc];
+    v70 = [FavoritesPersistence alloc];
     conversationPersistence = [(MFPersistence_iOS *)v3->_persistence conversationPersistence];
     mailboxPersistence = [(MFPersistence_iOS *)v3->_persistence mailboxPersistence];
-    v74 = [(FavoritesPersistence *)v71 initWithConversationSubscriptionProvider:conversationPersistence accountsProvider:v23 mailboxPersistence:mailboxPersistence daemonInterface:0 analyticsCollector:v3->_coreAnalyticsCollector];
+    v73 = [(FavoritesPersistence *)v70 initWithConversationSubscriptionProvider:conversationPersistence accountsProvider:v22 mailboxPersistence:mailboxPersistence daemonInterface:0 analyticsCollector:v3->_coreAnalyticsCollector];
     favoritesPersistence = v3->_favoritesPersistence;
-    v3->_favoritesPersistence = v74;
+    v3->_favoritesPersistence = v73;
 
-    v76 = [DaemonFetchController alloc];
-    v77 = v3->_favoritesPersistence;
+    v75 = [DaemonFetchController alloc];
+    v76 = v3->_favoritesPersistence;
     hookRegistry2 = [(MFPersistence_iOS *)v3->_persistence hookRegistry];
-    v79 = [(DaemonFetchController *)v76 initWithAccountsProvider:v23 favoritesPersistence:v77 hookRegistry:hookRegistry2];
+    v78 = [(DaemonFetchController *)v75 initWithAccountsProvider:v22 favoritesPersistence:v76 hookRegistry:hookRegistry2];
     fetchController = v3->_fetchController;
-    v3->_fetchController = v79;
+    v3->_fetchController = v78;
 
-    v81 = [[MFUserNotificationCenterController alloc] initWithSystemUserNotificationCenter:v3->_systemUserNotificationCenter persistence:v3->_persistence favoritesReader:v3->_favoritesPersistence analyticsCollector:v3->_coreAnalyticsCollector];
+    v80 = [[MFUserNotificationCenterController alloc] initWithSystemUserNotificationCenter:v3->_systemUserNotificationCenter persistence:v3->_persistence favoritesReader:v3->_favoritesPersistence analyticsCollector:v3->_coreAnalyticsCollector];
     userNotificationCenterController = v3->_userNotificationCenterController;
-    v3->_userNotificationCenterController = v81;
+    v3->_userNotificationCenterController = v80;
 
     [(MFUserNotificationCenterController *)v3->_userNotificationCenterController addSettingsObserver:v3->_favoritesPersistence];
     remindMeNotificationController = [(MFPersistence_iOS *)v3->_persistence remindMeNotificationController];
-    v84 = [remindMeNotificationController addRemindMeObserver:v3->_userNotificationCenterController];
+    v83 = [remindMeNotificationController addRemindMeObserver:v3->_userNotificationCenterController];
 
-    v85 = objc_alloc_init(MFTrashCompactor);
+    v84 = objc_alloc_init(MFTrashCompactor);
     trashCompactor = v3->_trashCompactor;
-    v3->_trashCompactor = v85;
+    v3->_trashCompactor = v84;
 
-    v87 = [EDSendLaterUpdateController alloc];
+    v86 = [EDSendLaterUpdateController alloc];
     hookRegistry3 = [(MFPersistence_iOS *)v3->_persistence hookRegistry];
     alarmScheduler = [(MFPersistence_iOS *)v3->_persistence alarmScheduler];
-    v90 = [v87 initWithHookRegistry:hookRegistry3 messagePersistence:v59 outgoingRepository:v57 alarmScheduler:alarmScheduler];
+    v89 = [v86 initWithHookRegistry:hookRegistry3 messagePersistence:v58 outgoingRepository:v56 alarmScheduler:alarmScheduler];
     sendLaterUpdateController = v3->_sendLaterUpdateController;
-    v3->_sendLaterUpdateController = v90;
+    v3->_sendLaterUpdateController = v89;
 
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
     CFNotificationCenterAddObserver(DarwinNotifyCenter, v3, sub_10000FDF0, DAReListenForAccounts, 0, CFNotificationSuspensionBehaviorDeliverImmediately);
 
     _Block_object_dispose(buf, 8);
-    objc_destroyWeak(&v106);
+    objc_destroyWeak(&v105);
     objc_destroyWeak(&from);
-    objc_destroyWeak(&v109);
+    objc_destroyWeak(&v108);
     objc_destroyWeak(&location);
   }
 

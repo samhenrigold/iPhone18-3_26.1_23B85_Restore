@@ -1,4 +1,5 @@
 @interface CTCellIdInfo
++ (id)cellIdInfoFromCellId:(unint64_t)id baseId:(int)baseId;
 - (CTCellIdInfo)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
@@ -6,6 +7,24 @@
 @end
 
 @implementation CTCellIdInfo
+
++ (id)cellIdInfoFromCellId:(unint64_t)id baseId:(int)baseId
+{
+  v4 = *&baseId;
+  v6 = objc_alloc_init(CTCellIdInfo);
+  if (v6)
+  {
+    v7 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:id];
+    cellId = v6->_cellId;
+    v6->_cellId = v7;
+
+    v9 = [MEMORY[0x1E696AD98] numberWithInt:v4];
+    baseId = v6->_baseId;
+    v6->_baseId = v9;
+  }
+
+  return v6;
+}
 
 - (id)description
 {

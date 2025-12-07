@@ -47,24 +47,23 @@
 
 - (void)layoutSubviews
 {
-  v13.receiver = self;
-  v13.super_class = WAAttributionView;
-  [(WAAttributionView *)&v13 layoutSubviews];
-  y = CGPointZero.y;
+  v12.receiver = self;
+  v12.super_class = WAAttributionView;
+  [(WAAttributionView *)&v12 layoutSubviews];
   [(UIImage *)self->_logoImage size];
   [(WAAttributionView *)self bounds];
   UIRectCenteredYInRect();
-  v5 = v4;
-  v7 = v6;
-  v9 = v8;
-  v11 = v10;
+  v4 = v3;
+  v6 = v5;
+  v8 = v7;
+  v10 = v9;
   [(WAAttributionView *)self bounds];
-  Width = CGRectGetWidth(v14);
-  v15.origin.x = v5;
-  v15.origin.y = v7;
-  v15.size.width = v9;
-  v15.size.height = v11;
-  [(UIButton *)self->_attributionButton setFrame:Width - CGRectGetWidth(v15) - SiriUIPlatterStyle[34], v7, v9, v11];
+  Width = CGRectGetWidth(v13);
+  v14.origin.x = v4;
+  v14.origin.y = v6;
+  v14.size.width = v8;
+  v14.size.height = v10;
+  [(UIButton *)self->_attributionButton setFrame:Width - CGRectGetWidth(v14) - SiriUIPlatterStyle[34], v6, v8, v10];
 }
 
 - (void)attributionButtonTapped

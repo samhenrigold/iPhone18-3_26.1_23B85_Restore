@@ -42,7 +42,7 @@
 - (void)executionDidBegin
 {
   v11 = *MEMORY[0x1E69E9840];
-  v3 = VUIDefaultLogObject();
+  v3 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     mediaLibrary = [(VUIMPMediaLibraryConnectOperation *)self mediaLibrary];
@@ -76,8 +76,7 @@ void __54__VUIMPMediaLibraryConnectOperation_executionDidBegin__block_invoke(uin
   {
     [WeakRetained setSuccess:v3 == 0];
     [v5 setError:v3];
-    [v5 _stopProgressTimer];
-    v6 = VUIDefaultLogObject();
+    v6 = VUIDefaultLogObject([v5 _stopProgressTimer]);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = [v5 mediaLibrary];
@@ -138,7 +137,7 @@ void __56__VUIMPMediaLibraryConnectOperation__startProgressTimer__block_invoke(u
 - (void)_notifyClientOfProgress:(float)progress
 {
   v16 = *MEMORY[0x1E69E9840];
-  v5 = VUIDefaultLogObject();
+  v5 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     mediaLibrary = [(VUIMPMediaLibraryConnectOperation *)self mediaLibrary];

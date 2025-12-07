@@ -15,18 +15,18 @@
 
 - (id)urlRequest
 {
-  v8.receiver = self;
-  v8.super_class = AAFamilyEligibilityRequest;
-  urlRequest = [(AAFamilyRequest *)&v8 urlRequest];
+  v9.receiver = self;
+  v9.super_class = AAFamilyEligibilityRequest;
+  urlRequest = [(AAFamilyRequest *)&v9 urlRequest];
   v4 = [urlRequest mutableCopy];
 
   if (!self->_iTunesAccount)
   {
-    v5 = _AALogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _AALogSystem(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_1B6F6A000, v5, OS_LOG_TYPE_DEFAULT, "No iTunes account provided to family eligibility request.", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_1B6F6A000, v6, OS_LOG_TYPE_DEFAULT, "No iTunes account provided to family eligibility request.", v8, 2u);
     }
   }
 

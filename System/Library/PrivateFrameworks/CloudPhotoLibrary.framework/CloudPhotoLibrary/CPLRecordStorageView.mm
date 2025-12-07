@@ -30,7 +30,7 @@
 
 - (id)resourceOfType:(unint64_t)type forRecordWithScopedIdentifier:(id)identifier record:(id *)record error:(id *)error
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v11 = [(CPLRecordStorageView *)self recordViewWithScopedIdentifier:identifierCopy];
   v12 = v11;
@@ -61,14 +61,14 @@ LABEL_22:
     goto LABEL_22;
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v13 = [v12 changeForType:8];
   resources = [v13 resources];
 
-  v15 = [resources countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v15 = [resources countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (!v15)
   {
 LABEL_11:
@@ -84,17 +84,17 @@ LABEL_20:
   }
 
   v16 = v15;
-  v17 = *v26;
+  v17 = *v25;
 LABEL_5:
   v18 = 0;
   while (1)
   {
-    if (*v26 != v17)
+    if (*v25 != v17)
     {
       objc_enumerationMutation(resources);
     }
 
-    v19 = *(*(&v25 + 1) + 8 * v18);
+    v19 = *(*(&v24 + 1) + 8 * v18);
     if ([v19 resourceType] == type)
     {
       break;
@@ -102,7 +102,7 @@ LABEL_5:
 
     if (v16 == ++v18)
     {
-      v16 = [resources countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v16 = [resources countByEnumeratingWithState:&v24 objects:v28 count:16];
       if (v16)
       {
         goto LABEL_5;
@@ -126,44 +126,42 @@ LABEL_5:
 
 LABEL_23:
 
-  v23 = *MEMORY[0x1E69E9840];
-
   return v21;
 }
 
 - (id)localChangeBatchFromCloudBatch:(id)batch usingMapping:(id)mapping withError:(id *)error
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   batchCopy = batch;
   mappingCopy = mapping;
   v9 = objc_alloc_init(CPLChangeBatch);
   engineStore = [mappingCopy engineStore];
   quarantinedRecords = [engineStore quarantinedRecords];
   cloudCache = [engineStore cloudCache];
+  v52 = 0u;
   v53 = 0u;
   v54 = 0u;
   v55 = 0u;
-  v56 = 0u;
   obj = batchCopy;
-  v51 = [obj countByEnumeratingWithState:&v53 objects:v63 count:16];
-  if (v51)
+  v50 = [obj countByEnumeratingWithState:&v52 objects:v62 count:16];
+  if (v50)
   {
-    v45 = engineStore;
-    v12 = *v54;
+    v44 = engineStore;
+    v12 = *v53;
     *&v11 = 138412546;
-    v44 = v11;
-    v48 = *v54;
+    v43 = v11;
+    v47 = *v53;
     while (1)
     {
       v13 = 0;
       do
       {
-        if (*v54 != v12)
+        if (*v53 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v53 + 1) + 8 * v13);
+        v14 = *(*(&v52 + 1) + 8 * v13);
         if ([v14 changeType] != 1024)
         {
           if (mappingCopy)
@@ -196,9 +194,9 @@ LABEL_66:
 
         selfCopy = self;
         v16 = v9;
-        v52 = 0;
+        v51 = 0;
         scopedIdentifier = [v14 scopedIdentifier];
-        v18 = [mappingCopy localScopedIdentifierForCloudScopedIdentifier:scopedIdentifier isFinal:&v52];
+        v18 = [mappingCopy localScopedIdentifierForCloudScopedIdentifier:scopedIdentifier isFinal:&v51];
         if (v18)
         {
           v19 = v18;
@@ -216,7 +214,7 @@ LABEL_66:
               if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v58 = v14;
+                v57 = v14;
                 _os_log_impl(&dword_1DC05A000, v33, OS_LOG_TYPE_DEFAULT, "Ignoring no-op delete for %@", buf, 0xCu);
               }
 
@@ -227,11 +225,11 @@ LABEL_62:
             v30 = 0;
             v9 = v16;
             self = selfCopy;
-            v12 = v48;
+            v12 = v47;
             goto LABEL_39;
           }
 
-          v32 = [mappingCopy cloudScopedIdentifierForLocalScopedIdentifier:v19 isFinal:&v52];
+          v32 = [mappingCopy cloudScopedIdentifierForLocalScopedIdentifier:v19 isFinal:&v51];
           if (v32)
           {
             v33 = v32;
@@ -247,11 +245,11 @@ LABEL_62:
                   v35 = @"cloud cache";
                 }
 
-                v58 = v14;
-                v59 = 2112;
-                v60 = v35;
-                v61 = 2112;
-                v62 = v33;
+                v57 = v14;
+                v58 = 2112;
+                v59 = v35;
+                v60 = 2112;
+                v61 = v33;
                 _os_log_impl(&dword_1DC05A000, v34, OS_LOG_TYPE_ERROR, "%@ has no ID mapping but exists in %@ but also as %@ for the client - ignoring this change", buf, 0x20u);
               }
             }
@@ -264,16 +262,16 @@ LABEL_62:
             v39 = __CPLStorageOSLogDomain_11255();
             if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
             {
-              *buf = v44;
+              *buf = v43;
               v40 = @"quarantine";
               if (v31)
               {
                 v40 = @"cloud cache";
               }
 
-              v58 = v14;
-              v59 = 2112;
-              v60 = v40;
+              v57 = v14;
+              v58 = 2112;
+              v59 = v40;
               _os_log_impl(&dword_1DC05A000, v39, OS_LOG_TYPE_DEFAULT, "%@ has no ID mapping but exists in %@ - client will have to delete it if necessary", buf, 0x16u);
             }
           }
@@ -283,7 +281,7 @@ LABEL_62:
 
         v9 = v16;
         self = selfCopy;
-        v12 = v48;
+        v12 = v47;
         if (!v20)
         {
           goto LABEL_66;
@@ -323,7 +321,7 @@ LABEL_16:
               if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v58 = v14;
+                v57 = v14;
                 _os_log_impl(&dword_1DC05A000, v28, OS_LOG_TYPE_ERROR, "Got a partial record %@ which is new to the cache", buf, 0xCu);
               }
             }
@@ -386,53 +384,51 @@ LABEL_39:
         ++v13;
       }
 
-      while (v51 != v13);
-      v41 = [obj countByEnumeratingWithState:&v53 objects:v63 count:16];
-      v51 = v41;
+      while (v50 != v13);
+      v41 = [obj countByEnumeratingWithState:&v52 objects:v62 count:16];
+      v50 = v41;
       if (!v41)
       {
 LABEL_67:
-        engineStore = v45;
+        engineStore = v44;
         break;
       }
     }
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 - (id)compactedBatchFromExpandedBatch:(id)batch
 {
-  v73 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   batchCopy = batch;
-  v44 = objc_alloc_init(CPLChangeBatch);
+  v43 = objc_alloc_init(CPLChangeBatch);
   v4 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v42 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v41 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v62 = 0u;
   v63 = 0u;
   v64 = 0u;
   v65 = 0u;
-  v66 = 0u;
   v5 = batchCopy;
-  v6 = [v5 countByEnumeratingWithState:&v63 objects:v72 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v62 objects:v71 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v64;
+    v8 = *v63;
     do
     {
       v9 = 0;
-      v47 = v7;
+      v46 = v7;
       do
       {
-        if (*v64 != v8)
+        if (*v63 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v63 + 1) + 8 * v9);
-        if ([v10 hasChangeType:{2, v42, v44}])
+        v10 = *(*(&v62 + 1) + 8 * v9);
+        if ([v10 hasChangeType:{2, v41, v43}])
         {
           relatedScopedIdentifier = [v10 relatedScopedIdentifier];
           if (!relatedScopedIdentifier)
@@ -469,15 +465,15 @@ LABEL_67:
               v19 = v4;
               v21 = v20 = v5;
               *buf = 138412546;
-              v69 = v21;
-              v70 = 2112;
-              v71 = v10;
+              v68 = v21;
+              v69 = 2112;
+              v70 = v10;
               _os_log_impl(&dword_1DC05A000, v17, OS_LOG_TYPE_ERROR, "Expanded batch contains changes for the same record twice: %@ vs. %@", buf, 0x16u);
 
               v5 = v20;
               v4 = v19;
               v8 = v18;
-              v7 = v47;
+              v7 = v46;
             }
           }
         }
@@ -496,7 +492,7 @@ LABEL_18:
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v63 objects:v72 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v62 objects:v71 count:16];
     }
 
     while (v7);
@@ -504,47 +500,47 @@ LABEL_18:
 
   v22 = v4;
 
-  v59[0] = MEMORY[0x1E69E9820];
-  v59[1] = 3221225472;
-  v59[2] = __76__CPLRecordStorageView_CPLClientCacheView__compactedBatchFromExpandedBatch___block_invoke;
-  v59[3] = &unk_1E861D248;
-  v23 = v42;
-  v60 = v23;
+  v58[0] = MEMORY[0x1E69E9820];
+  v58[1] = 3221225472;
+  v58[2] = __76__CPLRecordStorageView_CPLClientCacheView__compactedBatchFromExpandedBatch___block_invoke;
+  v58[3] = &unk_1E861D248;
+  v23 = v41;
+  v59 = v23;
   selfCopy = self;
-  v24 = v44;
-  v62 = v24;
-  v25 = MEMORY[0x1E128EBA0](v59);
-  v55[0] = MEMORY[0x1E69E9820];
-  v55[1] = 3221225472;
-  v55[2] = __76__CPLRecordStorageView_CPLClientCacheView__compactedBatchFromExpandedBatch___block_invoke_8;
-  v55[3] = &unk_1E861D270;
-  v46 = v24;
-  v56 = v46;
-  v45 = v23;
-  v57 = v45;
-  v43 = v25;
-  v58 = v43;
-  v26 = MEMORY[0x1E128EBA0](v55);
+  v24 = v43;
+  v61 = v24;
+  v25 = MEMORY[0x1E128EBA0](v58);
+  v54[0] = MEMORY[0x1E69E9820];
+  v54[1] = 3221225472;
+  v54[2] = __76__CPLRecordStorageView_CPLClientCacheView__compactedBatchFromExpandedBatch___block_invoke_8;
+  v54[3] = &unk_1E861D270;
+  v45 = v24;
+  v55 = v45;
+  v44 = v23;
+  v56 = v44;
+  v42 = v25;
+  v57 = v42;
+  v26 = MEMORY[0x1E128EBA0](v54);
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
   v27 = v5;
-  v28 = [v27 countByEnumeratingWithState:&v51 objects:v67 count:16];
+  v28 = [v27 countByEnumeratingWithState:&v50 objects:v66 count:16];
   if (v28)
   {
     v29 = v28;
-    v30 = *v52;
+    v30 = *v51;
     do
     {
       for (i = 0; i != v29; ++i)
       {
-        if (*v52 != v30)
+        if (*v51 != v30)
         {
           objc_enumerationMutation(v27);
         }
 
-        v32 = *(*(&v51 + 1) + 8 * i);
+        v32 = *(*(&v50 + 1) + 8 * i);
         scopedIdentifier3 = [v32 scopedIdentifier];
         v34 = [v22 objectForKey:scopedIdentifier3];
         v35 = [v27 additionalRecordWithScopedIdentifier:scopedIdentifier3];
@@ -560,30 +556,29 @@ LABEL_18:
         }
       }
 
-      v29 = [v27 countByEnumeratingWithState:&v51 objects:v67 count:16];
+      v29 = [v27 countByEnumeratingWithState:&v50 objects:v66 count:16];
     }
 
     while (v29);
   }
 
-  v49[0] = MEMORY[0x1E69E9820];
-  v49[1] = 3221225472;
-  v49[2] = __76__CPLRecordStorageView_CPLClientCacheView__compactedBatchFromExpandedBatch___block_invoke_10;
-  v49[3] = &unk_1E861D298;
-  v49[4] = self;
-  v50 = v26;
+  v48[0] = MEMORY[0x1E69E9820];
+  v48[1] = 3221225472;
+  v48[2] = __76__CPLRecordStorageView_CPLClientCacheView__compactedBatchFromExpandedBatch___block_invoke_10;
+  v48[3] = &unk_1E861D298;
+  v48[4] = self;
+  v49 = v26;
   v37 = v26;
-  [v22 enumerateKeysAndObjectsUsingBlock:v49];
-  v38 = v50;
-  v39 = v46;
+  [v22 enumerateKeysAndObjectsUsingBlock:v48];
+  v38 = v49;
+  v39 = v45;
 
-  v40 = *MEMORY[0x1E69E9840];
-  return v46;
+  return v45;
 }
 
 void __76__CPLRecordStorageView_CPLClientCacheView__compactedBatchFromExpandedBatch___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   v4 = a2;
   [v3 addObject:v4];
@@ -598,21 +593,19 @@ void __76__CPLRecordStorageView_CPLClientCacheView__compactedBatchFromExpandedBa
       v7 = __CPLStorageOSLogDomain_11255();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
-        v9 = 138412290;
-        v10 = v6;
-        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEBUG, "Adding %@ as an additional record to the batch, just in case", &v9, 0xCu);
+        v8 = 138412290;
+        v9 = v6;
+        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEBUG, "Adding %@ as an additional record to the batch, just in case", &v8, 0xCu);
       }
     }
 
     [*(a1 + 48) _addAdditionalRecord:v6];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __76__CPLRecordStorageView_CPLClientCacheView__compactedBatchFromExpandedBatch___block_invoke_8(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   [*(a1 + 32) addRecord:v5];
@@ -647,9 +640,9 @@ LABEL_29:
         v12 = __CPLStorageOSLogDomain_11255();
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
-          v17 = 138412290;
-          v18 = v6;
-          _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_DEBUG, "Adding %@ as an additional record to the batch, just in case", &v17, 0xCu);
+          v16 = 138412290;
+          v17 = v6;
+          _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_DEBUG, "Adding %@ as an additional record to the batch, just in case", &v16, 0xCu);
         }
       }
 
@@ -667,9 +660,9 @@ LABEL_29:
             v9 = __CPLStorageOSLogDomain_11255();
             if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
             {
-              v17 = 138412290;
-              v18 = v6;
-              _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEBUG, "Adding %@ as an additional record to the batch, just in case", &v17, 0xCu);
+              v16 = 138412290;
+              v17 = v6;
+              _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEBUG, "Adding %@ as an additional record to the batch, just in case", &v16, 0xCu);
             }
           }
 
@@ -681,9 +674,9 @@ LABEL_29:
           v14 = __CPLStorageOSLogDomain_11255();
           if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
-            v17 = 138412290;
-            v18 = v5;
-            _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_ERROR, "Expected to have a precomputed a full record for %@, but didn't", &v17, 0xCu);
+            v16 = 138412290;
+            v17 = v5;
+            _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_ERROR, "Expected to have a precomputed a full record for %@, but didn't", &v16, 0xCu);
           }
         }
       }
@@ -713,8 +706,6 @@ LABEL_29:
   }
 
 LABEL_30:
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __76__CPLRecordStorageView_CPLClientCacheView__compactedBatchFromExpandedBatch___block_invoke_10(uint64_t a1, uint64_t a2, void *a3)
@@ -734,7 +725,7 @@ void __76__CPLRecordStorageView_CPLClientCacheView__compactedBatchFromExpandedBa
 
 - (unint64_t)countOfRecordsWithRelatedScopedIdentifier:(id)identifier class:(Class)class
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = [(CPLRecordStorageView *)self recordViewsWithRelatedScopedIdentifier:identifier class:class];
   if (objc_opt_respondsToSelector())
   {
@@ -743,23 +734,23 @@ void __76__CPLRecordStorageView_CPLClientCacheView__compactedBatchFromExpandedBa
 
   else
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
       v8 = v7;
       v5 = 0;
-      v9 = *v14;
+      v9 = *v13;
       do
       {
         v10 = v8;
         do
         {
-          if (*v14 != v9)
+          if (*v13 != v9)
           {
             objc_enumerationMutation(v6);
           }
@@ -769,7 +760,7 @@ void __76__CPLRecordStorageView_CPLClientCacheView__compactedBatchFromExpandedBa
 
         while (v10);
         v5 += v8;
-        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v8);
@@ -781,7 +772,6 @@ void __76__CPLRecordStorageView_CPLClientCacheView__compactedBatchFromExpandedBa
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

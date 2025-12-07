@@ -33,21 +33,22 @@
 {
   dictionaryCopy = dictionary;
   pluginDictionaryCopy = pluginDictionary;
-  v26.receiver = self;
-  v26.super_class = CARDisplayInfo;
-  v8 = [(CARDisplayInfo *)&v26 init];
+  v30.receiver = self;
+  v30.super_class = CARDisplayInfo;
+  v8 = [(CARDisplayInfo *)&v30 init];
   v9 = v8;
   if (!v8)
   {
 LABEL_32:
-    v21 = v9;
+    v25 = v9;
     goto LABEL_33;
   }
 
-  if ((CRSizeFromAirPlayDictionary(dictionaryCopy, &v8->_pixelSize.width) & 1) == 0)
+  v10 = CRSizeFromAirPlayDictionary(dictionaryCopy, &v8->_pixelSize.width);
+  if ((v10 & 1) == 0)
   {
-    v12 = CarGeneralLogging();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = CarGeneralLogging(v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [CARDisplayInfo initWithPhysicalScreenDictionary:displayPluginDictionary:];
     }
@@ -55,10 +56,11 @@ LABEL_32:
     goto LABEL_23;
   }
 
-  if ((CRPhysicalSizeFromAirPlayDictionary(dictionaryCopy, &v9->_physicalSize.width) & 1) == 0)
+  v11 = CRPhysicalSizeFromAirPlayDictionary(dictionaryCopy, &v9->_physicalSize.width);
+  if ((v11 & 1) == 0)
   {
-    v12 = CarGeneralLogging();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = CarGeneralLogging(v11);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [CARDisplayInfo initWithPhysicalScreenDictionary:displayPluginDictionary:];
     }
@@ -67,21 +69,21 @@ LABEL_32:
   }
 
   objc_opt_class();
-  v10 = [pluginDictionaryCopy objectForKey:@"uid"];
-  if (v10 && (objc_opt_isKindOfClass() & 1) != 0)
+  v12 = [pluginDictionaryCopy objectForKey:@"uid"];
+  if (v12 && (objc_opt_isKindOfClass() & 1) != 0)
   {
-    v11 = v10;
+    v13 = v12;
   }
 
   else
   {
-    v11 = 0;
+    v13 = 0;
   }
 
-  if (!v11)
+  if (!v13)
   {
-    v12 = CarGeneralLogging();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = CarGeneralLogging(v15);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [CARDisplayInfo initWithPhysicalScreenDictionary:displayPluginDictionary:];
     }
@@ -91,76 +93,77 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  v13 = [v11 copy];
+  v16 = [v13 copy];
   identifier = v9->_identifier;
-  v9->_identifier = v13;
+  v9->_identifier = v16;
 
   objc_opt_class();
-  v15 = [dictionaryCopy objectForKey:@"properties"];
-  if (v15 && (objc_opt_isKindOfClass() & 1) != 0)
+  v18 = [dictionaryCopy objectForKey:@"properties"];
+  if (v18 && (objc_opt_isKindOfClass() & 1) != 0)
   {
-    v16 = v15;
+    v19 = v18;
   }
 
   else
   {
-    v16 = 0;
+    v19 = 0;
   }
 
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __75__CARDisplayInfo_initWithPhysicalScreenDictionary_displayPluginDictionary___block_invoke;
-  v24[3] = &unk_1E82FCDB0;
-  v17 = v9;
-  v25 = v17;
-  [v16 enumerateObjectsUsingBlock:v24];
-  v17->_supportsDDPContent = 1;
-  v18 = [(CARDisplayInfo *)v17 updateStreamsWithPhysicalDisplayDictionary:dictionaryCopy displayPluginDictionary:pluginDictionaryCopy];
-  if (v18)
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __75__CARDisplayInfo_initWithPhysicalScreenDictionary_displayPluginDictionary___block_invoke;
+  v28[3] = &unk_1E82FCDB0;
+  v20 = v9;
+  v29 = v20;
+  [v19 enumerateObjectsUsingBlock:v28];
+  v20->_supportsDDPContent = 1;
+  v21 = [(CARDisplayInfo *)v20 updateStreamsWithPhysicalDisplayDictionary:dictionaryCopy displayPluginDictionary:pluginDictionaryCopy];
+  v22 = v21;
+  if (v21)
   {
     objc_opt_class();
-    v19 = [pluginDictionaryCopy objectForKey:@"automakerInputStreams"];
-    if (v19 && (objc_opt_isKindOfClass() & 1) != 0)
+    v23 = [pluginDictionaryCopy objectForKey:@"automakerInputStreams"];
+    if (v23 && (objc_opt_isKindOfClass() & 1) != 0)
     {
-      v20 = v19;
+      v24 = v23;
     }
 
     else
     {
-      v20 = 0;
+      v24 = 0;
     }
 
-    if (v20)
+    if (v24)
     {
-      [(CARDisplayInfo *)v17 _updateOEMViews:v20];
+      [(CARDisplayInfo *)v20 _updateOEMViews:v24];
     }
 
     else
     {
-      oemPunchThroughs = v17->_oemPunchThroughs;
-      v17->_oemPunchThroughs = MEMORY[0x1E695E0F0];
+      oemPunchThroughs = v20->_oemPunchThroughs;
+      v20->_oemPunchThroughs = MEMORY[0x1E695E0F0];
     }
   }
 
   else
   {
-    v20 = CarGeneralLogging();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v24 = CarGeneralLogging(v21);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       [CARDisplayInfo initWithPhysicalScreenDictionary:displayPluginDictionary:];
     }
   }
 
-  if (v18)
+  if (v22)
   {
     goto LABEL_32;
   }
 
 LABEL_24:
-  v21 = 0;
+  v25 = 0;
 LABEL_33:
 
-  return v21;
+  return v25;
 }
 
 void __75__CARDisplayInfo_initWithPhysicalScreenDictionary_displayPluginDictionary___block_invoke(uint64_t a1, void *a2)
@@ -226,21 +229,22 @@ LABEL_18:
 - (CARDisplayInfo)initWithPhysicalScreenDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v24.receiver = self;
-  v24.super_class = CARDisplayInfo;
-  v5 = [(CARDisplayInfo *)&v24 init];
+  v28.receiver = self;
+  v28.super_class = CARDisplayInfo;
+  v5 = [(CARDisplayInfo *)&v28 init];
   v6 = v5;
   if (!v5)
   {
 LABEL_36:
-    v19 = v6;
+    v23 = v6;
     goto LABEL_37;
   }
 
-  if ((CRSizeFromAirPlayDictionary(dictionaryCopy, &v5->_pixelSize.width) & 1) == 0)
+  v7 = CRSizeFromAirPlayDictionary(dictionaryCopy, &v5->_pixelSize.width);
+  if ((v7 & 1) == 0)
   {
-    v9 = CarGeneralLogging();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = CarGeneralLogging(v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [CARDisplayInfo initWithPhysicalScreenDictionary:displayPluginDictionary:];
     }
@@ -248,10 +252,11 @@ LABEL_36:
     goto LABEL_27;
   }
 
-  if ((CRPhysicalSizeFromAirPlayDictionary(dictionaryCopy, &v6->_physicalSize.width) & 1) == 0)
+  v8 = CRPhysicalSizeFromAirPlayDictionary(dictionaryCopy, &v6->_physicalSize.width);
+  if ((v8 & 1) == 0)
   {
-    v9 = CarGeneralLogging();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = CarGeneralLogging(v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [CARDisplayInfo initWithPhysicalScreenDictionary:displayPluginDictionary:];
     }
@@ -260,21 +265,21 @@ LABEL_36:
   }
 
   objc_opt_class();
-  v7 = [dictionaryCopy objectForKey:@"uid"];
-  if (v7 && (objc_opt_isKindOfClass() & 1) != 0)
+  v9 = [dictionaryCopy objectForKey:@"uid"];
+  if (v9 && (objc_opt_isKindOfClass() & 1) != 0)
   {
-    v8 = v7;
+    v10 = v9;
   }
 
   else
   {
-    v8 = 0;
+    v10 = 0;
   }
 
-  if (!v8)
+  if (!v10)
   {
-    v9 = CarGeneralLogging();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = CarGeneralLogging(v12);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [CARDisplayInfo initWithPhysicalScreenDictionary:displayPluginDictionary:];
     }
@@ -284,31 +289,12 @@ LABEL_27:
     goto LABEL_28;
   }
 
-  v10 = [v8 copy];
+  v13 = [v10 copy];
   identifier = v6->_identifier;
-  v6->_identifier = v10;
+  v6->_identifier = v13;
 
   objc_opt_class();
-  v12 = [dictionaryCopy objectForKey:@"properties"];
-  if (v12 && (objc_opt_isKindOfClass() & 1) != 0)
-  {
-    v13 = v12;
-  }
-
-  else
-  {
-    v13 = 0;
-  }
-
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __51__CARDisplayInfo_initWithPhysicalScreenDictionary___block_invoke;
-  v22[3] = &unk_1E82FCDB0;
-  v14 = v6;
-  v23 = v14;
-  [v13 enumerateObjectsUsingBlock:v22];
-  objc_opt_class();
-  v15 = [dictionaryCopy objectForKey:@"initialVideoStreams"];
+  v15 = [dictionaryCopy objectForKey:@"properties"];
   if (v15 && (objc_opt_isKindOfClass() & 1) != 0)
   {
     v16 = v15;
@@ -319,52 +305,71 @@ LABEL_27:
     v16 = 0;
   }
 
-  if (v16)
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __51__CARDisplayInfo_initWithPhysicalScreenDictionary___block_invoke;
+  v26[3] = &unk_1E82FCDB0;
+  v17 = v6;
+  v27 = v17;
+  [v16 enumerateObjectsUsingBlock:v26];
+  objc_opt_class();
+  v18 = [dictionaryCopy objectForKey:@"initialVideoStreams"];
+  if (v18 && (objc_opt_isKindOfClass() & 1) != 0)
   {
-    [(CARDisplayInfo *)v14 updateStreams:v16];
+    v19 = v18;
+  }
+
+  else
+  {
+    v19 = 0;
+  }
+
+  if (v19)
+  {
+    [(CARDisplayInfo *)v17 updateStreams:v19];
     objc_opt_class();
-    v17 = [dictionaryCopy objectForKey:@"automakerInputStreams"];
-    if (v17 && (objc_opt_isKindOfClass() & 1) != 0)
+    v21 = [dictionaryCopy objectForKey:@"automakerInputStreams"];
+    if (v21 && (objc_opt_isKindOfClass() & 1) != 0)
     {
-      v18 = v17;
+      v22 = v21;
     }
 
     else
     {
-      v18 = 0;
+      v22 = 0;
     }
 
-    if (v18)
+    if (v22)
     {
-      [(CARDisplayInfo *)v14 _updateOEMViews:v18];
+      [(CARDisplayInfo *)v17 _updateOEMViews:v22];
     }
 
     else
     {
-      oemPunchThroughs = v14->_oemPunchThroughs;
-      v14->_oemPunchThroughs = MEMORY[0x1E695E0F0];
+      oemPunchThroughs = v17->_oemPunchThroughs;
+      v17->_oemPunchThroughs = MEMORY[0x1E695E0F0];
     }
   }
 
   else
   {
-    v18 = CarGeneralLogging();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v22 = CarGeneralLogging(v20);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       [CARDisplayInfo initWithPhysicalScreenDictionary:displayPluginDictionary:];
     }
   }
 
-  if (v16)
+  if (v19)
   {
     goto LABEL_36;
   }
 
 LABEL_28:
-  v19 = 0;
+  v23 = 0;
 LABEL_37:
 
-  return v19;
+  return v23;
 }
 
 void __51__CARDisplayInfo_initWithPhysicalScreenDictionary___block_invoke(uint64_t a1, void *a2)
@@ -437,68 +442,70 @@ LABEL_17:
 - (CARDisplayInfo)initWithLogicalScreenDictionary:(id)dictionary isPrimaryDisplay:(BOOL)display
 {
   displayCopy = display;
-  v22[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v21.receiver = self;
-  v21.super_class = CARDisplayInfo;
-  v7 = [(CARDisplayInfo *)&v21 init];
+  v24.receiver = self;
+  v24.super_class = CARDisplayInfo;
+  v7 = [(CARDisplayInfo *)&v24 init];
   if (!v7)
   {
 LABEL_20:
-    v17 = v7;
+    v20 = v7;
     goto LABEL_21;
   }
 
-  if (CRSizeFromDictionary([dictionaryCopy objectForKey:*MEMORY[0x1E6962440]], (v7 + 56)))
+  v8 = CRSizeFromDictionary([dictionaryCopy objectForKey:*MEMORY[0x1E6962440]], (v7 + 56));
+  if (v8)
   {
-    if (CRSizeFromDictionary([dictionaryCopy objectForKey:*MEMORY[0x1E6962438]], (v7 + 40)))
+    v9 = CRSizeFromDictionary([dictionaryCopy objectForKey:*MEMORY[0x1E6962438]], (v7 + 40));
+    if (v9)
     {
       objc_opt_class();
-      v8 = [dictionaryCopy objectForKey:@"ScreenID"];
-      if (v8 && (objc_opt_isKindOfClass() & 1) != 0)
+      v10 = [dictionaryCopy objectForKey:@"ScreenID"];
+      if (v10 && (objc_opt_isKindOfClass() & 1) != 0)
       {
-        v9 = v8;
+        v11 = v10;
       }
 
       else
       {
-        v9 = 0;
+        v11 = 0;
       }
 
-      if (v9)
+      if (v11)
       {
-        v11 = [v9 copy];
-        v12 = *(v7 + 2);
-        *(v7 + 2) = v11;
+        v14 = [v11 copy];
+        v15 = *(v7 + 2);
+        *(v7 + 2) = v14;
 
         v7[9] = 1;
         *(v7 + 11) = 257;
-        v7[13] = [v7 _showsInstrumentsWithIdentifier:v9 isPrimaryDisplay:displayCopy];
-        v13 = [[CARStreamInfo alloc] initWithStreamInfoDictionary:dictionaryCopy];
-        v14 = v13;
-        v15 = MEMORY[0x1E695E0F0];
-        if (v13)
+        v7[13] = [v7 _showsInstrumentsWithIdentifier:v11 isPrimaryDisplay:displayCopy];
+        v16 = [[CARStreamInfo alloc] initWithStreamInfoDictionary:dictionaryCopy];
+        v17 = v16;
+        v18 = MEMORY[0x1E695E0F0];
+        if (v16)
         {
-          v22[0] = v13;
-          v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
+          v25[0] = v16;
+          v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
         }
 
         else
         {
-          v16 = MEMORY[0x1E695E0F0];
+          v19 = MEMORY[0x1E695E0F0];
         }
 
-        v18 = *(v7 + 4);
-        *(v7 + 4) = v16;
+        v21 = *(v7 + 4);
+        *(v7 + 4) = v19;
 
-        v19 = *(v7 + 3);
-        *(v7 + 3) = v15;
+        v22 = *(v7 + 3);
+        *(v7 + 3) = v18;
 
         goto LABEL_20;
       }
 
-      v10 = CarGeneralLogging();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = CarGeneralLogging(v13);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         [CARDisplayInfo initWithPhysicalScreenDictionary:displayPluginDictionary:];
       }
@@ -506,8 +513,8 @@ LABEL_20:
 
     else
     {
-      v10 = CarGeneralLogging();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = CarGeneralLogging(v9);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         [CARDisplayInfo initWithPhysicalScreenDictionary:displayPluginDictionary:];
       }
@@ -516,17 +523,17 @@ LABEL_20:
 
   else
   {
-    v10 = CarGeneralLogging();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = CarGeneralLogging(v8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [CARDisplayInfo initWithPhysicalScreenDictionary:displayPluginDictionary:];
     }
   }
 
-  v17 = 0;
+  v20 = 0;
 LABEL_21:
 
-  return v17;
+  return v20;
 }
 
 - (id)punchThroughWithIdentifier:(id)identifier
@@ -647,7 +654,7 @@ uint64_t __44__CARDisplayInfo_videoStreamWithIdentifier___block_invoke(uint64_t 
 
 - (BOOL)updateStreamsWithPhysicalDisplayDictionary:(id)dictionary displayPluginDictionary:(id)pluginDictionary
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   pluginDictionaryCopy = pluginDictionary;
   objc_opt_class();
@@ -678,96 +685,96 @@ uint64_t __44__CARDisplayInfo_videoStreamWithIdentifier___block_invoke(uint64_t 
   if (v12)
   {
     selfCopy = self;
-    v35 = pluginDictionaryCopy;
-    v36 = dictionaryCopy;
-    v13 = CarGeneralLogging();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v36 = pluginDictionaryCopy;
+    v37 = dictionaryCopy;
+    v14 = CarGeneralLogging(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1C81FC000, v13, OS_LOG_TYPE_INFO, "Using ManagedVideoStreams array", buf, 2u);
+      _os_log_impl(&dword_1C81FC000, v14, OS_LOG_TYPE_INFO, "Using ManagedVideoStreams array", buf, 2u);
     }
 
-    v49 = 0u;
     v50 = 0u;
-    v47 = 0u;
+    v51 = 0u;
     v48 = 0u;
-    v33 = v9;
+    v49 = 0u;
+    v34 = v9;
     obj = v9;
-    v40 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
-    if (v40)
+    v41 = [obj countByEnumeratingWithState:&v48 objects:v54 count:16];
+    if (v41)
     {
-      v38 = *v48;
-      v39 = v12;
+      v39 = *v49;
+      v40 = v12;
       do
       {
-        v14 = 0;
+        v15 = 0;
         do
         {
-          if (*v48 != v38)
+          if (*v49 != v39)
           {
             objc_enumerationMutation(obj);
           }
 
-          v42 = v14;
-          v15 = *(*(&v47 + 1) + 8 * v14);
+          v43 = v15;
+          v16 = *(*(&v48 + 1) + 8 * v15);
           objc_opt_class();
-          v41 = v15;
-          v16 = [v15 objectForKey:@"uuid"];
-          if (v16 && (objc_opt_isKindOfClass() & 1) != 0)
+          v42 = v16;
+          v17 = [v16 objectForKey:@"uuid"];
+          if (v17 && (objc_opt_isKindOfClass() & 1) != 0)
           {
-            v17 = v16;
+            v18 = v17;
           }
 
           else
           {
-            v17 = 0;
+            v18 = 0;
           }
 
-          v45 = 0u;
           v46 = 0u;
-          v43 = 0u;
+          v47 = 0u;
           v44 = 0u;
-          v18 = v12;
-          v19 = [v18 countByEnumeratingWithState:&v43 objects:v52 count:16];
-          if (v19)
+          v45 = 0u;
+          v19 = v12;
+          v20 = [v19 countByEnumeratingWithState:&v44 objects:v53 count:16];
+          if (v20)
           {
-            v20 = v19;
-            v21 = *v44;
+            v21 = v20;
+            v22 = *v45;
             while (2)
             {
-              for (i = 0; i != v20; ++i)
+              for (i = 0; i != v21; ++i)
               {
-                if (*v44 != v21)
+                if (*v45 != v22)
                 {
-                  objc_enumerationMutation(v18);
+                  objc_enumerationMutation(v19);
                 }
 
-                v23 = *(*(&v43 + 1) + 8 * i);
+                v24 = *(*(&v44 + 1) + 8 * i);
                 objc_opt_class();
-                v24 = [v23 objectForKey:@"uuid"];
-                if (v24 && (objc_opt_isKindOfClass() & 1) != 0)
+                v25 = [v24 objectForKey:@"uuid"];
+                if (v25 && (objc_opt_isKindOfClass() & 1) != 0)
                 {
-                  v25 = v24;
+                  v26 = v25;
                 }
 
                 else
                 {
-                  v25 = 0;
+                  v26 = 0;
                 }
 
-                v26 = [v25 isEqual:v17];
-                if (v26)
+                v27 = [v26 isEqual:v18];
+                if (v27)
                 {
-                  v27 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:v41];
-                  [v27 addEntriesFromDictionary:v23];
-                  [array addObject:v27];
+                  v28 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:v42];
+                  [v28 addEntriesFromDictionary:v24];
+                  [array addObject:v28];
 
                   goto LABEL_35;
                 }
               }
 
-              v20 = [v18 countByEnumeratingWithState:&v43 objects:v52 count:16];
-              if (v20)
+              v21 = [v19 countByEnumeratingWithState:&v44 objects:v53 count:16];
+              if (v21)
               {
                 continue;
               }
@@ -778,50 +785,50 @@ uint64_t __44__CARDisplayInfo_videoStreamWithIdentifier___block_invoke(uint64_t 
 
 LABEL_35:
 
-          v14 = v42 + 1;
-          v12 = v39;
+          v15 = v43 + 1;
+          v12 = v40;
         }
 
-        while (v42 + 1 != v40);
-        v40 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
+        while (v43 + 1 != v41);
+        v41 = [obj countByEnumeratingWithState:&v48 objects:v54 count:16];
       }
 
-      while (v40);
+      while (v41);
     }
 
-    pluginDictionaryCopy = v35;
-    dictionaryCopy = v36;
-    v9 = v33;
+    pluginDictionaryCopy = v36;
+    dictionaryCopy = v37;
+    v9 = v34;
     self = selfCopy;
   }
 
   if ([array count])
   {
     selfCopy3 = self;
-    v29 = array;
+    v30 = array;
 LABEL_42:
-    [(CARDisplayInfo *)selfCopy3 updateStreams:v29];
-    v30 = 1;
+    [(CARDisplayInfo *)selfCopy3 updateStreams:v30];
+    v31 = 1;
     goto LABEL_43;
   }
 
   if (v9)
   {
     selfCopy3 = self;
-    v29 = v9;
+    v30 = v9;
     goto LABEL_42;
   }
 
-  v32 = CarGeneralLogging();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+  v33 = CarGeneralLogging(0);
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
   {
     [CARDisplayInfo initWithPhysicalScreenDictionary:displayPluginDictionary:];
   }
 
-  v30 = 0;
+  v31 = 0;
 LABEL_43:
 
-  return v30;
+  return v31;
 }
 
 - (void)updateStreams:(id)streams
@@ -861,10 +868,10 @@ void __32__CARDisplayInfo_updateStreams___block_invoke(uint64_t a1, void *a2)
   else
   {
 
-    v6 = CarGeneralLogging();
+    v6 = CarGeneralLogging(v7);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __32__CARDisplayInfo_updateStreams___block_invoke_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
+      __32__CARDisplayInfo_updateStreams___block_invoke_cold_1(v6, v8, v9, v10, v11, v12, v13, v14);
     }
   }
 }
@@ -946,10 +953,10 @@ void __34__CARDisplayInfo__updateOEMViews___block_invoke(uint64_t a1, void *a2)
   else
   {
 
-    v6 = CarGeneralLogging();
+    v6 = CarGeneralLogging(v7);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __34__CARDisplayInfo__updateOEMViews___block_invoke_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
+      __34__CARDisplayInfo__updateOEMViews___block_invoke_cold_1(v6, v8, v9, v10, v11, v12, v13, v14);
     }
   }
 }
@@ -957,64 +964,65 @@ void __34__CARDisplayInfo__updateOEMViews___block_invoke(uint64_t a1, void *a2)
 - (BOOL)_showsInstrumentsWithIdentifier:(id)identifier isPrimaryDisplay:(BOOL)display
 {
   displayCopy = display;
-  v18 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
+  v6 = identifierCopy;
   if (displayCopy)
   {
-    v6 = CarGeneralLogging();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = CarGeneralLogging(identifierCopy);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138412290;
-      v15 = identifierCopy;
-      _os_log_impl(&dword_1C81FC000, v6, OS_LOG_TYPE_DEFAULT, "Setting showsInstruments to NO for primary display with identifier: %@", &v14, 0xCu);
+      v16 = 138412290;
+      v17 = v6;
+      _os_log_impl(&dword_1C81FC000, v7, OS_LOG_TYPE_DEFAULT, "Setting showsInstruments to NO for primary display with identifier: %@", &v16, 0xCu);
     }
 
-    LOBYTE(v7) = 0;
+    LOBYTE(v8) = 0;
   }
 
   else
   {
-    v8 = +[CRCarPlayCapabilities capabilitiesIdentifier];
-    v6 = [CRCarPlayCapabilities fetchCarCapabilitiesWithIdentifier:v8];
+    v9 = +[CRCarPlayCapabilities capabilitiesIdentifier];
+    v7 = [CRCarPlayCapabilities fetchCarCapabilitiesWithIdentifier:v9];
 
-    userInfo = [v6 userInfo];
-    v10 = [userInfo objectForKey:@"showsInstrumentsIdentifier"];
+    userInfo = [v7 userInfo];
+    v11 = [userInfo objectForKey:@"showsInstrumentsIdentifier"];
 
-    if (v10)
+    if (v11)
     {
-      v7 = [identifierCopy isEqualToString:v10];
-      v11 = CarGeneralLogging();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v8 = [v6 isEqualToString:v11];
+      v13 = CarGeneralLogging(v8);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = @"NO";
-        if (v7)
+        v14 = @"NO";
+        if (v8)
         {
-          v12 = @"YES";
+          v14 = @"YES";
         }
 
-        v14 = 138412546;
-        v15 = identifierCopy;
-        v16 = 2112;
-        v17 = v12;
-        _os_log_impl(&dword_1C81FC000, v11, OS_LOG_TYPE_DEFAULT, "Found a cluster display identifier in capabilities for secondary screen with identifier %@, setting showsInstruments to %@", &v14, 0x16u);
+        v16 = 138412546;
+        v17 = v6;
+        v18 = 2112;
+        v19 = v14;
+        _os_log_impl(&dword_1C81FC000, v13, OS_LOG_TYPE_DEFAULT, "Found a cluster display identifier in capabilities for secondary screen with identifier %@, setting showsInstruments to %@", &v16, 0x16u);
       }
     }
 
     else
     {
-      v11 = CarGeneralLogging();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = CarGeneralLogging(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 138412290;
-        v15 = identifierCopy;
-        _os_log_impl(&dword_1C81FC000, v11, OS_LOG_TYPE_DEFAULT, "No cluster display identifier found in capabilities for secondary screen with identifier %@, setting showsInstruments to YES", &v14, 0xCu);
+        v16 = 138412290;
+        v17 = v6;
+        _os_log_impl(&dword_1C81FC000, v13, OS_LOG_TYPE_DEFAULT, "No cluster display identifier found in capabilities for secondary screen with identifier %@, setting showsInstruments to YES", &v16, 0xCu);
       }
 
-      LOBYTE(v7) = 1;
+      LOBYTE(v8) = 1;
     }
   }
 
-  return v7;
+  return v8;
 }
 
 - (CGSize)physicalSize

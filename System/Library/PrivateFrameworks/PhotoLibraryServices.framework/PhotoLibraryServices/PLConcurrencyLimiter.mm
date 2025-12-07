@@ -625,7 +625,7 @@ uint64_t __56__PLConcurrencyLimiter_dispatchAfterTime_library_block___block_invo
 - (int64_t)maxConcurrency
 {
   _queuesTrackingBlocks = [(PLConcurrencyLimiter *)self _queuesTrackingBlocks];
-  v3 = [_queuesTrackingBlocks count];
+  v3 = objc_msgSend_count(_queuesTrackingBlocks);
 
   return v3;
 }

@@ -8,8 +8,8 @@
 
 + (unint64_t)bufferOffset
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v4 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v4, v5, v6, v7, v8, v9);
   return 0;
 }
 

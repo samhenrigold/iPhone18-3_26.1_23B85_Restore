@@ -13,14 +13,11 @@
 
 - (NSString)modelPath
 {
-  v2 = (self + OBJC_IVAR___NeuralNetworkConfig_modelPath);
   swift_beginAccess();
-  v4 = *v2;
-  v3 = v2[1];
 
-  v5 = sub_2723777FC();
+  v2 = sub_2723777FC();
 
-  return v5;
+  return v2;
 }
 
 - (void)setModelPath:(id)path
@@ -29,7 +26,6 @@
   v6 = v5;
   v7 = (self + OBJC_IVAR___NeuralNetworkConfig_modelPath);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }
@@ -77,28 +73,25 @@
 - (NSString)description
 {
   v3 = sub_27237788C();
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v5 = sub_272376B3C();
-  v6 = *(v5 + 48);
-  v7 = *(v5 + 52);
+  sub_272376B3C();
   swift_allocObject();
   selfCopy = self;
   sub_272376B2C();
   type metadata accessor for NeuralNetworkConfig();
-  sub_27227DA80(&qword_2808823A8, v9, type metadata accessor for NeuralNetworkConfig);
-  v10 = sub_272376B1C();
-  v12 = v11;
+  sub_27227DA80(&qword_2808823A8, v5, type metadata accessor for NeuralNetworkConfig, &protocol conformance descriptor for NeuralNetworkConfig);
+  v6 = sub_272376B1C();
+  v8 = v7;
 
   sub_27237787C();
   sub_27237784C();
-  if (v13)
+  if (v9)
   {
-    sub_2721F05C8(v10, v12);
+    sub_2721F05C8(v6, v8);
 
-    v14 = sub_2723777FC();
+    v10 = sub_2723777FC();
 
-    return v14;
+    return v10;
   }
 
   else

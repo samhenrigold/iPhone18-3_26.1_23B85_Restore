@@ -17,7 +17,7 @@
 {
   Logger.init(subsystem:category:)();
   v4.receiver = self;
-  v4.super_class = type metadata accessor for Migration();
+  v4.super_class = type metadata accessor for Migration(0);
   return [(Migration *)&v4 init];
 }
 

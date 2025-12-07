@@ -48,7 +48,7 @@ uint64_t anonymous namespace::getSwizzleOrder(_anonymous_namespace_ *this, const
   return result;
 }
 
-const vImage_Buffer *anonymous namespace::swizzleFloatPixels(const vImage_Buffer *result, uint64_t a2, const vImage_Buffer *a3, int a4)
+const vImage_Buffer *anonymous namespace::swizzleFloatPixels(const vImage_Buffer *result, uint64_t a2, const vImage_Buffer *a3, uint64_t a4)
 {
   v5 = result;
   if (a2 != a4 || result->data != a3->data)
@@ -171,48 +171,44 @@ _WORD *PCPixel4<ProCore::Private::PixelInfoTemplate<(PCPixelFormat::ChannelOrder
   return result;
 }
 
-uint64_t PCGrayAlphaPixel<ProCore::Private::PixelInfoTemplate<(PCPixelFormat::ChannelOrder)12>>::unpremultiply(unsigned __int16 *a1)
+void PCGrayAlphaPixel<ProCore::Private::PixelInfoTemplate<(PCPixelFormat::ChannelOrder)12>>::unpremultiply(unsigned __int16 *a1, int a2)
 {
-  v2 = half::_toFloat[a1[1]];
-  result = 15360;
-  if (v2 != 1.0)
+  if (half::_toFloat[a1[1]] != 1.0)
   {
-    v4 = half::_toFloat[a1[1]];
-    if (v4 == 0.0)
+    v3 = half::_toFloat[a1[1]];
+    if (v3 == 0.0)
     {
-      result = 0;
+      v4 = 0;
     }
 
     else
     {
-      result = ProCore::Private::ChannelTypeTraits<half>::denormalizef(half::_toFloat[*a1] / v4);
+      v4 = ProCore::Private::ChannelTypeTraits<half>::denormalizef(half::_toFloat[*a1] / v3, 15360, a2);
     }
 
-    *a1 = result;
+    *a1 = v4;
   }
-
-  return result;
 }
 
-uint64_t PCGrayAlphaPixel<ProCore::Private::PixelInfoTemplate<(PCPixelFormat::ChannelOrder)12>>::premultiply(unsigned __int16 *a1)
+uint64_t PCGrayAlphaPixel<ProCore::Private::PixelInfoTemplate<(PCPixelFormat::ChannelOrder)12>>::premultiply(unsigned __int16 *a1, int a2)
 {
-  v2 = half::_toFloat[*a1] * half::_toFloat[a1[1]];
-  if (v2 == 0.0)
+  v3 = half::_toFloat[*a1] * half::_toFloat[a1[1]];
+  if (v3 == 0.0)
   {
     result = 0;
   }
 
   else
   {
-    v4 = half::_toFloat[*a1] * half::_toFloat[a1[1]];
-    if (half::_eLut[LODWORD(v2) >> 23])
+    v5 = half::_toFloat[*a1] * half::_toFloat[a1[1]];
+    if (half::_eLut[LODWORD(v3) >> 23])
     {
-      result = half::_eLut[LODWORD(v2) >> 23] + (((LODWORD(v4) & 0x7FF000u) + 4096) >> 13);
+      result = half::_eLut[LODWORD(v3) >> 23] + (((LODWORD(v5) & 0x7FF000u) + 4096) >> 13);
     }
 
     else
     {
-      result = half::convert(LODWORD(v2));
+      result = half::convert(LODWORD(v3));
     }
   }
 
@@ -220,7 +216,7 @@ uint64_t PCGrayAlphaPixel<ProCore::Private::PixelInfoTemplate<(PCPixelFormat::Ch
   return result;
 }
 
-uint64_t ProCore::Private::ChannelTypeTraits<half>::denormalizef(float a1)
+uint64_t ProCore::Private::ChannelTypeTraits<half>::denormalizef(float a1, uint64_t a2, int a3)
 {
   if (a1 == 0.0)
   {
@@ -235,13 +231,13 @@ uint64_t ProCore::Private::ChannelTypeTraits<half>::denormalizef(float a1)
   return half::convert(LODWORD(a1));
 }
 
-unsigned __int16 *PCPixel4<ProCore::Private::PixelInfoTemplate<(PCPixelFormat::ChannelOrder)13>>::unpremultiply(unsigned __int16 *result)
+unsigned __int16 *PCPixel4<ProCore::Private::PixelInfoTemplate<(PCPixelFormat::ChannelOrder)13>>::unpremultiply(unsigned __int16 *result, int a2)
 {
-  v1 = half::_toFloat[result[3]];
-  if (v1 != 1.0)
+  v2 = half::_toFloat[result[3]];
+  if (v2 != 1.0)
   {
-    v2 = result;
-    if (v1 == 0.0)
+    v3 = result;
+    if (v2 == 0.0)
     {
       *result = 0;
       result[2] = 0;
@@ -249,72 +245,74 @@ unsigned __int16 *PCPixel4<ProCore::Private::PixelInfoTemplate<(PCPixelFormat::C
 
     else
     {
-      v3 = 1.0 / v1;
-      *result = ProCore::Private::ChannelTypeTraits<half>::denormalizef((1.0 / v1) * half::_toFloat[*result]);
-      v2[1] = ProCore::Private::ChannelTypeTraits<half>::denormalizef(v3 * half::_toFloat[v2[1]]);
-      result = ProCore::Private::ChannelTypeTraits<half>::denormalizef(v3 * half::_toFloat[v2[2]]);
-      v2[2] = result;
+      v4 = 1.0 / v2;
+      v5 = ProCore::Private::ChannelTypeTraits<half>::denormalizef((1.0 / v2) * half::_toFloat[*result], result, a2);
+      *v3 = v5;
+      v7 = ProCore::Private::ChannelTypeTraits<half>::denormalizef(v4 * half::_toFloat[v3[1]], v5, v6);
+      v3[1] = v7;
+      result = ProCore::Private::ChannelTypeTraits<half>::denormalizef(v4 * half::_toFloat[v3[2]], v7, v8);
+      v3[2] = result;
     }
   }
 
   return result;
 }
 
-uint64_t PCPixel4<ProCore::Private::PixelInfoTemplate<(PCPixelFormat::ChannelOrder)13>>::premultiply(unsigned __int16 *a1)
+uint64_t PCPixel4<ProCore::Private::PixelInfoTemplate<(PCPixelFormat::ChannelOrder)13>>::premultiply(unsigned __int16 *a1, int a2)
 {
-  v2 = a1[3];
-  v3 = half::_toFloat[*a1] * half::_toFloat[v2];
-  if (v3 == 0.0)
+  v3 = a1[3];
+  v4 = half::_toFloat[*a1] * half::_toFloat[v3];
+  if (v4 == 0.0)
   {
-    LOWORD(v4) = 0;
+    LOWORD(v5) = 0;
   }
 
   else
   {
-    v5 = half::_toFloat[*a1] * half::_toFloat[v2];
-    if (half::_eLut[LODWORD(v3) >> 23])
+    v6 = half::_toFloat[*a1] * half::_toFloat[v3];
+    if (half::_eLut[LODWORD(v4) >> 23])
     {
-      v4 = half::_eLut[LODWORD(v3) >> 23] + (((LODWORD(v5) & 0x7FF000u) + 4096) >> 13);
+      v5 = half::_eLut[LODWORD(v4) >> 23] + (((LODWORD(v6) & 0x7FF000u) + 4096) >> 13);
     }
 
     else
     {
-      LOWORD(v4) = half::convert(LODWORD(v3));
+      LOWORD(v5) = half::convert(LODWORD(v4));
     }
   }
 
-  *a1 = v4;
-  v6 = half::_toFloat[a1[1]] * half::_toFloat[v2];
-  if (v6 == 0.0)
+  *a1 = v5;
+  v7 = half::_toFloat[a1[1]] * half::_toFloat[v3];
+  if (v7 == 0.0)
   {
-    LOWORD(v7) = 0;
+    LOWORD(v8) = 0;
   }
 
-  else if (half::_eLut[LODWORD(v6) >> 23])
+  else if (half::_eLut[LODWORD(v7) >> 23])
   {
-    v7 = half::_eLut[LODWORD(v6) >> 23] + (((COERCE_UNSIGNED_INT(half::_toFloat[a1[1]] * half::_toFloat[v2]) & 0x7FF000) + 4096) >> 13);
+    v8 = half::_eLut[LODWORD(v7) >> 23] + (((COERCE_UNSIGNED_INT(half::_toFloat[a1[1]] * half::_toFloat[v3]) & 0x7FF000) + 4096) >> 13);
   }
 
   else
   {
-    LOWORD(v7) = half::convert(LODWORD(v6));
+    LOWORD(v8) = half::convert(LODWORD(v7));
   }
 
-  a1[1] = v7;
-  v8 = half::_toFloat[a1[2]] * half::_toFloat[v2];
-  if (v8 == 0.0)
+  a1[1] = v8;
+  v9 = half::_toFloat[a1[2]] * half::_toFloat[v3];
+  if (v9 == 0.0)
   {
     result = 0;
   }
 
-  else if (half::_eLut[LODWORD(v8) >> 23])
+  else if (half::_eLut[LODWORD(v9) >> 23])
   {
-    result = half::_eLut[LODWORD(v8) >> 23] + (((COERCE_UNSIGNED_INT(half::_toFloat[a1[2]] * half::_toFloat[v2]) & 0x7FF000) + 4096) >> 13);
+    result = half::_eLut[LODWORD(v9) >> 23] + (((COERCE_UNSIGNED_INT(half::_toFloat[a1[2]] * half::_toFloat[v3]) & 0x7FF000) + 4096) >> 13);
   }
 
   else
   {
-    result = half::convert(LODWORD(v8));
+    result = half::convert(LODWORD(v9));
   }
 
   a1[2] = result;
@@ -335,27 +333,27 @@ uint64_t anonymous namespace::bitmapInfoFromPCBitmap(_anonymous_namespace_ *this
           goto LABEL_27;
         }
 
-        v11 = (*(*this + 48))(this) == 0;
-        v12 = 8452;
-        v13 = 8450;
+        v4 = (*(*this + 48))(this) == 0;
+        v5 = 8452;
+        v6 = 8450;
       }
 
       else
       {
-        v11 = (*(*this + 48))(this) == 0;
-        v12 = 8451;
-        v13 = 8449;
+        v4 = (*(*this + 48))(this) == 0;
+        v5 = 8451;
+        v6 = 8449;
       }
 
 LABEL_23:
-      if (v11)
+      if (v4)
       {
-        return v12;
+        return v5;
       }
 
       else
       {
-        return v13;
+        return v6;
       }
     }
 
@@ -370,9 +368,9 @@ LABEL_23:
     }
 
 LABEL_17:
-    v11 = (*(*this + 48))(this) == 0;
-    v12 = 4099;
-    v13 = 4097;
+    v4 = (*(*this + 48))(this) == 0;
+    v5 = 4099;
+    v6 = 4097;
     goto LABEL_23;
   }
 
@@ -405,14 +403,14 @@ LABEL_17:
   {
     if (v3 == 3)
     {
-      v11 = (*(*this + 48))(this) == 0;
-      v12 = 4;
-      v13 = 2;
+      v4 = (*(*this + 48))(this) == 0;
+      v5 = 4;
+      v6 = 2;
       goto LABEL_23;
     }
 
 LABEL_27:
-    PCPrint("File %s, line %d should not have been reached:\n\t", v4, v5, v6, v7, v8, v9, v10, "/Library/Caches/com.apple.xbs/Sources/ProCoreiOS/PCBitmap.mm");
+    PCPrint("File %s, line %d should not have been reached:\n\t", "/Library/Caches/com.apple.xbs/Sources/ProCoreiOS/PCBitmap.mm", 1045);
     pcAbortImpl();
   }
 
@@ -2302,17 +2300,17 @@ CGColorSpace **PCImage::setColorSpace(PCImage *this, CGColorSpace *a2)
   return PCCFRef<CGColorSpace *>::~PCCFRef(&v4);
 }
 
-void sub_25FB8F9B8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB8F9B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
   _Unwind_Resume(a1);
 }
 
-CGColorSpace *PCImage::getColorSpace@<X0>(PCImage *this@<X0>, CGColorSpace **a2@<X8>)
+CGColorSpace *PCImage::getColorSpace@<X0>(CGColorSpace **__return_ptr a1@<X8>, PCImage *this@<X0>)
 {
   result = *(this + 6);
-  *a2 = result;
+  *a1 = result;
   if (result)
   {
     return PCCFRefTraits<CGColorSpace *>::retain(result);
@@ -2338,9 +2336,9 @@ int *PCColor::RED(PCColor *this)
   return &PCColor::RED(void)::RED;
 }
 
-void sub_25FB8FABC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB8FABC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
   _Unwind_Resume(a1);
 }
@@ -2348,7 +2346,10 @@ void sub_25FB8FABC(_Unwind_Exception *a1, uint64_t a2, ...)
 CGColorSpace *getDefaultColorSpace@<X0>(void *a1@<X8>)
 {
   {
-    allocDefaultColorSpace();
+    if (v3)
+    {
+      allocDefaultColorSpace(v3);
+    }
   }
 
   result = *getDefaultColorSpace(void)::result;
@@ -2379,9 +2380,9 @@ int *PCColor::BLACK(PCColor *this)
   return &PCColor::BLACK(void)::BLACK;
 }
 
-void sub_25FB8FC68(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB8FC68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
   _Unwind_Resume(a1);
 }
@@ -2403,9 +2404,9 @@ int *PCColor::WHITE(PCColor *this)
   return &PCColor::WHITE(void)::WHITE;
 }
 
-void sub_25FB8FD48(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB8FD48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
   _Unwind_Resume(a1);
 }
@@ -2425,9 +2426,9 @@ int *PCColor::CLEAR(PCColor *this)
   return &PCColor::CLEAR(void)::CLEAR;
 }
 
-void sub_25FB8FE28(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB8FE28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
   _Unwind_Resume(a1);
 }
@@ -2444,9 +2445,9 @@ void PCColor::PCColor(PCColor *this)
   PCCFRef<CGColorSpace *>::~PCCFRef(&v2);
 }
 
-void sub_25FB8FEAC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB8FEAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
   _Unwind_Resume(a1);
 }
@@ -2468,16 +2469,16 @@ void PCColor::PCColor(PCColor *this, float a2, float a3, float a4, float a5, CGC
   PCCFRef<CGColorSpace *>::~PCCFRef(&v12);
 }
 
-void sub_25FB8FF5C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB8FF5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
   _Unwind_Resume(a1);
 }
 
 void PCColor::PCColor(PCColor *this, float a2, float a3, float a4, OZChannelBase *a5)
 {
-  v9 = OZChannelBase::setRangeName(a5, a5);
+  OZChannelBase::setRangeName(a5, a5);
   this->var0.var0 = 4;
   this->var0.var1[0] = a2;
   this->var0.var1[1] = a3;
@@ -2488,7 +2489,7 @@ void PCColor::PCColor(PCColor *this, float a2, float a3, float a4, OZChannelBase
 
 void PCColor::PCColor(PCColor *this, float a2, float a3, float a4, float a5, OZChannelBase *a6)
 {
-  v11 = OZChannelBase::setRangeName(a6, a6);
+  OZChannelBase::setRangeName(a6, a6);
   this->var0.var0 = 4;
   this->var0.var1[0] = a2;
   this->var0.var1[1] = a3;
@@ -2530,9 +2531,9 @@ void PCColor::PCColor(PCColor *this, const PCColor *a2, CGColorSpaceRef space)
   PCCFRef<CGColorSpace *>::~PCCFRef(&v6);
 }
 
-void sub_25FB9012C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB9012C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
   _Unwind_Resume(a1);
 }
@@ -2568,7 +2569,7 @@ CGColorSpace **PCColor::setRGB(PCColor *this, float a2, float a3, float a4, CGCo
 CGColorSpace **PCColor::setRGB(PCColor *this, float a2, float a3, float a4, OZChannelBase *a5)
 {
   v9 = *(&this->var0.var0 + this->var0.var0);
-  v10 = OZChannelBase::setRangeName(a5, a5);
+  OZChannelBase::setRangeName(a5, a5);
   LODWORD(v14) = 4;
   *(&v14 + 1) = a2;
   *&v15 = a3;
@@ -2623,7 +2624,7 @@ CGColorSpace **PCColor::setRGBA(PCColor *this, float a2, float a3, float a4, flo
 
 CGColorSpace **PCColor::setRGBA(PCColor *this, float a2, float a3, float a4, float a5, OZChannelBase *a6)
 {
-  v11 = OZChannelBase::setRangeName(a6, a6);
+  OZChannelBase::setRangeName(a6, a6);
   LODWORD(v15) = 4;
   *(&v15 + 1) = a2;
   *&v16 = a3;
@@ -2674,7 +2675,7 @@ CGColorSpace **PCColor::getRGBA(int *a1, float *a2, float *a3, float *a4, float 
     *&v38 = v15;
     *(&v38 + 1) = v21;
     v39 = 2;
-    PCGetCachedExtendedRangeColorSpace(space, &v35);
+    PCGetCachedExtendedRangeColorSpace(&v35, space);
     v32[0] = 1;
     v32[1] = v36;
     v32[2] = 4;
@@ -2695,7 +2696,7 @@ CGColorSpace **PCColor::getRGBA(int *a1, float *a2, float *a3, float *a4, float 
   {
     v37 = 0u;
     v38 = 0u;
-    PCGetCachedExtendedRangeColorSpace(space, v32);
+    PCGetCachedExtendedRangeColorSpace(v32, space);
     transformColor(a1 + 1, *a1, *(a1 + 6), &v37, 4, v32[0]);
     v25 = *(&v37 + 1);
     v26 = *&v37;
@@ -2725,7 +2726,7 @@ float64x2_t PCColor::setRGBA(int *a1, CGColorSpaceRef space, int a3, PVPerfStats
   v27 = *MEMORY[0x277D85DE8];
   if (space)
   {
-    PCGetCachedExtendedRangeColorSpace(space, v24);
+    PCGetCachedExtendedRangeColorSpace(v24, space);
   }
 
   else
@@ -2787,9 +2788,9 @@ float64x2_t PCColor::setRGBA(int *a1, CGColorSpaceRef space, int a3, PVPerfStats
   return result;
 }
 
-void sub_25FB908D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_25FB908D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
   _Unwind_Resume(a1);
 }
@@ -2801,11 +2802,12 @@ double PCColor::getComponents(int *a1, double **a2)
   std::vector<double>::assign(a2, v4, &v9);
   if (v4 >= 1)
   {
-    v6 = (a1 + 2);
+    v6 = a1 + 2;
     v7 = *a2;
     do
     {
-      v8 = *v6++;
+      v8 = *v6;
+      v6 += 2;
       result = v8;
       *v7++ = v8;
       --v4;
@@ -2817,7 +2819,7 @@ double PCColor::getComponents(int *a1, double **a2)
   return result;
 }
 
-void *std::vector<double>::assign(void *a1, unint64_t a2, uint64_t *a3)
+void *std::vector<double>::assign(uint64_t *a1, unint64_t a2, uint64_t *a3)
 {
   v5 = a1[2];
   result = *a1;
@@ -2992,13 +2994,13 @@ void PCWorkingColor::PCWorkingColor(PCWorkingColor *this, float a2, float a3, fl
   }
 
   v12 = a6;
-  PCWorkingColor::PCWorkingColor(this, &v12, 0, &kPCNoToneMapMethod, a2, a3, a4, a5);
+  PCWorkingColor::PCWorkingColor(this, &v12, a2, a3, a4, a5, 0, &kPCNoToneMapMethod);
   PCCFRef<CGColorSpace *>::~PCCFRef(&v12);
 }
 
-void sub_25FB90D4C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB90D4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
   _Unwind_Resume(a1);
 }
@@ -3011,33 +3013,33 @@ void PCWorkingColor::PCWorkingColor(PCWorkingColor *this, CGColorSpaceRef space)
   }
 
   v4 = space;
-  PCWorkingColor::PCWorkingColor(this, &v4, 0, &kPCNoToneMapMethod, 0.0, 0.0, 0.0, 1.0);
+  PCWorkingColor::PCWorkingColor(this, &v4, 0.0, 0.0, 0.0, 1.0, 0, &kPCNoToneMapMethod);
   PCCFRef<CGColorSpace *>::~PCCFRef(&v4);
 }
 
-void sub_25FB90DD0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB90DD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
   _Unwind_Resume(a1);
 }
 
 void PCWorkingColor::PCWorkingColor(PCWorkingColor *this, OZChannelBase *a2)
 {
-  v3 = OZChannelBase::setRangeName(a2, a2);
+  OZChannelBase::setRangeName(a2, a2);
 
-  PCWorkingColor::PCWorkingColor(this, v3, 0, &kPCNoToneMapMethod, 0.0, 0.0, 0.0, 1.0);
+  PCWorkingColor::PCWorkingColor(this, v3, 0.0, 0.0, 0.0, 1.0, 0, &kPCNoToneMapMethod);
 }
 
-uint64_t PCWorkingColor::PCWorkingColor(uint64_t a1, CGColorSpaceRef *a2, int a3, PVPerfStats::FrameStats *a4, float a5, float a6, float a7, float a8)
+uint64_t PCWorkingColor::PCWorkingColor(uint64_t a1, CGColorSpaceRef *a2, float a3, float a4, float a5, float a6, int a7, PVPerfStats::FrameStats *a8)
 {
   v13 = 4;
-  v14 = a5;
-  v15 = a6;
-  v16 = a7;
-  v17 = a8;
+  v14 = a3;
+  v15 = a4;
+  v16 = a5;
+  v17 = a6;
   sanitizeColorSpace(a2, &v18);
-  PCWorkingColor::PCWorkingColor(a1, &v13, a2, a3, a4);
+  PCWorkingColor::PCWorkingColor(a1, &v13, a2, a7, a8);
   PCCFRef<CGColorSpace *>::~PCCFRef(&v18);
   return a1;
 }
@@ -3069,9 +3071,9 @@ void PCWorkingColor::PCWorkingColor(PCWorkingColor *this, const PCColor *a2, CGC
   PCCFRef<CGColorSpace *>::~PCCFRef(&v6);
 }
 
-void sub_25FB91010(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB91010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
   _Unwind_Resume(a1);
 }
@@ -3101,44 +3103,40 @@ float PCWorkingColor::getRGBA(PCWorkingColor *this, float *a2, float *a3, float 
   return result;
 }
 
-float32x4_t operator*@<Q0>(uint64_t a1@<X0>, float32x4_t *a2@<X1>, float32x4_t *a3@<X8>)
+float32x4_t operator*@<Q0>(float32x4_t *a1@<X0>, float32x4_t *a2@<X1>, float32x4_t *a3@<X8>)
 {
   *a3 = *a1;
-  v6 = *(a1 + 16);
+  v6 = a1[1].i64[0];
   a3[1].i64[0] = v6;
   if (v6)
   {
     PCCFRefTraits<CGColorSpace *>::retain(v6);
   }
 
-  a3[1].i64[1] = *(a1 + 24);
-  a3[2].i32[0] = *(a1 + 32);
+  a3[1].i64[1] = a1[1].i64[1];
+  a3[2].i32[0] = a1[2].i32[0];
   result = vmulq_f32(*a3, *a2);
   *a3 = result;
   return result;
 }
 
-BOOL operator==(uint64_t a1, uint64_t a2)
+BOOL operator==(uint64_t a1, float *a2)
 {
-  if (vabds_f32(*(a1 + 12), *(a2 + 12)) >= 0.00001)
+  if (vabds_f32(*(a1 + 12), a2[3]) >= 0.00001)
   {
     return 0;
   }
 
-  v3 = *(a2 + 8);
+  v3 = *(a2 + 2);
   v10 = *a2;
   v11 = v3;
-  v4 = *(a2 + 16);
-  v5 = *(a2 + 24);
+  v4 = *(a2 + 2);
+  v5 = *(a2 + 6);
   v6 = *(a1 + 16);
   v7 = *(a1 + 24);
   v9 = *(a1 + 28);
-  PCColorUtil::transform(&v9, &v10, v4, v5, v6, v7, v12);
+  PCColorUtil::transform(v12, &v9, &v10, v4, v5, v6, v7);
   return vabds_f32(*a1, v12[0]) < 0.00001 && vabds_f32(*(a1 + 4), v12[1]) < 0.00001 && vabds_f32(*(a1 + 8), v12[2]) < 0.00001;
-}
-
-{
-  return *a1 == *a2 && *(a1 + 8) == *(a2 + 8);
 }
 
 void PCWorkingColorVector::PCWorkingColorVector(PCWorkingColorVector *this, float a2, float a3, float a4, float a5)
@@ -3157,25 +3155,26 @@ float32_t PCWorkingColorVector::operator*=(float32x2_t *a1, float a2)
   return result;
 }
 
-void allocDefaultColorSpace(void)
+void allocDefaultColorSpace(PCColorSpaceCache *a1)
 {
-  PCColorSpaceCache::sRGB(v2);
-  v1 = *OZChannelBase::setRangeName(v2, v0);
-  v2[1] = v1;
-  if (v1)
+  PCColorSpaceCache::sRGB(v4);
+  OZChannelBase::setRangeName(v4, v1);
+  v3 = *v2;
+  v4[1] = v3;
+  if (v3)
   {
-    PCCFRefTraits<CGColorSpace *>::retain(v1);
+    PCCFRefTraits<CGColorSpace *>::retain(v3);
   }
 
-  PCCFRef<CGColorSpace *>::~PCCFRef(v2);
+  PCCFRef<CGColorSpace *>::~PCCFRef(v4);
   operator new();
 }
 
-void sub_25FB91378(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB91378(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  v3 = v2;
-  MEMORY[0x2666E9F00](v3, 0x20C4093837F09);
+  va_start(va, a3);
+  v4 = v3;
+  MEMORY[0x2666E9F00](v4, 0x20C4093837F09);
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
   _Unwind_Resume(a1);
 }
@@ -3227,20 +3226,20 @@ double transformColor(double *a1, uint64_t a2, CGColorSpace *a3, double *a4, uin
   return result;
 }
 
-void std::vector<double>::resize(void *a1, unint64_t a2)
+void std::vector<double>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<double>::__append(a1, a2 - v2);
+    std::vector<double>::__append(result, a2 - v2);
   }
 }
 
@@ -3389,7 +3388,7 @@ void PCColorSpaceHandle::getMD5(CGColorSpace **this@<X0>, PCWorkingColorVector *
   }
 }
 
-void PCCachedFunctionImpl<PCHash128,PCColorSpaceHandle const&>::operator()(os_unfair_lock_s *a1@<X0>, CGColorSpace **a2@<X1>, PCWorkingColorVector *a3@<X8>)
+void PCCachedFunctionImpl<PCHash128,PCColorSpaceHandle const&>::operator()(os_unfair_lock_s *a1@<X0>, CGColorSpace **a2@<X1>, __int128 *a3@<X8>)
 {
   v6 = a1 + 8;
   v11[1] = &a1[8];
@@ -3420,9 +3419,9 @@ void PCCachedFunctionImpl<PCHash128,PCColorSpaceHandle const&>::operator()(os_un
   PCSpinLock::unlock(v6);
 }
 
-void sub_25FB9188C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25FB9188C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   PCLockSentry<PCSpinLock>::~PCLockSentry(va);
   _Unwind_Resume(a1);
 }
@@ -3432,8 +3431,8 @@ void PCColorSpaceHandle::getMD5(PCColorSpaceHandle *this@<X0>, PCWorkingColorVec
   if (this)
   {
     PCCFRefTraits<CGColorSpace *>::retain(this);
-    v5 = this;
-    PCCFRef<CGColorSpace *>::~PCCFRef(&v5);
+    v4 = this;
+    PCCFRef<CGColorSpace *>::~PCCFRef(&v4);
   }
 
   else
@@ -3443,9 +3442,9 @@ void PCColorSpaceHandle::getMD5(PCColorSpaceHandle *this@<X0>, PCWorkingColorVec
   }
 }
 
-void sub_25FB91934(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB91934(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
   _Unwind_Resume(a1);
 }
@@ -3493,19 +3492,19 @@ CGColorSpace **PCColorSpaceHandle::setColorSpace(CGColorSpace **this, CGColorSpa
   return PCCFRef<CGColorSpace *>::~PCCFRef(&v7);
 }
 
-void sub_25FB91A10(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB91A10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
   _Unwind_Resume(a1);
 }
 
-void anonymous namespace::makeColorSpaceFromCacheKey(uint64_t a1@<X0>, CGColorSpace **a2@<X8>)
+void anonymous namespace::makeColorSpaceFromCacheKey(uint64_t *a1@<X0>, CGColorSpace **a2@<X8>)
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v22 = *a1;
-  v23 = *(a1 + 8);
-  v4 = PCGetNCLCColorSpace(&v22);
+  v26 = *MEMORY[0x277D85DE8];
+  v24 = *a1;
+  v25 = *(a1 + 2);
+  v4 = PCGetNCLCColorSpace(&v24);
   v5 = v4;
   if (v4)
   {
@@ -3542,7 +3541,7 @@ void anonymous namespace::makeColorSpaceFromCacheKey(uint64_t a1@<X0>, CGColorSp
   while (v8);
   {
 LABEL_13:
-    v12 = *(a1 + 44);
+    v12 = *(a1 + 11);
     if (v12 != 0.0)
     {
       if (v12 == 1.0)
@@ -3553,7 +3552,7 @@ LABEL_13:
       operator new();
     }
 
-    v13 = *(a1 + 4);
+    v13 = *(a1 + 1);
     if (v13 > 7)
     {
       if (v13 > 13)
@@ -3613,20 +3612,20 @@ LABEL_35:
     }
 
 LABEL_40:
-    PCMakeDisplayRGBProfile((a1 + 12), 0, &v22);
-    v16 = *(a1 + 16);
-    v20[0] = *a1;
-    v20[1] = v16;
-    v20[2] = *(a1 + 32);
-    v17 = *a2;
-    v21[0] = v17;
-    if (v17)
+    PCMakeDisplayRGBProfile(a1 + 3, 0, &v24);
+    v18 = *(a1 + 1);
+    v22[0] = *a1;
+    v22[1] = v18;
+    v22[2] = *(a1 + 2);
+    v19 = *a2;
+    v23[0] = v19;
+    if (v19)
     {
-      PCCFRefTraits<CGColorSpace *>::retain(v17);
+      PCCFRefTraits<CGColorSpace *>::retain(v19);
     }
 
-    v18 = *(v15 + 8);
-    if (!v18)
+    v20 = *(v17 + 8);
+    if (!v20)
     {
 LABEL_48:
       operator new();
@@ -3636,13 +3635,13 @@ LABEL_48:
     {
       while (1)
       {
-        v19 = v18;
+        v21 = v20;
         {
           break;
         }
 
-        v18 = *v19;
-        if (!*v19)
+        v20 = *v21;
+        if (!*v21)
         {
           goto LABEL_48;
         }
@@ -3652,15 +3651,15 @@ LABEL_48:
         break;
       }
 
-      v18 = *(v19 + 1);
-      if (!v18)
+      v20 = *(v21 + 1);
+      if (!v20)
       {
         goto LABEL_48;
       }
     }
 
-    PCCFRef<CGColorSpace *>::~PCCFRef(v21);
-    PCICCProfile::~PCICCProfile(&v22);
+    PCCFRef<CGColorSpace *>::~PCCFRef(v23);
+    PCICCProfile::~PCICCProfile(&v24);
     (*(MEMORY[0] + 8))(0);
     if (v6)
     {
@@ -3684,21 +3683,20 @@ LABEL_50:
   }
 }
 
-void sub_25FB91EA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25FB91EA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
-  MEMORY[0x2666E9F00](v9, 0x1081C409227ACB4);
+  va_start(va, a16);
+  MEMORY[0x2666E9F00](v16, 0x1081C409227ACB4, a3, a4, a5, a6, a7, a8);
   PCLockSentry<PCSpinLock>::~PCLockSentry(va);
   _Unwind_Resume(a1);
 }
 
-void PCMakeColorSpaceFromNCLC(int a1@<W0>, int a2@<W1>, int a3@<W2>, CGColorSpace **a4@<X8>, float a5@<S0>)
+void PCMakeColorSpaceFromNCLC(unsigned int a1@<W0>, unsigned int a2@<W1>, int a3@<W2>, CGColorSpace **a4@<X8>, float a5@<S0>)
 {
-  memset(v8, 0, sizeof(v8));
-  v7[0] = a1;
-  v7[1] = a2;
-  v7[2] = a3;
-  v9 = a5;
+  memset(v9, 0, sizeof(v9));
+  v7 = __PAIR64__(a2, a1);
+  v8 = a3;
+  v10 = a5;
 }
 
 __n128 anonymous namespace::getChromaticities@<Q0>(int a1@<W0>, __int128 *a2@<X8>)
@@ -3774,97 +3772,97 @@ __n128 anonymous namespace::getChromaticities@<Q0>(int a1@<W0>, __int128 *a2@<X8
   return result;
 }
 
-const void **anonymous namespace::makeColorSpaceFromProfile@<X0>(_anonymous_namespace_ *this@<X0>, CGColorSpace **a2@<X8>)
+const void **anonymous namespace::makeColorSpaceFromProfile@<X0>(_anonymous_namespace_ *this@<X0>, CGColorSpace **a2@<X8>, uint64_t a3@<X1>, unsigned int a4@<W2>)
 {
-  v5 = *MEMORY[0x277CBECE8];
-  ProfileData = PCICCProfile::getProfileData(this);
-  Size = PCICCProfile::getSize(this);
-  v11 = CFDataCreate(v5, ProfileData, Size);
-  v8 = CGColorSpaceCreateWithICCData(v11);
-  v9 = v8;
-  if (v8)
+  v6 = *MEMORY[0x277CBECE8];
+  ProfileData = PCICCProfile::getProfileData(this, a3, a4);
+  Size = PCICCProfile::getSize(this, v8, v9);
+  v14 = CFDataCreate(v6, ProfileData, Size);
+  v11 = CGColorSpaceCreateWithICCData(v14);
+  v12 = v11;
+  if (v11)
   {
-    PCCFRefTraits<CGColorSpace *>::retain(v8);
+    PCCFRefTraits<CGColorSpace *>::retain(v11);
   }
 
-  *a2 = v9;
-  CGColorSpaceRelease(v9);
-  return PCCFRef<__CTLine const*>::~PCCFRef(&v11);
+  *a2 = v12;
+  CGColorSpaceRelease(v12);
+  return PCCFRef<__CTLine const*>::~PCCFRef(&v14);
 }
 
-void sub_25FB92134(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB92134(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  PCCFRef<CGColorSpace *>::~PCCFRef(v2);
+  va_start(va, a3);
+  PCCFRef<CGColorSpace *>::~PCCFRef(v3);
   PCCFRef<__CTLine const*>::~PCCFRef(va);
   _Unwind_Resume(a1);
 }
 
-void PCMakeColorSpaceFromProfile(const PCICCProfile *a1@<X0>, CGColorSpace **a2@<X8>)
+void PCMakeColorSpaceFromProfile(const PCICCProfile *a1@<X0>, CGColorSpaceRef *a2@<X8>, uint64_t a3@<X1>, unsigned int a4@<W2>)
 {
-  PCICCProfile::getMD5Hash(a1, &v13);
-  v4 = profileCacheLock;
-  v12[1] = profileCacheLock;
+  PCICCProfile::getMD5Hash(&v19, a1, a3, a4);
+  v6 = profileCacheLock;
+  v18[1] = profileCacheLock;
   PCSpinLock::lock(profileCacheLock);
-  v5 = *profileCache;
-  LOBYTE(v12[0]) = 0;
-  PCCacheImpl<PCHash128,PCColorSpaceHandle,PCNoLock,std::less<PCHash128>>::findValue(v5, &v13, v12, a2);
+  v7 = *profileCache;
+  LOBYTE(v18[0]) = 0;
+  PCCacheImpl<PCHash128,PCColorSpaceHandle,PCNoLock,std::less<PCHash128>>::findValue(v7, &v19, v18, a2);
   if (*a2)
   {
-    if (!v4)
+    if (!v6)
     {
       return;
     }
 
 LABEL_10:
-    PCSpinLock::unlock(v4);
+    PCSpinLock::unlock(v6);
     return;
   }
 
-  ProfileData = PCICCProfile::getProfileData(a1);
-  Size = PCICCProfile::getSize(a1);
-  v12[0] = CFDataCreate(*MEMORY[0x277CBECE8], ProfileData, Size);
-  v8 = CGColorSpaceCreateWithICCData(v12[0]);
-  v9 = v8;
-  if (v8)
+  ProfileData = PCICCProfile::getProfileData(a1, v8, v9);
+  Size = PCICCProfile::getSize(a1, v11, v12);
+  v18[0] = CFDataCreate(*MEMORY[0x277CBECE8], ProfileData, Size);
+  v14 = CGColorSpaceCreateWithICCData(v18[0]);
+  v15 = v14;
+  if (v14)
   {
-    PCCFRefTraits<CGColorSpace *>::retain(v8);
+    PCCFRefTraits<CGColorSpace *>::retain(v14);
   }
 
-  v11 = v9;
-  v10 = *a2;
+  v17 = v15;
+  v16 = *a2;
   if (*a2)
   {
-    if (v10 != v9)
+    if (v16 != v15)
     {
-      PCCFRefTraits<CGColorSpace *>::release(v10);
-      v9 = v11;
+      PCCFRefTraits<CGColorSpace *>::release(v16);
+      v15 = v17;
     }
   }
 
-  *a2 = v9;
-  v11 = 0;
-  PCCFRef<CGColorSpace *>::~PCCFRef(&v11);
+  *a2 = v15;
+  v17 = 0;
+  PCCFRef<CGColorSpace *>::~PCCFRef(&v17);
   CGColorSpaceRelease(*a2);
-  PCCacheImpl<PCHash128,PCColorSpaceHandle,PCNoLock,std::less<PCHash128>>::addValue(*profileCache, &v13, a2, 0);
-  PCCFRef<__CTLine const*>::~PCCFRef(v12);
-  if (v4)
+  PCCacheImpl<PCHash128,PCColorSpaceHandle,PCNoLock,std::less<PCHash128>>::addValue(*profileCache, &v19, a2, 0);
+  PCCFRef<__CTLine const*>::~PCCFRef(v18);
+  if (v6)
   {
     goto LABEL_10;
   }
 }
 
-void sub_25FB92288(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB92288(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, CGColorSpace *);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, CGColorSpace *);
   va_copy(va2, va1);
-  v6 = va_arg(va2, const void *);
+  v7 = va_arg(va2, const void *);
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
   PCCFRef<__CTLine const*>::~PCCFRef(va1);
-  PCCFRef<CGColorSpace *>::~PCCFRef(v2);
+  PCCFRef<CGColorSpace *>::~PCCFRef(v3);
   PCLockSentry<PCSpinLock>::~PCLockSentry(va2);
   _Unwind_Resume(a1);
 }
@@ -3890,7 +3888,7 @@ os_unfair_lock_s **PCLockSentry<PCSpinLock>::~PCLockSentry(os_unfair_lock_s **a1
   return a1;
 }
 
-uint64_t anonymous namespace::testColorSpaceEquivalence(CFTypeRef *a1)
+BOOL anonymous namespace::testColorSpaceEquivalence(CFTypeRef *a1)
 {
   v6 = *MEMORY[0x277D85DE8];
   if (CFEqual(*a1, a1[1]))
@@ -3906,12 +3904,13 @@ uint64_t anonymous namespace::testColorSpaceEquivalence(CFTypeRef *a1)
   return v2;
 }
 
-void sub_25FB925E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38)
+void sub_25FB925E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, ...)
 {
+  va_start(va, a37);
   if (a2)
   {
     PCICCProfile::~PCICCProfile(&a10);
-    PCICCProfile::~PCICCProfile(&a38);
+    PCICCProfile::~PCICCProfile(va);
     __cxa_begin_catch(exception_object);
     __cxa_end_catch();
     JUMPOUT(0x25FB925B8);
@@ -3928,7 +3927,7 @@ BOOL std::less<anonymous namespace::CacheKey>::operator()[abi:ne200100](float *a
     return 1;
   }
 
-  if (SLODWORD(v2) > *a2)
+  if (v2 > *a2)
   {
     return 0;
   }
@@ -3957,7 +3956,7 @@ BOOL std::less<anonymous namespace::CacheKey>::operator()[abi:ne200100](float *a
     return 0;
   }
 
-  if (LODWORD(v2) != 2)
+  if (v2 != 2)
   {
     if (v5 != 2)
     {
@@ -4289,22 +4288,22 @@ LABEL_24:
   return result;
 }
 
-void PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::addValue(uint64_t a1, CGColorSpace **a2, _OWORD *a3, unint64_t a4)
+void PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::addValue(void *a1, CGColorSpace **a2, _OWORD *a3, unint64_t a4)
 {
-  if (*(a1 + 88) >= a4 || *(a1 + 104))
+  if (a1[11] >= a4 || a1[13])
   {
-    v6 = a1 + 32;
-    v7 = *(a1 + 32);
+    v6 = a1 + 4;
+    v7 = a1[4];
     v8 = *a2;
     if (!v7)
     {
       goto LABEL_11;
     }
 
-    v9 = a1 + 32;
+    v9 = a1 + 4;
     do
     {
-      v10 = *(v7 + 32);
+      v10 = v7[4];
       v11 = v10 >= v8;
       v12 = v10 < v8;
       if (v11)
@@ -4312,43 +4311,43 @@ void PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::le
         v9 = v7;
       }
 
-      v7 = *(v7 + 8 * v12);
+      v7 = v7[v12];
     }
 
     while (v7);
-    if (v9 != v6 && v8 >= *(v9 + 32))
+    if (v9 != v6 && v8 >= v9[4])
     {
       v33 = v9;
-      *(v9 + 40) = *a3;
-      v19 = *(a1 + 72) + 1;
-      *(a1 + 72) = v19;
-      *(v9 + 64) = v19;
-      PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,std::__tree_node<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,void *> *,long>>>::bubble((a1 + 48), &v33);
+      *(v9 + 5) = *a3;
+      v19 = a1[9] + 1;
+      a1[9] = v19;
+      v9[8] = v19;
+      PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,std::__tree_node<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,void *> *,long>>>::bubble(a1 + 6, &v33);
       v20 = v33;
-      v21 = a4 - *(v33 + 56);
+      v21 = a4 - v33[7];
       if (v21)
       {
-        v22 = v21 + *(a1 + 80);
-        *(a1 + 80) = v22;
-        *(v20 + 56) = a4;
-        if (!*(a1 + 104))
+        v22 = v21 + a1[10];
+        a1[10] = v22;
+        v20[7] = a4;
+        if (!a1[13])
         {
-          while (v22 > *(a1 + 88) || *(a1 + 40) > *(a1 + 96))
+          while (v22 > a1[11] || a1[5] > a1[12])
           {
-            v24 = *(a1 + 48);
-            if (v24 == *(a1 + 56))
+            v24 = a1[6];
+            if (v24 == a1[7])
             {
               break;
             }
 
             v26 = *v24;
-            PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,std::__tree_node<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,void *> *,long>>>::remove((a1 + 48), &v26);
+            PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,std::__tree_node<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,void *> *,long>>>::remove(a1 + 6, &v26);
             v23 = v26;
-            *(a1 + 80) -= *(v26 + 7);
-            std::__tree<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>>>::__remove_node_pointer((a1 + 24), v23);
+            a1[10] -= *(v26 + 7);
+            std::__tree<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>>>::__remove_node_pointer(a1 + 3, v23);
             PCCFRef<CGColorSpace *>::~PCCFRef(v23 + 4);
             operator delete(v23);
-            v22 = *(a1 + 80);
+            v22 = a1[10];
           }
         }
       }
@@ -4357,8 +4356,8 @@ void PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::le
     else
     {
 LABEL_11:
-      v13 = *(a1 + 72) + 1;
-      *(a1 + 72) = v13;
+      v13 = a1[9] + 1;
+      a1[9] = v13;
       v14 = *a3;
       v26 = v8;
       if (v8)
@@ -4372,39 +4371,39 @@ LABEL_11:
       v28 = a4;
       v29 = v13;
       v30 = 0;
-      v31 = std::__tree<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,std::__map_value_compare<std::tuple<PCColorSpaceHandle const>,std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,std::less<std::tuple<PCColorSpaceHandle const>>,true>,std::allocator<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>>>::__emplace_unique_key_args<std::tuple<PCColorSpaceHandle const>,std::pair<std::tuple<PCColorSpaceHandle const> const,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>>(a1 + 24, &v26);
+      v31 = std::__tree<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,std::__map_value_compare<std::tuple<PCColorSpaceHandle const>,std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,std::less<std::tuple<PCColorSpaceHandle const>>,true>,std::allocator<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>>>::__emplace_unique_key_args<std::tuple<PCColorSpaceHandle const>,std::pair<std::tuple<PCColorSpaceHandle const> const,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>>((a1 + 3), &v26, &v26);
       v32 = v15;
       PCCFRef<CGColorSpace *>::~PCCFRef(&v26);
-      PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,std::__tree_node<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,void *> *,long>>>::add(a1 + 48, &v31);
-      v16 = *(a1 + 80) + a4;
-      *(a1 + 80) = v16;
-      if (!*(a1 + 104))
+      PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,std::__tree_node<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,void *> *,long>>>::add((a1 + 6), &v31);
+      v16 = a1[10] + a4;
+      a1[10] = v16;
+      if (!a1[13])
       {
-        while (v16 > *(a1 + 88) || *(a1 + 40) > *(a1 + 96))
+        while (v16 > a1[11] || a1[5] > a1[12])
         {
-          v18 = *(a1 + 48);
-          if (v18 == *(a1 + 56))
+          v18 = a1[6];
+          if (v18 == a1[7])
           {
             break;
           }
 
           v26 = *v18;
-          PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,std::__tree_node<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,void *> *,long>>>::remove((a1 + 48), &v26);
+          PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,std::__tree_node<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,void *> *,long>>>::remove(a1 + 6, &v26);
           v17 = v26;
-          *(a1 + 80) -= *(v26 + 7);
-          std::__tree<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>>>::__remove_node_pointer((a1 + 24), v17);
+          a1[10] -= *(v26 + 7);
+          std::__tree<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>>>::__remove_node_pointer(a1 + 3, v17);
           PCCFRef<CGColorSpace *>::~PCCFRef(v17 + 4);
           operator delete(v17);
-          v16 = *(a1 + 80);
+          v16 = a1[10];
         }
       }
     }
   }
 }
 
-void sub_25FB92DA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25FB92DA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
   _Unwind_Resume(a1);
 }
@@ -4496,41 +4495,41 @@ void PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<s
   }
 }
 
-void *std::__tree<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,std::__map_value_compare<std::tuple<PCColorSpaceHandle const>,std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,std::less<std::tuple<PCColorSpaceHandle const>>,true>,std::allocator<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>>>::__emplace_unique_key_args<std::tuple<PCColorSpaceHandle const>,std::pair<std::tuple<PCColorSpaceHandle const> const,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,std::__map_value_compare<std::tuple<PCColorSpaceHandle const>,std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,std::less<std::tuple<PCColorSpaceHandle const>>,true>,std::allocator<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>>>::__emplace_unique_key_args<std::tuple<PCColorSpaceHandle const>,std::pair<std::tuple<PCColorSpaceHandle const> const,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>>(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     std::__tree<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,std::__map_value_compare<std::tuple<PCColorSpaceHandle const>,std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,std::less<std::tuple<PCColorSpaceHandle const>>,true>,std::allocator<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>>>::__construct_node<std::pair<std::tuple<PCColorSpaceHandle const> const,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>>();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -4624,16 +4623,16 @@ uint64_t PCCacheImpl<PCHash128,PCColorSpaceHandle,PCNoLock,std::less<PCHash128>>
   return result;
 }
 
-void PCCacheImpl<PCHash128,PCColorSpaceHandle,PCNoLock,std::less<PCHash128>>::addValue(uint64_t a1, const PCHash128 *a2, CGColorSpace **a3, unint64_t a4)
+void PCCacheImpl<PCHash128,PCColorSpaceHandle,PCNoLock,std::less<PCHash128>>::addValue(void *a1, const PCHash128 *a2, CGColorSpace **a3, unint64_t a4)
 {
-  if (*(a1 + 88) >= a4 || *(a1 + 104))
+  if (a1[11] >= a4 || a1[13])
   {
-    v8 = std::__tree<std::__value_type<PCHash128,PCRect<double>>,std::__map_value_compare<PCHash128,std::__value_type<PCHash128,PCRect<double>>,std::less<PCHash128>,true>,std::allocator<std::__value_type<PCHash128,PCRect<double>>>>::find<PCHash128>(a1 + 24, a2);
+    v8 = std::__tree<std::__value_type<PCHash128,PCRect<double>>,std::__map_value_compare<PCHash128,std::__value_type<PCHash128,PCRect<double>>,std::less<PCHash128>,true>,std::allocator<std::__value_type<PCHash128,PCRect<double>>>>::find<PCHash128>((a1 + 3), a2);
     v31 = v8;
-    if (a1 + 32 == v8)
+    if (a1 + 4 == v8)
     {
-      v16 = *(a1 + 72) + 1;
-      *(a1 + 72) = v16;
+      v16 = a1[9] + 1;
+      a1[9] = v16;
       v17 = *a3;
       v28 = v17;
       if (v17)
@@ -4653,30 +4652,30 @@ void PCCacheImpl<PCHash128,PCColorSpaceHandle,PCNoLock,std::less<PCHash128>>::ad
 
       v24 = v29;
       v25 = v30;
-      v26 = std::__tree<std::__value_type<PCHash128,PCCacheImpl<PCHash128,PCColorSpaceHandle,PCNoLock,std::less<PCHash128>>::Data>,std::__map_value_compare<PCHash128,std::__value_type<PCHash128,PCCacheImpl<PCHash128,PCColorSpaceHandle,PCNoLock,std::less<PCHash128>>::Data>,std::less<PCHash128>,true>,std::allocator<std::__value_type<PCHash128,PCCacheImpl<PCHash128,PCColorSpaceHandle,PCNoLock,std::less<PCHash128>>::Data>>>::__emplace_unique_key_args<PCHash128,std::pair<PCHash128 const,PCCacheImpl<PCHash128,PCColorSpaceHandle,PCNoLock,std::less<PCHash128>>::Data>>(a1 + 24, &v22);
+      v26 = std::__tree<std::__value_type<PCHash128,PCCacheImpl<PCHash128,PCColorSpaceHandle,PCNoLock,std::less<PCHash128>>::Data>,std::__map_value_compare<PCHash128,std::__value_type<PCHash128,PCCacheImpl<PCHash128,PCColorSpaceHandle,PCNoLock,std::less<PCHash128>>::Data>,std::less<PCHash128>,true>,std::allocator<std::__value_type<PCHash128,PCCacheImpl<PCHash128,PCColorSpaceHandle,PCNoLock,std::less<PCHash128>>::Data>>>::__emplace_unique_key_args<PCHash128,std::pair<PCHash128 const,PCCacheImpl<PCHash128,PCColorSpaceHandle,PCNoLock,std::less<PCHash128>>::Data>>(a1 + 3, &v22, &v22);
       v27 = v18;
       PCCFRef<CGColorSpace *>::~PCCFRef(&v23);
-      PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,std::__tree_node<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,void *> *,long>>>::add(a1 + 48, &v26);
-      v19 = *(a1 + 80) + a4;
-      *(a1 + 80) = v19;
-      if (!*(a1 + 104))
+      PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,std::__tree_node<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,void *> *,long>>>::add((a1 + 6), &v26);
+      v19 = a1[10] + a4;
+      a1[10] = v19;
+      if (!a1[13])
       {
-        while (v19 > *(a1 + 88) || *(a1 + 40) > *(a1 + 96))
+        while (v19 > a1[11] || a1[5] > a1[12])
         {
-          v21 = *(a1 + 48);
-          if (v21 == *(a1 + 56))
+          v21 = a1[6];
+          if (v21 == a1[7])
           {
             break;
           }
 
           *&v22 = *v21;
-          PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,std::__tree_node<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,void *> *,long>>>::remove((a1 + 48), &v22);
+          PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,std::__tree_node<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,void *> *,long>>>::remove(a1 + 6, &v22);
           v20 = v22;
-          *(a1 + 80) -= *(v22 + 56);
-          std::__tree<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>>>::__remove_node_pointer((a1 + 24), v20);
+          a1[10] -= *(v22 + 56);
+          std::__tree<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>>>::__remove_node_pointer(a1 + 3, v20);
           PCCFRef<CGColorSpace *>::~PCCFRef((v20 + 48));
           operator delete(v20);
-          v19 = *(a1 + 80);
+          v19 = a1[10];
         }
       }
 
@@ -4687,35 +4686,35 @@ void PCCacheImpl<PCHash128,PCColorSpaceHandle,PCNoLock,std::less<PCHash128>>::ad
     {
       v9 = v8;
       PCCFRef<CGColorSpace *>::operator=((v8 + 48), a3);
-      v10 = *(a1 + 72) + 1;
-      *(a1 + 72) = v10;
+      v10 = a1[9] + 1;
+      a1[9] = v10;
       *(v9 + 64) = v10;
-      PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,std::__tree_node<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,void *> *,long>>>::bubble((a1 + 48), &v31);
+      PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,std::__tree_node<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,void *> *,long>>>::bubble(a1 + 6, &v31);
       v11 = v31;
       v12 = a4 - *(v31 + 56);
       if (v12)
       {
-        v13 = v12 + *(a1 + 80);
-        *(a1 + 80) = v13;
+        v13 = v12 + a1[10];
+        a1[10] = v13;
         *(v11 + 56) = a4;
-        if (!*(a1 + 104))
+        if (!a1[13])
         {
-          while (v13 > *(a1 + 88) || *(a1 + 40) > *(a1 + 96))
+          while (v13 > a1[11] || a1[5] > a1[12])
           {
-            v15 = *(a1 + 48);
-            if (v15 == *(a1 + 56))
+            v15 = a1[6];
+            if (v15 == a1[7])
             {
               break;
             }
 
             *&v22 = *v15;
-            PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,std::__tree_node<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,void *> *,long>>>::remove((a1 + 48), &v22);
+            PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,std::__tree_node<std::__value_type<std::tuple<PCColorSpaceHandle const>,PCCacheImpl<std::tuple<PCColorSpaceHandle const>,PCHash128,PCNoLock,std::less<std::tuple<PCColorSpaceHandle const>>>::Data>,void *> *,long>>>::remove(a1 + 6, &v22);
             v14 = v22;
-            *(a1 + 80) -= *(v22 + 56);
-            std::__tree<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>>>::__remove_node_pointer((a1 + 24), v14);
+            a1[10] -= *(v22 + 56);
+            std::__tree<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>>>::__remove_node_pointer(a1 + 3, v14);
             PCCFRef<CGColorSpace *>::~PCCFRef((v14 + 48));
             operator delete(v14);
-            v13 = *(a1 + 80);
+            v13 = a1[10];
           }
         }
       }
@@ -4723,22 +4722,22 @@ void PCCacheImpl<PCHash128,PCColorSpaceHandle,PCNoLock,std::less<PCHash128>>::ad
   }
 }
 
-void sub_25FB93474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_25FB93474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__tree<std::__value_type<PCHash128,PCCacheImpl<PCHash128,PCColorSpaceHandle,PCNoLock,std::less<PCHash128>>::Data>,std::__map_value_compare<PCHash128,std::__value_type<PCHash128,PCCacheImpl<PCHash128,PCColorSpaceHandle,PCNoLock,std::less<PCHash128>>::Data>,std::less<PCHash128>,true>,std::allocator<std::__value_type<PCHash128,PCCacheImpl<PCHash128,PCColorSpaceHandle,PCNoLock,std::less<PCHash128>>::Data>>>::__emplace_unique_key_args<PCHash128,std::pair<PCHash128 const,PCCacheImpl<PCHash128,PCColorSpaceHandle,PCNoLock,std::less<PCHash128>>::Data>>(uint64_t a1, const PCHash128 *a2)
+void *std::__tree<std::__value_type<PCHash128,PCCacheImpl<PCHash128,PCColorSpaceHandle,PCNoLock,std::less<PCHash128>>::Data>,std::__map_value_compare<PCHash128,std::__value_type<PCHash128,PCCacheImpl<PCHash128,PCColorSpaceHandle,PCNoLock,std::less<PCHash128>>::Data>,std::less<PCHash128>,true>,std::allocator<std::__value_type<PCHash128,PCCacheImpl<PCHash128,PCColorSpaceHandle,PCNoLock,std::less<PCHash128>>::Data>>>::__emplace_unique_key_args<PCHash128,std::pair<PCHash128 const,PCCacheImpl<PCHash128,PCColorSpaceHandle,PCNoLock,std::less<PCHash128>>::Data>>(uint64_t **a1, const PCHash128 *a2, uint64_t a3)
 {
-  v2 = *std::__tree<std::__value_type<PCHash128,PCRect<double>>,std::__map_value_compare<PCHash128,std::__value_type<PCHash128,PCRect<double>>,std::less<PCHash128>,true>,std::allocator<std::__value_type<PCHash128,PCRect<double>>>>::__find_equal<PCHash128>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::__value_type<PCHash128,PCRect<double>>,std::__map_value_compare<PCHash128,std::__value_type<PCHash128,PCRect<double>>,std::less<PCHash128>,true>,std::allocator<std::__value_type<PCHash128,PCRect<double>>>>::__find_equal<PCHash128>(a1, &v5, a2);
+  if (!v3)
   {
     std::__tree<std::__value_type<PCHash128,PCCacheImpl<PCHash128,PCColorSpaceHandle,PCNoLock,std::less<PCHash128>>::Data>,std::__map_value_compare<PCHash128,std::__value_type<PCHash128,PCCacheImpl<PCHash128,PCColorSpaceHandle,PCNoLock,std::less<PCHash128>>::Data>,std::less<PCHash128>,true>,std::allocator<std::__value_type<PCHash128,PCCacheImpl<PCHash128,PCColorSpaceHandle,PCNoLock,std::less<PCHash128>>::Data>>>::__construct_node<std::pair<PCHash128 const,PCCacheImpl<PCHash128,PCColorSpaceHandle,PCNoLock,std::less<PCHash128>>::Data>>();
   }
 
-  return v2;
+  return v3;
 }
 
 uint64_t std::unique_ptr<std::__tree_node<std::__value_type<PCHash128,PCCacheImpl<PCHash128,PCColorSpaceHandle,PCNoLock,std::less<PCHash128>>::Data>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<PCHash128,PCCacheImpl<PCHash128,PCColorSpaceHandle,PCNoLock,std::less<PCHash128>>::Data>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
@@ -4797,7 +4796,7 @@ uint64_t std::__function::__func<BOOL (*)(anonymous namespace::EquivalenceKey co
   }
 }
 
-void PCCachedFunctionImpl<PCHash128,PCColorSpaceHandle const&>::PCCachedFunctionImpl<PCHash128 (*)(PCColorSpaceHandle const&)>(uint64_t a1, uint64_t a2)
+void PCCachedFunctionImpl<PCHash128,PCColorSpaceHandle const&>::PCCachedFunctionImpl<PCHash128 (*)(PCColorSpaceHandle const&)>(uint64_t a1, uint64_t a2, int a3)
 {
   *(a1 + 24) = 0;
   if (a2)
@@ -4864,10 +4863,10 @@ BOOL operator<(float *a1, uint64_t a2)
   v2 = *a1;
   if (*a1 != *a2)
   {
-    return SLODWORD(v2) < *a2;
+    return v2 < *a2;
   }
 
-  if (LODWORD(v2) == 5)
+  if (v2 == 5)
   {
     return a1[1] < *(a2 + 4);
   }
@@ -4897,9 +4896,9 @@ uint64_t PCColorDescription::PCColorDescription(uint64_t a1, CGColorSpaceRef spa
   return a1;
 }
 
-void sub_25FB93A98(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB93A98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
   _Unwind_Resume(a1);
 }
@@ -4927,9 +4926,9 @@ void PCColorDescription::PCColorDescription(PCColorDescription *this, const PCCo
   PCCFRef<CGColorSpace *>::~PCCFRef(&v7);
 }
 
-void sub_25FB93B34(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB93B34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
   _Unwind_Resume(a1);
 }
@@ -4974,9 +4973,9 @@ void PCColorDescription::PCColorDescription(PCColorDescription *this, CGColorSpa
   PCCFRef<CGColorSpace *>::~PCCFRef(&v6);
 }
 
-void sub_25FB93C4C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB93C4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
   _Unwind_Resume(a1);
 }
@@ -5027,9 +5026,9 @@ CGColorSpace **PCColorDescription::setCGColorSpace(PCColorDescription *this, CGC
   return PCCFRef<CGColorSpace *>::~PCCFRef(&v7);
 }
 
-void sub_25FB93D20(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB93D20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
   _Unwind_Resume(a1);
 }
@@ -5220,7 +5219,7 @@ void sub_25FB94278(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 CGColorSpace **anonymous namespace::lookUpColorSpace@<X0>(CGColorSpace **result@<X0>, CGColorSpace **a2@<X8>)
 {
-  v18[27] = *MEMORY[0x277D85DE8];
+  v24[27] = *MEMORY[0x277D85DE8];
   if (result == -1)
   {
     *a2 = 0;
@@ -5281,16 +5280,16 @@ LABEL_9:
         case 6:
           v7 = 5;
 LABEL_31:
-          PCMakeColorSpaceFromNCLC(v7, 1, 6, &v15, 0.0);
+          PCMakeColorSpaceFromNCLC(v7, 1u, 6, &v21, 0.0);
           break;
         case 7:
           goto LABEL_20;
         case 8:
-          PCICCTransferFunctionParametric0::PCICCTransferFunctionParametric0(v16, 1.961);
-          PCMakeDisplayRGBProfile(&kPCChromaticities_ACEScg, v16, &v17);
-          PCMakeColorSpaceFromProfile(&v17, &v15);
-          PCICCProfile::~PCICCProfile(&v17);
-          PCICCTransferFunctionParametric0::~PCICCTransferFunctionParametric0(v16);
+          PCICCTransferFunctionParametric0::PCICCTransferFunctionParametric0(v22, 1.961);
+          PCMakeDisplayRGBProfile(&kPCChromaticities_ACEScg, v22, &v23);
+          PCMakeColorSpaceFromProfile(&v23, &v21, v12, v13);
+          PCICCProfile::~PCICCProfile(&v23);
+          PCICCTransferFunctionParametric0::~PCICCTransferFunctionParametric0(v22);
           break;
         case 9:
           v8 = &kPCNCLC_Rec2020;
@@ -5302,7 +5301,7 @@ LABEL_31:
           v8 = &kPCNCLC_DCI_P3;
           goto LABEL_36;
         case 12:
-          v8 = &kPCNCLC_P3_D65;
+          v8 = kPCNCLC_P3_D65;
           goto LABEL_36;
         case 13:
           v8 = &kPCNCLC_P3_D65Linear;
@@ -5310,17 +5309,17 @@ LABEL_31:
         case 14:
           v6 = MEMORY[0x277CBF3D0];
 LABEL_20:
-          PCColorSpaceHandle::PCColorSpaceHandle(&v15, *v6);
+          PCColorSpaceHandle::PCColorSpaceHandle(&v21, *v6);
           break;
         case 15:
-          PCMakeDisplayGrayProfile(0.3127, 0.329, 1.0, &v17);
-          PCMakeColorSpaceFromProfile(&v17, &v15);
+          PCMakeDisplayGrayProfile(&v23, 0.3127, 0.329, 1.0);
+          PCMakeColorSpaceFromProfile(&v23, &v21, v10, v11);
           goto LABEL_28;
         case 16:
-          PCMakeDisplayGrayProfile(0.3127, 0.329, 2.2, &v17);
-          PCMakeColorSpaceFromProfile(&v17, &v15);
+          PCMakeDisplayGrayProfile(&v23, 0.3127, 0.329, 2.2);
+          PCMakeColorSpaceFromProfile(&v23, &v21, v14, v15);
 LABEL_28:
-          PCICCProfile::~PCICCProfile(&v17);
+          PCICCProfile::~PCICCProfile(&v23);
           break;
         case 17:
           v8 = &kPCNCLC_Rec2020HLG;
@@ -5337,49 +5336,49 @@ LABEL_28:
         case 21:
           v8 = &kPCNCLC_DCI_P3PQ;
 LABEL_36:
-          v10 = PCGetNCLCColorSpace(v8);
-          PCColorSpaceHandle::PCColorSpaceHandle(&v15, v10);
+          v16 = PCGetNCLCColorSpace(v8);
+          PCColorSpaceHandle::PCColorSpaceHandle(&v21, v16);
           break;
         default:
           break;
       }
 
-      v11 = *a2;
-      v12 = v15;
-      if (*a2 && v11 != v15)
+      v17 = *a2;
+      v18 = v21;
+      if (*a2 && v17 != v21)
       {
-        PCCFRefTraits<CGColorSpace *>::release(v11);
-        v12 = v15;
+        PCCFRefTraits<CGColorSpace *>::release(v17);
+        v18 = v21;
       }
 
-      *a2 = v12;
-      v15 = 0;
-      PCCFRef<CGColorSpace *>::~PCCFRef(&v15);
-      v17 = v3;
-      v14 = *a2;
-      v18[0] = v14;
-      if (v14)
+      *a2 = v18;
+      v21 = 0;
+      PCCFRef<CGColorSpace *>::~PCCFRef(&v21);
+      LODWORD(v23) = v3;
+      v20 = *a2;
+      v24[0] = v20;
+      if (v20)
       {
-        PCCFRefTraits<CGColorSpace *>::retain(v14);
+        PCCFRefTraits<CGColorSpace *>::retain(v20);
       }
 
-      std::__tree<std::__value_type<PCColorSpaceCache::ID,PCColorSpaceHandle>,std::__map_value_compare<PCColorSpaceCache::ID,std::__value_type<PCColorSpaceCache::ID,PCColorSpaceHandle>,std::less<PCColorSpaceCache::ID>,true>,std::allocator<std::__value_type<PCColorSpaceCache::ID,PCColorSpaceHandle>>>::__emplace_unique_key_args<PCColorSpaceCache::ID,std::pair<PCColorSpaceCache::ID const,PCColorSpaceHandle>>(v13, &v17);
-      return PCCFRef<CGColorSpace *>::~PCCFRef(v18);
+      std::__tree<std::__value_type<PCColorSpaceCache::ID,PCColorSpaceHandle>,std::__map_value_compare<PCColorSpaceCache::ID,std::__value_type<PCColorSpaceCache::ID,PCColorSpaceHandle>,std::less<PCColorSpaceCache::ID>,true>,std::allocator<std::__value_type<PCColorSpaceCache::ID,PCColorSpaceHandle>>>::__emplace_unique_key_args<PCColorSpaceCache::ID,std::pair<PCColorSpaceCache::ID const,PCColorSpaceHandle>>(v19, &v23, &v23);
+      return PCCFRef<CGColorSpace *>::~PCCFRef(v24);
     }
   }
 
   return result;
 }
 
-void sub_25FB945BC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB945BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
   PCICCProfile::~PCICCProfile(va1);
   PCICCTransferFunctionParametric0::~PCICCTransferFunctionParametric0(va);
-  PCCFRef<CGColorSpace *>::~PCCFRef(v2);
+  PCCFRef<CGColorSpace *>::~PCCFRef(v3);
   _Unwind_Resume(a1);
 }
 
@@ -5391,9 +5390,9 @@ void PCColorSpaceCache::getColorSpaceByID(CGColorSpace **a1@<X0>, CGColorSpace *
   }
 }
 
-void sub_25FB94690(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB94690(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCLockSentry<PCSpinLock>::~PCLockSentry(va);
   _Unwind_Resume(a1);
 }
@@ -5706,7 +5705,7 @@ void sub_25FB94CE4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-CGColorSpace **PCGetCachedExtendedRangeColorSpace@<X0>(CGColorSpaceRef space@<X0>, CGColorSpace **a2@<X8>)
+CGColorSpace **PCGetCachedExtendedRangeColorSpace@<X0>(CGColorSpace **__return_ptr a1@<X8>, CGColorSpaceRef space@<X0>)
 {
   if (space)
   {
@@ -5714,59 +5713,59 @@ CGColorSpace **PCGetCachedExtendedRangeColorSpace@<X0>(CGColorSpaceRef space@<X0
   }
 
   v5 = space;
-  PCGetCachedExtendedRangeColorSpace(&v5, a2);
+  PCGetCachedExtendedRangeColorSpace(&v5, a1);
   return PCCFRef<CGColorSpace *>::~PCCFRef(&v5);
 }
 
-void sub_25FB94E28(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB94E28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
   _Unwind_Resume(a1);
 }
 
-void anonymous namespace::makeDeviceRGBColorSpace(PCColorSpaceHandle *a1@<X8>)
+void anonymous namespace::makeDeviceRGBColorSpace(PCColorSpaceHandle *__return_ptr a1@<X8>)
 {
   DeviceRGB = CGColorSpaceCreateDeviceRGB();
   PCColorSpaceHandle::PCColorSpaceHandle(a1, DeviceRGB);
   CGColorSpaceRelease(DeviceRGB);
 }
 
-uint64_t *std::__tree<std::__value_type<PCColorSpaceCache::ID,PCColorSpaceHandle>,std::__map_value_compare<PCColorSpaceCache::ID,std::__value_type<PCColorSpaceCache::ID,PCColorSpaceHandle>,std::less<PCColorSpaceCache::ID>,true>,std::allocator<std::__value_type<PCColorSpaceCache::ID,PCColorSpaceHandle>>>::__emplace_unique_key_args<PCColorSpaceCache::ID,std::pair<PCColorSpaceCache::ID const,PCColorSpaceHandle>>(uint64_t a1, int *a2)
+uint64_t *std::__tree<std::__value_type<PCColorSpaceCache::ID,PCColorSpaceHandle>,std::__map_value_compare<PCColorSpaceCache::ID,std::__value_type<PCColorSpaceCache::ID,PCColorSpaceHandle>,std::less<PCColorSpaceCache::ID>,true>,std::allocator<std::__value_type<PCColorSpaceCache::ID,PCColorSpaceHandle>>>::__emplace_unique_key_args<PCColorSpaceCache::ID,std::pair<PCColorSpaceCache::ID const,PCColorSpaceHandle>>(uint64_t a1, int *a2, uint64_t a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 32);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -5976,7 +5975,7 @@ LABEL_24:
   return result;
 }
 
-void PCCacheImpl<PCCFRef<CGColorSpace *>,PCCFRef<CGColorSpace *>,PCNoLock,anonymous namespace::CompareColorSpaceRef>::evictIfNecessary(void *a1)
+void PCCacheImpl<PCCFRef<CGColorSpace *>,PCCFRef<CGColorSpace *>,PCNoLock,anonymous namespace::CompareColorSpaceRef>::evictIfNecessary(char **a1)
 {
   if (!a1[13])
   {
@@ -5991,15 +5990,15 @@ void PCCacheImpl<PCCFRef<CGColorSpace *>,PCCFRef<CGColorSpace *>,PCNoLock,anonym
 
       v4 = *v2;
       v5 = *(*v2 + 64);
-      v6 = v3 - v2 - 1;
+      v6 = ((v3 - v2) >> 3) - 1;
       if (v5 == v6)
       {
       }
 
       else
       {
-        v2[v5] = v2[v6];
-        *(*(a1[6] + 8 * v5) + 64) = v5;
+        *&v2[8 * v5] = *&v2[8 * v6];
+        *(*&a1[6][8 * v5] + 64) = v5;
       }
 
       a1[10] -= *(v4 + 48);
@@ -6020,7 +6019,7 @@ void PCCacheImpl<PCCFRef<CGColorSpace *>,PCCFRef<CGColorSpace *>,PCNoLock,anonym
       {
         do
         {
-          v9 = v8[2];
+          v9 = *(v8 + 2);
           v10 = *v9 == v8;
           v8 = v9;
         }
@@ -6061,7 +6060,7 @@ uint64_t std::unique_ptr<std::__tree_node<std::__value_type<PCCFRef<CGColorSpace
   return a1;
 }
 
-void std::vector<std::__map_iterator<std::__tree_iterator<std::__value_type<PCCFRef<CGColorSpace *>,PCCacheImpl<PCCFRef<CGColorSpace *>,PCCFRef<CGColorSpace *>,PCNoLock,anonymous namespace::CompareColorSpaceRef>::Data>,std::__tree_node<std::__value_type<PCCFRef<CGColorSpace *>,PCCacheImpl<PCCFRef<CGColorSpace *>,PCCFRef<CGColorSpace *>,PCNoLock,anonymous namespace::CompareColorSpaceRef>::Data>,void *> *,long>>>::resize(uint64_t *a1, unint64_t a2)
+void std::vector<std::__map_iterator<std::__tree_iterator<std::__value_type<PCCFRef<CGColorSpace *>,PCCacheImpl<PCCFRef<CGColorSpace *>,PCCFRef<CGColorSpace *>,PCNoLock,anonymous namespace::CompareColorSpaceRef>::Data>,std::__tree_node<std::__value_type<PCCFRef<CGColorSpace *>,PCCacheImpl<PCCFRef<CGColorSpace *>,PCCFRef<CGColorSpace *>,PCNoLock,anonymous namespace::CompareColorSpaceRef>::Data>,void *> *,long>>>::resize(char **a1, unint64_t a2)
 {
   v3 = *a1;
   v4 = a1[1];
@@ -6073,7 +6072,7 @@ void std::vector<std::__map_iterator<std::__tree_iterator<std::__value_type<PCCF
       return;
     }
 
-    v11 = v3 + 8 * a2;
+    v11 = (v3 + 8 * a2);
   }
 
   else
@@ -6084,7 +6083,7 @@ void std::vector<std::__map_iterator<std::__tree_iterator<std::__value_type<PCCF
     {
       if (!(a2 >> 61))
       {
-        v8 = v7 - v3;
+        v8 = &v7[-v3];
         v9 = v8 >> 2;
         if (v8 >> 2 <= a2)
         {
@@ -6113,7 +6112,7 @@ void std::vector<std::__map_iterator<std::__tree_iterator<std::__value_type<PCCF
     }
 
     bzero(a1[1], 8 * v6);
-    v11 = v4 + 8 * v6;
+    v11 = &v4[8 * v6];
   }
 
   a1[1] = v11;
@@ -6498,7 +6497,7 @@ __n128 PCICCProfile::computeMD5(PCICCProfile *this)
   v10 = 0;
   v11 = 0;
   PCMD5::writeBytes(&v8, *(this + 23), *(this + 24) - *(this + 23));
-  PCMD5::getHash(&v8, &v7);
+  PCMD5::getHash(&v7, &v8);
   *(this + 13) = v7;
   ProCore::Private::setUInt32NumberLE(this + 21, *(this + 52));
   ProCore::Private::setUInt32NumberLE(this + 22, *(this + 53));
@@ -6511,123 +6510,123 @@ __n128 PCICCProfile::computeMD5(PCICCProfile *this)
   return result;
 }
 
-__n128 PCICCProfile::getMD5Hash@<Q0>(PCICCProfile *this@<X0>, __n128 *a2@<X8>)
+__n128 PCICCProfile::getMD5Hash@<Q0>(__n128 *__return_ptr a1@<X8>, PCICCProfile *this@<X0>, uint64_t a3@<X1>, unsigned int a4@<W2>)
 {
-  PCICCProfile::buildProfile(this);
+  PCICCProfile::buildProfile(this, a3, a4);
   result = *(this + 13);
-  *a2 = result;
+  *a1 = result;
   return result;
 }
 
-void PCICCProfile::buildProfile(PCICCProfile *this)
+void PCICCProfile::buildProfile(__int128 *this, uint64_t a2, unsigned int a3)
 {
   if (*(this + 176) == 1)
   {
-    v3 = (this + 184);
-    v2 = *(this + 23);
-    v4 = ((*(this + 20) - *(this + 19)) >> 1) + 132;
-    v5 = *(this + 24) - v2;
-    v35 = (this + 184);
-    if (v4 <= v5)
+    v5 = this + 23;
+    v4 = *(this + 23);
+    v6 = ((*(this + 20) - *(this + 19)) >> 1) + 132;
+    v7 = *(this + 24) - v4;
+    v38 = this + 23;
+    if (v6 <= v7)
     {
-      if (v4 < v5)
+      if (v6 < v7)
       {
-        *(this + 24) = v2 + v4;
+        *(this + 24) = v4 + v6;
       }
     }
 
     else
     {
-      std::vector<unsigned char>::__append(this + 23, v4 - v5);
-      v2 = *v3;
+      std::vector<unsigned char>::__append(this + 23, v6 - v7);
+      v4 = *v5;
     }
 
-    v6 = *this;
-    v7 = *(this + 1);
-    v8 = *(this + 3);
-    v2[2] = *(this + 2);
-    v2[3] = v8;
-    *v2 = v6;
-    v2[1] = v7;
-    v9 = *(this + 4);
-    v10 = *(this + 5);
-    v11 = *(this + 7);
-    v2[6] = *(this + 6);
-    v2[7] = v11;
-    v2[4] = v9;
-    v2[5] = v10;
+    v8 = *this;
+    v9 = this[1];
+    v10 = this[3];
+    v4[2] = this[2];
+    v4[3] = v10;
+    *v4 = v8;
+    v4[1] = v9;
+    v11 = this[4];
+    v12 = this[5];
+    v13 = this[7];
+    v4[6] = this[6];
+    v4[7] = v13;
+    v4[4] = v11;
+    v4[5] = v12;
     ProCore::Private::setUInt32Number((*(this + 23) + 128), (-1431655765 * ((*(this + 20) - *(this + 19)) >> 3)));
-    v36[0] = 0;
-    v36[1] = 0;
-    v12 = *(this + 19);
-    if (*(this + 20) != v12)
+    v39[0] = 0;
+    v39[1] = 0;
+    v14 = *(this + 19);
+    if (*(this + 20) != v14)
     {
-      v13 = 0;
-      v14 = 0;
-      v15 = 132;
+      v15 = 0;
+      v16 = 0;
+      v17 = 132;
       do
       {
-        v16 = (v12 + 24 * v13);
-        v17 = *(v16 + 1);
-        v18 = *(v16 + 2);
-        v20 = *v17;
-        v19 = v17[1];
-        if (v18)
+        v18 = (v14 + 24 * v15);
+        v19 = *(v18 + 1);
+        v20 = *(v18 + 2);
+        v22 = *v19;
+        v21 = v19[1];
+        if (v20)
         {
-          atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        v21 = v19 - v20;
-        v22 = v36[0];
-        if (!v36[0])
+        v23 = v21 - v22;
+        v24 = v39[0];
+        if (!v39[0])
         {
           goto LABEL_18;
         }
 
-        v23 = v36;
+        v25 = v39;
         do
         {
-          v24 = v22[5];
-          v25 = v24 >= v17;
-          v26 = v24 < v17;
-          if (v25)
+          v26 = v24[5];
+          v27 = v26 >= v19;
+          v28 = v26 < v19;
+          if (v27)
           {
-            v23 = v22;
+            v25 = v24;
           }
 
-          v22 = v22[v26];
+          v24 = v24[v28];
         }
 
-        while (v22);
-        if (v23 != v36 && v17 >= v23[5])
+        while (v24);
+        if (v25 != v39 && v19 >= v25[5])
         {
-          v28 = v23[4];
-          v32 = v35;
+          v30 = v25[4];
+          v34 = v38;
         }
 
         else
         {
 LABEL_18:
-          v27 = *(this + 23);
-          v28 = (*(this + 24) - v27);
-          if (v28 >= &v28[v21])
+          v29 = *(this + 23);
+          v30 = (*(this + 24) - v29);
+          if (v30 >= &v30[v23])
           {
-            if (v28 > &v28[v21])
+            if (v30 > &v30[v23])
             {
-              *(this + 24) += v21;
+              *(this + 24) += v23;
             }
           }
 
           else
           {
-            std::vector<unsigned char>::__append(v35, v21);
-            v27 = *v35;
+            std::vector<unsigned char>::__append(v38, v23);
+            v29 = *v38;
           }
 
-          memcpy(&v28[v27], **(v16 + 1), v21);
-          v29 = v36[0];
+          memcpy(&v30[v29], **(v18 + 1), v23);
+          v31 = v39[0];
 LABEL_23:
-          if (!v29)
+          if (!v31)
           {
 LABEL_30:
             operator new();
@@ -6635,67 +6634,67 @@ LABEL_30:
 
           while (1)
           {
-            v30 = v29;
-            v31 = v29[5];
-            if (v17 < v31)
+            v32 = v31;
+            v33 = v31[5];
+            if (v19 < v33)
             {
-              v29 = *v30;
+              v31 = *v32;
               goto LABEL_23;
             }
 
-            if (v31 >= v17)
+            if (v33 >= v19)
             {
               break;
             }
 
-            v29 = v30[1];
-            if (!v29)
+            v31 = v32[1];
+            if (!v31)
             {
               goto LABEL_30;
             }
           }
 
-          v33 = ((v21 + 3) & 0xFFFFFFFFFFFFFFFCLL) - v21;
-          v34 = *(this + 24) - *(this + 23);
-          if (v34 >= v34 + v33)
+          v35 = ((v23 + 3) & 0xFFFFFFFFFFFFFFFCLL) - v23;
+          v36 = *(this + 24) - *(this + 23);
+          if (v36 >= v36 + v35)
           {
-            v32 = v35;
-            if (v34 > v34 + v33)
+            v34 = v38;
+            if (v36 > v36 + v35)
             {
-              *(this + 24) += v33;
+              *(this + 24) += v35;
             }
           }
 
           else
           {
-            v32 = v35;
-            std::vector<unsigned char>::__append(v35, v33);
+            v34 = v38;
+            std::vector<unsigned char>::__append(v38, v35);
           }
         }
 
-        ProCore::Private::setUInt32Number(&(*v32)[v15], *v16);
-        ProCore::Private::setUInt32Number(&(*v32)[v15 + 4], v28);
-        ProCore::Private::setUInt32Number(&(*v32)[v15 + 8], v21);
-        if (v18)
+        ProCore::Private::setUInt32Number(&(*v34)[v17], *v18);
+        ProCore::Private::setUInt32Number(&(*v34)[v17 + 4], v30);
+        ProCore::Private::setUInt32Number(&(*v34)[v17 + 8], v23);
+        if (v20)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v18);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v20);
         }
 
-        v15 += 12;
-        v12 = *(this + 19);
-        v13 = ++v14;
+        v17 += 12;
+        v14 = *(this + 19);
+        v15 = ++v16;
       }
 
-      while (0xAAAAAAAAAAAAAAABLL * ((*(this + 20) - v12) >> 3) != v14);
+      while (0xAAAAAAAAAAAAAAABLL * ((*(this + 20) - v14) >> 3) != v16);
     }
 
     ProCore::Private::setUInt32Number(*(this + 23), (*(this + 48) - *(this + 23)));
-    PCICCProfile::computeMD5(this);
+    v37 = PCICCProfile::computeMD5(this);
     *(this + 176) = 0;
   }
 }
 
-void PCICCProfile::findTagBySignature(PCICCProfile *this@<X0>, int a2@<W1>, PCICCTag *a3@<X8>)
+void PCICCProfile::findTagBySignature(PCICCTag *this@<X0>, int a2@<W1>, PCICCTag *a3@<X8>)
 {
   for (i = *(this + 19); ; i += 24)
   {
@@ -6761,7 +6760,7 @@ void **std::vector<std::shared_ptr<std::vector<unsigned char>>>::push_back[abi:n
 
     v7 = (v12 + 16);
     v14 = result[1] - *result;
-    v15 = v12 - v14;
+    v15 = (v12 - v14);
     memcpy((v12 - v14), *result, v14);
     v16 = *v3;
     *v3 = v15;
@@ -6792,7 +6791,7 @@ void **std::vector<std::shared_ptr<std::vector<unsigned char>>>::push_back[abi:n
   return result;
 }
 
-uint64_t std::vector<PCICCProfile::Tag>::push_back[abi:ne200100](uint64_t *a1, uint64_t a2)
+uint64_t std::vector<PCICCProfile::Tag>::push_back[abi:ne200100](unint64_t *a1, uint64_t a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -6818,26 +6817,26 @@ uint64_t std::vector<PCICCProfile::Tag>::push_back[abi:ne200100](uint64_t *a1, u
   return result;
 }
 
-uint64_t PCICCProfile::getSize(ProCore::Private **this)
+uint64_t PCICCProfile::getSize(PCICCProfile *this, uint64_t a2, unsigned int a3)
 {
-  PCICCProfile::buildProfile(this);
-  v3 = this[23];
+  PCICCProfile::buildProfile(this, a2, a3);
+  v5 = *(this + 23);
 
-  return ProCore::Private::getInt32Number(v3, v2);
+  return ProCore::Private::getInt32Number(v5, v4);
 }
 
-_BYTE *anonymous namespace::addXYZToTag(ProCore::Private *a1, double *a2)
+_BYTE *anonymous namespace::addXYZToTag(ProCore::Private *a1, double *a2, unsigned int a3)
 {
   ProCore::Private::addInt32ToTag(a1, 0x58595A20);
   ProCore::Private::addInt32ToTag(a1, 0);
-  ProCore::Private::add15Fixed16ToTag(a1, v4, *a2);
-  ProCore::Private::add15Fixed16ToTag(a1, v5, a2[1]);
-  v7 = a2[2];
+  ProCore::Private::add15Fixed16ToTag(a1, v5, *a2);
+  ProCore::Private::add15Fixed16ToTag(a1, v6, a2[1]);
+  v8 = a2[2];
 
-  return ProCore::Private::add15Fixed16ToTag(a1, v6, v7);
+  return ProCore::Private::add15Fixed16ToTag(a1, v7, v8);
 }
 
-_BYTE *PCMakeChromaticAdaptationICCTag(ProCore::Private *a1, uint64_t a2)
+_BYTE *PCMakeChromaticAdaptationICCTag(PCICCTag *a1, uint64_t a2)
 {
   PCICCTag::reset(a1, 1667785060);
   ProCore::Private::addInt32ToTag(a1, 0x73663332);
@@ -6886,16 +6885,16 @@ void anonymous namespace::addMultiLocalizedUnicodeToTag(_anonymous_namespace_ *t
 void PCMakeDisplayRGBProfile(float *a1@<X0>, uint64_t a2@<X1>, PCICCTag *a3@<X2>, PCICCTag *a4@<X3>, PCICCProfile *a5@<X8>)
 {
   PCICCProfile::PCICCProfile(a5);
-  PCConvertChromaticitiesToXYZ(a1, &v67, &v65, &v63, v62, v10, v11, v12, v13, v14, v15, v16);
-  v61[0] = 0x3FF0000000000000;
-  memset(&v61[1], 0, 24);
-  v61[4] = 0x3FF0000000000000;
-  memset(&v61[5], 0, 24);
-  v61[8] = 0x3FF0000000000000;
+  PCConvertChromaticitiesToXYZ(a1, &v71, &v69, &v67, v66, v10, v11, v12, v13, v14, v15, v16);
+  v65[0] = 1.0;
+  memset(&v65[1], 0, 24);
+  v65[4] = 1.0;
+  memset(&v65[5], 0, 24);
+  v65[8] = 1.0;
   v18 = 1.0;
-  if (v68 <= 1.0)
+  if (v72 <= 1.0)
   {
-    v19 = v68;
+    v19 = v72;
   }
 
   else
@@ -6904,15 +6903,15 @@ void PCMakeDisplayRGBProfile(float *a1@<X0>, uint64_t a2@<X1>, PCICCTag *a3@<X2>
   }
 
   v20 = 0.0;
-  if (v68 < 0.0)
+  if (v72 < 0.0)
   {
     v19 = 0.0;
   }
 
-  v68 = v19;
-  if (v66 <= 1.0)
+  v72 = v19;
+  if (v70 <= 1.0)
   {
-    v21 = v66;
+    v21 = v70;
   }
 
   else
@@ -6920,7 +6919,7 @@ void PCMakeDisplayRGBProfile(float *a1@<X0>, uint64_t a2@<X1>, PCICCTag *a3@<X2>
     v21 = 1.0;
   }
 
-  if (v66 >= 0.0)
+  if (v70 >= 0.0)
   {
     v22 = v21;
   }
@@ -6930,18 +6929,22 @@ void PCMakeDisplayRGBProfile(float *a1@<X0>, uint64_t a2@<X1>, PCICCTag *a3@<X2>
     v22 = 0.0;
   }
 
-  v66 = v22;
-  if (v64 <= 1.0)
+  v70 = v22;
+  if (v68 <= 1.0)
   {
-    v18 = v64;
+    v18 = v68;
   }
 
-  if (v64 >= 0.0)
+  if (v68 >= 0.0)
   {
     v20 = v18;
   }
 
-  v64 = v20;
+  v68 = v20;
+  v61 = 0;
+  v63 = 0;
+  v64 = 0;
+  v62 = 0;
   v57 = 0;
   v59 = 0;
   v60 = 0;
@@ -6954,69 +6957,59 @@ void PCMakeDisplayRGBProfile(float *a1@<X0>, uint64_t a2@<X1>, PCICCTag *a3@<X2>
   v51 = 0;
   v52 = 0;
   v50 = 0;
-  v45 = 0;
-  v47 = 0;
-  v48 = 0;
-  v46 = 0;
-  PCICCTag::reset(&v57, 1918392666);
-  PCICCTag::reset(&v53, 1733843290);
-  PCICCTag::reset(&v49, 1649957210);
-  PCICCTag::reset(&v45, 2004119668);
+  PCICCTag::reset(&v61, 1918392666);
+  PCICCTag::reset(&v57, 1733843290);
+  PCICCTag::reset(&v53, 1649957210);
+  PCICCTag::reset(&v49, 2004119668);
+  PCICCProfile::addTag(a5, &v61);
   PCICCProfile::addTag(a5, &v57);
   PCICCProfile::addTag(a5, &v53);
   PCICCProfile::addTag(a5, &v49);
-  PCICCProfile::addTag(a5, &v45);
   if (v17)
   {
-    v41 = 0;
-    v43 = 0;
-    v44 = 0;
+    v45 = 0;
+    v47 = 0;
+    v48 = 0;
     __p = 0;
-    PCMakeChromaticAdaptationICCTag(&v41, v61);
-    PCICCProfile::addTag(a5, &v41);
+    PCMakeChromaticAdaptationICCTag(&v45, v65);
+    PCICCProfile::addTag(a5, &v45);
     if (__p)
     {
-      v43 = __p;
+      v47 = __p;
       operator delete(__p);
     }
   }
 
+  v45 = 0;
+  v47 = 0;
+  v48 = 0;
+  __p = 0;
   v41 = 0;
   v43 = 0;
   v44 = 0;
-  __p = 0;
+  v42 = 0;
   v37 = 0;
   v39 = 0;
   v40 = 0;
   v38 = 0;
+  PCMakeTRCTag(a2, &v45, 0);
+  PCMakeTRCTag(a2, &v41, 1);
+  PCMakeTRCTag(a2, &v37, 2);
+  PCICCProfile::addTag(a5, &v45);
+  PCICCProfile::addTag(a5, &v41);
+  PCICCProfile::addTag(a5, &v37);
   v33 = 0;
   v35 = 0;
   v36 = 0;
   v34 = 0;
-  PCMakeTRCTag(a2, &v41, 0);
-  PCMakeTRCTag(a2, &v37, 1);
-  PCMakeTRCTag(a2, &v33, 2);
-  PCICCProfile::addTag(a5, &v41);
-  PCICCProfile::addTag(a5, &v37);
+  PCICCTag::reset(&v33, 1684370275);
   PCICCProfile::addTag(a5, &v33);
   v29 = 0;
   v31 = 0;
   v32 = 0;
   v30 = 0;
-  PCICCTag::reset(&v29, 1684370275);
+  PCICCTag::reset(&v29, 1668313716);
   PCICCProfile::addTag(a5, &v29);
-  v25 = 0;
-  v27 = 0;
-  v28 = 0;
-  v26 = 0;
-  PCICCTag::reset(&v25, 1668313716);
-  PCICCProfile::addTag(a5, &v25);
-  if (v26)
-  {
-    v27 = v26;
-    operator delete(v26);
-  }
-
   if (v30)
   {
     v31 = v30;
@@ -7035,16 +7028,16 @@ void PCMakeDisplayRGBProfile(float *a1@<X0>, uint64_t a2@<X1>, PCICCTag *a3@<X2>
     operator delete(v38);
   }
 
-  if (__p)
+  if (v42)
   {
-    v43 = __p;
-    operator delete(__p);
+    v43 = v42;
+    operator delete(v42);
   }
 
-  if (v46)
+  if (__p)
   {
-    v47 = v46;
-    operator delete(v46);
+    v47 = __p;
+    operator delete(__p);
   }
 
   if (v50)
@@ -7063,6 +7056,12 @@ void PCMakeDisplayRGBProfile(float *a1@<X0>, uint64_t a2@<X1>, PCICCTag *a3@<X2>
   {
     v59 = v58;
     operator delete(v58);
+  }
+
+  if (v62)
+  {
+    v63 = v62;
+    operator delete(v62);
   }
 }
 
@@ -7099,7 +7098,7 @@ void sub_25FB96B78(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t anonymous namespace::adaptXYZColors(uint64_t a1, uint64_t a2, uint64_t a3, double *a4, uint64_t a5)
+uint64_t anonymous namespace::adaptXYZColors(double *a1, double *a2, double *a3, double *a4, double *a5)
 {
   if (v9)
   {
@@ -7146,75 +7145,75 @@ void PCMakeDisplayGrayProfile(uint64_t a1@<X0>, PCICCTag *a2@<X1>, PCICCTag *a3@
   PCICCProfile::PCICCProfile(a4);
   PCICCProfile::setUpHeader(a4, 0x7DFu, 7u, 0xAu, 0, 0, 0);
   ProCore::Private::setUInt32Number(a4 + 4, 0x47524159);
-  v32[0] = (a5 / a6);
-  v32[1] = 1.0;
-  v32[2] = (((1.0 - a5) - a6) / a6);
-  v31[0] = 0x3FF0000000000000;
-  memset(&v31[1], 0, 24);
-  v31[4] = 0x3FF0000000000000;
-  memset(&v31[5], 0, 24);
-  v31[8] = 0x3FF0000000000000;
-  v27 = 0;
-  v29 = 0;
-  v30 = 0;
+  v33[0] = (a5 / a6);
+  v33[1] = 1.0;
+  v33[2] = (((1.0 - a5) - a6) / a6);
+  v32[0] = 0x3FF0000000000000;
+  memset(&v32[1], 0, 24);
+  v32[4] = 0x3FF0000000000000;
+  memset(&v32[5], 0, 24);
+  v32[8] = 0x3FF0000000000000;
   v28 = 0;
-  PCICCTag::reset(&v27, 2004119668);
-  PCICCProfile::addTag(a4, &v27);
+  v30 = 0;
+  v31 = 0;
+  v29 = 0;
+  PCICCTag::reset(&v28, 2004119668);
+  PCICCProfile::addTag(a4, &v28);
   if (v12)
   {
-    v23 = 0;
-    v25 = 0;
+    v24 = 0;
     v26 = 0;
+    v27 = 0;
     __p = 0;
-    PCMakeChromaticAdaptationICCTag(&v23, v31);
-    PCICCProfile::addTag(a4, &v23);
+    PCMakeChromaticAdaptationICCTag(&v24, v32);
+    PCICCProfile::addTag(a4, &v24);
     if (__p)
     {
-      v25 = __p;
+      v26 = __p;
       operator delete(__p);
     }
   }
 
-  v23 = 0;
-  v25 = 0;
+  v24 = 0;
   v26 = 0;
+  v27 = 0;
   __p = 0;
-  PCMakeTRCTag(a1, &v23, 3);
-  PCICCProfile::addTag(a4, &v23);
-  v19 = 0;
-  v21 = 0;
-  v22 = 0;
+  PCMakeTRCTag(a1, &v24, 3);
+  PCICCProfile::addTag(a4, &v24);
   v20 = 0;
-  PCICCTag::reset(&v19, 1684370275);
-  PCICCProfile::addTag(a4, &v19);
-  v15 = 0;
-  v17 = 0;
-  v18 = 0;
+  v22 = 0;
+  v23 = 0;
+  v21 = 0;
+  PCICCTag::reset(&v20, 1684370275);
+  PCICCProfile::addTag(a4, &v20);
   v16 = 0;
-  PCICCTag::reset(&v15, 1668313716);
-  PCICCProfile::addTag(a4, &v15);
-  if (v16)
+  v18 = 0;
+  v19 = 0;
+  v17 = 0;
+  PCICCTag::reset(&v16, 1668313716);
+  PCICCProfile::addTag(a4, &v16);
+  if (v17)
   {
-    v17 = v16;
-    operator delete(v16);
+    v18 = v17;
+    operator delete(v17);
   }
 
-  if (v20)
+  if (v21)
   {
-    v21 = v20;
-    operator delete(v20);
+    v22 = v21;
+    operator delete(v21);
   }
 
   if (__p)
   {
-    v25 = __p;
+    v26 = __p;
     operator delete(__p);
   }
 
-  if (v28)
+  if (v29)
   {
-    v29 = v28;
-    operator delete(v28);
+    v30 = v29;
+    operator delete(v29);
   }
 }
 
@@ -7278,7 +7277,7 @@ void PCMakeDisplayGrayProfile(float a1@<S0>, float a2@<S1>, float a3@<S2>, PCICC
   PCICCTransferFunctionGamma::~PCICCTransferFunctionGamma(v11);
 }
 
-uint64_t PCMakeDisplayGrayProfile@<X0>(float a1@<S0>, float a2@<S1>, float a3@<S2>, PCICCProfile *a4@<X8>)
+uint64_t *PCMakeDisplayGrayProfile@<X0>(PCICCProfile *__return_ptr a1@<X8>, float a2@<S0>, float a3@<S1>, float a4@<S2>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v12);
   std::stringbuf::str();
@@ -7292,7 +7291,7 @@ uint64_t PCMakeDisplayGrayProfile@<X0>(float a1@<S0>, float a2@<S1>, float a3@<S
     p_p = __p;
   }
 
-  PCMakeDisplayGrayProfile(a1, a2, a3, p_p, "Copyright (c) 2016 Apple Inc.", a4);
+  PCMakeDisplayGrayProfile(a2, a3, a4, p_p, "Copyright (c) 2016 Apple Inc.", a1);
   if (v11 < 0)
   {
     operator delete(__p);
@@ -7419,26 +7418,26 @@ void PCMakeDisplayRGBProfileFromGrayProfile(const PCICCProfile *a1@<X0>, PCICCPr
 {
   PCICCProfile::PCICCProfile(a2);
   PCICCProfile::setUpHeader(a2, 0x7DFu, 8u, 4u, 0, 0, 0);
-  PCICCProfile::findTagBySignature(a1, 2004119668, v60);
-  PCICCProfile::findTagBySignature(a1, 1800688195, &v57);
-  v52 = kPCChromaticities_ITU_R709_2;
-  v53 = 0x3D75C28F3E19999ALL;
-  v4 = vaddvq_f64(v55);
-  v54 = COERCE_DOUBLE(vcvt_f32_f64(vdivq_f64(v55, vdupq_lane_s64(COERCE__INT64(v4 + v56), 0))));
-  if (!PCConvertChromaticitiesToXYZ(&v52, &v50, &v48, &v46, v45, v54, v55.f64[0], v4, v5, v6, v7, v8))
+  PCICCProfile::findTagBySignature(a1, 2004119668, v64);
+  PCICCProfile::findTagBySignature(a1, 1800688195, v61);
+  v56 = kPCChromaticities_ITU_R709_2;
+  v57 = 0x3D75C28F3E19999ALL;
+  v4 = vaddvq_f64(v59);
+  v58 = COERCE_DOUBLE(vcvt_f32_f64(vdivq_f64(v59, vdupq_lane_s64(COERCE__INT64(v4 + v60), 0))));
+  if (!PCConvertChromaticitiesToXYZ(&v56, &v54, &v52, &v50, v49, v58, v59.f64[0], v4, v5, v6, v7, v8))
   {
-    PCConvertChromaticitiesToXYZ(&kPCChromaticities_ITU_R709_2, &v50, &v48, &v46, &v55, v9, v10, v11, v12, v13, v14, v15);
+    PCConvertChromaticitiesToXYZ(&kPCChromaticities_ITU_R709_2, &v54, &v52, &v50, &v59, v9, v10, v11, v12, v13, v14, v15);
   }
 
-  v44[0] = 0x3FF0000000000000;
-  memset(&v44[1], 0, 24);
-  v44[4] = 0x3FF0000000000000;
-  memset(&v44[5], 0, 24);
-  v44[8] = 0x3FF0000000000000;
+  v48[0] = 1.0;
+  memset(&v48[1], 0, 24);
+  v48[4] = 1.0;
+  memset(&v48[5], 0, 24);
+  v48[8] = 1.0;
   v17 = 1.0;
-  if (v51 <= 1.0)
+  if (v55 <= 1.0)
   {
-    v18 = v51;
+    v18 = v55;
   }
 
   else
@@ -7447,15 +7446,15 @@ void PCMakeDisplayRGBProfileFromGrayProfile(const PCICCProfile *a1@<X0>, PCICCPr
   }
 
   v19 = 0.0;
-  if (v51 < 0.0)
+  if (v55 < 0.0)
   {
     v18 = 0.0;
   }
 
-  v51 = v18;
-  if (v49 <= 1.0)
+  v55 = v18;
+  if (v53 <= 1.0)
   {
-    v20 = v49;
+    v20 = v53;
   }
 
   else
@@ -7463,7 +7462,7 @@ void PCMakeDisplayRGBProfileFromGrayProfile(const PCICCProfile *a1@<X0>, PCICCPr
     v20 = 1.0;
   }
 
-  if (v49 >= 0.0)
+  if (v53 >= 0.0)
   {
     v21 = v20;
   }
@@ -7473,18 +7472,22 @@ void PCMakeDisplayRGBProfileFromGrayProfile(const PCICCProfile *a1@<X0>, PCICCPr
     v21 = 0.0;
   }
 
-  v49 = v21;
-  if (v47 <= 1.0)
+  v53 = v21;
+  if (v51 <= 1.0)
   {
-    v17 = v47;
+    v17 = v51;
   }
 
-  if (v47 >= 0.0)
+  if (v51 >= 0.0)
   {
     v19 = v17;
   }
 
-  v47 = v19;
+  v51 = v19;
+  v44 = 0;
+  v46 = 0;
+  v47 = 0;
+  v45 = 0;
   v40 = 0;
   v42 = 0;
   v43 = 0;
@@ -7493,67 +7496,57 @@ void PCMakeDisplayRGBProfileFromGrayProfile(const PCICCProfile *a1@<X0>, PCICCPr
   v38 = 0;
   v39 = 0;
   v37 = 0;
-  v32 = 0;
-  v34 = 0;
-  v35 = 0;
-  v33 = 0;
-  PCICCTag::reset(&v40, 1918392666);
-  PCICCTag::reset(&v36, 1733843290);
-  PCICCTag::reset(&v32, 1649957210);
-  PCICCTag::reset(v60, 2004119668);
+  PCICCTag::reset(&v44, 1918392666);
+  PCICCTag::reset(&v40, 1733843290);
+  PCICCTag::reset(&v36, 1649957210);
+  PCICCTag::reset(v64, 2004119668);
+  PCICCProfile::addTag(a2, &v44);
   PCICCProfile::addTag(a2, &v40);
   PCICCProfile::addTag(a2, &v36);
-  PCICCProfile::addTag(a2, &v32);
-  PCICCProfile::addTag(a2, v60);
+  PCICCProfile::addTag(a2, v64);
   if (v16)
   {
-    v28 = 0;
-    v30 = 0;
-    v31 = 0;
+    v32 = 0;
+    v34 = 0;
+    v35 = 0;
     __p = 0;
-    PCMakeChromaticAdaptationICCTag(&v28, v44);
-    PCICCProfile::addTag(a2, &v28);
+    PCMakeChromaticAdaptationICCTag(&v32, v48);
+    PCICCProfile::addTag(a2, &v32);
     if (__p)
     {
-      v30 = __p;
+      v34 = __p;
       operator delete(__p);
     }
   }
 
-  ProCore::Private::setUInt32NumberLE(&v57, 0x72545243);
-  PCICCProfile::addTag(a2, &v57);
-  ProCore::Private::setUInt32NumberLE(&v57, 0x67545243);
-  PCICCProfile::addTag(a2, &v57);
-  ProCore::Private::setUInt32NumberLE(&v57, 0x62545243);
-  PCICCProfile::addTag(a2, &v57);
+  ProCore::Private::setUInt32NumberLE(v61, 0x72545243);
+  PCICCProfile::addTag(a2, v61);
+  ProCore::Private::setUInt32NumberLE(v61, 0x67545243);
+  PCICCProfile::addTag(a2, v61);
+  ProCore::Private::setUInt32NumberLE(v61, 0x62545243);
+  PCICCProfile::addTag(a2, v61);
+  v32 = 0;
+  v34 = 0;
+  v35 = 0;
+  __p = 0;
+  PCICCTag::reset(&v32, 1684370275);
+  PCICCProfile::addTag(a2, &v32);
   v28 = 0;
   v30 = 0;
   v31 = 0;
-  __p = 0;
-  PCICCTag::reset(&v28, 1684370275);
+  v29 = 0;
+  PCICCTag::reset(&v28, 1668313716);
   PCICCProfile::addTag(a2, &v28);
-  v24 = 0;
-  v26 = 0;
-  v27 = 0;
-  v25 = 0;
-  PCICCTag::reset(&v24, 1668313716);
-  PCICCProfile::addTag(a2, &v24);
-  if (v25)
+  if (v29)
   {
-    v26 = v25;
-    operator delete(v25);
+    v30 = v29;
+    operator delete(v29);
   }
 
   if (__p)
   {
-    v30 = __p;
+    v34 = __p;
     operator delete(__p);
-  }
-
-  if (v33)
-  {
-    v34 = v33;
-    operator delete(v33);
   }
 
   if (v37)
@@ -7568,16 +7561,22 @@ void PCMakeDisplayRGBProfileFromGrayProfile(const PCICCProfile *a1@<X0>, PCICCPr
     operator delete(v41);
   }
 
-  if (v58)
+  if (v45)
   {
-    v59 = v58;
-    operator delete(v58);
+    v46 = v45;
+    operator delete(v45);
   }
 
-  if (v61)
+  if (v62)
   {
-    v62 = v61;
-    operator delete(v61);
+    v63 = v62;
+    operator delete(v62);
+  }
+
+  if (v65)
+  {
+    v66 = v65;
+    operator delete(v65);
   }
 }
 
@@ -7646,7 +7645,7 @@ void PCMakeDisplayGrayProfileFromRGBProfile(const PCICCProfile *a1@<X0>, PCICCPr
   v7 = v19 + v20 + v21;
   v8 = v19 / v7;
   v9 = v20 / v7;
-  PCMakeDisplayGrayProfile(v8, v9, v4, a2);
+  PCMakeDisplayGrayProfile(a2, v8, v9, v4);
   if (__p)
   {
     v12 = __p;
@@ -7861,7 +7860,7 @@ LABEL_20:
   return v11;
 }
 
-void PCGetChromaticities(PCICCProfile *a1, float32x4_t *a2)
+void PCGetChromaticities(PCICCTag *a1, float32x4_t *a2)
 {
   PCICCProfile::findTagBySignature(a1, 2004119668, v40);
   v38 = kPCD50XYZ;
@@ -7892,11 +7891,11 @@ void PCGetChromaticities(PCICCProfile *a1, float32x4_t *a2)
   }
 
   PCICCProfile::findTagBySignature(a1, 1667785060, v20);
-  v19[0] = 0x3FF0000000000000;
+  v19[0] = 1.0;
   memset(&v19[1], 0, 24);
-  v19[4] = 0x3FF0000000000000;
+  v19[4] = 1.0;
   memset(&v19[5], 0, 24);
-  v19[8] = 0x3FF0000000000000;
+  v19[8] = 1.0;
   if (PCICCTag::empty(v20))
   {
     PCComputeChromaticAdaptation(&kPCD50XYZ, &v38, v19);
@@ -7911,7 +7910,7 @@ void PCGetChromaticities(PCICCProfile *a1, float32x4_t *a2)
     {
       for (i = 0; i != 3; ++i)
       {
-        *&v7[i] = ProCore::Private::getS15Fixed16Number(v6, v5);
+        v7[i] = ProCore::Private::getS15Fixed16Number(v6, v5);
         v6 = (v6 + 4);
       }
 
@@ -8157,7 +8156,7 @@ uint64_t std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<PCIC
   return v5;
 }
 
-uint64_t std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(uint64_t *result, char *a2, char *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -8224,7 +8223,7 @@ void std::default_delete<std::vector<unsigned char>>::operator()[abi:ne200100](u
   }
 }
 
-uint64_t std::vector<PCICCProfile::Tag>::__emplace_back_slow_path<PCICCProfile::Tag const&>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<PCICCProfile::Tag>::__emplace_back_slow_path<PCICCProfile::Tag const&>(unint64_t *a1, uint64_t a2)
 {
   v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
@@ -8284,9 +8283,9 @@ uint64_t std::vector<PCICCProfile::Tag>::__emplace_back_slow_path<PCICCProfile::
   return v14;
 }
 
-void sub_25FB989E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25FB989E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<PCICCProfile::Tag>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8403,14 +8402,14 @@ void std::__split_buffer<PCICCProfile::Tag>::clear[abi:ne200100](uint64_t a1)
   }
 }
 
-void std::__tree<anonymous namespace::WrittenTag>::destroy(void *a1)
+void std::__tree<anonymous namespace::WrittenTag>::destroy(void *a1, __n128 a2)
 {
   if (a1)
   {
-    v2 = a1[6];
-    if (v2)
+    v4 = a1[6];
+    if (v4)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v4);
     }
 
     operator delete(a1);
@@ -8809,9 +8808,9 @@ void PCException::addCallStackSymbols(PCException *this)
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_25FB99880(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB99880(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCCFRef<__CFArray const*>::~PCCFRef(va);
   _Unwind_Resume(a1);
 }
@@ -8896,11 +8895,12 @@ float PCEstimateGamma(CGColorSpace *a1)
   return v1;
 }
 
-void sub_25FB99AB8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10)
+void sub_25FB99AB8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, ...)
 {
+  va_start(va, a9);
   if (a2)
   {
-    PCICCProfile::~PCICCProfile(&a10);
+    PCICCProfile::~PCICCProfile(va);
     __cxa_begin_catch(exception_object);
     __cxa_end_catch();
     JUMPOUT(0x25FB99A84);
@@ -9015,7 +9015,7 @@ _BYTE *ProCore::Private::add15Fixed16ToTag(ProCore::Private *this, PCICCTag *a2,
   return result;
 }
 
-void ProCore::Private::addStringToTag(ProCore::Private *this, PCICCTag *a2, const char *a3)
+void ProCore::Private::addStringToTag(PCICCTag *this, PCICCTag *a2, const char *a3)
 {
   v3 = a3;
   v5 = *a2;
@@ -9716,7 +9716,7 @@ uint64_t PCMD5::finish(PCMD5 *this)
   return result;
 }
 
-void PCMD5::getHash(PCMD5 *this@<X0>, PCHash128 *a2@<X8>)
+void PCMD5::getHash(PCHash128 *__return_ptr a1@<X8>, PCMD5 *this@<X0>)
 {
   if ((*(this + 24) & 1) == 0)
   {
@@ -9728,7 +9728,7 @@ void PCMD5::getHash(PCMD5 *this@<X0>, PCHash128 *a2@<X8>)
   v6 = *(this + 4);
   v7 = *(this + 5);
 
-  PCHash128::PCHash128(a2, v4, v5, v6, v7);
+  PCHash128::PCHash128(a1, v4, v5, v6, v7);
 }
 
 FILE *PCPrintVA(char *a1, va_list a2)
@@ -9798,7 +9798,7 @@ id *ProCore_Impl::PCNSRefImpl::operator=(id *a1, id *a2)
   return a1;
 }
 
-void PCBufferWriteStream::PCBufferWriteStream(PCBufferWriteStream *this, int a2, int a3)
+void PCBufferWriteStream::PCBufferWriteStream(PCBufferWriteStream *this, unsigned int a2, int a3)
 {
   PCStream::PCStream(this);
   *v6 = &unk_2872087A8;

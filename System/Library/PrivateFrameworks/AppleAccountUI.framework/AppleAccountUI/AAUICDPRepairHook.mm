@@ -48,7 +48,7 @@
 {
   completionCopy = completion;
   attributesCopy = attributes;
-  v8 = _AAUILogSystem();
+  v8 = _AAUILogSystem(attributesCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -88,7 +88,7 @@ void __64__AAUICDPRepairHook__performCDPRepairWithAttributes_completion___block_
 {
   v10 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _AAUILogSystem();
+  v6 = _AAUILogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412290;

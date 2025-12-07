@@ -38,33 +38,7 @@
   }
 
   v10->_root = root;
-  if (!verifyCopy)
-  {
-    goto LABEL_13;
-  }
-
-  bytes2 = [(NSData *)v10->_data bytes];
-  v13 = [(NSData *)v10->_data length];
-  root = v10->_root;
-  if (root < bytes2 || root > bytes2 + v13)
-  {
-    goto LABEL_14;
-  }
-
-  bytes3 = [(NSData *)v10->_data bytes];
-  v17 = [(NSData *)v10->_data length];
-  v21[0] = bytes3;
-  v21[1] = v17;
-  v22 = xmmword_233005E20;
-  v23 = 0;
-  v24 = 1;
-  v18 = v10->_root;
-  if (!v18)
-  {
-    goto LABEL_13;
-  }
-
-  if (!siri::speech::schema_fb::CreateLanguageProfileResponse::Verify(v18, v21))
+  if (verifyCopy && ((v12 = [(NSData *)v10->_data bytes], v13 = [(NSData *)v10->_data length], root = v10->_root, root >= v12) ? (v15 = root > v12 + v13) : (v15 = 1), v15 || (v16 = [(NSData *)v10->_data bytes], v17 = [(NSData *)v10->_data length], v21[0] = v16, v21[1] = v17, v22 = xmmword_233005E20, v23 = 0, v24 = 1, (v18 = v10->_root) != 0) && !siri::speech::schema_fb::CreateLanguageProfileResponse::Verify(v18, v21)))
   {
 LABEL_14:
     v19 = 0;
@@ -241,20 +215,20 @@ LABEL_13:
   user_language_profile = [(FTCreateLanguageProfileResponse *)self user_language_profile];
   v21 = [user_language_profile addObjectToBuffer:buffer];
 
-  LODWORD(user_language_profile) = [(FTCreateLanguageProfileResponse *)self incomplete_profile];
+  incomplete_profile = [(FTCreateLanguageProfileResponse *)self incomplete_profile];
   recreate_apg_prons = [(FTCreateLanguageProfileResponse *)self recreate_apg_prons];
   *(buffer + 70) = 1;
-  v23 = *(buffer + 10);
-  v24 = *(buffer + 8) - *(buffer + 12);
+  v24 = *(buffer + 10);
+  v25 = *(buffer + 8) - *(buffer + 12);
   apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 4, String);
   apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 6, v14);
   apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned int>(buffer, 8, error_code, 0);
   apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 10, uTF8String3);
   apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 12, v21);
-  apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned char>(buffer, 14, user_language_profile, 0);
+  apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned char>(buffer, 14, incomplete_profile, 0);
   apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned char>(buffer, 16, recreate_apg_prons, 0);
 
-  return apple::aiml::flatbuffers2::FlatBufferBuilder::EndTable(buffer, v24 + v23);
+  return apple::aiml::flatbuffers2::FlatBufferBuilder::EndTable(buffer, v25 + v24);
 }
 
 - (id)flatbuffData

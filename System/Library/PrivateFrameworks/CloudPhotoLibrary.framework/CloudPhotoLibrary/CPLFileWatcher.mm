@@ -44,7 +44,7 @@
 
 - (void)stopWatching
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
     v3 = __CPLFileWatcherOSLogDomain();
@@ -54,11 +54,11 @@
       _redactedPath = [(CPLFileWatcher *)self _redactedPath];
       name = self->_name;
       *buf = 138412802;
-      v11 = ownerIdentifier;
-      v12 = 2112;
-      v13 = _redactedPath;
-      v14 = 2112;
-      v15 = name;
+      v10 = ownerIdentifier;
+      v11 = 2112;
+      v12 = _redactedPath;
+      v13 = 2112;
+      v14 = name;
       _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEFAULT, "%@: Stopping watching %@ (%@)", buf, 0x20u);
     }
   }
@@ -70,7 +70,6 @@
   block[3] = &unk_1E861A940;
   block[4] = self;
   dispatch_async(queue, block);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void *__30__CPLFileWatcher_stopWatching__block_invoke(uint64_t a1)
@@ -93,7 +92,7 @@ void *__30__CPLFileWatcher_stopWatching__block_invoke(uint64_t a1)
 
 - (void)startWatching
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
     v3 = __CPLFileWatcherOSLogDomain();
@@ -103,11 +102,11 @@ void *__30__CPLFileWatcher_stopWatching__block_invoke(uint64_t a1)
       _redactedPath = [(CPLFileWatcher *)self _redactedPath];
       name = self->_name;
       *buf = 138412802;
-      v11 = ownerIdentifier;
-      v12 = 2112;
-      v13 = _redactedPath;
-      v14 = 2112;
-      v15 = name;
+      v10 = ownerIdentifier;
+      v11 = 2112;
+      v12 = _redactedPath;
+      v13 = 2112;
+      v14 = name;
       _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEFAULT, "%@: Starting watching %@ (%@)", buf, 0x20u);
     }
   }
@@ -119,51 +118,46 @@ void *__30__CPLFileWatcher_stopWatching__block_invoke(uint64_t a1)
   block[3] = &unk_1E861A940;
   block[4] = self;
   dispatch_async(queue, block);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __31__CPLFileWatcher_startWatching__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  if (v2[3] || v2[2])
+  if (!v2[3] && !v2[2])
   {
-LABEL_9:
-    v8 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  [v2 _startWatchingParent];
-  [*(a1 + 32) _startWatchingNode];
-  v3 = *(a1 + 32);
-  if (*(v3 + 16))
-  {
-    if ((_CPLSilentLogging & 1) == 0)
+    [v2 _startWatchingParent];
+    [*(a1 + 32) _startWatchingNode];
+    v3 = *(a1 + 32);
+    if (*(v3 + 16))
     {
-      v4 = __CPLFileWatcherOSLogDomain();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      if ((_CPLSilentLogging & 1) == 0)
       {
-        v5 = [*(*(a1 + 32) + 40) path];
-        WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 64));
-        *buf = 138412546;
-        v12 = v5;
-        v13 = 2112;
-        v14 = WeakRetained;
-        _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEFAULT, "%@ exists at launch time - informing %@", buf, 0x16u);
+        v4 = __CPLFileWatcherOSLogDomain();
+        if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+        {
+          v5 = [*(*(a1 + 32) + 40) path];
+          WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 64));
+          *buf = 138412546;
+          v10 = v5;
+          v11 = 2112;
+          v12 = WeakRetained;
+          _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEFAULT, "%@ exists at launch time - informing %@", buf, 0x16u);
+        }
+
+        v3 = *(a1 + 32);
       }
 
-      v3 = *(a1 + 32);
+      v7 = objc_loadWeakRetained((v3 + 64));
+      [v7 fileWatcherFileDidAppear:*(a1 + 32)];
     }
 
-    v7 = objc_loadWeakRetained((v3 + 64));
-    [v7 fileWatcherFileDidAppear:*(a1 + 32)];
-
-    goto LABEL_9;
+    else
+    {
+      v8 = objc_loadWeakRetained((v3 + 64));
+      [v8 fileWatcherFileDidDisappear:*(a1 + 32)];
+    }
   }
-
-  v10 = objc_loadWeakRetained((v3 + 64));
-  [v10 fileWatcherFileDidDisappear:*(a1 + 32)];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_stopWatchingParent
@@ -227,72 +221,68 @@ LABEL_9:
 
 void __38__CPLFileWatcher__startWatchingParent__block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  if (!v2[3])
+  if (v2[3])
   {
-LABEL_12:
-    v11 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  if (!v2[2])
-  {
-    [v2 _startWatchingNode];
-    v4 = *(a1 + 32);
-    if (*(v4 + 16))
+    if (v2[2])
     {
-      if ((_CPLSilentLogging & 1) == 0)
-      {
-        v5 = __CPLFileWatcherOSLogDomain();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-        {
-          v6 = *(a1 + 32);
-          v7 = v6[7];
-          v8 = [v6 _redactedPath];
-          WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 64));
-          v12 = 138543874;
-          v13 = v7;
-          v14 = 2114;
-          v15 = v8;
-          v16 = 2112;
-          v17 = WeakRetained;
-          _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ exists now - informing %@", &v12, 0x20u);
-        }
 
-        v4 = *(a1 + 32);
-      }
-
-      v10 = objc_loadWeakRetained((v4 + 64));
-      [v10 fileWatcherFileDidAppear:*(a1 + 32)];
+      [v2 _updateWatchingNode];
     }
 
-    goto LABEL_12;
+    else
+    {
+      [v2 _startWatchingNode];
+      v3 = *(a1 + 32);
+      if (*(v3 + 16))
+      {
+        if ((_CPLSilentLogging & 1) == 0)
+        {
+          v4 = __CPLFileWatcherOSLogDomain();
+          if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+          {
+            v5 = *(a1 + 32);
+            v6 = v5[7];
+            v7 = [v5 _redactedPath];
+            WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 64));
+            v10 = 138543874;
+            v11 = v6;
+            v12 = 2114;
+            v13 = v7;
+            v14 = 2112;
+            v15 = WeakRetained;
+            _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ exists now - informing %@", &v10, 0x20u);
+          }
+
+          v3 = *(a1 + 32);
+        }
+
+        v9 = objc_loadWeakRetained((v3 + 64));
+        [v9 fileWatcherFileDidAppear:*(a1 + 32)];
+      }
+    }
   }
-
-  v3 = *MEMORY[0x1E69E9840];
-
-  [v2 _updateWatchingNode];
 }
 
 - (void)_updateWatchingNode
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (!self->_nodeSource)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v12 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v11 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v17.st_dev) = 0;
-        _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_ERROR, "Node source should not be nil here", &v17, 2u);
+        LOWORD(v16.st_dev) = 0;
+        _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_ERROR, "Node source should not be nil here", &v16, 2u);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLFileWatcher.m"];
-    [currentHandler handleFailureInMethod:a2 object:self file:v14 lineNumber:102 description:@"Node source should not be nil here"];
+    v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLFileWatcher.m"];
+    [currentHandler handleFailureInMethod:a2 object:self file:v13 lineNumber:102 description:@"Node source should not be nil here"];
 
     abort();
   }
@@ -308,11 +298,11 @@ LABEL_12:
       {
         ownerIdentifier = self->_ownerIdentifier;
         _redactedPath = [(CPLFileWatcher *)self _redactedPath];
-        v17.st_dev = 138543618;
-        *&v17.st_mode = ownerIdentifier;
-        WORD2(v17.st_ino) = 2114;
-        *(&v17.st_ino + 6) = _redactedPath;
-        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ has been deleted but immediately recreated", &v17, 0x16u);
+        v16.st_dev = 138543618;
+        *&v16.st_mode = ownerIdentifier;
+        WORD2(v16.st_ino) = 2114;
+        *(&v16.st_ino + 6) = _redactedPath;
+        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ has been deleted but immediately recreated", &v16, 0x16u);
       }
     }
   }
@@ -320,8 +310,8 @@ LABEL_12:
   else
   {
     v4 = v3;
-    memset(&v17, 0, sizeof(v17));
-    if (fstat(v3, &v17) == -1 || v17.st_ino != self->_nodeInode)
+    memset(&v16, 0, sizeof(v16));
+    if (fstat(v3, &v16) == -1 || v16.st_ino != self->_nodeInode)
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
@@ -329,9 +319,9 @@ LABEL_12:
         if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
         {
           path = [(NSURL *)self->_fileURL path];
-          v15 = 138412290;
-          v16 = path;
-          _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEFAULT, "%@ has changed", &v15, 0xCu);
+          v14 = 138412290;
+          v15 = path;
+          _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEFAULT, "%@ has changed", &v14, 0xCu);
         }
       }
 
@@ -340,8 +330,6 @@ LABEL_12:
 
     close(v4);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_stopWatchingNode
@@ -414,7 +402,7 @@ LABEL_12:
 
 void __36__CPLFileWatcher__startWatchingNode__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2[2])
   {
@@ -429,37 +417,35 @@ void __36__CPLFileWatcher__startWatchingNode__block_invoke(uint64_t a1)
           v4 = *(a1 + 32);
           v5 = v4[7];
           v6 = [v4 _redactedPath];
-          v8 = 138543618;
-          v9 = v5;
-          v10 = 2114;
-          v11 = v6;
-          _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ has been deleted but immediately recreated", &v8, 0x16u);
+          v7 = 138543618;
+          v8 = v5;
+          v9 = 2114;
+          v10 = v6;
+          _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ has been deleted but immediately recreated", &v7, 0x16u);
         }
       }
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_forceRefreshWatchingNode
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (!self->_nodeSource)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v9 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v8 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v12) = 0;
-        _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_ERROR, "Node source should not be nil here", &v12, 2u);
+        LOWORD(v11) = 0;
+        _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_ERROR, "Node source should not be nil here", &v11, 2u);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLFileWatcher.m"];
-    [currentHandler handleFailureInMethod:a2 object:self file:v11 lineNumber:52 description:@"Node source should not be nil here"];
+    v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLFileWatcher.m"];
+    [currentHandler handleFailureInMethod:a2 object:self file:v10 lineNumber:52 description:@"Node source should not be nil here"];
 
     abort();
   }
@@ -475,19 +461,17 @@ void __36__CPLFileWatcher__startWatchingNode__block_invoke(uint64_t a1)
       {
         path = [(NSURL *)self->_fileURL path];
         WeakRetained = objc_loadWeakRetained(&self->_delegate);
-        v12 = 138412546;
-        v13 = path;
-        v14 = 2112;
-        v15 = WeakRetained;
-        _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEFAULT, "%@ has been deleted - informing %@", &v12, 0x16u);
+        v11 = 138412546;
+        v12 = path;
+        v13 = 2112;
+        v14 = WeakRetained;
+        _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEFAULT, "%@ has been deleted - informing %@", &v11, 0x16u);
       }
     }
 
     v6 = objc_loadWeakRetained(&self->_delegate);
     [v6 fileWatcherFileDidDisappear:self];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_redactedPath

@@ -9,7 +9,7 @@
 
 - (id)predictionsFromBatch:(id)batch options:(id)options error:(id *)error
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   batchCopy = batch;
   optionsCopy = options;
   v11 = objc_opt_new();
@@ -48,11 +48,11 @@
     {
       featureName = self->_featureName;
       *buf = 138412802;
-      v36 = batchCopy;
-      v37 = 2048;
-      v38 = v13;
-      v39 = 2112;
-      v40 = featureName;
+      v35 = batchCopy;
+      v36 = 2048;
+      v37 = v13;
+      v38 = 2112;
+      v39 = featureName;
       _os_log_fault_impl(&dword_23224A000, _dominantItem, OS_LOG_TYPE_FAULT, "predictionsFromBatch:options:error: failed to get feature value from %@ at %tu for %@", buf, 0x20u);
     }
 
@@ -70,19 +70,19 @@ LABEL_7:
 
     v20 = objc_alloc(MEMORY[0x277CBFED0]);
     dominantItemCountFeatureValueKey = self->_dominantItemCountFeatureValueKey;
-    v33[0] = self->_dominantItemFeatureValueKey;
-    v33[1] = dominantItemCountFeatureValueKey;
-    v34[0] = _dominantItem;
-    v34[1] = v17;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:2];
+    v32[0] = self->_dominantItemFeatureValueKey;
+    v32[1] = dominantItemCountFeatureValueKey;
+    v33[0] = _dominantItem;
+    v33[1] = v17;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:2];
     v23 = [v20 initWithDictionary:v22 error:error];
 
     if (v23)
     {
       v24 = objc_alloc(MEMORY[0x277CBFEB0]);
       v25 = objc_autoreleasePoolPush();
-      v32 = v23;
-      v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:1];
+      v31 = v23;
+      v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
       objc_autoreleasePoolPop(v25);
       v27 = [v24 initWithFeatureProviderArray:v26];
     }
@@ -93,14 +93,12 @@ LABEL_7:
     }
   }
 
-  v28 = *MEMORY[0x277D85DE8];
-
   return v27;
 }
 
 - (id)predictionFromFeatures:(id)features options:(id)options error:(id *)error
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   featuresCopy = features;
   v8 = [featuresCopy featureValueForName:self->_featureName];
   v9 = v8;
@@ -114,11 +112,11 @@ LABEL_13:
       v16 = [objc_alloc(MEMORY[0x277CCABB0]) initWithLong:{-[NSCountedSet countForObject:](self->_itemCounts, "countForObject:", _dominantItem)}];
       v17 = objc_alloc(MEMORY[0x277CBFED0]);
       dominantItemCountFeatureValueKey = self->_dominantItemCountFeatureValueKey;
-      v23[0] = self->_dominantItemFeatureValueKey;
-      v23[1] = dominantItemCountFeatureValueKey;
-      v24[0] = _dominantItem;
-      v24[1] = v16;
-      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
+      v22[0] = self->_dominantItemFeatureValueKey;
+      v22[1] = dominantItemCountFeatureValueKey;
+      v23[0] = _dominantItem;
+      v23[1] = v16;
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
       v14 = [v17 initWithDictionary:v19 error:error];
 
       goto LABEL_14;
@@ -155,16 +153,14 @@ LABEL_12:
   {
     featureName = self->_featureName;
     *buf = 138412546;
-    v26 = featuresCopy;
-    v27 = 2112;
-    v28 = featureName;
+    v25 = featuresCopy;
+    v26 = 2112;
+    v27 = featureName;
     _os_log_fault_impl(&dword_23224A000, _dominantItem, OS_LOG_TYPE_FAULT, "predictionFromFeatures:options:error: failed to get feature value from %@ for %@", buf, 0x16u);
   }
 
   v14 = 0;
 LABEL_14:
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

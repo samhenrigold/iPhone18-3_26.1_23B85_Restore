@@ -27,7 +27,7 @@ uint64_t __audioHoseManagerBuffered_ApplyVolumeFade_block_invoke(uint64_t result
   {
     if (gLogCategory_APAudioHoseManagerBuffered <= 50 && (gLogCategory_APAudioHoseManagerBuffered != -1 || _LogCategory_Initialize()))
     {
-      __audioHoseManagerBuffered_ApplyVolumeFade_block_invoke_cold_2(v4);
+      __audioHoseManagerBuffered_ApplyVolumeFade_block_invoke_cold_2(v4, a3);
     }
 
     v5 = *a3;
@@ -67,20 +67,28 @@ uint64_t __audioHoseManagerBuffered_ApplyVolumeFade_block_invoke_cold_1()
 
   OUTLINED_FUNCTION_10_10();
   OUTLINED_FUNCTION_2_0();
-  return LogPrintF();
+  return LogPrintF(v1, v2, v3, v4);
 }
 
-uint64_t __audioHoseManagerBuffered_ApplyVolumeFade_block_invoke_cold_2(void *a1)
+uint64_t __audioHoseManagerBuffered_ApplyVolumeFade_block_invoke_cold_2(void *a1, uint64_t *a2)
 {
-  if (a1[4])
+  v4 = a1[4];
+  if (v4)
   {
-    CMBaseObjectGetDerivedStorage();
+    DerivedStorage = CMBaseObjectGetDerivedStorage();
   }
 
-  APSGetVolumeFadeTypeName();
-  OUTLINED_FUNCTION_25_4(*(a1 + 60), v3, v4, v5, v6, v7, v8, *(a1 + 44), *(a1 + 52), v9);
+  else
+  {
+    DerivedStorage = "";
+  }
+
+  v6 = APSGetVolumeFadeTypeName();
+  v7 = OUTLINED_FUNCTION_25_4(*(a1 + 60), v13, v14, v15, v16, v18, v20, *(a1 + 44), *(a1 + 52), v21);
+  v19 = *a2;
+  v17 = v7;
   OUTLINED_FUNCTION_2_0();
-  return LogPrintF();
+  return LogPrintF(v8, v9, v10, v11, v4, DerivedStorage, v6, *&v17, v19);
 }
 
 @end

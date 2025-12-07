@@ -50,7 +50,7 @@ flatbuffers::DetachedBuffer *__39__QSSTextToSpeechResponse_flatbuffData__block_i
 
 - (Offset<siri::speech::schema_fb::TextToSpeechResponse>)addObjectToBuffer:(void *)buffer
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   speech_id = [(QSSTextToSpeechResponse *)self speech_id];
   v6 = speech_id;
   if (!speech_id)
@@ -71,7 +71,7 @@ flatbuffers::DetachedBuffer *__39__QSSTextToSpeechResponse_flatbuffData__block_i
 
   uTF8String2 = [(__CFString *)session_id UTF8String];
   v13 = strlen(uTF8String2);
-  v44 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String2, v13);
+  v43 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String2, v13);
 
   error_code = [(QSSTextToSpeechResponse *)self error_code];
   error_str = [(QSSTextToSpeechResponse *)self error_str];
@@ -83,74 +83,74 @@ flatbuffers::DetachedBuffer *__39__QSSTextToSpeechResponse_flatbuffData__block_i
 
   uTF8String3 = [(__CFString *)error_str UTF8String];
   v18 = strlen(uTF8String3);
-  v43 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String3, v18);
+  v42 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String3, v18);
 
   audio_type = [(QSSTextToSpeechResponse *)self audio_type];
   sample_rate = [(QSSTextToSpeechResponse *)self sample_rate];
-  v52 = 0;
-  v53 = &v52;
-  v54 = 0x3812000000;
-  v55 = __Block_byref_object_copy__645;
-  v56 = __Block_byref_object_dispose__646;
-  v57 = &unk_26916BD4D;
-  v58 = 0;
-  v51[0] = MEMORY[0x277D85DD0];
-  v51[1] = 3221225472;
-  v51[2] = __45__QSSTextToSpeechResponse_addObjectToBuffer___block_invoke;
-  v51[3] = &unk_279C4C2C8;
-  v51[4] = &v52;
-  v51[5] = buffer;
-  [(QSSTextToSpeechResponse *)self audio:v51];
+  v51 = 0;
+  v52 = &v51;
+  v53 = 0x3812000000;
+  v54 = __Block_byref_object_copy__645;
+  v55 = __Block_byref_object_dispose__646;
+  v56 = &unk_26916BD4D;
+  v57 = 0;
+  v50[0] = MEMORY[0x277D85DD0];
+  v50[1] = 3221225472;
+  v50[2] = __45__QSSTextToSpeechResponse_addObjectToBuffer___block_invoke;
+  v50[3] = &unk_279C4C2C8;
+  v50[4] = &v51;
+  v50[5] = buffer;
+  [(QSSTextToSpeechResponse *)self audio:v50];
   decoder_description = [(QSSTextToSpeechResponse *)self decoder_description];
-  v40 = [decoder_description addObjectToBuffer:buffer];
+  v39 = [decoder_description addObjectToBuffer:buffer];
 
   playback_description = [(QSSTextToSpeechResponse *)self playback_description];
-  v39 = [playback_description addObjectToBuffer:buffer];
+  v38 = [playback_description addObjectToBuffer:buffer];
 
-  memset(&v50, 0, sizeof(v50));
+  memset(&v49, 0, sizeof(v49));
   word_timing_info = [(QSSTextToSpeechResponse *)self word_timing_info];
-  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v50, [word_timing_info count]);
+  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v49, [word_timing_info count]);
 
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   word_timing_info2 = [(QSSTextToSpeechResponse *)self word_timing_info];
-  v23 = [word_timing_info2 countByEnumeratingWithState:&v46 objects:v59 count:16];
+  v23 = [word_timing_info2 countByEnumeratingWithState:&v45 objects:v58 count:16];
   if (v23)
   {
-    v24 = *v47;
+    v24 = *v46;
     do
     {
       for (i = 0; i != v23; ++i)
       {
-        if (*v47 != v24)
+        if (*v46 != v24)
         {
           objc_enumerationMutation(word_timing_info2);
         }
 
-        v45 = [*(*(&v46 + 1) + 8 * i) addObjectToBuffer:buffer];
-        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v50, &v45);
+        v44 = [*(*(&v45 + 1) + 8 * i) addObjectToBuffer:buffer];
+        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v49, &v44);
       }
 
-      v23 = [word_timing_info2 countByEnumeratingWithState:&v46 objects:v59 count:16];
+      v23 = [word_timing_info2 countByEnumeratingWithState:&v45 objects:v58 count:16];
     }
 
     while (v23);
   }
 
-  begin = v50.__begin_;
-  if (v50.__end_ == v50.__begin_)
+  begin = v49.__begin_;
+  if (v49.__end_ == v49.__begin_)
   {
     v27 = &flatbuffers::data<flatbuffers::Offset<siri::speech::schema_fb::WordTimingInfo>,std::allocator<flatbuffers::Offset<siri::speech::schema_fb::WordTimingInfo>>>(std::vector<flatbuffers::Offset<siri::speech::schema_fb::WordTimingInfo>> const&)::t;
   }
 
   else
   {
-    v27 = v50.__begin_;
+    v27 = v49.__begin_;
   }
 
-  v28 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v27, v50.__end_ - v50.__begin_);
+  v28 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v27, v49.__end_ - v49.__begin_);
   meta_info = [(QSSTextToSpeechResponse *)self meta_info];
   v30 = [meta_info addObjectToBuffer:buffer];
 
@@ -158,7 +158,7 @@ flatbuffers::DetachedBuffer *__39__QSSTextToSpeechResponse_flatbuffData__block_i
   LODWORD(meta_info) = [feature addObjectToBuffer:buffer];
 
   dev_data = [(QSSTextToSpeechResponse *)self dev_data];
-  v38 = [dev_data addObjectToBuffer:buffer];
+  v37 = [dev_data addObjectToBuffer:buffer];
 
   flatbuffers::FlatBufferBuilder::NotNested(buffer);
   *(buffer + 70) = 1;
@@ -166,26 +166,25 @@ flatbuffers::DetachedBuffer *__39__QSSTextToSpeechResponse_flatbuffData__block_i
   v34 = *(buffer + 12);
   LODWORD(dev_data) = *(buffer + 10);
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 4, String);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 6, v44);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 6, v43);
   flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(buffer, 8, error_code);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 10, v43);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 10, v42);
   flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(buffer, 12, audio_type);
   flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(buffer, 14, sample_rate);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 16, *(v53 + 12));
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 18, v40);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 20, v39);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 16, *(v52 + 12));
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 18, v39);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 20, v38);
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 22, v28);
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 24, v30);
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 26, meta_info);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 28, v38);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 28, v37);
   v35.var0 = flatbuffers::FlatBufferBuilder::EndTable(buffer, v33 - v34 + dev_data);
   if (begin)
   {
     operator delete(begin);
   }
 
-  _Block_object_dispose(&v52, 8);
-  v36 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v51, 8);
   return v35;
 }
 
@@ -362,11 +361,7 @@ uint64_t __45__QSSTextToSpeechResponse_addObjectToBuffer___block_invoke(uint64_t
 
 - (void)audio:(id)audio
 {
-  root = self->_root;
-  v5 = &root[-*root->var0];
   audioCopy = audio;
-  v7 = *root[*v5[16].var0 + *root[*v5[16].var0].var0].var0;
-  v8 = audioCopy;
   (*(audio + 2))();
 }
 

@@ -473,11 +473,12 @@ double PFRectCenteredScale(double a1, double a2, double a3, double a4, double a5
   return a1 + a3 * 0.5 - v5 * 0.5;
 }
 
-double PFRectAlignWithRect(int a1, int a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9)
+double PFRectAlignWithRect(uint64_t a1, int a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9)
 {
+  v9 = a1;
   v14 = PFRectPoint(a2, a7, a8, a9);
 
-  return PFRectAlignToPoint(a1, a3, a4, a5, a6, v14);
+  return PFRectAlignToPoint(v9, a3, a4, a5, a6, v14);
 }
 
 double PFRectAlignToPoint(int a1, double a2, double a3, double a4, double a5, double a6)
@@ -556,7 +557,7 @@ double PFRectMapPoint2(double result, double a2, double a3, double a4, double a5
 {
   if (a5 != 0.0 && a6 != 0.0)
   {
-    v18 = (result - a3) / a5;
+    v12 = (result - a3) / a5;
     if (a5 > a6 != a11 > a12)
     {
       return a10 + (a2 - a4) / a6 * a11;
@@ -564,7 +565,7 @@ double PFRectMapPoint2(double result, double a2, double a3, double a4, double a5
 
     else
     {
-      return a9 + v18 * a11;
+      return a9 + v12 * a11;
     }
   }
 
@@ -993,61 +994,61 @@ double PFRectClampRect(double result, double a2, double a3, double a4, double a5
 
 double PFRectInterpolate(double a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9)
 {
-  v14 = 1.0;
+  v9 = 1.0;
   if (a9 <= 1.0)
   {
-    v14 = a9;
+    v9 = a9;
   }
 
   if (a9 >= 0.0)
   {
-    v15 = v14;
+    v10 = v9;
   }
 
   else
   {
-    v15 = 0.0;
+    v10 = 0.0;
   }
 
-  return a1 - (a1 - a5) * v15;
+  return a1 - (a1 - a5) * v10;
 }
 
 double PFRectEaseInterpolate(double a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9)
 {
-  v27 = (sin(a9 * 3.14159265 + -1.57079633) + 1.0) * 0.5;
+  v19 = (sin(a9 * 3.14159265 + -1.57079633) + 1.0) * 0.5;
 
-  return PFRectInterpolate(a1, a2, a3, a4, a5, a6, a7, a8, v27);
+  return PFRectInterpolate(a1, a2, a3, a4, a5, a6, a7, a8, v19);
 }
 
 double PFRectEaseInterpolateBend(double a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9, double a10)
 {
-  v22 = sin(a9 * 3.14159265) * a10;
-  v23 = floor(a1 + a3 * 0.5) == floor(a5 + a7 * 0.5);
-  if (v23)
+  v14 = sin(a9 * 3.14159265) * a10;
+  v15 = floor(a1 + a3 * 0.5) == floor(a5 + a7 * 0.5);
+  if (v15)
   {
-    v24 = 0.0;
+    v16 = 0.0;
   }
 
   else
   {
-    v24 = v22;
+    v16 = v14;
   }
 
-  dY = v24;
-  if (v23)
+  dY = v16;
+  if (v15)
   {
-    v25 = v22;
+    v17 = v14;
   }
 
   else
   {
-    v25 = 0.0;
+    v17 = 0.0;
   }
 
-  v26 = sin(a9 * 3.14159265 + -1.57079633);
-  v27 = PFRectInterpolate(a1, a2, a3, a4, a5, a6, a7, a8, (v26 + 1.0) * 0.5);
+  v18 = sin(a9 * 3.14159265 + -1.57079633);
+  v19 = PFRectInterpolate(a1, a2, a3, a4, a5, a6, a7, a8, (v18 + 1.0) * 0.5);
 
-  *&result = NSOffsetRect(*&v27, v25, dY);
+  *&result = NSOffsetRect(*&v19, v17, dY);
   return result;
 }
 
@@ -1110,7 +1111,7 @@ uint64_t PFRectClosestSide(double a1, double a2, double a3, double a4, double a5
   }
 }
 
-uint64_t PFRectClosestArea(int a1, CGFloat a2, CGFloat a3, double a4, CGFloat a5, CGFloat a6, CGFloat a7, CGFloat a8)
+uint64_t PFRectClosestArea(uint64_t a1, CGFloat a2, CGFloat a3, double a4, CGFloat a5, CGFloat a6, CGFloat a7, CGFloat a8)
 {
   v16 = 1;
   while (1)
@@ -1141,8 +1142,9 @@ uint64_t PFRectClosestArea(int a1, CGFloat a2, CGFloat a3, double a4, CGFloat a5
   return v16;
 }
 
-void PFRectBoundsForAreaType(double a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5, uint64_t a6, int a7)
+void PFRectBoundsForAreaType(double a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5, uint64_t a6, uint64_t a7)
 {
+  v12 = a7;
   v13 = a1;
   if ((a7 & 1) == 0)
   {
@@ -1154,7 +1156,7 @@ void PFRectBoundsForAreaType(double a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFl
   v14.size.width = a4;
   v14.size.height = a5;
   NSInsetRect(v14, v13, v13);
-  PFRectBoundsForAreas(a7, a1, a2, a3, a4, a5);
+  PFRectBoundsForAreas(v12, a1, a2, a3, a4, a5);
 }
 
 double PFRectBoundsForAreas(int a1, double a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6)
@@ -2074,8 +2076,7 @@ uint64_t PA::LineSegment2d::findIntersectPoint(uint64_t a1, uint64_t a2, float64
 
 void IPAScaledTimeFromNaturalTime(__int128 *a1@<X0>, __int128 *a2@<X1>, __int128 *a3@<X2>, CMTime *a4@<X8>, unsigned int a5@<S0>)
 {
-  *&a4->value = *a1;
-  a4->epoch = *(a1 + 2);
+  *a4 = *a1;
   if ((*(a3 + 12) & 1) == 0 || (*(a3 + 36) & 1) == 0 || *(a3 + 5) || (*(a3 + 3) & 0x8000000000000000) != 0 || (v15 = *(a3 + 24), *&v16 = *(a3 + 5), time2 = **&MEMORY[0x277CC08F0], CMTimeCompare(&v15, &time2)))
   {
     v15 = *a2;
@@ -2100,8 +2101,7 @@ void IPAScaledTimeFromNaturalTime(__int128 *a1@<X0>, __int128 *a2@<X1>, __int128
 
 void IPANaturalTimeFromScaledTime(__int128 *a1@<X0>, __int128 *a2@<X1>, __int128 *a3@<X2>, CMTime *a4@<X8>, unsigned int a5@<S0>)
 {
-  *&a4->value = *a1;
-  a4->epoch = *(a1 + 2);
+  *a4 = *a1;
   if ((*(a3 + 12) & 1) == 0 || (*(a3 + 36) & 1) == 0 || *(a3 + 5) || (*(a3 + 3) & 0x8000000000000000) != 0 || (v15 = *(a3 + 24), *&v16 = *(a3 + 5), time2 = **&MEMORY[0x277CC08F0], CMTimeCompare(&v15, &time2)))
   {
     v15 = *a2;
@@ -2267,8 +2267,8 @@ LABEL_15:
   *&start.start.value = *MEMORY[0x277CC08F0];
   start.start.epoch = *(MEMORY[0x277CC08F0] + 16);
   CMTimeRangeMake(&range, &start.start, &duration.start);
-  v19 = 0uLL;
-  v20 = 0;
+  v21 = 0uLL;
+  v22 = 0;
   v9 = *(v3 + 12);
   v10 = *(v3 + 16);
   if ((v9 & 1) == 0)
@@ -2285,7 +2285,7 @@ LABEL_16:
     duration.start.epoch = v10;
     CMTimeCopyDescription(*MEMORY[0x277CBECE8], &duration.start);
     v15 = _PFAssertFailHandler();
-    return IPAMapNormalizedTimeRange(v15);
+    return IPAMapNormalizedTimeRange(v15, v16, v17);
   }
 
   duration.start.value = *v3;
@@ -2298,26 +2298,26 @@ LABEL_16:
     *&start.start.value = *v3;
     start.start.epoch = *(v3 + 16);
     duration = range;
-    IPAClipTime(&start, &duration, &v19);
+    IPAClipTime(&start, &duration, &v21);
   }
 
   else
   {
-    v19 = *v3;
-    v20 = *(v3 + 16);
+    v21 = *v3;
+    v22 = *(v3 + 16);
   }
 
   *a3 = 0;
   *(a3 + 8) = 0;
   *(a3 + 16) = 0;
-  v17.epoch = v20;
+  v19.epoch = v22;
   duration = range;
   v12 = *(a2 + 16);
   *&start.start.value = *a2;
   *&start.start.epoch = v12;
   *&start.duration.timescale = *(a2 + 32);
-  *&v17.value = v19;
-  return CMTimeMapTimeFromRangeToRange(a3, &v17, &duration, &start);
+  *&v19.value = v21;
+  return CMTimeMapTimeFromRangeToRange(a3, &v19, &duration, &start);
 }
 
 $3CC8671D27C23BF42ADDB32F2B5E48AE *IPAMapNormalizedTimeRange@<X0>(uint64_t a1@<X0>, _OWORD *a2@<X1>, uint64_t a3@<X8>)
@@ -3118,7 +3118,7 @@ void std::vector<PA::Rect>::push_back[abi:ne200100](uint64_t a1, _OWORD *a2)
   *(a1 + 8) = v6;
 }
 
-void std::vector<PA::Rect>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<PA::Rect>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -3156,9 +3156,9 @@ void sub_25E5C9478(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_25E5CCF18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25E5CCF18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3170,16 +3170,16 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_25E5CD58C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25E5CD58C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25E5CD7E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25E5CD7E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3199,9 +3199,9 @@ BOOL PA::Region::Includes(PA::Region *this, const PA::Region *a2)
   return v3;
 }
 
-void sub_25E5CD9B0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25E5CD9B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -3214,7 +3214,7 @@ uint64_t std::unordered_set<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::all
   std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect const&>(a1, i + 2);
+    std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect const&>(a1, i + 2, (i + 2));
   }
 
   return a1;
@@ -3262,7 +3262,7 @@ uint64_t PA::Region::Break(uint64_t result, uint64_t a2)
             *(&v24 + 1) = v7;
             v25[0] = v8;
             v25[1] = v10 - v7;
-            std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect>(&v21, &v24);
+            std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect>(&v21, &v24, &v24);
             v11 = v7 + v9 - v10;
             v9 = *(v5 + 5);
             v12 = *(v3 + 24);
@@ -3279,7 +3279,7 @@ uint64_t PA::Region::Break(uint64_t result, uint64_t a2)
             *(&v24 + 1) = v16;
             v25[0] = v17;
             v25[1] = v15 - v16;
-            std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect>(&v21, &v24);
+            std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect>(&v21, &v24, &v24);
             v11 = v16 - v10;
             v13 = *(v5 + 2);
           }
@@ -3291,7 +3291,7 @@ uint64_t PA::Region::Break(uint64_t result, uint64_t a2)
             *(&v24 + 1) = v10;
             v25[0] = v18 - v6;
             v25[1] = v11;
-            std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect>(&v21, &v24);
+            std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect>(&v21, &v24, &v24);
             v13 = *(v5 + 2);
             v18 = *(v3 + 16);
           }
@@ -3304,7 +3304,7 @@ uint64_t PA::Region::Break(uint64_t result, uint64_t a2)
             *(&v24 + 1) = v10;
             v25[0] = v6 + v8 - v20;
             v25[1] = v11;
-            std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect>(&v21, &v24);
+            std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect>(&v21, &v24, &v24);
           }
         }
 
@@ -3313,7 +3313,7 @@ uint64_t PA::Region::Break(uint64_t result, uint64_t a2)
           v14 = *(v5 + 2);
           v24 = *(v5 + 1);
           *v25 = v14;
-          std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect>(&v21, &v24);
+          std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect>(&v21, &v24, &v24);
         }
       }
 
@@ -3427,7 +3427,7 @@ uint64_t PA::Region::MergeVertically(PA::Region *this)
 LABEL_17:
       v33[0] = v6;
       v33[1] = v5;
-      std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect>(&v30, v33);
+      std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect>(&v30, v33, v33);
       v2 = *&v2->f64[0];
       v4 = v24;
       v3 = v25;
@@ -3445,9 +3445,9 @@ LABEL_17:
   return std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::~__hash_table(&v30);
 }
 
-void sub_25E5CDE6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_25E5CDE6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -3729,35 +3729,35 @@ LABEL_27:
   return v4;
 }
 
-BOOL std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect>(void *a1, void *a2)
+void std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect>(void *a1, void *a2, uint64_t a3)
 {
-  v2 = (*a2 + 4095) & 0xFFFFFFFF00000000 ^ ((a2[1] + 4095) >> 32 << 24) ^ ((a2[2] + 4095) >> 32 << 8);
-  v3 = v2 ^ ((a2[3] + 4095) >> 32);
-  v4 = a1[1];
-  if (!*&v4)
+  v3 = (*a2 + 4095) & 0xFFFFFFFF00000000 ^ ((a2[1] + 4095) >> 32 << 24) ^ ((a2[2] + 4095) >> 32 << 8);
+  v4 = v3 ^ ((a2[3] + 4095) >> 32);
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v4);
-  v6.i16[0] = vaddlv_u8(v6);
-  v7 = v6.u32[0];
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v5);
+  v7.i16[0] = vaddlv_u8(v7);
+  v8 = v7.u32[0];
+  if (v7.u32[0] > 1uLL)
   {
-    v8 = v2 ^ ((a2[3] + 4095) >> 32);
-    if (v3 >= *&v4)
+    v9 = v3 ^ ((a2[3] + 4095) >> 32);
+    if (v4 >= *&v5)
     {
-      v8 = v3 % *&v4;
+      v9 = v4 % *&v5;
     }
   }
 
   else
   {
-    v8 = v3 & (*&v4 - 1);
+    v9 = v4 & (*&v5 - 1);
   }
 
-  v9 = *(*a1 + 8 * v8);
-  if (!v9 || (v10 = *v9) == 0)
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
   {
 LABEL_18:
     operator new();
@@ -3765,45 +3765,42 @@ LABEL_18:
 
   while (1)
   {
-    v11 = v10[1];
-    if (v11 == v3)
+    v12 = v11[1];
+    if (v12 == v4)
     {
       break;
     }
 
-    if (v7 > 1)
+    if (v8 > 1)
     {
-      if (v11 >= *&v4)
+      if (v12 >= *&v5)
       {
-        v11 %= *&v4;
+        v12 %= *&v5;
       }
     }
 
     else
     {
-      v11 &= *&v4 - 1;
+      v12 &= *&v5 - 1;
     }
 
-    if (v11 != v8)
+    if (v12 != v9)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v10 = *v10;
-    if (!v10)
+    v11 = *v11;
+    if (!v11)
     {
       goto LABEL_18;
     }
   }
 
-  result = PA::RectEqualTo::operator()(v10 + 2, a2);
-  if (!result)
+  if (!PA::RectEqualTo::operator()(v11 + 2, a2))
   {
     goto LABEL_17;
   }
-
-  return result;
 }
 
 void std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__node_insert_multi(uint64_t a1, uint64_t a2)
@@ -4050,35 +4047,35 @@ BOOL PA::Rect::Intersects(CGRect *this, const Rect *a2)
   return CGRectIntersectsRect(*this, v3);
 }
 
-BOOL std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect const&>(void *a1, void *a2)
+void std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect const&>(void *a1, void *a2, uint64_t a3)
 {
-  v2 = (*a2 + 4095) & 0xFFFFFFFF00000000 ^ ((a2[1] + 4095) >> 32 << 24) ^ ((a2[2] + 4095) >> 32 << 8);
-  v3 = v2 ^ ((a2[3] + 4095) >> 32);
-  v4 = a1[1];
-  if (!*&v4)
+  v3 = (*a2 + 4095) & 0xFFFFFFFF00000000 ^ ((a2[1] + 4095) >> 32 << 24) ^ ((a2[2] + 4095) >> 32 << 8);
+  v4 = v3 ^ ((a2[3] + 4095) >> 32);
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v4);
-  v6.i16[0] = vaddlv_u8(v6);
-  v7 = v6.u32[0];
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v5);
+  v7.i16[0] = vaddlv_u8(v7);
+  v8 = v7.u32[0];
+  if (v7.u32[0] > 1uLL)
   {
-    v8 = v2 ^ ((a2[3] + 4095) >> 32);
-    if (v3 >= *&v4)
+    v9 = v3 ^ ((a2[3] + 4095) >> 32);
+    if (v4 >= *&v5)
     {
-      v8 = v3 % *&v4;
+      v9 = v4 % *&v5;
     }
   }
 
   else
   {
-    v8 = v3 & (*&v4 - 1);
+    v9 = v4 & (*&v5 - 1);
   }
 
-  v9 = *(*a1 + 8 * v8);
-  if (!v9 || (v10 = *v9) == 0)
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
   {
 LABEL_18:
     operator new();
@@ -4086,50 +4083,47 @@ LABEL_18:
 
   while (1)
   {
-    v11 = v10[1];
-    if (v11 == v3)
+    v12 = v11[1];
+    if (v12 == v4)
     {
       break;
     }
 
-    if (v7 > 1)
+    if (v8 > 1)
     {
-      if (v11 >= *&v4)
+      if (v12 >= *&v5)
       {
-        v11 %= *&v4;
+        v12 %= *&v5;
       }
     }
 
     else
     {
-      v11 &= *&v4 - 1;
+      v12 &= *&v5 - 1;
     }
 
-    if (v11 != v8)
+    if (v12 != v9)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v10 = *v10;
-    if (!v10)
+    v11 = *v11;
+    if (!v11)
     {
       goto LABEL_18;
     }
   }
 
-  result = PA::RectEqualTo::operator()(v10 + 2, a2);
-  if (!result)
+  if (!PA::RectEqualTo::operator()(v11 + 2, a2))
   {
     goto LABEL_17;
   }
-
-  return result;
 }
 
-void sub_25E5CEE74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25E5CEE74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -4155,7 +4149,7 @@ PA::Region *PA::Region::Region(PA::Region *this, const PA::Rect *a2)
     v6 = *(a2 + 1);
     v10[0] = *a2;
     v10[1] = v6;
-    std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect>(this, v10);
+    std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect>(this, v10, v10);
   }
 
   return this;
@@ -4194,9 +4188,9 @@ uint64_t PA::Region::Intersects(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_25E5CF0F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25E5CF0F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -4243,9 +4237,9 @@ double PA::Region::GetBounds(PA::Region *this)
   return v6;
 }
 
-void sub_25E5CF790(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25E5CF790(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -4268,9 +4262,9 @@ uint64_t PA::Region::RoundUp(PA::Region *this)
   return std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::~__hash_table(v8);
 }
 
-void sub_25E5CF830(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25E5CF830(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -4361,9 +4355,9 @@ uint64_t PA::Region::Add(PA::Region *this, const PA::Rect *a2)
   return std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::~__hash_table(v4);
 }
 
-void sub_25E5CF998(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25E5CF998(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -4376,9 +4370,9 @@ uint64_t PA::Region::Add(PA::Region *this, const PA::Region *a2)
   return std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::~__hash_table(v4);
 }
 
-void sub_25E5CF9FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25E5CF9FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -4409,7 +4403,7 @@ uint64_t PA::Region::Merge(PA::Region *this, void *a2)
           v35 = v33;
           v36 = v5;
           v37 = v6;
-          std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect>(this, &v34);
+          std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect>(this, &v34, &v34);
           goto LABEL_31;
         }
 
@@ -4482,7 +4476,7 @@ uint64_t PA::Region::Merge(PA::Region *this, void *a2)
       v35 = v9;
       v36 = v22;
       v37 = v23 - v9;
-      std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect>(a2, &v34);
+      std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect>(a2, &v34, &v34);
       v24 = v8[3];
       if (v33 >= v24)
       {
@@ -4506,7 +4500,7 @@ uint64_t PA::Region::Merge(PA::Region *this, void *a2)
         v37 = v24 - v33;
       }
 
-      std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect>(a2, &v34);
+      std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect>(a2, &v34, &v34);
 LABEL_25:
       v26 = v8[3] + v8[5];
       if (v29 >= v26)
@@ -4531,7 +4525,7 @@ LABEL_25:
         v37 = v26 - v29;
       }
 
-      std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect>(a2, &v34);
+      std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect>(a2, &v34, &v34);
 LABEL_30:
       std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::erase(this, v8);
 LABEL_31:
@@ -4558,9 +4552,9 @@ uint64_t PA::Region::ShrinkInRect(PA::Region *this, float64_t a2, float64_t a3, 
   return std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::~__hash_table(v10);
 }
 
-void sub_25E5CFDD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25E5CFDD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -4600,9 +4594,9 @@ uint64_t PA::Region::Clip(PA::Region *this, const PA::Rect *a2)
   return std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::~__hash_table(v4);
 }
 
-void sub_25E5D0028(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25E5D0028(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -4621,7 +4615,7 @@ uint64_t PA::Region::Clip(PA::Region *this, const PA::Region *a2)
       if (v12.size.width > 0.0 && v12.size.height > 0.0)
       {
         v10 = v12;
-        std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect>(&v7, &v10);
+        std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect>(&v7, &v10, &v10);
       }
     }
   }
@@ -4636,16 +4630,16 @@ uint64_t PA::Region::Clip(PA::Region *this, const PA::Region *a2)
   return std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::~__hash_table(&v7);
 }
 
-void sub_25E5D0370(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25E5D0370(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25E5D0464(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25E5D0464(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -4659,23 +4653,23 @@ uint64_t PA::Region::Diff(PA::Region *this, const PA::Region *a2)
   return std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::~__hash_table(v5);
 }
 
-void sub_25E5D05EC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25E5D05EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25E5D0650(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25E5D0650(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25E5D08B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25E5D08B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -4849,8 +4843,8 @@ uint64_t PFSizeRotate(uint64_t result)
 
   if (__ROR8__(0x4FA4FA4FA4FA4FA5 * v1, 1) >= 0x2D82D82D82D82D9uLL)
   {
-    v2 = _PFAssertFailHandler();
-    return PFSizeEnforceMinDimension(v2);
+    _PFAssertFailHandler();
+    return PFSizeEnforceMinDimension(v2, v3, v4, v5);
   }
 
   return result;
@@ -4908,16 +4902,16 @@ double PFSizeEnforceMaxDimensions(int a1, double result, double a3, double a4, d
 
 double PAConvertImageRect(double a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8, CGFloat a9, CGFloat a10, double a11, double a12)
 {
-  v20 = a11 / a7;
-  v21 = a12 / a8;
-  v24 = CGRectOffset(*&a1, -a5, -a6);
-  v24.origin.x = v20 * v24.origin.x;
-  v24.origin.y = v21 * v24.origin.y;
-  v24.size.width = v20 * v24.size.width;
-  v24.size.height = v21 * v24.size.height;
-  v25 = CGRectStandardize(v24);
+  v12 = a11 / a7;
+  v13 = a12 / a8;
+  v16 = CGRectOffset(*&a1, -a5, -a6);
+  v16.origin.x = v12 * v16.origin.x;
+  v16.origin.y = v13 * v16.origin.y;
+  v16.size.width = v12 * v16.size.width;
+  v16.size.height = v13 * v16.size.height;
+  v17 = CGRectStandardize(v16);
 
-  *&result = CGRectOffset(v25, a9, a10);
+  *&result = CGRectOffset(v17, a9, a10);
   return result;
 }
 
@@ -5024,13 +5018,13 @@ double PAAnchorPointFromRectToRect(double a1, double a2, double a3, double a4, d
 
 double PARectResizeByMovingRelativePoint(double a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9)
 {
-  v16 = a1 + a9 * a3;
+  v9 = a1 + a9 * a3;
   if (a5 != a9)
   {
-    a3 = (a1 + a5 * a3 + a7 - v16) / (a5 - a9);
+    a3 = (a1 + a5 * a3 + a7 - v9) / (a5 - a9);
   }
 
-  return v16 - a9 * a3;
+  return v9 - a9 * a3;
 }
 
 double PARectEnforceMinimumSizeAndAspectRatio(unint64_t a1, unint64_t a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9)
@@ -5072,11 +5066,11 @@ double PAAspectRatioValue(unint64_t a1, unint64_t a2)
   return result;
 }
 
-double PARectAspectConstrain(unint64_t a1, unint64_t a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9, double a10, double a11, double a12, double a13, double a14)
+double PARectAspectConstrain(unint64_t result, unint64_t a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9, double a10, double a11, double a12, double a13, double a14)
 {
-  if (a1 | a2)
+  if (result | a2)
   {
-    return a3 + a9 * a5 - a9 * (((a4 + a8 * a6 - (a4 + a10 * a6)) * ((a8 - a10) * a2) + (a3 + a7 * a5 - (a3 + a9 * a5)) * ((a7 - a9) * a1)) / ((a8 - a10) * a2 * ((a8 - a10) * a2) + (a7 - a9) * a1 * ((a7 - a9) * a1)) * a1);
+    return a3 + a9 * a5 - a9 * (((a4 + a8 * a6 - (a4 + a10 * a6)) * ((a8 - a10) * a2) + (a3 + a7 * a5 - (a3 + a9 * a5)) * ((a7 - a9) * result)) / ((a8 - a10) * a2 * ((a8 - a10) * a2) + (a7 - a9) * result * ((a7 - a9) * result)) * result);
   }
 
   _PFAssertFailHandler();
@@ -5933,7 +5927,7 @@ __CFString *IPAOrientationName(uint64_t a1)
   return IPAOrientationName_names[v1];
 }
 
-void sub_25E5D46A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, id a32)
+void sub_25E5D46A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, id a32)
 {
   _Block_object_dispose(&a21, 8);
 
@@ -5950,7 +5944,7 @@ uint64_t __Block_byref_object_copy__1737(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_25E5D4AB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id a30)
+void sub_25E5D4AB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id a30)
 {
   _Block_object_dispose(&a25, 8);
 
@@ -6222,9 +6216,9 @@ __n128 CGAffineTransformRelative@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-void sub_25E5DA4A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_25E5DA4A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

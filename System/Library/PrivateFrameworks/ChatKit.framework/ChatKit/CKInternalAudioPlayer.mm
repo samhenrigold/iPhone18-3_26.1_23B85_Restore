@@ -272,7 +272,7 @@
     *&v6 = speedCopy;
     [(AVAudioPlayer *)self->_avAudioPlayer setRate:v6];
     avAudioPlayer = self->_avAudioPlayer;
-    [(AVAudioPlayer *)avAudioPlayer currentTime];
+    objc_msgSend_currentTime(avAudioPlayer);
 
     [(AVAudioPlayer *)avAudioPlayer setCurrentTime:?];
   }
@@ -311,7 +311,7 @@
     avPlayer = self->_avPlayer;
     if (avPlayer)
     {
-      [(AVPlayer *)avPlayer currentTime];
+      objc_msgSend_currentTime(avPlayer);
     }
 
     else
@@ -326,7 +326,7 @@
   {
     avAudioPlayer = self->_avAudioPlayer;
 
-    [(AVAudioPlayer *)avAudioPlayer currentTime];
+    objc_msgSend_currentTime(avAudioPlayer);
   }
 
   return result;
@@ -362,7 +362,7 @@ void *__36__CKInternalAudioPlayer_currentTime__block_invoke()
     v5 = currentItem;
     if (currentItem)
     {
-      [currentItem duration];
+      objc_msgSend_duration(currentItem);
     }
 
     else
@@ -392,20 +392,20 @@ void *__36__CKInternalAudioPlayer_currentTime__block_invoke()
   {
     avAudioPlayer = self->_avAudioPlayer;
 
-    [(AVAudioPlayer *)avAudioPlayer duration];
+    objc_msgSend_duration(avAudioPlayer);
   }
 
   return result;
 }
 
-void *__33__CKInternalAudioPlayer_duration__block_invoke()
+uint64_t (*__33__CKInternalAudioPlayer_duration__block_invoke())(void, void)
 {
   result = MEMORY[0x193AF5ED0]("CMTimeCompare", @"CoreMedia");
   duration__CMTimeCompare = result;
   return result;
 }
 
-void *__33__CKInternalAudioPlayer_duration__block_invoke_2()
+uint64_t (*__33__CKInternalAudioPlayer_duration__block_invoke_2())(void)
 {
   result = MEMORY[0x193AF5ED0]("CMTimeGetSeconds", @"CoreMedia");
   duration__CMTimeGetSeconds_0 = result;

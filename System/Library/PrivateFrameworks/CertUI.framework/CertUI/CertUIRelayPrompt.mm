@@ -9,6 +9,7 @@
 - (id)_localizedUntrustedCertAcceptNotAllowedMessage;
 - (id)_localizedUntrustedCertAlertMessage;
 - (id)_localizedUntrustedCertAlertTitle;
+- (id)_replyDictionaryWithCertUIResponse:(int)response;
 - (void)_invokeCompletionWithReply:(id)reply;
 - (void)_receivedCancelOnlyResponseForNotification:(__CFUserNotification *)notification responseFlags:(unint64_t)flags;
 - (void)_receivedResponseForNotification:(__CFUserNotification *)notification responseFlags:(unint64_t)flags;
@@ -48,6 +49,14 @@
   [(CertUIRelayPrompt *)&v4 dealloc];
 }
 
+- (id)_replyDictionaryWithCertUIResponse:(int)response
+{
+  v3 = [NSNumber numberWithInt:*&response];
+  v4 = kCertUITrustResponseKey;
+
+  return [NSDictionary dictionaryWithObject:v3 forKey:v4];
+}
+
 - (void)_invokeCompletionWithReply:(id)reply
 {
   completion = self->_completion;
@@ -82,7 +91,6 @@
   {
     v3 = +[CertUIRelayPrompt _actualCenter];
     v4 = kCertUIPresentTrustInfoMessage;
-    messageInfo = self->_messageInfo;
 
     [v3 sendMessageAndReceiveReplyName:v4 userInfo:? toTarget:? selector:? context:?];
   }

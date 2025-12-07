@@ -63,7 +63,7 @@
 
 - (void)_inviteSharedUsers
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   home = [(HMDResidentStatusChannel *)self home];
   if ([home isOwnerUser] && objc_msgSend(home, "isCurrentDevicePrimaryResident") && -[HMDResidentStatusChannel receivedInitialChannelState](self, "receivedInitialChannelState"))
@@ -76,34 +76,32 @@
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v16 = v8;
-      v17 = 2112;
-      v18 = v4;
+      v15 = v8;
+      v16 = 2112;
+      v17 = v4;
       _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Setting invited users to: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
     objc_initWeak(buf, selfCopy);
     channel = [(HMDResidentStatusChannel *)selfCopy channel];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __46__HMDResidentStatusChannel__inviteSharedUsers__block_invoke;
-    v12[3] = &unk_278687540;
-    objc_copyWeak(&v14, buf);
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __46__HMDResidentStatusChannel__inviteSharedUsers__block_invoke;
+    v11[3] = &unk_278687540;
+    objc_copyWeak(&v13, buf);
     v10 = v4;
-    v13 = v10;
-    [channel setInvitedUsers:v10 withCompletion:v12];
+    v12 = v10;
+    [channel setInvitedUsers:v10 withCompletion:v11];
 
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v13);
     objc_destroyWeak(buf);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __46__HMDResidentStatusChannel__inviteSharedUsers__block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = objc_autoreleasePoolPush();
@@ -116,11 +114,11 @@ void __46__HMDResidentStatusChannel__inviteSharedUsers__block_invoke(uint64_t a1
     {
       v9 = HMFGetLogIdentifier();
       v10 = *(a1 + 32);
-      v15 = 138543618;
-      v16 = v9;
-      v17 = 2112;
-      v18 = v10;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to set users %@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v9;
+      v16 = 2112;
+      v17 = v10;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to set users %@", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -134,17 +132,15 @@ void __46__HMDResidentStatusChannel__inviteSharedUsers__block_invoke(uint64_t a1
     {
       v12 = HMFGetLogIdentifier();
       v13 = *(a1 + 32);
-      v15 = 138543618;
-      v16 = v12;
-      v17 = 2112;
-      v18 = v13;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Successfully set invited users %@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v12;
+      v16 = 2112;
+      v17 = v13;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Successfully set invited users %@", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_startTimerWithDuration:(double)duration
@@ -180,7 +176,7 @@ void __46__HMDResidentStatusChannel__inviteSharedUsers__block_invoke(uint64_t a1
 
 - (void)timerDidFire:(id)fire
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   dispatch_assert_queue_V2(self->_queue);
   debounceTimer = [(HMDResidentStatusChannel *)self debounceTimer];
@@ -199,9 +195,9 @@ void __46__HMDResidentStatusChannel__inviteSharedUsers__block_invoke(uint64_t a1
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         v13 = HMFGetLogIdentifier();
-        v17 = 138543362;
-        v18 = v13;
-        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Status Channel still disconnected after debounce timer fired, resetting records", &v17, 0xCu);
+        v16 = 138543362;
+        v17 = v13;
+        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Status Channel still disconnected after debounce timer fired, resetting records", &v16, 0xCu);
       }
 
       objc_autoreleasePoolPop(v10);
@@ -232,14 +228,12 @@ void __46__HMDResidentStatusChannel__inviteSharedUsers__block_invoke(uint64_t a1
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)channel:(id)channel didObserveConnectionChange:(BOOL)change
 {
   changeCopy = change;
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   channelCopy = channel;
   dispatch_assert_queue_V2(self->_queue);
   v7 = objc_autoreleasePoolPush();
@@ -251,9 +245,9 @@ void __46__HMDResidentStatusChannel__inviteSharedUsers__block_invoke(uint64_t a1
     if (v10)
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v11;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Status Channel gained connectivity, stopping debounce timer", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v11;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Status Channel gained connectivity, stopping debounce timer", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -265,21 +259,19 @@ void __46__HMDResidentStatusChannel__inviteSharedUsers__block_invoke(uint64_t a1
     if (v10)
     {
       v12 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v12;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Status Channel lost connectivity, starting debounce timer", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v12;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Status Channel lost connectivity, starting debounce timer", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
     [(HMDResidentStatusChannel *)selfCopy _startDebounceTimer];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)channel:(id)channel didObserveRecordUpdate:(id)update
 {
-  v145 = *MEMORY[0x277D85DE8];
+  v144 = *MEMORY[0x277D85DE8];
   channelCopy = channel;
   updateCopy = update;
   dispatch_assert_queue_V2(self->_queue);
@@ -290,9 +282,9 @@ void __46__HMDResidentStatusChannel__inviteSharedUsers__block_invoke(uint64_t a1
   {
     v10 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v137 = v10;
-    v138 = 2048;
-    v139 = [updateCopy count];
+    v136 = v10;
+    v137 = 2048;
+    v138 = [updateCopy count];
     _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Status channel updated records (%lu)", buf, 0x16u);
   }
 
@@ -304,56 +296,56 @@ void __46__HMDResidentStatusChannel__inviteSharedUsers__block_invoke(uint64_t a1
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v137 = v14;
-    v138 = 2112;
-    v139 = updateCopy;
+    v136 = v14;
+    v137 = 2112;
+    v138 = updateCopy;
     _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_DEBUG, "%{public}@Status channel updated records: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v11);
-  v126 = [MEMORY[0x277CBEB58] set];
-  v120 = [MEMORY[0x277CBEB58] set];
+  v125 = [MEMORY[0x277CBEB58] set];
+  v119 = [MEMORY[0x277CBEB58] set];
   residentStatusMap = [(HMDResidentStatusChannel *)v12 residentStatusMap];
   allValues = [residentStatusMap allValues];
-  v125 = [allValues mutableCopy];
+  v124 = [allValues mutableCopy];
 
   obj = [MEMORY[0x277CBEB38] dictionary];
-  v119 = [MEMORY[0x277CBEB58] set];
-  v116 = [MEMORY[0x277CBEB58] set];
   v118 = [MEMORY[0x277CBEB58] set];
+  v115 = [MEMORY[0x277CBEB58] set];
+  v117 = [MEMORY[0x277CBEB58] set];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v130 = 0u;
   v131 = 0u;
   v132 = 0u;
   v133 = 0u;
-  v134 = 0u;
   v17 = updateCopy;
-  v113 = v17;
-  v123 = [v17 countByEnumeratingWithState:&v131 objects:v144 count:16];
-  if (!v123)
+  v112 = v17;
+  v122 = [v17 countByEnumeratingWithState:&v130 objects:v143 count:16];
+  if (!v122)
   {
 
     goto LABEL_48;
   }
 
-  v117 = 0;
-  v121 = *v132;
+  v116 = 0;
+  v120 = *v131;
   do
   {
-    for (i = 0; i != v123; ++i)
+    for (i = 0; i != v122; ++i)
     {
-      if (*v132 != v121)
+      if (*v131 != v120)
       {
         objc_enumerationMutation(v17);
       }
 
-      v19 = *(*(&v131 + 1) + 8 * i);
+      v19 = *(*(&v130 + 1) + 8 * i);
       v20 = [[HMDResidentStatus alloc] initWithChannelRecord:v19];
       v21 = v20;
       if (v20)
       {
         if ([(HMDResidentStatus *)v20 isPrimary])
         {
-          if (!v117)
+          if (!v116)
           {
             v42 = MEMORY[0x277CBEB98];
             home = [(HMDResidentStatusChannel *)v12 home];
@@ -369,24 +361,24 @@ void __46__HMDResidentStatusChannel__inviteSharedUsers__block_invoke(uint64_t a1
               v50 = HMFGetLogIdentifier();
               shortDescription = [v46 shortDescription];
               *buf = 138543618;
-              v137 = v50;
-              v138 = 2112;
-              v139 = shortDescription;
+              v136 = v50;
+              v137 = 2112;
+              v138 = shortDescription;
               _os_log_impl(&dword_229538000, v49, OS_LOG_TYPE_INFO, "%{public}@Found primary resident %@", buf, 0x16u);
             }
 
             objc_autoreleasePoolPop(v47);
-            v117 = v21;
+            v116 = v21;
 
-            v17 = v113;
+            v17 = v112;
             goto LABEL_31;
           }
 
           assertionTime = [(HMDResidentStatus *)v21 assertionTime];
-          if (assertionTime && (v23 = assertionTime, [(HMDResidentStatus *)v117 assertionTime], v24 = objc_claimAutoreleasedReturnValue(), v24, v23, v24))
+          if (assertionTime && (v23 = assertionTime, [(HMDResidentStatus *)v116 assertionTime], v24 = objc_claimAutoreleasedReturnValue(), v24, v23, v24))
           {
             assertionTime2 = [(HMDResidentStatus *)v21 assertionTime];
-            assertionTime3 = [(HMDResidentStatus *)v117 assertionTime];
+            assertionTime3 = [(HMDResidentStatus *)v116 assertionTime];
             v27 = [assertionTime2 compare:assertionTime3];
 
             v28 = objc_autoreleasePoolPush();
@@ -399,16 +391,16 @@ void __46__HMDResidentStatusChannel__inviteSharedUsers__block_invoke(uint64_t a1
               {
                 v32 = HMFGetLogIdentifier();
                 *buf = 138543618;
-                v137 = v32;
-                v138 = 2112;
-                v139 = v21;
+                v136 = v32;
+                v137 = 2112;
+                v138 = v21;
                 _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_ERROR, "%{public}@Found additional primary resident %@, using as primary because assertion time is newer", buf, 0x16u);
               }
 
               objc_autoreleasePoolPop(v28);
               v33 = v21;
 
-              v117 = v33;
+              v116 = v33;
               goto LABEL_31;
             }
 
@@ -416,9 +408,9 @@ void __46__HMDResidentStatusChannel__inviteSharedUsers__block_invoke(uint64_t a1
             {
               v38 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v137 = v38;
-              v138 = 2112;
-              v139 = v21;
+              v136 = v38;
+              v137 = 2112;
+              v138 = v21;
               v39 = v30;
               v40 = "%{public}@Found additional primary resident %@, ignoring because assertion time is older";
               v41 = 22;
@@ -436,11 +428,11 @@ LABEL_29:
             {
               v38 = HMFGetLogIdentifier();
               *buf = 138543874;
-              v137 = v38;
-              v138 = 2112;
-              v139 = v21;
-              v140 = 2112;
-              v141 = v117;
+              v136 = v38;
+              v137 = 2112;
+              v138 = v21;
+              v139 = 2112;
+              v140 = v116;
               v39 = v30;
               v40 = "%{public}@Unexpected nil assertion time, ignoring, %@, %@";
               v41 = 32;
@@ -456,13 +448,13 @@ LABEL_31:
         idsIdentifier = [(HMDResidentStatus *)v21 idsIdentifier];
         v54 = [residentStatusMap2 objectForKeyedSubscript:idsIdentifier];
 
-        v55 = v126;
-        if (!v54 || (v56 = [(HMDResidentStatus *)v21 hasChangedFrom:v54], v55 = v120, v56))
+        v55 = v125;
+        if (!v54 || (v56 = [(HMDResidentStatus *)v21 hasChangedFrom:v54], v55 = v119, v56))
         {
           [v55 addObject:v21];
         }
 
-        [v125 removeObject:v21];
+        [v124 removeObject:v21];
         idsIdentifier2 = [(HMDResidentStatus *)v21 idsIdentifier];
         [obj setObject:v21 forKeyedSubscript:idsIdentifier2];
 
@@ -473,13 +465,13 @@ LABEL_31:
           idsIdentifier3 = [(HMDResidentStatus *)v21 idsIdentifier];
           v60 = [domainDataStatusMap objectForKeyedSubscript:idsIdentifier3];
 
-          v61 = v119;
-          if (!v60 || (v62 = [(HMDResidentStatusDomainData *)currentPrimaryResident hasChangedFrom:v60], v61 = v116, v62))
+          v61 = v118;
+          if (!v60 || (v62 = [(HMDResidentStatusDomainData *)currentPrimaryResident hasChangedFrom:v60], v61 = v115, v62))
           {
             [v61 addObject:currentPrimaryResident];
           }
 
-          [v118 removeObject:currentPrimaryResident];
+          [v117 removeObject:currentPrimaryResident];
           idsIdentifier4 = [(HMDResidentStatus *)v21 idsIdentifier];
           [dictionary setObject:currentPrimaryResident forKeyedSubscript:idsIdentifier4];
         }
@@ -493,14 +485,14 @@ LABEL_31:
           {
             v67 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v137 = v67;
-            v138 = 2112;
-            v139 = v19;
+            v136 = v67;
+            v137 = 2112;
+            v138 = v19;
             _os_log_impl(&dword_229538000, v66, OS_LOG_TYPE_ERROR, "%{public}@Failed to create state domain data from record %@", buf, 0x16u);
           }
 
           objc_autoreleasePoolPop(v64);
-          v17 = v113;
+          v17 = v112;
         }
 
         goto LABEL_43;
@@ -513,9 +505,9 @@ LABEL_31:
       {
         v37 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v137 = v37;
-        v138 = 2112;
-        v139 = v19;
+        v136 = v37;
+        v137 = 2112;
+        v138 = v19;
         _os_log_impl(&dword_229538000, v36, OS_LOG_TYPE_ERROR, "%{public}@Failed to create status from record %@", buf, 0x16u);
       }
 
@@ -523,12 +515,12 @@ LABEL_31:
 LABEL_43:
     }
 
-    v123 = [v17 countByEnumeratingWithState:&v131 objects:v144 count:16];
+    v122 = [v17 countByEnumeratingWithState:&v130 objects:v143 count:16];
   }
 
-  while (v123);
+  while (v122);
 
-  if (v117)
+  if (v116)
   {
     v68 = 1;
     goto LABEL_49;
@@ -537,14 +529,14 @@ LABEL_43:
 LABEL_48:
   currentPrimaryResident = [(HMDResidentStatusChannel *)v12 currentPrimaryResident];
   v68 = 0;
-  v117 = 0;
+  v116 = 0;
   v69 = 0;
   v70 = 0;
   if (currentPrimaryResident)
   {
 LABEL_49:
     currentPrimaryResident2 = [(HMDResidentStatusChannel *)v12 currentPrimaryResident];
-    v70 = [(HMDResidentStatus *)v117 isEqual:currentPrimaryResident2]^ 1;
+    v70 = [(HMDResidentStatus *)v116 isEqual:currentPrimaryResident2]^ 1;
 
     if (v68)
     {
@@ -560,7 +552,7 @@ LABEL_53:
   v73 = objc_autoreleasePoolPush();
   v74 = v12;
   v75 = HMFGetOSLogHandle();
-  v124 = v74;
+  v123 = v74;
   if (os_log_type_enabled(v75, OS_LOG_TYPE_INFO))
   {
     v76 = HMFGetLogIdentifier();
@@ -568,27 +560,27 @@ LABEL_53:
     v78 = currentPrimaryResident3;
     v79 = @"NO";
     *buf = 138544130;
-    v137 = v76;
+    v136 = v76;
     if (v70)
     {
       v79 = @"YES";
     }
 
-    v138 = 2112;
-    v139 = v117;
-    v140 = 2112;
-    v141 = currentPrimaryResident3;
-    v142 = 2112;
-    v143 = v79;
+    v137 = 2112;
+    v138 = v116;
+    v139 = 2112;
+    v140 = currentPrimaryResident3;
+    v141 = 2112;
+    v142 = v79;
     _os_log_impl(&dword_229538000, v75, OS_LOG_TYPE_INFO, "%{public}@Found primary resident = %@, current primary resident %@, will notify %@", buf, 0x2Au);
 
-    v74 = v124;
+    v74 = v123;
   }
 
   objc_autoreleasePoolPop(v73);
   os_unfair_lock_lock_with_options();
   objc_storeStrong(&v74->_residentStatusMap, obj);
-  objc_storeStrong(&v74->_currentPrimaryResident, v117);
+  objc_storeStrong(&v74->_currentPrimaryResident, v116);
   objc_storeStrong(&v74->_domainDataStatusMap, dictionary);
   os_unfair_lock_unlock(&v74->_lock);
   channel = [(HMDResidentStatusChannel *)v74 channel];
@@ -628,7 +620,7 @@ LABEL_61:
     {
       v88 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v137 = v88;
+      v136 = v88;
       _os_log_impl(&dword_229538000, v87, OS_LOG_TYPE_DEFAULT, "%{public}@Received initial channel state", buf, 0xCu);
     }
 
@@ -641,50 +633,50 @@ LABEL_61:
   }
 
   v90 = [HMDResidentStatusChannelObserveLogEvent alloc];
-  v112 = home2;
+  v111 = home2;
   uuid = [home2 uuid];
-  v92 = [v125 count] != 0;
-  v93 = [v126 count] != 0;
-  v94 = [v120 count] != 0;
-  LOBYTE(v109) = [v17 count] != 0;
+  v92 = [v124 count] != 0;
+  v93 = [v125 count] != 0;
+  v94 = [v119 count] != 0;
+  LOBYTE(v108) = [v17 count] != 0;
   v95 = v92;
-  v96 = v124;
-  v97 = [(HMDResidentStatusChannelObserveLogEvent *)v90 initWithHomeUUID:uuid didLoseStatuses:v95 didAddStatuses:v93 didUpdateStatuses:v94 didFindPrimary:v72 didPrimaryChange:v70 isStatusesEmpty:v109];
+  v96 = v123;
+  v97 = [(HMDResidentStatusChannelObserveLogEvent *)v90 initWithHomeUUID:uuid didLoseStatuses:v95 didAddStatuses:v93 didUpdateStatuses:v94 didFindPrimary:v72 didPrimaryChange:v70 isStatusesEmpty:v108];
 
-  logEventSubmitter = [(HMDResidentStatusChannel *)v124 logEventSubmitter];
-  v110 = v97;
+  logEventSubmitter = [(HMDResidentStatusChannel *)v123 logEventSubmitter];
+  v109 = v97;
   [logEventSubmitter submitLogEvent:v97];
 
-  v129 = 0u;
-  v130 = 0u;
-  v127 = 0u;
   v128 = 0u;
-  observers = [(HMDResidentStatusChannel *)v124 observers];
-  v99 = [observers countByEnumeratingWithState:&v127 objects:v135 count:16];
+  v129 = 0u;
+  v126 = 0u;
+  v127 = 0u;
+  observers = [(HMDResidentStatusChannel *)v123 observers];
+  v99 = [observers countByEnumeratingWithState:&v126 objects:v134 count:16];
   if (v99)
   {
     v100 = v99;
-    v101 = *v128;
+    v101 = *v127;
     do
     {
       for (j = 0; j != v100; ++j)
       {
-        if (*v128 != v101)
+        if (*v127 != v101)
         {
           objc_enumerationMutation(observers);
         }
 
-        v103 = *(*(&v127 + 1) + 8 * j);
+        v103 = *(*(&v126 + 1) + 8 * j);
         if (objc_opt_respondsToSelector())
         {
-          v104 = [v126 copy];
-          v105 = [v125 copy];
+          v104 = objc_msgSend_copy(v125);
+          v105 = objc_msgSend_copy(v124);
           v106 = v70;
-          v107 = [v120 copy];
-          [v103 channel:v124 didObserveDevicesAdded:v104 lost:v105 updated:v107];
+          v107 = objc_msgSend_copy(v119);
+          [v103 channel:v123 didObserveDevicesAdded:v104 lost:v105 updated:v107];
 
           v70 = v106;
-          v96 = v124;
+          v96 = v123;
         }
 
         if (v70 && (objc_opt_respondsToSelector() & 1) != 0)
@@ -694,17 +686,15 @@ LABEL_61:
 
         if (objc_opt_respondsToSelector())
         {
-          [v103 channel:v96 didObserveNewDomainDataDevices:v119 removedDomainDataDevices:v118 updatedDomainDataDevices:v116];
+          [v103 channel:v96 didObserveNewDomainDataDevices:v118 removedDomainDataDevices:v117 updatedDomainDataDevices:v115];
         }
       }
 
-      v100 = [observers countByEnumeratingWithState:&v127 objects:v135 count:16];
+      v100 = [observers countByEnumeratingWithState:&v126 objects:v134 count:16];
     }
 
     while (v100);
   }
-
-  v108 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handlePrimaryResidentUpdateNotification:(id)notification
@@ -723,7 +713,7 @@ LABEL_61:
 
 uint64_t __69__HMDResidentStatusChannel__handlePrimaryResidentUpdateNotification___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -731,17 +721,15 @@ uint64_t __69__HMDResidentStatusChannel__handlePrimaryResidentUpdateNotification
   {
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
-    v9 = 138543618;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Handling primary resident update notification: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Handling primary resident update notification: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) _inviteSharedUsers];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _inviteSharedUsers];
 }
 
 - (void)_handleHomeUserRemovedNotification:(id)notification
@@ -760,7 +748,7 @@ uint64_t __69__HMDResidentStatusChannel__handlePrimaryResidentUpdateNotification
 
 uint64_t __63__HMDResidentStatusChannel__handleHomeUserRemovedNotification___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -768,17 +756,15 @@ uint64_t __63__HMDResidentStatusChannel__handleHomeUserRemovedNotification___blo
   {
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
-    v9 = 138543618;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Handling home user removed notification: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Handling home user removed notification: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) _inviteSharedUsers];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _inviteSharedUsers];
 }
 
 - (void)_handleHomeUserAddedNotification:(id)notification
@@ -797,7 +783,7 @@ uint64_t __63__HMDResidentStatusChannel__handleHomeUserRemovedNotification___blo
 
 uint64_t __61__HMDResidentStatusChannel__handleHomeUserAddedNotification___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -805,22 +791,20 @@ uint64_t __61__HMDResidentStatusChannel__handleHomeUserAddedNotification___block
   {
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
-    v9 = 138543618;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Handling home user added notification: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Handling home user added notification: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) _inviteSharedUsers];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _inviteSharedUsers];
 }
 
 - (void)domainPublishRateLimitingTimerFired
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -828,9 +812,9 @@ uint64_t __61__HMDResidentStatusChannel__handleHomeUserAddedNotification___block
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v6;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Rate limiting in Status channel for domain data has ended.", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v6;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Rate limiting in Status channel for domain data has ended.", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -845,12 +829,11 @@ uint64_t __61__HMDResidentStatusChannel__handleHomeUserAddedNotification___block
   [domainPublishRateLimitingTimer cancel];
 
   [(HMDResidentStatusChannel *)selfCopy setDomainPublishRateLimitingTimer:0];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldAllowDomainPublishRequest
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   domainPublishRateLimitingTimer = [(HMDResidentStatusChannel *)self domainPublishRateLimitingTimer];
   isRunning = [domainPublishRateLimitingTimer isRunning];
 
@@ -866,11 +849,11 @@ uint64_t __61__HMDResidentStatusChannel__handleHomeUserAddedNotification___block
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         v8 = HMFGetLogIdentifier();
-        v16 = 138543618;
-        v17 = v8;
-        v18 = 2048;
+        v15 = 138543618;
+        v16 = v8;
+        v17 = 2048;
         domainPublishCount = [(HMDResidentStatusChannel *)selfCopy domainPublishCount];
-        _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Domain data publishes got rate limited. Number of publishes: %lu", &v16, 0x16u);
+        _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Domain data publishes got rate limited. Number of publishes: %lu", &v15, 0x16u);
       }
 
       objc_autoreleasePoolPop(v5);
@@ -885,9 +868,9 @@ uint64_t __61__HMDResidentStatusChannel__handleHomeUserAddedNotification___block
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v12 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v12;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@First publish in the current window for StatusKit rate limiting check.", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v12;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@First publish in the current window for StatusKit rate limiting check.", &v15, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -898,9 +881,7 @@ uint64_t __61__HMDResidentStatusChannel__handleHomeUserAddedNotification___block
     [(HMDResidentStatusChannel *)selfCopy2 setDomainPublishAllowed:1];
   }
 
-  result = [(HMDResidentStatusChannel *)self domainPublishAllowed];
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  return [(HMDResidentStatusChannel *)self domainPublishAllowed];
 }
 
 - (id)dumpStateWithPrivacyLevel:(unint64_t)level
@@ -909,7 +890,7 @@ uint64_t __61__HMDResidentStatusChannel__handleHomeUserAddedNotification___block
   v4 = [(HMDSDumpState *)self->_channel dumpStateWithPrivacyLevel:level];
   v5 = [v3 dictionaryWithDictionary:v4];
 
-  v6 = [v5 copy];
+  v6 = objc_msgSend_copy(v5);
 
   return v6;
 }
@@ -991,7 +972,7 @@ void __40__HMDResidentStatusChannel_addObserver___block_invoke(uint64_t a1)
 
 - (void)_stopPublishingAsResident
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -1000,7 +981,7 @@ void __40__HMDResidentStatusChannel_addObserver___block_invoke(uint64_t a1)
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v13 = v6;
+    v12 = v6;
     _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Stopping publishing as resident", buf, 0xCu);
   }
 
@@ -1010,20 +991,19 @@ void __40__HMDResidentStatusChannel_addObserver___block_invoke(uint64_t a1)
 
   objc_initWeak(buf, selfCopy);
   channel = selfCopy->_channel;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __53__HMDResidentStatusChannel__stopPublishingAsResident__block_invoke;
-  v10[3] = &unk_278688A18;
-  objc_copyWeak(&v11, buf);
-  [(HMDSDumpState *)channel stopPublishingWithCompletion:v10];
-  objc_destroyWeak(&v11);
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __53__HMDResidentStatusChannel__stopPublishingAsResident__block_invoke;
+  v9[3] = &unk_278688A18;
+  objc_copyWeak(&v10, buf);
+  [(HMDSDumpState *)channel stopPublishingWithCompletion:v9];
+  objc_destroyWeak(&v10);
   objc_destroyWeak(buf);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __53__HMDResidentStatusChannel__stopPublishingAsResident__block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (v3)
@@ -1034,17 +1014,15 @@ void __53__HMDResidentStatusChannel__stopPublishingAsResident__block_invoke(uint
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v10 = 138543618;
-      v11 = v8;
-      v12 = 2112;
-      v13 = v3;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to stopPublishing StatusChannel: %@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v8;
+      v11 = 2112;
+      v12 = v3;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to stopPublishing StatusChannel: %@", &v9, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopPublishingAsResident
@@ -1072,7 +1050,7 @@ void __53__HMDResidentStatusChannel__stopPublishingAsResident__block_invoke(uint
 
 void __49__HMDResidentStatusChannel_stopPublishingDomain___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = StringForResidentStatusChannelDomain(*(a1 + 40));
   v3 = [*(a1 + 32) domainDataPairs];
   [v3 removeObjectForKey:v2];
@@ -1083,19 +1061,17 @@ void __49__HMDResidentStatusChannel_stopPublishingDomain___block_invoke(uint64_t
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v11 = 138543618;
-    v12 = v7;
-    v13 = 2112;
-    v14 = v2;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Stopping publishing for domain %@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v2;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Stopping publishing for domain %@", &v10, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   v8 = *(a1 + 32);
   v9 = [v8 localResidentStatus];
   [v8 _publishResidentStatus:v9 reason:6];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dataForDomain:(unint64_t)domain
@@ -1113,14 +1089,14 @@ void __49__HMDResidentStatusChannel_stopPublishingDomain___block_invoke(uint64_t
   v9 = v6;
   [domainDataStatuses hmf_enumerateWithAutoreleasePoolUsingBlock:&v12];
 
-  v10 = [v8 copy];
+  v10 = objc_msgSend_copy(v8, v12, v13, v14, v15);
 
   return v10;
 }
 
 void __42__HMDResidentStatusChannel_dataForDomain___block_invoke(uint64_t a1, void *a2)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 dataByDomain];
   v5 = [v4 objectForKey:*(a1 + 32)];
@@ -1130,9 +1106,9 @@ void __42__HMDResidentStatusChannel_dataForDomain___block_invoke(uint64_t a1, vo
     v6 = [v3 dataByDomain];
     v7 = [v6 valueForKey:*(a1 + 32)];
 
-    v15 = *(a1 + 32);
-    v16[0] = v7;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v14 = *(a1 + 32);
+    v15[0] = v7;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     v9 = [HMDResidentStatusDomainData alloc];
     v10 = [v3 idsIdentifier];
     v11 = [v3 idsDestination];
@@ -1141,28 +1117,26 @@ void __42__HMDResidentStatusChannel_dataForDomain___block_invoke(uint64_t a1, vo
 
     [*(a1 + 40) addObject:v13];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)domainDataPairsPayload
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   domainDataPairs = [(HMDResidentStatusChannel *)self domainDataPairs];
   v4 = [domainDataPairs count];
 
   if (v4)
   {
-    v16 = 0;
+    v15 = 0;
     domainDataPairs2 = [(HMDResidentStatusChannel *)self domainDataPairs];
-    v6 = MEMORY[0x22AAD2E60](domainDataPairs2, 8, &v16);
+    v6 = MEMORY[0x22AAD2E60](domainDataPairs2, 8, &v15);
 
     if (v6)
     {
-      v17 = @"ddp";
-      v18 = v6;
-      dictionary = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+      v16 = @"ddp";
+      v17 = v6;
+      dictionary = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
     }
 
     else
@@ -1175,11 +1149,11 @@ void __42__HMDResidentStatusChannel_dataForDomain___block_invoke(uint64_t a1, vo
         v12 = HMFGetLogIdentifier();
         domainDataPairs3 = [(HMDResidentStatusChannel *)selfCopy domainDataPairs];
         *buf = 138543874;
-        v20 = v12;
-        v21 = 2112;
-        v22 = domainDataPairs3;
-        v23 = 2048;
-        v24 = v16;
+        v19 = v12;
+        v20 = 2112;
+        v21 = domainDataPairs3;
+        v22 = 2048;
+        v23 = v15;
         _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Encoding failed for domain data pairs: %@ with error(status %ld)", buf, 0x20u);
       }
 
@@ -1194,8 +1168,6 @@ void __42__HMDResidentStatusChannel_dataForDomain___block_invoke(uint64_t a1, vo
   {
     dictionary2 = [MEMORY[0x277CBEAC0] dictionary];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return dictionary2;
 }
@@ -1220,7 +1192,7 @@ void __42__HMDResidentStatusChannel_dataForDomain___block_invoke(uint64_t a1, vo
 
 void __58__HMDResidentStatusChannel_publishDomain_data_completion___block_invoke(uint64_t a1)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v2 = StringForResidentStatusChannelDomain(*(a1 + 56));
   v3 = [*(a1 + 32) home];
   v4 = [v3 isCurrentDeviceAvailableResident];
@@ -1245,13 +1217,13 @@ void __58__HMDResidentStatusChannel_publishDomain_data_completion___block_invoke
         {
           v12 = HMFGetLogIdentifier();
           v13 = [*(a1 + 32) domainPublishCount];
-          v29 = 138543874;
-          v30 = v12;
-          v31 = 2112;
-          v32 = v2;
-          v33 = 2048;
-          v34 = v13;
-          _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Publishing data for domain: %@. Publish count: %lu.", &v29, 0x20u);
+          v28 = 138543874;
+          v29 = v12;
+          v30 = 2112;
+          v31 = v2;
+          v32 = 2048;
+          v33 = v13;
+          _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Publishing data for domain: %@. Publish count: %lu.", &v28, 0x20u);
         }
 
         objc_autoreleasePoolPop(v8);
@@ -1266,13 +1238,13 @@ void __58__HMDResidentStatusChannel_publishDomain_data_completion___block_invoke
         {
           v26 = HMFGetLogIdentifier();
           v27 = [*(a1 + 32) domainPublishCount];
-          v29 = 138543874;
-          v30 = v26;
-          v31 = 2112;
-          v32 = v2;
-          v33 = 2048;
-          v34 = v27;
-          _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Caching data for domain: %@ to publish later since we are rate limited. Publish count: %lu.", &v29, 0x20u);
+          v28 = 138543874;
+          v29 = v26;
+          v30 = 2112;
+          v31 = v2;
+          v32 = 2048;
+          v33 = v27;
+          _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Caching data for domain: %@ to publish later since we are rate limited. Publish count: %lu.", &v28, 0x20u);
         }
 
         objc_autoreleasePoolPop(v8);
@@ -1288,11 +1260,11 @@ void __58__HMDResidentStatusChannel_publishDomain_data_completion___block_invoke
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         v25 = HMFGetLogIdentifier();
-        v29 = 138543618;
-        v30 = v25;
-        v31 = 2112;
-        v32 = v2;
-        _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@Caching data for domain: %@ to publish later.", &v29, 0x16u);
+        v28 = 138543618;
+        v29 = v25;
+        v30 = 2112;
+        v31 = v2;
+        _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@Caching data for domain: %@ to publish later.", &v28, 0x16u);
       }
 
       objc_autoreleasePoolPop(v22);
@@ -1309,11 +1281,11 @@ void __58__HMDResidentStatusChannel_publishDomain_data_completion___block_invoke
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       v19 = HMFGetLogIdentifier();
-      v29 = 138543618;
-      v30 = v19;
-      v31 = 2112;
-      v32 = v2;
-      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Rejecting publish request for domain: %@ since this device is not a resident.", &v29, 0x16u);
+      v28 = 138543618;
+      v29 = v19;
+      v30 = 2112;
+      v31 = v2;
+      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Rejecting publish request for domain: %@ since this device is not a resident.", &v28, 0x16u);
     }
 
     objc_autoreleasePoolPop(v16);
@@ -1321,8 +1293,6 @@ void __58__HMDResidentStatusChannel_publishDomain_data_completion___block_invoke
     v21 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     (*(v20 + 16))(v20, v21);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (id)payloadWithStatus:(id)status
@@ -1344,14 +1314,14 @@ void __58__HMDResidentStatusChannel_publishDomain_data_completion___block_invoke
     [dictionary addEntriesFromDictionary:domainDataPairsPayload];
   }
 
-  v9 = [dictionary copy];
+  v9 = objc_msgSend_copy(dictionary);
 
   return v9;
 }
 
 - (void)_publishResidentStatus:(id)status reason:(int64_t)reason
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   dispatch_assert_queue_V2(self->_queue);
   v7 = objc_autoreleasePoolPush();
@@ -1371,11 +1341,11 @@ void __58__HMDResidentStatusChannel_publishDomain_data_completion___block_invoke
     }
 
     *buf = 138543874;
-    v23 = v10;
-    v24 = 2112;
-    v25 = statusCopy;
-    v26 = 2112;
-    v27 = reason;
+    v22 = v10;
+    v23 = 2112;
+    v24 = statusCopy;
+    v25 = 2112;
+    v26 = reason;
     _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Publishing resident status: %@ with reason: %@", buf, 0x20u);
   }
 
@@ -1386,14 +1356,14 @@ void __58__HMDResidentStatusChannel_publishDomain_data_completion___block_invoke
     v13 = [(HMDResidentStatusChannel *)selfCopy payloadWithStatus:statusCopy];
     objc_initWeak(buf, selfCopy);
     channel = selfCopy->_channel;
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __58__HMDResidentStatusChannel__publishResidentStatus_reason___block_invoke;
-    v20[3] = &unk_278678150;
-    objc_copyWeak(v21, buf);
-    v21[1] = reason;
-    [(HMDSDumpState *)channel publishRecordWithPayload:v13 shouldDebounce:v12 withCompletion:v20];
-    objc_destroyWeak(v21);
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __58__HMDResidentStatusChannel__publishResidentStatus_reason___block_invoke;
+    v19[3] = &unk_278678150;
+    objc_copyWeak(v20, buf);
+    v20[1] = reason;
+    [(HMDSDumpState *)channel publishRecordWithPayload:v13 shouldDebounce:v12 withCompletion:v19];
+    objc_destroyWeak(v20);
     objc_destroyWeak(buf);
   }
 
@@ -1406,19 +1376,17 @@ void __58__HMDResidentStatusChannel_publishDomain_data_completion___block_invoke
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v23 = v18;
+      v22 = v18;
       _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Attempt to publish status before channel is started", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v15);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __58__HMDResidentStatusChannel__publishResidentStatus_reason___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = WeakRetained;
@@ -1430,11 +1398,11 @@ void __58__HMDResidentStatusChannel__publishResidentStatus_reason___block_invoke
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      v16 = 138543618;
-      v17 = v9;
-      v18 = 2112;
-      v19 = v3;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to stop StatusChannel: %@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v9;
+      v17 = 2112;
+      v18 = v3;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to stop StatusChannel: %@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -1451,8 +1419,6 @@ void __58__HMDResidentStatusChannel__publishResidentStatus_reason___block_invoke
     v14 = [v5 logEventSubmitter];
     [v14 submitLogEvent:v13];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)publishResidentStatus:(id)status reason:(int64_t)reason
@@ -1493,7 +1459,7 @@ uint64_t __57__HMDResidentStatusChannel_publishResidentStatus_reason___block_inv
 
 void __32__HMDResidentStatusChannel_stop__block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) started];
   v3 = objc_autoreleasePoolPush();
   v4 = *(a1 + 32);
@@ -1505,7 +1471,7 @@ void __32__HMDResidentStatusChannel_stop__block_invoke(uint64_t a1)
     {
       v7 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v25 = v7;
+      v24 = v7;
       _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Stopping ResidentStatusChannel", buf, 0xCu);
     }
 
@@ -1540,14 +1506,14 @@ void __32__HMDResidentStatusChannel_stop__block_invoke(uint64_t a1)
 
     objc_initWeak(buf, *(a1 + 32));
     v19 = [*(a1 + 32) channel];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __32__HMDResidentStatusChannel_stop__block_invoke_225;
-    v22[3] = &unk_278688A18;
-    objc_copyWeak(&v23, buf);
-    [v19 stopWithCompletion:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __32__HMDResidentStatusChannel_stop__block_invoke_225;
+    v21[3] = &unk_278688A18;
+    objc_copyWeak(&v22, buf);
+    [v19 stopWithCompletion:v21];
 
-    objc_destroyWeak(&v23);
+    objc_destroyWeak(&v22);
     objc_destroyWeak(buf);
   }
 
@@ -1557,19 +1523,17 @@ void __32__HMDResidentStatusChannel_stop__block_invoke(uint64_t a1)
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v25 = v20;
+      v24 = v20;
       _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@ResidentStatusChannel already stopped", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __32__HMDResidentStatusChannel_stop__block_invoke_225(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (v3)
@@ -1580,17 +1544,15 @@ void __32__HMDResidentStatusChannel_stop__block_invoke_225(uint64_t a1, void *a2
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v10 = 138543618;
-      v11 = v8;
-      v12 = 2112;
-      v13 = v3;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to stop StatusChannel: %@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v8;
+      v11 = 2112;
+      v12 = v3;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to stop StatusChannel: %@", &v9, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
@@ -1606,7 +1568,7 @@ void __32__HMDResidentStatusChannel_stop__block_invoke_225(uint64_t a1, void *a2
 
 void __33__HMDResidentStatusChannel_start__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) started];
   v3 = objc_autoreleasePoolPush();
   v4 = *(a1 + 32);
@@ -1618,7 +1580,7 @@ void __33__HMDResidentStatusChannel_start__block_invoke(uint64_t a1)
     {
       v7 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v16 = v7;
+      v15 = v7;
       _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@ResidentStatusChannel already started", buf, 0xCu);
     }
 
@@ -1631,7 +1593,7 @@ void __33__HMDResidentStatusChannel_start__block_invoke(uint64_t a1)
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v16 = v8;
+      v15 = v8;
       _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Starting ResidentStatusChannel", buf, 0xCu);
     }
 
@@ -1642,23 +1604,21 @@ void __33__HMDResidentStatusChannel_start__block_invoke(uint64_t a1)
     *(*v9 + 32) = 0;
     objc_initWeak(buf, *v9);
     v11 = [*v9 channel];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __33__HMDResidentStatusChannel_start__block_invoke_217;
-    v13[3] = &unk_278688A18;
-    objc_copyWeak(&v14, buf);
-    [v11 startWithCompletion:v13];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __33__HMDResidentStatusChannel_start__block_invoke_217;
+    v12[3] = &unk_278688A18;
+    objc_copyWeak(&v13, buf);
+    [v11 startWithCompletion:v12];
 
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v13);
     objc_destroyWeak(buf);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __33__HMDResidentStatusChannel_start__block_invoke_217(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = WeakRetained;
@@ -1670,11 +1630,11 @@ void __33__HMDResidentStatusChannel_start__block_invoke_217(uint64_t a1, void *a
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      v16 = 138543618;
-      v17 = v9;
-      v18 = 2112;
-      v19 = v3;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to start StatusChannel: %@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v9;
+      v17 = 2112;
+      v18 = v3;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to start StatusChannel: %@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -1696,8 +1656,6 @@ void __33__HMDResidentStatusChannel_start__block_invoke_217(uint64_t a1, void *a
       [v13 addObserver:v5 selector:sel__handlePrimaryResidentUpdateNotification_ name:@"HMDResidentDeviceManagerUpdatePrimaryResidentNotification" object:v14];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDResidentStatusChannel)initWithHome:(id)home queue:(id)queue
@@ -1787,7 +1745,7 @@ void __33__HMDResidentStatusChannel_start__block_invoke_217(uint64_t a1, void *a
 
 void __133__HMDResidentStatusChannel_initWithHome_queue_notificationCenter_timerProvider_channelProvider_logEventSubmitter_featuresDataSource___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1798,17 +1756,15 @@ void __133__HMDResidentStatusChannel_initWithHome_queue_notificationCenter_timer
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v10 = 138543618;
-      v11 = v8;
-      v12 = 2112;
-      v13 = v3;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to add StatusChannel delegate: %@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v8;
+      v11 = 2112;
+      v12 = v3;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to add StatusChannel delegate: %@", &v9, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (id)logCategory
@@ -1825,10 +1781,9 @@ void __133__HMDResidentStatusChannel_initWithHome_queue_notificationCenter_timer
 
 void __39__HMDResidentStatusChannel_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v51_107552;
-  logCategory__hmf_once_v51_107552 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v51_107552;
+  logCategory__hmf_once_v51_107552 = v0;
 }
 
 @end

@@ -32,9 +32,8 @@ uint64_t GPUTools::Diag::SwizzleMTLTracker::FromCallstack(uint64_t a1)
     return 0;
   }
 
-  result = [NSData dataWithBytes:a1 length:4096];
-  v3 = *(a1 + 4096);
-  return result;
+  [NSData dataWithBytes:a1 length:4096];
+  return objc_claimAutoreleasedReturnValue();
 }
 
 void *std::__hash_table<std::__hash_value_type<unsigned long,std::vector<unsigned long>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::vector<unsigned long>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::vector<unsigned long>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::vector<unsigned long>>>>::find<unsigned long>(void *a1, unint64_t a2)
@@ -67,45 +66,37 @@ void *std::__hash_table<std::__hash_value_type<unsigned long,std::vector<unsigne
     return 0;
   }
 
-  result = *v5;
-  if (*v5)
+  for (result = *v5; result; result = *result)
   {
-    do
+    v7 = result[1];
+    if (v7 == a2)
     {
-      v7 = result[1];
-      if (v7 == a2)
+      if (result[2] == a2)
       {
-        if (result[2] == a2)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v3.u32[0] > 1uLL)
+      {
+        if (v7 >= *&v2)
         {
-          return result;
+          v7 %= *&v2;
         }
       }
 
       else
       {
-        if (v3.u32[0] > 1uLL)
-        {
-          if (v7 >= *&v2)
-          {
-            v7 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v7 &= *&v2 - 1;
-        }
-
-        if (v7 != v4)
-        {
-          return 0;
-        }
+        v7 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v7 != v4)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -227,7 +218,7 @@ LABEL_17:
       goto LABEL_27;
     }
 
-    [v19 library];
+    objc_msgSend_library(v19);
     v30 = [NSString stringWithFormat:@"%lu", v19];
     [v43 setLibraryHash:v30];
 
@@ -343,7 +334,7 @@ id GPUTools::Diag::GetLibraries(objc_object *this, objc_object *a2)
 
 void GPUTools::Diag::SwizzleMTLTracker::_MTLCommandBuffer_commit(GPUTools::Diag::SwizzleMTLTracker *this, objc_object *a2, objc_selector *a3)
 {
-  v3 = __chkstk_darwin(this);
+  v3 = __chkstk_darwin(this, a2, a3);
   v5 = v4;
   v6 = v3;
   v7 = GPUTools::Diag::SwizzleMTLTracker::Tracker;
@@ -394,187 +385,187 @@ void ___ZN8GPUTools4Diag17SwizzleMTLTracker24_MTLCommandBuffer_commitEP11objc_ob
   dispatch_async(v4, v6);
 }
 
-void ___ZN8GPUTools4Diag17SwizzleMTLTracker24_MTLCommandBuffer_commitEP11objc_objectP13objc_selector_block_invoke_2(uint64_t a1)
+void ___ZN8GPUTools4Diag17SwizzleMTLTracker24_MTLCommandBuffer_commitEP11objc_objectP13objc_selector_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v1 = __chkstk_darwin(a1);
-  v67 = *(v1 + 32);
-  v64 = [v67 globalTraceObjectID];
-  v2 = GPUTools::Diag::SwizzleMTLTracker::Tracker;
-  v68 = GPUTools::Diag::SwizzleMTLTracker::FromCallstack(v1 + 40);
-  v4 = v3;
+  v3 = __chkstk_darwin(a1, a2, a3);
+  v69 = *(v3 + 32);
+  v66 = [v69 globalTraceObjectID];
+  v4 = GPUTools::Diag::SwizzleMTLTracker::Tracker;
+  v70 = GPUTools::Diag::SwizzleMTLTracker::FromCallstack(v3 + 40);
+  v6 = v5;
   if (objc_opt_respondsToSelector())
   {
+    v79 = 0u;
+    v80 = 0u;
     v77 = 0u;
     v78 = 0u;
-    v75 = 0u;
-    v76 = 0u;
-    v5 = [v67 logs];
-    v6 = [v5 countByEnumeratingWithState:&v75 objects:v92 count:16];
-    if (v6)
+    v7 = [v69 logs];
+    v8 = [v7 countByEnumeratingWithState:&v77 objects:v94 count:16];
+    if (v8)
     {
-      v7 = *v76;
+      v9 = *v78;
       do
       {
-        for (i = 0; i != v6; i = i + 1)
+        for (i = 0; i != v8; i = i + 1)
         {
-          if (*v76 != v7)
+          if (*v78 != v9)
           {
-            objc_enumerationMutation(v5);
+            objc_enumerationMutation(v7);
           }
 
-          v9 = *(*(&v75 + 1) + 8 * i);
-          if ([v9 conformsToProtocol:&OBJC_PROTOCOL___MTLFunctionLog])
+          v11 = *(*(&v77 + 1) + 8 * i);
+          if ([v11 conformsToProtocol:&OBJC_PROTOCOL___MTLFunctionLog])
           {
-            v10 = v68;
-            GPUTools::Diag::SwizzleMTLTracker::ProcessBufferErrorLog(v9, v68, v4);
+            v12 = v70;
+            GPUTools::Diag::SwizzleMTLTracker::ProcessBufferErrorLog(v11, v70, v6);
           }
         }
 
-        v6 = [v5 countByEnumeratingWithState:&v75 objects:v92 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v77 objects:v94 count:16];
       }
 
-      while (v6);
+      while (v8);
     }
   }
 
-  v11 = [v67 error];
-  v63 = v2;
-  v12 = v11 == 0;
+  v13 = [v69 error];
+  v65 = v4;
+  v14 = v13 == 0;
 
-  if (!v12)
+  if (!v14)
   {
-    v62 = v68;
-    v65 = v67;
-    v13 = [v65 error];
-    v14 = [v13 userInfo];
-    v61 = [v14 valueForKey:MTLCommandBufferEncoderInfoErrorKey];
+    v64 = v70;
+    v67 = v69;
+    v15 = [v67 error];
+    v16 = [v15 userInfo];
+    v63 = [v16 valueForKey:MTLCommandBufferEncoderInfoErrorKey];
 
-    v66 = objc_opt_new();
-    [v66 setCommandBufferCommitCallstackData:v62];
-    [v66 setCommandBufferCommitCallstackFramesNum:v4];
-    v74 = [&__NSArray0__struct mutableCopy];
-    v71 = [&__NSArray0__struct mutableCopy];
-    v70 = [&__NSArray0__struct mutableCopy];
+    v68 = objc_opt_new();
+    [v68 setCommandBufferCommitCallstackData:v64];
+    [v68 setCommandBufferCommitCallstackFramesNum:v6];
+    v76 = [&__NSArray0__struct mutableCopy];
+    v73 = [&__NSArray0__struct mutableCopy];
+    v72 = [&__NSArray0__struct mutableCopy];
+    v91 = 0u;
+    v92 = 0u;
     v89 = 0u;
     v90 = 0u;
-    v87 = 0u;
-    v88 = 0u;
-    obj = v61;
-    v15 = [obj countByEnumeratingWithState:&v87 objects:v95 count:16];
-    if (v15)
+    obj = v63;
+    v17 = [obj countByEnumeratingWithState:&v89 objects:v97 count:16];
+    if (v17)
     {
-      v16 = *v88;
+      v18 = *v90;
       do
       {
-        for (j = 0; j != v15; j = j + 1)
+        for (j = 0; j != v17; j = j + 1)
         {
-          if (*v88 != v16)
+          if (*v90 != v18)
           {
             objc_enumerationMutation(obj);
           }
 
-          v18 = *(*(&v87 + 1) + 8 * j);
-          if ([v18 errorState] == &dword_4)
+          v20 = *(*(&v89 + 1) + 8 * j);
+          if ([v20 errorState] == &dword_4)
           {
-            [v71 addObject:v18];
+            [v73 addObject:v20];
           }
 
-          if ([v18 errorState] == &dword_0 + 2)
+          if ([v20 errorState] == &dword_0 + 2)
           {
-            [v70 addObject:v18];
+            [v72 addObject:v20];
           }
         }
 
-        v15 = [obj countByEnumeratingWithState:&v87 objects:v95 count:16];
+        v17 = [obj countByEnumeratingWithState:&v89 objects:v97 count:16];
       }
 
-      while (v15);
+      while (v17);
     }
 
-    if ([v71 count])
+    if ([v73 count])
     {
-      v60 = @"The commands associated with an encoder caused an error";
-      v19 = v71;
+      v62 = @"The commands associated with an encoder caused an error";
+      v21 = v73;
     }
 
     else
     {
-      if (![v70 count])
+      if (![v72 count])
       {
 LABEL_55:
 
         goto LABEL_56;
       }
 
-      v60 = @"The commands associated with the encoder were affected by an error, which may or may not have been caused by the commands themselves, and failed to execute in full";
-      v19 = v70;
+      v62 = @"The commands associated with the encoder were affected by an error, which may or may not have been caused by the commands themselves, and failed to execute in full";
+      v21 = v72;
     }
 
-    v20 = v19;
-    v83 = 0u;
-    v84 = 0u;
+    v22 = v21;
     v85 = 0u;
     v86 = 0u;
-    v69 = v20;
-    v21 = [v69 countByEnumeratingWithState:&v83 objects:v94 count:16];
-    if (v21)
+    v87 = 0u;
+    v88 = 0u;
+    v71 = v22;
+    v23 = [v71 countByEnumeratingWithState:&v85 objects:v96 count:16];
+    if (v23)
     {
-      v73 = *v84;
+      v75 = *v86;
       do
       {
-        for (k = 0; k != v21; k = k + 1)
+        for (k = 0; k != v23; k = k + 1)
         {
-          if (*v84 != v73)
+          if (*v86 != v75)
           {
-            objc_enumerationMutation(v69);
+            objc_enumerationMutation(v71);
           }
 
-          v23 = *(*(&v83 + 1) + 8 * k);
-          v79 = 0u;
-          v80 = 0u;
+          v25 = *(*(&v85 + 1) + 8 * k);
           v81 = 0u;
           v82 = 0u;
-          v24 = [v23 debugSignposts];
-          v25 = [v24 countByEnumeratingWithState:&v79 objects:v93 count:16];
-          if (v25)
+          v83 = 0u;
+          v84 = 0u;
+          v26 = [v25 debugSignposts];
+          v27 = [v26 countByEnumeratingWithState:&v81 objects:v95 count:16];
+          if (v27)
           {
-            v26 = *v80;
+            v28 = *v82;
             while (2)
             {
-              for (m = 0; m != v25; m = m + 1)
+              for (m = 0; m != v27; m = m + 1)
               {
-                if (*v80 != v26)
+                if (*v82 != v28)
                 {
-                  objc_enumerationMutation(v24);
+                  objc_enumerationMutation(v26);
                 }
 
-                v28 = *(*(&v79 + 1) + 8 * m);
-                if ([v28 hasPrefix:@"GPUToolsDebugInfo"])
+                v30 = *(*(&v81 + 1) + 8 * m);
+                if ([v30 hasPrefix:@"GPUToolsDebugInfo"])
                 {
-                  v30 = [v28 componentsSeparatedByString:@"_"];
-                  v31 = [v30 objectAtIndexedSubscript:1];
-                  [v31 integerValue];
-                  v32 = [v23 label];
-                  if ([v32 length])
+                  v32 = [v30 componentsSeparatedByString:@"_"];
+                  v33 = [v32 objectAtIndexedSubscript:1];
+                  v27 = [v33 integerValue];
+                  v34 = [v25 label];
+                  if ([v34 length])
                   {
-                    v33 = [v23 label];
-                    v34 = [NSString stringWithFormat:@" %@", v33];
+                    v35 = [v25 label];
+                    v36 = [NSString stringWithFormat:@" %@", v35];
                   }
 
                   else
                   {
-                    v34 = &stru_146E0;
+                    v36 = &stru_146E0;
                   }
 
-                  v35 = [v30 objectAtIndexedSubscript:2];
-                  v29 = [v35 stringByAppendingString:v34];
+                  v37 = [v32 objectAtIndexedSubscript:2];
+                  v31 = [v37 stringByAppendingString:v36];
 
                   goto LABEL_46;
                 }
               }
 
-              v25 = [v24 countByEnumeratingWithState:&v79 objects:v93 count:16];
-              if (v25)
+              v27 = [v26 countByEnumeratingWithState:&v81 objects:v95 count:16];
+              if (v27)
               {
                 continue;
               }
@@ -583,170 +574,170 @@ LABEL_55:
             }
           }
 
-          v29 = @"[MTLCommandEncoder endEncoding]";
+          v31 = @"[MTLCommandEncoder endEncoding]";
 LABEL_46:
 
-          GPUTools::Diag::BacktraceStore::RemoveBacktrace(v91);
-          v36 = GPUTools::Diag::SwizzleMTLTracker::FromCallstack(v91);
-          v38 = v37;
-          v39 = objc_opt_new();
-          [v39 setCpuCallstackData:v36];
-          [v39 setCpuCallstackFramesNum:v38];
-          if (v29)
+          GPUTools::Diag::BacktraceStore::RemoveBacktrace(v93, GPUTools::Diag::SwizzleMTLTracker::Tracker + 48, v27);
+          v38 = GPUTools::Diag::SwizzleMTLTracker::FromCallstack(v93);
+          v40 = v39;
+          v41 = objc_opt_new();
+          [v41 setCpuCallstackData:v38];
+          [v41 setCpuCallstackFramesNum:v40];
+          if (v31)
           {
-            v40 = v29;
+            v42 = v31;
           }
 
           else
           {
-            v40 = &stru_146E0;
+            v42 = &stru_146E0;
           }
 
-          [v39 setMetalLogMessage:v40];
-          [v74 addObject:v39];
+          [v41 setMetalLogMessage:v42];
+          [v76 addObject:v41];
         }
 
-        v21 = [v69 countByEnumeratingWithState:&v83 objects:v94 count:16];
+        v23 = [v71 countByEnumeratingWithState:&v85 objects:v96 count:16];
       }
 
-      while (v21);
+      while (v23);
     }
 
-    [v66 setFaultingEncoders:v74];
-    v41 = [v65 label];
-    if ([v41 length])
+    [v68 setFaultingEncoders:v76];
+    v43 = [v67 label];
+    if ([v43 length])
     {
-      v42 = [v65 label];
-      v43 = [NSString stringWithFormat:@" %@", v42];
+      v44 = [v67 label];
+      v45 = [NSString stringWithFormat:@" %@", v44];
     }
 
     else
     {
-      v43 = &stru_146E0;
+      v45 = &stru_146E0;
     }
 
-    v44 = [NSString stringWithFormat:@"MTLCommandBuffer%@ execution failed: %@", v43, v60];
-    [v66 setMetalLogMessage:v44];
+    v46 = [NSString stringWithFormat:@"MTLCommandBuffer%@ execution failed: %@", v45, v62];
+    [v68 setMetalLogMessage:v46];
 
-    [GPUTools::Diag::SwizzleMTLTracker::FacilityImpl notifyCommandBufferIssue:v66];
+    [GPUTools::Diag::SwizzleMTLTracker::FacilityImpl notifyCommandBufferIssue:v68];
     goto LABEL_55;
   }
 
 LABEL_56:
-  v45 = std::__hash_table<std::__hash_value_type<unsigned long,std::vector<unsigned long>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::vector<unsigned long>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::vector<unsigned long>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::vector<unsigned long>>>>::find<unsigned long>(v63 + 1, v64);
-  if (v45)
+  v47 = std::__hash_table<std::__hash_value_type<unsigned long,std::vector<unsigned long>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::vector<unsigned long>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::vector<unsigned long>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::vector<unsigned long>>>>::find<unsigned long>(v65 + 1, v66);
+  if (v47)
   {
-    v46 = v45;
-    v47 = v45[3];
-    v48 = v45[4];
-    while (v47 != v48)
+    v48 = v47;
+    v49 = v47[3];
+    v50 = v47[4];
+    while (v49 != v50)
     {
-      v49 = *v47++;
-      GPUTools::Diag::BacktraceStore::RemoveBacktrace(v91);
+      v51 = *v49++;
+      GPUTools::Diag::BacktraceStore::RemoveBacktrace(v93, (v65 + 6), v51);
     }
 
-    v50 = v63[2];
-    v51 = v46[1];
-    v52 = vcnt_s8(v50);
-    v52.i16[0] = vaddlv_u8(v52);
-    if (v52.u32[0] > 1uLL)
+    v52 = v65[2];
+    v53 = v48[1];
+    v54 = vcnt_s8(v52);
+    v54.i16[0] = vaddlv_u8(v54);
+    if (v54.u32[0] > 1uLL)
     {
-      if (v51 >= *&v50)
+      if (v53 >= *&v52)
       {
-        v51 %= *&v50;
+        v53 %= *&v52;
       }
     }
 
     else
     {
-      v51 &= *&v50 - 1;
+      v53 &= *&v52 - 1;
     }
 
-    v53 = v63[1];
-    v54 = *(v53 + 8 * v51);
+    v55 = v65[1];
+    v56 = *(v55 + 8 * v53);
     do
     {
-      v55 = v54;
-      v54 = *v54;
+      v57 = v56;
+      v56 = *v56;
     }
 
-    while (v54 != v46);
-    if (v55 == v63 + 3)
+    while (v56 != v48);
+    if (v57 == v65 + 3)
     {
       goto LABEL_77;
     }
 
-    v56 = v55[1];
-    if (v52.u32[0] > 1uLL)
+    v58 = v57[1];
+    if (v54.u32[0] > 1uLL)
     {
-      if (v56 >= *&v50)
+      if (v58 >= *&v52)
       {
-        v56 %= *&v50;
+        v58 %= *&v52;
       }
     }
 
     else
     {
-      v56 &= *&v50 - 1;
+      v58 &= *&v52 - 1;
     }
 
-    if (v56 != v51)
+    if (v58 != v53)
     {
 LABEL_77:
-      if (!*v46)
+      if (!*v48)
       {
         goto LABEL_78;
       }
 
-      v57 = *(*v46 + 8);
-      if (v52.u32[0] > 1uLL)
+      v59 = *(*v48 + 8);
+      if (v54.u32[0] > 1uLL)
       {
-        if (v57 >= *&v50)
+        if (v59 >= *&v52)
         {
-          v57 %= *&v50;
+          v59 %= *&v52;
         }
       }
 
       else
       {
-        v57 &= *&v50 - 1;
+        v59 &= *&v52 - 1;
       }
 
-      if (v57 != v51)
+      if (v59 != v53)
       {
 LABEL_78:
-        *(v53 + 8 * v51) = 0;
+        *(v55 + 8 * v53) = 0;
       }
     }
 
-    v58 = *v46;
-    if (*v46)
+    v60 = *v48;
+    if (*v48)
     {
-      v59 = *(v58 + 8);
-      if (v52.u32[0] > 1uLL)
+      v61 = *(v60 + 8);
+      if (v54.u32[0] > 1uLL)
       {
-        if (v59 >= *&v50)
+        if (v61 >= *&v52)
         {
-          v59 %= *&v50;
+          v61 %= *&v52;
         }
       }
 
       else
       {
-        v59 &= *&v50 - 1;
+        v61 &= *&v52 - 1;
       }
 
-      if (v59 != v51)
+      if (v61 != v53)
       {
-        *(v63[1] + 8 * v59) = v55;
-        v58 = *v46;
+        *(v65[1] + 8 * v61) = v57;
+        v60 = *v48;
       }
     }
 
-    *v55 = v58;
-    *v46 = 0;
-    --v63[4];
-    std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long,std::vector<unsigned long>>,void *>>>::operator()[abi:nn200100](1, v46);
+    *v57 = v60;
+    *v48 = 0;
+    --v65[4];
+    std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long,std::vector<unsigned long>>,void *>>>::operator()[abi:nn200100](1, v48);
   }
 }
 
@@ -776,7 +767,7 @@ id GPUTools::Diag::SwizzleMTLTracker::_MTLCommandQueue_commandBufferWithDescript
 
 void GPUTools::Diag::SwizzleMTLTracker::_MTLCommandEncoder_endEncoding(GPUTools::Diag::SwizzleMTLTracker *this, objc_object *a2, objc_selector *a3)
 {
-  v3 = __chkstk_darwin(this);
+  v3 = __chkstk_darwin(this, a2, a3);
   v5 = v4;
   v6 = v3;
   v7 = GPUTools::Diag::SwizzleMTLTracker::Tracker;
@@ -903,42 +894,42 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned long>>(unint
   std::vector<unsigned long>::__throw_length_error[abi:nn200100]();
 }
 
-void GPUTools::Diag::SwizzleMTLTracker::MTL4GPUDebugCommandQueue__commit_count_options(uint64_t a1)
+void GPUTools::Diag::SwizzleMTLTracker::MTL4GPUDebugCommandQueue__commit_count_options(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v1 = __chkstk_darwin(a1);
-  v3 = v2;
+  v3 = __chkstk_darwin(a1, a2, a3);
   v5 = v4;
   v7 = v6;
-  v8 = v1;
-  v10 = v9;
-  v11 = GPUTools::Diag::SwizzleMTLTracker::Tracker;
-  v12 = *(GPUTools::Diag::SwizzleMTLTracker::Tracker + 312);
-  if (!v12 || (v12("MTL4GPUDebugCommandQueue__commit_count_options", 0) & 1) != 0)
+  v9 = v8;
+  v10 = v3;
+  v12 = v11;
+  v13 = GPUTools::Diag::SwizzleMTLTracker::Tracker;
+  v14 = *(GPUTools::Diag::SwizzleMTLTracker::Tracker + 312);
+  if (!v14 || (v14("MTL4GPUDebugCommandQueue__commit_count_options", 0) & 1) != 0)
   {
-    bzero(v19, 0x1008uLL);
-    LODWORD(v19[512]) = backtrace(v19, 512);
-    v17[0] = 0;
-    v17[1] = v17;
-    v17[2] = 0x3032000000;
-    v17[3] = __Block_byref_object_copy_;
-    v17[4] = __Block_byref_object_dispose_;
-    v18 = *(v11 + 288);
-    if (!v10)
+    bzero(v21, 0x1008uLL);
+    LODWORD(v21[512]) = backtrace(v21, 512);
+    v19[0] = 0;
+    v19[1] = v19;
+    v19[2] = 0x3032000000;
+    v19[3] = __Block_byref_object_copy_;
+    v19[4] = __Block_byref_object_dispose_;
+    v20 = *(v13 + 288);
+    if (!v12)
     {
-      v10 = objc_opt_new();
+      v12 = objc_opt_new();
     }
 
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = ___ZN8GPUTools4Diag17SwizzleMTLTracker46MTL4GPUDebugCommandQueue__commit_count_optionsEP11objc_objectP13objc_selectorPKPU28objcproto17MTL4CommandBuffer11objc_objectmP17MTL4CommitOptions_block_invoke;
-    v13[3] = &unk_143D8;
-    v13[4] = v17;
-    memcpy(v14, v19, sizeof(v14));
-    v15 = v5;
-    v16 = v3;
-    [v10 addFeedbackHandler:v13];
-    (*(v11 + 344))(v8, v7, v5, v3, v10);
-    _Block_object_dispose(v17, 8);
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = ___ZN8GPUTools4Diag17SwizzleMTLTracker46MTL4GPUDebugCommandQueue__commit_count_optionsEP11objc_objectP13objc_selectorPKPU28objcproto17MTL4CommandBuffer11objc_objectmP17MTL4CommitOptions_block_invoke;
+    v15[3] = &unk_143D8;
+    v15[4] = v19;
+    memcpy(v16, v21, sizeof(v16));
+    v17 = v7;
+    v18 = v5;
+    [v12 addFeedbackHandler:v15];
+    (*(v13 + 344))(v10, v9, v7, v5, v12);
+    _Block_object_dispose(v19, 8);
   }
 }
 
@@ -1946,7 +1937,7 @@ id GPUTools::Diag::GetLibrariesFromFunctionDescriptor(void *a1, uint64_t a2, voi
   if (objc_opt_isKindOfClass())
   {
     v8 = v5;
-    v9 = [v8 library];
+    v9 = objc_msgSend_library(v8);
     v11 = GPUTools::Diag::GetLibrary(v9, v10);
     v12 = v6;
     if (!v6)
@@ -3775,7 +3766,7 @@ void GTToolsDiagnostics_DylibMain(void)
     v3 = v2;
     if (v2)
     {
-      [v2 operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(v2);
     }
 
     v4 = [NSString stringWithFormat:@"%lu.%lu", 0, 0];
@@ -4024,11 +4015,10 @@ void ___ZN8GPUTools4Diag14BacktraceStore15InsertBacktraceENS0_9CallstackEm_block
     v21 = (*&v19 - 1) & v18;
   }
 
-  v22 = *(v17[9] + 8 * v21);
+  v22 = *(*&v17[9] + 8 * v21);
   if (!v22 || (v23 = *v22) == 0)
   {
 LABEL_36:
-    v25 = -133956095 * ((v17[1] - *v17) >> 3) - 1;
     operator new();
   }
 
@@ -4072,30 +4062,30 @@ LABEL_35:
   }
 }
 
-void GPUTools::Diag::BacktraceStore::RemoveBacktrace(GPUTools::Diag::BacktraceStore *this)
+void GPUTools::Diag::BacktraceStore::RemoveBacktrace(GPUTools::Diag::BacktraceStore *this, uint64_t a2, uint64_t a3)
 {
-  v1 = __chkstk_darwin(this);
-  v3 = v2;
+  v3 = __chkstk_darwin(this, a2, a3);
   v5 = v4;
-  v6 = v1;
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x103812000000;
-  v12 = __Block_byref_object_copy__14;
-  v13 = __Block_byref_object_dispose__15;
-  v14 = &unk_1167A;
-  bzero(&v15, 0x1008uLL);
-  v7 = *(v5 + 112);
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = ___ZN8GPUTools4Diag14BacktraceStore15RemoveBacktraceEm_block_invoke;
-  v8[3] = &unk_14600;
-  v8[5] = v5;
-  v8[6] = v3;
-  v8[4] = &v9;
-  dispatch_sync(v7, v8);
-  memcpy(v6, v10 + 6, 0x1008uLL);
-  _Block_object_dispose(&v9, 8);
+  v7 = v6;
+  v8 = v3;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x103812000000;
+  v14 = __Block_byref_object_copy__14;
+  v15 = __Block_byref_object_dispose__15;
+  v16 = &unk_1167A;
+  bzero(&v17, 0x1008uLL);
+  v9 = *(v7 + 112);
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = ___ZN8GPUTools4Diag14BacktraceStore15RemoveBacktraceEm_block_invoke;
+  v10[3] = &unk_14600;
+  v10[5] = v7;
+  v10[6] = v5;
+  v10[4] = &v11;
+  dispatch_sync(v9, v10);
+  memcpy(v8, v12 + 6, 0x1008uLL);
+  _Block_object_dispose(&v11, 8);
 }
 
 void ___ZN8GPUTools4Diag14BacktraceStore15RemoveBacktraceEm_block_invoke(void *a1)
@@ -4133,111 +4123,110 @@ void ___ZN8GPUTools4Diag14BacktraceStore15RemoveBacktraceEm_block_invoke(void *a
           {
             memcpy((*(a1[4] + 8) + 48), (*v1 + 4104 * *(i + 6)), 0x1008uLL);
             v10 = a1[5];
-            v11 = *(v10 + 32);
-            v12 = *(v10 + 40);
-            v13 = *(v10 + 32);
-            if (v12 == v13)
+            v11 = v10[5];
+            v12 = v10[4];
+            if (v11 == v12)
             {
-              v14 = 0;
+              v13 = 0;
             }
 
             else
             {
-              v14 = ((v12 - v13) << 7) - 1;
+              v13 = ((v11 - v12) << 7) - 1;
             }
 
-            v15 = *(v10 + 56);
-            v16 = *(v10 + 64);
-            v17 = v16 + v15;
-            if (v14 == v16 + v15)
+            v14 = v10[7];
+            v15 = v10[8];
+            v16 = v15 + v14;
+            if (v13 == v15 + v14)
             {
-              v18 = v15 >= 0x400;
-              v19 = v15 - 1024;
-              if (!v18)
+              v17 = v14 >= 0x400;
+              v18 = v14 - 1024;
+              if (!v17)
               {
-                v20 = *(v10 + 48);
-                v21 = *(v10 + 24);
-                if (v12 - v13 < (v20 - v21))
+                v19 = v10[6];
+                v20 = v10[3];
+                if (v11 - v12 < v19 - v20)
                 {
                   operator new();
                 }
 
-                if (v20 == v21)
+                if (v19 == v20)
                 {
-                  v22 = 1;
+                  v21 = 1;
                 }
 
                 else
                 {
-                  v22 = (v20 - v21) >> 2;
+                  v21 = (v19 - v20) >> 2;
                 }
 
-                std::__allocate_at_least[abi:nn200100]<std::allocator<int *>>(v22);
+                std::__allocate_at_least[abi:nn200100]<std::allocator<int *>>(v21);
               }
 
-              *(v10 + 56) = v19;
-              v34 = *v13;
-              *(v10 + 32) = v13 + 8;
-              std::__split_buffer<int *>::emplace_back<int *&>((v10 + 24), &v34);
-              v13 = *(v10 + 32);
-              v16 = *(v10 + 64);
-              v17 = *(v10 + 56) + v16;
-              v23 = a1[5];
+              v10[7] = v18;
+              v33 = *v12;
+              v10[4] = (v12 + 8);
+              std::__split_buffer<int *>::emplace_back<int *&>(v10 + 3, &v33);
+              v12 = v10[4];
+              v15 = v10[8];
+              v16 = v10[7] + v15;
+              v22 = a1[5];
             }
 
             else
             {
-              v23 = a1[5];
+              v22 = a1[5];
             }
 
-            *(*&v13[(v17 >> 7) & 0x1FFFFFFFFFFFFF8] + 4 * (v17 & 0x3FF)) = *(i + 6);
-            *(v10 + 64) = v16 + 1;
-            v24 = v23[10];
-            v25 = i[1];
-            v26 = vcnt_s8(v24);
-            v26.i16[0] = vaddlv_u8(v26);
-            if (v26.u32[0] > 1uLL)
+            *(*&v12[(v16 >> 7) & 0x1FFFFFFFFFFFFF8] + 4 * (v16 & 0x3FF)) = *(i + 6);
+            v10[8] = v15 + 1;
+            v23 = v22[10];
+            v24 = i[1];
+            v25 = vcnt_s8(v23);
+            v25.i16[0] = vaddlv_u8(v25);
+            if (v25.u32[0] > 1uLL)
             {
-              if (v25 >= *&v24)
+              if (v24 >= *&v23)
               {
-                v25 %= *&v24;
+                v24 %= *&v23;
               }
             }
 
             else
             {
-              v25 &= *&v24 - 1;
+              v24 &= *&v23 - 1;
             }
 
-            v27 = v23[9];
-            v28 = *(v27 + 8 * v25);
+            v26 = v22[9];
+            v27 = *(v26 + 8 * v24);
             do
             {
-              v29 = v28;
-              v28 = *v28;
+              v28 = v27;
+              v27 = *v27;
             }
 
-            while (v28 != i);
-            if (v29 == v23 + 11)
+            while (v27 != i);
+            if (v28 == v22 + 11)
             {
               goto LABEL_49;
             }
 
-            v30 = v29[1];
-            if (v26.u32[0] > 1uLL)
+            v29 = v28[1];
+            if (v25.u32[0] > 1uLL)
             {
-              if (v30 >= *&v24)
+              if (v29 >= *&v23)
               {
-                v30 %= *&v24;
+                v29 %= *&v23;
               }
             }
 
             else
             {
-              v30 &= *&v24 - 1;
+              v29 &= *&v23 - 1;
             }
 
-            if (v30 != v25)
+            if (v29 != v24)
             {
 LABEL_49:
               if (!*i)
@@ -4245,54 +4234,54 @@ LABEL_49:
                 goto LABEL_50;
               }
 
-              v31 = *(*i + 8);
-              if (v26.u32[0] > 1uLL)
+              v30 = *(*i + 8);
+              if (v25.u32[0] > 1uLL)
               {
-                if (v31 >= *&v24)
+                if (v30 >= *&v23)
                 {
-                  v31 %= *&v24;
+                  v30 %= *&v23;
                 }
               }
 
               else
               {
-                v31 &= *&v24 - 1;
+                v30 &= *&v23 - 1;
               }
 
-              if (v31 != v25)
+              if (v30 != v24)
               {
 LABEL_50:
-                *(v27 + 8 * v25) = 0;
+                *(v26 + 8 * v24) = 0;
               }
             }
 
-            v32 = *i;
+            v31 = *i;
             if (*i)
             {
-              v33 = *(v32 + 8);
-              if (v26.u32[0] > 1uLL)
+              v32 = *(v31 + 8);
+              if (v25.u32[0] > 1uLL)
               {
-                if (v33 >= *&v24)
+                if (v32 >= *&v23)
                 {
-                  v33 %= *&v24;
+                  v32 %= *&v23;
                 }
               }
 
               else
               {
-                v33 &= *&v24 - 1;
+                v32 &= *&v23 - 1;
               }
 
-              if (v33 != v25)
+              if (v32 != v24)
               {
-                *(v23[9] + 8 * v33) = v29;
-                v32 = *i;
+                *(v22[9] + 8 * v32) = v28;
+                v31 = *i;
               }
             }
 
-            *v29 = v32;
+            *v28 = v31;
             *i = 0;
-            --v23[12];
+            --v22[12];
 
             operator delete(i);
             return;
@@ -4335,24 +4324,23 @@ void sub_B9AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<int *>::emplace_back<int *&>(void *result, void *a2)
+void std::__split_buffer<int *>::emplace_back<int *&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
       std::__allocate_at_least[abi:nn200100]<std::allocator<int *>>(v11);
@@ -4364,18 +4352,17 @@ void *std::__split_buffer<int *>::emplace_back<int *&>(void *result, void *a2)
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
 void std::__allocate_at_least[abi:nn200100]<std::allocator<int *>>(unint64_t a1)

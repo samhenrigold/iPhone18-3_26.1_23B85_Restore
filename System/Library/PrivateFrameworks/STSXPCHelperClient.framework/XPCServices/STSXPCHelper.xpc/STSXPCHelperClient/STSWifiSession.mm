@@ -275,14 +275,14 @@ LABEL_8:
   os_unfair_lock_unlock(&self->_lock);
   if (!v9)
   {
-    sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSWifiSession altCarrierSendData:completion:]", 250, self, @"AC not connected", v10, v11, v51);
-    v70 = NSLocalizedDescriptionKey;
+    sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSWifiSession altCarrierSendData:completion:]", 250, self, @"AC not connected", v10, v11, v50);
+    v69 = NSLocalizedDescriptionKey;
     *buf = off_100069A80;
-    v16 = [NSDictionary dictionaryWithObjects:buf forKeys:&v70 count:1];
+    v16 = [NSDictionary dictionaryWithObjects:buf forKeys:&v69 count:1];
     firstObject = [NSError errorWithDomain:@"STSXPCHelperErrorDomain" code:8 userInfo:v16];
 
     completionCopy[2](completionCopy, firstObject);
-    goto LABEL_43;
+    goto LABEL_41;
   }
 
   v12 = sub_100024AE0();
@@ -294,90 +294,87 @@ LABEL_8:
 
   v13 = sub_100021538(self);
   v14 = v13;
-  if (v13 && (*(v13 + 8) & 1) != 0)
+  if (!v13 || (*(v13 + 8) & 1) == 0)
   {
-    v15 = 0;
-    goto LABEL_15;
-  }
+    if (self && (WeakRetained = objc_loadWeakRetained(&self->_parent), (v19 = WeakRetained) != 0))
+    {
+      v20 = WeakRetained[4];
+      if (v20)
+      {
+        v15 = v20[8] ^ 1;
+LABEL_14:
 
-  if (!self || (WeakRetained = objc_loadWeakRetained(&self->_parent), (v19 = WeakRetained) == 0))
-  {
-    v20 = 0;
-    v19 = 0;
-    goto LABEL_47;
-  }
+        goto LABEL_15;
+      }
+    }
 
-  v20 = WeakRetained[4];
-  if (!v20)
-  {
-LABEL_47:
+    else
+    {
+      v20 = 0;
+      v19 = 0;
+    }
+
     v15 = 1;
     goto LABEL_14;
   }
 
-  v15 = v20[8] ^ 1;
-LABEL_14:
-
+  v15 = 0;
 LABEL_15:
-  v21 = [dataCopy length];
-  if (self)
-  {
-    useHTTPServerOnPublisher = self->_useHTTPServerOnPublisher;
-  }
 
+  v21 = [dataCopy length];
   sub_10002483C(OS_LOG_TYPE_INFO, 0, "[STSWifiSession altCarrierSendData:completion:]", 259, self, @"Data len=%ld,subscriberWithHttpClient=%d, httpServerStarted=%d", v22, v23, v21);
-  v25 = sub_100021538(self);
-  if (v25 && v25[8] == 1)
+  v24 = sub_100021538(self);
+  if (v24 && v24[8] == 1)
   {
     if (self)
     {
-      v26 = self->_useHTTPServerOnPublisher;
+      useHTTPServerOnPublisher = self->_useHTTPServerOnPublisher;
 
-      if (v26)
+      if (useHTTPServerOnPublisher)
       {
-        v27 = [[NSURL alloc] initWithString:&stru_100059C08];
-        v28 = dataCopy;
-        v29 = objc_alloc_init(NSMutableDictionary);
-        [v29 setObject:@"application/CBOR" forKeyedSubscript:@"Content-Type"];
-        v30 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v28 length]);
-        stringValue = [v30 stringValue];
-        [v29 setObject:stringValue forKeyedSubscript:@"Content-Length"];
+        v26 = [[NSURL alloc] initWithString:&stru_100059C08];
+        v27 = dataCopy;
+        v28 = objc_alloc_init(NSMutableDictionary);
+        [v28 setObject:@"application/CBOR" forKeyedSubscript:@"Content-Type"];
+        v29 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v27 length]);
+        stringValue = [v29 stringValue];
+        [v28 setObject:stringValue forKeyedSubscript:@"Content-Length"];
 
-        v32 = [[NSHTTPURLResponse alloc] initWithURL:v27 statusCode:200 HTTPVersion:@"HTTP/1.1" headerFields:v29];
-        v33 = [[HTTPServerResponse alloc] initWithResponse:v32 bodyData:v28];
+        v31 = [[NSHTTPURLResponse alloc] initWithURL:v26 statusCode:200 HTTPVersion:@"HTTP/1.1" headerFields:v28];
+        v32 = [[HTTPServerResponse alloc] initWithResponse:v31 bodyData:v27];
 
         os_unfair_lock_lock(&self->_lock);
         firstObject = self->_activeHandle;
         os_unfair_lock_unlock(&self->_lock);
-        v60[0] = _NSConcreteStackBlock;
-        v60[1] = 3221225472;
-        v60[2] = sub_1000226EC;
-        v60[3] = &unk_100058F20;
-        v60[4] = self;
-        v61 = completionCopy;
-        sub_10001BB34(&firstObject->super.isa, v33, v60);
+        v59[0] = _NSConcreteStackBlock;
+        v59[1] = 3221225472;
+        v59[2] = sub_1000226EC;
+        v59[3] = &unk_100058F20;
+        v59[4] = self;
+        v60 = completionCopy;
+        sub_10001BB34(&firstObject->super.isa, v32, v59);
 
-        goto LABEL_43;
+        goto LABEL_41;
       }
 
       os_unfair_lock_lock(&self->_lock);
       if (v15)
       {
-        goto LABEL_28;
+        goto LABEL_26;
       }
 
-      goto LABEL_35;
+      goto LABEL_33;
     }
 
     os_unfair_lock_lock(0xC);
+    v33 = 0;
     v34 = 0;
-    v35 = 0;
     if (v15)
     {
-      goto LABEL_29;
+      goto LABEL_27;
     }
 
-    goto LABEL_36;
+    goto LABEL_34;
   }
 
   os_unfair_lock_lock(&self->_lock);
@@ -385,103 +382,103 @@ LABEL_15:
   {
     if (self)
     {
-LABEL_35:
-      v35 = self->_connectionHandles;
-      goto LABEL_36;
+LABEL_33:
+      v34 = self->_connectionHandles;
+      goto LABEL_34;
     }
 
-    v35 = 0;
-LABEL_36:
-    firstObject = [(NSMutableArray *)v35 firstObject];
+    v34 = 0;
+LABEL_34:
+    firstObject = [(NSMutableArray *)v34 firstObject];
     os_unfair_lock_unlock(&self->_lock);
-    v54[0] = _NSConcreteStackBlock;
-    v54[1] = 3221225472;
-    v54[2] = sub_1000229A0;
-    v54[3] = &unk_100059140;
-    v54[4] = self;
-    v55 = completionCopy;
-    sub_10001B964(firstObject, dataCopy, v54);
+    v53[0] = _NSConcreteStackBlock;
+    v53[1] = 3221225472;
+    v53[2] = sub_1000229A0;
+    v53[3] = &unk_100059140;
+    v53[4] = self;
+    v54 = completionCopy;
+    sub_10001B964(firstObject, dataCopy, v53);
 
-    goto LABEL_43;
+    goto LABEL_41;
   }
 
   if (self)
   {
-LABEL_28:
-    v34 = self->_connectionHandles;
-    goto LABEL_29;
+LABEL_26:
+    v33 = self->_connectionHandles;
+    goto LABEL_27;
   }
 
-  v34 = 0;
-LABEL_29:
-  firstObject = [(NSMutableArray *)v34 firstObject];
-  v53 = sub_10001B740(firstObject);
+  v33 = 0;
+LABEL_27:
+  firstObject = [(NSMutableArray *)v33 firstObject];
+  v52 = sub_10001B740(firstObject);
   os_unfair_lock_unlock(&self->_lock);
-  if (v53)
+  if (v52)
   {
-    v52 = dataCopy;
-    v36 = v53;
+    v51 = dataCopy;
+    v35 = v52;
     if (self)
     {
-      v37 = sub_100021538(self);
-      if (v37)
+      v36 = sub_100021538(self);
+      if (v36)
       {
-        v38 = v37[10] + 5.0;
+        v37 = v36[10] + 5.0;
       }
 
       else
       {
-        v38 = 5.0;
+        v37 = 5.0;
       }
 
-      v39 = +[NSURLSessionConfiguration ephemeralSessionConfiguration];
-      v40 = [NSURLSession sessionWithConfiguration:v39];
-      sub_10002483C(OS_LOG_TYPE_INFO, 0, "[STSWifiSession _send:remoteURL:]", 423, self, @"Remote: %@", v41, v42, v36);
-      v43 = [NSMutableURLRequest requestWithURL:v36 cachePolicy:1 timeoutInterval:v38];
-      [v43 setHTTPMethod:@"POST"];
-      [v43 addValue:@"application/CBOR" forHTTPHeaderField:@"Content-Type"];
-      [v43 setHTTPBody:v52];
+      v38 = +[NSURLSessionConfiguration ephemeralSessionConfiguration];
+      v39 = [NSURLSession sessionWithConfiguration:v38];
+      sub_10002483C(OS_LOG_TYPE_INFO, 0, "[STSWifiSession _send:remoteURL:]", 423, self, @"Remote: %@", v40, v41, v35);
+      v42 = [NSMutableURLRequest requestWithURL:v35 cachePolicy:1 timeoutInterval:v37];
+      [v42 setHTTPMethod:@"POST"];
+      [v42 addValue:@"application/CBOR" forHTTPHeaderField:@"Content-Type"];
+      [v42 setHTTPBody:v51];
       objc_initWeak(&location, self);
-      v70 = 0;
-      v71 = &v70;
-      v72 = 0x3032000000;
-      v73 = sub_1000230BC;
-      v74 = sub_1000230CC;
-      v75 = 0;
+      v69 = 0;
+      v70 = &v69;
+      v71 = 0x3032000000;
+      v72 = sub_1000230BC;
+      v73 = sub_1000230CC;
+      v74 = 0;
       *buf = _NSConcreteStackBlock;
-      v64 = 3221225472;
-      v65 = sub_1000230D4;
-      v66 = &unk_100059118;
+      v63 = 3221225472;
+      v64 = sub_1000230D4;
+      v65 = &unk_100059118;
       selfCopy = self;
-      objc_copyWeak(v69, &location);
-      v68 = &v70;
-      v44 = [v40 dataTaskWithRequest:v43 completionHandler:buf];
-      v45 = v71[5];
-      v71[5] = v44;
+      objc_copyWeak(v68, &location);
+      v67 = &v69;
+      v43 = [v39 dataTaskWithRequest:v42 completionHandler:buf];
+      v44 = v70[5];
+      v70[5] = v43;
 
-      [(NSString *)v71[5] resume];
-      _Block_object_dispose(&v70, 8);
+      [(NSString *)v70[5] resume];
+      _Block_object_dispose(&v69, 8);
 
-      objc_destroyWeak(v69);
+      objc_destroyWeak(v68);
       objc_destroyWeak(&location);
     }
 
-    v46 = 0;
+    v45 = 0;
   }
 
   else
   {
-    v70 = NSLocalizedDescriptionKey;
+    v69 = NSLocalizedDescriptionKey;
     *buf = off_100069A50;
-    v47 = [NSDictionary dictionaryWithObjects:buf forKeys:&v70 count:1];
-    v46 = [NSError errorWithDomain:@"STSXPCHelperErrorDomain" code:2 userInfo:v47];
+    v46 = [NSDictionary dictionaryWithObjects:buf forKeys:&v69 count:1];
+    v45 = [NSError errorWithDomain:@"STSXPCHelperErrorDomain" code:2 userInfo:v46];
   }
 
-  v48 = sub_100024AE0();
-  if (os_signpost_enabled(v48))
+  v47 = sub_100024AE0();
+  if (os_signpost_enabled(v47))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v48, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "WifiSession_SendData", &unk_10005485E, buf, 2u);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v47, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "WifiSession_SendData", &unk_10005485E, buf, 2u);
   }
 
   if (self)
@@ -498,13 +495,13 @@ LABEL_29:
   block[1] = 3221225472;
   block[2] = sub_100022920;
   block[3] = &unk_100059190;
-  v57 = v46;
+  v56 = v45;
   selfCopy2 = self;
-  v59 = completionCopy;
-  v50 = v46;
+  v58 = completionCopy;
+  v49 = v45;
   dispatch_async(queue, block);
 
-LABEL_43:
+LABEL_41:
 }
 
 - (void)sessionTimedout

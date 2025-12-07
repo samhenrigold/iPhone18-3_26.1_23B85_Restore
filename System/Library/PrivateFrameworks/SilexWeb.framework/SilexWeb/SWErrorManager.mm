@@ -76,7 +76,7 @@ void __70__SWErrorManager_initWithMessageHandlerManager_timeoutManager_logger___
 
 - (void)didReceiveMessage:(id)message securityOrigin:(id)origin
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   messageCopy = message;
   body = [messageCopy body];
   v7 = [body objectForKey:@"errorCode"];
@@ -97,9 +97,9 @@ void __70__SWErrorManager_initWithMessageHandlerManager_timeoutManager_logger___
 
   if (v10)
   {
-    v14 = *MEMORY[0x1E696A578];
-    v15[0] = v10;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v13 = *MEMORY[0x1E696A578];
+    v14[0] = v10;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
   }
 
   else
@@ -109,8 +109,6 @@ void __70__SWErrorManager_initWithMessageHandlerManager_timeoutManager_logger___
 
   v12 = [MEMORY[0x1E696ABC0] errorWithDomain:@"web_content" code:integerValue userInfo:v11];
   [(SWErrorManager *)self reportError:v12];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

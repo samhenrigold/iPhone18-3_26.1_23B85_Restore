@@ -51,33 +51,41 @@
       v22 = 0u;
       memset(buf, 0, sizeof(buf));
       v10 = PLMigrationGetLog();
-      os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      {
+        v11 = 3;
+      }
+
+      else
+      {
+        v11 = 2;
+      }
+
       v16 = 138412546;
       v17 = v5;
       v18 = 2112;
       v19 = distantPast;
-      LODWORD(v15) = 22;
-      v11 = _os_log_send_and_compose_impl();
+      v12 = _os_log_send_and_compose_impl(v11, 0, buf, 512, &dword_19BF1F000, v10, 0, "Reset Recent Highlight Title Update Date from %@ to %@", &v16, 22);
 
-      v12 = [(PLModelMigrationActionCore *)self logger:&v16];
-      [v12 logWithMessage:v11 fromCodeLocation:"PLModelMigrationActions_16000.m" type:{1192, 0}];
+      logger2 = [(PLModelMigrationActionCore *)self logger];
+      [logger2 logWithMessage:v12 fromCodeLocation:"PLModelMigrationActions_16000.m" type:{1192, 0}];
 
-      if (v11 != buf)
+      if (v12 != buf)
       {
-        free(v11);
+        free(v12);
       }
     }
 
     else
     {
-      v13 = PLMigrationGetLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = PLMigrationGetLog();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
         *&buf[4] = v5;
         *&buf[12] = 2112;
         *&buf[14] = distantPast;
-        _os_log_impl(&dword_19BF1F000, v13, OS_LOG_TYPE_DEFAULT, "Reset Recent Highlight Title Update Date from %@ to %@", buf, 0x16u);
+        _os_log_impl(&dword_19BF1F000, v14, OS_LOG_TYPE_DEFAULT, "Reset Recent Highlight Title Update Date from %@ to %@", buf, 0x16u);
       }
     }
   }

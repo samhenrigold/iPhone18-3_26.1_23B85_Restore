@@ -159,7 +159,7 @@
 id __44__POMutableJWTHeader_addEphemeralPublicKey___block_invoke()
 {
   v0 = [POError errorWithCode:-1008 description:@"Invalid epk type."];
-  v1 = PO_LOG_POJWTHeader();
+  v1 = PO_LOG_POJWTHeader(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -173,8 +173,8 @@ id __44__POMutableJWTHeader_addEphemeralPublicKey___block_invoke_100(uint64_t a1
   v1 = *(a1 + 32);
   v2 = [POError errorWithCode:-1001 underlyingError:v1 description:@"Error with epk external representation"];
 
-  v3 = PO_LOG_POJWTHeader();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = PO_LOG_POJWTHeader(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
   }
@@ -185,7 +185,7 @@ id __44__POMutableJWTHeader_addEphemeralPublicKey___block_invoke_100(uint64_t a1
 id __44__POMutableJWTHeader_addEphemeralPublicKey___block_invoke_105()
 {
   v0 = [POError errorWithCode:-1008 description:@"Error with dataRepresentation length for epk."];
-  v1 = PO_LOG_POJWTHeader();
+  v1 = PO_LOG_POJWTHeader(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();

@@ -338,23 +338,21 @@ void __44__IXAppRemovabilityMetadataList_description__block_invoke(uint64_t a1, 
 
 - (NSDictionary)propertyListRepresentation
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   clientToRemovabilityMetadataMap = [(IXAppRemovabilityMetadataList *)self clientToRemovabilityMetadataMap];
-  v10 = MEMORY[0x1E69E9820];
-  v11 = 3221225472;
-  v12 = __59__IXAppRemovabilityMetadataList_propertyListRepresentation__block_invoke;
-  v13 = &unk_1E85C6018;
-  v14 = v3;
+  v9 = MEMORY[0x1E69E9820];
+  v10 = 3221225472;
+  v11 = __59__IXAppRemovabilityMetadataList_propertyListRepresentation__block_invoke;
+  v12 = &unk_1E85C6018;
+  v13 = v3;
   v5 = v3;
-  [clientToRemovabilityMetadataMap enumerateKeysAndObjectsUsingBlock:&v10];
+  [clientToRemovabilityMetadataMap enumerateKeysAndObjectsUsingBlock:&v9];
 
-  v15 = @"metadata";
+  v14 = @"metadata";
   v6 = [v5 copy];
-  v16[0] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v15[0] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
 
   return v7;
 }

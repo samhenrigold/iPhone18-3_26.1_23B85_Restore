@@ -1,11 +1,79 @@
+uint64_t closure #2 in closure #1 in static AVAssetExportSession.ProgressStates.Iterator.advancementToNextInterestingState(after:accordingTo:deadline:)()
+{
+  Date.nanosecondsSinceNow.getter();
+  v2 = 0x3FFFFFFFFFFFFFFFLL;
+  if (v1 < 0x3FFFFFFFFFFFFFFFLL)
+  {
+    v2 = v1;
+  }
+
+  v3 = v2 & ~(v2 >> 63);
+  v4 = swift_task_alloc();
+  *(v0 + 24) = v4;
+  *v4 = v0;
+  v4[1] = closure #2 in closure #1 in static AVAssetExportSession.ProgressStates.Iterator.advancementToNextInterestingState(after:accordingTo:deadline:);
+
+  return MEMORY[0x1EEE6DA60](v3);
+}
+
+{
+  v2 = *v1;
+  *(v2 + 32) = v0;
+
+  if (v0)
+  {
+
+    return MEMORY[0x1EEE6DFA0](closure #2 in closure #1 in static AVAssetExportSession.ProgressStates.Iterator.advancementToNextInterestingState(after:accordingTo:deadline:), 0);
+  }
+
+  else
+  {
+    v3 = *(v2 + 8);
+
+    return v3();
+  }
+}
+
+{
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+void Date.nanosecondsSinceNow.getter()
+{
+  Date.timeIntervalSinceNow.getter();
+  Date.timeIntervalSinceNow.getter();
+  if ((v0 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
+  {
+    Date.timeIntervalSinceNow.getter();
+    v2 = v1 * 1000000000.0;
+    if (fabs(v2) < 9.22337204e18)
+    {
+      if (v2 <= -9.22337204e18)
+      {
+        __break(1u);
+      }
+
+      else if (v2 < 9.22337204e18)
+      {
+        return;
+      }
+
+      __break(1u);
+    }
+  }
+}
+
 void closure #1 in static AVAssetExportSession.ProgressStates.Iterator.untilInternalStateWillChange(from:accordingTo:)(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV11YieldResultOySo26AVAssetExportSessionStatusV__GMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV11YieldResultOySo26AVAssetExportSessionStatusV__GMd, &_sScS12ContinuationV11YieldResultOySo26AVAssetExportSessionStatusV__GMR);
   v3 = *(v2 - 8);
   MEMORY[0x1EEE9AC00](v2);
   v5 = v6 - v4;
   v6[1] = a1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo26AVAssetExportSessionStatusV_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo26AVAssetExportSessionStatusV_GMd, &_sScS12ContinuationVySo26AVAssetExportSessionStatusV_GMR);
   AsyncStream.Continuation.yield(_:)();
   (*(v3 + 8))(v5, v2);
   if ((a1 - 3) <= 2)
@@ -66,13 +134,13 @@ uint64_t specialized static AVAssetExportSession.ProgressStates.Iterator.StateIn
   v8 = type metadata accessor for AVAssetExportSession.ProgressStates.Iterator.StateInternal(0);
   MEMORY[0x1EEE9AC00](v8 - 8);
   v10 = &v27 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalO_AJtMd);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalO_AJtMd, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalO_AJtMR);
   v12 = MEMORY[0x1EEE9AC00](v11 - 8);
   v14 = &v27 - v13;
   v15 = &v27 + *(v12 + 56) - v13;
   outlined init with copy of AVAssetExportSession.ProgressStates.Iterator.StateInternal(a1, &v27 - v13);
   outlined init with copy of AVAssetExportSession.ProgressStates.Iterator.StateInternal(a2, v15);
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV05startB0_So10NSProgressC8progresstMd);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV05startB0_So10NSProgressC8progresstMd, &_s10Foundation4DateV05startB0_So10NSProgressC8progresstMR);
   v17 = *(*(v16 - 8) + 48);
   v18 = v17(v14, 3, v16);
   if (v18 > 1)
@@ -109,7 +177,7 @@ uint64_t specialized static AVAssetExportSession.ProgressStates.Iterator.StateIn
         v26(v10, v4);
         if (v25)
         {
-          type metadata accessor for NSValue(0, &lazy cache variable for type metadata for NSObject);
+          type metadata accessor for NSValue(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
           v21 = static NSObject.== infix(_:_:)();
 
           v26(v7, v4);
@@ -125,7 +193,7 @@ uint64_t specialized static AVAssetExportSession.ProgressStates.Iterator.StateIn
 
       (*(v28 + 8))(v10, v4);
 LABEL_11:
-      outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v14, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalO_AJtMd);
+      outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v14, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalO_AJtMd, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalO_AJtMR);
 LABEL_12:
       v21 = 0;
       return v21 & 1;
@@ -163,28 +231,28 @@ uint64_t outlined init with take of AVAssetExportSession.ProgressStates.Iterator
   return a2;
 }
 
-id specialized static AVAssetExportSession.ProgressStates.Iterator.updateProgress(_:exportProgress:exportingStartDate:)(void *a1, float a2)
+id specialized static AVAssetExportSession.ProgressStates.Iterator.updateProgress(_:exportProgress:exportingStartDate:)(void *a1, uint64_t a2, float a3)
 {
-  v4 = type metadata accessor for Date();
-  v5 = *(v4 - 8);
-  MEMORY[0x1EEE9AC00](v4);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for Date();
+  v6 = *(v5 - 8);
+  MEMORY[0x1EEE9AC00](v5);
+  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   result = [a1 totalUnitCount];
-  v9 = result * a2;
-  if (COERCE_INT(fabs(v9)) > 2139095039)
+  v10 = result * a3;
+  if (COERCE_INT(fabs(v10)) > 2139095039)
   {
     __break(1u);
     goto LABEL_8;
   }
 
-  if (v9 <= -9.2234e18)
+  if (v10 <= -9.2234e18)
   {
 LABEL_8:
     __break(1u);
     goto LABEL_9;
   }
 
-  if (v9 >= 9.2234e18)
+  if (v10 >= 9.2234e18)
   {
 LABEL_9:
     __break(1u);
@@ -194,8 +262,8 @@ LABEL_9:
   [a1 setCompletedUnitCount_];
   static Date.now.getter();
   Date.timeIntervalSince(_:)();
-  result = (*(v5 + 8))(v7, v4);
-  if (a2 > 0.0)
+  result = (*(v6 + 8))(v8, v5);
+  if (a3 > 0.0)
   {
     return NSProgress.estimatedTimeRemaining.setter();
   }
@@ -264,26 +332,26 @@ uint64_t specialized static AVAssetExportSession.ProgressStates.Iterator.untilIn
   v2[7] = v3;
   v2[8] = *(v3 - 8);
   v2[9] = swift_task_alloc();
-  v2[10] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalO_AJtMd);
+  v2[10] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalO_AJtMd, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalO_AJtMR);
   v2[11] = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMd, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMR);
   v2[12] = swift_task_alloc();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVySo26AVAssetExportSessionStatusV_GMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVySo26AVAssetExportSessionStatusV_GMd, &_sScS8IteratorVySo26AVAssetExportSessionStatusV_GMR);
   v2[13] = v4;
   v2[14] = *(v4 - 8);
   v2[15] = swift_task_alloc();
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV15BufferingPolicyOySo26AVAssetExportSessionStatusV__GMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV15BufferingPolicyOySo26AVAssetExportSessionStatusV__GMd, &_sScS12ContinuationV15BufferingPolicyOySo26AVAssetExportSessionStatusV__GMR);
   v2[16] = v5;
   v2[17] = *(v5 - 8);
   v2[18] = swift_task_alloc();
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo26AVAssetExportSessionStatusV_GMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo26AVAssetExportSessionStatusV_GMd, &_sScS12ContinuationVySo26AVAssetExportSessionStatusV_GMR);
   v2[19] = v6;
   v7 = *(v6 - 8);
   v2[20] = v7;
   v2[21] = *(v7 + 64);
   v2[22] = swift_task_alloc();
   v2[23] = swift_task_alloc();
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSySo26AVAssetExportSessionStatusVGMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSySo26AVAssetExportSessionStatusVGMd, &_sScSySo26AVAssetExportSessionStatusVGMR);
   v2[24] = v8;
   v2[25] = *(v8 - 8);
   v2[26] = swift_task_alloc();
@@ -294,14 +362,14 @@ uint64_t specialized static AVAssetExportSession.ProgressStates.Iterator.untilIn
   v2[30] = swift_task_alloc();
   v2[31] = swift_task_alloc();
 
-  return MEMORY[0x1EEE6DFA0](specialized static AVAssetExportSession.ProgressStates.Iterator.untilInternalStateWillChange(from:accordingTo:), 0, 0);
+  return MEMORY[0x1EEE6DFA0](specialized static AVAssetExportSession.ProgressStates.Iterator.untilInternalStateWillChange(from:accordingTo:), 0);
 }
 
 uint64_t specialized static AVAssetExportSession.ProgressStates.Iterator.untilInternalStateWillChange(from:accordingTo:)()
 {
   v1 = v0[31];
   v2 = v0[5];
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV05startB0_So10NSProgressC8progresstMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV05startB0_So10NSProgressC8progresstMd, &_s10Foundation4DateV05startB0_So10NSProgressC8progresstMR);
   v0[32] = v3;
   v4 = *(v3 - 8);
   v0[33] = v4;
@@ -357,7 +425,7 @@ uint64_t specialized static AVAssetExportSession.ProgressStates.Iterator.untilIn
 
 {
 
-  return MEMORY[0x1EEE6DFA0](specialized static AVAssetExportSession.ProgressStates.Iterator.untilInternalStateWillChange(from:accordingTo:), 0, 0);
+  return MEMORY[0x1EEE6DFA0](specialized static AVAssetExportSession.ProgressStates.Iterator.untilInternalStateWillChange(from:accordingTo:), 0);
 }
 
 {
@@ -446,7 +514,7 @@ LABEL_16:
 
       (*(v19 + 8))(v17, v18);
 LABEL_15:
-      outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(*(v0 + 88), &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalO_AJtMd);
+      outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(*(v0 + 88), &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalO_AJtMd, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalO_AJtMR);
       goto LABEL_16;
     }
 
@@ -473,7 +541,7 @@ LABEL_15:
 
     v37 = *(v0 + 72);
     v38 = *(v0 + 56);
-    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for NSObject);
+    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
     v39 = static NSObject.== infix(_:_:)();
 
     v35(v37, v38);
@@ -497,7 +565,7 @@ LABEL_15:
 
 void partial apply for closure #1 in static AVAssetExportSession.ProgressStates.Iterator.untilInternalStateWillChange(from:accordingTo:)(uint64_t a1)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo26AVAssetExportSessionStatusV_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo26AVAssetExportSessionStatusV_GMd, &_sScS12ContinuationVySo26AVAssetExportSessionStatusV_GMR);
 
   closure #1 in static AVAssetExportSession.ProgressStates.Iterator.untilInternalStateWillChange(from:accordingTo:)(a1);
 }
@@ -509,7 +577,7 @@ uint64_t block_copy_helper_8(uint64_t a1, uint64_t a2)
   *(a1 + 40) = v2;
 }
 
-uint64_t lazy protocol witness table accessor for type AVAssetExportSession.ProgressStates.Iterator and conformance AVAssetExportSession.ProgressStates.Iterator(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type AVAssetExportSession.ProgressStates.Iterator and conformance AVAssetExportSession.ProgressStates.Iterator(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -522,51 +590,51 @@ uint64_t lazy protocol witness table accessor for type AVAssetExportSession.Prog
   return result;
 }
 
-uint64_t type metadata completion function for AVAssetExportSession.ProgressStates.Iterator.StateInternal()
+uint64_t type metadata completion function for AVAssetExportSession.ProgressStates.Iterator.StateInternal(uint64_t a1)
 {
-  type metadata accessor for (startDate: Date, progress: NSProgress)();
-  v1 = v0;
-  if (v2 <= 0x3F)
+  type metadata accessor for (startDate: Date, progress: NSProgress)(319);
+  v2 = v1;
+  if (v3 <= 0x3F)
   {
     swift_cvw_initEnumMetadataSinglePayloadWithLayoutString();
     return 0;
   }
 
-  return v1;
+  return v2;
 }
 
-void type metadata accessor for (startDate: Date, progress: NSProgress)()
+void type metadata accessor for (startDate: Date, progress: NSProgress)(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for (startDate: Date, progress: NSProgress))
   {
     type metadata accessor for Date();
-    type metadata accessor for NSValue(255, &lazy cache variable for type metadata for NSProgress);
+    type metadata accessor for NSValue(255, &lazy cache variable for type metadata for NSProgress, 0x1E696AE38);
     TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(TupleTypeMetadata2, &lazy cache variable for type metadata for (startDate: Date, progress: NSProgress));
     }
   }
 }
 
-void type metadata completion function for AVAssetExportSession.ProgressStates.Iterator()
+void type metadata completion function for AVAssetExportSession.ProgressStates.Iterator(uint64_t a1)
 {
-  type metadata accessor for AVAssetExportSession.ProgressStates.Iterator.StateInternal?();
-  if (v0 <= 0x3F)
+  type metadata accessor for AVAssetExportSession.ProgressStates.Iterator.StateInternal?(319);
+  if (v1 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
   }
 }
 
-void type metadata accessor for AVAssetExportSession.ProgressStates.Iterator.StateInternal?()
+void type metadata accessor for AVAssetExportSession.ProgressStates.Iterator.StateInternal?(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for AVAssetExportSession.ProgressStates.Iterator.StateInternal?)
   {
     type metadata accessor for AVAssetExportSession.ProgressStates.Iterator.StateInternal(255);
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for AVAssetExportSession.ProgressStates.Iterator.StateInternal?);
+      atomic_store(v1, &lazy cache variable for type metadata for AVAssetExportSession.ProgressStates.Iterator.StateInternal?);
     }
   }
 }
@@ -669,34 +737,34 @@ LABEL_17:
   return result;
 }
 
-uint64_t specialized AVAsynchronousKeyValueLoading.load<A>(_:isolation:)(uint64_t a1, uint64_t a2)
+uint64_t specialized AVAsynchronousKeyValueLoading.load<A>(_:isolation:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v3[18] = a1;
-  v3[19] = v2;
+  v4[18] = a1;
+  v4[19] = v3;
   if (a2)
   {
     swift_getObjectType();
-    v4 = dispatch thunk of Actor.unownedExecutor.getter();
-    v6 = v5;
+    v5 = dispatch thunk of Actor.unownedExecutor.getter();
+    v7 = v6;
   }
 
   else
   {
-    v4 = 0;
-    v6 = 0;
+    v5 = 0;
+    v7 = 0;
   }
 
-  v3[20] = v4;
-  v3[21] = v6;
+  v4[20] = v5;
+  v4[21] = v7;
 
-  return MEMORY[0x1EEE6DFA0](specialized AVAsynchronousKeyValueLoading.load<A>(_:isolation:), v4, v6);
+  return MEMORY[0x1EEE6DFA0](specialized AVAsynchronousKeyValueLoading.load<A>(_:isolation:), v5);
 }
 
 uint64_t specialized AVAsynchronousKeyValueLoading.load<A>(_:isolation:)()
 {
   v2 = v0[18];
   v1 = v0[19];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_1C9390590;
   v4 = *(v2 + 24);
@@ -709,7 +777,7 @@ uint64_t specialized AVAsynchronousKeyValueLoading.load<A>(_:isolation:)()
   v0[2] = v0;
   v0[3] = specialized AVAsynchronousKeyValueLoading.load<A>(_:isolation:);
   v6 = swift_continuation_init();
-  v0[17] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd);
+  v0[17] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd, &_sSccyyts5NeverOGMR);
   v0[10] = MEMORY[0x1E69E9820];
   v0[11] = 1107296256;
   v0[12] = @objc completion handler block implementation for <A><A1>@escaping @callee_unowned @convention(block) @Sendable () -> () with result type ();
@@ -721,10 +789,9 @@ uint64_t specialized AVAsynchronousKeyValueLoading.load<A>(_:isolation:)()
 }
 
 {
-  v1 = *(*v0 + 168);
-  v2 = *(*v0 + 160);
+  v1 = *(*v0 + 160);
 
-  return MEMORY[0x1EEE6DFA0](specialized AVAsynchronousKeyValueLoading.load<A>(_:isolation:), v2, v1);
+  return MEMORY[0x1EEE6DFA0](specialized AVAsynchronousKeyValueLoading.load<A>(_:isolation:), v1);
 }
 
 {
@@ -736,7 +803,7 @@ uint64_t specialized AVAsynchronousKeyValueLoading.load<A>(_:isolation:)()
   return v3(v2);
 }
 
-uint64_t specialized AVAsynchronousKeyValueLoading.value<A>(of:)(void *a1)
+id specialized AVAsynchronousKeyValueLoading.value<A>(of:)(void *a1)
 {
   result = specialized AVAsynchronousKeyValueLoading.status<A>(of:)(a1);
   if (v2)
@@ -754,7 +821,7 @@ uint64_t specialized AVAsynchronousKeyValueLoading.value<A>(of:)(void *a1)
       v5 = v2;
       _StringGuts.grow(_:)(22);
 
-      v6 = specialized AVAsyncProperty.Status.description.getter(v4, v5, &_sSaySo12AVAssetTrackCGMd);
+      v6 = specialized AVAsyncProperty.Status.description.getter(v4, v5, &_sSaySo12AVAssetTrackCGMd, &_sSaySo12AVAssetTrackCGMR);
       MEMORY[0x1CCA86740](v6);
 
       MEMORY[0x1CCA86740](41, 0xE100000000000000);
@@ -766,46 +833,46 @@ uint64_t specialized AVAsynchronousKeyValueLoading.value<A>(of:)(void *a1)
   return result;
 }
 
-uint64_t specialized closure #1 in AVAsyncProperty<>.init(key:)(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t specialized closure #1 in AVAsyncProperty<>.init(key:)(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
 {
-  v6 = MEMORY[0x1CCA866B0](a2, a3);
-  v7 = [a1 valueForKey_];
+  v8 = MEMORY[0x1CCA866B0](a2, a3);
+  v9 = [a1 valueForKey_];
 
-  if (v7)
+  if (v9)
   {
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd);
-  __swift_instantiateConcreteTypeFromMangledNameV2(a4);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd, &_sypSgMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(a4, a5);
   swift_dynamicCast();
-  return v9;
+  return v11;
 }
 
-uint64_t specialized AVAsyncProperty.Status.description.getter(void *a1, char a2, uint64_t *a3)
+uint64_t specialized AVAsyncProperty.Status.description.getter(void *a1, char a2, uint64_t *a3, uint64_t *a4)
 {
   if (!a2)
   {
-    v9 = 0;
+    v11 = 0;
     MEMORY[0x1CCA86740](0x2820646564616F4CLL, 0xE800000000000000);
-    __swift_instantiateConcreteTypeFromMangledNameV2(a3);
+    __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
     _print_unlocked<A, B>(_:_:)();
     goto LABEL_5;
   }
 
   if (a2 == 1)
   {
-    v9 = 0x282064656C696146;
-    v3 = [a1 description];
-    v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v6 = v5;
+    v11 = 0x282064656C696146;
+    v4 = [a1 description];
+    v5 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v7 = v6;
 
-    MEMORY[0x1CCA86740](v4, v6);
+    MEMORY[0x1CCA86740](v5, v7);
 
 LABEL_5:
     MEMORY[0x1CCA86740](41, 0xE100000000000000);
-    return v9;
+    return v11;
   }
 
   if (a1)
@@ -848,7 +915,7 @@ uint64_t AVMutableComposition.insertTimeRange(_:of:at:isolation:)(_OWORD *a1, ui
   *(v8 + 304) = v10;
   *(v8 + 312) = v12;
 
-  return MEMORY[0x1EEE6DFA0](AVMutableComposition.insertTimeRange(_:of:at:isolation:), v10, v12);
+  return MEMORY[0x1EEE6DFA0](AVMutableComposition.insertTimeRange(_:of:at:isolation:), v10);
 }
 
 uint64_t AVMutableComposition.insertTimeRange(_:of:at:isolation:)()
@@ -856,7 +923,7 @@ uint64_t AVMutableComposition.insertTimeRange(_:of:at:isolation:)()
   v1 = swift_allocObject();
   *(v1 + 16) = 0x736B63617274;
   *(v1 + 24) = 0xE600000000000000;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s12AVFoundation15AVAsyncPropertyCySo7AVAssetCSaySo0D5TrackCGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s12AVFoundation15AVAsyncPropertyCySo7AVAssetCSaySo0D5TrackCGGMd, &_s12AVFoundation15AVAsyncPropertyCySo7AVAssetCSaySo0D5TrackCGGMR);
   inited = swift_initStackObject();
   v0[40] = inited;
   inited[4] = partial apply for specialized closure #1 in AVAsyncProperty<>.init(key:);
@@ -868,8 +935,9 @@ uint64_t AVMutableComposition.insertTimeRange(_:of:at:isolation:)()
   *v3 = v0;
   v3[1] = AVMutableComposition.insertTimeRange(_:of:at:isolation:);
   v4 = v0[35];
+  v5 = v0[36];
 
-  return specialized AVAsynchronousKeyValueLoading.load<A>(_:isolation:)(inited, v4);
+  return specialized AVAsynchronousKeyValueLoading.load<A>(_:isolation:)(inited, v4, v5);
 }
 
 {
@@ -920,7 +988,7 @@ uint64_t AVMutableComposition.insertTimeRange(_:of:at:isolation:)()
     *(v0 + 376) = v16;
     *(v16 + 16) = 0xD000000000000012;
     *(v16 + 24) = 0x80000001C9391CE0;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s12AVFoundation15AVAsyncPropertyCySo12AVAssetTrackCSaySo22CMFormatDescriptionRefaGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s12AVFoundation15AVAsyncPropertyCySo12AVAssetTrackCSaySo22CMFormatDescriptionRefaGGMd, &_s12AVFoundation15AVAsyncPropertyCySo12AVAssetTrackCSaySo22CMFormatDescriptionRefaGGMR);
     inited = swift_initStackObject();
     *(v0 + 384) = inited;
     inited[4] = partial apply for specialized closure #1 in AVAsyncProperty<>.init(key:);
@@ -932,7 +1000,7 @@ uint64_t AVMutableComposition.insertTimeRange(_:of:at:isolation:)()
     *(v0 + 16) = v0;
     *(v0 + 24) = AVMutableComposition.insertTimeRange(_:of:at:isolation:);
     v19 = swift_continuation_init();
-    *(v0 + 136) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd);
+    *(v0 + 136) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd, &_sSccyyts5NeverOGMR);
     *(v0 + 80) = MEMORY[0x1E69E9820];
     *(v0 + 88) = 1107296256;
     *(v0 + 96) = @objc completion handler block implementation for <A><A1>@escaping @callee_unowned @convention(block) @Sendable () -> () with result type ();
@@ -981,10 +1049,9 @@ uint64_t AVMutableComposition.insertTimeRange(_:of:at:isolation:)()
 }
 
 {
-  v1 = *(*v0 + 312);
-  v2 = *(*v0 + 304);
+  v1 = *(*v0 + 304);
 
-  return MEMORY[0x1EEE6DFA0](AVMutableComposition.insertTimeRange(_:of:at:isolation:), v2, v1);
+  return MEMORY[0x1EEE6DFA0](AVMutableComposition.insertTimeRange(_:of:at:isolation:), v1);
 }
 
 {
@@ -998,7 +1065,7 @@ uint64_t AVMutableComposition.insertTimeRange(_:of:at:isolation:)()
       v19 = v2;
       _StringGuts.grow(_:)(22);
 
-      v20 = specialized AVAsyncProperty.Status.description.getter(v3, v19, &_sSaySo22CMFormatDescriptionRefaGMd);
+      v20 = specialized AVAsyncProperty.Status.description.getter(v3, v19, &_sSaySo22CMFormatDescriptionRefaGMd, &_sSaySo22CMFormatDescriptionRefaGMR);
       MEMORY[0x1CCA86740](v20);
 
       MEMORY[0x1CCA86740](41, 0xE100000000000000);
@@ -1085,7 +1152,7 @@ LABEL_22:
   *(v0 + 376) = v26;
   *(v26 + 16) = 0xD000000000000012;
   *(v26 + 24) = 0x80000001C9391CE0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s12AVFoundation15AVAsyncPropertyCySo12AVAssetTrackCSaySo22CMFormatDescriptionRefaGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s12AVFoundation15AVAsyncPropertyCySo12AVAssetTrackCSaySo22CMFormatDescriptionRefaGGMd, &_s12AVFoundation15AVAsyncPropertyCySo12AVAssetTrackCSaySo22CMFormatDescriptionRefaGGMR);
   inited = swift_initStackObject();
   *(v0 + 384) = inited;
   inited[4] = partial apply for specialized closure #1 in AVAsyncProperty<>.init(key:);
@@ -1097,7 +1164,7 @@ LABEL_22:
   *(v0 + 16) = v0;
   *(v0 + 24) = AVMutableComposition.insertTimeRange(_:of:at:isolation:);
   v29 = swift_continuation_init();
-  *(v0 + 136) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd);
+  *(v0 + 136) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd, &_sSccyyts5NeverOGMR);
   *(v0 + 80) = MEMORY[0x1E69E9820];
   *(v0 + 88) = 1107296256;
   *(v0 + 96) = @objc completion handler block implementation for <A><A1>@escaping @callee_unowned @convention(block) @Sendable () -> () with result type ();
@@ -1125,8 +1192,7 @@ uint64_t AVMutableComposition.insertTimeRange(_:of:at:isolation:)(uint64_t a1)
   if (v1)
   {
     v4 = v3[38];
-    v5 = v3[39];
-    v6 = AVMutableComposition.insertTimeRange(_:of:at:isolation:);
+    v5 = AVMutableComposition.insertTimeRange(_:of:at:isolation:);
   }
 
   else
@@ -1134,22 +1200,21 @@ uint64_t AVMutableComposition.insertTimeRange(_:of:at:isolation:)(uint64_t a1)
     swift_setDeallocating();
 
     v4 = v3[38];
-    v5 = v3[39];
-    v6 = AVMutableComposition.insertTimeRange(_:of:at:isolation:);
+    v5 = AVMutableComposition.insertTimeRange(_:of:at:isolation:);
   }
 
-  return MEMORY[0x1EEE6DFA0](v6, v4, v5);
+  return MEMORY[0x1EEE6DFA0](v5, v4);
 }
 
 uint64_t partial apply for specialized closure #1 in AVAsyncProperty<>.init(key:)@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
 {
-  result = specialized closure #1 in AVAsyncProperty<>.init(key:)(*a1, *(v2 + 16), *(v2 + 24), &_sSaySo12AVAssetTrackCGMd);
+  result = specialized closure #1 in AVAsyncProperty<>.init(key:)(*a1, *(v2 + 16), *(v2 + 24), &_sSaySo12AVAssetTrackCGMd, &_sSaySo12AVAssetTrackCGMR);
   *a2 = result;
   return result;
 }
 
 {
-  result = specialized closure #1 in AVAsyncProperty<>.init(key:)(*a1, *(v2 + 16), *(v2 + 24), &_sSaySo22CMFormatDescriptionRefaGMd);
+  result = specialized closure #1 in AVAsyncProperty<>.init(key:)(*a1, *(v2 + 16), *(v2 + 24), &_sSaySo22CMFormatDescriptionRefaGMd, &_sSaySo22CMFormatDescriptionRefaGMR);
   *a2 = result;
   return result;
 }
@@ -1368,7 +1433,7 @@ void AVSampleBufferVideoRenderer.presentationTimeExpectation.modify(char **a1)
 void AVSampleBufferVideoRenderer.recommendedPixelBufferAttributes.getter()
 {
   v1 = [v0 recommendedPixelBufferAttributes];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8Sendable_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8Sendable_pMd, &_ss8Sendable_pMR);
   static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
   JUMPOUT(0x1CCA865F0);
@@ -1493,7 +1558,7 @@ void AVPlayerVideoOutput.taggedBuffers(forHostTime:)(uint64_t a1@<X0>, uint64_t 
 
     else
     {
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd, &_ss23_ContiguousArrayStorageCyypGMR);
       v13 = swift_allocObject();
       *(v13 + 16) = xmmword_1C9390590;
       *(v13 + 56) = MEMORY[0x1E69E6158];
@@ -1685,15 +1750,15 @@ uint64_t AVVideoOutputSpecification.preferredTagCollections.getter(SEL *a1)
   return v5;
 }
 
-uint64_t static Array<A>.createTagsForPreset(preset:)()
+uint64_t static Array<A>.createTagsForPreset(preset:)(uint64_t a1)
 {
-  v0 = CMTagCollectionCreateWithVideoOutputPreset();
-  if (v0 != noErr.getter())
+  v1 = CMTagCollectionCreateWithVideoOutputPreset();
+  if (v1 != noErr.getter())
   {
     _StringGuts.grow(_:)(40);
 
-    v1 = dispatch thunk of CustomStringConvertible.description.getter();
-    MEMORY[0x1CCA86740](v1);
+    v2 = dispatch thunk of CustomStringConvertible.description.getter();
+    MEMORY[0x1CCA86740](v2);
   }
 
   result = _assertionFailure(_:_:file:line:flags:)();
@@ -1771,43 +1836,49 @@ LABEL_8:
 
 void *static AVPartialAsyncProperty<A>.formatDescriptions.getter()
 {
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo22CMFormatDescriptionRefaGMd);
-  type metadata accessor for AVAsyncProperty();
+  v1 = *(v0 + 96);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo22CMFormatDescriptionRefaGMd, &_sSaySo22CMFormatDescriptionRefaGMR);
+  type metadata accessor for AVAsyncProperty(0, v1, v2, v3);
   return AVAsyncProperty<>.init(key:)(0xD000000000000012, 0x80000001C9391CE0);
 }
 
 void *static AVPartialAsyncProperty<A>.mediaCharacteristics.getter()
 {
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo21AVMediaCharacteristicaGMd);
-  type metadata accessor for AVAsyncProperty();
+  v1 = *(v0 + 96);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo21AVMediaCharacteristicaGMd, &_sSaySo21AVMediaCharacteristicaGMR);
+  type metadata accessor for AVAsyncProperty(0, v1, v2, v3);
   return AVAsyncProperty<>.init(key:)(0xD000000000000014, 0x80000001C9392A00);
 }
 
 void *static AVPartialAsyncProperty<A>.extendedLanguageTag.getter()
 {
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSSSgMd);
-  type metadata accessor for AVAsyncProperty();
+  v1 = *(v0 + 96);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSSSgMd, &_sSSSgMR);
+  type metadata accessor for AVAsyncProperty(0, v1, v2, v3);
   return AVAsyncProperty<>.init(key:)(0xD000000000000013, 0x80000001C9392A60);
 }
 
-void *static AVPartialAsyncProperty<A>.timeRange.getter(void (*a1)(uint64_t), uint64_t a2, uint64_t a3)
+void *static AVPartialAsyncProperty<A>.timeRange.getter(uint64_t (*a1)(uint64_t), uint64_t a2, uint64_t a3)
 {
-  a1(255);
-  type metadata accessor for AVAsyncProperty();
+  v6 = *(v3 + 96);
+  v7 = a1(255);
+  type metadata accessor for AVAsyncProperty(0, v6, v7, v8);
   return AVAsyncProperty<>.init(key:)(a2, a3);
 }
 
 void *static AVPartialAsyncProperty<A>.minFrameDuration.getter()
 {
+  v1 = *(v0 + 96);
   type metadata accessor for CMTime(255);
-  type metadata accessor for AVAsyncProperty();
+  type metadata accessor for AVAsyncProperty(0, v1, v2, v3);
   return AVAsyncProperty<>.init(key:)(0xD000000000000010, 0x80000001C9392AC0);
 }
 
 void *static AVPartialAsyncProperty<A>.availableTrackAssociationTypes.getter()
 {
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo22AVTrackAssociationTypeaGMd);
-  type metadata accessor for AVAsyncProperty();
+  v1 = *(v0 + 96);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo22AVTrackAssociationTypeaGMd, &_sSaySo22AVTrackAssociationTypeaGMR);
+  type metadata accessor for AVAsyncProperty(0, v1, v2, v3);
   return AVAsyncProperty<>.init(key:)(0xD00000000000001ELL, 0x80000001C9392B00);
 }
 
@@ -2381,7 +2452,7 @@ LABEL_3:
 char *AVCaptureDeviceFormat.supportedColorSpaces.getter()
 {
   v1 = [v0 supportedColorSpaces];
-  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for NSNumber);
+  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for NSNumber, 0x1E696AD98);
   v2 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (!(v2 >> 62))
@@ -2459,7 +2530,7 @@ LABEL_3:
 char *AVCaptureDeviceFormat.supportedMaxPhotoDimensions.getter()
 {
   v1 = [v0 supportedMaxPhotoDimensions];
-  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for NSValue);
+  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for NSValue, 0x1E696B098);
   v2 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (!(v2 >> 62))
@@ -2537,7 +2608,7 @@ LABEL_3:
 char *AVCaptureDeviceFormat.secondaryNativeResolutionZoomFactors.getter(SEL *a1)
 {
   v2 = [v1 *a1];
-  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for NSNumber);
+  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for NSNumber, 0x1E696AD98);
   v3 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (!(v3 >> 62))
@@ -2616,7 +2687,7 @@ LABEL_3:
 char *AVCaptureDeviceFormat.supportedVideoZoomRangesForDepthDataDelivery.getter()
 {
   v1 = [v0 supportedVideoZoomRangesForDepthDataDelivery];
-  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVZoomRange);
+  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVZoomRange, 0x1E6987228);
   v2 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (v2 >> 62)

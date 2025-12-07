@@ -75,7 +75,7 @@ uint64_t Do_NVMeCTL_WL_Sweep()
   return v7;
 }
 
-uint64_t Send_ASF_Tunnel()
+uint64_t Send_ASF_Tunnel(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (!&_NVMeCTLTunnel)
   {
@@ -83,81 +83,80 @@ uint64_t Send_ASF_Tunnel()
   }
 
   NVMeCTLTunnel();
-  return v1;
+  return v6;
 }
 
 void sub_1000018A8(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
-  v5 = *(a1 + 32);
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  v8 = [[ASPCarryLog_XpcActivityMgr alloc] initWithXpcActivity:v3];
+  v5 = objc_opt_class();
+  v6 = NSStringFromClass(v5);
+  v7 = [[ASPCarryLog_XpcActivityMgr alloc] initWithXpcActivity:v3];
   if (*(a1 + 40) == 1)
   {
-    v9 = [[ASPCarryLog_PersistentStateMgr alloc] initWithIdentifier:v7];
+    v8 = [[ASPCarryLog_PersistentStateMgr alloc] initWithIdentifier:v6];
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  v10 = objc_alloc_init(NANDTelemetry_PrivacyMgr);
-  v11 = [objc_alloc(*(a1 + 32)) initWithXpcActivityMgr:v8 persistentStateMgr:v9 privacyMgr:v10];
-  v12 = v11;
-  if (v11)
+  v9 = objc_alloc_init(NANDTelemetry_PrivacyMgr);
+  v10 = [objc_alloc(*(a1 + 32)) initWithXpcActivityMgr:v7 persistentStateMgr:v8 privacyMgr:v9];
+  v11 = v10;
+  if (v10)
   {
-    v13 = [v11 privacyMgr];
-    v14 = [v13 allowTelemetry];
+    v12 = [v10 privacyMgr];
+    v13 = [v12 allowTelemetry];
 
-    if (v14)
+    if (v13)
     {
-      v15 = oslog;
+      v14 = oslog;
       if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = v7;
-        v17 = v15;
-        v27 = 136315138;
-        v28 = [v7 UTF8String];
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%s activity starts...", &v27, 0xCu);
+        v15 = v6;
+        v16 = v14;
+        v26 = 136315138;
+        v27 = [v6 UTF8String];
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%s activity starts...", &v26, 0xCu);
       }
 
-      [v12 runActivity];
-      v18 = [(ASPCarryLog_XpcActivityMgr *)v8 isActivityDeferred];
-      v19 = oslog;
-      v20 = os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT);
-      if (v18)
+      [v11 runActivity];
+      v17 = [(ASPCarryLog_XpcActivityMgr *)v7 isActivityDeferred];
+      v18 = oslog;
+      v19 = os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT);
+      if (v17)
       {
-        if (v20)
+        if (v19)
         {
-          v21 = v7;
-          v22 = v19;
-          v23 = [v7 UTF8String];
-          v27 = 136315138;
-          v28 = v23;
-          v24 = "%s activity deferred...";
+          v20 = v6;
+          v21 = v18;
+          v22 = [v6 UTF8String];
+          v26 = 136315138;
+          v27 = v22;
+          v23 = "%s activity deferred...";
 LABEL_14:
-          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, v24, &v27, 0xCu);
+          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, v23, &v26, 0xCu);
         }
       }
 
-      else if (v20)
+      else if (v19)
       {
-        v25 = v7;
-        v22 = v19;
-        v26 = [v7 UTF8String];
-        v27 = 136315138;
-        v28 = v26;
-        v24 = "%s activity complete.";
+        v24 = v6;
+        v21 = v18;
+        v25 = [v6 UTF8String];
+        v26 = 136315138;
+        v27 = v25;
+        v23 = "%s activity complete.";
         goto LABEL_14;
       }
     }
 
     else
     {
-      [v12 cleanUpForTelemetryDisable];
+      [v11 cleanUpForTelemetryDisable];
     }
   }
 
@@ -621,8 +620,8 @@ int main(int argc, const char **argv, const char **envp)
   v6 = oslog;
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
-    *v13 = 0;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "ASPCarryLog main start", v13, 2u);
+    *v14 = 0;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "ASPCarryLog main start", v14, 2u);
   }
 
   v7 = dispatch_queue_create("com.apple.nand.aspcarry_xpc_activity_serial_q", 0);
@@ -633,9 +632,13 @@ int main(int argc, const char **argv, const char **envp)
   v10 = qword_1000D8248;
   qword_1000D8248 = v9;
 
-  if ((os_variant_is_darwinos() & 1) == 0 && ASPCarryLog_isDiagnosticPipelineSupported())
+  if ((os_variant_is_darwinos() & 1) == 0)
   {
-    v11 = getDeviceSerialNumber();
+    isDiagnosticPipelineSupported = ASPCarryLog_isDiagnosticPipelineSupported();
+    if (isDiagnosticPipelineSupported)
+    {
+      v12 = getDeviceSerialNumber(isDiagnosticPipelineSupported);
+    }
   }
 
   sub_100002E64();
@@ -830,10 +833,11 @@ void sub_100005854(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_100007130(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100007130(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 id DateTimeToStr(void *a1)
@@ -909,16 +913,16 @@ BOOL diskFreeSpaceBelowLimit(unint64_t a1)
   return v5 < a1;
 }
 
-id getDeviceSerialNumber()
+id getDeviceSerialNumber(uint64_t a1)
 {
   if (qword_1000D8258 != -1)
   {
     sub_100049188();
   }
 
-  v1 = qword_1000D8250;
+  v2 = qword_1000D8250;
 
-  return v1;
+  return v2;
 }
 
 void sub_100007558(id a1)
@@ -1032,7 +1036,7 @@ uint64_t CompressFiles()
   v4 = v3;
   v27 = v0;
   v29 = v4;
-  v38 = 0;
+  v38[0] = 0;
   memset(&v37, 0, sizeof(v37));
   v28 = +[NSFileManager defaultManager];
   v5 = open([v29 fileSystemRepresentation], 514, 438);
@@ -1296,14 +1300,13 @@ void sub_100008584(uint64_t a1)
   v2 = (a1 + 32);
   if (!xpc_activity_should_defer(*(a1 + 32)))
   {
-    v10 = *(a1 + 32);
     (*(*(a1 + 40) + 16))();
-    v11 = *(a1 + 32);
-    if (xpc_activity_get_state(v11) == 4)
+    v10 = *(a1 + 32);
+    if (xpc_activity_get_state(v10) == 4)
     {
-      v12 = xpc_activity_set_state(v11, 5);
-      v13 = oslog;
-      if (!v12)
+      v11 = xpc_activity_set_state(v10, 5);
+      v12 = oslog;
+      if (!v11)
       {
         if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
         {
@@ -1315,22 +1318,22 @@ void sub_100008584(uint64_t a1)
 
       if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 134217984;
-        v16 = v11;
-        v14 = "XPC activity %p finished successfully.";
+        v14 = 134217984;
+        v15 = v10;
+        v13 = "XPC activity %p finished successfully.";
 LABEL_11:
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, v14, &v15, 0xCu);
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, v13, &v14, 0xCu);
       }
     }
 
     else
     {
-      v13 = oslog;
+      v12 = oslog;
       if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 134217984;
-        v16 = v11;
-        v14 = "XPC activity %p not in CONTINUE state";
+        v14 = 134217984;
+        v15 = v10;
+        v13 = "XPC activity %p not in CONTINUE state";
         goto LABEL_11;
       }
     }
@@ -1350,16 +1353,18 @@ LABEL_14:
   }
 }
 
-void sub_100008A3C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100008A3C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_100008A5C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100008A5C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void NSDictFromStatsBuffer(uint64_t *a1, unsigned int a2, void *a3)
@@ -1524,16 +1529,16 @@ void setTaskingInfoToLegacyUIDomain(void *a1, void *a2, void *a3, uint64_t a4, v
   }
 }
 
-void sub_10000E86C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000E86C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
   v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -1558,10 +1563,11 @@ void sub_10000E8B4(uint64_t a1, void *a2)
   *(*(*(a1 + 40) + 8) + 24) = 1;
 }
 
-void sub_10000F718(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000F718(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_10000FF98(uint64_t a1)
@@ -1880,6 +1886,45 @@ LABEL_12:
   return v11;
 }
 
+void sub_100012458(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, __int128 buf)
+{
+  if (a2)
+  {
+    if (a2 == 2)
+    {
+      v18 = objc_begin_catch(a1);
+      v19 = oslog;
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      {
+        v20 = [v18 name];
+        v21 = v20;
+        v22 = [v20 UTF8String];
+        v26 = [v17 myTaskingCriteria];
+        v23 = [NSString stringWithFormat:@"%@"];
+        v24 = v23;
+        v25 = [v23 UTF8String];
+        LODWORD(buf) = 136315394;
+        *(&buf + 4) = v22;
+        WORD6(buf) = 2080;
+        *(&buf + 14) = v25;
+        _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "ERROR: tasking criteria evaluation failed for %s. Criteria array: \n%s", &buf, 0x16u);
+      }
+
+      objc_end_catch();
+    }
+
+    else
+    {
+      objc_begin_catch(a1);
+      objc_end_catch();
+    }
+
+    JUMPOUT(0x100012388);
+  }
+
+  _Unwind_Resume(a1);
+}
+
 uint64_t sub_10001259C(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -1929,13 +1974,14 @@ uint64_t sub_10001259C(uint64_t a1, void *a2)
   return v8;
 }
 
-void sub_100012748(const char *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void sub_100012748(const char *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
   bzero(__str, 0x400uLL);
   if (!qword_1000D82E8)
   {
     qword_1000D82E8 = malloc_type_calloc(0x400uLL, 1uLL, 0x100004077774924uLL);
-    vsnprintf(__str, 0x400uLL, a1, &a9);
+    vsnprintf(__str, 0x400uLL, a1, va);
     snprintf(qword_1000D82E8, 0x400uLL, "%s", __str);
   }
 }
@@ -1953,7 +1999,7 @@ const char *sub_100012818()
   }
 }
 
-uint64_t sub_100012834(uint64_t a1, uint64_t *a2, unsigned int a3)
+uint64_t sub_100012834(uint64_t a1, unint64_t *a2, unsigned int a3)
 {
   *(a1 + 36) = -1;
   if (a3 < 8)
@@ -1965,7 +2011,7 @@ uint64_t sub_100012834(uint64_t a1, uint64_t *a2, unsigned int a3)
   while (2)
   {
     v9 = *a2;
-    v8 = a2 + 1;
+    v8 = (a2 + 1);
     v7 = v9;
     v10 = HIDWORD(v9);
     v11 = v6 - 1;
@@ -6560,7 +6606,7 @@ double sub_100019338(uint64_t a1)
   return result;
 }
 
-uint64_t sub_1000193AC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_1000193AC(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v8 = a2;
   v10 = 0;
@@ -15347,7 +15393,7 @@ LABEL_2:
                                                 {
                                                   v17 = "ASPFTLParseBufferToCxt: clogReplayTransientError(1002) cannot add 1 element to context";
 LABEL_161:
-                                                  sub_100012748(v17, a2, a3, a4, a5, a6, a7, a8, v21);
+                                                  sub_100012748(v17, a2, a3, a4, a5, a6, a7, a8);
                                                 }
 
 LABEL_162:
@@ -16409,17 +16455,17 @@ LABEL_2686:
 LABEL_2987:
                                                             if (v12 >> 33)
                                                             {
-                                                              snprintf(__str, 0x20uLL, "Stat_%d_");
+                                                              snprintf(__str, 0x20uLL, "Stat_%d_", a4, a5, a6, a7, a8);
                                                             }
 
                                                             else
                                                             {
-                                                              snprintf(__str, 0x20uLL, "Stat_%d");
+                                                              snprintf(__str, 0x20uLL, "Stat_%d", a4, a5, a6, a7, a8);
                                                             }
 
                                                             if ((sub_100026C38(a1, __str, v8, 8u, v14) & 1) == 0)
                                                             {
-                                                              sub_100012748("ASPFTLParseBufferToCxt %d: Cannot add %d elements to context", a2, a3, a4, a5, a6, a7, a8, v12);
+                                                              sub_100012748("ASPFTLParseBufferToCxt %d: Cannot add %d elements to context", a2, a3, a4, a5, a6, a7, a8, v12, v14);
                                                               return v10;
                                                             }
 

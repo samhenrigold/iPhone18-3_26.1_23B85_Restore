@@ -63,7 +63,7 @@ BOOL __48__VNPersonsModelFaceModelVIPv2_encodeWithCoder___block_invoke(uint64_t 
   std::ios_base::init(&v11, &__sb);
   v12 = 0;
   v13 = -1;
-  v4 = vision::mod::FaceIDModel::serialize(*(*(a1 + 32) + 24));
+  v4 = vision::mod::FaceIDModel::serialize(*(*(a1 + 32) + 24), &v10);
   if (v4 == 128)
   {
     std::ostream::flush();
@@ -204,12 +204,14 @@ LABEL_19:
 BOOL __46__VNPersonsModelFaceModelVIPv2_initWithCoder___block_invoke_2(uint64_t a1, void *a2)
 {
   VNNSDataStreambuf::VNNSDataStreambuf(&__sb, *(a1 + 32));
-  v11.__loc_ = 0;
-  v11.__vftable = (MEMORY[0x1E69E5518] + 64);
-  std::ios_base::init(&v11, &__sb);
-  v12 = 0;
-  v13 = -1;
-  v4 = vision::mod::FaceIDModel::deserialize(*(*(a1 + 40) + 24));
+  v12.__loc_ = 0;
+  v11[0] = MEMORY[0x1E69E5518] + 24;
+  v11[1] = 0;
+  v12.__vftable = (MEMORY[0x1E69E5518] + 64);
+  std::ios_base::init(&v12, &__sb);
+  v13 = 0;
+  v14 = -1;
+  v4 = vision::mod::FaceIDModel::deserialize(*(*(a1 + 40) + 24), v11);
   v5 = v4;
   if (a2 && v4 != 128)
   {
@@ -224,64 +226,67 @@ BOOL __46__VNPersonsModelFaceModelVIPv2_initWithCoder___block_invoke_2(uint64_t 
   std::istream::~istream();
 
   __sb = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(v15);
+  std::locale::~locale(v16);
   return v5 == 128;
 }
 
 - (id)trainingFaceprintsForPersonWithUniqueIdentifier:(id)identifier error:(id *)error
 {
-  v18 = 0;
-  if ([(VNPersonsModelFaceModelVIPv2 *)self _getSerialNumber:&v18 forPersonUniqueIdentifier:identifier error:error])
+  v21 = 0;
+  if ([(VNPersonsModelFaceModelVIPv2 *)self _getSerialNumber:&v21 forPersonUniqueIdentifier:identifier error:error])
   {
-    IdentityTrainingData = vision::mod::FaceIDModel::getIdentityTrainingData(self->_faceIDModel.__ptr_, v18);
+    v19 = 0;
+    v20 = 0;
+    IdentityTrainingData = vision::mod::FaceIDModel::getIdentityTrainingData(self->_faceIDModel.__ptr_, v21, &v19);
     if (IdentityTrainingData == 128)
     {
-      v7 = MEMORY[0x48];
-      if (MEMORY[0x48])
+      v7 = v19;
+      v8 = *(v19 + 9);
+      if (v8)
       {
-        v8 = MEMORY[0x40];
-        v9 = MEMORY[0x60];
+        v9 = *(v19 + 8);
+        v10 = *(v19 + 12);
         faceprintRequestRevision = [(VNPersonsModelFaceModelVIPv2 *)self faceprintRequestRevision];
-        v11 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v7];
-        v12 = 0;
-        do
+        v12 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v8];
+        for (i = 0; i != v8; ++i)
         {
-          DataForKthDescriptor = vision::mod::ImageDescriptorBufferAbstract::getDataForKthDescriptor(0, v12);
-          v14 = [VNFaceprint alloc];
-          LODWORD(v15) = 1.0;
-          v16 = [(VNFaceprint *)v14 initWithData:DataForKthDescriptor elementCount:v9 elementType:1 lengthInBytes:v8 confidence:faceprintRequestRevision requestRevision:v15];
-          [v11 addObject:v16];
-
-          ++v12;
+          DataForKthDescriptor = vision::mod::ImageDescriptorBufferAbstract::getDataForKthDescriptor(v7, i);
+          v15 = [VNFaceprint alloc];
+          LODWORD(v16) = 1.0;
+          v17 = [(VNFaceprint *)v15 initWithData:DataForKthDescriptor elementCount:v10 elementType:1 lengthInBytes:v9 confidence:faceprintRequestRevision requestRevision:v16];
+          [v12 addObject:v17];
         }
-
-        while (v7 != v12);
       }
 
       else
       {
-        v11 = MEMORY[0x1E695E0F0];
+        v12 = MEMORY[0x1E695E0F0];
       }
     }
 
     else if (error)
     {
       VNErrorForCVMLStatus(IdentityTrainingData);
-      *error = v11 = 0;
+      *error = v12 = 0;
     }
 
     else
     {
-      v11 = 0;
+      v12 = 0;
+    }
+
+    if (v20)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v20);
     }
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  return v11;
+  return v12;
 }
 
 - (id)faceCountsForAllPersons
@@ -299,7 +304,7 @@ BOOL __46__VNPersonsModelFaceModelVIPv2_initWithCoder___block_invoke_2(uint64_t 
       v20 = *(i + 4);
       v7 = *(i + 6);
       v21 = &v20;
-      *(std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v17, v20) + 5) = v7;
+      *(std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v17, v20, &v21) + 5) = v7;
     }
 
     v8 = objc_alloc(MEMORY[0x1E695DF90]);
@@ -524,7 +529,7 @@ void __94__VNPersonsModelFaceModelVIPv2_personPredictionsForFace_withDescriptor_
     if (v11 == 128)
     {
       errorCopy = error;
-      v12 = [MEMORY[0x1E695DF70] arrayWithCapacity:0xAAAAAAAAAAAAAAABLL * (v34 - v33)];
+      v12 = [MEMORY[0x1E695DF70] arrayWithCapacity:0xAAAAAAAAAAAAAAABLL * ((v34 - v33) >> 3)];
       v13 = v33;
       v28 = v34;
       if (v33 == v34)
@@ -556,7 +561,7 @@ LABEL_14:
 
 LABEL_13:
           std::__tree<std::__value_type<long long,int>,std::__map_value_compare<long long,std::__value_type<long long,int>,std::less<long long>,true>,std::allocator<std::__value_type<long long,int>>>::destroy(v32[0]);
-          v13 += 3;
+          v13 += 24;
           if (v13 == v28)
           {
             goto LABEL_14;
@@ -1003,7 +1008,7 @@ LABEL_8:
         atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      [self _concatenateFaceprintImageDescriptorBuffer:&v67 withFaceprints:v15 forIdentityWithSerialNumber:(v10 + 1) faceprintLabels:&v70 error:error];
+      objc_msgSend__concatenateFaceprintImageDescriptorBuffer_withFaceprints_forIdentityWithSerialNumber_faceprintLabels_error_(self);
       v22 = v57;
       v36 = v56;
       v56 = 0;
@@ -1102,12 +1107,12 @@ LABEL_65:
   return v29;
 }
 
-void *__89__VNPersonsModelFaceModelVIPv2_modelBuiltFromConfiguration_dataProvider_canceller_error___block_invoke(uint64_t a1)
+void *__89__VNPersonsModelFaceModelVIPv2_modelBuiltFromConfiguration_dataProvider_canceller_error___block_invoke(void *a1)
 {
-  result = vision::mod::FaceIDModel::buildModel(*(a1 + 48), *(a1 + 64), (a1 + 80), *(*(a1 + 32) + 8) + 48);
+  result = vision::mod::FaceIDModel::buildModel(a1[6], a1[8], a1 + 10, *(a1[4] + 8) + 48);
   if (result != 128)
   {
-    *(*(*(a1 + 40) + 8) + 40) = VNErrorForCVMLStatus(result);
+    *(*(a1[5] + 8) + 40) = VNErrorForCVMLStatus(result);
 
     return MEMORY[0x1EEE66BB8]();
   }
@@ -1121,6 +1126,7 @@ void *__89__VNPersonsModelFaceModelVIPv2_modelBuiltFromConfiguration_dataProvide
   bufferCopy = buffer;
   var0 = a3.var0;
   v38 = v7;
+  v46[2] = *MEMORY[0x1E69E9840];
   v11 = a3.var1;
   v39 = v11;
   firstObject = [(__shared_weak_count *)v11 firstObject];
@@ -1130,7 +1136,9 @@ void *__89__VNPersonsModelFaceModelVIPv2_modelBuiltFromConfiguration_dataProvide
   __n = lengthInBytes;
   if (!*var0)
   {
-    std::vector<long long>::__init_with_size[abi:ne200100]<long long const*,long long const*>();
+    v45 = 1;
+    memset(__p, 0, sizeof(__p));
+    std::vector<long long>::__init_with_size[abi:ne200100]<long long const*,long long const*>(__p, &v45, v46);
   }
 
   v15 = *(v14 + 8);

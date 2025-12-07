@@ -40,7 +40,7 @@
 
 - (id)responseForServerData:(id)data
 {
-  v103 = *MEMORY[0x277D85DE8];
+  v108 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if ([(MFSASLAuthenticator *)self authenticationState]!= 1)
   {
@@ -48,15 +48,15 @@
     goto LABEL_159;
   }
 
-  v95 = 0u;
-  v94 = 0u;
+  v100 = 0u;
+  v99 = 0u;
   bytes = [dataCopy bytes];
-  v92 = &bytes[[dataCopy length]];
-  v93 = 1;
-  bzero_server_message(&v94);
-  while (bytes < v92)
+  v97 = &bytes[[dataCopy length]];
+  v98 = 1;
+  bzero_server_message(&v99);
+  while (bytes < v97)
   {
-    if (!v93)
+    if (!v98)
     {
       goto LABEL_146;
     }
@@ -64,7 +64,7 @@
     v5 = copyToken(&bytes);
     v6 = v5;
     v7 = bytes;
-    if (bytes >= v92)
+    if (bytes >= v97)
     {
       v8 = 0;
     }
@@ -96,7 +96,7 @@ LABEL_5:
         v8 = 0;
         v7 = v9 + 1;
         v9 = v7;
-        if (v7 < v92)
+        if (v7 < v97)
         {
           bytes = v7;
           goto LABEL_5;
@@ -108,12 +108,12 @@ LABEL_5:
     bytes = v7;
     if (v5)
     {
-      if (v9 >= v92 || *v9 != 61)
+      if (v9 >= v97 || *v9 != 61)
       {
-        v13 = vm_imap_log();
+        v13 = vm_imap_log(v5);
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          if (bytes >= v92)
+          if (bytes >= v97)
           {
             v14 = 0;
           }
@@ -130,13 +130,13 @@ LABEL_5:
 
 LABEL_56:
 
-        v93 = 0;
+        v98 = 0;
         goto LABEL_57;
       }
 
       v11 = v9 + 1;
       bytes = v9 + 1;
-      if (v9 + 1 >= v92)
+      if (v9 + 1 >= v97)
       {
         v12 = 0;
       }
@@ -168,7 +168,7 @@ LABEL_18:
           v12 = 0;
           v11 = v16 + 1;
           v16 = v11;
-          if (v11 < v92)
+          if (v11 < v97)
           {
             bytes = v11;
             goto LABEL_18;
@@ -184,9 +184,9 @@ LABEL_18:
         v23 = v22;
         if (v22)
         {
-          if (v94)
+          if (v99)
           {
-            v24 = vm_imap_log();
+            v24 = vm_imap_log(v22);
             if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
             {
               buf.A = 138412290;
@@ -199,15 +199,15 @@ LABEL_18:
 
           else
           {
-            v37 = v22;
-            v24 = v94;
-            *&v94 = v37;
+            v38 = v22;
+            v24 = v99;
+            *&v99 = v38;
           }
         }
 
         else
         {
-          v24 = vm_imap_log();
+          v24 = vm_imap_log(0);
           if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
             buf.A = 138412290;
@@ -224,32 +224,33 @@ LABEL_79:
 
       if (![v6 caseInsensitiveCompare:@"nonce"])
       {
-        v20 = quoted_string(&bytes);
-        if (v20)
+        v27 = quoted_string(&bytes);
+        v20 = v27;
+        if (v27)
         {
-          if (!*(&v94 + 1))
+          if (!*(&v99 + 1))
           {
-            objc_storeStrong(&v94 + 1, v20);
+            objc_storeStrong(&v99 + 1, v27);
             goto LABEL_139;
           }
 
-          v27 = vm_imap_log();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+          v28 = vm_imap_log(v27);
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
           {
             buf.A = 138412290;
             *&buf.B = v6;
-            _os_log_impl(&dword_2720B1000, v27, OS_LOG_TYPE_DEFAULT, "*** Duplicate value for %@. Ignoring", &buf, 0xCu);
+            _os_log_impl(&dword_2720B1000, v28, OS_LOG_TYPE_DEFAULT, "*** Duplicate value for %@. Ignoring", &buf, 0xCu);
           }
 
           goto LABEL_111;
         }
 
-        v38 = vm_imap_log();
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+        v39 = vm_imap_log(0);
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
         {
           buf.A = 138412290;
           *&buf.B = v6;
-          _os_log_impl(&dword_2720B1000, v38, OS_LOG_TYPE_DEFAULT, "*** Unable to parse %@. Ignoring", &buf, 0xCu);
+          _os_log_impl(&dword_2720B1000, v39, OS_LOG_TYPE_DEFAULT, "*** Unable to parse %@. Ignoring", &buf, 0xCu);
         }
 
 LABEL_96:
@@ -259,43 +260,43 @@ LABEL_96:
 
       if (![v6 caseInsensitiveCompare:@"qop"])
       {
-        v28 = copyQuotedTokenList(&bytes);
-        v20 = v28;
-        if (v28)
+        v29 = copyQuotedTokenList(&bytes);
+        v20 = v29;
+        if (v29)
         {
-          v29 = [v28 count];
-          while (v29)
+          v30 = [v29 count];
+          while (v30)
           {
-            v30 = [v20 objectAtIndex:--v29];
-            v31 = 0;
+            v31 = [v20 objectAtIndex:--v30];
+            v32 = 0;
             do
             {
-              v32 = [(__CFString *)QOP_NAMES[v31] caseInsensitiveCompare:v30];
-              v33 = v31 + 1;
-              if (v31 > 1)
+              v33 = [(__CFString *)QOP_NAMES[v32] caseInsensitiveCompare:v31];
+              v34 = v32 + 1;
+              if (v32 > 1)
               {
                 break;
               }
 
-              ++v31;
+              ++v32;
             }
 
-            while (v32);
-            if (!v32)
+            while (v33);
+            if (!v33)
             {
-              v96 |= (1 << v33) & 7;
+              v101 |= (1 << v34) & 7;
             }
           }
 
           goto LABEL_139;
         }
 
-        v38 = vm_imap_log();
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+        v39 = vm_imap_log(0);
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
         {
           buf.A = 138412290;
           *&buf.B = v6;
-          _os_log_impl(&dword_2720B1000, v38, OS_LOG_TYPE_DEFAULT, "*** Unable to parse %@. Ignoring", &buf, 0xCu);
+          _os_log_impl(&dword_2720B1000, v39, OS_LOG_TYPE_DEFAULT, "*** Unable to parse %@. Ignoring", &buf, 0xCu);
         }
 
         goto LABEL_96;
@@ -307,35 +308,36 @@ LABEL_96:
         {
           if (![v6 caseInsensitiveCompare:@"charset"])
           {
-            v41 = copyToken(&bytes);
-            v20 = v41;
-            if (v41)
+            v42 = copyToken(&bytes);
+            v20 = v42;
+            if (v42)
             {
-              if (![v41 caseInsensitiveCompare:@"utf-8"])
+              v43 = [v42 caseInsensitiveCompare:@"utf-8"];
+              if (!v43)
               {
-                v96 |= 0x10u;
+                v101 |= 0x10u;
                 goto LABEL_139;
               }
 
-              v42 = vm_imap_log();
-              if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+              v44 = vm_imap_log(v43);
+              if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
               {
                 buf.A = 138412546;
                 *&buf.B = v20;
                 LOWORD(buf.D) = 2112;
                 *(&buf.D + 2) = v6;
-                _os_log_impl(&dword_2720B1000, v42, OS_LOG_TYPE_DEFAULT, "*** Unexpected value %@ for %@. Ignoring", &buf, 0x16u);
+                _os_log_impl(&dword_2720B1000, v44, OS_LOG_TYPE_DEFAULT, "*** Unexpected value %@ for %@. Ignoring", &buf, 0x16u);
               }
             }
 
             else
             {
-              v42 = vm_imap_log();
-              if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+              v44 = vm_imap_log(0);
+              if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
               {
                 buf.A = 138412290;
                 *&buf.B = v6;
-                _os_log_impl(&dword_2720B1000, v42, OS_LOG_TYPE_DEFAULT, "*** Unable to parse %@. Ignoring", &buf, 0xCu);
+                _os_log_impl(&dword_2720B1000, v44, OS_LOG_TYPE_DEFAULT, "*** Unable to parse %@. Ignoring", &buf, 0xCu);
               }
             }
 
@@ -356,7 +358,7 @@ LABEL_96:
                   v20 = quoted_string(&bytes);
                   if (!v20)
                   {
-                    v21 = vm_imap_log();
+                    v21 = vm_imap_log(0);
                     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
                     {
                       buf.A = 138412290;
@@ -365,7 +367,7 @@ LABEL_96:
                     }
 
                     v20 = 0;
-                    v93 = 0;
+                    v98 = 0;
                   }
                 }
 
@@ -374,23 +376,23 @@ LABEL_96:
 
               if (v19)
               {
-                if (!*(&v95 + 1))
+                if (!*(&v100 + 1))
                 {
-                  v47 = MFCreateDataWithString();
-                  v48 = *(&v95 + 1);
-                  *(&v95 + 1) = v47;
+                  v50 = MFCreateDataWithString();
+                  v51 = *(&v100 + 1);
+                  *(&v100 + 1) = v50;
                   goto LABEL_138;
                 }
               }
 
               else
               {
-                v48 = vm_imap_log();
-                if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+                v51 = vm_imap_log(0);
+                if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
                 {
                   buf.A = 138412290;
                   *&buf.B = v6;
-                  _os_log_impl(&dword_2720B1000, v48, OS_LOG_TYPE_DEFAULT, "*** Unable to parse %@. Ignoring", &buf, 0xCu);
+                  _os_log_impl(&dword_2720B1000, v51, OS_LOG_TYPE_DEFAULT, "*** Unable to parse %@. Ignoring", &buf, 0xCu);
                 }
 
 LABEL_138:
@@ -401,28 +403,28 @@ LABEL_139:
               goto LABEL_57;
             }
 
-            v45 = copyQuotedTokenList(&bytes);
-            v20 = v45;
-            if (v45)
+            v48 = copyQuotedTokenList(&bytes);
+            v20 = v48;
+            if (v48)
             {
-              if (v95)
+              if (v100)
               {
                 goto LABEL_139;
               }
 
-              v46 = [v45 copy];
-              v42 = v95;
-              *&v95 = v46;
+              v49 = [v48 copy];
+              v44 = v100;
+              *&v100 = v49;
             }
 
             else
             {
-              v42 = vm_imap_log();
-              if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+              v44 = vm_imap_log(0);
+              if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
               {
                 buf.A = 138412290;
                 *&buf.B = v6;
-                _os_log_impl(&dword_2720B1000, v42, OS_LOG_TYPE_DEFAULT, "*** Unable to parse %@. Ignoring", &buf, 0xCu);
+                _os_log_impl(&dword_2720B1000, v44, OS_LOG_TYPE_DEFAULT, "*** Unable to parse %@. Ignoring", &buf, 0xCu);
               }
             }
 
@@ -434,10 +436,11 @@ LABEL_134:
           v20 = copyToken(&bytes);
           if (!v20)
           {
-            v49 = quoted_string(&bytes);
-            if (!v49 || (v20 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v49 encoding:4], v49, !v20))
+            v52 = quoted_string(&bytes);
+            v53 = v52;
+            if (!v52 || (v20 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v52 encoding:4], v53, !v20))
             {
-              v20 = vm_imap_log();
+              v20 = vm_imap_log(v52);
               if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
               {
                 buf.A = 138412290;
@@ -449,78 +452,79 @@ LABEL_134:
             }
           }
 
-          if (![v20 caseInsensitiveCompare:@"md5-sess"])
+          v46 = [v20 caseInsensitiveCompare:@"md5-sess"];
+          if (!v46)
           {
-            v96 |= 0x20u;
+            v101 |= 0x20u;
             goto LABEL_139;
           }
 
-          v27 = vm_imap_log();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+          v28 = vm_imap_log(v46);
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
           {
             buf.A = 138412546;
             *&buf.B = v20;
             LOWORD(buf.D) = 2112;
             *(&buf.D + 2) = v6;
-            _os_log_impl(&dword_2720B1000, v27, OS_LOG_TYPE_DEFAULT, "*** Unexpected value %@ for %@. Ignoring", &buf, 0x16u);
+            _os_log_impl(&dword_2720B1000, v28, OS_LOG_TYPE_DEFAULT, "*** Unexpected value %@ for %@. Ignoring", &buf, 0x16u);
           }
 
 LABEL_111:
 
-          v93 = 0;
+          v98 = 0;
           goto LABEL_139;
         }
 
-        v39 = copyToken(&bytes);
-        v35 = v39;
-        if (v39)
+        v40 = copyToken(&bytes);
+        v36 = v40;
+        if (v40)
         {
-          intValue = [v39 intValue];
+          intValue = [v40 intValue];
           if ((intValue - 1) <= 0xFFFD)
           {
-            v96 = v96 & 0xFFC0003F | (intValue << 6);
+            v101 = v101 & 0xFFC0003F | (intValue << 6);
           }
         }
 
         else
         {
-          v44 = vm_imap_log();
-          if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+          v47 = vm_imap_log(0);
+          if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
           {
             buf.A = 138412290;
             *&buf.B = v6;
-            _os_log_impl(&dword_2720B1000, v44, OS_LOG_TYPE_DEFAULT, "*** Unable to parse %@. Ignoring", &buf, 0xCu);
+            _os_log_impl(&dword_2720B1000, v47, OS_LOG_TYPE_DEFAULT, "*** Unable to parse %@. Ignoring", &buf, 0xCu);
           }
         }
       }
 
       else
       {
-        v34 = copyToken(&bytes);
-        v35 = v34;
-        if (v34)
+        v35 = copyToken(&bytes);
+        v36 = v35;
+        if (v35)
         {
-          if (NSBOOLFromString(v34))
+          if (NSBOOLFromString(v35))
           {
-            v36 = 8;
+            v37 = 8;
           }
 
           else
           {
-            v36 = 0;
+            v37 = 0;
           }
 
-          v96 = v96 & 0xFFFFFFF7 | v36;
+          v101 = v101 & 0xFFFFFFF7 | v37;
         }
 
         else
         {
-          v43 = vm_imap_log();
-          if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+          v45 = vm_imap_log(0);
+          if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
           {
             buf.A = 138412290;
             *&buf.B = v6;
-            _os_log_impl(&dword_2720B1000, v43, OS_LOG_TYPE_DEFAULT, "*** Unable to parse %@. Ignoring", &buf, 0xCu);
+            _os_log_impl(&dword_2720B1000, v45, OS_LOG_TYPE_DEFAULT, "*** Unable to parse %@. Ignoring", &buf, 0xCu);
           }
         }
       }
@@ -528,12 +532,12 @@ LABEL_111:
 
     else
     {
-      if (v9 >= v92 || *v9 != 44)
+      if (v9 >= v97 || *v9 != 44)
       {
-        v13 = vm_imap_log();
+        v13 = vm_imap_log(0);
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          if (bytes >= v92)
+          if (bytes >= v97)
           {
             v15 = 0;
           }
@@ -557,7 +561,7 @@ LABEL_111:
 LABEL_57:
   }
 
-  if (!v93)
+  if (!v98)
   {
 LABEL_146:
     [(_MFDigestMD5Authenticator *)self setAuthenticationState:3];
@@ -568,31 +572,31 @@ LABEL_157:
 
   if (!*(self + 5))
   {
-    v99 = 0u;
-    v100 = 0u;
-    v97 = 0u;
-    v98 = 0u;
+    v104 = 0u;
+    v105 = 0u;
+    v102 = 0u;
+    v103 = 0u;
     selfCopy = self;
-    bzero_client_response_info(&v97);
-    if ((v96 & 0x20) != 0)
+    bzero_client_response_info(&v102);
+    if ((v101 & 0x20) != 0)
     {
       if (MFGetRandomBytes())
       {
-        v57 = CFDataCreateWithBytesNoCopy(0, &buf, 16, *MEMORY[0x277CBED00]);
-        mf_encodeBase64WithoutLineBreaks = [(__CFData *)v57 mf_encodeBase64WithoutLineBreaks];
-        v59 = v97;
-        *&v97 = mf_encodeBase64WithoutLineBreaks;
+        v62 = CFDataCreateWithBytesNoCopy(0, &buf, 16, *MEMORY[0x277CBED00]);
+        mf_encodeBase64WithoutLineBreaks = [(__CFData *)v62 mf_encodeBase64WithoutLineBreaks];
+        v64 = v102;
+        *&v102 = mf_encodeBase64WithoutLineBreaks;
 
-        CFRelease(v57);
-        v60 = [MEMORY[0x277CCACA8] stringWithFormat:@"%08x", 1];
-        v61 = MFCreateDataWithString();
-        v62 = *(&v97 + 1);
-        *(&v97 + 1) = v61;
+        CFRelease(v62);
+        v65 = [MEMORY[0x277CCACA8] stringWithFormat:@"%08x", 1];
+        v66 = MFCreateDataWithString();
+        v67 = *(&v102 + 1);
+        *(&v102 + 1) = v66;
 
-        if ((v96 & 4) != 0)
+        if ((v101 & 4) != 0)
         {
           [(_MFDigestMD5Authenticator *)selfCopy setSecurityLevel:2];
-          [(_MFDigestMD5Authenticator *)selfCopy setMaxBuffer:(v96 >> 6)];
+          [(_MFDigestMD5Authenticator *)selfCopy setMaxBuffer:(v101 >> 6)];
         }
 
         else
@@ -600,41 +604,41 @@ LABEL_157:
           [(_MFDigestMD5Authenticator *)selfCopy setSecurityLevel:1];
         }
 
-        v63 = [(_MFDigestMD5Authenticator *)selfCopy securityLevel]- 1;
-        v64 = v63 > 2 ? 0 : QOP_NAMES[v63];
-        v65 = MFCreateDataWithString();
-        v66 = v98;
-        *&v98 = v65;
+        v68 = [(_MFDigestMD5Authenticator *)selfCopy securityLevel]- 1;
+        v69 = v68 > 2 ? 0 : QOP_NAMES[v68];
+        v70 = MFCreateDataWithString();
+        v71 = v103;
+        *&v103 = v70;
 
         account = [(MFSASLAuthenticator *)selfCopy account];
-        v68 = MEMORY[0x277CCACA8];
+        v73 = MEMORY[0x277CCACA8];
         saslProfileName = [objc_opt_class() saslProfileName];
         hostname = [account hostname];
-        v71 = [v68 stringWithFormat:@"%@/%@", saslProfileName, hostname];
+        v76 = [v73 stringWithFormat:@"%@/%@", saslProfileName, hostname];
 
         username = [account username];
-        v73 = MFCreateDataWithString();
-        v74 = *(&v98 + 1);
-        *(&v98 + 1) = v73;
+        v78 = MFCreateDataWithString();
+        v79 = *(&v103 + 1);
+        *(&v103 + 1) = v78;
 
         password = [account password];
-        v76 = MFCreateDataWithString();
-        v77 = v99;
-        *&v99 = v76;
+        v81 = MFCreateDataWithString();
+        v82 = v104;
+        *&v104 = v81;
 
-        v78 = MFCreateDataWithString();
-        v79 = *(&v99 + 1);
-        *(&v99 + 1) = v78;
+        v83 = MFCreateDataWithString();
+        v84 = *(&v104 + 1);
+        *(&v104 + 1) = v83;
 
-        v80 = [v94 copy];
-        v81 = v100;
-        *&v100 = v80;
+        v85 = [v99 copy];
+        v86 = v105;
+        *&v105 = v85;
 
-        v82 = _createResponseData(selfCopy, &v94, &v97, 1);
-        v83 = *(&v100 + 1);
-        *(&v100 + 1) = v82;
+        v87 = _createResponseData(selfCopy, &v99, &v102, 1);
+        v88 = *(&v105 + 1);
+        *(&v105 + 1) = v87;
 
-        if (v82)
+        if (v87)
         {
           securityLevel = [(_MFDigestMD5Authenticator *)selfCopy securityLevel];
           if (securityLevel == 2)
@@ -642,62 +646,62 @@ LABEL_157:
             memset(&buf, 0, sizeof(buf));
             [(_MFDigestMD5Authenticator *)selfCopy setCryptInfo:malloc_type_calloc(1uLL, 0x28uLL, 0x10000400A747E1EuLL)];
             CC_MD5_Init(&buf);
-            CC_MD5_Update(&buf, v101, 0x10u);
+            CC_MD5_Update(&buf, v106, 0x10u);
             CC_MD5_Update(&buf, "Digest session key to server-to-client signing key magic constant", 0x41u);
             CC_MD5_Final(&selfCopy->_expectedResponse[3], &buf);
             CC_MD5_Init(&buf);
-            CC_MD5_Update(&buf, v101, 0x10u);
+            CC_MD5_Update(&buf, v106, 0x10u);
             CC_MD5_Update(&buf, "Digest session key to client-to-server signing key magic constant", 0x41u);
             CC_MD5_Final(&selfCopy->_expectedResponse[1], &buf);
           }
 
           else if (securityLevel == 3)
           {
-            v85 = vm_imap_log();
-            if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
+            v90 = vm_imap_log(securityLevel);
+            if (os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT))
             {
               LOWORD(buf.A) = 0;
-              _os_log_impl(&dword_2720B1000, v85, OS_LOG_TYPE_DEFAULT, "*** SASLPrivacySecurityLevel is not supported.", &buf, 2u);
+              _os_log_impl(&dword_2720B1000, v90, OS_LOG_TYPE_DEFAULT, "*** SASLPrivacySecurityLevel is not supported.", &buf, 2u);
             }
           }
 
-          v86 = _createResponseData(selfCopy, &v94, &v97, 0);
-          [(_MFDigestMD5Authenticator *)selfCopy setExpectedResponse:v86];
+          v91 = _createResponseData(selfCopy, &v99, &v102, 0);
+          [(_MFDigestMD5Authenticator *)selfCopy setExpectedResponse:v91];
 
-          v87 = [objc_allocWithZone(MEMORY[0x277CBEB28]) init];
-          data = v87;
-          if (*(&v98 + 1))
+          v92 = [objc_allocWithZone(MEMORY[0x277CBEB28]) init];
+          data = v92;
+          if (*(&v103 + 1))
           {
-            _appendQuotedString(v87, "username", *(&v98 + 1));
+            _appendQuotedString(v92, "username", *(&v103 + 1));
           }
 
-          if (v94)
+          if (v99)
           {
-            _appendQuotedString(data, "realm", v94);
+            _appendQuotedString(data, "realm", v99);
           }
 
-          if (*(&v94 + 1))
+          if (*(&v99 + 1))
           {
-            _appendQuotedString(data, "nonce", *(&v94 + 1));
+            _appendQuotedString(data, "nonce", *(&v99 + 1));
           }
 
-          _appendQuotedString(data, "cnonce", v97);
-          _appendValue(data, "nc", *(&v97 + 1));
-          _appendValue(data, "qop", v98);
-          _appendQuotedString(data, "digest-uri", *(&v99 + 1));
-          _appendValue(data, "response", *(&v100 + 1));
+          _appendQuotedString(data, "cnonce", v102);
+          _appendValue(data, "nc", *(&v102 + 1));
+          _appendValue(data, "qop", v103);
+          _appendQuotedString(data, "digest-uri", *(&v104 + 1));
+          _appendValue(data, "response", *(&v105 + 1));
           if (*(&selfCopy->super._authenticationState + 2))
           {
-            v88 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", *(&selfCopy->super._authenticationState + 2)];
-            v89 = MFCreateDataWithString();
+            v93 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", *(&selfCopy->super._authenticationState + 2)];
+            v94 = MFCreateDataWithString();
 
-            _appendValue(data, "maxbuf", v89);
+            _appendValue(data, "maxbuf", v94);
           }
 
-          if ((v96 & 0x10) != 0)
+          if ((v101 & 0x10) != 0)
           {
-            v90 = [@"utf-8" dataUsingEncoding:1];
-            _appendValue(data, "charset", v90);
+            v95 = [@"utf-8" dataUsingEncoding:1];
+            _appendValue(data, "charset", v95);
           }
 
           goto LABEL_176;
@@ -707,30 +711,30 @@ LABEL_157:
 
     else
     {
-      v52 = vm_imap_log();
-      if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+      v58 = vm_imap_log(v57);
+      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf.A) = 0;
-        _os_log_impl(&dword_2720B1000, v52, OS_LOG_TYPE_DEFAULT, "*** Missing algorithm=md5-sess in server response", &buf, 2u);
+        _os_log_impl(&dword_2720B1000, v58, OS_LOG_TYPE_DEFAULT, "*** Missing algorithm=md5-sess in server response", &buf, 2u);
       }
     }
 
     [(_MFDigestMD5Authenticator *)selfCopy setAuthenticationState:3];
     data = 0;
 LABEL_176:
-    __destructor_8_s0_s8_s16_s24_s32_s40_s48_s56(&v97);
+    __destructor_8_s0_s8_s16_s24_s32_s40_s48_s56(&v102);
     goto LABEL_158;
   }
 
-  if (!*(&v95 + 1))
+  if (!*(&v100 + 1))
   {
-    v53 = vm_imap_log();
-    if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+    v59 = vm_imap_log(0);
+    if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf.A) = 0;
-      v54 = "*** Missing rspauth value in server message";
+      v60 = "*** Missing rspauth value in server message";
 LABEL_155:
-      _os_log_impl(&dword_2720B1000, v53, OS_LOG_TYPE_DEFAULT, v54, &buf, 2u);
+      _os_log_impl(&dword_2720B1000, v59, OS_LOG_TYPE_DEFAULT, v60, &buf, 2u);
     }
 
 LABEL_156:
@@ -739,13 +743,14 @@ LABEL_156:
     goto LABEL_157;
   }
 
-  if (([*(&v95 + 1) isEqual:?] & 1) == 0)
+  v55 = [*(&v100 + 1) isEqual:?];
+  if ((v55 & 1) == 0)
   {
-    v53 = vm_imap_log();
-    if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+    v59 = vm_imap_log(v55);
+    if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf.A) = 0;
-      v54 = "*** Bogus rspauth value returned from the server";
+      v60 = "*** Bogus rspauth value returned from the server";
       goto LABEL_155;
     }
 
@@ -755,10 +760,8 @@ LABEL_156:
   [(_MFDigestMD5Authenticator *)self setAuthenticationState:4];
   data = [MEMORY[0x277CBEA90] data];
 LABEL_158:
-  __destructor_8_s0_s8_s16_s24(&v94);
+  __destructor_8_s0_s8_s16_s24(&v99);
 LABEL_159:
-
-  v55 = *MEMORY[0x277D85DE8];
 
   return data;
 }

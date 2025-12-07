@@ -49,29 +49,27 @@
 
 - (id)dictionaryRepresentation
 {
-  v14[4] = *MEMORY[0x277D85DE8];
-  v13[0] = 0x28822C4E8;
+  v13[4] = *MEMORY[0x277D85DE8];
+  v12[0] = 0x28822C4E8;
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(self, "type")}];
-  v14[0] = v2;
-  v13[1] = 0x28822C3E8;
+  v13[0] = v2;
+  v12[1] = 0x28822C3E8;
   v3 = MEMORY[0x277CCABB0];
   [self intensity];
   v4 = [v3 numberWithDouble:?];
-  v14[1] = v4;
-  v13[2] = 0x28822C508;
+  v13[1] = v4;
+  v12[2] = 0x28822C508;
   v5 = MEMORY[0x277CCABB0];
   [self probability];
   v6 = [v5 numberWithDouble:?];
-  v14[2] = v6;
-  v13[3] = 0x28822C528;
+  v13[2] = v6;
+  v12[3] = 0x28822C528;
   v7 = MEMORY[0x277CCABB0];
   validUntil = [self validUntil];
   [validUntil timeIntervalSince1970];
   v9 = [v7 numberWithDouble:?];
-  v14[3] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:4];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v13[3] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:4];
 
   return v10;
 }

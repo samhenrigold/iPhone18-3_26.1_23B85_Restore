@@ -1,9 +1,64 @@
 @interface DataCache
+- (char)dataForCDHash:(unsigned __int16)hash identifier:(int64_t)identifier size:(unint64_t *)size generator:(id)generator;
 - (id)init:(unsigned int)init evictionHandler:(id)handler;
 - (void)flush;
 @end
 
 @implementation DataCache
+
+- (char)dataForCDHash:(unsigned __int16)hash identifier:(int64_t)identifier size:(unint64_t *)size generator:(id)generator
+{
+  hashCopy = hash;
+  v24[3] = *MEMORY[0x277D85DE8];
+  generatorCopy = generator;
+  v22 = 0;
+  v21 = 0;
+  v11 = [[CacheIndex alloc] initWithCDHash:hashCopy identifier:identifier];
+  cache = [(DataCache *)self cache];
+  v13 = [cache objectForKey:v11];
+
+  if (v13)
+  {
+    v22 = [v13 objectForKeyedSubscript:@"size_key"];
+
+    v14 = [v13 objectForKeyedSubscript:@"data_key"];
+  }
+
+  else
+  {
+    v17 = generatorCopy[2](generatorCopy, &v22, &v21);
+    if (v17)
+    {
+      v14 = [MEMORY[0x277CCAE60] valueWithPointer:v17];
+      v24[0] = v14;
+      v23[0] = @"data_key";
+      v23[1] = @"size_key";
+      v18 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v22];
+      v24[1] = v18;
+      v23[2] = @"algo_key";
+      v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v21];
+      v24[2] = v19;
+      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:3];
+
+      if (v13)
+      {
+        cache2 = [(DataCache *)self cache];
+        [cache2 setObject:v13 forKey:v11];
+      }
+    }
+
+    else
+    {
+      v13 = 0;
+      v14 = 0;
+    }
+  }
+
+  *size = v22;
+  pointerValue = [v14 pointerValue];
+
+  return pointerValue;
+}
 
 - (void)flush
 {

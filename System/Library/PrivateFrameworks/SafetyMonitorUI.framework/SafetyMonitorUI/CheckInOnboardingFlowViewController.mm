@@ -11,7 +11,7 @@
   v4 = OBJC_IVAR____TtC15SafetyMonitorUI35CheckInOnboardingFlowViewController_spinner;
   *(&self->super.super.super.isa + v4) = [objc_allocWithZone(MEMORY[0x277D750E8]) init];
   *(&self->super.super.super.isa + OBJC_IVAR____TtC15SafetyMonitorUI35CheckInOnboardingFlowViewController_displayingOnboarding) = 0;
-  result = sub_264785D94();
+  result = sub_264785D94("Fatal error", 11, 2, 0xD000000000000025, 0x80000002647955F0, "SafetyMonitorUI/CheckInOnboardingFlowViewController.swift", 57, 2, 31, 0);
   __break(1u);
   return result;
 }

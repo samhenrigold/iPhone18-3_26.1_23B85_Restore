@@ -24,7 +24,7 @@
   type = [eventCopy type];
 
   v8 = [v6 numberWithInteger:type];
-  LOBYTE(v5) = [v5 containsObject:v8];
+  LOBYTE(v5) = objc_msgSend_containsObject_(v5);
 
   return v5;
 }

@@ -4,7 +4,6 @@
 - (float)getDisplayScale;
 - (id)actionForKey:(id)key;
 - (id)getLayerDisplay;
-- (uint64_t)layoutSublayers;
 - (void)addSublayer:(id)sublayer;
 - (void)dealloc;
 - (void)enableDRMFallback;
@@ -592,17 +591,10 @@ uint64_t __35__FigBaseCALayer_enableDRMFallback__block_invoke_49(uint64_t a1)
 
 - (void)layoutSublayers
 {
-  if (self->_enabledDRMFallback)
-  {
-    [(FigBaseCALayer *)self layoutSublayers];
-  }
+  [self layoutDRMLayerPositionsAndSizes];
+  v2 = self[8];
 
-  else
-  {
-    v2.receiver = self;
-    v2.super_class = FigBaseCALayer;
-    [(FigBaseCALayer *)&v2 layoutSublayers];
-  }
+  return figUpdateFontSizeForDRMFallbackTextLayer(v2);
 }
 
 - (void)setBounds:(CGRect)bounds
@@ -680,14 +672,6 @@ uint64_t __35__FigBaseCALayer_enableDRMFallback__block_invoke_49(uint64_t a1)
   v3.receiver = self;
   v3.super_class = FigBaseCALayer;
   [(FigBaseCALayer *)&v3 dealloc];
-}
-
-- (uint64_t)layoutSublayers
-{
-  [self layoutDRMLayerPositionsAndSizes];
-  v2 = self[8];
-
-  return figUpdateFontSizeForDRMFallbackTextLayer(v2);
 }
 
 @end

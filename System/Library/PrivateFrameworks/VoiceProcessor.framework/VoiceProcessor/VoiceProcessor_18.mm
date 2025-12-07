@@ -1,3 +1,6650 @@
+void vp::vx::database::v1::syntax::Constraints::String::~String(vp::vx::database::v1::syntax::Constraints::String *this)
+{
+  v1 = *(this + 1);
+  if (v1)
+  {
+    CFRelease(v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+{
+  v1 = *(this + 1);
+  if (v1)
+  {
+    CFRelease(v1);
+  }
+}
+
+void vp::vx::database::v1::syntax::Constraints::Four_CC::parse_constraint(CFTypeRef *this@<X0>, _BYTE *a2@<X8>, uint64_t *a3@<X1>)
+{
+  v50 = *MEMORY[0x277D85DE8];
+  *a2 = 0;
+  a2[24] = 0;
+  vp::xml::Node::children(v40, a3);
+  v42[0] = v40;
+  v42[1] = 0;
+  v43 = 0;
+  v44 = 0;
+  if (v41)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v41);
+  }
+
+  std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<vp::xml::Node_Range>,vp::xml::text_filter(vp::xml::Node_Range)::{lambda(vp::xml::Node const&)#1}>::begin[abi:ne200100](&v38, v42, v5);
+  while (1)
+  {
+    if (!v38)
+    {
+      goto LABEL_36;
+    }
+
+    if ((a2[24] & 1) == 0)
+    {
+      break;
+    }
+
+    std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<vp::xml::Node_Range>,vp::xml::text_filter(vp::xml::Node_Range)::{lambda(vp::xml::Node const&)#1}>::__iterator::operator++[abi:ne200100](&v38, v6);
+  }
+
+  v7 = vp::xml::Node::content(v38, v39);
+  v9 = &v7[v8];
+  v10 = v7;
+  if (v8)
+  {
+    while (*v10 == 48)
+    {
+      ++v10;
+      if (!--v8)
+      {
+        v10 = v9;
+        break;
+      }
+    }
+  }
+
+  if (v10 == v9 || *v10 - 48 >= 0xA)
+  {
+    if (v10 != v7)
+    {
+      v35 = 0x100000000;
+LABEL_44:
+      LODWORD(v46.__r_.__value_.__l.__data_) = v35;
+      v46.__r_.__value_.__s.__data_[4] = BYTE4(v35);
+      std::__optional_destruct_base<vp::vx::database::v1::syntax::Constraint,false>::reset[abi:ne200100](a2);
+      vp::vx::database::v1::syntax::Constraint::Constraint<applesauce::CF::StringRef &,unsigned int &>(a2, this[1], &v46);
+      a2[24] = 1;
+      goto LABEL_36;
+    }
+  }
+
+  else
+  {
+    v11 = 9;
+    do
+    {
+      v12 = *v10;
+      if ((*v10 - 58) < 0xF6u)
+      {
+        break;
+      }
+
+      ++v10;
+      *(__p + v11) = (v12 - 48);
+      v13 = v11-- != 0;
+      v14 = v13;
+    }
+
+    while (v10 != v9 && v14);
+    v15 = v11 + 1;
+    v16 = (v11 + 1) << 32;
+    v17 = *(__p + v11 + 1);
+    if (v15 <= 7)
+    {
+      v18 = (__p + (v16 >> 30) + 4);
+      v19 = &dword_27275AA34;
+      do
+      {
+        v21 = *v18++;
+        v20 = v21;
+        v22 = *v19++;
+        v17 += v22 * v20;
+      }
+
+      while (v18 < &v49);
+    }
+
+    v23 = v49 * *(&std::__itoa::__pow10_32 + ((0x900000000 - v16) >> 30));
+    v24 = &v10[-((v23 & 0xFFFFFFFF00000000) != 0)];
+    if (v24 == v9)
+    {
+      if (!__CFADD__(v17, v23))
+      {
+LABEL_43:
+        v35 = (v17 + v23) | 0x100000000;
+        goto LABEL_44;
+      }
+    }
+
+    else
+    {
+      v25 = *v24 - 48;
+      v26 = __CFADD__(v17, v23);
+      if (v25 >= 0xA && !v26)
+      {
+        goto LABEL_43;
+      }
+    }
+  }
+
+  v27 = vp::xml::Node::content(v38, v39);
+  v29 = v27;
+  if (v28 != 4)
+  {
+    v30 = v28;
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::string::basic_string<std::string_view,0>(&__dst, v29, v30);
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v46, "failed to convert ", &__dst);
+    v32 = std::string::append(&v46, " to four character code", 0x18uLL);
+    v33 = *&v32->__r_.__value_.__l.__data_;
+    v48 = v32->__r_.__value_.__r.__words[2];
+    *__p = v33;
+    v32->__r_.__value_.__l.__size_ = 0;
+    v32->__r_.__value_.__r.__words[2] = 0;
+    v32->__r_.__value_.__r.__words[0] = 0;
+    MEMORY[0x2743CB8B0](exception, __p);
+  }
+
+  v34 = bswap32(*v27);
+  v37 = 1;
+  v36 = v34;
+  std::__optional_destruct_base<vp::vx::database::v1::syntax::Constraint,false>::reset[abi:ne200100](a2);
+  vp::vx::database::v1::syntax::Constraint::Constraint<applesauce::CF::StringRef &,unsigned int &>(a2, this[1], &v36);
+  a2[24] = 1;
+LABEL_36:
+  if (v39)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v39);
+  }
+
+  if (v44 == 1)
+  {
+    if (v43)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v43);
+    }
+  }
+}
+
+void sub_2725F42D8(void *a1, int a2)
+{
+  if (!a2)
+  {
+    JUMPOUT(0x2725F42E0);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+uint64_t vp::vx::database::v1::syntax::Constraint::Constraint<applesauce::CF::StringRef &,unsigned int &>(uint64_t a1, CFTypeRef cf, int *a3)
+{
+  if (cf)
+  {
+    CFRetain(cf);
+  }
+
+  *a1 = cf;
+  *(a1 + 8) = 2;
+  valuePtr = *a3;
+  v6 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
+  *(a1 + 16) = v6;
+  if (!v6)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "Could not construct");
+  }
+
+  return a1;
+}
+
+void vp::vx::database::v1::syntax::Constraints::Four_CC::~Four_CC(vp::vx::database::v1::syntax::Constraints::Four_CC *this)
+{
+  v1 = *(this + 1);
+  if (v1)
+  {
+    CFRelease(v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+{
+  v1 = *(this + 1);
+  if (v1)
+  {
+    CFRelease(v1);
+  }
+}
+
+uint64_t (***vp::vx::database::v1::syntax::Constraints::constraint_parser(uint64_t (***a1)(), vp::vx::database::v1::syntax *this, char *a3))()
+{
+  v4 = vp::vx::database::v1::syntax::constexpr_hash(this, a3, a3);
+  v5 = vp::vx::database::v1::syntax::Constraint::Parser::null(void)::s_null;
+  if (v4 <= 0x498395525390128)
+  {
+    if (v4 <= 0xBA40C0FA7EC1140CLL)
+    {
+      if (v4 > 0xA188FB989C5D61EELL)
+      {
+        v6 = 0xA954BFA7BD2E3717;
+        v23 = a1 + 78;
+        if (v4 != 0xB88743712476B40BLL)
+        {
+          v23 = vp::vx::database::v1::syntax::Constraint::Parser::null(void)::s_null;
+        }
+
+        if (v4 == 0xAF698B64D2829150)
+        {
+          v24 = a1 + 48;
+        }
+
+        else
+        {
+          v24 = v23;
+        }
+
+        if (v4 == 0xA954BFA7BD2E3718)
+        {
+          v8 = a1 + 72;
+        }
+
+        else
+        {
+          v8 = v24;
+        }
+
+        v9 = 0xA188FB989C5D61EFLL;
+        v10 = a1 + 23;
+        v17 = 0xA2148DCD604AB5B0;
+        v18 = a1 + 101;
+        v19 = v4 == 0xA6F3B0A29050C694;
+        v20 = a1 + 115;
+      }
+
+      else
+      {
+        v6 = 0x8A373B8A470C9FC0;
+        v15 = a1 + 81;
+        if (v4 != 0xA1292B0F929CB840)
+        {
+          v15 = vp::vx::database::v1::syntax::Constraint::Parser::null(void)::s_null;
+        }
+
+        if (v4 == 0xA105070F8CF24955)
+        {
+          v16 = a1 + 30;
+        }
+
+        else
+        {
+          v16 = v15;
+        }
+
+        if (v4 == 0x8A373B8A470C9FC1)
+        {
+          v8 = a1 + 75;
+        }
+
+        else
+        {
+          v8 = v16;
+        }
+
+        v9 = 0x858A4692D4461309;
+        v10 = a1 + 54;
+        v17 = 0x8742FCB0F9A894E4;
+        v18 = a1 + 93;
+        v19 = v4 == 0x894C3A5A1CF75C56;
+        v20 = a1 + 25;
+      }
+    }
+
+    else
+    {
+      if (v4 > 0xDD8FEC1FD0C71E5FLL)
+      {
+        if (v4 > 0xE43C8B9FC8667D71)
+        {
+          v6 = 0xF776ACDBBFF73E8CLL;
+          v13 = a1 + 35;
+          if (v4 != 0xFD2BE7301BC80E57)
+          {
+            v13 = vp::vx::database::v1::syntax::Constraint::Parser::null(void)::s_null;
+          }
+
+          if (v4 == 0xF776ACDBBFF73E8DLL)
+          {
+            v8 = a1 + 95;
+          }
+
+          else
+          {
+            v8 = v13;
+          }
+
+          v9 = 0xE43C8B9FC8667D72;
+          v10 = a1 + 118;
+          v11 = v4 == 0xE825CFA538F344A4;
+          v12 = a1 + 106;
+          goto LABEL_28;
+        }
+
+        v30 = 0xDD8FEC1FD0C71E60;
+        v31 = a1 + 16;
+        v32 = 0xDFDBA55A79F56227;
+        v33 = a1 + 57;
+        v34 = v4 == 0xE28680BB3A226F83;
+        v35 = a1 + 121;
+        goto LABEL_89;
+      }
+
+      v6 = 0xD090B43AF25CDA51;
+      v21 = a1 + 91;
+      if (v4 != 0xD1E7629FE14D09E0)
+      {
+        v21 = vp::vx::database::v1::syntax::Constraint::Parser::null(void)::s_null;
+      }
+
+      if (v4 == 0xD0C082A69E373085)
+      {
+        v22 = a1 + 37;
+      }
+
+      else
+      {
+        v22 = v21;
+      }
+
+      if (v4 == 0xD090B43AF25CDA52)
+      {
+        v8 = a1 + 69;
+      }
+
+      else
+      {
+        v8 = v22;
+      }
+
+      v9 = 0xBA40C0FA7EC1140DLL;
+      v10 = a1 + 20;
+      v17 = 0xCF0341C82F47EF35;
+      v18 = a1 + 87;
+      v19 = v4 == 0xCF9FE0B824615421;
+      v20 = a1 + 66;
+    }
+
+    goto LABEL_77;
+  }
+
+  if (v4 <= 0x5188CF25628C3D56)
+  {
+    if (v4 > 0x1872435F6E8C9902)
+    {
+      if (v4 > 0x23A8886125357B31)
+      {
+        v6 = 0x3FA3D4DB2C2A6CEFLL;
+        v7 = a1 + 42;
+        if (v4 != 0x4C04D8C1582AE129)
+        {
+          v7 = vp::vx::database::v1::syntax::Constraint::Parser::null(void)::s_null;
+        }
+
+        if (v4 == 0x3FA3D4DB2C2A6CF0)
+        {
+          v8 = a1 + 97;
+        }
+
+        else
+        {
+          v8 = v7;
+        }
+
+        v9 = 0x23A8886125357B32;
+        v10 = a1 + 103;
+        v11 = v4 == 0x3ACA45B4BCE9CC5ELL;
+        v12 = a1 + 109;
+LABEL_28:
+        if (v11)
+        {
+          v5 = v12;
+        }
+
+LABEL_81:
+        if (v4 == v9)
+        {
+          v5 = v10;
+        }
+
+        if (v4 <= v6)
+        {
+          return v5;
+        }
+
+        else
+        {
+          return v8;
+        }
+      }
+
+      v30 = 0x1872435F6E8C9903;
+      v31 = a1 + 27;
+      v32 = 0x1B11D2AEAA71A9FELL;
+      v33 = a1 + 18;
+      v34 = v4 == 0x1C6278F51A7C5FEELL;
+      v35 = a1 + 45;
+      goto LABEL_89;
+    }
+
+    v6 = 0xF6FE2AD4C8FEA89;
+    v25 = a1 + 135;
+    if (v4 != 0x1550918DFD1B8FE3)
+    {
+      v25 = vp::vx::database::v1::syntax::Constraint::Parser::null(void)::s_null;
+    }
+
+    if (v4 == 0x14F74491BD896AB7)
+    {
+      v26 = a1 + 39;
+    }
+
+    else
+    {
+      v26 = v25;
+    }
+
+    if (v4 == 0xF6FE2AD4C8FEA8ALL)
+    {
+      v8 = a1 + 84;
+    }
+
+    else
+    {
+      v8 = v26;
+    }
+
+    v9 = 0x498395525390129;
+    v10 = a1 + 33;
+    v17 = 0xD0E0EEDDA40B0E0;
+    v18 = a1 + 6;
+    v19 = v4 == 0xF2B392A1FCFDB28;
+    v20 = a1 + 14;
+LABEL_77:
+    if (v19)
+    {
+      v5 = v20;
+    }
+
+    if (v4 == v17)
+    {
+      v5 = v18;
+    }
+
+    goto LABEL_81;
+  }
+
+  if (v4 <= 0x6548E6967205FD3FLL)
+  {
+    v6 = 0x58DA21131A63A985;
+    v27 = a1 + 126;
+    if (v4 != 0x5AE60A0AA2A90ED3)
+    {
+      v27 = vp::vx::database::v1::syntax::Constraint::Parser::null(void)::s_null;
+    }
+
+    if (v4 == 0x5A17D1B68B308519)
+    {
+      v28 = a1 + 60;
+    }
+
+    else
+    {
+      v28 = v27;
+    }
+
+    if (v4 == 0x58DA21131A63A986)
+    {
+      v8 = a1 + 12;
+    }
+
+    else
+    {
+      v8 = v28;
+    }
+
+    v9 = 0x5188CF25628C3D57;
+    v10 = a1 + 51;
+    v17 = 0x56E2179B430E85ACLL;
+    v18 = a1 + 3;
+    v19 = v4 == 0x56F706BB01EB9C7DLL;
+    v20 = a1 + 123;
+    goto LABEL_77;
+  }
+
+  if (v4 > 0x74E3CFF99397407ELL)
+  {
+    v6 = 0x7A5B0D7A15823FC2;
+    v14 = a1 + 89;
+    if (v4 != 0x7B69288D862CF616)
+    {
+      v14 = vp::vx::database::v1::syntax::Constraint::Parser::null(void)::s_null;
+    }
+
+    if (v4 == 0x7A5B0D7A15823FC3)
+    {
+      v8 = a1 + 129;
+    }
+
+    else
+    {
+      v8 = v14;
+    }
+
+    v9 = 0x74E3CFF99397407FLL;
+    v10 = a1 + 63;
+    v11 = v4 == 0x772F3E59CBFD41C0;
+    v12 = a1 + 9;
+    goto LABEL_28;
+  }
+
+  v30 = 0x6548E6967205FD40;
+  v31 = a1 + 112;
+  v32 = 0x69B28E03A51D8C95;
+  v33 = a1 + 132;
+  v34 = v4 == 0x6DDA229FE0EB6F7FLL;
+  v35 = a1 + 99;
+LABEL_89:
+  if (v34)
+  {
+    v5 = v35;
+  }
+
+  if (v4 == v32)
+  {
+    v5 = v33;
+  }
+
+  if (v4 == v30)
+  {
+    return v31;
+  }
+
+  else
+  {
+    return v5;
+  }
+}
+
+void non-virtual thunk tovp::vx::database::v1::syntax::Constraints::~Constraints(vp::vx::database::v1::syntax::Constraints *this)
+{
+  vp::vx::database::v1::syntax::Constraints::~Constraints((this - 8));
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+{
+  vp::vx::database::v1::syntax::Constraints::~Constraints((this - 8));
+}
+
+void vp::vx::database::v1::syntax::Constraints::~Constraints(vp::vx::database::v1::syntax::Constraints *this)
+{
+  *this = &unk_2881B64A0;
+  *(this + 1) = &unk_2881B64D0;
+  v2 = *(this + 136);
+  if (v2)
+  {
+    CFRelease(v2);
+  }
+
+  v3 = *(this + 133);
+  if (v3)
+  {
+    CFRelease(v3);
+  }
+
+  v4 = *(this + 130);
+  if (v4)
+  {
+    CFRelease(v4);
+  }
+
+  v5 = *(this + 127);
+  if (v5)
+  {
+    CFRelease(v5);
+  }
+
+  v6 = *(this + 124);
+  if (v6)
+  {
+    CFRelease(v6);
+  }
+
+  v7 = *(this + 122);
+  if (v7)
+  {
+    CFRelease(v7);
+  }
+
+  v8 = *(this + 119);
+  if (v8)
+  {
+    CFRelease(v8);
+  }
+
+  v9 = *(this + 116);
+  if (v9)
+  {
+    CFRelease(v9);
+  }
+
+  v10 = *(this + 113);
+  if (v10)
+  {
+    CFRelease(v10);
+  }
+
+  v11 = *(this + 110);
+  if (v11)
+  {
+    CFRelease(v11);
+  }
+
+  v12 = *(this + 107);
+  if (v12)
+  {
+    CFRelease(v12);
+  }
+
+  v13 = *(this + 104);
+  if (v13)
+  {
+    CFRelease(v13);
+  }
+
+  v14 = *(this + 102);
+  if (v14)
+  {
+    CFRelease(v14);
+  }
+
+  v15 = *(this + 100);
+  if (v15)
+  {
+    CFRelease(v15);
+  }
+
+  v16 = *(this + 98);
+  if (v16)
+  {
+    CFRelease(v16);
+  }
+
+  v17 = *(this + 96);
+  if (v17)
+  {
+    CFRelease(v17);
+  }
+
+  v18 = *(this + 94);
+  if (v18)
+  {
+    CFRelease(v18);
+  }
+
+  v19 = *(this + 92);
+  if (v19)
+  {
+    CFRelease(v19);
+  }
+
+  v20 = *(this + 90);
+  if (v20)
+  {
+    CFRelease(v20);
+  }
+
+  v21 = *(this + 88);
+  if (v21)
+  {
+    CFRelease(v21);
+  }
+
+  v22 = *(this + 85);
+  if (v22)
+  {
+    CFRelease(v22);
+  }
+
+  v23 = *(this + 82);
+  if (v23)
+  {
+    CFRelease(v23);
+  }
+
+  v24 = *(this + 79);
+  if (v24)
+  {
+    CFRelease(v24);
+  }
+
+  v25 = *(this + 76);
+  if (v25)
+  {
+    CFRelease(v25);
+  }
+
+  v26 = *(this + 73);
+  if (v26)
+  {
+    CFRelease(v26);
+  }
+
+  v27 = *(this + 70);
+  if (v27)
+  {
+    CFRelease(v27);
+  }
+
+  v28 = *(this + 67);
+  if (v28)
+  {
+    CFRelease(v28);
+  }
+
+  v29 = *(this + 64);
+  if (v29)
+  {
+    CFRelease(v29);
+  }
+
+  v30 = *(this + 61);
+  if (v30)
+  {
+    CFRelease(v30);
+  }
+
+  v31 = *(this + 58);
+  if (v31)
+  {
+    CFRelease(v31);
+  }
+
+  v32 = *(this + 55);
+  if (v32)
+  {
+    CFRelease(v32);
+  }
+
+  v33 = *(this + 52);
+  if (v33)
+  {
+    CFRelease(v33);
+  }
+
+  v34 = *(this + 49);
+  if (v34)
+  {
+    CFRelease(v34);
+  }
+
+  v35 = *(this + 46);
+  if (v35)
+  {
+    CFRelease(v35);
+  }
+
+  v36 = *(this + 43);
+  if (v36)
+  {
+    CFRelease(v36);
+  }
+
+  v37 = *(this + 40);
+  if (v37)
+  {
+    CFRelease(v37);
+  }
+
+  v38 = *(this + 38);
+  if (v38)
+  {
+    CFRelease(v38);
+  }
+
+  v39 = *(this + 36);
+  if (v39)
+  {
+    CFRelease(v39);
+  }
+
+  v40 = *(this + 34);
+  if (v40)
+  {
+    CFRelease(v40);
+  }
+
+  v41 = *(this + 31);
+  if (v41)
+  {
+    CFRelease(v41);
+  }
+
+  v42 = *(this + 28);
+  if (v42)
+  {
+    CFRelease(v42);
+  }
+
+  v43 = *(this + 26);
+  if (v43)
+  {
+    CFRelease(v43);
+  }
+
+  v44 = *(this + 24);
+  if (v44)
+  {
+    CFRelease(v44);
+  }
+
+  v45 = *(this + 21);
+  if (v45)
+  {
+    CFRelease(v45);
+  }
+
+  v46 = *(this + 19);
+  if (v46)
+  {
+    CFRelease(v46);
+  }
+
+  v47 = *(this + 17);
+  if (v47)
+  {
+    CFRelease(v47);
+  }
+
+  v48 = *(this + 15);
+  if (v48)
+  {
+    CFRelease(v48);
+  }
+
+  v49 = *(this + 13);
+  if (v49)
+  {
+    CFRelease(v49);
+  }
+
+  v50 = *(this + 10);
+  if (v50)
+  {
+    CFRelease(v50);
+  }
+
+  v51 = *(this + 7);
+  if (v51)
+  {
+    CFRelease(v51);
+  }
+
+  v52 = *(this + 4);
+  if (v52)
+  {
+    CFRelease(v52);
+  }
+}
+
+{
+  vp::vx::database::v1::syntax::Constraints::~Constraints(this);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void vp::vx::database::v1::syntax::Constraints::create_constraint(uint64_t result@<X0>, int *a2@<X1>, uint64_t a3@<X8>)
+{
+  v5 = *(result + 16);
+  v6 = *a2;
+  v7 = -v6;
+  v8 = (a2 - v6);
+  if (*v8 >= 5u && (v9 = v8[2]) != 0 && (v10 = a2 + v9 + *(a2 + v9), v11 = &v10[-*v10], *v11 >= 5u) && (v12 = *(v11 + 2)) != 0)
+  {
+    vp::vx::database::v1::runtime::String_Pool::intern(&v22, v5, &v10[v12 + 4 + *&v10[v12]], *&v10[v12 + *&v10[v12]]);
+    v13 = v22;
+    v19 = v22;
+    v7 = -*a2;
+  }
+
+  else
+  {
+    v13 = 0;
+    v19 = 0;
+  }
+
+  v14 = a2 + v7;
+  v15 = *(a2 + v7);
+  if (v15 <= 6)
+  {
+    LODWORD(v16) = 0;
+LABEL_14:
+    v18 = 0;
+    v21 = 0;
+    goto LABEL_15;
+  }
+
+  v16 = *(v14 + 3);
+  if (*(v14 + 3))
+  {
+    LODWORD(v16) = *(a2 + v16);
+  }
+
+  v20 = v16;
+  if (v15 < 9)
+  {
+    goto LABEL_14;
+  }
+
+  v17 = *(v14 + 4);
+  if (!v17)
+  {
+    goto LABEL_14;
+  }
+
+  vp::vx::database::v1::fbs::CreatePropertyList(&v21, v5, (a2 + v17 + *(a2 + v17)));
+  v13 = v19;
+  LODWORD(v16) = v20;
+  v18 = v21;
+LABEL_15:
+  *a3 = v13;
+  *(a3 + 8) = v16;
+  *(a3 + 16) = v18;
+  *(a3 + 24) = 1;
+}
+
+uint64_t vp::vx::database::v1::syntax::Constraints::Boolean::Boolean(uint64_t a1, const void *a2, char a3)
+{
+  *a1 = &unk_2881B5198;
+  if (a2)
+  {
+    CFRetain(a2);
+  }
+
+  *(a1 + 8) = a2;
+  *(a1 + 16) = a3;
+  return a1;
+}
+
+void *vp::vx::database::v1::syntax::Constraints::Number::Number(void *a1, const void *a2)
+{
+  *a1 = &unk_2881B51C0;
+  if (a2)
+  {
+    CFRetain(a2);
+  }
+
+  a1[1] = a2;
+  return a1;
+}
+
+void *vp::vx::database::v1::syntax::Constraints::String::String(void *a1, CFTypeRef cf, uint64_t a3)
+{
+  *a1 = &unk_2881B51E8;
+  if (cf)
+  {
+    CFRetain(cf);
+  }
+
+  a1[1] = cf;
+  a1[2] = a3;
+  return a1;
+}
+
+void *vp::vx::database::v1::syntax::Constraints::Four_CC::Four_CC(void *a1, const void *a2)
+{
+  *a1 = &unk_2881B5210;
+  if (a2)
+  {
+    CFRetain(a2);
+  }
+
+  a1[1] = a2;
+  return a1;
+}
+
+int *vp::vx::Voice_Processor_State_Manager::create_state<BOOL>(uint64_t a1, __n128 *a2, _BYTE *a3)
+{
+  v11[0] = std::pmr::get_default_resource(a1);
+  v11[1] = 0;
+  v11[2] = &vp::vx::data_flow::Value::type_id<BOOL>(void)::s_type_id;
+  *vp::vx::data_flow::Value::allocate_storage(v11) = *a3;
+  vp::vx::data_flow::State_Manager::create_state(&v12, a2 + 3, v11);
+  LODWORD(a2) = v12;
+  v8 = v12;
+  v7 = v13;
+  v13 = 0uLL;
+  vp::vx::data_flow::State<void>::~State(&v12);
+  vp::vx::data_flow::Value::~Value(v11);
+  *a1 = a2;
+  *(a1 + 8) = v7;
+  v9 = 0;
+  v10 = 0;
+  return vp::vx::data_flow::State<void>::~State(&v8);
+}
+
+int *vp::vx::Voice_Processor_State_Manager::create_state<vp::vx::Chat_Flavor>(uint64_t a1, __n128 *a2, _DWORD *a3)
+{
+  v11[0] = std::pmr::get_default_resource(a1);
+  v11[1] = 0;
+  v11[2] = &vp::vx::data_flow::Value::type_id<vp::vx::Chat_Flavor>(void)::s_type_id;
+  *vp::vx::data_flow::Value::allocate_storage(v11) = *a3;
+  vp::vx::data_flow::State_Manager::create_state(&v12, a2 + 3, v11);
+  LODWORD(a2) = v12;
+  v8 = v12;
+  v7 = v13;
+  v13 = 0uLL;
+  vp::vx::data_flow::State<void>::~State(&v12);
+  vp::vx::data_flow::Value::~Value(v11);
+  *a1 = a2;
+  *(a1 + 8) = v7;
+  v9 = 0;
+  v10 = 0;
+  return vp::vx::data_flow::State<void>::~State(&v8);
+}
+
+void std::vector<vp::vx::data_flow::State_Listener>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+{
+  v1 = *a1;
+  v2 = **a1;
+  if (v2)
+  {
+    v4 = v1[1];
+    v5 = v2;
+    if (v4 != v2)
+    {
+      do
+      {
+        vp::vx::data_flow::State_Listener::~State_Listener((v4 - 32));
+      }
+
+      while (v4 != v2);
+      v5 = **a1;
+    }
+
+    v1[1] = v2;
+
+    operator delete(v5);
+  }
+}
+
+uint64_t *std::__hash_table<applesauce::CF::StringRef,std::hash<applesauce::CF::StringRef>,std::equal_to<applesauce::CF::StringRef>,vp::Allocator<applesauce::CF::StringRef>>::~__hash_table(uint64_t *a1)
+{
+  v2 = a1[3];
+  if (v2)
+  {
+    do
+    {
+      v3 = *v2;
+      std::pmr::polymorphic_allocator<std::__hash_node<applesauce::CF::StringRef,void *>>::destroy[abi:ne200100]<applesauce::CF::StringRef>(*(v2 + 16));
+      std::allocator_traits<vp::Allocator<std::__hash_node<applesauce::CF::StringRef,void *>>>::deallocate[abi:ne200100](a1[4], v2);
+      v2 = v3;
+    }
+
+    while (v3);
+  }
+
+  v4 = *a1;
+  *a1 = 0;
+  if (v4)
+  {
+    std::allocator_traits<vp::Allocator<std::__hash_node_base<std::__hash_node<applesauce::CF::StringRef,void *> *> *>>::deallocate[abi:ne200100](a1[2], v4, a1[1]);
+  }
+
+  return a1;
+}
+
+void std::pmr::polymorphic_allocator<std::__hash_node<applesauce::CF::StringRef,void *>>::destroy[abi:ne200100]<applesauce::CF::StringRef>(const void *a1)
+{
+  if (a1)
+  {
+    CFRelease(a1);
+  }
+}
+
+void vp::vx::data_flow::State_Listener::~State_Listener(vp::vx::data_flow::State_Listener *this)
+{
+  if (*(this + 1))
+  {
+    v2 = *(this + 6);
+    if (v2)
+    {
+      vp::vx::data_flow::State<void>::unregister_listener(this, v2);
+      *(this + 6) = 0;
+    }
+  }
+
+  vp::vx::data_flow::State<void>::~State(this);
+}
+
+void std::__shared_ptr_emplace<vp::vx::Control_Center_Manager_Impl>::__on_zero_shared(uint64_t a1)
+{
+  for (i = *(a1 + 472); i; i = *i)
+  {
+    v3 = *(a1 + 40);
+    v4 = i[2];
+    if (v4)
+    {
+      CFRetain(i[2]);
+    }
+
+    cf = v4;
+    (*(*v3 + 56))(v3, &cf);
+    if (cf)
+    {
+      CFRelease(cf);
+    }
+  }
+
+  v10 = (a1 + 504);
+  std::vector<vp::vx::data_flow::State_Listener>::__destroy_vector::operator()[abi:ne200100](&v10);
+  std::__hash_table<applesauce::CF::StringRef,std::hash<applesauce::CF::StringRef>,std::equal_to<applesauce::CF::StringRef>,vp::Allocator<applesauce::CF::StringRef>>::~__hash_table((a1 + 448));
+  v5 = *(a1 + 440);
+  if (v5)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+  }
+
+  vp::cf::Notification_Listener::~Notification_Listener((a1 + 400));
+  vp::cf::Notification_Listener::~Notification_Listener((a1 + 368));
+  std::recursive_mutex::~recursive_mutex((a1 + 304));
+  vp::vx::data_flow::State<void>::~State((a1 + 280));
+  vp::vx::data_flow::State<void>::~State((a1 + 256));
+  vp::vx::data_flow::State<void>::~State((a1 + 232));
+  vp::vx::data_flow::State<void>::~State((a1 + 208));
+  vp::vx::data_flow::State<void>::~State((a1 + 184));
+  vp::vx::data_flow::State<void>::~State((a1 + 160));
+  vp::vx::data_flow::State<void>::~State((a1 + 136));
+  vp::vx::data_flow::State<void>::~State((a1 + 112));
+  vp::vx::data_flow::State<void>::~State((a1 + 88));
+  vp::vx::data_flow::State<void>::~State((a1 + 64));
+  v6 = *(a1 + 56);
+  if (v6)
+  {
+    dispatch_release(v6);
+  }
+
+  v7 = *(a1 + 48);
+  if (v7)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+  }
+
+  v8 = *(a1 + 32);
+  if (v8)
+  {
+    std::__shared_weak_count::__release_weak(v8);
+  }
+}
+
+void std::__shared_ptr_emplace<vp::vx::Control_Center_Manager_Impl>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_2881B5A58;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void std::__function::__func<vp::vx::Control_Center_Manager::set_app_bundle_id(vp::vx::data_flow::State<applesauce::CF::StringRef>)::$_0,std::allocator<vp::vx::Control_Center_Manager::set_app_bundle_id(vp::vx::data_flow::State<applesauce::CF::StringRef>)::$_0>,void ()(applesauce::CF::StringRef const&)>::operator()(vp *a1, CFTypeRef *a2)
+{
+  v2 = a1;
+  v25 = *MEMORY[0x277D85DE8];
+  v3 = *a2;
+  if (*a2)
+  {
+    a1 = CFRetain(*a2);
+  }
+
+  v4 = *(v2 + 1);
+  log = vp::get_log(a1);
+  if (!os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
+  {
+    goto LABEL_23;
+  }
+
+  log_context_info = vp::get_log_context_info(v17, v4, "vp::vx::Control_Center_Manager]", 30);
+  v7 = v18;
+  v8 = v18;
+  v9 = v17[1];
+  v10 = vp::get_log(log_context_info);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    if (v8 >= 0)
+    {
+      v11 = v7;
+    }
+
+    else
+    {
+      v11 = v9;
+    }
+
+    if (v8 >= 0)
+    {
+      v12 = v17;
+    }
+
+    else
+    {
+      v12 = v17[0];
+    }
+
+    if (v11)
+    {
+      v13 = " ";
+    }
+
+    else
+    {
+      v13 = "";
+    }
+
+    if (v3)
+    {
+      applesauce::CF::convert_to<std::string,0>(__p, v3);
+      if (v16 >= 0)
+      {
+        v14 = __p;
+      }
+
+      else
+      {
+        v14 = __p[0];
+      }
+
+      *buf = 136315650;
+      v20 = v12;
+      v21 = 2080;
+      v22 = v13;
+      v23 = 2080;
+      v24 = v14;
+      _os_log_impl(&dword_2724B4000, v10, OS_LOG_TYPE_DEFAULT, "%s%sapplication bundle ID is %s", buf, 0x20u);
+      if (v16 < 0)
+      {
+        operator delete(__p[0]);
+      }
+    }
+
+    else
+    {
+      *buf = 136315650;
+      v20 = v12;
+      v21 = 2080;
+      v22 = v13;
+      v23 = 2080;
+      v24 = "null";
+      _os_log_impl(&dword_2724B4000, v10, OS_LOG_TYPE_DEFAULT, "%s%sapplication bundle ID is %s", buf, 0x20u);
+    }
+
+    LOBYTE(v8) = v18;
+  }
+
+  if ((v8 & 0x80) != 0)
+  {
+    operator delete(v17[0]);
+    if (!v3)
+    {
+      return;
+    }
+  }
+
+  else
+  {
+LABEL_23:
+    if (!v3)
+    {
+      return;
+    }
+  }
+
+  CFRelease(v3);
+}
+
+void sub_2725F58D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
+{
+  if (a19 < 0)
+  {
+    operator delete(__p);
+  }
+
+  applesauce::CF::StringRef::~StringRef(&a10);
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::__function::__func<vp::vx::Control_Center_Manager::set_app_bundle_id(vp::vx::data_flow::State<applesauce::CF::StringRef>)::$_0,std::allocator<vp::vx::Control_Center_Manager::set_app_bundle_id(vp::vx::data_flow::State<applesauce::CF::StringRef>)::$_0>,void ()(applesauce::CF::StringRef const&)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_2881B5AD8;
+  a2[1] = v2;
+  return result;
+}
+
+void std::__function::__func<vp::vx::Control_Center_Manager::set_bypass(vp::vx::data_flow::State<BOOL>)::$_0,std::allocator<vp::vx::Control_Center_Manager::set_bypass(vp::vx::data_flow::State<BOOL>)::$_0>,void ()(BOOL const&)>::operator()(vp *a1, unsigned __int8 *a2)
+{
+  v22 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = *(a1 + 1);
+  log = vp::get_log(a1);
+  if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
+  {
+    log_context_info = vp::get_log_context_info(__p, v3, "vp::vx::Control_Center_Manager]", 30);
+    v6 = v15;
+    v7 = v15;
+    v8 = __p[1];
+    v9 = vp::get_log(log_context_info);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      if (v7 >= 0)
+      {
+        v10 = v6;
+      }
+
+      else
+      {
+        v10 = v8;
+      }
+
+      v11 = __p[0];
+      if (v7 >= 0)
+      {
+        v11 = __p;
+      }
+
+      if (v10)
+      {
+        v12 = " ";
+      }
+
+      else
+      {
+        v12 = "";
+      }
+
+      *buf = 136315650;
+      v17 = v11;
+      v18 = 2080;
+      v19 = v12;
+      if (v2)
+      {
+        v13 = "is";
+      }
+
+      else
+      {
+        v13 = "is not";
+      }
+
+      v20 = 2080;
+      v21 = v13;
+      _os_log_impl(&dword_2724B4000, v9, OS_LOG_TYPE_DEFAULT, "%s%svoice processing %s bypassed", buf, 0x20u);
+      LOBYTE(v7) = v15;
+    }
+
+    if ((v7 & 0x80) != 0)
+    {
+      operator delete(__p[0]);
+    }
+  }
+}
+
+uint64_t std::__function::__func<vp::vx::Control_Center_Manager::set_bypass(vp::vx::data_flow::State<BOOL>)::$_0,std::allocator<vp::vx::Control_Center_Manager::set_bypass(vp::vx::data_flow::State<BOOL>)::$_0>,void ()(BOOL const&)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_2881B5B20;
+  a2[1] = v2;
+  return result;
+}
+
+void std::__function::__func<vp::vx::Control_Center_Manager::set_media_handoff(vp::vx::data_flow::State<BOOL>)::$_0,std::allocator<vp::vx::Control_Center_Manager::set_media_handoff(vp::vx::data_flow::State<BOOL>)::$_0>,void ()(BOOL const&)>::operator()(vp *a1, unsigned __int8 *a2)
+{
+  v22 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = *(a1 + 1);
+  log = vp::get_log(a1);
+  if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
+  {
+    log_context_info = vp::get_log_context_info(__p, v3, "vp::vx::Control_Center_Manager]", 30);
+    v6 = v15;
+    v7 = v15;
+    v8 = __p[1];
+    v9 = vp::get_log(log_context_info);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      if (v7 >= 0)
+      {
+        v10 = v6;
+      }
+
+      else
+      {
+        v10 = v8;
+      }
+
+      v11 = __p[0];
+      if (v7 >= 0)
+      {
+        v11 = __p;
+      }
+
+      if (v10)
+      {
+        v12 = " ";
+      }
+
+      else
+      {
+        v12 = "";
+      }
+
+      *buf = 136315650;
+      v17 = v11;
+      v18 = 2080;
+      v19 = v12;
+      if (v2)
+      {
+        v13 = "true";
+      }
+
+      else
+      {
+        v13 = "false";
+      }
+
+      v20 = 2080;
+      v21 = v13;
+      _os_log_impl(&dword_2724B4000, v9, OS_LOG_TYPE_DEFAULT, "%s%smedia handoff enabled: %s", buf, 0x20u);
+      LOBYTE(v7) = v15;
+    }
+
+    if ((v7 & 0x80) != 0)
+    {
+      operator delete(__p[0]);
+    }
+  }
+}
+
+uint64_t std::__function::__func<vp::vx::Control_Center_Manager::set_media_handoff(vp::vx::data_flow::State<BOOL>)::$_0,std::allocator<vp::vx::Control_Center_Manager::set_media_handoff(vp::vx::data_flow::State<BOOL>)::$_0>,void ()(BOOL const&)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_2881B5B68;
+  a2[1] = v2;
+  return result;
+}
+
+uint64_t std::__function::__value_func<void ()(boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void> const&)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
+{
+  v3 = (a2 + 24);
+  v4 = *(a2 + 24);
+  if (v4)
+  {
+    if (v4 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**v3 + 24))(*v3, a1);
+      return a1;
+    }
+
+    *(a1 + 24) = v4;
+  }
+
+  else
+  {
+    v3 = (a1 + 24);
+  }
+
+  *v3 = 0;
+  return a1;
+}
+
+{
+  v3 = *(a2 + 24);
+  if (v3)
+  {
+    if (v3 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
+    }
+
+    else
+    {
+      *(a1 + 24) = (*(*v3 + 16))(v3);
+    }
+  }
+
+  else
+  {
+    *(a1 + 24) = 0;
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__value_func<void ()(boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void> const&)>::~__value_func[abi:ne200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__func<vp::vx::data_flow::State<boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>::register_listener(std::function<void ()(boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>::register_listener(std::function<void ()(boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::operator()(uint64_t result, int a2, vp::vx::data_flow::Value *this)
+{
+  if (*(result + 32))
+  {
+    v3 = *(this + 2) == &vp::vx::data_flow::Value::type_id<boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>(void)::s_type_id;
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  if (v3)
+  {
+    v4 = result;
+    result = vp::vx::data_flow::Value::view_storage(this);
+    if (result)
+    {
+      v5 = *(v4 + 32);
+      if (!v5)
+      {
+        std::__throw_bad_function_call[abi:ne200100]();
+      }
+
+      v6 = *(*v5 + 48);
+
+      return v6();
+    }
+  }
+
+  return result;
+}
+
+BOOL vp::vx::data_flow::Value::Type_ID_Eraser<boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>::compare_value(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(*a2 + 16);
+  if (v3 != *(*a3 + 16))
+  {
+    return 0;
+  }
+
+  v4 = *(*a2 + 8);
+  if (v3)
+  {
+    v5 = v4 == 0;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  if (v5)
+  {
+    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
+  }
+
+  v6 = *(*a3 + 8);
+  v10 = *(*a2 + 8);
+  v8 = v6;
+  v9 = v4 + 4 * v3;
+  return boost::intrusive::algo_equal<boost::container::vec_iterator<vp::vx::Chat_Flavor *,true>,boost::container::vec_iterator<vp::vx::Chat_Flavor *,true>,boost::intrusive::algo_pred_equal>(&v10, &v9, &v8);
+}
+
+BOOL boost::intrusive::algo_equal<boost::container::vec_iterator<vp::vx::Chat_Flavor *,true>,boost::container::vec_iterator<vp::vx::Chat_Flavor *,true>,boost::intrusive::algo_pred_equal>(_DWORD **a1, void *a2, void *a3)
+{
+  while (1)
+  {
+    v3 = *a1;
+    if (*a1 == *a2)
+    {
+      break;
+    }
+
+    if (!v3)
+    {
+      __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
+    }
+
+    if (!*a3)
+    {
+      __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
+    }
+
+    v4 = *v3 == **a3;
+    v5 = v4;
+    if (!v4)
+    {
+      return v5;
+    }
+
+    *a1 = v3 + 1;
+    if (!*a3)
+    {
+      __assert_rtn("operator++", "vector.hpp", 168, "!!m_ptr");
+    }
+
+    *a3 += 4;
+  }
+
+  return 1;
+}
+
+void *vp::vx::data_flow::Value::Type_ID_Eraser<boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>::destroy_value(uint64_t a1, uint64_t a2)
+{
+  result = *a2;
+  if (*(*a2 + 24))
+  {
+    return boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>::deallocate(result, result[1]);
+  }
+
+  return result;
+}
+
+char *vp::vx::data_flow::Value::Type_ID_Eraser<boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>::move_value(uint64_t a1, uint64_t *a2, void **a3)
+{
+  v3 = *a2;
+  v4 = *a3;
+  *v3 = **a3;
+  *(v3 + 8) = v3 + 32;
+  *(v3 + 16) = xmmword_2727565D0;
+  return boost::container::small_vector_base<vp::vx::Chat_Flavor,vp::Allocator<vp::vx::Chat_Flavor>,void>::move_construct_impl(v3, v4);
+}
+
+char *vp::vx::data_flow::Value::Type_ID_Eraser<boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>::copy_value(uint64_t a1, uint64_t *a2, void **a3)
+{
+  v3 = *a2;
+  v4 = *a3;
+  v5 = *a2 + 32;
+  *v3 = **a3;
+  *(v3 + 8) = v5;
+  *(v3 + 16) = xmmword_2727565D0;
+  v6 = v4[1];
+  v7 = v4[2];
+  v11 = v6;
+  if (v6)
+  {
+    v8 = 1;
+  }
+
+  else
+  {
+    v8 = v7 == 0;
+  }
+
+  if (!v8)
+  {
+    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
+  }
+
+  v10 = &v6[4 * v7];
+  return boost::container::vector<vp::vx::Chat_Flavor,boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>,void>::assign<boost::container::vec_iterator<vp::vx::Chat_Flavor*,true>>(v3, &v11, &v10);
+}
+
+void sub_2725F616C(_Unwind_Exception *exception_object)
+{
+  if (*(v1 + 24))
+  {
+    boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>::deallocate(v1, *(v1 + 8));
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t vp::vx::data_flow::Value::Type_ID_Eraser<boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>::view_storage(uint64_t a1, uint64_t a2)
+{
+  return *a2;
+}
+
+{
+  return *a2;
+}
+
+uint64_t vp::vx::data_flow::Value::Type_ID_Eraser<boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>::allocate_storage(uint64_t a1, uint64_t *a2, void *a3)
+{
+  result = (*(**a3 + 16))(*a3, 40, 8);
+  *a2 = result;
+  return result;
+}
+
+void std::__function::__func<vp::vx::data_flow::State<boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>::register_listener(std::function<void ()(boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>::register_listener(std::function<void ()(boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::destroy_deallocate(void *a1)
+{
+  std::__function::__value_func<void ()(boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void> const&)>::~__value_func[abi:ne200100](a1 + 8);
+
+  operator delete(a1);
+}
+
+void std::__function::__func<vp::vx::data_flow::State<boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>::register_listener(std::function<void ()(boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>::register_listener(std::function<void ()(boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881B5BB0;
+  std::__function::__value_func<void ()(boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void> const&)>::~__value_func[abi:ne200100]((a1 + 1));
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<vp::vx::data_flow::State<boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>::register_listener(std::function<void ()(boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>::register_listener(std::function<void ()(boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881B5BB0;
+  std::__function::__value_func<void ()(boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void> const&)>::~__value_func[abi:ne200100]((a1 + 1));
+  return a1;
+}
+
+void sub_2725F6620(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+{
+  va_start(va, a14);
+  if (v15 < 0)
+  {
+    operator delete(v14);
+  }
+
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(va);
+  _Unwind_Resume(a1);
+}
+
+void *std::end[abi:ne200100]<boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>(void *result, uint64_t a2, uint64_t a3)
+{
+  *result = a2;
+  if (!a2 && a3)
+  {
+    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
+  }
+
+  *result = a2 + 4 * a3;
+  return result;
+}
+
+unsigned __int8 *_ZNSt3__19transformB8ne200100IN5boost9container12vec_iteratorIPN2vp2vx11Chat_FlavorELb1EEENS_20back_insert_iteratorIN8nlohmann10basic_jsonINS_3mapENS_6vectorENS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEEbxydSH_NSA_14adl_serializerENSD_IhNSH_IhEEEEEEEEPDoFNS_17basic_string_viewIcSG_EES6_EEET0_T_SU_ST_T1_(unsigned int **a1, unsigned int **a2, unsigned __int8 *a3)
+{
+  v3 = *a1;
+  if (*a1 != *a2)
+  {
+    if (v3)
+    {
+      vp::reflect_value_name_tag<vp::vx::Chat_Flavor,128ul>(*v3);
+      operator new();
+    }
+
+    __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
+  }
+
+  return a3;
+}
+
+char *vp::reflect_value_name_tag<vp::vx::Chat_Flavor,128ul>(int a1)
+{
+  v1 = vp::detail::reflect_value_name<(vp::vx::Chat_Flavor)0,128ul>(a1);
+  if (v2)
+  {
+    v3 = &v1[v2];
+    for (i = v2; i; --i)
+    {
+      v5 = *--v3;
+      if (v5 == 58)
+      {
+        v6 = v3 - v1 + 1;
+        if (v2 < v6)
+        {
+          std::__throw_out_of_range[abi:ne200100]("string_view::substr");
+        }
+
+        return &v1[v6];
+      }
+    }
+  }
+
+  v6 = 0;
+  return &v1[v6];
+}
+
+char *vp::detail::reflect_value_name<(vp::vx::Chat_Flavor)0,128ul>(int a1)
+{
+  result = "vp::vx::Chat_Flavor::Standard]";
+  switch(a1)
+  {
+    case 0:
+      return result;
+    case 1:
+      result = "vp::vx::Chat_Flavor::Wide_Spectrum]";
+      break;
+    case 2:
+      result = "vp::vx::Chat_Flavor::Voice_Isolation]";
+      break;
+    case 3:
+      result = "(vp::vx::Chat_Flavor)3]";
+      break;
+    case 4:
+      result = "(vp::vx::Chat_Flavor)4]";
+      break;
+    case 5:
+      result = "(vp::vx::Chat_Flavor)5]";
+      break;
+    case 6:
+      result = "(vp::vx::Chat_Flavor)6]";
+      break;
+    case 7:
+      result = "(vp::vx::Chat_Flavor)7]";
+      break;
+    case 8:
+      result = "(vp::vx::Chat_Flavor)8]";
+      break;
+    case 9:
+      result = "(vp::vx::Chat_Flavor)9]";
+      break;
+    case 10:
+      result = "(vp::vx::Chat_Flavor)10]";
+      break;
+    case 11:
+      result = "(vp::vx::Chat_Flavor)11]";
+      break;
+    case 12:
+      result = "(vp::vx::Chat_Flavor)12]";
+      break;
+    case 13:
+      result = "(vp::vx::Chat_Flavor)13]";
+      break;
+    case 14:
+      result = "(vp::vx::Chat_Flavor)14]";
+      break;
+    case 15:
+      result = "(vp::vx::Chat_Flavor)15]";
+      break;
+    case 16:
+      result = "(vp::vx::Chat_Flavor)16]";
+      break;
+    case 17:
+      result = "(vp::vx::Chat_Flavor)17]";
+      break;
+    case 18:
+      result = "(vp::vx::Chat_Flavor)18]";
+      break;
+    case 19:
+      result = "(vp::vx::Chat_Flavor)19]";
+      break;
+    case 20:
+      result = "(vp::vx::Chat_Flavor)20]";
+      break;
+    case 21:
+      result = "(vp::vx::Chat_Flavor)21]";
+      break;
+    case 22:
+      result = "(vp::vx::Chat_Flavor)22]";
+      break;
+    case 23:
+      result = "(vp::vx::Chat_Flavor)23]";
+      break;
+    case 24:
+      result = "(vp::vx::Chat_Flavor)24]";
+      break;
+    case 25:
+      result = "(vp::vx::Chat_Flavor)25]";
+      break;
+    case 26:
+      result = "(vp::vx::Chat_Flavor)26]";
+      break;
+    case 27:
+      result = "(vp::vx::Chat_Flavor)27]";
+      break;
+    case 28:
+      result = "(vp::vx::Chat_Flavor)28]";
+      break;
+    case 29:
+      result = "(vp::vx::Chat_Flavor)29]";
+      break;
+    case 30:
+      result = "(vp::vx::Chat_Flavor)30]";
+      break;
+    case 31:
+      result = "(vp::vx::Chat_Flavor)31]";
+      break;
+    case 32:
+      result = "(vp::vx::Chat_Flavor)32]";
+      break;
+    case 33:
+      result = "(vp::vx::Chat_Flavor)33]";
+      break;
+    case 34:
+      result = "(vp::vx::Chat_Flavor)34]";
+      break;
+    case 35:
+      result = "(vp::vx::Chat_Flavor)35]";
+      break;
+    case 36:
+      result = "(vp::vx::Chat_Flavor)36]";
+      break;
+    case 37:
+      result = "(vp::vx::Chat_Flavor)37]";
+      break;
+    case 38:
+      result = "(vp::vx::Chat_Flavor)38]";
+      break;
+    case 39:
+      result = "(vp::vx::Chat_Flavor)39]";
+      break;
+    case 40:
+      result = "(vp::vx::Chat_Flavor)40]";
+      break;
+    case 41:
+      result = "(vp::vx::Chat_Flavor)41]";
+      break;
+    case 42:
+      result = "(vp::vx::Chat_Flavor)42]";
+      break;
+    case 43:
+      result = "(vp::vx::Chat_Flavor)43]";
+      break;
+    case 44:
+      result = "(vp::vx::Chat_Flavor)44]";
+      break;
+    case 45:
+      result = "(vp::vx::Chat_Flavor)45]";
+      break;
+    case 46:
+      result = "(vp::vx::Chat_Flavor)46]";
+      break;
+    case 47:
+      result = "(vp::vx::Chat_Flavor)47]";
+      break;
+    case 48:
+      result = "(vp::vx::Chat_Flavor)48]";
+      break;
+    case 49:
+      result = "(vp::vx::Chat_Flavor)49]";
+      break;
+    case 50:
+      result = "(vp::vx::Chat_Flavor)50]";
+      break;
+    case 51:
+      result = "(vp::vx::Chat_Flavor)51]";
+      break;
+    case 52:
+      result = "(vp::vx::Chat_Flavor)52]";
+      break;
+    case 53:
+      result = "(vp::vx::Chat_Flavor)53]";
+      break;
+    case 54:
+      result = "(vp::vx::Chat_Flavor)54]";
+      break;
+    case 55:
+      result = "(vp::vx::Chat_Flavor)55]";
+      break;
+    case 56:
+      result = "(vp::vx::Chat_Flavor)56]";
+      break;
+    case 57:
+      result = "(vp::vx::Chat_Flavor)57]";
+      break;
+    case 58:
+      result = "(vp::vx::Chat_Flavor)58]";
+      break;
+    case 59:
+      result = "(vp::vx::Chat_Flavor)59]";
+      break;
+    case 60:
+      result = "(vp::vx::Chat_Flavor)60]";
+      break;
+    case 61:
+      result = "(vp::vx::Chat_Flavor)61]";
+      break;
+    case 62:
+      result = "(vp::vx::Chat_Flavor)62]";
+      break;
+    case 63:
+      result = "(vp::vx::Chat_Flavor)63]";
+      break;
+    case 64:
+      result = "(vp::vx::Chat_Flavor)64]";
+      break;
+    case 65:
+      result = "(vp::vx::Chat_Flavor)65]";
+      break;
+    case 66:
+      result = "(vp::vx::Chat_Flavor)66]";
+      break;
+    case 67:
+      result = "(vp::vx::Chat_Flavor)67]";
+      break;
+    case 68:
+      result = "(vp::vx::Chat_Flavor)68]";
+      break;
+    case 69:
+      result = "(vp::vx::Chat_Flavor)69]";
+      break;
+    case 70:
+      result = "(vp::vx::Chat_Flavor)70]";
+      break;
+    case 71:
+      result = "(vp::vx::Chat_Flavor)71]";
+      break;
+    case 72:
+      result = "(vp::vx::Chat_Flavor)72]";
+      break;
+    case 73:
+      result = "(vp::vx::Chat_Flavor)73]";
+      break;
+    case 74:
+      result = "(vp::vx::Chat_Flavor)74]";
+      break;
+    case 75:
+      result = "(vp::vx::Chat_Flavor)75]";
+      break;
+    case 76:
+      result = "(vp::vx::Chat_Flavor)76]";
+      break;
+    case 77:
+      result = "(vp::vx::Chat_Flavor)77]";
+      break;
+    case 78:
+      result = "(vp::vx::Chat_Flavor)78]";
+      break;
+    case 79:
+      result = "(vp::vx::Chat_Flavor)79]";
+      break;
+    case 80:
+      result = "(vp::vx::Chat_Flavor)80]";
+      break;
+    case 81:
+      result = "(vp::vx::Chat_Flavor)81]";
+      break;
+    case 82:
+      result = "(vp::vx::Chat_Flavor)82]";
+      break;
+    case 83:
+      result = "(vp::vx::Chat_Flavor)83]";
+      break;
+    case 84:
+      result = "(vp::vx::Chat_Flavor)84]";
+      break;
+    case 85:
+      result = "(vp::vx::Chat_Flavor)85]";
+      break;
+    case 86:
+      result = "(vp::vx::Chat_Flavor)86]";
+      break;
+    case 87:
+      result = "(vp::vx::Chat_Flavor)87]";
+      break;
+    case 88:
+      result = "(vp::vx::Chat_Flavor)88]";
+      break;
+    case 89:
+      result = "(vp::vx::Chat_Flavor)89]";
+      break;
+    case 90:
+      result = "(vp::vx::Chat_Flavor)90]";
+      break;
+    case 91:
+      result = "(vp::vx::Chat_Flavor)91]";
+      break;
+    case 92:
+      result = "(vp::vx::Chat_Flavor)92]";
+      break;
+    case 93:
+      result = "(vp::vx::Chat_Flavor)93]";
+      break;
+    case 94:
+      result = "(vp::vx::Chat_Flavor)94]";
+      break;
+    case 95:
+      result = "(vp::vx::Chat_Flavor)95]";
+      break;
+    case 96:
+      result = "(vp::vx::Chat_Flavor)96]";
+      break;
+    case 97:
+      result = "(vp::vx::Chat_Flavor)97]";
+      break;
+    case 98:
+      result = "(vp::vx::Chat_Flavor)98]";
+      break;
+    case 99:
+      result = "(vp::vx::Chat_Flavor)99]";
+      break;
+    case 100:
+      result = "(vp::vx::Chat_Flavor)100]";
+      break;
+    case 101:
+      result = "(vp::vx::Chat_Flavor)101]";
+      break;
+    case 102:
+      result = "(vp::vx::Chat_Flavor)102]";
+      break;
+    case 103:
+      result = "(vp::vx::Chat_Flavor)103]";
+      break;
+    case 104:
+      result = "(vp::vx::Chat_Flavor)104]";
+      break;
+    case 105:
+      result = "(vp::vx::Chat_Flavor)105]";
+      break;
+    case 106:
+      result = "(vp::vx::Chat_Flavor)106]";
+      break;
+    case 107:
+      result = "(vp::vx::Chat_Flavor)107]";
+      break;
+    case 108:
+      result = "(vp::vx::Chat_Flavor)108]";
+      break;
+    case 109:
+      result = "(vp::vx::Chat_Flavor)109]";
+      break;
+    case 110:
+      result = "(vp::vx::Chat_Flavor)110]";
+      break;
+    case 111:
+      result = "(vp::vx::Chat_Flavor)111]";
+      break;
+    case 112:
+      result = "(vp::vx::Chat_Flavor)112]";
+      break;
+    case 113:
+      result = "(vp::vx::Chat_Flavor)113]";
+      break;
+    case 114:
+      result = "(vp::vx::Chat_Flavor)114]";
+      break;
+    case 115:
+      result = "(vp::vx::Chat_Flavor)115]";
+      break;
+    case 116:
+      result = "(vp::vx::Chat_Flavor)116]";
+      break;
+    case 117:
+      result = "(vp::vx::Chat_Flavor)117]";
+      break;
+    case 118:
+      result = "(vp::vx::Chat_Flavor)118]";
+      break;
+    case 119:
+      result = "(vp::vx::Chat_Flavor)119]";
+      break;
+    case 120:
+      result = "(vp::vx::Chat_Flavor)120]";
+      break;
+    case 121:
+      result = "(vp::vx::Chat_Flavor)121]";
+      break;
+    case 122:
+      result = "(vp::vx::Chat_Flavor)122]";
+      break;
+    case 123:
+      result = "(vp::vx::Chat_Flavor)123]";
+      break;
+    case 124:
+      result = "(vp::vx::Chat_Flavor)124]";
+      break;
+    case 125:
+      result = "(vp::vx::Chat_Flavor)125]";
+      break;
+    case 126:
+      result = "(vp::vx::Chat_Flavor)126]";
+      break;
+    case 127:
+      result = "(vp::vx::Chat_Flavor)127]";
+      break;
+    default:
+      if (a1 == 128)
+      {
+        result = "(vp::vx::Chat_Flavor)128]";
+      }
+
+      else
+      {
+        result = "?";
+      }
+
+      break;
+  }
+
+  return result;
+}
+
+uint64_t std::__function::__func<vp::vx::Control_Center_Manager::set_hidden_chat_flavors(vp::vx::data_flow::State<boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>)::$_0,std::allocator<vp::vx::Control_Center_Manager::set_hidden_chat_flavors(vp::vx::data_flow::State<boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>)::$_0>,void ()(boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void> const&)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_2881B5BF8;
+  a2[1] = v2;
+  return result;
+}
+
+void sub_2725F71AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+{
+  va_start(va, a14);
+  if (v15 < 0)
+  {
+    operator delete(v14);
+  }
+
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::__function::__func<vp::vx::Control_Center_Manager::set_supported_chat_flavors(vp::vx::data_flow::State<boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>)::$_0,std::allocator<vp::vx::Control_Center_Manager::set_supported_chat_flavors(vp::vx::data_flow::State<boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>)::$_0>,void ()(boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void> const&)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_2881B5C40;
+  a2[1] = v2;
+  return result;
+}
+
+uint64_t std::__function::__value_func<void ()(vp::vx::Chat_Flavor const&)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
+{
+  v3 = (a2 + 24);
+  v4 = *(a2 + 24);
+  if (v4)
+  {
+    if (v4 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**v3 + 24))(*v3, a1);
+      return a1;
+    }
+
+    *(a1 + 24) = v4;
+  }
+
+  else
+  {
+    v3 = (a1 + 24);
+  }
+
+  *v3 = 0;
+  return a1;
+}
+
+{
+  v3 = *(a2 + 24);
+  if (v3)
+  {
+    if (v3 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
+    }
+
+    else
+    {
+      *(a1 + 24) = (*(*v3 + 16))(v3);
+    }
+  }
+
+  else
+  {
+    *(a1 + 24) = 0;
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__value_func<void ()(vp::vx::Chat_Flavor const&)>::~__value_func[abi:ne200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__func<vp::vx::data_flow::State<vp::vx::Chat_Flavor>::register_listener(std::function<void ()(vp::vx::Chat_Flavor const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<vp::vx::Chat_Flavor>::register_listener(std::function<void ()(vp::vx::Chat_Flavor const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::operator()(uint64_t result, int a2, vp::vx::data_flow::Value *this)
+{
+  if (*(result + 32))
+  {
+    v3 = *(this + 2) == &vp::vx::data_flow::Value::type_id<vp::vx::Chat_Flavor>(void)::s_type_id;
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  if (v3)
+  {
+    v4 = result;
+    result = vp::vx::data_flow::Value::view_storage(this);
+    if (result)
+    {
+      v5 = *(v4 + 32);
+      if (!v5)
+      {
+        std::__throw_bad_function_call[abi:ne200100]();
+      }
+
+      v6 = *(*v5 + 48);
+
+      return v6();
+    }
+  }
+
+  return result;
+}
+
+void std::__function::__func<vp::vx::data_flow::State<vp::vx::Chat_Flavor>::register_listener(std::function<void ()(vp::vx::Chat_Flavor const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<vp::vx::Chat_Flavor>::register_listener(std::function<void ()(vp::vx::Chat_Flavor const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::destroy_deallocate(void *a1)
+{
+  std::__function::__value_func<void ()(vp::vx::Chat_Flavor const&)>::~__value_func[abi:ne200100](a1 + 8);
+
+  operator delete(a1);
+}
+
+void std::__function::__func<vp::vx::data_flow::State<vp::vx::Chat_Flavor>::register_listener(std::function<void ()(vp::vx::Chat_Flavor const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<vp::vx::Chat_Flavor>::register_listener(std::function<void ()(vp::vx::Chat_Flavor const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881B5C88;
+  std::__function::__value_func<void ()(vp::vx::Chat_Flavor const&)>::~__value_func[abi:ne200100]((a1 + 1));
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<vp::vx::data_flow::State<vp::vx::Chat_Flavor>::register_listener(std::function<void ()(vp::vx::Chat_Flavor const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<vp::vx::Chat_Flavor>::register_listener(std::function<void ()(vp::vx::Chat_Flavor const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881B5C88;
+  std::__function::__value_func<void ()(vp::vx::Chat_Flavor const&)>::~__value_func[abi:ne200100]((a1 + 1));
+  return a1;
+}
+
+void std::__function::__func<vp::vx::Control_Center_Manager::set_ideal_mic_mode(vp::vx::data_flow::State<vp::vx::Chat_Flavor>)::$_0,std::allocator<vp::vx::Control_Center_Manager::set_ideal_mic_mode(vp::vx::data_flow::State<vp::vx::Chat_Flavor>)::$_0>,void ()(vp::vx::Chat_Flavor const&)>::operator()(vp *a1, int *a2)
+{
+  v25 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = *(a1 + 1);
+  log = vp::get_log(a1);
+  if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
+  {
+    log_context_info = vp::get_log_context_info(v17, v3, "vp::vx::Control_Center_Manager]", 30);
+    v6 = v18;
+    if ((v18 & 0x80u) == 0)
+    {
+      v7 = v18;
+    }
+
+    else
+    {
+      v7 = v17[1];
+    }
+
+    v8 = vp::get_log(log_context_info);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      if (v6 >= 0)
+      {
+        v9 = v17;
+      }
+
+      else
+      {
+        v9 = v17[0];
+      }
+
+      v10 = vp::reflect_value_name_tag<vp::vx::Chat_Flavor,128ul>(v2);
+      if (v11 >= 0x7FFFFFFFFFFFFFF8)
+      {
+        std::string::__throw_length_error[abi:ne200100]();
+      }
+
+      v12 = v11;
+      if (v11 >= 0x17)
+      {
+        operator new();
+      }
+
+      v16 = v11;
+      if (v11)
+      {
+        memmove(&__p, v10, v11);
+      }
+
+      *(&__p + v12) = 0;
+      v13 = " ";
+      if (!v7)
+      {
+        v13 = "";
+      }
+
+      *buf = 136315650;
+      p_p = &__p;
+      if (v16 < 0)
+      {
+        p_p = __p;
+      }
+
+      v20 = v9;
+      v21 = 2080;
+      v22 = v13;
+      v23 = 2080;
+      v24 = p_p;
+      _os_log_impl(&dword_2724B4000, v8, OS_LOG_TYPE_DEFAULT, "%s%sideal mic mode is %s", buf, 0x20u);
+      if (v16 < 0)
+      {
+        operator delete(__p);
+      }
+
+      LOBYTE(v6) = v18;
+    }
+
+    if ((v6 & 0x80) != 0)
+    {
+      operator delete(v17[0]);
+    }
+  }
+}
+
+void sub_2725F7828(_Unwind_Exception *exception_object)
+{
+  if (v2 < 0)
+  {
+    operator delete(v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t std::__function::__func<vp::vx::Control_Center_Manager::set_ideal_mic_mode(vp::vx::data_flow::State<vp::vx::Chat_Flavor>)::$_0,std::allocator<vp::vx::Control_Center_Manager::set_ideal_mic_mode(vp::vx::data_flow::State<vp::vx::Chat_Flavor>)::$_0>,void ()(vp::vx::Chat_Flavor const&)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_2881B5CD0;
+  a2[1] = v2;
+  return result;
+}
+
+uint64_t std::vector<vp::vx::data_flow::State_Listener>::__emplace_back_slow_path<vp::vx::data_flow::State_Listener>(uint64_t *a1, uint64_t a2)
+{
+  v2 = (a1[1] - *a1) >> 5;
+  v3 = v2 + 1;
+  if ((v2 + 1) >> 59)
+  {
+    std::vector<std::function<std::unique_ptr<VoiceProcessorBase> ()(std::unique_ptr<VoiceProcessorBase>)>>::__throw_length_error[abi:ne200100]();
+  }
+
+  v5 = a1[2] - *a1;
+  if (v5 >> 4 > v3)
+  {
+    v3 = v5 >> 4;
+  }
+
+  if (v5 >= 0x7FFFFFFFFFFFFFE0)
+  {
+    v6 = 0x7FFFFFFFFFFFFFFLL;
+  }
+
+  else
+  {
+    v6 = v3;
+  }
+
+  if (v6)
+  {
+    if (!(v6 >> 59))
+    {
+      operator new();
+    }
+
+    std::__throw_bad_array_new_length[abi:ne200100]();
+  }
+
+  v7 = 32 * v2;
+  *v7 = *a2;
+  *(v7 + 8) = *(a2 + 8);
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
+  v8 = *(a2 + 24);
+  *(a2 + 24) = 0;
+  *(v7 + 24) = v8;
+  v9 = 32 * v2 + 32;
+  v10 = *a1;
+  v11 = a1[1];
+  v12 = 32 * v2 + *a1 - v11;
+  if (*a1 != v11)
+  {
+    v13 = *a1;
+    v14 = v12;
+    do
+    {
+      *v14 = *v13;
+      *(v14 + 8) = *(v13 + 8);
+      *(v13 + 1) = 0;
+      *(v13 + 2) = 0;
+      v15 = *(v13 + 6);
+      *(v13 + 6) = 0;
+      *(v14 + 24) = v15;
+      v13 = (v13 + 32);
+      v14 += 32;
+    }
+
+    while (v13 != v11);
+    do
+    {
+      vp::vx::data_flow::State_Listener::~State_Listener(v10);
+      v10 = (v16 + 32);
+    }
+
+    while (v10 != v11);
+  }
+
+  v17 = *a1;
+  *a1 = v12;
+  *(a1 + 1) = v9;
+  if (v17)
+  {
+    operator delete(v17);
+  }
+
+  return v9;
+}
+
+int *vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>>::create_listener(uint64_t a1, int *a2, uint64_t a3)
+{
+  v10 = *MEMORY[0x277D85DE8];
+  vp::vx::data_flow::State<void>::State(v6, a2);
+  vp::vx::data_flow::State<void>::State(a1, v6);
+  *(a1 + 24) = 0;
+  if (*(a1 + 8))
+  {
+    std::__function::__value_func<void ()(std::tuple<applesauce::CF::StringRef,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>> const&)>::__value_func[abi:ne200100](v7, a3);
+    std::__function::__value_func<void ()(std::tuple<applesauce::CF::StringRef,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>> const&)>::__value_func[abi:ne200100](v8, v7);
+    v9 = 0;
+    operator new();
+  }
+
+  return vp::vx::data_flow::State<void>::~State(v6);
+}
+
+void sub_2725F7B38(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+uint64_t std::__function::__value_func<void ()(std::tuple<applesauce::CF::StringRef,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>> const&)>::~__value_func[abi:ne200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__value_func<void ()(std::tuple<applesauce::CF::StringRef,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>> const&)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
+{
+  v3 = (a2 + 24);
+  v4 = *(a2 + 24);
+  if (v4)
+  {
+    if (v4 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**v3 + 24))(*v3, a1);
+      return a1;
+    }
+
+    *(a1 + 24) = v4;
+  }
+
+  else
+  {
+    v3 = (a1 + 24);
+  }
+
+  *v3 = 0;
+  return a1;
+}
+
+{
+  v3 = *(a2 + 24);
+  if (v3)
+  {
+    if (v3 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
+    }
+
+    else
+    {
+      *(a1 + 24) = (*(*v3 + 16))(v3);
+    }
+  }
+
+  else
+  {
+    *(a1 + 24) = 0;
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__func<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::operator()(uint64_t result, int a2, vp::vx::data_flow::Value *this)
+{
+  if (*(result + 32))
+  {
+    v3 = *(this + 2) == &vp::vx::data_flow::Value::type_id<std::tuple<applesauce::CF::StringRef,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>>(void)::s_type_id;
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  if (v3)
+  {
+    v4 = result;
+    result = vp::vx::data_flow::Value::view_storage(this);
+    if (result)
+    {
+      v5 = *(v4 + 32);
+      if (!v5)
+      {
+        std::__throw_bad_function_call[abi:ne200100]();
+      }
+
+      v6 = *(*v5 + 48);
+
+      return v6();
+    }
+  }
+
+  return result;
+}
+
+BOOL vp::vx::data_flow::Value::Type_ID_Eraser<std::tuple<applesauce::CF::StringRef,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>>::compare_value(uint64_t a1, const __CFString ***a2, const __CFString ***a3)
+{
+  v3 = *a2;
+  v4 = *a3;
+  if (applesauce::CF::compare<applesauce::CF::StringRef,0,applesauce::CF::StringRef,0>(**a2, *a3))
+  {
+    return 0;
+  }
+
+  v5 = v3[3];
+  if (v5 != v4[3])
+  {
+    return 0;
+  }
+
+  v6 = v3[2];
+  if (v5)
+  {
+    v7 = v6 == 0;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  if (v7)
+  {
+    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
+  }
+
+  v8 = v4[2];
+  v11 = v6 + v5;
+  v12 = v6;
+  v10 = v8;
+  return boost::intrusive::algo_equal<boost::container::vec_iterator<vp::vx::Chat_Flavor *,true>,boost::container::vec_iterator<vp::vx::Chat_Flavor *,true>,boost::intrusive::algo_pred_equal>(&v12, &v11, &v10);
+}
+
+void vp::vx::data_flow::Value::Type_ID_Eraser<std::tuple<applesauce::CF::StringRef,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>>::destroy_value(uint64_t a1, uint64_t *a2)
+{
+  v2 = *a2;
+  if (*(*a2 + 32))
+  {
+    boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>::deallocate((v2 + 8), *(v2 + 16));
+  }
+
+  if (*v2)
+  {
+    CFRelease(*v2);
+  }
+}
+
+uint64_t vp::vx::data_flow::Value::Type_ID_Eraser<std::tuple<applesauce::CF::StringRef,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>>::move_value(uint64_t a1, void **a2, void **a3)
+{
+  v3 = *a2;
+  v4 = *a3;
+  *v3 = **a3;
+  *v4 = 0;
+  return std::__tuple_leaf<1ul,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>,false>::__tuple_leaf[abi:ne200100]((v3 + 1), v4 + 1);
+}
+
+uint64_t std::__tuple_leaf<1ul,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>,false>::__tuple_leaf[abi:ne200100](uint64_t a1, void *a2)
+{
+  *a1 = *a2;
+  *(a1 + 8) = a1 + 32;
+  *(a1 + 16) = xmmword_2727565D0;
+  boost::container::small_vector_base<vp::vx::Chat_Flavor,vp::Allocator<vp::vx::Chat_Flavor>,void>::move_construct_impl(a1, a2);
+  return a1;
+}
+
+char *vp::vx::data_flow::Value::Type_ID_Eraser<std::tuple<applesauce::CF::StringRef,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>>::copy_value(uint64_t a1, uint64_t *a2, CFTypeRef **a3)
+{
+  v3 = *a2;
+  v4 = *a3;
+  std::__tuple_leaf<0ul,applesauce::CF::StringRef,false>::__tuple_leaf[abi:ne200100](*a2, **a3);
+  v3[1] = v4[1];
+  v3[2] = v3 + 5;
+  *(v3 + 3) = xmmword_2727565D0;
+  v5 = v4[2];
+  v6 = v4[3];
+  v10 = v5;
+  if (v5)
+  {
+    v7 = 1;
+  }
+
+  else
+  {
+    v7 = v6 == 0;
+  }
+
+  if (!v7)
+  {
+    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
+  }
+
+  v9 = &v5[4 * v6];
+  return boost::container::vector<vp::vx::Chat_Flavor,boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>,void>::assign<boost::container::vec_iterator<vp::vx::Chat_Flavor*,true>>(v3 + 8, &v10, &v9);
+}
+
+void sub_2725F7ED4(_Unwind_Exception *a1)
+{
+  if (*(v1 + 32))
+  {
+    boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>::deallocate(v2, *(v1 + 16));
+  }
+
+  std::__tuple_leaf<0ul,applesauce::CF::StringRef,false>::~__tuple_leaf(v1);
+  _Unwind_Resume(a1);
+}
+
+void *std::__tuple_leaf<0ul,applesauce::CF::StringRef,false>::__tuple_leaf[abi:ne200100](void *a1, CFTypeRef cf)
+{
+  if (cf)
+  {
+    CFRetain(cf);
+  }
+
+  *a1 = cf;
+  return a1;
+}
+
+const void **std::__tuple_leaf<0ul,applesauce::CF::StringRef,false>::~__tuple_leaf(const void **a1)
+{
+  v2 = *a1;
+  if (v2)
+  {
+    CFRelease(v2);
+  }
+
+  return a1;
+}
+
+uint64_t vp::vx::data_flow::Value::Type_ID_Eraser<std::tuple<applesauce::CF::StringRef,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>>::view_storage(uint64_t a1, uint64_t a2)
+{
+  return *a2;
+}
+
+{
+  return *a2;
+}
+
+uint64_t vp::vx::data_flow::Value::Type_ID_Eraser<std::tuple<applesauce::CF::StringRef,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>>::allocate_storage(uint64_t a1, uint64_t *a2, void *a3)
+{
+  result = (*(**a3 + 16))(*a3, 48, 8);
+  *a2 = result;
+  return result;
+}
+
+void std::__function::__func<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::destroy_deallocate(void *a1)
+{
+  std::__function::__value_func<void ()(std::tuple<applesauce::CF::StringRef,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>> const&)>::~__value_func[abi:ne200100](a1 + 8);
+
+  operator delete(a1);
+}
+
+void std::__function::__func<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881B5938;
+  std::__function::__value_func<void ()(std::tuple<applesauce::CF::StringRef,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>> const&)>::~__value_func[abi:ne200100]((a1 + 1));
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881B5938;
+  std::__function::__value_func<void ()(std::tuple<applesauce::CF::StringRef,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>> const&)>::~__value_func[abi:ne200100]((a1 + 1));
+  return a1;
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERS4_EUlRKT_RKT0_E0_JN10applesauce2CF9StringRefEN5boost9container12small_vectorINS3_11Chat_FlavorELm3ENS2_9AllocatorISL_EEvEEEEEDaOS8_NS3_9data_flow16Call_ImmediatelyEDpRKNSR_5StateIT0_EEEUlRKNS_5tupleIJSH_SO_EEEE_NS_9allocatorIS13_EEFvS12_EEclES12_(std::pmr *a1, uint64_t a2)
+{
+  if (*a2)
+  {
+    default_resource = std::pmr::get_default_resource(a1);
+    v10 = &v12;
+    v11 = xmmword_2727565D0;
+    v4 = *(a2 + 16);
+    std::end[abi:ne200100]<boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>(&v8, v4, *(a2 + 24));
+    p_default_resource = &default_resource;
+    v5 = v8;
+    while (v4 != v5)
+    {
+      if (!v4)
+      {
+        __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
+      }
+
+      v13 = *v4;
+      std::back_insert_iterator<boost::container::small_vector<vp::services::Control_Center::Chat_Flavor,3ul,vp::Allocator<vp::services::Control_Center::Chat_Flavor>,void>>::operator=[abi:ne200100](&p_default_resource, &v13);
+      ++v4;
+    }
+
+    v6 = *(a1 + 1);
+    v7 = *a2;
+    if (v7)
+    {
+      CFRetain(v7);
+    }
+
+    p_default_resource = v7;
+    (*(*v6 + 80))(v6, &p_default_resource, v10, v11);
+    if (p_default_resource)
+    {
+      CFRelease(p_default_resource);
+    }
+
+    if (*(&v11 + 1))
+    {
+      boost::container::small_vector_allocator<vp::services::Control_Center::Chat_Flavor,vp::Allocator<void>,void>::deallocate(&default_resource, v10);
+    }
+  }
+}
+
+void sub_2725F8374(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13)
+{
+  if (a13)
+  {
+    boost::container::small_vector_allocator<vp::services::Control_Center::Chat_Flavor,vp::Allocator<void>,void>::deallocate(&a10, a11);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t *std::back_insert_iterator<boost::container::small_vector<vp::services::Control_Center::Chat_Flavor,3ul,vp::Allocator<vp::services::Control_Center::Chat_Flavor>,void>>::operator=[abi:ne200100](uint64_t *a1, _DWORD *a2)
+{
+  v4 = *a1;
+  v5 = *(*a1 + 16);
+  v6 = (*(*a1 + 8) + 4 * v5);
+  if (v5 == *(*a1 + 24))
+  {
+    boost::container::vector<vp::services::Control_Center::Chat_Flavor,boost::container::small_vector_allocator<vp::services::Control_Center::Chat_Flavor,vp::Allocator<void>,void>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::small_vector_allocator<vp::services::Control_Center::Chat_Flavor,vp::Allocator<void>,void>,vp::services::Control_Center::Chat_Flavor*,vp::services::Control_Center::Chat_Flavor>>(&v8, v4, v6, a2);
+    boost::container::vec_iterator<vp::services::Control_Center::Chat_Flavor *,false>::operator*(v8);
+  }
+
+  else
+  {
+    *v6 = *a2;
+    *(v4 + 16) = v5 + 1;
+  }
+
+  return a1;
+}
+
+void *boost::container::small_vector_allocator<vp::services::Control_Center::Chat_Flavor,vp::Allocator<void>,void>::deallocate(void *result, void *a2)
+{
+  if (result + 4 != a2)
+  {
+    return (*(**result + 24))(*result);
+  }
+
+  return result;
+}
+
+_DWORD *boost::container::vector<vp::services::Control_Center::Chat_Flavor,boost::container::small_vector_allocator<vp::services::Control_Center::Chat_Flavor,vp::Allocator<void>,void>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::small_vector_allocator<vp::services::Control_Center::Chat_Flavor,vp::Allocator<void>,void>,vp::services::Control_Center::Chat_Flavor*,vp::services::Control_Center::Chat_Flavor>>(void *a1, uint64_t a2, char *a3, _DWORD *a4)
+{
+  v4 = *(a2 + 24);
+  if (v4 != *(a2 + 16))
+  {
+    __assert_rtn("next_capacity", "vector.hpp", 473, "additional_objects > size_type(this->m_capacity - this->m_size)");
+  }
+
+  if (v4 == 0x3FFFFFFFFFFFFFFFLL)
+  {
+    goto LABEL_26;
+  }
+
+  v9 = *(a2 + 8);
+  if (!(v4 >> 61))
+  {
+    if (v4 + 1 > 8 * v4 / 5)
+    {
+      v10 = v4 + 1;
+    }
+
+    else
+    {
+      v10 = 8 * v4 / 5;
+    }
+
+    goto LABEL_16;
+  }
+
+  if (v4 >> 61 > 4)
+  {
+    v11 = -1;
+  }
+
+  else
+  {
+    v11 = 8 * v4;
+  }
+
+  v12 = v4 + 1;
+  if (v11 >= 0x3FFFFFFFFFFFFFFFLL)
+  {
+    v11 = 0x3FFFFFFFFFFFFFFFLL;
+  }
+
+  v10 = v12 > v11 ? v4 + 1 : v11;
+  if (v12 >> 62)
+  {
+LABEL_26:
+    boost::container::throw_length_error("get_next_capacity, allocator's max size reached", a2);
+  }
+
+LABEL_16:
+  result = (*(**a2 + 16))();
+  v14 = result;
+  v15 = *(a2 + 8);
+  v16 = *(a2 + 16);
+  v17 = result;
+  if (v15)
+  {
+    v17 = result;
+    if (v15 != a3)
+    {
+      result = memmove(result, *(a2 + 8), a3 - v15);
+      v17 = v14 + a3 - v15;
+    }
+  }
+
+  *v17 = *a4;
+  if (a3)
+  {
+    v18 = &v15[4 * v16];
+    if (v18 != a3)
+    {
+      result = memmove(v17 + 4, a3, v18 - a3);
+    }
+  }
+
+  if (v15)
+  {
+    result = boost::container::small_vector_allocator<vp::services::Control_Center::Chat_Flavor,vp::Allocator<void>,void>::deallocate(a2, *(a2 + 8));
+  }
+
+  v19 = *(a2 + 16) + 1;
+  *(a2 + 8) = v14;
+  *(a2 + 16) = v19;
+  *(a2 + 24) = v10;
+  *a1 = &a3[v14 - v9];
+  return result;
+}
+
+uint64_t boost::container::vec_iterator<vp::services::Control_Center::Chat_Flavor *,false>::operator*(uint64_t result)
+{
+  if (!result)
+  {
+    __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
+  }
+
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERS4_EUlRKT_RKT0_E0_JN10applesauce2CF9StringRefEN5boost9container12small_vectorINS3_11Chat_FlavorELm3ENS2_9AllocatorISL_EEvEEEEEDaOS8_NS3_9data_flow16Call_ImmediatelyEDpRKNSR_5StateIT0_EEEUlRKNS_5tupleIJSH_SO_EEEE_NS_9allocatorIS13_EEFvS12_EE18destroy_deallocateEv(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERS4_EUlRKT_RKT0_E0_JN10applesauce2CF9StringRefEN5boost9container12small_vectorINS3_11Chat_FlavorELm3ENS2_9AllocatorISL_EEvEEEEEDaOS8_NS3_9data_flow16Call_ImmediatelyEDpRKNSR_5StateIT0_EEEUlRKNS_5tupleIJSH_SO_EEEE_NS_9allocatorIS13_EEFvS12_EE7destroyEv(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERS4_EUlRKT_RKT0_E0_JN10applesauce2CF9StringRefEN5boost9container12small_vectorINS3_11Chat_FlavorELm3ENS2_9AllocatorISL_EEvEEEEEDaOS8_NS3_9data_flow16Call_ImmediatelyEDpRKNSR_5StateIT0_EEEUlRKNS_5tupleIJSH_SO_EEEE_NS_9allocatorIS13_EEFvS12_EE7__cloneEPNS0_6__baseIS16_EE(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881B5A10;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERS4_EUlRKT_RKT0_E0_JN10applesauce2CF9StringRefEN5boost9container12small_vectorINS3_11Chat_FlavorELm3ENS2_9AllocatorISL_EEvEEEEEDaOS8_NS3_9data_flow16Call_ImmediatelyEDpRKNSR_5StateIT0_EEEUlRKNS_5tupleIJSH_SO_EEEE_NS_9allocatorIS13_EEFvS12_EED0Ev(void *a1)
+{
+  *a1 = &unk_2881B5A10;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *_ZNSt3__110__function6__funcIZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERS4_EUlRKT_RKT0_E0_JN10applesauce2CF9StringRefEN5boost9container12small_vectorINS3_11Chat_FlavorELm3ENS2_9AllocatorISL_EEvEEEEEDaOS8_NS3_9data_flow16Call_ImmediatelyEDpRKNSR_5StateIT0_EEEUlRKNS_5tupleIJSH_SO_EEEE_NS_9allocatorIS13_EEFvS12_EED1Ev(void *a1)
+{
+  *a1 = &unk_2881B5A10;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS_5tupleIJN10applesauce2CF9StringRefEN5boost9container12small_vectorINS3_11Chat_FlavorELm3ENS2_9AllocatorISD_EEvEEEEEEC1IZNS3_29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERSK_EUlRKT_RKT0_E0_JS9_SG_EEEDaOSO_NS4_16Call_ImmediatelyEDpRKNS4_5StateIT0_EEEUlDpRKT_E_JS9_SG_EEERNS4_13State_ManagerESO_S13_EUlPPKNS4_5ValueEPS1B_E_NS_9allocatorIS1G_EEFvS1E_S1F_EEclEOS1E_OS1F_(uint64_t a1, uint64_t (******a2)(), vp::vx::data_flow::Value **a3)
+{
+  v3 = *a2;
+  v4 = *a3;
+  v5 = **a2;
+  if (v5[2] == &vp::vx::data_flow::Value::type_id<applesauce::CF::StringRef>(void)::s_type_id)
+  {
+    v6 = vp::vx::data_flow::Value::view_storage(v5);
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  v7 = vp::vx::data_flow::Value::view_storage(v3[1]);
+  _ZNSt3__112__tuple_implINS_15__tuple_indicesIJLm0ELm1EEEEJN10applesauce2CF9StringRefEN5boost9container12small_vectorIN2vp2vx11Chat_FlavorELm3ENS9_9AllocatorISB_EEvEEEEC2B8ne200100IJLm0ELm1EEJS5_SE_EJEJEJRKS5_RKSE_EEENS1_IJXspT_EEEENS_13__tuple_typesIJDpT0_EEENS1_IJXspT1_EEEENSM_IJDpT2_EEEDpOT3_(&cf, *v6, v7);
+  vp::vx::data_flow::Value::~Value(v4);
+  *v4 = std::pmr::get_default_resource(v8);
+  *(v4 + 1) = 0;
+  *(v4 + 2) = &vp::vx::data_flow::Value::type_id<std::tuple<applesauce::CF::StringRef,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>>(void)::s_type_id;
+  storage = vp::vx::data_flow::Value::allocate_storage(v4);
+  *storage = cf;
+  cf = 0;
+  std::__tuple_leaf<1ul,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>,false>::__tuple_leaf[abi:ne200100]((storage + 1), v11);
+  if (v11[3])
+  {
+    boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>::deallocate(v11, v11[1]);
+  }
+
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+}
+
+uint64_t std::tuple<applesauce::CF::StringRef,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>::~tuple(uint64_t a1)
+{
+  if (*(a1 + 32))
+  {
+    boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>::deallocate((a1 + 8), *(a1 + 16));
+  }
+
+  if (*a1)
+  {
+    CFRelease(*a1);
+  }
+
+  return a1;
+}
+
+void *_ZNSt3__112__tuple_implINS_15__tuple_indicesIJLm0ELm1EEEEJN10applesauce2CF9StringRefEN5boost9container12small_vectorIN2vp2vx11Chat_FlavorELm3ENS9_9AllocatorISB_EEvEEEEC2B8ne200100IJLm0ELm1EEJS5_SE_EJEJEJRKS5_RKSE_EEENS1_IJXspT_EEEENS_13__tuple_typesIJDpT0_EEENS1_IJXspT1_EEEENSM_IJDpT2_EEEDpOT3_(void *a1, const void *a2, void *a3)
+{
+  v5 = std::__tuple_leaf<0ul,applesauce::CF::StringRef,false>::__tuple_leaf[abi:ne200100]<applesauce::CF::StringRef const&,0>(a1, a2);
+  v5[1] = *a3;
+  v5[2] = v5 + 5;
+  *(v5 + 3) = xmmword_2727565D0;
+  v6 = a3[1];
+  v7 = a3[2];
+  v11 = v6;
+  if (v6)
+  {
+    v8 = 1;
+  }
+
+  else
+  {
+    v8 = v7 == 0;
+  }
+
+  if (!v8)
+  {
+    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
+  }
+
+  v10 = &v6[4 * v7];
+  boost::container::vector<vp::vx::Chat_Flavor,boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>,void>::assign<boost::container::vec_iterator<vp::vx::Chat_Flavor*,true>>(v5 + 8, &v11, &v10);
+  return a1;
+}
+
+void sub_2725F89C4(_Unwind_Exception *a1)
+{
+  if (*(v1 + 32))
+  {
+    boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>::deallocate(v2, *(v1 + 16));
+  }
+
+  std::__tuple_leaf<0ul,applesauce::CF::StringRef,false>::~__tuple_leaf(v1);
+  _Unwind_Resume(a1);
+}
+
+void *std::__tuple_leaf<0ul,applesauce::CF::StringRef,false>::__tuple_leaf[abi:ne200100]<applesauce::CF::StringRef const&,0>(void *a1, CFTypeRef cf)
+{
+  if (cf)
+  {
+    CFRetain(cf);
+  }
+
+  *a1 = cf;
+  return a1;
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS_5tupleIJN10applesauce2CF9StringRefEN5boost9container12small_vectorINS3_11Chat_FlavorELm3ENS2_9AllocatorISD_EEvEEEEEEC1IZNS3_29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERSK_EUlRKT_RKT0_E0_JS9_SG_EEEDaOSO_NS4_16Call_ImmediatelyEDpRKNS4_5StateIT0_EEEUlDpRKT_E_JS9_SG_EEERNS4_13State_ManagerESO_S13_EUlPPKNS4_5ValueEPS1B_E_NS_9allocatorIS1G_EEFvS1E_S1F_EE7__cloneEPNS0_6__baseIS1J_EE(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_2881B59C8;
+  *(a2 + 8) = *(result + 8);
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERS4_EUlRKT_RKT0_E_JN10applesauce2CF9StringRefEN5boost9container12small_vectorINS3_11Chat_FlavorELm3ENS2_9AllocatorISL_EEvEEEEEDaOS8_NS3_9data_flow16Call_ImmediatelyEDpRKNSR_5StateIT0_EEEUlRKNS_5tupleIJSH_SO_EEEE_NS_9allocatorIS13_EEFvS12_EEclES12_(std::pmr *a1, uint64_t a2)
+{
+  if (*a2)
+  {
+    default_resource = std::pmr::get_default_resource(a1);
+    v10 = &v12;
+    v11 = xmmword_2727565D0;
+    v4 = *(a2 + 16);
+    std::end[abi:ne200100]<boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>(&v8, v4, *(a2 + 24));
+    p_default_resource = &default_resource;
+    v5 = v8;
+    while (v4 != v5)
+    {
+      if (!v4)
+      {
+        __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
+      }
+
+      v13 = *v4;
+      std::back_insert_iterator<boost::container::small_vector<vp::services::Control_Center::Chat_Flavor,3ul,vp::Allocator<vp::services::Control_Center::Chat_Flavor>,void>>::operator=[abi:ne200100](&p_default_resource, &v13);
+      ++v4;
+    }
+
+    v6 = *(a1 + 1);
+    v7 = *a2;
+    if (v7)
+    {
+      CFRetain(v7);
+    }
+
+    p_default_resource = v7;
+    (*(*v6 + 72))(v6, &p_default_resource, v10, v11);
+    if (p_default_resource)
+    {
+      CFRelease(p_default_resource);
+    }
+
+    if (*(&v11 + 1))
+    {
+      boost::container::small_vector_allocator<vp::services::Control_Center::Chat_Flavor,vp::Allocator<void>,void>::deallocate(&default_resource, v10);
+    }
+  }
+}
+
+void sub_2725F8BFC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13)
+{
+  if (a13)
+  {
+    boost::container::small_vector_allocator<vp::services::Control_Center::Chat_Flavor,vp::Allocator<void>,void>::deallocate(&a10, a11);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERS4_EUlRKT_RKT0_E_JN10applesauce2CF9StringRefEN5boost9container12small_vectorINS3_11Chat_FlavorELm3ENS2_9AllocatorISL_EEvEEEEEDaOS8_NS3_9data_flow16Call_ImmediatelyEDpRKNSR_5StateIT0_EEEUlRKNS_5tupleIJSH_SO_EEEE_NS_9allocatorIS13_EEFvS12_EE18destroy_deallocateEv(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERS4_EUlRKT_RKT0_E_JN10applesauce2CF9StringRefEN5boost9container12small_vectorINS3_11Chat_FlavorELm3ENS2_9AllocatorISL_EEvEEEEEDaOS8_NS3_9data_flow16Call_ImmediatelyEDpRKNSR_5StateIT0_EEEUlRKNS_5tupleIJSH_SO_EEEE_NS_9allocatorIS13_EEFvS12_EE7destroyEv(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERS4_EUlRKT_RKT0_E_JN10applesauce2CF9StringRefEN5boost9container12small_vectorINS3_11Chat_FlavorELm3ENS2_9AllocatorISL_EEvEEEEEDaOS8_NS3_9data_flow16Call_ImmediatelyEDpRKNSR_5StateIT0_EEEUlRKNS_5tupleIJSH_SO_EEEE_NS_9allocatorIS13_EEFvS12_EE7__cloneEPNS0_6__baseIS16_EE(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881B5980;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERS4_EUlRKT_RKT0_E_JN10applesauce2CF9StringRefEN5boost9container12small_vectorINS3_11Chat_FlavorELm3ENS2_9AllocatorISL_EEvEEEEEDaOS8_NS3_9data_flow16Call_ImmediatelyEDpRKNSR_5StateIT0_EEEUlRKNS_5tupleIJSH_SO_EEEE_NS_9allocatorIS13_EEFvS12_EED0Ev(void *a1)
+{
+  *a1 = &unk_2881B5980;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *_ZNSt3__110__function6__funcIZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERS4_EUlRKT_RKT0_E_JN10applesauce2CF9StringRefEN5boost9container12small_vectorINS3_11Chat_FlavorELm3ENS2_9AllocatorISL_EEvEEEEEDaOS8_NS3_9data_flow16Call_ImmediatelyEDpRKNSR_5StateIT0_EEEUlRKNS_5tupleIJSH_SO_EEEE_NS_9allocatorIS13_EEFvS12_EED1Ev(void *a1)
+{
+  *a1 = &unk_2881B5980;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS_5tupleIJN10applesauce2CF9StringRefEN5boost9container12small_vectorINS3_11Chat_FlavorELm3ENS2_9AllocatorISD_EEvEEEEEEC1IZNS3_29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERSK_EUlRKT_RKT0_E_JS9_SG_EEEDaOSO_NS4_16Call_ImmediatelyEDpRKNS4_5StateIT0_EEEUlDpRKT_E_JS9_SG_EEERNS4_13State_ManagerESO_S13_EUlPPKNS4_5ValueEPS1B_E_NS_9allocatorIS1G_EEFvS1E_S1F_EEclEOS1E_OS1F_(uint64_t a1, uint64_t (******a2)(), vp::vx::data_flow::Value **a3)
+{
+  v3 = *a2;
+  v4 = *a3;
+  v5 = **a2;
+  if (v5[2] == &vp::vx::data_flow::Value::type_id<applesauce::CF::StringRef>(void)::s_type_id)
+  {
+    v6 = vp::vx::data_flow::Value::view_storage(v5);
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  v7 = vp::vx::data_flow::Value::view_storage(v3[1]);
+  _ZNSt3__112__tuple_implINS_15__tuple_indicesIJLm0ELm1EEEEJN10applesauce2CF9StringRefEN5boost9container12small_vectorIN2vp2vx11Chat_FlavorELm3ENS9_9AllocatorISB_EEvEEEEC2B8ne200100IJLm0ELm1EEJS5_SE_EJEJEJRKS5_RKSE_EEENS1_IJXspT_EEEENS_13__tuple_typesIJDpT0_EEENS1_IJXspT1_EEEENSM_IJDpT2_EEEDpOT3_(&cf, *v6, v7);
+  vp::vx::data_flow::Value::~Value(v4);
+  *v4 = std::pmr::get_default_resource(v8);
+  *(v4 + 1) = 0;
+  *(v4 + 2) = &vp::vx::data_flow::Value::type_id<std::tuple<applesauce::CF::StringRef,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>>(void)::s_type_id;
+  storage = vp::vx::data_flow::Value::allocate_storage(v4);
+  *storage = cf;
+  cf = 0;
+  std::__tuple_leaf<1ul,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>,false>::__tuple_leaf[abi:ne200100]((storage + 1), v11);
+  if (v11[3])
+  {
+    boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>::deallocate(v11, v11[1]);
+  }
+
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS_5tupleIJN10applesauce2CF9StringRefEN5boost9container12small_vectorINS3_11Chat_FlavorELm3ENS2_9AllocatorISD_EEvEEEEEEC1IZNS3_29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERSK_EUlRKT_RKT0_E_JS9_SG_EEEDaOSO_NS4_16Call_ImmediatelyEDpRKNS4_5StateIT0_EEEUlDpRKT_E_JS9_SG_EEERNS4_13State_ManagerESO_S13_EUlPPKNS4_5ValueEPS1B_E_NS_9allocatorIS1G_EEFvS1E_S1F_EE7__cloneEPNS0_6__baseIS1J_EE(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_2881B5888;
+  *(a2 + 8) = *(result + 8);
+  return result;
+}
+
+uint64_t std::__function::__value_func<void ()(std::tuple<applesauce::CF::StringRef,BOOL> const&)>::~__value_func[abi:ne200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__value_func<void ()(std::tuple<applesauce::CF::StringRef,BOOL> const&)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
+{
+  v3 = (a2 + 24);
+  v4 = *(a2 + 24);
+  if (v4)
+  {
+    if (v4 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**v3 + 24))(*v3, a1);
+      return a1;
+    }
+
+    *(a1 + 24) = v4;
+  }
+
+  else
+  {
+    v3 = (a1 + 24);
+  }
+
+  *v3 = 0;
+  return a1;
+}
+
+{
+  v3 = *(a2 + 24);
+  if (v3)
+  {
+    if (v3 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
+    }
+
+    else
+    {
+      *(a1 + 24) = (*(*v3 + 16))(v3);
+    }
+  }
+
+  else
+  {
+    *(a1 + 24) = 0;
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__func<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef,BOOL>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef,BOOL> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef,BOOL>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef,BOOL> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::operator()(uint64_t result, int a2, vp::vx::data_flow::Value *this)
+{
+  if (*(result + 32))
+  {
+    v3 = *(this + 2) == &vp::vx::data_flow::Value::type_id<std::tuple<applesauce::CF::StringRef,BOOL>>(void)::s_type_id;
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  if (v3)
+  {
+    v4 = result;
+    result = vp::vx::data_flow::Value::view_storage(this);
+    if (result)
+    {
+      v5 = *(v4 + 32);
+      if (!v5)
+      {
+        std::__throw_bad_function_call[abi:ne200100]();
+      }
+
+      v6 = *(*v5 + 48);
+
+      return v6();
+    }
+  }
+
+  return result;
+}
+
+BOOL vp::vx::data_flow::Value::Type_ID_Eraser<std::tuple<applesauce::CF::StringRef,BOOL>>::compare_value(uint64_t a1, const __CFString ***a2, const __CFString ***a3)
+{
+  v3 = *a2;
+  v4 = *a3;
+  return applesauce::CF::compare<applesauce::CF::StringRef,0,applesauce::CF::StringRef,0>(**a2, *a3) == kCFCompareEqualTo && *(v3 + 8) == *(v4 + 8);
+}
+
+void vp::vx::data_flow::Value::Type_ID_Eraser<std::tuple<applesauce::CF::StringRef,BOOL>>::destroy_value(uint64_t a1, const void ***a2)
+{
+  v2 = **a2;
+  if (v2)
+  {
+    CFRelease(v2);
+  }
+}
+
+void vp::vx::data_flow::Value::Type_ID_Eraser<std::tuple<applesauce::CF::StringRef,BOOL>>::move_value(uint64_t a1, uint64_t *a2, void **a3)
+{
+  v3 = *a2;
+  v4 = *a3;
+  *v3 = **a3;
+  *v4 = 0;
+  *(v3 + 8) = *(v4 + 8);
+}
+
+void *vp::vx::data_flow::Value::Type_ID_Eraser<std::tuple<applesauce::CF::StringRef,BOOL>>::copy_value(uint64_t a1, void **a2, CFTypeRef **a3)
+{
+  v3 = *a3;
+  result = std::__tuple_leaf<0ul,applesauce::CF::StringRef,false>::__tuple_leaf[abi:ne200100](*a2, **a3);
+  *(result + 8) = *(v3 + 8);
+  return result;
+}
+
+uint64_t vp::vx::data_flow::Value::Type_ID_Eraser<std::tuple<applesauce::CF::StringRef,BOOL>>::view_storage(uint64_t a1, uint64_t a2)
+{
+  return *a2;
+}
+
+{
+  return *a2;
+}
+
+uint64_t vp::vx::data_flow::Value::Type_ID_Eraser<std::tuple<applesauce::CF::StringRef,BOOL>>::allocate_storage(uint64_t a1, uint64_t *a2, void *a3)
+{
+  result = (*(**a3 + 16))(*a3, 16, 8);
+  *a2 = result;
+  return result;
+}
+
+void std::__function::__func<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef,BOOL>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef,BOOL> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef,BOOL>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef,BOOL> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::destroy_deallocate(void *a1)
+{
+  std::__function::__value_func<void ()(std::tuple<applesauce::CF::StringRef,BOOL> const&)>::~__value_func[abi:ne200100](a1 + 8);
+
+  operator delete(a1);
+}
+
+void std::__function::__func<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef,BOOL>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef,BOOL> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef,BOOL>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef,BOOL> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881B57F8;
+  std::__function::__value_func<void ()(std::tuple<applesauce::CF::StringRef,BOOL> const&)>::~__value_func[abi:ne200100]((a1 + 1));
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef,BOOL>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef,BOOL> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef,BOOL>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef,BOOL> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881B57F8;
+  std::__function::__value_func<void ()(std::tuple<applesauce::CF::StringRef,BOOL> const&)>::~__value_func[abi:ne200100]((a1 + 1));
+  return a1;
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERS4_EUlRKT_bE_JN10applesauce2CF9StringRefEbEEEDaOS8_NS3_9data_flow16Call_ImmediatelyEDpRKNSH_5StateIT0_EEEUlRKNS_5tupleIJSE_bEEEE_NS_9allocatorIST_EEFvSS_EEclESS_(uint64_t a1, uint64_t a2)
+{
+  v2 = *a2;
+  if (*a2)
+  {
+    v3 = *(a2 + 8);
+    v4 = *(a1 + 8);
+    CFRetain(*a2);
+    cf = v2;
+    (*(*v4 + 64))(v4, &cf, v3);
+    if (cf)
+    {
+      CFRelease(cf);
+    }
+  }
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERS4_EUlRKT_bE_JN10applesauce2CF9StringRefEbEEEDaOS8_NS3_9data_flow16Call_ImmediatelyEDpRKNSH_5StateIT0_EEEUlRKNS_5tupleIJSE_bEEEE_NS_9allocatorIST_EEFvSS_EE18destroy_deallocateEv(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERS4_EUlRKT_bE_JN10applesauce2CF9StringRefEbEEEDaOS8_NS3_9data_flow16Call_ImmediatelyEDpRKNSH_5StateIT0_EEEUlRKNS_5tupleIJSE_bEEEE_NS_9allocatorIST_EEFvSS_EE7destroyEv(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERS4_EUlRKT_bE_JN10applesauce2CF9StringRefEbEEEDaOS8_NS3_9data_flow16Call_ImmediatelyEDpRKNSH_5StateIT0_EEEUlRKNS_5tupleIJSE_bEEEE_NS_9allocatorIST_EEFvSS_EE7__cloneEPNS0_6__baseISW_EE(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881B5840;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERS4_EUlRKT_bE_JN10applesauce2CF9StringRefEbEEEDaOS8_NS3_9data_flow16Call_ImmediatelyEDpRKNSH_5StateIT0_EEEUlRKNS_5tupleIJSE_bEEEE_NS_9allocatorIST_EEFvSS_EED0Ev(void *a1)
+{
+  *a1 = &unk_2881B5840;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *_ZNSt3__110__function6__funcIZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERS4_EUlRKT_bE_JN10applesauce2CF9StringRefEbEEEDaOS8_NS3_9data_flow16Call_ImmediatelyEDpRKNSH_5StateIT0_EEEUlRKNS_5tupleIJSE_bEEEE_NS_9allocatorIST_EEFvSS_EED1Ev(void *a1)
+{
+  *a1 = &unk_2881B5840;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+uint64_t _ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS_5tupleIJN10applesauce2CF9StringRefEbEEEEC1IZNS3_29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERSD_EUlRKT_bE_JS9_bEEEDaOSH_NS4_16Call_ImmediatelyEDpRKNS4_5StateIT0_EEEUlDpRKT_E_JS9_bEEERNS4_13State_ManagerESH_ST_EUlPPKNS4_5ValueEPS11_E_NS_9allocatorIS16_EEFvS14_S15_EEclEOS14_OS15_(uint64_t a1, uint64_t (******a2)(), vp::vx::data_flow::Value **a3)
+{
+  v3 = *a2;
+  v4 = *a3;
+  v5 = **a2;
+  if (v5[2] == &vp::vx::data_flow::Value::type_id<applesauce::CF::StringRef>(void)::s_type_id)
+  {
+    v6 = vp::vx::data_flow::Value::view_storage(v5);
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  v7 = v3[1];
+  if (v7[2] == &vp::vx::data_flow::Value::type_id<BOOL>(void)::s_type_id)
+  {
+    v8 = vp::vx::data_flow::Value::view_storage(v7);
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  std::__tuple_leaf<0ul,applesauce::CF::StringRef,false>::__tuple_leaf[abi:ne200100]<applesauce::CF::StringRef const&,0>(&v11, *v6);
+  v12 = *v8;
+  vp::vx::data_flow::Value::~Value(v4);
+  *v4 = std::pmr::get_default_resource(v9);
+  *(v4 + 1) = 0;
+  *(v4 + 2) = &vp::vx::data_flow::Value::type_id<std::tuple<applesauce::CF::StringRef,BOOL>>(void)::s_type_id;
+  result = vp::vx::data_flow::Value::allocate_storage(v4);
+  *result = v11;
+  *(result + 8) = v12;
+  return result;
+}
+
+const void **std::tuple<applesauce::CF::StringRef,BOOL>::~tuple(const void **a1)
+{
+  v2 = *a1;
+  if (v2)
+  {
+    CFRelease(v2);
+  }
+
+  return a1;
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS_5tupleIJN10applesauce2CF9StringRefEbEEEEC1IZNS3_29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERSD_EUlRKT_bE_JS9_bEEEDaOSH_NS4_16Call_ImmediatelyEDpRKNS4_5StateIT0_EEEUlDpRKT_E_JS9_bEEERNS4_13State_ManagerESH_ST_EUlPPKNS4_5ValueEPS11_E_NS_9allocatorIS16_EEFvS14_S15_EE7__cloneEPNS0_6__baseIS19_EE(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_2881B5748;
+  *(a2 + 8) = *(result + 8);
+  return result;
+}
+
+uint64_t std::__function::__value_func<void ()(std::tuple<applesauce::CF::StringRef,vp::vx::Chat_Flavor,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>,BOOL,BOOL,vp::vx::Chat_Flavor> const&)>::~__value_func[abi:ne200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+uint64_t _ZZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS0_27Control_Center_Manager_Impl9configureERS1_EUlRKT_RKT0_RKT1_RKT2_T3_T4_E_JN10applesauce2CF9StringRefENS0_11Chat_FlavorEN5boost9container12small_vectorISN_Lm3ENS_9AllocatorISN_EEvEEbbSN_EEEDaOS5_NS0_9data_flow16Call_ImmediatelyEDpRKNSW_5StateIT0_EEENUlRKNSt3__15tupleIJSM_SN_ST_bbSN_EEEE_D2Ev(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  v3 = *(a1 + 16);
+  if (v3)
+  {
+    std::__shared_weak_count::__release_weak(v3);
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__value_func<void ()(std::tuple<applesauce::CF::StringRef,vp::vx::Chat_Flavor,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>,BOOL,BOOL,vp::vx::Chat_Flavor> const&)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
+{
+  v3 = (a2 + 24);
+  v4 = *(a2 + 24);
+  if (v4)
+  {
+    if (v4 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**v3 + 24))(*v3, a1);
+      return a1;
+    }
+
+    *(a1 + 24) = v4;
+  }
+
+  else
+  {
+    v3 = (a1 + 24);
+  }
+
+  *v3 = 0;
+  return a1;
+}
+
+{
+  v3 = *(a2 + 24);
+  if (v3)
+  {
+    if (v3 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
+    }
+
+    else
+    {
+      *(a1 + 24) = (*(*v3 + 16))(v3);
+    }
+  }
+
+  else
+  {
+    *(a1 + 24) = 0;
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__func<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef,vp::vx::Chat_Flavor,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>,BOOL,BOOL,vp::vx::Chat_Flavor>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef,vp::vx::Chat_Flavor,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>,BOOL,BOOL,vp::vx::Chat_Flavor> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef,vp::vx::Chat_Flavor,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>,BOOL,BOOL,vp::vx::Chat_Flavor>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef,vp::vx::Chat_Flavor,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>,BOOL,BOOL,vp::vx::Chat_Flavor> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::operator()(uint64_t result, int a2, vp::vx::data_flow::Value *this)
+{
+  if (*(result + 32))
+  {
+    v3 = *(this + 2) == &vp::vx::data_flow::Value::type_id<std::tuple<applesauce::CF::StringRef,vp::vx::Chat_Flavor,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>,BOOL,BOOL,vp::vx::Chat_Flavor>>(void)::s_type_id;
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  if (v3)
+  {
+    v4 = result;
+    result = vp::vx::data_flow::Value::view_storage(this);
+    if (result)
+    {
+      v5 = *(v4 + 32);
+      if (!v5)
+      {
+        std::__throw_bad_function_call[abi:ne200100]();
+      }
+
+      v6 = *(*v5 + 48);
+
+      return v6();
+    }
+  }
+
+  return result;
+}
+
+BOOL vp::vx::data_flow::Value::Type_ID_Eraser<std::tuple<applesauce::CF::StringRef,vp::vx::Chat_Flavor,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>,BOOL,BOOL,vp::vx::Chat_Flavor>>::compare_value(uint64_t a1, const __CFString ***a2, const __CFString ***a3)
+{
+  v3 = *a2;
+  v4 = *a3;
+  if (applesauce::CF::compare<applesauce::CF::StringRef,0,applesauce::CF::StringRef,0>(**a2, *a3))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *(v3 + 2) == *(v4 + 2);
+  }
+
+  if (!v5)
+  {
+    return 0;
+  }
+
+  v6 = v3[4];
+  if (v6 != v4[4])
+  {
+    return 0;
+  }
+
+  v7 = v3[3];
+  if (v6)
+  {
+    v8 = v7 == 0;
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  if (v8)
+  {
+    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
+  }
+
+  v9 = v4[3];
+  v13 = v7 + v6;
+  v14 = v7;
+  v12 = v9;
+  v10 = boost::intrusive::algo_equal<boost::container::vec_iterator<vp::vx::Chat_Flavor *,true>,boost::container::vec_iterator<vp::vx::Chat_Flavor *,true>,boost::intrusive::algo_pred_equal>(&v14, &v13, &v12);
+  result = 0;
+  if (v10 && *(v3 + 56) == *(v4 + 56))
+  {
+    if (*(v3 + 57) == *(v4 + 57))
+    {
+      return *(v3 + 15) == *(v4 + 15);
+    }
+
+    return 0;
+  }
+
+  return result;
+}
+
+void vp::vx::data_flow::Value::Type_ID_Eraser<std::tuple<applesauce::CF::StringRef,vp::vx::Chat_Flavor,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>,BOOL,BOOL,vp::vx::Chat_Flavor>>::destroy_value(uint64_t a1, uint64_t *a2)
+{
+  v2 = *a2;
+  if (*(*a2 + 40))
+  {
+    boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>::deallocate((v2 + 16), *(v2 + 24));
+  }
+
+  if (*v2)
+  {
+    CFRelease(*v2);
+  }
+}
+
+uint64_t vp::vx::data_flow::Value::Type_ID_Eraser<std::tuple<applesauce::CF::StringRef,vp::vx::Chat_Flavor,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>,BOOL,BOOL,vp::vx::Chat_Flavor>>::move_value(uint64_t a1, uint64_t *a2, void **a3)
+{
+  v3 = *a2;
+  v4 = *a3;
+  *v3 = **a3;
+  *v4 = 0;
+  *(v3 + 8) = *(v4 + 2);
+  result = std::__tuple_leaf<2ul,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>,false>::__tuple_leaf[abi:ne200100](v3 + 16, v4 + 2);
+  *(v3 + 56) = *(v4 + 56);
+  *(v3 + 57) = *(v4 + 57);
+  *(v3 + 60) = *(v4 + 15);
+  return result;
+}
+
+uint64_t std::__tuple_leaf<2ul,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>,false>::__tuple_leaf[abi:ne200100](uint64_t a1, void *a2)
+{
+  *a1 = *a2;
+  *(a1 + 8) = a1 + 32;
+  *(a1 + 16) = xmmword_2727565D0;
+  boost::container::small_vector_base<vp::vx::Chat_Flavor,vp::Allocator<vp::vx::Chat_Flavor>,void>::move_construct_impl(a1, a2);
+  return a1;
+}
+
+char *vp::vx::data_flow::Value::Type_ID_Eraser<std::tuple<applesauce::CF::StringRef,vp::vx::Chat_Flavor,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>,BOOL,BOOL,vp::vx::Chat_Flavor>>::copy_value(uint64_t a1, void **a2, CFTypeRef **a3)
+{
+  v3 = *a2;
+  v4 = *a3;
+  std::__tuple_leaf<0ul,applesauce::CF::StringRef,false>::__tuple_leaf[abi:ne200100](*a2, **a3);
+  *(v3 + 8) = *(v4 + 2);
+  *(v3 + 16) = v4[2];
+  *(v3 + 24) = v3 + 48;
+  *(v3 + 32) = xmmword_2727565D0;
+  v5 = v4[3];
+  v6 = v4[4];
+  v10 = v5;
+  if (v5)
+  {
+    v7 = 1;
+  }
+
+  else
+  {
+    v7 = v6 == 0;
+  }
+
+  if (!v7)
+  {
+    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
+  }
+
+  v9 = &v5[4 * v6];
+  result = boost::container::vector<vp::vx::Chat_Flavor,boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>,void>::assign<boost::container::vec_iterator<vp::vx::Chat_Flavor*,true>>((v3 + 16), &v10, &v9);
+  *(v3 + 56) = *(v4 + 56);
+  *(v3 + 57) = *(v4 + 57);
+  *(v3 + 60) = *(v4 + 15);
+  return result;
+}
+
+void sub_2725F9CF8(_Unwind_Exception *a1)
+{
+  if (*(v1 + 40))
+  {
+    boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>::deallocate(v2, *(v1 + 24));
+  }
+
+  std::__tuple_leaf<0ul,applesauce::CF::StringRef,false>::~__tuple_leaf(v1);
+  _Unwind_Resume(a1);
+}
+
+uint64_t vp::vx::data_flow::Value::Type_ID_Eraser<std::tuple<applesauce::CF::StringRef,vp::vx::Chat_Flavor,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>,BOOL,BOOL,vp::vx::Chat_Flavor>>::view_storage(uint64_t a1, uint64_t a2)
+{
+  return *a2;
+}
+
+{
+  return *a2;
+}
+
+uint64_t vp::vx::data_flow::Value::Type_ID_Eraser<std::tuple<applesauce::CF::StringRef,vp::vx::Chat_Flavor,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>,BOOL,BOOL,vp::vx::Chat_Flavor>>::allocate_storage(uint64_t a1, uint64_t *a2, void *a3)
+{
+  result = (*(**a3 + 16))(*a3, 64, 8);
+  *a2 = result;
+  return result;
+}
+
+void std::__function::__func<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef,vp::vx::Chat_Flavor,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>,BOOL,BOOL,vp::vx::Chat_Flavor>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef,vp::vx::Chat_Flavor,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>,BOOL,BOOL,vp::vx::Chat_Flavor> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef,vp::vx::Chat_Flavor,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>,BOOL,BOOL,vp::vx::Chat_Flavor>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef,vp::vx::Chat_Flavor,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>,BOOL,BOOL,vp::vx::Chat_Flavor> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::destroy_deallocate(void *a1)
+{
+  std::__function::__value_func<void ()(std::tuple<applesauce::CF::StringRef,vp::vx::Chat_Flavor,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>,BOOL,BOOL,vp::vx::Chat_Flavor> const&)>::~__value_func[abi:ne200100](a1 + 8);
+
+  operator delete(a1);
+}
+
+void std::__function::__func<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef,vp::vx::Chat_Flavor,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>,BOOL,BOOL,vp::vx::Chat_Flavor>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef,vp::vx::Chat_Flavor,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>,BOOL,BOOL,vp::vx::Chat_Flavor> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef,vp::vx::Chat_Flavor,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>,BOOL,BOOL,vp::vx::Chat_Flavor>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef,vp::vx::Chat_Flavor,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>,BOOL,BOOL,vp::vx::Chat_Flavor> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881B5688;
+  std::__function::__value_func<void ()(std::tuple<applesauce::CF::StringRef,vp::vx::Chat_Flavor,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>,BOOL,BOOL,vp::vx::Chat_Flavor> const&)>::~__value_func[abi:ne200100]((a1 + 1));
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef,vp::vx::Chat_Flavor,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>,BOOL,BOOL,vp::vx::Chat_Flavor>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef,vp::vx::Chat_Flavor,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>,BOOL,BOOL,vp::vx::Chat_Flavor> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef,vp::vx::Chat_Flavor,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>,BOOL,BOOL,vp::vx::Chat_Flavor>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef,vp::vx::Chat_Flavor,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>,BOOL,BOOL,vp::vx::Chat_Flavor> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881B5688;
+  std::__function::__value_func<void ()(std::tuple<applesauce::CF::StringRef,vp::vx::Chat_Flavor,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>,BOOL,BOOL,vp::vx::Chat_Flavor> const&)>::~__value_func[abi:ne200100]((a1 + 1));
+  return a1;
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERS4_EUlRKT_RKT0_RKT1_RKT2_T3_T4_E_JN10applesauce2CF9StringRefENS3_11Chat_FlavorEN5boost9container12small_vectorISQ_Lm3ENS2_9AllocatorISQ_EEvEEbbSQ_EEEDaOS8_NS3_9data_flow16Call_ImmediatelyEDpRKNSZ_5StateIT0_EEEUlRKNS_5tupleIJSP_SQ_SW_bbSQ_EEEE_NS_9allocatorIS1B_EEFvS1A_EEclES1A_(void *a1, uint64_t a2)
+{
+  if (*a2)
+  {
+    if (*(a2 + 57))
+    {
+      v4 = *(a2 + 60);
+    }
+
+    else if (*(a2 + 56))
+    {
+      v4 = 2;
+    }
+
+    else
+    {
+      v5 = *(a2 + 24);
+      v6 = *(a2 + 32);
+      if (!v5 && v6)
+      {
+        __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
+      }
+
+      if (v6)
+      {
+        v4 = *(a2 + 8);
+        v7 = 4 * v6;
+        v8 = *(a2 + 24);
+        while (1)
+        {
+          if (!v8)
+          {
+            __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
+          }
+
+          if (*v8 == v4)
+          {
+            break;
+          }
+
+          ++v8;
+          v7 -= 4;
+          if (!v7)
+          {
+            if (*(a1[1] + 504) != 2)
+            {
+              goto LABEL_15;
+            }
+
+            v4 = *v5;
+            break;
+          }
+        }
+      }
+
+      else
+      {
+LABEL_15:
+        v4 = 0;
+      }
+    }
+
+    v9 = a1[3];
+    if (v9)
+    {
+      v10 = std::__shared_weak_count::lock(v9);
+      if (v10)
+      {
+        v11 = v10;
+        v12 = a1[2];
+        if (v12)
+        {
+          v13 = *(v12 + 32);
+          block[0] = MEMORY[0x277D85DD0];
+          block[1] = 1174405120;
+          block[2] = ___ZZN2vp2vx27Control_Center_Manager_Impl9configureERNS0_29Voice_Processor_State_ManagerEENKUlRKT_RKT0_RKT1_RKT2_T3_T4_E_clIN10applesauce2CF9StringRefENS0_11Chat_FlavorEN5boost9container12small_vectorISN_Lm3ENS_9AllocatorISN_EEvEEbbSN_EEDaS6_S9_SC_SF_SG_SH__block_invoke;
+          block[3] = &__block_descriptor_tmp_58;
+          v19 = v4;
+          block[4] = v12;
+          v18 = v11;
+          atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
+          dispatch_async(v13, block);
+          if (v18)
+          {
+            std::__shared_weak_count::__release_shared[abi:ne200100](v18);
+          }
+        }
+
+        std::__shared_weak_count::__release_shared[abi:ne200100](v11);
+      }
+    }
+
+    v14 = a1[4];
+    v15 = *a2;
+    if (v15)
+    {
+      CFRetain(v15);
+    }
+
+    cf = v15;
+    (*(*v14 + 48))(v14, &cf, v4);
+    if (cf)
+    {
+      CFRelease(cf);
+    }
+  }
+}
+
+void ___ZZN2vp2vx27Control_Center_Manager_Impl9configureERNS0_29Voice_Processor_State_ManagerEENKUlRKT_RKT0_RKT1_RKT2_T3_T4_E_clIN10applesauce2CF9StringRefENS0_11Chat_FlavorEN5boost9container12small_vectorISN_Lm3ENS_9AllocatorISN_EEvEEbbSN_EEDaS6_S9_SC_SF_SG_SH__block_invoke(uint64_t a1)
+{
+  v29 = *MEMORY[0x277D85DE8];
+  v2 = *(a1 + 48);
+  v3 = vp::vx::data_flow::State<void>::State(&__dst, (*(a1 + 32) + 256));
+  default_resource = std::pmr::get_default_resource(v3);
+  v25 = 0;
+  v26 = 0;
+  __p = default_resource;
+  v20 = __dst;
+  *buf = v22;
+  *&buf[8] = &v20;
+  *&buf[16] = &__p;
+  vp::vx::data_flow::Engine::do_with_shared_state_lock(v22, caulk::function_ref<void ()(void)>::functor_invoker<vp::vx::data_flow::Engine::get_state_value(unsigned int,vp::vx::data_flow::Value &)::$_0>, buf);
+  v5 = *vp::vx::data_flow::Value::view_storage(&__p);
+  vp::vx::data_flow::Value::~Value(&__p);
+  v6 = vp::vx::data_flow::State<void>::~State(&__dst);
+  if (v2 != v5)
+  {
+    v7 = *(a1 + 32);
+    log = vp::get_log(v6);
+    v9 = os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT);
+    if (v9)
+    {
+      log_context_info = vp::get_log_context_info(&__p, v7, "vp::vx::Control_Center_Manager_Impl]", 35);
+      v11 = SHIBYTE(v26);
+      if (v26 >= 0)
+      {
+        v12 = HIBYTE(v26);
+      }
+
+      else
+      {
+        v12 = v25;
+      }
+
+      v13 = vp::get_log(log_context_info);
+      v9 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+      if (v9)
+      {
+        if (v11 >= 0)
+        {
+          p_p = &__p;
+        }
+
+        else
+        {
+          p_p = __p;
+        }
+
+        v15 = vp::reflect_value_name_tag<vp::vx::Chat_Flavor,128ul>(v2);
+        if (v16 >= 0x7FFFFFFFFFFFFFF8)
+        {
+          std::string::__throw_length_error[abi:ne200100]();
+        }
+
+        v17 = v16;
+        if (v16 >= 0x17)
+        {
+          operator new();
+        }
+
+        v23 = v16;
+        if (v16)
+        {
+          memmove(&__dst, v15, v16);
+        }
+
+        *(&__dst + v17) = 0;
+        v18 = " ";
+        if (!v12)
+        {
+          v18 = "";
+        }
+
+        *buf = 136315650;
+        p_dst = &__dst;
+        if (v23 < 0)
+        {
+          p_dst = __dst;
+        }
+
+        *&buf[4] = p_p;
+        *&buf[12] = 2080;
+        *&buf[14] = v18;
+        *&buf[22] = 2080;
+        v28 = p_dst;
+        _os_log_impl(&dword_2724B4000, v13, OS_LOG_TYPE_DEFAULT, "%s%sactive chat flavor is %s", buf, 0x20u);
+        if (v23 < 0)
+        {
+          operator delete(__dst);
+        }
+
+        LOBYTE(v11) = HIBYTE(v26);
+      }
+
+      if ((v11 & 0x80) != 0)
+      {
+        operator delete(__p);
+      }
+    }
+
+    *buf = std::pmr::get_default_resource(v9);
+    *&buf[8] = 0;
+    *&buf[16] = &vp::vx::data_flow::Value::type_id<vp::vx::Chat_Flavor>(void)::s_type_id;
+    *vp::vx::data_flow::Value::allocate_storage(buf) = v2;
+    vp::vx::data_flow::State<void>::set_value((v7 + 256), buf);
+    vp::vx::data_flow::Value::~Value(buf);
+  }
+}
+
+void sub_2725FA494(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, char a17)
+{
+  if (v18 < 0)
+  {
+    operator delete(v17);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void __destroy_helper_block_e8_32c63_ZTSNSt3__110shared_ptrIN2vp2vx27Control_Center_Manager_ImplEEE(uint64_t a1)
+{
+  v1 = *(a1 + 40);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t __copy_helper_block_e8_32c63_ZTSNSt3__110shared_ptrIN2vp2vx27Control_Center_Manager_ImplEEE(uint64_t result, uint64_t a2)
+{
+  v2 = *(a2 + 40);
+  *(result + 32) = *(a2 + 32);
+  *(result + 40) = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERS4_EUlRKT_RKT0_RKT1_RKT2_T3_T4_E_JN10applesauce2CF9StringRefENS3_11Chat_FlavorEN5boost9container12small_vectorISQ_Lm3ENS2_9AllocatorISQ_EEvEEbbSQ_EEEDaOS8_NS3_9data_flow16Call_ImmediatelyEDpRKNSZ_5StateIT0_EEEUlRKNS_5tupleIJSP_SQ_SW_bbSQ_EEEE_NS_9allocatorIS1B_EEFvS1A_EE18destroy_deallocateEv(char *a1)
+{
+  _ZNSt3__110__function12__alloc_funcIZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERS4_EUlRKT_RKT0_RKT1_RKT2_T3_T4_E_JN10applesauce2CF9StringRefENS3_11Chat_FlavorEN5boost9container12small_vectorISQ_Lm3ENS2_9AllocatorISQ_EEvEEbbSQ_EEEDaOS8_NS3_9data_flow16Call_ImmediatelyEDpRKNSZ_5StateIT0_EEEUlRKNS_5tupleIJSP_SQ_SW_bbSQ_EEEE_NS_9allocatorIS1B_EEFvS1A_EE7destroyB8ne200100Ev((a1 + 8));
+
+  operator delete(a1);
+}
+
+void _ZNSt3__110__function12__alloc_funcIZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERS4_EUlRKT_RKT0_RKT1_RKT2_T3_T4_E_JN10applesauce2CF9StringRefENS3_11Chat_FlavorEN5boost9container12small_vectorISQ_Lm3ENS2_9AllocatorISQ_EEvEEbbSQ_EEEDaOS8_NS3_9data_flow16Call_ImmediatelyEDpRKNSZ_5StateIT0_EEEUlRKNS_5tupleIJSP_SQ_SW_bbSQ_EEEE_NS_9allocatorIS1B_EEFvS1A_EE7destroyB8ne200100Ev(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  v3 = *(a1 + 16);
+  if (v3)
+  {
+
+    std::__shared_weak_count::__release_weak(v3);
+  }
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERS4_EUlRKT_RKT0_RKT1_RKT2_T3_T4_E_JN10applesauce2CF9StringRefENS3_11Chat_FlavorEN5boost9container12small_vectorISQ_Lm3ENS2_9AllocatorISQ_EEvEEbbSQ_EEEDaOS8_NS3_9data_flow16Call_ImmediatelyEDpRKNSZ_5StateIT0_EEEUlRKNS_5tupleIJSP_SQ_SW_bbSQ_EEEE_NS_9allocatorIS1B_EEFvS1A_EE7__cloneEPNS0_6__baseIS1E_EE(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_2881B56D0;
+  *(a2 + 8) = *(result + 8);
+  v2 = *(result + 24);
+  *(a2 + 24) = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 16), 1uLL, memory_order_relaxed);
+  }
+
+  v3 = *(result + 40);
+  *(a2 + 32) = *(result + 32);
+  *(a2 + 40) = v3;
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERS4_EUlRKT_RKT0_RKT1_RKT2_T3_T4_E_JN10applesauce2CF9StringRefENS3_11Chat_FlavorEN5boost9container12small_vectorISQ_Lm3ENS2_9AllocatorISQ_EEvEEbbSQ_EEEDaOS8_NS3_9data_flow16Call_ImmediatelyEDpRKNSZ_5StateIT0_EEEUlRKNS_5tupleIJSP_SQ_SW_bbSQ_EEEE_NS_9allocatorIS1B_EEFvS1A_EED0Ev(void *a1)
+{
+  *a1 = &unk_2881B56D0;
+  v2 = a1[5];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  v3 = a1[3];
+  if (v3)
+  {
+    std::__shared_weak_count::__release_weak(v3);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *_ZNSt3__110__function6__funcIZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERS4_EUlRKT_RKT0_RKT1_RKT2_T3_T4_E_JN10applesauce2CF9StringRefENS3_11Chat_FlavorEN5boost9container12small_vectorISQ_Lm3ENS2_9AllocatorISQ_EEvEEbbSQ_EEEDaOS8_NS3_9data_flow16Call_ImmediatelyEDpRKNSZ_5StateIT0_EEEUlRKNS_5tupleIJSP_SQ_SW_bbSQ_EEEE_NS_9allocatorIS1B_EEFvS1A_EED1Ev(void *a1)
+{
+  *a1 = &unk_2881B56D0;
+  v2 = a1[5];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  v3 = a1[3];
+  if (v3)
+  {
+    std::__shared_weak_count::__release_weak(v3);
+  }
+
+  return a1;
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS_5tupleIJN10applesauce2CF9StringRefENS3_11Chat_FlavorEN5boost9container12small_vectorISA_Lm3ENS2_9AllocatorISA_EEvEEbbSA_EEEEC1IZNS3_29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERSK_EUlRKT_RKT0_RKT1_RKT2_T3_T4_E_JS9_SA_SG_bbSA_EEEDaOSO_NS4_16Call_ImmediatelyEDpRKNS4_5StateIT0_EEEUlDpRKT_E_JS9_SA_SG_bbSA_EEERNS4_13State_ManagerESO_S1B_EUlPPKNS4_5ValueEPS1J_E_NS_9allocatorIS1O_EEFvS1M_S1N_EEclEOS1M_OS1N_(uint64_t a1, uint64_t (******a2)(), vp::vx::data_flow::Value **a3)
+{
+  v3 = *a2;
+  v4 = *a3;
+  v5 = **a2;
+  if (v5[2] == &vp::vx::data_flow::Value::type_id<applesauce::CF::StringRef>(void)::s_type_id)
+  {
+    v6 = vp::vx::data_flow::Value::view_storage(v5);
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  v7 = v3[1];
+  if (v7[2] == &vp::vx::data_flow::Value::type_id<vp::vx::Chat_Flavor>(void)::s_type_id)
+  {
+    v8 = vp::vx::data_flow::Value::view_storage(v7);
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  v9 = v3[2];
+  if (v9[2] == &vp::vx::data_flow::Value::type_id<boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>>(void)::s_type_id)
+  {
+    v10 = vp::vx::data_flow::Value::view_storage(v9);
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  v11 = v3[3];
+  if (v11[2] == &vp::vx::data_flow::Value::type_id<BOOL>(void)::s_type_id)
+  {
+    v12 = vp::vx::data_flow::Value::view_storage(v11);
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  v13 = v3[4];
+  if (v13[2] == &vp::vx::data_flow::Value::type_id<BOOL>(void)::s_type_id)
+  {
+    v14 = vp::vx::data_flow::Value::view_storage(v13);
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  v15 = vp::vx::data_flow::Value::view_storage(v3[5]);
+  std::__tuple_leaf<0ul,applesauce::CF::StringRef,false>::__tuple_leaf[abi:ne200100]<applesauce::CF::StringRef const&,0>(&cf, *v6);
+  v21 = *v8;
+  v22 = *v10;
+  v23 = &v25;
+  v24 = xmmword_2727565D0;
+  v16 = v10[1];
+  v17 = v10[2];
+  v30 = v16;
+  if (!v16 && v17)
+  {
+    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
+  }
+
+  v29 = &v16[4 * v17];
+  boost::container::vector<vp::vx::Chat_Flavor,boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>,void>::assign<boost::container::vec_iterator<vp::vx::Chat_Flavor*,true>>(&v22, &v30, &v29);
+  v26 = *v12;
+  v27 = *v14;
+  v28 = *v15;
+  vp::vx::data_flow::Value::~Value(v4);
+  *v4 = std::pmr::get_default_resource(v18);
+  *(v4 + 1) = 0;
+  *(v4 + 2) = &vp::vx::data_flow::Value::type_id<std::tuple<applesauce::CF::StringRef,vp::vx::Chat_Flavor,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>,BOOL,BOOL,vp::vx::Chat_Flavor>>(void)::s_type_id;
+  storage = vp::vx::data_flow::Value::allocate_storage(v4);
+  *storage = cf;
+  cf = 0;
+  *(storage + 8) = v21;
+  std::__tuple_leaf<2ul,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>,false>::__tuple_leaf[abi:ne200100](storage + 16, &v22);
+  *(storage + 56) = v26;
+  *(storage + 57) = v27;
+  *(storage + 60) = v28;
+  if (*(&v24 + 1))
+  {
+    boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>::deallocate(&v22, v23);
+  }
+
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+}
+
+uint64_t std::tuple<applesauce::CF::StringRef,vp::vx::Chat_Flavor,boost::container::small_vector<vp::vx::Chat_Flavor,3ul,vp::Allocator<vp::vx::Chat_Flavor>,void>,BOOL,BOOL,vp::vx::Chat_Flavor>::~tuple(uint64_t a1)
+{
+  if (*(a1 + 40))
+  {
+    boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>::deallocate((a1 + 16), *(a1 + 24));
+  }
+
+  if (*a1)
+  {
+    CFRelease(*a1);
+  }
+
+  return a1;
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS_5tupleIJN10applesauce2CF9StringRefENS3_11Chat_FlavorEN5boost9container12small_vectorISA_Lm3ENS2_9AllocatorISA_EEvEEbbSA_EEEEC1IZNS3_29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERSK_EUlRKT_RKT0_RKT1_RKT2_T3_T4_E_JS9_SA_SG_bbSA_EEEDaOSO_NS4_16Call_ImmediatelyEDpRKNS4_5StateIT0_EEEUlDpRKT_E_JS9_SA_SG_bbSA_EEERNS4_13State_ManagerESO_S1B_EUlPPKNS4_5ValueEPS1J_E_NS_9allocatorIS1O_EEFvS1M_S1N_EE7__cloneEPNS0_6__baseIS1R_EE(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_2881B55D8;
+  *(a2 + 8) = *(result + 8);
+  return result;
+}
+
+uint64_t std::__function::__value_func<void ()(std::tuple<applesauce::CF::StringRef,unsigned int> const&)>::~__value_func[abi:ne200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__value_func<void ()(std::tuple<applesauce::CF::StringRef,unsigned int> const&)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
+{
+  v3 = (a2 + 24);
+  v4 = *(a2 + 24);
+  if (v4)
+  {
+    if (v4 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**v3 + 24))(*v3, a1);
+      return a1;
+    }
+
+    *(a1 + 24) = v4;
+  }
+
+  else
+  {
+    v3 = (a1 + 24);
+  }
+
+  *v3 = 0;
+  return a1;
+}
+
+{
+  v3 = *(a2 + 24);
+  if (v3)
+  {
+    if (v3 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
+    }
+
+    else
+    {
+      *(a1 + 24) = (*(*v3 + 16))(v3);
+    }
+  }
+
+  else
+  {
+    *(a1 + 24) = 0;
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__func<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef,unsigned int>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef,unsigned int> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef,unsigned int>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef,unsigned int> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::operator()(uint64_t result, int a2, vp::vx::data_flow::Value *this)
+{
+  if (*(result + 32))
+  {
+    v3 = *(this + 2) == &vp::vx::data_flow::Value::type_id<std::tuple<applesauce::CF::StringRef,unsigned int>>(void)::s_type_id;
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  if (v3)
+  {
+    v4 = result;
+    result = vp::vx::data_flow::Value::view_storage(this);
+    if (result)
+    {
+      v5 = *(v4 + 32);
+      if (!v5)
+      {
+        std::__throw_bad_function_call[abi:ne200100]();
+      }
+
+      v6 = *(*v5 + 48);
+
+      return v6();
+    }
+  }
+
+  return result;
+}
+
+BOOL vp::vx::data_flow::Value::Type_ID_Eraser<std::tuple<applesauce::CF::StringRef,unsigned int>>::compare_value(uint64_t a1, const __CFString ***a2, const __CFString ***a3)
+{
+  v3 = *a2;
+  v4 = *a3;
+  return applesauce::CF::compare<applesauce::CF::StringRef,0,applesauce::CF::StringRef,0>(**a2, *a3) == kCFCompareEqualTo && *(v3 + 2) == *(v4 + 2);
+}
+
+void vp::vx::data_flow::Value::Type_ID_Eraser<std::tuple<applesauce::CF::StringRef,unsigned int>>::destroy_value(uint64_t a1, const void ***a2)
+{
+  v2 = **a2;
+  if (v2)
+  {
+    CFRelease(v2);
+  }
+}
+
+void vp::vx::data_flow::Value::Type_ID_Eraser<std::tuple<applesauce::CF::StringRef,unsigned int>>::move_value(uint64_t a1, uint64_t *a2, void **a3)
+{
+  v3 = *a2;
+  v4 = *a3;
+  *v3 = **a3;
+  *v4 = 0;
+  *(v3 + 8) = *(v4 + 2);
+}
+
+void *vp::vx::data_flow::Value::Type_ID_Eraser<std::tuple<applesauce::CF::StringRef,unsigned int>>::copy_value(uint64_t a1, void **a2, CFTypeRef **a3)
+{
+  v3 = *a3;
+  result = std::__tuple_leaf<0ul,applesauce::CF::StringRef,false>::__tuple_leaf[abi:ne200100](*a2, **a3);
+  *(result + 2) = *(v3 + 2);
+  return result;
+}
+
+uint64_t vp::vx::data_flow::Value::Type_ID_Eraser<std::tuple<applesauce::CF::StringRef,unsigned int>>::view_storage(uint64_t a1, uint64_t a2)
+{
+  return *a2;
+}
+
+{
+  return *a2;
+}
+
+uint64_t vp::vx::data_flow::Value::Type_ID_Eraser<std::tuple<applesauce::CF::StringRef,unsigned int>>::allocate_storage(uint64_t a1, uint64_t *a2, void *a3)
+{
+  result = (*(**a3 + 16))(*a3, 16, 8);
+  *a2 = result;
+  return result;
+}
+
+void std::__function::__func<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef,unsigned int>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef,unsigned int> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef,unsigned int>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef,unsigned int> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::destroy_deallocate(void *a1)
+{
+  std::__function::__value_func<void ()(std::tuple<applesauce::CF::StringRef,unsigned int> const&)>::~__value_func[abi:ne200100](a1 + 8);
+
+  operator delete(a1);
+}
+
+void std::__function::__func<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef,unsigned int>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef,unsigned int> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef,unsigned int>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef,unsigned int> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881B5518;
+  std::__function::__value_func<void ()(std::tuple<applesauce::CF::StringRef,unsigned int> const&)>::~__value_func[abi:ne200100]((a1 + 1));
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef,unsigned int>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef,unsigned int> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef,unsigned int>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef,unsigned int> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881B5518;
+  std::__function::__value_func<void ()(std::tuple<applesauce::CF::StringRef,unsigned int> const&)>::~__value_func[abi:ne200100]((a1 + 1));
+  return a1;
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERS4_EUlT_T0_E_JN10applesauce2CF9StringRefEjEEEDaOS8_NS3_9data_flow16Call_ImmediatelyEDpRKNSG_5StateIT0_EEEUlRKNS_5tupleIJSD_jEEEE_NS_9allocatorISS_EEFvSR_EEclESR_(uint64_t a1, CFTypeRef *a2)
+{
+  v2 = *a2;
+  if (*a2)
+  {
+    CFRetain(*a2);
+    v4 = *(a1 + 16);
+    if (v4)
+    {
+      v5 = std::__shared_weak_count::lock(v4);
+      if (v5)
+      {
+        v6 = v5;
+        v7 = *(a1 + 8);
+        if (v7)
+        {
+          v8 = *(v7 + 32);
+          block[0] = MEMORY[0x277D85DD0];
+          block[1] = 1174405120;
+          block[2] = ___ZZN2vp2vx27Control_Center_Manager_Impl9configureERNS0_29Voice_Processor_State_ManagerEENKUlT_T0_E_clIN10applesauce2CF9StringRefEjEEDaS4_S5__block_invoke;
+          block[3] = &__block_descriptor_tmp_41;
+          block[4] = v7;
+          v10 = v5;
+          atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
+          CFRetain(v2);
+          cf = v2;
+          dispatch_async(v8, block);
+          if (cf)
+          {
+            CFRelease(cf);
+          }
+
+          if (v10)
+          {
+            std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+          }
+        }
+
+        std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+      }
+    }
+
+    CFRelease(v2);
+  }
+}
+
+void ___ZZN2vp2vx27Control_Center_Manager_Impl9configureERNS0_29Voice_Processor_State_ManagerEENKUlT_T0_E_clIN10applesauce2CF9StringRefEjEEDaS4_S5__block_invoke(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  v3 = *(a1 + 48);
+  if (v3)
+  {
+    CFRetain(*(a1 + 48));
+  }
+
+  vp::vx::Control_Center_Manager_Impl::update_preferred_chat_flavor_value(v2, v3);
+  if (v3)
+  {
+    CFRelease(v3);
+  }
+
+  v4 = *(a1 + 32);
+  v5 = *(a1 + 48);
+  if (v5)
+  {
+    CFRetain(v5);
+  }
+
+  vp::vx::Control_Center_Manager_Impl::update_automatic_mic_mode_is_enabled_value(v4, v5);
+  if (v5)
+  {
+    CFRelease(v5);
+  }
+}
+
+void __destroy_helper_block_e8_32c63_ZTSNSt3__110shared_ptrIN2vp2vx27Control_Center_Manager_ImplEEE48c31_ZTSN10applesauce2CF9StringRefE(uint64_t a1)
+{
+  v2 = *(a1 + 48);
+  if (v2)
+  {
+    CFRelease(v2);
+  }
+
+  v3 = *(a1 + 40);
+  if (v3)
+  {
+
+    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
+  }
+}
+
+void *__copy_helper_block_e8_32c63_ZTSNSt3__110shared_ptrIN2vp2vx27Control_Center_Manager_ImplEEE48c31_ZTSN10applesauce2CF9StringRefE(void *result, uint64_t a2)
+{
+  v2 = result;
+  v3 = *(a2 + 40);
+  result[4] = *(a2 + 32);
+  result[5] = v3;
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4 = *(a2 + 48);
+  if (v4)
+  {
+    result = CFRetain(*(a2 + 48));
+  }
+
+  v2[6] = v4;
+  return result;
+}
+
+void vp::vx::Control_Center_Manager_Impl::update_preferred_chat_flavor_value(uint64_t a1, const void *a2)
+{
+  if (a2)
+  {
+    CFRetain(a2);
+    v4 = *(a1 + 16);
+    CFRetain(a2);
+  }
+
+  else
+  {
+    v4 = *(a1 + 16);
+  }
+
+  cf[0] = a2;
+  v5 = (*(*v4 + 24))(v4, cf);
+  v6 = cf[0];
+  if (cf[0])
+  {
+    CFRelease(cf[0]);
+  }
+
+  if (a2)
+  {
+    CFRelease(a2);
+  }
+
+  cf[0] = std::pmr::get_default_resource(v6);
+  cf[1] = 0;
+  cf[2] = &vp::vx::data_flow::Value::type_id<vp::vx::Chat_Flavor>(void)::s_type_id;
+  *vp::vx::data_flow::Value::allocate_storage(cf) = v5;
+  vp::vx::data_flow::State<void>::set_value((a1 + 232), cf);
+  vp::vx::data_flow::Value::~Value(cf);
+}
+
+void sub_2725FB318(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  vp::vx::data_flow::Value::~Value(va);
+  _Unwind_Resume(a1);
+}
+
+void vp::vx::Control_Center_Manager_Impl::update_automatic_mic_mode_is_enabled_value(uint64_t a1, const void *a2)
+{
+  if (a2)
+  {
+    CFRetain(a2);
+    v4 = *(a1 + 16);
+    CFRetain(a2);
+  }
+
+  else
+  {
+    v4 = *(a1 + 16);
+  }
+
+  cf[0] = a2;
+  v5 = (*(*v4 + 88))(v4, cf);
+  v6 = cf[0];
+  if (cf[0])
+  {
+    CFRelease(cf[0]);
+  }
+
+  if (a2)
+  {
+    CFRelease(a2);
+  }
+
+  cf[0] = std::pmr::get_default_resource(v6);
+  cf[1] = 0;
+  cf[2] = &vp::vx::data_flow::Value::type_id<BOOL>(void)::s_type_id;
+  *vp::vx::data_flow::Value::allocate_storage(cf) = v5;
+  vp::vx::data_flow::State<void>::set_value((a1 + 136), cf);
+  vp::vx::data_flow::Value::~Value(cf);
+}
+
+void sub_2725FB410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  vp::vx::data_flow::Value::~Value(va);
+  _Unwind_Resume(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERS4_EUlT_T0_E_JN10applesauce2CF9StringRefEjEEEDaOS8_NS3_9data_flow16Call_ImmediatelyEDpRKNSG_5StateIT0_EEEUlRKNS_5tupleIJSD_jEEEE_NS_9allocatorISS_EEFvSR_EE18destroy_deallocateEv(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_weak(v2);
+  }
+
+  operator delete(__p);
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERS4_EUlT_T0_E_JN10applesauce2CF9StringRefEjEEEDaOS8_NS3_9data_flow16Call_ImmediatelyEDpRKNSG_5StateIT0_EEEUlRKNS_5tupleIJSD_jEEEE_NS_9allocatorISS_EEFvSR_EE7destroyEv(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_weak(v1);
+  }
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERS4_EUlT_T0_E_JN10applesauce2CF9StringRefEjEEEDaOS8_NS3_9data_flow16Call_ImmediatelyEDpRKNSG_5StateIT0_EEEUlRKNS_5tupleIJSD_jEEEE_NS_9allocatorISS_EEFvSR_EE7__cloneEPNS0_6__baseISV_EE(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881B5560;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 16), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERS4_EUlT_T0_E_JN10applesauce2CF9StringRefEjEEEDaOS8_NS3_9data_flow16Call_ImmediatelyEDpRKNSG_5StateIT0_EEEUlRKNS_5tupleIJSD_jEEEE_NS_9allocatorISS_EEFvSR_EED0Ev(void *a1)
+{
+  *a1 = &unk_2881B5560;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_weak(v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *_ZNSt3__110__function6__funcIZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERS4_EUlT_T0_E_JN10applesauce2CF9StringRefEjEEEDaOS8_NS3_9data_flow16Call_ImmediatelyEDpRKNSG_5StateIT0_EEEUlRKNS_5tupleIJSD_jEEEE_NS_9allocatorISS_EEFvSR_EED1Ev(void *a1)
+{
+  *a1 = &unk_2881B5560;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_weak(v2);
+  }
+
+  return a1;
+}
+
+uint64_t _ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS_5tupleIJN10applesauce2CF9StringRefEjEEEEC1IZNS3_29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERSD_EUlT_T0_E_JS9_jEEEDaOSH_NS4_16Call_ImmediatelyEDpRKNS4_5StateIT0_EEEUlDpRKT_E_JS9_jEEERNS4_13State_ManagerESH_SS_EUlPPKNS4_5ValueEPS10_E_NS_9allocatorIS15_EEFvS13_S14_EEclEOS13_OS14_(uint64_t a1, uint64_t (******a2)(), vp::vx::data_flow::Value **a3)
+{
+  v3 = *a2;
+  v4 = *a3;
+  v5 = **a2;
+  if (v5[2] == &vp::vx::data_flow::Value::type_id<applesauce::CF::StringRef>(void)::s_type_id)
+  {
+    v6 = vp::vx::data_flow::Value::view_storage(v5);
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  v7 = v3[1];
+  if (v7[2] == &vp::vx::data_flow::Value::type_id<unsigned int>(void)::s_type_id)
+  {
+    v8 = vp::vx::data_flow::Value::view_storage(v7);
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  std::__tuple_leaf<0ul,applesauce::CF::StringRef,false>::__tuple_leaf[abi:ne200100]<applesauce::CF::StringRef const&,0>(&v11, *v6);
+  v12 = *v8;
+  vp::vx::data_flow::Value::~Value(v4);
+  *v4 = std::pmr::get_default_resource(v9);
+  *(v4 + 1) = 0;
+  *(v4 + 2) = &vp::vx::data_flow::Value::type_id<std::tuple<applesauce::CF::StringRef,unsigned int>>(void)::s_type_id;
+  result = vp::vx::data_flow::Value::allocate_storage(v4);
+  *result = v11;
+  *(result + 8) = v12;
+  return result;
+}
+
+const void **std::tuple<applesauce::CF::StringRef,unsigned int>::~tuple(const void **a1)
+{
+  v2 = *a1;
+  if (v2)
+  {
+    CFRelease(v2);
+  }
+
+  return a1;
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS_5tupleIJN10applesauce2CF9StringRefEjEEEEC1IZNS3_29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERSD_EUlT_T0_E_JS9_jEEEDaOSH_NS4_16Call_ImmediatelyEDpRKNS4_5StateIT0_EEEUlDpRKT_E_JS9_jEEERNS4_13State_ManagerESH_SS_EUlPPKNS4_5ValueEPS10_E_NS_9allocatorIS15_EEFvS13_S14_EE7__cloneEPNS0_6__baseIS18_EE(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_2881B5468;
+  *(a2 + 8) = *(result + 8);
+  return result;
+}
+
+uint64_t std::__function::__value_func<void ()(std::tuple<applesauce::CF::StringRef> const&)>::~__value_func[abi:ne200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__value_func<void ()(std::tuple<applesauce::CF::StringRef> const&)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
+{
+  v3 = (a2 + 24);
+  v4 = *(a2 + 24);
+  if (v4)
+  {
+    if (v4 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**v3 + 24))(*v3, a1);
+      return a1;
+    }
+
+    *(a1 + 24) = v4;
+  }
+
+  else
+  {
+    v3 = (a1 + 24);
+  }
+
+  *v3 = 0;
+  return a1;
+}
+
+{
+  v3 = *(a2 + 24);
+  if (v3)
+  {
+    if (v3 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
+    }
+
+    else
+    {
+      *(a1 + 24) = (*(*v3 + 16))(v3);
+    }
+  }
+
+  else
+  {
+    *(a1 + 24) = 0;
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__func<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::operator()(uint64_t result, int a2, vp::vx::data_flow::Value *this)
+{
+  if (*(result + 32))
+  {
+    v3 = *(this + 2) == &vp::vx::data_flow::Value::type_id<std::tuple<applesauce::CF::StringRef>>(void)::s_type_id;
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  if (v3)
+  {
+    v4 = result;
+    result = vp::vx::data_flow::Value::view_storage(this);
+    if (result)
+    {
+      v5 = *(v4 + 32);
+      if (!v5)
+      {
+        std::__throw_bad_function_call[abi:ne200100]();
+      }
+
+      v6 = *(*v5 + 48);
+
+      return v6();
+    }
+  }
+
+  return result;
+}
+
+void vp::vx::data_flow::Value::Type_ID_Eraser<std::tuple<applesauce::CF::StringRef>>::destroy_value(uint64_t a1, CFTypeRef *a2)
+{
+  if (*a2)
+  {
+    CFRelease(*a2);
+  }
+}
+
+uint64_t vp::vx::data_flow::Value::Type_ID_Eraser<std::tuple<applesauce::CF::StringRef>>::view_storage(uint64_t a1, uint64_t a2)
+{
+  return a2;
+}
+
+{
+  return a2;
+}
+
+void std::__function::__func<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::destroy_deallocate(void *a1)
+{
+  std::__function::__value_func<void ()(std::tuple<applesauce::CF::StringRef> const&)>::~__value_func[abi:ne200100](a1 + 8);
+
+  operator delete(a1);
+}
+
+void std::__function::__func<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881B52E8;
+  std::__function::__value_func<void ()(std::tuple<applesauce::CF::StringRef> const&)>::~__value_func[abi:ne200100]((a1 + 1));
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<std::tuple<applesauce::CF::StringRef>>::register_listener(std::function<void ()(std::tuple<applesauce::CF::StringRef> const&)>,vp::vx::data_flow::Call_Immediately)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881B52E8;
+  std::__function::__value_func<void ()(std::tuple<applesauce::CF::StringRef> const&)>::~__value_func[abi:ne200100]((a1 + 1));
+  return a1;
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERS4_EUlT_E_JN10applesauce2CF9StringRefEEEEDaOS8_NS3_9data_flow16Call_ImmediatelyEDpRKNSF_5StateIT0_EEEUlRKNS_5tupleIJSC_EEEE_NS_9allocatorISR_EEFvSQ_EEclESQ_(uint64_t a1, CFTypeRef *a2)
+{
+  cf[9] = *MEMORY[0x277D85DE8];
+  v3 = *a2;
+  if (*a2)
+  {
+    CFRetain(*a2);
+    v28[0] = v3;
+    v5 = *(a1 + 16);
+    if (v5)
+    {
+      v6 = std::__shared_weak_count::lock(v5);
+      if (v6)
+      {
+        v7 = *(a1 + 8);
+        if (v7)
+        {
+          v8 = std::hash<applesauce::CF::StringRef>::operator()(v3);
+          v9 = v8;
+          v10 = *(v7 + 432);
+          if (v10)
+          {
+            v11 = vcnt_s8(v10);
+            v11.i16[0] = vaddlv_u8(v11);
+            v12 = v11.u32[0];
+            if (v11.u32[0] > 1uLL)
+            {
+              v2 = v8;
+              if (v8 >= v10)
+              {
+                v2 = v8 % v10;
+              }
+            }
+
+            else
+            {
+              v2 = (v10 - 1) & v8;
+            }
+
+            v13 = *(*(v7 + 424) + 8 * v2);
+            if (v13)
+            {
+              for (i = *v13; i; i = *i)
+              {
+                v15 = i[1];
+                if (v15 == v9)
+                {
+                  if (applesauce::CF::compare<applesauce::CF::StringRef,0,applesauce::CF::StringRef,0>(i[2], v28) == kCFCompareEqualTo)
+                  {
+                    goto LABEL_44;
+                  }
+                }
+
+                else
+                {
+                  if (v12 > 1)
+                  {
+                    if (v15 >= v10)
+                    {
+                      v15 %= v10;
+                    }
+                  }
+
+                  else
+                  {
+                    v15 &= v10 - 1;
+                  }
+
+                  if (v15 != v2)
+                  {
+                    break;
+                  }
+                }
+              }
+            }
+          }
+
+          v16 = (*(**(v7 + 456) + 16))(*(v7 + 456), 24, 8);
+          *v16 = 0;
+          v16[1] = v9;
+          CFRetain(v3);
+          v16[2] = v3;
+          v17 = (*(v7 + 464) + 1);
+          v18 = *(v7 + 472);
+          if (!v10 || (v18 * v10) < v17)
+          {
+            v19 = 1;
+            if (v10 >= 3)
+            {
+              v19 = (v10 & (v10 - 1)) != 0;
+            }
+
+            v20 = v19 | (2 * v10);
+            v21 = vcvtps_u32_f32(v17 / v18);
+            if (v20 <= v21)
+            {
+              v22 = v21;
+            }
+
+            else
+            {
+              v22 = v20;
+            }
+
+            std::__hash_table<applesauce::CF::StringRef,std::hash<applesauce::CF::StringRef>,std::equal_to<applesauce::CF::StringRef>,vp::Allocator<applesauce::CF::StringRef>>::__rehash<true>(v7 + 424, v22);
+            v10 = *(v7 + 432);
+            if ((v10 & (v10 - 1)) != 0)
+            {
+              if (v9 >= v10)
+              {
+                v2 = v9 % v10;
+              }
+
+              else
+              {
+                v2 = v9;
+              }
+            }
+
+            else
+            {
+              v2 = (v10 - 1) & v9;
+            }
+          }
+
+          v23 = *(v7 + 424);
+          v24 = *(v23 + 8 * v2);
+          if (v24)
+          {
+            *v16 = *v24;
+          }
+
+          else
+          {
+            *v16 = *(v7 + 448);
+            *(v7 + 448) = v16;
+            *(v23 + 8 * v2) = v7 + 448;
+            if (!*v16)
+            {
+LABEL_43:
+              ++*(v7 + 464);
+LABEL_44:
+              CFRetain(v3);
+              v28[1] = v3;
+              (*(**(v7 + 16) + 32))(cf);
+              v26 = cf[0];
+              if (cf[0])
+              {
+                CFRetain(cf[0]);
+              }
+
+              v28[9] = v26;
+              CFRetain(v3);
+              v28[6] = v3;
+              v28[7] = *v7;
+              v27 = *(v7 + 8);
+              v28[8] = v27;
+              if (v27)
+              {
+                atomic_fetch_add_explicit((v27 + 16), 1uLL, memory_order_relaxed);
+              }
+
+              cf[8] = 0;
+              operator new();
+            }
+
+            v25 = *(*v16 + 8);
+            if ((v10 & (v10 - 1)) != 0)
+            {
+              if (v25 >= v10)
+              {
+                v25 %= v10;
+              }
+            }
+
+            else
+            {
+              v25 &= v10 - 1;
+            }
+
+            v24 = (*(v7 + 424) + 8 * v25);
+          }
+
+          *v24 = v16;
+          goto LABEL_43;
+        }
+
+        std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+      }
+    }
+
+    CFRelease(v3);
+  }
+}
+
+void sub_2725FC13C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9)
+{
+  std::pmr::polymorphic_allocator<std::__hash_node<applesauce::CF::StringRef,void *>>::destroy[abi:ne200100]<applesauce::CF::StringRef>(*(v10 + 16));
+  std::allocator_traits<vp::Allocator<std::__hash_node<applesauce::CF::StringRef,void *>>>::deallocate[abi:ne200100](*(v11 + 456), v10);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+  applesauce::CF::StringRef::~StringRef(&a9);
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::__function::__value_func<void ()(applesauce::CF::DictionaryRef)>::~__value_func[abi:ne200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+uint64_t _ZZN2vp2vx27Control_Center_Manager_Impl20update_app_bundle_idEN10applesauce2CF9StringRefEENUlT_E_D2Ev(uint64_t a1)
+{
+  v2 = *(a1 + 16);
+  if (v2)
+  {
+    std::__shared_weak_count::__release_weak(v2);
+  }
+
+  if (*a1)
+  {
+    CFRelease(*a1);
+  }
+
+  return a1;
+}
+
+uint64_t _ZZN2vp2vx27Control_Center_Manager_Impl20update_app_bundle_idEN10applesauce2CF9StringRefEENUlT_E0_D2Ev(uint64_t a1)
+{
+  v2 = *(a1 + 16);
+  if (v2)
+  {
+    std::__shared_weak_count::__release_weak(v2);
+  }
+
+  if (*a1)
+  {
+    CFRelease(*a1);
+  }
+
+  return a1;
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx27Control_Center_Manager_Impl20update_app_bundle_idEN10applesauce2CF9StringRefEEUlT_E0_NS_9allocatorIS9_EEFvNS6_13DictionaryRefEEEclEOSC_(uint64_t a1, const __CFDictionary **a2)
+{
+  v3 = *a2;
+  *a2 = 0;
+  v4 = *(a1 + 24);
+  if (v4)
+  {
+    v5 = std::__shared_weak_count::lock(v4);
+    if (v5)
+    {
+      v6 = v5;
+      v7 = *(a1 + 16);
+      if (v7)
+      {
+        (*(**(v7 + 16) + 40))(&v16);
+        if (!v3)
+        {
+          exception = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(exception, "Could not construct");
+        }
+
+        cf[0] = 0;
+        applesauce::CF::at_or<applesauce::CF::StringRef,__CFString const*>(&v15, v3, v16, cf);
+        if (cf[0])
+        {
+          CFRelease(cf[0]);
+        }
+
+        v8 = v15;
+        if (v15)
+        {
+          if (applesauce::CF::compare<applesauce::CF::StringRef,0,applesauce::CF::StringRef,0>(v15, (a1 + 8)) == kCFCompareEqualTo)
+          {
+            v9 = *(v7 + 32);
+            cf[0] = MEMORY[0x277D85DD0];
+            cf[1] = 1174405120;
+            cf[2] = ___ZZN2vp2vx27Control_Center_Manager_Impl20update_app_bundle_idEN10applesauce2CF9StringRefEENKUlT_E0_clINS3_13DictionaryRefEEEDaS5__block_invoke;
+            cf[3] = &__block_descriptor_tmp_33;
+            cf[4] = v7;
+            v13 = v6;
+            atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+            v10 = *(a1 + 8);
+            if (v10)
+            {
+              CFRetain(v10);
+            }
+
+            v14 = v10;
+            dispatch_async(v9, cf);
+            if (v14)
+            {
+              CFRelease(v14);
+            }
+
+            if (v13)
+            {
+              std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+            }
+          }
+
+          CFRelease(v8);
+        }
+
+        if (v16)
+        {
+          CFRelease(v16);
+        }
+      }
+
+      std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+    }
+  }
+
+  if (v3)
+  {
+    CFRelease(v3);
+  }
+}
+
+void sub_2725FC4C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9)
+{
+  applesauce::CF::StringRef::~StringRef((v10 - 56));
+  std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+  applesauce::CF::DictionaryRef::~DictionaryRef(&a9);
+  _Unwind_Resume(a1);
+}
+
+void ___ZZN2vp2vx27Control_Center_Manager_Impl20update_app_bundle_idEN10applesauce2CF9StringRefEENKUlT_E0_clINS3_13DictionaryRefEEEDaS5__block_invoke(uint64_t a1)
+{
+  v1 = *(a1 + 32);
+  v2 = *(a1 + 48);
+  if (v2)
+  {
+    CFRetain(*(a1 + 48));
+  }
+
+  vp::vx::Control_Center_Manager_Impl::update_automatic_mic_mode_is_enabled_value(v1, v2);
+  if (v2)
+  {
+    CFRelease(v2);
+  }
+}
+
+void sub_2725FC564(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  applesauce::CF::StringRef::~StringRef(va);
+  _Unwind_Resume(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx27Control_Center_Manager_Impl20update_app_bundle_idEN10applesauce2CF9StringRefEEUlT_E0_NS_9allocatorIS9_EEFvNS6_13DictionaryRefEEE18destroy_deallocateEv(char *a1)
+{
+  _ZNSt3__110__function12__alloc_funcIZN2vp2vx27Control_Center_Manager_Impl20update_app_bundle_idEN10applesauce2CF9StringRefEEUlT_E0_NS_9allocatorIS9_EEFvNS6_13DictionaryRefEEE7destroyB8ne200100Ev((a1 + 8));
+
+  operator delete(a1);
+}
+
+void _ZNSt3__110__function12__alloc_funcIZN2vp2vx27Control_Center_Manager_Impl20update_app_bundle_idEN10applesauce2CF9StringRefEEUlT_E0_NS_9allocatorIS9_EEFvNS6_13DictionaryRefEEE7destroyB8ne200100Ev(uint64_t a1)
+{
+  v2 = *(a1 + 16);
+  if (v2)
+  {
+    std::__shared_weak_count::__release_weak(v2);
+  }
+
+  if (*a1)
+  {
+    CFRelease(*a1);
+  }
+}
+
+CFTypeRef *_ZNKSt3__110__function6__funcIZN2vp2vx27Control_Center_Manager_Impl20update_app_bundle_idEN10applesauce2CF9StringRefEEUlT_E0_NS_9allocatorIS9_EEFvNS6_13DictionaryRefEEE7__cloneEPNS0_6__baseISD_EE(CFTypeRef *result, void *a2)
+{
+  v3 = result;
+  *a2 = &unk_2881B53F0;
+  v4 = result[1];
+  if (v4)
+  {
+    result = CFRetain(result[1]);
+  }
+
+  v6 = v3[2];
+  v5 = v3[3];
+  a2[1] = v4;
+  a2[2] = v6;
+  a2[3] = v5;
+  if (v5)
+  {
+    atomic_fetch_add_explicit(v5 + 2, 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx27Control_Center_Manager_Impl20update_app_bundle_idEN10applesauce2CF9StringRefEEUlT_E0_NS_9allocatorIS9_EEFvNS6_13DictionaryRefEEED0Ev(void *a1)
+{
+  *a1 = &unk_2881B53F0;
+  v2 = a1[3];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_weak(v2);
+  }
+
+  v3 = a1[1];
+  if (v3)
+  {
+    CFRelease(v3);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *_ZNSt3__110__function6__funcIZN2vp2vx27Control_Center_Manager_Impl20update_app_bundle_idEN10applesauce2CF9StringRefEEUlT_E0_NS_9allocatorIS9_EEFvNS6_13DictionaryRefEEED1Ev(void *a1)
+{
+  *a1 = &unk_2881B53F0;
+  v2 = a1[3];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_weak(v2);
+  }
+
+  v3 = a1[1];
+  if (v3)
+  {
+    CFRelease(v3);
+  }
+
+  return a1;
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx27Control_Center_Manager_Impl20update_app_bundle_idEN10applesauce2CF9StringRefEEUlT_E_NS_9allocatorIS9_EEFvNS6_13DictionaryRefEEEclEOSC_(uint64_t a1, const __CFDictionary **a2)
+{
+  v3 = *a2;
+  *a2 = 0;
+  v4 = *(a1 + 24);
+  if (v4)
+  {
+    v5 = std::__shared_weak_count::lock(v4);
+    if (v5)
+    {
+      v6 = v5;
+      v7 = *(a1 + 16);
+      if (v7)
+      {
+        (*(**(v7 + 16) + 40))(&v16);
+        if (!v3)
+        {
+          exception = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(exception, "Could not construct");
+        }
+
+        cf[0] = 0;
+        applesauce::CF::at_or<applesauce::CF::StringRef,__CFString const*>(&v15, v3, v16, cf);
+        if (cf[0])
+        {
+          CFRelease(cf[0]);
+        }
+
+        v8 = v15;
+        if (v15)
+        {
+          if (applesauce::CF::compare<applesauce::CF::StringRef,0,applesauce::CF::StringRef,0>(v15, (a1 + 8)) == kCFCompareEqualTo)
+          {
+            v9 = *(v7 + 32);
+            cf[0] = MEMORY[0x277D85DD0];
+            cf[1] = 1174405120;
+            cf[2] = ___ZZN2vp2vx27Control_Center_Manager_Impl20update_app_bundle_idEN10applesauce2CF9StringRefEENKUlT_E_clINS3_13DictionaryRefEEEDaS5__block_invoke;
+            cf[3] = &__block_descriptor_tmp_6455;
+            cf[4] = v7;
+            v13 = v6;
+            atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+            v10 = *(a1 + 8);
+            if (v10)
+            {
+              CFRetain(v10);
+            }
+
+            v14 = v10;
+            dispatch_async(v9, cf);
+            if (v14)
+            {
+              CFRelease(v14);
+            }
+
+            if (v13)
+            {
+              std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+            }
+          }
+
+          CFRelease(v8);
+        }
+
+        if (v16)
+        {
+          CFRelease(v16);
+        }
+      }
+
+      std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+    }
+  }
+
+  if (v3)
+  {
+    CFRelease(v3);
+  }
+}
+
+void sub_2725FC9A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9)
+{
+  applesauce::CF::StringRef::~StringRef((v10 - 56));
+  std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+  applesauce::CF::DictionaryRef::~DictionaryRef(&a9);
+  _Unwind_Resume(a1);
+}
+
+void ___ZZN2vp2vx27Control_Center_Manager_Impl20update_app_bundle_idEN10applesauce2CF9StringRefEENKUlT_E_clINS3_13DictionaryRefEEEDaS5__block_invoke(uint64_t a1)
+{
+  v1 = *(a1 + 32);
+  v2 = *(a1 + 48);
+  if (v2)
+  {
+    CFRetain(*(a1 + 48));
+  }
+
+  vp::vx::Control_Center_Manager_Impl::update_preferred_chat_flavor_value(v1, v2);
+  if (v2)
+  {
+    CFRelease(v2);
+  }
+}
+
+void sub_2725FCA44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  applesauce::CF::StringRef::~StringRef(va);
+  _Unwind_Resume(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx27Control_Center_Manager_Impl20update_app_bundle_idEN10applesauce2CF9StringRefEEUlT_E_NS_9allocatorIS9_EEFvNS6_13DictionaryRefEEE18destroy_deallocateEv(char *a1)
+{
+  _ZNSt3__110__function12__alloc_funcIZN2vp2vx27Control_Center_Manager_Impl20update_app_bundle_idEN10applesauce2CF9StringRefEEUlT_E_NS_9allocatorIS9_EEFvNS6_13DictionaryRefEEE7destroyB8ne200100Ev((a1 + 8));
+
+  operator delete(a1);
+}
+
+void _ZNSt3__110__function12__alloc_funcIZN2vp2vx27Control_Center_Manager_Impl20update_app_bundle_idEN10applesauce2CF9StringRefEEUlT_E_NS_9allocatorIS9_EEFvNS6_13DictionaryRefEEE7destroyB8ne200100Ev(uint64_t a1)
+{
+  v2 = *(a1 + 16);
+  if (v2)
+  {
+    std::__shared_weak_count::__release_weak(v2);
+  }
+
+  if (*a1)
+  {
+    CFRelease(*a1);
+  }
+}
+
+CFTypeRef *_ZNKSt3__110__function6__funcIZN2vp2vx27Control_Center_Manager_Impl20update_app_bundle_idEN10applesauce2CF9StringRefEEUlT_E_NS_9allocatorIS9_EEFvNS6_13DictionaryRefEEE7__cloneEPNS0_6__baseISD_EE(CFTypeRef *result, void *a2)
+{
+  v3 = result;
+  *a2 = &unk_2881B5378;
+  v4 = result[1];
+  if (v4)
+  {
+    result = CFRetain(result[1]);
+  }
+
+  v6 = v3[2];
+  v5 = v3[3];
+  a2[1] = v4;
+  a2[2] = v6;
+  a2[3] = v5;
+  if (v5)
+  {
+    atomic_fetch_add_explicit(v5 + 2, 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx27Control_Center_Manager_Impl20update_app_bundle_idEN10applesauce2CF9StringRefEEUlT_E_NS_9allocatorIS9_EEFvNS6_13DictionaryRefEEED0Ev(void *a1)
+{
+  *a1 = &unk_2881B5378;
+  v2 = a1[3];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_weak(v2);
+  }
+
+  v3 = a1[1];
+  if (v3)
+  {
+    CFRelease(v3);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *_ZNSt3__110__function6__funcIZN2vp2vx27Control_Center_Manager_Impl20update_app_bundle_idEN10applesauce2CF9StringRefEEUlT_E_NS_9allocatorIS9_EEFvNS6_13DictionaryRefEEED1Ev(void *a1)
+{
+  *a1 = &unk_2881B5378;
+  v2 = a1[3];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_weak(v2);
+  }
+
+  v3 = a1[1];
+  if (v3)
+  {
+    CFRelease(v3);
+  }
+
+  return a1;
+}
+
+unint64_t std::__hash_table<applesauce::CF::StringRef,std::hash<applesauce::CF::StringRef>,std::equal_to<applesauce::CF::StringRef>,vp::Allocator<applesauce::CF::StringRef>>::__rehash<true>(unint64_t result, size_t __n)
+{
+  v2 = result;
+  if (__n == 1)
+  {
+    v3 = 2;
+  }
+
+  else
+  {
+    v3 = __n;
+    if ((__n & (__n - 1)) != 0)
+    {
+      result = std::__next_prime(__n);
+      v3 = result;
+    }
+  }
+
+  v4 = *(v2 + 8);
+  if (*&v3 <= *&v4)
+  {
+    if (*&v3 >= *&v4)
+    {
+      return result;
+    }
+
+    result = vcvtps_u32_f32(*(v2 + 40) / *(v2 + 48));
+    if (*&v4 < 3uLL || (v10 = vcnt_s8(v4), v10.i16[0] = vaddlv_u8(v10), v10.u32[0] > 1uLL))
+    {
+      result = std::__next_prime(result);
+    }
+
+    else
+    {
+      v11 = 1 << -__clz(result - 1);
+      if (result >= 2)
+      {
+        result = v11;
+      }
+    }
+
+    if (*&v3 <= result)
+    {
+      v3 = result;
+    }
+
+    if (*&v3 >= *&v4)
+    {
+      return result;
+    }
+
+    if (!*&v3)
+    {
+      v15 = *v2;
+      *v2 = 0;
+      if (v15)
+      {
+        result = std::allocator_traits<vp::Allocator<std::__hash_node_base<std::__hash_node<applesauce::CF::StringRef,void *> *> *>>::deallocate[abi:ne200100](*(v2 + 16), v15, *(v2 + 8));
+      }
+
+      *(v2 + 8) = 0;
+      return result;
+    }
+  }
+
+  if (*&v3 >> 61)
+  {
+    std::__throw_bad_array_new_length[abi:ne200100]();
+  }
+
+  result = (*(**(v2 + 16) + 16))(*(v2 + 16), 8 * *&v3, 8);
+  v5 = *v2;
+  *v2 = result;
+  if (v5)
+  {
+    result = std::allocator_traits<vp::Allocator<std::__hash_node_base<std::__hash_node<applesauce::CF::StringRef,void *> *> *>>::deallocate[abi:ne200100](*(v2 + 16), v5, *(v2 + 8));
+  }
+
+  v6 = 0;
+  *(v2 + 8) = v3;
+  do
+  {
+    *(*v2 + 8 * v6++) = 0;
+  }
+
+  while (*&v3 != v6);
+  v7 = *(v2 + 24);
+  if (v7)
+  {
+    v8 = v7[1];
+    v9 = vcnt_s8(v3);
+    v9.i16[0] = vaddlv_u8(v9);
+    if (v9.u32[0] > 1uLL)
+    {
+      if (v8 >= *&v3)
+      {
+        v8 %= *&v3;
+      }
+    }
+
+    else
+    {
+      v8 &= *&v3 - 1;
+    }
+
+    *(*v2 + 8 * v8) = v2 + 24;
+    v12 = *v7;
+    if (*v7)
+    {
+      do
+      {
+        v13 = v12[1];
+        if (v9.u32[0] > 1uLL)
+        {
+          if (v13 >= *&v3)
+          {
+            v13 %= *&v3;
+          }
+        }
+
+        else
+        {
+          v13 &= *&v3 - 1;
+        }
+
+        if (v13 != v8)
+        {
+          v14 = *v2;
+          if (!*(*v2 + 8 * v13))
+          {
+            *(v14 + 8 * v13) = v7;
+            goto LABEL_31;
+          }
+
+          *v7 = *v12;
+          *v12 = **(v14 + 8 * v13);
+          **(v14 + 8 * v13) = v12;
+          v12 = v7;
+        }
+
+        v13 = v8;
+LABEL_31:
+        v7 = v12;
+        v12 = *v12;
+        v8 = v13;
+      }
+
+      while (v12);
+    }
+  }
+
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERS4_EUlT_E_JN10applesauce2CF9StringRefEEEEDaOS8_NS3_9data_flow16Call_ImmediatelyEDpRKNSF_5StateIT0_EEEUlRKNS_5tupleIJSC_EEEE_NS_9allocatorISR_EEFvSQ_EE18destroy_deallocateEv(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_weak(v2);
+  }
+
+  operator delete(__p);
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERS4_EUlT_E_JN10applesauce2CF9StringRefEEEEDaOS8_NS3_9data_flow16Call_ImmediatelyEDpRKNSF_5StateIT0_EEEUlRKNS_5tupleIJSC_EEEE_NS_9allocatorISR_EEFvSQ_EE7destroyEv(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_weak(v1);
+  }
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERS4_EUlT_E_JN10applesauce2CF9StringRefEEEEDaOS8_NS3_9data_flow16Call_ImmediatelyEDpRKNSF_5StateIT0_EEEUlRKNS_5tupleIJSC_EEEE_NS_9allocatorISR_EEFvSQ_EE7__cloneEPNS0_6__baseISU_EE(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881B5330;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 16), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERS4_EUlT_E_JN10applesauce2CF9StringRefEEEEDaOS8_NS3_9data_flow16Call_ImmediatelyEDpRKNSF_5StateIT0_EEEUlRKNS_5tupleIJSC_EEEE_NS_9allocatorISR_EEFvSQ_EED0Ev(void *a1)
+{
+  *a1 = &unk_2881B5330;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_weak(v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *_ZNSt3__110__function6__funcIZN2vp2vx29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERS4_EUlT_E_JN10applesauce2CF9StringRefEEEEDaOS8_NS3_9data_flow16Call_ImmediatelyEDpRKNSF_5StateIT0_EEEUlRKNS_5tupleIJSC_EEEE_NS_9allocatorISR_EEFvSQ_EED1Ev(void *a1)
+{
+  *a1 = &unk_2881B5330;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_weak(v2);
+  }
+
+  return a1;
+}
+
+void *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS_5tupleIJN10applesauce2CF9StringRefEEEEEC1IZNS3_29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERSD_EUlT_E_JS9_EEEDaOSH_NS4_16Call_ImmediatelyEDpRKNS4_5StateIT0_EEEUlDpRKT_E_JS9_EEERNS4_13State_ManagerESH_SR_EUlPPKNS4_5ValueEPSZ_E_NS_9allocatorIS14_EEFvS12_S13_EEclEOS12_OS13_(uint64_t a1, vp::vx::data_flow::Value ***a2, vp::vx::data_flow::Value **a3)
+{
+  v3 = *a3;
+  v4 = vp::vx::data_flow::Value::view_storage(**a2);
+  std::__tuple_leaf<0ul,applesauce::CF::StringRef,false>::__tuple_leaf[abi:ne200100]<applesauce::CF::StringRef const&,0>(&v7, *v4);
+  vp::vx::data_flow::Value::~Value(v3);
+  *v3 = std::pmr::get_default_resource(v5);
+  *(v3 + 1) = 0;
+  *(v3 + 2) = &vp::vx::data_flow::Value::type_id<std::tuple<applesauce::CF::StringRef>>(void)::s_type_id;
+  result = vp::vx::data_flow::Value::allocate_storage(v3);
+  *result = v7;
+  return result;
+}
+
+void sub_2725FD0F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::tuple<applesauce::CF::StringRef>::~tuple(va);
+  _Unwind_Resume(a1);
+}
+
+const void **std::tuple<applesauce::CF::StringRef>::~tuple(const void **a1)
+{
+  v2 = *a1;
+  if (v2)
+  {
+    CFRelease(v2);
+  }
+
+  return a1;
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS_5tupleIJN10applesauce2CF9StringRefEEEEEC1IZNS3_29Voice_Processor_State_Manager21create_state_listenerIZNS3_27Control_Center_Manager_Impl9configureERSD_EUlT_E_JS9_EEEDaOSH_NS4_16Call_ImmediatelyEDpRKNS4_5StateIT0_EEEUlDpRKT_E_JS9_EEERNS4_13State_ManagerESH_SR_EUlPPKNS4_5ValueEPSZ_E_NS_9allocatorIS14_EEFvS12_S13_EE7__cloneEPNS0_6__baseIS17_EE(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_2881B5238;
+  *(a2 + 8) = *(result + 8);
+  return result;
+}
+
+uint64_t vp::decorators::CPU_Profiler::ProcessDownlinkAudio(vp::decorators::CPU_Profiler *this, AudioBufferList *a2, AudioBufferList *a3, AudioBufferList *a4, AudioBufferList *a5, int a6, const AudioTimeStamp *a7)
+{
+  v17 = a3;
+  v18 = a2;
+  v15 = a5;
+  v16 = a4;
+  v13 = 0;
+  v14 = a6;
+  rep = std::chrono::system_clock::now().__d_.__rep_;
+  v10[7] = a7;
+  v11 = 0uLL;
+  v10[0] = &v13;
+  v10[1] = this;
+  v10[2] = &v18;
+  v10[3] = &v17;
+  v10[4] = &v16;
+  v10[5] = &v15;
+  v10[6] = &v14;
+  vp::utility::CPU_Profiler::measure(&v11, caulk::function_ref<void ()(void)>::functor_invoker<vp::decorators::CPU_Profiler::ProcessDownlinkAudio(AudioBufferList *,AudioBufferList *,AudioBufferList *,AudioBufferList *,unsigned int,AudioTimeStamp const&)::$_0>, v10);
+  result = v13;
+  if (!v13)
+  {
+    v10[0] = *(this + 5);
+    v19 = v11;
+    vp::utility::CSV_Log<vp::utility::ISO_8601,unsigned long long,unsigned long long,unsigned long long>::Buffer::write(*(this + 5), &rep, v10, &v19.i64[1], v19.i64);
+    return v13;
+  }
+
+  return result;
+}
+
+void vp::utility::CSV_Log<vp::utility::ISO_8601,unsigned long long,unsigned long long,unsigned long long>::Buffer::write(void *result, uint64_t *a2, uint64_t *a3, uint64_t *a4, uint64_t *a5)
+{
+  v39 = *MEMORY[0x277D85DE8];
+  v10 = result[93];
+  v11 = result[84];
+  explicit = atomic_load_explicit(result + 92, memory_order_acquire);
+  v13 = v10 - 1;
+  v14 = v11 >= explicit;
+  v15 = v11 - explicit;
+  if (!v14)
+  {
+    v13 = -1;
+  }
+
+  if (v15 == v13)
+  {
+    vp::utility::CSV_Log<vp::utility::ISO_8601,unsigned long long,unsigned long long,unsigned long long>::Buffer::flush(result);
+  }
+
+  v16 = *a2;
+  v17 = *a3;
+  v18 = *a4;
+  v19 = *a5;
+  v20 = result[94];
+  v21 = result[93];
+  v22 = result[84];
+  v23 = v22 + v21 + 1;
+  do
+  {
+    v23 -= v21;
+  }
+
+  while (v23 >= v21);
+  if (v23 == atomic_load_explicit(result + 92, memory_order_acquire))
+  {
+    goto LABEL_23;
+  }
+
+  v24 = (v20 + 32 * v22);
+  *v24 = v16;
+  v24[1] = v17;
+  v24[2] = v18;
+  v24[3] = v19;
+  atomic_store(v23, result + 84);
+  v25 = result[93];
+  v26 = result[84];
+  v27 = atomic_load_explicit(result + 92, memory_order_acquire);
+  if (v26 < v27)
+  {
+    v25 = 0;
+  }
+
+  if (v27 + ~v26 + v25 < result[81] >> 1)
+  {
+    v28 = result[82];
+    if (v28)
+    {
+      v29 = *result;
+      v30 = result[1];
+      if (v30)
+      {
+        atomic_fetch_add_explicit((v30 + 16), 1uLL, memory_order_relaxed);
+      }
+
+      if (*MEMORY[0x277D7F098])
+      {
+        v34 = v29;
+        v31 = caulk::rt_safe_memory_resource::rt_allocate(*MEMORY[0x277D7F098]);
+        *(v31 + 16) = 0;
+        *(v31 + 24) = v34;
+        *v31 = &unk_2881B6220;
+        *(v31 + 8) = 0;
+
+        caulk::concurrent::messenger::enqueue(v28, v31);
+        return;
+      }
+
+      __break(1u);
+LABEL_23:
+      v35 = 0;
+      memset(v38, 0, sizeof(v38));
+      v32 = MEMORY[0x277D86220];
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        v33 = 3;
+      }
+
+      else
+      {
+        v33 = 2;
+      }
+
+      v36 = 134217984;
+      v37 = 0;
+      _os_log_send_and_compose_impl(v33, &v35, v38, 80, &dword_2724B4000, v32, 16, "assertion failure: m_queue.push(std::forward_as_tuple(values...)) -> %llu", &v36);
+      _os_crash_msg();
+      __break(1u);
+    }
+
+    vp::utility::CSV_Log<vp::utility::ISO_8601,unsigned long long,unsigned long long,unsigned long long>::Buffer::flush(result);
+  }
+}
+
+void sub_2725FD544(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void vp::utility::CSV_Log<vp::utility::ISO_8601,unsigned long long,unsigned long long,unsigned long long>::Buffer::flush(uint64_t a1)
+{
+  std::mutex::lock((a1 + 16));
+  v12 = a1;
+  v2 = *(a1 + 752);
+  v3 = *(a1 + 744);
+  explicit = atomic_load_explicit((a1 + 672), memory_order_acquire);
+  v5 = *(a1 + 736);
+  v6 = explicit - v5;
+  if (explicit >= v5)
+  {
+    v7 = 0;
+  }
+
+  else
+  {
+    v7 = v3;
+  }
+
+  v8 = v7 + v6;
+  if (v7 + v6)
+  {
+    v9 = v7 + explicit;
+    v10 = &v2[4 * v5];
+    v11 = v7 + explicit - v3;
+    if (v7 + explicit <= v3)
+    {
+      _ZN5boost8lockfree6detail15ringbuffer_baseINSt3__15tupleIJN2vp7utility8ISO_8601EyyyEEEE22run_functor_and_deleteIZNS6_7CSV_LogIJS7_yyyEE6Buffer5flushEvEUlRKT_E_EEvPS8_SI_SG_(v10, &v10[4 * v8], &v12);
+      if (v9 == v3)
+      {
+        v11 = 0;
+      }
+
+      else
+      {
+        v11 = v9;
+      }
+    }
+
+    else
+    {
+      _ZN5boost8lockfree6detail15ringbuffer_baseINSt3__15tupleIJN2vp7utility8ISO_8601EyyyEEEE22run_functor_and_deleteIZNS6_7CSV_LogIJS7_yyyEE6Buffer5flushEvEUlRKT_E_EEvPS8_SI_SG_(v10, &v2[4 * v3], &v12);
+      _ZN5boost8lockfree6detail15ringbuffer_baseINSt3__15tupleIJN2vp7utility8ISO_8601EyyyEEEE22run_functor_and_deleteIZNS6_7CSV_LogIJS7_yyyEE6Buffer5flushEvEUlRKT_E_EEvPS8_SI_SG_(v2, &v2[4 * (v5 - v3) + 4 * v8], &v12);
+    }
+
+    atomic_store(v11, (a1 + 736));
+  }
+
+  std::ostream::flush();
+
+  std::mutex::unlock((a1 + 16));
+}
+
+caulk::rt_safe_memory_resource *_ZN5caulk10concurrent7details15rt_message_callIZN2vp7utility7CSV_LogIJNS4_8ISO_8601EyyyEE6Buffer5writeERKS6_RKySC_SC_EUlT_E_JNSt3__18weak_ptrIS8_EEEE7performEv(caulk::concurrent::message *a1)
+{
+  v2 = *(a1 + 4);
+  if (v2)
+  {
+    v3 = *(a1 + 3);
+    atomic_fetch_add_explicit(&v2->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    v4 = std::__shared_weak_count::lock(v2);
+    if (v4)
+    {
+      v5 = v4;
+      if (v3)
+      {
+        vp::utility::CSV_Log<vp::utility::ISO_8601,unsigned long long,unsigned long long,unsigned long long>::Buffer::flush(v3);
+      }
+
+      std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    }
+
+    std::__shared_weak_count::__release_weak(v2);
+    v6 = *(a1 + 4);
+    *a1 = &unk_2881B6248;
+    if (v6)
+    {
+      std::__shared_weak_count::__release_weak(v6);
+    }
+  }
+
+  else
+  {
+    *a1 = &unk_2881B6248;
+  }
+
+  caulk::concurrent::message::~message(a1);
+  result = *MEMORY[0x277D7F098];
+  if (*MEMORY[0x277D7F098])
+  {
+
+    return caulk::rt_safe_memory_resource::rt_deallocate(result, a1);
+  }
+
+  else
+  {
+    __break(1u);
+  }
+
+  return result;
+}
+
+void _ZN5caulk10concurrent7details12message_callIZN2vp7utility7CSV_LogIJNS4_8ISO_8601EyyyEE6Buffer5writeERKS6_RKySC_SC_EUlT_E_JNSt3__18weak_ptrIS8_EEEE7performEv(uint64_t a1)
+{
+  v1 = *(a1 + 32);
+  if (v1)
+  {
+    v2 = *(a1 + 24);
+    atomic_fetch_add_explicit(&v1->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    v3 = std::__shared_weak_count::lock(v1);
+    if (v3)
+    {
+      v4 = v3;
+      if (v2)
+      {
+        vp::utility::CSV_Log<vp::utility::ISO_8601,unsigned long long,unsigned long long,unsigned long long>::Buffer::flush(v2);
+      }
+
+      std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+    }
+
+    std::__shared_weak_count::__release_weak(v1);
+  }
+}
+
+void _ZN5caulk10concurrent7details12message_callIZN2vp7utility7CSV_LogIJNS4_8ISO_8601EyyyEE6Buffer5writeERKS6_RKySC_SC_EUlT_E_JNSt3__18weak_ptrIS8_EEEED0Ev(caulk::concurrent::message *this)
+{
+  *this = &unk_2881B6248;
+  v2 = *(this + 4);
+  if (v2)
+  {
+    std::__shared_weak_count::__release_weak(v2);
+  }
+
+  caulk::concurrent::message::~message(this);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void _ZN5caulk10concurrent7details12message_callIZN2vp7utility7CSV_LogIJNS4_8ISO_8601EyyyEE6Buffer5writeERKS6_RKySC_SC_EUlT_E_JNSt3__18weak_ptrIS8_EEEED1Ev(caulk::concurrent::message *this)
+{
+  *this = &unk_2881B6248;
+  v2 = *(this + 4);
+  if (v2)
+  {
+    std::__shared_weak_count::__release_weak(v2);
+  }
+
+  caulk::concurrent::message::~message(this);
+}
+
+void _ZN5caulk10concurrent7details15rt_message_callIZN2vp7utility7CSV_LogIJNS4_8ISO_8601EyyyEE6Buffer5writeERKS6_RKySC_SC_EUlT_E_JNSt3__18weak_ptrIS8_EEEED0Ev(caulk::concurrent::message *this)
+{
+  *this = &unk_2881B6248;
+  v2 = *(this + 4);
+  if (v2)
+  {
+    std::__shared_weak_count::__release_weak(v2);
+  }
+
+  caulk::concurrent::message::~message(this);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void _ZN5caulk10concurrent7details15rt_message_callIZN2vp7utility7CSV_LogIJNS4_8ISO_8601EyyyEE6Buffer5writeERKS6_RKySC_SC_EUlT_E_JNSt3__18weak_ptrIS8_EEEED1Ev(caulk::concurrent::message *this)
+{
+  *this = &unk_2881B6248;
+  v2 = *(this + 4);
+  if (v2)
+  {
+    std::__shared_weak_count::__release_weak(v2);
+  }
+
+  caulk::concurrent::message::~message(this);
+}
+
+std::chrono::duration<long long, std::ratio<1, 1000000>>::rep *_ZN5boost8lockfree6detail15ringbuffer_baseINSt3__15tupleIJN2vp7utility8ISO_8601EyyyEEEE22run_functor_and_deleteIZNS6_7CSV_LogIJS7_yyyEE6Buffer5flushEvEUlRKT_E_EEvPS8_SI_SG_(std::chrono::duration<long long, std::ratio<1, 1000000>>::rep *result, std::chrono::duration<long long, std::ratio<1, 1000000>>::rep *a2, uint64_t *a3)
+{
+  if (result != a2)
+  {
+    v5 = result;
+    v6 = MEMORY[0x277D82680];
+    do
+    {
+      v7 = *a3;
+      vp::utility::operator<<((*a3 + 80), *v5);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>((v7 + 80), ", ", 2);
+      v8 = MEMORY[0x2743CBB70](v7 + 80, v5[1]);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, ", ", 2);
+      v9 = MEMORY[0x2743CBB70](v7 + 80, v5[2]);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, ", ", 2);
+      v10 = MEMORY[0x2743CBB70](v7 + 80, v5[3]);
+      std::ios_base::getloc((v10 + *(*v10 - 24)));
+      v11 = std::locale::use_facet(&v12, v6);
+      (v11->__vftable[2].~facet_0)(v11, 10);
+      std::locale::~locale(&v12);
+      std::ostream::put();
+      result = std::ostream::flush();
+      v5 += 4;
+    }
+
+    while (v5 != a2);
+  }
+
+  return result;
+}
+
+void *std::endl[abi:ne200100]<char,std::char_traits<char>>(void *a1)
+{
+  std::ios_base::getloc((a1 + *(*a1 - 24)));
+  v2 = std::locale::use_facet(&v4, MEMORY[0x277D82680]);
+  (v2->__vftable[2].~facet_0)(v2, 10);
+  std::locale::~locale(&v4);
+  std::ostream::put();
+  std::ostream::flush();
+  return a1;
+}
+
+uint64_t caulk::function_ref<void ()(void)>::functor_invoker<vp::decorators::CPU_Profiler::ProcessDownlinkAudio(AudioBufferList *,AudioBufferList *,AudioBufferList *,AudioBufferList *,unsigned int,AudioTimeStamp const&)::$_0>(uint64_t a1)
+{
+  v1 = *a1;
+  v2 = **(*a1 + 16);
+  v3 = **(*a1 + 24);
+  v4 = **(*a1 + 32);
+  v5 = **(*a1 + 40);
+  v6 = **(*a1 + 48);
+  v7 = *(*a1 + 56);
+  v8 = *(*(*a1 + 8) + 8);
+  result = (*(*v8 + 72))(v8, v2, v3, v4, v5, v6, v7);
+  **v1 = result;
+  return result;
+}
+
+uint64_t vp::decorators::CPU_Profiler::Process(vp::decorators::CPU_Profiler *this, const AudioBufferList *a2, const AudioTimeStamp *a3, AudioBufferList *a4, AudioTimeStamp *a5, unsigned int *a6, void *a7, unsigned int *a8, AudioStreamPacketDescription *a9)
+{
+  v20 = a8;
+  v21 = a7;
+  v19 = 0;
+  rep = std::chrono::system_clock::now().__d_.__rep_;
+  v16[0] = &v19;
+  v16[1] = this;
+  v16[2] = a2;
+  v16[3] = a3;
+  v16[4] = a4;
+  v16[5] = a5;
+  v16[6] = a6;
+  v16[7] = &v21;
+  v16[8] = &v20;
+  v16[9] = &a9;
+  v17 = 0uLL;
+  vp::utility::CPU_Profiler::measure(&v17, caulk::function_ref<void ()(void)>::functor_invoker<vp::decorators::CPU_Profiler::Process(AudioBufferList const&,AudioTimeStamp const&,AudioBufferList&,AudioTimeStamp&,unsigned int &,void *,unsigned int *,AudioStreamPacketDescription *)::$_0>, v16);
+  result = v19;
+  if (!v19)
+  {
+    v16[0] = *(this + 4);
+    v22 = v17;
+    vp::utility::CSV_Log<vp::utility::ISO_8601,unsigned long long,unsigned long long,unsigned long long>::Buffer::write(*(this + 3), &rep, v16, &v22.i64[1], v22.i64);
+    return v19;
+  }
+
+  return result;
+}
+
+uint64_t caulk::function_ref<void ()(void)>::functor_invoker<vp::decorators::CPU_Profiler::Process(AudioBufferList const&,AudioTimeStamp const&,AudioBufferList&,AudioTimeStamp&,unsigned int &,void *,unsigned int *,AudioStreamPacketDescription *)::$_0>(uint64_t a1)
+{
+  v1 = *a1;
+  v2 = *(*a1 + 16);
+  v3 = *(*a1 + 24);
+  v4 = *(*a1 + 32);
+  v5 = *(*a1 + 40);
+  v6 = *(*a1 + 48);
+  v7 = **(*a1 + 56);
+  v8 = **(*a1 + 64);
+  v9 = **(*a1 + 72);
+  v10 = *(*(*a1 + 8) + 8);
+  result = (*(*v10 + 64))(v10, v2, v3, v4, v5, v6, v7, v8, v9);
+  **v1 = result;
+  return result;
+}
+
+uint64_t vp::decorators::CPU_Profiler::InitializeDownlinkProcessing(uint64_t a1, uint64_t a2, int a3)
+{
+  result = (*(**(a1 + 8) + 32))(*(a1 + 8), a2);
+  *(a1 + 20) = a3;
+  return result;
+}
+
+uint64_t vp::decorators::CPU_Profiler::InitializeHWInput(vp::decorators::CPU_Profiler *this, const AudioStreamBasicDescription *a2, const AudioChannelLayout *a3, uint64_t a4, uint64_t a5, uint64_t a6, const unsigned int *a7, const AudioStreamBasicDescription *a8, const AudioChannelLayout *a9, uint64_t a10, unsigned int a11, const unsigned int *a12)
+{
+  result = (*(**(this + 1) + 16))(*(this + 1), a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12);
+  *(this + 4) = a10;
+  return result;
+}
+
+void vp::decorators::CPU_Profiler::~CPU_Profiler(std::__shared_weak_count **this)
+{
+  vp::decorators::CPU_Profiler::~CPU_Profiler(this);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+{
+  v20 = *MEMORY[0x277D85DE8];
+  log = vp::get_log(this);
+  if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
+  {
+    log_context_info = vp::get_log_context_info(__p, this, "vp::decorators::CPU_Profiler]", 28);
+    v4 = v15;
+    v5 = v15;
+    v6 = __p[1];
+    v7 = vp::get_log(log_context_info);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    {
+      if (v5 >= 0)
+      {
+        v8 = v4;
+      }
+
+      else
+      {
+        v8 = v6;
+      }
+
+      v9 = __p[0];
+      if (v5 >= 0)
+      {
+        v9 = __p;
+      }
+
+      if (v8)
+      {
+        v10 = " ";
+      }
+
+      else
+      {
+        v10 = "";
+      }
+
+      *buf = 136315394;
+      v17 = v9;
+      v18 = 2080;
+      v19 = v10;
+      _os_log_impl(&dword_2724B4000, v7, OS_LOG_TYPE_INFO, "%s%sdestroyed", buf, 0x16u);
+      LOBYTE(v5) = v15;
+    }
+
+    if ((v5 & 0x80) != 0)
+    {
+      operator delete(__p[0]);
+    }
+  }
+
+  v11 = this[6];
+  if (v11)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
+  }
+
+  v12 = this[4];
+  if (v12)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+  }
+
+  v13 = this[1];
+  *this = &unk_2881C6738;
+  this[1] = 0;
+  if (v13)
+  {
+    (v13->~__shared_weak_count_0)(v13);
+  }
+}
+
+void vp::decorators::CPU_Profiler::create_log(uint64_t *a1, const std::__fs::filesystem::path *a2, int a3)
+{
+  v25 = *MEMORY[0x277D85DE8];
+  std::__fs::filesystem::__create_directories(a2 + 2, 0);
+  __t.__d_.__rep_ = std::chrono::system_clock::now().__d_.__rep_;
+  v15 = std::chrono::system_clock::to_time_t(&__t);
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  *__src = 0u;
+  v18 = 0u;
+  v6 = localtime(&v15);
+  v7 = strftime(__src, 0x80uLL, "vp.%Y%m%d.%H%M%S.", v6);
+  if (a3)
+  {
+    v8 = 100;
+  }
+
+  else
+  {
+    v8 = 117;
+  }
+
+  v9 = __toupper(v8);
+  snprintf(&__src[v7], 128 - v7, "%cL.CPU_Profile.csv", v9);
+  memset(&v13, 0, sizeof(v13));
+  v10 = (&__t.__d_.__rep_ + 7);
+  do
+  {
+    v11 = v10->__r_.__value_.__s.__data_[1];
+    v10 = (v10 + 1);
+  }
+
+  while (v11);
+  std::string::append[abi:ne200100]<char const*,0>(&v13.__pn_, __src, v10);
+  std::__fs::filesystem::operator/[abi:ne200100](&__p, &a2[2], &v13);
+  if ((__p.__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    p_p = &__p;
+  }
+
+  else
+  {
+    p_p = __p.__pn_.__r_.__value_.__r.__words[0];
+  }
+
+  std::ofstream::basic_ofstream(a1, p_p, 16);
+  if (SHIBYTE(__p.__pn_.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__pn_.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v13.__pn_.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v13.__pn_.__r_.__value_.__l.__data_);
+  }
+}
+
+void sub_2725FE134(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22)
+{
+  if (a22 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a16 < 0)
+  {
+    operator delete(a11);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_2725FE6BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, std::locale a15)
+{
+  if (a2)
+  {
+    std::locale::~locale(&a15);
+    __clang_call_terminate(exception_object);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void *std::ofstream::~ofstream(void *a1)
+{
+  v2 = MEMORY[0x277D82810];
+  v3 = *MEMORY[0x277D82810];
+  *a1 = *MEMORY[0x277D82810];
+  *(a1 + *(v3 - 24)) = *(v2 + 24);
+  MEMORY[0x2743CBA00](a1 + 1);
+  std::ostream::~ostream();
+  MEMORY[0x2743CBE30](a1 + 52);
+  return a1;
+}
+
+void boost::alignment::detail::throw_exception<std::bad_alloc>()
+{
+  exception = __cxa_allocate_exception(8uLL);
+  *exception = MEMORY[0x277D82918] + 16;
+}
+
+void std::__shared_ptr_emplace<vp::utility::CSV_Log<vp::utility::ISO_8601,unsigned long long,unsigned long long,unsigned long long>::Buffer,std::allocator<vp::utility::CSV_Log<vp::utility::ISO_8601,unsigned long long,unsigned long long,unsigned long long>::Buffer>>::__on_zero_shared(uint64_t a1)
+{
+  vp::utility::CSV_Log<vp::utility::ISO_8601,unsigned long long,unsigned long long,unsigned long long>::Buffer::flush(a1 + 24);
+  v2 = *(a1 + 768);
+  explicit = atomic_load_explicit((a1 + 696), memory_order_acquire);
+  v4 = *(a1 + 760);
+  v5 = v4 - explicit;
+  if (v4 <= explicit)
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v6 = v2;
+  }
+
+  if (v6 != v5)
+  {
+    v7 = v6 + explicit;
+    v8 = v7 >= v2;
+    v9 = v7 - v2;
+    if (!v9)
+    {
+      v7 = 0;
+    }
+
+    if (v9 == 0 || !v8)
+    {
+      v9 = v7;
+    }
+
+    atomic_store(v9, (a1 + 760));
+  }
+
+  v10 = *(a1 + 776);
+  if (v10)
+  {
+    free(*(v10 - 8));
+  }
+
+  v11 = *(a1 + 688);
+  if (v11)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
+  }
+
+  v12 = MEMORY[0x277D82810];
+  v13 = *MEMORY[0x277D82810];
+  *(a1 + 104) = *MEMORY[0x277D82810];
+  *(a1 + 104 + *(v13 - 24)) = *(v12 + 24);
+  MEMORY[0x2743CBA00](a1 + 112);
+  std::ostream::~ostream();
+  MEMORY[0x2743CBE30](a1 + 520);
+  std::mutex::~mutex((a1 + 40));
+  v14 = *(a1 + 32);
+  if (v14)
+  {
+
+    std::__shared_weak_count::__release_weak(v14);
+  }
+}
+
+void std::__shared_ptr_emplace<vp::utility::CSV_Log<vp::utility::ISO_8601,unsigned long long,unsigned long long,unsigned long long>::Buffer,std::allocator<vp::utility::CSV_Log<vp::utility::ISO_8601,unsigned long long,unsigned long long,unsigned long long>::Buffer>>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_2881B61E8;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+uint64_t *std::ofstream::basic_ofstream(uint64_t *a1, uint64_t a2, int a3)
+{
+  a1[58] = 0;
+  v4 = MEMORY[0x277D82860] + 64;
+  a1[52] = MEMORY[0x277D82860] + 64;
+  v5 = *(MEMORY[0x277D82810] + 16);
+  v6 = *(MEMORY[0x277D82810] + 8);
+  *a1 = v6;
+  *(a1 + *(v6 - 24)) = v5;
+  v7 = (a1 + *(*a1 - 24));
+  std::ios_base::init(v7, a1 + 1);
+  v8 = MEMORY[0x277D82860] + 24;
+  v7[1].__vftable = 0;
+  v7[1].__fmtflags_ = -1;
+  *a1 = v8;
+  a1[52] = v4;
+  MEMORY[0x2743CB9F0](a1 + 1);
+  if (!std::filebuf::open())
+  {
+    std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32) | 4);
+  }
+
+  return a1;
+}
+
 void sub_2725FEBB0(_Unwind_Exception *a1)
 {
   std::ostream::~ostream();
@@ -200,19 +6847,19 @@ LABEL_29:
   }
 }
 
-void sub_2725FF150(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2725FF150(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v8 = va_arg(va1, void (***)(void));
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v11 = va_arg(va1, void (***)(void));
+  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
   std::unique_ptr<vp::vx::components::CPU_Profiler::Node_Decorator_Factory,vp::Allocator_Delete<vp::vx::components::CPU_Profiler::Node_Decorator_Factory>>::reset[abi:ne200100](va, 0);
   vp::vx::data_flow::State<void>::~State(va1);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v6);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v7);
   _Unwind_Resume(a1);
 }
 
@@ -259,8 +6906,7 @@ uint64_t vp::vx::components::CPU_Profiler::set_time(uint64_t this, uint64_t a2)
 void vp::vx::components::CPU_Profiler::set_state_owner(uint64_t a1, __int128 *a2)
 {
   v3 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   v4 = *(a1 + 264);
   *(a1 + 256) = v3;
   if (v4)
@@ -272,8 +6918,7 @@ void vp::vx::components::CPU_Profiler::set_state_owner(uint64_t a1, __int128 *a2
 void vp::vx::components::CPU_Profiler::set_state_observer(uint64_t a1, __int128 *a2)
 {
   v3 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   v4 = *(a1 + 248);
   *(a1 + 240) = v3;
   if (v4)
@@ -285,8 +6930,7 @@ void vp::vx::components::CPU_Profiler::set_state_observer(uint64_t a1, __int128 
 void vp::vx::components::CPU_Profiler::set_state_manager(uint64_t a1, __int128 *a2)
 {
   v3 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   v4 = *(a1 + 232);
   *(a1 + 224) = v3;
   if (v4)
@@ -298,8 +6942,7 @@ void vp::vx::components::CPU_Profiler::set_state_manager(uint64_t a1, __int128 *
 void vp::vx::components::CPU_Profiler::set_messenger(uint64_t a1, __int128 *a2)
 {
   v3 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   v4 = *(a1 + 216);
   *(a1 + 208) = v3;
   if (v4)
@@ -316,13 +6959,13 @@ void vp::vx::components::CPU_Profiler::~CPU_Profiler(std::__shared_weak_count **
 }
 
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   log = vp::get_log(this);
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
   {
     log_context_info = vp::get_log_context_info(__p, this, "vp::vx::components::CPU_Profiler]", 32);
-    v4 = v17;
-    v5 = v17;
+    v4 = v16;
+    v5 = v16;
     v6 = __p[1];
     v7 = vp::get_log(log_context_info);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
@@ -354,11 +6997,11 @@ void vp::vx::components::CPU_Profiler::~CPU_Profiler(std::__shared_weak_count **
       }
 
       *buf = 136315394;
-      v19 = v9;
-      v20 = 2080;
-      v21 = v10;
+      v18 = v9;
+      v19 = 2080;
+      v20 = v10;
       _os_log_impl(&dword_2724B4000, v7, OS_LOG_TYPE_DEBUG, "%s%sdestroyed", buf, 0x16u);
-      LOBYTE(v5) = v17;
+      LOBYTE(v5) = v16;
     }
 
     if ((v5 & 0x80) != 0)
@@ -393,7 +7036,6 @@ void vp::vx::components::CPU_Profiler::~CPU_Profiler(std::__shared_weak_count **
   }
 
   vp::Context::~Context((this + 2));
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void virtual thunk tovp::vx::components::CPU_Profiler::Node_Decorator::~Node_Decorator(vp::vx::components::CPU_Profiler::Node_Decorator *this)
@@ -409,15 +7051,15 @@ void virtual thunk tovp::vx::components::CPU_Profiler::Node_Decorator::~Node_Dec
 
 void vp::vx::components::CPU_Profiler::Node_Decorator::~Node_Decorator(vp::vx::components::CPU_Profiler::Node_Decorator *this)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   *this = &unk_2881B5F58;
   *(this + 7) = &unk_2881B5FF0;
   log = vp::get_log(this);
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
   {
     vp::vx::io::get_log_context_info(__p, this + *(*this - 24), "vp::vx::components::CPU_Profiler::Node_Decorator]", 48);
-    v3 = v15;
-    v4 = v15;
+    v3 = v14;
+    v4 = v14;
     v5 = __p[1];
     v7 = vp::get_log(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
@@ -449,11 +7091,11 @@ void vp::vx::components::CPU_Profiler::Node_Decorator::~Node_Decorator(vp::vx::c
       }
 
       *buf = 136315394;
-      v17 = v9;
-      v18 = 2080;
-      v19 = v10;
+      v16 = v9;
+      v17 = 2080;
+      v18 = v10;
       _os_log_impl(&dword_2724B4000, v7, OS_LOG_TYPE_DEBUG, "%s%sdestroyed", buf, 0x16u);
-      LOBYTE(v4) = v15;
+      LOBYTE(v4) = v14;
     }
 
     if ((v4 & 0x80) != 0)
@@ -477,8 +7119,6 @@ void vp::vx::components::CPU_Profiler::Node_Decorator::~Node_Decorator(vp::vx::c
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v12);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 {
@@ -518,33 +7158,26 @@ void vp::vx::components::CPU_Profiler::Node_Decorator::process(uint64_t a1@<X0>,
   }
 }
 
-int *caulk::function_ref<void ()(void)>::functor_invoker<vp::vx::components::CPU_Profiler::Node_Decorator::process(std::span<vp::vx::io::Node_Process_Data const,18446744073709551615ul>,std::span<vp::vx::io::Node_Process_Data,18446744073709551615ul>,unsigned int)::$_0>(int ***a1)
+uint64_t caulk::function_ref<void ()(void)>::functor_invoker<vp::vx::components::CPU_Profiler::Node_Decorator::process(std::span<vp::vx::io::Node_Process_Data const,18446744073709551615ul>,std::span<vp::vx::io::Node_Process_Data,18446744073709551615ul>,unsigned int)::$_0>(uint64_t **a1)
 {
   v1 = *a1;
-  v2 = (*a1)[2];
-  v3 = *v2;
-  v4 = *(v2 + 1);
-  v5 = (*a1)[3];
-  v6 = *v5;
-  v7 = *(v5 + 1);
-  v8 = *(*a1)[4];
-  (*(**((*a1)[1] + 1) + 80))(v10);
-  result = caulk::expected<void,vp::vx::io::Error>::operator=(*v1, v10);
-  if ((v13 & 1) == 0 && SHIBYTE(v11) < 0)
+  (*(**((*a1)[1] + 8) + 80))(v3);
+  result = caulk::expected<void,vp::vx::io::Error>::operator=(*v1, v3);
+  if ((v6 & 1) == 0 && SHIBYTE(v4) < 0)
   {
-    return (*(*v12 + 24))(v12, v10[2], v11 & 0x7FFFFFFFFFFFFFFFLL, 1);
+    return (*(*v5 + 24))(v5, v3[2], v4 & 0x7FFFFFFFFFFFFFFFLL, 1);
   }
 
   return result;
 }
 
-void vp::vx::components::CPU_Profiler::Node_Decorator_Factory::new_node_decorator(uint64_t a1@<X0>, uint64_t *a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X8>)
+__n128 vp::vx::components::CPU_Profiler::Node_Decorator_Factory::new_node_decorator@<Q0>(uint64_t a1@<X0>, uint64_t *a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X8>)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if (*(a1 + 48))
   {
     *&__src[8] = 0;
-    *&v31 = 0;
+    *&v30 = 0;
     *__src = std::pmr::get_default_resource(a1);
     vp::vx::data_flow::State<void>::get_value((a1 + 40), __src);
     v8 = *vp::vx::data_flow::Value::view_storage(__src);
@@ -561,10 +7194,10 @@ void vp::vx::components::CPU_Profiler::Node_Decorator_Factory::new_node_decorato
 
       if (v10)
       {
-        v32 = 0u;
-        v33 = 0u;
-        *__src = 0u;
         v31 = 0u;
+        v32 = 0u;
+        *__src = 0u;
+        v30 = 0u;
         v24 = *(a1 + 64);
         v12 = localtime(&v24);
         strftime(__src, 0x40uLL, "%Y%m%d.%H%M%S", v12);
@@ -579,7 +7212,7 @@ void vp::vx::components::CPU_Profiler::Node_Decorator_Factory::new_node_decorato
         }
 
         std::__fs::filesystem::path::append[abi:ne200100]<char [8]>(&v23, "vp.");
-        v13 = (&v29 + 7);
+        v13 = (&v28 + 7);
         do
         {
           v14 = v13->__r_.__value_.__s.__data_[1];
@@ -590,7 +7223,7 @@ void vp::vx::components::CPU_Profiler::Node_Decorator_Factory::new_node_decorato
         std::string::append[abi:ne200100]<char const*,0>(&v23, __src, v13);
         std::string::append(&v23, ".", 1uLL);
         vp::vx::io::Object::Log_Context::get_description(&__p, v10);
-        if (v28 >= 0)
+        if (v27 >= 0)
         {
           p_p = &__p;
         }
@@ -600,18 +7233,18 @@ void vp::vx::components::CPU_Profiler::Node_Decorator_Factory::new_node_decorato
           p_p = __p;
         }
 
-        if (v28 >= 0)
+        if (v27 >= 0)
         {
-          v16 = HIBYTE(v28);
+          v16 = HIBYTE(v27);
         }
 
         else
         {
-          v16 = v28;
+          v16 = v27;
         }
 
         std::string::append(&v23, p_p, v16);
-        if (SHIBYTE(v28) < 0)
+        if (SHIBYTE(v27) < 0)
         {
           operator delete(__p);
         }
@@ -620,20 +7253,20 @@ void vp::vx::components::CPU_Profiler::Node_Decorator_Factory::new_node_decorato
         v17 = (*(*a3 + 16))(a3, 80, 8);
         v18 = *a2;
         *a2 = 0;
-        v28 = *(a2 + 1);
-        v29 = a2[3];
+        v27 = *(a2 + 1);
+        v28 = a2[3];
         v19 = *(a1 + 24);
         v20 = *(a1 + 32);
-        v25 = v19;
-        v26 = v20;
+        v25[0] = v19;
+        v25[1] = v20;
         __p = v18;
         if (v20)
         {
           atomic_fetch_add_explicit((v20 + 8), 1uLL, memory_order_relaxed);
-          vp::vx::components::CPU_Profiler::Node_Decorator::Node_Decorator(v17);
+          vp::vx::components::CPU_Profiler::Node_Decorator::Node_Decorator(v17, &__p, v25, &v23);
         }
 
-        vp::vx::components::CPU_Profiler::Node_Decorator::Node_Decorator(v17);
+        vp::vx::components::CPU_Profiler::Node_Decorator::Node_Decorator(v17, &__p, v25, &v23);
       }
 
       if (v11)
@@ -646,9 +7279,10 @@ void vp::vx::components::CPU_Profiler::Node_Decorator_Factory::new_node_decorato
   v21 = *a2;
   *a2 = 0;
   *a4 = v21;
-  *(a4 + 8) = *(a2 + 1);
+  result = *(a2 + 1);
+  *(a4 + 8) = result;
   *(a4 + 24) = a2[3];
-  v22 = *MEMORY[0x277D85DE8];
+  return result;
 }
 
 void sub_2725FFCC0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23)
@@ -676,10 +7310,10 @@ void *std::unique_ptr<vp::vx::components::CPU_Profiler::Node_Decorator,vp::Alloc
   return result;
 }
 
-void vp::vx::components::CPU_Profiler::Node_Decorator::Node_Decorator(uint64_t a1)
+void vp::vx::components::CPU_Profiler::Node_Decorator::Node_Decorator(void *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  *(a1 + 56) = &unk_2881C6630;
+  v4 = *MEMORY[0x277D85DE8];
+  a1[7] = &unk_2881C6630;
   operator new();
 }
 
@@ -693,22 +7327,22 @@ void sub_2726000FC(_Unwind_Exception *a1, int a2)
   __clang_call_terminate(a1);
 }
 
-void vp::vx::components::CPU_Profiler::Node_Decorator_Factory::~Node_Decorator_Factory(vp::vx::components::CPU_Profiler::Node_Decorator_Factory *this)
+void vp::vx::components::CPU_Profiler::Node_Decorator_Factory::~Node_Decorator_Factory(void **this)
 {
   *this = &unk_2881B6040;
   if (*(this + 95) < 0)
   {
-    operator delete(*(this + 9));
+    operator delete(this[9]);
   }
 
   vp::vx::data_flow::State<void>::~State(this + 10);
-  v2 = *(this + 4);
+  v2 = this[4];
   if (v2)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v2);
   }
 
-  v3 = *(this + 2);
+  v3 = this[2];
   if (v3)
   {
     std::__shared_weak_count::__release_weak(v3);
@@ -721,17 +7355,17 @@ void vp::vx::components::CPU_Profiler::Node_Decorator_Factory::~Node_Decorator_F
   *this = &unk_2881B6040;
   if (*(this + 95) < 0)
   {
-    operator delete(*(this + 9));
+    operator delete(this[9]);
   }
 
   vp::vx::data_flow::State<void>::~State(this + 10);
-  v2 = *(this + 4);
+  v2 = this[4];
   if (v2)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v2);
   }
 
-  v3 = *(this + 2);
+  v3 = this[2];
   if (v3)
   {
     std::__shared_weak_count::__release_weak(v3);
@@ -743,17 +7377,15 @@ void std::__function::__func<vp::vx::components::CPU_Profiler::Node_Decorator_Fa
   v4 = *(a1 + 16);
   if (v4)
   {
-    v5 = *a2;
-    v6 = *a3;
-    v7 = std::__shared_weak_count::lock(v4);
-    if (v7)
+    v5 = std::__shared_weak_count::lock(v4);
+    if (v5)
     {
       if (*(a1 + 8))
       {
         operator new();
       }
 
-      std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v5);
     }
   }
 }
@@ -1291,9 +7923,9 @@ LABEL_28:
   return result;
 }
 
-void sub_272600EA0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_272600EA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   boost::container::dtl::scoped_array_deallocator<vp::Allocator<boost::container::dtl::pair<unsigned int,std::function<void ()(vp::darwin::Notification_Proxy &)>>>>::~scoped_array_deallocator(va);
   _Unwind_Resume(a1);
 }
@@ -1467,33 +8099,33 @@ uint64_t __copy_helper_block_e8_32c56_ZTSNSt3__18weak_ptrIN2vp6darwin19Notificat
 
 void vp::vx::database::v1::runtime::Data_Manager::serialize(const vp::vx::Configuration_Context *a1@<X1>, CFDictionaryRef *a2@<X8>)
 {
-  v293[2] = *MEMORY[0x277D85DE8];
+  v291[2] = *MEMORY[0x277D85DE8];
   CFRetain(@"operation_mode");
-  v5 = CFGetTypeID(@"operation_mode");
-  if (v5 == CFStringGetTypeID())
+  v4 = CFGetTypeID(@"operation_mode");
+  if (v4 == CFStringGetTypeID())
   {
-    v248 = @"operation_mode";
+    v246 = @"operation_mode";
   }
 
   else
   {
-    v248 = 0;
+    v246 = 0;
     CFRelease(@"operation_mode");
   }
 
-  v6 = vp::detail::reflect_value_name<(vp::vx::Operation_Mode)0,128ul>(*a1);
-  if (v7)
+  v5 = vp::detail::reflect_value_name<(vp::vx::Operation_Mode)0,128ul>(*a1);
+  if (v6)
   {
-    v8 = &v6[v7];
-    v9 = v7;
-    while (v9)
+    v7 = &v5[v6];
+    v8 = v6;
+    while (v8)
     {
-      v10 = *--v8;
-      --v9;
-      if (v10 == 58)
+      v9 = *--v7;
+      --v8;
+      if (v9 == 58)
       {
-        v11 = v8 - v6 + 1;
-        if (v7 < v11)
+        v10 = v7 - v5 + 1;
+        if (v6 < v10)
         {
           std::__throw_out_of_range[abi:ne200100]("string_view::substr");
         }
@@ -1503,27 +8135,27 @@ void vp::vx::database::v1::runtime::Data_Manager::serialize(const vp::vx::Config
     }
   }
 
-  v11 = 0;
+  v10 = 0;
 LABEL_11:
-  v12 = v7 - v11;
-  if (v7 - v11 > 0x7FFFFFFFFFFFFFF7)
+  v11 = v6 - v10;
+  if (v6 - v10 > 0x7FFFFFFFFFFFFFF7)
   {
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  if (v12 >= 0x17)
+  if (v11 >= 0x17)
   {
     operator new();
   }
 
-  v252 = v7 - v11;
-  if (v7 != v11)
+  v250 = v6 - v10;
+  if (v6 != v10)
   {
-    memmove(&__dst, &v6[v11], v12);
+    memmove(&__dst, &v5[v10], v11);
   }
 
-  v251[v12 - 8] = 0;
-  if ((v252 & 0x80u) == 0)
+  v249[v11 - 8] = 0;
+  if ((v250 & 0x80u) == 0)
   {
     p_dst = &__dst;
   }
@@ -1535,24 +8167,24 @@ LABEL_11:
 
   if (p_dst)
   {
-    if ((v252 & 0x80u) == 0)
+    if ((v250 & 0x80u) == 0)
     {
-      v14 = v252;
+      v13 = v250;
     }
 
     else
     {
-      v14 = *v251;
+      v13 = *v249;
     }
 
-    v247 = CFStringCreateWithBytes(0, p_dst, v14, 0x8000100u, 0);
-    if (!v247)
+    v245 = CFStringCreateWithBytes(0, p_dst, v13, 0x8000100u, 0);
+    if (!v245)
     {
       exception = __cxa_allocate_exception(0x10uLL);
       std::runtime_error::runtime_error(exception, "Could not construct");
     }
 
-    if ((v252 & 0x80) != 0)
+    if ((v250 & 0x80) != 0)
     {
       goto LABEL_26;
     }
@@ -1560,77 +8192,77 @@ LABEL_11:
 
   else
   {
-    v247 = 0;
-    if ((v252 & 0x80) != 0)
+    v245 = 0;
+    if ((v250 & 0x80) != 0)
     {
 LABEL_26:
       operator delete(__dst);
     }
   }
 
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::StringRef>(v253, v248, &v247);
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::StringRef>(v251, v246, &v245);
   CFRetain(@"chat_flavor");
-  v15 = CFGetTypeID(@"chat_flavor");
-  if (v15 == CFStringGetTypeID())
+  v14 = CFGetTypeID(@"chat_flavor");
+  if (v14 == CFStringGetTypeID())
   {
-    v246 = @"chat_flavor";
+    v244 = @"chat_flavor";
   }
 
   else
   {
-    v246 = 0;
+    v244 = 0;
     CFRelease(@"chat_flavor");
   }
 
-  v16 = vp::reflect_value_name_tag<vp::vx::Chat_Flavor,128ul>(*(a1 + 1));
-  if (v17 > 0x7FFFFFFFFFFFFFF7)
+  v15 = vp::reflect_value_name_tag<vp::vx::Chat_Flavor,128ul>(*(a1 + 1));
+  if (v16 > 0x7FFFFFFFFFFFFFF7)
   {
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  v18 = v17;
-  if (v17 >= 0x17)
+  v17 = v16;
+  if (v16 >= 0x17)
   {
     operator new();
   }
 
-  v252 = v17;
-  if (v17)
+  v250 = v16;
+  if (v16)
   {
-    memmove(&__dst, v16, v17);
+    memmove(&__dst, v15, v16);
   }
 
-  v251[v18 - 8] = 0;
-  if ((v252 & 0x80u) == 0)
+  v249[v17 - 8] = 0;
+  if ((v250 & 0x80u) == 0)
   {
-    v19 = &__dst;
+    v18 = &__dst;
   }
 
   else
   {
-    v19 = __dst;
+    v18 = __dst;
   }
 
-  if (v19)
+  if (v18)
   {
-    if ((v252 & 0x80u) == 0)
+    if ((v250 & 0x80u) == 0)
     {
-      v20 = v252;
+      v19 = v250;
     }
 
     else
     {
-      v20 = *v251;
+      v19 = *v249;
     }
 
-    v245 = CFStringCreateWithBytes(0, v19, v20, 0x8000100u, 0);
-    if (!v245)
+    v243 = CFStringCreateWithBytes(0, v18, v19, 0x8000100u, 0);
+    if (!v243)
     {
-      v161 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v161, "Could not construct");
+      v159 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v159, "Could not construct");
     }
 
-    if ((v252 & 0x80) != 0)
+    if ((v250 & 0x80) != 0)
     {
       goto LABEL_45;
     }
@@ -1638,77 +8270,77 @@ LABEL_26:
 
   else
   {
-    v245 = 0;
-    if ((v252 & 0x80) != 0)
+    v243 = 0;
+    if ((v250 & 0x80) != 0)
     {
 LABEL_45:
       operator delete(__dst);
     }
   }
 
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::StringRef>(&v254, v246, &v245);
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::StringRef>(&v252, v244, &v243);
   CFRetain(@"input_port_type");
-  v21 = CFGetTypeID(@"input_port_type");
-  if (v21 == CFStringGetTypeID())
+  v20 = CFGetTypeID(@"input_port_type");
+  if (v20 == CFStringGetTypeID())
   {
-    v244 = @"input_port_type";
+    v242 = @"input_port_type";
   }
 
   else
   {
-    v244 = 0;
+    v242 = 0;
     CFRelease(@"input_port_type");
   }
 
-  v22 = vp::reflect_value_name_tag<vp::vx::Input_Port_Type,128ul>(*(a1 + 2));
-  if (v23 > 0x7FFFFFFFFFFFFFF7)
+  v21 = vp::reflect_value_name_tag<vp::vx::Input_Port_Type,128ul>(*(a1 + 2));
+  if (v22 > 0x7FFFFFFFFFFFFFF7)
   {
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  v24 = v23;
-  if (v23 >= 0x17)
+  v23 = v22;
+  if (v22 >= 0x17)
   {
     operator new();
   }
 
-  v252 = v23;
-  if (v23)
+  v250 = v22;
+  if (v22)
   {
-    memmove(&__dst, v22, v23);
+    memmove(&__dst, v21, v22);
   }
 
-  v251[v24 - 8] = 0;
-  if ((v252 & 0x80u) == 0)
+  v249[v23 - 8] = 0;
+  if ((v250 & 0x80u) == 0)
   {
-    v25 = &__dst;
+    v24 = &__dst;
   }
 
   else
   {
-    v25 = __dst;
+    v24 = __dst;
   }
 
-  if (v25)
+  if (v24)
   {
-    if ((v252 & 0x80u) == 0)
+    if ((v250 & 0x80u) == 0)
     {
-      v26 = v252;
+      v25 = v250;
     }
 
     else
     {
-      v26 = *v251;
+      v25 = *v249;
     }
 
-    v243 = CFStringCreateWithBytes(0, v25, v26, 0x8000100u, 0);
-    if (!v243)
+    v241 = CFStringCreateWithBytes(0, v24, v25, 0x8000100u, 0);
+    if (!v241)
     {
-      v162 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v162, "Could not construct");
+      v160 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v160, "Could not construct");
     }
 
-    if ((v252 & 0x80) != 0)
+    if ((v250 & 0x80) != 0)
     {
       goto LABEL_64;
     }
@@ -1716,238 +8348,238 @@ LABEL_45:
 
   else
   {
-    v243 = 0;
-    if ((v252 & 0x80) != 0)
+    v241 = 0;
+    if ((v250 & 0x80) != 0)
     {
 LABEL_64:
       operator delete(__dst);
     }
   }
 
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::StringRef>(&v255, v244, &v243);
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::StringRef>(&v253, v242, &v241);
   CFRetain(@"input_port_type_legacy");
-  v27 = @"input_port_type_legacy";
-  v28 = CFGetTypeID(@"input_port_type_legacy");
-  if (v28 == CFStringGetTypeID())
+  v26 = @"input_port_type_legacy";
+  v27 = CFGetTypeID(@"input_port_type_legacy");
+  if (v27 == CFStringGetTypeID())
   {
-    v242 = @"input_port_type_legacy";
-  }
-
-  else
-  {
-    v242 = 0;
-    CFRelease(@"input_port_type_legacy");
-    v27 = 0;
-  }
-
-  LODWORD(__dst) = vp::vx::Legacy<vp::vx::Input_Port_Type>::cast(*(a1 + 2));
-  v241 = CFNumberCreate(0, kCFNumberIntType, &__dst);
-  if (!v241)
-  {
-    v140 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v140, "Could not construct");
-  }
-
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v256, v27, &v241);
-  CFRetain(@"input_port_sub_type_legacy");
-  v29 = @"input_port_sub_type_legacy";
-  v30 = CFGetTypeID(@"input_port_sub_type_legacy");
-  if (v30 == CFStringGetTypeID())
-  {
-    v240 = @"input_port_sub_type_legacy";
+    v240 = @"input_port_type_legacy";
   }
 
   else
   {
     v240 = 0;
-    CFRelease(@"input_port_sub_type_legacy");
-    v29 = 0;
+    CFRelease(@"input_port_type_legacy");
+    v26 = 0;
   }
 
-  LODWORD(__dst) = vp::vx::legacy_cast<vp::vx::Port_Sub_Type>(*(a1 + 3));
+  LODWORD(__dst) = vp::vx::Legacy<vp::vx::Input_Port_Type>::cast(*(a1 + 2));
   v239 = CFNumberCreate(0, kCFNumberIntType, &__dst);
   if (!v239)
   {
-    v141 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v141, "Could not construct");
+    v138 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v138, "Could not construct");
   }
 
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v257, v29, &v239);
-  CFRetain(@"input_hw_transport_type");
-  v31 = @"input_hw_transport_type";
-  v32 = CFGetTypeID(@"input_hw_transport_type");
-  if (v32 == CFStringGetTypeID())
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v254, v26, &v239);
+  CFRetain(@"input_port_sub_type_legacy");
+  v28 = @"input_port_sub_type_legacy";
+  v29 = CFGetTypeID(@"input_port_sub_type_legacy");
+  if (v29 == CFStringGetTypeID())
   {
-    v238 = @"input_hw_transport_type";
+    v238 = @"input_port_sub_type_legacy";
   }
 
   else
   {
     v238 = 0;
-    CFRelease(@"input_hw_transport_type");
-    v31 = 0;
+    CFRelease(@"input_port_sub_type_legacy");
+    v28 = 0;
   }
 
-  LODWORD(__dst) = *(a1 + 4);
+  LODWORD(__dst) = vp::vx::legacy_cast<vp::vx::Port_Sub_Type>(*(a1 + 3));
   v237 = CFNumberCreate(0, kCFNumberIntType, &__dst);
   if (!v237)
   {
-    v142 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v142, "Could not construct");
+    v139 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v139, "Could not construct");
   }
 
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v258, v31, &v237);
-  CFRetain(@"input_hw_bluetooth_device_category");
-  v33 = @"input_hw_bluetooth_device_category";
-  v34 = CFGetTypeID(@"input_hw_bluetooth_device_category");
-  if (v34 == CFStringGetTypeID())
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v255, v28, &v237);
+  CFRetain(@"input_hw_transport_type");
+  v30 = @"input_hw_transport_type";
+  v31 = CFGetTypeID(@"input_hw_transport_type");
+  if (v31 == CFStringGetTypeID())
   {
-    v236 = @"input_hw_bluetooth_device_category";
+    v236 = @"input_hw_transport_type";
   }
 
   else
   {
     v236 = 0;
-    CFRelease(@"input_hw_bluetooth_device_category");
-    v33 = 0;
+    CFRelease(@"input_hw_transport_type");
+    v30 = 0;
   }
 
-  LODWORD(__dst) = *(a1 + 5);
+  LODWORD(__dst) = *(a1 + 4);
   v235 = CFNumberCreate(0, kCFNumberIntType, &__dst);
   if (!v235)
   {
-    v143 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v143, "Could not construct");
+    v140 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v140, "Could not construct");
   }
 
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v259, v33, &v235);
-  CFRetain(@"input_hw_data_source");
-  v35 = @"input_hw_data_source";
-  v36 = CFGetTypeID(@"input_hw_data_source");
-  if (v36 == CFStringGetTypeID())
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v256, v30, &v235);
+  CFRetain(@"input_hw_bluetooth_device_category");
+  v32 = @"input_hw_bluetooth_device_category";
+  v33 = CFGetTypeID(@"input_hw_bluetooth_device_category");
+  if (v33 == CFStringGetTypeID())
   {
-    v234 = @"input_hw_data_source";
+    v234 = @"input_hw_bluetooth_device_category";
   }
 
   else
   {
     v234 = 0;
-    CFRelease(@"input_hw_data_source");
-    v35 = 0;
+    CFRelease(@"input_hw_bluetooth_device_category");
+    v32 = 0;
   }
 
-  LODWORD(__dst) = *(a1 + 6);
+  LODWORD(__dst) = *(a1 + 5);
   v233 = CFNumberCreate(0, kCFNumberIntType, &__dst);
   if (!v233)
   {
-    v144 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v144, "Could not construct");
+    v141 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v141, "Could not construct");
   }
 
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v260, v35, &v233);
-  CFRetain(@"input_hw_model_uid");
-  v37 = @"input_hw_model_uid";
-  v38 = CFGetTypeID(@"input_hw_model_uid");
-  if (v38 == CFStringGetTypeID())
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v257, v32, &v233);
+  CFRetain(@"input_hw_data_source");
+  v34 = @"input_hw_data_source";
+  v35 = CFGetTypeID(@"input_hw_data_source");
+  if (v35 == CFStringGetTypeID())
   {
-    v232 = @"input_hw_model_uid";
+    v232 = @"input_hw_data_source";
   }
 
   else
   {
     v232 = 0;
-    CFRelease(@"input_hw_model_uid");
-    v37 = 0;
+    CFRelease(@"input_hw_data_source");
+    v34 = 0;
   }
 
-  v39 = *(a1 + 4);
-  if (v39)
+  LODWORD(__dst) = *(a1 + 6);
+  v231 = CFNumberCreate(0, kCFNumberIntType, &__dst);
+  if (!v231)
   {
-    CFRetain(*(a1 + 4));
-    v231 = v39;
-    v230 = 0;
+    v142 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v142, "Could not construct");
+  }
+
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v258, v34, &v231);
+  CFRetain(@"input_hw_model_uid");
+  v36 = @"input_hw_model_uid";
+  v37 = CFGetTypeID(@"input_hw_model_uid");
+  if (v37 == CFStringGetTypeID())
+  {
+    v230 = @"input_hw_model_uid";
   }
 
   else
   {
     v230 = 0;
+    CFRelease(@"input_hw_model_uid");
+    v36 = 0;
+  }
+
+  v38 = *(a1 + 4);
+  if (v38)
+  {
+    CFRetain(*(a1 + 4));
+    v229 = v38;
+    v228 = 0;
+  }
+
+  else
+  {
+    v228 = 0;
     CFRetain(@"(null)");
-    v40 = CFGetTypeID(@"(null)");
-    if (v40 == CFStringGetTypeID())
+    v39 = CFGetTypeID(@"(null)");
+    if (v39 == CFStringGetTypeID())
     {
-      v231 = @"(null)";
+      v229 = @"(null)";
     }
 
     else
     {
-      v231 = 0;
+      v229 = 0;
       CFRelease(@"(null)");
     }
   }
 
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::StringRef>(&v261, v37, &v231);
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::StringRef>(&v259, v36, &v229);
   CFRetain(@"output_port_type");
-  v41 = CFGetTypeID(@"output_port_type");
-  if (v41 == CFStringGetTypeID())
+  v40 = CFGetTypeID(@"output_port_type");
+  if (v40 == CFStringGetTypeID())
   {
-    v229 = @"output_port_type";
+    v227 = @"output_port_type";
   }
 
   else
   {
-    v229 = 0;
+    v227 = 0;
     CFRelease(@"output_port_type");
   }
 
-  v42 = vp::reflect_value_name_tag<vp::vx::Output_Port_Type,128ul>(*(a1 + 10));
-  if (v43 > 0x7FFFFFFFFFFFFFF7)
+  v41 = vp::reflect_value_name_tag<vp::vx::Output_Port_Type,128ul>(*(a1 + 10));
+  if (v42 > 0x7FFFFFFFFFFFFFF7)
   {
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  v44 = v43;
-  if (v43 >= 0x17)
+  v43 = v42;
+  if (v42 >= 0x17)
   {
     operator new();
   }
 
-  v252 = v43;
-  if (v43)
+  v250 = v42;
+  if (v42)
   {
-    memmove(&__dst, v42, v43);
+    memmove(&__dst, v41, v42);
   }
 
-  v251[v44 - 8] = 0;
-  if ((v252 & 0x80u) == 0)
+  v249[v43 - 8] = 0;
+  if ((v250 & 0x80u) == 0)
   {
-    v45 = &__dst;
+    v44 = &__dst;
   }
 
   else
   {
-    v45 = __dst;
+    v44 = __dst;
   }
 
-  if (v45)
+  if (v44)
   {
-    if ((v252 & 0x80u) == 0)
+    if ((v250 & 0x80u) == 0)
     {
-      v46 = v252;
+      v45 = v250;
     }
 
     else
     {
-      v46 = *v251;
+      v45 = *v249;
     }
 
-    v228 = CFStringCreateWithBytes(0, v45, v46, 0x8000100u, 0);
-    if (!v228)
+    v226 = CFStringCreateWithBytes(0, v44, v45, 0x8000100u, 0);
+    if (!v226)
     {
-      v163 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v163, "Could not construct");
+      v161 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v161, "Could not construct");
     }
 
-    if ((v252 & 0x80) != 0)
+    if ((v250 & 0x80) != 0)
     {
       goto LABEL_117;
     }
@@ -1955,822 +8587,822 @@ LABEL_64:
 
   else
   {
-    v228 = 0;
-    if ((v252 & 0x80) != 0)
+    v226 = 0;
+    if ((v250 & 0x80) != 0)
     {
 LABEL_117:
       operator delete(__dst);
     }
   }
 
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::StringRef>(&v262, v229, &v228);
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::StringRef>(&v260, v227, &v226);
   CFRetain(@"output_port_type_legacy");
-  v47 = @"output_port_type_legacy";
-  v48 = CFGetTypeID(@"output_port_type_legacy");
-  if (v48 == CFStringGetTypeID())
+  v46 = @"output_port_type_legacy";
+  v47 = CFGetTypeID(@"output_port_type_legacy");
+  if (v47 == CFStringGetTypeID())
   {
-    v227 = @"output_port_type_legacy";
-  }
-
-  else
-  {
-    v227 = 0;
-    CFRelease(@"output_port_type_legacy");
-    v47 = 0;
-  }
-
-  LODWORD(__dst) = vp::vx::Legacy<vp::vx::Output_Port_Type>::cast(*(a1 + 10));
-  v226 = CFNumberCreate(0, kCFNumberIntType, &__dst);
-  if (!v226)
-  {
-    v145 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v145, "Could not construct");
-  }
-
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v263, v47, &v226);
-  CFRetain(@"output_port_sub_type_legacy");
-  v49 = @"output_port_sub_type_legacy";
-  v50 = CFGetTypeID(@"output_port_sub_type_legacy");
-  if (v50 == CFStringGetTypeID())
-  {
-    v225 = @"output_port_sub_type_legacy";
+    v225 = @"output_port_type_legacy";
   }
 
   else
   {
     v225 = 0;
-    CFRelease(@"output_port_sub_type_legacy");
-    v49 = 0;
+    CFRelease(@"output_port_type_legacy");
+    v46 = 0;
   }
 
-  LODWORD(__dst) = vp::vx::legacy_cast<vp::vx::Port_Sub_Type>(*(a1 + 11));
+  LODWORD(__dst) = vp::vx::Legacy<vp::vx::Output_Port_Type>::cast(*(a1 + 10));
   v224 = CFNumberCreate(0, kCFNumberIntType, &__dst);
   if (!v224)
   {
-    v146 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v146, "Could not construct");
+    v143 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v143, "Could not construct");
   }
 
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v264, v49, &v224);
-  CFRetain(@"output_port_endpoint_type_legacy");
-  v51 = @"output_port_endpoint_type_legacy";
-  v52 = CFGetTypeID(@"output_port_endpoint_type_legacy");
-  if (v52 == CFStringGetTypeID())
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v261, v46, &v224);
+  CFRetain(@"output_port_sub_type_legacy");
+  v48 = @"output_port_sub_type_legacy";
+  v49 = CFGetTypeID(@"output_port_sub_type_legacy");
+  if (v49 == CFStringGetTypeID())
   {
-    v223 = @"output_port_endpoint_type_legacy";
+    v223 = @"output_port_sub_type_legacy";
   }
 
   else
   {
     v223 = 0;
-    CFRelease(@"output_port_endpoint_type_legacy");
-    v51 = 0;
+    CFRelease(@"output_port_sub_type_legacy");
+    v48 = 0;
   }
 
-  LODWORD(__dst) = vp::vx::Legacy<vp::vx::Port_Endpoint_Type>::cast(*(a1 + 12));
+  LODWORD(__dst) = vp::vx::legacy_cast<vp::vx::Port_Sub_Type>(*(a1 + 11));
   v222 = CFNumberCreate(0, kCFNumberIntType, &__dst);
   if (!v222)
   {
-    v147 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v147, "Could not construct");
+    v144 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v144, "Could not construct");
   }
 
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v265, v51, &v222);
-  CFRetain(@"output_port_is_apple_bluetooth_product");
-  v53 = @"output_port_is_apple_bluetooth_product";
-  v54 = CFGetTypeID(@"output_port_is_apple_bluetooth_product");
-  if (v54 == CFStringGetTypeID())
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v262, v48, &v222);
+  CFRetain(@"output_port_endpoint_type_legacy");
+  v50 = @"output_port_endpoint_type_legacy";
+  v51 = CFGetTypeID(@"output_port_endpoint_type_legacy");
+  if (v51 == CFStringGetTypeID())
   {
-    v221 = @"output_port_is_apple_bluetooth_product";
+    v221 = @"output_port_endpoint_type_legacy";
   }
 
   else
   {
     v221 = 0;
-    CFRelease(@"output_port_is_apple_bluetooth_product");
-    v53 = 0;
+    CFRelease(@"output_port_endpoint_type_legacy");
+    v50 = 0;
   }
 
-  v55 = *MEMORY[0x277CBED28];
-  v56 = *MEMORY[0x277CBED10];
-  if (*(a1 + 52))
+  LODWORD(__dst) = vp::vx::Legacy<vp::vx::Port_Endpoint_Type>::cast(*(a1 + 12));
+  v220 = CFNumberCreate(0, kCFNumberIntType, &__dst);
+  if (!v220)
   {
-    v57 = *MEMORY[0x277CBED28];
+    v145 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v145, "Could not construct");
   }
 
-  else
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v263, v50, &v220);
+  CFRetain(@"output_port_is_apple_bluetooth_product");
+  v52 = @"output_port_is_apple_bluetooth_product";
+  v53 = CFGetTypeID(@"output_port_is_apple_bluetooth_product");
+  if (v53 == CFStringGetTypeID())
   {
-    v57 = *MEMORY[0x277CBED10];
-  }
-
-  v220 = v57;
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::BooleanRef>(&v266, v53, &v220);
-  CFRetain(@"output_hw_transport_type");
-  v58 = @"output_hw_transport_type";
-  v59 = CFGetTypeID(@"output_hw_transport_type");
-  if (v59 == CFStringGetTypeID())
-  {
-    v219 = @"output_hw_transport_type";
+    v219 = @"output_port_is_apple_bluetooth_product";
   }
 
   else
   {
     v219 = 0;
-    CFRelease(@"output_hw_transport_type");
-    v58 = 0;
+    CFRelease(@"output_port_is_apple_bluetooth_product");
+    v52 = 0;
   }
 
-  LODWORD(__dst) = *(a1 + 14);
-  v218 = CFNumberCreate(0, kCFNumberIntType, &__dst);
-  if (!v218)
+  v54 = *MEMORY[0x277CBED28];
+  v55 = *MEMORY[0x277CBED10];
+  if (*(a1 + 52))
   {
-    v148 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v148, "Could not construct");
+    v56 = *MEMORY[0x277CBED28];
   }
 
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v267, v58, &v218);
-  CFRetain(@"output_hw_bluetooth_device_category");
-  v60 = @"output_hw_bluetooth_device_category";
-  v61 = CFGetTypeID(@"output_hw_bluetooth_device_category");
-  if (v61 == CFStringGetTypeID())
+  else
   {
-    v217 = @"output_hw_bluetooth_device_category";
+    v56 = *MEMORY[0x277CBED10];
+  }
+
+  v218 = v56;
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::BooleanRef>(&v264, v52, &v218);
+  CFRetain(@"output_hw_transport_type");
+  v57 = @"output_hw_transport_type";
+  v58 = CFGetTypeID(@"output_hw_transport_type");
+  if (v58 == CFStringGetTypeID())
+  {
+    v217 = @"output_hw_transport_type";
   }
 
   else
   {
     v217 = 0;
-    CFRelease(@"output_hw_bluetooth_device_category");
-    v60 = 0;
+    CFRelease(@"output_hw_transport_type");
+    v57 = 0;
   }
 
-  LODWORD(__dst) = *(a1 + 15);
+  LODWORD(__dst) = *(a1 + 14);
   v216 = CFNumberCreate(0, kCFNumberIntType, &__dst);
   if (!v216)
   {
-    v149 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v149, "Could not construct");
+    v146 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v146, "Could not construct");
   }
 
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v268, v60, &v216);
-  CFRetain(@"output_hw_data_source");
-  v62 = @"output_hw_data_source";
-  v63 = CFGetTypeID(@"output_hw_data_source");
-  if (v63 == CFStringGetTypeID())
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v265, v57, &v216);
+  CFRetain(@"output_hw_bluetooth_device_category");
+  v59 = @"output_hw_bluetooth_device_category";
+  v60 = CFGetTypeID(@"output_hw_bluetooth_device_category");
+  if (v60 == CFStringGetTypeID())
   {
-    v215 = @"output_hw_data_source";
+    v215 = @"output_hw_bluetooth_device_category";
   }
 
   else
   {
     v215 = 0;
-    CFRelease(@"output_hw_data_source");
-    v62 = 0;
+    CFRelease(@"output_hw_bluetooth_device_category");
+    v59 = 0;
   }
 
-  LODWORD(__dst) = *(a1 + 16);
+  LODWORD(__dst) = *(a1 + 15);
   v214 = CFNumberCreate(0, kCFNumberIntType, &__dst);
   if (!v214)
   {
-    v150 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v150, "Could not construct");
+    v147 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v147, "Could not construct");
   }
 
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v269, v62, &v214);
-  CFRetain(@"output_hw_model_uid");
-  v64 = @"output_hw_model_uid";
-  v65 = CFGetTypeID(@"output_hw_model_uid");
-  if (v65 == CFStringGetTypeID())
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v266, v59, &v214);
+  CFRetain(@"output_hw_data_source");
+  v61 = @"output_hw_data_source";
+  v62 = CFGetTypeID(@"output_hw_data_source");
+  if (v62 == CFStringGetTypeID())
   {
-    v213 = @"output_hw_model_uid";
+    v213 = @"output_hw_data_source";
   }
 
   else
   {
     v213 = 0;
-    CFRelease(@"output_hw_model_uid");
-    v64 = 0;
+    CFRelease(@"output_hw_data_source");
+    v61 = 0;
   }
 
-  v66 = *(a1 + 9);
-  if (v66)
+  LODWORD(__dst) = *(a1 + 16);
+  v212 = CFNumberCreate(0, kCFNumberIntType, &__dst);
+  if (!v212)
   {
-    CFRetain(*(a1 + 9));
-    v211 = 0;
-    v212 = v66;
+    v148 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v148, "Could not construct");
+  }
+
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v267, v61, &v212);
+  CFRetain(@"output_hw_model_uid");
+  v63 = @"output_hw_model_uid";
+  v64 = CFGetTypeID(@"output_hw_model_uid");
+  if (v64 == CFStringGetTypeID())
+  {
+    v211 = @"output_hw_model_uid";
   }
 
   else
   {
     v211 = 0;
+    CFRelease(@"output_hw_model_uid");
+    v63 = 0;
+  }
+
+  v65 = *(a1 + 9);
+  if (v65)
+  {
+    CFRetain(*(a1 + 9));
+    v209 = 0;
+    v210 = v65;
+  }
+
+  else
+  {
+    v209 = 0;
     CFRetain(@"(null)");
-    v67 = CFGetTypeID(@"(null)");
-    if (v67 == CFStringGetTypeID())
+    v66 = CFGetTypeID(@"(null)");
+    if (v66 == CFStringGetTypeID())
     {
-      v212 = @"(null)";
+      v210 = @"(null)";
     }
 
     else
     {
-      v212 = 0;
+      v210 = 0;
       CFRelease(@"(null)");
     }
   }
 
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::StringRef>(&v270, v64, &v212);
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::StringRef>(&v268, v63, &v210);
   CFRetain(@"spatial_chat_is_enabled");
-  v68 = @"spatial_chat_is_enabled";
-  v69 = CFGetTypeID(@"spatial_chat_is_enabled");
-  if (v69 == CFStringGetTypeID())
+  v67 = @"spatial_chat_is_enabled";
+  v68 = CFGetTypeID(@"spatial_chat_is_enabled");
+  if (v68 == CFStringGetTypeID())
   {
-    v210 = @"spatial_chat_is_enabled";
-  }
-
-  else
-  {
-    v210 = 0;
-    CFRelease(@"spatial_chat_is_enabled");
-    v68 = 0;
-  }
-
-  if (*(a1 + 80))
-  {
-    v70 = v55;
-  }
-
-  else
-  {
-    v70 = v56;
-  }
-
-  v209 = v70;
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::BooleanRef>(&v271, v68, &v209);
-  CFRetain(@"spatial_headtracking_is_enabled");
-  v71 = @"spatial_headtracking_is_enabled";
-  v72 = CFGetTypeID(@"spatial_headtracking_is_enabled");
-  if (v72 == CFStringGetTypeID())
-  {
-    v208 = @"spatial_headtracking_is_enabled";
+    v208 = @"spatial_chat_is_enabled";
   }
 
   else
   {
     v208 = 0;
-    CFRelease(@"spatial_headtracking_is_enabled");
-    v71 = 0;
+    CFRelease(@"spatial_chat_is_enabled");
+    v67 = 0;
   }
 
-  if (*(a1 + 81))
+  if (*(a1 + 80))
   {
-    v73 = v55;
+    v69 = v54;
   }
 
   else
   {
-    v73 = v56;
+    v69 = v55;
   }
 
-  v207 = v73;
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::BooleanRef>(&v272, v71, &v207);
-  CFRetain(@"media_chat_is_enabled");
-  v74 = @"media_chat_is_enabled";
-  v75 = CFGetTypeID(@"media_chat_is_enabled");
-  if (v75 == CFStringGetTypeID())
+  v207 = v69;
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::BooleanRef>(&v269, v67, &v207);
+  CFRetain(@"spatial_headtracking_is_enabled");
+  v70 = @"spatial_headtracking_is_enabled";
+  v71 = CFGetTypeID(@"spatial_headtracking_is_enabled");
+  if (v71 == CFStringGetTypeID())
   {
-    v206 = @"media_chat_is_enabled";
+    v206 = @"spatial_headtracking_is_enabled";
   }
 
   else
   {
     v206 = 0;
-    CFRelease(@"media_chat_is_enabled");
-    v74 = 0;
+    CFRelease(@"spatial_headtracking_is_enabled");
+    v70 = 0;
   }
 
-  if (*(a1 + 82))
+  if (*(a1 + 81))
   {
-    v76 = v55;
+    v72 = v54;
   }
 
   else
   {
-    v76 = v56;
+    v72 = v55;
   }
 
-  v205 = v76;
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::BooleanRef>(&v273, v74, &v205);
-  CFRetain(@"stereo_to_mono_mix_is_enabled");
-  v77 = @"stereo_to_mono_mix_is_enabled";
-  v78 = CFGetTypeID(@"stereo_to_mono_mix_is_enabled");
-  if (v78 == CFStringGetTypeID())
+  v205 = v72;
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::BooleanRef>(&v270, v70, &v205);
+  CFRetain(@"media_chat_is_enabled");
+  v73 = @"media_chat_is_enabled";
+  v74 = CFGetTypeID(@"media_chat_is_enabled");
+  if (v74 == CFStringGetTypeID())
   {
-    v204 = @"stereo_to_mono_mix_is_enabled";
+    v204 = @"media_chat_is_enabled";
   }
 
   else
   {
     v204 = 0;
-    CFRelease(@"stereo_to_mono_mix_is_enabled");
-    v77 = 0;
+    CFRelease(@"media_chat_is_enabled");
+    v73 = 0;
   }
 
-  if (*(a1 + 83))
+  if (*(a1 + 82))
   {
-    v79 = v55;
+    v75 = v54;
   }
 
   else
   {
-    v79 = v56;
+    v75 = v55;
   }
 
-  v203 = v79;
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::BooleanRef>(&v274, v77, &v203);
-  CFRetain(@"voice_processing_is_bypassed");
-  v80 = @"voice_processing_is_bypassed";
-  v81 = CFGetTypeID(@"voice_processing_is_bypassed");
-  if (v81 == CFStringGetTypeID())
+  v203 = v75;
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::BooleanRef>(&v271, v73, &v203);
+  CFRetain(@"stereo_to_mono_mix_is_enabled");
+  v76 = @"stereo_to_mono_mix_is_enabled";
+  v77 = CFGetTypeID(@"stereo_to_mono_mix_is_enabled");
+  if (v77 == CFStringGetTypeID())
   {
-    v202 = @"voice_processing_is_bypassed";
+    v202 = @"stereo_to_mono_mix_is_enabled";
   }
 
   else
   {
     v202 = 0;
-    CFRelease(@"voice_processing_is_bypassed");
-    v80 = 0;
+    CFRelease(@"stereo_to_mono_mix_is_enabled");
+    v76 = 0;
   }
 
-  if (*(a1 + 84))
+  if (*(a1 + 83))
   {
-    v82 = v55;
+    v78 = v54;
   }
 
   else
   {
-    v82 = v56;
+    v78 = v55;
   }
 
-  v201 = v82;
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::BooleanRef>(&v275, v80, &v201);
-  CFRetain(@"voice_processing_is_disabled");
-  v83 = @"voice_processing_is_disabled";
-  v84 = CFGetTypeID(@"voice_processing_is_disabled");
-  if (v84 == CFStringGetTypeID())
+  v201 = v78;
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::BooleanRef>(&v272, v76, &v201);
+  CFRetain(@"voice_processing_is_bypassed");
+  v79 = @"voice_processing_is_bypassed";
+  v80 = CFGetTypeID(@"voice_processing_is_bypassed");
+  if (v80 == CFStringGetTypeID())
   {
-    v200 = @"voice_processing_is_disabled";
+    v200 = @"voice_processing_is_bypassed";
   }
 
   else
   {
     v200 = 0;
-    CFRelease(@"voice_processing_is_disabled");
-    v83 = 0;
+    CFRelease(@"voice_processing_is_bypassed");
+    v79 = 0;
   }
 
-  if (*(a1 + 85))
+  if (*(a1 + 84))
   {
-    v85 = v55;
+    v81 = v54;
   }
 
   else
   {
-    v85 = v56;
+    v81 = v55;
   }
 
-  v199 = v85;
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::BooleanRef>(&v276, v83, &v199);
-  CFRetain(@"voice_processing_is_done_in_hardware");
-  v86 = @"voice_processing_is_done_in_hardware";
-  v87 = CFGetTypeID(@"voice_processing_is_done_in_hardware");
-  if (v87 == CFStringGetTypeID())
+  v199 = v81;
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::BooleanRef>(&v273, v79, &v199);
+  CFRetain(@"voice_processing_is_disabled");
+  v82 = @"voice_processing_is_disabled";
+  v83 = CFGetTypeID(@"voice_processing_is_disabled");
+  if (v83 == CFStringGetTypeID())
   {
-    v198 = @"voice_processing_is_done_in_hardware";
+    v198 = @"voice_processing_is_disabled";
   }
 
   else
   {
     v198 = 0;
-    CFRelease(@"voice_processing_is_done_in_hardware");
-    v86 = 0;
+    CFRelease(@"voice_processing_is_disabled");
+    v82 = 0;
   }
 
-  if (*(a1 + 86))
+  if (*(a1 + 85))
   {
-    v88 = v55;
+    v84 = v54;
   }
 
   else
   {
-    v88 = v56;
+    v84 = v55;
   }
 
-  v197 = v88;
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::BooleanRef>(&v277, v86, &v197);
-  CFRetain(@"spatial_mode");
-  v89 = @"spatial_mode";
-  v90 = CFGetTypeID(@"spatial_mode");
-  if (v90 == CFStringGetTypeID())
+  v197 = v84;
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::BooleanRef>(&v274, v82, &v197);
+  CFRetain(@"voice_processing_is_done_in_hardware");
+  v85 = @"voice_processing_is_done_in_hardware";
+  v86 = CFGetTypeID(@"voice_processing_is_done_in_hardware");
+  if (v86 == CFStringGetTypeID())
   {
-    v196 = @"spatial_mode";
+    v196 = @"voice_processing_is_done_in_hardware";
   }
 
   else
   {
     v196 = 0;
-    CFRelease(@"spatial_mode");
-    v89 = 0;
+    CFRelease(@"voice_processing_is_done_in_hardware");
+    v85 = 0;
   }
 
-  LODWORD(__dst) = *(a1 + 22);
-  v195 = CFNumberCreate(0, kCFNumberIntType, &__dst);
-  if (!v195)
+  if (*(a1 + 86))
   {
-    v151 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v151, "Could not construct");
+    v87 = v54;
   }
 
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v278, v89, &v195);
-  CFRetain(@"hardware_mic_input_channel_count");
-  v91 = @"hardware_mic_input_channel_count";
-  v92 = CFGetTypeID(@"hardware_mic_input_channel_count");
-  if (v92 == CFStringGetTypeID())
+  else
   {
-    v194 = @"hardware_mic_input_channel_count";
+    v87 = v55;
+  }
+
+  v195 = v87;
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::BooleanRef>(&v275, v85, &v195);
+  CFRetain(@"spatial_mode");
+  v88 = @"spatial_mode";
+  v89 = CFGetTypeID(@"spatial_mode");
+  if (v89 == CFStringGetTypeID())
+  {
+    v194 = @"spatial_mode";
   }
 
   else
   {
     v194 = 0;
-    CFRelease(@"hardware_mic_input_channel_count");
-    v91 = 0;
+    CFRelease(@"spatial_mode");
+    v88 = 0;
   }
 
-  LODWORD(__dst) = *(a1 + 23);
+  LODWORD(__dst) = *(a1 + 22);
   v193 = CFNumberCreate(0, kCFNumberIntType, &__dst);
   if (!v193)
   {
-    v152 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v152, "Could not construct");
+    v149 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v149, "Could not construct");
   }
 
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v279, v91, &v193);
-  CFRetain(@"hardware_ref_input_channel_count");
-  v93 = @"hardware_ref_input_channel_count";
-  v94 = CFGetTypeID(@"hardware_ref_input_channel_count");
-  if (v94 == CFStringGetTypeID())
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v276, v88, &v193);
+  CFRetain(@"hardware_mic_input_channel_count");
+  v90 = @"hardware_mic_input_channel_count";
+  v91 = CFGetTypeID(@"hardware_mic_input_channel_count");
+  if (v91 == CFStringGetTypeID())
   {
-    v192 = @"hardware_ref_input_channel_count";
+    v192 = @"hardware_mic_input_channel_count";
   }
 
   else
   {
     v192 = 0;
-    CFRelease(@"hardware_ref_input_channel_count");
-    v93 = 0;
+    CFRelease(@"hardware_mic_input_channel_count");
+    v90 = 0;
   }
 
-  LODWORD(__dst) = *(a1 + 24);
+  LODWORD(__dst) = *(a1 + 23);
   v191 = CFNumberCreate(0, kCFNumberIntType, &__dst);
   if (!v191)
   {
-    v153 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v153, "Could not construct");
+    v150 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v150, "Could not construct");
   }
 
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v280, v93, &v191);
-  CFRetain(@"client_nev_output_channel_count");
-  v95 = @"client_nev_output_channel_count";
-  v96 = CFGetTypeID(@"client_nev_output_channel_count");
-  if (v96 == CFStringGetTypeID())
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v277, v90, &v191);
+  CFRetain(@"hardware_ref_input_channel_count");
+  v92 = @"hardware_ref_input_channel_count";
+  v93 = CFGetTypeID(@"hardware_ref_input_channel_count");
+  if (v93 == CFStringGetTypeID())
   {
-    v190 = @"client_nev_output_channel_count";
+    v190 = @"hardware_ref_input_channel_count";
   }
 
   else
   {
     v190 = 0;
-    CFRelease(@"client_nev_output_channel_count");
-    v95 = 0;
+    CFRelease(@"hardware_ref_input_channel_count");
+    v92 = 0;
   }
 
-  LODWORD(__dst) = *(a1 + 25);
+  LODWORD(__dst) = *(a1 + 24);
   v189 = CFNumberCreate(0, kCFNumberIntType, &__dst);
   if (!v189)
   {
-    v154 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v154, "Could not construct");
+    v151 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v151, "Could not construct");
   }
 
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v281, v95, &v189);
-  CFRetain(@"client_fev_input_channel_count");
-  v97 = @"client_fev_input_channel_count";
-  v98 = CFGetTypeID(@"client_fev_input_channel_count");
-  if (v98 == CFStringGetTypeID())
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v278, v92, &v189);
+  CFRetain(@"client_nev_output_channel_count");
+  v94 = @"client_nev_output_channel_count";
+  v95 = CFGetTypeID(@"client_nev_output_channel_count");
+  if (v95 == CFStringGetTypeID())
   {
-    v188 = @"client_fev_input_channel_count";
+    v188 = @"client_nev_output_channel_count";
   }
 
   else
   {
     v188 = 0;
-    CFRelease(@"client_fev_input_channel_count");
-    v97 = 0;
+    CFRelease(@"client_nev_output_channel_count");
+    v94 = 0;
   }
 
-  LODWORD(__dst) = *(a1 + 26);
+  LODWORD(__dst) = *(a1 + 25);
   v187 = CFNumberCreate(0, kCFNumberIntType, &__dst);
   if (!v187)
   {
-    v155 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v155, "Could not construct");
+    v152 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v152, "Could not construct");
   }
 
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v282, v97, &v187);
-  CFRetain(@"hardware_mix_output_channel_count");
-  v99 = @"hardware_mix_output_channel_count";
-  v100 = CFGetTypeID(@"hardware_mix_output_channel_count");
-  if (v100 == CFStringGetTypeID())
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v279, v94, &v187);
+  CFRetain(@"client_fev_input_channel_count");
+  v96 = @"client_fev_input_channel_count";
+  v97 = CFGetTypeID(@"client_fev_input_channel_count");
+  if (v97 == CFStringGetTypeID())
   {
-    v186 = @"hardware_mix_output_channel_count";
+    v186 = @"client_fev_input_channel_count";
   }
 
   else
   {
     v186 = 0;
-    CFRelease(@"hardware_mix_output_channel_count");
-    v99 = 0;
+    CFRelease(@"client_fev_input_channel_count");
+    v96 = 0;
   }
 
-  LODWORD(__dst) = *(a1 + 27);
+  LODWORD(__dst) = *(a1 + 26);
   v185 = CFNumberCreate(0, kCFNumberIntType, &__dst);
   if (!v185)
   {
-    v156 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v156, "Could not construct");
+    v153 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v153, "Could not construct");
   }
 
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v283, v99, &v185);
-  CFRetain(@"vocoder_type");
-  v101 = @"vocoder_type";
-  v102 = CFGetTypeID(@"vocoder_type");
-  if (v102 == CFStringGetTypeID())
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v280, v96, &v185);
+  CFRetain(@"hardware_mix_output_channel_count");
+  v98 = @"hardware_mix_output_channel_count";
+  v99 = CFGetTypeID(@"hardware_mix_output_channel_count");
+  if (v99 == CFStringGetTypeID())
   {
-    v184 = @"vocoder_type";
+    v184 = @"hardware_mix_output_channel_count";
   }
 
   else
   {
     v184 = 0;
-    CFRelease(@"vocoder_type");
-    v101 = 0;
+    CFRelease(@"hardware_mix_output_channel_count");
+    v98 = 0;
   }
 
-  LODWORD(__dst) = *(a1 + 28);
+  LODWORD(__dst) = *(a1 + 27);
   v183 = CFNumberCreate(0, kCFNumberIntType, &__dst);
   if (!v183)
   {
-    v157 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v157, "Could not construct");
+    v154 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v154, "Could not construct");
   }
 
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v284, v101, &v183);
-  CFRetain(@"vocoder_sample_rate");
-  v103 = @"vocoder_sample_rate";
-  v104 = CFGetTypeID(@"vocoder_sample_rate");
-  if (v104 == CFStringGetTypeID())
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v281, v98, &v183);
+  CFRetain(@"vocoder_type");
+  v100 = @"vocoder_type";
+  v101 = CFGetTypeID(@"vocoder_type");
+  if (v101 == CFStringGetTypeID())
   {
-    v182 = @"vocoder_sample_rate";
+    v182 = @"vocoder_type";
   }
 
   else
   {
     v182 = 0;
-    CFRelease(@"vocoder_sample_rate");
-    v103 = 0;
+    CFRelease(@"vocoder_type");
+    v100 = 0;
   }
 
-  __dst = *(a1 + 15);
-  v181 = CFNumberCreate(0, kCFNumberDoubleType, &__dst);
+  LODWORD(__dst) = *(a1 + 28);
+  v181 = CFNumberCreate(0, kCFNumberIntType, &__dst);
   if (!v181)
   {
-    v158 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v158, "Could not construct");
+    v155 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v155, "Could not construct");
   }
 
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v285, v103, &v181);
-  CFRetain(@"tap_stream_is_enabled");
-  v105 = @"tap_stream_is_enabled";
-  v106 = CFGetTypeID(@"tap_stream_is_enabled");
-  if (v106 == CFStringGetTypeID())
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v282, v100, &v181);
+  CFRetain(@"vocoder_sample_rate");
+  v102 = @"vocoder_sample_rate";
+  v103 = CFGetTypeID(@"vocoder_sample_rate");
+  if (v103 == CFStringGetTypeID())
   {
-    v180 = @"tap_stream_is_enabled";
+    v180 = @"vocoder_sample_rate";
   }
 
   else
   {
     v180 = 0;
-    CFRelease(@"tap_stream_is_enabled");
-    v105 = 0;
+    CFRelease(@"vocoder_sample_rate");
+    v102 = 0;
   }
 
-  if (*(a1 + 128))
+  __dst = *(a1 + 15);
+  v179 = CFNumberCreate(0, kCFNumberDoubleType, &__dst);
+  if (!v179)
   {
-    v107 = v55;
+    v156 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v156, "Could not construct");
   }
 
-  else
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v283, v102, &v179);
+  CFRetain(@"tap_stream_is_enabled");
+  v104 = @"tap_stream_is_enabled";
+  v105 = CFGetTypeID(@"tap_stream_is_enabled");
+  if (v105 == CFStringGetTypeID())
   {
-    v107 = v56;
-  }
-
-  v179 = v107;
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::BooleanRef>(&v286, v105, &v179);
-  CFRetain(@"media_playback_on_external_device_is_enabled");
-  v108 = @"media_playback_on_external_device_is_enabled";
-  v109 = CFGetTypeID(@"media_playback_on_external_device_is_enabled");
-  if (v109 == CFStringGetTypeID())
-  {
-    v178 = @"media_playback_on_external_device_is_enabled";
+    v178 = @"tap_stream_is_enabled";
   }
 
   else
   {
     v178 = 0;
-    CFRelease(@"media_playback_on_external_device_is_enabled");
-    v108 = 0;
+    CFRelease(@"tap_stream_is_enabled");
+    v104 = 0;
   }
 
-  if (*(a1 + 129))
+  if (*(a1 + 128))
   {
-    v110 = v55;
+    v106 = v54;
   }
 
   else
   {
-    v110 = v56;
+    v106 = v55;
   }
 
-  v177 = v110;
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::BooleanRef>(&v287, v108, &v177);
-  CFRetain(@"other_audio_advanced_ducking_is_enabled");
-  v111 = @"other_audio_advanced_ducking_is_enabled";
-  v112 = CFGetTypeID(@"other_audio_advanced_ducking_is_enabled");
-  if (v112 == CFStringGetTypeID())
+  v177 = v106;
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::BooleanRef>(&v284, v104, &v177);
+  CFRetain(@"media_playback_on_external_device_is_enabled");
+  v107 = @"media_playback_on_external_device_is_enabled";
+  v108 = CFGetTypeID(@"media_playback_on_external_device_is_enabled");
+  if (v108 == CFStringGetTypeID())
   {
-    v176 = @"other_audio_advanced_ducking_is_enabled";
+    v176 = @"media_playback_on_external_device_is_enabled";
   }
 
   else
   {
     v176 = 0;
-    CFRelease(@"other_audio_advanced_ducking_is_enabled");
-    v111 = 0;
+    CFRelease(@"media_playback_on_external_device_is_enabled");
+    v107 = 0;
   }
 
-  if (*(a1 + 130))
+  if (*(a1 + 129))
   {
-    v113 = v55;
+    v109 = v54;
   }
 
   else
   {
-    v113 = v56;
+    v109 = v55;
   }
 
-  v175 = v113;
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::BooleanRef>(&v288, v111, &v175);
-  CFRetain(@"is_in_emergency_call");
-  v114 = @"is_in_emergency_call";
-  v115 = CFGetTypeID(@"is_in_emergency_call");
-  if (v115 == CFStringGetTypeID())
+  v175 = v109;
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::BooleanRef>(&v285, v107, &v175);
+  CFRetain(@"other_audio_advanced_ducking_is_enabled");
+  v110 = @"other_audio_advanced_ducking_is_enabled";
+  v111 = CFGetTypeID(@"other_audio_advanced_ducking_is_enabled");
+  if (v111 == CFStringGetTypeID())
   {
-    v174 = @"is_in_emergency_call";
+    v174 = @"other_audio_advanced_ducking_is_enabled";
   }
 
   else
   {
     v174 = 0;
-    CFRelease(@"is_in_emergency_call");
-    v114 = 0;
+    CFRelease(@"other_audio_advanced_ducking_is_enabled");
+    v110 = 0;
   }
 
-  if (*(a1 + 131))
+  if (*(a1 + 130))
   {
-    v116 = v55;
+    v112 = v54;
   }
 
   else
   {
-    v116 = v56;
+    v112 = v55;
   }
 
-  v173 = v116;
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::BooleanRef>(&v289, v114, &v173);
-  CFRetain(@"virtual_audio_plugin_mode");
-  v117 = @"virtual_audio_plugin_mode";
-  v118 = CFGetTypeID(@"virtual_audio_plugin_mode");
-  if (v118 == CFStringGetTypeID())
+  v173 = v112;
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::BooleanRef>(&v286, v110, &v173);
+  CFRetain(@"is_in_emergency_call");
+  v113 = @"is_in_emergency_call";
+  v114 = CFGetTypeID(@"is_in_emergency_call");
+  if (v114 == CFStringGetTypeID())
   {
-    v172 = @"virtual_audio_plugin_mode";
+    v172 = @"is_in_emergency_call";
   }
 
   else
   {
     v172 = 0;
-    CFRelease(@"virtual_audio_plugin_mode");
-    v117 = 0;
+    CFRelease(@"is_in_emergency_call");
+    v113 = 0;
   }
 
-  LODWORD(__dst) = *(a1 + 33);
-  v171 = CFNumberCreate(0, kCFNumberIntType, &__dst);
-  if (!v171)
+  if (*(a1 + 131))
   {
-    v159 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v159, "Could not construct");
+    v115 = v54;
   }
 
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v290, v117, &v171);
-  CFRetain(@"offload_airpods_noise_suppression_is_enabled");
-  v119 = @"offload_airpods_noise_suppression_is_enabled";
-  v120 = CFGetTypeID(@"offload_airpods_noise_suppression_is_enabled");
-  if (v120 == CFStringGetTypeID())
+  else
   {
-    v170 = @"offload_airpods_noise_suppression_is_enabled";
+    v115 = v55;
+  }
+
+  v171 = v115;
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::BooleanRef>(&v287, v113, &v171);
+  CFRetain(@"virtual_audio_plugin_mode");
+  v116 = @"virtual_audio_plugin_mode";
+  v117 = CFGetTypeID(@"virtual_audio_plugin_mode");
+  if (v117 == CFStringGetTypeID())
+  {
+    v170 = @"virtual_audio_plugin_mode";
   }
 
   else
   {
     v170 = 0;
-    CFRelease(@"offload_airpods_noise_suppression_is_enabled");
-    v119 = 0;
+    CFRelease(@"virtual_audio_plugin_mode");
+    v116 = 0;
   }
 
-  if (*(a1 + 136))
+  LODWORD(__dst) = *(a1 + 33);
+  v169 = CFNumberCreate(0, kCFNumberIntType, &__dst);
+  if (!v169)
   {
-    v121 = v55;
+    v157 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v157, "Could not construct");
   }
 
-  else
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v288, v116, &v169);
+  CFRetain(@"offload_airpods_noise_suppression_is_enabled");
+  v118 = @"offload_airpods_noise_suppression_is_enabled";
+  v119 = CFGetTypeID(@"offload_airpods_noise_suppression_is_enabled");
+  if (v119 == CFStringGetTypeID())
   {
-    v121 = v56;
-  }
-
-  v169 = v121;
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::BooleanRef>(&v291, v119, &v169);
-  CFRetain(@"automatic_mic_mode_is_enabled");
-  v122 = @"automatic_mic_mode_is_enabled";
-  v123 = CFGetTypeID(@"automatic_mic_mode_is_enabled");
-  if (v123 == CFStringGetTypeID())
-  {
-    v168 = @"automatic_mic_mode_is_enabled";
+    v168 = @"offload_airpods_noise_suppression_is_enabled";
   }
 
   else
   {
     v168 = 0;
-    CFRelease(@"automatic_mic_mode_is_enabled");
-    v122 = 0;
+    CFRelease(@"offload_airpods_noise_suppression_is_enabled");
+    v118 = 0;
   }
 
-  if (*(a1 + 137))
+  if (*(a1 + 136))
   {
-    v124 = v55;
+    v120 = v54;
   }
 
   else
   {
-    v124 = v56;
+    v120 = v55;
   }
 
-  v167 = v124;
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::BooleanRef>(&v292, v122, &v167);
-  CFRetain(@"airpods_offload_mode");
-  v125 = CFGetTypeID(@"airpods_offload_mode");
-  if (v125 == CFStringGetTypeID())
+  v167 = v120;
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::BooleanRef>(&v289, v118, &v167);
+  CFRetain(@"automatic_mic_mode_is_enabled");
+  v121 = @"automatic_mic_mode_is_enabled";
+  v122 = CFGetTypeID(@"automatic_mic_mode_is_enabled");
+  if (v122 == CFStringGetTypeID())
   {
-    v166 = @"airpods_offload_mode";
+    v166 = @"automatic_mic_mode_is_enabled";
   }
 
   else
   {
     v166 = 0;
+    CFRelease(@"automatic_mic_mode_is_enabled");
+    v121 = 0;
+  }
+
+  if (*(a1 + 137))
+  {
+    v123 = v54;
+  }
+
+  else
+  {
+    v123 = v55;
+  }
+
+  v165 = v123;
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::BooleanRef>(&v290, v121, &v165);
+  CFRetain(@"airpods_offload_mode");
+  v124 = CFGetTypeID(@"airpods_offload_mode");
+  if (v124 == CFStringGetTypeID())
+  {
+    v164 = @"airpods_offload_mode";
+  }
+
+  else
+  {
+    v164 = 0;
     CFRelease(@"airpods_offload_mode");
   }
 
-  v126 = vp::detail::reflect_value_name<(vp::vx::AirPods_Offload_Mode)0,128ul>(*(a1 + 35));
-  if (v127)
+  v125 = vp::detail::reflect_value_name<(vp::vx::AirPods_Offload_Mode)0,128ul>(*(a1 + 35));
+  if (v126)
   {
-    v128 = &v126[v127];
-    v129 = v127;
-    while (v129)
+    v127 = &v125[v126];
+    v128 = v126;
+    while (v128)
     {
-      v130 = *--v128;
-      --v129;
-      if (v130 == 58)
+      v129 = *--v127;
+      --v128;
+      if (v129 == 58)
       {
-        v131 = v128 - v126 + 1;
-        if (v127 < v131)
+        v130 = v127 - v125 + 1;
+        if (v126 < v130)
         {
           std::__throw_out_of_range[abi:ne200100]("string_view::substr");
         }
@@ -2780,40 +9412,40 @@ LABEL_117:
     }
   }
 
-  v131 = 0;
+  v130 = 0;
 LABEL_282:
-  v132 = v127 - v131;
-  if (v127 - v131 > 0x7FFFFFFFFFFFFFF7)
+  v131 = v126 - v130;
+  if (v126 - v130 > 0x7FFFFFFFFFFFFFF7)
   {
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  if (v132 >= 0x17)
+  if (v131 >= 0x17)
   {
     operator new();
   }
 
-  v252 = v127 - v131;
-  if (v127 != v131)
+  v250 = v126 - v130;
+  if (v126 != v130)
   {
-    memmove(&__dst, &v126[v131], v132);
+    memmove(&__dst, &v125[v130], v131);
   }
 
-  v251[v132 - 8] = 0;
-  if ((v252 & 0x80u) == 0)
+  v249[v131 - 8] = 0;
+  if ((v250 & 0x80u) == 0)
   {
-    v133 = &__dst;
+    v132 = &__dst;
   }
 
   else
   {
-    v133 = __dst;
+    v132 = __dst;
   }
 
-  if (!v133)
+  if (!v132)
   {
     cf = 0;
-    if ((v252 & 0x80) == 0)
+    if ((v250 & 0x80) == 0)
     {
       goto LABEL_298;
     }
@@ -2821,62 +9453,72 @@ LABEL_282:
     goto LABEL_297;
   }
 
-  if ((v252 & 0x80u) == 0)
+  if ((v250 & 0x80u) == 0)
   {
-    v134 = v252;
+    v133 = v250;
   }
 
   else
   {
-    v134 = *v251;
+    v133 = *v249;
   }
 
-  cf = CFStringCreateWithBytes(0, v133, v134, 0x8000100u, 0);
+  cf = CFStringCreateWithBytes(0, v132, v133, 0x8000100u, 0);
   if (!cf)
   {
-    v164 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v164, "Could not construct");
+    v162 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v162, "Could not construct");
   }
 
-  if ((v252 & 0x80) != 0)
+  if ((v250 & 0x80) != 0)
   {
 LABEL_297:
     operator delete(__dst);
   }
 
 LABEL_298:
-  v135 = v166;
-  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::StringRef>(v293, v166, &cf);
-  v249[0] = v253;
-  v249[1] = 41;
-  *a2 = applesauce::CF::details::make_CFDictionaryRef(v249);
-  v136 = 656;
+  v134 = v164;
+  applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::StringRef>(v291, v164, &cf);
+  v247[0] = v251;
+  v247[1] = 41;
+  *a2 = applesauce::CF::details::make_CFDictionaryRef(v247);
+  v135 = 656;
   do
   {
-    v137 = *&v251[v136 + 8];
+    v136 = *&v249[v135 + 8];
+    if (v136)
+    {
+      CFRelease(v136);
+    }
+
+    v137 = *&v249[v135];
     if (v137)
     {
       CFRelease(v137);
     }
 
-    v138 = *&v251[v136];
-    if (v138)
-    {
-      CFRelease(v138);
-    }
-
-    v136 -= 16;
+    v135 -= 16;
   }
 
-  while (v136);
+  while (v135);
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if (v135)
+  if (v134)
   {
-    CFRelease(v135);
+    CFRelease(v134);
+  }
+
+  if (v165)
+  {
+    CFRelease(v165);
+  }
+
+  if (v166)
+  {
+    CFRelease(v166);
   }
 
   if (v167)
@@ -3089,24 +9731,24 @@ LABEL_298:
     CFRelease(v208);
   }
 
-  if (v209)
-  {
-    CFRelease(v209);
-  }
-
   if (v210)
   {
     CFRelease(v210);
   }
 
-  if (v212)
+  if (v209)
   {
-    CFRelease(v212);
+    CFRelease(v209);
   }
 
   if (v211)
   {
     CFRelease(v211);
+  }
+
+  if (v212)
+  {
+    CFRelease(v212);
   }
 
   if (v213)
@@ -3184,24 +9826,24 @@ LABEL_298:
     CFRelease(v227);
   }
 
-  if (v228)
-  {
-    CFRelease(v228);
-  }
-
   if (v229)
   {
     CFRelease(v229);
   }
 
-  if (v231)
+  if (v228)
   {
-    CFRelease(v231);
+    CFRelease(v228);
   }
 
   if (v230)
   {
     CFRelease(v230);
+  }
+
+  if (v231)
+  {
+    CFRelease(v231);
   }
 
   if (v232)
@@ -3278,6902 +9920,4 @@ LABEL_298:
   {
     CFRelease(v246);
   }
-
-  if (v247)
-  {
-    CFRelease(v247);
-  }
-
-  if (v248)
-  {
-    CFRelease(v248);
-  }
-
-  v139 = *MEMORY[0x277D85DE8];
-}
-
-void sub_272603584(uint64_t a1, int a2)
-{
-  if (!a2)
-  {
-    JUMPOUT(0x272604460);
-  }
-
-  JUMPOUT(0x272604458);
-}
-
-void sub_272603590(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9)
-{
-  applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(&a9);
-  if (SLOBYTE(STACK[0x2C7]) < 0)
-  {
-    operator delete(STACK[0x2B0]);
-  }
-
-  JUMPOUT(0x27260413CLL);
-}
-
-void sub_272603CB4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9)
-{
-  v10 = -656;
-  v11 = v9;
-  do
-  {
-    applesauce::CF::TypeRefPair::~TypeRefPair(v11);
-    v11 = (v12 - 16);
-    v10 += 16;
-  }
-
-  while (v10);
-  applesauce::CF::StringRef::~StringRef(&a9);
-  JUMPOUT(0x272604140);
-}
-
-void sub_272603CE0(uint64_t a1, int a2)
-{
-  if (!a2)
-  {
-    JUMPOUT(0x272604460);
-  }
-
-  JUMPOUT(0x272604458);
-}
-
-void sub_272603CE8(uint64_t a1, int a2)
-{
-  if (!a2)
-  {
-    JUMPOUT(0x272604460);
-  }
-
-  JUMPOUT(0x272604458);
-}
-
-void sub_272603CF0(uint64_t a1, int a2)
-{
-  if (!a2)
-  {
-    JUMPOUT(0x272604460);
-  }
-
-  JUMPOUT(0x272604458);
-}
-
-void sub_272603CF8(uint64_t a1, int a2)
-{
-  if (!a2)
-  {
-    JUMPOUT(0x272604460);
-  }
-
-  JUMPOUT(0x272604458);
-}
-
-void sub_272603D00(uint64_t a1, int a2)
-{
-  if (!a2)
-  {
-    JUMPOUT(0x272604460);
-  }
-
-  JUMPOUT(0x272604458);
-}
-
-void sub_272603D08(uint64_t a1, int a2)
-{
-  if (!a2)
-  {
-    JUMPOUT(0x272604460);
-  }
-
-  JUMPOUT(0x272604458);
-}
-
-void sub_272603D10(uint64_t a1, int a2)
-{
-  if (!a2)
-  {
-    JUMPOUT(0x272604460);
-  }
-
-  JUMPOUT(0x272604458);
-}
-
-void sub_272603D18(uint64_t a1, int a2)
-{
-  if (!a2)
-  {
-    JUMPOUT(0x272604460);
-  }
-
-  JUMPOUT(0x272604458);
-}
-
-void sub_272603D20(uint64_t a1, int a2)
-{
-  if (!a2)
-  {
-    JUMPOUT(0x272604460);
-  }
-
-  JUMPOUT(0x272604458);
-}
-
-void sub_272603D34(uint64_t a1, int a2)
-{
-  if (!a2)
-  {
-    JUMPOUT(0x272604460);
-  }
-
-  JUMPOUT(0x272604458);
-}
-
-void sub_272603D3C(uint64_t a1, int a2)
-{
-  if (!a2)
-  {
-    JUMPOUT(0x272604460);
-  }
-
-  JUMPOUT(0x272604458);
-}
-
-void sub_272603D44(uint64_t a1, int a2)
-{
-  if (!a2)
-  {
-    JUMPOUT(0x272604460);
-  }
-
-  JUMPOUT(0x272604458);
-}
-
-void sub_272603D4C(uint64_t a1, int a2)
-{
-  if (!a2)
-  {
-    JUMPOUT(0x272604460);
-  }
-
-  JUMPOUT(0x272604458);
-}
-
-void sub_272603D54(uint64_t a1, int a2)
-{
-  if (!a2)
-  {
-    JUMPOUT(0x272604460);
-  }
-
-  JUMPOUT(0x272604458);
-}
-
-void sub_272603D5C(uint64_t a1, int a2)
-{
-  if (!a2)
-  {
-    JUMPOUT(0x272604460);
-  }
-
-  JUMPOUT(0x272604458);
-}
-
-void sub_272603D64(uint64_t a1, int a2)
-{
-  if (!a2)
-  {
-    JUMPOUT(0x272604460);
-  }
-
-  JUMPOUT(0x272604458);
-}
-
-void sub_272603D6C(uint64_t a1, int a2)
-{
-  if (!a2)
-  {
-    JUMPOUT(0x272604460);
-  }
-
-  JUMPOUT(0x272604458);
-}
-
-void sub_272603D74(uint64_t a1, int a2)
-{
-  if (!a2)
-  {
-    JUMPOUT(0x272604460);
-  }
-
-  JUMPOUT(0x272604458);
-}
-
-void sub_272603D7C(uint64_t a1, int a2)
-{
-  if (!a2)
-  {
-    JUMPOUT(0x272604460);
-  }
-
-  JUMPOUT(0x272604458);
-}
-
-void sub_272603D84(uint64_t a1, int a2)
-{
-  if (!a2)
-  {
-    JUMPOUT(0x272604460);
-  }
-
-  JUMPOUT(0x272604458);
-}
-
-void sub_272603D8C(uint64_t a1, int a2)
-{
-  if (!a2)
-  {
-    JUMPOUT(0x272604460);
-  }
-
-  JUMPOUT(0x272604458);
-}
-
-void sub_272603D94(uint64_t a1, int a2)
-{
-  if (!a2)
-  {
-    JUMPOUT(0x272604460);
-  }
-
-  JUMPOUT(0x272604458);
-}
-
-void sub_272603D9C(uint64_t a1, int a2)
-{
-  if (!a2)
-  {
-    JUMPOUT(0x272604460);
-  }
-
-  JUMPOUT(0x272604458);
-}
-
-void sub_272603DA4(uint64_t a1, int a2)
-{
-  if (!a2)
-  {
-    JUMPOUT(0x272604460);
-  }
-
-  JUMPOUT(0x272604458);
-}
-
-void sub_272603DB8(uint64_t a1, int a2)
-{
-  if (!a2)
-  {
-    JUMPOUT(0x272604460);
-  }
-
-  JUMPOUT(0x272604458);
-}
-
-void sub_272603DC0(uint64_t a1, int a2)
-{
-  if (!a2)
-  {
-    JUMPOUT(0x272604460);
-  }
-
-  JUMPOUT(0x272604458);
-}
-
-void sub_272603DC8(uint64_t a1, int a2)
-{
-  if (!a2)
-  {
-    JUMPOUT(0x272604460);
-  }
-
-  JUMPOUT(0x272604458);
-}
-
-void sub_272603DDC(uint64_t a1, int a2)
-{
-  if (!a2)
-  {
-    JUMPOUT(0x272604460);
-  }
-
-  JUMPOUT(0x272604458);
-}
-
-void sub_272603DE4(uint64_t a1, int a2)
-{
-  if (!a2)
-  {
-    JUMPOUT(0x272604460);
-  }
-
-  JUMPOUT(0x272604458);
-}
-
-void sub_272603F40(void *a1, int a2)
-{
-  if (a2)
-  {
-    __cxa_begin_catch(a1);
-    vp::utility::exception_match<std::bad_cast>();
-  }
-
-  JUMPOUT(0x272604464);
-}
-
-void sub_272603F54(int a1)
-{
-  if (a1)
-  {
-    std::current_exception();
-    v1.__ptr_ = &STACK[0x2B0];
-    std::rethrow_exception(v1);
-    sub_2726040C8();
-  }
-
-  _os_crash();
-  __break(1u);
-}
-
-void sub_272603FC0(void *a1, int a2)
-{
-  if (a2)
-  {
-    __cxa_begin_catch(a1);
-    vp::utility::exception_match<std::bad_cast>();
-  }
-
-  JUMPOUT(0x272604464);
-}
-
-void sub_272603FD4(int a1)
-{
-  if (a1)
-  {
-    std::current_exception();
-    v1.__ptr_ = &STACK[0x2B0];
-    std::rethrow_exception(v1);
-    sub_2726040C8();
-  }
-
-  _os_crash();
-  __break(1u);
-}
-
-void sub_2726040A0(void *a1, int a2)
-{
-  if (a2)
-  {
-    __cxa_begin_catch(a1);
-    vp::utility::exception_match<std::bad_cast>();
-  }
-
-  JUMPOUT(0x272604464);
-}
-
-void sub_2726040B4(int a1)
-{
-  if (a1)
-  {
-    std::current_exception();
-    v1.__ptr_ = &STACK[0x2B0];
-    std::rethrow_exception(v1);
-    sub_2726040C8();
-  }
-
-  _os_crash();
-  __break(1u);
-}
-
-void sub_272604128(_Unwind_Exception *a1, int a2)
-{
-  if (a2)
-  {
-    __clang_call_terminate(a1);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void *applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::StringRef>(void *a1, CFTypeRef cf, const void **a3)
-{
-  if (cf)
-  {
-    CFRetain(cf);
-  }
-
-  *a1 = cf;
-  v6 = *a3;
-  if (v6)
-  {
-    CFRetain(v6);
-  }
-
-  a1[1] = v6;
-  return a1;
-}
-
-void *applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::NumberRef>(void *a1, CFTypeRef cf, const void **a3)
-{
-  if (cf)
-  {
-    CFRetain(cf);
-  }
-
-  *a1 = cf;
-  v6 = *a3;
-  if (v6)
-  {
-    CFRetain(v6);
-  }
-
-  a1[1] = v6;
-  return a1;
-}
-
-void *applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesauce::CF::BooleanRef>(void *a1, CFTypeRef cf, const void **a3)
-{
-  if (cf)
-  {
-    CFRetain(cf);
-  }
-
-  *a1 = cf;
-  v6 = *a3;
-  if (v6)
-  {
-    CFRetain(v6);
-  }
-
-  a1[1] = v6;
-  return a1;
-}
-
-char *vp::detail::reflect_value_name<(vp::vx::AirPods_Offload_Mode)0,128ul>(int a1)
-{
-  result = "vp::vx::AirPods_Offload_Mode::None]";
-  switch(a1)
-  {
-    case 0:
-      return result;
-    case 1:
-      result = "vp::vx::AirPods_Offload_Mode::Noise_Suppression]";
-      break;
-    case 2:
-      result = "vp::vx::AirPods_Offload_Mode::Noise_Suppression_Studio]";
-      break;
-    case 3:
-      result = "(vp::vx::AirPods_Offload_Mode)3]";
-      break;
-    case 4:
-      result = "(vp::vx::AirPods_Offload_Mode)4]";
-      break;
-    case 5:
-      result = "(vp::vx::AirPods_Offload_Mode)5]";
-      break;
-    case 6:
-      result = "(vp::vx::AirPods_Offload_Mode)6]";
-      break;
-    case 7:
-      result = "(vp::vx::AirPods_Offload_Mode)7]";
-      break;
-    case 8:
-      result = "(vp::vx::AirPods_Offload_Mode)8]";
-      break;
-    case 9:
-      result = "(vp::vx::AirPods_Offload_Mode)9]";
-      break;
-    case 10:
-      result = "(vp::vx::AirPods_Offload_Mode)10]";
-      break;
-    case 11:
-      result = "(vp::vx::AirPods_Offload_Mode)11]";
-      break;
-    case 12:
-      result = "(vp::vx::AirPods_Offload_Mode)12]";
-      break;
-    case 13:
-      result = "(vp::vx::AirPods_Offload_Mode)13]";
-      break;
-    case 14:
-      result = "(vp::vx::AirPods_Offload_Mode)14]";
-      break;
-    case 15:
-      result = "(vp::vx::AirPods_Offload_Mode)15]";
-      break;
-    case 16:
-      result = "(vp::vx::AirPods_Offload_Mode)16]";
-      break;
-    case 17:
-      result = "(vp::vx::AirPods_Offload_Mode)17]";
-      break;
-    case 18:
-      result = "(vp::vx::AirPods_Offload_Mode)18]";
-      break;
-    case 19:
-      result = "(vp::vx::AirPods_Offload_Mode)19]";
-      break;
-    case 20:
-      result = "(vp::vx::AirPods_Offload_Mode)20]";
-      break;
-    case 21:
-      result = "(vp::vx::AirPods_Offload_Mode)21]";
-      break;
-    case 22:
-      result = "(vp::vx::AirPods_Offload_Mode)22]";
-      break;
-    case 23:
-      result = "(vp::vx::AirPods_Offload_Mode)23]";
-      break;
-    case 24:
-      result = "(vp::vx::AirPods_Offload_Mode)24]";
-      break;
-    case 25:
-      result = "(vp::vx::AirPods_Offload_Mode)25]";
-      break;
-    case 26:
-      result = "(vp::vx::AirPods_Offload_Mode)26]";
-      break;
-    case 27:
-      result = "(vp::vx::AirPods_Offload_Mode)27]";
-      break;
-    case 28:
-      result = "(vp::vx::AirPods_Offload_Mode)28]";
-      break;
-    case 29:
-      result = "(vp::vx::AirPods_Offload_Mode)29]";
-      break;
-    case 30:
-      result = "(vp::vx::AirPods_Offload_Mode)30]";
-      break;
-    case 31:
-      result = "(vp::vx::AirPods_Offload_Mode)31]";
-      break;
-    case 32:
-      result = "(vp::vx::AirPods_Offload_Mode)32]";
-      break;
-    case 33:
-      result = "(vp::vx::AirPods_Offload_Mode)33]";
-      break;
-    case 34:
-      result = "(vp::vx::AirPods_Offload_Mode)34]";
-      break;
-    case 35:
-      result = "(vp::vx::AirPods_Offload_Mode)35]";
-      break;
-    case 36:
-      result = "(vp::vx::AirPods_Offload_Mode)36]";
-      break;
-    case 37:
-      result = "(vp::vx::AirPods_Offload_Mode)37]";
-      break;
-    case 38:
-      result = "(vp::vx::AirPods_Offload_Mode)38]";
-      break;
-    case 39:
-      result = "(vp::vx::AirPods_Offload_Mode)39]";
-      break;
-    case 40:
-      result = "(vp::vx::AirPods_Offload_Mode)40]";
-      break;
-    case 41:
-      result = "(vp::vx::AirPods_Offload_Mode)41]";
-      break;
-    case 42:
-      result = "(vp::vx::AirPods_Offload_Mode)42]";
-      break;
-    case 43:
-      result = "(vp::vx::AirPods_Offload_Mode)43]";
-      break;
-    case 44:
-      result = "(vp::vx::AirPods_Offload_Mode)44]";
-      break;
-    case 45:
-      result = "(vp::vx::AirPods_Offload_Mode)45]";
-      break;
-    case 46:
-      result = "(vp::vx::AirPods_Offload_Mode)46]";
-      break;
-    case 47:
-      result = "(vp::vx::AirPods_Offload_Mode)47]";
-      break;
-    case 48:
-      result = "(vp::vx::AirPods_Offload_Mode)48]";
-      break;
-    case 49:
-      result = "(vp::vx::AirPods_Offload_Mode)49]";
-      break;
-    case 50:
-      result = "(vp::vx::AirPods_Offload_Mode)50]";
-      break;
-    case 51:
-      result = "(vp::vx::AirPods_Offload_Mode)51]";
-      break;
-    case 52:
-      result = "(vp::vx::AirPods_Offload_Mode)52]";
-      break;
-    case 53:
-      result = "(vp::vx::AirPods_Offload_Mode)53]";
-      break;
-    case 54:
-      result = "(vp::vx::AirPods_Offload_Mode)54]";
-      break;
-    case 55:
-      result = "(vp::vx::AirPods_Offload_Mode)55]";
-      break;
-    case 56:
-      result = "(vp::vx::AirPods_Offload_Mode)56]";
-      break;
-    case 57:
-      result = "(vp::vx::AirPods_Offload_Mode)57]";
-      break;
-    case 58:
-      result = "(vp::vx::AirPods_Offload_Mode)58]";
-      break;
-    case 59:
-      result = "(vp::vx::AirPods_Offload_Mode)59]";
-      break;
-    case 60:
-      result = "(vp::vx::AirPods_Offload_Mode)60]";
-      break;
-    case 61:
-      result = "(vp::vx::AirPods_Offload_Mode)61]";
-      break;
-    case 62:
-      result = "(vp::vx::AirPods_Offload_Mode)62]";
-      break;
-    case 63:
-      result = "(vp::vx::AirPods_Offload_Mode)63]";
-      break;
-    case 64:
-      result = "(vp::vx::AirPods_Offload_Mode)64]";
-      break;
-    case 65:
-      result = "(vp::vx::AirPods_Offload_Mode)65]";
-      break;
-    case 66:
-      result = "(vp::vx::AirPods_Offload_Mode)66]";
-      break;
-    case 67:
-      result = "(vp::vx::AirPods_Offload_Mode)67]";
-      break;
-    case 68:
-      result = "(vp::vx::AirPods_Offload_Mode)68]";
-      break;
-    case 69:
-      result = "(vp::vx::AirPods_Offload_Mode)69]";
-      break;
-    case 70:
-      result = "(vp::vx::AirPods_Offload_Mode)70]";
-      break;
-    case 71:
-      result = "(vp::vx::AirPods_Offload_Mode)71]";
-      break;
-    case 72:
-      result = "(vp::vx::AirPods_Offload_Mode)72]";
-      break;
-    case 73:
-      result = "(vp::vx::AirPods_Offload_Mode)73]";
-      break;
-    case 74:
-      result = "(vp::vx::AirPods_Offload_Mode)74]";
-      break;
-    case 75:
-      result = "(vp::vx::AirPods_Offload_Mode)75]";
-      break;
-    case 76:
-      result = "(vp::vx::AirPods_Offload_Mode)76]";
-      break;
-    case 77:
-      result = "(vp::vx::AirPods_Offload_Mode)77]";
-      break;
-    case 78:
-      result = "(vp::vx::AirPods_Offload_Mode)78]";
-      break;
-    case 79:
-      result = "(vp::vx::AirPods_Offload_Mode)79]";
-      break;
-    case 80:
-      result = "(vp::vx::AirPods_Offload_Mode)80]";
-      break;
-    case 81:
-      result = "(vp::vx::AirPods_Offload_Mode)81]";
-      break;
-    case 82:
-      result = "(vp::vx::AirPods_Offload_Mode)82]";
-      break;
-    case 83:
-      result = "(vp::vx::AirPods_Offload_Mode)83]";
-      break;
-    case 84:
-      result = "(vp::vx::AirPods_Offload_Mode)84]";
-      break;
-    case 85:
-      result = "(vp::vx::AirPods_Offload_Mode)85]";
-      break;
-    case 86:
-      result = "(vp::vx::AirPods_Offload_Mode)86]";
-      break;
-    case 87:
-      result = "(vp::vx::AirPods_Offload_Mode)87]";
-      break;
-    case 88:
-      result = "(vp::vx::AirPods_Offload_Mode)88]";
-      break;
-    case 89:
-      result = "(vp::vx::AirPods_Offload_Mode)89]";
-      break;
-    case 90:
-      result = "(vp::vx::AirPods_Offload_Mode)90]";
-      break;
-    case 91:
-      result = "(vp::vx::AirPods_Offload_Mode)91]";
-      break;
-    case 92:
-      result = "(vp::vx::AirPods_Offload_Mode)92]";
-      break;
-    case 93:
-      result = "(vp::vx::AirPods_Offload_Mode)93]";
-      break;
-    case 94:
-      result = "(vp::vx::AirPods_Offload_Mode)94]";
-      break;
-    case 95:
-      result = "(vp::vx::AirPods_Offload_Mode)95]";
-      break;
-    case 96:
-      result = "(vp::vx::AirPods_Offload_Mode)96]";
-      break;
-    case 97:
-      result = "(vp::vx::AirPods_Offload_Mode)97]";
-      break;
-    case 98:
-      result = "(vp::vx::AirPods_Offload_Mode)98]";
-      break;
-    case 99:
-      result = "(vp::vx::AirPods_Offload_Mode)99]";
-      break;
-    case 100:
-      result = "(vp::vx::AirPods_Offload_Mode)100]";
-      break;
-    case 101:
-      result = "(vp::vx::AirPods_Offload_Mode)101]";
-      break;
-    case 102:
-      result = "(vp::vx::AirPods_Offload_Mode)102]";
-      break;
-    case 103:
-      result = "(vp::vx::AirPods_Offload_Mode)103]";
-      break;
-    case 104:
-      result = "(vp::vx::AirPods_Offload_Mode)104]";
-      break;
-    case 105:
-      result = "(vp::vx::AirPods_Offload_Mode)105]";
-      break;
-    case 106:
-      result = "(vp::vx::AirPods_Offload_Mode)106]";
-      break;
-    case 107:
-      result = "(vp::vx::AirPods_Offload_Mode)107]";
-      break;
-    case 108:
-      result = "(vp::vx::AirPods_Offload_Mode)108]";
-      break;
-    case 109:
-      result = "(vp::vx::AirPods_Offload_Mode)109]";
-      break;
-    case 110:
-      result = "(vp::vx::AirPods_Offload_Mode)110]";
-      break;
-    case 111:
-      result = "(vp::vx::AirPods_Offload_Mode)111]";
-      break;
-    case 112:
-      result = "(vp::vx::AirPods_Offload_Mode)112]";
-      break;
-    case 113:
-      result = "(vp::vx::AirPods_Offload_Mode)113]";
-      break;
-    case 114:
-      result = "(vp::vx::AirPods_Offload_Mode)114]";
-      break;
-    case 115:
-      result = "(vp::vx::AirPods_Offload_Mode)115]";
-      break;
-    case 116:
-      result = "(vp::vx::AirPods_Offload_Mode)116]";
-      break;
-    case 117:
-      result = "(vp::vx::AirPods_Offload_Mode)117]";
-      break;
-    case 118:
-      result = "(vp::vx::AirPods_Offload_Mode)118]";
-      break;
-    case 119:
-      result = "(vp::vx::AirPods_Offload_Mode)119]";
-      break;
-    case 120:
-      result = "(vp::vx::AirPods_Offload_Mode)120]";
-      break;
-    case 121:
-      result = "(vp::vx::AirPods_Offload_Mode)121]";
-      break;
-    case 122:
-      result = "(vp::vx::AirPods_Offload_Mode)122]";
-      break;
-    case 123:
-      result = "(vp::vx::AirPods_Offload_Mode)123]";
-      break;
-    case 124:
-      result = "(vp::vx::AirPods_Offload_Mode)124]";
-      break;
-    case 125:
-      result = "(vp::vx::AirPods_Offload_Mode)125]";
-      break;
-    case 126:
-      result = "(vp::vx::AirPods_Offload_Mode)126]";
-      break;
-    case 127:
-      result = "(vp::vx::AirPods_Offload_Mode)127]";
-      break;
-    default:
-      if (a1 == 128)
-      {
-        result = "(vp::vx::AirPods_Offload_Mode)128]";
-      }
-
-      else
-      {
-        result = "?";
-      }
-
-      break;
-  }
-
-  return result;
-}
-
-char *vp::detail::reflect_value_name<(vp::vx::Operation_Mode)0,128ul>(int a1)
-{
-  result = "vp::vx::Operation_Mode::Generic]";
-  switch(a1)
-  {
-    case 0:
-      return result;
-    case 1:
-      result = "vp::vx::Operation_Mode::Baseband_Call]";
-      break;
-    case 2:
-      result = "vp::vx::Operation_Mode::Face_Time_Video]";
-      break;
-    case 3:
-      result = "vp::vx::Operation_Mode::Game_Chat]";
-      break;
-    case 4:
-      result = "vp::vx::Operation_Mode::Face_Time_Audio]";
-      break;
-    case 5:
-      result = "vp::vx::Operation_Mode::Call_Continuity]";
-      break;
-    case 6:
-      result = "vp::vx::Operation_Mode::Wifi_Call]";
-      break;
-    case 7:
-      result = "vp::vx::Operation_Mode::Home_Kit]";
-      break;
-    case 8:
-      result = "vp::vx::Operation_Mode::Half_Duplex]";
-      break;
-    case 9:
-      result = "(vp::vx::Operation_Mode)9]";
-      break;
-    case 10:
-      result = "(vp::vx::Operation_Mode)10]";
-      break;
-    case 11:
-      result = "(vp::vx::Operation_Mode)11]";
-      break;
-    case 12:
-      result = "(vp::vx::Operation_Mode)12]";
-      break;
-    case 13:
-      result = "(vp::vx::Operation_Mode)13]";
-      break;
-    case 14:
-      result = "(vp::vx::Operation_Mode)14]";
-      break;
-    case 15:
-      result = "(vp::vx::Operation_Mode)15]";
-      break;
-    case 16:
-      result = "(vp::vx::Operation_Mode)16]";
-      break;
-    case 17:
-      result = "(vp::vx::Operation_Mode)17]";
-      break;
-    case 18:
-      result = "(vp::vx::Operation_Mode)18]";
-      break;
-    case 19:
-      result = "(vp::vx::Operation_Mode)19]";
-      break;
-    case 20:
-      result = "(vp::vx::Operation_Mode)20]";
-      break;
-    case 21:
-      result = "(vp::vx::Operation_Mode)21]";
-      break;
-    case 22:
-      result = "(vp::vx::Operation_Mode)22]";
-      break;
-    case 23:
-      result = "(vp::vx::Operation_Mode)23]";
-      break;
-    case 24:
-      result = "(vp::vx::Operation_Mode)24]";
-      break;
-    case 25:
-      result = "(vp::vx::Operation_Mode)25]";
-      break;
-    case 26:
-      result = "(vp::vx::Operation_Mode)26]";
-      break;
-    case 27:
-      result = "(vp::vx::Operation_Mode)27]";
-      break;
-    case 28:
-      result = "(vp::vx::Operation_Mode)28]";
-      break;
-    case 29:
-      result = "(vp::vx::Operation_Mode)29]";
-      break;
-    case 30:
-      result = "(vp::vx::Operation_Mode)30]";
-      break;
-    case 31:
-      result = "(vp::vx::Operation_Mode)31]";
-      break;
-    case 32:
-      result = "(vp::vx::Operation_Mode)32]";
-      break;
-    case 33:
-      result = "(vp::vx::Operation_Mode)33]";
-      break;
-    case 34:
-      result = "(vp::vx::Operation_Mode)34]";
-      break;
-    case 35:
-      result = "(vp::vx::Operation_Mode)35]";
-      break;
-    case 36:
-      result = "(vp::vx::Operation_Mode)36]";
-      break;
-    case 37:
-      result = "(vp::vx::Operation_Mode)37]";
-      break;
-    case 38:
-      result = "(vp::vx::Operation_Mode)38]";
-      break;
-    case 39:
-      result = "(vp::vx::Operation_Mode)39]";
-      break;
-    case 40:
-      result = "(vp::vx::Operation_Mode)40]";
-      break;
-    case 41:
-      result = "(vp::vx::Operation_Mode)41]";
-      break;
-    case 42:
-      result = "(vp::vx::Operation_Mode)42]";
-      break;
-    case 43:
-      result = "(vp::vx::Operation_Mode)43]";
-      break;
-    case 44:
-      result = "(vp::vx::Operation_Mode)44]";
-      break;
-    case 45:
-      result = "(vp::vx::Operation_Mode)45]";
-      break;
-    case 46:
-      result = "(vp::vx::Operation_Mode)46]";
-      break;
-    case 47:
-      result = "(vp::vx::Operation_Mode)47]";
-      break;
-    case 48:
-      result = "(vp::vx::Operation_Mode)48]";
-      break;
-    case 49:
-      result = "(vp::vx::Operation_Mode)49]";
-      break;
-    case 50:
-      result = "(vp::vx::Operation_Mode)50]";
-      break;
-    case 51:
-      result = "(vp::vx::Operation_Mode)51]";
-      break;
-    case 52:
-      result = "(vp::vx::Operation_Mode)52]";
-      break;
-    case 53:
-      result = "(vp::vx::Operation_Mode)53]";
-      break;
-    case 54:
-      result = "(vp::vx::Operation_Mode)54]";
-      break;
-    case 55:
-      result = "(vp::vx::Operation_Mode)55]";
-      break;
-    case 56:
-      result = "(vp::vx::Operation_Mode)56]";
-      break;
-    case 57:
-      result = "(vp::vx::Operation_Mode)57]";
-      break;
-    case 58:
-      result = "(vp::vx::Operation_Mode)58]";
-      break;
-    case 59:
-      result = "(vp::vx::Operation_Mode)59]";
-      break;
-    case 60:
-      result = "(vp::vx::Operation_Mode)60]";
-      break;
-    case 61:
-      result = "(vp::vx::Operation_Mode)61]";
-      break;
-    case 62:
-      result = "(vp::vx::Operation_Mode)62]";
-      break;
-    case 63:
-      result = "(vp::vx::Operation_Mode)63]";
-      break;
-    case 64:
-      result = "(vp::vx::Operation_Mode)64]";
-      break;
-    case 65:
-      result = "(vp::vx::Operation_Mode)65]";
-      break;
-    case 66:
-      result = "(vp::vx::Operation_Mode)66]";
-      break;
-    case 67:
-      result = "(vp::vx::Operation_Mode)67]";
-      break;
-    case 68:
-      result = "(vp::vx::Operation_Mode)68]";
-      break;
-    case 69:
-      result = "(vp::vx::Operation_Mode)69]";
-      break;
-    case 70:
-      result = "(vp::vx::Operation_Mode)70]";
-      break;
-    case 71:
-      result = "(vp::vx::Operation_Mode)71]";
-      break;
-    case 72:
-      result = "(vp::vx::Operation_Mode)72]";
-      break;
-    case 73:
-      result = "(vp::vx::Operation_Mode)73]";
-      break;
-    case 74:
-      result = "(vp::vx::Operation_Mode)74]";
-      break;
-    case 75:
-      result = "(vp::vx::Operation_Mode)75]";
-      break;
-    case 76:
-      result = "(vp::vx::Operation_Mode)76]";
-      break;
-    case 77:
-      result = "(vp::vx::Operation_Mode)77]";
-      break;
-    case 78:
-      result = "(vp::vx::Operation_Mode)78]";
-      break;
-    case 79:
-      result = "(vp::vx::Operation_Mode)79]";
-      break;
-    case 80:
-      result = "(vp::vx::Operation_Mode)80]";
-      break;
-    case 81:
-      result = "(vp::vx::Operation_Mode)81]";
-      break;
-    case 82:
-      result = "(vp::vx::Operation_Mode)82]";
-      break;
-    case 83:
-      result = "(vp::vx::Operation_Mode)83]";
-      break;
-    case 84:
-      result = "(vp::vx::Operation_Mode)84]";
-      break;
-    case 85:
-      result = "(vp::vx::Operation_Mode)85]";
-      break;
-    case 86:
-      result = "(vp::vx::Operation_Mode)86]";
-      break;
-    case 87:
-      result = "(vp::vx::Operation_Mode)87]";
-      break;
-    case 88:
-      result = "(vp::vx::Operation_Mode)88]";
-      break;
-    case 89:
-      result = "(vp::vx::Operation_Mode)89]";
-      break;
-    case 90:
-      result = "(vp::vx::Operation_Mode)90]";
-      break;
-    case 91:
-      result = "(vp::vx::Operation_Mode)91]";
-      break;
-    case 92:
-      result = "(vp::vx::Operation_Mode)92]";
-      break;
-    case 93:
-      result = "(vp::vx::Operation_Mode)93]";
-      break;
-    case 94:
-      result = "(vp::vx::Operation_Mode)94]";
-      break;
-    case 95:
-      result = "(vp::vx::Operation_Mode)95]";
-      break;
-    case 96:
-      result = "(vp::vx::Operation_Mode)96]";
-      break;
-    case 97:
-      result = "(vp::vx::Operation_Mode)97]";
-      break;
-    case 98:
-      result = "(vp::vx::Operation_Mode)98]";
-      break;
-    case 99:
-      result = "(vp::vx::Operation_Mode)99]";
-      break;
-    case 100:
-      result = "(vp::vx::Operation_Mode)100]";
-      break;
-    case 101:
-      result = "(vp::vx::Operation_Mode)101]";
-      break;
-    case 102:
-      result = "(vp::vx::Operation_Mode)102]";
-      break;
-    case 103:
-      result = "(vp::vx::Operation_Mode)103]";
-      break;
-    case 104:
-      result = "(vp::vx::Operation_Mode)104]";
-      break;
-    case 105:
-      result = "(vp::vx::Operation_Mode)105]";
-      break;
-    case 106:
-      result = "(vp::vx::Operation_Mode)106]";
-      break;
-    case 107:
-      result = "(vp::vx::Operation_Mode)107]";
-      break;
-    case 108:
-      result = "(vp::vx::Operation_Mode)108]";
-      break;
-    case 109:
-      result = "(vp::vx::Operation_Mode)109]";
-      break;
-    case 110:
-      result = "(vp::vx::Operation_Mode)110]";
-      break;
-    case 111:
-      result = "(vp::vx::Operation_Mode)111]";
-      break;
-    case 112:
-      result = "(vp::vx::Operation_Mode)112]";
-      break;
-    case 113:
-      result = "(vp::vx::Operation_Mode)113]";
-      break;
-    case 114:
-      result = "(vp::vx::Operation_Mode)114]";
-      break;
-    case 115:
-      result = "(vp::vx::Operation_Mode)115]";
-      break;
-    case 116:
-      result = "(vp::vx::Operation_Mode)116]";
-      break;
-    case 117:
-      result = "(vp::vx::Operation_Mode)117]";
-      break;
-    case 118:
-      result = "(vp::vx::Operation_Mode)118]";
-      break;
-    case 119:
-      result = "(vp::vx::Operation_Mode)119]";
-      break;
-    case 120:
-      result = "(vp::vx::Operation_Mode)120]";
-      break;
-    case 121:
-      result = "(vp::vx::Operation_Mode)121]";
-      break;
-    case 122:
-      result = "(vp::vx::Operation_Mode)122]";
-      break;
-    case 123:
-      result = "(vp::vx::Operation_Mode)123]";
-      break;
-    case 124:
-      result = "(vp::vx::Operation_Mode)124]";
-      break;
-    case 125:
-      result = "(vp::vx::Operation_Mode)125]";
-      break;
-    case 126:
-      result = "(vp::vx::Operation_Mode)126]";
-      break;
-    case 127:
-      result = "(vp::vx::Operation_Mode)127]";
-      break;
-    default:
-      if (a1 == 128)
-      {
-        result = "(vp::vx::Operation_Mode)128]";
-      }
-
-      else
-      {
-        result = "?";
-      }
-
-      break;
-  }
-
-  return result;
-}
-
-void vp::vx::database::v1::runtime::Data_Manager::deserialize(uint64_t a1, CFTypeRef *a2)
-{
-  v2 = *a2;
-  if (*a2)
-  {
-    CFRetain(*a2);
-  }
-
-  v3 = v2;
-  vp::utility::Property_List_Parser::Property_List_Parser(v4, v2);
-}
-
-{
-  v2 = *a2;
-  if (*a2)
-  {
-    CFRetain(*a2);
-  }
-
-  v3 = v2;
-  vp::utility::Property_List_Parser::Property_List_Parser(v4, v2);
-}
-
-{
-  v2 = *a2;
-  if (*a2)
-  {
-    CFRetain(*a2);
-  }
-
-  v3 = v2;
-  vp::utility::Property_List_Parser::Property_List_Parser(v4, v2);
-}
-
-{
-  v2 = *a2;
-  if (*a2)
-  {
-    CFRetain(*a2);
-  }
-
-  v3 = v2;
-  vp::utility::Property_List_Parser::Property_List_Parser(v4, v2);
-}
-
-{
-  v2 = *a2;
-  if (*a2)
-  {
-    CFRetain(*a2);
-    vp::utility::Property_List_Parser::Property_List_Parser(v3, v2);
-  }
-
-  vp::utility::Property_List_Parser::Property_List_Parser(v3, 0);
-}
-
-{
-  v2 = *a2;
-  if (*a2)
-  {
-    CFRetain(*a2);
-    vp::utility::Property_List_Parser::Property_List_Parser(v3, v2);
-  }
-
-  vp::utility::Property_List_Parser::Property_List_Parser(v3, 0);
-}
-
-{
-  v2 = *a2;
-  if (*a2)
-  {
-    CFRetain(*a2);
-    vp::utility::Property_List_Parser::Property_List_Parser(v3, v2);
-  }
-
-  vp::utility::Property_List_Parser::Property_List_Parser(v3, 0);
-}
-
-void sub_272605364(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10, uint64_t a11, std::__shared_weak_count *a12, uint64_t a13, std::__shared_weak_count *a14)
-{
-  v17 = *(v15 - 40);
-  if (v17)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
-  }
-
-  applesauce::CF::StringRef::~StringRef(&a9);
-  if (v14)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
-  }
-
-  if (a14)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a14);
-  }
-
-  if (a12)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a12);
-  }
-
-  applesauce::CF::DictionaryRef::~DictionaryRef(&a10);
-  _Unwind_Resume(a1);
-}
-
-void vp::vx::database::v1::runtime::detail::make_tag(__CFString **a1, int a2)
-{
-  if (a2 > 1)
-  {
-    if (a2 == 2)
-    {
-      CFRetain(@"Dynamics");
-      v5 = CFGetTypeID(@"Dynamics");
-      if (v5 == CFStringGetTypeID())
-      {
-        v4 = @"Dynamics";
-        goto LABEL_12;
-      }
-
-      *a1 = 0;
-      CFRelease(@"Dynamics");
-    }
-
-    else
-    {
-      CFRetain(@"Hardware");
-      v7 = CFGetTypeID(@"Hardware");
-      if (v7 == CFStringGetTypeID())
-      {
-        v4 = @"Hardware";
-        goto LABEL_12;
-      }
-
-      *a1 = 0;
-      CFRelease(@"Hardware");
-    }
-  }
-
-  else if (a2)
-  {
-    CFRetain(@"Voice");
-    v6 = CFGetTypeID(@"Voice");
-    if (v6 == CFStringGetTypeID())
-    {
-      v4 = @"Voice";
-      goto LABEL_12;
-    }
-
-    *a1 = 0;
-    CFRelease(@"Voice");
-  }
-
-  else
-  {
-    CFRetain(@"Voice_Mix");
-    v3 = CFGetTypeID(@"Voice_Mix");
-    if (v3 == CFStringGetTypeID())
-    {
-      v4 = @"Voice_Mix";
-LABEL_12:
-      *a1 = v4;
-      return;
-    }
-
-    *a1 = 0;
-    CFRelease(@"Voice_Mix");
-  }
-}
-
-{
-  if (a2 == 2)
-  {
-    CFRetain(@"Content");
-    v5 = CFGetTypeID(@"Content");
-    if (v5 == CFStringGetTypeID())
-    {
-      v4 = @"Content";
-      goto LABEL_9;
-    }
-
-    *a1 = 0;
-    CFRelease(@"Content");
-  }
-
-  else if (a2 == 1)
-  {
-    CFRetain(@"Echo");
-    v3 = CFGetTypeID(@"Echo");
-    if (v3 == CFStringGetTypeID())
-    {
-      v4 = @"Echo";
-LABEL_9:
-      *a1 = v4;
-      return;
-    }
-
-    *a1 = 0;
-    CFRelease(@"Echo");
-  }
-
-  else
-  {
-    CFRetain(@"Hardware");
-    v6 = CFGetTypeID(@"Hardware");
-    if (v6 == CFStringGetTypeID())
-    {
-      v4 = @"Hardware";
-      goto LABEL_9;
-    }
-
-    *a1 = 0;
-    CFRelease(@"Hardware");
-  }
-}
-
-void vp::vx::database::v1::runtime::detail::from_plist(uint64_t *a1)
-{
-  (*(**a1 + 16))(&cf);
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  vp::utility::Property_List_Parser::operator[](&v2, a1, @"PreferredSampleRateHz");
-}
-
-void sub_272605938(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
-{
-  if (v11)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-double vp::utility::Property_List_Parser::Object::operator double<double>(uint64_t a1)
-{
-  (*(*a1 + 16))(&cf);
-  if (!cf)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "Could not construct");
-  }
-
-  v1 = applesauce::CF::convert_to<double,0>(cf);
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  return v1;
-}
-
-void sub_272605A6C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10)
-{
-  __cxa_free_exception(v10);
-  applesauce::CF::TypeRef::~TypeRef(&a10);
-  _Unwind_Resume(a1);
-}
-
-void caulk::function_ref<void ()(applesauce::CF::StringRef,vp::utility::Property_List_Parser)>::functor_invoker<vp::vx::database::v1::runtime::detail::from_plist(vp::utility::Property_List_Parser const&,vp::vx::DSP_Node_Configuration_Options &)::$_1>(uint64_t **a1, const __CFString **a2, uint64_t *a3)
-{
-  v3 = *a1;
-  v4 = *a2;
-  *a2 = 0;
-  v6 = *a3;
-  v5 = a3[1];
-  *a3 = 0;
-  a3[1] = 0;
-  if (!v4)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "Could not construct");
-  }
-
-  applesauce::CF::convert_to<std::string,0>(__p, v4);
-  if (v5)
-  {
-    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v7 = vp::utility::Property_List_Parser::Object::operator unsigned int<unsigned int>(v6);
-  if (v5)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-  }
-
-  v8 = *v3;
-  v12 = __p;
-  *(std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v8 + 136), __p) + 10) = v7;
-  if (v11 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  if (v5)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-  }
-
-  CFRelease(v4);
-}
-
-void sub_272605B90(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
-{
-  __cxa_free_exception(v17);
-  if (v16)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v16);
-  }
-
-  applesauce::CF::StringRef::~StringRef(&a10);
-  _Unwind_Resume(a1);
-}
-
-uint64_t vp::utility::Property_List_Parser::Object::operator unsigned int<unsigned int>(uint64_t a1)
-{
-  (*(*a1 + 16))(&cf);
-  if (!cf)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "Could not construct");
-  }
-
-  v1 = applesauce::CF::convert_to<unsigned int,0>(cf);
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  return v1;
-}
-
-void sub_272605C98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10)
-{
-  __cxa_free_exception(v10);
-  applesauce::CF::TypeRef::~TypeRef(&a10);
-  _Unwind_Resume(a1);
-}
-
-void *std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, void *a2)
-{
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
-  {
-    goto LABEL_18;
-  }
-
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
-  {
-    v9 = v4;
-    if (v4 >= *&v6)
-    {
-      v9 = v4 % *&v6;
-    }
-  }
-
-  else
-  {
-    v9 = (*&v6 - 1) & v4;
-  }
-
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
-  {
-LABEL_18:
-    operator new();
-  }
-
-  while (1)
-  {
-    v12 = v11[1];
-    if (v12 == v5)
-    {
-      break;
-    }
-
-    if (v8 > 1)
-    {
-      if (v12 >= *&v6)
-      {
-        v12 %= *&v6;
-      }
-    }
-
-    else
-    {
-      v12 &= *&v6 - 1;
-    }
-
-    if (v12 != v9)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v11 = *v11;
-    if (!v11)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](v11 + 2, a2))
-  {
-    goto LABEL_17;
-  }
-
-  return v11;
-}
-
-void caulk::function_ref<void ()(applesauce::CF::StringRef,vp::utility::Property_List_Parser)>::functor_invoker<vp::vx::database::v1::runtime::detail::from_plist(vp::utility::Property_List_Parser const&,vp::vx::DSP_Node_Configuration_Options &)::$_0>(uint64_t **a1, const __CFString **a2, uint64_t *a3)
-{
-  v3 = *a1;
-  v4 = *a2;
-  *a2 = 0;
-  v6 = *a3;
-  v5 = a3[1];
-  *a3 = 0;
-  a3[1] = 0;
-  if (!v4)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "Could not construct");
-  }
-
-  applesauce::CF::convert_to<std::string,0>(__p, v4);
-  if (v5)
-  {
-    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v7 = vp::utility::Property_List_Parser::Object::operator unsigned int<unsigned int>(v6);
-  if (v5)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-  }
-
-  v8 = *v3;
-  v12 = __p;
-  *(std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v8 + 96), __p) + 10) = v7;
-  if (v11 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  if (v5)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-  }
-
-  CFRelease(v4);
-}
-
-void sub_272606034(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
-{
-  __cxa_free_exception(v17);
-  if (v16)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v16);
-  }
-
-  applesauce::CF::StringRef::~StringRef(&a10);
-  _Unwind_Resume(a1);
-}
-
-double applesauce::CF::convert_to<double,0>(const __CFNumber *a1)
-{
-  v1 = COERCE_DOUBLE(applesauce::CF::convert_as<double,0>(a1));
-  if ((v2 & 1) == 0)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    applesauce::CF::convert_error(exception);
-  }
-
-  return v1;
-}
-
-unint64_t applesauce::CF::convert_as<double,0>(const __CFNumber *a1)
-{
-  TypeID = CFNumberGetTypeID();
-  if (TypeID == CFGetTypeID(a1))
-  {
-    switch(CFNumberGetType(a1))
-    {
-      case kCFNumberSInt8Type:
-        LOBYTE(valuePtr) = 0;
-        Value = CFNumberGetValue(a1, kCFNumberSInt8Type, &valuePtr);
-        goto LABEL_23;
-      case kCFNumberSInt16Type:
-        LOWORD(valuePtr) = 0;
-        v12 = CFNumberGetValue(a1, kCFNumberSInt16Type, &valuePtr);
-        goto LABEL_18;
-      case kCFNumberSInt32Type:
-        LODWORD(valuePtr) = 0;
-        v11 = CFNumberGetValue(a1, kCFNumberSInt32Type, &valuePtr);
-        goto LABEL_27;
-      case kCFNumberSInt64Type:
-        valuePtr = 0;
-        v6 = CFNumberGetValue(a1, kCFNumberSInt64Type, &valuePtr);
-        goto LABEL_25;
-      case kCFNumberFloat32Type:
-        LODWORD(valuePtr) = 0;
-        v7 = CFNumberGetValue(a1, kCFNumberFloat32Type, &valuePtr);
-        goto LABEL_10;
-      case kCFNumberFloat64Type:
-        valuePtr = 0;
-        v10 = CFNumberGetValue(a1, kCFNumberFloat64Type, &valuePtr);
-        goto LABEL_20;
-      case kCFNumberCharType:
-        LOBYTE(valuePtr) = 0;
-        Value = CFNumberGetValue(a1, kCFNumberCharType, &valuePtr);
-LABEL_23:
-        v8 = Value == 0;
-        v13 = valuePtr;
-        goto LABEL_28;
-      case kCFNumberShortType:
-        LOWORD(valuePtr) = 0;
-        v12 = CFNumberGetValue(a1, kCFNumberShortType, &valuePtr);
-LABEL_18:
-        v8 = v12 == 0;
-        v13 = valuePtr;
-        goto LABEL_28;
-      case kCFNumberIntType:
-        LODWORD(valuePtr) = 0;
-        v11 = CFNumberGetValue(a1, kCFNumberIntType, &valuePtr);
-LABEL_27:
-        v8 = v11 == 0;
-        v13 = valuePtr;
-LABEL_28:
-        v9 = v13;
-        goto LABEL_29;
-      case kCFNumberLongType:
-        valuePtr = 0;
-        v6 = CFNumberGetValue(a1, kCFNumberLongType, &valuePtr);
-        goto LABEL_25;
-      case kCFNumberLongLongType:
-        valuePtr = 0;
-        v6 = CFNumberGetValue(a1, kCFNumberLongLongType, &valuePtr);
-        goto LABEL_25;
-      case kCFNumberFloatType:
-        LODWORD(valuePtr) = 0;
-        v7 = CFNumberGetValue(a1, kCFNumberFloatType, &valuePtr);
-LABEL_10:
-        v8 = v7 == 0;
-        v9 = *&valuePtr;
-        goto LABEL_29;
-      case kCFNumberDoubleType:
-        valuePtr = 0;
-        v10 = CFNumberGetValue(a1, kCFNumberDoubleType, &valuePtr);
-        goto LABEL_20;
-      case kCFNumberCFIndexType:
-        valuePtr = 0;
-        v6 = CFNumberGetValue(a1, kCFNumberCFIndexType, &valuePtr);
-        goto LABEL_25;
-      case kCFNumberNSIntegerType:
-        valuePtr = 0;
-        v6 = CFNumberGetValue(a1, kCFNumberNSIntegerType, &valuePtr);
-LABEL_25:
-        v8 = v6 == 0;
-        v9 = valuePtr;
-LABEL_29:
-        v14 = v9;
-        goto LABEL_30;
-      case kCFNumberCGFloatType:
-        valuePtr = 0;
-        v10 = CFNumberGetValue(a1, kCFNumberCGFloatType, &valuePtr);
-LABEL_20:
-        v8 = v10 == 0;
-        v14 = *&valuePtr;
-LABEL_30:
-        if (v8)
-        {
-          v14 = 0.0;
-        }
-
-        v15 = *&v14 & 0xFFFFFFFFFFFFFF00;
-        break;
-      default:
-        v15 = 0;
-        LOBYTE(v14) = 0;
-        break;
-    }
-
-    return LOBYTE(v14) | v15;
-  }
-
-  else
-  {
-    v4 = CFBooleanGetTypeID();
-    if (v4 == CFGetTypeID(a1))
-    {
-      *&result = CFBooleanGetValue(a1);
-    }
-
-    else
-    {
-      *&result = 0.0;
-    }
-  }
-
-  return result;
-}
-
-void sub_2726064AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10, uint64_t a11, std::__shared_weak_count *a12, uint64_t a13, std::__shared_weak_count *a14)
-{
-  v17 = *(v15 - 40);
-  if (v17)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
-  }
-
-  applesauce::CF::StringRef::~StringRef(&a9);
-  if (v14)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
-  }
-
-  if (a14)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a14);
-  }
-
-  if (a12)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a12);
-  }
-
-  applesauce::CF::DictionaryRef::~DictionaryRef(&a10);
-  _Unwind_Resume(a1);
-}
-
-void vp::vx::database::v1::runtime::detail::from_plist(vp::vx::database::v1::runtime::detail *this, const vp::utility::Property_List_Parser *a2, vp::vx::DSP_Node_Configuration *a3)
-{
-  (*(**this + 16))(&cf);
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  vp::utility::Property_List_Parser::operator[](&v5, this, @"DSPGraphFilePath");
-}
-
-void sub_272606C3C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14, uint64_t a15, uint64_t a16, uint64_t a17)
-{
-  if (v17)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
-  }
-
-  if (a14)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a14);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void vp::vx::database::v1::runtime::detail::from_plist(vp::vx::database::v1::runtime::detail *this, std::__shared_weak_count *a2, std::__fs::filesystem::path *a3)
-{
-  if (a2)
-  {
-    atomic_fetch_add_explicit(&a2->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  _ZNK2vp7utility20Property_List_Parser6ObjectcvT_INSt3__112basic_stringIcNS5_11char_traitsIcEENS5_9allocatorIcEEEEEEv(&v5, this);
-  if (SHIBYTE(a3->__pn_.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(a3->__pn_.__r_.__value_.__l.__data_);
-  }
-
-  *&a3->__pn_.__r_.__value_.__l.__data_ = v5;
-  a3->__pn_.__r_.__value_.__r.__words[2] = v6;
-  HIBYTE(v6) = 0;
-  LOBYTE(v5) = 0;
-  if (a2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a2);
-  }
-}
-
-void sub_272606D70(_Unwind_Exception *exception_object)
-{
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t vp::utility::Property_List_Parser::Object::operator BOOL<BOOL>(uint64_t a1)
-{
-  (*(*a1 + 16))(&cf);
-  if (!cf)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "Could not construct");
-  }
-
-  v1 = applesauce::CF::convert_to<BOOL,0>(cf);
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  return v1;
-}
-
-void sub_272606E30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10)
-{
-  __cxa_free_exception(v10);
-  applesauce::CF::TypeRef::~TypeRef(&a10);
-  _Unwind_Resume(a1);
-}
-
-uint64_t applesauce::CF::convert_to<BOOL,0>(const __CFBoolean *a1)
-{
-  TypeID = CFBooleanGetTypeID();
-  if (TypeID == CFGetTypeID(a1))
-  {
-    LOBYTE(v3) = CFBooleanGetValue(a1) != 0;
-  }
-
-  else
-  {
-    v4 = CFNumberGetTypeID();
-    if (v4 != CFGetTypeID(a1) || (v3 = applesauce::CF::details::number_convert_as<BOOL>(a1), v3 <= 0xFFu))
-    {
-      exception = __cxa_allocate_exception(0x10uLL);
-      applesauce::CF::convert_error(exception);
-    }
-  }
-
-  return v3 & 1;
-}
-
-void caulk::function_ref<void ()(vp::utility::Property_List_Parser)>::functor_invoker<vp::vx::database::v1::runtime::detail::from_plist(vp::utility::Property_List_Parser const&,vp::vx::DSP_Node_Configuration &)::$_5>(uint64_t **a1, uint64_t a2)
-{
-  v2 = *a1;
-  *v4 = *a2;
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  v3 = *v2;
-  vp::utility::Property_List_Parser::operator[](&v5, v4, @"ID");
-}
-
-void sub_2726070C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14, uint64_t a15, std::__shared_weak_count *a16, uint64_t a17, std::__shared_weak_count *a18, uint64_t a19, std::__shared_weak_count *a20)
-{
-  if (a16)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a16);
-  }
-
-  if (a14)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a14);
-  }
-
-  if (a20)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a20);
-  }
-
-  if (a18)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a18);
-  }
-
-  if (a11)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a11);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void vp::utility::Property_List_Parser::Object::operator applesauce::CF::DictionaryRef<applesauce::CF::DictionaryRef>(void *a1, uint64_t a2)
-{
-  (*(*a2 + 16))(&cf, a2);
-  applesauce::CF::TypeRef::operator applesauce::CF::DictionaryRef(a1, &cf);
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-}
-
-void sub_2726071B8(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  applesauce::CF::TypeRef::~TypeRef(va);
-  _Unwind_Resume(a1);
-}
-
-void std::vector<std::tuple<unsigned int,applesauce::CF::DictionaryRef>>::__swap_out_circular_buffer(uint64_t *a1, void *a2)
-{
-  v4 = *a1;
-  v5 = a1[1];
-  v6 = a2[1] + *a1 - v5;
-  if (v5 != *a1)
-  {
-    v7 = *a1;
-    v8 = a2[1] + *a1 - v5;
-    do
-    {
-      *v8 = *v7;
-      *(v8 + 8) = *(v7 + 8);
-      *(v7 + 8) = 0;
-      v7 += 16;
-      v8 += 16;
-    }
-
-    while (v7 != v5);
-    do
-    {
-      std::__destroy_at[abi:ne200100]<std::tuple<unsigned int,applesauce::CF::DictionaryRef>,0>(*(v4 + 8));
-      v4 += 16;
-    }
-
-    while (v4 != v5);
-    v4 = *a1;
-  }
-
-  a2[1] = v6;
-  *a1 = v6;
-  a1[1] = v4;
-  a2[1] = v4;
-  v9 = a1[1];
-  a1[1] = a2[2];
-  a2[2] = v9;
-  v10 = a1[2];
-  a1[2] = a2[3];
-  a2[3] = v10;
-  *a2 = a2[1];
-}
-
-uint64_t std::__split_buffer<std::tuple<unsigned int,applesauce::CF::DictionaryRef>>::~__split_buffer(uint64_t a1)
-{
-  v3 = *(a1 + 8);
-  for (i = *(a1 + 16); i != v3; i = *(a1 + 16))
-  {
-    *(a1 + 16) = i - 16;
-    std::__destroy_at[abi:ne200100]<std::tuple<unsigned int,applesauce::CF::DictionaryRef>,0>(*(i - 8));
-  }
-
-  if (*a1)
-  {
-    operator delete(*a1);
-  }
-
-  return a1;
-}
-
-const void *applesauce::CF::TypeRef::operator applesauce::CF::DictionaryRef(void *a1, const void **a2)
-{
-  result = *a2;
-  if (!*a2)
-  {
-    goto LABEL_6;
-  }
-
-  v5 = CFGetTypeID(result);
-  result = CFDictionaryGetTypeID();
-  if (v5 != result)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    applesauce::CF::construct_error(exception);
-  }
-
-  v6 = *a2;
-  if (v6)
-  {
-    CFRetain(v6);
-    *a1 = v6;
-    v7 = CFGetTypeID(v6);
-    result = CFDictionaryGetTypeID();
-    if (v7 != result)
-    {
-      v8 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v8, "Could not construct");
-    }
-  }
-
-  else
-  {
-LABEL_6:
-    *a1 = 0;
-  }
-
-  return result;
-}
-
-void sub_2726073C8(_Unwind_Exception *a1)
-{
-  __cxa_free_exception(v2);
-  applesauce::CF::ObjectRef<__CFDictionary const*>::~ObjectRef(v1);
-  _Unwind_Resume(a1);
-}
-
-void caulk::function_ref<void ()(vp::utility::Property_List_Parser)>::functor_invoker<vp::vx::database::v1::runtime::detail::from_plist(vp::utility::Property_List_Parser const&,vp::vx::DSP_Node_Configuration &)::$_4>(uint64_t **a1, __int128 *a2)
-{
-  v2 = *a1;
-  v4 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
-  v3 = *v2;
-  vp::utility::Property_List_Parser::operator[](&v5, &v4, @"ID");
-}
-
-void sub_2726075CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14, uint64_t a15, uint64_t a16, uint64_t a17, std::__shared_weak_count *a18)
-{
-  operator delete(v21);
-  if (a14)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a14);
-  }
-
-  if (v20)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v20);
-  }
-
-  if (a18)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a18);
-    if (!v19)
-    {
-LABEL_7:
-      if (!v18)
-      {
-        goto LABEL_9;
-      }
-
-      goto LABEL_8;
-    }
-  }
-
-  else if (!v19)
-  {
-    goto LABEL_7;
-  }
-
-  std::__shared_weak_count::__release_shared[abi:ne200100](v19);
-  if (!v18)
-  {
-LABEL_9:
-    _Unwind_Resume(a1);
-  }
-
-LABEL_8:
-  std::__shared_weak_count::__release_shared[abi:ne200100](v18);
-  goto LABEL_9;
-}
-
-void sub_272607654()
-{
-  if (!v0)
-  {
-    JUMPOUT(0x272607634);
-  }
-
-  JUMPOUT(0x27260762CLL);
-}
-
-float vp::utility::Property_List_Parser::Object::operator float<float>(uint64_t a1)
-{
-  (*(*a1 + 16))(&cf);
-  if (!cf)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "Could not construct");
-  }
-
-  v1 = applesauce::CF::convert_to<float,0>(cf);
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  return v1;
-}
-
-void sub_272607710(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10)
-{
-  __cxa_free_exception(v10);
-  applesauce::CF::TypeRef::~TypeRef(&a10);
-  _Unwind_Resume(a1);
-}
-
-void caulk::function_ref<void ()(vp::utility::Property_List_Parser)>::functor_invoker<vp::vx::database::v1::runtime::detail::from_plist(vp::utility::Property_List_Parser const&,vp::vx::DSP_Node_Configuration &)::$_3>(uint64_t **a1, __int128 *a2)
-{
-  v2 = *a1;
-  v3 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
-  v4 = *v2;
-  v6 = *(*v2 + 120);
-  v5 = *(*v2 + 128);
-  v7 = v3;
-  if (v6 >= v5)
-  {
-    v9 = *(v4 + 112);
-    v10 = 0xAAAAAAAAAAAAAAABLL * ((v6 - v9) >> 3);
-    v11 = v10 + 1;
-    if (v10 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      std::vector<std::function<std::unique_ptr<VoiceProcessorBase> ()(std::unique_ptr<VoiceProcessorBase>)>>::__throw_length_error[abi:ne200100]();
-    }
-
-    v12 = 0xAAAAAAAAAAAAAAABLL * ((v5 - v9) >> 3);
-    if (2 * v12 > v11)
-    {
-      v11 = 2 * v12;
-    }
-
-    if (v12 >= 0x555555555555555)
-    {
-      v13 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v13 = v11;
-    }
-
-    v21.__end_cap_.__value_ = (v4 + 112);
-    if (v13)
-    {
-      std::allocator<std::string>::allocate_at_least[abi:ne200100](v13);
-    }
-
-    v14 = 24 * v10;
-    v21.__end_cap_.__value_ = 0;
-    *v14 = 0;
-    *(v14 + 8) = 0;
-    *(v14 + 16) = 0;
-    v21.__end_ = (24 * v10 + 24);
-    v15 = *(v4 + 112);
-    v16 = *(v4 + 120);
-    v17 = 24 * v10 + v15 - v16;
-    std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::__fs::filesystem::path>,std::__fs::filesystem::path*>(v4 + 112, v15, v16, v14 + v15 - v16);
-    v18 = *(v4 + 112);
-    *(v4 + 112) = v17;
-    v19 = *(v4 + 128);
-    end = v21.__end_;
-    *(v4 + 120) = *&v21.__end_;
-    v21.__end_ = v18;
-    v21.__end_cap_.__value_ = v19;
-    v21.__first_ = v18;
-    v21.__begin_ = v18;
-    std::__split_buffer<std::string>::~__split_buffer(&v21);
-    v8 = end;
-  }
-
-  else
-  {
-    v6->__r_.__value_.__r.__words[0] = 0;
-    v6->__r_.__value_.__l.__size_ = 0;
-    v8 = v6 + 1;
-    v6->__r_.__value_.__r.__words[2] = 0;
-  }
-
-  *(v4 + 120) = v8;
-  vp::vx::database::v1::runtime::detail::from_plist(v7, *(&v7 + 1), &v8[-1]);
-  if (*(&v7 + 1))
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v7 + 1));
-  }
-}
-
-void sub_272607898(_Unwind_Exception *exception_object)
-{
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void caulk::function_ref<void ()(vp::utility::Property_List_Parser)>::functor_invoker<vp::vx::database::v1::runtime::detail::from_plist(vp::utility::Property_List_Parser const&,vp::vx::DSP_Node_Configuration &)::$_2>(uint64_t **a1, __int128 *a2)
-{
-  v2 = *a1;
-  v3 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
-  v4 = *v2;
-  v6 = *(*v2 + 96);
-  v5 = *(*v2 + 104);
-  v7 = v3;
-  if (v6 >= v5)
-  {
-    v9 = *(v4 + 88);
-    v10 = 0xAAAAAAAAAAAAAAABLL * ((v6 - v9) >> 3);
-    v11 = v10 + 1;
-    if (v10 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      std::vector<std::function<std::unique_ptr<VoiceProcessorBase> ()(std::unique_ptr<VoiceProcessorBase>)>>::__throw_length_error[abi:ne200100]();
-    }
-
-    v12 = 0xAAAAAAAAAAAAAAABLL * ((v5 - v9) >> 3);
-    if (2 * v12 > v11)
-    {
-      v11 = 2 * v12;
-    }
-
-    if (v12 >= 0x555555555555555)
-    {
-      v13 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v13 = v11;
-    }
-
-    v21.__end_cap_.__value_ = (v4 + 88);
-    if (v13)
-    {
-      std::allocator<std::string>::allocate_at_least[abi:ne200100](v13);
-    }
-
-    v14 = 24 * v10;
-    v21.__end_cap_.__value_ = 0;
-    *v14 = 0;
-    *(v14 + 8) = 0;
-    *(v14 + 16) = 0;
-    v21.__end_ = (24 * v10 + 24);
-    v15 = *(v4 + 88);
-    v16 = *(v4 + 96);
-    v17 = 24 * v10 + v15 - v16;
-    std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::__fs::filesystem::path>,std::__fs::filesystem::path*>(v4 + 88, v15, v16, v14 + v15 - v16);
-    v18 = *(v4 + 88);
-    *(v4 + 88) = v17;
-    v19 = *(v4 + 104);
-    end = v21.__end_;
-    *(v4 + 96) = *&v21.__end_;
-    v21.__end_ = v18;
-    v21.__end_cap_.__value_ = v19;
-    v21.__first_ = v18;
-    v21.__begin_ = v18;
-    std::__split_buffer<std::string>::~__split_buffer(&v21);
-    v8 = end;
-  }
-
-  else
-  {
-    v6->__r_.__value_.__r.__words[0] = 0;
-    v6->__r_.__value_.__l.__size_ = 0;
-    v8 = v6 + 1;
-    v6->__r_.__value_.__r.__words[2] = 0;
-  }
-
-  *(v4 + 96) = v8;
-  vp::vx::database::v1::runtime::detail::from_plist(v7, *(&v7 + 1), &v8[-1]);
-  if (*(&v7 + 1))
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v7 + 1));
-  }
-}
-
-void sub_272607A10(_Unwind_Exception *exception_object)
-{
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void caulk::function_ref<void ()(vp::utility::Property_List_Parser)>::functor_invoker<vp::vx::database::v1::runtime::detail::from_plist(vp::utility::Property_List_Parser const&,vp::vx::DSP_Node_Configuration &)::$_1>(uint64_t **a1, __int128 *a2)
-{
-  v2 = *a1;
-  v3 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
-  v4 = *v2;
-  v6 = *(*v2 + 72);
-  v5 = *(*v2 + 80);
-  v7 = v3;
-  if (v6 >= v5)
-  {
-    v9 = *(v4 + 64);
-    v10 = 0xAAAAAAAAAAAAAAABLL * ((v6 - v9) >> 3);
-    v11 = v10 + 1;
-    if (v10 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      std::vector<std::function<std::unique_ptr<VoiceProcessorBase> ()(std::unique_ptr<VoiceProcessorBase>)>>::__throw_length_error[abi:ne200100]();
-    }
-
-    v12 = 0xAAAAAAAAAAAAAAABLL * ((v5 - v9) >> 3);
-    if (2 * v12 > v11)
-    {
-      v11 = 2 * v12;
-    }
-
-    if (v12 >= 0x555555555555555)
-    {
-      v13 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v13 = v11;
-    }
-
-    v21.__end_cap_.__value_ = (v4 + 64);
-    if (v13)
-    {
-      std::allocator<std::string>::allocate_at_least[abi:ne200100](v13);
-    }
-
-    v14 = 24 * v10;
-    v21.__end_cap_.__value_ = 0;
-    *v14 = 0;
-    *(v14 + 8) = 0;
-    *(v14 + 16) = 0;
-    v21.__end_ = (24 * v10 + 24);
-    v15 = *(v4 + 64);
-    v16 = *(v4 + 72);
-    v17 = 24 * v10 + v15 - v16;
-    std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::__fs::filesystem::path>,std::__fs::filesystem::path*>(v4 + 64, v15, v16, v14 + v15 - v16);
-    v18 = *(v4 + 64);
-    *(v4 + 64) = v17;
-    v19 = *(v4 + 80);
-    end = v21.__end_;
-    *(v4 + 72) = *&v21.__end_;
-    v21.__end_ = v18;
-    v21.__end_cap_.__value_ = v19;
-    v21.__first_ = v18;
-    v21.__begin_ = v18;
-    std::__split_buffer<std::string>::~__split_buffer(&v21);
-    v8 = end;
-  }
-
-  else
-  {
-    v6->__r_.__value_.__r.__words[0] = 0;
-    v6->__r_.__value_.__l.__size_ = 0;
-    v8 = v6 + 1;
-    v6->__r_.__value_.__r.__words[2] = 0;
-  }
-
-  *(v4 + 72) = v8;
-  vp::vx::database::v1::runtime::detail::from_plist(v7, *(&v7 + 1), &v8[-1]);
-  if (*(&v7 + 1))
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v7 + 1));
-  }
-}
-
-void sub_272607B88(_Unwind_Exception *exception_object)
-{
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void caulk::function_ref<void ()(applesauce::CF::StringRef,vp::utility::Property_List_Parser)>::functor_invoker<vp::vx::database::v1::runtime::detail::from_plist(vp::utility::Property_List_Parser const&,vp::vx::DSP_Node_Configuration &)::$_0>(int8x8_t ***a1, const __CFString **a2, uint64_t *a3)
-{
-  v3 = *a1;
-  v4 = *a2;
-  *a2 = 0;
-  v6 = *a3;
-  v5 = a3[1];
-  *a3 = 0;
-  a3[1] = 0;
-  if (!v4)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "Could not construct");
-  }
-
-  v7 = *v3;
-  applesauce::CF::convert_to<std::string,0>(__p, v4);
-  if (v5)
-  {
-    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v8 = std::__string_hash<char>::operator()[abi:ne200100](__p);
-  v9 = v8;
-  v10 = v7[4];
-  if (!*&v10)
-  {
-    goto LABEL_21;
-  }
-
-  v11 = vcnt_s8(v10);
-  v11.i16[0] = vaddlv_u8(v11);
-  v12 = v11.u32[0];
-  if (v11.u32[0] > 1uLL)
-  {
-    v13 = v8;
-    if (v8 >= *&v10)
-    {
-      v13 = v8 % *&v10;
-    }
-  }
-
-  else
-  {
-    v13 = (*&v10 - 1) & v8;
-  }
-
-  v14 = *(*&v7[3] + 8 * v13);
-  if (!v14 || (v15 = *v14) == 0)
-  {
-LABEL_21:
-    operator new();
-  }
-
-  while (1)
-  {
-    v16 = v15[1];
-    if (v16 == v9)
-    {
-      break;
-    }
-
-    if (v12 > 1)
-    {
-      if (v16 >= *&v10)
-      {
-        v16 %= *&v10;
-      }
-    }
-
-    else
-    {
-      v16 &= *&v10 - 1;
-    }
-
-    if (v16 != v13)
-    {
-      goto LABEL_21;
-    }
-
-LABEL_20:
-    v15 = *v15;
-    if (!v15)
-    {
-      goto LABEL_21;
-    }
-  }
-
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](v15 + 2, __p))
-  {
-    goto LABEL_20;
-  }
-
-  if (v5)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-  }
-
-  if (SHIBYTE(v19) < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  if (v5)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-  }
-
-  CFRelease(v4);
-}
-
-void sub_272607EBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, char a17)
-{
-  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](&a17);
-  if (v17)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
-  }
-
-  if (a16 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (v17)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
-  }
-
-  applesauce::CF::StringRef::~StringRef(&a10);
-  _Unwind_Resume(a1);
-}
-
-void _ZNK2vp7utility20Property_List_Parser6ObjectcvT_INSt3__112basic_stringIcNS5_11char_traitsIcEENS5_9allocatorIcEEEEEEv(UInt8 *a1, uint64_t a2)
-{
-  (*(*a2 + 16))(&cf, a2);
-  if (!cf)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "Could not construct");
-  }
-
-  applesauce::CF::convert_to<std::string,0>(a1, cf);
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-}
-
-void sub_272607FE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10)
-{
-  __cxa_free_exception(v10);
-  applesauce::CF::TypeRef::~TypeRef(&a10);
-  _Unwind_Resume(a1);
-}
-
-void sub_27260810C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10, uint64_t a11, std::__shared_weak_count *a12, uint64_t a13, std::__shared_weak_count *a14)
-{
-  v17 = *(v15 - 40);
-  if (v17)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
-  }
-
-  applesauce::CF::StringRef::~StringRef(&a9);
-  if (v14)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
-  }
-
-  if (a14)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a14);
-  }
-
-  if (a12)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a12);
-  }
-
-  applesauce::CF::DictionaryRef::~DictionaryRef(&a10);
-  _Unwind_Resume(a1);
-}
-
-void sub_2726083A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10, uint64_t a11, std::__shared_weak_count *a12, uint64_t a13, std::__shared_weak_count *a14)
-{
-  v17 = *(v15 - 40);
-  if (v17)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
-  }
-
-  applesauce::CF::StringRef::~StringRef(&a9);
-  if (v14)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
-  }
-
-  if (a14)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a14);
-  }
-
-  if (a12)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a12);
-  }
-
-  applesauce::CF::DictionaryRef::~DictionaryRef(&a10);
-  _Unwind_Resume(a1);
-}
-
-void sub_272608730(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, std::__shared_weak_count *a15, uint64_t a16, uint64_t a17)
-{
-  if (v19)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v19);
-    std::__shared_weak_count::__release_shared[abi:ne200100](v19);
-  }
-
-  if (v18)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v18);
-  }
-
-  if (v17)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
-  }
-
-  if (a15)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a15);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void vp::vx::database::v1::runtime::detail::check_dictionary(uint64_t a1, std::__shared_weak_count *a2)
-{
-  if (a2)
-  {
-    atomic_fetch_add_explicit(&a2->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  vp::utility::Property_List_Parser::Object::operator applesauce::CF::DictionaryRef<applesauce::CF::DictionaryRef>(&cf, a1);
-  if (a2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a2);
-  }
-
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-}
-
-void sub_272608830(_Unwind_Exception *exception_object)
-{
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_272609444(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, std::__shared_weak_count *a28, uint64_t a29, std::__shared_weak_count *a30)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  applesauce::CF::StringRef::~StringRef((v31 - 80));
-  applesauce::CF::StringRef::~StringRef((v31 - 72));
-  if (v30)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v30);
-  }
-
-  if (a28)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a28);
-  }
-
-  if (a30)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a30);
-  }
-
-  v33 = *(v31 - 112);
-  if (v33)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v33);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void vp::utility::Property_List_Parser::Object::operator applesauce::CF::StringRef<applesauce::CF::StringRef>(void *a1, uint64_t a2)
-{
-  (*(*a2 + 16))(&cf, a2);
-  applesauce::CF::TypeRef::operator applesauce::CF::StringRef(a1, &cf);
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-}
-
-void sub_272609640(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  applesauce::CF::TypeRef::~TypeRef(va);
-  _Unwind_Resume(a1);
-}
-
-void caulk::function_ref<void ()(vp::utility::Property_List_Parser)>::functor_invoker<vp::vx::database::v1::runtime::detail::from_plist(vp::utility::Property_List_Parser const&,vp::vx::Uplink_Configuration &)::$_0>(uint64_t *a1, __int128 *a2)
-{
-  v2 = *a1;
-  v3 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
-  vp::utility::Property_List_Parser::operator[](&v4, &v3, @"Latency");
-}
-
-void sub_272609848(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, uint64_t a10, uint64_t a11, const void *a12)
-{
-  __cxa_free_exception(v13);
-  applesauce::CF::TypeRef::~TypeRef(&a12);
-  if (v12)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
-    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
-  }
-
-  if (*(&a9 + 1))
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](*(&a9 + 1));
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t applesauce::CF::convert_to<int,0>(const __CFNumber *a1)
-{
-  result = applesauce::CF::convert_as<int,0>(a1);
-  if ((result & 0x100000000) == 0)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    applesauce::CF::convert_error(exception);
-  }
-
-  return result;
-}
-
-void vp::vx::database::v1::runtime::Data_Manager::deserialize(vp::vx::database::v1::runtime::Data_Manager *this, CFTypeRef *a2, vp::vx::Global_Configuration *a3)
-{
-  v3 = *a2;
-  if (*a2)
-  {
-    CFRetain(*a2);
-    vp::utility::Property_List_Parser::Property_List_Parser(v4, v3);
-  }
-
-  vp::utility::Property_List_Parser::Property_List_Parser(v4, 0);
-}
-
-void sub_272609EF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32)
-{
-  if (a19 < 0)
-  {
-    operator delete(__p);
-  }
-
-  applesauce::CF::StringRef::~StringRef((v35 - 80));
-  applesauce::CF::StringRef::~StringRef((v35 - 72));
-  if (v34)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v34);
-  }
-
-  if (v33)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v33);
-  }
-
-  if (v32)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v32);
-  }
-
-  v37 = *(v35 - 112);
-  if (v37)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v37);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t boost::container::vector<vp::vx::Chat_Flavor,boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>,void>::priv_move_assign<boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>>(uint64_t *a1, uint64_t *a2)
-{
-  v4 = a2[2];
-  if (a1 == a2 && v4)
-  {
-    __assert_rtn("priv_move_assign", "vector.hpp", 2480, "this != &x || x.size() == 0");
-  }
-
-  v6 = a2 + 1;
-  v5 = a2[1];
-  if (a2 + 4 != v5)
-  {
-    result = *a2;
-    if (*a2 == *a1 || (result = (*(*result + 32))(result), (result & 1) != 0))
-    {
-      a1[2] = 0;
-      v8 = a1[1];
-      if (v8)
-      {
-        v9 = a1[3];
-        result = boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>::deallocate(a1, v8);
-      }
-
-      a1[1] = a2[1];
-      *(a1 + 1) = *(a2 + 1);
-      *v6 = 0;
-      a2[2] = 0;
-      a2[3] = 0;
-      return result;
-    }
-
-    v5 = a2[1];
-    v4 = a2[2];
-  }
-
-  if (v5)
-  {
-    v10 = 1;
-  }
-
-  else
-  {
-    v10 = v4 == 0;
-  }
-
-  if (!v10)
-  {
-    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-  }
-
-  result = boost::container::vector<vp::vx::Chat_Flavor,boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>,void>::assign<boost::move_iterator<vp::vx::Chat_Flavor*>>(a1, v5, &v5[4 * v4]);
-  a2[2] = 0;
-  return result;
-}
-
-void vp::vx::Global_Configuration::~Global_Configuration(vp::vx::Global_Configuration *this)
-{
-  if (*(this + 10))
-  {
-    boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>::deallocate(this + 7, *(this + 8));
-  }
-
-  if (*(this + 5))
-  {
-    boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>::deallocate(this + 2, *(this + 3));
-  }
-}
-
-void caulk::function_ref<void ()(vp::utility::Property_List_Parser)>::functor_invoker<vp::vx::database::v1::runtime::detail::from_plist(vp::utility::Property_List_Parser const&,vp::vx::Global_Configuration &)::$_1>(uint64_t **a1, __int128 *a2)
-{
-  v2 = *a1;
-  v3 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
-  v4 = *(&v3 + 1);
-  v5 = v3;
-  if (*(&v3 + 1))
-  {
-    atomic_fetch_add_explicit((*(&v3 + 1) + 8), 1uLL, memory_order_relaxed);
-  }
-
-  vp::utility::Property_List_Parser::Object::operator applesauce::CF::StringRef<applesauce::CF::StringRef>(&cf, v3);
-  if (v4)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
-  }
-
-  v12[0] = @"Standard";
-  if (applesauce::CF::compare<applesauce::CF::StringRef,0,__CFString const*,0>(cf, v12))
-  {
-    v12[0] = @"Voice_Isolation";
-    if (applesauce::CF::compare<applesauce::CF::StringRef,0,__CFString const*,0>(cf, v12))
-    {
-      v12[0] = @"Wide_Spectrum";
-      if (applesauce::CF::compare<applesauce::CF::StringRef,0,__CFString const*,0>(cf, v12))
-      {
-        vp::utility::Property_List_Parser::path(&theString, v5);
-        CStringPtr = CFStringGetCStringPtr(theString, 0x600u);
-        caulk::make_string("expected Standard, Voice_Isolation, or Wide_Spectrum at %s", v12, CStringPtr);
-        exception = __cxa_allocate_exception(0x10uLL);
-        MEMORY[0x2743CB8B0](exception, v12);
-      }
-
-      v6 = 1;
-    }
-
-    else
-    {
-      v6 = 2;
-    }
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  LODWORD(cf) = v6;
-  v7 = *v2;
-  v8 = *(*v2 + 72);
-  v9 = (*(*v2 + 64) + 4 * v8);
-  if (v8 != *(*v2 + 80))
-  {
-    *v9 = v6;
-    *(v7 + 72) = v8 + 1;
-    if (!v4)
-    {
-      return;
-    }
-
-    goto LABEL_15;
-  }
-
-  boost::container::vector<vp::vx::Chat_Flavor,boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>,vp::vx::Chat_Flavor*,vp::vx::Chat_Flavor const&>>(v12, v7 + 56, v9, &cf);
-  boost::container::vec_iterator<vp::vx::Chat_Flavor *,false>::operator*(v12[0]);
-  if (v4)
-  {
-LABEL_15:
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
-  }
-}
-
-void sub_27260A39C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, int a17, __int16 a18, char a19, char a20)
-{
-  if (v20)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v20);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-_DWORD *boost::container::vector<vp::vx::Chat_Flavor,boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>,vp::vx::Chat_Flavor*,vp::vx::Chat_Flavor const&>>(void *a1, uint64_t a2, char *a3, _DWORD *a4)
-{
-  v4 = *(a2 + 24);
-  if (v4 != *(a2 + 16))
-  {
-    __assert_rtn("next_capacity", "vector.hpp", 473, "additional_objects > size_type(this->m_capacity - this->m_size)");
-  }
-
-  if (v4 == 0x3FFFFFFFFFFFFFFFLL)
-  {
-    goto LABEL_26;
-  }
-
-  v9 = *(a2 + 8);
-  if (!(v4 >> 61))
-  {
-    if (v4 + 1 > 8 * v4 / 5)
-    {
-      v10 = v4 + 1;
-    }
-
-    else
-    {
-      v10 = 8 * v4 / 5;
-    }
-
-    goto LABEL_16;
-  }
-
-  if (v4 >> 61 > 4)
-  {
-    v11 = -1;
-  }
-
-  else
-  {
-    v11 = 8 * v4;
-  }
-
-  v12 = v4 + 1;
-  if (v11 >= 0x3FFFFFFFFFFFFFFFLL)
-  {
-    v11 = 0x3FFFFFFFFFFFFFFFLL;
-  }
-
-  v10 = v12 > v11 ? v4 + 1 : v11;
-  if (v12 >> 62)
-  {
-LABEL_26:
-    boost::container::throw_length_error("get_next_capacity, allocator's max size reached", a2);
-  }
-
-LABEL_16:
-  result = (*(**a2 + 16))();
-  v14 = result;
-  v15 = *(a2 + 8);
-  v16 = *(a2 + 16);
-  v17 = result;
-  if (v15)
-  {
-    v17 = result;
-    if (v15 != a3)
-    {
-      result = memmove(result, *(a2 + 8), a3 - v15);
-      v17 = (v14 + a3 - v15);
-    }
-  }
-
-  *v17 = *a4;
-  if (a3)
-  {
-    v18 = &v15[4 * v16];
-    if (v18 != a3)
-    {
-      result = memmove(v17 + 1, a3, v18 - a3);
-    }
-  }
-
-  if (v15)
-  {
-    v19 = *(a2 + 24);
-    result = boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>::deallocate(a2, *(a2 + 8));
-  }
-
-  v20 = *(a2 + 16) + 1;
-  *(a2 + 8) = v14;
-  *(a2 + 16) = v20;
-  *(a2 + 24) = v10;
-  *a1 = &a3[v14 - v9];
-  return result;
-}
-
-uint64_t boost::container::vec_iterator<vp::vx::Chat_Flavor *,false>::operator*(uint64_t result)
-{
-  if (!result)
-  {
-    __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
-  }
-
-  return result;
-}
-
-void caulk::function_ref<void ()(vp::utility::Property_List_Parser)>::functor_invoker<vp::vx::database::v1::runtime::detail::from_plist(vp::utility::Property_List_Parser const&,vp::vx::Global_Configuration &)::$_0>(uint64_t **a1, __int128 *a2)
-{
-  v2 = *a1;
-  v3 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
-  v4 = *(&v3 + 1);
-  v5 = v3;
-  if (*(&v3 + 1))
-  {
-    atomic_fetch_add_explicit((*(&v3 + 1) + 8), 1uLL, memory_order_relaxed);
-  }
-
-  vp::utility::Property_List_Parser::Object::operator applesauce::CF::StringRef<applesauce::CF::StringRef>(&cf, v3);
-  if (v4)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
-  }
-
-  v12[0] = @"Standard";
-  if (applesauce::CF::compare<applesauce::CF::StringRef,0,__CFString const*,0>(cf, v12))
-  {
-    v12[0] = @"Voice_Isolation";
-    if (applesauce::CF::compare<applesauce::CF::StringRef,0,__CFString const*,0>(cf, v12))
-    {
-      v12[0] = @"Wide_Spectrum";
-      if (applesauce::CF::compare<applesauce::CF::StringRef,0,__CFString const*,0>(cf, v12))
-      {
-        vp::utility::Property_List_Parser::path(&theString, v5);
-        CStringPtr = CFStringGetCStringPtr(theString, 0x600u);
-        caulk::make_string("expected Standard, Voice_Isolation, or Wide_Spectrum at %s", v12, CStringPtr);
-        exception = __cxa_allocate_exception(0x10uLL);
-        MEMORY[0x2743CB8B0](exception, v12);
-      }
-
-      v6 = 1;
-    }
-
-    else
-    {
-      v6 = 2;
-    }
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  LODWORD(cf) = v6;
-  v7 = *v2;
-  v8 = *(*v2 + 32);
-  v9 = (*(*v2 + 24) + 4 * v8);
-  if (v8 != *(*v2 + 40))
-  {
-    *v9 = v6;
-    *(v7 + 32) = v8 + 1;
-    if (!v4)
-    {
-      return;
-    }
-
-    goto LABEL_15;
-  }
-
-  boost::container::vector<vp::vx::Chat_Flavor,boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>,vp::vx::Chat_Flavor*,vp::vx::Chat_Flavor const&>>(v12, v7 + 16, v9, &cf);
-  boost::container::vec_iterator<vp::vx::Chat_Flavor *,false>::operator*(v12[0]);
-  if (v4)
-  {
-LABEL_15:
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
-  }
-}
-
-void sub_27260A78C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, int a17, __int16 a18, char a19, char a20)
-{
-  if (v20)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v20);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_27260A8D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12)
-{
-  if (v12)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
-    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
-  }
-
-  if (a12)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a12);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void vp::vx::database::v1::runtime::Data_Manager::~Data_Manager(vp::vx::database::v1::runtime::Data_Manager *this)
-{
-  vp::vx::database::v1::runtime::Data_Manager::~Data_Manager(this);
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-{
-  v18 = *MEMORY[0x277D85DE8];
-  *this = &unk_2881B6358;
-  log = vp::get_log(this);
-  if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
-  {
-    log_context_info = vp::get_log_context_info(__p, this, "vp::vx::database::v1::runtime::Data_Manager]", 43);
-    v4 = v13;
-    v5 = v13;
-    v6 = __p[1];
-    v7 = vp::get_log(log_context_info);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
-    {
-      if (v5 >= 0)
-      {
-        v8 = v4;
-      }
-
-      else
-      {
-        v8 = v6;
-      }
-
-      v9 = __p[0];
-      if (v5 >= 0)
-      {
-        v9 = __p;
-      }
-
-      if (v8)
-      {
-        v10 = " ";
-      }
-
-      else
-      {
-        v10 = "";
-      }
-
-      *buf = 136315394;
-      v15 = v9;
-      v16 = 2080;
-      v17 = v10;
-      _os_log_impl(&dword_2724B4000, v7, OS_LOG_TYPE_DEBUG, "%s%sdestroyed", buf, 0x16u);
-      LOBYTE(v5) = v13;
-    }
-
-    if ((v5 & 0x80) != 0)
-    {
-      operator delete(__p[0]);
-    }
-  }
-
-  v11 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t vp::vx::database::v1::Database::get_configuration_options(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
-{
-  v7 = a3;
-  v5[0] = a1;
-  v5[1] = &v7;
-  v5[2] = a4;
-  *&v6 = caulk::function_ref<void ()(applesauce::CF::DictionaryRef const&)>::functor_invoker<vp::vx::database::v1::Database::get_configuration_options(vp::vx::Configuration_Context const&,vp::vx::Downlink_DSP_Node_ID,vp::vx::DSP_Node_Configuration_Options &)::$_0>;
-  *(&v6 + 1) = v5;
-  return vp::vx::database::v1::Database::evaluate_configuration_context_noexcept(a1, "find downlink DSP node configuration options", a2, &v6);
-}
-
-{
-  v7 = a3;
-  v5[0] = a1;
-  v5[1] = &v7;
-  v5[2] = a4;
-  *&v6 = caulk::function_ref<void ()(applesauce::CF::DictionaryRef const&)>::functor_invoker<vp::vx::database::v1::Database::get_configuration_options(vp::vx::Configuration_Context const&,vp::vx::Uplink_DSP_Node_ID,vp::vx::DSP_Node_Configuration_Options &)::$_0>;
-  *(&v6 + 1) = v5;
-  return vp::vx::database::v1::Database::evaluate_configuration_context_noexcept(a1, "find uplink DSP node configuration options", a2, &v6);
-}
-
-uint64_t vp::vx::database::v1::Database::evaluate_configuration_context_noexcept(uint64_t a1, uint64_t a2, uint64_t a3, __int128 *a4)
-{
-  v114[1] = *MEMORY[0x277D85DE8];
-  log = vp::get_log(a1);
-  v9 = os_log_type_enabled(log, OS_LOG_TYPE_DEBUG);
-  if (v9)
-  {
-    log_context_info = vp::get_log_context_info(&v111, a1, "vp::vx::database::v1::Database]", 30);
-    v11 = v113;
-    v12 = v113;
-    v13 = v112;
-    v14 = vp::get_log(log_context_info);
-    v9 = os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG);
-    if (v9)
-    {
-      if (v12 >= 0)
-      {
-        v15 = v11;
-      }
-
-      else
-      {
-        v15 = v13;
-      }
-
-      v16 = v111;
-      if (v12 >= 0)
-      {
-        v16 = &v111;
-      }
-
-      *buf = 136315650;
-      *&buf[4] = v16;
-      *&buf[12] = 2080;
-      if (v15)
-      {
-        v17 = " ";
-      }
-
-      else
-      {
-        v17 = "";
-      }
-
-      *&buf[14] = v17;
-      *&buf[22] = 2080;
-      *&buf[24] = a2;
-      _os_log_impl(&dword_2724B4000, v14, OS_LOG_TYPE_DEBUG, "%s%swill %s", buf, 0x20u);
-      LOBYTE(v12) = v113;
-    }
-
-    if ((v12 & 0x80) != 0)
-    {
-      operator delete(v111);
-    }
-  }
-
-  v82 = *a4;
-  v83 = *(a4 + 2);
-  if (*(a1 + 488) != 1 || !(v9 = vp::vx::Configuration_Context::operator==(a1 + 344, a3)))
-  {
-    v28 = vp::get_log(v9);
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
-    {
-      v29 = vp::get_log_context_info(&v111, a1, "vp::vx::database::v1::Database]", 30);
-      v30 = v113;
-      v31 = v112;
-      v32 = vp::get_log(v29);
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
-      {
-        if ((v30 & 0x80u) == 0)
-        {
-          v33 = v30;
-        }
-
-        else
-        {
-          v33 = v31;
-        }
-
-        if ((v113 & 0x80u) == 0)
-        {
-          v34 = &v111;
-        }
-
-        else
-        {
-          v34 = v111;
-        }
-
-        *buf = 136315650;
-        *&buf[4] = v34;
-        *&buf[12] = 2080;
-        if (v33)
-        {
-          v35 = " ";
-        }
-
-        else
-        {
-          v35 = "";
-        }
-
-        *&buf[14] = v35;
-        *&buf[22] = 2080;
-        *&buf[24] = a2;
-        _os_log_impl(&dword_2724B4000, v32, OS_LOG_TYPE_INFO, "%s%strying to %s with new decision state", buf, 0x20u);
-      }
-
-      if (v113 < 0)
-      {
-        operator delete(v111);
-      }
-    }
-
-    if (*(a1 + 208))
-    {
-      v36 = *(a1 + 208);
-    }
-
-    else
-    {
-      v36 = a1 + 200;
-    }
-
-    v37 = (*(*v36 + 80))(&cf);
-    v38 = vp::get_log(v37);
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
-    {
-      v39 = vp::get_log_context_info(&v89, a1, "vp::vx::database::v1::Database]", 30);
-      v40 = vp::get_log(v39);
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
-      {
-        if (cf)
-        {
-          v114[0] = 0;
-          applesauce::CF::details::to_description_json_style_object(v84, cf, 0, &v111);
-          std::__function::__value_func<std::pair<std::string,std::string> ()(applesauce::CF::TypeRef,applesauce::CF::TypeRef)>::~__value_func[abi:ne200100](&v111);
-          v93 = 0;
-          v86[0] = 0;
-          v87 = 0;
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v86);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v86);
-          v41 = v85;
-          v42 = v84[0];
-          v43 = v84[1];
-          std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::__value_func[abi:ne200100](v95, v92);
-          if ((v41 & 0x80u) != 0)
-          {
-            v41 = v43;
-          }
-
-          else
-          {
-            v42 = v84;
-          }
-
-          if (v96)
-          {
-            if (v96 == v95)
-            {
-              v114[0] = &v111;
-              (*(*v96 + 24))();
-LABEL_65:
-              std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::__value_func[abi:ne200100](buf, &v111);
-              LODWORD(v98) = 0;
-              *(&v98 + 1) = v42;
-              *&v99 = v42 + v41;
-              DWORD2(v99) = -1;
-              BYTE12(v99) = 0;
-              v100 = 0u;
-              v101 = 0u;
-              v102 = 0u;
-              v103 = 0u;
-              v104 = 0;
-              v105 = "";
-              v107 = 0;
-              v108 = 0;
-              v106 = 0;
-              v46 = localeconv();
-              if (v46)
-              {
-                if (v46->decimal_point)
-                {
-                  v47 = *v46->decimal_point;
-                }
-
-                else
-                {
-                  v47 = 46;
-                }
-
-                v109 = v47;
-                v110 = 1;
-                LODWORD(v98) = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::scan(&v98 + 8);
-                std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::~__value_func[abi:ne200100](&v111);
-                nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::parse(buf, v86);
-                nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::~lexer(&v98 + 8);
-                std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::~__value_func[abi:ne200100](buf);
-                std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::~__value_func[abi:ne200100](v95);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::dump(&__p);
-              }
-
-              __assert_rtn("get_decimal_point", "lexer.hpp", 136, "loc != nullptr");
-            }
-
-            v44 = &v96;
-            v114[0] = v96;
-          }
-
-          else
-          {
-            v44 = v114;
-          }
-
-          *v44 = 0;
-          goto LABEL_65;
-        }
-
-LABEL_119:
-        exception = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(exception, "Could not construct");
-      }
-
-      if (v90 < 0)
-      {
-        operator delete(v89);
-      }
-    }
-
-    v111 = &unk_2881BE2A8;
-    v48 = cf;
-    if (cf)
-    {
-      CFRetain(cf);
-      v112 = v48;
-      *buf = &v111;
-      *&buf[8] = &vp::vx::database::v1::Request::default_environment(void)::s_impl;
-      *v95 = 0;
-      v50 = *(a1 + 320);
-      v49 = *(a1 + 328);
-      while (v50 != v49)
-      {
-        vp::vx::database::v1::syntax::Rule::evaluate(v50, buf, v95);
-        v50 = (v50 + 88);
-      }
-
-      v51 = *(a1 + 488);
-      v52 = *(a3 + 12);
-      *(a1 + 344) = *a3;
-      *(a1 + 356) = v52;
-      if (v51 == 1)
-      {
-        v53 = *(a1 + 376);
-        v54 = *(a3 + 32);
-        *(a1 + 376) = v54;
-        if (v54)
-        {
-          CFRetain(v54);
-        }
-
-        if (v53)
-        {
-          CFRelease(v53);
-        }
-
-        v55 = *(a3 + 40);
-        *(a1 + 396) = *(a3 + 52);
-        *(a1 + 384) = v55;
-        v56 = *(a1 + 416);
-        v57 = *(a3 + 72);
-        *(a1 + 416) = v57;
-        if (v57)
-        {
-          CFRetain(v57);
-        }
-
-        if (v56)
-        {
-          CFRelease(v56);
-        }
-
-        v58 = *(a3 + 80);
-        v59 = *(a3 + 96);
-        v60 = *(a3 + 128);
-        *(a1 + 456) = *(a3 + 112);
-        *(a1 + 472) = v60;
-        *(a1 + 424) = v58;
-        *(a1 + 440) = v59;
-      }
-
-      else
-      {
-        v61 = *(a3 + 32);
-        if (v61)
-        {
-          CFRetain(*(a3 + 32));
-        }
-
-        *(a1 + 376) = v61;
-        v62 = *(a3 + 40);
-        *(a1 + 396) = *(a3 + 52);
-        *(a1 + 384) = v62;
-        v63 = *(a3 + 72);
-        if (v63)
-        {
-          CFRetain(*(a3 + 72));
-        }
-
-        *(a1 + 416) = v63;
-        v64 = *(a3 + 80);
-        v65 = *(a3 + 96);
-        v66 = *(a3 + 128);
-        *(a1 + 456) = *(a3 + 112);
-        *(a1 + 472) = v66;
-        *(a1 + 424) = v64;
-        *(a1 + 440) = v65;
-        *(a1 + 488) = 1;
-      }
-
-      vp::vx::database::v1::Response::make_plist(v94, *v95);
-      v67 = *(a1 + 496);
-      v68 = *v94;
-      *(a1 + 496) = *v94;
-      *v94 = v67;
-      if (v67)
-      {
-        CFRelease(v67);
-        v68 = *(a1 + 496);
-      }
-
-      if (v68 && (CFRetain(v68), v69 = CFGetTypeID(v68), v69 != CFDictionaryGetTypeID()))
-      {
-        *v94 = 0;
-        CFRelease(v68);
-      }
-
-      else
-      {
-        *v94 = v68;
-      }
-
-      (v82)(&v82 + 8, v94);
-      if (*v94)
-      {
-        CFRelease(*v94);
-      }
-
-      vp::vx::database::v1::Response::~Response(v95);
-      if (v112)
-      {
-        CFRelease(v112);
-      }
-
-      v45 = cf;
-      if (cf)
-      {
-        goto LABEL_102;
-      }
-
-      goto LABEL_103;
-    }
-
-    v112 = 0;
-    *v94 = 0;
-    v99 = 0u;
-    v100 = 0u;
-    v98 = 0u;
-    memset(buf, 0, sizeof(buf));
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    *v95 = 134217984;
-    *&v95[4] = 0;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_119;
-  }
-
-  v18 = vp::get_log(v9);
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
-  {
-    v19 = vp::get_log_context_info(&v111, a1, "vp::vx::database::v1::Database]", 30);
-    v20 = v113;
-    v21 = v112;
-    v22 = vp::get_log(v19);
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
-    {
-      if ((v20 & 0x80u) == 0)
-      {
-        v23 = v20;
-      }
-
-      else
-      {
-        v23 = v21;
-      }
-
-      if ((v113 & 0x80u) == 0)
-      {
-        v24 = &v111;
-      }
-
-      else
-      {
-        v24 = v111;
-      }
-
-      *buf = 136315650;
-      *&buf[4] = v24;
-      *&buf[12] = 2080;
-      if (v23)
-      {
-        v25 = " ";
-      }
-
-      else
-      {
-        v25 = "";
-      }
-
-      *&buf[14] = v25;
-      *&buf[22] = 2080;
-      *&buf[24] = a2;
-      _os_log_impl(&dword_2724B4000, v22, OS_LOG_TYPE_INFO, "%s%strying to %s with cached decision state", buf, 0x20u);
-    }
-
-    if (v113 < 0)
-    {
-      operator delete(v111);
-    }
-  }
-
-  v26 = *(a1 + 496);
-  if (v26 && (CFRetain(*(a1 + 496)), v27 = CFGetTypeID(v26), v27 != CFDictionaryGetTypeID()))
-  {
-    *buf = 0;
-    CFRelease(v26);
-  }
-
-  else
-  {
-    *buf = v26;
-  }
-
-  (v82)(&v82 + 8, buf);
-  v45 = *buf;
-  if (*buf)
-  {
-LABEL_102:
-    CFRelease(v45);
-  }
-
-LABEL_103:
-  v70 = vp::get_log(v45);
-  if (os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG))
-  {
-    v71 = vp::get_log_context_info(&v111, a1, "vp::vx::database::v1::Database]", 30);
-    v72 = v113;
-    v73 = v113;
-    v74 = v112;
-    v75 = vp::get_log(v71);
-    if (os_log_type_enabled(v75, OS_LOG_TYPE_DEBUG))
-    {
-      if (v73 >= 0)
-      {
-        v76 = v72;
-      }
-
-      else
-      {
-        v76 = v74;
-      }
-
-      v77 = v111;
-      if (v73 >= 0)
-      {
-        v77 = &v111;
-      }
-
-      *buf = 136315650;
-      *&buf[4] = v77;
-      *&buf[12] = 2080;
-      if (v76)
-      {
-        v78 = " ";
-      }
-
-      else
-      {
-        v78 = "";
-      }
-
-      *&buf[14] = v78;
-      *&buf[22] = 2080;
-      *&buf[24] = a2;
-      _os_log_impl(&dword_2724B4000, v75, OS_LOG_TYPE_DEBUG, "%s%sdid %s", buf, 0x20u);
-      LOBYTE(v73) = v113;
-    }
-
-    if ((v73 & 0x80) != 0)
-    {
-      operator delete(v111);
-    }
-  }
-
-  result = 1;
-  v80 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void sub_27260B524(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, char a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, void *__p, uint64_t a29, int a30, __int16 a31, char a32, char a33, char a34, int a35, __int16 a36, char a37, char a38, uint64_t a39, uint64_t a40, uint64_t a41, void *a42, uint64_t a43, int a44, __int16 a45, char a46, char a47, uint64_t a48, char a49, uint64_t a50, uint64_t a51, uint64_t a52, uint8_t buf, int a54, int a55, __int16 a56, int a57, __int16 a58, __int16 a59, uint64_t a60, __int16 a61)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(exception_object);
-  }
-
-  __clang_call_terminate(exception_object);
-}
-
-void applesauce::CF::details::to_description_json_style_object(uint64_t a1, const __CFDictionary *a2, size_t a3, uint64_t a4)
-{
-  v80 = *MEMORY[0x277D85DE8];
-  v8 = 1;
-  *(a1 + 23) = 1;
-  *a1 = 123;
-  applesauce::CF::DictionaryRef_iterator<applesauce::CF::TypeRef,applesauce::CF::TypeRef>::DictionaryRef_iterator(&v73, a2);
-  applesauce::CF::DictionaryRef_iterator<applesauce::CF::TypeRef,applesauce::CF::TypeRef>::DictionaryRef_iterator(&v67, a2);
-  v68 = (v70 - v69) >> 3;
-  while (1)
-  {
-    if (v73 && v74 != (v76 - v75) >> 3)
-    {
-      v9 = v67;
-      goto LABEL_8;
-    }
-
-    v9 = v67;
-    if (!v67 || v68 == (v70 - v69) >> 3)
-    {
-      break;
-    }
-
-LABEL_8:
-    if (v73 == v9 && v74 == v68)
-    {
-      break;
-    }
-
-    if ((v8 & 1) == 0)
-    {
-      std::string::append(a1, ",", 1uLL);
-    }
-
-    std::string::basic_string[abi:ne200100](&__b, a3 + 2, 32);
-    v10 = std::string::insert(&__b, 0, "\n", 1uLL);
-    v11 = *&v10->__r_.__value_.__l.__data_;
-    v61 = v10->__r_.__value_.__r.__words[2];
-    *__p = v11;
-    v10->__r_.__value_.__l.__size_ = 0;
-    v10->__r_.__value_.__r.__words[2] = 0;
-    v10->__r_.__value_.__r.__words[0] = 0;
-    if (v61 >= 0)
-    {
-      v12 = __p;
-    }
-
-    else
-    {
-      v12 = __p[0];
-    }
-
-    if (v61 >= 0)
-    {
-      v13 = HIBYTE(v61);
-    }
-
-    else
-    {
-      v13 = __p[1];
-    }
-
-    std::string::append(a1, v12, v13);
-    if (SHIBYTE(v61) < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    if (SHIBYTE(__b.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(__b.__r_.__value_.__l.__data_);
-    }
-
-    applesauce::CF::DictionaryRef_iterator<applesauce::CF::TypeRef,applesauce::CF::TypeRef>::operator->(__p, &v73);
-    v14 = __p[0];
-    v16 = 0;
-    if (__p[0])
-    {
-      v15 = CFGetTypeID(__p[0]);
-      if (v15 == CFStringGetTypeID())
-      {
-        v16 = 1;
-      }
-    }
-
-    if (__p[1])
-    {
-      CFRelease(__p[1]);
-    }
-
-    if (v14)
-    {
-      CFRelease(v14);
-    }
-
-    if (v16)
-    {
-      applesauce::CF::DictionaryRef_iterator<applesauce::CF::TypeRef,applesauce::CF::TypeRef>::operator->(&cf, &v73);
-      v17 = cf.__r_.__value_.__r.__words[0];
-      if (!cf.__r_.__value_.__r.__words[0])
-      {
-        exception = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(exception, "Could not construct");
-      }
-
-      applesauce::CF::convert_to<std::string,0>(&v64, cf.__r_.__value_.__l.__data_);
-      if ((v64.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        v18 = &v64;
-      }
-
-      else
-      {
-        v18 = v64.__r_.__value_.__r.__words[0];
-      }
-
-      if ((v64.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        size = HIBYTE(v64.__r_.__value_.__r.__words[2]);
-      }
-
-      else
-      {
-        size = v64.__r_.__value_.__l.__size_;
-      }
-
-      applesauce::CF::details::make_json_string(&v65, v18, size);
-      v20 = std::string::insert(&v65, 0, "", 1uLL);
-      v21 = *&v20->__r_.__value_.__l.__data_;
-      __b.__r_.__value_.__r.__words[2] = v20->__r_.__value_.__r.__words[2];
-      *&__b.__r_.__value_.__l.__data_ = v21;
-      v20->__r_.__value_.__l.__size_ = 0;
-      v20->__r_.__value_.__r.__words[2] = 0;
-      v20->__r_.__value_.__r.__words[0] = 0;
-      v22 = std::string::append(&__b, " : ", 4uLL);
-      v23 = *&v22->__r_.__value_.__l.__data_;
-      v61 = v22->__r_.__value_.__r.__words[2];
-      *__p = v23;
-      v22->__r_.__value_.__l.__size_ = 0;
-      v22->__r_.__value_.__r.__words[2] = 0;
-      v22->__r_.__value_.__r.__words[0] = 0;
-      if (v61 >= 0)
-      {
-        v24 = __p;
-      }
-
-      else
-      {
-        v24 = __p[0];
-      }
-
-      if (v61 >= 0)
-      {
-        v25 = HIBYTE(v61);
-      }
-
-      else
-      {
-        v25 = __p[1];
-      }
-
-      std::string::append(a1, v24, v25);
-      if (SHIBYTE(v61) < 0)
-      {
-        operator delete(__p[0]);
-      }
-
-      if (SHIBYTE(__b.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(__b.__r_.__value_.__l.__data_);
-      }
-
-      if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v65.__r_.__value_.__l.__data_);
-      }
-
-      if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v64.__r_.__value_.__l.__data_);
-      }
-
-      if (cf.__r_.__value_.__l.__size_)
-      {
-        CFRelease(cf.__r_.__value_.__l.__size_);
-      }
-
-      CFRelease(v17);
-      applesauce::CF::DictionaryRef_iterator<applesauce::CF::TypeRef,applesauce::CF::TypeRef>::operator->(&__b, &v73);
-      std::__function::__value_func<std::pair<std::string,std::string> ()(applesauce::CF::TypeRef,applesauce::CF::TypeRef)>::__value_func[abi:ne200100](v79, a4);
-      applesauce::CF::details::to_description_json_style_helper(__p, &__b.__r_.__value_.__l.__size_, a3 + 2, v79);
-      if (v61 >= 0)
-      {
-        v26 = __p;
-      }
-
-      else
-      {
-        v26 = __p[0];
-      }
-
-      if (v61 >= 0)
-      {
-        v27 = HIBYTE(v61);
-      }
-
-      else
-      {
-        v27 = __p[1];
-      }
-
-      std::string::append(a1, v26, v27);
-      if (SHIBYTE(v61) < 0)
-      {
-        operator delete(__p[0]);
-      }
-
-      std::__function::__value_func<std::pair<std::string,std::string> ()(applesauce::CF::TypeRef,applesauce::CF::TypeRef)>::~__value_func[abi:ne200100](v79);
-      if (__b.__r_.__value_.__l.__size_)
-      {
-        CFRelease(__b.__r_.__value_.__l.__size_);
-      }
-
-      if (__b.__r_.__value_.__r.__words[0])
-      {
-        CFRelease(__b.__r_.__value_.__l.__data_);
-      }
-    }
-
-    else
-    {
-      if (!*(a4 + 24))
-      {
-        v53 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v53, "Error, not a json style CFDictionary");
-      }
-
-      applesauce::CF::DictionaryRef_iterator<applesauce::CF::TypeRef,applesauce::CF::TypeRef>::operator->(&__b, &v73);
-      v28 = __b.__r_.__value_.__r.__words[0];
-      if (__b.__r_.__value_.__r.__words[0])
-      {
-        CFRetain(__b.__r_.__value_.__l.__data_);
-      }
-
-      v58 = 0;
-      v59 = v28;
-      v29 = *(a4 + 24);
-      if (!v29)
-      {
-        std::__throw_bad_function_call[abi:ne200100]();
-      }
-
-      (*(*v29 + 48))(__p);
-      if (v58)
-      {
-        CFRelease(v58);
-      }
-
-      if (v59)
-      {
-        CFRelease(v59);
-      }
-
-      if (__b.__r_.__value_.__l.__size_)
-      {
-        CFRelease(__b.__r_.__value_.__l.__size_);
-      }
-
-      if (v28)
-      {
-        CFRelease(v28);
-      }
-
-      v30 = SHIBYTE(v61);
-      if ((SHIBYTE(v61) & 0x8000000000000000) != 0)
-      {
-        v30 = __p[1];
-        if (!__p[1])
-        {
-LABEL_138:
-          v52 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v52, "Error, not a json style CFDictionary");
-        }
-
-        v31 = __p[0];
-      }
-
-      else
-      {
-        if (!HIBYTE(v61))
-        {
-          goto LABEL_138;
-        }
-
-        v31 = __p;
-      }
-
-      applesauce::CF::details::make_json_string(&v56, v31, v30);
-      v32 = std::string::insert(&v56, 0, "", 1uLL);
-      v33 = *&v32->__r_.__value_.__l.__data_;
-      cf.__r_.__value_.__r.__words[2] = v32->__r_.__value_.__r.__words[2];
-      *&cf.__r_.__value_.__l.__data_ = v33;
-      v32->__r_.__value_.__l.__size_ = 0;
-      v32->__r_.__value_.__r.__words[2] = 0;
-      v32->__r_.__value_.__r.__words[0] = 0;
-      v34 = std::string::append(&cf, " : ", 5uLL);
-      v35 = *&v34->__r_.__value_.__l.__data_;
-      v64.__r_.__value_.__r.__words[2] = v34->__r_.__value_.__r.__words[2];
-      *&v64.__r_.__value_.__l.__data_ = v35;
-      v34->__r_.__value_.__l.__size_ = 0;
-      v34->__r_.__value_.__r.__words[2] = 0;
-      v34->__r_.__value_.__r.__words[0] = 0;
-      if ((v63 & 0x80u) == 0)
-      {
-        v36 = v62;
-      }
-
-      else
-      {
-        v36 = v62[0];
-      }
-
-      if ((v63 & 0x80u) == 0)
-      {
-        v37 = v63;
-      }
-
-      else
-      {
-        v37 = v62[1];
-      }
-
-      applesauce::CF::details::make_json_string(v54, v36, v37);
-      if ((v55 & 0x80u) == 0)
-      {
-        v38 = v54;
-      }
-
-      else
-      {
-        v38 = v54[0];
-      }
-
-      if ((v55 & 0x80u) == 0)
-      {
-        v39 = v55;
-      }
-
-      else
-      {
-        v39 = v54[1];
-      }
-
-      v40 = std::string::append(&v64, v38, v39);
-      v41 = *&v40->__r_.__value_.__l.__data_;
-      v65.__r_.__value_.__r.__words[2] = v40->__r_.__value_.__r.__words[2];
-      *&v65.__r_.__value_.__l.__data_ = v41;
-      v40->__r_.__value_.__l.__size_ = 0;
-      v40->__r_.__value_.__r.__words[2] = 0;
-      v40->__r_.__value_.__r.__words[0] = 0;
-      v42 = std::string::append(&v65, "", 1uLL);
-      v43 = *&v42->__r_.__value_.__l.__data_;
-      __b.__r_.__value_.__r.__words[2] = v42->__r_.__value_.__r.__words[2];
-      *&__b.__r_.__value_.__l.__data_ = v43;
-      v42->__r_.__value_.__l.__size_ = 0;
-      v42->__r_.__value_.__r.__words[2] = 0;
-      v42->__r_.__value_.__r.__words[0] = 0;
-      if ((__b.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        p_b = &__b;
-      }
-
-      else
-      {
-        p_b = __b.__r_.__value_.__r.__words[0];
-      }
-
-      if ((__b.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        v45 = HIBYTE(__b.__r_.__value_.__r.__words[2]);
-      }
-
-      else
-      {
-        v45 = __b.__r_.__value_.__l.__size_;
-      }
-
-      std::string::append(a1, p_b, v45);
-      if (SHIBYTE(__b.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(__b.__r_.__value_.__l.__data_);
-      }
-
-      if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v65.__r_.__value_.__l.__data_);
-      }
-
-      if (v55 < 0)
-      {
-        operator delete(v54[0]);
-      }
-
-      if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v64.__r_.__value_.__l.__data_);
-      }
-
-      if (SHIBYTE(cf.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(cf.__r_.__value_.__l.__data_);
-      }
-
-      if (SHIBYTE(v56.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v56.__r_.__value_.__l.__data_);
-      }
-
-      if (v63 < 0)
-      {
-        operator delete(v62[0]);
-      }
-
-      if (SHIBYTE(v61) < 0)
-      {
-        operator delete(__p[0]);
-      }
-    }
-
-    v8 = 0;
-    ++v74;
-  }
-
-  std::string::basic_string[abi:ne200100](&__b, a3, 32);
-  v46 = std::string::insert(&__b, 0, "\n", 1uLL);
-  v47 = *&v46->__r_.__value_.__l.__data_;
-  v61 = v46->__r_.__value_.__r.__words[2];
-  *__p = v47;
-  v46->__r_.__value_.__l.__size_ = 0;
-  v46->__r_.__value_.__r.__words[2] = 0;
-  v46->__r_.__value_.__r.__words[0] = 0;
-  if (v61 >= 0)
-  {
-    v48 = __p;
-  }
-
-  else
-  {
-    v48 = __p[0];
-  }
-
-  if (v61 >= 0)
-  {
-    v49 = HIBYTE(v61);
-  }
-
-  else
-  {
-    v49 = __p[1];
-  }
-
-  std::string::append(a1, v48, v49);
-  if (SHIBYTE(v61) < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  if (SHIBYTE(__b.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__b.__r_.__value_.__l.__data_);
-  }
-
-  std::string::append(a1, "}", 1uLL);
-  if (v71)
-  {
-    v72 = v71;
-    operator delete(v71);
-  }
-
-  if (v69)
-  {
-    v70 = v69;
-    operator delete(v69);
-  }
-
-  if (v77)
-  {
-    v78 = v77;
-    operator delete(v77);
-  }
-
-  if (v75)
-  {
-    v76 = v75;
-    operator delete(v75);
-  }
-
-  v50 = *MEMORY[0x277D85DE8];
-}
-
-void sub_27260BF64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, char a28, int a29, __int16 a30, char a31, char a32, void *__p, uint64_t a34, int a35, __int16 a36, char a37, char a38, uint64_t a39, uint64_t a40, uint64_t a41, void *a42, uint64_t a43, int a44, __int16 a45, char a46, char a47, uint64_t a48, void *a49, uint64_t a50, int a51, __int16 a52, char a53, char a54, uint64_t a55, void *a56, uint64_t a57, int a58, __int16 a59, char a60, char a61, uint64_t a62, uint64_t a63)
-{
-  if (a38 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a61 < 0)
-  {
-    operator delete(a56);
-  }
-
-  applesauce::CF::DictionaryRef_iterator<applesauce::CF::TypeRef,applesauce::CF::TypeRef>::~DictionaryRef_iterator(&a63);
-  applesauce::CF::DictionaryRef_iterator<applesauce::CF::TypeRef,applesauce::CF::TypeRef>::~DictionaryRef_iterator((v64 - 192));
-  if (*(v63 + 23) < 0)
-  {
-    operator delete(*v63);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__value_func<std::pair<std::string,std::string> ()(applesauce::CF::TypeRef,applesauce::CF::TypeRef)>::~__value_func[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-uint64_t std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::~__value_func[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-void vp::vx::database::v1::Response::~Response(const void **this)
-{
-  v1 = *this;
-  if (v1)
-  {
-    CFRelease(v1);
-  }
-}
-
-void vp::vx::database::v1::Request::Property_List_Data::~Property_List_Data(vp::vx::database::v1::Request::Property_List_Data *this)
-{
-  v1 = *(this + 1);
-  if (v1)
-  {
-    CFRelease(v1);
-  }
-}
-
-{
-  v1 = *(this + 1);
-  if (v1)
-  {
-    CFRelease(v1);
-  }
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-{
-  v1 = *(this + 1);
-  if (v1)
-  {
-    CFRelease(v1);
-  }
-}
-
-uint64_t std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 24);
-  if (v3)
-  {
-    if (v3 == a2)
-    {
-      *(a1 + 24) = a1;
-      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
-    }
-
-    else
-    {
-      *(a1 + 24) = (*(*v3 + 16))(v3);
-    }
-  }
-
-  else
-  {
-    *(a1 + 24) = 0;
-  }
-
-  return a1;
-}
-
-void nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::parse(uint64_t a1, unsigned __int8 *a2)
-{
-  v163 = *MEMORY[0x277D85DE8];
-  if (!*(a1 + 24))
-  {
-    v39 = *(a1 + 176);
-    v151 = a2;
-    v152 = 0u;
-    v153 = 0u;
-    LOBYTE(v154) = 0;
-    BYTE1(v154) = v39;
-    memset(&__p, 0, sizeof(__p));
-    while (1)
-    {
-      v40 = *(a1 + 32);
-      if (v40 <= 5)
-      {
-        if (v40 <= 2)
-        {
-          if (v40 == 1)
-          {
-            LOBYTE(v146.__vftable) = 1;
-            nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<BOOL &>(&v151, &v146);
-          }
-
-          else
-          {
-            if (v40 != 2)
-            {
-              goto LABEL_263;
-            }
-
-            LOBYTE(v146.__vftable) = 0;
-            nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<BOOL &>(&v151, &v146);
-          }
-
-          goto LABEL_207;
-        }
-
-        if (v40 == 3)
-        {
-          if (v152 == *(&v152 + 1))
-          {
-            v144.__r_.__value_.__s.__data_[0] = 0;
-            v144.__r_.__value_.__l.__size_ = 0;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v144);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v144);
-            v69 = v151;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v144);
-            v70 = *v69;
-            *v69 = 0;
-            v144.__r_.__value_.__s.__data_[0] = v70;
-            v71 = *(v69 + 1);
-            *(v69 + 1) = 0;
-            goto LABEL_141;
-          }
-
-          v58 = *(*(&v152 + 1) - 8);
-          v59 = *v58;
-          if (v59 == 2)
-          {
-            v44 = *(v58 + 1);
-            v46 = *(v44 + 8);
-            v60 = *(v44 + 16);
-            if (v46 < v60)
-            {
-              *v46 = 0;
-              *(v46 + 8) = 0;
-LABEL_126:
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v46);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v46);
-              v61 = (v46 + 16);
-LABEL_206:
-              *(v44 + 8) = v61;
-              goto LABEL_207;
-            }
-
-            v80 = (v46 - *v44) >> 4;
-            if ((v80 + 1) >> 60)
-            {
-              goto LABEL_307;
-            }
-
-            v81 = v60 - *v44;
-            v82 = v81 >> 3;
-            if (v81 >> 3 <= (v80 + 1))
-            {
-              v82 = v80 + 1;
-            }
-
-            if (v81 >= 0x7FFFFFFFFFFFFFF0)
-            {
-              v83 = 0xFFFFFFFFFFFFFFFLL;
-            }
-
-            else
-            {
-              v83 = v82;
-            }
-
-            v149 = v44;
-            if (v83)
-            {
-              std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::allocate_at_least[abi:ne200100](v83);
-            }
-
-            v99 = (16 * v80);
-            v146.__vftable = 0;
-            v147 = v99;
-            *(&v148 + 1) = 0;
-            *v99 = 0;
-            v99[1] = 0;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v99);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v99);
-            *&v148 = v99 + 2;
-            v100 = *(v44 + 8);
-            v98 = v99 + *v44 - v100;
-            std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>*>(v44, *v44, v100, v98);
-LABEL_205:
-            v105 = *v44;
-            *v44 = v98;
-            v106 = *(v44 + 16);
-            *v134 = v148;
-            v147 = v105;
-            *&v148 = v105;
-            *(v44 + 8) = *v134;
-            *(&v148 + 1) = v106;
-            v146.__vftable = v105;
-            std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(&v146);
-            v61 = v134[0];
-            goto LABEL_206;
-          }
-
-          if (v59 != 1)
-          {
-            goto LABEL_283;
-          }
-
-          v73 = *(&v153 + 1);
-          if (!*(&v153 + 1))
-          {
-            goto LABEL_284;
-          }
-
-          v143.__r_.__value_.__s.__data_[0] = 0;
-          v143.__r_.__value_.__l.__size_ = 0;
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v143);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v143);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v143);
-          v70 = *v73;
-          *v73 = 0;
-          v143.__r_.__value_.__s.__data_[0] = v70;
-          v75 = *(v73 + 1);
-          *(v73 + 1) = 0;
-LABEL_158:
-          v143.__r_.__value_.__l.__size_ = v75;
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v73);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v143);
-          v72 = &v143;
-          goto LABEL_159;
-        }
-
-        if (v40 == 4)
-        {
-          if (v152 == *(&v152 + 1))
-          {
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string&,std::string,0>(&v144);
-          }
-
-          v63 = *(*(&v152 + 1) - 8);
-          v64 = *v63;
-          if (v64 == 2)
-          {
-            v65 = *(v63 + 1);
-            v67 = v65[1];
-            v66 = v65[2];
-            if (v67 < v66)
-            {
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string&,std::string,0>(v65[1]);
-            }
-
-            v88 = (v67 - *v65) >> 4;
-            if (!((v88 + 1) >> 60))
-            {
-              v89 = v66 - *v65;
-              v90 = v89 >> 3;
-              if (v89 >> 3 <= (v88 + 1))
-              {
-                v90 = v88 + 1;
-              }
-
-              if (v89 >= 0x7FFFFFFFFFFFFFF0)
-              {
-                v91 = 0xFFFFFFFFFFFFFFFLL;
-              }
-
-              else
-              {
-                v91 = v90;
-              }
-
-              v149 = v65;
-              if (v91)
-              {
-                std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::allocate_at_least[abi:ne200100](v91);
-              }
-
-              v146.__vftable = 0;
-              v147 = (16 * v88);
-              v148 = (16 * v88);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string&,std::string,0>(16 * v88);
-            }
-
-LABEL_307:
-            std::vector<std::function<std::unique_ptr<VoiceProcessorBase> ()(std::unique_ptr<VoiceProcessorBase>)>>::__throw_length_error[abi:ne200100]();
-          }
-
-          if (v64 == 1)
-          {
-            if (*(&v153 + 1))
-            {
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string&,std::string,0>(&v143);
-            }
-
-LABEL_284:
-            v125 = 321;
-            v126 = "object_element";
-          }
-
-          else
-          {
-LABEL_283:
-            v125 = 312;
-            v126 = "ref_stack.back()->is_array() or ref_stack.back()->is_object()";
-          }
-
-          __assert_rtn("handle_value", "json_sax.hpp", v125, v126);
-        }
-
-        v41 = *(a1 + 152);
-        if (v152 != *(&v152 + 1))
-        {
-          v42 = *(*(&v152 + 1) - 8);
-          v43 = *v42;
-          if (v43 == 2)
-          {
-            v44 = *(v42 + 1);
-            v46 = *(v44 + 8);
-            v45 = *(v44 + 16);
-            if (v46 >= v45)
-            {
-              v84 = (v46 - *v44) >> 4;
-              if ((v84 + 1) >> 60)
-              {
-                goto LABEL_307;
-              }
-
-              v85 = v45 - *v44;
-              v86 = v85 >> 3;
-              if (v85 >> 3 <= (v84 + 1))
-              {
-                v86 = v84 + 1;
-              }
-
-              if (v85 >= 0x7FFFFFFFFFFFFFF0)
-              {
-                v87 = 0xFFFFFFFFFFFFFFFLL;
-              }
-
-              else
-              {
-                v87 = v86;
-              }
-
-              v149 = v44;
-              if (v87)
-              {
-                std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::allocate_at_least[abi:ne200100](v87);
-              }
-
-              v101 = (16 * v84);
-              v146.__vftable = 0;
-              v147 = v101;
-              *(&v148 + 1) = 0;
-              *v101 = 6;
-              v101[1] = v41;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v101);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v101);
-              *&v148 = v101 + 2;
-              v102 = *(v44 + 8);
-              v98 = v101 + *v44 - v102;
-              std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>*>(v44, *v44, v102, v98);
-              goto LABEL_205;
-            }
-
-            *v46 = 6;
-            goto LABEL_121;
-          }
-
-          if (v43 != 1)
-          {
-            goto LABEL_283;
-          }
-
-          v73 = *(&v153 + 1);
-          if (!*(&v153 + 1))
-          {
-            goto LABEL_284;
-          }
-
-          v74 = 6;
-          v143.__r_.__value_.__s.__data_[0] = 6;
-          v143.__r_.__value_.__l.__size_ = v41;
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v143);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v143);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v143);
-          v70 = *v73;
-LABEL_151:
-          *v73 = v74;
-          v143.__r_.__value_.__s.__data_[0] = v70;
-          v75 = *(v73 + 1);
-          *(v73 + 1) = v41;
-          goto LABEL_158;
-        }
-
-        v68 = 6;
-        v144.__r_.__value_.__s.__data_[0] = 6;
-        v144.__r_.__value_.__l.__size_ = v41;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v144);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v144);
-        v69 = v151;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v144);
-        v70 = *v69;
-        goto LABEL_138;
-      }
-
-      if (v40 <= 7)
-      {
-        if (v40 != 6)
-        {
-          v51 = *(a1 + 160);
-          if ((v51 & 0x7FFFFFFFFFFFFFFFLL) >= 0x7FF0000000000000)
-          {
-            nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get_token_string(&v144, *(a1 + 88), *(a1 + 96));
-            nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get_token_string(&v141, *(a1 + 88), *(a1 + 96));
-            std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v142, "number overflow parsing '", &v141);
-            std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v143, &v142, "'");
-            nlohmann::detail::out_of_range::create(&v146, &v143);
-            nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::parse_error(&v151, &v146);
-            nlohmann::detail::out_of_range::~out_of_range(&v146);
-            if (SHIBYTE(v143.__r_.__value_.__r.__words[2]) < 0)
-            {
-              operator delete(v143.__r_.__value_.__l.__data_);
-            }
-
-            goto LABEL_265;
-          }
-
-          if (v152 != *(&v152 + 1))
-          {
-            v52 = *(*(&v152 + 1) - 8);
-            v53 = *v52;
-            if (v53 == 2)
-            {
-              v44 = *(v52 + 1);
-              v46 = *(v44 + 8);
-              v54 = *(v44 + 16);
-              if (v46 < v54)
-              {
-                *v46 = 7;
-                *(v46 + 8) = v51;
-                goto LABEL_126;
-              }
-
-              v92 = (v46 - *v44) >> 4;
-              if ((v92 + 1) >> 60)
-              {
-                std::vector<std::function<std::unique_ptr<VoiceProcessorBase> ()(std::unique_ptr<VoiceProcessorBase>)>>::__throw_length_error[abi:ne200100]();
-              }
-
-              v93 = v54 - *v44;
-              v94 = v93 >> 3;
-              if (v93 >> 3 <= (v92 + 1))
-              {
-                v94 = v92 + 1;
-              }
-
-              if (v93 >= 0x7FFFFFFFFFFFFFF0)
-              {
-                v95 = 0xFFFFFFFFFFFFFFFLL;
-              }
-
-              else
-              {
-                v95 = v94;
-              }
-
-              v149 = v44;
-              if (v95)
-              {
-                std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::allocate_at_least[abi:ne200100](v95);
-              }
-
-              v103 = (16 * v92);
-              v146.__vftable = 0;
-              v147 = v103;
-              *(&v148 + 1) = 0;
-              *v103 = 7;
-              v103[1] = v51;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v103);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v103);
-              *&v148 = v103 + 2;
-              v104 = *(v44 + 8);
-              v98 = v103 + *v44 - v104;
-              std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>*>(v44, *v44, v104, v98);
-              goto LABEL_205;
-            }
-
-            if (v53 != 1)
-            {
-              v127 = 312;
-              v128 = "ref_stack.back()->is_array() or ref_stack.back()->is_object()";
-              goto LABEL_293;
-            }
-
-            v73 = *(&v153 + 1);
-            if (!*(&v153 + 1))
-            {
-              v127 = 321;
-              v128 = "object_element";
-LABEL_293:
-              __assert_rtn("handle_value", "json_sax.hpp", v127, v128);
-            }
-
-            v143.__r_.__value_.__s.__data_[0] = 7;
-            v143.__r_.__value_.__l.__size_ = v51;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v143);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v143);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v143);
-            v70 = *v73;
-            *v73 = 7;
-            v143.__r_.__value_.__s.__data_[0] = v70;
-            v75 = *(v73 + 1);
-            *(v73 + 1) = v51;
-            goto LABEL_158;
-          }
-
-          v144.__r_.__value_.__s.__data_[0] = 7;
-          v144.__r_.__value_.__l.__size_ = v51;
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v144);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v144);
-          v69 = v151;
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v144);
-          v70 = *v69;
-          *v69 = 7;
-          v144.__r_.__value_.__s.__data_[0] = v70;
-          v71 = *(v69 + 1);
-          *(v69 + 1) = v51;
-LABEL_141:
-          v144.__r_.__value_.__l.__size_ = v71;
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v69);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v144);
-          v72 = &v144;
-LABEL_159:
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v72->__r_.__value_.__l.__size_, v70);
-          goto LABEL_207;
-        }
-
-        v41 = *(a1 + 144);
-        if (v152 != *(&v152 + 1))
-        {
-          v55 = *(*(&v152 + 1) - 8);
-          v56 = *v55;
-          if (v56 == 2)
-          {
-            v44 = *(v55 + 1);
-            v46 = *(v44 + 8);
-            v57 = *(v44 + 16);
-            if (v46 >= v57)
-            {
-              v76 = (v46 - *v44) >> 4;
-              if ((v76 + 1) >> 60)
-              {
-                goto LABEL_307;
-              }
-
-              v77 = v57 - *v44;
-              v78 = v77 >> 3;
-              if (v77 >> 3 <= (v76 + 1))
-              {
-                v78 = v76 + 1;
-              }
-
-              if (v77 >= 0x7FFFFFFFFFFFFFF0)
-              {
-                v79 = 0xFFFFFFFFFFFFFFFLL;
-              }
-
-              else
-              {
-                v79 = v78;
-              }
-
-              v149 = v44;
-              if (v79)
-              {
-                std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::allocate_at_least[abi:ne200100](v79);
-              }
-
-              v96 = (16 * v76);
-              v146.__vftable = 0;
-              v147 = v96;
-              *(&v148 + 1) = 0;
-              *v96 = 5;
-              v96[1] = v41;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v96);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v96);
-              *&v148 = v96 + 2;
-              v97 = *(v44 + 8);
-              v98 = v96 + *v44 - v97;
-              std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>*>(v44, *v44, v97, v98);
-              goto LABEL_205;
-            }
-
-            *v46 = 5;
-LABEL_121:
-            *(v46 + 8) = v41;
-            goto LABEL_126;
-          }
-
-          if (v56 != 1)
-          {
-            goto LABEL_283;
-          }
-
-          v73 = *(&v153 + 1);
-          if (!*(&v153 + 1))
-          {
-            goto LABEL_284;
-          }
-
-          v74 = 5;
-          v143.__r_.__value_.__s.__data_[0] = 5;
-          v143.__r_.__value_.__l.__size_ = v41;
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v143);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v143);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v143);
-          v70 = *v73;
-          goto LABEL_151;
-        }
-
-        v68 = 5;
-        v144.__r_.__value_.__s.__data_[0] = 5;
-        v144.__r_.__value_.__l.__size_ = v41;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v144);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v144);
-        v69 = v151;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v144);
-        v70 = *v69;
-LABEL_138:
-        *v69 = v68;
-        v144.__r_.__value_.__s.__data_[0] = v70;
-        v71 = *(v69 + 1);
-        *(v69 + 1) = v41;
-        goto LABEL_141;
-      }
-
-      if (v40 != 8)
-      {
-        break;
-      }
-
-      v144.__r_.__value_.__s.__data_[0] = 2;
-      v146.__vftable = nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<nlohmann::detail::value_t>(&v151, &v144);
-      std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> *,std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> *>>::push_back[abi:ne200100](&v152, &v146);
-      v62 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::scan(a1 + 40);
-      *(a1 + 32) = v62;
-      if (v62 == 10)
-      {
-LABEL_128:
-        *(&v152 + 1) -= 8;
-LABEL_207:
-        size = __p.__r_.__value_.__l.__size_;
-        if (!__p.__r_.__value_.__l.__size_)
-        {
-LABEL_222:
-          if (__p.__r_.__value_.__r.__words[0])
-          {
-            operator delete(__p.__r_.__value_.__l.__data_);
-          }
-
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(a2);
-          v116 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::scan(a1 + 40);
-          *(a1 + 32) = v116;
-          if (v116 != 15)
-          {
-            nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get_token_string(&__p, *(a1 + 88), *(a1 + 96));
-            v144 = *(a1 + 64);
-            std::string::basic_string[abi:ne200100]<0>(&v142, "value");
-            nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::exception_message(&v143, a1, 0xFu, &v142);
-            nlohmann::detail::parse_error::create(&v146, &v144, &v143);
-            nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::parse_error(&v151, &v146);
-            v146.__vftable = &unk_2881C1828;
-            MEMORY[0x2743CB8E0](&v148);
-            std::exception::~exception(&v146);
-            if (SHIBYTE(v143.__r_.__value_.__r.__words[2]) < 0)
-            {
-              operator delete(v143.__r_.__value_.__l.__data_);
-            }
-
-            if (SHIBYTE(v142.__r_.__value_.__r.__words[2]) < 0)
-            {
-              operator delete(v142.__r_.__value_.__l.__data_);
-            }
-
-            if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-            {
-              operator delete(__p.__r_.__value_.__l.__data_);
-            }
-          }
-
-          if (v154 == 1)
-          {
-            v135[0] = 9;
-            v136 = 0;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v135);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v135);
-            v117 = *a2;
-            *a2 = 9;
-            v135[0] = v117;
-            v118 = *(a2 + 1);
-            *(a2 + 1) = 0;
-            v136 = v118;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(a2);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v135);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v136, v117);
-          }
-
-          if (v152)
-          {
-            operator delete(v152);
-          }
-
-          goto LABEL_260;
-        }
-
-        v108 = __p.__r_.__value_.__r.__words[0];
-        v109 = *(&v152 + 1);
-        while (1)
-        {
-          v110 = size - 1;
-          if (((*(v108 + (((size - 1) >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (size - 1)) & 1) == 0)
-          {
-            break;
-          }
-
-          v111 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::scan(a1 + 40);
-          *(a1 + 32) = v111;
-          if (v111 == 13)
-          {
-            *(&v152 + 1) = v109;
-            __p.__r_.__value_.__l.__size_ = size;
-            v50 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::scan(a1 + 40);
-            goto LABEL_221;
-          }
-
-          if (v111 != 10)
-          {
-            *(&v152 + 1) = v109;
-            nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get_token_string(&v144, *(a1 + 88), *(a1 + 96));
-            v143 = *(a1 + 64);
-            std::string::basic_string[abi:ne200100]<0>(&v141, "array");
-            nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::exception_message(&v142, a1, 0xAu, &v141);
-            nlohmann::detail::parse_error::create(&v146, &v143, &v142);
-            nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::parse_error(&v151, &v146);
-            goto LABEL_279;
-          }
-
-LABEL_215:
-          v109 -= 8;
-          --size;
-          if (!v110)
-          {
-            *(&v152 + 1) = v109;
-            goto LABEL_222;
-          }
-        }
-
-        v112 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::scan(a1 + 40);
-        *(a1 + 32) = v112;
-        if (v112 != 13)
-        {
-          if (v112 != 11)
-          {
-            *(&v152 + 1) = v109;
-            nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get_token_string(&v144, *(a1 + 88), *(a1 + 96));
-            v143 = *(a1 + 64);
-            std::string::basic_string[abi:ne200100]<0>(&v141, "object");
-            nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::exception_message(&v142, a1, 0xBu, &v141);
-            nlohmann::detail::parse_error::create(&v146, &v143, &v142);
-            nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::parse_error(&v151, &v146);
-            goto LABEL_279;
-          }
-
-          goto LABEL_215;
-        }
-
-        *(&v152 + 1) = v109;
-        __p.__r_.__value_.__l.__size_ = size;
-        v113 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::scan(a1 + 40);
-        *(a1 + 32) = v113;
-        if (v113 != 4)
-        {
-          goto LABEL_277;
-        }
-
-        v114 = *(*(v109 - 8) + 8);
-        v146.__vftable = (a1 + 112);
-        *(&v153 + 1) = std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v114, (a1 + 112)) + 56;
-        v115 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::scan(a1 + 40);
-        *(a1 + 32) = v115;
-        if (v115 != 12)
-        {
-          goto LABEL_278;
-        }
-
-        v50 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::scan(a1 + 40);
-LABEL_221:
-        *(a1 + 32) = v50;
-      }
-
-      else
-      {
-        LOBYTE(v146.__vftable) = 1;
-        std::vector<BOOL>::push_back(&__p, &v146);
-      }
-    }
-
-    if (v40 != 9)
-    {
-      if (v40 == 14)
-      {
-        nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get_token_string(&v144, *(a1 + 88), *(a1 + 96));
-        v143 = *(a1 + 64);
-        std::string::basic_string[abi:ne200100]<0>(&v141, "value");
-        nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::exception_message(&v142, a1, 0, &v141);
-        nlohmann::detail::parse_error::create(&v146, &v143, &v142);
-        nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::parse_error(&v151, &v146);
-      }
-
-      else
-      {
-LABEL_263:
-        nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get_token_string(&v144, *(a1 + 88), *(a1 + 96));
-        v143 = *(a1 + 64);
-        std::string::basic_string[abi:ne200100]<0>(&v141, "value");
-        nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::exception_message(&v142, a1, 0x10u, &v141);
-        nlohmann::detail::parse_error::create(&v146, &v143, &v142);
-        nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::parse_error(&v151, &v146);
-      }
-
-      v146.__vftable = &unk_2881C1828;
-      MEMORY[0x2743CB8E0](&v148);
-      std::exception::~exception(&v146);
-      goto LABEL_265;
-    }
-
-    v144.__r_.__value_.__s.__data_[0] = 1;
-    v146.__vftable = nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<nlohmann::detail::value_t>(&v151, &v144);
-    std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> *,std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> *>>::push_back[abi:ne200100](&v152, &v146);
-    v47 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::scan(a1 + 40);
-    *(a1 + 32) = v47;
-    if (v47 != 11)
-    {
-      if (v47 == 4)
-      {
-        v48 = *(*(*(&v152 + 1) - 8) + 8);
-        v146.__vftable = (a1 + 112);
-        *(&v153 + 1) = std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v48, (a1 + 112)) + 56;
-        v49 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::scan(a1 + 40);
-        *(a1 + 32) = v49;
-        if (v49 == 12)
-        {
-          LOBYTE(v146.__vftable) = 0;
-          std::vector<BOOL>::push_back(&__p, &v146);
-          v50 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::scan(a1 + 40);
-          goto LABEL_221;
-        }
-
-LABEL_278:
-        nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get_token_string(&v144, *(a1 + 88), *(a1 + 96));
-        v143 = *(a1 + 64);
-        std::string::basic_string[abi:ne200100]<0>(&v141, "object separator");
-        nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::exception_message(&v142, a1, 0xCu, &v141);
-        nlohmann::detail::parse_error::create(&v146, &v143, &v142);
-        nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::parse_error(&v151, &v146);
-      }
-
-      else
-      {
-LABEL_277:
-        nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get_token_string(&v144, *(a1 + 88), *(a1 + 96));
-        v143 = *(a1 + 64);
-        std::string::basic_string[abi:ne200100]<0>(&v141, "object key");
-        nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::exception_message(&v142, a1, 4u, &v141);
-        nlohmann::detail::parse_error::create(&v146, &v143, &v142);
-        nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::parse_error(&v151, &v146);
-      }
-
-LABEL_279:
-      nlohmann::detail::parse_error::~parse_error(&v146);
-LABEL_265:
-      if (SHIBYTE(v142.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v142.__r_.__value_.__l.__data_);
-      }
-
-      if (SHIBYTE(v141.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v141.__r_.__value_.__l.__data_);
-      }
-
-      if (SHIBYTE(v144.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v144.__r_.__value_.__l.__data_);
-      }
-
-      goto LABEL_222;
-    }
-
-    goto LABEL_128;
-  }
-
-  std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::__value_func[abi:ne200100](v150, a1);
-  v4 = *(a1 + 176);
-  v151 = a2;
-  v152 = 0u;
-  v153 = 0u;
-  v154 = 0u;
-  v155 = 0u;
-  v156 = 0u;
-  v157 = 0;
-  std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::__value_func[abi:ne200100](&v158, v150);
-  v160 = v4;
-  v161[0] = 9;
-  v162 = 0;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v161);
-  LOBYTE(v146.__vftable) = 1;
-  std::vector<BOOL>::push_back(&v153 + 1, &v146);
-  std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::~__value_func[abi:ne200100](v150);
-  memset(&__p, 0, sizeof(__p));
-  v133 = "ref_stack.back()->is_array() or ref_stack.back()->is_object()";
-  while (1)
-  {
-    while (1)
-    {
-      v5 = *(a1 + 32);
-      if (v5 <= 5)
-      {
-        break;
-      }
-
-      if (v5 <= 7)
-      {
-        if (v5 != 6)
-        {
-          v11 = *(a1 + 160);
-          if ((v11 & 0x7FFFFFFFFFFFFFFFLL) >= 0x7FF0000000000000)
-          {
-            nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get_token_string(&v144, *(a1 + 88), *(a1 + 96));
-            nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get_token_string(&v141, *(a1 + 88), *(a1 + 96));
-            std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v142, "number overflow parsing '", &v141);
-            std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v143, &v142, "'");
-            nlohmann::detail::out_of_range::create(&v146, &v143);
-            nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::parse_error(&v151, &v146);
-            nlohmann::detail::out_of_range::~out_of_range(&v146);
-            if (SHIBYTE(v143.__r_.__value_.__r.__words[2]) < 0)
-            {
-              operator delete(v143.__r_.__value_.__l.__data_);
-            }
-
-            goto LABEL_239;
-          }
-
-          if (!v154)
-          {
-            __assert_rtn("handle_value", "json_sax.hpp", 568, "not keep_stack.empty()");
-          }
-
-          if (((*(*(&v153 + 1) + (((v154 - 1) >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (v154 - 1)) & 1) == 0)
-          {
-            goto LABEL_78;
-          }
-
-          LOBYTE(v146.__vftable) = 7;
-          v147 = v11;
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v146);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v146);
-          if ((std::function<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::operator()(v159, (*(&v152 + 1) - v152) >> 3, 5) & 1) == 0)
-          {
-            goto LABEL_77;
-          }
-
-          if (v152 == *(&v152 + 1))
-          {
-            goto LABEL_52;
-          }
-
-          v7 = *(*(&v152 + 1) - 8);
-          if (!v7)
-          {
-            goto LABEL_77;
-          }
-
-          v12 = *v7;
-          if (v12 == 2)
-          {
-            goto LABEL_44;
-          }
-
-          if (v12 == 1)
-          {
-            if (*(&v155 + 1))
-            {
-              v28 = *(v155 + ((--*(&v155 + 1) >> 3) & 0x1FFFFFFFFFFFFFF8));
-              if (((v28 >> SBYTE8(v155)) & 1) == 0)
-              {
-                goto LABEL_77;
-              }
-
-              if (!*(&v156 + 1))
-              {
-                __assert_rtn("handle_value", "json_sax.hpp", 624, "object_element");
-              }
-
-LABEL_75:
-              v29 = v146.__vftable;
-              v143.__r_.__value_.__s.__data_[0] = v146.__vftable;
-              v30 = v147;
-              v143.__r_.__value_.__l.__size_ = v147;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v146);
-              LOBYTE(v146.__vftable) = 0;
-              v147 = 0;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v143);
-              v31 = *(&v156 + 1);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v143);
-              v22 = *v31;
-              *v31 = v29;
-              v143.__r_.__value_.__s.__data_[0] = v22;
-              v32 = *(v31 + 1);
-              *(v31 + 1) = v30;
-              v143.__r_.__value_.__l.__size_ = v32;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v31);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v143);
-              v24 = &v143;
-              goto LABEL_76;
-            }
-
-            v132 = 615;
-            v133 = "not key_keep_stack.empty()";
-          }
-
-          else
-          {
-            v132 = 603;
-          }
-
-          __assert_rtn("handle_value", "json_sax.hpp", v132, v133);
-        }
-
-        if (!v154)
-        {
-          goto LABEL_272;
-        }
-
-        if (((*(*(&v153 + 1) + (((v154 - 1) >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (v154 - 1)) & 1) == 0)
-        {
-          goto LABEL_78;
-        }
-
-        v14 = *(a1 + 144);
-        LOBYTE(v146.__vftable) = 5;
-        v147 = v14;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v146);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v146);
-        if ((std::function<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::operator()(v159, (*(&v152 + 1) - v152) >> 3, 5) & 1) == 0)
-        {
-          goto LABEL_77;
-        }
-
-        if (v152 == *(&v152 + 1))
-        {
-          goto LABEL_52;
-        }
-
-        v7 = *(*(&v152 + 1) - 8);
-        if (!v7)
-        {
-          goto LABEL_77;
-        }
-
-        v15 = *v7;
-        if (v15 == 2)
-        {
-          goto LABEL_44;
-        }
-
-        if (v15 == 1)
-        {
-          if (*(&v155 + 1))
-          {
-            v25 = *(v155 + ((--*(&v155 + 1) >> 3) & 0x1FFFFFFFFFFFFFF8));
-            if (((v25 >> SBYTE8(v155)) & 1) == 0)
-            {
-              goto LABEL_77;
-            }
-
-            if (!*(&v156 + 1))
-            {
-              __assert_rtn("handle_value", "json_sax.hpp", 624, "object_element");
-            }
-
-            goto LABEL_75;
-          }
-
-          v130 = 615;
-          v133 = "not key_keep_stack.empty()";
-        }
-
-        else
-        {
-          v130 = 603;
-        }
-
-        __assert_rtn("handle_value", "json_sax.hpp", v130, v133);
-      }
-
-      if (v5 != 8)
-      {
-        if (v5 != 9)
-        {
-          if (v5 == 14)
-          {
-            nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get_token_string(&v144, *(a1 + 88), *(a1 + 96));
-            v143 = *(a1 + 64);
-            std::string::basic_string[abi:ne200100]<0>(&v141, "value");
-            nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::exception_message(&v142, a1, 0, &v141);
-            nlohmann::detail::parse_error::create(&v146, &v143, &v142);
-            nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::parse_error(&v151, &v146);
-          }
-
-          else
-          {
-LABEL_237:
-            nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get_token_string(&v144, *(a1 + 88), *(a1 + 96));
-            v143 = *(a1 + 64);
-            std::string::basic_string[abi:ne200100]<0>(&v141, "value");
-            nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::exception_message(&v142, a1, 0x10u, &v141);
-            nlohmann::detail::parse_error::create(&v146, &v143, &v142);
-            nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::parse_error(&v151, &v146);
-          }
-
-          v146.__vftable = &unk_2881C1828;
-          MEMORY[0x2743CB8E0](&v148);
-          std::exception::~exception(&v146);
-          goto LABEL_239;
-        }
-
-        v144.__r_.__value_.__s.__data_[0] = std::function<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::operator()(v159, (*(&v152 + 1) - v152) >> 3, 0);
-        std::vector<BOOL>::push_back(&v153 + 1, &v144);
-        v146.__vftable = nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<nlohmann::detail::value_t>(&v151, 1u);
-        v147 = v9;
-        std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> *,std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> *>>::push_back[abi:ne200100](&v152, &v147);
-        v10 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::scan(a1 + 40);
-        *(a1 + 32) = v10;
-        if (v10 != 11)
-        {
-          if (v10 == 4)
-          {
-            nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::key();
-          }
-
-          goto LABEL_274;
-        }
-
-        nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::end_object(&v151);
-        goto LABEL_78;
-      }
-
-      v144.__r_.__value_.__s.__data_[0] = std::function<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::operator()(v159, (*(&v152 + 1) - v152) >> 3, 2);
-      std::vector<BOOL>::push_back(&v153 + 1, &v144);
-      v146.__vftable = nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<nlohmann::detail::value_t>(&v151, 2u);
-      v147 = v17;
-      std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> *,std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> *>>::push_back[abi:ne200100](&v152, &v147);
-      v18 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::scan(a1 + 40);
-      *(a1 + 32) = v18;
-      if (v18 == 10)
-      {
-        nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::end_array(&v151);
-        goto LABEL_78;
-      }
-
-      LOBYTE(v146.__vftable) = 1;
-      std::vector<BOOL>::push_back(&__p, &v146);
-    }
-
-    if (v5 <= 2)
-    {
-      if (v5 == 1)
-      {
-        v13 = 1;
-      }
-
-      else
-      {
-        if (v5 != 2)
-        {
-          goto LABEL_237;
-        }
-
-        v13 = 0;
-      }
-
-      nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<BOOL &>(&v151, v13);
-      goto LABEL_78;
-    }
-
-    if (v5 == 3)
-    {
-      if (!v154)
-      {
-        goto LABEL_272;
-      }
-
-      if (((*(*(&v153 + 1) + (((v154 - 1) >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (v154 - 1)) & 1) == 0)
-      {
-        goto LABEL_78;
-      }
-
-      LOBYTE(v146.__vftable) = 0;
-      v147 = 0;
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v146);
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v146);
-      if ((std::function<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::operator()(v159, (*(&v152 + 1) - v152) >> 3, 5) & 1) == 0)
-      {
-        goto LABEL_77;
-      }
-
-      if (v152 != *(&v152 + 1))
-      {
-        v7 = *(*(&v152 + 1) - 8);
-        if (!v7)
-        {
-          goto LABEL_77;
-        }
-
-        v16 = *v7;
-        if (v16 == 2)
-        {
-          goto LABEL_44;
-        }
-
-        if (v16 == 1)
-        {
-          if (*(&v155 + 1))
-          {
-            v26 = *(v155 + ((--*(&v155 + 1) >> 3) & 0x1FFFFFFFFFFFFFF8));
-            if ((v26 >> SBYTE8(v155)))
-            {
-              if (!*(&v156 + 1))
-              {
-                __assert_rtn("handle_value", "json_sax.hpp", 624, "object_element");
-              }
-
-              goto LABEL_75;
-            }
-
-LABEL_77:
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v146);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v147, LOBYTE(v146.__vftable));
-            goto LABEL_78;
-          }
-
-          v131 = 615;
-          v133 = "not key_keep_stack.empty()";
-        }
-
-        else
-        {
-          v131 = 603;
-        }
-
-        __assert_rtn("handle_value", "json_sax.hpp", v131, v133);
-      }
-
-LABEL_52:
-      v19 = v146.__vftable;
-      v144.__r_.__value_.__s.__data_[0] = v146.__vftable;
-      v20 = v147;
-      v144.__r_.__value_.__l.__size_ = v147;
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v146);
-      LOBYTE(v146.__vftable) = 0;
-      v147 = 0;
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v144);
-      v21 = v151;
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v144);
-      v22 = *v21;
-      *v21 = v19;
-      v144.__r_.__value_.__s.__data_[0] = v22;
-      v23 = *(v21 + 1);
-      *(v21 + 1) = v20;
-      v144.__r_.__value_.__l.__size_ = v23;
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v21);
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v144);
-      v24 = &v144;
-LABEL_76:
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v24->__r_.__value_.__l.__size_, v22);
-      goto LABEL_77;
-    }
-
-    if (v5 == 4)
-    {
-      if (!v154)
-      {
-LABEL_272:
-        __assert_rtn("handle_value", "json_sax.hpp", 568, "not keep_stack.empty()");
-      }
-
-      if ((*(*(&v153 + 1) + (((v154 - 1) >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (v154 - 1)))
-      {
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string&,std::string,0>(&v146);
-      }
-
-      goto LABEL_78;
-    }
-
-    if (!v154)
-    {
-      goto LABEL_272;
-    }
-
-    if ((*(*(&v153 + 1) + (((v154 - 1) >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (v154 - 1)))
-    {
-      v6 = *(a1 + 152);
-      LOBYTE(v146.__vftable) = 6;
-      v147 = v6;
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v146);
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v146);
-      if ((std::function<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::operator()(v159, (*(&v152 + 1) - v152) >> 3, 5) & 1) == 0)
-      {
-        goto LABEL_77;
-      }
-
-      if (v152 == *(&v152 + 1))
-      {
-        goto LABEL_52;
-      }
-
-      v7 = *(*(&v152 + 1) - 8);
-      if (!v7)
-      {
-        goto LABEL_77;
-      }
-
-      v8 = *v7;
-      if (v8 != 2)
-      {
-        if (v8 == 1)
-        {
-          if (*(&v155 + 1))
-          {
-            v27 = *(v155 + ((--*(&v155 + 1) >> 3) & 0x1FFFFFFFFFFFFFF8));
-            if ((v27 >> SBYTE8(v155)))
-            {
-              if (!*(&v156 + 1))
-              {
-                __assert_rtn("handle_value", "json_sax.hpp", 624, "object_element");
-              }
-
-              goto LABEL_75;
-            }
-
-            goto LABEL_77;
-          }
-
-          v129 = 615;
-          v133 = "not key_keep_stack.empty()";
-        }
-
-        else
-        {
-          v129 = 603;
-        }
-
-        __assert_rtn("handle_value", "json_sax.hpp", v129, v133);
-      }
-
-LABEL_44:
-      std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:ne200100](*(v7 + 1), &v146);
-      goto LABEL_77;
-    }
-
-LABEL_78:
-    v33 = __p.__r_.__value_.__l.__size_;
-    if (!__p.__r_.__value_.__l.__size_)
-    {
-      goto LABEL_245;
-    }
-
-    v34 = __p.__r_.__value_.__r.__words[0];
-LABEL_80:
-    v35 = v33 - 1;
-    if (((*(v34 + (((v33 - 1) >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (v33 - 1)) & 1) == 0)
-    {
-      break;
-    }
-
-    v36 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::scan(a1 + 40);
-    *(a1 + 32) = v36;
-    if (v36 != 13)
-    {
-      if (v36 != 10)
-      {
-        __p.__r_.__value_.__l.__size_ = v33;
-        nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get_token_string(&v144, *(a1 + 88), *(a1 + 96));
-        v143 = *(a1 + 64);
-        std::string::basic_string[abi:ne200100]<0>(&v141, "array");
-        nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::exception_message(&v142, a1, 0xAu, &v141);
-        nlohmann::detail::parse_error::create(&v146, &v143, &v142);
-        nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::parse_error(&v151, &v146);
-        goto LABEL_275;
-      }
-
-      nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::end_array(&v151);
-      goto LABEL_87;
-    }
-
-    __p.__r_.__value_.__l.__size_ = v33;
-    *(a1 + 32) = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::scan(a1 + 40);
-  }
-
-  v37 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::scan(a1 + 40);
-  *(a1 + 32) = v37;
-  if (v37 != 13)
-  {
-    if (v37 != 11)
-    {
-      __p.__r_.__value_.__l.__size_ = v33;
-      nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get_token_string(&v144, *(a1 + 88), *(a1 + 96));
-      v143 = *(a1 + 64);
-      std::string::basic_string[abi:ne200100]<0>(&v141, "object");
-      nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::exception_message(&v142, a1, 0xBu, &v141);
-      nlohmann::detail::parse_error::create(&v146, &v143, &v142);
-      nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::parse_error(&v151, &v146);
-      goto LABEL_275;
-    }
-
-    nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::end_object(&v151);
-LABEL_87:
-    --v33;
-    if (!v35)
-    {
-      goto LABEL_245;
-    }
-
-    goto LABEL_80;
-  }
-
-  __p.__r_.__value_.__l.__size_ = v33;
-  v38 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::scan(a1 + 40);
-  *(a1 + 32) = v38;
-  if (v38 == 4)
-  {
-    nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::key();
-  }
-
-LABEL_274:
-  nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get_token_string(&v144, *(a1 + 88), *(a1 + 96));
-  v143 = *(a1 + 64);
-  std::string::basic_string[abi:ne200100]<0>(&v141, "object key");
-  nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::exception_message(&v142, a1, 4u, &v141);
-  nlohmann::detail::parse_error::create(&v146, &v143, &v142);
-  nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::parse_error(&v151, &v146);
-LABEL_275:
-  nlohmann::detail::parse_error::~parse_error(&v146);
-LABEL_239:
-  if (SHIBYTE(v142.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v142.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v141.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v141.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v144.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v144.__r_.__value_.__l.__data_);
-  }
-
-LABEL_245:
-  if (__p.__r_.__value_.__r.__words[0])
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(a2);
-  v119 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::scan(a1 + 40);
-  *(a1 + 32) = v119;
-  if (v119 != 15)
-  {
-    nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get_token_string(&__p, *(a1 + 88), *(a1 + 96));
-    v144 = *(a1 + 64);
-    std::string::basic_string[abi:ne200100]<0>(&v142, "value");
-    nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::exception_message(&v143, a1, 0xFu, &v142);
-    nlohmann::detail::parse_error::create(&v146, &v144, &v143);
-    nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::parse_error(&v151, &v146);
-    v146.__vftable = &unk_2881C1828;
-    MEMORY[0x2743CB8E0](&v148);
-    std::exception::~exception(&v146);
-    if (SHIBYTE(v143.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v143.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v142.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v142.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(__p.__r_.__value_.__l.__data_);
-    }
-  }
-
-  if (v157 == 1)
-  {
-    v139[0] = 9;
-    v140 = 0;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v139);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v139);
-    v120 = *a2;
-    *a2 = 9;
-    v139[0] = v120;
-    v121 = *(a2 + 1);
-    *(a2 + 1) = 0;
-    v140 = v121;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(a2);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v139);
-    v122 = &v140;
-    goto LABEL_258;
-  }
-
-  if (*a2 == 9)
-  {
-    v137[0] = 0;
-    v138 = 0;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v137);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v137);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v137);
-    v120 = *a2;
-    *a2 = 0;
-    v137[0] = v120;
-    v123 = *(a2 + 1);
-    *(a2 + 1) = 0;
-    v138 = v123;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(a2);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v137);
-    v122 = &v138;
-LABEL_258:
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v122, v120);
-  }
-
-  nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~json_sax_dom_callback_parser(&v151);
-LABEL_260:
-  v124 = *MEMORY[0x277D85DE8];
-}
-
-void sub_27260E3AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, uint64_t a39, void *a40, uint64_t a41, uint64_t a42, std::exception a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, void *a53)
-{
-  nlohmann::detail::parse_error::~parse_error(&a43);
-  if (a28 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a22 < 0)
-  {
-    operator delete(a17);
-  }
-
-  if (a38 < 0)
-  {
-    operator delete(a33);
-  }
-
-  if (a40)
-  {
-    operator delete(a40);
-  }
-
-  if (a53)
-  {
-    operator delete(a53);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::~lexer(uint64_t a1)
-{
-  if (*(a1 + 95) < 0)
-  {
-    operator delete(*(a1 + 72));
-  }
-
-  v2 = *(a1 + 48);
-  if (v2)
-  {
-    *(a1 + 56) = v2;
-    operator delete(v2);
-  }
-
-  return a1;
-}
-
-uint64_t nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::scan(uint64_t a1)
-{
-  v39 = *MEMORY[0x277D85DE8];
-  if (!*(a1 + 24))
-  {
-    if (nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get(a1) != 239)
-    {
-      nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::unget(a1);
-      goto LABEL_7;
-    }
-
-    if (nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get(a1) != 187 || nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get(a1) != 191)
-    {
-      v2 = "invalid BOM; must be 0xEF 0xBB 0xBF if given";
-      goto LABEL_150;
-    }
-  }
-
-  while (1)
-  {
-    while (1)
-    {
-LABEL_7:
-      while (1)
-      {
-        nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get(a1);
-        v3 = *(a1 + 16);
-        if (v3 > 12)
-        {
-          break;
-        }
-
-        if ((v3 - 9) >= 2)
-        {
-          if ((v3 + 1) < 2)
-          {
-            result = 15;
-            goto LABEL_152;
-          }
-
-          goto LABEL_147;
-        }
-      }
-
-      if (v3 > 31)
-      {
-        break;
-      }
-
-      if (v3 != 13)
-      {
-        goto LABEL_147;
-      }
-    }
-
-    if (v3 > 43)
-    {
-      break;
-    }
-
-    if (v3 != 32)
-    {
-      if (v3 == 34)
-      {
-        nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::reset(a1);
-        if (*(a1 + 16) != 34)
-        {
-          __assert_rtn("scan_string", "lexer.hpp", 250, "current == '\\'");
-        }
-
-        while (1)
-        {
-          v16 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get(a1) + 1;
-          result = 4;
-          v2 = "invalid string: missing closing quote";
-          switch(v16)
-          {
-            case 0:
-              goto LABEL_150;
-            case 1:
-              v2 = "invalid string: control character U+0000 (NUL) must be escaped to \\u0000";
-              goto LABEL_150;
-            case 2:
-              v2 = "invalid string: control character U+0001 (SOH) must be escaped to \\u0001";
-              goto LABEL_150;
-            case 3:
-              v2 = "invalid string: control character U+0002 (STX) must be escaped to \\u0002";
-              goto LABEL_150;
-            case 4:
-              v2 = "invalid string: control character U+0003 (ETX) must be escaped to \\u0003";
-              goto LABEL_150;
-            case 5:
-              v2 = "invalid string: control character U+0004 (EOT) must be escaped to \\u0004";
-              goto LABEL_150;
-            case 6:
-              v2 = "invalid string: control character U+0005 (ENQ) must be escaped to \\u0005";
-              goto LABEL_150;
-            case 7:
-              v2 = "invalid string: control character U+0006 (ACK) must be escaped to \\u0006";
-              goto LABEL_150;
-            case 8:
-              v2 = "invalid string: control character U+0007 (BEL) must be escaped to \\u0007";
-              goto LABEL_150;
-            case 9:
-              v2 = "invalid string: control character U+0008 (BS) must be escaped to \\u0008 or \\b";
-              goto LABEL_150;
-            case 10:
-              v2 = "invalid string: control character U+0009 (HT) must be escaped to \\u0009 or \\t";
-              goto LABEL_150;
-            case 11:
-              v2 = "invalid string: control character U+000A (LF) must be escaped to \\u000A or \\n";
-              goto LABEL_150;
-            case 12:
-              v2 = "invalid string: control character U+000B (VT) must be escaped to \\u000B";
-              goto LABEL_150;
-            case 13:
-              v2 = "invalid string: control character U+000C (FF) must be escaped to \\u000C or \\f";
-              goto LABEL_150;
-            case 14:
-              v2 = "invalid string: control character U+000D (CR) must be escaped to \\u000D or \\r";
-              goto LABEL_150;
-            case 15:
-              v2 = "invalid string: control character U+000E (SO) must be escaped to \\u000E";
-              goto LABEL_150;
-            case 16:
-              v2 = "invalid string: control character U+000F (SI) must be escaped to \\u000F";
-              goto LABEL_150;
-            case 17:
-              v2 = "invalid string: control character U+0010 (DLE) must be escaped to \\u0010";
-              goto LABEL_150;
-            case 18:
-              v2 = "invalid string: control character U+0011 (DC1) must be escaped to \\u0011";
-              goto LABEL_150;
-            case 19:
-              v2 = "invalid string: control character U+0012 (DC2) must be escaped to \\u0012";
-              goto LABEL_150;
-            case 20:
-              v2 = "invalid string: control character U+0013 (DC3) must be escaped to \\u0013";
-              goto LABEL_150;
-            case 21:
-              v2 = "invalid string: control character U+0014 (DC4) must be escaped to \\u0014";
-              goto LABEL_150;
-            case 22:
-              v2 = "invalid string: control character U+0015 (NAK) must be escaped to \\u0015";
-              goto LABEL_150;
-            case 23:
-              v2 = "invalid string: control character U+0016 (SYN) must be escaped to \\u0016";
-              goto LABEL_150;
-            case 24:
-              v2 = "invalid string: control character U+0017 (ETB) must be escaped to \\u0017";
-              goto LABEL_150;
-            case 25:
-              v2 = "invalid string: control character U+0018 (CAN) must be escaped to \\u0018";
-              goto LABEL_150;
-            case 26:
-              v2 = "invalid string: control character U+0019 (EM) must be escaped to \\u0019";
-              goto LABEL_150;
-            case 27:
-              v2 = "invalid string: control character U+001A (SUB) must be escaped to \\u001A";
-              goto LABEL_150;
-            case 28:
-              v2 = "invalid string: control character U+001B (ESC) must be escaped to \\u001B";
-              goto LABEL_150;
-            case 29:
-              v2 = "invalid string: control character U+001C (FS) must be escaped to \\u001C";
-              goto LABEL_150;
-            case 30:
-              v2 = "invalid string: control character U+001D (GS) must be escaped to \\u001D";
-              goto LABEL_150;
-            case 31:
-              v2 = "invalid string: control character U+001E (RS) must be escaped to \\u001E";
-              goto LABEL_150;
-            case 32:
-              v2 = "invalid string: control character U+001F (US) must be escaped to \\u001F";
-              goto LABEL_150;
-            case 33:
-            case 34:
-            case 36:
-            case 37:
-            case 38:
-            case 39:
-            case 40:
-            case 41:
-            case 42:
-            case 43:
-            case 44:
-            case 45:
-            case 46:
-            case 47:
-            case 48:
-            case 49:
-            case 50:
-            case 51:
-            case 52:
-            case 53:
-            case 54:
-            case 55:
-            case 56:
-            case 57:
-            case 58:
-            case 59:
-            case 60:
-            case 61:
-            case 62:
-            case 63:
-            case 64:
-            case 65:
-            case 66:
-            case 67:
-            case 68:
-            case 69:
-            case 70:
-            case 71:
-            case 72:
-            case 73:
-            case 74:
-            case 75:
-            case 76:
-            case 77:
-            case 78:
-            case 79:
-            case 80:
-            case 81:
-            case 82:
-            case 83:
-            case 84:
-            case 85:
-            case 86:
-            case 87:
-            case 88:
-            case 89:
-            case 90:
-            case 91:
-            case 92:
-            case 94:
-            case 95:
-            case 96:
-            case 97:
-            case 98:
-            case 99:
-            case 100:
-            case 101:
-            case 102:
-            case 103:
-            case 104:
-            case 105:
-            case 106:
-            case 107:
-            case 108:
-            case 109:
-            case 110:
-            case 111:
-            case 112:
-            case 113:
-            case 114:
-            case 115:
-            case 116:
-            case 117:
-            case 118:
-            case 119:
-            case 120:
-            case 121:
-            case 122:
-            case 123:
-            case 124:
-            case 125:
-            case 126:
-            case 127:
-            case 128:
-              v17 = *(a1 + 16);
-              goto LABEL_65;
-            case 35:
-              goto LABEL_152;
-            case 93:
-              v19 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get(a1);
-              v2 = "invalid string: forbidden character after backslash";
-              if (v19 <= 101)
-              {
-                if (v19 > 91)
-                {
-                  if (v19 == 92)
-                  {
-                    LOBYTE(v17) = 92;
-                  }
-
-                  else
-                  {
-                    if (v19 != 98)
-                    {
-                      goto LABEL_150;
-                    }
-
-                    LOBYTE(v17) = 8;
-                  }
-                }
-
-                else if (v19 == 34)
-                {
-                  LOBYTE(v17) = 34;
-                }
-
-                else
-                {
-                  if (v19 != 47)
-                  {
-                    goto LABEL_150;
-                  }
-
-                  LOBYTE(v17) = 47;
-                }
-              }
-
-              else if (v19 <= 113)
-              {
-                if (v19 == 102)
-                {
-                  LOBYTE(v17) = 12;
-                }
-
-                else
-                {
-                  if (v19 != 110)
-                  {
-                    goto LABEL_150;
-                  }
-
-                  LOBYTE(v17) = 10;
-                }
-              }
-
-              else
-              {
-                switch(v19)
-                {
-                  case 'r':
-                    LOBYTE(v17) = 13;
-                    break;
-                  case 't':
-                    LOBYTE(v17) = 9;
-                    break;
-                  case 'u':
-                    codepoint = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get_codepoint(a1);
-                    v17 = codepoint;
-                    if (codepoint == -1)
-                    {
-LABEL_193:
-                      v2 = "invalid string: '\\u' must be followed by 4 hex digits";
-                      goto LABEL_150;
-                    }
-
-                    if ((codepoint & 0xFFFFFC00) == 0xD800)
-                    {
-                      if (nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get(a1) != 92 || nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get(a1) != 117)
-                      {
-                        goto LABEL_194;
-                      }
-
-                      v21 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get_codepoint(a1);
-                      v22 = v21;
-                      if (v21 == -1)
-                      {
-                        goto LABEL_193;
-                      }
-
-                      if (v21 >> 10 != 55)
-                      {
-LABEL_194:
-                        v2 = "invalid string: surrogate U+D800..U+DBFF must be followed by U+DC00..U+DFFF";
-                        goto LABEL_150;
-                      }
-
-                      v23 = v21 + (v17 << 10) - 56613888;
-                      std::string::push_back((a1 + 72), (v23 >> 18) | 0xF0);
-                      std::string::push_back((a1 + 72), (v23 >> 12) & 0x3F | 0x80);
-                      std::string::push_back((a1 + 72), (v23 >> 6) & 0x3F | 0x80);
-                      LOBYTE(v17) = v22 & 0x3F | 0x80;
-                    }
-
-                    else
-                    {
-                      if ((codepoint & 0xFFFFFC00) == 0xDC00)
-                      {
-                        v2 = "invalid string: surrogate U+DC00..U+DFFF must follow U+D800..U+DBFF";
-                        goto LABEL_150;
-                      }
-
-                      if (codepoint > 0x7F)
-                      {
-                        if (codepoint > 0x7FF)
-                        {
-                          std::string::push_back((a1 + 72), (codepoint >> 12) | 0xE0);
-                          std::string::push_back((a1 + 72), (v17 >> 6) & 0x3F | 0x80);
-                        }
-
-                        else
-                        {
-                          std::string::push_back((a1 + 72), (codepoint >> 6) | 0xC0);
-                        }
-
-                        LOBYTE(v17) = v17 & 0x3F | 0x80;
-                      }
-                    }
-
-                    break;
-                  default:
-                    goto LABEL_150;
-                }
-              }
-
-LABEL_65:
-              std::string::push_back((a1 + 72), v17);
-              break;
-            case 195:
-            case 196:
-            case 197:
-            case 198:
-            case 199:
-            case 200:
-            case 201:
-            case 202:
-            case 203:
-            case 204:
-            case 205:
-            case 206:
-            case 207:
-            case 208:
-            case 209:
-            case 210:
-            case 211:
-            case 212:
-            case 213:
-            case 214:
-            case 215:
-            case 216:
-            case 217:
-            case 218:
-            case 219:
-            case 220:
-            case 221:
-            case 222:
-            case 223:
-            case 224:
-              *&v37 = 0xBF00000080;
-              v18 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::next_byte_in_range(a1, &v37, 2uLL);
-              goto LABEL_68;
-            case 225:
-              v37 = xmmword_272756630;
-              v18 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::next_byte_in_range(a1, &v37, 4uLL);
-              goto LABEL_68;
-            case 226:
-            case 227:
-            case 228:
-            case 229:
-            case 230:
-            case 231:
-            case 232:
-            case 233:
-            case 234:
-            case 235:
-            case 236:
-            case 237:
-            case 239:
-            case 240:
-              v37 = xmmword_272756620;
-              v18 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::next_byte_in_range(a1, &v37, 4uLL);
-              goto LABEL_68;
-            case 238:
-              v37 = xmmword_272756610;
-              v18 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::next_byte_in_range(a1, &v37, 4uLL);
-              goto LABEL_68;
-            case 241:
-              v38 = 0xBF00000080;
-              v37 = xmmword_27275A7AC;
-              v18 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::next_byte_in_range(a1, &v37, 6uLL);
-              goto LABEL_68;
-            case 242:
-            case 243:
-            case 244:
-              v38 = 0xBF00000080;
-              v37 = xmmword_27275A7C4;
-              v18 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::next_byte_in_range(a1, &v37, 6uLL);
-              goto LABEL_68;
-            case 245:
-              v38 = 0xBF00000080;
-              v37 = xmmword_27275A7DC;
-              v18 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::next_byte_in_range(a1, &v37, 6uLL);
-LABEL_68:
-              if ((v18 & 1) == 0)
-              {
-                goto LABEL_151;
-              }
-
-              continue;
-            default:
-              v2 = "invalid string: ill-formed UTF-8 byte";
-              goto LABEL_150;
-          }
-        }
-      }
-
-      goto LABEL_147;
-    }
-  }
-
-  if (v3 <= 57)
-  {
-    if ((v3 - 48) >= 0xA)
-    {
-      if (v3 == 44)
-      {
-        result = 13;
-        goto LABEL_152;
-      }
-
-      if (v3 != 45)
-      {
-LABEL_147:
-        v2 = "invalid literal";
-        goto LABEL_150;
-      }
-    }
-
-    nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::reset(a1);
-    v4 = *(a1 + 16);
-    if ((v4 - 49) < 9)
-    {
-      v5 = (a1 + 72);
-      v6 = 5;
-LABEL_20:
-      std::string::push_back(v5, v4);
-      v7 = (a1 + 72);
-      while (1)
-      {
-        v8 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get(a1);
-        if ((v8 - 48) >= 0xA)
-        {
-          break;
-        }
-
-        std::string::push_back((a1 + 72), *(a1 + 16));
-      }
-
-      if (v8 != 46)
-      {
-        if (v8 == 69 || v8 == 101)
-        {
-          goto LABEL_26;
-        }
-
-        goto LABEL_130;
-      }
-
-      goto LABEL_118;
-    }
-
-    if (v4 == 48)
-    {
-      std::string::push_back((a1 + 72), 48);
-      v6 = 5;
-    }
-
-    else
-    {
-      if (v4 != 45)
-      {
-        __assert_rtn("scan_number", "lexer.hpp", 928, "false");
-      }
-
-      v5 = (a1 + 72);
-      std::string::push_back((a1 + 72), 45);
-      v15 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get(a1);
-      if ((v15 - 49) < 9)
-      {
-        v4 = *(a1 + 16);
-        v6 = 6;
-        goto LABEL_20;
-      }
-
-      if (v15 != 48)
-      {
-        v2 = "invalid number; expected digit after '-'";
-        goto LABEL_150;
-      }
-
-      std::string::push_back((a1 + 72), *(a1 + 16));
-      v6 = 6;
-    }
-
-    v24 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get(a1);
-    if (v24 == 101 || v24 == 69)
-    {
-      v7 = (a1 + 72);
-LABEL_26:
-      std::string::push_back(v7, *(a1 + 16));
-      v9 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get(a1);
-      if ((v9 - 48) < 0xA)
-      {
-        v10 = (a1 + 72);
-LABEL_28:
-        v11 = *(a1 + 16);
-        for (i = v10; ; i = (a1 + 72))
-        {
-          std::string::push_back(i, v11);
-          if (nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get(a1) - 48 > 9)
-          {
-            break;
-          }
-
-          v11 = *(a1 + 16);
-        }
-
-LABEL_123:
-        nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::unget(a1);
-        *&v37 = 0;
-        *__error() = 0;
-LABEL_124:
-        v26 = (a1 + 72);
-        v27 = (a1 + 72);
-        if (*(a1 + 95) < 0)
-        {
-          v27 = *v26;
-        }
-
-        *(a1 + 120) = strtod(v27, &v37);
-        v28 = *(a1 + 95);
-        if (v28 < 0)
-        {
-          v26 = *(a1 + 72);
-          v28 = *(a1 + 80);
-        }
-
-        if (v37 != (v26 + v28))
-        {
-          __assert_rtn("scan_number", "lexer.hpp", 1208, "endptr == token_buffer.data() + token_buffer.size()");
-        }
-
-        result = 7;
-        goto LABEL_152;
-      }
-
-      if (v9 == 45 || v9 == 43)
-      {
-        v10 = (a1 + 72);
-        std::string::push_back((a1 + 72), *(a1 + 16));
-        if (nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get(a1) - 48 >= 0xA)
-        {
-          v2 = "invalid number; expected digit after exponent sign";
-          goto LABEL_150;
-        }
-
-        goto LABEL_28;
-      }
-
-      v2 = "invalid number; expected '+', '-', or digit after exponent";
-LABEL_150:
-      *(a1 + 96) = v2;
-LABEL_151:
-      result = 14;
-LABEL_152:
-      v36 = *MEMORY[0x277D85DE8];
-      return result;
-    }
-
-    if (v24 != 46)
-    {
-LABEL_130:
-      nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::unget(a1);
-      *&v37 = 0;
-      *__error() = 0;
-      v29 = (a1 + 72);
-      v30 = *(a1 + 95);
-      v31 = (a1 + 72);
-      if (v6 == 5)
-      {
-        if (v30 < 0)
-        {
-          v31 = *v29;
-        }
-
-        v32 = strtoull(v31, &v37, 10);
-        v33 = *(a1 + 95);
-        if (v33 < 0)
-        {
-          v29 = *(a1 + 72);
-          v33 = *(a1 + 80);
-        }
-
-        if (v37 != (v29 + v33))
-        {
-          __assert_rtn("scan_number", "lexer.hpp", 1175, "endptr == token_buffer.data() + token_buffer.size()");
-        }
-
-        if (*__error())
-        {
-          goto LABEL_124;
-        }
-
-        result = 5;
-        v34 = 112;
-      }
-
-      else
-      {
-        if (v30 < 0)
-        {
-          v31 = *v29;
-        }
-
-        v32 = strtoll(v31, &v37, 10);
-        v35 = *(a1 + 95);
-        if (v35 < 0)
-        {
-          v29 = *(a1 + 72);
-          v35 = *(a1 + 80);
-        }
-
-        if (v37 != (v29 + v35))
-        {
-          __assert_rtn("scan_number", "lexer.hpp", 1191, "endptr == token_buffer.data() + token_buffer.size()");
-        }
-
-        if (*__error())
-        {
-          goto LABEL_124;
-        }
-
-        result = 6;
-        v34 = 104;
-      }
-
-      *(a1 + v34) = v32;
-      goto LABEL_152;
-    }
-
-    v7 = (a1 + 72);
-LABEL_118:
-    std::string::push_back(v7, *(a1 + 128));
-    if (nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get(a1) - 48 > 9)
-    {
-      v2 = "invalid number; expected digit after '.'";
-      goto LABEL_150;
-    }
-
-    v7 = (a1 + 72);
-    do
-    {
-      std::string::push_back((a1 + 72), *(a1 + 16));
-      v25 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get(a1);
-    }
-
-    while ((v25 - 48) < 0xA);
-    if (v25 != 101 && v25 != 69)
-    {
-      goto LABEL_123;
-    }
-
-    goto LABEL_26;
-  }
-
-  if (v3 > 109)
-  {
-    if (v3 > 122)
-    {
-      if (v3 == 123)
-      {
-        result = 9;
-        goto LABEL_152;
-      }
-
-      if (v3 == 125)
-      {
-        result = 11;
-        goto LABEL_152;
-      }
-    }
-
-    else
-    {
-      if (v3 == 110)
-      {
-        LODWORD(v37) = 1819047278;
-        result = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::scan_literal(a1, &v37, 4, 3);
-        goto LABEL_152;
-      }
-
-      if (v3 == 116)
-      {
-        LODWORD(v37) = 1702195828;
-        result = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::scan_literal(a1, &v37, 4, 1);
-        goto LABEL_152;
-      }
-    }
-
-    goto LABEL_147;
-  }
-
-  if (v3 <= 92)
-  {
-    if (v3 == 58)
-    {
-      result = 12;
-      goto LABEL_152;
-    }
-
-    if (v3 == 91)
-    {
-      result = 8;
-      goto LABEL_152;
-    }
-
-    goto LABEL_147;
-  }
-
-  if (v3 == 93)
-  {
-    result = 10;
-    goto LABEL_152;
-  }
-
-  if (v3 != 102)
-  {
-    goto LABEL_147;
-  }
-
-  v14 = *MEMORY[0x277D85DE8];
-
-  return nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::scan_literal(a1, "false", 5, 2);
 }

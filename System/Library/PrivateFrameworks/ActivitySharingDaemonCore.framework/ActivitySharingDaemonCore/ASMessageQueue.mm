@@ -43,7 +43,7 @@
       v10 = *MEMORY[0x277CE9008];
       if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_ERROR))
       {
-        [(ASMessageQueue *)nameCopy initWithQueueName:v10];
+        [(ASMessageQueue *)nameCopy initWithQueueName:v10, v9];
       }
     }
   }
@@ -117,18 +117,16 @@ void __41__ASMessageQueue__synchronizePreferences__block_invoke(uint64_t a1, voi
   [*(a1 + 32) setObject:v6 forKeyedSubscript:v5];
 }
 
-- (void)initWithQueueName:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
+- (void)initWithQueueName:(uint64_t)a3 .cold.1(uint64_t a1, void *a2, uint64_t a3)
 {
   v10 = *MEMORY[0x277D85DE8];
-  v3 = a2;
+  v4 = a2;
   v6 = 138543618;
   v7 = a1;
   v8 = 2114;
   v9 = objc_opt_class();
-  v4 = v9;
-  _os_log_error_impl(&dword_23E5E3000, v3, OS_LOG_TYPE_ERROR, "Error parsing message queue with name %{public}@, serialized data is not a dictionary (%{public}@)", &v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = v9;
+  _os_log_error_impl(&dword_23E5E3000, v4, OS_LOG_TYPE_ERROR, "Error parsing message queue with name %{public}@, serialized data is not a dictionary (%{public}@)", &v6, 0x16u);
 }
 
 @end

@@ -1402,7 +1402,7 @@ EmitterViewerSPI::MPSConstantOpHandler *EmitterViewerSPI::MPSConstantOpHandler::
   v15 = [MEMORY[0x277CBEB18] array];
   if (*(v33 + 47))
   {
-    mlir::mps::ConstantOp::getValue(&v33, &v34);
+    mlir::mps::ConstantOp::getValue(&v34, &v33);
     v16 = v34;
     if (v34)
     {
@@ -1453,13 +1453,13 @@ void sub_2563D9CB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-BOOL mlir::mps::ConstantOp::getValue@<W0>(_BOOL8 this@<X0>, __n128 **a2@<X8>)
+uint64_t *mlir::mps::ConstantOp::getValue@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
   v2 = *(*this + 16 * ((*(*this + 44) >> 23) & 1) + 64);
-  *a2 = v2;
+  *a1 = v2;
   if (v2)
   {
-    v3 = *(v2->n128_u64[0] + 136);
+    v3 = *(*v2 + 136);
     v4 = v3 == &mlir::detail::TypeIDResolver<mlir::mps::MPSBufferTensorAttr,void>::id;
     if (v3 == &mlir::detail::TypeIDResolver<mlir::mps::MPSBufferTensorAttr,void>::id)
     {
@@ -1474,10 +1474,10 @@ BOOL mlir::mps::ConstantOp::getValue@<W0>(_BOOL8 this@<X0>, __n128 **a2@<X8>)
     v11 = v5;
     if (v4)
     {
-      mlir::mps::MPSBufferTensorAttr::getHandle(&v11, &v10);
+      mlir::mps::MPSBufferTensorAttr::getHandle(v10, &v11);
       Context = mlir::Attribute::getContext(&v11);
       Manager = mlir::mps::MPSResourceBlobManagerInterface::getManager(Context, v7);
-      v9 = v10.n128_u64[0];
+      v9 = v10[0];
       llvm::sys::RWMutexImpl::lock((Manager + 48));
       ++*(v9 + 88);
       return llvm::sys::RWMutexImpl::unlock((Manager + 48));
@@ -1501,10 +1501,10 @@ __n128 **mlir::mps::AttributeHandler::decrementRefCount(__n128 **this)
     v8 = v1;
     if (v2 == &mlir::detail::TypeIDResolver<mlir::mps::MPSBufferTensorAttr,void>::id)
     {
-      mlir::mps::MPSBufferTensorAttr::getHandle(&v8, &v7);
+      mlir::mps::MPSBufferTensorAttr::getHandle(v7, &v8);
       Context = mlir::Attribute::getContext(&v8);
       Manager = mlir::mps::MPSResourceBlobManagerInterface::getManager(Context, v4);
-      v6 = v7.n128_u64[0];
+      v6 = v7[0];
       llvm::sys::RWMutexImpl::lock((Manager + 48));
       if (*(v6 + 88) == 1)
       {
@@ -1565,25 +1565,25 @@ void mlir::AsmResourceBlob::~AsmResourceBlob(mlir::AsmResourceBlob *this)
   }
 }
 
-uint64_t llvm::unique_function<void ()(void *,unsigned long,unsigned long)>::~unique_function(uint64_t result)
+uint64_t llvm::unique_function<void ()(void *,unsigned long,unsigned long)>::~unique_function(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
-  v1 = *(result + 24);
-  if (v1 >= 8)
+  v4 = *(result + 24);
+  if (v4 >= 8)
   {
-    if ((v1 & 4) != 0)
+    if ((v4 & 4) != 0)
     {
-      v2 = result;
-      if ((v1 & 2) == 0)
+      v5 = result;
+      if ((v4 & 2) == 0)
       {
-        v2 = *result;
+        v5 = *result;
       }
 
-      v3 = result;
-      (*((v1 & 0xFFFFFFFFFFFFFFF8) + 16))(v2);
-      result = v3;
+      v6 = result;
+      (*((v4 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, a2, a3, a4);
+      result = v6;
     }
 
-    if ((v1 & 2) == 0)
+    if ((v4 & 2) == 0)
     {
       llvm::deallocate_buffer(*result, *(result + 8));
     }
@@ -4178,7 +4178,7 @@ EmitterViewerSPI::MPSCropResizeOpHandler *EmitterViewerSPI::MPSCropResizeOpHandl
     [v15 addObject:v18];
   }
 
-  mlir::mps::CropResizeOp::getSpatialScale(&v62, &v63);
+  mlir::mps::CropResizeOp::getSpatialScale(&v63, &v62);
   v20 = [[MLViewerNodePropertyDataSPI alloc] initWithName:@"spatial_scale" dataType:268435488 shape:&unk_2868AFCE0];
   if (v20)
   {

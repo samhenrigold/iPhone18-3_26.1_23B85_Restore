@@ -51,7 +51,7 @@
   address = [(DEDDevice *)self address];
   [coderCopy encodeObject:address forKey:@"address"];
 
-  [(DEDDevice *)self operatingSystemVersion];
+  objc_msgSend_operatingSystemVersion(self);
   v6 = [DEDDevice arrayRepresentationForOperatingSystemVersion:v31];
   [coderCopy encodeObject:v6 forKey:@"operatingSystemVersion"];
 
@@ -145,7 +145,7 @@
     *(v5 + 2) = v6;
 
     v8 = [coderCopy decodeArrayOfObjectsOfClass:objc_opt_class() forKey:@"operatingSystemVersion"];
-    [DEDDevice operatingSystemVersionFromArrayRepresentation:v8];
+    objc_msgSend_operatingSystemVersionFromArrayRepresentation_(DEDDevice);
     *(v5 + 264) = v59;
     *(v5 + 35) = v60;
     v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"build"];
@@ -270,7 +270,7 @@
   v4 = v3;
   if (v3)
   {
-    [v3 operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(v3);
   }
 
   else
@@ -341,7 +341,7 @@
   [v4 setAddress:v6];
 
   v7 = [dictionaryCopy objectForKeyedSubscript:@"operatingSystemVersion"];
-  [DEDDevice operatingSystemVersionFromArrayRepresentation:v7];
+  objc_msgSend_operatingSystemVersionFromArrayRepresentation_(DEDDevice);
   v54 = v56;
   v55 = v57;
   [v4 setOperatingSystemVersion:&v54];
@@ -590,7 +590,7 @@
 
     if (deviceCopy)
     {
-      [deviceCopy operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(deviceCopy);
     }
 
     else
@@ -651,7 +651,7 @@
   v5 = stringIfNil(address);
   [dictionary setObject:v5 forKeyedSubscript:@"address"];
 
-  [(DEDDevice *)self operatingSystemVersion];
+  objc_msgSend_operatingSystemVersion(self);
   v6 = [DEDDevice arrayRepresentationForOperatingSystemVersion:v49];
   [dictionary setObject:v6 forKeyedSubscript:@"operatingSystemVersion"];
 
@@ -1001,30 +1001,30 @@ LABEL_14:
 
 uint64_t __32__DEDDevice_isMoreCompleteThan___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v13 = a2;
-  v2 = [v13 allValues];
-  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v12 = a2;
+  v2 = [v12 allValues];
+  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
     v6 = 0;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v2);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -1039,7 +1039,7 @@ uint64_t __32__DEDDevice_isMoreCompleteThan___block_invoke(uint64_t a1, void *a2
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v4);
@@ -1051,7 +1051,6 @@ uint64_t __32__DEDDevice_isMoreCompleteThan___block_invoke(uint64_t a1, void *a2
     v6 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -1190,15 +1189,13 @@ uint64_t __32__DEDDevice_isMoreCompleteThan___block_invoke(uint64_t a1, void *a2
 
 + (id)arrayRepresentationForOperatingSystemVersion:(id *)version
 {
-  v10[3] = *MEMORY[0x277D85DE8];
+  v9[3] = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277CCABB0] numberWithInteger:version->var0];
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:{version->var1, v4}];
-  v10[1] = v5;
+  v9[1] = v5;
   v6 = [MEMORY[0x277CCABB0] numberWithInteger:version->var2];
-  v10[2] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:3];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[2] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:3];
 
   return v7;
 }

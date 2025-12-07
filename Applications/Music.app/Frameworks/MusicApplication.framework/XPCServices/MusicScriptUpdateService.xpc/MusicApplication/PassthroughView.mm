@@ -24,14 +24,14 @@
   y = frame.origin.y;
   x = frame.origin.x;
   v8.receiver = self;
-  v8.super_class = type metadata accessor for PassthroughView();
+  v8.super_class = type metadata accessor for PassthroughView(self, a2);
   return [(PassthroughView *)&v8 initWithFrame:x, y, width, height];
 }
 
 - (_TtC11MusicCoreUI15PassthroughView)initWithCoder:(id)coder
 {
   v7.receiver = self;
-  v7.super_class = type metadata accessor for PassthroughView();
+  v7.super_class = type metadata accessor for PassthroughView(self, a2);
   coderCopy = coder;
   v5 = [(PassthroughView *)&v7 initWithCoder:coderCopy];
 

@@ -35,12 +35,12 @@
 
 + (uint64_t)sbui_randomColor
 {
-  v0 = objc_opt_class();
-  v1 = arc4random_uniform(0xFEu) / 255.0;
-  v2 = arc4random_uniform(0xFEu) / 255.0;
+  v2 = objc_opt_class();
   v3 = arc4random_uniform(0xFEu) / 255.0;
+  v4 = arc4random_uniform(0xFEu) / 255.0;
+  v5 = arc4random_uniform(0xFEu) / 255.0;
 
-  return [v0 colorWithRed:v1 green:v2 blue:v3 alpha:1.0];
+  return [v2 colorWithRed:v3 green:v4 blue:v5 alpha:1.0];
 }
 
 - (CGColor)sb_isGrayscale

@@ -3,36 +3,36 @@
 
 @implementation NSUbiquitousKeyValueStore
 
-void __54__NSUbiquitousKeyValueStore_SBKnownKeyFiltering__load__block_invoke()
+void __54__NSUbiquitousKeyValueStore_SBKnownKeyFiltering__load__block_invoke(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  InstanceMethod = class_getInstanceMethod(v0, sel_setObject_forKey_);
-  v2 = objc_opt_class();
-  v3 = class_getInstanceMethod(v2, sel_sb_setObject_forKey_);
-  v4 = v3;
+  v1 = objc_opt_class();
+  InstanceMethod = class_getInstanceMethod(v1, sel_setObject_forKey_);
+  v3 = objc_opt_class();
+  v4 = class_getInstanceMethod(v3, sel_sb_setObject_forKey_);
+  v5 = v4;
   if (InstanceMethod)
   {
-    v5 = v3 == 0;
+    v6 = v4 == 0;
   }
 
   else
   {
-    v5 = 1;
+    v6 = 1;
   }
 
-  if (v5)
+  if (v6)
   {
-    v6 = SBLogCommon();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = SBLogCommon();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __54__NSUbiquitousKeyValueStore_SBKnownKeyFiltering__load__block_invoke_cold_1(InstanceMethod, v4, v6);
+      __54__NSUbiquitousKeyValueStore_SBKnownKeyFiltering__load__block_invoke_cold_1(InstanceMethod, v5, v7);
     }
   }
 
   else
   {
 
-    method_exchangeImplementations(InstanceMethod, v3);
+    method_exchangeImplementations(InstanceMethod, v4);
   }
 }
 

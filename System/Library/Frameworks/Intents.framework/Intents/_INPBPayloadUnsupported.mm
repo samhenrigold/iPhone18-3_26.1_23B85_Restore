@@ -1,8 +1,52 @@
 @interface _INPBPayloadUnsupported
 - (BOOL)isEqual:(id)equal;
 - (_INPBPayloadUnsupported)initWithCoder:(id)coder;
+- (id)addCallParticipantIntentParticipantsUnsupportedReasonAsString:(int)string;
+- (id)addMediaIntentMediaDestinationUnsupportedReasonAsString:(int)string;
+- (id)addMediaIntentMediaItemsUnsupportedReasonAsString:(int)string;
+- (id)addTasksIntentContactEventTriggerUnsupportedReasonAsString:(int)string;
+- (id)addTasksIntentTargetTaskListMembersUnsupportedReasonAsString:(int)string;
+- (id)addTasksIntentTemporalEventTriggerUnsupportedReasonAsString:(int)string;
+- (id)changeAlarmStatusIntentAlarmsUnsupportedReasonAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)createTimerIntentLabelUnsupportedReasonAsString:(int)string;
+- (id)dateTimeRangeUnsupportedReasonAsString:(int)string;
+- (id)deleteAlarmIntentAlarmsUnsupportedReasonAsString:(int)string;
+- (id)deleteTasksIntentTaskListUnsupportedReasonAsString:(int)string;
+- (id)deleteTasksIntentTaskUnsupportedReasonAsString:(int)string;
 - (id)dictionaryRepresentation;
+- (id)findDeviceAndPlaySoundIntentDeviceUnsupportedReasonAsString:(int)string;
+- (id)joinCallIntentGroupConversationUnsupportedReasonAsString:(int)string;
+- (id)participantUnsupportedReasonAsString:(int)string;
+- (id)playMediaIntentMediaItemsUnsupportedReasonAsString:(int)string;
+- (id)playMediaIntentPlaybackSpeedUnsupportedReasonAsString:(int)string;
+- (id)reasonAsString:(int)string;
+- (id)reportIncidentIntentIncidentTypeUnsupportedReasonAsString:(int)string;
+- (id)requestPaymentIntentCurrencyAmountUnsupportedReasonAsString:(int)string;
+- (id)requestPaymentIntentPayerUnsupportedReasonAsString:(int)string;
+- (id)runWorkflowIntentWorkflowUnsupportedReasonAsString:(int)string;
+- (id)saveHealthSampleIntentRecordDateUnsupportedReasonAsString:(int)string;
+- (id)searchAlarmIntentAlarmsUnsupportedReasonAsString:(int)string;
+- (id)searchForMediaIntentMediaItemsUnsupportedReasonAsString:(int)string;
+- (id)sendAnnouncementIntentAnnouncementUnsupportedReasonAsString:(int)string;
+- (id)sendAnnouncementIntentRecipientsUnsupportedReasonAsString:(int)string;
+- (id)sendMessageIntentRecipientUnsupportedReasonAsString:(int)string;
+- (id)sendPaymentIntentCurrencyAmountUnsupportedReasonAsString:(int)string;
+- (id)sendPaymentIntentPayeeUnsupportedReasonAsString:(int)string;
+- (id)setTaskAttributeIntentContactEventTriggerUnsupportedReasonAsString:(int)string;
+- (id)setTaskAttributeIntentTemporalEventTriggerUnsupportedReasonAsString:(int)string;
+- (id)setTimerAttributeIntentTargetTimerUnsupportedReasonAsString:(int)string;
+- (id)shareETAIntentRecipientUnsupportedReasonAsString:(int)string;
+- (id)snoozeAlarmIntentAlarmsUnsupportedReasonAsString:(int)string;
+- (id)snoozeTasksIntentTaskUnsupportedReasonAsString:(int)string;
+- (id)startCallIntentCallCapabilityUnsupportedReasonAsString:(int)string;
+- (id)startCallIntentCallRecordToCallBackUnsupportedReasonAsString:(int)string;
+- (id)startCallIntentContactsUnsupportedReasonAsString:(int)string;
+- (id)startCallIntentPreferredCallProviderUnsupportedReasonAsString:(int)string;
+- (id)stopShareETAIntentRecipientUnsupportedReasonAsString:(int)string;
+- (id)targetEventUnsupportedReasonAsString:(int)string;
+- (id)updateAlarmIntentAlarmUnsupportedReasonAsString:(int)string;
+- (id)updateMediaAffinityIntentMediaItemsUnsupportedReasonAsString:(int)string;
 - (int)StringAsAddCallParticipantIntentParticipantsUnsupportedReason:(id)reason;
 - (int)StringAsAddMediaIntentMediaDestinationUnsupportedReason:(id)reason;
 - (int)StringAsAddMediaIntentMediaItemsUnsupportedReason:(id)reason;
@@ -139,7 +183,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v109 = *MEMORY[0x1E69E9840];
+  v108 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(_INPBPayloadUnsupported *)self hasUpdateAlarmIntentAlarmUnsupportedReason])
   {
@@ -309,30 +353,30 @@
   if ([(NSArray *)self->_conflictingParameters count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v103 = 0u;
     v104 = 0u;
     v105 = 0u;
     v106 = 0u;
-    v107 = 0u;
     v21 = self->_conflictingParameters;
-    v22 = [(NSArray *)v21 countByEnumeratingWithState:&v104 objects:v108 count:16];
+    v22 = [(NSArray *)v21 countByEnumeratingWithState:&v103 objects:v107 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v105;
+      v24 = *v104;
       do
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v105 != v24)
+          if (*v104 != v24)
           {
             objc_enumerationMutation(v21);
           }
 
-          dictionaryRepresentation = [*(*(&v104 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v103 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation];
         }
 
-        v23 = [(NSArray *)v21 countByEnumeratingWithState:&v104 objects:v108 count:16];
+        v23 = [(NSArray *)v21 countByEnumeratingWithState:&v103 objects:v107 count:16];
       }
 
       while (v23);
@@ -1407,7 +1451,6 @@ LABEL_319:
 
   v101 = dictionary;
 
-  v102 = *MEMORY[0x1E69E9840];
   return dictionary;
 }
 
@@ -2982,311 +3025,263 @@ LABEL_190:
 
 - (void)writeTo:(id)to
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if ([(_INPBPayloadUnsupported *)self hasUpdateAlarmIntentAlarmUnsupportedReason])
   {
-    updateAlarmIntentAlarmUnsupportedReason = self->_updateAlarmIntentAlarmUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasChangeAlarmStatusIntentAlarmsUnsupportedReason])
   {
-    changeAlarmStatusIntentAlarmsUnsupportedReason = self->_changeAlarmStatusIntentAlarmsUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasDeleteAlarmIntentAlarmsUnsupportedReason])
   {
-    deleteAlarmIntentAlarmsUnsupportedReason = self->_deleteAlarmIntentAlarmsUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasSearchAlarmIntentAlarmsUnsupportedReason])
   {
-    searchAlarmIntentAlarmsUnsupportedReason = self->_searchAlarmIntentAlarmsUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasSnoozeAlarmIntentAlarmsUnsupportedReason])
   {
-    snoozeAlarmIntentAlarmsUnsupportedReason = self->_snoozeAlarmIntentAlarmsUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasSendAnnouncementIntentAnnouncementUnsupportedReason])
   {
-    sendAnnouncementIntentAnnouncementUnsupportedReason = self->_sendAnnouncementIntentAnnouncementUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasStartCallIntentCallCapabilityUnsupportedReason])
   {
-    startCallIntentCallCapabilityUnsupportedReason = self->_startCallIntentCallCapabilityUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasStartCallIntentCallRecordToCallBackUnsupportedReason])
   {
-    startCallIntentCallRecordToCallBackUnsupportedReason = self->_startCallIntentCallRecordToCallBackUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
-  v58 = 0u;
-  v13 = self->_conflictingParameters;
-  v14 = [(NSArray *)v13 countByEnumeratingWithState:&v57 objects:v61 count:16];
-  if (v14)
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v5 = self->_conflictingParameters;
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
   {
-    v15 = v14;
-    v16 = *v58;
+    v7 = v6;
+    v8 = *v11;
     do
     {
-      v17 = 0;
+      v9 = 0;
       do
       {
-        if (*v58 != v16)
+        if (*v11 != v8)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v5);
         }
 
-        v18 = *(*(&v57 + 1) + 8 * v17);
         PBDataWriterWriteSubmessage();
-        ++v17;
+        ++v9;
       }
 
-      while (v15 != v17);
-      v15 = [(NSArray *)v13 countByEnumeratingWithState:&v57 objects:v61 count:16];
+      while (v7 != v9);
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v15);
+    while (v7);
   }
 
   if ([(_INPBPayloadUnsupported *)self hasAddTasksIntentContactEventTriggerUnsupportedReason])
   {
-    addTasksIntentContactEventTriggerUnsupportedReason = self->_addTasksIntentContactEventTriggerUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasSetTaskAttributeIntentContactEventTriggerUnsupportedReason])
   {
-    setTaskAttributeIntentContactEventTriggerUnsupportedReason = self->_setTaskAttributeIntentContactEventTriggerUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasStartCallIntentContactsUnsupportedReason])
   {
-    startCallIntentContactsUnsupportedReason = self->_startCallIntentContactsUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasRequestPaymentIntentCurrencyAmountUnsupportedReason])
   {
-    requestPaymentIntentCurrencyAmountUnsupportedReason = self->_requestPaymentIntentCurrencyAmountUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasSendPaymentIntentCurrencyAmountUnsupportedReason])
   {
-    sendPaymentIntentCurrencyAmountUnsupportedReason = self->_sendPaymentIntentCurrencyAmountUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasCustomUnsupportedReason])
   {
-    customUnsupportedReason = self->_customUnsupportedReason;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasDateTimeRangeUnsupportedReason])
   {
-    dateTimeRangeUnsupportedReason = self->_dateTimeRangeUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasFindDeviceAndPlaySoundIntentDeviceUnsupportedReason])
   {
-    findDeviceAndPlaySoundIntentDeviceUnsupportedReason = self->_findDeviceAndPlaySoundIntentDeviceUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasJoinCallIntentGroupConversationUnsupportedReason])
   {
-    joinCallIntentGroupConversationUnsupportedReason = self->_joinCallIntentGroupConversationUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasReportIncidentIntentIncidentTypeUnsupportedReason])
   {
-    reportIncidentIntentIncidentTypeUnsupportedReason = self->_reportIncidentIntentIncidentTypeUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasCreateTimerIntentLabelUnsupportedReason])
   {
-    createTimerIntentLabelUnsupportedReason = self->_createTimerIntentLabelUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasAddMediaIntentMediaDestinationUnsupportedReason])
   {
-    addMediaIntentMediaDestinationUnsupportedReason = self->_addMediaIntentMediaDestinationUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasAddMediaIntentMediaItemsUnsupportedReason])
   {
-    addMediaIntentMediaItemsUnsupportedReason = self->_addMediaIntentMediaItemsUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasPlayMediaIntentMediaItemsUnsupportedReason])
   {
-    playMediaIntentMediaItemsUnsupportedReason = self->_playMediaIntentMediaItemsUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasSearchForMediaIntentMediaItemsUnsupportedReason])
   {
-    searchForMediaIntentMediaItemsUnsupportedReason = self->_searchForMediaIntentMediaItemsUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasUpdateMediaAffinityIntentMediaItemsUnsupportedReason])
   {
-    updateMediaAffinityIntentMediaItemsUnsupportedReason = self->_updateMediaAffinityIntentMediaItemsUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasParticipantUnsupportedReason])
   {
-    participantUnsupportedReason = self->_participantUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasAddCallParticipantIntentParticipantsUnsupportedReason])
   {
-    addCallParticipantIntentParticipantsUnsupportedReason = self->_addCallParticipantIntentParticipantsUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasSendPaymentIntentPayeeUnsupportedReason])
   {
-    sendPaymentIntentPayeeUnsupportedReason = self->_sendPaymentIntentPayeeUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasRequestPaymentIntentPayerUnsupportedReason])
   {
-    requestPaymentIntentPayerUnsupportedReason = self->_requestPaymentIntentPayerUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasPlayMediaIntentPlaybackSpeedUnsupportedReason])
   {
-    playMediaIntentPlaybackSpeedUnsupportedReason = self->_playMediaIntentPlaybackSpeedUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasStartCallIntentPreferredCallProviderUnsupportedReason])
   {
-    startCallIntentPreferredCallProviderUnsupportedReason = self->_startCallIntentPreferredCallProviderUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasReason])
   {
-    reason = self->_reason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasShareETAIntentRecipientUnsupportedReason])
   {
-    shareETAIntentRecipientUnsupportedReason = self->_shareETAIntentRecipientUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasStopShareETAIntentRecipientUnsupportedReason])
   {
-    stopShareETAIntentRecipientUnsupportedReason = self->_stopShareETAIntentRecipientUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasSendMessageIntentRecipientUnsupportedReason])
   {
-    sendMessageIntentRecipientUnsupportedReason = self->_sendMessageIntentRecipientUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasSendAnnouncementIntentRecipientsUnsupportedReason])
   {
-    sendAnnouncementIntentRecipientsUnsupportedReason = self->_sendAnnouncementIntentRecipientsUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasSaveHealthSampleIntentRecordDateUnsupportedReason])
   {
-    saveHealthSampleIntentRecordDateUnsupportedReason = self->_saveHealthSampleIntentRecordDateUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasTargetEventUnsupportedReason])
   {
-    targetEventUnsupportedReason = self->_targetEventUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasAddTasksIntentTargetTaskListMembersUnsupportedReason])
   {
-    addTasksIntentTargetTaskListMembersUnsupportedReason = self->_addTasksIntentTargetTaskListMembersUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasSetTimerAttributeIntentTargetTimerUnsupportedReason])
   {
-    setTimerAttributeIntentTargetTimerUnsupportedReason = self->_setTimerAttributeIntentTargetTimerUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasDeleteTasksIntentTaskListUnsupportedReason])
   {
-    deleteTasksIntentTaskListUnsupportedReason = self->_deleteTasksIntentTaskListUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasDeleteTasksIntentTaskUnsupportedReason])
   {
-    deleteTasksIntentTaskUnsupportedReason = self->_deleteTasksIntentTaskUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasSnoozeTasksIntentTaskUnsupportedReason])
   {
-    snoozeTasksIntentTaskUnsupportedReason = self->_snoozeTasksIntentTaskUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasAddTasksIntentTemporalEventTriggerUnsupportedReason])
   {
-    addTasksIntentTemporalEventTriggerUnsupportedReason = self->_addTasksIntentTemporalEventTriggerUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasSetTaskAttributeIntentTemporalEventTriggerUnsupportedReason])
   {
-    setTaskAttributeIntentTemporalEventTriggerUnsupportedReason = self->_setTaskAttributeIntentTemporalEventTriggerUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadUnsupported *)self hasRunWorkflowIntentWorkflowUnsupportedReason])
   {
-    runWorkflowIntentWorkflowUnsupportedReason = self->_runWorkflowIntentWorkflowUnsupportedReason;
     PBDataWriterWriteInt32Field();
   }
-
-  v56 = *MEMORY[0x1E69E9840];
 }
 
 - (int)StringAsRunWorkflowIntentWorkflowUnsupportedReason:(id)reason
@@ -3300,6 +3295,29 @@ LABEL_190:
   else
   {
     v4 = [reasonCopy isEqualToString:@"NO_WORKFLOWS"];
+  }
+
+  return v4;
+}
+
+- (id)runWorkflowIntentWorkflowUnsupportedReasonAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"NO_WORKFLOWS";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"NOT_FOUND";
   }
 
   return v4;
@@ -3351,6 +3369,26 @@ LABEL_190:
   return v4;
 }
 
+- (id)setTaskAttributeIntentTemporalEventTriggerUnsupportedReasonAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"TIME_IN_PAST";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"INVALID_RECURRENCE";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
+}
+
 - (void)setHasSetTaskAttributeIntentTemporalEventTriggerUnsupportedReason:(BOOL)reason
 {
   v3 = 0x80000000000;
@@ -3397,6 +3435,26 @@ LABEL_190:
   return v4;
 }
 
+- (id)addTasksIntentTemporalEventTriggerUnsupportedReasonAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"TIME_IN_PAST";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"INVALID_RECURRENCE";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
+}
+
 - (void)setHasAddTasksIntentTemporalEventTriggerUnsupportedReason:(BOOL)reason
 {
   v3 = 0x40000000000;
@@ -3421,6 +3479,21 @@ LABEL_190:
     self->_has = (*&has | 0x40000000000);
     self->_addTasksIntentTemporalEventTriggerUnsupportedReason = reason;
   }
+}
+
+- (id)snoozeTasksIntentTaskUnsupportedReasonAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"NO_TASKS_FOUND";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (void)setHasSnoozeTasksIntentTaskUnsupportedReason:(BOOL)reason
@@ -3469,6 +3542,26 @@ LABEL_190:
   return v4;
 }
 
+- (id)deleteTasksIntentTaskUnsupportedReasonAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"NO_TASKS_FOUND";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"NO_TASKS_IN_APP";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
+}
+
 - (void)setHasDeleteTasksIntentTaskUnsupportedReason:(BOOL)reason
 {
   v3 = 0x10000000000;
@@ -3493,6 +3586,21 @@ LABEL_190:
     self->_has = (*&has | 0x10000000000);
     self->_deleteTasksIntentTaskUnsupportedReason = reason;
   }
+}
+
+- (id)deleteTasksIntentTaskListUnsupportedReasonAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"NO_TASK_LIST_FOUND";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (void)setHasDeleteTasksIntentTaskListUnsupportedReason:(BOOL)reason
@@ -3537,6 +3645,29 @@ LABEL_190:
   return v4;
 }
 
+- (id)setTimerAttributeIntentTargetTimerUnsupportedReasonAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"NO_TIMERS";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"NOT_FOUND";
+  }
+
+  return v4;
+}
+
 - (void)setHasSetTimerAttributeIntentTargetTimerUnsupportedReason:(BOOL)reason
 {
   v3 = 0x4000000000;
@@ -3561,6 +3692,21 @@ LABEL_190:
     self->_has = (*&has | 0x4000000000);
     self->_setTimerAttributeIntentTargetTimerUnsupportedReason = reason;
   }
+}
+
+- (id)addTasksIntentTargetTaskListMembersUnsupportedReasonAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"NO_SHARED_LIST_WITH_CONTACT";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (void)setHasAddTasksIntentTargetTaskListMembersUnsupportedReason:(BOOL)reason
@@ -3604,6 +3750,26 @@ LABEL_190:
     {
       v4 = 1;
     }
+  }
+
+  return v4;
+}
+
+- (id)targetEventUnsupportedReasonAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"TARGET_EVENT_NOT_FOUND";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"TARGET_EVENT_NOT_CREATED_BY_USER";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
   }
 
   return v4;
@@ -3661,6 +3827,21 @@ LABEL_190:
   return v4;
 }
 
+- (id)saveHealthSampleIntentRecordDateUnsupportedReasonAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7282640[string - 1];
+  }
+
+  return v4;
+}
+
 - (void)setHasSaveHealthSampleIntentRecordDateUnsupportedReason:(BOOL)reason
 {
   v3 = 0x800000000;
@@ -3713,6 +3894,21 @@ LABEL_190:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)sendAnnouncementIntentRecipientsUnsupportedReasonAsString:(int)string
+{
+  if ((string - 1) >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7282620[string - 1];
   }
 
   return v4;
@@ -3810,6 +4006,21 @@ LABEL_190:
   return v4;
 }
 
+- (id)sendMessageIntentRecipientUnsupportedReasonAsString:(int)string
+{
+  if ((string - 1) >= 0xB)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E72825C8[string - 1];
+  }
+
+  return v4;
+}
+
 - (void)setHasSendMessageIntentRecipientUnsupportedReason:(BOOL)reason
 {
   v3 = 0x200000000;
@@ -3867,6 +4078,21 @@ LABEL_190:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)stopShareETAIntentRecipientUnsupportedReasonAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E72825A0[string];
   }
 
   return v4;
@@ -3934,6 +4160,21 @@ LABEL_190:
   return v4;
 }
 
+- (id)shareETAIntentRecipientUnsupportedReasonAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E72825A0[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasShareETAIntentRecipientUnsupportedReason:(BOOL)reason
 {
   v3 = 0x80000000;
@@ -3991,6 +4232,53 @@ LABEL_190:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)reasonAsString:(int)string
+{
+  if (string <= 2)
+  {
+    if (string == 1)
+    {
+      v4 = @"None";
+    }
+
+    else
+    {
+      if (string != 2)
+      {
+LABEL_22:
+        v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+
+        return v4;
+      }
+
+      v4 = @"NotNow";
+    }
+  }
+
+  else
+  {
+    switch(string)
+    {
+      case 3:
+        v4 = @"NotHere";
+
+        break;
+      case 4:
+        v4 = @"ConflictWithOtherFields";
+
+        break;
+      case 1000:
+        v4 = @"UnsupportedReasonExtension";
+
+        return v4;
+      default:
+        goto LABEL_22;
+    }
   }
 
   return v4;
@@ -4063,6 +4351,21 @@ LABEL_190:
   return v4;
 }
 
+- (id)startCallIntentPreferredCallProviderUnsupportedReasonAsString:(int)string
+{
+  if ((string - 1) >= 6)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7282570[string - 1];
+  }
+
+  return v4;
+}
+
 - (void)setHasStartCallIntentPreferredCallProviderUnsupportedReason:(BOOL)reason
 {
   v3 = 0x20000000;
@@ -4104,6 +4407,26 @@ LABEL_190:
     {
       v4 = 1;
     }
+  }
+
+  return v4;
+}
+
+- (id)playMediaIntentPlaybackSpeedUnsupportedReasonAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"BELOW_MINIMUM";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"ABOVE_MAXIMUM";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
   }
 
   return v4;
@@ -4161,6 +4484,21 @@ LABEL_190:
   return v4;
 }
 
+- (id)requestPaymentIntentPayerUnsupportedReasonAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7282558[string - 1];
+  }
+
+  return v4;
+}
+
 - (void)setHasRequestPaymentIntentPayerUnsupportedReason:(BOOL)reason
 {
   v3 = 0x8000000;
@@ -4213,6 +4551,21 @@ LABEL_190:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)sendPaymentIntentPayeeUnsupportedReasonAsString:(int)string
+{
+  if ((string - 1) >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7282538[string - 1];
   }
 
   return v4;
@@ -4285,6 +4638,21 @@ LABEL_190:
   return v4;
 }
 
+- (id)addCallParticipantIntentParticipantsUnsupportedReasonAsString:(int)string
+{
+  if ((string - 1) >= 6)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7282508[string - 1];
+  }
+
+  return v4;
+}
+
 - (void)setHasAddCallParticipantIntentParticipantsUnsupportedReason:(BOOL)reason
 {
   v3 = 0x2000000;
@@ -4326,6 +4694,26 @@ LABEL_190:
     {
       v4 = 1;
     }
+  }
+
+  return v4;
+}
+
+- (id)participantUnsupportedReasonAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"INVALID_PARTICIPANT";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"PARTICIPANT_NOT_FOUND";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
   }
 
   return v4;
@@ -4428,6 +4816,96 @@ LABEL_190:
   return v4;
 }
 
+- (id)updateMediaAffinityIntentMediaItemsUnsupportedReasonAsString:(int)string
+{
+  if (string > 6)
+  {
+    if (string > 100)
+    {
+      switch(string)
+      {
+        case 'e':
+          v4 = @"APP_NOT_AVAILABLE";
+
+          return v4;
+        case 'f':
+          v4 = @"APP_ACCOUNT_FAILURE";
+
+          return v4;
+        case 'g':
+          v4 = @"APP_DOESNT_SUPPORT_INTENT";
+
+          return v4;
+      }
+    }
+
+    else
+    {
+      switch(string)
+      {
+        case 7:
+          v4 = @"SERVICE_UNAVAILABLE";
+
+          return v4;
+        case 8:
+          v4 = @"REGION_RESTRICTION";
+
+          return v4;
+        case 100:
+          v4 = @"APP_NOT_CONFIGURED";
+
+          return v4;
+      }
+    }
+
+LABEL_51:
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+
+    return v4;
+  }
+
+  if (string > 3)
+  {
+    if (string == 4)
+    {
+      v4 = @"EXPLICIT_CONTENT_SETTINGS";
+    }
+
+    else if (string == 5)
+    {
+      v4 = @"CELLULAR_DATA_SETTINGS";
+    }
+
+    else
+    {
+      v4 = @"RESTRICTED_CONTENT";
+    }
+  }
+
+  else
+  {
+    switch(string)
+    {
+      case 1:
+        v4 = @"LOGIN_REQUIRED";
+
+        break;
+      case 2:
+        v4 = @"SUBSCRIPTION_REQUIRED";
+
+        break;
+      case 3:
+        v4 = @"UNSUPPORTED_MEDIA_TYPE";
+
+        return v4;
+      default:
+        goto LABEL_51;
+    }
+  }
+
+  return v4;
+}
+
 - (void)setHasUpdateMediaAffinityIntentMediaItemsUnsupportedReason:(BOOL)reason
 {
   v3 = 0x800000;
@@ -4520,6 +4998,96 @@ LABEL_190:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)searchForMediaIntentMediaItemsUnsupportedReasonAsString:(int)string
+{
+  if (string > 6)
+  {
+    if (string > 100)
+    {
+      switch(string)
+      {
+        case 'e':
+          v4 = @"APP_NOT_AVAILABLE";
+
+          return v4;
+        case 'f':
+          v4 = @"APP_ACCOUNT_FAILURE";
+
+          return v4;
+        case 'g':
+          v4 = @"APP_DOESNT_SUPPORT_INTENT";
+
+          return v4;
+      }
+    }
+
+    else
+    {
+      switch(string)
+      {
+        case 7:
+          v4 = @"SERVICE_UNAVAILABLE";
+
+          return v4;
+        case 8:
+          v4 = @"REGION_RESTRICTION";
+
+          return v4;
+        case 100:
+          v4 = @"APP_NOT_CONFIGURED";
+
+          return v4;
+      }
+    }
+
+LABEL_51:
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+
+    return v4;
+  }
+
+  if (string > 3)
+  {
+    if (string == 4)
+    {
+      v4 = @"EXPLICIT_CONTENT_SETTINGS";
+    }
+
+    else if (string == 5)
+    {
+      v4 = @"CELLULAR_DATA_SETTINGS";
+    }
+
+    else
+    {
+      v4 = @"RESTRICTED_CONTENT";
+    }
+  }
+
+  else
+  {
+    switch(string)
+    {
+      case 1:
+        v4 = @"LOGIN_REQUIRED";
+
+        break;
+      case 2:
+        v4 = @"SUBSCRIPTION_REQUIRED";
+
+        break;
+      case 3:
+        v4 = @"UNSUPPORTED_MEDIA_TYPE";
+
+        return v4;
+      default:
+        goto LABEL_51;
+    }
   }
 
   return v4;
@@ -4672,6 +5240,169 @@ LABEL_190:
   return v4;
 }
 
+- (id)playMediaIntentMediaItemsUnsupportedReasonAsString:(int)string
+{
+  if (string > 101)
+  {
+    if (string <= 1000)
+    {
+      if (string <= 103)
+      {
+        if (string == 102)
+        {
+          v4 = @"APP_ACCOUNT_FAILURE";
+        }
+
+        else
+        {
+          v4 = @"APP_DOESNT_SUPPORT_INTENT";
+        }
+
+        return v4;
+      }
+
+      switch(string)
+      {
+        case 104:
+          v4 = @"MS_LIMIT_REACHED";
+
+          return v4;
+        case 105:
+          v4 = @"MEDIA_PLAYBACK_DISABLED";
+
+          return v4;
+        case 1000:
+          v4 = @"PLAYBACK_DEVICE_NOT_FOUND";
+
+          return v4;
+      }
+    }
+
+    else
+    {
+      if (string <= 1003)
+      {
+        if (string == 1001)
+        {
+          v4 = @"EMPTY_LIBRARY";
+        }
+
+        else if (string == 1002)
+        {
+          v4 = @"CREATE_RADIO_FAILED";
+        }
+
+        else
+        {
+          v4 = @"UNSUPPORTED_PLAYBACK_QUEUE_LOCATION";
+        }
+
+        return v4;
+      }
+
+      switch(string)
+      {
+        case 1004:
+          v4 = @"UNSUPPORTED_PLAYBACK_QUEUE_LOCATION_WITH_LIVE_RADIO";
+
+          return v4;
+        case 1005:
+          v4 = @"STILL_LOADING_CLOUD_LIBRARY";
+
+          return v4;
+        case 1006:
+          v4 = @"ITUNES_ACCOUNT_ERROR";
+
+          return v4;
+      }
+    }
+
+LABEL_92:
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+
+    return v4;
+  }
+
+  if (string <= 5)
+  {
+    if (string > 2)
+    {
+      if (string == 3)
+      {
+        v4 = @"UNSUPPORTED_MEDIA_TYPE";
+      }
+
+      else if (string == 4)
+      {
+        v4 = @"EXPLICIT_CONTENT_SETTINGS";
+      }
+
+      else
+      {
+        v4 = @"CELLULAR_DATA_SETTINGS";
+      }
+
+      return v4;
+    }
+
+    if (string == 1)
+    {
+      v4 = @"LOGIN_REQUIRED";
+
+      return v4;
+    }
+
+    if (string == 2)
+    {
+      v4 = @"SUBSCRIPTION_REQUIRED";
+
+      return v4;
+    }
+
+    goto LABEL_92;
+  }
+
+  if (string <= 8)
+  {
+    if (string == 6)
+    {
+      v4 = @"RESTRICTED_CONTENT";
+    }
+
+    else if (string == 7)
+    {
+      v4 = @"SERVICE_UNAVAILABLE";
+    }
+
+    else
+    {
+      v4 = @"REGION_RESTRICTION";
+    }
+
+    return v4;
+  }
+
+  switch(string)
+  {
+    case 9:
+      v4 = @"NOT_DOWNLOADED_FOR_OFFLINE";
+
+      break;
+    case 100:
+      v4 = @"APP_NOT_CONFIGURED";
+
+      break;
+    case 101:
+      v4 = @"APP_NOT_AVAILABLE";
+
+      return v4;
+    default:
+      goto LABEL_92;
+  }
+
+  return v4;
+}
+
 - (void)setHasPlayMediaIntentMediaItemsUnsupportedReason:(BOOL)reason
 {
   v3 = 0x200000;
@@ -4784,6 +5515,127 @@ LABEL_190:
   return v4;
 }
 
+- (id)addMediaIntentMediaItemsUnsupportedReasonAsString:(int)string
+{
+  if (string <= 7)
+  {
+    if (string > 3)
+    {
+      if (string > 5)
+      {
+        if (string == 6)
+        {
+          v4 = @"RESTRICTED_CONTENT";
+        }
+
+        else
+        {
+          v4 = @"SERVICE_UNAVAILABLE";
+        }
+      }
+
+      else if (string == 4)
+      {
+        v4 = @"EXPLICIT_CONTENT_SETTINGS";
+      }
+
+      else
+      {
+        v4 = @"CELLULAR_DATA_SETTINGS";
+      }
+
+      return v4;
+    }
+
+    switch(string)
+    {
+      case 1:
+        v4 = @"LOGIN_REQUIRED";
+
+        return v4;
+      case 2:
+        v4 = @"SUBSCRIPTION_REQUIRED";
+
+        return v4;
+      case 3:
+        v4 = @"UNSUPPORTED_MEDIA_TYPE";
+
+        return v4;
+    }
+
+LABEL_60:
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+
+    return v4;
+  }
+
+  if (string > 102)
+  {
+    if (string <= 104)
+    {
+      if (string == 103)
+      {
+        v4 = @"APP_DOESNT_SUPPORT_INTENT";
+      }
+
+      else
+      {
+        v4 = @"ALREADY_IN_LIBRARY";
+      }
+
+      return v4;
+    }
+
+    if (string == 105)
+    {
+      v4 = @"CLOUD_SYNC_OFF";
+
+      return v4;
+    }
+
+    if (string == 106)
+    {
+      v4 = @"GET_NOWPLAYING_FAILURE";
+
+      return v4;
+    }
+
+    goto LABEL_60;
+  }
+
+  if (string > 100)
+  {
+    if (string == 101)
+    {
+      v4 = @"APP_NOT_AVAILABLE";
+    }
+
+    else
+    {
+      v4 = @"APP_ACCOUNT_FAILURE";
+    }
+  }
+
+  else
+  {
+    if (string != 8)
+    {
+      if (string == 100)
+      {
+        v4 = @"APP_NOT_CONFIGURED";
+
+        return v4;
+      }
+
+      goto LABEL_60;
+    }
+
+    v4 = @"REGION_RESTRICTION";
+  }
+
+  return v4;
+}
+
 - (void)setHasAddMediaIntentMediaItemsUnsupportedReason:(BOOL)reason
 {
   v3 = 0x100000;
@@ -4830,6 +5682,26 @@ LABEL_190:
   return v4;
 }
 
+- (id)addMediaIntentMediaDestinationUnsupportedReasonAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"PLAYLIST_NAME_NOT_FOUND";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"PLAYLIST_NOT_EDITABLE";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
+}
+
 - (void)setHasAddMediaIntentMediaDestinationUnsupportedReason:(BOOL)reason
 {
   v3 = 0x80000;
@@ -4854,6 +5726,21 @@ LABEL_190:
     self->_has = (*&has | 0x80000);
     self->_addMediaIntentMediaDestinationUnsupportedReason = reason;
   }
+}
+
+- (id)createTimerIntentLabelUnsupportedReasonAsString:(int)string
+{
+  if (string)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = @"AMBIGUOUS_UNNAMED_TIMER";
+  }
+
+  return v4;
 }
 
 - (void)setHasCreateTimerIntentLabelUnsupportedReason:(BOOL)reason
@@ -4918,6 +5805,21 @@ LABEL_190:
   return v4;
 }
 
+- (id)reportIncidentIntentIncidentTypeUnsupportedReasonAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E72824E0[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasReportIncidentIntentIncidentTypeUnsupportedReason:(BOOL)reason
 {
   v3 = 0x20000;
@@ -4959,6 +5861,26 @@ LABEL_190:
     {
       v4 = 1;
     }
+  }
+
+  return v4;
+}
+
+- (id)joinCallIntentGroupConversationUnsupportedReasonAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"NO_ACTIVE_NOTIFICATIONS";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"NO_MATCHING_NOTIFICATIONS";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
   }
 
   return v4;
@@ -5010,6 +5932,26 @@ LABEL_190:
   return v4;
 }
 
+- (id)findDeviceAndPlaySoundIntentDeviceUnsupportedReasonAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"UNKNOWN";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"SERVICE_UNAVAILABLE";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
+}
+
 - (void)setHasFindDeviceAndPlaySoundIntentDeviceUnsupportedReason:(BOOL)reason
 {
   v3 = 0x8000;
@@ -5034,6 +5976,21 @@ LABEL_190:
     self->_has = (*&has | 0x8000);
     self->_findDeviceAndPlaySoundIntentDeviceUnsupportedReason = reason;
   }
+}
+
+- (id)dateTimeRangeUnsupportedReasonAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"PAST_DATE_TIME";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (void)setHasDateTimeRangeUnsupportedReason:(BOOL)reason
@@ -5099,6 +6056,21 @@ LABEL_190:
   return v4;
 }
 
+- (id)sendPaymentIntentCurrencyAmountUnsupportedReasonAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E72824C8[string - 1];
+  }
+
+  return v4;
+}
+
 - (void)setHasSendPaymentIntentCurrencyAmountUnsupportedReason:(BOOL)reason
 {
   v3 = 4096;
@@ -5146,6 +6118,21 @@ LABEL_190:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)requestPaymentIntentCurrencyAmountUnsupportedReasonAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E72824C8[string - 1];
   }
 
   return v4;
@@ -5233,6 +6220,22 @@ LABEL_190:
   return v4;
 }
 
+- (id)startCallIntentContactsUnsupportedReasonAsString:(int)string
+{
+  v4 = string - 1;
+  if (string - 1) < 0xA && ((0x2FFu >> v4))
+  {
+    v5 = off_1E7282478[v4];
+  }
+
+  else
+  {
+    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v5;
+}
+
 - (void)setHasStartCallIntentContactsUnsupportedReason:(BOOL)reason
 {
   v3 = 1024;
@@ -5279,6 +6282,26 @@ LABEL_190:
   return v4;
 }
 
+- (id)setTaskAttributeIntentContactEventTriggerUnsupportedReasonAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"ACCOUNT_DOES_NOT_SUPPORT";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"CLOUDKIT_NOT_UPGRADED";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
+}
+
 - (void)setHasSetTaskAttributeIntentContactEventTriggerUnsupportedReason:(BOOL)reason
 {
   v3 = 512;
@@ -5320,6 +6343,26 @@ LABEL_190:
     {
       v4 = 1;
     }
+  }
+
+  return v4;
+}
+
+- (id)addTasksIntentContactEventTriggerUnsupportedReasonAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"ACCOUNT_DOES_NOT_SUPPORT";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"CLOUDKIT_NOT_UPGRADED";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
   }
 
   return v4;
@@ -5378,6 +6421,21 @@ LABEL_190:
   MEMORY[0x1EEE66BB8](v4, conflictingParameters);
 }
 
+- (id)startCallIntentCallRecordToCallBackUnsupportedReasonAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"NO_MATCHING_CALL";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
+}
+
 - (void)setHasStartCallIntentCallRecordToCallBackUnsupportedReason:(BOOL)reason
 {
   v3 = 128;
@@ -5430,6 +6488,21 @@ LABEL_190:
   return v4;
 }
 
+- (id)startCallIntentCallCapabilityUnsupportedReasonAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7282460[string - 1];
+  }
+
+  return v4;
+}
+
 - (void)setHasStartCallIntentCallCapabilityUnsupportedReason:(BOOL)reason
 {
   v3 = 64;
@@ -5454,6 +6527,21 @@ LABEL_190:
     self->_has = (*&has | 0x40);
     self->_startCallIntentCallCapabilityUnsupportedReason = reason;
   }
+}
+
+- (id)sendAnnouncementIntentAnnouncementUnsupportedReasonAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"NO_ANNOUNCEMENT_TO_REPLY_TO";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (void)setHasSendAnnouncementIntentAnnouncementUnsupportedReason:(BOOL)reason
@@ -5493,6 +6581,29 @@ LABEL_190:
   else
   {
     v4 = [reasonCopy isEqualToString:@"CANT_SNOOZE_MUSIC_ALARM"];
+  }
+
+  return v4;
+}
+
+- (id)snoozeAlarmIntentAlarmsUnsupportedReasonAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"CANT_SNOOZE_MUSIC_ALARM";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"NO_ALARM_FIRING";
   }
 
   return v4;
@@ -5540,6 +6651,29 @@ LABEL_190:
   return v4;
 }
 
+- (id)searchAlarmIntentAlarmsUnsupportedReasonAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"NO_ALARM_EXISTS";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"NOT_FOUND";
+  }
+
+  return v4;
+}
+
 - (void)setHasSearchAlarmIntentAlarmsUnsupportedReason:(BOOL)reason
 {
   v3 = 8;
@@ -5577,6 +6711,29 @@ LABEL_190:
   else
   {
     v4 = [reasonCopy isEqualToString:@"NO_ALARM_EXISTS"];
+  }
+
+  return v4;
+}
+
+- (id)deleteAlarmIntentAlarmsUnsupportedReasonAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"NO_ALARM_EXISTS";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"NOT_FOUND";
   }
 
   return v4;
@@ -5649,6 +6806,21 @@ LABEL_190:
   return v4;
 }
 
+- (id)changeAlarmStatusIntentAlarmsUnsupportedReasonAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7282430[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasChangeAlarmStatusIntentAlarmsUnsupportedReason:(BOOL)reason
 {
   v3 = 2;
@@ -5696,6 +6868,34 @@ LABEL_190:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)updateAlarmIntentAlarmUnsupportedReasonAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 3)
+    {
+      v4 = @"SLEEP_ALARM_NOT_SUPPORTED";
+    }
+
+    else if (string == 1)
+    {
+      v4 = @"NO_ALARM_EXISTS";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"NOT_FOUND";
   }
 
   return v4;

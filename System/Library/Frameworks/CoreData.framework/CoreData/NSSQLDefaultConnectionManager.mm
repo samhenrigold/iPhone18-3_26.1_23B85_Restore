@@ -40,135 +40,133 @@
 
 uint64_t __57__NSSQLDefaultConnectionManager_disconnectAllConnections__block_invoke(uint64_t a1)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E696AAC8]);
   v3 = [MEMORY[0x1E695DF70] array];
-  v4 = *(a1 + 32);
   os_unfair_lock_lock_with_options();
-  v5 = [*(*(a1 + 32) + 32) count];
+  v4 = [*(*(a1 + 32) + 32) count];
   os_unfair_lock_unlock((*(a1 + 32) + 48));
-  if (v5)
+  if (v4)
   {
-    for (i = 0; i < v5; ++i)
+    for (i = 0; i < v4; ++i)
     {
-      v7 = [NSSQLDefaultConnectionManager _checkoutConnectionOfType:?];
-      if (v7)
+      v6 = [NSSQLDefaultConnectionManager _checkoutConnectionOfType:?];
+      if (v6)
       {
-        [v3 addObject:v7];
+        [v3 addObject:v6];
       }
 
       else
       {
-        v8 = *(a1 + 32);
         os_unfair_lock_lock_with_options();
-        v5 = [*(*(a1 + 32) + 32) count];
+        v4 = [*(*(a1 + 32) + 32) count];
         os_unfair_lock_unlock((*(a1 + 32) + 48));
       }
     }
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
-  v39 = 0u;
-  v9 = [v3 countByEnumeratingWithState:&v38 objects:v45 count:16];
-  if (v9)
-  {
-    v10 = *v39;
-    do
-    {
-      for (j = 0; j != v9; ++j)
-      {
-        if (*v39 != v10)
-        {
-          objc_enumerationMutation(v3);
-        }
-
-        [(NSSQLiteConnection *)*(*(&v38 + 1) + 8 * j) performAndWait:?];
-      }
-
-      v9 = [v3 countByEnumeratingWithState:&v38 objects:v45 count:16];
-    }
-
-    while (v9);
-  }
-
-  v36 = 0u;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v12 = [v3 countByEnumeratingWithState:&v34 objects:v44 count:16];
-  if (v12)
+  v36 = 0u;
+  v7 = [v3 countByEnumeratingWithState:&v35 objects:v42 count:16];
+  if (v7)
   {
-    v13 = *v35;
+    v8 = *v36;
     do
     {
-      for (k = 0; k != v12; ++k)
+      for (j = 0; j != v7; ++j)
       {
-        if (*v35 != v13)
+        if (*v36 != v8)
         {
           objc_enumerationMutation(v3);
         }
 
-        v15 = *(*(&v34 + 1) + 8 * k);
-        if (v15)
-        {
-
-          *(v15 + 208) = 0;
-        }
+        [(NSSQLiteConnection *)*(*(&v35 + 1) + 8 * j) performAndWait:?];
       }
 
-      v12 = [v3 countByEnumeratingWithState:&v34 objects:v44 count:16];
+      v7 = [v3 countByEnumeratingWithState:&v35 objects:v42 count:16];
     }
 
-    while (v12);
+    while (v7);
   }
 
-  v32 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v16 = [v3 countByEnumeratingWithState:&v30 objects:v43 count:16];
-  if (v16)
+  v32 = 0u;
+  v10 = [v3 countByEnumeratingWithState:&v31 objects:v41 count:16];
+  if (v10)
   {
-    v17 = *v31;
+    v11 = *v32;
     do
     {
-      for (m = 0; m != v16; ++m)
+      for (k = 0; k != v10; ++k)
       {
-        if (*v31 != v17)
+        if (*v32 != v11)
         {
           objc_enumerationMutation(v3);
         }
 
-        v19 = *(*(&v30 + 1) + 8 * m);
-        v29[0] = MEMORY[0x1E69E9820];
-        v29[1] = 3221225472;
-        v29[2] = __57__NSSQLDefaultConnectionManager_disconnectAllConnections__block_invoke_3;
-        v29[3] = &unk_1E6EC16F0;
-        v29[4] = v19;
-        [(NSSQLiteConnection *)v19 performAndWait:v29];
+        v13 = *(*(&v31 + 1) + 8 * k);
+        if (v13)
+        {
+
+          *(v13 + 208) = 0;
+        }
       }
 
-      v16 = [v3 countByEnumeratingWithState:&v30 objects:v43 count:16];
+      v10 = [v3 countByEnumeratingWithState:&v31 objects:v41 count:16];
     }
 
-    while (v16);
+    while (v10);
   }
 
+  v29 = 0u;
+  v30 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v20 = [v3 countByEnumeratingWithState:&v25 objects:v42 count:16];
-  if (v20)
+  v14 = [v3 countByEnumeratingWithState:&v27 objects:v40 count:16];
+  if (v14)
   {
-    v21 = *v26;
+    v15 = *v28;
     do
     {
-      for (n = 0; n != v20; ++n)
+      for (m = 0; m != v14; ++m)
       {
-        if (*v26 != v21)
+        if (*v28 != v15)
+        {
+          objc_enumerationMutation(v3);
+        }
+
+        v17 = *(*(&v27 + 1) + 8 * m);
+        v26[0] = MEMORY[0x1E69E9820];
+        v26[1] = 3221225472;
+        v26[2] = __57__NSSQLDefaultConnectionManager_disconnectAllConnections__block_invoke_3;
+        v26[3] = &unk_1E6EC16F0;
+        v26[4] = v17;
+        [(NSSQLiteConnection *)v17 performAndWait:v26];
+      }
+
+      v14 = [v3 countByEnumeratingWithState:&v27 objects:v40 count:16];
+    }
+
+    while (v14);
+  }
+
+  v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v18 = [v3 countByEnumeratingWithState:&v22 objects:v39 count:16];
+  if (v18)
+  {
+    v19 = *v23;
+    do
+    {
+      for (n = 0; n != v18; ++n)
+      {
+        if (*v23 != v19)
         {
           objc_enumerationMutation(v3);
         }
@@ -176,21 +174,19 @@ uint64_t __57__NSSQLDefaultConnectionManager_disconnectAllConnections__block_inv
         [(NSSQLDefaultConnectionManager *)*(a1 + 32) _checkinConnection:?];
       }
 
-      v20 = [v3 countByEnumeratingWithState:&v25 objects:v42 count:16];
+      v18 = [v3 countByEnumeratingWithState:&v22 objects:v39 count:16];
     }
 
-    while (v20);
+    while (v18);
   }
 
   [v3 removeAllObjects];
-  result = [v2 drain];
-  v24 = *MEMORY[0x1E69E9840];
-  return result;
+  return [v2 drain];
 }
 
 - (void)dealloc
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   processingQueue = self->_processingQueue;
   if (processingQueue)
   {
@@ -205,35 +201,35 @@ uint64_t __57__NSSQLDefaultConnectionManager_disconnectAllConnections__block_inv
 
   else
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     allConnections = self->_allConnections;
-    v5 = [(NSArray *)allConnections countByEnumeratingWithState:&v14 objects:v19 count:16];
+    v5 = [(NSArray *)allConnections countByEnumeratingWithState:&v13 objects:v18 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v15;
+      v7 = *v14;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(allConnections);
           }
 
-          v9 = *(*(&v14 + 1) + 8 * i);
-          v13[0] = MEMORY[0x1E69E9820];
-          v13[1] = 3221225472;
-          v13[2] = __40__NSSQLDefaultConnectionManager_dealloc__block_invoke_3;
-          v13[3] = &unk_1E6EC16F0;
-          v13[4] = v9;
-          [(NSSQLiteConnection *)v9 performAndWait:v13];
+          v9 = *(*(&v13 + 1) + 8 * i);
+          v12[0] = MEMORY[0x1E69E9820];
+          v12[1] = 3221225472;
+          v12[2] = __40__NSSQLDefaultConnectionManager_dealloc__block_invoke_3;
+          v12[3] = &unk_1E6EC16F0;
+          v12[4] = v9;
+          [(NSSQLiteConnection *)v9 performAndWait:v12];
         }
 
-        v6 = [(NSArray *)allConnections countByEnumeratingWithState:&v14 objects:v19 count:16];
+        v6 = [(NSArray *)allConnections countByEnumeratingWithState:&v13 objects:v18 count:16];
       }
 
       while (v6);
@@ -250,44 +246,43 @@ uint64_t __57__NSSQLDefaultConnectionManager_disconnectAllConnections__block_inv
     self->_poolCounter = 0;
   }
 
-  v12.receiver = self;
-  v12.super_class = NSSQLDefaultConnectionManager;
-  [(NSSQLConnectionManager *)&v12 dealloc];
-  v11 = *MEMORY[0x1E69E9840];
+  v11.receiver = self;
+  v11.super_class = NSSQLDefaultConnectionManager;
+  [(NSSQLConnectionManager *)&v11 dealloc];
 }
 
-uint64_t __40__NSSQLDefaultConnectionManager_dealloc__block_invoke(uint64_t a1)
+void *__40__NSSQLDefaultConnectionManager_dealloc__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E696AAC8]);
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = *(*(a1 + 32) + 32);
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
-        v10[0] = MEMORY[0x1E69E9820];
-        v10[1] = 3221225472;
-        v10[2] = __40__NSSQLDefaultConnectionManager_dealloc__block_invoke_2;
-        v10[3] = &unk_1E6EC16F0;
-        v10[4] = v7;
-        [(NSSQLiteConnection *)v7 performAndWait:v10];
+        v7 = *(*(&v10 + 1) + 8 * i);
+        v9[0] = MEMORY[0x1E69E9820];
+        v9[1] = 3221225472;
+        v9[2] = __40__NSSQLDefaultConnectionManager_dealloc__block_invoke_2;
+        v9[3] = &unk_1E6EC16F0;
+        v9[4] = v7;
+        [(NSSQLiteConnection *)v7 performAndWait:v9];
       }
 
-      v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
@@ -300,22 +295,21 @@ uint64_t __40__NSSQLDefaultConnectionManager_dealloc__block_invoke(uint64_t a1)
     objc_exception_rethrow();
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (NSSQLDefaultConnectionManager)initWithSQLCore:(id)core priority:(unint64_t)priority seedConnection:(id)connection
 {
-  v36 = *MEMORY[0x1E69E9840];
-  v31.receiver = self;
-  v31.super_class = NSSQLDefaultConnectionManager;
+  v35 = *MEMORY[0x1E69E9840];
+  v30.receiver = self;
+  v30.super_class = NSSQLDefaultConnectionManager;
   v9 = [NSSQLConnectionManager initWithSQLCore:sel_initWithSQLCore_priority_seedConnection_ priority:? seedConnection:?];
   if (!v9)
   {
-    goto LABEL_35;
+    return v9;
   }
 
-  v10 = [objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"SQLQueue: %@ : %p", objc_msgSend(objc_msgSend(core, "_persistentStoreCoordinator"), "name"), v9), "cStringUsingEncoding:", 1];
+  v10 = [objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] objc:"_persistentStoreCoordinator") msgSend(objc:{"name"), v9), "cStringUsingEncoding:", 1}msgSend(core];
   if (priority == 1)
   {
     v11 = QOS_CLASS_USER_INITIATED;
@@ -354,7 +348,7 @@ uint64_t __40__NSSQLDefaultConnectionManager_dealloc__block_invoke(uint64_t a1)
 LABEL_36:
           Name = sel_getName(a2);
           *buf = 136315138;
-          v35 = Name;
+          v34 = Name;
           _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: dispatch_queue_attr_make_with_qos_class() returned NULL in %s\n", buf, 0xCu);
         }
       }
@@ -376,8 +370,8 @@ LABEL_13:
   dispatch_release(v14);
   v9->_connectionLock._os_unfair_lock_opaque = 0;
   v9->_availableConnections = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v20 = [objc_msgSend(-[NSSQLConnectionManager sqlCore](v9 "sqlCore")];
-  if (+[_PFTask getPhysicalMemory]< 0x80000001)
+  v20 = objc_msgSend_valueForKey_([-[NSSQLConnectionManager sqlCore](v9 "sqlCore")]);
+  if (+[(_PFTask *)0x1ED4BE000]< 0x80000001)
   {
     v21 = 2;
   }
@@ -420,12 +414,12 @@ LABEL_13:
     [(NSMutableArray *)v9->_availableConnections addObject:v27];
     if (v26)
     {
-      v33[0] = MEMORY[0x1E69E9820];
-      v33[1] = 3221225472;
-      v33[2] = __64__NSSQLDefaultConnectionManager__initializeConnectionsWithSeed___block_invoke;
-      v33[3] = &unk_1E6EC16F0;
-      v33[4] = v27;
-      [(NSSQLiteConnection *)v27 performAndWait:v33];
+      v32[0] = MEMORY[0x1E69E9820];
+      v32[1] = 3221225472;
+      v32[2] = __64__NSSQLDefaultConnectionManager__initializeConnectionsWithSeed___block_invoke;
+      v32[3] = &unk_1E6EC16F0;
+      v32[4] = v27;
+      [(NSSQLiteConnection *)v27 performAndWait:v32];
     }
   }
 
@@ -434,19 +428,17 @@ LABEL_13:
     [(NSMutableArray *)v9->_availableConnections addObject:connection];
     if (v26)
     {
-      v32[0] = MEMORY[0x1E69E9820];
-      v32[1] = 3221225472;
-      v32[2] = __64__NSSQLDefaultConnectionManager__initializeConnectionsWithSeed___block_invoke_2;
-      v32[3] = &unk_1E6EC16F0;
-      v32[4] = connection;
-      [(NSSQLiteConnection *)connection performAndWait:v32];
+      v31[0] = MEMORY[0x1E69E9820];
+      v31[1] = 3221225472;
+      v31[2] = __64__NSSQLDefaultConnectionManager__initializeConnectionsWithSeed___block_invoke_2;
+      v31[3] = &unk_1E6EC16F0;
+      v31[4] = connection;
+      [(NSSQLiteConnection *)connection performAndWait:v31];
     }
   }
 
   v9->_allConnections = [(NSMutableArray *)v9->_availableConnections copy];
   v9->_poolCounter = dispatch_semaphore_create([(NSMutableArray *)v9->_availableConnections count]);
-LABEL_35:
-  v28 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -566,7 +558,6 @@ LABEL_35:
 
 uint64_t __52__NSSQLDefaultConnectionManager_handleStoreRequest___block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E696AAC8]);
   v3 = *(a1 + 32);
   *(*(*(a1 + 56) + 8) + 24) = [*(a1 + 40) executeRequestUsingConnection:v3];
@@ -574,9 +565,7 @@ uint64_t __52__NSSQLDefaultConnectionManager_handleStoreRequest___block_invoke(u
   [(NSSQLStoreRequestContext *)*(a1 + 40) setConnection:?];
   [(NSSQLDefaultConnectionManager *)*(a1 + 48) _checkinConnection:v3];
 
-  result = [v2 drain];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return [v2 drain];
 }
 
 - (void)scheduleBarrierBlock:(id)block
@@ -607,73 +596,71 @@ uint64_t __52__NSSQLDefaultConnectionManager_handleStoreRequest___block_invoke(u
 
 uint64_t __54__NSSQLDefaultConnectionManager_scheduleBarrierBlock___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E696AAC8]);
   v3 = [MEMORY[0x1E695DF70] array];
-  v4 = *(a1 + 32);
   os_unfair_lock_lock_with_options();
-  v5 = [*(*(a1 + 32) + 32) count];
+  v4 = [*(*(a1 + 32) + 32) count];
   os_unfair_lock_unlock((*(a1 + 32) + 48));
-  if (v5)
+  if (v4)
   {
-    for (i = 0; i < v5; ++i)
+    for (i = 0; i < v4; ++i)
     {
-      v7 = [NSSQLDefaultConnectionManager _checkoutConnectionOfType:?];
-      if (v7)
+      v6 = [NSSQLDefaultConnectionManager _checkoutConnectionOfType:?];
+      if (v6)
       {
-        [v3 addObject:v7];
+        [v3 addObject:v6];
       }
 
       else
       {
-        v8 = *(a1 + 32);
         os_unfair_lock_lock_with_options();
-        v5 = [*(*(a1 + 32) + 32) count];
+        v4 = [*(*(a1 + 32) + 32) count];
         os_unfair_lock_unlock((*(a1 + 32) + 48));
       }
     }
   }
 
-  v23 = 0u;
-  v24 = 0u;
+  v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v9 = [v3 countByEnumeratingWithState:&v21 objects:v26 count:16];
-  if (v9)
+  v18 = 0u;
+  v19 = 0u;
+  v7 = [v3 countByEnumeratingWithState:&v18 objects:v23 count:16];
+  if (v7)
   {
-    v10 = *v22;
+    v8 = *v19;
     do
     {
-      for (j = 0; j != v9; ++j)
+      for (j = 0; j != v7; ++j)
       {
-        if (*v22 != v10)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(v3);
         }
 
-        [(NSSQLiteConnection *)*(*(&v21 + 1) + 8 * j) performAndWait:?];
+        [(NSSQLiteConnection *)*(*(&v18 + 1) + 8 * j) performAndWait:?];
       }
 
-      v9 = [v3 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v7 = [v3 countByEnumeratingWithState:&v18 objects:v23 count:16];
     }
 
-    while (v9);
+    while (v7);
   }
 
   (*(*(a1 + 40) + 16))();
-  v19 = 0u;
-  v20 = 0u;
+  v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v12 = [v3 countByEnumeratingWithState:&v17 objects:v25 count:16];
-  if (v12)
+  v14 = 0u;
+  v15 = 0u;
+  v10 = [v3 countByEnumeratingWithState:&v14 objects:v22 count:16];
+  if (v10)
   {
-    v13 = *v18;
+    v11 = *v15;
     do
     {
-      for (k = 0; k != v12; ++k)
+      for (k = 0; k != v10; ++k)
       {
-        if (*v18 != v13)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(v3);
         }
@@ -681,16 +668,14 @@ uint64_t __54__NSSQLDefaultConnectionManager_scheduleBarrierBlock___block_invoke
         [(NSSQLDefaultConnectionManager *)*(a1 + 32) _checkinConnection:?];
       }
 
-      v12 = [v3 countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v10 = [v3 countByEnumeratingWithState:&v14 objects:v22 count:16];
     }
 
-    while (v12);
+    while (v10);
   }
 
   [v3 removeAllObjects];
-  result = [v2 drain];
-  v16 = *MEMORY[0x1E69E9840];
-  return result;
+  return [v2 drain];
 }
 
 - (void)scheduleConnectionsBarrier:(id)barrier
@@ -721,80 +706,78 @@ uint64_t __54__NSSQLDefaultConnectionManager_scheduleBarrierBlock___block_invoke
 
 uint64_t __60__NSSQLDefaultConnectionManager_scheduleConnectionsBarrier___block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E696AAC8]);
   v3 = [MEMORY[0x1E695DF70] array];
-  v4 = *(a1 + 32);
   os_unfair_lock_lock_with_options();
-  v5 = [*(*(a1 + 32) + 32) count];
+  v4 = [*(*(a1 + 32) + 32) count];
   os_unfair_lock_unlock((*(a1 + 32) + 48));
-  if (v5)
+  if (v4)
   {
-    for (i = 0; i < v5; ++i)
+    for (i = 0; i < v4; ++i)
     {
-      v7 = [NSSQLDefaultConnectionManager _checkoutConnectionOfType:?];
-      if (v7)
+      v6 = [NSSQLDefaultConnectionManager _checkoutConnectionOfType:?];
+      if (v6)
       {
-        [v3 addObject:v7];
+        [v3 addObject:v6];
       }
 
       else
       {
-        v8 = *(a1 + 32);
         os_unfair_lock_lock_with_options();
-        v5 = [*(*(a1 + 32) + 32) count];
+        v4 = [*(*(a1 + 32) + 32) count];
         os_unfair_lock_unlock((*(a1 + 32) + 48));
       }
     }
   }
 
-  v26 = 0u;
-  v27 = 0u;
+  v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v9 = [v3 countByEnumeratingWithState:&v24 objects:v29 count:16];
-  if (v9)
+  v21 = 0u;
+  v22 = 0u;
+  v7 = [v3 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  if (v7)
   {
-    v10 = *v25;
+    v8 = *v22;
     do
     {
-      for (j = 0; j != v9; ++j)
+      for (j = 0; j != v7; ++j)
       {
-        if (*v25 != v10)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(v3);
         }
 
-        v12 = *(*(&v24 + 1) + 8 * j);
-        v23[0] = MEMORY[0x1E69E9820];
-        v23[1] = 3221225472;
-        v23[2] = __60__NSSQLDefaultConnectionManager_scheduleConnectionsBarrier___block_invoke_2;
-        v23[3] = &unk_1E6EC29D8;
-        v13 = *(a1 + 40);
-        v23[4] = v12;
-        v23[5] = v13;
-        [(NSSQLiteConnection *)v12 performAndWait:v23];
+        v10 = *(*(&v21 + 1) + 8 * j);
+        v20[0] = MEMORY[0x1E69E9820];
+        v20[1] = 3221225472;
+        v20[2] = __60__NSSQLDefaultConnectionManager_scheduleConnectionsBarrier___block_invoke_2;
+        v20[3] = &unk_1E6EC29D8;
+        v11 = *(a1 + 40);
+        v20[4] = v10;
+        v20[5] = v11;
+        [(NSSQLiteConnection *)v10 performAndWait:v20];
       }
 
-      v9 = [v3 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v7 = [v3 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
-    while (v9);
+    while (v7);
   }
 
-  v21 = 0u;
-  v22 = 0u;
+  v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v14 = [v3 countByEnumeratingWithState:&v19 objects:v28 count:16];
-  if (v14)
+  v16 = 0u;
+  v17 = 0u;
+  v12 = [v3 countByEnumeratingWithState:&v16 objects:v25 count:16];
+  if (v12)
   {
-    v15 = *v20;
+    v13 = *v17;
     do
     {
-      for (k = 0; k != v14; ++k)
+      for (k = 0; k != v12; ++k)
       {
-        if (*v20 != v15)
+        if (*v17 != v13)
         {
           objc_enumerationMutation(v3);
         }
@@ -802,60 +785,57 @@ uint64_t __60__NSSQLDefaultConnectionManager_scheduleConnectionsBarrier___block_
         [(NSSQLDefaultConnectionManager *)*(a1 + 32) _checkinConnection:?];
       }
 
-      v14 = [v3 countByEnumeratingWithState:&v19 objects:v28 count:16];
+      v12 = [v3 countByEnumeratingWithState:&v16 objects:v25 count:16];
     }
 
-    while (v14);
+    while (v12);
   }
 
   [v3 removeAllObjects];
-  result = [v2 drain];
-  v18 = *MEMORY[0x1E69E9840];
-  return result;
+  return [v2 drain];
 }
 
 - (void)enumerateAvailableConnectionsWithBlock:(id)block
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v11 = objc_alloc_init(MEMORY[0x1E696AAC8]);
+  v17 = *MEMORY[0x1E69E9840];
+  v10 = objc_alloc_init(MEMORY[0x1E696AAC8]);
   os_unfair_lock_lock_with_options();
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   availableConnections = self->_availableConnections;
-  v6 = [(NSMutableArray *)availableConnections countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [(NSMutableArray *)availableConnections countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(availableConnections);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
-        v12[0] = MEMORY[0x1E69E9820];
-        v12[1] = 3221225472;
-        v12[2] = __72__NSSQLDefaultConnectionManager_enumerateAvailableConnectionsWithBlock___block_invoke;
-        v12[3] = &unk_1E6EC29D8;
-        v12[4] = v9;
-        v12[5] = block;
-        [(NSSQLiteConnection *)v9 performAndWait:v12];
+        v9 = *(*(&v12 + 1) + 8 * i);
+        v11[0] = MEMORY[0x1E69E9820];
+        v11[1] = 3221225472;
+        v11[2] = __72__NSSQLDefaultConnectionManager_enumerateAvailableConnectionsWithBlock___block_invoke;
+        v11[3] = &unk_1E6EC29D8;
+        v11[4] = v9;
+        v11[5] = block;
+        [(NSSQLiteConnection *)v9 performAndWait:v11];
       }
 
-      v6 = [(NSMutableArray *)availableConnections countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [(NSMutableArray *)availableConnections countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
 
   os_unfair_lock_unlock(&self->_connectionLock);
-  [v11 drain];
-  v10 = *MEMORY[0x1E69E9840];
+  [v10 drain];
 }
 
 @end

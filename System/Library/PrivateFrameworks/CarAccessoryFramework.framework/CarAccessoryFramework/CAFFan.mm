@@ -22,7 +22,10 @@
 - (NSString)vehicleLayoutKey;
 - (id)name;
 - (unsigned)fanLevel;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
+- (void)setFanLevel:(unsigned __int8)level;
+- (void)setOn:(BOOL)on;
 - (void)unregisterObserver:(id)observer;
 @end
 
@@ -121,6 +124,13 @@
   return uint8Value;
 }
 
+- (void)setFanLevel:(unsigned __int8)level
+{
+  levelCopy = level;
+  fanLevelCharacteristic = [(CAFFan *)self fanLevelCharacteristic];
+  [fanLevelCharacteristic setUint8Value:levelCopy];
+}
+
 - (CAFUInt8Range)fanLevelRange
 {
   fanLevelCharacteristic = [(CAFFan *)self fanLevelCharacteristic];
@@ -185,6 +195,13 @@
   bOOLValue = [onCharacteristic BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setOn:(BOOL)on
+{
+  onCopy = on;
+  onCharacteristic = [(CAFFan *)self onCharacteristic];
+  [onCharacteristic setBoolValue:onCopy];
 }
 
 - (BOOL)hasOn
@@ -293,6 +310,102 @@
   stringValue = [vehicleLayoutKeyCharacteristic stringValue];
 
   return stringValue;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000031000012"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    fanLevelCharacteristic = [(CAFFan *)self fanLevelCharacteristic];
+    uniqueIdentifier2 = [fanLevelCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [observers fanService:self didUpdateFanLevel:{-[CAFFan fanLevel](self, "fanLevel")}];
+LABEL_16:
+
+      goto LABEL_17;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000030000002"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    onCharacteristic = [(CAFFan *)self onCharacteristic];
+    uniqueIdentifier4 = [onCharacteristic uniqueIdentifier];
+    v17 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v17)
+    {
+      observers = [(CAFService *)self observers];
+      [observers fanService:self didUpdateOn:{-[CAFFan on](self, "on")}];
+      goto LABEL_16;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x000000003000005F"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    autoModeCharacteristic = [(CAFFan *)self autoModeCharacteristic];
+    uniqueIdentifier6 = [autoModeCharacteristic uniqueIdentifier];
+    v22 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v22)
+    {
+      observers = [(CAFService *)self observers];
+      [observers fanService:self didUpdateAutoMode:{-[CAFFan autoMode](self, "autoMode")}];
+      goto LABEL_16;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000036000065"])
+  {
+    goto LABEL_16;
+  }
+
+  uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+  vehicleLayoutKeyCharacteristic = [(CAFFan *)self vehicleLayoutKeyCharacteristic];
+  uniqueIdentifier8 = [vehicleLayoutKeyCharacteristic uniqueIdentifier];
+  v26 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+  if (v26)
+  {
+    observers2 = [(CAFService *)self observers];
+    vehicleLayoutKey = [(CAFFan *)self vehicleLayoutKey];
+    [observers2 fanService:self didUpdateVehicleLayoutKey:vehicleLayoutKey];
+
+    observers = [(CAFService *)self observers];
+    name = [(CAFFan *)self name];
+    [observers fanService:self didUpdateName:name];
+
+    goto LABEL_16;
+  }
+
+LABEL_17:
+  v30.receiver = self;
+  v30.super_class = CAFFan;
+  [(CAFService *)&v30 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForFanLevel

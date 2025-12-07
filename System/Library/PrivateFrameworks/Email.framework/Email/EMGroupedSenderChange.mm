@@ -3,6 +3,7 @@
 + (id)changeFrom:(id)from to:(id)to;
 - (BOOL)applyToMessageListItem:(id)item;
 - (EMGroupedSenderChange)initWithCoder:(id)coder;
+- (id)changeDescriptionsForInternal:(BOOL)internal useDebugDescriptions:(BOOL)descriptions;
 - (void)addChange:(id)change;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -188,6 +189,91 @@
 
   unseenCount = [(EMGroupedSenderChange *)self unseenCount];
   [coderCopy encodeObject:unseenCount forKey:@"EFPropertyKey_unseenCount"];
+}
+
+- (id)changeDescriptionsForInternal:(BOOL)internal useDebugDescriptions:(BOOL)descriptions
+{
+  descriptionsCopy = descriptions;
+  v25.receiver = self;
+  v25.super_class = EMGroupedSenderChange;
+  v6 = [(EMMessageListItemChange *)&v25 changeDescriptionsForInternal:internal useDebugDescriptions:?];
+  v7 = [v6 mutableCopy];
+
+  unreadCount = [(EMGroupedSenderChange *)self unreadCount];
+
+  if (unreadCount)
+  {
+    if (descriptionsCopy)
+    {
+      unreadCount2 = [(EMGroupedSenderChange *)self unreadCount];
+      v10 = [unreadCount2 debugDescription];
+    }
+
+    else
+    {
+      unreadCount3 = [(EMGroupedSenderChange *)self unreadCount];
+      objc_opt_class();
+      isKindOfClass = objc_opt_isKindOfClass();
+
+      if (isKindOfClass)
+      {
+        v13 = MEMORY[0x1E699B858];
+        unreadCount2 = [(EMGroupedSenderChange *)self unreadCount];
+        [v13 partiallyRedactedStringForString:unreadCount2];
+      }
+
+      else
+      {
+        unreadCount2 = [(EMGroupedSenderChange *)self unreadCount];
+        [unreadCount2 description];
+      }
+      v10 = ;
+    }
+
+    v14 = v10;
+
+    v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"unreadCount: %@", v14];
+    [v7 addObject:v15];
+  }
+
+  unseenCount = [(EMGroupedSenderChange *)self unseenCount];
+
+  if (unseenCount)
+  {
+    if (descriptionsCopy)
+    {
+      unseenCount2 = [(EMGroupedSenderChange *)self unseenCount];
+      v18 = [unseenCount2 debugDescription];
+    }
+
+    else
+    {
+      unseenCount3 = [(EMGroupedSenderChange *)self unseenCount];
+      objc_opt_class();
+      v20 = objc_opt_isKindOfClass();
+
+      if (v20)
+      {
+        v21 = MEMORY[0x1E699B858];
+        unseenCount2 = [(EMGroupedSenderChange *)self unseenCount];
+        [v21 partiallyRedactedStringForString:unseenCount2];
+      }
+
+      else
+      {
+        unseenCount2 = [(EMGroupedSenderChange *)self unseenCount];
+        [unseenCount2 description];
+      }
+      v18 = ;
+    }
+
+    v22 = v18;
+
+    v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"unseenCount: %@", v22];
+    [v7 addObject:v23];
+  }
+
+  return v7;
 }
 
 @end

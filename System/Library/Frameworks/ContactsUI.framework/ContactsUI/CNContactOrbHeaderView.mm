@@ -335,11 +335,11 @@ LABEL_12:
 - (void)reloadData
 {
   [(CNContactPhotoView *)self->_photoView resetPhoto];
-  contacts = [(CNContactOrbHeaderView *)self contacts];
-  v17 = [(CNContactOrbHeaderView *)self _headerStringForContacts:contacts];
+  v3 = objc_msgSend_contacts(self);
+  v17 = [(CNContactOrbHeaderView *)self _headerStringForContacts:v3];
 
-  contacts2 = [(CNContactOrbHeaderView *)self contacts];
-  v5 = [(CNContactOrbHeaderView *)self _taglineStringForContacts:contacts2];
+  v4 = objc_msgSend_contacts(self);
+  v5 = [(CNContactOrbHeaderView *)self _taglineStringForContacts:v4];
 
   message = [(CNContactOrbHeaderView *)self message];
   if ([v5 isEqualToString:message])
@@ -412,16 +412,16 @@ LABEL_18:
   [(UILabel *)self->_taglineLabel setAb_text:v5];
   photoView = [(CNContactOrbHeaderView *)self photoView];
   isHidden = [photoView isHidden];
-  contacts3 = [(CNContactOrbHeaderView *)self contacts];
-  if ([contacts3 count] > 1)
+  v13 = objc_msgSend_contacts(self);
+  if ([v13 count] > 1)
   {
     [photoView setHidden:0];
   }
 
   else
   {
-    contacts4 = [(CNContactOrbHeaderView *)self contacts];
-    firstObject = [contacts4 firstObject];
+    v14 = objc_msgSend_contacts(self);
+    firstObject = [v14 firstObject];
     if ([firstObject imageDataAvailable])
     {
       v16 = 0;

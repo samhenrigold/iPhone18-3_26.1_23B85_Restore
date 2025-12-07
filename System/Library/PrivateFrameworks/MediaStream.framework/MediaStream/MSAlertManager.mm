@@ -11,7 +11,7 @@
 
 - (void)displayAlertForPersonID:(id)d notificationDict:(id)dict completionBlock:(id)block
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dCopy = d;
   blockCopy = block;
   error = 0;
@@ -54,11 +54,9 @@
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 134217984;
-    v19 = error;
+    v18 = error;
     _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to create user notification. Error: %ld", buf, 0xCu);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_showNotificationInfo:(id)info
@@ -91,7 +89,7 @@
 
 - (void)_dismissNotificationForPersonID:(id)d
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = [(NSMutableDictionary *)self->_personIDToNotification objectForKey:dCopy];
 
@@ -99,9 +97,9 @@
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v15 = 138412290;
-      v16 = dCopy;
-      _os_log_debug_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Dismissing notification for personID %@", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = dCopy;
+      _os_log_debug_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Dismissing notification for personID %@", &v14, 0xCu);
     }
 
     v6 = [(NSMutableDictionary *)self->_personIDToNotification objectForKey:dCopy];
@@ -140,13 +138,11 @@
 
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v15 = 138412290;
-      v16 = dCopy;
-      _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Cannot find notification associated with person ID %@ to dismiss. Ignoring.", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = dCopy;
+      _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Cannot find notification associated with person ID %@ to dismiss. Ignoring.", &v14, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_userDidRespondToNotification:(__CFUserNotification *)notification info:(id)info responseFlags:(unint64_t)flags

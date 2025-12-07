@@ -6,6 +6,7 @@
 - (void)beginSIMSetupExternalAuthentication;
 - (void)connectToDaemon;
 - (void)dismissProximityPinCode;
+- (void)displayProximityPinCode:(id)code visual:(BOOL)visual;
 - (void)endAdvertisingProximitySetup;
 - (void)endDeviceToDeviceMigration;
 - (void)endPairing;
@@ -67,23 +68,23 @@
   [connection6 resume];
 }
 
-void __53__BYBuddyDaemonProximityTargetClient_connectToDaemon__block_invoke()
+void __53__BYBuddyDaemonProximityTargetClient_connectToDaemon__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = _BYLoggingFacility();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = _BYLoggingFacility(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1B862F000, v0, OS_LOG_TYPE_DEFAULT, "Proximity target client connection invalidated!", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_1B862F000, v2, OS_LOG_TYPE_DEFAULT, "Proximity target client connection invalidated!", v3, 2u);
   }
 }
 
-void __53__BYBuddyDaemonProximityTargetClient_connectToDaemon__block_invoke_94()
+void __53__BYBuddyDaemonProximityTargetClient_connectToDaemon__block_invoke_94(uint64_t a1, uint64_t a2)
 {
-  v0 = _BYLoggingFacility();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = _BYLoggingFacility(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1B862F000, v0, OS_LOG_TYPE_DEFAULT, "Proximity target client connection interruption!", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_1B862F000, v2, OS_LOG_TYPE_DEFAULT, "Proximity target client connection interruption!", v3, 2u);
   }
 }
 
@@ -176,40 +177,39 @@ uint64_t __59__BYBuddyDaemonProximityTargetClient_resumeProximitySetup___block_i
 
 void __55__BYBuddyDaemonProximityTargetClient_storeInformation___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _BYLoggingFacility();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v4 = _BYLoggingFacility(v3);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  if (v5)
   {
-    if (_BYIsInternalInstall())
+    if (_BYIsInternalInstall(v5, v6))
     {
-      v5 = 0;
-      v6 = v3;
+      v7 = 0;
+      v8 = v3;
     }
 
     else if (v3)
     {
-      v7 = MEMORY[0x1E696AEC0];
+      v9 = MEMORY[0x1E696AEC0];
       v2 = [v3 domain];
-      v6 = [v7 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
-      v5 = 1;
+      v8 = [v9 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
+      v7 = 1;
     }
 
     else
     {
-      v5 = 0;
-      v6 = 0;
+      v7 = 0;
+      v8 = 0;
     }
 
     *buf = 138543362;
-    v10 = v6;
+    v11 = v8;
     _os_log_impl(&dword_1B862F000, v4, OS_LOG_TYPE_DEFAULT, "Unable to store proximity information: %{public}@", buf, 0xCu);
-    if (v5)
+    if (v7)
     {
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)storeHandshake:(id)handshake
@@ -222,40 +222,39 @@ void __55__BYBuddyDaemonProximityTargetClient_storeInformation___block_invoke(ui
 
 void __53__BYBuddyDaemonProximityTargetClient_storeHandshake___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _BYLoggingFacility();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v4 = _BYLoggingFacility(v3);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  if (v5)
   {
-    if (_BYIsInternalInstall())
+    if (_BYIsInternalInstall(v5, v6))
     {
-      v5 = 0;
-      v6 = v3;
+      v7 = 0;
+      v8 = v3;
     }
 
     else if (v3)
     {
-      v7 = MEMORY[0x1E696AEC0];
+      v9 = MEMORY[0x1E696AEC0];
       v2 = [v3 domain];
-      v6 = [v7 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
-      v5 = 1;
+      v8 = [v9 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
+      v7 = 1;
     }
 
     else
     {
-      v5 = 0;
-      v6 = 0;
+      v7 = 0;
+      v8 = 0;
     }
 
     *buf = 138543362;
-    v10 = v6;
+    v11 = v8;
     _os_log_impl(&dword_1B862F000, v4, OS_LOG_TYPE_DEFAULT, "Unable to store proximity handshake: %{public}@", buf, 0xCu);
-    if (v5)
+    if (v7)
     {
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)fileTransferSessionTemplate
@@ -283,40 +282,39 @@ void __53__BYBuddyDaemonProximityTargetClient_storeHandshake___block_invoke(uint
 
 void __65__BYBuddyDaemonProximityTargetClient_fileTransferSessionTemplate__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _BYLoggingFacility();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v4 = _BYLoggingFacility(v3);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+  if (v5)
   {
-    if (_BYIsInternalInstall())
+    if (_BYIsInternalInstall(v5, v6))
     {
-      v6 = 0;
-      v7 = v3;
+      v7 = 0;
+      v8 = v3;
     }
 
     else if (v3)
     {
-      v8 = MEMORY[0x1E696AEC0];
+      v9 = MEMORY[0x1E696AEC0];
       v2 = [v3 domain];
-      v7 = [v8 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
-      v6 = 1;
+      v8 = [v9 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
+      v7 = 1;
     }
 
     else
     {
-      v6 = 0;
       v7 = 0;
+      v8 = 0;
     }
 
     *buf = 138543362;
-    v10 = v7;
+    v11 = v8;
     _os_log_error_impl(&dword_1B862F000, v4, OS_LOG_TYPE_ERROR, "Unable to begin device to device migration: %{public}@", buf, 0xCu);
-    if (v6)
+    if (v7)
     {
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)endDeviceToDeviceMigration
@@ -360,6 +358,14 @@ void __65__BYBuddyDaemonProximityTargetClient_fileTransferSessionTemplate__block
   completedCopy = completed;
   delegate = [(BYBuddyDaemonProximityTargetClient *)self delegate];
   [delegate proximitySetupCompleted:completedCopy];
+}
+
+- (void)displayProximityPinCode:(id)code visual:(BOOL)visual
+{
+  visualCopy = visual;
+  codeCopy = code;
+  delegate = [(BYBuddyDaemonProximityTargetClient *)self delegate];
+  [delegate displayProximityPinCode:codeCopy visual:visualCopy];
 }
 
 - (void)dismissProximityPinCode

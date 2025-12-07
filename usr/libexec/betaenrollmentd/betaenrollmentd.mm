@@ -1,6 +1,6 @@
-void sub_100000800()
+void sub_100000800(uint64_t a1)
 {
-  bzero(v10, 0x400uLL);
+  bzero(v11, 0x400uLL);
   pw_dir = getenv("HOME");
   if (!pw_dir)
   {
@@ -9,9 +9,9 @@ void sub_100000800()
       sub_100000A9C();
     }
 
-    v1 = getuid();
-    v2 = getpwuid(v1);
-    if (!v2)
+    v2 = getuid();
+    v3 = getpwuid(v2);
+    if (!v3)
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
@@ -22,11 +22,11 @@ LABEL_28:
       exit(1);
     }
 
-    pw_dir = v2->pw_dir;
+    pw_dir = v3->pw_dir;
   }
 
-  v3 = realpath_DARWIN_EXTSN(pw_dir, 0);
-  if (!v3)
+  v4 = realpath_DARWIN_EXTSN(pw_dir, 0);
+  if (!v4)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
@@ -36,8 +36,8 @@ LABEL_28:
     goto LABEL_28;
   }
 
-  v4 = v3;
-  if (!_set_user_dir_suffix() || !confstr(65537, v10, 0x400uLL))
+  v5 = v4;
+  if (!_set_user_dir_suffix() || !confstr(65537, v11, 0x400uLL))
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
@@ -47,8 +47,8 @@ LABEL_28:
     goto LABEL_28;
   }
 
-  v5 = realpath_DARWIN_EXTSN(v10, 0);
-  if (!v5)
+  v6 = realpath_DARWIN_EXTSN(v11, 0);
+  if (!v6)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
@@ -58,8 +58,8 @@ LABEL_28:
     goto LABEL_28;
   }
 
-  v6 = v5;
-  if (!confstr(65538, v10, 0x400uLL))
+  v7 = v6;
+  if (!confstr(65538, v11, 0x400uLL))
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
@@ -69,8 +69,8 @@ LABEL_28:
     goto LABEL_28;
   }
 
-  v7 = realpath_DARWIN_EXTSN(v10, 0);
-  if (!v7)
+  v8 = realpath_DARWIN_EXTSN(v11, 0);
+  if (!v8)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
@@ -80,34 +80,35 @@ LABEL_28:
     goto LABEL_28;
   }
 
-  v8 = v7;
-  v9[1] = "HOME";
-  v9[2] = v4;
-  v9[3] = "TMPDIR";
-  v9[4] = v6;
-  v9[5] = "DARWIN_CACHE_DIR";
-  v9[6] = v7;
-  v9[7] = 0;
-  v9[0] = 0;
+  v9 = v8;
+  v10[1] = "HOME";
+  v10[2] = v5;
+  v10[3] = "TMPDIR";
+  v10[4] = v7;
+  v10[5] = "DARWIN_CACHE_DIR";
+  v10[6] = v8;
+  v10[7] = 0;
+  v10[0] = 0;
   if (sandbox_init_with_parameters())
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_100000AE4(v9);
+      sub_100000AE4(v10);
     }
 
     goto LABEL_28;
   }
 
-  free(v4);
-  free(v6);
-  free(v8);
+  free(v5);
+  free(v7);
+  free(v9);
 }
 
-void sub_100000A40(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100000A40(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
 void start()
@@ -129,35 +130,42 @@ void sub_100000AE4(uint64_t *a1)
 
 void sub_100000B68()
 {
-  v0 = *__error();
+  __error();
   sub_100000A5C();
-  sub_100000A40(&_mh_execute_header, &_os_log_default, v1, "failed to resolve cache directory: %{darwin.errno}d", v2, v3, v4, v5, v6);
+  sub_100000A40(&_mh_execute_header, &_os_log_default, v0, "failed to resolve cache directory: %{darwin.errno}d", v1, v2, v3, v4);
 }
 
 void sub_100000BE0()
 {
-  v0 = *__error();
+  __error();
   sub_100000A5C();
-  sub_100000A40(&_mh_execute_header, &_os_log_default, v1, "failed to initialize cache directory: %{darwin.errno}d", v2, v3, v4, v5, v6);
+  sub_100000A40(&_mh_execute_header, &_os_log_default, v0, "failed to initialize cache directory: %{darwin.errno}d", v1, v2, v3, v4);
 }
 
 void sub_100000C58()
 {
-  v0 = *__error();
+  __error();
   sub_100000A5C();
-  sub_100000A40(&_mh_execute_header, &_os_log_default, v1, "failed to resolve temporary directory: %{darwin.errno}d", v2, v3, v4, v5, v6);
+  sub_100000A40(&_mh_execute_header, &_os_log_default, v0, "failed to resolve temporary directory: %{darwin.errno}d", v1, v2, v3, v4);
 }
 
 void sub_100000CD0()
 {
-  v0 = *__error();
+  __error();
   sub_100000A5C();
-  sub_100000A40(&_mh_execute_header, &_os_log_default, v1, "failed to initialize temporary directory: %{darwin.errno}d", v2, v3, v4, v5, v6);
+  sub_100000A40(&_mh_execute_header, &_os_log_default, v0, "failed to initialize temporary directory: %{darwin.errno}d", v1, v2, v3, v4);
 }
 
 void sub_100000D48()
 {
-  v0 = *__error();
+  __error();
   sub_100000A5C();
-  sub_100000A40(&_mh_execute_header, &_os_log_default, v1, "failed to resolve user's home directory: %{darwin.errno}d", v2, v3, v4, v5, v6);
+  sub_100000A40(&_mh_execute_header, &_os_log_default, v0, "failed to resolve user's home directory: %{darwin.errno}d", v1, v2, v3, v4);
+}
+
+void sub_100000DC0()
+{
+  LODWORD(v5) = 67109120;
+  HIDWORD(v5) = getuid();
+  sub_100000A40(&_mh_execute_header, &_os_log_default, v0, "failed to get passwd entry for uid %u", v1, v2, v3, v4, v5);
 }

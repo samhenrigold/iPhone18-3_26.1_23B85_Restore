@@ -11,40 +11,29 @@
 - (UIColor)color
 {
   tintColorName = [(MTCoreMaterialVisualStyling *)self->_coreMaterialVisualStyling tintColorName];
-  if (![tintColorName length])
+  if (![tintColorName length] || !NSSelectorFromString(tintColorName) || (objc_opt_respondsToSelector() & 1) == 0)
   {
     goto LABEL_7;
   }
 
-  v4 = NSSelectorFromString(tintColorName);
+  v4 = [MEMORY[0x277D75348] performSelector:?];
+  if ([(MTCoreMaterialVisualStyling *)self->_coreMaterialVisualStyling tintColorUIStyle]>= 1)
+  {
+    v5 = [MEMORY[0x277D75C80] traitCollectionWithUserInterfaceStyle:?];
+    v6 = [v4 resolvedColorWithTraitCollection:?];
+
+    v4 = v6;
+  }
+
   if (!v4)
   {
-    goto LABEL_7;
-  }
-
-  v5 = v4;
-  if ((objc_opt_respondsToSelector() & 1) == 0)
-  {
-    goto LABEL_7;
-  }
-
-  v6 = [MEMORY[0x277D75348] performSelector:v5];
-  tintColorUIStyle = [(MTCoreMaterialVisualStyling *)self->_coreMaterialVisualStyling tintColorUIStyle];
-  if (tintColorUIStyle >= 1)
-  {
-    v8 = [MEMORY[0x277D75C80] traitCollectionWithUserInterfaceStyle:tintColorUIStyle];
-    v9 = [v6 resolvedColorWithTraitCollection:v8];
-
-    v6 = v9;
-  }
-
-  if (!v6)
-  {
 LABEL_7:
-    v6 = [MEMORY[0x277D75348] colorWithCGColor:{-[MTCoreMaterialVisualStyling tintColor](self->_coreMaterialVisualStyling, "tintColor")}];
+    v7 = MEMORY[0x277D75348];
+    [(MTCoreMaterialVisualStyling *)self->_coreMaterialVisualStyling tintColor];
+    v4 = [v7 colorWithCGColor:?];
   }
 
-  return v6;
+  return v4;
 }
 
 - (void)applyToView:(id)view withColorBlock:(id)block
@@ -66,7 +55,7 @@ LABEL_7:
   v9 = MEMORY[0x223D601D0](v12);
   _coreMaterialVisualStyling = [(MTVisualStyling *)self _coreMaterialVisualStyling];
   layer = [viewCopy layer];
-  [_coreMaterialVisualStyling _applyToLayer:layer withColorBlock:v9];
+  [_coreMaterialVisualStyling _applyToLayer:? withColorBlock:?];
 
   if ((v16[3] & 1) == 0)
   {
@@ -90,7 +79,7 @@ void __68__MTVisualStyling_VisualStylingSupport__applyToView_withColorBlock___bl
 
     else
     {
-      v6 = [MEMORY[0x277D75348] colorWithCGColor:a2];
+      v6 = [MEMORY[0x277D75348] colorWithCGColor:?];
     }
 
     v8 = v6;
@@ -121,38 +110,20 @@ void __68__MTVisualStyling_VisualStylingSupport__applyToView_withColorBlock___bl
 
 - (id)_layerConfig
 {
-  v20[1] = *MEMORY[0x277D85DE8];
-  v17 = 0;
-  v18 = 0;
-  [(MTCoreMaterialVisualStyling *)self->_coreMaterialVisualStyling _getCompositingFilter:&v17 tintColor:&v18];
-  v3 = v17;
-  if (v3 | v18)
+  [MTCoreMaterialVisualStyling _getCompositingFilter:"_getCompositingFilter:tintColor:" tintColor:?];
+  v3 = 0;
+  if (v3 == 0)
   {
-    v4 = MEMORY[0x277D763D8];
-    v5 = [MEMORY[0x277D75348] colorWithCGColor:?];
-    v6 = [v4 layerWithTintColor:v5 filterType:v3];
+    [MTCoreMaterialVisualStyling _getFilterType:"_getFilterType:vibrantColor:tintColor:inputReversed:" vibrantColor:? tintColor:? inputReversed:?];
+    v5 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v16 = 0;
-    v15 = 0;
-    coreMaterialVisualStyling = self->_coreMaterialVisualStyling;
-    v14 = 0;
-    [(MTCoreMaterialVisualStyling *)coreMaterialVisualStyling _getFilterType:&v14 vibrantColor:&v16 tintColor:&v18 inputReversed:&v15];
-    v5 = v14;
-    v6 = 0;
-    if (v5 && v16 && v18)
-    {
-      v8 = MEMORY[0x277D763E0];
-      v9 = [MEMORY[0x277D75348] colorWithCGColor:?];
-      v10 = [MEMORY[0x277D75348] colorWithCGColor:v18];
-      v19 = @"inputReversed";
-      v11 = [MEMORY[0x277CCABB0] numberWithBool:v15];
-      v20[0] = v11;
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
-      v6 = [v8 layerWithVibrantColor:v9 tintColor:v10 filterType:v5 filterAttributes:v12];
-    }
+    v4 = MEMORY[0x277D763D8];
+    v5 = [MEMORY[0x277D75348] colorWithCGColor:?];
+    v6 = [v4 layerWithTintColor:? filterType:?];
   }
 
   return v6;
@@ -162,32 +133,31 @@ void __68__MTVisualStyling_VisualStylingSupport__applyToView_withColorBlock___bl
 {
   _composedFilter = [(MTCoreMaterialVisualStyling *)self->_coreMaterialVisualStyling _composedFilter];
   type = [_composedFilter type];
-  v5 = [type isEqualToString:*MEMORY[0x277CDA640]];
+  v5 = [type isEqualToString:?];
 
   if (v5)
   {
-    v6 = [_composedFilter valueForKey:*MEMORY[0x277CFFFB0]];
-    v7 = v6;
+    v6 = [_composedFilter valueForKey:?];
     if (v6)
     {
-      v8 = MEMORY[0x277D75D00];
-      [v6 CAColorMatrixValue];
+      v7 = MEMORY[0x277D75D00];
+      [&v10 CAColorMatrixValue];
       [(MTVisualStyling *)self alpha];
-      v9 = [v8 _vibrantEffectWithCAColorMatrix:&v11 alpha:?];
+      v8 = [v7 _vibrantEffectWithCAColorMatrix:? alpha:?];
     }
 
     else
     {
-      v9 = 0;
+      v8 = 0;
     }
   }
 
   else
   {
-    v9 = [[_MTVisualStylingVibrancyEffect alloc] initWithVisualStyling:self];
+    v8 = [[_MTVisualStylingVibrancyEffect alloc] initWithVisualStyling:?];
   }
 
-  return v9;
+  return v8;
 }
 
 @end

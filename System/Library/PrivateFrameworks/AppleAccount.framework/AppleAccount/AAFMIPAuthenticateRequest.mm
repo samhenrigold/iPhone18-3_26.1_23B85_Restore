@@ -31,17 +31,17 @@
 
 - (id)urlRequest
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v16.receiver = self;
-  v16.super_class = AAFMIPAuthenticateRequest;
-  urlRequest = [(AARequest *)&v16 urlRequest];
+  v18 = *MEMORY[0x1E69E9840];
+  v15.receiver = self;
+  v15.super_class = AAFMIPAuthenticateRequest;
+  urlRequest = [(AARequest *)&v15 urlRequest];
   v4 = [urlRequest mutableCopy];
 
   [v4 setHTTPMethod:@"GET"];
   account = self->_account;
   if (!account)
   {
-    v12 = _AALogSystem();
+    v12 = _AALogSystem(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -58,7 +58,7 @@ LABEL_12:
   aa_password = [(ACAccount *)account aa_password];
   if (!aa_password || (v7 = aa_password, [(ACAccount *)self->_account username], v8 = objc_claimAutoreleasedReturnValue(), v8, v7, !v8))
   {
-    v12 = _AALogSystem();
+    v12 = _AALogSystem(aa_password);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -71,12 +71,12 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v9 = _AALogSystem();
+  v9 = _AALogSystem(aa_password);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     username = [(ACAccount *)self->_account username];
     *buf = 138412290;
-    v18 = username;
+    v17 = username;
     _os_log_impl(&dword_1B6F6A000, v9, OS_LOG_TYPE_DEFAULT, "fmipAuthenticate with password auth using username: %@", buf, 0xCu);
   }
 
@@ -84,8 +84,6 @@ LABEL_11:
   [v4 addValue:@"text/plist" forHTTPHeaderField:@"Content-Type"];
   v11 = v4;
 LABEL_13:
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

@@ -250,7 +250,7 @@
     else
     {
       style = [context colorScheme];
-      color = [style primaryTextColor];
+      color = objc_msgSend_primaryTextColor(style);
     }
 
     if (!color)

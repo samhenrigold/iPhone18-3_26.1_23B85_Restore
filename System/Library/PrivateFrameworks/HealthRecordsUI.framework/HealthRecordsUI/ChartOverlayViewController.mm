@@ -91,7 +91,7 @@ LABEL_6:
   selfCopy = self;
   sub_1D1267B8C(mode);
 
-  sub_1D106F934(0, &qword_1EC60E4A8);
+  sub_1D106F934(0, &qword_1EC60E4A8, 0x1E69A4460);
   v11 = sub_1D139044C();
 
   return v11;

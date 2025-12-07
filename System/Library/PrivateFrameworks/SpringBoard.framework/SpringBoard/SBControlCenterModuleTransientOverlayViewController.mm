@@ -243,11 +243,11 @@ uint64_t __104__SBControlCenterModuleTransientOverlayViewController_newTransient
   return 1;
 }
 
-uint64_t __76__SBControlCenterModuleTransientOverlayViewController_handleHomeButtonPress__block_invoke(uint64_t result, char a2)
+id *__76__SBControlCenterModuleTransientOverlayViewController_handleHomeButtonPress__block_invoke(id *result, char a2)
 {
   if ((a2 & 1) == 0)
   {
-    return [*(result + 32) _dismiss];
+    return [result[4] _dismiss];
   }
 
   return result;

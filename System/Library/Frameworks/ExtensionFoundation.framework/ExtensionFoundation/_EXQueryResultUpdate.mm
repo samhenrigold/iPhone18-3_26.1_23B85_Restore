@@ -15,10 +15,10 @@
 - (_EXQueryResultUpdate)initWithAddedExtensions:(id)extensions removedUUIDs:(id)ds
 {
   type metadata accessor for _EXExtensionIdentity();
-  _sSo20_EXExtensionIdentityCSo8NSObjectCSH10ObjectiveCWlTm_0(&lazy protocol witness table cache variable for type _EXExtensionIdentity and conformance NSObject, type metadata accessor for _EXExtensionIdentity);
+  _sSo20_EXExtensionIdentityCSo8NSObjectCSH10ObjectiveCWlTm_0(&lazy protocol witness table cache variable for type _EXExtensionIdentity and conformance NSObject, type metadata accessor for _EXExtensionIdentity, MEMORY[0x1E69E81B8]);
   v5 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   type metadata accessor for UUID();
-  _sSo20_EXExtensionIdentityCSo8NSObjectCSH10ObjectiveCWlTm_0(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8]);
+  _sSo20_EXExtensionIdentityCSo8NSObjectCSH10ObjectiveCWlTm_0(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8], MEMORY[0x1E69695B8]);
   *(self + OBJC_IVAR____EXQueryResultUpdate_removedUUIDs) = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   *(self + OBJC_IVAR____EXQueryResult_identities) = v5;
   *(self + OBJC_IVAR____EXQueryResult_availablility) = 0;
@@ -29,13 +29,12 @@
 
 - (NSSet)removedUUIDs
 {
-  v2 = *(self + OBJC_IVAR____EXQueryResultUpdate_removedUUIDs);
   type metadata accessor for UUID();
-  _sSo20_EXExtensionIdentityCSo8NSObjectCSH10ObjectiveCWlTm_0(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8]);
+  _sSo20_EXExtensionIdentityCSo8NSObjectCSH10ObjectiveCWlTm_0(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8], MEMORY[0x1E69695B8]);
 
-  v3.super.isa = Set._bridgeToObjectiveC()().super.isa;
+  v2.super.isa = Set._bridgeToObjectiveC()().super.isa;
 
-  return v3.super.isa;
+  return v2.super.isa;
 }
 
 - (_EXQueryResultUpdate)initWithAvailablility:(id)availablility
@@ -52,7 +51,7 @@
 - (_EXQueryResultUpdate)initWithIdentities:(id)identities
 {
   type metadata accessor for _EXExtensionIdentity();
-  _sSo20_EXExtensionIdentityCSo8NSObjectCSH10ObjectiveCWlTm_0(&lazy protocol witness table cache variable for type _EXExtensionIdentity and conformance NSObject, type metadata accessor for _EXExtensionIdentity);
+  _sSo20_EXExtensionIdentityCSo8NSObjectCSH10ObjectiveCWlTm_0(&lazy protocol witness table cache variable for type _EXExtensionIdentity and conformance NSObject, type metadata accessor for _EXExtensionIdentity, MEMORY[0x1E69E81B8]);
   v4 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   *(self + OBJC_IVAR____EXQueryResultUpdate_removedUUIDs) = MEMORY[0x1E69E7CD0];
   *(self + OBJC_IVAR____EXQueryResult_identities) = v4;
@@ -65,7 +64,7 @@
 - (_EXQueryResultUpdate)initWithCurrentExtensions:(id)extensions updatedExtensions:(id)updatedExtensions
 {
   type metadata accessor for _EXExtensionIdentity();
-  _sSo20_EXExtensionIdentityCSo8NSObjectCSH10ObjectiveCWlTm_0(&lazy protocol witness table cache variable for type _EXExtensionIdentity and conformance NSObject, type metadata accessor for _EXExtensionIdentity);
+  _sSo20_EXExtensionIdentityCSo8NSObjectCSH10ObjectiveCWlTm_0(&lazy protocol witness table cache variable for type _EXExtensionIdentity and conformance NSObject, type metadata accessor for _EXExtensionIdentity, MEMORY[0x1E69E81B8]);
   v4 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   _EXQueryResultUpdate.init(currentExtensions:updatedExtensions:)(v4, v5);
@@ -74,33 +73,27 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v4 = *(self + OBJC_IVAR____EXQueryResultUpdate_removedUUIDs);
   coderCopy = coder;
   selfCopy = self;
 
-  _sSaySayxGqd__c7ElementQyd__RszSTRd__lufC10Foundation4UUIDV_ShyAFGTt0g5(v6);
+  _sSaySayxGqd__c7ElementQyd__RszSTRd__lufC10Foundation4UUIDV_ShyAFGTt0g5(v5);
   type metadata accessor for UUID();
   isa = Array._bridgeToObjectiveC()().super.isa;
 
-  v8 = MEMORY[0x1865F36D0](0x556465766F6D6572, 0xEC00000073444955);
-  [coderCopy encodeObject:isa forKey:v8];
+  v7 = MEMORY[0x1865F36D0](0x556465766F6D6572, 0xEC00000073444955);
+  [coderCopy encodeObject:isa forKey:v7];
 
   _EXQueryResult.encode(with:)(coderCopy);
 }
 
 - (NSSet)addedExtensions
 {
-  if (*(self + OBJC_IVAR____EXQueryResult_identities))
-  {
-    v2 = *(self + OBJC_IVAR____EXQueryResult_identities);
-  }
-
   type metadata accessor for _EXExtensionIdentity();
-  _sSo20_EXExtensionIdentityCSo8NSObjectCSH10ObjectiveCWlTm_0(&lazy protocol witness table cache variable for type _EXExtensionIdentity and conformance NSObject, type metadata accessor for _EXExtensionIdentity);
+  _sSo20_EXExtensionIdentityCSo8NSObjectCSH10ObjectiveCWlTm_0(&lazy protocol witness table cache variable for type _EXExtensionIdentity and conformance NSObject, type metadata accessor for _EXExtensionIdentity, MEMORY[0x1E69E81B8]);
 
-  v3.super.isa = Set._bridgeToObjectiveC()().super.isa;
+  v2.super.isa = Set._bridgeToObjectiveC()().super.isa;
 
-  return v3.super.isa;
+  return v2.super.isa;
 }
 
 - (NSString)description

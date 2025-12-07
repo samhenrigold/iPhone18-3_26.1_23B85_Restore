@@ -12,7 +12,7 @@ void __52___GCVirtualControllerImpl_connectWithReplyHandler___block_invoke(uint6
     v4 = v3;
     if (!v3)
     {
-      __52___GCVirtualControllerImpl_connectWithReplyHandler___block_invoke_cold_1(a1, &v12, &v13);
+      __52___GCVirtualControllerImpl_connectWithReplyHandler___block_invoke_cold_1(a1, v11, v12);
       return;
     }
 
@@ -22,32 +22,28 @@ void __52___GCVirtualControllerImpl_connectWithReplyHandler___block_invoke(uint6
     v5 = [v4 rootViewController];
     v6 = [v5 view];
     [v6 addSubview:*(*(a1 + 32) + 24)];
-
-    v2 = *(a1 + 32);
   }
 
-  v7 = *(v2 + 16);
   _publishCustomController();
-  v8 = GCLookupService();
-  v9 = [*(*(a1 + 32) + 8) elements];
-  GCAnalyticsSendVirtualControllerConnectedEvent(v8, v9, [*(*(a1 + 32) + 8) isHidden]);
+  v7 = GCLookupService();
+  v8 = [*(*(a1 + 32) + 8) elements];
+  GCAnalyticsSendVirtualControllerConnectedEvent(v7, v8, [*(*(a1 + 32) + 8) isHidden]);
 
-  v10 = *(a1 + 40);
-  if (v10)
+  v9 = *(a1 + 40);
+  if (v9)
   {
-    v11 = *(v10 + 16);
+    v10 = *(v9 + 16);
 
-    v11();
+    v10();
   }
 }
 
 id __38___GCVirtualControllerImpl_disconnect__block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   _unpublishCustomController();
-  v3 = *(a1 + 40);
+  v2 = *(a1 + 40);
 
-  return [v3 removeFromSuperview];
+  return [v2 removeFromSuperview];
 }
 
 void __61___GCVirtualControllerImpl_Internal__refreshViewForKeyWindow__block_invoke(uint64_t a1)

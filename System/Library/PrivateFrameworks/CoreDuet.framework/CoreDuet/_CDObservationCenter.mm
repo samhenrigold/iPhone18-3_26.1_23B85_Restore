@@ -4,10 +4,10 @@
 - (id)_notificationToObserverEntriesForSender:(int)sender observerObserver:(int)observer shouldCreate:;
 - (id)_observerToEntriesForSender:(void *)sender name:(int)name observerObserver:(int)observer shouldCreate:;
 - (unint64_t)observerCountOnName:(id)name;
-- (void)_addObserver:(void *)observer name:(void *)name sender:(void *)sender queue:(int)queue observerObserver:(void *)observerObserver usingCall:;
-- (void)_postNotificationName:(void *)name userInfo:(void *)info sender:(int)sender observerObserver:;
+- (void)_addObserver:(void *)observer name:(void *)name sender:(void *)sender queue:(uint64_t)queue observerObserver:(void *)observerObserver usingCall:;
+- (void)_postNotificationName:(void *)name userInfo:(void *)info sender:(uint64_t)sender observerObserver:;
 - (void)_postObserverChangesNotificationWithObserverCounts:(void *)counts;
-- (void)_removeObserver:(int)observer observerObserver:;
+- (void)_removeObserver:(uint64_t)observer observerObserver:;
 - (void)_removeObserver:(void *)observer name:(int)name observerObserver:;
 - (void)_removeObserver:(void *)observer name:(void *)name sender:(int)sender observerObserver:(void *)observerObserver observerCounts:;
 - (void)addObserver:(id)observer name:(id)name sender:(id)sender queue:(id)queue usingBlock:(id)block;
@@ -54,9 +54,10 @@
   return v2;
 }
 
-- (void)_addObserver:(void *)observer name:(void *)name sender:(void *)sender queue:(int)queue observerObserver:(void *)observerObserver usingCall:
+- (void)_addObserver:(void *)observer name:(void *)name sender:(void *)sender queue:(uint64_t)queue observerObserver:(void *)observerObserver usingCall:
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  queueCopy = queue;
+  v29[1] = *MEMORY[0x1E69E9840];
   v13 = a2;
   observerCopy = observer;
   nameCopy = name;
@@ -66,7 +67,7 @@
   {
     selfCopy = self;
     objc_sync_enter(selfCopy);
-    v19 = [(_CDObservationCenter *)selfCopy _observerToEntriesForSender:nameCopy name:observerCopy observerObserver:queue shouldCreate:1];
+    v19 = [(_CDObservationCenter *)selfCopy _observerToEntriesForSender:nameCopy name:observerCopy observerObserver:queueCopy shouldCreate:1];
     v20 = objc_opt_new();
     v22 = v20;
     if (v20)
@@ -77,7 +78,7 @@
 
     v24 = [v19 count];
     [v19 setObject:v22 forKey:v13];
-    if ((queue & 1) != 0 || [v19 count] == v24)
+    if ((queueCopy & 1) != 0 || [v19 count] == v24)
     {
       v25 = -1;
     }
@@ -90,31 +91,30 @@
     objc_sync_exit(selfCopy);
     if ((v25 & 0x8000000000000000) == 0)
     {
-      v29 = @"observerCount";
+      v28 = @"observerCount";
       v26 = [MEMORY[0x1E696AD98] numberWithInteger:v25];
-      v30[0] = v26;
-      v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+      v29[0] = v26;
+      v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
       [(_CDObservationCenter *)selfCopy _postNotificationName:observerCopy userInfo:v27 sender:selfCopy observerObserver:1];
     }
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
-- (void)_postNotificationName:(void *)name userInfo:(void *)info sender:(int)sender observerObserver:
+- (void)_postNotificationName:(void *)name userInfo:(void *)info sender:(uint64_t)sender observerObserver:
 {
-  v62 = *MEMORY[0x1E69E9840];
+  senderCopy = sender;
+  v61 = *MEMORY[0x1E69E9840];
   v9 = a2;
   nameCopy = name;
   infoCopy = info;
-  v58 = infoCopy;
-  v37 = v9;
+  v57 = infoCopy;
+  v36 = v9;
   if (self)
   {
     v11 = objc_opt_new();
     selfCopy = self;
     objc_sync_enter(selfCopy);
-    v13 = [(_CDObservationCenter *)selfCopy _observerToEntriesForSender:infoCopy name:v9 observerObserver:sender shouldCreate:0];
+    v13 = [(_CDObservationCenter *)selfCopy _observerToEntriesForSender:infoCopy name:v9 observerObserver:senderCopy shouldCreate:0];
     v14 = [v13 copy];
 
     if (v14)
@@ -122,7 +122,7 @@
       [v11 addObject:v14];
     }
 
-    v15 = [(_CDObservationCenter *)selfCopy _observerToEntriesForSender:v37 name:sender observerObserver:0 shouldCreate:?];
+    v15 = [(_CDObservationCenter *)selfCopy _observerToEntriesForSender:v36 name:senderCopy observerObserver:0 shouldCreate:?];
     v16 = [v15 copy];
 
     if (v16)
@@ -131,49 +131,49 @@
     }
 
     objc_sync_exit(selfCopy);
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
     v55 = 0u;
+    v56 = 0u;
+    v53 = 0u;
+    v54 = 0u;
     obj = v11;
-    v40 = [obj countByEnumeratingWithState:&v54 objects:v61 count:16];
-    if (v40)
+    v39 = [obj countByEnumeratingWithState:&v53 objects:v60 count:16];
+    if (v39)
     {
-      v39 = *v55;
+      v38 = *v54;
       do
       {
         v17 = 0;
         do
         {
-          if (*v55 != v39)
+          if (*v54 != v38)
           {
             v18 = v17;
             objc_enumerationMutation(obj);
             v17 = v18;
           }
 
-          v41 = v17;
-          v19 = *(*(&v54 + 1) + 8 * v17);
+          v40 = v17;
+          v19 = *(*(&v53 + 1) + 8 * v17);
+          v49 = 0u;
           v50 = 0u;
           v51 = 0u;
           v52 = 0u;
-          v53 = 0u;
           v20 = v19;
-          v43 = [v20 countByEnumeratingWithState:&v50 objects:v60 count:16];
-          if (v43)
+          v42 = [v20 countByEnumeratingWithState:&v49 objects:v59 count:16];
+          if (v42)
           {
-            v42 = *v51;
+            v41 = *v50;
             do
             {
               v21 = 0;
               do
               {
-                if (*v51 != v42)
+                if (*v50 != v41)
                 {
                   objc_enumerationMutation(v20);
                 }
 
-                v22 = *(*(&v50 + 1) + 8 * v21);
+                v22 = *(*(&v49 + 1) + 8 * v21);
                 v23 = [v20 objectForKey:v22];
                 v25 = v23;
                 if (v23)
@@ -200,7 +200,7 @@
                     v33 = [MEMORY[0x1E695DF50] invocationWithMethodSignature:v32];
                     [v33 setSelector:v31];
                     [v33 setTarget:v22];
-                    [v33 setArgument:&v58 atIndex:2];
+                    [v33 setArgument:&v57 atIndex:2];
                     [v33 setArgument:&nameCopy atIndex:3];
                     if (v26)
                     {
@@ -208,7 +208,7 @@
                       block[1] = 3221225472;
                       block[2] = __79___CDObservationCenter__postNotificationName_userInfo_sender_observerObserver___block_invoke;
                       block[3] = &unk_1E7367440;
-                      v49 = v33;
+                      v48 = v33;
                       dispatch_async(v26, block);
                     }
 
@@ -227,20 +227,20 @@
                   {
                     if (v26)
                     {
-                      v44[0] = MEMORY[0x1E69E9820];
-                      v44[1] = 3221225472;
-                      v44[2] = __79___CDObservationCenter__postNotificationName_userInfo_sender_observerObserver___block_invoke_2;
-                      v44[3] = &unk_1E7368368;
-                      v45 = v58;
-                      v46 = nameCopy;
+                      v43[0] = MEMORY[0x1E69E9820];
+                      v43[1] = 3221225472;
+                      v43[2] = __79___CDObservationCenter__postNotificationName_userInfo_sender_observerObserver___block_invoke_2;
+                      v43[3] = &unk_1E7368368;
+                      v44 = v57;
+                      v45 = nameCopy;
                       v30 = v30;
-                      v47 = v30;
-                      dispatch_async(v26, v44);
+                      v46 = v30;
+                      dispatch_async(v26, v43);
                     }
 
                     else
                     {
-                      (*(v34 + 16))(v34, v58, nameCopy);
+                      (*(v34 + 16))(v34, v57, nameCopy);
                     }
                   }
                 }
@@ -248,33 +248,32 @@
                 ++v21;
               }
 
-              while (v43 != v21);
-              v35 = [v20 countByEnumeratingWithState:&v50 objects:v60 count:16];
-              v43 = v35;
+              while (v42 != v21);
+              v35 = [v20 countByEnumeratingWithState:&v49 objects:v59 count:16];
+              v42 = v35;
             }
 
             while (v35);
           }
 
-          v17 = v41 + 1;
+          v17 = v40 + 1;
         }
 
-        while (v41 + 1 != v40);
-        v40 = [obj countByEnumeratingWithState:&v54 objects:v61 count:16];
+        while (v40 + 1 != v39);
+        v39 = [obj countByEnumeratingWithState:&v53 objects:v60 count:16];
       }
 
-      while (v40);
+      while (v39);
     }
 
-    infoCopy = v58;
+    infoCopy = v57;
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
-- (void)_removeObserver:(int)observer observerObserver:
+- (void)_removeObserver:(uint64_t)observer observerObserver:
 {
-  v39 = *MEMORY[0x1E69E9840];
+  observerCopy = observer;
+  v38 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (self)
   {
@@ -282,82 +281,80 @@
     selfCopy = self;
     objc_sync_enter(selfCopy);
     v8 = 8;
-    if (observer)
+    if (observerCopy)
     {
       v8 = 16;
     }
 
     v9 = *&selfCopy[v8];
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
-    v26 = v9;
+    v25 = v9;
     keyEnumerator = [v9 keyEnumerator];
     allObjects = [keyEnumerator allObjects];
     v12 = [allObjects copy];
 
-    v13 = [v12 countByEnumeratingWithState:&v33 objects:v38 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v32 objects:v37 count:16];
     if (v13)
     {
-      v24 = v12;
-      v25 = *v34;
+      v23 = v12;
+      v24 = *v33;
       do
       {
-        v27 = v13;
-        for (i = 0; i != v27; ++i)
+        v26 = v13;
+        for (i = 0; i != v26; ++i)
         {
-          if (*v34 != v25)
+          if (*v33 != v24)
           {
             objc_enumerationMutation(v12);
           }
 
-          v15 = *(*(&v33 + 1) + 8 * i);
-          v16 = [v26 objectForKey:v15];
-          v31 = 0u;
-          v32 = 0u;
-          v29 = 0u;
+          v15 = *(*(&v32 + 1) + 8 * i);
+          v16 = [v25 objectForKey:v15];
           v30 = 0u;
-          v28 = v16;
+          v31 = 0u;
+          v28 = 0u;
+          v29 = 0u;
+          v27 = v16;
           keyEnumerator2 = [v16 keyEnumerator];
           allObjects2 = [keyEnumerator2 allObjects];
           v19 = [allObjects2 copy];
 
-          v20 = [v19 countByEnumeratingWithState:&v29 objects:v37 count:16];
+          v20 = [v19 countByEnumeratingWithState:&v28 objects:v36 count:16];
           if (v20)
           {
-            v21 = *v30;
+            v21 = *v29;
             do
             {
               for (j = 0; j != v20; ++j)
               {
-                if (*v30 != v21)
+                if (*v29 != v21)
                 {
                   objc_enumerationMutation(v19);
                 }
 
-                [(_CDObservationCenter *)selfCopy _removeObserver:v5 name:*(*(&v29 + 1) + 8 * j) sender:v15 observerObserver:observer observerCounts:v6];
+                [(_CDObservationCenter *)selfCopy _removeObserver:v5 name:*(*(&v28 + 1) + 8 * j) sender:v15 observerObserver:observerCopy observerCounts:v6];
               }
 
-              v20 = [v19 countByEnumeratingWithState:&v29 objects:v37 count:16];
+              v20 = [v19 countByEnumeratingWithState:&v28 objects:v36 count:16];
             }
 
             while (v20);
           }
 
-          v12 = v24;
+          v12 = v23;
         }
 
-        v13 = [v24 countByEnumeratingWithState:&v33 objects:v38 count:16];
+        v13 = [v23 countByEnumeratingWithState:&v32 objects:v37 count:16];
       }
 
       while (v13);
     }
 
-    [(_CDObservationCenter *)v12 _removeObserver:v26 observerObserver:selfCopy, v6];
+    [(_CDObservationCenter *)v12 _removeObserver:v25 observerObserver:selfCopy, v6];
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_removeObserver:(void *)observer name:(void *)name sender:(int)sender observerObserver:(void *)observerObserver observerCounts:
@@ -428,7 +425,7 @@
 
 - (void)_removeObserver:(void *)observer name:(int)name observerObserver:
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v7 = a2;
   observerCopy = observer;
   if (self)
@@ -443,46 +440,44 @@
     }
 
     v12 = *&selfCopy[v11];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
-    v21 = v12;
+    v20 = v12;
     keyEnumerator = [v12 keyEnumerator];
     allObjects = [keyEnumerator allObjects];
     v15 = [allObjects copy];
 
-    v16 = [v15 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v16)
     {
-      v17 = *v23;
+      v17 = *v22;
       do
       {
         v18 = 0;
         do
         {
-          if (*v23 != v17)
+          if (*v22 != v17)
           {
             objc_enumerationMutation(v15);
           }
 
-          v19 = *(*(&v22 + 1) + 8 * v18);
+          v19 = *(*(&v21 + 1) + 8 * v18);
           [(_CDObservationCenter *)selfCopy _removeObserver:v7 name:observerCopy sender:v19 observerObserver:name observerCounts:v9];
 
           ++v18;
         }
 
         while (v16 != v18);
-        v16 = [v15 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v16);
     }
 
-    [(_CDObservationCenter *)v15 _removeObserver:v21 observerObserver:selfCopy, v9];
+    [(_CDObservationCenter *)v15 _removeObserver:v20 observerObserver:selfCopy, v9];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addObserver:(id)observer name:(id)name sender:(id)sender queue:(id)queue usingSelector:(SEL)selector
@@ -552,34 +547,34 @@
 
 - (unint64_t)observerCountOnName:(id)name
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v6 = selfCopy->_senderToNotificationObservers;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   keyEnumerator = [(NSMapTable *)v6 keyEnumerator];
   allObjects = [keyEnumerator allObjects];
 
   v9 = 0;
-  v10 = [allObjects countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [allObjects countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
-    v11 = *v19;
+    v11 = *v18;
     do
     {
       v12 = 0;
       do
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(allObjects);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * v12);
+        v13 = *(*(&v17 + 1) + 8 * v12);
         v14 = [(_CDObservationCenter *)selfCopy _observerToEntriesForSender:v13 name:nameCopy observerObserver:0 shouldCreate:0];
         v15 = v14;
         if (v14)
@@ -591,14 +586,13 @@
       }
 
       while (v10 != v12);
-      v10 = [allObjects countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [allObjects countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v10);
   }
 
   objc_sync_exit(selfCopy);
-  v16 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -668,51 +662,49 @@
 
 - (void)_postObserverChangesNotificationWithObserverCounts:(void *)counts
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (counts && [v3 count])
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
-    v16 = v4;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
+    v15 = v4;
     v5 = v4;
-    v6 = [v5 countByEnumeratingWithState:&v17 objects:v23 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v16 objects:v22 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v18;
+      v8 = *v17;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v18 != v8)
+          if (*v17 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v17 + 1) + 8 * i);
+          v10 = *(*(&v16 + 1) + 8 * i);
           v11 = [v5 objectForKeyedSubscript:v10];
           unsignedIntegerValue = [v11 unsignedIntegerValue];
-          v21 = @"observerCount";
+          v20 = @"observerCount";
           v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:unsignedIntegerValue];
-          v22 = v13;
-          v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+          v21 = v13;
+          v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
           [(_CDObservationCenter *)counts _postNotificationName:v10 userInfo:v14 sender:counts observerObserver:1];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v17 objects:v23 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v16 objects:v22 count:16];
       }
 
       while (v7);
     }
 
-    v4 = v16;
+    v4 = v15;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_removeObserver:(void *)a3 observerObserver:(void *)a4 .cold.1(void *a1, void *a2, void *a3, void *a4)

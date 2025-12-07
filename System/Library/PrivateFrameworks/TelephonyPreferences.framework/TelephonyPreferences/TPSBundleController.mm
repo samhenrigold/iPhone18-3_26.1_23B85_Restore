@@ -93,7 +93,7 @@
 
 - (id)specifiersWithSpecifier:(id)specifier
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   if ([(TPSBundleController *)self isHidden])
   {
     v4 = 0;
@@ -104,27 +104,27 @@
     specifiers = [(TPSBundleController *)self specifiers];
     if ([(TPSBundleController *)self isSubscriptionListHidden])
     {
-      v31 = 0u;
-      v32 = 0u;
-      v29 = 0u;
       v30 = 0u;
+      v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
       array = specifiers;
-      v7 = [array countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v7 = [array countByEnumeratingWithState:&v28 objects:v36 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v30;
+        v9 = *v29;
         v10 = *MEMORY[0x277D40128];
         do
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v30 != v9)
+            if (*v29 != v9)
             {
               objc_enumerationMutation(array);
             }
 
-            v12 = *(*(&v29 + 1) + 8 * i);
+            v12 = *(*(&v28 + 1) + 8 * i);
             subscriptionContext = [(TPSBundleController *)self subscriptionContext];
             [v12 setProperty:subscriptionContext forKey:v10];
 
@@ -132,7 +132,7 @@
             [v12 setProperty:supportedSubscriptions forKey:@"TPSSpecifierSubscriptionsKey"];
           }
 
-          v8 = [array countByEnumeratingWithState:&v29 objects:v37 count:16];
+          v8 = [array countByEnumeratingWithState:&v28 objects:v36 count:16];
         }
 
         while (v8);
@@ -144,29 +144,29 @@
     else
     {
       array = [MEMORY[0x277CBEB18] array];
+      v32 = 0u;
       v33 = 0u;
       v34 = 0u;
       v35 = 0u;
-      v36 = 0u;
       v4 = specifiers;
-      v15 = [v4 countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v15 = [v4 countByEnumeratingWithState:&v32 objects:v37 count:16];
       obj = v4;
       if (v15)
       {
         v16 = v15;
-        v28 = *v34;
+        v27 = *v33;
         do
         {
           v17 = 0;
           v18 = v4;
           do
           {
-            if (*v34 != v28)
+            if (*v33 != v27)
             {
               objc_enumerationMutation(obj);
             }
 
-            v19 = *(*(&v33 + 1) + 8 * v17);
+            v19 = *(*(&v32 + 1) + 8 * v17);
             v20 = MEMORY[0x277D3FAD8];
             name = [v19 name];
             v22 = [v20 preferenceSpecifierNamed:name target:0 set:0 get:0 detail:objc_opt_class() cell:2 edit:0];
@@ -186,15 +186,13 @@
           }
 
           while (v16 != v17);
-          v16 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+          v16 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
         }
 
         while (v16);
       }
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -233,7 +231,7 @@
 
 - (void)telephonyController:(id)controller didChangeActiveSubscriptions:(id)subscriptions
 {
-  v4 = TPSLog();
+  v4 = TPSLog(self, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -243,7 +241,7 @@
 
 - (void)telephonyController:(id)controller didChangeSubscriptions:(id)subscriptions
 {
-  v4 = TPSLog();
+  v4 = TPSLog(self, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;

@@ -1,1958 +1,51 @@
-uint64_t re::PhysXCollisionObject::onChildPoseDidChange(re::PhysXCollisionObject *this, re::GeometricObjectBase *a2)
+uint64_t REAudioShouldRedactSensitiveInfoFromLogs(void)
 {
-  re::GeometricObjectBase::parentPose(a2, v4);
-  updateLocalPoses(a2, v4);
-  return 0;
+  if (qword_1EE19D018 != -1)
+  {
+    dispatch_once(&qword_1EE19D018, &__block_literal_global_62);
+  }
+
+  return _MergedGlobals_118;
 }
 
-uint64_t re::PhysXCollisionObject::updateFilterData(re::PhysXCollisionObject *this)
+void ___Z40REAudioShouldRedactSensitiveInfoFromLogsv_block_invoke()
 {
-  v2 = *(this + 3);
-  v3 = *(this + 2) & 1;
-  if (v2)
+  cf[1] = *MEMORY[0x1E69E9840];
+  v0 = SecTaskCreateFromSelf(0);
+  if (v0)
   {
-    v4 = v2[4] == 5;
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  if (v4)
-  {
-    (*(*v2 + 432))(v12, *(this + 3));
-    v3 |= (LOBYTE(v12[0]) >> 1) & 2;
-  }
-
-  v5 = *(this + 22);
-  result = (*(*v2 + 184))(v2);
-  if (result)
-  {
-    v7 = 0;
-    v8 = (v5 >> 1) & 4 | v3;
-    do
+    v1 = v0;
+    cf[0] = 0;
+    v2 = SecTaskCopyValueForEntitlement(v0, @"com.apple.re.should-redact-sensitive-info-from-logs", cf);
+    v3 = 0;
+    v4 = cf[0];
+    if (v2 && !cf[0])
     {
-      v13 = 0;
-      (*(*v2 + 192))(v2, &v13, 1, v7);
-      v9 = *(this + 4);
-      v12[0] = v8;
-      v12[1] = v9;
-      (*(*v13 + 168))(v13, v12);
-      (*(*v13 + 184))(v13, v12);
-      v7 = (v7 + 1);
-      result = (*(*v2 + 184))(v2);
-    }
-
-    while (v7 < result);
-  }
-
-  v10 = *(this + 7);
-  if (v10)
-  {
-    re::ContactSetCollection::remove((*(v10 + 128) + 72), this);
-    (*(**(v10 + 128) + 200))(*(v10 + 128), this);
-    v11 = *(v10 + 128);
-    *(this + 7) = v11;
-    return (*(*v11 + 192))(v11, this);
-  }
-
-  return result;
-}
-
-void re::PhysXCollisionObject::~PhysXCollisionObject(re::PhysXCollisionObject *this)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = *(this + 2);
-  v3 = (*(*v2 + 16))(v2);
-  if ((*(*v3 + 24))(v3) == 7)
-  {
-    v4 = (*(*v2 + 16))(v2);
-    *&v7 = this;
-    *(&v7 + 1) = re::PhysXCollisionObject::onChildPoseDidChange;
-    v8 = 0;
-    v9 = re::Event<re::GeometricObjectBase>::createSubscription<re::PhysXCollisionObject>(re::PhysXCollisionObject *,REEventHandlerResult (re::PhysXCollisionObject::*)(re::GeometricObjectBase*))::{lambda(re::GeometricObjectBase*,re::Event<re::GeometricObjectBase>::Subscription const&)#1}::__invoke;
-    re::Event<re::GeometricObjectBase>::removeSubscription(v4 + 56, &v7);
-  }
-
-  v5 = *(this + 3);
-  if (v5)
-  {
-    (**v5)(v5);
-  }
-
-  v6 = *(this + 13);
-  if (v6)
-  {
-    if (*(this + 14))
-    {
-      (*(*v6 + 40))(v6, *(this + 15));
-      *(this + 14) = 0;
-      *(this + 15) = 0;
-    }
-
-    *(this + 13) = 0;
-  }
-
-  re::CollisionObject::~CollisionObject(this);
-}
-
-{
-  re::PhysXCollisionObject::~PhysXCollisionObject(this);
-
-  JUMPOUT(0x1E6906520);
-}
-
-re::PhysXCollisionObject *re::PhysXCollisionObject::setRawCollisionObject(re::PhysXCollisionObject *this, void *a2)
-{
-  *(this + 3) = a2;
-  if (a2)
-  {
-    a2[2] = this;
-    return re::PhysXCollisionObject::updateFilterData(this);
-  }
-
-  return this;
-}
-
-uint64_t re::PhysXCollisionObject::poseDidChange(re::PhysXCollisionObject *this, re::GeometricObjectBase *a2)
-{
-  v2 = *(this + 3);
-  (*(*a2 + 40))(&v4, a2);
-  v7 = v6;
-  v8 = v4;
-  v9 = v5;
-  (*(*v2 + 160))(v2, &v7, 1);
-  return 0;
-}
-
-uint64_t updateLocalPoses(void *a1, float32x4_t *a2)
-{
-  (*(*a1 + 40))(&v39);
-  _Q0 = a2[1];
-  _Q2 = vextq_s8(vuzp1q_s32(_Q0, _Q0), _Q0, 0xCuLL);
-  v6 = vnegq_f32(_Q0);
-  v7 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v39, v39), v39, 0xCuLL), v6), v39, _Q2);
-  v8 = vaddq_f32(v7, v7);
-  v9 = vextq_s8(vuzp1q_s32(v8, v8), v8, 0xCuLL);
-  v10 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v9, v9), v9, 0xCuLL), v6), v9, _Q2);
-  _Q1 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v40, v40), v40, 0xCuLL), v6), v40, _Q2);
-  v12 = vmlaq_laneq_f32(vextq_s8(vuzp1q_s32(_Q1, _Q1), _Q1, 0xCuLL), v40, _Q0, 3);
-  _Q1.i32[0] = v40.i32[3];
-  v13 = vmlaq_laneq_f32(v12, _Q0, v40, 3);
-  __asm { FMLA            S2, S1, V0.S[3] }
-
-  v36 = _Q2.i32[0];
-  v37 = v13;
-  v13.i32[3] = _Q2.i32[0];
-  v38 = vaddq_f32(*a2, vaddq_f32(vaddq_f32(v39, vmulq_laneq_f32(v9, _Q0, 3)), vextq_s8(vuzp1q_s32(v10, v10), v10, 0xCuLL)));
-  v41[0] = v38;
-  v41[1] = v13;
-  v35 = v13;
-  v18 = (*(*a1 + 16))(a1);
-  result = (*(*v18 + 24))(v18);
-  if (result != 1)
-  {
-    if (result == 7)
-    {
-      v20 = v18[4];
-      if (v20)
+      v5 = v2;
+      if (objc_opt_respondsToSelector())
       {
-        v21 = v18[5];
-        v22 = 240 * v20;
-        do
-        {
-          result = updateLocalPoses(v21, v41);
-          v21 += 240;
-          v22 -= 240;
-        }
-
-        while (v22);
-      }
-    }
-
-    else
-    {
-      v23 = a1[7];
-      if ((*(*v18 + 40))(v18))
-      {
-        v24 = (*(*v18 + 48))(v18);
-        v25 = vextq_s8(vuzp1q_s32(v37, v37), v37, 0xCuLL);
-        _Q2 = *(v24 + 16);
-        _Q4 = vnegq_f32(v37);
-        v28 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(*v24, *v24), *v24, 0xCuLL), _Q4), *v24, v25);
-        v29 = vaddq_f32(v28, v28);
-        v30 = vextq_s8(vuzp1q_s32(v29, v29), v29, 0xCuLL);
-        v31 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v30, v30), v30, 0xCuLL), _Q4), v30, v25);
-        v32 = vaddq_f32(v38, vaddq_f32(vaddq_f32(*v24, vmulq_laneq_f32(v30, v35, 3)), vextq_s8(vuzp1q_s32(v31, v31), v31, 0xCuLL)));
-        _Q3 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(_Q2, _Q2), _Q2, 0xCuLL), _Q4), _Q2, v25);
-        v34 = vmlaq_laneq_f32(vmlaq_laneq_f32(vextq_s8(vuzp1q_s32(_Q3, _Q3), _Q3, 0xCuLL), _Q2, v35, 3), v37, _Q2, 3);
-        _Q4.i32[0] = v36;
-        __asm { FMLA            S3, S4, V2.S[3] }
-
-        v39.i64[0] = v34.i64[0];
-        v39.i64[1] = __PAIR64__(_Q3.u32[0], v34.u32[2]);
-        v40.i64[0] = v32.i64[0];
-        v40.i32[2] = v32.i32[2];
+        v3 = [v5 BOOLValue];
       }
 
       else
       {
-        v39.i64[0] = v37.i64[0];
-        v39.i64[1] = __PAIR64__(v36, v37.u32[2]);
-        v40.i64[0] = v38.i64[0];
-        v40.i32[2] = v38.i32[2];
+        v3 = 0;
       }
 
-      return (*(*v23 + 152))(v23, &v39);
+      v4 = cf[0];
     }
-  }
 
-  return result;
-}
-
-uint64_t re::PhysXCollisionObject::pxShape(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v5 = *(a1 + 24);
-  (*(*v5 + 152))(&v32, v5);
-  v31 = 0;
-  (*(*v5 + 192))(v5, &v31, 1, a2);
-  if (a3)
-  {
-    (*(*v31 + 160))(&v27);
-    _S2 = v28 + v28;
-    _S4 = v30 + v30;
-    v8 = v35;
-    v9 = (v34 * v34) + -0.5;
-    *v10.i32 = v32;
-    _Q7.i64[0] = v33;
-    __asm
+    if (v4)
     {
-      FMLA            S16, S4, V7.S[1]
-      FMLA            S18, S2, V7.S[1]
-      FMLA            S20, S16, V7.S[1]
+      CFRelease(v4);
     }
 
-    v19 = v36 + (((v34 * _S18) + ((v29 + v29) * v9)) + (*&v33 * _S16));
-    v20 = v27;
-    v20.i32[3] = HIDWORD(v33);
-    v21 = v37 + _S20;
-    v22 = ((v34 * (vmuls_lane_f32(v29 + v29, vnegq_f32(v20), 3) + (*&v33 * (v30 + v30)))) + ((v28 + v28) * v9)) + (v32 * _S16);
-    v23 = vextq_s8(vextq_s8(v10, v10, 4uLL), _Q7, 0xCuLL);
-    v23.f32[3] = -v32;
-    v24 = vmlaq_n_f32(vmulq_f32(vextq_s8(vdupq_laneq_s32(v27, 3), v27, 4uLL), v23), v27, v34);
-    v23.f32[3] = -*&v33;
-    _Q7.i64[1] = __PAIR64__(v27.u32[2], LODWORD(v32));
-    v25 = vmlsq_f32(vmlaq_f32(vuzp2q_s32(vextq_s8(v24, v24, 4uLL), v24), vextq_s8(vextq_s8(v27, v27, 0xCuLL), v27, 8uLL), v23), _Q7, v20);
-    *a3 = vzip2q_s32(vzip1q_s32(v25, vextq_s8(v25, v25, 0xCuLL)), v25);
-    *(a3 + 16) = v8 + v22;
-    *(a3 + 20) = v19;
-    *(a3 + 24) = v21;
-  }
-
-  return v31;
-}
-
-uint64_t re::PhysXCollisionObject::hasTriggerShapes(re::PhysXCollisionObject *this)
-{
-  v1 = *(this + 3);
-  if (!(*(*v1 + 184))(v1))
-  {
-    return 1;
-  }
-
-  v2 = 0;
-  do
-  {
-    v6 = 0;
-    (*(*v1 + 192))(v1, &v6, 1, v2);
-    (*(*v6 + 312))(&v5);
-    v3 = (v5 >> 2) & 1;
-    if ((v5 & 4) == 0)
+    if (v2)
     {
-      break;
+      CFRelease(v2);
     }
 
-    v2 = (v2 + 1);
-  }
-
-  while (v2 < (*(*v1 + 184))(v1));
-  return v3;
-}
-
-__n128 re::PhysXCollisionObject::setScaleInternal(uint64_t a1, float32x2_t *a2)
-{
-  v33 = *MEMORY[0x1E69E9840];
-  v4 = *(a1 + 24);
-  if ((*(*v4 + 184))(v4))
-  {
-    v5 = 0;
-    for (i = 0; i < (*(*v4 + 184))(v4); ++i)
-    {
-      v16 = 0;
-      (*(*v4 + 192))(v4, &v16, 1, i);
-      v7 = (*(*v16 + 64))(v16);
-      if (v7 > 2)
-      {
-        if (v7 == 5)
-        {
-          v18 = 5;
-          v19 = xmmword_1E304F3C0;
-          v20 = 0;
-          *v21 = 1065353216;
-          v22 = 0;
-          (*(*v16 + 128))(v16, &v18);
-          v9 = *(a1 + 112);
-          if (v9 <= i)
-          {
-            goto LABEL_32;
-          }
-
-          goto LABEL_20;
-        }
-
-        if (v7 == 4)
-        {
-          v18 = 4;
-          v19 = xmmword_1E304F3C0;
-          v20 = 0;
-          *v21 = 1065353216;
-          *&v21[4] = 0;
-          LOBYTE(v22) = 1;
-          *(&v22 + 1) = 0;
-          BYTE3(v22) = 0;
-          (*(*v16 + 120))(v16, &v18);
-          v9 = *(a1 + 112);
-          if (v9 <= i)
-          {
-            goto LABEL_31;
-          }
-
-LABEL_20:
-          v13 = (*(a1 + 120) + v5);
-          v14 = v13[1].f32[0] * a2[1].f32[0];
-          *&v19 = vmul_f32(*v13, *a2);
-          *(&v19 + 2) = v14;
-          v12 = *(*v16 + 72);
-          goto LABEL_21;
-        }
-
-        if (v7 != 3)
-        {
-          goto LABEL_33;
-        }
-
-        *v23 = 3;
-        *&v23[8] = 0;
-        (*(*v16 + 88))(v16, v23);
-        v9 = *(a1 + 112);
-        if (v9 <= i)
-        {
-          v17 = 0;
-          v31 = 0u;
-          v32 = 0u;
-          v29 = 0u;
-          v30 = 0u;
-          v28 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          v18 = 136315906;
-          *&v19 = "operator[]";
-          WORD4(v19) = 1024;
-          *(&v19 + 10) = 468;
-          HIWORD(v19) = 2048;
-          v20 = i;
-          *v21 = 2048;
-          *&v21[2] = v9;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_29:
-          v17 = 0;
-          v31 = 0u;
-          v32 = 0u;
-          v29 = 0u;
-          v30 = 0u;
-          v28 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          v18 = 136315906;
-          *&v19 = "operator[]";
-          WORD4(v19) = 1024;
-          *(&v19 + 10) = 468;
-          HIWORD(v19) = 2048;
-          v20 = i;
-          *v21 = 2048;
-          *&v21[2] = v9;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_30:
-          *v23 = 0;
-          v31 = 0u;
-          v32 = 0u;
-          v29 = 0u;
-          v30 = 0u;
-          v28 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          v18 = 136315906;
-          *&v19 = "operator[]";
-          WORD4(v19) = 1024;
-          *(&v19 + 10) = 468;
-          HIWORD(v19) = 2048;
-          v20 = i;
-          *v21 = 2048;
-          *&v21[2] = v9;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_31:
-          v17 = 0;
-          v31 = 0u;
-          v32 = 0u;
-          v29 = 0u;
-          v30 = 0u;
-          v28 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v23 = 136315906;
-          *&v23[4] = "operator[]";
-          *&v23[12] = 1024;
-          *&v23[14] = 468;
-          v24 = 2048;
-          v25 = i;
-          v26 = 2048;
-          v27 = v9;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_32:
-          v17 = 0;
-          v31 = 0u;
-          v32 = 0u;
-          v29 = 0u;
-          v30 = 0u;
-          v28 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v23 = 136315906;
-          *&v23[4] = "operator[]";
-          *&v23[12] = 1024;
-          *&v23[14] = 468;
-          v24 = 2048;
-          v25 = i;
-          v26 = 2048;
-          v27 = v9;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_33:
-          re::internal::assertLog(4, v8, "assertion failure: '%s' (%s:line %i) Unsupported geometry type!", "!Unreachable code", "setScaleInternal", 238);
-          _os_crash();
-          __break(1u);
-        }
-
-        v10 = (*(a1 + 120) + v5);
-        v11 = v10[1].f32[0] * a2[1].f32[0];
-        *&v23[4] = vmul_f32(*v10, *a2);
-        *&v23[12] = v11;
-      }
-
-      else
-      {
-        if (!v7)
-        {
-          v17 = 0;
-          (*(*v16 + 96))(v16, &v17);
-          v9 = *(a1 + 112);
-          if (v9 <= i)
-          {
-            goto LABEL_30;
-          }
-
-          *(&v17 + 1) = *(*(a1 + 120) + v5) * a2->f32[0];
-          v12 = *(*v16 + 72);
-          goto LABEL_21;
-        }
-
-        if (v7 == 1)
-        {
-          goto LABEL_22;
-        }
-
-        if (v7 != 2)
-        {
-          goto LABEL_33;
-        }
-
-        *&v23[8] = 0;
-        *v23 = 2;
-        (*(*v16 + 104))(v16, v23);
-        v9 = *(a1 + 112);
-        if (v9 <= i)
-        {
-          goto LABEL_29;
-        }
-
-        *&v23[4] = vrev64_s32(vmul_n_f32(*(*(a1 + 120) + v5), COERCE_FLOAT(*a2)));
-      }
-
-      v12 = *(*v16 + 72);
-LABEL_21:
-      v12();
-LABEL_22:
-      if (v4[4] == 5 && (*(*v4 + 56))(v4) && (*(*v4 + 512))(v4))
-      {
-        (*(*v4 + 592))(v4);
-      }
-
-      v5 += 12;
-    }
-  }
-
-  result = *a2->f32;
-  *(a1 + 128) = *a2->f32;
-  return result;
-}
-
-void re::PhysXCollisionObject::logState(re::PhysXCollisionObject *this)
-{
-  v77 = *MEMORY[0x1E69E9840];
-  v2 = *(this + 3);
-  v3 = (*(*v2 + 48))(v2);
-  if (!v3)
-  {
-    v58 = *re::collisionLogObjects(v3);
-    if (!os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
-    {
-      return;
-    }
-
-    *buf = 134218240;
-    *&buf[4] = this;
-    *&buf[12] = 2048;
-    *&buf[14] = v2;
-    v55 = "%p (%p) - Actor type: static";
-    v56 = v58;
-    v57 = 22;
-    goto LABEL_46;
-  }
-
-  v4 = (*(*v2 + 48))(v2);
-  v5 = v4;
-  v6 = *re::collisionLogObjects(v4);
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-  if (v5 != 1)
-  {
-    if (!v7)
-    {
-      return;
-    }
-
-    v59 = (*(*v2 + 48))(v2);
-    *buf = 134218240;
-    *&buf[4] = this;
-    *&buf[12] = 1024;
-    *&buf[14] = v59;
-    v55 = "%p - Actor type: unknown! %d";
-    v56 = v6;
-    v57 = 18;
-    goto LABEL_46;
-  }
-
-  if (v7)
-  {
-    *buf = 134218240;
-    *&buf[4] = this;
-    *&buf[12] = 2048;
-    *&buf[14] = v2;
-    _os_log_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_DEFAULT, "%p (%p) - Actor type: dynamic", buf, 0x16u);
-  }
-
-  v8 = *re::collisionLogObjects(v7);
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-  {
-    (*(*v2 + 432))(&v64, v2);
-    *buf = 67109120;
-    *&buf[4] = v64;
-    _os_log_impl(&dword_1E1C61000, v8, OS_LOG_TYPE_DEFAULT, "RB flags: %#010x", buf, 8u);
-  }
-
-  v9 = (*(*v2 + 504))(v2, &v64);
-  if (v9)
-  {
-    v10 = *re::collisionLogObjects(v9);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 134218496;
-      *&buf[4] = *&v65;
-      *&buf[12] = 2048;
-      *&buf[14] = *(&v65 + 1);
-      *&buf[22] = 2048;
-      v68 = v66;
-      _os_log_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_DEFAULT, "Kinematic target set to: %f, %f, %f", buf, 0x20u);
-    }
-  }
-
-  v11 = (*(*v2 + 152))(buf, v2);
-  v64 = *buf;
-  v65 = *&buf[16];
-  v66 = *&v68;
-  v12 = *re::collisionLogObjects(v11);
-  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
-  if (v13)
-  {
-    *buf = 134218496;
-    *&buf[4] = *&v65;
-    *&buf[12] = 2048;
-    *&buf[14] = *(&v65 + 1);
-    *&buf[22] = 2048;
-    v68 = v66;
-    _os_log_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_DEFAULT, "Pose: %f, %f, %f", buf, 0x20u);
-  }
-
-  v14 = *re::collisionLogObjects(v13);
-  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
-  if (v15)
-  {
-    v16 = *(this + 32);
-    v17 = *(this + 33);
-    v18 = *(this + 34);
-    *buf = 134218496;
-    *&buf[4] = v16;
-    *&buf[12] = 2048;
-    *&buf[14] = v17;
-    *&buf[22] = 2048;
-    v68 = v18;
-    _os_log_impl(&dword_1E1C61000, v14, OS_LOG_TYPE_DEFAULT, "Scale: %f, %f, %f", buf, 0x20u);
-  }
-
-  v19 = *re::collisionLogObjects(v15);
-  v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
-  if (v20)
-  {
-    v21 = (*(*v2 + 512))(v2);
-    *buf = 67109120;
-    *&buf[4] = v21;
-    _os_log_impl(&dword_1E1C61000, v19, OS_LOG_TYPE_DEFAULT, "Sleeping: %d", buf, 8u);
-  }
-
-  v22 = *re::collisionLogObjects(v20);
-  v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
-  if (v23)
-  {
-    v24 = (*(*v2 + 528))(v2);
-    *buf = 134217984;
-    *&buf[4] = v24;
-    _os_log_impl(&dword_1E1C61000, v22, OS_LOG_TYPE_DEFAULT, "Sleep threshold: %f", buf, 0xCu);
-  }
-
-  v25 = *re::collisionLogObjects(v23);
-  v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
-  if (v26)
-  {
-    v27 = (*(*v2 + 584))(v2);
-    *buf = 134217984;
-    *&buf[4] = v27;
-    _os_log_impl(&dword_1E1C61000, v25, OS_LOG_TYPE_DEFAULT, "Wake counter: %f", buf, 0xCu);
-  }
-
-  v28 = *re::collisionLogObjects(v26);
-  v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT);
-  if (v29)
-  {
-    (*(*v2 + 552))(&v62, v2);
-    *buf = 67109120;
-    *&buf[4] = v62;
-    _os_log_impl(&dword_1E1C61000, v28, OS_LOG_TYPE_DEFAULT, "Lock Flags %#010x", buf, 8u);
-  }
-
-  v30 = *re::collisionLogObjects(v29);
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
-  {
-    v31 = (*(*v2 + 240))(v2);
-    *buf = 134217984;
-    *&buf[4] = v31;
-    _os_log_impl(&dword_1E1C61000, v30, OS_LOG_TYPE_DEFAULT, "Mass: %f", buf, 0xCu);
-  }
-
-  v32 = (*(*v2 + 224))(buf, v2);
-  v64 = *buf;
-  v65 = *&buf[16];
-  v66 = *&v68;
-  v33 = *re::collisionLogObjects(v32);
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 134219520;
-    *&buf[4] = *&v65;
-    *&buf[12] = 2048;
-    *&buf[14] = *(&v65 + 1);
-    *&buf[22] = 2048;
-    v68 = v66;
-    v69 = 2048;
-    v70 = *&v64;
-    v71 = 2048;
-    v72 = *(&v64 + 1);
-    v73 = 2048;
-    v74 = *(&v64 + 2);
-    v75 = 2048;
-    v76 = *(&v64 + 3);
-    _os_log_impl(&dword_1E1C61000, v33, OS_LOG_TYPE_DEFAULT, "CMass local pose: %f, %f, %f, %f, %f, %f, %f", buf, 0x48u);
-  }
-
-  v34 = (*(*v2 + 264))(&v62, v2);
-  v35 = *re::collisionLogObjects(v34);
-  v36 = os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT);
-  if (v36)
-  {
-    *buf = 134218496;
-    *&buf[4] = *&v62;
-    *&buf[12] = 2048;
-    *&buf[14] = *(&v62 + 1);
-    *&buf[22] = 2048;
-    v68 = v63;
-    _os_log_impl(&dword_1E1C61000, v35, OS_LOG_TYPE_DEFAULT, "MassSpace inertia tensor: %f, %f, %f", buf, 0x20u);
-  }
-
-  v37 = *re::collisionLogObjects(v36);
-  v38 = os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT);
-  if (v38)
-  {
-    v39 = (*(*v2 + 288))(v2);
-    *buf = 134217984;
-    *&buf[4] = v39;
-    _os_log_impl(&dword_1E1C61000, v37, OS_LOG_TYPE_DEFAULT, "Linear damping: %f", buf, 0xCu);
-  }
-
-  v40 = *re::collisionLogObjects(v38);
-  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
-  {
-    v41 = (*(*v2 + 304))(v2);
-    *buf = 134217984;
-    *&buf[4] = v41;
-    _os_log_impl(&dword_1E1C61000, v40, OS_LOG_TYPE_DEFAULT, "Angular damping: %f", buf, 0xCu);
-  }
-
-  v42 = (*(*v2 + 312))(&v60, v2);
-  v43 = *re::collisionLogObjects(v42);
-  if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 134218496;
-    *&buf[4] = *&v60;
-    *&buf[12] = 2048;
-    *&buf[14] = *(&v60 + 1);
-    *&buf[22] = 2048;
-    v68 = v61;
-    _os_log_impl(&dword_1E1C61000, v43, OS_LOG_TYPE_DEFAULT, "Linear velocity: %f, %f, %f", buf, 0x20u);
-  }
-
-  v44 = (*(*v2 + 328))(buf, v2);
-  v60 = *buf;
-  v61 = *&buf[8];
-  v45 = *re::collisionLogObjects(v44);
-  v46 = os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT);
-  if (v46)
-  {
-    *buf = 134218496;
-    *&buf[4] = *&v60;
-    *&buf[12] = 2048;
-    *&buf[14] = *(&v60 + 1);
-    *&buf[22] = 2048;
-    v68 = v61;
-    _os_log_impl(&dword_1E1C61000, v45, OS_LOG_TYPE_DEFAULT, "Angular velocity: %f, %f, %f", buf, 0x20u);
-  }
-
-  v47 = *re::collisionLogObjects(v46);
-  v48 = os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT);
-  if (v48)
-  {
-    v49 = (*(*v2 + 352))(v2);
-    *buf = 134217984;
-    *&buf[4] = v49;
-    _os_log_impl(&dword_1E1C61000, v47, OS_LOG_TYPE_DEFAULT, "Max angular velocity: %f", buf, 0xCu);
-  }
-
-  v50 = *re::collisionLogObjects(v48);
-  v51 = os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT);
-  if (v51)
-  {
-    v52 = (*(*v2 + 368))(v2);
-    *buf = 134217984;
-    *&buf[4] = v52;
-    _os_log_impl(&dword_1E1C61000, v50, OS_LOG_TYPE_DEFAULT, "Max angular velocity: %f", buf, 0xCu);
-  }
-
-  v53 = *re::collisionLogObjects(v51);
-  if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
-  {
-    v54 = (*(*v2 + 448))(v2);
-    *buf = 134217984;
-    *&buf[4] = v54;
-    v55 = "Max CCD advance coefficient: %f";
-    v56 = v53;
-    v57 = 12;
-LABEL_46:
-    _os_log_impl(&dword_1E1C61000, v56, OS_LOG_TYPE_DEFAULT, v55, buf, v57);
-  }
-}
-
-__n128 re::PhysXCollisionObject::internalLocalPose@<Q0>(re::GeometricObject *a1@<X1>, uint64_t a2@<X8>)
-{
-  v5 = (*(**(a1 + 8) + 24))(*(a1 + 8));
-  if (v5 == 7 || v5 == 1)
-  {
-    v8 = *(a1 + 7);
-    v7 = *(a1 + 8);
-    *a2 = v8;
-    *(a2 + 16) = v7;
-  }
-
-  else
-  {
-    (*(**(a1 + 7) + 160))(v12);
-    *&v8 = v12[2];
-    DWORD2(v8) = v13;
-    v9 = v12[0];
-    v10 = v12[1];
-    *a2 = v8;
-    *(a2 + 16) = v9;
-    *(a2 + 24) = v10;
-  }
-
-  result.n128_u64[0] = v8;
-  result.n128_u32[2] = DWORD2(v8);
-  return result;
-}
-
-uint64_t re::PhysXCollisionObject::isSleeping(re::PhysXCollisionObject *this)
-{
-  result = *(this + 3);
-  if (result)
-  {
-    if (*(result + 8) == 5)
-    {
-      return (*(*result + 512))();
-    }
-
-    else
-    {
-      return 1;
-    }
-  }
-
-  return result;
-}
-
-uint64_t re::PhysXCollisionObject::rayCastInternal(uint64_t a1, uint64_t a2, unsigned __int8 *a3, uint64_t a4, __n128 a5)
-{
-  v8 = 0;
-  v64 = *MEMORY[0x1E69E9840];
-  a5.n128_u64[0] = 2139095039;
-  do
-  {
-    v9 = &v57[v8];
-    *v9 = 0;
-    *(v9 + 1) = 0;
-    *(v9 + 4) = -1;
-    *(v9 + 10) = 0;
-    *(v9 + 4) = 0;
-    *(v9 + 5) = 0;
-    *(v9 + 3) = 0;
-    *(v9 + 6) = 2139095039;
-    v8 += 64;
-    *(v9 + 14) = 0;
-  }
-
-  while (v8 != 2048);
-  v10 = *a3;
-  if (v10 >= 3)
-  {
-    goto LABEL_18;
-  }
-
-  v11 = *(a1 + 24);
-  result = (*(*v11 + 184))(v11, a5);
-  if (result)
-  {
-    v13 = 0;
-    v42 = (32 * v10) | 3;
-    while (1)
-    {
-      v43 = 0;
-      (*(*v11 + 192))(v11, &v43, 1, v13);
-      v14 = v43;
-      v15 = *(a2 + 32);
-      (*(*v43 + 80))(&v59, v43);
-      *v52 = &v59;
-      (*(*v11 + 152))(v52, v11);
-      (*(*v14 + 160))(&v48, v14);
-      _S2 = v49 + v49;
-      _S3 = v51 + v51;
-      v18 = (v53 * v53) + -0.5;
-      v19.i32[0] = *v52;
-      _Q7.i64[0] = *&v52[4];
-      __asm
-      {
-        FMLA            S16, S3, V7.S[1]
-        FMLA            S18, S2, V7.S[1]
-        FMLA            S20, S16, V7.S[1]
-      }
-
-      v28 = v48;
-      v28.i32[3] = *&v52[8];
-      v29 = vextq_s8(vextq_s8(v19, v19, 4uLL), _Q7, 0xCuLL);
-      v29.f32[3] = -*v52;
-      v30 = vmlaq_n_f32(vmulq_f32(vextq_s8(vdupq_laneq_s32(v48, 3), v48, 4uLL), v29), v48, v53);
-      v29.f32[3] = -*&v52[4];
-      _Q7.i64[1] = __PAIR64__(v48.u32[2], *v52);
-      v31 = vmlsq_f32(vmlaq_f32(vuzp2q_s32(vextq_s8(v30, v30, 4uLL), v30), vextq_s8(vextq_s8(v48, v48, 0xCuLL), v48, 8uLL), v29), _Q7, v28);
-      v44 = vzip2q_s32(vzip1q_s32(v31, vextq_s8(v31, v31, 0xCuLL)), v31);
-      v45 = v54 + (((v53 * (vmuls_lane_f32(v50 + v50, vnegq_f32(v28), 3) + (*&v52[4] * (v51 + v51)))) + ((v49 + v49) * v18)) + (*v52 * _S16));
-      v46 = v55 + (((v53 * _S18) + ((v50 + v50) * v18)) + (*&v52[4] * _S16));
-      v47 = v56 + _S20;
-      v32 = gRaycastMap[v59];
-      *v52 = v42;
-      v33 = (v32)(&v59, &v44, a2, a2 + 16, v52, 32, v57, v15);
-      if (v33)
-      {
-        break;
-      }
-
-LABEL_15:
-      v13 = (v13 + 1);
-      result = (*(*v11 + 184))(v11);
-      if (v13 >= result)
-      {
-        return result;
-      }
-    }
-
-    v34 = v33;
-    v35 = &v58;
-    while (1)
-    {
-      v36 = re::BucketArray<re::CollisionCastHit,10ul>::addUninitialized(a4);
-      *v36 = 0;
-      *(v36 + 16) = 0u;
-      *(v36 + 32) = 0u;
-      *(v36 + 48) = 2139095039;
-      *(v36 + 52) = 0xFFFFFFFF00000000;
-      *(v36 + 64) = 0;
-      v38 = *(a4 + 40);
-      if (!v38)
-      {
-        break;
-      }
-
-      v39 = re::BucketArray<re::CollisionCastHit,10ul>::operator[](a4, v38 - 1);
-      *(v39 + 48) = *(v35 + 4) / *(a2 + 32);
-      *&v40 = *(v35 - 1);
-      DWORD2(v40) = *v35;
-      *(v39 + 16) = v40;
-      *&v40 = *(v35 + 4);
-      DWORD2(v40) = *(v35 + 3);
-      *(v39 + 32) = v40;
-      *v39 = a1;
-      *(v39 + 52) = v13;
-      if ((*(*v43 + 64))(v43) == 5)
-      {
-        v60 = xmmword_1E304F3C0;
-        v61 = 0;
-        v59 = 5;
-        v62 = 1065353216;
-        v63 = 0;
-        (*(*v43 + 128))(v43, &v59);
-        if ((*(*v63 + 104))(v63))
-        {
-          v41 = ((*(*v63 + 104))(v63) + 4 * *(v35 - 4));
-        }
-
-        else
-        {
-          v41 = v35 - 2;
-        }
-
-        *(v39 + 56) = *v41;
-        *(v39 + 64) = *(v35 + 20);
-      }
-
-      v35 += 8;
-      if (!--v34)
-      {
-        goto LABEL_15;
-      }
-    }
-
-    re::internal::assertLog(4, v37, "assertion failure: '%s' (%s:line %i) Array is empty", "m_size > 0", "last", 768);
-    _os_crash();
-    __break(1u);
-LABEL_18:
-    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) Unsupported collision query type!", "!Unreachable code", "toPhysX", 89);
-    _os_crash();
-    __break(1u);
-  }
-
-  return result;
-}
-
-uint64_t re::Event<re::GeometricObjectBase>::createSubscription<re::PhysXCollisionObject>(re::PhysXCollisionObject *,REEventHandlerResult (re::PhysXCollisionObject::*)(re::GeometricObjectBase*))::{lambda(re::GeometricObjectBase*,re::Event<re::GeometricObjectBase>::Subscription const&)#1}::__invoke(uint64_t a1, void *a2)
-{
-  v3 = a2[1];
-  v4 = a2[2];
-  v5 = (*a2 + (v4 >> 1));
-  if (v4)
-  {
-    v3 = *(*v5 + v3);
-  }
-
-  return v3(v5, a1);
-}
-
-double re::PhysXSphereShape::aabb@<D0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X4>, uint64_t a4@<X5>, uint64_t a5@<X6>, uint64_t a6@<X7>, _OWORD *a7@<X8>, double a8@<D1>, double a9@<D2>, double a10@<D3>, double a11@<D4>, double a12@<D5>, int32x4_t a13@<Q6>)
-{
-  v17 = *(a2 + 1);
-  v14.i64[1] = *(&v17 + 1);
-  v18 = *a2;
-  v19 = *(a2 + 2);
-  v14.i64[0] = 0;
-  LODWORD(a8) = 1.0;
-  physx::Gu::computeBounds(v20, a1 + 20, &v17, 0, v14, a8, a9, a10, a11, a12, a13, a3, a4, a5, a6, v17);
-  result = *v20;
-  *&v16 = *&v20[12];
-  DWORD2(v16) = v21;
-  *a7 = *v20;
-  a7[1] = v16;
-  return result;
-}
-
-double re::PhysXBoxShape::extent(re::PhysXBoxShape *this, float32x4_t a2)
-{
-  a2.i64[0] = *(this + 3);
-  a2.i32[2] = *(this + 8);
-  a2.i64[0] = vaddq_f32(a2, a2).u64[0];
-  return *a2.i64;
-}
-
-double re::PhysXBoxShape::aabb@<D0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X4>, uint64_t a4@<X5>, uint64_t a5@<X6>, uint64_t a6@<X7>, _OWORD *a7@<X8>, double a8@<D1>, double a9@<D2>, double a10@<D3>, double a11@<D4>, double a12@<D5>, int32x4_t a13@<Q6>)
-{
-  v17 = *(a2 + 1);
-  v14.i64[1] = *(&v17 + 1);
-  v18 = *a2;
-  v19 = *(a2 + 2);
-  v14.i64[0] = 0;
-  LODWORD(a8) = 1.0;
-  physx::Gu::computeBounds(v20, a1 + 20, &v17, 0, v14, a8, a9, a10, a11, a12, a13, a3, a4, a5, a6, v17);
-  result = *v20;
-  *&v16 = *&v20[12];
-  DWORD2(v16) = v21;
-  *a7 = *v20;
-  a7[1] = v16;
-  return result;
-}
-
-uint64_t re::PhysXSimulationEventCallback::onContact(uint64_t result, void *a2, uint64_t a3, unsigned int a4)
-{
-  if (*(result + 24) != 1)
-  {
-    return result;
-  }
-
-  v7 = result;
-  v8 = *(result + 8);
-  v9 = *(v8 + 40);
-  v10 = v9 + 1;
-  if (v9 == -1)
-  {
-    v11 = 0;
-    do
-    {
-      v12 = re::BucketArray<re::PhysXManifold,256ul>::operator[](v8, v11);
-      re::DynamicArray<unsigned long>::deinit(v12 + 16);
-      ++v11;
-    }
-
-    while (v11 != *(v8 + 40));
-    *(v8 + 40) = v10;
-  }
-
-  else
-  {
-    if (v10 <= *(v8 + 8) << 8)
-    {
-      *(v8 + 40) = v10;
-    }
-
-    else
-    {
-      re::BucketArray<re::PhysXManifold,256ul>::setBucketsCapacity(*(result + 8), (v9 + 256) >> 8);
-      v9 = *(v8 + 40);
-      *(v8 + 40) = v10;
-      if (v9 == v10)
-      {
-        goto LABEL_11;
-      }
-    }
-
-    do
-    {
-      v14 = re::BucketArray<re::PhysXManifold,256ul>::operator[](v8, v9);
-      *(v14 + 48) = 0;
-      *v14 = 0u;
-      *(v14 + 16) = 0u;
-      *(v14 + 28) = 0u;
-      ++v9;
-    }
-
-    while (v9 != *(v8 + 40));
-  }
-
-LABEL_11:
-  ++*(v8 + 48);
-  v15 = *(v7 + 8);
-  v16 = *(v15 + 40);
-  if (!v16)
-  {
-    goto LABEL_69;
-  }
-
-  result = re::BucketArray<re::PhysXManifold,256ul>::operator[](v15, v16 - 1);
-  v17 = result;
-  *result = *(*a2 + 16);
-  *(result + 8) = *(a2[1] + 16);
-  v18 = 0;
-  if (a4)
-  {
-    v19 = a4;
-    v20 = (a3 + 44);
-    do
-    {
-      v21 = *v20;
-      v20 += 64;
-      v18 += v21;
-      --v19;
-    }
-
-    while (v19);
-  }
-
-  v22 = v18;
-  v23 = *(result + 32);
-  if (v23 < v18)
-  {
-    if (*(result + 24) < v18)
-    {
-      result = re::DynamicArray<physx::PxContactPairPoint>::setCapacity((result + 16), v18);
-      v23 = *(v17 + 32);
-    }
-
-    v24 = v22 - v23;
-    if (v22 > v23)
-    {
-      v25 = (*(v17 + 48) + 48 * v23 + 44);
-      do
-      {
-        *(v25 - 8) = 0;
-        *(v25 - 4) = 0;
-        *v25 = 0;
-        v25 += 12;
-        --v24;
-      }
-
-      while (v24);
-    }
-
-    goto LABEL_23;
-  }
-
-  if (v23 > v18)
-  {
-LABEL_23:
-    *(v17 + 32) = v22;
-    ++*(v17 + 40);
-    v23 = v22;
-  }
-
-  if (a4 && v22)
-  {
-    v26 = 0;
-    v27 = 0;
-    v28 = *(v17 + 48);
-    v29 = a4;
-    while (1)
-    {
-      v30 = v27;
-      if (v23 <= v27)
-      {
-        break;
-      }
-
-      v31 = a3 + (v26 << 6);
-      v32 = *(v31 + 44);
-      if (*(v31 + 44))
-      {
-        v33 = *(v31 + 16);
-        if (v33)
-        {
-          v34 = v33[5].i8[3];
-          v35 = (v34 & 2) != 0 ? 64 : 16;
-          result = v34 >= 0 ? v35 : 32;
-          v36 = (v34 & 1) == 0;
-        }
-
-        else
-        {
-          result = 0;
-          v36 = 1;
-        }
-
-        v37 = *(v31 + 45);
-        if (*(v31 + 45))
-        {
-          v38 = 0;
-          v39 = 0;
-          v40 = 0;
-          v41 = 0;
-          v42 = *(v31 + 24);
-          v43 = *(v31 + 32);
-          v44 = (v43 + 4 * *(v31 + 44));
-          v45 = *(v31 + 48);
-          do
-          {
-            if (v40)
-            {
-              v46 = v33[5].u8[1];
-              v47 = v46 >= v41;
-              v49 = v46 - v41;
-              v48 = v49 != 0 && v47;
-              LODWORD(v50) = v49 * result;
-              if (v48)
-              {
-                v50 = v50;
-              }
-
-              else
-              {
-                v50 = 0;
-              }
-
-              v42 = (v42 + v50);
-              v33 += 6;
-            }
-
-            ++v40;
-            v41 = v33[5].u8[1];
-            v51 = v41;
-            while (v51)
-            {
-              v52 = (v39 & 1) == 0;
-              if (v39)
-              {
-                v53 = result;
-              }
-
-              else
-              {
-                v53 = 0;
-              }
-
-              v42 = (v42 + v53);
-              if (v52)
-              {
-                v54 = 0;
-              }
-
-              else
-              {
-                v54 = 4;
-              }
-
-              v44 = (v44 + v54);
-              v55 = v28 + 48 * v30 + 48 * v38;
-              *v55 = *v42;
-              v56 = v33[2];
-              *(v55 + 16) = v56;
-              v57 = v33[3].f32[0];
-              *(v55 + 24) = v57;
-              if ((v45 & 0x20) != 0)
-              {
-                if (v36)
-                {
-                  v59 = -1;
-                }
-
-                else
-                {
-                  v59 = *v44;
-                }
-
-                *(v55 + 28) = v59;
-                v58 = -1;
-              }
-
-              else
-              {
-                v58 = -1;
-                *(v55 + 28) = -1;
-                if (!v36)
-                {
-                  v58 = *v44;
-                }
-              }
-
-              *(v55 + 44) = v58;
-              if ((v45 & 0x10) != 0)
-              {
-                v62 = *(v43 + 4 * v38);
-                v60 = vmul_n_f32(v56, v62);
-                v61 = v57 * v62;
-              }
-
-              else
-              {
-                v60 = 0;
-                v61 = 0.0;
-              }
-
-              *(v55 + 32) = v60;
-              *(v55 + 40) = v61;
-              ++v38;
-              --v51;
-              v39 = 1;
-              if (v32 == v38)
-              {
-                goto LABEL_66;
-              }
-            }
-          }
-
-          while (v40 != v37);
-        }
-      }
-
-LABEL_66:
-      v27 = v30 + v32;
-      if (++v26 == v29)
-      {
-        return result;
-      }
-    }
-
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_69:
-    re::internal::assertLog(4, v13, "assertion failure: '%s' (%s:line %i) Array is empty", "m_size > 0", "last", 768);
-    _os_crash();
-    __break(1u);
-  }
-
-  return result;
-}
-
-void re::PhysXSimulationEventCallback::onTrigger(uint64_t a1, uint64_t a2, unsigned int a3)
-{
-  if (*(a1 + 24) == 1)
-  {
-    v41 = v3;
-    v42 = v4;
-    v8 = *(a1 + 16);
-    v9 = *(v8 + 28) + a3;
-    if (*(v8 + 24) < v9)
-    {
-      re::HashSetBase<re::TriggerPair,re::TriggerPair,re::internal::ValueAsKey<re::TriggerPair>,re::Hash<re::TriggerPair>,re::EqualTo<re::TriggerPair>,true,false>::setCapacity(v8, v9);
-    }
-
-    if (a3)
-    {
-      v10 = 0;
-      v11 = a3;
-      do
-      {
-        v12 = a2 + 40 * v10;
-        v13 = *(*(v12 + 24) + 16);
-        v14 = *(*(v12 + 8) + 16);
-        *&v39 = v13;
-        *(&v39 + 1) = v14;
-        LOBYTE(v40) = 0;
-        if ((*(v12 + 32) & 0x10) != 0)
-        {
-          v25 = *(a1 + 16);
-          if ((*(v12 + 36) & 3) != 0)
-          {
-            re::HashSetBase<re::TriggerPair,re::TriggerPair,re::internal::ValueAsKey<re::TriggerPair>,re::Hash<re::TriggerPair>,re::EqualTo<re::TriggerPair>,true,false>::remove(v25, &v39);
-          }
-
-          else
-          {
-            v32 = *(v25 + 24);
-            if (v32)
-            {
-              v33 = *(*(v25 + 8) + 4 * ((((v13 << 6) - 0x61C8864680B583E9 + (v13 >> 2) + v14) ^ v13) % v32));
-              if (v33 != 0x7FFFFFFF)
-              {
-                v34 = *(v25 + 16);
-                while (1)
-                {
-                  v35 = v34 + 40 * v33;
-                  v38 = *(v35 + 16);
-                  v36 = v35 + 16;
-                  v37 = v38;
-                  if (v38 == v13 && *(v36 + 8) == v14)
-                  {
-                    break;
-                  }
-
-                  if (v37 == v14 && *(v36 + 8) == v13)
-                  {
-                    break;
-                  }
-
-                  v33 = *(v34 + 40 * v33 + 8) & 0x7FFFFFFF;
-                  if (v33 == 0x7FFFFFFF)
-                  {
-                    goto LABEL_25;
-                  }
-                }
-
-                *(v36 + 16) = 2;
-              }
-            }
-          }
-
-          goto LABEL_25;
-        }
-
-        v15 = *(a1 + 16);
-        v16 = ((v13 << 6) - 0x61C8864680B583E9 + (v13 >> 2) + v14) ^ v13;
-        v17 = *(v15 + 24);
-        if (v17)
-        {
-          v18 = v16 % v17;
-          v19 = *(*(v15 + 8) + 4 * (v16 % v17));
-          if (v19 != 0x7FFFFFFF)
-          {
-            v20 = *(v15 + 16);
-            do
-            {
-              v21 = v20 + 40 * v19;
-              v24 = *(v21 + 16);
-              v22 = v21 + 16;
-              v23 = v24;
-              if (v24 == v13 && *(v22 + 8) == v14)
-              {
-                goto LABEL_25;
-              }
-
-              if (v23 == v14 && *(v22 + 8) == v13)
-              {
-                goto LABEL_25;
-              }
-
-              v19 = *(v20 + 40 * v19 + 8) & 0x7FFFFFFF;
-            }
-
-            while (v19 != 0x7FFFFFFF);
-          }
-        }
-
-        else
-        {
-          v18 = 0;
-        }
-
-        v26 = *(v15 + 36);
-        if (v26 == 0x7FFFFFFF)
-        {
-          v26 = *(v15 + 32);
-          v27 = v26;
-          if (v26 == v17)
-          {
-            re::HashSetBase<re::TriggerPair,re::TriggerPair,re::internal::ValueAsKey<re::TriggerPair>,re::Hash<re::TriggerPair>,re::EqualTo<re::TriggerPair>,true,false>::setCapacity(*(a1 + 16), 2 * *(v15 + 28));
-            v18 = v16 % *(v15 + 24);
-            v27 = *(v15 + 32);
-          }
-
-          *(v15 + 32) = v27 + 1;
-          v28 = *(v15 + 16);
-          v29 = *(v28 + 40 * v26 + 8);
-        }
-
-        else
-        {
-          v28 = *(v15 + 16);
-          v29 = *(v28 + 40 * v26 + 8);
-          *(v15 + 36) = v29 & 0x7FFFFFFF;
-        }
-
-        *(v28 + 40 * v26 + 8) = v29 | 0x80000000;
-        *(*(v15 + 16) + 40 * v26 + 8) = *(*(v15 + 16) + 40 * v26 + 8) & 0x80000000 | *(*(v15 + 8) + 4 * v18);
-        *(*(v15 + 16) + 40 * v26) = v16;
-        v30 = *(v15 + 16) + 40 * v26;
-        v31 = v39;
-        *(v30 + 32) = v40;
-        *(v30 + 16) = v31;
-        *(*(v15 + 8) + 4 * v18) = v26;
-        ++*(v15 + 28);
-        ++*(v15 + 40);
-LABEL_25:
-        ++v10;
-      }
-
-      while (v10 != v11);
-    }
-  }
-}
-
-void re::HashSetBase<re::TriggerPair,re::TriggerPair,re::internal::ValueAsKey<re::TriggerPair>,re::Hash<re::TriggerPair>,re::EqualTo<re::TriggerPair>,true,false>::setCapacity(uint64_t a1, unsigned int a2)
-{
-  v4 = *a1;
-  if (*a1)
-  {
-    if (a2 && *(a1 + 24) != a2 && *(a1 + 28) <= a2)
-    {
-      memset(v25, 0, 36);
-      *&v25[36] = 0x7FFFFFFFLL;
-      re::HashSetBase<re::ServiceKey,re::ServiceRegistration,re::internal::ServiceKeyGetter,re::internal::ServiceKeyHash,re::internal::ServiceKeyEqualTo,false,false>::init(v25, v4, a2);
-      v5 = *a1;
-      *a1 = *v25;
-      v6 = *(a1 + 16);
-      v7 = *&v25[8];
-      *v25 = v5;
-      *&v25[16] = v6;
-      *(a1 + 8) = v7;
-      v9 = *&v25[24];
-      *&v25[24] = *(a1 + 24);
-      v8 = *&v25[32];
-      *(a1 + 24) = v9;
-      v10 = v8;
-      if (v8)
-      {
-        v11 = 0;
-        v12 = DWORD1(v9);
-        v13 = v7;
-        v14 = (v6 + 16);
-        do
-        {
-          if ((*(v14 - 2) & 0x80000000) != 0)
-          {
-            v15 = *(v14 - 2);
-            v16 = *(a1 + 24);
-            v17 = v15 % v16;
-            v18 = *(a1 + 36);
-            if (v18 == 0x7FFFFFFF)
-            {
-              v18 = *(a1 + 32);
-              v19 = v18;
-              if (v18 == v16)
-              {
-                re::HashSetBase<re::TriggerPair,re::TriggerPair,re::internal::ValueAsKey<re::TriggerPair>,re::Hash<re::TriggerPair>,re::EqualTo<re::TriggerPair>,true,false>::setCapacity(a1, (2 * v12));
-                v17 = v15 % *(a1 + 24);
-                v19 = *(a1 + 32);
-                v13 = *(a1 + 8);
-              }
-
-              *(a1 + 32) = v19 + 1;
-              v20 = *(a1 + 16);
-              v21 = *(v20 + 40 * v18 + 8);
-            }
-
-            else
-            {
-              v20 = *(a1 + 16);
-              v21 = *(v20 + 40 * v18 + 8);
-              *(a1 + 36) = v21 & 0x7FFFFFFF;
-            }
-
-            *(v20 + 40 * v18 + 8) = v21 | 0x80000000;
-            *(*(a1 + 16) + 40 * v18 + 8) = *(*(a1 + 16) + 40 * v18 + 8) & 0x80000000 | *(v13 + 4 * v17);
-            *(*(a1 + 16) + 40 * v18) = v15;
-            v22 = *(a1 + 16) + 40 * v18;
-            v23 = *v14;
-            *(v22 + 32) = *(v14 + 2);
-            *(v22 + 16) = v23;
-            v13 = *(a1 + 8);
-            *(v13 + 4 * v17) = v18;
-            v12 = *(a1 + 28) + 1;
-            *(a1 + 28) = v12;
-          }
-
-          ++v11;
-          v14 = (v14 + 40);
-        }
-
-        while (v11 < v10);
-      }
-
-      re::HashSetBase<re::TriggerPair,re::TriggerPair,re::internal::ValueAsKey<re::TriggerPair>,re::Hash<re::TriggerPair>,re::EqualTo<re::TriggerPair>,true,false>::deinit(v25);
-    }
-  }
-
-  else
-  {
-    if (a2)
-    {
-      v24 = a2;
-    }
-
-    else
-    {
-      v24 = 3;
-    }
-  }
-}
-
-void *re::DynamicArray<physx::PxContactPairPoint>::setCapacity(void *result, unint64_t a2)
-{
-  v2 = result[1];
-  if (v2 != a2)
-  {
-    v4 = result;
-    if (result[2] <= a2)
-    {
-      result = *result;
-      if (!*v4)
-      {
-        result = re::DynamicArray<physx::PxContactPairPoint>::setCapacity(v4, a2);
-        ++*(v4 + 6);
-        return result;
-      }
-
-      if (a2)
-      {
-        result = (*(*result + 32))(result, 48 * a2, 4);
-        if (!result)
-        {
-          re::internal::assertLog(6, v5, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, 48 * a2, *(*v4 + 8));
-          result = _os_crash();
-          __break(1u);
-          return result;
-        }
-
-        v6 = result;
-        if (!v4[1])
-        {
-          goto LABEL_14;
-        }
-      }
-
-      else
-      {
-        v6 = 0;
-        if (!v2)
-        {
-LABEL_14:
-          v4[4] = v6;
-          v4[1] = a2;
-          return result;
-        }
-      }
-
-      v7 = v4[4];
-      v8 = v4[2];
-      if (v8)
-      {
-        v9 = v7 + 48 * v8;
-        v10 = v6;
-        v11 = v4[4];
-        do
-        {
-          *v10 = *v11;
-          v10[2] = *(v11 + 16);
-          *(v10 + 6) = *(v11 + 24);
-          *(v10 + 7) = *(v11 + 28);
-          v10[4] = *(v11 + 32);
-          *(v10 + 10) = *(v11 + 40);
-          *(v10 + 11) = *(v11 + 44);
-          v11 += 48;
-          v10 += 6;
-        }
-
-        while (v11 != v9);
-      }
-
-      result = (*(**v4 + 40))(*v4, v7);
-      goto LABEL_14;
-    }
-  }
-
-  return result;
-}
-
-uint64_t re::CollisionFactory::createGeometricObject(uint64_t a1, uint64_t a2, uint64_t a3, _OWORD *a4, uint64_t a5)
-{
-  v9 = (*(*a2 + 32))(a2, 240, 16);
-  *v9 = 0u;
-  *(v9 + 16) = 0u;
-  *(v9 + 48) = 0u;
-  *(v9 + 64) = 0u;
-  *(v9 + 80) = 0u;
-  *(v9 + 112) = 0u;
-  *(v9 + 160) = 0u;
-  *(v9 + 176) = 0u;
-  *(v9 + 192) = 0u;
-  *(v9 + 208) = 0u;
-  *(v9 + 224) = 0u;
-  *(v9 + 144) = 0u;
-  *(v9 + 32) = 0;
-  *(v9 + 40) = 0x3F80000000000000;
-  *v9 = &unk_1F5CCDD10;
-  *(v9 + 96) = 0;
-  *(v9 + 104) = 0x3F80000000000000;
-  *(v9 + 128) = 0;
-  *(v9 + 136) = 0x3F80000000000000;
-  *(v9 + 144) = 0;
-  *(v9 + 168) = 0;
-  *(v9 + 152) = 0;
-  *(v9 + 160) = 0;
-  *(v9 + 208) = 0;
-  *(v9 + 176) = 0u;
-  *(v9 + 192) = 0u;
-  v10 = a4[1];
-  *(v9 + 16) = *a4;
-  *(v9 + 32) = v10;
-  *(v9 + 64) = a3;
-  v11 = a4[1];
-  *(v9 + 112) = *a4;
-  *(v9 + 128) = v11;
-  *(v9 + 144) = a2;
-  re::DynamicArray<re::EvaluationRegister>::setCapacity((v9 + 144), 0);
-  ++*(v9 + 168);
-  *(v9 + 232) = a5;
-  return v9;
-}
-
-uint64_t re::CollisionFactory::deepCopyShape(re::CollisionFactory *this, re::Allocator *a2, const re::CollisionShape *a3)
-{
-  v59 = *MEMORY[0x1E69E9840];
-  v9 = (*(*a3 + 24))(a3);
-  v11 = 0;
-  if (v9 > 5)
-  {
-    if (v9 <= 8)
-    {
-      if (v9 != 6)
-      {
-        if (v9 != 7)
-        {
-          v12 = (*(*a3 + 64))(a3);
-          (*(*a3 + 72))(a3);
-          v13 = *(*this + 128);
-          v14.n128_u32[0] = v17.n128_u32[0];
-          v15 = this;
-          v16 = a2;
-          v17.n128_f32[0] = v12;
-
-          return v13(v15, v16, v17, v14);
-        }
-
-        v26 = *(a3 + 4);
-        v27 = *(a3 + 5);
-        v45 = 0;
-        v46 = 0;
-        v47 = 0;
-        re::FixedArray<unsigned long>::init<>(&v45, a2, v26);
-        v42 = 0;
-        v43 = 0;
-        v44 = 0;
-        re::FixedArray<re::Pose<float>>::init<>(&v42, a2, v26);
-        if (v26)
-        {
-          v28 = 0;
-          v4 = 0;
-          v5 = &v57;
-          v29 = (v27 + 112);
-          while (1)
-          {
-            v30 = re::CollisionFactory::deepCopyShape(this, a2, *(v29 - 6));
-            v3 = v46;
-            if (v46 <= v4)
-            {
-              break;
-            }
-
-            *(v47 + 8 * v4) = v30;
-            v3 = v43;
-            if (v43 <= v4)
-            {
-              goto LABEL_57;
-            }
-
-            v31 = v44;
-            v32 = (v44 + v28);
-            v33 = *v29;
-            v34 = *(v29 + 1);
-            v29 += 30;
-            *v32 = v33;
-            v32[1] = v34;
-            ++v4;
-            v28 += 32;
-            if (v26 == v4)
-            {
-              goto LABEL_48;
-            }
-          }
-
-LABEL_56:
-          v48 = 0;
-          v5[3] = 0u;
-          v5[4] = 0u;
-          v5[2] = 0u;
-          v57 = 0u;
-          v58 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          v49 = 136315906;
-          v50 = "operator[]";
-          v51 = 1024;
-          v52 = 468;
-          v53 = 2048;
-          v54 = v4;
-          v55 = 2048;
-          v56 = v3;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_57:
-          v48 = 0;
-          v5[3] = 0u;
-          v5[4] = 0u;
-          v5[2] = 0u;
-          v57 = 0u;
-          v58 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          v49 = 136315906;
-          v50 = "operator[]";
-          v51 = 1024;
-          v52 = 468;
-          v53 = 2048;
-          v54 = v4;
-          v55 = 2048;
-          v56 = v3;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-        }
-
-        v31 = v44;
-LABEL_48:
-        v40 = v47;
-        v41 = (*(*a3 + 64))(a3);
-        v11 = (*(*this + 160))(this, a2, v40, v31, v26, v41, a2);
-        if (v42 && v43)
-        {
-          (*(*v42 + 40))();
-        }
-
-        if (v45 && v46)
-        {
-          (*(*v45 + 40))();
-        }
-
-        return v11;
-      }
-
-      v37 = (*(*a3 + 64))(a3);
-      (*(*a3 + 72))(a3);
-      v18 = *(*this + 104);
-      v19 = this;
-      v20 = a2;
-      v21 = v37;
-
-      return v18(v19, v20, v21);
-    }
-
-    if (v9 == 9)
-    {
-      v38 = (*(*a3 + 64))(a3);
-      (*(*a3 + 72))(a3);
-      v13 = *(*this + 120);
-      v14.n128_u32[0] = v17.n128_u32[0];
-      v15 = this;
-      v16 = a2;
-      v17.n128_f32[0] = v38;
-
-      return v13(v15, v16, v17, v14);
-    }
-
-    if (v9 != 11)
-    {
-      if (v9 != 12)
-      {
-        return v11;
-      }
-
-      v21 = *(a3 + 3);
-      v18 = *(*this + 144);
-      v19 = this;
-      v20 = a2;
-
-      return v18(v19, v20, v21);
-    }
-
-    *&v57 = (*(*a3 + 64))(a3);
-    return (*(*this + 136))(this, a2, &v57);
-  }
-
-  if (v9 > 2)
-  {
-    if (v9 != 3)
-    {
-      if (v9 == 4)
-      {
-        v36 = (*(*a3 + 64))(a3);
-        (*(*a3 + 72))(a3);
-        v13 = *(*this + 40);
-        v14.n128_u32[0] = v17.n128_u32[0];
-        v15 = this;
-        v16 = a2;
-        v17.n128_f32[0] = v36;
-
-        return v13(v15, v16, v17, v14);
-      }
-
-      v18 = *(*this + 80);
-      v19 = this;
-      v20 = a2;
-      v21 = a3;
-
-      return v18(v19, v20, v21);
-    }
-
-    *&v57 = (*(*a3 + 64))(a3);
-    *(&v57 + 1) = v39;
-    return (*(*this + 32))(this, a2, &v57);
-  }
-
-  switch(v9)
-  {
-    case 1:
-      v22 = *(*this + 96);
-      v23 = this;
-      v24 = a2;
-
-      return v22(v23, v24);
-    case 2:
-      (*(*a3 + 64))(a3);
-      v22 = *(*this + 112);
-      v23 = this;
-      v24 = a2;
-
-      return v22(v23, v24);
-    case 0:
-      re::internal::assertLog(4, v10, "assertion failure: '%s' (%s:line %i) ", "!Unreachable code", "deepCopyShape", 45);
-      _os_crash();
-      __break(1u);
-      goto LABEL_56;
-  }
-
-  return v11;
-}
-
-double re::PhysXTriangleMeshShape::PhysXTriangleMeshShape(re::PhysXTriangleMeshShape *this, const re::IndexedTriangleMesh *a2, float a3)
-{
-  *(this + 4) = a3;
-  *(this + 3) = a2;
-  *this = &unk_1F5CCEE48;
-  *(this + 1) = this + 32;
-  if (a2)
-  {
-    v3 = *(a2 + 8);
+    CFRelease(v1);
   }
 
   else
@@ -1960,1780 +53,7609 @@ double re::PhysXTriangleMeshShape::PhysXTriangleMeshShape(re::PhysXTriangleMeshS
     v3 = 0;
   }
 
-  *(this + 8) = 5;
-  result = 0.00781250185;
-  *(this + 36) = xmmword_1E304F3C0;
-  *(this + 13) = 0;
-  *(this + 14) = 0;
-  *(this + 60) = 1065353216;
-  *(this + 9) = v3;
-  return result;
-}
-
-void re::PhysXTriangleMeshShape::aabb(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X4>, uint64_t a4@<X5>, uint64_t a5@<X6>, uint64_t a6@<X7>, float32x4_t *a7@<X8>, double a8@<D1>, double a9@<D2>, double a10@<D3>, double a11@<D4>, double a12@<D5>, int32x4_t a13@<Q6>)
-{
-  if (*(a1 + 72))
+  _MergedGlobals_118 = v3;
+  v6 = *re::audioLogObjects(v0);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = *(a2 + 1);
-    v14.i64[1] = *(&v17 + 1);
-    v18 = *a2;
-    v19 = *(a2 + 2);
-    v14.i64[0] = 0;
-    LODWORD(a8) = 1.0;
-    physx::Gu::computeBounds(v20, a1 + 32, &v17, 0, v14, a8, a9, a10, a11, a12, a13, a3, a4, a5, a6, v17);
-    v15 = *v20;
-    v16.i64[0] = *&v20[12];
-    v16.i32[2] = v21;
-  }
-
-  else
-  {
-    v16.i64[0] = 0x7F0000007FLL;
-    v16.i64[1] = 0x7F0000007FLL;
-    v15 = vnegq_f32(v16);
-  }
-
-  *a7 = v15;
-  a7[1] = v16;
-}
-
-uint64_t re::PhysXTriangleMeshShape::indexFormat(re::PhysXTriangleMeshShape *this)
-{
-  (*(**(this + 9) + 96))(&var1);
-  if ((var1 & 2) != 0)
-  {
-    return 1;
-  }
-
-  else
-  {
-    return 2;
+    LODWORD(cf[0]) = 67109120;
+    HIDWORD(cf[0]) = _MergedGlobals_118;
+    _os_log_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_DEFAULT, "Entitlement shouldRedactSensitiveInfoFromLogs set %d.", cf, 8u);
   }
 }
 
-uint64_t re::CollisionObject::CollisionObject(uint64_t a1, int a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t REAudioEnableAudioEngineRunnableAutomationSupport(void)
 {
-  v9[4] = *MEMORY[0x1E69E9840];
-  *a1 = &unk_1F5CCEEE0;
-  *(a1 + 8) = a2;
-  *(a1 + 16) = a4;
-  *(a1 + 24) = a6;
-  *(a1 + 32) = xmmword_1E3066800;
-  *(a1 + 48) = 0;
-  *(a1 + 56) = 0;
-  *(a1 + 64) = 0;
-  *(a1 + 80) = 0;
-  *(a1 + 88) = a3;
-  *(a1 + 96) = a5;
-  if ((a2 & 1) == 0)
+  if (qword_1EE19D020 != -1)
   {
-    v7 = (*(*a4 + 48))(a4);
-    v9[0] = a1;
-    v9[1] = re::CollisionObject::poseDidChange;
-    v9[2] = 0;
-    v9[3] = re::Event<re::GeometricObjectBase>::createSubscription<re::CollisionObject>(re::CollisionObject *,REEventHandlerResult (re::CollisionObject::*)(re::GeometricObjectBase*))::{lambda(re::GeometricObjectBase*,re::Event<re::GeometricObjectBase>::Subscription const&)#1}::__invoke;
-    re::Event<re::NetworkSystem,re::ecs2::Component *>::addSubscription(v7, v9);
+    dispatch_once(&qword_1EE19D020, &__block_literal_global_67);
   }
 
-  return a1;
+  return byte_1EE19D011;
 }
 
-void re::CollisionObject::~CollisionObject(re::CollisionObject *this)
+void ___Z49REAudioEnableAudioEngineRunnableAutomationSupportv_block_invoke()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  *this = &unk_1F5CCEEE0;
-  if ((*(this + 8) & 1) == 0)
-  {
-    v2 = *(this + 2);
-    v3 = (*(*v2 + 48))(v2);
-    *&v6 = this;
-    *(&v6 + 1) = re::CollisionObject::poseDidChange;
-    v7 = 0;
-    v8 = re::Event<re::GeometricObjectBase>::createSubscription<re::CollisionObject>(re::CollisionObject *,REEventHandlerResult (re::CollisionObject::*)(re::GeometricObjectBase*))::{lambda(re::GeometricObjectBase*,re::Event<re::GeometricObjectBase>::Subscription const&)#1}::__invoke;
-    re::Event<re::GeometricObjectBase>::removeSubscription(v3, &v6);
-    v4 = *(this + 12);
-    (**v2)(v2);
-    (*(*v4 + 40))(v4, v2);
-  }
+  v5 = *MEMORY[0x1E69E9840];
+  v0 = [MEMORY[0x1E695E000] standardUserDefaults];
+  v1 = [v0 objectForKey:@"com.apple.re.enableAudioEngineRunnableAutomation"];
 
-  if (*(this + 64) == 1)
+  if (v1)
   {
-    v5 = *(this + 9);
-    if (v5)
+    v2 = objc_opt_respondsToSelector();
+    if (v2)
     {
-
-      *(this + 9) = 0;
-    }
-  }
-}
-
-uint64_t re::CollisionObject::setScale(uint64_t a1, float32x4_t *a2)
-{
-  v3 = *a2;
-  v3.i32[3] = 0;
-  v4 = vmaxnmq_f32(v3, xmmword_1E3066810);
-  v13 = v4;
-  if ((*(a1 + 8) & 2) != 0)
-  {
-    v6 = v4.f32[1];
-    v5 = v4.f32[2];
-  }
-
-  else
-  {
-    v13 = vdupq_lane_s32(*v4.f32, 0);
-    v5 = v4.f32[0];
-    v6 = v4.f32[0];
-  }
-
-  v10 = v4.f32[0];
-  if (v4.f32[0] <= 0.00001 || v6 <= 0.00001 || v5 <= 0.00001)
-  {
-    v7 = *re::collisionLogObjects(a1);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 0;
-      _os_log_impl(&dword_1E1C61000, v7, OS_LOG_TYPE_DEFAULT, "Collider scale, 0 or negative is not supported. Setting scale to epsilon value.", buf, 2u);
+      v2 = [v1 BOOLValue];
+      byte_1EE19D011 = v2;
     }
   }
 
-  result = (*(*a1 + 16))(a1);
-  *buf = result;
-  v12 = v9;
-  if (v10 != *&result && vabds_f32(*&result, v10) >= (((fabsf(v10) + fabsf(*&result)) + 1.0) * 0.0001) || v6 != *(&result + 1) && vabds_f32(*(&result + 1), v6) >= (((fabsf(v6) + fabsf(*(&result + 1))) + 1.0) * 0.0001) || v5 != *&v9 && vabds_f32(*&v9, v5) >= (((fabsf(v5) + fabsf(*&v9)) + 1.0) * 0.0001))
+  v3 = *re::audioLogObjects(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    (*(*a1 + 72))(a1, &v13);
-    return (*(**(a1 + 16) + 32))(*(a1 + 16), buf, &v13);
+    v4[0] = 67109120;
+    v4[1] = byte_1EE19D011;
+    _os_log_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_DEFAULT, "[RE] [Sleep/Wake] User Defaults set enableAudioEngineRunnableAutomationSupport=%d", v4, 8u);
   }
-
-  return result;
 }
 
-unint64_t re::CollisionObject::rayCast(void *a1, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t REAudioShouldConfigureTuningForSTSLabels(void)
 {
-  result = re::BucketArray<re::CollisionCastHit,10ul>::clear(a4);
-  v9 = *(a3 + 4);
-  v10 = a1[4];
-  v11 = v10 & HIDWORD(v9);
-  v12 = v9 & HIDWORD(v10);
-  if (v11)
+  if (REAudioShouldConfigureTuningForSTSLabels(void)::onceToken != -1)
   {
-    v13 = v12 == 0;
+    dispatch_once(&REAudioShouldConfigureTuningForSTSLabels(void)::onceToken, &__block_literal_global_73);
+  }
+
+  return g_shouldConfigureTuningForSTSLabels;
+}
+
+void ___Z40REAudioShouldConfigureTuningForSTSLabelsv_block_invoke()
+{
+  v5 = *MEMORY[0x1E69E9840];
+  v0 = [MEMORY[0x1E695E000] standardUserDefaults];
+  v1 = [v0 objectForKey:@"com.apple.re.shouldConfigureTuningForSTSLabels"];
+
+  if (v1)
+  {
+    v2 = objc_opt_respondsToSelector();
+    if (v2)
+    {
+      v2 = [v1 BOOLValue];
+      g_shouldConfigureTuningForSTSLabels = v2;
+    }
+  }
+
+  v3 = *re::audioLogObjects(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    v4[0] = 67109120;
+    v4[1] = g_shouldConfigureTuningForSTSLabels;
+    _os_log_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_DEFAULT, "REAudioShouldConfigureTuningForSTSLabels=%d", v4, 8u);
+  }
+}
+
+float REAudioEngineShutdownTimerLength(void)
+{
+  if (REAudioEngineShutdownTimerLength(void)::onceToken != -1)
+  {
+    dispatch_once(&REAudioEngineShutdownTimerLength(void)::onceToken, &__block_literal_global_78);
+  }
+
+  return *&REAudioEngineShutdownTimerLength(void)::audioEngineShutdownTimerLengthFrames / 90.0;
+}
+
+void ___Z32REAudioEngineShutdownTimerLengthv_block_invoke()
+{
+  v7 = *MEMORY[0x1E69E9840];
+  v0 = [MEMORY[0x1E695E000] standardUserDefaults];
+  v1 = [v0 objectForKey:@"com.apple.re.audioEngineShutdownTimerLengthFrames"];
+
+  v2 = objc_opt_respondsToSelector();
+  if (v2)
+  {
+    v2 = [v1 floatValue];
+    REAudioEngineShutdownTimerLength(void)::audioEngineShutdownTimerLengthFrames = v3;
+  }
+
+  v4 = *re::audioLogObjects(v2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = 134217984;
+    v6 = *&REAudioEngineShutdownTimerLength(void)::audioEngineShutdownTimerLengthFrames;
+    _os_log_impl(&dword_1E1C61000, v4, OS_LOG_TYPE_DEFAULT, "audioEngineShutdownTimerLengthFrames=%f", &v5, 0xCu);
+  }
+}
+
+void sub_1E213B978(_Unwind_Exception *a1)
+{
+  v2 = v1;
+
+  _Unwind_Resume(a1);
+}
+
+void REAudioComputePHASEMixGroupID(unint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, std::string *a4@<X8>)
+{
+  std::to_string(&v20, a1);
+  v7 = std::string::append(&v20, "-");
+  v8 = *&v7->__r_.__value_.__l.__data_;
+  v21.__r_.__value_.__r.__words[2] = v7->__r_.__value_.__r.__words[2];
+  *&v21.__r_.__value_.__l.__data_ = v8;
+  v7->__r_.__value_.__l.__size_ = 0;
+  v7->__r_.__value_.__r.__words[2] = 0;
+  v7->__r_.__value_.__r.__words[0] = 0;
+  std::to_string(&__p, a2);
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    p_p = &__p;
   }
 
   else
   {
-    v13 = 1;
+    p_p = __p.__r_.__value_.__r.__words[0];
   }
 
-  if (!v13)
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v14 = *(*a1 + 88);
-
-    return v14(a1, a2, a3, a4);
-  }
-
-  return result;
-}
-
-id re::CollisionObject::weakPointer@<X0>(re::CollisionObject *this@<X0>, id *a2@<X8>)
-{
-  v4 = this + 64;
-  if ((*(this + 64) & 1) == 0)
-  {
-    v8 = this;
-    re::make::shared::object<re::CollisionObject::Shareable,re::CollisionObject*>(&v8, &v9);
-    v10[0] = 1;
-    v11 = v9;
-    v9 = 0;
-    re::Optional<re::SharedPtr<re::CollisionObject::Shareable>>::operator=(v4, v10);
-    if (v10[0] == 1 && v11)
-    {
-
-      v11 = 0;
-    }
-
-    if (v9)
-    {
-    }
-  }
-
-  v5 = *(this + 9);
-  if (v5)
-  {
-    v6 = (v5 + 8);
+    size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
+    size = __p.__r_.__value_.__l.__size_;
+  }
+
+  v11 = std::string::append(&v21, p_p, size);
+  v12 = *&v11->__r_.__value_.__l.__data_;
+  v22.__r_.__value_.__r.__words[2] = v11->__r_.__value_.__r.__words[2];
+  *&v22.__r_.__value_.__l.__data_ = v12;
+  v11->__r_.__value_.__l.__size_ = 0;
+  v11->__r_.__value_.__r.__words[2] = 0;
+  v11->__r_.__value_.__r.__words[0] = 0;
+  v13 = std::string::append(&v22, "-");
+  v14 = *&v13->__r_.__value_.__l.__data_;
+  v23.__r_.__value_.__r.__words[2] = v13->__r_.__value_.__r.__words[2];
+  *&v23.__r_.__value_.__l.__data_ = v14;
+  v13->__r_.__value_.__l.__size_ = 0;
+  v13->__r_.__value_.__r.__words[2] = 0;
+  v13->__r_.__value_.__r.__words[0] = 0;
+  v15 = *(a3 + 23);
+  if (v15 >= 0)
+  {
+    v16 = a3;
+  }
+
+  else
+  {
+    v16 = *a3;
+  }
+
+  if (v15 >= 0)
+  {
+    v17 = *(a3 + 23);
+  }
+
+  else
+  {
+    v17 = *(a3 + 8);
+  }
+
+  v18 = std::string::append(&v23, v16, v17);
+  *a4 = *v18;
+  v18->__r_.__value_.__l.__size_ = 0;
+  v18->__r_.__value_.__r.__words[2] = 0;
+  v18->__r_.__value_.__r.__words[0] = 0;
+  if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v23.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v22.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v21.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v20.__r_.__value_.__l.__data_);
+  }
+}
+
+void sub_1E213BAF8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, void *__p, uint64_t a29, int a30, __int16 a31, char a32, char a33)
+{
+  if (*(v33 - 41) < 0)
+  {
+    operator delete(*(v33 - 64));
+  }
+
+  if (a33 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a14 < 0)
+  {
+    operator delete(a9);
+  }
+
+  if (a26 < 0)
+  {
+    operator delete(a21);
+  }
+
+  if (a20 < 0)
+  {
+    operator delete(a15);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+unint64_t re::audio::pcmBufferSize(re::audio *this, AVAudioPCMBuffer *a2)
+{
+  v2 = this;
+  v3 = v2;
+  if (v2)
+  {
+    v4 = [(re::audio *)v2 frameCapacity];
+    v5 = [(re::audio *)v3 format];
+    v6 = *([v5 streamDescription] + 24) * v4;
+  }
+
+  else
+  {
+    v7 = *re::audioLogObjects(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      *v9 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v7, OS_LOG_TYPE_ERROR, "[pcmBufferSize] Cannot retrieve size of null buffer.", v9, 2u);
+    }
+
     v6 = 0;
   }
 
-  return objc_initWeak(a2, v6);
+  return v6;
 }
 
-uint64_t re::Optional<re::SharedPtr<re::CollisionObject::Shareable>>::operator=(uint64_t a1, uint64_t a2)
+void std::__tree<std::__value_type<double,std::string>,std::__map_value_compare<double,std::__value_type<double,std::string>,std::less<double>,true>,std::allocator<std::__value_type<double,std::string>>>::destroy(uint64_t a1, char *a2, __n128 a3)
 {
-  if (*a1)
+  if (a2)
   {
-    if (*a2)
+    std::__tree<std::__value_type<double,std::string>,std::__map_value_compare<double,std::__value_type<double,std::string>,std::less<double>,true>,std::allocator<std::__value_type<double,std::string>>>::destroy(a1, *a2, a3);
+    std::__tree<std::__value_type<double,std::string>,std::__map_value_compare<double,std::__value_type<double,std::string>,std::less<double>,true>,std::allocator<std::__value_type<double,std::string>>>::destroy(a1, *(a2 + 1), v5);
+    if (a2[63] < 0)
     {
-      v3 = *(a1 + 8);
-      *(a1 + 8) = *(a2 + 8);
-      *(a2 + 8) = v3;
+      operator delete(*(a2 + 5));
     }
 
-    else
-    {
-      v4 = *(a1 + 8);
-      if (v4)
-      {
-
-        *(a1 + 8) = 0;
-      }
-
-      *a1 = 0;
-    }
-  }
-
-  else if (*a2)
-  {
-    *a1 = 1;
-    *(a1 + 8) = *(a2 + 8);
-    *(a2 + 8) = 0;
-  }
-
-  return a1;
-}
-
-uint64_t re::Event<re::GeometricObjectBase>::createSubscription<re::CollisionObject>(re::CollisionObject *,REEventHandlerResult (re::CollisionObject::*)(re::GeometricObjectBase*))::{lambda(re::GeometricObjectBase*,re::Event<re::GeometricObjectBase>::Subscription const&)#1}::__invoke(uint64_t a1, void *a2)
-{
-  v3 = a2[1];
-  v4 = a2[2];
-  v5 = (*a2 + (v4 >> 1));
-  if (v4)
-  {
-    v3 = *(*v5 + v3);
-  }
-
-  return v3(v5, a1);
-}
-
-void re::make::shared::object<re::CollisionObject::Shareable,re::CollisionObject*>(re *a1@<X0>, _anonymous_namespace_ **a2@<X8>)
-{
-  v4 = re::globalAllocators(a1);
-  v5 = (*(*v4[2] + 32))(v4[2], 32, 8);
-  v6 = *a1;
-  ArcSharedObject::ArcSharedObject(v5, 0);
-  *(v5 + 3) = v6;
-  *v5 = &unk_1F5CCEF60;
-  *a2 = v5;
-}
-
-void re::CollisionObject::Shareable::~Shareable(re::CollisionObject::Shareable *this)
-{
-  *this = &unk_1F5CCF868;
-  objc_destructInstance(this + 8);
-}
-
-{
-  *this = &unk_1F5CCF868;
-  objc_destructInstance(this + 8);
-
-  JUMPOUT(0x1E6906520);
-}
-
-float re::SphereShape::massProperties(uint64_t a1, float *a2, void *a3, uint64_t a4)
-{
-  v7 = (*(*a1 + 64))(a1);
-  v8 = v7 * v7;
-  v9 = v7 * ((v7 * v7) * 4.1888);
-  *a2 = v9;
-  result = v8 * (v9 * 0.4);
-  *a4 = result;
-  *(a4 + 4) = 0;
-  *(a4 + 12) = 0;
-  *(a4 + 20) = result;
-  *(a4 + 24) = 0;
-  *(a4 + 32) = 0;
-  *(a4 + 40) = result;
-  *(a4 + 44) = 0;
-  *a3 = 0;
-  a3[1] = 0;
-  return result;
-}
-
-void re::basicLocalWallTime(re *this@<X0>, re::DynamicString *a2@<X8>)
-{
-  v12 = [MEMORY[0x1E695DF00] date];
-  v5 = objc_alloc_init(MEMORY[0x1E696AB78]);
-  v6 = [MEMORY[0x1E695DFE8] localTimeZone];
-  [v5 setTimeZone:v6];
-
-  v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:this];
-  [v5 setDateFormat:v7];
-
-  v8 = MEMORY[0x1E696AEC0];
-  v9 = [v5 stringFromDate:v12];
-  v10 = [v8 stringWithFormat:@"%@", v9];
-
-  v11 = [v10 UTF8String];
-}
-
-void re::WrappedError::make(re::WrappedError *this@<X0>, const __CFString *a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
-{
-  v6 = [MEMORY[0x1E696ABC0] errorWithDomain:this code:a2 userInfo:a3];
-  *a4 = v6;
-}
-
-{
-  v12[1] = *MEMORY[0x1E69E9840];
-  v11 = *MEMORY[0x1E696A578];
-  v8 = [MEMORY[0x1E696AEC0] stringWithCString:a3 encoding:4];
-  v12[0] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
-
-  v10 = [MEMORY[0x1E696ABC0] errorWithDomain:this code:a2 userInfo:v9];
-  *a4 = v10;
-}
-
-void re::WrappedError::make(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, id *a4@<X3>, void *a5@<X8>)
-{
-  v17 = *MEMORY[0x1E69E9840];
-  v14[0] = *MEMORY[0x1E696A578];
-  v9 = [MEMORY[0x1E696AEC0] stringWithCString:a3 encoding:4];
-  v14[1] = *MEMORY[0x1E696AA08];
-  v15 = v9;
-  v16 = *a4;
-  v10 = MEMORY[0x1E695DF20];
-  v11 = v16;
-  v12 = [v10 dictionaryWithObjects:&v15 forKeys:v14 count:2];
-
-  v13 = [MEMORY[0x1E696ABC0] errorWithDomain:a1 code:a2 userInfo:v12];
-  *a5 = v13;
-}
-
-uint64_t re::WrappedError::localizedDescription(id *this)
-{
-  v1 = [*this localizedDescription];
-  v2 = [v1 UTF8String];
-
-  return v2;
-}
-
-CFErrorDomain re::WrappedError::domain(id *this)
-{
-  v1 = *this;
-
-  return CFErrorGetDomain(v1);
-}
-
-void re::formattedErrorMessage<re::DetailedError>(uint64_t a1@<X0>, re::DynamicString *a2@<X8>)
-{
-  std::error_code::message(&v6, a1);
-  if ((v6.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v4 = &v6;
-  }
-
-  else
-  {
-    v4 = v6.__r_.__value_.__r.__words[0];
-  }
-
-  if (*(a1 + 24))
-  {
-    v5 = *(a1 + 32);
-  }
-
-  else
-  {
-    v5 = a1 + 25;
-  }
-
-  re::DynamicString::format("%s. %s", a2, v4, v5);
-  if (SHIBYTE(v6.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v6.__r_.__value_.__l.__data_);
+    operator delete(a2);
   }
 }
 
-void re::runInLocalAutoreleasePool(uint64_t a1)
+uint64_t *std::__tree<std::__value_type<double,std::string>,std::__map_value_compare<double,std::__value_type<double,std::string>,std::less<double>,true>,std::allocator<std::__value_type<double,std::string>>>::__emplace_unique_key_args<double,std::piecewise_construct_t const&,std::tuple<double const&>,std::tuple<>>(uint64_t a1, double *a2, uint64_t a3, void **a4)
 {
-  v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 24);
-  if (v3)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
-    (*(*v3 + 48))(v3);
-
-    objc_autoreleasePoolPop(v2);
+LABEL_8:
+    operator new();
   }
 
-  else
-  {
-    v4 = std::__throw_bad_function_call[abi:nn200100]();
-    re::StackScratchAllocator::FreePersistentBlocks(v4);
-  }
-}
-
-void re::StackScratchAllocator::FreePersistentBlocks(re::StackScratchAllocator *this)
-{
-  std::mutex::lock(&re::StackScratchAllocator::s_mutex);
-  if (atomic_load(&re::StackScratchAllocator::s_rootsWithPersistentBlocksCount))
-  {
-    for (i = 0; i < v7; ++i)
-    {
-      v4 = re::StackScratchAllocator::s_rootsWithPersistentBlocks[i];
-      v5 = *(v4 + 8);
-      if (v5)
-      {
-        v6 = re::globalAllocators(v1);
-        v1 = (*(*v6[2] + 40))(v6[2], v5);
-        v4 = re::StackScratchAllocator::s_rootsWithPersistentBlocks[i];
-      }
-
-      *(v4 + 8) = 0;
-      v7 = atomic_load(&re::StackScratchAllocator::s_rootsWithPersistentBlocksCount);
-    }
-  }
-
-  atomic_store(0, &re::StackScratchAllocator::s_rootsWithPersistentBlocksCount);
-
-  std::mutex::unlock(&re::StackScratchAllocator::s_mutex);
-}
-
-re::StackScratchAllocator *re::StackScratchAllocator::StackScratchAllocator(re::StackScratchAllocator *this)
-{
-  *(this + 16) = 0;
-  *this = &unk_1F5CCEFC0;
-  *(this + 1) = "Thread-local Scratch Allocator";
-  *(this + 72) = 0u;
-  *(this + 88) = 0u;
-  *(this + 26) = 0;
-  *(this + 24) = 0u;
-  *(this + 40) = 0u;
-  *(this + 52) = 0u;
-  *(this + 108) = 0x7FFFFFFFLL;
-  {
-    v7 = re::StackScratchAllocator::StackScratchAllocator(void)::root(&re::StackScratchAllocator::StackScratchAllocator(void)::root);
-    _tlv_atexit(re::StackScratchAllocator::Root::~Root, v7);
-  }
-
-  v3 = re::StackScratchAllocator::StackScratchAllocator(void)::root(&re::StackScratchAllocator::StackScratchAllocator(void)::root);
-  v4 = *v3;
-  if (*v3)
-  {
-    *(this + 6) = v4;
-    *(this + 24) = *(v4 + 24);
-    v5 = v3[1];
-  }
-
-  else
-  {
-    v5 = v3[1];
-    if (!v5)
-    {
-      goto LABEL_6;
-    }
-
-    v8 = v5 + *(v5 + 8);
-    *(this + 3) = v5 + 16;
-    *(this + 4) = v8;
-  }
-
-  *(this + 5) = v5;
-LABEL_6:
-  *v3 = this;
-  *(this + 7) = v3;
-  return this;
-}
-
-void re::StackScratchAllocator::Root::~Root(re::StackScratchAllocator::Root *this)
-{
-  std::mutex::lock(&re::StackScratchAllocator::s_mutex);
-  v3 = *(this + 1);
-  if (v3)
-  {
-    v4 = re::globalAllocators(v2);
-    (*(*v4[2] + 40))(v4[2], v3);
-    v6 = &re::StackScratchAllocator::s_rootsWithPersistentBlocksCount;
-    if (atomic_load(&re::StackScratchAllocator::s_rootsWithPersistentBlocksCount))
-    {
-      v8 = 0;
-      v9 = &re::StackScratchAllocator::s_rootsWithPersistentBlocks;
-      while (*(&re::StackScratchAllocator::s_rootsWithPersistentBlocks + v8) != this)
-      {
-        ++v8;
-        v10 = atomic_load(&re::StackScratchAllocator::s_rootsWithPersistentBlocksCount);
-        if (v8 >= v10)
-        {
-          goto LABEL_6;
-        }
-      }
-    }
-
-    else
-    {
-LABEL_6:
-      re::internal::assertLog(4, v5, "assertion failure: '%s' (%s:line %i) Can't find allocated block", "!Unreachable code", "~Root", 193);
-      _os_crash();
-      __break(1u);
-    }
-
-    atomic_fetch_add(v6, 0xFFFFFFFFFFFFFFFFLL);
-    v11 = atomic_load(v6);
-    v12 = v9[v8];
-    v9[v8] = v9[v11];
-    v9[v11] = v12;
-  }
-
-  std::mutex::unlock(&re::StackScratchAllocator::s_mutex);
-}
-
-void re::StackScratchAllocator::~StackScratchAllocator(re::StackScratchAllocator *this)
-{
-  v1 = this;
-  *this = &unk_1F5CCEFC0;
-  v2 = *(this + 7);
-  v3 = v2 + 1;
-  v4 = v2[1];
-  for (i = *(this + 5); v4 != i && *v4; i = *(v1 + 5))
-  {
-    *v3 = *v4;
-    v6 = re::globalAllocators(this);
-    this = (*(*v6[2] + 40))(v6[2], v4);
-    v2 = *(v1 + 7);
-    v3 = v2 + 1;
-    v4 = v2[1];
-  }
-
-  *v2 = *(v1 + 6);
-  re::HashTable<re::internal::SerializeFuncKey,BOOL (*)(re::Serializer<re::EncoderOPACK<re::DynamicArrayBufferedOutputStream>> &,char const*,int,void *,re::TypeInfo const&,re::TypeInfo const&,BOOL),re::internal::HashSerializeFuncKey,re::EqualTo<re::internal::SerializeFuncKey>,false,true>::deinit(v1 + 9);
-
-  re::Allocator::~Allocator(v1);
-}
-
-{
-  re::StackScratchAllocator::~StackScratchAllocator(this);
-
-  JUMPOUT(0x1E6906520);
-}
-
-re::StackScratchAllocator **re::StackScratchAllocator::alloc(re::StackScratchAllocator ***this, uint64_t a2, unint64_t a3)
-{
-  if (*this[7] != this)
-  {
-    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) Attempting to allocate from a StackScratchAlloc object that is not top of stack", "m_root->m_top == this", "alloc", 93);
-    _os_crash();
-    __break(1u);
-LABEL_7:
-    re::StackScratchAllocator::growAndAlign(v3, v4, a3);
-    result = v3[3];
-    goto LABEL_5;
-  }
-
-  v4 = a2;
-  v3 = this;
-  if (a3 <= 1)
-  {
-    a3 = 1;
-  }
-
-  v5 = this[4];
-  result = ((this[3] + a3 - 1) & -a3);
-  v3[3] = result;
-  if (result + a2 > v5)
-  {
-    goto LABEL_7;
-  }
-
-LABEL_5:
-  v3[3] = (result + v4);
-  return result;
-}
-
-void re::StackScratchAllocator::growAndAlign(re::StackScratchAllocator *this, uint64_t a2, uint64_t a3)
-{
-  if ((a3 + a2) <= 0x2000)
-  {
-    v5 = 0x4000;
-  }
-
-  else
-  {
-    v5 = a3 + a2 + 0x4000;
-  }
-
-  v6 = re::globalAllocators(this);
-  v7 = (*(*v6[2] + 32))(v6[2], v5, 0);
-  v8 = *(this + 7);
-  *v7 = *(v8 + 8);
-  v7[1] = v5;
-  if (*(this + 3))
-  {
-    goto LABEL_7;
-  }
-
-  std::mutex::lock(&re::StackScratchAllocator::s_mutex);
-  add = atomic_fetch_add(&re::StackScratchAllocator::s_rootsWithPersistentBlocksCount, 1uLL);
-  if (add < 0x100)
-  {
-    re::StackScratchAllocator::s_rootsWithPersistentBlocks[add] = *(this + 7);
-    std::mutex::unlock(&re::StackScratchAllocator::s_mutex);
-    v8 = *(this + 7);
-LABEL_7:
-    *(v8 + 8) = v7;
-    *(this + 3) = (v7 + a3 + 15) & -a3;
-    *(this + 4) = v7 + v5;
-    return;
-  }
-
-  re::internal::assertLog(4, v9, "assertion failure: '%s' (%s:line %i) ", "index < MAX_THREADS", "growAndAlign", 161);
-  _os_crash();
-  __break(1u);
-}
-
-uint64_t re::StackScratchAllocator::free(uint64_t this, uint64_t a2)
-{
-  if (**(this + 56) != this)
-  {
-    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) Attempting to free from a StackScratchAlloc object that is not top of stack", "m_root->m_top == this", "free", 124, v2, v3);
-    this = _os_crash();
-    __break(1u);
-  }
-
-  return this;
-}
-
-void re::Data::makeDataWithBytes(re::Data *this@<X0>, const void *a2@<X1>, void *a3@<X8>)
-{
-  v4 = [MEMORY[0x1E695DEF0] dataWithBytes:this length:a2];
-  *a3 = v4;
-}
-
-void re::Data::makeDataWithBytesNoCopy(re::Data *this@<X0>, const void *a2@<X1>, void *a3@<X8>)
-{
-  v4 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:this length:a2 freeWhenDone:0];
-  *a3 = v4;
-}
-
-uint64_t *re::globalAllocators(re *this)
-{
-  {
-    if (v2)
-    {
-      re::globalAllocators(void)::s_instance = &unk_1F5CCF060;
-      byte_1EE1C6ED0 = 0;
-      *algn_1EE1C6EE0 = 0u;
-      *&algn_1EE1C6EE0[16] = 0u;
-      re::GlobalAllocators::init(&re::globalAllocators(void)::s_instance);
-    }
-  }
-
-  return &re::globalAllocators(void)::s_instance;
-}
-
-void anonymous namespace::internalSystemAllocator(_anonymous_namespace_ *this)
-{
-  {
-    byte_1EE1C7940 = 0;
-    *algn_1EE1C7938 = "System allocator";
-  }
-}
-
-_anonymous_namespace_ *re::initGlobalAllocators(re *this)
-{
-  result = re::globalAllocators(this);
-  if ((byte_1EE1C6ED0 & 1) == 0)
-  {
-    re::globalAllocators(result);
-
-    return re::GlobalAllocators::init(&re::globalAllocators(void)::s_instance);
-  }
-
-  return result;
-}
-
-_anonymous_namespace_ *re::GlobalAllocators::init(_anonymous_namespace_ *this)
-{
-  if ((*(this + 8) & 1) == 0)
-  {
-    v1 = this;
-    re::globalMemoryTracker(this);
-    if ((re::globalMemoryTracker(void)::s_instance & 1) == 0)
-    {
-      qword_1EE1C6BE8 = *(v1 + 2);
-      re::DynamicArray<float *>::setCapacity(&qword_1EE1C6BE8, 0x400uLL);
-      ++dword_1EE1C6C00;
-      re::globalMemoryTracker(void)::s_instance = 1;
-    }
-
-    re::MemoryTracker::track(&re::globalMemoryTracker(void)::s_instance, *(v1 + 2));
-    v2 = (*(**(v1 + 2) + 32))(*(v1 + 2), 40, 8);
-    v3 = re::Allocator::Allocator(v2, "SIMD-aligned allocator", 1);
-    *v3 = &unk_1F5CCF458;
-    *(v3 + 3) = 16;
-    *(v1 + 3) = v3;
-    v4 = (*(**(v1 + 2) + 32))(*(v1 + 2), 40, 8);
-    v5 = re::Allocator::Allocator(v4, "Cache-aligned allocator", 1);
-    *v5 = &unk_1F5CCF458;
-    *(v5 + 3) = 128;
-    *(v1 + 4) = v5;
-    v6 = (*(**(v1 + 2) + 32))(*(v1 + 2), 40, 8);
-    v7 = re::Allocator::Allocator(v6, "TLB-aligned allocator", 1);
-    *v7 = &unk_1F5CCF458;
-    *(v7 + 3) = 0x4000;
-    *(v1 + 5) = v7;
-    v8 = (*(**(v1 + 2) + 32))(*(v1 + 2), 5304, 8);
-    *v8 = 0;
-    *(v8 + 88) = 0;
-    *(v8 + 96) = 0;
-    *(v8 + 104) = 0;
-    *(v8 + 8) = 0u;
-    *(v8 + 24) = 0u;
-    *(v8 + 40) = 0u;
-    *(v8 + 56) = 0u;
-    *(v8 + 68) = 0u;
-    *(v8 + 108) = 0x1FFFFFFFFLL;
-    *(v8 + 120) = 0;
-    *(v8 + 136) = 0;
-    *(v8 + 144) = 0;
-    *(v8 + 128) = 0;
-    *(v8 + 152) = 0;
-    bzero((v8 + 160), 0x1418uLL);
-    *(v1 + 6) = v8;
-    this = re::PerFrameAllocatorManager::init(v8);
-    *(v1 + 8) = 1;
-  }
-
-  return this;
-}
-
-void re::deinitGlobalAllocators(re *this)
-{
-  v1 = re::globalAllocators(this);
-  if (byte_1EE1C6ED0 == 1)
-  {
-    re::globalAllocators(v1);
-
-    re::GlobalAllocators::deinit(&re::globalAllocators(void)::s_instance);
-  }
-}
-
-void re::GlobalAllocators::deinit(re **this)
-{
-  if (*(this + 8) == 1)
-  {
-    re::StackScratchAllocator::FreePersistentBlocks(this);
-    re::globalMemoryTracker(v2);
-    re::PerFrameAllocatorManager::deinit(this[6]);
-    v3 = this[2];
-    v4 = this[6];
-    if (v4)
-    {
-      v5 = 5120;
-      do
-      {
-        *(v4 + v5 + 128) = 0;
-        v5 -= 40;
-      }
-
-      while (v5);
-      v6 = *(v4 + 16);
-      if (v6)
-      {
-        v7 = *(v4 + 20);
-        if (v7)
-        {
-          v8 = *(v4 + 18);
-          if (v8)
-          {
-            v9 = 88 * v8;
-            v10 = v7 + 48;
-            do
-            {
-              re::DynamicArray<unsigned long>::deinit(v10);
-              re::DynamicArray<unsigned long>::deinit(v10 - 40);
-              v10 += 88;
-              v9 -= 88;
-            }
-
-            while (v9);
-            v6 = *(v4 + 16);
-            v7 = *(v4 + 20);
-          }
-
-          (*(*v6 + 40))(v6, v7);
-        }
-
-        *(v4 + 20) = 0;
-        *(v4 + 17) = 0;
-        *(v4 + 18) = 0;
-        *(v4 + 16) = 0;
-        ++*(v4 + 38);
-      }
-
-      re::DataArray<re::PerFrameAllocatorImpl>::deinit(v4 + 56);
-      re::DynamicArray<unsigned long>::deinit(v4 + 56);
-      v11 = *(v4 + 4);
-      if (v11)
-      {
-        if (*(v4 + 5))
-        {
-          (*(*v11 + 40))(v11, *(v4 + 6));
-          *(v4 + 5) = 0;
-          *(v4 + 6) = 0;
-        }
-
-        *(v4 + 4) = 0;
-      }
-
-      re::FixedArray<CoreIKTransform>::deinit(v4 + 1);
-      (*(*v3 + 40))(v3, v4);
-      v3 = this[2];
-    }
-
-    this[6] = 0;
-    v12 = this[5];
-    if (v12)
-    {
-      (**v12)(this[5]);
-      (*(*v3 + 40))(v3, v12);
-      v3 = this[2];
-    }
-
-    this[5] = 0;
-    v13 = this[4];
-    if (v13)
-    {
-      (**v13)(this[4]);
-      (*(*v3 + 40))(v3, v13);
-      v3 = this[2];
-    }
-
-    this[4] = 0;
-    v14 = this[3];
-    if (v14)
-    {
-      (**v14)(this[3]);
-      (*(*v3 + 40))(v3, v14);
-      v3 = this[2];
-    }
-
-    this[3] = 0;
-    re::MemoryTracker::untrack(&re::globalMemoryTracker(void)::s_instance, v3);
-    if (re::globalMemoryTracker(void)::s_instance == 1)
-    {
-      v15 = re::DynamicArray<unsigned long>::deinit(&qword_1EE1C6BE8);
-      re::globalMemoryTracker(void)::s_instance = 0;
-    }
-
-    *(this + 8) = 0;
-  }
-}
-
-void re::GlobalAllocators::~GlobalAllocators(re **this)
-{
-  *this = &unk_1F5CCF060;
-  re::GlobalAllocators::deinit(this);
-}
-
-{
-  *this = &unk_1F5CCF060;
-  re::GlobalAllocators::deinit(this);
-
-  JUMPOUT(0x1E6906520);
-}
-
-char *re::globalMemoryTracker(re *this)
-{
-  {
-    if (v2)
-    {
-      re::globalMemoryTracker(void)::s_instance = 0;
-      qword_1EE1C6C08 = 0;
-      *&algn_1EE1C6BE1[3] = 0u;
-      *&algn_1EE1C6BF0[4] = 0u;
-      re::DynamicArray<float *>::setCapacity(&qword_1EE1C6BE8, 0x400uLL);
-      ++dword_1EE1C6C00;
-      re::globalMemoryTracker(void)::s_instance = 1;
-    }
-  }
-
-  return &re::globalMemoryTracker(void)::s_instance;
-}
-
-uint64_t re::DataArray<re::PerFrameAllocatorImpl>::deinit(uint64_t result)
-{
-  if (*(result + 44))
-  {
-    v1 = result;
-    v2 = re::DataArray<re::PerFrameAllocatorImpl>::clear(result);
-    if (!v1[2])
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v3 = v1[4];
-    (*(**v1 + 40))(*v1, *v3, v2);
-    (*(**v1 + 40))(*v1, v3[1]);
-    result = re::DynamicArray<unsigned long>::deinit(v1);
-    *(v1 + 11) = 0;
-  }
-
-  return result;
-}
-
-double re::DataArray<re::PerFrameAllocatorImpl>::clear(void *a1)
-{
-  v12 = *MEMORY[0x1E69E9840];
-  re::DataArray<re::RigGraphOperatorDefinition>::DataArrayIterator<re::RigGraphOperatorDefinition,re::RigGraphOperatorDefinition&>::DataArrayIterator(v11, a1, 0);
-  if (*&v11[0] != a1 || DWORD2(v11[0]) != 0xFFFFFFFFLL)
-  {
-    do
-    {
-      v3 = re::DataArray<re::RigGraphOperatorDefinition>::DataArrayIterator<re::RigGraphOperatorDefinition,re::RigGraphOperatorDefinition&>::handle(v11);
-      re::DataArray<re::PerFrameAllocatorImpl>::destroy(a1, v3);
-      re::DataArray<re::RigGraphOperatorDefinition>::DataArrayIterator<re::RigGraphOperatorDefinition,re::RigGraphOperatorDefinition&>::increment(v11);
-    }
-
-    while (*&v11[0] != a1 || WORD4(v11[0]) != 0xFFFF || WORD5(v11[0]) != 0xFFFF);
-  }
-
-  v6 = a1[2];
-  v7 = v6 - 1;
-  if (v6 != 1)
-  {
-    v8 = 16 * v6;
-    do
-    {
-      if (a1[2] <= v7)
-      {
-        memset(v11, 0, sizeof(v11));
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-      }
-
-      v9 = a1[4] + v8;
-      (*(**a1 + 40))(*a1, *(v9 - 16));
-      (*(**a1 + 40))(*a1, *(v9 - 8));
-      re::DynamicArray<re::DataArray<re::RigGraphOperatorDefinition>::ElementBlock>::removeAt(a1, v7);
-      v8 -= 16;
-      --v7;
-    }
-
-    while (v7);
-  }
-
-  result = NAN;
-  a1[6] = 0xFFFFFFFF00000000;
-  return result;
-}
-
-uint64_t (***re::DataArray<re::PerFrameAllocatorImpl>::destroy(uint64_t a1, unint64_t a2))(void)
-{
-  v2 = a2;
-  v4 = a2 >> 16;
-  result = re::DataArray<re::PerFrameAllocatorImpl>::tryGet(a1, a2 & 0xFFFFFFFF00000000 | (WORD1(a2) << 16) | a2);
-  if (result)
-  {
-    v6 = result;
-    result = (**result)(result);
-    if (*(a1 + 16) <= HIWORD(v2))
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    *(*(*(a1 + 32) + 16 * HIWORD(v2) + 8) + 4 * v2) = 0;
-    *v6 = *(a1 + 52);
-    *(a1 + 52) = v2;
-    *(a1 + 54) = v4;
-    --*(a1 + 40);
-  }
-
-  return result;
-}
-
-uint64_t re::DataArray<re::PerFrameAllocatorImpl>::tryGet(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 16);
-  if (WORD1(a2) < v2 && ((v2 - 1) != WORD1(a2) ? (v3 = *(a1 + 44)) : (v3 = *(a1 + 48)), a2 < v3 && ((v4 = (*(a1 + 32) + 16 * WORD1(a2)), (v5 = *(v4[1] + 4 * a2)) != 0) ? (v6 = v5 == (HIDWORD(a2) & 0xFFFFFF)) : (v6 = 0), v6)))
-  {
-    return *v4 + 184 * a2;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void re::StringID::init(re::StringID *this, re::Allocator *a2, const char *__s)
-{
-  if (__s)
-  {
-    v6 = strlen(__s);
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  re::StringID::init(this, a2, __s, v6);
-}
-
-re::StringID *re::StringID::StringID(re::StringID *this, const char *a2)
-{
-  *this = 0;
-  *(this + 1) = &str_67;
-  return this;
-}
-
-void re::StringID::init(re::StringID *this, re::Allocator *a2, const char *a3, size_t a4)
-{
-  if (!a3)
-  {
-    re::StringID::invalid(v14);
-    v12 = re::StringID::operator=(this, v14);
-    if ((v14[0] & 1) == 0)
-    {
-      return;
-    }
-
-    if ((v14[0] & 1) == 0)
-    {
-      return;
-    }
-
-LABEL_12:
-    return;
-  }
-
-  if (!a4)
-  {
-    v14[0] = 0;
-    v14[1] = &str_67;
-    v13 = re::StringID::operator=(this, v14);
-    if ((v14[0] & 1) == 0)
-    {
-      return;
-    }
-
-    goto LABEL_12;
-  }
-
-  v7 = *a3;
-  v8 = a4 - 1;
-  if (a4 != 1)
-  {
-    v9 = a3 + 1;
-    do
-    {
-      v10 = *v9++;
-      v7 = v10 - v7 + 32 * v7;
-      --v8;
-    }
-
-    while (v8);
-  }
-
-  *this = *this & 1 | (2 * v7);
-  v11 = (*(*a2 + 32))(a2, a4 + 1, 0);
-  memcpy(v11, a3, a4);
-  *(v11 + a4) = 0;
-  *this |= 1uLL;
-  *(this + 1) = v11;
-}
-
-re::StringID *re::StringID::StringID(re::StringID *this, const re::DynamicString *a2)
-{
-  v3 = *(a2 + 1);
-  if (v3)
-  {
-    v4 = *(a2 + 2);
-  }
-
-  else
-  {
-    v4 = a2 + 9;
-  }
-
-  v5 = v3 >> 1;
-  v6 = v3 >> 1;
-  if (*(a2 + 1))
-  {
-    v7 = v5;
-  }
-
-  else
-  {
-    v7 = v6;
-  }
-
-  *this = 0;
-  *(this + 1) = &str_67;
-  return this;
-}
-
-re::StringID *re::StringID::StringID(re::StringID *this, const StringID *a2)
-{
-  v4 = *&a2->var0;
-  *this = *&a2->var0 & 0xFFFFFFFFFFFFFFFELL | *this & 1;
-  if (*&a2->var0)
-  {
-    var1 = a2->var1;
-    v6 = strlen(var1);
-    memcpy(v7, var1, v6);
-    v7[v6] = 0;
-    v8 = *this | 1;
-  }
-
-  else
-  {
-    v8 = v4 & 0xFFFFFFFFFFFFFFFELL;
-    v7 = a2->var1;
-  }
-
-  *this = v8;
-  *(this + 1) = v7;
-  return this;
-}
-
-void re::StringID::destroyString(re::StringID *this)
-{
-  if (*this)
-  {
-    if (*this)
-    {
-    }
-  }
-
-  *this = 0;
-  *(this + 1) = &str_67;
-}
-
-unint64_t *re::StringID::operator=(unint64_t *a1, uint64_t *a2)
-{
-  re::StringID::destroyString(a1);
   v5 = *a2;
-  *a1 = *a2 & 0xFFFFFFFFFFFFFFFELL | *a1 & 1;
-  v6 = *a2;
-  *a1 = v5 & 0xFFFFFFFFFFFFFFFELL | *a2 & 1;
-  if (v6)
+  while (1)
   {
-    v7 = a2[1];
-    v8 = strlen(v7);
-    memcpy(v9, v7, v8);
-    *(v9 + v8) = 0;
-  }
+    while (1)
+    {
+      v6 = v4;
+      v7 = *(v4 + 4);
+      if (v5 >= v7)
+      {
+        break;
+      }
 
-  else
-  {
-    v9 = a2[1];
-  }
+      v4 = *v4;
+      if (!*v6)
+      {
+        goto LABEL_8;
+      }
+    }
 
-  a1[1] = v9;
-  return a1;
+    if (v7 >= v5)
+    {
+      return v4;
+    }
+
+    v4 = v4[1];
+    if (!v4)
+    {
+      goto LABEL_8;
+    }
+  }
 }
 
-_anonymous_namespace_ *re::StringID::operator=(_anonymous_namespace_ *a1, uint64_t *a2)
+uint64_t *std::__tree<std::__value_type<double,std::string>,std::__map_value_compare<double,std::__value_type<double,std::string>,std::less<double>,true>,std::allocator<std::__value_type<double,std::string>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
-  v3 = *a2;
-  v4 = a2[1];
-  *a2 = 0;
-  a2[1] = &str_67;
-  v5 = *a1;
-  *a1 = v3;
-  *(a1 + 1) = v4;
+  *a4 = 0;
+  a4[1] = 0;
+  a4[2] = a2;
+  *a3 = a4;
+  v5 = **a1;
   if (v5)
   {
+    *a1 = v5;
+    a4 = *a3;
   }
 
-  return a1;
+  result = std::__tree_balance_after_insert[abi:nn200100]<std::__tree_node_base<void *> *>(a1[1], a4);
+  a1[2] = (a1[2] + 1);
+  return result;
 }
 
-re::StringID *re::StringID::invalid@<X0>(re::StringID *a1@<X8>)
+void std::__hash_table<std::__hash_value_type<std::string,double>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,double>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,double>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,double>>>::clear(uint64_t result)
 {
-  v3 = a1;
+  if (*(result + 24))
   {
-    v3 = a1;
-    if (v5)
+    std::__hash_table<std::__hash_value_type<std::string,double>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,double>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,double>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,double>>>::__deallocate_node(result, *(result + 16));
+    *(result + 16) = 0;
+    v2 = *(result + 8);
+    if (v2)
     {
-      re::StringID::invalid(void)::invalid = -2;
-      *algn_1EE1C5798 = &str_67;
-      v3 = a1;
+      for (i = 0; i != v2; ++i)
+      {
+        *(*result + 8 * i) = 0;
+      }
+    }
+
+    *(result + 24) = 0;
+  }
+}
+
+void std::__hash_table<std::__hash_value_type<std::string,double>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,double>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,double>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,double>>>::__deallocate_node(int a1, void **__p)
+{
+  if (__p)
+  {
+    v2 = __p;
+    do
+    {
+      v3 = *v2;
+      if (*(v2 + 39) < 0)
+      {
+        operator delete(v2[2]);
+      }
+
+      operator delete(v2);
+      v2 = v3;
+    }
+
+    while (v3);
+  }
+}
+
+const void **std::__hash_table<std::__hash_value_type<std::string,double>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,double>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,double>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,double>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
+  {
+    goto LABEL_18;
+  }
+
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
+  {
+    v12 = v7;
+    if (v7 >= *&v9)
+    {
+      v12 = v7 % *&v9;
     }
   }
 
-  return re::StringID::StringID(v3, &re::StringID::invalid(void)::invalid);
+  else
+  {
+    v12 = (*&v9 - 1) & v7;
+  }
+
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
+  {
+LABEL_18:
+    std::__hash_table<std::__hash_value_type<std::string,double>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,double>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,double>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,double>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
+  }
+
+  while (1)
+  {
+    v15 = v14[1];
+    if (v15 == v8)
+    {
+      break;
+    }
+
+    if (v11 > 1)
+    {
+      if (v15 >= *&v9)
+      {
+        v15 %= *&v9;
+      }
+    }
+
+    else
+    {
+      v15 &= *&v9 - 1;
+    }
+
+    if (v15 != v12)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v14 = *v14;
+    if (!v14)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
+  {
+    goto LABEL_17;
+  }
+
+  return v14;
 }
 
-char *re::WeakStringID::debugStr(re::WeakStringID *this)
+void sub_1E213C0DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11, char a12)
 {
-  if (*this == 0x7FFFFFFFFFFFFFFFLL)
+  if (__p)
   {
-    return 0;
+    std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,double>,void *>>>::operator()[abi:ne200100](a12, __p);
   }
 
-  if (!*this)
-  {
-    return &str_67;
-  }
-
-  v1 = re::WeakStringID::debugStr(void)const::msg;
-  snprintf(re::WeakStringID::debugStr(void)const::msg, 0x50uLL, "%llu", *this);
-  return v1;
+  _Unwind_Resume(exception_object);
 }
 
-void re::StringID::copy(re::StringID *this, const re::StringID *a2, re::Allocator *a3)
+void sub_1E213C198(_Unwind_Exception *a1)
 {
-  if (*this)
-  {
-    (*(*a3 + 40))(a3, *(this + 1));
-  }
+  *v1 = 0;
+  std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,double>,void *>>>::operator()[abi:ne200100](0, v2);
+  _Unwind_Resume(a1);
+}
 
-  *this = 0;
-  *(this + 1) = &str_67;
-  if (*a2)
+unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t a2)
+{
+  v2 = *(a2 + 8);
+  if (*(a2 + 23) >= 0)
   {
-    v6 = *(a2 + 1);
-
-    re::StringID::init(this, a3, v6);
+    v3 = *(a2 + 23);
   }
 
   else
   {
-
-    re::StringID::operator=(this, a2);
+    a2 = *a2;
+    v3 = v2;
   }
+
+  return std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](&v5, a2, v3);
 }
 
-BOOL re::StringID::operator==(void *a1, void *a2)
+BOOL std::equal_to<std::string>::operator()[abi:ne200100](uint64_t a1, const void **a2, const void **a3)
 {
-  if ((*a2 & 0x7FFFFFFFFFFFFFFFLL) != *a1 >> 1)
+  v3 = *(a2 + 23);
+  v4 = v3;
+  if ((v3 & 0x80u) != 0)
+  {
+    v3 = a2[1];
+  }
+
+  v5 = *(a3 + 23);
+  v6 = v5;
+  if (v5 < 0)
+  {
+    v5 = a3[1];
+  }
+
+  if (v3 != v5)
   {
     return 0;
   }
 
-  v2 = a1[1];
-  v3 = a2[1];
-  return v2 == v3 || strcmp(v2, v3) == 0;
-}
-
-{
-  if ((*a2 ^ *a1) > 1)
+  if (v4 >= 0)
   {
-    return 0;
+    v7 = a2;
   }
 
-  v2 = a1[1];
-  v3 = a2[1];
-  return v2 == v3 || strcmp(v2, v3) == 0;
-}
-
-void re::MemoryTracker::track(os_unfair_lock_s *this, const re::Allocator *a2)
-{
-  v3 = a2;
-  os_unfair_lock_lock(this + 1);
-  re::DynamicArray<re::TransitionCondition *>::add(&this[2]._os_unfair_lock_opaque, &v3);
-  os_unfair_lock_unlock(this + 1);
-}
-
-void re::MemoryTracker::untrack(os_unfair_lock_s *this, const re::Allocator *a2)
-{
-  v3 = a2;
-  os_unfair_lock_lock(this + 1);
-  re::DynamicArray<re::Allocator const*>::removeStable(&this[2]._os_unfair_lock_opaque, &v3);
-  os_unfair_lock_unlock(this + 1);
-}
-
-uint64_t re::DynamicArray<re::Allocator const*>::removeStable(void *a1, void *a2)
-{
-  v2 = a1[4];
-  v3 = a1[2];
-  if (v3)
+  else
   {
-    v4 = 8 * v3;
-    for (i = a1[4]; *i != *a2; ++i)
+    v7 = *a2;
+  }
+
+  if (v6 >= 0)
+  {
+    v8 = a3;
+  }
+
+  else
+  {
+    v8 = *a3;
+  }
+
+  return memcmp(v7, v8, v3) == 0;
+}
+
+void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,double>,void *>>>::operator()[abi:ne200100](char a1, void **__p)
+{
+  if (a1)
+  {
+    if (*(__p + 39) < 0)
     {
-      v4 -= 8;
-      if (!v4)
+      operator delete(__p[2]);
+    }
+  }
+
+  else if (!__p)
+  {
+    return;
+  }
+
+  operator delete(__p);
+}
+
+const void **std::__hash_table<std::__hash_value_type<std::string,double>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,double>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,double>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,double>>>::find<std::string>(void *a1, const void **a2)
+{
+  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v5 = a1[1];
+  if (!*&v5)
+  {
+    return 0;
+  }
+
+  v6 = v4;
+  v7 = vcnt_s8(v5);
+  v7.i16[0] = vaddlv_u8(v7);
+  v8 = v7.u32[0];
+  if (v7.u32[0] > 1uLL)
+  {
+    v9 = v4;
+    if (v4 >= *&v5)
+    {
+      v9 = v4 % *&v5;
+    }
+  }
+
+  else
+  {
+    v9 = (*&v5 - 1) & v4;
+  }
+
+  v10 = *(*a1 + 8 * v9);
+  if (!v10)
+  {
+    return 0;
+  }
+
+  for (i = *v10; i; i = *i)
+  {
+    v12 = i[1];
+    if (v12 == v6)
+    {
+      if (std::equal_to<std::string>::operator()[abi:ne200100](a1, i + 2, a2))
+      {
+        return i;
+      }
+    }
+
+    else
+    {
+      if (v8 > 1)
+      {
+        if (v12 >= *&v5)
+        {
+          v12 %= *&v5;
+        }
+      }
+
+      else
+      {
+        v12 &= *&v5 - 1;
+      }
+
+      if (v12 != v9)
       {
         return 0;
       }
     }
   }
 
-  else
+  return i;
+}
+
+void std::__shared_ptr_emplace<re::AudioSharedSceneManager>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_1F5CCB218;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x1E6906520);
+}
+
+void std::__shared_ptr_emplace<re::AudioMultiSceneManager>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_1F5CCB268;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x1E6906520);
+}
+
+void *re::allocInfo_AudioFileAssetConfiguration(re *this)
+{
+  if ((atomic_load_explicit(&_MergedGlobals_119, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_MergedGlobals_119))
   {
-    i = a1[4];
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE19D088, "AudioFileAssetConfiguration");
+    __cxa_guard_release(&_MergedGlobals_119);
   }
 
-  if (i == (v2 + 8 * v3))
+  return &unk_1EE19D088;
+}
+
+void re::initInfo_AudioFileAssetConfiguration(re *this, re::IntrospectionBase *a2, uint64_t a3, BOOL a4)
+{
+  v48[0] = 0xC6CB289492F5ABB0;
+  v48[1] = "AudioFileAssetConfiguration";
+  if (v48[0])
+  {
+    if (v48[0])
+    {
+    }
+  }
+
+  *(this + 2) = v49;
+  if ((atomic_load_explicit(&qword_1EE19D030, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE19D030))
+  {
+    v7 = re::introspectionAllocator();
+    v9 = re::introspect_BOOL(1, v8);
+    v10 = (*(*v7 + 32))(v7, 72, 8);
+    *v10 = 1;
+    *(v10 + 8) = "stream";
+    *(v10 + 16) = v9;
+    *(v10 + 24) = 0;
+    *(v10 + 32) = 1;
+    *(v10 + 40) = 0;
+    *(v10 + 48) = 0;
+    *(v10 + 56) = 0;
+    *(v10 + 64) = 0;
+    qword_1EE19D038 = v10;
+    v11 = re::introspectionAllocator();
+    v13 = re::introspect_BOOL(1, v12);
+    v14 = (*(*v11 + 32))(v11, 72, 8);
+    *v14 = 1;
+    *(v14 + 8) = "loop";
+    *(v14 + 16) = v13;
+    *(v14 + 24) = 0;
+    *(v14 + 32) = 0x100000002;
+    *(v14 + 40) = 0;
+    *(v14 + 48) = 0;
+    *(v14 + 56) = 0;
+    *(v14 + 64) = 0;
+    qword_1EE19D040 = v14;
+    v15 = re::introspectionAllocator();
+    v17 = re::introspect_BOOL(1, v16);
+    v18 = (*(*v15 + 32))(v15, 72, 8);
+    *v18 = 1;
+    *(v18 + 8) = "randomizeStartTime";
+    *(v18 + 16) = v17;
+    *(v18 + 24) = 0;
+    *(v18 + 32) = 0x200000003;
+    *(v18 + 40) = 0;
+    *(v18 + 48) = 0;
+    *(v18 + 56) = 0;
+    *(v18 + 64) = 0;
+    qword_1EE19D048 = v18;
+    v19 = re::introspectionAllocator();
+    v21 = introspect_REAudioNormalizationMode(1, v20);
+    v22 = (*(*v19 + 32))(v19, 72, 8);
+    *v22 = 1;
+    *(v22 + 8) = "normalizationMode";
+    *(v22 + 16) = v21;
+    *(v22 + 24) = 0;
+    *(v22 + 32) = 0x400000004;
+    *(v22 + 40) = 0;
+    *(v22 + 48) = 0;
+    *(v22 + 56) = 0;
+    *(v22 + 64) = 0;
+    qword_1EE19D050 = v22;
+    v23 = re::introspectionAllocator();
+    v25 = introspect_REAudioCalibrationMode(1, v24);
+    v26 = (*(*v23 + 32))(v23, 72, 8);
+    *v26 = 1;
+    *(v26 + 8) = "calibrationMode";
+    *(v26 + 16) = v25;
+    *(v26 + 24) = 0;
+    *(v26 + 32) = 0x800000005;
+    *(v26 + 40) = 0;
+    *(v26 + 48) = 0;
+    *(v26 + 56) = 0;
+    *(v26 + 64) = 0;
+    qword_1EE19D058 = v26;
+    v27 = re::introspectionAllocator();
+    v29 = re::introspect_double(1, v28);
+    v30 = (*(*v27 + 32))(v27, 72, 8);
+    *v30 = 1;
+    *(v30 + 8) = "calibrationLevel";
+    *(v30 + 16) = v29;
+    *(v30 + 24) = 0;
+    *(v30 + 32) = 0x1000000006;
+    *(v30 + 40) = 0;
+    *(v30 + 48) = 0;
+    *(v30 + 56) = 0;
+    *(v30 + 64) = 0;
+    qword_1EE19D060 = v30;
+    v31 = re::introspectionAllocator();
+    v33 = re::IntrospectionInfo<re::Optional<re::DynamicString>>::get(1, v32);
+    v34 = (*(*v31 + 32))(v31, 72, 8);
+    *v34 = 1;
+    *(v34 + 8) = "mixGroupName";
+    *(v34 + 16) = v33;
+    *(v34 + 24) = 0;
+    *(v34 + 32) = 0x2000000007;
+    *(v34 + 40) = 0;
+    *(v34 + 48) = 0;
+    *(v34 + 56) = 0;
+    *(v34 + 64) = 0;
+    qword_1EE19D068 = v34;
+    v35 = re::introspectionAllocator();
+    v37 = re::IntrospectionInfo<re::Optional<unsigned int>>::get(1, v36);
+    v38 = (*(*v35 + 32))(v35, 72, 8);
+    *v38 = 1;
+    *(v38 + 8) = "layoutTag";
+    *(v38 + 16) = v37;
+    *(v38 + 24) = 0;
+    *(v38 + 32) = 0x4800000008;
+    *(v38 + 40) = 0;
+    *(v38 + 48) = 0;
+    *(v38 + 56) = 0;
+    *(v38 + 64) = 0;
+    qword_1EE19D070 = v38;
+    v39 = re::introspectionAllocator();
+    v41 = introspect_REAudioInputMode(1, v40);
+    v42 = (*(*v39 + 32))(v39, 72, 8);
+    *v42 = 1;
+    *(v42 + 8) = "inputMode";
+    *(v42 + 16) = v41;
+    *(v42 + 24) = 0;
+    *(v42 + 32) = 0x5000000009;
+    *(v42 + 40) = 0;
+    *(v42 + 48) = 0;
+    *(v42 + 56) = 0;
+    *(v42 + 64) = 0;
+    qword_1EE19D078 = v42;
+    v43 = re::introspectionAllocator();
+    v45 = re::introspect_double(1, v44);
+    v46 = (*(*v43 + 32))(v43, 72, 8);
+    *v46 = 1;
+    *(v46 + 8) = "targetLUFS";
+    *(v46 + 16) = v45;
+    *(v46 + 24) = 0;
+    *(v46 + 32) = 0x180000000ALL;
+    *(v46 + 40) = 0;
+    *(v46 + 48) = 0;
+    *(v46 + 56) = 0;
+    *(v46 + 64) = 0;
+    qword_1EE19D080 = v46;
+    __cxa_guard_release(&qword_1EE19D030);
+  }
+
+  *(this + 2) = 0x5800000008;
+  *(this + 6) = 8;
+  *(this + 14) = 0;
+  *(this + 14) = 10;
+  *(this + 8) = &qword_1EE19D038;
+  *(this + 9) = re::internal::defaultConstruct<re::AudioFileAssetConfiguration>;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 10) = re::internal::defaultDestruct<re::AudioFileAssetConfiguration>;
+  *(this + 13) = re::internal::defaultConstructV2<re::AudioFileAssetConfiguration>;
+  *(this + 14) = re::internal::defaultDestructV2<re::AudioFileAssetConfiguration>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  re::internal::prepare(this, v6);
+  v47 = v49;
+}
+
+uint64_t *re::IntrospectionInfo<re::Optional<unsigned int>>::get(int a1, const re::IntrospectionBase *a2)
+{
+  {
+    *re::IntrospectionOptionalBase::IntrospectionOptionalBase(&re::IntrospectionInfo<re::Optional<unsigned int>>::get(BOOL)::info) = &unk_1F5CCB2B8;
+  }
+
+  if (a1)
+  {
+    if (re::IntrospectionInfo<re::Optional<unsigned int>>::get(BOOL)::isInitialized)
+    {
+      return &re::IntrospectionInfo<re::Optional<unsigned int>>::get(BOOL)::info;
+    }
+  }
+
+  else
+  {
+    re::IntrospectionSharedLock::IntrospectionSharedLock(&v15);
+    v3 = re::IntrospectionInfo<re::Optional<unsigned int>>::get(BOOL)::isInitialized;
+    re::IntrospectionSharedLock::~IntrospectionSharedLock(&v15);
+    if (v3)
+    {
+      return &re::IntrospectionInfo<re::Optional<unsigned int>>::get(BOOL)::info;
+    }
+
+    v5 = re::introspectionSharedMutex(v4);
+    std::__shared_mutex_base::lock(v5);
+  }
+
+  v6 = re::introspect_uint32_t(1, a2);
+  if ((re::IntrospectionInfo<re::Optional<unsigned int>>::get(BOOL)::isInitialized & 1) == 0)
+  {
+    v7 = v6;
+    re::IntrospectionInfo<re::Optional<unsigned int>>::get(BOOL)::isInitialized = 1;
+    v8 = *(v6 + 6);
+    ArcSharedObject::ArcSharedObject(&re::IntrospectionInfo<re::Optional<unsigned int>>::get(BOOL)::info, 0);
+    qword_1EE186450 = 0x80000000DLL;
+    dword_1EE186458 = v8;
+    word_1EE18645C = 0;
+    *&xmmword_1EE186460 = 0;
+    *(&xmmword_1EE186460 + 1) = 0xFFFFFFFFLL;
+    qword_1EE186470 = v7;
+    unk_1EE186478 = 0;
+    re::IntrospectionInfo<re::Optional<unsigned int>>::get(BOOL)::info = &unk_1F5CCB2B8;
+    re::IntrospectionRegistry::add(v9, v10);
+    re::getPrettyTypeName(&v15, &re::IntrospectionInfo<re::Optional<unsigned int>>::get(BOOL)::info);
+    if (BYTE8(v15))
+    {
+      v11 = v16;
+    }
+
+    else
+    {
+      v11 = &v15 + 9;
+    }
+
+    if (v15 && (BYTE8(v15) & 1) != 0)
+    {
+      (*(*v15 + 40))();
+    }
+
+    v15 = *(v7 + 32);
+    xmmword_1EE186460 = v14;
+    if (v17)
+    {
+      if (v17)
+      {
+      }
+    }
+  }
+
+  if ((a1 & 1) == 0)
+  {
+    v12 = re::introspectionSharedMutex(v6);
+    std::__shared_mutex_base::unlock(v12);
+  }
+
+  return &re::IntrospectionInfo<re::Optional<unsigned int>>::get(BOOL)::info;
+}
+
+double re::internal::defaultConstruct<re::AudioFileAssetConfiguration>(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  *a3 = 0;
+  *(a3 + 2) = 0;
+  *(a3 + 4) = 0;
+  *(a3 + 8) = 0;
+  result = 0.0;
+  *(a3 + 16) = xmmword_1E3061530;
+  *(a3 + 32) = 0;
+  *(a3 + 72) = 0;
+  *(a3 + 80) = 0;
+  return result;
+}
+
+double re::internal::defaultDestruct<re::AudioFileAssetConfiguration>(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (*(a3 + 32) == 1)
+  {
+    return re::DynamicString::deinit((a3 + 40));
+  }
+
+  return result;
+}
+
+double re::internal::defaultConstructV2<re::AudioFileAssetConfiguration>(uint64_t a1)
+{
+  *a1 = 0;
+  *(a1 + 2) = 0;
+  *(a1 + 4) = 0;
+  *(a1 + 8) = 0;
+  result = 0.0;
+  *(a1 + 16) = xmmword_1E3061530;
+  *(a1 + 32) = 0;
+  *(a1 + 72) = 0;
+  *(a1 + 80) = 0;
+  return result;
+}
+
+double re::internal::defaultDestructV2<re::AudioFileAssetConfiguration>(uint64_t result)
+{
+  if (*(result + 32) == 1)
+  {
+    return re::DynamicString::deinit((result + 40));
+  }
+
+  return v1;
+}
+
+void re::TypeBuilderHelper::registerOptional<unsigned int>(re::TypeRegistry *a1@<X0>, const re::StringID *a2@<X1>, __int128 *a3@<X2>, uint64_t *a4@<X8>)
+{
+  re::TypeRegistry::typeID(&v12, a1, a2);
+  if (v12)
+  {
+    *a4 = v12;
+  }
+
+  else
+  {
+    re::StackScratchAllocator::StackScratchAllocator(v11);
+    re::TypeBuilder::TypeBuilder(v10, v11);
+    v9 = *a3;
+    re::TypeBuilder::beginOptionalType(v10, a2, 8uLL, 4uLL, &v9);
+    re::TypeBuilder::setOptionalAccessors(v10, re::TypeBuilderHelper::registerOptional<unsigned int>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *)#1}::__invoke, re::TypeBuilderHelper::registerOptional<unsigned int>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,void const*)#1}::__invoke);
+    re::TypeBuilder::commitTo(a4, v10, a1);
+    re::TypeBuilder::~TypeBuilder(v10, v8);
+    re::StackScratchAllocator::~StackScratchAllocator(v11);
+  }
+}
+
+void *re::IntrospectionOptional<unsigned int>::~IntrospectionOptional(void *a1)
+{
+  *a1 = &unk_1F5CBA310;
+  re::SerializedReference<re::IntrospectionBase const*>::reset((a1 + 6));
+  *a1 = &unk_1F5CCF868;
+  objc_destructInstance(a1 + 1);
+  return a1;
+}
+
+void re::IntrospectionOptional<unsigned int>::~IntrospectionOptional(void *a1)
+{
+  *a1 = &unk_1F5CBA310;
+  re::SerializedReference<re::IntrospectionBase const*>::reset((a1 + 6));
+  *a1 = &unk_1F5CCF868;
+  objc_destructInstance(a1 + 1);
+
+  JUMPOUT(0x1E6906520);
+}
+
+void re::IntrospectionOptional<unsigned int>::setHasValue(uint64_t a1, uint64_t a2, int a3)
+{
+  if (a3)
+  {
+    if ((*a2 & 1) == 0)
+    {
+      *a2 = 1;
+    }
+
+    *(a2 + 4) = 0;
+  }
+
+  else if (*a2)
+  {
+    *a2 = 0;
+  }
+}
+
+uint64_t re::IntrospectionOptional<unsigned int>::value(uint64_t a1, uint64_t a2)
+{
+  return a2 + 4;
+}
+
+{
+  return a2 + 4;
+}
+
+unsigned __int8 *re::TypeBuilderHelper::registerOptional<unsigned int>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *)#1}::__invoke(unsigned __int8 *a1)
+{
+  v2 = *a1;
+  result = a1 + 4;
+  if (!v2)
   {
     return 0;
   }
 
-  re::DynamicArray<re::Allocator const*>::removeStableAt(a1, (i - v2) >> 3);
-  return 1;
+  return result;
 }
 
-uint64_t re::MemoryTracker::statistics(os_unfair_lock_s *this)
+uint64_t re::TypeBuilderHelper::registerOptional<unsigned int>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,void const*)#1}::__invoke(uint64_t result, int *a2)
 {
-  v3[0] = 0;
-  v3[1] = 0;
-  os_unfair_lock_lock(this + 1);
-  re::MemoryTracker::statistics(this, 0, v3);
-  os_unfair_lock_unlock(this + 1);
-  return v3[0];
-}
-
-uint64_t re::MemoryTracker::statistics(uint64_t result, uint64_t a2, void *a3)
-{
-  v3 = *(result + 24);
-  if (v3)
+  if (a2)
   {
-    v6 = result;
-    v7 = *(result + 40);
-    v8 = 8 * v3;
-    do
+    v2 = *a2;
+    if ((*result & 1) == 0)
     {
-      v9 = *v7;
-      result = (*(**v7 + 48))(*v7);
-      if (result == a2)
-      {
-        v10 = (*(*v9 + 56))(v9);
-        v12 = a3[1] + v11;
-        *a3 += v10;
-        a3[1] = v12;
-        result = re::MemoryTracker::statistics(v6, v9, a3);
-      }
-
-      ++v7;
-      v8 -= 8;
+      *result = 1;
     }
 
-    while (v8);
+    *(result + 4) = v2;
+  }
+
+  else if (*result == 1)
+  {
+    *result = 0;
   }
 
   return result;
 }
 
-void re::MemoryTracker::logMemoryLeaks(os_unfair_lock_s *this)
+uint64_t *re::audioLogObjects(re *this)
 {
-  os_unfair_lock_lock(this + 1);
-  re::MemoryTracker::logMemoryLeaks(this, 0);
+  {
+    re::audioLogObjects(void)::logObjects = os_log_create("com.apple.re", "Audio");
+  }
 
-  os_unfair_lock_unlock(this + 1);
+  return &re::audioLogObjects(void)::logObjects;
 }
 
-const re::Allocator *re::MemoryTracker::logMemoryLeaks(const re::Allocator *this, const re::Allocator *a2)
+uint64_t re::AudioLogObjects::loggingEnabled(re::AudioLogObjects *this)
 {
-  v2 = *(this + 3);
-  if (v2)
+  v3 = &re::introspect_StateTransitionInterruptionType(BOOL)::isInitialized;
   {
-    v4 = *(this + 5);
-    v5 = 8 * v2;
-    do
+    v9 = v1;
+    v10 = v2;
+    v3 = &re::introspect_StateTransitionInterruptionType(BOOL)::isInitialized;
+    if (v5)
     {
-      v6 = *v4;
-      this = (*(**v4 + 48))(*v4);
-      if (this == a2)
+      re::Defaults::BOOLValue(v8, "audio.log.enabled", v6);
+      v7 = v8[1];
+      if (!v8[0])
       {
-        this = (*(*v6 + 64))(v6);
+        v7 = 0;
       }
 
-      ++v4;
-      v5 -= 8;
+      re::AudioLogObjects::loggingEnabled(void)::value = v7;
+      v3 = &re::introspect_StateTransitionInterruptionType(BOOL)::isInitialized;
     }
-
-    while (v5);
   }
 
-  return this;
+  return v3[472];
 }
 
-void *re::DynamicArray<re::Allocator const*>::removeStableAt(void *result, unint64_t a2)
+void re::AudioManager_PHASE_StateMachine_SceneRecoveryStep::eventReceived(uint64_t result, unint64_t a2, char a3)
 {
-  v2 = result[2];
-  if (v2 <= a2)
+  if (a3)
   {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
+    std::__tree<unsigned long long>::__erase_unique<unsigned long long>((result + 16), a2);
   }
+}
 
-  v3 = result;
-  v4 = v2 - 1;
-  if (v2 - 1 > a2)
+void re::AudioManager_PHASE_StateMachine_SceneRecoveryStep::stepDescription(re::AudioManager_PHASE_StateMachine_SceneRecoveryStep *this@<X0>, std::string *a2@<X8>)
+{
+  if (*(this + 4))
   {
-    v5 = result[4];
-    result = (v5 + 8 * a2);
-    v6 = (v5 + 8 * v2);
-    if (v6 != (result + 1))
+    re::nameForAudioManagerStateMachineEvent(*(this + 2), &v16);
+    v4 = std::string::append(&v16, ": ");
+    v5 = *&v4->__r_.__value_.__l.__data_;
+    v17.__r_.__value_.__r.__words[2] = v4->__r_.__value_.__r.__words[2];
+    *&v17.__r_.__value_.__l.__data_ = v5;
+    v4->__r_.__value_.__l.__size_ = 0;
+    v4->__r_.__value_.__r.__words[2] = 0;
+    v4->__r_.__value_.__r.__words[0] = 0;
+    std::to_string(&__p, *(this + 4));
+    if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      result = memmove(result, result + 1, v6 - (result + 1));
-      v4 = v3[2] - 1;
+      p_p = &__p;
     }
-  }
 
-  v3[2] = v4;
-  ++*(v3 + 6);
-  return result;
-}
+    else
+    {
+      p_p = __p.__r_.__value_.__r.__words[0];
+    }
 
-unsigned __int8 *re::StringSlice::findFirstOf@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-  result = std::__search_impl[abi:nn200100]<char const*,char const*,char const*,char const*,std::__equal_to,std::__identity,std::__identity,0>((*a1 + a3), *a1 + a1[1], *a2, (*a2 + *(a2 + 8)));
-  if ((*a1 + a1[1]) == result)
-  {
-    v7 = 0;
+    if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+    }
+
+    else
+    {
+      size = __p.__r_.__value_.__l.__size_;
+    }
+
+    v8 = std::string::append(&v17, p_p, size);
+    v9 = *&v8->__r_.__value_.__l.__data_;
+    v18.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
+    *&v18.__r_.__value_.__l.__data_ = v9;
+    v8->__r_.__value_.__l.__size_ = 0;
+    v8->__r_.__value_.__r.__words[2] = 0;
+    v8->__r_.__value_.__r.__words[0] = 0;
+    v10 = std::string::append(&v18, " remaining");
+    *a2 = *v10;
+    v10->__r_.__value_.__l.__size_ = 0;
+    v10->__r_.__value_.__r.__words[2] = 0;
+    v10->__r_.__value_.__r.__words[0] = 0;
+    if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v18.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(__p.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v17.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
+    {
+      v11 = v16.__r_.__value_.__r.__words[0];
+LABEL_20:
+      operator delete(v11);
+    }
   }
 
   else
   {
-    *(a4 + 8) = &result[-*a1];
-    v7 = 1;
+    re::nameForAudioManagerStateMachineEvent(*(this + 2), &v17);
+    v12 = std::string::append(&v17, ": ");
+    v13 = *&v12->__r_.__value_.__l.__data_;
+    v18.__r_.__value_.__r.__words[2] = v12->__r_.__value_.__r.__words[2];
+    *&v18.__r_.__value_.__l.__data_ = v13;
+    v12->__r_.__value_.__l.__size_ = 0;
+    v12->__r_.__value_.__r.__words[2] = 0;
+    v12->__r_.__value_.__r.__words[0] = 0;
+    v14 = std::string::append(&v18, "completed");
+    *a2 = *v14;
+    v14->__r_.__value_.__l.__size_ = 0;
+    v14->__r_.__value_.__r.__words[2] = 0;
+    v14->__r_.__value_.__r.__words[0] = 0;
+    if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v18.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
+    {
+      v11 = v17.__r_.__value_.__r.__words[0];
+      goto LABEL_20;
+    }
+  }
+}
+
+void sub_1E213D450(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26)
+{
+  if (*(v26 - 25) < 0)
+  {
+    operator delete(*(v26 - 48));
   }
 
-  *a4 = v7;
+  if (a26 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_1E213D588(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11)
+{
+  std::__tree<unsigned long long>::destroy(&a10, a11);
+  MEMORY[0x1E6906520](v12, v11);
+  _Unwind_Resume(a1);
+}
+
+void re::AudioManager_PHASE_StateMachine_SceneRecoveryStep::~AudioManager_PHASE_StateMachine_SceneRecoveryStep(re::AudioManager_PHASE_StateMachine_SceneRecoveryStep *this)
+{
+  *this = &unk_1F5CCB338;
+  std::__tree<unsigned long long>::destroy(this + 16, *(this + 3));
+}
+
+{
+  *this = &unk_1F5CCB338;
+  std::__tree<unsigned long long>::destroy(this + 16, *(this + 3));
+
+  JUMPOUT(0x1E6906520);
+}
+
+void std::__tree<unsigned long long>::destroy(uint64_t a1, void *a2)
+{
+  if (a2)
+  {
+    std::__tree<unsigned long long>::destroy(a1, *a2);
+    std::__tree<unsigned long long>::destroy(a1, a2[1]);
+
+    operator delete(a2);
+  }
+}
+
+uint64_t *std::set<unsigned long long>::set[abi:ne200100](uint64_t *a1, uint64_t a2)
+{
+  a1[2] = 0;
+  a1[1] = 0;
+  *a1 = (a1 + 1);
+  std::set<unsigned long long>::insert[abi:ne200100]<std::__tree_const_iterator<unsigned long long,std::__tree_node<unsigned long long,void *> *,long>>(a1, *a2, (a2 + 8));
+  return a1;
+}
+
+uint64_t *std::set<unsigned long long>::insert[abi:ne200100]<std::__tree_const_iterator<unsigned long long,std::__tree_node<unsigned long long,void *> *,long>>(uint64_t *result, void *a2, void *a3)
+{
+  if (a2 != a3)
+  {
+    v4 = a2;
+    v5 = result;
+    do
+    {
+      result = std::__tree<unsigned long long>::__emplace_hint_unique_key_args<unsigned long long,unsigned long long const&>(v5, (v5 + 8), v4 + 4, v4 + 4);
+      v6 = v4[1];
+      if (v6)
+      {
+        do
+        {
+          v7 = v6;
+          v6 = *v6;
+        }
+
+        while (v6);
+      }
+
+      else
+      {
+        do
+        {
+          v7 = v4[2];
+          v8 = *v7 == v4;
+          v4 = v7;
+        }
+
+        while (!v8);
+      }
+
+      v4 = v7;
+    }
+
+    while (v7 != a3);
+  }
+
   return result;
 }
 
-uint64_t *re::StringSlice::findLastOf@<X0>(uint64_t *result@<X0>, unsigned __int8 **a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t *std::__tree<unsigned long long>::__emplace_hint_unique_key_args<unsigned long long,unsigned long long const&>(uint64_t **a1, void *a2, unint64_t *a3, uint64_t *a4)
 {
-  v4 = result[1];
-  v5 = a2[1];
-  if (v4 == a3 || v5 == 0)
+  v4 = *std::__tree<unsigned long long>::__find_equal<unsigned long long>(a1, a2, &v7, &v6, a3);
+  if (!v4)
+  {
+    operator new();
+  }
+
+  return v4;
+}
+
+void *std::__tree<unsigned long long>::__find_equal<unsigned long long>(void *a1, void *a2, void *a3, void *a4, unint64_t *a5)
+{
+  v5 = a1 + 1;
+  if (a1 + 1 == a2 || (v6 = *a5, v7 = a2[4], *a5 < v7))
+  {
+    v8 = *a2;
+    if (*a1 == a2)
+    {
+      v10 = a2;
+LABEL_17:
+      if (v8)
+      {
+        *a3 = v10;
+        return v10 + 1;
+      }
+
+      else
+      {
+        *a3 = a2;
+        return a2;
+      }
+    }
+
+    if (v8)
+    {
+      v9 = *a2;
+      do
+      {
+        v10 = v9;
+        v9 = v9[1];
+      }
+
+      while (v9);
+    }
+
+    else
+    {
+      v13 = a2;
+      do
+      {
+        v10 = v13[2];
+        v14 = *v10 == v13;
+        v13 = v10;
+      }
+
+      while (v14);
+    }
+
+    v15 = *a5;
+    if (v10[4] < *a5)
+    {
+      goto LABEL_17;
+    }
+
+    v16 = *v5;
+    if (*v5)
+    {
+      do
+      {
+        while (1)
+        {
+          v17 = v16;
+          v18 = v16[4];
+          if (v15 >= v18)
+          {
+            break;
+          }
+
+          v16 = *v17;
+          v5 = v17;
+          if (!*v17)
+          {
+            goto LABEL_29;
+          }
+        }
+
+        if (v18 >= v15)
+        {
+          break;
+        }
+
+        v5 = v17 + 1;
+        v16 = v17[1];
+      }
+
+      while (v16);
+    }
+
+    else
+    {
+      v17 = a1 + 1;
+    }
+
+LABEL_29:
+    *a3 = v17;
+    return v5;
+  }
+
+  if (v7 >= v6)
+  {
+    *a3 = a2;
+    *a4 = a2;
+    return a4;
+  }
+
+  v11 = a2[1];
+  if (v11)
+  {
+    v12 = a2[1];
+    do
+    {
+      a4 = v12;
+      v12 = *v12;
+    }
+
+    while (v12);
+  }
+
+  else
+  {
+    v19 = a2;
+    do
+    {
+      a4 = v19[2];
+      v14 = *a4 == v19;
+      v19 = a4;
+    }
+
+    while (!v14);
+  }
+
+  if (a4 != v5 && v6 >= a4[4])
+  {
+    v20 = *v5;
+    if (*v5)
+    {
+      do
+      {
+        while (1)
+        {
+          v21 = v20;
+          v22 = v20[4];
+          if (v6 >= v22)
+          {
+            break;
+          }
+
+          v20 = *v21;
+          v5 = v21;
+          if (!*v21)
+          {
+            goto LABEL_48;
+          }
+        }
+
+        if (v22 >= v6)
+        {
+          break;
+        }
+
+        v5 = v21 + 1;
+        v20 = v21[1];
+      }
+
+      while (v20);
+    }
+
+    else
+    {
+      v21 = a1 + 1;
+    }
+
+LABEL_48:
+    *a3 = v21;
+    return v5;
+  }
+
+  if (v11)
+  {
+    *a3 = a4;
+  }
+
+  else
+  {
+    *a3 = a2;
+    return a2 + 1;
+  }
+
+  return a4;
+}
+
+void std::__tree<unsigned long long>::__erase_unique<unsigned long long>(void ***a1, unint64_t a2)
+{
+  v3 = (a1 + 1);
+  v2 = a1[1];
+  if (!v2)
+  {
+    return;
+  }
+
+  v5 = (a1 + 1);
+  v6 = v2;
+  do
+  {
+    v7 = v6[4];
+    v8 = v7 >= a2;
+    v9 = v7 < a2;
+    if (v8)
+    {
+      v5 = v6;
+    }
+
+    v6 = v6[v9];
+  }
+
+  while (v6);
+  if (v5 == v3 || v5[4] > a2)
+  {
+    return;
+  }
+
+  v10 = v5[1];
+  if (v10)
+  {
+    do
+    {
+      v11 = v10;
+      v10 = *v10;
+    }
+
+    while (v10);
+  }
+
+  else
+  {
+    v12 = v5;
+    do
+    {
+      v11 = v12[2];
+      v36 = *v11 == v12;
+      v12 = v11;
+    }
+
+    while (!v36);
+  }
+
+  if (*a1 == v5)
+  {
+    *a1 = v11;
+  }
+
+  a1[2] = (a1[2] - 1);
+  v13 = *v5;
+  v14 = v5;
+  if (*v5)
+  {
+    v15 = v5[1];
+    if (!v15)
+    {
+      v14 = v5;
+      goto LABEL_24;
+    }
+
+    do
+    {
+      v14 = v15;
+      v15 = *v15;
+    }
+
+    while (v15);
+  }
+
+  v13 = v14[1];
+  if (v13)
+  {
+LABEL_24:
+    v17 = 0;
+    v16 = v14[2];
+    v13[2] = v16;
+    goto LABEL_25;
+  }
+
+  v16 = v14[2];
+  v17 = 1;
+LABEL_25:
+  v18 = *v16;
+  if (*v16 == v14)
+  {
+    *v16 = v13;
+    if (v14 == v2)
+    {
+      v18 = 0;
+      v2 = v13;
+    }
+
+    else
+    {
+      v18 = v16[1];
+    }
+  }
+
+  else
+  {
+    v16[1] = v13;
+  }
+
+  v19 = *(v14 + 24);
+  if (v14 != v5)
+  {
+    v20 = v5[2];
+    v14[2] = v20;
+    v20[*v20 != v5] = v14;
+    v22 = *v5;
+    v21 = v5[1];
+    v22[2] = v14;
+    *v14 = v22;
+    v14[1] = v21;
+    if (v21)
+    {
+      *(v21 + 2) = v14;
+    }
+
+    *(v14 + 24) = *(v5 + 24);
+    if (v2 == v5)
+    {
+      v2 = v14;
+    }
+  }
+
+  if (!v2 || !v19)
+  {
+    goto LABEL_68;
+  }
+
+  if (!v17)
+  {
+    *(v13 + 24) = 1;
+    goto LABEL_68;
+  }
+
+  while (1)
+  {
+    v23 = v18[2];
+    v24 = *v23;
+    if (*v23 == v18)
+    {
+      break;
+    }
+
+    if ((v18[3] & 1) == 0)
+    {
+      *(v18 + 24) = 1;
+      *(v23 + 24) = 0;
+      v25 = v23[1];
+      v26 = *v25;
+      v23[1] = *v25;
+      if (v26)
+      {
+        *(v26 + 16) = v23;
+      }
+
+      v27 = v23[2];
+      v25[2] = v27;
+      v27[*v27 != v23] = v25;
+      *v25 = v23;
+      v23[2] = v25;
+      if (v2 == *v18)
+      {
+        v2 = v18;
+      }
+
+      v18 = *(*v18 + 1);
+    }
+
+    v28 = *v18;
+    if (*v18 && v28[24] != 1)
+    {
+      v29 = v18[1];
+      if (v29 && (v29[3] & 1) == 0)
+      {
+LABEL_75:
+        v28 = v18;
+      }
+
+      else
+      {
+        v28[24] = 1;
+        *(v18 + 24) = 0;
+        v37 = *(v28 + 1);
+        *v18 = v37;
+        if (v37)
+        {
+          v37[2] = v18;
+        }
+
+        v38 = v18[2];
+        *(v28 + 2) = v38;
+        v38[*v38 != v18] = v28;
+        *(v28 + 1) = v18;
+        v18[2] = v28;
+        v29 = v18;
+      }
+
+      v39 = *(v28 + 2);
+      v28[24] = *(v39 + 24);
+      *(v39 + 24) = 1;
+      *(v29 + 24) = 1;
+      v40 = *(v39 + 1);
+      v41 = *v40;
+      *(v39 + 1) = *v40;
+      if (v41)
+      {
+        *(v41 + 16) = v39;
+      }
+
+      v42 = *(v39 + 2);
+      v40[2] = v42;
+      v42[*v42 != v39] = v40;
+      *v40 = v39;
+      goto LABEL_88;
+    }
+
+    v29 = v18[1];
+    if (v29 && *(v29 + 24) != 1)
+    {
+      goto LABEL_75;
+    }
+
+    *(v18 + 24) = 0;
+    v30 = v18[2];
+    if (v30 == v2 || (v30[3] & 1) == 0)
+    {
+      goto LABEL_69;
+    }
+
+LABEL_66:
+    v18 = *(v30[2] + (*v30[2] == v30));
+  }
+
+  if ((v18[3] & 1) == 0)
+  {
+    *(v18 + 24) = 1;
+    *(v23 + 24) = 0;
+    v31 = v24[1];
+    *v23 = v31;
+    if (v31)
+    {
+      v31[2] = v23;
+    }
+
+    v32 = v23[2];
+    v24[2] = v32;
+    v32[*v32 != v23] = v24;
+    v24[1] = v23;
+    v23[2] = v24;
+    v33 = v18[1];
+    if (v2 == v33)
+    {
+      v2 = v18;
+    }
+
+    v18 = *v33;
+  }
+
+  v34 = *v18;
+  if (*v18 && v34[24] != 1)
+  {
+    goto LABEL_84;
+  }
+
+  v35 = v18[1];
+  if (!v35 || *(v35 + 24) == 1)
+  {
+    *(v18 + 24) = 0;
+    v30 = v18[2];
+    v36 = *(v30 + 24) != 1 || v30 == v2;
+    if (v36)
+    {
+LABEL_69:
+      *(v30 + 24) = 1;
+      goto LABEL_68;
+    }
+
+    goto LABEL_66;
+  }
+
+  if (v34 && (v34[24] & 1) == 0)
+  {
+LABEL_84:
+    v35 = v18;
+    goto LABEL_85;
+  }
+
+  *(v35 + 24) = 1;
+  *(v18 + 24) = 0;
+  v43 = *v35;
+  v18[1] = *v35;
+  if (v43)
+  {
+    v43[2] = v18;
+  }
+
+  v44 = v18[2];
+  v35[2] = v44;
+  v44[*v44 != v18] = v35;
+  *v35 = v18;
+  v18[2] = v35;
+  v34 = v18;
+LABEL_85:
+  v39 = v35[2];
+  *(v35 + 24) = *(v39 + 24);
+  *(v39 + 24) = 1;
+  v34[24] = 1;
+  v40 = *v39;
+  v45 = *(*v39 + 8);
+  *v39 = v45;
+  if (v45)
+  {
+    *(v45 + 16) = v39;
+  }
+
+  v46 = *(v39 + 2);
+  v40[2] = v46;
+  v46[*v46 != v39] = v40;
+  v40[1] = v39;
+LABEL_88:
+  *(v39 + 2) = v40;
+LABEL_68:
+  operator delete(v5);
+}
+
+uint64_t *std::__tree<unsigned long long>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(uint64_t **a1, unint64_t *a2, uint64_t *a3)
+{
+  v3 = a1[1];
+  if (!v3)
+  {
+LABEL_8:
+    operator new();
+  }
+
+  v4 = *a2;
+  while (1)
+  {
+    while (1)
+    {
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
+      {
+        break;
+      }
+
+      v3 = *v5;
+      if (!*v5)
+      {
+        goto LABEL_8;
+      }
+    }
+
+    if (v6 >= v4)
+    {
+      return v5;
+    }
+
+    v3 = v5[1];
+    if (!v3)
+    {
+      goto LABEL_8;
+    }
+  }
+}
+
+void sub_1E213E444(_Unwind_Exception *exception_object, int a2)
+{
+  if (a2)
+  {
+    __clang_call_terminate(exception_object);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void re::AudioManager_PHASE::~AudioManager_PHASE(re::AudioManager_PHASE *this)
+{
+  v2 = **(this + 45);
+  [v2 cancel];
+
+  v3 = atomic_load(this + 171);
+  if (v3 >= 1)
+  {
+    do
+    {
+      re::AudioManager_PHASE::stopEngine(this);
+      v4 = atomic_load(this + 171);
+    }
+
+    while (v4 > 0);
+  }
+
+  dispatch_sync(*(this + 84), &__block_literal_global_13);
+  v5 = *(this + 83);
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = ___ZN2re18AudioManager_PHASED2Ev_block_invoke_2;
+  block[3] = &__block_descriptor_40_e5_v8__0l;
+  block[4] = this;
+  dispatch_sync(v5, block);
+  std::__hash_table<std::__hash_value_type<unsigned long long,std::function<void ()(void)>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::function<void ()(void)>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::function<void ()(void)>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::function<void ()(void)>>>>::~__hash_table(this + 1056);
+  std::__function::__value_func<std::unordered_map<unsigned long long,std::shared_ptr<re::PersistedAssetData>> ()(void)>::~__value_func[abi:ne200100](this + 1016);
+  v6 = *(this + 126);
+  if (v6)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v6);
+  }
+
+  std::unique_ptr<re::UserActiveStateNotificationManager>::reset[abi:ne200100](this + 124, 0);
+  std::unique_ptr<re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>>,std::function<void ()(re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>>*)>>::reset[abi:ne200100](this + 106, 0);
+  std::__function::__value_func<void ()(re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>> *)>::~__value_func[abi:ne200100](this + 856);
+  std::__hash_table<std::__hash_value_type<unsigned long long,unsigned short>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned short>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned short>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned short>>>::~__hash_table(this + 744);
+  std::__hash_table<std::__hash_value_type<std::string,re::AudioManager_PHASE::MixGroupState>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,re::AudioManager_PHASE::MixGroupState>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,re::AudioManager_PHASE::MixGroupState>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,re::AudioManager_PHASE::MixGroupState>>>::~__hash_table(this + 704);
+
+  std::unique_ptr<re::AudioManager_PHASE_StateMachine>::reset[abi:ne200100](this + 82, 0);
+  std::unique_ptr<re::AudioManager_PHASE_Async>::reset[abi:ne200100](this + 81, 0);
+  std::__hash_table<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>>>::~__hash_table(this + 76);
+
+  v7 = *(this + 74);
+  if (v7)
+  {
+    std::__shared_weak_count::__release_weak(v7);
+  }
+
+  re::AudioManager::~AudioManager(this);
+}
+
+{
+  re::AudioManager_PHASE::~AudioManager_PHASE(this);
+
+  JUMPOUT(0x1E6906520);
+}
+
+void re::AudioManager_PHASE::stopEngine(atomic_uint *this)
+{
+  if (atomic_fetch_add(this + 171, 0xFFFFFFFF) <= 0)
+  {
+    v1 = *re::audioLogObjects(this);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    {
+      *v2 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v1, OS_LOG_TYPE_ERROR, "unbalanced call to AudioManager_PHASE::stopEngine()", v2, 2u);
+    }
+  }
+}
+
+id *___ZN2re18AudioManager_PHASED2Ev_block_invoke_2(uint64_t a1, const re::AudioManager_PHASE *a2)
+{
+  v2 = *(a1 + 32);
+  re::AudioManagerTelemetryReporter::stopAndCleanupReporter(v2, a2);
+
+  return std::unique_ptr<re::AudioManager_PHASE_Async>::reset[abi:ne200100](v2 + 81, 0);
+}
+
+void re::AudioManager_PHASE::addAudioEngineRunnableReason(uint64_t a1, int a2)
+{
+  v2 = *(a1 + 1000);
+  if (v2)
+  {
+    re::AudioEngineRunnableManager::addReason(v2, a2);
+  }
+}
+
+void re::AudioManager_PHASE::removeAudioEngineRunnableReason(uint64_t a1, int a2)
+{
+  v2 = *(a1 + 1000);
+  if (v2)
+  {
+    re::AudioEngineRunnableManager::removeReason(v2, a2);
+  }
+}
+
+void re::AudioManager_PHASE::setEngineQueue(uint64_t a1, void *a2)
+{
+  v4 = a2;
+  objc_storeStrong((a1 + 8), a2);
+  v5 = *(a1 + 648);
+  v6 = *(v5 + 176);
+  *(v5 + 176) = v4;
+}
+
+void re::AudioManager_PHASE::triggerNotification(re::AudioManager_PHASE *result, int a2)
+{
+  if (a2 > 1)
+  {
+    if (a2 == 2)
+    {
+      re::AudioManager_PHASE::triggerServiceLost(result);
+    }
+
+    else if (a2 == 3)
+    {
+      re::AudioManager_PHASE::triggerServiceReset(result);
+    }
+  }
+
+  else if (a2)
+  {
+    if (a2 == 1)
+    {
+      re::AudioManager_PHASE::configureAndStartEngine(result);
+    }
+  }
+
+  else
+  {
+    re::AudioManager::configureSTS(result);
+  }
+}
+
+void re::AudioManager_PHASE::configureAndStartEngine(re::AudioManager_PHASE *this)
+{
+  if (*(*(this + 125) + 24))
+  {
+    v1 = *(this + 83);
+    block[0] = MEMORY[0x1E69E9820];
+    block[1] = 3221225472;
+    block[2] = ___ZN2re18AudioManager_PHASE23configureAndStartEngineEv_block_invoke;
+    block[3] = &__block_descriptor_40_e5_v8__0l;
+    block[4] = this;
+    dispatch_async(v1, block);
+  }
+}
+
+void re::AudioManager_PHASE::triggerServiceLost(re::AudioManager_PHASE *this)
+{
+  re::AudioManager_PHASE_StateMachine::handleStateChangeEvent(*(this + 82), 0, 0, 0);
+  UnfairLockedPointer<REPHASEContext>::set(*(this + 81) + 8, 0);
+  Instance = re::AudioManagerTelemetryReporter::getInstance(v2);
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = ___ZN2re29AudioManagerTelemetryReporter23mediaServicesResetEventEv_block_invoke;
+  block[3] = &__block_descriptor_40_e5_v8__0l;
+  block[4] = Instance;
+  dispatch_async(re::AudioManagerTelemetryReporter::m_audioManagerTelemetryQueue, block);
+  re::AudioManager_PHASE_Async::notifyPlaybackClientsWithPreparedSoundsThatMediaServicesWereLost(*(this + 81));
+  os_unfair_lock_lock(this + 262);
+  std::__function::__value_func<std::unordered_map<unsigned long long,std::shared_ptr<re::PersistedAssetData>> ()(void)>::operator=[abi:ne200100](this + 1016);
+  os_unfair_lock_unlock(this + 262);
+
+  re::AudioManager::triggerServiceLost(this);
+}
+
+void re::AudioManager_PHASE::triggerServiceReset(re::AudioManager_PHASE *this)
+{
+  re::AudioManager_PHASE_StateMachine::handleStateChangeEvent(*(this + 82), 1, 0, 0);
+  re::AudioManager_PHASE_Async::notifyPlaybackClientsWithPreparedSoundsThatMediaServicesWereReset(*(this + 81));
+
+  re::AudioManager::triggerServiceReset(this);
+}
+
+void re::AudioManager_PHASE::joinPlaybackHostingServiceAtEndpoint(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  v4 = *(a1 + 664);
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = ___ZN2re18AudioManager_PHASE36joinPlaybackHostingServiceAtEndpointEPU24objcproto13OS_xpc_object8NSObject_block_invoke;
+  v6[3] = &unk_1E871B4D0;
+  v7 = v3;
+  v8 = a1;
+  v5 = v3;
+  dispatch_async(v4, v6);
+}
+
+id re::AudioManager_PHASE::copyOrCreateEndpointForPlaybackHostingService(re::AudioManager_PHASE_Async **this)
+{
+  if (this[83])
+  {
+    Instance = re::AudioManagerTelemetryReporter::getInstance(this);
+    re::AudioManagerTelemetryReporter::initializeTimerWith(Instance, this, this[83]);
+  }
+
+  v3 = this[81];
+
+  return re::AudioManager_PHASE_Async::copyOrCreateEndpointForPlaybackHostingService(v3);
+}
+
+uint64_t re::AudioManager_PHASE::addPlaybackConnectionDisconnectCallback(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 648);
+  v3 = a2;
+  os_unfair_lock_lock((v2 + 200));
+  v4 = *(v2 + 248) + 1;
+  do
+  {
+    v5 = v4;
+    v4 = 1;
+  }
+
+  while (!v5);
+  *(v2 + 248) = v5;
+  v6 = _Block_copy(v3);
+  v7 = *(v2 + 216);
+  if (!*&v7)
+  {
+    goto LABEL_20;
+  }
+
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.u32[0] > 1uLL)
+  {
+    v9 = v5;
+    if (*&v7 <= v5)
+    {
+      v9 = v5 % *&v7;
+    }
+  }
+
+  else
+  {
+    v9 = (*&v7 - 1) & v5;
+  }
+
+  v10 = *(*(v2 + 208) + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
+  {
+LABEL_20:
+    operator new();
+  }
+
+  while (1)
+  {
+    v12 = v11[1];
+    if (v12 == v5)
+    {
+      break;
+    }
+
+    if (v8.u32[0] > 1uLL)
+    {
+      if (v12 >= *&v7)
+      {
+        v12 %= *&v7;
+      }
+    }
+
+    else
+    {
+      v12 &= *&v7 - 1;
+    }
+
+    if (v12 != v9)
+    {
+      goto LABEL_20;
+    }
+
+LABEL_19:
+    v11 = *v11;
+    if (!v11)
+    {
+      goto LABEL_20;
+    }
+  }
+
+  if (v11[2] != v5)
   {
     goto LABEL_19;
   }
 
-  v7 = *result;
-  v8 = (*result + v4);
-  v9 = (*result + a3);
-  v10 = (*a2 + 1);
-  v11 = **a2;
-  v12 = v5 - 1;
-  v13 = v8;
-  do
+  v13 = *(v2 + 248);
+  os_unfair_lock_unlock((v2 + 200));
+
+  return v13;
+}
+
+void sub_1E213EFD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,REPHASESoundEvent * {__strong}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,REPHASESoundEvent * {__strong}>,void *>>>>::~unique_ptr[abi:ne200100](va);
+
+  os_unfair_lock_unlock(v4 + 50);
+  _Unwind_Resume(a1);
+}
+
+void re::AudioManager_PHASE::removePlaybackConnectionDisconnectCallback(re::AudioManager_PHASE *this, unint64_t a2)
+{
+  v3 = *(this + 81);
+  os_unfair_lock_lock((v3 + 200));
+  v4 = *(v3 + 216);
+  if (v4)
   {
-    v14 = v9 + 1;
-    while (*v9 != v11)
+    v5 = (v3 + 208);
+    v6 = vcnt_s8(v4);
+    v6.i16[0] = vaddlv_u8(v6);
+    if (v6.u32[0] > 1uLL)
     {
-      ++v9;
-      ++v14;
-      if (v9 == v8)
+      v7 = a2;
+      if (*&v4 <= a2)
       {
-        goto LABEL_17;
+        v7 = a2 % *&v4;
       }
     }
 
-    v15 = v12;
-    result = v10;
-    while (v15)
+    else
     {
-      if (v14 == v8)
-      {
-        goto LABEL_17;
-      }
-
-      v17 = *v14++;
-      v16 = v17;
-      v18 = *result;
-      result = (result + 1);
-      --v15;
-      if (v16 != v18)
-      {
-        goto LABEL_16;
-      }
+      v7 = (*&v4 - 1) & a2;
     }
 
-    v13 = v9;
-LABEL_16:
-    ++v9;
+    v8 = *v5;
+    v9 = *(*v5 + 8 * v7);
+    if (v9)
+    {
+      v10 = *v9;
+      if (v10)
+      {
+        v11 = *&v4 - 1;
+        do
+        {
+          v12 = v10[1];
+          if (v12 == a2)
+          {
+            if (v10[2] == a2)
+            {
+              if (v6.u32[0] > 1uLL)
+              {
+                if (*&v4 <= a2)
+                {
+                  a2 %= *&v4;
+                }
+              }
+
+              else
+              {
+                a2 &= v11;
+              }
+
+              v13 = *(v8 + 8 * a2);
+              do
+              {
+                v14 = v13;
+                v13 = *v13;
+              }
+
+              while (v13 != v10);
+              if (v14 == (v3 + 224))
+              {
+                goto LABEL_36;
+              }
+
+              v15 = v14[1];
+              if (v6.u32[0] > 1uLL)
+              {
+                if (v15 >= *&v4)
+                {
+                  v15 %= *&v4;
+                }
+              }
+
+              else
+              {
+                v15 &= v11;
+              }
+
+              if (v15 != a2)
+              {
+LABEL_36:
+                if (!*v10)
+                {
+                  goto LABEL_37;
+                }
+
+                v16 = *(*v10 + 8);
+                if (v6.u32[0] > 1uLL)
+                {
+                  if (v16 >= *&v4)
+                  {
+                    v16 %= *&v4;
+                  }
+                }
+
+                else
+                {
+                  v16 &= v11;
+                }
+
+                if (v16 != a2)
+                {
+LABEL_37:
+                  *(v8 + 8 * a2) = 0;
+                }
+              }
+
+              v17 = *v10;
+              if (*v10)
+              {
+                v18 = *(v17 + 8);
+                if (v6.u32[0] > 1uLL)
+                {
+                  if (v18 >= *&v4)
+                  {
+                    v18 %= *&v4;
+                  }
+                }
+
+                else
+                {
+                  v18 &= v11;
+                }
+
+                if (v18 != a2)
+                {
+                  *(*v5 + 8 * v18) = v14;
+                  v17 = *v10;
+                }
+              }
+
+              *v14 = v17;
+              *v10 = 0;
+              --*(v3 + 232);
+              v19[0] = v10;
+              v19[1] = v3 + 208;
+              v20 = 1;
+              memset(v21, 0, sizeof(v21));
+              std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,REPHASESoundEvent * {__strong}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,REPHASESoundEvent * {__strong}>,void *>>>>::~unique_ptr[abi:ne200100](v19);
+              break;
+            }
+          }
+
+          else
+          {
+            if (v6.u32[0] > 1uLL)
+            {
+              if (v12 >= *&v4)
+              {
+                v12 %= *&v4;
+              }
+            }
+
+            else
+            {
+              v12 &= v11;
+            }
+
+            if (v12 != v7)
+            {
+              break;
+            }
+          }
+
+          v10 = *v10;
+        }
+
+        while (v10);
+      }
+    }
   }
 
-  while (v9 != v8);
-LABEL_17:
-  if (v13 == v8)
+  os_unfair_lock_unlock((v3 + 200));
+}
+
+void re::AudioManager_PHASE::setExternalSourceControl(re::AudioManager_PHASE *this, char a2)
+{
+  *(this + 320) = a2;
+  v2 = *(this + 83);
+  v3[0] = MEMORY[0x1E69E9820];
+  v3[1] = 3221225472;
+  v3[2] = ___ZN2re18AudioManager_PHASE24setExternalSourceControlEb_block_invoke;
+  v3[3] = &__block_descriptor_41_e5_v8__0l;
+  v3[4] = this;
+  v4 = a2;
+  dispatch_async(v2, v3);
+}
+
+uint64_t re::AudioManager_PHASE::loadAssetsOnReset(uint64_t a1, uint64_t a2)
+{
+  v5[4] = *MEMORY[0x1E69E9840];
+  v2 = *(a1 + 672);
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3321888768;
+  v4[2] = ___ZN2re18AudioManager_PHASE17loadAssetsOnResetENSt3__18functionIFNS1_13unordered_mapIyNS1_10shared_ptrINS_18PersistedAssetDataEEENS1_4hashIyEENS1_8equal_toIyEENS1_9allocatorINS1_4pairIKyS6_EEEEEEvEEE_block_invoke;
+  v4[3] = &__block_descriptor_72_ea8_40c152_ZTSKNSt3__18functionIFNS_13unordered_mapIyNS_10shared_ptrIN2re18PersistedAssetDataEEENS_4hashIyEENS_8equal_toIyEENS_9allocatorINS_4pairIKyS5_EEEEEEvEEE_e5_v8__0l;
+  v4[4] = a1;
+  std::__function::__value_func<std::unordered_map<unsigned long long,std::shared_ptr<re::PersistedAssetData>> ()(void)>::__value_func[abi:ne200100](v5, a2);
+  dispatch_async(v2, v4);
+  return std::__function::__value_func<std::unordered_map<unsigned long long,std::shared_ptr<re::PersistedAssetData>> ()(void)>::~__value_func[abi:ne200100](v5);
+}
+
+void ___ZN2re18AudioManager_PHASE17loadAssetsOnResetENSt3__18functionIFNS1_13unordered_mapIyNS1_10shared_ptrINS_18PersistedAssetDataEEENS1_4hashIyEENS1_8equal_toIyEENS1_9allocatorINS1_4pairIKyS6_EEEEEEvEEE_block_invoke(uint64_t a1)
+{
+  v9[3] = *MEMORY[0x1E69E9840];
+  v2 = *(a1 + 32);
+  if (re::AudioManager_PHASE_StateMachine::isRecoveryStepCompleted(*(v2 + 656), 4))
   {
-LABEL_19:
-    *a4 = 0;
+    v3 = *(a1 + 64);
+    if (!v3)
+    {
+      std::__throw_bad_function_call[abi:ne200100]();
+    }
+
+    (*(*v3 + 48))(v7);
+    re::AudioManager_PHASE::loadAssetsFromGenerator(v2, v7);
+    std::__hash_table<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>>>::~__hash_table(v7);
+    re::AudioManager_PHASE_StateMachine::handleStateChangeEvent(*(v2 + 656), 3, 0, 0);
   }
 
   else
   {
-    *a4 = 1;
-    *(a4 + 8) = &v13[-v7];
+    os_unfair_lock_lock((v2 + 1048));
+    std::__function::__value_func<std::unordered_map<unsigned long long,std::shared_ptr<re::PersistedAssetData>> ()(void)>::__value_func[abi:ne200100](v7, a1 + 40);
+    v4 = v2 + 1016;
+    if (v7 != (v2 + 1016))
+    {
+      v5 = v8;
+      v6 = *(v2 + 1040);
+      if (v8 == v7)
+      {
+        if (v6 == v4)
+        {
+          (*(*v8 + 3))();
+          (*(*v8 + 4))(v8);
+          v8 = 0;
+          (*(**(v2 + 1040) + 24))(*(v2 + 1040), v7);
+          (*(**(v2 + 1040) + 32))(*(v2 + 1040));
+          *(v2 + 1040) = 0;
+          v8 = v7;
+          (*(v9[0] + 24))(v9, v2 + 1016);
+          (*(v9[0] + 32))(v9);
+        }
+
+        else
+        {
+          (*(*v8 + 3))();
+          (*(*v8 + 4))(v8);
+          v8 = *(v2 + 1040);
+        }
+
+        *(v2 + 1040) = v4;
+      }
+
+      else if (v6 == v4)
+      {
+        (*(*v6 + 24))(*(v2 + 1040), v7);
+        (*(**(v2 + 1040) + 32))(*(v2 + 1040));
+        *(v2 + 1040) = v8;
+        v8 = v7;
+      }
+
+      else
+      {
+        v8 = *(v2 + 1040);
+        *(v2 + 1040) = v5;
+      }
+    }
+
+    std::__function::__value_func<std::unordered_map<unsigned long long,std::shared_ptr<re::PersistedAssetData>> ()(void)>::~__value_func[abi:ne200100](v7);
+
+    os_unfair_lock_unlock((v2 + 1048));
+  }
+}
+
+void sub_1E213F6A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10)
+{
+  if (a2)
+  {
+    __clang_call_terminate(exception_object);
   }
 
+  _Unwind_Resume(exception_object);
+}
+
+void re::AudioManager_PHASE::loadAssetsFromGenerator(uint64_t a1, uint64_t a2)
+{
+  v4 = UnfairLockedPointer<REPHASEContext>::get(*(a1 + 648) + 8);
+  v5 = v4;
+  if (v4)
+  {
+    v6 = [v4 engine];
+    v7 = [v6 assetRegistry];
+
+    for (i = *(a2 + 16); i; i = *i)
+    {
+      v10 = i[3];
+      v9 = i[4];
+      if (v9)
+      {
+        atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+      }
+
+      v11 = _Block_copy(*v10);
+      v12 = *(v10 + 32);
+      v16[0] = *(v10 + 16);
+      v16[1] = v12;
+      v17 = *(v10 + 48);
+      if (v17 == 1)
+      {
+        re::DynamicString::DynamicString(&v18, (v10 + 56));
+      }
+
+      v21 = *(v10 + 88);
+      if (v21 == 1)
+      {
+        v22 = *(v10 + 92);
+      }
+
+      v23 = *(v10 + 96);
+      v13 = *(v10 + 8);
+      (*(v11 + 2))(v11, v7, v13, v16, *(*(a1 + 648) + 328));
+
+      [v5 addAudioAssetID:i[2] configuration:v16];
+      if (v17 == 1 && v18 && (v19 & 1) != 0)
+      {
+        (*(*v18 + 40))(v18, v20, v14, v15);
+      }
+
+      if (v9)
+      {
+        std::__shared_weak_count::__release_shared[abi:nn200100](v9);
+      }
+    }
+  }
+}
+
+uint64_t re::AudioManager_PHASE::loadAssetsOnSceneRegister(uint64_t a1, uint64_t a2)
+{
+  v5[4] = *MEMORY[0x1E69E9840];
+  v2 = *(a1 + 672);
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3321888768;
+  v4[2] = ___ZN2re18AudioManager_PHASE25loadAssetsOnSceneRegisterENSt3__18functionIFNS1_13unordered_mapIyNS1_10shared_ptrINS_18PersistedAssetDataEEENS1_4hashIyEENS1_8equal_toIyEENS1_9allocatorINS1_4pairIKyS6_EEEEEEvEEE_block_invoke;
+  v4[3] = &__block_descriptor_72_ea8_40c152_ZTSKNSt3__18functionIFNS_13unordered_mapIyNS_10shared_ptrIN2re18PersistedAssetDataEEENS_4hashIyEENS_8equal_toIyEENS_9allocatorINS_4pairIKyS5_EEEEEEvEEE_e5_v8__0l;
+  v4[4] = a1;
+  std::__function::__value_func<std::unordered_map<unsigned long long,std::shared_ptr<re::PersistedAssetData>> ()(void)>::__value_func[abi:ne200100](v5, a2);
+  dispatch_async(v2, v4);
+  return std::__function::__value_func<std::unordered_map<unsigned long long,std::shared_ptr<re::PersistedAssetData>> ()(void)>::~__value_func[abi:ne200100](v5);
+}
+
+void **___ZN2re18AudioManager_PHASE25loadAssetsOnSceneRegisterENSt3__18functionIFNS1_13unordered_mapIyNS1_10shared_ptrINS_18PersistedAssetDataEEENS1_4hashIyEENS1_8equal_toIyEENS1_9allocatorINS1_4pairIKyS6_EEEEEEvEEE_block_invoke(uint64_t a1)
+{
+  v2 = *(a1 + 64);
+  if (!v2)
+  {
+    std::__throw_bad_function_call[abi:ne200100]();
+  }
+
+  v3 = *(a1 + 32);
+  (*(*v2 + 48))(v5);
+  re::AudioManager_PHASE::loadAssetsFromGenerator(v3, v5);
+  return std::__hash_table<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>>>::~__hash_table(v5);
+}
+
+void sub_1E213FA48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::__hash_table<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>>>::~__hash_table(va);
+  _Unwind_Resume(a1);
+}
+
+void re::AudioManager_PHASE::systemFinishedRecovery(uint64_t result, unsigned int a2, unint64_t a3, uint64_t a4)
+{
+  if (a2 <= 5)
+  {
+    re::AudioManager_PHASE_StateMachine::handleStateChangeEvent(*(result + 656), dword_1E3064580[a2], a3, a4);
+  }
+}
+
+void re::AudioManager_PHASE::registerSceneForSystemRecovery(re *a1, int a2, uint64_t a3)
+{
+  v15 = *MEMORY[0x1E69E9840];
+  if (a2 <= 2)
+  {
+    if (!a2)
+    {
+      v4 = *(a1 + 82);
+      v5 = *(v4 + 40);
+      v8 = MEMORY[0x1E69E9820];
+      v9 = 3221225472;
+      v10 = ___ZN2re31AudioManager_PHASE_StateMachine28registerRequiredRecoveryStepENS_36AudioManager_PHASE_StateMachineEventEy_block_invoke;
+      v11 = &__block_descriptor_52_e5_v8__0l;
+      v6 = 6;
+      goto LABEL_12;
+    }
+
+    if (a2 == 2)
+    {
+      v4 = *(a1 + 82);
+      v5 = *(v4 + 40);
+      v8 = MEMORY[0x1E69E9820];
+      v9 = 3221225472;
+      v10 = ___ZN2re31AudioManager_PHASE_StateMachine28registerRequiredRecoveryStepENS_36AudioManager_PHASE_StateMachineEventEy_block_invoke;
+      v11 = &__block_descriptor_52_e5_v8__0l;
+      v6 = 5;
+      goto LABEL_12;
+    }
+  }
+
+  else
+  {
+    switch(a2)
+    {
+      case 3:
+        v4 = *(a1 + 82);
+        v5 = *(v4 + 40);
+        v8 = MEMORY[0x1E69E9820];
+        v9 = 3221225472;
+        v10 = ___ZN2re31AudioManager_PHASE_StateMachine28registerRequiredRecoveryStepENS_36AudioManager_PHASE_StateMachineEventEy_block_invoke;
+        v11 = &__block_descriptor_52_e5_v8__0l;
+        v6 = 7;
+        goto LABEL_12;
+      case 4:
+        v4 = *(a1 + 82);
+        v5 = *(v4 + 40);
+        v8 = MEMORY[0x1E69E9820];
+        v9 = 3221225472;
+        v10 = ___ZN2re31AudioManager_PHASE_StateMachine28registerRequiredRecoveryStepENS_36AudioManager_PHASE_StateMachineEventEy_block_invoke;
+        v11 = &__block_descriptor_52_e5_v8__0l;
+        v6 = 8;
+        goto LABEL_12;
+      case 5:
+        v4 = *(a1 + 82);
+        v5 = *(v4 + 40);
+        v8 = MEMORY[0x1E69E9820];
+        v9 = 3221225472;
+        v10 = ___ZN2re31AudioManager_PHASE_StateMachine28registerRequiredRecoveryStepENS_36AudioManager_PHASE_StateMachineEventEy_block_invoke;
+        v11 = &__block_descriptor_52_e5_v8__0l;
+        v6 = 9;
+LABEL_12:
+        v14 = v6;
+        v12 = v4;
+        v13 = a3;
+        dispatch_async(v5, &v8);
+        return;
+    }
+  }
+
+  v7 = *re::audioLogObjects(a1);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  {
+    LODWORD(v8) = 67109120;
+    HIDWORD(v8) = a2;
+    _os_log_error_impl(&dword_1E1C61000, v7, OS_LOG_TYPE_ERROR, "[RE/MediaServices] [EngineState] Invalid system registered for system recovery, system id %d", &v8, 8u);
+  }
+}
+
+void re::AudioManager_PHASE::unregisterSceneFromSystemRecovery(re *a1, int a2, uint64_t a3)
+{
+  v15 = *MEMORY[0x1E69E9840];
+  if (a2 <= 2)
+  {
+    if (!a2)
+    {
+      v4 = *(a1 + 82);
+      v5 = *(v4 + 40);
+      v8 = MEMORY[0x1E69E9820];
+      v9 = 3221225472;
+      v10 = ___ZN2re31AudioManager_PHASE_StateMachine30unregisterRequiredRecoveryStepENS_36AudioManager_PHASE_StateMachineEventEy_block_invoke;
+      v11 = &__block_descriptor_52_e5_v8__0l;
+      v6 = 6;
+      goto LABEL_12;
+    }
+
+    if (a2 == 2)
+    {
+      v4 = *(a1 + 82);
+      v5 = *(v4 + 40);
+      v8 = MEMORY[0x1E69E9820];
+      v9 = 3221225472;
+      v10 = ___ZN2re31AudioManager_PHASE_StateMachine30unregisterRequiredRecoveryStepENS_36AudioManager_PHASE_StateMachineEventEy_block_invoke;
+      v11 = &__block_descriptor_52_e5_v8__0l;
+      v6 = 5;
+      goto LABEL_12;
+    }
+  }
+
+  else
+  {
+    switch(a2)
+    {
+      case 3:
+        v4 = *(a1 + 82);
+        v5 = *(v4 + 40);
+        v8 = MEMORY[0x1E69E9820];
+        v9 = 3221225472;
+        v10 = ___ZN2re31AudioManager_PHASE_StateMachine30unregisterRequiredRecoveryStepENS_36AudioManager_PHASE_StateMachineEventEy_block_invoke;
+        v11 = &__block_descriptor_52_e5_v8__0l;
+        v6 = 7;
+        goto LABEL_12;
+      case 4:
+        v4 = *(a1 + 82);
+        v5 = *(v4 + 40);
+        v8 = MEMORY[0x1E69E9820];
+        v9 = 3221225472;
+        v10 = ___ZN2re31AudioManager_PHASE_StateMachine30unregisterRequiredRecoveryStepENS_36AudioManager_PHASE_StateMachineEventEy_block_invoke;
+        v11 = &__block_descriptor_52_e5_v8__0l;
+        v6 = 8;
+        goto LABEL_12;
+      case 5:
+        v4 = *(a1 + 82);
+        v5 = *(v4 + 40);
+        v8 = MEMORY[0x1E69E9820];
+        v9 = 3221225472;
+        v10 = ___ZN2re31AudioManager_PHASE_StateMachine30unregisterRequiredRecoveryStepENS_36AudioManager_PHASE_StateMachineEventEy_block_invoke;
+        v11 = &__block_descriptor_52_e5_v8__0l;
+        v6 = 9;
+LABEL_12:
+        v14 = v6;
+        v12 = v4;
+        v13 = a3;
+        dispatch_async(v5, &v8);
+        return;
+    }
+  }
+
+  v7 = *re::audioLogObjects(a1);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  {
+    LODWORD(v8) = 67109120;
+    HIDWORD(v8) = a2;
+    _os_log_error_impl(&dword_1E1C61000, v7, OS_LOG_TYPE_ERROR, "[RE/MediaServices] [EngineState] Invalid system unregistered from system recovery, system id %d", &v8, 8u);
+  }
+}
+
+void re::AudioManager_PHASE::clearAllRenderingState(re::AudioManager_PHASE *this)
+{
+  re::AudioManager::clearAllRenderingState(this);
+  v6 = *(this + 50);
+  v14 = *(this + 51);
+  v15 = *(this + 104);
+  v2 = *(this + 210);
+  v3 = re::AudioManager_PHASE_Async::createPhaseContext(*(this + 81), *(this + 83));
+  atomic_store(0, (*(this + 81) + 192));
+  v4 = *(this + 83);
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3321888768;
+  block[2] = ___ZN2re18AudioManager_PHASE22clearAllRenderingStateEv_block_invoke;
+  block[3] = &unk_1F5CCB858;
+  v9 = v3;
+  v10 = this;
+  v11 = v14;
+  v12 = v15;
+  v13 = v2;
+  v8 = v6;
+  v5 = v3;
+  dispatch_async(v4, block);
+}
+
+void ___ZN2re18AudioManager_PHASE22clearAllRenderingStateEv_block_invoke(uint64_t a1)
+{
+  v14 = *MEMORY[0x1E69E9840];
+  v2 = *(a1 + 56);
+  v3 = re::AudioManager_PHASE_Async::swapPhaseContext(*(v2 + 648), *(a1 + 48));
+  re::AudioManager_PHASE_Async::clearPendingAssetData(*(v2 + 648));
+  v5 = *re::audioLogObjects(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_DEFAULT, "[RE/MediaServices] Clearing old phase context and resetting state on new context.", buf, 2u);
+  }
+
+  [v3 stopAllAndReset];
+  re::AudioManager::setSceneReverbPreset(v2, *(a1 + 80), *(a1 + 64), *(a1 + 72));
+  re::AudioManager_PHASE_Async::setSceneReverbPreset(*(v2 + 648), *(a1 + 64));
+  re::AudioManager_PHASE_Async::setSpaceBlendLevel(*(v2 + 648), *(a1 + 88));
+  v6 = *(a1 + 32);
+  re::AudioManager_PHASE_Async::setSpaceBlendTargetPresetOrientation(*(v2 + 648), v6);
+  os_unfair_lock_lock((v2 + 696));
+  if (*(v2 + 728))
+  {
+    std::__hash_table<std::__hash_value_type<std::string,re::AudioManager_PHASE::MixGroupState>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,re::AudioManager_PHASE::MixGroupState>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,re::AudioManager_PHASE::MixGroupState>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,re::AudioManager_PHASE::MixGroupState>>>::__deallocate_node(*(v2 + 720));
+    *(v2 + 720) = 0;
+    v7 = *(v2 + 712);
+    if (v7)
+    {
+      for (i = 0; i != v7; ++i)
+      {
+        *(*(v2 + 704) + 8 * i) = 0;
+      }
+    }
+
+    *(v2 + 728) = 0;
+  }
+
+  os_unfair_lock_unlock((v2 + 696));
+  v9 = atomic_load((v2 + 684));
+  if (v9 >= 1 && *(*(v2 + 1000) + 24))
+  {
+    re::AudioManager_PHASE_Async::configureAndStartEngine(*(v2 + 648));
+  }
+
+  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::clear((v2 + 744));
+  re::AudioManager_PHASE_StateMachine::handleStateChangeEvent(*(v2 + 656), 4, 0, 0);
+  os_unfair_lock_lock((v2 + 1048));
+  if (*(v2 + 1040))
+  {
+    std::__function::__value_func<std::unordered_map<unsigned long long,std::shared_ptr<re::PersistedAssetData>> ()(void)>::__value_func[abi:ne200100](v13, v2 + 1016);
+    re::AudioManager_PHASE::loadAssetsOnReset(v2, v13);
+    std::__function::__value_func<std::unordered_map<unsigned long long,std::shared_ptr<re::PersistedAssetData>> ()(void)>::~__value_func[abi:ne200100](v13);
+    std::__function::__value_func<std::unordered_map<unsigned long long,std::shared_ptr<re::PersistedAssetData>> ()(void)>::operator=[abi:ne200100](v2 + 1016);
+  }
+
+  os_unfair_lock_unlock((v2 + 1048));
+  os_unfair_lock_lock((v2 + 1052));
+  if (*(v2 + 1080))
+  {
+    v10 = *(v2 + 8);
+    block[0] = MEMORY[0x1E69E9820];
+    block[1] = 3221225472;
+    block[2] = ___ZN2re18AudioManager_PHASE22clearAllRenderingStateEv_block_invoke_16;
+    block[3] = &__block_descriptor_40_e5_v8__0l;
+    block[4] = v2;
+    dispatch_async(v10, block);
+  }
+
+  os_unfair_lock_unlock((v2 + 1052));
+}
+
+void sub_1E21402D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+{
+  va_start(va, a15);
+  std::__function::__value_func<std::unordered_map<unsigned long long,std::shared_ptr<re::PersistedAssetData>> ()(void)>::~__value_func[abi:ne200100](va);
+  os_unfair_lock_unlock(v16 + 262);
+
+  _Unwind_Resume(a1);
+}
+
+void ___ZN2re18AudioManager_PHASE22clearAllRenderingStateEv_block_invoke_16(uint64_t a1)
+{
+  v1 = *(a1 + 32);
+  os_unfair_lock_lock((v1 + 1052));
+  v2 = (v1 + 1072);
+  while (1)
+  {
+    v2 = *v2;
+    if (!v2)
+    {
+      break;
+    }
+
+    v3 = v2[6];
+    if (!v3)
+    {
+      std::__throw_bad_function_call[abi:ne200100]();
+    }
+
+    (*(*v3 + 48))(v3);
+  }
+
+  if (*(v1 + 1080))
+  {
+    std::__hash_table<std::__hash_value_type<unsigned long long,std::function<void ()(void)>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::function<void ()(void)>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::function<void ()(void)>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::function<void ()(void)>>>>::__deallocate_node(*(v1 + 1072));
+    *(v1 + 1072) = 0;
+    v4 = *(v1 + 1064);
+    if (v4)
+    {
+      for (i = 0; i != v4; ++i)
+      {
+        *(*(v1 + 1056) + 8 * i) = 0;
+      }
+    }
+
+    *(v1 + 1080) = 0;
+  }
+
+  os_unfair_lock_unlock((v1 + 1052));
+}
+
+void re::AudioManager_PHASE::recoverSTS(re::AudioManager_PHASE *this)
+{
+  v1 = *(this + 83);
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = ___ZN2re18AudioManager_PHASE10recoverSTSEv_block_invoke;
+  block[3] = &__block_descriptor_40_e5_v8__0l;
+  block[4] = this;
+  dispatch_async(v1, block);
+}
+
+void ___ZN2re18AudioManager_PHASE10recoverSTSEv_block_invoke(uint64_t a1)
+{
+  v1 = *(a1 + 32);
+  re::AudioManager::configureSTS(v1);
+  v2 = *(v1 + 82);
+
+  re::AudioManager_PHASE_StateMachine::handleStateChangeEvent(v2, 2, 0, 0);
+}
+
+void re::AudioManager_PHASE::startEngine(re::AudioManager_PHASE *this)
+{
+  if (!atomic_fetch_add(this + 171, 1u))
+  {
+    re::AudioManager_PHASE::configureAndStartEngine(this);
+  }
+}
+
+void re::AudioManager_PHASE::updateEngine(re::AudioManager_PHASE *this)
+{
+  v1 = *(this + 83);
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = ___ZN2re18AudioManager_PHASE12updateEngineEv_block_invoke;
+  block[3] = &__block_descriptor_40_e5_v8__0l;
+  block[4] = this;
+  dispatch_async(v1, block);
+}
+
+void ___ZN2re18AudioManager_PHASE12updateEngineEv_block_invoke(uint64_t a1)
+{
+  v1 = UnfairLockedPointer<REPHASEContext>::get(*(*(a1 + 32) + 648) + 8);
+  if (v1)
+  {
+    [v1 update];
+  }
+}
+
+id re::AudioManager_PHASE::getAudioEnginePHASE(re::AudioManager_PHASE *this)
+{
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x3032000000;
+  v8 = __Block_byref_object_copy__5;
+  v9 = __Block_byref_object_dispose__5;
+  v10 = 0;
+  v1 = *(this + 83);
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = ___ZNK2re18AudioManager_PHASE19getAudioEnginePHASEEv_block_invoke;
+  v4[3] = &unk_1E871B8E0;
+  v4[4] = &v5;
+  v4[5] = this;
+  dispatch_sync(v1, v4);
+  v2 = v6[5];
+  _Block_object_dispose(&v5, 8);
+
+  return v2;
+}
+
+uint64_t __Block_byref_object_copy__5(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
   return result;
 }
 
-unsigned __int8 *std::__search_impl[abi:nn200100]<char const*,char const*,char const*,char const*,std::__equal_to,std::__identity,std::__identity,0>(unsigned __int8 *a1, uint64_t a2, unsigned __int8 *a3, unsigned __int8 *a4)
+void ___ZNK2re18AudioManager_PHASE19getAudioEnginePHASEEv_block_invoke(uint64_t a1)
 {
-  v4 = a4 - a3;
-  if (a4 == a3)
+  v2 = re::AudioManager_PHASE_Async::getAudioEnginePHASE(*(*(a1 + 40) + 648));
+  v3 = *(*(a1 + 32) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
+}
+
+__n128 re::AudioManager_PHASE::getPHASESourceTransformForToken(re::AudioManager_PHASE *this, uint64_t a2)
+{
+  v3 = UnfairLockedPointer<REPHASEContext>::get(*(this + 81) + 8);
+  v4 = v3;
+  if (v3)
   {
-    return a1;
+    v5 = [v3 eventFor:a2];
+    [v5 sourcePose];
+    v8 = v6;
   }
 
-  v5 = a2;
-  if (a2 - a1 >= v4)
+  else
   {
-    v6 = a2 - v4 + 1;
-    if (v6 != a1)
+    v8 = *MEMORY[0x1E69E9B18];
+  }
+
+  return v8;
+}
+
+id re::AudioManager_PHASE::getAudioObjectPHASE(re::AudioManager_PHASE *this, uint64_t a2)
+{
+  v3 = UnfairLockedPointer<REPHASEContext>::get(*(this + 81) + 8);
+  v4 = v3;
+  if (v3)
+  {
+    v5 = [v3 eventFor:a2];
+    v6 = [v5 externalStreamController];
+
+    if (v6)
     {
-      v9 = *a3;
-      v7 = a3 + 1;
-      v8 = v9;
-      while (*a1 != v8)
-      {
-LABEL_9:
-        if (++a1 == v6)
-        {
-          return v5;
-        }
-      }
-
-      v10 = a1 + 1;
-      v11 = v7;
-      while (v11 != a4)
-      {
-        v13 = *v10++;
-        v12 = v13;
-        v14 = *v11++;
-        if (v12 != v14)
-        {
-          goto LABEL_9;
-        }
-      }
-
-      return a1;
+      [v5 externalStreamController];
     }
+
+    else
+    {
+      [v5 soundEvent];
+    }
+    v7 = ;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  return v7;
+}
+
+id re::AudioManager_PHASE::getPHASESourceForEntityID(re::AudioManager_PHASE *this, uint64_t a2)
+{
+  v3 = UnfairLockedPointer<REPHASEContext>::get(*(this + 81) + 8);
+  v4 = v3;
+  if (v3)
+  {
+    v5 = [v3 sourceObjectForEntityID:a2];
+  }
+
+  else
+  {
+    v5 = 0;
   }
 
   return v5;
 }
 
-void *std::function<void ()(re::EventQueue &)>::operator=(void *a1, uint64_t a2)
+id re::AudioManager_PHASE::getPHASEGroups(os_unfair_lock_s *this)
 {
-  v4[4] = *MEMORY[0x1E69E9840];
-  std::__function::__value_func<void ()(re::EventQueue &)>::__value_func[abi:nn200100](v4, a2);
-  std::__function::__value_func<void ()(re::EventQueue &)>::swap[abi:nn200100](v4, a1);
-  std::__function::__value_func<void ()(re::EventQueue &)>::~__value_func[abi:nn200100](v4);
+  v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  os_unfair_lock_lock(this + 174);
+  for (i = this + 180; ; [v2 addObject:*&i[12]._os_unfair_lock_opaque])
+  {
+    i = *&i->_os_unfair_lock_opaque;
+    if (!i)
+    {
+      break;
+    }
+  }
+
+  os_unfair_lock_unlock(this + 174);
+
+  return v2;
+}
+
+void sub_1E2140978(_Unwind_Exception *a1)
+{
+  os_unfair_lock_unlock(v2 + 174);
+
+  _Unwind_Resume(a1);
+}
+
+id re::AudioManager_PHASE::createSamplerDefinitionForToken(re::AudioManager_PHASE *this, uint64_t a2)
+{
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x3032000000;
+  v9 = __Block_byref_object_copy__5;
+  v10 = __Block_byref_object_dispose__5;
+  v11 = 0;
+  v2 = *(this + 83);
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = ___ZNK2re18AudioManager_PHASE31createSamplerDefinitionForTokenEy_block_invoke;
+  block[3] = &unk_1E871B908;
+  block[4] = &v6;
+  block[5] = this;
+  block[6] = a2;
+  dispatch_sync(v2, block);
+  v3 = v7[5];
+  _Block_object_dispose(&v6, 8);
+
+  return v3;
+}
+
+void ___ZNK2re18AudioManager_PHASE31createSamplerDefinitionForTokenEy_block_invoke(void *a1)
+{
+  v2 = re::AudioManager_PHASE_Async::createSamplerDefinitionForToken(*(a1[5] + 648), a1[6]);
+  v3 = *(a1[4] + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
+}
+
+uint64_t re::AudioManager_PHASE::playbackStateForToken(re::AudioManager_PHASE *this, uint64_t a2)
+{
+  v3 = UnfairLockedPointer<REPHASEContext>::get(*(this + 81) + 8);
+  v4 = v3;
+  if (v3)
+  {
+    v5 = [v3 eventFor:a2];
+    v6 = [v5 state];
+  }
+
+  else
+  {
+    v6 = 5;
+  }
+
+  return v6;
+}
+
+id re::AudioManager_PHASE::audioSessionForToken(re::AudioManager_PHASE *this, uint64_t a2)
+{
+  v3 = UnfairLockedPointer<REPHASEContext>::get(*(this + 81) + 8);
+  v4 = v3;
+  if (v3)
+  {
+    v5 = [v3 eventFor:a2];
+    v6 = [v5 audioSession];
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  return v6;
+}
+
+uint64_t re::AudioManager_PHASE::addAcousticMeshEvent(_anonymous_namespace_ *a1, uint64_t a2)
+{
+  v3 = *(a1 + 106);
+  v4 = *(v3 + 16);
+  v5 = v4 + 1;
+  v6 = *(v3 + 8);
+  if (v4 + 1 >= v6)
+  {
+    if (v6 < v5)
+    {
+      if (*v3)
+      {
+        v7 = 2 * v6;
+        if (!v6)
+        {
+          v7 = 8;
+        }
+
+        if (v7 <= v5)
+        {
+          v8 = v5;
+        }
+
+        else
+        {
+          v8 = v7;
+        }
+
+        re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>>::setCapacity(*(a1 + 106), v8);
+        v4 = *(v3 + 16);
+      }
+
+      else
+      {
+        re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>>::setCapacity(v3, v5);
+        v4 = 0;
+        *(v3 + 16) = 0;
+        *(v3 + 24) = 0;
+        *(v3 + 32) = 0;
+      }
+    }
+
+    v6 = *(v3 + 8);
+  }
+
+  v9 = *(v3 + 40) + 48 * ((*(v3 + 24) + v4) % v6);
+  *v9 = 0;
+  *(v9 + 40) = -1;
+  result = std::__variant_detail::__dtor<std::__variant_detail::__traits<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v9);
+  v11 = *(a2 + 40);
+  if (v11 != -1)
+  {
+    v12 = v9;
+    result = (off_1F5CCBC08[v11])(&v12, a2);
+    *(v9 + 40) = v11;
+  }
+
+  ++*(v3 + 16);
+  ++*(v3 + 32);
+  return result;
+}
+
+void re::AudioManager_PHASE::beforeFrameUpdate(re::AudioManager_PHASE *this)
+{
+  re::internal::AriadneSignpostScopeGuard::AriadneSignpostScopeGuard(v4, 2500, this, 0, 0, 0);
+  re::AudioManager::beforeFrameUpdate(this);
+  re::internal::AriadneSignpostScopeGuard::~AriadneSignpostScopeGuard(v4, v2, v3);
+}
+
+void re::AudioManager_PHASE::afterFrameUpdate(re::AudioManager_PHASE *this, float a2)
+{
+  v5 = *MEMORY[0x1E69E9840];
+  v3 = *(this + 86) + 1;
+  *(this + 86) = v3;
+  re::internal::AriadneSignpostScopeGuard::AriadneSignpostScopeGuard(v4, 2502, this, v3, 0, 0);
+  re::AudioManager::updateSTSStateAfterFrameUpdate(this);
+  re::AudioSessionCache::update(this + 102);
+}
+
+void sub_1E2141474(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25)
+{
+  if (a2)
+  {
+    __clang_call_terminate(exception_object);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+double __Block_byref_object_copy__18(uint64_t a1, void *a2)
+{
+  *(a1 + 88) = 0;
+  result = 0.0;
+  *(a1 + 48) = 0u;
+  *(a1 + 64) = 0u;
+  *(a1 + 80) = 0;
+  v3 = a2[7];
+  *(a1 + 48) = a2[6];
+  *(a1 + 56) = v3;
+  a2[6] = 0;
+  a2[7] = 0;
+  v4 = *(a1 + 64);
+  *(a1 + 64) = a2[8];
+  a2[8] = v4;
+  v5 = *(a1 + 88);
+  *(a1 + 88) = a2[11];
+  a2[11] = v5;
+  v6 = *(a1 + 72);
+  *(a1 + 72) = a2[9];
+  a2[9] = v6;
+  return result;
+}
+
+void ___ZN2re18AudioManager_PHASE16afterFrameUpdateEf_block_invoke(uint64_t a1)
+{
+  v2 = *(a1 + 40);
+  re::internal::AriadneSignpostScopeGuard::AriadneSignpostScopeGuard(v7, 2520, *(v2 + 648), *(a1 + 48), 0, 0);
+  v3 = *(v2 + 648);
+  v4 = atomic_load((v2 + 684));
+  re::AudioManager_PHASE_Async::afterFrameUpdate(v3, v4, (*(*(a1 + 32) + 8) + 48), *(a1 + 56));
+  re::internal::AriadneSignpostScopeGuard::~AriadneSignpostScopeGuard(v7, v5, v6);
+}
+
+uint64_t *std::unique_ptr<re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>>,std::function<void ()(re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>>*)>>::reset[abi:ne200100](uint64_t *result, uint64_t a2)
+{
+  v3 = *result;
+  *result = a2;
+  if (v3)
+  {
+    return std::function<void ()(re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>> *)>::operator()(result[4], v3);
+  }
+
+  return result;
+}
+
+void ___ZN2re18AudioManager_PHASE16afterFrameUpdateEf_block_invoke_21(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  re::internal::AriadneSignpostScopeGuard::AriadneSignpostScopeGuard(v5, 2541, *(v2 + 648), *(a1 + 40), 0, 0);
+  re::AudioManager_PHASE_Async::afterFrameSlowMeshEvents(*(v2 + 648), *(a1 + 48));
+  re::internal::AriadneSignpostScopeGuard::~AriadneSignpostScopeGuard(v5, v3, v4);
+}
+
+uint64_t __copy_helper_block_ea8_32c55_ZTSKZN2re18AudioManager_PHASE16afterFrameUpdateEfE3__0(uint64_t result, uint64_t a2)
+{
+  *(result + 32) = *(a2 + 32);
+  v2 = *(a2 + 56);
+  *(result + 48) = *(a2 + 48);
+  *(result + 56) = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void __destroy_helper_block_ea8_32c55_ZTSKZN2re18AudioManager_PHASE16afterFrameUpdateEfE3__0(uint64_t a1)
+{
+  v1 = *(a1 + 56);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v1);
+  }
+}
+
+void re::AudioManager_PHASE::fadeSourceToGain(uint64_t a1, uint64_t a2, float a3, double a4)
+{
+  objc_initWeak(&location, (a2 + 8));
+  v7 = *(a1 + 664);
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3321888768;
+  block[2] = ___ZN2re18AudioManager_PHASE16fadeSourceToGainERKNS_16AudioSourceStateEfd_block_invoke;
+  block[3] = &__block_descriptor_60_ea8_40c45_ZTSN2re10ArcWeakPtrINS_16AudioSourceStateEEE_e5_v8__0l;
+  block[4] = a1;
+  v9[0] = 0;
+  objc_copyWeak(v9, &location);
+  v10 = a3;
+  v9[1] = *&a4;
+  dispatch_async(v7, block);
+  objc_destroyWeak(v9);
+  v9[0] = 0;
+  objc_destroyWeak(&location);
+}
+
+uint64_t ___ZN2re18AudioManager_PHASE16fadeSourceToGainERKNS_16AudioSourceStateEfd_block_invoke(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v4 = (WeakRetained - 8);
+  if (WeakRetained)
+  {
+    v5 = (WeakRetained - 8);
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  v7 = v5;
+  if (WeakRetained)
+  {
+    if (re::internal::enableSignposts(0, 0))
+    {
+      kdebug_trace();
+      v4 = v7;
+    }
+
+    re::AudioManager_PHASE_Async::fadeSourceToGain(*(v2 + 648), v4, *(a1 + 56), *(a1 + 48));
+  }
+
+  return re::SharedPtr<re::AudioSourceState>::~SharedPtr(&v7);
+}
+
+void sub_1E214182C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  re::SharedPtr<re::AudioSourceState>::~SharedPtr(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t re::SharedPtr<re::AudioSourceState>::~SharedPtr(uint64_t a1)
+{
+  if (*a1)
+  {
+
+    *a1 = 0;
+  }
+
   return a1;
 }
 
-void re::EventQueue::postEvent(os_unfair_lock_s *this, const void *a2, size_t a3)
+id *re::ArcWeakPtr<re::AudioSourceState>::~ArcWeakPtr(id *a1)
 {
-  if (!a2)
-  {
-    re::internal::assertLog(4, 0, "assertion failure: '%s' (%s:line %i) event must not be null.", "event", "postEvent", 28);
-    _os_crash();
-    __break(1u);
-    goto LABEL_13;
-  }
-
-  if (a3 <= 3)
-  {
-LABEL_13:
-    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) Invalid size.", "size >= sizeof(uint32_t)", "postEvent", 29);
-    _os_crash();
-    __break(1u);
-LABEL_14:
-    re::internal::assertLog(4, v8, "assertion failure: '%s' (%s:line %i) Invalid size. Size causes arithmetic overflow.", "!overflow", "postEvent", 44);
-    _os_crash();
-    __break(1u);
-LABEL_15:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  os_unfair_lock_lock(this);
-  v6 = &this[10 * this[22]._os_unfair_lock_opaque];
-  v7 = *&v6[6]._os_unfair_lock_opaque;
-  v8 = a3 + v7 + 4;
-  v9 = __CFADD__(a3, v7 + 4);
-  if (v7 >= 0xFFFFFFFFFFFFFFFCLL || v9)
-  {
-    goto LABEL_14;
-  }
-
-  re::DynamicArray<char>::resize(&v6[2], v8);
-  if (*&v6[6]._os_unfair_lock_opaque <= v7)
-  {
-    goto LABEL_15;
-  }
-
-  v10 = *&v6[10]._os_unfair_lock_opaque;
-  *(v10 + v7) = a3;
-  memcpy((v10 + v7 + 4), a2, a3);
-
-  os_unfair_lock_unlock(this);
+  objc_destroyWeak(a1);
+  *a1 = 0;
+  return a1;
 }
 
-void re::DynamicArray<char>::resize(uint64_t a1, unint64_t a2)
+float re::AudioManager_PHASE::currentGainForSource(re::AudioManager_PHASE *this, const re::AudioSourceState *a2)
 {
-  v4 = *(a1 + 16);
-  if (v4 >= a2)
+  v37 = *MEMORY[0x1E69E9840];
+  v3 = UnfairLockedPointer<REPHASEContext>::get(*(this + 81) + 8);
+  v4 = v3;
+  if (v3)
   {
-    if (v4 <= a2)
+    v5 = 712;
+    if (*(a2 + 24))
     {
-      return;
+      v5 = 32;
+    }
+
+    v6 = [v3 eventFor:*(a2 + v5)];
+    if (v6)
+    {
+      v7 = [v4 gainParamForToken:*(a2 + 89) isGroupPlaybackSound:*(a2 + 24)];
+      v8 = [v6 paramForKey:v7];
+      v9 = v8;
+      if (v8)
+      {
+        v10 = [v8 value];
+        [v10 floatValue];
+        v12 = v11;
+      }
+
+      else
+      {
+        v21 = *re::audioLogObjects(0);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        {
+          v23 = *(a2 + 89);
+          v25 = 134217984;
+          v26 = v23;
+          _os_log_error_impl(&dword_1E1C61000, v21, OS_LOG_TYPE_ERROR, "Could not find gain param for token %llu", &v25, 0xCu);
+        }
+
+        v12 = 0.0;
+      }
+    }
+
+    else
+    {
+      v7 = *re::audioLogObjects(0);
+      v12 = 0.0;
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      {
+        v13 = re::AssetHandle::assetInfo((a2 + 64));
+        if (v13[17])
+        {
+          v14 = v13[18];
+        }
+
+        else
+        {
+          v14 = v13 + 137;
+        }
+
+        v15 = *(a2 + 89);
+        v16 = *(a2 + 60);
+        v17 = *(a2 + 66);
+        v18 = *(a2 + 64);
+        if (v18 && (v19 = *(v18 + 16)) != 0)
+        {
+          v20 = *(v19 + 296);
+        }
+
+        else
+        {
+          v20 = "";
+        }
+
+        v24 = *(a2 + 97);
+        v25 = 136316418;
+        v26 = v14;
+        v27 = 2048;
+        v28 = v15;
+        v29 = 2048;
+        v30 = v16;
+        v31 = 2048;
+        v32 = v17;
+        v33 = 2080;
+        v34 = v20;
+        v35 = 2048;
+        v36 = v24;
+        _os_log_error_impl(&dword_1E1C61000, v7, OS_LOG_TYPE_ERROR, "AudioManager_PHASE::currentGainForSource(asset='%s', token=%llu, sceneID=%llu, entity(%llu, '%s'), sourceID=%llu) could not find sound event", &v25, 0x3Eu);
+      }
     }
   }
 
   else
   {
-    if (*(a1 + 8) < a2)
+    v12 = 0.0;
+  }
+
+  return v12;
+}
+
+void re::AudioManager_PHASE::fadeSourceToReverbLevel(uint64_t a1, uint64_t a2, float a3, double a4)
+{
+  objc_initWeak(&location, (a2 + 8));
+  v7 = *(a1 + 664);
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3321888768;
+  block[2] = ___ZN2re18AudioManager_PHASE23fadeSourceToReverbLevelERKNS_16AudioSourceStateEfd_block_invoke;
+  block[3] = &__block_descriptor_60_ea8_40c45_ZTSN2re10ArcWeakPtrINS_16AudioSourceStateEEE_e5_v8__0l;
+  block[4] = a1;
+  v9[0] = 0;
+  objc_copyWeak(v9, &location);
+  v10 = a3;
+  v9[1] = *&a4;
+  dispatch_async(v7, block);
+  objc_destroyWeak(v9);
+  v9[0] = 0;
+  objc_destroyWeak(&location);
+}
+
+uint64_t ___ZN2re18AudioManager_PHASE23fadeSourceToReverbLevelERKNS_16AudioSourceStateEfd_block_invoke(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v4 = (WeakRetained - 8);
+  if (WeakRetained)
+  {
+    v5 = (WeakRetained - 8);
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  v7 = v5;
+  if (WeakRetained)
+  {
+    if (re::internal::enableSignposts(0, 0))
     {
-      re::DynamicArray<char>::setCapacity(a1, a2);
-      v4 = *(a1 + 16);
+      kdebug_trace();
+      v4 = v7;
     }
 
-    v5 = a2 - v4;
-    if (a2 > v4 && v5 >= 1)
+    re::AudioManager_PHASE_Async::fadeSourceToReverbLevel(*(v2 + 648), v4, *(a1 + 56), *(a1 + 48));
+  }
+
+  return re::SharedPtr<re::AudioSourceState>::~SharedPtr(&v7);
+}
+
+void sub_1E2141D08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  re::SharedPtr<re::AudioSourceState>::~SharedPtr(va);
+  _Unwind_Resume(a1);
+}
+
+void re::AudioManager_PHASE::fadeSourceToDirectLevel(uint64_t a1, uint64_t a2, float a3, double a4)
+{
+  objc_initWeak(&location, (a2 + 8));
+  v7 = *(a1 + 664);
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3321888768;
+  block[2] = ___ZN2re18AudioManager_PHASE23fadeSourceToDirectLevelERKNS_16AudioSourceStateEfd_block_invoke;
+  block[3] = &__block_descriptor_60_ea8_40c45_ZTSN2re10ArcWeakPtrINS_16AudioSourceStateEEE_e5_v8__0l;
+  block[4] = a1;
+  v9[0] = 0;
+  objc_copyWeak(v9, &location);
+  v10 = a3;
+  v9[1] = *&a4;
+  dispatch_async(v7, block);
+  objc_destroyWeak(v9);
+  v9[0] = 0;
+  objc_destroyWeak(&location);
+}
+
+uint64_t ___ZN2re18AudioManager_PHASE23fadeSourceToDirectLevelERKNS_16AudioSourceStateEfd_block_invoke(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v4 = (WeakRetained - 8);
+  if (WeakRetained)
+  {
+    v5 = (WeakRetained - 8);
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  v7 = v5;
+  if (WeakRetained)
+  {
+    if (re::internal::enableSignposts(0, 0))
     {
-      bzero((*(a1 + 32) + v4), v5);
+      kdebug_trace();
+      v4 = v7;
+    }
+
+    re::AudioManager_PHASE_Async::fadeSourceToDirectLevel(*(v2 + 648), v4, *(a1 + 56), *(a1 + 48));
+  }
+
+  return re::SharedPtr<re::AudioSourceState>::~SharedPtr(&v7);
+}
+
+void sub_1E2141EA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  re::SharedPtr<re::AudioSourceState>::~SharedPtr(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t *re::AudioManager_PHASE::createListenerInScene(NSObject **a1, uint64_t a2, uint64_t a3)
+{
+  v3 = a3;
+  v14 = *MEMORY[0x1E69E9840];
+  v6 = *re::audioLogObjects(a1);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 134217984;
+    v13 = a2;
+    _os_log_debug_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_DEBUG, "AudioManager_PHASE::createListenerInScene(sceneID=%llu)", buf, 0xCu);
+  }
+
+  ListenerInScene = re::AudioManager::createListenerInScene(a1, a2);
+  v8 = a1[83];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = ___ZN2re18AudioManager_PHASE21createListenerInSceneEy19REAudioListenerType_block_invoke;
+  v10[3] = &__block_descriptor_57_e5_v8__0l;
+  v10[4] = a1;
+  v10[5] = a2;
+  v10[6] = ListenerInScene;
+  v11 = v3;
+  dispatch_async(v8, v10);
+  return ListenerInScene;
+}
+
+void ___ZN2re18AudioManager_PHASE21createListenerInSceneEy19REAudioListenerType_block_invoke(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  re::internal::AriadneSignpostScopeGuard::AriadneSignpostScopeGuard(v5, 2504, v2, *(a1 + 40), *(a1 + 48), *(a1 + 56));
+  re::AudioManager_PHASE_Async::createListenerInScene(*(v2 + 648), *(a1 + 48), *(a1 + 40), *(a1 + 56));
+  re::internal::AriadneSignpostScopeGuard::~AriadneSignpostScopeGuard(v5, v3, v4);
+}
+
+void re::AudioManager_PHASE::removeListenerFromScene(re::AudioManager_PHASE *this, uint64_t a2)
+{
+  if (a2)
+  {
+    for (i = *(this + 10); i; i = *i)
+    {
+      if (i[3] == a2)
+      {
+        i[3] = 0;
+      }
+    }
+
+    v3 = *(this + 83);
+    block[0] = MEMORY[0x1E69E9820];
+    block[1] = 3221225472;
+    block[2] = ___ZN2re18AudioManager_PHASE23removeListenerFromSceneEy_block_invoke;
+    block[3] = &__block_descriptor_40_e5_v8__0l;
+    block[4] = this;
+    dispatch_async(v3, block);
+  }
+}
+
+char *re::AudioManager_PHASE::setListenerTransformAndLevel(char *this, uint64_t a2, const simd_float4x4 *a3, float a4, uint64_t a5)
+{
+  v9 = this;
+  v10 = this + 80;
+  while (1)
+  {
+    v10 = *v10;
+    if (!v10)
+    {
+      break;
+    }
+
+    this = [*(v10 + 12) count];
+    if (this)
+    {
+      goto LABEL_6;
     }
   }
 
-  *(a1 + 16) = a2;
-  ++*(a1 + 24);
-}
-
-uint64_t re::EventQueue::processEvents(os_unfair_lock_s *this)
-{
-  re::EventQueue::swapBuffers(this);
-  result = *&this[32]._os_unfair_lock_opaque;
-  if (result)
+  if (!*(v9 + 63))
   {
-    v3 = *(*result + 48);
-
-    return v3();
-  }
-
-  return result;
-}
-
-void re::EventQueue::swapBuffers(os_unfair_lock_s *this)
-{
-  os_unfair_lock_lock(this);
-  v2 = (this[22]._os_unfair_lock_opaque & 1) == 0;
-  this[22]._os_unfair_lock_opaque = v2;
-  v3 = &this[10 * v2];
-  *&v3[6]._os_unfair_lock_opaque = 0;
-  ++v3[8]._os_unfair_lock_opaque;
-  *&this[24]._os_unfair_lock_opaque = 0;
-
-  os_unfair_lock_unlock(this);
-}
-
-uint64_t re::EventQueue::peekEvent(re::EventQueue *this, unint64_t a2)
-{
-  v2 = *(this + 12);
-  v3 = *(this + 5 * ((*(this + 22) & 1) == 0) + 3);
-  if (v3 == v2)
-  {
-    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) EventQueue is empty.", "!isEmpty()", "peekEvent", 100);
-    _os_crash();
-    __break(1u);
-    goto LABEL_6;
-  }
-
-  if (v3 - v2 - 8 < a2)
-  {
-LABEL_6:
-    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) Invalid offset.", "offset <= events.size() - payloadOffset - sizeof(uint32_t)", "peekEvent", 105);
-    _os_crash();
-    __break(1u);
-LABEL_7:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  v4 = a2 + v2 + 4;
-  if (v3 <= v4)
-  {
-    goto LABEL_7;
-  }
-
-  return *(*(this + 5 * ((*(this + 22) & 1) == 0) + 5) + v4);
-}
-
-void *re::EventQueue::readEvent(re::EventQueue *this, void *__dst, size_t __n)
-{
-  v3 = *(this + 12);
-  v4 = *(this + 5 * ((*(this + 22) & 1) == 0) + 3);
-  if (v3 == v4)
-  {
-    re::internal::assertLog(4, __dst, __n, "assertion failure: '%s' (%s:line %i) EventQueue is empty.", "!isEmpty()", "readEvent", 115);
-    _os_crash();
-    __break(1u);
-    goto LABEL_8;
-  }
-
-  if (!__dst)
-  {
-LABEL_8:
-    re::internal::assertLog(4, __dst, __n, "assertion failure: '%s' (%s:line %i) buffer must not be null.", "buffer", "readEvent", 116);
-    _os_crash();
-    __break(1u);
     goto LABEL_9;
   }
 
-  if (v4 <= v3)
+LABEL_6:
+  if (v9[104] == 1)
   {
+    v11 = a3->columns[0];
+    v17 = a3->columns[1];
+    v12 = a3->columns[2];
+    v18 = a3->columns[3];
+    v13 = v9[256];
+    *(v9 + 22) = a5;
+    *(v9 + 23) = 0;
+    *(v9 + 12) = v11;
+    *(v9 + 13) = v17;
+    *(v9 + 14) = v12;
+    *(v9 + 15) = v18;
+    if ((v13 & 1) == 0)
+    {
+      v9[256] = 1;
+    }
+  }
+
 LABEL_9:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_10;
-  }
+  *(v9 + 113) = a2;
+  v14 = a3->columns[0];
+  v15 = a3->columns[1];
+  v16 = a3->columns[3];
+  *(v9 + 59) = a3->columns[2];
+  *(v9 + 60) = v16;
+  *(v9 + 57) = v14;
+  *(v9 + 58) = v15;
+  *(v9 + 244) = a4;
+  *(v9 + 123) = a5;
+  return this;
+}
 
-  v6 = *(this + 5 * ((*(this + 22) & 1) == 0) + 5);
-  if (*(v6 + v3) != __n)
+__n128 re::AudioManager_PHASE::getListenerTransform(re::AudioManager_PHASE_Async **this)
+{
+  v1 = re::AudioManager_PHASE_Async::getListener(this[81]);
+  v2 = v1;
+  if (v1)
   {
-LABEL_10:
-    re::internal::assertLog(4, __dst, "assertion failure: '%s' (%s:line %i) Specified size does not match event size.", "size == nextEventSize()", "readEvent", 117);
-    _os_crash();
-    __break(1u);
-LABEL_11:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
+    [v1 transform];
+    v5 = v3;
   }
 
-  v7 = v3 + 4;
-  if (v4 <= v7)
+  else
   {
-    goto LABEL_11;
+    v5 = *MEMORY[0x1E69E9B18];
   }
 
-  result = memcpy(__dst, (v6 + v7), __n);
-  *(this + 12) += __n + 4;
+  return v5;
+}
+
+float re::AudioManager_PHASE::getListenerLevel(re::AudioManager_PHASE_Async **this)
+{
+  v1 = re::AudioManager_PHASE_Async::getListener(this[81]);
+  v2 = v1;
+  if (v1)
+  {
+    [v1 gain];
+    v4 = v3;
+  }
+
+  else
+  {
+    v4 = 0.0;
+  }
+
+  return v4;
+}
+
+uint64_t re::AudioManager_PHASE::createSessionRootInScene(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v20 = *MEMORY[0x1E69E9840];
+  if (a2 == -1)
+  {
+    return 0;
+  }
+
+  if (*(a3 + 8))
+  {
+    v6 = *(a3 + 16);
+  }
+
+  else
+  {
+    v6 = a3 + 9;
+  }
+
+  v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v6];
+  v9 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:v8];
+  if (v9)
+  {
+    *__buf = 0;
+    do
+    {
+      arc4random_buf(__buf, 8uLL);
+      v7 = *__buf;
+    }
+
+    while (*__buf < 0x3E8uLL);
+    v10 = *(a1 + 664);
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = ___ZN2re18AudioManager_PHASE24createSessionRootInSceneEyNS_13DynamicStringE_block_invoke;
+    v14[3] = &unk_1E871B978;
+    v16 = a1;
+    v17 = a2;
+    v18 = *__buf;
+    v15 = v9;
+    dispatch_async(v10, v14);
+  }
+
+  else
+  {
+    v11 = *re::audioLogObjects(0);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      if (*(a3 + 8))
+      {
+        v13 = *(a3 + 16);
+      }
+
+      else
+      {
+        v13 = a3 + 9;
+      }
+
+      *__buf = 136315138;
+      *&__buf[4] = v13;
+      _os_log_error_impl(&dword_1E1C61000, v11, OS_LOG_TYPE_ERROR, "invalid UUID string %s", __buf, 0xCu);
+    }
+
+    v7 = 0;
+  }
+
+  return v7;
+}
+
+void ___ZN2re18AudioManager_PHASE24createSessionRootInSceneEyNS_13DynamicStringE_block_invoke(uint64_t a1)
+{
+  v2 = *(a1 + 40);
+  re::internal::AriadneSignpostScopeGuard::AriadneSignpostScopeGuard(v5, 2528, v2, *(a1 + 48), *(a1 + 56), 0);
+  re::AudioManager_PHASE_Async::createSessionRootInScene(*(v2 + 648), *(a1 + 56), *(a1 + 48), *(a1 + 32));
+  re::internal::AriadneSignpostScopeGuard::~AriadneSignpostScopeGuard(v5, v3, v4);
+}
+
+void re::AudioManager_PHASE::removeSessionRootFromScene(re::AudioManager_PHASE *this, uint64_t a2)
+{
+  v2 = *(this + 83);
+  v3[0] = MEMORY[0x1E69E9820];
+  v3[1] = 3221225472;
+  v3[2] = ___ZN2re18AudioManager_PHASE26removeSessionRootFromSceneEy_block_invoke;
+  v3[3] = &__block_descriptor_48_e5_v8__0l;
+  v3[4] = this;
+  v3[5] = a2;
+  dispatch_async(v2, v3);
+}
+
+void re::AudioManager_PHASE::setSceneReverbPreset(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v4 = a4;
+  re::AudioManager::setSceneReverbPreset(a1, a2, a3, a4);
+  if (*(a1 + 816) != a3 || *(a1 + 824) != v4)
+  {
+    *(a1 + 816) = a3;
+    *(a1 + 824) = v4;
+    v7 = *(a1 + 664);
+    block[0] = MEMORY[0x1E69E9820];
+    block[1] = 3221225472;
+    block[2] = ___ZN2re18AudioManager_PHASE20setSceneReverbPresetEyNS_12ReverbPresetEb_block_invoke;
+    block[3] = &__block_descriptor_49_e5_v8__0l;
+    block[4] = a1;
+    block[5] = a3;
+    v9 = v4;
+    dispatch_async(v7, block);
+  }
+}
+
+void re::AudioManager_PHASE::setSpaceBlendTargetPresetOrientation(float32x4_t *this, float32x4_t a2)
+{
+  if ((vminvq_u32(vceqq_f32(this[50], a2)) & 0x80000000) == 0)
+  {
+    v2 = this[41].i64[1];
+    v3[0] = MEMORY[0x1E69E9820];
+    v3[1] = 3221225472;
+    v3[2] = ___ZN2re18AudioManager_PHASE36setSpaceBlendTargetPresetOrientationE10simd_quatf_block_invoke;
+    v3[3] = &__block_descriptor_56_e5_v8__0l;
+    v5 = this;
+    v4 = a2;
+    dispatch_async(v2, v3);
+  }
+}
+
+uint64_t re::AudioManager_PHASE::loadAudio(uint64_t a1, uint64_t *a2, uint64_t a3)
+{
+  v21 = *MEMORY[0x1E69E9840];
+  v6 = mach_port_mod_refs(*MEMORY[0x1E69E9A60], *(*a2 + 104), 0, 1);
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *re::audioLogObjects(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(buf) = 136315138;
+      *(&buf + 4) = mach_error_string(v7);
+      _os_log_error_impl(&dword_1E1C61000, v8, OS_LOG_TYPE_ERROR, "[AudioManager_PHASE] [loadAudio] Failed to increment the taskToken ref count, with KERN error: %s", &buf, 0xCu);
+    }
+  }
+
+  std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<NSData * {__strong},AVAudioPCMBuffer * {__strong},NSURL * {__strong}>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:nn200100](v10, *a2);
+  *&buf = a2;
+  *(&buf + 1) = a3;
+  v14 = a1;
+  v15 = a2;
+  v16 = a3;
+  v17 = a1;
+  v18 = a2;
+  v19 = a3;
+  v20 = a1;
+  if (v11 == -1)
+  {
+    std::__throw_bad_variant_access[abi:ne200100]();
+  }
+
+  p_buf = &buf;
+  (off_1F5CCBA00[v11])(&p_buf, v10);
+  return std::__variant_detail::__dtor<std::__variant_detail::__traits<NSData * {__strong},AVAudioPCMBuffer * {__strong},NSURL * {__strong}>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v10);
+}
+
+void re::AudioManager_PHASE::loadExternalStreamController(uint64_t a1, uint64_t a2, __int128 *a3)
+{
+  v6 = a3[1];
+  v17 = *a3;
+  v18 = v6;
+  v19 = *(a3 + 32);
+  if (v19 == 1)
+  {
+    re::DynamicString::DynamicString(&v20, (a3 + 40));
+  }
+
+  v22 = *(a3 + 72);
+  v7 = v22;
+  if (v22 == 1)
+  {
+    v23 = *(a3 + 19);
+  }
+
+  v24 = *(a3 + 80);
+  v8 = *(a1 + 664);
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3321888768;
+  block[2] = ___ZN2re18AudioManager_PHASE28loadExternalStreamControllerEyRKNS_27AudioFileAssetConfigurationE_block_invoke;
+  block[3] = &__block_descriptor_136_ea8_48c38_ZTSN2re27AudioFileAssetConfigurationE_e5_v8__0l;
+  block[4] = a1;
+  block[5] = a2;
+  v10 = v17;
+  v11 = v18;
+  v12 = v19;
+  if (v19 == 1)
+  {
+    re::DynamicString::DynamicString(v13, &v20);
+    v7 = v22;
+  }
+
+  v14 = v7;
+  if (v7)
+  {
+    v15 = v23;
+  }
+
+  v16 = v24;
+  dispatch_async(v8, block);
+  if (v12 == 1 && v13[0])
+  {
+    if (v13[1])
+    {
+      (*(*v13[0] + 40))();
+    }
+
+    memset(v13, 0, sizeof(v13));
+  }
+
+  if (v19 == 1 && v20 && (v21 & 1) != 0)
+  {
+    (*(*v20 + 40))();
+  }
+}
+
+re::DynamicString *__copy_helper_block_ea8_48c38_ZTSN2re27AudioFileAssetConfigurationE(re::DynamicString *result, uint64_t a2)
+{
+  v3 = result;
+  v4 = *(a2 + 64);
+  *(result + 3) = *(a2 + 48);
+  *(result + 4) = v4;
+  v5 = *(a2 + 80);
+  *(result + 80) = v5;
+  if (v5 == 1)
+  {
+    result = re::DynamicString::DynamicString((result + 88), (a2 + 88));
+  }
+
+  v6 = *(a2 + 120);
+  *(v3 + 120) = v6;
+  if (v6 == 1)
+  {
+    *(v3 + 31) = *(a2 + 124);
+  }
+
+  *(v3 + 128) = *(a2 + 128);
   return result;
 }
 
-uint64_t std::__function::__value_func<void ()(re::EventQueue &)>::__value_func[abi:nn200100](uint64_t a1, uint64_t a2)
+double __destroy_helper_block_ea8_48c38_ZTSN2re27AudioFileAssetConfigurationE(uint64_t result)
+{
+  if (*(result + 80) == 1)
+  {
+    return re::DynamicString::deinit((result + 88));
+  }
+
+  return v1;
+}
+
+uint64_t re::AudioManager_PHASE::getConfigurationForExternalStreamController(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x2020000000;
+  v10 = 0;
+  v3 = *(a1 + 664);
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = ___ZN2re18AudioManager_PHASE43getConfigurationForExternalStreamControllerEyRNS_27AudioFileAssetConfigurationE_block_invoke;
+  v6[3] = &unk_1E871B9C0;
+  v6[4] = &v7;
+  v6[5] = a1;
+  v6[6] = a2;
+  v6[7] = a3;
+  dispatch_sync(v3, v6);
+  v4 = *(v8 + 24);
+  _Block_object_dispose(&v7, 8);
+  return v4;
+}
+
+void *___ZN2re18AudioManager_PHASE43getConfigurationForExternalStreamControllerEyRNS_27AudioFileAssetConfigurationE_block_invoke(void *a1)
+{
+  result = re::AudioManager_PHASE_Async::getConfigurationForExternalStreamController(*(a1[5] + 648), a1[6], a1[7]);
+  *(*(a1[4] + 8) + 24) = result;
+  return result;
+}
+
+void re::AudioManager_PHASE::setSpatialSceneClassification(uint64_t a1, char a2)
+{
+  v2 = *(a1 + 664);
+  v3[0] = MEMORY[0x1E69E9820];
+  v3[1] = 3221225472;
+  v3[2] = ___ZN2re18AudioManager_PHASE29setSpatialSceneClassificationENS_30SpatialSceneClassificationTypeE_block_invoke;
+  v3[3] = &__block_descriptor_41_e5_v8__0l;
+  v3[4] = a1;
+  v4 = a2;
+  dispatch_async(v2, v3);
+}
+
+void re::AudioManager_PHASE::setSpatialSceneRoomIdentifier(re::AudioManager_PHASE *this, unsigned __int8 *a2)
+{
+  v3 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:a2];
+  v4 = *(this + 83);
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = ___ZN2re18AudioManager_PHASE29setSpatialSceneRoomIdentifierEPh_block_invoke;
+  v6[3] = &unk_1E871B4D0;
+  v7 = v3;
+  v8 = this;
+  v5 = v3;
+  dispatch_async(v4, v6);
+}
+
+void re::AudioManager_PHASE::updateExternalSpatialSourcePhase(id **this, const re::AudioSourceState *a2)
+{
+  v30 = *MEMORY[0x1E69E9840];
+  re::AudioManager_PHASE::updateSourceStateInternal(this, a2);
+  v21 = *(a2 + 89);
+  if (!std::__hash_table<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>>>::find<unsigned long long>(this + 93, &v21))
+  {
+    v4 = UnfairLockedPointer<REPHASEContext>::get((this[81] + 1));
+    v5 = v4;
+    if (v4)
+    {
+      v6 = [v4 eventFor:v21];
+      if (!v6)
+      {
+        v7 = *re::audioLogObjects(0);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+        {
+          v15 = *(a2 + 89);
+          v16 = *(a2 + 60);
+          v17 = *(a2 + 66);
+          v18 = *(a2 + 64);
+          if (v18 && (v19 = *(v18 + 16)) != 0)
+          {
+            v20 = *(v19 + 296);
+          }
+
+          else
+          {
+            v20 = "";
+          }
+
+          buf = 134218754;
+          *buf_4 = v15;
+          v24 = 2048;
+          v25 = v16;
+          v26 = 2048;
+          v27 = v17;
+          v28 = 2080;
+          v29 = v20;
+          _os_log_debug_impl(&dword_1E1C61000, v7, OS_LOG_TYPE_DEBUG, "AudioManager_PHASE::updateExternalSpatialSourcePhase(token=%llu, sceneID=%llu, entity(%llu, '%s'))", &buf, 0x2Au);
+        }
+
+        v8 = *this[45];
+        v9 = this[1];
+        if (v9)
+        {
+          v10 = v9;
+        }
+
+        else
+        {
+          v10 = MEMORY[0x1E69E96A0];
+          v11 = MEMORY[0x1E69E96A0];
+        }
+
+        re::AudioSourceState::playbackHostConnectionIdentifier(a2);
+        v12 = re::AudioSourceSyncState::externalStreamUUID((a2 + 40));
+        v13 = std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(this + 93, &v21, &v21);
+        if (*(a2 + 66))
+        {
+          re::audio::REPHASESoundPrepareState::create();
+        }
+
+        v14 = *re::audioLogObjects(v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        {
+          LOWORD(buf) = 0;
+          _os_log_error_impl(&dword_1E1C61000, v14, OS_LOG_TYPE_ERROR, "updateExternalSpatialSourcePhase failed because sourceState has no entityID", &buf, 2u);
+        }
+      }
+    }
+  }
+}
+
+void sub_1E2143140(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, void *a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, std::__shared_weak_count *a24)
+{
+  if (v29)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v29);
+  }
+
+  if (a24)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](a24);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void re::AudioManager_PHASE::updateSourceStateInternal(re::AudioManager_PHASE *this, const re::AudioSourceState *a2)
+{
+  v79 = *MEMORY[0x1E69E9840];
+  v2 = *(a2 + 60);
+  if (v2 != -1)
+  {
+    v5 = 712;
+    if (*(a2 + 24))
+    {
+      v5 = 32;
+    }
+
+    v6 = *(a2 + v5);
+    v7 = UnfairLockedPointer<REPHASEContext>::get(*(this + 81) + 8);
+    v8 = v7;
+    if (v7)
+    {
+      v9 = [v7 reverbParamForToken:*(a2 + 89) isGroupPlaybackSound:*(a2 + 24)];
+      v10 = [v8 directParamForToken:*(a2 + 89) isGroupPlaybackSound:*(a2 + 24)];
+      if (*(a2 + 97) != v6)
+      {
+        *(a2 + 97) = v6;
+      }
+
+      v11 = *(this + 81);
+      v12 = re::AudioSourceState::playbackHostConnectionIdentifier(a2);
+      isPlaybackHostConnectionIdentifierSensitive = re::AudioManager_PHASE_Async::isPlaybackHostConnectionIdentifierSensitive(v11, v12);
+      v14 = *(a2 + 23);
+      v75 = *(a2 + 22);
+      v76 = v14;
+      v15 = *(a2 + 25);
+      v77 = *(a2 + 24);
+      v78 = v15;
+      v26 = *(a2 + 24);
+      v16 = *(a2 + 40);
+      v61 = *(a2 + 7);
+      v60 = v16;
+      re::AssetHandle::AssetHandle(v62, (a2 + 64));
+      v17 = *(a2 + 104);
+      v18 = *(a2 + 136);
+      v65 = *(a2 + 120);
+      v66[0] = v18;
+      *(v66 + 12) = *(a2 + 148);
+      v63 = *(a2 + 88);
+      v64 = v17;
+      v67 = *(a2 + 168);
+      if (v67 == 1)
+      {
+        re::DynamicString::DynamicString(v68, (a2 + 176));
+      }
+
+      v69 = *(a2 + 208);
+      re::DynamicString::DynamicString(v70, (a2 + 216));
+      v19 = *(a2 + 264);
+      v71 = *(a2 + 248);
+      v72 = v19;
+      re::DynamicString::DynamicString(v73, (a2 + 280));
+      v74 = *(a2 + 156);
+      v20 = *(a2 + 66);
+      v21 = *(a2 + 27);
+      v32 = *(a2 + 26);
+      v33 = v21;
+      v22 = *(a2 + 29);
+      v34 = *(a2 + 28);
+      v35 = v22;
+      v23 = *(this + 83);
+      block[0] = MEMORY[0x1E69E9820];
+      block[1] = 3321888768;
+      block[2] = ___ZN2re18AudioManager_PHASE25updateSourceStateInternalERKNS_16AudioSourceStateE_block_invoke;
+      block[3] = &unk_1F5CCB950;
+      v39 = this;
+      v40 = v2;
+      v41 = v20;
+      v30 = v77;
+      v31 = v78;
+      v28 = v75;
+      v29 = v76;
+      v58 = isPlaybackHostConnectionIdentifierSensitive;
+      v36 = v8;
+      v42 = v6;
+      v43 = v60;
+      v44 = v61;
+      re::AssetHandle::AssetHandle(v45, v62);
+      v47 = v65;
+      v48[0] = v66[0];
+      *(v48 + 12) = *(v66 + 12);
+      *&v45[24] = v63;
+      v46 = v64;
+      v49 = v67;
+      if (v67 == 1)
+      {
+        re::DynamicString::DynamicString(v50, v68);
+      }
+
+      v51 = v69;
+      re::DynamicString::DynamicString(v52, v70);
+      v53 = v71;
+      v54 = v72;
+      re::DynamicString::DynamicString(&v55, v73);
+      v57 = v74;
+      v24 = v9;
+      v37 = v24;
+      v25 = v10;
+      v38 = v25;
+      v59 = v26;
+      dispatch_async(v23, block);
+
+      if (v55)
+      {
+        if (BYTE8(v55))
+        {
+          (*(*v55 + 40))(v55, v56);
+        }
+
+        v55 = 0u;
+        v56 = 0u;
+      }
+
+      if (v52[0])
+      {
+        if (v52[1])
+        {
+          (*(*v52[0] + 40))();
+        }
+
+        memset(v52, 0, sizeof(v52));
+      }
+
+      if (v49 == 1 && v50[0])
+      {
+        if (v50[1])
+        {
+          (*(*v50[0] + 40))();
+        }
+
+        memset(v50, 0, sizeof(v50));
+      }
+
+      re::AssetHandle::~AssetHandle(v45);
+
+      if (v73[0])
+      {
+        if (v73[1])
+        {
+          (*(*v73[0] + 40))();
+        }
+
+        memset(v73, 0, sizeof(v73));
+      }
+
+      if (v70[0])
+      {
+        if (v70[1])
+        {
+          (*(*v70[0] + 40))();
+        }
+
+        memset(v70, 0, sizeof(v70));
+      }
+
+      if (v67 == 1 && v68[0])
+      {
+        if (v68[1])
+        {
+          (*(*v68[0] + 40))();
+        }
+
+        memset(v68, 0, sizeof(v68));
+      }
+
+      re::AssetHandle::~AssetHandle(v62);
+    }
+  }
+}
+
+id re::AudioSourceSyncState::externalStreamUUID(re::AudioSourceSyncState *this)
+{
+  v4[2] = *MEMORY[0x1E69E9840];
+  v1 = *(this + 29);
+  if (*(this + 14) == 0)
+  {
+    v2 = 0;
+  }
+
+  else
+  {
+    v4[0] = *(this + 28);
+    v4[1] = v1;
+    v2 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v4];
+  }
+
+  return v2;
+}
+
+void ___ZN2re18AudioManager_PHASE32updateExternalSpatialSourcePhaseERKNS_16AudioSourceStateE_block_invoke(uint64_t a1, void *a2)
+{
+  v28 = *MEMORY[0x1E69E9840];
+  v3 = a2;
+  v4 = *(a1 + 56);
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = ___ZN2re18AudioManager_PHASE32updateExternalSpatialSourcePhaseERKNS_16AudioSourceStateE_block_invoke_2;
+  block[3] = &unk_1E871BAC8;
+  v18 = v4;
+  v5 = *(a1 + 32);
+  v6 = *(a1 + 40);
+  v7 = *(a1 + 64);
+  v17 = v6;
+  v19 = v7;
+  dispatch_async(v5, block);
+  v9 = *re::audioLogObjects(v8);
+  if (v3)
+  {
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      v10 = *(a1 + 48);
+      v11 = *(a1 + 64);
+      v12 = *(a1 + 72);
+      *buf = 138413058;
+      v21 = v10;
+      v22 = 2048;
+      v23 = v11;
+      v24 = 2048;
+      v25 = v12;
+      v26 = 2112;
+      v27 = v3;
+      _os_log_error_impl(&dword_1E1C61000, v9, OS_LOG_TYPE_ERROR, "Could not prepare external stream UUID %@ for source state token %llu from connection %llu: %@", buf, 0x2Au);
+    }
+  }
+
+  else if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v13 = *(a1 + 48);
+    v14 = *(a1 + 64);
+    v15 = *(a1 + 72);
+    *buf = 138412802;
+    v21 = v13;
+    v22 = 2048;
+    v23 = v14;
+    v24 = 2048;
+    v25 = v15;
+    _os_log_impl(&dword_1E1C61000, v9, OS_LOG_TYPE_DEFAULT, "Prepared and started external stream UUID %@ for source state token %llu from connection %llu", buf, 0x20u);
+  }
+}
+
+void ___ZN2re18AudioManager_PHASE32updateExternalSpatialSourcePhaseERKNS_16AudioSourceStateE_block_invoke_2(uint64_t a1)
+{
+  v2 = *(a1 + 40);
+  v3 = [*(a1 + 32) isCancelled];
+  if (v3)
+  {
+    v4 = *re::audioLogObjects(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      *v5 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v4, OS_LOG_TYPE_ERROR, "Engine cancelled, preparation completion", v5, 2u);
+    }
+  }
+
+  else
+  {
+
+    std::__hash_table<std::__hash_value_type<unsigned long long,re::PeerIDValidator::Entry>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::PeerIDValidator::Entry>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::PeerIDValidator::Entry>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::PeerIDValidator::Entry>>>::__erase_unique<unsigned long long>((v2 + 744), (a1 + 48));
+  }
+}
+
+void re::AudioManager_PHASE::prepareSource(uint64_t a1, void *a2, __int128 *a3, void *a4)
+{
+  v46 = *MEMORY[0x1E69E9840];
+  v6 = a4;
+  isSourcePrepared = re::AudioManager_PHASE::isSourcePrepared(a1, a2);
+  v8 = isSourcePrepared;
+  v9 = *re::audioLogObjects(isSourcePrepared);
+  v10 = v9;
+  if (v8)
+  {
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = a2[89];
+      v12 = a2[60];
+      v13 = a2[66];
+      v14 = a2[64];
+      if (v14 && (v15 = *(v14 + 16)) != 0)
+      {
+        v16 = *(v15 + 296);
+      }
+
+      else
+      {
+        v16 = "";
+      }
+
+      v29 = re::AssetHandle::assetInfo((a2 + 8));
+      if (v29[17])
+      {
+        v30 = v29[18];
+      }
+
+      else
+      {
+        v30 = v29 + 137;
+      }
+
+      buf[0] = 134219010;
+      *&buf[1] = v11;
+      v38 = 2048;
+      v39 = v12;
+      v40 = 2048;
+      v41 = v13;
+      v42 = 2080;
+      v43 = v16;
+      v44 = 2080;
+      v45 = v30;
+      _os_log_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_DEFAULT, "AudioManager_PHASE::prepareSource(token=%llu, sceneID=%llu, entity(%llu, '%s')), Asset = '%s' redundant prepare calls", buf, 0x34u);
+    }
+
+    if (v6)
+    {
+      v6[2](v6, 0);
+    }
+  }
+
+  else
+  {
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    {
+      v32 = a2[89];
+      v33 = a2[60];
+      v34 = a2[66];
+      v35 = re::AssetHandle::assetInfo((a2 + 8));
+      if (v35[17])
+      {
+        v36 = v35[18];
+      }
+
+      else
+      {
+        v36 = v35 + 137;
+      }
+
+      buf[0] = 134218754;
+      *&buf[1] = v32;
+      v38 = 2048;
+      v39 = v33;
+      v40 = 2048;
+      v41 = v34;
+      v42 = 2080;
+      v43 = v36;
+      _os_log_debug_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_DEBUG, "AudioManager_PHASE::prepareSource(token=%llu, sceneID=%llu, entityID=%llu), Asset = '%s'", buf, 0x2Au);
+    }
+
+    v18 = a2[9];
+    if (v18)
+    {
+      v19 = atomic_load((v18 + 896));
+      if (v19 == 2)
+      {
+        re::AudioManager_PHASE::updateSourceStateInternal(a1, a2);
+        v20 = **(a1 + 360);
+        v21 = *(a1 + 8);
+        v22 = v21;
+        if (a2[66])
+        {
+          re::audio::REPHASESoundPrepareState::create();
+        }
+
+        v31 = *re::audioLogObjects(v21);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+        {
+          LOWORD(buf[0]) = 0;
+          _os_log_error_impl(&dword_1E1C61000, v31, OS_LOG_TYPE_ERROR, "AudioManager_PHASE::prepareSource failed because sourceState has no entityID", buf, 2u);
+        }
+      }
+
+      else
+      {
+        v20 = *re::audioLogObjects(v17);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        {
+          v23 = re::AssetHandle::assetInfo((a2 + 8));
+          v25 = v23[17];
+          v24 = v23[18];
+          v26 = a2[89];
+          v27 = re::AudioSourceState::playbackHostConnectionIdentifier(a2);
+          v28 = v23 + 137;
+          buf[0] = 136315650;
+          if (v25)
+          {
+            v28 = v24;
+          }
+
+          *&buf[1] = v28;
+          v38 = 2048;
+          v39 = v26;
+          v40 = 2048;
+          v41 = v27;
+          _os_log_error_impl(&dword_1E1C61000, v20, OS_LOG_TYPE_ERROR, "AudioManager_PHASE::prepareSource cannot prepare asset that is not loaded. Asset='%s', token=%llu, connection=%llu", buf, 0x20u);
+        }
+      }
+    }
+  }
+}
+
+void sub_1E214482C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *__p, uint64_t a29, int a30, __int16 a31, char a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, std::__shared_weak_count *a45)
+{
+  std::__function::__value_func<void ()(AUAudioUnit *,NSError *)>::~__value_func[abi:nn200100](v48 - 240);
+  re::AudioManager_PHASE::prepareSource(re::AudioSourceState &,CMTime,void({block_pointer})(NSError *))::$_0::~$_0(&a13);
+
+  if (a45)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](a45);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+BOOL re::AudioManager_PHASE::isSourcePrepared(re::AudioManager_PHASE *this, const re::AudioSourceState *a2)
+{
+  re::AudioGeneratorAsset::assetType(this);
+  if ((*(a2 + 9) || !*(a2 + 33) && !*(a2 + 34)) && !*(a2 + 91))
+  {
+    return 0;
+  }
+
+  v5 = UnfairLockedPointer<REPHASEContext>::get(*(this + 81) + 8);
+  v6 = v5;
+  if (v5)
+  {
+    v7 = 712;
+    if (*(a2 + 24))
+    {
+      v7 = 32;
+    }
+
+    v8 = [v5 eventFor:*(a2 + v7)];
+    v4 = v8 != 0;
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  return v4;
+}
+
+void ___ZN2re18AudioManager_PHASE13prepareSourceERNS_16AudioSourceStateE6CMTimeU13block_pointerFvP7NSErrorE_block_invoke(uint64_t a1, void *a2)
+{
+  v13 = *MEMORY[0x1E69E9840];
+  v3 = a2;
+  v4 = *re::audioLogObjects(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  {
+    v6 = *(a1 + 56);
+    *buf = 134217984;
+    v12 = v6;
+    _os_log_debug_impl(&dword_1E1C61000, v4, OS_LOG_TYPE_DEBUG, "Prepare completed for %llu", buf, 0xCu);
+  }
+
+  if (*(a1 + 48))
+  {
+    v5 = *(a1 + 32);
+    if (v5)
+    {
+      block[0] = MEMORY[0x1E69E9820];
+      block[1] = 3221225472;
+      block[2] = ___ZN2re18AudioManager_PHASE13prepareSourceERNS_16AudioSourceStateE6CMTimeU13block_pointerFvP7NSErrorE_block_invoke_32;
+      block[3] = &unk_1E871BA10;
+      v8 = *(a1 + 40);
+      v10 = *(a1 + 48);
+      v9 = v3;
+      dispatch_async(v5, block);
+    }
+  }
+}
+
+void ___ZN2re18AudioManager_PHASE13prepareSourceERNS_16AudioSourceStateE6CMTimeU13block_pointerFvP7NSErrorE_block_invoke_32(uint64_t a1)
+{
+  v2 = [*(a1 + 32) isCancelled];
+  if (v2)
+  {
+    v3 = *re::audioLogObjects(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    {
+      *v5 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_ERROR, "Engine cancelled, preparation completion", v5, 2u);
+    }
+  }
+
+  else
+  {
+    v4 = *(*(a1 + 48) + 16);
+
+    v4();
+  }
+}
+
+const void **re::AudioManager_PHASE::mixGroupStateFor(void *a1, unint64_t a2, unint64_t a3, uint64_t a4)
+{
+  v30 = *MEMORY[0x1E69E9840];
+  REAudioComputePHASEMixGroupID(a2, a3, a4, &v28);
+  v5 = std::__string_hash<char>::operator()[abi:ne200100]((a1 + 88), &v28);
+  v6 = a1[89];
+  if (v6)
+  {
+    v7 = v5;
+    v8 = vcnt_s8(v6);
+    v8.i16[0] = vaddlv_u8(v8);
+    v9 = v8.u32[0];
+    if (v8.u32[0] > 1uLL)
+    {
+      v10 = v5;
+      if (v5 >= *&v6)
+      {
+        v10 = v5 % *&v6;
+      }
+    }
+
+    else
+    {
+      v10 = (*&v6 - 1) & v5;
+    }
+
+    v11 = *(a1[88] + 8 * v10);
+    if (v11)
+    {
+      for (i = *v11; i; i = *i)
+      {
+        v13 = i[1];
+        if (v13 == v7)
+        {
+          if (std::equal_to<std::string>::operator()[abi:ne200100]((a1 + 88), i + 2, &v28.__r_.__value_.__l.__data_))
+          {
+            goto LABEL_30;
+          }
+        }
+
+        else
+        {
+          if (v9 > 1)
+          {
+            if (v13 >= *&v6)
+            {
+              v13 %= *&v6;
+            }
+          }
+
+          else
+          {
+            v13 &= *&v6 - 1;
+          }
+
+          if (v13 != v10)
+          {
+            break;
+          }
+        }
+      }
+    }
+  }
+
+  v14 = objc_alloc(MEMORY[0x1E69781C0]);
+  if ((v28.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v15 = &v28;
+  }
+
+  else
+  {
+    v15 = v28.__r_.__value_.__r.__words[0];
+  }
+
+  v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v15];
+  v17 = [v14 initWithIdentifier:v16];
+
+  *buf = &v28;
+  i = std::__hash_table<std::__hash_value_type<std::string,re::AudioManager_PHASE::MixGroupState>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,re::AudioManager_PHASE::MixGroupState>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,re::AudioManager_PHASE::MixGroupState>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,re::AudioManager_PHASE::MixGroupState>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 88, &v28.__r_.__value_.__l.__data_, buf);
+  objc_storeStrong(i + 6, v17);
+  v19 = *re::audioLogObjects(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+  {
+    v20 = &v28;
+    if ((v28.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    {
+      v20 = v28.__r_.__value_.__r.__words[0];
+    }
+
+    *buf = 136315138;
+    *&buf[4] = v20;
+    _os_log_impl(&dword_1E1C61000, v19, OS_LOG_TYPE_INFO, "[RE/PHASE] [MixGroup] Will register PHASEGroup in the phase queue. PhaseID: %s (sceneID - connectionID - name).", buf, 0xCu);
+  }
+
+  v21 = a1[83];
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3321888768;
+  v24[2] = ___ZN2re18AudioManager_PHASE16mixGroupStateForEyyRKNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEE_block_invoke;
+  v24[3] = &unk_1F5CCB988;
+  v26 = a1;
+  v22 = v17;
+  v25 = v22;
+  if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+  {
+    std::string::__init_copy_ctor_external(&__p, v28.__r_.__value_.__l.__data_, v28.__r_.__value_.__l.__size_);
+  }
+
+  else
+  {
+    __p = v28;
+  }
+
+  dispatch_async(v21, v24);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+
+LABEL_30:
+  if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v28.__r_.__value_.__l.__data_);
+  }
+
+  return i + 5;
+}
+
+void sub_1E2144F84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+{
+  if (a23 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::optional<std::string>::operator=[abi:ne200100]<char const*,void>(uint64_t a1, char *a2)
+{
+  if (*(a1 + 24) == 1)
+  {
+    MEMORY[0x1E6905F60]();
+  }
+
+  else
+  {
+    std::string::basic_string[abi:ne200100]<0>(a1, a2);
+    *(a1 + 24) = 1;
+  }
+
+  return a1;
+}
+
+uint64_t re::AssetHandle::loadedAsset<re::AudioFileGroupAsset>(re::AudioFileGroupAsset *a1)
+{
+  if (!*(a1 + 1))
+  {
+    return 0;
+  }
+
+  v2 = re::AudioFileGroupAsset::assetType(a1);
+
+  return re::AssetHandle::assetWithType(a1, v2, 1);
+}
+
+unint64_t re::DynamicArray<re::AssetHandle>::operator[](uint64_t a1, unint64_t a2)
+{
+  v18 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 16);
+  if (v3 <= a2)
+  {
+    v8 = 0;
+    memset(v17, 0, sizeof(v17));
+    v5 = MEMORY[0x1E69E9C10];
+    v9 = 136315906;
+    v10 = "operator[]";
+    v11 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v6 = 3;
+    }
+
+    else
+    {
+      v6 = 2;
+    }
+
+    v12 = 797;
+    v13 = 2048;
+    v14 = a2;
+    v15 = 2048;
+    v16 = v3;
+    _os_log_send_and_compose_impl(v6, &v8, v17, 80, &dword_1E1C61000, v5, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v9, 38, v7);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  return *(a1 + 32) + 24 * a2;
+}
+
+uint64_t re::AssetHandle::loadedAsset<re::AudioGeneratorAsset>(re::AudioGeneratorAsset *a1)
+{
+  if (!*(a1 + 1))
+  {
+    return 0;
+  }
+
+  v2 = re::AudioGeneratorAsset::assetType(a1);
+
+  return re::AssetHandle::assetWithType(a1, v2, 1);
+}
+
+uint64_t re::AudioManager_PHASE::prepareSource(re::AudioSourceState &,CMTime,void({block_pointer})(NSError *))::$_0::~$_0(uint64_t a1)
+{
+  v2 = *(a1 + 40);
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
+  }
+
+  return a1;
+}
+
+uint64_t re::AudioManager_PHASE::preparePlaybackGroup(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+{
+  v44 = *MEMORY[0x1E69E9840];
+  memset(v41, 0, sizeof(v41));
+  v42 = 1065353216;
+  if (!*(a2 + 24))
+  {
+    std::string::basic_string[abi:ne200100]<0>(__p, "[AudioManager_PHASE] [preparePlaybackGroup] Cannot prepare playback group with zero playback tokens.");
+    v29 = re::audio::throttledLog(OS_LOG_TYPE_ERROR, __p);
+    v30 = v29;
+    if ((__p[23] & 0x80000000) != 0)
+    {
+      operator delete(*__p);
+      if (!v30)
+      {
+        goto LABEL_63;
+      }
+    }
+
+    else if (!v29)
+    {
+      goto LABEL_63;
+    }
+
+    v31 = *re::audioLogObjects(v29);
+    if (!os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_63;
+    }
+
+    *__p = 134217984;
+    *&__p[4] = a3;
+    v32 = "[AudioManager_PHASE] [preparePlaybackGroup] Cannot prepare a playback group: %llu forwith zero playback tokens.";
+    goto LABEL_55;
+  }
+
+  v8 = *(a2 + 16);
+  if (!v8)
+  {
+    goto LABEL_43;
+  }
+
+  v9 = (a1 + 608);
+  while (1)
+  {
+    v40 = v8[2];
+    v10 = std::__hash_table<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>>>::find<unsigned long long>((a1 + 608), &v40);
+    if (!v10)
+    {
+      std::string::basic_string[abi:ne200100]<0>(__p, "[AudioManager_PHASE] [preparePlaybackGroup] Cannot find playback group.");
+      v33 = re::audio::throttledLog(OS_LOG_TYPE_ERROR, __p);
+      v34 = v33;
+      if ((__p[23] & 0x80000000) != 0)
+      {
+        operator delete(*__p);
+      }
+
+      if (!v34)
+      {
+        goto LABEL_63;
+      }
+
+      v31 = *re::audioLogObjects(v33);
+      if (!os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_63;
+      }
+
+      *__p = 134217984;
+      *&__p[4] = a3;
+      v32 = "[AudioManager_PHASE] [preparePlaybackGroup] Cannot find playback group for token: %llu";
+LABEL_55:
+      _os_log_error_impl(&dword_1E1C61000, v31, OS_LOG_TYPE_ERROR, v32, __p, 0xCu);
+      goto LABEL_63;
+    }
+
+    v11 = *(v10[3] + 376);
+    v12 = *(*(v11 + 8) + 176);
+    if (v12 == 1)
+    {
+      goto LABEL_64;
+    }
+
+    if (v12 == 2)
+    {
+      break;
+    }
+
+    *__p = &v40;
+    v13 = std::__hash_table<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 608), v40, __p);
+    *__p = &v40;
+    v14 = std::__hash_table<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v41, v40, __p);
+    v16 = v13[3];
+    v15 = v13[4];
+    if (v15)
+    {
+      atomic_fetch_add_explicit((v15 + 8), 1uLL, memory_order_relaxed);
+    }
+
+    v17 = v14[4];
+    v14[3] = v16;
+    v14[4] = v15;
+    if (v17)
+    {
+      std::__shared_weak_count::__release_shared[abi:nn200100](v17);
+    }
+
+    v8 = *v8;
+    if (!v8)
+    {
+      v18 = *(a2 + 16);
+      if (v18)
+      {
+        while (1)
+        {
+          v40 = v18[2];
+          v19 = std::__hash_table<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>>>::find<unsigned long long>((a1 + 608), &v40);
+          if (v19)
+          {
+            break;
+          }
+
+LABEL_42:
+          v18 = *v18;
+          if (!v18)
+          {
+            goto LABEL_43;
+          }
+        }
+
+        v20 = *(a1 + 616);
+        v21 = v19[1];
+        v22 = vcnt_s8(v20);
+        v22.i16[0] = vaddlv_u8(v22);
+        if (v22.u32[0] > 1uLL)
+        {
+          if (v21 >= *&v20)
+          {
+            v21 %= *&v20;
+          }
+        }
+
+        else
+        {
+          v21 &= *&v20 - 1;
+        }
+
+        v23 = *v19;
+        v24 = *(*v9 + 8 * v21);
+        do
+        {
+          v25 = v24;
+          v24 = *v24;
+        }
+
+        while (v24 != v19);
+        if (v25 == (a1 + 624))
+        {
+          goto LABEL_31;
+        }
+
+        v26 = v25[1];
+        if (v22.u32[0] > 1uLL)
+        {
+          if (v26 >= *&v20)
+          {
+            v26 %= *&v20;
+          }
+        }
+
+        else
+        {
+          v26 &= *&v20 - 1;
+        }
+
+        if (v26 != v21)
+        {
+LABEL_31:
+          if (v23)
+          {
+            v27 = *(v23 + 8);
+            if (v22.u32[0] > 1uLL)
+            {
+              v28 = *(v23 + 8);
+              if (v27 >= *&v20)
+              {
+                v28 = v27 % *&v20;
+              }
+            }
+
+            else
+            {
+              v28 = v27 & (*&v20 - 1);
+            }
+
+            if (v28 == v21)
+            {
+              goto LABEL_35;
+            }
+          }
+
+          *(*v9 + 8 * v21) = 0;
+          v23 = *v19;
+        }
+
+        if (!v23)
+        {
+LABEL_41:
+          *v25 = v23;
+          *v19 = 0;
+          --*(a1 + 632);
+          __p[16] = 1;
+          *&__p[17] = 0;
+          *&__p[20] = 0;
+          *__p = 0;
+          *&__p[8] = a1 + 608;
+          std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,void *>>>::operator()[abi:ne200100](&__p[8], v19);
+          goto LABEL_42;
+        }
+
+        v27 = *(v23 + 8);
+LABEL_35:
+        if (v22.u32[0] > 1uLL)
+        {
+          if (v27 >= *&v20)
+          {
+            v27 %= *&v20;
+          }
+        }
+
+        else
+        {
+          v27 &= *&v20 - 1;
+        }
+
+        if (v27 != v21)
+        {
+          *(*v9 + 8 * v27) = v25;
+          v23 = *v19;
+        }
+
+        goto LABEL_41;
+      }
+
+LABEL_43:
+      re::AudioManager_PHASE_Async::prepareGroupSourceAsync(*(a1 + 648), v41, a3, *(a1 + 664), a4);
+      v12 = 0;
+      goto LABEL_64;
+    }
+  }
+
+  std::string::basic_string[abi:ne200100]<0>(__p, "[AudioManager_PHASE] [preparePlaybackGroup] Audio asset failed to load.");
+  v35 = re::audio::throttledLog(OS_LOG_TYPE_ERROR, __p);
+  v36 = v35;
+  if ((__p[23] & 0x80000000) != 0)
+  {
+    operator delete(*__p);
+    if (!v36)
+    {
+      goto LABEL_63;
+    }
+  }
+
+  else if (!v35)
+  {
+    goto LABEL_63;
+  }
+
+  v37 = *re::audioLogObjects(v35);
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+  {
+    v39 = *(*(v11 + 8) + 24);
+    *__p = 134218240;
+    *&__p[4] = v39;
+    *&__p[12] = 2048;
+    *&__p[14] = a3;
+    _os_log_error_impl(&dword_1E1C61000, v37, OS_LOG_TYPE_ERROR, "[AudioManager_PHASE] [preparePlaybackGroup] Audio asset: %llu failed to load. Cannot prepare playback group for token: %llu", __p, 0x16u);
+  }
+
+LABEL_63:
+  v12 = 2;
+LABEL_64:
+  std::__hash_table<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>>>::~__hash_table(v41);
+  return v12;
+}
+
+void re::AudioManager_PHASE::scheduleSourceState(uint64_t a1, uint64_t a2, char a3, void *a4, __int128 *a5, double a6)
+{
+  objc_initWeak(&location, (a2 + 8));
+  v11 = *(a1 + 664);
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3321888768;
+  block[2] = ___ZN2re18AudioManager_PHASE19scheduleSourceStateERKNS_16AudioSourceStateEbdy6CMTime_block_invoke;
+  block[3] = &__block_descriptor_89_ea8_40c45_ZTSN2re10ArcWeakPtrINS_16AudioSourceStateEEE_e5_v8__0l;
+  block[4] = a1;
+  v13[0] = 0;
+  objc_copyWeak(v13, &location);
+  v13[1] = a4;
+  v14 = *a5;
+  v15 = *(a5 + 2);
+  v16 = a3;
+  v13[2] = *&a6;
+  dispatch_async(v11, block);
+  objc_destroyWeak(v13);
+  v13[0] = 0;
+  objc_destroyWeak(&location);
+}
+
+uint64_t ___ZN2re18AudioManager_PHASE19scheduleSourceStateERKNS_16AudioSourceStateEbdy6CMTime_block_invoke(uint64_t a1)
+{
+  v42 = *MEMORY[0x1E69E9840];
+  v2 = *(a1 + 32);
+  WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v4 = (WeakRetained - 8);
+  if (!WeakRetained)
+  {
+    v4 = 0;
+  }
+
+  v33 = v4;
+  if (WeakRetained)
+  {
+    v5 = UnfairLockedPointer<REPHASEContext>::get(*(v2 + 648) + 8);
+    v6 = v5;
+    v7 = 712;
+    if (*(v33 + 24))
+    {
+      v7 = 32;
+    }
+
+    v8 = [v5 eventFor:*(v33 + v7)];
+    v9 = *re::audioLogObjects(v8);
+    v10 = v9;
+    if (v8)
+    {
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      {
+        v16 = *(v33 + 89);
+        v17 = *(a1 + 48);
+        lhs = *(a1 + 64);
+        Seconds = CMTimeGetSeconds(&lhs);
+        v19 = *(a1 + 88);
+        v20 = *(a1 + 56);
+        LODWORD(time.value) = 134219008;
+        *(&time.value + 4) = v16;
+        LOWORD(time.flags) = 2048;
+        *(&time.flags + 2) = v17;
+        HIWORD(time.epoch) = 2048;
+        v35 = Seconds;
+        v36 = 1024;
+        *v37 = v19;
+        *&v37[4] = 2048;
+        *&v37[6] = v20;
+        _os_log_debug_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_DEBUG, "scheduling token %llu at time %llu with offset %0.3f, shouldSeek=%d, rate=%0.2f", &time, 0x30u);
+      }
+
+      if (*(a1 + 88) == 1)
+      {
+        if (*(a1 + 76))
+        {
+          time = *(a1 + 64);
+          [(re *)v8 seekToTime:CMTimeGetSeconds(&time)];
+        }
+
+        else
+        {
+          memset(&time, 0, sizeof(time));
+          HostTimeClock = CMClockGetHostTimeClock();
+          CMClockGetTime(&lhs, HostTimeClock);
+          CMClockMakeHostTimeFromSystemUnits(&rhs, *(a1 + 48));
+          CMTimeSubtract(&time, &lhs, &rhs);
+          lhs = time;
+          [(re *)v8 seekToTime:CMTimeGetSeconds(&lhs)];
+        }
+      }
+
+      if (*(a1 + 56) == 0.0)
+      {
+        time = *(a1 + 64);
+        if (CMTimeGetSeconds(&time) != 0.0 || ((v13 = *(v33 + 9)) == 0 ? (v14 = 0) : (v14 = *(v13 + 280)), v14 == re::AudioGeneratorAsset::assetType(v12)))
+        {
+          [(re *)v8 pause];
+        }
+
+        else
+        {
+          [(re *)v8 stopAndRePrepare];
+        }
+      }
+
+      else
+      {
+        if (re::internal::enableSignposts(0, 0))
+        {
+          kdebug_trace();
+        }
+
+        [(re *)v8 resume];
+      }
+    }
+
+    else
+    {
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      {
+        v21 = re::AssetHandle::assetInfo((v33 + 64));
+        if (v21[17])
+        {
+          v22 = v21[18];
+        }
+
+        else
+        {
+          v22 = v21 + 137;
+        }
+
+        v23 = *(v33 + 89);
+        v24 = re::AudioSourceState::playbackHostConnectionIdentifier(v33);
+        v25 = *(v33 + 60);
+        v26 = *(v33 + 66);
+        v27 = *(v33 + 64);
+        if (v27 && (v28 = *(v27 + 16)) != 0)
+        {
+          v29 = *(v28 + 296);
+        }
+
+        else
+        {
+          v29 = "";
+        }
+
+        v30 = *(v33 + 97);
+        LODWORD(time.value) = 136316674;
+        *(&time.value + 4) = v22;
+        LOWORD(time.flags) = 2048;
+        *(&time.flags + 2) = v23;
+        HIWORD(time.epoch) = 2048;
+        v35 = *&v24;
+        v36 = 2048;
+        *v37 = v25;
+        *&v37[8] = 2048;
+        *&v37[10] = v26;
+        v38 = 2080;
+        v39 = v29;
+        v40 = 2048;
+        v41 = v30;
+        _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, "AudioManager_PHASE::scheduleSourceState(asset=%s, token=%llu, connection=%llu, sceneID=%llu, entity(%llu, '%s'), sourceID=%llu) could not find sound event", &time, 0x48u);
+      }
+    }
+  }
+
+  return re::SharedPtr<re::AudioSourceState>::~SharedPtr(&v33);
+}
+
+void sub_1E2145C30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+{
+  va_start(va, a15);
+
+  re::SharedPtr<re::AudioSourceState>::~SharedPtr(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t re::AudioManager_PHASE::isPreparingSoundEvent(re::AudioManager_PHASE *this, const re::AudioSourceState *a2)
+{
+  v3 = UnfairLockedPointer<REPHASEContext>::get(*(this + 81) + 8);
+  v4 = v3;
+  if (v3)
+  {
+    v5 = [v3 eventBeingPrepared:*(a2 + 89)];
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  return v5;
+}
+
+unint64_t re::AudioManager_PHASE::prepareMeshAsset(uint64_t a1, void *a2, uint64_t *a3, uint64_t *a4, uint64_t *a5)
+{
+  v9 = a2;
+  v10 = *(a1 + 648);
+  re::DynamicArray<re::AcousticAbsorptionMaterial>::DynamicArray(v15, a3);
+  re::DynamicArray<re::AcousticScatteringMaterial>::DynamicArray(v14, a4);
+  re::DynamicArray<re::AcousticSoundReductionMaterial>::DynamicArray(v13, a5);
+  v11 = re::AudioManager_PHASE_Async::prepareMeshAsset(v10, v9, v15, v14, v13);
+  re::DynamicArray<re::AcousticSoundReductionMaterial>::deinit(v13);
+  re::DynamicArray<re::AcousticScatteringMaterial>::deinit(v14);
+  re::DynamicArray<re::AcousticAbsorptionMaterial>::deinit(v15);
+
+  return v11;
+}
+
+void sub_1E2145DA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
+  v10 = va_arg(va1, void);
+  va_copy(va2, va1);
+  v11 = va_arg(va2, void);
+  v13 = va_arg(va2, void);
+  v14 = va_arg(va2, void);
+  v15 = va_arg(va2, void);
+  v16 = va_arg(va2, void);
+  re::DynamicArray<re::AcousticSoundReductionMaterial>::deinit(va);
+  re::DynamicArray<re::AcousticScatteringMaterial>::deinit(va1);
+  re::DynamicArray<re::AcousticAbsorptionMaterial>::deinit(va2);
+
+  _Unwind_Resume(a1);
+}
+
+void re::AudioManager_PHASE::removeMeshAsset(re::AudioManager_PHASE *this, uint64_t a2)
+{
+  v2 = *(this + 83);
+  v3[0] = MEMORY[0x1E69E9820];
+  v3[1] = 3221225472;
+  v3[2] = ___ZN2re18AudioManager_PHASE15removeMeshAssetEy_block_invoke;
+  v3[3] = &__block_descriptor_48_e5_v8__0l;
+  v3[4] = this;
+  v3[5] = a2;
+  dispatch_async(v2, v3);
+}
+
+void re::AudioManager_PHASE::setTransformForEntity(re::AudioManager_PHASE *this, uint64_t a2, uint64_t a3, simd_float4x4 a4, simd_float4x4 a5, char a6)
+{
+  v6 = *(this + 83);
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = ___ZN2re18AudioManager_PHASE21setTransformForEntityEyy13simd_float4x4S1_b_block_invoke;
+  v7[3] = &__block_descriptor_185_e5_v8__0l;
+  v10 = this;
+  v11 = a2;
+  v12 = a3;
+  v8 = a4;
+  v9 = a5;
+  v13 = a6;
+  dispatch_async(v6, v7);
+}
+
+void re::AudioManager_PHASE::setTargetRoomAcousticParameters(uint64_t a1, char *a2)
+{
+  v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v5 = *(a2 + 3);
+  if (v5)
+  {
+    v6 = *(a2 + 5);
+    v7 = &v6[5 * v5];
+    do
+    {
+      v8 = *v6;
+      v9 = v6[1];
+      v11 = v6[2];
+      v10 = v6[3];
+      v12 = v6[4];
+      v13 = objc_alloc_init(MEMORY[0x1E6978250]);
+      [v13 setRt60:v9];
+      [v13 setFrequency:v8];
+      [v13 setConfidence:v11];
+      [v13 setLateRoomEqDb:v10];
+      [v13 setEarlyRoomEqDb:v12];
+      [v4 addObject:v13];
+
+      v6 += 5;
+    }
+
+    while (v6 != v7);
+  }
+
+  v14 = [objc_alloc(MEMORY[0x1E6978248]) initWithSubbandParameters:v4];
+  v15 = *a2;
+  v16 = *(a1 + 664);
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = ___ZN2re18AudioManager_PHASE31setTargetRoomAcousticParametersERKNS_22RoomAcousticParametersE_block_invoke;
+  block[3] = &unk_1E871BA80;
+  v19 = v14;
+  v20 = a1;
+  v21 = v15;
+  v17 = v14;
+  dispatch_async(v16, block);
+}
+
+void re::AudioManager_PHASE::disableTargetRoomAcousticParameters(re::AudioManager_PHASE *this)
+{
+  v1 = *(this + 83);
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = ___ZN2re18AudioManager_PHASE35disableTargetRoomAcousticParametersEv_block_invoke;
+  block[3] = &__block_descriptor_40_e5_v8__0l;
+  block[4] = this;
+  dispatch_async(v1, block);
+}
+
+void re::AudioManager_PHASE::setSpaceBlendLevel(re::AudioManager_PHASE *this, float a2)
+{
+  if (*(this + 210) != a2)
+  {
+    v7 = v2;
+    v8 = v3;
+    *(this + 210) = a2;
+    v4 = *(this + 83);
+    v5[0] = MEMORY[0x1E69E9820];
+    v5[1] = 3221225472;
+    v5[2] = ___ZN2re18AudioManager_PHASE18setSpaceBlendLevelEf_block_invoke;
+    v5[3] = &__block_descriptor_44_e5_v8__0l;
+    v5[4] = this;
+    v6 = a2;
+    dispatch_async(v4, v5);
+  }
+}
+
+void re::AudioManager_PHASE::unloadAsset(re::AudioManager_PHASE *this, unint64_t a2)
+{
+  v2 = a2;
+  v4 = *(this + 84);
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = ___ZN2re18AudioManager_PHASE11unloadAssetEy_block_invoke;
+  block[3] = &__block_descriptor_48_e5_v8__0l;
+  block[4] = this;
+  block[5] = a2;
+  dispatch_async(v4, block);
+  os_unfair_lock_lock(this + 263);
+  v5 = *(this + 1064);
+  if (v5)
+  {
+    v6 = (this + 1056);
+    v7 = vcnt_s8(v5);
+    v7.i16[0] = vaddlv_u8(v7);
+    if (v7.u32[0] > 1uLL)
+    {
+      v8 = v2;
+      if (*&v5 <= v2)
+      {
+        v8 = v2 % *&v5;
+      }
+    }
+
+    else
+    {
+      v8 = (*&v5 - 1) & v2;
+    }
+
+    v9 = *v6;
+    v10 = *(*v6 + 8 * v8);
+    if (v10)
+    {
+      v11 = *v10;
+      if (v11)
+      {
+        v12 = *&v5 - 1;
+        do
+        {
+          v13 = v11[1];
+          if (v13 == v2)
+          {
+            if (v11[2] == v2)
+            {
+              if (v7.u32[0] > 1uLL)
+              {
+                if (*&v5 <= v2)
+                {
+                  v2 %= *&v5;
+                }
+              }
+
+              else
+              {
+                v2 &= v12;
+              }
+
+              v14 = *(v9 + 8 * v2);
+              do
+              {
+                v15 = v14;
+                v14 = *v14;
+              }
+
+              while (v14 != v11);
+              if (v15 == (this + 1072))
+              {
+                goto LABEL_36;
+              }
+
+              v16 = v15[1];
+              if (v7.u32[0] > 1uLL)
+              {
+                if (v16 >= *&v5)
+                {
+                  v16 %= *&v5;
+                }
+              }
+
+              else
+              {
+                v16 &= v12;
+              }
+
+              if (v16 != v2)
+              {
+LABEL_36:
+                if (!*v11)
+                {
+                  goto LABEL_37;
+                }
+
+                v17 = *(*v11 + 8);
+                if (v7.u32[0] > 1uLL)
+                {
+                  if (v17 >= *&v5)
+                  {
+                    v17 %= *&v5;
+                  }
+                }
+
+                else
+                {
+                  v17 &= v12;
+                }
+
+                if (v17 != v2)
+                {
+LABEL_37:
+                  *(v9 + 8 * v2) = 0;
+                }
+              }
+
+              v18 = *v11;
+              if (*v11)
+              {
+                v19 = *(v18 + 8);
+                if (v7.u32[0] > 1uLL)
+                {
+                  if (v19 >= *&v5)
+                  {
+                    v19 %= *&v5;
+                  }
+                }
+
+                else
+                {
+                  v19 &= v12;
+                }
+
+                if (v19 != v2)
+                {
+                  *(*v6 + 8 * v19) = v15;
+                  v18 = *v11;
+                }
+              }
+
+              *v15 = v18;
+              *v11 = 0;
+              --*(this + 135);
+              v21[0] = v11;
+              v21[1] = this + 1056;
+              v22 = 1;
+              memset(v23, 0, sizeof(v23));
+              std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,std::function<void ()(void)>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,std::function<void ()(void)>>,void *>>>>::~unique_ptr[abi:ne200100](v21);
+              break;
+            }
+          }
+
+          else
+          {
+            if (v7.u32[0] > 1uLL)
+            {
+              if (v13 >= *&v5)
+              {
+                v13 %= *&v5;
+              }
+            }
+
+            else
+            {
+              v13 &= v12;
+            }
+
+            if (v13 != v8)
+            {
+              break;
+            }
+          }
+
+          v11 = *v11;
+        }
+
+        while (v11);
+      }
+    }
+  }
+
+  os_unfair_lock_unlock(this + 263);
+}
+
+id re::AudioManager_PHASE::getPHASEAssetForIdentifier(re::AudioManager_PHASE *this, uint64_t a2)
+{
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x3032000000;
+  v9 = __Block_byref_object_copy__5;
+  v10 = __Block_byref_object_dispose__5;
+  v11 = 0;
+  v2 = *(this + 83);
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = ___ZNK2re18AudioManager_PHASE26getPHASEAssetForIdentifierEy_block_invoke;
+  block[3] = &unk_1E871B908;
+  block[4] = &v6;
+  block[5] = this;
+  block[6] = a2;
+  dispatch_sync(v2, block);
+  v3 = v7[5];
+  _Block_object_dispose(&v6, 8);
+
+  return v3;
+}
+
+void ___ZNK2re18AudioManager_PHASE26getPHASEAssetForIdentifierEy_block_invoke(void *a1)
+{
+  v2 = re::AudioManager_PHASE_Async::getPHASEAssetForIdentifier(*(a1[5] + 648), a1[6]);
+  v3 = *(a1[4] + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
+}
+
+void re::AudioManager_PHASE::removeSourceFromSceneIfIncorrectlyConnected(os_unfair_lock_s **this, const re::AudioSourceState *a2)
+{
+  v12 = *MEMORY[0x1E69E9840];
+  re::AudioManager::removeSourceFromSceneIfIncorrectlyConnected(this, a2);
+  v4 = UnfairLockedPointer<REPHASEContext>::get(&this[81][2]);
+  v5 = v4;
+  if (v4)
+  {
+    v6 = 712;
+    if (*(a2 + 24))
+    {
+      v6 = 32;
+    }
+
+    if ([v4 doCleanUpSoundEventForToken:*(a2 + v6) ifNotInScene:*(a2 + 60)])
+    {
+      if (*(a2 + 24) == 1)
+      {
+        re::AudioManager::removeAudioGroup(this, *(a2 + 4));
+      }
+
+      re::AudioManager_PHASE_Async::setPlaybackStateChangeHandlerForToken(this[81], *(a2 + 89), 0);
+      v8 = *re::audioLogObjects(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      {
+        v9 = *(a2 + 89);
+        v10 = 134217984;
+        v11 = v9;
+        _os_log_impl(&dword_1E1C61000, v8, OS_LOG_TYPE_DEFAULT, "[RE/PHASE] [Playback] Stopped sound with token: %llu", &v10, 0xCu);
+      }
+
+      *(a2 + 97) = 0;
+      *(a2 + 189) = 0;
+    }
+  }
+}
+
+void ___ZN2re18AudioManager_PHASE25updateSourceStateInternalERKNS_16AudioSourceStateE_block_invoke(uint64_t a1)
+{
+  v100 = *MEMORY[0x1E69E9840];
+  v2 = *(a1 + 184);
+  re::AudioManager_PHASE_Async::setTransformForEntity(*(v2 + 648), *(a1 + 192), *(a1 + 200), *(a1 + 32), *(a1 + 96), *(a1 + 496));
+  v3 = UnfairLockedPointer<REPHASEContext>::get(*(v2 + 648) + 8);
+  v4 = v3;
+  if (*(a1 + 160))
+  {
+    v5 = [v3 eventFor:*(a1 + 208)];
+    v6 = v5;
+    if (!v5)
+    {
+LABEL_50:
+
+      goto LABEL_51;
+    }
+
+    v7 = [v5 soundEvent];
+    if (v7)
+    {
+    }
+
+    else
+    {
+      v8 = [v6 externalStreamController];
+
+      if (!v8)
+      {
+LABEL_18:
+        v41 = *(a1 + 272);
+        [v6 cachedPlaybackSpeed];
+        if (v41 != v42)
+        {
+          v43 = [v6 paramForKey:@"rate"];
+          if (v43)
+          {
+            LODWORD(v44) = *(a1 + 272);
+            v45 = *re::audioLogObjects([v6 setCachedPlaybackSpeed:v44]);
+            if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
+            {
+              v88 = *(a1 + 272);
+              v89 = *(a1 + 208);
+              *__p = 134218240;
+              *&__p[4] = v88;
+              v98 = 2048;
+              *v99 = v89;
+              _os_log_debug_impl(&dword_1E1C61000, v45, OS_LOG_TYPE_DEBUG, "[RE/PHASE] [Playback] Rate=%.2f for token=%llu", __p, 0x16u);
+            }
+
+            [v43 fadeToValue:*(a1 + 272) duration:0.0];
+          }
+
+          else
+          {
+            v71 = [v6 soundEvent];
+            v72 = v71 == 0;
+
+            if (!v72)
+            {
+              std::string::basic_string[abi:ne200100]<0>(__p, "Could not find rate param for token");
+              v73 = re::audio::throttledLog(OS_LOG_TYPE_ERROR, __p);
+              v74 = v73;
+              if ((v99[9] & 0x80000000) != 0)
+              {
+                operator delete(*__p);
+              }
+
+              if (v74)
+              {
+                v75 = *re::audioLogObjects(v73);
+                if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+                {
+                  v76 = *(a1 + 208);
+                  *__p = 134217984;
+                  *&__p[4] = v76;
+                  _os_log_error_impl(&dword_1E1C61000, v75, OS_LOG_TYPE_ERROR, "Could not find rate param for token %llu", __p, 0xCu);
+                }
+              }
+            }
+          }
+        }
+
+        v46 = *(a1 + 288);
+        v47 = *(a1 + 292);
+        [v6 cachedReverbSendLevel];
+        v48 = v46 + v47;
+        if (v48 != v49)
+        {
+          v50 = [v6 paramForKey:*(a1 + 168)];
+          if (v50)
+          {
+            *&v51 = v48;
+            [v6 setCachedReverbSendLevel:v51];
+            v52 = __exp10f(v48 / 20.0);
+            v54 = *re::audioLogObjects(v53);
+            v55 = v52;
+            if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
+            {
+              v90 = *(a1 + 208);
+              *__p = 134218240;
+              *&__p[4] = v55;
+              v98 = 2048;
+              *v99 = v90;
+              _os_log_debug_impl(&dword_1E1C61000, v54, OS_LOG_TYPE_DEBUG, "[RE/PHASE] [Playback] Reverb=%.2f for token=%llu", __p, 0x16u);
+            }
+
+            [v50 fadeToValue:v55 duration:0.0];
+          }
+        }
+
+        v56 = *(a1 + 304);
+        v57 = *(a1 + 296);
+        [v6 cachedDirectSendLevel];
+        v58 = v56 + v57;
+        if (v58 != v59)
+        {
+          v60 = [v6 paramForKey:*(a1 + 176)];
+          if (v60)
+          {
+            *&v61 = v58;
+            [v6 setCachedDirectSendLevel:v61];
+            v62 = __exp10f(v58 / 20.0);
+            v64 = *re::audioLogObjects(v63);
+            v65 = v62;
+            if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
+            {
+              v91 = *(a1 + 208);
+              *__p = 134218240;
+              *&__p[4] = v65;
+              v98 = 2048;
+              *v99 = v91;
+              _os_log_debug_impl(&dword_1E1C61000, v64, OS_LOG_TYPE_DEBUG, "[RE/PHASE] [Playback] Direct=%.2f for token=%llu", __p, 0x16u);
+            }
+
+            [v60 fadeToValue:v65 duration:0.0];
+          }
+        }
+
+        if (*(a1 + 497) == 1)
+        {
+          objc_msgSend_prepareStates(v6);
+          v66 = *&v99[2];
+          if (*&v99[2])
+          {
+            do
+            {
+              v68 = v66[3];
+              v67 = v66[4];
+              if (v67)
+              {
+                atomic_fetch_add_explicit(&v67->__shared_owners_, 1uLL, memory_order_relaxed);
+              }
+
+              v69 = *(a1 + 428);
+              if (v69 != *(v68 + 308))
+              {
+                *(v68 + 308) = v69;
+              }
+
+              *(v68 + 312) = *(a1 + 432);
+              *(v68 + 103) = *(a1 + 308);
+              *(v68 + 196) = *(a1 + 300);
+              if (v67)
+              {
+                std::__shared_weak_count::__release_shared[abi:nn200100](v67);
+              }
+
+              v66 = *v66;
+            }
+
+            while (v66);
+          }
+
+          std::__hash_table<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>>>::~__hash_table(__p);
+        }
+
+        else
+        {
+          objc_msgSend_prepareState(v6);
+          v70 = *(a1 + 428);
+          if (v70 != *(v93 + 308))
+          {
+            *(v93 + 308) = v70;
+          }
+
+          *(v93 + 312) = *(a1 + 432);
+          *(v93 + 103) = *(a1 + 308);
+          *(v93 + 196) = *(a1 + 300);
+          if (v94)
+          {
+            std::__shared_weak_count::__release_shared[abi:nn200100](v94);
+          }
+        }
+
+        goto LABEL_50;
+      }
+    }
+
+    v10 = *(a1 + 32);
+    v9 = *(a1 + 48);
+    v11 = *(a1 + 64);
+    LODWORD(v12) = HIDWORD(*(a1 + 48));
+    v13 = COERCE_FLOAT(*(a1 + 72));
+    v14 = v13 + (*v10.i32 + v12);
+    if (v14 >= 0.0)
+    {
+      v28 = sqrtf(v14 + 1.0);
+      v29 = v28 + v28;
+      v30 = vrecpe_f32(COERCE_UNSIGNED_INT(v28 + v28));
+      v31 = vmul_f32(v30, vrecps_f32(COERCE_UNSIGNED_INT(v28 + v28), v30));
+      v31.i32[0] = vmul_f32(v31, vrecps_f32(COERCE_UNSIGNED_INT(v28 + v28), v31)).u32[0];
+      *v25.f32 = vmul_n_f32(vsub_f32(vzip1_s32(*&vextq_s8(v9, v9, 8uLL), *&v11), vext_s8(*&v11, *&vextq_s8(v10, v10, 8uLL), 4uLL)), v31.f32[0]);
+      v32.f32[0] = *&v10.i32[1] - *v9.i32;
+      v32.f32[1] = v29;
+      v31.i32[1] = 0.25;
+      v27 = vmul_f32(v32, v31);
+    }
+
+    else if (*v10.i32 < v12 || *v10.i32 < v13)
+    {
+      v77 = 1.0 - *v10.i32;
+      if (v12 >= v13)
+      {
+        v83 = sqrtf(v12 + (v77 - v13));
+        *&v84 = v83 + v83;
+        v85 = vrecpe_f32(v84);
+        v86 = vmul_f32(v85, vrecps_f32(v84, v85));
+        v87.i32[0] = vmul_f32(v86, vrecps_f32(v84, v86)).u32[0];
+        v86.f32[0] = *&v10.i32[1] + *v9.i32;
+        v86.i32[1] = v84;
+        v27 = vmul_n_f32(vext_s8(vadd_f32(*&v11, vdup_laneq_s32(v9, 2)), vsub_f32(*&v11, *&vextq_s8(v10, v10, 8uLL)), 4uLL), v87.f32[0]);
+        v87.i32[1] = 0.25;
+        *v25.f32 = vmul_f32(v86, v87);
+      }
+
+      else
+      {
+        v78 = sqrtf(v13 + (v77 - v12));
+        v79.f32[0] = v78 + v78;
+        v80 = vrecpe_f32(COERCE_UNSIGNED_INT(v78 + v78));
+        v81 = vmul_f32(v80, vrecps_f32(COERCE_UNSIGNED_INT(v78 + v78), v80));
+        v81.i32[0] = vmul_f32(v81, vrecps_f32(COERCE_UNSIGNED_INT(v78 + v78), v81)).u32[0];
+        *v25.f32 = vmul_n_f32(vadd_f32(vzip1_s32(*&vextq_s8(v10, v10, 8uLL), *&vextq_s8(v9, v9, 8uLL)), *&v11), v81.f32[0]);
+        v79.f32[1] = *&v10.i32[1] - *v9.i32;
+        __asm { FMOV            V0.2S, #0.25 }
+
+        _D0.i32[1] = v81.i32[0];
+        v27 = vmul_f32(v79, _D0);
+      }
+    }
+
+    else
+    {
+      v15 = sqrtf(*v10.i32 + ((1.0 - v12) - v13));
+      v16.f32[0] = v15 + v15;
+      v17 = vrecpe_f32(v16.u32[0]);
+      v18 = vmul_f32(v17, vrecps_f32(v16.u32[0], v17));
+      LODWORD(v19) = vmul_f32(v18, vrecps_f32(v16.u32[0], v18)).u32[0];
+      v16.f32[1] = *&v10.i32[1] + *v9.i32;
+      __asm { FMOV            V5.2S, #0.25 }
+
+      _D5.f32[1] = v19;
+      *v25.f32 = vmul_f32(v16, _D5);
+      v26.i32[0] = vadd_f32(*&vextq_s8(v10, v10, 8uLL), *&v11).u32[0];
+      v26.i32[1] = vsub_f32(vdup_laneq_s32(*&v9, 2), *&v11).i32[1];
+      v27 = vmul_n_f32(v26, v19);
+    }
+
+    v33 = vadd_f32(vmul_f32(*v25.f32, *v25.f32), vmul_f32(v27, v27));
+    if (vaddv_f32(v33) == 0.0)
+    {
+      v34 = xmmword_1E30474D0;
+    }
+
+    else
+    {
+      *&v25.u32[2] = v27;
+      v35 = vadd_f32(v33, vdup_lane_s32(v33, 1)).u32[0];
+      v36 = vrsqrte_f32(v35);
+      v37 = vmul_f32(v36, vrsqrts_f32(v35, vmul_f32(v36, v36)));
+      v34 = vmulq_n_f32(v25, vmul_f32(v37, vrsqrts_f32(v35, vmul_f32(v37, v37))).f32[0]);
+    }
+
+    v38 = [v6 soundEvent];
+
+    if (v38)
+    {
+      [v6 soundEvent];
+    }
+
+    else
+    {
+      [v6 externalStreamController];
+    }
+    v39 = ;
+    v40 = [v39 mixers];
+
+    v95[0] = MEMORY[0x1E69E9820];
+    v95[1] = 3221225472;
+    v95[2] = ___ZN2re18AudioManager_PHASE25updateSourceStateInternalERKNS_16AudioSourceStateE_block_invoke_2;
+    v95[3] = &__block_descriptor_48_e15_v32__0_8_16_B24l;
+    v96 = v92;
+    [v40 enumerateKeysAndObjectsUsingBlock:v95];
+
+    goto LABEL_18;
+  }
+
+LABEL_51:
+}
+
+void sub_1E2146E58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
+{
+  if (a24 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void ___ZN2re18AudioManager_PHASE25updateSourceStateInternalERKNS_16AudioSourceStateE_block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
+{
+  v4 = a3;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    [v4 setOrientation:*(a1 + 32)];
+  }
+}
+
+re::DynamicString *__copy_helper_block_ea16_216c31_ZTSN2re20AudioSourceSyncStateE(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a2 + 216);
+  *(a1 + 232) = *(a2 + 232);
+  *(a1 + 216) = v4;
+  re::AssetHandle::AssetHandle((a1 + 240), (a2 + 240));
+  *(a1 + 264) = *(a2 + 264);
+  v5 = *(a2 + 280);
+  v6 = *(a2 + 296);
+  v7 = *(a2 + 312);
+  *(a1 + 324) = *(a2 + 324);
+  *(a1 + 296) = v6;
+  *(a1 + 312) = v7;
+  *(a1 + 280) = v5;
+  v8 = *(a2 + 344);
+  *(a1 + 344) = v8;
+  if (v8 == 1)
+  {
+    re::DynamicString::DynamicString((a1 + 352), (a2 + 352));
+  }
+
+  *(a1 + 384) = *(a2 + 384);
+  re::DynamicString::DynamicString((a1 + 392), (a2 + 392));
+  v9 = *(a2 + 440);
+  *(a1 + 424) = *(a2 + 424);
+  *(a1 + 440) = v9;
+  result = re::DynamicString::DynamicString((a1 + 456), (a2 + 456));
+  *(a1 + 488) = *(a2 + 488);
+  return result;
+}
+
+void __destroy_helper_block_ea16_216c31_ZTSN2re20AudioSourceSyncStateE(_BYTE *a1)
+{
+  re::DynamicString::deinit((a1 + 456));
+  re::DynamicString::deinit((a1 + 392));
+  if (a1[344] == 1)
+  {
+    re::DynamicString::deinit((a1 + 352));
+  }
+
+  re::AssetHandle::~AssetHandle((a1 + 240));
+}
+
+void re::AudioManager_PHASE::forceAudioOutputType(uint64_t a1, int a2)
+{
+  v2 = *(a1 + 664);
+  v3[0] = MEMORY[0x1E69E9820];
+  v3[1] = 3221225472;
+  v3[2] = ___ZN2re18AudioManager_PHASE20forceAudioOutputTypeE17REAudioOutputType_block_invoke;
+  v3[3] = &__block_descriptor_44_e5_v8__0l;
+  v3[4] = a1;
+  v4 = a2;
+  dispatch_async(v2, v3);
+}
+
+uint64_t re::AudioManager_PHASE::currentAudioOutputType(re::AudioManager_PHASE *this)
+{
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x2020000000;
+  v8 = 0;
+  v1 = *(this + 83);
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = ___ZN2re18AudioManager_PHASE22currentAudioOutputTypeEv_block_invoke;
+  v4[3] = &unk_1E871B8E0;
+  v4[4] = &v5;
+  v4[5] = this;
+  dispatch_sync(v1, v4);
+  v2 = *(v6 + 6);
+  _Block_object_dispose(&v5, 8);
+  return v2;
+}
+
+uint64_t ___ZN2re18AudioManager_PHASE22currentAudioOutputTypeEv_block_invoke(uint64_t a1)
+{
+  result = re::AudioManager_PHASE_Async::currentAudioOutputType(*(*(a1 + 40) + 648));
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  return result;
+}
+
+void re::AudioManager_PHASE::applyCustomHRIR(id *this)
+{
+  v2 = this[43];
+  v3 = this[83];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = ___ZN2re18AudioManager_PHASE15applyCustomHRIREv_block_invoke;
+  v5[3] = &unk_1E871B4D0;
+  v6 = v2;
+  v7 = this;
+  v4 = v2;
+  dispatch_async(v3, v5);
+}
+
+uint64_t re::AudioManager_PHASE::applyMixGroupState(os_unfair_lock_s *this, unint64_t a2, unint64_t a3, const re::AudioMixGroup *a4, int a5)
+{
+  v68 = *MEMORY[0x1E69E9840];
+  os_unfair_lock_lock(this + 174);
+  v10 = a4 + 9;
+  if (*(a4 + 1))
+  {
+    v11 = *(a4 + 2);
+  }
+
+  else
+  {
+    v11 = a4 + 9;
+  }
+
+  std::string::basic_string[abi:ne200100]<0>(__p, v11);
+  v12 = re::AudioManager_PHASE::mixGroupStateFor(this, a2, a3, __p);
+  v13 = v12;
+  if ((v65[9] & 0x80000000) != 0)
+  {
+    operator delete(*__p);
+  }
+
+  v14 = *v13;
+  if (v14)
+  {
+    v15 = *(a4 + 88);
+    if (v15 != [v13[1] isMuted])
+    {
+      v16 = v13[1];
+      if (*(a4 + 88) == 1)
+      {
+        v17 = [v16 mute];
+      }
+
+      else
+      {
+        v17 = [v16 unmute];
+      }
+
+      v21 = *re::audioLogObjects(v17);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+      {
+        v62 = a5;
+        v23 = *(a4 + 1);
+        v22 = *(a4 + 2);
+        v24 = *(a4 + 88);
+        v25 = [v13[1] identifier];
+        v26 = v25;
+        if (v23)
+        {
+          v27 = v22;
+        }
+
+        else
+        {
+          v27 = a4 + 9;
+        }
+
+        *__p = 136315650;
+        *&__p[4] = v27;
+        v64 = 1024;
+        *v65 = v24;
+        *&v65[4] = 2112;
+        *&v65[6] = v25;
+        _os_log_impl(&dword_1E1C61000, v21, OS_LOG_TYPE_INFO, "[RE/PHASE] [MixGroup] Name: %s, Set Muted: %d, PhaseID: %@ (sceneID - connectionID - name).", __p, 0x1Cu);
+
+        a5 = v62;
+      }
+    }
+
+    v28 = *(a4 + 26);
+    [v13[1] rate];
+    if (vabdd_f64(v28, v29) > 0.00000011920929)
+    {
+      v30 = *re::audioLogObjects([v13[1] setRate:*(a4 + 26)]);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+      {
+        v31 = a5;
+        v32 = *(a4 + 1);
+        v33 = *(a4 + 2);
+        v34 = *(a4 + 26);
+        v35 = [v13[1] identifier];
+        v36 = v35;
+        if (v32)
+        {
+          v37 = v33;
+        }
+
+        else
+        {
+          v37 = a4 + 9;
+        }
+
+        *__p = 136315650;
+        *&__p[4] = v37;
+        v64 = 2048;
+        *v65 = v34;
+        *&v65[8] = 2112;
+        *&v65[10] = v35;
+        _os_log_impl(&dword_1E1C61000, v30, OS_LOG_TYPE_INFO, "[RE/PHASE] [MixGroup] Name: %s, Set Speed: %.2f, PhaseID: %@ (sceneID - connectionID - name).", __p, 0x20u);
+
+        a5 = v31;
+      }
+    }
+
+    v38 = __exp10f(*(a4 + 24) / 20.0);
+    [v13[1] gainLowFrequency];
+    if (vabdd_f64(v38, v39) > 0.00000011920929)
+    {
+      [v13[1] setGainLowFrequency:?];
+    }
+
+    v40 = __exp10f(*(a4 + 23) / 20.0);
+    [v13[1] gainHighFrequency];
+    if (vabdd_f64(v40, v41) > 0.00000011920929)
+    {
+      [v13[1] setGainHighFrequency:?];
+    }
+
+    if (a5)
+    {
+      v42 = *(a4 + 27);
+      if (v42 == 0.0)
+      {
+        v43 = *(a4 + 28);
+      }
+
+      else
+      {
+        v43 = *(a4 + 28);
+        if (*(a4 + 29) == v43)
+        {
+LABEL_43:
+          if (v42 > 0.0)
+          {
+            v52 = [v13[1] fadeGain:1668435054 duration:__exp10f(*(a4 + 29) / 20.0) curveType:v42];
+            v53 = *re::audioLogObjects(v52);
+            if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
+            {
+              v55 = *(a4 + 1);
+              v54 = *(a4 + 2);
+              v56 = *(a4 + 27);
+              v57 = *(a4 + 29);
+              v58 = [v13[1] identifier];
+              v59 = v58;
+              *__p = 136315906;
+              if (v55)
+              {
+                v60 = v54;
+              }
+
+              else
+              {
+                v60 = v10;
+              }
+
+              *&__p[4] = v60;
+              v64 = 2048;
+              *v65 = v56;
+              *&v65[8] = 2048;
+              *&v65[10] = v57;
+              v66 = 2112;
+              v67 = v58;
+              _os_log_impl(&dword_1E1C61000, v53, OS_LOG_TYPE_INFO, "[RE/PHASE] [MixGroup] Name: %s, Set Fade: %.2fs, Gain: %.2fdB, PhaseID: %@ (sceneID - connectionID - name).", __p, 0x2Au);
+            }
+          }
+
+          goto LABEL_50;
+        }
+      }
+
+      v44 = [v13[1] setGain:__exp10f(v43 / 20.0)];
+      v45 = *re::audioLogObjects(v44);
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+      {
+        v46 = *(a4 + 1);
+        v47 = *(a4 + 2);
+        v48 = *(a4 + 28);
+        v49 = [v13[1] identifier];
+        v50 = v49;
+        if (v46)
+        {
+          v51 = v47;
+        }
+
+        else
+        {
+          v51 = a4 + 9;
+        }
+
+        *__p = 136315650;
+        *&__p[4] = v51;
+        v64 = 2048;
+        *v65 = v48;
+        *&v65[8] = 2112;
+        *&v65[10] = v49;
+        _os_log_impl(&dword_1E1C61000, v45, OS_LOG_TYPE_INFO, "[RE/PHASE] [MixGroup] Name: %s, Set Gain: %.2fdB, PhaseID: %@ (sceneID - connectionID - name).", __p, 0x20u);
+      }
+
+      v42 = *(a4 + 27);
+      goto LABEL_43;
+    }
+  }
+
+  else
+  {
+    v18 = *re::audioLogObjects(v12);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    {
+      if (*(a4 + 1))
+      {
+        v19 = *(a4 + 2);
+      }
+
+      else
+      {
+        v19 = a4 + 9;
+      }
+
+      v20 = *(a4 + 4);
+      *__p = 136315394;
+      *&__p[4] = v19;
+      v64 = 2048;
+      *v65 = v20;
+      _os_log_impl(&dword_1E1C61000, v18, OS_LOG_TYPE_INFO, "[RE/PHASE] [MixGroup] Ignoring changes for mixGroup %s(id=%llu) as it isn't registered with PHASE yet.", __p, 0x16u);
+    }
+  }
+
+LABEL_50:
+  os_unfair_lock_unlock(this + 174);
+  return v14;
+}
+
+void ___ZN2re18AudioManager_PHASE16mixGroupStateForEyyRKNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEE_block_invoke(uint64_t a1)
+{
+  v2 = *(a1 + 40);
+  re::AudioManager_PHASE_Async::registerMixGroup(*(v2 + 648), *(a1 + 32));
+  os_unfair_lock_lock((v2 + 696));
+  v3 = (a1 + 48);
+  *(std::__hash_table<std::__hash_value_type<std::string,re::AudioManager_PHASE::MixGroupState>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,re::AudioManager_PHASE::MixGroupState>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,re::AudioManager_PHASE::MixGroupState>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,re::AudioManager_PHASE::MixGroupState>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v2 + 704), (a1 + 48), &v3) + 40) = 1;
+
+  os_unfair_lock_unlock((v2 + 696));
+}
+
+void __copy_helper_block_ea8_48c66_ZTSNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE(std::string *a1, uint64_t a2)
+{
+  if (*(a2 + 71) < 0)
+  {
+    std::string::__init_copy_ctor_external(a1 + 2, *(a2 + 48), *(a2 + 56));
+  }
+
+  else
+  {
+    v2 = *(a2 + 48);
+    a1[2].__r_.__value_.__r.__words[2] = *(a2 + 64);
+    *&a1[2].__r_.__value_.__l.__data_ = v2;
+  }
+}
+
+void __destroy_helper_block_ea8_48c66_ZTSNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE(uint64_t a1)
+{
+  if (*(a1 + 71) < 0)
+  {
+    operator delete(*(a1 + 48));
+  }
+}
+
+BOOL re::AudioManager_PHASE::shouldLoadFileAssetsByAbsolutePath(re::AudioManager_PHASE *this)
+{
+  v1 = *(this + 81);
+  os_unfair_lock_lock((v1 + 104));
+  v2 = *(v1 + 88) != 0;
+  os_unfair_lock_unlock((v1 + 104));
+  return v2;
+}
+
+void re::AudioManager_PHASE::deallocateTaskToken(mach_port_name_t name)
+{
+  v6 = *MEMORY[0x1E69E9840];
+  if (name - 1 <= 0xFFFFFFFD)
+  {
+    v1 = mach_port_deallocate(*MEMORY[0x1E69E9A60], name);
+    if (v1)
+    {
+      v2 = v1;
+      v3 = *re::audioLogObjects(v1);
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      {
+        v4 = 136315138;
+        v5 = mach_error_string(v2);
+        _os_log_error_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_ERROR, "[RE/PHASE] [Load] Failed to deallocate mach port, with KERN error code: %s", &v4, 0xCu);
+      }
+    }
+  }
+}
+
+void re::AudioManager_PHASE::removeAudioFileGroupAssetData(re::AudioManager_PHASE *this, uint64_t a2)
+{
+  v2 = *(this + 83);
+  v3[0] = MEMORY[0x1E69E9820];
+  v3[1] = 3221225472;
+  v3[2] = ___ZN2re18AudioManager_PHASE29removeAudioFileGroupAssetDataEy_block_invoke;
+  v3[3] = &__block_descriptor_48_e5_v8__0l;
+  v3[4] = this;
+  v3[5] = a2;
+  dispatch_async(v2, v3);
+}
+
+void ___ZN2re18AudioManager_PHASE29removeAudioFileGroupAssetDataEy_block_invoke(uint64_t a1)
+{
+  v2 = UnfairLockedPointer<REPHASEContext>::get(*(*(a1 + 32) + 648) + 8);
+  if (v2)
+  {
+    [v2 removeAudioFileGroupAssetData:*(a1 + 40)];
+  }
+}
+
+void re::AudioManager_PHASE::storeAudioLoadAsPendingIfPhaseContextIsInactive(uint64_t a1, unint64_t a2, uint64_t *a3)
+{
+  v5 = **(a1 + 360);
+  v6 = *(a2 + 8);
+  if (v6)
+  {
+    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v7 = a3[1];
+  if (v7)
+  {
+    atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v5;
+  operator new();
+}
+
+void sub_1E21480B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+{
+  va_start(va, a15);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,std::function<void ()(void)>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,std::function<void ()(void)>>,void *>>>>::~unique_ptr[abi:ne200100](va);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:nn200100](v17 + 8);
+  os_unfair_lock_unlock(v15 + 263);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:nn200100](v18 - 104);
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t re::AudioManager_PHASE::storeAudioLoadAsPendingIfPhaseContextIsInactive(std::shared_ptr<re::AudioAssetPayload>,std::shared_ptr<std::function<void ()(std::shared_ptr<re::PersistedAssetData>)>>)::$_0::~$_0(uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
+  }
+
+  v3 = *(a1 + 8);
+  if (v3)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v3);
+  }
+
+  return a1;
+}
+
+id re::AudioManager_PHASE::insertPostProcessingEffect(re::AudioManager_PHASE *this, const AudioComponentDescription *a2)
+{
+  v3 = objc_alloc(MEMORY[0x1E69584C8]);
+  v7 = *a2;
+  v4 = [v3 initWithAudioComponentDescription:&v7];
+  v5 = [v4 AUAudioUnit];
+
+  return v5;
+}
+
+void std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<re::internal::overloaded<re::AudioManager_PHASE::loadAudio(std::shared_ptr<re::AudioAssetPayload>,std::function<void ()(std::shared_ptr<re::PersistedAssetData>)>)::$_0,re::AudioManager_PHASE::loadAudio(std::shared_ptr<re::AudioAssetPayload>,std::function<void ()(std::shared_ptr<re::PersistedAssetData>)>)::$_1,re::AudioManager_PHASE::loadAudio(std::shared_ptr<re::AudioAssetPayload>,std::function<void ()(std::shared_ptr<re::PersistedAssetData>)>)::$_2>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,NSData * {__strong},AVAudioPCMBuffer * {__strong},NSURL * {__strong}> &&>(uint64_t ***a1, id *a2)
+{
+  v2 = *a1;
+  v3 = *a2;
+  v4 = *(*v2 + 8);
+  if (v4)
+  {
+    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  operator new();
+}
+
+void sub_1E21483EC(_Unwind_Exception *a1)
+{
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<re::internal::overloaded<re::AudioManager_PHASE::loadAudio(std::shared_ptr<re::AudioAssetPayload>,std::function<void ()(std::shared_ptr<re::PersistedAssetData>)>)::$_0,re::AudioManager_PHASE::loadAudio(std::shared_ptr<re::AudioAssetPayload>,std::function<void ()(std::shared_ptr<re::PersistedAssetData>)>)::$_1,re::AudioManager_PHASE::loadAudio(std::shared_ptr<re::AudioAssetPayload>,std::function<void ()(std::shared_ptr<re::PersistedAssetData>)>)::$_2>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,NSData * {__strong},AVAudioPCMBuffer * {__strong},NSURL * {__strong}> &&>(void *a1, id *a2)
+{
+  v2 = *a1;
+  v3 = *a2;
+  v4 = *(*(v2 + 24) + 8);
+  if (v4)
+  {
+    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  operator new();
+}
+
+void sub_1E2148570(_Unwind_Exception *a1)
+{
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v1);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<re::internal::overloaded<re::AudioManager_PHASE::loadAudio(std::shared_ptr<re::AudioAssetPayload>,std::function<void ()(std::shared_ptr<re::PersistedAssetData>)>)::$_0,re::AudioManager_PHASE::loadAudio(std::shared_ptr<re::AudioAssetPayload>,std::function<void ()(std::shared_ptr<re::PersistedAssetData>)>)::$_1,re::AudioManager_PHASE::loadAudio(std::shared_ptr<re::AudioAssetPayload>,std::function<void ()(std::shared_ptr<re::PersistedAssetData>)>)::$_2>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,NSData * {__strong},AVAudioPCMBuffer * {__strong},NSURL * {__strong}> &&>(void *a1, id *a2)
+{
+  v2 = *a1;
+  v3 = *a2;
+  v4 = *(*(v2 + 48) + 8);
+  if (v4)
+  {
+    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  operator new();
+}
+
+void sub_1E21486F4(_Unwind_Exception *a1)
+{
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v1);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void ___ZZN2re18AudioManager_PHASE9loadAudioENSt3__110shared_ptrINS_17AudioAssetPayloadEEENS1_8functionIFvNS2_INS_18PersistedAssetDataEEEEEEENK3__0clEP6NSData_block_invoke(void *a1)
+{
+  v2 = a1[5];
+  v3 = UnfairLockedPointer<REPHASEContext>::get(*(v2 + 648) + 8);
+
+  if (!v3)
+  {
+    v11 = a1[7];
+    v23[0] = a1[6];
+    v23[1] = v11;
+    if (v11)
+    {
+      atomic_fetch_add_explicit((v11 + 8), 1uLL, memory_order_relaxed);
+    }
+
+    v12 = a1[8];
+    v13 = a1[9];
+    v22[0] = v12;
+    v22[1] = v13;
+    if (v13)
+    {
+      atomic_fetch_add_explicit((v13 + 8), 1uLL, memory_order_relaxed);
+    }
+
+    re::AudioManager_PHASE::storeAudioLoadAsPendingIfPhaseContextIsInactive(v2, v23, v22);
+  }
+
+  v4 = *(v2 + 648);
+  v5 = a1[4];
+  v6 = *(a1[6] + 128);
+  re::AudioManager_PHASE_Async::loadBuffer(v4, v5, v6, a1[6] + 16, *(a1[6] + 104), *(a1[6] + 112), &v20);
+
+  v7 = *(v2 + 8);
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3321888768;
+  block[2] = ___ZZN2re18AudioManager_PHASE9loadAudioENSt3__110shared_ptrINS_17AudioAssetPayloadEEENS1_8functionIFvNS2_INS_18PersistedAssetDataEEEEEEENK3__0clEP6NSData_block_invoke_2;
+  block[3] = &__block_descriptor_88_ea8_40c76_ZTSNSt3__110shared_ptrINS_8functionIFvNS0_IN2re18PersistedAssetDataEEEEEEEE56c51_ZTSNSt3__110shared_ptrIN2re18PersistedAssetDataEEE72c50_ZTSNSt3__110shared_ptrIN2re17AudioAssetPayloadEEE_e5_v8__0l;
+  v9 = a1[8];
+  v8 = a1[9];
+  block[4] = v2;
+  block[5] = v9;
+  v15 = v8;
+  if (v8)
+  {
+    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v16 = v20;
+  v17 = v21;
+  if (v21)
+  {
+    atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v10 = a1[7];
+  v18 = a1[6];
+  v19 = v10;
+  if (v10)
+  {
+    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  dispatch_async(v7, block);
+  if (v19)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v19);
+  }
+
+  if (v17)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v17);
+  }
+
+  if (v15)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v15);
+  }
+
+  if (v21)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v21);
+  }
+}
+
+void sub_1E21488F4(_Unwind_Exception *exception_object)
+{
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v1);
+  }
+
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void ___ZZN2re18AudioManager_PHASE9loadAudioENSt3__110shared_ptrINS_17AudioAssetPayloadEEENS1_8functionIFvNS2_INS_18PersistedAssetDataEEEEEEENK3__0clEP6NSData_block_invoke_2(void *a1)
+{
+  v2 = a1[5];
+  v3 = a1[8];
+  v5 = a1[7];
+  v6 = v3;
+  if (v3)
+  {
+    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v4 = *(v2 + 24);
+  if (!v4)
+  {
+    std::__throw_bad_function_call[abi:ne200100]();
+  }
+
+  (*(*v4 + 48))(v4, &v5);
+  if (v6)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v6);
+  }
+
+  re::AudioManager_PHASE::deallocateTaskToken(*(a1[9] + 104));
+}
+
+void sub_1E21489B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
+{
+  if (a10)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](a10);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void *__copy_helper_block_ea8_40c76_ZTSNSt3__110shared_ptrINS_8functionIFvNS0_IN2re18PersistedAssetDataEEEEEEEE56c51_ZTSNSt3__110shared_ptrIN2re18PersistedAssetDataEEE72c50_ZTSNSt3__110shared_ptrIN2re17AudioAssetPayloadEEE(void *result, void *a2)
+{
+  v2 = a2[6];
+  result[5] = a2[5];
+  result[6] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v3 = a2[8];
+  result[7] = a2[7];
+  result[8] = v3;
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4 = a2[10];
+  result[9] = a2[9];
+  result[10] = v4;
+  if (v4)
+  {
+    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void __destroy_helper_block_ea8_40c76_ZTSNSt3__110shared_ptrINS_8functionIFvNS0_IN2re18PersistedAssetDataEEEEEEEE56c51_ZTSNSt3__110shared_ptrIN2re18PersistedAssetDataEEE72c50_ZTSNSt3__110shared_ptrIN2re17AudioAssetPayloadEEE(void *a1)
+{
+  v2 = a1[10];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
+  }
+
+  v3 = a1[8];
+  if (v3)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v3);
+  }
+
+  v4 = a1[6];
+  if (v4)
+  {
+
+    std::__shared_weak_count::__release_shared[abi:nn200100](v4);
+  }
+}
+
+void *__copy_helper_block_ea8_48c50_ZTSNSt3__110shared_ptrIN2re17AudioAssetPayloadEEE64c76_ZTSNSt3__110shared_ptrINS_8functionIFvNS0_IN2re18PersistedAssetDataEEEEEEEE(void *result, void *a2)
+{
+  v2 = a2[7];
+  result[6] = a2[6];
+  result[7] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v3 = a2[9];
+  result[8] = a2[8];
+  result[9] = v3;
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void __destroy_helper_block_ea8_48c50_ZTSNSt3__110shared_ptrIN2re17AudioAssetPayloadEEE64c76_ZTSNSt3__110shared_ptrINS_8functionIFvNS0_IN2re18PersistedAssetDataEEEEEEEE(uint64_t a1)
+{
+  v2 = *(a1 + 72);
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
+  }
+
+  v3 = *(a1 + 56);
+  if (v3)
+  {
+
+    std::__shared_weak_count::__release_shared[abi:nn200100](v3);
+  }
+}
+
+void ___ZZN2re18AudioManager_PHASE9loadAudioENSt3__110shared_ptrINS_17AudioAssetPayloadEEENS1_8functionIFvNS2_INS_18PersistedAssetDataEEEEEEENK3__0clEP6NSData_block_invoke_65(void *a1)
+{
+  v2 = a1[5];
+  v3 = UnfairLockedPointer<REPHASEContext>::get(*(v2 + 648) + 8);
+
+  if (!v3)
+  {
+    v11 = a1[7];
+    v23[0] = a1[6];
+    v23[1] = v11;
+    if (v11)
+    {
+      atomic_fetch_add_explicit((v11 + 8), 1uLL, memory_order_relaxed);
+    }
+
+    v12 = a1[8];
+    v13 = a1[9];
+    v22[0] = v12;
+    v22[1] = v13;
+    if (v13)
+    {
+      atomic_fetch_add_explicit((v13 + 8), 1uLL, memory_order_relaxed);
+    }
+
+    re::AudioManager_PHASE::storeAudioLoadAsPendingIfPhaseContextIsInactive(v2, v23, v22);
+  }
+
+  v4 = *(v2 + 648);
+  v5 = a1[4];
+  v6 = *(a1[6] + 120);
+  re::AudioManager_PHASE_Async::loadFileData(v4, v5, v6, (a1[6] + 16), *(a1[6] + 104), *(a1[6] + 112), &v20);
+
+  v7 = *(v2 + 8);
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3321888768;
+  block[2] = ___ZZN2re18AudioManager_PHASE9loadAudioENSt3__110shared_ptrINS_17AudioAssetPayloadEEENS1_8functionIFvNS2_INS_18PersistedAssetDataEEEEEEENK3__0clEP6NSData_block_invoke_2_66;
+  block[3] = &__block_descriptor_88_ea8_40c76_ZTSNSt3__110shared_ptrINS_8functionIFvNS0_IN2re18PersistedAssetDataEEEEEEEE56c51_ZTSNSt3__110shared_ptrIN2re18PersistedAssetDataEEE72c50_ZTSNSt3__110shared_ptrIN2re17AudioAssetPayloadEEE_e5_v8__0l;
+  v9 = a1[8];
+  v8 = a1[9];
+  block[4] = v2;
+  block[5] = v9;
+  v15 = v8;
+  if (v8)
+  {
+    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v16 = v20;
+  v17 = v21;
+  if (v21)
+  {
+    atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v10 = a1[7];
+  v18 = a1[6];
+  v19 = v10;
+  if (v10)
+  {
+    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  dispatch_async(v7, block);
+  if (v19)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v19);
+  }
+
+  if (v17)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v17);
+  }
+
+  if (v15)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v15);
+  }
+
+  if (v21)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v21);
+  }
+}
+
+void sub_1E2148CE0(_Unwind_Exception *exception_object)
+{
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v1);
+  }
+
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void ___ZZN2re18AudioManager_PHASE9loadAudioENSt3__110shared_ptrINS_17AudioAssetPayloadEEENS1_8functionIFvNS2_INS_18PersistedAssetDataEEEEEEENK3__0clEP6NSData_block_invoke_2_66(void *a1)
+{
+  v2 = a1[5];
+  v3 = a1[8];
+  v5 = a1[7];
+  v6 = v3;
+  if (v3)
+  {
+    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v4 = *(v2 + 24);
+  if (!v4)
+  {
+    std::__throw_bad_function_call[abi:ne200100]();
+  }
+
+  (*(*v4 + 48))(v4, &v5);
+  if (v6)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v6);
+  }
+
+  re::AudioManager_PHASE::deallocateTaskToken(*(a1[9] + 104));
+}
+
+void sub_1E2148DA4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
+{
+  if (a10)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](a10);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void std::__shared_ptr_emplace<std::function<void ()(std::shared_ptr<re::PersistedAssetData>)>>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_1F5CCBA90;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x1E6906520);
+}
+
+uint64_t std::__function::__value_func<void ()(std::shared_ptr<re::PersistedAssetData>)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
+{
+  v3 = (a2 + 24);
+  v4 = *(a2 + 24);
+  if (v4)
+  {
+    if (v4 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**v3 + 24))(*v3, a1);
+      return a1;
+    }
+
+    *(a1 + 24) = v4;
+  }
+
+  else
+  {
+    v3 = (a1 + 24);
+  }
+
+  *v3 = 0;
+  return a1;
+}
+
+uint64_t std::__function::__value_func<void ()(std::shared_ptr<re::PersistedAssetData>)>::~__value_func[abi:ne200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+void ___ZZN2re18AudioManager_PHASE9loadAudioENSt3__110shared_ptrINS_17AudioAssetPayloadEEENS1_8functionIFvNS2_INS_18PersistedAssetDataEEEEEEENK3__1clEP16AVAudioPCMBuffer_block_invoke(uint64_t a1)
+{
+  v2 = *(a1 + 40);
+  v3 = UnfairLockedPointer<REPHASEContext>::get(*(v2 + 648) + 8);
+
+  if (!v3)
+  {
+    v8 = *(a1 + 56);
+    v20[0] = *(a1 + 48);
+    v20[1] = v8;
+    if (v8)
+    {
+      atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
+    }
+
+    v9 = *(a1 + 64);
+    v10 = *(a1 + 72);
+    v19[0] = v9;
+    v19[1] = v10;
+    if (v10)
+    {
+      atomic_fetch_add_explicit((v10 + 8), 1uLL, memory_order_relaxed);
+    }
+
+    re::AudioManager_PHASE::storeAudioLoadAsPendingIfPhaseContextIsInactive(v2, v20, v19);
+  }
+
+  re::AudioManager_PHASE_Async::loadBuffer(*(v2 + 648), *(a1 + 32), *(a1 + 48) + 16, *(*(a1 + 48) + 104), *(*(a1 + 48) + 112), &v17);
+  v4 = *(v2 + 8);
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3321888768;
+  block[2] = ___ZZN2re18AudioManager_PHASE9loadAudioENSt3__110shared_ptrINS_17AudioAssetPayloadEEENS1_8functionIFvNS2_INS_18PersistedAssetDataEEEEEEENK3__1clEP16AVAudioPCMBuffer_block_invoke_2;
+  block[3] = &__block_descriptor_88_ea8_40c76_ZTSNSt3__110shared_ptrINS_8functionIFvNS0_IN2re18PersistedAssetDataEEEEEEEE56c51_ZTSNSt3__110shared_ptrIN2re18PersistedAssetDataEEE72c50_ZTSNSt3__110shared_ptrIN2re17AudioAssetPayloadEEE_e5_v8__0l;
+  v6 = *(a1 + 64);
+  v5 = *(a1 + 72);
+  block[4] = v2;
+  block[5] = v6;
+  v12 = v5;
+  if (v5)
+  {
+    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v13 = v17;
+  v14 = v18;
+  if (v18)
+  {
+    atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v7 = *(a1 + 56);
+  v15 = *(a1 + 48);
+  v16 = v7;
+  if (v7)
+  {
+    atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  dispatch_async(v4, block);
+  if (v16)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v16);
+  }
+
+  if (v14)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v14);
+  }
+
+  if (v12)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v12);
+  }
+
+  if (v18)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v18);
+  }
+}
+
+void sub_1E21490F4(_Unwind_Exception *exception_object)
+{
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v1);
+  }
+
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void ___ZZN2re18AudioManager_PHASE9loadAudioENSt3__110shared_ptrINS_17AudioAssetPayloadEEENS1_8functionIFvNS2_INS_18PersistedAssetDataEEEEEEENK3__1clEP16AVAudioPCMBuffer_block_invoke_2(void *a1)
+{
+  v2 = a1[5];
+  v3 = a1[8];
+  v5 = a1[7];
+  v6 = v3;
+  if (v3)
+  {
+    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v4 = *(v2 + 24);
+  if (!v4)
+  {
+    std::__throw_bad_function_call[abi:ne200100]();
+  }
+
+  (*(*v4 + 48))(v4, &v5);
+  if (v6)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v6);
+  }
+
+  re::AudioManager_PHASE::deallocateTaskToken(*(a1[9] + 104));
+}
+
+void sub_1E21491AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
+{
+  if (a10)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](a10);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void ___ZZN2re18AudioManager_PHASE9loadAudioENSt3__110shared_ptrINS_17AudioAssetPayloadEEENS1_8functionIFvNS2_INS_18PersistedAssetDataEEEEEEENK3__2clEP5NSURL_block_invoke(void *a1)
+{
+  v2 = a1[5];
+  v3 = UnfairLockedPointer<REPHASEContext>::get(*(v2 + 648) + 8);
+
+  if (!v3)
+  {
+    v11 = a1[7];
+    v23[0] = a1[6];
+    v23[1] = v11;
+    if (v11)
+    {
+      atomic_fetch_add_explicit((v11 + 8), 1uLL, memory_order_relaxed);
+    }
+
+    v12 = a1[8];
+    v13 = a1[9];
+    v22[0] = v12;
+    v22[1] = v13;
+    if (v13)
+    {
+      atomic_fetch_add_explicit((v13 + 8), 1uLL, memory_order_relaxed);
+    }
+
+    re::AudioManager_PHASE::storeAudioLoadAsPendingIfPhaseContextIsInactive(v2, v23, v22);
+  }
+
+  v4 = *(v2 + 648);
+  v5 = a1[4];
+  v6 = *(a1[6] + 120);
+  re::AudioManager_PHASE_Async::loadFile(v4, v5, v6, (a1[6] + 16), *(a1[6] + 104), *(a1[6] + 112), &v20);
+
+  v7 = *(v2 + 8);
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3321888768;
+  block[2] = ___ZZN2re18AudioManager_PHASE9loadAudioENSt3__110shared_ptrINS_17AudioAssetPayloadEEENS1_8functionIFvNS2_INS_18PersistedAssetDataEEEEEEENK3__2clEP5NSURL_block_invoke_2;
+  block[3] = &__block_descriptor_88_ea8_40c76_ZTSNSt3__110shared_ptrINS_8functionIFvNS0_IN2re18PersistedAssetDataEEEEEEEE56c51_ZTSNSt3__110shared_ptrIN2re18PersistedAssetDataEEE72c50_ZTSNSt3__110shared_ptrIN2re17AudioAssetPayloadEEE_e5_v8__0l;
+  v9 = a1[8];
+  v8 = a1[9];
+  block[4] = v2;
+  block[5] = v9;
+  v15 = v8;
+  if (v8)
+  {
+    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v16 = v20;
+  v17 = v21;
+  if (v21)
+  {
+    atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v10 = a1[7];
+  v18 = a1[6];
+  v19 = v10;
+  if (v10)
+  {
+    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  dispatch_async(v7, block);
+  if (v19)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v19);
+  }
+
+  if (v17)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v17);
+  }
+
+  if (v15)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v15);
+  }
+
+  if (v21)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v21);
+  }
+}
+
+void sub_1E21493A8(_Unwind_Exception *exception_object)
+{
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v1);
+  }
+
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void ___ZZN2re18AudioManager_PHASE9loadAudioENSt3__110shared_ptrINS_17AudioAssetPayloadEEENS1_8functionIFvNS2_INS_18PersistedAssetDataEEEEEEENK3__2clEP5NSURL_block_invoke_2(void *a1)
+{
+  v2 = a1[5];
+  v3 = a1[8];
+  v5 = a1[7];
+  v6 = v3;
+  if (v3)
+  {
+    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v4 = *(v2 + 24);
+  if (!v4)
+  {
+    std::__throw_bad_function_call[abi:ne200100]();
+  }
+
+  (*(*v4 + 48))(v4, &v5);
+  if (v6)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v6);
+  }
+
+  re::AudioManager_PHASE::deallocateTaskToken(*(a1[9] + 104));
+}
+
+void sub_1E214946C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
+{
+  if (a10)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](a10);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t std::__variant_detail::__dtor<std::__variant_detail::__traits<NSData * {__strong},AVAudioPCMBuffer * {__strong},NSURL * {__strong}>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](uint64_t result)
+{
+  v1 = result;
+  v2 = *(result + 8);
+  if (v2 != -1)
+  {
+    result = (off_1F5CCBAD0[v2])(&v3, result);
+  }
+
+  *(v1 + 8) = -1;
+  return result;
+}
+
+uint64_t std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
+{
+  v3 = (a2 + 24);
+  v4 = *(a2 + 24);
+  if (v4)
+  {
+    if (v4 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**v3 + 24))(*v3, a1);
+      return a1;
+    }
+
+    *(a1 + 24) = v4;
+  }
+
+  else
+  {
+    v3 = (a1 + 24);
+  }
+
+  *v3 = 0;
+  return a1;
+}
+
+void std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long long>>(uint64_t a1, unint64_t a2)
+{
+  if (!(a2 >> 61))
+  {
+    operator new();
+  }
+
+  std::__throw_bad_array_new_length[abi:ne200100]();
+}
+
+id *std::unique_ptr<re::AudioManager_PHASE_Async>::reset[abi:ne200100](id **a1, id *a2)
+{
+  result = *a1;
+  *a1 = a2;
+  if (result)
+  {
+    re::AudioManager_PHASE_Async::~AudioManager_PHASE_Async(result);
+
+    JUMPOUT(0x1E6906520);
+  }
+
+  return result;
+}
+
+re::AudioManager_PHASE_StateMachine *std::unique_ptr<re::AudioManager_PHASE_StateMachine>::reset[abi:ne200100](re::AudioManager_PHASE_StateMachine **a1, re::AudioManager_PHASE_StateMachine *a2)
+{
+  result = *a1;
+  *a1 = a2;
+  if (result)
+  {
+    re::AudioManager_PHASE_StateMachine::~AudioManager_PHASE_StateMachine(result);
+
+    JUMPOUT(0x1E6906520);
+  }
+
+  return result;
+}
+
+uint64_t std::__hash_table<std::__hash_value_type<std::string,re::AudioManager_PHASE::MixGroupState>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,re::AudioManager_PHASE::MixGroupState>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,re::AudioManager_PHASE::MixGroupState>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,re::AudioManager_PHASE::MixGroupState>>>::~__hash_table(uint64_t a1)
+{
+  std::__hash_table<std::__hash_value_type<std::string,re::AudioManager_PHASE::MixGroupState>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,re::AudioManager_PHASE::MixGroupState>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,re::AudioManager_PHASE::MixGroupState>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,re::AudioManager_PHASE::MixGroupState>>>::__deallocate_node(*(a1 + 16));
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    operator delete(v2);
+  }
+
+  return a1;
+}
+
+void std::__hash_table<std::__hash_value_type<std::string,re::AudioManager_PHASE::MixGroupState>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,re::AudioManager_PHASE::MixGroupState>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,re::AudioManager_PHASE::MixGroupState>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,re::AudioManager_PHASE::MixGroupState>>>::__deallocate_node(void *a1)
+{
+  if (a1)
+  {
+    v1 = a1;
+    do
+    {
+      v2 = *v1;
+      std::__destroy_at[abi:ne200100]<std::pair<std::string const,re::AudioManager_PHASE::MixGroupState>,0>((v1 + 2));
+      operator delete(v1);
+      v1 = v2;
+    }
+
+    while (v2);
+  }
+}
+
+void std::__destroy_at[abi:ne200100]<std::pair<std::string const,re::AudioManager_PHASE::MixGroupState>,0>(uint64_t a1)
+{
+  if (*(a1 + 23) < 0)
+  {
+    v2 = *a1;
+
+    operator delete(v2);
+  }
+}
+
+uint64_t std::__function::__value_func<void ()(re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>> *)>::~__value_func[abi:ne200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+re::UserActiveStateNotificationManager *std::unique_ptr<re::UserActiveStateNotificationManager>::reset[abi:ne200100](re::UserActiveStateNotificationManager **a1, re::UserActiveStateNotificationManager *a2)
+{
+  result = *a1;
+  *a1 = a2;
+  if (result)
+  {
+    re::UserActiveStateNotificationManager::~UserActiveStateNotificationManager(result);
+
+    JUMPOUT(0x1E6906520);
+  }
+
+  return result;
+}
+
+uint64_t std::__function::__value_func<std::unordered_map<unsigned long long,std::shared_ptr<re::PersistedAssetData>> ()(void)>::~__value_func[abi:ne200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+uint64_t std::__hash_table<std::__hash_value_type<unsigned long long,std::function<void ()(void)>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::function<void ()(void)>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::function<void ()(void)>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::function<void ()(void)>>>>::~__hash_table(uint64_t a1)
+{
+  std::__hash_table<std::__hash_value_type<unsigned long long,std::function<void ()(void)>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::function<void ()(void)>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::function<void ()(void)>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::function<void ()(void)>>>>::__deallocate_node(*(a1 + 16));
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    operator delete(v2);
+  }
+
+  return a1;
+}
+
+void std::__hash_table<std::__hash_value_type<unsigned long long,std::function<void ()(void)>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::function<void ()(void)>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::function<void ()(void)>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::function<void ()(void)>>>>::__deallocate_node(void *a1)
+{
+  if (a1)
+  {
+    v1 = a1;
+    do
+    {
+      v2 = *v1;
+      std::__function::__value_func<void ()(void)>::~__value_func[abi:nn200100]((v1 + 3));
+      operator delete(v1);
+      v1 = v2;
+    }
+
+    while (v2);
+  }
+}
+
+void *std::default_delete<re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>>>::operator()[abi:ne200100](void *result)
+{
+  if (result)
+  {
+    v1 = result;
+    v2 = *result;
+    if (v2)
+    {
+      v3 = v1[5];
+      if (v3)
+      {
+        if (v1[2])
+        {
+          v4 = 0;
+          do
+          {
+            std::__variant_detail::__dtor<std::__variant_detail::__traits<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v1[5] + 48 * ((v4 + v1[3]) % v1[1]));
+            ++v4;
+          }
+
+          while (v4 != v1[2]);
+          v2 = *v1;
+          v3 = v1[5];
+        }
+
+        (*(*v2 + 40))(v2, v3);
+      }
+
+      v1[5] = 0;
+      *v1 = 0u;
+      *(v1 + 1) = 0u;
+      *(v1 + 8) = 0;
+    }
+
+    JUMPOUT(0x1E6906520);
+  }
+
+  return result;
+}
+
+uint64_t std::__variant_detail::__dtor<std::__variant_detail::__traits<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](uint64_t result)
+{
+  v1 = result;
+  v2 = *(result + 40);
+  if (v2 != -1)
+  {
+    result = (off_1F5CCBAE8[v2])(&v3, result);
+  }
+
+  *(v1 + 40) = -1;
+  return result;
+}
+
+uint64_t re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>::deinit(uint64_t a1)
+{
+  result = *a1;
+  if (result)
+  {
+    v3 = *(a1 + 32);
+    if (v3)
+    {
+      v4 = *(a1 + 16);
+      if (v4)
+      {
+        v5 = 160 * v4;
+        do
+        {
+          std::__variant_detail::__dtor<std::__variant_detail::__traits<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v3);
+          v3 += 160;
+          v5 -= 160;
+        }
+
+        while (v5);
+        result = *a1;
+        v3 = *(a1 + 32);
+      }
+
+      result = (*(*result + 40))(result, v3);
+    }
+
+    *(a1 + 32) = 0;
+    *(a1 + 8) = 0;
+    *(a1 + 16) = 0;
+    *a1 = 0;
+    ++*(a1 + 24);
+  }
+
+  return result;
+}
+
+uint64_t re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>::deinit(uint64_t a1)
+{
+  result = *a1;
+  if (result)
+  {
+    v3 = *(a1 + 32);
+    if (v3)
+    {
+      v4 = *(a1 + 16);
+      if (v4)
+      {
+        v5 = 168 * v4;
+        do
+        {
+          std::__variant_detail::__dtor<std::__variant_detail::__traits<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v3);
+          v3 += 168;
+          v5 -= 168;
+        }
+
+        while (v5);
+        result = *a1;
+        v3 = *(a1 + 32);
+      }
+
+      result = (*(*result + 40))(result, v3);
+    }
+
+    *(a1 + 32) = 0;
+    *(a1 + 8) = 0;
+    *(a1 + 16) = 0;
+    *a1 = 0;
+    ++*(a1 + 24);
+  }
+
+  return result;
+}
+
+uint64_t std::__variant_detail::__dtor<std::__variant_detail::__traits<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](uint64_t result)
+{
+  v1 = result;
+  v2 = *(result + 160);
+  if (v2 != -1)
+  {
+    result = (off_1F5CCBB00[v2])(&v3, result);
+  }
+
+  *(v1 + 160) = -1;
+  return result;
+}
+
+void _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8ne200100IOZNS0_6__dtorINS0_8__traitsIJN2re5audio22AcousticMeshUpdateDataENS9_27AcousticARKitMeshUpdateDataEEEELNS0_6_TraitE1EE9__destroyB8ne200100EvEUlRT_E_JRNS0_6__baseILSD_1EJSA_SB_EEEEEEDcSF_DpT0_(uint64_t a1, uint64_t a2)
+{
+  re::DynamicArray<re::AcousticSoundReductionMaterial>::deinit(a2 + 120);
+  re::DynamicArray<re::AcousticScatteringMaterial>::deinit(a2 + 80);
+  re::DynamicArray<re::AcousticAbsorptionMaterial>::deinit(a2 + 40);
+  v3 = *(a2 + 32);
+}
+
+uint64_t std::__function::__func<std::default_delete<re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>>>,std::allocator<std::default_delete<re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>>>>,void ()(re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>>*)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+void std::__shared_ptr_emplace<re::AudioEngineRunnableManager>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_1F5CCBBB0;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x1E6906520);
+}
+
+uint64_t std::__function::__value_func<std::unordered_map<unsigned long long,std::shared_ptr<re::PersistedAssetData>> ()(void)>::operator=[abi:ne200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  *(a1 + 24) = 0;
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__value_func<std::unordered_map<unsigned long long,std::shared_ptr<re::PersistedAssetData>> ()(void)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
 {
   v3 = *(a2 + 24);
   if (v3)
@@ -3758,5194 +7680,22 @@ uint64_t std::__function::__value_func<void ()(re::EventQueue &)>::__value_func[
   return a1;
 }
 
-void *std::__function::__value_func<void ()(re::EventQueue &)>::swap[abi:nn200100](void *result, void *a2)
-{
-  v5[3] = *MEMORY[0x1E69E9840];
-  if (a2 != result)
-  {
-    v3 = result;
-    result = result[3];
-    v4 = a2[3];
-    if (result == v3)
-    {
-      if (v4 == a2)
-      {
-        (*(*result + 24))(result, v5);
-        (*(*v3[3] + 32))(v3[3]);
-        v3[3] = 0;
-        (*(*a2[3] + 24))(a2[3], v3);
-        (*(*a2[3] + 32))(a2[3]);
-        a2[3] = 0;
-        v3[3] = v3;
-        (*(v5[0] + 24))(v5, a2);
-        result = (*(v5[0] + 32))(v5);
-      }
-
-      else
-      {
-        (*(*result + 24))(result, a2);
-        result = (*(*v3[3] + 32))(v3[3]);
-        v3[3] = a2[3];
-      }
-
-      a2[3] = a2;
-    }
-
-    else if (v4 == a2)
-    {
-      (*(*v4 + 24))(a2[3], v3);
-      result = (*(*a2[3] + 32))(a2[3]);
-      a2[3] = v3[3];
-      v3[3] = v3;
-    }
-
-    else
-    {
-      v3[3] = v4;
-      a2[3] = result;
-    }
-  }
-
-  return result;
-}
-
-uint64_t std::__function::__value_func<void ()(re::EventQueue &)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-void re::internal::refCountCheckFailHandler(re::internal *this, const void *a2, const void *a3)
-{
-  v17 = *MEMORY[0x1E69E9840];
-  if (this)
-  {
-    v5 = "Retain";
-  }
-
-  else
-  {
-    v5 = "Release";
-  }
-
-  fprintf(*MEMORY[0x1E69E9848], "Ref count out of range on %s. %p (retain count is %d 0x%x)\n", v5, a2, a3, a3);
-  if ((atomic_load_explicit(&qword_1EE19D9A8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE19D9A8))
-  {
-    re::Defaults::BOOLValue("crashOnRefCountCheckFail", v6, buf);
-    if (buf[0])
-    {
-      v8 = buf[1];
-    }
-
-    else
-    {
-      v8 = 0;
-    }
-
-    _MergedGlobals_133 = v8;
-    __cxa_guard_release(&qword_1EE19D9A8);
-  }
-
-  if (_MergedGlobals_133 == 1)
-  {
-    re::internal::assertLog(8, v6, "assertion failure: '%s' (%s:line %i) Ref count out of range on %s. %p (retain count is %d 0x%x)\n", "false", "refCountCheckFailHandler", 30, v5, a2, a3, a3);
-    _os_crash();
-    __break(1u);
-  }
-
-  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-  {
-    *buf = 136315906;
-    v10 = v5;
-    v11 = 2048;
-    v12 = a2;
-    v13 = 1024;
-    v14 = a3;
-    v15 = 1024;
-    v16 = a3;
-    _os_log_error_impl(&dword_1E1C61000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Ref count out of range on %s. %p (retain count is %d 0x%x)\n", buf, 0x22u);
-  }
-
-  re::internal::logStackTrace(0, 0, v7);
-}
-
-re::PageDebugAllocator *re::PageDebugAllocator::PageDebugAllocator(re::PageDebugAllocator *this, const char *a2, int a3, unint64_t a4)
-{
-  v6 = re::Allocator::Allocator(this, a2, a3);
-  *v6 = &unk_1F5CCF090;
-  *(v6 + 5) = 0;
-  *(v6 + 3) = 0u;
-  *(v6 + 8) = 0;
-  *(v6 + 2) = 0u;
-  v7 = (v6 + 32);
-  return this;
-}
-
-void re::PageDebugAllocator::~PageDebugAllocator(re::PageDebugAllocator *this)
-{
-  os_unfair_lock_lock(this + 5);
-  v3 = *(this + 7);
-  v4 = *(this + 8);
-  v2 = (this + 56);
-  if (v3 != v4)
-  {
-    v5 = MEMORY[0x1E69E9A60];
-    do
-    {
-      v6 = *(this + 5);
-      v7 = (v6 - 1) & v3;
-      if (v6 <= v7)
-      {
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-      }
-
-      mach_vm_deallocate(*v5, *(*(this + 6) + 16 * v7), *(*(this + 6) + 16 * v7 + 8));
-      ++v3;
-    }
-
-    while (v4 != v3);
-  }
-
-  *v2 = 0;
-  *(this + 8) = 0;
-  os_unfair_lock_unlock(this + 5);
-  *v2 = 0;
-  *(this + 8) = 0;
-  re::FixedArray<CoreIKTransform>::deinit(this + 4);
-  re::FixedArray<CoreIKTransform>::deinit(this + 4);
-
-  re::Allocator::~Allocator(this);
-}
-
-{
-  re::PageDebugAllocator::~PageDebugAllocator(this);
-
-  JUMPOUT(0x1E6906520);
-}
-
-mach_vm_address_t re::PageDebugAllocator::alloc(os_unfair_lock_s *this, uint64_t a2)
-{
-  os_unfair_lock_lock(this + 5);
-  v4 = ~*MEMORY[0x1E69E9AB8] & (a2 + *MEMORY[0x1E69E9AB8] + 16);
-  address = 0;
-  v5 = 0;
-  if (!mach_vm_map(*MEMORY[0x1E69E9A60], &address, v4, 0, 1, 0, 0, 0, 3, 3, 2u))
-  {
-    v6 = address;
-    *address = a2;
-    *(v6 + 8) = v4;
-    v5 = v6 + 16;
-    __dmb(0xBu);
-  }
-
-  os_unfair_lock_unlock(this + 5);
-  return v5;
-}
-
-void re::PageDebugAllocator::free(os_unfair_lock_s *this, void *a2)
-{
-  v30 = *MEMORY[0x1E69E9840];
-  os_unfair_lock_lock(this + 5);
-  __dmb(0xBu);
-  v4 = (a2 - 2);
-  v5 = *(a2 - 1);
-  address = v4;
-  v6 = MEMORY[0x1E69E9A60];
-  mach_vm_map(*MEMORY[0x1E69E9A60], &address, v5, 0, 0x4000, 0, 0, 0, 0, 3, 2u);
-  v8 = *&this[14]._os_unfair_lock_opaque;
-  v7 = *&this[16]._os_unfair_lock_opaque;
-  v9 = v7 - v8;
-  v10 = *&this[10]._os_unfair_lock_opaque;
-  if (v7 - v8 == v10)
-  {
-    v10 = (v9 - 1) & v8;
-    if (v9 <= v10)
-    {
-      goto LABEL_9;
-    }
-
-    v11 = (*&this[12]._os_unfair_lock_opaque + 16 * v10);
-    mach_vm_deallocate(*v6, *v11, v11[1]);
-    *v11 = 0;
-    v11[1] = 0;
-    v7 = *&this[16]._os_unfair_lock_opaque;
-    v12 = *&this[14]._os_unfair_lock_opaque + 1;
-    *&this[14]._os_unfair_lock_opaque = v12;
-    v10 = *&this[10]._os_unfair_lock_opaque;
-    v9 = v7 - v12;
-  }
-
-  v13 = v7 + 1;
-  if (v9 == v10)
-  {
-    *&this[14]._os_unfair_lock_opaque = v13 - v9;
-  }
-
-  *&this[16]._os_unfair_lock_opaque = v13;
-  v9 = (v10 - 1) & v7;
-  if (v10 <= v9)
-  {
-    v16 = 0;
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
-    v27 = 0u;
-    v25 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v17 = 136315906;
-    v18 = "operator[]";
-    v19 = 1024;
-    v20 = 468;
-    v21 = 2048;
-    v22 = v9;
-    v23 = 2048;
-    v24 = v10;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_9:
-    v16 = 0;
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
-    v27 = 0u;
-    v25 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v17 = 136315906;
-    v18 = "operator[]";
-    v19 = 1024;
-    v20 = 468;
-    v21 = 2048;
-    v22 = v10;
-    v23 = 2048;
-    v24 = v9;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  v14 = (*&this[12]._os_unfair_lock_opaque + 16 * v9);
-  *v14 = v4;
-  v14[1] = v5;
-  os_unfair_lock_unlock(this + 5);
-}
-
-uint64_t re::PageDebugAllocator::statistics(os_unfair_lock_s *this)
-{
-  os_unfair_lock_lock(this + 5);
-  os_unfair_lock_unlock(this + 5);
-  return 0;
-}
-
-void re::PageDebugAllocator::logMemoryLeaks(os_unfair_lock_s *this)
-{
-  os_unfair_lock_lock(this + 5);
-
-  os_unfair_lock_unlock(this + 5);
-}
-
-void re::FixedArray<re::PageDebugAllocator::DeferredFree>::init<>(uint64_t *a1, uint64_t a2, unint64_t a3)
-{
-  *a1 = a2;
-  a1[1] = a3;
-  if (!a3)
-  {
-    return;
-  }
-
-  if (a3 >> 60)
-  {
-    re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in FixedArray<T>::init(). Element size = %zu, count = %zu", "!overflow", "init", 324, 16, a3);
-    _os_crash();
-    __break(1u);
-    goto LABEL_9;
-  }
-
-  v5 = 16 * a3;
-  v6 = (*(*a2 + 32))(a2, 16 * a3, 8);
-  a1[2] = v6;
-  if (!v6)
-  {
-LABEL_9:
-    re::internal::assertLog(4, v7, "assertion failure: '%s' (%s:line %i) Out of memory.", "m_data", "init", 327);
-    _os_crash();
-    __break(1u);
-    return;
-  }
-
-  v8 = v6;
-  if (a3 != 1)
-  {
-    bzero(v6, v5 - 16);
-    v8 = (v8 + v5 - 16);
-  }
-
-  *v8 = 0;
-  v8[1] = 0;
-}
-
-id *re::ObjCObject::operator=(id *location, id *a2)
-{
-  if (location != a2)
-  {
-    objc_storeStrong(location, *a2);
-  }
-
-  return location;
-}
-
-void **re::ObjCObject::operator=(void **a1, void *a2)
-{
-  v3 = a2;
-  v4 = *a1;
-  if (*a1 != v3)
-  {
-    *a1 = v3;
-
-    v3 = 0;
-  }
-
-  return a1;
-}
-
-const char *re::ObjCObject::description(id *this)
-{
-  v1 = [*this description];
-  v2 = v1;
-  if (v1)
-  {
-    v3 = [v1 UTF8String];
-  }
-
-  else
-  {
-    v3 = "nil";
-  }
-
-  return v3;
-}
-
-re::ns::String *re::ns::String::String(re::ns::String *this, re::mtl *a2)
-{
-  v3 = re::mtl::convertToNSString(a2, a2);
-  *this = v3;
-
-  return this;
-}
-
-void re::ns::String::format(re::ns::String *this@<X0>, void *a2@<X8>, ...)
-{
-  va_start(va, a2);
-  v5 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:this];
-  v7 = [v5 initWithFormat:v6 arguments:va];
-
-  v8 = v7;
-  *a2 = v8;
-}
-
-uint64_t re::getRealityFilePlatformFromName(re *this, const char *a2)
-{
-  if (!strcasecmp(this, "macos"))
-  {
-    return 3;
-  }
-
-  if (!strcasecmp(this, "ios"))
-  {
-    return 2;
-  }
-
-  v3 = strcasecmp(this, "xros");
-  if (!v3)
-  {
-    v5 = *re::foundationCoreLogObjects(v3);
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      *v6 = 0;
-      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Detected 'xros' platform name in getVersionFromDeploymentTarget, use visionOS instead", v6, 2u);
-    }
-
-    return 4;
-  }
-
-  if (!strcasecmp(this, "visionos"))
-  {
-    return 4;
-  }
-
-  if (!strcasecmp(this, "tvos"))
-  {
-    return 5;
-  }
-
-  else
-  {
-    return strcasecmp(this, "all") == 0;
-  }
-}
-
-re::DynamicString *re::DynamicString::DynamicString(re::DynamicString *this)
-{
-  *this = 0u;
-  *(this + 1) = 0u;
-  re::DynamicString::setCapacity(this, 0);
-  return this;
-}
-
-re::DynamicString *re::DynamicString::DynamicString(re::DynamicString *this, const char *__s, re::Allocator *a3)
-{
-  *this = 0u;
-  *(this + 1) = 0u;
-  v6 = strlen(__s);
-  if (v6)
-  {
-    v7 = v6;
-    *this = a3;
-    re::DynamicString::setCapacity(this, v6 + 1);
-    re::DynamicString::assign(this, __s, v7);
-  }
-
-  else
-  {
-    *this = a3;
-    re::DynamicString::setCapacity(this, 0);
-  }
-
-  return this;
-}
-
-void *re::DynamicString::assign(re::DynamicString *this, const char *__src, size_t __len)
-{
-  v6 = *(this + 1);
-  if (v6)
-  {
-    v7 = *(this + 3);
-  }
-
-  else
-  {
-    v7 = 23;
-  }
-
-  if (v7 <= __len)
-  {
-    re::DynamicString::growCapacity(this, __len + 1);
-    v6 = *(this + 1);
-  }
-
-  if (v6)
-  {
-    v8 = *(this + 2);
-  }
-
-  else
-  {
-    v8 = this + 9;
-  }
-
-  result = memmove(v8, __src, __len);
-  if (*(this + 8))
-  {
-    v10 = *(this + 2);
-  }
-
-  else
-  {
-    v10 = this + 9;
-  }
-
-  v10[__len] = 0;
-  if (*(this + 8))
-  {
-    *(this + 1) = (2 * __len) | 1;
-  }
-
-  else
-  {
-    *(this + 8) = 2 * __len;
-  }
-
-  return result;
-}
-
-re::DynamicString *re::DynamicString::DynamicString(re::DynamicString *this, const char *a2, size_t a3, re::Allocator *a4)
-{
-  *this = 0u;
-  *(this + 1) = 0u;
-  if (a3)
-  {
-    *this = a4;
-    re::DynamicString::setCapacity(this, a3 + 1);
-    re::DynamicString::assign(this, a2, a3);
-  }
-
-  else
-  {
-    *this = a4;
-    re::DynamicString::setCapacity(this, 0);
-  }
-
-  return this;
-}
-
-re::DynamicString *re::DynamicString::DynamicString(re::DynamicString *this, const re::DynamicString *a2)
-{
-  *this = 0u;
-  *(this + 1) = 0u;
-  v4 = *(a2 + 1);
-  if (v4)
-  {
-    v5 = v4 >> 1;
-  }
-
-  else
-  {
-    v5 = v4 >> 1;
-  }
-
-  if (v5)
-  {
-    *this = *a2;
-    re::DynamicString::setCapacity(this, v5 + 1);
-    re::DynamicString::copy(this, a2);
-  }
-
-  else
-  {
-    v6 = *a2;
-    if (!*a2)
-    {
-    }
-
-    *this = v6;
-    re::DynamicString::setCapacity(this, 0);
-  }
-
-  return this;
-}
-
-void *re::DynamicString::copy(void *this, const re::DynamicString *a2)
-{
-  v2 = this;
-  v3 = *(a2 + 1);
-  v4 = v3 >> 1;
-  if ((v3 & 1) == 0)
-  {
-    v4 = v3 >> 1;
-  }
-
-  v5 = this[1];
-  if (v4)
-  {
-    if (v5)
-    {
-      v7 = this[3];
-    }
-
-    else
-    {
-      v7 = 23;
-    }
-
-    if (v4 >= v7)
-    {
-      re::DynamicString::setCapacity(this, v4 + 1);
-      v5 = v2[1];
-    }
-
-    if (v5)
-    {
-      v9 = v2[2];
-    }
-
-    else
-    {
-      v9 = v2 + 9;
-    }
-
-    v10 = *(a2 + 1);
-    if (v10)
-    {
-      v11 = *(a2 + 2);
-    }
-
-    else
-    {
-      v11 = a2 + 9;
-    }
-
-    v12 = v10 >> 1;
-    v13 = v10 >> 1;
-    if (*(a2 + 1))
-    {
-      v13 = v12;
-    }
-
-    this = memmove(v9, v11, v13 + 1);
-    v14 = *(a2 + 1);
-    if (v2[1])
-    {
-      v15 = 254;
-      if (v14)
-      {
-        v15 = -2;
-      }
-
-      v2[1] = v15 & v14 | 1;
-    }
-
-    else
-    {
-      *(v2 + 8) = v14 & 0xFE;
-    }
-  }
-
-  else
-  {
-    if (v5)
-    {
-      this[1] = 1;
-      v8 = this[2];
-    }
-
-    else
-    {
-      *(this + 8) = 0;
-      v8 = this + 9;
-    }
-
-    *v8 = 0;
-  }
-
-  return this;
-}
-
-re::DynamicString *re::DynamicString::operator=(re::DynamicString *this, uint64_t a2)
-{
-  v3 = *(a2 + 8);
-  if (v3)
-  {
-    if (!*this)
-    {
-      re::DynamicString::setCapacity(this, v3 + 1);
-    }
-
-    re::DynamicString::assign(this, *a2, v3);
-  }
-
-  else
-  {
-    if (*(this + 8))
-    {
-      *(this + 1) = 1;
-      v5 = *(this + 2);
-    }
-
-    else
-    {
-      *(this + 8) = 0;
-      v5 = this + 9;
-    }
-
-    *v5 = 0;
-  }
-
-  return this;
-}
-
-re::DynamicString *re::DynamicString::DynamicString(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  *a1 = 0u;
-  *(a1 + 16) = 0u;
-  v5 = *(a2 + 8);
-  if (v5)
-  {
-    v6 = v5 + 1;
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  *a1 = a3;
-  re::DynamicString::setCapacity(a1, v6);
-
-  return re::DynamicString::operator=(a1, a2);
-}
-
-void *re::DynamicString::setCapacity(void *this, size_t __n)
-{
-  v3 = this;
-  v4 = this[1];
-  if (__n <= 0x17)
-  {
-    if ((v4 & 1) == 0)
-    {
-      return this;
-    }
-
-    goto LABEL_6;
-  }
-
-  if (v4)
-  {
-LABEL_6:
-    v5 = 0;
-    v6 = this[3];
-    goto LABEL_7;
-  }
-
-  v5 = 1;
-  v6 = 23;
-LABEL_7:
-  if (v6 != __n)
-  {
-    v7 = v5 ? v4 >> 1 : v4 >> 1;
-    if (v7 < __n)
-    {
-      if (__n > 0x16)
-      {
-        this = (*(**this + 32))();
-        if (!this)
-        {
-          re::internal::assertLog(4, v10, "assertion failure: '%s' (%s:line %i) Out of memory.", "newBuffer", "setCapacity", 455);
-          this = _os_crash();
-          __break(1u);
-          return this;
-        }
-
-        v11 = this;
-        *this = 0;
-        v12 = v3[1];
-        v13 = v12 >> 1;
-        if ((v12 & 1) == 0)
-        {
-          v13 = v12 >> 1;
-        }
-
-        if (v13)
-        {
-          if (v12)
-          {
-            v14 = v3[2];
-          }
-
-          else
-          {
-            v14 = v3 + 9;
-          }
-
-          this = memcpy(this, v14, v13 + 1);
-          v12 = v3[1];
-        }
-
-        if (v12)
-        {
-          this = (*(**v3 + 40))(*v3, v3[2]);
-          v15 = v3[1];
-        }
-
-        else
-        {
-          v15 = v12 & 0xFE;
-        }
-
-        v3[2] = v11;
-        v3[3] = __n;
-        v9 = v15 | 1;
-      }
-
-      else
-      {
-        v8 = this[2];
-        *(this + 8) = v4;
-        memcpy(this + 9, v8, __n);
-        this = (*(**v3 + 40))(*v3, v8);
-        v9 = v3[1] & 0xFFFFFFFFFFFFFFFELL;
-      }
-
-      v3[1] = v9;
-    }
-  }
-
-  return this;
-}
-
-double re::DynamicString::deinit(re::DynamicString *this)
-{
-  v2 = *this;
-  if (v2)
-  {
-    if (*(this + 8))
-    {
-      (*(*v2 + 40))(v2, *(this + 2));
-    }
-
-    result = 0.0;
-    *this = 0u;
-    *(this + 1) = 0u;
-  }
-
-  return result;
-}
-
-re::DynamicString *re::DynamicString::operator=(re::DynamicString *this, re::DynamicString *a2)
-{
-  if (this == a2)
-  {
-    return this;
-  }
-
-  v4 = *a2;
-  if (!*this)
-  {
-    if (!v4)
-    {
-      return this;
-    }
-
-    v6 = *(a2 + 1);
-    if (v6)
-    {
-      v7 = v6 >> 1;
-    }
-
-    else
-    {
-      v7 = v6 >> 1;
-    }
-
-    *this = v4;
-    re::DynamicString::setCapacity(this, v7 + 1);
-LABEL_11:
-    re::DynamicString::copy(this, a2);
-    return this;
-  }
-
-  if (v4)
-  {
-    goto LABEL_11;
-  }
-
-  if (*(this + 8))
-  {
-    *(this + 1) = 1;
-    v5 = *(this + 2);
-  }
-
-  else
-  {
-    *(this + 8) = 0;
-    v5 = this + 9;
-  }
-
-  *v5 = 0;
-  return this;
-}
-
-{
-  if (this != a2)
-  {
-    v3 = *this;
-    v4 = *a2;
-    if (*this)
-    {
-      v5 = v3 == v4;
-    }
-
-    else
-    {
-      v5 = 1;
-    }
-
-    if (v5)
-    {
-      *this = v4;
-      *a2 = v3;
-      v6 = *(this + 3);
-      *(this + 3) = *(a2 + 3);
-      *(a2 + 3) = v6;
-      v8 = *(this + 1);
-      v7 = *(this + 2);
-      v9 = *(a2 + 2);
-      *(this + 1) = *(a2 + 1);
-      *(this + 2) = v9;
-      *(a2 + 1) = v8;
-      *(a2 + 2) = v7;
-    }
-
-    else if (v4)
-    {
-      re::DynamicString::copy(this, a2);
-    }
-
-    else
-    {
-      if (*(this + 8))
-      {
-        *(this + 1) = 1;
-        v10 = *(this + 2);
-      }
-
-      else
-      {
-        *(this + 8) = 0;
-        v10 = this + 9;
-      }
-
-      *v10 = 0;
-    }
-  }
-
-  return this;
-}
-
-re::DynamicString *re::DynamicString::operator=(re::DynamicString *a1, char *__s)
-{
-  v4[0] = __s;
-  v4[1] = strlen(__s);
-  return re::DynamicString::operator=(a1, v4);
-}
-
-uint64_t re::DynamicString::operator[](uint64_t a1, unint64_t a2)
-{
-  v4 = *(a1 + 8);
-  v5 = v4 >> 1;
-  if ((v4 & 1) == 0)
-  {
-    v5 = v4 >> 1;
-  }
-
-  if (v5 < a2)
-  {
-    re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, length = %zu", "index <= size()", "operator[]", 180, a2, v5, v2, v3);
-    result = _os_crash();
-    __break(1u);
-  }
-
-  else
-  {
-    if (v4)
-    {
-      v6 = *(a1 + 16);
-    }
-
-    else
-    {
-      v6 = a1 + 9;
-    }
-
-    return v6 + a2;
-  }
-
-  return result;
-}
-
-{
-  v4 = *(a1 + 8);
-  v5 = v4 >> 1;
-  if ((v4 & 1) == 0)
-  {
-    v5 = v4 >> 1;
-  }
-
-  if (v5 < a2)
-  {
-    re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, length = %zu", "index <= size()", "operator[]", 188, a2, v5, v2, v3);
-    result = _os_crash();
-    __break(1u);
-  }
-
-  else
-  {
-    if (v4)
-    {
-      v6 = *(a1 + 16);
-    }
-
-    else
-    {
-      v6 = a1 + 9;
-    }
-
-    return v6 + a2;
-  }
-
-  return result;
-}
-
-BOOL re::DynamicString::operator==(uint64_t a1, uint64_t a2)
-{
-  if (*(a1 + 8))
-  {
-    v2 = *(a1 + 16);
-  }
-
-  else
-  {
-    v2 = (a1 + 9);
-  }
-
-  if (*(a2 + 8))
-  {
-    v3 = *(a2 + 16);
-  }
-
-  else
-  {
-    v3 = (a2 + 9);
-  }
-
-  return strcmp(v2, v3) == 0;
-}
-
-BOOL re::DynamicString::operator!=(uint64_t a1, uint64_t a2)
-{
-  if (*(a1 + 8))
-  {
-    v2 = *(a1 + 16);
-  }
-
-  else
-  {
-    v2 = (a1 + 9);
-  }
-
-  if (*(a2 + 8))
-  {
-    v3 = *(a2 + 16);
-  }
-
-  else
-  {
-    v3 = (a2 + 9);
-  }
-
-  return strcmp(v2, v3) != 0;
-}
-
-uint64_t re::DynamicString::operator<(uint64_t a1, uint64_t a2)
-{
-  if (*(a1 + 8))
-  {
-    v2 = *(a1 + 16);
-  }
-
-  else
-  {
-    v2 = (a1 + 9);
-  }
-
-  if (*(a2 + 8))
-  {
-    v3 = *(a2 + 16);
-  }
-
-  else
-  {
-    v3 = (a2 + 9);
-  }
-
-  return strcmp(v2, v3) >> 31;
-}
-
-void *re::DynamicString::append(re::DynamicString *this, const char *__src, size_t __len)
-{
-  v6 = *(this + 1);
-  v7 = v6 >> 1;
-  if ((v6 & 1) == 0)
-  {
-    v7 = v6 >> 1;
-  }
-
-  v8 = v7 + __len;
-  if (v6)
-  {
-    v9 = *(this + 3);
-  }
-
-  else
-  {
-    v9 = 23;
-  }
-
-  if (v8 >= v9)
-  {
-    re::DynamicString::growCapacity(this, v8 + 1);
-    v6 = *(this + 1);
-  }
-
-  if (v6)
-  {
-    v10 = *(this + 2);
-  }
-
-  else
-  {
-    v10 = this + 9;
-  }
-
-  if (v6)
-  {
-    v11 = v6 >> 1;
-  }
-
-  else
-  {
-    v11 = v6 >> 1;
-  }
-
-  result = memmove(&v10[v11], __src, __len);
-  v13 = *(this + 1);
-  if (v13)
-  {
-    v14 = v13 + 2 * __len;
-    *(this + 1) = v14;
-    if (v14)
-    {
-      goto LABEL_16;
-    }
-  }
-
-  else
-  {
-    *(this + 8) = v13 + 2 * __len;
-    v14 = *(this + 1);
-    if (v14)
-    {
-LABEL_16:
-      v15 = *(this + 2);
-      goto LABEL_19;
-    }
-  }
-
-  v15 = this + 9;
-LABEL_19:
-  if (v14)
-  {
-    v16 = v14 >> 1;
-  }
-
-  else
-  {
-    v16 = v14 >> 1;
-  }
-
-  v15[v16] = 0;
-  return result;
-}
-
-void *re::DynamicString::operator+@<X0>(re::DynamicString *a1@<X0>, uint64_t a2@<X1>, re::DynamicString *a3@<X8>)
-{
-  v4 = re::DynamicString::DynamicString(a3, a1);
-  v5 = *(a2 + 8);
-  if (v5)
-  {
-    v6 = *(a2 + 16);
-  }
-
-  else
-  {
-    v6 = (a2 + 9);
-  }
-
-  v7 = v5 >> 1;
-  v8 = v5 >> 1;
-  if (*(a2 + 8))
-  {
-    v9 = v7;
-  }
-
-  else
-  {
-    v9 = v8;
-  }
-
-  return re::DynamicString::append(v4, v6, v9);
-}
-
-void *re::DynamicString::operator+@<X0>(re::DynamicString *a1@<X0>, const char *a2@<X1>, re::DynamicString *a3@<X8>)
-{
-  re::DynamicString::DynamicString(a3, a1);
-  v5 = strlen(a2);
-
-  return re::DynamicString::append(a3, a2, v5);
-}
-
-uint64_t re::DynamicString::compare(re::DynamicString *this, const re::DynamicString *a2)
-{
-  if (*(this + 8))
-  {
-    v2 = *(this + 2);
-  }
-
-  else
-  {
-    v2 = this + 9;
-  }
-
-  if (*(a2 + 1))
-  {
-    v3 = *(a2 + 2);
-  }
-
-  else
-  {
-    v3 = a2 + 9;
-  }
-
-  return strcmp(v2, v3);
-}
-
-void *re::DynamicString::growCapacity(void *this, size_t a2)
-{
-  if (this[1])
-  {
-    v3 = this[3];
-    if (v3 >= a2)
-    {
-      return this;
-    }
-
-    v2 = 2 * v3;
-  }
-
-  else
-  {
-    if (a2 <= 0x17)
-    {
-      return this;
-    }
-
-    v2 = 64;
-  }
-
-  if (v2 > a2)
-  {
-    a2 = v2;
-  }
-
-  return re::DynamicString::setCapacity(this, a2);
-}
-
-uint64_t re::DynamicString::vappendf(re::DynamicString *this, const char *__format, va_list a3)
-{
-  v5 = *(this + 1);
-  if (v5)
-  {
-    v6 = v5 >> 1;
-    v8 = *(this + 3);
-    v7 = (*(this + 2) + (v5 >> 1));
-  }
-
-  else
-  {
-    v6 = v5 >> 1;
-    v7 = this + v6 + 9;
-    v8 = 23;
-  }
-
-  result = vsnprintf(v7, v8 - v6, __format, a3);
-  v10 = *(this + 1);
-  if ((result & 0x80000000) == 0)
-  {
-    v11 = v10 >> 1;
-    v12 = v10 >> 1;
-    if (v10)
-    {
-      v12 = v10 >> 1;
-    }
-
-    v13 = v12 + result;
-    if (v10)
-    {
-      if (v13 >= *(this + 3))
-      {
-        v14 = *(this + 2);
-        if (!v14)
-        {
-LABEL_16:
-          re::DynamicString::growCapacity(this, result + v11 + 1);
-          v17 = *(this + 1);
-          if (v17)
-          {
-            v18 = v17 >> 1;
-            v20 = *(this + 3);
-            v19 = (*(this + 2) + (v17 >> 1));
-          }
-
-          else
-          {
-            v18 = v17 >> 1;
-            v19 = this + v18 + 9;
-            v20 = 23;
-          }
-
-          result = vsnprintf(v19, v20 - v18, __format, a3);
-          goto LABEL_25;
-        }
-
-LABEL_14:
-        v14[v12] = 0;
-        v16 = *(this + 1);
-        v11 = v16 >> 1;
-        if ((v16 & 1) == 0)
-        {
-          v11 = v16 >> 1;
-        }
-
-        goto LABEL_16;
-      }
-    }
-
-    else if (v13 >= 0x17)
-    {
-      v14 = this + 9;
-      goto LABEL_14;
-    }
-
-LABEL_25:
-    v22 = *(this + 1);
-    if (v22)
-    {
-      *(this + 1) = v22 + 2 * result;
-    }
-
-    else
-    {
-      *(this + 8) = v22 + 2 * result;
-    }
-
-    return result;
-  }
-
-  if (v10)
-  {
-    v15 = *(this + 2);
-    if (!v15)
-    {
-      return result;
-    }
-  }
-
-  else
-  {
-    v15 = this + 9;
-  }
-
-  if (v10)
-  {
-    v21 = v10 >> 1;
-  }
-
-  else
-  {
-    v21 = v10 >> 1;
-  }
-
-  v15[v21] = 0;
-  return result;
-}
-
-uint64_t re::DynamicString::vassignf(re::DynamicString *this, const char *__format, va_list a3)
-{
-  if (*(this + 8))
-  {
-    *(this + 1) = 1;
-    v3 = *(this + 2);
-  }
-
-  else
-  {
-    *(this + 8) = 0;
-    v3 = this + 9;
-  }
-
-  *v3 = 0;
-  return re::DynamicString::vappendf(this, __format, a3);
-}
-
-void *re::DynamicString::resize(void *this, unint64_t a2, int a3)
-{
-  v3 = this[1];
-  if (v3)
-  {
-    v4 = v3 >> 1;
-  }
-
-  else
-  {
-    v4 = v3 >> 1;
-  }
-
-  if (v4 != a2)
-  {
-    v7 = this;
-    this = re::DynamicString::growCapacity(this, a2 + 1);
-    v8 = v7[1];
-    v9 = v8 >> 1;
-    if ((v8 & 1) == 0)
-    {
-      v9 = v8 >> 1;
-    }
-
-    if (a2 > v9)
-    {
-      if (v8)
-      {
-        v10 = v7[2];
-      }
-
-      else
-      {
-        v10 = v7 + 9;
-      }
-
-      this = memset(&v10[v9], a3, a2 - v9);
-      v8 = v7[1];
-    }
-
-    if (v8)
-    {
-      v11 = v7[2];
-    }
-
-    else
-    {
-      v11 = v7 + 9;
-    }
-
-    v11[a2] = 0;
-    if (v7[1])
-    {
-      v7[1] = (2 * a2) | 1;
-    }
-
-    else
-    {
-      *(v7 + 8) = 2 * a2;
-    }
-  }
-
-  return this;
-}
-
-void *re::DynamicString::trimExcess(void *this)
-{
-  v2 = this + 1;
-  v1 = this[1];
-  if (v1)
-  {
-    if (v1 > 1)
-    {
-
-      return re::DynamicString::setCapacity(this, (v1 >> 1) + 1);
-    }
-
-    else
-    {
-      this = (*(**this + 40))(*this, this[2]);
-      *v2 = 0;
-      v2[1] = 0;
-      v2[2] = 0;
-    }
-  }
-
-  return this;
-}
-
-uint64_t re::DynamicString::insert(re::DynamicString *this, unint64_t a2, uint64_t a3, uint64_t __c)
-{
-  v5 = *(this + 1);
-  v6 = v5 >> 1;
-  v7 = v5 >> 1;
-  if (v5)
-  {
-    v8 = v5 >> 1;
-  }
-
-  else
-  {
-    v8 = v5 >> 1;
-  }
-
-  if (v8 < a2)
-  {
-    re::internal::assertLog(6, a2, a3, __c, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index <= size()", "insert", 529, a2, v8);
-    result = _os_crash();
-    __break(1u);
-    return result;
-  }
-
-  v9 = __c;
-  v12 = a3 + v8 + 1;
-  if (v5)
-  {
-    v13 = *(this + 3);
-  }
-
-  else
-  {
-    v13 = 23;
-  }
-
-  if (v12 >= v13)
-  {
-    re::DynamicString::growCapacity(this, v12);
-    v5 = *(this + 1);
-    v6 = v5 >> 1;
-    v7 = v5 >> 1;
-  }
-
-  if ((v5 & 1) == 0)
-  {
-    v6 = v7;
-  }
-
-  if (v6 != a2)
-  {
-    if (v5)
-    {
-      v14 = *(this + 2);
-    }
-
-    else
-    {
-      v14 = this + 9;
-    }
-
-    memmove(&v14[a2 + a3], &v14[a2], v6 - a2);
-    v5 = *(this + 1);
-  }
-
-  if (v5)
-  {
-    v16 = v5 + 2 * a3;
-    *(this + 1) = v16;
-    if (v16)
-    {
-      goto LABEL_19;
-    }
-
-LABEL_21:
-    v15 = this + 9;
-    goto LABEL_22;
-  }
-
-  *(this + 8) = v5 + 2 * a3;
-  if ((*(this + 1) & 1) == 0)
-  {
-    goto LABEL_21;
-  }
-
-LABEL_19:
-  v15 = *(this + 2);
-LABEL_22:
-  result = memset(&v15[a2], v9, a3 + a2);
-  v18 = *(this + 1);
-  if (v18)
-  {
-    v19 = *(this + 2);
-  }
-
-  else
-  {
-    v19 = this + 9;
-  }
-
-  if (v18)
-  {
-    v20 = v18 >> 1;
-  }
-
-  else
-  {
-    v20 = v18 >> 1;
-  }
-
-  v19[v20] = 0;
-  return result;
-}
-
-uint64_t re::DynamicString::insert(re::DynamicString *this, unint64_t a2, const char *__src, size_t __len)
-{
-  v5 = *(this + 1);
-  v6 = v5 >> 1;
-  if ((v5 & 1) == 0)
-  {
-    v6 = v5 >> 1;
-  }
-
-  if (v6 < a2)
-  {
-    re::internal::assertLog(6, a2, __src, __len, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index <= size()", "insert", 561, a2, v6);
-    _os_crash();
-    __break(1u);
-    goto LABEL_28;
-  }
-
-  v10 = __len + v6 + 1;
-  if (v5)
-  {
-    v11 = *(this + 3);
-  }
-
-  else
-  {
-    v11 = 23;
-  }
-
-  if (v10 >= v11)
-  {
-    re::DynamicString::growCapacity(this, v10);
-    v5 = *(this + 1);
-  }
-
-  if (v5)
-  {
-    v13 = *(this + 2);
-    if (v13)
-    {
-      v12 = v5 >> 1;
-      if (v5 >> 1 == a2)
-      {
-        goto LABEL_15;
-      }
-
-      goto LABEL_14;
-    }
-
-LABEL_28:
-    re::internal::assertLog(4, v10, "assertion failure: '%s' (%s:line %i) Unexpected null buffer after growCapacity", "data() != nullptr", "insert", 567);
-    result = _os_crash();
-    __break(1u);
-    return result;
-  }
-
-  v12 = v5 >> 1;
-  if (v12 == a2)
-  {
-    goto LABEL_15;
-  }
-
-  v13 = this + 9;
-LABEL_14:
-  memmove(&v13[a2 + __len], &v13[a2], v12 - a2);
-  v5 = *(this + 1);
-LABEL_15:
-  if (v5)
-  {
-    v14 = *(this + 2);
-  }
-
-  else
-  {
-    v14 = this + 9;
-  }
-
-  result = memmove(&v14[a2], __src, __len);
-  v16 = *(this + 1);
-  if (v16)
-  {
-    v17 = v16 + 2 * __len;
-    *(this + 1) = v17;
-    if (v17)
-    {
-      goto LABEL_20;
-    }
-
-LABEL_22:
-    v18 = this + 9;
-    goto LABEL_23;
-  }
-
-  *(this + 8) = v16 + 2 * __len;
-  v17 = *(this + 1);
-  if ((v17 & 1) == 0)
-  {
-    goto LABEL_22;
-  }
-
-LABEL_20:
-  v18 = *(this + 2);
-LABEL_23:
-  if (v17)
-  {
-    v19 = v17 >> 1;
-  }
-
-  else
-  {
-    v19 = v17 >> 1;
-  }
-
-  v18[v19] = 0;
-  return result;
-}
-
-uint64_t re::DynamicString::removeAt(re::DynamicString *this, unint64_t a2)
-{
-  v2 = *(this + 1);
-  if (v2)
-  {
-    v3 = v2 >> 1;
-  }
-
-  else
-  {
-    v3 = v2 >> 1;
-  }
-
-  if (v3 <= a2)
-  {
-    re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "removeAt", 590, a2, v3);
-    result = _os_crash();
-    __break(1u);
-  }
-
-  else
-  {
-    if (v2)
-    {
-      v5 = *(this + 2);
-      v6 = &v5[v2 >> 1];
-    }
-
-    else
-    {
-      v5 = this + 9;
-      v6 = this + (v2 >> 1) + 9;
-    }
-
-    result = &v5[a2];
-    if (v6 != &v5[a2])
-    {
-      result = memmove(result, (result + 1), &v6[-result]);
-      v2 = *(this + 1);
-    }
-
-    if (v2)
-    {
-      *(this + 1) = v2 - 2;
-    }
-
-    else
-    {
-      *(this + 8) = v2 - 2;
-    }
-  }
-
-  return result;
-}
-
-void *re::DynamicString::substr@<X0>(re::DynamicString *this@<X0>, unint64_t a2@<X1>, size_t a3@<X2>, re::DynamicString *a4@<X8>)
-{
-  v6 = *(this + 1);
-  if (v6)
-  {
-    v7 = v6 >> 1;
-  }
-
-  else
-  {
-    v7 = v6 >> 1;
-  }
-
-  if (v7 < a2)
-  {
-    re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index <= size()", "substr", 610, a2, v7);
-    result = _os_crash();
-    __break(1u);
-  }
-
-  else
-  {
-    if (v7 - a2 >= a3)
-    {
-      v9 = a3;
-    }
-
-    else
-    {
-      v9 = v7 - a2;
-    }
-
-    *(a4 + 1) = 0;
-    *(a4 + 2) = 0;
-    *(a4 + 3) = 0;
-    re::DynamicString::setCapacity(a4, 0);
-    *a4 = *this;
-    re::DynamicString::setCapacity(a4, v9);
-    if (*(this + 8))
-    {
-      v10 = *(this + 2);
-    }
-
-    else
-    {
-      v10 = this + 9;
-    }
-
-    return re::DynamicString::assign(a4, &v10[a2], v9);
-  }
-
-  return result;
-}
-
-char *re::DynamicString::find@<X0>(re::DynamicString *this@<X0>, char *a2@<X1>, uint64_t a3@<X2>, unint64_t a4@<X3>, uint64_t a5@<X8>)
-{
-  v6 = *(this + 1);
-  v7 = v6 >> 1;
-  if ((v6 & 1) == 0)
-  {
-    v7 = v6 >> 1;
-  }
-
-  if (v7 < a4)
-  {
-    re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) offset out of range. offset = %zu, size = %zu", "offset <= this->size()", "find", 631, a4, v7);
-    result = _os_crash();
-    __break(1u);
-  }
-
-  else
-  {
-    if (v6)
-    {
-      v9 = *(this + 2);
-    }
-
-    else
-    {
-      v9 = this + 9;
-    }
-
-    v10 = &v9[v7];
-    result = std::__search_impl[abi:nn200100]<char const*,char const*,char const*,char const*,std::__equal_to,std::__identity,std::__identity,0>(&v9[a4], &v9[v7], a2, &a2[a3]);
-    if (v10 == result)
-    {
-      *a5 = 0;
-    }
-
-    else
-    {
-      if (*(this + 8))
-      {
-        v12 = *(this + 2);
-      }
-
-      else
-      {
-        v12 = this + 9;
-      }
-
-      *a5 = 1;
-      *(a5 + 8) = result - v12;
-    }
-  }
-
-  return result;
-}
-
-uint64_t re::DynamicString::rfind@<X0>(uint64_t this@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
-{
-  v3 = *(this + 8);
-  if (v3)
-  {
-    v4 = v3 >> 1;
-  }
-
-  else
-  {
-    v4 = v3 >> 1;
-  }
-
-  if (v4)
-  {
-    return re::DynamicString::rfind(this, a2, v4 - 1, a3);
-  }
-
-  *a3 = 0;
-  return this;
-}
-
-uint64_t re::DynamicString::rfind@<X0>(uint64_t this@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-  v4 = *(this + 8);
-  v5 = v4 >> 1;
-  if ((v4 & 1) == 0)
-  {
-    v5 = v4 >> 1;
-  }
-
-  if (v5 <= a3)
-  {
-    re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) offset out of range. offset = %zu, size = %zu", "offset < size()", "rfind", 667, a3, v5);
-    this = _os_crash();
-    __break(1u);
-  }
-
-  else
-  {
-    if (v4)
-    {
-      v6 = *(this + 16);
-    }
-
-    else
-    {
-      v6 = this + 9;
-    }
-
-    v7 = this + 9;
-    v8 = a3 + v6;
-    v9 = -(a3 + v6);
-    v10 = v8 + 1;
-    while (*(v10 - 1) != a2)
-    {
-      v11 = this + 9;
-      if (v4)
-      {
-        v11 = *(this + 16);
-      }
-
-      ++v9;
-      if (--v10 == v11)
-      {
-        *a4 = 0;
-        return this;
-      }
-    }
-
-    if (v4)
-    {
-      v7 = *(this + 16);
-    }
-
-    *a4 = 1;
-    *(a4 + 8) = -(v7 + v9);
-  }
-
-  return this;
-}
-
-uint64_t re::DynamicString::rfind@<X0>(uint64_t this@<X0>, const char *__s@<X1>, _BYTE *a3@<X8>)
-{
-  v4 = *(this + 8);
-  if (v4)
-  {
-    v5 = v4 >> 1;
-  }
-
-  else
-  {
-    v5 = v4 >> 1;
-  }
-
-  if (v5)
-  {
-    v7 = this;
-    v8 = strlen(__s);
-
-    return re::DynamicString::rfind(v7, __s, v8, v5 - 1, a3);
-  }
-
-  else
-  {
-    *a3 = 0;
-  }
-
-  return this;
-}
-
-uint64_t re::DynamicString::rfind@<X0>(uint64_t this@<X0>, const char *a2@<X1>, uint64_t a3@<X2>, unint64_t a4@<X3>, uint64_t a5@<X8>)
-{
-  v5 = *(this + 8);
-  v6 = v5 >> 1;
-  if ((v5 & 1) == 0)
-  {
-    v6 = v5 >> 1;
-  }
-
-  if (v6 <= a4)
-  {
-    re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) offset out of range. offset = %zu, size = %zu", "offset < this->size()", "rfind", 700, a4, v6);
-    this = _os_crash();
-    __break(1u);
-  }
-
-  else
-  {
-    if (v5)
-    {
-      v7 = *(this + 16);
-      if (!a3)
-      {
-LABEL_25:
-        *a5 = 0;
-        return this;
-      }
-    }
-
-    else
-    {
-      v7 = (this + 9);
-      if (!a3)
-      {
-        goto LABEL_25;
-      }
-    }
-
-    v8 = &v7[a4];
-    v9 = &v7[a4 + 1];
-    if (v7 == v9)
-    {
-      goto LABEL_25;
-    }
-
-    v12 = *a2;
-    v10 = a2 + 1;
-    v11 = v12;
-    v13 = a3 - 1;
-    v14 = &v7[a4 + 1];
-    do
-    {
-      v15 = v7;
-      while (*v15 != v11)
-      {
-        if (v15++ == v8)
-        {
-          goto LABEL_22;
-        }
-      }
-
-      v17 = v13;
-      v18 = v10;
-      v19 = v15;
-      while (v17)
-      {
-        if (v19 == v8)
-        {
-          goto LABEL_22;
-        }
-
-        v21 = *++v19;
-        v20 = v21;
-        v22 = *v18++;
-        --v17;
-        if (v20 != v22)
-        {
-          goto LABEL_21;
-        }
-      }
-
-      v14 = v15;
-LABEL_21:
-      v7 = v15 + 1;
-    }
-
-    while (v15 != v8);
-LABEL_22:
-    if (v14 == v9)
-    {
-      goto LABEL_25;
-    }
-
-    if (v5)
-    {
-      v23 = *(this + 16);
-    }
-
-    else
-    {
-      v23 = this + 9;
-    }
-
-    *a5 = 1;
-    *(a5 + 8) = v14 - v23;
-  }
-
-  return this;
-}
-
-uint64_t re::DynamicString::format@<X0>(re::DynamicString *this@<X0>, re::Allocator *a2@<X1>, re::DynamicString *a3@<X8>, ...)
-{
-  va_start(va, a3);
-  *(a3 + 2) = 0;
-  *(a3 + 3) = 0;
-  *a3 = this;
-  *(a3 + 1) = 0;
-  re::DynamicString::setCapacity(a3, 0);
-  return re::DynamicString::vassignf(a3, a2, va);
-}
-
-uint64_t re::DynamicString::format@<X0>(re::DynamicString *this@<X0>, re::DynamicString *a2@<X8>, ...)
-{
-  va_start(va, a2);
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
-  *(a2 + 3) = 0;
-  re::DynamicString::setCapacity(a2, 0);
-  return re::DynamicString::vassignf(a2, this, va);
-}
-
-__n128 re::internal::anonymous namespace::RegexOperationList::parseRegex(uint64_t a1, uint64_t a2, uint64_t a3, unsigned __int8 *a4, char *a5, _BYTE *a6)
-{
-  v6 = a4;
-  *(a2 + 16) = 0;
-  ++*(a2 + 24);
-  if (a4 >= a5)
-  {
-LABEL_191:
-    *a1 = 1;
-    *(a1 + 8) = v6;
-    return result;
-  }
-
-  v102 = a6 + 1;
-  while (1)
-  {
-    v114.n128_u8[0] = 0;
-    v114.n128_u64[1] = -1;
-    v115 = 0;
-    v119 = 0;
-    v116 = 0;
-    v117 = 0;
-    v118 = 1;
-    if (*v6 != 40)
-    {
-      v15 = 1;
-      v110 = 1;
-      *&v111 = 0;
-LABEL_30:
-      v16 = 1;
-      goto LABEL_31;
-    }
-
-    v105 = v6;
-    v9 = v6 + 1;
-    do
-    {
-      if (v9 == a5)
-      {
-        goto LABEL_27;
-      }
-
-      v130 = 0;
-      v128 = 0;
-      v127 = 0uLL;
-      v129 = 0;
-      if (v124[0] == 1)
-      {
-        v11 = *&v124[8];
-        if (*&v124[8])
-        {
-          __endptr[0] = *(a3 + 336);
-          re::DynamicArray<unsigned long>::add(&v115, __endptr);
-          v12 = *v11;
-          if (v12 == 41)
-          {
-            v13 = 1;
-            v110 = 1;
-            *&v111 = v11 + 1;
-            v9 = v11;
-          }
-
-          else
-          {
-            if (v12 == 124)
-            {
-              v9 = v11 + 1;
-            }
-
-            else
-            {
-              v9 = v11;
-            }
-
-            if (v12 == 124)
-            {
-              v13 = 2;
-            }
-
-            else
-            {
-              v13 = 3;
-            }
-          }
-        }
-
-        else
-        {
-          v13 = 3;
-        }
-      }
-
-      else
-      {
-        *__endptr = *&v124[8];
-        re::DynamicString::DynamicString(&v121, &v125);
-        v110 = 0;
-        v111 = *__endptr;
-        *v112 = v121;
-        v113 = v123;
-        result = v122;
-        *&v112[8] = v122;
-        if (v125.n128_u64[0])
-        {
-          if (v125.n128_u8[8])
-          {
-            (*(*v125.n128_u64[0] + 40))(v125.n128_u64[0], v126);
-          }
-
-          result = 0uLL;
-          v126 = 0u;
-          v125 = 0u;
-        }
-
-        v13 = 1;
-      }
-
-      v14 = v127.n128_u64[0];
-      if (v127.n128_u64[0] && v130)
-      {
-        v14 = (*(*v127.n128_u64[0] + 40))(v127.n128_u64[0]);
-      }
-    }
-
-    while (v13 == 2);
-    if (v13 == 3)
-    {
-LABEL_27:
-      re::DynamicString::format("Regular expression group missing corresponding ')'.", v124, v102);
-      v15 = 0;
-      v16 = 0;
-      result = *v124;
-      v110 = 0;
-      *&v111 = 100;
-      *(&v111 + 1) = re::FoundationErrorCategory(void)::instance;
-      *v112 = *v124;
-      *&v112[16] = *&v124[16];
-      v113 = v125.n128_u64[0];
-LABEL_28:
-      v6 = v105;
-      goto LABEL_31;
-    }
-
-    if ((v110 & 1) == 0)
-    {
-      v15 = 0;
-      v16 = 0;
-      goto LABEL_28;
-    }
-
-    v6 = v105;
-    if (!v111)
-    {
-      v15 = 1;
-      goto LABEL_30;
-    }
-
-    v114.n128_u8[0] = 5;
-    v44 = *(a3 + 128);
-    v45 = *(a3 + 136);
-    v114.n128_u64[1] = v45;
-    if (v45 >= v44)
-    {
-      v46 = v45 + 1;
-      if (v44 < v45 + 1)
-      {
-        if (*(a3 + 120))
-        {
-          v47 = 2 * v44;
-          v23 = v44 == 0;
-          v48 = 8;
-          if (!v23)
-          {
-            v48 = v47;
-          }
-
-          if (v48 <= v46)
-          {
-            v49 = v46;
-          }
-
-          else
-          {
-            v49 = v48;
-          }
-
-          re::DynamicArray<re::DynamicArray<unsigned int>>::setCapacity((a3 + 120), v49);
-        }
-
-        else
-        {
-          re::DynamicArray<re::DynamicArray<unsigned int>>::setCapacity((a3 + 120), v46);
-          ++*(a3 + 144);
-        }
-      }
-    }
-
-    v16 = 0;
-    v96 = *(a3 + 152) + 40 * *(a3 + 136);
-    *(v96 + 32) = 0;
-    *(v96 + 24) = 0;
-    *(v96 + 8) = 0;
-    *(v96 + 16) = 0;
-    *v96 = 0;
-    *v96 = v115;
-    v115 = 0;
-    *(v96 + 8) = v116;
-    v116 = 0;
-    v97 = *(v96 + 16);
-    *(v96 + 16) = v117;
-    v117 = v97;
-    v98 = *(v96 + 32);
-    *(v96 + 32) = v119;
-    v119 = v98;
-    ++v118;
-    ++*(v96 + 24);
-    ++*(a3 + 136);
-    ++*(a3 + 144);
-    v15 = 1;
-LABEL_31:
-    v17 = v115;
-    if (v115 && v119)
-    {
-      v17 = (*(*v115 + 40))();
-    }
-
-    if (!v16)
-    {
-      break;
-    }
-
-    *v124 = &unk_1F5CCF100;
-    *&v126 = 0;
-    *&v124[16] = 0;
-    v125.n128_u64[0] = 0;
-    *&v124[8] = 0;
-    v125.n128_u32[2] = 1;
-    v18 = *v6;
-    if (v18 == 91)
-    {
-      v19 = (v6 + 1);
-      if (v6 + 1 == a5)
-      {
-LABEL_76:
-        if (*v19 != 93)
-        {
-          re::DynamicString::format("Character set missing corresponding ']'.", __endptr);
-          v15 = 0;
-          result = *__endptr;
-          v110 = 0;
-          *&v111 = 100;
-          *(&v111 + 1) = re::FoundationErrorCategory(void)::instance;
-          *v112 = *__endptr;
-          *&v112[16] = v121;
-          v113 = v122.n128_u64[0];
-          goto LABEL_95;
-        }
-      }
-
-      else
-      {
-        while (*v19 != 93)
-        {
-          v127.n128_u8[0] = 0;
-          v127.n128_u64[1] = -1;
-          __endptr[0] = &unk_1F5CCF1A0;
-          if (a5 - v19 >= 2 && *v19 == 92)
-          {
-            LOBYTE(__endptr[1]) = v19[1];
-            v19 += 2;
-            v127.n128_u8[0] = 2;
-            v127.n128_u64[1] = *(a3 + 56);
-          }
-
-          else
-          {
-            __endptr[0] = &unk_1F5CCF140;
-            if ((a5 - v19) <= 2)
-            {
-              goto LABEL_57;
-            }
-
-            v20 = 0;
-            v21 = *v19;
-            do
-            {
-              v23 = v22 == v21 || v20++ == 8;
-            }
-
-            while (!v23);
-            if (v22 == v21 || v19[1] != 45)
-            {
-              goto LABEL_57;
-            }
-
-            v24 = 0;
-            v26 = v19 + 2;
-            v25 = v19[2];
-            do
-            {
-            }
-
-            while (v27 != v25 && v24++ != 8);
-            if (v27 == v25)
-            {
-LABEL_57:
-              __endptr[0] = &unk_1F5CCF1D0;
-              v29 = *v19++;
-              LOBYTE(__endptr[1]) = v29;
-              v127.n128_u8[0] = 1;
-              v127.n128_u64[1] = *(a3 + 16);
-            }
-
-            else
-            {
-              v30 = v6;
-              if (v25 >= v21)
-              {
-                v26 = v19;
-              }
-
-              LOBYTE(__endptr[1]) = *v26;
-              if (v21 <= v25)
-              {
-                LOBYTE(v21) = v25;
-              }
-
-              BYTE1(__endptr[1]) = v21;
-              v127.n128_u8[0] = 3;
-              v31 = *(a3 + 88);
-              v32 = *(a3 + 96);
-              v127.n128_u64[1] = v32;
-              if (v32 >= v31)
-              {
-                v33 = v32 + 1;
-                if (v31 < v32 + 1)
-                {
-                  if (*(a3 + 80))
-                  {
-                    v34 = 2 * v31;
-                    v23 = v31 == 0;
-                    v35 = 8;
-                    if (!v23)
-                    {
-                      v35 = v34;
-                    }
-
-                    if (v35 <= v33)
-                    {
-                      v36 = v33;
-                    }
-
-                    else
-                    {
-                      v36 = v35;
-                    }
-                  }
-
-                  else
-                  {
-                    ++*(a3 + 104);
-                  }
-                }
-              }
-
-              v19 += 3;
-              v37 = *(a3 + 112) + 16 * *(a3 + 96);
-              *v37 = &unk_1F5CCF140;
-              *(v37 + 8) = __endptr[1];
-              ++*(a3 + 96);
-              ++*(a3 + 104);
-              v6 = v30;
-            }
-          }
-
-          __endptr[0] = *(a3 + 256);
-          re::DynamicArray<unsigned long>::add(&v124[8], __endptr);
-          if (v19 == a5)
-          {
-            goto LABEL_76;
-          }
-        }
-      }
-
-      v106 = v6;
-      v110 = 1;
-      *&v111 = v19 + 1;
-      v114.n128_u8[0] = 6;
-      v38 = *(a3 + 168);
-      v114.n128_u64[1] = *(a3 + 176);
-      v39 = v114.n128_u64[1] + 1;
-      if (v114.n128_u64[1] >= v38 && v38 < v39)
-      {
-        if (*(a3 + 160))
-        {
-          v64 = 2 * v38;
-          v23 = v38 == 0;
-          v65 = 8;
-          if (!v23)
-          {
-            v65 = v64;
-          }
-
-          if (v65 <= v39)
-          {
-            v66 = v114.n128_u64[1] + 1;
-          }
-
-          else
-          {
-            v66 = v65;
-          }
-        }
-
-        else
-        {
-          ++*(a3 + 184);
-        }
-      }
-
-      v41 = *(a3 + 192) + 48 * *(a3 + 176);
-      *(v41 + 40) = 0;
-      *v41 = &unk_1F5CCF100;
-      *(v41 + 8) = 0;
-      *(v41 + 16) = 0;
-      *(v41 + 24) = 0;
-      *(v41 + 32) = 0;
-      *(v41 + 8) = *&v124[8];
-      *&v124[8] = 0;
-      *(v41 + 16) = *&v124[16];
-      *&v124[16] = 0;
-      v42 = *(v41 + 24);
-      *(v41 + 24) = v125.n128_u64[0];
-      v125.n128_u64[0] = v42;
-      v43 = *(v41 + 40);
-      *(v41 + 40) = v126;
-      *&v126 = v43;
-      ++v125.n128_u32[2];
-      ++*(v41 + 32);
-      ++*(a3 + 176);
-      ++*(a3 + 184);
-      v15 = 1;
-      v6 = v106;
-    }
-
-    else
-    {
-      v15 = 1;
-      v110 = 1;
-      *&v111 = 0;
-    }
-
-LABEL_95:
-    *v124 = &unk_1F5CCF100;
-    v50 = *&v124[8];
-    if (*&v124[8] && v126)
-    {
-      v50 = (*(**&v124[8] + 40))(*&v124[8]);
-    }
-
-    if (v18 == 91)
-    {
-      break;
-    }
-
-    *v124 = &unk_1F5CCF170;
-    v124[8] = 0;
-    v51 = *v6;
-    switch(v51)
-    {
-      case '$':
-        v52 = 3;
-LABEL_108:
-        v124[8] = v52;
-        v53 = v6;
-        v110 = 1;
-        *&v111 = v6 + 1;
-        v114.n128_u8[0] = 4;
-        v54 = *(a3 + 208);
-        v55 = *(a3 + 216);
-        v114.n128_u64[1] = v55;
-        if (v55 >= v54)
-        {
-          v56 = v55 + 1;
-          if (v54 < v55 + 1)
-          {
-            if (*(a3 + 200))
-            {
-              v57 = 2 * v54;
-              v23 = v54 == 0;
-              v58 = 8;
-              if (!v23)
-              {
-                v58 = v57;
-              }
-
-              if (v58 <= v56)
-              {
-                v59 = v56;
-              }
-
-              else
-              {
-                v59 = v58;
-              }
-            }
-
-            else
-            {
-              ++*(a3 + 224);
-            }
-          }
-        }
-
-        v67 = *(a3 + 216);
-        v68 = *(a3 + 232) + 16 * v67;
-        *v68 = &unk_1F5CCF170;
-        *(v68 + 8) = v124[8];
-        *(a3 + 216) = v67 + 1;
-        ++*(a3 + 224);
-        v6 = v53;
-        goto LABEL_138;
-      case '.':
-        v52 = 1;
-        goto LABEL_108;
-      case '^':
-        v52 = 2;
-        goto LABEL_108;
-    }
-
-    *v124 = &unk_1F5CCF1A0;
-    v124[8] = -1;
-    if (a5 - v6 >= 2 && *v6 == 92)
-    {
-      v124[8] = v6[1];
-      v110 = 1;
-      *&v111 = v6 + 2;
-      v114.n128_u8[0] = 2;
-      v114.n128_u64[1] = *(a3 + 56);
-    }
-
-    else
-    {
-      v60 = 0;
-      *v124 = &unk_1F5CCF1D0;
-      v124[8] = -1;
-      v61 = *v6;
-      v124[8] = *v6;
-      do
-      {
-      }
-
-      while (v62 != v61 && v60++ != 8);
-      if (v62 == v61)
-      {
-        goto LABEL_191;
-      }
-
-      v110 = 1;
-      *&v111 = v6 + 1;
-      v114.n128_u8[0] = 1;
-      v114.n128_u64[1] = *(a3 + 16);
-    }
-
-LABEL_138:
-    if (!v111)
-    {
-      goto LABEL_191;
-    }
-
-    v69 = *(a3 + 256);
-    if (v111 == a5)
-    {
-      v70 = 0;
-      v72 = 1;
-      LODWORD(v75) = 1;
-LABEL_148:
-      v74 = v111;
-      goto LABEL_172;
-    }
-
-    v70 = 0;
-    v71 = *v111;
-    v72 = 1;
-    if (v71 > 0x3E)
-    {
-      if (v71 == 63)
-      {
-        LODWORD(v75) = 0;
-        v81 = *(v111 + 1);
-        v70 = v81 != 63;
-        if (v81 == 63)
-        {
-          v74 = (v111 + 2);
-        }
-
-        else
-        {
-          v74 = (v111 + 1);
-        }
-
-        v72 = 1;
-      }
-
-      else
-      {
-        LODWORD(v75) = 1;
-        v74 = v111;
-        if (v71 == 123)
-        {
-          __endptr[0] = 0;
-          v76 = strtol((v111 + 1), __endptr, 10);
-          if ((v76 & 0x8000000000000000) != 0)
-          {
-            v99 = "Repetition brace requires valid positive number.";
-LABEL_202:
-            re::DynamicString::format(v99, v124, v102);
-            result = *v124;
-            v100 = *&v124[16];
-            v101 = v125.n128_u64[0];
-            *a1 = 0;
-            *(a1 + 8) = 100;
-            *(a1 + 16) = re::FoundationErrorCategory(void)::instance;
-            *(a1 + 24) = result;
-            *(a1 + 40) = v100;
-            *(a1 + 48) = v101;
-            return result;
-          }
-
-          v75 = v76;
-          if (v76 >= 0xFFFFFFFF)
-          {
-            v99 = "Repetition brace exceeded maximum match count.";
-            goto LABEL_202;
-          }
-
-          v77 = __endptr[0];
-          v78 = *__endptr[0];
-          if (v78 == 44)
-          {
-            v79 = strtol(__endptr[0] + 1, __endptr, 10);
-            if ((v79 & 0x8000000000000000) != 0)
-            {
-              v99 = "Repetition brace maximum requires valid positive number.";
-              goto LABEL_202;
-            }
-
-            v72 = v79;
-            if (v79 >= 0xFFFFFFFF)
-            {
-              v99 = "Repetition brace maximum exceeded maximum match count.";
-              goto LABEL_202;
-            }
-
-            if (v79 < v75)
-            {
-              v99 = "Repetition brace maximum must be larger than the minimum.";
-              goto LABEL_202;
-            }
-
-            v77 = __endptr[0];
-            v78 = *__endptr[0];
-          }
-
-          else
-          {
-            v72 = v76;
-          }
-
-          if (v78 != 125)
-          {
-            v99 = "Repetition brace expected closing '}'.";
-            goto LABEL_202;
-          }
-
-          v83 = v77[1];
-          v82 = v77 + 1;
-          v70 = v83 != 63;
-          if (v83 == 63)
-          {
-            v74 = (v82 + 1);
-          }
-
-          else
-          {
-            v74 = v82;
-          }
-        }
-      }
-    }
-
-    else
-    {
-      if (v71 == 42)
-      {
-        LODWORD(v75) = 0;
-        v80 = *(v111 + 1);
-        v70 = v80 != 63;
-        if (v80 == 63)
-        {
-          v74 = (v111 + 2);
-        }
-
-        else
-        {
-          v74 = (v111 + 1);
-        }
-      }
-
-      else
-      {
-        if (v71 != 43)
-        {
-          LODWORD(v75) = 1;
-          goto LABEL_148;
-        }
-
-        v73 = *(v111 + 1);
-        v70 = v73 != 63;
-        if (v73 == 63)
-        {
-          v74 = (v111 + 2);
-        }
-
-        else
-        {
-          v74 = (v111 + 1);
-        }
-
-        LODWORD(v75) = 1;
-      }
-
-      v72 = 0x7FFFFFFF;
-    }
-
-LABEL_172:
-    *a1 = 1;
-    v6 = v74;
-    *(a1 + 8) = v74;
-    *v124 = *(a3 + 296);
-    v84 = re::DynamicArray<unsigned long>::add(a2, v124);
-    v85 = *(a3 + 288);
-    v86 = *(a3 + 296);
-    if (v86 >= v85)
-    {
-      v87 = v86 + 1;
-      if (v85 < v86 + 1)
-      {
-        if (*(a3 + 280))
-        {
-          v88 = 2 * v85;
-          v23 = v85 == 0;
-          v89 = 8;
-          if (!v23)
-          {
-            v89 = v88;
-          }
-
-          if (v89 <= v87)
-          {
-            v90 = v87;
-          }
-
-          else
-          {
-            v90 = v89;
-          }
-
-          re::DynamicArray<re::internal::AnimationCompositionChainEntry>::setCapacity((a3 + 280), v90);
-        }
-
-        else
-        {
-          re::DynamicArray<re::internal::AnimationCompositionChainEntry>::setCapacity((a3 + 280), v87);
-          ++*(a3 + 304);
-        }
-      }
-    }
-
-    v91 = *(a3 + 312) + 24 * *(a3 + 296);
-    *v91 = v69;
-    *(v91 + 8) = v70;
-    *(v91 + 11) = v109;
-    *(v91 + 9) = v108;
-    *(v91 + 12) = v75;
-    *(v91 + 16) = v72;
-    ++*(a3 + 296);
-    ++*(a3 + 304);
-    v92 = *a6;
-    if (*a6)
-    {
-      v93 = 0;
-      v94 = v102;
-      do
-      {
-        v93 |= v92 == *v6;
-        v95 = *v94++;
-        v92 = v95;
-      }
-
-      while (v95);
-      if (v93)
-      {
-        goto LABEL_191;
-      }
-    }
-
-    if (v6 >= a5)
-    {
-      goto LABEL_191;
-    }
-  }
-
-  if (v15)
-  {
-    goto LABEL_138;
-  }
-
-  *v124 = v111;
-  re::DynamicString::DynamicString(&v124[16], v112);
-  *a1 = 0;
-  *(a1 + 8) = *v124;
-  *(a1 + 24) = *&v124[16];
-  *(a1 + 48) = v126;
-  result = v125;
-  *(a1 + 32) = v125;
-  if (*v112)
-  {
-    if (v112[8])
-    {
-      (*(**v112 + 40))();
-    }
-  }
-
-  return result;
-}
-
-_anonymous_namespace_ *re::DynamicArray<re::internal::anonymous namespace::RegexOperationList>::add(_anonymous_namespace_ *result, uint64_t a2)
-{
-  v3 = result;
-  v4 = *(result + 1);
-  v5 = *(result + 2);
-  v6 = v5 + 1;
-  if (v5 >= v4 && v4 < v6)
-  {
-    if (*result)
-    {
-      v12 = 2 * v4;
-      v13 = v4 == 0;
-      v14 = 8;
-      if (!v13)
-      {
-        v14 = v12;
-      }
-
-      if (v14 <= v6)
-      {
-        v15 = v6;
-      }
-
-      else
-      {
-        v15 = v14;
-      }
-
-      result = re::DynamicArray<re::DynamicArray<unsigned int>>::setCapacity(result, v15);
-    }
-
-    else
-    {
-      result = re::DynamicArray<re::DynamicArray<unsigned int>>::setCapacity(v3, v6);
-      ++*(v3 + 6);
-    }
-  }
-
-  v8 = *(v3 + 4) + 40 * *(v3 + 2);
-  *(v8 + 32) = 0;
-  *(v8 + 24) = 0;
-  *(v8 + 8) = 0;
-  *(v8 + 16) = 0;
-  *v8 = 0;
-  v9 = *(a2 + 8);
-  *v8 = *a2;
-  *(v8 + 8) = v9;
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  v10 = *(v8 + 16);
-  *(v8 + 16) = *(a2 + 16);
-  *(a2 + 16) = v10;
-  v11 = *(v8 + 32);
-  *(v8 + 32) = *(a2 + 32);
-  *(a2 + 32) = v11;
-  ++*(a2 + 24);
-  ++*(v8 + 24);
-  ++*(v3 + 2);
-  ++*(v3 + 6);
-  return result;
-}
-
-uint64_t re::BucketArray<re::internal::anonymous namespace::MatchStackItem,64ul>::~BucketArray(uint64_t a1)
-{
-  v2 = *(a1 + 40);
-  if (v2)
-  {
-    for (i = 0; i != v2; ++i)
-    {
-    }
-  }
-
-  while (*(a1 + 8))
-  {
-    re::BucketArray<re::CollisionCastHit,10ul>::freeElementBucket(a1);
-  }
-
-  re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit(a1);
-  *(a1 + 40) = 0;
-  ++*(a1 + 48);
-  re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit(a1);
-  return a1;
-}
-
-BOOL re::internal::RegexRoot::fullMatch(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v59 = *MEMORY[0x1E69E9840];
-  v5 = a1[47];
-  if (!v5)
-  {
-    return a2 == a3;
-  }
-
-  v36[0] = a1;
-  v36[1] = a2;
-  v36[2] = a3;
-  v37 = a2;
-  v38 = 0;
-  v39 = 0;
-  v40 = 1;
-  v42 = 0;
-  v43 = 0;
-  v41 = 0;
-  v44 = 0;
-  v30[0] = 0;
-  v30[1] = 0;
-  v31 = 1;
-  v33 = 0;
-  v34 = 0;
-  v32 = 0;
-  v8 = a1[49];
-  v9 = &v8[v5];
-  v35 = 0;
-  while (1)
-  {
-    v10 = *v8;
-    v11 = a1[42];
-    if (v11 <= *v8)
-    {
-      goto LABEL_51;
-    }
-
-    {
-      goto LABEL_13;
-    }
-
-    if (v37 == a3)
-    {
-      break;
-    }
-
-    do
-    {
-      v11 = a1[42];
-      if (v11 <= v10)
-      {
-        v45 = 0;
-        v57 = 0u;
-        v58 = 0u;
-        v55 = 0u;
-        v56 = 0u;
-        v54 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v46 = 136315906;
-        v47 = "operator[]";
-        v48 = 1024;
-        v49 = 797;
-        v50 = 2048;
-        v51 = v10;
-        v52 = 2048;
-        v53 = v11;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_51:
-        v45 = 0;
-        v57 = 0u;
-        v58 = 0u;
-        v55 = 0u;
-        v56 = 0u;
-        v54 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v46 = 136315906;
-        v47 = "operator[]";
-        v48 = 1024;
-        v49 = 797;
-        v50 = 2048;
-        v51 = v10;
-        v52 = 2048;
-        v53 = v11;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-      }
-
-      {
-        v12 = v37 == a3;
-      }
-
-      else
-      {
-        v12 = 1;
-      }
-    }
-
-    while (!v12);
-    if (v37 == a3)
-    {
-      break;
-    }
-
-LABEL_13:
-    if (++v8 == v9)
-    {
-      v13 = 0;
-      goto LABEL_34;
-    }
-  }
-
-  *(a4 + 16) = 0;
-  ++*(a4 + 24);
-  v14 = v34;
-  if (v34)
-  {
-    v15 = 0;
-    do
-    {
-      if (*v16 == 5)
-      {
-        v17 = v16;
-        v18 = *(a4 + 8);
-        v19 = *(a4 + 16);
-        if (v19 >= v18)
-        {
-          v20 = v19 + 1;
-          if (v18 < v19 + 1)
-          {
-            if (*a4)
-            {
-              if (v18)
-              {
-                v21 = 2 * v18;
-              }
-
-              else
-              {
-                v21 = 8;
-              }
-
-              if (v21 <= v20)
-              {
-                v22 = v19 + 1;
-              }
-
-              else
-              {
-                v22 = v21;
-              }
-
-              re::DynamicArray<re::RigNodeConstraint>::setCapacity(a4, v22);
-            }
-
-            else
-            {
-              re::DynamicArray<re::RigNodeConstraint>::setCapacity(a4, v20);
-              ++*(a4 + 24);
-            }
-          }
-
-          v19 = *(a4 + 16);
-        }
-
-        *(*(a4 + 32) + 16 * v19) = *(v17 + 1);
-        ++*(a4 + 16);
-        ++*(a4 + 24);
-      }
-
-      ++v15;
-    }
-
-    while (v14 != v15);
-  }
-
-  v13 = 1;
-LABEL_34:
-  v23 = v43;
-  if (v43)
-  {
-    v24 = 0;
-    do
-    {
-      re::BucketArray<unsigned long,8ul>::deinit(v25 + 64);
-      re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit(v25 + 64);
-      v26 = *(v25 + 48);
-      if (v26)
-      {
-        for (i = 0; i != v26; ++i)
-        {
-        }
-      }
-
-      while (*(v25 + 16))
-      {
-        re::BucketArray<re::CollisionCastHit,10ul>::freeElementBucket((v25 + 8));
-      }
-
-      re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit(v25 + 8);
-      *(v25 + 48) = 0;
-      ++*(v25 + 56);
-      re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit(v25 + 8);
-      ++v24;
-    }
-
-    while (v24 != v23);
-  }
-
-  while (v39)
-  {
-    re::BucketArray<re::CollisionCastHit,10ul>::freeElementBucket(&v38);
-  }
-
-  if (v38 && (v40 & 1) == 0)
-  {
-    (*(*v38 + 40))();
-  }
-
-  return v13;
-}
-
-uint64_t re::internal::anonymous namespace::RegexOperationList::unwindMatch(uint64_t a1, void *a2, uint64_t a3)
-{
-  v3 = *(a1 + 16);
-  if (!v3)
-  {
-    return 0;
-  }
-
-  v7 = v3 - 1;
-  while (1)
-  {
-    if (*(a1 + 16) <= v7)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_17:
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_18:
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v8 = *a2;
-    v9 = *(*(a1 + 32) + 8 * v7);
-    if (*(*a2 + 296) <= v9)
-    {
-      goto LABEL_17;
-    }
-
-    v10 = (v8[39] + 24 * v9);
-    if (v8[32] <= *v10)
-    {
-      goto LABEL_18;
-    }
-
-    v11 = a2[3];
-    {
-      break;
-    }
-
-    --v7;
-LABEL_13:
-    if (v7 >= v3)
-    {
-      return 0;
-    }
-  }
-
-  {
-    goto LABEL_13;
-  }
-
-  return 1;
-}
-
-uint64_t *re::internal::regularExpressionCreate@<X0>(re::internal *this@<X0>, uint64_t a2@<X8>)
-{
-  v3 = this;
-  v33 = *MEMORY[0x1E69E9840];
-  v5 = re::globalAllocators(this);
-  v6 = (*(*v5[2] + 32))(v5[2], 400, 8);
-  *v6 = 0u;
-  v6[1] = 0u;
-  v6[2] = 0u;
-  v6[3] = 0u;
-  v6[4] = 0u;
-  v6[5] = 0u;
-  v6[6] = 0u;
-  v6[7] = 0u;
-  v6[8] = 0u;
-  v6[9] = 0u;
-  v6[10] = 0u;
-  v6[11] = 0u;
-  v6[12] = 0u;
-  v6[13] = 0u;
-  v6[14] = 0u;
-  v6[15] = 0u;
-  v6[16] = 0u;
-  v6[17] = 0u;
-  v6[18] = 0u;
-  v6[19] = 0u;
-  v6[20] = 0u;
-  v6[21] = 0u;
-  v6[22] = 0u;
-  v6[23] = 0u;
-  v6[24] = 0u;
-  *v30 = &unk_1F5CCF200;
-  *&v31 = v30;
-  v29 = v28;
-  v27 = v6;
-  v28[0] = &unk_1F5CCF200;
-  std::__function::__value_func<void ()(re::internal::RegexRoot *)>::~__value_func[abi:nn200100](v30);
-  v7 = v27;
-  v8 = &v3[strlen(v3)];
-  do
-  {
-    if (v3 >= v8)
-    {
-      goto LABEL_22;
-    }
-
-    v26 = 0;
-    memset(v24, 0, sizeof(v24));
-    v25 = 0;
-    if (v30[0] != 1)
-    {
-      v16 = v30[0];
-      v17 = *&v30[8];
-      re::DynamicString::DynamicString(&v18, &v31);
-      if (v31)
-      {
-        if (BYTE8(v31))
-        {
-          (*(*v31 + 40))(v31, v32);
-        }
-
-        v32 = 0u;
-        v31 = 0u;
-      }
-
-      goto LABEL_13;
-    }
-
-    v9 = *&v30[8];
-    if (!*&v30[8])
-    {
-      re::DynamicString::format("Unknown error parsing regular expression.", &v21);
-      v16 = 0;
-      *&v17 = 100;
-      *(&v17 + 1) = re::FoundationErrorCategory(void)::instance;
-      v18 = v21;
-      v19 = v22;
-      v20 = v23;
-LABEL_13:
-      v10 = 1;
-      goto LABEL_17;
-    }
-
-    *&v21 = v7[42];
-    re::DynamicArray<unsigned long>::add(v7 + 45, &v21);
-    if (!*v9)
-    {
-      v10 = 3;
-LABEL_16:
-      v3 = v9;
-      goto LABEL_17;
-    }
-
-    if (*v9 != 124)
-    {
-      re::DynamicString::format("Could not parse regular expression: %s.", &v21, v9);
-      v16 = 0;
-      *&v17 = 100;
-      *(&v17 + 1) = re::FoundationErrorCategory(void)::instance;
-      v18 = v21;
-      v19 = v22;
-      v20 = v23;
-      v10 = 1;
-      goto LABEL_16;
-    }
-
-    v3 = v9 + 1;
-    v10 = 2;
-LABEL_17:
-    if (v24[0] && v26)
-    {
-      (*(*v24[0] + 40))();
-    }
-  }
-
-  while (v10 == 2);
-  if (v10 == 3)
-  {
-LABEL_22:
-    v16 = 1;
-    goto LABEL_23;
-  }
-
-  if ((v16 & 1) == 0)
-  {
-    *v30 = v17;
-    re::DynamicString::DynamicString(&v30[16], &v18);
-    *a2 = 0;
-    *(a2 + 8) = *v30;
-    v13 = v32;
-    *(a2 + 24) = *&v30[16];
-    *(a2 + 48) = v13;
-    *(a2 + 32) = v31;
-    goto LABEL_35;
-  }
-
-LABEL_23:
-  v11 = v27;
-  v12 = v29;
-  v27 = 0;
-  *v30 = v11;
-  if (!v29)
-  {
-    *a2 = 1;
-    *(&v31 + 1) = 0;
-    *v30 = 0;
-    *(a2 + 8) = v11;
-LABEL_29:
-    *(a2 + 40) = 0;
-    goto LABEL_34;
-  }
-
-  if (v29 == v28)
-  {
-    *(&v31 + 1) = &v30[8];
-    (*(*v29 + 24))(v29, &v30[8]);
-    v14 = *v30;
-    v12 = *(&v31 + 1);
-    *a2 = 1;
-    *v30 = 0;
-    *(a2 + 8) = v14;
-    if (v12)
-    {
-      goto LABEL_31;
-    }
-
-    goto LABEL_29;
-  }
-
-  v29 = 0;
-  *a2 = 1;
-  *(&v31 + 1) = v12;
-  *v30 = 0;
-  *(a2 + 8) = v11;
-LABEL_31:
-  if (v12 == &v30[8])
-  {
-    *(a2 + 40) = a2 + 16;
-    (*(*v12 + 24))(v12);
-  }
-
-  else
-  {
-    *(a2 + 40) = v12;
-    *(&v31 + 1) = 0;
-  }
-
-LABEL_34:
-  std::unique_ptr<re::internal::RegexRoot,std::function<void ()(re::internal::RegexRoot*)>>::~unique_ptr[abi:nn200100](v30);
-LABEL_35:
-  if (v16 & 1) == 0 && v18 && (BYTE8(v18))
-  {
-    (*(*v18 + 40))();
-  }
-
-  return std::unique_ptr<re::internal::RegexRoot,std::function<void ()(re::internal::RegexRoot*)>>::~unique_ptr[abi:nn200100](&v27);
-}
-
-uint64_t re::internal::regularExpressionFullMatch@<X0>(char *__s@<X1>, void **a2@<X0>, uint64_t a3@<X8>)
-{
-  v6 = strlen(__s);
-  v12 = 0;
-  v10 = 0uLL;
-  v9 = 0;
-  v11 = 0;
-  result = re::internal::RegexRoot::fullMatch(*a2, __s, &__s[v6], &v9);
-  if (result)
-  {
-    *(a3 + 8) = v9;
-    *(a3 + 16) = v10;
-    *(a3 + 40) = v12;
-    *(a3 + 32) = 1;
-    *a3 = 1;
-  }
-
-  else
-  {
-    result = v9;
-    *a3 = 0;
-    if (result && v12)
-    {
-      v8 = *(*result + 40);
-
-      return v8();
-    }
-  }
-
-  return result;
-}
-
-__n128 re::DynamicArray<re::internal::anonymous namespace::RegexToken>::add(uint64_t a1, __n128 *a2)
-{
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
-  v6 = v5 + 1;
-  if (v5 >= v4 && v4 < v6)
-  {
-    if (*a1)
-    {
-      v9 = 2 * v4;
-      v10 = v4 == 0;
-      v11 = 8;
-      if (!v10)
-      {
-        v11 = v9;
-      }
-
-      if (v11 <= v6)
-      {
-        v12 = v6;
-      }
-
-      else
-      {
-        v12 = v11;
-      }
-
-      re::DynamicArray<re::RigNodeConstraint>::setCapacity(a1, v12);
-    }
-
-    else
-    {
-      re::DynamicArray<re::RigNodeConstraint>::setCapacity(a1, v6);
-      ++*(a1 + 24);
-    }
-  }
-
-  result = *a2;
-  *(*(a1 + 32) + 16 * (*(a1 + 16))++) = *a2;
-  ++*(a1 + 24);
-  return result;
-}
-
-_anonymous_namespace_ *re::DynamicArray<re::internal::anonymous namespace::RegexTokenEscapedCharacter>::add(_anonymous_namespace_ *result, uint64_t a2)
-{
-  v3 = result;
-  v4 = *(result + 1);
-  v5 = *(result + 2);
-  v6 = v5 + 1;
-  if (v5 >= v4 && v4 < v6)
-  {
-    if (*result)
-    {
-      v10 = 2 * v4;
-      v11 = v4 == 0;
-      v12 = 8;
-      if (!v11)
-      {
-        v12 = v10;
-      }
-
-      if (v12 <= v6)
-      {
-        v13 = v6;
-      }
-
-      else
-      {
-        v13 = v12;
-      }
-    }
-
-    else
-    {
-      ++*(v3 + 6);
-    }
-  }
-
-  v8 = *(v3 + 2);
-  v9 = *(v3 + 4) + 16 * v8;
-  *v9 = &unk_1F5CCF1A0;
-  *(v9 + 8) = *(a2 + 8);
-  *(v3 + 2) = v8 + 1;
-  ++*(v3 + 6);
-  return result;
-}
-
-_anonymous_namespace_ *re::DynamicArray<re::internal::anonymous namespace::RegexTokenCharacter>::add(_anonymous_namespace_ *result, uint64_t a2)
-{
-  v3 = result;
-  v4 = *(result + 1);
-  v5 = *(result + 2);
-  v6 = v5 + 1;
-  if (v5 >= v4 && v4 < v6)
-  {
-    if (*result)
-    {
-      v10 = 2 * v4;
-      v11 = v4 == 0;
-      v12 = 8;
-      if (!v11)
-      {
-        v12 = v10;
-      }
-
-      if (v12 <= v6)
-      {
-        v13 = v6;
-      }
-
-      else
-      {
-        v13 = v12;
-      }
-    }
-
-    else
-    {
-      ++*(v3 + 6);
-    }
-  }
-
-  v8 = *(v3 + 2);
-  v9 = *(v3 + 4) + 16 * v8;
-  *v9 = &unk_1F5CCF1D0;
-  *(v9 + 8) = *(a2 + 8);
-  *(v3 + 2) = v8 + 1;
-  ++*(v3 + 6);
-  return result;
-}
-
-uint64_t re::internal::anonymous namespace::RegexTokenCharacterSet::tryMatch(uint64_t a1, void *a2)
-{
-  v31 = *MEMORY[0x1E69E9840];
-  v11[0] = 0;
-  v11[1] = 0;
-  v12 = 1;
-  v14 = 0;
-  v15 = 0;
-  v13 = 0;
-  v16 = 0;
-  v2 = *(a1 + 24);
-  if (v2)
-  {
-    v4 = *(a1 + 40);
-    v5 = 8 * v2 - 8;
-    do
-    {
-      v6 = *v4;
-      v7 = *(*a2 + 256);
-      if (v7 <= *v4)
-      {
-        v17 = 0;
-        v29 = 0u;
-        v30 = 0u;
-        v27 = 0u;
-        v28 = 0u;
-        v26 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v18 = 136315906;
-        v19 = "operator[]";
-        v20 = 1024;
-        v21 = 797;
-        v22 = 2048;
-        v23 = v6;
-        v24 = 2048;
-        v25 = v7;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-      }
-
-      if (v8)
-      {
-        break;
-      }
-
-      ++v4;
-      v9 = v5;
-      v5 -= 8;
-    }
-
-    while (v9);
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  return v8;
-}
-
-uint64_t re::internal::anonymous namespace::RegexToken::match(unsigned __int8 *a1, uint64_t a2, void *a3, uint64_t a4)
-{
-  v6 = a2;
-  v7 = &v40;
-  v63 = *MEMORY[0x1E69E9840];
-  v8 = *a1;
-  if (v8 <= 3)
-  {
-    switch(v8)
-    {
-      case 1u:
-        v9 = *(a1 + 1);
-        v10 = *(*a3 + 16);
-        if (v10 <= v9)
-        {
-          goto LABEL_77;
-        }
-
-        v11 = (*(*a3 + 32) + 16 * v9);
-        v12 = 1;
-        goto LABEL_51;
-      case 2u:
-        v9 = *(a1 + 1);
-        v10 = *(*a3 + 56);
-        if (v10 <= v9)
-        {
-          goto LABEL_75;
-        }
-
-        v11 = (*(*a3 + 72) + 16 * v9);
-        v12 = 2;
-        goto LABEL_51;
-      case 3u:
-        v9 = *(a1 + 1);
-        v10 = *(*a3 + 96);
-        if (v10 <= v9)
-        {
-          goto LABEL_73;
-        }
-
-        v11 = (*(*a3 + 112) + 16 * v9);
-        v12 = 3;
-LABEL_51:
-    }
-
-    goto LABEL_80;
-  }
-
-  if (v8 == 4)
-  {
-    v9 = *(a1 + 1);
-    v10 = *(*a3 + 216);
-    if (v10 <= v9)
-    {
-      goto LABEL_78;
-    }
-
-    v11 = (*(*a3 + 232) + 16 * v9);
-    v12 = 4;
-    goto LABEL_51;
-  }
-
-  if (v8 != 5)
-  {
-    if (v8 == 6)
-    {
-      v9 = *(a1 + 1);
-      v10 = *(*a3 + 176);
-      if (v10 <= v9)
-      {
-        goto LABEL_74;
-      }
-
-      v11 = (*(*a3 + 192) + 48 * v9);
-      v12 = 6;
-      goto LABEL_51;
-    }
-
-LABEL_80:
-    re::internal::assertLog(4, a2, a2, "assertion failure: '%s' (%s:line %i) Invalid token type.", "!Unreachable code", "match", 915);
-    result = _os_crash();
-    __break(1u);
-    return result;
-  }
-
-  v9 = *(a1 + 1);
-  v10 = *(*a3 + 136);
-  if (v10 <= v9)
-  {
-    goto LABEL_76;
-  }
-
-  v13 = *(*a3 + 152);
-  LOBYTE(v40) = 0;
-  v14 = v13 + 40 * v9;
-  *(&v40 + 1) = 0;
-  *&v41 = 0;
-  DWORD2(v41) = 1;
-  *&v43 = 0;
-  v42 = 0uLL;
-  DWORD2(v43) = 0;
-  v44 = 0;
-  v45 = 0;
-  v46 = 1;
-  v48 = 0;
-  v49 = 0;
-  v47 = 0;
-  v50 = 0;
-  v35 = a3[3];
-  v15 = *(v14 + 16);
-  v9 = *(a2 + 4);
-  if (v9 < 1)
-  {
-LABEL_26:
-    if (*v6 == 1)
-    {
-      LOBYTE(v40) = 1;
-      if (v9 < *(a2 + 8))
-      {
-        if (v15)
-        {
-          v33 = a3[3];
-          do
-          {
-            v18 = 0;
-            v17 = 0;
-            while (1)
-            {
-              *v36 = 0;
-              *&v36[8] = 0;
-              *&v36[16] = 1;
-              *&v37[12] = 0;
-              v38 = 0;
-              *&v37[4] = 0;
-              v39 = 0;
-              v10 = *(v14 + 16);
-              if (v10 <= v17)
-              {
-                goto LABEL_71;
-              }
-
-              v10 = *(*(v14 + 32) + 8 * v17);
-              v7 = *(*a3 + 336);
-              if (v7 <= v10)
-              {
-                goto LABEL_72;
-              }
-
-              {
-                break;
-              }
-
-              v18 = ++v17 >= v15;
-              if (v15 == v17)
-              {
-                goto LABEL_38;
-              }
-            }
-
-            *re::BucketArray<unsigned long,8ul>::addUninitialized(&v44) = v17;
-            if (v18 || v33 == a3[3])
-            {
-              break;
-            }
-
-            v9 = (v9 + 1);
-            v33 = a3[3];
-          }
-
-          while (v9 < *(a2 + 8));
-        }
-      }
-    }
-
-LABEL_38:
-    v19 = a3[9];
-    v10 = a3[5];
-    if (v19 + 1 > v10 << 6)
-    {
-      v10 = a3[5];
-    }
-
-    v9 = v19 >> 6;
-    if (v10 <= v19 >> 6)
-    {
-      goto LABEL_79;
-    }
-
-    v20 = a3[8];
-    if (a3[6])
-    {
-      v20 = a3 + 7;
-    }
-
-    v21 = v20[v9];
-    ++a3[9];
-    ++*(a3 + 20);
-    v22 = v21 + 120 * (v19 & 0x3F);
-    *v22 = v40;
-    *(v22 + 8) = 0;
-    *(v22 + 16) = 0;
-    *(v22 + 40) = 0;
-    *(v22 + 48) = 0;
-    *(v22 + 32) = 0;
-    *(v22 + 56) = 0;
-    *(&v59 + 1) = 0;
-    *&v60 = 0;
-    v58 = 0uLL;
-    *(v22 + 24) = 3;
-    LODWORD(v59) = 3;
-    if (v58 && (v59 & 1) == 0)
-    {
-      (*(*v58 + 40))();
-    }
-
-    v23 = *(v22 + 48);
-    *(v22 + 48) = v43;
-    *&v43 = v23;
-    ++*(v22 + 56);
-    ++DWORD2(v43);
-    *(v22 + 64) = 0;
-    *(v22 + 72) = 0;
-    v24 = v22 + 64;
-    v25 = 1;
-    *(v24 + 16) = 1;
-    *(v24 + 32) = 0;
-    *(v24 + 40) = 0;
-    *(v24 + 24) = 0;
-    *(v24 + 48) = 0;
-    re::BucketArray<RESubscriptionHandle,8ul>::swap(v24, &v44);
-    LOBYTE(v58) = 5;
-    v26 = a3[3] - v35;
-    *(&v58 + 1) = a3[9] - 1;
-    *&v59 = v35;
-    *(&v59 + 1) = v26;
-  }
-
-  else
-  {
-    if (v15)
-    {
-      v16 = 0;
-      v17 = 40;
-      while (1)
-      {
-        v32 = v16;
-        v9 = 0;
-        while (1)
-        {
-          *v36 = 0;
-          *&v36[8] = 0;
-          *&v36[16] = 1;
-          v38 = 0;
-          *&v37[4] = 0uLL;
-          v39 = 0;
-          v10 = *(v14 + 16);
-          if (v10 <= v9)
-          {
-            v61 = 0u;
-            v62 = 0u;
-            v59 = 0u;
-            v60 = 0u;
-            v58 = 0u;
-            os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-            *v51 = 136315906;
-            *&v51[4] = "operator[]";
-            v52 = 1024;
-            v53 = 797;
-            v54 = 2048;
-            v55 = v9;
-            v56 = 2048;
-            v57 = v10;
-            _os_log_send_and_compose_impl();
-            _os_crash_msg();
-            __break(1u);
-LABEL_70:
-            v61 = 0u;
-            v62 = 0u;
-            v59 = 0u;
-            v60 = 0u;
-            v58 = 0u;
-            os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-            *v51 = 136315906;
-            *&v51[4] = "operator[]";
-            v52 = 1024;
-            v53 = 797;
-            v54 = 2048;
-            v55 = v10;
-            v56 = 2048;
-            v57 = v7;
-            _os_log_send_and_compose_impl();
-            _os_crash_msg();
-            __break(1u);
-LABEL_71:
-            v61 = 0u;
-            v62 = 0u;
-            v59 = 0u;
-            v60 = 0u;
-            v58 = 0u;
-            os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-            *v51 = 136315906;
-            *&v51[4] = "operator[]";
-            v52 = 1024;
-            v53 = 797;
-            v54 = 2048;
-            v55 = v17;
-            v56 = 2048;
-            v57 = v10;
-            _os_log_send_and_compose_impl();
-            _os_crash_msg();
-            __break(1u);
-LABEL_72:
-            v61 = 0u;
-            v62 = 0u;
-            v59 = 0u;
-            v60 = 0u;
-            v58 = 0u;
-            os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-            *v51 = 136315906;
-            *&v51[4] = "operator[]";
-            v52 = 1024;
-            v53 = 797;
-            v54 = 2048;
-            v55 = v10;
-            v56 = 2048;
-            v57 = v7;
-            _os_log_send_and_compose_impl();
-            _os_crash_msg();
-            __break(1u);
-LABEL_73:
-            *v36 = 0;
-            v7[4] = 0u;
-            v42 = 0u;
-            v43 = 0u;
-            v40 = 0u;
-            v41 = 0u;
-            os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-            LODWORD(v58) = 136315906;
-            *(v7 + 180) = "operator[]";
-            WORD6(v58) = 1024;
-            *(v7 + 190) = 797;
-            WORD1(v59) = 2048;
-            *(v7 + 196) = v9;
-            WORD6(v59) = 2048;
-            *(v7 + 206) = v10;
-            _os_log_send_and_compose_impl();
-            _os_crash_msg();
-            __break(1u);
-LABEL_74:
-            *v36 = 0;
-            v7[4] = 0u;
-            v42 = 0u;
-            v43 = 0u;
-            v40 = 0u;
-            v41 = 0u;
-            os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-            LODWORD(v58) = 136315906;
-            *(v7 + 180) = "operator[]";
-            WORD6(v58) = 1024;
-            *(v7 + 190) = 797;
-            WORD1(v59) = 2048;
-            *(v7 + 196) = v9;
-            WORD6(v59) = 2048;
-            *(v7 + 206) = v10;
-            _os_log_send_and_compose_impl();
-            _os_crash_msg();
-            __break(1u);
-LABEL_75:
-            *v36 = 0;
-            v7[4] = 0u;
-            v42 = 0u;
-            v43 = 0u;
-            v40 = 0u;
-            v41 = 0u;
-            os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-            LODWORD(v58) = 136315906;
-            *(v7 + 180) = "operator[]";
-            WORD6(v58) = 1024;
-            *(v7 + 190) = 797;
-            WORD1(v59) = 2048;
-            *(v7 + 196) = v9;
-            WORD6(v59) = 2048;
-            *(v7 + 206) = v10;
-            _os_log_send_and_compose_impl();
-            _os_crash_msg();
-            __break(1u);
-LABEL_76:
-            *v36 = 0;
-            v7[4] = 0u;
-            v42 = 0u;
-            v43 = 0u;
-            v40 = 0u;
-            v41 = 0u;
-            os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-            LODWORD(v58) = 136315906;
-            *(v7 + 180) = "operator[]";
-            WORD6(v58) = 1024;
-            *(v7 + 190) = 797;
-            WORD1(v59) = 2048;
-            *(v7 + 196) = v9;
-            WORD6(v59) = 2048;
-            *(v7 + 206) = v10;
-            _os_log_send_and_compose_impl();
-            _os_crash_msg();
-            __break(1u);
-LABEL_77:
-            *v36 = 0;
-            v7[4] = 0u;
-            v42 = 0u;
-            v43 = 0u;
-            v40 = 0u;
-            v41 = 0u;
-            os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-            LODWORD(v58) = 136315906;
-            *(v7 + 180) = "operator[]";
-            WORD6(v58) = 1024;
-            *(v7 + 190) = 797;
-            WORD1(v59) = 2048;
-            *(v7 + 196) = v9;
-            WORD6(v59) = 2048;
-            *(v7 + 206) = v10;
-            _os_log_send_and_compose_impl();
-            _os_crash_msg();
-            __break(1u);
-LABEL_78:
-            *v36 = 0;
-            v7[4] = 0u;
-            v42 = 0u;
-            v43 = 0u;
-            v40 = 0u;
-            v41 = 0u;
-            os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-            LODWORD(v58) = 136315906;
-            *(v7 + 180) = "operator[]";
-            WORD6(v58) = 1024;
-            *(v7 + 190) = 797;
-            WORD1(v59) = 2048;
-            *(v7 + 196) = v9;
-            WORD6(v59) = 2048;
-            *(v7 + 206) = v10;
-            _os_log_send_and_compose_impl();
-            _os_crash_msg();
-            __break(1u);
-LABEL_79:
-            *v51 = 0;
-            v61 = 0u;
-            v62 = 0u;
-            v59 = 0u;
-            v60 = 0u;
-            v58 = 0u;
-            os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-            *v36 = 136315906;
-            *&v36[4] = "operator[]";
-            *&v36[12] = 1024;
-            *&v36[14] = 858;
-            *&v36[18] = 2048;
-            *v37 = v9;
-            *&v37[8] = 2048;
-            *&v37[10] = v10;
-            _os_log_send_and_compose_impl();
-            _os_crash_msg();
-            __break(1u);
-          }
-
-          v10 = *(*(v14 + 32) + 8 * v9);
-          v7 = *(*a3 + 336);
-          if (v7 <= v10)
-          {
-            goto LABEL_70;
-          }
-
-          {
-            break;
-          }
-
-          if (v15 == ++v9)
-          {
-            goto LABEL_54;
-          }
-        }
-
-        *re::BucketArray<unsigned long,8ul>::addUninitialized(&v44) = v9;
-        v16 = v32 + 1;
-        v9 = *(a2 + 4);
-        if (v32 + 1 >= v9)
-        {
-          v6 = a2;
-          goto LABEL_26;
-        }
-      }
-    }
-
-LABEL_54:
-    v25 = 0;
-    a3[3] = v35;
-  }
-
-  re::BucketArray<unsigned long,8ul>::deinit(&v44);
-  if (v44)
-  {
-    v28 = v46;
-    if ((v46 & 1) == 0)
-    {
-      (*(*v44 + 40))();
-      v28 = v46;
-    }
-
-    v44 = 0;
-    v45 = 0;
-    v46 = (v28 | 1) + 2;
-  }
-
-  v29 = v43;
-  if (v43)
-  {
-    v30 = 0;
-    do
-    {
-      ++v30;
-    }
-
-    while (v29 != v30);
-  }
-
-  while (v41)
-  {
-    re::BucketArray<re::CollisionCastHit,10ul>::freeElementBucket(&v40 + 1);
-  }
-
-  if (*(&v40 + 1) && (BYTE8(v41) & 1) == 0)
-  {
-    (*(**(&v40 + 1) + 40))();
-  }
-
-  return v25;
-}
-
-uint64_t re::internal::anonymous namespace::RegexBasicToken::match(uint64_t (***a1)(void, uint64_t), char a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  v10 = *(a4 + 24);
-  v11 = *(a3 + 4);
-  if (v11 < 1)
-  {
-LABEL_5:
-    if (*a3 == 1)
-    {
-      while (v11 < *(a3 + 8) && ((**a1)(a1, a4) & 1) != 0)
-      {
-        ++v11;
-      }
-    }
-
-    v15[0] = a2;
-    v13 = *(a4 + 24) - v10;
-    v16 = -1;
-    v17 = v10;
-    v18 = v13;
-    return 1;
-  }
-
-  else
-  {
-    v12 = 0;
-    while (((**a1)(a1, a4) & 1) != 0)
-    {
-      ++v12;
-      v11 = *(a3 + 4);
-      if (v12 >= v11)
-      {
-        goto LABEL_5;
-      }
-    }
-
-    result = 0;
-    *(a4 + 24) = v10;
-  }
-
-  return result;
-}
-
-__n128 re::BucketArray<re::internal::anonymous namespace::MatchStackItem,64ul>::add(uint64_t a1, uint64_t a2)
-{
-  v4 = *(a1 + 40);
-  v5 = *(a1 + 8);
-  if (v4 + 1 > v5 << 6)
-  {
-    v5 = *(a1 + 8);
-  }
-
-  if (v5 <= v4 >> 6)
-  {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  if (*(a1 + 16))
-  {
-    v6 = a1 + 24;
-  }
-
-  else
-  {
-    v6 = *(a1 + 32);
-  }
-
-  v7 = *(v6 + 8 * (v4 >> 6));
-  ++*(a1 + 40);
-  ++*(a1 + 48);
-  v8 = (v7 + 32 * (v4 & 0x3F));
-  result = *a2;
-  v10 = *(a2 + 16);
-  *v8 = *a2;
-  v8[1] = v10;
-  return result;
-}
-
-void *re::BucketArray<re::internal::anonymous namespace::MatchStackItem,64ul>::setBucketsCapacity(void *result, unint64_t a2)
-{
-  v3 = result;
-  if (*result)
-  {
-    if (result[5] < a2 << 6)
-    {
-      while (1)
-      {
-        v4 = v3[1];
-        if (v4 <= a2)
-        {
-          break;
-        }
-
-        result = re::BucketArray<re::CollisionCastHit,10ul>::freeElementBucket(v3);
-      }
-
-      if (v4 < a2)
-      {
-        v5 = v3 + 3;
-        do
-        {
-          result = (*(**v3 + 32))(*v3, 2048, 0);
-          v6 = result;
-          if (*v3)
-          {
-            v7 = v3[1];
-            v8 = *(v3 + 4);
-            if ((v8 & 1) == 0)
-            {
-              v9 = *v5;
-              v11 = v7 >= *v5;
-              v10 = v7 + 1;
-              v11 = !v11 || v9 >= v10;
-              if (v11)
-              {
-                goto LABEL_22;
-              }
-
-              v12 = 2 * v9;
-              goto LABEL_18;
-            }
-
-            v10 = v7 + 1;
-            if (v10 >= 3)
-            {
-              v12 = 4;
-LABEL_18:
-              if (v12 <= v10)
-              {
-                v14 = v10;
-              }
-
-              else
-              {
-                v14 = v12;
-              }
-
-              result = re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(v3, v14);
-              v8 = *(v3 + 4);
-            }
-          }
-
-          else
-          {
-            v13 = v3[1];
-            result = re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(v3, v13 + 1);
-            v8 = *(v3 + 4) + 2;
-            *(v3 + 4) = v8;
-          }
-
-LABEL_22:
-          v15 = v3 + 3;
-          if ((v8 & 1) == 0)
-          {
-            v15 = v3[4];
-          }
-
-          v16 = v3[1];
-          v15[v16++] = v6;
-          v3[1] = v16;
-          *(v3 + 4) += 2;
-        }
-
-        while (v16 < a2);
-      }
-    }
-  }
-
-  else
-  {
-    re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(v3, a2);
-    *(v3 + 4) += 2;
-    v3[5] = 0;
-    ++*(v3 + 12);
-  }
-
-  return result;
-}
-
-uint64_t re::BucketArray<re::BucketArray<re::internal::anonymous namespace::MatchStackItem,64ul>,8ul>::add(uint64_t a1, uint64_t a2)
-{
-  v16 = *MEMORY[0x1E69E9840];
-  v4 = *(a1 + 40);
-  v5 = *(a1 + 8);
-  if (v4 + 1 > 8 * v5)
-  {
-    v5 = *(a1 + 8);
-  }
-
-  if (v5 <= v4 >> 3)
-  {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
-    v13 = 0u;
-    v11 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  if (*(a1 + 16))
-  {
-    v6 = a1 + 24;
-  }
-
-  else
-  {
-    v6 = *(a1 + 32);
-  }
-
-  v7 = *(v6 + 8 * (v4 >> 3));
-  ++*(a1 + 40);
-  ++*(a1 + 48);
-  v8 = v7 + 56 * (v4 & 7);
-  *v8 = 0;
-  *(v8 + 8) = 0;
-  *(v8 + 32) = 0;
-  *(v8 + 40) = 0;
-  *(v8 + 24) = 0;
-  *(v8 + 48) = 0;
-  *(&v12 + 1) = 0;
-  *&v13 = 0;
-  v11 = 0uLL;
-  *(v8 + 16) = 3;
-  LODWORD(v12) = 3;
-  result = v11;
-  if (v11 && (v12 & 1) == 0)
-  {
-    result = (*(*v11 + 40))();
-  }
-
-  v10 = *(v8 + 40);
-  *(v8 + 40) = *(a2 + 40);
-  *(a2 + 40) = v10;
-  ++*(v8 + 48);
-  ++*(a2 + 48);
-  return result;
-}
-
-void *re::BucketArray<re::BucketArray<re::internal::anonymous namespace::MatchStackItem,64ul>,8ul>::setBucketsCapacity(void *result, unint64_t a2)
-{
-  v3 = result;
-  if (*result)
-  {
-    if (result[5] < 8 * a2)
-    {
-      while (1)
-      {
-        v4 = v3[1];
-        if (v4 <= a2)
-        {
-          break;
-        }
-
-        result = re::BucketArray<re::CollisionCastHit,10ul>::freeElementBucket(v3);
-      }
-
-      if (v4 < a2)
-      {
-        v5 = v3 + 3;
-        do
-        {
-          result = (*(**v3 + 32))(*v3, 448, 0);
-          v6 = result;
-          if (*v3)
-          {
-            v7 = v3[1];
-            v8 = *(v3 + 4);
-            if ((v8 & 1) == 0)
-            {
-              v9 = *v5;
-              v11 = v7 >= *v5;
-              v10 = v7 + 1;
-              v11 = !v11 || v9 >= v10;
-              if (v11)
-              {
-                goto LABEL_22;
-              }
-
-              v12 = 2 * v9;
-              goto LABEL_18;
-            }
-
-            v10 = v7 + 1;
-            if (v10 >= 3)
-            {
-              v12 = 4;
-LABEL_18:
-              if (v12 <= v10)
-              {
-                v14 = v10;
-              }
-
-              else
-              {
-                v14 = v12;
-              }
-
-              result = re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(v3, v14);
-              v8 = *(v3 + 4);
-            }
-          }
-
-          else
-          {
-            v13 = v3[1];
-            result = re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(v3, v13 + 1);
-            v8 = *(v3 + 4) + 2;
-            *(v3 + 4) = v8;
-          }
-
-LABEL_22:
-          v15 = v3 + 3;
-          if ((v8 & 1) == 0)
-          {
-            v15 = v3[4];
-          }
-
-          v16 = v3[1];
-          v15[v16++] = v6;
-          v3[1] = v16;
-          *(v3 + 4) += 2;
-        }
-
-        while (v16 < a2);
-      }
-    }
-  }
-
-  else
-  {
-    re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(v3, a2);
-    *(v3 + 4) += 2;
-    v3[5] = 0;
-    ++*(v3 + 12);
-  }
-
-  return result;
-}
-
-uint64_t re::DynamicOverflowArray<re::internal::anonymous namespace::MatchStackItem *,2ul>::operator=(uint64_t a1, uint64_t a2)
-{
-  if (a1 == a2)
-  {
-    return a1;
-  }
-
-  v4 = *a1;
-  if (*a1)
-  {
-    if (*a2 && v4 != *a2)
-    {
-      re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) ", "!isInitialized() || !other.isInitialized() || m_allocator == other.m_allocator", "operator=", 527);
-      result = _os_crash();
-      __break(1u);
-      return result;
-    }
-  }
-
-  if (*(a2 + 16))
-  {
-    v10 = *(a2 + 8);
-    if (v10)
-    {
-      *a1 = *a2;
-      if (v10 >= *(a1 + 8))
-      {
-        re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(a1, v10);
-        if (*(a2 + 16))
-        {
-          v13 = (a2 + 24);
-        }
-
-        else
-        {
-          v13 = *(a2 + 32);
-        }
-
-        v14 = *(a1 + 8);
-        v15 = *(a1 + 16);
-        if (v15)
-        {
-          v16 = (a1 + 24);
-        }
-
-        else
-        {
-          v16 = *(a1 + 32);
-        }
-
-        if (v14)
-        {
-          memmove(v16, v13, 8 * v14);
-          v15 = *(a1 + 16);
-        }
-
-        if (v15)
-        {
-          v17 = a1 + 24;
-        }
-
-        else
-        {
-          v17 = *(a1 + 32);
-        }
-
-        v18 = *(a1 + 8);
-        v19 = (v17 + 8 * v18);
-        if (*(a2 + 16))
-        {
-          v20 = a2 + 24;
-        }
-
-        else
-        {
-          v20 = *(a2 + 32);
-        }
-
-        memcpy(v19, (v20 + 8 * v18), 8 * (v10 - v18));
-      }
-
-      else
-      {
-        if (*(a2 + 16))
-        {
-          v11 = (a2 + 24);
-        }
-
-        else
-        {
-          v11 = *(a2 + 32);
-        }
-
-        if (*(a1 + 16))
-        {
-          v12 = (a1 + 24);
-        }
-
-        else
-        {
-          v12 = *(a1 + 32);
-        }
-
-        memmove(v12, v11, 8 * v10);
-      }
-
-      *(a1 + 8) = v10;
-      *(a2 + 8) = 0;
-      *(a2 + 16) += 4;
-      v6 = (a1 + 16);
-      goto LABEL_37;
-    }
-
-    re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit(a1);
-    *a1 = *a2;
-    v6 = (a1 + 16);
-  }
-
-  else
-  {
-    *(a1 + 8) = 0;
-    v6 = (a1 + 16);
-    *(a1 + 16) += 2;
-    v7 = *(a2 + 8);
-    *a1 = *a2;
-    *(a1 + 8) = v7;
-    *a2 = v4;
-    *(a2 + 8) = 0;
-    v8 = *(a1 + 32);
-    *(a1 + 32) = *(a2 + 32);
-    *(a2 + 32) = v8;
-    *(a2 + 16) = *(a2 + 16) & 0xFFFFFFFE | *(a1 + 16) & 1;
-    *(a1 + 16) &= ~1u;
-    v9 = *(a1 + 24);
-    *(a1 + 24) = *(a2 + 24);
-    *(a2 + 24) = v9;
-  }
-
-  *(a2 + 16) += 2;
-LABEL_37:
-  *v6 += 2;
-  return a1;
-}
-
-uint64_t re::BucketArray<unsigned long,8ul>::addUninitialized(uint64_t a1)
-{
-  v2 = *(a1 + 40);
-  v3 = *(a1 + 8);
-  if (v2 + 1 > 8 * v3)
-  {
-    re::BucketArray<unsigned long,8ul>::setBucketsCapacity(a1, (v2 + 8) >> 3);
-    v3 = *(a1 + 8);
-  }
-
-  if (v3 <= v2 >> 3)
-  {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  if (*(a1 + 16))
-  {
-    v4 = a1 + 24;
-  }
-
-  else
-  {
-    v4 = *(a1 + 32);
-  }
-
-  v5 = *(v4 + 8 * (v2 >> 3));
-  ++*(a1 + 40);
-  ++*(a1 + 48);
-  return v5 + 8 * (v2 & 7);
-}
-
-uint64_t *re::BucketArray<unsigned long,8ul>::setBucketsCapacity(uint64_t *result, unint64_t a2)
-{
-  v3 = result;
-  if (*result)
-  {
-    if (result[5] < 8 * a2)
-    {
-      while (1)
-      {
-        v4 = v3[1];
-        if (v4 <= a2)
-        {
-          break;
-        }
-
-        result = re::BucketArray<re::CollisionCastHit,10ul>::freeElementBucket(v3);
-      }
-
-      while (v4 < a2)
-      {
-        v5 = (*(**v3 + 32))(*v3, 64, 0);
-        result = re::DynamicOverflowArray<RESubscriptionHandle *,2ul>::add(v3, &v5);
-        v4 = v3[1];
-      }
-    }
-  }
-
-  else
-  {
-  }
-
-  return result;
-}
-
-uint64_t re::BucketArray<unsigned long,8ul>::init(uint64_t a1, uint64_t a2, unint64_t a3)
-{
-  *a1 = a2;
-  re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(a1, a3);
-  *(a1 + 16) += 2;
-  *(a1 + 40) = 0;
-  result = re::BucketArray<unsigned long,8ul>::setBucketsCapacity(a1, a3);
-  ++*(a1 + 48);
-  return result;
-}
-
-void *re::BucketArray<re::internal::anonymous namespace::RegexTokenGroup::RegexTokenGroupState,64ul>::setBucketsCapacity(void *result, unint64_t a2)
-{
-  v3 = result;
-  if (*result)
-  {
-    if (result[5] < a2 << 6)
-    {
-      while (1)
-      {
-        v4 = v3[1];
-        if (v4 <= a2)
-        {
-          break;
-        }
-
-        result = re::BucketArray<re::CollisionCastHit,10ul>::freeElementBucket(v3);
-      }
-
-      if (v4 < a2)
-      {
-        v5 = v3 + 3;
-        do
-        {
-          result = (*(**v3 + 32))(*v3, 7680, 0);
-          v6 = result;
-          if (*v3)
-          {
-            v7 = v3[1];
-            v8 = *(v3 + 4);
-            if ((v8 & 1) == 0)
-            {
-              v9 = *v5;
-              v11 = v7 >= *v5;
-              v10 = v7 + 1;
-              v11 = !v11 || v9 >= v10;
-              if (v11)
-              {
-                goto LABEL_22;
-              }
-
-              v12 = 2 * v9;
-              goto LABEL_18;
-            }
-
-            v10 = v7 + 1;
-            if (v10 >= 3)
-            {
-              v12 = 4;
-LABEL_18:
-              if (v12 <= v10)
-              {
-                v14 = v10;
-              }
-
-              else
-              {
-                v14 = v12;
-              }
-
-              result = re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(v3, v14);
-              v8 = *(v3 + 4);
-            }
-          }
-
-          else
-          {
-            v13 = v3[1];
-            result = re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(v3, v13 + 1);
-            v8 = *(v3 + 4) + 2;
-            *(v3 + 4) = v8;
-          }
-
-LABEL_22:
-          v15 = v3 + 3;
-          if ((v8 & 1) == 0)
-          {
-            v15 = v3[4];
-          }
-
-          v16 = v3[1];
-          v15[v16++] = v6;
-          v3[1] = v16;
-          *(v3 + 4) += 2;
-        }
-
-        while (v16 < a2);
-      }
-    }
-  }
-
-  else
-  {
-    re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(v3, a2);
-    *(v3 + 4) += 2;
-    v3[5] = 0;
-    ++*(v3 + 12);
-  }
-
-  return result;
-}
-
-uint64_t re::BucketArray<unsigned long,8ul>::deinit(uint64_t a1)
-{
-  v2 = *(a1 + 40);
-  if (v2)
-  {
-    for (i = 0; i != v2; ++i)
-    {
-      re::BucketArray<unsigned long,8ul>::operator[](a1, i);
-    }
-  }
-
-  while (*(a1 + 8))
-  {
-    re::BucketArray<re::CollisionCastHit,10ul>::freeElementBucket(a1);
-  }
-
-  result = re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit(a1);
-  *(a1 + 40) = 0;
-  ++*(a1 + 48);
-  return result;
-}
-
-uint64_t re::BucketArray<unsigned long,8ul>::operator[](uint64_t a1, unint64_t a2)
-{
-  v2 = *(a1 + 40);
-  if (v2 <= a2)
-  {
-    re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < m_size", "operator[]", 1011, a2, v2);
-    _os_crash();
-    __break(1u);
-LABEL_8:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  if (*(a1 + 8) <= a2 >> 3)
-  {
-    goto LABEL_8;
-  }
-
-  if (*(a1 + 16))
-  {
-    v3 = a1 + 24;
-  }
-
-  else
-  {
-    v3 = *(a1 + 32);
-  }
-
-  return *(v3 + 8 * (a2 >> 3)) + 8 * (a2 & 7);
-}
-
-uint64_t re::BucketArray<re::BucketArray<re::internal::anonymous namespace::MatchStackItem,64ul>,8ul>::BucketArrayIterator<re::BucketArray<re::internal::anonymous namespace::MatchStackItem,64ul>,re::BucketArray<re::internal::anonymous namespace::MatchStackItem,64ul>&,re::BucketArray<re::BucketArray<re::internal::anonymous namespace::MatchStackItem,64ul>,8ul>&,true>::operator*(uint64_t a1, unint64_t a2)
-{
-  v2 = *(a1 + 40);
-  if (v2 <= a2)
-  {
-    re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < m_size", "operator[]", 1011, a2, v2);
-    _os_crash();
-    __break(1u);
-LABEL_8:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  if (*(a1 + 8) <= a2 >> 3)
-  {
-    goto LABEL_8;
-  }
-
-  if (*(a1 + 16))
-  {
-    v3 = a1 + 24;
-  }
-
-  else
-  {
-    v3 = *(a1 + 32);
-  }
-
-  return *(v3 + 8 * (a2 >> 3)) + 56 * (a2 & 7);
-}
-
-uint64_t re::internal::anonymous namespace::RegexTokenCharacterRange::tryMatch(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 24);
-  if ((*(a2 + 16) - v2) < 1)
-  {
-    return 0;
-  }
-
-  v3 = *v2;
-  if (v3 < *(a1 + 8) || v3 > *(a1 + 9))
-  {
-    return 0;
-  }
-
-  *(a2 + 24) = v2 + 1;
-  return 1;
-}
-
-void *re::DynamicArray<re::internal::anonymous namespace::RegexTokenCharacterRange>::setCapacity(void *result, unint64_t a2)
+void *re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>>::setCapacity(void *result, unint64_t a2)
 {
   v3 = result[1];
   if (v3 != a2)
   {
     v5 = result;
+    v6 = result + 2;
     if (result[2] <= a2)
     {
       result = *result;
       if (!*v5)
       {
-        ++*(v5 + 6);
-        return result;
-      }
-
-      if (a2)
-      {
-        if (a2 >> 60)
-        {
-          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 16, a2);
-          _os_crash();
-          __break(1u);
-        }
-
-        else
-        {
-          v2 = 16 * a2;
-          result = (*(*result + 32))(result, 16 * a2, 8);
-          if (result)
-          {
-            v7 = result;
-            if (!v5[1])
-            {
-              goto LABEL_16;
-            }
-
-            goto LABEL_11;
-          }
-        }
-
-        re::internal::assertLog(6, v6, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, v2, *(*v5 + 8));
-        result = _os_crash();
-        __break(1u);
-        return result;
-      }
-
-      v7 = 0;
-      if (!v3)
-      {
-LABEL_16:
-        v5[4] = v7;
-        v5[1] = a2;
-        return result;
-      }
-
-LABEL_11:
-      v8 = v5[4];
-      v9 = v5[2];
-      if (v9)
-      {
-        v10 = 16 * v9;
-        v11 = (v8 + 8);
-        v12 = v7;
-        v13 = v7;
-        do
-        {
-          *v13 = &unk_1F5CCF140;
-          v14 = *v11;
-          v11 += 8;
-          *(v13 + 4) = v14;
-          v13 += 2;
-          v12 += 2;
-          v10 -= 16;
-        }
-
-        while (v10);
-        v8 = v5[4];
-      }
-
-      result = (*(**v5 + 40))(*v5, v8);
-      goto LABEL_16;
-    }
-  }
-
-  return result;
-}
-
-void *re::DynamicArray<re::internal::anonymous namespace::RegexTokenCharacterSet>::setCapacity(void *result, unint64_t a2)
-{
-  v3 = result[1];
-  if (v3 != a2)
-  {
-    v5 = result;
-    if (result[2] <= a2)
-    {
-      result = *result;
-      if (!*v5)
-      {
-        ++*(v5 + 6);
+        result = re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>>::setCapacity(v5, a2);
+        *v6 = 0;
+        v6[1] = 0;
+        *(v6 + 4) = 0;
         return result;
       }
 
@@ -8957,10 +7707,10 @@ void *re::DynamicArray<re::internal::anonymous namespace::RegexTokenCharacterSet
           result = (*(*result + 32))(result, 48 * a2, 8);
           if (result)
           {
-            v7 = result;
+            v8 = result;
             if (!v5[1])
             {
-              goto LABEL_16;
+              goto LABEL_20;
             }
 
             goto LABEL_11;
@@ -8969,325 +7719,259 @@ void *re::DynamicArray<re::internal::anonymous namespace::RegexTokenCharacterSet
 
         else
         {
-          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 48, a2);
-          _os_crash();
+          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in Queue<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 440, 48, a2);
+          _os_crash("assertion failure: (!overflow) Size overflow in Queue<T>::setCapacity(). Element size = %zu, capacity = %zu", v14, v16);
           __break(1u);
         }
 
-        re::internal::assertLog(6, v6, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, v2, *(*v5 + 8));
-        result = _os_crash();
+        re::internal::assertLog(6, v7, "assertion failure: '%s' (%s:line %i) Queue<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 444, v2, *(*v5 + 8));
+        result = _os_crash("assertion failure: (newData) Queue<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", v15, v17);
         __break(1u);
         return result;
       }
 
-      v7 = 0;
+      v8 = 0;
       if (!v3)
       {
-LABEL_16:
-        v5[4] = v7;
+LABEL_20:
+        v5[5] = v8;
         v5[1] = a2;
         return result;
       }
 
 LABEL_11:
-      v8 = v5[4];
-      v9 = v5[2];
-      if (v9)
+      if (v5[2])
       {
-        v10 = 0;
-        v11 = 48 * v9;
+        v9 = 0;
+        v10 = v5[3];
         do
         {
-          v12 = &v7[v10 / 8];
-          v13 = v8 + v10;
-          v12[5] = 0;
-          *v12 = &unk_1F5CCF100;
-          v12[1] = 0;
-          v12[2] = 0;
-          v12[3] = 0;
-          *(v12 + 8) = 0;
-          v14 = (v8 + v10 + 8);
-          v15 = *(v8 + v10 + 16);
-          v12[1] = *v14;
-          *v14 = 0;
-          v12[2] = v15;
-          *(v13 + 16) = 0;
-          v16 = v7[v10 / 8 + 3];
-          v12[3] = *(v8 + v10 + 24);
-          *(v13 + 24) = v16;
-          v17 = v7[v10 / 8 + 5];
-          v12[5] = *(v8 + v10 + 40);
-          *(v13 + 40) = v17;
-          *(v13 + 32) = *(v8 + v10 + 32) + 1;
-          *(v12 + 8) = LODWORD(v7[v10 / 8 + 4]) + 1;
-          *v13 = &unk_1F5CCF100;
-          re::DynamicArray<unsigned long>::deinit(v14);
-          v10 += 48;
+          v11 = v5[5] + 48 * ((v9 + v5[3]) % v5[1]);
+          v12 = &v8[6 * v10];
+          *v12 = 0;
+          *(v12 + 40) = -1;
+          std::__variant_detail::__dtor<std::__variant_detail::__traits<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v12);
+          v13 = *(v11 + 40);
+          if (v13 != -1)
+          {
+            v18 = &v8[6 * v10];
+            (off_1F5CCBBF0[v13])(&v18, v11);
+            *(v12 + 40) = v13;
+          }
+
+          std::__variant_detail::__dtor<std::__variant_detail::__traits<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v11);
+          if (v10 + 1 < a2)
+          {
+            ++v10;
+          }
+
+          else
+          {
+            v10 = 0;
+          }
+
+          ++v9;
         }
 
-        while (v11 != v10);
-        v8 = v5[4];
+        while (v9 != *v6);
       }
 
-      result = (*(**v5 + 40))(*v5, v8);
-      goto LABEL_16;
+      result = (*(**v5 + 40))(*v5, v5[5]);
+      goto LABEL_20;
     }
   }
 
   return result;
 }
 
-uint64_t re::internal::anonymous namespace::RegexTokenMarker::tryMatch(uint64_t a1, void *a2)
+uint64_t *std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:ne200100]<void std::__variant_detail::__ctor<std::__variant_detail::__traits<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>>::__generic_construct[abi:ne200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>,(std::__variant_detail::_Trait)1>>(std::__variant_detail::__ctor<std::__variant_detail::__traits<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>>&,std::__variant_detail::__move_constructor<std::__variant_detail::__traits<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>,(std::__variant_detail::_Trait)1> &&)::{lambda(std::__variant_detail::__move_constructor<std::__variant_detail::__traits<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>,(std::__variant_detail::_Trait)1> &)#1} &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>> &&>(uint64_t *result, uint64_t a2)
 {
-  v4 = *(a1 + 8);
-  switch(v4)
-  {
-    case 3:
-      v7 = a2[2];
-      v6 = a2[3];
-      return v6 == v7;
-    case 2:
-      v6 = a2[3];
-      v7 = a2[1];
-      return v6 == v7;
-    case 1:
-      v5 = a2[3];
-      if (v5 != a2[2])
-      {
-        a2[3] = v5 + 1;
-        return 1;
-      }
-
-      return 0;
-  }
-
-  re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) Invalid token marker type.", "!Unreachable code", "tryMatch", 511, v2, v3);
-  result = _os_crash();
-  __break(1u);
+  v2 = *result;
+  *(v2 + 32) = 0;
+  *(v2 + 8) = 0;
+  *(v2 + 16) = 0;
+  *v2 = 0;
+  *(v2 + 24) = 0;
+  v3 = *(a2 + 8);
+  *v2 = *a2;
+  *(v2 + 8) = v3;
+  *a2 = 0;
+  *(a2 + 8) = 0;
+  v4 = *(v2 + 16);
+  *(v2 + 16) = *(a2 + 16);
+  *(a2 + 16) = v4;
+  v5 = *(v2 + 32);
+  *(v2 + 32) = *(a2 + 32);
+  *(a2 + 32) = v5;
+  ++*(a2 + 24);
+  ++*(v2 + 24);
   return result;
 }
 
-void *re::DynamicArray<re::internal::anonymous namespace::RegexTokenMarker>::setCapacity(void *result, unint64_t a2)
+uint64_t *std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:ne200100]<void std::__variant_detail::__ctor<std::__variant_detail::__traits<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>>::__generic_construct[abi:ne200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>,(std::__variant_detail::_Trait)1>>(std::__variant_detail::__ctor<std::__variant_detail::__traits<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>>&,std::__variant_detail::__move_constructor<std::__variant_detail::__traits<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>,(std::__variant_detail::_Trait)1> &&)::{lambda(std::__variant_detail::__move_constructor<std::__variant_detail::__traits<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>,(std::__variant_detail::_Trait)1> &)#1} &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>> &&>(uint64_t *result, uint64_t a2)
 {
-  v3 = result[1];
-  if (v3 != a2)
-  {
-    v5 = result;
-    if (result[2] <= a2)
-    {
-      result = *result;
-      if (!*v5)
-      {
-        ++*(v5 + 6);
-        return result;
-      }
-
-      if (a2)
-      {
-        if (a2 >> 60)
-        {
-          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 16, a2);
-          _os_crash();
-          __break(1u);
-        }
-
-        else
-        {
-          v2 = 16 * a2;
-          result = (*(*result + 32))(result, 16 * a2, 8);
-          if (result)
-          {
-            v7 = result;
-            if (!v5[1])
-            {
-              goto LABEL_15;
-            }
-
-            goto LABEL_11;
-          }
-        }
-
-        re::internal::assertLog(6, v6, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, v2, *(*v5 + 8));
-        result = _os_crash();
-        __break(1u);
-        return result;
-      }
-
-      v7 = 0;
-      if (!v3)
-      {
-LABEL_15:
-        v5[4] = v7;
-        v5[1] = a2;
-        return result;
-      }
-
-LABEL_11:
-      v8 = v5[4];
-      v9 = v5[2];
-      if (v9)
-      {
-        v10 = 16 * v9;
-        v11 = (v8 + 8);
-        v12 = v7;
-        v13 = v7;
-        do
-        {
-          *v13 = &unk_1F5CCF170;
-          v14 = *v11;
-          v11 += 16;
-          *(v13 + 8) = v14;
-          v13 += 2;
-          v12 += 2;
-          v10 -= 16;
-        }
-
-        while (v10);
-      }
-
-      result = (*(**v5 + 40))(*v5, v8);
-      goto LABEL_15;
-    }
-  }
-
+  v2 = *result;
+  *(v2 + 32) = 0;
+  *(v2 + 8) = 0;
+  *(v2 + 16) = 0;
+  *v2 = 0;
+  *(v2 + 24) = 0;
+  v3 = *(a2 + 8);
+  *v2 = *a2;
+  *(v2 + 8) = v3;
+  *a2 = 0;
+  *(a2 + 8) = 0;
+  v4 = *(v2 + 16);
+  *(v2 + 16) = *(a2 + 16);
+  *(a2 + 16) = v4;
+  v5 = *(v2 + 32);
+  *(v2 + 32) = *(a2 + 32);
+  *(a2 + 32) = v5;
+  ++*(a2 + 24);
+  ++*(v2 + 24);
   return result;
 }
 
-uint64_t re::internal::anonymous namespace::RegexTokenEscapedCharacter::tryMatch(uint64_t a1, void *a2)
+uint64_t *std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispatch[abi:ne200100]<void std::__variant_detail::__ctor<std::__variant_detail::__traits<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>>::__generic_construct[abi:ne200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>,(std::__variant_detail::_Trait)1>>(std::__variant_detail::__ctor<std::__variant_detail::__traits<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>>&,std::__variant_detail::__move_constructor<std::__variant_detail::__traits<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>,(std::__variant_detail::_Trait)1> &&)::{lambda(std::__variant_detail::__move_constructor<std::__variant_detail::__traits<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>,(std::__variant_detail::_Trait)1> &)#1} &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>> &&>(uint64_t *result, uint64_t a2)
 {
-  v4 = a2[2];
-  v3 = a2[3];
-  v5 = *(a1 + 8);
-  if (v5 > 0x59)
+  v2 = *result;
+  *(v2 + 32) = 0;
+  *(v2 + 8) = 0;
+  *(v2 + 16) = 0;
+  *v2 = 0;
+  *(v2 + 24) = 0;
+  v3 = *(a2 + 8);
+  *v2 = *a2;
+  *(v2 + 8) = v3;
+  *a2 = 0;
+  *(a2 + 8) = 0;
+  v4 = *(v2 + 16);
+  *(v2 + 16) = *(a2 + 16);
+  *(a2 + 16) = v4;
+  v5 = *(v2 + 32);
+  *(v2 + 32) = *(a2 + 32);
+  *(a2 + 32) = v5;
+  ++*(a2 + 24);
+  ++*(v2 + 24);
+  return result;
+}
+
+uint64_t re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>::DynamicArray(uint64_t a1, uint64_t *a2)
+{
+  *(a1 + 32) = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 24) = 0;
+  v3 = *a2;
+  if (*a2)
   {
-    if (*(a1 + 8) <= 0x72u)
-    {
-      if (v5 != 90)
-      {
-        if (v5 == 100)
-        {
-          if (v4 != v3 && *v3 - 48 <= 9)
-          {
-            goto LABEL_55;
-          }
+    v5 = a2[2];
+    *a1 = v3;
+    re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>::setCapacity(a1, v5);
+    ++*(a1 + 24);
+    re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>::copy(a1, a2);
+  }
 
-          return 0;
+  return a1;
+}
+
+void *re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>::copy(void *result, uint64_t a2)
+{
+  v3 = result;
+  v4 = *(a2 + 16);
+  v5 = result[2];
+  if (v4 >= v5)
+  {
+    result = re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>::setCapacity(result, *(a2 + 16));
+    v11 = *(a2 + 32);
+    v12 = v3[2];
+    v13 = v3[4];
+    if (v12)
+    {
+      v14 = 160 * v12;
+      do
+      {
+        result = std::__variant_detail::__assignment<std::__variant_detail::__traits<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>::__generic_assign[abi:ne200100]<std::__variant_detail::__copy_assignment<std::__variant_detail::__traits<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>,(std::__variant_detail::_Trait)1> const&>(v13, v11);
+        v11 += 160;
+        v13 += 160;
+        v14 -= 160;
+      }
+
+      while (v14);
+      v13 = v3[4];
+      v12 = v3[2];
+      v11 = *(a2 + 32);
+    }
+
+    if (v12 != v4)
+    {
+      v15 = 5 * v12;
+      v16 = v11 + 32 * v15;
+      v17 = v13 + 32 * v15;
+      v18 = 160 * v4 - 32 * v15;
+      do
+      {
+        *v17 = 0;
+        *(v17 + 152) = -1;
+        result = std::__variant_detail::__dtor<std::__variant_detail::__traits<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v17);
+        v19 = *(v16 + 152);
+        if (v19 != -1)
+        {
+          v20 = v17;
+          result = (off_1F5CCBC40[v19])(&v20, v16);
+          *(v17 + 152) = v19;
         }
 
-        goto LABEL_47;
+        v16 += 160;
+        v17 += 160;
+        v18 -= 160;
       }
 
-      return v4 == v3;
-    }
-
-    if (v5 != 115)
-    {
-      if (v5 == 119)
-      {
-        if (v4 != v3)
-        {
-          v9 = *v3;
-          v10 = v9 != 95 && (v9 - 48) >= 0xA;
-          if (!v10 || (v9 & 0xFFFFFFDF) - 65 <= 0x19)
-          {
-            goto LABEL_55;
-          }
-        }
-
-        return 0;
-      }
-
-      goto LABEL_47;
-    }
-
-    if (v4 == v3)
-    {
-      return 0;
-    }
-
-    v14 = *v3;
-    if ((v14 & 0x80000000) != 0)
-    {
-      if (!__maskrune(v14, 0x4000uLL))
-      {
-        return 0;
-      }
-    }
-
-    else if ((*(MEMORY[0x1E69E9830] + 4 * v14 + 60) & 0x4000) == 0)
-    {
-      return 0;
+      while (v18);
     }
   }
 
   else
   {
-    if (*(a1 + 8) <= 0x52u)
+    v6 = result[4];
+    if (v4)
     {
-      if (v5 != 65)
+      v7 = *(a2 + 32);
+      v8 = 160 * v4;
+      do
       {
-        if (v5 == 68)
-        {
-          if (v4 != v3 && *v3 - 58 <= 0xFFFFFFF5)
-          {
-            goto LABEL_55;
-          }
-
-          return 0;
-        }
-
-LABEL_47:
-        if (v4 != v3 && v5 == *v3)
-        {
-          goto LABEL_55;
-        }
-
-        return 0;
+        result = std::__variant_detail::__assignment<std::__variant_detail::__traits<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>::__generic_assign[abi:ne200100]<std::__variant_detail::__copy_assignment<std::__variant_detail::__traits<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>,(std::__variant_detail::_Trait)1> const&>(v6, v7);
+        v7 += 160;
+        v6 += 160;
+        v8 -= 160;
       }
 
-      v4 = a2[1];
-      return v4 == v3;
+      while (v8);
+      v6 = v3[4];
+      v5 = v3[2];
     }
 
-    if (v5 != 83)
+    if (v4 != v5)
     {
-      if (v5 == 87)
+      v9 = v6 + 160 * v4;
+      v10 = 160 * v5 - 160 * v4;
+      do
       {
-        if (v4 != v3)
-        {
-          v6 = *v3;
-          v7 = v6 != 95 && (v6 - 48) >= 0xA;
-          if (v7 && (v6 & 0xFFFFFFDF) - 65 >= 0x1A)
-          {
-            goto LABEL_55;
-          }
-        }
-
-        return 0;
+        result = std::__variant_detail::__dtor<std::__variant_detail::__traits<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v9);
+        v9 += 160;
+        v10 -= 160;
       }
 
-      goto LABEL_47;
-    }
-
-    if (v4 == v3)
-    {
-      return 0;
-    }
-
-    v12 = *v3;
-    if ((v12 & 0x80000000) != 0 ? __maskrune(v12, 0x4000uLL) : *(MEMORY[0x1E69E9830] + 4 * v12 + 60) & 0x4000)
-    {
-      return 0;
+      while (v10);
     }
   }
 
-  v3 = a2[3];
-LABEL_55:
-  a2[3] = v3 + 1;
-  return 1;
+  v3[2] = v4;
+  return result;
 }
 
-void *re::DynamicArray<re::internal::anonymous namespace::RegexTokenEscapedCharacter>::setCapacity(void *result, unint64_t a2)
+void *re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>::setCapacity(void *result, unint64_t a2)
 {
   v3 = result[1];
   if (v3 != a2)
@@ -9298,37 +7982,38 @@ void *re::DynamicArray<re::internal::anonymous namespace::RegexTokenEscapedChara
       result = *result;
       if (!*v5)
       {
+        result = re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>::setCapacity(v5, a2);
         ++*(v5 + 6);
         return result;
       }
 
       if (a2)
       {
-        if (a2 >> 60)
+        if (is_mul_ok(a2, 0xA0uLL))
         {
-          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 16, a2);
-          _os_crash();
-          __break(1u);
-        }
-
-        else
-        {
-          v2 = 16 * a2;
-          result = (*(*result + 32))(result, 16 * a2, 8);
+          v2 = 160 * a2;
+          result = (*(*result + 32))(result, 160 * a2, 8);
           if (result)
           {
             v7 = result;
             if (!v5[1])
             {
-              goto LABEL_15;
+              goto LABEL_18;
             }
 
             goto LABEL_11;
           }
         }
 
+        else
+        {
+          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 160, a2);
+          _os_crash("assertion failure: (!overflow) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", v13, v15);
+          __break(1u);
+        }
+
         re::internal::assertLog(6, v6, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, v2, *(*v5 + 8));
-        result = _os_crash();
+        result = _os_crash("assertion failure: (newData) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", v14, v16);
         __break(1u);
         return result;
       }
@@ -9336,7 +8021,7 @@ void *re::DynamicArray<re::internal::anonymous namespace::RegexTokenEscapedChara
       v7 = 0;
       if (!v3)
       {
-LABEL_15:
+LABEL_18:
         v5[4] = v7;
         v5[1] = a2;
         return result;
@@ -9347,705 +8032,1671 @@ LABEL_11:
       v9 = v5[2];
       if (v9)
       {
-        v10 = 16 * v9;
-        v11 = (v8 + 8);
-        v12 = v7;
-        v13 = v7;
+        v10 = 160 * v9;
+        v11 = v7;
         do
         {
-          *v13 = &unk_1F5CCF1A0;
-          v14 = *v11;
-          v11 += 16;
-          *(v13 + 8) = v14;
-          v13 += 2;
-          v12 += 2;
-          v10 -= 16;
-        }
-
-        while (v10);
-      }
-
-      result = (*(**v5 + 40))(*v5, v8);
-      goto LABEL_15;
-    }
-  }
-
-  return result;
-}
-
-BOOL re::internal::anonymous namespace::RegexTokenCharacter::tryMatch(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 8);
-  v3 = *(a2 + 24);
-  v4 = *v3;
-  if (v2 == v4)
-  {
-    *(a2 + 24) = v3 + 1;
-  }
-
-  return v2 == v4;
-}
-
-void *re::DynamicArray<re::internal::anonymous namespace::RegexTokenCharacter>::setCapacity(void *result, unint64_t a2)
-{
-  v3 = result[1];
-  if (v3 != a2)
-  {
-    v5 = result;
-    if (result[2] <= a2)
-    {
-      result = *result;
-      if (!*v5)
-      {
-        ++*(v5 + 6);
-        return result;
-      }
-
-      if (a2)
-      {
-        if (a2 >> 60)
-        {
-          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 16, a2);
-          _os_crash();
-          __break(1u);
-        }
-
-        else
-        {
-          v2 = 16 * a2;
-          result = (*(*result + 32))(result, 16 * a2, 8);
-          if (result)
+          *v11 = 0;
+          *(v11 + 152) = -1;
+          std::__variant_detail::__dtor<std::__variant_detail::__traits<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v11);
+          v12 = *(v8 + 152);
+          if (v12 != -1)
           {
-            v7 = result;
-            if (!v5[1])
-            {
-              goto LABEL_15;
-            }
-
-            goto LABEL_11;
+            v17 = v11;
+            (off_1F5CCBC20[v12])(&v17, v8);
+            *(v11 + 152) = v12;
           }
-        }
 
-        re::internal::assertLog(6, v6, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, v2, *(*v5 + 8));
-        result = _os_crash();
-        __break(1u);
-        return result;
-      }
-
-      v7 = 0;
-      if (!v3)
-      {
-LABEL_15:
-        v5[4] = v7;
-        v5[1] = a2;
-        return result;
-      }
-
-LABEL_11:
-      v8 = v5[4];
-      v9 = v5[2];
-      if (v9)
-      {
-        v10 = 16 * v9;
-        v11 = (v8 + 8);
-        v12 = v7;
-        v13 = v7;
-        do
-        {
-          *v13 = &unk_1F5CCF1D0;
-          v14 = *v11;
-          v11 += 16;
-          *(v13 + 8) = v14;
-          v13 += 2;
-          v12 += 2;
-          v10 -= 16;
+          std::__variant_detail::__dtor<std::__variant_detail::__traits<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v8);
+          v8 += 160;
+          v11 += 160;
+          v10 -= 160;
         }
 
         while (v10);
+        v8 = v5[4];
       }
 
       result = (*(**v5 + 40))(*v5, v8);
-      goto LABEL_15;
+      goto LABEL_18;
     }
   }
 
   return result;
 }
 
-uint64_t re::internal::anonymous namespace::RegexOperationList::matchFrom(uint64_t a1, unint64_t a2, void *a3, uint64_t a4)
+__n128 std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:ne200100]<void std::__variant_detail::__ctor<std::__variant_detail::__traits<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>::__generic_construct[abi:ne200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>,(std::__variant_detail::_Trait)1>>(std::__variant_detail::__ctor<std::__variant_detail::__traits<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>&,std::__variant_detail::__move_constructor<std::__variant_detail::__traits<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>,(std::__variant_detail::_Trait)1> &&)::{lambda(std::__variant_detail::__move_constructor<std::__variant_detail::__traits<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>,(std::__variant_detail::_Trait)1> &)#1} &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData> &&>(__n128 **a1, __n128 *a2)
 {
-  v4 = *(a1 + 16);
-  if (v4 > a2)
+  v2 = *a1;
+  result = *a2;
+  v2[1].n128_u64[0] = a2[1].n128_u64[0];
+  *v2 = result;
+  v4 = a2[1].n128_u64[1];
+  a2[1].n128_u64[1] = 0;
+  v2[4].n128_u64[0] = 0;
+  v2[1].n128_u64[1] = v4;
+  v2[2].n128_u64[0] = 0;
+  v2[2].n128_u64[1] = 0;
+  v2[3].n128_u64[0] = 0;
+  v2[3].n128_u32[2] = 0;
+  v5 = a2[2].n128_u64[1];
+  v2[2].n128_u64[0] = a2[2].n128_u64[0];
+  v2[2].n128_u64[1] = v5;
+  a2[2] = 0uLL;
+  v6 = v2[3].n128_u64[0];
+  v2[3].n128_u64[0] = a2[3].n128_u64[0];
+  a2[3].n128_u64[0] = v6;
+  v7 = v2[4].n128_u64[0];
+  v2[4].n128_u64[0] = a2[4].n128_u64[0];
+  a2[4].n128_u64[0] = v7;
+  ++a2[3].n128_u32[2];
+  ++v2[3].n128_u32[2];
+  v2[6].n128_u64[1] = 0;
+  v2[5].n128_u64[0] = 0;
+  v2[5].n128_u64[1] = 0;
+  v2[4].n128_u64[1] = 0;
+  v2[6].n128_u32[0] = 0;
+  v8 = a2[5].n128_u64[0];
+  v2[4].n128_u64[1] = a2[4].n128_u64[1];
+  v2[5].n128_u64[0] = v8;
+  *(&a2[4] + 8) = 0uLL;
+  v9 = v2[5].n128_u64[1];
+  v2[5].n128_u64[1] = a2[5].n128_u64[1];
+  a2[5].n128_u64[1] = v9;
+  v10 = v2[6].n128_u64[1];
+  v2[6].n128_u64[1] = a2[6].n128_u64[1];
+  a2[6].n128_u64[1] = v10;
+  ++a2[6].n128_u32[0];
+  ++v2[6].n128_u32[0];
+  v2[9].n128_u64[0] = 0;
+  v2[7].n128_u64[1] = 0;
+  v2[8].n128_u64[0] = 0;
+  v2[7].n128_u64[0] = 0;
+  v2[8].n128_u32[2] = 0;
+  v11 = a2[7].n128_u64[1];
+  v2[7].n128_u64[0] = a2[7].n128_u64[0];
+  v2[7].n128_u64[1] = v11;
+  a2[7] = 0uLL;
+  v12 = v2[8].n128_u64[0];
+  v2[8].n128_u64[0] = a2[8].n128_u64[0];
+  a2[8].n128_u64[0] = v12;
+  v13 = v2[9].n128_u64[0];
+  v2[9].n128_u64[0] = a2[9].n128_u64[0];
+  a2[9].n128_u64[0] = v13;
+  ++a2[8].n128_u32[2];
+  ++v2[8].n128_u32[2];
+  return result;
+}
+
+__n128 std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:ne200100]<void std::__variant_detail::__ctor<std::__variant_detail::__traits<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>::__generic_construct[abi:ne200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>,(std::__variant_detail::_Trait)1>>(std::__variant_detail::__ctor<std::__variant_detail::__traits<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>&,std::__variant_detail::__move_constructor<std::__variant_detail::__traits<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>,(std::__variant_detail::_Trait)1> &&)::{lambda(std::__variant_detail::__move_constructor<std::__variant_detail::__traits<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>,(std::__variant_detail::_Trait)1> &)#1} &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData> &&>(uint64_t *a1, __int128 *a2)
+{
+  v2 = *a1;
+  v3 = *a2;
+  *(v2 + 16) = *(a2 + 2);
+  *v2 = v3;
+  v4 = *(a2 + 3);
+  *(a2 + 3) = 0;
+  *(v2 + 24) = v4;
+  result = a2[2];
+  *(v2 + 32) = result;
+  return result;
+}
+
+uint64_t std::__variant_detail::__assignment<std::__variant_detail::__traits<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>::__generic_assign[abi:ne200100]<std::__variant_detail::__copy_assignment<std::__variant_detail::__traits<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>,(std::__variant_detail::_Trait)1> const&>(uint64_t result, uint64_t a2)
+{
+  v4 = *(a2 + 152);
+  if (*(result + 152) != -1 || v4 != -1)
   {
-    v20 = -a2;
-    v9 = a2;
-    do
+    if (v4 == -1)
     {
-      if (*(a1 + 16) <= v9)
-      {
-        goto LABEL_22;
-      }
 
-      v10 = *a3;
-      v11 = *(*(a1 + 32) + 8 * v9);
-      if (*(*a3 + 296) <= v11)
-      {
-LABEL_23:
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_24:
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-      }
+      return std::__variant_detail::__dtor<std::__variant_detail::__traits<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](result);
+    }
 
-      v12 = (v10[39] + 24 * v11);
-      if (v10[32] <= *v12)
-      {
-        goto LABEL_24;
-      }
+    else
+    {
+      v6[1] = v2;
+      v6[2] = v3;
+      v6[0] = result;
+      return (off_1F5CCBC30[v4])(v6);
+    }
+  }
 
+  return result;
+}
+
+uint64_t _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0ELm0EEE10__dispatchB8ne200100IOZNS0_12__assignmentINS0_8__traitsIJN2re5audio16AcousticMeshDataENS9_21AcousticARKitMeshDataEEEEE16__generic_assignB8ne200100IRKNS0_17__copy_assignmentISC_LNS0_6_TraitE1EEEEEvOT_EUlRSK_OT0_E_JRNS0_6__baseILSG_1EJSA_SB_EEERKSS_EEEDcSK_DpT0_(uint64_t *a1, uint64_t a2, __int128 *a3)
+{
+  v4 = *a1;
+  if (*(*a1 + 152))
+  {
+    std::__variant_detail::__dtor<std::__variant_detail::__traits<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](*a1);
+    v5 = *a3;
+    *(v4 + 16) = *(a3 + 2);
+    *v4 = v5;
+    *(v4 + 24) = *(a3 + 3);
+    re::DynamicArray<re::AcousticAbsorptionMaterial>::DynamicArray(v4 + 32, a3 + 4);
+    re::DynamicArray<re::AcousticScatteringMaterial>::DynamicArray(v4 + 72, a3 + 9);
+    result = re::DynamicArray<re::AcousticSoundReductionMaterial>::DynamicArray(v4 + 112, a3 + 14);
+    *(v4 + 152) = 0;
+  }
+
+  else
+  {
+    v8 = *a3;
+    *(a2 + 16) = *(a3 + 2);
+    *a2 = v8;
+    objc_storeStrong((a2 + 24), *(a3 + 3));
+    re::DynamicArray<re::AcousticAbsorptionMaterial>::operator=(a2 + 32, a3 + 4);
+    re::DynamicArray<re::AcousticScatteringMaterial>::operator=(a2 + 72, a3 + 9);
+
+    return re::DynamicArray<re::AcousticSoundReductionMaterial>::operator=(a2 + 112, a3 + 14);
+  }
+
+  return result;
+}
+
+__n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1ELm1EEE10__dispatchB8ne200100IOZNS0_12__assignmentINS0_8__traitsIJN2re5audio16AcousticMeshDataENS9_21AcousticARKitMeshDataEEEEE16__generic_assignB8ne200100IRKNS0_17__copy_assignmentISC_LNS0_6_TraitE1EEEEEvOT_EUlRSK_OT0_E_JRNS0_6__baseILSG_1EJSA_SB_EEERKSS_EEEDcSK_DpT0_(uint64_t *a1, uint64_t a2, __int128 *a3)
+{
+  v4 = *a1;
+  if (*(*a1 + 152) == 1)
+  {
+    v6 = *a3;
+    *(a2 + 16) = *(a3 + 2);
+    *a2 = v6;
+    objc_storeStrong((a2 + 24), *(a3 + 3));
+    result = a3[2];
+    *(a2 + 32) = result;
+  }
+
+  else
+  {
+    std::__variant_detail::__dtor<std::__variant_detail::__traits<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](*a1);
+    v8 = *a3;
+    *(v4 + 16) = *(a3 + 2);
+    *v4 = v8;
+    *(v4 + 24) = *(a3 + 3);
+    result = a3[2];
+    *(v4 + 32) = result;
+    *(v4 + 152) = 1;
+  }
+
+  return result;
+}
+
+uint64_t re::DynamicArray<re::AcousticAbsorptionMaterial>::operator=(uint64_t a1, uint64_t *a2)
+{
+  if (a1 != a2)
+  {
+    v4 = *a2;
+    if (*a1)
+    {
+      if (v4)
       {
-        ++v9;
+        re::DynamicArray<re::AcousticAbsorptionMaterial>::copy(a1, a2);
       }
 
       else
       {
-        v13 = v9 - 1;
-        do
+        v6 = *(a1 + 16);
+        *(a1 + 16) = 0;
+        if (v6)
         {
-          v14 = v13;
-          v9 = v13 + 1;
-          if (v13 + 1 <= a2)
+          v7 = *(a1 + 32);
+          v8 = 112 * v6;
+          do
           {
-            break;
+            re::DynamicArray<unsigned long>::deinit(v7 + 72);
+            re::DynamicArray<unsigned long>::deinit(v7 + 32);
+            re::DynamicString::deinit(v7);
+            v7 = (v7 + 112);
+            v8 -= 112;
           }
 
-          if (*(a1 + 16) <= v13)
-          {
-            os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-            _os_log_send_and_compose_impl();
-            _os_crash_msg();
-            __break(1u);
-LABEL_20:
-            os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-            _os_log_send_and_compose_impl();
-            _os_crash_msg();
-            __break(1u);
-LABEL_21:
-            os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-            _os_log_send_and_compose_impl();
-            _os_crash_msg();
-            __break(1u);
-LABEL_22:
-            os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-            _os_log_send_and_compose_impl();
-            _os_crash_msg();
-            __break(1u);
-            goto LABEL_23;
-          }
-
-          v15 = *a3;
-          v16 = *(*(a1 + 32) + 8 * v14);
-          if (*(*a3 + 296) <= v16)
-          {
-            goto LABEL_20;
-          }
-
-          v17 = (v15[39] + 24 * v16);
-          if (v15[32] <= *v17)
-          {
-            goto LABEL_21;
-          }
-
-          v13 = v14 - 1;
-        }
-
-        while (!v18);
-        if (v20 + v14 == -1)
-        {
-          return 0;
+          while (v8);
         }
       }
+
+      ++*(a1 + 24);
     }
 
-    while (v9 < v4);
+    else if (v4)
+    {
+      v5 = a2[2];
+      *a1 = v4;
+      re::DynamicArray<re::AcousticAbsorptionMaterial>::setCapacity(a1, v5);
+      ++*(a1 + 24);
+      re::DynamicArray<re::AcousticAbsorptionMaterial>::copy(a1, a2);
+    }
   }
 
-  return 1;
+  return a1;
 }
 
-uint64_t re::internal::anonymous namespace::RegexToken::unwindMatch(unsigned __int8 *a1, uint64_t a2, void *a3, uint64_t a4)
+uint64_t re::DynamicArray<re::AcousticScatteringMaterial>::operator=(uint64_t a1, uint64_t *a2)
 {
-  v8 = a2;
-  v47 = *MEMORY[0x1E69E9840];
-  v9 = *a1;
-  if (v9 <= 3)
+  if (a1 != a2)
   {
-    switch(v9)
+    v4 = *a2;
+    if (*a1)
     {
-      case 1u:
-        v10 = *(a1 + 1);
-        v11 = *(*a3 + 16);
-        if (v11 > v10)
+      if (v4)
+      {
+        re::DynamicArray<re::AcousticScatteringMaterial>::copy(a1, a2);
+      }
+
+      else
+      {
+        v6 = *(a1 + 16);
+        *(a1 + 16) = 0;
+        if (v6)
         {
-          v12 = *(*a3 + 32);
-          goto LABEL_44;
+          v7 = *(a1 + 32);
+          v8 = 112 * v6;
+          do
+          {
+            re::DynamicArray<unsigned long>::deinit(v7 + 72);
+            re::DynamicArray<unsigned long>::deinit(v7 + 32);
+            re::DynamicString::deinit(v7);
+            v7 = (v7 + 112);
+            v8 -= 112;
+          }
+
+          while (v8);
+        }
+      }
+
+      ++*(a1 + 24);
+    }
+
+    else if (v4)
+    {
+      v5 = a2[2];
+      *a1 = v4;
+      re::DynamicArray<re::AcousticScatteringMaterial>::setCapacity(a1, v5);
+      ++*(a1 + 24);
+      re::DynamicArray<re::AcousticScatteringMaterial>::copy(a1, a2);
+    }
+  }
+
+  return a1;
+}
+
+uint64_t re::DynamicArray<re::AcousticSoundReductionMaterial>::operator=(uint64_t a1, uint64_t *a2)
+{
+  if (a1 != a2)
+  {
+    v4 = *a2;
+    if (*a1)
+    {
+      if (v4)
+      {
+        re::DynamicArray<re::AcousticSoundReductionMaterial>::copy(a1, a2);
+      }
+
+      else
+      {
+        v6 = *(a1 + 16);
+        *(a1 + 16) = 0;
+        if (v6)
+        {
+          v7 = *(a1 + 32);
+          v8 = 112 * v6;
+          do
+          {
+            re::DynamicArray<unsigned long>::deinit(v7 + 72);
+            re::DynamicArray<unsigned long>::deinit(v7 + 32);
+            re::DynamicString::deinit(v7);
+            v7 = (v7 + 112);
+            v8 -= 112;
+          }
+
+          while (v8);
+        }
+      }
+
+      ++*(a1 + 24);
+    }
+
+    else if (v4)
+    {
+      v5 = a2[2];
+      *a1 = v4;
+      re::DynamicArray<re::AcousticSoundReductionMaterial>::setCapacity(a1, v5);
+      ++*(a1 + 24);
+      re::DynamicArray<re::AcousticSoundReductionMaterial>::copy(a1, a2);
+    }
+  }
+
+  return a1;
+}
+
+uint64_t _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8ne200100IOZNS0_6__ctorINS0_8__traitsIJN2re5audio16AcousticMeshDataENS9_21AcousticARKitMeshDataEEEEE19__generic_constructB8ne200100IRKNS0_18__copy_constructorISC_LNS0_6_TraitE1EEEEEvRSD_OT_EUlSM_E_JRKNS0_6__baseILSG_1EJSA_SB_EEEEEEDcSL_DpT0_(uint64_t *a1, __int128 *a2)
+{
+  v3 = *a1;
+  v4 = *a2;
+  *(v3 + 16) = *(a2 + 2);
+  *v3 = v4;
+  *(v3 + 24) = *(a2 + 3);
+  re::DynamicArray<re::AcousticAbsorptionMaterial>::DynamicArray(v3 + 32, a2 + 4);
+  re::DynamicArray<re::AcousticScatteringMaterial>::DynamicArray(v3 + 72, a2 + 9);
+
+  return re::DynamicArray<re::AcousticSoundReductionMaterial>::DynamicArray(v3 + 112, a2 + 14);
+}
+
+__n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8ne200100IOZNS0_6__ctorINS0_8__traitsIJN2re5audio16AcousticMeshDataENS9_21AcousticARKitMeshDataEEEEE19__generic_constructB8ne200100IRKNS0_18__copy_constructorISC_LNS0_6_TraitE1EEEEEvRSD_OT_EUlSM_E_JRKNS0_6__baseILSG_1EJSA_SB_EEEEEEDcSL_DpT0_(uint64_t *a1, __int128 *a2)
+{
+  v3 = *a1;
+  v4 = *a2;
+  *(v3 + 16) = *(a2 + 2);
+  *v3 = v4;
+  *(v3 + 24) = *(a2 + 3);
+  result = a2[2];
+  *(v3 + 32) = result;
+  return result;
+}
+
+uint64_t re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>::DynamicArray(uint64_t a1, uint64_t *a2)
+{
+  *(a1 + 32) = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 24) = 0;
+  v3 = *a2;
+  if (*a2)
+  {
+    v5 = a2[2];
+    *a1 = v3;
+    re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>::setCapacity(a1, v5);
+    ++*(a1 + 24);
+    re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>::copy(a1, a2);
+  }
+
+  return a1;
+}
+
+void *re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>::copy(void *result, uint64_t a2)
+{
+  v3 = result;
+  v4 = *(a2 + 16);
+  v5 = result[2];
+  if (v4 >= v5)
+  {
+    result = re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>::setCapacity(result, *(a2 + 16));
+    v11 = *(a2 + 32);
+    v12 = v3[2];
+    v13 = v3[4];
+    if (v12)
+    {
+      v14 = 168 * v12;
+      do
+      {
+        result = std::__variant_detail::__assignment<std::__variant_detail::__traits<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>::__generic_assign[abi:ne200100]<std::__variant_detail::__copy_assignment<std::__variant_detail::__traits<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>,(std::__variant_detail::_Trait)1> const&>(v13, v11);
+        v11 += 168;
+        v13 += 168;
+        v14 -= 168;
+      }
+
+      while (v14);
+      v13 = v3[4];
+      v12 = v3[2];
+      v11 = *(a2 + 32);
+    }
+
+    if (v12 != v4)
+    {
+      v15 = 168 * v12;
+      v16 = v11 + v15;
+      v17 = v13 + v15;
+      v18 = 168 * v4 - v15;
+      do
+      {
+        *v17 = 0;
+        *(v17 + 160) = -1;
+        result = std::__variant_detail::__dtor<std::__variant_detail::__traits<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v17);
+        v19 = *(v16 + 160);
+        if (v19 != -1)
+        {
+          v20 = v17;
+          result = (off_1F5CCBC70[v19])(&v20, v16);
+          *(v17 + 160) = v19;
         }
 
-        goto LABEL_63;
-      case 2u:
-        v10 = *(a1 + 1);
-        v11 = *(*a3 + 56);
-        if (v11 > v10)
+        v16 += 168;
+        v17 += 168;
+        v18 -= 168;
+      }
+
+      while (v18);
+    }
+  }
+
+  else
+  {
+    v6 = result[4];
+    if (v4)
+    {
+      v7 = *(a2 + 32);
+      v8 = 168 * v4;
+      do
+      {
+        result = std::__variant_detail::__assignment<std::__variant_detail::__traits<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>::__generic_assign[abi:ne200100]<std::__variant_detail::__copy_assignment<std::__variant_detail::__traits<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>,(std::__variant_detail::_Trait)1> const&>(v6, v7);
+        v7 += 168;
+        v6 += 168;
+        v8 -= 168;
+      }
+
+      while (v8);
+      v6 = v3[4];
+      v5 = v3[2];
+    }
+
+    if (v4 != v5)
+    {
+      v9 = v6 + 168 * v4;
+      v10 = 168 * v5 - 168 * v4;
+      do
+      {
+        result = std::__variant_detail::__dtor<std::__variant_detail::__traits<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v9);
+        v9 += 168;
+        v10 -= 168;
+      }
+
+      while (v10);
+    }
+  }
+
+  v3[2] = v4;
+  return result;
+}
+
+void *re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>::setCapacity(void *result, unint64_t a2)
+{
+  v3 = result[1];
+  if (v3 != a2)
+  {
+    v5 = result;
+    if (result[2] <= a2)
+    {
+      result = *result;
+      if (!*v5)
+      {
+        result = re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>::setCapacity(v5, a2);
+        ++*(v5 + 6);
+        return result;
+      }
+
+      if (a2)
+      {
+        if (is_mul_ok(a2, 0xA8uLL))
         {
-          v12 = *(*a3 + 72);
-          goto LABEL_44;
+          v2 = 168 * a2;
+          result = (*(*result + 32))(result, 168 * a2, 8);
+          if (result)
+          {
+            v7 = result;
+            if (!v5[1])
+            {
+              goto LABEL_18;
+            }
+
+            goto LABEL_11;
+          }
         }
 
-        goto LABEL_61;
-      case 3u:
-        v10 = *(a1 + 1);
-        v11 = *(*a3 + 96);
-        if (v11 > v10)
+        else
         {
-          v12 = *(*a3 + 112);
-LABEL_44:
-          v13 = (v12 + 16 * v10);
-          goto LABEL_45;
+          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 168, a2);
+          _os_crash("assertion failure: (!overflow) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", v13, v15);
+          __break(1u);
         }
 
-        goto LABEL_59;
-    }
+        re::internal::assertLog(6, v6, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, v2, *(*v5 + 8));
+        result = _os_crash("assertion failure: (newData) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", v14, v16);
+        __break(1u);
+        return result;
+      }
 
-LABEL_66:
-    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) Invalid token type.", "!Unreachable code", "unwindMatch", 948);
-    result = _os_crash();
-    __break(1u);
-    return result;
+      v7 = 0;
+      if (!v3)
+      {
+LABEL_18:
+        v5[4] = v7;
+        v5[1] = a2;
+        return result;
+      }
+
+LABEL_11:
+      v8 = v5[4];
+      v9 = v5[2];
+      if (v9)
+      {
+        v10 = 168 * v9;
+        v11 = v7;
+        do
+        {
+          *v11 = 0;
+          *(v11 + 160) = -1;
+          std::__variant_detail::__dtor<std::__variant_detail::__traits<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v11);
+          v12 = *(v8 + 160);
+          if (v12 != -1)
+          {
+            v17 = v11;
+            (off_1F5CCBC50[v12])(&v17, v8);
+            *(v11 + 160) = v12;
+          }
+
+          std::__variant_detail::__dtor<std::__variant_detail::__traits<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v8);
+          v8 += 168;
+          v11 += 168;
+          v10 -= 168;
+        }
+
+        while (v10);
+        v8 = v5[4];
+      }
+
+      result = (*(**v5 + 40))(*v5, v8);
+      goto LABEL_18;
+    }
   }
 
-  if (v9 == 4)
+  return result;
+}
+
+__n128 std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:ne200100]<void std::__variant_detail::__ctor<std::__variant_detail::__traits<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>::__generic_construct[abi:ne200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>,(std::__variant_detail::_Trait)1>>(std::__variant_detail::__ctor<std::__variant_detail::__traits<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>&,std::__variant_detail::__move_constructor<std::__variant_detail::__traits<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>,(std::__variant_detail::_Trait)1> &&)::{lambda(std::__variant_detail::__move_constructor<std::__variant_detail::__traits<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>,(std::__variant_detail::_Trait)1> &)#1} &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData> &&>(uint64_t *a1, uint64_t a2)
+{
+  v2 = *a1;
+  result = *a2;
+  v4 = *(a2 + 16);
+  *v2 = *a2;
+  *(v2 + 16) = v4;
+  v5 = *(a2 + 32);
+  *(a2 + 32) = 0;
+  *(v2 + 72) = 0;
+  *(v2 + 32) = v5;
+  *(v2 + 40) = 0;
+  *(v2 + 48) = 0;
+  *(v2 + 56) = 0;
+  *(v2 + 64) = 0;
+  v6 = *(a2 + 48);
+  *(v2 + 40) = *(a2 + 40);
+  *(v2 + 48) = v6;
+  *(a2 + 40) = 0;
+  *(a2 + 48) = 0;
+  v7 = *(v2 + 56);
+  *(v2 + 56) = *(a2 + 56);
+  *(a2 + 56) = v7;
+  v8 = *(v2 + 72);
+  *(v2 + 72) = *(a2 + 72);
+  *(a2 + 72) = v8;
+  ++*(a2 + 64);
+  ++*(v2 + 64);
+  *(v2 + 112) = 0;
+  *(v2 + 88) = 0;
+  *(v2 + 96) = 0;
+  *(v2 + 80) = 0;
+  *(v2 + 104) = 0;
+  v9 = *(a2 + 88);
+  *(v2 + 80) = *(a2 + 80);
+  *(v2 + 88) = v9;
+  *(a2 + 80) = 0;
+  *(a2 + 88) = 0;
+  v10 = *(v2 + 96);
+  *(v2 + 96) = *(a2 + 96);
+  *(a2 + 96) = v10;
+  v11 = *(v2 + 112);
+  *(v2 + 112) = *(a2 + 112);
+  *(a2 + 112) = v11;
+  ++*(a2 + 104);
+  ++*(v2 + 104);
+  *(v2 + 152) = 0;
+  *(v2 + 128) = 0;
+  *(v2 + 136) = 0;
+  *(v2 + 120) = 0;
+  *(v2 + 144) = 0;
+  v12 = *(a2 + 128);
+  *(v2 + 120) = *(a2 + 120);
+  *(v2 + 128) = v12;
+  *(a2 + 120) = 0;
+  *(a2 + 128) = 0;
+  v13 = *(v2 + 136);
+  *(v2 + 136) = *(a2 + 136);
+  *(a2 + 136) = v13;
+  v14 = *(v2 + 152);
+  *(v2 + 152) = *(a2 + 152);
+  *(a2 + 152) = v14;
+  ++*(a2 + 144);
+  ++*(v2 + 144);
+  return result;
+}
+
+__n128 std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:ne200100]<void std::__variant_detail::__ctor<std::__variant_detail::__traits<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>::__generic_construct[abi:ne200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>,(std::__variant_detail::_Trait)1>>(std::__variant_detail::__ctor<std::__variant_detail::__traits<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>&,std::__variant_detail::__move_constructor<std::__variant_detail::__traits<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>,(std::__variant_detail::_Trait)1> &&)::{lambda(std::__variant_detail::__move_constructor<std::__variant_detail::__traits<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>,(std::__variant_detail::_Trait)1> &)#1} &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData> &&>(uint64_t *a1, uint64_t a2)
+{
+  v2 = *a1;
+  v3 = *(a2 + 16);
+  *v2 = *a2;
+  *(v2 + 16) = v3;
+  v4 = *(a2 + 32);
+  *(a2 + 32) = 0;
+  *(v2 + 32) = v4;
+  result = *(a2 + 40);
+  *(v2 + 40) = result;
+  return result;
+}
+
+uint64_t std::__variant_detail::__assignment<std::__variant_detail::__traits<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>::__generic_assign[abi:ne200100]<std::__variant_detail::__copy_assignment<std::__variant_detail::__traits<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>,(std::__variant_detail::_Trait)1> const&>(uint64_t result, uint64_t a2)
+{
+  v4 = *(a2 + 160);
+  if (*(result + 160) != -1 || v4 != -1)
   {
-    v10 = *(a1 + 1);
-    v11 = *(*a3 + 216);
-    if (v11 > v10)
+    if (v4 == -1)
     {
-      v12 = *(*a3 + 232);
-      goto LABEL_44;
+
+      return std::__variant_detail::__dtor<std::__variant_detail::__traits<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](result);
     }
 
-    goto LABEL_64;
-  }
-
-  if (v9 != 5)
-  {
-    if (v9 == 6)
+    else
     {
-      v10 = *(a1 + 1);
-      v11 = *(*a3 + 176);
-      if (v11 > v10)
-      {
-        v13 = (*(*a3 + 192) + 48 * v10);
-LABEL_45:
-      }
-
-      goto LABEL_60;
+      v6[1] = v2;
+      v6[2] = v3;
+      v6[0] = result;
+      return (off_1F5CCBC60[v4])(v6);
     }
-
-    goto LABEL_66;
   }
 
-  v10 = *(a1 + 1);
-  v11 = *(*a3 + 136);
-  if (v11 <= v10)
+  return result;
+}
+
+uint64_t _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0ELm0EEE10__dispatchB8ne200100IOZNS0_12__assignmentINS0_8__traitsIJN2re5audio22AcousticMeshUpdateDataENS9_27AcousticARKitMeshUpdateDataEEEEE16__generic_assignB8ne200100IRKNS0_17__copy_assignmentISC_LNS0_6_TraitE1EEEEEvOT_EUlRSK_OT0_E_JRNS0_6__baseILSG_1EJSA_SB_EEERKSS_EEEDcSK_DpT0_(uint64_t *a1, uint64_t a2, uint64_t a3)
+{
+  v4 = *a1;
+  if (*(*a1 + 160))
   {
-LABEL_62:
-    *v35 = 0;
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
-    v44 = 0u;
-    v42 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v31 = 136315906;
-    *&v31[4] = "operator[]";
-    *&v31[12] = 1024;
-    *&v31[14] = 797;
-    *&v31[18] = 2048;
-    *v32 = v10;
-    *&v32[8] = 2048;
-    *&v32[10] = v11;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_63:
-    *v35 = 0;
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
-    v44 = 0u;
-    v42 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v31 = 136315906;
-    *&v31[4] = "operator[]";
-    *&v31[12] = 1024;
-    *&v31[14] = 797;
-    *&v31[18] = 2048;
-    *v32 = v10;
-    *&v32[8] = 2048;
-    *&v32[10] = v11;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_64:
-    *v35 = 0;
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
-    v44 = 0u;
-    v42 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v31 = 136315906;
-    *&v31[4] = "operator[]";
-    *&v31[12] = 1024;
-    *&v31[14] = 797;
-    *&v31[18] = 2048;
-    *v32 = v10;
-    *&v32[8] = 2048;
-    *&v32[10] = v11;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_65:
-    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) Array is empty", "m_size > 0", "last", 768);
-    _os_crash();
-    __break(1u);
+    std::__variant_detail::__dtor<std::__variant_detail::__traits<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](*a1);
+    v5 = *(a3 + 16);
+    *v4 = *a3;
+    *(v4 + 16) = v5;
+    *(v4 + 32) = *(a3 + 32);
+    re::DynamicArray<re::AcousticAbsorptionMaterial>::DynamicArray(v4 + 40, (a3 + 40));
+    re::DynamicArray<re::AcousticScatteringMaterial>::DynamicArray(v4 + 80, (a3 + 80));
+    result = re::DynamicArray<re::AcousticSoundReductionMaterial>::DynamicArray(v4 + 120, (a3 + 120));
+    *(v4 + 160) = 0;
   }
 
-  v14 = *(a4 + 40);
-  if (!v14)
+  else
   {
-    goto LABEL_65;
+    v8 = *(a3 + 16);
+    *a2 = *a3;
+    *(a2 + 16) = v8;
+    objc_storeStrong((a2 + 32), *(a3 + 32));
+    re::DynamicArray<re::AcousticAbsorptionMaterial>::operator=(a2 + 40, (a3 + 40));
+    re::DynamicArray<re::AcousticScatteringMaterial>::operator=(a2 + 80, (a3 + 80));
+
+    return re::DynamicArray<re::AcousticSoundReductionMaterial>::operator=(a2 + 120, (a3 + 120));
   }
 
-  v15 = *(*a3 + 152) + 40 * v10;
-  v17 = v16[1];
-  v28 = *v16;
-  v29 = v17;
-  --*(a4 + 40);
-  ++*(a4 + 48);
-  v10 = v18;
-  v19 = *(v15 + 16);
-  v27 = v8;
-  if (*v18)
+  return result;
+}
+
+__n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1ELm1EEE10__dispatchB8ne200100IOZNS0_12__assignmentINS0_8__traitsIJN2re5audio22AcousticMeshUpdateDataENS9_27AcousticARKitMeshUpdateDataEEEEE16__generic_assignB8ne200100IRKNS0_17__copy_assignmentISC_LNS0_6_TraitE1EEEEEvOT_EUlRSK_OT0_E_JRNS0_6__baseILSG_1EJSA_SB_EEERKSS_EEEDcSK_DpT0_(uint64_t *a1, uint64_t a2, uint64_t a3)
+{
+  v4 = *a1;
+  if (*(*a1 + 160) == 1)
   {
-LABEL_25:
-    v21 = *(v10 + 104);
-    if (!v21 || v21 < *(v8 + 4))
+    v6 = *(a3 + 16);
+    *a2 = *a3;
+    *(a2 + 16) = v6;
+    objc_storeStrong((a2 + 32), *(a3 + 32));
+    result = *(a3 + 40);
+    *(a2 + 40) = result;
+  }
+
+  else
+  {
+    std::__variant_detail::__dtor<std::__variant_detail::__traits<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](*a1);
+    v8 = *(a3 + 16);
+    *v4 = *a3;
+    *(v4 + 16) = v8;
+    *(v4 + 32) = *(a3 + 32);
+    result = *(a3 + 40);
+    *(v4 + 40) = result;
+    *(v4 + 160) = 1;
+  }
+
+  return result;
+}
+
+uint64_t _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8ne200100IOZNS0_6__ctorINS0_8__traitsIJN2re5audio22AcousticMeshUpdateDataENS9_27AcousticARKitMeshUpdateDataEEEEE19__generic_constructB8ne200100IRKNS0_18__copy_constructorISC_LNS0_6_TraitE1EEEEEvRSD_OT_EUlSM_E_JRKNS0_6__baseILSG_1EJSA_SB_EEEEEEDcSL_DpT0_(uint64_t *a1, uint64_t a2)
+{
+  v3 = *a1;
+  v4 = *(a2 + 16);
+  *v3 = *a2;
+  *(v3 + 16) = v4;
+  *(v3 + 32) = *(a2 + 32);
+  re::DynamicArray<re::AcousticAbsorptionMaterial>::DynamicArray(v3 + 40, (a2 + 40));
+  re::DynamicArray<re::AcousticScatteringMaterial>::DynamicArray(v3 + 80, (a2 + 80));
+
+  return re::DynamicArray<re::AcousticSoundReductionMaterial>::DynamicArray(v3 + 120, (a2 + 120));
+}
+
+__n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8ne200100IOZNS0_6__ctorINS0_8__traitsIJN2re5audio22AcousticMeshUpdateDataENS9_27AcousticARKitMeshUpdateDataEEEEE19__generic_constructB8ne200100IRKNS0_18__copy_constructorISC_LNS0_6_TraitE1EEEEEvRSD_OT_EUlSM_E_JRKNS0_6__baseILSG_1EJSA_SB_EEEEEEDcSL_DpT0_(uint64_t *a1, uint64_t a2)
+{
+  v3 = *a1;
+  v4 = *(a2 + 16);
+  *v3 = *a2;
+  *(v3 + 16) = v4;
+  *(v3 + 32) = *(a2 + 32);
+  result = *(a2 + 40);
+  *(v3 + 40) = result;
+  return result;
+}
+
+void *std::__copy_impl::operator()[abi:ne200100]<re::Queue<re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>>>::QueueIterator<re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>>,re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>> const&>,re::Queue<re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>>>::QueueIterator<re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>>,re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>> const&>,re::Queue<re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>>>::QueueIterator<re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>>,re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>>&>>(void *result, void *a2, uint64_t a3, void *a4, uint64_t a5, void *a6, uint64_t a7)
+{
+  v11 = a3;
+  v13 = result;
+  if (a2 != a4 || a3 != a5)
+  {
+    do
     {
-LABEL_39:
-      result = 0;
-      a3[3] = v29;
-      return result;
+      v14 = (a2[5] + 48 * ((a2[3] + v11) % a2[1]));
+      v15 = a6[5] + 48 * ((a6[3] + a7) % a6[1]);
+      if (v15 != v14)
+      {
+        v16 = *v14;
+        if (*v15)
+        {
+          if (v16)
+          {
+            result = re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>>::copy(v15, (a2[5] + 48 * ((a2[3] + v11) % a2[1])));
+          }
+
+          else
+          {
+            if (*(v15 + 16))
+            {
+              v18 = 0;
+              do
+              {
+                result = std::__variant_detail::__dtor<std::__variant_detail::__traits<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](*(v15 + 40) + 48 * ((v18 + *(v15 + 24)) % *(v15 + 8)));
+                ++v18;
+              }
+
+              while (v18 < *(v15 + 16));
+            }
+
+            *(v15 + 16) = 0;
+          }
+
+          ++*(v15 + 32);
+        }
+
+        else if (v16)
+        {
+          v17 = v14[2];
+          *v15 = v16;
+          re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>>::setCapacity(v15, v17);
+          *(v15 + 16) = 0;
+          *(v15 + 24) = 0;
+          *(v15 + 32) = 0;
+          result = re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>>::copy(v15, v14);
+        }
+      }
+
+      ++v11;
+      ++a7;
     }
 
-    v4 = 40;
-    while (1)
-    {
-      v20 = *re::BucketArray<unsigned long,8ul>::operator[](v10 + 64, v21 - 1);
-      v11 = *(v15 + 16);
-      if (v11 <= v20)
-      {
-        goto LABEL_57;
-      }
-
-      v11 = *(*(v15 + 32) + 8 * v20);
-      v5 = *(*a3 + 336);
-      if (v5 <= v11)
-      {
-        goto LABEL_58;
-      }
-
-      {
-        goto LABEL_50;
-      }
-
-      if (++v20 < v19)
-      {
-        break;
-      }
-
-LABEL_37:
-      --*(v10 + 48);
-      ++*(v10 + 56);
-      re::BucketArray<unsigned long,8ul>::operator[](v10 + 64, *(v10 + 104) - 1);
-      v23 = *(v10 + 104);
-      ++*(v10 + 112);
-      v21 = v23 - 1;
-      *(v10 + 104) = v21;
-      if (!v21 || v21 < *(v27 + 4))
-      {
-        goto LABEL_39;
-      }
-    }
-
-    v26 = a3[3];
-    while (1)
-    {
-      *v31 = 0;
-      *&v31[8] = 0;
-      *&v31[16] = 1;
-      *&v32[12] = 0;
-      v33 = 0;
-      *&v32[4] = 0;
-      v34 = 0;
-      v11 = *(v15 + 16);
-      if (v11 <= v20)
-      {
-        break;
-      }
-
-      v11 = *(*(v15 + 32) + 8 * v20);
-      v5 = *(*a3 + 336);
-      if (v5 <= v11)
-      {
-        goto LABEL_54;
-      }
-
-      {
-        *re::BucketArray<unsigned long,8ul>::addUninitialized(v10 + 64) = v20;
-        v25 = a3[3] - v26;
-        *&v29 = v26;
-        *(&v29 + 1) = v25;
-        return 1;
-      }
-
-      if (v19 == ++v20)
-      {
-        goto LABEL_37;
-      }
-    }
-
-    v30 = 0;
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
-    v44 = 0u;
-    v42 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v35 = 136315906;
-    *&v35[4] = "operator[]";
-    v36 = 1024;
-    v37 = 797;
-    v38 = 2048;
-    v39 = v20;
-    v40 = 2048;
-    v41 = v11;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_54:
-    v30 = 0;
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
-    v44 = 0u;
-    v42 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v35 = 136315906;
-    *&v35[4] = "operator[]";
-    v36 = 1024;
-    v37 = 797;
-    v38 = 2048;
-    v39 = v11;
-    v40 = 2048;
-    v41 = v5;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_55:
-    v30 = 0;
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
-    v44 = 0u;
-    v42 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v35 = 136315906;
-    *&v35[4] = "operator[]";
-    v36 = 1024;
-    v37 = 797;
-    v38 = 2048;
-    v39 = v20;
-    v40 = 2048;
-    v41 = v11;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_56:
-    v30 = 0;
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
-    v44 = 0u;
-    v42 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v35 = 136315906;
-    *&v35[4] = "operator[]";
-    v36 = 1024;
-    v37 = 797;
-    v38 = 2048;
-    v39 = v11;
-    v40 = 2048;
-    v41 = v4;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_57:
-    *v35 = 0;
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
-    v44 = 0u;
-    v42 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v31 = 136315906;
-    *&v31[4] = "operator[]";
-    *&v31[12] = 1024;
-    *&v31[14] = 797;
-    *&v31[18] = 2048;
-    *v32 = v20;
-    *&v32[8] = 2048;
-    *&v32[10] = v11;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_58:
-    *v35 = 0;
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
-    v44 = 0u;
-    v42 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v31 = 136315906;
-    *&v31[4] = "operator[]";
-    *&v31[12] = 1024;
-    *&v31[14] = 797;
-    *&v31[18] = 2048;
-    *v32 = v11;
-    *&v32[8] = 2048;
-    *&v32[10] = v5;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_59:
-    *v35 = 0;
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
-    v44 = 0u;
-    v42 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v31 = 136315906;
-    *&v31[4] = "operator[]";
-    *&v31[12] = 1024;
-    *&v31[14] = 797;
-    *&v31[18] = 2048;
-    *v32 = v10;
-    *&v32[8] = 2048;
-    *&v32[10] = v11;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_60:
-    *v35 = 0;
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
-    v44 = 0u;
-    v42 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v31 = 136315906;
-    *&v31[4] = "operator[]";
-    *&v31[12] = 1024;
-    *&v31[14] = 797;
-    *&v31[18] = 2048;
-    *v32 = v10;
-    *&v32[8] = 2048;
-    *&v32[10] = v11;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_61:
-    *v35 = 0;
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
-    v44 = 0u;
-    v42 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v31 = 136315906;
-    *&v31[4] = "operator[]";
-    *&v31[12] = 1024;
-    *&v31[14] = 797;
-    *&v31[18] = 2048;
-    *v32 = v10;
-    *&v32[8] = 2048;
-    *&v32[10] = v11;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_62;
+    while (a2 != a4 || v11 != a5);
+    v11 = a5;
   }
 
-  if (*(v18 + 104) >= *(v8 + 8) || !v19)
+  *v13 = a2;
+  v13[1] = v11;
+  v13[2] = a6;
+  v13[3] = a7;
+  return result;
+}
+
+uint64_t re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>>::copy(void *a1, void *a2)
+{
+  v4 = a2[2];
+  if (v4 >= a1[2])
   {
-LABEL_24:
-    *v10 = 1;
-    v8 = v27;
-    goto LABEL_25;
+    re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>>::setCapacity(a1, a2[2]);
+    result = std::__copy_impl::operator()[abi:ne200100]<re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>>::QueueIterator<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>,std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>> const&>,re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>>::QueueIterator<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>,std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>> const&>,re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>>::QueueIterator<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>,std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>&>>(v11, a2, 0, a2, a1[2], a1, 0);
+    v7 = a1[2];
+    for (a1[2] = v4; v7 != a2[2]; ++v7)
+    {
+      v8 = a1[5] + 48 * ((v7 + a1[3]) % a1[1]);
+      v9 = a2[5] + 48 * ((v7 + a2[3]) % a2[1]);
+      *v8 = 0;
+      *(v8 + 40) = -1;
+      result = std::__variant_detail::__dtor<std::__variant_detail::__traits<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v8);
+      v10 = *(v9 + 40);
+      if (v10 != -1)
+      {
+        v11[0] = v8;
+        result = (off_1F5CCBC98[v10])(v11, v9);
+        *(v8 + 40) = v10;
+      }
+    }
   }
 
-  v20 = 0;
-  v5 = 40;
+  else
+  {
+    result = std::__copy_impl::operator()[abi:ne200100]<re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>>::QueueIterator<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>,std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>> const&>,re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>>::QueueIterator<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>,std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>> const&>,re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>>::QueueIterator<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>,std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>&>>(v11, a2, 0, a2, a2[2], a1, 0);
+    if (v4 != a1[2])
+    {
+      v6 = v4;
+      do
+      {
+        result = std::__variant_detail::__dtor<std::__variant_detail::__traits<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](a1[5] + 48 * ((v6 + a1[3]) % a1[1]));
+        ++v6;
+      }
+
+      while (v6 != a1[2]);
+    }
+
+    a1[2] = v4;
+  }
+
+  return result;
+}
+
+void *std::__copy_impl::operator()[abi:ne200100]<re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>>::QueueIterator<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>,std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>> const&>,re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>>::QueueIterator<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>,std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>> const&>,re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>>::QueueIterator<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>,std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>&>>(void *result, void *a2, uint64_t a3, void *a4, uint64_t a5, void *a6, uint64_t a7)
+{
+  v12 = result;
+  if (a2 != a4 || a3 != a5)
+  {
+    v13 = a5 - 1;
+    do
+    {
+      v14 = a3;
+      v15 = a6[5] + 48 * ((a7 + a6[3]) % a6[1]);
+      v16 = *(a2[5] + 48 * ((a3 + a2[3]) % a2[1]) + 40);
+      if (*(v15 + 40) != -1 || v16 != -1)
+      {
+        if (v16 == -1)
+        {
+          result = std::__variant_detail::__dtor<std::__variant_detail::__traits<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v15);
+        }
+
+        else
+        {
+          v18 = a6[5] + 48 * ((a7 + a6[3]) % a6[1]);
+          result = (off_1F5CCBC80[v16])(&v18);
+        }
+      }
+
+      a3 = v14 + 1;
+      ++a7;
+    }
+
+    while (a2 != a4 || v13 != v14);
+    a3 = a5;
+  }
+
+  *v12 = a2;
+  v12[1] = a3;
+  v12[2] = a6;
+  v12[3] = a7;
+  return result;
+}
+
+uint64_t *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0ELm0EEE10__dispatchB8ne200100IOZNS0_12__assignmentINS0_8__traitsIJN2re12DynamicArrayINS8_5audio23AcousticMeshRemovalDataEEENS9_INSA_17PHASEOccluderDataEEENS9_INSA_23PHASEOccluderUpdateDataEEEEEEE16__generic_assignB8ne200100IRKNS0_17__copy_assignmentISH_LNS0_6_TraitE1EEEEEvOT_EUlRSP_OT0_E_JRNS0_6__baseILSL_1EJSC_SE_SG_EEERKSX_EEEDcSP_DpT0_(uint64_t *result, uint64_t a2, uint64_t *a3)
+{
+  v4 = *result;
+  if (*(*result + 40))
+  {
+    std::__variant_detail::__dtor<std::__variant_detail::__traits<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](*result);
+    result = re::DynamicArray<re::audio::AcousticMeshRemovalData>::DynamicArray(v4, a3);
+    *(v4 + 40) = 0;
+  }
+
+  else if (a2 != a3)
+  {
+    v6 = *a3;
+    if (*a2)
+    {
+      if (v6)
+      {
+        result = re::DynamicArray<re::audio::AcousticMeshRemovalData>::copy(a2, a3);
+      }
+
+      else
+      {
+        *(a2 + 16) = 0;
+      }
+
+      ++*(a2 + 24);
+    }
+
+    else if (v6)
+    {
+      v7 = a3[2];
+      *a2 = v6;
+      re::DynamicArray<re::Pair<BOOL,re::Event<re::SimulationTimer,re::SimulationTimerEventArgs const&>::Subscription,true>>::setCapacity(a2, v7);
+      ++*(a2 + 24);
+      return re::DynamicArray<re::audio::AcousticMeshRemovalData>::copy(a2, a3);
+    }
+  }
+
+  return result;
+}
+
+void _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1ELm1EEE10__dispatchB8ne200100IOZNS0_12__assignmentINS0_8__traitsIJN2re12DynamicArrayINS8_5audio23AcousticMeshRemovalDataEEENS9_INSA_17PHASEOccluderDataEEENS9_INSA_23PHASEOccluderUpdateDataEEEEEEE16__generic_assignB8ne200100IRKNS0_17__copy_assignmentISH_LNS0_6_TraitE1EEEEEvOT_EUlRSP_OT0_E_JRNS0_6__baseILSL_1EJSC_SE_SG_EEERKSX_EEEDcSP_DpT0_(uint64_t *a1, uint64_t a2, uint64_t *a3)
+{
+  v4 = *a1;
+  if (*(*a1 + 40) == 1)
+  {
+    if (a2 != a3)
+    {
+      v6 = *a3;
+      if (*a2)
+      {
+        if (v6)
+        {
+          re::DynamicArray<re::audio::PHASEOccluderData>::copy(a2, a3);
+        }
+
+        else
+        {
+          v8 = *(a2 + 16);
+          *(a2 + 16) = 0;
+          if (v8)
+          {
+            v9 = 48 * v8;
+            v10 = (*(a2 + 32) + 24);
+            do
+            {
+              v11 = *v10;
+              v10 += 6;
+
+              v9 -= 48;
+            }
+
+            while (v9);
+          }
+        }
+
+        ++*(a2 + 24);
+      }
+
+      else if (v6)
+      {
+        v7 = a3[2];
+        *a2 = v6;
+        re::DynamicArray<re::audio::PHASEOccluderData>::setCapacity(a2, v7);
+        ++*(a2 + 24);
+        re::DynamicArray<re::audio::PHASEOccluderData>::copy(a2, a3);
+      }
+    }
+  }
+
+  else
+  {
+    std::__variant_detail::__dtor<std::__variant_detail::__traits<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](*a1);
+    re::DynamicArray<re::audio::PHASEOccluderData>::DynamicArray(v4, a3);
+    *(v4 + 40) = 1;
+  }
+}
+
+void _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2ELm2EEE10__dispatchB8ne200100IOZNS0_12__assignmentINS0_8__traitsIJN2re12DynamicArrayINS8_5audio23AcousticMeshRemovalDataEEENS9_INSA_17PHASEOccluderDataEEENS9_INSA_23PHASEOccluderUpdateDataEEEEEEE16__generic_assignB8ne200100IRKNS0_17__copy_assignmentISH_LNS0_6_TraitE1EEEEEvOT_EUlRSP_OT0_E_JRNS0_6__baseILSL_1EJSC_SE_SG_EEERKSX_EEEDcSP_DpT0_(uint64_t *a1, uint64_t a2, uint64_t *a3)
+{
+  v4 = *a1;
+  if (*(*a1 + 40) == 2)
+  {
+    if (a2 != a3)
+    {
+      v6 = *a3;
+      if (*a2)
+      {
+        if (v6)
+        {
+          re::DynamicArray<re::audio::PHASEOccluderUpdateData>::copy(a2, a3);
+        }
+
+        else
+        {
+          v8 = *(a2 + 16);
+          *(a2 + 16) = 0;
+          if (v8)
+          {
+            v9 = 56 * v8;
+            v10 = (*(a2 + 32) + 32);
+            do
+            {
+              v11 = *v10;
+              v10 += 7;
+
+              v9 -= 56;
+            }
+
+            while (v9);
+          }
+        }
+
+        ++*(a2 + 24);
+      }
+
+      else if (v6)
+      {
+        v7 = a3[2];
+        *a2 = v6;
+        re::DynamicArray<re::audio::PHASEOccluderUpdateData>::setCapacity(a2, v7);
+        ++*(a2 + 24);
+        re::DynamicArray<re::audio::PHASEOccluderUpdateData>::copy(a2, a3);
+      }
+    }
+  }
+
+  else
+  {
+    std::__variant_detail::__dtor<std::__variant_detail::__traits<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<re::audio::PHASEOccluderData>,re::DynamicArray<re::audio::PHASEOccluderUpdateData>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](*a1);
+    re::DynamicArray<re::audio::PHASEOccluderUpdateData>::DynamicArray(v4, a3);
+    *(v4 + 40) = 2;
+  }
+}
+
+void re::DynamicArray<re::audio::PHASEOccluderData>::copy(void *a1, uint64_t a2)
+{
+  v4 = *(a2 + 16);
+  if (v4 >= a1[2])
+  {
+    re::DynamicArray<re::audio::PHASEOccluderData>::setCapacity(a1, *(a2 + 16));
+    std::__copy_impl::operator()[abi:ne200100]<re::audio::PHASEOccluderData *,re::audio::PHASEOccluderData *,re::audio::PHASEOccluderData *>(*(a2 + 32), (*(a2 + 32) + 48 * a1[2]), a1[4]);
+    v9 = a1[2];
+    if (v9 != v4)
+    {
+      v10 = *(a2 + 32);
+      v11 = (v10 + 48 * v4);
+      v12 = 3 * v9;
+      v13 = (v10 + 16 * v12);
+      v14 = a1[4] + 16 * v12;
+      do
+      {
+        v15 = *v13;
+        *(v14 + 16) = *(v13 + 2);
+        *v14 = v15;
+        *(v14 + 24) = *(v13 + 3);
+        *(v14 + 32) = v13[2];
+        v13 += 3;
+        v14 += 48;
+      }
+
+      while (v13 != v11);
+    }
+  }
+
+  else
+  {
+    std::__copy_impl::operator()[abi:ne200100]<re::audio::PHASEOccluderData *,re::audio::PHASEOccluderData *,re::audio::PHASEOccluderData *>(*(a2 + 32), (*(a2 + 32) + 48 * v4), a1[4]);
+    v5 = a1[2];
+    if (v4 != v5)
+    {
+      v6 = 48 * v5 - 48 * v4;
+      v7 = (a1[4] + 48 * v4 + 24);
+      do
+      {
+        v8 = *v7;
+        v7 += 6;
+
+        v6 -= 48;
+      }
+
+      while (v6);
+    }
+  }
+
+  a1[2] = v4;
+}
+
+void std::__copy_impl::operator()[abi:ne200100]<re::audio::PHASEOccluderData *,re::audio::PHASEOccluderData *,re::audio::PHASEOccluderData *>(__int128 *a1, __int128 *a2, uint64_t a3)
+{
+  if (a1 != a2)
+  {
+    v5 = a1;
+    do
+    {
+      v6 = *v5;
+      *(a3 + 16) = *(v5 + 2);
+      *a3 = v6;
+      objc_storeStrong((a3 + 24), *(v5 + 3));
+      v7 = *(v5 + 4);
+      *(a3 + 40) = *(v5 + 40);
+      *(a3 + 32) = v7;
+      v5 += 3;
+      a3 += 48;
+    }
+
+    while (v5 != a2);
+  }
+}
+
+uint64_t re::DynamicArray<re::audio::PHASEOccluderData>::DynamicArray(uint64_t a1, uint64_t *a2)
+{
+  *(a1 + 32) = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 24) = 0;
+  v3 = *a2;
+  if (*a2)
+  {
+    v5 = a2[2];
+    *a1 = v3;
+    re::DynamicArray<re::audio::PHASEOccluderData>::setCapacity(a1, v5);
+    ++*(a1 + 24);
+    re::DynamicArray<re::audio::PHASEOccluderData>::copy(a1, a2);
+  }
+
+  return a1;
+}
+
+void re::DynamicArray<re::audio::PHASEOccluderUpdateData>::copy(void *a1, uint64_t a2)
+{
+  v4 = *(a2 + 16);
+  if (v4 >= a1[2])
+  {
+    re::DynamicArray<re::audio::PHASEOccluderUpdateData>::setCapacity(a1, *(a2 + 16));
+    std::__copy_impl::operator()[abi:ne200100]<re::audio::PHASEOccluderUpdateData *,re::audio::PHASEOccluderUpdateData *,re::audio::PHASEOccluderUpdateData *>(*(a2 + 32), *(a2 + 32) + 56 * a1[2], a1[4]);
+    v9 = a1[2];
+    if (v9 != v4)
+    {
+      v10 = *(a2 + 32);
+      v11 = v10 + 56 * v4;
+      v12 = 56 * v9;
+      v13 = v10 + v12;
+      v14 = a1[4] + v12;
+      do
+      {
+        v15 = *(v13 + 16);
+        *v14 = *v13;
+        *(v14 + 16) = v15;
+        *(v14 + 32) = *(v13 + 32);
+        *(v14 + 40) = *(v13 + 40);
+        v13 += 56;
+        v14 += 56;
+      }
+
+      while (v13 != v11);
+    }
+  }
+
+  else
+  {
+    std::__copy_impl::operator()[abi:ne200100]<re::audio::PHASEOccluderUpdateData *,re::audio::PHASEOccluderUpdateData *,re::audio::PHASEOccluderUpdateData *>(*(a2 + 32), *(a2 + 32) + 56 * v4, a1[4]);
+    v5 = a1[2];
+    if (v4 != v5)
+    {
+      v6 = -56 * v4 + 56 * v5;
+      v7 = (56 * v4 + a1[4] + 32);
+      do
+      {
+        v8 = *v7;
+        v7 += 7;
+
+        v6 -= 56;
+      }
+
+      while (v6);
+    }
+  }
+
+  a1[2] = v4;
+}
+
+void std::__copy_impl::operator()[abi:ne200100]<re::audio::PHASEOccluderUpdateData *,re::audio::PHASEOccluderUpdateData *,re::audio::PHASEOccluderUpdateData *>(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (a1 != a2)
+  {
+    v5 = a1;
+    do
+    {
+      v6 = *(v5 + 16);
+      *a3 = *v5;
+      *(a3 + 16) = v6;
+      objc_storeStrong((a3 + 32), *(v5 + 32));
+      v7 = *(v5 + 40);
+      *(a3 + 48) = *(v5 + 48);
+      *(a3 + 40) = v7;
+      v5 += 56;
+      a3 += 56;
+    }
+
+    while (v5 != a2);
+  }
+}
+
+uint64_t re::DynamicArray<re::audio::PHASEOccluderUpdateData>::DynamicArray(uint64_t a1, uint64_t *a2)
+{
+  *(a1 + 32) = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 24) = 0;
+  v3 = *a2;
+  if (*a2)
+  {
+    v5 = a2[2];
+    *a1 = v3;
+    re::DynamicArray<re::audio::PHASEOccluderUpdateData>::setCapacity(a1, v5);
+    ++*(a1 + 24);
+    re::DynamicArray<re::audio::PHASEOccluderUpdateData>::copy(a1, a2);
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__value_func<void ()(re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>> *)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
+{
+  v3 = (a2 + 24);
+  v4 = *(a2 + 24);
+  if (v4)
+  {
+    if (v4 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**v3 + 24))(*v3, a1);
+      return a1;
+    }
+
+    *(a1 + 24) = v4;
+  }
+
+  else
+  {
+    v3 = (a1 + 24);
+  }
+
+  *v3 = 0;
+  return a1;
+}
+
+void std::__shared_ptr_pointer<re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>> *,std::function<void ()(re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>> *)>,std::allocator<re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>>>>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_1F5CCBCC0;
+  std::__function::__value_func<void ()(re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>> *)>::~__value_func[abi:ne200100](&a1[1].__shared_owners_);
+
+  std::__shared_weak_count::~__shared_weak_count(a1);
+}
+
+{
+  a1->__vftable = &unk_1F5CCBCC0;
+  std::__function::__value_func<void ()(re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>> *)>::~__value_func[abi:ne200100](&a1[1].__shared_owners_);
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x1E6906520);
+}
+
+uint64_t std::__shared_ptr_pointer<re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>> *,std::function<void ()(re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>> *)>,std::allocator<re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>>>>::__on_zero_shared(uint64_t a1)
+{
+  std::function<void ()(re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>> *)>::operator()(*(a1 + 56), *(a1 + 24));
+
+  return std::__function::__value_func<void ()(re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>> *)>::~__value_func[abi:ne200100](a1 + 32);
+}
+
+uint64_t std::__shared_ptr_pointer<re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>> *,std::function<void ()(re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>> *)>,std::allocator<re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>>>>::__get_deleter(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 32;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::function<void ()(re::Queue<std::variant<re::DynamicArray<re::audio::AcousticMeshRemovalData>,re::DynamicArray<std::variant<re::audio::AcousticMeshData,re::audio::AcousticARKitMeshData>>,re::DynamicArray<std::variant<re::audio::AcousticMeshUpdateData,re::audio::AcousticARKitMeshUpdateData>>>> *)>::operator()(uint64_t a1, uint64_t a2)
+{
+  v3 = a2;
+  if (!a1)
+  {
+    std::__throw_bad_function_call[abi:ne200100]();
+  }
+
+  return (*(*a1 + 48))(a1, &v3);
+}
+
+void *std::__hash_table<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(void *a1, unint64_t a2, void **a3)
+{
+  v3 = a1[1];
+  if (!*&v3)
+  {
+    goto LABEL_18;
+  }
+
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
+  {
+    v5 = a2;
+    if (*&v3 <= a2)
+    {
+      v5 = a2 % *&v3;
+    }
+  }
+
+  else
+  {
+    v5 = (*&v3 - 1) & a2;
+  }
+
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
+  {
+LABEL_18:
+    operator new();
+  }
+
   while (1)
   {
-    *v31 = 0;
-    *&v31[8] = 0;
-    *&v31[16] = 1;
-    v33 = 0;
-    *&v32[4] = 0uLL;
-    v34 = 0;
-    v11 = *(v15 + 16);
-    if (v11 <= v20)
-    {
-      goto LABEL_55;
-    }
-
-    v11 = *(*(v15 + 32) + 8 * v20);
-    v4 = *(*a3 + 336);
-    if (v4 <= v11)
-    {
-      goto LABEL_56;
-    }
-
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v19 == ++v20)
+    if (v4.u32[0] > 1uLL)
     {
-      goto LABEL_24;
+      if (v8 >= *&v3)
+      {
+        v8 %= *&v3;
+      }
+    }
+
+    else
+    {
+      v8 &= *&v3 - 1;
+    }
+
+    if (v8 != v5)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v7 = *v7;
+    if (!v7)
+    {
+      goto LABEL_18;
     }
   }
 
-  *re::BucketArray<unsigned long,8ul>::addUninitialized(v10 + 64) = v20;
-LABEL_50:
-  *(&v29 + 1) = a3[3] - v29;
-  return 1;
+  if (v7[2] != a2)
+  {
+    goto LABEL_17;
+  }
+
+  return v7;
+}
+
+void **std::vector<unsigned long long>::__assign_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(void **result, char *__src, char *a3, unint64_t a4)
+{
+  v6 = result;
+  v7 = result[2];
+  v8 = *result;
+  if (a4 > (v7 - *result) >> 3)
+  {
+    if (v8)
+    {
+      result[1] = v8;
+      operator delete(v8);
+      v7 = 0;
+      *v6 = 0;
+      v6[1] = 0;
+      v6[2] = 0;
+    }
+
+    if (!(a4 >> 61))
+    {
+      v9 = v7 >> 2;
+      if (v7 >> 2 <= a4)
+      {
+        v9 = a4;
+      }
+
+      if (v7 >= 0x7FFFFFFFFFFFFFF8)
+      {
+        v10 = 0x1FFFFFFFFFFFFFFFLL;
+      }
+
+      else
+      {
+        v10 = v9;
+      }
+
+      std::vector<unsigned long long>::__vallocate[abi:ne200100](v6, v10);
+    }
+
+    std::vector<PHASESource * {__strong}>::__throw_length_error[abi:ne200100]();
+  }
+
+  v11 = result[1];
+  v12 = v11 - v8;
+  if (a4 <= (v11 - v8) >> 3)
+  {
+    v15 = a3 - __src;
+    if (v15)
+    {
+      result = memmove(*result, __src, v15);
+    }
+
+    v14 = &v8[v15];
+  }
+
+  else
+  {
+    v13 = &__src[v12];
+    if (v11 != v8)
+    {
+      result = memmove(*result, __src, v12);
+      v11 = v6[1];
+    }
+
+    if (a3 != v13)
+    {
+      result = memmove(v11, v13, a3 - v13);
+    }
+
+    v14 = &v11[a3 - v13];
+  }
+
+  v6[1] = v14;
+  return result;
+}
+
+void std::vector<unsigned long long>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
+{
+  if (!(a2 >> 61))
+  {
+    std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long long>>(a1, a2);
+  }
+
+  std::vector<PHASESource * {__strong}>::__throw_length_error[abi:ne200100]();
+}
+
+uint64_t std::__function::__func<re::AudioManager_PHASE::prepareSource(re::AudioSourceState &,CMTime,void({block_pointer})(NSError *))::$_0,std::allocator<re::AudioManager_PHASE::prepareSource(re::AudioSourceState &,CMTime,void({block_pointer})(NSError *))::$_0>,void ()(AUAudioUnit *,NSError *)>::~__func(uint64_t a1)
+{
+  *a1 = &unk_1F5CCBD80;
+
+  v2 = *(a1 + 48);
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
+  }
+
+  return a1;
+}
+
+void std::__function::__func<re::AudioManager_PHASE::prepareSource(re::AudioSourceState &,CMTime,void({block_pointer})(NSError *))::$_0,std::allocator<re::AudioManager_PHASE::prepareSource(re::AudioSourceState &,CMTime,void({block_pointer})(NSError *))::$_0>,void ()(AUAudioUnit *,NSError *)>::~__func(uint64_t a1)
+{
+  *a1 = &unk_1F5CCBD80;
+
+  v2 = *(a1 + 48);
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
+  }
+
+  JUMPOUT(0x1E6906520);
+}
+
+id std::__function::__func<re::AudioManager_PHASE::prepareSource(re::AudioSourceState &,CMTime,void({block_pointer})(NSError *))::$_0,std::allocator<re::AudioManager_PHASE::prepareSource(re::AudioSourceState &,CMTime,void({block_pointer})(NSError *))::$_0>,void ()(AUAudioUnit *,NSError *)>::__clone(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a1 + 8);
+  v5 = *(a1 + 16);
+  *a2 = &unk_1F5CCBD80;
+  *(a2 + 8) = v4;
+  *(a2 + 16) = v5;
+  *(a2 + 24) = *(a1 + 24);
+  v6 = _Block_copy(*(a1 + 32));
+  v8 = *(a1 + 40);
+  v7 = *(a1 + 48);
+  *(a2 + 32) = v6;
+  *(a2 + 40) = v8;
+  *(a2 + 48) = v7;
+  if (v7)
+  {
+    atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  *(a2 + 56) = *(a1 + 56);
+  result = *(a1 + 72);
+  *(a2 + 72) = result;
+  return result;
+}
+
+void std::__function::__func<re::AudioManager_PHASE::prepareSource(re::AudioSourceState &,CMTime,void({block_pointer})(NSError *))::$_0,std::allocator<re::AudioManager_PHASE::prepareSource(re::AudioSourceState &,CMTime,void({block_pointer})(NSError *))::$_0>,void ()(AUAudioUnit *,NSError *)>::destroy(uint64_t a1)
+{
+  v2 = *(a1 + 48);
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
+  }
+
+  v3 = *(a1 + 16);
+}
+
+void std::__function::__func<re::AudioManager_PHASE::prepareSource(re::AudioSourceState &,CMTime,void({block_pointer})(NSError *))::$_0,std::allocator<re::AudioManager_PHASE::prepareSource(re::AudioSourceState &,CMTime,void({block_pointer})(NSError *))::$_0>,void ()(AUAudioUnit *,NSError *)>::destroy_deallocate(uint64_t a1)
+{
+  v2 = *(a1 + 48);
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
+  }
+
+  operator delete(a1);
+}
+
+void std::__function::__func<re::AudioManager_PHASE::prepareSource(re::AudioSourceState &,CMTime,void({block_pointer})(NSError *))::$_0,std::allocator<re::AudioManager_PHASE::prepareSource(re::AudioSourceState &,CMTime,void({block_pointer})(NSError *))::$_0>,void ()(AUAudioUnit *,NSError *)>::operator()(uint64_t a1, id *a2, void **a3)
+{
+  v4 = *a3;
+  v5 = *a2;
+  v6 = v4;
+  v7 = *(a1 + 56);
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3321888768;
+  v16[2] = ___ZZN2re18AudioManager_PHASE13prepareSourceERNS_16AudioSourceStateE6CMTimeU13block_pointerFvP7NSErrorEENK3__0clEP11AUAudioUnitS5__block_invoke;
+  v16[3] = &unk_1F5CCBDF8;
+  v22 = v7;
+  v8 = *(a1 + 16);
+  v17 = *(a1 + 24);
+  v9 = v6;
+  v18 = v9;
+  v10 = *(a1 + 32);
+  v11 = *(a1 + 8);
+  v21 = v10;
+  v23 = v11;
+  v12 = v5;
+  v14 = *(a1 + 40);
+  v13 = *(a1 + 48);
+  v19 = v12;
+  v24 = v14;
+  v25 = v13;
+  if (v13)
+  {
+    atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v15 = *(a1 + 72);
+  v26 = *(a1 + 64);
+  v20 = v15;
+  dispatch_async(v8, v16);
+
+  if (v25)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v25);
+  }
+}
+
+uint64_t std::__function::__func<re::AudioManager_PHASE::prepareSource(re::AudioSourceState &,CMTime,void({block_pointer})(NSError *))::$_0,std::allocator<re::AudioManager_PHASE::prepareSource(re::AudioSourceState &,CMTime,void({block_pointer})(NSError *))::$_0>,void ()(AUAudioUnit *,NSError *)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+void ___ZZN2re18AudioManager_PHASE13prepareSourceERNS_16AudioSourceStateE6CMTimeU13block_pointerFvP7NSErrorEENK3__0clEP11AUAudioUnitS5__block_invoke(uint64_t a1)
+{
+  v13 = *MEMORY[0x1E69E9840];
+  v2 = *(a1 + 72);
+  v3 = [*(a1 + 32) isCancelled];
+  if (v3)
+  {
+    v4 = *re::audioLogObjects(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 0;
+      _os_log_debug_impl(&dword_1E1C61000, v4, OS_LOG_TYPE_DEBUG, "Aborting callback since the engine was shut down.", buf, 2u);
+    }
+  }
+
+  else if (*(a1 + 40))
+  {
+    v5 = *re::audioLogObjects(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      v9 = *(a1 + 40);
+      *buf = 138412290;
+      v12 = v9;
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Could not instantiate audio generator AU. %@", buf, 0xCu);
+    }
+
+    v6 = *(a1 + 64);
+    if (v6)
+    {
+      (*(v6 + 16))(v6, *(a1 + 40));
+    }
+  }
+
+  else
+  {
+    objc_storeStrong((*(a1 + 80) + 488), *(a1 + 48));
+    objc_storeStrong((*(a1 + 88) + 272), *(a1 + 48));
+    v7 = *(v2 + 648);
+    v8 = *(a1 + 96);
+    v10[0] = *(a1 + 88);
+    v10[1] = v8;
+    if (v8)
+    {
+      atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    re::AudioManager_PHASE_Async::prepareSourceAsync(v7, v10, *(a1 + 104), *(a1 + 56), *(v2 + 664));
+    if (v8)
+    {
+
+      std::__shared_weak_count::__release_shared[abi:nn200100](v8);
+    }
+  }
 }

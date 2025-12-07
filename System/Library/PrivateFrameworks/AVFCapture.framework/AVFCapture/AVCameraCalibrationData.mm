@@ -15,7 +15,6 @@
 - (id)description;
 - (matrix_float3x3)intrinsicMatrix;
 - (matrix_float4x3)extrinsicMatrix;
-- (uint64_t)copyAuxiliaryMetadata;
 - (void)dealloc;
 @end
 
@@ -167,8 +166,8 @@
 
 - (AVCameraCalibrationData)initWithCameraCalibrationDataDictionary:(id)dictionary error:(id *)error
 {
-  v7 = [dictionary objectForKeyedSubscript:@"VersionMajor"];
-  v8 = [dictionary objectForKeyedSubscript:@"VersionMinor"];
+  v7 = objc_msgSend_objectForKeyedSubscript_(dictionary, a2, @"VersionMajor");
+  v8 = objc_msgSend_objectForKeyedSubscript_(dictionary);
   if ([v7 intValue] != 1 || objc_msgSend(v8, "intValue") || (result = -[AVCameraCalibrationData initWithDepthMetadataDictionary:](self, "initWithDepthMetadataDictionary:", dictionary)) == 0)
   {
     v9 = AVLocalizedError();
@@ -401,14 +400,14 @@ LABEL_35:
     goto LABEL_17;
   }
 
-  v6 = [dictionary objectForKeyedSubscript:*MEMORY[0x1E69913F0]];
+  v6 = objc_msgSend_objectForKeyedSubscript_(dictionary);
   if ([v6 length] != 48)
   {
     goto LABEL_17;
   }
 
   [v6 getBytes:v4->_internal->_anon_10 length:48];
-  v7 = [dictionary objectForKeyedSubscript:*MEMORY[0x1E69913F8]];
+  v7 = objc_msgSend_objectForKeyedSubscript_(dictionary);
   if (!v7)
   {
     goto LABEL_17;
@@ -419,14 +418,14 @@ LABEL_35:
     goto LABEL_17;
   }
 
-  v8 = [dictionary objectForKeyedSubscript:*MEMORY[0x1E69913E0]];
+  v8 = objc_msgSend_objectForKeyedSubscript_(dictionary);
   if ([v8 length] != 64)
   {
     goto LABEL_17;
   }
 
   [v8 getBytes:v4->_internal->_anon_50 length:64];
-  v9 = [dictionary objectForKeyedSubscript:*MEMORY[0x1E6991418]];
+  v9 = objc_msgSend_objectForKeyedSubscript_(dictionary);
   if (!v9)
   {
     goto LABEL_17;
@@ -434,7 +433,7 @@ LABEL_35:
 
   [v9 floatValue];
   v4->_internal->pixelSize = v10;
-  v11 = [dictionary objectForKeyedSubscript:*MEMORY[0x1E6991410]];
+  v11 = objc_msgSend_objectForKeyedSubscript_(dictionary);
   if (v11)
   {
     v12 = v11;
@@ -446,7 +445,7 @@ LABEL_35:
     v4->_internal->lensDistortionCoefficients = [v12 copy];
   }
 
-  v13 = [dictionary objectForKeyedSubscript:*MEMORY[0x1E6991400]];
+  v13 = objc_msgSend_objectForKeyedSubscript_(dictionary);
   if (!v13)
   {
     goto LABEL_14;
@@ -462,7 +461,7 @@ LABEL_17:
 
   v4->_internal->inverseLensDistortionCoefficients = [v14 copy];
 LABEL_14:
-  v15 = [dictionary objectForKeyedSubscript:*MEMORY[0x1E6991408]];
+  v15 = objc_msgSend_objectForKeyedSubscript_(dictionary);
   if (v15)
   {
     CGPointMakeWithDictionaryRepresentation(v15, &v4->_internal->lensDistortionCenter);
@@ -676,7 +675,7 @@ LABEL_34:
 {
   if (!coefficients)
   {
-    [AVCameraCalibrationData _distortionLookupTableFromCoefficients:distortionCenter:pixelSize:referenceDimensions:lookupTableLength:];
+    [(AVCameraCalibrationData *)self _distortionLookupTableFromCoefficients:a2 distortionCenter:0 pixelSize:*&length referenceDimensions:center lookupTableLength:*&center.y, size, dimensions, *&dimensions.height];
 LABEL_18:
     v15 = 0;
 LABEL_20:
@@ -753,41 +752,6 @@ LABEL_20:
 LABEL_15:
 
   return mutableBytes;
-}
-
-- (uint64_t)copyAuxiliaryMetadata
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_distortionLookupTableFromCoefficients:distortionCenter:pixelSize:referenceDimensions:lookupTableLength:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_distortionLookupTableFromCoefficients:distortionCenter:pixelSize:referenceDimensions:lookupTableLength:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_distortionLookupTableFromCoefficients:distortionCenter:pixelSize:referenceDimensions:lookupTableLength:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_distortionLookupTableFromCoefficients:distortionCenter:pixelSize:referenceDimensions:lookupTableLength:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
 }
 
 @end

@@ -7,6 +7,8 @@
 - (id)exclusionReasons;
 - (id)powerObservable;
 - (id)purgeReasons;
+- (void)_indexMessage:(id)message includeBody:(BOOL)body indexingType:(int64_t)type;
+- (void)indexMessages:(id)messages includeBody:(BOOL)body indexingType:(int64_t)type;
 @end
 
 @implementation MFSearchableIndex_iOS
@@ -106,6 +108,82 @@
   v6 = currentReasons;
 
   return v6;
+}
+
+- (void)_indexMessage:(id)message includeBody:(BOOL)body indexingType:(int64_t)type
+{
+  bodyCopy = body;
+  v16[1] = *MEMORY[0x1E69E9840];
+  messageCopy = message;
+  v9 = messageCopy;
+  if (bodyCopy)
+  {
+    v15 = 0;
+    v10 = [messageCopy bestAlternativePart:&v15];
+    v11 = [v10 dataUsingEncoding:4];
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  v12 = [(EDSearchableIndexItem *)[MFSearchableIndexItem_iOS alloc] initWithMessage:v9 bodyData:v11 fetchBody:bodyCopy];
+  [(EDSearchableIndexItem *)v12 setIndexingType:type];
+  v13 = [MEMORY[0x1E699B688] isIncrementalIndexingType:type];
+  v16[0] = v12;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+  [(EDSearchableIndex *)self indexItems:v14 immediately:v13 & (bodyCopy ^ 1)];
+}
+
+- (void)indexMessages:(id)messages includeBody:(BOOL)body indexingType:(int64_t)type
+{
+  bodyCopy = body;
+  v24 = *MEMORY[0x1E69E9840];
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  messagesCopy = messages;
+  v9 = [messagesCopy countByEnumeratingWithState:&v17 objects:v23 count:16];
+  if (v9)
+  {
+    v11 = *v18;
+    *&v10 = 138543362;
+    v16 = v10;
+    do
+    {
+      for (i = 0; i != v9; ++i)
+      {
+        if (*v18 != v11)
+        {
+          objc_enumerationMutation(messagesCopy);
+        }
+
+        v13 = *(*(&v17 + 1) + 8 * i);
+        if (([v13 messageFlags] & 0x80) != 0)
+        {
+          v14 = +[MFSearchableIndex_iOS log];
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+          {
+            ef_publicDescription = [v13 ef_publicDescription];
+            *buf = v16;
+            v22 = ef_publicDescription;
+            _os_log_impl(&dword_1B0389000, v14, OS_LOG_TYPE_INFO, "Skipping indexing of message %{public}@ since it's a server search result...", buf, 0xCu);
+          }
+        }
+
+        else
+        {
+          [(MFSearchableIndex_iOS *)self _indexMessage:v13 includeBody:bodyCopy indexingType:type];
+        }
+      }
+
+      v9 = [messagesCopy countByEnumeratingWithState:&v17 objects:v23 count:16];
+    }
+
+    while (v9);
+  }
 }
 
 - (id)powerObservable

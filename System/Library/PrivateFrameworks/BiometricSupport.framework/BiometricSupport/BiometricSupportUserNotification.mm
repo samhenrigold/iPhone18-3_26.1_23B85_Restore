@@ -34,7 +34,7 @@
 + (void)displayPearlInterlockIssueNotification:(BOOL)notification
 {
   notificationCopy = notification;
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277D86220];
   if (__osLogTrace)
   {
@@ -49,9 +49,9 @@
   v6 = &off_223E5E000;
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = 67109120;
-    LODWORD(v24) = notificationCopy;
-    _os_log_impl(&dword_223E00000, v5, OS_LOG_TYPE_DEFAULT, "displayPearlInterlockIssueNotification: %d\n", &v23, 8u);
+    v22 = 67109120;
+    LODWORD(v23) = notificationCopy;
+    _os_log_impl(&dword_223E00000, v5, OS_LOG_TYPE_DEFAULT, "displayPearlInterlockIssueNotification: %d\n", &v22, 8u);
   }
 
   v7 = displayPearlInterlockIssueNotification__count;
@@ -85,8 +85,8 @@ LABEL_17:
 
         if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v23) = 0;
-          _os_log_impl(&dword_223E00000, v20, OS_LOG_TYPE_DEFAULT, "Clearing item\n", &v23, 2u);
+          LOWORD(v22) = 0;
+          _os_log_impl(&dword_223E00000, v20, OS_LOG_TYPE_DEFAULT, "Clearing item\n", &v22, 2u);
         }
 
         v19 = [v9 clearPendingFollowUpItems:0];
@@ -141,9 +141,9 @@ LABEL_17:
 
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = 138412290;
-    v24 = v15;
-    _os_log_impl(&dword_223E00000, v18, OS_LOG_TYPE_DEFAULT, "Posting item: %@\n", &v23, 0xCu);
+    v22 = 138412290;
+    v23 = v15;
+    _os_log_impl(&dword_223E00000, v18, OS_LOG_TYPE_DEFAULT, "Posting item: %@\n", &v22, 0xCu);
   }
 
   v19 = [v9 postFollowUpItem:v15 error:0];
@@ -163,17 +163,15 @@ LABEL_26:
 
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = *(v6 + 318);
-    LODWORD(v24) = v19;
-    _os_log_impl(&dword_223E00000, v21, OS_LOG_TYPE_DEFAULT, "displayPearlInterlockIssueNotification: -> %d\n", &v23, 8u);
+    v22 = *(v6 + 318);
+    LODWORD(v23) = v19;
+    _os_log_impl(&dword_223E00000, v21, OS_LOG_TYPE_DEFAULT, "displayPearlInterlockIssueNotification: -> %d\n", &v22, 8u);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)displayPearlGlassesBannerNotification
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D86220];
   if (__osLogTrace)
   {
@@ -187,8 +185,8 @@ LABEL_26:
 
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v19) = 0;
-    _os_log_impl(&dword_223E00000, v3, OS_LOG_TYPE_DEFAULT, "displayPearlGlassesBannerNotification\n", &v19, 2u);
+    LOWORD(v18) = 0;
+    _os_log_impl(&dword_223E00000, v3, OS_LOG_TYPE_DEFAULT, "displayPearlGlassesBannerNotification\n", &v18, 2u);
   }
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
@@ -204,9 +202,9 @@ LABEL_26:
       v8 = (__osLog ? __osLog : v2);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v19 = 138412290;
-        v20 = @"/tmp/biokit_glasses_banner_notification";
-        _os_log_impl(&dword_223E00000, v8, OS_LOG_TYPE_ERROR, "displayPearlGlassesBannerNotification: cannot create mark file %@\n", &v19, 0xCu);
+        v18 = 138412290;
+        v19 = @"/tmp/biokit_glasses_banner_notification";
+        _os_log_impl(&dword_223E00000, v8, OS_LOG_TYPE_ERROR, "displayPearlGlassesBannerNotification: cannot create mark file %@\n", &v18, 0xCu);
       }
     }
 
@@ -238,18 +236,17 @@ LABEL_26:
 
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 67109120;
-    LODWORD(v20) = v15;
-    _os_log_impl(&dword_223E00000, v16, OS_LOG_TYPE_DEFAULT, "displayPearlGlassesBannerNotification -> %d\n", &v19, 8u);
+    v18 = 67109120;
+    LODWORD(v19) = v15;
+    _os_log_impl(&dword_223E00000, v16, OS_LOG_TYPE_DEFAULT, "displayPearlGlassesBannerNotification -> %d\n", &v18, 8u);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 void __73__BiometricSupportUserNotification_displayPearlGlassesBannerNotification__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (__osLog)
   {
@@ -263,17 +260,15 @@ void __73__BiometricSupportUserNotification_displayPearlGlassesBannerNotificatio
 
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_223E00000, v3, OS_LOG_TYPE_INFO, "displayPearlGlassesBannerNotification addNotificationRequest callback, error = %@\n", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_223E00000, v3, OS_LOG_TYPE_INFO, "displayPearlGlassesBannerNotification addNotificationRequest callback, error = %@\n", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)didDisplayPearlGlassesBannerNotificationRecently:(double)recently
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277D86220];
   if (__osLogTrace)
   {
@@ -287,9 +282,9 @@ void __73__BiometricSupportUserNotification_displayPearlGlassesBannerNotificatio
 
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 134217984;
+    v18 = 134217984;
     recentlyCopy = recently;
-    _os_log_impl(&dword_223E00000, v5, OS_LOG_TYPE_DEFAULT, "didDisplayPearlGlassesBannerNotificationRecently: %f\n", &v19, 0xCu);
+    _os_log_impl(&dword_223E00000, v5, OS_LOG_TYPE_DEFAULT, "didDisplayPearlGlassesBannerNotificationRecently: %f\n", &v18, 0xCu);
   }
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
@@ -308,8 +303,8 @@ void __73__BiometricSupportUserNotification_displayPearlGlassesBannerNotificatio
 
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&dword_223E00000, v8, OS_LOG_TYPE_DEBUG, "Glasses banner markfile found, attributes retrieved\n", &v19, 2u);
+      LOWORD(v18) = 0;
+      _os_log_impl(&dword_223E00000, v8, OS_LOG_TYPE_DEBUG, "Glasses banner markfile found, attributes retrieved\n", &v18, 2u);
     }
 
     fileCreationDate = [v7 fileCreationDate];
@@ -330,9 +325,9 @@ void __73__BiometricSupportUserNotification_displayPearlGlassesBannerNotificatio
 
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        v19 = 134217984;
+        v18 = 134217984;
         recentlyCopy = v12;
-        _os_log_impl(&dword_223E00000, v13, OS_LOG_TYPE_INFO, "Glasses banner mark file age is %f\n", &v19, 0xCu);
+        _os_log_impl(&dword_223E00000, v13, OS_LOG_TYPE_INFO, "Glasses banner mark file age is %f\n", &v18, 0xCu);
       }
 
       v14 = v12 < recently;
@@ -352,8 +347,8 @@ void __73__BiometricSupportUserNotification_displayPearlGlassesBannerNotificatio
 
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v19) = 0;
-        _os_log_impl(&dword_223E00000, v15, OS_LOG_TYPE_ERROR, "Cannot get glasses banner markfile creation date\n", &v19, 2u);
+        LOWORD(v18) = 0;
+        _os_log_impl(&dword_223E00000, v15, OS_LOG_TYPE_ERROR, "Cannot get glasses banner markfile creation date\n", &v18, 2u);
       }
 
       v14 = 0;
@@ -377,12 +372,11 @@ void __73__BiometricSupportUserNotification_displayPearlGlassesBannerNotificatio
 
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 67109120;
+    v18 = 67109120;
     LODWORD(recentlyCopy) = v14;
-    _os_log_impl(&dword_223E00000, v16, OS_LOG_TYPE_DEFAULT, "didDisplayPearlGlassesBannerNotificationRecently: -> %d\n", &v19, 8u);
+    _os_log_impl(&dword_223E00000, v16, OS_LOG_TYPE_DEFAULT, "didDisplayPearlGlassesBannerNotificationRecently: -> %d\n", &v18, 8u);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -413,26 +407,26 @@ void __73__BiometricSupportUserNotification_displayPearlGlassesBannerNotificatio
 
 void __92__BiometricSupportUserNotification_displaySensorIssueNotificationWithHeader_message_button___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   error = 0;
   responseFlags = 0;
   v1 = *MEMORY[0x277CBF188];
-  v13 = *(a1 + 32);
+  v12 = *(a1 + 32);
   v2 = *MEMORY[0x277CBF198];
-  v12[0] = v1;
-  v12[1] = v2;
+  v11[0] = v1;
+  v11[1] = v2;
   v3 = *(a1 + 48);
   v4 = *MEMORY[0x277CBF1B0];
-  v12[2] = *MEMORY[0x277CBF1E8];
-  v12[3] = v4;
-  v14 = v3;
-  v15 = MEMORY[0x277CBEC38];
+  v11[2] = *MEMORY[0x277CBF1E8];
+  v11[3] = v4;
+  v13 = v3;
+  v14 = MEMORY[0x277CBEC38];
   v5 = *MEMORY[0x277D67290];
-  v12[4] = *MEMORY[0x277D67340];
-  v12[5] = v5;
-  v16 = MEMORY[0x277CBEC38];
-  v17 = MEMORY[0x277CBEC28];
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:v12 count:6];
+  v11[4] = *MEMORY[0x277D67340];
+  v11[5] = v5;
+  v15 = MEMORY[0x277CBEC38];
+  v16 = MEMORY[0x277CBEC28];
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:v11 count:6];
   v7 = CFUserNotificationCreate(*MEMORY[0x277CBECE8], 0.0, 0, &error, v6);
   if (v7)
   {
@@ -440,8 +434,6 @@ void __92__BiometricSupportUserNotification_displaySensorIssueNotificationWithHe
     CFUserNotificationReceiveResponse(v7, 0.0, &responseFlags);
     CFRelease(v8);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

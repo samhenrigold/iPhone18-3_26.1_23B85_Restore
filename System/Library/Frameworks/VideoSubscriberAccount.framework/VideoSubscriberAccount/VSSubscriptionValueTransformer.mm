@@ -14,13 +14,14 @@
 {
   valueCopy = value;
   v4 = [objc_opt_class() _userAccountWithLegacySubscriptionPrimitives:valueCopy];
-  if ([objc_opt_class() _subscriptionIsCoreSpotlight:valueCopy])
+  v5 = [objc_opt_class() _subscriptionIsCoreSpotlight:valueCopy];
+  if (v5)
   {
-    v5 = VSDefaultLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = VSDefaultLogObject(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_23AB8E000, v5, OS_LOG_TYPE_DEFAULT, "Subscription is legacy CoreSpotlight subscription, will update with JSON values.", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "Subscription is legacy CoreSpotlight subscription, will update with JSON values.", v8, 2u);
     }
 
     [objc_opt_class() _updateUserAccount:v4 fromJSONWithSubscription:valueCopy];
@@ -127,28 +128,29 @@ LABEL_6:
     [v5 setObject:tierIdentifiers forKeyedSubscript:@"tiers"];
   }
 
-  v14 = 0;
-  v8 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v5 options:0 error:&v14];
-  v9 = v14;
+  v15 = 0;
+  v8 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v5 options:0 error:&v15];
+  v9 = v15;
+  v10 = v9;
   if (v9)
   {
-    v10 = VSErrorLogObject();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v11 = VSErrorLogObject(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      [(VSSubscriptionValueTransformer *)v9 _legacySubscriptionInfoForUserAccount:v10];
+      [(VSSubscriptionValueTransformer *)v10 _legacySubscriptionInfoForUserAccount:v11];
     }
-  }
-
-  v11 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v8 encoding:4];
-
-  if (!v11)
-  {
-    [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] parameter must not be nil."];
   }
 
   v12 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v8 encoding:4];
 
-  return v12;
+  if (!v12)
+  {
+    [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] parameter must not be nil."];
+  }
+
+  v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v8 encoding:4];
+
+  return v13;
 }
 
 + (id)_userAccountWithLegacySubscriptionPrimitives:(id)primitives
@@ -249,7 +251,7 @@ LABEL_6:
     else
     {
       v18 = v12;
-      v19 = VSErrorLogObject();
+      v19 = VSErrorLogObject(v12);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         [VSSubscriptionValueTransformer _updateUserAccount:v18 fromJSONWithSubscription:v19];
@@ -336,18 +338,19 @@ LABEL_6:
     [(VSSubscriptionSource *)v18 setIdentifier:v19];
 
     sourceType = [accountCopy sourceType];
+    v21 = sourceType;
     if (sourceType >= 2)
     {
-      v21 = VSErrorLogObject();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+      v22 = VSErrorLogObject(sourceType);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
       {
-        [VSSubscriptionValueTransformer _subscriptionForUserAccount:v21];
+        [VSSubscriptionValueTransformer _subscriptionForUserAccount:v22];
       }
 
-      sourceType = 0;
+      v21 = 0;
     }
 
-    [(VSSubscriptionSource *)v18 setKind:sourceType];
+    [(VSSubscriptionSource *)v18 setKind:v21];
     [(VSSubscription *)v5 setSource:v18];
   }
 

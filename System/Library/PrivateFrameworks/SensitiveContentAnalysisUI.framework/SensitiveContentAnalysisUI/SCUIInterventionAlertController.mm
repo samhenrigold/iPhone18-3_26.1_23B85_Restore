@@ -11,6 +11,7 @@
 - (void)screenTwo_acceptButtonPressed;
 - (void)screenTwo_messageButtonPressed;
 - (void)screenTwo_notNowButtonPressed;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation SCUIInterventionAlertController
@@ -57,30 +58,38 @@
   return v8;
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = SCUIInterventionAlertController;
+  [(SCUIInterventionAlertController *)&v4 viewDidAppear:appear];
+  [(SCUIInterventionAlertController *)self presentAlertScreen];
+}
+
 - (void)presentAlertScreen
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   val = self;
   bullets = [(SCUIInterventionScreenModel *)self->_screenModel bullets];
-  v5 = [bullets countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v5 = [bullets countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v5)
   {
-    v6 = *v31;
+    v6 = *v30;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v31 != v6)
+        if (*v30 != v6)
         {
           objc_enumerationMutation(bullets);
         }
 
-        v8 = *(*(&v30 + 1) + 8 * i);
+        v8 = *(*(&v29 + 1) + 8 * i);
         if ([v3 length])
         {
           [v3 appendString:@"\n\n"];
@@ -90,7 +99,7 @@
         [v3 appendString:text];
       }
 
-      v5 = [bullets countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v5 = [bullets countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v5);
@@ -98,52 +107,50 @@
 
   v10 = MEMORY[0x1E69DC650];
   title = [(SCUIInterventionScreenModel *)val->_screenModel title];
-  v22 = [v10 alertControllerWithTitle:title message:v3 preferredStyle:1];
+  v21 = [v10 alertControllerWithTitle:title message:v3 preferredStyle:1];
 
   objc_initWeak(&location, val);
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   actions = [(SCUIInterventionScreenModel *)val->_screenModel actions];
-  v13 = [actions countByEnumeratingWithState:&v25 objects:v34 count:16];
+  v13 = [actions countByEnumeratingWithState:&v24 objects:v33 count:16];
   if (v13)
   {
-    v14 = *v26;
+    v14 = *v25;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v26 != v14)
+        if (*v25 != v14)
         {
           objc_enumerationMutation(actions);
         }
 
-        v16 = *(*(&v25 + 1) + 8 * j);
+        v16 = *(*(&v24 + 1) + 8 * j);
         v17 = MEMORY[0x1E69DC648];
         title2 = [v16 title];
-        v23[0] = MEMORY[0x1E69E9820];
-        v23[1] = 3221225472;
-        v23[2] = __53__SCUIInterventionAlertController_presentAlertScreen__block_invoke;
-        v23[3] = &unk_1E7FF2560;
-        v23[4] = v16;
-        objc_copyWeak(&v24, &location);
-        v19 = [v17 actionWithTitle:title2 style:0 handler:v23];
+        v22[0] = MEMORY[0x1E69E9820];
+        v22[1] = 3221225472;
+        v22[2] = __53__SCUIInterventionAlertController_presentAlertScreen__block_invoke;
+        v22[3] = &unk_1E7FF2560;
+        v22[4] = v16;
+        objc_copyWeak(&v23, &location);
+        v19 = [v17 actionWithTitle:title2 style:0 handler:v22];
 
-        [v22 addAction:v19];
-        objc_destroyWeak(&v24);
+        [v21 addAction:v19];
+        objc_destroyWeak(&v23);
       }
 
-      v13 = [actions countByEnumeratingWithState:&v25 objects:v34 count:16];
+      v13 = [actions countByEnumeratingWithState:&v24 objects:v33 count:16];
     }
 
     while (v13);
   }
 
-  [(SCUIInterventionAlertController *)val presentViewController:v22 animated:1 completion:0];
+  [(SCUIInterventionAlertController *)val presentViewController:v21 animated:1 completion:0];
   objc_destroyWeak(&location);
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __53__SCUIInterventionAlertController_presentAlertScreen__block_invoke(uint64_t a1)

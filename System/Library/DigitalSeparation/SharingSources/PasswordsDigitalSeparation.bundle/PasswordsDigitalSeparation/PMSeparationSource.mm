@@ -80,11 +80,11 @@
 
 - (id)_participantIdentityWithHandle:(id)handle
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   v5 = MEMORY[0x277CBDA58];
-  v17[0] = handleCopy;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+  v18[0] = handleCopy;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
   v7 = [v5 predicateForContactsMatchingHandleStrings:v6];
 
   v8 = [(CNContactStore *)self->_contactStore unifiedContactsMatchingPredicate:v7 keysToFetch:MEMORY[0x277CBEBF8] error:0];
@@ -106,10 +106,11 @@
 
     else
     {
-      if (([MEMORY[0x277CFBE08] isStringEmailAddress:handleCopy] & 1) == 0)
+      v14 = [MEMORY[0x277CFBE08] isStringEmailAddress:handleCopy];
+      if ((v14 & 1) == 0)
       {
-        v14 = sub_2339734A4();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v16 = sub_2339734A4(v14, v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           sub_233976598();
         }
@@ -120,8 +121,6 @@
 
     v12 = v13;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -146,7 +145,7 @@
 
 - (void)_removeAllOtherParticipantsFromGroup:(id)group completionHandler:(id)handler
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   groupCopy = group;
   handlerCopy = handler;
   v7 = [groupCopy copy];
@@ -158,33 +157,33 @@
 
   else
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v9 = participants;
-    v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v22;
+      v12 = *v21;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v22 != v12)
+          if (*v21 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v21 + 1) + 8 * i);
+          v14 = *(*(&v20 + 1) + 8 * i);
           if (([v14 isCurrentUser] & 1) == 0)
           {
             [v7 removeParticipant:v14];
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v11);
@@ -192,16 +191,14 @@
 
     v15 = [objc_alloc(MEMORY[0x277CDBD38]) initWithUpdatedGroup:v7];
     mEMORY[0x277CDBD30] = [MEMORY[0x277CDBD30] sharedInstance];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = sub_233973EE4;
-    v18[3] = &unk_2789F6080;
-    v19 = groupCopy;
-    v20 = handlerCopy;
-    [mEMORY[0x277CDBD30] updateGroupWithRequest:v15 completion:v18];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = sub_233973EE4;
+    v17[3] = &unk_2789F6080;
+    v18 = groupCopy;
+    v19 = handlerCopy;
+    [mEMORY[0x277CDBD30] updateGroupWithRequest:v15 completion:v17];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeParticipant:(id)participant fromGroup:(id)group completionHandler:(id)handler
@@ -311,7 +308,7 @@
 
 - (void)_leaveGroup:(id)group completionHandler:(id)handler
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   groupCopy = group;
   handlerCopy = handler;
   groupID = [groupCopy groupID];
@@ -322,65 +319,64 @@
   if (v10)
   {
     mEMORY[0x277CDBD30] = [MEMORY[0x277CDBD30] sharedInstance];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = sub_23397529C;
-    v17[3] = &unk_2789F6238;
-    v18 = groupCopy;
-    v20 = handlerCopy;
-    v19 = groupID;
-    [mEMORY[0x277CDBD30] leaveGroupWithRequest:v8 completion:v17];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = sub_23397529C;
+    v18[3] = &unk_2789F6238;
+    v19 = groupCopy;
+    v21 = handlerCopy;
+    v20 = groupID;
+    [mEMORY[0x277CDBD30] leaveGroupWithRequest:v8 completion:v18];
 
-    v12 = v18;
+    v14 = v19;
   }
 
   else
   {
-    v13 = sub_2339734A4();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = sub_2339734A4(v11, v12);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_233976848();
     }
 
-    v14 = MEMORY[0x277CCA9B8];
-    v21 = *MEMORY[0x277CCA450];
-    v22[0] = @"Failed to copy contributed items back to My Passwords from group.";
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
-    v15 = [v14 errorWithDomain:@"com.apple.SafariShared.PasswordsDigitalSepration.PMSeparationErrorDomain" code:2 userInfo:v12];
-    (*(handlerCopy + 2))(handlerCopy, v15);
+    v16 = MEMORY[0x277CCA9B8];
+    v22 = *MEMORY[0x277CCA450];
+    v23[0] = @"Failed to copy contributed items back to My Passwords from group.";
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+    v17 = [v16 errorWithDomain:@"com.apple.SafariShared.PasswordsDigitalSepration.PMSeparationErrorDomain" code:2 userInfo:v14];
+    (*(handlerCopy + 2))(handlerCopy, v17);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchSharedResourcesWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = sub_2339734A4();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = sub_2339734A4(completionCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_233972000, v5, OS_LOG_TYPE_INFO, "Fetch shared groups", buf, 2u);
+    _os_log_impl(&dword_233972000, v6, OS_LOG_TYPE_INFO, "Fetch shared groups", buf, 2u);
   }
 
-  if (_os_feature_enabled_impl())
+  v7 = _os_feature_enabled_impl();
+  if (v7)
   {
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = sub_233975580;
-    v7[3] = &unk_2789F6198;
-    v7[4] = self;
-    v8 = completionCopy;
-    [(PMSeparationSource *)self _fetchGroupsExcludingInvitationsWithCompletionHandler:v7];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = sub_233975580;
+    v10[3] = &unk_2789F6198;
+    v10[4] = self;
+    v11 = completionCopy;
+    [(PMSeparationSource *)self _fetchGroupsExcludingInvitationsWithCompletionHandler:v10];
   }
 
   else
   {
-    v6 = sub_2339734A4();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v9 = sub_2339734A4(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_233972000, v6, OS_LOG_TYPE_INFO, "Ignoring fetch groups request: ongoing sharing feature is disabled", buf, 2u);
+      _os_log_impl(&dword_233972000, v9, OS_LOG_TYPE_INFO, "Ignoring fetch groups request: ongoing sharing feature is disabled", buf, 2u);
     }
 
     (*(completionCopy + 2))(completionCopy, MEMORY[0x277CBEBF8], 0);
@@ -389,164 +385,165 @@
 
 - (void)stopSharing:(id)sharing withCompletion:(id)completion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   sharingCopy = sharing;
   completionCopy = completion;
-  v8 = sub_2339734A4();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = sub_2339734A4(completionCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v28 = sharingCopy;
-    _os_log_impl(&dword_233972000, v8, OS_LOG_TYPE_INFO, "Stop sharing with group: %@", buf, 0xCu);
+    v32 = sharingCopy;
+    _os_log_impl(&dword_233972000, v9, OS_LOG_TYPE_INFO, "Stop sharing with group: %@", buf, 0xCu);
   }
 
-  if (_os_feature_enabled_impl())
+  v10 = _os_feature_enabled_impl();
+  if (v10)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v9 = sharingCopy;
-      group = [v9 group];
+      v14 = sharingCopy;
+      group = [v14 group];
       groupID = [group groupID];
 
       mEMORY[0x277CDBD30] = [MEMORY[0x277CDBD30] sharedInstance];
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = sub_23397597C;
-      v21[3] = &unk_2789F62D8;
-      v22 = groupID;
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = sub_23397597C;
+      v25[3] = &unk_2789F62D8;
+      v26 = groupID;
       selfCopy = self;
-      v24 = completionCopy;
-      v13 = groupID;
-      [mEMORY[0x277CDBD30] getGroupByGroupID:v13 completion:v21];
+      v28 = completionCopy;
+      v18 = groupID;
+      [mEMORY[0x277CDBD30] getGroupByGroupID:v18 completion:v25];
     }
 
     else
     {
-      v15 = sub_2339734A4();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v20 = sub_2339734A4(isKindOfClass, v13);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         sub_23397696C();
       }
 
-      v16 = MEMORY[0x277CCA9B8];
-      v25 = *MEMORY[0x277CCA450];
+      v21 = MEMORY[0x277CCA9B8];
+      v29 = *MEMORY[0x277CCA450];
       sharingCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid resource: %@", sharingCopy];
-      v26 = sharingCopy;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-      v19 = [v16 errorWithDomain:@"com.apple.SafariShared.PasswordsDigitalSepration.PMSeparationErrorDomain" code:1 userInfo:v18];
-      (*(completionCopy + 2))(completionCopy, v19);
+      v30 = sharingCopy;
+      v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+      v24 = [v21 errorWithDomain:@"com.apple.SafariShared.PasswordsDigitalSepration.PMSeparationErrorDomain" code:1 userInfo:v23];
+      (*(completionCopy + 2))(completionCopy, v24);
     }
   }
 
   else
   {
-    v14 = sub_2339734A4();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v19 = sub_2339734A4(v10, v11);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_233972000, v14, OS_LOG_TYPE_INFO, "Ignoring stop sharing request: ongoing sharing feature is disabled", buf, 2u);
+      _os_log_impl(&dword_233972000, v19, OS_LOG_TYPE_INFO, "Ignoring stop sharing request: ongoing sharing feature is disabled", buf, 2u);
     }
 
     (*(completionCopy + 2))(completionCopy, 0);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopSharingWithParticipant:(id)participant completion:(id)completion
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   participantCopy = participant;
   completionCopy = completion;
-  v8 = sub_2339734A4();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = sub_2339734A4(completionCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v26 = participantCopy;
-    _os_log_impl(&dword_233972000, v8, OS_LOG_TYPE_INFO, "Stop sharing with participant: %@", buf, 0xCu);
+    v30 = participantCopy;
+    _os_log_impl(&dword_233972000, v9, OS_LOG_TYPE_INFO, "Stop sharing with participant: %@", buf, 0xCu);
   }
 
-  if (_os_feature_enabled_impl())
+  v10 = _os_feature_enabled_impl();
+  if (v10)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v9 = participantCopy;
-      participant = [v9 participant];
+      v14 = participantCopy;
+      participant = [v14 participant];
       handle = [participant handle];
 
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = sub_233975E94;
-      v20[3] = &unk_2789F6288;
-      v21 = handle;
-      v22 = completionCopy;
-      v12 = handle;
-      [(PMSeparationSource *)self _stopSharingWithParticipantsMatchingHandle:v12 completionHandler:v20];
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = sub_233975E94;
+      v24[3] = &unk_2789F6288;
+      v25 = handle;
+      v26 = completionCopy;
+      v17 = handle;
+      [(PMSeparationSource *)self _stopSharingWithParticipantsMatchingHandle:v17 completionHandler:v24];
     }
 
     else
     {
-      v14 = sub_2339734A4();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v19 = sub_2339734A4(isKindOfClass, v13);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         sub_233976B28();
       }
 
-      v15 = MEMORY[0x277CCA9B8];
-      v23 = *MEMORY[0x277CCA450];
+      v20 = MEMORY[0x277CCA9B8];
+      v27 = *MEMORY[0x277CCA450];
       participantCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid participant: %@", participantCopy];
-      v24 = participantCopy;
-      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
-      v18 = [v15 errorWithDomain:@"com.apple.SafariShared.PasswordsDigitalSepration.PMSeparationErrorDomain" code:1 userInfo:v17];
-      (*(completionCopy + 2))(completionCopy, v18);
+      v28 = participantCopy;
+      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+      v23 = [v20 errorWithDomain:@"com.apple.SafariShared.PasswordsDigitalSepration.PMSeparationErrorDomain" code:1 userInfo:v22];
+      (*(completionCopy + 2))(completionCopy, v23);
     }
   }
 
   else
   {
-    v13 = sub_2339734A4();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v18 = sub_2339734A4(v10, v11);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_233972000, v13, OS_LOG_TYPE_INFO, "Ignoring stop sharing request: ongoing sharing feature is disabled", buf, 2u);
+      _os_log_impl(&dword_233972000, v18, OS_LOG_TYPE_INFO, "Ignoring stop sharing request: ongoing sharing feature is disabled", buf, 2u);
     }
 
     (*(completionCopy + 2))(completionCopy, 0);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopAllSharingWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = sub_2339734A4();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = sub_2339734A4(completionCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_233972000, v5, OS_LOG_TYPE_INFO, "Stop all sharing", buf, 2u);
+    _os_log_impl(&dword_233972000, v6, OS_LOG_TYPE_INFO, "Stop all sharing", buf, 2u);
   }
 
-  if (_os_feature_enabled_impl())
+  v7 = _os_feature_enabled_impl();
+  if (v7)
   {
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = sub_23397604C;
-    v7[3] = &unk_2789F6198;
-    v7[4] = self;
-    v8 = completionCopy;
-    [(PMSeparationSource *)self _fetchGroupsExcludingInvitationsWithCompletionHandler:v7];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = sub_23397604C;
+    v10[3] = &unk_2789F6198;
+    v10[4] = self;
+    v11 = completionCopy;
+    [(PMSeparationSource *)self _fetchGroupsExcludingInvitationsWithCompletionHandler:v10];
   }
 
   else
   {
-    v6 = sub_2339734A4();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v9 = sub_2339734A4(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_233972000, v6, OS_LOG_TYPE_INFO, "Ignoring stop sharing request: ongoing sharing feature is disabled", buf, 2u);
+      _os_log_impl(&dword_233972000, v9, OS_LOG_TYPE_INFO, "Ignoring stop sharing request: ongoing sharing feature is disabled", buf, 2u);
     }
 
     (*(completionCopy + 2))(completionCopy, 0);

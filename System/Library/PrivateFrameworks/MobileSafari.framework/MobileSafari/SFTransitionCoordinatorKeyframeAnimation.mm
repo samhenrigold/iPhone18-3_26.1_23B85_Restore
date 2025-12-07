@@ -41,11 +41,11 @@
   v7 = objc_msgSendSuper2(&v11, sel_init);
   v8 = _Block_copy(v6);
 
-  v9 = *(v7 + 1);
-  *(v7 + 1) = v8;
+  v9 = v7[1];
+  v7[1] = v8;
 
-  v7[2] = duration;
-  v7[3] = time;
+  *(v7 + 2) = duration;
+  *(v7 + 3) = time;
   return v7;
 }
 

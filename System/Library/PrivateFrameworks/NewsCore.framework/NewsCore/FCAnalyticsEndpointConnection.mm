@@ -108,7 +108,7 @@ LABEL_6:
 
 void __119__FCAnalyticsEndpointConnection_uploadEnvelopeBatch_withURL_valuesByHTTPHeaderField_priority_callbackQueue_completion___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v53[1] = *MEMORY[0x1E69E9840];
+  v52[1] = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -118,16 +118,16 @@ void __119__FCAnalyticsEndpointConnection_uploadEnvelopeBatch_withURL_valuesByHT
     v11 = [v10 URLByAppendingPathComponent:@"response.json"];
     v12 = [v11 path];
 
-    v39 = 0;
-    v40 = &v39;
-    v41 = 0x3032000000;
-    v42 = __Block_byref_object_copy__94;
-    v43 = __Block_byref_object_dispose__94;
-    v44 = 0;
+    v38 = 0;
+    v39 = &v38;
+    v40 = 0x3032000000;
+    v41 = __Block_byref_object_copy__94;
+    v42 = __Block_byref_object_dispose__94;
+    v43 = 0;
     obj = 0;
-    v33 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v7 options:4 error:&obj];
-    objc_storeStrong(&v44, obj);
-    v13 = [v33 fc_firstObjectPassingTest:&__block_literal_global_182];
+    v32 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v7 options:4 error:&obj];
+    objc_storeStrong(&v43, obj);
+    v13 = [v32 fc_firstObjectPassingTest:&__block_literal_global_182];
     v14 = v13;
     v15 = MEMORY[0x1E695E0F8];
     if (v13)
@@ -135,48 +135,48 @@ void __119__FCAnalyticsEndpointConnection_uploadEnvelopeBatch_withURL_valuesByHT
       v15 = v13;
     }
 
-    v32 = v15;
+    v31 = v15;
 
     v16 = MEMORY[0x1E695DF20];
-    v35[0] = MEMORY[0x1E69E9820];
-    v35[1] = 3221225472;
-    v35[2] = __119__FCAnalyticsEndpointConnection_uploadEnvelopeBatch_withURL_valuesByHTTPHeaderField_priority_callbackQueue_completion___block_invoke_15;
-    v35[3] = &unk_1E7C47880;
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = __119__FCAnalyticsEndpointConnection_uploadEnvelopeBatch_withURL_valuesByHTTPHeaderField_priority_callbackQueue_completion___block_invoke_15;
+    v34[3] = &unk_1E7C47880;
     v17 = v12;
-    v36 = v17;
-    v37 = &v39;
-    v18 = [v16 fc_dictionary:v35];
-    v19 = [v18 fc_dictionaryByMergingDictionary:v32 withValueCombiner:&__block_literal_global_26_2];
-    v53[0] = v19;
-    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:1];
-    v21 = (v40 + 5);
-    v34 = v40[5];
-    v22 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v20 options:0 error:&v34];
-    objc_storeStrong(v21, v34);
+    v35 = v17;
+    v36 = &v38;
+    v18 = [v16 fc_dictionary:v34];
+    v19 = [v18 fc_dictionaryByMergingDictionary:v31 withValueCombiner:&__block_literal_global_26_2];
+    v52[0] = v19;
+    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v52 count:1];
+    v21 = (v39 + 5);
+    v33 = v39[5];
+    v22 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v20 options:0 error:&v33];
+    objc_storeStrong(v21, v33);
     [v22 writeToFile:v17 atomically:0];
 
-    if (v40[5])
+    if (v39[5])
     {
       v23 = MEMORY[0x1E69E9C10];
       v24 = MEMORY[0x1E69E9C10];
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        v29 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v30 = [v40[5] localizedDescription];
-        v31 = [v29 initWithFormat:@"Expected nil error but got %@", v30];
+        v28 = objc_alloc(MEMORY[0x1E696AEC0]);
+        v29 = [v39[5] localizedDescription];
+        v30 = [v28 initWithFormat:@"Expected nil error but got %@", v29];
         *buf = 136315906;
-        v46 = "[FCAnalyticsEndpointConnection uploadEnvelopeBatch:withURL:valuesByHTTPHeaderField:priority:callbackQueue:completion:]_block_invoke_2";
-        v47 = 2080;
-        v48 = "FCAnalyticsEndpointConnection.m";
-        v49 = 1024;
-        v50 = 124;
-        v51 = 2114;
-        v52 = v31;
+        v45 = "[FCAnalyticsEndpointConnection uploadEnvelopeBatch:withURL:valuesByHTTPHeaderField:priority:callbackQueue:completion:]_block_invoke_2";
+        v46 = 2080;
+        v47 = "FCAnalyticsEndpointConnection.m";
+        v48 = 1024;
+        v49 = 124;
+        v50 = 2114;
+        v51 = v30;
         _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
       }
     }
 
-    _Block_object_dispose(&v39, 8);
+    _Block_object_dispose(&v38, 8);
   }
 
   if (v8)
@@ -199,8 +199,6 @@ void __119__FCAnalyticsEndpointConnection_uploadEnvelopeBatch_withURL_valuesByHT
       (*(v27 + 16))(v27, 0, v9, 0);
     }
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __119__FCAnalyticsEndpointConnection_uploadEnvelopeBatch_withURL_valuesByHTTPHeaderField_priority_callbackQueue_completion___block_invoke_15(uint64_t a1, void *a2)
@@ -220,7 +218,7 @@ void __119__FCAnalyticsEndpointConnection_uploadEnvelopeBatch_withURL_valuesByHT
 
 void __119__FCAnalyticsEndpointConnection_uploadEnvelopeBatch_withURL_valuesByHTTPHeaderField_priority_callbackQueue_completion___block_invoke_2_17(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = a2;
   objc_opt_class();
   v4 = *(*(a1 + 40) + 8);
@@ -259,23 +257,21 @@ void __119__FCAnalyticsEndpointConnection_uploadEnvelopeBatch_withURL_valuesByHT
 
   if (*(*(*(a1 + 40) + 8) + 40) && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v13 = objc_alloc(MEMORY[0x1E696AEC0]);
-    v14 = [*(*(*(a1 + 40) + 8) + 40) localizedDescription];
-    v15 = [v13 initWithFormat:@"Expected nil error but got %@", v14];
+    v12 = objc_alloc(MEMORY[0x1E696AEC0]);
+    v13 = [*(*(*(a1 + 40) + 8) + 40) localizedDescription];
+    v14 = [v12 initWithFormat:@"Expected nil error but got %@", v13];
     *buf = 136315906;
-    v18 = "[FCAnalyticsEndpointConnection uploadEnvelopeBatch:withURL:valuesByHTTPHeaderField:priority:callbackQueue:completion:]_block_invoke_2";
-    v19 = 2080;
-    v20 = "FCAnalyticsEndpointConnection.m";
-    v21 = 1024;
-    v22 = 107;
-    v23 = 2114;
-    v24 = v15;
+    v17 = "[FCAnalyticsEndpointConnection uploadEnvelopeBatch:withURL:valuesByHTTPHeaderField:priority:callbackQueue:completion:]_block_invoke_2";
+    v18 = 2080;
+    v19 = "FCAnalyticsEndpointConnection.m";
+    v20 = 1024;
+    v21 = 107;
+    v22 = 2114;
+    v23 = v14;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   [*(a1 + 32) addEntriesFromDictionary:v11];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __119__FCAnalyticsEndpointConnection_uploadEnvelopeBatch_withURL_valuesByHTTPHeaderField_priority_callbackQueue_completion___block_invoke_23(uint64_t a1, void *a2, void *a3)

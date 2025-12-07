@@ -75,13 +75,13 @@
 
 - (AppleProxNotificationTTR)init
 {
-  v8.receiver = self;
-  v8.super_class = AppleProxNotificationTTR;
-  v2 = [(AppleProxNotificationTTR *)&v8 init];
+  v9.receiver = self;
+  v9.super_class = AppleProxNotificationTTR;
+  v2 = [(AppleProxNotificationTTR *)&v9 init];
   if (!v2)
   {
 LABEL_7:
-    v5 = 0;
+    v6 = 0;
     goto LABEL_8;
   }
 
@@ -91,8 +91,8 @@ LABEL_7:
 
   if (!v2->_ttrQueue)
   {
-    v6 = LoggingProx();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = LoggingProx(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_A184();
     }
@@ -100,10 +100,10 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v5 = v2;
+  v6 = v2;
 LABEL_8:
 
-  return v5;
+  return v6;
 }
 
 - (void)sendNotification
@@ -116,8 +116,8 @@ LABEL_8:
 
     if (v5 == &dword_0 + 1)
     {
-      v6 = LoggingProx();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = LoggingProx(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         sub_A204();
       }
@@ -125,17 +125,18 @@ LABEL_8:
 
     else
     {
-      v7 = objc_opt_class();
-      v8 = [NSDate dateWithTimeIntervalSinceNow:86400.0];
-      [v7 setNotBefore:v8];
+      v8 = objc_opt_class();
+      v9 = [NSDate dateWithTimeIntervalSinceNow:86400.0];
+      [v8 setNotBefore:v9];
 
-      if (![(AppleProxNotificationTTR *)self notification])
+      notification = [(AppleProxNotificationTTR *)self notification];
+      if (!notification)
       {
-        v9 = LoggingProx();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v11 = LoggingProx(0);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Sending UserNotification for TTR", buf, 2u);
+          _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Sending UserNotification for TTR", buf, 2u);
         }
 
         ttrQueue = self->_ttrQueue;
@@ -148,8 +149,8 @@ LABEL_8:
         goto LABEL_9;
       }
 
-      v6 = LoggingProx();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = LoggingProx(notification);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         sub_A1C4();
       }
@@ -161,7 +162,7 @@ LABEL_9:
 
 - (void)cancelNotification
 {
-  v3 = LoggingProx();
+  v3 = LoggingProx(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -197,7 +198,7 @@ LABEL_9:
 
 - (void)processNotificationResponse:(unint64_t)response
 {
-  v5 = LoggingProx();
+  v5 = LoggingProx(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;

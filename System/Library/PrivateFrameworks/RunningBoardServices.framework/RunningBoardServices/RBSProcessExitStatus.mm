@@ -1,7 +1,7 @@
 @interface RBSProcessExitStatus
 + (RBSProcessExitStatus)statusWithDomain:(unsigned int)domain code:(unint64_t)code;
 + (__CFString)_nameForDomain:(int)domain includeNumber:;
-+ (__CFString)_nameForDomain:(uint64_t)domain code:(int)code includeNumber:;
++ (__CFString)_nameForDomain:(unint64_t)domain code:(int)code includeNumber:;
 - (BOOL)isCrash;
 - (BOOL)isEqual:(id)equal;
 - (NSString)description;
@@ -60,17 +60,15 @@
 
 - (id)error
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696ABC0];
   v4 = [RBSProcessExitStatus _nameForDomain:0 includeNumber:?];
   code = self->_code;
-  v11 = *MEMORY[0x1E696A588];
+  v10 = *MEMORY[0x1E696A588];
   v6 = [RBSProcessExitStatus _nameForDomain:code code:1 includeNumber:?];
-  v12[0] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v11[0] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v8 = [v3 errorWithDomain:v4 code:code userInfo:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -103,18 +101,19 @@ LABEL_8:
   return v5;
 }
 
-+ (__CFString)_nameForDomain:(uint64_t)domain code:(int)code includeNumber:
++ (__CFString)_nameForDomain:(unint64_t)domain code:(int)code includeNumber:
 {
+  v6 = a2;
   objc_opt_self();
   v7 = 0;
   v8 = 1;
-  if (a2 > 8)
+  if (v6 > 8)
   {
-    switch(a2)
+    switch(v6)
     {
       case 23:
         v9 = domain - 1;
-        if ((domain - 1) < 3)
+        if (domain - 1 < 3)
         {
           v10 = off_1E7276238;
           goto LABEL_20;
@@ -145,13 +144,13 @@ LABEL_8:
         {
           switch(domain)
           {
-            case 3221229823:
+            case 0xC00010FFuLL:
               v7 = @"thermal-pressure";
               break;
-            case 3735943697:
+            case 0xDEADFA11uLL:
               v7 = @"user-quit";
               break;
-            case 4227595259:
+            case 0xFBFBFBFBuLL:
               v7 = @"force-quit";
               break;
             default:
@@ -162,7 +161,7 @@ LABEL_8:
         goto LABEL_21;
       case 9:
         v9 = domain - 1;
-        if (domain - 1) < 0xE && ((0x3FFDu >> v9))
+        if (domain - 1 < 0xE && ((0x3FFDu >> v9) & 1) != 0)
         {
           v10 = off_1E7276048;
           goto LABEL_20;
@@ -178,10 +177,10 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  if (a2 == 1)
+  if (v6 == 1)
   {
     v9 = domain - 1;
-    if ((domain - 1) < 0xD)
+    if (domain - 1 < 0xD)
     {
       v10 = off_1E72760B8;
       goto LABEL_20;
@@ -190,10 +189,10 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  if (a2 == 2)
+  if (v6 == 2)
   {
     v9 = domain - 1;
-    if (domain - 1) < 0x1F && ((0x67BFFFBFu >> v9))
+    if (domain - 1 < 0x1F && ((0x67BFFFBFu >> v9) & 1) != 0)
     {
       v10 = off_1E7276120;
       goto LABEL_20;
@@ -202,13 +201,13 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  if (a2 != 3)
+  if (v6 != 3)
   {
     goto LABEL_24;
   }
 
   v9 = domain - 1;
-  if ((domain - 1) >= 4)
+  if (domain - 1 >= 4)
   {
     goto LABEL_23;
   }

@@ -54,7 +54,7 @@
 
 - (id)initialCounterGroups
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   context = [(HMDEventCountersManagerLegacyDelegate *)self context];
   if (context)
   {
@@ -64,14 +64,14 @@
 
     if (unarchive)
     {
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __61__HMDEventCountersManagerLegacyDelegate_initialCounterGroups__block_invoke;
-      v13[3] = &unk_279731328;
-      v14 = dictionary;
-      v15 = context;
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __61__HMDEventCountersManagerLegacyDelegate_initialCounterGroups__block_invoke;
+      v12[3] = &unk_279731328;
+      v13 = dictionary;
+      v14 = context;
       selfCopy = self;
-      [unarchive enumerateKeysAndObjectsUsingBlock:v13];
+      [unarchive enumerateKeysAndObjectsUsingBlock:v12];
     }
 
     v7 = objc_autoreleasePoolPush();
@@ -81,9 +81,9 @@
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v18 = v10;
-      v19 = 2112;
-      v20 = dictionary;
+      v17 = v10;
+      v18 = 2112;
+      v19 = dictionary;
       _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Final restored event counters: %@", buf, 0x16u);
     }
 
@@ -94,8 +94,6 @@
   {
     dictionary = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }

@@ -36,7 +36,7 @@
   {
     tCopy = t;
     v4 = [objc_opt_class() kernelNamed:@"ipt_from_hue_chroma"];
-    [tCopy extent];
+    objc_msgSend_extent(tCopy);
     v6 = v5;
     v8 = v7;
     v10 = v9;
@@ -62,7 +62,7 @@
   {
     chromaCopy = chroma;
     v4 = [objc_opt_class() kernelNamed:@"ipt_to_hue_chroma"];
-    [chromaCopy extent];
+    objc_msgSend_extent(chromaCopy);
     v6 = v5;
     v8 = v7;
     v10 = v9;
@@ -88,7 +88,7 @@
   {
     bCopy = b;
     v4 = [objc_opt_class() kernelNamed:@"ipt_to_srgb"];
-    [bCopy extent];
+    objc_msgSend_extent(bCopy);
     v6 = v5;
     v8 = v7;
     v10 = v9;
@@ -114,7 +114,7 @@
   {
     tCopy = t;
     v4 = [objc_opt_class() kernelNamed:@"ipt_from_srgb"];
-    [tCopy extent];
+    objc_msgSend_extent(tCopy);
     v6 = v5;
     v8 = v7;
     v10 = v9;
@@ -183,7 +183,7 @@
 
   v4 = imageCopy;
   scaleHueKernel = [objc_opt_class() scaleHueKernel];
-  [v4 extent];
+  objc_msgSend_extent(v4);
   v7 = v6;
   v9 = v8;
   v11 = v10;
@@ -247,7 +247,7 @@
 
   v4 = imageCopy;
   scaleHueKernel = [objc_opt_class() scaleHueKernel];
-  [v4 extent];
+  objc_msgSend_extent(v4);
   v7 = v6;
   v9 = v8;
   v11 = v10;

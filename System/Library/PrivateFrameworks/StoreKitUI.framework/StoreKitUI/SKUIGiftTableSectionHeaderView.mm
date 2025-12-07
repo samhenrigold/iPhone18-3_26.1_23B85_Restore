@@ -2,6 +2,7 @@
 - (CGSize)sizeThatFits:(CGSize)fits;
 - (NSString)label;
 - (UIEdgeInsets)contentInsets;
+- (void)label;
 - (void)layoutSubviews;
 - (void)setBackgroundColor:(id)color;
 - (void)setContentInsets:(UIEdgeInsets)insets;
@@ -77,7 +78,7 @@
   }
 
   label = [(SKUIGiftTableSectionHeaderView *)self label];
-  if (label != labelCopy && ([labelCopy isEqualToString:label] & 1) == 0)
+  if (label != labelCopy && (objc_msgSend_isEqualToString_(labelCopy) & 1) == 0)
   {
     label = self->_label;
     if (labelCopy)
@@ -122,22 +123,8 @@
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIGiftTableSectionHeaderView *)v3 layoutSubviews:v4];
-      }
-    }
-  }
-
-  [(SKUIGiftTableSectionHeaderView *)self bounds];
-  v12 = v11;
-  [(UILabel *)self->_label frame];
-  [(UILabel *)self->_label setFrame:self->_contentInsets.left + 15.0, self->_contentInsets.top + 0.0, v12 + -15.0 - self->_contentInsets.right - (self->_contentInsets.left + 15.0)];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGiftTableSectionHeaderView layoutSubviews]";
 }
 
 - (void)setBackgroundColor:(id)color
@@ -203,6 +190,36 @@
   result.left = left;
   result.top = top;
   return result;
+}
+
+- (void)label
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGiftTableSectionHeaderView label]";
+}
+
+- (void)setContentInsets:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGiftTableSectionHeaderView setContentInsets:]";
+}
+
+- (void)setLabel:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGiftTableSectionHeaderView setLabel:]";
+}
+
+- (void)setBackgroundColor:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGiftTableSectionHeaderView setBackgroundColor:]";
+}
+
+- (void)sizeThatFits:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGiftTableSectionHeaderView sizeThatFits:]";
 }
 
 @end

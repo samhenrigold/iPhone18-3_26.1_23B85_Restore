@@ -125,7 +125,6 @@
   objc_storeStrong(&v35, 0);
   objc_storeStrong(&v37, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v8 = v39;
 
   return v8;
@@ -393,7 +392,6 @@
   objc_storeStrong(&v59, 0);
   objc_storeStrong(&v60, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)saveCToLMap:(id)map toDir:(id)dir error:(id *)error

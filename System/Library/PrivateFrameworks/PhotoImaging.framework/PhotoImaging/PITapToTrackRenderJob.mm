@@ -146,7 +146,7 @@ LABEL_39:
         goto LABEL_32;
       }
 
-      [(PITapToTrackRenderJob *)self startTime];
+      objc_msgSend_startTime(self);
       if ([v16 startReadingFrames:6 atTime:buf error:prepare])
       {
         nextFrame = [v16 nextFrame];
@@ -168,10 +168,10 @@ LABEL_39:
               v26 = v25;
               v28 = v27;
               v30 = v29;
-              [nextFrame2 time];
+              objc_msgSend_time(nextFrame2);
               if ([v14 addDetectionAndStartTrackingRect:buf time:objc_msgSend(nextFrame2 colorBuffer:"colorBuffer") disparityBuffer:{objc_msgSend(nextFrame2, "disparityBuffer"), v24, v26, v28, v30}])
               {
-                [nextFrame2 time];
+                objc_msgSend_time(nextFrame2);
                 v31 = v22;
                 [v22 rect];
                 v33 = v32;
@@ -188,7 +188,7 @@ LABEL_16:
                   v42 = NULogger();
                   if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
                   {
-                    [nextFrame2 time];
+                    objc_msgSend_time(nextFrame2);
                     v43 = NUStringFromTime();
                     *buf = 138412290;
                     v82 = v43;
@@ -212,7 +212,7 @@ LABEL_16:
                       goto LABEL_20;
                     }
 
-                    [nextFrame2 time];
+                    objc_msgSend_time(nextFrame2);
                     v14 = v78;
                     v22 = [v78 addDetectionForNextFrameAt:buf colorBuffer:objc_msgSend(nextFrame2 disparityBuffer:{"colorBuffer"), objc_msgSend(nextFrame2, "disparityBuffer")}];
 
@@ -228,7 +228,7 @@ LABEL_16:
                       break;
                     }
 
-                    [nextFrame2 time];
+                    objc_msgSend_time(nextFrame2);
                     [v22 rect];
                     v51 = v50;
                     v53 = v52;
@@ -249,7 +249,7 @@ LABEL_46:
                   v42 = NULogger();
                   if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
                   {
-                    [nextFrame2 time];
+                    objc_msgSend_time(nextFrame2);
                     v77 = NUStringFromTime();
                     *buf = 138412290;
                     v82 = v77;

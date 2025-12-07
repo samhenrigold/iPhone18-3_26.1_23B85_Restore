@@ -71,20 +71,18 @@
 {
   equalCopy = equal;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass())) && (v5 = equalCopy) != 0)
+  if ((objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass())) && (v4 = equalCopy) != 0)
   {
-    v6 = v5;
-    expirationDate = self->_expirationDate;
-    v8 = v6[1];
-    v9 = BSEqualObjects();
+    v5 = v4;
+    v6 = BSEqualObjects();
   }
 
   else
   {
-    v9 = 0;
+    v6 = 0;
   }
 
-  return v9;
+  return v6;
 }
 
 - (void)encodeWithCoder:(id)coder

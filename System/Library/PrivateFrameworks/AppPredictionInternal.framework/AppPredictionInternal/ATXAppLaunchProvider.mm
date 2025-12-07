@@ -26,12 +26,11 @@
 
 - (void)cacheAppLaunchStreamIfNecessary
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(*self + 40);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXAppLaunchProvider: could not fetch app launch stream with error: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXAppLaunchProvider: could not fetch app launch stream with error: %@", &v3, 0xCu);
 }
 
 uint64_t __55__ATXAppLaunchProvider_cacheAppLaunchStreamIfNecessary__block_invoke(uint64_t a1, void *a2)
@@ -46,9 +45,9 @@ uint64_t __55__ATXAppLaunchProvider_cacheAppLaunchStreamIfNecessary__block_invok
 
 void __55__ATXAppLaunchProvider_cacheAppLaunchStreamIfNecessary__block_invoke_2(uint64_t a1, void *a2)
 {
-  v47 = *MEMORY[0x277D85DE8];
-  v41 = a2;
-  v3 = [v41 eventBody];
+  v46 = *MEMORY[0x277D85DE8];
+  v40 = a2;
+  v3 = [v40 eventBody];
   if ([v3 starting])
   {
     v4 = *(a1 + 32);
@@ -58,36 +57,36 @@ void __55__ATXAppLaunchProvider_cacheAppLaunchStreamIfNecessary__block_invoke_2(
     if (v4)
     {
       ++*(*(*(a1 + 80) + 8) + 24);
-      [v41 timestamp];
+      [v40 timestamp];
       if (v6 > *(a1 + 96))
       {
         ++*(*(*(a1 + 88) + 8) + 24);
       }
 
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
       v43 = 0u;
+      v44 = 0u;
+      v41 = 0u;
+      v42 = 0u;
       v7 = allModesForTraining();
-      v8 = [v7 countByEnumeratingWithState:&v42 objects:v46 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v41 objects:v45 count:16];
       if (v8)
       {
         v9 = v8;
         v10 = 0;
         obj = v7;
-        v40 = *v43;
+        v39 = *v42;
         v11 = 0.0;
         v12 = 1;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v43 != v40)
+            if (*v42 != v39)
             {
               objc_enumerationMutation(obj);
             }
 
-            v14 = [*(*(&v42 + 1) + 8 * i) unsignedIntegerValue];
+            v14 = [*(*(&v41 + 1) + 8 * i) unsignedIntegerValue];
             v15 = ATXModeToString();
             v16 = *(a1 + 40);
             v17 = v3;
@@ -110,7 +109,7 @@ void __55__ATXAppLaunchProvider_cacheAppLaunchStreamIfNecessary__block_invoke_2(
             v25 = [v22 numberWithDouble:v20 + v24];
             [*(a1 + 48) setObject:v25 forKeyedSubscript:v15];
 
-            [v41 timestamp];
+            [v40 timestamp];
             v3 = v17;
             if (v26 > *(a1 + 96))
             {
@@ -130,7 +129,7 @@ void __55__ATXAppLaunchProvider_cacheAppLaunchStreamIfNecessary__block_invoke_2(
             }
           }
 
-          v9 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+          v9 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
         }
 
         while (v9);
@@ -145,7 +144,7 @@ void __55__ATXAppLaunchProvider_cacheAppLaunchStreamIfNecessary__block_invoke_2(
         v34 = [v32 numberWithInt:{objc_msgSend(v33, "intValue") + 1}];
         [*(a1 + 64) setObject:v34 forKeyedSubscript:v10];
 
-        [v41 timestamp];
+        [v40 timestamp];
         if (v35 <= *(a1 + 96))
         {
           goto LABEL_23;
@@ -165,8 +164,6 @@ void __55__ATXAppLaunchProvider_cacheAppLaunchStreamIfNecessary__block_invoke_2(
 LABEL_23:
     }
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)modeAppLaunchCountBasedOnGlobalPriorsWithinLastNDaysForMode:(unint64_t)mode

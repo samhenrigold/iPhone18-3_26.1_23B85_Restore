@@ -17,7 +17,7 @@
   if (v8)
   {
     v9 = type metadata accessor for GEOAPCurrentUploadTableViewCellConfiguration();
-    v10 = sub_100232140(&qword_101914918, type metadata accessor for GEOAPCurrentUploadTableViewCellConfiguration);
+    v10 = sub_100232140(&qword_101914918, type metadata accessor for GEOAPCurrentUploadTableViewCellConfiguration, &unk_1011F35CC);
   }
 
   else

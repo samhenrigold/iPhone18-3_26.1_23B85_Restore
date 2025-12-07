@@ -58,7 +58,7 @@
 
 - (unint64_t)cachedAuthorizationStatusForClientID:(id)d
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (dCopy)
   {
@@ -77,33 +77,38 @@
 
   else
   {
-    v15 = CWFGetOSLog();
-    if (v15)
+    v14 = CWFGetOSLog();
+    if (v14)
     {
-      v16 = CWFGetOSLog();
+      v15 = CWFGetOSLog();
     }
 
     else
     {
+      v15 = MEMORY[0x1E69E9C10];
       v16 = MEMORY[0x1E69E9C10];
-      v17 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      _os_log_send_and_compose_impl();
+      v17 = 136446722;
+      v18 = "[CWFWiFiNetworkSharingStore cachedAuthorizationStatusForClientID:]";
+      v19 = 2082;
+      v20 = "CWFWiFiNetworkSharingStore.m";
+      v21 = 1024;
+      v22 = 100;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v15, 16, "[corewifi] %{public}s (%{public}s:%u) 'clientID' is NULL", &v17, 28);
     }
 
     unsignedIntegerValue = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return unsignedIntegerValue;
 }
 
 - (void)setCachedAuthorizationStatus:(unint64_t)status clientID:(id)d
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (dCopy)
   {
@@ -143,30 +148,34 @@
 
   else
   {
-    v20 = CWFGetOSLog();
-    if (v20)
+    v19 = CWFGetOSLog();
+    if (v19)
     {
-      v21 = CWFGetOSLog();
+      v20 = CWFGetOSLog();
     }
 
     else
     {
+      v20 = MEMORY[0x1E69E9C10];
       v21 = MEMORY[0x1E69E9C10];
-      v22 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      _os_log_send_and_compose_impl();
+      v22 = 136446722;
+      v23 = "[CWFWiFiNetworkSharingStore setCachedAuthorizationStatus:clientID:]";
+      v24 = 2082;
+      v25 = "CWFWiFiNetworkSharingStore.m";
+      v26 = 1024;
+      v27 = 114;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v20, 16, "[corewifi] %{public}s (%{public}s:%u) 'clientID' is NULL", &v22, 28);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)networkListUpdateCounterForClientID:(id)d
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (dCopy)
   {
@@ -185,33 +194,38 @@
 
   else
   {
-    v15 = CWFGetOSLog();
-    if (v15)
+    v14 = CWFGetOSLog();
+    if (v14)
     {
-      v16 = CWFGetOSLog();
+      v15 = CWFGetOSLog();
     }
 
     else
     {
+      v15 = MEMORY[0x1E69E9C10];
       v16 = MEMORY[0x1E69E9C10];
-      v17 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      _os_log_send_and_compose_impl();
+      v17 = 136446722;
+      v18 = "[CWFWiFiNetworkSharingStore networkListUpdateCounterForClientID:]";
+      v19 = 2082;
+      v20 = "CWFWiFiNetworkSharingStore.m";
+      v21 = 1024;
+      v22 = 146;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v15, 16, "[corewifi] %{public}s (%{public}s:%u) 'clientID' is NULL", &v17, 28);
     }
 
     unsignedIntegerValue = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return unsignedIntegerValue;
 }
 
 - (void)incrementNetworksUpdateCounterForClientID:(id)d
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (dCopy)
   {
@@ -254,30 +268,34 @@
 
   else
   {
-    v20 = CWFGetOSLog();
-    if (v20)
+    v19 = CWFGetOSLog();
+    if (v19)
     {
-      v21 = CWFGetOSLog();
+      v20 = CWFGetOSLog();
     }
 
     else
     {
+      v20 = MEMORY[0x1E69E9C10];
       v21 = MEMORY[0x1E69E9C10];
-      v22 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      _os_log_send_and_compose_impl();
+      v22 = 136446722;
+      v23 = "[CWFWiFiNetworkSharingStore incrementNetworksUpdateCounterForClientID:]";
+      v24 = 2082;
+      v25 = "CWFWiFiNetworkSharingStore.m";
+      v26 = 1024;
+      v27 = 160;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v20, 16, "[corewifi] %{public}s (%{public}s:%u) 'clientID' is NULL", &v22, 28);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)acknowledgedNetworksUpdateCounterForClientID:(id)d
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (dCopy)
   {
@@ -296,33 +314,38 @@
 
   else
   {
-    v15 = CWFGetOSLog();
-    if (v15)
+    v14 = CWFGetOSLog();
+    if (v14)
     {
-      v16 = CWFGetOSLog();
+      v15 = CWFGetOSLog();
     }
 
     else
     {
+      v15 = MEMORY[0x1E69E9C10];
       v16 = MEMORY[0x1E69E9C10];
-      v17 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      _os_log_send_and_compose_impl();
+      v17 = 136446722;
+      v18 = "[CWFWiFiNetworkSharingStore acknowledgedNetworksUpdateCounterForClientID:]";
+      v19 = 2082;
+      v20 = "CWFWiFiNetworkSharingStore.m";
+      v21 = 1024;
+      v22 = 190;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v15, 16, "[corewifi] %{public}s (%{public}s:%u) 'clientID' is NULL", &v17, 28);
     }
 
     unsignedIntegerValue = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return unsignedIntegerValue;
 }
 
 - (void)setAcknowledgedNetworksUpdateCounter:(unint64_t)counter clientID:(id)d
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (dCopy)
   {
@@ -368,34 +391,66 @@
 
   else
   {
-    v22 = CWFGetOSLog();
-    if (v22)
+    v21 = CWFGetOSLog();
+    if (v21)
     {
-      v23 = CWFGetOSLog();
+      v22 = CWFGetOSLog();
     }
 
     else
     {
+      v22 = MEMORY[0x1E69E9C10];
       v23 = MEMORY[0x1E69E9C10];
-      v24 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      _os_log_send_and_compose_impl();
+      v24 = 136446722;
+      v25 = "[CWFWiFiNetworkSharingStore setAcknowledgedNetworksUpdateCounter:clientID:]";
+      v26 = 2082;
+      v27 = "CWFWiFiNetworkSharingStore.m";
+      v28 = 1024;
+      v29 = 204;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v22, 16, "[corewifi] %{public}s (%{public}s:%u) 'clientID' is NULL", &v24, 28);
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (id)networkMetadataForClientID:(id)d networkID:(id)iD
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   dCopy = d;
   iDCopy = iD;
   v8 = iDCopy;
   if (!dCopy)
+  {
+    v29 = CWFGetOSLog();
+    if (v29)
+    {
+      selfCopy = CWFGetOSLog();
+    }
+
+    else
+    {
+      selfCopy = MEMORY[0x1E69E9C10];
+      v32 = MEMORY[0x1E69E9C10];
+    }
+
+    if (os_log_type_enabled(&selfCopy->super, OS_LOG_TYPE_ERROR))
+    {
+      *v35 = 136446722;
+      *&v35[4] = "[CWFWiFiNetworkSharingStore networkMetadataForClientID:networkID:]";
+      *&v35[12] = 2082;
+      *&v35[14] = "CWFWiFiNetworkSharingStore.m";
+      *&v35[22] = 1024;
+      *v36 = 239;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, selfCopy, 16, "[corewifi] %{public}s (%{public}s:%u) 'clientID' is NULL", v35, 28, *v35, *&v35[8], *v36);
+    }
+
+    goto LABEL_34;
+  }
+
+  if (!iDCopy)
   {
     v30 = CWFGetOSLog();
     if (v30)
@@ -409,21 +464,22 @@
       v33 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(&selfCopy->super, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(&selfCopy->super, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_35;
+      *v35 = 136446722;
+      *&v35[4] = "[CWFWiFiNetworkSharingStore networkMetadataForClientID:networkID:]";
+      *&v35[12] = 2082;
+      *&v35[14] = "CWFWiFiNetworkSharingStore.m";
+      *&v35[22] = 1024;
+      *v36 = 240;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, selfCopy, 16, "[corewifi] %{public}s (%{public}s:%u) 'networkID' is NULL", v35, 28, *v35, *&v35[8], *v36);
     }
 
-    v38 = 136446722;
-    v39 = "[CWFWiFiNetworkSharingStore networkMetadataForClientID:networkID:]";
-    v40 = 2082;
-    v41 = "CWFWiFiNetworkSharingStore.m";
-    v42 = 1024;
-    v43 = 239;
     goto LABEL_34;
   }
 
-  if (!iDCopy)
+  descriptor = [iDCopy descriptor];
+  if (!descriptor)
   {
     v31 = CWFGetOSLog();
     if (v31)
@@ -437,49 +493,18 @@
       v34 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(&selfCopy->super, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(&selfCopy->super, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_35;
+      *v35 = 136446722;
+      *&v35[4] = "[CWFWiFiNetworkSharingStore networkMetadataForClientID:networkID:]";
+      *&v35[12] = 2082;
+      *&v35[14] = "CWFWiFiNetworkSharingStore.m";
+      *&v35[22] = 1024;
+      *v36 = 243;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, selfCopy, 16, "[corewifi] %{public}s (%{public}s:%u) 'descriptor' is NULL", v35, 28, *v35, *&v35[8], *v36);
     }
 
-    v38 = 136446722;
-    v39 = "[CWFWiFiNetworkSharingStore networkMetadataForClientID:networkID:]";
-    v40 = 2082;
-    v41 = "CWFWiFiNetworkSharingStore.m";
-    v42 = 1024;
-    v43 = 240;
-    goto LABEL_34;
-  }
-
-  descriptor = [iDCopy descriptor];
-  if (!descriptor)
-  {
-    v32 = CWFGetOSLog();
-    if (v32)
-    {
-      selfCopy = CWFGetOSLog();
-    }
-
-    else
-    {
-      selfCopy = MEMORY[0x1E69E9C10];
-      v35 = MEMORY[0x1E69E9C10];
-    }
-
-    if (!os_log_type_enabled(&selfCopy->super, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_35;
-    }
-
-    v38 = 136446722;
-    v39 = "[CWFWiFiNetworkSharingStore networkMetadataForClientID:networkID:]";
-    v40 = 2082;
-    v41 = "CWFWiFiNetworkSharingStore.m";
-    v42 = 1024;
-    v43 = 243;
 LABEL_34:
-    _os_log_send_and_compose_impl();
-LABEL_35:
     descriptor = 0;
     v18 = 0;
     goto LABEL_16;
@@ -533,23 +558,21 @@ LABEL_35:
 
       if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        v38 = 136447234;
-        v39 = "[CWFWiFiNetworkSharingStore networkMetadataForClientID:networkID:]";
-        v40 = 2082;
-        v41 = "CWFWiFiNetworkSharingStore.m";
-        v42 = 1024;
-        v43 = 259;
-        v44 = 2112;
-        v45 = @"lastModifiedDate";
-        v46 = 2112;
-        v47 = v23;
-        LODWORD(v37) = 48;
-        v36 = &v38;
-        _os_log_send_and_compose_impl();
+        *v35 = 136447234;
+        *&v35[4] = "[CWFWiFiNetworkSharingStore networkMetadataForClientID:networkID:]";
+        *&v35[12] = 2082;
+        *&v35[14] = "CWFWiFiNetworkSharingStore.m";
+        *&v35[22] = 1024;
+        *v36 = 259;
+        *&v36[4] = 2112;
+        *&v36[6] = @"lastModifiedDate";
+        v37 = 2112;
+        v38 = v23;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v25, 16, "[corewifi] %{public}s (%{public}s:%u) [wifi-network-sharing] unexpected value for %@ (%@)", v35, 48);
       }
     }
 
-    v27 = [v17 objectForKeyedSubscript:{@"waitingForAssociation", v36, v37}];
+    v27 = [v17 objectForKeyedSubscript:@"waitingForAssociation"];
     -[CWFWiFiNetworkSharingNetworkMetadata setWaitingForAssociation:](v18, "setWaitingForAssociation:", [v27 BOOLValue]);
   }
 
@@ -561,165 +584,179 @@ LABEL_35:
   objc_sync_exit(selfCopy);
 LABEL_16:
 
-  v28 = *MEMORY[0x1E69E9840];
-
   return v18;
 }
 
 - (void)setNetworkMetadata:(id)metadata clientID:(id)d networkID:(id)iD
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   metadataCopy = metadata;
   dCopy = d;
   iDCopy = iD;
   v11 = iDCopy;
-  if (!dCopy)
+  if (dCopy)
   {
-    v33 = CWFGetOSLog();
-    if (v33)
+    if (iDCopy)
     {
-      descriptor = CWFGetOSLog();
+      descriptor = [iDCopy descriptor];
+      if (descriptor)
+      {
+        selfCopy = self;
+        objc_sync_enter(selfCopy);
+        store = selfCopy->_store;
+        bundleID = [dCopy bundleID];
+        v16 = [(CWFKeyValueStore *)store objectForKey:bundleID];
+        dictionary = [v16 mutableCopy];
+
+        if (!dictionary)
+        {
+          dictionary = [MEMORY[0x1E695DF90] dictionary];
+        }
+
+        accessoryID = [dCopy accessoryID];
+        v19 = [dictionary objectForKey:accessoryID];
+        dictionary2 = [v19 mutableCopy];
+
+        if (!dictionary2)
+        {
+          dictionary2 = [MEMORY[0x1E695DF90] dictionary];
+        }
+
+        v21 = [dictionary2 objectForKey:@"networkMetadata"];
+        dictionary3 = [v21 mutableCopy];
+
+        if (!dictionary3)
+        {
+          dictionary3 = [MEMORY[0x1E695DF90] dictionary];
+        }
+
+        v38 = v11;
+        if (metadataCopy)
+        {
+          dictionary4 = [MEMORY[0x1E695DF90] dictionary];
+          firstSharedDate = [metadataCopy firstSharedDate];
+          [dictionary4 setObject:firstSharedDate forKeyedSubscript:@"firstSharedDate"];
+
+          mostRecentlySharedDate = [metadataCopy mostRecentlySharedDate];
+          [dictionary4 setObject:mostRecentlySharedDate forKeyedSubscript:@"mostRecentlySharedDate"];
+
+          v26 = sub_1E0BF1E78([metadataCopy askToShareStatus]);
+          [dictionary4 setObject:v26 forKeyedSubscript:@"askToShareStatus"];
+
+          askToShareStatusUpdatedTimestamp = [metadataCopy askToShareStatusUpdatedTimestamp];
+          [dictionary4 setObject:askToShareStatusUpdatedTimestamp forKeyedSubscript:@"askToShareStatusUpdatedTimestamp"];
+
+          lastModifiedDate = [metadataCopy lastModifiedDate];
+          [dictionary4 setObject:lastModifiedDate forKeyedSubscript:@"lastModifiedDate"];
+
+          if ([metadataCopy waitingForAssociation])
+          {
+            [dictionary4 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"waitingForAssociation"];
+          }
+        }
+
+        else
+        {
+          dictionary4 = 0;
+        }
+
+        [dictionary3 setObject:dictionary4 forKeyedSubscript:descriptor];
+        [dictionary2 setObject:dictionary3 forKeyedSubscript:@"networkMetadata"];
+        accessoryID2 = [dCopy accessoryID];
+        [dictionary setObject:dictionary2 forKeyedSubscript:accessoryID2];
+
+        v30 = selfCopy->_store;
+        bundleID2 = [dCopy bundleID];
+        [(CWFKeyValueStore *)v30 setObject:dictionary forKey:bundleID2];
+
+        objc_sync_exit(selfCopy);
+        v11 = v38;
+      }
+
+      else
+      {
+        v34 = CWFGetOSLog();
+        if (v34)
+        {
+          descriptor = CWFGetOSLog();
+        }
+
+        else
+        {
+          descriptor = MEMORY[0x1E69E9C10];
+          v37 = MEMORY[0x1E69E9C10];
+        }
+
+        if (os_log_type_enabled(descriptor, OS_LOG_TYPE_ERROR))
+        {
+          v39 = 136446722;
+          v40 = "[CWFWiFiNetworkSharingStore setNetworkMetadata:clientID:networkID:]";
+          v41 = 2082;
+          v42 = "CWFWiFiNetworkSharingStore.m";
+          v43 = 1024;
+          v44 = 282;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, descriptor, 16, "[corewifi] %{public}s (%{public}s:%u) 'descriptor' is NULL", &v39, 28);
+        }
+      }
     }
 
     else
     {
-      descriptor = MEMORY[0x1E69E9C10];
-      v36 = MEMORY[0x1E69E9C10];
-    }
+      v33 = CWFGetOSLog();
+      if (v33)
+      {
+        descriptor = CWFGetOSLog();
+      }
 
-    if (!os_log_type_enabled(descriptor, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_15;
-    }
+      else
+      {
+        descriptor = MEMORY[0x1E69E9C10];
+        v36 = MEMORY[0x1E69E9C10];
+      }
 
-LABEL_30:
-    _os_log_send_and_compose_impl();
-    goto LABEL_15;
-  }
-
-  if (!iDCopy)
-  {
-    v34 = CWFGetOSLog();
-    if (v34)
-    {
-      descriptor = CWFGetOSLog();
-    }
-
-    else
-    {
-      descriptor = MEMORY[0x1E69E9C10];
-      v37 = MEMORY[0x1E69E9C10];
-    }
-
-    if (!os_log_type_enabled(descriptor, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_15;
-    }
-
-    goto LABEL_30;
-  }
-
-  descriptor = [iDCopy descriptor];
-  if (!descriptor)
-  {
-    v35 = CWFGetOSLog();
-    if (v35)
-    {
-      descriptor = CWFGetOSLog();
-    }
-
-    else
-    {
-      descriptor = MEMORY[0x1E69E9C10];
-      v38 = MEMORY[0x1E69E9C10];
-    }
-
-    if (!os_log_type_enabled(descriptor, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_15;
-    }
-
-    goto LABEL_30;
-  }
-
-  selfCopy = self;
-  objc_sync_enter(selfCopy);
-  store = selfCopy->_store;
-  bundleID = [dCopy bundleID];
-  v16 = [(CWFKeyValueStore *)store objectForKey:bundleID];
-  dictionary = [v16 mutableCopy];
-
-  if (!dictionary)
-  {
-    dictionary = [MEMORY[0x1E695DF90] dictionary];
-  }
-
-  accessoryID = [dCopy accessoryID];
-  v19 = [dictionary objectForKey:accessoryID];
-  dictionary2 = [v19 mutableCopy];
-
-  if (!dictionary2)
-  {
-    dictionary2 = [MEMORY[0x1E695DF90] dictionary];
-  }
-
-  v21 = [dictionary2 objectForKey:@"networkMetadata"];
-  dictionary3 = [v21 mutableCopy];
-
-  if (!dictionary3)
-  {
-    dictionary3 = [MEMORY[0x1E695DF90] dictionary];
-  }
-
-  v39 = v11;
-  if (metadataCopy)
-  {
-    dictionary4 = [MEMORY[0x1E695DF90] dictionary];
-    firstSharedDate = [metadataCopy firstSharedDate];
-    [dictionary4 setObject:firstSharedDate forKeyedSubscript:@"firstSharedDate"];
-
-    mostRecentlySharedDate = [metadataCopy mostRecentlySharedDate];
-    [dictionary4 setObject:mostRecentlySharedDate forKeyedSubscript:@"mostRecentlySharedDate"];
-
-    v26 = sub_1E0BF1E78([metadataCopy askToShareStatus]);
-    [dictionary4 setObject:v26 forKeyedSubscript:@"askToShareStatus"];
-
-    askToShareStatusUpdatedTimestamp = [metadataCopy askToShareStatusUpdatedTimestamp];
-    [dictionary4 setObject:askToShareStatusUpdatedTimestamp forKeyedSubscript:@"askToShareStatusUpdatedTimestamp"];
-
-    lastModifiedDate = [metadataCopy lastModifiedDate];
-    [dictionary4 setObject:lastModifiedDate forKeyedSubscript:@"lastModifiedDate"];
-
-    if ([metadataCopy waitingForAssociation])
-    {
-      [dictionary4 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"waitingForAssociation"];
+      if (os_log_type_enabled(descriptor, OS_LOG_TYPE_ERROR))
+      {
+        v39 = 136446722;
+        v40 = "[CWFWiFiNetworkSharingStore setNetworkMetadata:clientID:networkID:]";
+        v41 = 2082;
+        v42 = "CWFWiFiNetworkSharingStore.m";
+        v43 = 1024;
+        v44 = 279;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, descriptor, 16, "[corewifi] %{public}s (%{public}s:%u) 'networkID' is NULL", &v39, 28);
+      }
     }
   }
 
   else
   {
-    dictionary4 = 0;
+    v32 = CWFGetOSLog();
+    if (v32)
+    {
+      descriptor = CWFGetOSLog();
+    }
+
+    else
+    {
+      descriptor = MEMORY[0x1E69E9C10];
+      v35 = MEMORY[0x1E69E9C10];
+    }
+
+    if (os_log_type_enabled(descriptor, OS_LOG_TYPE_ERROR))
+    {
+      v39 = 136446722;
+      v40 = "[CWFWiFiNetworkSharingStore setNetworkMetadata:clientID:networkID:]";
+      v41 = 2082;
+      v42 = "CWFWiFiNetworkSharingStore.m";
+      v43 = 1024;
+      v44 = 278;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, descriptor, 16, "[corewifi] %{public}s (%{public}s:%u) 'clientID' is NULL", &v39, 28);
+    }
   }
-
-  [dictionary3 setObject:dictionary4 forKeyedSubscript:descriptor];
-  [dictionary2 setObject:dictionary3 forKeyedSubscript:@"networkMetadata"];
-  accessoryID2 = [dCopy accessoryID];
-  [dictionary setObject:dictionary2 forKeyedSubscript:accessoryID2];
-
-  v30 = selfCopy->_store;
-  bundleID2 = [dCopy bundleID];
-  [(CWFKeyValueStore *)v30 setObject:dictionary forKey:bundleID2];
-
-  objc_sync_exit(selfCopy);
-  v11 = v39;
-LABEL_15:
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (id)networkMetadataForClientID:(id)d
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (dCopy)
   {
@@ -735,13 +772,13 @@ LABEL_15:
     if (v11)
     {
       dictionary = [MEMORY[0x1E695DF90] dictionary];
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = sub_1E0D27AAC;
-      v18[3] = &unk_1E86E9798;
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = sub_1E0D27AAC;
+      v17[3] = &unk_1E86E9798;
       v13 = dictionary;
-      v19 = v13;
-      [v11 enumerateKeysAndObjectsUsingBlock:v18];
+      v18 = v13;
+      [v11 enumerateKeysAndObjectsUsingBlock:v17];
     }
 
     else
@@ -754,8 +791,8 @@ LABEL_15:
 
   else
   {
-    v16 = CWFGetOSLog();
-    if (v16)
+    v15 = CWFGetOSLog();
+    if (v15)
     {
       selfCopy = CWFGetOSLog();
     }
@@ -763,24 +800,22 @@ LABEL_15:
     else
     {
       selfCopy = MEMORY[0x1E69E9C10];
-      v17 = MEMORY[0x1E69E9C10];
+      v16 = MEMORY[0x1E69E9C10];
     }
 
     if (os_log_type_enabled(&selfCopy->super, OS_LOG_TYPE_ERROR))
     {
-      v20 = 136446722;
-      v21 = "[CWFWiFiNetworkSharingStore networkMetadataForClientID:]";
-      v22 = 2082;
-      v23 = "CWFWiFiNetworkSharingStore.m";
-      v24 = 1024;
-      v25 = 331;
-      _os_log_send_and_compose_impl();
+      v19 = 136446722;
+      v20 = "[CWFWiFiNetworkSharingStore networkMetadataForClientID:]";
+      v21 = 2082;
+      v22 = "CWFWiFiNetworkSharingStore.m";
+      v23 = 1024;
+      v24 = 331;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, selfCopy, 16, "[corewifi] %{public}s (%{public}s:%u) 'clientID' is NULL", &v19, 28);
     }
 
     v13 = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

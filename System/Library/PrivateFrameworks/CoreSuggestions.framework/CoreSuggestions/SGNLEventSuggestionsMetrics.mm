@@ -7,6 +7,9 @@
 + (id)getAddedAttendeesCountFromEKEvent:(id)event;
 + (id)instance;
 + (unint64_t)bucketizeInteger:(unint64_t)integer withBucketSize:(unint64_t)size limit:(unint64_t)limit;
++ (void)recordInteractionForEventWithInterface:(unsigned __int16)interface actionType:(unsigned __int16)type eventType:(id)eventType extractionLevel:(SGMNLEventExtractionLevel_)level harvestedEKEvent:(id)event curatedEKEvent:(id)kEvent;
++ (void)recordInteractionForEventWithInterface:(unsigned __int16)interface actionType:(unsigned __int16)type eventType:(id)eventType languageID:(id)d startDate:(id)date confidenceScore:(float)score participantCount:(char)count significantSender:(SGMBoolOption_)self0 extractionLevel:(SGMNLEventExtractionLevel_)self1 usedBubblesCount:(char)self2 titleSource:(SGMEventTitleSource_)self3 titleAdj:(SGMEventStringAdj_)self4 dateAdj:(SGMEventDateAdj_)self5 duraAdj:(SGMEventDurationAdj_)self6 locationAdj:(SGMEventLocationAdj_)self7 addedAttendeesCount:(id)self8 calendarAppUsageLevel:(float)self9 mailAppUsageLevel:(char)appUsageLevel messagesAppUsageLevel:(char)messagesAppUsageLevel;
++ (void)recordInteractionForEventWithInterface:(unsigned __int16)interface actionType:(unsigned __int16)type harvestedEKEvent:(id)event curatedEKEvent:(id)kEvent;
 + (void)recordInteractionForEventWithInterface:(unsigned __int16)interface actionType:(unsigned __int16)type harvestedSGEvent:(id)event curatedEKEvent:(id)kEvent;
 + (void)recordUserInteraction:(unint64_t)interaction withLinkInApplication:(int64_t)application eventPrefillMode:(unint64_t)mode eventTypeClassification:(id)classification proposedEvent:(id)event confirmedEvent:(id)confirmedEvent;
 + (void)shownViaDataDetectorsLinkInApp:(int64_t)app;
@@ -371,7 +374,7 @@ LABEL_32:
 
 + (void)recordUserInteraction:(unint64_t)interaction withLinkInApplication:(int64_t)application eventPrefillMode:(unint64_t)mode eventTypeClassification:(id)classification proposedEvent:(id)event confirmedEvent:(id)confirmedEvent
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   classificationCopy = classification;
   eventCopy = event;
   confirmedEventCopy = confirmedEvent;
@@ -380,9 +383,9 @@ LABEL_32:
     v16 = sgLogHandle();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v21 = 134217984;
+      v20 = 134217984;
       modeCopy = interaction;
-      _os_log_error_impl(&dword_1BA729000, v16, OS_LOG_TYPE_ERROR, "unhandled SGDDEventInteraction: %lu", &v21, 0xCu);
+      _os_log_error_impl(&dword_1BA729000, v16, OS_LOG_TYPE_ERROR, "unhandled SGDDEventInteraction: %lu", &v20, 0xCu);
     }
 
     LOWORD(v16) = 8;
@@ -398,9 +401,9 @@ LABEL_32:
     v18 = sgLogHandle();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v21 = 134217984;
+      v20 = 134217984;
       modeCopy = mode;
-      _os_log_error_impl(&dword_1BA729000, v18, OS_LOG_TYPE_ERROR, "unhandled SGDDEventPrefillMode: %lu", &v21, 0xCu);
+      _os_log_error_impl(&dword_1BA729000, v18, OS_LOG_TYPE_ERROR, "unhandled SGDDEventPrefillMode: %lu", &v20, 0xCu);
     }
 
     v17 = &SGMNLEventExtractionLevelNA;
@@ -422,53 +425,49 @@ LABEL_32:
   }
 
   [SGNLEventSuggestionsMetrics recordInteractionForEventWithInterface:v19 actionType:v16 eventType:classificationCopy extractionLevel:*v17 harvestedEKEvent:eventCopy curatedEKEvent:confirmedEventCopy];
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 + (void)shownViaDataDetectorsLinkInApp:(int64_t)app
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if ((app - 4) > 0xFFFFFFFFFFFFFFFDLL)
   {
     instance = [self instance];
     ddLinkShown = [instance ddLinkShown];
-    v8 = ddLinkShown;
+    v7 = ddLinkShown;
     if (app == 3)
     {
-      v9 = 3;
+      v8 = 3;
     }
 
     else
     {
-      v9 = 6;
+      v8 = 6;
     }
 
     if (app == 3)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v10 = 4;
+      v9 = 4;
     }
 
-    [ddLinkShown trackEventWithScalar:1 interface:v9];
+    [ddLinkShown trackEventWithScalar:1 interface:v8];
 
-    v17 = objc_opt_new();
-    [v17 setInterface:v10];
+    v15 = objc_opt_new();
+    [v15 setInterface:v9];
     mEMORY[0x1E69C5B48] = [MEMORY[0x1E69C5B48] sharedInstance];
-    [mEMORY[0x1E69C5B48] trackScalarForMessage:v17];
+    [mEMORY[0x1E69C5B48] trackScalarForMessage:v15];
 
-    v12 = objc_alloc(MEMORY[0x1E696AEC0]);
-    v13 = [v17 key];
-    v14 = [v12 initWithFormat:@"%@.%@", @"com.apple.Proactive.CoreSuggestions", v13];
+    v11 = objc_alloc(MEMORY[0x1E696AEC0]);
+    v12 = [v15 key];
+    v13 = [v11 initWithFormat:@"%@.%@", @"com.apple.Proactive.CoreSuggestions", v12];
 
-    dictionaryRepresentation = [v17 dictionaryRepresentation];
+    dictionaryRepresentation = [v15 dictionaryRepresentation];
     AnalyticsSendEvent();
-
-    v16 = *MEMORY[0x1E69E9840];
   }
 
   else
@@ -480,44 +479,42 @@ LABEL_32:
       appCopy = app;
       _os_log_error_impl(&dword_1BA729000, v4, OS_LOG_TYPE_ERROR, "trying to log DD link engagement from unexpected app: %lu", buf, 0xCu);
     }
-
-    v5 = *MEMORY[0x1E69E9840];
   }
 }
 
 + (id)getAddedAttendeesCountFromEKEvent:(id)event
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   if ([eventCopy hasAttendees])
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     attendees = [eventCopy attendees];
-    v5 = [attendees countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v5 = [attendees countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v5)
     {
       v6 = v5;
       v7 = 0;
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(attendees);
           }
 
-          if ([*(*(&v13 + 1) + 8 * i) participantType] == 1)
+          if ([*(*(&v12 + 1) + 8 * i) participantType] == 1)
           {
             ++v7;
           }
         }
 
-        v6 = [attendees countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v6 = [attendees countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v6);
@@ -536,30 +533,469 @@ LABEL_32:
     v10 = &unk_1F3874310;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v10;
+}
+
++ (void)recordInteractionForEventWithInterface:(unsigned __int16)interface actionType:(unsigned __int16)type eventType:(id)eventType languageID:(id)d startDate:(id)date confidenceScore:(float)score participantCount:(char)count significantSender:(SGMBoolOption_)self0 extractionLevel:(SGMNLEventExtractionLevel_)self1 usedBubblesCount:(char)self2 titleSource:(SGMEventTitleSource_)self3 titleAdj:(SGMEventStringAdj_)self4 dateAdj:(SGMEventDateAdj_)self5 duraAdj:(SGMEventDurationAdj_)self6 locationAdj:(SGMEventLocationAdj_)self7 addedAttendeesCount:(id)self8 calendarAppUsageLevel:(float)self9 mailAppUsageLevel:(char)appUsageLevel messagesAppUsageLevel:(char)messagesAppUsageLevel
+{
+  typeCopy = type;
+  interfaceCopy = interface;
+  countCopy = count;
+  eventTypeCopy = eventType;
+  dCopy = d;
+  dateCopy = date;
+  attendeesCountCopy = attendeesCount;
+  v57 = dateCopy;
+  if (dateCopy && ([dateCopy timeIntervalSinceNow], v30 > 0.0))
+  {
+    [dateCopy timeIntervalSinceNow];
+    v56 = [self bucketizeInteger:(v31 / 86400.0) withBucketSize:7 limit:56];
+  }
+
+  else
+  {
+    v56 = 0;
+  }
+
+  v32 = [self bucketizeInteger:(score * 100.0) withBucketSize:5 limit:100];
+  instance = [self instance];
+  nlEvent = [instance nlEvent];
+  if ((interfaceCopy - 1) > 0x13)
+  {
+    v54 = 0;
+  }
+
+  else
+  {
+    v54 = qword_1BA7C1468[(interfaceCopy - 1)];
+  }
+
+  if ((typeCopy - 1) < 0xB)
+  {
+    v34 = (typeCopy - 1) + 1;
+  }
+
+  else
+  {
+    v34 = 0;
+  }
+
+  usageLevelCopy = usageLevel;
+  v36 = mapCalendarUsageLevel(usageLevelCopy);
+  v37 = v36;
+  if (appUsageLevel == 255)
+  {
+    v38 = &SGMAppUsageLevelNA;
+  }
+
+  else if (appUsageLevel - 1 >= 4)
+  {
+    if (appUsageLevel <= 4)
+    {
+      v38 = &SGMAppUsageLevelLow;
+    }
+
+    else
+    {
+      v38 = &SGMAppUsageLevelHigh;
+    }
+  }
+
+  else
+  {
+    v38 = &SGMAppUsageLevelMedium;
+  }
+
+  v39 = *v38;
+  if (messagesAppUsageLevel == 255)
+  {
+    v40 = &SGMAppUsageLevelNA;
+  }
+
+  else if (messagesAppUsageLevel - 1 >= 4)
+  {
+    if (messagesAppUsageLevel <= 4)
+    {
+      v40 = &SGMAppUsageLevelLow;
+    }
+
+    else
+    {
+      v40 = &SGMAppUsageLevelHigh;
+    }
+  }
+
+  else
+  {
+    v40 = &SGMAppUsageLevelMedium;
+  }
+
+  [nlEvent trackEventWithScalar:1 interface:v54 actionType:v34 eventType:eventTypeCopy languageID:dCopy daysFromStartDate:v56 confidenceScore:v32 significantSender:sender.var0 participantCount:countCopy extractionLevel:level.var0 usedBubblesCount:bubblesCount titleSource:source.var0 titleAdj:adj.var0 dateAdj:dateAdj.var0 duraAdj:duraAdj.var0 locationAdj:locationAdj.var0 addedAttendeesCount:attendeesCountCopy calendarAppUsageLevel:v36 mailAppUsageLevel:v39 messagesAppUsageLevel:*v40];
+
+  v41 = objc_opt_new();
+  [v41 setInterface:v54];
+  [v41 setActionType:v34];
+  [v41 setEventType:eventTypeCopy];
+  [v41 setLanguageID:dCopy];
+  [v41 setDaysFromStartDate:v56];
+  [v41 setConfidenceScore:v32];
+  [v41 setSignificantSender:sender.var0];
+  [v41 setParticipantCount:countCopy];
+  [v41 setExtractionLevel:level.var0];
+  [v41 setUsedBubblesCount:bubblesCount];
+  [v41 setTitleSource:source.var0];
+  [v41 setTitleAdj:adj.var0];
+  [v41 setDateAdj:dateAdj.var0];
+  [v41 setDuraAdj:duraAdj.var0];
+  [v41 setLocationAdj:locationAdj.var0];
+  [v41 setAddedAttendeesCount:attendeesCountCopy];
+  v42 = mapCalendarUsageLevel(usageLevelCopy);
+  [v41 setCalendarAppUsageLevel:v42];
+
+  v43 = &SGMAppUsageLevelNA;
+  if (appUsageLevel <= 4)
+  {
+    v44 = &SGMAppUsageLevelLow;
+  }
+
+  else
+  {
+    v44 = &SGMAppUsageLevelHigh;
+  }
+
+  if (appUsageLevel - 1 >= 4)
+  {
+    v45 = v44;
+  }
+
+  else
+  {
+    v45 = &SGMAppUsageLevelMedium;
+  }
+
+  if (appUsageLevel != 255)
+  {
+    v43 = v45;
+  }
+
+  [v41 setMailAppUsageLevel:*v43];
+  v46 = &SGMAppUsageLevelNA;
+  if (messagesAppUsageLevel <= 4)
+  {
+    v47 = &SGMAppUsageLevelLow;
+  }
+
+  else
+  {
+    v47 = &SGMAppUsageLevelHigh;
+  }
+
+  if (messagesAppUsageLevel - 1 >= 4)
+  {
+    v48 = v47;
+  }
+
+  else
+  {
+    v48 = &SGMAppUsageLevelMedium;
+  }
+
+  if (messagesAppUsageLevel != 255)
+  {
+    v46 = v48;
+  }
+
+  [v41 setMessagesAppUsageLevel:*v46];
+  mEMORY[0x1E69C5B48] = [MEMORY[0x1E69C5B48] sharedInstance];
+  [mEMORY[0x1E69C5B48] trackScalarForMessage:v41];
+
+  v50 = objc_alloc(MEMORY[0x1E696AEC0]);
+  v51 = [v41 key];
+  v52 = [v50 initWithFormat:@"%@.%@", @"com.apple.Proactive.CoreSuggestions", v51];
+
+  dictionaryRepresentation = [v41 dictionaryRepresentation];
+  AnalyticsSendEvent();
+}
+
++ (void)recordInteractionForEventWithInterface:(unsigned __int16)interface actionType:(unsigned __int16)type eventType:(id)eventType extractionLevel:(SGMNLEventExtractionLevel_)level harvestedEKEvent:(id)event curatedEKEvent:(id)kEvent
+{
+  typeCopy = type;
+  interfaceCopy = interface;
+  eventCopy = event;
+  kEventCopy = kEvent;
+  v16 = @"NA";
+  if (eventType)
+  {
+    eventTypeCopy = eventType;
+  }
+
+  else
+  {
+    eventTypeCopy = @"NA";
+  }
+
+  eventTypeCopy2 = eventTypeCopy;
+  if (eventCopy)
+  {
+    v18 = eventCopy;
+  }
+
+  else
+  {
+    v18 = kEventCopy;
+  }
+
+  v81 = v18;
+  if (v81)
+  {
+    var0 = level.var0;
+    context = objc_autoreleasePoolPush();
+    v19 = [eventCopy customObjectForKey:@"SuggestionsNLEventDictionaryKey"];
+    v20 = [eventCopy localCustomObjectForKey:@"SuggestionsNLEventDictionaryKey"];
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v82 = kEventCopy;
+      selfCopy = self;
+      if (eventTypeCopy2 == @"NA")
+      {
+        v22 = [v19 objectForKeyedSubscript:@"SuggestionsNLEventDictionaryEventTypeKey"];
+        v23 = v22;
+        if (v22)
+        {
+          v24 = v22;
+        }
+
+        else
+        {
+          v24 = @"NA";
+        }
+
+        eventType = v24;
+      }
+
+      v25 = [v19 objectForKeyedSubscript:@"SuggestionsNLEventDictionaryEventLanguageIDKey"];
+      v26 = v25;
+      if (v25)
+      {
+        v27 = v25;
+      }
+
+      else
+      {
+        v27 = @"NA";
+      }
+
+      v16 = v27;
+
+      v28 = [v19 objectForKeyedSubscript:@"SuggestionsNLEventDictionaryEventConfidenceScoreKey"];
+      [v28 floatValue];
+      v30 = v29;
+
+      v31 = [v19 objectForKeyedSubscript:@"SuggestionsNLEventDictionaryEventSignificantSenderKey"];
+      v78 = v31 != 0;
+
+      v32 = [v19 objectForKeyedSubscript:@"SuggestionsNLEventDictionaryEventParticipantCountKey"];
+      integerValue = [v32 integerValue];
+
+      v33 = [v19 objectForKeyedSubscript:@"SuggestionsNLEventDictionaryEventTitleSourceKey"];
+      v34 = [v33 isEqualToString:@"SuggestionsNLEventDictionaryEventTitleSourceTemplateValue"];
+
+      if (v34)
+      {
+        v35 = 2;
+      }
+
+      else
+      {
+        v37 = [v19 objectForKeyedSubscript:@"SuggestionsNLEventDictionaryEventTitleSourceKey"];
+        LODWORD(v35) = [v37 isEqualToString:@"SuggestionsNLEventDictionaryEventTitleSourceSubjectValue"];
+
+        v35 = v35;
+      }
+
+      eventTypeCopy2 = eventType;
+      self = selfCopy;
+      kEventCopy = v82;
+    }
+
+    else
+    {
+      v35 = 0;
+      v30 = 0;
+      integerValue = 0;
+      v78 = 2;
+    }
+
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v38 = [v20 objectForKeyedSubscript:@"SuggestionsNLEventDictionaryCalendarAppUsageLevelKey"];
+      [v38 floatValue];
+      v36 = v39;
+
+      v40 = [v20 objectForKeyedSubscript:@"SuggestionsNLEventDictionaryMailAppUsageLevelKey"];
+      integerValue2 = [v40 integerValue];
+
+      v41 = [v20 objectForKeyedSubscript:@"SuggestionsNLEventDictionaryMessagesAppUsageLevelKey"];
+      integerValue3 = [v41 integerValue];
+    }
+
+    else
+    {
+      integerValue2 = -1;
+      v36 = -1.0;
+      integerValue3 = -1;
+    }
+
+    interfaceCopy = interfaceCopy;
+
+    objc_autoreleasePoolPop(context);
+    level.var0 = var0;
+  }
+
+  else
+  {
+    v35 = 0;
+    v30 = 0;
+    integerValue2 = -1;
+    v36 = -1.0;
+    integerValue = 0;
+    v78 = 2;
+    integerValue3 = -1;
+  }
+
+  if (level.var0 == 4)
+  {
+    level.var0 = 1;
+    goto LABEL_31;
+  }
+
+  if (level.var0 == 5)
+  {
+    level.var0 = 2;
+LABEL_31:
+    v35 = 3;
+  }
+
+  v80 = v16;
+  v76 = v35;
+  if (eventCopy && kEventCopy)
+  {
+    v69 = typeCopy;
+    title = [eventCopy title];
+    title2 = [kEventCopy title];
+    contexta = [self diffEventTitleChangedFrom:title to:title2];
+
+    startDate = [eventCopy startDate];
+    timeZone = [eventCopy timeZone];
+    [kEventCopy startDate];
+    v47 = v46 = self;
+    timeZone2 = [kEventCopy timeZone];
+    v71 = [v46 diffEventStartDateChangedFrom:startDate oldTimeZone:timeZone to:v47 newTimeZone:timeZone2];
+
+    [eventCopy duration];
+    v50 = v49;
+    v83 = kEventCopy;
+    [kEventCopy duration];
+    v51 = v46;
+    v70 = [v46 diffEventDurationChangedFrom:v50 to:v52];
+    locations = [eventCopy locations];
+    v54 = [locations count];
+    if (v54)
+    {
+      location = [eventCopy location];
+    }
+
+    else
+    {
+      location = 0;
+    }
+
+    locations2 = [v83 locations];
+    if ([locations2 count])
+    {
+      [v83 location];
+      v59 = level.var0;
+      v61 = v60 = interfaceCopy;
+      v56 = [v51 diffEventLocationFrom:location to:v61];
+
+      interfaceCopy = v60;
+      level.var0 = v59;
+    }
+
+    else
+    {
+      v56 = [v51 diffEventLocationFrom:location to:0];
+    }
+
+    if (v54)
+    {
+    }
+
+    typeCopy = v69;
+    kEventCopy = v83;
+  }
+
+  else
+  {
+    v56 = 0;
+    if (!kEventCopy)
+    {
+      v70 = 0;
+      v71 = 0;
+      contexta = 0;
+      stringValue = @"NA";
+      goto LABEL_47;
+    }
+
+    v70 = 0;
+    v71 = 0;
+    contexta = 0;
+  }
+
+  v62 = [objc_opt_class() getAddedAttendeesCountFromEKEvent:kEventCopy];
+  stringValue = [v62 stringValue];
+
+LABEL_47:
+  v63 = objc_opt_class();
+  startDate2 = [v81 startDate];
+  BYTE1(v68) = integerValue3;
+  LOBYTE(v68) = integerValue2;
+  LOBYTE(v67) = 0;
+  LODWORD(v65) = v30;
+  *&v66 = v36;
+  [v63 recordInteractionForEventWithInterface:interfaceCopy actionType:typeCopy eventType:eventTypeCopy2 languageID:v80 startDate:startDate2 confidenceScore:integerValue participantCount:v65 significantSender:v66 extractionLevel:v78 usedBubblesCount:level.var0 titleSource:v67 titleAdj:v76 dateAdj:contexta duraAdj:v71 locationAdj:v70 addedAttendeesCount:v56 calendarAppUsageLevel:stringValue mailAppUsageLevel:v68 messagesAppUsageLevel:?];
+}
+
++ (void)recordInteractionForEventWithInterface:(unsigned __int16)interface actionType:(unsigned __int16)type harvestedEKEvent:(id)event curatedEKEvent:(id)kEvent
+{
+  typeCopy = type;
+  interfaceCopy = interface;
+  kEventCopy = kEvent;
+  eventCopy = event;
+  [objc_opt_class() recordInteractionForEventWithInterface:interfaceCopy actionType:typeCopy eventType:@"NA" extractionLevel:0 harvestedEKEvent:eventCopy curatedEKEvent:kEventCopy];
 }
 
 + (void)recordInteractionForEventWithInterface:(unsigned __int16)interface actionType:(unsigned __int16)type harvestedSGEvent:(id)event curatedEKEvent:(id)kEvent
 {
   interfaceCopy = interface;
   typeCopy = type;
-  v98 = *MEMORY[0x1E69E9840];
+  v97 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   kEventCopy = kEvent;
+  v92 = 0u;
   v93 = 0u;
   v94 = 0u;
   v95 = 0u;
-  v96 = 0u;
   tags = [eventCopy tags];
-  v9 = [tags countByEnumeratingWithState:&v93 objects:v97 count:16];
+  v9 = [tags countByEnumeratingWithState:&v92 objects:v96 count:16];
   if (v9)
   {
     v10 = v9;
-    v82 = a2;
+    v81 = a2;
     v11 = @"NA";
-    v12 = *v94;
+    v12 = *v93;
     v13 = 0;
     v14 = -1.0;
     integerValue2 = -1;
@@ -572,12 +1008,12 @@ LABEL_32:
       v16 = 0;
       do
       {
-        if (*v94 != v12)
+        if (*v93 != v12)
         {
           objc_enumerationMutation(tags);
         }
 
-        v17 = [SGEntityTag resolveName:*(*(&v93 + 1) + 8 * v16)];
+        v17 = [SGEntityTag resolveName:*(*(&v92 + 1) + 8 * v16)];
         if ([v17 isNaturalLanguageEventTypeIdentifier])
         {
           value = [v17 value];
@@ -589,7 +1025,7 @@ LABEL_32:
           }
 
           currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-          [currentHandler handleFailureInMethod:v82 object:self file:@"SGSuggestionsMetrics.m" lineNumber:235 description:{@"Invalid parameter not satisfying: %@", @"eventType"}];
+          [currentHandler handleFailureInMethod:v81 object:self file:@"SGSuggestionsMetrics.m" lineNumber:235 description:{@"Invalid parameter not satisfying: %@", @"eventType"}];
           v15 = 0;
           goto LABEL_13;
         }
@@ -618,7 +1054,7 @@ LABEL_13:
           if (!value2)
           {
             currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-            [currentHandler handleFailureInMethod:v82 object:self file:@"SGSuggestionsMetrics.m" lineNumber:242 description:{@"Invalid parameter not satisfying: %@", @"languageID"}];
+            [currentHandler handleFailureInMethod:v81 object:self file:@"SGSuggestionsMetrics.m" lineNumber:242 description:{@"Invalid parameter not satisfying: %@", @"languageID"}];
             v11 = 0;
             goto LABEL_13;
           }
@@ -664,7 +1100,7 @@ LABEL_14:
       }
 
       while (v10 != v16);
-      v23 = [tags countByEnumeratingWithState:&v93 objects:v97 count:16];
+      v23 = [tags countByEnumeratingWithState:&v92 objects:v96 count:16];
       v10 = v23;
       if (!v23)
       {
@@ -712,8 +1148,8 @@ LABEL_32:
   v38 = v27;
   if (kEventCopy)
   {
-    v80 = v32;
-    v81 = v27;
+    v79 = v32;
+    v80 = v27;
     title = [eventCopy title];
     title2 = [kEventCopy title];
     selfCopy = self;
@@ -723,18 +1159,18 @@ LABEL_32:
     startTimeZone = [eventCopy startTimeZone];
     startDate = [kEventCopy startDate];
     timeZone = [kEventCopy timeZone];
-    v79 = [self diffEventStartDateChangedFrom:start oldTimeZone:startTimeZone to:startDate newTimeZone:timeZone];
+    v78 = [self diffEventStartDateChangedFrom:start oldTimeZone:startTimeZone to:startDate newTimeZone:timeZone];
 
     [eventCopy duration];
     v48 = v47;
     [kEventCopy duration];
-    v77 = [self diffEventDurationChangedFrom:v48 to:v49];
+    v76 = [self diffEventDurationChangedFrom:v48 to:v49];
     v50 = [objc_opt_class() getAddedAttendeesCountFromEKEvent:kEventCopy];
     stringValue = [v50 stringValue];
 
     locations = [eventCopy locations];
     v53 = [locations count];
-    v83 = v42;
+    v82 = v42;
     if (v53)
     {
       locations2 = [eventCopy locations];
@@ -762,7 +1198,7 @@ LABEL_32:
       label = 0;
     }
 
-    v78 = stringValue;
+    v77 = stringValue;
     locationsWithoutPrediction = [kEventCopy locationsWithoutPrediction];
     if ([locationsWithoutPrediction count])
     {
@@ -785,17 +1221,17 @@ LABEL_32:
     }
 
     v57 = eventCopy;
-    v38 = v81;
-    v37 = v79;
-    v32 = v80;
-    v58 = v77;
-    v60 = v78;
+    v38 = v80;
+    v37 = v78;
+    v32 = v79;
+    v58 = v76;
+    v60 = v77;
     v59 = v64;
   }
 
   else
   {
-    v83 = 0;
+    v82 = 0;
     v57 = eventCopy;
     v58 = 0;
     v59 = 0;
@@ -805,14 +1241,12 @@ LABEL_32:
   v65 = v38;
   v66 = objc_opt_class();
   start2 = [v57 start];
-  BYTE1(v72) = integerValue3;
-  LOBYTE(v72) = integerValue2;
-  LOBYTE(v71) = integerValue4;
+  BYTE1(v71) = integerValue3;
+  LOBYTE(v71) = integerValue2;
+  LOBYTE(v70) = integerValue4;
   LODWORD(v68) = v13;
   *&v69 = v14;
-  [v66 recordInteractionForEventWithInterface:interfaceCopy actionType:typeCopy eventType:v15 languageID:v11 startDate:start2 confidenceScore:integerValue participantCount:v68 significantSender:v69 extractionLevel:v65 usedBubblesCount:0 titleSource:v71 titleAdj:v32 dateAdj:v83 duraAdj:v37 locationAdj:v58 addedAttendeesCount:v59 calendarAppUsageLevel:v60 mailAppUsageLevel:v72 messagesAppUsageLevel:?];
-
-  v70 = *MEMORY[0x1E69E9840];
+  [v66 recordInteractionForEventWithInterface:interfaceCopy actionType:typeCopy eventType:v15 languageID:v11 startDate:start2 confidenceScore:integerValue participantCount:v68 significantSender:v69 extractionLevel:v65 usedBubblesCount:0 titleSource:v70 titleAdj:v32 dateAdj:v82 duraAdj:v37 locationAdj:v58 addedAttendeesCount:v59 calendarAppUsageLevel:v60 mailAppUsageLevel:v71 messagesAppUsageLevel:?];
 }
 
 + (id)instance

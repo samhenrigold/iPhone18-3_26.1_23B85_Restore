@@ -6,13 +6,13 @@
 
 - (void)handleQueryOperation:(id)operation withRecords:(id)records droppedFeeds:(id)feeds
 {
-  v300 = *MEMORY[0x1E69E9840];
+  v299 = *MEMORY[0x1E69E9840];
   operationCopy = operation;
   recordsCopy = records;
   feedsCopy = feeds;
   query = [operationCopy query];
   objc_opt_class();
-  v160 = query;
+  v159 = query;
   predicate = [query predicate];
   if (predicate)
   {
@@ -34,7 +34,7 @@
 
   v14 = v13;
 
-  v159 = v14;
+  v158 = v14;
   if (v14 && [v14 compoundPredicateType] == 1)
   {
     goto LABEL_11;
@@ -45,55 +45,55 @@
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     m = v14;
-    v155 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"unexpected feed query predicate type"];
+    v154 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"unexpected feed query predicate type"];
     *buf = 136315906;
-    v293 = "[FCCKTestOrderFeedQueryEndpoint handleQueryOperation:withRecords:droppedFeeds:]";
-    v294 = 2080;
-    v295 = "FCCKTestContentDatabase.m";
-    v296 = 1024;
-    v297 = 960;
-    v298 = 2114;
-    v299 = v155;
+    v292 = "[FCCKTestOrderFeedQueryEndpoint handleQueryOperation:withRecords:droppedFeeds:]";
+    v293 = 2080;
+    v294 = "FCCKTestContentDatabase.m";
+    v295 = 1024;
+    v296 = 960;
+    v297 = 2114;
+    v298 = v154;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   if (v14)
   {
 LABEL_11:
-    v277 = 0u;
     v276 = 0u;
     v275 = 0u;
     v274 = 0u;
+    v273 = 0u;
     subpredicates = [v14 subpredicates];
-    v18 = [subpredicates countByEnumeratingWithState:&v274 objects:v291 count:16];
+    v18 = [subpredicates countByEnumeratingWithState:&v273 objects:v290 count:16];
     if (!v18)
     {
+      v188 = 0;
       v189 = 0;
-      v190 = 0;
-      v182 = 0;
-      v185 = 0;
+      v181 = 0;
+      v184 = 0;
       obj = 0;
       goto LABEL_39;
     }
 
     v19 = v18;
+    v188 = 0;
     v189 = 0;
-    v190 = 0;
-    v182 = 0;
-    v185 = 0;
+    v181 = 0;
+    v184 = 0;
     obj = 0;
-    m = *v275;
-    v206 = subpredicates;
+    m = *v274;
+    v205 = subpredicates;
     while (1)
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v275 != m)
+        if (*v274 != m)
         {
           objc_enumerationMutation(subpredicates);
         }
 
-        keyPath = *(*(&v274 + 1) + 8 * i);
+        keyPath = *(*(&v273 + 1) + 8 * i);
         objc_opt_class();
         if (!keyPath || (objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -117,14 +117,14 @@ LABEL_11:
           if (!v24)
           {
 LABEL_33:
-            subpredicates = v206;
+            subpredicates = v205;
             goto LABEL_34;
           }
 
           keyPath = [v21 rightExpression];
           constantValue = [keyPath constantValue];
-          v26 = v189;
-          v189 = constantValue;
+          v26 = v188;
+          v188 = constantValue;
           goto LABEL_32;
         }
 
@@ -151,8 +151,8 @@ LABEL_33:
             {
               keyPath = [v21 leftExpression];
               constantValue3 = [keyPath constantValue];
-              v26 = v190;
-              v190 = constantValue3;
+              v26 = v189;
+              v189 = constantValue3;
             }
 
             else
@@ -164,8 +164,8 @@ LABEL_33:
               {
                 keyPath = [v21 leftExpression];
                 constantValue4 = [keyPath constantValue];
-                v26 = v185;
-                v185 = constantValue4;
+                v26 = v184;
+                v184 = constantValue4;
               }
 
               else
@@ -180,14 +180,14 @@ LABEL_33:
 
                 keyPath = [v21 leftExpression];
                 constantValue5 = [keyPath constantValue];
-                v26 = v182;
-                v182 = constantValue5;
+                v26 = v181;
+                v181 = constantValue5;
               }
             }
           }
 
 LABEL_32:
-          subpredicates = v206;
+          subpredicates = v205;
         }
 
 LABEL_34:
@@ -195,7 +195,7 @@ LABEL_34:
 LABEL_35:
       }
 
-      v19 = [subpredicates countByEnumeratingWithState:&v274 objects:v291 count:16];
+      v19 = [subpredicates countByEnumeratingWithState:&v273 objects:v290 count:16];
       if (!v19)
       {
 LABEL_39:
@@ -206,65 +206,65 @@ LABEL_39:
     }
   }
 
+  v188 = 0;
   v189 = 0;
-  v190 = 0;
-  v182 = 0;
-  v185 = 0;
+  v181 = 0;
+  v184 = 0;
   v38 = 0;
 LABEL_41:
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v269 = 0u;
   v270 = 0u;
   v271 = 0u;
   v272 = 0u;
-  v273 = 0u;
   v39 = v38;
-  v40 = [v39 countByEnumeratingWithState:&v270 objects:v290 count:16];
+  v40 = [v39 countByEnumeratingWithState:&v269 objects:v289 count:16];
   if (v40)
   {
     v41 = v40;
-    v42 = *v271;
+    v42 = *v270;
     do
     {
       for (j = 0; j != v41; ++j)
       {
-        if (*v271 != v42)
+        if (*v270 != v42)
         {
           objc_enumerationMutation(v39);
         }
 
-        m = *(*(&v270 + 1) + 8 * j);
+        m = *(*(&v269 + 1) + 8 * j);
         v44 = MEMORY[0x1E695DF70];
         keyPath = FCSortedFeedItemRecordsForFeedID(recordsCopy, m);
         v45 = [v44 arrayWithArray:keyPath];
         [dictionary setObject:v45 forKeyedSubscript:m];
       }
 
-      v41 = [v39 countByEnumeratingWithState:&v270 objects:v290 count:16];
+      v41 = [v39 countByEnumeratingWithState:&v269 objects:v289 count:16];
     }
 
     while (v41);
   }
 
-  v269 = 0u;
   v268 = 0u;
   v267 = 0u;
   v266 = 0u;
+  v265 = 0u;
   v46 = v39;
-  v47 = [v46 countByEnumeratingWithState:&v266 objects:v289 count:16];
+  v47 = [v46 countByEnumeratingWithState:&v265 objects:v288 count:16];
   if (v47)
   {
     v48 = v47;
-    keyPath = *v267;
+    keyPath = *v266;
     do
     {
       for (k = 0; k != v48; ++k)
       {
-        if (*v267 != keyPath)
+        if (*v266 != keyPath)
         {
           objc_enumerationMutation(v46);
         }
 
-        v50 = *(*(&v266 + 1) + 8 * k);
+        v50 = *(*(&v265 + 1) + 8 * k);
         m = [dictionary objectForKeyedSubscript:v50];
         if ([m count] >= 2 && objc_msgSend(feedsCopy, "containsObject:", v50))
         {
@@ -272,59 +272,59 @@ LABEL_41:
         }
       }
 
-      v48 = [v46 countByEnumeratingWithState:&v266 objects:v289 count:16];
+      v48 = [v46 countByEnumeratingWithState:&v265 objects:v288 count:16];
     }
 
     while (v48);
   }
 
-  v263[0] = MEMORY[0x1E69E9820];
-  v263[1] = 3221225472;
-  v263[2] = __80__FCCKTestOrderFeedQueryEndpoint_handleQueryOperation_withRecords_droppedFeeds___block_invoke;
-  v263[3] = &unk_1E7C43448;
+  v262[0] = MEMORY[0x1E69E9820];
+  v262[1] = 3221225472;
+  v262[2] = __80__FCCKTestOrderFeedQueryEndpoint_handleQueryOperation_withRecords_droppedFeeds___block_invoke;
+  v262[3] = &unk_1E7C43448;
   v51 = v46;
-  v264 = v51;
-  v158 = v190;
-  v265 = v158;
-  v168 = __80__FCCKTestOrderFeedQueryEndpoint_handleQueryOperation_withRecords_droppedFeeds___block_invoke(v263);
-  v260[0] = MEMORY[0x1E69E9820];
-  v260[1] = 3221225472;
-  v260[2] = __80__FCCKTestOrderFeedQueryEndpoint_handleQueryOperation_withRecords_droppedFeeds___block_invoke_2;
-  v260[3] = &unk_1E7C43448;
+  v263 = v51;
+  v157 = v189;
+  v264 = v157;
+  v167 = __80__FCCKTestOrderFeedQueryEndpoint_handleQueryOperation_withRecords_droppedFeeds___block_invoke(v262);
+  v259[0] = MEMORY[0x1E69E9820];
+  v259[1] = 3221225472;
+  v259[2] = __80__FCCKTestOrderFeedQueryEndpoint_handleQueryOperation_withRecords_droppedFeeds___block_invoke_2;
+  v259[3] = &unk_1E7C43448;
   v52 = v51;
-  v261 = v52;
-  v157 = v185;
-  v262 = v157;
-  v184 = __80__FCCKTestOrderFeedQueryEndpoint_handleQueryOperation_withRecords_droppedFeeds___block_invoke_2(v260);
-  v257[0] = MEMORY[0x1E69E9820];
-  v257[1] = 3221225472;
-  v257[2] = __80__FCCKTestOrderFeedQueryEndpoint_handleQueryOperation_withRecords_droppedFeeds___block_invoke_3;
-  v257[3] = &unk_1E7C43448;
+  v260 = v52;
+  v156 = v184;
+  v261 = v156;
+  v183 = __80__FCCKTestOrderFeedQueryEndpoint_handleQueryOperation_withRecords_droppedFeeds___block_invoke_2(v259);
+  v256[0] = MEMORY[0x1E69E9820];
+  v256[1] = 3221225472;
+  v256[2] = __80__FCCKTestOrderFeedQueryEndpoint_handleQueryOperation_withRecords_droppedFeeds___block_invoke_3;
+  v256[3] = &unk_1E7C43448;
   v53 = v52;
-  v258 = v53;
-  v156 = v182;
-  v259 = v156;
-  v183 = __80__FCCKTestOrderFeedQueryEndpoint_handleQueryOperation_withRecords_droppedFeeds___block_invoke_3(v257);
+  v257 = v53;
+  v155 = v181;
+  v258 = v155;
+  v182 = __80__FCCKTestOrderFeedQueryEndpoint_handleQueryOperation_withRecords_droppedFeeds___block_invoke_3(v256);
+  v252 = 0u;
   v253 = 0u;
   v254 = 0u;
   v255 = 0u;
-  v256 = 0u;
   obja = v53;
-  v207 = [obja countByEnumeratingWithState:&v253 objects:v288 count:16];
-  if (v207)
+  v206 = [obja countByEnumeratingWithState:&v252 objects:v287 count:16];
+  if (v206)
   {
-    v202 = *v254;
+    v201 = *v253;
     do
     {
-      for (m = 0; m != v207; ++m)
+      for (m = 0; m != v206; ++m)
       {
-        if (*v254 != v202)
+        if (*v253 != v201)
         {
           objc_enumerationMutation(obja);
         }
 
-        v54 = *(*(&v253 + 1) + 8 * m);
-        v55 = [v168 objectForKeyedSubscript:{v54, v156, v157, v158, v159}];
+        v54 = *(*(&v252 + 1) + 8 * m);
+        v55 = [v167 objectForKeyedSubscript:{v54, v155, v156, v157, v158}];
         v56 = [dictionary objectForKeyedSubscript:v54];
         keyPath = v56;
         while ([v56 count])
@@ -352,34 +352,34 @@ LABEL_41:
         }
       }
 
-      v207 = [obja countByEnumeratingWithState:&v253 objects:v288 count:16];
+      v206 = [obja countByEnumeratingWithState:&v252 objects:v287 count:16];
     }
 
-    while (v207);
+    while (v206);
   }
 
   dictionary2 = [MEMORY[0x1E695DF90] dictionary];
+  v248 = 0u;
   v249 = 0u;
   v250 = 0u;
   v251 = 0u;
-  v252 = 0u;
-  v162 = obja;
-  v62 = [v162 countByEnumeratingWithState:&v249 objects:v287 count:16];
+  v161 = obja;
+  v62 = [v161 countByEnumeratingWithState:&v248 objects:v286 count:16];
   if (v62)
   {
     v63 = v62;
-    keyPath = *v250;
+    keyPath = *v249;
     do
     {
       for (n = 0; n != v63; ++n)
       {
-        if (*v250 != keyPath)
+        if (*v249 != keyPath)
         {
-          objc_enumerationMutation(v162);
+          objc_enumerationMutation(v161);
         }
 
-        v65 = *(*(&v249 + 1) + 8 * n);
-        v66 = [dictionary objectForKeyedSubscript:{v65, v156}];
+        v65 = *(*(&v248 + 1) + 8 * n);
+        v66 = [dictionary objectForKeyedSubscript:{v65, v155}];
         firstObject3 = [v66 firstObject];
 
         v68 = [firstObject3 objectForKeyedSubscript:@"order"];
@@ -397,57 +397,57 @@ LABEL_41:
         [dictionary2 setObject:v69 forKeyedSubscript:v65];
       }
 
-      v63 = [v162 countByEnumeratingWithState:&v249 objects:v287 count:16];
+      v63 = [v161 countByEnumeratingWithState:&v248 objects:v286 count:16];
     }
 
     while (v63);
   }
 
   array = [MEMORY[0x1E695DF70] array];
-  v175 = [MEMORY[0x1E696AB50] set];
-  v165 = *MEMORY[0x1E695B7A8];
-  v169 = array;
+  v174 = [MEMORY[0x1E696AB50] set];
+  v164 = *MEMORY[0x1E695B7A8];
+  v168 = array;
   while (2)
   {
     v71 = [array count];
-    if (v71 >= [operationCopy resultsLimit] && objc_msgSend(operationCopy, "resultsLimit") != v165)
+    if (v71 >= [operationCopy resultsLimit] && objc_msgSend(operationCopy, "resultsLimit") != v164)
     {
       goto LABEL_116;
     }
 
-    v247 = 0u;
-    v248 = 0u;
-    v245 = 0u;
     v246 = 0u;
+    v247 = 0u;
+    v244 = 0u;
+    v245 = 0u;
     v72 = dictionary;
-    v191 = [v72 countByEnumeratingWithState:&v245 objects:v286 count:16];
-    if (!v191)
+    v190 = [v72 countByEnumeratingWithState:&v244 objects:v285 count:16];
+    if (!v190)
     {
       goto LABEL_115;
     }
 
-    v176 = 0;
-    v179 = v72;
-    v194 = 0;
-    v186 = *v246;
+    v175 = 0;
+    v178 = v72;
+    v193 = 0;
+    v185 = *v245;
     do
     {
       v73 = 0;
       do
       {
-        v203 = m;
-        v208 = keyPath;
-        if (*v246 != v186)
+        v202 = m;
+        v207 = keyPath;
+        if (*v245 != v185)
         {
           objc_enumerationMutation(v72);
         }
 
-        v74 = *(*(&v245 + 1) + 8 * v73);
+        v74 = *(*(&v244 + 1) + 8 * v73);
         v75 = [v72 objectForKeyedSubscript:v74];
         firstObject4 = [v75 firstObject];
 
-        v77 = [v184 objectForKeyedSubscript:v74];
-        v78 = [v183 objectForKeyedSubscript:v74];
+        v77 = [v183 objectForKeyedSubscript:v74];
+        v78 = [v182 objectForKeyedSubscript:v74];
         objb = v77;
         if (!firstObject4)
         {
@@ -461,18 +461,18 @@ LABEL_41:
           goto LABEL_96;
         }
 
-        if (v194)
+        if (v193)
         {
           keyPath = [firstObject4 objectForKeyedSubscript:@"order"];
-          m = [v194 objectForKeyedSubscript:@"order"];
+          m = [v193 objectForKeyedSubscript:@"order"];
           if ([keyPath compare:m] != 1)
           {
 
             goto LABEL_102;
           }
 
-          v203 = m;
-          v208 = keyPath;
+          v202 = m;
+          v207 = keyPath;
           if (![v78 unsignedLongLongValue])
           {
 
@@ -486,12 +486,12 @@ LABEL_103:
           goto LABEL_103;
         }
 
-        v80 = [v175 countForObject:v74];
+        v80 = [v174 countForObject:v74];
         unsignedLongLongValue = [v78 unsignedLongLongValue];
-        if (v194)
+        if (v193)
         {
 
-          v72 = v179;
+          v72 = v178;
           if (v80 >= unsignedLongLongValue)
           {
             goto LABEL_107;
@@ -502,44 +502,44 @@ LABEL_103:
 
         if (v80 >= unsignedLongLongValue)
         {
-          v194 = 0;
+          v193 = 0;
 LABEL_96:
-          m = v203;
-          keyPath = v208;
+          m = v202;
+          keyPath = v207;
 LABEL_102:
-          v72 = v179;
+          v72 = v178;
           goto LABEL_108;
         }
 
 LABEL_105:
-        v72 = v179;
+        v72 = v178;
 LABEL_106:
         v82 = firstObject4;
 
         v83 = v74;
-        [v175 addObject:v83];
-        v176 = v83;
-        v194 = v82;
+        [v174 addObject:v83];
+        v175 = v83;
+        v193 = v82;
 LABEL_107:
-        m = v203;
-        keyPath = v208;
+        m = v202;
+        keyPath = v207;
 LABEL_108:
 
         ++v73;
       }
 
-      while (v191 != v73);
-      v84 = [v72 countByEnumeratingWithState:&v245 objects:v286 count:16];
-      v191 = v84;
+      while (v190 != v73);
+      v84 = [v72 countByEnumeratingWithState:&v244 objects:v285 count:16];
+      v190 = v84;
     }
 
     while (v84);
 
-    if (v176)
+    if (v175)
     {
-      array = v169;
-      [v169 addObject:v194];
-      v85 = [v72 objectForKeyedSubscript:v176];
+      array = v168;
+      [v168 addObject:v193];
+      v85 = [v72 objectForKeyedSubscript:v175];
       [v85 fc_removeFirstObject];
 
       continue;
@@ -548,62 +548,62 @@ LABEL_108:
     break;
   }
 
-  v72 = v194;
-  array = v169;
+  v72 = v193;
+  array = v168;
 LABEL_115:
 
 LABEL_116:
   array2 = [MEMORY[0x1E695DF70] array];
+  v240 = 0u;
   v241 = 0u;
   v242 = 0u;
   v243 = 0u;
-  v244 = 0u;
-  v161 = array;
-  v170 = [v161 countByEnumeratingWithState:&v241 objects:v285 count:16];
-  if (v170)
+  v160 = array;
+  v169 = [v160 countByEnumeratingWithState:&v240 objects:v284 count:16];
+  if (v169)
   {
-    v163 = *v242;
+    v162 = *v241;
     do
     {
       v86 = 0;
       do
       {
-        if (*v242 != v163)
+        if (*v241 != v162)
         {
-          objc_enumerationMutation(v161);
+          objc_enumerationMutation(v160);
         }
 
-        v180 = v86;
-        v87 = *(*(&v241 + 1) + 8 * v86);
+        v179 = v86;
+        v87 = *(*(&v240 + 1) + 8 * v86);
         v88 = [v87 objectForKeyedSubscript:@"articleID"];
-        v239[0] = MEMORY[0x1E69E9820];
-        v239[1] = 3221225472;
-        v239[2] = __80__FCCKTestOrderFeedQueryEndpoint_handleQueryOperation_withRecords_droppedFeeds___block_invoke_4;
-        v239[3] = &unk_1E7C38030;
-        v177 = v88;
-        v240 = v177;
-        v89 = [recordsCopy fc_firstObjectPassingTest:v239];
+        v238[0] = MEMORY[0x1E69E9820];
+        v238[1] = 3221225472;
+        v238[2] = __80__FCCKTestOrderFeedQueryEndpoint_handleQueryOperation_withRecords_droppedFeeds___block_invoke_4;
+        v238[3] = &unk_1E7C38030;
+        v176 = v88;
+        v239 = v176;
+        v89 = [recordsCopy fc_firstObjectPassingTest:v238];
         objc = [objc_alloc(MEMORY[0x1E695BA60]) initWithRecordType:@"FeedItemAndArticle"];
+        v234 = 0u;
         v235 = 0u;
         v236 = 0u;
         v237 = 0u;
-        v238 = 0u;
         changedKeys = [v87 changedKeys];
-        v91 = [changedKeys countByEnumeratingWithState:&v235 objects:v284 count:16];
+        v91 = [changedKeys countByEnumeratingWithState:&v234 objects:v283 count:16];
         if (v91)
         {
           v92 = v91;
-          v93 = *v236;
+          v93 = *v235;
           do
           {
             for (ii = 0; ii != v92; ++ii)
             {
-              if (*v236 != v93)
+              if (*v235 != v93)
               {
                 objc_enumerationMutation(changedKeys);
               }
 
-              v95 = *(*(&v235 + 1) + 8 * ii);
+              v95 = *(*(&v234 + 1) + 8 * ii);
               v96 = [v87 objectForKeyedSubscript:v95];
               if (v96)
               {
@@ -611,60 +611,60 @@ LABEL_116:
               }
             }
 
-            v92 = [changedKeys countByEnumeratingWithState:&v235 objects:v284 count:16];
+            v92 = [changedKeys countByEnumeratingWithState:&v234 objects:v283 count:16];
           }
 
           while (v92);
         }
 
-        v233 = 0u;
-        v234 = 0u;
-        v231 = 0u;
         v232 = 0u;
+        v233 = 0u;
+        v230 = 0u;
+        v231 = 0u;
         changedKeys2 = [v89 changedKeys];
-        v195 = [changedKeys2 countByEnumeratingWithState:&v231 objects:v283 count:16];
-        if (v195)
+        v194 = [changedKeys2 countByEnumeratingWithState:&v230 objects:v282 count:16];
+        if (v194)
         {
-          v192 = *v232;
+          v191 = *v231;
           do
           {
             v97 = 0;
             do
             {
-              if (*v232 != v192)
+              if (*v231 != v191)
               {
                 objc_enumerationMutation(changedKeys2);
               }
 
-              v209 = v97;
-              v98 = *(*(&v231 + 1) + 8 * v97);
+              v208 = v97;
+              v98 = *(*(&v230 + 1) + 8 * v97);
               v99 = [v89 objectForKeyedSubscript:v98];
               if (v99)
               {
                 [objc setObject:v99 forKeyedSubscript:v98];
               }
 
-              v204 = v99;
-              v229 = 0u;
-              v230 = 0u;
-              v227 = 0u;
+              v203 = v99;
               v228 = 0u;
-              v100 = v189;
-              v101 = [v100 countByEnumeratingWithState:&v227 objects:v282 count:16];
+              v229 = 0u;
+              v226 = 0u;
+              v227 = 0u;
+              v100 = v188;
+              v101 = [v100 countByEnumeratingWithState:&v226 objects:v281 count:16];
               if (v101)
               {
                 v102 = v101;
-                v103 = *v228;
+                v103 = *v227;
                 do
                 {
                   for (jj = 0; jj != v102; ++jj)
                   {
-                    if (*v228 != v103)
+                    if (*v227 != v103)
                     {
                       objc_enumerationMutation(v100);
                     }
 
-                    v105 = [v89 objectForKeyedSubscript:*(*(&v227 + 1) + 8 * jj)];
+                    v105 = [v89 objectForKeyedSubscript:*(*(&v226 + 1) + 8 * jj)];
                     if (v105)
                     {
                       v106 = FCLookupRecordByName(recordsCopy, v105);
@@ -676,20 +676,20 @@ LABEL_116:
                     }
                   }
 
-                  v102 = [v100 countByEnumeratingWithState:&v227 objects:v282 count:16];
+                  v102 = [v100 countByEnumeratingWithState:&v226 objects:v281 count:16];
                 }
 
                 while (v102);
               }
 
-              v97 = v209 + 1;
+              v97 = v208 + 1;
             }
 
-            while (v209 + 1 != v195);
-            v195 = [changedKeys2 countByEnumeratingWithState:&v231 objects:v283 count:16];
+            while (v208 + 1 != v194);
+            v194 = [changedKeys2 countByEnumeratingWithState:&v230 objects:v282 count:16];
           }
 
-          while (v195);
+          while (v194);
         }
 
         desiredKeys = [operationCopy desiredKeys];
@@ -700,40 +700,40 @@ LABEL_116:
           desiredKeys2 = [operationCopy desiredKeys];
           v111 = [v109 setWithArray:desiredKeys2];
 
-          v225 = 0u;
-          v226 = 0u;
-          v223 = 0u;
           v224 = 0u;
+          v225 = 0u;
+          v222 = 0u;
+          v223 = 0u;
           changedKeys3 = [objc changedKeys];
-          v113 = [changedKeys3 countByEnumeratingWithState:&v223 objects:v281 count:16];
+          v113 = [changedKeys3 countByEnumeratingWithState:&v222 objects:v280 count:16];
           if (v113)
           {
             v114 = v113;
-            v115 = *v224;
+            v115 = *v223;
             do
             {
               for (kk = 0; kk != v114; ++kk)
               {
-                if (*v224 != v115)
+                if (*v223 != v115)
                 {
                   objc_enumerationMutation(changedKeys3);
                 }
 
-                v117 = *(*(&v223 + 1) + 8 * kk);
+                v117 = *(*(&v222 + 1) + 8 * kk);
                 if (([v111 containsObject:v117] & 1) == 0)
                 {
                   [objc setObject:0 forKeyedSubscript:v117];
                 }
               }
 
-              v114 = [changedKeys3 countByEnumeratingWithState:&v223 objects:v281 count:16];
+              v114 = [changedKeys3 countByEnumeratingWithState:&v222 objects:v280 count:16];
             }
 
             while (v114);
           }
         }
 
-        [objc setObject:v177 forKeyedSubscript:@"articleID"];
+        [objc setObject:v176 forKeyedSubscript:@"articleID"];
         recordChangeTag = [v89 recordChangeTag];
         [objc setObject:recordChangeTag forKeyedSubscript:@"articleETag"];
 
@@ -744,41 +744,41 @@ LABEL_116:
         [objc setObject:modificationDate forKeyedSubscript:@"articleModDate"];
 
         [array2 addObject:objc];
-        v86 = v180 + 1;
+        v86 = v179 + 1;
       }
 
-      while (v180 + 1 != v170);
-      v170 = [v161 countByEnumeratingWithState:&v241 objects:v285 count:16];
+      while (v179 + 1 != v169);
+      v169 = [v160 countByEnumeratingWithState:&v240 objects:v284 count:16];
     }
 
-    while (v170);
+    while (v169);
   }
 
-  v221 = 0u;
-  v222 = 0u;
-  v219 = 0u;
   v220 = 0u;
-  v167 = array2;
-  v121 = [v167 countByEnumeratingWithState:&v219 objects:v280 count:16];
+  v221 = 0u;
+  v218 = 0u;
+  v219 = 0u;
+  v166 = array2;
+  v121 = [v166 countByEnumeratingWithState:&v218 objects:v279 count:16];
   if (v121)
   {
     v122 = v121;
-    v123 = *v220;
+    v123 = *v219;
     do
     {
       for (mm = 0; mm != v122; ++mm)
       {
-        if (*v220 != v123)
+        if (*v219 != v123)
         {
-          objc_enumerationMutation(v167);
+          objc_enumerationMutation(v166);
         }
 
-        v125 = *(*(&v219 + 1) + 8 * mm);
+        v125 = *(*(&v218 + 1) + 8 * mm);
         recordFetchedBlock2 = [operationCopy recordFetchedBlock];
         recordFetchedBlock2[2](recordFetchedBlock2, v125);
       }
 
-      v122 = [v167 countByEnumeratingWithState:&v219 objects:v280 count:16];
+      v122 = [v166 countByEnumeratingWithState:&v218 objects:v279 count:16];
     }
 
     while (v122);
@@ -789,31 +789,31 @@ LABEL_116:
   array5 = [MEMORY[0x1E695DF70] array];
   array6 = [MEMORY[0x1E695DF70] array];
   array7 = [MEMORY[0x1E695DF70] array];
+  v214 = 0u;
   v215 = 0u;
   v216 = 0u;
   v217 = 0u;
-  v218 = 0u;
-  v164 = v162;
-  objd = [v164 countByEnumeratingWithState:&v215 objects:v279 count:16];
+  v163 = v161;
+  objd = [v163 countByEnumeratingWithState:&v214 objects:v278 count:16];
   if (objd)
   {
-    v171 = *v216;
+    v170 = *v215;
     do
     {
       for (nn = 0; nn != objd; nn = nn + 1)
       {
-        if (*v216 != v171)
+        if (*v215 != v170)
         {
-          objc_enumerationMutation(v164);
+          objc_enumerationMutation(v163);
         }
 
-        v128 = *(*(&v215 + 1) + 8 * nn);
+        v128 = *(*(&v214 + 1) + 8 * nn);
         v129 = [dictionary objectForKeyedSubscript:v128];
-        v210 = [dictionary2 objectForKeyedSubscript:v128];
-        v205 = [feedsCopy containsObject:v128];
+        v209 = [dictionary2 objectForKeyedSubscript:v128];
+        v204 = [feedsCopy containsObject:v128];
         if ([v129 count])
         {
-          v130 = [v184 objectForKeyedSubscript:v128];
+          v130 = [v183 objectForKeyedSubscript:v128];
           firstObject5 = [v129 firstObject];
           v132 = [firstObject5 objectForKeyedSubscript:@"order"];
           v133 = [v132 compare:v130] == -1;
@@ -832,19 +832,19 @@ LABEL_116:
           v136 = &unk_1F2E70740;
         }
 
-        v137 = [MEMORY[0x1E696AD98] numberWithBool:(v205 ^ 1) & v137];
+        v137 = [MEMORY[0x1E696AD98] numberWithBool:(v204 ^ 1) & v137];
         [array3 addObject:v137];
 
-        v134 = [MEMORY[0x1E696AD98] numberWithBool:(v205 ^ 1) & v134];
+        v134 = [MEMORY[0x1E696AD98] numberWithBool:(v204 ^ 1) & v134];
         [array4 addObject:v134];
 
-        [array5 addObject:v210];
+        [array5 addObject:v209];
         [array6 addObject:v136];
-        v140 = [MEMORY[0x1E696AD98] numberWithBool:v205];
+        v140 = [MEMORY[0x1E696AD98] numberWithBool:v204];
         [array7 addObject:v140];
       }
 
-      objd = [v164 countByEnumeratingWithState:&v215 objects:v279 count:16];
+      objd = [v163 countByEnumeratingWithState:&v214 objects:v278 count:16];
     }
 
     while (objd);
@@ -864,33 +864,33 @@ LABEL_116:
     desiredKeys4 = [operationCopy desiredKeys];
     v145 = [v143 setWithArray:desiredKeys4];
 
-    v213 = 0u;
-    v214 = 0u;
-    v211 = 0u;
     v212 = 0u;
+    v213 = 0u;
+    v210 = 0u;
+    v211 = 0u;
     changedKeys4 = [v141 changedKeys];
-    v147 = [changedKeys4 countByEnumeratingWithState:&v211 objects:v278 count:16];
+    v147 = [changedKeys4 countByEnumeratingWithState:&v210 objects:v277 count:16];
     if (v147)
     {
       v148 = v147;
-      v149 = *v212;
+      v149 = *v211;
       do
       {
         for (i1 = 0; i1 != v148; ++i1)
         {
-          if (*v212 != v149)
+          if (*v211 != v149)
           {
             objc_enumerationMutation(changedKeys4);
           }
 
-          v151 = *(*(&v211 + 1) + 8 * i1);
+          v151 = *(*(&v210 + 1) + 8 * i1);
           if (([v145 containsObject:v151] & 1) == 0)
           {
             [v141 setObject:0 forKeyedSubscript:v151];
           }
         }
 
-        v148 = [changedKeys4 countByEnumeratingWithState:&v211 objects:v278 count:16];
+        v148 = [changedKeys4 countByEnumeratingWithState:&v210 objects:v277 count:16];
       }
 
       while (v148);
@@ -902,8 +902,6 @@ LABEL_116:
 
   queryCompletionBlock = [operationCopy queryCompletionBlock];
   queryCompletionBlock[2](queryCompletionBlock, 0, 0);
-
-  v154 = *MEMORY[0x1E69E9840];
 }
 
 id __80__FCCKTestOrderFeedQueryEndpoint_handleQueryOperation_withRecords_droppedFeeds___block_invoke(uint64_t a1)

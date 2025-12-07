@@ -1,12 +1,12 @@
 @interface STStewieStatusDomainData
 - (BOOL)isEqual:(id)equal;
 - (STStewieStatusDomainData)initWithCoder:(id)coder;
+- (_BYTE)initWithData:(_BYTE *)result;
 - (id)_descriptionBuilderWithMultilinePrefix:(uint64_t)prefix forDebug:;
 - (id)dataByApplyingDiff:(id)diff;
 - (id)debugDescriptionWithMultilinePrefix:(id)prefix;
 - (id)descriptionWithMultilinePrefix:(id)prefix;
 - (id)diffFromData:(id)data;
-- (id)initWithData:(id)result;
 - (id)mutableCopyWithZone:(_NSZone *)zone;
 - (id)succinctDescription;
 - (unint64_t)hash;
@@ -15,7 +15,7 @@
 
 @implementation STStewieStatusDomainData
 
-- (id)initWithData:(id)result
+- (_BYTE)initWithData:(_BYTE *)result
 {
   if (result)
   {
@@ -31,8 +31,8 @@
     result = objc_msgSendSuper2(&v8, sel_init);
     if (result)
     {
-      *(result + 8) = isStewieActive;
-      *(result + 9) = isStewieConnected;
+      result[8] = isStewieActive;
+      result[9] = isStewieConnected;
       *(result + 2) = stewieSignalStrengthBars;
       *(result + 3) = maxStewieSignalStrengthBars;
     }

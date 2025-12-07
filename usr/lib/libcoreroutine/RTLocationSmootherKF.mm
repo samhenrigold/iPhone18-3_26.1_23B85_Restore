@@ -242,7 +242,7 @@
   v14 = v13;
   if (v13)
   {
-    [v13 clientLocation];
+    objc_msgSend_clientLocation(v13);
   }
 
   else

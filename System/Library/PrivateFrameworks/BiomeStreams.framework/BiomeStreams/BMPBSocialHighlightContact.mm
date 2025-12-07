@@ -66,25 +66,23 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if ((*&self->_has & 2) != 0)
   {
-    isSignificant = self->_isSignificant;
     PBDataWriterWriteBOOLField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_handle)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    isMe = self->_isMe;
     PBDataWriterWriteBOOLField();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -143,7 +141,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 20);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 20) & 2) == 0)
@@ -151,7 +148,6 @@
       goto LABEL_13;
     }
 
-    v10 = *(equalCopy + 17);
     if (self->_isSignificant)
     {
       if ((*(equalCopy + 17) & 1) == 0)
@@ -180,13 +176,13 @@
   if (![(NSString *)handle isEqual:?])
   {
 LABEL_13:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_14;
   }
 
   has = self->_has;
 LABEL_7:
-  v8 = (*(equalCopy + 20) & 1) == 0;
+  v7 = (*(equalCopy + 20) & 1) == 0;
   if (has)
   {
     if (*(equalCopy + 20))
@@ -202,7 +198,7 @@ LABEL_7:
       else if (!*(equalCopy + 16))
       {
 LABEL_21:
-        v8 = 1;
+        v7 = 1;
         goto LABEL_14;
       }
     }
@@ -212,7 +208,7 @@ LABEL_21:
 
 LABEL_14:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

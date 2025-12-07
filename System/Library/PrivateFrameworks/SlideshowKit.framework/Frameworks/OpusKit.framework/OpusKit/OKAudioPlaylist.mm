@@ -183,7 +183,7 @@
   v2 = [-[OKAudioPlaylist currentMedia](self "currentMedia")];
   if (v2)
   {
-    [v2 duration];
+    objc_msgSend_duration(v2);
   }
 
   else
@@ -199,7 +199,7 @@
   v2 = [-[OKAudioPlaylist currentMedia](self "currentMedia")];
   if (v2)
   {
-    [v2 currentTime];
+    objc_msgSend_currentTime(v2);
   }
 
   else
@@ -277,16 +277,16 @@ uint64_t __46__OKAudioPlaylist_setPlayingMusicCurrentTime___block_invoke(uint64_
   }
 }
 
-uint64_t __23__OKAudioPlaylist_play__block_invoke(uint64_t result)
+void *__23__OKAudioPlaylist_play__block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if ((*(v1 + 24) & 1) == 0)
   {
     v2 = result;
     v3 = [*(v1 + 8) objectAtIndex:*(v1 + 32)];
-    if ([*(*(v2 + 32) + 16) objectForKey:{objc_msgSend(v3, "uniquePath")}])
+    if ([*(v2[4] + 16) objectForKey:{objc_msgSend(v3, "uniquePath")}])
     {
-      v4 = *(v2 + 32);
+      v4 = v2[4];
       v5 = *(v4 + 72);
       v6[0] = MEMORY[0x277D85DD0];
       v6[1] = 3221225472;
@@ -303,9 +303,9 @@ uint64_t __23__OKAudioPlaylist_play__block_invoke(uint64_t result)
       v7[1] = 3221225472;
       v7[2] = __23__OKAudioPlaylist_play__block_invoke_2;
       v7[3] = &unk_279C90CE0;
-      v7[4] = *(v2 + 32);
+      v7[4] = v2[4];
       v7[5] = v3;
-      return [*(*(v2 + 32) + 72) addOperation:{objc_msgSend(v3, "avAssetWithCompletionHandler:", v7)}];
+      return [*(v2[4] + 72) addOperation:{objc_msgSend(v3, "avAssetWithCompletionHandler:", v7)}];
     }
   }
 
@@ -344,21 +344,21 @@ uint64_t __23__OKAudioPlaylist_play__block_invoke_3(uint64_t a1)
   }
 }
 
-uint64_t __23__OKAudioPlaylist_stop__block_invoke(uint64_t result)
+void *__23__OKAudioPlaylist_stop__block_invoke(void *result)
 {
-  v2 = *(result + 32);
+  v2 = result[4];
   if (*(v2 + 24) == 1)
   {
     v3 = result;
     [*(v2 + 48) setSetVolumeBlock:0];
-    [*(*(v3 + 32) + 72) cancelAllOperations];
-    *(*(v3 + 32) + 24) = 0;
+    [*(v3[4] + 72) cancelAllOperations];
+    *(v3[4] + 24) = 0;
     v4 = [MEMORY[0x277CCAB98] defaultCenter];
-    [v4 removeObserver:*(v3 + 32) name:*MEMORY[0x277CE60C0] object:{objc_msgSend(*(*(v3 + 32) + 40), "currentItem")}];
-    [*(*(v3 + 32) + 40) pause];
-    [*(*(v3 + 32) + 48) endFading:1];
-    v5 = [*(v3 + 32) delegate];
-    v6 = [objc_msgSend(*(*(v3 + 32) + 40) "currentItem")];
+    [v4 removeObserver:v3[4] name:*MEMORY[0x277CE60C0] object:{objc_msgSend(*(v3[4] + 40), "currentItem")}];
+    [*(v3[4] + 40) pause];
+    [*(v3[4] + 48) endFading:1];
+    v5 = [v3[4] delegate];
+    v6 = [objc_msgSend(*(v3[4] + 40) "currentItem")];
 
     return [v5 audioFinishedPlayingWithAVAsset:v6];
   }

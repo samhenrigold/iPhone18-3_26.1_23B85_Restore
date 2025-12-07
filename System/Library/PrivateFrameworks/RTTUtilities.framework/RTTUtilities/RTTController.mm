@@ -37,6 +37,7 @@
 - (void)ttyCall:(id)call didReceiveString:(id)string forUtterance:(id)utterance;
 - (void)ttyCall:(id)call didSendRemoteString:(id)string forUtterance:(id)utterance;
 - (void)ttyCall:(id)call didUpdateTranslation:(id)translation forUtterance:(id)utterance;
+- (void)ttyCall:(id)call setVisible:(BOOL)visible serviceUpdate:(id)update;
 @end
 
 @implementation RTTController
@@ -209,15 +210,15 @@
 
 - (void)didChangeTelephonyCallingSupport
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = AXLogRTT();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = +[RTTTelephonyUtilities sharedUtilityProvider];
     defaultVoiceContext = [v3 defaultVoiceContext];
-    v13 = 138412290;
-    v14 = defaultVoiceContext;
-    _os_log_impl(&dword_261754000, v2, OS_LOG_TYPE_INFO, "Telephony did change %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = defaultVoiceContext;
+    _os_log_impl(&dword_261754000, v2, OS_LOG_TYPE_INFO, "Telephony did change %@", &v12, 0xCu);
   }
 
   v5 = +[RTTTelephonyUtilities sharedUtilityProvider];
@@ -245,8 +246,6 @@
       v11 = +[RTTDatabaseManager sharedManager];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (id)sharedController
@@ -343,13 +342,13 @@ uint64_t __21__RTTController_init__block_invoke_7(uint64_t a1)
   [(RTTController *)self _requestNotificationAuthorization];
 }
 
-void __50__RTTController__requestNotificationAuthorization__block_invoke()
+void __50__RTTController__requestNotificationAuthorization__block_invoke(uint64_t a1)
 {
-  v0 = AXLogRTT();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = AXLogRTT();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_261754000, v0, OS_LOG_TYPE_INFO, "Requesting notification authorization because hw/sw enabled", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_261754000, v1, OS_LOG_TYPE_INFO, "Requesting notification authorization because hw/sw enabled", v2, 2u);
   }
 
   RTTRequestNotificationAuthorization();
@@ -394,7 +393,7 @@ void __50__RTTController__handlePreferredRelayNumberUpdate__block_invoke(uint64_
 
 - (BOOL)invalidateServerCaches:(id)caches
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   cachesCopy = caches;
   v5 = +[RTTSettings sharedInstance];
   v6 = [v5 valueForPreferenceKey:cachesCopy];
@@ -405,13 +404,13 @@ void __50__RTTController__handlePreferredRelayNumberUpdate__block_invoke(uint64_
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 138413058;
-    v27 = cachesCopy;
-    v28 = 2112;
-    v29 = v6;
-    v30 = 2112;
-    v31 = v7;
-    v32 = 1024;
-    v33 = v8;
+    v26 = cachesCopy;
+    v27 = 2112;
+    v28 = v6;
+    v29 = 2112;
+    v30 = v7;
+    v31 = 1024;
+    v32 = v8;
     _os_log_impl(&dword_261754000, v9, OS_LOG_TYPE_INFO, "Invalidate server caches:%@ -> new: %@, _localeCache: %@ [same: %d]", buf, 0x26u);
   }
 
@@ -431,12 +430,12 @@ void __50__RTTController__handlePreferredRelayNumberUpdate__block_invoke(uint64_
     delegate = [(RTTController *)self delegate];
     v12 = MEMORY[0x277D12B68];
     v13 = MEMORY[0x277D12B60];
-    v23 = cachesCopy;
-    v24 = @"axtty_server_settings_upate_action";
-    v22 = @"preferenceKey";
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
-    v25 = v14;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+    v22 = cachesCopy;
+    v23 = @"axtty_server_settings_upate_action";
+    v21 = @"preferenceKey";
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+    v24 = v14;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
     v16 = [v13 messagePayloadFromDictionary:v15 andIdentifier:0x40000000000];
     v17 = [v12 messageWithPayload:v16];
     [delegate sendUpdateMessage:v17 forIdentifier:0x40000000000];
@@ -450,7 +449,6 @@ void __50__RTTController__handlePreferredRelayNumberUpdate__block_invoke(uint64_
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v10 ^ 1;
 }
 
@@ -477,22 +475,20 @@ void __50__RTTController__handlePreferredRelayNumberUpdate__block_invoke(uint64_
 
 void __32__RTTController_callDidConnect___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = AXLogRTT();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v5 = 138477827;
-    v6 = v3;
-    _os_log_impl(&dword_261754000, v2, OS_LOG_TYPE_INFO, "Call connected notification: %{private}@", &v5, 0xCu);
+    v4 = 138477827;
+    v5 = v3;
+    _os_log_impl(&dword_261754000, v2, OS_LOG_TYPE_INFO, "Call connected notification: %{private}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __32__RTTController_callDidConnect___block_invoke_57(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) object];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
@@ -500,8 +496,8 @@ void __32__RTTController_callDidConnect___block_invoke_57(uint64_t a1)
   if (isKindOfClass)
   {
     v4 = [*(a1 + 32) object];
-    v9[0] = v4;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v8[0] = v4;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   }
 
   else
@@ -512,13 +508,12 @@ void __32__RTTController_callDidConnect___block_invoke_57(uint64_t a1)
   v6 = AXLogRTT();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v8[0] = 67109120;
-    v8[1] = [v5 count];
-    _os_log_impl(&dword_261754000, v6, OS_LOG_TYPE_INFO, "Processing %i calls from connect notification", v8, 8u);
+    v7[0] = 67109120;
+    v7[1] = [v5 count];
+    _os_log_impl(&dword_261754000, v6, OS_LOG_TYPE_INFO, "Processing %i calls from connect notification", v7, 8u);
   }
 
   [*(a1 + 40) _refreshCurrentCallListWithExistingCalls:v5];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_refreshCurrentCallList
@@ -547,16 +542,16 @@ void __32__RTTController_callDidConnect___block_invoke_57(uint64_t a1)
 
 void __58__RTTController__refreshCurrentCallListWithExistingCalls___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = +[RTTTelephonyUtilities sharedCallCenter];
   v3 = [v2 currentCalls];
 
   v4 = AXLogRTT();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v11 = 138412290;
-    v12 = v3;
-    _os_log_impl(&dword_261754000, v4, OS_LOG_TYPE_INFO, "Refresh call list: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v3;
+    _os_log_impl(&dword_261754000, v4, OS_LOG_TYPE_INFO, "Refresh call list: %@", &v10, 0xCu);
   }
 
   if (![v3 count])
@@ -565,9 +560,9 @@ void __58__RTTController__refreshCurrentCallListWithExistingCalls___block_invoke
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = *(a1 + 32);
-      v11 = 138412290;
-      v12 = v6;
-      _os_log_impl(&dword_261754000, v5, OS_LOG_TYPE_INFO, "No current calls for some reason, using what notification told us: %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v6;
+      _os_log_impl(&dword_261754000, v5, OS_LOG_TYPE_INFO, "No current calls for some reason, using what notification told us: %@", &v10, 0xCu);
     }
 
     v7 = *(a1 + 32);
@@ -579,44 +574,40 @@ void __58__RTTController__refreshCurrentCallListWithExistingCalls___block_invoke
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = [*(a1 + 40) rttCalls];
-    v11 = 138412290;
-    v12 = v9;
-    _os_log_impl(&dword_261754000, v8, OS_LOG_TYPE_INFO, "RTT calls after update: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v9;
+    _os_log_impl(&dword_261754000, v8, OS_LOG_TYPE_INFO, "RTT calls after update: %@", &v10, 0xCu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleUpdatedCalls:(id)calls
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   callsCopy = calls;
   v5 = AXLogRTT();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    v12 = [callsCopy count];
+    v11 = [callsCopy count];
     _os_log_impl(&dword_261754000, v5, OS_LOG_TYPE_INFO, "Found calls %lu", buf, 0xCu);
   }
 
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __36__RTTController_handleUpdatedCalls___block_invoke;
-  v10[3] = &unk_279AE7788;
-  v10[4] = self;
-  [callsCopy enumerateObjectsUsingBlock:v10];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __36__RTTController_handleUpdatedCalls___block_invoke;
+  v9[3] = &unk_279AE7788;
+  v9[4] = self;
+  [callsCopy enumerateObjectsUsingBlock:v9];
   rttCalls = [(RTTController *)self rttCalls];
   v7 = [rttCalls indexesOfObjectsPassingTest:&__block_literal_global_66];
 
   rttCalls2 = [(RTTController *)self rttCalls];
   [rttCalls2 removeObjectsAtIndexes:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __36__RTTController_handleUpdatedCalls___block_invoke(uint64_t a1, void *a2)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (([v3 status] == 4 || objc_msgSend(v3, "status") == 1) && objc_msgSend(v3, "ttyType") && (+[RTTTelephonyUtilities sharedUtilityProvider](RTTTelephonyUtilities, "sharedUtilityProvider"), v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "currentPreferredTransportMethod"), v4, v5 != 1))
   {
@@ -631,11 +622,11 @@ void __36__RTTController_handleUpdatedCalls___block_invoke(uint64_t a1, void *a2
         v23 = AXLogRTT();
         if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
         {
-          *v40 = 138412546;
-          *&v40[4] = v13;
-          *&v40[12] = 2112;
-          v41 = v3;
-          _os_log_impl(&dword_261754000, v23, OS_LOG_TYPE_INFO, "Stuttering call %@ - %@", v40, 0x16u);
+          *v39 = 138412546;
+          *&v39[4] = v13;
+          *&v39[12] = 2112;
+          v40 = v3;
+          _os_log_impl(&dword_261754000, v23, OS_LOG_TYPE_INFO, "Stuttering call %@ - %@", v39, 0x16u);
         }
 
         [v13 stop];
@@ -657,9 +648,9 @@ void __36__RTTController_handleUpdatedCalls___block_invoke(uint64_t a1, void *a2
         if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
         {
           v22 = [*(a1 + 32) rttCalls];
-          *v40 = 138412290;
-          *&v40[4] = v22;
-          _os_log_impl(&dword_261754000, v21, OS_LOG_TYPE_INFO, "Updated software TTY Calls %@", v40, 0xCu);
+          *v39 = 138412290;
+          *&v39[4] = v22;
+          _os_log_impl(&dword_261754000, v21, OS_LOG_TYPE_INFO, "Updated software TTY Calls %@", v39, 0xCu);
         }
 
         v13 = v19;
@@ -668,59 +659,59 @@ void __36__RTTController_handleUpdatedCalls___block_invoke(uint64_t a1, void *a2
 
     else
     {
-      v28 = [v3 isEndpointOnCurrentDevice];
-      v29 = [v3 isHostedOnCurrentDevice];
-      v30 = AXLogRTT();
-      v31 = os_log_type_enabled(v30, OS_LOG_TYPE_INFO);
-      if (v28 == v29)
+      v27 = [v3 isEndpointOnCurrentDevice];
+      v28 = [v3 isHostedOnCurrentDevice];
+      v29 = AXLogRTT();
+      v30 = os_log_type_enabled(v29, OS_LOG_TYPE_INFO);
+      if (v27 == v28)
       {
-        if (v31)
+        if (v30)
         {
-          *v40 = 0;
-          _os_log_impl(&dword_261754000, v30, OS_LOG_TYPE_INFO, "Creating TTY call as local", v40, 2u);
+          *v39 = 0;
+          _os_log_impl(&dword_261754000, v29, OS_LOG_TYPE_INFO, "Creating TTY call as local", v39, 2u);
         }
 
-        v32 = off_279AE7328;
+        v31 = off_279AE7328;
       }
 
       else
       {
-        if (v31)
+        if (v30)
         {
-          *v40 = 0;
-          _os_log_impl(&dword_261754000, v30, OS_LOG_TYPE_INFO, "Creating TTY call as remote", v40, 2u);
+          *v39 = 0;
+          _os_log_impl(&dword_261754000, v29, OS_LOG_TYPE_INFO, "Creating TTY call as remote", v39, 2u);
         }
 
-        v32 = off_279AE7358;
+        v31 = off_279AE7358;
       }
 
-      v13 = [objc_alloc(*v32) initWithCall:v3];
+      v13 = [objc_alloc(*v31) initWithCall:v3];
       [v13 setDelegate:*(a1 + 32)];
-      v33 = [*(a1 + 32) rttCalls];
-      [v33 addObject:v13];
+      v32 = [*(a1 + 32) rttCalls];
+      [v32 addObject:v13];
 
-      v34 = AXLogRTT();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+      v33 = AXLogRTT();
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
       {
-        v35 = [*(a1 + 32) rttCalls];
-        *v40 = 138412290;
-        *&v40[4] = v35;
-        _os_log_impl(&dword_261754000, v34, OS_LOG_TYPE_INFO, "Software TTY Calls %@", v40, 0xCu);
+        v34 = [*(a1 + 32) rttCalls];
+        *v39 = 138412290;
+        *&v39[4] = v34;
+        _os_log_impl(&dword_261754000, v33, OS_LOG_TYPE_INFO, "Software TTY Calls %@", v39, 0xCu);
       }
     }
 
     [v13 start];
-    v36 = [*(a1 + 32) transcriber];
-    v37 = [v3 callUUID];
-    [v36 startTranscribingForCallUUID:v37];
+    v35 = [*(a1 + 32) transcriber];
+    v36 = [v3 callUUID];
+    [v35 startTranscribingForCallUUID:v36];
 
     v25 = +[RTTSettings sharedInstance];
     if (([v25 TTYSoftwareEnabled] & 1) == 0 && objc_msgSend(v3, "supportsTTYWithVoice") && objc_msgSend(v3, "isIncoming"))
     {
-      v38 = +[RTTSettings sharedInstance];
-      v39 = [v38 hasReceivedRTTCall];
+      v37 = +[RTTSettings sharedInstance];
+      v38 = [v37 hasReceivedRTTCall];
 
-      if (v39)
+      if (v38)
       {
         goto LABEL_26;
       }
@@ -739,15 +730,15 @@ void __36__RTTController_handleUpdatedCalls___block_invoke(uint64_t a1, void *a2
       v7 = [v3 status] == 1;
       v8 = [v3 ttyType] != 0;
       v9 = +[RTTTelephonyUtilities sharedUtilityProvider];
-      *v40 = 67109890;
-      *&v40[4] = v7;
-      *&v40[8] = 1024;
-      *&v40[10] = v8;
-      LOWORD(v41) = 1024;
-      *(&v41 + 2) = [v9 currentPreferredTransportMethod] != 1;
-      HIWORD(v41) = 2112;
-      v42 = v3;
-      _os_log_impl(&dword_261754000, v6, OS_LOG_TYPE_INFO, "Skipping call: active: %d, tty: %d, no hw: %d - %@", v40, 0x1Eu);
+      *v39 = 67109890;
+      *&v39[4] = v7;
+      *&v39[8] = 1024;
+      *&v39[10] = v8;
+      LOWORD(v40) = 1024;
+      *(&v40 + 2) = [v9 currentPreferredTransportMethod] != 1;
+      HIWORD(v40) = 2112;
+      v41 = v3;
+      _os_log_impl(&dword_261754000, v6, OS_LOG_TYPE_INFO, "Skipping call: active: %d, tty: %d, no hw: %d - %@", v39, 0x1Eu);
     }
 
     v10 = *(a1 + 32);
@@ -760,9 +751,9 @@ void __36__RTTController_handleUpdatedCalls___block_invoke(uint64_t a1, void *a2
       v24 = AXLogRTT();
       if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
       {
-        *v40 = 138412290;
-        *&v40[4] = v3;
-        _os_log_impl(&dword_261754000, v24, OS_LOG_TYPE_INFO, "Call downgraded %@", v40, 0xCu);
+        *v39 = 138412290;
+        *&v39[4] = v3;
+        _os_log_impl(&dword_261754000, v24, OS_LOG_TYPE_INFO, "Call downgraded %@", v39, 0xCu);
       }
 
       [v13 stop];
@@ -784,7 +775,6 @@ void __36__RTTController_handleUpdatedCalls___block_invoke(uint64_t a1, void *a2
   }
 
 LABEL_26:
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __36__RTTController_handleUpdatedCalls___block_invoke_63(uint64_t a1, void *a2)
@@ -797,7 +787,7 @@ BOOL __36__RTTController_handleUpdatedCalls___block_invoke_63(uint64_t a1, void 
 
 - (id)_callForUUIDWithoutRefresh:(id)refresh
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   refreshCopy = refresh;
   rttCalls = [(RTTController *)self rttCalls];
   v6 = AXLogRTT();
@@ -813,21 +803,20 @@ BOOL __36__RTTController_handleUpdatedCalls___block_invoke_63(uint64_t a1, void 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v15 = __Block_byref_object_copy_;
-  v16 = __Block_byref_object_dispose_;
-  v17 = 0;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __44__RTTController__callForUUIDWithoutRefresh___block_invoke;
-  v11[3] = &unk_279AE77D0;
+  v14 = __Block_byref_object_copy_;
+  v15 = __Block_byref_object_dispose_;
+  v16 = 0;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __44__RTTController__callForUUIDWithoutRefresh___block_invoke;
+  v10[3] = &unk_279AE77D0;
   v7 = refreshCopy;
-  v12 = v7;
-  v13 = buf;
-  [rttCalls enumerateObjectsUsingBlock:v11];
+  v11 = v7;
+  v12 = buf;
+  [rttCalls enumerateObjectsUsingBlock:v10];
   v8 = *(*&buf[8] + 40);
 
   _Block_object_dispose(buf, 8);
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -848,17 +837,17 @@ void __44__RTTController__callForUUIDWithoutRefresh___block_invoke(uint64_t a1, 
 
 - (id)callForUUID:(id)d
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = [(RTTController *)self _callForUUIDWithoutRefresh:dCopy];
   v6 = AXLogRTT();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v10 = 138412546;
-    v11 = dCopy;
-    v12 = 2112;
-    v13 = v5;
-    _os_log_impl(&dword_261754000, v6, OS_LOG_TYPE_INFO, "Asking for RTT call: %@ and found: %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = dCopy;
+    v11 = 2112;
+    v12 = v5;
+    _os_log_impl(&dword_261754000, v6, OS_LOG_TYPE_INFO, "Asking for RTT call: %@ and found: %@", &v9, 0x16u);
   }
 
   if (!v5)
@@ -868,15 +857,13 @@ void __44__RTTController__callForUUIDWithoutRefresh___block_invoke(uint64_t a1, 
     v7 = AXLogRTT();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v10 = 138412546;
-      v11 = dCopy;
-      v12 = 2112;
-      v13 = v5;
-      _os_log_impl(&dword_261754000, v7, OS_LOG_TYPE_INFO, "Refreshed call list and asking again for RTT call: %@ and found: %@", &v10, 0x16u);
+      v9 = 138412546;
+      v10 = dCopy;
+      v11 = 2112;
+      v12 = v5;
+      _os_log_impl(&dword_261754000, v7, OS_LOG_TYPE_INFO, "Refreshed call list and asking again for RTT call: %@ and found: %@", &v9, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -890,56 +877,52 @@ void __44__RTTController__callForUUIDWithoutRefresh___block_invoke(uint64_t a1, 
 
 - (void)displayRTTFirstUseAlert
 {
-  v12[5] = *MEMORY[0x277D85DE8];
+  v11[5] = *MEMORY[0x277D85DE8];
   actionClient = [(RTTController *)self actionClient];
-  v11[0] = @"shouldShow";
-  v11[1] = @"style";
-  v12[0] = MEMORY[0x277CBEC38];
-  v12[1] = &unk_2873FFD70;
-  v11[2] = @"options";
+  v10[0] = @"shouldShow";
+  v10[1] = @"style";
+  v11[0] = MEMORY[0x277CBEC38];
+  v11[1] = &unk_2873FFD70;
+  v10[2] = @"options";
   v3 = ttyLocString(@"RTTOk");
-  v10 = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
-  v12[2] = v4;
-  v11[3] = @"title";
+  v9 = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
+  v11[2] = v4;
+  v10[3] = @"title";
   v5 = ttyLocString(@"RTTFirstUseAlertTitle");
-  v12[3] = v5;
-  v11[4] = @"message";
+  v11[3] = v5;
+  v10[4] = @"message";
   v6 = ttyLocString(@"RTTFirstUseAlertMessage");
-  v12[4] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:5];
+  v11[4] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:5];
 
   backgroundAccessQueue = [MEMORY[0x277CE6948] backgroundAccessQueue];
   [actionClient sendAsynchronousMessage:v7 withIdentifier:1 targetAccessQueue:backgroundAccessQueue completion:&__block_literal_global_99];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)displayRTTDowngradeAlert
 {
-  v12[5] = *MEMORY[0x277D85DE8];
+  v11[5] = *MEMORY[0x277D85DE8];
   actionClient = [(RTTController *)self actionClient];
-  v11[0] = @"shouldShow";
-  v11[1] = @"style";
-  v12[0] = MEMORY[0x277CBEC38];
-  v12[1] = &unk_2873FFD70;
-  v11[2] = @"options";
+  v10[0] = @"shouldShow";
+  v10[1] = @"style";
+  v11[0] = MEMORY[0x277CBEC38];
+  v11[1] = &unk_2873FFD70;
+  v10[2] = @"options";
   v3 = ttyLocString(@"RTTOk");
-  v10 = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
-  v12[2] = v4;
-  v11[3] = @"title";
+  v9 = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
+  v11[2] = v4;
+  v10[3] = @"title";
   v5 = ttyLocString(@"RTTDowngradeAlertTitle");
-  v12[3] = v5;
-  v11[4] = @"message";
+  v11[3] = v5;
+  v10[4] = @"message";
   v6 = ttyLocString(@"RTTDowngradeAlertMessage");
-  v12[4] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:5];
+  v11[4] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:5];
 
   backgroundAccessQueue = [MEMORY[0x277CE6948] backgroundAccessQueue];
   [actionClient sendAsynchronousMessage:v7 withIdentifier:1 targetAccessQueue:backgroundAccessQueue completion:&__block_literal_global_107];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -952,32 +935,32 @@ void __44__RTTController__callForUUIDWithoutRefresh___block_invoke(uint64_t a1, 
 
 - (void)clientRemoved:(id)removed
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   rttCalls = [(RTTController *)self rttCalls];
-  v4 = [rttCalls countByEnumeratingWithState:&v11 objects:v17 count:16];
+  v4 = [rttCalls countByEnumeratingWithState:&v10 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(rttCalls);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
+        v8 = *(*(&v10 + 1) + 8 * i);
         v9 = AXLogRTT();
         if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v16 = v8;
+          v15 = v8;
           _os_log_impl(&dword_261754000, v9, OS_LOG_TYPE_INFO, "Client removed, marked view controller visible no: %@", buf, 0xCu);
         }
 
@@ -987,13 +970,11 @@ void __44__RTTController__callForUUIDWithoutRefresh___block_invoke(uint64_t a1, 
         }
       }
 
-      v5 = [rttCalls countByEnumeratingWithState:&v11 objects:v17 count:16];
+      v5 = [rttCalls countByEnumeratingWithState:&v10 objects:v16 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)actionClient
@@ -1034,7 +1015,7 @@ void __44__RTTController__callForUUIDWithoutRefresh___block_invoke(uint64_t a1, 
 
 - (id)userInterfaceClient:(id)client processMessageFromServer:(id)server withIdentifier:(unint64_t)identifier error:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   serverCopy = server;
   v11 = serverCopy;
@@ -1049,11 +1030,11 @@ void __44__RTTController__callForUUIDWithoutRefresh___block_invoke(uint64_t a1, 
     v12 = AXLogRTT();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v23 = 138412546;
-      v24 = v11;
-      v25 = 2112;
-      v26 = clientCopy;
-      _os_log_impl(&dword_261754000, v12, OS_LOG_TYPE_INFO, "Got action sheet reply: %@ from: %@", &v23, 0x16u);
+      v22 = 138412546;
+      v23 = v11;
+      v24 = 2112;
+      v25 = clientCopy;
+      _os_log_impl(&dword_261754000, v12, OS_LOG_TYPE_INFO, "Got action sheet reply: %@ from: %@", &v22, 0x16u);
     }
 
     v13 = [v11 valueForKey:@"result"];
@@ -1078,11 +1059,11 @@ void __44__RTTController__callForUUIDWithoutRefresh___block_invoke(uint64_t a1, 
         if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
           v18 = _Block_copy(self->_actionCompletionBlock);
-          v23 = 138412546;
-          v24 = v18;
-          v25 = 1024;
-          LODWORD(v26) = v16;
-          _os_log_impl(&dword_261754000, v17, OS_LOG_TYPE_INFO, "Sending to action completion: %@ for calltype: %d", &v23, 0x12u);
+          v22 = 138412546;
+          v23 = v18;
+          v24 = 1024;
+          LODWORD(v25) = v16;
+          _os_log_impl(&dword_261754000, v17, OS_LOG_TYPE_INFO, "Sending to action completion: %@ for calltype: %d", &v22, 0x12u);
         }
 
         actionCompletionBlock2 = [(RTTController *)self actionCompletionBlock];
@@ -1093,13 +1074,12 @@ void __44__RTTController__callForUUIDWithoutRefresh___block_invoke(uint64_t a1, 
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (id)handleRTTControllerIsVisible:(id)visible
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   visibleCopy = visible;
   v4 = objc_autoreleasePoolPush();
   payload = [visibleCopy payload];
@@ -1116,15 +1096,14 @@ void __44__RTTController__callForUUIDWithoutRefresh___block_invoke(uint64_t a1, 
   v12 = AXLogRTT();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    v15[0] = 67109378;
-    v15[1] = bOOLValue;
-    v16 = 2112;
-    v17 = v11;
-    _os_log_impl(&dword_261754000, v12, OS_LOG_TYPE_INFO, "Marking RTT view controller visible[%d] for call: %@", v15, 0x12u);
+    v14[0] = 67109378;
+    v14[1] = bOOLValue;
+    v15 = 2112;
+    v16 = v11;
+    _os_log_impl(&dword_261754000, v12, OS_LOG_TYPE_INFO, "Marking RTT view controller visible[%d] for call: %@", v14, 0x12u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v13 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -1144,7 +1123,7 @@ void __44__RTTController__callForUUIDWithoutRefresh___block_invoke(uint64_t a1, 
 
 void __35__RTTController_handleMediaAction___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = a2;
   objc_opt_class();
@@ -1172,22 +1151,20 @@ void __35__RTTController_handleMediaAction___block_invoke(uint64_t a1, void *a2,
     v13 = AXLogRTT();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v15[0] = 67109378;
-      v15[1] = v12;
-      v16 = 2112;
-      v17 = v10;
-      _os_log_impl(&dword_261754000, v13, OS_LOG_TYPE_INFO, "Got request to toggle mute: %d %@", v15, 0x12u);
+      v14[0] = 67109378;
+      v14[1] = v12;
+      v15 = 2112;
+      v16 = v10;
+      _os_log_impl(&dword_261754000, v13, OS_LOG_TYPE_INFO, "Got request to toggle mute: %d %@", v14, 0x12u);
     }
 
     [v10 toggleSystemOutputMute:v12];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)handleDatabaseRequest:(id)request
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v5 = AXLogRTT();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
@@ -1199,39 +1176,38 @@ void __35__RTTController_handleMediaAction___block_invoke(uint64_t a1, void *a2,
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy_;
-  v19 = __Block_byref_object_dispose_;
-  v20 = 0;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy_;
+  v18 = __Block_byref_object_dispose_;
+  v19 = 0;
   v6 = objc_autoreleasePoolPush();
   payload = [requestCopy payload];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __39__RTTController_handleDatabaseRequest___block_invoke;
-  v13[3] = &unk_279AE7858;
-  v13[4] = self;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __39__RTTController_handleDatabaseRequest___block_invoke;
+  v12[3] = &unk_279AE7858;
+  v12[4] = self;
   p_buf = &buf;
   v8 = requestCopy;
-  v14 = v8;
-  [payload enumerateKeysAndObjectsUsingBlock:v13];
+  v13 = v8;
+  [payload enumerateKeysAndObjectsUsingBlock:v12];
 
   objc_autoreleasePoolPop(v6);
   v9 = [MEMORY[0x277D12B60] messagePayloadFromDictionary:*(*(&buf + 1) + 40) andIdentifier:0x800000000];
   v10 = [v8 replyMessageWithPayload:v9];
 
   _Block_object_dispose(&buf, 8);
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 void __39__RTTController_handleDatabaseRequest___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v137 = *MEMORY[0x277D85DE8];
+  v136 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   objc_opt_class();
-  v103 = v6;
+  v102 = v6;
   if (objc_opt_isKindOfClass())
   {
     v7 = v6;
@@ -1253,9 +1229,9 @@ void __39__RTTController_handleDatabaseRequest___block_invoke(uint64_t a1, void 
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v134 = v12;
-      v135 = 2112;
-      v136 = v11;
+      v133 = v12;
+      v134 = 2112;
+      v135 = v11;
       _os_log_impl(&dword_261754000, v13, OS_LOG_TYPE_INFO, "Found conversation %@ from call: %@", buf, 0x16u);
     }
 
@@ -1271,7 +1247,7 @@ void __39__RTTController_handleDatabaseRequest___block_invoke(uint64_t a1, void 
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v134 = v12;
+      v133 = v12;
       _os_log_impl(&dword_261754000, v15, OS_LOG_TYPE_INFO, "Using saved conversation: %@", buf, 0xCu);
     }
 
@@ -1282,12 +1258,12 @@ LABEL_11:
       [v16 encodeObject:v12 forKey:*MEMORY[0x277CCA308]];
       [v16 finishEncoding];
       v17 = [v16 encodedData];
-      v131 = v10;
-      v129 = @"axtty_conversation";
-      v130 = v17;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v130 forKeys:&v129 count:1];
-      v132 = v18;
-      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v132 forKeys:&v131 count:1];
+      v130 = v10;
+      v128 = @"axtty_conversation";
+      v129 = v17;
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v129 forKeys:&v128 count:1];
+      v131 = v18;
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v131 forKeys:&v130 count:1];
       v20 = *(*(a1 + 48) + 8);
       v21 = *(v20 + 40);
       *(v20 + 40) = v19;
@@ -1295,16 +1271,16 @@ LABEL_11:
 
     else
     {
-      v127 = v10;
-      v125 = @"axtty_conversation";
+      v126 = v10;
+      v124 = @"axtty_conversation";
       v12 = [MEMORY[0x277CBEB68] null];
-      v126 = v12;
-      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v126 forKeys:&v125 count:1];
-      v128 = v17;
-      v59 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v128 forKeys:&v127 count:1];
-      v60 = *(*(a1 + 48) + 8);
-      v16 = *(v60 + 40);
-      *(v60 + 40) = v59;
+      v125 = v12;
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v125 forKeys:&v124 count:1];
+      v127 = v17;
+      v58 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v127 forKeys:&v126 count:1];
+      v59 = *(*(a1 + 48) + 8);
+      v16 = *(v59 + 40);
+      *(v59 + 40) = v58;
     }
 
     goto LABEL_22;
@@ -1313,11 +1289,11 @@ LABEL_11:
   if ([v5 isEqualToString:@"axtty_write_action"])
   {
     v22 = objc_alloc(MEMORY[0x277CCAAC8]);
-    v101 = v7;
+    v100 = v7;
     v23 = [v7 objectForKey:@"axtty_conversation"];
-    v104 = 0;
-    v24 = [v22 initForReadingFromData:v23 error:&v104];
-    v25 = v104;
+    v103 = 0;
+    v24 = [v22 initForReadingFromData:v23 error:&v103];
+    v25 = v103;
 
     if (v25)
     {
@@ -1336,7 +1312,7 @@ LABEL_11:
       if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v134 = v46;
+        v133 = v46;
         _os_log_impl(&dword_261754000, v47, OS_LOG_TYPE_INFO, "Server save conversation: %@", buf, 0xCu);
       }
 
@@ -1349,20 +1325,20 @@ LABEL_11:
         v51 = +[RTTDatabaseManager sharedManager];
         v52 = [v51 saveConversation:v46];
 
-        v123 = v50;
-        v121 = @"axtty_result";
+        v122 = v50;
+        v120 = @"axtty_result";
         v53 = [MEMORY[0x277CCABB0] numberWithBool:v52];
-        v122 = v53;
-        v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v122 forKeys:&v121 count:1];
-        v124 = v54;
-        v55 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v124 forKeys:&v123 count:1];
+        v121 = v53;
+        v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v121 forKeys:&v120 count:1];
+        v123 = v54;
+        v55 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v123 forKeys:&v122 count:1];
         v56 = *(*(a1 + 48) + 8);
         v57 = *(v56 + 40);
         *(v56 + 40) = v55;
       }
     }
 
-    v7 = v101;
+    v7 = v100;
     goto LABEL_29;
   }
 
@@ -1374,13 +1350,13 @@ LABEL_11:
     v29 = +[RTTDatabaseManager sharedManager];
     v30 = [v29 deleteConversationWithCallUID:v27];
 
-    v119 = v28;
-    v117 = @"axtty_result";
+    v118 = v28;
+    v116 = @"axtty_result";
     v31 = [MEMORY[0x277CCABB0] numberWithBool:v30];
-    v118 = v31;
-    v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v118 forKeys:&v117 count:1];
-    v120 = v32;
-    v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v120 forKeys:&v119 count:1];
+    v117 = v31;
+    v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v117 forKeys:&v116 count:1];
+    v119 = v32;
+    v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v119 forKeys:&v118 count:1];
     v34 = *(*(a1 + 48) + 8);
     v35 = *(v34 + 40);
     *(v34 + 40) = v33;
@@ -1398,13 +1374,13 @@ LABEL_22:
     v38 = +[RTTDatabaseManager sharedManager];
     v39 = [v38 contactIDIsTTYContact:v36];
 
-    v115 = v37;
-    v113 = @"axtty_result";
+    v114 = v37;
+    v112 = @"axtty_result";
     v40 = [MEMORY[0x277CCABB0] numberWithBool:v39];
-    v114 = v40;
-    v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v114 forKeys:&v113 count:1];
-    v116 = v41;
-    v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v116 forKeys:&v115 count:1];
+    v113 = v40;
+    v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v113 forKeys:&v112 count:1];
+    v115 = v41;
+    v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v115 forKeys:&v114 count:1];
     v43 = *(*(a1 + 48) + 8);
     v44 = *(v43 + 40);
     *(v43 + 40) = v42;
@@ -1414,23 +1390,23 @@ LABEL_22:
 
   if ([v5 isEqualToString:@"axtty_contact_path_search_action"])
   {
-    v61 = v7;
-    v62 = [v7 objectForKey:@"axtty_value"];
-    v63 = [v7 objectForKey:@"axtty_contactID"];
-    v64 = [v62 indexOfObjectPassingTest:&__block_literal_global_141];
-    v65 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_%@", v5, v63];
-    v111 = v65;
-    v109 = @"axtty_result";
-    v66 = [MEMORY[0x277CCABB0] numberWithInt:v64 != 0x7FFFFFFFFFFFFFFFLL];
-    v110 = v66;
-    v67 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v110 forKeys:&v109 count:1];
-    v112 = v67;
-    v68 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v112 forKeys:&v111 count:1];
-    v69 = *(*(a1 + 48) + 8);
-    v70 = *(v69 + 40);
-    *(v69 + 40) = v68;
+    v60 = v7;
+    v61 = [v7 objectForKey:@"axtty_value"];
+    v62 = [v7 objectForKey:@"axtty_contactID"];
+    v63 = [v61 indexOfObjectPassingTest:&__block_literal_global_141];
+    v64 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_%@", v5, v62];
+    v110 = v64;
+    v108 = @"axtty_result";
+    v65 = [MEMORY[0x277CCABB0] numberWithInt:v63 != 0x7FFFFFFFFFFFFFFFLL];
+    v109 = v65;
+    v66 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v109 forKeys:&v108 count:1];
+    v111 = v66;
+    v67 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v111 forKeys:&v110 count:1];
+    v68 = *(*(a1 + 48) + 8);
+    v69 = *(v68 + 40);
+    *(v68 + 40) = v67;
 
-    v7 = v61;
+    v7 = v60;
     goto LABEL_29;
   }
 
@@ -1439,9 +1415,9 @@ LABEL_22:
     if ([v5 isEqualToString:@"axtty_remote_conversation_updates"])
     {
       v8 = v7;
-      v84 = [*(a1 + 40) client];
-      v85 = v84;
-      v86 = 0x10000000000;
+      v83 = [*(a1 + 40) client];
+      v84 = v83;
+      v85 = 0x10000000000;
     }
 
     else
@@ -1454,130 +1430,128 @@ LABEL_22:
         }
 
         v8 = v7;
-        v85 = +[RTTTelephonyUtilities sharedUtilityProvider];
-        [v85 resetCloudSupportStore];
+        v84 = +[RTTTelephonyUtilities sharedUtilityProvider];
+        [v84 resetCloudSupportStore];
         goto LABEL_53;
       }
 
       v8 = v7;
-      v84 = [*(a1 + 40) client];
-      v85 = v84;
-      v86 = 0x20000000000;
+      v83 = [*(a1 + 40) client];
+      v84 = v83;
+      v85 = 0x20000000000;
     }
 
-    [v84 setWantsUpdates:1 forIdentifier:v86];
+    [v83 setWantsUpdates:1 forIdentifier:v85];
 LABEL_53:
 
     goto LABEL_22;
   }
 
-  v71 = v7;
-  v72 = [v7 objectForKey:@"axtty_callID"];
-  v73 = AXLogRTT();
-  if (os_log_type_enabled(v73, OS_LOG_TYPE_INFO))
+  v70 = v7;
+  v71 = [v7 objectForKey:@"axtty_callID"];
+  v72 = AXLogRTT();
+  if (os_log_type_enabled(v72, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v134 = v7;
-    _os_log_impl(&dword_261754000, v73, OS_LOG_TYPE_INFO, "Conversation update string: %@", buf, 0xCu);
+    v133 = v7;
+    _os_log_impl(&dword_261754000, v72, OS_LOG_TYPE_INFO, "Conversation update string: %@", buf, 0xCu);
   }
 
-  v74 = [v7 objectForKey:@"axtty_value"];
-  v75 = v74 == 0;
+  v73 = [v7 objectForKey:@"axtty_value"];
+  v74 = v73 == 0;
 
-  if (v75)
+  if (v74)
   {
-    v76 = [*(a1 + 40) client];
-    [v76 setWantsUpdates:1 forIdentifier:0x800000000];
+    v75 = [*(a1 + 40) client];
+    [v75 setWantsUpdates:1 forIdentifier:0x800000000];
   }
 
   else
   {
-    v76 = [v71 objectForKey:@"axtty_value"];
-    v102 = [*(a1 + 32) callForUUID:v72];
-    v77 = AXLogRTT();
-    if (os_log_type_enabled(v77, OS_LOG_TYPE_INFO))
+    v75 = [v70 objectForKey:@"axtty_value"];
+    v101 = [*(a1 + 32) callForUUID:v71];
+    v76 = AXLogRTT();
+    if (os_log_type_enabled(v76, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v134 = v102;
-      v135 = 2112;
-      v136 = v72;
-      _os_log_impl(&dword_261754000, v77, OS_LOG_TYPE_INFO, "Using call: %@[%@]", buf, 0x16u);
+      v133 = v101;
+      v134 = 2112;
+      v135 = v71;
+      _os_log_impl(&dword_261754000, v76, OS_LOG_TYPE_INFO, "Using call: %@[%@]", buf, 0x16u);
     }
 
-    v78 = [v71 objectForKey:@"axtty_sender_type"];
-    v79 = [v78 intValue];
+    v77 = [v70 objectForKey:@"axtty_sender_type"];
+    v78 = [v77 intValue];
 
-    if (!v79)
+    if (!v78)
     {
-      v80 = AXLogRTT();
-      if (os_log_type_enabled(v80, OS_LOG_TYPE_FAULT))
+      v79 = AXLogRTT();
+      if (os_log_type_enabled(v79, OS_LOG_TYPE_FAULT))
       {
         __39__RTTController_handleDatabaseRequest___block_invoke_cold_1();
       }
     }
 
-    v81 = [v71 objectForKey:@"axtty_message_type"];
-    v82 = [v81 intValue];
+    v80 = [v70 objectForKey:@"axtty_message_type"];
+    v81 = [v80 intValue];
 
-    if (v82 == 1)
+    if (v81 == 1)
     {
-      [v102 sendString:v76];
-      if (v79 == 2)
+      [v101 sendString:v75];
+      if (v78 == 2)
       {
-        v87 = [v102 conversation];
-        v88 = [v87 utterances];
-        v100 = [v88 lastObject];
+        v86 = [v101 conversation];
+        v87 = [v86 utterances];
+        v99 = [v87 lastObject];
 
-        v89 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_%@", @"axtty_remote_conversation_updates", v72];
-        v99 = [*(a1 + 32) delegate];
-        v98 = MEMORY[0x277D12B68];
-        v90 = MEMORY[0x277D12B60];
-        v107 = v89;
-        v105[0] = @"axtty_result";
-        v91 = [v100 text];
-        v92 = v91;
-        v93 = &stru_2873FC590;
-        if (v91)
+        v88 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_%@", @"axtty_remote_conversation_updates", v71];
+        v98 = [*(a1 + 32) delegate];
+        v97 = MEMORY[0x277D12B68];
+        v89 = MEMORY[0x277D12B60];
+        v106 = v88;
+        v104[0] = @"axtty_result";
+        v90 = [v99 text];
+        v91 = v90;
+        v92 = &stru_2873FC590;
+        if (v90)
         {
-          v93 = v91;
+          v92 = v90;
         }
 
-        v106[0] = v93;
-        v106[1] = v76;
-        v105[1] = @"axtty_value";
-        v105[2] = @"axtty_message_type";
-        v106[2] = &unk_2873FFD88;
-        v94 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v106 forKeys:v105 count:3];
-        v108 = v94;
-        v95 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v108 forKeys:&v107 count:1];
-        v96 = [v90 messagePayloadFromDictionary:v95 andIdentifier:0x800000000];
-        v97 = [v98 messageWithPayload:v96];
-        [v99 sendUpdateMessage:v97 forIdentifier:0x800000000];
+        v105[0] = v92;
+        v105[1] = v75;
+        v104[1] = @"axtty_value";
+        v104[2] = @"axtty_message_type";
+        v105[2] = &unk_2873FFD88;
+        v93 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v105 forKeys:v104 count:3];
+        v107 = v93;
+        v94 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v107 forKeys:&v106 count:1];
+        v95 = [v89 messagePayloadFromDictionary:v94 andIdentifier:0x800000000];
+        v96 = [v97 messageWithPayload:v95];
+        [v98 sendUpdateMessage:v96 forIdentifier:0x800000000];
       }
     }
 
-    else if (v82)
+    else if (v81)
     {
-      if ((v82 & 0xFFFFFFFE) == 2 && v79 == 1)
+      if ((v81 & 0xFFFFFFFE) == 2 && v78 == 1)
       {
-        [v102 saveTranscribedTextForConversation:v76 isNew:v82 == 2];
+        [v101 saveTranscribedTextForConversation:v75 isNew:v81 == 2];
       }
     }
 
     else
     {
-      v83 = AXLogRTT();
-      if (os_log_type_enabled(v83, OS_LOG_TYPE_FAULT))
+      v82 = AXLogRTT();
+      if (os_log_type_enabled(v82, OS_LOG_TYPE_FAULT))
       {
         __39__RTTController_handleDatabaseRequest___block_invoke_cold_2();
       }
     }
   }
 
-  v7 = v71;
+  v7 = v70;
 LABEL_29:
-
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __39__RTTController_handleDatabaseRequest___block_invoke_138(uint64_t a1, void *a2)
@@ -1603,7 +1577,7 @@ uint64_t __39__RTTController_handleDatabaseRequest___block_invoke_138(uint64_t a
 
 - (id)handleSettingsRequest:(id)request
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   payload = [requestCopy payload];
   v5 = [payload objectForKey:@"axtty_uuid"];
@@ -1629,30 +1603,28 @@ uint64_t __39__RTTController_handleDatabaseRequest___block_invoke_138(uint64_t a
   if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v27 = v7;
-    v28 = 2112;
-    v29 = null;
+    v26 = v7;
+    v27 = 2112;
+    v28 = null;
     _os_log_impl(&dword_261754000, v14, OS_LOG_TYPE_INFO, "Returning remote request for setting: %@ > %@", buf, 0x16u);
   }
 
   v15 = MEMORY[0x277D12B60];
-  v23 = null;
-  v24 = v5;
-  v22 = @"axtty_result";
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
-  v25 = v16;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+  v22 = null;
+  v23 = v5;
+  v21 = @"axtty_result";
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+  v24 = v16;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
   v18 = [v15 messagePayloadFromDictionary:v17 andIdentifier:0x4000000000];
   v19 = [requestCopy replyMessageWithPayload:v18];
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
 
 - (id)displayCallPrompt:(id)prompt
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   promptCopy = prompt;
   payload = [promptCopy payload];
   v6 = [payload objectForKey:@"shouldShow"];
@@ -1662,19 +1634,19 @@ uint64_t __39__RTTController_handleDatabaseRequest___block_invoke_138(uint64_t a
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v51 = promptCopy;
+    v50 = promptCopy;
     _os_log_impl(&dword_261754000, v8, OS_LOG_TYPE_INFO, "Asking to show call prompt: %@", buf, 0xCu);
   }
 
   if (bOOLValue)
   {
-    v41 = MEMORY[0x277D85DD0];
-    v42 = 3221225472;
-    v43 = __35__RTTController_displayCallPrompt___block_invoke;
-    v44 = &unk_279AE78A0;
+    v40 = MEMORY[0x277D85DD0];
+    v41 = 3221225472;
+    v42 = __35__RTTController_displayCallPrompt___block_invoke;
+    v43 = &unk_279AE78A0;
     v9 = promptCopy;
-    v45 = v9;
-    [(RTTController *)self setActionCompletionBlock:&v41];
+    v44 = v9;
+    [(RTTController *)self setActionCompletionBlock:&v40];
     payload2 = [v9 payload];
     v11 = [payload2 objectForKey:@"title"];
 
@@ -1690,7 +1662,7 @@ uint64_t __39__RTTController_handleDatabaseRequest___block_invoke_138(uint64_t a
 
     v13 = MEMORY[0x277CCACA8];
     v14 = ttyLocString(@"TTYCallTypeVoiceWithDestination");
-    v15 = [v13 stringWithFormat:v14, v12, v41, v42, v43, v44];
+    v15 = [v13 stringWithFormat:v14, v12, v40, v41, v42, v43];
 
     actionClient = [(RTTController *)self actionClient];
     v17 = +[RTTTelephonyUtilities currentSupportedTextingType];
@@ -1712,7 +1684,7 @@ uint64_t __39__RTTController_handleDatabaseRequest___block_invoke_138(uint64_t a
       v20 = v19;
     }
 
-    v49[0] = v15;
+    v48[0] = v15;
     if (v17 == 3)
     {
       v21 = @"TTYCallTypeRTT_TTY";
@@ -1724,10 +1696,10 @@ uint64_t __39__RTTController_handleDatabaseRequest___block_invoke_138(uint64_t a
     }
 
     v22 = ttyLocString(v21);
-    v49[1] = v22;
-    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:2];
+    v48[1] = v22;
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:2];
 
-    v48[0] = &unk_2873FFDA0;
+    v47[0] = &unk_2873FFDA0;
     v24 = MEMORY[0x277CCABB0];
     if (+[RTTTelephonyUtilities shouldUseRTT])
     {
@@ -1740,8 +1712,8 @@ uint64_t __39__RTTController_handleDatabaseRequest___block_invoke_138(uint64_t a
     }
 
     v26 = [v24 numberWithUnsignedInteger:v25];
-    v48[1] = v26;
-    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:2];
+    v47[1] = v26;
+    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:2];
 
     if (+[RTTTelephonyUtilities relayIsSupported])
     {
@@ -1762,25 +1734,25 @@ uint64_t __39__RTTController_handleDatabaseRequest___block_invoke_138(uint64_t a
 
     if (v23)
     {
-      v46[0] = @"shouldShow";
-      v46[1] = @"options";
-      v47[0] = MEMORY[0x277CBEC38];
-      v47[1] = v23;
-      v47[2] = v27;
-      v46[2] = @"optionIndexes";
-      v46[3] = @"cancelMessage";
+      v45[0] = @"shouldShow";
+      v45[1] = @"options";
+      v46[0] = MEMORY[0x277CBEC38];
+      v46[1] = v23;
+      v46[2] = v27;
+      v45[2] = @"optionIndexes";
+      v45[3] = @"cancelMessage";
       v33 = ttyLocString(@"TTYCallTypeCancel");
-      v47[3] = v33;
-      v46[4] = @"style";
+      v46[3] = v33;
+      v45[4] = @"style";
       v34 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(MEMORY[0x277D12B60], "deviceIsPad")}];
-      v47[4] = v34;
-      v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:5];
+      v46[4] = v34;
+      v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:5];
 
       backgroundAccessQueue = [MEMORY[0x277CE6948] backgroundAccessQueue];
       [actionClient sendAsynchronousMessage:v35 withIdentifier:1 targetAccessQueue:backgroundAccessQueue completion:&__block_literal_global_193];
     }
 
-    actionClient2 = v45;
+    actionClient2 = v44;
   }
 
   else
@@ -1790,19 +1762,18 @@ uint64_t __39__RTTController_handleDatabaseRequest___block_invoke_138(uint64_t a
     [actionClient2 sendAsynchronousMessage:&unk_2873FFC80 withIdentifier:1 targetAccessQueue:backgroundAccessQueue2 completion:&__block_literal_global_199];
   }
 
-  v39 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 void __35__RTTController_displayCallPrompt___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = MEMORY[0x277D12B60];
-  v16 = @"result";
+  v15 = @"result";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a2];
-  v17[0] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+  v16[0] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
   v6 = [v3 messagePayloadFromDictionary:v5 andIdentifier:0x1000000000];
   v7 = [v2 replyMessageWithPayload:v6];
 
@@ -1810,17 +1781,15 @@ void __35__RTTController_displayCallPrompt___block_invoke(uint64_t a1, uint64_t 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = [v7 client];
-    v12 = 138412546;
-    v13 = v7;
-    v14 = 2112;
-    v15 = v9;
-    _os_log_impl(&dword_261754000, v8, OS_LOG_TYPE_INFO, "Received reply %@, forwarding back to %@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = v7;
+    v13 = 2112;
+    v14 = v9;
+    _os_log_impl(&dword_261754000, v8, OS_LOG_TYPE_INFO, "Received reply %@, forwarding back to %@", &v11, 0x16u);
   }
 
   v10 = [v7 client];
   [v10 sendMessage:v7 errorBlock:&__block_literal_global_154];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __35__RTTController_displayCallPrompt___block_invoke_151(uint64_t a1, void *a2)
@@ -1852,7 +1821,7 @@ void __35__RTTController_displayCallPrompt___block_invoke_151(uint64_t a1, void 
 
 - (id)handleRTTVoicemailMessage:(id)message
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   if ([MEMORY[0x277D12B60] currentProcessIsHeard])
   {
@@ -1868,9 +1837,9 @@ void __35__RTTController_displayCallPrompt___block_invoke_151(uint64_t a1, void 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v31 = 0;
-      v11 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v10 error:&v31];
-      v12 = v31;
+      v30 = 0;
+      v11 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v10 error:&v30];
+      v12 = v30;
       if (v12)
       {
         v13 = v12;
@@ -1915,57 +1884,57 @@ LABEL_22:
       _os_log_impl(&dword_261754000, v16, OS_LOG_TYPE_INFO, "Received voicemail message url for callID %@", &buf, 0xCu);
     }
 
-    v32 = 0;
-    v33 = &v32;
-    v34 = 0x2050000000;
+    v31 = 0;
+    v32 = &v31;
+    v33 = 0x2050000000;
     v17 = getSFSpeechRecognizerClass_softClass;
-    v35 = getSFSpeechRecognizerClass_softClass;
+    v34 = getSFSpeechRecognizerClass_softClass;
     if (!getSFSpeechRecognizerClass_softClass)
     {
       *&buf = MEMORY[0x277D85DD0];
       *(&buf + 1) = 3221225472;
-      v37 = __getSFSpeechRecognizerClass_block_invoke;
-      v38 = &unk_279AE78F0;
-      v39 = &v32;
+      v36 = __getSFSpeechRecognizerClass_block_invoke;
+      v37 = &unk_279AE78F0;
+      v38 = &v31;
       __getSFSpeechRecognizerClass_block_invoke(&buf);
-      v17 = v33[3];
+      v17 = v32[3];
     }
 
     v18 = v17;
-    _Block_object_dispose(&v32, 8);
+    _Block_object_dispose(&v31, 8);
     v19 = [v17 alloc];
     v20 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:v8];
     v13 = [v19 initWithLocale:v20];
 
     v21 = [(RTTController *)self callForUUID:v6];
-    v32 = 0;
-    v33 = &v32;
-    v34 = 0x2050000000;
+    v31 = 0;
+    v32 = &v31;
+    v33 = 0x2050000000;
     v22 = getSFSpeechURLRecognitionRequestClass_softClass;
-    v35 = getSFSpeechURLRecognitionRequestClass_softClass;
+    v34 = getSFSpeechURLRecognitionRequestClass_softClass;
     if (!getSFSpeechURLRecognitionRequestClass_softClass)
     {
       *&buf = MEMORY[0x277D85DD0];
       *(&buf + 1) = 3221225472;
-      v37 = __getSFSpeechURLRecognitionRequestClass_block_invoke;
-      v38 = &unk_279AE78F0;
-      v39 = &v32;
+      v36 = __getSFSpeechURLRecognitionRequestClass_block_invoke;
+      v37 = &unk_279AE78F0;
+      v38 = &v31;
       __getSFSpeechURLRecognitionRequestClass_block_invoke(&buf);
-      v22 = v33[3];
+      v22 = v32[3];
     }
 
     v23 = v22;
-    _Block_object_dispose(&v32, 8);
+    _Block_object_dispose(&v31, 8);
     v24 = [[v22 alloc] initWithURL:v15];
     [v24 setShouldReportPartialResults:0];
     [v24 setAddsPunctuation:1];
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __43__RTTController_handleRTTVoicemailMessage___block_invoke;
-    v29[3] = &unk_279AE78C8;
-    v30 = v21;
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __43__RTTController_handleRTTVoicemailMessage___block_invoke;
+    v28[3] = &unk_279AE78C8;
+    v29 = v21;
     v25 = v21;
-    v26 = [v13 recognitionTaskWithRequest:v24 resultHandler:v29];
+    v26 = [v13 recognitionTaskWithRequest:v24 resultHandler:v28];
 
     goto LABEL_22;
   }
@@ -1979,13 +1948,12 @@ LABEL_22:
 
 LABEL_23:
 
-  v27 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 void __43__RTTController_handleRTTVoicemailMessage___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -1994,9 +1962,9 @@ void __43__RTTController_handleRTTVoicemailMessage___block_invoke(uint64_t a1, v
     v9 = AXLogRTT();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v13 = 138412290;
-      v14 = v7;
-      _os_log_impl(&dword_261754000, v9, OS_LOG_TYPE_INFO, "Transcription failed with error %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = v7;
+      _os_log_impl(&dword_261754000, v9, OS_LOG_TYPE_INFO, "Transcription failed with error %@", &v12, 0xCu);
     }
 
     goto LABEL_9;
@@ -2012,20 +1980,18 @@ void __43__RTTController_handleRTTVoicemailMessage___block_invoke(uint64_t a1, v
     v11 = AXLogRTT();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v13 = 138412290;
-      v14 = v9;
-      _os_log_impl(&dword_261754000, v11, OS_LOG_TYPE_INFO, "Transcribed voicemail message text: %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = v9;
+      _os_log_impl(&dword_261754000, v11, OS_LOG_TYPE_INFO, "Transcribed voicemail message text: %@", &v12, 0xCu);
     }
 
 LABEL_9:
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)handleRTTMessageInjection:(id)injection
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   injectionCopy = injection;
   payload = [injectionCopy payload];
   v6 = [payload objectForKey:@"axtty_voicemail_message_url"];
@@ -2058,17 +2024,17 @@ LABEL_9:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       v21 = [MEMORY[0x277CCABB0] numberWithBool:bOOLValue];
-      v26 = 138413315;
-      v27 = v9;
-      v28 = 2048;
-      v29 = integerValue;
-      v30 = 2112;
-      v31 = v21;
-      v32 = 2113;
-      v33 = v17;
-      v34 = 2113;
-      v35 = v19;
-      _os_log_impl(&dword_261754000, v20, OS_LOG_TYPE_INFO, "Injecting message for callID %@, messageType: %ld, senderIsMe: %@, messageText: %{private}@, translatedText: %{private}@", &v26, 0x34u);
+      v25 = 138413315;
+      v26 = v9;
+      v27 = 2048;
+      v28 = integerValue;
+      v29 = 2112;
+      v30 = v21;
+      v31 = 2113;
+      v32 = v17;
+      v33 = 2113;
+      v34 = v19;
+      _os_log_impl(&dword_261754000, v20, OS_LOG_TYPE_INFO, "Injecting message for callID %@, messageType: %ld, senderIsMe: %@, messageText: %{private}@, translatedText: %{private}@", &v25, 0x34u);
     }
 
     v22 = [(RTTController *)self callForUUID:v9];
@@ -2086,14 +2052,12 @@ LABEL_9:
     v7 = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)handleRTTTranslationLocaleMessage:(id)message
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   payload = [messageCopy payload];
   v6 = [payload objectForKey:@"axtty_callID"];
@@ -2108,13 +2072,13 @@ LABEL_9:
   v11 = AXLogRTT();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v19 = 138412802;
-    v20 = v6;
-    v21 = 2112;
-    v22 = v8;
-    v23 = 2112;
-    v24 = v10;
-    _os_log_impl(&dword_261754000, v11, OS_LOG_TYPE_INFO, "Updating translation locales for callID %@, local: %@, remote: %@", &v19, 0x20u);
+    v18 = 138412802;
+    v19 = v6;
+    v20 = 2112;
+    v21 = v8;
+    v22 = 2112;
+    v23 = v10;
+    _os_log_impl(&dword_261754000, v11, OS_LOG_TYPE_INFO, "Updating translation locales for callID %@, local: %@, remote: %@", &v18, 0x20u);
   }
 
   v12 = [(RTTController *)self callForUUID:v6];
@@ -2153,13 +2117,12 @@ LABEL_8:
     [transcriber startTranscribingForCallUUID:v6];
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (void)ttyCall:(id)call didReceiveString:(id)string forUtterance:(id)utterance
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   utteranceCopy = utterance;
   v10 = MEMORY[0x277CCACA8];
@@ -2173,11 +2136,11 @@ LABEL_8:
   {
     delegate = [(RTTController *)self delegate];
     *buf = 138412802;
-    v31 = stringCopy;
-    v32 = 2112;
-    v33 = v14;
-    v34 = 2112;
-    v35 = delegate;
+    v30 = stringCopy;
+    v31 = 2112;
+    v32 = v14;
+    v33 = 2112;
+    v34 = delegate;
     _os_log_impl(&dword_261754000, v15, OS_LOG_TYPE_INFO, "Received remote string %@ for utterance: %@, sending to delegate: %@", buf, 0x20u);
   }
 
@@ -2194,24 +2157,22 @@ LABEL_8:
   delegate2 = [(RTTController *)self delegate];
   v19 = MEMORY[0x277D12B68];
   v20 = MEMORY[0x277D12B60];
-  v28 = v13;
-  v26[0] = @"axtty_result";
-  v26[1] = @"axtty_value";
-  v27[0] = v17;
-  v27[1] = stringCopy;
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
-  v29 = v21;
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+  v27 = v13;
+  v25[0] = @"axtty_result";
+  v25[1] = @"axtty_value";
+  v26[0] = v17;
+  v26[1] = stringCopy;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
+  v28 = v21;
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
   v23 = [v20 messagePayloadFromDictionary:v22 andIdentifier:0x800000000];
   v24 = [v19 messageWithPayload:v23];
   [delegate2 sendUpdateMessage:v24 forIdentifier:0x800000000];
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)ttyCall:(id)call didUpdateTranslation:(id)translation forUtterance:(id)utterance
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   translationCopy = translation;
   utteranceCopy = utterance;
   v10 = MEMORY[0x277CCACA8];
@@ -2225,11 +2186,11 @@ LABEL_8:
   {
     delegate = [(RTTController *)self delegate];
     *buf = 138412802;
-    v31 = translationCopy;
-    v32 = 2112;
-    v33 = v14;
-    v34 = 2112;
-    v35 = delegate;
+    v30 = translationCopy;
+    v31 = 2112;
+    v32 = v14;
+    v33 = 2112;
+    v34 = delegate;
     _os_log_impl(&dword_261754000, v15, OS_LOG_TYPE_INFO, "Received updated translation %@ for utterance: %@, sending to delegate: %@", buf, 0x20u);
   }
 
@@ -2246,24 +2207,22 @@ LABEL_8:
   delegate2 = [(RTTController *)self delegate];
   v19 = MEMORY[0x277D12B68];
   v20 = MEMORY[0x277D12B60];
-  v28 = v13;
-  v26[0] = @"axtty_result";
-  v26[1] = @"axtty_translated_message_text";
-  v27[0] = v17;
-  v27[1] = translationCopy;
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
-  v29 = v21;
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+  v27 = v13;
+  v25[0] = @"axtty_result";
+  v25[1] = @"axtty_translated_message_text";
+  v26[0] = v17;
+  v26[1] = translationCopy;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
+  v28 = v21;
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
   v23 = [v20 messagePayloadFromDictionary:v22 andIdentifier:0x800000000];
   v24 = [v19 messageWithPayload:v23];
   [delegate2 sendUpdateMessage:v24 forIdentifier:0x800000000];
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)ttyCall:(id)call didSendRemoteString:(id)string forUtterance:(id)utterance
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   utteranceCopy = utterance;
   v10 = MEMORY[0x277CCACA8];
@@ -2276,9 +2235,9 @@ LABEL_8:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v30 = stringCopy;
-    v31 = 2112;
-    v32 = v14;
+    v29 = stringCopy;
+    v30 = 2112;
+    v31 = v14;
     _os_log_impl(&dword_261754000, v15, OS_LOG_TYPE_INFO, "Sending remote string %@ for utterance: %@", buf, 0x16u);
   }
 
@@ -2295,19 +2254,54 @@ LABEL_8:
   delegate = [(RTTController *)self delegate];
   v18 = MEMORY[0x277D12B68];
   v19 = MEMORY[0x277D12B60];
-  v27 = v13;
-  v25[0] = @"axtty_result";
-  v25[1] = @"axtty_value";
-  v26[0] = v16;
-  v26[1] = stringCopy;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
-  v28 = v20;
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+  v26 = v13;
+  v24[0] = @"axtty_result";
+  v24[1] = @"axtty_value";
+  v25[0] = v16;
+  v25[1] = stringCopy;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
+  v27 = v20;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
   v22 = [v19 messagePayloadFromDictionary:v21 andIdentifier:0x10000000000];
   v23 = [v18 messageWithPayload:v22];
   [delegate sendUpdateMessage:v23 forIdentifier:0x10000000000];
+}
 
-  v24 = *MEMORY[0x277D85DE8];
+- (void)ttyCall:(id)call setVisible:(BOOL)visible serviceUpdate:(id)update
+{
+  visibleCopy = visible;
+  v26[1] = *MEMORY[0x277D85DE8];
+  updateCopy = update;
+  v9 = MEMORY[0x277CCACA8];
+  call = [call call];
+  callUUID = [call callUUID];
+  v12 = [v9 stringWithFormat:@"%@_%@", @"axtty_service_message_updates", callUUID];
+
+  v25 = v12;
+  v23[0] = @"axtty_result";
+  v23[1] = @"axtty_value";
+  v24[0] = updateCopy;
+  v24[1] = MEMORY[0x277CBEC10];
+  v23[2] = @"axtty_set_visible_service_update";
+  v13 = [MEMORY[0x277CCABB0] numberWithBool:visibleCopy];
+  v24[2] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:3];
+  v26[0] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+
+  v16 = AXLogRTT();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+  {
+    *buf = 138412290;
+    v22 = v15;
+    _os_log_impl(&dword_261754000, v16, OS_LOG_TYPE_INFO, "Send service update: %@", buf, 0xCu);
+  }
+
+  delegate = [(RTTController *)self delegate];
+  v18 = MEMORY[0x277D12B68];
+  v19 = [MEMORY[0x277D12B60] messagePayloadFromDictionary:v15 andIdentifier:0x20000000000];
+  v20 = [v18 messageWithPayload:v19];
+  [delegate sendUpdateMessage:v20 forIdentifier:0x20000000000];
 }
 
 - (id)responseFromCallWithID:(id)d forRequest:(id)request options:(id)options
@@ -2330,41 +2324,39 @@ LABEL_8:
 
 - (void)transcriptionDidStart:(id)start forCallUUID:(id)d
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   startCopy = start;
   dCopy = d;
   v8 = AXLogRTT();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = startCopy;
-    _os_log_impl(&dword_261754000, v8, OS_LOG_TYPE_DEFAULT, "New transcription: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = startCopy;
+    _os_log_impl(&dword_261754000, v8, OS_LOG_TYPE_DEFAULT, "New transcription: %@", &v9, 0xCu);
   }
 
   [(RTTController *)self _updateConversationControllerWithTranscription:startCopy type:2 callUUID:dCopy];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transcriptionDidUpdate:(id)update forCallUUID:(id)d
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   dCopy = d;
   v8 = AXLogRTT();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = updateCopy;
-    _os_log_impl(&dword_261754000, v8, OS_LOG_TYPE_DEFAULT, "Updated transcription: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = updateCopy;
+    _os_log_impl(&dword_261754000, v8, OS_LOG_TYPE_DEFAULT, "Updated transcription: %@", &v9, 0xCu);
   }
 
   [(RTTController *)self _updateConversationControllerWithTranscription:updateCopy type:3 callUUID:dCopy];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateConversationControllerWithTranscription:(id)transcription type:(int64_t)type callUUID:(id)d
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   transcriptionCopy = transcription;
   v10 = [(RTTController *)self callForUUID:dCopy];
@@ -2373,57 +2365,55 @@ LABEL_8:
   delegate = [(RTTController *)self delegate];
   v13 = MEMORY[0x277D12B68];
   v14 = MEMORY[0x277D12B60];
-  v23 = dCopy;
-  v21[0] = @"axtty_result";
-  v21[1] = @"axtty_value";
-  v22[0] = transcriptionCopy;
-  v22[1] = transcriptionCopy;
-  v21[2] = @"axtty_message_type";
+  v22 = dCopy;
+  v20[0] = @"axtty_result";
+  v20[1] = @"axtty_value";
+  v21[0] = transcriptionCopy;
+  v21[1] = transcriptionCopy;
+  v20[2] = @"axtty_message_type";
   v15 = [MEMORY[0x277CCABB0] numberWithInteger:type];
-  v22[2] = v15;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:3];
-  v24[0] = v16;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+  v21[2] = v15;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:3];
+  v23[0] = v16;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
   v18 = [v14 messagePayloadFromDictionary:v17 andIdentifier:0x800000000];
   v19 = [v13 messageWithPayload:v18];
   [delegate sendUpdateMessage:v19 forIdentifier:0x800000000];
 
   [v10 saveTranscribedTextForConversation:transcriptionCopy isNew:type == 2];
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateConversationControllerWithTranslatedTranscription:(id)transcription translation:(id)translation type:(int64_t)type callUUID:(id)d
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   translationCopy = translation;
   transcriptionCopy = transcription;
-  v24 = [(RTTController *)self callForUUID:dCopy];
+  v23 = [(RTTController *)self callForUUID:dCopy];
   dCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_%@", @"axtty_remote_conversation_updates", dCopy];
 
   delegate = [(RTTController *)self delegate];
   v15 = MEMORY[0x277D12B68];
   v16 = MEMORY[0x277D12B60];
-  v27 = dCopy;
-  v25[0] = @"axtty_result";
-  v25[1] = @"axtty_value";
-  v26[0] = transcriptionCopy;
-  v26[1] = transcriptionCopy;
-  v26[2] = translationCopy;
-  v25[2] = @"axtty_translated_message_text";
-  v25[3] = @"axtty_message_type";
+  v26 = dCopy;
+  v24[0] = @"axtty_result";
+  v24[1] = @"axtty_value";
+  v25[0] = transcriptionCopy;
+  v25[1] = transcriptionCopy;
+  v25[2] = translationCopy;
+  v24[2] = @"axtty_translated_message_text";
+  v24[3] = @"axtty_message_type";
   typeCopy = type;
   v18 = [MEMORY[0x277CCABB0] numberWithInteger:type];
-  v26[3] = v18;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:4];
-  v28[0] = v19;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+  v25[3] = v18;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:4];
+  v27[0] = v19;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
   v21 = [v16 messagePayloadFromDictionary:v20 andIdentifier:0x800000000];
   v22 = [v15 messageWithPayload:v21];
   [delegate sendUpdateMessage:v22 forIdentifier:0x800000000];
 
-  [v24 saveTranslatedTranscribedTextForConversation:transcriptionCopy translatedText:translationCopy isNew:typeCopy == 7];
-  v23 = *MEMORY[0x277D85DE8];
+  [v23 saveTranslatedTranscribedTextForConversation:transcriptionCopy translatedText:translationCopy isNew:typeCopy == 7];
 }
 
 - (HCHeardControllerProtocol)delegate
@@ -2435,60 +2425,25 @@ LABEL_8:
 
 void __39__RTTController_handleDatabaseRequest___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_fault_impl(&dword_261754000, v0, OS_LOG_TYPE_FAULT, "We need a sender type for update messages: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_261754000, v0, OS_LOG_TYPE_FAULT, "We need a sender type for update messages: %@", v1, 0xCu);
 }
 
 void __39__RTTController_handleDatabaseRequest___block_invoke_cold_2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_fault_impl(&dword_261754000, v0, OS_LOG_TYPE_FAULT, "We need a message type for update messages: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-void __39__RTTController_handleDatabaseRequest___block_invoke_cold_3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_261754000, v0, v1, "Failed to create unarchiver with error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __39__RTTController_handleDatabaseRequest___block_invoke_cold_4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_261754000, v0, v1, "Exception decoding data: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __35__RTTController_displayCallPrompt___block_invoke_151_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_261754000, v0, v1, "Send message error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)handleRTTVoicemailMessage:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_261754000, v0, v1, "Failed to parse voicemail message url from payload for callID %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_261754000, v0, OS_LOG_TYPE_FAULT, "We need a message type for update messages: %@", v1, 0xCu);
 }
 
 - (void)handleRTTVoicemailMessage:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_261754000, v1, OS_LOG_TYPE_ERROR, "Failed to decode voicemail message url for callID %@, error: %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_261754000, v1, OS_LOG_TYPE_ERROR, "Failed to decode voicemail message url for callID %@, error: %@", v2, 0x16u);
 }
 
 @end

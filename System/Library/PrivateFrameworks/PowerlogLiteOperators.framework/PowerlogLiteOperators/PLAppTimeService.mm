@@ -84,47 +84,44 @@ void __44__PLAppTimeService_initOperatorDependancies__block_invoke_264(uint64_t 
 
 void __44__PLAppTimeService_initOperatorDependancies__block_invoke_258(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v4 = *(a1 + 32);
-    v5 = objc_opt_class();
-    v14 = MEMORY[0x277D85DD0];
-    v15 = 3221225472;
-    v16 = __44__PLAppTimeService_initOperatorDependancies__block_invoke_2_259;
-    v17 = &unk_27825A310;
-    v18 = @"AppTimeService";
-    v19 = v5;
+    v4 = objc_opt_class();
+    v12 = MEMORY[0x277D85DD0];
+    v13 = 3221225472;
+    v14 = __44__PLAppTimeService_initOperatorDependancies__block_invoke_2_259;
+    v15 = &unk_27825A310;
+    v16 = @"AppTimeService";
+    v17 = v4;
     if (qword_2811F3E18 != -1)
     {
-      dispatch_once(&qword_2811F3E18, &v14);
+      dispatch_once(&qword_2811F3E18, &v12);
     }
 
-    v6 = byte_2811F3DF9;
+    v5 = byte_2811F3DF9;
 
-    if (v6 == 1)
+    if (v5 == 1)
     {
-      v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"Device Woke Up", v14, v15, v16, v17];
-      v8 = MEMORY[0x277D3F178];
-      v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAppTimeService.m"];
-      v10 = [v9 lastPathComponent];
-      v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAppTimeService initOperatorDependancies]_block_invoke"];
-      [v8 logMessage:v7 fromFile:v10 fromFunction:v11 fromLineNumber:667];
+      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"Device Woke Up", v12, v13, v14, v15];
+      v7 = MEMORY[0x277D3F178];
+      v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAppTimeService.m"];
+      v9 = [v8 lastPathComponent];
+      v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAppTimeService initOperatorDependancies]_block_invoke"];
+      [v7 logMessage:v6 fromFile:v9 fromFunction:v10 fromLineNumber:667];
 
-      v12 = PLLogCommon();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v11 = PLLogCommon();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v21 = v7;
-        _os_log_debug_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v19 = v6;
+        _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
-  [*(a1 + 32) handleWakeCallBack:{v3, v14, v15, v16, v17}];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [*(a1 + 32) handleWakeCallBack:{v3, v12, v13, v14, v15}];
 }
 
 + (void)load
@@ -136,254 +133,246 @@ void __44__PLAppTimeService_initOperatorDependancies__block_invoke_258(uint64_t 
 
 + (id)entryAggregateDefinitions
 {
-  v12[5] = *MEMORY[0x277D85DE8];
-  v11[0] = @"AppRunTime";
+  v11[5] = *MEMORY[0x277D85DE8];
+  v10[0] = @"AppRunTime";
   entryAggregateDefinitionAppRunTime = [self entryAggregateDefinitionAppRunTime];
-  v12[0] = entryAggregateDefinitionAppRunTime;
-  v11[1] = @"UsageTime";
+  v11[0] = entryAggregateDefinitionAppRunTime;
+  v10[1] = @"UsageTime";
   entryAggregateDefinitionUsageTime = [self entryAggregateDefinitionUsageTime];
-  v12[1] = entryAggregateDefinitionUsageTime;
-  v11[2] = @"Metrics";
+  v11[1] = entryAggregateDefinitionUsageTime;
+  v10[2] = @"Metrics";
   entryAggregateDefinitionMetrics = [self entryAggregateDefinitionMetrics];
-  v12[2] = entryAggregateDefinitionMetrics;
-  v11[3] = @"CellularCondition";
+  v11[2] = entryAggregateDefinitionMetrics;
+  v10[3] = @"CellularCondition";
   entryAggregateDefinitionCellularCondition = [self entryAggregateDefinitionCellularCondition];
-  v12[3] = entryAggregateDefinitionCellularCondition;
-  v11[4] = @"AppUsageEvents";
+  v11[3] = entryAggregateDefinitionCellularCondition;
+  v10[4] = @"AppUsageEvents";
   entryAggregateDefinitionAppUsageEvents = [self entryAggregateDefinitionAppUsageEvents];
-  v12[4] = entryAggregateDefinitionAppUsageEvents;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:5];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v11[4] = entryAggregateDefinitionAppUsageEvents;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:5];
 
   return v8;
 }
 
 + (id)entryAggregateDefinitionAppRunTime
 {
-  v59[4] = *MEMORY[0x277D85DE8];
-  v58[0] = *MEMORY[0x277D3F4E8];
+  v58[4] = *MEMORY[0x277D85DE8];
+  v57[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F490];
-  v56[0] = *MEMORY[0x277D3F568];
-  v56[1] = v2;
-  v57[0] = &unk_282C1BB78;
-  v57[1] = MEMORY[0x277CBEC38];
+  v55[0] = *MEMORY[0x277D3F568];
+  v55[1] = v2;
+  v56[0] = &unk_282C1BB78;
+  v56[1] = MEMORY[0x277CBEC38];
   v3 = *MEMORY[0x277D3F590];
-  v56[2] = *MEMORY[0x277D3F4A0];
-  v56[3] = v3;
-  v57[2] = MEMORY[0x277CBEC38];
-  v57[3] = &unk_282C0CFF0;
-  v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:4];
-  v59[0] = v42;
-  v58[1] = *MEMORY[0x277D3F540];
-  v54[0] = @"BundleID";
+  v55[2] = *MEMORY[0x277D3F4A0];
+  v55[3] = v3;
+  v56[2] = MEMORY[0x277CBEC38];
+  v56[3] = &unk_282C0CFF0;
+  v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:4];
+  v58[0] = v41;
+  v57[1] = *MEMORY[0x277D3F540];
+  v53[0] = @"BundleID";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID = [mEMORY[0x277D3F198] commonTypeDict_StringFormat_withBundleID];
-  v55[0] = commonTypeDict_StringFormat_withBundleID;
-  v54[1] = @"ScreenOnTime";
+  v54[0] = commonTypeDict_StringFormat_withBundleID;
+  v53[1] = @"ScreenOnTime";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat = [mEMORY[0x277D3F198]2 commonTypeDict_RealFormat];
-  v55[1] = commonTypeDict_RealFormat;
-  v54[2] = @"BackgroundTime";
+  v54[1] = commonTypeDict_RealFormat;
+  v53[2] = @"BackgroundTime";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat2 = [mEMORY[0x277D3F198]3 commonTypeDict_RealFormat];
-  v55[2] = commonTypeDict_RealFormat2;
-  v54[3] = @"ScreenOnPluggedInTime";
+  v54[2] = commonTypeDict_RealFormat2;
+  v53[3] = @"ScreenOnPluggedInTime";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat3 = [mEMORY[0x277D3F198]4 commonTypeDict_RealFormat];
-  v55[3] = commonTypeDict_RealFormat3;
-  v54[4] = @"BackgroundPluggedInTime";
+  v54[3] = commonTypeDict_RealFormat3;
+  v53[4] = @"BackgroundPluggedInTime";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat4 = [mEMORY[0x277D3F198]5 commonTypeDict_RealFormat];
-  v55[4] = commonTypeDict_RealFormat4;
-  v54[5] = @"BackgroundAudioNowPlayingTime";
-  v52 = *MEMORY[0x277D3F5A8];
-  v4 = v52;
-  v53 = &unk_282C0D008;
-  v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
-  v55[5] = v31;
-  v54[6] = @"BackgroundLocationTime";
-  v50 = v4;
-  v51 = &unk_282C0D008;
-  v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
-  v55[6] = v30;
-  v54[7] = @"BackgroundAudioNowPlayingPluggedInTime";
+  v54[4] = commonTypeDict_RealFormat4;
+  v53[5] = @"BackgroundAudioNowPlayingTime";
+  v51 = *MEMORY[0x277D3F5A8];
+  v4 = v51;
+  v52 = &unk_282C0D008;
+  v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+  v54[5] = v30;
+  v53[6] = @"BackgroundLocationTime";
+  v49 = v4;
+  v50 = &unk_282C0D008;
+  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+  v54[6] = v29;
+  v53[7] = @"BackgroundAudioNowPlayingPluggedInTime";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat5 = [mEMORY[0x277D3F198]6 commonTypeDict_RealFormat];
-  v55[7] = commonTypeDict_RealFormat5;
-  v54[8] = @"BackgroundLocationPluggedInTime";
+  v54[7] = commonTypeDict_RealFormat5;
+  v53[8] = @"BackgroundLocationPluggedInTime";
   mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat6 = [mEMORY[0x277D3F198]7 commonTypeDict_RealFormat];
-  v55[8] = commonTypeDict_RealFormat6;
-  v54[9] = @"BackgroundLocationAudioTime";
+  v54[8] = commonTypeDict_RealFormat6;
+  v53[9] = @"BackgroundLocationAudioTime";
   mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat7 = [mEMORY[0x277D3F198]8 commonTypeDict_RealFormat];
-  v55[9] = commonTypeDict_RealFormat7;
-  v54[10] = @"BackgroundLocationAudioPluggedInTime";
+  v54[9] = commonTypeDict_RealFormat7;
+  v53[10] = @"BackgroundLocationAudioPluggedInTime";
   mEMORY[0x277D3F198]9 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat8 = [mEMORY[0x277D3F198]9 commonTypeDict_RealFormat];
-  v55[10] = commonTypeDict_RealFormat8;
-  v54[11] = @"BackgroundAudioPlayingTime";
+  v54[10] = commonTypeDict_RealFormat8;
+  v53[11] = @"BackgroundAudioPlayingTime";
   mEMORY[0x277D3F198]10 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat9 = [mEMORY[0x277D3F198]10 commonTypeDict_RealFormat];
-  v55[11] = commonTypeDict_RealFormat9;
-  v54[12] = @"BackgroundAudioPlayingTimePluggedIn";
+  v54[11] = commonTypeDict_RealFormat9;
+  v53[12] = @"BackgroundAudioPlayingTimePluggedIn";
   mEMORY[0x277D3F198]11 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat10 = [mEMORY[0x277D3F198]11 commonTypeDict_RealFormat];
-  v55[12] = commonTypeDict_RealFormat10;
-  v54[13] = @"InCallScreenOnTime";
+  v54[12] = commonTypeDict_RealFormat10;
+  v53[13] = @"InCallScreenOnTime";
   mEMORY[0x277D3F198]12 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]12 commonTypeDict_IntegerFormat];
-  v55[13] = commonTypeDict_IntegerFormat;
-  v54[14] = @"InCallBackgroundTime";
+  v54[13] = commonTypeDict_IntegerFormat;
+  v53[14] = @"InCallBackgroundTime";
   mEMORY[0x277D3F198]13 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]13 commonTypeDict_IntegerFormat];
-  v55[14] = commonTypeDict_IntegerFormat2;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:v54 count:15];
-  v59[1] = v9;
-  v58[2] = *MEMORY[0x277D3F478];
-  v48[0] = &unk_282C1BB88;
-  v46 = *MEMORY[0x277D3F470];
-  v10 = v46;
-  v47 = &unk_282C1BB98;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
-  v48[1] = &unk_282C1BBA8;
-  v49[0] = v11;
-  v44 = v10;
-  v45 = &unk_282C1BBB8;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
-  v49[1] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:2];
-  v59[2] = v13;
-  v58[3] = *MEMORY[0x277D3F488];
-  v43[0] = @"ScreenOnTime";
-  v43[1] = @"BackgroundTime";
-  v43[2] = @"BackgroundAudioNowPlayingTime";
-  v43[3] = @"BackgroundLocationTime";
-  v43[4] = @"ScreenOnPluggedInTime";
-  v43[5] = @"BackgroundPluggedInTime";
-  v43[6] = @"BackgroundAudioNowPlayingPluggedInTime";
-  v43[7] = @"BackgroundLocationPluggedInTime";
-  v43[8] = @"BackgroundLocationAudioTime";
-  v43[9] = @"BackgroundLocationAudioPluggedInTime";
-  v43[10] = @"BackgroundAudioPlayingTime";
-  v43[11] = @"BackgroundAudioPlayingTimePluggedIn";
-  v43[12] = @"InCallScreenOnTime";
-  v43[13] = @"InCallBackgroundTime";
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:14];
-  v59[3] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:v58 count:4];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v54[14] = commonTypeDict_IntegerFormat2;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:v53 count:15];
+  v58[1] = v9;
+  v57[2] = *MEMORY[0x277D3F478];
+  v47[0] = &unk_282C1BB88;
+  v45 = *MEMORY[0x277D3F470];
+  v10 = v45;
+  v46 = &unk_282C1BB98;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+  v47[1] = &unk_282C1BBA8;
+  v48[0] = v11;
+  v43 = v10;
+  v44 = &unk_282C1BBB8;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
+  v48[1] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:2];
+  v58[2] = v13;
+  v57[3] = *MEMORY[0x277D3F488];
+  v42[0] = @"ScreenOnTime";
+  v42[1] = @"BackgroundTime";
+  v42[2] = @"BackgroundAudioNowPlayingTime";
+  v42[3] = @"BackgroundLocationTime";
+  v42[4] = @"ScreenOnPluggedInTime";
+  v42[5] = @"BackgroundPluggedInTime";
+  v42[6] = @"BackgroundAudioNowPlayingPluggedInTime";
+  v42[7] = @"BackgroundLocationPluggedInTime";
+  v42[8] = @"BackgroundLocationAudioTime";
+  v42[9] = @"BackgroundLocationAudioPluggedInTime";
+  v42[10] = @"BackgroundAudioPlayingTime";
+  v42[11] = @"BackgroundAudioPlayingTimePluggedIn";
+  v42[12] = @"InCallScreenOnTime";
+  v42[13] = @"InCallBackgroundTime";
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:14];
+  v58[3] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:v57 count:4];
 
   return v15;
 }
 
 + (id)entryAggregateDefinitionMetrics
 {
-  v26[4] = *MEMORY[0x277D85DE8];
-  v25[0] = *MEMORY[0x277D3F4E8];
+  v25[4] = *MEMORY[0x277D85DE8];
+  v24[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F4A0];
-  v23[0] = *MEMORY[0x277D3F568];
-  v23[1] = v2;
+  v22[0] = *MEMORY[0x277D3F568];
+  v22[1] = v2;
   v3 = *MEMORY[0x277D3F590];
-  v23[2] = *MEMORY[0x277D3F490];
-  v23[3] = v3;
-  v24[0] = &unk_282C1BBC8;
-  v24[1] = MEMORY[0x277CBEC38];
-  v24[2] = MEMORY[0x277CBEC38];
-  v24[3] = &unk_282C0D020;
-  v23[4] = *MEMORY[0x277D3F588];
-  v24[4] = &unk_282C1BBD8;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:5];
-  v26[0] = v16;
-  v25[1] = *MEMORY[0x277D3F540];
-  v21[0] = @"BundleId";
+  v22[2] = *MEMORY[0x277D3F490];
+  v22[3] = v3;
+  v23[0] = &unk_282C1BBC8;
+  v23[1] = MEMORY[0x277CBEC38];
+  v23[2] = MEMORY[0x277CBEC38];
+  v23[3] = &unk_282C0D020;
+  v22[4] = *MEMORY[0x277D3F588];
+  v23[4] = &unk_282C1BBD8;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:5];
+  v25[0] = v15;
+  v24[1] = *MEMORY[0x277D3F540];
+  v20[0] = @"BundleId";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID = [mEMORY[0x277D3F198] commonTypeDict_StringFormat_withBundleID];
-  v22[0] = commonTypeDict_StringFormat_withBundleID;
-  v21[1] = @"byteswritten";
+  v21[0] = commonTypeDict_StringFormat_withBundleID;
+  v20[1] = @"byteswritten";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v22[1] = commonTypeDict_IntegerFormat;
-  v21[2] = @"bytesread";
+  v21[1] = commonTypeDict_IntegerFormat;
+  v20[2] = @"bytesread";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v22[2] = commonTypeDict_IntegerFormat2;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:3];
-  v26[1] = v10;
-  v25[2] = *MEMORY[0x277D3F478];
-  v19 = &unk_282C1BB88;
-  v17 = *MEMORY[0x277D3F470];
-  v18 = &unk_282C1BB98;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
-  v20 = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
-  v25[3] = *MEMORY[0x277D3F488];
-  v26[2] = v12;
-  v26[3] = &unk_282C13FC8;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:4];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v21[2] = commonTypeDict_IntegerFormat2;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:3];
+  v25[1] = v10;
+  v24[2] = *MEMORY[0x277D3F478];
+  v18 = &unk_282C1BB88;
+  v16 = *MEMORY[0x277D3F470];
+  v17 = &unk_282C1BB98;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+  v19 = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+  v24[3] = *MEMORY[0x277D3F488];
+  v25[2] = v12;
+  v25[3] = &unk_282C13FC8;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:4];
 
   return v13;
 }
 
 + (id)entryAggregateDefinitionCellularCondition
 {
-  v28[4] = *MEMORY[0x277D85DE8];
-  v27[0] = *MEMORY[0x277D3F4E8];
+  v27[4] = *MEMORY[0x277D85DE8];
+  v26[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F490];
-  v25[0] = *MEMORY[0x277D3F568];
-  v25[1] = v2;
+  v24[0] = *MEMORY[0x277D3F568];
+  v24[1] = v2;
   v3 = *MEMORY[0x277D3F590];
-  v25[2] = *MEMORY[0x277D3F4A0];
-  v25[3] = v3;
-  v26[0] = &unk_282C1BBE8;
-  v26[1] = MEMORY[0x277CBEC38];
-  v26[2] = MEMORY[0x277CBEC38];
-  v26[3] = &unk_282C0D020;
-  v25[4] = *MEMORY[0x277D3F588];
-  v26[4] = &unk_282C1BBD8;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:5];
-  v28[0] = v17;
-  v27[1] = *MEMORY[0x277D3F540];
-  v23[0] = @"BundleID";
+  v24[2] = *MEMORY[0x277D3F4A0];
+  v24[3] = v3;
+  v25[0] = &unk_282C1BBE8;
+  v25[1] = MEMORY[0x277CBEC38];
+  v25[2] = MEMORY[0x277CBEC38];
+  v25[3] = &unk_282C0D020;
+  v24[4] = *MEMORY[0x277D3F588];
+  v25[4] = &unk_282C1BBD8;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:5];
+  v27[0] = v16;
+  v26[1] = *MEMORY[0x277D3F540];
+  v22[0] = @"BundleID";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID = [mEMORY[0x277D3F198] commonTypeDict_StringFormat_withBundleID];
-  v24[0] = commonTypeDict_StringFormat_withBundleID;
-  v23[1] = @"SignalBars";
+  v23[0] = commonTypeDict_StringFormat_withBundleID;
+  v22[1] = @"SignalBars";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v24[1] = commonTypeDict_IntegerFormat;
-  v23[2] = @"CellUsageTime";
+  v23[1] = commonTypeDict_IntegerFormat;
+  v22[2] = @"CellUsageTime";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v24[2] = commonTypeDict_IntegerFormat2;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:3];
-  v28[1] = v9;
-  v27[2] = *MEMORY[0x277D3F478];
-  v21 = &unk_282C1BB88;
-  v19 = *MEMORY[0x277D3F470];
-  v20 = &unk_282C1BB98;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
-  v22 = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
-  v28[2] = v11;
-  v27[3] = *MEMORY[0x277D3F488];
-  v18 = @"CellUsageTime";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
-  v28[3] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:4];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v23[2] = commonTypeDict_IntegerFormat2;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:3];
+  v27[1] = v9;
+  v26[2] = *MEMORY[0x277D3F478];
+  v20 = &unk_282C1BB88;
+  v18 = *MEMORY[0x277D3F470];
+  v19 = &unk_282C1BB98;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+  v21 = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+  v27[2] = v11;
+  v26[3] = *MEMORY[0x277D3F488];
+  v17 = @"CellUsageTime";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+  v27[3] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:4];
 
   return v13;
 }
 
 + (id)entryAggregateDefinitionUsageTime
 {
-  v27[4] = *MEMORY[0x277D85DE8];
+  v26[4] = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F208] isHomePod])
   {
     v2 = MEMORY[0x277CBEC10];
@@ -391,167 +380,163 @@ void __44__PLAppTimeService_initOperatorDependancies__block_invoke_258(uint64_t 
 
   else
   {
-    v26[0] = *MEMORY[0x277D3F4E8];
+    v25[0] = *MEMORY[0x277D3F4E8];
     v3 = *MEMORY[0x277D3F490];
-    v24[0] = *MEMORY[0x277D3F568];
-    v24[1] = v3;
-    v25[0] = &unk_282C1BBF8;
-    v25[1] = MEMORY[0x277CBEC38];
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
-    v27[0] = v16;
-    v26[1] = *MEMORY[0x277D3F540];
-    v22[0] = @"ScreenOn";
+    v23[0] = *MEMORY[0x277D3F568];
+    v23[1] = v3;
+    v24[0] = &unk_282C1BBF8;
+    v24[1] = MEMORY[0x277CBEC38];
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
+    v26[0] = v15;
+    v25[1] = *MEMORY[0x277D3F540];
+    v21[0] = @"ScreenOn";
     mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat_withUnit_s];
-    v23[0] = commonTypeDict_IntegerFormat_withUnit_s;
-    v22[1] = @"ScreenOff";
+    v22[0] = commonTypeDict_IntegerFormat_withUnit_s;
+    v21[1] = @"ScreenOff";
     mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat_withUnit_s];
-    v23[1] = commonTypeDict_IntegerFormat_withUnit_s2;
-    v22[2] = @"PluggedIn";
+    v22[1] = commonTypeDict_IntegerFormat_withUnit_s2;
+    v21[2] = @"PluggedIn";
     mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s3 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat_withUnit_s];
-    v23[2] = commonTypeDict_IntegerFormat_withUnit_s3;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:3];
-    v27[1] = v9;
-    v26[2] = *MEMORY[0x277D3F478];
-    v20 = &unk_282C1BB88;
-    v18 = *MEMORY[0x277D3F470];
-    v19 = &unk_282C1BC08;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
-    v21 = v10;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
-    v27[2] = v11;
-    v26[3] = *MEMORY[0x277D3F488];
-    v17[0] = @"ScreenOn";
-    v17[1] = @"ScreenOff";
-    v17[2] = @"PluggedIn";
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
-    v27[3] = v12;
-    v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:4];
+    v22[2] = commonTypeDict_IntegerFormat_withUnit_s3;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:3];
+    v26[1] = v9;
+    v25[2] = *MEMORY[0x277D3F478];
+    v19 = &unk_282C1BB88;
+    v17 = *MEMORY[0x277D3F470];
+    v18 = &unk_282C1BC08;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+    v20 = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+    v26[2] = v11;
+    v25[3] = *MEMORY[0x277D3F488];
+    v16[0] = @"ScreenOn";
+    v16[1] = @"ScreenOff";
+    v16[2] = @"PluggedIn";
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
+    v26[3] = v12;
+    v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:4];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
 
 + (id)entryAggregateDefinitionAppUsageEvents
 {
-  v40[4] = *MEMORY[0x277D85DE8];
-  v39[0] = *MEMORY[0x277D3F4E8];
+  v39[4] = *MEMORY[0x277D85DE8];
+  v38[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F4A0];
-  v37[0] = *MEMORY[0x277D3F568];
-  v37[1] = v2;
+  v36[0] = *MEMORY[0x277D3F568];
+  v36[1] = v2;
   v3 = MEMORY[0x277CBEC38];
-  v38[0] = &unk_282C1BBC8;
-  v38[1] = MEMORY[0x277CBEC38];
+  v37[0] = &unk_282C1BBC8;
+  v37[1] = MEMORY[0x277CBEC38];
   v4 = *MEMORY[0x277D3F588];
-  v37[2] = *MEMORY[0x277D3F590];
-  v37[3] = v4;
-  v38[2] = &unk_282C0D020;
-  v38[3] = &unk_282C1BC18;
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:4];
-  v40[0] = v22;
-  v39[1] = *MEMORY[0x277D3F540];
-  v35[0] = @"BundleID";
+  v36[2] = *MEMORY[0x277D3F590];
+  v36[3] = v4;
+  v37[2] = &unk_282C0D020;
+  v37[3] = &unk_282C1BC18;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:4];
+  v39[0] = v21;
+  v38[1] = *MEMORY[0x277D3F540];
+  v34[0] = @"BundleID";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID = [mEMORY[0x277D3F198] commonTypeDict_StringFormat_withBundleID];
-  v36[0] = commonTypeDict_StringFormat_withBundleID;
-  v35[1] = @"NotificationCount";
+  v35[0] = commonTypeDict_StringFormat_withBundleID;
+  v34[1] = @"NotificationCount";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v36[1] = commonTypeDict_IntegerFormat;
-  v35[2] = @"HasWidgetActive";
+  v35[1] = commonTypeDict_IntegerFormat;
+  v34[2] = @"HasWidgetActive";
   v7 = *MEMORY[0x277D3F530];
-  v32[0] = *MEMORY[0x277D3F5A8];
-  v6 = v32[0];
-  v32[1] = v7;
-  v34[0] = &unk_282C0D038;
-  v34[1] = v3;
-  v33 = *MEMORY[0x277D3F480];
-  v8 = v33;
-  v34[2] = &unk_282C0D038;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v32 count:3];
-  v36[2] = v9;
-  v35[3] = @"HasCarPlayUsage";
-  v30[0] = v6;
-  v30[1] = v7;
-  v31[0] = &unk_282C0D038;
-  v31[1] = v3;
-  v30[2] = v8;
-  v31[2] = &unk_282C0D038;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:3];
-  v36[3] = v10;
-  v35[4] = @"HasAudioUsage";
-  v28[0] = v6;
-  v28[1] = v7;
-  v29[0] = &unk_282C0D038;
-  v29[1] = v3;
-  v28[2] = v8;
-  v29[2] = &unk_282C0D038;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:3];
-  v36[4] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:5];
-  v40[1] = v12;
-  v39[2] = *MEMORY[0x277D3F478];
-  v26 = &unk_282C1BBA8;
-  v24 = *MEMORY[0x277D3F470];
-  v25 = &unk_282C1BC18;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
-  v27 = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
-  v40[2] = v14;
-  v39[3] = *MEMORY[0x277D3F488];
-  v23[0] = @"NotificationCount";
-  v23[1] = @"HasWidgetActive";
-  v23[2] = @"HasCarPlayUsage";
-  v23[3] = @"HasAudioUsage";
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:4];
-  v40[3] = v15;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:4];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v31[0] = *MEMORY[0x277D3F5A8];
+  v6 = v31[0];
+  v31[1] = v7;
+  v33[0] = &unk_282C0D038;
+  v33[1] = v3;
+  v32 = *MEMORY[0x277D3F480];
+  v8 = v32;
+  v33[2] = &unk_282C0D038;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v31 count:3];
+  v35[2] = v9;
+  v34[3] = @"HasCarPlayUsage";
+  v29[0] = v6;
+  v29[1] = v7;
+  v30[0] = &unk_282C0D038;
+  v30[1] = v3;
+  v29[2] = v8;
+  v30[2] = &unk_282C0D038;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:3];
+  v35[3] = v10;
+  v34[4] = @"HasAudioUsage";
+  v27[0] = v6;
+  v27[1] = v7;
+  v28[0] = &unk_282C0D038;
+  v28[1] = v3;
+  v27[2] = v8;
+  v28[2] = &unk_282C0D038;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:3];
+  v35[4] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:5];
+  v39[1] = v12;
+  v38[2] = *MEMORY[0x277D3F478];
+  v25 = &unk_282C1BBA8;
+  v23 = *MEMORY[0x277D3F470];
+  v24 = &unk_282C1BC18;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+  v26 = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+  v39[2] = v14;
+  v38[3] = *MEMORY[0x277D3F488];
+  v22[0] = @"NotificationCount";
+  v22[1] = @"HasWidgetActive";
+  v22[2] = @"HasCarPlayUsage";
+  v22[3] = @"HasAudioUsage";
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:4];
+  v39[3] = v15;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:4];
 
   return v16;
 }
 
 - (void)loadWatchKitExtensionsSet
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB58] set];
   watchkitExtensions = self->_watchkitExtensions;
   self->_watchkitExtensions = v3;
 
   v5 = [(PLOperator *)PLApplicationAgent entryKeyForType:*MEMORY[0x277D3F5E0] andName:@"AllPlugins"];
   v6 = [objc_alloc(MEMORY[0x277D3F260]) initWithKey:@"PluginType" withValue:@"com.apple.watchkit" withComparisonOperation:0];
-  v22[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+  v21[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
 
-  storage = [(PLOperator *)self storage];
-  v9 = [storage entriesForKey:v5 withComparisons:v7];
+  v8 = objc_msgSend_storage(self);
+  v9 = [v8 entriesForKey:v5 withComparisons:v7];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v10 = v9;
-  v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v18;
+    v13 = *v17;
     do
     {
       v14 = 0;
       do
       {
-        if (*v18 != v13)
+        if (*v17 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = [*(*(&v17 + 1) + 8 * v14) objectForKeyedSubscript:{@"PluginId", v17}];
+        v15 = [*(*(&v16 + 1) + 8 * v14) objectForKeyedSubscript:{@"PluginId", v16}];
         if (v15)
         {
           [(NSMutableSet *)self->_watchkitExtensions addObject:v15];
@@ -561,13 +546,11 @@ void __44__PLAppTimeService_initOperatorDependancies__block_invoke_258(uint64_t 
       }
 
       while (v12 != v14);
-      v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v12);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (PLAppTimeService)init
@@ -598,8 +581,8 @@ void __44__PLAppTimeService_initOperatorDependancies__block_invoke_258(uint64_t 
     if (v4)
     {
       v6 = [(PLOperator *)PLDisplayAgent entryKeyForType:*MEMORY[0x277D3F5E8] andName:@"Display"];
-      storage = [(PLOperator *)self storage];
-      v8 = [storage lastEntryForKey:v6 withFilters:&unk_282C13FE0];
+      v7 = objc_msgSend_storage(self);
+      v8 = [v7 lastEntryForKey:v6 withFilters:&unk_282C13FE0];
 
       if (v8)
       {
@@ -934,79 +917,75 @@ void __44__PLAppTimeService_initOperatorDependancies__block_invoke_258(uint64_t 
 
 void __44__PLAppTimeService_initOperatorDependancies__block_invoke_226(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   v10 = PLLogCommon();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 138412802;
-    v13 = v7;
-    v14 = 2112;
-    v15 = v8;
-    v16 = 2112;
-    v17 = v9;
-    _os_log_debug_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEBUG, "Calling power out with %@ %@ %@", &v12, 0x20u);
+    v11 = 138412802;
+    v12 = v7;
+    v13 = 2112;
+    v14 = v8;
+    v15 = 2112;
+    v16 = v9;
+    _os_log_debug_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEBUG, "Calling power out with %@ %@ %@", &v11, 0x20u);
   }
 
   [*(a1 + 32) handlePowerOutCallback:v7];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __44__PLAppTimeService_initOperatorDependancies__block_invoke_6_246(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v4 = *(a1 + 32);
-    v5 = objc_opt_class();
-    v14 = MEMORY[0x277D85DD0];
-    v15 = 3221225472;
-    v16 = __44__PLAppTimeService_initOperatorDependancies__block_invoke_7;
-    v17 = &unk_27825A310;
-    v18 = @"AppTimeService";
-    v19 = v5;
+    v4 = objc_opt_class();
+    v12 = MEMORY[0x277D85DD0];
+    v13 = 3221225472;
+    v14 = __44__PLAppTimeService_initOperatorDependancies__block_invoke_7;
+    v15 = &unk_27825A310;
+    v16 = @"AppTimeService";
+    v17 = v4;
     if (qword_2811F3E10 != -1)
     {
-      dispatch_once(&qword_2811F3E10, &v14);
+      dispatch_once(&qword_2811F3E10, &v12);
     }
 
-    v6 = _MergedGlobals_1_3;
+    v5 = _MergedGlobals_1_3;
 
-    if (v6 == 1)
+    if (v5 == 1)
     {
-      v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"Device Going to Sleep", v14, v15, v16, v17];
-      v8 = MEMORY[0x277D3F178];
-      v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAppTimeService.m"];
-      v10 = [v9 lastPathComponent];
-      v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAppTimeService initOperatorDependancies]_block_invoke_6"];
-      [v8 logMessage:v7 fromFile:v10 fromFunction:v11 fromLineNumber:663];
+      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"Device Going to Sleep", v12, v13, v14, v15];
+      v7 = MEMORY[0x277D3F178];
+      v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAppTimeService.m"];
+      v9 = [v8 lastPathComponent];
+      v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAppTimeService initOperatorDependancies]_block_invoke_6"];
+      [v7 logMessage:v6 fromFile:v9 fromFunction:v10 fromLineNumber:663];
 
-      v12 = PLLogCommon();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v11 = PLLogCommon();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v21 = v7;
-        _os_log_debug_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v19 = v6;
+        _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
-  [*(a1 + 32) handleSleepCallBack:{v3, v14, v15, v16, v17}];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [*(a1 + 32) handleSleepCallBack:{v3, v12, v13, v14, v15}];
 }
 
-uint64_t __44__PLAppTimeService_initOperatorDependancies__block_invoke_7(uint64_t a1)
+void *__44__PLAppTimeService_initOperatorDependancies__block_invoke_7(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 40) forKey:*(a1 + 32)];
   _MergedGlobals_1_3 = result;
   return result;
 }
 
-uint64_t __44__PLAppTimeService_initOperatorDependancies__block_invoke_2_259(uint64_t a1)
+void *__44__PLAppTimeService_initOperatorDependancies__block_invoke_2_259(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 40) forKey:*(a1 + 32)];
   byte_2811F3DF9 = result;
@@ -1075,7 +1054,7 @@ uint64_t __56__PLAppTimeService_buildCallBack_withGroup_withHandler___block_invo
 
 - (void)handleSleepCallBack:(id)back
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = [back objectForKey:@"entry"];
   entryDate = [v4 entryDate];
   [(PLAppTimeService *)self periodicUpdateAppRunTimeWithDate:entryDate];
@@ -1087,9 +1066,9 @@ uint64_t __56__PLAppTimeService_buildCallBack_withGroup_withHandler___block_invo
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     audioPlaybackBundleIDs = [(PLAppTimeService *)self audioPlaybackBundleIDs];
-    v17 = 134217984;
-    v18 = [audioPlaybackBundleIDs count];
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "audio: removing %lu objects", &v17, 0xCu);
+    v16 = 134217984;
+    v17 = [audioPlaybackBundleIDs count];
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "audio: removing %lu objects", &v16, 0xCu);
   }
 
   audioPlaybackBundleIDs2 = [(PLAppTimeService *)self audioPlaybackBundleIDs];
@@ -1109,8 +1088,6 @@ uint64_t __56__PLAppTimeService_buildCallBack_withGroup_withHandler___block_invo
 
     [(PLAppTimeService *)self setInCallNow:0];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleCoalitionCallback:(id)callback
@@ -1210,7 +1187,7 @@ uint64_t __56__PLAppTimeService_buildCallBack_withGroup_withHandler___block_invo
 
 - (void)handleDisplayCallback:(id)callback
 {
-  *&v38[5] = *MEMORY[0x277D85DE8];
+  *&v37[5] = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
   v5 = [callbackCopy objectForKey:@"entry"];
   v6 = [v5 objectForKeyedSubscript:@"Active"];
@@ -1253,7 +1230,7 @@ uint64_t __56__PLAppTimeService_buildCallBack_withGroup_withHandler___block_invo
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         *buf = 67109120;
-        v38[0] = 0;
+        v37[0] = 0;
         _os_log_debug_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEBUG, "newDisplayState=%d, clearing layouts", buf, 8u);
       }
 
@@ -1274,9 +1251,9 @@ uint64_t __56__PLAppTimeService_buildCallBack_withGroup_withHandler___block_invo
       {
         displayState = [(PLAppTimeService *)self displayState];
         *buf = 67109376;
-        v38[0] = displayState;
-        LOWORD(v38[1]) = 1024;
-        *(&v38[1] + 2) = intValue;
+        v37[0] = displayState;
+        LOWORD(v37[1]) = 1024;
+        *(&v37[1] + 2) = intValue;
         _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "self.displayState=%d, newDisplayState=%d", buf, 0xEu);
       }
 
@@ -1290,7 +1267,7 @@ uint64_t __56__PLAppTimeService_buildCallBack_withGroup_withHandler___block_invo
       {
         entryDate5 = [v5 entryDate];
         *buf = 138412290;
-        *v38 = entryDate5;
+        *v37 = entryDate5;
         _os_log_debug_impl(&dword_21A4C6000, v17, OS_LOG_TYPE_DEBUG, "updating lastScreenOnTime to %@", buf, 0xCu);
       }
     }
@@ -1309,10 +1286,10 @@ LABEL_28:
     {
       v19 = objc_opt_class();
       block = MEMORY[0x277D85DD0];
-      v33 = 3221225472;
-      v34 = __42__PLAppTimeService_handleDisplayCallback___block_invoke;
-      v35 = &__block_descriptor_40_e5_v8__0lu32l8;
-      v36 = v19;
+      v32 = 3221225472;
+      v33 = __42__PLAppTimeService_handleDisplayCallback___block_invoke;
+      v34 = &__block_descriptor_40_e5_v8__0lu32l8;
+      v35 = v19;
       if (qword_2811F3E20 != -1)
       {
         dispatch_once(&qword_2811F3E20, &block);
@@ -1323,7 +1300,7 @@ LABEL_28:
         v20 = MEMORY[0x277CCACA8];
         v21 = [v5 objectForKeyedSubscript:@"Active"];
         v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{-[PLAppTimeService displayState](self, "displayState")}];
-        v23 = [v20 stringWithFormat:@"Got display %@ %@ %@", callbackCopy, v21, v22, block, v33, v34, v35, v36];
+        v23 = [v20 stringWithFormat:@"Got display %@ %@ %@", callbackCopy, v21, v22, block, v32, v33, v34, v35];
 
         v24 = MEMORY[0x277D3F178];
         v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAppTimeService.m"];
@@ -1335,17 +1312,15 @@ LABEL_28:
         if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          *v38 = v23;
+          *v37 = v23;
           _os_log_debug_impl(&dword_21A4C6000, v28, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __42__PLAppTimeService_handleDisplayCallback___block_invoke(uint64_t a1)
+void *__42__PLAppTimeService_handleDisplayCallback___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F3DFA = result;
@@ -1354,20 +1329,18 @@ uint64_t __42__PLAppTimeService_handleDisplayCallback___block_invoke(uint64_t a1
 
 - (void)handlePowerOutCallback:(id)callback
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
   v5 = PLLogCommon();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v8 = 138412290;
-    v9 = callbackCopy;
-    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Handle power out callback with payload %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = callbackCopy;
+    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Handle power out callback with payload %@", &v7, 0xCu);
   }
 
   v6 = [callbackCopy objectForKey:@"time"];
   [(PLAppTimeService *)self updatePowerOutTimeInDBForBundleId:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updatePowerOutTimeInDBForBundleId:(id)id
@@ -1391,7 +1364,7 @@ uint64_t __42__PLAppTimeService_handleDisplayCallback___block_invoke(uint64_t a1
 
 - (void)handleInCallServiceCallback:(id)callback
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
   v5 = [callbackCopy objectForKey:@"entry"];
   v6 = [v5 objectForKeyedSubscript:@"status"];
@@ -1466,16 +1439,14 @@ uint64_t __42__PLAppTimeService_handleDisplayCallback___block_invoke(uint64_t a1
       if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v32 = v23;
+        v31 = v23;
         _os_log_debug_impl(&dword_21A4C6000, v28, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __48__PLAppTimeService_handleInCallServiceCallback___block_invoke(uint64_t a1)
+void *__48__PLAppTimeService_handleInCallServiceCallback___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F3DFB = result;
@@ -1484,7 +1455,7 @@ uint64_t __48__PLAppTimeService_handleInCallServiceCallback___block_invoke(uint6
 
 - (void)handlePluginCallback:(id)callback
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
   v5 = [callbackCopy objectForKey:@"entry"];
   v6 = [v5 objectForKeyedSubscript:@"PluginType"];
@@ -1506,10 +1477,10 @@ uint64_t __48__PLAppTimeService_handleInCallServiceCallback___block_invoke(uint6
   {
     v11 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v20 = 3221225472;
-    v21 = __41__PLAppTimeService_handlePluginCallback___block_invoke;
-    v22 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v23 = v11;
+    v19 = 3221225472;
+    v20 = __41__PLAppTimeService_handlePluginCallback___block_invoke;
+    v21 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v22 = v11;
     if (qword_2811F3E30 != -1)
     {
       dispatch_once(&qword_2811F3E30, &block);
@@ -1517,7 +1488,7 @@ uint64_t __48__PLAppTimeService_handleInCallServiceCallback___block_invoke(uint6
 
     if (byte_2811F3DFC == 1)
     {
-      v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"Got Plugin %@", callbackCopy, block, v20, v21, v22, v23];
+      v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"Got Plugin %@", callbackCopy, block, v19, v20, v21, v22];
       v13 = MEMORY[0x277D3F178];
       v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAppTimeService.m"];
       lastPathComponent = [v14 lastPathComponent];
@@ -1528,16 +1499,14 @@ uint64_t __48__PLAppTimeService_handleInCallServiceCallback___block_invoke(uint6
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v25 = v12;
+        v24 = v12;
         _os_log_debug_impl(&dword_21A4C6000, v17, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __41__PLAppTimeService_handlePluginCallback___block_invoke(uint64_t a1)
+void *__41__PLAppTimeService_handlePluginCallback___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F3DFC = result;
@@ -1546,7 +1515,7 @@ uint64_t __41__PLAppTimeService_handlePluginCallback___block_invoke(uint64_t a1)
 
 - (void)handleAudioCallback:(id)callback
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
   v5 = [callbackCopy objectForKey:@"entry"];
   v6 = [v5 objectForKey:@"ApplicationName"];
@@ -1570,7 +1539,7 @@ uint64_t __41__PLAppTimeService_handlePluginCallback___block_invoke(uint64_t a1)
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v31 = v6;
+        v30 = v6;
         _os_log_debug_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEBUG, "audio: %@ started playing", buf, 0xCu);
       }
 
@@ -1592,7 +1561,7 @@ uint64_t __41__PLAppTimeService_handlePluginCallback___block_invoke(uint64_t a1)
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v31 = v6;
+          v30 = v6;
           _os_log_debug_impl(&dword_21A4C6000, entryDate2, OS_LOG_TYPE_DEBUG, "audio: %@ stopped playing", buf, 0xCu);
         }
 
@@ -1606,9 +1575,9 @@ uint64_t __41__PLAppTimeService_handlePluginCallback___block_invoke(uint64_t a1)
       else if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v31 = v6;
-        v32 = 2112;
-        v33 = v8;
+        v30 = v6;
+        v31 = 2112;
+        v32 = v8;
         _os_log_error_impl(&dword_21A4C6000, entryDate2, OS_LOG_TYPE_ERROR, "audio: unknown operation for %@: %@", buf, 0x16u);
       }
     }
@@ -1617,10 +1586,10 @@ uint64_t __41__PLAppTimeService_handlePluginCallback___block_invoke(uint64_t a1)
     {
       v17 = objc_opt_class();
       block = MEMORY[0x277D85DD0];
-      v26 = 3221225472;
-      v27 = __40__PLAppTimeService_handleAudioCallback___block_invoke;
-      v28 = &__block_descriptor_40_e5_v8__0lu32l8;
-      v29 = v17;
+      v25 = 3221225472;
+      v26 = __40__PLAppTimeService_handleAudioCallback___block_invoke;
+      v27 = &__block_descriptor_40_e5_v8__0lu32l8;
+      v28 = v17;
       if (qword_2811F3E38 != -1)
       {
         dispatch_once(&qword_2811F3E38, &block);
@@ -1628,7 +1597,7 @@ uint64_t __41__PLAppTimeService_handlePluginCallback___block_invoke(uint64_t a1)
 
       if (byte_2811F3DFD == 1)
       {
-        v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"Got Audio callback %@", callbackCopy, block, v26, v27, v28, v29];
+        v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"Got Audio callback %@", callbackCopy, block, v25, v26, v27, v28];
         v19 = MEMORY[0x277D3F178];
         v20 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAppTimeService.m"];
         lastPathComponent = [v20 lastPathComponent];
@@ -1639,17 +1608,15 @@ uint64_t __41__PLAppTimeService_handlePluginCallback___block_invoke(uint64_t a1)
         if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v31 = v18;
+          v30 = v18;
           _os_log_debug_impl(&dword_21A4C6000, v23, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __40__PLAppTimeService_handleAudioCallback___block_invoke(uint64_t a1)
+void *__40__PLAppTimeService_handleAudioCallback___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F3DFD = result;
@@ -1658,7 +1625,7 @@ uint64_t __40__PLAppTimeService_handleAudioCallback___block_invoke(uint64_t a1)
 
 - (void)handleNowPlayingCallback:(id)callback
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
   v5 = [callbackCopy objectForKeyedSubscript:@"entry"];
   v6 = [v5 objectForKeyedSubscript:@"State"];
@@ -1682,10 +1649,10 @@ uint64_t __40__PLAppTimeService_handleAudioCallback___block_invoke(uint64_t a1)
   {
     v10 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v19 = 3221225472;
-    v20 = __45__PLAppTimeService_handleNowPlayingCallback___block_invoke;
-    v21 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v22 = v10;
+    v18 = 3221225472;
+    v19 = __45__PLAppTimeService_handleNowPlayingCallback___block_invoke;
+    v20 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v21 = v10;
     if (qword_2811F3E40 != -1)
     {
       dispatch_once(&qword_2811F3E40, &block);
@@ -1693,7 +1660,7 @@ uint64_t __40__PLAppTimeService_handleAudioCallback___block_invoke(uint64_t a1)
 
     if (byte_2811F3DFE == 1)
     {
-      v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"Got NowPlaying callback %@", callbackCopy, block, v19, v20, v21, v22];
+      v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"Got NowPlaying callback %@", callbackCopy, block, v18, v19, v20, v21];
       v12 = MEMORY[0x277D3F178];
       v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAppTimeService.m"];
       lastPathComponent = [v13 lastPathComponent];
@@ -1704,16 +1671,14 @@ uint64_t __40__PLAppTimeService_handleAudioCallback___block_invoke(uint64_t a1)
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v24 = v11;
+        v23 = v11;
         _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __45__PLAppTimeService_handleNowPlayingCallback___block_invoke(uint64_t a1)
+void *__45__PLAppTimeService_handleNowPlayingCallback___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F3DFE = result;
@@ -1722,7 +1687,7 @@ uint64_t __45__PLAppTimeService_handleNowPlayingCallback___block_invoke(uint64_t
 
 - (void)handleStatusBarCallback:(id)callback
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
   v5 = [callbackCopy objectForKeyedSubscript:@"entry"];
   v6 = [v5 objectForKeyedSubscript:@"Status"];
@@ -1746,10 +1711,10 @@ uint64_t __45__PLAppTimeService_handleNowPlayingCallback___block_invoke(uint64_t
   {
     v10 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v19 = 3221225472;
-    v20 = __44__PLAppTimeService_handleStatusBarCallback___block_invoke;
-    v21 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v22 = v10;
+    v18 = 3221225472;
+    v19 = __44__PLAppTimeService_handleStatusBarCallback___block_invoke;
+    v20 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v21 = v10;
     if (qword_2811F3E48 != -1)
     {
       dispatch_once(&qword_2811F3E48, &block);
@@ -1757,7 +1722,7 @@ uint64_t __45__PLAppTimeService_handleNowPlayingCallback___block_invoke(uint64_t
 
     if (byte_2811F3DFF == 1)
     {
-      v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"Got NowPlaying callback %@", callbackCopy, block, v19, v20, v21, v22];
+      v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"Got NowPlaying callback %@", callbackCopy, block, v18, v19, v20, v21];
       v12 = MEMORY[0x277D3F178];
       v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAppTimeService.m"];
       lastPathComponent = [v13 lastPathComponent];
@@ -1768,16 +1733,14 @@ uint64_t __45__PLAppTimeService_handleNowPlayingCallback___block_invoke(uint64_t
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v24 = v11;
+        v23 = v11;
         _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __44__PLAppTimeService_handleStatusBarCallback___block_invoke(uint64_t a1)
+void *__44__PLAppTimeService_handleStatusBarCallback___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F3DFF = result;
@@ -1786,7 +1749,7 @@ uint64_t __44__PLAppTimeService_handleStatusBarCallback___block_invoke(uint64_t 
 
 - (void)handleCellularConditionCallback:(id)callback
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
   v5 = [callbackCopy objectForKeyedSubscript:@"entry"];
   v6 = [v5 objectForKeyedSubscript:@"subsId"];
@@ -1816,10 +1779,10 @@ uint64_t __44__PLAppTimeService_handleStatusBarCallback___block_invoke(uint64_t 
     {
       v14 = objc_opt_class();
       block = MEMORY[0x277D85DD0];
-      v23 = 3221225472;
-      v24 = __52__PLAppTimeService_handleCellularConditionCallback___block_invoke;
-      v25 = &__block_descriptor_40_e5_v8__0lu32l8;
-      v26 = v14;
+      v22 = 3221225472;
+      v23 = __52__PLAppTimeService_handleCellularConditionCallback___block_invoke;
+      v24 = &__block_descriptor_40_e5_v8__0lu32l8;
+      v25 = v14;
       if (qword_2811F3E50 != -1)
       {
         dispatch_once(&qword_2811F3E50, &block);
@@ -1827,7 +1790,7 @@ uint64_t __44__PLAppTimeService_handleStatusBarCallback___block_invoke(uint64_t 
 
       if (byte_2811F3E00 == 1)
       {
-        v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"Got CellularCondition callback %@", callbackCopy, block, v23, v24, v25, v26];
+        v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"Got CellularCondition callback %@", callbackCopy, block, v22, v23, v24, v25];
         v16 = MEMORY[0x277D3F178];
         v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAppTimeService.m"];
         lastPathComponent = [v17 lastPathComponent];
@@ -1838,17 +1801,15 @@ uint64_t __44__PLAppTimeService_handleStatusBarCallback___block_invoke(uint64_t 
         if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v28 = v15;
+          v27 = v15;
           _os_log_debug_impl(&dword_21A4C6000, v20, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __52__PLAppTimeService_handleCellularConditionCallback___block_invoke(uint64_t a1)
+void *__52__PLAppTimeService_handleCellularConditionCallback___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F3E00 = result;
@@ -1923,7 +1884,7 @@ LABEL_7:
 
 - (void)handleBackgroundTransferCallback:(id)callback
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
   if (qword_2811F3E60 != -1)
   {
@@ -1958,7 +1919,7 @@ LABEL_7:
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v75 = v8;
+        v74 = v8;
         _os_log_debug_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -2003,31 +1964,31 @@ LABEL_47:
       if ([MEMORY[0x277D3F180] debugEnabled])
       {
         v24 = objc_opt_class();
-        v72[0] = MEMORY[0x277D85DD0];
-        v72[1] = 3221225472;
-        v72[2] = __53__PLAppTimeService_handleBackgroundTransferCallback___block_invoke_415;
-        v72[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v72[4] = v24;
+        v71[0] = MEMORY[0x277D85DD0];
+        v71[1] = 3221225472;
+        v71[2] = __53__PLAppTimeService_handleBackgroundTransferCallback___block_invoke_415;
+        v71[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v71[4] = v24;
         if (qword_2811F3E70 != -1)
         {
-          dispatch_once(&qword_2811F3E70, v72);
+          dispatch_once(&qword_2811F3E70, v71);
         }
 
         if (byte_2811F3E02 == 1)
         {
           v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"Running: backgroundTransferEvent=%@", v23];
-          v66 = MEMORY[0x277D3F178];
+          v65 = MEMORY[0x277D3F178];
           v26 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAppTimeService.m"];
           lastPathComponent2 = [v26 lastPathComponent];
           v28 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAppTimeService handleBackgroundTransferCallback:]"];
-          [v66 logMessage:v25 fromFile:lastPathComponent2 fromFunction:v28 fromLineNumber:1176];
+          [v65 logMessage:v25 fromFile:lastPathComponent2 fromFunction:v28 fromLineNumber:1176];
 
           v29 = v25;
           v30 = PLLogCommon();
           if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v75 = v29;
+            v74 = v29;
             _os_log_debug_impl(&dword_21A4C6000, v30, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
 
@@ -2058,31 +2019,31 @@ LABEL_47:
       if ([MEMORY[0x277D3F180] debugEnabled])
       {
         v34 = objc_opt_class();
-        v71[0] = MEMORY[0x277D85DD0];
-        v71[1] = 3221225472;
-        v71[2] = __53__PLAppTimeService_handleBackgroundTransferCallback___block_invoke_422;
-        v71[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v71[4] = v34;
+        v70[0] = MEMORY[0x277D85DD0];
+        v70[1] = 3221225472;
+        v70[2] = __53__PLAppTimeService_handleBackgroundTransferCallback___block_invoke_422;
+        v70[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v70[4] = v34;
         if (qword_2811F3E78 != -1)
         {
-          dispatch_once(&qword_2811F3E78, v71);
+          dispatch_once(&qword_2811F3E78, v70);
         }
 
         if (byte_2811F3E03 == 1)
         {
           v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"Cancelled, Completed, Failed: backgroundTransferEvent=%@", v23];
-          v67 = MEMORY[0x277D3F178];
+          v66 = MEMORY[0x277D3F178];
           v36 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAppTimeService.m"];
           lastPathComponent3 = [v36 lastPathComponent];
           v38 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAppTimeService handleBackgroundTransferCallback:]"];
-          [v67 logMessage:v35 fromFile:lastPathComponent3 fromFunction:v38 fromLineNumber:1193];
+          [v66 logMessage:v35 fromFile:lastPathComponent3 fromFunction:v38 fromLineNumber:1193];
 
           v39 = v35;
           v40 = PLLogCommon();
           if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v75 = v39;
+            v74 = v39;
             _os_log_debug_impl(&dword_21A4C6000, v40, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
 
@@ -2118,37 +2079,37 @@ LABEL_47:
       entryDate2 = [v5 entryDate];
       startDate = [(PLBackgroundTransferEvent *)v23 startDate];
       [entryDate2 timeIntervalSinceDate:startDate];
-      v57 = v56;
+      v56 = v55;
 
       if ([MEMORY[0x277D3F180] debugEnabled])
       {
-        v58 = objc_opt_class();
-        v70[0] = MEMORY[0x277D85DD0];
-        v70[1] = 3221225472;
-        v70[2] = __53__PLAppTimeService_handleBackgroundTransferCallback___block_invoke_428;
-        v70[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v70[4] = v58;
+        v57 = objc_opt_class();
+        v69[0] = MEMORY[0x277D85DD0];
+        v69[1] = 3221225472;
+        v69[2] = __53__PLAppTimeService_handleBackgroundTransferCallback___block_invoke_428;
+        v69[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v69[4] = v57;
         if (qword_2811F3E80 != -1)
         {
-          dispatch_once(&qword_2811F3E80, v70);
+          dispatch_once(&qword_2811F3E80, v69);
         }
 
         if (byte_2811F3E04 == 1)
         {
-          v59 = [MEMORY[0x277CCACA8] stringWithFormat:@"duration=%f", *&v57];
-          v68 = MEMORY[0x277D3F178];
-          v60 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAppTimeService.m"];
-          lastPathComponent4 = [v60 lastPathComponent];
-          v62 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAppTimeService handleBackgroundTransferCallback:]"];
-          [v68 logMessage:v59 fromFile:lastPathComponent4 fromFunction:v62 fromLineNumber:1205];
+          v58 = [MEMORY[0x277CCACA8] stringWithFormat:@"duration=%f", *&v56];
+          v67 = MEMORY[0x277D3F178];
+          v59 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAppTimeService.m"];
+          lastPathComponent4 = [v59 lastPathComponent];
+          v61 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAppTimeService handleBackgroundTransferCallback:]"];
+          [v67 logMessage:v58 fromFile:lastPathComponent4 fromFunction:v61 fromLineNumber:1205];
 
-          v63 = v59;
-          v64 = PLLogCommon();
-          if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
+          v62 = v58;
+          v63 = PLLogCommon();
+          if (os_log_type_enabled(v63, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v75 = v63;
-            _os_log_debug_impl(&dword_21A4C6000, v64, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+            v74 = v62;
+            _os_log_debug_impl(&dword_21A4C6000, v63, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
 
           v6 = 0x277D3F000;
@@ -2157,7 +2118,7 @@ LABEL_47:
 
       taskUUIDs = [(PLBackgroundTransferEvent *)v23 bundleID];
       startDate2 = [(PLBackgroundTransferEvent *)v23 startDate];
-      [(PLAppTimeService *)self updateBackgroundTimeInDBForBundleId:taskUUIDs withTime:startDate2 withDate:fmin(v57, 3600.0)];
+      [(PLAppTimeService *)self updateBackgroundTimeInDBForBundleId:taskUUIDs withTime:startDate2 withDate:fmin(v56, 3600.0)];
     }
 
 LABEL_39:
@@ -2165,14 +2126,14 @@ LABEL_40:
     if ([*(v6 + 384) debugEnabled])
     {
       v46 = objc_opt_class();
-      v69[0] = MEMORY[0x277D85DD0];
-      v69[1] = 3221225472;
-      v69[2] = __53__PLAppTimeService_handleBackgroundTransferCallback___block_invoke_434;
-      v69[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v69[4] = v46;
+      v68[0] = MEMORY[0x277D85DD0];
+      v68[1] = 3221225472;
+      v68[2] = __53__PLAppTimeService_handleBackgroundTransferCallback___block_invoke_434;
+      v68[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v68[4] = v46;
       if (qword_2811F3E88 != -1)
       {
-        dispatch_once(&qword_2811F3E88, v69);
+        dispatch_once(&qword_2811F3E88, v68);
       }
 
       if (byte_2811F3E05 == 1)
@@ -2188,7 +2149,7 @@ LABEL_40:
         if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v75 = qword_2811F3E58;
+          v74 = qword_2811F3E58;
           _os_log_debug_impl(&dword_21A4C6000, v52, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -2198,46 +2159,45 @@ LABEL_40:
   }
 
 LABEL_48:
-
-  v53 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __53__PLAppTimeService_handleBackgroundTransferCallback___block_invoke()
 {
-  qword_2811F3E58 = [MEMORY[0x277CBEB38] dictionary];
+  v0 = [MEMORY[0x277CBEB38] dictionary];
+  qword_2811F3E58 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
-uint64_t __53__PLAppTimeService_handleBackgroundTransferCallback___block_invoke_2(uint64_t a1)
+void *__53__PLAppTimeService_handleBackgroundTransferCallback___block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F3E01 = result;
   return result;
 }
 
-uint64_t __53__PLAppTimeService_handleBackgroundTransferCallback___block_invoke_415(uint64_t a1)
+void *__53__PLAppTimeService_handleBackgroundTransferCallback___block_invoke_415(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F3E02 = result;
   return result;
 }
 
-uint64_t __53__PLAppTimeService_handleBackgroundTransferCallback___block_invoke_422(uint64_t a1)
+void *__53__PLAppTimeService_handleBackgroundTransferCallback___block_invoke_422(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F3E03 = result;
   return result;
 }
 
-uint64_t __53__PLAppTimeService_handleBackgroundTransferCallback___block_invoke_428(uint64_t a1)
+void *__53__PLAppTimeService_handleBackgroundTransferCallback___block_invoke_428(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F3E04 = result;
   return result;
 }
 
-uint64_t __53__PLAppTimeService_handleBackgroundTransferCallback___block_invoke_434(uint64_t a1)
+void *__53__PLAppTimeService_handleBackgroundTransferCallback___block_invoke_434(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F3E05 = result;
@@ -2367,7 +2327,7 @@ LABEL_9:
 
 - (void)updateBackgroundTimeInDBForBundleId:(id)id withTime:(double)time withDate:(id)date
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   idCopy = id;
   dateCopy = date;
   isAPOn = [(PLAppTimeService *)self isAPOn];
@@ -2403,14 +2363,14 @@ LABEL_9:
     }
 
     v25 = objc_opt_class();
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = __74__PLAppTimeService_updateBackgroundTimeInDBForBundleId_withTime_withDate___block_invoke_446;
-    v36[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v36[4] = v25;
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __74__PLAppTimeService_updateBackgroundTimeInDBForBundleId_withTime_withDate___block_invoke_446;
+    v35[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v35[4] = v25;
     if (qword_2811F3E98 != -1)
     {
-      dispatch_once(&qword_2811F3E98, v36);
+      dispatch_once(&qword_2811F3E98, v35);
     }
 
     if (byte_2811F3E07 != 1)
@@ -2434,7 +2394,7 @@ LABEL_9:
     if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v39 = v23;
+      v38 = v23;
       _os_log_debug_impl(&dword_21A4C6000, v34, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
 
@@ -2473,7 +2433,7 @@ LABEL_20:
       if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v39 = dateCopy;
+        v38 = dateCopy;
         _os_log_debug_impl(&dword_21A4C6000, v23, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
@@ -2482,18 +2442,16 @@ LABEL_20:
   }
 
 LABEL_21:
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __74__PLAppTimeService_updateBackgroundTimeInDBForBundleId_withTime_withDate___block_invoke(uint64_t a1)
+void *__74__PLAppTimeService_updateBackgroundTimeInDBForBundleId_withTime_withDate___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F3E06 = result;
   return result;
 }
 
-uint64_t __74__PLAppTimeService_updateBackgroundTimeInDBForBundleId_withTime_withDate___block_invoke_446(uint64_t a1)
+void *__74__PLAppTimeService_updateBackgroundTimeInDBForBundleId_withTime_withDate___block_invoke_446(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F3E07 = result;
@@ -2502,36 +2460,36 @@ uint64_t __74__PLAppTimeService_updateBackgroundTimeInDBForBundleId_withTime_wit
 
 - (void)periodicUpdateAppRunTimeWithDate:(id)date
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   inFlightBundleIDStartTime = [(PLAppTimeService *)self inFlightBundleIDStartTime];
   allKeys = [inFlightBundleIDStartTime allKeys];
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v7 = allKeys;
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [(PLAppTimeService *)self updateAppRunTimeForBundleId:*(*(&v13 + 1) + 8 * v11++) withAppStateUpdateType:2 withNowDate:dateCopy, v13];
+        [(PLAppTimeService *)self updateAppRunTimeForBundleId:*(*(&v12 + 1) + 8 * v11++) withAppStateUpdateType:2 withNowDate:dateCopy, v12];
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
@@ -2542,39 +2500,37 @@ uint64_t __74__PLAppTimeService_updateBackgroundTimeInDBForBundleId_withTime_wit
   [(PLAppTimeService *)self addAudioTimeAtDate:dateCopy];
   [(PLAppTimeService *)self addNowPlayingTimeAtDate:dateCopy];
   [(PLAppTimeService *)self addStatusBarTimeAtDate:dateCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)chunkAppsOnScreenAtDate:(id)date
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   appsOnScreen = [(PLAppTimeService *)self appsOnScreen];
   if (appsOnScreen && (v6 = appsOnScreen, -[PLAppTimeService appsOnScreen](self, "appsOnScreen"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 count], v7, v6, v8))
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     appsOnScreen2 = [(PLAppTimeService *)self appsOnScreen];
-    v10 = [appsOnScreen2 countByEnumeratingWithState:&v23 objects:v31 count:16];
+    v10 = [appsOnScreen2 countByEnumeratingWithState:&v22 objects:v30 count:16];
     if (v10)
     {
       v12 = v10;
-      v13 = *v24;
+      v13 = *v23;
       *&v11 = 138412546;
-      v22 = v11;
+      v21 = v11;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v24 != v13)
+          if (*v23 != v13)
           {
             objc_enumerationMutation(appsOnScreen2);
           }
 
-          v15 = *(*(&v23 + 1) + 8 * i);
+          v15 = *(*(&v22 + 1) + 8 * i);
           lastScreenEventAccountingTime = [(PLAppTimeService *)self lastScreenEventAccountingTime];
           [dateCopy timeIntervalSinceDate:lastScreenEventAccountingTime];
           v18 = v17;
@@ -2586,15 +2542,15 @@ uint64_t __74__PLAppTimeService_updateBackgroundTimeInDBForBundleId_withTime_wit
           v20 = PLLogCommon();
           if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
           {
-            *buf = v22;
-            v28 = v15;
-            v29 = 2048;
-            v30 = v18;
+            *buf = v21;
+            v27 = v15;
+            v28 = 2048;
+            v29 = v18;
             _os_log_debug_impl(&dword_21A4C6000, v20, OS_LOG_TYPE_DEBUG, "Screen On: Periodic Update - Updating On Screen time for %@ with %f added seconds", buf, 0x16u);
           }
         }
 
-        v12 = [appsOnScreen2 countByEnumeratingWithState:&v23 objects:v31 count:16];
+        v12 = [appsOnScreen2 countByEnumeratingWithState:&v22 objects:v30 count:16];
       }
 
       while (v12);
@@ -2610,13 +2566,11 @@ uint64_t __74__PLAppTimeService_updateBackgroundTimeInDBForBundleId_withTime_wit
       _os_log_fault_impl(&dword_21A4C6000, appsOnScreen2, OS_LOG_TYPE_FAULT, "Screen On: Tried updating On Screen time, but couldn't retrieve apps on screen", buf, 2u);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addForegroundTimeAtDate:(id)date withNewLayoutElementsArray:(id)array
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   arrayCopy = array;
   lastScreenOnTime = [(PLAppTimeService *)self lastScreenOnTime];
@@ -2656,7 +2610,7 @@ uint64_t __74__PLAppTimeService_updateBackgroundTimeInDBForBundleId_withTime_wit
         if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v70 = v16;
+          v69 = v16;
           _os_log_debug_impl(&dword_21A4C6000, v21, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -2667,7 +2621,7 @@ uint64_t __74__PLAppTimeService_updateBackgroundTimeInDBForBundleId_withTime_wit
     {
       lastScreenOnTime3 = [(PLAppTimeService *)self lastScreenOnTime];
       *buf = 138412290;
-      v70 = lastScreenOnTime3;
+      v69 = lastScreenOnTime3;
       _os_log_debug_impl(&dword_21A4C6000, v22, OS_LOG_TYPE_DEBUG, "setting lastScreenEventAccountingTime to self.lastScreenOnTime=%@", buf, 0xCu);
     }
 
@@ -2684,11 +2638,11 @@ uint64_t __74__PLAppTimeService_updateBackgroundTimeInDBForBundleId_withTime_wit
   {
     lastScreenEventAccountingTime4 = [(PLAppTimeService *)self lastScreenEventAccountingTime];
     *buf = 138412290;
-    v70 = lastScreenEventAccountingTime4;
+    v69 = lastScreenEventAccountingTime4;
     _os_log_debug_impl(&dword_21A4C6000, v27, OS_LOG_TYPE_DEBUG, "lastScreenEventAccountingTime=%@", buf, 0xCu);
   }
 
-  v59 = dateCopy;
+  v58 = dateCopy;
 
   self->_musicPlayerForeground = 0;
   if ([arrayCopy count])
@@ -2699,26 +2653,26 @@ uint64_t __74__PLAppTimeService_updateBackgroundTimeInDBForBundleId_withTime_wit
     appsOnScreen = [(PLAppTimeService *)self appsOnScreen];
     [appsOnScreen removeAllObjects];
 
-    v66 = 0u;
-    v67 = 0u;
-    v64 = 0u;
     v65 = 0u;
+    v66 = 0u;
+    v63 = 0u;
+    v64 = 0u;
     v30 = arrayCopy;
-    v31 = [v30 countByEnumeratingWithState:&v64 objects:v74 count:16];
+    v31 = [v30 countByEnumeratingWithState:&v63 objects:v73 count:16];
     if (v31)
     {
       v32 = v31;
-      v33 = *v65;
+      v33 = *v64;
       do
       {
         for (i = 0; i != v32; ++i)
         {
-          if (*v65 != v33)
+          if (*v64 != v33)
           {
             objc_enumerationMutation(v30);
           }
 
-          v35 = *(*(&v64 + 1) + 8 * i);
+          v35 = *(*(&v63 + 1) + 8 * i);
           v36 = [v35 objectForKeyedSubscript:@"bundleID"];
 
           if (v36)
@@ -2738,13 +2692,13 @@ uint64_t __74__PLAppTimeService_updateBackgroundTimeInDBForBundleId_withTime_wit
             if (os_log_type_enabled(appsOnScreen2, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412290;
-              v70 = v35;
+              v69 = v35;
               _os_log_fault_impl(&dword_21A4C6000, appsOnScreen2, OS_LOG_TYPE_FAULT, "Failed to retrieve bundle id for app on screen, bundle id is nil for entry %@", buf, 0xCu);
             }
           }
         }
 
-        v32 = [v30 countByEnumeratingWithState:&v64 objects:v74 count:16];
+        v32 = [v30 countByEnumeratingWithState:&v63 objects:v73 count:16];
       }
 
       while (v32);
@@ -2756,26 +2710,26 @@ uint64_t __74__PLAppTimeService_updateBackgroundTimeInDBForBundleId_withTime_wit
 
   if (v42)
   {
-    v62 = 0u;
-    v63 = 0u;
-    v60 = 0u;
     v61 = 0u;
+    v62 = 0u;
+    v59 = 0u;
+    v60 = 0u;
     lastLayoutEntries2 = [(PLAppTimeService *)self lastLayoutEntries];
-    v44 = [lastLayoutEntries2 countByEnumeratingWithState:&v60 objects:v73 count:16];
+    v44 = [lastLayoutEntries2 countByEnumeratingWithState:&v59 objects:v72 count:16];
     if (v44)
     {
       v45 = v44;
-      v46 = *v61;
+      v46 = *v60;
       do
       {
         for (j = 0; j != v45; ++j)
         {
-          if (*v61 != v46)
+          if (*v60 != v46)
           {
             objc_enumerationMutation(lastLayoutEntries2);
           }
 
-          v48 = *(*(&v60 + 1) + 8 * j);
+          v48 = *(*(&v59 + 1) + 8 * j);
           v49 = [v48 objectForKeyedSubscript:@"bundleID"];
           lastScreenEventAccountingTime5 = [(PLAppTimeService *)self lastScreenEventAccountingTime];
           [(PLAppTimeService *)self updateScreenOnTimeInDBForBundleId:v49 withTime:lastScreenEventAccountingTime5 withDate:v26];
@@ -2788,9 +2742,9 @@ uint64_t __74__PLAppTimeService_updateBackgroundTimeInDBForBundleId_withTime_wit
           {
             v55 = [v48 objectForKeyedSubscript:@"bundleID"];
             *buf = 138412546;
-            v70 = v55;
-            v71 = 2048;
-            v72 = v26;
+            v69 = v55;
+            v70 = 2048;
+            v71 = v26;
             _os_log_debug_impl(&dword_21A4C6000, v52, OS_LOG_TYPE_DEBUG, "Screen On: Updating On Screen time for %@ with %f added seconds", buf, 0x16u);
           }
 
@@ -2803,19 +2757,17 @@ uint64_t __74__PLAppTimeService_updateBackgroundTimeInDBForBundleId_withTime_wit
           }
         }
 
-        v45 = [lastLayoutEntries2 countByEnumeratingWithState:&v60 objects:v73 count:16];
+        v45 = [lastLayoutEntries2 countByEnumeratingWithState:&v59 objects:v72 count:16];
       }
 
       while (v45);
     }
   }
 
-  [(PLAppTimeService *)self resetLayoutElementsPLEntryArray:arrayCopy withNowDate:v59];
-
-  v56 = *MEMORY[0x277D85DE8];
+  [(PLAppTimeService *)self resetLayoutElementsPLEntryArray:arrayCopy withNowDate:v58];
 }
 
-uint64_t __71__PLAppTimeService_addForegroundTimeAtDate_withNewLayoutElementsArray___block_invoke(uint64_t a1)
+void *__71__PLAppTimeService_addForegroundTimeAtDate_withNewLayoutElementsArray___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F3E08 = result;
@@ -2824,7 +2776,7 @@ uint64_t __71__PLAppTimeService_addForegroundTimeAtDate_withNewLayoutElementsArr
 
 - (void)updateScreenOnTimeInDBForBundleId:(id)id withTime:(double)time withDate:(id)date
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   idCopy = id;
   dateCopy = date;
   excludedFGAppsSet = [(PLAppTimeService *)self excludedFGAppsSet];
@@ -2843,14 +2795,14 @@ LABEL_26:
       if ([MEMORY[0x277D3F180] debugEnabled])
       {
         v12 = objc_opt_class();
-        v38[0] = MEMORY[0x277D85DD0];
-        v38[1] = 3221225472;
-        v38[2] = __72__PLAppTimeService_updateScreenOnTimeInDBForBundleId_withTime_withDate___block_invoke;
-        v38[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v38[4] = v12;
+        v37[0] = MEMORY[0x277D85DD0];
+        v37[1] = 3221225472;
+        v37[2] = __72__PLAppTimeService_updateScreenOnTimeInDBForBundleId_withTime_withDate___block_invoke;
+        v37[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v37[4] = v12;
         if (qword_2811F3EA8 != -1)
         {
-          dispatch_once(&qword_2811F3EA8, v38);
+          dispatch_once(&qword_2811F3EA8, v37);
         }
 
         if (byte_2811F3E09 == 1)
@@ -2880,8 +2832,8 @@ LABEL_26:
     {
       *buf = 134218242;
       timeCopy = time;
-      v41 = 2112;
-      v42 = idCopy;
+      v40 = 2112;
+      v41 = idCopy;
       _os_log_debug_impl(&dword_21A4C6000, v19, OS_LOG_TYPE_DEBUG, "adding timeDifference=%f for bundleID=%@", buf, 0x16u);
     }
 
@@ -2950,18 +2902,16 @@ LABEL_26:
   }
 
 LABEL_27:
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __72__PLAppTimeService_updateScreenOnTimeInDBForBundleId_withTime_withDate___block_invoke(uint64_t a1)
+void *__72__PLAppTimeService_updateScreenOnTimeInDBForBundleId_withTime_withDate___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F3E09 = result;
   return result;
 }
 
-uint64_t __72__PLAppTimeService_updateScreenOnTimeInDBForBundleId_withTime_withDate___block_invoke_461(uint64_t a1)
+void *__72__PLAppTimeService_updateScreenOnTimeInDBForBundleId_withTime_withDate___block_invoke_461(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F3E0A = result;
@@ -3034,42 +2984,42 @@ uint64_t __72__PLAppTimeService_updateScreenOnTimeInDBForBundleId_withTime_withD
 
 - (void)handleCoalitionCallback:(id)callback withNewCoalitionArray:(id)array
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
   arrayCopy = array;
   if ([arrayCopy count])
   {
-    v53 = [(PLOperator *)PLAppTimeService entryKeyForType:*MEMORY[0x277D3F5B8] andName:@"Metrics"];
+    v52 = [(PLOperator *)PLAppTimeService entryKeyForType:*MEMORY[0x277D3F5B8] andName:@"Metrics"];
     array = [MEMORY[0x277CBEB18] array];
     dictionary = [MEMORY[0x277CBEB38] dictionary];
+    v61 = 0u;
     v62 = 0u;
     v63 = 0u;
     v64 = 0u;
-    v65 = 0u;
-    v51 = arrayCopy;
+    v50 = arrayCopy;
     obj = arrayCopy;
-    v9 = [obj countByEnumeratingWithState:&v62 objects:v69 count:16];
+    v9 = [obj countByEnumeratingWithState:&v61 objects:v68 count:16];
     if (v9)
     {
       v10 = v9;
-      v54 = 0;
+      v53 = 0;
       entryDate = 0;
-      v56 = *v63;
+      v55 = *v62;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v63 != v56)
+          if (*v62 != v55)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v62 + 1) + 8 * i);
-          v14 = [MEMORY[0x277D3F258] getIdentifierFromEntry:{v13, v51}];
+          v13 = *(*(&v61 + 1) + 8 * i);
+          v14 = [MEMORY[0x277D3F258] getIdentifierFromEntry:{v13, v50}];
           if (v14)
           {
             v15 = v14;
-            v57 = entryDate;
+            v56 = entryDate;
             v16 = dictionary;
             v17 = [v13 objectForKeyedSubscript:@"byteswritten"];
             intValue = [v17 intValue];
@@ -3079,7 +3029,7 @@ uint64_t __72__PLAppTimeService_updateScreenOnTimeInDBForBundleId_withTime_withD
 
             if (intValue2 > 0 || intValue >= 1)
             {
-              v22 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v53 withDate:callbackCopy];
+              v22 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v52 withDate:callbackCopy];
               [v22 setObject:v15 forKeyedSubscript:@"BundleId"];
               v23 = [MEMORY[0x277CCABB0] numberWithInt:intValue];
               [v22 setObject:v23 forKeyedSubscript:@"byteswritten"];
@@ -3099,7 +3049,7 @@ uint64_t __72__PLAppTimeService_updateScreenOnTimeInDBForBundleId_withTime_withD
               dictionary = v16;
               if (([(NSMutableSet *)self->_coalitionsAppsOnScreen containsObject:v26]& 1) != 0)
               {
-                entryDate = v57;
+                entryDate = v56;
               }
 
               else
@@ -3131,7 +3081,7 @@ uint64_t __72__PLAppTimeService_updateScreenOnTimeInDBForBundleId_withTime_withD
 
                 v36 = [v13 objectForKeyedSubscript:@"timestampEnd"];
 
-                v54 = v36;
+                v53 = v36;
               }
             }
 
@@ -3139,7 +3089,7 @@ uint64_t __72__PLAppTimeService_updateScreenOnTimeInDBForBundleId_withTime_withD
             {
               v26 = v15;
               dictionary = v16;
-              entryDate = v57;
+              entryDate = v56;
             }
           }
 
@@ -3149,7 +3099,7 @@ uint64_t __72__PLAppTimeService_updateScreenOnTimeInDBForBundleId_withTime_withD
           }
         }
 
-        v10 = [obj countByEnumeratingWithState:&v62 objects:v69 count:16];
+        v10 = [obj countByEnumeratingWithState:&v61 objects:v68 count:16];
       }
 
       while (v10);
@@ -3157,47 +3107,47 @@ uint64_t __72__PLAppTimeService_updateScreenOnTimeInDBForBundleId_withTime_withD
 
     else
     {
-      v54 = 0;
+      v53 = 0;
       entryDate = 0;
     }
 
     if ([array count])
     {
-      v67 = v53;
-      v68 = array;
-      v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v68 forKeys:&v67 count:1];
-      [(PLOperator *)self logEntries:v37 withGroupID:v53];
+      v66 = v52;
+      v67 = array;
+      v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
+      [(PLOperator *)self logEntries:v37 withGroupID:v52];
     }
 
     v38 = 0.0;
     v39 = 0.0;
-    if (entryDate && v54)
+    if (entryDate && v53)
     {
-      [v54 timeIntervalSinceDate:entryDate];
+      [v53 timeIntervalSinceDate:entryDate];
       v39 = v40;
     }
 
-    v60 = 0u;
-    v61 = 0u;
-    v58 = 0u;
     v59 = 0u;
+    v60 = 0u;
+    v57 = 0u;
+    v58 = 0u;
     v41 = dictionary;
-    v42 = [v41 countByEnumeratingWithState:&v58 objects:v66 count:16];
+    v42 = [v41 countByEnumeratingWithState:&v57 objects:v65 count:16];
     if (v42)
     {
       v43 = v42;
-      v44 = *v59;
+      v44 = *v58;
       do
       {
         for (j = 0; j != v43; ++j)
         {
-          if (*v59 != v44)
+          if (*v58 != v44)
           {
             objc_enumerationMutation(v41);
           }
 
-          v46 = *(*(&v58 + 1) + 8 * j);
-          v47 = [v41 objectForKeyedSubscript:{v46, v51}];
+          v46 = *(*(&v57 + 1) + 8 * j);
+          v47 = [v41 objectForKeyedSubscript:{v46, v50}];
           [v47 doubleValue];
           [PLAppTimeService convertCPUTimeToBackgroundTime:"convertCPUTimeToBackgroundTime:withDuration:" withDuration:?];
           v49 = v48;
@@ -3209,7 +3159,7 @@ uint64_t __72__PLAppTimeService_updateScreenOnTimeInDBForBundleId_withTime_withD
           }
         }
 
-        v43 = [v41 countByEnumeratingWithState:&v58 objects:v66 count:16];
+        v43 = [v41 countByEnumeratingWithState:&v57 objects:v65 count:16];
       }
 
       while (v43);
@@ -3218,10 +3168,8 @@ uint64_t __72__PLAppTimeService_updateScreenOnTimeInDBForBundleId_withTime_withD
     [(NSMutableSet *)self->_coalitionsAppsOnScreen removeAllObjects];
     [(PLAppTimeService *)self updateAggregationsAtSBCWithDate:callbackCopy withLongestCoalitionBGTime:v38 withCoalitionLength:v39];
 
-    arrayCopy = v51;
+    arrayCopy = v50;
   }
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateInCallServiceTimeAtDate:(id)date
@@ -3243,7 +3191,7 @@ uint64_t __72__PLAppTimeService_updateScreenOnTimeInDBForBundleId_withTime_withD
 
 - (void)updateInCallServiceTimeInDBForBundleId:(id)id withTime:(double)time withDate:(id)date
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   idCopy = id;
   dateCopy = date;
   inCallNow = [(PLAppTimeService *)self inCallNow];
@@ -3318,17 +3266,15 @@ uint64_t __72__PLAppTimeService_updateScreenOnTimeInDBForBundleId_withTime_withD
         if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v39 = v30;
+          v38 = v30;
           _os_log_debug_impl(&dword_21A4C6000, v35, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
     }
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __77__PLAppTimeService_updateInCallServiceTimeInDBForBundleId_withTime_withDate___block_invoke(uint64_t a1)
+void *__77__PLAppTimeService_updateInCallServiceTimeInDBForBundleId_withTime_withDate___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F3E0B = result;
@@ -3337,7 +3283,7 @@ uint64_t __77__PLAppTimeService_updateInCallServiceTimeInDBForBundleId_withTime_
 
 - (void)addAudioTimeAtDate:(id)date
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   v5 = MEMORY[0x277CBEB58];
   audioPlaybackBundleIDs = [(PLAppTimeService *)self audioPlaybackBundleIDs];
@@ -3350,31 +3296,31 @@ uint64_t __77__PLAppTimeService_updateInCallServiceTimeInDBForBundleId_withTime_
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134217984;
-      v50 = [v8 count];
+      v49 = [v8 count];
       _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "audio: found %lu playing", buf, 0xCu);
     }
 
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
     v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     appsOnScreen = [(PLAppTimeService *)self appsOnScreen];
-    v11 = [appsOnScreen countByEnumeratingWithState:&v44 objects:v53 count:16];
+    v11 = [appsOnScreen countByEnumeratingWithState:&v43 objects:v52 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v45;
+      v13 = *v44;
       do
       {
         v14 = 0;
         do
         {
-          if (*v45 != v13)
+          if (*v44 != v13)
           {
             objc_enumerationMutation(appsOnScreen);
           }
 
-          v15 = *(*(&v44 + 1) + 8 * v14);
+          v15 = *(*(&v43 + 1) + 8 * v14);
           audioPlaybackBundleIDs2 = [(PLAppTimeService *)self audioPlaybackBundleIDs];
           v17 = [audioPlaybackBundleIDs2 objectForKeyedSubscript:v15];
 
@@ -3387,7 +3333,7 @@ uint64_t __77__PLAppTimeService_updateInCallServiceTimeInDBForBundleId_withTime_
             if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v50 = v15;
+              v49 = v15;
               _os_log_debug_impl(&dword_21A4C6000, v19, OS_LOG_TYPE_DEBUG, "audio: reset time for %@ due to being in the fg", buf, 0xCu);
             }
           }
@@ -3396,7 +3342,7 @@ uint64_t __77__PLAppTimeService_updateInCallServiceTimeInDBForBundleId_withTime_
         }
 
         while (v12 != v14);
-        v12 = [appsOnScreen countByEnumeratingWithState:&v44 objects:v53 count:16];
+        v12 = [appsOnScreen countByEnumeratingWithState:&v43 objects:v52 count:16];
       }
 
       while (v12);
@@ -3409,12 +3355,12 @@ uint64_t __77__PLAppTimeService_updateInCallServiceTimeInDBForBundleId_withTime_
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
       appsOnScreen3 = [(PLAppTimeService *)self appsOnScreen];
-      v37 = [appsOnScreen3 count];
-      v38 = [v8 count];
+      v36 = [appsOnScreen3 count];
+      v37 = [v8 count];
       *buf = 134218240;
-      v50 = v37;
-      v51 = 2048;
-      v52 = v38;
+      v49 = v36;
+      v50 = 2048;
+      v51 = v37;
       _os_log_debug_impl(&dword_21A4C6000, v21, OS_LOG_TYPE_DEBUG, "audio: removing from %lu fg, %lu playing in bg", buf, 0x16u);
     }
 
@@ -3433,7 +3379,7 @@ uint64_t __77__PLAppTimeService_updateInCallServiceTimeInDBForBundleId_withTime_
         {
           statusBarBundleID3 = [(PLAppTimeService *)self statusBarBundleID];
           *buf = 138412290;
-          v50 = statusBarBundleID3;
+          v49 = statusBarBundleID3;
           _os_log_debug_impl(&dword_21A4C6000, v26, OS_LOG_TYPE_DEBUG, "audio: %@ is using audio+location", buf, 0xCu);
         }
 
@@ -3446,41 +3392,39 @@ uint64_t __77__PLAppTimeService_updateInCallServiceTimeInDBForBundleId_withTime_
       }
     }
 
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     v30 = v8;
-    v31 = [v30 countByEnumeratingWithState:&v40 objects:v48 count:16];
+    v31 = [v30 countByEnumeratingWithState:&v39 objects:v47 count:16];
     if (v31)
     {
       v32 = v31;
-      v33 = *v41;
+      v33 = *v40;
       do
       {
         for (i = 0; i != v32; ++i)
         {
-          if (*v41 != v33)
+          if (*v40 != v33)
           {
             objc_enumerationMutation(v30);
           }
 
-          [(PLAppTimeService *)self addAudioTimeAtDate:dateCopy forBundleID:*(*(&v40 + 1) + 8 * i)];
+          [(PLAppTimeService *)self addAudioTimeAtDate:dateCopy forBundleID:*(*(&v39 + 1) + 8 * i)];
         }
 
-        v32 = [v30 countByEnumeratingWithState:&v40 objects:v48 count:16];
+        v32 = [v30 countByEnumeratingWithState:&v39 objects:v47 count:16];
       }
 
       while (v32);
     }
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addAudioTimeAtDate:(id)date forBundleID:(id)d
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   dCopy = d;
   audioPlaybackBundleIDs = [(PLAppTimeService *)self audioPlaybackBundleIDs];
@@ -3491,9 +3435,9 @@ uint64_t __77__PLAppTimeService_updateInCallServiceTimeInDBForBundleId_withTime_
     v15 = PLLogCommon();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v24 = 138412290;
-      v25 = *&dCopy;
-      _os_log_error_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_ERROR, "audio: missing last info for %@", &v24, 0xCu);
+      v23 = 138412290;
+      v24 = *&dCopy;
+      _os_log_error_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_ERROR, "audio: missing last info for %@", &v23, 0xCu);
     }
 
     goto LABEL_18;
@@ -3523,9 +3467,9 @@ LABEL_18:
       v16 = PLLogCommon();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
-        v24 = 134217984;
-        v25 = v11;
-        _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "audio: incrementing Music's BG time by %.2f", &v24, 0xCu);
+        v23 = 134217984;
+        v24 = v11;
+        _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "audio: incrementing Music's BG time by %.2f", &v23, 0xCu);
       }
 
       v17 = [MEMORY[0x277CCABB0] numberWithDouble:v11];
@@ -3561,13 +3505,13 @@ LABEL_18:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
       deviceIsPluggedIn = [(PLAppTimeService *)self deviceIsPluggedIn];
-      v24 = 138412802;
-      v25 = *&dCopy;
-      v26 = 2048;
-      v27 = v11;
-      v28 = 1024;
-      v29 = deviceIsPluggedIn;
-      _os_log_debug_impl(&dword_21A4C6000, v21, OS_LOG_TYPE_DEBUG, "audio: adding to %@ playback time: %.2f pluggedIn:%d", &v24, 0x1Cu);
+      v23 = 138412802;
+      v24 = *&dCopy;
+      v25 = 2048;
+      v26 = v11;
+      v27 = 1024;
+      v28 = deviceIsPluggedIn;
+      _os_log_debug_impl(&dword_21A4C6000, v21, OS_LOG_TYPE_DEBUG, "audio: adding to %@ playback time: %.2f pluggedIn:%d", &v23, 0x1Cu);
     }
 
     [(PLOperator *)self logProportionateAggregateEntry:v15 withStartDate:v9 withEndDate:dateCopy];
@@ -3576,27 +3520,14 @@ LABEL_18:
   }
 
 LABEL_19:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addNowPlayingTimeAtDate:(id)date
 {
   dateCopy = date;
   nowPlayingBundleID = [(PLAppTimeService *)self nowPlayingBundleID];
-  if (!nowPlayingBundleID)
+  if (!nowPlayingBundleID || (v5 = nowPlayingBundleID, -[PLAppTimeService appsOnScreen](self, "appsOnScreen"), v6 = objc_claimAutoreleasedReturnValue(), -[PLAppTimeService nowPlayingBundleID](self, "nowPlayingBundleID"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v6 containsObject:v7], v7, v6, v5, v8) || (-[PLAppTimeService lastNowPlayingTime](self, "lastNowPlayingTime"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(dateCopy, "timeIntervalSinceDate:", v9), v11 = v10, v9, v11 <= 0.0))
   {
-    goto LABEL_6;
-  }
-
-  v5 = nowPlayingBundleID;
-  appsOnScreen = [(PLAppTimeService *)self appsOnScreen];
-  nowPlayingBundleID2 = [(PLAppTimeService *)self nowPlayingBundleID];
-  v8 = [appsOnScreen containsObject:nowPlayingBundleID2];
-
-  if (v8 || (-[PLAppTimeService lastNowPlayingTime](self, "lastNowPlayingTime"), v9 = objc_claimAutoreleasedReturnValue(), [dateCopy timeIntervalSinceDate:v9], v11 = v10, v9, v11 <= 0.0))
-  {
-LABEL_6:
     [(PLAppTimeService *)self setLastNowPlayingTime:dateCopy];
   }
 
@@ -3606,8 +3537,8 @@ LABEL_6:
     aggregatedEntryKeyForAppRunTime = [(PLAppTimeService *)self aggregatedEntryKeyForAppRunTime];
     v14 = [v12 initWithEntryKey:aggregatedEntryKeyForAppRunTime withDate:dateCopy];
 
-    nowPlayingBundleID3 = [(PLAppTimeService *)self nowPlayingBundleID];
-    [v14 setObject:nowPlayingBundleID3 forKeyedSubscript:@"BundleID"];
+    nowPlayingBundleID2 = [(PLAppTimeService *)self nowPlayingBundleID];
+    [v14 setObject:nowPlayingBundleID2 forKeyedSubscript:@"BundleID"];
 
     v16 = [MEMORY[0x277CCABB0] numberWithDouble:v11];
     [v14 setObject:v16 forKeyedSubscript:@"BackgroundAudioNowPlayingTime"];
@@ -3768,7 +3699,7 @@ LABEL_12:
 
 - (void)addCellularConditionTimeAtDate:(id)date
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   lastCellularConditionTime = [(PLAppTimeService *)self lastCellularConditionTime];
 
@@ -3808,26 +3739,26 @@ LABEL_12:
       [v12 unionSet:appsOnScreen];
     }
 
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     obj = v12;
-    v14 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v14 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v26;
+      v16 = *v25;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v26 != v16)
+          if (*v25 != v16)
           {
             objc_enumerationMutation(obj);
           }
 
-          v18 = *(*(&v25 + 1) + 8 * i);
+          v18 = *(*(&v24 + 1) + 8 * i);
           v19 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v7 withDate:dateCopy];
           [v19 setObject:v18 forKeyedSubscript:@"BundleID"];
           v20 = [MEMORY[0x277CCABB0] numberWithInteger:lastSignalBar];
@@ -3840,7 +3771,7 @@ LABEL_12:
           [(PLOperator *)self logProportionateAggregateEntry:v19 withStartDate:lastCellularConditionTime3 withEndDate:dateCopy];
         }
 
-        v15 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v15 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v15);
@@ -3849,8 +3780,6 @@ LABEL_12:
 
   [(PLAppTimeService *)self setLastCellularConditionTime:dateCopy];
 LABEL_20:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addNotificationCountFromUserInfo:(id)info AtDate:(id)date
@@ -3870,7 +3799,7 @@ LABEL_20:
 
 - (void)addWidgetUseFromUserInfo:(id)info AtDate:(id)date
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = [info objectForKey:{@"entry", date}];
   v6 = [v5 objectForKeyedSubscript:@"bundleID"];
   v7 = [(PLAppTimeService *)self getWidgetParentAppForBundleID:v6];
@@ -3880,44 +3809,42 @@ LABEL_20:
     v8 = PLLogCommon();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v11 = 138412290;
-      v12 = v7;
-      _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "Added app usage event: Widget for bundleid  %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v7;
+      _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "Added app usage event: Widget for bundleid  %@", &v10, 0xCu);
     }
 
     entryDate = [v5 entryDate];
     [(PLAppTimeService *)self logAppUsageEventForKey:@"HasWidgetActive" withBundleID:v7 withDate:entryDate];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addCarPlayUseFromLayoutEntry:(id)entry AtDate:(id)date
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   entryCopy = entry;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v6 = [entryCopy countByEnumeratingWithState:&v19 objects:v25 count:16];
+  v6 = [entryCopy countByEnumeratingWithState:&v18 objects:v24 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v20;
+    v9 = *v19;
     *&v7 = 138412290;
-    v18 = v7;
+    v17 = v7;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(entryCopy);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * i);
-        v12 = [v11 objectForKeyedSubscript:{@"Display", v18}];
+        v11 = *(*(&v18 + 1) + 8 * i);
+        v12 = [v11 objectForKeyedSubscript:{@"Display", v17}];
         intValue = [v12 intValue];
 
         if (intValue == 3)
@@ -3926,8 +3853,8 @@ LABEL_20:
           v15 = PLLogCommon();
           if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
           {
-            *buf = v18;
-            v24 = v11;
+            *buf = v17;
+            v23 = v11;
             _os_log_debug_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEBUG, "Added app usage event: Carplay %@", buf, 0xCu);
           }
 
@@ -3936,18 +3863,16 @@ LABEL_20:
         }
       }
 
-      v8 = [entryCopy countByEnumeratingWithState:&v19 objects:v25 count:16];
+      v8 = [entryCopy countByEnumeratingWithState:&v18 objects:v24 count:16];
     }
 
     while (v8);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getWidgetParentAppForBundleID:(id)d
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   widgetParentBundleIDs = [(PLAppTimeService *)self widgetParentBundleIDs];
   v6 = [widgetParentBundleIDs objectForKeyedSubscript:dCopy];
@@ -3956,10 +3881,10 @@ LABEL_20:
   {
     widgetParentBundleIDs2 = [objc_alloc(MEMORY[0x277D3F260]) initWithKey:@"PluginId" withValue:dCopy withComparisonOperation:0];
     mEMORY[0x277D3F2A0] = [MEMORY[0x277D3F2A0] sharedCore];
-    storage = [mEMORY[0x277D3F2A0] storage];
-    v19 = widgetParentBundleIDs2;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
-    v13 = [storage entriesForKey:@"PLApplicationAgent_EventNone_AllPlugins" withComparisons:v12];
+    v11 = objc_msgSend_storage(mEMORY[0x277D3F2A0]);
+    v18 = widgetParentBundleIDs2;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
+    v13 = [v11 entriesForKey:@"PLApplicationAgent_EventNone_AllPlugins" withComparisons:v12];
 
     if ([v13 count])
     {
@@ -3969,7 +3894,7 @@ LABEL_20:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v21 = firstObject;
+        v20 = firstObject;
         _os_log_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEFAULT, "Added app usage event queryResult= %@", buf, 0xCu);
       }
 
@@ -3986,7 +3911,7 @@ LABEL_14:
     if (os_log_type_enabled(firstObject, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v21 = dCopy;
+      v20 = dCopy;
       _os_log_error_impl(&dword_21A4C6000, firstObject, OS_LOG_TYPE_ERROR, "App usage event: unable to find widget's parent id for %@", buf, 0xCu);
     }
 
@@ -3997,17 +3922,15 @@ LABEL_14:
   v7 = PLLogCommon();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v18 = [(NSMutableDictionary *)self->_widgetParentBundleIDs objectForKeyedSubscript:dCopy];
+    v17 = [(NSMutableDictionary *)self->_widgetParentBundleIDs objectForKeyedSubscript:dCopy];
     *buf = 138412290;
-    v21 = v18;
+    v20 = v17;
     _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "Added app usage event cached widget =%@", buf, 0xCu);
   }
 
   widgetParentBundleIDs2 = [(PLAppTimeService *)self widgetParentBundleIDs];
   v9 = [widgetParentBundleIDs2 objectForKeyedSubscript:dCopy];
 LABEL_15:
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -4028,7 +3951,7 @@ LABEL_15:
 
 - (void)logAppUsageEventForKey:(id)key withBundleID:(id)d withDate:(id)date
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   dCopy = d;
   dateCopy = date;
@@ -4041,9 +3964,9 @@ LABEL_15:
     v12 = PLLogCommon();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      v14 = 138412290;
-      v15 = v11;
-      _os_log_debug_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEBUG, "App usage event: adding %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = v11;
+      _os_log_debug_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEBUG, "App usage event: adding %@", &v13, 0xCu);
     }
   }
 
@@ -4052,12 +3975,10 @@ LABEL_15:
     v11 = PLLogCommon();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v14) = 0;
-      _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "App usage event: unable to log nil bundle id", &v14, 2u);
+      LOWORD(v13) = 0;
+      _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "App usage event: unable to log nil bundle id", &v13, 2u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)backgroundAppToBundleIDmapping
@@ -4074,7 +3995,7 @@ LABEL_15:
 
 - (void)updateAggregationsAtSBCWithDate:(id)date withLongestCoalitionBGTime:(double)time withCoalitionLength:(double)length
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   if (([MEMORY[0x277D3F208] isHomePod] & 1) == 0)
   {
@@ -4083,9 +4004,9 @@ LABEL_15:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       [(PLAppTimeService *)self totalFGTimeSBC];
-      v40 = 134217984;
-      timeCopy = v34;
-      _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "SBC: FG %f", &v40, 0xCu);
+      v39 = 134217984;
+      timeCopy = v33;
+      _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "SBC: FG %f", &v39, 0xCu);
     }
 
     lastAPOnTimeSBC = [(PLAppTimeService *)self lastAPOnTimeSBC];
@@ -4108,9 +4029,9 @@ LABEL_15:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       [(PLAppTimeService *)self totalAPOnTimeSBC];
-      v40 = 134217984;
-      timeCopy = v35;
-      _os_log_debug_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEBUG, "SBC: AP %f", &v40, 0xCu);
+      v39 = 134217984;
+      timeCopy = v34;
+      _os_log_debug_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEBUG, "SBC: AP %f", &v39, 0xCu);
     }
 
     firstBGAppTimeSBC = [(PLAppTimeService *)self firstBGAppTimeSBC];
@@ -4131,9 +4052,9 @@ LABEL_15:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
       [(PLAppTimeService *)self totalBGTimeSBC];
-      v40 = 134217984;
-      timeCopy = v36;
-      _os_log_debug_impl(&dword_21A4C6000, v20, OS_LOG_TYPE_DEBUG, "SBC: BG %f", &v40, 0xCu);
+      v39 = 134217984;
+      timeCopy = v35;
+      _os_log_debug_impl(&dword_21A4C6000, v20, OS_LOG_TYPE_DEBUG, "SBC: BG %f", &v39, 0xCu);
     }
 
     totalFGTimeSBC = self->_totalFGTimeSBC;
@@ -4162,88 +4083,86 @@ LABEL_15:
     v25 = PLLogCommon();
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v40) = 0;
-      _os_log_debug_impl(&dword_21A4C6000, v25, OS_LOG_TYPE_DEBUG, "Calculating screen off time from coalitions", &v40, 2u);
+      LOWORD(v39) = 0;
+      _os_log_debug_impl(&dword_21A4C6000, v25, OS_LOG_TYPE_DEBUG, "Calculating screen off time from coalitions", &v39, 2u);
     }
 
     v26 = PLLogCommon();
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
     {
-      v40 = 134217984;
+      v39 = 134217984;
       timeCopy = length;
-      _os_log_debug_impl(&dword_21A4C6000, v26, OS_LOG_TYPE_DEBUG, "   Coalition interval length       %f", &v40, 0xCu);
+      _os_log_debug_impl(&dword_21A4C6000, v26, OS_LOG_TYPE_DEBUG, "   Coalition interval length       %f", &v39, 0xCu);
     }
 
     v27 = PLLogCommon();
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
     {
-      v40 = 134217984;
+      v39 = 134217984;
       timeCopy = time;
-      _os_log_debug_impl(&dword_21A4C6000, v27, OS_LOG_TYPE_DEBUG, "   Longest coalition CPU time:     %f", &v40, 0xCu);
+      _os_log_debug_impl(&dword_21A4C6000, v27, OS_LOG_TYPE_DEBUG, "   Longest coalition CPU time:     %f", &v39, 0xCu);
     }
 
     v28 = PLLogCommon();
     if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
     {
-      v37 = self->_totalFGTimeSBC;
-      v40 = 134217984;
-      timeCopy = v37;
-      _os_log_debug_impl(&dword_21A4C6000, v28, OS_LOG_TYPE_DEBUG, "   FG since last SBC:              %f", &v40, 0xCu);
+      v36 = self->_totalFGTimeSBC;
+      v39 = 134217984;
+      timeCopy = v36;
+      _os_log_debug_impl(&dword_21A4C6000, v28, OS_LOG_TYPE_DEBUG, "   FG since last SBC:              %f", &v39, 0xCu);
     }
 
     v29 = PLLogCommon();
     if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
     {
       totalBGTimeSBC = self->_totalBGTimeSBC;
-      v40 = 134217984;
+      v39 = 134217984;
       timeCopy = totalBGTimeSBC;
-      _os_log_debug_impl(&dword_21A4C6000, v29, OS_LOG_TYPE_DEBUG, "   BG since last SBC:              %f", &v40, 0xCu);
+      _os_log_debug_impl(&dword_21A4C6000, v29, OS_LOG_TYPE_DEBUG, "   BG since last SBC:              %f", &v39, 0xCu);
     }
 
     v30 = PLLogCommon();
     if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
     {
       totalAPOnTimeSBC = self->_totalAPOnTimeSBC;
-      v40 = 134217984;
+      v39 = 134217984;
       timeCopy = totalAPOnTimeSBC;
-      _os_log_debug_impl(&dword_21A4C6000, v30, OS_LOG_TYPE_DEBUG, "   AP On since last SBC:           %f", &v40, 0xCu);
+      _os_log_debug_impl(&dword_21A4C6000, v30, OS_LOG_TYPE_DEBUG, "   AP On since last SBC:           %f", &v39, 0xCu);
     }
 
     v31 = PLLogCommon();
     if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
     {
-      v40 = 134217984;
+      v39 = 134217984;
       timeCopy = v24;
-      _os_log_debug_impl(&dword_21A4C6000, v31, OS_LOG_TYPE_DEBUG, "   Calculated Screen Off Usage:    %f", &v40, 0xCu);
+      _os_log_debug_impl(&dword_21A4C6000, v31, OS_LOG_TYPE_DEBUG, "   Calculated Screen Off Usage:    %f", &v39, 0xCu);
     }
 
     [(PLAppTimeService *)self updateScreenOffTimeAtDate:dateCopy withDiff:v24];
     v32 = PLLogCommon();
     if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v40) = 0;
-      _os_log_debug_impl(&dword_21A4C6000, v32, OS_LOG_TYPE_DEBUG, "Resetting SBC AP/FG/BG counters", &v40, 2u);
+      LOWORD(v39) = 0;
+      _os_log_debug_impl(&dword_21A4C6000, v32, OS_LOG_TYPE_DEBUG, "Resetting SBC AP/FG/BG counters", &v39, 2u);
     }
 
     self->_totalAPOnTimeSBC = 0.0;
     self->_totalFGTimeSBC = 0.0;
     self->_totalBGTimeSBC = 0.0;
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)chunkScreenOnAggregationAtDate:(id)date
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   if (([MEMORY[0x277D3F208] isHomePod] & 1) == 0)
   {
     v5 = PLLogCommon();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v14) = 0;
-      _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Chunking screen on aggregation", &v14, 2u);
+      LOWORD(v13) = 0;
+      _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Chunking screen on aggregation", &v13, 2u);
     }
 
     lastScreenOnTimeSBC = [(PLAppTimeService *)self lastScreenOnTimeSBC];
@@ -4258,13 +4177,13 @@ LABEL_15:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         lastScreenOnTimeSBC3 = [(PLAppTimeService *)self lastScreenOnTimeSBC];
-        v14 = 138412802;
-        v15 = lastScreenOnTimeSBC3;
-        v16 = 2112;
-        v17 = dateCopy;
-        v18 = 2048;
-        v19 = v9;
-        _os_log_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_INFO, "[%@, %@] : %f", &v14, 0x20u);
+        v13 = 138412802;
+        v14 = lastScreenOnTimeSBC3;
+        v15 = 2112;
+        v16 = dateCopy;
+        v17 = 2048;
+        v18 = v9;
+        _os_log_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_INFO, "[%@, %@] : %f", &v13, 0x20u);
       }
 
       if (v9 >= 0.0)
@@ -4276,13 +4195,11 @@ LABEL_15:
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateAggregationsAtDate:(id)date withNewScreenState:(int)state
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   isHomePod = [MEMORY[0x277D3F208] isHomePod];
   if (dateCopy && (isHomePod & 1) == 0)
@@ -4297,10 +4214,10 @@ LABEL_10:
         goto LABEL_11;
       }
 
-      LOWORD(v20) = 0;
+      LOWORD(v19) = 0;
       v9 = "No screen state change!";
 LABEL_6:
-      _os_log_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_INFO, v9, &v20, 2u);
+      _os_log_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_INFO, v9, &v19, 2u);
       goto LABEL_10;
     }
 
@@ -4310,9 +4227,9 @@ LABEL_6:
       v8 = PLLogCommon();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        v20 = 138412290;
-        v21 = dateCopy;
-        _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "Starting FG interval at %@", &v20, 0xCu);
+        v19 = 138412290;
+        v20 = dateCopy;
+        _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "Starting FG interval at %@", &v19, 0xCu);
       }
 
       goto LABEL_10;
@@ -4328,55 +4245,53 @@ LABEL_6:
         goto LABEL_10;
       }
 
-      LOWORD(v20) = 0;
+      LOWORD(v19) = 0;
       v9 = "Screen turning off, but no open screen interval";
       goto LABEL_6;
     }
 
     lastScreenOnTimeSBC2 = [(PLAppTimeService *)self lastScreenOnTimeSBC];
     [dateCopy timeIntervalSinceDate:lastScreenOnTimeSBC2];
-    v14 = v13;
+    v13 = v12;
 
-    v15 = PLLogCommon();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v14 = PLLogCommon();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       lastScreenOnTimeSBC3 = [(PLAppTimeService *)self lastScreenOnTimeSBC];
-      v20 = 138412802;
-      v21 = lastScreenOnTimeSBC3;
-      v22 = 2112;
-      v23 = dateCopy;
-      v24 = 2048;
-      v25 = v14;
-      _os_log_debug_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEBUG, "Stopping FG interval [%@, %@] : %f", &v20, 0x20u);
+      v19 = 138412802;
+      v20 = lastScreenOnTimeSBC3;
+      v21 = 2112;
+      v22 = dateCopy;
+      v23 = 2048;
+      v24 = v13;
+      _os_log_debug_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_DEBUG, "Stopping FG interval [%@, %@] : %f", &v19, 0x20u);
     }
 
     [(PLAppTimeService *)self setLastScreenOnTimeSBC:0];
-    if (v14 >= 0.0)
+    if (v13 >= 0.0)
     {
       [(PLAppTimeService *)self totalFGTimeSBC];
-      [(PLAppTimeService *)self setTotalFGTimeSBC:v14 + v16];
-      v17 = PLLogCommon();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+      [(PLAppTimeService *)self setTotalFGTimeSBC:v13 + v15];
+      v16 = PLLogCommon();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         [(PLAppTimeService *)self totalFGTimeSBC];
-        v20 = 134217984;
-        v21 = v19;
-        _os_log_debug_impl(&dword_21A4C6000, v17, OS_LOG_TYPE_DEBUG, "New FG time since SBC: %f", &v20, 0xCu);
+        v19 = 134217984;
+        v20 = v18;
+        _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "New FG time since SBC: %f", &v19, 0xCu);
       }
 
-      [(PLAppTimeService *)self updateScreenOnTimeAtDate:dateCopy withDiff:v14];
+      [(PLAppTimeService *)self updateScreenOnTimeAtDate:dateCopy withDiff:v13];
     }
   }
 
 LABEL_11:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateAggregationsAtDate:(id)date withNewAPState:(BOOL)state
 {
   stateCopy = state;
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   isHomePod = [MEMORY[0x277D3F208] isHomePod];
   if (!dateCopy || (isHomePod & 1) != 0)
@@ -4389,8 +4304,8 @@ LABEL_11:
     v8 = PLLogCommon();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v36) = 0;
-      _os_log_error_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_ERROR, "No AP state change!", &v36, 2u);
+      LOWORD(v35) = 0;
+      _os_log_error_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_ERROR, "No AP state change!", &v35, 2u);
     }
 
     goto LABEL_32;
@@ -4402,11 +4317,11 @@ LABEL_11:
     v8 = PLLogCommon();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v36 = 138412290;
-      v37 = dateCopy;
+      v35 = 138412290;
+      v36 = dateCopy;
       v9 = "Starting APOn interval at %@";
 LABEL_31:
-      _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, v9, &v36, 0xCu);
+      _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, v9, &v35, 0xCu);
       goto LABEL_32;
     }
 
@@ -4420,8 +4335,8 @@ LABEL_31:
     v11 = PLLogCommon();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v36) = 0;
-      _os_log_error_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_ERROR, "Screen on interval is open, but AP is going down!", &v36, 2u);
+      LOWORD(v35) = 0;
+      _os_log_error_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_ERROR, "Screen on interval is open, but AP is going down!", &v35, 2u);
     }
 
     lastScreenOnTimeSBC2 = [(PLAppTimeService *)self lastScreenOnTimeSBC];
@@ -4437,9 +4352,9 @@ LABEL_31:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         [(PLAppTimeService *)self totalFGTimeSBC];
-        v36 = 134217984;
-        v37 = v35;
-        _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "New FG time since SBC: %f", &v36, 0xCu);
+        v35 = 134217984;
+        v36 = v34;
+        _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "New FG time since SBC: %f", &v35, 0xCu);
       }
 
       [(PLAppTimeService *)self updateScreenOnTimeAtDate:dateCopy withDiff:v14];
@@ -4453,8 +4368,8 @@ LABEL_31:
     v22 = PLLogCommon();
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v36) = 0;
-      _os_log_error_impl(&dword_21A4C6000, v22, OS_LOG_TYPE_ERROR, "AP is going down, but AP interval isn't open", &v36, 2u);
+      LOWORD(v35) = 0;
+      _os_log_error_impl(&dword_21A4C6000, v22, OS_LOG_TYPE_ERROR, "AP is going down, but AP interval isn't open", &v35, 2u);
     }
 
     goto LABEL_24;
@@ -4466,13 +4381,13 @@ LABEL_31:
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
     lastAPOnTimeSBC2 = [(PLAppTimeService *)self lastAPOnTimeSBC];
-    v36 = 138412802;
-    v37 = lastAPOnTimeSBC2;
-    v38 = 2112;
-    v39 = dateCopy;
-    v40 = 2048;
-    v41 = v19;
-    _os_log_debug_impl(&dword_21A4C6000, v20, OS_LOG_TYPE_DEBUG, "Stopping AP interval [%@, %@] : %f", &v36, 0x20u);
+    v35 = 138412802;
+    v36 = lastAPOnTimeSBC2;
+    v37 = 2112;
+    v38 = dateCopy;
+    v39 = 2048;
+    v40 = v19;
+    _os_log_debug_impl(&dword_21A4C6000, v20, OS_LOG_TYPE_DEBUG, "Stopping AP interval [%@, %@] : %f", &v35, 0x20u);
   }
 
   [(PLAppTimeService *)self setLastAPOnTimeSBC:0];
@@ -4484,9 +4399,9 @@ LABEL_31:
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
       [(PLAppTimeService *)self totalAPOnTimeSBC];
-      v36 = 134217984;
-      v37 = v23;
-      _os_log_debug_impl(&dword_21A4C6000, v22, OS_LOG_TYPE_DEBUG, "New AP time since SBC: %f", &v36, 0xCu);
+      v35 = 134217984;
+      v36 = v23;
+      _os_log_debug_impl(&dword_21A4C6000, v22, OS_LOG_TYPE_DEBUG, "New AP time since SBC: %f", &v35, 0xCu);
     }
 
 LABEL_24:
@@ -4504,13 +4419,13 @@ LABEL_24:
     if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
     {
       firstBGAppTimeSBC3 = [(PLAppTimeService *)self firstBGAppTimeSBC];
-      v36 = 138412802;
-      v37 = firstBGAppTimeSBC3;
-      v38 = 2112;
-      v39 = dateCopy;
-      v40 = 2048;
-      v41 = v27;
-      _os_log_debug_impl(&dword_21A4C6000, v28, OS_LOG_TYPE_DEBUG, "Stopping BG interval [%@, %@] : %f", &v36, 0x20u);
+      v35 = 138412802;
+      v36 = firstBGAppTimeSBC3;
+      v37 = 2112;
+      v38 = dateCopy;
+      v39 = 2048;
+      v40 = v27;
+      _os_log_debug_impl(&dword_21A4C6000, v28, OS_LOG_TYPE_DEBUG, "Stopping BG interval [%@, %@] : %f", &v35, 0x20u);
     }
 
     [(PLAppTimeService *)self setFirstBGAppTimeSBC:0];
@@ -4526,8 +4441,8 @@ LABEL_24:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         [(PLAppTimeService *)self totalBGTimeSBC];
-        v36 = 134217984;
-        v37 = v31;
+        v35 = 134217984;
+        v36 = v31;
         v9 = "New BG time since SBC: %f";
         goto LABEL_31;
       }
@@ -4537,14 +4452,12 @@ LABEL_32:
   }
 
 LABEL_33:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateAggregationsAtDate:(id)date withNewPluggedInState:(BOOL)state
 {
   stateCopy = state;
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   if (self->_deviceIsPluggedIn != stateCopy)
   {
@@ -4553,8 +4466,8 @@ LABEL_33:
       v13 = PLLogCommon();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v23) = 0;
-        _os_log_debug_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEBUG, "starting plugged in interval", &v23, 2u);
+        LOWORD(v22) = 0;
+        _os_log_debug_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEBUG, "starting plugged in interval", &v22, 2u);
       }
 
       goto LABEL_13;
@@ -4572,9 +4485,9 @@ LABEL_33:
       v21 = PLLogCommon();
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
-        v23 = 134217984;
-        v24 = v20;
-        _os_log_debug_impl(&dword_21A4C6000, v21, OS_LOG_TYPE_DEBUG, "stopping plugged in interval %.2fs since last update", &v23, 0xCu);
+        v22 = 134217984;
+        v23 = v20;
+        _os_log_debug_impl(&dword_21A4C6000, v21, OS_LOG_TYPE_DEBUG, "stopping plugged in interval %.2fs since last update", &v22, 0xCu);
       }
 
       selfCopy2 = self;
@@ -4585,8 +4498,8 @@ LABEL_33:
     v16 = PLLogCommon();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v23) = 0;
-      _os_log_error_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_ERROR, "unplugged without plugged in start", &v23, 2u);
+      LOWORD(v22) = 0;
+      _os_log_error_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_ERROR, "unplugged without plugged in start", &v22, 2u);
     }
 
 LABEL_23:
@@ -4597,8 +4510,8 @@ LABEL_23:
   v7 = PLLogCommon();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v23) = 0;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "periodic plugged in update", &v23, 2u);
+    LOWORD(v22) = 0;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "periodic plugged in update", &v22, 2u);
   }
 
   if (!stateCopy)
@@ -4606,8 +4519,8 @@ LABEL_23:
     v16 = PLLogCommon();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v23) = 0;
-      _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "device is not plugged in", &v23, 2u);
+      LOWORD(v22) = 0;
+      _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "device is not plugged in", &v22, 2u);
     }
 
     goto LABEL_23;
@@ -4624,9 +4537,9 @@ LABEL_23:
     v12 = PLLogCommon();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      v23 = 134217984;
-      v24 = v11;
-      _os_log_debug_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEBUG, "device has been plugged in for %.2fs since last update", &v23, 0xCu);
+      v22 = 134217984;
+      v23 = v11;
+      _os_log_debug_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEBUG, "device has been plugged in for %.2fs since last update", &v22, 0xCu);
     }
 
     [(PLAppTimeService *)self updatePluggedInTimeAtDate:dateCopy withDiff:v11];
@@ -4638,8 +4551,6 @@ LABEL_13:
 LABEL_20:
   [(PLAppTimeService *)selfCopy2 setLastPluggedInTime:v15];
 LABEL_24:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updatePluggedInTimeAtDate:(id)date withDiff:(double)diff
@@ -4663,46 +4574,48 @@ LABEL_24:
 - (void)updateScreenOffTimeAtDate:(id)date withDiff:(double)diff
 {
   dateCopy = date;
-  if (([MEMORY[0x277D3F208] isHomePod] & 1) == 0 && dateCopy && diff >= 0.0)
+  isHomePod = [MEMORY[0x277D3F208] isHomePod];
+  if ((isHomePod & 1) == 0 && dateCopy && diff >= 0.0)
   {
-    v6 = objc_alloc(MEMORY[0x277D3F190]);
+    v7 = objc_alloc(MEMORY[0x277D3F190]);
     entryKeyUsageTime = [(PLAppTimeService *)self entryKeyUsageTime];
-    v8 = [v6 initWithEntryKey:entryKeyUsageTime withDate:dateCopy];
+    v9 = [v7 initWithEntryKey:entryKeyUsageTime withDate:dateCopy];
 
-    [v8 setObject:&unk_282C0D050 forKeyedSubscript:@"ScreenOn"];
-    v9 = [MEMORY[0x277CCABB0] numberWithDouble:diff];
-    [v8 setObject:v9 forKeyedSubscript:@"ScreenOff"];
+    [v9 setObject:&unk_282C0D050 forKeyedSubscript:@"ScreenOn"];
+    v10 = [MEMORY[0x277CCABB0] numberWithDouble:diff];
+    [v9 setObject:v10 forKeyedSubscript:@"ScreenOff"];
 
-    v10 = [MEMORY[0x277CBEAA8] dateWithTimeInterval:dateCopy sinceDate:-diff];
-    [(PLOperator *)self logProportionateAggregateEntry:v8 withStartDate:v10 withEndDate:dateCopy];
+    v11 = [MEMORY[0x277CBEAA8] dateWithTimeInterval:dateCopy sinceDate:-diff];
+    [(PLOperator *)self logProportionateAggregateEntry:v9 withStartDate:v11 withEndDate:dateCopy];
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](isHomePod);
 }
 
 - (void)updateScreenOnTimeAtDate:(id)date withDiff:(double)diff
 {
   dateCopy = date;
-  if (([MEMORY[0x277D3F208] isHomePod] & 1) == 0 && dateCopy && diff >= 0.0)
+  isHomePod = [MEMORY[0x277D3F208] isHomePod];
+  if ((isHomePod & 1) == 0 && dateCopy && diff >= 0.0)
   {
-    v6 = objc_alloc(MEMORY[0x277D3F190]);
+    v7 = objc_alloc(MEMORY[0x277D3F190]);
     entryKeyUsageTime = [(PLAppTimeService *)self entryKeyUsageTime];
-    v8 = [v6 initWithEntryKey:entryKeyUsageTime withDate:dateCopy];
+    v9 = [v7 initWithEntryKey:entryKeyUsageTime withDate:dateCopy];
 
-    v9 = [MEMORY[0x277CCABB0] numberWithDouble:diff];
-    [v8 setObject:v9 forKeyedSubscript:@"ScreenOn"];
+    v10 = [MEMORY[0x277CCABB0] numberWithDouble:diff];
+    [v9 setObject:v10 forKeyedSubscript:@"ScreenOn"];
 
-    [v8 setObject:&unk_282C0D050 forKeyedSubscript:@"ScreenOff"];
-    v10 = [MEMORY[0x277CBEAA8] dateWithTimeInterval:dateCopy sinceDate:-diff];
-    [(PLOperator *)self logProportionateAggregateEntry:v8 withStartDate:v10 withEndDate:dateCopy];
+    [v9 setObject:&unk_282C0D050 forKeyedSubscript:@"ScreenOff"];
+    v11 = [MEMORY[0x277CBEAA8] dateWithTimeInterval:dateCopy sinceDate:-diff];
+    [(PLOperator *)self logProportionateAggregateEntry:v9 withStartDate:v11 withEndDate:dateCopy];
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](isHomePod);
 }
 
 - (void)updateBackgroundAppsForBundleID:(id)d withState:(unsigned int)state withDate:(id)date
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dateCopy = date;
   if (([MEMORY[0x277D3F208] isHomePod] & 1) == 0 && dCopy && dateCopy)
@@ -4716,8 +4629,8 @@ LABEL_24:
       if (v11)
       {
 LABEL_28:
-        bundleIDsInBackground2 = [(PLAppTimeService *)self bundleIDsInBackground];
-        [bundleIDsInBackground2 addObject:dCopy];
+        v37 = [(PLAppTimeService *)self bundleIDsInBackground:*v42];
+        [v37 addObject:dCopy];
         goto LABEL_29;
       }
 
@@ -4729,11 +4642,11 @@ LABEL_28:
         v14 = PLLogCommon();
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
         {
-          *v43 = 138412290;
-          *&v43[4] = dCopy;
+          *v42 = 138412290;
+          *&v42[4] = dCopy;
           v15 = "Ignoring BG bundleID %@";
 LABEL_37:
-          _os_log_debug_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_DEBUG, v15, v43, 0xCu);
+          _os_log_debug_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_DEBUG, v15, v42, 0xCu);
         }
       }
 
@@ -4743,8 +4656,8 @@ LABEL_37:
         v14 = PLLogCommon();
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
         {
-          *v43 = 138412290;
-          *&v43[4] = dCopy;
+          *v42 = 138412290;
+          *&v42[4] = dCopy;
           v15 = "%@ is first BG'd app, starting BG Timer";
           goto LABEL_37;
         }
@@ -4753,29 +4666,29 @@ LABEL_37:
       goto LABEL_28;
     }
 
-    bundleIDsInBackground3 = [(PLAppTimeService *)self bundleIDsInBackground];
-    v17 = [bundleIDsInBackground3 containsObject:dCopy];
+    bundleIDsInBackground2 = [(PLAppTimeService *)self bundleIDsInBackground];
+    v17 = [bundleIDsInBackground2 containsObject:dCopy];
 
     if (v17)
     {
       [(PLAppTimeService *)self addCellularConditionTimeAtDate:dateCopy];
     }
 
-    bundleIDsInBackground4 = [(PLAppTimeService *)self bundleIDsInBackground];
-    v19 = [bundleIDsInBackground4 containsObject:dCopy];
+    bundleIDsInBackground3 = [(PLAppTimeService *)self bundleIDsInBackground];
+    v19 = [bundleIDsInBackground3 containsObject:dCopy];
 
     if (v19)
     {
-      bundleIDsInBackground5 = [(PLAppTimeService *)self bundleIDsInBackground];
-      [bundleIDsInBackground5 removeObject:dCopy];
+      bundleIDsInBackground4 = [(PLAppTimeService *)self bundleIDsInBackground];
+      [bundleIDsInBackground4 removeObject:dCopy];
 
-      bundleIDsInBackground6 = [(PLAppTimeService *)self bundleIDsInBackground];
-      v22 = [bundleIDsInBackground6 count];
+      bundleIDsInBackground5 = [(PLAppTimeService *)self bundleIDsInBackground];
+      v22 = [bundleIDsInBackground5 count];
 
       if (v22 == 1)
       {
-        bundleIDsInBackground7 = [(PLAppTimeService *)self bundleIDsInBackground];
-        anyObject = [bundleIDsInBackground7 anyObject];
+        bundleIDsInBackground6 = [(PLAppTimeService *)self bundleIDsInBackground];
+        anyObject = [bundleIDsInBackground6 anyObject];
 
         if (anyObject)
         {
@@ -4787,28 +4700,28 @@ LABEL_37:
             v27 = PLLogCommon();
             if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
             {
-              *v43 = 138412290;
-              *&v43[4] = anyObject;
-              _os_log_debug_impl(&dword_21A4C6000, v27, OS_LOG_TYPE_DEBUG, "Removing %@ from BG set", v43, 0xCu);
+              *v42 = 138412290;
+              *&v42[4] = anyObject;
+              _os_log_debug_impl(&dword_21A4C6000, v27, OS_LOG_TYPE_DEBUG, "Removing %@ from BG set", v42, 0xCu);
             }
 
-            bundleIDsInBackground8 = [(PLAppTimeService *)self bundleIDsInBackground];
-            [bundleIDsInBackground8 removeObject:anyObject];
+            bundleIDsInBackground7 = [(PLAppTimeService *)self bundleIDsInBackground];
+            [bundleIDsInBackground7 removeObject:anyObject];
           }
         }
       }
 
-      bundleIDsInBackground9 = [(PLAppTimeService *)self bundleIDsInBackground];
-      v30 = [bundleIDsInBackground9 count];
+      bundleIDsInBackground8 = [(PLAppTimeService *)self bundleIDsInBackground];
+      v30 = [bundleIDsInBackground8 count];
 
       if (!v30)
       {
         v31 = PLLogCommon();
         if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
         {
-          *v43 = 138412290;
-          *&v43[4] = dCopy;
-          _os_log_debug_impl(&dword_21A4C6000, v31, OS_LOG_TYPE_DEBUG, "%@ is last BG'd app, stopping BG Timer", v43, 0xCu);
+          *v42 = 138412290;
+          *&v42[4] = dCopy;
+          _os_log_debug_impl(&dword_21A4C6000, v31, OS_LOG_TYPE_DEBUG, "%@ is last BG'd app, stopping BG Timer", v42, 0xCu);
         }
 
         firstBGAppTimeSBC = [(PLAppTimeService *)self firstBGAppTimeSBC];
@@ -4824,56 +4737,54 @@ LABEL_37:
           {
             [(PLAppTimeService *)self totalBGTimeSBC];
             [(PLAppTimeService *)self setTotalBGTimeSBC:v35 + v36];
-            bundleIDsInBackground2 = PLLogCommon();
-            if (os_log_type_enabled(bundleIDsInBackground2, OS_LOG_TYPE_DEBUG))
+            v37 = PLLogCommon();
+            if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
             {
               [(PLAppTimeService *)self totalBGTimeSBC];
-              *v43 = 134217984;
-              *&v43[4] = v38;
-              _os_log_debug_impl(&dword_21A4C6000, bundleIDsInBackground2, OS_LOG_TYPE_DEBUG, "total BG time since SBC: %f", v43, 0xCu);
+              *v42 = 134217984;
+              *&v42[4] = v38;
+              _os_log_debug_impl(&dword_21A4C6000, v37, OS_LOG_TYPE_DEBUG, "total BG time since SBC: %f", v42, 0xCu);
             }
 
             goto LABEL_29;
           }
 
-          bundleIDsInBackground2 = PLLogCommon();
-          if (!os_log_type_enabled(bundleIDsInBackground2, OS_LOG_TYPE_ERROR))
+          v37 = PLLogCommon();
+          if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
           {
 LABEL_29:
 
             goto LABEL_30;
           }
 
-          *v43 = 134217984;
-          *&v43[4] = v35;
-          v40 = "Got a negative BG time: %f";
-          v41 = bundleIDsInBackground2;
-          v42 = 12;
+          *v42 = 134217984;
+          *&v42[4] = v35;
+          v39 = "Got a negative BG time: %f";
+          v40 = v37;
+          v41 = 12;
         }
 
         else
         {
-          bundleIDsInBackground2 = PLLogCommon();
-          if (!os_log_type_enabled(bundleIDsInBackground2, OS_LOG_TYPE_ERROR))
+          v37 = PLLogCommon();
+          if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_29;
           }
 
-          *v43 = 0;
-          v40 = "Tried to stop BG time, but no first BG app time SBC!";
-          v41 = bundleIDsInBackground2;
-          v42 = 2;
+          *v42 = 0;
+          v39 = "Tried to stop BG time, but no first BG app time SBC!";
+          v40 = v37;
+          v41 = 2;
         }
 
-        _os_log_error_impl(&dword_21A4C6000, v41, OS_LOG_TYPE_ERROR, v40, v43, v42);
+        _os_log_error_impl(&dword_21A4C6000, v40, OS_LOG_TYPE_ERROR, v39, v42, v41);
         goto LABEL_29;
       }
     }
   }
 
 LABEL_30:
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (id)generateExcludedBGBundleIDs

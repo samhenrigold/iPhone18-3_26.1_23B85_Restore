@@ -251,21 +251,21 @@ LABEL_6:
   [(PUPhotoSharingManager *)selfCopy _setFlag:suspendCopy forReferenceCounter:&self->_appSuspensionCount performIfChanged:v6];
 }
 
-uint64_t __46__PUPhotoSharingManager__setDelaysAppSuspend___block_invoke(uint64_t result, int a2)
+void *__46__PUPhotoSharingManager__setDelaysAppSuspend___block_invoke(void *result, int a2)
 {
   v2 = result;
   if (a2)
   {
     result = [*MEMORY[0x1E69DDA98] beginBackgroundTaskWithExpirationHandler:0];
     v3 = result;
-    v4 = v2 + 32;
+    v4 = v2 + 4;
   }
 
   else
   {
-    v4 = result + 32;
+    v4 = result + 4;
     v3 = *MEMORY[0x1E69DDBE8];
-    if (*(*(result + 32) + 56) == *MEMORY[0x1E69DDBE8])
+    if (*(result[4] + 56) == *MEMORY[0x1E69DDBE8])
     {
       return result;
     }

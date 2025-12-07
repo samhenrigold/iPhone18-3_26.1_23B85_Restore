@@ -915,7 +915,8 @@ void __64__AFUISiriViewController_presentRemoteViewControllerIfNecessary__block_
 - (void)_sendEndAppearanceTransitionIfReady
 {
   _remoteViewController = [(AFUISiriViewController *)self _remoteViewController];
-  if (_remoteViewController && (v6 = _remoteViewController, [(AFUISiriViewController *)self _hasCalledBeginAppearanceTransition]))
+  v4 = _remoteViewController;
+  if (_remoteViewController && (v7 = _remoteViewController, _remoteViewController = [(AFUISiriViewController *)self _hasCalledBeginAppearanceTransition], v4 = v7, _remoteViewController))
   {
     _hasCalledEndAppearanceTransition = [(AFUISiriViewController *)self _hasCalledEndAppearanceTransition];
 
@@ -931,7 +932,7 @@ void __64__AFUISiriViewController_presentRemoteViewControllerIfNecessary__block_
   else
   {
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](_remoteViewController, v4);
   }
 }
 
@@ -2533,7 +2534,7 @@ void __56__AFUISiriViewController__triggerPeopleSuggesterLogging__block_invoke(u
   }
 
   keyboardHeight = self->_keyboardInfo.keyboardHeight;
-  [(AFUISiriViewController *)self _keyboardInfoFromNotification:notificationCopy];
+  objc_msgSend__keyboardInfoFromNotification_(self);
   *&self->_keyboardInfo.enabled = v14;
   *&self->_keyboardInfo.keyboardFrame.origin.y = v15;
   *&self->_keyboardInfo.keyboardFrame.size.height = v16;
@@ -2591,7 +2592,7 @@ LABEL_14:
   {
     p_keyboardInfo = &self->_keyboardInfo;
     keyboardHeight = self->_keyboardInfo.keyboardHeight;
-    [(AFUISiriViewController *)self _keyboardInfoFromNotification:notificationCopy];
+    objc_msgSend__keyboardInfoFromNotification_(self);
     *&self->_keyboardInfo.enabled = v10;
     *&self->_keyboardInfo.keyboardFrame.origin.y = v11;
     *&self->_keyboardInfo.keyboardFrame.size.height = v12;
@@ -4100,7 +4101,7 @@ uint64_t __62__AFUISiriViewController_openURL_bundleId_inPlace_completion___bloc
   v6 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEBUG))
   {
-    [AFUISiriViewController tapPanDismissalPolicyManager:v6 dismissalPolicyDidChange:?];
+    [AFUISiriViewController tapPanDismissalPolicyManager:v6 dismissalPolicyDidChange:changeCopy];
   }
 
   [(AFUISiriViewController *)self setShouldDismissForTapOutsideContent:changeCopy];
@@ -4227,24 +4228,24 @@ LABEL_16:
 LABEL_23:
 }
 
-id __56__AFUISiriViewController__handleMicButtonTapFromSource___block_invoke()
+id __56__AFUISiriViewController__handleMicButtonTapFromSource___block_invoke(uint64_t a1)
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v0 = SASRequestSourceGetName();
-  v1 = v0;
-  if (v0)
+  v6[1] = *MEMORY[0x277D85DE8];
+  v1 = SASRequestSourceGetName();
+  v2 = v1;
+  if (v1)
   {
-    v4 = @"requestSource";
-    v5[0] = v0;
-    v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
+    v5 = @"requestSource";
+    v6[0] = v1;
+    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)_informRemoteViewControllerOfOrbViewTapToCancelRequest
@@ -4342,24 +4343,24 @@ void __80__AFUISiriViewController__informRemoteViewControllerOfOrbViewTapToCance
   }
 }
 
-id __67__AFUISiriViewController__handleMicButtonLongPressBeganFromSource___block_invoke()
+id __67__AFUISiriViewController__handleMicButtonLongPressBeganFromSource___block_invoke(uint64_t a1)
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v0 = SASRequestSourceGetName();
-  v1 = v0;
-  if (v0)
+  v6[1] = *MEMORY[0x277D85DE8];
+  v1 = SASRequestSourceGetName();
+  v2 = v1;
+  if (v1)
   {
-    v4 = @"requestSource";
-    v5[0] = v0;
-    v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
+    v5 = @"requestSource";
+    v6[0] = v1;
+    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)_handleMicButtonLongPressEndedFromSource:(int64_t)source
@@ -4409,24 +4410,24 @@ id __67__AFUISiriViewController__handleMicButtonLongPressBeganFromSource___block
   }
 }
 
-id __67__AFUISiriViewController__handleMicButtonLongPressEndedFromSource___block_invoke()
+id __67__AFUISiriViewController__handleMicButtonLongPressEndedFromSource___block_invoke(uint64_t a1)
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v0 = SASRequestSourceGetName();
-  v1 = v0;
-  if (v0)
+  v6[1] = *MEMORY[0x277D85DE8];
+  v1 = SASRequestSourceGetName();
+  v2 = v1;
+  if (v1)
   {
-    v4 = @"requestSource";
-    v5[0] = v0;
-    v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
+    v5 = @"requestSource";
+    v6[0] = v1;
+    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)_handleSiriDidActivateFromSource:(int64_t)source
@@ -4492,21 +4493,29 @@ void __59__AFUISiriViewController__handleSiriDidActivateFromSource___block_invok
 uint64_t __89__AFUISiriViewController_handlePasscodeUnlockAndCancelRequest_withClient_withCompletion___block_invoke(uint64_t a1, int a2)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v5 = WeakRetained;
   if (WeakRetained && a2)
   {
-    [WeakRetained _handlePasscodeUnlockAndCancelRequest:*(a1 + 56) dismissOnFailure:1 passcodeUnlockClient:*(a1 + 48) withCompletion:*(a1 + 32)];
+    v8 = WeakRetained;
+    v6 = [WeakRetained _handlePasscodeUnlockAndCancelRequest:*(a1 + 56) dismissOnFailure:1 passcodeUnlockClient:*(a1 + 48) withCompletion:*(a1 + 32)];
   }
 
   else
   {
-    v5 = *(a1 + 32);
-    if (v5)
+    v6 = *(a1 + 32);
+    if (!v6)
     {
-      (*(v5 + 16))(v5, 1);
+      goto LABEL_7;
     }
+
+    v8 = v5;
+    v6 = (*(v6 + 16))(v6, 1);
   }
 
-  return MEMORY[0x2821F96F8]();
+  v5 = v8;
+LABEL_7:
+
+  return MEMORY[0x2821F96F8](v6, v5);
 }
 
 - (void)handleAppUnlockForAppId:(id)id withCompletion:(id)completion
@@ -4839,17 +4848,20 @@ void __117__AFUISiriViewController__handlePasscodeUnlockAndCancelRequest_dismiss
 uint64_t __99__AFUISiriViewController_showPasscodeUnlockScreenForRequest_passcodeUnlockClient_unlockCompletion___block_invoke(uint64_t a1, uint64_t a2)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
     WeakRetained[1128] = 0;
-    v5 = *(a1 + 32);
-    if (v5)
+    WeakRetained = *(a1 + 32);
+    if (WeakRetained)
     {
-      (*(v5 + 16))(v5, a2);
+      v7 = v5;
+      WeakRetained = (*(WeakRetained + 2))(WeakRetained, a2);
+      v5 = v7;
     }
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](WeakRetained, v5);
 }
 
 - (void)preheat
@@ -7470,7 +7482,7 @@ void __43__AFUISiriViewController_tamaleViewDidLoad__block_invoke_2(uint64_t a1,
 
 void __90__AFUISiriViewController__performVisualIntelligenceLaunchAnimationWithTransitioningLayer___block_invoke(uint64_t a1)
 {
-  v49[1] = *MEMORY[0x277D85DE8];
+  v57[1] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -7488,139 +7500,139 @@ void __90__AFUISiriViewController__performVisualIntelligenceLaunchAnimationWithT
     v8 = [v3[159] layer];
     [v8 setMasksToBounds:1];
 
-    [v3[159] setAlpha:0.0];
-    if (AFUIShouldUseBackgroundDimVisualIntelligenceLaunchAnimation() != 0.0)
+    v9 = [v3[159] setAlpha:0.0];
+    if (AFUIShouldUseBackgroundDimVisualIntelligenceLaunchAnimation(v9, v10) != 0.0)
     {
-      v9 = objc_alloc(MEMORY[0x277D75D18]);
-      v10 = [MEMORY[0x277D759A0] mainScreen];
-      [v10 bounds];
-      v11 = [v9 initWithFrame:?];
+      v13 = objc_alloc(MEMORY[0x277D75D18]);
+      v14 = [MEMORY[0x277D759A0] mainScreen];
+      [v14 bounds];
+      v15 = [v13 initWithFrame:?];
 
-      v12 = [MEMORY[0x277D75348] blackColor];
-      [v11 setBackgroundColor:v12];
+      v16 = [MEMORY[0x277D75348] blackColor];
+      [v15 setBackgroundColor:v16];
 
-      [v11 setAlpha:AFUIBackgroundDimOpacityInitialValue()];
-      v13 = v3[167];
-      v3[167] = v11;
-      v14 = v11;
+      [v15 setAlpha:{AFUIBackgroundDimOpacityInitialValue(v17, v18)}];
+      v19 = v3[167];
+      v3[167] = v15;
+      v20 = v15;
 
-      v15 = [v3[159] superview];
-      [v15 insertSubview:v3[167] belowSubview:v3[159]];
+      v21 = [v3[159] superview];
+      [v21 insertSubview:v3[167] belowSubview:v3[159]];
 
-      v16 = v3[167];
-      v17 = [MEMORY[0x277D759A0] mainScreen];
-      v18 = [v17 traitCollection];
-      [v18 displayCornerRadius];
-      [v16 _setContinuousCornerRadius:?];
+      v22 = v3[167];
+      v23 = [MEMORY[0x277D759A0] mainScreen];
+      v24 = [v23 traitCollection];
+      [v24 displayCornerRadius];
+      [v22 _setContinuousCornerRadius:?];
     }
 
-    if (AFUIShouldUseBackgroundBlurVisualIntelligenceLaunchAnimation() != 0.0)
+    if (AFUIShouldUseBackgroundBlurVisualIntelligenceLaunchAnimation(v11, v12) != 0.0)
     {
-      v19 = objc_alloc(MEMORY[0x277D75D18]);
-      v20 = [MEMORY[0x277D759A0] mainScreen];
-      [v20 bounds];
-      v21 = [v19 initWithFrame:?];
+      v25 = objc_alloc(MEMORY[0x277D75D18]);
+      v26 = [MEMORY[0x277D759A0] mainScreen];
+      [v26 bounds];
+      v27 = [v25 initWithFrame:?];
 
-      v22 = [MEMORY[0x277D75348] clearColor];
-      [v21 setBackgroundColor:v22];
+      v28 = [MEMORY[0x277D75348] clearColor];
+      [v27 setBackgroundColor:v28];
 
-      [v21 setAlpha:1.0];
-      v23 = objc_alloc(MEMORY[0x277D75D68]);
-      v24 = [MEMORY[0x277D75210] effectWithStyle:9];
-      v25 = [v23 initWithEffect:v24];
+      [v27 setAlpha:1.0];
+      v29 = objc_alloc(MEMORY[0x277D75D68]);
+      v30 = [MEMORY[0x277D75210] effectWithStyle:9];
+      v31 = [v29 initWithEffect:v30];
 
-      [v25 setAlpha:1.0];
-      v26 = [MEMORY[0x277CD9EA0] filterWithType:*MEMORY[0x277CDA328]];
-      v27 = [MEMORY[0x277CCABB0] numberWithDouble:AFUIBackgroundBlurRadiusInitialValue()];
-      [v26 setValue:v27 forKey:@"inputRadius"];
+      [v31 setAlpha:1.0];
+      v32 = [MEMORY[0x277CD9EA0] filterWithType:*MEMORY[0x277CDA328]];
+      v34 = [MEMORY[0x277CCABB0] numberWithDouble:{AFUIBackgroundBlurRadiusInitialValue(v32, v33)}];
+      [v32 setValue:v34 forKey:@"inputRadius"];
 
-      [v26 setValue:@"low" forKey:@"inputIntermediateBitDepth"];
-      [v26 setValue:@"low" forKey:@"inputQuality"];
-      v28 = v3[168];
-      v3[168] = v21;
-      v29 = v21;
+      [v32 setValue:@"low" forKey:@"inputIntermediateBitDepth"];
+      [v32 setValue:@"low" forKey:@"inputQuality"];
+      v35 = v3[168];
+      v3[168] = v27;
+      v36 = v27;
 
-      v30 = [v3[168] layer];
-      v49[0] = v26;
-      v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:1];
-      [v30 setFilters:v31];
+      v37 = [v3[168] layer];
+      v57[0] = v32;
+      v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:1];
+      [v37 setFilters:v38];
 
-      v32 = [v3[159] superview];
-      [v32 insertSubview:v3[168] belowSubview:v3[159]];
+      v39 = [v3[159] superview];
+      [v39 insertSubview:v3[168] belowSubview:v3[159]];
 
-      v33 = v3[168];
-      v34 = [MEMORY[0x277D759A0] mainScreen];
-      v35 = [v34 traitCollection];
-      [v35 displayCornerRadius];
-      [v33 _setContinuousCornerRadius:?];
+      v40 = v3[168];
+      v41 = [MEMORY[0x277D759A0] mainScreen];
+      v42 = [v41 traitCollection];
+      [v42 displayCornerRadius];
+      [v40 _setContinuousCornerRadius:?];
     }
 
     if (!*(a1 + 32))
     {
-      v36 = [MEMORY[0x277CD9EA0] filterWithType:*MEMORY[0x277CDA328]];
-      v37 = [MEMORY[0x277CCABB0] numberWithDouble:AFUIAnimatingViewGaussianBlurInitialValue()];
-      [v36 setValue:v37 forKey:@"inputRadius"];
+      v43 = [MEMORY[0x277CD9EA0] filterWithType:*MEMORY[0x277CDA328]];
+      v45 = [MEMORY[0x277CCABB0] numberWithDouble:{AFUIAnimatingViewGaussianBlurInitialValue(v43, v44)}];
+      [v43 setValue:v45 forKey:@"inputRadius"];
 
-      [v36 setValue:@"low" forKey:@"inputIntermediateBitDepth"];
-      [v36 setValue:@"low" forKey:@"inputQuality"];
-      v38 = v3[169];
-      v3[169] = v36;
-      v39 = v36;
+      [v43 setValue:@"low" forKey:@"inputIntermediateBitDepth"];
+      [v43 setValue:@"low" forKey:@"inputQuality"];
+      v46 = v3[169];
+      v3[169] = v43;
+      v47 = v43;
 
-      v40 = [v3[159] layer];
-      v48 = v3[169];
-      v41 = [MEMORY[0x277CBEA60] arrayWithObjects:&v48 count:1];
+      v48 = [v3[159] layer];
+      v56 = v3[169];
+      v49 = [MEMORY[0x277CBEA60] arrayWithObjects:&v56 count:1];
 
-      [v40 setFilters:v41];
+      [v48 setFilters:v49];
     }
 
     [MEMORY[0x277CD9FF0] begin];
-    v42 = MEMORY[0x277CD9FF0];
-    v46[0] = MEMORY[0x277D85DD0];
-    v46[1] = 3221225472;
-    v46[2] = __90__AFUISiriViewController__performVisualIntelligenceLaunchAnimationWithTransitioningLayer___block_invoke_2;
-    v46[3] = &unk_278CD57B8;
-    v46[4] = v3;
-    objc_copyWeak(&v47, (a1 + 40));
-    [v42 setCompletionBlock:v46];
-    v43 = *(a1 + 32) == 0;
-    v44 = objc_loadWeakRetained((a1 + 40));
-    v45 = v44;
-    if (v43)
+    v50 = MEMORY[0x277CD9FF0];
+    v54[0] = MEMORY[0x277D85DD0];
+    v54[1] = 3221225472;
+    v54[2] = __90__AFUISiriViewController__performVisualIntelligenceLaunchAnimationWithTransitioningLayer___block_invoke_2;
+    v54[3] = &unk_278CD57B8;
+    v54[4] = v3;
+    objc_copyWeak(&v55, (a1 + 40));
+    [v50 setCompletionBlock:v54];
+    v51 = *(a1 + 32) == 0;
+    v52 = objc_loadWeakRetained((a1 + 40));
+    v53 = v52;
+    if (v51)
     {
-      [v44 _performVisualIntelligenceTransition];
+      [v52 _performVisualIntelligenceTransition];
     }
 
     else
     {
-      [v44 _performVisualIntelligenceTransitionWithLayer:*(a1 + 32)];
+      [v52 _performVisualIntelligenceTransitionWithLayer:*(a1 + 32)];
     }
 
     [MEMORY[0x277CD9FF0] commit];
-    objc_destroyWeak(&v47);
+    objc_destroyWeak(&v55);
   }
 }
 
-void __90__AFUISiriViewController__performVisualIntelligenceLaunchAnimationWithTransitioningLayer___block_invoke_2(uint64_t a1)
+void __90__AFUISiriViewController__performVisualIntelligenceLaunchAnimationWithTransitioningLayer___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  if (AFUIShouldUseBackgroundDimVisualIntelligenceLaunchAnimation() != 0.0)
+  if (AFUIShouldUseBackgroundDimVisualIntelligenceLaunchAnimation(a1, a2) != 0.0)
   {
-    [*(*(a1 + 32) + 1336) removeFromSuperview];
+    v3 = [*(*(a1 + 32) + 1336) removeFromSuperview];
   }
 
-  if (AFUIShouldUseBackgroundBlurVisualIntelligenceLaunchAnimation() != 0.0)
+  if (AFUIShouldUseBackgroundBlurVisualIntelligenceLaunchAnimation(v3, v4) != 0.0)
   {
     [*(*(a1 + 32) + 1344) removeFromSuperview];
   }
 
-  v2 = MEMORY[0x277CBEB18];
-  v3 = [*(*(a1 + 32) + 1272) layer];
-  v4 = [v3 filters];
-  v7 = [v2 arrayWithArray:v4];
+  v5 = MEMORY[0x277CBEB18];
+  v6 = [*(*(a1 + 32) + 1272) layer];
+  v7 = [v6 filters];
+  v10 = [v5 arrayWithArray:v7];
 
-  [v7 removeObject:*(*(a1 + 32) + 1352)];
-  v5 = [*(*(a1 + 32) + 1272) layer];
-  [v5 setFilters:v7];
+  [v10 removeObject:*(*(a1 + 32) + 1352)];
+  v8 = [*(*(a1 + 32) + 1272) layer];
+  [v8 setFilters:v10];
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained visionIntelligenceDropletLaunchAnimationDidFinish:1 retargeted:1];
@@ -7628,39 +7640,39 @@ void __90__AFUISiriViewController__performVisualIntelligenceLaunchAnimationWithT
 
 - (void)_performVisualIntelligenceTransition
 {
-  v32[3] = *MEMORY[0x277D85DE8];
-  v28 = AFUIAnimatingViewScaleInitialValue();
-  v26 = AFUIAnimatingViewScaleFinalValue();
-  v30 = AFUIAnimatingViewOpacityInitialValue();
-  v27 = AFUIAnimatingViewOpacityFinalValue();
-  v31 = AFUIAnimatingViewGaussianBlurInitialValue();
-  v29 = AFUIAnimatingViewGaussianBlurFinalValue();
-  v3 = AFUIAnimatingViewSpringStiffness();
-  v4 = AFUIAnimatingViewSpringDamping();
-  v5 = AFUIAFUIAnimatingViewSpringInitialVelocity();
-  v25 = AFUIBackgroundDimOpacityInitialValue();
-  v24 = AFUIBackgroundDimOpacityFinalValue();
-  v23 = AFUIBackgroundDimSpringStiffness();
-  v22 = AFUIBackgroundDimSpringDamping();
-  v6 = AFUIBackgroundDimSpringInitialVelocity();
-  v21 = AFUIBackgroundBlurRadiusInitialValue();
-  v7 = AFUIBackgroundBlurRadiusFinalValue();
-  v8 = AFUIBackgroundBlurSpringStiffness();
-  v9 = AFUIBackgroundBlurSpringDamping();
-  v10 = AFUIBackgroundBlurSpringInitialVelocity();
-  v11 = AFUIVisualIntelligenceSpringAnimation(@"transform.scale", v28, v26, v3, v4, v5);
-  v12 = AFUIVisualIntelligenceSpringAnimation(@"opacity", v30, v27, v3, v4, v5);
-  v13 = AFUIVisualIntelligenceSpringAnimation(@"filters.gaussianBlur.inputRadius", v31, v29, v3, v4, v5);
-  v14 = AFUIVisualIntelligenceSpringAnimation(@"opacity", v25, v24, v23, v22, v6);
-  v15 = AFUIVisualIntelligenceSpringAnimation(@"filters.gaussianBlur.inputRadius", v21, v7, v8, v9, v10);
+  v68[3] = *MEMORY[0x277D85DE8];
+  v64 = AFUIAnimatingViewScaleInitialValue(self, a2);
+  v62 = AFUIAnimatingViewScaleFinalValue(v3, v4);
+  v66 = AFUIAnimatingViewOpacityInitialValue(v5, v6);
+  v63 = AFUIAnimatingViewOpacityFinalValue(v7, v8);
+  v67 = AFUIAnimatingViewGaussianBlurInitialValue(v9, v10);
+  v65 = AFUIAnimatingViewGaussianBlurFinalValue(v11, v12);
+  v15 = AFUIAnimatingViewSpringStiffness(v13, v14);
+  v18 = AFUIAnimatingViewSpringDamping(v16, v17);
+  v21 = AFUIAFUIAnimatingViewSpringInitialVelocity(v19, v20);
+  v61 = AFUIBackgroundDimOpacityInitialValue(v22, v23);
+  v60 = AFUIBackgroundDimOpacityFinalValue(v24, v25);
+  v59 = AFUIBackgroundDimSpringStiffness(v26, v27);
+  v58 = AFUIBackgroundDimSpringDamping(v28, v29);
+  v32 = AFUIBackgroundDimSpringInitialVelocity(v30, v31);
+  v57 = AFUIBackgroundBlurRadiusInitialValue(v33, v34);
+  v37 = AFUIBackgroundBlurRadiusFinalValue(v35, v36);
+  v40 = AFUIBackgroundBlurSpringStiffness(v38, v39);
+  v43 = AFUIBackgroundBlurSpringDamping(v41, v42);
+  v46 = AFUIBackgroundBlurSpringInitialVelocity(v44, v45);
+  v47 = AFUIVisualIntelligenceSpringAnimation(@"transform.scale", v64, v62, v15, v18, v21);
+  v48 = AFUIVisualIntelligenceSpringAnimation(@"opacity", v66, v63, v15, v18, v21);
+  v49 = AFUIVisualIntelligenceSpringAnimation(@"filters.gaussianBlur.inputRadius", v67, v65, v15, v18, v21);
+  v50 = AFUIVisualIntelligenceSpringAnimation(@"opacity", v61, v60, v59, v58, v32);
+  v51 = AFUIVisualIntelligenceSpringAnimation(@"filters.gaussianBlur.inputRadius", v57, v37, v40, v43, v46);
   animation = [MEMORY[0x277CD9E00] animation];
-  v32[0] = v11;
-  v32[1] = v12;
-  v32[2] = v13;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:3];
-  [animation setAnimations:v17];
+  v68[0] = v47;
+  v68[1] = v48;
+  v68[2] = v49;
+  v53 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:3];
+  [animation setAnimations:v53];
 
-  [v11 settlingDuration];
+  [v47 settlingDuration];
   [animation setDuration:?];
   [animation setFillMode:*MEMORY[0x277CDA230]];
   [animation setRemovedOnCompletion:0];
@@ -7668,10 +7680,10 @@ void __90__AFUISiriViewController__performVisualIntelligenceLaunchAnimationWithT
   [layer addAnimation:animation forKey:@"fadeScale"];
 
   layer2 = [(UIView *)self->_visualIntelligenceBackgroundDimView layer];
-  [layer2 addAnimation:v14 forKey:@"dimOpacityAnimation"];
+  [layer2 addAnimation:v50 forKey:@"dimOpacityAnimation"];
 
   layer3 = [(UIView *)self->_visualIntelligenceBackgroundBlurView layer];
-  [layer3 addAnimation:v15 forKey:@"blurRadiusAnimation"];
+  [layer3 addAnimation:v51 forKey:@"blurRadiusAnimation"];
 }
 
 - (void)_performVisualIntelligenceTransitionWithLayer:(id)layer

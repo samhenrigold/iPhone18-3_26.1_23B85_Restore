@@ -1211,16 +1211,16 @@ void __101__DMCBYODEnrollmentFlowUIPresenter_suggestRestoreForAccountWithUsernam
   }
 }
 
-void __101__DMCBYODEnrollmentFlowUIPresenter_suggestRestoreForAccountWithUsername_personaID_completionHandler___block_invoke_3(uint64_t a1)
+void __101__DMCBYODEnrollmentFlowUIPresenter_suggestRestoreForAccountWithUsername_personaID_completionHandler___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  v3 = DMCLocalizedString();
-  v4[0] = MEMORY[0x277D85DD0];
-  v4[1] = 3221225472;
-  v4[2] = __101__DMCBYODEnrollmentFlowUIPresenter_suggestRestoreForAccountWithUsername_personaID_completionHandler___block_invoke_4;
-  v4[3] = &unk_278EE7808;
-  v5 = *(a1 + 40);
-  [v2 presentOKAlertWithTitle:0 message:v3 action:v4];
+  v3 = *(a1 + 32);
+  v4 = DMCLocalizedString();
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __101__DMCBYODEnrollmentFlowUIPresenter_suggestRestoreForAccountWithUsername_personaID_completionHandler___block_invoke_4;
+  v5[3] = &unk_278EE7808;
+  v6 = *(a1 + 40);
+  [v3 presentOKAlertWithTitle:0 message:v4 action:v5];
 }
 
 - (void)requestDebuggingApplicationsInstallation:(id)installation requiredEntitlements:(id)entitlements completionHandler:(id)handler

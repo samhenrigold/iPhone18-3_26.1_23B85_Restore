@@ -223,7 +223,7 @@
       ptr = self->_standardContainer.__ptr_;
       if (ptr)
       {
-        md::OverlayContainer::invalidate(ptr, self);
+        md::OverlayContainer::invalidate(ptr, self, 1, 0);
       }
     }
 
@@ -308,7 +308,7 @@
       ptr = self->_standardContainer.__ptr_;
       if (ptr)
       {
-        md::OverlayContainer::invalidate(ptr, self);
+        md::OverlayContainer::invalidate(ptr, self, 1, 0);
       }
     }
 
@@ -401,7 +401,7 @@
           ptr = self->_standardContainer.__ptr_;
           if (ptr)
           {
-            md::OverlayContainer::invalidate(ptr, self);
+            md::OverlayContainer::invalidate(ptr, self, 1, 0);
           }
         }
 
@@ -482,7 +482,9 @@
   vectorData = [(VKOverlay *)self vectorData];
   rasterTileProvider = [(VKOverlay *)self rasterTileProvider];
   customTileProvider = [(VKOverlay *)self customTileProvider];
+  canProvideVectorData = self->_canProvideVectorData;
   [(VKOverlay *)self _updateVectorData];
+  v8 = self->_canProvideVectorData;
   [(VKOverlay *)self _updateRasterTileProvider];
   [(VKOverlay *)self _updateCustomTileProvider];
   vectorData2 = [(VKOverlay *)self vectorData];
@@ -492,31 +494,31 @@
   {
     if (vectorData2 && vectorData2 == vectorData || rasterTileProvider2 && rasterTileProvider2 == rasterTileProvider)
     {
-      v9 = customTileProvider;
-      v10 = 1;
+      v11 = customTileProvider;
+      v12 = 1;
     }
 
     else
     {
-      v9 = customTileProvider;
+      v11 = customTileProvider;
       if (customTileProvider2)
       {
-        v17 = customTileProvider2 == customTileProvider;
+        v19 = customTileProvider2 == customTileProvider;
       }
 
       else
       {
-        v17 = 0;
+        v19 = 0;
       }
 
-      v10 = v17;
+      v12 = v19;
     }
   }
 
   else
   {
-    v9 = customTileProvider;
-    v10 = 0;
+    v11 = customTileProvider;
+    v12 = 0;
   }
 
   cntrl = self->_standardContainer.__cntrl_;
@@ -527,39 +529,39 @@
     goto LABEL_22;
   }
 
-  v12 = std::__shared_weak_count::lock(cntrl);
-  if (v12)
+  v14 = std::__shared_weak_count::lock(cntrl);
+  if (v14)
   {
     ptr = self->_standardContainer.__ptr_;
     if (ptr)
     {
-      if (!v10 || (runLoopController = self->_runLoopController) == 0)
+      if (!v12 || (runLoopController = self->_runLoopController) == 0)
       {
-        md::OverlayContainer::invalidate(ptr, self);
+        md::OverlayContainer::invalidate(ptr, self, reason != 3, canProvideVectorData != v8);
       }
 
       var0 = runLoopController->var0;
       if (runLoopController->var0)
       {
-        v20 = 7;
-        md::MapEngine::setNeedsTick(var0, &v20);
+        v22 = 7;
+        md::MapEngine::setNeedsTick(var0, &v22);
       }
 
 LABEL_21:
-      std::__shared_weak_count::__release_shared[abi:nn200100](v12);
+      std::__shared_weak_count::__release_shared[abi:nn200100](v14);
       goto LABEL_22;
     }
   }
 
-  v16 = self->_standardContainer.__cntrl_;
+  v18 = self->_standardContainer.__cntrl_;
   self->_standardContainer.__ptr_ = 0;
   self->_standardContainer.__cntrl_ = 0;
-  if (v16)
+  if (v18)
   {
-    std::__shared_weak_count::__release_weak(v16);
+    std::__shared_weak_count::__release_weak(v18);
   }
 
-  if (v12)
+  if (v14)
   {
     goto LABEL_21;
   }
@@ -920,7 +922,7 @@ LABEL_22:
           ptr = self->_standardContainer.__ptr_;
           if (ptr)
           {
-            md::OverlayContainer::invalidate(ptr, self);
+            md::OverlayContainer::invalidate(ptr, self, 1, 0);
           }
         }
 

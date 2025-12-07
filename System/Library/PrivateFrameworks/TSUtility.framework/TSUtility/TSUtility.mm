@@ -42,48 +42,48 @@ void std::__tree<TSUFlushableObjectInfo *,TSUFlushableObjectInfoPointerFlushingO
   }
 }
 
-void *std::__tree<TSUFlushableObjectInfo *,TSUFlushableObjectInfoPointerTimeStampLess,std::allocator<TSUFlushableObjectInfo *>>::__emplace_unique_key_args<TSUFlushableObjectInfo *,TSUFlushableObjectInfo * const&>(uint64_t a1, uint64_t a2)
+void *std::__tree<TSUFlushableObjectInfo *,TSUFlushableObjectInfoPointerTimeStampLess,std::allocator<TSUFlushableObjectInfo *>>::__emplace_unique_key_args<TSUFlushableObjectInfo *,TSUFlushableObjectInfo * const&>(uint64_t a1, uint64_t a2, void *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *(*a2 + 20);
+  v4 = *(*a2 + 20);
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2[4] + 20);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3[4] + 20);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<TSUFlushableObjectInfo *,TSUFlushableObjectInfoPointerTimeStampLess,std::allocator<TSUFlushableObjectInfo *>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<TSUFlushableObjectInfo *,TSUFlushableObjectInfoPointerTimeStampLess,std::allocator<TSUFlushableObjectInfo *>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -109,12 +109,12 @@ uint64_t *std::__tree_balance_after_insert[abi:nn200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -128,22 +128,22 @@ uint64_t *std::__tree_balance_after_insert[abi:nn200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -177,13 +177,13 @@ uint64_t *std::__tree_balance_after_insert[abi:nn200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -478,14 +478,14 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
@@ -513,7 +513,7 @@ LABEL_8:
     v17 = *v7;
     if (*v7 && *(v17 + 24) != 1)
     {
-      v18 = v7[1];
+      v18 = *(v7 + 8);
       if (!v18)
       {
         goto LABEL_55;
@@ -525,18 +525,18 @@ LABEL_54:
 LABEL_55:
         *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v26 = v17[1];
+        v26 = *(v17 + 8);
         *v7 = v26;
         if (v26)
         {
           *(v26 + 16) = v7;
         }
 
-        v27 = v7[2];
-        v17[2] = v27;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
         v27[*v27 != v7] = v17;
-        v17[1] = v7;
-        v7[2] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
         v18 = v7;
       }
 
@@ -545,7 +545,7 @@ LABEL_55:
         v17 = v7;
       }
 
-      v28 = v17[2];
+      v28 = *(v17 + 16);
       *(v17 + 24) = *(v28 + 24);
       *(v28 + 24) = 1;
       *(v18 + 24) = 1;
@@ -564,14 +564,14 @@ LABEL_55:
       goto LABEL_72;
     }
 
-    v18 = v7[1];
+    v18 = *(v7 + 8);
     if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_54;
     }
 
     *(v7 + 24) = 0;
-    v19 = v7[2];
+    v19 = *(v7 + 16);
     if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
@@ -581,11 +581,11 @@ LABEL_49:
     v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v20 = v13[1];
+    v20 = *(v13 + 8);
     *v12 = v20;
     if (v20)
     {
@@ -593,11 +593,11 @@ LABEL_49:
     }
 
     v21 = v12[2];
-    v13[2] = v21;
+    *(v13 + 16) = v21;
     v21[*v21 != v12] = v13;
-    v13[1] = v12;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v22 = v7[1];
+    v22 = *(v7 + 8);
     if (result == v22)
     {
       result = v7;
@@ -612,11 +612,11 @@ LABEL_49:
     goto LABEL_68;
   }
 
-  v24 = v7[1];
+  v24 = *(v7 + 8);
   if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v19 = v7[2];
+    v19 = *(v7 + 16);
     if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
@@ -632,24 +632,24 @@ LABEL_52:
     goto LABEL_65;
   }
 
-  if (v23[3])
+  if (*(v23 + 24))
   {
-    v24 = v7[1];
+    v24 = *(v7 + 8);
 LABEL_65:
     *(v24 + 24) = 1;
     *(v7 + 24) = 0;
     v32 = *v24;
-    v7[1] = *v24;
+    *(v7 + 8) = *v24;
     if (v32)
     {
       *(v32 + 16) = v7;
     }
 
-    v33 = v7[2];
-    v24[2] = v33;
+    v33 = *(v7 + 16);
+    *(v24 + 16) = v33;
     v33[*v33 != v7] = v24;
     *v24 = v7;
-    v7[2] = v24;
+    *(v7 + 16) = v24;
     v23 = v7;
   }
 
@@ -659,7 +659,7 @@ LABEL_68:
     v24 = v7;
   }
 
-  v28 = v24[2];
+  v28 = *(v24 + 16);
   *(v24 + 24) = *(v28 + 24);
   *(v28 + 24) = 1;
   *(v23 + 24) = 1;
@@ -728,15 +728,15 @@ uint64_t std::__tree<TSUFlushableObjectInfo *,TSUFlushableObjectInfoPointerTimeS
   return v6;
 }
 
-uint64_t std::__tree<TSUFlushableObjectInfo *,TSUFlushableObjectInfoPointerFlushingOrderLess,std::allocator<TSUFlushableObjectInfo *>>::__emplace_unique_key_args<TSUFlushableObjectInfo *,TSUFlushableObjectInfo * const&>(uint64_t a1, TSUFlushableObjectInfo **a2)
+void *std::__tree<TSUFlushableObjectInfo *,TSUFlushableObjectInfoPointerFlushingOrderLess,std::allocator<TSUFlushableObjectInfo *>>::__emplace_unique_key_args<TSUFlushableObjectInfo *,TSUFlushableObjectInfo * const&>(uint64_t **a1, TSUFlushableObjectInfo **a2, void *a3)
 {
-  v2 = *std::__tree<TSUFlushableObjectInfo *,TSUFlushableObjectInfoPointerFlushingOrderLess,std::allocator<TSUFlushableObjectInfo *>>::__find_equal<TSUFlushableObjectInfo *>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<TSUFlushableObjectInfo *,TSUFlushableObjectInfoPointerFlushingOrderLess,std::allocator<TSUFlushableObjectInfo *>>::__find_equal<TSUFlushableObjectInfo *>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
 uint64_t *std::__tree<TSUFlushableObjectInfo *,TSUFlushableObjectInfoPointerFlushingOrderLess,std::allocator<TSUFlushableObjectInfo *>>::__find_equal<TSUFlushableObjectInfo *>(uint64_t a1, void *a2, TSUFlushableObjectInfo **a3)
@@ -785,7 +785,7 @@ LABEL_9:
   return v5;
 }
 
-uint64_t TSUSupportsTextInteraction()
+uint64_t TSUSupportsTextInteraction(uint64_t a1, uint64_t a2)
 {
   if (TSUSupportsTextInteraction_onceToken != -1)
   {
@@ -795,7 +795,7 @@ uint64_t TSUSupportsTextInteraction()
   return TSUSupportsTextInteraction_supportTextInteraction;
 }
 
-uint64_t __TSUSupportsTextInteraction_block_invoke()
+void *__TSUSupportsTextInteraction_block_invoke()
 {
   v0 = objc_opt_class();
   v1 = TSUDynamicCast(v0, [objc_msgSend(MEMORY[0x277CBEBD0] "standardUserDefaults")]);
@@ -806,7 +806,7 @@ uint64_t __TSUSupportsTextInteraction_block_invoke()
 
   else
   {
-    result = [objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8] "mainBundle")] ^ 1;
+    result = ([objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8] "mainBundle")] ^ 1);
   }
 
   TSUSupportsTextInteraction_supportTextInteraction = result;
@@ -1001,7 +1001,7 @@ __CFString *NSStringFromUIGestureRecognizerState(unint64_t a1)
   return @"#Unknown UIGestureRecognizerState#";
 }
 
-double TSUMaxTextureSize()
+double TSUMaxTextureSize(uint64_t a1, uint64_t a2)
 {
   if (TSUMaxTextureSize_s_maxTextureSizeOnce != -1)
   {
@@ -1438,7 +1438,7 @@ unint64_t NSExpandedRange(unint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, 
   }
 }
 
-uint64_t TSUCompareWithComparators(uint64_t a1, uint64_t a2, void *a3)
+void *TSUCompareWithComparators(uint64_t a1, uint64_t a2, void *a3)
 {
   v13 = *MEMORY[0x277D85DE8];
   v8 = 0u;
@@ -1482,7 +1482,7 @@ LABEL_3:
   return result;
 }
 
-uint64_t SFUBundle()
+uint64_t SFUBundle(uint64_t a1, uint64_t a2)
 {
   if (SFUBundle_onceToken != -1)
   {
@@ -1492,14 +1492,14 @@ uint64_t SFUBundle()
   return SFUBundle_sSFUBundle;
 }
 
-uint64_t __SFUBundle_block_invoke()
+void *__SFUBundle_block_invoke()
 {
   result = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   SFUBundle_sSFUBundle = result;
   return result;
 }
 
-uint64_t SFUMainBundle()
+void *SFUMainBundle()
 {
   result = SFUMainBundle_sMainBundle;
   if (!SFUMainBundle_sMainBundle)
@@ -1533,66 +1533,18 @@ uint64_t TSUHashWithSeed(char *a1, uint64_t a2, uint64_t a3)
   return a3;
 }
 
-void sub_26CB93B1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26CB93B1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t TSUMemoryUsed()
+uint64_t TSUMemoryUsed(uint64_t a1)
 {
-  MEMORY[0x28223BE20]();
-  v36 = *MEMORY[0x277D85DE8];
-  v0 = *MEMORY[0x277D85F48];
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
-  v11 = 0u;
-  v8 = 0u;
-  v9 = 0u;
-  v6 = 0u;
-  v7 = 0u;
-  memset(task_info_out, 0, sizeof(task_info_out));
-  task_info_outCnt = 10;
-  v1 = task_info(v0, 0x12u, task_info_out, &task_info_outCnt);
-  if (!v1)
-  {
-    return *&task_info_out[3];
-  }
-
-  v2 = mach_error_string(v1);
-  NSLog(@"Unable to get task information: %s", v2);
-  return 0;
-}
-
-uint64_t TSUMemoryUsedVirtual()
-{
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](a1);
   v37 = *MEMORY[0x277D85DE8];
-  v0 = *MEMORY[0x277D85F48];
+  v1 = *MEMORY[0x277D85F48];
   v35 = 0u;
   v36 = 0u;
   v33 = 0u;
@@ -1623,17 +1575,65 @@ uint64_t TSUMemoryUsedVirtual()
   v10 = 0u;
   v7 = 0u;
   v8 = 0u;
-  *task_info_out = 0u;
-  v6 = 0u;
+  memset(task_info_out, 0, sizeof(task_info_out));
   task_info_outCnt = 10;
-  v1 = task_info(v0, 0x12u, task_info_out, &task_info_outCnt);
-  if (!v1)
+  v2 = task_info(v1, 0x12u, task_info_out, &task_info_outCnt);
+  if (!v2)
+  {
+    return *&task_info_out[3];
+  }
+
+  v3 = mach_error_string(v2);
+  NSLog(@"Unable to get task information: %s", v3);
+  return 0;
+}
+
+uint64_t TSUMemoryUsedVirtual(uint64_t a1)
+{
+  MEMORY[0x28223BE20](a1);
+  v38 = *MEMORY[0x277D85DE8];
+  v1 = *MEMORY[0x277D85F48];
+  v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
+  *task_info_out = 0u;
+  v7 = 0u;
+  task_info_outCnt = 10;
+  v2 = task_info(v1, 0x12u, task_info_out, &task_info_outCnt);
+  if (!v2)
   {
     return *&task_info_out[1];
   }
 
-  v2 = mach_error_string(v1);
-  NSLog(@"Unable to get task information: %s", v2);
+  v3 = mach_error_string(v2);
+  NSLog(@"Unable to get task information: %s", v3);
   return 0;
 }
 
@@ -2255,7 +2255,7 @@ id TSUCreateArrayOfTimeFormatStringsForLocale(const __CFLocale *a1)
   return v2;
 }
 
-uint64_t TSUCreateDateFromStringWithPreferredFormat(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+__CFDate *TSUCreateDateFromStringWithPreferredFormat(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (a2)
   {
@@ -2273,7 +2273,7 @@ uint64_t TSUCreateDateFromStringWithPreferredFormat(uint64_t a1, uint64_t a2, ui
   return v10;
 }
 
-uint64_t TSUDurationFormatterTimeIntervalFromStringWithCompactStyleStartUnit(void *a1, double *a2, int *a3, _DWORD *a4, int a5)
+uint64_t TSUDurationFormatterTimeIntervalFromStringWithCompactStyleStartUnit(void *a1, double *a2, int *a3, int *a4, int a5)
 {
   v62 = 0;
   v10 = objc_alloc_init(MEMORY[0x277CCA8B0]);
@@ -2885,35 +2885,35 @@ void SFTDurationFormatterInitializeStrings()
   if ((sStringsInitialized & 1) == 0)
   {
     v0 = objc_opt_class();
-    objc_sync_enter(v0);
-    sWeekLongSingularString = [SFUBundle() localizedStringForKey:@"week" value:&stru_287DDF830 table:@"TSUtility"];
-    sWeekLongPluralString = [SFUBundle() localizedStringForKey:@"weeks" value:&stru_287DDF830 table:@"TSUtility"];
-    sWeekMediumSingularString = [SFUBundle() localizedStringForKey:@"wk" value:&stru_287DDF830 table:@"TSUtility"];
-    sWeekMediumPluralString = [SFUBundle() localizedStringForKey:@"wks" value:&stru_287DDF830 table:@"TSUtility"];
-    sWeekShortString = [SFUBundle() localizedStringForKey:@"w" value:&stru_287DDF830 table:@"TSUtility"];
-    sDayLongSingularString = [SFUBundle() localizedStringForKey:@"day" value:&stru_287DDF830 table:@"TSUtility"];
-    sDayLongPluralString = [SFUBundle() localizedStringForKey:@"days" value:&stru_287DDF830 table:@"TSUtility"];
-    sDayMediumSingularString = [SFUBundle() localizedStringForKey:@"day" value:&stru_287DDF830 table:@"TSUtility"];
-    sDayMediumPluralString = [SFUBundle() localizedStringForKey:@"days" value:&stru_287DDF830 table:@"TSUtility"];
-    sDayShortString = [SFUBundle() localizedStringForKey:@"d" value:&stru_287DDF830 table:@"TSUtility"];
-    sHourLongSingularString = [SFUBundle() localizedStringForKey:@"hour" value:&stru_287DDF830 table:@"TSUtility"];
-    sHourLongPluralString = [SFUBundle() localizedStringForKey:@"hours" value:&stru_287DDF830 table:@"TSUtility"];
-    sHourMediumSingularString = [SFUBundle() localizedStringForKey:@"hr" value:&stru_287DDF830 table:@"TSUtility"];
-    sHourMediumPluralString = [SFUBundle() localizedStringForKey:@"hrs" value:&stru_287DDF830 table:@"TSUtility"];
-    sHourShortString = [SFUBundle() localizedStringForKey:@"h" value:&stru_287DDF830 table:@"TSUtility"];
-    sMinuteLongSingularString = [SFUBundle() localizedStringForKey:@"minute" value:&stru_287DDF830 table:@"TSUtility"];
-    sMinuteLongPluralString = [SFUBundle() localizedStringForKey:@"minutes" value:&stru_287DDF830 table:@"TSUtility"];
-    sMinuteMediumSingularString = [SFUBundle() localizedStringForKey:@"min" value:&stru_287DDF830 table:@"TSUtility"];
-    sMinuteMediumPluralString = [SFUBundle() localizedStringForKey:@"mins" value:&stru_287DDF830 table:@"TSUtility"];
-    sMinuteShortString = [SFUBundle() localizedStringForKey:@"m" value:&stru_287DDF830 table:@"TSUtility"];
-    sSecondLongSingularString = [SFUBundle() localizedStringForKey:@"second" value:&stru_287DDF830 table:@"TSUtility"];
-    sSecondLongPluralString = [SFUBundle() localizedStringForKey:@"seconds" value:&stru_287DDF830 table:@"TSUtility"];
-    sSecondMediumSingularString = [SFUBundle() localizedStringForKey:@"sec" value:&stru_287DDF830 table:@"TSUtility"];
-    sSecondMediumPluralString = [SFUBundle() localizedStringForKey:@"secs" value:&stru_287DDF830 table:@"TSUtility"];
-    sSecondShortString = [SFUBundle() localizedStringForKey:@"s" value:&stru_287DDF830 table:@"TSUtility"];
-    sMillisecondLongSingularString = [SFUBundle() localizedStringForKey:@"millisecond" value:&stru_287DDF830 table:@"TSUtility"];
-    sMillisecondLongPluralString = [SFUBundle() localizedStringForKey:@"milliseconds" value:&stru_287DDF830 table:@"TSUtility"];
-    sMillisecondShortString = [SFUBundle() localizedStringForKey:@"ms" value:&stru_287DDF830 table:@"TSUtility"];
+    v1 = objc_sync_enter(v0);
+    sWeekLongSingularString = [SFUBundle(v1 v2)];
+    sWeekLongPluralString = [SFUBundle(sWeekLongSingularString v3)];
+    sWeekMediumSingularString = [SFUBundle(sWeekLongPluralString v4)];
+    sWeekMediumPluralString = [SFUBundle(sWeekMediumSingularString v5)];
+    sWeekShortString = [SFUBundle(sWeekMediumPluralString v6)];
+    sDayLongSingularString = [SFUBundle(sWeekShortString v7)];
+    sDayLongPluralString = [SFUBundle(sDayLongSingularString v8)];
+    sDayMediumSingularString = [SFUBundle(sDayLongPluralString v9)];
+    sDayMediumPluralString = [SFUBundle(sDayMediumSingularString v10)];
+    sDayShortString = [SFUBundle(sDayMediumPluralString v11)];
+    sHourLongSingularString = [SFUBundle(sDayShortString v12)];
+    sHourLongPluralString = [SFUBundle(sHourLongSingularString v13)];
+    sHourMediumSingularString = [SFUBundle(sHourLongPluralString v14)];
+    sHourMediumPluralString = [SFUBundle(sHourMediumSingularString v15)];
+    sHourShortString = [SFUBundle(sHourMediumPluralString v16)];
+    sMinuteLongSingularString = [SFUBundle(sHourShortString v17)];
+    sMinuteLongPluralString = [SFUBundle(sMinuteLongSingularString v18)];
+    sMinuteMediumSingularString = [SFUBundle(sMinuteLongPluralString v19)];
+    sMinuteMediumPluralString = [SFUBundle(sMinuteMediumSingularString v20)];
+    sMinuteShortString = [SFUBundle(sMinuteMediumPluralString v21)];
+    sSecondLongSingularString = [SFUBundle(sMinuteShortString v22)];
+    sSecondLongPluralString = [SFUBundle(sSecondLongSingularString v23)];
+    sSecondMediumSingularString = [SFUBundle(sSecondLongPluralString v24)];
+    sSecondMediumPluralString = [SFUBundle(sSecondMediumSingularString v25)];
+    sSecondShortString = [SFUBundle(sSecondMediumPluralString v26)];
+    sMillisecondLongSingularString = [SFUBundle(sSecondShortString v27)];
+    sMillisecondLongPluralString = [SFUBundle(sMillisecondLongSingularString v28)];
+    sMillisecondShortString = [SFUBundle(sMillisecondLongPluralString v29)];
     __dmb(0xBu);
     sStringsInitialized = 1;
 
@@ -3322,44 +3322,44 @@ void TSUDurationFormatterInitializeConstantSets()
 
 uint64_t TSUDurationFormatterStringFromTimeIntervalWithFormatAndRoundingAndSingularOption(void *a1, int a2, int a3, double a4)
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   TSUDurationFormatterInitializeConstantSets();
   v6 = [a1 length];
   v7 = [MEMORY[0x277CCAB68] stringWithCapacity:v6];
-  v8 = v7;
+  v9 = v7;
   if (a4 < 0.0)
   {
     [v7 appendString:@"-"];
     a4 = fabs(a4);
   }
 
-  v80 = v8;
+  v83 = v9;
   if (!v6)
   {
-    v30 = 0;
-    v84 = 0;
-    v10 = 0;
-    v31 = 1;
-    v36 = 2.22507386e-308;
-    v34 = 2.22507386e-308;
-    v33 = 2.22507386e-308;
+    v31 = 0;
+    v87 = 0;
+    v11 = 0;
+    v32 = 1;
+    v37 = 2.22507386e-308;
     v35 = 2.22507386e-308;
+    v34 = 2.22507386e-308;
+    v36 = 2.22507386e-308;
     goto LABEL_62;
   }
 
-  v83 = 0;
-  v84 = 0;
-  v9 = 0;
+  v86 = 0;
+  v87 = 0;
   v10 = 0;
+  v11 = 0;
   p_prots = &OBJC_PROTOCOL___NSSecureCoding.prots;
   do
   {
-    v12 = [a1 characterAtIndex:v9];
-    v13 = v12;
-    v14 = v9 + 1;
-    if (v9 + 1 >= v6)
+    v13 = [a1 characterAtIndex:v10];
+    v14 = v13;
+    v15 = v10 + 1;
+    if (v10 + 1 >= v6)
     {
-      if (v12 == 39)
+      if (v13 == 39)
       {
         goto LABEL_52;
       }
@@ -3367,258 +3367,258 @@ uint64_t TSUDurationFormatterStringFromTimeIntervalWithFormatAndRoundingAndSingu
 
     else
     {
-      v15 = [a1 characterAtIndex:v9 + 1];
-      if (v13 == 39)
+      v16 = [a1 characterAtIndex:v10 + 1];
+      if (v14 == 39)
       {
-        if (v15 == 39)
+        if (v16 == 39)
         {
-          [v8 appendString:@"'"];
-          v14 = v9 + 2;
+          [v9 appendString:@"'"];
+          v15 = v10 + 2;
           goto LABEL_52;
         }
 
         while (1)
         {
-          v16 = [a1 characterAtIndex:v14];
-          v17 = v16;
-          if (v14 + 1 >= v6)
+          v17 = [a1 characterAtIndex:v15];
+          v18 = v17;
+          if (v15 + 1 >= v6)
           {
             break;
           }
 
-          v18 = [a1 characterAtIndex:v14 + 1];
-          if (v17 != 39)
+          v19 = [a1 characterAtIndex:v15 + 1];
+          if (v18 != 39)
           {
             goto LABEL_14;
           }
 
-          if (v18 != 39)
+          if (v19 != 39)
           {
             goto LABEL_45;
           }
 
-          [v8 appendString:@"'"];
-          v14 += 2;
+          [v9 appendString:@"'"];
+          v15 += 2;
 LABEL_15:
-          if (v14 >= v6)
+          if (v15 >= v6)
           {
             goto LABEL_52;
           }
         }
 
-        if (v16 == 39)
+        if (v17 == 39)
         {
 LABEL_45:
-          ++v14;
+          ++v15;
           goto LABEL_52;
         }
 
 LABEL_14:
-        [v8 appendFormat:@"%C", v17];
-        ++v14;
+        [v9 appendFormat:@"%C", v18];
+        ++v15;
         goto LABEL_15;
       }
     }
 
-    if (![(__objc2_prot_list *)p_prots[230] characterIsMember:v13])
+    if (![(__objc2_prot_list *)p_prots[230] characterIsMember:v14])
     {
-      [v8 appendFormat:@"%C", v13];
+      [v9 appendFormat:@"%C", v14];
       goto LABEL_52;
     }
 
-    v82 = v10;
-    v19 = v10 + 1;
-    if (v10 + 1 >= 7)
+    v85 = v11;
+    v20 = v11 + 1;
+    if (v11 + 1 >= 7)
     {
-      v20 = +[TSUAssertionHandler currentHandler];
-      v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"NSString *TSUDurationFormatterStringFromTimeIntervalWithFormatAndRoundingAndSingularOption(NSTimeInterval, NSString *, BOOL, BOOL)"}];
-      v8 = v80;
-      v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSUDurationFormatter.m"];
-      v23 = v21;
+      v21 = +[TSUAssertionHandler currentHandler];
+      v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"NSString *TSUDurationFormatterStringFromTimeIntervalWithFormatAndRoundingAndSingularOption(NSTimeInterval, NSString *, BOOL, BOOL)"}];
+      v9 = v83;
+      v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSUDurationFormatter.m"];
+      v24 = v22;
       p_prots = (&OBJC_PROTOCOL___NSSecureCoding + 16);
-      [v20 handleFailureInFunction:v23 file:v22 lineNumber:850 description:@"Too many placeholders in duration format string!"];
+      [v21 handleFailureInFunction:v24 file:v23 lineNumber:850 description:@"Too many placeholders in duration format string!"];
     }
 
-    v24 = [v8 length];
-    if (v14 >= v6)
+    v25 = [v9 length];
+    if (v15 >= v6)
     {
       goto LABEL_32;
     }
 
-    v25 = v6 - v9;
-    v26 = 1;
-    while ([a1 characterAtIndex:v14] == v13)
+    v26 = v6 - v10;
+    v27 = 1;
+    while ([a1 characterAtIndex:v15] == v14)
     {
-      ++v26;
-      if (v6 == ++v14)
+      ++v27;
+      if (v6 == ++v15)
       {
-        v14 = v6;
-        v26 = v25;
+        v15 = v6;
+        v27 = v26;
         break;
       }
     }
 
     p_prots = (&OBJC_PROTOCOL___NSSecureCoding + 16);
-    if (v26 > 3)
+    if (v27 > 3)
     {
-      if (v26 != 4)
+      if (v27 != 4)
       {
-        if (v26 == 5)
+        if (v27 == 5)
         {
-          v27 = 2;
+          v28 = 2;
           goto LABEL_56;
         }
 
-        if (v26 == 6)
+        if (v27 == 6)
         {
-          v27 = 4;
+          v28 = 4;
 LABEL_56:
-          v84 = 1;
+          v87 = 1;
           goto LABEL_33;
         }
       }
 
 LABEL_48:
-      v27 = 3;
+      v28 = 3;
       goto LABEL_33;
     }
 
-    switch(v26)
+    switch(v27)
     {
       case 1:
 LABEL_32:
-        v27 = 0;
+        v28 = 0;
         break;
       case 2:
-        v27 = 1;
+        v28 = 1;
         break;
       case 3:
-        v27 = 2;
+        v28 = 2;
         break;
       default:
         goto LABEL_48;
     }
 
 LABEL_33:
-    v28 = 0;
-    if (v13 > 108)
+    v29 = 0;
+    if (v14 > 108)
     {
-      if (v13 == 109)
+      if (v14 == 109)
       {
-        v28 = 8;
+        v29 = 8;
       }
 
-      else if (v13 == 115)
+      else if (v14 == 115)
       {
-        v28 = 16;
+        v29 = 16;
       }
 
       else
       {
-        v28 = v13 == 119;
+        v29 = v14 == 119;
       }
     }
 
     else
     {
-      switch(v13)
+      switch(v14)
       {
         case 'd':
-          v28 = 2;
+          v29 = 2;
           break;
         case 'f':
-          v28 = 32;
+          v29 = 32;
           break;
         case 'h':
-          v28 = 4;
+          v29 = 4;
           break;
       }
     }
 
-    v29 = &v86[v82];
-    *v29 = v24;
-    v83 |= v28;
-    *(v29 + 2) = v28;
-    *(v29 + 3) = v27;
-    v10 = v19;
+    v30 = &v89[v85];
+    *v30 = v25;
+    v86 |= v29;
+    *(v30 + 2) = v29;
+    *(v30 + 3) = v28;
+    v11 = v20;
 LABEL_52:
-    v9 = v14;
+    v10 = v15;
   }
 
-  while (v14 < v6);
-  v30 = v83;
-  v31 = (v83 & 1) == 0;
-  if (v83)
+  while (v15 < v6);
+  v31 = v86;
+  v32 = (v86 & 1) == 0;
+  if (v86)
   {
-    v33 = floor(a4 / 604800.0);
-    a4 = a4 + v33 * -604800.0;
-    v32 = 1;
-    if ((v83 & 2) == 0)
+    v34 = floor(a4 / 604800.0);
+    a4 = a4 + v34 * -604800.0;
+    v33 = 1;
+    if ((v86 & 2) == 0)
     {
       goto LABEL_66;
     }
 
 LABEL_59:
-    v34 = floor(a4 / 86400.0);
-    a4 = a4 + v34 * -86400.0;
-    if ((v83 & 4) != 0)
+    v35 = floor(a4 / 86400.0);
+    a4 = a4 + v35 * -86400.0;
+    if ((v86 & 4) != 0)
     {
       goto LABEL_60;
     }
 
 LABEL_67:
-    v35 = 2.22507386e-308;
+    v36 = 2.22507386e-308;
   }
 
   else
   {
-    v32 = 0;
-    v33 = 2.22507386e-308;
-    if ((v83 & 2) != 0)
+    v33 = 0;
+    v34 = 2.22507386e-308;
+    if ((v86 & 2) != 0)
     {
       goto LABEL_59;
     }
 
 LABEL_66:
-    v34 = 2.22507386e-308;
-    if ((v83 & 4) == 0)
+    v35 = 2.22507386e-308;
+    if ((v86 & 4) == 0)
     {
       goto LABEL_67;
     }
 
 LABEL_60:
-    v35 = floor(a4 / 3600.0);
-    a4 = a4 + v35 * -3600.0;
+    v36 = floor(a4 / 3600.0);
+    a4 = a4 + v36 * -3600.0;
   }
 
-  v38 = (v83 & 8) == 0;
-  if ((v83 & 8) != 0)
+  v39 = (v86 & 8) == 0;
+  if ((v86 & 8) != 0)
   {
-    v36 = floor(a4 / 60.0);
-    a4 = a4 + v36 * -60.0;
+    v37 = floor(a4 / 60.0);
+    a4 = a4 + v37 * -60.0;
   }
 
   else
   {
-    v36 = 2.22507386e-308;
+    v37 = 2.22507386e-308;
   }
 
-  if ((v83 & 0x10) != 0)
+  if ((v86 & 0x10) != 0)
   {
-    v40 = trunc(a4);
-    a4 = a4 - v40;
-    if ((v83 & 0x20) != 0)
+    v41 = trunc(a4);
+    a4 = a4 - v41;
+    if ((v86 & 0x20) != 0)
     {
-      v39 = a4 * 1000.0;
+      v40 = a4 * 1000.0;
     }
 
     else
     {
-      v39 = 2.22507386e-308;
+      v40 = 2.22507386e-308;
     }
 
-    v37 = 16;
-    if ((v83 & 0x20) != 0)
+    v38 = 16;
+    if ((v86 & 0x20) != 0)
     {
       LODWORD(v6) = 32;
     }
@@ -3631,47 +3631,47 @@ LABEL_60:
     goto LABEL_86;
   }
 
-  if ((v83 & 0x20) != 0)
+  if ((v86 & 0x20) != 0)
   {
-    v37 = v83 & 0x20;
-    v39 = a4 * 1000.0;
+    v38 = v86 & 0x20;
+    v40 = a4 * 1000.0;
     LODWORD(v6) = 32;
-    v40 = 2.22507386e-308;
+    v41 = 2.22507386e-308;
     goto LABEL_86;
   }
 
-  if ((v83 & 8) != 0)
+  if ((v86 & 8) != 0)
   {
+    v39 = 0;
     v38 = 0;
-    v37 = 0;
     LODWORD(v6) = 8;
     goto LABEL_64;
   }
 
-  if ((v83 & 2) != 0)
+  if ((v86 & 2) != 0)
   {
     LODWORD(v6) = 2;
   }
 
   else
   {
-    LODWORD(v6) = v32;
+    LODWORD(v6) = v33;
   }
 
-  if ((v83 & 4) == 0)
+  if ((v86 & 4) == 0)
   {
 LABEL_62:
-    v37 = 0;
+    v38 = 0;
     goto LABEL_63;
   }
 
-  v37 = 0;
+  v38 = 0;
   LODWORD(v6) = 4;
 LABEL_63:
-  v38 = 1;
+  v39 = 1;
 LABEL_64:
-  v39 = 2.22507386e-308;
   v40 = 2.22507386e-308;
+  v41 = 2.22507386e-308;
 LABEL_86:
   if (!a2)
   {
@@ -3680,37 +3680,37 @@ LABEL_86:
       switch(v6)
       {
         case 1:
-          v33 = v33 + a4 / 604800.0;
+          v34 = v34 + a4 / 604800.0;
           goto LABEL_125;
         case 2:
-          v34 = v34 + a4 / 86400.0;
+          v35 = v35 + a4 / 86400.0;
           goto LABEL_125;
         case 4:
-          v35 = v35 + a4 / 3600.0;
+          v36 = v36 + a4 / 3600.0;
           goto LABEL_125;
       }
 
-      v48 = v30;
-      v49 = +[TSUAssertionHandler currentHandler];
-      v50 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"NSString *TSUDurationFormatterStringFromTimeIntervalWithFormatAndRoundingAndSingularOption(NSTimeInterval, NSString *, BOOL, BOOL)"}];
-      v8 = v80;
-      v44 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSUDurationFormatter.m"];
-      v45 = v49;
-      v30 = v48;
+      v49 = v31;
+      v50 = +[TSUAssertionHandler currentHandler];
+      v51 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"NSString *TSUDurationFormatterStringFromTimeIntervalWithFormatAndRoundingAndSingularOption(NSTimeInterval, NSString *, BOOL, BOOL)"}];
+      v9 = v83;
+      v45 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSUDurationFormatter.m"];
       v46 = v50;
-      v47 = 1024;
+      v31 = v49;
+      v47 = v51;
+      v48 = 1024;
       goto LABEL_116;
     }
 
     if (v6 == 8)
     {
-      v36 = v36 + a4 / 60.0;
+      v37 = v37 + a4 / 60.0;
       goto LABEL_125;
     }
 
     if (v6 == 16)
     {
-      v40 = v40 + a4;
+      v41 = v41 + a4;
       goto LABEL_125;
     }
 
@@ -3723,7 +3723,7 @@ LABEL_86:
     {
       if (round(a4 / 60.0) >= 1.0)
       {
-        v36 = v36 + 1.0;
+        v37 = v37 + 1.0;
       }
 
       goto LABEL_125;
@@ -3733,14 +3733,14 @@ LABEL_86:
     {
       if (round(a4) >= 1.0)
       {
-        v40 = v40 + 1.0;
+        v41 = v41 + 1.0;
       }
 
       goto LABEL_125;
     }
 
 LABEL_105:
-    v39 = round(v39);
+    v40 = round(v40);
     goto LABEL_125;
   }
 
@@ -3749,177 +3749,177 @@ LABEL_105:
     case 1:
       if (round(a4 / 604800.0) >= 1.0)
       {
-        v33 = v33 + 1.0;
+        v34 = v34 + 1.0;
       }
 
       break;
     case 2:
       if (round(a4 / 86400.0) >= 1.0)
       {
-        v34 = v34 + 1.0;
+        v35 = v35 + 1.0;
       }
 
       break;
     case 4:
       if (round(a4 / 3600.0) >= 1.0)
       {
-        v35 = v35 + 1.0;
+        v36 = v36 + 1.0;
       }
 
       break;
     default:
-      v41 = v30;
-      v42 = +[TSUAssertionHandler currentHandler];
-      v43 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"NSString *TSUDurationFormatterStringFromTimeIntervalWithFormatAndRoundingAndSingularOption(NSTimeInterval, NSString *, BOOL, BOOL)"}];
-      v8 = v80;
-      v44 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSUDurationFormatter.m"];
-      v45 = v42;
-      v30 = v41;
+      v42 = v31;
+      v43 = +[TSUAssertionHandler currentHandler];
+      v44 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"NSString *TSUDurationFormatterStringFromTimeIntervalWithFormatAndRoundingAndSingularOption(NSTimeInterval, NSString *, BOOL, BOOL)"}];
+      v9 = v83;
+      v45 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSUDurationFormatter.m"];
       v46 = v43;
-      v47 = 1000;
+      v31 = v42;
+      v47 = v44;
+      v48 = 1000;
 LABEL_116:
-      [v45 handleFailureInFunction:v46 file:v44 lineNumber:v47 description:@"Unknown minimum unit!"];
+      [v46 handleFailureInFunction:v47 file:v45 lineNumber:v48 description:@"Unknown minimum unit!"];
       break;
   }
 
 LABEL_125:
-  if (v31)
+  if (v32)
   {
-    v51 = 2;
+    v52 = 2;
   }
 
   else
   {
-    v51 = 1;
+    v52 = 1;
   }
 
-  if ((v30 & 3) == 0)
+  if ((v31 & 3) == 0)
   {
-    v51 = 4;
+    v52 = 4;
   }
 
-  if (v38)
+  if (v39)
   {
-    v52 = v37;
+    v53 = v38;
   }
 
   else
   {
-    v52 = 8;
+    v53 = 8;
   }
 
-  if ((v30 & 7) != 0)
+  if ((v31 & 7) != 0)
   {
-    v53 = v51;
+    v54 = v52;
   }
 
   else
   {
-    v53 = v52;
+    v54 = v53;
   }
 
-  while (v53 != v6)
+  while (v54 != v6)
   {
     if (v6 <= 7)
     {
       switch(v6)
       {
         case 2:
-          if (v34 < 7.0)
-          {
-            goto LABEL_155;
-          }
-
-          v33 = v33 + 1.0;
-          LODWORD(v6) = 1;
-          v34 = 0.0;
-          break;
-        case 4:
-          if (v35 < 24.0)
+          if (v35 < 7.0)
           {
             goto LABEL_155;
           }
 
           v34 = v34 + 1.0;
-          LODWORD(v6) = 2;
+          LODWORD(v6) = 1;
           v35 = 0.0;
+          break;
+        case 4:
+          if (v36 < 24.0)
+          {
+            goto LABEL_155;
+          }
+
+          v35 = v35 + 1.0;
+          LODWORD(v6) = 2;
+          v36 = 0.0;
           break;
         case 1:
           goto LABEL_155;
         default:
-          v54 = +[TSUAssertionHandler currentHandler];
-          v55 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"NSString *TSUDurationFormatterStringFromTimeIntervalWithFormatAndRoundingAndSingularOption(NSTimeInterval, NSString *, BOOL, BOOL)"}];
-          v8 = v80;
-          [v54 handleFailureInFunction:v55 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSUDurationFormatter.m"), 1088, @"Unknown unit!"}];
+          v55 = +[TSUAssertionHandler currentHandler];
+          v56 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"NSString *TSUDurationFormatterStringFromTimeIntervalWithFormatAndRoundingAndSingularOption(NSTimeInterval, NSString *, BOOL, BOOL)"}];
+          v9 = v83;
+          [v55 handleFailureInFunction:v56 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSUDurationFormatter.m"), 1088, @"Unknown unit!"}];
           break;
       }
     }
 
     else if (v6 == 8)
     {
-      if (v36 < 60.0)
-      {
-        break;
-      }
-
-      v35 = v35 + 1.0;
-      LODWORD(v6) = 4;
-      v36 = 0.0;
-    }
-
-    else if (v6 == 16)
-    {
-      if (v40 < 60.0)
+      if (v37 < 60.0)
       {
         break;
       }
 
       v36 = v36 + 1.0;
-      LODWORD(v6) = 8;
-      v40 = 0.0;
+      LODWORD(v6) = 4;
+      v37 = 0.0;
     }
 
-    else
+    else if (v6 == 16)
     {
-      if (v39 < 1000.0)
+      if (v41 < 60.0)
       {
         break;
       }
 
-      v40 = v40 + 1.0;
+      v37 = v37 + 1.0;
+      LODWORD(v6) = 8;
+      v41 = 0.0;
+    }
+
+    else
+    {
+      if (v40 < 1000.0)
+      {
+        break;
+      }
+
+      v41 = v41 + 1.0;
       LODWORD(v6) = 16;
-      v39 = 0.0;
+      v40 = 0.0;
     }
   }
 
 LABEL_155:
-  if (v10)
+  if (v11)
   {
-    v56 = 0;
     v57 = 0;
     v58 = 0;
-    v59 = v10;
+    v59 = 0;
+    v60 = v11;
     do
     {
-      v60 = &v86[v56];
-      v61 = *v60;
-      v63 = *(v60 + 2);
-      v62 = *(v60 + 3);
-      if (v63 > 7)
+      v61 = &v89[v57];
+      v62 = *v61;
+      v64 = *(v61 + 2);
+      v63 = *(v61 + 3);
+      if (v64 > 7)
       {
-        switch(v63)
+        switch(v64)
         {
           case 8:
-            v64 = 0;
-            v65 = v36;
+            v65 = 0;
+            v66 = v37;
             break;
           case 16:
-            v64 = 0;
-            v65 = v40;
+            v65 = 0;
+            v66 = v41;
             break;
           case 32:
-            v64 = 1;
-            v65 = v39;
+            v65 = 1;
+            v66 = v40;
             break;
           default:
             goto LABEL_168;
@@ -3928,130 +3928,133 @@ LABEL_155:
 
       else
       {
-        switch(v63)
+        switch(v64)
         {
           case 1:
-            v64 = 0;
-            v65 = v33;
+            v65 = 0;
+            v66 = v34;
             break;
           case 2:
-            v64 = 0;
-            v65 = v34;
+            v65 = 0;
+            v66 = v35;
             break;
           case 4:
-            v64 = 0;
-            v65 = v35;
+            v65 = 0;
+            v66 = v36;
             break;
           default:
 LABEL_168:
-            v66 = +[TSUAssertionHandler currentHandler];
-            v67 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"NSString *TSUDurationFormatterStringFromTimeIntervalWithFormatAndRoundingAndSingularOption(NSTimeInterval, NSString *, BOOL, BOOL)"}];
-            v8 = v80;
-            [v66 handleFailureInFunction:v67 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSUDurationFormatter.m"), 1125, @"Unknown duration unit!"}];
-            v64 = 0;
-            v65 = 0.0;
+            v67 = +[TSUAssertionHandler currentHandler];
+            v68 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"NSString *TSUDurationFormatterStringFromTimeIntervalWithFormatAndRoundingAndSingularOption(NSTimeInterval, NSString *, BOOL, BOOL)"}];
+            v9 = v83;
+            [v67 handleFailureInFunction:v68 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSUDurationFormatter.m"), 1125, @"Unknown duration unit!"}];
+            v65 = 0;
+            v66 = 0.0;
             break;
         }
       }
 
-      if ((v84 & (v65 == 0.0)) != 1 || !(v57 & 1 | (v56 + 1 != v59)))
+      if ((v87 & (v66 == 0.0)) != 1 || !(v58 & 1 | (v57 + 1 != v60)))
       {
-        v69 = 0;
+        v70 = 0;
         if (a2)
         {
-          v70 = 0;
+          v71 = 0;
         }
 
         else
         {
-          v70 = kTSUNumberFormatterDecimalPlacesAsManyAsNecessary;
+          v71 = kTSUNumberFormatterDecimalPlacesAsManyAsNecessary;
         }
 
-        if (v62 <= 1)
+        if (v63 <= 1)
         {
-          if (v62)
+          if (v63)
           {
-            if (v62 != 1)
+            if (v63 != 1)
             {
               goto LABEL_195;
             }
 
-            if (v64)
+            if (v65)
             {
-              v74 = @"000";
+              v75 = @"000";
             }
 
             else
             {
-              v74 = @"00";
+              v75 = @"00";
             }
           }
 
-          else if (v64)
+          else if (v65)
           {
-            v74 = @"000";
+            v75 = @"000";
           }
 
           else
           {
-            v74 = @"0";
+            v75 = @"0";
           }
 
-          v76 = TSUNumberFormatterStringFromDoubleWithFormat(v74, a2 ^ 1u, 0, v70, 0, 0, 0, v65);
+          v8.n128_f64[0] = v66;
+          v78 = TSUNumberFormatterStringFromDoubleWithFormat(v75, a2 ^ 1u, 0, v71, 0, 0, 0, v8);
         }
 
         else
         {
-          switch(v62)
+          switch(v63)
           {
             case 2:
-              v75 = TSUDurationSingularPluralFormatterUnitString(v63, 1, a3, v65);
-              v76 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", TSUNumberFormatterStringFromDoubleWithFormat(@"0", a2 ^ 1u, 0, v70, 0, 0, 0, v65), v75];
+              v76 = TSUDurationSingularPluralFormatterUnitString(v64, 1, a3, v66);
+              v77.n128_f64[0] = v66;
+              v78 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", TSUNumberFormatterStringFromDoubleWithFormat(@"0", a2 ^ 1u, 0, v71, 0, 0, 0, v77), v76];
               break;
             case 3:
-              v71 = v65;
-              v72 = v63;
-              v73 = 2;
+              v72 = v66;
+              v73 = v64;
+              v74 = 2;
 LABEL_189:
-              v77 = TSUDurationSingularPluralFormatterUnitString(v72, v73, a3, v71);
-              v76 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", TSUNumberFormatterStringFromDoubleWithFormat(@"0", a2 ^ 1u, 0, v70, 0, 0, 0, v65), v77];
+              v79 = TSUDurationSingularPluralFormatterUnitString(v73, v74, a3, v72);
+              v80.n128_f64[0] = v66;
+              v78 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", TSUNumberFormatterStringFromDoubleWithFormat(@"0", a2 ^ 1u, 0, v71, 0, 0, 0, v80), v79];
               break;
             case 4:
-              v71 = v65;
-              v72 = v63;
-              v73 = 3;
+              v72 = v66;
+              v73 = v64;
+              v74 = 3;
               goto LABEL_189;
             default:
 LABEL_195:
-              [v8 insertString:v69 atIndex:v61 + v58];
-              v68 = [(__CFString *)v69 length];
-              ++v56;
-              v57 = 1;
+              [v9 insertString:v70 atIndex:v62 + v59];
+              v69 = [(__CFString *)v70 length];
+              ++v57;
+              v58 = 1;
               goto LABEL_196;
           }
         }
 
-        v69 = v76;
+        v70 = v78;
         goto LABEL_195;
       }
 
-      v68 = -1;
-      ++v56;
+      v69 = -1;
+      ++v57;
 LABEL_196:
-      v58 += v68;
+      v59 += v69;
     }
 
-    while (v56 != v59);
+    while (v57 != v60);
   }
 
-  if ((v84 & 1) == 0)
+  if ((v87 & 1) == 0)
   {
-    return v8;
+    return v9;
   }
 
-  v78 = [MEMORY[0x277CCA900] whitespaceCharacterSet];
+  v81 = [MEMORY[0x277CCA900] whitespaceCharacterSet];
 
-  return [v8 stringByTrimmingCharactersInSet:v78];
+  return [v9 stringByTrimmingCharactersInSet:v81];
 }
 
 uint64_t TSUDurationFormatterMinDurationUnitInUnits(char a1)
@@ -4159,7 +4162,7 @@ uint64_t TSUDurationFormatterDurationUnitsInFormat(void *a1)
   return v2;
 }
 
-uint64_t TSUDurationFormatterGetFormatInfo(void *a1, _DWORD *a2, int *a3)
+char *TSUDurationFormatterGetFormatInfo(void *a1, _DWORD *a2, int *a3)
 {
   TSUDurationFormatterInitializeConstantSets();
   if (a2)
@@ -4176,7 +4179,7 @@ uint64_t TSUDurationFormatterGetFormatInfo(void *a1, _DWORD *a2, int *a3)
     {
       result = [a1 characterAtIndex:v8];
       v9 = result;
-      v10 = v8 + 1;
+      v10 = (v8 + 1);
       if (v8 + 1 >= v7)
       {
         if (result == 39)
@@ -4208,7 +4211,7 @@ uint64_t TSUDurationFormatterGetFormatInfo(void *a1, _DWORD *a2, int *a3)
             {
               result = [a1 characterAtIndex:v10];
               v11 = result;
-              v8 = v10 + 1;
+              v8 = (v10 + 1);
               if (v10 + 1 >= v7)
               {
                 if (result == 39)
@@ -4227,7 +4230,7 @@ uint64_t TSUDurationFormatterGetFormatInfo(void *a1, _DWORD *a2, int *a3)
                     goto LABEL_50;
                   }
 
-                  v8 = v10 + 2;
+                  v8 = (v10 + 2);
                 }
               }
 
@@ -4377,7 +4380,7 @@ LABEL_50:
   return result;
 }
 
-void *TSUDurationFormatterFormatFromDurationUnits(unsigned int a1, int a2, int a3)
+void *TSUDurationFormatterFormatFromDurationUnits(unsigned int a1, unsigned int a2, int a3)
 {
   v6 = [MEMORY[0x277CCAB68] string];
   v7 = vand_s8(vshl_u16(vdup_n_s16(a1), 0xFFFBFFFCFFFDFFFELL), 0x1000100010001);
@@ -4788,7 +4791,7 @@ uint64_t TSURegisterLocaleChangeObserver(uint64_t a1)
   return [MEMORY[0x277CBEA60] arrayWithObjects:{v3, v4, 0}];
 }
 
-uint64_t TSURemoveLocaleChangeObserver(void *a1)
+void *TSURemoveLocaleChangeObserver(void *a1)
 {
   v12 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAB98] defaultCenter];
@@ -4811,7 +4814,8 @@ uint64_t TSURemoveLocaleChangeObserver(void *a1)
           objc_enumerationMutation(a1);
         }
 
-        [v2 removeObserver:*(*(&v7 + 1) + 8 * v6++)];
+        [v2 removeObserver:*(*(&v7 + 1) + 8 * v6)];
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -4860,11 +4864,11 @@ __CFString *TSUNumberFormatStringFromDouble(int a1, unsigned __int16 a2, unsigne
     a2 = a3;
   }
 
-  v29 = v28 * a10;
+  v30 = v28 * a10;
   if (a14)
   {
-    v30 = @"#,##0";
-    v31 = v29;
+    v31 = @"#,##0";
+    v29.n128_f64[0] = v30;
     v32 = 1;
     v33 = 2;
     v34 = 2;
@@ -4874,11 +4878,10 @@ LABEL_7:
     v37 = 0;
 LABEL_8:
 
-    return TSUNumberFormatterStringFromDoubleWithFormat(v30, v32, v33, v34, v35, v36, v37, v31);
+    return TSUNumberFormatterStringFromDoubleWithFormat(v31, v32, v33, v34, v35, v36, v37, v29);
   }
 
-  v39 = a15 ^ 1;
-  if ((v39 & 1) == 0 && (a15 & 0x100) == 0)
+  if (((a15 ^ 1) & 1) == 0 && (a15 & 0x100) == 0)
   {
 
     return TSUNumberFormatterStringByUnescapingFormatString(a5);
@@ -4886,179 +4889,180 @@ LABEL_8:
 
   if (BYTE1(a12) | a12 || (a16 & HIBYTE(a16) & 1) != 0 || a8)
   {
-    v43 = trunc(v29);
+    v42 = trunc(v30);
     if ((a16 & HIBYTE(a16)) != 0)
     {
-      v44 = v43;
+      v43 = v42;
     }
 
     else
     {
-      v44 = v29;
+      v43 = v30;
     }
 
-    v45 = TSUNumberFormatterStringFromDoubleWithFormat(a5, v39, a3, a2, a17, a6, a4 | a13, v44);
+    v29.n128_f64[0] = v43;
+    v44 = TSUNumberFormatterStringFromDoubleWithFormat(a5, a15 ^ 1u, a3, a2, a17, a6, a4 | a13, v29);
     if (BYTE1(a12) | a12)
     {
-      v46 = fabs(v44);
-      v47 = HIWORD(a12);
-      if (v46 >= 1.0)
+      v45 = fabs(v43);
+      v46 = HIWORD(a12);
+      if (v45 >= 1.0)
       {
-        v48 = log10(v46) + 1;
+        v47 = log10(v45) + 1;
       }
 
       else
       {
-        v48 = 0;
+        v47 = 0;
       }
 
-      v49 = a23;
-      v50 = (a16 & HIBYTE(a16));
-      if (v48 <= BYTE2(a12))
+      v48 = a23;
+      v49 = (a16 & HIBYTE(a16));
+      if (v47 <= BYTE2(a12))
       {
-        v51 = BYTE2(a12);
+        v50 = BYTE2(a12);
       }
 
       else
       {
-        v51 = v48;
+        v50 = v47;
       }
 
-      if ((a12 - v51) >= 1)
+      if ((a12 - v50) >= 1)
       {
-        v52 = [(__CFString *)v45 mutableCopy];
-        v53 = TSUNumberOfDecimalPlacesInValue(v29);
-        v54 = [(__CFString *)v45 length];
-        if (BYTE5(a12) == BYTE4(a12) && v53 == 0)
+        v51 = [(__CFString *)v44 mutableCopy];
+        v52 = TSUNumberOfDecimalPlacesInValue(v30);
+        v53 = [(__CFString *)v44 length];
+        if (BYTE5(a12) == BYTE4(a12) && v52 == 0)
         {
-          v56 = v54 + ~(v51 + HIWORD(a12)) + 1;
+          v55 = v53 + ~(v50 + HIWORD(a12)) + 1;
         }
 
         else
         {
-          v56 = v54 + ~(v51 + HIWORD(a12));
+          v55 = v53 + ~(v50 + HIWORD(a12));
         }
 
-        v57 = v53 - (BYTE5(a12) - BYTE4(a12));
-        if (v57 <= 0)
+        v56 = &v52[-(BYTE5(a12) - BYTE4(a12))];
+        if (v56 <= 0)
         {
-          v58 = BYTE4(a12);
-        }
-
-        else
-        {
-          v58 = BYTE4(a12) - v57;
-        }
-
-        v59 = v56 + v58;
-        if (v53 < BYTE5(a12))
-        {
-          v60 = v59;
+          v57 = BYTE4(a12);
         }
 
         else
         {
-          v60 = v54 + ~(v51 + HIWORD(a12));
+          v57 = BYTE4(a12) - v56;
         }
 
-        if (a17 && (v61 = TSUNumberFormatterGroupingSizeForLocale(0)) != 0)
+        v58 = v55 + v57;
+        if (v52 < BYTE5(a12))
         {
-          v62 = vcvtpd_s64_f64(v51 / v61);
-          if (v62 <= 1)
+          v59 = v58;
+        }
+
+        else
+        {
+          v59 = v53 + ~(v50 + HIWORD(a12));
+        }
+
+        if (a17 && (v60 = TSUNumberFormatterGroupingSizeForLocale(0)) != 0)
+        {
+          v61 = vcvtpd_s64_f64(v50 / v60);
+          if (v61 <= 1)
           {
-            v62 = 1;
+            v61 = 1;
           }
 
-          v63 = v62 - 1;
+          v62 = v61 - 1;
         }
 
         else
         {
-          v63 = 0;
+          v62 = 0;
         }
 
-        v64 = v60 - v63;
-        if (v64 >= 0)
+        v63 = v59 - v62;
+        if (v63 >= 0)
         {
-          v65 = 0;
+          v64 = 0;
           do
           {
-            if (v64 >= [v52 length])
+            if (v63 >= [v51 length])
             {
               break;
             }
 
-            v66 = [v52 characterAtIndex:v64];
-            if (v66 == 48)
+            v65 = [v51 characterAtIndex:v63];
+            if (v65 == 48)
             {
-              ++v65;
+              ++v64;
             }
 
-            if ((v66 - 58) <= 0xFFFFFFF6)
+            if ((v65 - 58) <= 0xFFFFFFF6)
             {
-              [v52 replaceCharactersInRange:v64 withString:{1, @" "}];
+              [v51 replaceCharactersInRange:v63 withString:{1, @" "}];
             }
 
-            if (a12 - v51 <= v65)
+            if (a12 - v50 <= v64)
             {
               break;
             }
 
-            v67 = v64-- <= 0;
+            v66 = v63-- <= 0;
           }
 
-          while (!v67);
+          while (!v66);
         }
 
-        v68 = BYTE1(a12) - BYTE3(a12);
+        v67 = BYTE1(a12) - BYTE3(a12);
         if (BYTE1(a12) <= BYTE3(a12))
         {
           goto LABEL_80;
         }
 
-        if (v52)
+        if (v51)
         {
 LABEL_75:
-          v69 = [(__CFString *)v45 length];
-          v70 = BYTE3(a12) - HIWORD(a12) + v69 + 1;
-          if (v70 + v68 <= [(__CFString *)v45 length])
+          v68 = [(__CFString *)v44 length];
+          v69 = BYTE3(a12) - HIWORD(a12) + v68 + 1;
+          if (v69 + v67 <= [(__CFString *)v44 length])
           {
-            v71 = v69 + v68 + BYTE3(a12) - HIWORD(a12);
+            v70 = v68 + v67 + BYTE3(a12) - HIWORD(a12);
             do
             {
-              if ([v52 characterAtIndex:v71] != 48)
+              if ([v51 characterAtIndex:v70] != 48)
               {
                 break;
               }
 
-              [v52 replaceCharactersInRange:v71 withString:{1, @" "}];
-              v67 = v71-- <= v70;
+              [v51 replaceCharactersInRange:v70 withString:{1, @" "}];
+              v66 = v70-- <= v69;
             }
 
-            while (!v67);
+            while (!v66);
           }
 
 LABEL_80:
-          v40 = v45;
-          v50 = (a16 & HIBYTE(a16));
-          if (v52)
+          v39 = v44;
+          v49 = (a16 & HIBYTE(a16));
+          if (v51)
           {
-            v72 = v52;
-            v50 = (a16 & HIBYTE(a16));
-            v40 = v72;
+            v71 = v51;
+            v49 = (a16 & HIBYTE(a16));
+            v39 = v71;
           }
 
           goto LABEL_82;
         }
 
 LABEL_74:
-        v52 = [(__CFString *)v45 mutableCopy];
+        v51 = [(__CFString *)v44 mutableCopy];
         goto LABEL_75;
       }
 
-      v68 = BYTE1(a12) - BYTE3(a12);
-      v40 = v45;
-      if (v68 >= 1)
+      v67 = BYTE1(a12) - BYTE3(a12);
+      v39 = v44;
+      if (v67 >= 1)
       {
         goto LABEL_74;
       }
@@ -5066,145 +5070,137 @@ LABEL_74:
 
     else
     {
-      v40 = 0;
-      v49 = a23;
-      v47 = HIWORD(a12);
-      v50 = (a16 & HIBYTE(a16));
+      v39 = 0;
+      v48 = a23;
+      v46 = HIWORD(a12);
+      v49 = (a16 & HIBYTE(a16));
     }
 
 LABEL_82:
     if (a8)
     {
-      v98 = v45;
-      if (v40)
+      v95 = v44;
+      if (v39)
       {
-        v73 = v40;
+        v72 = v39;
       }
 
       else
       {
-        v73 = v45;
+        v72 = v44;
       }
 
-      v40 = [MEMORY[0x277CCAB68] string];
-      v97 = [MEMORY[0x277CCA900] decimalDigitCharacterSet];
-      v74 = [(__CFString *)v73 length];
-      v75 = [a11 firstIndex];
-      if (v74 - 1 < 0)
+      v39 = [MEMORY[0x277CCAB68] string];
+      v94 = [MEMORY[0x277CCA900] decimalDigitCharacterSet];
+      v73 = [(__CFString *)v72 length];
+      v74 = [a11 firstIndex];
+      if (v73 - 1 < 0)
       {
-        v79 = 0;
+        v78 = 0;
       }
 
       else
       {
-        v76 = v75;
+        v75 = v74;
+        v76 = 0;
         v77 = 0;
         v78 = 0;
-        v79 = 0;
-        v80 = v47;
+        v79 = v46;
         do
         {
-          if (v76 == v78)
+          if (v75 == v77)
           {
-            -[__CFString insertString:atIndex:](v40, "insertString:atIndex:", [a8 objectAtIndex:v79], 0);
-            v76 = [a11 indexGreaterThanIndex:v76];
-            ++v79;
+            -[__CFString insertString:atIndex:](v39, "insertString:atIndex:", [a8 objectAtIndex:v78], 0);
+            v75 = [a11 indexGreaterThanIndex:v75];
+            ++v78;
           }
 
-          v81 = [(__CFString *)v73 characterAtIndex:--v74];
-          v82 = [(__CFString *)v98 characterAtIndex:v74];
-          -[__CFString insertString:atIndex:](v40, "insertString:atIndex:", [MEMORY[0x277CCACA8] stringWithFormat:@"%C", v81], 0);
-          if (v77 >= v80)
+          v80 = [(__CFString *)v72 characterAtIndex:--v73];
+          v81 = [(__CFString *)v95 characterAtIndex:v73];
+          -[__CFString insertString:atIndex:](v39, "insertString:atIndex:", [MEMORY[0x277CCACA8] stringWithFormat:@"%C", v80], 0);
+          if (v76 >= v79)
           {
-            v78 += [v97 characterIsMember:v82];
+            v77 += [v94 characterIsMember:v81];
           }
 
-          ++v77;
+          ++v76;
         }
 
-        while (v74 > 0);
+        while (v73 > 0);
       }
 
-      if (v79 >= [a8 count])
+      if (v78 >= [a8 count])
       {
-        v49 = a23;
-        v50 = (a16 & HIBYTE(a16));
-        v45 = v98;
+        v48 = a23;
+        v49 = (a16 & HIBYTE(a16));
+        v44 = v95;
       }
 
       else
       {
-        v49 = a23;
-        v45 = v98;
-        if ([a8 count] > v79)
+        v48 = a23;
+        v44 = v95;
+        if ([a8 count] > v78)
         {
-          v83 = v79;
+          v82 = v78;
           do
           {
-            -[__CFString insertString:atIndex:](v40, "insertString:atIndex:", [a8 objectAtIndex:v83++], 0);
+            -[__CFString insertString:atIndex:](v39, "insertString:atIndex:", [a8 objectAtIndex:v82++], 0);
           }
 
-          while (v83 < [a8 count]);
+          while (v82 < [a8 count]);
         }
 
-        v50 = (a16 & HIBYTE(a16));
+        v49 = (a16 & HIBYTE(a16));
       }
     }
 
-    if (!v50)
+    if (!v49)
     {
-      return v40;
+      return v39;
     }
 
-    if (v40)
+    if (v39)
     {
-      v84 = v40;
+      v83 = v39;
     }
 
     else
     {
-      v84 = v45;
+      v83 = v44;
     }
 
-    v40 = [(__CFString *)v84 mutableCopy];
-    v85 = fabs(v29);
-    v41 = TSUNumberFormatFractionStringFromDouble(v49, v85 - floor(v85));
-    v42 = MEMORY[0x277CCACA8];
+    v39 = [(__CFString *)v83 mutableCopy];
+    v84 = fabs(v30);
+    v40 = TSUNumberFormatFractionStringFromDouble(v48, v84 - floor(v84));
+    v41 = MEMORY[0x277CCACA8];
     goto LABEL_106;
   }
 
   if (HIBYTE(a16) && (a16 & 1) == 0)
   {
-    v40 = [TSUNumberFormatterStringByUnescapingFormatString(a5) mutableCopy];
+    v39 = [TSUNumberFormatterStringByUnescapingFormatString(a5) mutableCopy];
     if (a6)
     {
-      -[__CFString replaceOccurrencesOfString:withString:options:range:](v40, "replaceOccurrencesOfString:withString:options:range:", [MEMORY[0x277CCACA8] stringWithFormat:@"%C", 164], +[TSUNumberFormatter currencySymbolForCurrencyCode:](TSUNumberFormatter, "currencySymbolForCurrencyCode:", a6), 0, 0, -[__CFString length](v40, "length"));
+      -[__CFString replaceOccurrencesOfString:withString:options:range:](v39, "replaceOccurrencesOfString:withString:options:range:", [MEMORY[0x277CCACA8] stringWithFormat:@"%C", 164], +[TSUNumberFormatter currencySymbolForCurrencyCode:](TSUNumberFormatter, "currencySymbolForCurrencyCode:", a6), 0, 0, -[__CFString length](v39, "length"));
     }
 
-    v41 = TSUNumberFormatFractionStringFromDouble(a23, v29);
-    v42 = MEMORY[0x277CCACA8];
+    v40 = TSUNumberFormatFractionStringFromDouble(a23, v30);
+    v41 = MEMORY[0x277CCACA8];
 LABEL_106:
-    -[__CFString replaceOccurrencesOfString:withString:options:range:](v40, "replaceOccurrencesOfString:withString:options:range:", [v42 stringWithFormat:@"%C", TSUCustomNumberFormatFractionReplacementCharacter], v41, 0, 0, -[__CFString length](v40, "length"));
-    return v40;
+    -[__CFString replaceOccurrencesOfString:withString:options:range:](v39, "replaceOccurrencesOfString:withString:options:range:", [v41 stringWithFormat:@"%C", TSUCustomNumberFormatFractionReplacementCharacter], v40, 0, 0, -[__CFString length](v39, "length"));
+    return v39;
   }
 
   if (a1 == 1)
   {
     if (a18)
     {
-      v87 = [TSUNumberFormatter defaultFormatStringForValueType:0 negativeStyle:2];
-      BYTE6(v93) = a22;
-      WORD2(v93) = a21;
-      BYTE2(v93) = a20;
-      LOWORD(v93) = a19;
-      HIBYTE(v92) = 1;
-      BYTE6(v92) = a17;
-      *(&v92 + 2) = __PAIR32__(a16, a15);
-      LOWORD(v92) = a13;
-      v88 = TSUNumberFormatStringFromDouble(0, a2, a3, 0, v87, a6, a7, 0, v29, a10, a11, a12, v92, v93, a23);
+      v86 = [TSUNumberFormatter defaultFormatStringForValueType:0 negativeStyle:2];
+      v87 = TSUNumberFormatStringFromDouble(0, a2, a3, 0, v86, a6, a7, 0, v30, a10, a11, a12, a13, 0, a15, a16, a17, 1, a19, a20, a21, a22, a23);
 
-      v89 = [TSUNumberFormatter currencySymbolForCurrencyCode:a6];
-      return [MEMORY[0x277CCACA8] stringWithFormat:@"%@\t%@", v89, v88];
+      v88 = [TSUNumberFormatter currencySymbolForCurrencyCode:a6];
+      return [MEMORY[0x277CCACA8] stringWithFormat:@"%@\t%@", v88, v87];
     }
 
     goto LABEL_121;
@@ -5215,7 +5211,7 @@ LABEL_106:
     if (a1 == 4)
     {
 
-      return TSUNumberFormatFractionStringFromDouble(a23, v29);
+      return TSUNumberFormatFractionStringFromDouble(a23, v30);
     }
 
     if (!a1)
@@ -5224,11 +5220,11 @@ LABEL_106:
       {
         if ((a15 & 1) == 0)
         {
-          v90 = fabs(v29);
-          if (v90 > 1.0e12 || v90 < 0.0000001 && __fpclassifyd(v29) != 3)
+          v89 = fabs(v30);
+          if (v89 > 1.0e12 || v89 < 0.0000001 && __fpclassifyd(v30) != 3)
           {
-            v30 = @"0E0";
-            v31 = v29;
+            v31 = @"0E0";
+            v29.n128_f64[0] = v30;
             v32 = 1;
             v33 = 0;
             v34 = 5;
@@ -5240,11 +5236,11 @@ LABEL_106:
     }
 
 LABEL_121:
-    if (HIBYTE(a19) && (a15 & 1) == 0 && __fpclassifyd(v29) == 3)
+    if (HIBYTE(a19) && (a15 & 1) == 0 && __fpclassifyd(v30) == 3)
     {
       v37 = a4 | a13;
-      v31 = v29;
-      v30 = a5;
+      v29.n128_f64[0] = v30;
+      v31 = a5;
       v32 = 1;
       v33 = 0;
       v34 = 0;
@@ -5255,9 +5251,9 @@ LABEL_121:
       v33 = a3;
       v34 = a2;
       v37 = a4 | a13;
-      v31 = v29;
-      v30 = a5;
-      v32 = a15 ^ 1;
+      v29.n128_f64[0] = v30;
+      v31 = a5;
+      v32 = a15 ^ 1u;
     }
 
     v35 = a17;
@@ -5265,21 +5261,21 @@ LABEL_121:
     goto LABEL_8;
   }
 
-  v40 = TSUNumberFormatBaseStringFromDouble(a20, a21, a22, v29);
-  if (v40)
+  v39 = TSUNumberFormatBaseStringFromDouble(a20, a21, a22, v30);
+  if (v39)
   {
-    return v40;
+    return v39;
   }
 
-  HIDWORD(v91) = -3;
-  LOBYTE(v91) = 1;
-  v86 = [TSUNumberFormat numberFormatWithValueType:0 formatString:0 decimalPlaces:0 currencyCode:0 useAccountingStyle:0 negativeStyle:0 showThousandsSeparator:v91 fractionAccuracy:?];
-  [(TSUNumberFormat *)v86 setUseScientificFormattingAutomatically:1];
+  HIDWORD(v90) = -3;
+  LOBYTE(v90) = 1;
+  v85 = [TSUNumberFormat numberFormatWithValueType:0 formatString:0 decimalPlaces:0 currencyCode:0 useAccountingStyle:0 negativeStyle:0 showThousandsSeparator:v90 fractionAccuracy:?];
+  [(TSUNumberFormat *)v85 setUseScientificFormattingAutomatically:1];
 
-  return [(TSUNumberFormat *)v86 stringFromDouble:v29];
+  return [(TSUNumberFormat *)v85 stringFromDouble:v30];
 }
 
-uint64_t TSUNumberFormatFractionStringFromDouble(unsigned int a1, double a2)
+uint64_t TSUNumberFormatFractionStringFromDouble(int a1, double a2)
 {
   v2 = fabs(a2);
   if (a2 >= 0.0)
@@ -6174,7 +6170,7 @@ LABEL_164:
   return v2;
 }
 
-uint64_t TSUNumberFormatStringApplyPrefixAndSuffix(void *a1, void *a2, void *a3)
+void *TSUNumberFormatStringApplyPrefixAndSuffix(void *a1, void *a2, void *a3)
 {
   if (a2)
   {
@@ -6226,7 +6222,7 @@ uint64_t TSUNumberFormatStringApplyPrefixAndSuffix(void *a1, void *a2, void *a3)
   return [a1 stringByAppendingString:v9];
 }
 
-uint64_t TSULocationInRanges(unint64_t a1, void *a2)
+unint64_t TSULocationInRanges(unint64_t a1, void *a2)
 {
   if (!a2)
   {
@@ -6266,7 +6262,7 @@ uint64_t TSULocationInRanges(unint64_t a1, void *a2)
   return result;
 }
 
-uint64_t TSUSearchCharacterSetForSeparatorCharacter(uint64_t a1)
+const __CFCharacterSet *TSUSearchCharacterSetForSeparatorCharacter(uint64_t a1)
 {
   v2 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:{@", ，"}];
   v3 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@".．"];
@@ -6489,7 +6485,7 @@ LABEL_13:
   return v14;
 }
 
-uint64_t TSUNumberOfDecimalPlacesInValue(double a1)
+char *TSUNumberOfDecimalPlacesInValue(double a1)
 {
   valuePtr = a1;
   if (floor(a1) == a1)
@@ -6539,7 +6535,7 @@ uint64_t TSUNumberOfDecimalPlacesInValue(double a1)
   return v1;
 }
 
-uint64_t TSUNumberOfDecimalPlacesNecessaryToDisplayFullPrecisionInScientificNotation(double a1)
+char *TSUNumberOfDecimalPlacesNecessaryToDisplayFullPrecisionInScientificNotation(double a1)
 {
   valuePtr = a1;
   v1 = *MEMORY[0x277CBECE8];
@@ -6603,18 +6599,23 @@ uint64_t TSUNumberFormatterGroupingSizeForLocale(const __CFLocale *a1)
   return result;
 }
 
-__CFString *TSUNumberFormatterStringFromDoubleWithFormat(__CFString *a1, int a2, unsigned int a3, uint64_t a4, int a5, __CFString *a6, int a7, double a8)
+__CFString *TSUNumberFormatterStringFromDoubleWithFormat(__CFString *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, __CFString *a6, uint64_t a7, __n128 a8)
 {
+  v8 = a7;
+  v9 = a5;
+  v11 = a3;
+  v12 = a2;
+  v14 = a8.n128_f64[0];
   if (a6 && [(__CFString *)a6 length])
   {
 
-    return TSUNumberFormatterStringFromDoubleWithFormatForCurrency(a1, a2, a3, a4, a5, a6, a7, a8);
+    return TSUNumberFormatterStringFromDoubleWithFormatForCurrency(a1, v12, v11, a4, v9, a6, v8, v14);
   }
 
   else
   {
 
-    return TSUNumberFormatterStringFromDoubleWithFormatForNumber(a1, a2, a3, a4, a5, a7, a8);
+    return TSUNumberFormatterStringFromDoubleWithFormatForNumber(a1, v12, v11, a4, v9, v8, v14);
   }
 }
 
@@ -7153,7 +7154,7 @@ uint64_t TSUGetNumberValueAndTypeFromStringWithCurrencyCode(const __CFString *a1
       *a5 = -999;
     }
 
-    v13 = [TSUNumberFormatter formatterForLocale:?];
+    v13 = [TSUNumberFormatter formatterForLocale:a3];
     MutableCopy = CFStringCreateMutableCopy(0, 0, a1);
     CFStringTransform(MutableCopy, 0, *MEMORY[0x277CBF0A8], 0);
     v15 = [(__CFString *)MutableCopy newStringBySubstitutingCharactersCFNumberFormatterDoesntUnderstand];
@@ -7352,7 +7353,7 @@ LABEL_13:
   return v3;
 }
 
-__CFString *TSUNumberFormatterDisplayNSStringForFractionAccuracy(int a1)
+__CFString *TSUNumberFormatterDisplayNSStringForFractionAccuracy(uint64_t a1, uint64_t a2)
 {
   if (a1 > 3)
   {
@@ -7360,13 +7361,13 @@ __CFString *TSUNumberFormatterDisplayNSStringForFractionAccuracy(int a1)
     {
       if (a1 == 4)
       {
-        v1 = @"Quarters";
+        v2 = @"Quarters";
         goto LABEL_24;
       }
 
       if (a1 == 8)
       {
-        v1 = @"Eighths";
+        v2 = @"Eighths";
         goto LABEL_24;
       }
     }
@@ -7375,14 +7376,14 @@ __CFString *TSUNumberFormatterDisplayNSStringForFractionAccuracy(int a1)
     {
       switch(a1)
       {
-        case 10:
-          v1 = @"Tenths";
+        case 0xA:
+          v2 = @"Tenths";
           goto LABEL_24;
-        case 16:
-          v1 = @"Sixteenths";
+        case 0x10:
+          v2 = @"Sixteenths";
           goto LABEL_24;
-        case 100:
-          v1 = @"Hundredths";
+        case 0x64:
+          v2 = @"Hundredths";
           goto LABEL_24;
       }
     }
@@ -7394,13 +7395,13 @@ __CFString *TSUNumberFormatterDisplayNSStringForFractionAccuracy(int a1)
   {
     if (a1 == -3)
     {
-      v1 = @"Up to 3 digits (445/553)";
+      v2 = @"Up to 3 digits (445/553)";
       goto LABEL_24;
     }
 
     if (a1 == -2)
     {
-      v1 = @"Up to 2 digits (23/24)";
+      v2 = @"Up to 2 digits (23/24)";
       goto LABEL_24;
     }
 
@@ -7409,13 +7410,13 @@ __CFString *TSUNumberFormatterDisplayNSStringForFractionAccuracy(int a1)
 
   if (a1 == -1)
   {
-    v1 = @"Up to 1 digit (7/8)";
+    v2 = @"Up to 1 digit (7/8)";
     goto LABEL_24;
   }
 
   if (!a1)
   {
-    v1 = @"Conflicting";
+    v2 = @"Conflicting";
     goto LABEL_24;
   }
 
@@ -7424,11 +7425,11 @@ __CFString *TSUNumberFormatterDisplayNSStringForFractionAccuracy(int a1)
     return @"Unknown TSU fraction type";
   }
 
-  v1 = @"Halves";
+  v2 = @"Halves";
 LABEL_24:
-  v2 = SFUBundle();
+  v3 = SFUBundle(a1, a2);
 
-  return [v2 localizedStringForKey:v1 value:&stru_287DDF830 table:@"TSUtility"];
+  return [v3 localizedStringForKey:v2 value:&stru_287DDF830 table:@"TSUtility"];
 }
 
 uint64_t TSUDynamicCast(uint64_t a1, uint64_t a2)
@@ -7703,7 +7704,7 @@ dispatch_queue_t __TSULogOnceFn_block_invoke()
   return result;
 }
 
-uint64_t __TSULogOnceFn_block_invoke_2(uint64_t a1)
+void *__TSULogOnceFn_block_invoke_2(uint64_t a1)
 {
   result = [TSULogOnceFn_tokens containsObject:*(a1 + 32)];
   if ((result & 1) == 0)
@@ -7718,7 +7719,7 @@ uint64_t __TSULogOnceFn_block_invoke_2(uint64_t a1)
   return result;
 }
 
-unint64_t TSUNormalizeRanges(void *a1)
+void *TSUNormalizeRanges(void *a1)
 {
   [a1 sortUsingFunction:compareRangeValues context:0];
   result = [a1 count];
@@ -8129,14 +8130,14 @@ NSUInteger TSUIntersectionRangeWithEdge(NSRange a1, NSRange a2, int a3)
   }
 }
 
-uint64_t TSUAdjustSelectionRangeForChangedRange(unint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5)
+unint64_t TSUAdjustSelectionRangeForChangedRange(unint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5)
 {
   v5 = a1;
   if (a5)
   {
     if (a1 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v7 = +[TSUAssertionHandler currentHandler];
+      v7 = [TSUAssertionHandler currentHandler:a3];
       v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"NSRange TSUAdjustSelectionRangeForChangedRange(NSRange, NSRange, NSInteger)"}];
       [v7 handleFailureInFunction:v8 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSURangeUtils.mm"), 280, @"Bad selectionRange passed to TSUAdjustSelectionRangeForChangedRange"}];
       if (a3 != 0x7FFFFFFFFFFFFFFFLL)
@@ -8329,7 +8330,7 @@ uint64_t TSUUTF8Converter<256>::TSUUTF8Converter(uint64_t a1, CFStringRef theStr
   return a1;
 }
 
-BOOL TSUHandleSqlite(int a1, void *a2, void *a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+BOOL TSUHandleSqlite(unsigned int a1, void *a2, void *a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a1)
   {
@@ -8572,7 +8573,7 @@ BOOL TSUCGColorEqualToColorWithFloatTolerance(CGColor *a1, CGColor *a2)
   }
 }
 
-uint64_t TSUDeviceRGBColorSpace()
+uint64_t TSUDeviceRGBColorSpace(uint64_t a1, uint64_t a2)
 {
   if (TSUDeviceRGBColorSpace_sDeviceRGBDispatchOnce != -1)
   {
@@ -8589,7 +8590,7 @@ CGColorSpaceRef __TSUDeviceRGBColorSpace_block_invoke()
   return result;
 }
 
-uint64_t TSUDeviceCMYKColorSpace()
+uint64_t TSUDeviceCMYKColorSpace(uint64_t a1, uint64_t a2)
 {
   if (TSUDeviceCMYKColorSpace_sDeviceCMYKDispatchOnce != -1)
   {
@@ -8606,7 +8607,7 @@ CGColorSpaceRef __TSUDeviceCMYKColorSpace_block_invoke()
   return result;
 }
 
-uint64_t TSUDeviceGrayColorSpace()
+uint64_t TSUDeviceGrayColorSpace(uint64_t a1, uint64_t a2)
 {
   if (TSUDeviceGrayColorSpace_sDeviceGrayDispatchOnce != -1)
   {
@@ -8623,7 +8624,7 @@ CGColorSpaceRef __TSUDeviceGrayColorSpace_block_invoke()
   return result;
 }
 
-uint64_t TSUGenericRGBColorSpace()
+uint64_t TSUGenericRGBColorSpace(uint64_t a1, uint64_t a2)
 {
   if (TSUGenericRGBColorSpace_sGenericRGBDispatchOnce != -1)
   {
@@ -8640,7 +8641,7 @@ CGColorSpaceRef __TSUGenericRGBColorSpace_block_invoke()
   return result;
 }
 
-uint64_t TSUGenericCMYKColorSpace()
+uint64_t TSUGenericCMYKColorSpace(uint64_t a1, uint64_t a2)
 {
   if (TSUGenericCMYKColorSpace_sGenericCMYKDispatchOnce != -1)
   {
@@ -8657,7 +8658,7 @@ CGColorSpaceRef __TSUGenericCMYKColorSpace_block_invoke()
   return result;
 }
 
-uint64_t TSUGenericGrayColorSpace()
+uint64_t TSUGenericGrayColorSpace(uint64_t a1, uint64_t a2)
 {
   if (TSUGenericGrayColorSpace_sGenericGrayDispatchOnce != -1)
   {
@@ -8674,7 +8675,7 @@ CGColorSpaceRef __TSUGenericGrayColorSpace_block_invoke()
   return result;
 }
 
-uint64_t TSUSRGBColorSpace()
+uint64_t TSUSRGBColorSpace(uint64_t a1, uint64_t a2)
 {
   if (TSUSRGBColorSpace_sSRGBDispatchOnce != -1)
   {
@@ -8697,7 +8698,7 @@ CGColorSpaceRef __TSUSRGBColorSpace_block_invoke()
   return result;
 }
 
-uint64_t TSUP3ColorSpace()
+uint64_t TSUP3ColorSpace(uint64_t a1, uint64_t a2)
 {
   if (TSUP3ColorSpace_sP3DispatchOnce != -1)
   {
@@ -8808,13 +8809,13 @@ CGColorRef TSUCGColorCreateWithUIColor(void *a1)
   return CGColorCreateCopy(v1);
 }
 
-CGColorRef TSUCGColorCreateDeviceRGB(CGFloat a1, CGFloat a2, CGFloat a3, CGFloat a4)
+CGColorRef TSUCGColorCreateDeviceRGB(uint64_t a1, uint64_t a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6)
 {
   components[4] = *MEMORY[0x277D85DE8];
-  components[0] = a1;
-  components[1] = a2;
-  components[2] = a3;
-  components[3] = a4;
+  components[0] = a3;
+  components[1] = a4;
+  components[2] = a5;
+  components[3] = a6;
   if (TSUDeviceRGBColorSpace_sDeviceRGBDispatchOnce != -1)
   {
     TSUDeviceRGBColorSpace_cold_1();
@@ -8823,11 +8824,11 @@ CGColorRef TSUCGColorCreateDeviceRGB(CGFloat a1, CGFloat a2, CGFloat a3, CGFloat
   return CGColorCreate(TSUDeviceRGBColorSpace_sDeviceRGBColorSpace, components);
 }
 
-CGColorRef TSUCGColorCreateDeviceGray(CGFloat a1, CGFloat a2)
+CGColorRef TSUCGColorCreateDeviceGray(uint64_t a1, uint64_t a2, CGFloat a3, CGFloat a4)
 {
   components[2] = *MEMORY[0x277D85DE8];
-  components[0] = a1;
-  components[1] = a2;
+  components[0] = a3;
+  components[1] = a4;
   if (TSUDeviceGrayColorSpace_sDeviceGrayDispatchOnce != -1)
   {
     TSUDeviceGrayColorSpace_cold_1();
@@ -8840,9 +8841,9 @@ CGColorRef TSUCGColorCreateRandomRGB()
 {
   v0 = TSURandom();
   v1 = TSURandom();
-  v2 = TSURandom();
+  v4 = TSURandom();
 
-  return TSUCGColorCreateDeviceRGB(v0, v1, v2, 1.0);
+  return TSUCGColorCreateDeviceRGB(v2, v3, v0, v1, v4, 1.0);
 }
 
 CGPatternRef TSUCGPatternCreateWithImageAndTransform(CGImageRef image, __int128 *a2)
@@ -9258,31 +9259,32 @@ CGFloat TSUColorAverageLightness(CGColor *a1)
   return 0.0;
 }
 
-CGContext *TSUCreateRGBABitmapContext(int a1, double a2, CGFloat a3, CGFloat a4)
+CGContext *TSUCreateRGBABitmapContext(uint64_t a1, uint64_t a2, double a3, CGFloat a4, CGFloat a5)
 {
+  v5 = a1;
   if (TSUDeviceRGBColorSpace_sDeviceRGBDispatchOnce != -1)
   {
     TSUDeviceRGBColorSpace_cold_1();
   }
 
-  v8 = CGBitmapContextCreate(0, (a2 * a4), (a3 * a4), 8uLL, (4 * (a2 * a4) + 31) & 0xFFFFFFFFFFFFFFE0, TSUDeviceRGBColorSpace_sDeviceRGBColorSpace, 0x2002u);
-  CGAffineTransformMakeScale(&v10, a4, a4);
-  CGContextConcatCTM(v8, &v10);
-  if (a1)
+  v9 = CGBitmapContextCreate(0, (a3 * a5), (a4 * a5), 8uLL, (4 * (a3 * a5) + 31) & 0xFFFFFFFFFFFFFFE0, TSUDeviceRGBColorSpace_sDeviceRGBColorSpace, 0x2002u);
+  CGAffineTransformMakeScale(&v11, a5, a5);
+  CGContextConcatCTM(v9, &v11);
+  if (v5)
   {
-    CGContextTranslateCTM(v8, 0.0, a3);
-    CGAffineTransformMakeScale(&v10, 1.0, -1.0);
-    CGContextConcatCTM(v8, &v10);
+    CGContextTranslateCTM(v9, 0.0, a4);
+    CGAffineTransformMakeScale(&v11, 1.0, -1.0);
+    CGContextConcatCTM(v9, &v11);
   }
 
-  return v8;
+  return v9;
 }
 
 CGColorRef TSUCreateCheckerBoardColorWithTint(CGColor *a1, CGColor *a2, CGColor *a3, CGFloat a4, CGFloat a5)
 {
   v10 = a4 + a4;
   v11 = a5 + a5;
-  v12 = TSUCreateRGBABitmapContext(0, a4 + a4, a5 + a5, 1.0);
+  v12 = TSUCreateRGBABitmapContext(0, a2, a4 + a4, a5 + a5, 1.0);
   if (!v12)
   {
     return 0;
@@ -9328,32 +9330,32 @@ CGColorRef TSUCreateCheckerBoardColorWithTint(CGColor *a1, CGColor *a2, CGColor 
   return PatternWithImageAndTransform;
 }
 
-uint64_t TSUPatternColorFromGradient(CGGradient *a1, CGFloat a2, CGFloat a3)
+uint64_t TSUPatternColorFromGradient(CGGradient *a1, uint64_t a2, CGFloat a3, CGFloat a4)
 {
-  v6 = TSUCreateRGBABitmapContext(1, 1.0, a2, a3);
-  if (!v6)
+  v7 = TSUCreateRGBABitmapContext(1, a2, 1.0, a3, a4);
+  if (!v7)
   {
     return 0;
   }
 
-  v7 = v6;
-  v13.x = 0.0;
-  v13.y = 0.0;
+  v8 = v7;
   v14.x = 0.0;
-  v14.y = a2;
-  CGContextDrawLinearGradient(v6, a1, v13, v14, 0);
-  Image = CGBitmapContextCreateImage(v7);
-  CGContextRelease(v7);
-  v9 = [MEMORY[0x277D755B8] imageWithCGImage:Image scale:0 orientation:a3];
+  v14.y = 0.0;
+  v15.x = 0.0;
+  v15.y = a3;
+  CGContextDrawLinearGradient(v7, a1, v14, v15, 0);
+  Image = CGBitmapContextCreateImage(v8);
+  CGContextRelease(v8);
+  v10 = [MEMORY[0x277D755B8] imageWithCGImage:Image scale:0 orientation:a4];
   CGImageRelease(Image);
-  if (!v9)
+  if (!v10)
   {
     return 0;
   }
 
-  v10 = MEMORY[0x277D75348];
+  v11 = MEMORY[0x277D75348];
 
-  return [v10 colorWithPatternImage:v9];
+  return [v11 colorWithPatternImage:v10];
 }
 
 double TSUFractionalPart(double a1)
@@ -9383,10 +9385,10 @@ double TSUClamp(double a1, double a2, double a3)
   return a2;
 }
 
-void std::vector<std::shared_ptr<TSUStringChunk>>::clear[abi:ne200100](uint64_t *a1)
+void std::vector<std::shared_ptr<TSUStringChunk>>::clear[abi:ne200100](uint64_t *result)
 {
-  v2 = *a1;
-  for (i = a1[1]; i != v2; i -= 16)
+  v2 = *result;
+  for (i = result[1]; i != v2; i -= 16)
   {
     v4 = *(i - 8);
     if (v4)
@@ -9395,7 +9397,7 @@ void std::vector<std::shared_ptr<TSUStringChunk>>::clear[abi:ne200100](uint64_t 
     }
   }
 
-  a1[1] = v2;
+  result[1] = v2;
 }
 
 uint64_t p_chunkIndexForCharacterIndex(unint64_t a1, void *a2)
@@ -9429,7 +9431,7 @@ uint64_t p_chunkIndexForCharacterIndex(unint64_t a1, void *a2)
   return (v2 - *a2) >> 4;
 }
 
-void sub_26CBB3694(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12)
+void sub_26CBB3694(_Unwind_Exception *exception_object, uint64_t a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12)
 {
   if (a12)
   {
@@ -9485,7 +9487,7 @@ void **std::vector<std::shared_ptr<TSUStringChunk>>::push_back[abi:ne200100](voi
 
     v7 = (v12 + 16);
     v14 = result[1] - *result;
-    v15 = v12 - v14;
+    v15 = (v12 - v14);
     memcpy((v12 - v14), *result, v14);
     v16 = *v3;
     *v3 = v15;
@@ -9516,7 +9518,7 @@ void **std::vector<std::shared_ptr<TSUStringChunk>>::push_back[abi:ne200100](voi
   return result;
 }
 
-void sub_26CBB3E34(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, std::__shared_weak_count *a20)
+void sub_26CBB3E34(_Unwind_Exception *exception_object, uint64_t a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, std::__shared_weak_count *a20)
 {
   if (a20)
   {
@@ -9559,21 +9561,21 @@ void *std::vector<std::shared_ptr<TSUStringChunk>>::insert(void *a1, void *a2, v
     }
 
     v20 = v16 >> 4;
-    v32 = a1;
+    v33 = a1;
     if (v19)
     {
       std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<TSUStringChunk>>>(a1, v19);
     }
 
-    *&v30 = 0;
-    *(&v30 + 1) = 16 * v20;
-    v31 = (16 * v20);
+    v30 = 0;
+    v31 = 16 * v20;
+    v32 = (16 * v20);
     std::__split_buffer<std::shared_ptr<TSUStringChunk>>::emplace_back<std::shared_ptr<TSUStringChunk> const&>(&v30, a3);
-    v22 = *(&v30 + 1);
-    memcpy(v31, v4, a1[1] - v4);
+    v22 = v31;
+    memcpy(v32, v4, a1[1] - v4);
     v23 = *a1;
-    v24 = *(&v30 + 1);
-    *&v31 = v31 + a1[1] - v4;
+    v24 = v31;
+    *&v32 = v32 + a1[1] - v4;
     a1[1] = v4;
     v25 = v4 - v23;
     v26 = (v24 - (v4 - v23));
@@ -9581,11 +9583,11 @@ void *std::vector<std::shared_ptr<TSUStringChunk>>::insert(void *a1, void *a2, v
     v27 = *a1;
     *a1 = v26;
     v28 = a1[2];
-    *(a1 + 1) = v31;
-    *&v31 = v27;
-    *(&v31 + 1) = v28;
-    *&v30 = v27;
-    *(&v30 + 1) = v27;
+    *(a1 + 1) = v32;
+    *&v32 = v27;
+    *(&v32 + 1) = v28;
+    v30 = v27;
+    v31 = v27;
     std::__split_buffer<std::shared_ptr<TSUStringChunk>>::~__split_buffer(&v30);
     return v22;
   }
@@ -9633,14 +9635,14 @@ void *std::vector<std::shared_ptr<TSUStringChunk>>::insert(void *a1, void *a2, v
   return v4;
 }
 
-void sub_26CBB4014(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26CBB4014(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::shared_ptr<TSUStringChunk>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_26CBB4514(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, std::__shared_weak_count *a15, uint64_t a16, uint64_t a17, std::__shared_weak_count *a18)
+void sub_26CBB4514(_Unwind_Exception *exception_object, uint64_t a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, std::__shared_weak_count *a15, uint64_t a16, uint64_t a17, std::__shared_weak_count *a18)
 {
   if (a18)
   {
@@ -9655,7 +9657,7 @@ void sub_26CBB4514(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::shared_ptr<TSUStringChunk>>::erase(uint64_t a1, uint64_t a2, __int128 *a3)
+__int128 *std::vector<std::shared_ptr<TSUStringChunk>>::erase(uint64_t a1, __int128 *a2, __int128 *a3)
 {
   if (a3 != a2)
   {
@@ -9808,8 +9810,8 @@ void *std::vector<std::shared_ptr<TSUStringChunk>>::__move_range(uint64_t a1, vo
     {
       *v8++ = *v9;
       *v9 = 0;
-      v9[1] = 0;
-      v9 += 2;
+      *(v9 + 8) = 0;
+      v9 += 16;
     }
 
     while (v9 < a3);

@@ -35,22 +35,22 @@
 
 - (void)_handleHandshakeRequest:(id)request withResponseHandler:(id)handler
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (self->_handshakeHandler)
   {
-    v14 = @"TRHandshakeOperationHandlerParamKeyProtocolVersion";
+    v13 = @"TRHandshakeOperationHandlerParamKeyProtocolVersion";
     v7 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(request, "protocolVersion")}];
-    v15[0] = v7;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v14[0] = v7;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
 
     handshakeHandler = self->_handshakeHandler;
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __75__TRHandshakeOperationHandler__handleHandshakeRequest_withResponseHandler___block_invoke;
-    v12[3] = &unk_279DCF3D8;
-    v13 = handlerCopy;
-    handshakeHandler[2](handshakeHandler, v8, v12);
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __75__TRHandshakeOperationHandler__handleHandshakeRequest_withResponseHandler___block_invoke;
+    v11[3] = &unk_279DCF3D8;
+    v12 = handlerCopy;
+    handshakeHandler[2](handshakeHandler, v8, v11);
   }
 
   else
@@ -58,8 +58,6 @@
     v10 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRNearbyDeviceErrorDomain" code:-9001 userInfo:0];
     (*(handlerCopy + 2))(handlerCopy, v10, 0);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __75__TRHandshakeOperationHandler__handleHandshakeRequest_withResponseHandler___block_invoke(uint64_t a1, uint64_t a2)

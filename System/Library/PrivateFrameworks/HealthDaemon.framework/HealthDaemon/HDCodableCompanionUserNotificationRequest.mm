@@ -129,18 +129,28 @@
   v6 = fromCopy[1];
   if (notificationConfiguration)
   {
-    if (v6)
+    if (!v6)
     {
-      [(HDCodableCompanionUserNotificationConfiguration *)notificationConfiguration mergeFrom:?];
+      goto LABEL_9;
     }
+
+    notificationConfiguration = [(HDCodableCompanionUserNotificationConfiguration *)notificationConfiguration mergeFrom:?];
   }
 
-  else if (v6)
+  else
   {
-    [(HDCodableCompanionUserNotificationRequest *)self setNotificationConfiguration:?];
+    if (!v6)
+    {
+      goto LABEL_9;
+    }
+
+    notificationConfiguration = [(HDCodableCompanionUserNotificationRequest *)self setNotificationConfiguration:?];
   }
 
-  MEMORY[0x2821F96F8]();
+  fromCopy = v7;
+LABEL_9:
+
+  MEMORY[0x2821F96F8](notificationConfiguration, fromCopy);
 }
 
 @end

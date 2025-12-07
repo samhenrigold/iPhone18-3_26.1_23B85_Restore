@@ -89,7 +89,7 @@
 
 + (id)triVerifiedMappedDataWithFile:()TRI error:
 {
-  v45[1] = *MEMORY[0x277D85DE8];
+  v44[1] = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = objc_autoreleasePoolPush();
   v7 = open([v5 fileSystemRepresentation], 0);
@@ -104,9 +104,9 @@
       v18 = objc_alloc(MEMORY[0x277CCA9B8]);
       v19 = *MEMORY[0x277CCA5B8];
       v20 = *__error();
-      v44 = *MEMORY[0x277CCA450];
-      v45[0] = v17;
-      v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:&v44 count:1];
+      v43 = *MEMORY[0x277CCA450];
+      v44[0] = v17;
+      v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:&v43 count:1];
       v22 = [v18 initWithDomain:v19 code:v20 userInfo:v21];
       v23 = *a4;
       *a4 = v22;
@@ -123,8 +123,8 @@ LABEL_17:
   mutableBytes = [v9 mutableBytes];
   if (!mutableBytes)
   {
-    v39 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE728] reason:@"malloc failed" userInfo:0];
-    objc_exception_throw(v39);
+    v38 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE728] reason:@"malloc failed" userInfo:0];
+    objc_exception_throw(v38);
   }
 
   v11 = mutableBytes;
@@ -149,14 +149,14 @@ LABEL_17:
   v27 = [v24 initWithFormat:@"Error while read-verifying %@: %s (%d)", v5, v26, *__error()];
   if (a4)
   {
-    v40 = objc_alloc(MEMORY[0x277CCA9B8]);
+    v39 = objc_alloc(MEMORY[0x277CCA9B8]);
     v28 = *MEMORY[0x277CCA5B8];
     v29 = *__error();
-    v42 = *MEMORY[0x277CCA450];
-    v43 = v27;
-    [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+    v41 = *MEMORY[0x277CCA450];
+    v42 = v27;
+    [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
     v31 = v30 = v6;
-    v32 = [v40 initWithDomain:v28 code:v29 userInfo:v31];
+    v32 = [v39 initWithDomain:v28 code:v29 userInfo:v31];
     v33 = *a4;
     *a4 = v32;
 
@@ -172,17 +172,16 @@ LABEL_13:
     goto LABEL_17;
   }
 
-  v41 = 0;
-  v34 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:v5 options:8 error:&v41];
-  v35 = v41;
-  v36 = v41;
+  v40 = 0;
+  v34 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:v5 options:8 error:&v40];
+  v35 = v40;
+  v36 = v40;
   if (a4)
   {
     objc_storeStrong(a4, v35);
   }
 
 LABEL_18:
-  v37 = *MEMORY[0x277D85DE8];
 
   return v34;
 }

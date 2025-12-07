@@ -28,7 +28,7 @@
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_1BD616EFC();
+  sub_1BD616EFC(selfCopy);
 }
 
 - (void)editButtonTapped
@@ -36,11 +36,12 @@
   v2 = *(&self->super.super.super.isa + OBJC_IVAR____TtC9PassKitUI31ACHBankCredentialViewController_editAction);
   if (v2)
   {
+    v3 = *(&self->super.super._responderFlags + OBJC_IVAR____TtC9PassKitUI31ACHBankCredentialViewController_editAction);
     selfCopy = self;
-    v4 = sub_1BD0D44B8(v2);
-    v2(v4);
+    v5 = sub_1BD0D44B8(v2, v3);
+    v2(v5);
 
-    sub_1BD0D4744(v2);
+    sub_1BD0D4744(v2, v3, v6, v7, v8, v9, v10, v11);
   }
 }
 

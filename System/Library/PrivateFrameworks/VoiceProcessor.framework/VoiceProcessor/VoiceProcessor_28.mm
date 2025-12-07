@@ -1,86 +1,111 @@
-void sub_2726AD538(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2726998D0(_Unwind_Exception *a1)
 {
-  va_start(va, a2);
-  __cxa_end_catch();
-  vp::sim::Key_Writer::~Key_Writer(va);
+  std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)51,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)51,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T>>::reset[abi:ne200100]((v1 - 176), 0);
+  vp::vx::data_flow::State<void>::~State(&STACK[0x340]);
   _Unwind_Resume(a1);
 }
 
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)24,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)24,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy_deallocate(void *__p)
+void (****vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)79,BOOL>(void *a1, int *a2))(void)
 {
-  v2 = __p[2];
-  if (v2)
+  v4 = a1[1];
+  *&v25 = 0;
+  *(&v25 + 1) = v4;
+  v26 = xmmword_272756730;
+  v5 = (*(*v4 + 16))(v4, 40, 8);
+  vp::vx::data_flow::State<void>::State(&v27, a2);
+  *v5 = &unk_2881BD750;
+  *(v5 + 8) = v27;
+  *(v5 + 16) = *v28;
+  *v28 = 0uLL;
+  *(v5 + 32) = 0;
+  vp::vx::data_flow::State<void>::~State(&v27);
+  std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)79,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)79,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T>>::reset[abi:ne200100](&v25, v5);
+  v6 = a1[42];
+  v7 = a1[43];
+  if (v6 >= v7)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+    v11 = a1[41];
+    v12 = (v6 - v11) >> 5;
+    v13 = v12 + 1;
+    if ((v12 + 1) >> 59)
+    {
+      std::vector<std::function<std::unique_ptr<VoiceProcessorBase> ()(std::unique_ptr<VoiceProcessorBase>)>>::__throw_length_error[abi:ne200100]();
+    }
+
+    v14 = v7 - v11;
+    if (v14 >> 4 > v13)
+    {
+      v13 = v14 >> 4;
+    }
+
+    if (v14 >= 0x7FFFFFFFFFFFFFE0)
+    {
+      v15 = 0x7FFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v15 = v13;
+    }
+
+    v29 = a1 + 44;
+    if (v15)
+    {
+      v16 = std::pmr::polymorphic_allocator<std::unique_ptr<vp::vx::components::Audio_Statistics::Payload_Key_State,vp::Allocator_Delete<vp::vx::components::Audio_Statistics::Payload_Key_State>>>::allocate[abi:ne200100]((a1 + 44), v15);
+      v11 = a1[41];
+      v6 = a1[42];
+    }
+
+    else
+    {
+      v16 = 0;
+    }
+
+    *&v28[16] = v16 + 32 * v15;
+    v17 = v25;
+    v18 = v26;
+    v19 = (v16 + 32 * v12);
+    *&v25 = 0;
+    *v19 = v17;
+    v19[1] = v18;
+    *&v28[8] = v19 + 2;
+    v20 = &v19[-2 * ((v6 - v11) >> 5)];
+    std::__uninitialized_allocator_relocate[abi:ne200100]<vp::Allocator<std::unique_ptr<vp::vx::components::Property_List_Writer::Sim_Key_State,vp::Allocator_Delete<vp::vx::components::Property_List_Writer::Sim_Key_State>>>,std::unique_ptr<vp::vx::components::Property_List_Writer::Sim_Key_State,vp::Allocator_Delete<vp::vx::components::Property_List_Writer::Sim_Key_State>>*>(v11, v6, v20);
+    v21 = a1[41];
+    a1[41] = v20;
+    v22 = a1[43];
+    v24 = *&v28[8];
+    *(a1 + 21) = *&v28[8];
+    *&v28[8] = v21;
+    *&v28[16] = v22;
+    v27 = v21;
+    *v28 = v21;
+    std::__split_buffer<std::unique_ptr<vp::vx::components::Property_List_Writer::Sim_Key_State,vp::Allocator_Delete<vp::vx::components::Property_List_Writer::Sim_Key_State>>,vp::Allocator<std::unique_ptr<vp::vx::components::Property_List_Writer::Sim_Key_State,vp::Allocator_Delete<vp::vx::components::Property_List_Writer::Sim_Key_State>>> &>::~__split_buffer(&v27);
+    v10 = v24;
   }
 
-  operator delete(__p);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)24,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)24,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
+  else
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)24,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)24,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::__clone(uint64_t result, void *a2)
-{
-  v3 = *(result + 8);
-  v2 = *(result + 16);
-  *a2 = &unk_2881BC538;
-  a2[1] = v3;
-  a2[2] = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+    v8 = v25;
+    v9 = v26;
+    *&v25 = 0;
+    *v6 = v8;
+    *(v6 + 16) = v9;
+    v10 = v6 + 32;
   }
 
-  return result;
+  a1[42] = v10;
+  return std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)79,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)79,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T>>::reset[abi:ne200100](&v25, 0);
 }
 
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)24,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)24,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
+void sub_27269A2D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  *a1 = &unk_2881BC538;
-  v1 = a1[2];
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x2743CBFA0);
+  va_start(va, a5);
+  std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)79,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)79,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T>>::reset[abi:ne200100](va, 0);
+  _Unwind_Resume(a1);
 }
 
-void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)24,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)24,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BC538;
-  v2 = a1[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  return a1;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)24,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BC508;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-uint64_t vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)24,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BC508;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-  return a1;
-}
-
-void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)23,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)23,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)86,applesauce::CF::ArrayRef>(vp::vx::data_flow::State<applesauce::CF::ArrayRef>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)86,applesauce::CF::ArrayRef>(vp::vx::data_flow::State<applesauce::CF::ArrayRef>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
 {
   v2 = *result;
   *result = a2;
@@ -94,178 +119,68 @@ void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<
   return result;
 }
 
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)23,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+void (****std::__uninitialized_allocator_relocate[abi:ne200100]<vp::Allocator<std::unique_ptr<vp::vx::components::Property_List_Writer::Sim_Key_State,vp::Allocator_Delete<vp::vx::components::Property_List_Writer::Sim_Key_State>>>,std::unique_ptr<vp::vx::components::Property_List_Writer::Sim_Key_State,vp::Allocator_Delete<vp::vx::components::Property_List_Writer::Sim_Key_State>>*>(void (****result)(void), void (****a2)(void), uint64_t a3))(void)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  if (v3)
+  if (result != a2)
   {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    v4 = result;
+    v5 = result;
+    do
+    {
+      v6 = *v5;
+      *v5 = 0;
+      *a3 = v6;
+      *(a3 + 8) = *(v5 + 8);
+      *(a3 + 16) = *(v5 + 16);
+      v5 += 32;
+      a3 += 32;
+    }
+
+    while (v5 != a2);
+    do
+    {
+      result = std::unique_ptr<vp::vx::components::Property_List_Writer::Sim_Key_State,vp::Allocator_Delete<vp::vx::components::Property_List_Writer::Sim_Key_State>>::reset[abi:ne200100](v4);
+      v4 += 4;
+    }
+
+    while (v4 != a2);
   }
 
-  v4[0] = &unk_2881BC4C0;
-  v4[1] = v2;
-  v4[2] = v3;
-  v4[3] = v4;
-  std::__function::__value_func<void ()(unsigned int const&)>::__value_func[abi:ne200100](v5, v4);
-  v6 = 0;
-  operator new();
+  return result;
 }
 
-void sub_2726AD984(_Unwind_Exception *a1, int a2)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(a1);
-  }
-
-  __clang_call_terminate(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)23,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)23,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::operator()(uint64_t a1, int *a2)
+uint64_t std::__split_buffer<std::unique_ptr<vp::vx::components::Property_List_Writer::Sim_Key_State,vp::Allocator_Delete<vp::vx::components::Property_List_Writer::Sim_Key_State>>,vp::Allocator<std::unique_ptr<vp::vx::components::Property_List_Writer::Sim_Key_State,vp::Allocator_Delete<vp::vx::components::Property_List_Writer::Sim_Key_State>>> &>::~__split_buffer(uint64_t a1)
 {
   v3 = *(a1 + 8);
-  v4 = vp::sim::Property_List_Writer::size(*v3);
-  if (v4)
+  for (i = *(a1 + 16); i != v3; i = *(a1 + 16))
   {
-    v5 = v4 - 1;
+    *(a1 + 16) = i - 32;
+    std::unique_ptr<vp::vx::components::Property_List_Writer::Sim_Key_State,vp::Allocator_Delete<vp::vx::components::Property_List_Writer::Sim_Key_State>>::reset[abi:ne200100]((i - 32));
   }
 
-  else
+  if (*a1)
   {
-    v5 = 0;
-  }
-
-  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
-  v6 = v10;
-  v8 = v10;
-  vp::sim::Key_Writer::count(&v8, 23, "HW REF Presentation Latency");
-  vp::sim::converters::Default_Converter<unsigned int>::to_property_list(&cf, *a2);
-  v7 = cf;
-  if (cf)
-  {
-    CFRetain(cf);
-    v10 = v7;
-    vp::sim::Key_Writer::set(&v8, 23, "HW REF Presentation Latency", &v10);
-    CFRelease(v7);
-  }
-
-  else
-  {
-    v10 = 0;
-    vp::sim::Key_Writer::set(&v8, 23, "HW REF Presentation Latency", &v10);
-  }
-
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  if (v6)
-  {
-    CFRelease(v6);
-  }
-}
-
-void sub_2726ADA94(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  __cxa_end_catch();
-  vp::sim::Key_Writer::~Key_Writer(va);
-  _Unwind_Resume(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)23,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)23,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy_deallocate(void *__p)
-{
-  v2 = __p[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  operator delete(__p);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)23,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)23,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)23,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)23,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::__clone(uint64_t result, void *a2)
-{
-  v3 = *(result + 8);
-  v2 = *(result + 16);
-  *a2 = &unk_2881BC4C0;
-  a2[1] = v3;
-  a2[2] = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)23,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)23,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BC4C0;
-  v1 = a1[2];
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)23,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)23,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BC4C0;
-  v2 = a1[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+    std::allocator_traits<vp::Allocator<std::unique_ptr<vp::vx::components::Property_List_Writer::Sim_Key_State,vp::Allocator_Delete<vp::vx::components::Property_List_Writer::Sim_Key_State>>>>::deallocate[abi:ne200100](**(a1 + 32), *a1, (*(a1 + 24) - *a1) >> 5);
   }
 
   return a1;
 }
 
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)23,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
+void (****std::unique_ptr<vp::vx::components::Property_List_Writer::Sim_Key_State,vp::Allocator_Delete<vp::vx::components::Property_List_Writer::Sim_Key_State>>::reset[abi:ne200100](void (****result)(void)))(void)
 {
-  *a1 = &unk_2881BC490;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-uint64_t vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)23,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BC490;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-  return a1;
-}
-
-void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)22,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)22,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
-{
-  v2 = *result;
-  *result = a2;
-  if (v2)
+  v1 = *result;
+  *result = 0;
+  if (v1)
   {
-    v3 = result;
-    (**v2)(v2);
-    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
+    v2 = result;
+    (**v1)(v1);
+    return ((*v2[1])[3])(v2[1], v1, v2[2], v2[3]);
   }
 
   return result;
 }
 
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)22,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)86,applesauce::CF::ArrayRef>(vp::vx::data_flow::State<applesauce::CF::ArrayRef>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
 {
   v7 = *MEMORY[0x277D85DE8];
   v2 = *a2;
@@ -276,16 +191,16 @@ void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)22,unsigned 
     atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v4[0] = &unk_2881BC448;
+  v4[0] = &unk_2881BDAC8;
   v4[1] = v2;
   v4[2] = v3;
   v4[3] = v4;
-  std::__function::__value_func<void ()(unsigned int const&)>::__value_func[abi:ne200100](v5, v4);
+  std::__function::__value_func<void ()(applesauce::CF::ArrayRef const&)>::__value_func[abi:ne200100](v5, v4);
   v6 = 0;
   operator new();
 }
 
-void sub_2726ADEE0(_Unwind_Exception *a1, int a2)
+void sub_27269A670(_Unwind_Exception *a1, int a2)
 {
   if (!a2)
   {
@@ -295,1019 +210,7 @@ void sub_2726ADEE0(_Unwind_Exception *a1, int a2)
   __clang_call_terminate(a1);
 }
 
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)22,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)22,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::operator()(uint64_t a1, int *a2)
-{
-  v3 = *(a1 + 8);
-  v4 = vp::sim::Property_List_Writer::size(*v3);
-  if (v4)
-  {
-    v5 = v4 - 1;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
-  v6 = v10;
-  v8 = v10;
-  vp::sim::Key_Writer::count(&v8, 22, "HW REF Input Safety Offset");
-  vp::sim::converters::Default_Converter<unsigned int>::to_property_list(&cf, *a2);
-  v7 = cf;
-  if (cf)
-  {
-    CFRetain(cf);
-    v10 = v7;
-    vp::sim::Key_Writer::set(&v8, 22, "HW REF Input Safety Offset", &v10);
-    CFRelease(v7);
-  }
-
-  else
-  {
-    v10 = 0;
-    vp::sim::Key_Writer::set(&v8, 22, "HW REF Input Safety Offset", &v10);
-  }
-
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  if (v6)
-  {
-    CFRelease(v6);
-  }
-}
-
-void sub_2726ADFF0(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  __cxa_end_catch();
-  vp::sim::Key_Writer::~Key_Writer(va);
-  _Unwind_Resume(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)22,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)22,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy_deallocate(void *__p)
-{
-  v2 = __p[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  operator delete(__p);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)22,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)22,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)22,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)22,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::__clone(uint64_t result, void *a2)
-{
-  v3 = *(result + 8);
-  v2 = *(result + 16);
-  *a2 = &unk_2881BC448;
-  a2[1] = v3;
-  a2[2] = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)22,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)22,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BC448;
-  v1 = a1[2];
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)22,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)22,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BC448;
-  v2 = a1[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  return a1;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)22,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BC418;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-uint64_t vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)22,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BC418;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-  return a1;
-}
-
-void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)21,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)21,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
-{
-  v2 = *result;
-  *result = a2;
-  if (v2)
-  {
-    v3 = result;
-    (**v2)(v2);
-    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
-  }
-
-  return result;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)21,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v4[0] = &unk_2881BC3D0;
-  v4[1] = v2;
-  v4[2] = v3;
-  v4[3] = v4;
-  std::__function::__value_func<void ()(unsigned int const&)>::__value_func[abi:ne200100](v5, v4);
-  v6 = 0;
-  operator new();
-}
-
-void sub_2726AE43C(_Unwind_Exception *a1, int a2)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(a1);
-  }
-
-  __clang_call_terminate(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)21,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)21,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::operator()(uint64_t a1, int *a2)
-{
-  v3 = *(a1 + 8);
-  v4 = vp::sim::Property_List_Writer::size(*v3);
-  if (v4)
-  {
-    v5 = v4 - 1;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
-  v6 = v10;
-  v8 = v10;
-  vp::sim::Key_Writer::count(&v8, 21, "HW REF Input Latency");
-  vp::sim::converters::Default_Converter<unsigned int>::to_property_list(&cf, *a2);
-  v7 = cf;
-  if (cf)
-  {
-    CFRetain(cf);
-    v10 = v7;
-    vp::sim::Key_Writer::set(&v8, 21, "HW REF Input Latency", &v10);
-    CFRelease(v7);
-  }
-
-  else
-  {
-    v10 = 0;
-    vp::sim::Key_Writer::set(&v8, 21, "HW REF Input Latency", &v10);
-  }
-
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  if (v6)
-  {
-    CFRelease(v6);
-  }
-}
-
-void sub_2726AE54C(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  __cxa_end_catch();
-  vp::sim::Key_Writer::~Key_Writer(va);
-  _Unwind_Resume(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)21,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)21,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy_deallocate(void *__p)
-{
-  v2 = __p[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  operator delete(__p);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)21,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)21,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)21,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)21,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::__clone(uint64_t result, void *a2)
-{
-  v3 = *(result + 8);
-  v2 = *(result + 16);
-  *a2 = &unk_2881BC3D0;
-  a2[1] = v3;
-  a2[2] = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)21,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)21,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BC3D0;
-  v1 = a1[2];
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)21,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)21,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BC3D0;
-  v2 = a1[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  return a1;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)21,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BC3A0;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-uint64_t vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)21,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BC3A0;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-  return a1;
-}
-
-void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)40,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)40,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
-{
-  v2 = *result;
-  *result = a2;
-  if (v2)
-  {
-    v3 = result;
-    (**v2)(v2);
-    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
-  }
-
-  return result;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)40,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v4[0] = &unk_2881BC358;
-  v4[1] = v2;
-  v4[2] = v3;
-  v4[3] = v4;
-  std::__function::__value_func<void ()(unsigned int const&)>::__value_func[abi:ne200100](v5, v4);
-  v6 = 0;
-  operator new();
-}
-
-void sub_2726AE998(_Unwind_Exception *a1, int a2)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(a1);
-  }
-
-  __clang_call_terminate(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)40,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)40,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::operator()(uint64_t a1, int *a2)
-{
-  v3 = *(a1 + 8);
-  v4 = vp::sim::Property_List_Writer::size(*v3);
-  if (v4)
-  {
-    v5 = v4 - 1;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
-  v6 = v10;
-  v8 = v10;
-  vp::sim::Key_Writer::count(&v8, 40, "HW MIC Safety Offset");
-  vp::sim::converters::Default_Converter<unsigned int>::to_property_list(&cf, *a2);
-  v7 = cf;
-  if (cf)
-  {
-    CFRetain(cf);
-    v10 = v7;
-    vp::sim::Key_Writer::set(&v8, 40, "HW MIC Safety Offset", &v10);
-    CFRelease(v7);
-  }
-
-  else
-  {
-    v10 = 0;
-    vp::sim::Key_Writer::set(&v8, 40, "HW MIC Safety Offset", &v10);
-  }
-
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  if (v6)
-  {
-    CFRelease(v6);
-  }
-}
-
-void sub_2726AEAA8(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  __cxa_end_catch();
-  vp::sim::Key_Writer::~Key_Writer(va);
-  _Unwind_Resume(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)40,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)40,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy_deallocate(void *__p)
-{
-  v2 = __p[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  operator delete(__p);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)40,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)40,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)40,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)40,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::__clone(uint64_t result, void *a2)
-{
-  v3 = *(result + 8);
-  v2 = *(result + 16);
-  *a2 = &unk_2881BC358;
-  a2[1] = v3;
-  a2[2] = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)40,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)40,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BC358;
-  v1 = a1[2];
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)40,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)40,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BC358;
-  v2 = a1[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  return a1;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)40,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BC328;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-uint64_t vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)40,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BC328;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-  return a1;
-}
-
-void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)39,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)39,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
-{
-  v2 = *result;
-  *result = a2;
-  if (v2)
-  {
-    v3 = result;
-    (**v2)(v2);
-    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
-  }
-
-  return result;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)39,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v4[0] = &unk_2881BC2E0;
-  v4[1] = v2;
-  v4[2] = v3;
-  v4[3] = v4;
-  std::__function::__value_func<void ()(unsigned int const&)>::__value_func[abi:ne200100](v5, v4);
-  v6 = 0;
-  operator new();
-}
-
-void sub_2726AEEF4(_Unwind_Exception *a1, int a2)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(a1);
-  }
-
-  __clang_call_terminate(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)39,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)39,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::operator()(uint64_t a1, int *a2)
-{
-  v3 = *(a1 + 8);
-  v4 = vp::sim::Property_List_Writer::size(*v3);
-  if (v4)
-  {
-    v5 = v4 - 1;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
-  v6 = v10;
-  v8 = v10;
-  vp::sim::Key_Writer::count(&v8, 39, "HW MIC Presentation Latency");
-  vp::sim::converters::Default_Converter<unsigned int>::to_property_list(&cf, *a2);
-  v7 = cf;
-  if (cf)
-  {
-    CFRetain(cf);
-    v10 = v7;
-    vp::sim::Key_Writer::set(&v8, 39, "HW MIC Presentation Latency", &v10);
-    CFRelease(v7);
-  }
-
-  else
-  {
-    v10 = 0;
-    vp::sim::Key_Writer::set(&v8, 39, "HW MIC Presentation Latency", &v10);
-  }
-
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  if (v6)
-  {
-    CFRelease(v6);
-  }
-}
-
-void sub_2726AF004(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  __cxa_end_catch();
-  vp::sim::Key_Writer::~Key_Writer(va);
-  _Unwind_Resume(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)39,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)39,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy_deallocate(void *__p)
-{
-  v2 = __p[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  operator delete(__p);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)39,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)39,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)39,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)39,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::__clone(uint64_t result, void *a2)
-{
-  v3 = *(result + 8);
-  v2 = *(result + 16);
-  *a2 = &unk_2881BC2E0;
-  a2[1] = v3;
-  a2[2] = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)39,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)39,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BC2E0;
-  v1 = a1[2];
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)39,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)39,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BC2E0;
-  v2 = a1[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  return a1;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)39,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BC2B0;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-uint64_t vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)39,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BC2B0;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-  return a1;
-}
-
-void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)38,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)38,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
-{
-  v2 = *result;
-  *result = a2;
-  if (v2)
-  {
-    v3 = result;
-    (**v2)(v2);
-    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
-  }
-
-  return result;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)38,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v4[0] = &unk_2881BC268;
-  v4[1] = v2;
-  v4[2] = v3;
-  v4[3] = v4;
-  std::__function::__value_func<void ()(double const&)>::__value_func[abi:ne200100](v5, v4);
-  v6 = 0;
-  operator new();
-}
-
-void sub_2726AF450(_Unwind_Exception *a1, int a2)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(a1);
-  }
-
-  __clang_call_terminate(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)38,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(double const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)38,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(double const&)#1}>,void ()(double const&)>::operator()(uint64_t a1, double *a2)
-{
-  v3 = *(a1 + 8);
-  v4 = vp::sim::Property_List_Writer::size(*v3);
-  if (v4)
-  {
-    v5 = v4 - 1;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
-  v6 = v10;
-  v8 = v10;
-  vp::sim::Key_Writer::count(&v8, 38, "HW MIC Device Sample Rate");
-  vp::sim::converters::Default_Converter<double>::to_property_list(&cf, *a2);
-  v7 = cf;
-  if (cf)
-  {
-    CFRetain(cf);
-    v10 = v7;
-    vp::sim::Key_Writer::set(&v8, 38, "HW MIC Device Sample Rate", &v10);
-    CFRelease(v7);
-  }
-
-  else
-  {
-    v10 = 0;
-    vp::sim::Key_Writer::set(&v8, 38, "HW MIC Device Sample Rate", &v10);
-  }
-
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  if (v6)
-  {
-    CFRelease(v6);
-  }
-}
-
-void sub_2726AF560(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  __cxa_end_catch();
-  vp::sim::Key_Writer::~Key_Writer(va);
-  _Unwind_Resume(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)38,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(double const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)38,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(double const&)#1}>,void ()(double const&)>::destroy_deallocate(void *__p)
-{
-  v2 = __p[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  operator delete(__p);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)38,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(double const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)38,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(double const&)#1}>,void ()(double const&)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)38,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(double const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)38,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(double const&)#1}>,void ()(double const&)>::__clone(uint64_t result, void *a2)
-{
-  v3 = *(result + 8);
-  v2 = *(result + 16);
-  *a2 = &unk_2881BC268;
-  a2[1] = v3;
-  a2[2] = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)38,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(double const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)38,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(double const&)#1}>,void ()(double const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BC268;
-  v1 = a1[2];
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)38,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(double const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)38,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(double const&)#1}>,void ()(double const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BC268;
-  v2 = a1[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  return a1;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)38,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BC238;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-uint64_t vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)38,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BC238;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-  return a1;
-}
-
-void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)37,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)37,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
-{
-  v2 = *result;
-  *result = a2;
-  if (v2)
-  {
-    v3 = result;
-    (**v2)(v2);
-    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
-  }
-
-  return result;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)37,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v4[0] = &unk_2881BC1F0;
-  v4[1] = v2;
-  v4[2] = v3;
-  v4[3] = v4;
-  std::__function::__value_func<void ()(applesauce::CF::DictionaryRef const&)>::__value_func[abi:ne200100](v5, v4);
-  v6 = 0;
-  operator new();
-}
-
-void sub_2726AF9AC(_Unwind_Exception *a1, int a2)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(a1);
-  }
-
-  __clang_call_terminate(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)37,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)37,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1}>,void ()(applesauce::CF::DictionaryRef const&)>::operator()(uint64_t a1, CFTypeRef *a2)
-{
-  v3 = *(a1 + 8);
-  v4 = vp::sim::Property_List_Writer::size(*v3);
-  if (v4)
-  {
-    v5 = v4 - 1;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  vp::sim::Property_List_Writer::find_writable_element(&cf, v3, v5);
-  v6 = cf;
-  v7 = cf;
-  vp::sim::Key_Writer::count(&v7, 37, "Telephony Mic DSP Settings");
-  vp::sim::converters::Default_Converter_CF<applesauce::CF::DictionaryRef>::to_property_list(&cf, *a2);
-  vp::sim::Key_Writer::set(&v7, 37, "Telephony Mic DSP Settings", &cf);
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  if (v6)
-  {
-    CFRelease(v6);
-  }
-}
-
-void sub_2726AFA78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  __cxa_end_catch();
-  vp::sim::Key_Writer::~Key_Writer(va);
-  _Unwind_Resume(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)37,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)37,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1}>,void ()(applesauce::CF::DictionaryRef const&)>::destroy_deallocate(void *__p)
-{
-  v2 = __p[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  operator delete(__p);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)37,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)37,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1}>,void ()(applesauce::CF::DictionaryRef const&)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)37,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)37,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1}>,void ()(applesauce::CF::DictionaryRef const&)>::__clone(uint64_t result, void *a2)
-{
-  v3 = *(result + 8);
-  v2 = *(result + 16);
-  *a2 = &unk_2881BC1F0;
-  a2[1] = v3;
-  a2[2] = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)37,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)37,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1}>,void ()(applesauce::CF::DictionaryRef const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BC1F0;
-  v1 = a1[2];
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)37,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)37,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1}>,void ()(applesauce::CF::DictionaryRef const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BC1F0;
-  v2 = a1[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  return a1;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)37,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BC1C0;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-uint64_t vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)37,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BC1C0;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-  return a1;
-}
-
-void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)36,std::vector<float>>(vp::vx::data_flow::State<std::vector<float>>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)36,std::vector<float>>(vp::vx::data_flow::State<std::vector<float>>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
-{
-  v2 = *result;
-  *result = a2;
-  if (v2)
-  {
-    v3 = result;
-    (**v2)(v2);
-    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
-  }
-
-  return result;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)36,std::vector<float>>(vp::vx::data_flow::State<std::vector<float>>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v4[0] = &unk_2881BC178;
-  v4[1] = v2;
-  v4[2] = v3;
-  v4[3] = v4;
-  std::__function::__value_func<void ()(std::vector<float> const&)>::__value_func[abi:ne200100](v5, v4);
-  v6 = 0;
-  operator new();
-}
-
-void sub_2726AFEC4(_Unwind_Exception *a1, int a2)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(a1);
-  }
-
-  __clang_call_terminate(a1);
-}
-
-uint64_t std::__function::__value_func<void ()(std::vector<float> const&)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
+uint64_t std::__function::__value_func<void ()(applesauce::CF::ArrayRef const&)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
 {
   v3 = (a2 + 24);
   v4 = *(a2 + 24);
@@ -1356,7 +259,7 @@ uint64_t std::__function::__value_func<void ()(std::vector<float> const&)>::__va
   return a1;
 }
 
-uint64_t std::__function::__value_func<void ()(std::vector<float> const&)>::~__value_func[abi:ne200100](uint64_t a1)
+uint64_t std::__function::__value_func<void ()(applesauce::CF::ArrayRef const&)>::~__value_func[abi:ne200100](uint64_t a1)
 {
   v2 = *(a1 + 24);
   if (v2 == a1)
@@ -1372,11 +275,11 @@ uint64_t std::__function::__value_func<void ()(std::vector<float> const&)>::~__v
   return a1;
 }
 
-uint64_t std::__function::__func<vp::vx::data_flow::State<std::vector<float>>::register_listener(std::function<void ()(std::vector<float> const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<std::vector<float>>::register_listener(std::function<void ()(std::vector<float> const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::operator()(uint64_t result, int a2, vp::vx::data_flow::Value *this)
+uint64_t std::__function::__func<vp::vx::data_flow::State<applesauce::CF::ArrayRef>::register_listener(std::function<void ()(applesauce::CF::ArrayRef const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<applesauce::CF::ArrayRef>::register_listener(std::function<void ()(applesauce::CF::ArrayRef const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::operator()(uint64_t result, int a2, vp::vx::data_flow::Value *this)
 {
   if (*(result + 32))
   {
-    v3 = *(this + 2) == &vp::vx::data_flow::Value::type_id<std::vector<float>>(void)::s_type_id;
+    v3 = *(this + 2) == &vp::vx::data_flow::Value::type_id<applesauce::CF::ArrayRef>(void)::s_type_id;
   }
 
   else
@@ -1405,406 +308,81 @@ uint64_t std::__function::__func<vp::vx::data_flow::State<std::vector<float>>::r
   return result;
 }
 
-BOOL vp::vx::data_flow::Value::Type_ID_Eraser<std::vector<float>>::compare_value(uint64_t a1, uint64_t **a2, float ***a3)
-{
-  v4 = **a2;
-  v3 = (*a2)[1];
-  v5 = **a3;
-  if (v3 - v4 != (*a3)[1] - v5)
-  {
-    return 0;
-  }
-
-  if (v4 == v3)
-  {
-    return 1;
-  }
-
-  v6 = v4 + 4;
-  do
-  {
-    v7 = *v5++;
-    result = *(v6 - 4) == v7;
-    v9 = *(v6 - 4) != v7 || v6 == v3;
-    v6 += 4;
-  }
-
-  while (!v9);
-  return result;
-}
-
-void vp::vx::data_flow::Value::Type_ID_Eraser<std::vector<float>>::destroy_value(uint64_t a1, void ***a2)
-{
-  v2 = **a2;
-  if (v2)
-  {
-    (*a2)[1] = v2;
-    operator delete(v2);
-  }
-}
-
-__n128 vp::vx::data_flow::Value::Type_ID_Eraser<std::vector<float>>::move_value(uint64_t a1, __n128 **a2, __n128 **a3)
+BOOL vp::vx::data_flow::Value::Type_ID_Eraser<applesauce::CF::ArrayRef>::compare_value(uint64_t a1, const void **a2, const void **a3)
 {
   v3 = *a2;
   v4 = *a3;
-  v3->n128_u64[0] = 0;
-  v3->n128_u64[1] = 0;
-  v3[1].n128_u64[0] = 0;
-  result = *v4;
-  *v3 = *v4;
-  v3[1].n128_u64[0] = v4[1].n128_u64[0];
-  v4->n128_u64[0] = 0;
-  v4->n128_u64[1] = 0;
-  v4[1].n128_u64[0] = 0;
+  result = (v3 | *a3) == 0;
+  if (v3)
+  {
+    v6 = v4 == 0;
+  }
+
+  else
+  {
+    v6 = 1;
+  }
+
+  if (!v6)
+  {
+    return CFEqual(v3, v4) != 0;
+  }
+
   return result;
 }
 
-uint64_t vp::vx::data_flow::Value::Type_ID_Eraser<std::vector<float>>::copy_value(uint64_t a1, void **a2, uint64_t **a3)
+void vp::vx::data_flow::Value::Type_ID_Eraser<applesauce::CF::ArrayRef>::destroy_value(uint64_t a1, CFTypeRef *a2)
 {
-  v3 = *a2;
+  if (*a2)
+  {
+    CFRelease(*a2);
+  }
+}
+
+CFTypeRef vp::vx::data_flow::Value::Type_ID_Eraser<applesauce::CF::ArrayRef>::copy_value(uint64_t a1, void *a2, CFTypeRef *a3)
+{
   v4 = *a3;
-  *v3 = 0;
-  v3[1] = 0;
-  v3[2] = 0;
-  return std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v3, *v4, v4[1], (v4[1] - *v4) >> 2);
-}
+  if (*a3)
+  {
+    result = CFRetain(*a3);
+  }
 
-uint64_t vp::vx::data_flow::Value::Type_ID_Eraser<std::vector<float>>::view_storage(uint64_t a1, uint64_t a2)
-{
-  return *a2;
-}
-
-{
-  return *a2;
-}
-
-uint64_t vp::vx::data_flow::Value::Type_ID_Eraser<std::vector<float>>::allocate_storage(uint64_t a1, uint64_t *a2, void *a3)
-{
-  result = (*(**a3 + 16))(*a3, 24, 8);
-  *a2 = result;
+  *a2 = v4;
   return result;
 }
 
-void std::__function::__func<vp::vx::data_flow::State<std::vector<float>>::register_listener(std::function<void ()(std::vector<float> const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<std::vector<float>>::register_listener(std::function<void ()(std::vector<float> const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::destroy_deallocate(void *a1)
+uint64_t vp::vx::data_flow::Value::Type_ID_Eraser<applesauce::CF::ArrayRef>::view_storage(uint64_t a1, uint64_t a2)
 {
-  std::__function::__value_func<void ()(std::vector<float> const&)>::~__value_func[abi:ne200100](a1 + 8);
+  return a2;
+}
+
+{
+  return a2;
+}
+
+void std::__function::__func<vp::vx::data_flow::State<applesauce::CF::ArrayRef>::register_listener(std::function<void ()(applesauce::CF::ArrayRef const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<applesauce::CF::ArrayRef>::register_listener(std::function<void ()(applesauce::CF::ArrayRef const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::destroy_deallocate(void *a1)
+{
+  std::__function::__value_func<void ()(applesauce::CF::ArrayRef const&)>::~__value_func[abi:ne200100](a1 + 8);
 
   operator delete(a1);
 }
 
-void std::__function::__func<vp::vx::data_flow::State<std::vector<float>>::register_listener(std::function<void ()(std::vector<float> const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<std::vector<float>>::register_listener(std::function<void ()(std::vector<float> const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
+void std::__function::__func<vp::vx::data_flow::State<applesauce::CF::ArrayRef>::register_listener(std::function<void ()(applesauce::CF::ArrayRef const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<applesauce::CF::ArrayRef>::register_listener(std::function<void ()(applesauce::CF::ArrayRef const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
 {
-  *a1 = &unk_2881BBA88;
-  std::__function::__value_func<void ()(std::vector<float> const&)>::~__value_func[abi:ne200100]((a1 + 1));
+  *a1 = &unk_2881BD3A8;
+  std::__function::__value_func<void ()(applesauce::CF::ArrayRef const&)>::~__value_func[abi:ne200100]((a1 + 1));
 
   JUMPOUT(0x2743CBFA0);
 }
 
-void *std::__function::__func<vp::vx::data_flow::State<std::vector<float>>::register_listener(std::function<void ()(std::vector<float> const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<std::vector<float>>::register_listener(std::function<void ()(std::vector<float> const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
+void *std::__function::__func<vp::vx::data_flow::State<applesauce::CF::ArrayRef>::register_listener(std::function<void ()(applesauce::CF::ArrayRef const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<applesauce::CF::ArrayRef>::register_listener(std::function<void ()(applesauce::CF::ArrayRef const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
 {
-  *a1 = &unk_2881BBA88;
-  std::__function::__value_func<void ()(std::vector<float> const&)>::~__value_func[abi:ne200100]((a1 + 1));
+  *a1 = &unk_2881BD3A8;
+  std::__function::__value_func<void ()(applesauce::CF::ArrayRef const&)>::~__value_func[abi:ne200100]((a1 + 1));
   return a1;
 }
 
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)36,std::vector<float>>(vp::vx::data_flow::State<std::vector<float>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<float> const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)36,std::vector<float>>(vp::vx::data_flow::State<std::vector<float>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<float> const&)#1}>,void ()(std::vector<float> const&)>::operator()(uint64_t a1, float **a2)
-{
-  v3 = *(a1 + 8);
-  v4 = vp::sim::Property_List_Writer::size(*v3);
-  if (v4)
-  {
-    v5 = v4 - 1;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
-  v6 = v10;
-  v8 = v10;
-  vp::sim::Key_Writer::count(&v8, 36, "HW MIC Trim Gains");
-  vp::sim::converters::CSV_Converter<float>::to_property_list(&cf, a2);
-  v7 = cf;
-  if (cf)
-  {
-    CFRetain(cf);
-    v10 = v7;
-    vp::sim::Key_Writer::set(&v8, 36, "HW MIC Trim Gains", &v10);
-    CFRelease(v7);
-  }
-
-  else
-  {
-    v10 = 0;
-    vp::sim::Key_Writer::set(&v8, 36, "HW MIC Trim Gains", &v10);
-  }
-
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  if (v6)
-  {
-    CFRelease(v6);
-  }
-}
-
-void sub_2726B0500(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  __cxa_end_catch();
-  vp::sim::Key_Writer::~Key_Writer(va);
-  _Unwind_Resume(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)36,std::vector<float>>(vp::vx::data_flow::State<std::vector<float>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<float> const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)36,std::vector<float>>(vp::vx::data_flow::State<std::vector<float>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<float> const&)#1}>,void ()(std::vector<float> const&)>::destroy_deallocate(void *__p)
-{
-  v2 = __p[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  operator delete(__p);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)36,std::vector<float>>(vp::vx::data_flow::State<std::vector<float>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<float> const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)36,std::vector<float>>(vp::vx::data_flow::State<std::vector<float>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<float> const&)#1}>,void ()(std::vector<float> const&)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)36,std::vector<float>>(vp::vx::data_flow::State<std::vector<float>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<float> const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)36,std::vector<float>>(vp::vx::data_flow::State<std::vector<float>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<float> const&)#1}>,void ()(std::vector<float> const&)>::__clone(uint64_t result, void *a2)
-{
-  v3 = *(result + 8);
-  v2 = *(result + 16);
-  *a2 = &unk_2881BC178;
-  a2[1] = v3;
-  a2[2] = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)36,std::vector<float>>(vp::vx::data_flow::State<std::vector<float>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<float> const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)36,std::vector<float>>(vp::vx::data_flow::State<std::vector<float>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<float> const&)#1}>,void ()(std::vector<float> const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BC178;
-  v1 = a1[2];
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)36,std::vector<float>>(vp::vx::data_flow::State<std::vector<float>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<float> const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)36,std::vector<float>>(vp::vx::data_flow::State<std::vector<float>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<float> const&)#1}>,void ()(std::vector<float> const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BC178;
-  v2 = a1[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  return a1;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)36,std::vector<float>>(vp::vx::data_flow::State<std::vector<float>>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BC148;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-uint64_t vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)36,std::vector<float>>(vp::vx::data_flow::State<std::vector<float>>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BC148;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-  return a1;
-}
-
-double _ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS_6vectorIfNS_9allocatorIfEEEEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_10components20Property_List_Writer26set_up_key_state_listenersERSC_RKNS3_27Voice_Processor_State_OwnerEE3__6JS9_N10applesauce2CF8ArrayRefEEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JS9_SN_EEERNS4_13State_ManagerESP_SW_EUlPPKNS4_5ValueEPS14_E_NS7_IS19_EEFvS17_S18_EEclEOS17_OS18_(uint64_t a1, uint64_t (******a2)(), vp::vx::data_flow::Value **a3)
-{
-  v3 = *a2;
-  v4 = *a3;
-  v5 = **a2;
-  if (v5[2] == &vp::vx::data_flow::Value::type_id<std::vector<float>>(void)::s_type_id)
-  {
-    v6 = vp::vx::data_flow::Value::view_storage(v5);
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  v7 = vp::vx::data_flow::Value::view_storage(v3[1]);
-  v8 = *v7;
-  if (*v7)
-  {
-    CFRetain(*v7);
-  }
-
-  v15 = v8;
-  vp::vx::trim_gains_parse_cf(&__p, &v15);
-  if (v18)
-  {
-    if (__p != v17)
-    {
-      *v14 = __p;
-      *&v14[8] = v17;
-      goto LABEL_13;
-    }
-
-    if (__p)
-    {
-      operator delete(__p);
-    }
-  }
-
-  v9 = *v6;
-  v10 = v6[1];
-  memset(v14, 0, sizeof(v14));
-  if (v9 != v10)
-  {
-    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v14, v9, v10, (v10 - v9) >> 2);
-  }
-
-LABEL_13:
-  if (v8)
-  {
-    CFRelease(v8);
-  }
-
-  vp::vx::data_flow::Value::~Value(v4);
-  *v4 = std::pmr::get_default_resource(v11);
-  *(v4 + 1) = 0;
-  *(v4 + 2) = &vp::vx::data_flow::Value::type_id<std::vector<float>>(void)::s_type_id;
-  storage = vp::vx::data_flow::Value::allocate_storage(v4);
-  result = *v14;
-  *storage = *v14;
-  *(storage + 16) = *&v14[16];
-  return result;
-}
-
-uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS_6vectorIfNS_9allocatorIfEEEEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_10components20Property_List_Writer26set_up_key_state_listenersERSC_RKNS3_27Voice_Processor_State_OwnerEE3__6JS9_N10applesauce2CF8ArrayRefEEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JS9_SN_EEERNS4_13State_ManagerESP_SW_EUlPPKNS4_5ValueEPS14_E_NS7_IS19_EEFvS17_S18_EE7__cloneEPNS0_6__baseIS1B_EE(uint64_t result, uint64_t a2)
-{
-  *a2 = &unk_2881BB000;
-  *(a2 + 8) = *(result + 8);
-  return result;
-}
-
-void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)35,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)35,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
-{
-  v2 = *result;
-  *result = a2;
-  if (v2)
-  {
-    v3 = result;
-    (**v2)(v2);
-    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
-  }
-
-  return result;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)35,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v4[0] = &unk_2881BC100;
-  v4[1] = v2;
-  v4[2] = v3;
-  v4[3] = v4;
-  std::__function::__value_func<void ()(applesauce::CF::StringRef const&)>::__value_func[abi:ne200100](v5, v4);
-  v6 = 0;
-  operator new();
-}
-
-void sub_2726B0B30(_Unwind_Exception *a1, int a2)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(a1);
-  }
-
-  __clang_call_terminate(a1);
-}
-
-uint64_t std::__function::__func<vp::vx::data_flow::State<applesauce::CF::StringRef>::register_listener(std::function<void ()(applesauce::CF::StringRef const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<applesauce::CF::StringRef>::register_listener(std::function<void ()(applesauce::CF::StringRef const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::operator()(uint64_t result, int a2, vp::vx::data_flow::Value *this)
-{
-  if (*(result + 32))
-  {
-    v3 = *(this + 2) == &vp::vx::data_flow::Value::type_id<applesauce::CF::StringRef>(void)::s_type_id;
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  if (v3)
-  {
-    v4 = result;
-    result = vp::vx::data_flow::Value::view_storage(this);
-    if (result)
-    {
-      v5 = *(v4 + 32);
-      if (!v5)
-      {
-        std::__throw_bad_function_call[abi:ne200100]();
-      }
-
-      v6 = *(*v5 + 48);
-
-      return v6();
-    }
-  }
-
-  return result;
-}
-
-void std::__function::__func<vp::vx::data_flow::State<applesauce::CF::StringRef>::register_listener(std::function<void ()(applesauce::CF::StringRef const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<applesauce::CF::StringRef>::register_listener(std::function<void ()(applesauce::CF::StringRef const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::destroy_deallocate(void *a1)
-{
-  std::__function::__value_func<void ()(applesauce::CF::StringRef const&)>::~__value_func[abi:ne200100](a1 + 8);
-
-  operator delete(a1);
-}
-
-void std::__function::__func<vp::vx::data_flow::State<applesauce::CF::StringRef>::register_listener(std::function<void ()(applesauce::CF::StringRef const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<applesauce::CF::StringRef>::register_listener(std::function<void ()(applesauce::CF::StringRef const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BB9C8;
-  std::__function::__value_func<void ()(applesauce::CF::StringRef const&)>::~__value_func[abi:ne200100]((a1 + 1));
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-void *std::__function::__func<vp::vx::data_flow::State<applesauce::CF::StringRef>::register_listener(std::function<void ()(applesauce::CF::StringRef const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<applesauce::CF::StringRef>::register_listener(std::function<void ()(applesauce::CF::StringRef const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BB9C8;
-  std::__function::__value_func<void ()(applesauce::CF::StringRef const&)>::~__value_func[abi:ne200100]((a1 + 1));
-  return a1;
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)35,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::StringRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)35,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::StringRef const&)#1}>,void ()(applesauce::CF::StringRef const&)>::operator()(uint64_t a1, CFTypeRef *a2)
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)86,applesauce::CF::ArrayRef>(vp::vx::data_flow::State<applesauce::CF::ArrayRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::ArrayRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)86,applesauce::CF::ArrayRef>(vp::vx::data_flow::State<applesauce::CF::ArrayRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::ArrayRef const&)#1}>,void ()(applesauce::CF::ArrayRef const&)>::operator()(uint64_t a1, CFTypeRef *a2)
 {
   v3 = *(a1 + 8);
   v4 = vp::sim::Property_List_Writer::size(*v3);
@@ -1821,9 +399,9 @@ void std::__function::__func<void vp::vx::components::Property_List_Writer::set_
   vp::sim::Property_List_Writer::find_writable_element(&cf, v3, v5);
   v6 = cf;
   v7 = cf;
-  vp::sim::Key_Writer::count(&v7, 35, "HW MIC Model UID");
-  vp::sim::converters::Default_Converter_CF<applesauce::CF::StringRef>::to_property_list(&cf, *a2);
-  vp::sim::Key_Writer::set(&v7, 35, "HW MIC Model UID", &cf);
+  vp::sim::Key_Writer::count(&v7, 0x56, "Microphone Filter IDs");
+  vp::sim::converters::Default_Converter_CF<applesauce::CF::ArrayRef>::to_property_list(&cf, *a2);
+  vp::sim::Key_Writer::set(&v7, 0x56, "Microphone Filter IDs", &cf);
   if (cf)
   {
     CFRelease(cf);
@@ -1835,15 +413,15 @@ void std::__function::__func<void vp::vx::components::Property_List_Writer::set_
   }
 }
 
-void sub_2726B0E20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_27269ABE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   __cxa_end_catch();
   vp::sim::Key_Writer::~Key_Writer(va);
   _Unwind_Resume(a1);
 }
 
-applesauce::CF::TypeRef *vp::sim::converters::Default_Converter_CF<applesauce::CF::StringRef>::to_property_list(applesauce::CF::TypeRef *this, CFTypeRef cf)
+applesauce::CF::TypeRef *vp::sim::converters::Default_Converter_CF<applesauce::CF::ArrayRef>::to_property_list(applesauce::CF::TypeRef *this, CFTypeRef cf)
 {
   if (cf)
   {
@@ -1860,7 +438,7 @@ applesauce::CF::TypeRef *vp::sim::converters::Default_Converter_CF<applesauce::C
   return result;
 }
 
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)35,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::StringRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)35,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::StringRef const&)#1}>,void ()(applesauce::CF::StringRef const&)>::destroy_deallocate(void *__p)
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)86,applesauce::CF::ArrayRef>(vp::vx::data_flow::State<applesauce::CF::ArrayRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::ArrayRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)86,applesauce::CF::ArrayRef>(vp::vx::data_flow::State<applesauce::CF::ArrayRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::ArrayRef const&)#1}>,void ()(applesauce::CF::ArrayRef const&)>::destroy_deallocate(void *__p)
 {
   v2 = __p[2];
   if (v2)
@@ -1871,7 +449,7 @@ void std::__function::__func<void vp::vx::components::Property_List_Writer::set_
   operator delete(__p);
 }
 
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)35,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::StringRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)35,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::StringRef const&)#1}>,void ()(applesauce::CF::StringRef const&)>::destroy(uint64_t a1)
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)86,applesauce::CF::ArrayRef>(vp::vx::data_flow::State<applesauce::CF::ArrayRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::ArrayRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)86,applesauce::CF::ArrayRef>(vp::vx::data_flow::State<applesauce::CF::ArrayRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::ArrayRef const&)#1}>,void ()(applesauce::CF::ArrayRef const&)>::destroy(uint64_t a1)
 {
   v1 = *(a1 + 16);
   if (v1)
@@ -1880,11 +458,11 @@ void std::__function::__func<void vp::vx::components::Property_List_Writer::set_
   }
 }
 
-uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)35,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::StringRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)35,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::StringRef const&)#1}>,void ()(applesauce::CF::StringRef const&)>::__clone(uint64_t result, void *a2)
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)86,applesauce::CF::ArrayRef>(vp::vx::data_flow::State<applesauce::CF::ArrayRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::ArrayRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)86,applesauce::CF::ArrayRef>(vp::vx::data_flow::State<applesauce::CF::ArrayRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::ArrayRef const&)#1}>,void ()(applesauce::CF::ArrayRef const&)>::__clone(uint64_t result, void *a2)
 {
   v3 = *(result + 8);
   v2 = *(result + 16);
-  *a2 = &unk_2881BC100;
+  *a2 = &unk_2881BDAC8;
   a2[1] = v3;
   a2[2] = v2;
   if (v2)
@@ -1895,9 +473,9 @@ uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::
   return result;
 }
 
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)35,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::StringRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)35,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::StringRef const&)#1}>,void ()(applesauce::CF::StringRef const&)>::~__func(void *a1)
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)86,applesauce::CF::ArrayRef>(vp::vx::data_flow::State<applesauce::CF::ArrayRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::ArrayRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)86,applesauce::CF::ArrayRef>(vp::vx::data_flow::State<applesauce::CF::ArrayRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::ArrayRef const&)#1}>,void ()(applesauce::CF::ArrayRef const&)>::~__func(void *a1)
 {
-  *a1 = &unk_2881BC100;
+  *a1 = &unk_2881BDAC8;
   v1 = a1[2];
   if (v1)
   {
@@ -1907,9 +485,9 @@ void std::__function::__func<void vp::vx::components::Property_List_Writer::set_
   JUMPOUT(0x2743CBFA0);
 }
 
-void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)35,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::StringRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)35,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::StringRef const&)#1}>,void ()(applesauce::CF::StringRef const&)>::~__func(void *a1)
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)86,applesauce::CF::ArrayRef>(vp::vx::data_flow::State<applesauce::CF::ArrayRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::ArrayRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)86,applesauce::CF::ArrayRef>(vp::vx::data_flow::State<applesauce::CF::ArrayRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::ArrayRef const&)#1}>,void ()(applesauce::CF::ArrayRef const&)>::~__func(void *a1)
 {
-  *a1 = &unk_2881BC100;
+  *a1 = &unk_2881BDAC8;
   v2 = a1[2];
   if (v2)
   {
@@ -1919,22 +497,22 @@ void *std::__function::__func<void vp::vx::components::Property_List_Writer::set
   return a1;
 }
 
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)35,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)86,applesauce::CF::ArrayRef>(vp::vx::data_flow::State<applesauce::CF::ArrayRef>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
 {
-  *a1 = &unk_2881BC0D0;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
+  *a1 = &unk_2881BDA98;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
 
   JUMPOUT(0x2743CBFA0);
 }
 
-uint64_t vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)35,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)86,applesauce::CF::ArrayRef>(vp::vx::data_flow::State<applesauce::CF::ArrayRef>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
 {
-  *a1 = &unk_2881BC0D0;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
+  *a1 = &unk_2881BDA98;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
   return a1;
 }
 
-void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)34,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)34,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)85,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)85,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
 {
   v2 = *result;
   *result = a2;
@@ -1948,7 +526,7 @@ void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<
   return result;
 }
 
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)34,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)85,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
 {
   v7 = *MEMORY[0x277D85DE8];
   v2 = *a2;
@@ -1959,7 +537,7 @@ void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)34,unsigned 
     atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v4[0] = &unk_2881BC088;
+  v4[0] = &unk_2881BDA50;
   v4[1] = v2;
   v4[2] = v3;
   v4[3] = v4;
@@ -1968,7 +546,7 @@ void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)34,unsigned 
   operator new();
 }
 
-void sub_2726B12CC(_Unwind_Exception *a1, int a2)
+void sub_27269B090(_Unwind_Exception *a1, int a2)
 {
   if (!a2)
   {
@@ -1978,7 +556,62 @@ void sub_2726B12CC(_Unwind_Exception *a1, int a2)
   __clang_call_terminate(a1);
 }
 
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)34,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)34,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::operator()(uint64_t a1, int *a2)
+uint64_t std::__function::__func<vp::vx::data_flow::State<unsigned int>::register_listener(std::function<void ()(unsigned int const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<unsigned int>::register_listener(std::function<void ()(unsigned int const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::operator()(uint64_t result, int a2, vp::vx::data_flow::Value *this)
+{
+  if (*(result + 32))
+  {
+    v3 = *(this + 2) == &vp::vx::data_flow::Value::type_id<unsigned int>(void)::s_type_id;
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  if (v3)
+  {
+    v4 = result;
+    result = vp::vx::data_flow::Value::view_storage(this);
+    if (result)
+    {
+      v5 = *(v4 + 32);
+      if (!v5)
+      {
+        std::__throw_bad_function_call[abi:ne200100]();
+      }
+
+      v6 = *(*v5 + 48);
+
+      return v6();
+    }
+  }
+
+  return result;
+}
+
+void std::__function::__func<vp::vx::data_flow::State<unsigned int>::register_listener(std::function<void ()(unsigned int const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<unsigned int>::register_listener(std::function<void ()(unsigned int const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::destroy_deallocate(void *a1)
+{
+  std::__function::__value_func<void ()(unsigned int const&)>::~__value_func[abi:ne200100](a1 + 8);
+
+  operator delete(a1);
+}
+
+void std::__function::__func<vp::vx::data_flow::State<unsigned int>::register_listener(std::function<void ()(unsigned int const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<unsigned int>::register_listener(std::function<void ()(unsigned int const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BB5F0;
+  std::__function::__value_func<void ()(unsigned int const&)>::~__value_func[abi:ne200100]((a1 + 1));
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<vp::vx::data_flow::State<unsigned int>::register_listener(std::function<void ()(unsigned int const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<unsigned int>::register_listener(std::function<void ()(unsigned int const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BB5F0;
+  std::__function::__value_func<void ()(unsigned int const&)>::~__value_func[abi:ne200100]((a1 + 1));
+  return a1;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)85,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)85,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::operator()(uint64_t a1, int *a2)
 {
   v3 = *(a1 + 8);
   v4 = vp::sim::Property_List_Writer::size(*v3);
@@ -1995,21 +628,21 @@ void std::__function::__func<void vp::vx::components::Property_List_Writer::set_
   vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
   v6 = v10;
   v8 = v10;
-  vp::sim::Key_Writer::count(&v8, 34, "HW MIC Data Source");
+  vp::sim::Key_Writer::count(&v8, 0x55, "AirPods Offload Mode");
   vp::sim::converters::Default_Converter<unsigned int>::to_property_list(&cf, *a2);
   v7 = cf;
   if (cf)
   {
     CFRetain(cf);
     v10 = v7;
-    vp::sim::Key_Writer::set(&v8, 34, "HW MIC Data Source", &v10);
+    vp::sim::Key_Writer::set(&v8, 0x55, "AirPods Offload Mode", &v10);
     CFRelease(v7);
   }
 
   else
   {
     v10 = 0;
-    vp::sim::Key_Writer::set(&v8, 34, "HW MIC Data Source", &v10);
+    vp::sim::Key_Writer::set(&v8, 0x55, "AirPods Offload Mode", &v10);
   }
 
   if (cf)
@@ -2023,701 +656,7 @@ void std::__function::__func<void vp::vx::components::Property_List_Writer::set_
   }
 }
 
-void sub_2726B13DC(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  __cxa_end_catch();
-  vp::sim::Key_Writer::~Key_Writer(va);
-  _Unwind_Resume(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)34,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)34,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy_deallocate(void *__p)
-{
-  v2 = __p[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  operator delete(__p);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)34,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)34,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)34,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)34,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::__clone(uint64_t result, void *a2)
-{
-  v3 = *(result + 8);
-  v2 = *(result + 16);
-  *a2 = &unk_2881BC088;
-  a2[1] = v3;
-  a2[2] = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)34,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)34,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BC088;
-  v1 = a1[2];
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)34,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)34,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BC088;
-  v2 = a1[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  return a1;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)34,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BC058;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-uint64_t vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)34,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BC058;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-  return a1;
-}
-
-void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)33,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)33,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
-{
-  v2 = *result;
-  *result = a2;
-  if (v2)
-  {
-    v3 = result;
-    (**v2)(v2);
-    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
-  }
-
-  return result;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)33,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v4[0] = &unk_2881BC010;
-  v4[1] = v2;
-  v4[2] = v3;
-  v4[3] = v4;
-  std::__function::__value_func<void ()(unsigned int const&)>::__value_func[abi:ne200100](v5, v4);
-  v6 = 0;
-  operator new();
-}
-
-void sub_2726B1828(_Unwind_Exception *a1, int a2)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(a1);
-  }
-
-  __clang_call_terminate(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)33,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)33,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::operator()(uint64_t a1, int *a2)
-{
-  v3 = *(a1 + 8);
-  v4 = vp::sim::Property_List_Writer::size(*v3);
-  if (v4)
-  {
-    v5 = v4 - 1;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
-  v6 = v10;
-  v8 = v10;
-  vp::sim::Key_Writer::count(&v8, 33, "HW MIC Bluetooth Device Category Type");
-  vp::sim::converters::Default_Converter<unsigned int>::to_property_list(&cf, *a2);
-  v7 = cf;
-  if (cf)
-  {
-    CFRetain(cf);
-    v10 = v7;
-    vp::sim::Key_Writer::set(&v8, 33, "HW MIC Bluetooth Device Category Type", &v10);
-    CFRelease(v7);
-  }
-
-  else
-  {
-    v10 = 0;
-    vp::sim::Key_Writer::set(&v8, 33, "HW MIC Bluetooth Device Category Type", &v10);
-  }
-
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  if (v6)
-  {
-    CFRelease(v6);
-  }
-}
-
-void sub_2726B1938(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  __cxa_end_catch();
-  vp::sim::Key_Writer::~Key_Writer(va);
-  _Unwind_Resume(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)33,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)33,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy_deallocate(void *__p)
-{
-  v2 = __p[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  operator delete(__p);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)33,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)33,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)33,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)33,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::__clone(uint64_t result, void *a2)
-{
-  v3 = *(result + 8);
-  v2 = *(result + 16);
-  *a2 = &unk_2881BC010;
-  a2[1] = v3;
-  a2[2] = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)33,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)33,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BC010;
-  v1 = a1[2];
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)33,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)33,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BC010;
-  v2 = a1[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  return a1;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)33,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BBFE0;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-uint64_t vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)33,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BBFE0;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-  return a1;
-}
-
-void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)32,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)32,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
-{
-  v2 = *result;
-  *result = a2;
-  if (v2)
-  {
-    v3 = result;
-    (**v2)(v2);
-    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
-  }
-
-  return result;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)32,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v4[0] = &unk_2881BBF98;
-  v4[1] = v2;
-  v4[2] = v3;
-  v4[3] = v4;
-  std::__function::__value_func<void ()(unsigned int const&)>::__value_func[abi:ne200100](v5, v4);
-  v6 = 0;
-  operator new();
-}
-
-void sub_2726B1D84(_Unwind_Exception *a1, int a2)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(a1);
-  }
-
-  __clang_call_terminate(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)32,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)32,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::operator()(uint64_t a1, int *a2)
-{
-  v3 = *(a1 + 8);
-  v4 = vp::sim::Property_List_Writer::size(*v3);
-  if (v4)
-  {
-    v5 = v4 - 1;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
-  v6 = v10;
-  v8 = v10;
-  vp::sim::Key_Writer::count(&v8, 32, "HW MIC Transport Type");
-  vp::sim::converters::Default_Converter<unsigned int>::to_property_list(&cf, *a2);
-  v7 = cf;
-  if (cf)
-  {
-    CFRetain(cf);
-    v10 = v7;
-    vp::sim::Key_Writer::set(&v8, 32, "HW MIC Transport Type", &v10);
-    CFRelease(v7);
-  }
-
-  else
-  {
-    v10 = 0;
-    vp::sim::Key_Writer::set(&v8, 32, "HW MIC Transport Type", &v10);
-  }
-
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  if (v6)
-  {
-    CFRelease(v6);
-  }
-}
-
-void sub_2726B1E94(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  __cxa_end_catch();
-  vp::sim::Key_Writer::~Key_Writer(va);
-  _Unwind_Resume(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)32,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)32,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy_deallocate(void *__p)
-{
-  v2 = __p[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  operator delete(__p);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)32,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)32,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)32,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)32,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::__clone(uint64_t result, void *a2)
-{
-  v3 = *(result + 8);
-  v2 = *(result + 16);
-  *a2 = &unk_2881BBF98;
-  a2[1] = v3;
-  a2[2] = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)32,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)32,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BBF98;
-  v1 = a1[2];
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)32,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)32,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BBF98;
-  v2 = a1[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  return a1;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)32,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BBF68;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-uint64_t vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)32,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BBF68;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-  return a1;
-}
-
-void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)31,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)31,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
-{
-  v2 = *result;
-  *result = a2;
-  if (v2)
-  {
-    v3 = result;
-    (**v2)(v2);
-    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
-  }
-
-  return result;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)31,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v4[0] = &unk_2881BBF20;
-  v4[1] = v2;
-  v4[2] = v3;
-  v4[3] = v4;
-  std::__function::__value_func<void ()(unsigned int const&)>::__value_func[abi:ne200100](v5, v4);
-  v6 = 0;
-  operator new();
-}
-
-void sub_2726B22E0(_Unwind_Exception *a1, int a2)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(a1);
-  }
-
-  __clang_call_terminate(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)31,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)31,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::operator()(uint64_t a1, int *a2)
-{
-  v3 = *(a1 + 8);
-  v4 = vp::sim::Property_List_Writer::size(*v3);
-  if (v4)
-  {
-    v5 = v4 - 1;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
-  v6 = v10;
-  v8 = v10;
-  vp::sim::Key_Writer::count(&v8, 31, "Mic Port #0 Subtype");
-  vp::sim::converters::Default_Converter<unsigned int>::to_property_list(&cf, *a2);
-  v7 = cf;
-  if (cf)
-  {
-    CFRetain(cf);
-    v10 = v7;
-    vp::sim::Key_Writer::set(&v8, 31, "Mic Port #0 Subtype", &v10);
-    CFRelease(v7);
-  }
-
-  else
-  {
-    v10 = 0;
-    vp::sim::Key_Writer::set(&v8, 31, "Mic Port #0 Subtype", &v10);
-  }
-
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  if (v6)
-  {
-    CFRelease(v6);
-  }
-}
-
-void sub_2726B23F0(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  __cxa_end_catch();
-  vp::sim::Key_Writer::~Key_Writer(va);
-  _Unwind_Resume(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)31,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)31,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy_deallocate(void *__p)
-{
-  v2 = __p[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  operator delete(__p);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)31,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)31,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)31,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)31,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::__clone(uint64_t result, void *a2)
-{
-  v3 = *(result + 8);
-  v2 = *(result + 16);
-  *a2 = &unk_2881BBF20;
-  a2[1] = v3;
-  a2[2] = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)31,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)31,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BBF20;
-  v1 = a1[2];
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)31,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)31,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BBF20;
-  v2 = a1[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  return a1;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)31,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BBEF0;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-uint64_t vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)31,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BBEF0;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-  return a1;
-}
-
-_DWORD *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIjEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_10components20Property_List_Writer26set_up_key_state_listenersERS8_RKNS3_27Voice_Processor_State_OwnerEE3__5JNS3_13Port_Sub_TypeEEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSH_EEERNS4_13State_ManagerESJ_SQ_EUlPPKNS4_5ValueEPSY_E_NS_9allocatorIS13_EEFvS11_S12_EEclEOS11_OS12_(uint64_t a1, vp::vx::data_flow::Value ***a2, vp::vx::data_flow::Value **a3)
-{
-  v3 = *a3;
-  v4 = vp::vx::data_flow::Value::view_storage(**a2);
-  v5 = vp::vx::legacy_cast<vp::vx::Port_Sub_Type>(*v4);
-  vp::vx::data_flow::Value::~Value(v3);
-  *v3 = std::pmr::get_default_resource(v6);
-  *(v3 + 1) = 0;
-  *(v3 + 2) = &vp::vx::data_flow::Value::type_id<unsigned int>(void)::s_type_id;
-  result = vp::vx::data_flow::Value::allocate_storage(v3);
-  *result = v5;
-  return result;
-}
-
-uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIjEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_10components20Property_List_Writer26set_up_key_state_listenersERS8_RKNS3_27Voice_Processor_State_OwnerEE3__5JNS3_13Port_Sub_TypeEEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSH_EEERNS4_13State_ManagerESJ_SQ_EUlPPKNS4_5ValueEPSY_E_NS_9allocatorIS13_EEFvS11_S12_EE7__cloneEPNS0_6__baseIS16_EE(uint64_t result, uint64_t a2)
-{
-  *a2 = &unk_2881BAFB8;
-  *(a2 + 8) = *(result + 8);
-  return result;
-}
-
-void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)30,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)30,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
-{
-  v2 = *result;
-  *result = a2;
-  if (v2)
-  {
-    v3 = result;
-    (**v2)(v2);
-    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
-  }
-
-  return result;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)30,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v4[0] = &unk_2881BBEA8;
-  v4[1] = v2;
-  v4[2] = v3;
-  v4[3] = v4;
-  std::__function::__value_func<void ()(std::vector<unsigned int> const&)>::__value_func[abi:ne200100](v5, v4);
-  v6 = 0;
-  operator new();
-}
-
-void sub_2726B2940(_Unwind_Exception *a1, int a2)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(a1);
-  }
-
-  __clang_call_terminate(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)30,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<unsigned int> const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)30,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<unsigned int> const&)#1}>,void ()(std::vector<unsigned int> const&)>::operator()(uint64_t a1, int **a2)
-{
-  v3 = *(a1 + 8);
-  v4 = vp::sim::Property_List_Writer::size(*v3);
-  if (v4)
-  {
-    v5 = v4 - 1;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  vp::sim::Property_List_Writer::find_writable_element(&v9, v3, v5);
-  v6 = v9;
-  v8 = v9;
-  vp::sim::Key_Writer::count(&v8, 30, "Mic Port Types");
-  CFArray = applesauce::CF::details::make_CFArrayRef<unsigned int>(a2);
-  CFRetain(CFArray);
-  v9 = CFArray;
-  vp::sim::Key_Writer::set(&v8, 30, "Mic Port Types", &v9);
-  if (CFArray)
-  {
-    CFRelease(CFArray);
-  }
-
-  CFRelease(CFArray);
-  if (v6)
-  {
-    CFRelease(v6);
-  }
-}
-
-void sub_2726B2A24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_27269B3C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
   va_start(va, a3);
   __cxa_end_catch();
@@ -2725,102 +664,7 @@ void sub_2726B2A24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
   _Unwind_Resume(a1);
 }
 
-CFArrayRef applesauce::CF::details::make_CFArrayRef<unsigned int>(int **a1)
-{
-  v2 = a1[1] - *a1;
-  v12 = 0;
-  v13 = 0;
-  v14 = 0;
-  std::vector<applesauce::CF::NumberRef>::reserve(&v12, v2);
-  v3 = *a1;
-  v4 = a1[1];
-  if (*a1 != v4)
-  {
-    v5 = v13;
-    do
-    {
-      v6 = *v3;
-      if (v5 >= v14)
-      {
-        v7 = (v5 - v12) >> 3;
-        if ((v7 + 1) >> 61)
-        {
-          std::vector<std::function<std::unique_ptr<VoiceProcessorBase> ()(std::unique_ptr<VoiceProcessorBase>)>>::__throw_length_error[abi:ne200100]();
-        }
-
-        v8 = (v14 - v12) >> 2;
-        if (v8 <= v7 + 1)
-        {
-          v8 = v7 + 1;
-        }
-
-        if (v14 - v12 >= 0x7FFFFFFFFFFFFFF8)
-        {
-          v9 = 0x1FFFFFFFFFFFFFFFLL;
-        }
-
-        else
-        {
-          v9 = v8;
-        }
-
-        v18 = &v12;
-        if (v9)
-        {
-          std::allocator<applesauce::CF::StringRef>::allocate_at_least[abi:ne200100](v9);
-        }
-
-        v15[0] = 0;
-        v15[1] = (8 * v7);
-        v16 = 8 * v7;
-        v17 = 0;
-        std::allocator_traits<std::allocator<applesauce::CF::NumberRef>>::construct[abi:ne200100]<applesauce::CF::NumberRef,unsigned int,void,0>((8 * v7), v6);
-        v16 += 8;
-        std::vector<applesauce::CF::NumberRef>::__swap_out_circular_buffer(&v12, v15);
-        v5 = v13;
-        std::__split_buffer<applesauce::CF::NumberRef>::~__split_buffer(v15);
-      }
-
-      else
-      {
-        std::allocator_traits<std::allocator<applesauce::CF::NumberRef>>::construct[abi:ne200100]<applesauce::CF::NumberRef,unsigned int,void,0>(v5++, *v3);
-      }
-
-      v13 = v5;
-      ++v3;
-    }
-
-    while (v3 != v4);
-  }
-
-  v10 = applesauce::CF::details::make_CFArrayRef<applesauce::CF::NumberRef>(&v12);
-  v15[0] = &v12;
-  std::vector<applesauce::CF::NumberRef>::__destroy_vector::operator()[abi:ne200100](v15);
-  return v10;
-}
-
-void sub_2726B2B98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, void **a13)
-{
-  a13 = &a10;
-  std::vector<applesauce::CF::NumberRef>::__destroy_vector::operator()[abi:ne200100](&a13);
-  _Unwind_Resume(a1);
-}
-
-CFNumberRef std::allocator_traits<std::allocator<applesauce::CF::NumberRef>>::construct[abi:ne200100]<applesauce::CF::NumberRef,unsigned int,void,0>(CFNumberRef *a1, int a2)
-{
-  valuePtr = a2;
-  result = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
-  *a1 = result;
-  if (!result)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "Could not construct");
-  }
-
-  return result;
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)30,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<unsigned int> const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)30,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<unsigned int> const&)#1}>,void ()(std::vector<unsigned int> const&)>::destroy_deallocate(void *__p)
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)85,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)85,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy_deallocate(void *__p)
 {
   v2 = __p[2];
   if (v2)
@@ -2831,7 +675,7 @@ void std::__function::__func<void vp::vx::components::Property_List_Writer::set_
   operator delete(__p);
 }
 
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)30,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<unsigned int> const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)30,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<unsigned int> const&)#1}>,void ()(std::vector<unsigned int> const&)>::destroy(uint64_t a1)
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)85,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)85,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy(uint64_t a1)
 {
   v1 = *(a1 + 16);
   if (v1)
@@ -2840,11 +684,11 @@ void std::__function::__func<void vp::vx::components::Property_List_Writer::set_
   }
 }
 
-uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)30,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<unsigned int> const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)30,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<unsigned int> const&)#1}>,void ()(std::vector<unsigned int> const&)>::__clone(uint64_t result, void *a2)
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)85,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)85,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::__clone(uint64_t result, void *a2)
 {
   v3 = *(result + 8);
   v2 = *(result + 16);
-  *a2 = &unk_2881BBEA8;
+  *a2 = &unk_2881BDA50;
   a2[1] = v3;
   a2[2] = v2;
   if (v2)
@@ -2855,9 +699,9 @@ uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::
   return result;
 }
 
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)30,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<unsigned int> const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)30,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<unsigned int> const&)#1}>,void ()(std::vector<unsigned int> const&)>::~__func(void *a1)
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)85,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)85,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
 {
-  *a1 = &unk_2881BBEA8;
+  *a1 = &unk_2881BDA50;
   v1 = a1[2];
   if (v1)
   {
@@ -2867,9 +711,9 @@ void std::__function::__func<void vp::vx::components::Property_List_Writer::set_
   JUMPOUT(0x2743CBFA0);
 }
 
-void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)30,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<unsigned int> const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)30,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<unsigned int> const&)#1}>,void ()(std::vector<unsigned int> const&)>::~__func(void *a1)
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)85,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)85,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
 {
-  *a1 = &unk_2881BBEA8;
+  *a1 = &unk_2881BDA50;
   v2 = a1[2];
   if (v2)
   {
@@ -2879,2153 +723,36 @@ void *std::__function::__func<void vp::vx::components::Property_List_Writer::set
   return a1;
 }
 
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)30,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)85,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
 {
-  *a1 = &unk_2881BBE78;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
+  *a1 = &unk_2881BDA20;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
 
   JUMPOUT(0x2743CBFA0);
 }
 
-uint64_t vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)30,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)85,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
 {
-  *a1 = &unk_2881BBE78;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
+  *a1 = &unk_2881BDA20;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
   return a1;
 }
 
-double _ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS_6vectorIjNS_9allocatorIjEEEEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_10components20Property_List_Writer26set_up_key_state_listenersERSC_RKNS3_27Voice_Processor_State_OwnerEE3__4JNS3_15Input_Port_TypeEEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSL_EEERNS4_13State_ManagerESN_SU_EUlPPKNS4_5ValueEPS12_E_NS7_IS17_EEFvS15_S16_EEclEOS15_OS16_(uint64_t a1, vp::vx::data_flow::Value ***a2, vp::vx::data_flow::Value **a3)
+unsigned int *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIjEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_10components20Property_List_Writer26set_up_key_state_listenersERS8_RKNS3_27Voice_Processor_State_OwnerEE4__15JNS3_20AirPods_Offload_ModeEEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSH_EEERNS4_13State_ManagerESJ_SQ_EUlPPKNS4_5ValueEPSY_E_NS_9allocatorIS13_EEFvS11_S12_EEclEOS11_OS12_(uint64_t a1, vp::vx::data_flow::Value ***a2, vp::vx::data_flow::Value **a3)
 {
   v3 = *a3;
-  v4 = vp::vx::data_flow::Value::view_storage(**a2);
-  v10 = vp::vx::Legacy<vp::vx::Input_Port_Type>::cast(*v4);
-  v9 = 0;
-  v8 = 0uLL;
-  std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(&v8, &v10, &v11, 1uLL);
+  v4 = *vp::vx::data_flow::Value::view_storage(**a2);
+  vp::vx::Legacy<vp::vx::Chat_Flavor>::cast(v4);
   vp::vx::data_flow::Value::~Value(v3);
   *v3 = std::pmr::get_default_resource(v5);
   *(v3 + 1) = 0;
-  *(v3 + 2) = &vp::vx::data_flow::Value::type_id<std::vector<unsigned int>>(void)::s_type_id;
-  storage = vp::vx::data_flow::Value::allocate_storage(v3);
-  result = *&v8;
-  *storage = v8;
-  *(storage + 16) = v9;
-  return result;
-}
-
-void sub_2726B2F6C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, std::exception_ptr a12)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS_6vectorIjNS_9allocatorIjEEEEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_10components20Property_List_Writer26set_up_key_state_listenersERSC_RKNS3_27Voice_Processor_State_OwnerEE3__4JNS3_15Input_Port_TypeEEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSL_EEERNS4_13State_ManagerESN_SU_EUlPPKNS4_5ValueEPS12_E_NS7_IS17_EEFvS15_S16_EE7__cloneEPNS0_6__baseIS19_EE(uint64_t result, uint64_t a2)
-{
-  *a2 = &unk_2881BAF70;
-  *(a2 + 8) = *(result + 8);
-  return result;
-}
-
-void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)28,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)28,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
-{
-  v2 = *result;
-  *result = a2;
-  if (v2)
-  {
-    v3 = result;
-    (**v2)(v2);
-    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
-  }
-
-  return result;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)28,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v4[0] = &unk_2881BBE30;
-  v4[1] = v2;
-  v4[2] = v3;
-  v4[3] = v4;
-  std::__function::__value_func<void ()(unsigned int const&)>::__value_func[abi:ne200100](v5, v4);
-  v6 = 0;
-  operator new();
-}
-
-void sub_2726B3254(_Unwind_Exception *a1, int a2)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(a1);
-  }
-
-  __clang_call_terminate(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)28,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)28,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::operator()(uint64_t a1, int *a2)
-{
-  v3 = *(a1 + 8);
-  v4 = vp::sim::Property_List_Writer::size(*v3);
-  if (v4)
-  {
-    v5 = v4 - 1;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
-  v6 = v10;
-  v8 = v10;
-  vp::sim::Key_Writer::count(&v8, 28, "HW MIC Block Size");
-  vp::sim::converters::Default_Converter<unsigned int>::to_property_list(&cf, *a2);
-  v7 = cf;
-  if (cf)
-  {
-    CFRetain(cf);
-    v10 = v7;
-    vp::sim::Key_Writer::set(&v8, 28, "HW MIC Block Size", &v10);
-    CFRelease(v7);
-  }
-
-  else
-  {
-    v10 = 0;
-    vp::sim::Key_Writer::set(&v8, 28, "HW MIC Block Size", &v10);
-  }
-
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  if (v6)
-  {
-    CFRelease(v6);
-  }
-}
-
-void sub_2726B3364(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  __cxa_end_catch();
-  vp::sim::Key_Writer::~Key_Writer(va);
-  _Unwind_Resume(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)28,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)28,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy_deallocate(void *__p)
-{
-  v2 = __p[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  operator delete(__p);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)28,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)28,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)28,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)28,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::__clone(uint64_t result, void *a2)
-{
-  v3 = *(result + 8);
-  v2 = *(result + 16);
-  *a2 = &unk_2881BBE30;
-  a2[1] = v3;
-  a2[2] = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)28,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)28,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BBE30;
-  v1 = a1[2];
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)28,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)28,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BBE30;
-  v2 = a1[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  return a1;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)28,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BBE00;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-uint64_t vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)28,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BBE00;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-  return a1;
-}
-
-void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)27,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)27,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
-{
-  v2 = *result;
-  *result = a2;
-  if (v2)
-  {
-    v3 = result;
-    (**v2)(v2);
-    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
-  }
-
-  return result;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)27,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v4[0] = &unk_2881BBDB8;
-  v4[1] = v2;
-  v4[2] = v3;
-  v4[3] = v4;
-  std::__function::__value_func<void ()(CA::StreamDescription const&)>::__value_func[abi:ne200100](v5, v4);
-  v6 = 0;
-  operator new();
-}
-
-void sub_2726B37B0(_Unwind_Exception *a1, int a2)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(a1);
-  }
-
-  __clang_call_terminate(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)27,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)27,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1}>,void ()(CA::StreamDescription const&)>::operator()(uint64_t a1, uint64_t a2)
-{
-  v3 = *(a1 + 8);
-  v4 = vp::sim::Property_List_Writer::size(*v3);
-  if (v4)
-  {
-    v5 = v4 - 1;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  vp::sim::Property_List_Writer::find_writable_element(&v11, v3, v5);
-  v6 = v11;
-  v9 = v11;
-  vp::sim::Key_Writer::count(&v9, 27, "HW MIC Format");
-  vp::sim::converters::Default_Converter<CA::StreamDescription>::to_property_list(&cf, a2, v7);
-  v8 = cf;
-  if (cf)
-  {
-    CFRetain(cf);
-    v11 = v8;
-    vp::sim::Key_Writer::set(&v9, 27, "HW MIC Format", &v11);
-    CFRelease(v8);
-  }
-
-  else
-  {
-    v11 = 0;
-    vp::sim::Key_Writer::set(&v9, 27, "HW MIC Format", &v11);
-  }
-
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  if (v6)
-  {
-    CFRelease(v6);
-  }
-}
-
-void sub_2726B38C0(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  __cxa_end_catch();
-  vp::sim::Key_Writer::~Key_Writer(va);
-  _Unwind_Resume(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)27,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)27,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1}>,void ()(CA::StreamDescription const&)>::destroy_deallocate(void *__p)
-{
-  v2 = __p[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  operator delete(__p);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)27,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)27,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1}>,void ()(CA::StreamDescription const&)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)27,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)27,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1}>,void ()(CA::StreamDescription const&)>::__clone(uint64_t result, void *a2)
-{
-  v3 = *(result + 8);
-  v2 = *(result + 16);
-  *a2 = &unk_2881BBDB8;
-  a2[1] = v3;
-  a2[2] = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)27,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)27,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1}>,void ()(CA::StreamDescription const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BBDB8;
-  v1 = a1[2];
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)27,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)27,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1}>,void ()(CA::StreamDescription const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BBDB8;
-  v2 = a1[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  return a1;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)27,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BBD88;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-uint64_t vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)27,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BBD88;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-  return a1;
-}
-
-void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)26,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)26,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
-{
-  v2 = *result;
-  *result = a2;
-  if (v2)
-  {
-    v3 = result;
-    (**v2)(v2);
-    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
-  }
-
-  return result;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)26,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v4[0] = &unk_2881BBD40;
-  v4[1] = v2;
-  v4[2] = v3;
-  v4[3] = v4;
-  std::__function::__value_func<void ()(unsigned int const&)>::__value_func[abi:ne200100](v5, v4);
-  v6 = 0;
-  operator new();
-}
-
-void sub_2726B3D0C(_Unwind_Exception *a1, int a2)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(a1);
-  }
-
-  __clang_call_terminate(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)26,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)26,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::operator()(uint64_t a1, int *a2)
-{
-  v3 = *(a1 + 8);
-  v4 = vp::sim::Property_List_Writer::size(*v3);
-  if (v4)
-  {
-    v5 = v4 - 1;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
-  v6 = v10;
-  v8 = v10;
-  vp::sim::Key_Writer::count(&v8, 26, "HW REF Bluetooth HLC 2 channels State");
-  vp::sim::converters::Default_Converter<unsigned int>::to_property_list(&cf, *a2);
-  v7 = cf;
-  if (cf)
-  {
-    CFRetain(cf);
-    v10 = v7;
-    vp::sim::Key_Writer::set(&v8, 26, "HW REF Bluetooth HLC 2 channels State", &v10);
-    CFRelease(v7);
-  }
-
-  else
-  {
-    v10 = 0;
-    vp::sim::Key_Writer::set(&v8, 26, "HW REF Bluetooth HLC 2 channels State", &v10);
-  }
-
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  if (v6)
-  {
-    CFRelease(v6);
-  }
-}
-
-void sub_2726B3E1C(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  __cxa_end_catch();
-  vp::sim::Key_Writer::~Key_Writer(va);
-  _Unwind_Resume(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)26,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)26,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy_deallocate(void *__p)
-{
-  v2 = __p[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  operator delete(__p);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)26,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)26,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)26,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)26,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::__clone(uint64_t result, void *a2)
-{
-  v3 = *(result + 8);
-  v2 = *(result + 16);
-  *a2 = &unk_2881BBD40;
-  a2[1] = v3;
-  a2[2] = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)26,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)26,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BBD40;
-  v1 = a1[2];
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)26,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)26,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BBD40;
-  v2 = a1[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  return a1;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)26,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BBD10;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-uint64_t vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)26,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BBD10;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-  return a1;
-}
-
-void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)25,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)25,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
-{
-  v2 = *result;
-  *result = a2;
-  if (v2)
-  {
-    v3 = result;
-    (**v2)(v2);
-    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
-  }
-
-  return result;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)25,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v4[0] = &unk_2881BBCC8;
-  v4[1] = v2;
-  v4[2] = v3;
-  v4[3] = v4;
-  std::__function::__value_func<void ()(applesauce::CF::StringRef const&)>::__value_func[abi:ne200100](v5, v4);
-  v6 = 0;
-  operator new();
-}
-
-void sub_2726B4268(_Unwind_Exception *a1, int a2)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(a1);
-  }
-
-  __clang_call_terminate(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)25,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::StringRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)25,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::StringRef const&)#1}>,void ()(applesauce::CF::StringRef const&)>::operator()(uint64_t a1, CFTypeRef *a2)
-{
-  v3 = *(a1 + 8);
-  v4 = vp::sim::Property_List_Writer::size(*v3);
-  if (v4)
-  {
-    v5 = v4 - 1;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  vp::sim::Property_List_Writer::find_writable_element(&cf, v3, v5);
-  v6 = cf;
-  v7 = cf;
-  vp::sim::Key_Writer::count(&v7, 25, "HW REF Port UID");
-  vp::sim::converters::Default_Converter_CF<applesauce::CF::StringRef>::to_property_list(&cf, *a2);
-  vp::sim::Key_Writer::set(&v7, 25, "HW REF Port UID", &cf);
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  if (v6)
-  {
-    CFRelease(v6);
-  }
-}
-
-void sub_2726B4334(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  __cxa_end_catch();
-  vp::sim::Key_Writer::~Key_Writer(va);
-  _Unwind_Resume(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)25,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::StringRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)25,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::StringRef const&)#1}>,void ()(applesauce::CF::StringRef const&)>::destroy_deallocate(void *__p)
-{
-  v2 = __p[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  operator delete(__p);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)25,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::StringRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)25,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::StringRef const&)#1}>,void ()(applesauce::CF::StringRef const&)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)25,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::StringRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)25,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::StringRef const&)#1}>,void ()(applesauce::CF::StringRef const&)>::__clone(uint64_t result, void *a2)
-{
-  v3 = *(result + 8);
-  v2 = *(result + 16);
-  *a2 = &unk_2881BBCC8;
-  a2[1] = v3;
-  a2[2] = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)25,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::StringRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)25,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::StringRef const&)#1}>,void ()(applesauce::CF::StringRef const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BBCC8;
-  v1 = a1[2];
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)25,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::StringRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)25,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::StringRef const&)#1}>,void ()(applesauce::CF::StringRef const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BBCC8;
-  v2 = a1[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  return a1;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)25,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BBC98;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-uint64_t vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)25,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BBC98;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-  return a1;
-}
-
-void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)20,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)20,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
-{
-  v2 = *result;
-  *result = a2;
-  if (v2)
-  {
-    v3 = result;
-    (**v2)(v2);
-    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
-  }
-
-  return result;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)20,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v4[0] = &unk_2881BBC50;
-  v4[1] = v2;
-  v4[2] = v3;
-  v4[3] = v4;
-  std::__function::__value_func<void ()(double const&)>::__value_func[abi:ne200100](v5, v4);
-  v6 = 0;
-  operator new();
-}
-
-void sub_2726B4780(_Unwind_Exception *a1, int a2)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(a1);
-  }
-
-  __clang_call_terminate(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)20,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(double const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)20,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(double const&)#1}>,void ()(double const&)>::operator()(uint64_t a1, double *a2)
-{
-  v3 = *(a1 + 8);
-  v4 = vp::sim::Property_List_Writer::size(*v3);
-  if (v4)
-  {
-    v5 = v4 - 1;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
-  v6 = v10;
-  v8 = v10;
-  vp::sim::Key_Writer::count(&v8, 20, "HW REF Device Sample Rate");
-  vp::sim::converters::Default_Converter<double>::to_property_list(&cf, *a2);
-  v7 = cf;
-  if (cf)
-  {
-    CFRetain(cf);
-    v10 = v7;
-    vp::sim::Key_Writer::set(&v8, 20, "HW REF Device Sample Rate", &v10);
-    CFRelease(v7);
-  }
-
-  else
-  {
-    v10 = 0;
-    vp::sim::Key_Writer::set(&v8, 20, "HW REF Device Sample Rate", &v10);
-  }
-
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  if (v6)
-  {
-    CFRelease(v6);
-  }
-}
-
-void sub_2726B4890(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  __cxa_end_catch();
-  vp::sim::Key_Writer::~Key_Writer(va);
-  _Unwind_Resume(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)20,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(double const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)20,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(double const&)#1}>,void ()(double const&)>::destroy_deallocate(void *__p)
-{
-  v2 = __p[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  operator delete(__p);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)20,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(double const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)20,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(double const&)#1}>,void ()(double const&)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)20,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(double const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)20,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(double const&)#1}>,void ()(double const&)>::__clone(uint64_t result, void *a2)
-{
-  v3 = *(result + 8);
-  v2 = *(result + 16);
-  *a2 = &unk_2881BBC50;
-  a2[1] = v3;
-  a2[2] = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)20,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(double const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)20,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(double const&)#1}>,void ()(double const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BBC50;
-  v1 = a1[2];
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)20,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(double const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)20,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(double const&)#1}>,void ()(double const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BBC50;
-  v2 = a1[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  return a1;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)20,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BBBD8;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-uint64_t vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)20,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BBBD8;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-  return a1;
-}
-
-void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)19,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)19,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
-{
-  v2 = *result;
-  *result = a2;
-  if (v2)
-  {
-    v3 = result;
-    (**v2)(v2);
-    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
-  }
-
-  return result;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)19,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v4[0] = &unk_2881BBB90;
-  v4[1] = v2;
-  v4[2] = v3;
-  v4[3] = v4;
-  std::__function::__value_func<void ()(applesauce::CF::DictionaryRef const&)>::__value_func[abi:ne200100](v5, v4);
-  v6 = 0;
-  operator new();
-}
-
-void sub_2726B4CDC(_Unwind_Exception *a1, int a2)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(a1);
-  }
-
-  __clang_call_terminate(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)19,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)19,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1}>,void ()(applesauce::CF::DictionaryRef const&)>::operator()(uint64_t a1, CFTypeRef *a2)
-{
-  v3 = *(a1 + 8);
-  v4 = vp::sim::Property_List_Writer::size(*v3);
-  if (v4)
-  {
-    v5 = v4 - 1;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  vp::sim::Property_List_Writer::find_writable_element(&cf, v3, v5);
-  v6 = cf;
-  v7 = cf;
-  vp::sim::Key_Writer::count(&v7, 19, "Telephony REF DSP Settings");
-  vp::sim::converters::Default_Converter_CF<applesauce::CF::DictionaryRef>::to_property_list(&cf, *a2);
-  vp::sim::Key_Writer::set(&v7, 19, "Telephony REF DSP Settings", &cf);
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  if (v6)
-  {
-    CFRelease(v6);
-  }
-}
-
-void sub_2726B4DA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  __cxa_end_catch();
-  vp::sim::Key_Writer::~Key_Writer(va);
-  _Unwind_Resume(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)19,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)19,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1}>,void ()(applesauce::CF::DictionaryRef const&)>::destroy_deallocate(void *__p)
-{
-  v2 = __p[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  operator delete(__p);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)19,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)19,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1}>,void ()(applesauce::CF::DictionaryRef const&)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)19,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)19,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1}>,void ()(applesauce::CF::DictionaryRef const&)>::__clone(uint64_t result, void *a2)
-{
-  v3 = *(result + 8);
-  v2 = *(result + 16);
-  *a2 = &unk_2881BBB90;
-  a2[1] = v3;
-  a2[2] = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)19,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)19,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1}>,void ()(applesauce::CF::DictionaryRef const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BBB90;
-  v1 = a1[2];
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)19,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)19,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1}>,void ()(applesauce::CF::DictionaryRef const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BBB90;
-  v2 = a1[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  return a1;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)19,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BBB18;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-uint64_t vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)19,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BBB18;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-  return a1;
-}
-
-void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)18,std::vector<float>>(vp::vx::data_flow::State<std::vector<float>>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)18,std::vector<float>>(vp::vx::data_flow::State<std::vector<float>>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
-{
-  v2 = *result;
-  *result = a2;
-  if (v2)
-  {
-    v3 = result;
-    (**v2)(v2);
-    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
-  }
-
-  return result;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)18,std::vector<float>>(vp::vx::data_flow::State<std::vector<float>>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v4[0] = &unk_2881BBAD0;
-  v4[1] = v2;
-  v4[2] = v3;
-  v4[3] = v4;
-  std::__function::__value_func<void ()(std::vector<float> const&)>::__value_func[abi:ne200100](v5, v4);
-  v6 = 0;
-  operator new();
-}
-
-void sub_2726B51F4(_Unwind_Exception *a1, int a2)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(a1);
-  }
-
-  __clang_call_terminate(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)18,std::vector<float>>(vp::vx::data_flow::State<std::vector<float>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<float> const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)18,std::vector<float>>(vp::vx::data_flow::State<std::vector<float>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<float> const&)#1}>,void ()(std::vector<float> const&)>::operator()(uint64_t a1, float **a2)
-{
-  v3 = *(a1 + 8);
-  v4 = vp::sim::Property_List_Writer::size(*v3);
-  if (v4)
-  {
-    v5 = v4 - 1;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
-  v6 = v10;
-  v8 = v10;
-  vp::sim::Key_Writer::count(&v8, 18, "HW REF Trim Gains");
-  vp::sim::converters::CSV_Converter<float>::to_property_list(&cf, a2);
-  v7 = cf;
-  if (cf)
-  {
-    CFRetain(cf);
-    v10 = v7;
-    vp::sim::Key_Writer::set(&v8, 18, "HW REF Trim Gains", &v10);
-    CFRelease(v7);
-  }
-
-  else
-  {
-    v10 = 0;
-    vp::sim::Key_Writer::set(&v8, 18, "HW REF Trim Gains", &v10);
-  }
-
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  if (v6)
-  {
-    CFRelease(v6);
-  }
-}
-
-void sub_2726B5304(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  __cxa_end_catch();
-  vp::sim::Key_Writer::~Key_Writer(va);
-  _Unwind_Resume(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)18,std::vector<float>>(vp::vx::data_flow::State<std::vector<float>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<float> const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)18,std::vector<float>>(vp::vx::data_flow::State<std::vector<float>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<float> const&)#1}>,void ()(std::vector<float> const&)>::destroy_deallocate(void *__p)
-{
-  v2 = __p[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  operator delete(__p);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)18,std::vector<float>>(vp::vx::data_flow::State<std::vector<float>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<float> const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)18,std::vector<float>>(vp::vx::data_flow::State<std::vector<float>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<float> const&)#1}>,void ()(std::vector<float> const&)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)18,std::vector<float>>(vp::vx::data_flow::State<std::vector<float>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<float> const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)18,std::vector<float>>(vp::vx::data_flow::State<std::vector<float>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<float> const&)#1}>,void ()(std::vector<float> const&)>::__clone(uint64_t result, void *a2)
-{
-  v3 = *(result + 8);
-  v2 = *(result + 16);
-  *a2 = &unk_2881BBAD0;
-  a2[1] = v3;
-  a2[2] = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)18,std::vector<float>>(vp::vx::data_flow::State<std::vector<float>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<float> const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)18,std::vector<float>>(vp::vx::data_flow::State<std::vector<float>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<float> const&)#1}>,void ()(std::vector<float> const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BBAD0;
-  v1 = a1[2];
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)18,std::vector<float>>(vp::vx::data_flow::State<std::vector<float>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<float> const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)18,std::vector<float>>(vp::vx::data_flow::State<std::vector<float>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<float> const&)#1}>,void ()(std::vector<float> const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BBAD0;
-  v2 = a1[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  return a1;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)18,std::vector<float>>(vp::vx::data_flow::State<std::vector<float>>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BBA58;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-uint64_t vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)18,std::vector<float>>(vp::vx::data_flow::State<std::vector<float>>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BBA58;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-  return a1;
-}
-
-double _ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS_6vectorIfNS_9allocatorIfEEEEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_10components20Property_List_Writer26set_up_key_state_listenersERSC_RKNS3_27Voice_Processor_State_OwnerEE3__3JS9_N10applesauce2CF8ArrayRefEEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JS9_SN_EEERNS4_13State_ManagerESP_SW_EUlPPKNS4_5ValueEPS14_E_NS7_IS19_EEFvS17_S18_EEclEOS17_OS18_(uint64_t a1, uint64_t (******a2)(), vp::vx::data_flow::Value **a3)
-{
-  v3 = *a2;
-  v4 = *a3;
-  v5 = **a2;
-  if (v5[2] == &vp::vx::data_flow::Value::type_id<std::vector<float>>(void)::s_type_id)
-  {
-    v6 = vp::vx::data_flow::Value::view_storage(v5);
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  v7 = vp::vx::data_flow::Value::view_storage(v3[1]);
-  v8 = *v7;
-  if (*v7)
-  {
-    CFRetain(*v7);
-  }
-
-  v15 = v8;
-  vp::vx::trim_gains_parse_cf(&__p, &v15);
-  if (v18)
-  {
-    if (__p != v17)
-    {
-      *v14 = __p;
-      *&v14[8] = v17;
-      goto LABEL_13;
-    }
-
-    if (__p)
-    {
-      operator delete(__p);
-    }
-  }
-
-  v9 = *v6;
-  v10 = v6[1];
-  memset(v14, 0, sizeof(v14));
-  if (v9 != v10)
-  {
-    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v14, v9, v10, (v10 - v9) >> 2);
-  }
-
-LABEL_13:
-  if (v8)
-  {
-    CFRelease(v8);
-  }
-
-  vp::vx::data_flow::Value::~Value(v4);
-  *v4 = std::pmr::get_default_resource(v11);
-  *(v4 + 1) = 0;
-  *(v4 + 2) = &vp::vx::data_flow::Value::type_id<std::vector<float>>(void)::s_type_id;
-  storage = vp::vx::data_flow::Value::allocate_storage(v4);
-  result = *v14;
-  *storage = *v14;
-  *(storage + 16) = *&v14[16];
-  return result;
-}
-
-uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS_6vectorIfNS_9allocatorIfEEEEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_10components20Property_List_Writer26set_up_key_state_listenersERSC_RKNS3_27Voice_Processor_State_OwnerEE3__3JS9_N10applesauce2CF8ArrayRefEEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JS9_SN_EEERNS4_13State_ManagerESP_SW_EUlPPKNS4_5ValueEPS14_E_NS7_IS19_EEFvS17_S18_EE7__cloneEPNS0_6__baseIS1B_EE(uint64_t result, uint64_t a2)
-{
-  *a2 = &unk_2881BAF28;
-  *(a2 + 8) = *(result + 8);
-  return result;
-}
-
-void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)17,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)17,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
-{
-  v2 = *result;
-  *result = a2;
-  if (v2)
-  {
-    v3 = result;
-    (**v2)(v2);
-    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
-  }
-
-  return result;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)17,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v4[0] = &unk_2881BBA10;
-  v4[1] = v2;
-  v4[2] = v3;
-  v4[3] = v4;
-  std::__function::__value_func<void ()(applesauce::CF::StringRef const&)>::__value_func[abi:ne200100](v5, v4);
-  v6 = 0;
-  operator new();
-}
-
-void sub_2726B5934(_Unwind_Exception *a1, int a2)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(a1);
-  }
-
-  __clang_call_terminate(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)17,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::StringRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)17,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::StringRef const&)#1}>,void ()(applesauce::CF::StringRef const&)>::operator()(uint64_t a1, CFTypeRef *a2)
-{
-  v3 = *(a1 + 8);
-  v4 = vp::sim::Property_List_Writer::size(*v3);
-  if (v4)
-  {
-    v5 = v4 - 1;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  vp::sim::Property_List_Writer::find_writable_element(&cf, v3, v5);
-  v6 = cf;
-  v7 = cf;
-  vp::sim::Key_Writer::count(&v7, 17, "HW REF Model UID");
-  vp::sim::converters::Default_Converter_CF<applesauce::CF::StringRef>::to_property_list(&cf, *a2);
-  vp::sim::Key_Writer::set(&v7, 17, "HW REF Model UID", &cf);
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  if (v6)
-  {
-    CFRelease(v6);
-  }
-}
-
-void sub_2726B5A00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  __cxa_end_catch();
-  vp::sim::Key_Writer::~Key_Writer(va);
-  _Unwind_Resume(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)17,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::StringRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)17,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::StringRef const&)#1}>,void ()(applesauce::CF::StringRef const&)>::destroy_deallocate(void *__p)
-{
-  v2 = __p[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  operator delete(__p);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)17,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::StringRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)17,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::StringRef const&)#1}>,void ()(applesauce::CF::StringRef const&)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)17,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::StringRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)17,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::StringRef const&)#1}>,void ()(applesauce::CF::StringRef const&)>::__clone(uint64_t result, void *a2)
-{
-  v3 = *(result + 8);
-  v2 = *(result + 16);
-  *a2 = &unk_2881BBA10;
-  a2[1] = v3;
-  a2[2] = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)17,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::StringRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)17,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::StringRef const&)#1}>,void ()(applesauce::CF::StringRef const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BBA10;
-  v1 = a1[2];
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)17,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::StringRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)17,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::StringRef const&)#1}>,void ()(applesauce::CF::StringRef const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BBA10;
-  v2 = a1[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  return a1;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)17,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BB998;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-uint64_t vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)17,applesauce::CF::StringRef>(vp::vx::data_flow::State<applesauce::CF::StringRef>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BB998;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-  return a1;
-}
-
-void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)16,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)16,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
-{
-  v2 = *result;
-  *result = a2;
-  if (v2)
-  {
-    v3 = result;
-    (**v2)(v2);
-    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
-  }
-
-  return result;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)16,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v4[0] = &unk_2881BB950;
-  v4[1] = v2;
-  v4[2] = v3;
-  v4[3] = v4;
-  std::__function::__value_func<void ()(unsigned int const&)>::__value_func[abi:ne200100](v5, v4);
-  v6 = 0;
-  operator new();
-}
-
-void sub_2726B5E4C(_Unwind_Exception *a1, int a2)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(a1);
-  }
-
-  __clang_call_terminate(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)16,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)16,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::operator()(uint64_t a1, int *a2)
-{
-  v3 = *(a1 + 8);
-  v4 = vp::sim::Property_List_Writer::size(*v3);
-  if (v4)
-  {
-    v5 = v4 - 1;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
-  v6 = v10;
-  v8 = v10;
-  vp::sim::Key_Writer::count(&v8, 16, "HW REF Data Source");
-  vp::sim::converters::Default_Converter<unsigned int>::to_property_list(&cf, *a2);
-  v7 = cf;
-  if (cf)
-  {
-    CFRetain(cf);
-    v10 = v7;
-    vp::sim::Key_Writer::set(&v8, 16, "HW REF Data Source", &v10);
-    CFRelease(v7);
-  }
-
-  else
-  {
-    v10 = 0;
-    vp::sim::Key_Writer::set(&v8, 16, "HW REF Data Source", &v10);
-  }
-
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  if (v6)
-  {
-    CFRelease(v6);
-  }
-}
-
-void sub_2726B5F5C(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  __cxa_end_catch();
-  vp::sim::Key_Writer::~Key_Writer(va);
-  _Unwind_Resume(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)16,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)16,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy_deallocate(void *__p)
-{
-  v2 = __p[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  operator delete(__p);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)16,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)16,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)16,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)16,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::__clone(uint64_t result, void *a2)
-{
-  v3 = *(result + 8);
-  v2 = *(result + 16);
-  *a2 = &unk_2881BB950;
-  a2[1] = v3;
-  a2[2] = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)16,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)16,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BB950;
-  v1 = a1[2];
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)16,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)16,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BB950;
-  v2 = a1[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  return a1;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)16,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BB920;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-uint64_t vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)16,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BB920;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-  return a1;
-}
-
-void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)15,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)15,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
-{
-  v2 = *result;
-  *result = a2;
-  if (v2)
-  {
-    v3 = result;
-    (**v2)(v2);
-    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
-  }
-
-  return result;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)15,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v4[0] = &unk_2881BB8D8;
-  v4[1] = v2;
-  v4[2] = v3;
-  v4[3] = v4;
-  std::__function::__value_func<void ()(unsigned int const&)>::__value_func[abi:ne200100](v5, v4);
-  v6 = 0;
-  operator new();
-}
-
-void sub_2726B63A8(_Unwind_Exception *a1, int a2)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(a1);
-  }
-
-  __clang_call_terminate(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)15,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)15,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::operator()(uint64_t a1, int *a2)
-{
-  v3 = *(a1 + 8);
-  v4 = vp::sim::Property_List_Writer::size(*v3);
-  if (v4)
-  {
-    v5 = v4 - 1;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
-  v6 = v10;
-  v8 = v10;
-  vp::sim::Key_Writer::count(&v8, 15, "HW REF Bluetooth Device Category Type");
-  vp::sim::converters::Default_Converter<unsigned int>::to_property_list(&cf, *a2);
-  v7 = cf;
-  if (cf)
-  {
-    CFRetain(cf);
-    v10 = v7;
-    vp::sim::Key_Writer::set(&v8, 15, "HW REF Bluetooth Device Category Type", &v10);
-    CFRelease(v7);
-  }
-
-  else
-  {
-    v10 = 0;
-    vp::sim::Key_Writer::set(&v8, 15, "HW REF Bluetooth Device Category Type", &v10);
-  }
-
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  if (v6)
-  {
-    CFRelease(v6);
-  }
-}
-
-void sub_2726B64B8(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  __cxa_end_catch();
-  vp::sim::Key_Writer::~Key_Writer(va);
-  _Unwind_Resume(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)15,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)15,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy_deallocate(void *__p)
-{
-  v2 = __p[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  operator delete(__p);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)15,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)15,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)15,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)15,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::__clone(uint64_t result, void *a2)
-{
-  v3 = *(result + 8);
-  v2 = *(result + 16);
-  *a2 = &unk_2881BB8D8;
-  a2[1] = v3;
-  a2[2] = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)15,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)15,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BB8D8;
-  v1 = a1[2];
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)15,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)15,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BB8D8;
-  v2 = a1[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  return a1;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)15,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BB8A8;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-uint64_t vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)15,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BB8A8;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-  return a1;
-}
-
-void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)14,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)14,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
-{
-  v2 = *result;
-  *result = a2;
-  if (v2)
-  {
-    v3 = result;
-    (**v2)(v2);
-    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
-  }
-
-  return result;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)14,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v4[0] = &unk_2881BB860;
-  v4[1] = v2;
-  v4[2] = v3;
-  v4[3] = v4;
-  std::__function::__value_func<void ()(unsigned int const&)>::__value_func[abi:ne200100](v5, v4);
-  v6 = 0;
-  operator new();
-}
-
-void sub_2726B6904(_Unwind_Exception *a1, int a2)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(a1);
-  }
-
-  __clang_call_terminate(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)14,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)14,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::operator()(uint64_t a1, int *a2)
-{
-  v3 = *(a1 + 8);
-  v4 = vp::sim::Property_List_Writer::size(*v3);
-  if (v4)
-  {
-    v5 = v4 - 1;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
-  v6 = v10;
-  v8 = v10;
-  vp::sim::Key_Writer::count(&v8, 14, "HW REF Transport Type");
-  vp::sim::converters::Default_Converter<unsigned int>::to_property_list(&cf, *a2);
-  v7 = cf;
-  if (cf)
-  {
-    CFRetain(cf);
-    v10 = v7;
-    vp::sim::Key_Writer::set(&v8, 14, "HW REF Transport Type", &v10);
-    CFRelease(v7);
-  }
-
-  else
-  {
-    v10 = 0;
-    vp::sim::Key_Writer::set(&v8, 14, "HW REF Transport Type", &v10);
-  }
-
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  if (v6)
-  {
-    CFRelease(v6);
-  }
-}
-
-void sub_2726B6A14(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  __cxa_end_catch();
-  vp::sim::Key_Writer::~Key_Writer(va);
-  _Unwind_Resume(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)14,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)14,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy_deallocate(void *__p)
-{
-  v2 = __p[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  operator delete(__p);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)14,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)14,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)14,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)14,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::__clone(uint64_t result, void *a2)
-{
-  v3 = *(result + 8);
-  v2 = *(result + 16);
-  *a2 = &unk_2881BB860;
-  a2[1] = v3;
-  a2[2] = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)14,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)14,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BB860;
-  v1 = a1[2];
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)14,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)14,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BB860;
-  v2 = a1[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  return a1;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)14,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BB830;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-uint64_t vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)14,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BB830;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-  return a1;
-}
-
-void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)13,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)13,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
-{
-  v2 = *result;
-  *result = a2;
-  if (v2)
-  {
-    v3 = result;
-    (**v2)(v2);
-    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
-  }
-
-  return result;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)13,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v4[0] = &unk_2881BB7E8;
-  v4[1] = v2;
-  v4[2] = v3;
-  v4[3] = v4;
-  std::__function::__value_func<void ()(unsigned int const&)>::__value_func[abi:ne200100](v5, v4);
-  v6 = 0;
-  operator new();
-}
-
-void sub_2726B6E60(_Unwind_Exception *a1, int a2)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(a1);
-  }
-
-  __clang_call_terminate(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)13,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)13,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::operator()(uint64_t a1, int *a2)
-{
-  v3 = *(a1 + 8);
-  v4 = vp::sim::Property_List_Writer::size(*v3);
-  if (v4)
-  {
-    v5 = v4 - 1;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
-  v6 = v10;
-  v8 = v10;
-  vp::sim::Key_Writer::count(&v8, 13, "Ref Port #0 EndpointType");
-  vp::sim::converters::Default_Converter<unsigned int>::to_property_list(&cf, *a2);
-  v7 = cf;
-  if (cf)
-  {
-    CFRetain(cf);
-    v10 = v7;
-    vp::sim::Key_Writer::set(&v8, 13, "Ref Port #0 EndpointType", &v10);
-    CFRelease(v7);
-  }
-
-  else
-  {
-    v10 = 0;
-    vp::sim::Key_Writer::set(&v8, 13, "Ref Port #0 EndpointType", &v10);
-  }
-
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  if (v6)
-  {
-    CFRelease(v6);
-  }
-}
-
-void sub_2726B6F70(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  __cxa_end_catch();
-  vp::sim::Key_Writer::~Key_Writer(va);
-  _Unwind_Resume(a1);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)13,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)13,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy_deallocate(void *__p)
-{
-  v2 = __p[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  operator delete(__p);
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)13,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)13,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)13,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)13,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::__clone(uint64_t result, void *a2)
-{
-  v3 = *(result + 8);
-  v2 = *(result + 16);
-  *a2 = &unk_2881BB7E8;
-  a2[1] = v3;
-  a2[2] = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)13,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)13,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BB7E8;
-  v1 = a1[2];
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)13,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)13,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BB7E8;
-  v2 = a1[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  return a1;
-}
-
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)13,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BB7B8;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-uint64_t vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)13,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
-{
-  *a1 = &unk_2881BB7B8;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
-  return a1;
-}
-
-_DWORD *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIjEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_10components20Property_List_Writer26set_up_key_state_listenersERS8_RKNS3_27Voice_Processor_State_OwnerEE3__2JNS3_18Port_Endpoint_TypeEEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSH_EEERNS4_13State_ManagerESJ_SQ_EUlPPKNS4_5ValueEPSY_E_NS_9allocatorIS13_EEFvS11_S12_EEclEOS11_OS12_(uint64_t a1, vp::vx::data_flow::Value ***a2, vp::vx::data_flow::Value **a3)
-{
-  v3 = *a3;
-  v4 = vp::vx::data_flow::Value::view_storage(**a2);
-  v5 = vp::vx::Legacy<vp::vx::Port_Endpoint_Type>::cast(*v4);
-  vp::vx::data_flow::Value::~Value(v3);
-  *v3 = std::pmr::get_default_resource(v6);
-  *(v3 + 1) = 0;
   *(v3 + 2) = &vp::vx::data_flow::Value::type_id<unsigned int>(void)::s_type_id;
   result = vp::vx::data_flow::Value::allocate_storage(v3);
-  *result = v5;
+  *result = v4;
   return result;
 }
 
-void sub_2726B7250(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10)
+void sub_27269B6A4(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10)
 {
   if (a1)
   {
@@ -5039,14 +766,14 @@ void sub_2726B7250(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, u
   __break(1u);
 }
 
-uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIjEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_10components20Property_List_Writer26set_up_key_state_listenersERS8_RKNS3_27Voice_Processor_State_OwnerEE3__2JNS3_18Port_Endpoint_TypeEEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSH_EEERNS4_13State_ManagerESJ_SQ_EUlPPKNS4_5ValueEPSY_E_NS_9allocatorIS13_EEFvS11_S12_EE7__cloneEPNS0_6__baseIS16_EE(uint64_t result, uint64_t a2)
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIjEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_10components20Property_List_Writer26set_up_key_state_listenersERS8_RKNS3_27Voice_Processor_State_OwnerEE4__15JNS3_20AirPods_Offload_ModeEEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSH_EEERNS4_13State_ManagerESJ_SQ_EUlPPKNS4_5ValueEPSY_E_NS_9allocatorIS13_EEFvS11_S12_EE7__cloneEPNS0_6__baseIS16_EE(uint64_t result, uint64_t a2)
 {
-  *a2 = &unk_2881BAEE0;
+  *a2 = &unk_2881BB2F0;
   *(a2 + 8) = *(result + 8);
   return result;
 }
 
-void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)12,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)12,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)84,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)84,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
 {
   v2 = *result;
   *result = a2;
@@ -5060,7 +787,7 @@ void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<
   return result;
 }
 
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)12,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)84,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
 {
   v7 = *MEMORY[0x277D85DE8];
   v2 = *a2;
@@ -5071,16 +798,16 @@ void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)12,unsigned 
     atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v4[0] = &unk_2881BB770;
+  v4[0] = &unk_2881BD9D8;
   v4[1] = v2;
   v4[2] = v3;
   v4[3] = v4;
-  std::__function::__value_func<void ()(unsigned int const&)>::__value_func[abi:ne200100](v5, v4);
+  std::__function::__value_func<void ()(BOOL const&)>::__value_func[abi:ne200100](v5, v4);
   v6 = 0;
   operator new();
 }
 
-void sub_2726B751C(_Unwind_Exception *a1, int a2)
+void sub_27269B970(_Unwind_Exception *a1, int a2)
 {
   if (!a2)
   {
@@ -5090,7 +817,563 @@ void sub_2726B751C(_Unwind_Exception *a1, int a2)
   __clang_call_terminate(a1);
 }
 
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)12,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)12,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::operator()(uint64_t a1, int *a2)
+uint64_t std::__function::__func<vp::vx::data_flow::State<BOOL>::register_listener(std::function<void ()(BOOL const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<BOOL>::register_listener(std::function<void ()(BOOL const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::operator()(uint64_t result, int a2, vp::vx::data_flow::Value *this)
+{
+  if (*(result + 32))
+  {
+    v3 = *(this + 2) == &vp::vx::data_flow::Value::type_id<BOOL>(void)::s_type_id;
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  if (v3)
+  {
+    v4 = result;
+    result = vp::vx::data_flow::Value::view_storage(this);
+    if (result)
+    {
+      v5 = *(v4 + 32);
+      if (!v5)
+      {
+        std::__throw_bad_function_call[abi:ne200100]();
+      }
+
+      v6 = *(*v5 + 48);
+
+      return v6();
+    }
+  }
+
+  return result;
+}
+
+void std::__function::__func<vp::vx::data_flow::State<BOOL>::register_listener(std::function<void ()(BOOL const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<BOOL>::register_listener(std::function<void ()(BOOL const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::destroy_deallocate(void *a1)
+{
+  std::__function::__value_func<void ()(BOOL const&)>::~__value_func[abi:ne200100](a1 + 8);
+
+  operator delete(a1);
+}
+
+void std::__function::__func<vp::vx::data_flow::State<BOOL>::register_listener(std::function<void ()(BOOL const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<BOOL>::register_listener(std::function<void ()(BOOL const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BEB10;
+  std::__function::__value_func<void ()(BOOL const&)>::~__value_func[abi:ne200100]((a1 + 1));
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<vp::vx::data_flow::State<BOOL>::register_listener(std::function<void ()(BOOL const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<BOOL>::register_listener(std::function<void ()(BOOL const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BEB10;
+  std::__function::__value_func<void ()(BOOL const&)>::~__value_func[abi:ne200100]((a1 + 1));
+  return a1;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)84,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)84,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::operator()(uint64_t a1, _BYTE *a2)
+{
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
+  if (v4)
+  {
+    v5 = v4 - 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
+  v6 = v10;
+  v9 = v10;
+  vp::sim::Key_Writer::count(&v9, 0x54, "Is Camera Active");
+  v7 = MEMORY[0x277CBED28];
+  if (!*a2)
+  {
+    v7 = MEMORY[0x277CBED10];
+  }
+
+  v8 = *v7;
+  if (!*v7)
+  {
+    v10 = 0;
+    vp::sim::Key_Writer::set(&v9, 0x54, "Is Camera Active", &v10);
+    if (!v6)
+    {
+      return;
+    }
+
+    goto LABEL_10;
+  }
+
+  CFRetain(*v7);
+  v10 = v8;
+  vp::sim::Key_Writer::set(&v9, 0x54, "Is Camera Active", &v10);
+  CFRelease(v8);
+  CFRelease(v8);
+  if (v6)
+  {
+LABEL_10:
+    CFRelease(v6);
+  }
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)84,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)84,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)84,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)84,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)84,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)84,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::__clone(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881BD9D8;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)84,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)84,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD9D8;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)84,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)84,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD9D8;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)84,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BD9A8;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)84,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BD9A8;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+  return a1;
+}
+
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)83,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)83,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v3 = result;
+    (**v2)(v2);
+    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
+  }
+
+  return result;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)83,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4[0] = &unk_2881BD960;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(BOOL const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
+  operator new();
+}
+
+void sub_27269C0CC(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)83,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)83,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::operator()(uint64_t a1, _BYTE *a2)
+{
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
+  if (v4)
+  {
+    v5 = v4 - 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
+  v6 = v10;
+  v9 = v10;
+  vp::sim::Key_Writer::count(&v9, 0x53, "Enable Automatic Mic Mode");
+  v7 = MEMORY[0x277CBED28];
+  if (!*a2)
+  {
+    v7 = MEMORY[0x277CBED10];
+  }
+
+  v8 = *v7;
+  if (!*v7)
+  {
+    v10 = 0;
+    vp::sim::Key_Writer::set(&v9, 0x53, "Enable Automatic Mic Mode", &v10);
+    if (!v6)
+    {
+      return;
+    }
+
+    goto LABEL_10;
+  }
+
+  CFRetain(*v7);
+  v10 = v8;
+  vp::sim::Key_Writer::set(&v9, 0x53, "Enable Automatic Mic Mode", &v10);
+  CFRelease(v8);
+  CFRelease(v8);
+  if (v6)
+  {
+LABEL_10:
+    CFRelease(v6);
+  }
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)83,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)83,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)83,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)83,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)83,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)83,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::__clone(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881BD960;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)83,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)83,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD960;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)83,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)83,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD960;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)83,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BD930;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)83,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BD930;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+  return a1;
+}
+
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)82,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)82,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v3 = result;
+    (**v2)(v2);
+    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
+  }
+
+  return result;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)82,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4[0] = &unk_2881BD8E8;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(BOOL const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
+  operator new();
+}
+
+void sub_27269C604(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)82,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)82,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::operator()(uint64_t a1, _BYTE *a2)
+{
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
+  if (v4)
+  {
+    v5 = v4 - 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
+  v6 = v10;
+  v9 = v10;
+  vp::sim::Key_Writer::count(&v9, 0x52, "Offload AirPods Noise Suppression");
+  v7 = MEMORY[0x277CBED28];
+  if (!*a2)
+  {
+    v7 = MEMORY[0x277CBED10];
+  }
+
+  v8 = *v7;
+  if (!*v7)
+  {
+    v10 = 0;
+    vp::sim::Key_Writer::set(&v9, 0x52, "Offload AirPods Noise Suppression", &v10);
+    if (!v6)
+    {
+      return;
+    }
+
+    goto LABEL_10;
+  }
+
+  CFRetain(*v7);
+  v10 = v8;
+  vp::sim::Key_Writer::set(&v9, 0x52, "Offload AirPods Noise Suppression", &v10);
+  CFRelease(v8);
+  CFRelease(v8);
+  if (v6)
+  {
+LABEL_10:
+    CFRelease(v6);
+  }
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)82,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)82,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)82,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)82,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)82,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)82,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::__clone(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881BD8E8;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)82,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)82,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD8E8;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)82,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)82,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD8E8;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)82,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BD8B8;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)82,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BD8B8;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+  return a1;
+}
+
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)81,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)81,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v3 = result;
+    (**v2)(v2);
+    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
+  }
+
+  return result;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)81,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4[0] = &unk_2881BD870;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(unsigned int const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
+  operator new();
+}
+
+void sub_27269CB3C(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)81,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)81,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::operator()(uint64_t a1, int *a2)
 {
   v3 = *(a1 + 8);
   v4 = vp::sim::Property_List_Writer::size(*v3);
@@ -5107,21 +1390,21 @@ void std::__function::__func<void vp::vx::components::Property_List_Writer::set_
   vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
   v6 = v10;
   v8 = v10;
-  vp::sim::Key_Writer::count(&v8, 12, "Ref Port #0 Subtype");
+  vp::sim::Key_Writer::count(&v8, 0x51, "VirtualAudio Plug-in Mode");
   vp::sim::converters::Default_Converter<unsigned int>::to_property_list(&cf, *a2);
   v7 = cf;
   if (cf)
   {
     CFRetain(cf);
     v10 = v7;
-    vp::sim::Key_Writer::set(&v8, 12, "Ref Port #0 Subtype", &v10);
+    vp::sim::Key_Writer::set(&v8, 0x51, "VirtualAudio Plug-in Mode", &v10);
     CFRelease(v7);
   }
 
   else
   {
     v10 = 0;
-    vp::sim::Key_Writer::set(&v8, 12, "Ref Port #0 Subtype", &v10);
+    vp::sim::Key_Writer::set(&v8, 0x51, "VirtualAudio Plug-in Mode", &v10);
   }
 
   if (cf)
@@ -5135,15 +1418,15 @@ void std::__function::__func<void vp::vx::components::Property_List_Writer::set_
   }
 }
 
-void sub_2726B762C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_27269CC4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   __cxa_end_catch();
   vp::sim::Key_Writer::~Key_Writer(va);
   _Unwind_Resume(a1);
 }
 
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)12,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)12,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy_deallocate(void *__p)
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)81,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)81,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy_deallocate(void *__p)
 {
   v2 = __p[2];
   if (v2)
@@ -5154,7 +1437,7 @@ void std::__function::__func<void vp::vx::components::Property_List_Writer::set_
   operator delete(__p);
 }
 
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)12,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)12,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy(uint64_t a1)
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)81,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)81,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy(uint64_t a1)
 {
   v1 = *(a1 + 16);
   if (v1)
@@ -5163,11 +1446,11 @@ void std::__function::__func<void vp::vx::components::Property_List_Writer::set_
   }
 }
 
-uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)12,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)12,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::__clone(uint64_t result, void *a2)
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)81,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)81,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::__clone(uint64_t result, void *a2)
 {
   v3 = *(result + 8);
   v2 = *(result + 16);
-  *a2 = &unk_2881BB770;
+  *a2 = &unk_2881BD870;
   a2[1] = v3;
   a2[2] = v2;
   if (v2)
@@ -5178,9 +1461,9 @@ uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::
   return result;
 }
 
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)12,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)12,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)81,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)81,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
 {
-  *a1 = &unk_2881BB770;
+  *a1 = &unk_2881BD870;
   v1 = a1[2];
   if (v1)
   {
@@ -5190,9 +1473,9 @@ void std::__function::__func<void vp::vx::components::Property_List_Writer::set_
   JUMPOUT(0x2743CBFA0);
 }
 
-void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)12,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)12,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)81,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)81,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
 {
-  *a1 = &unk_2881BB770;
+  *a1 = &unk_2881BD870;
   v2 = a1[2];
   if (v2)
   {
@@ -5202,43 +1485,22 @@ void *std::__function::__func<void vp::vx::components::Property_List_Writer::set
   return a1;
 }
 
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)12,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)81,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
 {
-  *a1 = &unk_2881BB740;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
+  *a1 = &unk_2881BD840;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
 
   JUMPOUT(0x2743CBFA0);
 }
 
-uint64_t vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)12,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)81,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
 {
-  *a1 = &unk_2881BB740;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
+  *a1 = &unk_2881BD840;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
   return a1;
 }
 
-_DWORD *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIjEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_10components20Property_List_Writer26set_up_key_state_listenersERS8_RKNS3_27Voice_Processor_State_OwnerEE3__1JNS3_13Port_Sub_TypeEEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSH_EEERNS4_13State_ManagerESJ_SQ_EUlPPKNS4_5ValueEPSY_E_NS_9allocatorIS13_EEFvS11_S12_EEclEOS11_OS12_(uint64_t a1, vp::vx::data_flow::Value ***a2, vp::vx::data_flow::Value **a3)
-{
-  v3 = *a3;
-  v4 = vp::vx::data_flow::Value::view_storage(**a2);
-  v5 = vp::vx::legacy_cast<vp::vx::Port_Sub_Type>(*v4);
-  vp::vx::data_flow::Value::~Value(v3);
-  *v3 = std::pmr::get_default_resource(v6);
-  *(v3 + 1) = 0;
-  *(v3 + 2) = &vp::vx::data_flow::Value::type_id<unsigned int>(void)::s_type_id;
-  result = vp::vx::data_flow::Value::allocate_storage(v3);
-  *result = v5;
-  return result;
-}
-
-uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIjEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_10components20Property_List_Writer26set_up_key_state_listenersERS8_RKNS3_27Voice_Processor_State_OwnerEE3__1JNS3_13Port_Sub_TypeEEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSH_EEERNS4_13State_ManagerESJ_SQ_EUlPPKNS4_5ValueEPSY_E_NS_9allocatorIS13_EEFvS11_S12_EE7__cloneEPNS0_6__baseIS16_EE(uint64_t result, uint64_t a2)
-{
-  *a2 = &unk_2881BAE98;
-  *(a2 + 8) = *(result + 8);
-  return result;
-}
-
-void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)11,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)11,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)80,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)80,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
 {
   v2 = *result;
   *result = a2;
@@ -5252,7 +1514,7 @@ void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<
   return result;
 }
 
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)11,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)80,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
 {
   v7 = *MEMORY[0x277D85DE8];
   v2 = *a2;
@@ -5263,7 +1525,3653 @@ void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)11,std::vect
     atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v4[0] = &unk_2881BB6F8;
+  v4[0] = &unk_2881BD7F8;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(applesauce::CF::DictionaryRef const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
+  operator new();
+}
+
+void sub_27269D098(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+uint64_t std::__function::__value_func<void ()(applesauce::CF::DictionaryRef const&)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
+{
+  v3 = (a2 + 24);
+  v4 = *(a2 + 24);
+  if (v4)
+  {
+    if (v4 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**v3 + 24))(*v3, a1);
+      return a1;
+    }
+
+    *(a1 + 24) = v4;
+  }
+
+  else
+  {
+    v3 = (a1 + 24);
+  }
+
+  *v3 = 0;
+  return a1;
+}
+
+{
+  v3 = *(a2 + 24);
+  if (v3)
+  {
+    if (v3 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
+    }
+
+    else
+    {
+      *(a1 + 24) = (*(*v3 + 16))(v3);
+    }
+  }
+
+  else
+  {
+    *(a1 + 24) = 0;
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__value_func<void ()(applesauce::CF::DictionaryRef const&)>::~__value_func[abi:ne200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__func<vp::vx::data_flow::State<applesauce::CF::DictionaryRef>::register_listener(std::function<void ()(applesauce::CF::DictionaryRef const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<applesauce::CF::DictionaryRef>::register_listener(std::function<void ()(applesauce::CF::DictionaryRef const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::operator()(uint64_t result, int a2, vp::vx::data_flow::Value *this)
+{
+  if (*(result + 32))
+  {
+    v3 = *(this + 2) == &vp::vx::data_flow::Value::type_id<applesauce::CF::DictionaryRef>(void)::s_type_id;
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  if (v3)
+  {
+    v4 = result;
+    result = vp::vx::data_flow::Value::view_storage(this);
+    if (result)
+    {
+      v5 = *(v4 + 32);
+      if (!v5)
+      {
+        std::__throw_bad_function_call[abi:ne200100]();
+      }
+
+      v6 = *(*v5 + 48);
+
+      return v6();
+    }
+  }
+
+  return result;
+}
+
+void std::__function::__func<vp::vx::data_flow::State<applesauce::CF::DictionaryRef>::register_listener(std::function<void ()(applesauce::CF::DictionaryRef const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<applesauce::CF::DictionaryRef>::register_listener(std::function<void ()(applesauce::CF::DictionaryRef const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::destroy_deallocate(void *a1)
+{
+  std::__function::__value_func<void ()(applesauce::CF::DictionaryRef const&)>::~__value_func[abi:ne200100](a1 + 8);
+
+  operator delete(a1);
+}
+
+void std::__function::__func<vp::vx::data_flow::State<applesauce::CF::DictionaryRef>::register_listener(std::function<void ()(applesauce::CF::DictionaryRef const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<applesauce::CF::DictionaryRef>::register_listener(std::function<void ()(applesauce::CF::DictionaryRef const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BBB48;
+  std::__function::__value_func<void ()(applesauce::CF::DictionaryRef const&)>::~__value_func[abi:ne200100]((a1 + 1));
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<vp::vx::data_flow::State<applesauce::CF::DictionaryRef>::register_listener(std::function<void ()(applesauce::CF::DictionaryRef const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<applesauce::CF::DictionaryRef>::register_listener(std::function<void ()(applesauce::CF::DictionaryRef const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BBB48;
+  std::__function::__value_func<void ()(applesauce::CF::DictionaryRef const&)>::~__value_func[abi:ne200100]((a1 + 1));
+  return a1;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)80,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)80,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1}>,void ()(applesauce::CF::DictionaryRef const&)>::operator()(uint64_t a1, CFTypeRef *a2)
+{
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
+  if (v4)
+  {
+    v5 = v4 - 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  vp::sim::Property_List_Writer::find_writable_element(&cf, v3, v5);
+  v6 = cf;
+  v7 = cf;
+  vp::sim::Key_Writer::count(&v7, 0x50, "Other Audio Ducking Config");
+  vp::sim::converters::Default_Converter_CF<applesauce::CF::DictionaryRef>::to_property_list(&cf, *a2);
+  vp::sim::Key_Writer::set(&v7, 0x50, "Other Audio Ducking Config", &cf);
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  if (v6)
+  {
+    CFRelease(v6);
+  }
+}
+
+void sub_27269D520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  __cxa_end_catch();
+  vp::sim::Key_Writer::~Key_Writer(va);
+  _Unwind_Resume(a1);
+}
+
+applesauce::CF::TypeRef *vp::sim::converters::Default_Converter_CF<applesauce::CF::DictionaryRef>::to_property_list(applesauce::CF::TypeRef *this, CFTypeRef cf)
+{
+  if (cf)
+  {
+    result = CFRetain(cf);
+    *this = cf;
+  }
+
+  else
+  {
+
+    return applesauce::CF::TypeRef::TypeRef(this, "?");
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)80,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)80,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1}>,void ()(applesauce::CF::DictionaryRef const&)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)80,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)80,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1}>,void ()(applesauce::CF::DictionaryRef const&)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)80,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)80,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1}>,void ()(applesauce::CF::DictionaryRef const&)>::__clone(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881BD7F8;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)80,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)80,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1}>,void ()(applesauce::CF::DictionaryRef const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD7F8;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)80,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)80,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1}>,void ()(applesauce::CF::DictionaryRef const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD7F8;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)80,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BD7C8;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)80,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BD7C8;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+  return a1;
+}
+
+CFDictionaryRef *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF13DictionaryRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_10components20Property_List_Writer26set_up_key_state_listenersERSB_RKNS3_27Voice_Processor_State_OwnerEE4__14J39AUVoiceIOOtherAudioDuckingConfigurationEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSK_EEERNS4_13State_ManagerESM_ST_EUlPPKNS4_5ValueEPS11_E_NS_9allocatorIS16_EEFvS14_S15_EEclEOS14_OS15_(uint64_t a1, uint64_t (******a2)(), vp::vx::data_flow::Value **a3)
+{
+  v21[1] = *MEMORY[0x277D85DE8];
+  v3 = *a3;
+  v4 = **a2;
+  if (v4[2] == &vp::vx::data_flow::Value::type_id<AUVoiceIOOtherAudioDuckingConfiguration>(void)::s_type_id)
+  {
+    v5 = vp::vx::data_flow::Value::view_storage(v4);
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  v6 = *(v5 + 1);
+  applesauce::CF::TypeRef::TypeRef(v18, "DuckingLevel");
+  valuePtr = v6;
+  if (!CFNumberCreate(0, kCFNumberIntType, &valuePtr))
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "Could not construct");
+  }
+
+  v7 = *v5;
+  applesauce::CF::TypeRef::TypeRef(v20, "EnableAdvancedDucking");
+  v8 = MEMORY[0x277CBED28];
+  if (!v7)
+  {
+    v8 = MEMORY[0x277CBED10];
+  }
+
+  v21[0] = *v8;
+  v16[0] = v18;
+  v16[1] = 2;
+  CFDictionaryRef = applesauce::CF::details::make_CFDictionaryRef(v16);
+  for (i = 0; i != -4; i -= 2)
+  {
+    v11 = v21[i];
+    if (v11)
+    {
+      CFRelease(v11);
+    }
+
+    v12 = *&v20[i * 8];
+    if (v12)
+    {
+      CFRelease(v12);
+    }
+  }
+
+  vp::vx::data_flow::Value::~Value(v3);
+  *v3 = std::pmr::get_default_resource(v13);
+  *(v3 + 1) = 0;
+  *(v3 + 2) = &vp::vx::data_flow::Value::type_id<applesauce::CF::DictionaryRef>(void)::s_type_id;
+  result = vp::vx::data_flow::Value::allocate_storage(v3);
+  *result = CFDictionaryRef;
+  return result;
+}
+
+void sub_27269D998(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+{
+  va_start(va, a11);
+  applesauce::CF::ObjectRef<void const*>::~ObjectRef((v11 + 8));
+  applesauce::CF::TypeRef::~TypeRef(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF13DictionaryRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_10components20Property_List_Writer26set_up_key_state_listenersERSB_RKNS3_27Voice_Processor_State_OwnerEE4__14J39AUVoiceIOOtherAudioDuckingConfigurationEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSK_EEERNS4_13State_ManagerESM_ST_EUlPPKNS4_5ValueEPS11_E_NS_9allocatorIS16_EEFvS14_S15_EE7__cloneEPNS0_6__baseIS19_EE(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_2881BB2A8;
+  *(a2 + 8) = *(result + 8);
+  return result;
+}
+
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)79,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)79,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v3 = result;
+    (**v2)(v2);
+    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
+  }
+
+  return result;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)79,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4[0] = &unk_2881BD780;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(BOOL const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
+  operator new();
+}
+
+void sub_27269DCB0(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)79,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)79,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::operator()(uint64_t a1, _BYTE *a2)
+{
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
+  if (v4)
+  {
+    v5 = v4 - 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
+  v6 = v10;
+  v9 = v10;
+  vp::sim::Key_Writer::count(&v9, 0x4F, "Media Playback on External Device");
+  v7 = MEMORY[0x277CBED28];
+  if (!*a2)
+  {
+    v7 = MEMORY[0x277CBED10];
+  }
+
+  v8 = *v7;
+  if (!*v7)
+  {
+    v10 = 0;
+    vp::sim::Key_Writer::set(&v9, 0x4F, "Media Playback on External Device", &v10);
+    if (!v6)
+    {
+      return;
+    }
+
+    goto LABEL_10;
+  }
+
+  CFRetain(*v7);
+  v10 = v8;
+  vp::sim::Key_Writer::set(&v9, 0x4F, "Media Playback on External Device", &v10);
+  CFRelease(v8);
+  CFRelease(v8);
+  if (v6)
+  {
+LABEL_10:
+    CFRelease(v6);
+  }
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)79,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)79,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)79,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)79,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)79,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)79,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::__clone(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881BD780;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)79,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)79,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD780;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)79,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)79,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD780;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)79,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BD750;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)79,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BD750;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+  return a1;
+}
+
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)78,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)78,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v3 = result;
+    (**v2)(v2);
+    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
+  }
+
+  return result;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)78,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4[0] = &unk_2881BD708;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(applesauce::CF::DictionaryRef const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
+  operator new();
+}
+
+void sub_27269E1E8(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)78,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)78,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1}>,void ()(applesauce::CF::DictionaryRef const&)>::operator()(uint64_t a1, CFTypeRef *a2)
+{
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
+  if (v4)
+  {
+    v5 = v4 - 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  vp::sim::Property_List_Writer::find_writable_element(&cf, v3, v5);
+  v6 = cf;
+  v7 = cf;
+  vp::sim::Key_Writer::count(&v7, 0x4E, "Spatial Head Tracking Configuration");
+  vp::sim::converters::Default_Converter_CF<applesauce::CF::DictionaryRef>::to_property_list(&cf, *a2);
+  vp::sim::Key_Writer::set(&v7, 0x4E, "Spatial Head Tracking Configuration", &cf);
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  if (v6)
+  {
+    CFRelease(v6);
+  }
+}
+
+void sub_27269E2B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  __cxa_end_catch();
+  vp::sim::Key_Writer::~Key_Writer(va);
+  _Unwind_Resume(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)78,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)78,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1}>,void ()(applesauce::CF::DictionaryRef const&)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)78,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)78,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1}>,void ()(applesauce::CF::DictionaryRef const&)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)78,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)78,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1}>,void ()(applesauce::CF::DictionaryRef const&)>::__clone(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881BD708;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)78,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)78,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1}>,void ()(applesauce::CF::DictionaryRef const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD708;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)78,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)78,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1}>,void ()(applesauce::CF::DictionaryRef const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD708;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)78,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BD6D8;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)78,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BD6D8;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+  return a1;
+}
+
+CFDictionaryRef *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF13DictionaryRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_10components20Property_List_Writer26set_up_key_state_listenersERSB_RKNS3_27Voice_Processor_State_OwnerEE4__13JNS3_35Spatial_Head_Tracking_ConfigurationEEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSK_EEERNS4_13State_ManagerESM_ST_EUlPPKNS4_5ValueEPS11_E_NS_9allocatorIS16_EEFvS14_S15_EEclEOS14_OS15_(uint64_t a1, uint64_t (******a2)(), vp::vx::data_flow::Value **a3)
+{
+  v22[1] = *MEMORY[0x277D85DE8];
+  v3 = *a3;
+  v4 = **a2;
+  if (v4[2] == &vp::vx::data_flow::Value::type_id<vp::vx::Spatial_Head_Tracking_Configuration>(void)::s_type_id)
+  {
+    v5 = vp::vx::data_flow::Value::view_storage(v4);
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  LODWORD(valuePtr) = *v5;
+  cf = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
+  if (!cf)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "Could not construct");
+  }
+
+  applesauce::CF::TypeRef::TypeRef(v19, "SpatialMode");
+  v6 = cf;
+  if (cf)
+  {
+    CFRetain(cf);
+  }
+
+  v20 = v6;
+  if (*(v5 + 4))
+  {
+    v7 = MEMORY[0x277CBED28];
+  }
+
+  else
+  {
+    v7 = MEMORY[0x277CBED10];
+  }
+
+  valuePtr = *v7;
+  v8 = valuePtr;
+  applesauce::CF::TypeRef::TypeRef(v21, "HeadTracking");
+  if (v8)
+  {
+    CFRetain(v8);
+  }
+
+  v22[0] = v8;
+  v18[0] = v19;
+  v18[1] = 2;
+  CFDictionaryRef = applesauce::CF::details::make_CFDictionaryRef(v18);
+  for (i = 0; i != -4; i -= 2)
+  {
+    v11 = v22[i];
+    if (v11)
+    {
+      CFRelease(v11);
+    }
+
+    v12 = *&v21[i * 8];
+    if (v12)
+    {
+      CFRelease(v12);
+    }
+  }
+
+  if (v8)
+  {
+    CFRelease(v8);
+  }
+
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  vp::vx::data_flow::Value::~Value(v3);
+  *v3 = std::pmr::get_default_resource(v13);
+  *(v3 + 1) = 0;
+  *(v3 + 2) = &vp::vx::data_flow::Value::type_id<applesauce::CF::DictionaryRef>(void)::s_type_id;
+  result = vp::vx::data_flow::Value::allocate_storage(v3);
+  *result = CFDictionaryRef;
+  return result;
+}
+
+void sub_27269E704(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  applesauce::CF::ObjectRef<__CFNumber const*>::~ObjectRef(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF13DictionaryRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_10components20Property_List_Writer26set_up_key_state_listenersERSB_RKNS3_27Voice_Processor_State_OwnerEE4__13JNS3_35Spatial_Head_Tracking_ConfigurationEEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSK_EEERNS4_13State_ManagerESM_ST_EUlPPKNS4_5ValueEPS11_E_NS_9allocatorIS16_EEFvS14_S15_EE7__cloneEPNS0_6__baseIS19_EE(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_2881BB260;
+  *(a2 + 8) = *(result + 8);
+  return result;
+}
+
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)77,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)77,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v3 = result;
+    (**v2)(v2);
+    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
+  }
+
+  return result;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)77,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4[0] = &unk_2881BD690;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(float const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
+  operator new();
+}
+
+void sub_27269EA44(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+uint64_t std::__function::__func<vp::vx::data_flow::State<float>::register_listener(std::function<void ()(float const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<float>::register_listener(std::function<void ()(float const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::operator()(uint64_t result, int a2, vp::vx::data_flow::Value *this)
+{
+  if (*(result + 32))
+  {
+    v3 = *(this + 2) == &vp::vx::data_flow::Value::type_id<float>(void)::s_type_id;
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  if (v3)
+  {
+    v4 = result;
+    result = vp::vx::data_flow::Value::view_storage(this);
+    if (result)
+    {
+      v5 = *(v4 + 32);
+      if (!v5)
+      {
+        std::__throw_bad_function_call[abi:ne200100]();
+      }
+
+      v6 = *(*v5 + 48);
+
+      return v6();
+    }
+  }
+
+  return result;
+}
+
+void std::__function::__func<vp::vx::data_flow::State<float>::register_listener(std::function<void ()(float const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<float>::register_listener(std::function<void ()(float const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::destroy_deallocate(void *a1)
+{
+  std::__function::__value_func<void ()(float const&)>::~__value_func[abi:ne200100](a1 + 8);
+
+  operator delete(a1);
+}
+
+void std::__function::__func<vp::vx::data_flow::State<float>::register_listener(std::function<void ()(float const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<float>::register_listener(std::function<void ()(float const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BC9B8;
+  std::__function::__value_func<void ()(float const&)>::~__value_func[abi:ne200100]((a1 + 1));
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<vp::vx::data_flow::State<float>::register_listener(std::function<void ()(float const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<float>::register_listener(std::function<void ()(float const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BC9B8;
+  std::__function::__value_func<void ()(float const&)>::~__value_func[abi:ne200100]((a1 + 1));
+  return a1;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)77,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)77,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1}>,void ()(float const&)>::operator()(uint64_t a1, float *a2)
+{
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
+  if (v4)
+  {
+    v5 = v4 - 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
+  v6 = v10;
+  v8 = v10;
+  vp::sim::Key_Writer::count(&v8, 0x4D, "Media Chat Volume");
+  vp::sim::converters::Default_Converter<float>::to_property_list(&cf, *a2);
+  v7 = cf;
+  if (cf)
+  {
+    CFRetain(cf);
+    v10 = v7;
+    vp::sim::Key_Writer::set(&v8, 0x4D, "Media Chat Volume", &v10);
+    CFRelease(v7);
+  }
+
+  else
+  {
+    v10 = 0;
+    vp::sim::Key_Writer::set(&v8, 0x4D, "Media Chat Volume", &v10);
+  }
+
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  if (v6)
+  {
+    CFRelease(v6);
+  }
+}
+
+void sub_27269ED78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  __cxa_end_catch();
+  vp::sim::Key_Writer::~Key_Writer(va);
+  _Unwind_Resume(a1);
+}
+
+CFNumberRef vp::sim::converters::Default_Converter<float>::to_property_list(CFNumberRef *a1, float a2)
+{
+  valuePtr = a2;
+  result = CFNumberCreate(0, kCFNumberFloatType, &valuePtr);
+  *a1 = result;
+  if (!result)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "Could not construct");
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)77,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)77,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1}>,void ()(float const&)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)77,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)77,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1}>,void ()(float const&)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)77,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)77,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1}>,void ()(float const&)>::__clone(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881BD690;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)77,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)77,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1}>,void ()(float const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD690;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)77,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)77,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1}>,void ()(float const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD690;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)77,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BD660;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)77,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BD660;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+  return a1;
+}
+
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)76,applesauce::CF::DataRef>(vp::vx::data_flow::State<applesauce::CF::DataRef>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)76,applesauce::CF::DataRef>(vp::vx::data_flow::State<applesauce::CF::DataRef>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v3 = result;
+    (**v2)(v2);
+    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
+  }
+
+  return result;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)76,applesauce::CF::DataRef>(vp::vx::data_flow::State<applesauce::CF::DataRef>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4[0] = &unk_2881BD618;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(applesauce::CF::DataRef const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
+  operator new();
+}
+
+void sub_27269F270(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+uint64_t std::__function::__value_func<void ()(applesauce::CF::DataRef const&)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
+{
+  v3 = (a2 + 24);
+  v4 = *(a2 + 24);
+  if (v4)
+  {
+    if (v4 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**v3 + 24))(*v3, a1);
+      return a1;
+    }
+
+    *(a1 + 24) = v4;
+  }
+
+  else
+  {
+    v3 = (a1 + 24);
+  }
+
+  *v3 = 0;
+  return a1;
+}
+
+{
+  v3 = *(a2 + 24);
+  if (v3)
+  {
+    if (v3 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
+    }
+
+    else
+    {
+      *(a1 + 24) = (*(*v3 + 16))(v3);
+    }
+  }
+
+  else
+  {
+    *(a1 + 24) = 0;
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__value_func<void ()(applesauce::CF::DataRef const&)>::~__value_func[abi:ne200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__func<vp::vx::data_flow::State<applesauce::CF::DataRef>::register_listener(std::function<void ()(applesauce::CF::DataRef const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<applesauce::CF::DataRef>::register_listener(std::function<void ()(applesauce::CF::DataRef const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::operator()(uint64_t result, int a2, vp::vx::data_flow::Value *this)
+{
+  if (*(result + 32))
+  {
+    v3 = *(this + 2) == &vp::vx::data_flow::Value::type_id<applesauce::CF::DataRef>(void)::s_type_id;
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  if (v3)
+  {
+    v4 = result;
+    result = vp::vx::data_flow::Value::view_storage(this);
+    if (result)
+    {
+      v5 = *(v4 + 32);
+      if (!v5)
+      {
+        std::__throw_bad_function_call[abi:ne200100]();
+      }
+
+      v6 = *(*v5 + 48);
+
+      return v6();
+    }
+  }
+
+  return result;
+}
+
+BOOL vp::vx::data_flow::Value::Type_ID_Eraser<applesauce::CF::DataRef>::compare_value(uint64_t a1, CFDataRef *a2, CFDataRef *a3)
+{
+  result = (*a2 | *a3) == 0;
+  if (*a2)
+  {
+    v4 = *a3 == 0;
+  }
+
+  else
+  {
+    v4 = 1;
+  }
+
+  if (!v4)
+  {
+    BytePtr = CFDataGetBytePtr(*a2);
+    if (*a3)
+    {
+      v8 = CFDataGetBytePtr(*a3);
+    }
+
+    else
+    {
+      v8 = 0;
+    }
+
+    if (*a2)
+    {
+      Length = CFDataGetLength(*a2);
+    }
+
+    else
+    {
+      Length = 0;
+    }
+
+    v10 = *a3;
+    if (*a3)
+    {
+      v10 = CFDataGetLength(v10);
+    }
+
+    return Length == v10 && memcmp(BytePtr, v8, Length) == 0;
+  }
+
+  return result;
+}
+
+void vp::vx::data_flow::Value::Type_ID_Eraser<applesauce::CF::DataRef>::destroy_value(uint64_t a1, CFTypeRef *a2)
+{
+  if (*a2)
+  {
+    CFRelease(*a2);
+  }
+}
+
+CFTypeRef vp::vx::data_flow::Value::Type_ID_Eraser<applesauce::CF::DataRef>::copy_value(uint64_t a1, void *a2, CFTypeRef *a3)
+{
+  v4 = *a3;
+  if (*a3)
+  {
+    result = CFRetain(*a3);
+  }
+
+  *a2 = v4;
+  return result;
+}
+
+uint64_t vp::vx::data_flow::Value::Type_ID_Eraser<applesauce::CF::DataRef>::view_storage(uint64_t a1, uint64_t a2)
+{
+  return a2;
+}
+
+{
+  return a2;
+}
+
+void std::__function::__func<vp::vx::data_flow::State<applesauce::CF::DataRef>::register_listener(std::function<void ()(applesauce::CF::DataRef const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<applesauce::CF::DataRef>::register_listener(std::function<void ()(applesauce::CF::DataRef const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::destroy_deallocate(void *a1)
+{
+  std::__function::__value_func<void ()(applesauce::CF::DataRef const&)>::~__value_func[abi:ne200100](a1 + 8);
+
+  operator delete(a1);
+}
+
+void std::__function::__func<vp::vx::data_flow::State<applesauce::CF::DataRef>::register_listener(std::function<void ()(applesauce::CF::DataRef const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<applesauce::CF::DataRef>::register_listener(std::function<void ()(applesauce::CF::DataRef const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD5D0;
+  std::__function::__value_func<void ()(applesauce::CF::DataRef const&)>::~__value_func[abi:ne200100]((a1 + 1));
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<vp::vx::data_flow::State<applesauce::CF::DataRef>::register_listener(std::function<void ()(applesauce::CF::DataRef const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<applesauce::CF::DataRef>::register_listener(std::function<void ()(applesauce::CF::DataRef const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD5D0;
+  std::__function::__value_func<void ()(applesauce::CF::DataRef const&)>::~__value_func[abi:ne200100]((a1 + 1));
+  return a1;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)76,applesauce::CF::DataRef>(vp::vx::data_flow::State<applesauce::CF::DataRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DataRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)76,applesauce::CF::DataRef>(vp::vx::data_flow::State<applesauce::CF::DataRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DataRef const&)#1}>,void ()(applesauce::CF::DataRef const&)>::operator()(uint64_t a1, const void **a2)
+{
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
+  if (v4)
+  {
+    v5 = v4 - 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  vp::sim::Property_List_Writer::find_writable_element(&cf, v3, v5);
+  v6 = cf;
+  v8 = cf;
+  vp::sim::Key_Writer::count(&v8, 0x4C, "Spatial Metadata");
+  v7 = *a2;
+  if (v7)
+  {
+    CFRetain(v7);
+    cf = v7;
+  }
+
+  else
+  {
+    applesauce::CF::TypeRef::TypeRef(&cf, "?");
+  }
+
+  vp::sim::Key_Writer::set(&v8, 0x4C, "Spatial Metadata", &cf);
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  if (v6)
+  {
+    CFRelease(v6);
+  }
+}
+
+void sub_27269F878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  __cxa_end_catch();
+  vp::sim::Key_Writer::~Key_Writer(va);
+  _Unwind_Resume(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)76,applesauce::CF::DataRef>(vp::vx::data_flow::State<applesauce::CF::DataRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DataRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)76,applesauce::CF::DataRef>(vp::vx::data_flow::State<applesauce::CF::DataRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DataRef const&)#1}>,void ()(applesauce::CF::DataRef const&)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)76,applesauce::CF::DataRef>(vp::vx::data_flow::State<applesauce::CF::DataRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DataRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)76,applesauce::CF::DataRef>(vp::vx::data_flow::State<applesauce::CF::DataRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DataRef const&)#1}>,void ()(applesauce::CF::DataRef const&)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)76,applesauce::CF::DataRef>(vp::vx::data_flow::State<applesauce::CF::DataRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DataRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)76,applesauce::CF::DataRef>(vp::vx::data_flow::State<applesauce::CF::DataRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DataRef const&)#1}>,void ()(applesauce::CF::DataRef const&)>::__clone(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881BD618;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)76,applesauce::CF::DataRef>(vp::vx::data_flow::State<applesauce::CF::DataRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DataRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)76,applesauce::CF::DataRef>(vp::vx::data_flow::State<applesauce::CF::DataRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DataRef const&)#1}>,void ()(applesauce::CF::DataRef const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD618;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)76,applesauce::CF::DataRef>(vp::vx::data_flow::State<applesauce::CF::DataRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DataRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)76,applesauce::CF::DataRef>(vp::vx::data_flow::State<applesauce::CF::DataRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DataRef const&)#1}>,void ()(applesauce::CF::DataRef const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD618;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)76,applesauce::CF::DataRef>(vp::vx::data_flow::State<applesauce::CF::DataRef>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BD5A0;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)76,applesauce::CF::DataRef>(vp::vx::data_flow::State<applesauce::CF::DataRef>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BD5A0;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+  return a1;
+}
+
+CFDataRef *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF7DataRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_10components20Property_List_Writer26set_up_key_state_listenersERSB_RKNS3_27Voice_Processor_State_OwnerEE4__12JNS_6vectorIhNS_9allocatorIhEEEEEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSN_EEERNS4_13State_ManagerESP_SW_EUlPPKNS4_5ValueEPS14_E_NSL_IS19_EEFvS17_S18_EEclEOS17_OS18_(uint64_t a1, vp::vx::data_flow::Value ***a2, vp::vx::data_flow::Value **a3)
+{
+  v3 = *a3;
+  v4 = vp::vx::data_flow::Value::view_storage(**a2);
+  v5 = CFDataCreate(0, *v4, *(v4 + 8) - *v4);
+  if (!v5)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    applesauce::CF::construct_error(exception);
+  }
+
+  v11 = v5;
+  v6 = CFGetTypeID(v5);
+  if (v6 != CFDataGetTypeID())
+  {
+    v10 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v10, "Could not construct");
+  }
+
+  vp::vx::data_flow::Value::~Value(v3);
+  *v3 = std::pmr::get_default_resource(v7);
+  *(v3 + 1) = 0;
+  *(v3 + 2) = &vp::vx::data_flow::Value::type_id<applesauce::CF::DataRef>(void)::s_type_id;
+  result = vp::vx::data_flow::Value::allocate_storage(v3);
+  *result = v11;
+  return result;
+}
+
+void sub_27269FBEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10)
+{
+  __cxa_free_exception(v10);
+  applesauce::CF::ObjectRef<__CFData const*>::~ObjectRef(&a10);
+  _Unwind_Resume(a1);
+}
+
+BOOL vp::vx::data_flow::Value::Type_ID_Eraser<std::vector<unsigned char>>::compare_value(uint64_t a1, const void ***a2, uint64_t *a3)
+{
+  v3 = *a3;
+  v4 = **a2;
+  v5 = ((*a2)[1] - v4);
+  return v5 == (*(v3 + 8) - *v3) && memcmp(v4, *v3, v5) == 0;
+}
+
+void vp::vx::data_flow::Value::Type_ID_Eraser<std::vector<unsigned char>>::destroy_value(uint64_t a1, void ***a2)
+{
+  v2 = **a2;
+  if (v2)
+  {
+    (*a2)[1] = v2;
+    operator delete(v2);
+  }
+}
+
+__n128 vp::vx::data_flow::Value::Type_ID_Eraser<std::vector<unsigned char>>::move_value(uint64_t a1, __n128 **a2, __n128 **a3)
+{
+  v3 = *a2;
+  v4 = *a3;
+  v3->n128_u64[0] = 0;
+  v3->n128_u64[1] = 0;
+  v3[1].n128_u64[0] = 0;
+  result = *v4;
+  *v3 = *v4;
+  v3[1].n128_u64[0] = v4[1].n128_u64[0];
+  v4->n128_u64[0] = 0;
+  v4->n128_u64[1] = 0;
+  v4[1].n128_u64[0] = 0;
+  return result;
+}
+
+uint64_t *vp::vx::data_flow::Value::Type_ID_Eraser<std::vector<unsigned char>>::copy_value(uint64_t a1, uint64_t **a2, uint64_t *a3)
+{
+  v3 = *a2;
+  v4 = *a3;
+  *v3 = 0;
+  v3[1] = 0;
+  v3[2] = 0;
+  return std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(v3, *v4, *(v4 + 8), *(v4 + 8) - *v4);
+}
+
+uint64_t vp::vx::data_flow::Value::Type_ID_Eraser<std::vector<unsigned char>>::view_storage(uint64_t a1, uint64_t a2)
+{
+  return *a2;
+}
+
+{
+  return *a2;
+}
+
+uint64_t vp::vx::data_flow::Value::Type_ID_Eraser<std::vector<unsigned char>>::allocate_storage(uint64_t a1, uint64_t *a2, void *a3)
+{
+  result = (*(**a3 + 16))(*a3, 24, 8);
+  *a2 = result;
+  return result;
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF7DataRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_10components20Property_List_Writer26set_up_key_state_listenersERSB_RKNS3_27Voice_Processor_State_OwnerEE4__12JNS_6vectorIhNS_9allocatorIhEEEEEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSN_EEERNS4_13State_ManagerESP_SW_EUlPPKNS4_5ValueEPS14_E_NSL_IS19_EEFvS17_S18_EE7__cloneEPNS0_6__baseIS1B_EE(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_2881BB1B0;
+  *(a2 + 8) = *(result + 8);
+  return result;
+}
+
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)75,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)75,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v3 = result;
+    (**v2)(v2);
+    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
+  }
+
+  return result;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)75,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4[0] = &unk_2881BD558;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(unsigned int const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
+  operator new();
+}
+
+void sub_2726A0010(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)75,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)75,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::operator()(uint64_t a1, int *a2)
+{
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
+  if (v4)
+  {
+    v5 = v4 - 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
+  v6 = v10;
+  v8 = v10;
+  vp::sim::Key_Writer::count(&v8, 0x4B, "Chat Flavor");
+  vp::sim::converters::Default_Converter<unsigned int>::to_property_list(&cf, *a2);
+  v7 = cf;
+  if (cf)
+  {
+    CFRetain(cf);
+    v10 = v7;
+    vp::sim::Key_Writer::set(&v8, 0x4B, "Chat Flavor", &v10);
+    CFRelease(v7);
+  }
+
+  else
+  {
+    v10 = 0;
+    vp::sim::Key_Writer::set(&v8, 0x4B, "Chat Flavor", &v10);
+  }
+
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  if (v6)
+  {
+    CFRelease(v6);
+  }
+}
+
+void sub_2726A0120(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  __cxa_end_catch();
+  vp::sim::Key_Writer::~Key_Writer(va);
+  _Unwind_Resume(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)75,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)75,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)75,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)75,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)75,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)75,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::__clone(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881BD558;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)75,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)75,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD558;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)75,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)75,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD558;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)75,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BD528;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)75,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BD528;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+  return a1;
+}
+
+_DWORD *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIjEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_10components20Property_List_Writer26set_up_key_state_listenersERS8_RKNS3_27Voice_Processor_State_OwnerEE4__11JNS3_11Chat_FlavorEEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSH_EEERNS4_13State_ManagerESJ_SQ_EUlPPKNS4_5ValueEPSY_E_NS_9allocatorIS13_EEFvS11_S12_EEclEOS11_OS12_(uint64_t a1, vp::vx::data_flow::Value ***a2, vp::vx::data_flow::Value **a3)
+{
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = *a3;
+  v4 = vp::vx::data_flow::Value::view_storage(**a2);
+  v5 = *v4;
+  log = vp::get_log(v4);
+  if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
+  {
+    v9[0] = 67109120;
+    v9[1] = v5;
+    _os_log_impl(&dword_2724B4000, log, OS_LOG_TYPE_DEFAULT, "chat flavor changed to %u", v9, 8u);
+  }
+
+  vp::vx::Legacy<vp::vx::Chat_Flavor>::cast(v5);
+  vp::vx::data_flow::Value::~Value(v3);
+  *v3 = std::pmr::get_default_resource(v7);
+  *(v3 + 1) = 0;
+  *(v3 + 2) = &vp::vx::data_flow::Value::type_id<unsigned int>(void)::s_type_id;
+  result = vp::vx::data_flow::Value::allocate_storage(v3);
+  *result = v5;
+  return result;
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIjEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_10components20Property_List_Writer26set_up_key_state_listenersERS8_RKNS3_27Voice_Processor_State_OwnerEE4__11JNS3_11Chat_FlavorEEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSH_EEERNS4_13State_ManagerESJ_SQ_EUlPPKNS4_5ValueEPSY_E_NS_9allocatorIS13_EEFvS11_S12_EE7__cloneEPNS0_6__baseIS16_EE(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_2881BB168;
+  *(a2 + 8) = *(result + 8);
+  return result;
+}
+
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)74,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)74,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v3 = result;
+    (**v2)(v2);
+    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
+  }
+
+  return result;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)74,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4[0] = &unk_2881BD4E0;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(BOOL const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
+  operator new();
+}
+
+void sub_2726A076C(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)74,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)74,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::operator()(uint64_t a1, _BYTE *a2)
+{
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
+  if (v4)
+  {
+    v5 = v4 - 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
+  v6 = v10;
+  v9 = v10;
+  vp::sim::Key_Writer::count(&v9, 0x4A, "Enable Spatial Chat");
+  v7 = MEMORY[0x277CBED28];
+  if (!*a2)
+  {
+    v7 = MEMORY[0x277CBED10];
+  }
+
+  v8 = *v7;
+  if (!*v7)
+  {
+    v10 = 0;
+    vp::sim::Key_Writer::set(&v9, 0x4A, "Enable Spatial Chat", &v10);
+    if (!v6)
+    {
+      return;
+    }
+
+    goto LABEL_10;
+  }
+
+  CFRetain(*v7);
+  v10 = v8;
+  vp::sim::Key_Writer::set(&v9, 0x4A, "Enable Spatial Chat", &v10);
+  CFRelease(v8);
+  CFRelease(v8);
+  if (v6)
+  {
+LABEL_10:
+    CFRelease(v6);
+  }
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)74,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)74,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)74,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)74,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)74,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)74,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::__clone(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881BD4E0;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)74,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)74,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD4E0;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)74,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)74,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD4E0;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)74,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BD4B0;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)74,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BD4B0;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+  return a1;
+}
+
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)73,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)73,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v3 = result;
+    (**v2)(v2);
+    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
+  }
+
+  return result;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)73,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4[0] = &unk_2881BD468;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(BOOL const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
+  operator new();
+}
+
+void sub_2726A0CA4(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)73,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)73,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::operator()(uint64_t a1, _BYTE *a2)
+{
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
+  if (v4)
+  {
+    v5 = v4 - 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
+  v6 = v10;
+  v9 = v10;
+  vp::sim::Key_Writer::count(&v9, 0x49, "Enable Media Chat");
+  v7 = MEMORY[0x277CBED28];
+  if (!*a2)
+  {
+    v7 = MEMORY[0x277CBED10];
+  }
+
+  v8 = *v7;
+  if (!*v7)
+  {
+    v10 = 0;
+    vp::sim::Key_Writer::set(&v9, 0x49, "Enable Media Chat", &v10);
+    if (!v6)
+    {
+      return;
+    }
+
+    goto LABEL_10;
+  }
+
+  CFRetain(*v7);
+  v10 = v8;
+  vp::sim::Key_Writer::set(&v9, 0x49, "Enable Media Chat", &v10);
+  CFRelease(v8);
+  CFRelease(v8);
+  if (v6)
+  {
+LABEL_10:
+    CFRelease(v6);
+  }
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)73,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)73,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)73,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)73,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)73,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)73,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::__clone(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881BD468;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)73,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)73,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD468;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)73,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)73,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD468;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)73,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BD438;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)73,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BD438;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+  return a1;
+}
+
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)71,applesauce::CF::ArrayRef>(vp::vx::data_flow::State<applesauce::CF::ArrayRef>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)71,applesauce::CF::ArrayRef>(vp::vx::data_flow::State<applesauce::CF::ArrayRef>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v3 = result;
+    (**v2)(v2);
+    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
+  }
+
+  return result;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)71,applesauce::CF::ArrayRef>(vp::vx::data_flow::State<applesauce::CF::ArrayRef>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4[0] = &unk_2881BD3F0;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(applesauce::CF::ArrayRef const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
+  operator new();
+}
+
+void sub_2726A11DC(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)71,applesauce::CF::ArrayRef>(vp::vx::data_flow::State<applesauce::CF::ArrayRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::ArrayRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)71,applesauce::CF::ArrayRef>(vp::vx::data_flow::State<applesauce::CF::ArrayRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::ArrayRef const&)#1}>,void ()(applesauce::CF::ArrayRef const&)>::operator()(uint64_t a1, CFTypeRef *a2)
+{
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
+  if (v4)
+  {
+    v5 = v4 - 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  vp::sim::Property_List_Writer::find_writable_element(&cf, v3, v5);
+  v6 = cf;
+  v7 = cf;
+  vp::sim::Key_Writer::count(&v7, 0x47, "Speaker Calibration Data");
+  vp::sim::converters::Default_Converter_CF<applesauce::CF::ArrayRef>::to_property_list(&cf, *a2);
+  vp::sim::Key_Writer::set(&v7, 0x47, "Speaker Calibration Data", &cf);
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  if (v6)
+  {
+    CFRelease(v6);
+  }
+}
+
+void sub_2726A12A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  __cxa_end_catch();
+  vp::sim::Key_Writer::~Key_Writer(va);
+  _Unwind_Resume(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)71,applesauce::CF::ArrayRef>(vp::vx::data_flow::State<applesauce::CF::ArrayRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::ArrayRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)71,applesauce::CF::ArrayRef>(vp::vx::data_flow::State<applesauce::CF::ArrayRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::ArrayRef const&)#1}>,void ()(applesauce::CF::ArrayRef const&)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)71,applesauce::CF::ArrayRef>(vp::vx::data_flow::State<applesauce::CF::ArrayRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::ArrayRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)71,applesauce::CF::ArrayRef>(vp::vx::data_flow::State<applesauce::CF::ArrayRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::ArrayRef const&)#1}>,void ()(applesauce::CF::ArrayRef const&)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)71,applesauce::CF::ArrayRef>(vp::vx::data_flow::State<applesauce::CF::ArrayRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::ArrayRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)71,applesauce::CF::ArrayRef>(vp::vx::data_flow::State<applesauce::CF::ArrayRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::ArrayRef const&)#1}>,void ()(applesauce::CF::ArrayRef const&)>::__clone(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881BD3F0;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)71,applesauce::CF::ArrayRef>(vp::vx::data_flow::State<applesauce::CF::ArrayRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::ArrayRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)71,applesauce::CF::ArrayRef>(vp::vx::data_flow::State<applesauce::CF::ArrayRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::ArrayRef const&)#1}>,void ()(applesauce::CF::ArrayRef const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD3F0;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)71,applesauce::CF::ArrayRef>(vp::vx::data_flow::State<applesauce::CF::ArrayRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::ArrayRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)71,applesauce::CF::ArrayRef>(vp::vx::data_flow::State<applesauce::CF::ArrayRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::ArrayRef const&)#1}>,void ()(applesauce::CF::ArrayRef const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD3F0;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)71,applesauce::CF::ArrayRef>(vp::vx::data_flow::State<applesauce::CF::ArrayRef>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BD378;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)71,applesauce::CF::ArrayRef>(vp::vx::data_flow::State<applesauce::CF::ArrayRef>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BD378;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+  return a1;
+}
+
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)70,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)70,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v3 = result;
+    (**v2)(v2);
+    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
+  }
+
+  return result;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)70,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4[0] = &unk_2881BD330;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(applesauce::CF::DictionaryRef const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
+  operator new();
+}
+
+void sub_2726A16F4(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)70,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)70,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1}>,void ()(applesauce::CF::DictionaryRef const&)>::operator()(uint64_t a1, CFTypeRef *a2)
+{
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
+  if (v4)
+  {
+    v5 = v4 - 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  vp::sim::Property_List_Writer::find_writable_element(&cf, v3, v5);
+  v6 = cf;
+  v7 = cf;
+  vp::sim::Key_Writer::count(&v7, 0x46, "Power Budget settings");
+  vp::sim::converters::Default_Converter_CF<applesauce::CF::DictionaryRef>::to_property_list(&cf, *a2);
+  vp::sim::Key_Writer::set(&v7, 0x46, "Power Budget settings", &cf);
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  if (v6)
+  {
+    CFRelease(v6);
+  }
+}
+
+void sub_2726A17C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  __cxa_end_catch();
+  vp::sim::Key_Writer::~Key_Writer(va);
+  _Unwind_Resume(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)70,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)70,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1}>,void ()(applesauce::CF::DictionaryRef const&)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)70,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)70,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1}>,void ()(applesauce::CF::DictionaryRef const&)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)70,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)70,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1}>,void ()(applesauce::CF::DictionaryRef const&)>::__clone(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881BD330;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)70,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)70,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1}>,void ()(applesauce::CF::DictionaryRef const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD330;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)70,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)70,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(applesauce::CF::DictionaryRef const&)#1}>,void ()(applesauce::CF::DictionaryRef const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD330;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)70,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BD300;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)70,applesauce::CF::DictionaryRef>(vp::vx::data_flow::State<applesauce::CF::DictionaryRef>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BD300;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+  return a1;
+}
+
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)69,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)69,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v3 = result;
+    (**v2)(v2);
+    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
+  }
+
+  return result;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)69,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4[0] = &unk_2881BD2B8;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(BOOL const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
+  operator new();
+}
+
+void sub_2726A1C0C(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)69,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)69,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::operator()(uint64_t a1, _BYTE *a2)
+{
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
+  if (v4)
+  {
+    v5 = v4 - 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
+  v6 = v10;
+  v9 = v10;
+  vp::sim::Key_Writer::count(&v9, 0x45, "Mute Downlink Voice");
+  v7 = MEMORY[0x277CBED28];
+  if (!*a2)
+  {
+    v7 = MEMORY[0x277CBED10];
+  }
+
+  v8 = *v7;
+  if (!*v7)
+  {
+    v10 = 0;
+    vp::sim::Key_Writer::set(&v9, 0x45, "Mute Downlink Voice", &v10);
+    if (!v6)
+    {
+      return;
+    }
+
+    goto LABEL_10;
+  }
+
+  CFRetain(*v7);
+  v10 = v8;
+  vp::sim::Key_Writer::set(&v9, 0x45, "Mute Downlink Voice", &v10);
+  CFRelease(v8);
+  CFRelease(v8);
+  if (v6)
+  {
+LABEL_10:
+    CFRelease(v6);
+  }
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)69,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)69,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)69,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)69,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)69,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)69,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::__clone(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881BD2B8;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)69,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)69,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD2B8;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)69,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)69,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD2B8;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)69,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BD288;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)69,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BD288;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+  return a1;
+}
+
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)68,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)68,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v3 = result;
+    (**v2)(v2);
+    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
+  }
+
+  return result;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)68,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4[0] = &unk_2881BD240;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(BOOL const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
+  operator new();
+}
+
+void sub_2726A2144(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)68,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)68,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::operator()(uint64_t a1, _BYTE *a2)
+{
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
+  if (v4)
+  {
+    v5 = v4 - 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
+  v6 = v10;
+  v9 = v10;
+  vp::sim::Key_Writer::count(&v9, 0x44, "Mute Output");
+  v7 = MEMORY[0x277CBED28];
+  if (!*a2)
+  {
+    v7 = MEMORY[0x277CBED10];
+  }
+
+  v8 = *v7;
+  if (!*v7)
+  {
+    v10 = 0;
+    vp::sim::Key_Writer::set(&v9, 0x44, "Mute Output", &v10);
+    if (!v6)
+    {
+      return;
+    }
+
+    goto LABEL_10;
+  }
+
+  CFRetain(*v7);
+  v10 = v8;
+  vp::sim::Key_Writer::set(&v9, 0x44, "Mute Output", &v10);
+  CFRelease(v8);
+  CFRelease(v8);
+  if (v6)
+  {
+LABEL_10:
+    CFRelease(v6);
+  }
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)68,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)68,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)68,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)68,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)68,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)68,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::__clone(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881BD240;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)68,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)68,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD240;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)68,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)68,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD240;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)68,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BD210;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)68,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BD210;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+  return a1;
+}
+
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)65,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)65,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v3 = result;
+    (**v2)(v2);
+    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
+  }
+
+  return result;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)65,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4[0] = &unk_2881BD1C8;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(BOOL const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
+  operator new();
+}
+
+void sub_2726A267C(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)65,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)65,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::operator()(uint64_t a1, _BYTE *a2)
+{
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
+  if (v4)
+  {
+    v5 = v4 - 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
+  v6 = v10;
+  v9 = v10;
+  vp::sim::Key_Writer::count(&v9, 0x41, "HW REF Tap Stream Enabled");
+  v7 = MEMORY[0x277CBED28];
+  if (!*a2)
+  {
+    v7 = MEMORY[0x277CBED10];
+  }
+
+  v8 = *v7;
+  if (!*v7)
+  {
+    v10 = 0;
+    vp::sim::Key_Writer::set(&v9, 0x41, "HW REF Tap Stream Enabled", &v10);
+    if (!v6)
+    {
+      return;
+    }
+
+    goto LABEL_10;
+  }
+
+  CFRetain(*v7);
+  v10 = v8;
+  vp::sim::Key_Writer::set(&v9, 0x41, "HW REF Tap Stream Enabled", &v10);
+  CFRelease(v8);
+  CFRelease(v8);
+  if (v6)
+  {
+LABEL_10:
+    CFRelease(v6);
+  }
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)65,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)65,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)65,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)65,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)65,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)65,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::__clone(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881BD1C8;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)65,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)65,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD1C8;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)65,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)65,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD1C8;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)65,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BD198;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)65,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BD198;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+  return a1;
+}
+
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)64,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)64,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v3 = result;
+    (**v2)(v2);
+    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
+  }
+
+  return result;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)64,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4[0] = &unk_2881BD150;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(float const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
+  operator new();
+}
+
+void sub_2726A2BB4(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)64,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)64,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1}>,void ()(float const&)>::operator()(uint64_t a1, float *a2)
+{
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
+  if (v4)
+  {
+    v5 = v4 - 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
+  v6 = v10;
+  v8 = v10;
+  vp::sim::Key_Writer::count(&v8, 0x40, "IO Cycle Usage");
+  vp::sim::converters::Default_Converter<float>::to_property_list(&cf, *a2);
+  v7 = cf;
+  if (cf)
+  {
+    CFRetain(cf);
+    v10 = v7;
+    vp::sim::Key_Writer::set(&v8, 0x40, "IO Cycle Usage", &v10);
+    CFRelease(v7);
+  }
+
+  else
+  {
+    v10 = 0;
+    vp::sim::Key_Writer::set(&v8, 0x40, "IO Cycle Usage", &v10);
+  }
+
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  if (v6)
+  {
+    CFRelease(v6);
+  }
+}
+
+void sub_2726A2CC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  __cxa_end_catch();
+  vp::sim::Key_Writer::~Key_Writer(va);
+  _Unwind_Resume(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)64,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)64,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1}>,void ()(float const&)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)64,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)64,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1}>,void ()(float const&)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)64,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)64,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1}>,void ()(float const&)>::__clone(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881BD150;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)64,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)64,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1}>,void ()(float const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD150;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)64,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)64,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1}>,void ()(float const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD150;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)64,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BD120;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)64,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BD120;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+  return a1;
+}
+
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)63,CAOrientation>(vp::vx::data_flow::State<CAOrientation>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)63,CAOrientation>(vp::vx::data_flow::State<CAOrientation>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v3 = result;
+    (**v2)(v2);
+    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
+  }
+
+  return result;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)63,CAOrientation>(vp::vx::data_flow::State<CAOrientation>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4[0] = &unk_2881BD0D8;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(CAOrientation const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
+  operator new();
+}
+
+void sub_2726A3110(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+uint64_t std::__function::__value_func<void ()(CAOrientation const&)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
+{
+  v3 = (a2 + 24);
+  v4 = *(a2 + 24);
+  if (v4)
+  {
+    if (v4 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**v3 + 24))(*v3, a1);
+      return a1;
+    }
+
+    *(a1 + 24) = v4;
+  }
+
+  else
+  {
+    v3 = (a1 + 24);
+  }
+
+  *v3 = 0;
+  return a1;
+}
+
+{
+  v3 = *(a2 + 24);
+  if (v3)
+  {
+    if (v3 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
+    }
+
+    else
+    {
+      *(a1 + 24) = (*(*v3 + 16))(v3);
+    }
+  }
+
+  else
+  {
+    *(a1 + 24) = 0;
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__value_func<void ()(CAOrientation const&)>::~__value_func[abi:ne200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__func<vp::vx::data_flow::State<CAOrientation>::register_listener(std::function<void ()(CAOrientation const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<CAOrientation>::register_listener(std::function<void ()(CAOrientation const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::operator()(uint64_t result, int a2, vp::vx::data_flow::Value *this)
+{
+  if (*(result + 32))
+  {
+    v3 = *(this + 2) == &vp::vx::data_flow::Value::type_id<CAOrientation>(void)::s_type_id;
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  if (v3)
+  {
+    v4 = result;
+    result = vp::vx::data_flow::Value::view_storage(this);
+    if (result)
+    {
+      v5 = *(v4 + 32);
+      if (!v5)
+      {
+        std::__throw_bad_function_call[abi:ne200100]();
+      }
+
+      v6 = *(*v5 + 48);
+
+      return v6();
+    }
+  }
+
+  return result;
+}
+
+void std::__function::__func<vp::vx::data_flow::State<CAOrientation>::register_listener(std::function<void ()(CAOrientation const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<CAOrientation>::register_listener(std::function<void ()(CAOrientation const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::destroy_deallocate(void *a1)
+{
+  std::__function::__value_func<void ()(CAOrientation const&)>::~__value_func[abi:ne200100](a1 + 8);
+
+  operator delete(a1);
+}
+
+void std::__function::__func<vp::vx::data_flow::State<CAOrientation>::register_listener(std::function<void ()(CAOrientation const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<CAOrientation>::register_listener(std::function<void ()(CAOrientation const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD018;
+  std::__function::__value_func<void ()(CAOrientation const&)>::~__value_func[abi:ne200100]((a1 + 1));
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<vp::vx::data_flow::State<CAOrientation>::register_listener(std::function<void ()(CAOrientation const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<CAOrientation>::register_listener(std::function<void ()(CAOrientation const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD018;
+  std::__function::__value_func<void ()(CAOrientation const&)>::~__value_func[abi:ne200100]((a1 + 1));
+  return a1;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)63,CAOrientation>(vp::vx::data_flow::State<CAOrientation>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CAOrientation const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)63,CAOrientation>(vp::vx::data_flow::State<CAOrientation>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CAOrientation const&)#1}>,void ()(CAOrientation const&)>::operator()(uint64_t a1, int *a2)
+{
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
+  if (v4)
+  {
+    v5 = v4 - 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  vp::sim::Property_List_Writer::find_writable_element(&v11, v3, v5);
+  v6 = v11;
+  v10[0] = v11;
+  vp::sim::Key_Writer::count(v10, 0x3F, "CA Orientation");
+  valuePtr = *a2;
+  v7 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
+  v8 = v7;
+  v10[1] = v7;
+  if (!v7)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "Could not construct");
+  }
+
+  CFRetain(v7);
+  v11 = v8;
+  vp::sim::Key_Writer::set(v10, 0x3F, "CA Orientation", &v11);
+  CFRelease(v8);
+  CFRelease(v8);
+  if (v6)
+  {
+    CFRelease(v6);
+  }
+}
+
+void sub_2726A362C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  __cxa_end_catch();
+  vp::sim::Key_Writer::~Key_Writer(va);
+  _Unwind_Resume(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)63,CAOrientation>(vp::vx::data_flow::State<CAOrientation>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CAOrientation const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)63,CAOrientation>(vp::vx::data_flow::State<CAOrientation>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CAOrientation const&)#1}>,void ()(CAOrientation const&)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)63,CAOrientation>(vp::vx::data_flow::State<CAOrientation>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CAOrientation const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)63,CAOrientation>(vp::vx::data_flow::State<CAOrientation>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CAOrientation const&)#1}>,void ()(CAOrientation const&)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)63,CAOrientation>(vp::vx::data_flow::State<CAOrientation>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CAOrientation const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)63,CAOrientation>(vp::vx::data_flow::State<CAOrientation>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CAOrientation const&)#1}>,void ()(CAOrientation const&)>::__clone(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881BD0D8;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)63,CAOrientation>(vp::vx::data_flow::State<CAOrientation>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CAOrientation const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)63,CAOrientation>(vp::vx::data_flow::State<CAOrientation>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CAOrientation const&)#1}>,void ()(CAOrientation const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD0D8;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)63,CAOrientation>(vp::vx::data_flow::State<CAOrientation>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CAOrientation const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)63,CAOrientation>(vp::vx::data_flow::State<CAOrientation>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CAOrientation const&)#1}>,void ()(CAOrientation const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD0D8;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)63,CAOrientation>(vp::vx::data_flow::State<CAOrientation>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BD0A8;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)63,CAOrientation>(vp::vx::data_flow::State<CAOrientation>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BD0A8;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+  return a1;
+}
+
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)62,CAOrientation>(vp::vx::data_flow::State<CAOrientation>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)62,CAOrientation>(vp::vx::data_flow::State<CAOrientation>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v3 = result;
+    (**v2)(v2);
+    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
+  }
+
+  return result;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)62,CAOrientation>(vp::vx::data_flow::State<CAOrientation>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4[0] = &unk_2881BD060;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(CAOrientation const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
+  operator new();
+}
+
+void sub_2726A3A78(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)62,CAOrientation>(vp::vx::data_flow::State<CAOrientation>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CAOrientation const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)62,CAOrientation>(vp::vx::data_flow::State<CAOrientation>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CAOrientation const&)#1}>,void ()(CAOrientation const&)>::operator()(uint64_t a1, int *a2)
+{
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
+  if (v4)
+  {
+    v5 = v4 - 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
+  v6 = v10;
+  v8 = v10;
+  vp::sim::Key_Writer::count(&v8, 0x3E, "Device Orientation");
+  vp::sim::converters::Default_Converter<unsigned int>::to_property_list(&cf, *a2);
+  v7 = cf;
+  if (cf)
+  {
+    CFRetain(cf);
+    v10 = v7;
+    vp::sim::Key_Writer::set(&v8, 0x3E, "Device Orientation", &v10);
+    CFRelease(v7);
+  }
+
+  else
+  {
+    v10 = 0;
+    vp::sim::Key_Writer::set(&v8, 0x3E, "Device Orientation", &v10);
+  }
+
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  if (v6)
+  {
+    CFRelease(v6);
+  }
+}
+
+void sub_2726A3B88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  __cxa_end_catch();
+  vp::sim::Key_Writer::~Key_Writer(va);
+  _Unwind_Resume(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)62,CAOrientation>(vp::vx::data_flow::State<CAOrientation>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CAOrientation const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)62,CAOrientation>(vp::vx::data_flow::State<CAOrientation>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CAOrientation const&)#1}>,void ()(CAOrientation const&)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)62,CAOrientation>(vp::vx::data_flow::State<CAOrientation>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CAOrientation const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)62,CAOrientation>(vp::vx::data_flow::State<CAOrientation>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CAOrientation const&)#1}>,void ()(CAOrientation const&)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)62,CAOrientation>(vp::vx::data_flow::State<CAOrientation>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CAOrientation const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)62,CAOrientation>(vp::vx::data_flow::State<CAOrientation>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CAOrientation const&)#1}>,void ()(CAOrientation const&)>::__clone(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881BD060;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)62,CAOrientation>(vp::vx::data_flow::State<CAOrientation>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CAOrientation const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)62,CAOrientation>(vp::vx::data_flow::State<CAOrientation>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CAOrientation const&)#1}>,void ()(CAOrientation const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD060;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)62,CAOrientation>(vp::vx::data_flow::State<CAOrientation>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CAOrientation const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)62,CAOrientation>(vp::vx::data_flow::State<CAOrientation>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CAOrientation const&)#1}>,void ()(CAOrientation const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BD060;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)62,CAOrientation>(vp::vx::data_flow::State<CAOrientation>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BCFE8;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)62,CAOrientation>(vp::vx::data_flow::State<CAOrientation>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BCFE8;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+  return a1;
+}
+
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)61,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)61,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v3 = result;
+    (**v2)(v2);
+    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
+  }
+
+  return result;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)61,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4[0] = &unk_2881BCFA0;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(BOOL const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
+  operator new();
+}
+
+void sub_2726A3FD4(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)61,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)61,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::operator()(uint64_t a1, _BYTE *a2)
+{
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
+  if (v4)
+  {
+    v5 = v4 - 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
+  v6 = v10;
+  v9 = v10;
+  vp::sim::Key_Writer::count(&v9, 0x3D, "HW Has VP");
+  v7 = MEMORY[0x277CBED28];
+  if (!*a2)
+  {
+    v7 = MEMORY[0x277CBED10];
+  }
+
+  v8 = *v7;
+  if (!*v7)
+  {
+    v10 = 0;
+    vp::sim::Key_Writer::set(&v9, 0x3D, "HW Has VP", &v10);
+    if (!v6)
+    {
+      return;
+    }
+
+    goto LABEL_10;
+  }
+
+  CFRetain(*v7);
+  v10 = v8;
+  vp::sim::Key_Writer::set(&v9, 0x3D, "HW Has VP", &v10);
+  CFRelease(v8);
+  CFRelease(v8);
+  if (v6)
+  {
+LABEL_10:
+    CFRelease(v6);
+  }
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)61,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)61,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)61,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)61,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)61,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)61,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::__clone(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881BCFA0;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)61,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)61,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BCFA0;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)61,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)61,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BCFA0;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)61,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BCF70;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)61,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BCF70;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+  return a1;
+}
+
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)60,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)60,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v3 = result;
+    (**v2)(v2);
+    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
+  }
+
+  return result;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)60,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4[0] = &unk_2881BCF28;
   v4[1] = v2;
   v4[2] = v3;
   v4[3] = v4;
@@ -5272,7 +5180,7 @@ void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)11,std::vect
   operator new();
 }
 
-void sub_2726B7B7C(_Unwind_Exception *a1, int a2)
+void sub_2726A450C(_Unwind_Exception *a1, int a2)
 {
   if (!a2)
   {
@@ -5282,8 +5190,189 @@ void sub_2726B7B7C(_Unwind_Exception *a1, int a2)
   __clang_call_terminate(a1);
 }
 
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)11,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<unsigned int> const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)11,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<unsigned int> const&)#1}>,void ()(std::vector<unsigned int> const&)>::operator()(uint64_t a1, int **a2)
+uint64_t std::__function::__value_func<void ()(std::vector<unsigned int> const&)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
 {
+  v3 = (a2 + 24);
+  v4 = *(a2 + 24);
+  if (v4)
+  {
+    if (v4 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**v3 + 24))(*v3, a1);
+      return a1;
+    }
+
+    *(a1 + 24) = v4;
+  }
+
+  else
+  {
+    v3 = (a1 + 24);
+  }
+
+  *v3 = 0;
+  return a1;
+}
+
+{
+  v3 = *(a2 + 24);
+  if (v3)
+  {
+    if (v3 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
+    }
+
+    else
+    {
+      *(a1 + 24) = (*(*v3 + 16))(v3);
+    }
+  }
+
+  else
+  {
+    *(a1 + 24) = 0;
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__value_func<void ()(std::vector<unsigned int> const&)>::~__value_func[abi:ne200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__func<vp::vx::data_flow::State<std::vector<unsigned int>>::register_listener(std::function<void ()(std::vector<unsigned int> const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<std::vector<unsigned int>>::register_listener(std::function<void ()(std::vector<unsigned int> const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::operator()(uint64_t result, int a2, vp::vx::data_flow::Value *this)
+{
+  if (*(result + 32))
+  {
+    v3 = *(this + 2) == &vp::vx::data_flow::Value::type_id<std::vector<unsigned int>>(void)::s_type_id;
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  if (v3)
+  {
+    v4 = result;
+    result = vp::vx::data_flow::Value::view_storage(this);
+    if (result)
+    {
+      v5 = *(v4 + 32);
+      if (!v5)
+      {
+        std::__throw_bad_function_call[abi:ne200100]();
+      }
+
+      v6 = *(*v5 + 48);
+
+      return v6();
+    }
+  }
+
+  return result;
+}
+
+BOOL vp::vx::data_flow::Value::Type_ID_Eraser<std::vector<unsigned int>>::compare_value(uint64_t a1, const void ***a2, uint64_t *a3)
+{
+  v3 = *a3;
+  v4 = **a2;
+  v5 = ((*a2)[1] - v4);
+  return v5 == (*(v3 + 8) - *v3) && memcmp(v4, *v3, v5) == 0;
+}
+
+void vp::vx::data_flow::Value::Type_ID_Eraser<std::vector<unsigned int>>::destroy_value(uint64_t a1, void ***a2)
+{
+  v2 = **a2;
+  if (v2)
+  {
+    (*a2)[1] = v2;
+    operator delete(v2);
+  }
+}
+
+__n128 vp::vx::data_flow::Value::Type_ID_Eraser<std::vector<unsigned int>>::move_value(uint64_t a1, __n128 **a2, __n128 **a3)
+{
+  v3 = *a2;
+  v4 = *a3;
+  v3->n128_u64[0] = 0;
+  v3->n128_u64[1] = 0;
+  v3[1].n128_u64[0] = 0;
+  result = *v4;
+  *v3 = *v4;
+  v3[1].n128_u64[0] = v4[1].n128_u64[0];
+  v4->n128_u64[0] = 0;
+  v4->n128_u64[1] = 0;
+  v4[1].n128_u64[0] = 0;
+  return result;
+}
+
+uint64_t *vp::vx::data_flow::Value::Type_ID_Eraser<std::vector<unsigned int>>::copy_value(uint64_t a1, uint64_t **a2, uint64_t *a3)
+{
+  v3 = *a2;
+  v4 = *a3;
+  *v3 = 0;
+  v3[1] = 0;
+  v3[2] = 0;
+  return std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(v3, *v4, *(v4 + 8), (*(v4 + 8) - *v4) >> 2);
+}
+
+uint64_t vp::vx::data_flow::Value::Type_ID_Eraser<std::vector<unsigned int>>::view_storage(uint64_t a1, uint64_t a2)
+{
+  return *a2;
+}
+
+{
+  return *a2;
+}
+
+uint64_t vp::vx::data_flow::Value::Type_ID_Eraser<std::vector<unsigned int>>::allocate_storage(uint64_t a1, uint64_t *a2, void *a3)
+{
+  result = (*(**a3 + 16))(*a3, 24, 8);
+  *a2 = result;
+  return result;
+}
+
+void std::__function::__func<vp::vx::data_flow::State<std::vector<unsigned int>>::register_listener(std::function<void ()(std::vector<unsigned int> const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<std::vector<unsigned int>>::register_listener(std::function<void ()(std::vector<unsigned int> const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::destroy_deallocate(void *a1)
+{
+  std::__function::__value_func<void ()(std::vector<unsigned int> const&)>::~__value_func[abi:ne200100](a1 + 8);
+
+  operator delete(a1);
+}
+
+void std::__function::__func<vp::vx::data_flow::State<std::vector<unsigned int>>::register_listener(std::function<void ()(std::vector<unsigned int> const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<std::vector<unsigned int>>::register_listener(std::function<void ()(std::vector<unsigned int> const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BB6B0;
+  std::__function::__value_func<void ()(std::vector<unsigned int> const&)>::~__value_func[abi:ne200100]((a1 + 1));
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<vp::vx::data_flow::State<std::vector<unsigned int>>::register_listener(std::function<void ()(std::vector<unsigned int> const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<std::vector<unsigned int>>::register_listener(std::function<void ()(std::vector<unsigned int> const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BB6B0;
+  std::__function::__value_func<void ()(std::vector<unsigned int> const&)>::~__value_func[abi:ne200100]((a1 + 1));
+  return a1;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)60,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<unsigned int> const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)60,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<unsigned int> const&)#1}>,void ()(std::vector<unsigned int> const&)>::operator()(uint64_t a1, unsigned int **a2)
+{
+  v43 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 8);
   v4 = vp::sim::Property_List_Writer::size(*v3);
   if (v4)
@@ -5296,35 +5385,304 @@ void std::__function::__func<void vp::vx::components::Property_List_Writer::set_
     v5 = 0;
   }
 
-  vp::sim::Property_List_Writer::find_writable_element(&v9, v3, v5);
-  v6 = v9;
-  v8 = v9;
-  vp::sim::Key_Writer::count(&v8, 11, "Ref Port Types");
-  CFArray = applesauce::CF::details::make_CFArrayRef<unsigned int>(a2);
-  CFRetain(CFArray);
-  v9 = CFArray;
-  vp::sim::Key_Writer::set(&v8, 11, "Ref Port Types", &v9);
-  if (CFArray)
+  vp::sim::Property_List_Writer::find_writable_element(v39, v3, v5);
+  cf = v39[0];
+  vp::sim::Key_Writer::count(&cf, 0x3C, "Speaker Input Data Source");
+  memset(&v33, 0, sizeof(v33));
+  v6 = *a2;
+  v7 = a2[1];
+  if (*a2 == v7)
   {
-    CFRelease(CFArray);
+    goto LABEL_50;
   }
 
-  CFRelease(CFArray);
-  if (v6)
+  do
   {
-    CFRelease(v6);
+    v8 = *v6;
+    memset(&v34, 0, sizeof(v34));
+    v41 = v39 + 2;
+    v42 = v40;
+    MEMORY[0x2743CBDC0](&v38);
+    v9 = std::locale::classic();
+    if (std::locale::operator==(&v38, v9))
+    {
+      v10 = v40;
+      do
+      {
+        *--v10 = (v8 % 0xA) | 0x30;
+        v11 = v8 > 9;
+        v8 /= 0xAu;
+      }
+
+      while (v11);
+      goto LABEL_33;
+    }
+
+    v12 = std::locale::use_facet(&v38, MEMORY[0x277D826C0]);
+    (v12->__vftable[1].__on_zero_shared)(&__p);
+    v13 = v37;
+    if ((v37 & 0x8000000000000000) != 0)
+    {
+      v15 = v36;
+      if (!v36)
+      {
+        goto LABEL_29;
+      }
+
+      p_p = __p;
+    }
+
+    else
+    {
+      if (!v37)
+      {
+        goto LABEL_29;
+      }
+
+      p_p = &__p;
+      v15 = v37;
+    }
+
+    if (*p_p > 0)
+    {
+      v16 = (v12->__vftable[1].~facet_0)(v12);
+      v17 = 0;
+      if (v37 >= 0)
+      {
+        v18 = &__p;
+      }
+
+      else
+      {
+        v18 = __p;
+      }
+
+      LOBYTE(v18) = *v18;
+      v10 = v40;
+      v19 = v18;
+      do
+      {
+        if (!v19)
+        {
+          if (++v17 < v15)
+          {
+            v18 = v37 >= 0 ? &__p : __p;
+            LODWORD(v18) = *(v18 + v17);
+            if (v18 < 1)
+            {
+              LOBYTE(v18) = 127;
+            }
+          }
+
+          *--v10 = v16;
+          v19 = v18;
+        }
+
+        --v19;
+        *--v10 = (v8 % 0xA) | 0x30;
+        v11 = v8 > 9;
+        v8 /= 0xAu;
+      }
+
+      while (v11);
+      v13 = v37;
+      goto LABEL_31;
+    }
+
+LABEL_29:
+    v10 = v40;
+    do
+    {
+      *--v10 = (v8 % 0xA) | 0x30;
+      v11 = v8 > 9;
+      v8 /= 0xAu;
+    }
+
+    while (v11);
+LABEL_31:
+    if (v13 < 0)
+    {
+      operator delete(__p);
+    }
+
+LABEL_33:
+    std::locale::~locale(&v38);
+    v41 = v10;
+    v42 = v40;
+    std::string::__assign_trivial[abi:ne200100]<char const*,char const*>(&v34, v10, v40, v40 - v10);
+    if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v20 = &v34;
+    }
+
+    else
+    {
+      v20 = v34.__r_.__value_.__r.__words[0];
+    }
+
+    if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      size = HIBYTE(v34.__r_.__value_.__r.__words[2]);
+    }
+
+    else
+    {
+      size = v34.__r_.__value_.__l.__size_;
+    }
+
+    std::string::append(&v33, v20, size);
+    if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v34.__r_.__value_.__l.__data_);
+    }
+
+    std::string::append(&v33, ", ", 2uLL);
+    ++v6;
+  }
+
+  while (v6 != v7);
+  if (*a2 != a2[1])
+  {
+    if ((SHIBYTE(v33.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
+    {
+      v23 = v33.__r_.__value_.__r.__words[0];
+      v22 = --v33.__r_.__value_.__l.__size_;
+    }
+
+    else
+    {
+      v22 = SHIBYTE(v33.__r_.__value_.__r.__words[2]) - 1;
+      *(&v33.__r_.__value_.__s + 23) = v22 & 0x7F;
+      v23 = &v33;
+    }
+
+    v23->__r_.__value_.__s.__data_[v22] = 0;
+    if ((SHIBYTE(v33.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
+    {
+      v25 = v33.__r_.__value_.__r.__words[0];
+      v24 = --v33.__r_.__value_.__l.__size_;
+    }
+
+    else
+    {
+      v24 = SHIBYTE(v33.__r_.__value_.__r.__words[2]) - 1;
+      *(&v33.__r_.__value_.__s + 23) = v24 & 0x7F;
+      v25 = &v33;
+    }
+
+    v25->__r_.__value_.__s.__data_[v24] = 0;
+  }
+
+LABEL_50:
+  if ((v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v26 = &v33;
+  }
+
+  else
+  {
+    v26 = v33.__r_.__value_.__r.__words[0];
+  }
+
+  if (v26)
+  {
+    if ((v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v27 = HIBYTE(v33.__r_.__value_.__r.__words[2]);
+    }
+
+    else
+    {
+      v27 = v33.__r_.__value_.__l.__size_;
+    }
+
+    v28 = CFStringCreateWithBytes(0, v26, v27, 0x8000100u, 0);
+    v31 = v28;
+    if (!v28)
+    {
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Could not construct");
+    }
+
+    if ((*(&v33.__r_.__value_.__s + 23) & 0x80) == 0)
+    {
+LABEL_59:
+      if (v28)
+      {
+        goto LABEL_60;
+      }
+
+LABEL_63:
+      v32 = 0;
+      vp::sim::Key_Writer::set(&cf, 0x3C, "Speaker Input Data Source", &v32);
+      goto LABEL_64;
+    }
+  }
+
+  else
+  {
+    v28 = 0;
+    v31 = 0;
+    if ((*(&v33.__r_.__value_.__s + 23) & 0x80) == 0)
+    {
+      goto LABEL_59;
+    }
+  }
+
+  operator delete(v33.__r_.__value_.__l.__data_);
+  if (!v28)
+  {
+    goto LABEL_63;
+  }
+
+LABEL_60:
+  CFRetain(v28);
+  v32 = v28;
+  vp::sim::Key_Writer::set(&cf, 0x3C, "Speaker Input Data Source", &v32);
+  CFRelease(v28);
+  CFRelease(v28);
+LABEL_64:
+  if (cf)
+  {
+    CFRelease(cf);
   }
 }
 
-void sub_2726B7C60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2726A4F0C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
 {
-  va_start(va, a3);
+  va_start(va, a4);
   __cxa_end_catch();
   vp::sim::Key_Writer::~Key_Writer(va);
-  _Unwind_Resume(a1);
+  JUMPOUT(0x2726A4F80);
 }
 
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)11,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<unsigned int> const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)11,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<unsigned int> const&)#1}>,void ()(std::vector<unsigned int> const&)>::destroy_deallocate(void *__p)
+void sub_2726A4F24(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28, std::locale a29)
+{
+  if (a2)
+  {
+    if (a28 < 0)
+    {
+      operator delete(__p);
+    }
+
+    std::locale::~locale(&a29);
+    JUMPOUT(0x2726A4F88);
+  }
+
+  JUMPOUT(0x2726A4F80);
+}
+
+void sub_2726A4F78(_Unwind_Exception *exception_object, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(exception_object);
+  }
+
+  __clang_call_terminate(exception_object);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)60,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<unsigned int> const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)60,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<unsigned int> const&)#1}>,void ()(std::vector<unsigned int> const&)>::destroy_deallocate(void *__p)
 {
   v2 = __p[2];
   if (v2)
@@ -5335,7 +5693,7 @@ void std::__function::__func<void vp::vx::components::Property_List_Writer::set_
   operator delete(__p);
 }
 
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)11,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<unsigned int> const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)11,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<unsigned int> const&)#1}>,void ()(std::vector<unsigned int> const&)>::destroy(uint64_t a1)
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)60,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<unsigned int> const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)60,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<unsigned int> const&)#1}>,void ()(std::vector<unsigned int> const&)>::destroy(uint64_t a1)
 {
   v1 = *(a1 + 16);
   if (v1)
@@ -5344,11 +5702,11 @@ void std::__function::__func<void vp::vx::components::Property_List_Writer::set_
   }
 }
 
-uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)11,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<unsigned int> const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)11,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<unsigned int> const&)#1}>,void ()(std::vector<unsigned int> const&)>::__clone(uint64_t result, void *a2)
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)60,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<unsigned int> const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)60,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<unsigned int> const&)#1}>,void ()(std::vector<unsigned int> const&)>::__clone(uint64_t result, void *a2)
 {
   v3 = *(result + 8);
   v2 = *(result + 16);
-  *a2 = &unk_2881BB6F8;
+  *a2 = &unk_2881BCF28;
   a2[1] = v3;
   a2[2] = v2;
   if (v2)
@@ -5359,9 +5717,9 @@ uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::
   return result;
 }
 
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)11,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<unsigned int> const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)11,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<unsigned int> const&)#1}>,void ()(std::vector<unsigned int> const&)>::~__func(void *a1)
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)60,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<unsigned int> const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)60,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<unsigned int> const&)#1}>,void ()(std::vector<unsigned int> const&)>::~__func(void *a1)
 {
-  *a1 = &unk_2881BB6F8;
+  *a1 = &unk_2881BCF28;
   v1 = a1[2];
   if (v1)
   {
@@ -5371,9 +5729,9 @@ void std::__function::__func<void vp::vx::components::Property_List_Writer::set_
   JUMPOUT(0x2743CBFA0);
 }
 
-void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)11,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<unsigned int> const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)11,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<unsigned int> const&)#1}>,void ()(std::vector<unsigned int> const&)>::~__func(void *a1)
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)60,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<unsigned int> const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)60,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(std::vector<unsigned int> const&)#1}>,void ()(std::vector<unsigned int> const&)>::~__func(void *a1)
 {
-  *a1 = &unk_2881BB6F8;
+  *a1 = &unk_2881BCF28;
   v2 = a1[2];
   if (v2)
   {
@@ -5383,58 +5741,22 @@ void *std::__function::__func<void vp::vx::components::Property_List_Writer::set
   return a1;
 }
 
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)11,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)60,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
 {
-  *a1 = &unk_2881BB680;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
+  *a1 = &unk_2881BCEF8;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
 
   JUMPOUT(0x2743CBFA0);
 }
 
-uint64_t vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)11,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)60,std::vector<unsigned int>>(vp::vx::data_flow::State<std::vector<unsigned int>>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
 {
-  *a1 = &unk_2881BB680;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
+  *a1 = &unk_2881BCEF8;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
   return a1;
 }
 
-double _ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS_6vectorIjNS_9allocatorIjEEEEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_10components20Property_List_Writer26set_up_key_state_listenersERSC_RKNS3_27Voice_Processor_State_OwnerEE3__0JNS3_16Output_Port_TypeEEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSL_EEERNS4_13State_ManagerESN_SU_EUlPPKNS4_5ValueEPS12_E_NS7_IS17_EEFvS15_S16_EEclEOS15_OS16_(uint64_t a1, vp::vx::data_flow::Value ***a2, vp::vx::data_flow::Value **a3)
-{
-  v3 = *a3;
-  v4 = vp::vx::data_flow::Value::view_storage(**a2);
-  v10 = vp::vx::Legacy<vp::vx::Output_Port_Type>::cast(*v4);
-  v9 = 0;
-  v8 = 0uLL;
-  std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(&v8, &v10, &v11, 1uLL);
-  vp::vx::data_flow::Value::~Value(v3);
-  *v3 = std::pmr::get_default_resource(v5);
-  *(v3 + 1) = 0;
-  *(v3 + 2) = &vp::vx::data_flow::Value::type_id<std::vector<unsigned int>>(void)::s_type_id;
-  storage = vp::vx::data_flow::Value::allocate_storage(v3);
-  result = *&v8;
-  *storage = v8;
-  *(storage + 16) = v9;
-  return result;
-}
-
-void sub_2726B7F64(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, std::exception_ptr a12)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS_6vectorIjNS_9allocatorIjEEEEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_10components20Property_List_Writer26set_up_key_state_listenersERSC_RKNS3_27Voice_Processor_State_OwnerEE3__0JNS3_16Output_Port_TypeEEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSL_EEERNS4_13State_ManagerESN_SU_EUlPPKNS4_5ValueEPS12_E_NS7_IS17_EEFvS15_S16_EE7__cloneEPNS0_6__baseIS19_EE(uint64_t result, uint64_t a2)
-{
-  *a2 = &unk_2881BAE50;
-  *(a2 + 8) = *(result + 8);
-  return result;
-}
-
-void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)9,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)9,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)59,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)59,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
 {
   v2 = *result;
   *result = a2;
@@ -5448,7 +5770,7 @@ void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<
   return result;
 }
 
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)9,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)59,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
 {
   v7 = *MEMORY[0x277D85DE8];
   v2 = *a2;
@@ -5459,7 +5781,7 @@ void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)9,unsigned i
     atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v4[0] = &unk_2881BB638;
+  v4[0] = &unk_2881BCEB0;
   v4[1] = v2;
   v4[2] = v3;
   v4[3] = v4;
@@ -5468,7 +5790,7 @@ void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)9,unsigned i
   operator new();
 }
 
-void sub_2726B824C(_Unwind_Exception *a1, int a2)
+void sub_2726A53C0(_Unwind_Exception *a1, int a2)
 {
   if (!a2)
   {
@@ -5478,7 +5800,7 @@ void sub_2726B824C(_Unwind_Exception *a1, int a2)
   __clang_call_terminate(a1);
 }
 
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)9,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)9,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::operator()(uint64_t a1, int *a2)
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)59,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)59,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::operator()(uint64_t a1, int *a2)
 {
   v3 = *(a1 + 8);
   v4 = vp::sim::Property_List_Writer::size(*v3);
@@ -5495,21 +5817,21 @@ void std::__function::__func<void vp::vx::components::Property_List_Writer::set_
   vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
   v6 = v10;
   v8 = v10;
-  vp::sim::Key_Writer::count(&v8, 9, "HW REF Block Size");
+  vp::sim::Key_Writer::count(&v8, 0x3B, "SPKR TEL Block Size");
   vp::sim::converters::Default_Converter<unsigned int>::to_property_list(&cf, *a2);
   v7 = cf;
   if (cf)
   {
     CFRetain(cf);
     v10 = v7;
-    vp::sim::Key_Writer::set(&v8, 9, "HW REF Block Size", &v10);
+    vp::sim::Key_Writer::set(&v8, 0x3B, "SPKR TEL Block Size", &v10);
     CFRelease(v7);
   }
 
   else
   {
     v10 = 0;
-    vp::sim::Key_Writer::set(&v8, 9, "HW REF Block Size", &v10);
+    vp::sim::Key_Writer::set(&v8, 0x3B, "SPKR TEL Block Size", &v10);
   }
 
   if (cf)
@@ -5523,15 +5845,15 @@ void std::__function::__func<void vp::vx::components::Property_List_Writer::set_
   }
 }
 
-void sub_2726B835C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2726A54D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   __cxa_end_catch();
   vp::sim::Key_Writer::~Key_Writer(va);
   _Unwind_Resume(a1);
 }
 
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)9,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)9,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy_deallocate(void *__p)
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)59,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)59,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy_deallocate(void *__p)
 {
   v2 = __p[2];
   if (v2)
@@ -5542,7 +5864,7 @@ void std::__function::__func<void vp::vx::components::Property_List_Writer::set_
   operator delete(__p);
 }
 
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)9,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)9,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy(uint64_t a1)
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)59,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)59,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy(uint64_t a1)
 {
   v1 = *(a1 + 16);
   if (v1)
@@ -5551,11 +5873,11 @@ void std::__function::__func<void vp::vx::components::Property_List_Writer::set_
   }
 }
 
-uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)9,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)9,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::__clone(uint64_t result, void *a2)
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)59,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)59,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::__clone(uint64_t result, void *a2)
 {
   v3 = *(result + 8);
   v2 = *(result + 16);
-  *a2 = &unk_2881BB638;
+  *a2 = &unk_2881BCEB0;
   a2[1] = v3;
   a2[2] = v2;
   if (v2)
@@ -5566,9 +5888,9 @@ uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::
   return result;
 }
 
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)9,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)9,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)59,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)59,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
 {
-  *a1 = &unk_2881BB638;
+  *a1 = &unk_2881BCEB0;
   v1 = a1[2];
   if (v1)
   {
@@ -5578,9 +5900,9 @@ void std::__function::__func<void vp::vx::components::Property_List_Writer::set_
   JUMPOUT(0x2743CBFA0);
 }
 
-void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)9,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)9,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)59,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)59,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
 {
-  *a1 = &unk_2881BB638;
+  *a1 = &unk_2881BCEB0;
   v2 = a1[2];
   if (v2)
   {
@@ -5590,22 +5912,22 @@ void *std::__function::__func<void vp::vx::components::Property_List_Writer::set
   return a1;
 }
 
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)9,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)59,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
 {
-  *a1 = &unk_2881BB5C0;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
+  *a1 = &unk_2881BCE80;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
 
   JUMPOUT(0x2743CBFA0);
 }
 
-uint64_t vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)9,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)59,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
 {
-  *a1 = &unk_2881BB5C0;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
+  *a1 = &unk_2881BCE80;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
   return a1;
 }
 
-void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)8,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)8,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)58,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)58,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
 {
   v2 = *result;
   *result = a2;
@@ -5619,7 +5941,7 @@ void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<
   return result;
 }
 
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)8,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)58,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
 {
   v7 = *MEMORY[0x277D85DE8];
   v2 = *a2;
@@ -5630,7 +5952,7 @@ void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)8,CA::Stream
     atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v4[0] = &unk_2881BB578;
+  v4[0] = &unk_2881BCE38;
   v4[1] = v2;
   v4[2] = v3;
   v4[3] = v4;
@@ -5639,7 +5961,7 @@ void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)8,CA::Stream
   operator new();
 }
 
-void sub_2726B87A8(_Unwind_Exception *a1, int a2)
+void sub_2726A591C(_Unwind_Exception *a1, int a2)
 {
   if (!a2)
   {
@@ -5649,7 +5971,127 @@ void sub_2726B87A8(_Unwind_Exception *a1, int a2)
   __clang_call_terminate(a1);
 }
 
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)8,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)8,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1}>,void ()(CA::StreamDescription const&)>::operator()(uint64_t a1, uint64_t a2)
+uint64_t std::__function::__value_func<void ()(CA::StreamDescription const&)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
+{
+  v3 = (a2 + 24);
+  v4 = *(a2 + 24);
+  if (v4)
+  {
+    if (v4 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**v3 + 24))(*v3, a1);
+      return a1;
+    }
+
+    *(a1 + 24) = v4;
+  }
+
+  else
+  {
+    v3 = (a1 + 24);
+  }
+
+  *v3 = 0;
+  return a1;
+}
+
+{
+  v3 = *(a2 + 24);
+  if (v3)
+  {
+    if (v3 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
+    }
+
+    else
+    {
+      *(a1 + 24) = (*(*v3 + 16))(v3);
+    }
+  }
+
+  else
+  {
+    *(a1 + 24) = 0;
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__value_func<void ()(CA::StreamDescription const&)>::~__value_func[abi:ne200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__func<vp::vx::data_flow::State<CA::StreamDescription>::register_listener(std::function<void ()(CA::StreamDescription const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<CA::StreamDescription>::register_listener(std::function<void ()(CA::StreamDescription const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::operator()(uint64_t result, int a2, vp::vx::data_flow::Value *this)
+{
+  if (*(result + 32))
+  {
+    v3 = *(this + 2) == &vp::vx::data_flow::Value::type_id<CA::StreamDescription>(void)::s_type_id;
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  if (v3)
+  {
+    v4 = result;
+    result = vp::vx::data_flow::Value::view_storage(this);
+    if (result)
+    {
+      v5 = *(v4 + 32);
+      if (!v5)
+      {
+        std::__throw_bad_function_call[abi:ne200100]();
+      }
+
+      v6 = *(*v5 + 48);
+
+      return v6();
+    }
+  }
+
+  return result;
+}
+
+void std::__function::__func<vp::vx::data_flow::State<CA::StreamDescription>::register_listener(std::function<void ()(CA::StreamDescription const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<CA::StreamDescription>::register_listener(std::function<void ()(CA::StreamDescription const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::destroy_deallocate(void *a1)
+{
+  std::__function::__value_func<void ()(CA::StreamDescription const&)>::~__value_func[abi:ne200100](a1 + 8);
+
+  operator delete(a1);
+}
+
+void std::__function::__func<vp::vx::data_flow::State<CA::StreamDescription>::register_listener(std::function<void ()(CA::StreamDescription const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<CA::StreamDescription>::register_listener(std::function<void ()(CA::StreamDescription const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BB530;
+  std::__function::__value_func<void ()(CA::StreamDescription const&)>::~__value_func[abi:ne200100]((a1 + 1));
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<vp::vx::data_flow::State<CA::StreamDescription>::register_listener(std::function<void ()(CA::StreamDescription const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<CA::StreamDescription>::register_listener(std::function<void ()(CA::StreamDescription const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BB530;
+  std::__function::__value_func<void ()(CA::StreamDescription const&)>::~__value_func[abi:ne200100]((a1 + 1));
+  return a1;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)58,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)58,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1}>,void ()(CA::StreamDescription const&)>::operator()(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 8);
   v4 = vp::sim::Property_List_Writer::size(*v3);
@@ -5666,21 +6108,21 @@ void std::__function::__func<void vp::vx::components::Property_List_Writer::set_
   vp::sim::Property_List_Writer::find_writable_element(&v11, v3, v5);
   v6 = v11;
   v9 = v11;
-  vp::sim::Key_Writer::count(&v9, 8, "HW REF Format");
+  vp::sim::Key_Writer::count(&v9, 0x3A, "SPKR TEL Format");
   vp::sim::converters::Default_Converter<CA::StreamDescription>::to_property_list(&cf, a2, v7);
   v8 = cf;
   if (cf)
   {
     CFRetain(cf);
     v11 = v8;
-    vp::sim::Key_Writer::set(&v9, 8, "HW REF Format", &v11);
+    vp::sim::Key_Writer::set(&v9, 0x3A, "SPKR TEL Format", &v11);
     CFRelease(v8);
   }
 
   else
   {
     v11 = 0;
-    vp::sim::Key_Writer::set(&v9, 8, "HW REF Format", &v11);
+    vp::sim::Key_Writer::set(&v9, 0x3A, "SPKR TEL Format", &v11);
   }
 
   if (cf)
@@ -5694,15 +6136,15 @@ void std::__function::__func<void vp::vx::components::Property_List_Writer::set_
   }
 }
 
-void sub_2726B88B8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2726A5DE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   __cxa_end_catch();
   vp::sim::Key_Writer::~Key_Writer(va);
   _Unwind_Resume(a1);
 }
 
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)8,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)8,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1}>,void ()(CA::StreamDescription const&)>::destroy_deallocate(void *__p)
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)58,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)58,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1}>,void ()(CA::StreamDescription const&)>::destroy_deallocate(void *__p)
 {
   v2 = __p[2];
   if (v2)
@@ -5713,7 +6155,7 @@ void std::__function::__func<void vp::vx::components::Property_List_Writer::set_
   operator delete(__p);
 }
 
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)8,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)8,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1}>,void ()(CA::StreamDescription const&)>::destroy(uint64_t a1)
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)58,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)58,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1}>,void ()(CA::StreamDescription const&)>::destroy(uint64_t a1)
 {
   v1 = *(a1 + 16);
   if (v1)
@@ -5722,11 +6164,11 @@ void std::__function::__func<void vp::vx::components::Property_List_Writer::set_
   }
 }
 
-uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)8,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)8,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1}>,void ()(CA::StreamDescription const&)>::__clone(uint64_t result, void *a2)
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)58,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)58,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1}>,void ()(CA::StreamDescription const&)>::__clone(uint64_t result, void *a2)
 {
   v3 = *(result + 8);
   v2 = *(result + 16);
-  *a2 = &unk_2881BB578;
+  *a2 = &unk_2881BCE38;
   a2[1] = v3;
   a2[2] = v2;
   if (v2)
@@ -5737,9 +6179,9 @@ uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::
   return result;
 }
 
-void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)8,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)8,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1}>,void ()(CA::StreamDescription const&)>::~__func(void *a1)
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)58,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)58,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1}>,void ()(CA::StreamDescription const&)>::~__func(void *a1)
 {
-  *a1 = &unk_2881BB578;
+  *a1 = &unk_2881BCE38;
   v1 = a1[2];
   if (v1)
   {
@@ -5749,9 +6191,9 @@ void std::__function::__func<void vp::vx::components::Property_List_Writer::set_
   JUMPOUT(0x2743CBFA0);
 }
 
-void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)8,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)8,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1}>,void ()(CA::StreamDescription const&)>::~__func(void *a1)
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)58,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)58,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1}>,void ()(CA::StreamDescription const&)>::~__func(void *a1)
 {
-  *a1 = &unk_2881BB578;
+  *a1 = &unk_2881BCE38;
   v2 = a1[2];
   if (v2)
   {
@@ -5761,505 +6203,22 @@ void *std::__function::__func<void vp::vx::components::Property_List_Writer::set
   return a1;
 }
 
-void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)8,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)58,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
 {
-  *a1 = &unk_2881BB500;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
+  *a1 = &unk_2881BCE08;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
 
   JUMPOUT(0x2743CBFA0);
 }
 
-uint64_t vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)8,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::~Sim_Key_State_T(uint64_t a1)
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)58,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
 {
-  *a1 = &unk_2881BB500;
-  vp::vx::data_flow::State<void>::~State((a1 + 8));
+  *a1 = &unk_2881BCE08;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
   return a1;
 }
 
-void std::__function::__func<void vp::vx::observe_global<BOOL>(std::weak_ptr<vp::vx::Voice_Processor_State_Observer>,vp::vx::data_flow::State<BOOL> &)::{lambda(unsigned int,BOOL const&)#1},std::allocator<void vp::vx::observe_global<BOOL>(std::weak_ptr<vp::vx::Voice_Processor_State_Observer>,vp::vx::data_flow::State<BOOL> &)::{lambda(unsigned int,BOOL const&)#1}>,void ()(unsigned int,BOOL const&)>::operator()(uint64_t a1, unsigned int *a2)
-{
-  v3 = *(a1 + 16);
-  if (v3)
-  {
-    v4 = *a2;
-    v5 = std::__shared_weak_count::lock(v3);
-    if (v5)
-    {
-      v6 = v5;
-      v7 = *(a1 + 8);
-      if (v7)
-      {
-        LOBYTE(__p) = 0;
-        v10 = 0;
-        (*(*v7 + 16))(v7, v4, &__p);
-        if (v10 == 1 && v9 < 0)
-        {
-          operator delete(__p);
-        }
-      }
-
-      std::__shared_weak_count::__release_shared[abi:ne200100](v6);
-    }
-  }
-}
-
-void std::__function::__func<void vp::vx::observe_global<BOOL>(std::weak_ptr<vp::vx::Voice_Processor_State_Observer>,vp::vx::data_flow::State<BOOL> &)::{lambda(unsigned int,BOOL const&)#1},std::allocator<void vp::vx::observe_global<BOOL>(std::weak_ptr<vp::vx::Voice_Processor_State_Observer>,vp::vx::data_flow::State<BOOL> &)::{lambda(unsigned int,BOOL const&)#1}>,void ()(unsigned int,BOOL const&)>::destroy_deallocate(void *__p)
-{
-  v2 = __p[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_weak(v2);
-  }
-
-  operator delete(__p);
-}
-
-void std::__function::__func<void vp::vx::observe_global<BOOL>(std::weak_ptr<vp::vx::Voice_Processor_State_Observer>,vp::vx::data_flow::State<BOOL> &)::{lambda(unsigned int,BOOL const&)#1},std::allocator<void vp::vx::observe_global<BOOL>(std::weak_ptr<vp::vx::Voice_Processor_State_Observer>,vp::vx::data_flow::State<BOOL> &)::{lambda(unsigned int,BOOL const&)#1}>,void ()(unsigned int,BOOL const&)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_weak(v1);
-  }
-}
-
-uint64_t std::__function::__func<void vp::vx::observe_global<BOOL>(std::weak_ptr<vp::vx::Voice_Processor_State_Observer>,vp::vx::data_flow::State<BOOL> &)::{lambda(unsigned int,BOOL const&)#1},std::allocator<void vp::vx::observe_global<BOOL>(std::weak_ptr<vp::vx::Voice_Processor_State_Observer>,vp::vx::data_flow::State<BOOL> &)::{lambda(unsigned int,BOOL const&)#1}>,void ()(unsigned int,BOOL const&)>::__clone(uint64_t result, void *a2)
-{
-  v3 = *(result + 8);
-  v2 = *(result + 16);
-  *a2 = &unk_2881BB338;
-  a2[1] = v3;
-  a2[2] = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 16), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void std::__function::__func<void vp::vx::observe_global<BOOL>(std::weak_ptr<vp::vx::Voice_Processor_State_Observer>,vp::vx::data_flow::State<BOOL> &)::{lambda(unsigned int,BOOL const&)#1},std::allocator<void vp::vx::observe_global<BOOL>(std::weak_ptr<vp::vx::Voice_Processor_State_Observer>,vp::vx::data_flow::State<BOOL> &)::{lambda(unsigned int,BOOL const&)#1}>,void ()(unsigned int,BOOL const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BB338;
-  v1 = a1[2];
-  if (v1)
-  {
-    std::__shared_weak_count::__release_weak(v1);
-  }
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-void *std::__function::__func<void vp::vx::observe_global<BOOL>(std::weak_ptr<vp::vx::Voice_Processor_State_Observer>,vp::vx::data_flow::State<BOOL> &)::{lambda(unsigned int,BOOL const&)#1},std::allocator<void vp::vx::observe_global<BOOL>(std::weak_ptr<vp::vx::Voice_Processor_State_Observer>,vp::vx::data_flow::State<BOOL> &)::{lambda(unsigned int,BOOL const&)#1}>,void ()(unsigned int,BOOL const&)>::~__func(void *a1)
-{
-  *a1 = &unk_2881BB338;
-  v2 = a1[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_weak(v2);
-  }
-
-  return a1;
-}
-
-_BYTE *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIbEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_10components20Property_List_Writer9configureEvE3__0JbbEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JbbEEERNS4_13State_ManagerESE_SL_EUlPPKNS4_5ValueEPST_E_NS_9allocatorISY_EEFvSW_SX_EEclEOSW_OSX_(uint64_t a1, uint64_t (******a2)(), vp::vx::data_flow::Value **a3)
-{
-  v4 = *a2;
-  v5 = *a3;
-  v6 = **a2;
-  if (v6[2] == &vp::vx::data_flow::Value::type_id<BOOL>(void)::s_type_id)
-  {
-    v7 = vp::vx::data_flow::Value::view_storage(v6);
-  }
-
-  else
-  {
-    v7 = 0;
-  }
-
-  v8 = v4[1];
-  if (v8[2] == &vp::vx::data_flow::Value::type_id<BOOL>(void)::s_type_id)
-  {
-    v9 = vp::vx::data_flow::Value::view_storage(v8);
-  }
-
-  else
-  {
-    v9 = 0;
-  }
-
-  if (*(a1 + 12))
-  {
-    v10 = 1;
-  }
-
-  else
-  {
-    v10 = (*(a1 + 8) != 0) | *v7 & *v9;
-  }
-
-  v11 = v10 & 1;
-  vp::vx::data_flow::Value::~Value(v5);
-  *v5 = std::pmr::get_default_resource(v12);
-  *(v5 + 1) = 0;
-  *(v5 + 2) = &vp::vx::data_flow::Value::type_id<BOOL>(void)::s_type_id;
-  result = vp::vx::data_flow::Value::allocate_storage(v5);
-  *result = v11;
-  return result;
-}
-
-uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIbEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_10components20Property_List_Writer9configureEvE3__0JbbEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JbbEEERNS4_13State_ManagerESE_SL_EUlPPKNS4_5ValueEPST_E_NS_9allocatorISY_EEFvSW_SX_EE7__cloneEPNS0_6__baseIS11_EE(uint64_t result, void *a2)
-{
-  *a2 = &unk_2881BAE08;
-  a2[1] = *(result + 8);
-  return result;
-}
-
-void vp::vx::components::Property_List_Writer::set_state_owner(uint64_t a1, __int128 *a2)
-{
-  v2 = (a1 + 296);
-  v3 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
-  v4 = *(a1 + 304);
-  *v2 = v3;
-  if (v4)
-  {
-    std::__shared_weak_count::__release_weak(v4);
-  }
-}
-
-void vp::vx::components::Property_List_Writer::set_state_observer(uint64_t a1, __int128 *a2)
-{
-  v2 = (a1 + 280);
-  v3 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
-  v4 = *(a1 + 288);
-  *v2 = v3;
-  if (v4)
-  {
-    std::__shared_weak_count::__release_weak(v4);
-  }
-}
-
-void vp::vx::components::Property_List_Writer::set_state_manager(uint64_t a1, __int128 *a2)
-{
-  v2 = (a1 + 264);
-  v3 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
-  v4 = *(a1 + 272);
-  *v2 = v3;
-  if (v4)
-  {
-    std::__shared_weak_count::__release_weak(v4);
-  }
-}
-
-void vp::vx::components::Property_List_Writer::set_messenger(uint64_t a1, __int128 *a2)
-{
-  v3 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
-  v4 = *(a1 + 256);
-  *(a1 + 248) = v3;
-  if (v4)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
-  }
-}
-
-void vp::vx::components::Property_List_Writer::~Property_List_Writer(vp::vx::components::Property_List_Writer *this)
-{
-  vp::vx::components::Property_List_Writer::~Property_List_Writer(this);
-
-  JUMPOUT(0x2743CBF90);
-}
-
-{
-  v28 = *MEMORY[0x277D85DE8];
-  vp::vx::components::Property_List_Writer::tear_down_property_list_writers(this);
-  log = vp::get_log(v2);
-  if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
-  {
-    log_context_info = vp::get_log_context_info(__p, this, "vp::vx::components::Property_List_Writer]", 40);
-    v5 = v23;
-    v6 = v23;
-    v7 = __p[1];
-    v8 = vp::get_log(log_context_info);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
-    {
-      if (v6 >= 0)
-      {
-        v9 = v5;
-      }
-
-      else
-      {
-        v9 = v7;
-      }
-
-      v10 = __p[0];
-      if (v6 >= 0)
-      {
-        v10 = __p;
-      }
-
-      if (v9)
-      {
-        v11 = " ";
-      }
-
-      else
-      {
-        v11 = "";
-      }
-
-      *buf = 136315394;
-      v25 = v10;
-      v26 = 2080;
-      v27 = v11;
-      _os_log_impl(&dword_2724B4000, v8, OS_LOG_TYPE_DEBUG, "%s%sdestroyed", buf, 0x16u);
-      LOBYTE(v6) = v23;
-    }
-
-    if ((v6 & 0x80) != 0)
-    {
-      operator delete(__p[0]);
-    }
-  }
-
-  v12 = *(this + 48);
-  if (v12)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
-  }
-
-  v13 = *(this + 46);
-  if (v13)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
-  }
-
-  v14 = *(this + 41);
-  if (v14)
-  {
-    v15 = *(this + 42);
-    v16 = *(this + 41);
-    if (v15 != v14)
-    {
-      do
-      {
-        v15 -= 4;
-        std::unique_ptr<vp::vx::components::Property_List_Writer::Sim_Key_State,vp::Allocator_Delete<vp::vx::components::Property_List_Writer::Sim_Key_State>>::reset[abi:ne200100](v15);
-      }
-
-      while (v15 != v14);
-      v16 = *(this + 41);
-    }
-
-    *(this + 42) = v14;
-    std::allocator_traits<vp::Allocator<std::unique_ptr<vp::vx::components::Property_List_Writer::Sim_Key_State,vp::Allocator_Delete<vp::vx::components::Property_List_Writer::Sim_Key_State>>>>::deallocate[abi:ne200100](*(this + 44), v16, (*(this + 43) - v16) >> 5);
-  }
-
-  v17 = *(this + 38);
-  if (v17)
-  {
-    std::__shared_weak_count::__release_weak(v17);
-  }
-
-  v18 = *(this + 36);
-  if (v18)
-  {
-    std::__shared_weak_count::__release_weak(v18);
-  }
-
-  v19 = *(this + 34);
-  if (v19)
-  {
-    std::__shared_weak_count::__release_weak(v19);
-  }
-
-  v20 = *(this + 32);
-  if (v20)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v20);
-  }
-
-  vp::vx::data_flow::State<void>::~State(this + 54);
-  vp::Context::~Context((this + 16));
-  v21 = *MEMORY[0x277D85DE8];
-}
-
-void sub_2726B9168(_Unwind_Exception *a1, int a2)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(a1);
-  }
-
-  __clang_call_terminate(a1);
-}
-
-void vp::vx::components::Property_Logger::configure(std::__shared_weak_count **this)
-{
-  v40 = *MEMORY[0x277D85DE8];
-  log = vp::get_log(this);
-  if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
-  {
-    log_context_info = vp::get_log_context_info(&__t, this, "vp::vx::components::Property_Logger]", 35);
-    v4 = HIBYTE(v38);
-    v5 = SHIBYTE(v38);
-    v6 = v38;
-    v7 = vp::get_log(log_context_info);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
-    {
-      if (v5 >= 0)
-      {
-        v8 = v4;
-      }
-
-      else
-      {
-        v8 = v6;
-      }
-
-      rep = __t.__d_.__rep_;
-      if (v5 >= 0)
-      {
-        rep = &__t;
-      }
-
-      if (v8)
-      {
-        v10 = " ";
-      }
-
-      else
-      {
-        v10 = "";
-      }
-
-      *buf = 136315394;
-      v34 = rep;
-      v35 = 2080;
-      v36 = v10;
-      _os_log_impl(&dword_2724B4000, v7, OS_LOG_TYPE_INFO, "%s%sconfigure", buf, 0x16u);
-      LOBYTE(v5) = HIBYTE(v38);
-    }
-
-    if ((v5 & 0x80) != 0)
-    {
-      operator delete(__t.__d_.__rep_);
-    }
-  }
-
-  v11 = this[29];
-  if (v11)
-  {
-    v12 = std::__shared_weak_count::lock(v11);
-    v13 = v12;
-    if (v12)
-    {
-      v14 = this[28];
-      atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
-      if (v14)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v12);
-        v15 = this[31];
-        if (v15)
-        {
-          v16 = std::__shared_weak_count::lock(v15);
-          if (v16)
-          {
-            v17 = this[30];
-            atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
-            if (v17)
-            {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v16);
-              (v17->__get_deleter)(&__t, v17, 7);
-              v30 = __t.__d_.__rep_;
-              v31 = v38;
-              v38 = 0uLL;
-              vp::vx::data_flow::State<void>::~State(&__t);
-              v18 = this[1];
-              v28[0] = 0;
-              v28[1] = v18;
-              v29 = xmmword_2727565F0;
-              v19 = (v18->__on_zero_shared)(v18, 96, 8);
-              v20 = v19;
-              *&v21 = v14;
-              *(&v21 + 1) = v13;
-              atomic_fetch_add_explicit(&v13->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-              v22 = *(this + 13);
-              v23 = this[27];
-              if (v23)
-              {
-                atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
-              }
-
-              *v19 = &unk_2881BDE28;
-              *(v19 + 8) = v21;
-              *(v19 + 24) = v22;
-              *(v19 + 48) = 0;
-              *(v19 + 56) = 0;
-              *(v19 + 40) = 0;
-              __t.__d_.__rep_ = std::chrono::system_clock::now().__d_.__rep_;
-              *(v20 + 64) = std::chrono::system_clock::to_time_t(&__t);
-              *(v20 + 72) = 0;
-              *(v20 + 80) = 0;
-              *(v20 + 88) = 0;
-              std::unique_ptr<vp::vx::components::Property_Logger::Node_Decorator_Factory,vp::Allocator_Delete<vp::vx::components::Property_Logger::Node_Decorator_Factory>>::reset[abi:ne200100](v28, v20);
-              v24 = v28[0];
-              vp::vx::data_flow::State<void>::State(&v27, &v30);
-              v26 = v24[1];
-              v25 = v24[2];
-              if (v25)
-              {
-                atomic_fetch_add_explicit(v25 + 2, 1uLL, memory_order_relaxed);
-              }
-
-              v32[0] = &unk_2881BE140;
-              v32[1] = v26;
-              v32[2] = v25;
-              v32[3] = v32;
-              std::__function::__value_func<void ()(unsigned int,BOOL const&)>::__value_func[abi:ne200100](buf, v32);
-              v39 = 0;
-              operator new();
-            }
-          }
-        }
-
-        _os_crash();
-        __break(1u);
-      }
-    }
-  }
-
-  while (1)
-  {
-    _os_crash();
-    __break(1u);
-  }
-}
-
-void sub_2726B9598(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va1, a4);
-  va_start(va, a4);
-  v7 = va_arg(va1, void (***)(void));
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  std::unique_ptr<vp::vx::components::Property_Logger::Node_Decorator_Factory,vp::Allocator_Delete<vp::vx::components::Property_Logger::Node_Decorator_Factory>>::reset[abi:ne200100](va, 0);
-  vp::vx::data_flow::State<void>::~State(va1);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v4);
-  _Unwind_Resume(a1);
-}
-
-void (****std::unique_ptr<vp::vx::components::Property_Logger::Node_Decorator_Factory,vp::Allocator_Delete<vp::vx::components::Property_Logger::Node_Decorator_Factory>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)57,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)57,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
 {
   v2 = *result;
   *result = a2;
@@ -6273,3580 +6232,3650 @@ void (****std::unique_ptr<vp::vx::components::Property_Logger::Node_Decorator_Fa
   return result;
 }
 
-uint64_t vp::vx::components::Property_Logger::set_time(uint64_t this, uint64_t a2)
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)57,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
 {
-  *(this + 256) = a2;
-  v2 = *(this + 264);
-  if (v2)
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
+  if (v3)
   {
-    *(v2 + 64) = a2;
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
   }
 
-  return this;
+  v4[0] = &unk_2881BCDC0;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(unsigned int const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
+  operator new();
 }
 
-void vp::vx::components::Property_Logger::set_state_owner(uint64_t a1, __int128 *a2)
+void sub_2726A6234(_Unwind_Exception *a1, int a2)
 {
-  v3 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
-  v4 = *(a1 + 248);
-  *(a1 + 240) = v3;
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)57,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)57,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::operator()(uint64_t a1, int *a2)
+{
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
   if (v4)
   {
-    std::__shared_weak_count::__release_weak(v4);
-  }
-}
-
-void vp::vx::components::Property_Logger::set_state_observer(uint64_t a1, __int128 *a2)
-{
-  v3 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
-  v4 = *(a1 + 232);
-  *(a1 + 224) = v3;
-  if (v4)
-  {
-    std::__shared_weak_count::__release_weak(v4);
-  }
-}
-
-void vp::vx::components::Property_Logger::set_messenger(uint64_t a1, __int128 *a2)
-{
-  v3 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
-  v4 = *(a1 + 216);
-  *(a1 + 208) = v3;
-  if (v4)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
-  }
-}
-
-void vp::vx::components::Property_Logger::~Property_Logger(std::__shared_weak_count **this)
-{
-  vp::vx::components::Property_Logger::~Property_Logger(this);
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-{
-  v21 = *MEMORY[0x277D85DE8];
-  log = vp::get_log(this);
-  if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
-  {
-    log_context_info = vp::get_log_context_info(__p, this, "vp::vx::components::Property_Logger]", 35);
-    v4 = v16;
-    v5 = v16;
-    v6 = __p[1];
-    v7 = vp::get_log(log_context_info);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
-    {
-      if (v5 >= 0)
-      {
-        v8 = v4;
-      }
-
-      else
-      {
-        v8 = v6;
-      }
-
-      v9 = __p[0];
-      if (v5 >= 0)
-      {
-        v9 = __p;
-      }
-
-      if (v8)
-      {
-        v10 = " ";
-      }
-
-      else
-      {
-        v10 = "";
-      }
-
-      *buf = 136315394;
-      v18 = v9;
-      v19 = 2080;
-      v20 = v10;
-      _os_log_impl(&dword_2724B4000, v7, OS_LOG_TYPE_DEBUG, "%s%sdestroyed", buf, 0x16u);
-      LOBYTE(v5) = v16;
-    }
-
-    if ((v5 & 0x80) != 0)
-    {
-      operator delete(__p[0]);
-    }
-  }
-
-  std::unique_ptr<vp::vx::io::Node_Decorator_Factory,vp::Allocator_Delete<vp::vx::io::Node_Decorator_Factory>>::reset[abi:ne200100](this + 33, 0);
-  v11 = this[31];
-  if (v11)
-  {
-    std::__shared_weak_count::__release_weak(v11);
-  }
-
-  v12 = this[29];
-  if (v12)
-  {
-    std::__shared_weak_count::__release_weak(v12);
-  }
-
-  v13 = this[27];
-  if (v13)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
-  }
-
-  vp::Context::~Context((this + 2));
-  v14 = *MEMORY[0x277D85DE8];
-}
-
-void virtual thunk tovp::vx::components::Property_Logger::Node_Decorator::~Node_Decorator(vp::vx::components::Property_Logger::Node_Decorator *this)
-{
-  vp::vx::components::Property_Logger::Node_Decorator::~Node_Decorator((this + *(*this - 24)));
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-{
-  vp::vx::components::Property_Logger::Node_Decorator::~Node_Decorator((this + *(*this - 24)));
-}
-
-void vp::vx::components::Property_Logger::Node_Decorator::~Node_Decorator(vp::vx::components::Property_Logger::Node_Decorator *this)
-{
-  v20 = *MEMORY[0x277D85DE8];
-  *this = &unk_2881BDCA0;
-  *(this + 8) = &unk_2881BDDC0;
-  *(this + 5) = &unk_2881BDD68;
-  log = vp::get_log(this);
-  if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
-  {
-    vp::vx::io::get_log_context_info(__p, this + *(*this - 24), "vp::vx::components::Property_Logger::Node_Decorator]", 51);
-    v3 = v15;
-    v4 = v15;
-    v5 = __p[1];
-    v7 = vp::get_log(v6);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
-    {
-      if (v4 >= 0)
-      {
-        v8 = v3;
-      }
-
-      else
-      {
-        v8 = v5;
-      }
-
-      v9 = __p[0];
-      if (v4 >= 0)
-      {
-        v9 = __p;
-      }
-
-      if (v8)
-      {
-        v10 = " ";
-      }
-
-      else
-      {
-        v10 = "";
-      }
-
-      *buf = 136315394;
-      v17 = v9;
-      v18 = 2080;
-      v19 = v10;
-      _os_log_impl(&dword_2724B4000, v7, OS_LOG_TYPE_DEBUG, "%s%sdestroyed", buf, 0x16u);
-      LOBYTE(v4) = v15;
-    }
-
-    if ((v4 & 0x80) != 0)
-    {
-      operator delete(__p[0]);
-    }
-  }
-
-  v11 = *(this + 7);
-  if (v11)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
-  }
-
-  *this = off_2881BDE58;
-  *(this + 8) = off_2881BDEF0;
-  std::unique_ptr<vp::vx::io::Node,vp::Allocator_Delete<vp::vx::io::Node>>::reset[abi:ne200100](this + 1, 0);
-  *(this + 8) = &unk_2881C6630;
-  v12 = *(this + 10);
-  if (v12)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
-  }
-
-  v13 = *MEMORY[0x277D85DE8];
-}
-
-{
-  vp::vx::components::Property_Logger::Node_Decorator::~Node_Decorator(this);
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-void non-virtual thunk tovp::vx::components::Property_Logger::Node_Decorator::~Node_Decorator(vp::vx::components::Property_Logger::Node_Decorator *this)
-{
-  vp::vx::components::Property_Logger::Node_Decorator::~Node_Decorator((this - 40));
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-{
-  vp::vx::components::Property_Logger::Node_Decorator::~Node_Decorator((this - 40));
-}
-
-void vp::vx::components::Property_Logger::Node_Decorator::set_property(vp::vx::components::Property_Logger::Node_Decorator *this@<X0>, const vp::Blob *a2@<X2>, uint64_t a3@<X1>, uint64_t a4@<X8>)
-{
-  v20[1] = *MEMORY[0x277D85DE8];
-  v14 = a3;
-  v8 = (*(**(this + 1) + 16))(*(this + 1));
-  if (v8)
-  {
-    v9 = v8;
-    rep = std::chrono::system_clock::now().__d_.__rep_;
-    (*(*v9 + 40))(v9, a3, a2);
-    if (*(a4 + 48) == 1)
-    {
-      vp::vx::components::Property_Logger::Node_Decorator::Property::Property(&v15, *a2, *(a2 + 1));
-      v12 = "set";
-      vp::utility::CSV_Log<vp::utility::ISO_8601,char const*,unsigned int,vp::vx::components::Property_Logger::Node_Decorator::Property>::Buffer::write(*(this + 6), &rep, &v12, &v14, &v15);
-      std::__variant_detail::__dtor<std::__variant_detail::__traits<vp::vx::components::Property_Logger::Node_Decorator::Property::Small_Storage,vp::vx::components::Property_Logger::Node_Decorator::Property::Large_Storage>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v16);
-    }
+    v5 = v4 - 1;
   }
 
   else
   {
-    v15 = 0x1000700000000DLL;
-    v16 = "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Library/VoiceProcessor/vp/vx/components/Property_Logger+Node_Decorator.cpp";
-    v18 = 0;
-    v19 = 0;
-    v17 = 0;
-    vp::Real_Time_Safe_Allocator<char>::Real_Time_Safe_Allocator(v20);
-    v10 = _ZNO2vp2vx2io5ErrorcvNS_8ExpectedIT_S2_EEIjEEv(a4, &v15);
-    if (SHIBYTE(v19) < 0)
-    {
-      (*(*v20[0] + 24))(v20[0], v17, v19 & 0x7FFFFFFFFFFFFFFFLL, 1, v10);
-    }
+    v5 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-}
-
-void sub_2726B9D6C(_Unwind_Exception *a1, int a2)
-{
-  if (a2)
+  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
+  v6 = v10;
+  v8 = v10;
+  vp::sim::Key_Writer::count(&v8, 0x39, "Beam Direction");
+  vp::sim::converters::Default_Converter<unsigned int>::to_property_list(&cf, *a2);
+  v7 = cf;
+  if (cf)
   {
-    __clang_call_terminate(a1);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-vp::vx::components::Property_Logger::Node_Decorator::Property *vp::vx::components::Property_Logger::Node_Decorator::Property::Property(vp::vx::components::Property_Logger::Node_Decorator::Property *this, const void *__src, size_t __n)
-{
-  v17 = *MEMORY[0x277D85DE8];
-  *this = __n;
-  *(this + 8) = 0u;
-  v6 = (this + 8);
-  *(this + 24) = 0u;
-  *(this + 10) = 0;
-  if (__n > 0x20)
-  {
-    MEMORY[0x2743CB700]();
-    v8 = *MEMORY[0x277D7F098];
-    if (!*MEMORY[0x277D7F098])
-    {
-      __break(1u);
-    }
-
-    v9 = (*(*v8 + 16))(*MEMORY[0x277D7F098], (__n + 47) & 0xFFFFFFFFFFFFFFF8, 8);
-    *v9 = &unk_2881BE060;
-    v9[1] = 0;
-    v9[2] = 0;
-    v9[3] = v8;
-    v9[4] = __n;
-    bzero(v9 + 5, __n);
-    *&v10 = v9 + 5;
-    *(&v10 + 1) = v9;
-    v14 = v10;
-    memcpy(v9 + 5, __src, __n);
-    if (*(this + 10) == 1)
-    {
-      v11 = *(this + 2);
-      *(this + 8) = v14;
-      if (v11)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v11);
-      }
-    }
-
-    else
-    {
-      std::__variant_detail::__dtor<std::__variant_detail::__traits<vp::vx::components::Property_Logger::Node_Decorator::Property::Small_Storage,vp::vx::components::Property_Logger::Node_Decorator::Property::Large_Storage>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v6);
-      *(this + 8) = v14;
-      *(this + 10) = 1;
-    }
+    CFRetain(cf);
+    v10 = v7;
+    vp::sim::Key_Writer::set(&v8, 0x39, "Beam Direction", &v10);
+    CFRelease(v7);
   }
 
   else
   {
-    __dst = 0uLL;
-    v16 = 0uLL;
-    memcpy(&__dst, __src, __n);
-    v7 = v16;
-    *v6 = __dst;
-    v6[1] = v7;
+    v10 = 0;
+    vp::sim::Key_Writer::set(&v8, 0x39, "Beam Direction", &v10);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-  return this;
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  if (v6)
+  {
+    CFRelease(v6);
+  }
 }
 
-void sub_2726B9F08(_Unwind_Exception *a1, int a2)
+void sub_2726A6344(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  if (a2)
-  {
-    __clang_call_terminate(a1);
-  }
-
+  va_start(va, a3);
+  __cxa_end_catch();
+  vp::sim::Key_Writer::~Key_Writer(va);
   _Unwind_Resume(a1);
 }
 
-void vp::utility::CSV_Log<vp::utility::ISO_8601,char const*,unsigned int,vp::vx::components::Property_Logger::Node_Decorator::Property>::Buffer::write(uint64_t a1, void *a2, void *a3, int *a4, uint64_t *a5)
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)57,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)57,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy_deallocate(void *__p)
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v10 = *(a1 + 744);
-  v11 = *(a1 + 672);
-  explicit = atomic_load_explicit((a1 + 736), memory_order_acquire);
-  v13 = v10 - 1;
-  v14 = v11 >= explicit;
-  v15 = v11 - explicit;
-  if (!v14)
-  {
-    v13 = -1;
-  }
-
-  if (v15 == v13)
-  {
-    vp::utility::CSV_Log<vp::utility::ISO_8601,char const*,unsigned int,vp::vx::components::Property_Logger::Node_Decorator::Property>::Buffer::flush(a1);
-  }
-
-  *&v30 = *a2;
-  *(&v30 + 1) = *a3;
-  v31 = *a4;
-  v32 = *a5;
-  std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<vp::vx::components::Property_Logger::Node_Decorator::Property::Small_Storage,vp::vx::components::Property_Logger::Node_Decorator::Property::Large_Storage>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](v33, (a5 + 1));
-  v16 = *(a1 + 752);
-  v17 = *(a1 + 744);
-  v18 = *(a1 + 672);
-  v19 = v18 + v17 + 1;
-  do
-  {
-    v19 -= v17;
-  }
-
-  while (v19 >= v17);
-  if (v19 == atomic_load_explicit((a1 + 736), memory_order_acquire))
-  {
-    goto LABEL_19;
-  }
-
-  v20 = v16 + 72 * v18;
-  *v20 = v30;
-  *(v20 + 16) = v31;
-  *(v20 + 24) = v32;
-  std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<vp::vx::components::Property_Logger::Node_Decorator::Property::Small_Storage,vp::vx::components::Property_Logger::Node_Decorator::Property::Large_Storage>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](v20 + 32, v33);
-  atomic_store(v19, (a1 + 672));
-  std::__variant_detail::__dtor<std::__variant_detail::__traits<vp::vx::components::Property_Logger::Node_Decorator::Property::Small_Storage,vp::vx::components::Property_Logger::Node_Decorator::Property::Large_Storage>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v33);
-  v21 = *(a1 + 744);
-  v22 = *(a1 + 672);
-  v23 = atomic_load_explicit((a1 + 736), memory_order_acquire);
-  if (v22 < v23)
-  {
-    v21 = 0;
-  }
-
-  if (v23 + ~v22 + v21 < *(a1 + 648) >> 1)
-  {
-    v24 = *(a1 + 656);
-    if (!v24)
-    {
-      vp::utility::CSV_Log<vp::utility::ISO_8601,char const*,unsigned int,vp::vx::components::Property_Logger::Node_Decorator::Property>::Buffer::flush(a1);
-      goto LABEL_17;
-    }
-
-    v25 = *a1;
-    v26 = *(a1 + 8);
-    if (v26)
-    {
-      atomic_fetch_add_explicit((v26 + 16), 1uLL, memory_order_relaxed);
-    }
-
-    if (*MEMORY[0x277D7F098])
-    {
-      v29 = v25;
-      v27 = caulk::rt_safe_memory_resource::rt_allocate(*MEMORY[0x277D7F098]);
-      *(v27 + 16) = 0;
-      *(v27 + 24) = v29;
-      *v27 = &unk_2881BE0F0;
-      *(v27 + 8) = 0;
-      caulk::concurrent::messenger::enqueue(v24, v27);
-      goto LABEL_17;
-    }
-
-    __break(1u);
-LABEL_19:
-    std::__variant_detail::__dtor<std::__variant_detail::__traits<vp::vx::components::Property_Logger::Node_Decorator::Property::Small_Storage,vp::vx::components::Property_Logger::Node_Decorator::Property::Large_Storage>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v33);
-    memset(v33, 0, sizeof(v33));
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-LABEL_17:
-  v28 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t std::__variant_detail::__dtor<std::__variant_detail::__traits<vp::vx::components::Property_Logger::Node_Decorator::Property::Small_Storage,vp::vx::components::Property_Logger::Node_Decorator::Property::Large_Storage>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](uint64_t result)
-{
-  v1 = result;
-  v2 = *(result + 32);
-  if (v2 != -1)
-  {
-    result = (off_2881BE040[v2])(&v3, result);
-  }
-
-  *(v1 + 32) = -1;
-  return result;
-}
-
-void _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8ne200100IOZNS0_6__dtorINS0_8__traitsIJN2vp2vx10components15Property_Logger14Node_Decorator8Property13Small_StorageENSD_13Large_StorageEEEELNS0_6_TraitE1EE9__destroyB8ne200100EvEUlRT_E_JRNS0_6__baseILSH_1EJSE_SF_EEEEEEDcSJ_DpT0_(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 8);
+  v2 = __p[2];
   if (v2)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v2);
   }
+
+  operator delete(__p);
 }
 
-void vp::utility::CSV_Log<vp::utility::ISO_8601,char const*,unsigned int,vp::vx::components::Property_Logger::Node_Decorator::Property>::Buffer::flush(uint64_t a1)
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)57,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)57,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy(uint64_t a1)
 {
-  std::mutex::lock((a1 + 16));
-  v12 = a1;
-  v2 = *(a1 + 752);
-  v3 = *(a1 + 744);
-  explicit = atomic_load_explicit((a1 + 672), memory_order_acquire);
-  v5 = *(a1 + 736);
-  v6 = explicit - v5;
-  if (explicit >= v5)
+  v1 = *(a1 + 16);
+  if (v1)
   {
-    v7 = 0;
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
   }
-
-  else
-  {
-    v7 = v3;
-  }
-
-  v8 = v7 + v6;
-  if (v7 + v6)
-  {
-    v9 = v7 + explicit;
-    v10 = v2 + 72 * v5;
-    v11 = v7 + explicit - v3;
-    if (v7 + explicit <= v3)
-    {
-      _ZN5boost8lockfree6detail15ringbuffer_baseINSt3__15tupleIJN2vp7utility8ISO_8601EPKcjNS5_2vx10components15Property_Logger14Node_Decorator8PropertyEEEEE22run_functor_and_deleteIZNS6_7CSV_LogIJS7_S9_jSE_EE6Buffer5flushEvEUlRKT_E_EEvPSF_SP_SN_(v10, v10 + 72 * v8, &v12);
-      if (v9 == v3)
-      {
-        v11 = 0;
-      }
-
-      else
-      {
-        v11 = v9;
-      }
-    }
-
-    else
-    {
-      _ZN5boost8lockfree6detail15ringbuffer_baseINSt3__15tupleIJN2vp7utility8ISO_8601EPKcjNS5_2vx10components15Property_Logger14Node_Decorator8PropertyEEEEE22run_functor_and_deleteIZNS6_7CSV_LogIJS7_S9_jSE_EE6Buffer5flushEvEUlRKT_E_EEvPSF_SP_SN_(v10, v2 + 72 * v3, &v12);
-      _ZN5boost8lockfree6detail15ringbuffer_baseINSt3__15tupleIJN2vp7utility8ISO_8601EPKcjNS5_2vx10components15Property_Logger14Node_Decorator8PropertyEEEEE22run_functor_and_deleteIZNS6_7CSV_LogIJS7_S9_jSE_EE6Buffer5flushEvEUlRKT_E_EEvPSF_SP_SN_(v2, v2 + 72 * (v5 - v3) + 72 * v8, &v12);
-    }
-
-    atomic_store(v11, (a1 + 736));
-  }
-
-  std::ostream::flush();
-
-  std::mutex::unlock((a1 + 16));
 }
 
-uint64_t std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<vp::vx::components::Property_Logger::Node_Decorator::Property::Small_Storage,vp::vx::components::Property_Logger::Node_Decorator::Property::Large_Storage>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](uint64_t a1, uint64_t a2)
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)57,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)57,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::__clone(uint64_t result, void *a2)
 {
-  *a1 = 0;
-  *(a1 + 32) = -1;
-  std::__variant_detail::__dtor<std::__variant_detail::__traits<vp::vx::components::Property_Logger::Node_Decorator::Property::Small_Storage,vp::vx::components::Property_Logger::Node_Decorator::Property::Large_Storage>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](a1);
-  v4 = *(a2 + 32);
-  if (v4 != -1)
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881BCDC0;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
   {
-    v6 = a1;
-    (off_2881BE0D0[v4])(&v6, a2);
-    *(a1 + 32) = v4;
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)57,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)57,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BCDC0;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)57,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)57,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BCDC0;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
   }
 
   return a1;
 }
 
-caulk::rt_safe_memory_resource *_ZN5caulk10concurrent7details15rt_message_callIZN2vp7utility7CSV_LogIJNS4_8ISO_8601EPKcjNS3_2vx10components15Property_Logger14Node_Decorator8PropertyEEE6Buffer5writeERKS6_RKS8_RKjRKSD_EUlT_E_JNSt3__18weak_ptrISF_EEEE7performEv(caulk::concurrent::message *a1)
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)57,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
 {
-  v2 = *(a1 + 4);
-  if (v2)
-  {
-    v3 = *(a1 + 3);
-    atomic_fetch_add_explicit(&v2->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-    v4 = std::__shared_weak_count::lock(v2);
-    if (v4)
-    {
-      v5 = v4;
-      if (v3)
-      {
-        vp::utility::CSV_Log<vp::utility::ISO_8601,char const*,unsigned int,vp::vx::components::Property_Logger::Node_Decorator::Property>::Buffer::flush(v3);
-      }
-
-      std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-    }
-
-    std::__shared_weak_count::__release_weak(v2);
-    v6 = *(a1 + 4);
-    *a1 = &unk_2881BE118;
-    if (v6)
-    {
-      std::__shared_weak_count::__release_weak(v6);
-    }
-  }
-
-  else
-  {
-    *a1 = &unk_2881BE118;
-  }
-
-  caulk::concurrent::message::~message(a1);
-  result = *MEMORY[0x277D7F098];
-  if (*MEMORY[0x277D7F098])
-  {
-
-    return caulk::rt_safe_memory_resource::rt_deallocate(result, a1);
-  }
-
-  else
-  {
-    __break(1u);
-  }
-
-  return result;
-}
-
-void _ZN5caulk10concurrent7details12message_callIZN2vp7utility7CSV_LogIJNS4_8ISO_8601EPKcjNS3_2vx10components15Property_Logger14Node_Decorator8PropertyEEE6Buffer5writeERKS6_RKS8_RKjRKSD_EUlT_E_JNSt3__18weak_ptrISF_EEEE7performEv(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  if (v1)
-  {
-    v2 = *(a1 + 24);
-    atomic_fetch_add_explicit(&v1->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-    v3 = std::__shared_weak_count::lock(v1);
-    if (v3)
-    {
-      v4 = v3;
-      if (v2)
-      {
-        vp::utility::CSV_Log<vp::utility::ISO_8601,char const*,unsigned int,vp::vx::components::Property_Logger::Node_Decorator::Property>::Buffer::flush(v2);
-      }
-
-      std::__shared_weak_count::__release_shared[abi:ne200100](v4);
-    }
-
-    std::__shared_weak_count::__release_weak(v1);
-  }
-}
-
-void _ZN5caulk10concurrent7details12message_callIZN2vp7utility7CSV_LogIJNS4_8ISO_8601EPKcjNS3_2vx10components15Property_Logger14Node_Decorator8PropertyEEE6Buffer5writeERKS6_RKS8_RKjRKSD_EUlT_E_JNSt3__18weak_ptrISF_EEEED0Ev(caulk::concurrent::message *this)
-{
-  *this = &unk_2881BE118;
-  v2 = *(this + 4);
-  if (v2)
-  {
-    std::__shared_weak_count::__release_weak(v2);
-  }
-
-  caulk::concurrent::message::~message(this);
+  *a1 = &unk_2881BCD90;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
 
   JUMPOUT(0x2743CBFA0);
 }
 
-void _ZN5caulk10concurrent7details12message_callIZN2vp7utility7CSV_LogIJNS4_8ISO_8601EPKcjNS3_2vx10components15Property_Logger14Node_Decorator8PropertyEEE6Buffer5writeERKS6_RKS8_RKjRKSD_EUlT_E_JNSt3__18weak_ptrISF_EEEED1Ev(caulk::concurrent::message *this)
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)57,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
 {
-  *this = &unk_2881BE118;
-  v2 = *(this + 4);
-  if (v2)
-  {
-    std::__shared_weak_count::__release_weak(v2);
-  }
-
-  caulk::concurrent::message::~message(this);
+  *a1 = &unk_2881BCD90;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+  return a1;
 }
 
-void _ZN5caulk10concurrent7details15rt_message_callIZN2vp7utility7CSV_LogIJNS4_8ISO_8601EPKcjNS3_2vx10components15Property_Logger14Node_Decorator8PropertyEEE6Buffer5writeERKS6_RKS8_RKjRKSD_EUlT_E_JNSt3__18weak_ptrISF_EEEED0Ev(caulk::concurrent::message *this)
+unsigned int *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIjEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_10components20Property_List_Writer26set_up_key_state_listenersERS8_RKNS3_27Voice_Processor_State_OwnerEE4__10JNS3_14Beam_DirectionEEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSH_EEERNS4_13State_ManagerESJ_SQ_EUlPPKNS4_5ValueEPSY_E_NS_9allocatorIS13_EEFvS11_S12_EEclEOS11_OS12_(uint64_t a1, vp::vx::data_flow::Value ***a2, vp::vx::data_flow::Value **a3)
 {
-  *this = &unk_2881BE118;
-  v2 = *(this + 4);
-  if (v2)
+  v3 = *a3;
+  v4 = *vp::vx::data_flow::Value::view_storage(**a2);
+  if (v4 >= 2)
   {
-    std::__shared_weak_count::__release_weak(v2);
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = std::bad_cast::bad_cast(exception);
   }
 
-  caulk::concurrent::message::~message(this);
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-void _ZN5caulk10concurrent7details15rt_message_callIZN2vp7utility7CSV_LogIJNS4_8ISO_8601EPKcjNS3_2vx10components15Property_Logger14Node_Decorator8PropertyEEE6Buffer5writeERKS6_RKS8_RKjRKSD_EUlT_E_JNSt3__18weak_ptrISF_EEEED1Ev(caulk::concurrent::message *this)
-{
-  *this = &unk_2881BE118;
-  v2 = *(this + 4);
-  if (v2)
-  {
-    std::__shared_weak_count::__release_weak(v2);
-  }
-
-  caulk::concurrent::message::~message(this);
-}
-
-void **_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8ne200100IOZNS0_6__ctorINS0_8__traitsIJN2vp2vx10components15Property_Logger14Node_Decorator8Property13Small_StorageENSD_13Large_StorageEEEEE19__generic_constructB8ne200100IRKNS0_18__copy_constructorISG_LNS0_6_TraitE1EEEEEvRSH_OT_EUlSQ_E_JRKNS0_6__baseILSK_1EJSE_SF_EEEEEEDcSP_DpT0_(void **result, void *a2)
-{
-  v2 = *result;
-  v3 = a2[1];
-  *v2 = *a2;
-  v2[1] = v3;
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
+  vp::vx::data_flow::Value::~Value(v3);
+  *v3 = std::pmr::get_default_resource(v5);
+  *(v3 + 1) = 0;
+  *(v3 + 2) = &vp::vx::data_flow::Value::type_id<unsigned int>(void)::s_type_id;
+  result = vp::vx::data_flow::Value::allocate_storage(v3);
+  *result = v4;
   return result;
 }
 
-__n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8ne200100IOZNS0_6__ctorINS0_8__traitsIJN2vp2vx10components15Property_Logger14Node_Decorator8Property13Small_StorageENSD_13Large_StorageEEEEE19__generic_constructB8ne200100IRKNS0_18__copy_constructorISG_LNS0_6_TraitE1EEEEEvRSH_OT_EUlSQ_E_JRKNS0_6__baseILSK_1EJSE_SF_EEEEEEDcSP_DpT0_(_OWORD **a1, uint64_t a2)
+uint64_t vp::vx::data_flow::Value::Type_ID_Eraser<vp::vx::Beam_Direction>::view_storage(uint64_t a1, uint64_t a2)
 {
-  v2 = *a1;
-  result = *a2;
-  v4 = *(a2 + 16);
-  *v2 = *a2;
-  v2[1] = v4;
+  return a2;
+}
+
+{
+  return a2;
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIjEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_10components20Property_List_Writer26set_up_key_state_listenersERS8_RKNS3_27Voice_Processor_State_OwnerEE4__10JNS3_14Beam_DirectionEEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSH_EEERNS4_13State_ManagerESJ_SQ_EUlPPKNS4_5ValueEPSY_E_NS_9allocatorIS13_EEFvS11_S12_EE7__cloneEPNS0_6__baseIS16_EE(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_2881BB120;
+  *(a2 + 8) = *(result + 8);
   return result;
 }
 
-uint64_t _ZN5boost8lockfree6detail15ringbuffer_baseINSt3__15tupleIJN2vp7utility8ISO_8601EPKcjNS5_2vx10components15Property_Logger14Node_Decorator8PropertyEEEEE22run_functor_and_deleteIZNS6_7CSV_LogIJS7_S9_jSE_EE6Buffer5flushEvEUlRKT_E_EEvPSF_SP_SN_(uint64_t result, uint64_t a2, void *a3)
-{
-  if (result != a2)
-  {
-    v5 = result + 32;
-    v6 = MEMORY[0x277D82680];
-    do
-    {
-      v7 = v5 - 32;
-      v8 = (*a3 + 80);
-      vp::utility::operator<<(v8, *(v5 - 32));
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, ", ", 2);
-      v9 = strlen(*(v5 - 24));
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, *(v5 - 24), v9);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, ", ", 2);
-      v10 = MEMORY[0x2743CBB40](v8, *(v5 - 16));
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, ", ", 2);
-      v14[0] = v5 - 8;
-      v14[1] = v8;
-      v11 = *(v5 + 32);
-      if (v11 == -1)
-      {
-        std::__throw_bad_variant_access[abi:ne200100]();
-      }
-
-      v15 = v14;
-      (off_2881BE088[v11])(&v15, v5);
-      std::ios_base::getloc((v8 + *(*v8 - 24)));
-      v12 = std::locale::use_facet(&v13, v6);
-      (v12->__vftable[2].~facet_0)(v12, 10);
-      std::locale::~locale(&v13);
-      std::ostream::put();
-      std::ostream::flush();
-      result = std::__variant_detail::__dtor<std::__variant_detail::__traits<vp::vx::components::Property_Logger::Node_Decorator::Property::Small_Storage,vp::vx::components::Property_Logger::Node_Decorator::Property::Large_Storage>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v5);
-      v5 += 72;
-    }
-
-    while (v7 + 72 != a2);
-  }
-
-  return result;
-}
-
-void std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<vp::vx::components::Property_Logger::Node_Decorator::Property::log(std::ostream &)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,vp::vx::components::Property_Logger::Node_Decorator::Property::Small_Storage,vp::vx::components::Property_Logger::Node_Decorator::Property::Large_Storage> const&>(uint64_t ***a1, const unsigned __int8 **a2)
-{
-  v2 = (*a1)[1];
-  vp::utility::encode_to_base_64(v6, *a2, ***a1);
-  v3 = v8;
-  if (v8 == 1)
-  {
-    *__p = *v6;
-    v10 = v7;
-    v6[1] = 0;
-    v7 = 0;
-    v6[0] = 0;
-  }
-
-  else
-  {
-    std::string::basic_string[abi:ne200100]<0>(__p, "(null)");
-  }
-
-  if (v10 >= 0)
-  {
-    v4 = __p;
-  }
-
-  else
-  {
-    v4 = __p[0];
-  }
-
-  if (v10 >= 0)
-  {
-    v5 = HIBYTE(v10);
-  }
-
-  else
-  {
-    v5 = __p[1];
-  }
-
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v2, v4, v5);
-  if (SHIBYTE(v10) < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  if (v3)
-  {
-    if (SHIBYTE(v7) < 0)
-    {
-      operator delete(v6[0]);
-    }
-  }
-}
-
-void sub_2726BA970(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
-{
-  if (a21 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (v21)
-  {
-    if (a14 < 0)
-    {
-      operator delete(a9);
-    }
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<vp::vx::components::Property_Logger::Node_Decorator::Property::log(std::ostream &)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,vp::vx::components::Property_Logger::Node_Decorator::Property::Small_Storage,vp::vx::components::Property_Logger::Node_Decorator::Property::Large_Storage> const&>(uint64_t ***a1, const unsigned __int8 *a2)
-{
-  v2 = (*a1)[1];
-  vp::utility::encode_to_base_64(v6, a2, ***a1);
-  v3 = v8;
-  if (v8 == 1)
-  {
-    *__p = *v6;
-    v10 = v7;
-    v6[1] = 0;
-    v7 = 0;
-    v6[0] = 0;
-  }
-
-  else
-  {
-    std::string::basic_string[abi:ne200100]<0>(__p, "(null)");
-  }
-
-  if (v10 >= 0)
-  {
-    v4 = __p;
-  }
-
-  else
-  {
-    v4 = __p[0];
-  }
-
-  if (v10 >= 0)
-  {
-    v5 = HIBYTE(v10);
-  }
-
-  else
-  {
-    v5 = __p[1];
-  }
-
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v2, v4, v5);
-  if (SHIBYTE(v10) < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  if (v3)
-  {
-    if (SHIBYTE(v7) < 0)
-    {
-      operator delete(v6[0]);
-    }
-  }
-}
-
-void sub_2726BAA58(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
-{
-  if (a21 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (v21)
-  {
-    if (a14 < 0)
-    {
-      operator delete(a9);
-    }
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void std::__unbounded_array_control_block<unsigned char [],vp::Allocator<unsigned char []>>::~__unbounded_array_control_block(std::__shared_weak_count *a1)
-{
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-void vp::vx::components::Property_Logger::Node_Decorator::get_property(vp::vx::components::Property_Logger::Node_Decorator *this@<X0>, vp::Mutable_Blob *a2@<X2>, uint64_t a3@<X1>, uint64_t a4@<X8>)
-{
-  v20[1] = *MEMORY[0x277D85DE8];
-  v14 = a3;
-  v8 = (*(**(this + 1) + 16))(*(this + 1));
-  if (v8)
-  {
-    v9 = v8;
-    rep = std::chrono::system_clock::now().__d_.__rep_;
-    (*(*v9 + 32))(v9, a3, a2);
-    if (*(a4 + 48) == 1)
-    {
-      vp::vx::components::Property_Logger::Node_Decorator::Property::Property(&v15, *a2, *(a2 + 2));
-      v12 = "get";
-      vp::utility::CSV_Log<vp::utility::ISO_8601,char const*,unsigned int,vp::vx::components::Property_Logger::Node_Decorator::Property>::Buffer::write(*(this + 6), &rep, &v12, &v14, &v15);
-      std::__variant_detail::__dtor<std::__variant_detail::__traits<vp::vx::components::Property_Logger::Node_Decorator::Property::Small_Storage,vp::vx::components::Property_Logger::Node_Decorator::Property::Large_Storage>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v16);
-    }
-  }
-
-  else
-  {
-    v15 = 0x10005C0000000DLL;
-    v16 = "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Library/VoiceProcessor/vp/vx/components/Property_Logger+Node_Decorator.cpp";
-    v18 = 0;
-    v19 = 0;
-    v17 = 0;
-    vp::Real_Time_Safe_Allocator<char>::Real_Time_Safe_Allocator(v20);
-    v10 = _ZNO2vp2vx2io5ErrorcvNS_8ExpectedIT_S2_EEIjEEv(a4, &v15);
-    if (SHIBYTE(v19) < 0)
-    {
-      (*(*v20[0] + 24))(v20[0], v17, v19 & 0x7FFFFFFFFFFFFFFFLL, 1, v10);
-    }
-  }
-
-  v11 = *MEMORY[0x277D85DE8];
-}
-
-void sub_2726BACD4(_Unwind_Exception *a1, int a2)
-{
-  if (a2)
-  {
-    __clang_call_terminate(a1);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void vp::vx::components::Property_Logger::Node_Decorator::get_property_info(vp::vx::components::Property_Logger::Node_Decorator *this@<X0>, uint64_t a2@<X8>)
-{
-  v3 = (*(**(this + 1) + 16))(*(this + 1));
-  if (v3)
-  {
-    v4 = *(*v3 + 24);
-
-    v4();
-  }
-
-  else
-  {
-    v6[0] = 0x1000480000000DLL;
-    v6[1] = "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Library/VoiceProcessor/vp/vx/components/Property_Logger+Node_Decorator.cpp";
-    v8 = 0;
-    v9 = 0;
-    v7 = 0;
-    vp::Real_Time_Safe_Allocator<char>::Real_Time_Safe_Allocator(&v10);
-    v5 = _ZNO2vp2vx2io5ErrorcvNS_8ExpectedIT_S2_EEIjEEv(a2, v6);
-    if (SHIBYTE(v9) < 0)
-    {
-      (*(*v10 + 24))(v10, v7, v9 & 0x7FFFFFFFFFFFFFFFLL, 1, v5);
-    }
-  }
-}
-
-double vp::vx::components::Property_Logger::Node_Decorator::get_property_ids@<D0>(uint64_t a1@<X0>, void *a2@<X8>)
-{
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  v3 = (*(**(a1 + 8) + 16))(*(a1 + 8));
-  if (v3)
-  {
-    (*(*v3 + 16))(&v6);
-    v5 = v7;
-    result = *&v6;
-    *a2 = v6;
-    a2[2] = v5;
-  }
-
-  return result;
-}
-
-uint64_t non-virtual thunk tovp::vx::components::Property_Logger::Node_Decorator::has_property(uint64_t a1)
-{
-  result = (*(**(a1 - 32) + 16))(*(a1 - 32));
-  if (result)
-  {
-    v2 = *(*result + 8);
-
-    return v2();
-  }
-
-  return result;
-}
-
-uint64_t (***non-virtual thunk tovp::vx::components::Property_Logger::Node_Decorator::has_property(vp::vx::components::Property_Logger::Node_Decorator *this))(void)
-{
-  result = (*(**(this - 4) + 16))(*(this - 4));
-  if (result)
-  {
-    v2 = **result;
-
-    return v2();
-  }
-
-  return result;
-}
-
-uint64_t vp::vx::components::Property_Logger::Node_Decorator::has_property(uint64_t a1)
-{
-  result = (*(**(a1 + 8) + 16))(*(a1 + 8));
-  if (result)
-  {
-    v2 = *(*result + 8);
-
-    return v2();
-  }
-
-  return result;
-}
-
-uint64_t (***vp::vx::components::Property_Logger::Node_Decorator::has_property(vp::vx::components::Property_Logger::Node_Decorator *this))(void)
-{
-  result = (*(**(this + 1) + 16))(*(this + 1));
-  if (result)
-  {
-    v2 = **result;
-
-    return v2();
-  }
-
-  return result;
-}
-
-uint64_t vp::vx::components::Property_Logger::Node_Decorator::as_property_controller(vp::vx::components::Property_Logger::Node_Decorator *this)
-{
-  return this + 40;
-}
-
-{
-  return this + 40;
-}
-
-void vp::vx::components::Property_Logger::Node_Decorator_Factory::new_node_decorator(uint64_t a1@<X0>, uint64_t *a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X8>)
-{
-  v34 = *MEMORY[0x277D85DE8];
-  if (*(a1 + 48))
-  {
-    *&__src[8] = 0;
-    *&v31 = 0;
-    *__src = std::pmr::get_default_resource(a1);
-    vp::vx::data_flow::State<void>::get_value((a1 + 40), __src);
-    v8 = *vp::vx::data_flow::Value::view_storage(__src);
-    vp::vx::data_flow::Value::~Value(__src);
-    if (v8 == 1)
-    {
-      v9 = *a2 + *(**a2 - 24);
-      v10 = *(v9 + 8);
-      v11 = *(v9 + 16);
-      if (v11)
-      {
-        atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      if (v10)
-      {
-        v32 = 0u;
-        v33 = 0u;
-        *__src = 0u;
-        v31 = 0u;
-        v24 = *(a1 + 64);
-        v12 = localtime(&v24);
-        strftime(__src, 0x40uLL, "%Y%m%d.%H%M%S", v12);
-        if (*(a1 + 95) < 0)
-        {
-          std::string::__init_copy_ctor_external(&v23, *(a1 + 72), *(a1 + 80));
-        }
-
-        else
-        {
-          v23 = *(a1 + 72);
-        }
-
-        std::__fs::filesystem::path::append[abi:ne200100]<char [8]>(&v23, "vp.");
-        v13 = (&v29 + 7);
-        do
-        {
-          v14 = v13->__r_.__value_.__s.__data_[1];
-          v13 = (v13 + 1);
-        }
-
-        while (v14);
-        std::string::append[abi:ne200100]<char const*,0>(&v23, __src, v13);
-        std::string::append(&v23, ".", 1uLL);
-        vp::vx::io::Object::Log_Context::get_description(&__p, v10);
-        if (v28 >= 0)
-        {
-          p_p = &__p;
-        }
-
-        else
-        {
-          p_p = __p;
-        }
-
-        if (v28 >= 0)
-        {
-          v16 = HIBYTE(v28);
-        }
-
-        else
-        {
-          v16 = v28;
-        }
-
-        std::string::append(&v23, p_p, v16);
-        if (SHIBYTE(v28) < 0)
-        {
-          operator delete(__p);
-        }
-
-        std::string::append(&v23, ".Property.csv", 0xDuLL);
-        v17 = (*(*a3 + 16))(a3, 88, 8);
-        v18 = *a2;
-        *a2 = 0;
-        v28 = *(a2 + 1);
-        v29 = a2[3];
-        v19 = *(a1 + 24);
-        v20 = *(a1 + 32);
-        v25 = v19;
-        v26 = v20;
-        __p = v18;
-        if (v20)
-        {
-          atomic_fetch_add_explicit((v20 + 8), 1uLL, memory_order_relaxed);
-          vp::vx::components::Property_Logger::Node_Decorator::Node_Decorator(v17);
-        }
-
-        vp::vx::components::Property_Logger::Node_Decorator::Node_Decorator(v17);
-      }
-
-      if (v11)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v11);
-      }
-    }
-  }
-
-  v21 = *a2;
-  *a2 = 0;
-  *a4 = v21;
-  *(a4 + 8) = *(a2 + 1);
-  *(a4 + 24) = a2[3];
-  v22 = *MEMORY[0x277D85DE8];
-}
-
-void sub_2726BB420(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23)
-{
-  if (a2)
-  {
-    std::unique_ptr<vp::vx::components::Property_Logger::Node_Decorator,vp::Allocator_Delete<vp::vx::components::Property_Logger::Node_Decorator>>::reset[abi:ne200100](&a9, 0);
-    __clang_call_terminate(exception_object);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void *std::unique_ptr<vp::vx::components::Property_Logger::Node_Decorator,vp::Allocator_Delete<vp::vx::components::Property_Logger::Node_Decorator>>::reset[abi:ne200100](void *result, uint64_t a2)
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)56,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)56,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
 {
   v2 = *result;
   *result = a2;
   if (v2)
   {
     v3 = result;
-    (*(*v2 + 112))(v2);
-    return (*(*v3[1] + 24))(v3[1], v2, v3[2], v3[3]);
+    (**v2)(v2);
+    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
   }
 
   return result;
 }
 
-void vp::vx::components::Property_Logger::Node_Decorator::Node_Decorator(uint64_t a1)
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)56,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  *(a1 + 64) = &unk_2881C6630;
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4[0] = &unk_2881BCD48;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(BOOL const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
   operator new();
 }
 
-void sub_2726BBD14(_Unwind_Exception *exception_object, int a2)
+void sub_2726A6980(_Unwind_Exception *a1, int a2)
 {
-  if (a2)
+  if (!a2)
   {
-    std::ostream::~ostream();
-    MEMORY[0x2743CBE30](v2);
-    __clang_call_terminate(exception_object);
+    _Unwind_Resume(a1);
   }
 
-  _Unwind_Resume(exception_object);
+  __clang_call_terminate(a1);
 }
 
-void std::__shared_ptr_emplace<vp::utility::CSV_Log<vp::utility::ISO_8601,char const*,unsigned int,vp::vx::components::Property_Logger::Node_Decorator::Property>::Buffer,std::allocator<vp::utility::CSV_Log<vp::utility::ISO_8601,char const*,unsigned int,vp::vx::components::Property_Logger::Node_Decorator::Property>::Buffer>>::__on_zero_shared(uint64_t a1)
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)56,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)56,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::operator()(uint64_t a1, _BYTE *a2)
 {
-  vp::utility::CSV_Log<vp::utility::ISO_8601,char const*,unsigned int,vp::vx::components::Property_Logger::Node_Decorator::Property>::Buffer::flush(a1 + 24);
-  v2 = *(a1 + 776);
-  v3 = *(a1 + 768);
-  explicit = atomic_load_explicit((a1 + 696), memory_order_acquire);
-  v5 = *(a1 + 760);
-  v6 = explicit - v5;
-  if (explicit >= v5)
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
+  if (v4)
   {
-    v7 = 0;
+    v5 = v4 - 1;
   }
 
   else
   {
-    v7 = v3;
+    v5 = 0;
   }
 
-  v8 = v7 + v6;
-  if (v7 + v6)
+  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
+  v6 = v10;
+  v9 = v10;
+  vp::sim::Key_Writer::count(&v9, 0x38, "Disable VP");
+  v7 = MEMORY[0x277CBED28];
+  if (!*a2)
   {
-    v9 = v7 + explicit;
-    v10 = v7 + explicit - v3;
-    if (v7 + explicit <= v3)
+    v7 = MEMORY[0x277CBED10];
+  }
+
+  v8 = *v7;
+  if (!*v7)
+  {
+    v10 = 0;
+    vp::sim::Key_Writer::set(&v9, 0x38, "Disable VP", &v10);
+    if (!v6)
     {
-      v17 = 9 * v5;
-      v18 = 72 * v9 - 8 * v17;
-      v19 = v2 + 8 * v17 + 32;
-      do
-      {
-        std::__variant_detail::__dtor<std::__variant_detail::__traits<vp::vx::components::Property_Logger::Node_Decorator::Property::Small_Storage,vp::vx::components::Property_Logger::Node_Decorator::Property::Large_Storage>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v19);
-        v19 += 72;
-        v18 -= 72;
-      }
-
-      while (v18);
-      if (v9 == v3)
-      {
-        v10 = 0;
-      }
-
-      else
-      {
-        v10 = v7 + explicit;
-      }
+      return;
     }
 
-    else
-    {
-      v11 = v5 - v3;
-      if (v5 != v3)
-      {
-        v12 = 9 * v5;
-        v13 = 72 * v3 - 8 * v12;
-        v14 = v2 + 8 * v12 + 32;
-        do
-        {
-          std::__variant_detail::__dtor<std::__variant_detail::__traits<vp::vx::components::Property_Logger::Node_Decorator::Property::Small_Storage,vp::vx::components::Property_Logger::Node_Decorator::Property::Large_Storage>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v14);
-          v14 += 72;
-          v13 -= 72;
-        }
-
-        while (v13);
-      }
-
-      if (v2 + 72 * v11 + 72 * v8 != v2)
-      {
-        v15 = 72 * (v7 + explicit) - 72 * v3;
-        v16 = v2 + 32;
-        do
-        {
-          std::__variant_detail::__dtor<std::__variant_detail::__traits<vp::vx::components::Property_Logger::Node_Decorator::Property::Small_Storage,vp::vx::components::Property_Logger::Node_Decorator::Property::Large_Storage>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v16);
-          v16 += 72;
-          v15 -= 72;
-        }
-
-        while (v15);
-      }
-    }
-
-    atomic_store(v10, (a1 + 760));
+    goto LABEL_10;
   }
 
-  v20 = *(a1 + 776);
-  if (v20)
+  CFRetain(*v7);
+  v10 = v8;
+  vp::sim::Key_Writer::set(&v9, 0x38, "Disable VP", &v10);
+  CFRelease(v8);
+  CFRelease(v8);
+  if (v6)
   {
-    free(*(v20 - 8));
-  }
-
-  v21 = *(a1 + 688);
-  if (v21)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v21);
-  }
-
-  v22 = MEMORY[0x277D82810];
-  v23 = *MEMORY[0x277D82810];
-  *(a1 + 104) = *MEMORY[0x277D82810];
-  *(a1 + 104 + *(v23 - 24)) = *(v22 + 24);
-  MEMORY[0x2743CBA00](a1 + 112);
-  std::ostream::~ostream();
-  MEMORY[0x2743CBE30](a1 + 520);
-  std::mutex::~mutex((a1 + 40));
-  v24 = *(a1 + 32);
-  if (v24)
-  {
-
-    std::__shared_weak_count::__release_weak(v24);
+LABEL_10:
+    CFRelease(v6);
   }
 }
 
-void std::__shared_ptr_emplace<vp::utility::CSV_Log<vp::utility::ISO_8601,char const*,unsigned int,vp::vx::components::Property_Logger::Node_Decorator::Property>::Buffer,std::allocator<vp::utility::CSV_Log<vp::utility::ISO_8601,char const*,unsigned int,vp::vx::components::Property_Logger::Node_Decorator::Property>::Buffer>>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
-{
-  a1->__vftable = &unk_2881BE0A8;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-void vp::vx::components::Property_Logger::Node_Decorator_Factory::~Node_Decorator_Factory(vp::vx::components::Property_Logger::Node_Decorator_Factory *this)
-{
-  *this = &unk_2881BDE28;
-  if (*(this + 95) < 0)
-  {
-    operator delete(*(this + 9));
-  }
-
-  vp::vx::data_flow::State<void>::~State(this + 10);
-  v2 = *(this + 4);
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  v3 = *(this + 2);
-  if (v3)
-  {
-    std::__shared_weak_count::__release_weak(v3);
-  }
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-{
-  *this = &unk_2881BDE28;
-  if (*(this + 95) < 0)
-  {
-    operator delete(*(this + 9));
-  }
-
-  vp::vx::data_flow::State<void>::~State(this + 10);
-  v2 = *(this + 4);
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  v3 = *(this + 2);
-  if (v3)
-  {
-    std::__shared_weak_count::__release_weak(v3);
-  }
-}
-
-void std::__function::__func<vp::vx::components::Property_Logger::Node_Decorator_Factory::set_should_enable_property_loggers(vp::vx::data_flow::State<BOOL>)::$_0,std::allocator<vp::vx::components::Property_Logger::Node_Decorator_Factory::set_should_enable_property_loggers(vp::vx::data_flow::State<BOOL>)::$_0>,void ()(unsigned int,BOOL const&)>::operator()(uint64_t a1, unsigned int *a2, unsigned __int8 *a3)
-{
-  v4 = *(a1 + 16);
-  if (v4)
-  {
-    v5 = *a2;
-    v6 = *a3;
-    v7 = std::__shared_weak_count::lock(v4);
-    if (v7)
-    {
-      v8 = v7;
-      v9 = *(a1 + 8);
-      if (v9)
-      {
-        if (v6)
-        {
-          v10 = "I/O node property loggers are enabled";
-        }
-
-        else
-        {
-          v10 = "I/O node property loggers are disabled";
-        }
-
-        std::string::basic_string[abi:ne200100]<0>(__p, v10);
-        v13 = 1;
-        (*(*v9 + 16))(v9, v5, __p);
-        if (v13 == 1 && v12 < 0)
-        {
-          operator delete(__p[0]);
-        }
-      }
-
-      std::__shared_weak_count::__release_shared[abi:ne200100](v8);
-    }
-  }
-}
-
-void std::__function::__func<vp::vx::components::Property_Logger::Node_Decorator_Factory::set_should_enable_property_loggers(vp::vx::data_flow::State<BOOL>)::$_0,std::allocator<vp::vx::components::Property_Logger::Node_Decorator_Factory::set_should_enable_property_loggers(vp::vx::data_flow::State<BOOL>)::$_0>,void ()(unsigned int,BOOL const&)>::destroy_deallocate(void *__p)
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)56,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)56,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::destroy_deallocate(void *__p)
 {
   v2 = __p[2];
   if (v2)
   {
-    std::__shared_weak_count::__release_weak(v2);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
   }
 
   operator delete(__p);
 }
 
-void std::__function::__func<vp::vx::components::Property_Logger::Node_Decorator_Factory::set_should_enable_property_loggers(vp::vx::data_flow::State<BOOL>)::$_0,std::allocator<vp::vx::components::Property_Logger::Node_Decorator_Factory::set_should_enable_property_loggers(vp::vx::data_flow::State<BOOL>)::$_0>,void ()(unsigned int,BOOL const&)>::destroy(uint64_t a1)
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)56,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)56,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::destroy(uint64_t a1)
 {
   v1 = *(a1 + 16);
   if (v1)
   {
-    std::__shared_weak_count::__release_weak(v1);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
   }
 }
 
-uint64_t std::__function::__func<vp::vx::components::Property_Logger::Node_Decorator_Factory::set_should_enable_property_loggers(vp::vx::data_flow::State<BOOL>)::$_0,std::allocator<vp::vx::components::Property_Logger::Node_Decorator_Factory::set_should_enable_property_loggers(vp::vx::data_flow::State<BOOL>)::$_0>,void ()(unsigned int,BOOL const&)>::__clone(uint64_t result, void *a2)
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)56,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)56,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::__clone(uint64_t result, void *a2)
 {
   v3 = *(result + 8);
   v2 = *(result + 16);
-  *a2 = &unk_2881BE140;
+  *a2 = &unk_2881BCD48;
   a2[1] = v3;
   a2[2] = v2;
   if (v2)
   {
-    atomic_fetch_add_explicit((v2 + 16), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 
   return result;
 }
 
-void std::__function::__func<vp::vx::components::Property_Logger::Node_Decorator_Factory::set_should_enable_property_loggers(vp::vx::data_flow::State<BOOL>)::$_0,std::allocator<vp::vx::components::Property_Logger::Node_Decorator_Factory::set_should_enable_property_loggers(vp::vx::data_flow::State<BOOL>)::$_0>,void ()(unsigned int,BOOL const&)>::~__func(void *a1)
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)56,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)56,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::~__func(void *a1)
 {
-  *a1 = &unk_2881BE140;
+  *a1 = &unk_2881BCD48;
   v1 = a1[2];
   if (v1)
   {
-    std::__shared_weak_count::__release_weak(v1);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
   }
 
   JUMPOUT(0x2743CBFA0);
 }
 
-void *std::__function::__func<vp::vx::components::Property_Logger::Node_Decorator_Factory::set_should_enable_property_loggers(vp::vx::data_flow::State<BOOL>)::$_0,std::allocator<vp::vx::components::Property_Logger::Node_Decorator_Factory::set_should_enable_property_loggers(vp::vx::data_flow::State<BOOL>)::$_0>,void ()(unsigned int,BOOL const&)>::~__func(void *a1)
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)56,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)56,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::~__func(void *a1)
 {
-  *a1 = &unk_2881BE140;
+  *a1 = &unk_2881BCD48;
   v2 = a1[2];
   if (v2)
   {
-    std::__shared_weak_count::__release_weak(v2);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
   }
 
   return a1;
 }
 
-uint64_t *std::__hash_table<vp::vx::Property_ID,std::hash<vp::vx::Property_ID>,std::equal_to<vp::vx::Property_ID>,vp::Allocator<vp::vx::Property_ID>>::~__hash_table(uint64_t *a1)
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)56,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
 {
-  v2 = a1[3];
+  *a1 = &unk_2881BCD18;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)56,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BCD18;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+  return a1;
+}
+
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)55,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)55,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+{
+  v2 = *result;
+  *result = a2;
   if (v2)
   {
-    do
-    {
-      v3 = *v2;
-      std::allocator_traits<vp::Allocator<std::__hash_node<vp::vx::Property_ID,void *>>>::deallocate[abi:ne200100](a1[4], v2);
-      v2 = v3;
-    }
-
-    while (v3);
-  }
-
-  v4 = *a1;
-  *a1 = 0;
-  if (v4)
-  {
-    std::allocator_traits<vp::Allocator<std::__hash_node_base<std::__hash_node<vp::vx::Property_ID,void *> *> *>>::deallocate[abi:ne200100](a1[2], v4, a1[1]);
-  }
-
-  return a1;
-}
-
-void *boost::container::flat_map<vp::vx::Property_ID,unsigned int,std::less<vp::vx::Property_ID>,vp::Allocator<std::pair<vp::vx::Property_ID,unsigned int>>>::~flat_map(void *a1)
-{
-  if (a1[3])
-  {
-    v2 = *a1;
-    v3 = a1[1];
-    (*(**a1 + 24))();
-  }
-
-  return a1;
-}
-
-void *boost::container::vector<boost::container::dtl::pair<vp::vx::Property_ID,std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>>,vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>>>,void>::~vector(void *a1)
-{
-  v2 = a1[2];
-  if (v2)
-  {
-    v3 = (a1[1] + 8);
-    do
-    {
-      --v2;
-      v6 = v3;
-      std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>::__destroy_vector::operator()[abi:ne200100](&v6);
-      v3 += 5;
-    }
-
-    while (v2);
-  }
-
-  v4 = a1[3];
-  if (v4)
-  {
-    (*(**a1 + 24))(*a1, a1[1], 40 * v4, 8);
-  }
-
-  return a1;
-}
-
-void *boost::container::vector<boost::container::dtl::pair<vp::vx::Property_ID,vp::vx::Property>,vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,vp::vx::Property>>,void>::~vector(void *a1)
-{
-  v2 = a1[2];
-  if (v2)
-  {
-    v3 = (a1[1] + 8);
-    do
-    {
-      --v2;
-      v3 = vp::vx::data_flow::State<void>::~State(v3) + 12;
-    }
-
-    while (v2);
-  }
-
-  v4 = a1[3];
-  if (v4)
-  {
-    (*(**a1 + 24))(*a1, a1[1], 48 * v4, 8);
-  }
-
-  return a1;
-}
-
-uint64_t **std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>::__destroy_vector::operator()[abi:ne200100](uint64_t **result)
-{
-  v1 = *result;
-  v2 = **result;
-  if (v2)
-  {
-    v3 = v1[1];
-    v4 = **result;
-    v5 = *result;
-    if (v3 != v2)
-    {
-      v6 = result;
-      do
-      {
-        v3 -= 16;
-        std::pmr::polymorphic_allocator<vp::vx::Property_Manager::Listener>::destroy[abi:ne200100]<vp::vx::Property_Manager::Listener>(v3);
-      }
-
-      while (v3 != v2);
-      v5 = *v6;
-      v4 = **v6;
-    }
-
-    v1[1] = v2;
-    v7 = v5[3];
-    v8 = (v5[2] - v4) >> 4;
-
-    return std::allocator_traits<vp::Allocator<vp::vx::Property_Manager::Listener>>::deallocate[abi:ne200100](v7, v4, v8);
+    v3 = result;
+    (**v2)(v2);
+    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
   }
 
   return result;
 }
 
-void std::pmr::polymorphic_allocator<vp::vx::Property_Manager::Listener>::destroy[abi:ne200100]<vp::vx::Property_Manager::Listener>(uint64_t a1)
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)55,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
 {
-  v2 = *(a1 + 8);
-  if (v2)
-  {
-    _Block_release(v2);
-    *(a1 + 8) = 0;
-  }
-}
-
-uint64_t boost::container::dtl::scoped_array_deallocator<vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,vp::vx::Property>>>::~scoped_array_deallocator(uint64_t a1)
-{
-  if (*a1)
-  {
-    (*(***(a1 + 8) + 24))(**(a1 + 8), *a1, 48 * *(a1 + 16), 8);
-  }
-
-  return a1;
-}
-
-unsigned int *boost::container::flat_map<vp::vx::Property_ID,vp::vx::Property,std::less<vp::vx::Property_ID>,vp::Allocator<std::pair<vp::vx::Property_ID,vp::vx::Property>>>::at(unsigned int *a1, unint64_t a2, unsigned int a3)
-{
-  if (!a1 && a2)
-  {
-    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-  }
-
-  v3 = a1;
-  if (a2)
-  {
-    v3 = a1;
-    v4 = a2;
-    do
-    {
-      if (v4 != 1 && !v3)
-      {
-        __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-      }
-
-      if (!v3)
-      {
-        __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
-      }
-
-      v5 = (v4 >> 1);
-      v6 = &v3[12 * (v4 >> 1)];
-      v8 = *v6;
-      v7 = v6 + 12;
-      v4 += ~(v4 >> 1);
-      if (v8 >= a3)
-      {
-        v4 = v5;
-      }
-
-      else
-      {
-        v3 = v7;
-      }
-    }
-
-    while (v4);
-  }
-
-  v9 = &a1[12 * a2];
-  if (v3 == v9)
-  {
-    goto LABEL_22;
-  }
-
-  if (!v3)
-  {
-    __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
-  }
-
-  if (*v3 > a3)
-  {
-    v3 = &a1[12 * a2];
-  }
-
-  if (v3 == v9)
-  {
-LABEL_22:
-    boost::container::throw_length_error("flat_map::at key not found", a2);
-  }
-
-  return v3 + 2;
-}
-
-uint64_t vp::vx::Property_Manager::add_property(uint64_t a1, unsigned int a2, uint64_t a3)
-{
-  v32 = *MEMORY[0x277D85DE8];
-  v26 = a2;
-  v27 = 0;
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
-  if (v4)
-  {
-    v6 = 1;
-  }
-
-  else
-  {
-    v6 = v5 == 0;
-  }
-
-  if (!v6)
-  {
-    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-  }
-
-  v8 = a2;
-  v28 = v4 + 48 * v5;
-  result = boost::container::dtl::flat_tree<boost::container::dtl::pair<vp::vx::Property_ID,vp::vx::Property>,boost::container::dtl::select1st<vp::vx::Property_ID>,std::less<vp::vx::Property_ID>,vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,vp::vx::Property>>>::priv_insert_unique_prepare(v4, &v28, &v26, &v27);
-  v10 = v27;
-  v11 = *(a1 + 8);
-  if (result)
-  {
-    if (v11 > v27)
-    {
-      goto LABEL_23;
-    }
-
-    v12 = *(a1 + 16);
-    if (!v11 && v12)
-    {
-      __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-    }
-
-    v13 = v11 + 48 * v12;
-    if (v27 > v13)
-    {
-LABEL_23:
-      __assert_rtn("emplace", "vector.hpp", 1862, "this->priv_in_range_or_end(position)");
-    }
-
-    v14 = *(a1 + 24);
-    if (v14 < v12)
-    {
-      __assert_rtn("priv_insert_forward_range", "vector.hpp", 2821, "this->m_holder.capacity() >= this->m_holder.m_size");
-    }
-
-    if (v14 == v12)
-    {
-      result = boost::container::vector<boost::container::dtl::pair<vp::vx::Property_ID,vp::vx::Property>,vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,vp::vx::Property>>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,vp::vx::Property>>,boost::container::dtl::pair<vp::vx::Property_ID,vp::vx::Property>*,vp::vx::Property_ID const&,vp::vx::Property>>(&v28, a1, v27, a3, &v26);
-    }
-
-    else if (v13 == v27)
-    {
-      *v13 = v8;
-      *(v13 + 8) = *a3;
-      *(v13 + 16) = *(a3 + 8);
-      *(a3 + 8) = 0;
-      *(a3 + 16) = 0;
-      *(v13 + 32) = *(a3 + 24);
-      ++*(a1 + 16);
-    }
-
-    else
-    {
-      v15 = v13 - 48;
-      *v13 = *(v13 - 48);
-      *(v13 + 8) = *(v13 - 40);
-      v16 = *(v13 - 32);
-      v17 = *(v13 - 16);
-      *(v13 - 32) = 0;
-      *(v13 - 24) = 0;
-      *(v13 + 16) = v16;
-      *(v13 + 32) = v17;
-      ++*(a1 + 16);
-      if ((v13 - 48) != v10)
-      {
-        v18 = (v13 - 48);
-        do
-        {
-          v19 = *(v18 - 12);
-          v18 -= 12;
-          *v15 = v19;
-          vp::vx::data_flow::State<void>::~State((v15 + 8));
-          *(v15 + 8) = *(v15 - 40);
-          v20 = *(v15 - 32);
-          v21 = *(v15 - 16);
-          *(v15 - 32) = 0;
-          *(v15 - 24) = 0;
-          *(v15 + 16) = v20;
-          *(v15 + 32) = v21;
-          v15 = v18;
-        }
-
-        while (v18 != v10);
-        v8 = v26;
-      }
-
-      v22 = *a3;
-      LODWORD(v28) = v8;
-      v29 = v22;
-      v25 = *(a3 + 8);
-      *(a3 + 8) = 0;
-      *(a3 + 16) = 0;
-      v23 = *(a3 + 24);
-      v30 = v25;
-      v31 = v23;
-      *v10 = v8;
-      vp::vx::data_flow::State<void>::~State(v10 + 2);
-      v10[2] = v22;
-      *(v10 + 1) = v25;
-      v30 = 0uLL;
-      *(v10 + 2) = v31;
-      result = vp::vx::data_flow::State<void>::~State(&v29);
-    }
-  }
-
-  else
-  {
-    if (*(a1 + 16) < 0xAAAAAAAAAAAAAAABLL * ((v27 - v11) >> 4))
-    {
-      __assert_rtn("nth", "vector.hpp", 1688, "this->m_holder.m_size >= n");
-    }
-
-    result = vp::vx::data_flow::State<void>::~State(v27 + 2);
-    v10[2] = *a3;
-    *(v10 + 1) = *(a3 + 8);
-    *(a3 + 8) = 0;
-    *(a3 + 16) = 0;
-    *(v10 + 2) = *(a3 + 24);
-  }
-
-  v24 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void sub_2726BCBD4(_Unwind_Exception *a1, int a2)
-{
-  if (a2)
-  {
-    __clang_call_terminate(a1);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-BOOL boost::container::dtl::flat_tree<boost::container::dtl::pair<vp::vx::Property_ID,vp::vx::Property>,boost::container::dtl::select1st<vp::vx::Property_ID>,std::less<vp::vx::Property_ID>,vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,vp::vx::Property>>>::priv_insert_unique_prepare(uint64_t a1, uint64_t *a2, unsigned int *a3, unsigned int **a4)
-{
-  v9 = a1;
-  boost::container::dtl::flat_tree<boost::container::dtl::pair<vp::vx::Property_ID,vp::vx::Property>,boost::container::dtl::select1st<vp::vx::Property_ID>,std::less<vp::vx::Property_ID>,vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,vp::vx::Property>>>::priv_lower_bound<boost::container::vec_iterator<boost::container::dtl::pair<vp::vx::Property_ID,vp::vx::Property>*,true>,vp::vx::Property_ID>(&v10, &v9, *a2, *a3);
-  v7 = v10;
-  *a4 = v10;
-  if (v7 == *a2)
-  {
-    return 1;
-  }
-
-  if (!v7)
-  {
-    __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
-  }
-
-  return *a3 < *v7;
-}
-
-uint64_t boost::container::vector<boost::container::dtl::pair<vp::vx::Property_ID,vp::vx::Property>,vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,vp::vx::Property>>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,vp::vx::Property>>,boost::container::dtl::pair<vp::vx::Property_ID,vp::vx::Property>*,vp::vx::Property_ID const&,vp::vx::Property>>(void *a1, const char *a2, uint64_t a3, uint64_t a4, _DWORD *a5)
-{
-  v5 = *(a2 + 3);
-  if (v5 != *(a2 + 2))
-  {
-    __assert_rtn("next_capacity", "vector.hpp", 473, "additional_objects > size_type(this->m_capacity - this->m_size)");
-  }
-
-  if (v5 == 0x555555555555555)
-  {
-    goto LABEL_28;
-  }
-
-  if (v5 >> 61 > 4)
-  {
-    v6 = -1;
-  }
-
-  else
-  {
-    v6 = 8 * v5;
-  }
-
-  if (v5 >> 61)
-  {
-    v7 = v6;
-  }
-
-  else
-  {
-    v7 = 8 * v5 / 5;
-  }
-
-  v8 = v5 + 1;
-  if (v7 >= 0x555555555555555)
-  {
-    v7 = 0x555555555555555;
-  }
-
-  v9 = v8 > v7 ? v5 + 1 : v7;
-  if (v8 > 0x555555555555555)
-  {
-LABEL_28:
-    boost::container::throw_length_error("get_next_capacity, allocator's max size reached", a2);
-  }
-
-  v15 = *(a2 + 1);
-  v16 = (*(**a2 + 16))(*a2, 48 * v9, 8);
-  v17 = v16;
-  v28[1] = a2;
-  v28[2] = v9;
-  v18 = *(a2 + 1);
-  v19 = v18 + 48 * *(a2 + 2);
-  v20 = v16;
-  if (v18 != a3)
-  {
-    v21 = *(a2 + 1);
-    v20 = v16;
-    do
-    {
-      *v20 = *v21;
-      *(v20 + 8) = *(v21 + 8);
-      *(v20 + 16) = *(v21 + 16);
-      *(v21 + 16) = 0;
-      *(v21 + 24) = 0;
-      *(v20 + 32) = *(v21 + 32);
-      v21 += 48;
-      v20 += 48;
-    }
-
-    while (v21 != a3);
-  }
-
-  *v20 = *a5;
-  *(v20 + 8) = *a4;
-  *(v20 + 16) = *(a4 + 8);
-  *(a4 + 8) = 0;
-  *(a4 + 16) = 0;
-  *(v20 + 32) = *(a4 + 24);
-  if (v19 != a3)
-  {
-    v22 = (v20 + 80);
-    v23 = a3;
-    do
-    {
-      *(v22 - 8) = *v23;
-      *(v22 - 6) = *(v23 + 8);
-      *(v22 - 1) = *(v23 + 16);
-      *(v23 + 16) = 0;
-      *(v23 + 24) = 0;
-      *v22 = *(v23 + 32);
-      v22 += 3;
-      v23 += 48;
-    }
-
-    while (v23 != v19);
-  }
-
-  v28[0] = 0;
-  if (v18)
-  {
-    v24 = *(a2 + 2);
-    if (v24)
-    {
-      v25 = (v18 + 8);
-      do
-      {
-        --v24;
-        v25 = vp::vx::data_flow::State<void>::~State(v25) + 12;
-      }
-
-      while (v24);
-    }
-
-    (*(**a2 + 24))(*a2, *(a2 + 1), 48 * *(a2 + 3), 8);
-  }
-
-  v26 = *(a2 + 2) + 1;
-  *(a2 + 1) = v17;
-  *(a2 + 2) = v26;
-  *(a2 + 3) = v9;
-  result = boost::container::dtl::scoped_array_deallocator<vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,vp::vx::Property>>>::~scoped_array_deallocator(v28);
-  *a1 = *(a2 + 1) + a3 - v15;
-  return result;
-}
-
-void sub_2726BCEE8(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  boost::container::dtl::scoped_array_deallocator<vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,vp::vx::Property>>>::~scoped_array_deallocator(va);
-  _Unwind_Resume(a1);
-}
-
-void *boost::container::dtl::flat_tree<boost::container::dtl::pair<vp::vx::Property_ID,vp::vx::Property>,boost::container::dtl::select1st<vp::vx::Property_ID>,std::less<vp::vx::Property_ID>,vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,vp::vx::Property>>>::priv_lower_bound<boost::container::vec_iterator<boost::container::dtl::pair<vp::vx::Property_ID,vp::vx::Property>*,true>,vp::vx::Property_ID>(void *result, void *a2, uint64_t a3, unsigned int a4)
-{
-  v4 = *a2;
-  if (*a2 != a3)
-  {
-    v5 = 0xAAAAAAAAAAAAAAABLL * ((a3 - v4) >> 4);
-    do
-    {
-      if (v5 != 1 && !v4)
-      {
-        __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-      }
-
-      if (!v4)
-      {
-        __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
-      }
-
-      v6 = v5 >> 1;
-      v7 = &v4[12 * (v5 >> 1)];
-      if (*v7 < a4)
-      {
-        v4 = v7 + 12;
-        *a2 = v7 + 12;
-        v6 = v5 + ~v6;
-      }
-
-      v5 = v6;
-    }
-
-    while (v6);
-  }
-
-  *result = v4;
-  return result;
-}
-
-unsigned int *boost::container::flat_map<vp::vx::Property_ID,vp::vx::Property,std::less<vp::vx::Property_ID>,vp::Allocator<std::pair<vp::vx::Property_ID,vp::vx::Property>>>::at(uint64_t a1, unsigned int *a2)
-{
-  v2 = *(a1 + 8);
-  v3 = *(a1 + 16);
-  v15 = v2;
-  if (v2)
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = v3 == 0;
-  }
-
-  if (!v4)
-  {
-    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-  }
-
-  boost::container::dtl::flat_tree<boost::container::dtl::pair<vp::vx::Property_ID,vp::vx::Property>,boost::container::dtl::select1st<vp::vx::Property_ID>,std::less<vp::vx::Property_ID>,vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,vp::vx::Property>>>::priv_lower_bound<boost::container::vec_iterator<boost::container::dtl::pair<vp::vx::Property_ID,vp::vx::Property>*,true>,vp::vx::Property_ID>(&v14, &v15, v2 + 48 * v3, *a2);
-  v8 = *(a1 + 8);
-  v9 = *(a1 + 16);
-  if (v8)
-  {
-    v10 = 1;
-  }
-
-  else
-  {
-    v10 = v9 == 0;
-  }
-
-  if (!v10)
-  {
-    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-  }
-
-  v11 = (v8 + 48 * v9);
-  v12 = v14;
-  if (v14 != v11)
-  {
-    if (!v14)
-    {
-      __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
-    }
-
-    if (*a2 < *v14)
-    {
-      v12 = v11;
-    }
-  }
-
-  if (v12 == v11)
-  {
-    boost::container::throw_length_error("flat_map::at key not found", v7);
-  }
-
-  return v12 + 2;
-}
-
-unsigned int *boost::container::flat_map<vp::vx::Property_ID,std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>,std::less<vp::vx::Property_ID>,vp::Allocator<std::pair<vp::vx::Property_ID,std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>>>>::priv_subscript(uint64_t a1, unsigned int *a2)
-{
-  v45 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 8);
-  v3 = *(a1 + 16);
-  v41 = v2;
-  if (v2)
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = v3 == 0;
-  }
-
-  if (!v4)
-  {
-    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-  }
-
-  v7 = boost::container::dtl::flat_tree<boost::container::dtl::pair<vp::vx::Property_ID,std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>>,boost::container::dtl::select1st<vp::vx::Property_ID>,std::less<vp::vx::Property_ID>,vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>>>>::priv_lower_bound<boost::container::vec_iterator<boost::container::dtl::pair<vp::vx::Property_ID,std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>>*,false>,vp::vx::Property_ID>(&v38, &v41, &v2[5 * v3], *a2);
-  v8 = *(a1 + 8);
-  v9 = *(a1 + 16);
-  if (v8)
-  {
-    v10 = 1;
-  }
-
-  else
-  {
-    v10 = v9 == 0;
-  }
-
-  if (!v10)
-  {
-    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-  }
-
-  v11 = v38;
-  if (v38 == (v8 + 40 * v9))
-  {
-    goto LABEL_14;
-  }
-
-  if (!v38)
-  {
-    __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
-  }
-
-  if (*a2 < *v38)
-  {
-LABEL_14:
-    default_resource = std::pmr::get_default_resource(v7);
-    v13 = *a2;
-    v35 = v13;
-    v37[3] = default_resource;
-    memset(v37, 0, 24);
-    LODWORD(v41) = v13;
-    v43 = 0;
-    v44 = default_resource;
-    v42 = 0uLL;
-    v36[3] = default_resource;
-    memset(v36, 0, 24);
-    v14 = *(a1 + 8);
-    if (v14 > v11)
-    {
-      goto LABEL_46;
-    }
-
-    v15 = *(a1 + 16);
-    if (!v14 && v15)
-    {
-      __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-    }
-
-    v16 = &v14[10 * v15];
-    if (v11 > v16)
-    {
-LABEL_46:
-      v30 = "this->priv_in_range_or_end(hint)";
-      v31 = 879;
-      v32 = "flat_tree.hpp";
-      v33 = "insert_unique";
-      goto LABEL_52;
-    }
-
-    v39 = 0;
-    if (v11 == v16)
-    {
-      goto LABEL_21;
-    }
-
-    if (!v11)
-    {
-      __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
-    }
-
-    if (v13 < *v11)
-    {
-LABEL_21:
-      v39 = v11;
-      if (v11 != v14)
-      {
-        if (!v11)
-        {
-          __assert_rtn("operator--", "vector.hpp", 174, "!!m_ptr");
-        }
-
-        v19 = *(v11 - 10);
-        v18 = (v11 - 10);
-        v17 = v19;
-        if (v19 >= v13)
-        {
-          if (v13 < v17)
-          {
-            v40 = v18;
-            if (!boost::container::dtl::flat_tree<boost::container::dtl::pair<vp::vx::Property_ID,std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>>,boost::container::dtl::select1st<vp::vx::Property_ID>,std::less<vp::vx::Property_ID>,vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>>>>::priv_insert_unique_prepare(v14, &v40, v13, &v39))
-            {
-              goto LABEL_41;
-            }
-
-            goto LABEL_28;
-          }
-
-          v39 = v18;
-LABEL_41:
-          v11 = v39;
-          if (!*(a1 + 8) && v39)
-          {
-            __assert_rtn("operator+", "vector.hpp", 188, "x.m_ptr || !off");
-          }
-
-LABEL_43:
-          v40 = &v42;
-          std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>::__destroy_vector::operator()[abi:ne200100](&v40);
-          v38 = v11;
-          v41 = v36;
-          std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>::__destroy_vector::operator()[abi:ne200100](&v41);
-          v41 = v37;
-          std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>::__destroy_vector::operator()[abi:ne200100](&v41);
-          if (!v11)
-          {
-            __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
-          }
-
-          goto LABEL_44;
-        }
-      }
-    }
-
-    else
-    {
-      v40 = v16;
-      if (!boost::container::dtl::flat_tree<boost::container::dtl::pair<vp::vx::Property_ID,std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>>,boost::container::dtl::select1st<vp::vx::Property_ID>,std::less<vp::vx::Property_ID>,vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>>>>::priv_insert_unique_prepare(v11, &v40, v13, &v39))
-      {
-        goto LABEL_41;
-      }
-    }
-
-LABEL_28:
-    v11 = v39;
-    v20 = *(a1 + 8);
-    if (v20 > v39)
-    {
-      goto LABEL_49;
-    }
-
-    v21 = *(a1 + 16);
-    if (!v20 && v21)
-    {
-      __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-    }
-
-    v22 = v20 + 40 * v21;
-    if (v39 > v22)
-    {
-LABEL_49:
-      v30 = "this->priv_in_range_or_end(position)";
-      v31 = 1862;
-      v32 = "vector.hpp";
-      v33 = "emplace";
-    }
-
-    else
-    {
-      v23 = *(a1 + 24);
-      if (v23 >= v21)
-      {
-        if (v23 == v21)
-        {
-          boost::container::vector<boost::container::dtl::pair<vp::vx::Property_ID,std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>>,vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>>>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>>>,boost::container::dtl::pair<vp::vx::Property_ID,std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>>*,boost::container::dtl::pair<vp::vx::Property_ID,std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>>>>(&v34, a1, v39, &v41);
-          v11 = v34;
-        }
-
-        else if (v22 == v39)
-        {
-          *v22 = v41;
-          *(v22 + 16) = 0;
-          *(v22 + 24) = 0;
-          *(v22 + 8) = 0;
-          *(v22 + 32) = v44;
-          *(v22 + 8) = v42;
-          *(v22 + 24) = v43;
-          v42 = 0uLL;
-          v43 = 0;
-          ++*(a1 + 16);
-        }
-
-        else
-        {
-          v24 = v22 - 40;
-          *v22 = *(v22 - 40);
-          *(v22 + 8) = *(v22 - 32);
-          v25 = *(v22 - 8);
-          *(v22 + 24) = *(v22 - 16);
-          *(v22 + 32) = v25;
-          *(v22 - 32) = 0;
-          *(v22 - 24) = 0;
-          *(v22 - 16) = 0;
-          ++*(a1 + 16);
-          if ((v22 - 40) != v11)
-          {
-            v26 = (v22 - 40);
-            do
-            {
-              v27 = *(v26 - 10);
-              v26 -= 10;
-              *v24 = v27;
-              std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>::__move_assign((v24 + 8), v24 - 32);
-              v24 = v26;
-            }
-
-            while (v26 != v11);
-          }
-
-          *v11 = v41;
-          std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>::__move_assign(v11 + 1, &v42);
-        }
-
-        goto LABEL_43;
-      }
-
-      v30 = "this->m_holder.capacity() >= this->m_holder.m_size";
-      v31 = 2821;
-      v32 = "vector.hpp";
-      v33 = "priv_insert_forward_range";
-    }
-
-LABEL_52:
-    __assert_rtn(v33, v32, v31, v30);
-  }
-
-LABEL_44:
-  v28 = *MEMORY[0x277D85DE8];
-  return v11 + 2;
-}
-
-void sub_2726BD578(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16)
-{
-  *(v18 - 88) = v16;
-  std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>::__destroy_vector::operator()[abi:ne200100]((v18 - 88));
-  *(v18 - 80) = v17;
-  std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>::__destroy_vector::operator()[abi:ne200100]((v18 - 80));
-  *(v18 - 80) = &a16;
-  std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>::__destroy_vector::operator()[abi:ne200100]((v18 - 80));
-  _Unwind_Resume(a1);
-}
-
-void *boost::container::dtl::flat_tree<boost::container::dtl::pair<vp::vx::Property_ID,unsigned int>,boost::container::dtl::select1st<vp::vx::Property_ID>,std::less<vp::vx::Property_ID>,vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,unsigned int>>>::find(unsigned int **a1, uint64_t a2, unsigned int *a3)
-{
-  v3 = *(a2 + 8);
-  v4 = *(a2 + 16);
-  v15 = v3;
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
   if (v3)
   {
-    v5 = 1;
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
   }
 
-  else
-  {
-    v5 = v4 == 0;
-  }
-
-  if (!v5)
-  {
-    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-  }
-
-  result = boost::container::dtl::flat_tree<boost::container::dtl::pair<vp::vx::Property_ID,unsigned int>,boost::container::dtl::select1st<vp::vx::Property_ID>,std::less<vp::vx::Property_ID>,vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,unsigned int>>>::priv_lower_bound<boost::container::vec_iterator<boost::container::dtl::pair<vp::vx::Property_ID,unsigned int>*,false>,vp::vx::Property_ID>(a1, &v15, v3 + 8 * v4, *a3);
-  v10 = *(a2 + 8);
-  v11 = *(a2 + 16);
-  if (v10)
-  {
-    v12 = 1;
-  }
-
-  else
-  {
-    v12 = v11 == 0;
-  }
-
-  if (!v12)
-  {
-    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-  }
-
-  v13 = (v10 + 8 * v11);
-  v14 = *a1;
-  if (*a1 != v13)
-  {
-    if (!v14)
-    {
-      __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
-    }
-
-    if (*a3 < *v14)
-    {
-      *a1 = v13;
-    }
-  }
-
-  return result;
+  v4[0] = &unk_2881BCCD0;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(BOOL const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
+  operator new();
 }
 
-unsigned int *boost::container::flat_map<vp::vx::Property_ID,unsigned int,std::less<vp::vx::Property_ID>,vp::Allocator<std::pair<vp::vx::Property_ID,unsigned int>>>::priv_subscript(uint64_t a1, unsigned int *a2)
+void sub_2726A6EB8(_Unwind_Exception *a1, int a2)
 {
-  v23[1] = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 8);
-  v3 = *(a1 + 16);
-  v22 = v2;
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)55,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)55,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::operator()(uint64_t a1, _BYTE *a2)
+{
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
+  if (v4)
+  {
+    v5 = v4 - 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
+  v6 = v10;
+  v9 = v10;
+  vp::sim::Key_Writer::count(&v9, 0x37, "Bypass VP");
+  v7 = MEMORY[0x277CBED28];
+  if (!*a2)
+  {
+    v7 = MEMORY[0x277CBED10];
+  }
+
+  v8 = *v7;
+  if (!*v7)
+  {
+    v10 = 0;
+    vp::sim::Key_Writer::set(&v9, 0x37, "Bypass VP", &v10);
+    if (!v6)
+    {
+      return;
+    }
+
+    goto LABEL_10;
+  }
+
+  CFRetain(*v7);
+  v10 = v8;
+  vp::sim::Key_Writer::set(&v9, 0x37, "Bypass VP", &v10);
+  CFRelease(v8);
+  CFRelease(v8);
+  if (v6)
+  {
+LABEL_10:
+    CFRelease(v6);
+  }
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)55,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)55,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[2];
   if (v2)
   {
-    v4 = 1;
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
   }
 
-  else
-  {
-    v4 = v3 == 0;
-  }
-
-  if (!v4)
-  {
-    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-  }
-
-  boost::container::dtl::flat_tree<boost::container::dtl::pair<vp::vx::Property_ID,unsigned int>,boost::container::dtl::select1st<vp::vx::Property_ID>,std::less<vp::vx::Property_ID>,vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,unsigned int>>>::priv_lower_bound<boost::container::vec_iterator<boost::container::dtl::pair<vp::vx::Property_ID,unsigned int>*,false>,vp::vx::Property_ID>(&v20, &v22, &v2[2 * v3], *a2);
-  v7 = *(a1 + 8);
-  v8 = *(a1 + 16);
-  if (v7)
-  {
-    v9 = 1;
-  }
-
-  else
-  {
-    v9 = v8 == 0;
-  }
-
-  if (!v9)
-  {
-    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-  }
-
-  v10 = &v7[2 * v8];
-  v11 = v20;
-  if (v20 == v10)
-  {
-    v12 = *a2;
-    v23[0] = *a2;
-    if (v7 <= v20 && v20 <= v10)
-    {
-      __src = 0;
-      goto LABEL_22;
-    }
-
-LABEL_45:
-    __assert_rtn("insert_unique", "flat_tree.hpp", 879, "this->priv_in_range_or_end(hint)");
-  }
-
-  if (!v20)
-  {
-    __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
-  }
-
-  v12 = *a2;
-  if (*a2 < *v20)
-  {
-    v23[0] = v12;
-    if (v7 <= v20 && v20 <= v10)
-    {
-      __src = 0;
-      if (v12 >= *v20)
-      {
-        v22 = v10;
-        if (!boost::container::dtl::flat_tree<boost::container::dtl::pair<vp::vx::Property_ID,unsigned int>,boost::container::dtl::select1st<vp::vx::Property_ID>,std::less<vp::vx::Property_ID>,vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,unsigned int>>>::priv_insert_unique_prepare(v20, &v22, v12, &__src))
-        {
-          goto LABEL_40;
-        }
-
-        goto LABEL_25;
-      }
-
-LABEL_22:
-      __src = v20;
-      if (v20 != v7)
-      {
-        if (!v20)
-        {
-          __assert_rtn("operator--", "vector.hpp", 174, "!!m_ptr");
-        }
-
-        if (*(v20 - 2) >= v12)
-        {
-          if (v12 >= *(v20 - 2))
-          {
-            __src = v20 - 2;
-LABEL_40:
-            v11 = __src;
-            if (!*(a1 + 8) && __src)
-            {
-              __assert_rtn("operator+", "vector.hpp", 188, "x.m_ptr || !off");
-            }
-
-            goto LABEL_42;
-          }
-
-          v22 = v20 - 2;
-          if (!boost::container::dtl::flat_tree<boost::container::dtl::pair<vp::vx::Property_ID,unsigned int>,boost::container::dtl::select1st<vp::vx::Property_ID>,std::less<vp::vx::Property_ID>,vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,unsigned int>>>::priv_insert_unique_prepare(v7, &v22, v12, &__src))
-          {
-            goto LABEL_40;
-          }
-        }
-      }
-
-LABEL_25:
-      v11 = __src;
-      v13 = *(a1 + 8);
-      if (v13 > __src)
-      {
-        goto LABEL_47;
-      }
-
-      v14 = *(a1 + 16);
-      if (!v13 && v14)
-      {
-        __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-      }
-
-      v15 = (v13 + 8 * v14);
-      if (__src > v15)
-      {
-LABEL_47:
-        __assert_rtn("emplace", "vector.hpp", 1862, "this->priv_in_range_or_end(position)");
-      }
-
-      v16 = *(a1 + 24);
-      if (v16 < v14)
-      {
-        __assert_rtn("priv_insert_forward_range", "vector.hpp", 2821, "this->m_holder.capacity() >= this->m_holder.m_size");
-      }
-
-      if (v16 == v14)
-      {
-        boost::container::vector<boost::container::dtl::pair<vp::vx::Property_ID,unsigned int>,vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,unsigned int>>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,unsigned int>>,boost::container::dtl::pair<vp::vx::Property_ID,unsigned int>*,boost::container::dtl::pair<vp::vx::Property_ID,unsigned int>>>(&v19, a1, __src, v23);
-        v11 = v19;
-      }
-
-      else
-      {
-        if (v15 != __src)
-        {
-          *v15 = *(v15 - 1);
-          *(a1 + 16) = v14 + 1;
-          if (v15 - 1 != v11)
-          {
-            memmove(v11 + 2, v11, (v15 - 1) - v11);
-          }
-
-          *v11 = v23[0];
-          v20 = v11;
-          goto LABEL_43;
-        }
-
-        *v15 = v23[0];
-        *(a1 + 16) = v14 + 1;
-      }
-
-LABEL_42:
-      v20 = v11;
-      if (!v11)
-      {
-        __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
-      }
-
-      goto LABEL_43;
-    }
-
-    goto LABEL_45;
-  }
-
-LABEL_43:
-  v17 = *MEMORY[0x277D85DE8];
-  return v11 + 1;
+  operator delete(__p);
 }
 
-void sub_2726BDA68(_Unwind_Exception *a1, int a2)
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)55,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)55,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::destroy(uint64_t a1)
 {
-  if (a2)
+  v1 = *(a1 + 16);
+  if (v1)
   {
-    __clang_call_terminate(a1);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
   }
-
-  _Unwind_Resume(a1);
 }
 
-void vp::vx::Property_Manager::Listener::~Listener(vp::vx::Property_Manager::Listener *this)
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)55,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)55,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::__clone(uint64_t result, void *a2)
 {
-  v2 = *(this + 1);
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881BCCD0;
+  a2[1] = v3;
+  a2[2] = v2;
   if (v2)
   {
-    _Block_release(v2);
-    *(this + 1) = 0;
-  }
-}
-
-void *boost::container::dtl::flat_tree<boost::container::dtl::pair<vp::vx::Property_ID,unsigned int>,boost::container::dtl::select1st<vp::vx::Property_ID>,std::less<vp::vx::Property_ID>,vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,unsigned int>>>::priv_lower_bound<boost::container::vec_iterator<boost::container::dtl::pair<vp::vx::Property_ID,unsigned int>*,false>,vp::vx::Property_ID>(void *result, void *a2, uint64_t a3, unsigned int a4)
-{
-  v4 = *a2;
-  if (*a2 != a3)
-  {
-    v5 = (a3 - v4) >> 3;
-    do
-    {
-      if (v5 != 1 && !v4)
-      {
-        __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-      }
-
-      if (!v4)
-      {
-        __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
-      }
-
-      v6 = v5 >> 1;
-      v7 = &v4[2 * (v5 >> 1)];
-      if (*v7 < a4)
-      {
-        v4 = v7 + 2;
-        *a2 = v7 + 2;
-        v6 = v5 + ~v6;
-      }
-
-      v5 = v6;
-    }
-
-    while (v6);
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 
-  *result = v4;
   return result;
 }
 
-uint64_t boost::container::vector<boost::container::dtl::pair<vp::vx::Property_ID,unsigned int>,vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,unsigned int>>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,unsigned int>>,boost::container::dtl::pair<vp::vx::Property_ID,unsigned int>*,boost::container::dtl::pair<vp::vx::Property_ID,unsigned int>>>(void *a1, const char *a2, char *a3, void *a4)
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)55,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)55,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::~__func(void *a1)
 {
-  v4 = *(a2 + 3);
-  if (v4 != *(a2 + 2))
+  *a1 = &unk_2881BCCD0;
+  v1 = a1[2];
+  if (v1)
   {
-    __assert_rtn("next_capacity", "vector.hpp", 473, "additional_objects > size_type(this->m_capacity - this->m_size)");
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
   }
 
-  if (v4 == 0x1FFFFFFFFFFFFFFFLL)
-  {
-    goto LABEL_28;
-  }
-
-  v9 = *(a2 + 1);
-  if (!(v4 >> 61))
-  {
-    v10 = 8 * v4 / 5;
-    if (v10 >= 0x1FFFFFFFFFFFFFFFLL)
-    {
-      v10 = 0x1FFFFFFFFFFFFFFFLL;
-    }
-
-    if (v4 + 1 > v10)
-    {
-      v11 = v4 + 1;
-    }
-
-    else
-    {
-      v11 = v10;
-    }
-
-    goto LABEL_18;
-  }
-
-  if (v4 >> 61 > 4)
-  {
-    v12 = -1;
-  }
-
-  else
-  {
-    v12 = 8 * v4;
-  }
-
-  v13 = v4 + 1;
-  if (v12 >= 0x1FFFFFFFFFFFFFFFLL)
-  {
-    v12 = 0x1FFFFFFFFFFFFFFFLL;
-  }
-
-  v11 = v13 > v12 ? v4 + 1 : v12;
-  if (v13 >> 61)
-  {
-LABEL_28:
-    boost::container::throw_length_error("get_next_capacity, allocator's max size reached", a2);
-  }
-
-LABEL_18:
-  v14 = (*(**a2 + 16))();
-  v15 = v14;
-  v22[1] = a2;
-  v22[2] = v11;
-  v16 = *(a2 + 1);
-  v17 = *(a2 + 2);
-  v18 = v14;
-  if (v16)
-  {
-    v18 = v14;
-    if (v16 != a3)
-    {
-      memmove(v14, *(a2 + 1), a3 - v16);
-      v18 = (v15 + a3 - v16);
-    }
-  }
-
-  *v18 = *a4;
-  if (a3)
-  {
-    v19 = &v16[8 * v17];
-    if (v19 != a3)
-    {
-      memmove(v18 + 1, a3, v19 - a3);
-    }
-  }
-
-  v22[0] = 0;
-  if (v16)
-  {
-    (*(**a2 + 24))(*a2, *(a2 + 1), 8 * *(a2 + 3), 4);
-  }
-
-  v20 = *(a2 + 2) + 1;
-  *(a2 + 1) = v15;
-  *(a2 + 2) = v20;
-  *(a2 + 3) = v11;
-  result = boost::container::dtl::scoped_array_deallocator<vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,unsigned int>>>::~scoped_array_deallocator(v22);
-  *a1 = &a3[*(a2 + 1) - v9];
-  return result;
+  JUMPOUT(0x2743CBFA0);
 }
 
-void sub_2726BDD84(_Unwind_Exception *a1, uint64_t a2, ...)
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)55,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)55,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::~__func(void *a1)
 {
-  va_start(va, a2);
-  boost::container::dtl::scoped_array_deallocator<vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,unsigned int>>>::~scoped_array_deallocator(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t boost::container::dtl::scoped_array_deallocator<vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,unsigned int>>>::~scoped_array_deallocator(uint64_t a1)
-{
-  if (*a1)
+  *a1 = &unk_2881BCCD0;
+  v2 = a1[2];
+  if (v2)
   {
-    (*(***(a1 + 8) + 24))(**(a1 + 8), *a1, 8 * *(a1 + 16), 4);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
   }
 
   return a1;
 }
 
-BOOL boost::container::dtl::flat_tree<boost::container::dtl::pair<vp::vx::Property_ID,unsigned int>,boost::container::dtl::select1st<vp::vx::Property_ID>,std::less<vp::vx::Property_ID>,vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,unsigned int>>>::priv_insert_unique_prepare(unsigned int *a1, unsigned int **a2, unsigned int a3, unsigned int **a4)
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)55,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
 {
-  if (*a2 != a1)
-  {
-    v4 = (*a2 - a1) >> 3;
-    do
-    {
-      if (v4 != 1 && !a1)
-      {
-        __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-      }
+  *a1 = &unk_2881BCCA0;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
 
-      if (!a1)
-      {
-        __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
-      }
-
-      v5 = v4 >> 1;
-      v6 = &a1[2 * (v4 >> 1)];
-      v8 = *v6;
-      v7 = v6 + 2;
-      v4 += ~(v4 >> 1);
-      if (v8 >= a3)
-      {
-        v4 = v5;
-      }
-
-      else
-      {
-        a1 = v7;
-      }
-    }
-
-    while (v4);
-  }
-
-  *a4 = a1;
-  if (a1 == *a2)
-  {
-    return 1;
-  }
-
-  if (!a1)
-  {
-    __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
-  }
-
-  return *a1 > a3;
+  JUMPOUT(0x2743CBFA0);
 }
 
-unint64_t std::__function::__func<vp::vx::Property_Manager::add_property_listener(vp::vx::Property_ID,void({block_pointer})(unsigned int))::$_0,std::allocator<vp::vx::Property_Manager::add_property_listener(vp::vx::Property_ID,void({block_pointer})(unsigned int))::$_0>,void ()(void)>::operator()(unint64_t result)
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)55,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
 {
-  v2 = result;
-  v3 = *(result + 16);
-  v4 = *(result + 8);
-  v5 = *(v3 + 104);
+  *a1 = &unk_2881BCCA0;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+  return a1;
+}
+
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)54,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)54,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v3 = result;
+    (**v2)(v2);
+    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
+  }
+
+  return result;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)54,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4[0] = &unk_2881BCC58;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(double const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
+  operator new();
+}
+
+void sub_2726A73F0(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+uint64_t std::__function::__func<vp::vx::data_flow::State<double>::register_listener(std::function<void ()(double const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<double>::register_listener(std::function<void ()(double const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::operator()(uint64_t result, int a2, vp::vx::data_flow::Value *this)
+{
+  if (*(result + 32))
+  {
+    v3 = *(this + 2) == &vp::vx::data_flow::Value::type_id<double>(void)::s_type_id;
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  if (v3)
+  {
+    v4 = result;
+    result = vp::vx::data_flow::Value::view_storage(this);
+    if (result)
+    {
+      v5 = *(v4 + 32);
+      if (!v5)
+      {
+        std::__throw_bad_function_call[abi:ne200100]();
+      }
+
+      v6 = *(*v5 + 48);
+
+      return v6();
+    }
+  }
+
+  return result;
+}
+
+void std::__function::__func<vp::vx::data_flow::State<double>::register_listener(std::function<void ()(double const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<double>::register_listener(std::function<void ()(double const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::destroy_deallocate(void *a1)
+{
+  std::__function::__value_func<void ()(double const&)>::~__value_func[abi:ne200100](a1 + 8);
+
+  operator delete(a1);
+}
+
+void std::__function::__func<vp::vx::data_flow::State<double>::register_listener(std::function<void ()(double const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<double>::register_listener(std::function<void ()(double const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BBC08;
+  std::__function::__value_func<void ()(double const&)>::~__value_func[abi:ne200100]((a1 + 1));
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<vp::vx::data_flow::State<double>::register_listener(std::function<void ()(double const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<double>::register_listener(std::function<void ()(double const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BBC08;
+  std::__function::__value_func<void ()(double const&)>::~__value_func[abi:ne200100]((a1 + 1));
+  return a1;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)54,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(double const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)54,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(double const&)#1}>,void ()(double const&)>::operator()(uint64_t a1, double *a2)
+{
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
+  if (v4)
+  {
+    v5 = v4 - 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
+  v6 = v10;
+  v8 = v10;
+  vp::sim::Key_Writer::count(&v8, 0x36, "Telephony Vocoder Sample Rate");
+  vp::sim::converters::Default_Converter<double>::to_property_list(&cf, *a2);
+  v7 = cf;
+  if (cf)
+  {
+    CFRetain(cf);
+    v10 = v7;
+    vp::sim::Key_Writer::set(&v8, 0x36, "Telephony Vocoder Sample Rate", &v10);
+    CFRelease(v7);
+  }
+
+  else
+  {
+    v10 = 0;
+    vp::sim::Key_Writer::set(&v8, 0x36, "Telephony Vocoder Sample Rate", &v10);
+  }
+
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  if (v6)
+  {
+    CFRelease(v6);
+  }
+}
+
+void sub_2726A7724(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  __cxa_end_catch();
+  vp::sim::Key_Writer::~Key_Writer(va);
+  _Unwind_Resume(a1);
+}
+
+CFNumberRef vp::sim::converters::Default_Converter<double>::to_property_list(CFNumberRef *a1, double a2)
+{
+  valuePtr = a2;
+  result = CFNumberCreate(0, kCFNumberDoubleType, &valuePtr);
+  *a1 = result;
+  if (!result)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "Could not construct");
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)54,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(double const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)54,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(double const&)#1}>,void ()(double const&)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)54,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(double const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)54,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(double const&)#1}>,void ()(double const&)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)54,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(double const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)54,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(double const&)#1}>,void ()(double const&)>::__clone(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881BCC58;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)54,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(double const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)54,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(double const&)#1}>,void ()(double const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BCC58;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)54,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(double const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)54,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(double const&)#1}>,void ()(double const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BCC58;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)54,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BCC28;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)54,double>(vp::vx::data_flow::State<double>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BCC28;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+  return a1;
+}
+
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)53,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)53,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v3 = result;
+    (**v2)(v2);
+    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
+  }
+
+  return result;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)53,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4[0] = &unk_2881BCBE0;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(unsigned int const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
+  operator new();
+}
+
+void sub_2726A7C1C(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)53,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)53,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::operator()(uint64_t a1, int *a2)
+{
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
+  if (v4)
+  {
+    v5 = v4 - 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
+  v6 = v10;
+  v8 = v10;
+  vp::sim::Key_Writer::count(&v8, 0x35, "Telephony Vocoder Type");
+  vp::sim::converters::Default_Converter<unsigned int>::to_property_list(&cf, *a2);
+  v7 = cf;
+  if (cf)
+  {
+    CFRetain(cf);
+    v10 = v7;
+    vp::sim::Key_Writer::set(&v8, 0x35, "Telephony Vocoder Type", &v10);
+    CFRelease(v7);
+  }
+
+  else
+  {
+    v10 = 0;
+    vp::sim::Key_Writer::set(&v8, 0x35, "Telephony Vocoder Type", &v10);
+  }
+
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  if (v6)
+  {
+    CFRelease(v6);
+  }
+}
+
+void sub_2726A7D2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  __cxa_end_catch();
+  vp::sim::Key_Writer::~Key_Writer(va);
+  _Unwind_Resume(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)53,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)53,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)53,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)53,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)53,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)53,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::__clone(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881BCBE0;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)53,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)53,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BCBE0;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)53,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)53,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BCBE0;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)53,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BCBB0;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)53,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BCBB0;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+  return a1;
+}
+
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)52,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)52,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v3 = result;
+    (**v2)(v2);
+    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
+  }
+
+  return result;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)52,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4[0] = &unk_2881BCB68;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(unsigned int const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
+  operator new();
+}
+
+void sub_2726A8178(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)52,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)52,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::operator()(uint64_t a1, int *a2)
+{
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
+  if (v4)
+  {
+    v5 = v4 - 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
+  v6 = v10;
+  v8 = v10;
+  vp::sim::Key_Writer::count(&v8, 0x34, "VP Mode");
+  vp::sim::converters::Default_Converter<unsigned int>::to_property_list(&cf, *a2);
+  v7 = cf;
+  if (cf)
+  {
+    CFRetain(cf);
+    v10 = v7;
+    vp::sim::Key_Writer::set(&v8, 0x34, "VP Mode", &v10);
+    CFRelease(v7);
+  }
+
+  else
+  {
+    v10 = 0;
+    vp::sim::Key_Writer::set(&v8, 0x34, "VP Mode", &v10);
+  }
+
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  if (v6)
+  {
+    CFRelease(v6);
+  }
+}
+
+void sub_2726A8288(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  __cxa_end_catch();
+  vp::sim::Key_Writer::~Key_Writer(va);
+  _Unwind_Resume(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)52,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)52,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)52,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)52,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)52,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)52,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::__clone(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881BCB68;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)52,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)52,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BCB68;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)52,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)52,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BCB68;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)52,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BCB38;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)52,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BCB38;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+  return a1;
+}
+
+unsigned int *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIjEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_10components20Property_List_Writer26set_up_key_state_listenersERS8_RKNS3_27Voice_Processor_State_OwnerEE3__9JNS3_14Operation_ModeEEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSH_EEERNS4_13State_ManagerESJ_SQ_EUlPPKNS4_5ValueEPSY_E_NS_9allocatorIS13_EEFvS11_S12_EEclEOS11_OS12_(uint64_t a1, vp::vx::data_flow::Value ***a2, vp::vx::data_flow::Value **a3)
+{
+  v3 = *a3;
+  v4 = *vp::vx::data_flow::Value::view_storage(**a2);
+  vp::vx::Legacy<vp::vx::Operation_Mode>::cast(v4);
+  vp::vx::data_flow::Value::~Value(v3);
+  *v3 = std::pmr::get_default_resource(v5);
+  *(v3 + 1) = 0;
+  *(v3 + 2) = &vp::vx::data_flow::Value::type_id<unsigned int>(void)::s_type_id;
+  result = vp::vx::data_flow::Value::allocate_storage(v3);
+  *result = v4;
+  return result;
+}
+
+void sub_2726A8568(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10)
+{
+  if (a1)
+  {
+    std::current_exception();
+    v10.__ptr_ = &a10;
+    std::rethrow_exception(v10);
+    __break(1u);
+  }
+
+  _os_crash();
+  __break(1u);
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIjEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_10components20Property_List_Writer26set_up_key_state_listenersERS8_RKNS3_27Voice_Processor_State_OwnerEE3__9JNS3_14Operation_ModeEEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSH_EEERNS4_13State_ManagerESJ_SQ_EUlPPKNS4_5ValueEPSY_E_NS_9allocatorIS13_EEFvS11_S12_EE7__cloneEPNS0_6__baseIS16_EE(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_2881BB0D8;
+  *(a2 + 8) = *(result + 8);
+  return result;
+}
+
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)51,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)51,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v3 = result;
+    (**v2)(v2);
+    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
+  }
+
+  return result;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)51,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4[0] = &unk_2881BCAF0;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(float const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
+  operator new();
+}
+
+void sub_2726A8834(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)51,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)51,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1}>,void ()(float const&)>::operator()(uint64_t a1, float *a2)
+{
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
+  if (v4)
+  {
+    v5 = v4 - 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
+  v6 = v10;
+  v8 = v10;
+  vp::sim::Key_Writer::count(&v8, 0x33, "Preprocessing input gain");
+  vp::sim::converters::Default_Converter<float>::to_property_list(&cf, *a2);
+  v7 = cf;
+  if (cf)
+  {
+    CFRetain(cf);
+    v10 = v7;
+    vp::sim::Key_Writer::set(&v8, 0x33, "Preprocessing input gain", &v10);
+    CFRelease(v7);
+  }
+
+  else
+  {
+    v10 = 0;
+    vp::sim::Key_Writer::set(&v8, 0x33, "Preprocessing input gain", &v10);
+  }
+
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  if (v6)
+  {
+    CFRelease(v6);
+  }
+}
+
+void sub_2726A8944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  __cxa_end_catch();
+  vp::sim::Key_Writer::~Key_Writer(va);
+  _Unwind_Resume(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)51,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)51,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1}>,void ()(float const&)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)51,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)51,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1}>,void ()(float const&)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)51,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)51,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1}>,void ()(float const&)>::__clone(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881BCAF0;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)51,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)51,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1}>,void ()(float const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BCAF0;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)51,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)51,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1}>,void ()(float const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BCAF0;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)51,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BCAC0;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)51,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BCAC0;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+  return a1;
+}
+
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)50,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)50,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v3 = result;
+    (**v2)(v2);
+    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
+  }
+
+  return result;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)50,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4[0] = &unk_2881BCA78;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(float const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
+  operator new();
+}
+
+void sub_2726A8D90(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)50,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)50,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1}>,void ()(float const&)>::operator()(uint64_t a1, float *a2)
+{
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
+  if (v4)
+  {
+    v5 = v4 - 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
+  v6 = v10;
+  v8 = v10;
+  vp::sim::Key_Writer::count(&v8, 0x32, "Hardware Volume");
+  vp::sim::converters::Default_Converter<float>::to_property_list(&cf, *a2);
+  v7 = cf;
+  if (cf)
+  {
+    CFRetain(cf);
+    v10 = v7;
+    vp::sim::Key_Writer::set(&v8, 0x32, "Hardware Volume", &v10);
+    CFRelease(v7);
+  }
+
+  else
+  {
+    v10 = 0;
+    vp::sim::Key_Writer::set(&v8, 0x32, "Hardware Volume", &v10);
+  }
+
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  if (v6)
+  {
+    CFRelease(v6);
+  }
+}
+
+void sub_2726A8EA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  __cxa_end_catch();
+  vp::sim::Key_Writer::~Key_Writer(va);
+  _Unwind_Resume(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)50,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)50,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1}>,void ()(float const&)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)50,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)50,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1}>,void ()(float const&)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)50,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)50,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1}>,void ()(float const&)>::__clone(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881BCA78;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)50,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)50,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1}>,void ()(float const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BCA78;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)50,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)50,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1}>,void ()(float const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BCA78;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)50,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BCA48;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)50,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BCA48;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+  return a1;
+}
+
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)49,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)49,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v3 = result;
+    (**v2)(v2);
+    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
+  }
+
+  return result;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)49,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4[0] = &unk_2881BCA00;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(float const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
+  operator new();
+}
+
+void sub_2726A92EC(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)49,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)49,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1}>,void ()(float const&)>::operator()(uint64_t a1, float *a2)
+{
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
+  if (v4)
+  {
+    v5 = v4 - 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
+  v6 = v10;
+  v8 = v10;
+  vp::sim::Key_Writer::count(&v8, 0x31, "DL Volume");
+  vp::sim::converters::Default_Converter<float>::to_property_list(&cf, *a2);
+  v7 = cf;
+  if (cf)
+  {
+    CFRetain(cf);
+    v10 = v7;
+    vp::sim::Key_Writer::set(&v8, 0x31, "DL Volume", &v10);
+    CFRelease(v7);
+  }
+
+  else
+  {
+    v10 = 0;
+    vp::sim::Key_Writer::set(&v8, 0x31, "DL Volume", &v10);
+  }
+
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  if (v6)
+  {
+    CFRelease(v6);
+  }
+}
+
+void sub_2726A93FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  __cxa_end_catch();
+  vp::sim::Key_Writer::~Key_Writer(va);
+  _Unwind_Resume(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)49,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)49,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1}>,void ()(float const&)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)49,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)49,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1}>,void ()(float const&)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)49,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)49,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1}>,void ()(float const&)>::__clone(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881BCA00;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)49,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)49,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1}>,void ()(float const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BCA00;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)49,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)49,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(float const&)#1}>,void ()(float const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BCA00;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)49,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BC988;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)49,float>(vp::vx::data_flow::State<float>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BC988;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+  return a1;
+}
+
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)48,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)48,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v3 = result;
+    (**v2)(v2);
+    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
+  }
+
+  return result;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)48,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4[0] = &unk_2881BC940;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(CA::StreamDescription const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
+  operator new();
+}
+
+void sub_2726A9848(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)48,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)48,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1}>,void ()(CA::StreamDescription const&)>::operator()(uint64_t a1, uint64_t a2)
+{
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
+  if (v4)
+  {
+    v5 = v4 - 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  vp::sim::Property_List_Writer::find_writable_element(&v11, v3, v5);
+  v6 = v11;
+  v9 = v11;
+  vp::sim::Key_Writer::count(&v9, 0x30, "DL FEV Format");
+  vp::sim::converters::Default_Converter<CA::StreamDescription>::to_property_list(&cf, a2, v7);
+  v8 = cf;
+  if (cf)
+  {
+    CFRetain(cf);
+    v11 = v8;
+    vp::sim::Key_Writer::set(&v9, 0x30, "DL FEV Format", &v11);
+    CFRelease(v8);
+  }
+
+  else
+  {
+    v11 = 0;
+    vp::sim::Key_Writer::set(&v9, 0x30, "DL FEV Format", &v11);
+  }
+
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  if (v6)
+  {
+    CFRelease(v6);
+  }
+}
+
+void sub_2726A9958(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  __cxa_end_catch();
+  vp::sim::Key_Writer::~Key_Writer(va);
+  _Unwind_Resume(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)48,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)48,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1}>,void ()(CA::StreamDescription const&)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)48,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)48,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1}>,void ()(CA::StreamDescription const&)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)48,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)48,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1}>,void ()(CA::StreamDescription const&)>::__clone(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881BC940;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)48,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)48,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1}>,void ()(CA::StreamDescription const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BC940;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)48,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)48,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1}>,void ()(CA::StreamDescription const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BC940;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)48,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BC910;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)48,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BC910;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+  return a1;
+}
+
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)47,CA::ChannelLayout>(vp::vx::data_flow::State<CA::ChannelLayout>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)47,CA::ChannelLayout>(vp::vx::data_flow::State<CA::ChannelLayout>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v3 = result;
+    (**v2)(v2);
+    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
+  }
+
+  return result;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)47,CA::ChannelLayout>(vp::vx::data_flow::State<CA::ChannelLayout>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4[0] = &unk_2881BC8C8;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(CA::ChannelLayout const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
+  operator new();
+}
+
+void sub_2726A9DA4(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+uint64_t std::__function::__value_func<void ()(CA::ChannelLayout const&)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
+{
+  v3 = (a2 + 24);
+  v4 = *(a2 + 24);
+  if (v4)
+  {
+    if (v4 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**v3 + 24))(*v3, a1);
+      return a1;
+    }
+
+    *(a1 + 24) = v4;
+  }
+
+  else
+  {
+    v3 = (a1 + 24);
+  }
+
+  *v3 = 0;
+  return a1;
+}
+
+{
+  v3 = *(a2 + 24);
+  if (v3)
+  {
+    if (v3 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
+    }
+
+    else
+    {
+      *(a1 + 24) = (*(*v3 + 16))(v3);
+    }
+  }
+
+  else
+  {
+    *(a1 + 24) = 0;
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__value_func<void ()(CA::ChannelLayout const&)>::~__value_func[abi:ne200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__func<vp::vx::data_flow::State<CA::ChannelLayout>::register_listener(std::function<void ()(CA::ChannelLayout const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<CA::ChannelLayout>::register_listener(std::function<void ()(CA::ChannelLayout const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::operator()(uint64_t result, int a2, vp::vx::data_flow::Value *this)
+{
+  if (*(result + 32))
+  {
+    v3 = *(this + 2) == &vp::vx::data_flow::Value::type_id<CA::ChannelLayout>(void)::s_type_id;
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  if (v3)
+  {
+    v4 = result;
+    result = vp::vx::data_flow::Value::view_storage(this);
+    if (result)
+    {
+      v5 = *(v4 + 32);
+      if (!v5)
+      {
+        std::__throw_bad_function_call[abi:ne200100]();
+      }
+
+      v6 = *(*v5 + 48);
+
+      return v6();
+    }
+  }
+
+  return result;
+}
+
+BOOL vp::vx::data_flow::Value::Type_ID_Eraser<CA::ChannelLayout>::compare_value(uint64_t a1, int ***a2, void **a3)
+{
+  v3 = **a2;
+  v4 = **a3;
+  v5 = *v3;
+  if (*v3 != *v4)
+  {
+    return 0;
+  }
+
   if (v5)
   {
-    v6 = vcnt_s8(v5);
-    v6.i16[0] = vaddlv_u8(v6);
-    if (v6.u32[0] > 1uLL)
+    if (v5 == 0x10000)
     {
-      v1 = *(result + 8);
-      if (v5 <= v4)
-      {
-        v1 = v4 % v5;
-      }
+      return v3[1] == v4[1];
     }
 
-    else
-    {
-      v1 = (v5 - 1) & v4;
-    }
-
-    v7 = *(*(v3 + 96) + 8 * v1);
-    if (v7)
-    {
-      for (i = *v7; i; i = *i)
-      {
-        v9 = i[1];
-        if (v9 == v4)
-        {
-          if (*(i + 4) == v4)
-          {
-            return result;
-          }
-        }
-
-        else
-        {
-          if (v6.u32[0] > 1uLL)
-          {
-            if (v9 >= v5)
-            {
-              v9 %= v5;
-            }
-          }
-
-          else
-          {
-            v9 &= v5 - 1;
-          }
-
-          if (v9 != v1)
-          {
-            break;
-          }
-        }
-      }
-    }
+    return 1;
   }
 
-  result = (*(**(v3 + 128) + 16))(*(v3 + 128), 24, 8);
-  v10 = result;
-  *result = 0;
-  *(result + 8) = v4;
-  *(result + 16) = *(v2 + 8);
-  v11 = (*(v3 + 136) + 1);
-  v12 = *(v3 + 144);
-  if (!v5 || (v12 * v5) < v11)
+  v7 = v3[2];
+  if (v7 != v4[2])
   {
-    v13 = 1;
-    if (v5 >= 3)
-    {
-      v13 = (v5 & (v5 - 1)) != 0;
-    }
-
-    v14 = v13 | (2 * v5);
-    v15 = vcvtps_u32_f32(v11 / v12);
-    if (v14 <= v15)
-    {
-      v16 = v15;
-    }
-
-    else
-    {
-      v16 = v14;
-    }
-
-    if (v16 == 1)
-    {
-      v16 = 2;
-    }
-
-    else if ((v16 & (v16 - 1)) != 0)
-    {
-      result = std::__next_prime(v16);
-      v16 = result;
-    }
-
-    v17 = *(v3 + 104);
-    if (v16 > *&v17)
-    {
-LABEL_30:
-      if (v16 >> 61)
-      {
-        std::__throw_bad_array_new_length[abi:ne200100]();
-      }
-
-      result = (*(**(v3 + 112) + 16))(*(v3 + 112), 8 * v16, 8);
-      v18 = *(v3 + 96);
-      *(v3 + 96) = result;
-      if (v18)
-      {
-        result = std::allocator_traits<vp::Allocator<std::__hash_node_base<std::__hash_node<vp::vx::Property_ID,void *> *> *>>::deallocate[abi:ne200100](*(v3 + 112), v18, *(v3 + 104));
-      }
-
-      v19 = 0;
-      *(v3 + 104) = v16;
-      do
-      {
-        *(*(v3 + 96) + 8 * v19++) = 0;
-      }
-
-      while (v16 != v19);
-      v20 = *(v3 + 120);
-      if (v20)
-      {
-        v21 = v20[1];
-        v22 = vcnt_s8(v16);
-        v22.i16[0] = vaddlv_u8(v22);
-        if (v22.u32[0] > 1uLL)
-        {
-          if (v21 >= v16)
-          {
-            v21 %= v16;
-          }
-        }
-
-        else
-        {
-          v21 &= v16 - 1;
-        }
-
-        *(*(v3 + 96) + 8 * v21) = v3 + 120;
-        v25 = *v20;
-        if (*v20)
-        {
-          while (1)
-          {
-            v26 = v25[1];
-            if (v22.u32[0] > 1uLL)
-            {
-              if (v26 >= v16)
-              {
-                v26 %= v16;
-              }
-            }
-
-            else
-            {
-              v26 &= v16 - 1;
-            }
-
-            if (v26 != v21)
-            {
-              v27 = *(v3 + 96);
-              if (!*(v27 + 8 * v26))
-              {
-                *(v27 + 8 * v26) = v20;
-                goto LABEL_55;
-              }
-
-              *v20 = *v25;
-              *v25 = **(v27 + 8 * v26);
-              **(v27 + 8 * v26) = v25;
-              v25 = v20;
-            }
-
-            v26 = v21;
-LABEL_55:
-            v20 = v25;
-            v25 = *v25;
-            v21 = v26;
-            if (!v25)
-            {
-              goto LABEL_66;
-            }
-          }
-        }
-      }
-
-      goto LABEL_66;
-    }
-
-    if (v16 < *&v17)
-    {
-      result = vcvtps_u32_f32(*(v3 + 136) / *(v3 + 144));
-      if (*&v17 < 3uLL || (v23 = vcnt_s8(v17), v23.i16[0] = vaddlv_u8(v23), v23.u32[0] > 1uLL))
-      {
-        result = std::__next_prime(result);
-      }
-
-      else
-      {
-        v24 = 1 << -__clz(result - 1);
-        if (result >= 2)
-        {
-          result = v24;
-        }
-      }
-
-      if (v16 <= result)
-      {
-        v16 = result;
-      }
-
-      if (v16 < *&v17)
-      {
-        if (v16)
-        {
-          goto LABEL_30;
-        }
-
-        v28 = *(v3 + 96);
-        *(v3 + 96) = 0;
-        if (v28)
-        {
-          result = std::allocator_traits<vp::Allocator<std::__hash_node_base<std::__hash_node<vp::vx::Property_ID,void *> *> *>>::deallocate[abi:ne200100](*(v3 + 112), v28, *(v3 + 104));
-        }
-
-        *(v3 + 104) = 0;
-      }
-    }
-
-LABEL_66:
-    v5 = *(v3 + 104);
-    if ((v5 & (v5 - 1)) != 0)
-    {
-      if (v5 <= v4)
-      {
-        v1 = v4 % v5;
-      }
-
-      else
-      {
-        v1 = v4;
-      }
-    }
-
-    else
-    {
-      v1 = (v5 - 1) & v4;
-    }
+    return 0;
   }
 
-  v29 = *(v3 + 96);
-  v30 = *(v29 + 8 * v1);
-  if (v30)
+  if (v7)
   {
-    *v10 = *v30;
-LABEL_79:
-    *v30 = v10;
-    goto LABEL_80;
-  }
-
-  *v10 = *(v3 + 120);
-  *(v3 + 120) = v10;
-  *(v29 + 8 * v1) = v3 + 120;
-  if (*v10)
-  {
-    v31 = *(*v10 + 8);
-    if ((v5 & (v5 - 1)) != 0)
+    v8 = v3 + 3;
+    v9 = v4 + 3;
+    result = 1;
+    while (*v8 == *v9)
     {
-      if (v31 >= v5)
+      if (*v8 == 100)
       {
-        v31 %= v5;
+        v10 = *v8 == *v9 && *(v8 + 1) == *(v9 + 1);
+        if (!v10 || v8[4] != v9[4])
+        {
+          break;
+        }
+      }
+
+      v9 += 5;
+      v8 += 5;
+      if (!--v7)
+      {
+        return result;
       }
     }
 
-    else
-    {
-      v31 &= v5 - 1;
-    }
-
-    v30 = (*(v3 + 96) + 8 * v31);
-    goto LABEL_79;
+    return 0;
   }
 
-LABEL_80:
-  ++*(v3 + 136);
+  return 1;
+}
+
+void vp::vx::data_flow::Value::Type_ID_Eraser<CA::ChannelLayout>::destroy_value(uint64_t a1, void ***a2)
+{
+  v2 = **a2;
+  if (v2)
+  {
+    (*a2)[1] = v2;
+    operator delete(v2);
+  }
+}
+
+__n128 vp::vx::data_flow::Value::Type_ID_Eraser<CA::ChannelLayout>::move_value(uint64_t a1, __n128 **a2, __n128 **a3)
+{
+  v3 = *a2;
+  v4 = *a3;
+  v3->n128_u64[0] = 0;
+  v3->n128_u64[1] = 0;
+  v3[1].n128_u64[0] = 0;
+  result = *v4;
+  *v3 = *v4;
+  v3[1].n128_u64[0] = v4[1].n128_u64[0];
+  v4->n128_u64[0] = 0;
+  v4->n128_u64[1] = 0;
+  v4[1].n128_u64[0] = 0;
   return result;
 }
 
-__n128 std::__function::__func<vp::vx::Property_Manager::add_property_listener(vp::vx::Property_ID,void({block_pointer})(unsigned int))::$_0,std::allocator<vp::vx::Property_Manager::add_property_listener(vp::vx::Property_ID,void({block_pointer})(unsigned int))::$_0>,void ()(void)>::__clone(uint64_t a1, uint64_t a2)
+void vp::vx::data_flow::Value::Type_ID_Eraser<CA::ChannelLayout>::copy_value(uint64_t a1, uint64_t **a2, uint64_t **a3)
 {
-  *a2 = &unk_2881BE188;
-  result = *(a1 + 8);
-  *(a2 + 8) = result;
+  v3 = *a2;
+  v4 = *a3;
+  *v3 = 0;
+  v3[1] = 0;
+  v3[2] = 0;
+  v6 = *v4;
+  v5 = v4[1];
+  if (v5 != v6)
+  {
+    std::vector<unsigned char>::__vallocate[abi:ne200100](v3, v5 - v6);
+  }
+}
+
+void sub_2726AA0AC(_Unwind_Exception *exception_object)
+{
+  v3 = *v1;
+  if (*v1)
+  {
+    *(v1 + 8) = v3;
+    operator delete(v3);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t vp::vx::data_flow::Value::Type_ID_Eraser<CA::ChannelLayout>::view_storage(uint64_t a1, uint64_t a2)
+{
+  return *a2;
+}
+
+{
+  return *a2;
+}
+
+uint64_t vp::vx::data_flow::Value::Type_ID_Eraser<CA::ChannelLayout>::allocate_storage(uint64_t a1, uint64_t *a2, void *a3)
+{
+  result = (*(**a3 + 16))(*a3, 24, 8);
+  *a2 = result;
   return result;
 }
 
-uint64_t std::pmr::polymorphic_allocator<vp::vx::Property_Manager::Listener>::allocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::__function::__func<vp::vx::data_flow::State<CA::ChannelLayout>::register_listener(std::function<void ()(CA::ChannelLayout const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<CA::ChannelLayout>::register_listener(std::function<void ()(CA::ChannelLayout const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::destroy_deallocate(void *a1)
 {
-  if (a2 >> 60)
-  {
-    std::__throw_bad_array_new_length[abi:ne200100]();
-  }
+  std::__function::__value_func<void ()(CA::ChannelLayout const&)>::~__value_func[abi:ne200100](a1 + 8);
 
-  v3 = *(**a1 + 16);
-
-  return v3();
+  operator delete(a1);
 }
 
-void *boost::container::dtl::flat_tree<boost::container::dtl::pair<vp::vx::Property_ID,std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>>,boost::container::dtl::select1st<vp::vx::Property_ID>,std::less<vp::vx::Property_ID>,vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>>>>::priv_lower_bound<boost::container::vec_iterator<boost::container::dtl::pair<vp::vx::Property_ID,std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>>*,false>,vp::vx::Property_ID>(void *result, void *a2, uint64_t a3, unsigned int a4)
+void std::__function::__func<vp::vx::data_flow::State<CA::ChannelLayout>::register_listener(std::function<void ()(CA::ChannelLayout const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<CA::ChannelLayout>::register_listener(std::function<void ()(CA::ChannelLayout const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
 {
-  v4 = *a2;
-  if (*a2 != a3)
+  *a1 = &unk_2881BC880;
+  std::__function::__value_func<void ()(CA::ChannelLayout const&)>::~__value_func[abi:ne200100]((a1 + 1));
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<vp::vx::data_flow::State<CA::ChannelLayout>::register_listener(std::function<void ()(CA::ChannelLayout const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1},std::allocator<vp::vx::data_flow::State<CA::ChannelLayout>::register_listener(std::function<void ()(CA::ChannelLayout const&)>)::{lambda(unsigned int,vp::vx::data_flow::Value const&)#1}>,void ()(unsigned int,vp::vx::data_flow::Value const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BC880;
+  std::__function::__value_func<void ()(CA::ChannelLayout const&)>::~__value_func[abi:ne200100]((a1 + 1));
+  return a1;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)47,CA::ChannelLayout>(vp::vx::data_flow::State<CA::ChannelLayout>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::ChannelLayout const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)47,CA::ChannelLayout>(vp::vx::data_flow::State<CA::ChannelLayout>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::ChannelLayout const&)#1}>,void ()(CA::ChannelLayout const&)>::operator()(uint64_t a1, uint64_t a2)
+{
+  v50 = *MEMORY[0x277D85DE8];
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
+  if (v4)
   {
-    v5 = 0xCCCCCCCCCCCCCCCDLL * ((a3 - v4) >> 3);
+    v5 = v4 - 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  vp::sim::Property_List_Writer::find_writable_element(v49, v3, v5);
+  v6 = *&v49[0];
+  v33[0] = *&v49[0];
+  vp::sim::Key_Writer::count(v33, 0x2F, "DL MIX Channel Layout");
+  v49[0] = xmmword_279E4A3B0;
+  v49[1] = *&off_279E4A3C0;
+  LODWORD(valuePtr) = **a2;
+  v40 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
+  if (!v40)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "Could not construct");
+  }
+
+  LODWORD(valuePtr) = *(*a2 + 4);
+  v39 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
+  if (!v39)
+  {
+    v29 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v29, "Could not construct");
+  }
+
+  if (*(*a2 + 8) > (*(a2 + 8) - *a2 - 12) / 0x14uLL)
+  {
+    __assert_rtn("GetNumberChannelDescriptions", "CoreAudioBaseTypes.hpp", 2252, "GetAudioChannelLayout().mNumberChannelDescriptions <= (mStorage.size() - kHeaderSize) / sizeof(AudioChannelDescription)");
+  }
+
+  LODWORD(valuePtr) = *(*a2 + 8);
+  v38 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
+  if (!v38)
+  {
+    v30 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v30, "Could not construct");
+  }
+
+  v32 = v6;
+  v7 = *MEMORY[0x277CBECE8];
+  Mutable = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
+  v37 = Mutable;
+  v9 = *(a2 + 8);
+  v10 = (*a2 + 12);
+  if (v10 != v9)
+  {
+    v11 = MEMORY[0x277CBF128];
+    v12 = MEMORY[0x277CBF138];
+    v13 = MEMORY[0x277CBF150];
     do
     {
-      if (v5 != 1 && !v4)
+      *keys = xmmword_279E4A3D0;
+      keys[2] = @"Coordinates";
+      LODWORD(valuePtr) = *v10;
+      v36 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
+      if (!v36)
       {
-        __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
+        v22 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v22, "Could not construct");
       }
 
-      if (!v4)
+      LODWORD(valuePtr) = v10[1];
+      v35 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
+      if (!v35)
       {
-        __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
+        v23 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v23, "Could not construct");
       }
 
-      v6 = v5 >> 1;
-      v7 = &v4[10 * (v5 >> 1)];
-      if (*v7 < a4)
+      LODWORD(valuePtr) = v10[2];
+      v43 = CFNumberCreate(0, kCFNumberFloatType, &valuePtr);
+      if (!v43)
       {
-        v4 = v7 + 10;
-        *a2 = v7 + 10;
-        v6 = v5 + ~v6;
+        v24 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v24, "Could not construct");
       }
 
-      v5 = v6;
+      LODWORD(valuePtr) = v10[3];
+      v42 = CFNumberCreate(0, kCFNumberFloatType, &valuePtr);
+      if (!v42)
+      {
+        v25 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v25, "Could not construct");
+      }
+
+      LODWORD(valuePtr) = v10[4];
+      v14 = CFNumberCreate(0, kCFNumberFloatType, &valuePtr);
+      cf = v14;
+      if (!v14)
+      {
+        v26 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v26, "Could not construct");
+      }
+
+      valuePtr = v43;
+      v45 = v42;
+      v46 = v14;
+      v15 = CFArrayCreate(v7, &valuePtr, 3, v11);
+      v34[1] = v15;
+      if (cf)
+      {
+        CFRelease(cf);
+      }
+
+      if (v42)
+      {
+        CFRelease(v42);
+      }
+
+      if (v43)
+      {
+        CFRelease(v43);
+      }
+
+      valuePtr = v36;
+      v45 = v35;
+      v46 = v15;
+      v16 = CFDictionaryCreate(v7, keys, &valuePtr, 3, v12, v13);
+      v43 = v16;
+      if (v16)
+      {
+        v17 = CFGetTypeID(v16);
+        if (v17 != CFDictionaryGetTypeID())
+        {
+          v27 = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(v27, "Could not construct");
+        }
+
+        v18 = v43;
+      }
+
+      else
+      {
+        v18 = 0;
+      }
+
+      CFArrayAppendValue(Mutable, v18);
+      if (v43)
+      {
+        CFRelease(v43);
+      }
+
+      if (v15)
+      {
+        CFRelease(v15);
+      }
+
+      if (v35)
+      {
+        CFRelease(v35);
+      }
+
+      if (v36)
+      {
+        CFRelease(v36);
+      }
+
+      v10 += 5;
     }
 
-    while (v6);
+    while (v10 != v9);
   }
 
+  valuePtr = v40;
+  v45 = v39;
+  v46 = v38;
+  v47 = Mutable;
+  v19 = CFDictionaryCreate(v7, v49, &valuePtr, 4, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+  v20 = v19;
+  v33[1] = v19;
+  if (v19)
+  {
+    v21 = CFGetTypeID(v19);
+    if (v21 != CFDictionaryGetTypeID())
+    {
+      v31 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v31, "Could not construct");
+    }
+  }
+
+  if (Mutable)
+  {
+    CFRelease(Mutable);
+  }
+
+  if (v38)
+  {
+    CFRelease(v38);
+  }
+
+  if (v39)
+  {
+    CFRelease(v39);
+  }
+
+  if (v40)
+  {
+    CFRelease(v40);
+  }
+
+  if (v20)
+  {
+    CFRetain(v20);
+    v34[0] = v20;
+    vp::sim::Key_Writer::set(v33, 0x2F, "DL MIX Channel Layout", v34);
+    CFRelease(v20);
+    CFRelease(v20);
+    if (!v32)
+    {
+      return;
+    }
+  }
+
+  else
+  {
+    v34[0] = 0;
+    vp::sim::Key_Writer::set(v33, 0x2F, "DL MIX Channel Layout", v34);
+    if (!v32)
+    {
+      return;
+    }
+  }
+
+  CFRelease(v32);
+}
+
+void sub_2726AAA54(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, const void *a15, uint64_t a16, char a17, int a18, __int16 a19, char a20, char a21, int a22, __int16 a23, char a24, char a25, int a26, const void *a27, const void *a28, const void *a29, const void *a30, __int16 a31, char a32, char a33, int a34, __int16 a35, char a36, char a37, int a38, __int16 a39, char a40, char a41)
+{
+  if (a2)
+  {
+    __cxa_free_exception(v41);
+    applesauce::CF::ObjectRef<__CFDictionary const*>::~ObjectRef(&a15);
+    applesauce::CF::ObjectRef<__CFArray *>::~ObjectRef(&a27);
+    applesauce::CF::NumberRef::~NumberRef(&a28);
+    applesauce::CF::NumberRef::~NumberRef(&a29);
+    applesauce::CF::NumberRef::~NumberRef(&a30);
+    v43 = __cxa_begin_catch(exception_object);
+    vp::sim::throw_exception(v43, v44);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_2726AAD30(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+{
+  va_start(va, a10);
+  __cxa_end_catch();
+  vp::sim::Key_Writer::~Key_Writer(va);
+  JUMPOUT(0x2726AAD50);
+}
+
+void sub_2726AAD44(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)47,CA::ChannelLayout>(vp::vx::data_flow::State<CA::ChannelLayout>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::ChannelLayout const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)47,CA::ChannelLayout>(vp::vx::data_flow::State<CA::ChannelLayout>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::ChannelLayout const&)#1}>,void ()(CA::ChannelLayout const&)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)47,CA::ChannelLayout>(vp::vx::data_flow::State<CA::ChannelLayout>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::ChannelLayout const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)47,CA::ChannelLayout>(vp::vx::data_flow::State<CA::ChannelLayout>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::ChannelLayout const&)#1}>,void ()(CA::ChannelLayout const&)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)47,CA::ChannelLayout>(vp::vx::data_flow::State<CA::ChannelLayout>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::ChannelLayout const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)47,CA::ChannelLayout>(vp::vx::data_flow::State<CA::ChannelLayout>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::ChannelLayout const&)#1}>,void ()(CA::ChannelLayout const&)>::__clone(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881BC8C8;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)47,CA::ChannelLayout>(vp::vx::data_flow::State<CA::ChannelLayout>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::ChannelLayout const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)47,CA::ChannelLayout>(vp::vx::data_flow::State<CA::ChannelLayout>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::ChannelLayout const&)#1}>,void ()(CA::ChannelLayout const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BC8C8;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)47,CA::ChannelLayout>(vp::vx::data_flow::State<CA::ChannelLayout>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::ChannelLayout const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)47,CA::ChannelLayout>(vp::vx::data_flow::State<CA::ChannelLayout>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::ChannelLayout const&)#1}>,void ()(CA::ChannelLayout const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BC8C8;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)47,CA::ChannelLayout>(vp::vx::data_flow::State<CA::ChannelLayout>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BC850;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)47,CA::ChannelLayout>(vp::vx::data_flow::State<CA::ChannelLayout>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BC850;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+  return a1;
+}
+
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)46,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)46,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v3 = result;
+    (**v2)(v2);
+    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
+  }
+
+  return result;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)46,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4[0] = &unk_2881BC808;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(unsigned int const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
+  operator new();
+}
+
+void sub_2726AB190(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)46,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)46,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::operator()(uint64_t a1, int *a2)
+{
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
+  if (v4)
+  {
+    v5 = v4 - 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
+  v6 = v10;
+  v8 = v10;
+  vp::sim::Key_Writer::count(&v8, 0x2E, "DL MIX Block Size");
+  vp::sim::converters::Default_Converter<unsigned int>::to_property_list(&cf, *a2);
+  v7 = cf;
+  if (cf)
+  {
+    CFRetain(cf);
+    v10 = v7;
+    vp::sim::Key_Writer::set(&v8, 0x2E, "DL MIX Block Size", &v10);
+    CFRelease(v7);
+  }
+
+  else
+  {
+    v10 = 0;
+    vp::sim::Key_Writer::set(&v8, 0x2E, "DL MIX Block Size", &v10);
+  }
+
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  if (v6)
+  {
+    CFRelease(v6);
+  }
+}
+
+void sub_2726AB2A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  __cxa_end_catch();
+  vp::sim::Key_Writer::~Key_Writer(va);
+  _Unwind_Resume(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)46,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)46,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)46,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)46,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)46,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)46,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::__clone(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881BC808;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)46,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)46,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BC808;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)46,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)46,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BC808;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)46,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BC7D8;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)46,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BC7D8;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+  return a1;
+}
+
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)45,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)45,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v3 = result;
+    (**v2)(v2);
+    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
+  }
+
+  return result;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)45,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4[0] = &unk_2881BC790;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(CA::StreamDescription const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
+  operator new();
+}
+
+void sub_2726AB6EC(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)45,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)45,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1}>,void ()(CA::StreamDescription const&)>::operator()(uint64_t a1, uint64_t a2)
+{
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
+  if (v4)
+  {
+    v5 = v4 - 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  vp::sim::Property_List_Writer::find_writable_element(&v11, v3, v5);
+  v6 = v11;
+  v9 = v11;
+  vp::sim::Key_Writer::count(&v9, 0x2D, "DL MIX Format");
+  vp::sim::converters::Default_Converter<CA::StreamDescription>::to_property_list(&cf, a2, v7);
+  v8 = cf;
+  if (cf)
+  {
+    CFRetain(cf);
+    v11 = v8;
+    vp::sim::Key_Writer::set(&v9, 0x2D, "DL MIX Format", &v11);
+    CFRelease(v8);
+  }
+
+  else
+  {
+    v11 = 0;
+    vp::sim::Key_Writer::set(&v9, 0x2D, "DL MIX Format", &v11);
+  }
+
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  if (v6)
+  {
+    CFRelease(v6);
+  }
+}
+
+void sub_2726AB7FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  __cxa_end_catch();
+  vp::sim::Key_Writer::~Key_Writer(va);
+  _Unwind_Resume(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)45,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)45,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1}>,void ()(CA::StreamDescription const&)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)45,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)45,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1}>,void ()(CA::StreamDescription const&)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)45,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)45,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1}>,void ()(CA::StreamDescription const&)>::__clone(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881BC790;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)45,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)45,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1}>,void ()(CA::StreamDescription const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BC790;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)45,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)45,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1}>,void ()(CA::StreamDescription const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BC790;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)45,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BC760;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)45,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BC760;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+  return a1;
+}
+
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)44,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)44,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v3 = result;
+    (**v2)(v2);
+    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
+  }
+
+  return result;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)44,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4[0] = &unk_2881BC718;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(BOOL const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
+  operator new();
+}
+
+void sub_2726ABC48(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)44,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)44,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::operator()(uint64_t a1, _BYTE *a2)
+{
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
+  if (v4)
+  {
+    v5 = v4 - 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
+  v6 = v10;
+  v9 = v10;
+  vp::sim::Key_Writer::count(&v9, 0x2C, "Enable AGC");
+  v7 = MEMORY[0x277CBED28];
+  if (!*a2)
+  {
+    v7 = MEMORY[0x277CBED10];
+  }
+
+  v8 = *v7;
+  if (!*v7)
+  {
+    v10 = 0;
+    vp::sim::Key_Writer::set(&v9, 0x2C, "Enable AGC", &v10);
+    if (!v6)
+    {
+      return;
+    }
+
+    goto LABEL_10;
+  }
+
+  CFRetain(*v7);
+  v10 = v8;
+  vp::sim::Key_Writer::set(&v9, 0x2C, "Enable AGC", &v10);
+  CFRelease(v8);
+  CFRelease(v8);
+  if (v6)
+  {
+LABEL_10:
+    CFRelease(v6);
+  }
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)44,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)44,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)44,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)44,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)44,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)44,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::__clone(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881BC718;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)44,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)44,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BC718;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)44,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)44,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(BOOL const&)#1}>,void ()(BOOL const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BC718;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)44,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BC6E8;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)44,BOOL>(vp::vx::data_flow::State<BOOL>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BC6E8;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+  return a1;
+}
+
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)43,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)43,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v3 = result;
+    (**v2)(v2);
+    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
+  }
+
+  return result;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)43,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4[0] = &unk_2881BC6A0;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(unsigned int const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
+  operator new();
+}
+
+void sub_2726AC180(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)43,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)43,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::operator()(uint64_t a1, int *a2)
+{
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
+  if (v4)
+  {
+    v5 = v4 - 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
+  v6 = v10;
+  v8 = v10;
+  vp::sim::Key_Writer::count(&v8, 0x2B, "MaxOutPktByteSize");
+  vp::sim::converters::Default_Converter<unsigned int>::to_property_list(&cf, *a2);
+  v7 = cf;
+  if (cf)
+  {
+    CFRetain(cf);
+    v10 = v7;
+    vp::sim::Key_Writer::set(&v8, 0x2B, "MaxOutPktByteSize", &v10);
+    CFRelease(v7);
+  }
+
+  else
+  {
+    v10 = 0;
+    vp::sim::Key_Writer::set(&v8, 0x2B, "MaxOutPktByteSize", &v10);
+  }
+
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  if (v6)
+  {
+    CFRelease(v6);
+  }
+}
+
+void sub_2726AC290(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  __cxa_end_catch();
+  vp::sim::Key_Writer::~Key_Writer(va);
+  _Unwind_Resume(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)43,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)43,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)43,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)43,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)43,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)43,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::__clone(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881BC6A0;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)43,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)43,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BC6A0;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)43,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)43,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BC6A0;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)43,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BC670;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)43,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BC670;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+  return a1;
+}
+
+_DWORD *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIjEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_10components20Property_List_Writer26set_up_key_state_listenersERS8_RKNS3_27Voice_Processor_State_OwnerEE3__8JN2CA17StreamDescriptionEEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSI_EEERNS4_13State_ManagerESK_SR_EUlPPKNS4_5ValueEPSZ_E_NS_9allocatorIS14_EEFvS12_S13_EEclEOS12_OS13_(uint64_t a1, vp::vx::data_flow::Value ***a2, vp::vx::data_flow::Value **a3)
+{
+  v3 = *a3;
+  v4 = *(vp::vx::data_flow::Value::view_storage(**a2) + 16);
+  vp::vx::data_flow::Value::~Value(v3);
+  *v3 = std::pmr::get_default_resource(v5);
+  *(v3 + 1) = 0;
+  *(v3 + 2) = &vp::vx::data_flow::Value::type_id<unsigned int>(void)::s_type_id;
+  result = vp::vx::data_flow::Value::allocate_storage(v3);
   *result = v4;
   return result;
 }
 
-void std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>::__move_assign(uint64_t *a1, uint64_t a2)
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIjEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_10components20Property_List_Writer26set_up_key_state_listenersERS8_RKNS3_27Voice_Processor_State_OwnerEE3__8JN2CA17StreamDescriptionEEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSI_EEERNS4_13State_ManagerESK_SR_EUlPPKNS4_5ValueEPSZ_E_NS_9allocatorIS14_EEFvS12_S13_EE7__cloneEPNS0_6__baseIS17_EE(uint64_t result, uint64_t a2)
 {
-  v5 = (a1 + 3);
-  v4 = a1[3];
-  if (v4 == *(a2 + 24) || ((*(*v4 + 32))(v4) & 1) != 0)
-  {
-    std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>::__vdeallocate(a1);
-    *a1 = *a2;
-    a1[2] = *(a2 + 16);
-    *a2 = 0;
-    *(a2 + 8) = 0;
-    *(a2 + 16) = 0;
-  }
-
-  else
-  {
-    v7 = *a2;
-    v6 = *(a2 + 8);
-    v8 = v6 - v7;
-    v9 = *a1;
-    if (a1[2] - *a1 >= (v6 - v7))
-    {
-      v15 = a1[1];
-      if (v15 - v9 >= v8)
-      {
-        if (v7 != v6)
-        {
-          do
-          {
-            *v9 = *v7;
-            std::__destroy_at[abi:ne200100]<vp::Block<void ()>,0>((v9 + 8));
-            v18 = *(v7 + 1);
-            *(v7 + 1) = 0;
-            *(v9 + 8) = v18;
-            v7 += 16;
-            v9 += 16;
-          }
-
-          while (v7 != v6);
-          v15 = a1[1];
-        }
-
-        while (v15 != v9)
-        {
-          v15 -= 2;
-          std::pmr::polymorphic_allocator<vp::vx::Property_Manager::Listener>::destroy[abi:ne200100]<vp::vx::Property_Manager::Listener>(v15);
-        }
-
-        a1[1] = v9;
-      }
-
-      else
-      {
-        v16 = &v7[v15 - v9];
-        if (v15 != v9)
-        {
-          do
-          {
-            *v9 = *v7;
-            std::__destroy_at[abi:ne200100]<vp::Block<void ()>,0>((v9 + 8));
-            v17 = *(v7 + 1);
-            *(v7 + 1) = 0;
-            *(v9 + 8) = v17;
-            v7 += 16;
-            v9 += 16;
-          }
-
-          while (v7 != v16);
-          v15 = a1[1];
-        }
-
-        a1[1] = std::__uninitialized_allocator_copy_impl[abi:ne200100]<vp::Allocator<vp::vx::Property_Manager::Listener>,std::move_iterator<std::__wrap_iter<vp::vx::Property_Manager::Listener*>>,std::move_iterator<std::__wrap_iter<vp::vx::Property_Manager::Listener*>>,vp::vx::Property_Manager::Listener*>(v5, v16, v6, v15);
-      }
-    }
-
-    else
-    {
-      v10 = v8 >> 4;
-      std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>::__vdeallocate(a1);
-      if (v10 >> 60)
-      {
-        goto LABEL_24;
-      }
-
-      v11 = a1[2] - *a1;
-      v12 = v11 >> 3;
-      if (v11 >> 3 <= v10)
-      {
-        v12 = v10;
-      }
-
-      v13 = v11 >= 0x7FFFFFFFFFFFFFF0 ? 0xFFFFFFFFFFFFFFFLL : v12;
-      if (v13 >> 60)
-      {
-LABEL_24:
-        std::vector<std::function<std::unique_ptr<VoiceProcessorBase> ()(std::unique_ptr<VoiceProcessorBase>)>>::__throw_length_error[abi:ne200100]();
-      }
-
-      v14 = std::pmr::polymorphic_allocator<vp::vx::Property_Manager::Listener>::allocate[abi:ne200100](v5, v13);
-      *a1 = v14;
-      a1[1] = v14;
-      a1[2] = &v14[2 * v13];
-      a1[1] = std::__uninitialized_allocator_copy_impl[abi:ne200100]<vp::Allocator<vp::vx::Property_Manager::Listener>,std::move_iterator<std::__wrap_iter<vp::vx::Property_Manager::Listener*>>,std::move_iterator<std::__wrap_iter<vp::vx::Property_Manager::Listener*>>,vp::vx::Property_Manager::Listener*>(v5, v7, v6, v14);
-    }
-  }
-}
-
-uint64_t boost::container::vector<boost::container::dtl::pair<vp::vx::Property_ID,std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>>,vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>>>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>>>,boost::container::dtl::pair<vp::vx::Property_ID,std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>>*,boost::container::dtl::pair<vp::vx::Property_ID,std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>>>>(void *a1, const char *a2, uint64_t a3, uint64_t a4)
-{
-  v4 = *(a2 + 3);
-  if (v4 != *(a2 + 2))
-  {
-    __assert_rtn("next_capacity", "vector.hpp", 473, "additional_objects > size_type(this->m_capacity - this->m_size)");
-  }
-
-  if (v4 == 0x666666666666666)
-  {
-    goto LABEL_28;
-  }
-
-  if (v4 >> 61 > 4)
-  {
-    v5 = -1;
-  }
-
-  else
-  {
-    v5 = 8 * v4;
-  }
-
-  if (v4 >> 61)
-  {
-    v6 = v5;
-  }
-
-  else
-  {
-    v6 = 8 * v4 / 5;
-  }
-
-  v7 = v4 + 1;
-  if (v6 >= 0x666666666666666)
-  {
-    v6 = 0x666666666666666;
-  }
-
-  v8 = v7 > v6 ? v4 + 1 : v6;
-  if (v7 > 0x666666666666666)
-  {
-LABEL_28:
-    boost::container::throw_length_error("get_next_capacity, allocator's max size reached", a2);
-  }
-
-  v13 = *(a2 + 1);
-  v14 = (*(**a2 + 16))(*a2, 40 * v8, 8);
-  v15 = v14;
-  v26[1] = a2;
-  v26[2] = v8;
-  v16 = *(a2 + 1);
-  v17 = v16 + 40 * *(a2 + 2);
-  v18 = v14;
-  if (v16 != a3)
-  {
-    v19 = *(a2 + 1);
-    v18 = v14;
-    do
-    {
-      *v18 = *v19;
-      *(v18 + 16) = 0;
-      *(v18 + 24) = 0;
-      *(v18 + 8) = 0;
-      *(v18 + 32) = *(v19 + 32);
-      *(v18 + 8) = *(v19 + 8);
-      *(v18 + 24) = *(v19 + 24);
-      *(v19 + 8) = 0;
-      *(v19 + 16) = 0;
-      *(v19 + 24) = 0;
-      v19 += 40;
-      v18 += 40;
-    }
-
-    while (v19 != a3);
-  }
-
-  *v18 = *a4;
-  *(v18 + 16) = 0;
-  *(v18 + 24) = 0;
-  *(v18 + 8) = 0;
-  *(v18 + 32) = *(a4 + 32);
-  *(v18 + 8) = *(a4 + 8);
-  *(v18 + 24) = *(a4 + 24);
-  *(a4 + 8) = 0;
-  *(a4 + 16) = 0;
-  *(a4 + 24) = 0;
-  if (v17 != a3)
-  {
-    v20 = (v18 + 72);
-    v21 = a3;
-    do
-    {
-      *(v20 - 8) = *v21;
-      *(v20 - 2) = 0;
-      *(v20 - 1) = 0;
-      *(v20 - 3) = 0;
-      *v20 = *(v21 + 32);
-      *(v20 - 3) = *(v21 + 8);
-      *(v20 - 1) = *(v21 + 24);
-      *(v21 + 8) = 0;
-      *(v21 + 16) = 0;
-      *(v21 + 24) = 0;
-      v21 += 40;
-      v20 += 5;
-    }
-
-    while (v21 != v17);
-  }
-
-  v26[0] = 0;
-  if (v16)
-  {
-    v22 = *(a2 + 2);
-    if (v22)
-    {
-      v23 = (v16 + 8);
-      do
-      {
-        --v22;
-        v27 = v23;
-        std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>::__destroy_vector::operator()[abi:ne200100](&v27);
-        v23 += 5;
-      }
-
-      while (v22);
-    }
-
-    (*(**a2 + 24))(*a2, *(a2 + 1), 40 * *(a2 + 3), 8);
-  }
-
-  v24 = *(a2 + 2) + 1;
-  *(a2 + 1) = v15;
-  *(a2 + 2) = v24;
-  *(a2 + 3) = v8;
-  result = boost::container::dtl::scoped_array_deallocator<vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>>>>::~scoped_array_deallocator(v26);
-  *a1 = *(a2 + 1) + a3 - v13;
+  *a2 = &unk_2881BB090;
+  *(a2 + 8) = *(result + 8);
   return result;
 }
 
-uint64_t boost::container::dtl::scoped_array_deallocator<vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>>>>::~scoped_array_deallocator(uint64_t a1)
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)42,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)42,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
 {
-  if (*a1)
-  {
-    (*(***(a1 + 8) + 24))(**(a1 + 8), *a1, 40 * *(a1 + 16), 8);
-  }
-
-  return a1;
-}
-
-uint64_t *std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>::__vdeallocate(uint64_t *result)
-{
-  v1 = *result;
-  if (*result)
-  {
-    v2 = result;
-    v3 = result[1];
-    v4 = *result;
-    if (v3 != v1)
-    {
-      do
-      {
-        v3 -= 16;
-        std::pmr::polymorphic_allocator<vp::vx::Property_Manager::Listener>::destroy[abi:ne200100]<vp::vx::Property_Manager::Listener>(v3);
-      }
-
-      while (v3 != v1);
-      v4 = *v2;
-    }
-
-    v2[1] = v1;
-    result = std::allocator_traits<vp::Allocator<vp::vx::Property_Manager::Listener>>::deallocate[abi:ne200100](v2[3], v4, (v2[2] - v4) >> 4);
-    *v2 = 0;
-    v2[1] = 0;
-    v2[2] = 0;
-  }
-
-  return result;
-}
-
-void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<vp::Allocator<vp::vx::Property_Manager::Listener>,std::move_iterator<std::__wrap_iter<vp::vx::Property_Manager::Listener*>>,std::move_iterator<std::__wrap_iter<vp::vx::Property_Manager::Listener*>>,vp::vx::Property_Manager::Listener*>(uint64_t a1, void *a2, void *a3, void *a4)
-{
-  result = a4;
-  while (a2 != a3)
-  {
-    *result = *a2;
-    v5 = a2[1];
-    a2[1] = 0;
-    result[1] = v5;
-    a2 += 2;
-    result += 2;
-  }
-
-  return result;
-}
-
-BOOL boost::container::dtl::flat_tree<boost::container::dtl::pair<vp::vx::Property_ID,std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>>,boost::container::dtl::select1st<vp::vx::Property_ID>,std::less<vp::vx::Property_ID>,vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>>>>::priv_insert_unique_prepare(unsigned int *a1, unsigned int **a2, unsigned int a3, unsigned int **a4)
-{
-  if (*a2 != a1)
-  {
-    v4 = 0xCCCCCCCCCCCCCCCDLL * ((*a2 - a1) >> 3);
-    do
-    {
-      if (v4 != 1 && !a1)
-      {
-        __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-      }
-
-      if (!a1)
-      {
-        __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
-      }
-
-      v5 = v4 >> 1;
-      v6 = &a1[10 * (v4 >> 1)];
-      v8 = *v6;
-      v7 = v6 + 10;
-      v4 += ~(v4 >> 1);
-      if (v8 >= a3)
-      {
-        v4 = v5;
-      }
-
-      else
-      {
-        a1 = v7;
-      }
-    }
-
-    while (v4);
-  }
-
-  *a4 = a1;
-  if (a1 == *a2)
-  {
-    return 1;
-  }
-
-  if (!a1)
-  {
-    __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
-  }
-
-  return *a1 > a3;
-}
-
-void *boost::container::dtl::flat_tree<boost::container::dtl::pair<vp::vx::Property_ID,std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>>,boost::container::dtl::select1st<vp::vx::Property_ID>,std::less<vp::vx::Property_ID>,vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>>>>::find(unsigned int **a1, uint64_t a2, unsigned int *a3)
-{
-  v3 = *(a2 + 8);
-  v4 = *(a2 + 16);
-  v15 = v3;
-  if (v3)
-  {
-    v5 = 1;
-  }
-
-  else
-  {
-    v5 = v4 == 0;
-  }
-
-  if (!v5)
-  {
-    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-  }
-
-  result = boost::container::dtl::flat_tree<boost::container::dtl::pair<vp::vx::Property_ID,std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>>,boost::container::dtl::select1st<vp::vx::Property_ID>,std::less<vp::vx::Property_ID>,vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>>>>::priv_lower_bound<boost::container::vec_iterator<boost::container::dtl::pair<vp::vx::Property_ID,std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>>*,false>,vp::vx::Property_ID>(a1, &v15, v3 + 40 * v4, *a3);
-  v10 = *(a2 + 8);
-  v11 = *(a2 + 16);
-  if (v10)
-  {
-    v12 = 1;
-  }
-
-  else
-  {
-    v12 = v11 == 0;
-  }
-
-  if (!v12)
-  {
-    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-  }
-
-  v13 = (v10 + 40 * v11);
-  v14 = *a1;
-  if (*a1 != v13)
-  {
-    if (!v14)
-    {
-      __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
-    }
-
-    if (*a3 < *v14)
-    {
-      *a1 = v13;
-    }
-  }
-
-  return result;
-}
-
-const void ***std::unique_ptr<vp::vx::Property_Manager::notify_property_listeners(void)::$_0::operator() const(void)::{lambda(void)#1},std::default_delete<vp::vx::Property_Manager::notify_property_listeners(void)::$_0::operator() const(void)::{lambda(void)#1}>>::~unique_ptr[abi:ne200100](const void ***a1)
-{
-  v2 = *a1;
-  *a1 = 0;
+  v2 = *result;
+  *result = a2;
   if (v2)
   {
-    if (*v2)
-    {
-      _Block_release(*v2);
-      *v2 = 0;
-    }
+    v3 = result;
+    (**v2)(v2);
+    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
+  }
 
-    MEMORY[0x2743CBFA0](v2, 0x1080C4020793F04);
+  return result;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)42,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4[0] = &unk_2881BC628;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(unsigned int const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
+  operator new();
+}
+
+void sub_2726AC7D8(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)42,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)42,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::operator()(uint64_t a1, int *a2)
+{
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
+  if (v4)
+  {
+    v5 = v4 - 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
+  v6 = v10;
+  v8 = v10;
+  vp::sim::Key_Writer::count(&v8, 0x2A, "MaxNumOutPkts");
+  vp::sim::converters::Default_Converter<unsigned int>::to_property_list(&cf, *a2);
+  v7 = cf;
+  if (cf)
+  {
+    CFRetain(cf);
+    v10 = v7;
+    vp::sim::Key_Writer::set(&v8, 0x2A, "MaxNumOutPkts", &v10);
+    CFRelease(v7);
+  }
+
+  else
+  {
+    v10 = 0;
+    vp::sim::Key_Writer::set(&v8, 0x2A, "MaxNumOutPkts", &v10);
+  }
+
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  if (v6)
+  {
+    CFRelease(v6);
+  }
+}
+
+void sub_2726AC8E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  __cxa_end_catch();
+  vp::sim::Key_Writer::~Key_Writer(va);
+  _Unwind_Resume(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)42,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)42,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)42,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)42,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)42,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)42,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::__clone(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881BC628;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)42,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)42,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BC628;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)42,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)42,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BC628;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
   }
 
   return a1;
 }
 
-const void ***applesauce::dispatch::v1::async<vp::vx::Property_Manager::notify_property_listeners(void)::$_0::operator() const(void)::{lambda(void)#1}>(dispatch_queue_s *,vp::vx::Property_Manager::notify_property_listeners(void)::$_0::operator() const(void)::{lambda(void)#1} &&)::{lambda(void *)#1}::__invoke(const void **a1)
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)42,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
 {
-  v2 = a1;
-  (*(*a1 + 2))(*a1, *(a1 + 2));
-  return std::unique_ptr<vp::vx::Property_Manager::notify_property_listeners(void)::$_0::operator() const(void)::{lambda(void)#1},std::default_delete<vp::vx::Property_Manager::notify_property_listeners(void)::$_0::operator() const(void)::{lambda(void)#1}>>::~unique_ptr[abi:ne200100](&v2);
+  *a1 = &unk_2881BC5F8;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)42,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BC5F8;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+  return a1;
+}
+
+unsigned int *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIjEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_10components20Property_List_Writer26set_up_key_state_listenersERS8_RKNS3_27Voice_Processor_State_OwnerEE3__7JN2CA17StreamDescriptionEjEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSI_jEEERNS4_13State_ManagerESK_SR_EUlPPKNS4_5ValueEPSZ_E_NS_9allocatorIS14_EEFvS12_S13_EEclEOS12_OS13_(uint64_t a1, uint64_t (******a2)(), vp::vx::data_flow::Value **a3)
+{
+  v3 = *a2;
+  v4 = *a3;
+  v5 = **a2;
+  if (v5[2] == &vp::vx::data_flow::Value::type_id<CA::StreamDescription>(void)::s_type_id)
+  {
+    v6 = vp::vx::data_flow::Value::view_storage(v5);
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  v7 = v3[1];
+  if (v7[2] == &vp::vx::data_flow::Value::type_id<unsigned int>(void)::s_type_id)
+  {
+    v8 = vp::vx::data_flow::Value::view_storage(v7);
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  v9 = *(v6 + 8);
+  v10 = vaddvq_s32(vbicq_s8(xmmword_2727567A0, vceqzq_s32(v9))) & 0xF;
+  if (*v6 == 0.0 && v10 == 0 && *(v6 + 24) == 0 && *(v6 + 32) == 0)
+  {
+    v14 = 0;
+  }
+
+  else
+  {
+    v14 = (*v8 * *(v6 + 24)) / v9.i32[2];
+  }
+
+  vp::vx::data_flow::Value::~Value(v4);
+  *v4 = std::pmr::get_default_resource(v15);
+  *(v4 + 1) = 0;
+  *(v4 + 2) = &vp::vx::data_flow::Value::type_id<unsigned int>(void)::s_type_id;
+  result = vp::vx::data_flow::Value::allocate_storage(v4);
+  *result = v14;
+  return result;
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIjEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_10components20Property_List_Writer26set_up_key_state_listenersERS8_RKNS3_27Voice_Processor_State_OwnerEE3__7JN2CA17StreamDescriptionEjEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSI_jEEERNS4_13State_ManagerESK_SR_EUlPPKNS4_5ValueEPSZ_E_NS_9allocatorIS14_EEFvS12_S13_EE7__cloneEPNS0_6__baseIS17_EE(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_2881BB048;
+  *(a2 + 8) = *(result + 8);
+  return result;
+}
+
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)41,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)41,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v3 = result;
+    (**v2)(v2);
+    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
+  }
+
+  return result;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)41,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4[0] = &unk_2881BC5B0;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(CA::StreamDescription const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
+  operator new();
+}
+
+void sub_2726ACECC(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)41,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)41,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1}>,void ()(CA::StreamDescription const&)>::operator()(uint64_t a1, uint64_t a2)
+{
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
+  if (v4)
+  {
+    v5 = v4 - 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  vp::sim::Property_List_Writer::find_writable_element(&v11, v3, v5);
+  v6 = v11;
+  v9 = v11;
+  vp::sim::Key_Writer::count(&v9, 0x29, "VP Output Format");
+  vp::sim::converters::Default_Converter<CA::StreamDescription>::to_property_list(&cf, a2, v7);
+  v8 = cf;
+  if (cf)
+  {
+    CFRetain(cf);
+    v11 = v8;
+    vp::sim::Key_Writer::set(&v9, 0x29, "VP Output Format", &v11);
+    CFRelease(v8);
+  }
+
+  else
+  {
+    v11 = 0;
+    vp::sim::Key_Writer::set(&v9, 0x29, "VP Output Format", &v11);
+  }
+
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  if (v6)
+  {
+    CFRelease(v6);
+  }
+}
+
+void sub_2726ACFDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  __cxa_end_catch();
+  vp::sim::Key_Writer::~Key_Writer(va);
+  _Unwind_Resume(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)41,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)41,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1}>,void ()(CA::StreamDescription const&)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)41,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)41,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1}>,void ()(CA::StreamDescription const&)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)41,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)41,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1}>,void ()(CA::StreamDescription const&)>::__clone(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881BC5B0;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)41,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)41,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1}>,void ()(CA::StreamDescription const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BC5B0;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)41,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)41,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(CA::StreamDescription const&)#1}>,void ()(CA::StreamDescription const&)>::~__func(void *a1)
+{
+  *a1 = &unk_2881BC5B0;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)41,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BC580;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+int *vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)41,CA::StreamDescription>(vp::vx::data_flow::State<CA::StreamDescription>)::Sim_Key_State_T::~Sim_Key_State_T(int *a1)
+{
+  *a1 = &unk_2881BC580;
+  vp::vx::data_flow::State<void>::~State(a1 + 2);
+  return a1;
+}
+
+void (****std::unique_ptr<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)24,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T,vp::Allocator_Delete<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)24,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T>>::reset[abi:ne200100](void (****result)(void), void (***a2)(void)))(void)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v3 = result;
+    (**v2)(v2);
+    return ((*v3[1])[3])(v3[1], v2, v3[2], v3[3]);
+  }
+
+  return result;
+}
+
+void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)24,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(uint64_t a1, uint64_t *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = *a2;
+  v3 = a2[1];
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4[0] = &unk_2881BC538;
+  v4[1] = v2;
+  v4[2] = v3;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(unsigned int const&)>::__value_func[abi:ne200100](v5, v4);
+  v6 = 0;
+  operator new();
+}
+
+void sub_2726AD428(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void std::__function::__func<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)24,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1},std::allocator<void vp::vx::components::Property_List_Writer::set_up<(vp::sim::Key)24,unsigned int>(vp::vx::data_flow::State<unsigned int>)::Sim_Key_State_T::register_listener(std::shared_ptr<vp::sim::Property_List_Writer>)::{lambda(unsigned int const&)#1}>,void ()(unsigned int const&)>::operator()(uint64_t a1, int *a2)
+{
+  v3 = *(a1 + 8);
+  v4 = vp::sim::Property_List_Writer::size(*v3);
+  if (v4)
+  {
+    v5 = v4 - 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  vp::sim::Property_List_Writer::find_writable_element(&v10, v3, v5);
+  v6 = v10;
+  v8 = v10;
+  vp::sim::Key_Writer::count(&v8, 0x18, "HW REF Safety Offset");
+  vp::sim::converters::Default_Converter<unsigned int>::to_property_list(&cf, *a2);
+  v7 = cf;
+  if (cf)
+  {
+    CFRetain(cf);
+    v10 = v7;
+    vp::sim::Key_Writer::set(&v8, 0x18, "HW REF Safety Offset", &v10);
+    CFRelease(v7);
+  }
+
+  else
+  {
+    v10 = 0;
+    vp::sim::Key_Writer::set(&v8, 0x18, "HW REF Safety Offset", &v10);
+  }
+
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  if (v6)
+  {
+    CFRelease(v6);
+  }
 }

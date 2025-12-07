@@ -50,14 +50,14 @@
 
 - (id)relevantZoneIDs
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = objc_msgSend_zone(self, a2, v2);
   v6 = objc_msgSend_zoneID(v3, v4, v5);
 
   if (v6)
   {
-    v11[0] = v6;
-    v8 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v7, v11, 1);
+    v10[0] = v6;
+    v8 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v7, v10, 1);
   }
 
   else
@@ -65,14 +65,12 @@
     v8 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (BOOL)makeStateTransition
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_state(self, a2, v2);
   if (v4 <= 2)
   {
@@ -84,7 +82,7 @@
         objc_msgSend_removePCSKeys(self, v7, v8);
       }
 
-      goto LABEL_23;
+      return 1;
     }
 
     v13 = objc_msgSend_zone(self, v5, v6);
@@ -97,7 +95,7 @@
       {
         objc_msgSend_setState_(self, v22, 2);
         objc_msgSend_decryptPCSs(self, v24, v25);
-        goto LABEL_23;
+        return 1;
       }
     }
 
@@ -121,12 +119,12 @@
         v34 = *MEMORY[0x277CBC830];
         if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
         {
-          v41 = v34;
-          v44 = objc_msgSend_zone(self, v42, v43);
-          v47 = objc_msgSend_zoneID(v44, v45, v46);
-          v48 = 138412290;
-          v49 = v47;
-          _os_log_debug_impl(&dword_22506F000, v41, OS_LOG_TYPE_DEBUG, "Skipping decryption for zone with ID %@ due to database being shared", &v48, 0xCu);
+          v40 = v34;
+          v43 = objc_msgSend_zone(self, v41, v42);
+          v46 = objc_msgSend_zoneID(v43, v44, v45);
+          v47 = 138412290;
+          v48 = v46;
+          _os_log_debug_impl(&dword_22506F000, v40, OS_LOG_TYPE_DEBUG, "Skipping decryption for zone with ID %@ due to database being shared", &v47, 0xCu);
         }
       }
     }
@@ -136,7 +134,7 @@ LABEL_22:
     v37 = objc_msgSend_error(self, v35, v36);
     objc_msgSend_finishWithError_(self, v38, v37);
 
-    goto LABEL_23;
+    return 1;
   }
 
   if (v4 == 3)
@@ -145,7 +143,7 @@ LABEL_22:
     {
       objc_msgSend_setState_(self, v5, 4);
       objc_msgSend_savePCSChanges(self, v9, v10);
-      goto LABEL_23;
+      return 1;
     }
 
     goto LABEL_22;
@@ -155,7 +153,7 @@ LABEL_22:
   {
     if (v4 != 5)
     {
-      goto LABEL_23;
+      return 1;
     }
 
     goto LABEL_22;
@@ -163,14 +161,12 @@ LABEL_22:
 
   objc_msgSend_setState_(self, v5, 5);
   objc_msgSend_updatePCSCache(self, v11, v12);
-LABEL_23:
-  v39 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (void)decryptPCSs
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_container(self, a2, v2);
   v7 = objc_msgSend_options(v4, v5, v6);
   v10 = objc_msgSend_bypassPCSEncryption(v7, v8, v9);
@@ -185,15 +181,15 @@ LABEL_23:
     v13 = *MEMORY[0x277CBC858];
     if (os_log_type_enabled(*MEMORY[0x277CBC858], OS_LOG_TYPE_ERROR))
     {
-      v68 = v13;
-      v71 = objc_msgSend_container(self, v69, v70);
-      v74 = objc_msgSend_containerID(v71, v72, v73);
-      v77 = objc_msgSend_zone(self, v75, v76);
+      v67 = v13;
+      v70 = objc_msgSend_container(self, v68, v69);
+      v73 = objc_msgSend_containerID(v70, v71, v72);
+      v76 = objc_msgSend_zone(self, v74, v75);
       *location = 138412546;
-      *&location[4] = v74;
-      v81 = 2112;
-      v82 = v77;
-      _os_log_error_impl(&dword_22506F000, v68, OS_LOG_TYPE_ERROR, "Unexpected zone PCS data! Encryption should not be used in container %@. zone: %@", location, 0x16u);
+      *&location[4] = v73;
+      v80 = 2112;
+      v81 = v76;
+      _os_log_error_impl(&dword_22506F000, v67, OS_LOG_TYPE_ERROR, "Unexpected zone PCS data! Encryption should not be used in container %@. zone: %@", location, 0x16u);
     }
 
     v15 = objc_msgSend_errorWithDomain_code_error_format_(MEMORY[0x277CBC560], v14, *MEMORY[0x277CBC120], 5004, 0, @"Encryption should not be used in this container.");
@@ -236,19 +232,17 @@ LABEL_23:
     v59 = objc_msgSend_protectionData(v56, v57, v58);
     v62 = objc_msgSend_topmostParentOperation(self, v60, v61);
     v65 = objc_msgSend_operationID(v62, v63, v64);
-    v78[0] = MEMORY[0x277D85DD0];
-    v78[1] = 3221225472;
-    v78[2] = sub_22523F104;
-    v78[3] = &unk_278549DF8;
-    objc_copyWeak(&v79, location);
-    v78[4] = self;
-    objc_msgSend_createZonePCSFromData_usingServiceIdentityWithType_zonePCSModificationDate_requestorOperationID_completionHandler_(v53, v66, v59, 0, v15, v65, v78);
+    v77[0] = MEMORY[0x277D85DD0];
+    v77[1] = 3221225472;
+    v77[2] = sub_22523F104;
+    v77[3] = &unk_278549DF8;
+    objc_copyWeak(&v78, location);
+    v77[4] = self;
+    objc_msgSend_createZonePCSFromData_usingServiceIdentityWithType_zonePCSModificationDate_requestorOperationID_completionHandler_(v53, v66, v59, 0, v15, v65, v77);
 
-    objc_destroyWeak(&v79);
+    objc_destroyWeak(&v78);
     objc_destroyWeak(location);
   }
-
-  v67 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removePCSKeys
@@ -330,7 +324,7 @@ LABEL_11:
 
 - (void)savePCSChanges
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (*MEMORY[0x277CBC880] != -1)
   {
     dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
@@ -339,12 +333,12 @@ LABEL_11:
   v3 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v19 = v3;
-    v22 = objc_msgSend_zone(self, v20, v21);
-    v25 = objc_msgSend_zoneID(v22, v23, v24);
+    v18 = v3;
+    v21 = objc_msgSend_zone(self, v19, v20);
+    v24 = objc_msgSend_zoneID(v21, v22, v23);
     *buf = 138412290;
-    v29 = v25;
-    _os_log_debug_impl(&dword_22506F000, v19, OS_LOG_TYPE_DEBUG, "Saving PCS changes to the server for zone %@", buf, 0xCu);
+    v28 = v24;
+    _os_log_debug_impl(&dword_22506F000, v18, OS_LOG_TYPE_DEBUG, "Saving PCS changes to the server for zone %@", buf, 0xCu);
   }
 
   v6 = objc_msgSend_stateTransitionGroup(self, v4, v5);
@@ -352,26 +346,24 @@ LABEL_11:
 
   v7 = objc_opt_new();
   v10 = objc_msgSend_zone(self, v8, v9);
-  v27 = v10;
-  v12 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v11, &v27, 1);
+  v26 = v10;
+  v12 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v11, &v26, 1);
   objc_msgSend_setRecordZonesToSave_(v7, v13, v12);
 
   objc_msgSend_setAllowDefaultZoneSave_(v7, v14, 1);
   objc_msgSend_setMaxZoneSaveAttempts_(v7, v15, 1);
   v16 = objc_opt_class();
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = sub_22523F9EC;
-  v26[3] = &unk_278548B60;
-  v26[4] = self;
-  objc_msgSend_spawnAndRunOperationOfClass_operationInfo_operationConfigurationBlock_(self, v17, v16, v7, v26);
-
-  v18 = *MEMORY[0x277D85DE8];
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = sub_22523F9EC;
+  v25[3] = &unk_278548B60;
+  v25[4] = self;
+  objc_msgSend_spawnAndRunOperationOfClass_operationInfo_operationConfigurationBlock_(self, v17, v16, v7, v25);
 }
 
 - (void)updatePCSCache
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   if (*MEMORY[0x277CBC880] != -1)
   {
     dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
@@ -380,12 +372,12 @@ LABEL_11:
   v3 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v37 = v3;
-    v40 = objc_msgSend_zone(self, v38, v39);
-    v43 = objc_msgSend_zoneID(v40, v41, v42);
-    v44 = 138412290;
-    v45 = v43;
-    _os_log_debug_impl(&dword_22506F000, v37, OS_LOG_TYPE_DEBUG, "Updating PCS cache for zone %@", &v44, 0xCu);
+    v36 = v3;
+    v39 = objc_msgSend_zone(self, v37, v38);
+    v42 = objc_msgSend_zoneID(v39, v40, v41);
+    v43 = 138412290;
+    v44 = v42;
+    _os_log_debug_impl(&dword_22506F000, v36, OS_LOG_TYPE_DEBUG, "Updating PCS cache for zone %@", &v43, 0xCu);
   }
 
   v6 = objc_msgSend_stateTransitionGroup(self, v4, v5);
@@ -408,8 +400,6 @@ LABEL_11:
 
   v35 = objc_msgSend_stateTransitionGroup(self, v33, v34);
   dispatch_group_leave(v35);
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 @end

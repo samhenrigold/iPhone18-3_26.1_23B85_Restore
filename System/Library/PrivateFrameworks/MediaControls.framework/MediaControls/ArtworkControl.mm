@@ -13,14 +13,14 @@
 - (BOOL)isHighlighted
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for ArtworkControl();
+  v3.super_class = type metadata accessor for ArtworkControl(self, a2);
   return [(ArtworkControl *)&v3 isHighlighted];
 }
 
 - (void)setHighlighted:(BOOL)highlighted
 {
   highlightedCopy = highlighted;
-  v5 = type metadata accessor for ArtworkControl();
+  v5 = type metadata accessor for ArtworkControl(self, a2);
   v9.receiver = self;
   v9.super_class = v5;
   selfCopy = self;
@@ -34,7 +34,7 @@
 - (_TtC13MediaControls14ArtworkControl)initWithCoder:(id)coder
 {
   v4 = OBJC_IVAR____TtC13MediaControls14ArtworkControl_artworkView;
-  type metadata accessor for ArtworkView();
+  type metadata accessor for ArtworkView(0, a2);
   *(&self->super.super.super.super.isa + v4) = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtC13MediaControls14ArtworkControl_visualStylingProvider) = 0;
   result = sub_1A22E7028();
@@ -45,7 +45,7 @@
 - (void)layoutSubviews
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for ArtworkControl();
+  v3.super_class = type metadata accessor for ArtworkControl(self, a2);
   v2 = v3.receiver;
   [(ArtworkControl *)&v3 layoutSubviews];
   [v2 bounds];
@@ -60,7 +60,7 @@
 
 - (id)pointerInteraction:(id)interaction regionForRequest:(id)request defaultRegion:(id)region
 {
-  sub_1A2115288(0, &qword_1EB088D28);
+  sub_1A2115288(0, &qword_1EB088D28, 0x1E69DCDC0);
   v6 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC13MediaControls14ArtworkControl_artworkView);
   selfCopy = self;
   bounds = [(ArtworkControl *)selfCopy bounds];

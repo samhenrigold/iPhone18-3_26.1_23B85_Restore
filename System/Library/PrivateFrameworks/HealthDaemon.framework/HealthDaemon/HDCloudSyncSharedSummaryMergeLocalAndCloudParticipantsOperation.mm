@@ -5,6 +5,7 @@
 - (id)_createSummarySharingEntryForParticipant:(id)participant error:(id *)error;
 - (void)_mergeLocalAndCloudParticipant:(id)participant completion:(id)completion;
 - (void)main;
+- (void)synchronousTaskGroup:(id)group didFinishWithSuccess:(BOOL)success errors:(id)errors;
 @end
 
 @implementation HDCloudSyncSharedSummaryMergeLocalAndCloudParticipantsOperation
@@ -18,7 +19,7 @@
   v11 = [(HDCloudSyncOperation *)&v23 initWithConfiguration:configuration cloudState:0];
   if (v11)
   {
-    v12 = [participantsCopy copy];
+    v12 = objc_msgSend_copy(participantsCopy);
     participantRecords = v11->_participantRecords;
     v11->_participantRecords = v12;
 
@@ -47,53 +48,52 @@
 
 - (void)main
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   [(HDSynchronousTaskGroup *)self->_taskGroup beginTask];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = self->_participantRecords;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * v7);
+        v8 = *(*(&v10 + 1) + 8 * v7);
         [(HDSynchronousTaskGroup *)self->_taskGroup beginTask];
-        v10[0] = MEMORY[0x277D85DD0];
-        v10[1] = 3221225472;
-        v10[2] = __71__HDCloudSyncSharedSummaryMergeLocalAndCloudParticipantsOperation_main__block_invoke;
-        v10[3] = &unk_2786130B0;
-        v10[4] = self;
-        [(HDCloudSyncSharedSummaryMergeLocalAndCloudParticipantsOperation *)self _mergeLocalAndCloudParticipant:v8 completion:v10];
+        v9[0] = MEMORY[0x277D85DD0];
+        v9[1] = 3221225472;
+        v9[2] = __71__HDCloudSyncSharedSummaryMergeLocalAndCloudParticipantsOperation_main__block_invoke;
+        v9[3] = &unk_2786130B0;
+        v9[4] = self;
+        [(HDCloudSyncSharedSummaryMergeLocalAndCloudParticipantsOperation *)self _mergeLocalAndCloudParticipant:v8 completion:v9];
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
 
   [(HDSynchronousTaskGroup *)self->_taskGroup finishTask];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __71__HDCloudSyncSharedSummaryMergeLocalAndCloudParticipantsOperation_main__block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
@@ -106,18 +106,16 @@ void __71__HDCloudSyncSharedSummaryMergeLocalAndCloudParticipantsOperation_main_
     v6 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 32);
-      v9 = 138543618;
-      v10 = v8;
-      v11 = 2114;
-      v12 = v5;
-      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "%{public}@: [summary-sharing] Failed to merge local and cloud participants: %{public}@", &v9, 0x16u);
+      v7 = *(a1 + 32);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2114;
+      v11 = v5;
+      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "%{public}@: [summary-sharing] Failed to merge local and cloud participants: %{public}@", &v8, 0x16u);
     }
 
     [*(*(a1 + 32) + 144) failTaskWithError:v5];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_mergeLocalAndCloudParticipant:(id)participant completion:(id)completion
@@ -185,7 +183,7 @@ LABEL_8:
 
 - (id)_createSummarySharingEntryForParticipant:(id)participant error:(id *)error
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   participantCopy = participant;
   shareSetupMetadata = [participantCopy shareSetupMetadata];
 
@@ -205,19 +203,19 @@ LABEL_8:
   {
     *buf = 138543618;
     selfCopy = self;
-    v44 = 2112;
-    v45 = participantCopy;
+    v43 = 2112;
+    v44 = participantCopy;
     _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: No local entry found for participant: %@", buf, 0x16u);
   }
 
   v10 = [(HDCloudSyncSharedSummaryMergeLocalAndCloudParticipantsOperation *)self _authorizationRecordForParticipant:participantCopy error:error];
   if (v10)
   {
-    v39 = v10;
+    v38 = v10;
     authorizationIdentifiers = [v10 authorizationIdentifiers];
     v12 = HKSharingAuthorizationsFromAuthorizationIdentifiers();
 
-    v36 = [HDCodableSummarySharingEntry alloc];
+    v35 = [HDCodableSummarySharingEntry alloc];
     uUID = [participantCopy UUID];
     invitationUUID = [participantCopy invitationUUID];
     cloudKitIdentifier = [participantCopy cloudKitIdentifier];
@@ -236,27 +234,27 @@ LABEL_8:
     notificationStatus = [participantCopy notificationStatus];
     longValue5 = [notificationStatus longValue];
     [participantCopy entryModificationDate];
-    v15 = v40 = self;
+    v15 = v39 = self;
     entryInvitationDate = [participantCopy entryInvitationDate];
     entryAcceptanceDate = [participantCopy entryAcceptanceDate];
     ownerParticipant = [participantCopy ownerParticipant];
-    v37 = [(HDCodableSummarySharingEntry *)v36 initWithUUID:uUID invitationUUID:invitationUUID cloudKitIdentifier:cloudKitIdentifier primaryContactIdentifier:contactIdentifier allContactIdentifiers:allContactIdentifiers firstName:firstName lastName:lastName sharingAuthorizations:v12 userWheelchairMode:longValue type:longValue2 direction:longValue3 status:longValue4 notificationStatus:longValue5 dateModified:v15 dateInvited:entryInvitationDate dateAccepted:entryAcceptanceDate setupMetadata:shareSetupMetadata2 ownerParticipant:ownerParticipant];
+    v36 = [(HDCodableSummarySharingEntry *)v35 initWithUUID:uUID invitationUUID:invitationUUID cloudKitIdentifier:cloudKitIdentifier primaryContactIdentifier:contactIdentifier allContactIdentifiers:allContactIdentifiers firstName:firstName lastName:lastName sharingAuthorizations:v12 userWheelchairMode:longValue type:longValue2 direction:longValue3 status:longValue4 notificationStatus:longValue5 dateModified:v15 dateInvited:entryInvitationDate dateAccepted:entryAcceptanceDate setupMetadata:shareSetupMetadata2 ownerParticipant:ownerParticipant];
 
     _HKInitializeLogging();
     v19 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      selfCopy = v40;
-      v44 = 2112;
-      v45 = participantCopy;
+      selfCopy = v39;
+      v43 = 2112;
+      v44 = participantCopy;
       _os_log_impl(&dword_228986000, v19, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Local save required for participant: %@", buf, 0x16u);
     }
 
-    v20 = v37;
-    [(NSMutableArray *)v40->_updatedLocalEntries addObject:v37];
+    v20 = v36;
+    [(NSMutableArray *)v39->_updatedLocalEntries addObject:v36];
 
-    v10 = v39;
+    v10 = v38;
   }
 
   else
@@ -264,14 +262,12 @@ LABEL_8:
     v20 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 - (BOOL)_mergeFoundEntry:(id)entry withParticipant:(id)participant error:(id *)error
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   entryCopy = entry;
   participantCopy = participant;
   entryModificationDate = [participantCopy entryModificationDate];
@@ -296,13 +292,13 @@ LABEL_33:
       goto LABEL_34;
     }
 
-    v43 = v16;
-    v44 = v23 != 0;
+    v42 = v16;
+    v43 = v23 != 0;
     authorizationIdentifiers = [v23 authorizationIdentifiers];
     sharingAuthorizations = [entryCopy sharingAuthorizations];
     v27 = HDAuthorizationIdentifiersFromCodableSharingAuthorizations(sharingAuthorizations);
 
-    v45 = authorizationIdentifiers;
+    v44 = authorizationIdentifiers;
     v28 = [MEMORY[0x277CBEB98] setWithArray:authorizationIdentifiers];
     v29 = v27;
     v30 = [MEMORY[0x277CBEB98] setWithArray:v27];
@@ -315,13 +311,13 @@ LABEL_33:
         _HKInitializeLogging();
         v31 = *MEMORY[0x277CCC328];
         selfCopy3 = self;
-        v22 = v44;
+        v22 = v43;
         if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
           selfCopy6 = self;
-          v48 = 2112;
-          v49 = v24;
+          v47 = 2112;
+          v48 = v24;
           _os_log_impl(&dword_228986000, v31, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Cloud save required for authorization: %@", buf, 0x16u);
         }
 
@@ -333,19 +329,19 @@ LABEL_33:
         goto LABEL_24;
       }
 
-      v35 = [v45 mutableCopy];
+      v35 = [v44 mutableCopy];
       [entryCopy setAuthorizationCategories:v35];
 
-      v36 = HDCodableSharingAuthorizationsFromAuthorizationIdentifiers(v45);
+      v36 = HDCodableSharingAuthorizationsFromAuthorizationIdentifiers(v44);
       [entryCopy setSharingAuthorizations:v36];
 
       v17 = 1;
     }
 
     selfCopy3 = self;
-    v22 = v44;
+    v22 = v43;
 LABEL_24:
-    if (v43)
+    if (v42)
     {
       _HKInitializeLogging();
       v37 = *MEMORY[0x277CCC328];
@@ -353,8 +349,8 @@ LABEL_24:
       {
         *buf = 138543618;
         selfCopy6 = selfCopy3;
-        v48 = 2112;
-        v49 = participantCopy;
+        v47 = 2112;
+        v48 = participantCopy;
         _os_log_impl(&dword_228986000, v37, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Cloud save required for participant: %@", buf, 0x16u);
       }
 
@@ -371,8 +367,8 @@ LABEL_24:
       {
         *buf = 138543618;
         selfCopy6 = selfCopy3;
-        v48 = 2112;
-        v49 = participantCopy;
+        v47 = 2112;
+        v48 = participantCopy;
         _os_log_impl(&dword_228986000, v40, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Local save required for participant: %@", buf, 0x16u);
       }
 
@@ -403,8 +399,8 @@ LABEL_24:
   {
     *buf = 138543618;
     selfCopy6 = self;
-    v48 = 2112;
-    v49 = participantCopy;
+    v47 = 2112;
+    v48 = participantCopy;
     _os_log_error_impl(&dword_228986000, v19, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@: Participant: %@", buf, 0x16u);
   }
 
@@ -414,8 +410,8 @@ LABEL_24:
   {
     *buf = 138543618;
     selfCopy6 = self;
-    v48 = 2112;
-    v49 = entryCopy;
+    v47 = 2112;
+    v48 = entryCopy;
     _os_log_error_impl(&dword_228986000, v20, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@: Entry: %@", buf, 0x16u);
   }
 
@@ -431,7 +427,6 @@ LABEL_24:
   v22 = 1;
 LABEL_34:
 
-  v41 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -492,6 +487,13 @@ uint64_t __108__HDCloudSyncSharedSummaryMergeLocalAndCloudParticipantsOperation_
   v5 = [v3 isEqual:v4];
 
   return v5;
+}
+
+- (void)synchronousTaskGroup:(id)group didFinishWithSuccess:(BOOL)success errors:(id)errors
+{
+  successCopy = success;
+  firstObject = [errors firstObject];
+  [(HDCloudSyncOperation *)self finishWithSuccess:successCopy error:firstObject];
 }
 
 @end

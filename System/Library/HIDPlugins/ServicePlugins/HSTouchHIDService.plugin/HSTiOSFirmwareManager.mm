@@ -13,11 +13,13 @@
 
   else if ((state & 0x10) != 0)
   {
-    if (MTDevicePowerGetState())
+    self = MTDevicePowerGetState();
+    if (self)
     {
       memset(__b, 170, 0x400uLL);
       basename_r("/Library/Caches/com.apple.xbs/Sources/Multitouch/HIDSensingTouch/HSTouchHIDService/HSTFirmwareManager.mm", __b);
-      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      self = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
+      if (self)
       {
         [HSTiOSFirmwareManager setPowerState:];
       }
@@ -31,7 +33,7 @@
     v3 = "off";
   }
 
-  v4 = MTLoggingPlugin();
+  v4 = MTLoggingPlugin(self, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     __b[0] = 136446210;
@@ -52,16 +54,18 @@
 
 - (void)setPowerState:.cold.1()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)setPowerState:.cold.2()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 @end

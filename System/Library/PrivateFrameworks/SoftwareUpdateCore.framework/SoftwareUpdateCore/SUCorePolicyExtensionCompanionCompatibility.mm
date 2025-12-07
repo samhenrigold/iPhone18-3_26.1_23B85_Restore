@@ -183,22 +183,22 @@ void __100__SUCorePolicyExtensionCompanionCompatibility_setCompatibilityVersionR
 void __78__SUCorePolicyExtensionCompanionCompatibility_filterSoftwareUpdateAssetArray___block_invoke(uint64_t a1)
 {
   v1 = a1;
-  v114 = *MEMORY[0x277D85DE8];
+  v113 = *MEMORY[0x277D85DE8];
   *(*(a1 + 32) + 10) = 0;
   objc_storeStrong((*(*(a1 + 48) + 8) + 40), *(a1 + 40));
   v2 = [*(v1 + 32) logger];
   v3 = [v2 oslog];
 
-  v97 = v1;
+  v96 = v1;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(v1 + 32);
-    v5 = [*(*(*(v97 + 48) + 8) + 40) count];
+    v5 = [*(*(*(v96 + 48) + 8) + 40) count];
     *buf = 138543618;
-    v111 = v4;
-    v1 = v97;
-    v112 = 2048;
-    v113 = v5;
+    v110 = v4;
+    v1 = v96;
+    v111 = 2048;
+    v112 = v5;
     _os_log_impl(&dword_23193C000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ starting asset filtering, starting with %lu assets", buf, 0x16u);
   }
 
@@ -213,17 +213,17 @@ void __78__SUCorePolicyExtensionCompanionCompatibility_filterSoftwareUpdateAsset
     {
       v10 = *(v1 + 32);
       *buf = 138543362;
-      v111 = v10;
+      v110 = v10;
       _os_log_impl(&dword_23193C000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ Updating to same OS version is allowed", buf, 0xCu);
     }
 
     v11 = MEMORY[0x277CCAC30];
-    v108[0] = MEMORY[0x277D85DD0];
-    v108[1] = 3221225472;
-    v108[2] = __78__SUCorePolicyExtensionCompanionCompatibility_filterSoftwareUpdateAssetArray___block_invoke_329;
-    v108[3] = &unk_27892C8F8;
-    v108[4] = *(v1 + 32);
-    v12 = v108;
+    v107[0] = MEMORY[0x277D85DD0];
+    v107[1] = 3221225472;
+    v107[2] = __78__SUCorePolicyExtensionCompanionCompatibility_filterSoftwareUpdateAssetArray___block_invoke_329;
+    v107[3] = &unk_27892C8F8;
+    v107[4] = *(v1 + 32);
+    v12 = v107;
   }
 
   else
@@ -232,33 +232,33 @@ void __78__SUCorePolicyExtensionCompanionCompatibility_filterSoftwareUpdateAsset
     {
       v13 = *(v1 + 32);
       *buf = 138543362;
-      v111 = v13;
+      v110 = v13;
       _os_log_impl(&dword_23193C000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ Updating to same OS version is *NOT* allowed", buf, 0xCu);
     }
 
     v11 = MEMORY[0x277CCAC30];
-    v107[0] = MEMORY[0x277D85DD0];
-    v107[1] = 3221225472;
-    v107[2] = __78__SUCorePolicyExtensionCompanionCompatibility_filterSoftwareUpdateAssetArray___block_invoke_334;
-    v107[3] = &unk_27892C8F8;
-    v107[4] = *(v1 + 32);
-    v12 = v107;
+    v106[0] = MEMORY[0x277D85DD0];
+    v106[1] = 3221225472;
+    v106[2] = __78__SUCorePolicyExtensionCompanionCompatibility_filterSoftwareUpdateAssetArray___block_invoke_334;
+    v106[3] = &unk_27892C8F8;
+    v106[4] = *(v1 + 32);
+    v12 = v106;
   }
 
-  v95 = [v11 predicateWithBlock:v12];
+  v94 = [v11 predicateWithBlock:v12];
   v14 = [*(v1 + 40) filteredArrayUsingPredicate:?];
   v15 = [*(v1 + 32) logger];
   v16 = [v15 oslog];
 
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = *(v97 + 32);
+    v17 = *(v96 + 32);
     v18 = [v14 count];
     *buf = 138543618;
-    v111 = v17;
-    v1 = v97;
-    v112 = 2048;
-    v113 = v18;
+    v110 = v17;
+    v1 = v96;
+    v111 = 2048;
+    v112 = v18;
     _os_log_impl(&dword_23193C000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ Found %lu potential assets after filtering on build version", buf, 0x16u);
   }
 
@@ -268,30 +268,30 @@ void __78__SUCorePolicyExtensionCompanionCompatibility_filterSoftwareUpdateAsset
   v22 = [v21 objectForKeyedSubscript:@"OSVersion"];
 
   v23 = MEMORY[0x277CCAC30];
-  v105[0] = MEMORY[0x277D85DD0];
-  v105[1] = 3221225472;
-  v105[2] = __78__SUCorePolicyExtensionCompanionCompatibility_filterSoftwareUpdateAssetArray___block_invoke_2;
-  v105[3] = &unk_27892C8F8;
+  v104[0] = MEMORY[0x277D85DD0];
+  v104[1] = 3221225472;
+  v104[2] = __78__SUCorePolicyExtensionCompanionCompatibility_filterSoftwareUpdateAssetArray___block_invoke_2;
+  v104[3] = &unk_27892C8F8;
   v24 = v22;
-  v106 = v24;
-  v25 = [v23 predicateWithBlock:v105];
-  v93 = v19;
+  v105 = v24;
+  v25 = [v23 predicateWithBlock:v104];
+  v92 = v19;
   v26 = [v19 filteredArrayUsingPredicate:v25];
 
-  v96 = v26;
+  v95 = v26;
   v27 = [v26 sortedArrayUsingComparator:&__block_literal_global_343];
   v28 = [v27 lastObject];
   v29 = [v28 attributes];
   v30 = [v29 objectForKeyedSubscript:@"Build"];
 
   v31 = MEMORY[0x277CCAC30];
-  v103[0] = MEMORY[0x277D85DD0];
-  v103[1] = 3221225472;
-  v103[2] = __78__SUCorePolicyExtensionCompanionCompatibility_filterSoftwareUpdateAssetArray___block_invoke_4;
-  v103[3] = &unk_27892C8F8;
-  v92 = v30;
-  v104 = v92;
-  v32 = [v31 predicateWithBlock:v103];
+  v102[0] = MEMORY[0x277D85DD0];
+  v102[1] = 3221225472;
+  v102[2] = __78__SUCorePolicyExtensionCompanionCompatibility_filterSoftwareUpdateAssetArray___block_invoke_4;
+  v102[3] = &unk_27892C8F8;
+  v91 = v30;
+  v103 = v91;
+  v32 = [v31 predicateWithBlock:v102];
   v33 = [v27 filteredArrayUsingPredicate:v32];
 
   v34 = [*(v1 + 32) minCompatibility];
@@ -307,22 +307,22 @@ void __78__SUCorePolicyExtensionCompanionCompatibility_filterSoftwareUpdateAsset
 
       if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
       {
-        v39 = *(v97 + 32);
+        v39 = *(v96 + 32);
         v40 = [v33 count];
         *buf = 138543618;
-        v111 = v39;
-        v1 = v97;
-        v112 = 2048;
-        v113 = v40;
+        v110 = v39;
+        v1 = v96;
+        v111 = 2048;
+        v112 = v40;
         _os_log_impl(&dword_23193C000, v38, OS_LOG_TYPE_DEFAULT, "%{public}@ Performing compatibility version filtering on remaining %lu assets", buf, 0x16u);
       }
 
-      v102[0] = MEMORY[0x277D85DD0];
-      v102[1] = 3221225472;
-      v102[2] = __78__SUCorePolicyExtensionCompanionCompatibility_filterSoftwareUpdateAssetArray___block_invoke_344;
-      v102[3] = &unk_27892C8F8;
-      v102[4] = *(v1 + 32);
-      v41 = [MEMORY[0x277CCAC30] predicateWithBlock:v102];
+      v101[0] = MEMORY[0x277D85DD0];
+      v101[1] = 3221225472;
+      v101[2] = __78__SUCorePolicyExtensionCompanionCompatibility_filterSoftwareUpdateAssetArray___block_invoke_344;
+      v101[3] = &unk_27892C8F8;
+      v101[4] = *(v1 + 32);
+      v41 = [MEMORY[0x277CCAC30] predicateWithBlock:v101];
       v42 = [v33 filteredArrayUsingPredicate:v41];
       v43 = *(*(v1 + 48) + 8);
       v44 = *(v43 + 40);
@@ -330,7 +330,7 @@ void __78__SUCorePolicyExtensionCompanionCompatibility_filterSoftwareUpdateAsset
     }
   }
 
-  v94 = v14;
+  v93 = v14;
   if ([*(*(*(v1 + 48) + 8) + 40) count])
   {
     v45 = v33;
@@ -345,9 +345,9 @@ void __78__SUCorePolicyExtensionCompanionCompatibility_filterSoftwareUpdateAsset
     {
       v51 = *(v1 + 32);
       *buf = 138543618;
-      v111 = v51;
-      v112 = 2112;
-      v113 = v48;
+      v110 = v51;
+      v111 = 2112;
+      v112 = v48;
       _os_log_impl(&dword_23193C000, v50, OS_LOG_TYPE_DEFAULT, "%{public}@ Found asset for build %@ which does not require a companion update", buf, 0x16u);
     }
 
@@ -358,26 +358,26 @@ void __78__SUCorePolicyExtensionCompanionCompatibility_filterSoftwareUpdateAsset
   {
     if (![v33 count])
     {
-      v84 = [*(v1 + 32) logger];
-      v85 = [v84 oslog];
+      v83 = [*(v1 + 32) logger];
+      v84 = [v83 oslog];
 
-      if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
       {
-        v86 = *(v1 + 32);
+        v85 = *(v1 + 32);
         *buf = 138543362;
-        v111 = v86;
-        _os_log_impl(&dword_23193C000, v85, OS_LOG_TYPE_DEFAULT, "%{public}@ No SoftwareUpdate assets found", buf, 0xCu);
+        v110 = v85;
+        _os_log_impl(&dword_23193C000, v84, OS_LOG_TYPE_DEFAULT, "%{public}@ No SoftwareUpdate assets found", buf, 0xCu);
       }
 
-      v87 = *(*(v1 + 48) + 8);
-      v65 = *(v87 + 40);
-      *(v87 + 40) = 0;
-      v76 = v95;
+      v86 = *(*(v1 + 48) + 8);
+      v65 = *(v86 + 40);
+      *(v86 + 40) = 0;
+      v76 = v94;
       goto LABEL_50;
     }
 
     v52 = v33;
-    v46 = [v96 firstObject];
+    v46 = [v95 firstObject];
     v53 = [v46 attributes];
     v48 = [v53 objectForKeyedSubscript:@"Build"];
 
@@ -391,9 +391,9 @@ void __78__SUCorePolicyExtensionCompanionCompatibility_filterSoftwareUpdateAsset
       {
         v59 = *(v1 + 32);
         *buf = 138543618;
-        v111 = v59;
-        v112 = 2112;
-        v113 = v48;
+        v110 = v59;
+        v111 = 2112;
+        v112 = v48;
         _os_log_impl(&dword_23193C000, v58, OS_LOG_TYPE_DEFAULT, "%{public}@ Found asset for build %@ which requires a companion update", buf, 0x16u);
       }
 
@@ -409,9 +409,9 @@ void __78__SUCorePolicyExtensionCompanionCompatibility_filterSoftwareUpdateAsset
       {
         v62 = *(v1 + 32);
         *buf = 138543618;
-        v111 = v62;
-        v112 = 2112;
-        v113 = v48;
+        v110 = v62;
+        v111 = 2112;
+        v112 = v48;
         _os_log_impl(&dword_23193C000, v61, OS_LOG_TYPE_DEFAULT, "%{public}@ Found asset for build %@ for a device with no companion", buf, 0x16u);
       }
     }
@@ -421,53 +421,53 @@ void __78__SUCorePolicyExtensionCompanionCompatibility_filterSoftwareUpdateAsset
     v64 = v52;
     v50 = *(v63 + 40);
     *(v63 + 40) = v64;
-    v1 = v97;
+    v1 = v96;
   }
 
   v65 = [*(*(*(v1 + 48) + 8) + 40) firstObject];
+  v97 = 0u;
   v98 = 0u;
   v99 = 0u;
   v100 = 0u;
-  v101 = 0u;
   v66 = *(*(*(v1 + 48) + 8) + 40);
-  v67 = [v66 countByEnumeratingWithState:&v98 objects:v109 count:16];
+  v67 = [v66 countByEnumeratingWithState:&v97 objects:v108 count:16];
   if (v67)
   {
     v68 = v67;
-    v88 = v65;
-    v89 = v33;
-    v90 = v27;
-    v91 = v24;
-    v69 = *v99;
+    v87 = v65;
+    v88 = v33;
+    v89 = v27;
+    v90 = v24;
+    v69 = *v98;
     while (2)
     {
       for (i = 0; i != v68; ++i)
       {
-        if (*v99 != v69)
+        if (*v98 != v69)
         {
           objc_enumerationMutation(v66);
         }
 
-        v65 = *(*(&v98 + 1) + 8 * i);
+        v65 = *(*(&v97 + 1) + 8 * i);
         v71 = [v65 attributes];
         v72 = [v71 objectForKeyedSubscript:@"PrerequisiteBuild"];
 
         v73 = [v65 attributes];
         v74 = [v73 objectForKeyedSubscript:@"PrerequisiteOSVersion"];
 
-        if ([*(v97 + 32) preferFullReplacement])
+        if ([*(v96 + 32) preferFullReplacement])
         {
           if (!(v72 | v74))
           {
             v78 = v65;
-            v33 = v89;
-            v27 = v90;
-            v79 = v88;
+            v33 = v88;
+            v27 = v89;
+            v79 = v87;
 LABEL_48:
 
-            v1 = v97;
-            v76 = v95;
-            v24 = v91;
+            v1 = v96;
+            v76 = v94;
+            v24 = v90;
             goto LABEL_49;
           }
         }
@@ -489,14 +489,14 @@ LABEL_48:
             v77 = v65;
 
             v79 = v72;
-            v33 = v89;
-            v27 = v90;
+            v33 = v88;
+            v27 = v89;
             goto LABEL_48;
           }
         }
       }
 
-      v68 = [v66 countByEnumeratingWithState:&v98 objects:v109 count:16];
+      v68 = [v66 countByEnumeratingWithState:&v97 objects:v108 count:16];
       if (v68)
       {
         continue;
@@ -505,17 +505,17 @@ LABEL_48:
       break;
     }
 
-    v65 = v88;
-    v33 = v89;
-    v1 = v97;
-    v76 = v95;
-    v27 = v90;
-    v24 = v91;
+    v65 = v87;
+    v33 = v88;
+    v1 = v96;
+    v76 = v94;
+    v27 = v89;
+    v24 = v90;
   }
 
   else
   {
-    v76 = v95;
+    v76 = v94;
   }
 
 LABEL_49:
@@ -526,7 +526,6 @@ LABEL_49:
   *(v81 + 40) = v80;
 
 LABEL_50:
-  v83 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __78__SUCorePolicyExtensionCompanionCompatibility_filterSoftwareUpdateAssetArray___block_invoke_329(uint64_t a1, void *a2)
@@ -595,7 +594,7 @@ uint64_t __78__SUCorePolicyExtensionCompanionCompatibility_filterSoftwareUpdateA
 
 BOOL __78__SUCorePolicyExtensionCompanionCompatibility_filterSoftwareUpdateAssetArray___block_invoke_344(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 attributes];
   v5 = [v4 objectForKeyedSubscript:@"CompatibilityVersion"];
@@ -608,13 +607,13 @@ BOOL __78__SUCorePolicyExtensionCompanionCompatibility_filterSoftwareUpdateAsset
     v8 = *(a1 + 32);
     v9 = [v3 attributes];
     v10 = [v9 objectForKeyedSubscript:@"Build"];
-    v22 = 138543874;
-    v23 = v8;
-    v24 = 2112;
-    v25 = v10;
-    v26 = 2114;
-    v27 = v5;
-    _os_log_impl(&dword_23193C000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ Found asset for build %@ with CompatibilityVersion = %{public}@", &v22, 0x20u);
+    v21 = 138543874;
+    v22 = v8;
+    v23 = 2112;
+    v24 = v10;
+    v25 = 2114;
+    v26 = v5;
+    _os_log_impl(&dword_23193C000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ Found asset for build %@ with CompatibilityVersion = %{public}@", &v21, 0x20u);
   }
 
   if (!v5)
@@ -651,11 +650,11 @@ LABEL_10:
       v17 = *(a1 + 32);
       v18 = [v3 attributes];
       v19 = [v18 objectForKeyedSubscript:@"Build"];
-      v22 = 138543618;
-      v23 = v17;
-      v24 = 2112;
-      v25 = v19;
-      _os_log_impl(&dword_23193C000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ Asset for build %@ is within compatibility range", &v22, 0x16u);
+      v21 = 138543618;
+      v22 = v17;
+      v23 = 2112;
+      v24 = v19;
+      _os_log_impl(&dword_23193C000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ Asset for build %@ is within compatibility range", &v21, 0x16u);
     }
 
     goto LABEL_10;
@@ -665,7 +664,6 @@ LABEL_7:
   v13 = 0;
 LABEL_11:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -685,7 +683,7 @@ LABEL_11:
 
 void __90__SUCorePolicyExtensionCompanionCompatibility_extendMASoftwareUpdateAssetDownloadOptions___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) suAssetDownloadOptions];
 
   v3 = [*(a1 + 32) logger];
@@ -698,11 +696,11 @@ void __90__SUCorePolicyExtensionCompanionCompatibility_extendMASoftwareUpdateAss
     {
       v6 = *(a1 + 32);
       v7 = [v6 suAssetDownloadOptions];
-      v17 = 138543618;
-      v18 = v6;
-      v19 = 2112;
-      v20 = v7;
-      _os_log_impl(&dword_23193C000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ Extending download options with overrides: %@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v6;
+      v18 = 2112;
+      v19 = v7;
+      _os_log_impl(&dword_23193C000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ Extending download options with overrides: %@", &v16, 0x16u);
     }
 
     v8 = [*(a1 + 32) suAssetDownloadOptions];
@@ -757,12 +755,10 @@ void __90__SUCorePolicyExtensionCompanionCompatibility_extendMASoftwareUpdateAss
   else if (v5)
   {
     v15 = *(a1 + 32);
-    v17 = 138543362;
-    v18 = v15;
-    _os_log_impl(&dword_23193C000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ Not extending download options since no overrides set", &v17, 0xCu);
+    v16 = 138543362;
+    v17 = v15;
+    _os_log_impl(&dword_23193C000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ Not extending download options since no overrides set", &v16, 0xCu);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (SUCorePolicyExtensionCompanionCompatibility)initWithCoder:(id)coder
@@ -940,15 +936,14 @@ void __90__SUCorePolicyExtensionCompanionCompatibility_extendMASoftwareUpdateAss
 
 void __100__SUCorePolicyExtensionCompanionCompatibility_setCompatibilityVersionRange_maxCompatibilityVersion___block_invoke_cold_1(uint64_t *a1, uint64_t *a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = *a1;
   v4 = *a2;
-  v6 = 138412546;
-  v7 = v3;
-  v8 = 2112;
-  v9 = v4;
-  _os_log_error_impl(&dword_23193C000, log, OS_LOG_TYPE_ERROR, "Incorrect arguments passed to setCompatibilityVersionRange: minCompatibilityVersion: %@ maxCompatibilityVersion: %@", &v6, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
+  v6 = v3;
+  v7 = 2112;
+  v8 = v4;
+  _os_log_error_impl(&dword_23193C000, log, OS_LOG_TYPE_ERROR, "Incorrect arguments passed to setCompatibilityVersionRange: minCompatibilityVersion: %@ maxCompatibilityVersion: %@", &v5, 0x16u);
 }
 
 @end

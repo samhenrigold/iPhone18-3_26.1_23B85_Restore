@@ -5,7 +5,7 @@
 
 void __54__ACAccount_GameCenter___gkCredentialsForEnvironment___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = +[(GKInternalRepresentation *)GKPlayerCredential];
@@ -35,7 +35,7 @@ void __54__ACAccount_GameCenter___gkCredentialsForEnvironment___block_invoke(uin
 
       if (os_log_type_enabled(os_log_GKAccount, OS_LOG_TYPE_DEBUG))
       {
-        __54__ACAccount_GameCenter___gkCredentialsForEnvironment___block_invoke_cold_1(a1);
+        __54__ACAccount_GameCenter___gkCredentialsForEnvironment___block_invoke_cold_1();
       }
     }
 
@@ -57,7 +57,7 @@ void __54__ACAccount_GameCenter___gkCredentialsForEnvironment___block_invoke(uin
   [v7 setAccountName:v14];
 
   [v7 setEnvironment:v11];
-  v31 = v6;
+  v30 = v6;
   [v7 setAuthenticationToken:v6];
   v15 = [*(a1 + 32) _gkPropertyForKey:@"altDSID" environment:v11];
   if (v15)
@@ -124,19 +124,17 @@ LABEL_23:
     if (os_log_type_enabled(os_log_GKAccount, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412802;
-      v33 = v7;
-      v34 = 2112;
-      v35 = v5;
-      v36 = 2112;
-      v37 = v31;
+      v32 = v7;
+      v33 = 2112;
+      v34 = v5;
+      v35 = 2112;
+      v36 = v30;
       _os_log_debug_impl(&dword_227904000, v29, OS_LOG_TYPE_DEBUG, "ACCOUNT:%@: auth token for environment:%@ authToken:%@", buf, 0x20u);
     }
   }
 
-  v6 = v31;
+  v6 = v30;
 LABEL_33:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __53__ACAccount_GameCenter___gkCredentialForEnvironment___block_invoke(uint64_t a1, void *a2)
@@ -150,15 +148,12 @@ void __53__ACAccount_GameCenter___gkCredentialForEnvironment___block_invoke(uint
   }
 }
 
-void __54__ACAccount_GameCenter___gkCredentialsForEnvironment___block_invoke_cold_1(uint64_t a1)
+void __54__ACAccount_GameCenter___gkCredentialsForEnvironment___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 @end

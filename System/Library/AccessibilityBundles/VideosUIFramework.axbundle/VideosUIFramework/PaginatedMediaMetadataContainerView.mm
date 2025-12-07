@@ -50,14 +50,13 @@ uint64_t __122__PaginatedMediaMetadataContainerView_MediaShowcasingMetadataViewA
 
 uint64_t __121__PaginatedMediaMetadataContainerView_MediaShowcasingMetadataViewAccessibility__axContainedInCatchUpToLiveViewController__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 _accessibilityViewController];
-  v4 = *(a1 + 32);
-  LOBYTE(a1) = objc_opt_isKindOfClass();
+  v2 = [a2 _accessibilityViewController];
+  isKindOfClass = objc_opt_isKindOfClass();
 
-  return a1 & 1;
+  return isKindOfClass & 1;
 }
 
-uint64_t __105__PaginatedMediaMetadataContainerView_MediaShowcasingMetadataViewAccessibility__axLabelForTextViewModel___block_invoke(uint64_t a1)
+void *__105__PaginatedMediaMetadataContainerView_MediaShowcasingMetadataViewAccessibility__axLabelForTextViewModel___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) BOOLValue];
   *(*(*(a1 + 40) + 8) + 24) = result;

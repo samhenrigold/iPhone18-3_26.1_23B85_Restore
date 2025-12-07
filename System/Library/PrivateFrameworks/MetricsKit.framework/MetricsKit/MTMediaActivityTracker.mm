@@ -153,7 +153,6 @@ LABEL_7:
     array = [MEMORY[0x277CBEB18] array];
   }
 
-  eventData = self->_eventData;
   self->_eventData = array;
 
   MEMORY[0x2821F96F8]();
@@ -307,7 +306,7 @@ LABEL_10:
 
 - (void)generatePlaylistTransitionsIfNecessary:(unint64_t)necessary
 {
-  v30[2] = *MEMORY[0x277D85DE8];
+  v29[2] = *MEMORY[0x277D85DE8];
   if ([(MTMediaActivityTracker *)self shouldGenerateTransitions])
   {
     playActivity = [(MTMediaActivityTracker *)self playActivity];
@@ -352,16 +351,16 @@ LABEL_10:
             }
 
             timeTracker = [(MTMediaActivityTracker *)self timeTracker];
-            v27 = [timeTracker estimatedTimeAtPosition:v15];
+            v26 = [timeTracker estimatedTimeAtPosition:v15];
 
-            v28 = @"eventTime";
-            mt_millisecondsSince1970 = [v27 mt_millisecondsSince1970];
-            v29 = mt_millisecondsSince1970;
-            [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+            v27 = @"eventTime";
+            mt_millisecondsSince1970 = [v26 mt_millisecondsSince1970];
+            v28 = mt_millisecondsSince1970;
+            [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
             v21 = v20 = v11;
-            v30[0] = v21;
-            v30[1] = eventDataForTransitioningEvents;
-            [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
+            v29[0] = v21;
+            v29[1] = eventDataForTransitioningEvents;
+            [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
             v23 = v22 = necessary;
 
             v11 = v20;
@@ -375,8 +374,6 @@ LABEL_10:
       }
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __48__MTMediaActivityTracker_playlistItemComparator__block_invoke(uint64_t a1, uint64_t a2, void *a3)

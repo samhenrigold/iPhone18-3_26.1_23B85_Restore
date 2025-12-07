@@ -99,14 +99,12 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    version = self->_version;
     PBDataWriterWriteUint32Field();
     has = self->_has;
   }
 
   if (has)
   {
-    sessionID = self->_sessionID;
     PBDataWriterWriteUint32Field();
   }
 
@@ -122,7 +120,6 @@
 
   if ((*&self->_has & 4) != 0)
   {
-    remoteNeedsLTK = self->_remoteNeedsLTK;
     PBDataWriterWriteBOOLField();
   }
 }
@@ -207,7 +204,6 @@
     goto LABEL_18;
   }
 
-  v5 = *(equalCopy + 36);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 36) & 2) == 0 || self->_version != *(equalCopy + 7))
@@ -249,13 +245,13 @@
     }
   }
 
-  v8 = (*(equalCopy + 36) & 4) == 0;
+  v7 = (*(equalCopy + 36) & 4) == 0;
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 36) & 4) == 0)
     {
 LABEL_18:
-      v8 = 0;
+      v7 = 0;
       goto LABEL_19;
     }
 
@@ -272,12 +268,12 @@ LABEL_18:
       goto LABEL_18;
     }
 
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_19:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

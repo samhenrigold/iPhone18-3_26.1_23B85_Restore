@@ -82,7 +82,7 @@
   v6 = *MEMORY[0x1E695E480];
   if (self)
   {
-    [(AVSampleCursor *)self presentationTimeStamp];
+    objc_msgSend_presentationTimeStamp(self);
   }
 
   else
@@ -93,7 +93,7 @@
   v7 = CMTimeCopyDescription(v6, &time);
   if (self)
   {
-    [(AVSampleCursor *)self decodeTimeStamp];
+    objc_msgSend_decodeTimeStamp(self);
   }
 
   else
@@ -534,7 +534,7 @@ LABEL_7:
     return v11[0];
   }
 
-  v9 = -12782;
+  v9 = 4294954514;
   if (error)
   {
     goto LABEL_7;
@@ -573,7 +573,7 @@ LABEL_7:
     return v13[0];
   }
 
-  v11 = -12782;
+  v11 = 4294954514;
   if (error)
   {
     goto LABEL_7;

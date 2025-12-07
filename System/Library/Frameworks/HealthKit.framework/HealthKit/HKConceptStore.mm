@@ -73,13 +73,14 @@
 void __52__HKConceptStore__startObservingConceptIndexManager__block_invoke(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v7 = v5;
   if ((a2 & 1) == 0)
   {
-    _HKInitializeLogging();
-    v6 = HKLogHealthRecords;
+    _HKInitializeLogging(v5, v6);
+    v8 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
     {
-      __52__HKConceptStore__startObservingConceptIndexManager__block_invoke_cold_1(a1, v5, v6);
+      __52__HKConceptStore__startObservingConceptIndexManager__block_invoke_cold_1(a1, v7, v8);
     }
   }
 }
@@ -138,35 +139,35 @@ void __80__HKConceptStore_fetchConceptForIdentifier_loadRelationships_completion
 
 - (id)countOfConceptsAssociatedToUserRecordsWithError:(id *)error
 {
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__45;
-  v21 = __Block_byref_object_dispose__45;
-  v22 = 0;
-  v14 = 0;
-  v15[0] = &v14;
-  v15[1] = 0x3032000000;
-  v15[2] = __Block_byref_object_copy__45;
-  v15[3] = __Block_byref_object_dispose__45;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__45;
+  v23 = __Block_byref_object_dispose__45;
+  v24 = 0;
   v16 = 0;
+  v17[0] = &v16;
+  v17[1] = 0x3032000000;
+  v17[2] = __Block_byref_object_copy__45;
+  v17[3] = __Block_byref_object_dispose__45;
+  v18 = 0;
   proxyProvider = self->_proxyProvider;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __66__HKConceptStore_countOfConceptsAssociatedToUserRecordsWithError___block_invoke;
-  v13[3] = &unk_1E73809F0;
-  v13[4] = &v17;
-  v13[5] = &v14;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __66__HKConceptStore_countOfConceptsAssociatedToUserRecordsWithError___block_invoke_3;
-  v12[3] = &unk_1E7378838;
-  v12[4] = &v14;
-  [(HKProxyProvider *)proxyProvider getSynchronousProxyWithHandler:v13 errorHandler:v12];
-  v5 = v18[5];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __66__HKConceptStore_countOfConceptsAssociatedToUserRecordsWithError___block_invoke;
+  v15[3] = &unk_1E73809F0;
+  v15[4] = &v19;
+  v15[5] = &v16;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __66__HKConceptStore_countOfConceptsAssociatedToUserRecordsWithError___block_invoke_3;
+  v14[3] = &unk_1E7378838;
+  v14[4] = &v16;
+  [(HKProxyProvider *)proxyProvider getSynchronousProxyWithHandler:v15 errorHandler:v14];
+  v5 = v20[5];
   if (!v5)
   {
-    v6 = *(v15[0] + 40);
+    v6 = *(v17[0] + 40);
     v7 = v6;
     if (v6)
     {
@@ -182,22 +183,22 @@ void __80__HKConceptStore_fetchConceptForIdentifier_loadRelationships_completion
       }
     }
 
-    _HKInitializeLogging();
-    v9 = HKLogHealthRecords;
+    _HKInitializeLogging(v9, v10);
+    v11 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
     {
-      [(HKConceptStore *)v15 countOfConceptsAssociatedToUserRecordsWithError:v9];
+      [(HKConceptStore *)v17 countOfConceptsAssociatedToUserRecordsWithError:v11];
     }
 
-    v5 = v18[5];
+    v5 = v20[5];
   }
 
-  v10 = v5;
-  _Block_object_dispose(&v14, 8);
+  v12 = v5;
+  _Block_object_dispose(&v16, 8);
 
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v19, 8);
 
-  return v10;
+  return v12;
 }
 
 uint64_t __66__HKConceptStore_countOfConceptsAssociatedToUserRecordsWithError___block_invoke(uint64_t a1, void *a2)
@@ -272,11 +273,11 @@ uint64_t __44__HKConceptStore_currentConceptIndexerState__block_invoke(uint64_t 
 void __44__HKConceptStore_currentConceptIndexerState__block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  _HKInitializeLogging();
-  v3 = HKLogHealthRecords;
+  _HKInitializeLogging(v2, v3);
+  v4 = HKLogHealthRecords;
   if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
   {
-    __44__HKConceptStore_currentConceptIndexerState__block_invoke_3_cold_1(v2, v3);
+    __44__HKConceptStore_currentConceptIndexerState__block_invoke_3_cold_1(v2, v4);
   }
 }
 
@@ -332,22 +333,22 @@ uint64_t __52__HKConceptStore_registerAsConceptObserver_onQueue___block_invoke(v
   HKWithUnfairLock(&self->_conceptIndexManagerStateLock, v3);
 }
 
-uint64_t __65__HKConceptStore_clientRemote_conceptIndexManagerDidChangeState___block_invoke(uint64_t result)
+void *__65__HKConceptStore_clientRemote_conceptIndexManagerDidChangeState___block_invoke(void *result)
 {
-  v3 = *(result + 32);
-  v4 = *(result + 40);
+  v3 = result[4];
+  v4 = result[5];
   if (*(v3 + 24) != v4)
   {
     v8[6] = v1;
     v8[7] = v2;
     *(v3 + 24) = v4;
-    v5 = *(result + 32);
+    v5 = result[4];
     v6 = *(v5 + 8);
     v8[0] = MEMORY[0x1E69E9820];
     v8[1] = 3221225472;
     v8[2] = __65__HKConceptStore_clientRemote_conceptIndexManagerDidChangeState___block_invoke_2;
     v8[3] = &unk_1E73837F8;
-    v7 = *(result + 40);
+    v7 = result[5];
     v8[4] = v5;
     v8[5] = v7;
     return [v6 notifyObservers:v8];
@@ -386,7 +387,7 @@ uint64_t __65__HKConceptStore_clientRemote_conceptIndexManagerDidChangeState___b
 
 - (void)connectionInvalidated
 {
-  _HKInitializeLogging();
+  _HKInitializeLogging(self, a2);
   v2 = HKLogHealthRecords;
   if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
   {
@@ -396,33 +397,30 @@ uint64_t __65__HKConceptStore_clientRemote_conceptIndexManagerDidChangeState___b
 
 void __52__HKConceptStore__startObservingConceptIndexManager__block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(*(a1 + 32) + 40);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_19197B000, log, OS_LOG_TYPE_ERROR, "Unable to fetch ontology task server %@ proxy after interrupted connection with error: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_19197B000, log, OS_LOG_TYPE_ERROR, "Unable to fetch ontology task server %@ proxy after interrupted connection with error: %@", &v4, 0x16u);
 }
 
 - (void)countOfConceptsAssociatedToUserRecordsWithError:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(*a1 + 40);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Error getting count of concepts associated to user records: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Error getting count of concepts associated to user records: %@", &v3, 0xCu);
 }
 
 void __44__HKConceptStore_currentConceptIndexerState__block_invoke_3_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Error fetching proxy attempting to get current concept indexer state: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Error fetching proxy attempting to get current concept indexer state: %{public}@", &v2, 0xCu);
 }
 
 @end

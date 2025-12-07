@@ -131,37 +131,37 @@ LABEL_12:
 
 + (id)internalStructTypeFromUserStructType:(id)type
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v4 = objc_alloc_init(MEMORY[0x277CD7028]);
   v5 = objc_autoreleasePoolPush();
   __p = 0;
+  v27 = 0;
   v28 = 0;
-  v29 = 0;
   std::vector<MTLGPUDebugBuffer *>::resize(&__p, [objc_msgSend(type "members")]);
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   members = [type members];
-  v7 = [members countByEnumeratingWithState:&v23 objects:v30 count:16];
+  v7 = [members countByEnumeratingWithState:&v22 objects:v29 count:16];
   if (v7)
   {
-    v21 = v5;
-    v22 = v4;
+    v20 = v5;
+    v21 = v4;
     LODWORD(v8) = 0;
-    v9 = *v24;
+    v9 = *v23;
     while (1)
     {
       v10 = 0;
       v11 = v8;
       do
       {
-        if (*v24 != v9)
+        if (*v23 != v9)
         {
           objc_enumerationMutation(members);
         }
 
-        StructMember = *(*(&v23 + 1) + 8 * v10);
+        StructMember = *(*(&v22 + 1) + 8 * v10);
         if ([StructMember dataType] == 60 || objc_msgSend(StructMember, "dataType") == 118 || objc_msgSend(StructMember, "dataType") == 117)
         {
           name = [StructMember name];
@@ -202,12 +202,12 @@ LABEL_11:
       }
 
       while (v7 != v10);
-      v18 = [members countByEnumeratingWithState:&v23 objects:v30 count:16];
+      v18 = [members countByEnumeratingWithState:&v22 objects:v29 count:16];
       v7 = v18;
       if (!v18)
       {
-        v5 = v21;
-        v4 = v22;
+        v5 = v20;
+        v4 = v21;
         goto LABEL_20;
       }
     }
@@ -218,26 +218,24 @@ LABEL_20:
   [v4 setMembers:__p count:v8];
   if (__p)
   {
-    v28 = __p;
+    v27 = __p;
     operator delete(__p);
   }
 
   objc_autoreleasePoolPop(v5);
-  result = v4;
-  v20 = *MEMORY[0x277D85DE8];
-  return result;
+  return v4;
 }
 
 - (id)newArgumentEncoderWithBufferIndex:(unint64_t)index reflection:(id *)reflection pipelineLibrary:(id)library binaryArchives:(id)archives
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v11 = *(self + 3);
   if ((v11[286] & 0x80) != 0)
   {
     baseObject = [v11 baseObject];
     std::mutex::lock((self + 56));
-    LODWORD(v30) = index;
-    v13 = std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,NSString *>>>::find<unsigned int>(self + 15, &v30);
+    LODWORD(v28) = index;
+    v13 = std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,NSString *>>>::find<unsigned int>(self + 15, &v28);
     if (v13 && (v14 = v13[3]) != 0)
     {
       if (library)
@@ -304,39 +302,38 @@ LABEL_20:
       if (!v16)
       {
         std::mutex::unlock((self + 56));
-        goto LABEL_45;
+        return 0;
       }
 
       context = objc_autoreleasePoolPush();
-      v34 = 0u;
-      v35 = 0u;
       v32 = 0u;
       v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
       arguments = [v18 arguments];
-      v20 = [arguments countByEnumeratingWithState:&v32 objects:v39 count:16];
+      v20 = [arguments countByEnumeratingWithState:&v30 objects:v37 count:16];
       if (v20)
       {
-        v21 = *v33;
+        v21 = *v31;
         do
         {
           for (i = 0; i != v20; ++i)
           {
-            if (*v33 != v21)
+            if (*v31 != v21)
             {
               objc_enumerationMutation(arguments);
             }
 
-            v23 = *(*(&v32 + 1) + 8 * i);
+            v23 = *(*(&v30 + 1) + 8 * i);
             if (![v23 type] && objc_msgSend(v23, "index") == index)
             {
               [v23 bufferStructType];
               indexCopy = index;
-              v24 = *(self + 3);
               operator new();
             }
           }
 
-          v20 = [arguments countByEnumeratingWithState:&v32 objects:v39 count:16];
+          v20 = [arguments countByEnumeratingWithState:&v30 objects:v37 count:16];
         }
 
         while (v20);
@@ -350,42 +347,35 @@ LABEL_43:
     std::mutex::unlock((self + 56));
     if (v14)
     {
-      v25 = [baseObject newArgumentEncoderWithLayout:*v14];
-      v17 = [[MTLGPUDebugArgumentEncoder alloc] initWithArgumentEncoder:v25 layout:v14 device:[(MTLToolsObject *)self device]];
+      v24 = [baseObject newArgumentEncoderWithLayout:*v14];
+      v17 = [[MTLGPUDebugArgumentEncoder alloc] initWithArgumentEncoder:v24 layout:v14 device:[(MTLToolsObject *)self device]];
 
-      goto LABEL_46;
+      return v17;
     }
 
-LABEL_45:
-    v17 = 0;
-    goto LABEL_46;
+    return 0;
   }
 
   if (library)
   {
-    v38.receiver = self;
-    v38.super_class = MTLGPUDebugFunction;
-    v12 = [(MTLToolsFunction *)&v38 newArgumentEncoderWithBufferIndex:index reflection:reflection pipelineLibrary:library];
+    v36.receiver = self;
+    v36.super_class = MTLGPUDebugFunction;
+    return [(MTLToolsFunction *)&v36 newArgumentEncoderWithBufferIndex:index reflection:reflection pipelineLibrary:library];
   }
 
   else if (archives)
   {
-    v37.receiver = self;
-    v37.super_class = MTLGPUDebugFunction;
-    v12 = [(MTLToolsFunction *)&v37 newArgumentEncoderWithBufferIndex:index reflection:reflection binaryArchives:archives];
+    v35.receiver = self;
+    v35.super_class = MTLGPUDebugFunction;
+    return [(MTLToolsFunction *)&v35 newArgumentEncoderWithBufferIndex:index reflection:reflection binaryArchives:archives];
   }
 
   else
   {
-    v36.receiver = self;
-    v36.super_class = MTLGPUDebugFunction;
-    v12 = [(MTLToolsFunction *)&v36 newArgumentEncoderWithBufferIndex:index reflection:reflection];
+    v34.receiver = self;
+    v34.super_class = MTLGPUDebugFunction;
+    return [(MTLToolsFunction *)&v34 newArgumentEncoderWithBufferIndex:index reflection:reflection];
   }
-
-  v17 = v12;
-LABEL_46:
-  v26 = *MEMORY[0x277D85DE8];
-  return v17;
 }
 
 - (void)dealloc

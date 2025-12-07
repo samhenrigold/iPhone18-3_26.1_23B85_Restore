@@ -278,13 +278,11 @@ LABEL_36:
 
 - (void)co_sanitizedHomeKitAlarm
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   alarmID = [self alarmID];
-  v5 = 138412290;
-  v6 = alarmID;
-  _os_log_error_impl(&dword_244378000, a2, OS_LOG_TYPE_ERROR, "%@ required sanitizing!", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = alarmID;
+  _os_log_error_impl(&dword_244378000, a2, OS_LOG_TYPE_ERROR, "%@ required sanitizing!", &v4, 0xCu);
 }
 
 @end

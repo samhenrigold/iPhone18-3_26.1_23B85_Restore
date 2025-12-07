@@ -10,7 +10,7 @@
 {
   sub_23BD06214();
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1C3DE8, &qword_23BD09978);
-  sub_23BD04540(&qword_27E1C3DF0, &qword_27E1C3DE8, &qword_23BD09978);
+  sub_23BD04540(&qword_27E1C3DF0, &qword_27E1C3DE8, &qword_23BD09978, "9{PF<I");
   v2 = sub_23BD06224();
 
   return v2;

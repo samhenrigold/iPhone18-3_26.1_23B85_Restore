@@ -31,7 +31,7 @@
   v7 = FBSSettingForSelector(v6, property);
   if (!v7)
   {
-    [(FBSMutableSceneSettings *)property addPropagatedProperty:a2];
+    [(FBSMutableSceneSettings *)property addPropagatedProperty:a2, self];
   }
 
   v8 = v7;
@@ -44,7 +44,7 @@
   v7 = FBSSettingForSelector(v6, property);
   if (!v7)
   {
-    [(FBSMutableSceneSettings *)property removePropagatedProperty:a2];
+    [(FBSMutableSceneSettings *)property removePropagatedProperty:a2, self];
   }
 
   v8 = v7;
@@ -79,11 +79,11 @@
 
 - (void)addPropagatedSettings:(id)settings
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   settingsCopy = settings;
   if ([settingsCopy count])
   {
-    v14 = a2;
+    v15 = a2;
     v6 = [(FBSSettings *)self valueForProperty:sel_propagatedSettings expectedClass:objc_opt_class()];
     if (!v6)
     {
@@ -91,43 +91,44 @@
       [(FBSSettings *)self setValue:v6 forProperty:sel_propagatedSettings, a2];
     }
 
-    v17 = 0u;
     v18 = 0u;
-    v15 = 0u;
+    v19 = 0u;
     v16 = 0u;
+    v17 = 0u;
     v7 = settingsCopy;
-    v8 = [v7 countByEnumeratingWithState:&v15 objects:v21 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v16 objects:v22 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v17;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v16 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v15 + 1) + 8 * i);
+          v12 = *(*(&v16 + 1) + 8 * i);
           NSClassFromString(&cfstr_Fbssetting.isa);
           if (!v12)
           {
-            [FBSMutableSceneSettings addPropagatedSettings:v14];
+            [FBSMutableSceneSettings addPropagatedSettings:v15];
           }
 
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            [FBSMutableSceneSettings addPropagatedSettings:v14];
+            [FBSMutableSceneSettings addPropagatedSettings:v15];
           }
 
-          if (([(FBSSetting *)v12 isLocal]& 1) != 0)
+          isLocal = [(FBSSetting *)v12 isLocal];
+          if (isLocal)
           {
-            name = FBLogCommon();
+            name = FBLogCommon(isLocal);
             if (os_log_type_enabled(name, OS_LOG_TYPE_ERROR))
             {
-              [(FBSMutableSceneSettings *)v19 addPropagatedSettings:v12, &v20, name];
+              [(FBSMutableSceneSettings *)v20 addPropagatedSettings:v12, &v21, name];
             }
           }
 
@@ -138,7 +139,7 @@
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v15 objects:v21 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v16 objects:v22 count:16];
       }
 
       while (v9);
@@ -199,55 +200,54 @@
   }
 }
 
-- (void)addPropagatedProperty:(const char *)a1 .cold.1(const char *a1, const char *a2)
+- (void)addPropagatedProperty:(uint64_t)a3 .cold.1(const char *a1, const char *a2, uint64_t a3)
 {
-  v3 = MEMORY[0x1E696AEC0];
-  v13 = NSStringFromSelector(a1);
-  v4 = [v3 stringWithFormat:@"no setting for %@"];
+  v4 = MEMORY[0x1E696AEC0];
+  v5 = NSStringFromSelector(a1);
+  v6 = [v4 stringWithFormat:@"no setting for %@", v5];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v5 = NSStringFromSelector(a2);
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
+    v7 = NSStringFromSelector(a2);
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
     OUTLINED_FUNCTION_12_0();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14, v15);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, v15, v16);
   }
 
-  [v4 UTF8String];
+  [v6 UTF8String];
   _bs_set_crash_log_message();
 }
 
-- (void)removePropagatedProperty:(const char *)a1 .cold.1(const char *a1, const char *a2)
+- (void)removePropagatedProperty:(uint64_t)a3 .cold.1(const char *a1, const char *a2, uint64_t a3)
 {
-  v3 = MEMORY[0x1E696AEC0];
-  v13 = NSStringFromSelector(a1);
-  v4 = [v3 stringWithFormat:@"no setting for %@"];
+  v4 = MEMORY[0x1E696AEC0];
+  v5 = NSStringFromSelector(a1);
+  v6 = [v4 stringWithFormat:@"no setting for %@", v5];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v5 = NSStringFromSelector(a2);
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
+    v7 = NSStringFromSelector(a2);
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
     OUTLINED_FUNCTION_12_0();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14, v15);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, v15, v16);
   }
 
-  [v4 UTF8String];
+  [v6 UTF8String];
   _bs_set_crash_log_message();
 }
 
 - (void)addPropagatedSetting:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"setting != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"setting != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -256,15 +256,14 @@
 
 - (void)removePropagatedSetting:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"setting != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"setting != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -273,15 +272,14 @@
 
 - (void)addPropagatedSettings:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:FBSSettingClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:FBSSettingClass]", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -298,15 +296,14 @@
 
 - (void)addPropagatedSettings:(char *)a1 .cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -315,15 +312,14 @@
 
 - (void)removePropagatedSettings:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:FBSSettingClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:FBSSettingClass]", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -332,15 +328,14 @@
 
 - (void)removePropagatedSettings:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];

@@ -21,19 +21,16 @@
 
 - (LACCompanionAuthenticationProviderDelegate)delegate
 {
-  v3 = OBJC_IVAR____TtC23LocalAuthenticationCore39LACCompanionAuthenticationProviderDummy_delegate;
   swift_beginAccess();
-  v4 = *(&self->super.isa + v3);
-  v5 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v5;
+  return v2;
 }
 
 - (void)setDelegate:(id)delegate
 {
   v5 = OBJC_IVAR____TtC23LocalAuthenticationCore39LACCompanionAuthenticationProviderDummy_delegate;
   swift_beginAccess();
-  v6 = *(&self->super.isa + v5);
   *(&self->super.isa + v5) = delegate;
   swift_unknownObjectRetain();
   swift_unknownObjectRelease();
@@ -67,45 +64,42 @@
 {
   v4 = type metadata accessor for UUID();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = &v19 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9 - 8);
-  v12 = &v19 - v11;
+  v7 = &v17 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  MEMORY[0x1EEE9AC00](v8 - 8);
+  v10 = &v17 - v9;
   selfCopy = self;
   UUID.init()();
-  (*(v5 + 16))(v12, v8, v4);
-  (*(v5 + 56))(v12, 0, 1, v4);
-  $defer #1 () in LACCompanionAuthenticationProviderDummy.authenticate(with:)(selfCopy, v8);
+  (*(v5 + 16))(v10, v7, v4);
+  (*(v5 + 56))(v10, 0, 1, v4);
+  $defer #1 () in LACCompanionAuthenticationProviderDummy.authenticate(with:)(selfCopy, v7);
 
-  v14 = *(v5 + 8);
-  v14(v8, v4);
-  v15 = (*(v5 + 48))(v12, 1, v4);
-  v16 = 0;
-  if (v15 != 1)
+  v12 = *(v5 + 8);
+  v12(v7, v4);
+  v13 = (*(v5 + 48))(v10, 1, v4);
+  v14 = 0;
+  if (v13 != 1)
   {
     isa = UUID._bridgeToObjectiveC()().super.isa;
-    v14(v12, v4);
-    v16 = isa;
+    v12(v10, v4);
+    v14 = isa;
   }
 
-  return v16;
+  return v14;
 }
 
 - (void)cancelAuthenticationWithID:(id)d
 {
   v4 = type metadata accessor for UUID();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  LACCompanionAuthenticationProviderDummy.cancelAuthentication(with:)(v8);
+  LACCompanionAuthenticationProviderDummy.cancelAuthentication(with:)(v7);
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (_TtC23LocalAuthenticationCore39LACCompanionAuthenticationProviderDummy)init

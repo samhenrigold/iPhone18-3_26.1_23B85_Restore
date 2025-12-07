@@ -1,5 +1,7 @@
 @interface ATXAppClipSingleSuggestionLogger
 - (ATXAppClipSingleSuggestionLogger)initWithTracker:(id)tracker;
+- (id)_appClipEngagementMetricWithBundleId:(id)id urlHash:(id)hash interactionType:(int)type consumerSubType:(id)subType;
+- (void)_flushEventBuffer:(id)buffer numEventsToSample:(int64_t)sample isNegative:(BOOL)negative;
 - (void)_logAppClipEngagementMetric:(id)metric;
 - (void)flushEventBuffers;
 - (void)handleSingleSuggestion:(id)suggestion;
@@ -29,11 +31,26 @@
   return v7;
 }
 
+- (id)_appClipEngagementMetricWithBundleId:(id)id urlHash:(id)hash interactionType:(int)type consumerSubType:(id)subType
+{
+  v6 = *&type;
+  subTypeCopy = subType;
+  hashCopy = hash;
+  idCopy = id;
+  v12 = objc_opt_new();
+  [v12 setBundleId:idCopy];
+
+  [v12 setUrlHash:hashCopy];
+  [v12 setInteractionType:v6];
+  [v12 setConsumerSubType:subTypeCopy];
+
+  return v12;
+}
+
 - (void)_logAppClipEngagementMetric:(id)metric
 {
   metricCopy = metric;
-  [(ATXPETEventTracker2Protocol *)self->_tracker trackScalarForMessage:metricCopy];
-  v5 = __atxlog_handle_metrics();
+  v5 = __atxlog_handle_metrics([(ATXPETEventTracker2Protocol *)self->_tracker trackScalarForMessage:metricCopy]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [(ATXAppClipSingleSuggestionLogger *)self _logAppClipEngagementMetric:metricCopy, v5];
@@ -57,18 +74,18 @@
   objc_autoreleasePoolPop(v5);
   if (v12 || !v11)
   {
-    v19 = __atxlog_handle_metrics();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = __atxlog_handle_metrics(v13);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v28 = objc_opt_class();
-      v29 = NSStringFromClass(v28);
+      v29 = objc_opt_class();
+      v30 = NSStringFromClass(v29);
       *buf = 138412802;
-      *&buf[4] = v29;
+      *&buf[4] = v30;
       *&buf[12] = 2112;
       *&buf[14] = suggestionCopy;
       *&buf[22] = 2112;
       v57 = v12;
-      _os_log_error_impl(&dword_2263AA000, v19, OS_LOG_TYPE_ERROR, "%@ - not logging because could not retrieve bundleId from completed session: %@. Unarchive error: %@", buf, 0x20u);
+      _os_log_error_impl(&dword_2263AA000, v20, OS_LOG_TYPE_ERROR, "%@ - not logging because could not retrieve bundleId from completed session: %@. Unarchive error: %@", buf, 0x20u);
     }
   }
 
@@ -77,9 +94,9 @@
     bundleId = [v11 bundleId];
     urlHash = [v11 urlHash];
     [v11 latitudeAtPredictionTime];
-    v16 = v15;
+    v17 = v16;
     [v11 longitudeAtPredictionTime];
-    v18 = v17;
+    v19 = v18;
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
@@ -102,38 +119,38 @@
     v35 = &unk_278598668;
     v40 = &v49;
     v41 = buf;
-    v19 = bundleId;
-    v36 = v19;
-    v20 = urlHash;
-    v43 = v16;
-    v44 = v18;
-    v37 = v20;
+    v20 = bundleId;
+    v36 = v20;
+    v21 = urlHash;
+    v43 = v17;
+    v44 = v19;
+    v37 = v21;
     selfCopy = self;
-    v21 = v11;
-    v39 = v21;
+    v22 = v11;
+    v39 = v22;
     v42 = &v45;
     [suggestionCopy enumerateShownAndEngagedSessionStatusesAndConsumerSubTypesWithBlock:&v32];
     if ([v50[5] isEqualToNumber:{MEMORY[0x277CBEC38], v32, v33, v34, v35}])
     {
-      v22 = [(ATXAppClipSingleSuggestionLogger *)self _appClipEngagementMetricWithBundleId:v19 urlHash:v20 interactionType:*(v46 + 6) consumerSubType:@"SingleSuggestionAnyConsumerSubType"];
-      [(ATXAppClipSingleSuggestionLogger *)self _logAppClipEngagementMetric:v22];
+      v23 = [(ATXAppClipSingleSuggestionLogger *)self _appClipEngagementMetricWithBundleId:v20 urlHash:v21 interactionType:*(v46 + 6) consumerSubType:@"SingleSuggestionAnyConsumerSubType"];
+      [(ATXAppClipSingleSuggestionLogger *)self _logAppClipEngagementMetric:v23];
     }
 
-    v23 = +[_ATXAppPredictor sharedInstance];
-    cdnDownloaderTriggerManager = [v23 cdnDownloaderTriggerManager];
+    v24 = +[_ATXAppPredictor sharedInstance];
+    cdnDownloaderTriggerManager = [v24 cdnDownloaderTriggerManager];
     heroClipManager = [cdnDownloaderTriggerManager heroClipManager];
     feedback = [heroClipManager feedback];
 
     if ([*(*&buf[8] + 40) isEqualToNumber:MEMORY[0x277CBEC38]])
     {
-      LODWORD(v27) = 1.0;
-      [feedback addConfirmForAppClipWithHeroAppPrediction:v21 weight:v27];
+      LODWORD(v28) = 1.0;
+      [feedback addConfirmForAppClipWithHeroAppPrediction:v22 weight:v28];
     }
 
     else if ([v50[5] isEqualToNumber:MEMORY[0x277CBEC38]])
     {
-      LODWORD(v30) = 1.0;
-      [feedback addRejectForAppClipWithHeroAppPrediction:v21 weight:v30];
+      LODWORD(v31) = 1.0;
+      [feedback addRejectForAppClipWithHeroAppPrediction:v22 weight:v31];
     }
 
     _Block_object_dispose(&v45, 8);
@@ -141,8 +158,6 @@
 
     _Block_object_dispose(buf, 8);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __59__ATXAppClipSingleSuggestionLogger_handleSingleSuggestion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -156,10 +171,10 @@ void __59__ATXAppClipSingleSuggestionLogger_handleSingleSuggestion___block_invok
     }
 
 LABEL_25:
-    v22 = __atxlog_handle_hero();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v23 = __atxlog_handle_hero(a1);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      __59__ATXAppClipSingleSuggestionLogger_handleSingleSuggestion___block_invoke_cold_3(v22);
+      __59__ATXAppClipSingleSuggestionLogger_handleSingleSuggestion___block_invoke_cold_3(v23);
     }
 
     goto LABEL_29;
@@ -178,95 +193,145 @@ LABEL_5:
 
       if (a3 == 2)
       {
-        v10 = *(*(a1 + 72) + 8);
-        v11 = *(v10 + 40);
-        *(v10 + 40) = v9;
+        v11 = *(*(a1 + 72) + 8);
+        v12 = *(v11 + 40);
+        *(v11 + 40) = v9;
       }
 
       if (!*(a1 + 32) || !*(a1 + 40) || *(a1 + 88) == *MEMORY[0x277D131D0] || *(a1 + 96) == *MEMORY[0x277D131D0])
       {
-        v12 = __atxlog_handle_hero();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v13 = __atxlog_handle_hero(v10);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          __59__ATXAppClipSingleSuggestionLogger_handleSingleSuggestion___block_invoke_cold_2(a1, v12);
+          __59__ATXAppClipSingleSuggestionLogger_handleSingleSuggestion___block_invoke_cold_2(a1, v13);
         }
       }
 
       else
       {
-        v12 = [[ATXAppOrClipLaunch alloc] initAppClipLaunchWithBundleId:*(a1 + 32) urlHash:*(a1 + 40) launchReason:v6 latitude:*(a1 + 88) longitude:*(a1 + 96)];
-        v13 = [[ATXHeroAndClipSessionLogSampledEvent alloc] initFromLaunch:v12];
-        v14 = __atxlog_handle_hero();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+        v13 = [[ATXAppOrClipLaunch alloc] initAppClipLaunchWithBundleId:*(a1 + 32) urlHash:*(a1 + 40) launchReason:v6 latitude:*(a1 + 88) longitude:*(a1 + 96)];
+        v14 = [[ATXHeroAndClipSessionLogSampledEvent alloc] initFromLaunch:v13];
+        v15 = __atxlog_handle_hero(v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
-          __59__ATXAppClipSingleSuggestionLogger_handleSingleSuggestion___block_invoke_cold_1(v13, v14);
+          __59__ATXAppClipSingleSuggestionLogger_handleSingleSuggestion___block_invoke_cold_1(v14, v15);
         }
 
-        v15 = 16;
+        v16 = 16;
         if (((a3 - 1) & 0xFFFFFFFFFFFFFFFDLL) == 0)
         {
-          v15 = 24;
+          v16 = 24;
         }
 
-        [*(*(a1 + 48) + v15) addObject:v13];
+        [*(*(a1 + 48) + v16) addObject:v14];
       }
 
       if (a3 == 2)
       {
-        v16 = 1;
+        v17 = 1;
       }
 
       else
       {
-        v16 = 2 * (a3 == 3);
+        v17 = 2 * (a3 == 3);
       }
 
-      v17 = *(*(a1 + 80) + 8);
-      if (v16 > *(v17 + 24))
+      v18 = *(*(a1 + 80) + 8);
+      if (v17 > *(v18 + 24))
       {
-        *(v17 + 24) = v16;
+        *(v18 + 24) = v17;
       }
 
-      v19 = *(a1 + 40);
-      v18 = *(a1 + 48);
-      v20 = *(a1 + 32);
-      v21 = [MEMORY[0x277CEBCF0] stringForConsumerSubtype:a2];
-      v22 = [v18 _appClipEngagementMetricWithBundleId:v20 urlHash:v19 interactionType:v16 consumerSubType:v21];
+      v20 = *(a1 + 40);
+      v19 = *(a1 + 48);
+      v21 = *(a1 + 32);
+      v22 = [MEMORY[0x277CEBCF0] stringForConsumerSubtype:a2];
+      v23 = [v19 _appClipEngagementMetricWithBundleId:v21 urlHash:v20 interactionType:v17 consumerSubType:v22];
 
-      [*(a1 + 48) _logAppClipEngagementMetric:v22];
+      [*(a1 + 48) _logAppClipEngagementMetric:v23];
       goto LABEL_29;
     }
 
     goto LABEL_25;
   }
 
-  v22 = __atxlog_handle_hero();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+  v23 = __atxlog_handle_hero(a1);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
   {
-    __59__ATXAppClipSingleSuggestionLogger_handleSingleSuggestion___block_invoke_cold_4(a2, v22);
+    __59__ATXAppClipSingleSuggestionLogger_handleSingleSuggestion___block_invoke_cold_4(a2, v23);
   }
 
 LABEL_29:
 }
 
+- (void)_flushEventBuffer:(id)buffer numEventsToSample:(int64_t)sample isNegative:(BOOL)negative
+{
+  negativeCopy = negative;
+  v24 = *MEMORY[0x277D85DE8];
+  bufferCopy = buffer;
+  v8 = +[ATXHeroAndClipEventSamplers defaultSampler];
+  v9 = [v8 sampleEvents:bufferCopy numToSample:sample];
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v10 = [v9 countByEnumeratingWithState:&v17 objects:v23 count:16];
+  if (v10)
+  {
+    v11 = v10;
+    v12 = *v18;
+    do
+    {
+      v13 = 0;
+      do
+      {
+        if (*v18 != v12)
+        {
+          objc_enumerationMutation(v9);
+        }
+
+        launch = [*(*(&v17 + 1) + 8 * v13) launch];
+        [ATXLaunchAndLocationHarvester logAppOrClipLaunch:launch isNegativeSession:negativeCopy];
+
+        ++v13;
+      }
+
+      while (v11 != v13);
+      v10 = [v9 countByEnumeratingWithState:&v17 objects:v23 count:16];
+      v11 = v10;
+    }
+
+    while (v10);
+  }
+
+  v15 = __atxlog_handle_hero(v10);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+  {
+    v16 = [v9 count];
+    *buf = 134217984;
+    v22 = v16;
+    _os_log_impl(&dword_2263AA000, v15, OS_LOG_TYPE_INFO, "Session logged %lu app clip launch events.", buf, 0xCu);
+  }
+
+  [bufferCopy removeAllObjects];
+}
+
 - (void)flushEventBuffers
 {
   v3 = +[ATXHeroAndClipConstants sharedInstance];
-  v4 = __atxlog_handle_hero();
+  v4 = __atxlog_handle_hero(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [(ATXAppClipSingleSuggestionLogger *)v4 flushEventBuffers];
   }
 
-  -[ATXAppClipSingleSuggestionLogger _flushEventBuffer:numEventsToSample:isNegative:](self, "_flushEventBuffer:numEventsToSample:isNegative:", self->_positiveEventBuffer, [v3 appClipSessionLogPositiveSamplesPerDay], 0);
-  v5 = __atxlog_handle_hero();
+  v5 = __atxlog_handle_hero(-[ATXAppClipSingleSuggestionLogger _flushEventBuffer:numEventsToSample:isNegative:](self, "_flushEventBuffer:numEventsToSample:isNegative:", self->_positiveEventBuffer, [v3 appClipSessionLogPositiveSamplesPerDay], 0));
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [(ATXAppClipSingleSuggestionLogger *)v5 flushEventBuffers];
   }
 
-  -[ATXAppClipSingleSuggestionLogger _flushEventBuffer:numEventsToSample:isNegative:](self, "_flushEventBuffer:numEventsToSample:isNegative:", self->_negativeEventBuffer, [v3 appClipSessionLogNegativeSamplesPerDay], 1);
-  v6 = __atxlog_handle_hero();
+  v6 = __atxlog_handle_hero(-[ATXAppClipSingleSuggestionLogger _flushEventBuffer:numEventsToSample:isNegative:](self, "_flushEventBuffer:numEventsToSample:isNegative:", self->_negativeEventBuffer, [v3 appClipSessionLogNegativeSamplesPerDay], 1));
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *v7 = 0;
@@ -276,7 +341,7 @@ LABEL_29:
 
 - (void)_logAppClipEngagementMetric:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
   v7 = [a2 bundleId];
@@ -294,48 +359,42 @@ LABEL_29:
   }
 
   *buf = 138413314;
-  v14 = v6;
-  v15 = 2112;
-  v16 = v7;
-  v17 = 2112;
-  v18 = v8;
-  v19 = 2112;
-  v20 = v9;
-  v21 = 2112;
-  v22 = v11;
+  v13 = v6;
+  v14 = 2112;
+  v15 = v7;
+  v16 = 2112;
+  v17 = v8;
+  v18 = 2112;
+  v19 = v9;
+  v20 = 2112;
+  v21 = v11;
   _os_log_debug_impl(&dword_2263AA000, a3, OS_LOG_TYPE_DEBUG, "LOGGED: %@ - ATXMPBAppClipSessionEngagementTracker with bundleId: %@ urlHash: %@ consumerSubType: %@ interactionType: %@", buf, 0x34u);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __59__ATXAppClipSingleSuggestionLogger_handleSingleSuggestion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "Adding event %@ to the app clip session log buffer", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "Adding event %@ to the app clip session log buffer", &v2, 0xCu);
 }
 
 void __59__ATXAppClipSingleSuggestionLogger_handleSingleSuggestion___block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 56);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "BundleId or URL Hash or latitudeAtPredictionTime or longitudeAtPredictionTime missing while trying to log session for App Clip Prediction: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "BundleId or URL Hash or latitudeAtPredictionTime or longitudeAtPredictionTime missing while trying to log session for App Clip Prediction: %@", &v3, 0xCu);
 }
 
 void __59__ATXAppClipSingleSuggestionLogger_handleSingleSuggestion___block_invoke_cold_4(unsigned __int8 a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CEBCF0] stringForConsumerSubtype:a1];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Unknown consumer subtype for Location Based Dimsum received: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Unknown consumer subtype for Location Based Dimsum received: %@", &v4, 0xCu);
 }
 
 @end

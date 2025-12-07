@@ -7,7 +7,7 @@
 
 + (Class)_visualProviderClassForIdiom:(int64_t)idiom
 {
-  sub_188A34624(0, &qword_1EA92FD50);
+  sub_188A34624(0, &qword_1EA92FD50, off_1E70EB000);
 
   return swift_getObjCClassFromMetadata();
 }
@@ -18,9 +18,10 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v8.receiver = self;
-  v8.super_class = _s15PromptEntryViewC19AnimatingButtonViewCMa();
-  return [(_UIIntelligenceButton *)&v8 initWithFrame:x, y, width, height];
+  _s15PromptEntryViewC19AnimatingButtonViewCMa();
+  v10.receiver = self;
+  v10.super_class = v8;
+  return [(_UIIntelligenceButton *)&v10 initWithFrame:x, y, width, height];
 }
 
 @end

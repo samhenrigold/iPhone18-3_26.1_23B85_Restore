@@ -131,7 +131,7 @@
     v129 = *(v13 + 176);
   }
 
-  v134 = objc_msgSend_orderedSetWithCapacity_(MEMORY[0x1E695DFA0], v130, *(v129 + 24), v131, v132, v133);
+  v134 = objc_msgSend_orderedSetWithCapacity_(MEMORY[0x1E695DFA0], v130, *(v129 + 6), v131, v132, v133);
   if (*(*(v13 + 176) + 24))
   {
     v135 = 0;
@@ -556,7 +556,7 @@ LABEL_10:
 
     memset(v88, 0, sizeof(v88));
     ptr = self->_preprocessor.__ptr_;
-    sub_1837BD608(drawingCopy, &pointCopy, v88, &v97);
+    sub_1837BD608(drawingCopy, &pointCopy, &v97, v88);
     sub_1837A0520(ptr, &v97, v88, buf);
     if (v99)
     {
@@ -567,30 +567,30 @@ LABEL_10:
     if (v97 != 0.0)
     {
       v32 = v98;
-      v33 = v97;
-      if (*&v98 != *&v97)
+      v33 = *&v97;
+      if (v98 != *&v97)
       {
         v34 = v98;
         do
         {
-          v36 = *(*&v34 - 24);
-          *&v34 -= 24;
+          v36 = *(v34 - 3);
+          v34 -= 24;
           v35 = v36;
           if (v36)
           {
-            *(*&v32 - 16) = v35;
+            *(v32 - 2) = v35;
             operator delete(v35);
           }
 
           v32 = v34;
         }
 
-        while (*&v34 != *&v31);
-        v33 = v97;
+        while (v34 != *&v31);
+        v33 = *&v97;
       }
 
-      v98 = v31;
-      operator delete(*&v33);
+      v98 = *&v31;
+      operator delete(v33);
     }
 
     sub_18396AA48(&v97);

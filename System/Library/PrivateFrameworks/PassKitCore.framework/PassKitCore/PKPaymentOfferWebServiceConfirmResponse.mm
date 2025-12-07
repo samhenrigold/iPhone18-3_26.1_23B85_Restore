@@ -34,19 +34,19 @@ LABEL_12:
     v11 = v10;
     if (v10 != @"none" && v10 != 0)
     {
-      v13 = [(__CFString *)v10 isEqualToString:@"none"];
+      isEqualToString = objc_msgSend_isEqualToString_(v10);
 
-      if ((v13 & 1) == 0)
+      if ((isEqualToString & 1) == 0)
       {
         v31 = v11;
-        if (v31 == @"getOffers" || (v32 = v31, v33 = [(__CFString *)v31 isEqualToString:@"getOffers"], v32, (v33 & 1) != 0))
+        if (v31 == @"getOffers" || (v32 = v31, v33 = objc_msgSend_isEqualToString_(v31), v32, (v33 & 1) != 0))
         {
           v14 = 1;
           goto LABEL_9;
         }
 
         v34 = v32;
-        if (v34 == @"waitForPush" || (v35 = v34, v36 = [(__CFString *)v34 isEqualToString:@"waitForPush"], v35, v36))
+        if (v34 == @"waitForPush" || (v35 = v34, v36 = objc_msgSend_isEqualToString_(v34), v35, v36))
         {
           v14 = 2;
           goto LABEL_9;

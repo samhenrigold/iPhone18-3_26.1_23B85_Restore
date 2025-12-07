@@ -26,45 +26,45 @@
 
 - (void)swapSegmentAtIndex:(int64_t)index withSegmentAtIndex:(int64_t)atIndex
 {
-  v38 = objc_msgSend_findStrokeAndRangeAtIndex_(self, a2, index, atIndex, v4);
-  v15 = objc_msgSend_findStrokeAndRangeAtIndex_(self, v8, atIndex, v9, v10);
-  if (!v38)
+  v31 = objc_msgSend_findStrokeAndRangeAtIndex_(self, a2, index, atIndex);
+  v12 = objc_msgSend_findStrokeAndRangeAtIndex_(self, v7, atIndex, v8);
+  if (!v31)
   {
     goto LABEL_7;
   }
 
-  v16 = objc_msgSend_range(v38, v11, v12, v13, v14);
-  if (index == 0x7FFFFFFFFFFFFFFFLL || !v11 || v16 > index || &v11[v16 - 1] < index)
+  v13 = objc_msgSend_range(v31, v9, v10, v11);
+  if (index == 0x7FFFFFFFFFFFFFFFLL || !v9 || v13 > index || &v9[v13 - 1] < index)
   {
 
 LABEL_7:
-    v38 = 0;
+    v31 = 0;
   }
 
-  if (v15)
+  if (v12)
   {
-    v17 = objc_msgSend_range(v15, v11, v12, v13, v14);
-    if (atIndex == 0x7FFFFFFFFFFFFFFFLL || !v11 || v17 > atIndex || &v11[v17 - 1] < atIndex)
+    v14 = objc_msgSend_range(v12, v9, v10, v11);
+    if (atIndex == 0x7FFFFFFFFFFFFFFFLL || !v9 || v14 > atIndex || &v9[v14 - 1] < atIndex)
     {
 
-      v15 = 0;
+      v12 = 0;
     }
   }
 
-  objc_msgSend_invalidateRange_(self, v11, index, 1, v14);
-  objc_msgSend_invalidateRange_(self, v18, atIndex, 1, v19);
-  if (v38)
+  objc_msgSend_invalidateRange_(self, v9, index, 1);
+  objc_msgSend_invalidateRange_(self, v15, atIndex, 1);
+  if (v31)
   {
-    v24 = objc_msgSend_stroke(v38, v20, v21, v22, v23);
-    v29 = objc_msgSend_order(v38, v25, v26, v27, v28);
-    objc_msgSend_setStroke_inRange_order_(self, v30, v24, atIndex, 1, v29);
+    v19 = objc_msgSend_stroke(v31, v16, v17, v18);
+    v23 = objc_msgSend_order(v31, v20, v21, v22);
+    objc_msgSend_setStroke_inRange_order_(self, v24, v19, atIndex, 1, v23);
   }
 
-  if (v15)
+  if (v12)
   {
-    v31 = objc_msgSend_stroke(v15, v20, v21, v22, v23);
-    v36 = objc_msgSend_order(v15, v32, v33, v34, v35);
-    objc_msgSend_setStroke_inRange_order_(self, v37, v31, index, 1, v36);
+    v25 = objc_msgSend_stroke(v12, v16, v17, v18);
+    v29 = objc_msgSend_order(v12, v26, v27, v28);
+    objc_msgSend_setStroke_inRange_order_(self, v30, v25, index, 1, v29);
   }
 }
 
@@ -72,9 +72,9 @@ LABEL_7:
 {
   length = range.length;
   location = range.location;
-  v54 = 0;
-  v55 = 0;
-  v56 = 0;
+  v49 = 0;
+  v50 = 0;
+  v51 = 0;
   v8 = range.location + range.length;
   if (range.location >= index)
   {
@@ -96,84 +96,84 @@ LABEL_7:
     v10 = range.location;
   }
 
-  v11 = objc_msgSend_findStrokeAndRangeAtIndex_(self, a2, range.location, range.length, index);
-  v51 = v10;
-  v52 = v9 + index;
+  v11 = objc_msgSend_findStrokeAndRangeAtIndex_(self, a2, range.location, range.length);
+  v46 = v10;
+  v47 = v9 + index;
   if (v11)
   {
-    v16 = v9 + index - location;
-    v50 = v11;
-    v17 = v11;
+    v15 = v9 + index - location;
+    v45 = v11;
+    v16 = v11;
     while (1)
     {
-      v18 = objc_msgSend_range(v17, v12, v13, v14, v15, v50);
+      v17 = objc_msgSend_range(v16, v12, v13, v14, v45);
       if (location == 0x7FFFFFFFFFFFFFFFLL)
       {
         break;
       }
 
-      if (v18 != 0x7FFFFFFFFFFFFFFFLL && length && v12)
+      if (v17 != 0x7FFFFFFFFFFFFFFFLL && length && v12)
       {
-        if (location <= v18)
+        if (location <= v17)
         {
-          v21 = v18;
+          v20 = v17;
         }
 
         else
         {
-          v21 = location;
+          v20 = location;
         }
 
-        v22 = &v12[v18];
-        if (v8 < &v12[v18])
+        v21 = &v12[v17];
+        if (v8 < &v12[v17])
         {
-          v22 = v8;
+          v21 = v8;
         }
 
-        if (v22 > v21)
+        if (v21 > v20)
         {
-          v23 = objc_msgSend_range(v17, v12, v19, v20, v15);
-          if (location <= v23)
+          v22 = objc_msgSend_range(v16, v12, v18, v19);
+          if (location <= v22)
           {
-            v28 = v23;
+            v26 = v22;
           }
 
           else
           {
-            v28 = location;
+            v26 = location;
           }
 
-          v29 = &v24[v23];
-          if (v8 < &v24[v23])
+          v27 = &v23[v22];
+          if (v8 < &v23[v22])
           {
-            v29 = v8;
+            v27 = v8;
           }
 
-          v30 = v29 < v28;
-          v31 = &v29[-v28];
-          if (v30)
+          v28 = v27 < v26;
+          v29 = &v27[-v26];
+          if (v28)
           {
-            v28 = 0x7FFFFFFFFFFFFFFFLL;
-            v31 = 0;
+            v26 = 0x7FFFFFFFFFFFFFFFLL;
+            v29 = 0;
           }
 
-          if (!v24)
+          if (!v23)
           {
-            v28 = 0x7FFFFFFFFFFFFFFFLL;
-            v31 = 0;
+            v26 = 0x7FFFFFFFFFFFFFFFLL;
+            v29 = 0;
           }
 
-          v32 = v23 == 0x7FFFFFFFFFFFFFFFLL ? 0x7FFFFFFFFFFFFFFFLL : v28;
-          v33 = v23 == 0x7FFFFFFFFFFFFFFFLL ? 0 : v31;
-          v34 = objc_msgSend_stroke(v17, v24, v25, v26, v27);
-          v39 = objc_msgSend_order(v17, v35, v36, v37, v38);
-          sub_2213FFC6C(v53, v34, v16 + v32, v33, v39);
-          sub_2213FD474(&v54, v53);
+          v30 = v22 == 0x7FFFFFFFFFFFFFFFLL ? 0x7FFFFFFFFFFFFFFFLL : v26;
+          v31 = v22 == 0x7FFFFFFFFFFFFFFFLL ? 0 : v29;
+          v32 = objc_msgSend_stroke(v16, v23, v24, v25);
+          v36 = objc_msgSend_order(v16, v33, v34, v35);
+          sub_2213FFC6C(v48, v32, v15 + v30, v31, v36);
+          sub_2213FD474(&v49, v48);
 
-          v43 = objc_msgSend_nextStrokeAndRange_(self, v40, v17, v41, v42);
+          v39 = objc_msgSend_nextStrokeAndRange_(self, v37, v16, v38);
 
-          v17 = v43;
-          if (v43)
+          v16 = v39;
+          if (v39)
           {
             continue;
           }
@@ -183,30 +183,30 @@ LABEL_7:
       goto LABEL_38;
     }
 
-    v17 = v50;
+    v16 = v45;
   }
 
   else
   {
-    v17 = 0;
+    v16 = 0;
   }
 
 LABEL_38:
-  objc_msgSend_insertSpaceAtRange_(self, v12, v52, length, v15);
-  v46 = v54;
-  v47 = v55;
-  while (v46 != v47)
+  objc_msgSend_insertSpaceAtRange_(self, v12, v47, length);
+  v41 = v49;
+  v42 = v50;
+  while (v41 != v42)
   {
-    v48 = *v46;
-    objc_msgSend_setStroke_inRange_order_(self, v49, v48, *(v46 + 8), *(v46 + 16), *(v46 + 24));
+    v43 = *v41;
+    objc_msgSend_setStroke_inRange_order_(self, v44, v43, *(v41 + 8), *(v41 + 16), *(v41 + 24));
 
-    v46 += 32;
+    v41 += 32;
   }
 
-  objc_msgSend_removeRange_(self, v44, v51, length, v45);
+  objc_msgSend_removeRange_(self, v40, v46, length);
 
-  v53[0] = &v54;
-  sub_221400634(v53);
+  v48[0] = &v49;
+  sub_221400634(v48);
 }
 
 - (void)applyStroke:(id)stroke atIndexes:(id)indexes order:(int)order applyStroke:(id)applyStroke atIndexes:(id)atIndexes order:(int)a8 applyStroke:(id)a9 atIndexes:(id)self0 order:(int)self1 applyStroke:(id)self2 atIndexes:(id)self3 order:(int)self4 applyStroke:(id)self5 atIndexes:(id)self6 order:(int)self7
@@ -215,266 +215,266 @@ LABEL_38:
   indexesCopy = indexes;
   applyStrokeCopy = applyStroke;
   atIndexesCopy = atIndexes;
-  v175 = a9;
+  v143 = a9;
   v21 = a10;
-  v176 = a12;
+  v144 = a12;
   v22 = a13;
-  v174 = a15;
-  v178 = a16;
+  v142 = a15;
+  v146 = a16;
   p_strokeRuns = &self->super._strokeRuns;
   if ((p_strokeRuns->__end_ - p_strokeRuns->__begin_) >= 0x80)
   {
-    v28 = MEMORY[0x277D81150];
-    v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v23, "[TSTMutableStrokeLayer applyStroke:atIndexes:order:applyStroke:atIndexes:order:applyStroke:atIndexes:order:applyStroke:atIndexes:order:applyStroke:atIndexes:order:]", v25, v26);
-    v33 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v30, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTStrokeLayer.mm", v31, v32);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v28, v34, v29, v33, 792, 0, "this interface can't be used on complex stroke layers");
+    v27 = MEMORY[0x277D81150];
+    v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v23, "[TSTMutableStrokeLayer applyStroke:atIndexes:order:applyStroke:atIndexes:order:applyStroke:atIndexes:order:applyStroke:atIndexes:order:applyStroke:atIndexes:order:]", v25);
+    v31 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v29, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTStrokeLayer.mm", v30);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v27, v32, v28, v31, 792, 0, "this interface can't be used on complex stroke layers");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v35, v36, v37, v38);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v33, v34, v35);
   }
 
-  v204 = 0;
-  v205 = &v204;
-  v206 = 0x4812000000;
-  v207 = sub_2213FF890;
-  v208 = sub_2213FF8B4;
-  v209 = &unk_22188E88F;
-  memset(v210, 0, sizeof(v210));
-  v39 = applyStrokeCopy;
-  if (objc_msgSend_count(v178, v23, v24, v25, v26) && objc_msgSend_count(v22, v40, v41, v42, v43) && sub_2213FC7C4(v174, v176))
+  v172 = 0;
+  v173 = &v172;
+  v174 = 0x4812000000;
+  v175 = sub_2213FF890;
+  v176 = sub_2213FF8B4;
+  v177 = &unk_22188E88F;
+  memset(v178, 0, sizeof(v178));
+  v36 = applyStrokeCopy;
+  if (objc_msgSend_count(v146, v23, v24, v25) && objc_msgSend_count(v22, v37, v38, v39) && sub_2213FC7C4(v142, v144))
   {
-    v44 = objc_msgSend_tsu_indexSetByAddingIndexes_(v22, v40, v178, v42, v43);
+    v40 = objc_msgSend_tsu_indexSetByAddingIndexes_(v22, v37, v146, v39);
 
-    v178 = 0;
-    v22 = v44;
+    v146 = 0;
+    v22 = v40;
   }
 
-  if (objc_msgSend_count(v22, v40, v41, v42, v43) && objc_msgSend_count(v21, v45, v46, v47, v48) && sub_2213FC7C4(v176, v175))
+  if (objc_msgSend_count(v22, v37, v38, v39) && objc_msgSend_count(v21, v41, v42, v43) && sub_2213FC7C4(v144, v143))
   {
-    v49 = objc_msgSend_tsu_indexSetByAddingIndexes_(v21, v45, v22, v47, v48);
+    v44 = objc_msgSend_tsu_indexSetByAddingIndexes_(v21, v41, v22, v43);
 
     v22 = 0;
-    v21 = v49;
+    v21 = v44;
   }
 
-  if (objc_msgSend_count(v21, v45, v46, v47, v48) && objc_msgSend_count(atIndexesCopy, v50, v51, v52, v53) && sub_2213FC7C4(v175, applyStrokeCopy))
+  if (objc_msgSend_count(v21, v41, v42, v43) && objc_msgSend_count(atIndexesCopy, v45, v46, v47) && sub_2213FC7C4(v143, applyStrokeCopy))
   {
-    v54 = objc_msgSend_tsu_indexSetByAddingIndexes_(atIndexesCopy, v50, v21, v52, v53);
+    v48 = objc_msgSend_tsu_indexSetByAddingIndexes_(atIndexesCopy, v45, v21, v47);
 
     v21 = 0;
-    atIndexesCopy = v54;
+    atIndexesCopy = v48;
   }
 
-  if (objc_msgSend_count(atIndexesCopy, v50, v51, v52, v53) && objc_msgSend_count(indexesCopy, v55, v56, v57, v58) && sub_2213FC7C4(applyStrokeCopy, strokeCopy))
+  if (objc_msgSend_count(atIndexesCopy, v45, v46, v47) && objc_msgSend_count(indexesCopy, v49, v50, v51) && sub_2213FC7C4(applyStrokeCopy, strokeCopy))
   {
-    v59 = objc_msgSend_tsu_indexSetByAddingIndexes_(indexesCopy, v55, atIndexesCopy, v57, v58);
+    v52 = objc_msgSend_tsu_indexSetByAddingIndexes_(indexesCopy, v49, atIndexesCopy, v51);
 
     atIndexesCopy = 0;
-    indexesCopy = v59;
+    indexesCopy = v52;
   }
 
-  Index = objc_msgSend_firstIndex(indexesCopy, v55, v56, v57, v58);
+  Index = objc_msgSend_firstIndex(indexesCopy, v49, v50, v51);
   begin = p_strokeRuns->__begin_;
-  v65 = p_strokeRuns->__end_ - p_strokeRuns->__begin_;
-  if (!v65)
+  v57 = p_strokeRuns->__end_ - p_strokeRuns->__begin_;
+  if (!v57)
   {
 LABEL_33:
-    v73 = 0;
-    v169 = 1;
+    v65 = 0;
+    v137 = 1;
 LABEL_34:
-    v74 = MEMORY[0x277D81150];
-    v75 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v61, "[TSTMutableStrokeLayer applyStroke:atIndexes:order:applyStroke:atIndexes:order:applyStroke:atIndexes:order:applyStroke:atIndexes:order:applyStroke:atIndexes:order:]", v62, v63);
-    v79 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v76, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTStrokeLayer.mm", v77, v78);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v74, v80, v75, v79, 840, 0, "invalid nil value for '%{public}s'", "bodyIndexes");
+    v66 = MEMORY[0x277D81150];
+    v67 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v54, "[TSTMutableStrokeLayer applyStroke:atIndexes:order:applyStroke:atIndexes:order:applyStroke:atIndexes:order:applyStroke:atIndexes:order:applyStroke:atIndexes:order:]", v55);
+    v70 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v68, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTStrokeLayer.mm", v69);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v66, v71, v67, v70, 840, 0, "invalid nil value for '%{public}s'", "bodyIndexes");
 
-    v81 = 0;
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v82, v83, v84, v85);
+    v72 = 0;
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v73, v74, v75);
     goto LABEL_35;
   }
 
-  v66 = 0;
-  v67 = v65 >> 5;
-  if (v67 <= 1)
+  v58 = 0;
+  v59 = v57 >> 5;
+  if (v59 <= 1)
   {
-    v67 = 1;
+    v59 = 1;
   }
 
-  v68 = 32;
+  v60 = 32;
   while (1)
   {
-    v69 = *(begin + v68 - 24);
-    v70 = *(begin + v68 - 16);
-    v71 = Index == 0x7FFFFFFFFFFFFFFFLL || v70 == 0;
-    v72 = !v71 && v69 <= Index;
-    if (v72 && v69 + v70 - 1 >= Index)
+    v61 = *(begin + v60 - 24);
+    v62 = *(begin + v60 - 16);
+    v63 = Index == 0x7FFFFFFFFFFFFFFFLL || v62 == 0;
+    v64 = !v63 && v61 <= Index;
+    if (v64 && v61 + v62 - 1 >= Index)
     {
       break;
     }
 
-    ++v66;
-    v68 += 32;
-    if (v67 == v66)
+    ++v58;
+    v60 += 32;
+    if (v59 == v58)
     {
       goto LABEL_33;
     }
   }
 
-  v73 = *(begin + v68 - 32);
-  v108 = p_strokeRuns->__begin_ + v68;
-  v169 = *(v108 - 2);
-  v81 = objc_msgSend_indexSetWithIndexesInRange_(MEMORY[0x277CCAB58], v109, *(v108 - 3), *(v108 - 2), v110);
-  if (v66)
+  v65 = *(begin + v60 - 32);
+  v93 = p_strokeRuns->__begin_ + v60;
+  v137 = *(v93 - 2);
+  v72 = objc_msgSend_indexSetWithIndexesInRange_(MEMORY[0x277CCAB58], v94, *(v93 - 3), *(v93 - 2));
+  if (v58)
   {
-    sub_2213FF8E0(v205 + 6, p_strokeRuns->__begin_ + v68 - 64);
+    sub_2213FF8E0(v173 + 6, p_strokeRuns->__begin_ + v60 - 64);
   }
 
-  if (v66 < ((p_strokeRuns->__end_ - p_strokeRuns->__begin_) >> 5) - 1)
+  if (v58 < ((p_strokeRuns->__end_ - p_strokeRuns->__begin_) >> 5) - 1)
   {
-    sub_2213FF8E0(v205 + 6, p_strokeRuns->__begin_ + v68);
+    sub_2213FF8E0(v173 + 6, p_strokeRuns->__begin_ + v60);
   }
 
-  objc_msgSend_removeIndexes_(v81, v111, v178, v112, v113);
-  objc_msgSend_removeIndexes_(v81, v114, v22, v115, v116);
-  objc_msgSend_removeIndexes_(v81, v117, v21, v118, v119);
-  objc_msgSend_removeIndexes_(v81, v120, atIndexesCopy, v121, v122);
-  objc_msgSend_removeIndexes_(v81, v123, indexesCopy, v124, v125);
-  if (!v81)
+  objc_msgSend_removeIndexes_(v72, v95, v146, v96);
+  objc_msgSend_removeIndexes_(v72, v97, v22, v98);
+  objc_msgSend_removeIndexes_(v72, v99, v21, v100);
+  objc_msgSend_removeIndexes_(v72, v101, atIndexesCopy, v102);
+  objc_msgSend_removeIndexes_(v72, v103, indexesCopy, v104);
+  if (!v72)
   {
     goto LABEL_34;
   }
 
 LABEL_35:
-  if (!objc_msgSend_count(v81, v61, v86, v62, v63))
+  if (!objc_msgSend_count(v72, v54, v76, v55))
   {
     goto LABEL_64;
   }
 
-  if (objc_msgSend_count(v178, v87, v88, v89, v90))
+  if (objc_msgSend_count(v146, v77, v78, v79))
   {
-    if (sub_2213FC7C4(v174, v73))
+    if (sub_2213FC7C4(v142, v65))
     {
-      v98 = objc_msgSend_tsu_indexSetByAddingIndexes_(v178, v95, v81, v96, v97);
-      v99 = v178;
-      v178 = v98;
+      v85 = objc_msgSend_tsu_indexSetByAddingIndexes_(v146, v83, v72, v84);
+      v86 = v146;
+      v146 = v85;
 LABEL_57:
 
-      v81 = 0;
+      v72 = 0;
     }
   }
 
-  else if (objc_msgSend_count(v22, v91, v92, v93, v94))
+  else if (objc_msgSend_count(v22, v80, v81, v82))
   {
-    if (sub_2213FC7C4(v176, v73))
+    if (sub_2213FC7C4(v144, v65))
     {
-      v107 = objc_msgSend_tsu_indexSetByAddingIndexes_(v22, v104, v81, v105, v106);
-      v99 = v22;
-      v22 = v107;
+      v92 = objc_msgSend_tsu_indexSetByAddingIndexes_(v22, v90, v72, v91);
+      v86 = v22;
+      v22 = v92;
       goto LABEL_57;
     }
   }
 
-  else if (objc_msgSend_count(v21, v100, v101, v102, v103))
+  else if (objc_msgSend_count(v21, v87, v88, v89))
   {
-    if (sub_2213FC7C4(v175, v73))
+    if (sub_2213FC7C4(v143, v65))
     {
-      v133 = objc_msgSend_tsu_indexSetByAddingIndexes_(v21, v130, v81, v131, v132);
-      v99 = v21;
-      v21 = v133;
+      v110 = objc_msgSend_tsu_indexSetByAddingIndexes_(v21, v108, v72, v109);
+      v86 = v21;
+      v21 = v110;
       goto LABEL_57;
     }
   }
 
-  else if (objc_msgSend_count(atIndexesCopy, v126, v127, v128, v129))
+  else if (objc_msgSend_count(atIndexesCopy, v105, v106, v107))
   {
-    if (sub_2213FC7C4(applyStrokeCopy, v73))
+    if (sub_2213FC7C4(applyStrokeCopy, v65))
     {
-      v141 = objc_msgSend_tsu_indexSetByAddingIndexes_(atIndexesCopy, v138, v81, v139, v140);
-      v99 = atIndexesCopy;
-      atIndexesCopy = v141;
+      v116 = objc_msgSend_tsu_indexSetByAddingIndexes_(atIndexesCopy, v114, v72, v115);
+      v86 = atIndexesCopy;
+      atIndexesCopy = v116;
       goto LABEL_57;
     }
   }
 
-  else if (objc_msgSend_count(indexesCopy, v134, v135, v136, v137) && sub_2213FC7C4(strokeCopy, v73))
+  else if (objc_msgSend_count(indexesCopy, v111, v112, v113) && sub_2213FC7C4(strokeCopy, v65))
   {
-    v145 = objc_msgSend_tsu_indexSetByAddingIndexes_(indexesCopy, v142, v81, v143, v144);
-    v99 = indexesCopy;
-    indexesCopy = v145;
+    v119 = objc_msgSend_tsu_indexSetByAddingIndexes_(indexesCopy, v117, v72, v118);
+    v86 = indexesCopy;
+    indexesCopy = v119;
     goto LABEL_57;
   }
 
-  v200[0] = MEMORY[0x277D85DD0];
-  v200[1] = 3221225472;
-  v200[2] = sub_2213FF9FC;
-  v200[3] = &unk_2784649D0;
-  v202 = &v204;
-  v201 = strokeCopy;
+  v168[0] = MEMORY[0x277D85DD0];
+  v168[1] = 3221225472;
+  v168[2] = sub_2213FF9FC;
+  v168[3] = &unk_2784649D0;
+  v170 = &v172;
+  v169 = strokeCopy;
   orderCopy = order;
-  objc_msgSend_enumerateRangesUsingBlock_(indexesCopy, v146, v200, v147, v148);
-  v196[0] = MEMORY[0x277D85DD0];
-  v196[1] = 3221225472;
-  v196[2] = sub_2213FFA64;
-  v196[3] = &unk_2784649D0;
-  v198 = &v204;
-  v197 = applyStrokeCopy;
-  v199 = a8;
-  objc_msgSend_enumerateRangesUsingBlock_(atIndexesCopy, v149, v196, v150, v151);
-  v192[0] = MEMORY[0x277D85DD0];
-  v192[1] = 3221225472;
-  v192[2] = sub_2213FFACC;
-  v192[3] = &unk_2784649D0;
-  v194 = &v204;
-  v193 = v175;
-  v195 = a11;
-  objc_msgSend_enumerateRangesUsingBlock_(v21, v152, v192, v153, v154);
-  v188[0] = MEMORY[0x277D85DD0];
-  v188[1] = 3221225472;
-  v188[2] = sub_2213FFB34;
-  v188[3] = &unk_2784649D0;
-  v190 = &v204;
-  v189 = v176;
-  v191 = a14;
-  objc_msgSend_enumerateRangesUsingBlock_(v22, v155, v188, v156, v157);
-  v184[0] = MEMORY[0x277D85DD0];
-  v184[1] = 3221225472;
-  v184[2] = sub_2213FFB9C;
-  v184[3] = &unk_2784649D0;
-  v186 = &v204;
-  v185 = v174;
-  v187 = a17;
-  objc_msgSend_enumerateRangesUsingBlock_(v178, v158, v184, v159, v160);
-  v180[0] = MEMORY[0x277D85DD0];
-  v180[1] = 3221225472;
-  v180[2] = sub_2213FFC04;
-  v180[3] = &unk_2784649D0;
-  v182 = &v204;
-  v181 = v73;
-  v183 = v169;
-  v39 = applyStrokeCopy;
-  objc_msgSend_enumerateRangesUsingBlock_(v81, v161, v180, v162, v163);
-  v165 = v205[6];
-  v166 = v205[7];
-  v167 = 126 - 2 * __clz((v166 - v165) >> 5);
-  v211 = sub_2213FC7B0;
-  if (v166 == v165)
+  objc_msgSend_enumerateRangesUsingBlock_(indexesCopy, v120, v168, v121);
+  v164[0] = MEMORY[0x277D85DD0];
+  v164[1] = 3221225472;
+  v164[2] = sub_2213FFA64;
+  v164[3] = &unk_2784649D0;
+  v166 = &v172;
+  v165 = applyStrokeCopy;
+  v167 = a8;
+  objc_msgSend_enumerateRangesUsingBlock_(atIndexesCopy, v122, v164, v123);
+  v160[0] = MEMORY[0x277D85DD0];
+  v160[1] = 3221225472;
+  v160[2] = sub_2213FFACC;
+  v160[3] = &unk_2784649D0;
+  v162 = &v172;
+  v161 = v143;
+  v163 = a11;
+  objc_msgSend_enumerateRangesUsingBlock_(v21, v124, v160, v125);
+  v156[0] = MEMORY[0x277D85DD0];
+  v156[1] = 3221225472;
+  v156[2] = sub_2213FFB34;
+  v156[3] = &unk_2784649D0;
+  v158 = &v172;
+  v157 = v144;
+  v159 = a14;
+  objc_msgSend_enumerateRangesUsingBlock_(v22, v126, v156, v127);
+  v152[0] = MEMORY[0x277D85DD0];
+  v152[1] = 3221225472;
+  v152[2] = sub_2213FFB9C;
+  v152[3] = &unk_2784649D0;
+  v154 = &v172;
+  v153 = v142;
+  v155 = a17;
+  objc_msgSend_enumerateRangesUsingBlock_(v146, v128, v152, v129);
+  v148[0] = MEMORY[0x277D85DD0];
+  v148[1] = 3221225472;
+  v148[2] = sub_2213FFC04;
+  v148[3] = &unk_2784649D0;
+  v150 = &v172;
+  v149 = v65;
+  v151 = v137;
+  v36 = applyStrokeCopy;
+  objc_msgSend_enumerateRangesUsingBlock_(v72, v130, v148, v131);
+  v133 = v173[6];
+  v134 = v173[7];
+  v135 = 126 - 2 * __clz((v134 - v133) >> 5);
+  v179 = sub_2213FC7B0;
+  if (v134 == v133)
   {
-    v168 = 0;
+    v136 = 0;
   }
 
   else
   {
-    v168 = v167;
+    v136 = v135;
   }
 
-  sub_2214006B4(v165, v166, &v211, v168, 1, v164);
-  if (p_strokeRuns != (v205 + 6))
+  sub_2214006B4(v133, v134, &v179, v136, 1, v132);
+  if (p_strokeRuns != (v173 + 6))
   {
-    sub_2213FFCEC(p_strokeRuns, v205[6], v205[7], (v205[7] - v205[6]) >> 5);
+    sub_2213FFCEC(p_strokeRuns, v173[6], v173[7], (v173[7] - v173[6]) >> 5);
   }
 
 LABEL_64:
-  _Block_object_dispose(&v204, 8);
-  v212 = v210;
-  sub_221400634(&v212);
+  _Block_object_dispose(&v172, 8);
+  v180 = v178;
+  sub_221400634(&v180);
 }
 
 @end

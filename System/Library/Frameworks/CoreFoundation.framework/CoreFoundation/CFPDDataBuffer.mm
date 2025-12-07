@@ -1,5 +1,6 @@
 @interface CFPDDataBuffer
 + (id)newBufferFromCFData:(__CFData *)data;
++ (id)newBufferFromFile:(int)file allowMappingIfSafe:(BOOL)safe;
 + (id)newBufferFromPropertyList:(void *)list;
 - (BOOL)validatePlist;
 - (__CFData)copyCFData;
@@ -12,11 +13,11 @@
 
 - (BOOL)validatePlist
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v2 = CFDataCreateWithBytesNoCopy(&__kCFAllocatorSystemDefault, [(CFPDDataBuffer *)self bytes], [(CFPDDataBuffer *)self length], &__kCFAllocatorNull);
-  v7[0] = 0;
-  v3 = _CFPropertyListValidateData(v2, v7);
-  if (v7[0] == 18)
+  v6[0] = 0;
+  v3 = _CFPropertyListValidateData(v2, v6);
+  if (v6[0] == 18)
   {
     v4 = v3;
   }
@@ -27,7 +28,6 @@
   }
 
   CFRelease(v2);
-  v5 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -44,6 +44,22 @@
   v4 = [CFPDCFDataBuffer alloc];
 
   return [(CFPDCFDataBuffer *)v4 initWithCFData:data];
+}
+
++ (id)newBufferFromFile:(int)file allowMappingIfSafe:(BOOL)safe
+{
+  v4 = *&file;
+  v9 = *MEMORY[0x1E69E9840];
+  memset(&v8, 0, sizeof(v8));
+  v5 = fstat(file, &v8);
+  result = 0;
+  if (!v5 && v8.st_size >= 1)
+  {
+    v7 = [CFPDPurgeableBuffer alloc];
+    return [(CFPDPurgeableBuffer *)v7 initWithFileDescriptor:v4 size:v8.st_size];
+  }
+
+  return result;
 }
 
 + (id)newBufferFromPropertyList:(void *)list
@@ -66,19 +82,23 @@
   v6 = CFDataCreateWithBytesNoCopy(&__kCFAllocatorSystemDefault, [(CFPDDataBuffer *)self bytes], [(CFPDDataBuffer *)self length], &__kCFAllocatorNull);
   v7 = CFPropertyListCreateWithData(&__kCFAllocatorSystemDefault, v6, mutability, 0, error);
   CFRelease(v6);
-  if (v7 && CFGetTypeID(v7) != 18)
+  if (v7)
   {
-    v8 = _CFPrefsDaemonLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v8 = CFGetTypeID(v7);
+    if (v8 != 18)
     {
-      [CFPDDataBuffer copyPropertyListWithMutability:v8 error:?];
-    }
+      v10 = _CFPrefsDaemonLog(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      {
+        [CFPDDataBuffer copyPropertyListWithMutability:v10 error:?];
+      }
 
-    CFRelease(v7);
-    v7 = 0;
-    if (error)
-    {
-      *error = 0;
+      CFRelease(v7);
+      v7 = 0;
+      if (error)
+      {
+        *error = 0;
+      }
     }
   }
 
@@ -106,19 +126,17 @@
 
 - (void)copyPropertyListWithMutability:(os_log_t)log error:.cold.1(os_log_t log)
 {
-  v3 = *MEMORY[0x1E69E9840];
-  *v2 = 0;
-  _os_log_error_impl(&dword_1830E6000, log, OS_LOG_TYPE_ERROR, "Found non-dictionary property list, which is invalid for preferences. Ignoring it.", v2, 2u);
-  v1 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
+  *v1 = 0;
+  _os_log_error_impl(&dword_1830E6000, log, OS_LOG_TYPE_ERROR, "Found non-dictionary property list, which is invalid for preferences. Ignoring it.", v1, 2u);
 }
 
 - (void)quicklyValidatePlistAndOnFailureInvokeBlock:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1830E6000, a2, OS_LOG_TYPE_ERROR, "bad plist data: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1830E6000, a2, OS_LOG_TYPE_ERROR, "bad plist data: %{public}@", &v2, 0xCu);
 }
 
 @end

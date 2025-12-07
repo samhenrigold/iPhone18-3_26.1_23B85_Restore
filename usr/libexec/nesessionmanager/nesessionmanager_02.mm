@@ -1237,24 +1237,7 @@ LABEL_59:
       v5 = v81;
     }
 
-    if (*(a1 + 80) == 1)
-    {
-      v63 = [NEPolicyCondition scopedInterface:*(a1 + 56)];
-      v95[0] = v63;
-      v64 = +[NEPolicyCondition fallbackTraffic];
-      v95[1] = v64;
-      v65 = [NSArray arrayWithObjects:v95 count:2];
-
-      v66 = [[NEPolicy alloc] initWithOrder:v9 result:obj conditions:v65];
-      LODWORD(v64) = sub_100033A90(v82, v66, v5);
-
-      if (!v64)
-      {
-        goto LABEL_55;
-      }
-    }
-
-    if (sub_100031EB4(v82))
+    if ((*(a1 + 80) != 1 || (+[NEPolicyCondition scopedInterface:](NEPolicyCondition, "scopedInterface:", *(a1 + 56)), v63 = objc_claimAutoreleasedReturnValue(), v95[0] = v63, +[NEPolicyCondition fallbackTraffic](NEPolicyCondition, "fallbackTraffic"), v64 = objc_claimAutoreleasedReturnValue(), v95[1] = v64, +[NSArray arrayWithObjects:count:](NSArray, "arrayWithObjects:count:", v95, 2), v65 = objc_claimAutoreleasedReturnValue(), v64, v63, v66 = [[NEPolicy alloc] initWithOrder:v9 result:obj conditions:v65], LODWORD(v64) = sub_100033A90(v82, v66, v5), v66, v65, v64)) && sub_100031EB4(v82))
     {
       v78 = ne_log_large_obj();
       if (os_log_type_enabled(v78, OS_LOG_TYPE_DEBUG))
@@ -1273,7 +1256,6 @@ LABEL_58:
 
     else
     {
-LABEL_55:
       v67 = 0;
     }
 
@@ -2624,19 +2606,7 @@ LABEL_7:
 LABEL_12:
         v21 = [v90 matchRemoteHostOrNetworkEndpoint];
         v87 = a3;
-        if (!v21)
-        {
-          goto LABEL_17;
-        }
-
-        v22 = v21;
-        v23 = [v90 matchRemoteHostOrNetworkEndpoint];
-        v24 = v13;
-        type = nw_endpoint_get_type(v23);
-
-        v26 = type == nw_endpoint_type_host;
-        v13 = v24;
-        if (v26)
+        if (v21 && (v22 = v21, [v90 matchRemoteHostOrNetworkEndpoint], v23 = objc_claimAutoreleasedReturnValue(), v24 = v13, v25 = nw_endpoint_get_type(v23), v23, v22, v26 = v25 == nw_endpoint_type_host, v13 = v24, v26))
         {
           v27 = [v90 matchRemoteHostOrNetworkEndpoint];
           v28 = [NSString stringWithUTF8String:nw_endpoint_get_hostname(v27)];
@@ -2681,15 +2651,14 @@ LABEL_12:
 
         else
         {
-LABEL_17:
           v48 = [v90 matchRemoteHostOrNetworkEndpoint];
           if (v48)
           {
             v49 = v48;
             v50 = [v90 matchRemoteHostOrNetworkEndpoint];
-            v51 = nw_endpoint_get_type(v50);
+            type = nw_endpoint_get_type(v50);
 
-            if (v51 == nw_endpoint_type_address)
+            if (type == nw_endpoint_type_address)
             {
               v52 = [v90 matchRemoteHostOrNetworkEndpoint];
               address = nw_endpoint_get_address(v52);
@@ -3271,33 +3240,33 @@ uint64_t sub_100040748(uint64_t a1, void *a2)
   return v7;
 }
 
-id sub_1000407B8(uint64_t a1, void *a2)
+id sub_1000407B8(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   if (!a1)
   {
     return 0;
   }
 
-  v2 = a2;
-  v3 = objc_alloc_init(NSMutableArray);
-  v4 = [v2 matchSigningIdentifier];
-  v5 = [v2 matchPath];
+  v4 = a2;
+  v5 = objc_alloc_init(NSMutableArray);
+  v6 = [v4 matchSigningIdentifier];
+  v7 = [v4 matchPath];
 
-  [v4 UTF8String];
-  [v5 UTF8String];
-  v6 = NEHelperCacheCopyAppUUIDMappingForUIDExtended();
-  v7 = v6;
-  if (v6 && xpc_get_type(v6) == &_xpc_type_array)
+  [v6 UTF8String];
+  [v7 UTF8String];
+  v8 = NEHelperCacheCopyAppUUIDMappingForUIDExtended();
+  v9 = v8;
+  if (v8 && xpc_get_type(v8) == &_xpc_type_array)
   {
     applier[0] = _NSConcreteStackBlock;
     applier[1] = 3221225472;
     applier[2] = sub_1000408F8;
     applier[3] = &unk_1000EB040;
-    v10 = v3;
-    xpc_array_apply(v7, applier);
+    v12 = v5;
+    xpc_array_apply(v9, applier);
   }
 
-  return v3;
+  return v5;
 }
 
 uint64_t sub_1000408F8(uint64_t a1, uint64_t a2, void *a3)
@@ -3314,56 +3283,56 @@ uint64_t sub_1000408F8(uint64_t a1, uint64_t a2, void *a3)
   return 1;
 }
 
-void sub_100040988(uint64_t a1, void *a2)
+void sub_100040988(uint64_t a1, void *a2, uint64_t a3)
 {
-  v3 = a2;
-  v4 = v3;
-  if (a1 && [v3 count])
+  v5 = a2;
+  v6 = v5;
+  if (a1 && [v5 count])
   {
+    v19 = 0u;
+    v20 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    v14 = v4;
-    v5 = v4;
-    v6 = [v5 countByEnumeratingWithState:&v15 objects:v21 count:16];
-    if (v6)
+    v16 = v6;
+    v7 = v6;
+    v8 = [v7 countByEnumeratingWithState:&v17 objects:v23 count:16];
+    if (v8)
     {
-      v7 = v6;
-      v8 = *v16;
+      v9 = v8;
+      v10 = *v18;
       do
       {
-        for (i = 0; i != v7; i = i + 1)
+        for (i = 0; i != v9; i = i + 1)
         {
-          if (*v16 != v8)
+          if (*v18 != v10)
           {
-            objc_enumerationMutation(v5);
+            objc_enumerationMutation(v7);
           }
 
-          v10 = *(*(&v15 + 1) + 8 * i);
-          v11 = sub_1000407B8(a1, v10);
-          if (![v11 count])
+          v12 = *(*(&v17 + 1) + 8 * i);
+          v13 = sub_1000407B8(a1, v12, 0, a3);
+          if (![v13 count])
           {
-            v12 = ne_log_obj();
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+            v14 = ne_log_obj();
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
             {
-              v13 = [v10 matchSigningIdentifier];
+              v15 = [v12 matchSigningIdentifier];
               *buf = 138412290;
-              v20 = v13;
-              _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "No Mach-O UUIDs found for app rule %@", buf, 0xCu);
+              v22 = v15;
+              _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "No Mach-O UUIDs found for app rule %@", buf, 0xCu);
             }
           }
 
-          [v10 setCachedMachOUUIDs:v11];
+          [v12 setCachedMachOUUIDs:v13];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v15 objects:v21 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v17 objects:v23 count:16];
       }
 
-      while (v7);
+      while (v9);
     }
 
-    v4 = v14;
+    v6 = v16;
   }
 }
 
@@ -3387,7 +3356,7 @@ void sub_100040B4C(uint64_t a1, void *a2, void *a3, int a4)
 
 uint64_t sub_100040C40(uint64_t a1, void *a2)
 {
-  v93 = a2;
+  v92 = a2;
   v3 = *(a1 + 32);
   if (v3)
   {
@@ -3399,220 +3368,616 @@ uint64_t sub_100040C40(uint64_t a1, void *a2)
     Property = 0;
   }
 
-  sub_100031D58(v93, Property);
+  sub_100031D58(v92, Property);
   v5 = [NEPolicyResult scopeSocketToInterfaceName:*(a1 + 40)];
   v6 = sub_100033F68(*(a1 + 32));
+  v121 = 0u;
   v122 = 0u;
   v123 = 0u;
   v124 = 0u;
-  v125 = 0u;
   obj = *(a1 + 48);
-  v78 = [obj countByEnumeratingWithState:&v122 objects:v137 count:16];
-  if (v78)
+  v77 = [obj countByEnumeratingWithState:&v121 objects:v136 count:16];
+  if (v77)
   {
-    v77 = *v123;
+    v76 = *v122;
     do
     {
       v7 = 0;
       do
       {
-        if (*v123 != v77)
+        if (*v122 != v76)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v78 = v7;
+        v8 = *(*(&v121 + 1) + 8 * v7);
+        v81 = objc_alloc_init(NSMutableArray);
+        v9 = objc_alloc_init(NSMutableArray);
+        v10 = objc_alloc_init(NSMutableArray);
+        v79 = sub_1000407B8(*(a1 + 32), v8, 0, *(a1 + 56));
+        v86 = v10;
+        if (isa_nsarray())
+        {
+          v119 = 0u;
+          v120 = 0u;
+          v117 = 0u;
+          v118 = 0u;
+          v11 = v79;
+          v12 = [v11 countByEnumeratingWithState:&v117 objects:v135 count:16];
+          if (v12)
+          {
+            v13 = v12;
+            v14 = *v118;
+            do
+            {
+              for (i = 0; i != v13; i = i + 1)
+              {
+                if (*v118 != v14)
+                {
+                  objc_enumerationMutation(v11);
+                }
+
+                v16 = [NEPolicyCondition effectiveApplication:*(*(&v117 + 1) + 8 * i)];
+                [v81 addObject:v16];
+              }
+
+              v13 = [v11 countByEnumeratingWithState:&v117 objects:v135 count:16];
+            }
+
+            while (v13);
+          }
+
+          v10 = v86;
+        }
+
+        if ([v81 count])
+        {
+          v17 = [v8 matchDomains];
+          v18 = isa_nsarray();
+
+          if (v18)
+          {
+            v115 = 0u;
+            v116 = 0u;
+            v113 = 0u;
+            v114 = 0u;
+            v19 = [v8 matchDomains];
+            v20 = [v19 countByEnumeratingWithState:&v113 objects:v134 count:16];
+            if (v20)
+            {
+              v21 = v20;
+              v22 = *v114;
+              do
+              {
+                for (j = 0; j != v21; j = j + 1)
+                {
+                  if (*v114 != v22)
+                  {
+                    objc_enumerationMutation(v19);
+                  }
+
+                  v24 = [NEPolicyCondition domain:*(*(&v113 + 1) + 8 * j)];
+                  [v9 addObject:v24];
+                }
+
+                v21 = [v19 countByEnumeratingWithState:&v113 objects:v134 count:16];
+              }
+
+              while (v21);
+            }
+
+            v10 = v86;
+          }
+
+          v25 = [v8 matchAccountIdentifiers];
+          v26 = isa_nsarray();
+
+          if (v26)
+          {
+            v111 = 0u;
+            v112 = 0u;
+            v109 = 0u;
+            v110 = 0u;
+            v27 = [v8 matchAccountIdentifiers];
+            v28 = [v27 countByEnumeratingWithState:&v109 objects:v133 count:16];
+            if (v28)
+            {
+              v29 = v28;
+              v30 = *v110;
+              do
+              {
+                for (k = 0; k != v29; k = k + 1)
+                {
+                  if (*v110 != v30)
+                  {
+                    objc_enumerationMutation(v27);
+                  }
+
+                  v32 = [NEPolicyCondition accountIdentifier:*(*(&v109 + 1) + 8 * k)];
+                  [v10 addObject:v32];
+                }
+
+                v29 = [v27 countByEnumeratingWithState:&v109 objects:v133 count:16];
+              }
+
+              while (v29);
+            }
+          }
+
+          v107 = 0u;
+          v108 = 0u;
+          v105 = 0u;
+          v106 = 0u;
+          v80 = v81;
+          v83 = [v80 countByEnumeratingWithState:&v105 objects:v132 count:16];
+          if (v83)
+          {
+            v82 = *v106;
+            v85 = v9;
+            do
+            {
+              v33 = 0;
+              do
+              {
+                if (*v106 != v82)
+                {
+                  objc_enumerationMutation(v80);
+                }
+
+                v84 = v33;
+                v34 = *(*(&v105 + 1) + 8 * v33);
+                if ([v85 count])
+                {
+                  v103 = 0u;
+                  v104 = 0u;
+                  v101 = 0u;
+                  v102 = 0u;
+                  v89 = v85;
+                  v35 = [v89 countByEnumeratingWithState:&v101 objects:v131 count:16];
+                  if (v35)
+                  {
+                    v36 = v35;
+                    v37 = *v102;
+                    v87 = *v102;
+                    do
+                    {
+                      v38 = 0;
+                      v88 = v36;
+                      do
+                      {
+                        if (*v102 != v37)
+                        {
+                          objc_enumerationMutation(v89);
+                        }
+
+                        v39 = *(*(&v101 + 1) + 8 * v38);
+                        if ([v10 count])
+                        {
+                          v99 = 0u;
+                          v100 = 0u;
+                          v97 = 0u;
+                          v98 = 0u;
+                          v40 = v10;
+                          v41 = [v40 countByEnumeratingWithState:&v97 objects:v130 count:16];
+                          if (v41)
+                          {
+                            v42 = v41;
+                            v90 = v38;
+                            v43 = *v98;
+                            do
+                            {
+                              v44 = 0;
+                              do
+                              {
+                                if (*v98 != v43)
+                                {
+                                  objc_enumerationMutation(v40);
+                                }
+
+                                v45 = *(*(&v97 + 1) + 8 * v44);
+                                v129[0] = v34;
+                                v129[1] = v39;
+                                v129[2] = v45;
+                                v46 = [NSArray arrayWithObjects:v129 count:3];
+                                v48 = [[NEPolicy alloc] initWithOrder:(v6 + 100) result:v5 conditions:v46];
+                                v49 = *(a1 + 32);
+                                if (v49)
+                                {
+                                  v50 = objc_getProperty(v49, v47, 48, 1);
+                                }
+
+                                else
+                                {
+                                  v50 = 0;
+                                }
+
+                                sub_100033A90(v92, v48, v50);
+
+                                v44 = v44 + 1;
+                              }
+
+                              while (v42 != v44);
+                              v51 = [v40 countByEnumeratingWithState:&v97 objects:v130 count:16];
+                              v42 = v51;
+                            }
+
+                            while (v51);
+                            v10 = v86;
+                            v37 = v87;
+                            v36 = v88;
+                            v38 = v90;
+                          }
+                        }
+
+                        else
+                        {
+                          v128[0] = v34;
+                          v128[1] = v39;
+                          v40 = [NSArray arrayWithObjects:v128 count:2];
+                          v53 = [[NEPolicy alloc] initWithOrder:(v6 + 100) result:v5 conditions:v40];
+                          v54 = *(a1 + 32);
+                          if (v54)
+                          {
+                            v55 = objc_getProperty(v54, v52, 48, 1);
+                          }
+
+                          else
+                          {
+                            v55 = 0;
+                          }
+
+                          sub_100033A90(v92, v53, v55);
+                        }
+
+                        v38 = v38 + 1;
+                      }
+
+                      while (v38 != v36);
+                      v56 = [v89 countByEnumeratingWithState:&v101 objects:v131 count:16];
+                      v36 = v56;
+                    }
+
+                    while (v56);
+                  }
+
+LABEL_80:
+                  v33 = v84;
+                  v9 = v85;
+                  goto LABEL_81;
+                }
+
+                if ([v10 count])
+                {
+                  v95 = 0u;
+                  v96 = 0u;
+                  v93 = 0u;
+                  v94 = 0u;
+                  v89 = v10;
+                  v57 = [v89 countByEnumeratingWithState:&v93 objects:v127 count:16];
+                  if (v57)
+                  {
+                    v58 = v57;
+                    v59 = *v94;
+                    do
+                    {
+                      v60 = 0;
+                      do
+                      {
+                        if (*v94 != v59)
+                        {
+                          objc_enumerationMutation(v89);
+                        }
+
+                        v61 = *(*(&v93 + 1) + 8 * v60);
+                        v126[0] = v34;
+                        v126[1] = v61;
+                        v62 = [NSArray arrayWithObjects:v126 count:2];
+                        v64 = [[NEPolicy alloc] initWithOrder:(v6 + 100) result:v5 conditions:v62];
+                        v65 = *(a1 + 32);
+                        if (v65)
+                        {
+                          v66 = objc_getProperty(v65, v63, 48, 1);
+                        }
+
+                        else
+                        {
+                          v66 = 0;
+                        }
+
+                        sub_100033A90(v92, v64, v66);
+
+                        v60 = v60 + 1;
+                      }
+
+                      while (v58 != v60);
+                      v67 = [v89 countByEnumeratingWithState:&v93 objects:v127 count:16];
+                      v58 = v67;
+                    }
+
+                    while (v67);
+                  }
+
+                  goto LABEL_80;
+                }
+
+                v125 = v34;
+                v89 = [NSArray arrayWithObjects:&v125 count:1];
+                v69 = [[NEPolicy alloc] initWithOrder:(v6 + 100) result:v5 conditions:v89];
+                v70 = *(a1 + 32);
+                if (v70)
+                {
+                  v71 = objc_getProperty(v70, v68, 48, 1);
+                }
+
+                else
+                {
+                  v71 = 0;
+                }
+
+                v9 = v85;
+                sub_100033A90(v92, v69, v71);
+
+LABEL_81:
+                v33 = v33 + 1;
+              }
+
+              while (v33 != v83);
+              v72 = [v80 countByEnumeratingWithState:&v105 objects:v132 count:16];
+              v83 = v72;
+            }
+
+            while (v72);
+          }
+        }
+
+        v7 = v78 + 1;
+      }
+
+      while ((v78 + 1) != v77);
+      v77 = [obj countByEnumeratingWithState:&v121 objects:v136 count:16];
+    }
+
+    while (v77);
+  }
+
+  v73 = sub_100031EB4(v92);
+  return v73;
+}
+
+uint64_t sub_100041508(uint64_t a1, void *a2)
+{
+  v95 = a2;
+  v3 = *(a1 + 32);
+  if (v3)
+  {
+    Property = objc_getProperty(v3, v2, 48, 1);
+  }
+
+  else
+  {
+    Property = 0;
+  }
+
+  sub_100031D58(v95, Property);
+  v93 = [NEPolicyResult scopeSocketToInterfaceName:*(a1 + 40)];
+  v5 = sub_100033F68(*(a1 + 32));
+  v92 = +[NEPolicyCondition fallbackTraffic];
+  v6 = [NEPolicyCondition scopedInterface:*(a1 + 40)];
+  v124 = 0u;
+  v125 = 0u;
+  v126 = 0u;
+  v127 = 0u;
+  obj = *(a1 + 48);
+  v78 = [obj countByEnumeratingWithState:&v124 objects:v139 count:16];
+  if (v78)
+  {
+    v77 = *v125;
+    do
+    {
+      v7 = 0;
+      do
+      {
+        if (*v125 != v77)
         {
           objc_enumerationMutation(obj);
         }
 
         v79 = v7;
-        v8 = *(*(&v122 + 1) + 8 * v7);
+        v8 = *(*(&v124 + 1) + 8 * v7);
         v82 = objc_alloc_init(NSMutableArray);
+        v86 = objc_alloc_init(NSMutableArray);
         v9 = objc_alloc_init(NSMutableArray);
-        v10 = objc_alloc_init(NSMutableArray);
-        v11 = *(a1 + 56);
-        v80 = sub_1000407B8(*(a1 + 32), v8);
-        v87 = v10;
+        v80 = sub_1000407B8(*(a1 + 32), v8, 0, *(a1 + 56));
         if (isa_nsarray())
         {
+          v122 = 0u;
+          v123 = 0u;
           v120 = 0u;
           v121 = 0u;
-          v118 = 0u;
-          v119 = 0u;
-          v12 = v80;
-          v13 = [v12 countByEnumeratingWithState:&v118 objects:v136 count:16];
-          if (v13)
+          v10 = v80;
+          v11 = [v10 countByEnumeratingWithState:&v120 objects:v138 count:16];
+          if (v11)
           {
-            v14 = v13;
-            v15 = *v119;
+            v12 = v11;
+            v13 = *v121;
             do
             {
-              for (i = 0; i != v14; i = i + 1)
+              for (i = 0; i != v12; i = i + 1)
               {
-                if (*v119 != v15)
+                if (*v121 != v13)
                 {
-                  objc_enumerationMutation(v12);
+                  objc_enumerationMutation(v10);
                 }
 
-                v17 = [NEPolicyCondition effectiveApplication:*(*(&v118 + 1) + 8 * i)];
-                [v82 addObject:v17];
+                v15 = [NEPolicyCondition effectiveApplication:*(*(&v120 + 1) + 8 * i)];
+                [v82 addObject:v15];
               }
 
-              v14 = [v12 countByEnumeratingWithState:&v118 objects:v136 count:16];
+              v12 = [v10 countByEnumeratingWithState:&v120 objects:v138 count:16];
             }
 
-            while (v14);
+            while (v12);
           }
-
-          v10 = v87;
         }
 
+        v16 = v86;
         if ([v82 count])
         {
-          v18 = [v8 matchDomains];
-          v19 = isa_nsarray();
+          v17 = [v8 matchDomains];
+          v18 = isa_nsarray();
 
-          if (v19)
+          if (v18)
           {
+            v118 = 0u;
+            v119 = 0u;
             v116 = 0u;
             v117 = 0u;
+            v19 = [v8 matchDomains];
+            v20 = [v19 countByEnumeratingWithState:&v116 objects:v137 count:16];
+            if (v20)
+            {
+              v21 = v20;
+              v22 = *v117;
+              do
+              {
+                for (j = 0; j != v21; j = j + 1)
+                {
+                  if (*v117 != v22)
+                  {
+                    objc_enumerationMutation(v19);
+                  }
+
+                  v24 = [NEPolicyCondition domain:*(*(&v116 + 1) + 8 * j)];
+                  [v86 addObject:v24];
+                }
+
+                v21 = [v19 countByEnumeratingWithState:&v116 objects:v137 count:16];
+              }
+
+              while (v21);
+            }
+
+            v16 = v86;
+          }
+
+          v25 = [v8 matchAccountIdentifiers];
+          v26 = isa_nsarray();
+
+          if (v26)
+          {
             v114 = 0u;
             v115 = 0u;
-            v20 = [v8 matchDomains];
-            v21 = [v20 countByEnumeratingWithState:&v114 objects:v135 count:16];
-            if (v21)
-            {
-              v22 = v21;
-              v23 = *v115;
-              do
-              {
-                for (j = 0; j != v22; j = j + 1)
-                {
-                  if (*v115 != v23)
-                  {
-                    objc_enumerationMutation(v20);
-                  }
-
-                  v25 = [NEPolicyCondition domain:*(*(&v114 + 1) + 8 * j)];
-                  [v9 addObject:v25];
-                }
-
-                v22 = [v20 countByEnumeratingWithState:&v114 objects:v135 count:16];
-              }
-
-              while (v22);
-            }
-
-            v10 = v87;
-          }
-
-          v26 = [v8 matchAccountIdentifiers];
-          v27 = isa_nsarray();
-
-          if (v27)
-          {
             v112 = 0u;
             v113 = 0u;
-            v110 = 0u;
-            v111 = 0u;
-            v28 = [v8 matchAccountIdentifiers];
-            v29 = [v28 countByEnumeratingWithState:&v110 objects:v134 count:16];
-            if (v29)
+            v27 = [v8 matchAccountIdentifiers];
+            v28 = [v27 countByEnumeratingWithState:&v112 objects:v136 count:16];
+            if (v28)
             {
-              v30 = v29;
-              v31 = *v111;
+              v29 = v28;
+              v30 = *v113;
               do
               {
-                for (k = 0; k != v30; k = k + 1)
+                for (k = 0; k != v29; k = k + 1)
                 {
-                  if (*v111 != v31)
+                  if (*v113 != v30)
                   {
-                    objc_enumerationMutation(v28);
+                    objc_enumerationMutation(v27);
                   }
 
-                  v33 = [NEPolicyCondition accountIdentifier:*(*(&v110 + 1) + 8 * k)];
-                  [v10 addObject:v33];
+                  v32 = [NEPolicyCondition accountIdentifier:*(*(&v112 + 1) + 8 * k)];
+                  [v9 addObject:v32];
                 }
 
-                v30 = [v28 countByEnumeratingWithState:&v110 objects:v134 count:16];
+                v29 = [v27 countByEnumeratingWithState:&v112 objects:v136 count:16];
               }
 
-              while (v30);
+              while (v29);
             }
+
+            v16 = v86;
           }
 
+          v110 = 0u;
+          v111 = 0u;
           v108 = 0u;
           v109 = 0u;
-          v106 = 0u;
-          v107 = 0u;
           v81 = v82;
-          v84 = [v81 countByEnumeratingWithState:&v106 objects:v133 count:16];
+          v84 = [v81 countByEnumeratingWithState:&v108 objects:v135 count:16];
           if (v84)
           {
-            v83 = *v107;
-            v86 = v9;
+            v83 = *v109;
+            v87 = v9;
             do
             {
-              v34 = 0;
+              v33 = 0;
               do
               {
-                if (*v107 != v83)
+                if (*v109 != v83)
                 {
+                  v34 = v33;
                   objc_enumerationMutation(v81);
+                  v33 = v34;
                 }
 
-                v85 = v34;
-                v35 = *(*(&v106 + 1) + 8 * v34);
+                v85 = v33;
+                v35 = *(*(&v108 + 1) + 8 * v33);
                 if ([v86 count])
                 {
+                  v106 = 0u;
+                  v107 = 0u;
                   v104 = 0u;
                   v105 = 0u;
-                  v102 = 0u;
-                  v103 = 0u;
                   v90 = v86;
-                  v36 = [v90 countByEnumeratingWithState:&v102 objects:v132 count:16];
+                  v36 = [v90 countByEnumeratingWithState:&v104 objects:v134 count:16];
                   if (v36)
                   {
                     v37 = v36;
-                    v38 = *v103;
-                    v88 = *v103;
+                    v38 = *v105;
+                    v88 = *v105;
                     do
                     {
                       v39 = 0;
                       v89 = v37;
                       do
                       {
-                        if (*v103 != v38)
+                        if (*v105 != v38)
                         {
                           objc_enumerationMutation(v90);
                         }
 
-                        v40 = *(*(&v102 + 1) + 8 * v39);
-                        if ([v10 count])
+                        v40 = *(*(&v104 + 1) + 8 * v39);
+                        if ([v9 count])
                         {
+                          v91 = v39;
+                          v102 = 0u;
+                          v103 = 0u;
                           v100 = 0u;
                           v101 = 0u;
-                          v98 = 0u;
-                          v99 = 0u;
-                          v41 = v10;
-                          v42 = [v41 countByEnumeratingWithState:&v98 objects:v131 count:16];
+                          v41 = v9;
+                          v42 = [v41 countByEnumeratingWithState:&v100 objects:v133 count:16];
                           if (v42)
                           {
                             v43 = v42;
-                            v91 = v39;
-                            v44 = *v99;
+                            v44 = *v101;
                             do
                             {
                               v45 = 0;
                               do
                               {
-                                if (*v99 != v44)
+                                if (*v101 != v44)
                                 {
                                   objc_enumerationMutation(v41);
                                 }
 
-                                v46 = *(*(&v98 + 1) + 8 * v45);
-                                v130[0] = v35;
-                                v130[1] = v40;
-                                v130[2] = v46;
-                                v47 = [NSArray arrayWithObjects:v130 count:3];
-                                v49 = [[NEPolicy alloc] initWithOrder:(v6 + 100) result:v5 conditions:v47];
+                                v46 = *(*(&v100 + 1) + 8 * v45);
+                                v132[0] = v92;
+                                v132[1] = v35;
+                                v132[2] = v40;
+                                v132[3] = v46;
+                                v132[4] = v6;
+                                v47 = [NSArray arrayWithObjects:v132 count:5];
+                                v49 = [[NEPolicy alloc] initWithOrder:(v5 + 100) result:v93 conditions:v47];
                                 v50 = *(a1 + 32);
                                 if (v50)
                                 {
@@ -3624,30 +3989,33 @@ uint64_t sub_100040C40(uint64_t a1, void *a2)
                                   v51 = 0;
                                 }
 
-                                sub_100033A90(v93, v49, v51);
+                                sub_100033A90(v95, v49, v51);
 
                                 v45 = v45 + 1;
                               }
 
                               while (v43 != v45);
-                              v52 = [v41 countByEnumeratingWithState:&v98 objects:v131 count:16];
+                              v52 = [v41 countByEnumeratingWithState:&v100 objects:v133 count:16];
                               v43 = v52;
                             }
 
                             while (v52);
-                            v10 = v87;
+                            v9 = v87;
                             v38 = v88;
                             v37 = v89;
-                            v39 = v91;
                           }
+
+                          v39 = v91;
                         }
 
                         else
                         {
-                          v129[0] = v35;
-                          v129[1] = v40;
-                          v41 = [NSArray arrayWithObjects:v129 count:2];
-                          v54 = [[NEPolicy alloc] initWithOrder:(v6 + 100) result:v5 conditions:v41];
+                          v131[0] = v92;
+                          v131[1] = v35;
+                          v131[2] = v40;
+                          v131[3] = v6;
+                          v41 = [NSArray arrayWithObjects:v131 count:4];
+                          v54 = [[NEPolicy alloc] initWithOrder:(v5 + 100) result:v93 conditions:v41];
                           v55 = *(a1 + 32);
                           if (v55)
                           {
@@ -3659,53 +4027,54 @@ uint64_t sub_100040C40(uint64_t a1, void *a2)
                             v56 = 0;
                           }
 
-                          sub_100033A90(v93, v54, v56);
+                          sub_100033A90(v95, v54, v56);
                         }
 
                         v39 = v39 + 1;
                       }
 
                       while (v39 != v37);
-                      v57 = [v90 countByEnumeratingWithState:&v102 objects:v132 count:16];
+                      v57 = [v90 countByEnumeratingWithState:&v104 objects:v134 count:16];
                       v37 = v57;
                     }
 
                     while (v57);
                   }
 
-LABEL_80:
-                  v34 = v85;
-                  v9 = v86;
-                  goto LABEL_81;
+LABEL_81:
+                  v16 = v86;
+                  goto LABEL_82;
                 }
 
-                if ([v10 count])
+                if ([v9 count])
                 {
+                  v98 = 0u;
+                  v99 = 0u;
                   v96 = 0u;
                   v97 = 0u;
-                  v94 = 0u;
-                  v95 = 0u;
-                  v90 = v10;
-                  v58 = [v90 countByEnumeratingWithState:&v94 objects:v128 count:16];
+                  v90 = v9;
+                  v58 = [v90 countByEnumeratingWithState:&v96 objects:v130 count:16];
                   if (v58)
                   {
                     v59 = v58;
-                    v60 = *v95;
+                    v60 = *v97;
                     do
                     {
                       v61 = 0;
                       do
                       {
-                        if (*v95 != v60)
+                        if (*v97 != v60)
                         {
                           objc_enumerationMutation(v90);
                         }
 
-                        v62 = *(*(&v94 + 1) + 8 * v61);
-                        v127[0] = v35;
-                        v127[1] = v62;
-                        v63 = [NSArray arrayWithObjects:v127 count:2];
-                        v65 = [[NEPolicy alloc] initWithOrder:(v6 + 100) result:v5 conditions:v63];
+                        v62 = *(*(&v96 + 1) + 8 * v61);
+                        v129[0] = v92;
+                        v129[1] = v35;
+                        v129[2] = v62;
+                        v129[3] = v6;
+                        v63 = [NSArray arrayWithObjects:v129 count:4];
+                        v65 = [[NEPolicy alloc] initWithOrder:(v5 + 100) result:v93 conditions:v63];
                         v66 = *(a1 + 32);
                         if (v66)
                         {
@@ -3717,25 +4086,27 @@ LABEL_80:
                           v67 = 0;
                         }
 
-                        sub_100033A90(v93, v65, v67);
+                        sub_100033A90(v95, v65, v67);
 
                         v61 = v61 + 1;
                       }
 
                       while (v59 != v61);
-                      v68 = [v90 countByEnumeratingWithState:&v94 objects:v128 count:16];
+                      v68 = [v90 countByEnumeratingWithState:&v96 objects:v130 count:16];
                       v59 = v68;
                     }
 
                     while (v68);
                   }
 
-                  goto LABEL_80;
+                  goto LABEL_81;
                 }
 
-                v126 = v35;
-                v90 = [NSArray arrayWithObjects:&v126 count:1];
-                v70 = [[NEPolicy alloc] initWithOrder:(v6 + 100) result:v5 conditions:v90];
+                v128[0] = v92;
+                v128[1] = v35;
+                v128[2] = v6;
+                v90 = [NSArray arrayWithObjects:v128 count:3];
+                v70 = [[NEPolicy alloc] initWithOrder:(v5 + 100) result:v93 conditions:v90];
                 v71 = *(a1 + 32);
                 if (v71)
                 {
@@ -3747,15 +4118,15 @@ LABEL_80:
                   v72 = 0;
                 }
 
-                v9 = v86;
-                sub_100033A90(v93, v70, v72);
+                v16 = v86;
+                sub_100033A90(v95, v70, v72);
 
-LABEL_81:
-                v34 = v34 + 1;
+LABEL_82:
+                v33 = v85 + 1;
               }
 
-              while (v34 != v84);
-              v73 = [v81 countByEnumeratingWithState:&v106 objects:v133 count:16];
+              while ((v85 + 1) != v84);
+              v73 = [v81 countByEnumeratingWithState:&v108 objects:v135 count:16];
               v84 = v73;
             }
 
@@ -3767,418 +4138,14 @@ LABEL_81:
       }
 
       while ((v79 + 1) != v78);
-      v78 = [obj countByEnumeratingWithState:&v122 objects:v137 count:16];
+      v78 = [obj countByEnumeratingWithState:&v124 objects:v139 count:16];
     }
 
     while (v78);
   }
 
-  v74 = sub_100031EB4(v93);
+  v74 = sub_100031EB4(v95);
   return v74;
-}
-
-uint64_t sub_100041508(uint64_t a1, void *a2)
-{
-  v96 = a2;
-  v3 = *(a1 + 32);
-  if (v3)
-  {
-    Property = objc_getProperty(v3, v2, 48, 1);
-  }
-
-  else
-  {
-    Property = 0;
-  }
-
-  sub_100031D58(v96, Property);
-  v94 = [NEPolicyResult scopeSocketToInterfaceName:*(a1 + 40)];
-  v5 = sub_100033F68(*(a1 + 32));
-  v93 = +[NEPolicyCondition fallbackTraffic];
-  v6 = [NEPolicyCondition scopedInterface:*(a1 + 40)];
-  v125 = 0u;
-  v126 = 0u;
-  v127 = 0u;
-  v128 = 0u;
-  obj = *(a1 + 48);
-  v79 = [obj countByEnumeratingWithState:&v125 objects:v140 count:16];
-  if (v79)
-  {
-    v78 = *v126;
-    do
-    {
-      v7 = 0;
-      do
-      {
-        if (*v126 != v78)
-        {
-          objc_enumerationMutation(obj);
-        }
-
-        v80 = v7;
-        v8 = *(*(&v125 + 1) + 8 * v7);
-        v83 = objc_alloc_init(NSMutableArray);
-        v87 = objc_alloc_init(NSMutableArray);
-        v9 = objc_alloc_init(NSMutableArray);
-        v10 = *(a1 + 56);
-        v81 = sub_1000407B8(*(a1 + 32), v8);
-        if (isa_nsarray())
-        {
-          v123 = 0u;
-          v124 = 0u;
-          v121 = 0u;
-          v122 = 0u;
-          v11 = v81;
-          v12 = [v11 countByEnumeratingWithState:&v121 objects:v139 count:16];
-          if (v12)
-          {
-            v13 = v12;
-            v14 = *v122;
-            do
-            {
-              for (i = 0; i != v13; i = i + 1)
-              {
-                if (*v122 != v14)
-                {
-                  objc_enumerationMutation(v11);
-                }
-
-                v16 = [NEPolicyCondition effectiveApplication:*(*(&v121 + 1) + 8 * i)];
-                [v83 addObject:v16];
-              }
-
-              v13 = [v11 countByEnumeratingWithState:&v121 objects:v139 count:16];
-            }
-
-            while (v13);
-          }
-        }
-
-        v17 = v87;
-        if ([v83 count])
-        {
-          v18 = [v8 matchDomains];
-          v19 = isa_nsarray();
-
-          if (v19)
-          {
-            v119 = 0u;
-            v120 = 0u;
-            v117 = 0u;
-            v118 = 0u;
-            v20 = [v8 matchDomains];
-            v21 = [v20 countByEnumeratingWithState:&v117 objects:v138 count:16];
-            if (v21)
-            {
-              v22 = v21;
-              v23 = *v118;
-              do
-              {
-                for (j = 0; j != v22; j = j + 1)
-                {
-                  if (*v118 != v23)
-                  {
-                    objc_enumerationMutation(v20);
-                  }
-
-                  v25 = [NEPolicyCondition domain:*(*(&v117 + 1) + 8 * j)];
-                  [v87 addObject:v25];
-                }
-
-                v22 = [v20 countByEnumeratingWithState:&v117 objects:v138 count:16];
-              }
-
-              while (v22);
-            }
-
-            v17 = v87;
-          }
-
-          v26 = [v8 matchAccountIdentifiers];
-          v27 = isa_nsarray();
-
-          if (v27)
-          {
-            v115 = 0u;
-            v116 = 0u;
-            v113 = 0u;
-            v114 = 0u;
-            v28 = [v8 matchAccountIdentifiers];
-            v29 = [v28 countByEnumeratingWithState:&v113 objects:v137 count:16];
-            if (v29)
-            {
-              v30 = v29;
-              v31 = *v114;
-              do
-              {
-                for (k = 0; k != v30; k = k + 1)
-                {
-                  if (*v114 != v31)
-                  {
-                    objc_enumerationMutation(v28);
-                  }
-
-                  v33 = [NEPolicyCondition accountIdentifier:*(*(&v113 + 1) + 8 * k)];
-                  [v9 addObject:v33];
-                }
-
-                v30 = [v28 countByEnumeratingWithState:&v113 objects:v137 count:16];
-              }
-
-              while (v30);
-            }
-
-            v17 = v87;
-          }
-
-          v111 = 0u;
-          v112 = 0u;
-          v109 = 0u;
-          v110 = 0u;
-          v82 = v83;
-          v85 = [v82 countByEnumeratingWithState:&v109 objects:v136 count:16];
-          if (v85)
-          {
-            v84 = *v110;
-            v88 = v9;
-            do
-            {
-              v34 = 0;
-              do
-              {
-                if (*v110 != v84)
-                {
-                  v35 = v34;
-                  objc_enumerationMutation(v82);
-                  v34 = v35;
-                }
-
-                v86 = v34;
-                v36 = *(*(&v109 + 1) + 8 * v34);
-                if ([v87 count])
-                {
-                  v107 = 0u;
-                  v108 = 0u;
-                  v105 = 0u;
-                  v106 = 0u;
-                  v91 = v87;
-                  v37 = [v91 countByEnumeratingWithState:&v105 objects:v135 count:16];
-                  if (v37)
-                  {
-                    v38 = v37;
-                    v39 = *v106;
-                    v89 = *v106;
-                    do
-                    {
-                      v40 = 0;
-                      v90 = v38;
-                      do
-                      {
-                        if (*v106 != v39)
-                        {
-                          objc_enumerationMutation(v91);
-                        }
-
-                        v41 = *(*(&v105 + 1) + 8 * v40);
-                        if ([v9 count])
-                        {
-                          v92 = v40;
-                          v103 = 0u;
-                          v104 = 0u;
-                          v101 = 0u;
-                          v102 = 0u;
-                          v42 = v9;
-                          v43 = [v42 countByEnumeratingWithState:&v101 objects:v134 count:16];
-                          if (v43)
-                          {
-                            v44 = v43;
-                            v45 = *v102;
-                            do
-                            {
-                              v46 = 0;
-                              do
-                              {
-                                if (*v102 != v45)
-                                {
-                                  objc_enumerationMutation(v42);
-                                }
-
-                                v47 = *(*(&v101 + 1) + 8 * v46);
-                                v133[0] = v93;
-                                v133[1] = v36;
-                                v133[2] = v41;
-                                v133[3] = v47;
-                                v133[4] = v6;
-                                v48 = [NSArray arrayWithObjects:v133 count:5];
-                                v50 = [[NEPolicy alloc] initWithOrder:(v5 + 100) result:v94 conditions:v48];
-                                v51 = *(a1 + 32);
-                                if (v51)
-                                {
-                                  v52 = objc_getProperty(v51, v49, 48, 1);
-                                }
-
-                                else
-                                {
-                                  v52 = 0;
-                                }
-
-                                sub_100033A90(v96, v50, v52);
-
-                                v46 = v46 + 1;
-                              }
-
-                              while (v44 != v46);
-                              v53 = [v42 countByEnumeratingWithState:&v101 objects:v134 count:16];
-                              v44 = v53;
-                            }
-
-                            while (v53);
-                            v9 = v88;
-                            v39 = v89;
-                            v38 = v90;
-                          }
-
-                          v40 = v92;
-                        }
-
-                        else
-                        {
-                          v132[0] = v93;
-                          v132[1] = v36;
-                          v132[2] = v41;
-                          v132[3] = v6;
-                          v42 = [NSArray arrayWithObjects:v132 count:4];
-                          v55 = [[NEPolicy alloc] initWithOrder:(v5 + 100) result:v94 conditions:v42];
-                          v56 = *(a1 + 32);
-                          if (v56)
-                          {
-                            v57 = objc_getProperty(v56, v54, 48, 1);
-                          }
-
-                          else
-                          {
-                            v57 = 0;
-                          }
-
-                          sub_100033A90(v96, v55, v57);
-                        }
-
-                        v40 = v40 + 1;
-                      }
-
-                      while (v40 != v38);
-                      v58 = [v91 countByEnumeratingWithState:&v105 objects:v135 count:16];
-                      v38 = v58;
-                    }
-
-                    while (v58);
-                  }
-
-LABEL_81:
-                  v17 = v87;
-                  goto LABEL_82;
-                }
-
-                if ([v9 count])
-                {
-                  v99 = 0u;
-                  v100 = 0u;
-                  v97 = 0u;
-                  v98 = 0u;
-                  v91 = v9;
-                  v59 = [v91 countByEnumeratingWithState:&v97 objects:v131 count:16];
-                  if (v59)
-                  {
-                    v60 = v59;
-                    v61 = *v98;
-                    do
-                    {
-                      v62 = 0;
-                      do
-                      {
-                        if (*v98 != v61)
-                        {
-                          objc_enumerationMutation(v91);
-                        }
-
-                        v63 = *(*(&v97 + 1) + 8 * v62);
-                        v130[0] = v93;
-                        v130[1] = v36;
-                        v130[2] = v63;
-                        v130[3] = v6;
-                        v64 = [NSArray arrayWithObjects:v130 count:4];
-                        v66 = [[NEPolicy alloc] initWithOrder:(v5 + 100) result:v94 conditions:v64];
-                        v67 = *(a1 + 32);
-                        if (v67)
-                        {
-                          v68 = objc_getProperty(v67, v65, 48, 1);
-                        }
-
-                        else
-                        {
-                          v68 = 0;
-                        }
-
-                        sub_100033A90(v96, v66, v68);
-
-                        v62 = v62 + 1;
-                      }
-
-                      while (v60 != v62);
-                      v69 = [v91 countByEnumeratingWithState:&v97 objects:v131 count:16];
-                      v60 = v69;
-                    }
-
-                    while (v69);
-                  }
-
-                  goto LABEL_81;
-                }
-
-                v129[0] = v93;
-                v129[1] = v36;
-                v129[2] = v6;
-                v91 = [NSArray arrayWithObjects:v129 count:3];
-                v71 = [[NEPolicy alloc] initWithOrder:(v5 + 100) result:v94 conditions:v91];
-                v72 = *(a1 + 32);
-                if (v72)
-                {
-                  v73 = objc_getProperty(v72, v70, 48, 1);
-                }
-
-                else
-                {
-                  v73 = 0;
-                }
-
-                v17 = v87;
-                sub_100033A90(v96, v71, v73);
-
-LABEL_82:
-                v34 = v86 + 1;
-              }
-
-              while ((v86 + 1) != v85);
-              v74 = [v82 countByEnumeratingWithState:&v109 objects:v136 count:16];
-              v85 = v74;
-            }
-
-            while (v74);
-          }
-        }
-
-        v7 = v80 + 1;
-      }
-
-      while ((v80 + 1) != v79);
-      v79 = [obj countByEnumeratingWithState:&v125 objects:v140 count:16];
-    }
-
-    while (v79);
-  }
-
-  v75 = sub_100031EB4(v96);
-  return v75;
 }
 
 id sub_100041E40(uint64_t a1, uint64_t a2, void *a3)
@@ -4726,8 +4693,7 @@ LABEL_31:
     goto LABEL_32;
   }
 
-  [v13 isIdentifierExternal];
-  v20 = sub_1000407B8(a1, v13);
+  v20 = sub_1000407B8(a1, v13, [v13 isIdentifierExternal], a5);
   v21 = [v20 count];
   v230 = v21 != 0;
   v22 = ne_log_obj();
@@ -5427,22 +5393,22 @@ uint64_t sub_1000446AC(uint64_t a1, void *a2)
       Property = objc_getProperty(Property, v5, 48, 1);
     }
 
-    v344 = Property;
+    v338 = Property;
     if (v3)
     {
-      v345 = objc_getProperty(v3, v343, 32, 1);
+      v339 = objc_getProperty(v3, v337, 32, 1);
     }
 
     else
     {
-      v345 = 0;
+      v339 = 0;
     }
 
-    v346 = v345;
+    v340 = v339;
     *buf = 138412546;
-    v475 = v344;
-    v476 = 2112;
-    v477 = v346;
+    v469 = v338;
+    v470 = 2112;
+    v471 = v340;
     _os_log_debug_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "Policy IDs to be removed: %@ and %@", buf, 0x16u);
   }
 
@@ -5466,9 +5432,9 @@ uint64_t sub_1000446AC(uint64_t a1, void *a2)
     v10 = 0;
   }
 
-  v382 = sub_100033F68(*(a1 + 32));
-  v379 = [NEPolicyResult skipWithOrder:(v382 + 130)];
-  v378 = +[NEPolicyCondition allInterfaces];
+  v376 = sub_100033F68(*(a1 + 32));
+  v373 = [NEPolicyResult skipWithOrder:(v376 + 130)];
+  v372 = +[NEPolicyCondition allInterfaces];
   v12 = *(a1 + 32);
   if (v12)
   {
@@ -5477,7 +5443,7 @@ uint64_t sub_1000446AC(uint64_t a1, void *a2)
 
   v13 = v12;
   v14 = [v13 allKeys];
-  v349 = [v14 mutableCopy];
+  v343 = [v14 mutableCopy];
 
   v16 = *(a1 + 32);
   if (v16)
@@ -5487,7 +5453,7 @@ uint64_t sub_1000446AC(uint64_t a1, void *a2)
 
   v17 = v16;
   v18 = [v17 allKeys];
-  v348 = [v18 mutableCopy];
+  v342 = [v18 mutableCopy];
 
   v20 = *(a1 + 32);
   if (v20)
@@ -5497,30 +5463,30 @@ uint64_t sub_1000446AC(uint64_t a1, void *a2)
 
   v21 = v20;
   v22 = [v21 allKeys];
-  v347 = [v22 mutableCopy];
+  v341 = [v22 mutableCopy];
 
-  v448 = 0;
-  v444 = 0u;
-  v445 = 0u;
-  v446 = 0u;
-  v447 = 0u;
+  v442 = 0;
+  v438 = 0u;
+  v439 = 0u;
+  v440 = 0u;
+  v441 = 0u;
   v23 = *(a1 + 40);
-  v24 = [v23 countByEnumeratingWithState:&v444 objects:v473 count:16];
-  v381 = v3;
+  v24 = [v23 countByEnumeratingWithState:&v438 objects:v467 count:16];
+  v375 = v3;
   if (v24)
   {
     v25 = v24;
-    v26 = *v445;
+    v26 = *v439;
     do
     {
       for (i = 0; i != v25; i = i + 1)
       {
-        if (*v445 != v26)
+        if (*v439 != v26)
         {
           objc_enumerationMutation(v23);
         }
 
-        v28 = *(*(&v444 + 1) + 8 * i);
+        v28 = *(*(&v438 + 1) + 8 * i);
         v29 = [v28 matchSigningIdentifier];
         if ([v29 isEqualToString:@"PathRuleDefaultNonSystemIdentifier"])
         {
@@ -5528,7 +5494,7 @@ uint64_t sub_1000446AC(uint64_t a1, void *a2)
 
           if (v30)
           {
-            v350 = 1;
+            v344 = 1;
             goto LABEL_24;
           }
         }
@@ -5538,56 +5504,56 @@ uint64_t sub_1000446AC(uint64_t a1, void *a2)
         }
       }
 
-      v25 = [v23 countByEnumeratingWithState:&v444 objects:v473 count:16];
+      v25 = [v23 countByEnumeratingWithState:&v438 objects:v467 count:16];
     }
 
     while (v25);
-    v350 = 0;
+    v344 = 0;
 LABEL_24:
-    v3 = v381;
+    v3 = v375;
   }
 
   else
   {
-    v350 = 0;
+    v344 = 0;
   }
 
-  v443 = 0u;
-  v442 = 0u;
-  v441 = 0u;
-  v440 = 0u;
+  v437 = 0u;
+  v436 = 0u;
+  v435 = 0u;
+  v434 = 0u;
   obj = *(a1 + 40);
-  v380 = a1;
-  v354 = [obj countByEnumeratingWithState:&v440 objects:v472 count:16];
-  if (v354)
+  v374 = a1;
+  v348 = [obj countByEnumeratingWithState:&v434 objects:v466 count:16];
+  if (v348)
   {
-    v353 = *v441;
+    v347 = *v435;
     do
     {
       v31 = 0;
       do
       {
-        if (*v441 != v353)
+        if (*v435 != v347)
         {
           objc_enumerationMutation(obj);
         }
 
-        v355 = v31;
-        v32 = *(*(&v440 + 1) + 8 * v31);
+        v349 = v31;
+        v32 = *(*(&v434 + 1) + 8 * v31);
         v33 = [v32 matchSigningIdentifier];
         v34 = [v32 matchSigningIdentifier];
         v35 = [v34 isEqualToString:@"PathRuleDefaultIdentifier"];
 
-        v356 = v33;
+        v350 = v33;
         if (v35)
         {
           v36 = [*(a1 + 48) objectForKeyedSubscript:v33];
           if (isa_nsarray())
           {
             v37 = [NEPolicyResult routeRules:v36];
-            v471 = v378;
-            v38 = [NSArray arrayWithObjects:&v471 count:1];
-            v40 = [[NEPolicy alloc] initWithOrder:(v382 + 120) result:v37 conditions:v38];
+            v465 = v372;
+            v38 = [NSArray arrayWithObjects:&v465 count:1];
+            v40 = [[NEPolicy alloc] initWithOrder:(v376 + 120) result:v37 conditions:v38];
             v41 = *(a1 + 32);
             if (v41)
             {
@@ -5607,704 +5573,681 @@ LABEL_24:
         if (!v44)
         {
           v36 = objc_alloc_init(NSMutableArray);
-          v361 = objc_alloc_init(NSMutableArray);
+          v355 = objc_alloc_init(NSMutableArray);
           v48 = objc_alloc_init(NSMutableArray);
-          v49 = *(a1 + 32);
-          [v32 isIdentifierExternal];
-          v50 = *(a1 + 104);
-          v352 = sub_1000407B8(v49, v32);
-          if (![v32 denyMulticast])
+          v346 = sub_1000407B8(*(a1 + 32), v32, [v32 isIdentifierExternal], *(a1 + 104));
+          if (![v32 denyMulticast] || (objc_msgSend(v32, "temporaryAllowMulticastNetworkName"), (v50 = objc_claimAutoreleasedReturnValue()) != 0) && (v51 = v50, objc_msgSend(v32, "temporaryAllowMulticastNetworkName"), v52 = objc_claimAutoreleasedReturnValue(), v53 = objc_msgSend(v52, "isEqualToString:", *(a1 + 72)), v52, v51, (v53 & 1) != 0))
           {
-            goto LABEL_45;
-          }
-
-          v52 = [v32 temporaryAllowMulticastNetworkName];
-          if (v52)
-          {
-            v53 = v52;
-            v54 = [v32 temporaryAllowMulticastNetworkName];
-            v55 = [v54 isEqualToString:*(a1 + 72)];
-
-            if (v55)
+            if (v344)
             {
-LABEL_45:
-              if (v350)
+              v54 = *(a1 + 32);
+              if (v54)
               {
-                v56 = *(a1 + 32);
-                if (v56)
+                v54 = objc_getProperty(v54, v49, 200, 1);
+              }
+
+              v55 = v54;
+              v56 = [v55 objectForKeyedSubscript:v33];
+
+              v57 = sub_1000407B8(*(a1 + 32), v32, [v32 isIdentifierExternal], *(a1 + 104));
+              v58 = [v56 count];
+              v59 = ne_log_obj();
+              v60 = os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG);
+              if (v58)
+              {
+                if (v60)
                 {
-                  v56 = objc_getProperty(v56, v51, 200, 1);
+                  v177 = [v32 matchSigningIdentifier];
+                  *buf = 138412546;
+                  v469 = v177;
+                  v470 = 2112;
+                  v471 = v56;
+                  _os_log_debug_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEBUG, "Policy IDs already present for %@: %@", buf, 0x16u);
                 }
 
-                v57 = v56;
-                v58 = [v57 objectForKeyedSubscript:v33];
-
-                v59 = *(a1 + 32);
-                [v32 isIdentifierExternal];
-                v60 = *(a1 + 104);
-                v61 = sub_1000407B8(v59, v32);
-                v62 = [v58 count];
-                v63 = ne_log_obj();
-                v64 = os_log_type_enabled(v63, OS_LOG_TYPE_DEBUG);
+                [v341 removeObject:v33];
+                v62 = *(a1 + 32);
                 if (v62)
                 {
-                  if (v64)
-                  {
-                    v183 = [v32 matchSigningIdentifier];
-                    *buf = 138412546;
-                    v475 = v183;
-                    v476 = 2112;
-                    v477 = v58;
-                    _os_log_debug_impl(&_mh_execute_header, v63, OS_LOG_TYPE_DEBUG, "Policy IDs already present for %@: %@", buf, 0x16u);
-                  }
-
-                  [v347 removeObject:v33];
-                  v66 = *(a1 + 32);
-                  if (v66)
-                  {
-                    v66 = objc_getProperty(v66, v65, 208, 1);
-                  }
-
-                  v67 = v66;
-                  v63 = [v67 objectForKeyedSubscript:v33];
-
-                  if (([v63 isEqualToArray:v61]& 1) != 0)
-                  {
-                    v68 = v58;
-                    v3 = v381;
-                    goto LABEL_102;
-                  }
-
-                  v97 = ne_log_obj();
-                  if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
-                  {
-                    [v32 matchSigningIdentifier];
-                    v185 = v184 = v61;
-                    *buf = 138412546;
-                    v475 = v185;
-                    v476 = 2112;
-                    v477 = v58;
-                    _os_log_debug_impl(&_mh_execute_header, v97, OS_LOG_TYPE_DEBUG, "Allow Policy IDs to be removed for %@: %@", buf, 0x16u);
-
-                    v61 = v184;
-                  }
-
-                  sub_100031D58(v381, v58);
+                  v62 = objc_getProperty(v62, v61, 208, 1);
                 }
 
-                else if (v64)
+                v63 = v62;
+                v59 = [v63 objectForKeyedSubscript:v33];
+
+                if (([v59 isEqualToArray:v57]& 1) != 0)
                 {
-                  v88 = [v32 matchSigningIdentifier];
+                  v64 = v56;
+                  v3 = v375;
+                  goto LABEL_102;
+                }
+
+                v91 = ne_log_obj();
+                if (os_log_type_enabled(v91, OS_LOG_TYPE_DEBUG))
+                {
+                  [v32 matchSigningIdentifier];
+                  v179 = v178 = v57;
                   *buf = 138412546;
-                  v475 = v88;
-                  v476 = 2112;
-                  v477 = v58;
-                  _os_log_debug_impl(&_mh_execute_header, v63, OS_LOG_TYPE_DEBUG, "Policy IDs not present for %@: %@", buf, 0x16u);
+                  v469 = v179;
+                  v470 = 2112;
+                  v471 = v56;
+                  _os_log_debug_impl(&_mh_execute_header, v91, OS_LOG_TYPE_DEBUG, "Allow Policy IDs to be removed for %@: %@", buf, 0x16u);
+
+                  v57 = v178;
                 }
 
-                v68 = objc_alloc_init(NSMutableArray);
-                v99 = *(a1 + 32);
-                if (v99)
+                sub_100031D58(v375, v56);
+              }
+
+              else if (v60)
+              {
+                v82 = [v32 matchSigningIdentifier];
+                *buf = 138412546;
+                v469 = v82;
+                v470 = 2112;
+                v471 = v56;
+                _os_log_debug_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEBUG, "Policy IDs not present for %@: %@", buf, 0x16u);
+              }
+
+              v64 = objc_alloc_init(NSMutableArray);
+              v93 = *(a1 + 32);
+              if (v93)
+              {
+                v93 = objc_getProperty(v93, v92, 200, 1);
+              }
+
+              v3 = v375;
+              v94 = v93;
+              [v94 setObject:v64 forKeyedSubscript:v350];
+
+              v96 = *(a1 + 32);
+              if (v96)
+              {
+                v96 = objc_getProperty(v96, v95, 208, 1);
+              }
+
+              v97 = v96;
+              [v97 setObject:v57 forKeyedSubscript:v350];
+
+              if (!sub_100042EE0(*(a1 + 32), v32, 0, v375, *(a1 + 104), v64, &v442, *(a1 + 56), *(a1 + 64)))
+              {
+                v98 = *(a1 + 96);
+                if (v98)
                 {
-                  v99 = objc_getProperty(v99, v98, 200, 1);
+                  *v98 = 1;
                 }
+              }
 
-                v3 = v381;
-                v100 = v99;
-                [v100 setObject:v68 forKeyedSubscript:v356];
-
-                v102 = *(a1 + 32);
-                if (v102)
-                {
-                  v102 = objc_getProperty(v102, v101, 208, 1);
-                }
-
-                v103 = v102;
-                [v103 setObject:v61 forKeyedSubscript:v356];
-
-                if (!sub_100042EE0(*(a1 + 32), v32, 0, v381, *(a1 + 104), v68, &v448, *(a1 + 56), *(a1 + 64)))
-                {
-                  v104 = *(a1 + 96);
-                  if (v104)
-                  {
-                    *v104 = 1;
-                  }
-                }
-
-                v63 = ne_log_obj();
-                if (os_log_type_enabled(v63, OS_LOG_TYPE_DEBUG))
-                {
-                  *buf = 138412546;
-                  v475 = v356;
-                  v476 = 2112;
-                  v477 = v68;
-                  _os_log_debug_impl(&_mh_execute_header, v63, OS_LOG_TYPE_DEBUG, "Allow Policy IDs added for %@: %@", buf, 0x16u);
-                }
+              v59 = ne_log_obj();
+              if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
+              {
+                *buf = 138412546;
+                v469 = v350;
+                v470 = 2112;
+                v471 = v64;
+                _os_log_debug_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEBUG, "Allow Policy IDs added for %@: %@", buf, 0x16u);
+              }
 
 LABEL_102:
 
-                v33 = v356;
+              v33 = v350;
+            }
+
+            if ([v32 denyAll])
+            {
+              v99 = ne_log_obj();
+              if (os_log_type_enabled(v99, OS_LOG_TYPE_DEFAULT))
+              {
+                *buf = 138412290;
+                v469 = v350;
+                _os_log_impl(&_mh_execute_header, v99, OS_LOG_TYPE_DEFAULT, "Adding drop policy for %@", buf, 0xCu);
               }
 
-              if ([v32 denyAll])
+              v100 = +[NEPolicyResult drop];
+              v101 = v355;
+              if (!v100)
               {
-                v105 = ne_log_obj();
-                if (os_log_type_enabled(v105, OS_LOG_TYPE_DEFAULT))
-                {
-                  *buf = 138412290;
-                  v475 = v356;
-                  _os_log_impl(&_mh_execute_header, v105, OS_LOG_TYPE_DEFAULT, "Adding drop policy for %@", buf, 0xCu);
-                }
-
-                v106 = +[NEPolicyResult drop];
-                v107 = v361;
-                if (!v106)
-                {
-                  goto LABEL_197;
-                }
+                goto LABEL_197;
+              }
 
 LABEL_114:
-                if (isa_nsarray())
+              if (isa_nsarray())
+              {
+                v433 = 0u;
+                v432 = 0u;
+                v431 = 0u;
+                v430 = 0u;
+                v103 = v346;
+                v104 = [v103 countByEnumeratingWithState:&v430 objects:v464 count:16];
+                if (v104)
                 {
-                  v439 = 0u;
-                  v438 = 0u;
-                  v437 = 0u;
-                  v436 = 0u;
-                  v109 = v352;
-                  v110 = [v109 countByEnumeratingWithState:&v436 objects:v470 count:16];
-                  if (v110)
+                  v105 = v104;
+                  v106 = *v431;
+                  do
                   {
-                    v111 = v110;
-                    v112 = *v437;
-                    do
+                    for (j = 0; j != v105; j = j + 1)
                     {
-                      for (j = 0; j != v111; j = j + 1)
+                      if (*v431 != v106)
                       {
-                        if (*v437 != v112)
-                        {
-                          objc_enumerationMutation(v109);
-                        }
-
-                        v114 = [NEPolicyCondition effectiveApplication:*(*(&v436 + 1) + 8 * j)];
-                        [v36 addObject:v114];
+                        objc_enumerationMutation(v103);
                       }
 
-                      v111 = [v109 countByEnumeratingWithState:&v436 objects:v470 count:16];
+                      v108 = [NEPolicyCondition effectiveApplication:*(*(&v430 + 1) + 8 * j)];
+                      [v36 addObject:v108];
                     }
 
-                    while (v111);
+                    v105 = [v103 countByEnumeratingWithState:&v430 objects:v464 count:16];
                   }
 
-                  v3 = v381;
-                  v107 = v361;
+                  while (v105);
                 }
 
-                if ([v36 count])
+                v3 = v375;
+                v101 = v355;
+              }
+
+              if ([v36 count])
+              {
+                v109 = [v32 matchDomains];
+                v110 = isa_nsarray();
+
+                if (v110)
                 {
-                  v115 = [v32 matchDomains];
-                  v116 = isa_nsarray();
-
-                  if (v116)
-                  {
-                    v435 = 0u;
-                    v434 = 0u;
-                    v433 = 0u;
-                    v432 = 0u;
-                    v117 = [v32 matchDomains];
-                    v118 = [v117 countByEnumeratingWithState:&v432 objects:v469 count:16];
-                    if (v118)
-                    {
-                      v119 = v118;
-                      v120 = *v433;
-                      do
-                      {
-                        for (k = 0; k != v119; k = k + 1)
-                        {
-                          if (*v433 != v120)
-                          {
-                            objc_enumerationMutation(v117);
-                          }
-
-                          v122 = [NEPolicyCondition domain:*(*(&v432 + 1) + 8 * k)];
-                          [v361 addObject:v122];
-                        }
-
-                        v119 = [v117 countByEnumeratingWithState:&v432 objects:v469 count:16];
-                      }
-
-                      while (v119);
-                    }
-
-                    v3 = v381;
-                    v107 = v361;
-                  }
-
-                  v123 = [v32 matchAccountIdentifiers];
-                  v124 = isa_nsarray();
-
-                  if (v124)
-                  {
-                    v431 = 0u;
-                    v429 = 0u;
-                    v430 = 0u;
-                    v428 = 0u;
-                    v125 = [v32 matchAccountIdentifiers];
-                    v126 = [v125 countByEnumeratingWithState:&v428 objects:v468 count:16];
-                    if (v126)
-                    {
-                      v127 = v126;
-                      v128 = *v429;
-                      do
-                      {
-                        for (m = 0; m != v127; m = m + 1)
-                        {
-                          if (*v429 != v128)
-                          {
-                            objc_enumerationMutation(v125);
-                          }
-
-                          v130 = [NEPolicyCondition accountIdentifier:*(*(&v428 + 1) + 8 * m)];
-                          [v48 addObject:v130];
-                        }
-
-                        v127 = [v125 countByEnumeratingWithState:&v428 objects:v468 count:16];
-                      }
-
-                      while (v127);
-                    }
-
-                    v107 = v361;
-                  }
-
-                  v426 = 0u;
+                  v429 = 0u;
+                  v428 = 0u;
                   v427 = 0u;
-                  v424 = 0u;
-                  v425 = 0u;
-                  v357 = v36;
-                  v359 = [v357 countByEnumeratingWithState:&v424 objects:v467 count:16];
-                  if (v359)
+                  v426 = 0u;
+                  v111 = [v32 matchDomains];
+                  v112 = [v111 countByEnumeratingWithState:&v426 objects:v463 count:16];
+                  if (v112)
                   {
-                    v358 = *v425;
-                    v363 = v48;
+                    v113 = v112;
+                    v114 = *v427;
                     do
                     {
-                      v131 = 0;
-                      do
+                      for (k = 0; k != v113; k = k + 1)
                       {
-                        if (*v425 != v358)
+                        if (*v427 != v114)
                         {
-                          v132 = v131;
-                          objc_enumerationMutation(v357);
-                          v131 = v132;
+                          objc_enumerationMutation(v111);
                         }
 
-                        v360 = v131;
-                        v133 = *(*(&v424 + 1) + 8 * v131);
-                        if ([v361 count])
+                        v116 = [NEPolicyCondition domain:*(*(&v426 + 1) + 8 * k)];
+                        [v355 addObject:v116];
+                      }
+
+                      v113 = [v111 countByEnumeratingWithState:&v426 objects:v463 count:16];
+                    }
+
+                    while (v113);
+                  }
+
+                  v3 = v375;
+                  v101 = v355;
+                }
+
+                v117 = [v32 matchAccountIdentifiers];
+                v118 = isa_nsarray();
+
+                if (v118)
+                {
+                  v425 = 0u;
+                  v423 = 0u;
+                  v424 = 0u;
+                  v422 = 0u;
+                  v119 = [v32 matchAccountIdentifiers];
+                  v120 = [v119 countByEnumeratingWithState:&v422 objects:v462 count:16];
+                  if (v120)
+                  {
+                    v121 = v120;
+                    v122 = *v423;
+                    do
+                    {
+                      for (m = 0; m != v121; m = m + 1)
+                      {
+                        if (*v423 != v122)
                         {
-                          v422 = 0u;
-                          v423 = 0u;
-                          v420 = 0u;
-                          v421 = 0u;
-                          v365 = v361;
-                          v371 = [v365 countByEnumeratingWithState:&v420 objects:v466 count:16];
-                          if (v371)
-                          {
-                            v368 = *v421;
-                            do
-                            {
-                              for (n = 0; n != v371; n = n + 1)
-                              {
-                                if (*v421 != v368)
-                                {
-                                  objc_enumerationMutation(v365);
-                                }
-
-                                v135 = *(*(&v420 + 1) + 8 * n);
-                                if ([v48 count])
-                                {
-                                  v375 = n;
-                                  v418 = 0u;
-                                  v419 = 0u;
-                                  v416 = 0u;
-                                  v417 = 0u;
-                                  v136 = v48;
-                                  v137 = [v136 countByEnumeratingWithState:&v416 objects:v465 count:16];
-                                  if (v137)
-                                  {
-                                    v138 = v137;
-                                    v139 = *v417;
-                                    do
-                                    {
-                                      for (ii = 0; ii != v138; ii = ii + 1)
-                                      {
-                                        if (*v417 != v139)
-                                        {
-                                          objc_enumerationMutation(v136);
-                                        }
-
-                                        v141 = *(*(&v416 + 1) + 8 * ii);
-                                        v464[0] = v133;
-                                        v464[1] = v135;
-                                        v464[2] = v141;
-                                        v464[3] = v378;
-                                        v142 = [NSArray arrayWithObjects:v464 count:4];
-                                        v144 = [[NEPolicy alloc] initWithOrder:(v382 + 100) result:v106 conditions:v142];
-                                        v145 = *(v380 + 32);
-                                        if (v145)
-                                        {
-                                          v145 = objc_getProperty(v145, v143, 48, 1);
-                                        }
-
-                                        v146 = v145;
-                                        sub_100033A90(v381, v144, v146);
-
-                                        v148 = [[NEPolicy alloc] initWithOrder:(v382 + 110) result:v379 conditions:v142];
-                                        v149 = *(v380 + 32);
-                                        if (v149)
-                                        {
-                                          v149 = objc_getProperty(v149, v147, 48, 1);
-                                        }
-
-                                        v150 = v149;
-                                        sub_100033A90(v381, v148, v150);
-                                      }
-
-                                      v138 = [v136 countByEnumeratingWithState:&v416 objects:v465 count:16];
-                                    }
-
-                                    while (v138);
-                                    a1 = v380;
-                                    v3 = v381;
-                                    v48 = v363;
-                                  }
-
-                                  n = v375;
-                                }
-
-                                else
-                                {
-                                  v463[0] = v133;
-                                  v463[1] = v135;
-                                  v463[2] = v378;
-                                  v136 = [NSArray arrayWithObjects:v463 count:3];
-                                  v152 = [[NEPolicy alloc] initWithOrder:(v382 + 100) result:v106 conditions:v136];
-                                  v153 = *(a1 + 32);
-                                  if (v153)
-                                  {
-                                    v153 = objc_getProperty(v153, v151, 48, 1);
-                                  }
-
-                                  v154 = v153;
-                                  sub_100033A90(v3, v152, v154);
-
-                                  v156 = [[NEPolicy alloc] initWithOrder:(v382 + 110) result:v379 conditions:v136];
-                                  v157 = *(a1 + 32);
-                                  if (v157)
-                                  {
-                                    v157 = objc_getProperty(v157, v155, 48, 1);
-                                  }
-
-                                  v158 = v157;
-                                  sub_100033A90(v3, v156, v158);
-                                }
-                              }
-
-                              v371 = [v365 countByEnumeratingWithState:&v420 objects:v466 count:16];
-                            }
-
-                            while (v371);
-                          }
-
-LABEL_174:
-                          v107 = v361;
-                          goto LABEL_175;
+                          objc_enumerationMutation(v119);
                         }
 
-                        if ([v48 count])
-                        {
-                          v414 = 0u;
-                          v415 = 0u;
-                          v412 = 0u;
-                          v413 = 0u;
-                          v365 = v48;
-                          v159 = [v365 countByEnumeratingWithState:&v412 objects:v462 count:16];
-                          if (!v159)
-                          {
-                            goto LABEL_174;
-                          }
+                        v124 = [NEPolicyCondition accountIdentifier:*(*(&v422 + 1) + 8 * m)];
+                        [v48 addObject:v124];
+                      }
 
-                          v160 = v159;
-                          v161 = *v413;
+                      v121 = [v119 countByEnumeratingWithState:&v422 objects:v462 count:16];
+                    }
+
+                    while (v121);
+                  }
+
+                  v101 = v355;
+                }
+
+                v420 = 0u;
+                v421 = 0u;
+                v418 = 0u;
+                v419 = 0u;
+                v351 = v36;
+                v353 = [v351 countByEnumeratingWithState:&v418 objects:v461 count:16];
+                if (v353)
+                {
+                  v352 = *v419;
+                  v357 = v48;
+                  do
+                  {
+                    v125 = 0;
+                    do
+                    {
+                      if (*v419 != v352)
+                      {
+                        v126 = v125;
+                        objc_enumerationMutation(v351);
+                        v125 = v126;
+                      }
+
+                      v354 = v125;
+                      v127 = *(*(&v418 + 1) + 8 * v125);
+                      if ([v355 count])
+                      {
+                        v416 = 0u;
+                        v417 = 0u;
+                        v414 = 0u;
+                        v415 = 0u;
+                        v359 = v355;
+                        v365 = [v359 countByEnumeratingWithState:&v414 objects:v460 count:16];
+                        if (v365)
+                        {
+                          v362 = *v415;
                           do
                           {
-                            for (jj = 0; jj != v160; jj = jj + 1)
+                            for (n = 0; n != v365; n = n + 1)
                             {
-                              if (*v413 != v161)
+                              if (*v415 != v362)
                               {
-                                objc_enumerationMutation(v365);
+                                objc_enumerationMutation(v359);
                               }
 
-                              v163 = *(*(&v412 + 1) + 8 * jj);
-                              v461[0] = v133;
-                              v461[1] = v163;
-                              v461[2] = v378;
-                              v164 = [NSArray arrayWithObjects:v461 count:3];
-                              v166 = [[NEPolicy alloc] initWithOrder:(v382 + 100) result:v106 conditions:v164];
-                              v167 = *(a1 + 32);
-                              if (v167)
+                              v129 = *(*(&v414 + 1) + 8 * n);
+                              if ([v48 count])
                               {
-                                v167 = objc_getProperty(v167, v165, 48, 1);
+                                v369 = n;
+                                v412 = 0u;
+                                v413 = 0u;
+                                v410 = 0u;
+                                v411 = 0u;
+                                v130 = v48;
+                                v131 = [v130 countByEnumeratingWithState:&v410 objects:v459 count:16];
+                                if (v131)
+                                {
+                                  v132 = v131;
+                                  v133 = *v411;
+                                  do
+                                  {
+                                    for (ii = 0; ii != v132; ii = ii + 1)
+                                    {
+                                      if (*v411 != v133)
+                                      {
+                                        objc_enumerationMutation(v130);
+                                      }
+
+                                      v135 = *(*(&v410 + 1) + 8 * ii);
+                                      v458[0] = v127;
+                                      v458[1] = v129;
+                                      v458[2] = v135;
+                                      v458[3] = v372;
+                                      v136 = [NSArray arrayWithObjects:v458 count:4];
+                                      v138 = [[NEPolicy alloc] initWithOrder:(v376 + 100) result:v100 conditions:v136];
+                                      v139 = *(v374 + 32);
+                                      if (v139)
+                                      {
+                                        v139 = objc_getProperty(v139, v137, 48, 1);
+                                      }
+
+                                      v140 = v139;
+                                      sub_100033A90(v375, v138, v140);
+
+                                      v142 = [[NEPolicy alloc] initWithOrder:(v376 + 110) result:v373 conditions:v136];
+                                      v143 = *(v374 + 32);
+                                      if (v143)
+                                      {
+                                        v143 = objc_getProperty(v143, v141, 48, 1);
+                                      }
+
+                                      v144 = v143;
+                                      sub_100033A90(v375, v142, v144);
+                                    }
+
+                                    v132 = [v130 countByEnumeratingWithState:&v410 objects:v459 count:16];
+                                  }
+
+                                  while (v132);
+                                  a1 = v374;
+                                  v3 = v375;
+                                  v48 = v357;
+                                }
+
+                                n = v369;
                               }
 
-                              v168 = v167;
-                              sub_100033A90(v3, v166, v168);
-
-                              v170 = [[NEPolicy alloc] initWithOrder:(v382 + 110) result:v379 conditions:v164];
-                              v171 = *(a1 + 32);
-                              if (v171)
+                              else
                               {
-                                v171 = objc_getProperty(v171, v169, 48, 1);
-                              }
+                                v457[0] = v127;
+                                v457[1] = v129;
+                                v457[2] = v372;
+                                v130 = [NSArray arrayWithObjects:v457 count:3];
+                                v146 = [[NEPolicy alloc] initWithOrder:(v376 + 100) result:v100 conditions:v130];
+                                v147 = *(a1 + 32);
+                                if (v147)
+                                {
+                                  v147 = objc_getProperty(v147, v145, 48, 1);
+                                }
 
-                              v172 = v171;
-                              sub_100033A90(v3, v170, v172);
+                                v148 = v147;
+                                sub_100033A90(v3, v146, v148);
+
+                                v150 = [[NEPolicy alloc] initWithOrder:(v376 + 110) result:v373 conditions:v130];
+                                v151 = *(a1 + 32);
+                                if (v151)
+                                {
+                                  v151 = objc_getProperty(v151, v149, 48, 1);
+                                }
+
+                                v152 = v151;
+                                sub_100033A90(v3, v150, v152);
+                              }
                             }
 
-                            v160 = [v365 countByEnumeratingWithState:&v412 objects:v462 count:16];
+                            v365 = [v359 countByEnumeratingWithState:&v414 objects:v460 count:16];
                           }
 
-                          while (v160);
-                          v107 = v361;
-                          v48 = v363;
+                          while (v365);
                         }
 
-                        else
+LABEL_174:
+                        v101 = v355;
+                        goto LABEL_175;
+                      }
+
+                      if ([v48 count])
+                      {
+                        v408 = 0u;
+                        v409 = 0u;
+                        v406 = 0u;
+                        v407 = 0u;
+                        v359 = v48;
+                        v153 = [v359 countByEnumeratingWithState:&v406 objects:v456 count:16];
+                        if (!v153)
                         {
-                          v460[0] = v133;
-                          v460[1] = v378;
-                          v365 = [NSArray arrayWithObjects:v460 count:2];
-                          v174 = [[NEPolicy alloc] initWithOrder:(v382 + 100) result:v106 conditions:v365];
-                          v175 = *(a1 + 32);
-                          if (v175)
-                          {
-                            v175 = objc_getProperty(v175, v173, 48, 1);
-                          }
-
-                          v107 = v361;
-                          v176 = v175;
-                          sub_100033A90(v3, v174, v176);
-
-                          v178 = [[NEPolicy alloc] initWithOrder:(v382 + 110) result:v379 conditions:v365];
-                          v179 = *(a1 + 32);
-                          if (v179)
-                          {
-                            v179 = objc_getProperty(v179, v177, 48, 1);
-                          }
-
-                          v180 = v179;
-                          sub_100033A90(v3, v178, v180);
+                          goto LABEL_174;
                         }
+
+                        v154 = v153;
+                        v155 = *v407;
+                        do
+                        {
+                          for (jj = 0; jj != v154; jj = jj + 1)
+                          {
+                            if (*v407 != v155)
+                            {
+                              objc_enumerationMutation(v359);
+                            }
+
+                            v157 = *(*(&v406 + 1) + 8 * jj);
+                            v455[0] = v127;
+                            v455[1] = v157;
+                            v455[2] = v372;
+                            v158 = [NSArray arrayWithObjects:v455 count:3];
+                            v160 = [[NEPolicy alloc] initWithOrder:(v376 + 100) result:v100 conditions:v158];
+                            v161 = *(a1 + 32);
+                            if (v161)
+                            {
+                              v161 = objc_getProperty(v161, v159, 48, 1);
+                            }
+
+                            v162 = v161;
+                            sub_100033A90(v3, v160, v162);
+
+                            v164 = [[NEPolicy alloc] initWithOrder:(v376 + 110) result:v373 conditions:v158];
+                            v165 = *(a1 + 32);
+                            if (v165)
+                            {
+                              v165 = objc_getProperty(v165, v163, 48, 1);
+                            }
+
+                            v166 = v165;
+                            sub_100033A90(v3, v164, v166);
+                          }
+
+                          v154 = [v359 countByEnumeratingWithState:&v406 objects:v456 count:16];
+                        }
+
+                        while (v154);
+                        v101 = v355;
+                        v48 = v357;
+                      }
+
+                      else
+                      {
+                        v454[0] = v127;
+                        v454[1] = v372;
+                        v359 = [NSArray arrayWithObjects:v454 count:2];
+                        v168 = [[NEPolicy alloc] initWithOrder:(v376 + 100) result:v100 conditions:v359];
+                        v169 = *(a1 + 32);
+                        if (v169)
+                        {
+                          v169 = objc_getProperty(v169, v167, 48, 1);
+                        }
+
+                        v101 = v355;
+                        v170 = v169;
+                        sub_100033A90(v3, v168, v170);
+
+                        v172 = [[NEPolicy alloc] initWithOrder:(v376 + 110) result:v373 conditions:v359];
+                        v173 = *(a1 + 32);
+                        if (v173)
+                        {
+                          v173 = objc_getProperty(v173, v171, 48, 1);
+                        }
+
+                        v174 = v173;
+                        sub_100033A90(v3, v172, v174);
+                      }
 
 LABEL_175:
 
-                        v131 = v360 + 1;
-                      }
-
-                      while ((v360 + 1) != v359);
-                      v181 = [v357 countByEnumeratingWithState:&v424 objects:v467 count:16];
-                      v359 = v181;
+                      v125 = v354 + 1;
                     }
 
-                    while (v181);
+                    while ((v354 + 1) != v353);
+                    v175 = [v351 countByEnumeratingWithState:&v418 objects:v461 count:16];
+                    v353 = v175;
                   }
 
-                  v36 = v357;
+                  while (v175);
+                }
+
+                v36 = v351;
+              }
+            }
+
+            else
+            {
+              v102 = [*(a1 + 48) objectForKeyedSubscript:v33];
+              if (isa_nsarray())
+              {
+                v101 = v355;
+                if ([v102 count])
+                {
+                  v100 = [NEPolicyResult routeRules:v102];
+                }
+
+                else
+                {
+                  v100 = 0;
                 }
               }
 
               else
               {
-                v108 = [*(a1 + 48) objectForKeyedSubscript:v33];
-                if (isa_nsarray())
-                {
-                  v107 = v361;
-                  if ([v108 count])
-                  {
-                    v106 = [NEPolicyResult routeRules:v108];
-                  }
-
-                  else
-                  {
-                    v106 = 0;
-                  }
-                }
-
-                else
-                {
-                  v106 = 0;
-                  v107 = v361;
-                }
-
-                if (v106)
-                {
-                  goto LABEL_114;
-                }
+                v100 = 0;
+                v101 = v355;
               }
+
+              if (v100)
+              {
+                goto LABEL_114;
+              }
+            }
 
 LABEL_197:
 
-              v33 = v356;
-              goto LABEL_198;
-            }
+            v33 = v350;
+            goto LABEL_198;
           }
 
-          v70 = [v32 multicastPreferenceSet];
-          v71 = *(a1 + 32);
-          v374 = v70;
-          if (v71)
+          v66 = [v32 multicastPreferenceSet];
+          v67 = *(a1 + 32);
+          v368 = v66;
+          if (v67)
           {
-            if (v70)
+            if (v66)
             {
-              v72 = 192;
+              v68 = 192;
             }
 
             else
             {
-              v72 = 184;
+              v68 = 184;
             }
 
-            v71 = objc_getProperty(v71, v69, v72, 1);
+            v67 = objc_getProperty(v67, v65, v68, 1);
           }
 
-          v68 = v71;
+          v64 = v67;
 
-          v73 = [v68 objectForKeyedSubscript:v33];
-          v74 = *(a1 + 32);
-          [v32 isIdentifierExternal];
-          v75 = *(a1 + 104);
-          v63 = sub_1000407B8(v74, v32);
-          v76 = [v73 count];
-          v77 = ne_log_obj();
-          v78 = os_log_type_enabled(v77, OS_LOG_TYPE_DEBUG);
-          if (v76)
+          v69 = [v64 objectForKeyedSubscript:v33];
+          v59 = sub_1000407B8(*(a1 + 32), v32, [v32 isIdentifierExternal], *(a1 + 104));
+          v70 = [v69 count];
+          v71 = ne_log_obj();
+          v72 = os_log_type_enabled(v71, OS_LOG_TYPE_DEBUG);
+          if (v70)
           {
-            if (v78)
+            if (v72)
             {
-              v182 = [v32 matchSigningIdentifier];
+              v176 = [v32 matchSigningIdentifier];
               *buf = 138412546;
-              v475 = v182;
-              v476 = 2112;
-              v477 = v73;
-              _os_log_debug_impl(&_mh_execute_header, v77, OS_LOG_TYPE_DEBUG, "Policy IDs already present for %@: %@", buf, 0x16u);
+              v469 = v176;
+              v470 = 2112;
+              v471 = v69;
+              _os_log_debug_impl(&_mh_execute_header, v71, OS_LOG_TYPE_DEBUG, "Policy IDs already present for %@: %@", buf, 0x16u);
             }
 
-            if (v374)
+            if (v368)
             {
-              v79 = v348;
+              v73 = v342;
             }
 
             else
             {
-              v79 = v349;
+              v73 = v343;
             }
 
-            [v79 removeObject:v33];
-            v81 = *(a1 + 32);
-            if (v81)
+            [v73 removeObject:v33];
+            v75 = *(a1 + 32);
+            if (v75)
             {
-              v81 = objc_getProperty(v81, v80, 208, 1);
+              v75 = objc_getProperty(v75, v74, 208, 1);
             }
 
-            v82 = v81;
-            v77 = [v82 objectForKeyedSubscript:v33];
+            v76 = v75;
+            v71 = [v76 objectForKeyedSubscript:v33];
 
-            if (([v77 isEqualToArray:v63]& 1) != 0)
+            if (([v71 isEqualToArray:v59]& 1) != 0)
             {
-              v61 = v73;
-              v3 = v381;
+              v57 = v69;
+              v3 = v375;
 LABEL_89:
 
               goto LABEL_102;
             }
 
-            v89 = ne_log_obj();
-            if (os_log_type_enabled(v89, OS_LOG_TYPE_DEBUG))
+            v83 = ne_log_obj();
+            if (os_log_type_enabled(v83, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412546;
-              v475 = v33;
-              v476 = 2112;
-              v477 = v73;
-              _os_log_debug_impl(&_mh_execute_header, v89, OS_LOG_TYPE_DEBUG, "Deny Policy IDs to be removed for %@: %@", buf, 0x16u);
+              v469 = v33;
+              v470 = 2112;
+              v471 = v69;
+              _os_log_debug_impl(&_mh_execute_header, v83, OS_LOG_TYPE_DEBUG, "Deny Policy IDs to be removed for %@: %@", buf, 0x16u);
             }
 
-            sub_100031D58(v381, v73);
+            sub_100031D58(v375, v69);
           }
 
-          else if (v78)
+          else if (v72)
           {
-            v87 = [v32 matchSigningIdentifier];
+            v81 = [v32 matchSigningIdentifier];
             *buf = 138412546;
-            v475 = v87;
-            v476 = 2112;
-            v477 = v73;
-            _os_log_debug_impl(&_mh_execute_header, v77, OS_LOG_TYPE_DEBUG, "Policy IDs not present for %@: %@", buf, 0x16u);
+            v469 = v81;
+            v470 = 2112;
+            v471 = v69;
+            _os_log_debug_impl(&_mh_execute_header, v71, OS_LOG_TYPE_DEBUG, "Policy IDs not present for %@: %@", buf, 0x16u);
           }
 
-          v61 = objc_alloc_init(NSMutableArray);
-          [v68 setObject:v61 forKeyedSubscript:v33];
-          v91 = *(a1 + 32);
-          if (v91)
+          v57 = objc_alloc_init(NSMutableArray);
+          [v64 setObject:v57 forKeyedSubscript:v33];
+          v85 = *(a1 + 32);
+          if (v85)
           {
-            v91 = objc_getProperty(v91, v90, 208, 1);
+            v85 = objc_getProperty(v85, v84, 208, 1);
           }
 
-          v3 = v381;
-          v92 = v91;
-          [v92 setObject:v63 forKeyedSubscript:v33];
+          v3 = v375;
+          v86 = v85;
+          [v86 setObject:v59 forKeyedSubscript:v33];
 
-          if (!sub_100042EE0(*(a1 + 32), v32, 1, v381, *(a1 + 104), v61, &v448, *(a1 + 56), *(a1 + 64)))
+          if (!sub_100042EE0(*(a1 + 32), v32, 1, v375, *(a1 + 104), v57, &v442, *(a1 + 56), *(a1 + 64)))
           {
-            v93 = *(a1 + 96);
-            if (v93)
+            v87 = *(a1 + 96);
+            if (v87)
             {
-              *v93 = 1;
+              *v87 = 1;
             }
           }
 
-          v77 = ne_log_obj();
-          v94 = os_log_type_enabled(v77, OS_LOG_TYPE_DEBUG);
-          if (v374)
+          v71 = ne_log_obj();
+          v88 = os_log_type_enabled(v71, OS_LOG_TYPE_DEBUG);
+          if (v368)
           {
-            if (!v94)
+            if (!v88)
             {
               goto LABEL_89;
             }
 
             *buf = 138412546;
-            v475 = v33;
-            v476 = 2112;
-            v477 = v61;
-            v95 = v77;
-            v96 = "Silent deny Policy IDs added for %@: %@";
+            v469 = v33;
+            v470 = 2112;
+            v471 = v57;
+            v89 = v71;
+            v90 = "Silent deny Policy IDs added for %@: %@";
           }
 
           else
           {
-            if (!v94)
+            if (!v88)
             {
               goto LABEL_89;
             }
 
             *buf = 138412546;
-            v475 = v33;
-            v476 = 2112;
-            v477 = v61;
-            v95 = v77;
-            v96 = "Deny Policy IDs added for %@: %@";
+            v469 = v33;
+            v470 = 2112;
+            v471 = v57;
+            v89 = v71;
+            v90 = "Deny Policy IDs added for %@: %@";
           }
 
-          _os_log_debug_impl(&_mh_execute_header, v95, OS_LOG_TYPE_DEBUG, v96, buf, 0x16u);
+          _os_log_debug_impl(&_mh_execute_header, v89, OS_LOG_TYPE_DEBUG, v90, buf, 0x16u);
           goto LABEL_89;
         }
 
@@ -6324,249 +6267,249 @@ LABEL_89:
 
         if ([v36 count])
         {
-          [v349 removeObject:v33];
+          [v343 removeObject:v33];
         }
 
         else
         {
-          v83 = objc_alloc_init(NSMutableArray);
+          v77 = objc_alloc_init(NSMutableArray);
 
-          v85 = *(a1 + 32);
-          if (v85)
+          v79 = *(a1 + 32);
+          if (v79)
           {
-            v85 = objc_getProperty(v85, v84, 184, 1);
+            v79 = objc_getProperty(v79, v78, 184, 1);
           }
 
-          v86 = v85;
-          [v86 setObject:v83 forKeyedSubscript:v33];
+          v80 = v79;
+          [v80 setObject:v77 forKeyedSubscript:v33];
 
-          sub_100042EE0(*(a1 + 32), v32, 1, v3, *(a1 + 104), v83, &v448, *(a1 + 56), *(a1 + 64));
-          v36 = v83;
+          sub_100042EE0(*(a1 + 32), v32, 1, v3, *(a1 + 104), v77, &v442, *(a1 + 56), *(a1 + 64));
+          v36 = v77;
         }
 
 LABEL_198:
 
 LABEL_199:
-        v31 = v355 + 1;
+        v31 = v349 + 1;
       }
 
-      while ((v355 + 1) != v354);
-      v186 = [obj countByEnumeratingWithState:&v440 objects:v472 count:16];
-      v354 = v186;
+      while ((v349 + 1) != v348);
+      v180 = [obj countByEnumeratingWithState:&v434 objects:v466 count:16];
+      v348 = v180;
     }
 
-    while (v186);
+    while (v180);
   }
 
-  if (![v349 count])
+  if (![v343 count])
   {
     goto LABEL_231;
   }
 
-  v410 = 0u;
-  v411 = 0u;
-  v408 = 0u;
-  v409 = 0u;
-  v187 = v349;
-  v188 = [v187 countByEnumeratingWithState:&v408 objects:v459 count:16];
-  if (!v188)
+  v404 = 0u;
+  v405 = 0u;
+  v402 = 0u;
+  v403 = 0u;
+  v181 = v343;
+  v182 = [v181 countByEnumeratingWithState:&v402 objects:v453 count:16];
+  if (!v182)
   {
     goto LABEL_230;
   }
 
-  v190 = v188;
-  v191 = *v409;
+  v184 = v182;
+  v185 = *v403;
   do
   {
-    v192 = 0;
+    v186 = 0;
     do
     {
-      if (*v409 != v191)
+      if (*v403 != v185)
       {
-        objc_enumerationMutation(v187);
+        objc_enumerationMutation(v181);
       }
 
-      v193 = *(*(&v408 + 1) + 8 * v192);
-      v194 = *(a1 + 32);
-      if (v194)
+      v187 = *(*(&v402 + 1) + 8 * v186);
+      v188 = *(a1 + 32);
+      if (v188)
       {
-        v194 = objc_getProperty(v194, v189, 184, 1);
+        v188 = objc_getProperty(v188, v183, 184, 1);
       }
 
-      v195 = v194;
-      v196 = [v195 objectForKeyedSubscript:v193];
+      v189 = v188;
+      v190 = [v189 objectForKeyedSubscript:v187];
 
-      v197 = ne_log_obj();
-      if (os_log_type_enabled(v197, OS_LOG_TYPE_DEBUG))
+      v191 = ne_log_obj();
+      if (os_log_type_enabled(v191, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412546;
-        v475 = v193;
-        v476 = 2112;
-        v477 = v196;
-        _os_log_debug_impl(&_mh_execute_header, v197, OS_LOG_TYPE_DEBUG, "Deny Policy IDs to be removed for %@: %@", buf, 0x16u);
+        v469 = v187;
+        v470 = 2112;
+        v471 = v190;
+        _os_log_debug_impl(&_mh_execute_header, v191, OS_LOG_TYPE_DEBUG, "Deny Policy IDs to be removed for %@: %@", buf, 0x16u);
       }
 
-      sub_100031D58(v381, v196);
-      v199 = *(a1 + 32);
-      if (v199)
+      sub_100031D58(v375, v190);
+      v193 = *(a1 + 32);
+      if (v193)
       {
-        v199 = objc_getProperty(v199, v198, 184, 1);
+        v193 = objc_getProperty(v193, v192, 184, 1);
       }
 
-      v200 = v199;
-      [v200 setObject:0 forKeyedSubscript:v193];
+      v194 = v193;
+      [v194 setObject:0 forKeyedSubscript:v187];
 
-      v202 = *(a1 + 32);
-      if (v202)
+      v196 = *(a1 + 32);
+      if (v196)
       {
-        v202 = objc_getProperty(v202, v201, 200, 1);
+        v196 = objc_getProperty(v196, v195, 200, 1);
       }
 
-      v203 = v202;
-      v204 = [v203 objectForKeyedSubscript:v193];
-      if (v204)
+      v197 = v196;
+      v198 = [v197 objectForKeyedSubscript:v187];
+      if (v198)
       {
 
 LABEL_220:
         goto LABEL_224;
       }
 
-      v206 = *(a1 + 32);
-      if (v206)
+      v200 = *(a1 + 32);
+      if (v200)
       {
-        v206 = objc_getProperty(v206, v205, 192, 1);
+        v200 = objc_getProperty(v200, v199, 192, 1);
       }
 
-      v207 = v206;
-      v208 = [v207 objectForKeyedSubscript:v193];
+      v201 = v200;
+      v202 = [v201 objectForKeyedSubscript:v187];
 
-      if (!v208)
+      if (!v202)
       {
-        v210 = *(v380 + 32);
-        if (v210)
+        v204 = *(v374 + 32);
+        if (v204)
         {
-          v210 = objc_getProperty(v210, v209, 208, 1);
+          v204 = objc_getProperty(v204, v203, 208, 1);
         }
 
-        v203 = v210;
-        [v203 setObject:0 forKeyedSubscript:v193];
+        v197 = v204;
+        [v197 setObject:0 forKeyedSubscript:v187];
         goto LABEL_220;
       }
 
 LABEL_224:
 
-      v192 = v192 + 1;
-      a1 = v380;
-      v3 = v381;
+      v186 = v186 + 1;
+      a1 = v374;
+      v3 = v375;
     }
 
-    while (v190 != v192);
-    v211 = [v187 countByEnumeratingWithState:&v408 objects:v459 count:16];
-    v190 = v211;
+    while (v184 != v186);
+    v205 = [v181 countByEnumeratingWithState:&v402 objects:v453 count:16];
+    v184 = v205;
   }
 
-  while (v211);
+  while (v205);
 LABEL_230:
 
 LABEL_231:
-  if (![v348 count])
+  if (![v342 count])
   {
     goto LABEL_258;
   }
 
-  v406 = 0u;
-  v407 = 0u;
-  v404 = 0u;
-  v405 = 0u;
-  v212 = v348;
-  v213 = [v212 countByEnumeratingWithState:&v404 objects:v458 count:16];
-  if (!v213)
+  v400 = 0u;
+  v401 = 0u;
+  v398 = 0u;
+  v399 = 0u;
+  v206 = v342;
+  v207 = [v206 countByEnumeratingWithState:&v398 objects:v452 count:16];
+  if (!v207)
   {
     goto LABEL_257;
   }
 
-  v215 = v213;
-  v216 = *v405;
+  v209 = v207;
+  v210 = *v399;
   while (2)
   {
-    v217 = 0;
+    v211 = 0;
     while (2)
     {
-      if (*v405 != v216)
+      if (*v399 != v210)
       {
-        objc_enumerationMutation(v212);
+        objc_enumerationMutation(v206);
       }
 
-      v218 = *(*(&v404 + 1) + 8 * v217);
-      v219 = *(a1 + 32);
-      if (v219)
+      v212 = *(*(&v398 + 1) + 8 * v211);
+      v213 = *(a1 + 32);
+      if (v213)
       {
-        v219 = objc_getProperty(v219, v214, 192, 1);
+        v213 = objc_getProperty(v213, v208, 192, 1);
       }
 
-      v220 = v219;
-      v221 = [v220 objectForKeyedSubscript:v218];
+      v214 = v213;
+      v215 = [v214 objectForKeyedSubscript:v212];
 
-      v222 = ne_log_obj();
-      if (os_log_type_enabled(v222, OS_LOG_TYPE_DEBUG))
+      v216 = ne_log_obj();
+      if (os_log_type_enabled(v216, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412546;
-        v475 = v218;
-        v476 = 2112;
-        v477 = v221;
-        _os_log_debug_impl(&_mh_execute_header, v222, OS_LOG_TYPE_DEBUG, "Silent deny Policy IDs to be removed for %@: %@", buf, 0x16u);
+        v469 = v212;
+        v470 = 2112;
+        v471 = v215;
+        _os_log_debug_impl(&_mh_execute_header, v216, OS_LOG_TYPE_DEBUG, "Silent deny Policy IDs to be removed for %@: %@", buf, 0x16u);
       }
 
-      sub_100031D58(v381, v221);
-      v224 = *(a1 + 32);
-      if (v224)
+      sub_100031D58(v375, v215);
+      v218 = *(a1 + 32);
+      if (v218)
       {
-        v224 = objc_getProperty(v224, v223, 192, 1);
+        v218 = objc_getProperty(v218, v217, 192, 1);
       }
 
-      v225 = v224;
-      [v225 setObject:0 forKeyedSubscript:v218];
+      v219 = v218;
+      [v219 setObject:0 forKeyedSubscript:v212];
 
-      v227 = *(a1 + 32);
-      if (v227)
+      v221 = *(a1 + 32);
+      if (v221)
       {
-        v227 = objc_getProperty(v227, v226, 200, 1);
+        v221 = objc_getProperty(v221, v220, 200, 1);
       }
 
-      v228 = v227;
-      v229 = [v228 objectForKeyedSubscript:v218];
-      if (v229)
+      v222 = v221;
+      v223 = [v222 objectForKeyedSubscript:v212];
+      if (v223)
       {
 
         goto LABEL_247;
       }
 
-      v231 = *(a1 + 32);
-      if (v231)
+      v225 = *(a1 + 32);
+      if (v225)
       {
-        v231 = objc_getProperty(v231, v230, 184, 1);
+        v225 = objc_getProperty(v225, v224, 184, 1);
       }
 
-      v232 = v231;
-      v233 = [v232 objectForKeyedSubscript:v218];
+      v226 = v225;
+      v227 = [v226 objectForKeyedSubscript:v212];
 
-      if (!v233)
+      if (!v227)
       {
-        v235 = *(v380 + 32);
-        if (v235)
+        v229 = *(v374 + 32);
+        if (v229)
         {
-          v235 = objc_getProperty(v235, v234, 208, 1);
+          v229 = objc_getProperty(v229, v228, 208, 1);
         }
 
-        v228 = v235;
-        [v228 setObject:0 forKeyedSubscript:v218];
+        v222 = v229;
+        [v222 setObject:0 forKeyedSubscript:v212];
 LABEL_247:
       }
 
-      v217 = v217 + 1;
-      a1 = v380;
-      v3 = v381;
-      if (v215 != v217)
+      v211 = v211 + 1;
+      a1 = v374;
+      v3 = v375;
+      if (v209 != v211)
       {
         continue;
       }
@@ -6574,9 +6517,9 @@ LABEL_247:
       break;
     }
 
-    v236 = [v212 countByEnumeratingWithState:&v404 objects:v458 count:16];
-    v215 = v236;
-    if (v236)
+    v230 = [v206 countByEnumeratingWithState:&v398 objects:v452 count:16];
+    v209 = v230;
+    if (v230)
     {
       continue;
     }
@@ -6587,104 +6530,104 @@ LABEL_247:
 LABEL_257:
 
 LABEL_258:
-  if (![v347 count])
+  if (![v341 count])
   {
     goto LABEL_285;
   }
 
-  v402 = 0u;
-  v403 = 0u;
-  v400 = 0u;
-  v401 = 0u;
-  v238 = v347;
-  v239 = [v238 countByEnumeratingWithState:&v400 objects:v457 count:16];
-  if (!v239)
+  v396 = 0u;
+  v397 = 0u;
+  v394 = 0u;
+  v395 = 0u;
+  v232 = v341;
+  v233 = [v232 countByEnumeratingWithState:&v394 objects:v451 count:16];
+  if (!v233)
   {
     goto LABEL_284;
   }
 
-  v241 = v239;
-  v242 = *v401;
+  v235 = v233;
+  v236 = *v395;
   while (2)
   {
-    v243 = 0;
+    v237 = 0;
     while (2)
     {
-      if (*v401 != v242)
+      if (*v395 != v236)
       {
-        objc_enumerationMutation(v238);
+        objc_enumerationMutation(v232);
       }
 
-      v244 = *(*(&v400 + 1) + 8 * v243);
-      v245 = *(a1 + 32);
-      if (v245)
+      v238 = *(*(&v394 + 1) + 8 * v237);
+      v239 = *(a1 + 32);
+      if (v239)
       {
-        v245 = objc_getProperty(v245, v240, 200, 1);
+        v239 = objc_getProperty(v239, v234, 200, 1);
       }
 
-      v246 = v245;
-      v247 = [v246 objectForKeyedSubscript:v244];
+      v240 = v239;
+      v241 = [v240 objectForKeyedSubscript:v238];
 
-      v248 = ne_log_obj();
-      if (os_log_type_enabled(v248, OS_LOG_TYPE_DEBUG))
+      v242 = ne_log_obj();
+      if (os_log_type_enabled(v242, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412546;
-        v475 = v244;
-        v476 = 2112;
-        v477 = v247;
-        _os_log_debug_impl(&_mh_execute_header, v248, OS_LOG_TYPE_DEBUG, "Allow Policy IDs to be removed for %@: %@", buf, 0x16u);
+        v469 = v238;
+        v470 = 2112;
+        v471 = v241;
+        _os_log_debug_impl(&_mh_execute_header, v242, OS_LOG_TYPE_DEBUG, "Allow Policy IDs to be removed for %@: %@", buf, 0x16u);
       }
 
-      sub_100031D58(v381, v247);
-      v250 = *(a1 + 32);
-      if (v250)
+      sub_100031D58(v375, v241);
+      v244 = *(a1 + 32);
+      if (v244)
       {
-        v250 = objc_getProperty(v250, v249, 200, 1);
+        v244 = objc_getProperty(v244, v243, 200, 1);
       }
 
-      v251 = v250;
-      [v251 setObject:0 forKeyedSubscript:v244];
+      v245 = v244;
+      [v245 setObject:0 forKeyedSubscript:v238];
 
-      v253 = *(a1 + 32);
-      if (v253)
+      v247 = *(a1 + 32);
+      if (v247)
       {
-        v253 = objc_getProperty(v253, v252, 184, 1);
+        v247 = objc_getProperty(v247, v246, 184, 1);
       }
 
-      v254 = v253;
-      v255 = [v254 objectForKeyedSubscript:v244];
-      if (v255)
+      v248 = v247;
+      v249 = [v248 objectForKeyedSubscript:v238];
+      if (v249)
       {
 
         goto LABEL_274;
       }
 
-      v257 = *(a1 + 32);
-      if (v257)
+      v251 = *(a1 + 32);
+      if (v251)
       {
-        v257 = objc_getProperty(v257, v256, 192, 1);
+        v251 = objc_getProperty(v251, v250, 192, 1);
       }
 
-      v258 = v257;
-      v259 = [v258 objectForKeyedSubscript:v244];
+      v252 = v251;
+      v253 = [v252 objectForKeyedSubscript:v238];
 
-      if (!v259)
+      if (!v253)
       {
-        v261 = *(v380 + 32);
-        if (v261)
+        v255 = *(v374 + 32);
+        if (v255)
         {
-          v261 = objc_getProperty(v261, v260, 208, 1);
+          v255 = objc_getProperty(v255, v254, 208, 1);
         }
 
-        v254 = v261;
-        [v254 setObject:0 forKeyedSubscript:v244];
+        v248 = v255;
+        [v248 setObject:0 forKeyedSubscript:v238];
 LABEL_274:
       }
 
-      v243 = v243 + 1;
-      a1 = v380;
-      v3 = v381;
-      if (v241 != v243)
+      v237 = v237 + 1;
+      a1 = v374;
+      v3 = v375;
+      if (v235 != v237)
       {
         continue;
       }
@@ -6692,9 +6635,9 @@ LABEL_274:
       break;
     }
 
-    v262 = [v238 countByEnumeratingWithState:&v400 objects:v457 count:16];
-    v241 = v262;
-    if (v262)
+    v256 = [v232 countByEnumeratingWithState:&v394 objects:v451 count:16];
+    v235 = v256;
+    if (v256)
     {
       continue;
     }
@@ -6705,34 +6648,34 @@ LABEL_274:
 LABEL_284:
 
 LABEL_285:
-  if ((v448 & 1) == 0)
+  if ((v442 & 1) == 0)
   {
-    v263 = *(a1 + 32);
-    if (v263)
+    v257 = *(a1 + 32);
+    if (v257)
     {
-      v263 = objc_getProperty(v263, v237, 184, 1);
+      v257 = objc_getProperty(v257, v231, 184, 1);
     }
 
-    v264 = v263;
-    if ([v264 count])
+    v258 = v257;
+    if ([v258 count])
     {
 
       goto LABEL_293;
     }
 
-    v266 = *(a1 + 32);
-    if (v266)
+    v260 = *(a1 + 32);
+    if (v260)
     {
-      v266 = objc_getProperty(v266, v265, 192, 1);
+      v260 = objc_getProperty(v260, v259, 192, 1);
     }
 
-    v267 = v266;
-    v268 = [v267 count];
+    v261 = v260;
+    v262 = [v261 count];
 
-    if (v268)
+    if (v262)
     {
 LABEL_293:
-      sub_100042EE0(*(a1 + 32), 0, 1, v3, *(a1 + 104), 0, &v448, *(a1 + 56), *(a1 + 64));
+      sub_100042EE0(*(a1 + 32), 0, 1, v3, *(a1 + 104), 0, &v442, *(a1 + 56), *(a1 + 64));
     }
   }
 
@@ -6740,349 +6683,349 @@ LABEL_293:
   {
     if (*(a1 + 32))
     {
-      v269 = 20020;
+      v263 = 20020;
     }
 
     else
     {
-      v269 = 20;
+      v263 = 20;
     }
 
-    v383 = v269;
+    v377 = v263;
     if ((*(a1 + 108) & 1) == 0)
     {
-      v270 = ne_log_obj();
-      if (os_log_type_enabled(v270, OS_LOG_TYPE_DEBUG))
+      v264 = ne_log_obj();
+      if (os_log_type_enabled(v264, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_debug_impl(&_mh_execute_header, v270, OS_LOG_TYPE_DEBUG, "Installing skip fallback policy for background traffic", buf, 2u);
+        _os_log_debug_impl(&_mh_execute_header, v264, OS_LOG_TYPE_DEBUG, "Installing skip fallback policy for background traffic", buf, 2u);
       }
 
       if (*(a1 + 32))
       {
-        v271 = 20000;
+        v265 = 20000;
       }
 
       else
       {
-        v271 = 0;
+        v265 = 0;
       }
 
-      v272 = [NEPolicyResult skipWithOrder:v271 | 0x1Eu];
-      v273 = [NEPolicyCondition trafficClassStart:100 end:299];
-      v274 = [NEPolicy alloc];
-      v456 = v273;
-      v275 = [NSArray arrayWithObjects:&v456 count:1];
-      v276 = [v274 initWithOrder:v271 | 5u result:v272 conditions:v275];
-      v278 = a1;
-      v279 = v276;
-      v280 = *(v278 + 32);
-      if (v280)
+      v266 = [NEPolicyResult skipWithOrder:v265 | 0x1Eu];
+      v267 = [NEPolicyCondition trafficClassStart:100 end:299];
+      v268 = [NEPolicy alloc];
+      v450 = v267;
+      v269 = [NSArray arrayWithObjects:&v450 count:1];
+      v270 = [v268 initWithOrder:v265 | 5u result:v266 conditions:v269];
+      v272 = a1;
+      v273 = v270;
+      v274 = *(v272 + 32);
+      if (v274)
       {
-        v280 = objc_getProperty(v280, v277, 48, 1);
+        v274 = objc_getProperty(v274, v271, 48, 1);
       }
 
-      v281 = v280;
-      sub_100033A90(v3, v279, v281);
+      v275 = v274;
+      sub_100033A90(v3, v273, v275);
 
-      a1 = v380;
+      a1 = v374;
     }
 
     if ([*(a1 + 88) count])
     {
       if (*(a1 + 32))
       {
-        v282 = 20000;
+        v276 = 20000;
       }
 
       else
       {
-        v282 = 0;
+        v276 = 0;
       }
 
-      v283 = [NEPolicyResult skipWithOrder:v282 | 0x1Eu];
-      v396 = 0u;
-      v397 = 0u;
-      v398 = 0u;
-      v399 = 0u;
-      v366 = *(a1 + 88);
-      v372 = [v366 countByEnumeratingWithState:&v396 objects:v455 count:16];
-      if (v372)
+      v277 = [NEPolicyResult skipWithOrder:v276 | 0x1Eu];
+      v390 = 0u;
+      v391 = 0u;
+      v392 = 0u;
+      v393 = 0u;
+      v360 = *(a1 + 88);
+      v366 = [v360 countByEnumeratingWithState:&v390 objects:v449 count:16];
+      if (v366)
       {
-        v369 = *v397;
+        v363 = *v391;
         do
         {
-          v284 = 0;
+          v278 = 0;
           do
           {
-            if (*v397 != v369)
+            if (*v391 != v363)
             {
-              objc_enumerationMutation(v366);
+              objc_enumerationMutation(v360);
             }
 
-            v376 = v284;
-            v285 = *(*(&v396 + 1) + 8 * v284);
-            v286 = ne_log_obj();
-            if (os_log_type_enabled(v286, OS_LOG_TYPE_DEBUG))
+            v370 = v278;
+            v279 = *(*(&v390 + 1) + 8 * v278);
+            v280 = ne_log_obj();
+            if (os_log_type_enabled(v280, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v475 = v285;
-              _os_log_debug_impl(&_mh_execute_header, v286, OS_LOG_TYPE_DEBUG, "Installing skip fallback policy for %@", buf, 0xCu);
+              v469 = v279;
+              _os_log_debug_impl(&_mh_execute_header, v280, OS_LOG_TYPE_DEBUG, "Installing skip fallback policy for %@", buf, 0xCu);
             }
 
-            v287 = [NEProcessInfo copyUUIDsForBundleID:v285 uid:*(a1 + 104)];
-            v392 = 0u;
-            v393 = 0u;
-            v394 = 0u;
-            v395 = 0u;
-            v288 = v287;
-            v289 = [v288 countByEnumeratingWithState:&v392 objects:v454 count:16];
-            if (v289)
+            v281 = [NEProcessInfo copyUUIDsForBundleID:v279 uid:*(a1 + 104)];
+            v386 = 0u;
+            v387 = 0u;
+            v388 = 0u;
+            v389 = 0u;
+            v282 = v281;
+            v283 = [v282 countByEnumeratingWithState:&v386 objects:v448 count:16];
+            if (v283)
             {
-              v290 = v289;
-              v291 = *v393;
+              v284 = v283;
+              v285 = *v387;
               do
               {
-                for (kk = 0; kk != v290; kk = kk + 1)
+                for (kk = 0; kk != v284; kk = kk + 1)
                 {
-                  if (*v393 != v291)
+                  if (*v387 != v285)
                   {
-                    objc_enumerationMutation(v288);
+                    objc_enumerationMutation(v282);
                   }
 
-                  v293 = [NEPolicyCondition effectiveApplication:*(*(&v392 + 1) + 8 * kk)];
-                  if (v293)
+                  v287 = [NEPolicyCondition effectiveApplication:*(*(&v386 + 1) + 8 * kk)];
+                  if (v287)
                   {
-                    v294 = [NEPolicy alloc];
-                    v453 = v293;
-                    v295 = [NSArray arrayWithObjects:&v453 count:1];
-                    v296 = [v294 initWithOrder:v282 | 0xAu result:v283 conditions:v295];
-                    v298 = a1;
-                    v299 = v296;
-                    v300 = *(v298 + 32);
-                    if (v300)
+                    v288 = [NEPolicy alloc];
+                    v447 = v287;
+                    v289 = [NSArray arrayWithObjects:&v447 count:1];
+                    v290 = [v288 initWithOrder:v276 | 0xAu result:v277 conditions:v289];
+                    v292 = a1;
+                    v293 = v290;
+                    v294 = *(v292 + 32);
+                    if (v294)
                     {
-                      v300 = objc_getProperty(v300, v297, 48, 1);
+                      v294 = objc_getProperty(v294, v291, 48, 1);
                     }
 
-                    v301 = v300;
-                    sub_100033A90(v381, v299, v301);
+                    v295 = v294;
+                    sub_100033A90(v375, v293, v295);
 
-                    a1 = v380;
+                    a1 = v374;
                   }
                 }
 
-                v290 = [v288 countByEnumeratingWithState:&v392 objects:v454 count:16];
+                v284 = [v282 countByEnumeratingWithState:&v386 objects:v448 count:16];
               }
 
-              while (v290);
+              while (v284);
             }
 
-            v284 = v376 + 1;
-            v3 = v381;
+            v278 = v370 + 1;
+            v3 = v375;
           }
 
-          while ((v376 + 1) != v372);
-          v372 = [v366 countByEnumeratingWithState:&v396 objects:v455 count:16];
+          while ((v370 + 1) != v366);
+          v366 = [v360 countByEnumeratingWithState:&v390 objects:v449 count:16];
         }
 
-        while (v372);
+        while (v366);
       }
     }
 
-    v377 = [NEPolicyResult netAgentUUID:*(a1 + 64)];
-    v388 = 0u;
-    v389 = 0u;
-    v390 = 0u;
-    v391 = 0u;
-    v367 = *(a1 + 80);
-    v302 = [v367 countByEnumeratingWithState:&v388 objects:v452 count:16];
-    if (v302)
+    v371 = [NEPolicyResult netAgentUUID:*(a1 + 64)];
+    v382 = 0u;
+    v383 = 0u;
+    v384 = 0u;
+    v385 = 0u;
+    v361 = *(a1 + 80);
+    v296 = [v361 countByEnumeratingWithState:&v382 objects:v446 count:16];
+    if (v296)
     {
-      v303 = v302;
-      v304 = *v389;
-      v362 = *v389;
+      v297 = v296;
+      v298 = *v383;
+      v356 = *v383;
       do
       {
-        v305 = 0;
-        v364 = v303;
+        v299 = 0;
+        v358 = v297;
         do
         {
-          if (*v389 != v304)
+          if (*v383 != v298)
           {
-            objc_enumerationMutation(v367);
+            objc_enumerationMutation(v361);
           }
 
-          v306 = *(*(&v388 + 1) + 8 * v305);
-          if ([v306 isEqualToString:@"PathRuleDefaultIdentifier"])
+          v300 = *(*(&v382 + 1) + 8 * v299);
+          if ([v300 isEqualToString:@"PathRuleDefaultIdentifier"])
           {
-            v307 = ne_log_obj();
-            if (os_log_type_enabled(v307, OS_LOG_TYPE_DEBUG))
+            v301 = ne_log_obj();
+            if (os_log_type_enabled(v301, OS_LOG_TYPE_DEBUG))
             {
               *buf = 0;
-              _os_log_debug_impl(&_mh_execute_header, v307, OS_LOG_TYPE_DEBUG, "Installing default fallback policy", buf, 2u);
+              _os_log_debug_impl(&_mh_execute_header, v301, OS_LOG_TYPE_DEBUG, "Installing default fallback policy", buf, 2u);
             }
 
-            v309 = [[NEPolicy alloc] initWithOrder:v383 result:v377 conditions:0];
-            v310 = *(a1 + 32);
-            if (v310)
+            v303 = [[NEPolicy alloc] initWithOrder:v377 result:v371 conditions:0];
+            v304 = *(a1 + 32);
+            if (v304)
             {
-              v310 = objc_getProperty(v310, v308, 48, 1);
+              v304 = objc_getProperty(v304, v302, 48, 1);
             }
 
-            v311 = v310;
-            sub_100033A90(v3, v309, v311);
+            v305 = v304;
+            sub_100033A90(v3, v303, v305);
           }
 
           else
           {
             if (v3 && v3[2])
             {
-              v309 = [NEPolicyResult filterWithControlUnit:?];
+              v303 = [NEPolicyResult filterWithControlUnit:?];
             }
 
             else
             {
-              v309 = 0;
+              v303 = 0;
             }
 
-            v370 = v305;
-            v312 = ne_log_obj();
-            if (os_log_type_enabled(v312, OS_LOG_TYPE_DEBUG))
+            v364 = v299;
+            v306 = ne_log_obj();
+            if (os_log_type_enabled(v306, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v475 = v306;
-              _os_log_debug_impl(&_mh_execute_header, v312, OS_LOG_TYPE_DEBUG, "Installing fallback policy for %@", buf, 0xCu);
+              v469 = v300;
+              _os_log_debug_impl(&_mh_execute_header, v306, OS_LOG_TYPE_DEBUG, "Installing fallback policy for %@", buf, 0xCu);
             }
 
-            v313 = [NEProcessInfo copyUUIDsForBundleID:v306 uid:*(a1 + 104)];
-            v384 = 0u;
-            v385 = 0u;
-            v386 = 0u;
-            v387 = 0u;
-            v373 = v313;
-            v314 = [v373 countByEnumeratingWithState:&v384 objects:v451 count:16];
-            if (v314)
+            v307 = [NEProcessInfo copyUUIDsForBundleID:v300 uid:*(a1 + 104)];
+            v378 = 0u;
+            v379 = 0u;
+            v380 = 0u;
+            v381 = 0u;
+            v367 = v307;
+            v308 = [v367 countByEnumeratingWithState:&v378 objects:v445 count:16];
+            if (v308)
             {
-              v315 = v314;
-              v316 = *v385;
+              v309 = v308;
+              v310 = *v379;
               do
               {
-                v317 = 0;
+                v311 = 0;
                 do
                 {
-                  if (*v385 != v316)
+                  if (*v379 != v310)
                   {
-                    objc_enumerationMutation(v373);
+                    objc_enumerationMutation(v367);
                   }
 
-                  v318 = [NEPolicyCondition effectiveApplication:*(*(&v384 + 1) + 8 * v317)];
-                  if (v318)
+                  v312 = [NEPolicyCondition effectiveApplication:*(*(&v378 + 1) + 8 * v311)];
+                  if (v312)
                   {
-                    v319 = [NEPolicy alloc];
-                    v450 = v318;
-                    v320 = [NSArray arrayWithObjects:&v450 count:1];
-                    v322 = [v319 initWithOrder:v383 result:v377 conditions:v320];
-                    v323 = *(a1 + 32);
-                    if (v323)
+                    v313 = [NEPolicy alloc];
+                    v444 = v312;
+                    v314 = [NSArray arrayWithObjects:&v444 count:1];
+                    v316 = [v313 initWithOrder:v377 result:v371 conditions:v314];
+                    v317 = *(a1 + 32);
+                    if (v317)
                     {
-                      v323 = objc_getProperty(v323, v321, 48, 1);
+                      v317 = objc_getProperty(v317, v315, 48, 1);
                     }
 
-                    v324 = v323;
-                    sub_100033A90(v3, v322, v324);
+                    v318 = v317;
+                    sub_100033A90(v3, v316, v318);
 
-                    if (v309)
+                    if (v303)
                     {
-                      v325 = [NEPolicy alloc];
-                      v449[0] = v318;
-                      v326 = +[NEPolicyCondition allInterfaces];
-                      v449[1] = v326;
-                      v327 = [NSArray arrayWithObjects:v449 count:2];
-                      v329 = [v325 initWithOrder:v383 result:v309 conditions:v327];
+                      v319 = [NEPolicy alloc];
+                      v443[0] = v312;
+                      v320 = +[NEPolicyCondition allInterfaces];
+                      v443[1] = v320;
+                      v321 = [NSArray arrayWithObjects:v443 count:2];
+                      v323 = [v319 initWithOrder:v377 result:v303 conditions:v321];
                       if (v3)
                       {
-                        v330 = objc_getProperty(v3, v328, 32, 1);
-                        v331 = v3;
-                        v3 = v330;
-                        v332 = v331;
-                        v333 = v329;
-                        v334 = v3;
+                        v324 = objc_getProperty(v3, v322, 32, 1);
+                        v325 = v3;
+                        v3 = v324;
+                        v326 = v325;
+                        v327 = v323;
+                        v328 = v3;
                       }
 
                       else
                       {
-                        v332 = 0;
-                        v333 = v329;
-                        v334 = 0;
+                        v326 = 0;
+                        v327 = v323;
+                        v328 = 0;
                       }
 
-                      sub_100033A90(v332, v333, v334);
+                      sub_100033A90(v326, v327, v328);
 
-                      a1 = v380;
-                      v3 = v381;
+                      a1 = v374;
+                      v3 = v375;
                     }
                   }
 
-                  v317 = v317 + 1;
+                  v311 = v311 + 1;
                 }
 
-                while (v315 != v317);
-                v335 = [v373 countByEnumeratingWithState:&v384 objects:v451 count:16];
-                v315 = v335;
+                while (v309 != v311);
+                v329 = [v367 countByEnumeratingWithState:&v378 objects:v445 count:16];
+                v309 = v329;
               }
 
-              while (v335);
+              while (v329);
             }
 
-            v311 = v373;
+            v305 = v367;
 
-            v304 = v362;
-            v303 = v364;
-            v305 = v370;
+            v298 = v356;
+            v297 = v358;
+            v299 = v364;
           }
 
-          v305 = v305 + 1;
+          v299 = v299 + 1;
         }
 
-        while (v305 != v303);
-        v303 = [v367 countByEnumeratingWithState:&v388 objects:v452 count:16];
+        while (v299 != v297);
+        v297 = [v361 countByEnumeratingWithState:&v382 objects:v446 count:16];
       }
 
-      while (v303);
+      while (v297);
     }
   }
 
-  v336 = sub_100031EB4(v3);
-  if (v336)
+  v330 = sub_100031EB4(v3);
+  if (v330)
   {
-    v337 = ne_log_large_obj();
-    if (os_log_type_enabled(v337, OS_LOG_TYPE_DEBUG))
+    v331 = ne_log_large_obj();
+    if (os_log_type_enabled(v331, OS_LOG_TYPE_DEBUG))
     {
-      v339 = *(a1 + 32);
-      if (v339)
+      v333 = *(a1 + 32);
+      if (v333)
       {
-        v339 = objc_getProperty(v339, v338, 48, 1);
+        v333 = objc_getProperty(v333, v332, 48, 1);
       }
 
-      v340 = v339;
+      v334 = v333;
       *buf = 138412290;
-      v475 = v340;
-      _os_log_debug_impl(&_mh_execute_header, v337, OS_LOG_TYPE_DEBUG, "Policy IDs added: %@", buf, 0xCu);
+      v469 = v334;
+      _os_log_debug_impl(&_mh_execute_header, v331, OS_LOG_TYPE_DEBUG, "Policy IDs added: %@", buf, 0xCu);
     }
   }
 
   else
   {
-    v337 = ne_log_obj();
-    if (os_log_type_enabled(v337, OS_LOG_TYPE_ERROR))
+    v331 = ne_log_obj();
+    if (os_log_type_enabled(v331, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&_mh_execute_header, v337, OS_LOG_TYPE_ERROR, "Failed to apply path controller policies", buf, 2u);
+      _os_log_error_impl(&_mh_execute_header, v331, OS_LOG_TYPE_ERROR, "Failed to apply path controller policies", buf, 2u);
     }
   }
 
-  return v336;
+  return v330;
 }
 
 uint64_t sub_100046D78(uint64_t a1, void *a2)
@@ -8960,8 +8903,9 @@ LABEL_89:
   return v17;
 }
 
-uint64_t sub_10004A134(_DWORD *a1, void *a2, void *a3, int a4, void *a5)
+uint64_t sub_10004A134(_DWORD *a1, void *a2, void *a3, uint64_t a4, void *a5)
 {
+  v6 = a4;
   v9 = a2;
   v10 = a3;
   v11 = a5;
@@ -8991,7 +8935,7 @@ uint64_t sub_10004A134(_DWORD *a1, void *a2, void *a3, int a4, void *a5)
       }
 
       sub_100031D58(v12, v15);
-      if (v10 && [v10 count] && (*buf = sub_100033F68(a1) + 170, Property = objc_getProperty(v12, v20, 16, 1), (sub_1000612AC(Property, buf, v10, v9, 200, a4, v15) & 1) == 0))
+      if (v10 && [v10 count] && (*buf = sub_100033F68(a1) + 170, Property = objc_getProperty(v12, v20, 16, 1), (sub_1000612AC(Property, buf, v10, v9, 200, v6, v15) & 1) == 0))
       {
         v23 = ne_log_obj();
         if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))

@@ -8,6 +8,7 @@
 - (void)didDiscoverNearbyObject:(id)object;
 - (void)didRemoveNearbyObjects:(id)objects withReason:(unint64_t)reason;
 - (void)didUpdateAlgorithmState:(id)state forObject:(id)object;
+- (void)didUpdateHomeDeviceUWBRangingAvailability:(BOOL)availability;
 - (void)didUpdateMotionState:(int64_t)state;
 - (void)didUpdateNearbyObjects:(id)objects;
 - (void)invalidate;
@@ -363,6 +364,15 @@ LABEL_10:
   if (v7)
   {
     [(NIServerClient *)self->_remote didUpdateAlgorithmState:stateCopy forObject:objectCopy];
+  }
+}
+
+- (void)didUpdateHomeDeviceUWBRangingAvailability:(BOOL)availability
+{
+  v3 = atomic_load(&self->_shouldDeliverUpdates);
+  if (v3)
+  {
+    [(NIServerClient *)self->_remote didUpdateHomeDeviceUWBRangingAvailability:availability];
   }
 }
 

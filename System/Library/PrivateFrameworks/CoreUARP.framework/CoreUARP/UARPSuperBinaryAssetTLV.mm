@@ -498,7 +498,8 @@ LABEL_44:
   }
 
 LABEL_23:
-  *v16 = 0uLL;
+  *v16 = 0;
+  *&v16[8] = 0;
   uarpVersionEndianSwap(value, v16);
   v7 = [[UARPSuperBinaryAssetTLV alloc] initWithType:type version:v16];
 LABEL_41:
@@ -769,23 +770,23 @@ LABEL_25:
 
 + (id)decomposeTLVs:(id)vs
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   vsCopy = vs;
-  v18 = 0;
+  v17 = 0;
   v4 = objc_opt_new();
   if ([vsCopy length])
   {
     v6 = 0;
     v7 = MEMORY[0x277D86220];
     *&v5 = 67109634;
-    v16 = v5;
+    v15 = v5;
     while (1)
     {
-      [vsCopy getBytes:&v18 range:{v6, 8, v16}];
-      LODWORD(v18) = uarpHtonl(v18);
-      v8 = uarpHtonl(HIDWORD(v18));
-      HIDWORD(v18) = v8;
-      if (!(v18 | v8))
+      [vsCopy getBytes:&v17 range:{v6, 8, v15}];
+      LODWORD(v17) = uarpHtonl(v17);
+      v8 = uarpHtonl(HIDWORD(v17));
+      HIDWORD(v17) = v8;
+      if (!(v17 | v8))
       {
         break;
       }
@@ -794,7 +795,7 @@ LABEL_25:
       v10 = v8;
       v11 = [vsCopy subdataWithRange:{v9, v8}];
       v12 = [UARPSuperBinaryAssetTLV alloc];
-      v13 = -[UARPSuperBinaryAssetTLV initWithType:tlvLength:tlvValue:](v12, "initWithType:tlvLength:tlvValue:", v18, HIDWORD(v18), [v11 bytes]);
+      v13 = -[UARPSuperBinaryAssetTLV initWithType:tlvLength:tlvValue:](v12, "initWithType:tlvLength:tlvValue:", v17, HIDWORD(v17), [v11 bytes]);
       if (v13)
       {
         [v4 addObject:v13];
@@ -802,11 +803,11 @@ LABEL_25:
 
       else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        *buf = v16;
-        v20 = v18;
-        v21 = 1024;
-        v22 = HIDWORD(v18);
-        v23 = 2112;
+        *buf = v15;
+        v19 = v17;
+        v20 = 1024;
+        v21 = HIDWORD(v17);
+        v22 = 2112;
         selfCopy = self;
         _os_log_error_impl(&dword_247AA7000, v7, OS_LOG_TYPE_ERROR, "attempting to add a nil tlv (T=0x%08x, L=%u) to superbinary %@", buf, 0x18u);
       }
@@ -826,8 +827,6 @@ LABEL_25:
   }
 
 LABEL_12:
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -947,44 +946,42 @@ LABEL_24:
 
 + (id)findTLVsWithType:(unint64_t)type tlvs:(id)tlvs
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   tlvsCopy = tlvs;
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v7 = tlvsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
+        v12 = *(*(&v15 + 1) + 8 * i);
         if ([v12 type] == type)
         {
           [v6 addObject:v12];
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
   }
 
   v13 = [MEMORY[0x277CBEA60] arrayWithArray:v6];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

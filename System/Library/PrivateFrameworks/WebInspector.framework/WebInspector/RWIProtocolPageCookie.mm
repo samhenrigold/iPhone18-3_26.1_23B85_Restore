@@ -7,18 +7,70 @@
 - (NSString)partitionKey;
 - (NSString)path;
 - (NSString)value;
+- (RWIProtocolPageCookie)initWithName:(id)name value:(id)value domain:(id)domain path:(id)path expires:(double)expires session:(BOOL)session httpOnly:(BOOL)only secure:(BOOL)self0 sameSite:(int64_t)self1;
 - (double)expires;
 - (int64_t)sameSite;
 - (void)setDomain:(id)domain;
 - (void)setExpires:(double)expires;
+- (void)setHttpOnly:(BOOL)only;
 - (void)setName:(id)name;
 - (void)setPartitionKey:(id)key;
 - (void)setPath:(id)path;
 - (void)setSameSite:(int64_t)site;
+- (void)setSecure:(BOOL)secure;
+- (void)setSession:(BOOL)session;
 - (void)setValue:(id)value;
 @end
 
 @implementation RWIProtocolPageCookie
+
+- (RWIProtocolPageCookie)initWithName:(id)name value:(id)value domain:(id)domain path:(id)path expires:(double)expires session:(BOOL)session httpOnly:(BOOL)only secure:(BOOL)self0 sameSite:(int64_t)self1
+{
+  onlyCopy = only;
+  sessionCopy = session;
+  nameCopy = name;
+  valueCopy = value;
+  domainCopy = domain;
+  pathCopy = path;
+  v25.receiver = self;
+  v25.super_class = RWIProtocolPageCookie;
+  v22 = [(RWIProtocolJSONObject *)&v25 init];
+  if (v22)
+  {
+    if (!nameCopy)
+    {
+      [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:{@"required property '%@' cannot be nil", @"name"}];
+    }
+
+    if (!valueCopy)
+    {
+      [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:{@"required property '%@' cannot be nil", @"value"}];
+    }
+
+    if (!domainCopy)
+    {
+      [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:{@"required property '%@' cannot be nil", @"domain"}];
+    }
+
+    if (!pathCopy)
+    {
+      [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:{@"required property '%@' cannot be nil", @"path"}];
+    }
+
+    [(RWIProtocolPageCookie *)v22 setName:nameCopy];
+    [(RWIProtocolPageCookie *)v22 setValue:valueCopy];
+    [(RWIProtocolPageCookie *)v22 setDomain:domainCopy];
+    [(RWIProtocolPageCookie *)v22 setPath:pathCopy];
+    [(RWIProtocolPageCookie *)v22 setExpires:expires];
+    [(RWIProtocolPageCookie *)v22 setSession:sessionCopy];
+    [(RWIProtocolPageCookie *)v22 setHttpOnly:onlyCopy];
+    [(RWIProtocolPageCookie *)v22 setSecure:secure];
+    [(RWIProtocolPageCookie *)v22 setSameSite:site];
+    v23 = v22;
+  }
+
+  return v22;
+}
 
 - (void)setName:(id)name
 {
@@ -99,6 +151,13 @@
   return result;
 }
 
+- (void)setSession:(BOOL)session
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolPageCookie;
+  [(RWIProtocolJSONObject *)&v3 setBool:session forKey:@"session"];
+}
+
 - (BOOL)session
 {
   v3.receiver = self;
@@ -106,11 +165,25 @@
   return [(RWIProtocolJSONObject *)&v3 BOOLForKey:@"session"];
 }
 
+- (void)setHttpOnly:(BOOL)only
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolPageCookie;
+  [(RWIProtocolJSONObject *)&v3 setBool:only forKey:@"httpOnly"];
+}
+
 - (BOOL)httpOnly
 {
   v3.receiver = self;
   v3.super_class = RWIProtocolPageCookie;
   return [(RWIProtocolJSONObject *)&v3 BOOLForKey:@"httpOnly"];
+}
+
+- (void)setSecure:(BOOL)secure
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolPageCookie;
+  [(RWIProtocolJSONObject *)&v3 setBool:secure forKey:@"secure"];
 }
 
 - (BOOL)secure

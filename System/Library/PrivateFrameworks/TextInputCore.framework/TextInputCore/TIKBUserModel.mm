@@ -42,38 +42,38 @@
 
 - (void)addDescriptor:(id)descriptor toWeeklyMetricKeys:(id)keys
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   descriptorCopy = descriptor;
   keysCopy = keys;
   calculationExpression = [descriptorCopy calculationExpression];
 
   if (calculationExpression)
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     calculationDependencies = [descriptorCopy calculationDependencies];
-    v10 = [calculationDependencies countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v10 = [calculationDependencies countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v17;
+      v12 = *v16;
       do
       {
         v13 = 0;
         do
         {
-          if (*v17 != v12)
+          if (*v16 != v12)
           {
             objc_enumerationMutation(calculationDependencies);
           }
 
-          [(TIKBUserModel *)self addMetric:*(*(&v16 + 1) + 8 * v13++) toWeeklyMetricKeys:keysCopy];
+          [(TIKBUserModel *)self addMetric:*(*(&v15 + 1) + 8 * v13++) toWeeklyMetricKeys:keysCopy];
         }
 
         while (v11 != v13);
-        v11 = [calculationDependencies countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v11 = [calculationDependencies countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v11);
@@ -85,8 +85,6 @@
     metricName = [descriptorCopy metricName];
     [keysCopy addObject:metricName];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addMetric:(id)metric toWeeklyMetricKeys:(id)keys
@@ -101,7 +99,7 @@
 
 - (void)doLoad
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (!self->_metricDescriptorRegistry)
   {
     v3 = +[TIMetricDescriptorRegistry registry];
@@ -125,27 +123,27 @@
     [v6 addObject:kFeatureValueWithWordLenWordCompletionsPathed];
     [v6 addObject:kFeatureValueWithWordLenPathEligibleWordsTapped];
     [v6 addObject:kFeatureValueWithWordLenPathIneligibleWordsTapped];
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     allMetricDescriptors = [(TIMetricDescriptorRegistry *)self->_metricDescriptorRegistry allMetricDescriptors];
-    v8 = [allMetricDescriptors countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v8 = [allMetricDescriptors countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v17;
+      v10 = *v16;
       do
       {
         v11 = 0;
         do
         {
-          if (*v17 != v10)
+          if (*v16 != v10)
           {
             objc_enumerationMutation(allMetricDescriptors);
           }
 
-          v12 = *(*(&v16 + 1) + 8 * v11);
+          v12 = *(*(&v15 + 1) + 8 * v11);
           if ([v12 isMemberOfClass:objc_opt_class()])
           {
             [(TIKBUserModel *)self addDescriptor:v12 toWeeklyMetricKeys:v6];
@@ -155,7 +153,7 @@
         }
 
         while (v9 != v11);
-        v9 = [allMetricDescriptors countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [allMetricDescriptors countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v9);
@@ -165,10 +163,9 @@
     [(TIUserModel *)self setWeeklyMetricKeys:allObjects];
   }
 
-  v15.receiver = self;
-  v15.super_class = TIKBUserModel;
-  [(TIUserModel *)&v15 doLoad];
-  v14 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = TIKBUserModel;
+  [(TIUserModel *)&v14 doLoad];
 }
 
 - (void)dispatchFeedbackAnalyzers:(id)analyzers aligned:(id)aligned revisionRateAnalysisSummary:(id)summary
@@ -189,32 +186,32 @@
 
 - (id)dictForPowerLog
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
+  v54 = 0u;
   v55 = 0u;
   v56 = 0u;
   v57 = 0u;
-  v58 = 0u;
   obj = [(TIUserModel *)self contexts];
-  v54 = [obj countByEnumeratingWithState:&v55 objects:v61 count:16];
+  v53 = [obj countByEnumeratingWithState:&v54 objects:v60 count:16];
   v2 = 0;
   v3 = 0;
   v4 = 0;
   v5 = 0;
-  if (v54)
+  if (v53)
   {
-    v52 = *v56;
+    v51 = *v55;
     v6 = 0.0;
     v7 = 0.0;
     do
     {
-      for (i = 0; i != v54; ++i)
+      for (i = 0; i != v53; ++i)
       {
-        if (*v56 != v52)
+        if (*v55 != v51)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = [(TIUserModel *)self valuesFromContext:*(*(&v55 + 1) + 8 * i)];
+        v9 = [(TIUserModel *)self valuesFromContext:*(*(&v54 + 1) + 8 * i)];
         v10 = [v9 getTransientCounterForKey:kFeatureValueWithWordLenPathEligibleWordsTapped];
         currentCounts = [v10 currentCounts];
 
@@ -326,10 +323,10 @@
         }
       }
 
-      v54 = [obj countByEnumeratingWithState:&v55 objects:v61 count:16];
+      v53 = [obj countByEnumeratingWithState:&v54 objects:v60 count:16];
     }
 
-    while (v54);
+    while (v53);
   }
 
   else
@@ -340,33 +337,31 @@
 
   if (v3 | v5)
   {
-    v59[0] = @"WordsTapped";
+    v58[0] = @"WordsTapped";
     v43 = [MEMORY[0x277CCABB0] numberWithInt:v5];
-    v60[0] = v43;
-    v59[1] = @"CharactersTapped";
+    v59[0] = v43;
+    v58[1] = @"CharactersTapped";
     v44 = [MEMORY[0x277CCABB0] numberWithInt:v4];
-    v60[1] = v44;
-    v59[2] = @"WordsPathed";
+    v59[1] = v44;
+    v58[2] = @"WordsPathed";
     v45 = [MEMORY[0x277CCABB0] numberWithInt:v3];
-    v60[2] = v45;
-    v59[3] = @"CharactersPathed";
+    v59[2] = v45;
+    v58[3] = @"CharactersPathed";
     v46 = [MEMORY[0x277CCABB0] numberWithInt:v2];
-    v60[3] = v46;
-    v59[4] = @"TimeSpentPathTyping";
+    v59[3] = v46;
+    v58[4] = @"TimeSpentPathTyping";
     v47 = [MEMORY[0x277CCABB0] numberWithDouble:v6 / 1000.0];
-    v60[4] = v47;
-    v59[5] = @"TimeSpentTapTyping";
+    v59[4] = v47;
+    v58[5] = @"TimeSpentTapTyping";
     v48 = [MEMORY[0x277CCABB0] numberWithDouble:v7 / 1000.0];
-    v60[5] = v48;
-    v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v60 forKeys:v59 count:6];
+    v59[5] = v48;
+    v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:v58 count:6];
   }
 
   else
   {
     v42 = 0;
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 
   return v42;
 }
@@ -384,69 +379,66 @@
 
 - (id)settingsDictionary
 {
-  v22[6] = *MEMORY[0x277D85DE8];
+  v21[6] = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   mEMORY[0x277D6F470] = [MEMORY[0x277D6F470] sharedPreferencesController];
   v4 = *MEMORY[0x277D6F830];
-  v22[0] = *MEMORY[0x277D6F848];
-  v22[1] = v4;
+  v21[0] = *MEMORY[0x277D6F848];
+  v21[1] = v4;
   v5 = *MEMORY[0x277D6F638];
-  v22[2] = *MEMORY[0x277D6F7C0];
-  v22[3] = v5;
+  v21[2] = *MEMORY[0x277D6F7C0];
+  v21[3] = v5;
   v6 = *MEMORY[0x277D6F998];
-  v22[4] = *MEMORY[0x277D6F928];
-  v22[5] = v6;
-  [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:6];
+  v21[4] = *MEMORY[0x277D6F928];
+  v21[5] = v6;
+  [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:6];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v7 = v20 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = v19 = 0u;
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
-        v13 = [mEMORY[0x277D6F470] BOOLForPreferenceKey:{v12, v17}];
+        v12 = *(*(&v16 + 1) + 8 * i);
+        v13 = [mEMORY[0x277D6F470] BOOLForPreferenceKey:{v12, v16}];
         v14 = [MEMORY[0x277CCABB0] numberWithBool:v13];
         [dictionary setObject:v14 forKey:v12];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
 
 - (id)durableCounterKeys
 {
-  v5[10] = *MEMORY[0x277D85DE8];
-  v5[0] = kFeatureCounterTotalWordsTyped;
-  v5[1] = kFeatureCounterTotalWordsPathed;
-  v5[2] = kFeatureCounterTotalWordsAutocorrected;
-  v5[3] = kFeatureCounterTotalWordsFromCandidateBar;
-  v5[4] = kFeatureCounterTotalWordsTypedOnFloatingKeyboard;
-  v5[5] = kFeatureCounterTotalWordsTypedInSecondaryLanguage;
-  v5[6] = kFeedbackCounterAutocorrectionEnablementCorrectedWords;
-  v5[7] = kFeedbackCounterAutocorrectionEnablementTappedWords;
-  v5[8] = kFeedbackCounterAutocorrectionEnablementRevisedWords;
-  v5[9] = kFeedbackCounterAutocorrectionEnablementRevisedCorrectedWords;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:10];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[10] = *MEMORY[0x277D85DE8];
+  v4[0] = kFeatureCounterTotalWordsTyped;
+  v4[1] = kFeatureCounterTotalWordsPathed;
+  v4[2] = kFeatureCounterTotalWordsAutocorrected;
+  v4[3] = kFeatureCounterTotalWordsFromCandidateBar;
+  v4[4] = kFeatureCounterTotalWordsTypedOnFloatingKeyboard;
+  v4[5] = kFeatureCounterTotalWordsTypedInSecondaryLanguage;
+  v4[6] = kFeedbackCounterAutocorrectionEnablementCorrectedWords;
+  v4[7] = kFeedbackCounterAutocorrectionEnablementTappedWords;
+  v4[8] = kFeedbackCounterAutocorrectionEnablementRevisedWords;
+  v4[9] = kFeedbackCounterAutocorrectionEnablementRevisedCorrectedWords;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:10];
 
   return v2;
 }

@@ -1,4 +1,5 @@
 @interface _ATXHomeScreenStackState
+- (BOOL)containsIdenticalContentOfSuggestion:(id)suggestion ignoreDuplicatesInSGWidget:(BOOL)widget ignoreDuplicatesInPanels:(BOOL)panels;
 - (BOOL)containsSuggestedWidgetForApp:(id)app;
 - (BOOL)containsWidgetForApp:(id)app;
 - (BOOL)containsWidgetForIntent:(id)intent;
@@ -13,6 +14,7 @@
 - (id)_firstWidgetPassingTest:(id)test considerSuggestedWidgets:(BOOL)widgets;
 - (id)_previousSuggestionForMemberWidget:(id)widget;
 - (id)previousTopWidget;
+- (id)widgetForSuggestion:(id)suggestion considerSuggestedWidgets:(BOOL)widgets;
 - (void)previousTopWidget;
 - (void)setTopOfStackSuggestion:(id)suggestion;
 @end
@@ -42,33 +44,33 @@
       v18 = 0u;
       v19 = 0u;
       widgets2 = [(ATXHomeScreenStackConfig *)*p_config widgets];
-      v9 = [widgets2 countByEnumeratingWithState:&v18 objects:v22 count:16];
-      if (v9)
+      v10 = [widgets2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      if (v10)
       {
-        v10 = v9;
-        v11 = *v19;
+        v11 = v10;
+        v12 = *v19;
         while (2)
         {
-          for (i = 0; i != v10; ++i)
+          for (i = 0; i != v11; ++i)
           {
-            if (*v19 != v11)
+            if (*v19 != v12)
             {
               objc_enumerationMutation(widgets2);
             }
 
-            v13 = *(*(&v18 + 1) + 8 * i);
-            widgetUniqueId = [v13 widgetUniqueId];
-            v15 = [widgetUniqueId isEqualToString:widgets];
+            v14 = *(*(&v18 + 1) + 8 * i);
+            widgetUniqueId = [v14 widgetUniqueId];
+            v16 = [widgetUniqueId isEqualToString:widgets];
 
-            if (v15)
+            if (v16)
             {
-              firstObject = v13;
+              firstObject = v14;
               goto LABEL_17;
             }
           }
 
-          v10 = [widgets2 countByEnumeratingWithState:&v18 objects:v22 count:16];
-          if (v10)
+          v11 = [widgets2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+          if (v11)
           {
             continue;
           }
@@ -78,7 +80,7 @@
       }
     }
 
-    widgets2 = __atxlog_handle_blending();
+    widgets2 = __atxlog_handle_blending(v8);
     if (os_log_type_enabled(widgets2, OS_LOG_TYPE_ERROR))
     {
       [(_ATXHomeScreenStackState *)p_config previousTopWidget];
@@ -88,22 +90,20 @@
 LABEL_17:
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return firstObject;
 }
 
 - (_ATXHomeScreenStackState)initWithPageState:(id)state stackConfig:(id)config stackStateTracker:(id)tracker suggestionDeduplicator:(id)deduplicator hyperParameters:(id)parameters
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   configCopy = config;
   trackerCopy = tracker;
   deduplicatorCopy = deduplicator;
   parametersCopy = parameters;
-  v64.receiver = self;
-  v64.super_class = _ATXHomeScreenStackState;
-  v17 = [(_ATXHomeScreenStackState *)&v64 init];
+  v63.receiver = self;
+  v63.super_class = _ATXHomeScreenStackState;
+  v17 = [(_ATXHomeScreenStackState *)&v63 init];
   v18 = v17;
   if (!v17)
   {
@@ -135,15 +135,15 @@ LABEL_17:
     }
 
     widgets = [(_ATXHomeScreenStackState *)v18 previousTopWidget];
-    v51 = [(_ATXHomeScreenStackState *)v18 _previousSuggestionForMemberWidget:widgets];
+    v50 = [(_ATXHomeScreenStackState *)v18 _previousSuggestionForMemberWidget:widgets];
     firstObject = v18->_previousTopOfStackSuggestion;
-    v18->_previousTopOfStackSuggestion = v51;
+    v18->_previousTopOfStackSuggestion = v50;
   }
 
 LABEL_6:
-  v52 = deduplicatorCopy;
-  v53 = trackerCopy;
-  v55 = stateCopy;
+  v51 = deduplicatorCopy;
+  v52 = trackerCopy;
+  v54 = stateCopy;
   v24 = objc_opt_new();
   suggestedWidgets = v18->_suggestedWidgets;
   v18->_suggestedWidgets = v24;
@@ -154,26 +154,26 @@ LABEL_6:
 
   if ([(ATXHomeScreenStackConfig *)v18->_config allowsNewWidget])
   {
-    v62 = 0u;
-    v63 = 0u;
-    v60 = 0u;
     v61 = 0u;
+    v62 = 0u;
+    v59 = 0u;
+    v60 = 0u;
     widgets2 = [(ATXHomeScreenStackConfig *)v18->_config widgets];
-    v29 = [widgets2 countByEnumeratingWithState:&v60 objects:v66 count:16];
+    v29 = [widgets2 countByEnumeratingWithState:&v59 objects:v65 count:16];
     if (v29)
     {
       v30 = v29;
-      v31 = *v61;
+      v31 = *v60;
       do
       {
         for (i = 0; i != v30; ++i)
         {
-          if (*v61 != v31)
+          if (*v60 != v31)
           {
             objc_enumerationMutation(widgets2);
           }
 
-          v33 = *(*(&v60 + 1) + 8 * i);
+          v33 = *(*(&v59 + 1) + 8 * i);
           if ([v33 isSuggestedWidget])
           {
             v34 = [(_ATXHomeScreenStackState *)v18 _previousSuggestionForMemberWidget:v33];
@@ -184,39 +184,39 @@ LABEL_6:
           }
         }
 
-        v30 = [widgets2 countByEnumeratingWithState:&v60 objects:v66 count:16];
+        v30 = [widgets2 countByEnumeratingWithState:&v59 objects:v65 count:16];
       }
 
       while (v30);
     }
   }
 
-  v54 = configCopy;
+  v53 = configCopy;
   v35 = objc_opt_new();
   suggestionsWidgetSuggestionsByWidgetUniqueId = v18->_suggestionsWidgetSuggestionsByWidgetUniqueId;
   v18->_suggestionsWidgetSuggestionsByWidgetUniqueId = v35;
 
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
   v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
   widgets3 = [(ATXHomeScreenStackConfig *)v18->_config widgets];
-  v38 = [widgets3 countByEnumeratingWithState:&v56 objects:v65 count:16];
+  v38 = [widgets3 countByEnumeratingWithState:&v55 objects:v64 count:16];
   if (v38)
   {
     v39 = v38;
-    v40 = *v57;
+    v40 = *v56;
     v41 = *MEMORY[0x277CEBBA0];
     do
     {
       for (j = 0; j != v39; ++j)
       {
-        if (*v57 != v40)
+        if (*v56 != v40)
         {
           objc_enumerationMutation(widgets3);
         }
 
-        v43 = *(*(&v56 + 1) + 8 * j);
+        v43 = *(*(&v55 + 1) + 8 * j);
         if (([v43 isSuggestedWidget] & 1) == 0)
         {
           extensionBundleId = [v43 extensionBundleId];
@@ -232,19 +232,18 @@ LABEL_6:
         }
       }
 
-      v39 = [widgets3 countByEnumeratingWithState:&v56 objects:v65 count:16];
+      v39 = [widgets3 countByEnumeratingWithState:&v55 objects:v64 count:16];
     }
 
     while (v39);
   }
 
-  configCopy = v54;
-  stateCopy = v55;
-  deduplicatorCopy = v52;
-  trackerCopy = v53;
+  configCopy = v53;
+  stateCopy = v54;
+  deduplicatorCopy = v51;
+  trackerCopy = v52;
 LABEL_30:
 
-  v49 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -327,28 +326,28 @@ LABEL_30:
 
 - (BOOL)containsWidgetForIntent:(id)intent
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   intentCopy = intent;
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   widgets = [(ATXHomeScreenStackConfig *)self->_config widgets];
-  v6 = [(NSMutableArray *)widgets countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v6 = [(NSMutableArray *)widgets countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v27;
+    v8 = *v26;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v27 != v8)
+      if (*v26 != v8)
       {
         objc_enumerationMutation(widgets);
       }
 
-      v10 = *(*(&v26 + 1) + 8 * v9);
+      v10 = *(*(&v25 + 1) + 8 * v9);
       if (([v10 isSuggestedWidget] & 1) == 0)
       {
         intent = [v10 intent];
@@ -367,7 +366,7 @@ LABEL_3:
 
       if (v7 == ++v9)
       {
-        v7 = [(NSMutableArray *)widgets countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v7 = [(NSMutableArray *)widgets countByEnumeratingWithState:&v25 objects:v30 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -378,25 +377,25 @@ LABEL_3:
     }
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   widgets = self->_suggestedWidgets;
-  v14 = [(NSMutableArray *)widgets countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v14 = [(NSMutableArray *)widgets countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v14)
   {
-    v15 = *v23;
+    v15 = *v22;
 LABEL_13:
     v16 = 0;
     while (1)
     {
-      if (*v23 != v15)
+      if (*v22 != v15)
       {
         objc_enumerationMutation(widgets);
       }
 
-      widget = [*(*(&v22 + 1) + 8 * v16) widget];
+      widget = [*(*(&v21 + 1) + 8 * v16) widget];
       intent3 = [widget intent];
       v19 = [ATXActionToWidgetConverter isWidgetIntent:intent3 validConversionFromActionIntent:intentCopy];
 
@@ -407,7 +406,7 @@ LABEL_13:
 
       if (v14 == ++v16)
       {
-        v14 = [(NSMutableArray *)widgets countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v14 = [(NSMutableArray *)widgets countByEnumeratingWithState:&v21 objects:v29 count:16];
         if (v14)
         {
           goto LABEL_13;
@@ -423,34 +422,33 @@ LABEL_20:
 
 LABEL_21:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (BOOL)containsWidgetForApp:(id)app
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   appCopy = app;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   widgets = [(ATXHomeScreenStackConfig *)self->_config widgets];
-  v6 = [widgets countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [widgets countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(widgets);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         if (([v10 isSuggestedWidget] & 1) == 0)
         {
           appBundleId = [v10 appBundleId];
@@ -465,7 +463,7 @@ LABEL_21:
         }
       }
 
-      v7 = [widgets countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [widgets countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v7)
       {
         continue;
@@ -478,33 +476,32 @@ LABEL_21:
   v13 = [(_ATXHomeScreenStackState *)self containsSuggestedWidgetForApp:appCopy];
 LABEL_12:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (BOOL)containsSuggestedWidgetForApp:(id)app
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   appCopy = app;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = self->_suggestedWidgets;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        widget = [*(*(&v14 + 1) + 8 * i) widget];
+        widget = [*(*(&v13 + 1) + 8 * i) widget];
         appBundleId = [widget appBundleId];
         v11 = [appBundleId isEqualToString:appCopy];
 
@@ -515,7 +512,7 @@ LABEL_12:
         }
       }
 
-      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -527,8 +524,151 @@ LABEL_12:
 
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v6;
+}
+
+- (BOOL)containsIdenticalContentOfSuggestion:(id)suggestion ignoreDuplicatesInSGWidget:(BOOL)widget ignoreDuplicatesInPanels:(BOOL)panels
+{
+  panelsCopy = panels;
+  widgetCopy = widget;
+  v42 = *MEMORY[0x277D85DE8];
+  suggestionCopy = suggestion;
+  if ([(ATXHomeScreenStackConfig *)self->_config isAppPredictionPanel])
+  {
+    v9 = [(_ATXHomeScreenStackState *)self topWidgetIsShowingIdenticalContentOfSuggestion:suggestionCopy ignoreDuplicatesInSGWidget:widgetCopy ignoreDuplicatesInPanels:panelsCopy];
+    goto LABEL_35;
+  }
+
+  v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  widgets = [(ATXHomeScreenStackConfig *)self->_config widgets];
+  v11 = [(NSMutableArray *)widgets countByEnumeratingWithState:&v35 objects:v41 count:16];
+  if (v11)
+  {
+    v12 = v11;
+    v13 = *v36;
+LABEL_5:
+    v14 = 0;
+    while (1)
+    {
+      if (*v36 != v13)
+      {
+        objc_enumerationMutation(widgets);
+      }
+
+      v15 = *(*(&v35 + 1) + 8 * v14);
+      if ([v15 isSuggestedWidget] & 1) == 0 && (-[ATXSuggestionDeduplicatorProtocol isWidget:showingIdenticalContentOfSuggestion:](self->_suggestionDeduplicator, "isWidget:showingIdenticalContentOfSuggestion:", v15, suggestionCopy))
+      {
+        goto LABEL_33;
+      }
+
+      if (v12 == ++v14)
+      {
+        v12 = [(NSMutableArray *)widgets countByEnumeratingWithState:&v35 objects:v41 count:16];
+        if (v12)
+        {
+          goto LABEL_5;
+        }
+
+        break;
+      }
+    }
+  }
+
+  v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  widgets = self->_suggestedWidgets;
+  v16 = [(NSMutableArray *)widgets countByEnumeratingWithState:&v31 objects:v40 count:16];
+  if (v16)
+  {
+    v17 = v16;
+    v18 = *v32;
+LABEL_14:
+    v19 = 0;
+    while (1)
+    {
+      if (*v32 != v18)
+      {
+        objc_enumerationMutation(widgets);
+      }
+
+      v20 = *(*(&v31 + 1) + 8 * v19);
+      if (!widgetCopy || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+      {
+        if ([v20 containsIdenticalContentOfSuggestion:suggestionCopy])
+        {
+          break;
+        }
+      }
+
+      if (v17 == ++v19)
+      {
+        v17 = [(NSMutableArray *)widgets countByEnumeratingWithState:&v31 objects:v40 count:16];
+        if (v17)
+        {
+          goto LABEL_14;
+        }
+
+        goto LABEL_22;
+      }
+    }
+
+LABEL_33:
+
+LABEL_34:
+    v9 = 1;
+    goto LABEL_35;
+  }
+
+LABEL_22:
+
+  if (!widgetCopy)
+  {
+    v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    allValues = [(NSMutableDictionary *)self->_suggestionsWidgetSuggestionsByWidgetUniqueId allValues];
+    v22 = [allValues countByEnumeratingWithState:&v27 objects:v39 count:16];
+    if (v22)
+    {
+      v23 = v22;
+      v24 = *v28;
+      while (2)
+      {
+        for (i = 0; i != v23; ++i)
+        {
+          if (*v28 != v24)
+          {
+            objc_enumerationMutation(allValues);
+          }
+
+          if ([*(*(&v27 + 1) + 8 * i) containsIdenticalContentOfSuggestion:suggestionCopy])
+          {
+
+            goto LABEL_34;
+          }
+        }
+
+        v23 = [allValues countByEnumeratingWithState:&v27 objects:v39 count:16];
+        if (v23)
+        {
+          continue;
+        }
+
+        break;
+      }
+    }
+  }
+
+  v9 = 0;
+LABEL_35:
+
+  return v9;
 }
 
 - (BOOL)topWidgetIsShowingIdenticalContentOfSuggestion:(id)suggestion ignoreDuplicatesInSGWidget:(BOOL)widget ignoreDuplicatesInPanels:(BOOL)panels
@@ -538,25 +678,25 @@ LABEL_11:
   suggestionCopy = suggestion;
   if (([(ATXHomeScreenStackConfig *)self->_config allowsSmartRotate]& 1) == 0 && ([(ATXHomeScreenStackConfig *)self->_config allowsNewWidget]& 1) == 0 && ([(ATXHomeScreenStackConfig *)self->_config isPinnedSuggestionsWidget]& 1) == 0 && ![(ATXHomeScreenStackConfig *)self->_config isAppPredictionPanel])
   {
-    v11 = [(_ATXHomeScreenStackState *)self previousTopWidgetWasShowingIdenticalContentOfSuggestion:suggestionCopy];
+    v10 = [(_ATXHomeScreenStackState *)self previousTopWidgetWasShowingIdenticalContentOfSuggestion:suggestionCopy];
     goto LABEL_11;
   }
 
   if (!panelsCopy || ([(ATXHomeScreenStackConfig *)self->_config isAppPredictionPanel]& 1) == 0)
   {
-    if (!widgetCopy || (topOfStackSuggestion = self->_topOfStackSuggestion, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+    if (!widgetCopy || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
-      v11 = [(_ATXWidgetSuggesting *)self->_topOfStackSuggestion containsIdenticalContentOfSuggestion:suggestionCopy];
+      v10 = [(_ATXWidgetSuggesting *)self->_topOfStackSuggestion containsIdenticalContentOfSuggestion:suggestionCopy];
 LABEL_11:
-      v10 = v11;
+      v9 = v10;
       goto LABEL_12;
     }
   }
 
-  v10 = 0;
+  v9 = 0;
 LABEL_12:
 
-  return v10;
+  return v9;
 }
 
 - (BOOL)previousTopWidgetWasShowingIdenticalContentOfSuggestion:(id)suggestion
@@ -600,34 +740,34 @@ LABEL_12:
 
 - (BOOL)previousSuggestedWidgetsContainIdenticalContentOfSuggestion:(id)suggestion
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   suggestionCopy = suggestion;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = self->_previousSuggestedWidgets;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
-    v7 = *v12;
+    v7 = *v11;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        if ([*(*(&v11 + 1) + 8 * i) containsIdenticalContentOfSuggestion:{suggestionCopy, v11}])
+        if ([*(*(&v10 + 1) + 8 * i) containsIdenticalContentOfSuggestion:{suggestionCopy, v10}])
         {
           LOBYTE(v6) = 1;
           goto LABEL_11;
         }
       }
 
-      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v6)
       {
         continue;
@@ -639,8 +779,58 @@ LABEL_12:
 
 LABEL_11:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
+}
+
+- (id)widgetForSuggestion:(id)suggestion considerSuggestedWidgets:(BOOL)widgets
+{
+  widgetsCopy = widgets;
+  suggestionCopy = suggestion;
+  executableSpecification = [suggestionCopy executableSpecification];
+  executableType = [executableSpecification executableType];
+
+  if (executableType == 3)
+  {
+    if ([(_ATXHomeScreenStackState *)self sizeIsCompatibleWithWidgetSuggestion:suggestionCopy])
+    {
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __73___ATXHomeScreenStackState_widgetForSuggestion_considerSuggestedWidgets___block_invoke;
+      v14[3] = &unk_2785990E8;
+      v14[4] = self;
+      v15 = suggestionCopy;
+      firstObject = [(_ATXHomeScreenStackState *)self _firstWidgetPassingTest:v14 considerSuggestedWidgets:widgetsCopy];
+
+      goto LABEL_10;
+    }
+  }
+
+  else
+  {
+    isAppPredictionPanel = [(ATXHomeScreenStackConfig *)self->_config isAppPredictionPanel];
+    hyperParameters = self->_hyperParameters;
+    if (isAppPredictionPanel)
+    {
+      if ([(ATXBlendingLayerHyperParameters *)hyperParameters isSuggestionEligibleForAppPredictionPanel:suggestionCopy])
+      {
+        widgets = [(ATXHomeScreenStackConfig *)self->_config widgets];
+        firstObject = [widgets firstObject];
+
+        goto LABEL_10;
+      }
+    }
+
+    else if ([(ATXBlendingLayerHyperParameters *)hyperParameters isSuggestionEligibleForSuggestionsWidget:suggestionCopy])
+    {
+      firstObject = [(_ATXHomeScreenStackState *)self _firstWidgetPassingTest:&__block_literal_global_45 considerSuggestedWidgets:widgetsCopy];
+      goto LABEL_10;
+    }
+  }
+
+  firstObject = 0;
+LABEL_10:
+
+  return firstObject;
 }
 
 - (BOOL)sizeIsCompatibleWithWidgetSuggestion:(id)suggestion
@@ -701,7 +891,7 @@ LABEL_14:
   v5 = widgetCopy;
   if (!widgetCopy)
   {
-    v12 = 0;
+    v13 = 0;
     goto LABEL_19;
   }
 
@@ -711,11 +901,11 @@ LABEL_14:
   if (!v7)
   {
     extensionBundleId2 = [v5 extensionBundleId];
-    v14 = [extensionBundleId2 isEqualToString:*MEMORY[0x277CEBBA0]];
+    v15 = [extensionBundleId2 isEqualToString:*MEMORY[0x277CEBBA0]];
 
-    if (!v14)
+    if (!v15)
     {
-      v12 = [[_ATXSimpleWidgetSuggestion alloc] initWithWidget:v5 suggestion:0 stack:self suggestionDeduplicator:self->_suggestionDeduplicator];
+      v13 = [[_ATXSimpleWidgetSuggestion alloc] initWithWidget:v5 suggestion:0 stack:self suggestionDeduplicator:self->_suggestionDeduplicator];
       goto LABEL_19;
     }
 
@@ -725,18 +915,18 @@ LABEL_14:
 
     if (v10)
     {
-      v11 = [[_ATXSuggestionsWidgetSuggestion alloc] initWithSuggestionsWidget:v5 containingStack:self suggestionLayout:v10 suggestionDeduplicator:self->_suggestionDeduplicator hyperParameters:self->_hyperParameters];
+      v12 = [[_ATXSuggestionsWidgetSuggestion alloc] initWithSuggestionsWidget:v5 containingStack:self suggestionLayout:v10 suggestionDeduplicator:self->_suggestionDeduplicator hyperParameters:self->_hyperParameters];
       goto LABEL_9;
     }
 
-    v18 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v20 = __atxlog_handle_blending(v18);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [_ATXHomeScreenStackState _previousSuggestionForMemberWidget:?];
     }
 
 LABEL_17:
-    v12 = 0;
+    v13 = 0;
     goto LABEL_18;
   }
 
@@ -746,8 +936,8 @@ LABEL_17:
 
   if (!v10)
   {
-    v17 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = __atxlog_handle_blending(v11);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       [(_ATXHomeScreenStackState *)self _previousSuggestionForMemberWidget:?];
     }
@@ -755,41 +945,41 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  v11 = [[_ATXAppPredictionPanelSuggestion alloc] initWithAppPredictionPanel:v5 containingStack:self suggestionLayout:v10 suggestionDeduplicator:self->_suggestionDeduplicator hyperParameters:self->_hyperParameters];
+  v12 = [[_ATXAppPredictionPanelSuggestion alloc] initWithAppPredictionPanel:v5 containingStack:self suggestionLayout:v10 suggestionDeduplicator:self->_suggestionDeduplicator hyperParameters:self->_hyperParameters];
 LABEL_9:
-  v12 = v11;
+  v13 = v12;
 LABEL_18:
 
 LABEL_19:
 
-  return v12;
+  return v13;
 }
 
 - (id)_firstWidgetPassingTest:(id)test considerSuggestedWidgets:(BOOL)widgets
 {
   widgetsCopy = widgets;
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   testCopy = test;
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   widgets = [(ATXHomeScreenStackConfig *)self->_config widgets];
-  v8 = [(NSMutableArray *)widgets countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v8 = [(NSMutableArray *)widgets countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v27;
+    v10 = *v26;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v27 != v10)
+        if (*v26 != v10)
         {
           objc_enumerationMutation(widgets);
         }
 
-        v12 = *(*(&v26 + 1) + 8 * i);
+        v12 = *(*(&v25 + 1) + 8 * i);
         if ([v12 isSuggestedWidget] & 1) == 0 && (testCopy[2](testCopy, v12))
         {
           widget2 = v12;
@@ -799,7 +989,7 @@ LABEL_21:
         }
       }
 
-      v9 = [(NSMutableArray *)widgets countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v9 = [(NSMutableArray *)widgets countByEnumeratingWithState:&v25 objects:v30 count:16];
       if (v9)
       {
         continue;
@@ -811,25 +1001,25 @@ LABEL_21:
 
   if (widgetsCopy)
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     widgets = self->_suggestedWidgets;
-    v13 = [(NSMutableArray *)widgets countByEnumeratingWithState:&v22 objects:v30 count:16];
+    v13 = [(NSMutableArray *)widgets countByEnumeratingWithState:&v21 objects:v29 count:16];
     if (v13)
     {
-      v14 = *v23;
+      v14 = *v22;
       while (2)
       {
         for (j = 0; j != v13; j = j + 1)
         {
-          if (*v23 != v14)
+          if (*v22 != v14)
           {
             objc_enumerationMutation(widgets);
           }
 
-          v16 = *(*(&v22 + 1) + 8 * j);
+          v16 = *(*(&v21 + 1) + 8 * j);
           widget = [v16 widget];
           v18 = testCopy[2](testCopy, widget);
 
@@ -840,7 +1030,7 @@ LABEL_21:
           }
         }
 
-        v13 = [(NSMutableArray *)widgets countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v13 = [(NSMutableArray *)widgets countByEnumeratingWithState:&v21 objects:v29 count:16];
         if (v13)
         {
           continue;
@@ -858,8 +1048,6 @@ LABEL_22:
     v13 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
@@ -872,22 +1060,19 @@ LABEL_22:
 
 - (void)previousTopWidget
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   identifier = [*self identifier];
-  v7 = 136315650;
-  v8 = "[_ATXHomeScreenStackState previousTopWidget]";
-  v9 = 2112;
-  v10 = identifier;
-  v11 = 2112;
-  v12 = a2;
-  _os_log_error_impl(&dword_2263AA000, a3, OS_LOG_TYPE_ERROR, "%s: Unable to find previous top widget for stack %@ (stackStateTracker returned topWidgetUniqueId %@)", &v7, 0x20u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 136315650;
+  v7 = "[_ATXHomeScreenStackState previousTopWidget]";
+  v8 = 2112;
+  v9 = identifier;
+  v10 = 2112;
+  v11 = a2;
+  _os_log_error_impl(&dword_2263AA000, a3, OS_LOG_TYPE_ERROR, "%s: Unable to find previous top widget for stack %@ (stackStateTracker returned topWidgetUniqueId %@)", &v6, 0x20u);
 }
 
 - (void)_previousSuggestionForMemberWidget:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 72));
   v3 = [WeakRetained config];
   [v3 pageIndex];
@@ -896,14 +1081,11 @@ LABEL_22:
   v6 = [v5 firstObject];
   v7 = [v6 widgetUniqueId];
   OUTLINED_FUNCTION_0_17();
-  OUTLINED_FUNCTION_1_8(&dword_2263AA000, v8, v9, "_ATXHomeScreenStackState: Unable to get layout for SuggestionsWidget on screen: page %lu, stackId %{public}@, widgetUniqueId %{public}@", v10, v11, v12, v13, v15);
-
-  v14 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_8(&dword_2263AA000, v8, v9, "_ATXHomeScreenStackState: Unable to get layout for SuggestionsWidget on screen: page %lu, stackId %{public}@, widgetUniqueId %{public}@", v10, v11, v12, v13);
 }
 
 - (void)_previousSuggestionForMemberWidget:(uint64_t)a1 .cold.2(uint64_t a1, id *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 72));
   v4 = [WeakRetained config];
   [v4 pageIndex];
@@ -912,9 +1094,7 @@ LABEL_22:
   v7 = [v6 firstObject];
   v8 = [v7 widgetUniqueId];
   OUTLINED_FUNCTION_0_17();
-  OUTLINED_FUNCTION_1_8(&dword_2263AA000, v9, v10, "_ATXHomeScreenStackState: Unable to get layout for AppPredictionPanel on screen: page %lu, stackId %{public}@, widgetUniqueId %{public}@", v11, v12, v13, v14, v16);
-
-  v15 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_8(&dword_2263AA000, v9, v10, "_ATXHomeScreenStackState: Unable to get layout for AppPredictionPanel on screen: page %lu, stackId %{public}@, widgetUniqueId %{public}@", v11, v12, v13, v14);
 }
 
 @end

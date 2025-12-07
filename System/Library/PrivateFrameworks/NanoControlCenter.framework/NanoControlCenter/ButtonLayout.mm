@@ -48,7 +48,7 @@
   }
 
   swift_getKeyPath();
-  sub_25AF34170(&qword_27FA23D18);
+  sub_25AF34170(&qword_27FA23D18, &protocol conformance descriptor for ButtonLayout);
 
   sub_25B004234();
 

@@ -257,7 +257,7 @@
 
 + (BOOL)setOptimizerDataForDevice:(id)device deviceOps:(id)ops beta:(id)beta gamma:(id)gamma
 {
-  v59[2] = *MEMORY[0x277D85DE8];
+  v58[2] = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   opsCopy = ops;
   betaCopy = beta;
@@ -273,11 +273,11 @@
       if (v13)
       {
         v14 = 0;
-        v52 = v11;
-        v53 = betaCopy;
+        v51 = v11;
+        v52 = betaCopy;
         do
         {
-          v56 = [opsCopy objectAtIndexedSubscript:{v14, v52}];
+          v55 = [opsCopy objectAtIndexedSubscript:{v14, v51}];
           optimizerData = [betaCopy optimizerData];
           if ([optimizerData count])
           {
@@ -293,17 +293,17 @@
             v18 = [optimizerData objectAtIndexedSubscript:v14];
             momentumVectors = [v18 momentumVectors];
             v20 = [momentumVectors objectAtIndexedSubscript:0];
-            v59[0] = v20;
+            v58[0] = v20;
             optimizerDeviceData = [v11 optimizerDeviceData];
             v22 = [optimizerDeviceData objectAtIndexedSubscript:v14];
             momentumVectors2 = [v22 momentumVectors];
             v24 = [momentumVectors2 objectAtIndexedSubscript:0];
-            v59[1] = v24;
-            v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:2];
-            [v56 setMomentumVectors:v25];
+            v58[1] = v24;
+            v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:2];
+            [v55 setMomentumVectors:v25];
 
-            betaCopy = v53;
-            v11 = v52;
+            betaCopy = v52;
+            v11 = v51;
           }
 
 LABEL_9:
@@ -322,17 +322,17 @@ LABEL_9:
             v29 = [optimizerData3 objectAtIndexedSubscript:v14];
             velocityVectors = [v29 velocityVectors];
             v31 = [velocityVectors objectAtIndexedSubscript:0];
-            v58[0] = v31;
+            v57[0] = v31;
             optimizerDeviceData2 = [v11 optimizerDeviceData];
             v33 = [optimizerDeviceData2 objectAtIndexedSubscript:v14];
             velocityVectors2 = [v33 velocityVectors];
             v35 = [velocityVectors2 objectAtIndexedSubscript:0];
-            v58[1] = v35;
-            v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:2];
-            [v56 setVelocityVectors:v36];
+            v57[1] = v35;
+            v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:2];
+            [v55 setVelocityVectors:v36];
 
-            v11 = v52;
-            betaCopy = v53;
+            v11 = v51;
+            betaCopy = v52;
           }
 
 LABEL_13:
@@ -351,17 +351,17 @@ LABEL_13:
             v40 = [optimizerData5 objectAtIndexedSubscript:v14];
             centerWeightVectors = [v40 centerWeightVectors];
             v42 = [centerWeightVectors objectAtIndexedSubscript:0];
-            v57[0] = v42;
+            v56[0] = v42;
             optimizerDeviceData3 = [v11 optimizerDeviceData];
             v44 = [optimizerDeviceData3 objectAtIndexedSubscript:v14];
             centerWeightVectors2 = [v44 centerWeightVectors];
             v46 = [centerWeightVectors2 objectAtIndexedSubscript:0];
-            v57[1] = v46;
-            v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:2];
-            [v56 setCenterWeightVectors:v47];
+            v56[1] = v46;
+            v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:2];
+            [v55 setCenterWeightVectors:v47];
 
-            v11 = v52;
-            betaCopy = v53;
+            v11 = v51;
+            betaCopy = v52;
 
 LABEL_16:
           }
@@ -376,7 +376,6 @@ LABEL_16:
     }
   }
 
-  v50 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

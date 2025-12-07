@@ -158,14 +158,14 @@ uint64_t symptom_send(void *a1)
 
 void sr_log_symptom_action(uint64_t a1, int a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277D85F10];
   if (*(MEMORY[0x277D85F10] + 320) == -1)
   {
     v5 = *(MEMORY[0x277D85F10] + 328);
     if (!v5)
     {
-      goto LABEL_33;
+      return;
     }
   }
 
@@ -174,13 +174,13 @@ void sr_log_symptom_action(uint64_t a1, int a2)
     v5 = _os_alloc_once();
     if (!v5)
     {
-      goto LABEL_33;
+      return;
     }
   }
 
   if ((*v5 & 1) == 0)
   {
-    goto LABEL_33;
+    return;
   }
 
   v6 = snprintf(__str, 0x95uLL, "Symptom ID %x    ", *(a1 + 32));
@@ -223,15 +223,15 @@ void sr_log_symptom_action(uint64_t a1, int a2)
 
     if (a2)
     {
-      v16 = snprintf(&__str[v10], 149 - v10, " save");
-      if ((v10 + v16) >= 0x95)
+      v15 = snprintf(&__str[v10], 149 - v10, " save");
+      if ((v10 + v15) >= 0x95)
       {
         v10 = 149;
       }
 
       else
       {
-        v10 += v16;
+        v10 += v15;
       }
 
       if ((a2 & 2) == 0)
@@ -251,25 +251,25 @@ LABEL_15:
       goto LABEL_15;
     }
 
-    v17 = 149 - v10;
+    v16 = 149 - v10;
     if ((a2 & 0x1000) != 0)
     {
-      v18 = snprintf(&__str[v10], v17, " alert-send");
+      v17 = snprintf(&__str[v10], v16, " alert-send");
     }
 
     else
     {
-      v18 = snprintf(&__str[v10], v17, " alert-pend");
+      v17 = snprintf(&__str[v10], v16, " alert-pend");
     }
 
-    if ((v10 + v18) >= 0x95)
+    if ((v10 + v17) >= 0x95)
     {
       v10 = 149;
     }
 
     else
     {
-      v10 += v18;
+      v10 += v17;
     }
 
     if ((a2 & 0x100) == 0)
@@ -284,15 +284,15 @@ LABEL_16:
     }
 
 LABEL_45:
-    v19 = snprintf(&__str[v10], 149 - v10, " drop");
-    if ((v10 + v19) >= 0x95)
+    v18 = snprintf(&__str[v10], 149 - v10, " drop");
+    if ((v10 + v18) >= 0x95)
     {
       v10 = 149;
     }
 
     else
     {
-      v10 += v19;
+      v10 += v18;
     }
 
     if ((a2 & 0x400) == 0)
@@ -307,15 +307,15 @@ LABEL_17:
     }
 
 LABEL_49:
-    v20 = snprintf(&__str[v10], 149 - v10, " (note, dropped older)");
-    if ((v10 + v20) >= 0x95)
+    v19 = snprintf(&__str[v10], 149 - v10, " (note, dropped older)");
+    if ((v10 + v19) >= 0x95)
     {
       v10 = 149;
     }
 
     else
     {
-      v10 += v20;
+      v10 += v19;
     }
 
     if ((a2 & 0x800) == 0)
@@ -330,15 +330,15 @@ LABEL_18:
     }
 
 LABEL_53:
-    v21 = snprintf(&__str[v10], 149 - v10, " drop (NOMEM)");
-    if ((v10 + v21) >= 0x95)
+    v20 = snprintf(&__str[v10], 149 - v10, " drop (NOMEM)");
+    if ((v10 + v20) >= 0x95)
     {
       v10 = 149;
     }
 
     else
     {
-      v10 += v21;
+      v10 += v20;
     }
 
     if ((a2 & 0x4000) == 0)
@@ -367,15 +367,15 @@ LABEL_20:
     }
 
 LABEL_57:
-    v22 = snprintf(&__str[v10], 149 - v10, " reinit");
-    if ((v10 + v22) >= 0x95)
+    v21 = snprintf(&__str[v10], 149 - v10, " reinit");
+    if ((v10 + v21) >= 0x95)
     {
       v10 = 149;
     }
 
     else
     {
-      v10 += v22;
+      v10 += v21;
     }
 
     if ((a2 & 0x8000) == 0)
@@ -413,12 +413,9 @@ LABEL_24:
   {
     sr_log_symptom_action_cold_2();
   }
-
-LABEL_33:
-  v15 = *MEMORY[0x277D85DE8];
 }
 
-void symptom_post(uint64_t a1)
+void symptom_post(uint64_t result)
 {
   v2 = MEMORY[0x277D85F10];
   if (*(MEMORY[0x277D85F10] + 320) == -1)
@@ -434,26 +431,26 @@ void symptom_post(uint64_t a1)
   v4 = *v3;
   if ((*v3 & 2) != 0)
   {
-    printf("symptom_post entry, symptom pointer %p\n", a1);
+    printf("symptom_post entry, symptom pointer %p\n", result);
     v4 = *v3;
   }
 
   if ((v4 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     symptom_post_cold_1();
-    if (!a1)
+    if (!result)
     {
       return;
     }
   }
 
-  else if (!a1)
+  else if (!result)
   {
     return;
   }
 
-  dump_symptom(a1);
-  v5 = *(a1 + 112);
+  dump_symptom(result);
+  v5 = *(result + 112);
   if (*(v5 + 115) != 1)
   {
     if ((*(v5 + 352) & 1) == 0)
@@ -462,7 +459,7 @@ void symptom_post(uint64_t a1)
       goto LABEL_24;
     }
 
-    symptom_ctrl = get_symptom_ctrl(*(a1 + 112), *(a1 + 32));
+    symptom_ctrl = get_symptom_ctrl(*(result + 112), *(result + 32));
     if (*(v2 + 320) == -1)
     {
       v8 = *(v2 + 328);
@@ -492,18 +489,18 @@ void symptom_post(uint64_t a1)
     else if (symptom_ctrl)
     {
 LABEL_18:
-      handle_symptom(v5, symptom_ctrl, a1);
+      handle_symptom(v5, symptom_ctrl, result);
       return;
     }
 
-    sr_log_symptom_action(a1, 2048);
+    sr_log_symptom_action(result, 2048);
     v6 = "No mem";
     goto LABEL_24;
   }
 
   v6 = "Disabled";
 LABEL_24:
-  symptom_free(a1, v6);
+  symptom_free(result, v6);
 }
 
 void dump_symptom(const void **a1)
@@ -555,7 +552,7 @@ void dump_symptom(const void **a1)
 
     if ((v6 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      dump_symptom_cold_2(a1);
+      dump_symptom_cold_2();
     }
   }
 
@@ -580,7 +577,7 @@ void dump_symptom(const void **a1)
 
     if ((v8 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      dump_symptom_cold_3(a1);
+      dump_symptom_cold_3();
     }
   }
 
@@ -651,7 +648,7 @@ void handle_symptom(uint64_t a1, uint64_t a2, void *a3)
 
   if ((v8 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    handle_symptom_cold_1(a3, a2, a1);
+    handle_symptom_cold_1();
   }
 
   if (*(a2 + 56) == *(a1 + 104))
@@ -725,7 +722,7 @@ void handle_symptom(uint64_t a1, uint64_t a2, void *a3)
 
   if ((v15 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    handle_symptom_cold_4((a2 + 64), v10);
+    handle_symptom_cold_4();
   }
 
   v16 = v10[2];
@@ -926,7 +923,7 @@ LABEL_65:
 
       if ((v37 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
       {
-        handle_symptom_cold_8((a2 + 64), v10 + 1);
+        handle_symptom_cold_8();
       }
 
       v26 |= 2u;
@@ -1061,52 +1058,39 @@ LABEL_120:
   }
 }
 
-void ensure_alert(uint64_t a1)
+void ensure_alert(uint64_t result)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  if (*(a1 + 113) == 1)
+  v6 = *MEMORY[0x277D85DE8];
+  if (*(result + 113) == 1)
   {
-    v2 = *(a1 + 16);
-    if (v2 != 2)
+    v2 = *(result + 16);
+    if (v2 == 2)
     {
-      if (v2 == 1 && (*(a1 + 114) & 1) == 0)
+      if ((*(result + 112) & 1) == 0)
       {
-        v8 = 0;
-        memset(v7, 0, sizeof(v7));
-        v6 = 0x30000700380001;
-        read_current_status(a1, v7, 0, 2);
-        v8 = 0;
-        symptom_transport_send(a1, &v6, 0x3CuLL);
-        ++*(a1 + 272);
-        sr_log_status_send(a1, &v6);
-        *(a1 + 114) = 1;
+
+        send_current(result);
       }
-
-      goto LABEL_11;
     }
 
-    if (*(a1 + 112))
+    else if (v2 == 1 && (*(result + 114) & 1) == 0)
     {
-LABEL_11:
-      v4 = *MEMORY[0x277D85DE8];
-      return;
+      v5 = 0;
+      memset(v4, 0, sizeof(v4));
+      v3 = 0x30000700380001;
+      read_current_status(result, v4, 0, 2);
+      v5 = 0;
+      symptom_transport_send(result, &v3, 0x3CuLL);
+      ++*(result + 272);
+      sr_log_status_send(result, &v3);
+      *(result + 114) = 1;
     }
-
-    v5 = *MEMORY[0x277D85DE8];
-
-    send_current(a1);
   }
 
-  else
+  else if ((*(result + 216) & 1) == 0)
   {
-    if (*(a1 + 216))
-    {
-      goto LABEL_11;
-    }
 
-    v3 = *MEMORY[0x277D85DE8];
-
-    ensure_symptom_framework_connect(a1);
+    ensure_symptom_framework_connect(result);
   }
 }
 
@@ -1132,7 +1116,7 @@ void ensure_symptom_framework_connect(uint64_t a1)
 
   if ((v4 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    ensure_symptom_framework_connect_cold_1(a1);
+    ensure_symptom_framework_connect_cold_1();
   }
 
   v21.tv_sec = 0;
@@ -1296,7 +1280,7 @@ LABEL_11:
 
     if ((v8 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      connect_symptom_framework_cold_2(a1);
+      connect_symptom_framework_cold_2();
     }
 
     *(a1 + 216) = 0;
@@ -1380,7 +1364,7 @@ LABEL_11:
 
   if ((v15 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    connect_symptom_framework_cold_5(a1);
+    connect_symptom_framework_cold_5();
   }
 
   *(a1 + 216) = 0;
@@ -1389,7 +1373,7 @@ LABEL_11:
 
 void read_current_status(uint64_t a1, uint64_t a2, int a3, int a4)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v6 = *(a1 + 80);
   *(a1 + 114) = v6 != 0;
   if (v6)
@@ -1457,21 +1441,20 @@ LABEL_11:
 
   if ((v13 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v15 = *(v4 + 8);
-    v16 = *(v4 + 12);
+    v14 = *(v4 + 8);
+    v15 = *(v4 + 12);
     *buf = 67109888;
-    v18 = v5;
-    v19 = 1024;
-    v20 = v7;
-    v21 = 1024;
-    v22 = v15;
-    v23 = 1024;
-    v24 = v16;
+    v17 = v5;
+    v18 = 1024;
+    v19 = v7;
+    v20 = 1024;
+    v21 = v14;
+    v22 = 1024;
+    v23 = v15;
     _os_log_debug_impl(&dword_26C372000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "read_current_status, ack id %d, flags %d num_alerts %d  num_queued %d\n", buf, 0x1Au);
   }
 
   dump_status(v4);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t symptom_transport_send(uint64_t a1, const void *a2, size_t a3)
@@ -1546,13 +1529,13 @@ uint64_t symptom_transport_send(uint64_t a1, const void *a2, size_t a3)
 
 void sr_log_status_send(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (*(MEMORY[0x277D85F10] + 320) == -1)
   {
     v3 = *(MEMORY[0x277D85F10] + 328);
     if (!v3)
     {
-      goto LABEL_17;
+      return;
     }
   }
 
@@ -1561,27 +1544,56 @@ void sr_log_status_send(uint64_t a1, uint64_t a2)
     v3 = _os_alloc_once();
     if (!v3)
     {
-      goto LABEL_17;
+      return;
     }
   }
 
-  if ((*v3 & 1) == 0)
+  if (*v3)
   {
-    goto LABEL_17;
-  }
-
-  v4 = &v10[17];
-  strcpy(v10, "Sent STATUS flags");
-  v5 = *(a2 + 10);
-  if ((v5 & 1) == 0)
-  {
-    v6 = 17;
-    if ((*(a2 + 10) & 2) == 0)
+    v4 = &v9[17];
+    strcpy(v9, "Sent STATUS flags");
+    v5 = *(a2 + 10);
+    if (v5)
     {
-      goto LABEL_11;
+      strcpy(&v9[17], " resp");
+      v4 = &v9[22];
+      v6 = 22;
+      if ((v5 & 2) == 0)
+      {
+LABEL_11:
+        if ((v5 & 4) != 0)
+        {
+          v8 = snprintf(&v9[v6], 149 - v6, " EAGAIN !!!");
+          if ((v6 + v8) >= 0x95)
+          {
+            v6 = 149;
+          }
+
+          else
+          {
+            v6 += v8;
+          }
+        }
+
+        snprintf(&v9[v6], 149 - v6, " ack-id %d  num-alerts %d num-queued %d", *(a2 + 12), *(a2 + 16), *(a2 + 20));
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+        {
+          sr_log_symptom_action_cold_2();
+        }
+
+        return;
+      }
     }
 
-LABEL_8:
+    else
+    {
+      v6 = 17;
+      if ((*(a2 + 10) & 2) == 0)
+      {
+        goto LABEL_11;
+      }
+    }
+
     v7 = __snprintf_chk(v4, 149 - v6, 0, 0x85uLL, " alert");
     if ((v6 + v7) >= 0x95)
     {
@@ -1595,38 +1607,6 @@ LABEL_8:
 
     goto LABEL_11;
   }
-
-  strcpy(&v10[17], " resp");
-  v4 = &v10[22];
-  v6 = 22;
-  if ((v5 & 2) != 0)
-  {
-    goto LABEL_8;
-  }
-
-LABEL_11:
-  if ((v5 & 4) != 0)
-  {
-    v8 = snprintf(&v10[v6], 149 - v6, " EAGAIN !!!");
-    if ((v6 + v8) >= 0x95)
-    {
-      v6 = 149;
-    }
-
-    else
-    {
-      v6 += v8;
-    }
-  }
-
-  snprintf(&v10[v6], 149 - v6, " ack-id %d  num-alerts %d num-queued %d", *(a2 + 12), *(a2 + 16), *(a2 + 20));
-  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
-  {
-    sr_log_symptom_action_cold_2();
-  }
-
-LABEL_17:
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __symptom_transport_connect_block_invoke(uint64_t a1, void *a2)
@@ -1646,15 +1626,13 @@ void __symptom_transport_connect_block_invoke(uint64_t a1, void *a2)
   v7 = *v6;
   if ((*v6 & 2) != 0)
   {
-    v8 = *(a1 + 32);
-    v9 = v8[28];
-    printf("symptom_transport_connect event handler called on %p for %p evcount %lu errcount %lu\n", v8, a2, v9, v8[30]);
+    printf("symptom_transport_connect event handler called on %p for %p evcount %lu errcount %lu\n", *(a1 + 32), a2, *(*(a1 + 32) + 224), *(*(a1 + 32) + 240));
     v7 = *v6;
   }
 
   if ((v7 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    __symptom_transport_connect_block_invoke_cold_1(a1);
+    __symptom_transport_connect_block_invoke_cold_1();
   }
 
   if (v4 != MEMORY[0x277D86480])
@@ -1664,87 +1642,87 @@ void __symptom_transport_connect_block_invoke(uint64_t a1, void *a2)
       *(*(a1 + 32) + 152) = 0;
       if (*(v5 + 320) == -1)
       {
-        v19 = *(v5 + 328);
+        v17 = *(v5 + 328);
       }
 
       else
       {
-        v19 = _os_alloc_once();
+        v17 = _os_alloc_once();
       }
 
-      v20 = *v19;
-      if ((*v19 & 2) != 0)
+      v18 = *v17;
+      if ((*v17 & 2) != 0)
       {
         printf("handling incoming message");
-        v20 = *v19;
+        v18 = *v17;
       }
 
-      if ((v20 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+      if ((v18 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
       {
         __symptom_transport_connect_block_invoke_cold_3();
       }
 
-      v21 = *(a1 + 32);
+      v19 = *(a1 + 32);
       length = 0;
       data = xpc_dictionary_get_data(a2, "payload", &length);
-      v23 = *(v5 + 320);
+      v21 = *(v5 + 320);
       if (data)
       {
-        v24 = data;
-        if (v23 == -1)
+        v22 = data;
+        if (v21 == -1)
         {
-          v25 = *(v5 + 328);
+          v23 = *(v5 + 328);
         }
 
         else
         {
-          v25 = _os_alloc_once();
+          v23 = _os_alloc_once();
         }
 
-        v26 = *v25;
-        if ((*v25 & 2) != 0)
+        v24 = *v23;
+        if ((*v23 & 2) != 0)
         {
-          printf("handle_incoming_xpc_dictionary:  desc %p size %lu\n", v24, length);
-          v26 = *v25;
+          printf("handle_incoming_xpc_dictionary:  desc %p size %lu\n", v22, length);
+          v24 = *v23;
         }
 
-        if ((v26 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+        if ((v24 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
         {
-          __symptom_transport_connect_block_invoke_cold_4(v24, &length);
+          __symptom_transport_connect_block_invoke_cold_4();
         }
 
-        v27 = length;
-        v28.i64[0] = vdupq_n_s64(1uLL).u64[0];
-        v28.i64[1] = length;
-        v21[14] = vaddq_s64(v21[14], v28);
-        symptoms_incoming_message(v21, v24, v27);
+        v25 = length;
+        v26.i64[0] = vdupq_n_s64(1uLL).u64[0];
+        v26.i64[1] = length;
+        v19[14] = vaddq_s64(v19[14], v26);
+        symptoms_incoming_message(v19, v22, v25);
       }
 
       else
       {
-        if (v23 == -1)
+        if (v21 == -1)
         {
-          v35 = *(v5 + 328);
+          v33 = *(v5 + 328);
         }
 
         else
         {
-          v35 = _os_alloc_once();
+          v33 = _os_alloc_once();
         }
 
-        v36 = *v35;
-        if ((*v35 & 2) != 0)
+        v34 = *v33;
+        if ((*v33 & 2) != 0)
         {
           printf("handle_incoming_xpc_dictionary:  ERR message with no payload");
-          v36 = *v35;
+          v34 = *v33;
         }
 
-        if ((v36 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+        if ((v34 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
         {
           __symptom_transport_connect_block_invoke_cold_5();
         }
 
-        ++v21[15].i64[0];
+        ++v19[15].i64[0];
       }
     }
 
@@ -1752,22 +1730,22 @@ void __symptom_transport_connect_block_invoke(uint64_t a1, void *a2)
     {
       if (*(v5 + 320) == -1)
       {
-        v10 = *(v5 + 328);
+        v8 = *(v5 + 328);
       }
 
       else
       {
-        v10 = _os_alloc_once();
+        v8 = _os_alloc_once();
       }
 
-      v11 = *v10;
-      if ((*v10 & 2) != 0)
+      v9 = *v8;
+      if ((*v8 & 2) != 0)
       {
         printf("unexpected message from peer %p", v4);
-        v11 = *v10;
+        v9 = *v8;
       }
 
-      if ((v11 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+      if ((v9 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
       {
         __symptom_transport_connect_block_invoke_cold_2();
       }
@@ -1780,23 +1758,23 @@ void __symptom_transport_connect_block_invoke(uint64_t a1, void *a2)
 
   if (*(v5 + 320) == -1)
   {
-    v12 = *(v5 + 328);
+    v10 = *(v5 + 328);
   }
 
   else
   {
-    v12 = _os_alloc_once();
+    v10 = _os_alloc_once();
   }
 
-  v13 = *v12;
-  if ((*v12 & 2) != 0)
+  v11 = *v10;
+  if ((*v10 & 2) != 0)
   {
     string = xpc_dictionary_get_string(a2, *MEMORY[0x277D86400]);
     printf("connection error: %s\n", string);
-    v13 = *v12;
+    v11 = *v10;
   }
 
-  if ((v13 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+  if ((v11 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     __symptom_transport_connect_block_invoke_cold_6(a2);
   }
@@ -1804,36 +1782,36 @@ void __symptom_transport_connect_block_invoke(uint64_t a1, void *a2)
   if (a2 == MEMORY[0x277D863F0])
   {
     sr_log_xpc_event(*(a1 + 32), "SymptomReporter: XPC connection to Symptom Framework interrupted\n");
-    v29 = *(a1 + 32);
-    ++*(v29 + 144);
-    *(v29 + 113) = 0;
-    ++*(v29 + 328);
+    v27 = *(a1 + 32);
+    ++*(v27 + 144);
+    *(v27 + 113) = 0;
+    ++*(v27 + 328);
     goto LABEL_52;
   }
 
   if (a2 != MEMORY[0x277D863F8])
   {
-    v15 = *(v5 + 320);
+    v13 = *(v5 + 320);
     if (a2 == MEMORY[0x277D86420])
     {
-      if (v15 == -1)
+      if (v13 == -1)
       {
-        v37 = *(v5 + 328);
+        v35 = *(v5 + 328);
       }
 
       else
       {
-        v37 = _os_alloc_once();
+        v35 = _os_alloc_once();
       }
 
-      v38 = *v37;
-      if ((*v37 & 2) != 0)
+      v36 = *v35;
+      if ((*v35 & 2) != 0)
       {
         puts("symptom_transport: skipping TERMINATION_IMMINENT event");
-        v38 = *v37;
+        v36 = *v35;
       }
 
-      if ((v38 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+      if ((v36 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
       {
         __symptom_transport_connect_block_invoke_cold_8();
       }
@@ -1841,25 +1819,25 @@ void __symptom_transport_connect_block_invoke(uint64_t a1, void *a2)
 
     else
     {
-      if (v15 == -1)
+      if (v13 == -1)
       {
-        v16 = *(v5 + 328);
+        v14 = *(v5 + 328);
       }
 
       else
       {
-        v16 = _os_alloc_once();
+        v14 = _os_alloc_once();
       }
 
-      v17 = *v16;
-      if ((*v16 & 2) != 0)
+      v15 = *v14;
+      if ((*v14 & 2) != 0)
       {
-        v18 = xpc_dictionary_get_string(a2, *MEMORY[0x277D86400]);
-        printf("symptom_transport: unhandled connection error: %s", v18);
-        v17 = *v16;
+        v16 = xpc_dictionary_get_string(a2, *MEMORY[0x277D86400]);
+        printf("symptom_transport: unhandled connection error: %s", v16);
+        v15 = *v14;
       }
 
-      if ((v17 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+      if ((v15 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
       {
         __symptom_transport_connect_block_invoke_cold_7(a2);
       }
@@ -1868,92 +1846,92 @@ void __symptom_transport_connect_block_invoke(uint64_t a1, void *a2)
     return;
   }
 
-  v30 = *(a1 + 32);
-  v31 = *(v30 + 136);
-  if (v31)
+  v28 = *(a1 + 32);
+  v29 = *(v28 + 136);
+  if (v29)
   {
-    xpc_release(v31);
+    xpc_release(v29);
     *(*(a1 + 32) + 136) = 0;
-    v30 = *(a1 + 32);
+    v28 = *(a1 + 32);
   }
 
-  *(v30 + 136) = 0;
-  v32 = *(a1 + 32);
-  *(v32 + 113) = 0;
-  ++*(v32 + 336);
-  v33 = *(v32 + 212) + 1;
-  *(v32 + 212) = v33;
-  if (v33 >= 2)
+  *(v28 + 136) = 0;
+  v30 = *(a1 + 32);
+  *(v30 + 113) = 0;
+  ++*(v30 + 336);
+  v31 = *(v30 + 212) + 1;
+  *(v30 + 212) = v31;
+  if (v31 >= 2)
   {
-    *(v32 + 212) = 0;
-    v34 = *(v5 + 320);
+    *(v30 + 212) = 0;
+    v32 = *(v5 + 320);
 LABEL_81:
-    if (v34 == -1)
+    if (v32 == -1)
     {
-      v41 = *(v5 + 328);
+      v39 = *(v5 + 328);
     }
 
     else
     {
-      v41 = _os_alloc_once();
+      v39 = _os_alloc_once();
     }
 
-    v42 = *v41;
-    if ((*v41 & 2) != 0)
+    v40 = *v39;
+    if ((*v39 & 2) != 0)
     {
       puts("symptom_transport: CONNECTION_INVALID");
-      v42 = *v41;
+      v40 = *v39;
     }
 
-    if ((v42 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+    if ((v40 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
       __symptom_transport_connect_block_invoke_cold_10();
     }
 
-    v29 = *(a1 + 32);
-    v43 = *(v29 + 152) + 1;
-    *(v29 + 152) = v43;
-    if (v43 >= 4)
+    v27 = *(a1 + 32);
+    v41 = *(v27 + 152) + 1;
+    *(v27 + 152) = v41;
+    if (v41 >= 4)
     {
-      sr_log_xpc_event(v29, "SymptomReporter: Disabling Symptom Transport after perstent invalid connections\n");
+      sr_log_xpc_event(v27, "SymptomReporter: Disabling Symptom Transport after perstent invalid connections\n");
       *(*(a1 + 32) + 115) = 1;
       return;
     }
 
-    if (*(v29 + 192) < 0xDF8475800uLL)
+    if (*(v27 + 192) < 0xDF8475800uLL)
     {
-      *(v29 + 192) = 60000000000;
+      *(v27 + 192) = 60000000000;
     }
 
 LABEL_52:
-    symptoms_transport_dropped(v29);
+    symptoms_transport_dropped(v27);
     return;
   }
 
-  v34 = *(v5 + 320);
-  if (!v33)
+  v32 = *(v5 + 320);
+  if (!v31)
   {
     goto LABEL_81;
   }
 
-  if (v34 == -1)
+  if (v32 == -1)
   {
-    v39 = *(v5 + 328);
+    v37 = *(v5 + 328);
   }
 
   else
   {
-    v39 = _os_alloc_once();
+    v37 = _os_alloc_once();
   }
 
-  v40 = *v39;
-  if ((*v39 & 2) != 0)
+  v38 = *v37;
+  if ((*v37 & 2) != 0)
   {
     printf("symptom_transport: XPC connection invalid for %s, switch to %s\n", "com.apple.usymptomsd", "com.apple.usymptomsd");
-    v40 = *v39;
+    v38 = *v37;
   }
 
-  if ((v40 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+  if ((v38 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     __symptom_transport_connect_block_invoke_cold_9();
   }
@@ -1963,7 +1941,7 @@ LABEL_52:
 
 void symptoms_incoming_message(uint64_t a1, unsigned __int16 *a2, unint64_t a3)
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277D85F10];
   if (*(MEMORY[0x277D85F10] + 320) == -1)
   {
@@ -1989,7 +1967,7 @@ void symptoms_incoming_message(uint64_t a1, unsigned __int16 *a2, unint64_t a3)
 
   if (a3 < 4)
   {
-    goto LABEL_93;
+    return;
   }
 
   v9 = MEMORY[0x277D86220];
@@ -2024,7 +2002,7 @@ void symptoms_incoming_message(uint64_t a1, unsigned __int16 *a2, unint64_t a3)
         }
       }
 
-      goto LABEL_93;
+      return;
     }
 
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
@@ -2051,7 +2029,7 @@ void symptoms_incoming_message(uint64_t a1, unsigned __int16 *a2, unint64_t a3)
         _os_log_error_impl(&dword_26C372000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "SymptomReporter incoming_message, SYMTLV_FILTER sz %zd fails consistency checks, desc->stlv_len %d", buf, 0x12u);
       }
 
-      goto LABEL_93;
+      return;
     }
 
     if (*(v6 + 320) == -1)
@@ -2171,7 +2149,7 @@ LABEL_52:
         }
       }
 
-      v24 += 4;
+      v24 += 8;
       --v22;
     }
 
@@ -2195,7 +2173,7 @@ LABEL_52:
 
     if ((v41 & 4) != 0 && os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      symptoms_incoming_message_cold_5(&v48, v49);
+      symptoms_incoming_message_cold_5(&v47, v48);
     }
 
     reevaluate_sr_symptoms(a1);
@@ -2205,7 +2183,7 @@ LABEL_52:
 LABEL_76:
     if (a3 <= 3)
     {
-      goto LABEL_93;
+      return;
     }
   }
 
@@ -2242,10 +2220,10 @@ LABEL_76:
 
       if ((v14 & 4) != 0 && os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        symptoms_incoming_message_cold_4(v50, v12, v51);
+        symptoms_incoming_message_cold_4(v49, v12, &v49[4]);
       }
 
-      v47 = 0;
+      v46 = 0;
       v15 = malloc_type_malloc(0x28A0uLL, 0x29BC7703uLL);
       v16 = v15;
       v17 = buf;
@@ -2261,8 +2239,8 @@ LABEL_76:
 
       if (v15)
       {
-        v47 = 10340;
-        v19 = read_symptoms(a1, v15 + 56, &v47);
+        v46 = 10340;
+        v19 = read_symptoms(a1, v15 + 56, &v46);
         v17 = v16;
       }
 
@@ -2295,14 +2273,11 @@ LABEL_76:
       symptoms_incoming_message_cold_3(buf, a3, &buf[4]);
     }
   }
-
-LABEL_93:
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 void reevaluate_sr_symptoms(void *a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v1 = a1[5];
   if (v1)
   {
@@ -2331,14 +2306,14 @@ void reevaluate_sr_symptoms(void *a1)
       {
         v17 = *(v1 + 8);
         *buf = 134218240;
-        v28 = v1;
-        v29 = 1024;
-        LODWORD(v30) = v17;
+        v26 = v1;
+        v27 = 1024;
+        LODWORD(v28) = v17;
         _os_log_debug_impl(&dword_26C372000, v4, OS_LOG_TYPE_DEBUG, "reevaluate_sr_symptoms: evaluate symptom control %p, id %x\n", buf, 0x12u);
       }
 
-      v23 = 0;
-      v24 = &v23;
+      v22 = 0;
+      v23 = &v22;
       if (*(v3 + 320) == -1)
       {
         v7 = *(v3 + 328);
@@ -2359,9 +2334,9 @@ void reevaluate_sr_symptoms(void *a1)
       if ((v8 & 4) != 0 && os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
       {
         *buf = 134218240;
-        v28 = a1;
-        v29 = 2048;
-        v30 = v1;
+        v26 = a1;
+        v27 = 2048;
+        v28 = v1;
         _os_log_debug_impl(&dword_26C372000, v4, OS_LOG_TYPE_DEBUG, "reevaluate_sc_symptoms: sr %p sc %p\n", buf, 0x16u);
       }
 
@@ -2387,7 +2362,7 @@ void reevaluate_sr_symptoms(void *a1)
 
         if ((v10 & 4) != 0 && os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
         {
-          reevaluate_sr_symptoms_cold_1(&v21, v22);
+          reevaluate_sr_symptoms_cold_1(&v20, v21);
         }
 
         dump_symptom_state(a1);
@@ -2396,8 +2371,8 @@ void reevaluate_sr_symptoms(void *a1)
       v11 = *(v1 + 72);
       if (v11)
       {
-        *v24 = v11;
-        v24 = *(v1 + 80);
+        *v23 = v11;
+        v23 = *(v1 + 80);
         *(v1 + 72) = 0;
         *(v1 + 80) = v1 + 72;
       }
@@ -2405,16 +2380,16 @@ void reevaluate_sr_symptoms(void *a1)
       *(v1 + 64) = 0;
       while (1)
       {
-        v12 = v23;
-        if (!v23)
+        v12 = v22;
+        if (!v22)
         {
           break;
         }
 
-        v23 = *v23;
-        if (!v23)
+        v22 = *v22;
+        if (!v22)
         {
-          v24 = &v23;
+          v23 = &v22;
         }
 
         update_globals_for_symptom_removal(a1, v12);
@@ -2437,7 +2412,7 @@ void reevaluate_sr_symptoms(void *a1)
 
         if ((v14 & 4) != 0 && os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
         {
-          reevaluate_sr_symptoms_cold_2(v25, v12, &v26);
+          reevaluate_sr_symptoms_cold_2(v24, v12, &v24[4]);
         }
 
         handle_symptom(a1, v1, v12);
@@ -2460,7 +2435,7 @@ void reevaluate_sr_symptoms(void *a1)
 
         if ((v16 & 4) != 0 && os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
         {
-          reevaluate_sr_symptoms_cold_3(&v19, v20);
+          reevaluate_sr_symptoms_cold_3(&v18, v19);
         }
       }
 
@@ -2469,8 +2444,6 @@ void reevaluate_sr_symptoms(void *a1)
 
     while (v1);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void dump_symptom_state(uint64_t a1)
@@ -2569,7 +2542,7 @@ void dump_system_reporter(uint64_t a1)
 
     if ((v6 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      dump_system_reporter_cold_2(a1);
+      dump_system_reporter_cold_2();
     }
   }
 
@@ -2594,7 +2567,7 @@ void dump_system_reporter(uint64_t a1)
 
     if ((v8 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      dump_system_reporter_cold_3(a1);
+      dump_system_reporter_cold_3();
     }
   }
 
@@ -2619,7 +2592,7 @@ void dump_system_reporter(uint64_t a1)
 
     if ((v10 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      dump_system_reporter_cold_4(a1);
+      dump_system_reporter_cold_4();
     }
   }
 
@@ -2644,7 +2617,7 @@ void dump_system_reporter(uint64_t a1)
 
     if ((v12 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      dump_system_reporter_cold_5(a1);
+      dump_system_reporter_cold_5();
     }
   }
 
@@ -2695,7 +2668,7 @@ void dump_system_reporter(uint64_t a1)
 
     if ((v16 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      dump_system_reporter_cold_7(a1);
+      dump_system_reporter_cold_7();
     }
   }
 
@@ -2720,7 +2693,7 @@ void dump_system_reporter(uint64_t a1)
 
     if ((v18 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      dump_system_reporter_cold_8(a1);
+      dump_system_reporter_cold_8();
     }
   }
 
@@ -2745,12 +2718,12 @@ void dump_system_reporter(uint64_t a1)
 
     if ((v20 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      dump_system_reporter_cold_9(a1);
+      dump_system_reporter_cold_9();
     }
   }
 }
 
-void dump_creation_filter(_DWORD *a1)
+void dump_creation_filter(_DWORD *result)
 {
   v2 = MEMORY[0x277D85F10];
   if (*(MEMORY[0x277D85F10] + 320) == -1)
@@ -2768,13 +2741,13 @@ void dump_creation_filter(_DWORD *a1)
   {
     if ((v4 & 2) != 0)
     {
-      printf("    cf_queue_len_max    %x\n", a1[2]);
+      printf("    cf_queue_len_max    %x\n", result[2]);
       v4 = *v3;
     }
 
     if ((v4 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      dump_creation_filter_cold_1(a1);
+      dump_creation_filter_cold_1();
     }
   }
 
@@ -2793,13 +2766,13 @@ void dump_creation_filter(_DWORD *a1)
   {
     if ((v6 & 2) != 0)
     {
-      printf("    cf_queue_len_alert  %x\n", a1[1]);
+      printf("    cf_queue_len_alert  %x\n", result[1]);
       v6 = *v5;
     }
 
     if ((v6 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      dump_creation_filter_cold_2(a1);
+      dump_creation_filter_cold_2();
     }
   }
 
@@ -2818,18 +2791,18 @@ void dump_creation_filter(_DWORD *a1)
   {
     if ((v8 & 2) != 0)
     {
-      printf("    cf_filter_seqno     %x\n", a1[3]);
+      printf("    cf_filter_seqno     %x\n", result[3]);
       v8 = *v7;
     }
 
     if ((v8 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      dump_creation_filter_cold_3(a1);
+      dump_creation_filter_cold_3();
     }
   }
 }
 
-void dump_ident(unsigned int *a1)
+void dump_ident(const void **a1)
 {
   v2 = MEMORY[0x277D85F10];
   if (*(MEMORY[0x277D85F10] + 320) == -1)
@@ -2878,7 +2851,7 @@ void dump_ident(unsigned int *a1)
 
     if ((v6 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      dump_ident_cold_2(a1);
+      dump_ident_cold_2();
     }
   }
 
@@ -2897,13 +2870,13 @@ void dump_ident(unsigned int *a1)
   {
     if ((v8 & 2) != 0)
     {
-      printf(" sc_flags               %x\n", a1[1]);
+      printf(" sc_flags               %x\n", *(a1 + 1));
       v8 = *v7;
     }
 
     if ((v8 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      dump_ident_cold_3(a1);
+      dump_ident_cold_3();
     }
   }
 
@@ -2922,13 +2895,13 @@ void dump_ident(unsigned int *a1)
   {
     if ((v10 & 2) != 0)
     {
-      printf(" sc_id                  %x\n", a1[2]);
+      printf(" sc_id                  %x\n", *(a1 + 2));
       v10 = *v9;
     }
 
     if ((v10 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      dump_ident_cold_4(a1);
+      dump_ident_cold_4();
     }
   }
 
@@ -2947,13 +2920,13 @@ void dump_ident(unsigned int *a1)
   {
     if ((v12 & 2) != 0)
     {
-      printf(" sc_link                %p\n", *(a1 + 2));
+      printf(" sc_link                %p\n", a1[2]);
       v12 = *v11;
     }
 
     if ((v12 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      dump_ident_cold_5(a1);
+      dump_ident_cold_5();
     }
   }
 
@@ -2972,13 +2945,13 @@ void dump_ident(unsigned int *a1)
   {
     if ((v14 & 2) != 0)
     {
-      printf(" sc_active_link         %p\n", *(a1 + 3));
+      printf(" sc_active_link         %p\n", a1[3]);
       v14 = *v13;
     }
 
     if ((v14 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      dump_ident_cold_6(a1);
+      dump_ident_cold_6();
     }
   }
 
@@ -3003,7 +2976,7 @@ void dump_ident(unsigned int *a1)
 
     if ((v16 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      dump_ident_cold_7(a1);
+      dump_ident_cold_7();
     }
   }
 
@@ -3048,13 +3021,13 @@ void dump_ident(unsigned int *a1)
   {
     if ((v20 & 2) != 0)
     {
-      printf(" sc_symptom_q len %lu\n", *(a1 + 8));
+      printf(" sc_symptom_q len %lu\n", a1[8]);
       v20 = *v19;
     }
 
     if ((v20 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      dump_ident_cold_9(a1);
+      dump_ident_cold_9();
     }
   }
 
@@ -3073,18 +3046,18 @@ void dump_ident(unsigned int *a1)
   {
     if ((v22 & 2) != 0)
     {
-      printf(" sc_symptom_q first, last %p %p\n", *(a1 + 9), *(a1 + 10));
+      printf(" sc_symptom_q first, last %p %p\n", a1[9], a1[10]);
       v22 = *v21;
     }
 
     if ((v22 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      dump_ident_cold_10(a1);
+      dump_ident_cold_10();
     }
   }
 }
 
-void dump_idents(uint64_t a1)
+void dump_idents(uint64_t result)
 {
   if (*(MEMORY[0x277D85F10] + 320) == -1)
   {
@@ -3111,13 +3084,13 @@ void dump_idents(uint64_t a1)
     }
   }
 
-  for (i = *(a1 + 40); i; i = *(i + 16))
+  for (i = *(result + 40); i; i = *(i + 16))
   {
     dump_ident(i);
   }
 }
 
-void dump_active_idents(uint64_t a1)
+void dump_active_idents(uint64_t result)
 {
   if (*(MEMORY[0x277D85F10] + 320) == -1)
   {
@@ -3144,7 +3117,7 @@ void dump_active_idents(uint64_t a1)
     }
   }
 
-  for (i = *(a1 + 64); i; i = *(i + 24))
+  for (i = *(result + 64); i; i = *(i + 24))
   {
     dump_ident(i);
   }
@@ -3180,7 +3153,7 @@ void update_globals_for_symptom_removal(uint64_t a1, const void **a2)
 
 void dump_basic_symptom(unsigned __int8 *a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D85F10];
   if (*(MEMORY[0x277D85F10] + 320) == -1)
   {
@@ -3203,7 +3176,7 @@ void dump_basic_symptom(unsigned __int8 *a1)
 
     if ((v4 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      dump_basic_symptom_cold_1(a1);
+      dump_basic_symptom_cold_1();
     }
   }
 
@@ -3228,7 +3201,7 @@ void dump_basic_symptom(unsigned __int8 *a1)
 
     if ((v6 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      dump_basic_symptom_cold_2(a1);
+      dump_basic_symptom_cold_2();
     }
   }
 
@@ -3253,7 +3226,7 @@ void dump_basic_symptom(unsigned __int8 *a1)
 
     if ((v8 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      dump_basic_symptom_cold_3(a1);
+      dump_basic_symptom_cold_3();
     }
   }
 
@@ -3278,7 +3251,7 @@ void dump_basic_symptom(unsigned __int8 *a1)
 
     if ((v10 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      dump_basic_symptom_cold_4(a1);
+      dump_basic_symptom_cold_4();
     }
   }
 
@@ -3303,7 +3276,7 @@ void dump_basic_symptom(unsigned __int8 *a1)
 
     if ((v12 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      dump_basic_symptom_cold_5(a1);
+      dump_basic_symptom_cold_5();
     }
   }
 
@@ -3335,9 +3308,9 @@ void dump_basic_symptom(unsigned __int8 *a1)
       {
         v18 = *&v14[8 * v13];
         *buf = 67109376;
-        v21 = v13;
-        v22 = 2048;
-        v23 = v18;
+        v20 = v13;
+        v21 = 2048;
+        v22 = v18;
         _os_log_debug_impl(&dword_26C372000, v15, OS_LOG_TYPE_DEBUG, " sb_qualifier[%d]    %llx\n", buf, 0x12u);
       }
     }
@@ -3346,7 +3319,6 @@ void dump_basic_symptom(unsigned __int8 *a1)
   }
 
   while (v13 != 8);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void ensure_sym_ctrl_is_queued(uint64_t a1, uint64_t a2)
@@ -3371,7 +3343,7 @@ void ensure_sym_ctrl_is_queued(uint64_t a1, uint64_t a2)
 
   if ((v6 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    ensure_sym_ctrl_is_queued_cold_1(a2);
+    ensure_sym_ctrl_is_queued_cold_1();
   }
 
   if ((*(a2 + 40) & 1) == 0)
@@ -3413,9 +3385,9 @@ void ensure_sym_ctrl_is_queued(uint64_t a1, uint64_t a2)
 
 char *read_symptoms(uint64_t a1, char *a2, unint64_t *a3)
 {
-  v43 = *MEMORY[0x277D85DE8];
-  v34 = 0;
-  v35 = &v34;
+  v42 = *MEMORY[0x277D85DE8];
+  v33 = 0;
+  v34 = &v33;
   v6 = MEMORY[0x277D85F10];
   if (*(MEMORY[0x277D85F10] + 320) == -1)
   {
@@ -3436,7 +3408,7 @@ char *read_symptoms(uint64_t a1, char *a2, unint64_t *a3)
 
   if ((v8 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    read_symptoms_cold_1(a1);
+    read_symptoms_cold_1();
   }
 
   v9 = *(a1 + 64);
@@ -3494,7 +3466,7 @@ char *read_symptoms(uint64_t a1, char *a2, unint64_t *a3)
 
       if ((v14 & 4) != 0 && os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        read_symptoms_cold_2(&v40, v41);
+        read_symptoms_cold_2(&v39, v40);
       }
 
       v16 = (v9 + 9);
@@ -3538,7 +3510,7 @@ char *read_symptoms(uint64_t a1, char *a2, unint64_t *a3)
 
           if ((v22 & 4) != 0 && os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
           {
-            read_symptoms_cold_3(&v36, v37);
+            read_symptoms_cold_3(&v35, v36);
           }
 
           --v9[8];
@@ -3572,7 +3544,7 @@ char *read_symptoms(uint64_t a1, char *a2, unint64_t *a3)
 
         if ((v24 & 4) != 0 && os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
-          read_symptoms_cold_4(&v38, v39);
+          read_symptoms_cold_4(&v37, v38);
         }
 
         *v15 = 0;
@@ -3613,10 +3585,10 @@ LABEL_53:
       if (v9[8])
       {
         v9[3] = 0;
-        v26 = v35;
-        v9[4] = v35;
+        v26 = v34;
+        v9[4] = v34;
         *v26 = v9;
-        v35 = v9 + 3;
+        v34 = v9 + 3;
       }
 
       v9 = *(a1 + 64);
@@ -3625,14 +3597,14 @@ LABEL_53:
     while (v9);
   }
 
-  for (i = v34; v34; i = v34)
+  for (i = v33; v33; i = v33)
   {
     v29 = *(i + 24);
     v30 = *(i + 32);
     v31 = (v29 + 32);
     if (!v29)
     {
-      v31 = &v35;
+      v31 = &v34;
     }
 
     *v31 = v30;
@@ -3640,7 +3612,6 @@ LABEL_53:
     ensure_sym_ctrl_is_queued(a1, i);
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return a2;
 }
 
@@ -3680,13 +3651,13 @@ char *read_symptom(uint64_t a1, _DWORD *a2, unint64_t *a3)
     *(a2 + 13) = v11;
     *(a2 + 9) = v10;
     sr_log_symptom_action(a1, 0x8000);
-    v4 += 92;
+    v4 += 23;
     *a3 -= 92;
     for (i = *(a1 + 104); i; i = *i)
     {
       v14 = *(i + 7) + 4;
       memcpy(v4, i + 12, v14);
-      v4 += v14;
+      v4 = (v4 + v14);
       *a3 -= v14;
     }
   }
@@ -3737,7 +3708,7 @@ void symptom_free(void *a1, const char *a2)
   }
 }
 
-void dump_status(unsigned __int8 *a1)
+void dump_status(unsigned __int8 *result)
 {
   v2 = MEMORY[0x277D85F10];
   if (*(MEMORY[0x277D85F10] + 320) == -1)
@@ -3780,13 +3751,13 @@ void dump_status(unsigned __int8 *a1)
   {
     if ((v6 & 2) != 0)
     {
-      printf("srs_version             %d\n", *a1);
+      printf("srs_version             %d\n", *result);
       v6 = *v5;
     }
 
     if ((v6 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      dump_status_cold_2(a1);
+      dump_status_cold_2();
     }
   }
 
@@ -3805,13 +3776,13 @@ void dump_status(unsigned __int8 *a1)
   {
     if ((v8 & 2) != 0)
     {
-      printf("srs_flags               %0x\n", a1[2]);
+      printf("srs_flags               %0x\n", result[2]);
       v8 = *v7;
     }
 
     if ((v8 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      dump_status_cold_3(a1);
+      dump_status_cold_3();
     }
   }
 
@@ -3830,13 +3801,13 @@ void dump_status(unsigned __int8 *a1)
   {
     if ((v10 & 2) != 0)
     {
-      printf("srs_ack_id              %0x\n", *(a1 + 1));
+      printf("srs_ack_id              %0x\n", *(result + 1));
       v10 = *v9;
     }
 
     if ((v10 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      dump_status_cold_4(a1);
+      dump_status_cold_4();
     }
   }
 
@@ -3855,13 +3826,13 @@ void dump_status(unsigned __int8 *a1)
   {
     if ((v12 & 2) != 0)
     {
-      printf("srs_num_alerts          %d\n", *(a1 + 2));
+      printf("srs_num_alerts          %d\n", *(result + 2));
       v12 = *v11;
     }
 
     if ((v12 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      dump_status_cold_5(a1);
+      dump_status_cold_5();
     }
   }
 
@@ -3880,13 +3851,13 @@ void dump_status(unsigned __int8 *a1)
   {
     if ((v14 & 2) != 0)
     {
-      printf("srs_num_queued          %d\n", *(a1 + 3));
+      printf("srs_num_queued          %d\n", *(result + 3));
       v14 = *v13;
     }
 
     if ((v14 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      dump_status_cold_6(a1);
+      dump_status_cold_6();
     }
   }
 
@@ -3934,15 +3905,16 @@ BOOL is_valid_symptom(uint64_t a1)
   return result;
 }
 
-void *symptom_framework_init(unsigned int a1, char *__s)
+void *symptom_framework_init(uint64_t a1, char *__s)
 {
+  v3 = a1;
   v4 = strlen(__s);
-  if (a1 > 0xFF || v4 > 0x400)
+  if (v3 > 0xFF || v4 > 0x400)
   {
     return 0;
   }
 
-  return obtain_symptom_framework(a1, __s, v4);
+  return obtain_symptom_framework(v3, __s, v4);
 }
 
 void *_basic_symptom_create()
@@ -4233,18 +4205,16 @@ uint64_t symptom_transport_connect(uint64_t a1)
 
 void sr_log_xpc_event(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 24);
-    v6 = 136315394;
-    v7 = v4;
-    v8 = 2080;
-    v9 = a2;
-    _os_log_impl(&dword_26C372000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: %s", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = v4;
+    v7 = 2080;
+    v8 = a2;
+    _os_log_impl(&dword_26C372000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: %s", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void _symptoms_globals_init(uint64_t a1)
@@ -4345,7 +4315,7 @@ void send_current(uint64_t a1)
 
   if ((v6 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    send_current_cold_1(v3);
+    send_current_cold_1();
   }
 
   v7 = malloc_type_malloc(0x28A0uLL, 0xC02D493uLL);
@@ -4390,7 +4360,7 @@ void symptoms_transport_dropped(uint64_t a1)
 
   if ((v4 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    symptoms_transport_dropped_cold_1(a1);
+    symptoms_transport_dropped_cold_1();
   }
 
   gettimeofday((a1 + 176), 0);
@@ -4414,7 +4384,7 @@ void symptoms_transport_dropped(uint64_t a1)
 
   if ((v6 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    symptoms_transport_dropped_cold_2(a1);
+    symptoms_transport_dropped_cold_2();
   }
 
   reevaluate_sr_symptoms(a1);
@@ -4439,7 +4409,7 @@ void symptoms_transport_dropped(uint64_t a1)
 
     if ((v8 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      symptoms_transport_dropped_cold_3(a1);
+      symptoms_transport_dropped_cold_3();
     }
 
     if (*(a1 + 216))
@@ -4463,7 +4433,7 @@ void symptoms_transport_dropped(uint64_t a1)
 
       if ((v10 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
       {
-        symptoms_transport_dropped_cold_4(a1);
+        symptoms_transport_dropped_cold_4();
       }
     }
 
@@ -4500,7 +4470,7 @@ void *obtain_symptom_framework(int a1, char *a2, size_t a3)
 
 void *find_symptom_reporter_by_name(int a1, char *__s2, size_t __n)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277D85F10];
   if (*(MEMORY[0x277D85F10] + 320) == -1)
   {
@@ -4569,15 +4539,15 @@ void *find_symptom_reporter_by_name(int a1, char *__s2, size_t __n)
       {
         v14 = v10[4];
         *buf = 134218240;
-        v20 = v10;
-        v21 = 2048;
-        v22 = v14;
+        v19 = v10;
+        v20 = 2048;
+        v21 = v14;
         _os_log_debug_impl(&dword_26C372000, v11, OS_LOG_TYPE_DEBUG, "find_symptom_reporter_by_name  check sr %p name len %ld\n", buf, 0x16u);
       }
 
       if (*(v10 + 3) == a1 && v10[4] == __n && !strncmp(v10[3], __s2, __n))
       {
-        goto LABEL_33;
+        return v10;
       }
 
       v10 = *v10;
@@ -4609,10 +4579,7 @@ LABEL_27:
     find_symptom_reporter_by_name_cold_2();
   }
 
-  v10 = 0;
-LABEL_33:
-  v17 = *MEMORY[0x277D85DE8];
-  return v10;
+  return 0;
 }
 
 void __obtain_symptom_framework_block_invoke(uint64_t a1)
@@ -4781,7 +4748,7 @@ LABEL_25:
 
   if ((v14 & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    __obtain_symptom_framework_block_invoke_cold_1(v4);
+    __obtain_symptom_framework_block_invoke_cold_1();
   }
 }
 
@@ -4864,13 +4831,6 @@ _BYTE *OUTLINED_FUNCTION_0_0(_BYTE *result, _BYTE *a2)
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_4_0@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(result + 24);
-  return result;
-}
-
 void OUTLINED_FUNCTION_5_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t *a5)
 {
 
@@ -4879,519 +4839,343 @@ void OUTLINED_FUNCTION_5_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, 
 
 void sr_log_symptom_action_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void sr_log_symptom_action_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void dump_basic_symptom_cold_1(unsigned __int8 *a1)
+void dump_basic_symptom_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void dump_basic_symptom_cold_2(uint64_t a1)
+void dump_basic_symptom_cold_2()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_6(a1);
+  OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void dump_basic_symptom_cold_3(uint64_t a1)
+void dump_basic_symptom_cold_3()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5(a1);
+  OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void dump_basic_symptom_cold_4(uint64_t a1)
+void dump_basic_symptom_cold_4()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 12);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void dump_basic_symptom_cold_5(uint64_t a1)
+void dump_basic_symptom_cold_5()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 16);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void dump_symptom_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void dump_symptom_cold_2(uint64_t *a1)
+void dump_symptom_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void dump_symptom_cold_3(uint64_t a1)
+void dump_symptom_cold_3()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5(a1);
+  OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void dump_status_cold_2(unsigned __int8 *a1)
+void dump_status_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void dump_status_cold_3(uint64_t a1)
+void dump_status_cold_3()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 2);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void dump_status_cold_4(uint64_t a1)
+void dump_status_cold_4()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_6(a1);
+  OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void dump_status_cold_5(uint64_t a1)
+void dump_status_cold_5()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5(a1);
+  OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void dump_status_cold_6(uint64_t a1)
+void dump_status_cold_6()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 12);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void dump_creation_filter_cold_1(uint64_t a1)
+void dump_creation_filter_cold_1()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5(a1);
+  OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void dump_creation_filter_cold_2(uint64_t a1)
+void dump_creation_filter_cold_2()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_6(a1);
+  OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void dump_creation_filter_cold_3(uint64_t a1)
+void dump_creation_filter_cold_3()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 12);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void dump_ident_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void dump_ident_cold_2(unsigned int *a1)
+void dump_ident_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void dump_ident_cold_3(uint64_t a1)
+void dump_ident_cold_3()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_6(a1);
+  OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void dump_ident_cold_4(uint64_t a1)
+void dump_ident_cold_4()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5(a1);
+  OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void dump_ident_cold_5(uint64_t a1)
+void dump_ident_cold_5()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 16);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void dump_ident_cold_6(uint64_t a1)
+void dump_ident_cold_6()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 24);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void dump_ident_cold_7(uint64_t a1)
+void dump_ident_cold_7()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 40);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void dump_ident_cold_9(uint64_t a1)
+void dump_ident_cold_9()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 64);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void dump_ident_cold_10(uint64_t a1)
+void dump_ident_cold_10()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 72);
-  v2 = *(a1 + 80);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void dump_system_reporter_cold_2(uint64_t a1)
+void dump_system_reporter_cold_2()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 40);
-  v2 = *(a1 + 48);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void dump_system_reporter_cold_3(uint64_t a1)
+void dump_system_reporter_cold_3()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 56);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void dump_system_reporter_cold_4(uint64_t a1)
+void dump_system_reporter_cold_4()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 64);
-  v2 = *(a1 + 72);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void dump_system_reporter_cold_5(uint64_t a1)
+void dump_system_reporter_cold_5()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 80);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void dump_system_reporter_cold_7(uint64_t a1)
+void dump_system_reporter_cold_7()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 104);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void dump_system_reporter_cold_8(uint64_t a1)
+void dump_system_reporter_cold_8()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 114);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void dump_system_reporter_cold_9(uint64_t a1)
+void dump_system_reporter_cold_9()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 120);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void symptom_create_cold_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = a1;
-  _os_log_debug_impl(&dword_26C372000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "symptom_create copied name %s\n", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = a1;
+  _os_log_debug_impl(&dword_26C372000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "symptom_create copied name %s\n", &v1, 0xCu);
 }
 
 void symptom_transport_send_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void symptom_transport_connect_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void symptom_transport_connect_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __symptom_transport_connect_block_invoke_cold_1(uint64_t a1)
-{
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v8 = *(v1 + 224);
-  v9 = *(v1 + 240);
-  OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x2Au);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __symptom_transport_connect_block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __symptom_transport_connect_block_invoke_cold_4(uint64_t a1, uint64_t *a2)
+void __symptom_transport_connect_block_invoke_cold_4()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void __symptom_transport_connect_block_invoke_cold_6(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   xpc_dictionary_get_string(a1, *MEMORY[0x277D86400]);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __symptom_transport_connect_block_invoke_cold_7(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   xpc_dictionary_get_string(a1, *MEMORY[0x277D86400]);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __symptom_transport_connect_block_invoke_cold_9()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void symptom_free_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void symptom_post_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void symptom_post_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void handle_symptom_cold_1(uint64_t a1, uint64_t a2, uint64_t a3)
+void handle_symptom_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = *(a2 + 56);
-  v4 = *(a3 + 104);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x18u);
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
-void handle_symptom_cold_4(uint64_t *a1, uint64_t a2)
+void handle_symptom_cold_4()
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  v4 = *(a2 + 4);
-  v3 = *(a2 + 8);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x18u);
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
-void handle_symptom_cold_8(uint64_t *a1, unsigned int *a2)
+void handle_symptom_cold_8()
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  v3 = *a2;
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x12u);
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-void handle_symptom_cold_9()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void handle_symptom_cold_11()
-{
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void handle_symptom_cold_12()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void symptoms_incoming_message_cold_2(uint8_t *buf, uint64_t a2, void *a3)
@@ -5415,49 +5199,36 @@ void symptoms_incoming_message_cold_4(uint8_t *buf, int a2, _DWORD *a3)
   _os_log_debug_impl(&dword_26C372000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "new_symptoms_read: ack_id %d\n", buf, 8u);
 }
 
-void send_current_cold_1(int *a1)
+void symptoms_transport_dropped_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void symptoms_transport_dropped_cold_1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_4_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void symptoms_transport_dropped_cold_2(uint64_t a1)
+void symptoms_transport_dropped_cold_2()
 {
-  OUTLINED_FUNCTION_4_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void symptoms_transport_dropped_cold_3(uint64_t a1)
+void symptoms_transport_dropped_cold_3()
 {
-  OUTLINED_FUNCTION_4_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void symptoms_transport_dropped_cold_4(uint64_t a1)
+void symptoms_transport_dropped_cold_4()
 {
-  OUTLINED_FUNCTION_4_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void reevaluate_sr_symptoms_cold_2(uint8_t *buf, uint64_t a2, void *a3)
@@ -5467,116 +5238,90 @@ void reevaluate_sr_symptoms_cold_2(uint8_t *buf, uint64_t a2, void *a3)
   _os_log_debug_impl(&dword_26C372000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "reevaluate_sc_symptoms: evaluate symptom %p\n", buf, 0xCu);
 }
 
-void ensure_symptom_framework_connect_cold_1(uint64_t a1)
+void ensure_symptom_framework_connect_cold_1()
 {
-  OUTLINED_FUNCTION_4_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void ensure_symptom_framework_connect_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ensure_symptom_framework_connect_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void connect_symptom_framework_cold_2(uint64_t a1)
+void connect_symptom_framework_cold_2()
 {
-  OUTLINED_FUNCTION_4_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void connect_symptom_framework_cold_5(uint64_t a1)
+void connect_symptom_framework_cold_5()
 {
-  OUTLINED_FUNCTION_4_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void find_symptom_reporter_by_name_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __obtain_symptom_framework_block_invoke_cold_1(uint64_t a1)
+void __obtain_symptom_framework_block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  if (a1)
-  {
-    v1 = *(a1 + 24);
-  }
-
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void ensure_sym_ctrl_is_queued_cold_1(uint64_t a1)
+void ensure_sym_ctrl_is_queued_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 40);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x12u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void ensure_sym_ctrl_is_queued_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void update_globals_for_symptom_removal_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void read_symptoms_cold_1(uint64_t a1)
+void read_symptoms_cold_1()
 {
-  OUTLINED_FUNCTION_4_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sym_ctrl_dequeue_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }

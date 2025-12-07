@@ -122,7 +122,7 @@ void __26__EMAccountRepository_log__block_invoke(uint64_t a1)
 
 void __54__EMAccountRepository__fetchAccountsAndObserveChanges__block_invoke_81(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -133,7 +133,7 @@ void __54__EMAccountRepository__fetchAccountsAndObserveChanges__block_invoke_81(
     {
       v11 = *(a1 + 32);
       v12 = [v9 ef_publicDescription];
-      __54__EMAccountRepository__fetchAccountsAndObserveChanges__block_invoke_81_cold_1(v11, v12, &v22, v10);
+      __54__EMAccountRepository__fetchAccountsAndObserveChanges__block_invoke_81_cold_1(v11, v12, &v21, v10);
     }
   }
 
@@ -142,9 +142,9 @@ void __54__EMAccountRepository__fetchAccountsAndObserveChanges__block_invoke_81(
     v13 = +[EMAccountRepository log];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = 138543362;
-      v23 = v7;
-      _os_log_impl(&dword_1C6655000, v13, OS_LOG_TYPE_DEFAULT, "Initialized with accounts: %{public}@", &v22, 0xCu);
+      v21 = 138543362;
+      v22 = v7;
+      _os_log_impl(&dword_1C6655000, v13, OS_LOG_TYPE_DEFAULT, "Initialized with accounts: %{public}@", &v21, 0xCu);
     }
 
     v14 = MEMORY[0x1E695DF90];
@@ -159,17 +159,15 @@ void __54__EMAccountRepository__fetchAccountsAndObserveChanges__block_invoke_81(
     v10 = *(v19 + 56);
     *(v19 + 56) = v20;
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (EMAccountRepository)initWithRemoteConnection:(id)connection
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
-  v19.receiver = self;
-  v19.super_class = EMAccountRepository;
-  v5 = [(EMRepository *)&v19 initWithRemoteConnection:connectionCopy];
+  v18.receiver = self;
+  v18.super_class = EMAccountRepository;
+  v5 = [(EMRepository *)&v18 initWithRemoteConnection:connectionCopy];
   v6 = v5;
   if (v5)
   {
@@ -180,29 +178,28 @@ void __54__EMAccountRepository__fetchAccountsAndObserveChanges__block_invoke_81(
     recoveryHandlerScheduler = v6->_recoveryHandlerScheduler;
     v6->_recoveryHandlerScheduler = v9;
 
-    v20[0] = @"name";
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
+    v19[0] = @"name";
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
     [EMQuery addValidSortDescriptorKeyPaths:v11 forTargetClass:objc_opt_class()];
 
     objc_initWeak(&location, v6);
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __48__EMAccountRepository_initWithRemoteConnection___block_invoke;
-    v16[3] = &unk_1E826C070;
-    objc_copyWeak(&v17, &location);
-    [connectionCopy addResetHandler:v16];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __48__EMAccountRepository_initWithRemoteConnection___block_invoke_2;
-    v14[3] = &unk_1E826C070;
-    objc_copyWeak(&v15, &location);
-    [connectionCopy addRecoveryHandler:v14];
-    objc_destroyWeak(&v15);
-    objc_destroyWeak(&v17);
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __48__EMAccountRepository_initWithRemoteConnection___block_invoke;
+    v15[3] = &unk_1E826C070;
+    objc_copyWeak(&v16, &location);
+    [connectionCopy addResetHandler:v15];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __48__EMAccountRepository_initWithRemoteConnection___block_invoke_2;
+    v13[3] = &unk_1E826C070;
+    objc_copyWeak(&v14, &location);
+    [connectionCopy addRecoveryHandler:v13];
+    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v16);
     objc_destroyWeak(&location);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -264,38 +261,34 @@ void __54__EMAccountRepository__fetchAccountsAndObserveChanges__block_invoke(uin
 
 - (NSArray)allAccounts
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   _currentAccountsByObjectIDMap = [(EMAccountRepository *)self _currentAccountsByObjectIDMap];
   allValues = [_currentAccountsByObjectIDMap allValues];
 
   v4 = [EMAccount sortDescriptorForNameAscending:1];
-  v9[0] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+  v8[0] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   v6 = [allValues sortedArrayUsingDescriptors:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 - (NSArray)receivingAccounts
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   allAccounts = [(EMAccountRepository *)self allAccounts];
   v3 = [EMQuery alloc];
   v4 = objc_opt_class();
   v5 = +[EMAccount predicateForReceivingAccounts];
   v6 = [EMAccount sortDescriptorForNameAscending:1];
-  v14[0] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+  v13[0] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
   v8 = [(EMQuery *)v3 initWithTargetClass:v4 predicate:v5 sortDescriptors:v7];
 
   predicate = [(EMQuery *)v8 predicate];
   v10 = [allAccounts filteredArrayUsingPredicate:predicate];
 
   v11 = [v10 ef_map:&__block_literal_global_88];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -343,14 +336,14 @@ id __39__EMAccountRepository_deliveryAccounts__block_invoke(uint64_t a1, void *a
 
 - (void)accountsAdded:(id)added
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   addedCopy = added;
   v5 = +[EMAccountRepository log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543362;
-    v12 = addedCopy;
-    _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "Processing added accounts: %{public}@", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = addedCopy;
+    _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "Processing added accounts: %{public}@", &v10, 0xCu);
   }
 
   os_unfair_lock_lock(&self->_lock);
@@ -362,20 +355,18 @@ id __39__EMAccountRepository_deliveryAccounts__block_invoke(uint64_t a1, void *a
 
   os_unfair_lock_unlock(&self->_lock);
   [(EMAccountRepository *)self _postAccountChangedNotification];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)accountsRemoved:(id)removed
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   removedCopy = removed;
   v5 = +[EMAccountRepository log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
-    v10 = removedCopy;
-    _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "Processing removed accounts: %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = removedCopy;
+    _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "Processing removed accounts: %{public}@", &v8, 0xCu);
   }
 
   os_unfair_lock_lock(&self->_lock);
@@ -385,48 +376,46 @@ id __39__EMAccountRepository_deliveryAccounts__block_invoke(uint64_t a1, void *a
 
   os_unfair_lock_unlock(&self->_lock);
   [(EMAccountRepository *)self _postAccountChangedNotification];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)accountsChanged:(id)changed
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   changedCopy = changed;
   v4 = +[EMAccountRepository log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v20 = changedCopy;
+    v19 = changedCopy;
     _os_log_impl(&dword_1C6655000, v4, OS_LOG_TYPE_DEFAULT, "Processing changed accounts: %{public}@", buf, 0xCu);
   }
 
   os_unfair_lock_lock(&self->_lock);
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v5 = changedCopy;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         accounts = self->_accounts;
         objectID = [v9 objectID];
         [(NSMutableDictionary *)accounts setObject:v9 forKeyedSubscript:objectID];
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
@@ -434,8 +423,6 @@ id __39__EMAccountRepository_deliveryAccounts__block_invoke(uint64_t a1, void *a
 
   os_unfair_lock_unlock(&self->_lock);
   [(EMAccountRepository *)self _postAccountChangedNotification];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_postAccountChangedNotification
@@ -446,11 +433,10 @@ id __39__EMAccountRepository_deliveryAccounts__block_invoke(uint64_t a1, void *a
 
 void __54__EMAccountRepository__fetchAccountsAndObserveChanges__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1C6655000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch accounts %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1C6655000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch accounts %{public}@", &v2, 0xCu);
 }
 
 void __54__EMAccountRepository__fetchAccountsAndObserveChanges__block_invoke_81_cold_1(uint64_t a1, void *a2, uint8_t *buf, os_log_t log)
@@ -464,11 +450,10 @@ void __54__EMAccountRepository__fetchAccountsAndObserveChanges__block_invoke_81_
 
 - (void)_currentAccountsByObjectIDMap
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
   selfCopy = self;
-  _os_log_debug_impl(&dword_1C6655000, a2, OS_LOG_TYPE_DEBUG, "EMAccountRepository<%p> Registering observer for account changes", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1C6655000, a2, OS_LOG_TYPE_DEBUG, "EMAccountRepository<%p> Registering observer for account changes", &v2, 0xCu);
 }
 
 @end

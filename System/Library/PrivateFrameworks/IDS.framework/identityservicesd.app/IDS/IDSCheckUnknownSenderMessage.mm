@@ -124,7 +124,7 @@
 
   v7 = [dictionaryCopy _numberForKey:@"delay"];
 
-  [v7 doubleValue];
+  objc_msgSend_doubleValue(v7);
   [(IDSCheckUnknownSenderMessage *)self setDelay:?];
 }
 

@@ -163,85 +163,79 @@
 
 - (id)description
 {
-  v3 = objc_alloc(MEMORY[0x277CCACA8]);
-  ratioModeAndGlobalPopularity = self->_ratioModeAndGlobalPopularity;
-  uniqueOccurrencesInMode = self->_uniqueOccurrencesInMode;
-  v6 = [v3 initWithFormat:@"entityDescription: %@, posteriorProbability: %.3f, globalPopularity: %.3f, modePopularity: %.3f, ratio between mode popularity and global popularity: %.3f, classConditionalProbability: %.3f, unique occurrences in mode: %lu, local occurrences: %lu, global occurrences: %lu, entity specific features: %@, total mode launches histogram: %@, total global launches histogram: %@, macPortable global app launches histogram: %@, macPortable mode app launches histogram: %@, macDesktop global app launches histogram: %@, macDesktop mode app launches histogram: %@local device global app launches histogram: %@local device mode app launches histogram: %@", self->_entityDescription, *&self->_posteriorProbability, *&self->_globalPopularity, *&self->_modePopularity, *&ratioModeAndGlobalPopularity, *&self->_classConditionalProbability, uniqueOccurrencesInMode, self->_localOccurrences, self->_globalOccurrences, self->_entitySpecificFeatures, self->_totalModeLaunchesHistogramForLast28Days, self->_totalGlobalLaunchesHistogramForLast28Days, self->_macPortableGlobalAppLaunchesHistogramForLast28Days, self->_macPortableModeAppLaunchesHistogramForLast28Days, self->_macDesktopGlobalAppLaunchesHistogramForLast28Days, self->_macDesktopModeAppLaunchesHistogramForLast28Days, self->_localDeviceGlobalAppLaunchesHistogramForLast28Days, self->_localDeviceModeAppLaunchesHistogramForLast28Days];
+  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"entityDescription: %@, posteriorProbability: %.3f, globalPopularity: %.3f, modePopularity: %.3f, ratio between mode popularity and global popularity: %.3f, classConditionalProbability: %.3f, unique occurrences in mode: %lu, local occurrences: %lu, global occurrences: %lu, entity specific features: %@, total mode launches histogram: %@, total global launches histogram: %@, macPortable global app launches histogram: %@, macPortable mode app launches histogram: %@, macDesktop global app launches histogram: %@, macDesktop mode app launches histogram: %@local device global app launches histogram: %@local device mode app launches histogram: %@", self->_entityDescription, *&self->_posteriorProbability, *&self->_globalPopularity, *&self->_modePopularity, *&self->_ratioModeAndGlobalPopularity, *&self->_classConditionalProbability, self->_uniqueOccurrencesInMode, self->_localOccurrences, self->_globalOccurrences, self->_entitySpecificFeatures, self->_totalModeLaunchesHistogramForLast28Days, self->_totalGlobalLaunchesHistogramForLast28Days, self->_macPortableGlobalAppLaunchesHistogramForLast28Days, self->_macPortableModeAppLaunchesHistogramForLast28Days, self->_macDesktopGlobalAppLaunchesHistogramForLast28Days, self->_macDesktopModeAppLaunchesHistogramForLast28Days, self->_localDeviceGlobalAppLaunchesHistogramForLast28Days, self->_localDeviceModeAppLaunchesHistogramForLast28Days];
 
-  return v6;
+  return v2;
 }
 
 - (id)jsonRepresentation
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v27[0] = @"correlationModePopularity";
-  v26 = [MEMORY[0x277CCABB0] numberWithDouble:self->_modePopularity];
-  v28[0] = v26;
-  v27[1] = @"correlationGlobalPopularity";
+  v31 = *MEMORY[0x277D85DE8];
+  v25[0] = @"correlationModePopularity";
+  v24 = [MEMORY[0x277CCABB0] numberWithDouble:self->_modePopularity];
+  v26[0] = v24;
+  v25[1] = @"correlationGlobalPopularity";
   v3 = [MEMORY[0x277CCABB0] numberWithDouble:self->_globalPopularity];
-  v28[1] = v3;
-  v27[2] = @"correlationPosteriorProbability";
+  v26[1] = v3;
+  v25[2] = @"correlationPosteriorProbability";
   v4 = [MEMORY[0x277CCABB0] numberWithDouble:self->_posteriorProbability];
-  v28[2] = v4;
-  v27[3] = @"correlationRatioModeAndGlobalPopularity";
+  v26[2] = v4;
+  v25[3] = @"correlationRatioModeAndGlobalPopularity";
   v5 = [MEMORY[0x277CCABB0] numberWithDouble:self->_ratioModeAndGlobalPopularity];
-  v28[3] = v5;
-  v27[4] = @"correlationClassConditionalProbability";
+  v26[3] = v5;
+  v25[4] = @"correlationClassConditionalProbability";
   v6 = [MEMORY[0x277CCABB0] numberWithDouble:self->_classConditionalProbability];
-  v28[4] = v6;
-  v27[5] = @"correlationUniqueOccurrencesInMode";
+  v26[4] = v6;
+  v25[5] = @"correlationUniqueOccurrencesInMode";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_uniqueOccurrencesInMode];
-  v28[5] = v7;
-  v27[6] = @"correlationNumLocalOccurrences";
+  v26[5] = v7;
+  v25[6] = @"correlationNumLocalOccurrences";
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_localOccurrences];
-  v28[6] = v8;
-  v27[7] = @"correlationNumGlobalOccurrences";
+  v26[6] = v8;
+  v25[7] = @"correlationNumGlobalOccurrences";
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_globalOccurrences];
-  v28[7] = v9;
-  v27[8] = @"correlationEntityFeaturesType";
-  entitySpecificFeatures = self->_entitySpecificFeatures;
-  v11 = objc_opt_class();
-  v12 = NSStringFromClass(v11);
-  v13 = v12;
-  v14 = &stru_2839A6058;
-  if (v12)
+  v26[7] = v9;
+  v25[8] = @"correlationEntityFeaturesType";
+  v10 = objc_opt_class();
+  v11 = NSStringFromClass(v10);
+  v12 = v11;
+  v13 = &stru_2839A6058;
+  if (v11)
   {
-    v14 = v12;
+    v13 = v11;
   }
 
-  v28[8] = v14;
-  v27[9] = @"correlationEntitySpecificFeatures";
+  v26[8] = v13;
+  v25[9] = @"correlationEntitySpecificFeatures";
   jsonRepresentation = [self->_entitySpecificFeatures jsonRepresentation];
-  v16 = jsonRepresentation;
-  v17 = vdupq_n_s64(MEMORY[0x277CBEBF8]);
-  v18 = vbslq_s8(vceqzq_s64(*&self->_totalModeLaunchesHistogramForLast28Days), v17, *&self->_totalModeLaunchesHistogramForLast28Days);
-  v19 = vbslq_s8(vceqzq_s64(*&self->_macPortableGlobalAppLaunchesHistogramForLast28Days), v17, *&self->_macPortableGlobalAppLaunchesHistogramForLast28Days);
-  v20 = vbslq_s8(vceqzq_s64(*&self->_macDesktopGlobalAppLaunchesHistogramForLast28Days), v17, *&self->_macDesktopGlobalAppLaunchesHistogramForLast28Days);
-  v21 = vbslq_s8(vceqzq_s64(*&self->_localDeviceGlobalAppLaunchesHistogramForLast28Days), v17, *&self->_localDeviceGlobalAppLaunchesHistogramForLast28Days);
-  v22 = MEMORY[0x277CBEC10];
+  v15 = jsonRepresentation;
+  v16 = vdupq_n_s64(MEMORY[0x277CBEBF8]);
+  v17 = vbslq_s8(vceqzq_s64(*&self->_totalModeLaunchesHistogramForLast28Days), v16, *&self->_totalModeLaunchesHistogramForLast28Days);
+  v18 = vbslq_s8(vceqzq_s64(*&self->_macPortableGlobalAppLaunchesHistogramForLast28Days), v16, *&self->_macPortableGlobalAppLaunchesHistogramForLast28Days);
+  v19 = vbslq_s8(vceqzq_s64(*&self->_macDesktopGlobalAppLaunchesHistogramForLast28Days), v16, *&self->_macDesktopGlobalAppLaunchesHistogramForLast28Days);
+  v20 = vbslq_s8(vceqzq_s64(*&self->_localDeviceGlobalAppLaunchesHistogramForLast28Days), v16, *&self->_localDeviceGlobalAppLaunchesHistogramForLast28Days);
+  v21 = MEMORY[0x277CBEC10];
   if (jsonRepresentation)
   {
-    v22 = jsonRepresentation;
+    v21 = jsonRepresentation;
   }
 
-  v28[9] = v22;
-  v27[10] = @"totalModeLaunchesHistogram";
-  v27[11] = @"totalGlobalLaunchesHistogram";
-  v27[12] = @"macPortableGlobalAppLaunchesHistogram";
-  v27[13] = @"macPortableModeAppLaunchesHistogram";
-  v29 = v18;
-  v30 = v19;
-  v27[14] = @"macDesktopGlobalAppLaunchesHistogram";
-  v27[15] = @"macDesktopModeAppLaunchesHistogram";
-  v27[16] = @"localDeviceGlobalAppLaunchesHistogram";
-  v27[17] = @"localDeviceModeAppLaunchesHistogram";
-  v31 = v20;
-  v32 = v21;
-  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:18];
+  v26[9] = v21;
+  v25[10] = @"totalModeLaunchesHistogram";
+  v25[11] = @"totalGlobalLaunchesHistogram";
+  v25[12] = @"macPortableGlobalAppLaunchesHistogram";
+  v25[13] = @"macPortableModeAppLaunchesHistogram";
+  v27 = v17;
+  v28 = v18;
+  v25[14] = @"macDesktopGlobalAppLaunchesHistogram";
+  v25[15] = @"macDesktopModeAppLaunchesHistogram";
+  v25[16] = @"localDeviceGlobalAppLaunchesHistogram";
+  v25[17] = @"localDeviceModeAppLaunchesHistogram";
+  v29 = v19;
+  v30 = v20;
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:18];
 
-  v24 = *MEMORY[0x277D85DE8];
-
-  return v23;
+  return v22;
 }
 
 - (BOOL)entityOccurredOverLastNDays:(unint64_t)days withHistogram:(id)histogram

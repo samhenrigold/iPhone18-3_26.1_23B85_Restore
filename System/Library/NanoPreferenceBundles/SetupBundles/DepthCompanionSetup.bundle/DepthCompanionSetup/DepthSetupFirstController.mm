@@ -70,28 +70,28 @@
 
   if (firstObject)
   {
-    v6 = [firstObject valueForProperty:NRDevicePropertyAbsoluteDepthLimit];
-    v7 = sub_1478();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v7 = [firstObject valueForProperty:NRDevicePropertyAbsoluteDepthLimit];
+    v8 = sub_1478(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = v6;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "DepthSetupFirstController: Depth limit of current device is %@", &v9, 0xCu);
+      v10 = 138412290;
+      v11 = v7;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "DepthSetupFirstController: Depth limit of current device is %@", &v10, 0xCu);
     }
   }
 
   else
   {
-    v7 = sub_1478();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_1478(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_2488(v7);
+      sub_2488(v8);
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
-  return v6;
+  return v7;
 }
 
 - (id)detailString
@@ -163,14 +163,15 @@
 
   deviceDepthLimit = [(DepthSetupFirstController *)self deviceDepthLimit];
   intValue = [deviceDepthLimit intValue];
-  v7 = sub_1478();
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-  if (intValue == 6)
+  v7 = intValue;
+  v8 = sub_1478(intValue);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  if (v7 == 6)
   {
-    if (v8)
+    if (v9)
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "DepthFirstSetupController: Hiding scuba safety screen for shallow use device", buf, 2u);
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "DepthFirstSetupController: Hiding scuba safety screen for shallow use device", buf, 2u);
     }
 
     miniFlowDelegate = [(DepthSetupFirstController *)self miniFlowDelegate];
@@ -179,10 +180,10 @@
 
   else
   {
-    if (v8)
+    if (v9)
     {
-      *v10 = 0;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "DepthFirstSetupController: Scuba device, presenting safety setup controller", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "DepthFirstSetupController: Scuba device, presenting safety setup controller", v11, 2u);
     }
 
     miniFlowDelegate = [(DepthSetupFirstController *)self miniFlowDelegate];

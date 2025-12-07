@@ -6,7 +6,7 @@
 
 + (id)createWithCodable:()HDCodingSupport
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   v3 = a3;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -53,34 +53,34 @@
     objc_opt_self();
     if ([statistics count])
     {
-      v53 = v21;
-      v47 = v18;
-      v48 = v10;
-      v49 = v7;
-      v50 = v4;
-      v51 = v3;
-      v52 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(statistics, "count")}];
+      v52 = v21;
+      v46 = v18;
+      v47 = v10;
+      v48 = v7;
+      v49 = v4;
+      v50 = v3;
+      v51 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(statistics, "count")}];
+      v53 = 0u;
       v54 = 0u;
       v55 = 0u;
       v56 = 0u;
-      v57 = 0u;
-      v46 = statistics;
+      v45 = statistics;
       v22 = statistics;
-      v23 = [v22 countByEnumeratingWithState:&v54 objects:v60 count:16];
+      v23 = [v22 countByEnumeratingWithState:&v53 objects:v59 count:16];
       if (v23)
       {
         v24 = v23;
-        v25 = *v55;
+        v25 = *v54;
         do
         {
           for (i = 0; i != v24; ++i)
           {
-            if (*v55 != v25)
+            if (*v54 != v25)
             {
               objc_enumerationMutation(v22);
             }
 
-            v27 = *(*(&v54 + 1) + 8 * i);
+            v27 = *(*(&v53 + 1) + 8 * i);
             quantityType = [v27 quantityType];
             if (_HKValidDataTypeCode())
             {
@@ -88,7 +88,7 @@
               if (v29)
               {
                 v30 = v20;
-                v31 = [objc_alloc(MEMORY[0x277CCDA50]) initWithDataType:v29 startDate:v20 endDate:v53];
+                v31 = [objc_alloc(MEMORY[0x277CCDA50]) initWithDataType:v29 startDate:v20 endDate:v52];
                 canonicalUnit = [v29 canonicalUnit];
                 if ([v27 hasSumQuantity])
                 {
@@ -122,7 +122,7 @@
                   [v31 setAverageQuantity:v40];
                 }
 
-                [v52 setObject:v31 forKeyedSubscript:v29];
+                [v51 setObject:v31 forKeyedSubscript:v29];
 
                 v20 = v30;
               }
@@ -135,26 +135,26 @@
               if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
               {
                 *buf = 134217984;
-                v59 = quantityType;
+                v58 = quantityType;
                 _os_log_error_impl(&dword_228986000, v41, OS_LOG_TYPE_ERROR, "Ignoring workout statistics for invalid data type code %ld", buf, 0xCu);
               }
             }
           }
 
-          v24 = [v22 countByEnumeratingWithState:&v54 objects:v60 count:16];
+          v24 = [v22 countByEnumeratingWithState:&v53 objects:v59 count:16];
         }
 
         while (v24);
       }
 
-      v4 = v50;
-      v3 = v51;
-      v10 = v48;
-      v7 = v49;
-      statistics = v46;
-      v18 = v47;
-      v42 = v52;
-      v21 = v53;
+      v4 = v49;
+      v3 = v50;
+      v10 = v47;
+      v7 = v48;
+      statistics = v45;
+      v18 = v46;
+      v42 = v51;
+      v21 = v52;
     }
 
     else
@@ -179,8 +179,6 @@
   {
     v13 = 0;
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

@@ -5,9 +5,11 @@
 
 uint64_t __47__NSString_SBAdditions__sb_emojiWithoutVS16Set__block_invoke()
 {
-  sb_emojiWithoutVS16Set___emojiWithoutVS16Set = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"©®‼⁉™ℹ↔↕↖↗↘↙↩↪⌨⏏⏭⏮⏯⏱⏲⏸⏹⏺Ⓜ▪▫▶◀◻◼☀☁☂☃☄☎☑☘☝☠☢☣☦☪☮☯☸☹☺♀♂♟♠♣♥♦♨♻♾⚒⚔⚕⚖⚗⚙⚛⚜⚠⚧⚰⚱⛈⛏⛑⛓⛩⛰⛱⛴⛷⛸⛹✂✈✉✌✍✏✒✔✖✝✡✳✴❄❇❣❤➡⤴⤵⬅⬆⬇〰〽㊗㊙🅰🅱🅾🅿🈂🈷🌡🌤🌥🌦🌧🌨🌩🌪🌫🌬🌶🍽🎖🎗🎙🎚🎛🎞🎟🏋🏌🏍🏎🏔🏕🏖🏗🏘🏙🏚🏛🏜🏝🏞🏟🏳🏵🏷🐿👁📽🕉🕊🕯🕰🕳🕴🕵🕶🕷🕸🕹🖇🖊🖋🖌🖍🖐🖥🖨🖱🖲🖼🗂🗃🗄🗑🗒🗓🗜🗝🗞🗡🗣🗨🗯🗳🗺🛋🛍🛎🛏🛠🛡🛢🛣🛤🛥🛩🛰🛳"];
+  v0 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"©®‼⁉™ℹ↔↕↖↗↘↙↩↪⌨⏏⏭⏮⏯⏱⏲⏸⏹⏺Ⓜ▪▫▶◀◻◼☀☁☂☃☄☎☑☘☝☠☢☣☦☪☮☯☸☹☺♀♂♟♠♣♥♦♨♻♾⚒⚔⚕⚖⚗⚙⚛⚜⚠⚧⚰⚱⛈⛏⛑⛓⛩⛰⛱⛴⛷⛸⛹✂✈✉✌✍✏✒✔✖✝✡✳✴❄❇❣❤➡⤴⤵⬅⬆⬇〰〽㊗㊙🅰🅱🅾🅿🈂🈷🌡🌤🌥🌦🌧🌨🌩🌪🌫🌬🌶🍽🎖🎗🎙🎚🎛🎞🎟🏋🏌🏍🏎🏔🏕🏖🏗🏘🏙🏚🏛🏜🏝🏞🏟🏳🏵🏷🐿👁📽🕉🕊🕯🕰🕳🕴🕵🕶🕷🕸🕹🖇🖊🖋🖌🖍🖐🖥🖨🖱🖲🖼🗂🗃🗄🗑🗒🗓🗜🗝🗞🗡🗣🗨🗯🗳🗺🛋🛍🛎🛏🛠🛡🛢🛣🛤🛥🛩🛰🛳"];
+  v1 = sb_emojiWithoutVS16Set___emojiWithoutVS16Set;
+  sb_emojiWithoutVS16Set___emojiWithoutVS16Set = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 void __55__NSString_SBAdditions___isEntirelyCharactersInScript___block_invoke(uint64_t a1)
@@ -25,7 +27,7 @@ void __55__NSString_SBAdditions___isEntirelyCharactersInScript___block_invoke(ui
   }
 
   v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%@%@]", v3, @"[:punct:][:space:]–—[:Common:][:Inherited:]"];
-  _isEntirelyCharactersInScript____set = SBCopyCharacterUSetWithPattern(v4);
+  _isEntirelyCharactersInScript____set = SBCopyCharacterUSetWithPattern(v4, &v6);
   if (_isEntirelyCharactersInScript____set)
   {
     v5 = v6 < 1;
@@ -44,12 +46,22 @@ void __55__NSString_SBAdditions___isEntirelyCharactersInScript___block_invoke(ui
 
 void __42__NSString_SBAdditions___isEntirelyCommon__block_invoke(uint64_t a1)
 {
-  v3 = 0;
+  v4 = 0;
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%@]", @"[:punct:][:space:]–—[:Common:][:Inherited:]"];
-  _isEntirelyCommon___charSet = SBCopyCharacterUSetWithPattern(v2);
-  if (!_isEntirelyCommon___charSet)
+  _isEntirelyCommon___charSet = SBCopyCharacterUSetWithPattern(v2, &v4);
+  if (_isEntirelyCommon___charSet)
   {
-    __42__NSString_SBAdditions___isEntirelyCommon__block_invoke_cold_1(a1, &v3);
+    v3 = v4 < 1;
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  if (!v3)
+  {
+    __42__NSString_SBAdditions___isEntirelyCommon__block_invoke_cold_1(a1, &v4);
   }
 }
 

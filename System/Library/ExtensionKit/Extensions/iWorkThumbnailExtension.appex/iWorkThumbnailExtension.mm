@@ -2,130 +2,106 @@ uint64_t sub_100000F90(uint64_t a1, uint64_t a2)
 {
   v2[2] = a1;
   v2[3] = a2;
-  v3 = *(*(sub_100001DF0() - 8) + 64) + 15;
+  sub_100001DF0();
   v2[4] = swift_task_alloc();
-  v4 = sub_100001E00();
-  v2[5] = v4;
-  v5 = *(v4 - 8);
-  v2[6] = v5;
-  v6 = *(v5 + 64) + 15;
+  v3 = sub_100001E00();
+  v2[5] = v3;
+  v2[6] = *(v3 - 8);
   v2[7] = swift_task_alloc();
-  v7 = sub_100001EF0();
-  v2[8] = v7;
-  v8 = *(v7 - 8);
-  v2[9] = v8;
-  v9 = *(v8 + 64) + 15;
+  v4 = sub_100001EF0();
+  v2[8] = v4;
+  v2[9] = *(v4 - 8);
   v2[10] = swift_task_alloc();
-  v10 = sub_100001E30();
-  v2[11] = v10;
-  v11 = *(v10 - 8);
-  v2[12] = v11;
-  v12 = *(v11 + 64) + 15;
-  v13 = swift_task_alloc();
-  v2[13] = v13;
-  v14 = async function pointer to ThumbnailRequest.fileURL.getter[1];
-  v15 = swift_task_alloc();
-  v2[14] = v15;
-  *v15 = v2;
-  v15[1] = sub_100001174;
+  v5 = sub_100001E30();
+  v2[11] = v5;
+  v2[12] = *(v5 - 8);
+  v6 = swift_task_alloc();
+  v2[13] = v6;
+  v7 = swift_task_alloc();
+  v2[14] = v7;
+  *v7 = v2;
+  v7[1] = sub_100001174;
 
-  return ThumbnailRequest.fileURL.getter(v13);
+  return ThumbnailRequest.fileURL.getter(v6);
 }
 
 uint64_t sub_100001174()
 {
-  v2 = *(*v1 + 112);
-  v5 = *v1;
   *(*v1 + 120) = v0;
 
   if (v0)
   {
-    v3 = sub_100001510;
+    v2 = sub_100001510;
   }
 
   else
   {
-    v3 = sub_100001288;
+    v2 = sub_100001288;
   }
 
-  return _swift_task_switch(v3, 0, 0);
+  return _swift_task_switch(v2, 0, 0);
 }
 
 uint64_t sub_100001288@<X0>(NSURL *a1@<X8>)
 {
-  v2 = v1[13];
-  v4 = v1[9];
-  v3 = v1[10];
-  v5 = v1[8];
-  v6 = v1[3];
+  v3 = v1[9];
+  v2 = v1[10];
+  v4 = v1[8];
   sub_100001E20(a1);
-  v8 = v7;
+  v6 = v5;
   sub_100001E70();
   isa = sub_100001EC0().super.isa;
-  v10 = *(v4 + 8);
-  v10(v3, v5);
-  v11 = QLPreviewCopyEmbeddedIWorkThumbnailDataInFile();
+  v8 = *(v3 + 8);
+  v8(v2, v4);
+  v9 = QLPreviewCopyEmbeddedIWorkThumbnailDataInFile();
 
-  if (v11)
+  if (v9)
   {
-    v13 = v1[12];
-    v12 = v1[13];
-    v14 = v1[10];
-    v33 = v1[8];
-    v34 = v1[11];
-    v35 = v1[7];
-    v36 = v1[4];
-    v15 = v1[2];
-    v16 = sub_100001E40();
-    v17 = v10;
-    v19 = v18;
+    v11 = v1[12];
+    v10 = v1[13];
+    v12 = v1[10];
+    v25 = v1[8];
+    v26 = v1[11];
+    v13 = sub_100001E40();
+    v14 = v8;
+    v16 = v15;
 
     sub_100001EE0();
     sub_100001E60();
-    sub_100001CB4(v16, v19);
-    v17(v14, v33);
-    (*(v13 + 8))(v12, v34);
+    sub_100001CB4(v13, v16);
+    v14(v12, v25);
+    (*(v11 + 8))(v10, v26);
   }
 
   else
   {
-    v22 = v1[12];
-    v21 = v1[13];
-    v23 = v1[11];
-    v25 = v1[6];
-    v24 = v1[7];
-    v26 = v1[4];
-    v27 = v1[5];
+    v19 = v1[12];
+    v18 = v1[13];
+    v20 = v1[11];
+    v22 = v1[6];
+    v21 = v1[7];
+    v23 = v1[5];
     sub_100001DE0();
     sub_100001B5C(&_swiftEmptyArrayStorage);
-    sub_100001C6C(&qword_100008090, &type metadata accessor for CocoaError);
+    sub_100001C6C(&qword_100008090, &type metadata accessor for CocoaError, &protocol conformance descriptor for CocoaError);
     sub_100001E10();
     sub_100001DD0();
-    (*(v25 + 8))(v24, v27);
-    swift_willThrow();
     (*(v22 + 8))(v21, v23);
-    v28 = v1[13];
-    v29 = v1[10];
-    v30 = v1[7];
-    v31 = v1[4];
+    swift_willThrow();
+    (*(v19 + 8))(v18, v20);
   }
 
-  v20 = v1[1];
+  v17 = v1[1];
 
-  return v20();
+  return v17();
 }
 
 uint64_t sub_100001510()
 {
-  v1 = v0[15];
-  v2 = v0[13];
-  v3 = v0[10];
-  v4 = v0[7];
-  v5 = v0[4];
 
-  v6 = v0[1];
+  v1 = *(v0 + 8);
 
-  return v6();
+  return v1();
 }
 
 uint64_t sub_1000015A0@<X0>(uint64_t a1@<X8>)
@@ -138,14 +114,14 @@ uint64_t sub_1000015A0@<X0>(uint64_t a1@<X8>)
 
 uint64_t sub_100001608(uint64_t a1)
 {
-  v2 = sub_100001C6C(&qword_100008088, type metadata accessor for iWorkThumbnailExtension);
+  v2 = sub_100001C6C(&qword_100008088, type metadata accessor for iWorkThumbnailExtension, &unk_100002108);
 
   return ThumbnailExtension.configuration.getter(a1, v2);
 }
 
 uint64_t sub_100001684()
 {
-  v0 = *(*(sub_100001EF0() - 8) + 64);
+  sub_100001EF0();
   __chkstk_darwin();
   sub_100001ED0();
   return sub_100001E90();
@@ -153,13 +129,13 @@ uint64_t sub_100001684()
 
 int main(int argc, const char **argv, const char **envp)
 {
-  type metadata accessor for iWorkThumbnailExtension();
-  sub_100001C6C(&qword_100008000, type metadata accessor for iWorkThumbnailExtension);
+  type metadata accessor for iWorkThumbnailExtension(0);
+  sub_100001C6C(&qword_100008000, type metadata accessor for iWorkThumbnailExtension, &unk_100002138);
   sub_100001E50();
   return 0;
 }
 
-uint64_t type metadata accessor for iWorkThumbnailExtension()
+uint64_t type metadata accessor for iWorkThumbnailExtension(uint64_t a1)
 {
   result = qword_1000080B0;
   if (!qword_1000080B0)
@@ -186,10 +162,10 @@ uint64_t sub_100001888(uint64_t a1, uint64_t a2)
   return v5(a1, a2, a2, v4);
 }
 
-uint64_t sub_1000018F8()
+uint64_t sub_1000018F8(uint64_t a1)
 {
   result = sub_100001EA0();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -200,12 +176,11 @@ uint64_t sub_1000018F8()
 
 unint64_t sub_100001A2C(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 40);
   sub_100001F30();
   sub_100001F00();
-  v6 = sub_100001F40();
+  v4 = sub_100001F40();
 
-  return sub_100001AA4(a1, a2, v6);
+  return sub_100001AA4(a1, a2, v4);
 }
 
 unint64_t sub_100001AA4(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -292,7 +267,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_100001C6C(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_100001C6C(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -305,13 +280,13 @@ uint64_t sub_100001C6C(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-uint64_t sub_100001CB4(uint64_t a1, unint64_t a2)
+uint64_t sub_100001CB4(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
@@ -321,7 +296,6 @@ uint64_t sub_100001D08(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }

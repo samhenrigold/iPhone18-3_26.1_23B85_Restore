@@ -9,7 +9,7 @@ void __72___PFTOperationQueueScheduler_performCancellableBlock_qualityOfService_
   [WeakRetained cancel];
 }
 
-uint64_t __72___PFTOperationQueueScheduler_afterDelay_performBlock_qualityOfService___block_invoke(uint64_t a1)
+void *__72___PFTOperationQueueScheduler_afterDelay_performBlock_qualityOfService___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isCancelled];
   if ((result & 1) == 0)

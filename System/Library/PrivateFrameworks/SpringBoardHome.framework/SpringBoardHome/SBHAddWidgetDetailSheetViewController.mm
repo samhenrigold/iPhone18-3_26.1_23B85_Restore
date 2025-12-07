@@ -82,17 +82,17 @@
 
 - (void)viewWillAppear:(BOOL)appear
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v8.receiver = self;
-  v8.super_class = SBHAddWidgetDetailSheetViewController;
-  [(SBHAddWidgetDetailSheetViewController *)&v8 viewWillAppear:appear];
-  v4 = SBLogWidgets();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v12 = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = SBHAddWidgetDetailSheetViewController;
+  v4 = [(SBHAddWidgetDetailSheetViewController *)&v9 viewWillAppear:appear];
+  v5 = SBLogWidgets(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     applicationWidgetCollection = self->_applicationWidgetCollection;
     *buf = 138543362;
-    v10 = applicationWidgetCollection;
-    _os_log_impl(&dword_1BEB18000, v4, OS_LOG_TYPE_DEFAULT, "Presenting add widget detail sheet for applicationWidgetCollection: %{public}@", buf, 0xCu);
+    v11 = applicationWidgetCollection;
+    _os_log_impl(&dword_1BEB18000, v5, OS_LOG_TYPE_DEFAULT, "Presenting add widget detail sheet for applicationWidgetCollection: %{public}@", buf, 0xCu);
   }
 
   if (!self->_performedInitialSelection)
@@ -175,7 +175,7 @@
     self->_backgroundView = _newBackgroundView;
 
     v8 = self->_backgroundView;
-    [view bounds];
+    objc_msgSend_bounds(view);
     [(MTMaterialView *)v8 setFrame:?];
     [(MTMaterialView *)self->_backgroundView setAutoresizingMask:18];
     [view addSubview:self->_backgroundView];
@@ -325,7 +325,7 @@
           v106 = 0u;
           v107 = 0u;
           v105 = 0u;
-          [(SBHAddWidgetSheetViewControllerBase *)selfCopy3 addWidgetSheetMetrics];
+          objc_msgSend_addWidgetSheetMetrics(selfCopy3);
           if (isDisfavored)
           {
             v43 = [v39 sbh_disfavoredSizeClassesForAddWidgetSheetLocation:addWidgetSheetLocation];
@@ -421,7 +421,7 @@
   selfCopy3->_magicPocketBackgroundView = v60;
 
   v62 = selfCopy3->_magicPocketBackgroundView;
-  [(UIView *)selfCopy3->_addButtonContainerView bounds];
+  objc_msgSend_bounds(selfCopy3->_addButtonContainerView);
   [(MTMaterialView *)v62 setFrame:?];
   [(MTMaterialView *)selfCopy3->_magicPocketBackgroundView setAutoresizingMask:18];
   [(MTMaterialView *)selfCopy3->_magicPocketBackgroundView setGroupNameBase:@"Add-Sheet"];
@@ -818,7 +818,7 @@ LABEL_15:
   [(NSLayoutConstraint *)self->_topSpacingConstraint setConstant:v8];
   if ([(SBHAddWidgetSheetViewControllerBase *)self addWidgetSheetStyle]== 1)
   {
-    [(SBHAddWidgetSheetViewControllerBase *)self addWidgetSheetMetrics:0];
+    objc_msgSend_addWidgetSheetMetrics(self, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     v25 = 0.0;
     v24 = 0.0;
     v26 = 0.0;
@@ -867,7 +867,7 @@ LABEL_15:
   }
 
   view = [(SBHAddWidgetDetailSheetViewController *)self view];
-  [view bounds];
+  objc_msgSend_bounds(view);
   v12 = CGRectGetHeight(v17);
   [(UIView *)self->_addButtonContainerView frame];
   v13 = v12 - CGRectGetMinY(v18);
@@ -985,7 +985,7 @@ uint64_t __72__SBHAddWidgetDetailSheetViewController_setApplicationWidgetCollect
   v9 = [(NSMutableArray *)pages indexOfObjectPassingTest:&v11];
   if (v9 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v10 = SBLogWidgets();
+    v10 = SBLogWidgets(0x7FFFFFFFFFFFFFFFLL);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [SBHAddWidgetDetailSheetViewController configureForGalleryItem:v8 selectedSizeClass:v10];
@@ -1066,10 +1066,10 @@ BOOL __83__SBHAddWidgetDetailSheetViewController_configureForGalleryItem_selecte
 
   if (v8 <= index)
   {
-    v12 = SBLogWidgets();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = SBLogWidgets(v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(SBHAddWidgetDetailSheetViewController *)v8 _scrollToPageIndex:index animated:v12];
+      [(SBHAddWidgetDetailSheetViewController *)v8 _scrollToPageIndex:index animated:v13];
     }
   }
 
@@ -1083,11 +1083,11 @@ BOOL __83__SBHAddWidgetDetailSheetViewController_configureForGalleryItem_selecte
       index = [(NSMutableArray *)self->_pages count]+ ~index;
     }
 
-    [(BSUIScrollView *)self->_widgetGalleryScrollView bounds];
-    v11 = v10 * index;
-    [(BSUIScrollView *)self->_widgetGalleryScrollView setContentOffset:animatedCopy animated:v11, 0.0];
+    objc_msgSend_bounds(self->_widgetGalleryScrollView);
+    v12 = v11 * index;
+    [(BSUIScrollView *)self->_widgetGalleryScrollView setContentOffset:animatedCopy animated:v12, 0.0];
 
-    [(SBHAddWidgetDetailSheetViewController *)self _updateControlsForContentOffset:animatedCopy animated:v11, 0.0];
+    [(SBHAddWidgetDetailSheetViewController *)self _updateControlsForContentOffset:animatedCopy animated:v12, 0.0];
   }
 }
 
@@ -1125,7 +1125,7 @@ BOOL __83__SBHAddWidgetDetailSheetViewController_configureForGalleryItem_selecte
   if (widgetGalleryScrollView == dragging)
   {
     x = velocity.x;
-    [(BSUIScrollView *)widgetGalleryScrollView bounds:velocity.x];
+    objc_msgSend_bounds(widgetGalleryScrollView, a2, velocity.x, velocity.y);
     v10 = offset->x / v9;
     v11 = floor(v10);
     v12 = ceil(v10);
@@ -1196,7 +1196,7 @@ BOOL __83__SBHAddWidgetDetailSheetViewController_configureForGalleryItem_selecte
   [(BSUIScrollView *)self->_widgetGalleryScrollView contentOffset];
   v4 = v3;
   v6 = v5;
-  [(BSUIScrollView *)self->_widgetGalleryScrollView bounds];
+  objc_msgSend_bounds(self->_widgetGalleryScrollView);
   v8 = [(SBHAddWidgetDetailSheetViewController *)self _pageIndexAtContentOffset:v4 + v7 * 0.5, v6];
   v9[0] = MEMORY[0x1E69E9820];
   v9[1] = 3221225472;
@@ -1290,23 +1290,24 @@ void __94__SBHAddWidgetDetailSheetViewController__updatePageViewControllerAppear
 - (SBHAddWidgetDetailsSheetPageViewController)currentPage
 {
   currentPage = [(UIPageControl *)self->_pageControl currentPage];
-  if (currentPage >= [(NSMutableArray *)self->_pages count])
+  v4 = [(NSMutableArray *)self->_pages count];
+  if (currentPage >= v4)
   {
-    v5 = SBLogWidgets();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = SBLogWidgets(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(SBHAddWidgetDetailSheetViewController *)&self->_pages currentPage];
     }
 
-    v4 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v4 = [(NSMutableArray *)self->_pages objectAtIndex:currentPage];
+    v5 = objc_msgSend_objectAtIndex_(self->_pages);
   }
 
-  return v4;
+  return v5;
 }
 
 - (SBFFluidBehaviorSettings)widgetInfoScrollViewAnimationSettings
@@ -1346,48 +1347,47 @@ void __94__SBHAddWidgetDetailSheetViewController__updatePageViewControllerAppear
   v9 = [(SBHAddWidgetDetailSheetViewController *)self _pageIndexAtContentOffset:x, y];
   if (v9 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v10 = v9;
     [(UIPageControl *)self->_pageControl setCurrentPage:v9];
     if (![(BSUIScrollView *)self->_widgetInfoScrollView isScrolling])
     {
-      v11 = [(NSMutableArray *)self->_pages objectAtIndex:v10];
-      widgetWrapperViewController = [v11 widgetWrapperViewController];
+      v10 = objc_msgSend_objectAtIndex_(self->_pages);
+      widgetWrapperViewController = [v10 widgetWrapperViewController];
       galleryItem = [widgetWrapperViewController galleryItem];
 
-      v14 = [(SBHApplicationWidgetCollection *)self->_applicationWidgetCollection indexOfWidgetDescriptorMatchingDescriptor:galleryItem];
-      if (v14 != 0x7FFFFFFFFFFFFFFFLL)
+      v13 = [(SBHApplicationWidgetCollection *)self->_applicationWidgetCollection indexOfWidgetDescriptorMatchingDescriptor:galleryItem];
+      if (v13 != 0x7FFFFFFFFFFFFFFFLL)
       {
-        v15 = v14;
+        v14 = v13;
         arrangedSubviews = [(UIStackView *)self->_widgetInfoStackView arrangedSubviews];
-        v17 = [arrangedSubviews count];
+        v16 = [arrangedSubviews count];
 
-        if (v15 < v17)
+        if (v14 < v16)
         {
           arrangedSubviews2 = [(UIStackView *)self->_widgetInfoStackView arrangedSubviews];
-          v19 = [arrangedSubviews2 objectAtIndex:v15];
+          v18 = objc_msgSend_objectAtIndex_(arrangedSubviews2);
 
-          v28 = MEMORY[0x1E69E9820];
-          v29 = 3221225472;
-          v30 = __82__SBHAddWidgetDetailSheetViewController__updateControlsForContentOffset_animated___block_invoke;
-          v31 = &unk_1E8088F18;
+          v27 = MEMORY[0x1E69E9820];
+          v28 = 3221225472;
+          v29 = __82__SBHAddWidgetDetailSheetViewController__updateControlsForContentOffset_animated___block_invoke;
+          v30 = &unk_1E8088F18;
           selfCopy = self;
-          v20 = v19;
-          v33 = v20;
-          v21 = _Block_copy(&v28);
-          v22 = v21;
+          v19 = v18;
+          v32 = v19;
+          v20 = _Block_copy(&v27);
+          v21 = v20;
           if (animatedCopy)
           {
-            v23 = [(SBHAddWidgetDetailSheetViewController *)self widgetInfoScrollViewAnimationSettings:v28];
-            v24 = MEMORY[0x1E69DD250];
-            [v23 settlingDuration];
-            v26 = v25;
-            [v23 dampingRatio];
-            [v24 animateWithDuration:4 delay:v22 usingSpringWithDamping:0 initialSpringVelocity:v26 options:0.0 animations:v27 completion:0.0];
+            v22 = [(SBHAddWidgetDetailSheetViewController *)self widgetInfoScrollViewAnimationSettings:v27];
+            v23 = MEMORY[0x1E69DD250];
+            [v22 settlingDuration];
+            v25 = v24;
+            [v22 dampingRatio];
+            [v23 animateWithDuration:4 delay:v21 usingSpringWithDamping:0 initialSpringVelocity:v25 options:0.0 animations:v26 completion:0.0];
           }
 
           else
           {
-            (*(v21 + 2))(v21);
+            (*(v20 + 2))(v20);
           }
         }
       }
@@ -1441,7 +1441,7 @@ uint64_t __82__SBHAddWidgetDetailSheetViewController__updateControlsForContentOf
 {
   [(BSUIScrollView *)self->_widgetInfoScrollView contentOffset];
   v4 = v3;
-  [(BSUIScrollView *)self->_widgetInfoScrollView bounds];
+  objc_msgSend_bounds(self->_widgetInfoScrollView);
   v6 = [(UIStackView *)self->_widgetInfoStackView hitTest:0 withEvent:v4 + v5 * 0.5, 0.0];
   widgetInfoViews = [(SBHAddWidgetDetailSheetViewController *)self widgetInfoViews];
   v8 = [widgetInfoViews indexOfObject:v6];
@@ -1454,7 +1454,7 @@ uint64_t __82__SBHAddWidgetDetailSheetViewController__updateControlsForContentOf
     if (v8 < v10)
     {
       widgetDescriptors2 = [(SBHApplicationWidgetCollection *)self->_applicationWidgetCollection widgetDescriptors];
-      v12 = [widgetDescriptors2 objectAtIndex:v8];
+      v12 = objc_msgSend_objectAtIndex_(widgetDescriptors2);
 
       _currentGalleryItem = [(SBHAddWidgetDetailSheetViewController *)self _currentGalleryItem];
 
@@ -1503,7 +1503,7 @@ uint64_t __82__SBHAddWidgetDetailSheetViewController__updateControlsForContentOf
     currentPage = [(UIPageControl *)self->_pageControl currentPage];
     if (v11 >= v12)
     {
-      v14 = SBLogWidgets();
+      v14 = SBLogWidgets(currentPage);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         pages = self->_pages;
@@ -1543,7 +1543,7 @@ uint64_t __82__SBHAddWidgetDetailSheetViewController__updateControlsForContentOf
     v17 = v9;
     do
     {
-      v18 = [(NSMutableArray *)self->_pages objectAtIndex:v17];
+      v18 = objc_msgSend_objectAtIndex_(self->_pages);
       widgetWrapperViewController = [v18 widgetWrapperViewController];
       galleryItem = [widgetWrapperViewController galleryItem];
 
@@ -1560,7 +1560,7 @@ uint64_t __82__SBHAddWidgetDetailSheetViewController__updateControlsForContentOf
     if ((v16 & 1) == 0)
     {
 LABEL_21:
-      v21 = SBLogWidgets();
+      v21 = SBLogWidgets(currentPage);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         [(SBHAddWidgetDetailSheetViewController *)v24 _closestPageWithGalleryItem:v21];

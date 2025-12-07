@@ -1,6 +1,7 @@
 @interface JavaUtilCollections_UnmodifiableList_$1
 - (BOOL)hasNext;
 - (BOOL)hasPrevious;
+- (JavaUtilCollections_UnmodifiableList_$1)initWithJavaUtilCollections_UnmodifiableList:(id)list withInt:(int)int;
 - (id)next;
 - (id)previous;
 - (int)nextIndex;
@@ -74,6 +75,19 @@
   }
 
   return [(JavaUtilListIterator *)iterator previousIndex];
+}
+
+- (JavaUtilCollections_UnmodifiableList_$1)initWithJavaUtilCollections_UnmodifiableList:(id)list withInt:(int)int
+{
+  self->val$location_ = int;
+  v5 = *(list + 2);
+  if (!v5)
+  {
+    JreThrowNullPointerException();
+  }
+
+  JreStrongAssign(&self->iterator_, [v5 listIteratorWithInt:*&int]);
+  return self;
 }
 
 - (void)dealloc

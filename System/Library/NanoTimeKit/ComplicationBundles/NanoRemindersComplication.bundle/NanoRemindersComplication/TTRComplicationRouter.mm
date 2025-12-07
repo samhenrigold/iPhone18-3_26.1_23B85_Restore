@@ -16,17 +16,16 @@
 {
   v5 = sub_7E50();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
-  TTRComplicationRouter.launchURLForTimeline(withEntryCount:)(count, v9);
+  TTRComplicationRouter.launchURLForTimeline(withEntryCount:)(count, v8);
 
-  sub_7E40(v11);
-  v13 = v12;
-  (*(v6 + 8))(v9, v5);
+  sub_7E40(v10);
+  v12 = v11;
+  (*(v6 + 8))(v8, v5);
 
-  return v13;
+  return v12;
 }
 
 @end

@@ -134,7 +134,7 @@
     }
   }
 
-  displayID2 = CarGeneralLogging();
+  displayID2 = CarGeneralLogging(displayID);
   if (os_log_type_enabled(displayID2, OS_LOG_TYPE_FAULT))
   {
     [(CRSystemWallpaperData *)self asDictionary];

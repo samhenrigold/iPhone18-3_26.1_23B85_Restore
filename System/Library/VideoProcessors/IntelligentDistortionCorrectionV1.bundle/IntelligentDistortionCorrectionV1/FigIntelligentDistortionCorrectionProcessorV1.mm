@@ -4,16 +4,13 @@
 - (CGRect)outputValidBufferRect;
 - (FigIntelligentDistortionCorrectionProcessorV1)init;
 - (NSString)description;
-- (__n128)globalTransform;
 - (__n128)setStereoRectificationInverseHomography:(__n128)homography;
-- (__n128)stereoRectificationInverseHomography;
 - (int)applyExistingCorrectionToSecondaryAsset:(__CVBuffer *)asset inputCrop:(CGRect)crop primaryImageDimensions:(id)dimensions inputHorizontalSecondaryToPrimaryScaleFactor:(float)factor inputVerticalSecondaryToPrimaryScaleFactor:(float)scaleFactor inputHorizontalSecondaryToPrimaryShift:(float)shift inputVerticalSecondaryToPrimaryShift:(float)primaryShift outputPixelBuffer:(__CVBuffer *)self0 outputHorizontalAdditionalScaleFactor:(float)self1 outputVerticalAdditionalScaleFactor:(float)self2;
 - (int)applyExistingCorrectionToSecondaryAsset:(__CVBuffer *)asset outputPixelBuffer:(__CVBuffer *)buffer primaryImageDimensions:(id)dimensions;
 - (int)compilerShaders;
 - (int)computeCorrectionType;
 - (int)determineWorkingBufferRequirements:(id *)requirements maximumInputImageWidth:(unsigned int)width maximumInputImageHeight:(unsigned int)height maximumSegmentationMaskWidth:(unsigned int)maskWidth maximumSegmentationMaskHeight:(unsigned int)maskHeight;
 - (int)getAdjustedGDCInformation:(id *)information;
-- (int)mapPixelFormat:(__CVBuffer *)format format:(unint64_t *)a4;
 - (int)memoryAllocationHandler:(id *)handler memoryAllocationParameters:(id *)parameters sharedMetalBuffer:(id)buffer sharedMetalBufferOffset:(unint64_t)offset sharedMetalBufferSize:(unint64_t)size;
 - (int)prepareInputImagePixelBuffer:(id *)buffer;
 - (int)prepareOutputImagePixelBuffer:(id *)buffer;
@@ -126,8 +123,8 @@
 {
   if (!requirements)
   {
-    sub_2957C4CAC();
-    LODWORD(v16) = -2;
+    sub_2957C4CAC(self, a2, 0, *&width, *&height, *&maskWidth, *&maskHeight);
+    LODWORD(v17) = -2;
     goto LABEL_19;
   }
 
@@ -135,7 +132,7 @@
   *self->_anon_48 = __PAIR64__(height, width);
   *&self->_anon_48[8] = __PAIR64__(maskHeight, maskWidth);
   v9 = vcltz_s32(vshl_n_s32(vdup_n_s32(width > height), 0x1FuLL));
-  v22 = 0;
+  v23 = 0;
   *&self->_anon_48[16] = vbsl_s8(v9, 0x90000000CLL, 0xC00000009);
   *&self->_anon_48[24] = vbsl_s8(v9, 0x4800000060, 0x6000000048);
   *&self->_anon_48[32] = vbsl_s8(v9, 0xA0000000DLL, 0xD0000000ALL);
@@ -143,73 +140,74 @@
   [EdgeDrawingLineDetector getDefaultConfigurationParameters:self->_anon_e0];
   [IdcContentPreservingWarping getDefaultConfigurationParameters:self->_anon_e0];
   v10 = *&self->_anon_48[8];
-  v20 = *&self->_anon_48[16];
-  v21 = v10;
-  v11 = [(FigIntelligentDistortionCorrectionProcessorV1 *)self memoryAllocationHandler:requirements memoryAllocationParameters:&v20 sharedMetalBuffer:0 sharedMetalBufferOffset:0 sharedMetalBufferSize:0];
+  v21 = *&self->_anon_48[16];
+  v22 = v10;
+  v11 = [(FigIntelligentDistortionCorrectionProcessorV1 *)self memoryAllocationHandler:requirements memoryAllocationParameters:&v21 sharedMetalBuffer:0 sharedMetalBufferOffset:0 sharedMetalBufferSize:0];
   if (v11)
   {
-    LODWORD(v16) = v11;
+    LODWORD(v17) = v11;
     sub_2957C4AC4();
     goto LABEL_19;
   }
 
   self->_sharedMetalBuffer.subModuleOffset = (LODWORD(requirements->var0) + 63) & 0xFFFFFFC0;
-  v22 = 0;
-  v12 = [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities.processor determineWorkingBufferRequirements:&v22];
+  v23 = 0;
+  v12 = [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities.processor determineWorkingBufferRequirements:&v23];
   if (v12)
   {
-    v16 = v12;
+    v17 = v12;
     sub_2957C4B38();
     goto LABEL_18;
   }
 
-  v13 = v22;
-  v22 = 0;
-  v14 = [(EdgeDrawingLineDetector *)self->_edgeDrawingLineDetector.processor determineWorkingBufferRequirements:&v22 bundleConfiguration:self->_anon_e0 maximumInputImageWidth:*self->_anon_48 maximumInputImageHeight:HIDWORD(*self->_anon_48) maximumSegmentationMaskWidth:*&self->_anon_48[8] maximumSegmentationMaskHeight:HIDWORD(*&self->_anon_48[8])];
+  v13 = v23;
+  v23 = 0;
+  v14 = [(EdgeDrawingLineDetector *)self->_edgeDrawingLineDetector.processor determineWorkingBufferRequirements:&v23 bundleConfiguration:self->_anon_e0 maximumInputImageWidth:*self->_anon_48 maximumInputImageHeight:HIDWORD(*self->_anon_48) maximumSegmentationMaskWidth:*&self->_anon_48[8] maximumSegmentationMaskHeight:HIDWORD(*&self->_anon_48[8])];
   if (v14)
   {
-    v16 = v14;
+    v17 = v14;
     sub_2957C4BB4();
     goto LABEL_18;
   }
 
-  v15 = v22;
-  v22 = 0;
-  LODWORD(v19) = HIDWORD(*&self->_anon_48[32]);
-  v16 = [(IdcContentPreservingWarping *)self->_contentPreservingWarping.processor computeSizeOfSharedMetalBuffer:&v22 maximumInputImageWidth:*self->_anon_48 maximumInputImageHeight:HIDWORD(*self->_anon_48) maximumSegmentationMaskWidth:*&self->_anon_48[8] maximumSegmentationMaskHeight:HIDWORD(*&self->_anon_48[8]) meshWidth:*&self->_anon_48[16] meshHeight:vext_s8(*&self->_anon_48[16] paddedMeshWidth:*&self->_anon_48[32] paddedMeshHeight:4uLL), v19];
+  v15 = v23;
+  v23 = 0;
+  LODWORD(v20) = HIDWORD(*&self->_anon_48[32]);
+  v16 = [(IdcContentPreservingWarping *)self->_contentPreservingWarping.processor computeSizeOfSharedMetalBuffer:&v23 maximumInputImageWidth:*self->_anon_48 maximumInputImageHeight:HIDWORD(*self->_anon_48) maximumSegmentationMaskWidth:*&self->_anon_48[8] maximumSegmentationMaskHeight:HIDWORD(*&self->_anon_48[8]) meshWidth:*&self->_anon_48[16] meshHeight:vext_s8(*&self->_anon_48[16] paddedMeshWidth:*&self->_anon_48[32] paddedMeshHeight:4uLL), v20];
+  v17 = v16;
   if (v16)
   {
-    sub_2957C4C30();
+    sub_2957C4C30(v16);
 LABEL_18:
-    LODWORD(v16) = [(FigIntelligentDistortionCorrectionProcessorV1 *)self translateError:v16];
-    if (!v16)
+    LODWORD(v17) = [(FigIntelligentDistortionCorrectionProcessorV1 *)self translateError:v17];
+    if (!v17)
     {
-      return v16;
+      return v17;
     }
 
 LABEL_19:
     *&self->_anon_48[8] = 0;
-    return v16;
+    return v17;
   }
 
   if (v13 <= v15)
   {
-    v17 = v15;
+    v18 = v15;
   }
 
   else
   {
-    v17 = v13;
+    v18 = v13;
   }
 
-  if (v17 <= v22)
+  if (v18 <= v23)
   {
-    v17 = v22;
+    v18 = v23;
   }
 
-  self->_sharedMetalBuffer.subModuleSize = v17;
-  requirements->var0 += v17;
-  return v16;
+  self->_sharedMetalBuffer.subModuleSize = v18;
+  requirements->var0 += v18;
+  return v17;
 }
 
 - (int)setSharedMetalBuffer:(id)buffer offset:(unint64_t)offset size:(unint64_t)size
@@ -292,7 +290,7 @@ LABEL_19:
 {
   if (process)
   {
-    sub_2957C4F40();
+    sub_2957C4F40(self, a2);
     return -2;
   }
 
@@ -314,7 +312,7 @@ LABEL_19:
 
   *self->_contentPreservingWarping.executionErrorInformation.commandStatus = 0;
   *&self->_contentPreservingWarping.executionErrorInformation.commandStatus[2] = 0;
-  memset(v63, 0, 24);
+  memset(v59, 0, 24);
   *&self->_rt.cpwDataValid = 0;
   processedSegmentationMaskTexture = self->_rt.processedSegmentationMaskTexture;
   self->_rt.processedSegmentationMaskTexture = 0;
@@ -332,30 +330,27 @@ LABEL_19:
   self->_zoomWasApplied = self->_applyZoom;
   *(v3 + 73) = 0;
   self->_minDistanceToEdge = 3.4028e38;
-  v9 = *&self->_anon_48[16];
+  *self->_transformCenterMeshDimensions = FigGetCFPreferenceNumberWithDefault();
   CFPreferenceNumberWithDefault = FigGetCFPreferenceNumberWithDefault();
-  v11 = *&self->_anon_48[20];
-  *self->_transformCenterMeshDimensions = CFPreferenceNumberWithDefault;
-  v12 = FigGetCFPreferenceNumberWithDefault();
-  v13 = *self->_transformCenterMeshDimensions;
-  v13.i32[1] = v12;
-  v14 = *&self->_anon_48[16];
-  v15 = vmax_u32(vmin_u32(v13, v14), 0x200000002);
-  *self->_transformCenterMeshDimensions = v15;
-  if (vsub_s32(v14, v15).u8[0])
+  v10 = *self->_transformCenterMeshDimensions;
+  v10.i32[1] = CFPreferenceNumberWithDefault;
+  v11 = *&self->_anon_48[16];
+  v12 = vmax_u32(vmin_u32(v10, v11), 0x200000002);
+  *self->_transformCenterMeshDimensions = v12;
+  if (vsub_s32(v11, v12).u32[0])
   {
-    sub_2957C4FB8(self, &self->_anon_48[20], v56, &v57);
-    v16 = v56[0];
-    v17 = v57;
+    sub_2957C4FB8(self, &self->_anon_48[20], v52, &v53);
+    v13 = v52[0];
+    v14 = v53;
   }
 
   else
   {
-    v16 = v14.i32[1];
-    v17 = v15.i32[1];
+    v13 = v11.i32[1];
+    v14 = v12.i32[1];
   }
 
-  if ((v16 - v17))
+  if ((v13 - v14))
   {
     sub_2957C505C();
   }
@@ -363,8 +358,8 @@ LABEL_19:
   if (!self->_sharedMetalBuffer.buffer)
   {
     sub_2957C57DC();
-    v39 = 0;
-    v54 = 4294967292;
+    v35 = 0;
+    v50 = 4294967292;
     goto LABEL_45;
   }
 
@@ -381,13 +376,13 @@ LABEL_19:
         *self->_anon_e0 = self->_finalImageDimensions;
         self->_anon_e0[8] = self->_replicatePixelsOutsideOfFinalImageDimensions;
         *&self->_anon_e0[176] = *&self->_applyStereoRectificationHomography;
-        v18 = *&self->_anon_560[16];
+        v15 = *&self->_anon_560[16];
         *&self->_anon_e0[128] = *self->_anon_560;
-        *&self->_anon_e0[144] = v18;
+        *&self->_anon_e0[144] = v15;
         *&self->_anon_e0[160] = *&self->_anon_560[32];
-        *&v18 = *self->_inputImageAppliedOffsets;
+        *&v15 = *self->_inputImageAppliedOffsets;
         *&self->_anon_e0[16] = *self->_inputImageAppliedScalingFactors;
-        *&self->_anon_e0[24] = v18;
+        *&self->_anon_e0[24] = v15;
         if (!self->_usePrecomputedPolynomialsAndOpticalCenterOffset)
         {
           goto LABEL_16;
@@ -433,24 +428,23 @@ LABEL_16:
                 self->_anon_e0[120] = 0;
               }
 
-              v22 = [(NSDictionary *)self->_inputImageMetadataDictionary objectForKeyedSubscript:*MEMORY[0x29EDC00D8]];
-              intValue = [v22 intValue];
+              v19 = [(NSDictionary *)self->_inputImageMetadataDictionary objectForKeyedSubscript:*MEMORY[0x29EDC00D8]];
+              intValue = [v19 intValue];
 
-              v24 = self->_anon_e0[120];
               if (intValue)
               {
                 if (self->_anon_e0[120])
                 {
                   sub_2957C51D4();
-                  v39 = 0;
+                  v35 = 0;
 LABEL_44:
-                  v54 = 0;
+                  v50 = 0;
                   goto LABEL_45;
                 }
 
                 if (intValue == 3)
                 {
-                  v25 = 3;
+                  v21 = 3;
                 }
 
                 else
@@ -460,7 +454,7 @@ LABEL_44:
                     goto LABEL_29;
                   }
 
-                  v25 = 1;
+                  v21 = 1;
                 }
               }
 
@@ -484,32 +478,32 @@ LABEL_29:
                   {
                     if (![(FigIntelligentDistortionCorrectionProcessorV1 *)self prepareOutputImagePixelBuffer:&self->_anon_e0[324]])
                     {
-                      v26 = [IDC_RegionOfInterestTracker alloc];
+                      v22 = [IDC_RegionOfInterestTracker alloc];
                       buffer = self->_sharedMetalBuffer.buffer;
                       roiDataOffset = self->_sharedMetalBuffer.roiDataOffset;
-                      v57 = *&self->_anon_e0[300];
-                      *&v58 = *&self->_anon_e0[316];
-                      v29 = [(IDC_RegionOfInterestTracker *)v26 init:buffer metalBufferOffset:roiDataOffset initialIdcRoi:&v57];
-                      if (!v29)
+                      v53 = *&self->_anon_e0[300];
+                      *&v54 = *&self->_anon_e0[316];
+                      v25 = [(IDC_RegionOfInterestTracker *)v22 init:buffer metalBufferOffset:roiDataOffset initialIdcRoi:&v53];
+                      if (!v25)
                       {
                         sub_2957C5518();
-                        v39 = 0;
-                        v54 = 0xFFFFFFFFLL;
+                        v35 = 0;
+                        v50 = 0xFFFFFFFFLL;
                         goto LABEL_45;
                       }
 
-                      v30 = v29;
-                      v31 = self->_sharedMetalBuffer.buffer;
+                      v26 = v25;
+                      v27 = self->_sharedMetalBuffer.buffer;
                       offset = self->_sharedMetalBuffer.offset;
                       size = self->_sharedMetalBuffer.size;
-                      v57 = *&self->_anon_48[16];
-                      *&v58 = *v3;
-                      v34 = [(FigIntelligentDistortionCorrectionProcessorV1 *)self memoryAllocationHandler:0 memoryAllocationParameters:&v57 sharedMetalBuffer:v31 sharedMetalBufferOffset:offset sharedMetalBufferSize:size];
-                      if (v34)
+                      v53 = *&self->_anon_48[16];
+                      *&v54 = *v3;
+                      v30 = [(FigIntelligentDistortionCorrectionProcessorV1 *)self memoryAllocationHandler:0 memoryAllocationParameters:&v53 sharedMetalBuffer:v27 sharedMetalBufferOffset:offset sharedMetalBufferSize:size];
+                      if (v30)
                       {
-                        v54 = v34;
-                        sub_2957C53F0(v30);
-                        v39 = 0;
+                        v50 = v30;
+                        sub_2957C53F0(v26);
+                        v35 = 0;
                         goto LABEL_45;
                       }
 
@@ -517,65 +511,65 @@ LABEL_29:
                       self->_correctionType = computeCorrectionType;
                       if (computeCorrectionType)
                       {
-                        v36 = [(FigIntelligentDistortionCorrectionProcessorV1 *)self subProcessIntelligentDistortion:v30 cpwProcessingErrors:v63];
+                        v32 = [(FigIntelligentDistortionCorrectionProcessorV1 *)self subProcessIntelligentDistortion:v26 cpwProcessingErrors:v59];
                         processor = self->_idcUtilities.processor;
                         inputImageTexture = self->_rt.inputImageTexture;
-                        if (v36)
+                        if (v32)
                         {
-                          v39 = 0;
+                          v35 = 0;
                           invertedMesh = 0;
                         }
 
                         else
                         {
                           invertedMesh = self->_textures.invertedMesh;
-                          v39 = 1;
+                          v35 = 1;
                         }
                       }
 
                       else
                       {
-                        v39 = 0;
+                        v35 = 0;
                         invertedMesh = 0;
                         processor = self->_idcUtilities.processor;
                         inputImageTexture = self->_rt.inputImageTexture;
                       }
 
-                      v41 = [(IntelligentDistortionCorrection_Utilities *)processor warpAndOrUndistortPrimaryAsset:self->_anon_e0 inputImageTexture:inputImageTexture inputMeshTexture:invertedMesh outputImageTexture:self->_rt.outputImageTexture roiTracker:v30 inputImageMetadataDictionary:self->_inputImageMetadataDictionary];
-                      if (!v41)
+                      v37 = [(IntelligentDistortionCorrection_Utilities *)processor warpAndOrUndistortPrimaryAsset:self->_anon_e0 inputImageTexture:inputImageTexture inputMeshTexture:invertedMesh outputImageTexture:self->_rt.outputImageTexture roiTracker:v26 inputImageMetadataDictionary:self->_inputImageMetadataDictionary];
+                      if (!v37)
                       {
                         self->_outputValidBufferRect.origin.x = 0.0;
                         self->_outputValidBufferRect.origin.y = 0.0;
                         finalImageDimensions = self->_finalImageDimensions;
-                        v43.i64[0] = finalImageDimensions.width;
-                        v43.i64[1] = finalImageDimensions.height;
-                        *(v3 + 764) = vcvtq_f64_s64(v43);
-                        if (v39)
+                        v39.i64[0] = finalImageDimensions.width;
+                        v39.i64[1] = finalImageDimensions.height;
+                        *(v3 + 764) = vcvtq_f64_s64(v39);
+                        if (v35)
                         {
-                          [v30 idcRoi];
-                          v44 = *(&v57 + 1);
-                          v45 = vand_s8(*&v57, 0x100000001);
-                          v46 = vadd_s32(v45, *&v57);
-                          v47 = *&vsub_s32(*&v58, v45) & 0xFFFFFFFEFFFFFFFELL;
+                          objc_msgSend_idcRoi(v26);
+                          v40 = *(&v53 + 1);
+                          v41 = vand_s8(*&v53, 0x100000001);
+                          v42 = vadd_s32(v41, *&v53);
+                          v43 = *&vsub_s32(*&v54, v41) & 0xFFFFFFFEFFFFFFFELL;
                           extendedMesh = self->_textures.extendedMesh;
-                          v49 = *&self->_anon_48[16];
-                          v50 = *self->_transformCenterMeshDimensions;
-                          v51 = *&self->_anon_e0[276];
-                          v59 = *&self->_anon_e0[260];
-                          v60 = v51;
-                          v52 = *&self->_anon_e0[308];
-                          v61 = *&self->_anon_e0[292];
-                          v62 = v52;
-                          v53 = *&self->_anon_e0[244];
-                          v57 = *&self->_anon_e0[228];
-                          v58 = v53;
-                          v56[0] = v46;
-                          v56[1] = v44;
-                          v56[2] = v47;
-                          self->_globalTransformIsValid = idcComputeGlobalTransform(&v57, v56, extendedMesh, &self[1], v49, v50) == 0;
+                          v45.n128_u64[0] = *&self->_anon_48[16];
+                          v46.n128_u64[0] = *self->_transformCenterMeshDimensions;
+                          v47 = *&self->_anon_e0[276];
+                          v55 = *&self->_anon_e0[260];
+                          v56 = v47;
+                          v48 = *&self->_anon_e0[308];
+                          v57 = *&self->_anon_e0[292];
+                          v58 = v48;
+                          v49 = *&self->_anon_e0[244];
+                          v53 = *&self->_anon_e0[228];
+                          v54 = v49;
+                          v52[0] = v42;
+                          v52[1] = v40;
+                          v52[2] = v43;
+                          self->_globalTransformIsValid = idcComputeGlobalTransform(&v53, v52, extendedMesh, &self[1], v45, v46) == 0;
 
-                          v54 = 0;
-                          v39 = 1;
+                          v50 = 0;
+                          v35 = 1;
                           goto LABEL_45;
                         }
 
@@ -584,7 +578,7 @@ LABEL_29:
                         goto LABEL_44;
                       }
 
-                      sub_2957C546C(v41, self, v30, &v57);
+                      sub_2957C546C(v37, self, v26, &v53);
                       goto LABEL_62;
                     }
 
@@ -592,16 +586,16 @@ LABEL_29:
                   }
 
 LABEL_61:
-                  v39 = 0;
+                  v35 = 0;
 LABEL_62:
-                  v54 = v57;
+                  v50 = v53;
                   goto LABEL_45;
                 }
 
-                v25 = 2;
+                v21 = 2;
               }
 
-              self->_gdcSource = v25;
+              self->_gdcSource = v21;
               goto LABEL_29;
             }
 
@@ -637,10 +631,10 @@ LABEL_62:
     sub_2957C5764();
   }
 
-  v39 = 0;
-  v54 = 4294967294;
+  v35 = 0;
+  v50 = 4294967294;
 LABEL_45:
-  [(FigIntelligentDistortionCorrectionProcessorV1 *)self buildMakernoteEntry:v54 cpwProcessingErrors:v63 idcApplied:v39];
+  [(FigIntelligentDistortionCorrectionProcessorV1 *)self buildMakernoteEntry:v50 cpwProcessingErrors:v59 idcApplied:v35];
   if (*v4 == 1)
   {
     kdebug_trace();
@@ -650,7 +644,7 @@ LABEL_45:
   FigMetalDecRef();
   FigMetalDecRef();
   FigMetalDecRef();
-  return v54;
+  return v50;
 }
 
 - (int)applyExistingCorrectionToSecondaryAsset:(__CVBuffer *)asset outputPixelBuffer:(__CVBuffer *)buffer primaryImageDimensions:(id)dimensions
@@ -662,133 +656,133 @@ LABEL_45:
 
 - (int)applyExistingCorrectionToSecondaryAsset:(__CVBuffer *)asset inputCrop:(CGRect)crop primaryImageDimensions:(id)dimensions inputHorizontalSecondaryToPrimaryScaleFactor:(float)factor inputVerticalSecondaryToPrimaryScaleFactor:(float)scaleFactor inputHorizontalSecondaryToPrimaryShift:(float)shift inputVerticalSecondaryToPrimaryShift:(float)primaryShift outputPixelBuffer:(__CVBuffer *)self0 outputHorizontalAdditionalScaleFactor:(float)self1 outputVerticalAdditionalScaleFactor:(float)self2
 {
+  *&v64 = shift;
+  *(&v64 + 1) = primaryShift;
   height = crop.size.height;
   width = crop.size.width;
   y = crop.origin.y;
   x = crop.origin.x;
-  memcpy(__dst, self->_anon_e0, 0x360uLL);
+  v23 = memcpy(__dst, self->_anon_e0, 0x360uLL);
   if (!self->_sharedMetalBuffer.buffer)
   {
-    sub_2957C5E1C();
+    sub_2957C5E1C(v23);
 LABEL_52:
     commandBuffer = 0;
     buffer = 0;
-    v32 = 0;
-    v55 = -4;
+    v33 = 0;
+    v56 = -4;
     goto LABEL_49;
   }
 
   if (!self->_rt.bundleConfigurationParametersValid)
   {
-    sub_2957C5854();
+    sub_2957C5854(v23);
     goto LABEL_52;
   }
 
   if (!asset)
   {
-    sub_2957C5DA4();
+    sub_2957C5DA4(v23);
     goto LABEL_47;
   }
 
   if (!buffer)
   {
-    sub_2957C5D2C();
+    sub_2957C5D2C(v23);
     commandBuffer = 0;
     goto LABEL_48;
   }
 
   PixelFormatType = CVPixelBufferGetPixelFormatType(asset);
-  v24 = CVPixelBufferGetPixelFormatType(buffer);
+  v25 = CVPixelBufferGetPixelFormatType(buffer);
   if (PixelFormatType > 1278226535)
   {
     if (PixelFormatType != 1278226536 && PixelFormatType != 1751411059)
     {
-      v25 = 1751527984;
+      v26 = 1751527984;
       goto LABEL_12;
     }
   }
 
   else if (PixelFormatType != 825306677 && PixelFormatType != 825437747)
   {
-    v25 = 1278226488;
+    v26 = 1278226488;
 LABEL_12:
-    if (PixelFormatType == v25)
+    if (PixelFormatType == v26)
     {
       goto LABEL_13;
     }
 
     fig_log_get_emitter();
-    v58 = v12;
-    LODWORD(v57) = 0;
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v12, v60, v61, v62, v64, v65, DWORD2(v65));
 LABEL_47:
     commandBuffer = 0;
     buffer = 0;
 LABEL_48:
-    v32 = 0;
-    v55 = -2;
+    v33 = 0;
+    v56 = -2;
     goto LABEL_49;
   }
 
 LABEL_13:
-  if (v24 != PixelFormatType)
+  if (v25 != PixelFormatType)
   {
     sub_2957C58CC();
     goto LABEL_47;
   }
 
-  v26 = 0;
   v27 = 0;
+  v28 = 0;
   if (PixelFormatType > 1278226535)
   {
     if (PixelFormatType == 1278226536 || PixelFormatType == 1751411059 || PixelFormatType == 1751527984)
     {
-      v27 = 0;
-      v26 = 25;
+      v28 = 0;
+      v27 = 25;
     }
   }
 
   else if (PixelFormatType == 825306677 || PixelFormatType == 825437747)
   {
-    v27 = 1;
-    v26 = 20;
+    v28 = 1;
+    v27 = 20;
   }
 
   else if (PixelFormatType == 1278226488)
   {
-    v27 = 0;
-    v26 = 10;
+    v28 = 0;
+    v27 = 10;
   }
 
-  v28 = CVPixelBufferGetWidth(asset);
-  if (!v28)
+  v29 = CVPixelBufferGetWidth(asset);
+  if (!v29)
   {
     sub_2957C5CB4();
     goto LABEL_47;
   }
 
-  v29 = v28;
-  v30 = CVPixelBufferGetHeight(asset);
-  if (!v30)
+  v30 = v29;
+  v31 = CVPixelBufferGetHeight(asset);
+  if (!v31)
   {
     sub_2957C5C3C();
     goto LABEL_47;
   }
 
-  v31 = v30;
-  v32 = [(FigMetalContext *)self->_metalContext bindPixelBufferToMTL2DTexture:asset pixelFormat:v26 usage:17 plane:0];
-  if (!v32)
+  v32 = v31;
+  v33 = [(FigMetalContext *)self->_metalContext bindPixelBufferToMTL2DTexture:asset pixelFormat:v27 usage:17 plane:0];
+  if (!v33)
   {
     sub_2957C5BC4();
     commandBuffer = 0;
     buffer = 0;
 LABEL_62:
-    v55 = -1;
+    v56 = -1;
     goto LABEL_49;
   }
 
   bufferCopy = buffer;
-  buffer = [(FigMetalContext *)self->_metalContext bindPixelBufferToMTL2DTexture:buffer pixelFormat:v26 usage:23 plane:0];
+  buffer = [(FigMetalContext *)self->_metalContext bindPixelBufferToMTL2DTexture:buffer pixelFormat:v27 usage:23 plane:0];
   if (!buffer)
   {
     sub_2957C5B4C();
@@ -796,32 +790,32 @@ LABEL_62:
     goto LABEL_62;
   }
 
-  v67.origin.x = x;
-  v67.origin.y = y;
-  v67.size.width = width;
-  v67.size.height = height;
-  if (CGRectIsNull(v67))
+  v70.origin.x = x;
+  v70.origin.y = y;
+  v70.size.width = width;
+  v70.size.height = height;
+  if (CGRectIsNull(v70))
   {
-    v34 = *MEMORY[0x29EDB90D8];
-    v33 = *(MEMORY[0x29EDB90D8] + 8);
-    v36 = *(MEMORY[0x29EDB90D8] + 16);
-    v35 = *(MEMORY[0x29EDB90D8] + 24);
+    v35 = *MEMORY[0x29EDB90D8];
+    v34 = *(MEMORY[0x29EDB90D8] + 8);
+    v37 = *(MEMORY[0x29EDB90D8] + 16);
+    v36 = *(MEMORY[0x29EDB90D8] + 24);
   }
 
   else
   {
-    v34 = x / v29;
-    v33 = y / v31;
-    v36 = width / v29;
-    v35 = height / v31;
+    v35 = x / v30;
+    v34 = y / v32;
+    v37 = width / v30;
+    v36 = height / v32;
   }
 
   dimensionsCopy = dimensions;
   commandQueue = [(FigMetalContext *)self->_metalContext commandQueue];
   commandBuffer = [commandQueue commandBuffer];
 
-  v64 = *&self->_anon_e0[300];
-  v65 = *&self->_anon_e0[316];
+  v67 = *&self->_anon_e0[300];
+  v68 = *&self->_anon_e0[316];
   processor = self->_idcUtilities.processor;
   if (self->_rt.cpwDataValid)
   {
@@ -833,62 +827,44 @@ LABEL_62:
     invertedMesh = 0;
   }
 
-  v46 = v27;
-  v62 = *&self->_anon_e0[300];
-  v63 = *&self->_anon_e0[316];
-  LOBYTE(v58) = v27;
-  *&v40 = factor;
-  *&v41 = scaleFactor;
-  *&v42 = shift;
-  *&v43 = primaryShift;
-  if ([(IntelligentDistortionCorrection_Utilities *)processor warpAndOrUndistortSecondaryAsset:__dst inputImageTexture:v32 inputMeshTexture:invertedMesh normalizedInputCrop:dimensionsCopy primaryImageDimensions:buffer inputHorizontalSecondaryToPrimaryScaleFactor:0 inputVerticalSecondaryToPrimaryScaleFactor:v34 inputHorizontalSecondaryToPrimaryShift:v33 inputVerticalSecondaryToPrimaryShift:v36 outputImageTexture:v35 outputHorizontalAdditionalScaleFactor:v40 outputVerticalAdditionalScaleFactor:v41 roiTracker:v42 isDepthData:v43 commandBuffer:__PAIR64__(LODWORD(verticalAdditionalScaleFactor) sensorInputCropRect:LODWORD(additionalScaleFactor)), v58, commandBuffer, &v62])
+  v47 = v28;
+  v65 = *&self->_anon_e0[300];
+  v66 = *&self->_anon_e0[316];
+  LOBYTE(v58) = v28;
+  *&v41 = factor;
+  *&v42 = scaleFactor;
+  LODWORD(v44) = HIDWORD(v64);
+  LODWORD(v43) = v64;
+  if ([(IntelligentDistortionCorrection_Utilities *)processor warpAndOrUndistortSecondaryAsset:__dst inputImageTexture:v33 inputMeshTexture:invertedMesh normalizedInputCrop:dimensionsCopy primaryImageDimensions:buffer inputHorizontalSecondaryToPrimaryScaleFactor:0 inputVerticalSecondaryToPrimaryScaleFactor:v35 inputHorizontalSecondaryToPrimaryShift:v34 inputVerticalSecondaryToPrimaryShift:v37 outputImageTexture:v36 outputHorizontalAdditionalScaleFactor:v41 outputVerticalAdditionalScaleFactor:v42 roiTracker:v43 isDepthData:v44 commandBuffer:__PAIR64__(LODWORD(verticalAdditionalScaleFactor) sensorInputCropRect:LODWORD(additionalScaleFactor)), v58, commandBuffer, &v65])
   {
     sub_2957C5944();
-    v55 = v62;
+    v56 = v65;
     goto LABEL_49;
   }
 
   if (PixelFormatType != 1751527984)
   {
-    v55 = 0;
+    v56 = 0;
     goto LABEL_49;
   }
 
-  v47 = [(FigMetalContext *)self->_metalContext bindPixelBufferToMTL2DTexture:asset pixelFormat:65 usage:17 plane:1];
+  v48 = [(FigMetalContext *)self->_metalContext bindPixelBufferToMTL2DTexture:asset pixelFormat:65 usage:17 plane:1];
 
-  if (!v47)
+  if (!v48)
   {
     sub_2957C5AD4();
-    v32 = 0;
+    v33 = 0;
     goto LABEL_62;
   }
 
-  v48 = [(FigMetalContext *)self->_metalContext bindPixelBufferToMTL2DTexture:bufferCopy pixelFormat:65 usage:23 plane:1];
+  v49 = [(FigMetalContext *)self->_metalContext bindPixelBufferToMTL2DTexture:bufferCopy pixelFormat:65 usage:23 plane:1];
 
-  if (v48)
+  if (v49)
   {
-    v53 = self->_idcUtilities.processor;
+    v54 = self->_idcUtilities.processor;
     if (self->_rt.cpwDataValid)
     {
-      v54 = self->_textures.invertedMesh;
-    }
-
-    else
-    {
-      v54 = 0;
-    }
-
-    v62 = v64;
-    v63 = v65;
-    LOBYTE(v58) = v46;
-    *&v49 = factor;
-    *&v50 = scaleFactor;
-    *&v51 = shift;
-    *&v52 = primaryShift;
-    if ([(IntelligentDistortionCorrection_Utilities *)v53 warpAndOrUndistortSecondaryAsset:__dst inputImageTexture:v47 inputMeshTexture:v54 normalizedInputCrop:dimensionsCopy primaryImageDimensions:v48 inputHorizontalSecondaryToPrimaryScaleFactor:0 inputVerticalSecondaryToPrimaryScaleFactor:v34 inputHorizontalSecondaryToPrimaryShift:v33 inputVerticalSecondaryToPrimaryShift:v36 outputImageTexture:v35 outputHorizontalAdditionalScaleFactor:v49 outputVerticalAdditionalScaleFactor:v50 roiTracker:v51 isDepthData:v52 commandBuffer:__PAIR64__(LODWORD(verticalAdditionalScaleFactor) sensorInputCropRect:LODWORD(additionalScaleFactor)), v58, commandBuffer, &v62])
-    {
-      sub_2957C59D0();
-      v55 = v62;
+      v55 = self->_textures.invertedMesh;
     }
 
     else
@@ -896,22 +872,40 @@ LABEL_62:
       v55 = 0;
     }
 
-    buffer = v48;
+    v65 = v67;
+    v66 = v68;
+    LOBYTE(v59) = v47;
+    *&v50 = factor;
+    *&v51 = scaleFactor;
+    LODWORD(v53) = HIDWORD(v64);
+    LODWORD(v52) = v64;
+    if ([(IntelligentDistortionCorrection_Utilities *)v54 warpAndOrUndistortSecondaryAsset:__dst inputImageTexture:v48 inputMeshTexture:v55 normalizedInputCrop:dimensionsCopy primaryImageDimensions:v49 inputHorizontalSecondaryToPrimaryScaleFactor:0 inputVerticalSecondaryToPrimaryScaleFactor:v35 inputHorizontalSecondaryToPrimaryShift:v34 inputVerticalSecondaryToPrimaryShift:v37 outputImageTexture:v36 outputHorizontalAdditionalScaleFactor:v50 outputVerticalAdditionalScaleFactor:v51 roiTracker:v52 isDepthData:v53 commandBuffer:__PAIR64__(LODWORD(verticalAdditionalScaleFactor) sensorInputCropRect:LODWORD(additionalScaleFactor)), v59, commandBuffer, &v65])
+    {
+      sub_2957C59D0();
+      v56 = v65;
+    }
+
+    else
+    {
+      v56 = 0;
+    }
+
+    buffer = v49;
   }
 
   else
   {
     sub_2957C5A5C();
     buffer = 0;
-    v55 = -1;
+    v56 = -1;
   }
 
-  v32 = v47;
+  v33 = v48;
 LABEL_49:
   [commandBuffer commit];
   [commandBuffer waitUntilCompleted];
 
-  return v55;
+  return v56;
 }
 
 - (NSString)description
@@ -933,98 +927,93 @@ LABEL_49:
     undistortSegmentationMask = [(FigIntelligentDistortionCorrectionProcessorV1 *)self undistortSegmentationMask];
     if (undistortSegmentationMask)
     {
-      v26 = undistortSegmentationMask;
+      v25 = undistortSegmentationMask;
       self->_rt.subProcessIntelligentDistortionErrorCode = 256;
-      fig_log_get_emitter();
-      v40 = v4;
-      LODWORD(v38) = v26;
+      emitter = fig_log_get_emitter();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", emitter, "[Intelligent Distortion Correction Processor] Fig", "err == 0 ", "bail", "[undistortSegmentationMask] failed", "IntelligentDistortionCorrectionProcessorV1.m", 1059, v25);
       goto LABEL_18;
     }
 
     processedSegmentationMaskTexture = self->_rt.processedSegmentationMaskTexture;
   }
 
-  v10 = [(EdgeDrawingLineDetector *)self->_edgeDrawingLineDetector.processor detectLinesPart1:self->_anon_e0 inputImageTexture:self->_rt.inputImageTexture inputSegmentationMaskTexture:processedSegmentationMaskTexture];
-  if (v10)
+  v9 = [(EdgeDrawingLineDetector *)self->_edgeDrawingLineDetector.processor detectLinesPart1:self->_anon_e0 inputImageTexture:self->_rt.inputImageTexture inputSegmentationMaskTexture:processedSegmentationMaskTexture];
+  if (v9)
   {
-    v26 = v10;
+    v25 = v9;
     self->_rt.subProcessIntelligentDistortionErrorCode = 512;
-    fig_log_get_emitter();
-    v40 = v4;
-    LODWORD(v38) = v26;
+    v26 = fig_log_get_emitter();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v26, "[Intelligent Distortion Correction Processor] Fig", "err == 0 ", "bail", 0, "IntelligentDistortionCorrectionProcessorV1.m", 1073, v25);
 LABEL_18:
-    FigDebugAssert3();
-    [(FigMetalContext *)self->_metalContext waitForIdle:v38];
+    [(FigMetalContext *)self->_metalContext waitForIdle];
     goto LABEL_19;
   }
 
-  v11 = self + 12 * self->_correctionType;
-  v12 = *(v11 + 239);
-  v13 = *(v11 + 240);
-  v43[0] = *&self->_anon_e0[28 * v12 + 444];
-  *(v43 + 12) = *&self->_anon_e0[28 * v12 + 456];
-  v14 = [(NSDictionary *)self->_inputImageMetadataDictionary objectForKeyedSubscript:@"PortType"];
-  v15 = [v14 isEqualToString:*MEMORY[0x29EDBFF50]];
+  v10 = self + 12 * self->_correctionType;
+  v11 = *(v10 + 239);
+  v12 = *(v10 + 240);
+  v47[0] = *&self->_anon_e0[28 * v11 + 444];
+  *(v47 + 12) = *&self->_anon_e0[28 * v11 + 456];
+  v13 = [(NSDictionary *)self->_inputImageMetadataDictionary objectForKeyedSubscript:@"PortType"];
+  v14 = [v13 isEqualToString:*MEMORY[0x29EDBFF50]];
 
-  if (v15)
+  if (v14)
   {
-    v16 = fmaxf(fminf(*&self->_anon_e0[848], self->_minDistanceToEdge), 0.0) - *&self->_anon_e0[848];
-    v13 = roundf(fminf(v13 * expf(-((v16 / *&self->_anon_e0[852]) * (v16 / *&self->_anon_e0[852]))), v13 / 3.0));
+    v15 = fmaxf(fminf(*&self->_anon_e0[848], self->_minDistanceToEdge), 0.0) - *&self->_anon_e0[848];
+    v12 = roundf(fminf(v12 * expf(-((v15 / *&self->_anon_e0[852]) * (v15 / *&self->_anon_e0[852]))), v12 / 3.0));
   }
 
-  v17 = *&self->_anon_e0[32];
-  v41 = *&self->_anon_e0[252];
-  v42 = *&self->_anon_e0[268];
-  v18 = idcComputeInverseDistortionPolynomial(v43, &v41, &self->_anon_e0[204], v13, v17);
-  if (v18)
+  v16 = *&self->_anon_e0[32];
+  v45 = *&self->_anon_e0[252];
+  v46 = *&self->_anon_e0[268];
+  v17 = idcComputeInverseDistortionPolynomial(v47, &v45, &self->_anon_e0[204], v12, v16);
+  if (v17)
   {
-    v26 = v18;
+    v25 = v17;
     self->_rt.subProcessIntelligentDistortionErrorCode = 768;
-    fig_log_get_emitter();
-    v40 = v4;
-    LODWORD(v38) = v26;
+    v27 = fig_log_get_emitter();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v27, "[Intelligent Distortion Correction Processor] Fig", "err == 0 ", "bail", 0, "IntelligentDistortionCorrectionProcessorV1.m", 1125, v25);
     goto LABEL_18;
   }
 
   [(FigMetalContext *)self->_metalContext waitForIdle];
-  v19 = [(EdgeDrawingLineDetector *)self->_edgeDrawingLineDetector.processor detectLinesPart2:self->_anon_e0 results:&self->_edgeDrawingLineDetector.results];
-  if (v19)
+  v18 = [(EdgeDrawingLineDetector *)self->_edgeDrawingLineDetector.processor detectLinesPart2:self->_anon_e0 results:&self->_edgeDrawingLineDetector.results];
+  if (v18)
   {
-    v26 = v19;
+    v25 = v18;
     self->_rt.subProcessIntelligentDistortionErrorCode = 1024;
-    fig_log_get_emitter();
-    v40 = v4;
-    LODWORD(v38) = v26;
+    v29 = fig_log_get_emitter();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v29, "[Intelligent Distortion Correction Processor] Fig", "err == 0 ", "bail", 0, "IntelligentDistortionCorrectionProcessorV1.m", 1141, v25);
     goto LABEL_18;
   }
 
   self->_anon_e0[436] = 1;
-  v20 = *self->_anon_48;
-  v21 = HIDWORD(v20);
-  v22 = v20;
-  v23 = *&self->_anon_48[16];
-  v24 = v23.u32[0];
-  LODWORD(v39) = HIDWORD(*&self->_anon_48[32]);
-  v23.i32[0] = vdup_lane_s32(v23, 1).u32[0];
-  v23.i32[1] = *&self->_anon_48[32];
-  v25 = [(IdcContentPreservingWarping *)self->_contentPreservingWarping.processor process:self->_anon_e0 maximumInputImageWidth:v22 maximumInputImageHeight:v21 maximumSegmentationMaskWidth:*&self->_anon_48[8] maximumSegmentationMaskHeight:HIDWORD(*&self->_anon_48[8]) meshWidth:v24 meshHeight:*&v23 paddedMeshWidth:v39 paddedMeshHeight:self->_rt.processedSegmentationMaskTexture segmentationMaskTex:self->_textures.extendedMesh extendedMeshTex:self->_textures.invertedMesh invertedMeshTex:&self->_edgeDrawingLineDetector.results detectedLines:&self->_contentPreservingWarping.executionErrorInformation executionErrorInformation:?];
-  if (v25)
+  v19 = *self->_anon_48;
+  v20 = HIDWORD(v19);
+  v21 = v19;
+  v22 = *&self->_anon_48[16];
+  v23 = v22.u32[0];
+  LODWORD(v44) = HIDWORD(*&self->_anon_48[32]);
+  v22.i32[0] = vdup_lane_s32(v22, 1).u32[0];
+  v22.i32[1] = *&self->_anon_48[32];
+  v24 = [(IdcContentPreservingWarping *)self->_contentPreservingWarping.processor process:self->_anon_e0 maximumInputImageWidth:v21 maximumInputImageHeight:v20 maximumSegmentationMaskWidth:*&self->_anon_48[8] maximumSegmentationMaskHeight:HIDWORD(*&self->_anon_48[8]) meshWidth:v23 meshHeight:*&v22 paddedMeshWidth:v44 paddedMeshHeight:self->_rt.processedSegmentationMaskTexture segmentationMaskTex:self->_textures.extendedMesh extendedMeshTex:self->_textures.invertedMesh invertedMeshTex:&self->_edgeDrawingLineDetector.results detectedLines:&self->_contentPreservingWarping.executionErrorInformation executionErrorInformation:?];
+  if (v24)
   {
-    v26 = v25;
+    v25 = v24;
     self->_rt.subProcessIntelligentDistortionErrorCode = 1280;
-    fig_log_get_emitter();
-    v40 = v4;
-    LODWORD(v38) = v26;
+    v30 = fig_log_get_emitter();
+    LODWORD(v43) = v25;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v30, "[Intelligent Distortion Correction Processor] Fig", "err == 0 ", "bail", 0, "IntelligentDistortionCorrectionProcessorV1.m", 1172, v43);
     goto LABEL_18;
   }
 
-  v26 = [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities.processor computeMeshROI:self->_anon_e0 invertedMeshTexture:self->_textures.invertedMesh roiTracker:distortionCopy];
-  if (v26)
+  v25 = [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities.processor computeMeshROI:self->_anon_e0 invertedMeshTexture:self->_textures.invertedMesh roiTracker:distortionCopy];
+  if (v25)
   {
     self->_rt.subProcessIntelligentDistortionErrorCode = 1536;
-    fig_log_get_emitter();
-    v40 = v4;
-    LODWORD(v38) = v26;
+    v31 = fig_log_get_emitter();
+    LODWORD(v43) = v25;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v31, "[Intelligent Distortion Correction Processor] Fig", "err == 0 ", "bail", 0, "IntelligentDistortionCorrectionProcessorV1.m", 1185, v43);
     goto LABEL_18;
   }
 
@@ -1037,37 +1026,37 @@ LABEL_19:
     if (self->_contentPreservingWarping.executionErrorInformation.commandStatus[i] != 4)
     {
       ++errors->var5;
-      v26 = -12782;
+      v25 = -12782;
     }
   }
 
   contents = [(MTLBuffer *)self->_contentPreservingWarping.executionErrorInformation.buffer contents];
-  v29 = -12782;
+  v34 = -12782;
   if (contents)
   {
-    v30 = *contents;
+    v35 = *contents;
     errors->var0 = *contents;
-    v31 = contents[1];
-    errors->var3 = v31;
-    errors->var1 = HIWORD(v31);
-    v32 = v31 >= 0x10000;
-    v33 = contents[3];
-    errors->var4 = v33;
-    v34 = contents[2];
-    errors->var2 = v34;
-    v35 = v34 | v33 | v30;
-    if (!v32 && v35 == 0)
+    v36 = contents[1];
+    errors->var3 = v36;
+    errors->var1 = HIWORD(v36);
+    v37 = v36 >= 0x10000;
+    v38 = contents[3];
+    errors->var4 = v38;
+    v39 = contents[2];
+    errors->var2 = v39;
+    v40 = v39 | v38 | v35;
+    if (!v37 && v40 == 0)
     {
-      v29 = v26;
+      v34 = v25;
     }
 
     else
     {
-      v29 = -12782;
+      v34 = -12782;
     }
   }
 
-  return v29;
+  return v34;
 }
 
 - (int)undistortSegmentationMask
@@ -1089,9 +1078,9 @@ LABEL_19:
 - (int)memoryAllocationHandler:(id *)handler memoryAllocationParameters:(id *)parameters sharedMetalBuffer:(id)buffer sharedMetalBufferOffset:(unint64_t)offset sharedMetalBufferSize:(unint64_t)size
 {
   bufferCopy = buffer;
-  v38 = 0u;
-  v39 = 0u;
-  v37 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v40 = 0u;
   if (bufferCopy)
   {
     v14 = 1;
@@ -1110,21 +1099,21 @@ LABEL_19:
 
   if (parameters->var4 && (var5 = parameters->var5, var5))
   {
-    *&v37 = parameters->var4;
-    *(&v37 + 1) = var5;
-    v38 = xmmword_2957C7D90;
-    [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities.processor computeTextureStrideForBufferAllocation:&v37];
+    *&v40 = parameters->var4;
+    *(&v40 + 1) = var5;
+    v41 = xmmword_2957C7D90;
+    v17 = [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities.processor computeTextureStrideForBufferAllocation:&v40];
     if (v14)
     {
-      if (*(&v39 + 1) > size)
+      if (*(&v42 + 1) > size)
       {
-        sub_2957C5F0C();
+        sub_2957C5F0C(v17);
         goto LABEL_44;
       }
 
-      v17 = [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities.processor textureFromBuffer:bufferCopy bufferOffset:offset textureDescriptor:&v37];
+      v18 = [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities.processor textureFromBuffer:bufferCopy bufferOffset:offset textureDescriptor:&v40];
       undistortedSegmentationMask = self->_textures.undistortedSegmentationMask;
-      self->_textures.undistortedSegmentationMask = v17;
+      self->_textures.undistortedSegmentationMask = v18;
 
       if (!self->_textures.undistortedSegmentationMask)
       {
@@ -1133,39 +1122,39 @@ LABEL_19:
       }
     }
 
-    v19 = *(&v39 + 1);
+    v20 = *(&v42 + 1);
   }
 
   else
   {
     if (v14)
     {
-      v20 = self->_textures.undistortedSegmentationMask;
+      v21 = self->_textures.undistortedSegmentationMask;
       self->_textures.undistortedSegmentationMask = 0;
     }
 
-    v19 = 0;
+    v20 = 0;
   }
 
-  v21 = vadd_s32(*&parameters->var0, 0x200000002);
-  *&v22 = v21.u32[0];
-  *(&v22 + 1) = v21.u32[1];
-  v37 = v22;
-  v38 = xmmword_2957C7E10;
-  [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities.processor computeTextureStrideForBufferAllocation:&v37, 105, 3];
+  v22 = vadd_s32(*&parameters->var0, 0x200000002);
+  *&v23 = v22.u32[0];
+  *(&v23 + 1) = v22.u32[1];
+  v40 = v23;
+  v41 = xmmword_2957C7E10;
+  v24 = [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities.processor computeTextureStrideForBufferAllocation:&v40, 105, 3];
   if (v14)
   {
-    if (*(&v39 + 1) + v19 > size)
+    if (*(&v42 + 1) + v20 > size)
     {
-      sub_2957C6254();
+      sub_2957C6254(v24);
 LABEL_44:
       v15 = -2;
       goto LABEL_35;
     }
 
-    v23 = [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities.processor textureFromBuffer:bufferCopy bufferOffset:v19 + offset textureDescriptor:&v37];
+    v25 = [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities.processor textureFromBuffer:bufferCopy bufferOffset:v20 + offset textureDescriptor:&v40];
     extendedMesh = self->_textures.extendedMesh;
-    self->_textures.extendedMesh = v23;
+    self->_textures.extendedMesh = v25;
 
     if (!self->_textures.extendedMesh)
     {
@@ -1176,27 +1165,27 @@ LABEL_46:
     }
   }
 
-  v25 = *(&v39 + 1) + v19;
-  v26 = *&parameters->var2;
-  *&v27 = v26;
-  *(&v27 + 1) = HIDWORD(v26);
-  v37 = v27;
-  v38 = v36;
-  [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities.processor computeTextureStrideForBufferAllocation:&v37];
+  v27 = *(&v42 + 1) + v20;
+  v28 = *&parameters->var2;
+  *&v29 = v28;
+  *(&v29 + 1) = HIDWORD(v28);
+  v40 = v29;
+  v41 = v39;
+  v30 = [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities.processor computeTextureStrideForBufferAllocation:&v40];
   if (!v14)
   {
     goto LABEL_21;
   }
 
-  if (*(&v39 + 1) + v25 > size)
+  if (*(&v42 + 1) + v27 > size)
   {
-    sub_2957C6164();
+    sub_2957C6164(v30);
     goto LABEL_44;
   }
 
-  v28 = [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities.processor textureFromBuffer:bufferCopy bufferOffset:v25 + offset textureDescriptor:&v37];
+  v31 = [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities.processor textureFromBuffer:bufferCopy bufferOffset:v27 + offset textureDescriptor:&v40];
   invertedMesh = self->_textures.invertedMesh;
-  self->_textures.invertedMesh = v28;
+  self->_textures.invertedMesh = v31;
 
   if (!self->_textures.invertedMesh)
   {
@@ -1205,26 +1194,26 @@ LABEL_46:
   }
 
 LABEL_21:
-  v30 = (v25 + DWORD2(v39) + 63) & 0xFFFFFFC0;
+  v33 = (v27 + DWORD2(v42) + 63) & 0xFFFFFFC0;
   self->_edgeDrawingLineDetector.results.capacity = 2048;
   objc_storeStrong(&self->_edgeDrawingLineDetector.results.buffer, buffer);
-  self->_edgeDrawingLineDetector.results.offset = v30 + offset;
-  if (v30 + 32772 > size && v14)
+  self->_edgeDrawingLineDetector.results.offset = v33 + offset;
+  if (v33 + 32772 > size && v14)
   {
     sub_2957C6074();
     goto LABEL_44;
   }
 
-  v32 = (v30 + 32835) & 0xFFFFFFC0;
-  self->_sharedMetalBuffer.roiDataOffset = v32 + offset;
-  if ((v32 | 0x20uLL) > size && v14)
+  v35 = (v33 + 32835) & 0xFFFFFFC0;
+  self->_sharedMetalBuffer.roiDataOffset = v35 + offset;
+  if ((v35 | 0x20uLL) > size && v14)
   {
     sub_2957C5FFC();
     goto LABEL_44;
   }
 
-  self->_sharedMetalBuffer.gatingCounters = (v32 | 0x20) + offset;
-  if ((v32 | 0x28uLL) > size && v14)
+  self->_sharedMetalBuffer.gatingCounters = (v35 | 0x20) + offset;
+  if ((v35 | 0x28uLL) > size && v14)
   {
     sub_2957C5F84();
     goto LABEL_44;
@@ -1233,7 +1222,7 @@ LABEL_21:
   v15 = 0;
   if (handler)
   {
-    handler->var0 = (v32 + 103) & 0xFFFFFFC0;
+    handler->var0 = (v35 + 103) & 0xFFFFFFC0;
   }
 
 LABEL_35:
@@ -1343,7 +1332,7 @@ LABEL_35:
   lowResSegmentationMask = self->_lowResSegmentationMask;
   if (!lowResSegmentationMask)
   {
-    sub_2957C6610();
+    sub_2957C6610(0, a2);
     return -12780;
   }
 
@@ -1351,18 +1340,18 @@ LABEL_35:
   if (PixelFormatType != 642527336 && PixelFormatType != 1278226536)
   {
     fig_log_get_emitter();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v3, v13, v14, v15, v16, vars0, vars8);
     return -12780;
   }
 
-  v8 = [(FigMetalContext *)self->_metalContext bindPixelBufferToMTL2DTexture:self->_lowResSegmentationMask pixelFormat:25 usage:23 plane:0];
+  v9 = [(FigMetalContext *)self->_metalContext bindPixelBufferToMTL2DTexture:self->_lowResSegmentationMask pixelFormat:25 usage:23 plane:0];
   inputSegmentationMaskTexture = self->_rt.inputSegmentationMaskTexture;
-  self->_rt.inputSegmentationMaskTexture = v8;
+  self->_rt.inputSegmentationMaskTexture = v9;
 
-  v10 = self->_rt.inputSegmentationMaskTexture;
-  if (v10)
+  v11 = self->_rt.inputSegmentationMaskTexture;
+  if (v11)
   {
-    [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities.processor setBoundingRect:buffer x0:0 y0:0 width:[(MTLTexture *)v10 width] height:[(MTLTexture *)self->_rt.inputSegmentationMaskTexture height]];
+    [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities.processor setBoundingRect:buffer x0:0 y0:0 width:[(MTLTexture *)v11 width] height:[(MTLTexture *)self->_rt.inputSegmentationMaskTexture height]];
     if ([(MTLTexture *)self->_rt.inputSegmentationMaskTexture width]< 0x10 || [(MTLTexture *)self->_rt.inputSegmentationMaskTexture height]<= 0xF)
     {
       sub_2957C6524();
@@ -1412,130 +1401,6 @@ LABEL_35:
   }
 
   return v9;
-}
-
-- (int)mapPixelFormat:(__CVBuffer *)format format:(unint64_t *)a4
-{
-  PixelFormatType = CVPixelBufferGetPixelFormatType(format);
-  if (PixelFormatType <= 796419631)
-  {
-    if (PixelFormatType <= 758674991)
-    {
-      if (PixelFormatType > 645424687)
-      {
-        if (PixelFormatType != 645424688 && PixelFormatType != 645428784)
-        {
-          v6 = 758670896;
-          goto LABEL_31;
-        }
-
-LABEL_33:
-        result = 0;
-        v10 = 546;
-        goto LABEL_34;
-      }
-
-      if (PixelFormatType != 641230384)
-      {
-        v6 = 641234480;
-        goto LABEL_31;
-      }
-
-LABEL_32:
-      result = 0;
-      v10 = 540;
-LABEL_34:
-      *a4 = v10;
-      return result;
-    }
-
-    if (PixelFormatType > 762869295)
-    {
-      if (PixelFormatType == 762869296)
-      {
-        goto LABEL_33;
-      }
-
-      if (PixelFormatType != 792225328)
-      {
-        v6 = 792229424;
-        goto LABEL_31;
-      }
-
-      goto LABEL_32;
-    }
-
-    if (PixelFormatType == 758674992)
-    {
-      goto LABEL_32;
-    }
-
-    v7 = 762865200;
-LABEL_26:
-    if (PixelFormatType != v7)
-    {
-      goto LABEL_35;
-    }
-
-    goto LABEL_33;
-  }
-
-  if (PixelFormatType <= 1885745711)
-  {
-    if (PixelFormatType <= 875704421)
-    {
-      if (PixelFormatType == 796419632)
-      {
-        goto LABEL_33;
-      }
-
-      v7 = 796423728;
-    }
-
-    else
-    {
-      if (PixelFormatType == 875704422 || PixelFormatType == 875704438)
-      {
-        goto LABEL_32;
-      }
-
-      v7 = 1882468912;
-    }
-
-    goto LABEL_26;
-  }
-
-  if (PixelFormatType <= 2084075055)
-  {
-    if (PixelFormatType == 1885745712)
-    {
-      goto LABEL_33;
-    }
-
-    v8 = 26160;
-  }
-
-  else
-  {
-    if (PixelFormatType == 2088269360 || PixelFormatType == 2088265264)
-    {
-      goto LABEL_33;
-    }
-
-    v8 = 30256;
-  }
-
-  v6 = v8 | 0x7C380000;
-LABEL_31:
-  if (PixelFormatType == v6)
-  {
-    goto LABEL_32;
-  }
-
-LABEL_35:
-  fig_log_get_emitter();
-  FigDebugAssert3();
-  return -12780;
 }
 
 - (void)buildMakernoteEntry:(int)entry cpwProcessingErrors:(id *)errors idcApplied:(BOOL)applied
@@ -1923,22 +1788,22 @@ LABEL_48:
   if (information)
   {
     v5 = &self->_anon_e0[228];
-    v93 = 0u;
     v94 = 0u;
-    v91 = 0u;
+    v95 = 0u;
     v92 = 0u;
-    v89 = 0u;
+    v93 = 0u;
     v90 = 0u;
-    v87 = 0u;
+    v91 = 0u;
     v88 = 0u;
-    v85 = 0u;
+    v89 = 0u;
     v86 = 0u;
-    v83 = 0u;
+    v87 = 0u;
     v84 = 0u;
-    v81 = 0u;
+    v85 = 0u;
     v82 = 0u;
-    v79 = 0u;
+    v83 = 0u;
     v80 = 0u;
+    v81 = 0u;
     v6 = *&self->_anon_e0[300];
     v7 = *&self->_anon_e0[304];
     information->var0.origin.x = v6;
@@ -1949,21 +1814,21 @@ LABEL_48:
     information->var0.size = vcvtq_f64_s64(v9);
     v10 = *&self->_anon_e0[308];
     v11 = *&self->_anon_e0[312];
-    [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities.processor buildParameters:&v79 bundleConfiguration:self->_anon_e0];
+    [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities.processor buildParameters:&v80 bundleConfiguration:self->_anon_e0];
     v69 = v5;
     v12 = vcvt_f32_s32(v5[6]);
-    *&v79 = vdiv_f32(vcvt_f32_s32(v5[2]), vcvt_f32_s32(v5[8]));
-    *&v80 = v12;
+    *&v80 = vdiv_f32(vcvt_f32_s32(v5[2]), vcvt_f32_s32(v5[8]));
+    *&v81 = v12;
     v13 = &self->_anon_e0[12];
     v14 = vld1_dup_f32(v13);
-    *&v84 = v14;
-    *&v15 = inverseDistort(v6, v7, &v79);
+    *&v85 = v14;
+    *&v15 = inverseDistort(v6, v7, &v80);
     LODWORD(v15) = DWORD1(v15);
     v16 = v10 - v6;
     if (v10 <= v6)
     {
       v76 = *(&v15 + 1);
-      LODWORD(v72) = inverseDistort(v6, v11, &v79).i32[1];
+      LODWORD(v72) = inverseDistort(v6, v11, &v80).i32[1];
     }
 
     else
@@ -1973,7 +1838,7 @@ LABEL_48:
       do
       {
         v75 = v15;
-        v19 = inverseDistort(v18, v7, &v79);
+        v19 = inverseDistort(v18, v7, &v80);
         v20 = v75;
         *&v20 = fminf(*&v75, v19.f32[1]);
         LODWORD(v76) = v20;
@@ -1983,7 +1848,7 @@ LABEL_48:
       }
 
       while (v16);
-      LODWORD(v21) = inverseDistort(v6, v11, &v79).i32[1];
+      LODWORD(v21) = inverseDistort(v6, v11, &v80).i32[1];
       v22 = v10 - v6;
       if (v10 <= v6)
       {
@@ -1997,7 +1862,7 @@ LABEL_48:
         do
         {
           v71 = v21;
-          v23 = inverseDistort(v17, v11, &v79);
+          v23 = inverseDistort(v17, v11, &v80);
           v21 = v71;
           *&v21 = fmaxf(*&v71, v23.f32[1]);
           ++v17;
@@ -2009,12 +1874,12 @@ LABEL_48:
       }
     }
 
-    *&v24 = inverseDistort(v6, v7, &v79);
+    *&v24 = inverseDistort(v6, v7, &v80);
     v25 = v11 - v7;
     if (v11 <= v7)
     {
       LODWORD(v74) = v24;
-      LODWORD(v31) = inverseDistort(v10, v7, &v79).u32[0];
+      LODWORD(v31) = inverseDistort(v10, v7, &v80).u32[0];
     }
 
     else
@@ -2026,7 +1891,7 @@ LABEL_48:
       do
       {
         v73 = v24;
-        LODWORD(v29) = inverseDistort(v6, v28, &v79).u32[0];
+        LODWORD(v29) = inverseDistort(v6, v28, &v80).u32[0];
         v30 = v73;
         *&v30 = fminf(*&v73, v29);
         LODWORD(v74) = v30;
@@ -2036,7 +1901,7 @@ LABEL_48:
       }
 
       while (v27);
-      *&v31 = inverseDistort(v10, v7, &v79);
+      *&v31 = inverseDistort(v10, v7, &v80);
       v32 = __OFSUB__(v11, v7);
       v33 = v11 - v7;
       v16 = v68;
@@ -2045,7 +1910,7 @@ LABEL_48:
         do
         {
           v70 = v31;
-          LODWORD(v34) = inverseDistort(v10, v26, &v79).u32[0];
+          LODWORD(v34) = inverseDistort(v10, v26, &v80).u32[0];
           v31 = v70;
           *&v31 = fmaxf(*&v70, v34);
           ++v26;
@@ -2106,13 +1971,13 @@ LABEL_48:
     *v47.i32 = (v47.i32[1] - *v49.i32) * (v47.i32[1] - *v49.i32);
     v77 = v53;
     v57 = v53 * fmaxf(fmaxf(fmaxf(sqrtf(v54.f32[0] + (*v45.i32 * *v45.i32)), sqrtf(v54.f32[0] + (v56 * v56))), sqrtf(*v47.i32 + (*v45.i32 * *v45.i32))), sqrtf(*v47.i32 + (v56 * v56)));
-    v58 = *(&v85 + 2);
-    v59 = v86;
-    v60 = v87;
+    v58 = *(&v86 + 2);
+    v59 = v87;
+    v60 = v88;
     do
     {
       v61 = v44 / 100.0;
-      *&v78[v44 + 101] = v61 * v61;
+      v79[v44] = v61 * v61;
       v62 = ((v57 * v61) * (v57 * v61)) * v58;
       v63 = v62 < 1.0;
       v64 = *&v59 + ((*(&v59 + 1) + ((*(&v59 + 2) + ((*(&v59 + 3) + ((*&v60 + ((*(&v60 + 1) + ((*(&v60 + 2) + (*(&v60 + 3) * v62)) * v62)) * v62)) * v62)) * v62)) * v62)) * v62);
@@ -2123,11 +1988,11 @@ LABEL_48:
         v66 = v64;
       }
 
-      *&v78[v44++] = 1.0 / ((v66 * 0.01) + 1.0);
+      v78[v44++] = 1.0 / ((v66 * 0.01) + 1.0);
     }
 
     while (v44 != 101);
-    if (cubicRegression())
+    if (cubicRegression(v79))
     {
       result = 0;
       *&information->var2 = v69[8];
@@ -2143,18 +2008,10 @@ LABEL_48:
 
   else
   {
-    sub_2957C6B04();
+    sub_2957C6B04(self, a2);
     return -2;
   }
 
-  return result;
-}
-
-- (__n128)stereoRectificationInverseHomography
-{
-  result = *(self + 1376);
-  v2 = *(self + 1392);
-  v3 = *(self + 1408);
   return result;
 }
 
@@ -2198,14 +2055,6 @@ LABEL_48:
   result.size.width = width;
   result.origin.y = y;
   result.origin.x = x;
-  return result;
-}
-
-- (__n128)globalTransform
-{
-  result = *(self + 1424);
-  v2 = *(self + 1440);
-  v3 = *(self + 1456);
   return result;
 }
 

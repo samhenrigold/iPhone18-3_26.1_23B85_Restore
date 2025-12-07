@@ -14,7 +14,7 @@
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMDWalletKeyAliroHealingEvent controllerType](self, "controllerType")}];
   [v3 setObject:v5 forKeyedSubscript:@"controllerType"];
 
-  v6 = [v3 copy];
+  v6 = objc_msgSend_copy(v3);
 
   return v6;
 }

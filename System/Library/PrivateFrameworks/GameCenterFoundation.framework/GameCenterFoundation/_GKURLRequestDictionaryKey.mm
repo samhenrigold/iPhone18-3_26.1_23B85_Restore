@@ -36,13 +36,12 @@
 {
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
-  request = self->_request;
-  v6 = objc_opt_class();
-  v7 = [(NSURLRequest *)self->_request URL];
-  absoluteString = [v7 absoluteString];
-  v9 = [v3 stringWithFormat:@"<%@ %p> %@ %@", v4, self, v6, absoluteString];
+  v5 = objc_opt_class();
+  v6 = [(NSURLRequest *)self->_request URL];
+  absoluteString = [v6 absoluteString];
+  v8 = [v3 stringWithFormat:@"<%@ %p> %@ %@", v4, self, v5, absoluteString];
 
-  return v9;
+  return v8;
 }
 
 - (BOOL)isEqual:(id)equal

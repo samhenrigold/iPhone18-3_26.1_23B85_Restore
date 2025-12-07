@@ -18,9 +18,9 @@
 {
   titleCopy = title;
   delegateCopy = delegate;
-  v36.receiver = self;
-  v36.super_class = THChapterViewTableController;
-  v8 = [(THChapterViewTableController *)&v36 init];
+  v38.receiver = self;
+  v38.super_class = THChapterViewTableController;
+  v8 = [(THChapterViewTableController *)&v38 init];
   v9 = v8;
   if (v8)
   {
@@ -77,15 +77,15 @@
     tableView6 = [v10 tableView];
     [tableView6 setBackgroundColor:v28];
 
-    v30 = THBundle();
-    v31 = [UINib nibWithNibName:@"THChapterViewTableController" bundle:v30];
+    v32 = THBundle(v30, v31);
+    v33 = [UINib nibWithNibName:@"THChapterViewTableController" bundle:v32];
 
     tableView7 = [v10 tableView];
-    [tableView7 registerNib:v31 forCellReuseIdentifier:@"THChapterViewTableControllerCell"];
+    [tableView7 registerNib:v33 forCellReuseIdentifier:@"THChapterViewTableControllerCell"];
 
-    v33 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:0 target:v9 action:"p_doneButtonPressed:"];
+    v35 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:0 target:v9 action:"p_doneButtonPressed:"];
     navigationItem = [v10 navigationItem];
-    [navigationItem setRightBarButtonItem:v33];
+    [navigationItem setRightBarButtonItem:v35];
   }
 
   return v9;

@@ -73,7 +73,7 @@ LABEL_5:
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_19A6EC86C();
+  sub_19A6EC86C(selfCopy, v2);
 }
 
 - (id)hitTest:(CGPoint)test withEvent:(id)event
@@ -82,9 +82,9 @@ LABEL_5:
   x = test.x;
   eventCopy = event;
   selfCopy = self;
-  v10 = sub_19A6ECB58(event, x, y);
+  v11 = sub_19A6ECB58(event, v10, x, y);
 
-  return v10;
+  return v11;
 }
 
 - (void)handleTap

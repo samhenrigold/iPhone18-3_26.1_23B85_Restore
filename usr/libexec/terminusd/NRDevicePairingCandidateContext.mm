@@ -28,7 +28,7 @@
       dispatch_once(&qword_1002291E8, &stru_1001FC218);
     }
 
-    _NRLogWithArgs();
+    _NRLogWithArgs(qword_1002291E0, 0, "%s%.30s:%-4d %@: Got config request for listener %@ session %@ sessionConfig %@", ", "[NRDevicePairingCandidateContext requestConfigurationForListener:session:sessionConfig:childConfig:validateAuthBlock:responseBlock:]"", 3802, self, listenerCopy, sessionCopy, configCopy);
   }
 
   (*(responseBlockCopy + 2))(responseBlockCopy, 0, 0, 0);
@@ -58,7 +58,7 @@
   if (IsLevelEnabled)
   {
     ikePacketReceiver = sub_100123258();
-    _NRLogWithArgs();
+    _NRLogWithArgs(ikePacketReceiver, 17, "%s called with null receiver", "[NRDevicePairingCandidateContext setPacketReceiver:]");
 LABEL_4:
 
     receiverCopy = v9;
@@ -82,7 +82,7 @@ LABEL_5:
     }
 
     v13 = sub_100123258();
-    _NRLogWithArgs();
+    _NRLogWithArgs(v13, 17, "%s called with null data", "[NRDevicePairingCandidateContext sendPacketData:]");
 
     goto LABEL_8;
   }
@@ -100,10 +100,10 @@ LABEL_8:
   }
 
   v6 = [dataCopy length];
-  v21 = bswap32(v6) >> 16;
+  HIWORD(v22) = bswap32(v6) >> 16;
   v7 = [[NSMutableData alloc] initWithCapacity:v6 + 5];
   [v7 appendBytes:&unk_100196570 length:1];
-  [v7 appendBytes:&v21 length:2];
+  [v7 appendBytes:&v22 + 6 length:2];
   [v7 appendData:v5];
   [v7 bytes];
   if (![v7 length])
@@ -114,32 +114,32 @@ LABEL_8:
     if (IsLevelEnabled)
     {
       v17 = sub_100123258();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v17, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: dataLen > 0", ", "nrChecksumFull"", 109);
     }
 
-    _os_log_pack_size();
-    __chkstk_darwin();
-    v18 = *__error();
-    v19 = _os_log_pack_fill();
-    *v19 = 136446210;
-    *(v19 + 4) = "nrChecksumFull";
+    v18 = _os_log_pack_size();
+    v19 = &v23[-1] - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+    v20 = __error();
+    v21 = _os_log_pack_fill(v19, v18, *v20, &_mh_execute_header, "%{public}s Assertion Failed: dataLen > 0");
+    *v21 = 136446210;
+    *(v21 + 4) = "nrChecksumFull";
     sub_100123258();
     _NRLogAbortWithPack();
   }
 
-  v20 = ~os_inet_checksum();
-  [v7 appendBytes:&v20 length:2];
+  WORD2(v22) = ~os_inet_checksum();
+  [v7 appendBytes:&v22 + 4 length:2];
   parser = self->_parser;
-  v22[0] = @"message-data";
-  v22[1] = @"channel-id";
-  v23[0] = v7;
-  v23[1] = &off_100209D28;
-  v24 = @"message";
+  v23[0] = @"message-data";
+  v23[1] = @"channel-id";
+  v24[0] = v7;
+  v24[1] = &off_100209D28;
+  v25 = @"message";
   v9 = parser;
-  v10 = [NSDictionary dictionaryWithObjects:v23 forKeys:v22 count:2];
-  v25 = v10;
+  v10 = [NSDictionary dictionaryWithObjects:v24 forKeys:v23 count:2];
+  v26 = v10;
   LOBYTE(self) = 1;
-  v11 = [NSDictionary dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+  v11 = [NSDictionary dictionaryWithObjects:&v26 forKeys:&v25 count:1];
   [(NRBluetoothPacketParser *)v9 sendXPCCommDictionary:v11];
 
 LABEL_9:

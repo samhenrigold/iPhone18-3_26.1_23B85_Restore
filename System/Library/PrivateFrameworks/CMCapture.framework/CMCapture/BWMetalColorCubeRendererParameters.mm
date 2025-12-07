@@ -140,18 +140,4 @@
   }
 }
 
-- (uint64_t)updateByInterpolatingFromParameters:toParameters:withFractionComplete:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)updateByInterpolatingFromParameters:toParameters:withFractionComplete:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
 @end

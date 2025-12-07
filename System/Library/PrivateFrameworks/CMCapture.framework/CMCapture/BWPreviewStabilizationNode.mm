@@ -138,26 +138,26 @@ LABEL_12:
 
 - (void)renderSampleBuffer:(opaqueCMSampleBuffer *)buffer forInput:(id)input
 {
-  v106 = 0;
+  v108 = 0;
   cf = 0;
   v5 = *off_1E798A0D8;
   input = [(NSDictionary *)self->_staticParametersByPortType objectForKeyedSubscript:*off_1E798A0D8, input];
   v7 = *off_1E7989E50;
-  [objc_msgSend(input objectForKeyedSubscript:{*off_1E7989E50), "floatValue"}];
-  if (v8 == 0.0)
+  v8 = [objc_msgSend(input objectForKeyedSubscript:{*off_1E7989E50), "floatValue"}];
+  if (v9 == 0.0)
   {
-    [BWPreviewStabilizationNode renderSampleBuffer:forInput:];
+    [BWPreviewStabilizationNode renderSampleBuffer:v8 forInput:?];
   }
 
   else
   {
-    v9 = v8;
-    v10 = CMGetAttachment(buffer, @"LastRecommendedMasterSelectionReason", 0);
-    if (v10)
+    v10 = v9;
+    v11 = CMGetAttachment(buffer, @"LastRecommendedMasterSelectionReason", 0);
+    if (v11)
     {
-      v11 = v10;
-      self->_lastRecommendedMasterSelectionReason = [v10 intValue];
-      lastRecommendedMasterSelectionReason = [v11 intValue];
+      v12 = v11;
+      self->_lastRecommendedMasterSelectionReason = [v11 intValue];
+      lastRecommendedMasterSelectionReason = [v12 intValue];
     }
 
     else
@@ -165,38 +165,38 @@ LABEL_12:
       lastRecommendedMasterSelectionReason = self->_lastRecommendedMasterSelectionReason;
     }
 
-    v13 = CMGetAttachment(buffer, @"RecommendedMasterPortType", 0);
-    if (v13)
+    v14 = CMGetAttachment(buffer, @"RecommendedMasterPortType", 0);
+    if (v14)
     {
-      v14 = v13;
+      v15 = v14;
 
-      self->_lastRecommendedMasterPortType = v14;
+      self->_lastRecommendedMasterPortType = v15;
     }
 
-    BWOverCaptureSampleBufferUnpackAndRetain(buffer, 0, &cf, &v106, 0, 0);
-    v15 = v106;
-    if (v106)
+    v16 = BWOverCaptureSampleBufferUnpackAndRetain(buffer, 0, &cf, &v108, 0, 0);
+    v17 = v108;
+    if (v108)
     {
       if (cf)
       {
-        v16 = cf;
+        v18 = cf;
       }
 
       else
       {
-        v16 = v106;
+        v18 = v108;
       }
 
-      v17 = CMGetAttachment(v16, @"TotalZoomFactor", 0);
-      if (v17)
+      v19 = CMGetAttachment(v18, @"TotalZoomFactor", 0);
+      if (v19)
       {
-        [v17 floatValue];
-        v19 = v18;
+        [v19 floatValue];
+        v21 = v20;
       }
 
       else
       {
-        v19 = 1.0;
+        v21 = 1.0;
       }
 
       isStillImagePreview = 0;
@@ -205,307 +205,307 @@ LABEL_12:
         if (self->_stabilizeFallbackCamera && lastRecommendedMasterSelectionReason == 1)
         {
           isStillImagePreview = 0;
-          if (![(NSString *)self->_lastRecommendedMasterPortType isEqualToString:v5]&& v19 > v9)
+          if ((objc_msgSend_isEqualToString_(self->_lastRecommendedMasterPortType) & 1) == 0 && v21 > v10)
           {
             isStillImagePreview = self->_isStillImagePreview;
             if (self->_isStillImagePreview)
             {
-              v15 = cf;
+              v17 = cf;
             }
           }
         }
       }
 
       key = *off_1E798A3C8;
-      v21 = CMGetAttachment(v15, *off_1E798A3C8, 0);
-      if (v21)
+      v23 = CMGetAttachment(v17, *off_1E798A3C8, 0);
+      if (v23)
       {
-        v22 = v21;
-        v96 = v7;
-        v23 = *off_1E798B540;
-        v24 = [v21 objectForKeyedSubscript:*off_1E798B540];
-        [objc_msgSend(-[NSDictionary objectForKeyedSubscript:](self->_staticParametersByPortType objectForKeyedSubscript:{v24), "objectForKeyedSubscript:", *off_1E7989F18), "floatValue"}];
-        v26 = v25;
-        v100 = *MEMORY[0x1E695EFF8];
-        v104 = *MEMORY[0x1E695EFF8];
-        ImageBuffer = CMSampleBufferGetImageBuffer(v15);
+        v24 = v23;
+        v98 = v7;
+        v25 = *off_1E798B540;
+        v26 = [v23 objectForKeyedSubscript:*off_1E798B540];
+        [objc_msgSend(-[NSDictionary objectForKeyedSubscript:](self->_staticParametersByPortType objectForKeyedSubscript:{v26), "objectForKeyedSubscript:", *off_1E7989F18), "floatValue"}];
+        v28 = v27;
+        v102 = *MEMORY[0x1E695EFF8];
+        v106 = *MEMORY[0x1E695EFF8];
+        ImageBuffer = CMSampleBufferGetImageBuffer(v17);
         Width = CVPixelBufferGetWidth(ImageBuffer);
-        v29 = CMSampleBufferGetImageBuffer(v15);
-        Height = CVPixelBufferGetHeight(v29);
-        v97 = Width;
-        LODWORD(v31) = v26;
-        if ([(BWPreviewGyroStabilization *)self->_previewStabilization computeStabilizationShiftUsingMetadata:v22 pixelBufferDimensions:Width | (Height << 32) pixelSizeInMicrons:&v104 stabilizationShiftOut:v31])
+        v31 = CMSampleBufferGetImageBuffer(v17);
+        Height = CVPixelBufferGetHeight(v31);
+        v99 = Width;
+        LODWORD(v33) = v28;
+        if ([(BWPreviewGyroStabilization *)self->_previewStabilization computeStabilizationShiftUsingMetadata:v24 pixelBufferDimensions:Width | (Height << 32) pixelSizeInMicrons:&v106 stabilizationShiftOut:v33])
         {
           [BWPreviewStabilizationNode renderSampleBuffer:forInput:];
         }
 
         else
         {
-          v32 = CMGetAttachment(buffer, @"UIZoomFactor", 0);
-          if (v32)
+          v34 = CMGetAttachment(buffer, @"UIZoomFactor", 0);
+          if (v34)
           {
-            [v32 floatValue];
-            v34 = v33;
+            [v34 floatValue];
+            v36 = v35;
           }
 
           else
           {
-            v34 = 1.0;
+            v36 = 1.0;
           }
 
           minimumSupportedUIZoomFactor = self->_minimumSupportedUIZoomFactor;
-          v36 = [v24 isEqual:v5];
-          v95 = Height;
-          if (v34 >= minimumSupportedUIZoomFactor && ((v36 & 1) != 0 || self->_stabilizeFallbackCamera && lastRecommendedMasterSelectionReason == 1) && !self->_rampOffStabilizationForGraphStop)
+          v38 = [v26 isEqual:v5];
+          v97 = Height;
+          if (v36 >= minimumSupportedUIZoomFactor && ((v38 & 1) != 0 || self->_stabilizeFallbackCamera && lastRecommendedMasterSelectionReason == 1) && !self->_rampOffStabilizationForGraphStop)
           {
             if (!self->_lastStabilizingEnabled && self->_enableStabilizationTransitionRamps)
             {
-              v92 = 0;
+              v94 = 0;
               if ([(BWRamp *)self->_stabilizationTransitionRamp isRamping])
               {
                 [(BWRamp *)self->_stabilizationTransitionRamp currentValue];
-                v92 = v93;
+                v94 = v95;
                 [(BWRamp *)self->_stabilizationTransitionRamp reset];
               }
 
-              LODWORD(v91) = 1.0;
-              LODWORD(v90) = v92;
-              [(BWRamp *)self->_stabilizationTransitionRamp startRampFrom:self->_stabilizationEnterRampFrameCount to:2 iterations:v90 shape:v91];
+              LODWORD(v93) = 1.0;
+              LODWORD(v92) = v94;
+              [(BWRamp *)self->_stabilizationTransitionRamp startRampFrom:self->_stabilizationEnterRampFrameCount to:2 iterations:v92 shape:v93];
             }
 
             if ([(BWRamp *)self->_stabilizationTransitionRamp isRamping])
             {
               [(BWRamp *)self->_stabilizationTransitionRamp updateRampForNextIteration];
-              v104 = vmulq_n_f64(v104, v94);
+              v106 = vmulq_n_f64(v106, v96);
             }
 
-            v41 = 1;
+            v43 = 1;
           }
 
           else
           {
             if (self->_lastStabilizingEnabled && self->_enableStabilizationTransitionRamps)
             {
-              v38 = 1.0;
+              v40 = 1.0;
               if ([(BWRamp *)self->_stabilizationTransitionRamp isRamping])
               {
                 [(BWRamp *)self->_stabilizationTransitionRamp currentValue];
-                v38 = v39;
+                v40 = v41;
                 [(BWRamp *)self->_stabilizationTransitionRamp reset];
               }
 
               if (self->_rampOffStabilizationForGraphStop)
               {
-                v40 = &OBJC_IVAR___BWPreviewStabilizationNode__stabilizationGraphStopRampOffFrameCount;
+                v42 = &OBJC_IVAR___BWPreviewStabilizationNode__stabilizationGraphStopRampOffFrameCount;
               }
 
               else
               {
-                v40 = &OBJC_IVAR___BWPreviewStabilizationNode__stabilizationExitRampFrameCount;
+                v42 = &OBJC_IVAR___BWPreviewStabilizationNode__stabilizationExitRampFrameCount;
               }
 
-              *&v37 = v38;
-              [(BWRamp *)self->_stabilizationTransitionRamp startRampFrom:*(&self->super.super.isa + *v40) to:2 iterations:v37 shape:0.0];
+              *&v39 = v40;
+              [(BWRamp *)self->_stabilizationTransitionRamp startRampFrom:*(&self->super.super.isa + *v42) to:2 iterations:v39 shape:0.0];
             }
 
             if ([(BWRamp *)self->_stabilizationTransitionRamp isRamping])
             {
               [(BWRamp *)self->_stabilizationTransitionRamp updateRampForNextIteration];
-              v41 = 0;
-              v43 = vmulq_n_f64(v104, v42);
+              v43 = 0;
+              v45 = vmulq_n_f64(v106, v44);
             }
 
             else
             {
-              v41 = 0;
-              v43 = v100;
+              v43 = 0;
+              v45 = v102;
             }
 
-            v104 = v43;
+            v106 = v45;
           }
 
-          v44.x = v104.f64[0];
+          v46.f64[0] = v106.f64[0];
           if (self->_isStillImagePreview)
           {
-            v45 = ((v34 - self->_minimumSupportedUIZoomFactor) / 0.2);
-            if (v45 > 1.0)
+            v47 = ((v36 - self->_minimumSupportedUIZoomFactor) / 0.2);
+            if (v47 > 1.0)
             {
-              v45 = 1.0;
+              v47 = 1.0;
             }
 
-            v46 = fmax(v45, 0.0);
-            v47 = v46;
-            v44.x = v104.f64[0] * v47;
-            v104.f64[0] = v104.f64[0] * v47;
-            v104.f64[1] = v104.f64[1] * v47;
+            v48 = fmax(v47, 0.0);
+            v49 = v48;
+            v46.f64[0] = v106.f64[0] * v49;
+            v106.f64[0] = v106.f64[0] * v49;
+            v106.f64[1] = v106.f64[1] * v49;
             if (isStillImagePreview)
             {
-              v48 = CMGetAttachment(v106, key, 0);
-              v49 = CMGetAttachment(cf, key, 0);
-              v50 = [v48 objectForKeyedSubscript:v23];
-              v51 = [v49 objectForKeyedSubscript:v23];
-              [objc_msgSend(-[NSDictionary objectForKeyedSubscript:](self->_staticParametersByPortType objectForKeyedSubscript:{v50), "objectForKeyedSubscript:", v96), "floatValue"}];
-              v53 = v52;
-              v54 = *off_1E798B508;
-              [objc_msgSend(v48 objectForKeyedSubscript:{*off_1E798B508), "floatValue"}];
-              if (v55 == 0.0)
+              v50 = CMGetAttachment(v108, key, 0);
+              v51 = CMGetAttachment(cf, key, 0);
+              v52 = [v50 objectForKeyedSubscript:v25];
+              v53 = [v51 objectForKeyedSubscript:v25];
+              [objc_msgSend(-[NSDictionary objectForKeyedSubscript:](self->_staticParametersByPortType objectForKeyedSubscript:{v52), "objectForKeyedSubscript:", v98), "floatValue"}];
+              v55 = v54;
+              v56 = *off_1E798B508;
+              [objc_msgSend(v50 objectForKeyedSubscript:{*off_1E798B508), "floatValue"}];
+              if (v57 == 0.0)
               {
-                v56 = 1.0;
+                v58 = 1.0;
               }
 
               else
               {
-                v56 = v55;
+                v58 = v57;
               }
 
-              v57 = v56 * v53;
-              [objc_msgSend(-[NSDictionary objectForKeyedSubscript:](self->_staticParametersByPortType objectForKeyedSubscript:{v51, v24), "objectForKeyedSubscript:", v96), "floatValue"}];
-              v59 = v58;
-              [objc_msgSend(v49 objectForKeyedSubscript:{v54), "floatValue"}];
-              if (v60 == 0.0)
+              v59 = v58 * v55;
+              [objc_msgSend(-[NSDictionary objectForKeyedSubscript:](self->_staticParametersByPortType objectForKeyedSubscript:{v53, v26), "objectForKeyedSubscript:", v98), "floatValue"}];
+              v61 = v60;
+              [objc_msgSend(v51 objectForKeyedSubscript:{v56), "floatValue"}];
+              if (v62 == 0.0)
               {
-                v61 = 1.0;
+                v63 = 1.0;
               }
 
               else
               {
-                v61 = v60;
+                v63 = v62;
               }
 
-              v62 = v61 * v59;
-              v44 = vmulq_n_f64(v104, (v57 / v62));
-              v104 = v44;
+              v64 = v63 * v61;
+              v46 = vmulq_n_f64(v106, (v59 / v64));
+              v106 = v46;
             }
 
-            v63 = MEMORY[0x1E695EFF8];
+            v65 = MEMORY[0x1E695EFF8];
             if (self->_stabilizationCameraFallbackRampEnabled)
             {
-              if (([v24 isEqualToString:self->_lastPortType] & 1) == 0 && self->_stabilizeFallbackCamera && lastRecommendedMasterSelectionReason == 1 && v19 > v9 && self->_isStillImagePreview)
+              if ((objc_msgSend_isEqualToString_(v26) & 1) == 0 && self->_stabilizeFallbackCamera && lastRecommendedMasterSelectionReason == 1 && v21 > v10 && self->_isStillImagePreview)
               {
                 if ([(BWRamp *)self->_stabilizationCameraFallbackRamp isRamping])
                 {
                   [(BWRamp *)self->_stabilizationCameraFallbackRamp reset];
                 }
 
-                LODWORD(v89) = 1.0;
-                [(BWRamp *)self->_stabilizationCameraFallbackRamp startRampFrom:self->_stabilizationCameraFallbackRampFrameCount to:0 iterations:0.0 shape:v89];
+                LODWORD(v91) = 1.0;
+                [(BWRamp *)self->_stabilizationCameraFallbackRamp startRampFrom:self->_stabilizationCameraFallbackRampFrameCount to:0 iterations:0.0 shape:v91];
                 self->_lastTranslationBeforeCameraFallbackRampStart = self->_appliedTranslation;
               }
 
               if ([(BWRamp *)self->_stabilizationCameraFallbackRamp isRamping])
               {
                 [(BWRamp *)self->_stabilizationCameraFallbackRamp updateRampForNextIteration];
-                v44 = vmlaq_n_f64(vmulq_n_f64(v104, v64), self->_lastTranslationBeforeCameraFallbackRampStart, 1.0 - v64);
-                v104 = v44;
+                v46 = vmlaq_n_f64(vmulq_n_f64(v106, v66), self->_lastTranslationBeforeCameraFallbackRampStart, 1.0 - v66);
+                v106 = v46;
               }
 
               else
               {
-                v44.x = v104.f64[0];
+                v46.f64[0] = v106.f64[0];
               }
             }
           }
 
           else
           {
-            v63 = MEMORY[0x1E695EFF8];
+            v65 = MEMORY[0x1E695EFF8];
           }
 
-          v65 = v104.f64[1];
-          if (v44.x != *v63 || v104.f64[1] != v63[1])
+          v67 = v106.f64[1];
+          if (v46.f64[0] != *v65 || v106.f64[1] != v65[1])
           {
             if (self->_updateFinalCropRectWithStabilizationShift)
             {
-              v66 = CMGetAttachment(v106, key, 0);
+              v68 = CMGetAttachment(v108, key, 0);
               rect = *ymmword_1AD056718;
-              CGRectMakeWithDictionaryRepresentation([v66 objectForKeyedSubscript:*off_1E798A5C8], &rect);
-              v67 = CMSampleBufferGetImageBuffer(buffer);
-              v68 = *(MEMORY[0x1E695F058] + 8);
-              v102.origin.x = *MEMORY[0x1E695F058];
-              v102.origin.y = v68;
-              v102.size.width = CVPixelBufferGetWidth(v67);
-              v102.size.height = CVPixelBufferGetHeight(v67);
-              CGRectMakeWithDictionaryRepresentation([v66 objectForKeyedSubscript:*off_1E798B7A0], &v102);
-              FigCaptureMetadataUtilitiesNormalizeCropRect(v102.origin.x, v102.origin.y, v102.size.width, v102.size.height);
-              v73 = v72;
-              v74 = v69;
-              v75 = v70;
+              CGRectMakeWithDictionaryRepresentation([v68 objectForKeyedSubscript:*off_1E798A5C8], &rect);
+              v69 = CMSampleBufferGetImageBuffer(buffer);
+              v70 = *(MEMORY[0x1E695F058] + 8);
+              v104.origin.x = *MEMORY[0x1E695F058];
+              v104.origin.y = v70;
+              v104.size.width = CVPixelBufferGetWidth(v69);
+              v104.size.height = CVPixelBufferGetHeight(v69);
+              CGRectMakeWithDictionaryRepresentation([v68 objectForKeyedSubscript:*off_1E798B7A0], &v104);
+              FigCaptureMetadataUtilitiesNormalizeCropRect(v104.origin.x, v104.origin.y, v104.size.width, v104.size.height, v99, v97);
+              v75 = v74;
               v76 = v71;
-              v77 = rect.origin.x + v104.f64[0] / v97;
-              v78 = rect.origin.y + v104.f64[1] / v95;
-              rect.origin.x = v77;
-              rect.origin.y = v78;
-              v79 = rect.size.width;
-              if (v70 < rect.size.width)
+              v77 = v72;
+              v78 = v73;
+              v79 = rect.origin.x + v106.f64[0] / v99;
+              v80 = rect.origin.y + v106.f64[1] / v97;
+              rect.origin.x = v79;
+              rect.origin.y = v80;
+              v81 = rect.size.width;
+              if (v72 < rect.size.width)
               {
-                v79 = v70;
+                v81 = v72;
               }
 
-              v80 = fmax(v79, 0.0);
-              if (v71 >= rect.size.height)
+              v82 = fmax(v81, 0.0);
+              if (v73 >= rect.size.height)
               {
-                v81 = rect.size.height;
-              }
-
-              else
-              {
-                v81 = v71;
-              }
-
-              keya = fmax(v81, 0.0);
-              v82 = v73;
-              MinX = CGRectGetMinX(*(&v69 - 1));
-              v107.origin.x = v73;
-              v107.origin.y = v74;
-              v107.size.width = v75;
-              v107.size.height = v76;
-              v84 = CGRectGetMaxX(v107) - v80;
-              if (v84 >= v77)
-              {
-                v84 = v77;
-              }
-
-              if (MinX < v84)
-              {
-                MinX = v84;
-              }
-
-              v108.origin.x = v73;
-              v108.origin.y = v74;
-              v108.size.width = v75;
-              v108.size.height = v76;
-              MinY = CGRectGetMinY(v108);
-              v109.origin.x = v73;
-              v109.origin.y = v74;
-              v109.size.width = v75;
-              v109.size.height = v76;
-              v86 = CGRectGetMaxY(v109) - keya;
-              if (v86 >= v78)
-              {
-                v86 = v78;
-              }
-
-              if (MinY >= v86)
-              {
-                v87 = MinY;
+                v83 = rect.size.height;
               }
 
               else
               {
-                v87 = v86;
+                v83 = v73;
+              }
+
+              keya = fmax(v83, 0.0);
+              v84 = v75;
+              MinX = CGRectGetMinX(*(&v71 - 1));
+              v109.origin.x = v75;
+              v109.origin.y = v76;
+              v109.size.width = v77;
+              v109.size.height = v78;
+              v86 = CGRectGetMaxX(v109) - v82;
+              if (v86 >= v79)
+              {
+                v86 = v79;
+              }
+
+              if (MinX < v86)
+              {
+                MinX = v86;
+              }
+
+              v110.origin.x = v75;
+              v110.origin.y = v76;
+              v110.size.width = v77;
+              v110.size.height = v78;
+              MinY = CGRectGetMinY(v110);
+              v111.origin.x = v75;
+              v111.origin.y = v76;
+              v111.size.width = v77;
+              v111.size.height = v78;
+              v88 = CGRectGetMaxY(v111) - keya;
+              if (v88 >= v80)
+              {
+                v88 = v80;
+              }
+
+              if (MinY >= v88)
+              {
+                v89 = MinY;
+              }
+
+              else
+              {
+                v89 = v88;
               }
 
               rect.origin.x = MinX;
-              rect.origin.y = v87;
-              rect.size.width = v80;
+              rect.origin.y = v89;
+              rect.size.width = v82;
               rect.size.height = keya;
               FigCFDictionarySetCGRect();
             }
 
             else
             {
-              DictionaryRepresentation = CGPointCreateDictionaryRepresentation(v44);
-              CMSetAttachment(v106, *off_1E798A428, DictionaryRepresentation, 1u);
+              DictionaryRepresentation = CGPointCreateDictionaryRepresentation(v46);
+              CMSetAttachment(v108, *off_1E798A428, DictionaryRepresentation, 1u);
               if (DictionaryRepresentation)
               {
                 CFRelease(DictionaryRepresentation);
@@ -513,10 +513,10 @@ LABEL_12:
             }
           }
 
-          self->_lastStabilizingEnabled = v41;
-          self->_appliedTranslation = v104;
+          self->_lastStabilizingEnabled = v43;
+          self->_appliedTranslation = v106;
 
-          self->_lastPortType = v24;
+          self->_lastPortType = v26;
         }
       }
 
@@ -528,13 +528,13 @@ LABEL_12:
 
     else
     {
-      [BWPreviewStabilizationNode renderSampleBuffer:forInput:];
+      [BWPreviewStabilizationNode renderSampleBuffer:v16 forInput:?];
     }
   }
 
-  if (v106)
+  if (v108)
   {
-    CFRelease(v106);
+    CFRelease(v108);
   }
 
   if (cf)
@@ -543,62 +543,6 @@ LABEL_12:
   }
 
   [(BWNodeOutput *)self->super._output emitSampleBuffer:buffer];
-}
-
-- (uint64_t)initWithCameraInfoByPortType:forStillImagePreview:updateFinalCropRectWithStabilizationShift:minimumSupportedUIZoomFactor:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithCameraInfoByPortType:forStillImagePreview:updateFinalCropRectWithStabilizationShift:minimumSupportedUIZoomFactor:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithCameraInfoByPortType:forStillImagePreview:updateFinalCropRectWithStabilizationShift:minimumSupportedUIZoomFactor:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithCameraInfoByPortType:forStillImagePreview:updateFinalCropRectWithStabilizationShift:minimumSupportedUIZoomFactor:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
 }
 
 @end

@@ -143,7 +143,7 @@ void __69__HMAudiogramUtility_frequencyToHearingDecibelLevelMapFromAudiogram___b
         v28 = [*(a1 + 32) sourceRevision];
         v29 = [v28 source];
         v30 = [v29 name];
-        LogPrintF();
+        LogPrintF(&gLogCategory_HMEnrollmentService, "+[HMAudiogramUtility frequencyToHearingDecibelLevelMapFromAudiogram:]_block_invoke_2", 30, "audiogram: %@, invalid ear sensitivity points found", v30);
       }
 
       *(*(*(a1 + 48) + 8) + 24) = 1;

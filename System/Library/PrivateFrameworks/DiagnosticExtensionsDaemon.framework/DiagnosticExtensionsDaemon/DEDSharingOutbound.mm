@@ -135,38 +135,38 @@
 
 - (void)deviceSupportsDiagnosticExtensions:(id)extensions session:(id)session
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   extensionsCopy = extensions;
   v6 = [(DEDSharingOutbound *)self basePayloadForCommand:@"supportsExtensions"];
   v7 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(extensionsCopy, "count")}];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v8 = extensionsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       v12 = 0;
       do
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        serialize = [*(*(&v16 + 1) + 8 * v12) serialize];
+        serialize = [*(*(&v15 + 1) + 8 * v12) serialize];
         [v7 addObject:serialize];
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
@@ -175,8 +175,6 @@
   [v6 setObject:v7 forKeyedSubscript:@"extensions"];
   session = [(DEDSharingOutbound *)self session];
   [session sendWithFlags:0 object:v6];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finishedDiagnosticWithIdentifier:(id)identifier result:(id)result session:(id)session
@@ -418,30 +416,30 @@
 
 - (void)scheduleNotificationForSession:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_248AD7000, a2, a3, "Remote devices cannot use notifications. Session ID: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_1_0(&dword_248AD7000, a2, a3, "Remote devices cannot use notifications. Session ID: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)addSessionData:(uint64_t)a3 withFilename:(uint64_t)a4 forSession:(uint64_t)a5 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_248AD7000, a2, a3, "Adding Session Data is not implemented for Sharing Framework. Session ID: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_1_0(&dword_248AD7000, a2, a3, "Adding Session Data is not implemented for Sharing Framework. Session ID: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)loadTextDataForExtensions:(uint64_t)a3 localization:(uint64_t)a4 sessionID:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_248AD7000, a1, a3, "%s not supported", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[DEDSharingOutbound loadTextDataForExtensions:localization:sessionID:]";
+  OUTLINED_FUNCTION_1_0(&dword_248AD7000, a1, a3, "%s not supported", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)didLoadTextDataForExtensions:(uint64_t)a3 localization:(uint64_t)a4 session:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_248AD7000, a1, a3, "%s not supported", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[DEDSharingOutbound didLoadTextDataForExtensions:localization:session:]";
+  OUTLINED_FUNCTION_1_0(&dword_248AD7000, a1, a3, "%s not supported", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

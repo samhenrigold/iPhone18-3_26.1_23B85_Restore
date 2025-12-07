@@ -10,7 +10,6 @@
 - (void)deleteKeepAlivePathStateFile;
 - (void)languageDidChange;
 - (void)releaseLocationStatusBarAssertion;
-- (void)releaseMessageSendingOSTransaction;
 - (void)run;
 - (void)startSendingLocationUpdateNotification;
 - (void)stopSendingLocationUpdateNotification;
@@ -22,7 +21,7 @@
 
 - (void)run
 {
-  v3 = sub_10000225C();
+  v3 = sub_10000225C(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -41,16 +40,16 @@
 
 - (SOSDaemon)init
 {
-  v3 = sub_10000225C();
+  v3 = sub_10000225C(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "initializing SOSDaemon", buf, 2u);
   }
 
-  v21.receiver = self;
-  v21.super_class = SOSDaemon;
-  v4 = [(SOSDaemon *)&v21 init];
+  v22.receiver = self;
+  v22.super_class = SOSDaemon;
+  v4 = [(SOSDaemon *)&v22 init];
   if (v4)
   {
     v5 = +[NSNotificationCenter defaultCenter];
@@ -82,13 +81,14 @@
     [(NSXPCListener *)v16 setDelegate:sosStatusManager];
 
     [(NSXPCListener *)v4->_xpcListener resume];
-    v18 = notify_register_dispatch(SOSD_CONNECTION_REQUEST_NOTIFICATION_NAME, &v4->_notifyToken, &_dispatch_main_q, &stru_100004270);
-    if (v18 || !notify_is_valid_token(v4->_notifyToken))
+    is_valid_token = notify_register_dispatch(SOSD_CONNECTION_REQUEST_NOTIFICATION_NAME, &v4->_notifyToken, &_dispatch_main_q, &stru_100004270);
+    v19 = is_valid_token;
+    if (is_valid_token || (is_valid_token = notify_is_valid_token(v4->_notifyToken), !is_valid_token))
     {
-      v19 = sub_10000225C();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v20 = sub_10000225C(is_valid_token);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        sub_100002374(&v4->_notifyToken, v18, v19);
+        sub_100002374(&v4->_notifyToken, v19, v20);
       }
     }
 
@@ -120,7 +120,7 @@
 - (void)SOSSendingLocationUpdateChanged:(id)changed
 {
   changedCopy = changed;
-  v5 = sub_10000225C();
+  v5 = sub_10000225C(changedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;
@@ -145,7 +145,7 @@
 
 - (void)startSendingLocationUpdateNotification
 {
-  v3 = sub_10000225C();
+  v3 = sub_10000225C(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -159,7 +159,7 @@
 
 - (void)stopSendingLocationUpdateNotification
 {
-  v3 = sub_10000225C();
+  v3 = sub_10000225C(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -177,7 +177,7 @@
 - (void)SOSHasActiveTriggerChanged:(id)changed
 {
   changedCopy = changed;
-  v5 = sub_10000225C();
+  v5 = sub_10000225C(changedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -202,51 +202,52 @@
 
 - (void)takeLocationStatusBarAssertion
 {
-  if (+[SOSUtilities isSOSLiveActivityEnabled](SOSUtilities, "isSOSLiveActivityEnabled") && +[SOSUtilities deviceHasDynamicIsland])
+  v3 = +[SOSUtilities isSOSLiveActivityEnabled];
+  if (v3 && (v3 = +[SOSUtilities deviceHasDynamicIsland], v3))
   {
-    v3 = sub_10000225C();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_10000225C(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Not taking location status bar assertion since live activity will cover this on phone", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Not taking location status bar assertion since live activity will cover this on phone", buf, 2u);
     }
   }
 
   else
   {
-    v4 = sub_10000225C();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_10000225C(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "", buf, 2u);
     }
 
-    v5 = [[SBSStatusBarStyleOverridesAssertion alloc] initWithStatusBarStyleOverrides:0x10000 forPID:getpid() exclusive:0 showsWhenForeground:1];
+    v6 = [[SBSStatusBarStyleOverridesAssertion alloc] initWithStatusBarStyleOverrides:0x10000 forPID:getpid() exclusive:0 showsWhenForeground:1];
     locationSBAssertion = self->_locationSBAssertion;
-    self->_locationSBAssertion = v5;
+    self->_locationSBAssertion = v6;
 
-    v7 = [NSBundle bundleForClass:objc_opt_class()];
-    v8 = [v7 localizedStringForKey:@"SOS_USING_YOUR_LOCATION" value:&stru_100004398 table:0];
-    [(SBSStatusBarStyleOverridesAssertion *)self->_locationSBAssertion setStatusString:v8];
+    v8 = [NSBundle bundleForClass:objc_opt_class()];
+    v9 = [v8 localizedStringForKey:@"SOS_USING_YOUR_LOCATION" value:&stru_100004398 table:0];
+    [(SBSStatusBarStyleOverridesAssertion *)self->_locationSBAssertion setStatusString:v9];
 
-    v9 = self->_locationSBAssertion;
+    v10 = self->_locationSBAssertion;
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_1000018C4;
+    v12[3] = &unk_100004298;
+    v12[4] = self;
     v11[0] = _NSConcreteStackBlock;
     v11[1] = 3221225472;
-    v11[2] = sub_1000018C4;
-    v11[3] = &unk_100004298;
+    v11[2] = sub_1000019A0;
+    v11[3] = &unk_100004230;
     v11[4] = self;
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_1000019A0;
-    v10[3] = &unk_100004230;
-    v10[4] = self;
-    [(SBSStatusBarStyleOverridesAssertion *)v9 acquireWithHandler:v11 invalidationHandler:v10];
+    [(SBSStatusBarStyleOverridesAssertion *)v10 acquireWithHandler:v12 invalidationHandler:v11];
   }
 }
 
 - (void)releaseLocationStatusBarAssertion
 {
-  v3 = sub_10000225C();
+  v3 = sub_10000225C(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     locationSBAssertion = self->_locationSBAssertion;
@@ -262,17 +263,8 @@
 
 - (void)takeMessageSendingOSTransaction
 {
-  v3 = os_transaction_create();
-  sendingMessagesOSTransaction = self->_sendingMessagesOSTransaction;
-  self->_sendingMessagesOSTransaction = v3;
+  self->_sendingMessagesOSTransaction = os_transaction_create();
 
-  _objc_release_x1();
-}
-
-- (void)releaseMessageSendingOSTransaction
-{
-  sendingMessagesOSTransaction = self->_sendingMessagesOSTransaction;
-  self->_sendingMessagesOSTransaction = 0;
   _objc_release_x1();
 }
 
@@ -307,39 +299,39 @@
   if ((v5 & 1) == 0)
   {
     keepAliveFileDirectory = [(SOSDaemon *)self keepAliveFileDirectory];
-    v17 = 0;
-    v7 = [v3 createDirectoryAtPath:keepAliveFileDirectory withIntermediateDirectories:1 attributes:0 error:&v17];
-    v8 = v17;
+    v19 = 0;
+    v7 = [v3 createDirectoryAtPath:keepAliveFileDirectory withIntermediateDirectories:1 attributes:0 error:&v19];
+    v8 = v19;
 
-    v9 = sub_10000225C();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_10000225C(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       keepAliveFileDirectory2 = [(SOSDaemon *)self keepAliveFileDirectory];
       *buf = 138412802;
-      v19 = keepAliveFileDirectory2;
-      v20 = 1024;
-      v21 = v7;
-      v22 = 2112;
-      v23 = v8;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Created directory at path %@ with success: %d error: %@", buf, 0x1Cu);
+      v21 = keepAliveFileDirectory2;
+      v22 = 1024;
+      v23 = v7;
+      v24 = 2112;
+      v25 = v8;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Created directory at path %@ with success: %d error: %@", buf, 0x1Cu);
     }
 
     keepAliveFilePath2 = [(SOSDaemon *)self keepAliveFilePath];
-    v16 = 0;
-    v12 = [@"SOS_in_progress\n" writeToFile:keepAliveFilePath2 atomically:1 encoding:4 error:&v16];
-    v13 = v16;
+    v18 = 0;
+    v13 = [@"SOS_in_progress\n" writeToFile:keepAliveFilePath2 atomically:1 encoding:4 error:&v18];
+    v14 = v18;
 
-    v14 = sub_10000225C();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = sub_10000225C(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       keepAliveFilePath3 = [(SOSDaemon *)self keepAliveFilePath];
       *buf = 138412802;
-      v19 = keepAliveFilePath3;
-      v20 = 1024;
-      v21 = v12;
-      v22 = 2112;
+      v21 = keepAliveFilePath3;
+      v22 = 1024;
       v23 = v13;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Wrote to file at path %@ with success: %d error: %@", buf, 0x1Cu);
+      v24 = 2112;
+      v25 = v14;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Wrote to file at path %@ with success: %d error: %@", buf, 0x1Cu);
     }
   }
 }
@@ -348,27 +340,27 @@
 {
   v3 = +[NSFileManager defaultManager];
   keepAliveFilePath = [(SOSDaemon *)self keepAliveFilePath];
-  v9 = 0;
-  v5 = [v3 removeItemAtPath:keepAliveFilePath error:&v9];
-  v6 = v9;
+  v10 = 0;
+  v5 = [v3 removeItemAtPath:keepAliveFilePath error:&v10];
+  v6 = v10;
 
-  v7 = sub_10000225C();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sub_10000225C(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     keepAliveFilePath2 = [(SOSDaemon *)self keepAliveFilePath];
     *buf = 138412802;
-    v11 = keepAliveFilePath2;
-    v12 = 1024;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Removed file at path %@ success: %d error: %@", buf, 0x1Cu);
+    v12 = keepAliveFilePath2;
+    v13 = 1024;
+    v14 = v5;
+    v15 = 2112;
+    v16 = v6;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Removed file at path %@ success: %d error: %@", buf, 0x1Cu);
   }
 }
 
 + (void)connectToDaemon
 {
-  v2 = sub_10000225C();
+  v2 = sub_10000225C(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -398,7 +390,7 @@
 
 - (void)languageDidChange
 {
-  v2 = sub_10000225C();
+  v2 = sub_10000225C(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;

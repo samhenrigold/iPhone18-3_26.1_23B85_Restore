@@ -58,7 +58,7 @@
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __44__PUWallpaperActivity__restrictionsChanged___block_invoke(uint64_t a1)
+void *__44__PUWallpaperActivity__restrictionsChanged___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) _isWallpaperModificationAllowed];
   [*(a1 + 32) _setNeedsUpdateWallpaperModificationAllowed:1];
@@ -136,7 +136,7 @@ id __48__PUWallpaperActivity_prepareWithActivityItems___block_invoke(uint64_t a1
   {
     if (itemSourceController)
     {
-      [itemSourceController requestAssetsMediaTypeCount];
+      objc_msgSend_requestAssetsMediaTypeCount(itemSourceController);
     }
 
     assets = [itemSourceController assets];

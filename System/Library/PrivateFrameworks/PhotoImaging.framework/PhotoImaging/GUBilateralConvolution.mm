@@ -182,7 +182,7 @@ uint64_t __42__GUBilateralConvolution_bilateralKernels__block_invoke()
     v58 = [MEMORY[0x1E696AD98] numberWithDouble:__exp10(v8 + -3.0) * -200.0];
     v9 = [MEMORY[0x1E695F680] samplerWithImage:self->_inputImage options:0];
     rGBToLabKernel = [objc_opt_class() RGBToLabKernel];
-    [(CIImage *)self->_inputImage extent];
+    objc_msgSend_extent(self->_inputImage);
     v12 = v11;
     v14 = v13;
     v16 = v15;
@@ -230,7 +230,7 @@ uint64_t __42__GUBilateralConvolution_bilateralKernels__block_invoke()
     v31 = [MEMORY[0x1E695F680] samplerWithImage:v30 options:0];
 
     bilateralFinalizeKernel = [objc_opt_class() bilateralFinalizeKernel];
-    [v30 extent];
+    objc_msgSend_extent(v30);
     v34 = v33;
     v36 = v35;
     v38 = v37;
@@ -242,7 +242,7 @@ uint64_t __42__GUBilateralConvolution_bilateralKernels__block_invoke()
     v43 = [MEMORY[0x1E695F680] samplerWithImage:v42 options:0];
 
     labToRGBKernel = [objc_opt_class() LabToRGBKernel];
-    [v42 extent];
+    objc_msgSend_extent(v42);
     v46 = v45;
     v48 = v47;
     v50 = v49;
@@ -272,7 +272,7 @@ uint64_t __42__GUBilateralConvolution_bilateralKernels__block_invoke()
   sumsCopy = sums;
   slopeCopy = slope;
   v17 = MEMORY[0x1E695F650];
-  [passCopy extent];
+  objc_msgSend_extent(passCopy);
   [(GUBilateralConvolution *)self enlargedBounds:pointsCopy withPoints:?];
   v18 = [v17 shapeWithRect:?];
   v19 = [pointsCopy count];
@@ -503,7 +503,7 @@ uint64_t __42__GUBilateralConvolution_bilateralKernels__block_invoke()
 
       bilateralAdd1Kernel = bilateralAdd7Kernel;
       v29 = v251;
-      [v251 extent];
+      objc_msgSend_extent(v251);
       v104 = bilateralAdd1Kernel;
       v25 = v243;
       goto LABEL_33;
@@ -572,7 +572,7 @@ uint64_t __42__GUBilateralConvolution_bilateralKernels__block_invoke()
 LABEL_24:
       bilateralAdd1Kernel = bilateralAdd9Kernel;
 LABEL_30:
-      [v29 extent];
+      objc_msgSend_extent(v29);
       v104 = bilateralAdd1Kernel;
 LABEL_33:
       v105 = v25;
@@ -731,7 +731,7 @@ LABEL_29:
     v25 = v100;
     bilateralAdd1Kernel = [objc_opt_class() bilateralAdd1Kernel];
     v29 = v251;
-    [v251 extent];
+    objc_msgSend_extent(v251);
     v104 = bilateralAdd1Kernel;
     v105 = v100;
 LABEL_34:

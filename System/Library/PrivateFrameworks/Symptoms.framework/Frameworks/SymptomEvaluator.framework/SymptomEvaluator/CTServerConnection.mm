@@ -7,15 +7,15 @@
 
 + (void)registerForCTNofication:(const __CFString *)nofication ctShim:(id)shim completion:(id)completion
 {
-  *&v19[5] = *MEMORY[0x277D85DE8];
+  *&v18[5] = *MEMORY[0x277D85DE8];
   shimCopy = shim;
   completionCopy = completion;
   v9 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_INFO))
   {
-    v18 = 138412290;
-    *v19 = nofication;
-    _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_INFO, "Registering for CT notification %@", &v18, 0xCu);
+    v17 = 138412290;
+    *v18 = nofication;
+    _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_INFO, "Registering for CT notification %@", &v17, 0xCu);
   }
 
   [shimCopy ctServerConnection];
@@ -45,34 +45,32 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v17 = netepochsLogHandle;
+  v16 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_INFO))
   {
-    v18 = 67109376;
-    v19[0] = v11;
-    LOWORD(v19[1]) = 1024;
-    *(&v19[1] + 2) = v12;
-    _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_INFO, "CT notification registration responded with unknown error domain %d and code %d. Assuming success", &v18, 0xEu);
+    v17 = 67109376;
+    v18[0] = v11;
+    LOWORD(v18[1]) = 1024;
+    *(&v18[1] + 2) = v12;
+    _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_INFO, "CT notification registration responded with unknown error domain %d and code %d. Assuming success", &v17, 0xEu);
   }
 
 LABEL_5:
   completionCopy[2](completionCopy, 1, 0);
 LABEL_11:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 + (void)unregisterForCTNotification:(const __CFString *)notification ctShim:(id)shim completion:(id)completion
 {
-  *&v19[5] = *MEMORY[0x277D85DE8];
+  *&v18[5] = *MEMORY[0x277D85DE8];
   shimCopy = shim;
   completionCopy = completion;
   v9 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_INFO))
   {
-    v18 = 138412290;
-    *v19 = notification;
-    _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_INFO, "Unregistering from CT notification %@", &v18, 0xCu);
+    v17 = 138412290;
+    *v18 = notification;
+    _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_INFO, "Unregistering from CT notification %@", &v17, 0xCu);
   }
 
   [shimCopy ctServerConnection];
@@ -102,21 +100,19 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v17 = netepochsLogHandle;
+  v16 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_INFO))
   {
-    v18 = 67109376;
-    v19[0] = v11;
-    LOWORD(v19[1]) = 1024;
-    *(&v19[1] + 2) = v12;
-    _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_INFO, "CT notification registration responded with unknown error domain %d and code %d. Assuming success", &v18, 0xEu);
+    v17 = 67109376;
+    v18[0] = v11;
+    LOWORD(v18[1]) = 1024;
+    *(&v18[1] + 2) = v12;
+    _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_INFO, "CT notification registration responded with unknown error domain %d and code %d. Assuming success", &v17, 0xEu);
   }
 
 LABEL_5:
   completionCopy[2](completionCopy, 1, 0);
 LABEL_11:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

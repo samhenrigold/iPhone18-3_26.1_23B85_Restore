@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)rolesAsString:(int)string;
 - (int)StringAsRoles:(id)roles;
 - (int)rolesAtIndex:(unint64_t)index;
 - (unint64_t)hash;
@@ -34,6 +35,21 @@
   }
 
   return p_roles->list[index];
+}
+
+- (id)rolesAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100202ED0 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsRoles:(id)roles
@@ -153,23 +169,23 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v6 = toCopy;
   if (self->_classMemberId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v6;
   }
 
   if (self->_classId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v6;
   }
 
   if (self->_personId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v6;
   }
 
   if (self->_roles.count)
@@ -177,9 +193,8 @@
     v5 = 0;
     do
     {
-      v6 = self->_roles.list[v5];
       PBDataWriterWriteInt32Field();
-      toCopy = v7;
+      toCopy = v6;
       ++v5;
     }
 
@@ -189,19 +204,19 @@
   if (self->_dateCreated)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v7;
+    toCopy = v6;
   }
 
   if (self->_dateLastModified)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v7;
+    toCopy = v6;
   }
 
   if (self->_personIds)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v7;
+    toCopy = v6;
   }
 }
 
@@ -408,18 +423,28 @@ LABEL_22:
   v14 = v9[9];
   if (personIds)
   {
-    if (v14)
+    if (!v14)
     {
-      [(PDDPTypedValue *)personIds mergeFrom:?];
+      goto LABEL_28;
     }
+
+    personIds = [(PDDPTypedValue *)personIds mergeFrom:?];
   }
 
-  else if (v14)
+  else
   {
-    [(PDDPClassMember *)self setPersonIds:?];
+    if (!v14)
+    {
+      goto LABEL_28;
+    }
+
+    personIds = [(PDDPClassMember *)self setPersonIds:?];
   }
 
-  _objc_release_x1();
+  v9 = v15;
+LABEL_28:
+
+  _objc_release_x1(personIds, v9);
 }
 
 @end

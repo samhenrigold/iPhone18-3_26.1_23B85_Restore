@@ -2365,7 +2365,7 @@ float CMMsl::RelativeDeviceMotionCorrelatedMotion::RelativeDeviceMotionCorrelate
   return result;
 }
 
-CMMsl *CMMsl::RelativeDeviceMotionCorrelatedMotion::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::RelativeDeviceMotionCorrelatedMotion::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -5141,7 +5141,7 @@ uint64_t CMMsl::RelativeDeviceMotionInternal::RelativeDeviceMotionInternal(uint6
   return a1;
 }
 
-CMMsl *CMMsl::RelativeDeviceMotionInternal::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::RelativeDeviceMotionInternal::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -7099,49 +7099,49 @@ uint64_t CMMsl::RelativeDeviceMotionInternal::hash_value(CMMsl::RelativeDeviceMo
     }
 
 LABEL_51:
-    v66 = 0;
+    v62 = 0;
     if ((v2 & 0x1000) != 0)
     {
       goto LABEL_6;
     }
 
 LABEL_52:
-    v65 = 0;
+    v61 = 0;
     if ((v2 & 0x2000) != 0)
     {
       goto LABEL_9;
     }
 
 LABEL_53:
-    v64 = 0;
+    v60 = 0;
     if ((v2 & 0x4000) != 0)
     {
       goto LABEL_12;
     }
 
 LABEL_54:
-    v63 = 0;
+    v59 = 0;
     if ((v2 & 0x8000) != 0)
     {
       goto LABEL_15;
     }
 
 LABEL_55:
-    v62 = 0;
+    v58 = 0;
     if ((v2 & 0x10000) != 0)
     {
       goto LABEL_18;
     }
 
 LABEL_56:
-    v61 = 0;
+    v57 = 0;
     if ((v2 & 0x80000) != 0)
     {
       goto LABEL_21;
     }
 
 LABEL_57:
-    v60 = 0;
+    v56 = 0;
     if ((v2 & 0x100000) != 0)
     {
       goto LABEL_24;
@@ -7201,7 +7201,7 @@ LABEL_3:
     v5 = 0;
   }
 
-  v66 = v5;
+  v62 = v5;
   if ((v2 & 0x1000) == 0)
   {
     goto LABEL_52;
@@ -7215,7 +7215,7 @@ LABEL_6:
     v7 = 0;
   }
 
-  v65 = v7;
+  v61 = v7;
   if ((v2 & 0x2000) == 0)
   {
     goto LABEL_53;
@@ -7229,7 +7229,7 @@ LABEL_9:
     v9 = 0;
   }
 
-  v64 = v9;
+  v60 = v9;
   if ((v2 & 0x4000) == 0)
   {
     goto LABEL_54;
@@ -7243,7 +7243,7 @@ LABEL_12:
     v11 = 0;
   }
 
-  v63 = v11;
+  v59 = v11;
   if ((v2 & 0x8000) == 0)
   {
     goto LABEL_55;
@@ -7257,7 +7257,7 @@ LABEL_15:
     v13 = 0;
   }
 
-  v62 = v13;
+  v58 = v13;
   if ((v2 & 0x10000) == 0)
   {
     goto LABEL_56;
@@ -7271,7 +7271,7 @@ LABEL_18:
     v15 = 0;
   }
 
-  v61 = v15;
+  v57 = v15;
   if ((v2 & 0x80000) == 0)
   {
     goto LABEL_57;
@@ -7285,7 +7285,7 @@ LABEL_21:
     v17 = 0;
   }
 
-  v60 = v17;
+  v56 = v17;
   if ((v2 & 0x100000) == 0)
   {
     goto LABEL_58;
@@ -7398,21 +7398,17 @@ LABEL_44:
   }
 
 LABEL_64:
-  v30 = *(this + 4);
-  v31 = *(this + 5);
-  v32 = PBHashBytes();
-  v33 = *(this + 1);
-  v34 = *(this + 2);
-  v35 = PBHashBytes();
-  v36 = *(this + 41);
-  if ((v36 & 0x8000000) != 0)
+  v30 = PBHashBytes();
+  v31 = PBHashBytes();
+  v32 = *(this + 41);
+  if ((v32 & 0x8000000) != 0)
   {
-    v37 = *(this + 157);
-    if ((v36 & 0x400000) != 0)
+    v33 = *(this + 157);
+    if ((v32 & 0x400000) != 0)
     {
 LABEL_66:
-      v38 = *(this + 152);
-      if ((v36 & 0x1000000) != 0)
+      v34 = *(this + 152);
+      if ((v32 & 0x1000000) != 0)
       {
         goto LABEL_67;
       }
@@ -7423,40 +7419,40 @@ LABEL_66:
 
   else
   {
-    v37 = 0;
-    if ((v36 & 0x400000) != 0)
+    v33 = 0;
+    if ((v32 & 0x400000) != 0)
     {
       goto LABEL_66;
     }
   }
 
-  v38 = 0;
-  if ((v36 & 0x1000000) != 0)
+  v34 = 0;
+  if ((v32 & 0x1000000) != 0)
   {
 LABEL_67:
-    v39 = *(this + 154);
-    if ((v36 & 0x10) != 0)
+    v35 = *(this + 154);
+    if ((v32 & 0x10) != 0)
     {
       goto LABEL_68;
     }
 
 LABEL_96:
-    v41 = 0;
-    if ((v36 & 8) != 0)
+    v37 = 0;
+    if ((v32 & 8) != 0)
     {
       goto LABEL_71;
     }
 
 LABEL_97:
-    v43 = 0;
-    if ((v36 & 4) != 0)
+    v39 = 0;
+    if ((v32 & 4) != 0)
     {
       goto LABEL_74;
     }
 
 LABEL_98:
-    v45 = 0;
-    if ((v36 & 0x20000000) != 0)
+    v41 = 0;
+    if ((v32 & 0x20000000) != 0)
     {
       goto LABEL_77;
     }
@@ -7465,51 +7461,51 @@ LABEL_98:
   }
 
 LABEL_95:
-  v39 = 0;
-  if ((v36 & 0x10) == 0)
+  v35 = 0;
+  if ((v32 & 0x10) == 0)
   {
     goto LABEL_96;
   }
 
 LABEL_68:
-  v40 = *(this + 20);
+  v36 = *(this + 20);
+  v37 = LODWORD(v36);
+  if (v36 == 0.0)
+  {
+    v37 = 0;
+  }
+
+  if ((v32 & 8) == 0)
+  {
+    goto LABEL_97;
+  }
+
+LABEL_71:
+  v38 = *(this + 19);
+  v39 = LODWORD(v38);
+  if (v38 == 0.0)
+  {
+    v39 = 0;
+  }
+
+  if ((v32 & 4) == 0)
+  {
+    goto LABEL_98;
+  }
+
+LABEL_74:
+  v40 = *(this + 18);
   v41 = LODWORD(v40);
   if (v40 == 0.0)
   {
     v41 = 0;
   }
 
-  if ((v36 & 8) == 0)
-  {
-    goto LABEL_97;
-  }
-
-LABEL_71:
-  v42 = *(this + 19);
-  v43 = LODWORD(v42);
-  if (v42 == 0.0)
-  {
-    v43 = 0;
-  }
-
-  if ((v36 & 4) == 0)
-  {
-    goto LABEL_98;
-  }
-
-LABEL_74:
-  v44 = *(this + 18);
-  v45 = LODWORD(v44);
-  if (v44 == 0.0)
-  {
-    v45 = 0;
-  }
-
-  if ((v36 & 0x20000000) != 0)
+  if ((v32 & 0x20000000) != 0)
   {
 LABEL_77:
-    v46 = *(this + 159);
-    if (v36 < 0)
+    v42 = *(this + 159);
+    if (v32 < 0)
     {
       goto LABEL_78;
     }
@@ -7518,12 +7514,12 @@ LABEL_77:
   }
 
 LABEL_99:
-  v46 = 0;
-  if (v36 < 0)
+  v42 = 0;
+  if (v32 < 0)
   {
 LABEL_78:
-    v47 = *(this + 161);
-    if ((v36 & 0x800000) != 0)
+    v43 = *(this + 161);
+    if ((v32 & 0x800000) != 0)
     {
       goto LABEL_79;
     }
@@ -7532,19 +7528,19 @@ LABEL_78:
   }
 
 LABEL_100:
-  v47 = 0;
-  if ((v36 & 0x800000) != 0)
+  v43 = 0;
+  if ((v32 & 0x800000) != 0)
   {
 LABEL_79:
-    v48 = *(this + 153);
-    if ((v36 & 0x20) != 0)
+    v44 = *(this + 153);
+    if ((v32 & 0x20) != 0)
     {
       goto LABEL_80;
     }
 
 LABEL_102:
-    v50 = 0;
-    if ((v36 & 0x40000) != 0)
+    v46 = 0;
+    if ((v32 & 0x40000) != 0)
     {
       goto LABEL_83;
     }
@@ -7553,25 +7549,25 @@ LABEL_102:
   }
 
 LABEL_101:
-  v48 = 0;
-  if ((v36 & 0x20) == 0)
+  v44 = 0;
+  if ((v32 & 0x20) == 0)
   {
     goto LABEL_102;
   }
 
 LABEL_80:
-  v49 = *(this + 21);
-  v50 = LODWORD(v49);
-  if (v49 == 0.0)
+  v45 = *(this + 21);
+  v46 = LODWORD(v45);
+  if (v45 == 0.0)
   {
-    v50 = 0;
+    v46 = 0;
   }
 
-  if ((v36 & 0x40000) != 0)
+  if ((v32 & 0x40000) != 0)
   {
 LABEL_83:
-    v51 = *(this + 34);
-    if ((v36 & 0x10000000) != 0)
+    v47 = *(this + 34);
+    if ((v32 & 0x10000000) != 0)
     {
       goto LABEL_84;
     }
@@ -7580,12 +7576,12 @@ LABEL_83:
   }
 
 LABEL_103:
-  v51 = 0;
-  if ((v36 & 0x10000000) != 0)
+  v47 = 0;
+  if ((v32 & 0x10000000) != 0)
   {
 LABEL_84:
-    v52 = *(this + 158);
-    if ((v36 & 0x4000000) != 0)
+    v48 = *(this + 158);
+    if ((v32 & 0x4000000) != 0)
     {
       goto LABEL_85;
     }
@@ -7594,12 +7590,12 @@ LABEL_84:
   }
 
 LABEL_104:
-  v52 = 0;
-  if ((v36 & 0x4000000) != 0)
+  v48 = 0;
+  if ((v32 & 0x4000000) != 0)
   {
 LABEL_85:
-    v53 = *(this + 156);
-    if ((v36 & 0x40000000) != 0)
+    v49 = *(this + 156);
+    if ((v32 & 0x40000000) != 0)
     {
       goto LABEL_86;
     }
@@ -7608,19 +7604,19 @@ LABEL_85:
   }
 
 LABEL_105:
-  v53 = 0;
-  if ((v36 & 0x40000000) != 0)
+  v49 = 0;
+  if ((v32 & 0x40000000) != 0)
   {
 LABEL_86:
-    v54 = *(this + 160);
-    if (v36)
+    v50 = *(this + 160);
+    if (v32)
     {
       goto LABEL_87;
     }
 
 LABEL_107:
-    v55 = 0.0;
-    if ((v36 & 0x40) != 0)
+    v51 = 0.0;
+    if ((v32 & 0x40) != 0)
     {
       goto LABEL_90;
     }
@@ -7629,57 +7625,57 @@ LABEL_107:
   }
 
 LABEL_106:
-  v54 = 0;
-  if ((v36 & 1) == 0)
+  v50 = 0;
+  if ((v32 & 1) == 0)
   {
     goto LABEL_107;
   }
 
 LABEL_87:
-  v55 = *(this + 7);
-  if (v55 == 0.0)
+  v51 = *(this + 7);
+  if (v51 == 0.0)
   {
-    v55 = 0.0;
+    v51 = 0.0;
   }
 
-  if ((v36 & 0x40) != 0)
+  if ((v32 & 0x40) != 0)
   {
 LABEL_90:
-    v56 = *(this + 22);
-    if ((v36 & 0x2000000) != 0)
+    v52 = *(this + 22);
+    if ((v32 & 0x2000000) != 0)
     {
       goto LABEL_91;
     }
 
 LABEL_109:
-    v57 = 0;
-    if ((v36 & 0x20000) != 0)
+    v53 = 0;
+    if ((v32 & 0x20000) != 0)
     {
       goto LABEL_92;
     }
 
 LABEL_110:
-    v58 = 0;
-    return v66 ^ v3 ^ v65 ^ v64 ^ v63 ^ v62 ^ v61 ^ v60 ^ v19 ^ v21 ^ v23 ^ v25 ^ v27 ^ v29 ^ v32 ^ v35 ^ v37 ^ v38 ^ v39 ^ v41 ^ v43 ^ v45 ^ v46 ^ v47 ^ v48 ^ v50 ^ v51 ^ v52 ^ v53 ^ v54 ^ *&v55 ^ v56 ^ v57 ^ v58;
+    v54 = 0;
+    return v62 ^ v3 ^ v61 ^ v60 ^ v59 ^ v58 ^ v57 ^ v56 ^ v19 ^ v21 ^ v23 ^ v25 ^ v27 ^ v29 ^ v30 ^ v31 ^ v33 ^ v34 ^ v35 ^ v37 ^ v39 ^ v41 ^ v42 ^ v43 ^ v44 ^ v46 ^ v47 ^ v48 ^ v49 ^ v50 ^ *&v51 ^ v52 ^ v53 ^ v54;
   }
 
 LABEL_108:
-  v56 = 0;
-  if ((v36 & 0x2000000) == 0)
+  v52 = 0;
+  if ((v32 & 0x2000000) == 0)
   {
     goto LABEL_109;
   }
 
 LABEL_91:
-  v57 = *(this + 155);
-  if ((v36 & 0x20000) == 0)
+  v53 = *(this + 155);
+  if ((v32 & 0x20000) == 0)
   {
     goto LABEL_110;
   }
 
 LABEL_92:
-  v58 = *(this + 33);
-  return v66 ^ v3 ^ v65 ^ v64 ^ v63 ^ v62 ^ v61 ^ v60 ^ v19 ^ v21 ^ v23 ^ v25 ^ v27 ^ v29 ^ v32 ^ v35 ^ v37 ^ v38 ^ v39 ^ v41 ^ v43 ^ v45 ^ v46 ^ v47 ^ v48 ^ v50 ^ v51 ^ v52 ^ v53 ^ v54 ^ *&v55 ^ v56 ^ v57 ^ v58;
+  v54 = *(this + 33);
+  return v62 ^ v3 ^ v61 ^ v60 ^ v59 ^ v58 ^ v57 ^ v56 ^ v19 ^ v21 ^ v23 ^ v25 ^ v27 ^ v29 ^ v30 ^ v31 ^ v33 ^ v34 ^ v35 ^ v37 ^ v39 ^ v41 ^ v42 ^ v43 ^ v44 ^ v46 ^ v47 ^ v48 ^ v49 ^ v50 ^ *&v51 ^ v52 ^ v53 ^ v54;
 }
 
 void CMMsl::RelativeGravityConstraints::~RelativeGravityConstraints(CMMsl::RelativeGravityConstraints *this)
@@ -8630,12 +8626,12 @@ void CMMsl::RelativeGravityCorrection::~RelativeGravityCorrection(CMMsl::Relativ
   operator delete();
 }
 
-uint64_t CMMsl::RelativeGravityCorrection::RelativeGravityCorrection(uint64_t this, const CMMsl::RelativeGravityCorrection *a2)
+CMMsl::RelativeGravityCorrection *CMMsl::RelativeGravityCorrection::RelativeGravityCorrection(CMMsl::RelativeGravityCorrection *this, const CMMsl::DeviceMotionCorrection **a2)
 {
   *this = off_100421720;
-  *(this + 8) = 0;
-  *(this + 20) = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  *(this + 5) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -8650,7 +8646,7 @@ uint64_t CMMsl::RelativeGravityCorrection::RelativeGravityCorrection(uint64_t th
   return this;
 }
 
-uint64_t CMMsl::RelativeGravityCorrection::operator=(uint64_t a1, const CMMsl::RelativeGravityCorrection *a2)
+uint64_t CMMsl::RelativeGravityCorrection::operator=(uint64_t a1, const CMMsl::DeviceMotionCorrection **a2)
 {
   if (a1 != a2)
   {
@@ -8923,9 +8919,9 @@ unint64_t CMMsl::RelativeGravityCorrection::hash_value(CMMsl::RelativeGravityCor
   return v3 ^ v2;
 }
 
-uint64_t CMMsl::RelativeGravityCorrection::makeCorrection(uint64_t this)
+void *CMMsl::RelativeGravityCorrection::makeCorrection(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }

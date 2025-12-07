@@ -29,28 +29,28 @@ void __81___MSMessageAppExtensionContext_initWithInputItems_listenerEndpoint_con
   }
 }
 
-void __81___MSMessageAppExtensionContext_initWithInputItems_listenerEndpoint_contextUUID___block_invoke_2(uint64_t a1)
+void __81___MSMessageAppExtensionContext_initWithInputItems_listenerEndpoint_contextUUID___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  if (*(a1 + 40) == 1 && (+[_MSExtensionGlobalState sharedInstance](_MSExtensionGlobalState, "sharedInstance"), v2 = objc_claimAutoreleasedReturnValue(), [v2 activeExtensionContext], v3 = objc_claimAutoreleasedReturnValue(), v4 = *(a1 + 32), v3, v2, v3 == v4))
+  if (*(a1 + 40) == 1 && (+[_MSExtensionGlobalState sharedInstance](_MSExtensionGlobalState, "sharedInstance"), v3 = objc_claimAutoreleasedReturnValue(), [v3 activeExtensionContext], v4 = objc_claimAutoreleasedReturnValue(), v5 = *(a1 + 32), v4, v3, v4 == v5))
   {
-    v5 = +[_MSExtensionGlobalState sharedInstance];
-    [v5 setActiveExtensionContext:0];
+    v6 = +[_MSExtensionGlobalState sharedInstance];
+    [v6 setActiveExtensionContext:0];
   }
 
   else
   {
-    v5 = ms_defaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = ms_defaultLog(a1);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v14 = 0;
-      _os_log_impl(&dword_1CADE6000, v5, OS_LOG_TYPE_DEFAULT, "_MSExtensionGlobalState: not clearing active extension context because either it is not the primary or a new extension context has already been created.", v14, 2u);
+      *v16 = 0;
+      _os_log_impl(&dword_1CADE6000, v6, OS_LOG_TYPE_DEFAULT, "_MSExtensionGlobalState: not clearing active extension context because either it is not the primary or a new extension context has already been created.", v16, 2u);
     }
   }
 
-  v6 = ms_traceLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v8 = ms_traceLog(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    __81___MSMessageAppExtensionContext_initWithInputItems_listenerEndpoint_contextUUID___block_invoke_2_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
+    __81___MSMessageAppExtensionContext_initWithInputItems_listenerEndpoint_contextUUID___block_invoke_2_cold_1(v8, v9, v10, v11, v12, v13, v14, v15);
   }
 }
 
@@ -142,6 +142,13 @@ void __60___MSMessageAppExtensionContext_endDisablingUserInteraction__block_invo
     v4 = [*(a1 + 32) _principalObject];
     [v4 enableUserInteraction];
   }
+}
+
+void __81___MSMessageAppExtensionContext_initWithInputItems_listenerEndpoint_contextUUID___block_invoke_2_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[_MSMessageAppExtensionContext initWithInputItems:listenerEndpoint:contextUUID:]_block_invoke";
+  OUTLINED_FUNCTION_0_1(&dword_1CADE6000, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

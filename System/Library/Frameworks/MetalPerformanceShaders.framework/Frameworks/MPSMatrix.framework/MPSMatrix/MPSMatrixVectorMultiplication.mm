@@ -70,113 +70,113 @@
 
 - (void)encodeToCommandBuffer:(id)commandBuffer inputMatrix:(MPSMatrix *)inputMatrix inputVector:(MPSVector *)inputVector resultVector:(MPSVector *)resultVector
 {
-  v12 = *MEMORY[0x277CD7378];
-  if (*(&self->super.super.super.isa + v12))
+  v10 = *MEMORY[0x277CD7378];
+  if (*(&self->super.super.super.isa + v10))
   {
     goto LABEL_41;
   }
 
   if (!commandBuffer && MTLReportFailureTypeEnabled())
   {
-    v553 = objc_opt_class();
-    v558 = NSStringFromClass(v553);
+    v201 = objc_opt_class();
+    v206 = NSStringFromClass(v201);
     MTLReportFailure();
   }
 
   if (!inputMatrix && MTLReportFailureTypeEnabled())
   {
-    v554 = objc_opt_class();
-    v558 = NSStringFromClass(v554);
+    v202 = objc_opt_class();
+    v206 = NSStringFromClass(v202);
     MTLReportFailure();
   }
 
   if (!inputVector && MTLReportFailureTypeEnabled())
   {
-    v555 = objc_opt_class();
-    v558 = NSStringFromClass(v555);
+    v203 = objc_opt_class();
+    v206 = NSStringFromClass(v203);
     MTLReportFailure();
   }
 
   if (!resultVector && MTLReportFailureTypeEnabled())
   {
-    v556 = objc_opt_class();
-    v558 = NSStringFromClass(v556);
+    v204 = objc_opt_class();
+    v206 = NSStringFromClass(v204);
     MTLReportFailure();
   }
 
   if ((self->_secondarySourceMatrixOrigin.z || self->_secondarySourceMatrixOrigin.y) && MTLReportFailureTypeEnabled())
   {
-    v13 = objc_opt_class();
-    v558 = NSStringFromClass(v13);
+    v11 = objc_opt_class();
+    v206 = NSStringFromClass(v11);
     MTLReportFailure();
   }
 
   p_primarySourceMatrixOrigin = &self->_primarySourceMatrixOrigin;
   if (self->_primarySourceMatrixOrigin.z && MTLReportFailureTypeEnabled())
   {
-    v557 = objc_opt_class();
-    v558 = NSStringFromClass(v557);
+    v205 = objc_opt_class();
+    v206 = NSStringFromClass(v205);
     MTLReportFailure();
   }
 
   if ((self->_resultMatrixOrigin.z || self->_resultMatrixOrigin.y) && MTLReportFailureTypeEnabled())
   {
-    v15 = objc_opt_class();
-    v558 = NSStringFromClass(v15);
+    v13 = objc_opt_class();
+    v206 = NSStringFromClass(v13);
     MTLReportFailure();
   }
 
-  objc_msgSend_matrices(inputMatrix, a2, commandBuffer, inputMatrix, inputVector, resultVector, v6, v7, v558);
+  objc_msgSend_matrices(inputMatrix, a2, commandBuffer, v206);
   batchStart = self->_batchStart;
-  if (batchStart >= objc_msgSend_matrices(inputMatrix, v17, v18, v19, v20, v21, v22, v23) && MTLReportFailureTypeEnabled())
+  if (batchStart >= objc_msgSend_matrices(inputMatrix, v15, v16) && MTLReportFailureTypeEnabled())
   {
     MTLReportFailure();
   }
 
-  objc_msgSend_vectors(inputVector, v24, v25, v26, v27, v28, v29, v30);
-  v31 = self->_batchStart;
-  if (v31 >= objc_msgSend_vectors(inputVector, v32, v33, v34, v35, v36, v37, v38) && MTLReportFailureTypeEnabled())
+  objc_msgSend_vectors(inputVector, v17, v18);
+  v19 = self->_batchStart;
+  if (v19 >= objc_msgSend_vectors(inputVector, v20, v21) && MTLReportFailureTypeEnabled())
   {
     MTLReportFailure();
   }
 
-  objc_msgSend_vectors(resultVector, v39, v40, v41, v42, v43, v44, v45);
-  v46 = self->_batchStart;
-  if (v46 >= objc_msgSend_vectors(resultVector, v47, v48, v49, v50, v51, v52, v53) && MTLReportFailureTypeEnabled())
+  objc_msgSend_vectors(resultVector, v22, v23);
+  v24 = self->_batchStart;
+  if (v24 >= objc_msgSend_vectors(resultVector, v25, v26) && MTLReportFailureTypeEnabled())
   {
     MTLReportFailure();
   }
 
-  objc_msgSend_length(resultVector, v54, v55, v56, v57, v58, v59, v60);
-  v61 = self->_M + self->_resultMatrixOrigin.x;
-  if (v61 > objc_msgSend_length(resultVector, v62, v63, v64, v65, v66, v67, v68) && MTLReportFailureTypeEnabled())
+  objc_msgSend_length(resultVector, v27, v28);
+  v29 = self->_M + self->_resultMatrixOrigin.x;
+  if (v29 > objc_msgSend_length(resultVector, v30, v31) && MTLReportFailureTypeEnabled())
   {
     MTLReportFailure();
   }
 
-  objc_msgSend_dataType(inputMatrix, v69, v70, v71, v72, v73, v74, v75);
-  objc_msgSend_dataType(inputVector, v76, v77, v78, v79, v80, v81, v82);
-  v90 = objc_msgSend_dataType(inputMatrix, v83, v84, v85, v86, v87, v88, v89);
-  if (v90 != objc_msgSend_dataType(inputVector, v91, v92, v93, v94, v95, v96, v97) && MTLReportFailureTypeEnabled())
+  objc_msgSend_dataType(inputMatrix, v32, v33);
+  objc_msgSend_dataType(inputVector, v34, v35);
+  v38 = objc_msgSend_dataType(inputMatrix, v36, v37);
+  if (v38 != objc_msgSend_dataType(inputVector, v39, v40) && MTLReportFailureTypeEnabled())
   {
     MTLReportFailure();
   }
 
-  if (objc_msgSend_dataType(inputMatrix, v98, v99, v100, v101, v102, v103, v104) != 268435488 && objc_msgSend_dataType(inputMatrix, v105, v106, v107, v108, v109, v110, v111) != 268435472)
+  if (objc_msgSend_dataType(inputMatrix, v41, v42) != 268435488 && objc_msgSend_dataType(inputMatrix, v43, v44) != 268435472)
   {
-    objc_msgSend_dataType(inputMatrix, v105, v106, v107, v108, v109, v110, v111);
+    objc_msgSend_dataType(inputMatrix, v43, v44);
   }
 
-  if (objc_msgSend_dataType(inputMatrix, v105, v106, v107, v108, v109, v110, v111) != 268435488 && objc_msgSend_dataType(inputMatrix, v112, v113, v114, v115, v116, v117, v118) != 268435472 && objc_msgSend_dataType(inputMatrix, v112, v113, v114, v115, v116, v117, v118) != 536870920 && MTLReportFailureTypeEnabled())
+  if (objc_msgSend_dataType(inputMatrix, v43, v44) != 268435488 && objc_msgSend_dataType(inputMatrix, v45, v46) != 268435472 && objc_msgSend_dataType(inputMatrix, v45, v46) != 536870920 && MTLReportFailureTypeEnabled())
   {
     MTLReportFailure();
   }
 
-  v119 = objc_msgSend_dataType(inputMatrix, v112, v113, v114, v115, v116, v117, v118);
-  v127 = objc_msgSend_dataType(resultVector, v120, v121, v122, v123, v124, v125, v126);
-  if (v119 == 536870920)
+  v47 = objc_msgSend_dataType(inputMatrix, v45, v46);
+  v50 = objc_msgSend_dataType(resultVector, v48, v49);
+  if (v47 == 536870920)
   {
-    if (objc_msgSend_dataType(resultVector, v128, v129, v130, v131, v132, v133, v134) != 268435472 && MTLReportFailureTypeEnabled())
+    if (objc_msgSend_dataType(resultVector, v51, v52) != 268435472 && MTLReportFailureTypeEnabled())
     {
 LABEL_105:
       MTLReportFailure();
@@ -185,12 +185,12 @@ LABEL_105:
 
   else
   {
-    if (v127 != 268435488)
+    if (v50 != 268435488)
     {
-      objc_msgSend_dataType(resultVector, v128, v129, v130, v131, v132, v133, v134);
+      objc_msgSend_dataType(resultVector, v51, v52);
     }
 
-    if (objc_msgSend_dataType(resultVector, v128, v129, v130, v131, v132, v133, v134) != 268435488 && objc_msgSend_dataType(resultVector, v135, v136, v137, v138, v139, v140, v141) != 268435472 && MTLReportFailureTypeEnabled())
+    if (objc_msgSend_dataType(resultVector, v51, v52) != 268435488 && objc_msgSend_dataType(resultVector, v53, v54) != 268435472 && MTLReportFailureTypeEnabled())
     {
       goto LABEL_105;
     }
@@ -198,16 +198,16 @@ LABEL_105:
 
   if (self->_transpose)
   {
-    objc_msgSend_rows(inputMatrix, v135, v136, v137, v138, v139, v140, v141);
-    v142 = self->_N + p_primarySourceMatrixOrigin->x;
-    if (v142 > objc_msgSend_rows(inputMatrix, v143, v144, v145, v146, v147, v148, v149) && MTLReportFailureTypeEnabled())
+    objc_msgSend_rows(inputMatrix, v53, v54);
+    v55 = self->_N + p_primarySourceMatrixOrigin->x;
+    if (v55 > objc_msgSend_rows(inputMatrix, v56, v57) && MTLReportFailureTypeEnabled())
     {
       MTLReportFailure();
     }
 
-    objc_msgSend_columns(inputMatrix, v150, v151, v152, v153, v154, v155, v156);
-    v157 = self->_M + self->_primarySourceMatrixOrigin.y;
-    if (v157 > objc_msgSend_columns(inputMatrix, v158, v159, v160, v161, v162, v163, v164) && MTLReportFailureTypeEnabled())
+    objc_msgSend_columns(inputMatrix, v58, v59);
+    v60 = self->_M + self->_primarySourceMatrixOrigin.y;
+    if (v60 > objc_msgSend_columns(inputMatrix, v61, v62) && MTLReportFailureTypeEnabled())
     {
 LABEL_101:
       MTLReportFailure();
@@ -216,197 +216,197 @@ LABEL_101:
 
   else
   {
-    objc_msgSend_rows(inputMatrix, v135, v136, v137, v138, v139, v140, v141);
-    v165 = self->_M + p_primarySourceMatrixOrigin->x;
-    if (v165 > objc_msgSend_rows(inputMatrix, v166, v167, v168, v169, v170, v171, v172) && MTLReportFailureTypeEnabled())
+    objc_msgSend_rows(inputMatrix, v53, v54);
+    v63 = self->_M + p_primarySourceMatrixOrigin->x;
+    if (v63 > objc_msgSend_rows(inputMatrix, v64, v65) && MTLReportFailureTypeEnabled())
     {
       MTLReportFailure();
     }
 
-    objc_msgSend_columns(inputMatrix, v173, v174, v175, v176, v177, v178, v179);
-    v180 = self->_N + self->_primarySourceMatrixOrigin.y;
-    if (v180 > objc_msgSend_columns(inputMatrix, v181, v182, v183, v184, v185, v186, v187) && MTLReportFailureTypeEnabled())
+    objc_msgSend_columns(inputMatrix, v66, v67);
+    v68 = self->_N + self->_primarySourceMatrixOrigin.y;
+    if (v68 > objc_msgSend_columns(inputMatrix, v69, v70) && MTLReportFailureTypeEnabled())
     {
       goto LABEL_101;
     }
   }
 
 LABEL_41:
-  v188 = objc_alloc(MEMORY[0x277CD7210]);
-  v201 = objc_msgSend_initWithCommandBuffer_withDispatchType_(v188, v189, commandBuffer, 0, v190, v191, v192, v193);
-  if ((*(&self->super.super.super.isa + v12) & 0x18) != 0)
+  v71 = objc_alloc(MEMORY[0x277CD7210]);
+  v75 = objc_msgSend_initWithCommandBuffer_withDispatchType_(v71, v72, commandBuffer, 0);
+  if ((*(&self->super.super.super.isa + v10) & 0x18) != 0)
   {
-    v195 = *(&self->super.super.super.isa + *MEMORY[0x277CD7360]);
-    if (v195 || (v202 = objc_opt_class(), v203 = NSStringFromClass(v202), objc_msgSend_setLabel_(self, v204, v203, v205, v206, v207, v208, v209), (v195 = v203) != 0))
+    v74 = *(&self->super.super.super.isa + *MEMORY[0x277CD7360]);
+    if (v74 || (v76 = objc_opt_class(), v77 = NSStringFromClass(v76), objc_msgSend_setLabel_(self, v78, v77), (v74 = v77) != 0))
     {
-      objc_msgSend_setLabel_(v201, v194, v195, v196, v197, v198, v199, v200);
+      objc_msgSend_setLabel_(v75, v73, v74);
     }
   }
 
-  v577 = v201;
-  v210 = inputMatrix;
-  v211 = resultVector;
-  if (objc_msgSend_batchSize(self, v194, v195, v196, v197, v198, v199, v200))
+  v225 = v75;
+  v79 = inputMatrix;
+  v80 = resultVector;
+  if (objc_msgSend_batchSize(self, v73, v74))
   {
-    v219 = objc_msgSend_matrices(inputMatrix, v212, v213, v214, v215, v216, v217, v218);
-    v227 = objc_msgSend_batchStart(self, v220, v221, v222, v223, v224, v225, v226);
-    v235 = objc_msgSend_vectors(inputVector, v228, v229, v230, v231, v232, v233, v234);
-    v243 = objc_msgSend_batchStart(self, v236, v237, v238, v239, v240, v241, v242);
-    v251 = objc_msgSend_vectors(resultVector, v244, v245, v246, v247, v248, v249, v250);
-    v259 = objc_msgSend_batchStart(self, v252, v253, v254, v255, v256, v257, v258);
-    v267 = objc_msgSend_batchSize(self, v260, v261, v262, v263, v264, v265, v266);
-    v268 = v219 - v227;
-    if (v219 - v227 >= (v235 - v243))
+    v83 = objc_msgSend_matrices(inputMatrix, v81, v82);
+    v86 = objc_msgSend_batchStart(self, v84, v85);
+    v89 = objc_msgSend_vectors(inputVector, v87, v88);
+    v92 = objc_msgSend_batchStart(self, v90, v91);
+    v95 = objc_msgSend_vectors(resultVector, v93, v94);
+    v98 = objc_msgSend_batchStart(self, v96, v97);
+    v101 = objc_msgSend_batchSize(self, v99, v100);
+    v102 = v83 - v86;
+    if (v83 - v86 >= (v89 - v92))
     {
-      v268 = v235 - v243;
+      v102 = v89 - v92;
     }
 
-    if (v268 >= v251 - v259)
+    if (v102 >= v95 - v98)
     {
-      v268 = v251 - v259;
+      v102 = v95 - v98;
     }
 
-    if (v268 >= v267)
+    if (v102 >= v101)
     {
-      v268 = v267;
+      v102 = v101;
     }
 
-    v559 = v268;
-    if (v268)
+    v207 = v102;
+    if (v102)
     {
-      for (i = 0; v559 != i; ++i)
+      for (i = 0; v207 != i; ++i)
       {
-        v574 = objc_msgSend_batchStart(self, v212, v213, v214, v215, v216, v217, v218);
-        v575 = *(&self->super.super.super.isa + *MEMORY[0x277CD7370]);
-        objc_msgSend_primarySourceMatrixOrigin(self, v270, v271, v272, v273, v274, v275, v276);
-        v573 = v582;
-        v572 = objc_msgSend_dataType(v210, v277, v278, v279, v280, v281, v282, v283);
-        objc_msgSend_primarySourceMatrixOrigin(self, v284, v285, v286, v287, v288, v289, v290);
-        v571 = v588;
-        v570 = objc_msgSend_rowBytes(v210, v291, v292, v293, v294, v295, v296, v297);
-        v569 = objc_msgSend_matrixBytes(v210, v298, v299, v300, v301, v302, v303, v304);
-        v568 = *(&v210->super.isa + *MEMORY[0x277CD73A8]);
-        objc_msgSend_secondarySourceMatrixOrigin(self, v305, v306, v307, v308, v309, v310, v311);
-        v567 = v581;
-        v566 = objc_msgSend_dataType(inputVector, v312, v313, v314, v315, v316, v317, v318);
-        v565 = objc_msgSend_vectorBytes(inputVector, v319, v320, v321, v322, v323, v324, v325);
-        v564 = *(&inputVector->super.isa + *MEMORY[0x277CD74A8]);
-        objc_msgSend_resultMatrixOrigin(self, v326, v327, v328, v329, v330, v331, v332);
-        v563 = v581;
-        v562 = objc_msgSend_dataType(v211, v333, v334, v335, v336, v337, v338, v339);
-        v561 = objc_msgSend_vectorBytes(v211, v340, v341, v342, v343, v344, v345, v346);
-        v560 = *(&v211->super.isa + *MEMORY[0x277CD74A8]);
-        if (objc_msgSend_dataType(v210, v347, v348, v349, v350, v351, v352, v353) == 536870920)
+        v222 = objc_msgSend_batchStart(self, v81, v82);
+        v223 = *(&self->super.super.super.isa + *MEMORY[0x277CD7370]);
+        objc_msgSend_primarySourceMatrixOrigin(self, v104, v105);
+        v221 = v230;
+        v220 = objc_msgSend_dataType(v79, v106, v107);
+        objc_msgSend_primarySourceMatrixOrigin(self, v108, v109);
+        v219 = v236;
+        v218 = objc_msgSend_rowBytes(v79, v110, v111);
+        v217 = objc_msgSend_matrixBytes(v79, v112, v113);
+        v216 = *(&v79->super.isa + *MEMORY[0x277CD73A8]);
+        objc_msgSend_secondarySourceMatrixOrigin(self, v114, v115);
+        v215 = v229;
+        v214 = objc_msgSend_dataType(inputVector, v116, v117);
+        v213 = objc_msgSend_vectorBytes(inputVector, v118, v119);
+        v212 = *(&inputVector->super.isa + *MEMORY[0x277CD74A8]);
+        objc_msgSend_resultMatrixOrigin(self, v120, v121);
+        v211 = v229;
+        v210 = objc_msgSend_dataType(v80, v122, v123);
+        v209 = objc_msgSend_vectorBytes(v80, v124, v125);
+        v208 = *(&v80->super.isa + *MEMORY[0x277CD74A8]);
+        if (objc_msgSend_dataType(v79, v126, v127) == 536870920)
         {
-          objc_msgSend_transpose(self, v354, v355, v356, v357, v358, v359, v360);
+          objc_msgSend_transpose(self, v128, v129);
         }
 
         else
         {
-          if (objc_msgSend_dataType(v210, v354, v355, v356, v357, v358, v359, v360) == 268435472)
+          if (objc_msgSend_dataType(v79, v128, v129) == 268435472)
           {
-            objc_msgSend_dataType(v211, v361, v362, v363, v364, v365, v366, v367);
+            objc_msgSend_dataType(v80, v130, v131);
           }
 
-          objc_msgSend_transpose(self, v361, v362, v363, v364, v365, v366, v367);
+          objc_msgSend_transpose(self, v130, v131);
         }
 
         ComputeState = MPSLibrary::GetComputeState();
-        v376 = objc_msgSend_M(self, v369, v370, v371, v372, v373, v374, v375);
-        v581 = v376 | 0x100000000;
-        LODWORD(v582) = objc_msgSend_N(self, v377, v378, v379, v380, v381, v382, v383);
-        HIDWORD(v582) = objc_msgSend_rowBytes(v210, v384, v385, v386, v387, v388, v389, v390);
-        v398 = objc_msgSend_length(inputVector, v391, v392, v393, v394, v395, v396, v397);
-        v583 = (objc_msgSend_dataType(inputVector, v399, v400, v401, v402, v403, v404, v405) >> 3) * v398;
-        v413 = objc_msgSend_length(v211, v406, v407, v408, v409, v410, v411, v412);
-        v584 = (objc_msgSend_dataType(v211, v414, v415, v416, v417, v418, v419, v420) >> 3) * v413;
-        v428 = objc_msgSend_length(v211, v421, v422, v423, v424, v425, v426, v427);
-        v585 = (objc_msgSend_dataType(v211, v429, v430, v431, v432, v433, v434, v435) >> 3) * v428;
-        objc_msgSend_alpha(self, v436, v437, v438, v439, v440, v441, v442);
-        *&v443 = v443;
-        v586 = LODWORD(v443);
-        objc_msgSend_beta(self, v444, v445, v446, v447, v448, v449, v450);
-        *&v451 = v451;
-        v587 = LODWORD(v451);
-        v452 = *(v575 + 32);
-        v588 = 0uLL;
-        v589 = 0;
-        (*(*v452 + 16))(&v588);
-        v460 = objc_msgSend_transpose(self, v453, v454, v455, v456, v457, v458, v459);
-        v461 = *(&v588 + 1);
-        v462 = v588;
-        v463 = v589;
-        v471 = objc_msgSend_maxTotalThreadsPerThreadgroup(ComputeState, v464, v465, v466, v467, v468, v469, v470);
-        if (v460)
+        v135 = objc_msgSend_M(self, v133, v134);
+        v229 = v135 | 0x100000000;
+        LODWORD(v230) = objc_msgSend_N(self, v136, v137);
+        HIDWORD(v230) = objc_msgSend_rowBytes(v79, v138, v139);
+        v142 = objc_msgSend_length(inputVector, v140, v141);
+        v231 = (objc_msgSend_dataType(inputVector, v143, v144) >> 3) * v142;
+        v147 = objc_msgSend_length(v80, v145, v146);
+        v232 = (objc_msgSend_dataType(v80, v148, v149) >> 3) * v147;
+        v152 = objc_msgSend_length(v80, v150, v151);
+        v233 = (objc_msgSend_dataType(v80, v153, v154) >> 3) * v152;
+        objc_msgSend_alpha(self, v155, v156);
+        *&v157 = v157;
+        v234 = LODWORD(v157);
+        objc_msgSend_beta(self, v158, v159);
+        *&v160 = v160;
+        v235 = LODWORD(v160);
+        v161 = *(v223 + 32);
+        v236 = 0uLL;
+        v237 = 0;
+        (*(*v161 + 16))(&v236);
+        v164 = objc_msgSend_transpose(self, v162, v163);
+        v165 = *(&v236 + 1);
+        v166 = v236;
+        v167 = v237;
+        v170 = objc_msgSend_maxTotalThreadsPerThreadgroup(ComputeState, v168, v169);
+        if (v164)
         {
-          if (v461 * v462 > v471)
+          if (v165 * v166 > v170)
           {
-            if (v462 >= v471 / v461)
+            if (v166 >= v170 / v165)
             {
-              v462 = v471 / v461;
+              v166 = v170 / v165;
             }
 
 LABEL_68:
-            v463 = 1;
+            v167 = 1;
           }
         }
 
-        else if (v461 * v462 > v471)
+        else if (v165 * v166 > v170)
         {
-          if (v461 >= v471 / v462)
+          if (v165 >= v170 / v166)
           {
-            v461 = v471 / v462;
+            v165 = v170 / v166;
           }
 
           goto LABEL_68;
         }
 
-        *&v588 = v462;
-        *(&v588 + 1) = v461;
-        v589 = v463;
-        v486 = v376;
-        if (objc_msgSend_transpose(self, v472, v473, v474, v475, v476, v477, v478))
+        *&v236 = v166;
+        *(&v236 + 1) = v165;
+        v237 = v167;
+        v175 = v135;
+        if (objc_msgSend_transpose(self, v171, v172))
         {
-          v487 = v588;
-          v488 = objc_msgSend_dataType(v210, v479, v480, v481, v482, v483, v484, v485);
-          v489 = v588;
-          v497 = objc_msgSend_dataType(v210, v490, v491, v492, v493, v494, v495, v496);
-          v498 = v486 + v487 * (0x10u / (v488 >> 3)) - 1;
-          v499 = 1;
-          v500 = v498 / (v489 * (0x10u / (v497 >> 3)));
+          v176 = v236;
+          v177 = objc_msgSend_dataType(v79, v173, v174);
+          v178 = v236;
+          v181 = objc_msgSend_dataType(v79, v179, v180);
+          v182 = v175 + v176 * (0x10u / (v177 >> 3)) - 1;
+          v183 = 1;
+          v184 = v182 / (v178 * (0x10u / (v181 >> 3)));
         }
 
         else
         {
-          v500 = 1;
-          v499 = (v376 + *(&v588 + 1) - 1) / *(&v588 + 1);
+          v184 = 1;
+          v183 = (v135 + *(&v236 + 1) - 1) / *(&v236 + 1);
         }
 
-        objc_msgSend_setComputePipelineState_(v577, v479, ComputeState, v481, v482, v483, v484, v485);
-        v508 = objc_msgSend_data(v210, v501, v502, v503, v504, v505, v506, v507);
-        objc_msgSend_setBuffer_offset_atIndex_(v577, v509, v508, v573 * (v572 >> 3) + v570 * v571 + v569 * (i + v574) + v568, 0, v510, v511, v512);
-        v520 = objc_msgSend_data(inputVector, v513, v514, v515, v516, v517, v518, v519);
-        objc_msgSend_setBuffer_offset_atIndex_(v577, v521, v520, v567 * (v566 >> 3) + v565 * (i + v574) + v564, 1, v522, v523, v524);
-        v532 = objc_msgSend_data(v211, v525, v526, v527, v528, v529, v530, v531);
-        objc_msgSend_setBuffer_offset_atIndex_(v577, v533, v532, v563 * (v562 >> 3) + v561 * (i + v574) + v560, 2, v534, v535, v536);
-        objc_msgSend_setBytes_length_atIndex_(v577, v537, &v581, 36, 3, v538, v539, v540);
-        if ((objc_msgSend_transpose(self, v541, v542, v543, v544, v545, v546, v547) & 1) == 0)
+        objc_msgSend_setComputePipelineState_(v225, v173, ComputeState);
+        v187 = objc_msgSend_data(v79, v185, v186);
+        objc_msgSend_setBuffer_offset_atIndex_(v225, v188, v187, v221 * (v220 >> 3) + v218 * v219 + v217 * (i + v222) + v216, 0);
+        v191 = objc_msgSend_data(inputVector, v189, v190);
+        objc_msgSend_setBuffer_offset_atIndex_(v225, v192, v191, v215 * (v214 >> 3) + v213 * (i + v222) + v212, 1);
+        v195 = objc_msgSend_data(v80, v193, v194);
+        objc_msgSend_setBuffer_offset_atIndex_(v225, v196, v195, v211 * (v210 >> 3) + v209 * (i + v222) + v208, 2);
+        objc_msgSend_setBytes_length_atIndex_(v225, v197, &v229, 36, 3);
+        if ((objc_msgSend_transpose(self, v198, v199) & 1) == 0)
         {
-          objc_msgSend_setThreadgroupMemoryLength_atIndex_(v577, v548, 4 * *(&v588 + 1) * (v588 + (v588 >> 1)), 0, v549, v550, v551, v552);
+          objc_msgSend_setThreadgroupMemoryLength_atIndex_(v225, v200, 4 * *(&v236 + 1) * (v236 + (v236 >> 1)), 0);
         }
 
-        v580[0] = v500;
-        v580[1] = v499;
-        v580[2] = 1;
-        v578 = v588;
-        v579 = v589;
-        objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v577, v548, v580, &v578, v549, v550, v551, v552);
+        v228[0] = v184;
+        v228[1] = v183;
+        v228[2] = 1;
+        v226 = v236;
+        v227 = v237;
+        objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v225, v200, v228, &v226);
         MPSLibrary::ReleaseComputeState();
       }
     }
   }
 
-  objc_msgSend_endEncoding(v577, v212, v213, v214, v215, v216, v217, v218);
+  objc_msgSend_endEncoding(v225, v81, v82);
 }
 
 - (void)dealloc

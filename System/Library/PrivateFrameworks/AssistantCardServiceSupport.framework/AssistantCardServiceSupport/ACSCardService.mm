@@ -35,7 +35,7 @@
 
 - (void)requestCard:(id)card reply:(id)reply
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   cardCopy = card;
   replyCopy = reply;
   if (replyCopy)
@@ -46,7 +46,7 @@
       if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v24 = cardCopy;
+        v23 = cardCopy;
         _os_log_impl(&dword_2413A5000, v8, OS_LOG_TYPE_INFO, "Assistant Card Service attempting to satisfy request: %@", buf, 0xCu);
       }
 
@@ -72,10 +72,10 @@
       {
         v15 = MEMORY[0x277CCA9B8];
         v16 = *MEMORY[0x277CF93E8];
-        v21 = *MEMORY[0x277CCA068];
+        v20 = *MEMORY[0x277CCA068];
         cardCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"No intent available for card request %@", cardCopy];
-        v22 = cardCopy;
-        v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+        v21 = cardCopy;
+        v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
         v19 = [v15 errorWithDomain:v16 code:400 userInfo:v18];
         replyCopy[2](replyCopy, 0, v19);
       }
@@ -85,16 +85,14 @@
     {
       v11 = MEMORY[0x277CCA9B8];
       v12 = *MEMORY[0x277CF93E8];
-      v25 = *MEMORY[0x277CCA068];
+      v24 = *MEMORY[0x277CCA068];
       content = [MEMORY[0x277CCACA8] stringWithFormat:@"Card service %@ is unable to satisfy card request %@", self, cardCopy];
-      v26[0] = content;
-      underlyingInteraction = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+      v25[0] = content;
+      underlyingInteraction = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
       v13 = [v11 errorWithDomain:v12 code:400 userInfo:underlyingInteraction];
       replyCopy[2](replyCopy, 0, v13);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)servicePriorityForRequest:(id)request

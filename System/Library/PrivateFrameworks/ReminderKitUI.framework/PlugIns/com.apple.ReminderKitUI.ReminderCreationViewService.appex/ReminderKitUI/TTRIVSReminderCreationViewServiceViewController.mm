@@ -45,9 +45,9 @@
 
   v5 = sub_10001687C();
   sub_10000C698(v5, qword_100025BB8);
-  sub_10000BF40(&_swiftEmptyArrayStorage);
-  sub_10000BF40(&_swiftEmptyArrayStorage);
-  sub_10000F754("init(coder:) has not been implemented", 37, 2);
+  v6 = sub_10000BF40(_swiftEmptyArrayStorage);
+  v7 = sub_10000BF40(_swiftEmptyArrayStorage);
+  sub_10000F754("init(coder:) has not been implemented", 37, 2, v6, v7);
   __break(1u);
   return result;
 }

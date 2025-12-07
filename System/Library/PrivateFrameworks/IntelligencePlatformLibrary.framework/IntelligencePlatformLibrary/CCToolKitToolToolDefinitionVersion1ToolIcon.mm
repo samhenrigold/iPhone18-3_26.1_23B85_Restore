@@ -277,9 +277,9 @@ LABEL_21:
       {
         v34 = [CCToolKitToolToolDefinitionVersion1ToolIconToolExternalAsset alloc];
         v35 = CCPBReaderReadDataNoCopy();
-        v49 = 0;
-        v36 = [(CCItemMessage *)v34 initWithData:v35 error:&v49];
-        v10 = v49;
+        v47 = 0;
+        v36 = [(CCItemMessage *)v34 initWithData:v35 error:&v47];
+        v10 = v47;
         externalAsset = self->_externalAsset;
         self->_externalAsset = v36;
 
@@ -299,9 +299,9 @@ LABEL_21:
       {
         v28 = [CCToolKitToolToolDefinitionVersion1ToolIconToolSymbolIcon alloc];
         v29 = CCPBReaderReadDataNoCopy();
-        v50 = 0;
-        v30 = [(CCItemMessage *)v28 initWithData:v29 error:&v50];
-        v10 = v50;
+        v48 = 0;
+        v30 = [(CCItemMessage *)v28 initWithData:v29 error:&v48];
+        v10 = v48;
         v31 = self->_symbol;
         self->_symbol = v30;
 
@@ -343,7 +343,6 @@ LABEL_30:
 
         v40 = objc_opt_class();
         v41 = NSStringFromClass(v40);
-        v42 = *&v6[*v9];
         v10 = CCSkipFieldErrorForMessage();
       }
 
@@ -367,23 +366,22 @@ LABEL_35:
   if (!*&v6[*v9])
   {
     v10 = 0;
-    v47 = 1;
+    v45 = 1;
     goto LABEL_39;
   }
 
 LABEL_36:
-  v43 = objc_opt_class();
-  v44 = NSStringFromClass(v43);
-  v45 = *&v6[*v9];
-  v46 = CCInvalidBufferErrorForMessage();
+  v42 = objc_opt_class();
+  v43 = NSStringFromClass(v42);
+  v44 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
   v10 = 0;
 LABEL_37:
-  v47 = 0;
+  v45 = 0;
 LABEL_39:
 
-  return v47;
+  return v45;
 }
 
 - (CCToolKitToolToolDefinitionVersion1ToolIcon)initWithKind:(id)kind kindType:(unsigned int)type error:(id *)error

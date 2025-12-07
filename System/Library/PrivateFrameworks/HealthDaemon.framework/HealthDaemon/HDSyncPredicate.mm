@@ -22,28 +22,28 @@
   v21 = [(HDSyncPredicate *)&v35 init];
   if (v21)
   {
-    v22 = [provenancesCopy copy];
+    v22 = objc_msgSend_copy(provenancesCopy);
     excludedSyncProvenances = v21->_excludedSyncProvenances;
     v21->_excludedSyncProvenances = v22;
 
-    v24 = [intervalCopy copy];
+    v24 = objc_msgSend_copy(intervalCopy);
     dateInterval = v21->_dateInterval;
     v21->_dateInterval = v24;
 
     v21->_shouldIncludeDatelessObjects = objects;
-    v26 = [typesCopy copy];
+    v26 = objc_msgSend_copy(typesCopy);
     includedObjectTypes = v21->_includedObjectTypes;
     v21->_includedObjectTypes = v26;
 
-    v28 = [ageCopy copy];
+    v28 = objc_msgSend_copy(ageCopy);
     defaultMaximumObjectAge = v21->_defaultMaximumObjectAge;
     v21->_defaultMaximumObjectAge = v28;
 
-    v30 = [tombstoneAgeCopy copy];
+    v30 = objc_msgSend_copy(tombstoneAgeCopy);
     defaultMaximumTombstoneAge = v21->_defaultMaximumTombstoneAge;
     v21->_defaultMaximumTombstoneAge = v30;
 
-    v32 = [typeCopy copy];
+    v32 = objc_msgSend_copy(typeCopy);
     maximumObjectAgeByType = v21->_maximumObjectAgeByType;
     v21->_maximumObjectAgeByType = v32;
   }

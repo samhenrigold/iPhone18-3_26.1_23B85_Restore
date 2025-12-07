@@ -55,10 +55,10 @@
 - (id)exportToLegacyDictionary
 {
   memset(&v11, 0, sizeof(v11));
-  [(VCPProtoFilesystemMovieAudioClassificationResult *)self start];
+  objc_msgSend_start(self, a2);
   CMTimeMakeWithSeconds(&v11, v3, 600);
   memset(&v10, 0, sizeof(v10));
-  [(VCPProtoFilesystemMovieAudioClassificationResult *)self duration];
+  objc_msgSend_duration(self);
   CMTimeMakeWithSeconds(&v10, v4, 600);
   memset(&v9, 0, sizeof(v9));
   start.start = v11;

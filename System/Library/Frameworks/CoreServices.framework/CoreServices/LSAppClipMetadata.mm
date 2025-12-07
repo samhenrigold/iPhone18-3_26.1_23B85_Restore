@@ -109,7 +109,7 @@
     objc_storeStrong(&v4->_parentApplicationIdentifiers, v7);
 
     v8 = objc_opt_class();
-    v9 = XNSGetPropertyListClasses();
+    v9 = XNSGetPropertyListClasses(v8);
     v10 = [coder ls_decodeDictionaryWithKeysOfClass:v8 valuesOfClasses:v9 forKey:@"appClipPlist"];
     v11 = v10;
     if (v10)

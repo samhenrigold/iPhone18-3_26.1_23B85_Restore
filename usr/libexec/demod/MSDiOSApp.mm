@@ -35,7 +35,7 @@
 
   if ([pathCopy rangeOfString:@".app"] == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v7 = sub_100063A54();
+    v7 = sub_100063A54(0x7FFFFFFFFFFFFFFFLL);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1000E435C();
@@ -61,13 +61,13 @@
 
       else
       {
-        sub_1000E4258();
+        sub_1000E4258(pathCopy);
       }
 
       goto LABEL_6;
     }
 
-    v7 = sub_100063A54();
+    v7 = sub_100063A54(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1000E42F0();
@@ -93,7 +93,7 @@ LABEL_8:
 - (id)uniqueIdentifier
 {
   v3 = [(MSDiOSApp *)self getExcutableURL:0];
-  v4 = sub_100063A54();
+  v4 = sub_100063A54(v3);
   v5 = v4;
   if (!v3)
   {
@@ -101,7 +101,7 @@ LABEL_8:
     getCodeResourcesURL = 0;
 LABEL_22:
     v14 = 0;
-    v17 = 0;
+    v18 = 0;
     hexStringRepresentation = 0;
     goto LABEL_16;
   }
@@ -110,14 +110,14 @@ LABEL_22:
   {
     path = [v3 path];
     *buf = 136315394;
-    v26 = "[MSDiOSApp uniqueIdentifier]";
-    v27 = 2114;
-    v28 = path;
+    v29 = "[MSDiOSApp uniqueIdentifier]";
+    v30 = 2114;
+    v31 = path;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s - executableFileURL:  %{public}@", buf, 0x16u);
   }
 
   getCodeResourcesURL = [(MSDiOSApp *)self getCodeResourcesURL];
-  v8 = sub_100063A54();
+  v8 = sub_100063A54(getCodeResourcesURL);
   v9 = v8;
   if (!getCodeResourcesURL)
   {
@@ -129,13 +129,13 @@ LABEL_22:
   {
     path2 = [getCodeResourcesURL path];
     *buf = 136315394;
-    v26 = "[MSDiOSApp uniqueIdentifier]";
-    v27 = 2114;
-    v28 = path2;
+    v29 = "[MSDiOSApp uniqueIdentifier]";
+    v30 = 2114;
+    v31 = path2;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%s - codeResourcesURL:  %{public}@", buf, 0x16u);
   }
 
-  CC_SHA1_Init(&v23);
+  CC_SHA1_Init(&v26);
   path3 = [v3 path];
   v12 = [NSInputStream inputStreamWithFileAtPath:path3];
 
@@ -151,21 +151,23 @@ LABEL_22:
   [v12 open];
   v14 = malloc_type_calloc(0x40000uLL, 1uLL, 0x2F5A33F3uLL);
   v15 = [v12 read:v14 maxLength:0x40000];
+  v16 = v15;
   if (v15 >= 1)
   {
     do
     {
-      CC_SHA1_Update(&v23, v14, v15);
+      CC_SHA1_Update(&v26, v14, v16);
       v15 = [v12 read:v14 maxLength:0x40000];
+      v16 = v15;
     }
 
     while (v15 > 0);
   }
 
-  if (v15)
+  if (v16)
   {
-    v22 = sub_100063A54();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v25 = sub_100063A54(v15);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       sub_1000E43C8(v3);
     }
@@ -175,49 +177,51 @@ LABEL_22:
   {
     [v12 close];
     path4 = [getCodeResourcesURL path];
-    v17 = [NSInputStream inputStreamWithFileAtPath:path4];
+    v18 = [NSInputStream inputStreamWithFileAtPath:path4];
 
-    if (v17)
+    if (v18)
     {
-      v18 = +[NSRunLoop currentRunLoop];
-      [v17 scheduleInRunLoop:v18 forMode:NSDefaultRunLoopMode];
+      v20 = +[NSRunLoop currentRunLoop];
+      [v18 scheduleInRunLoop:v20 forMode:NSDefaultRunLoopMode];
 
-      [v17 open];
-      v19 = [v17 read:v14 maxLength:0x40000];
-      if (v19 >= 1)
+      [v18 open];
+      v21 = [v18 read:v14 maxLength:0x40000];
+      v22 = v21;
+      if (v21 >= 1)
       {
         do
         {
-          CC_SHA1_Update(&v23, v14, v19);
-          v19 = [v17 read:v14 maxLength:0x40000];
+          CC_SHA1_Update(&v26, v14, v22);
+          v21 = [v18 read:v14 maxLength:0x40000];
+          v22 = v21;
         }
 
-        while (v19 > 0);
+        while (v21 > 0);
       }
 
-      if (!v19)
+      if (!v22)
       {
-        [v17 close];
+        [v18 close];
         free(v14);
-        CC_SHA1_Final(md, &v23);
+        CC_SHA1_Final(md, &v26);
         v14 = [NSData dataWithBytes:md length:20];
         hexStringRepresentation = [v14 hexStringRepresentation];
         goto LABEL_16;
       }
 
-      v22 = sub_100063A54();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v25 = sub_100063A54(v21);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         sub_1000E43C8(getCodeResourcesURL);
       }
 
-      v12 = v17;
+      v12 = v18;
     }
 
     else
     {
-      v22 = sub_100063A54();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v25 = sub_100063A54(v19);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         sub_1000E4454(getCodeResourcesURL);
       }
@@ -233,7 +237,7 @@ LABEL_22:
   }
 
   hexStringRepresentation = 0;
-  v17 = v12;
+  v18 = v12;
 LABEL_16:
 
   return hexStringRepresentation;
@@ -253,27 +257,28 @@ LABEL_16:
 
     if (!v5 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
-      sub_1000E4794();
+      sub_1000E4794(v4);
       goto LABEL_11;
     }
 
 LABEL_6:
-    v7 = [NSDictionary dictionaryWithObjectsAndKeys:v5, v4, 0];
+    v8 = [NSDictionary dictionaryWithObjectsAndKeys:v5, v4, 0];
     goto LABEL_7;
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     goto LABEL_6;
   }
 
-  sub_1000E46F8();
+  sub_1000E46F8(isKindOfClass);
 LABEL_11:
-  v7 = 0;
+  v8 = 0;
 LABEL_7:
 
-  return v7;
+  return v8;
 }
 
 - (id)getExcutableURL
@@ -371,7 +376,7 @@ LABEL_7:
 
   else
   {
-    sub_1000E49A4();
+    sub_1000E49A4(v4);
     v6 = 0;
   }
 

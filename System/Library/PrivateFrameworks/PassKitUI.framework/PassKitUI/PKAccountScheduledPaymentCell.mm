@@ -94,91 +94,127 @@
   v14 = v9 - (v10 + v13);
   remainder.origin.x = v11;
   remainder.origin.y = v12;
+  v15 = height + -28.0;
   remainder.size.width = v14;
   remainder.size.height = height + -28.0;
   [(PKAccountScheduledPaymentCell *)self _shouldReverseLayoutDirection];
-  PKContentAlignmentMake();
+  v16 = PKContentAlignmentMake();
   if ([(PKAccountScheduledPaymentCell *)self _useStackedLayoutForUsableWidth:v14])
   {
     [(UILabel *)self->_frequencyLabel pkui_sizeThatFits:1 forceWordWrap:v14, height + -28.0];
-    v16 = v15;
+    v24 = v18.n128_f64[0];
     if (!self->_sizing)
     {
       frequencyLabel = self->_frequencyLabel;
-      PKSizeAlignedInRect();
+      v19.n128_f64[0] = v11;
+      v20.n128_f64[0] = v12;
+      v21.n128_f64[0] = v14;
+      v22.n128_f64[0] = height + -28.0;
+      PKSizeAlignedInRect(v16, v17, v18, v19, v20, v21, v22, v23);
       [(UILabel *)frequencyLabel setFrame:?];
     }
 
-    v44.origin.x = v11;
-    v44.origin.y = v12;
-    v44.size.width = v14;
-    v44.size.height = height + -28.0;
-    CGRectDivide(v44, &slice, &remainder, v16, CGRectMinYEdge);
+    v94.origin.x = v11;
+    v94.origin.y = v12;
+    v94.size.width = v14;
+    v94.size.height = height + -28.0;
+    CGRectDivide(v94, &slice, &remainder, v24, CGRectMinYEdge);
     CGRectDivide(remainder, &slice, &remainder, 4.0, CGRectMinYEdge);
     [(UILabel *)self->_amountLabel pkui_sizeThatFits:1 forceWordWrap:remainder.size.width, remainder.size.height];
-    v19 = v18;
+    v33 = v27.n128_f64[0];
     if (!self->_sizing)
     {
       amountLabel = self->_amountLabel;
-      PKSizeAlignedInRect();
+      v28.n128_u64[0] = *&remainder.origin.x;
+      v29.n128_u64[0] = *&remainder.origin.y;
+      v30.n128_u64[0] = *&remainder.size.width;
+      v31.n128_u64[0] = *&remainder.size.height;
+      PKSizeAlignedInRect(v16, v26, v27, v28, v29, v30, v31, v32);
       [(UILabel *)amountLabel setFrame:?];
     }
 
-    CGRectDivide(remainder, &slice, &remainder, v19, CGRectMinYEdge);
+    CGRectDivide(remainder, &slice, &remainder, v33, CGRectMinYEdge);
     CGRectDivide(remainder, &slice, &remainder, 4.0, CGRectMinYEdge);
-    v21 = v16 + 4.0 + 28.0 + v19 + 4.0;
+    v35 = v24 + 4.0 + 28.0 + v33 + 4.0;
     [(UILabel *)self->_statusLabel pkui_sizeThatFits:1 forceWordWrap:remainder.size.width, remainder.size.height];
-    v23 = v22;
+    v43 = v37.n128_f64[0];
     if (!self->_sizing)
     {
       statusLabel = self->_statusLabel;
-      PKSizeAlignedInRect();
+      v38.n128_u64[0] = *&remainder.origin.x;
+      v39.n128_u64[0] = *&remainder.origin.y;
+      v40.n128_u64[0] = *&remainder.size.width;
+      v41.n128_u64[0] = *&remainder.size.height;
+      PKSizeAlignedInRect(v16, v36, v37, v38, v39, v40, v41, v42);
       [(UILabel *)statusLabel setFrame:?];
     }
 
-    CGRectDivide(remainder, &slice, &remainder, v23, CGRectMinYEdge);
-    v25 = v21 + v23;
+    CGRectDivide(remainder, &slice, &remainder, v43, CGRectMinYEdge);
+    v45 = v35 + v43;
   }
 
   else
   {
-    v40 = width;
+    v90 = width;
     [(UILabel *)self->_amountLabel pkui_sizeThatFits:1 forceWordWrap:(v14 + -16.0) * 0.5, height + -28.0];
-    v27 = v26;
-    v29 = v14 - (v28 + 16.0);
-    [(UILabel *)self->_frequencyLabel pkui_sizeThatFits:1 forceWordWrap:v29, height + -28.0];
-    v31 = v30 + 2.0;
-    [(UILabel *)self->_statusLabel pkui_sizeThatFits:1 forceWordWrap:v29, height + -28.0 - (v30 + 2.0)];
-    v33 = fmax(v27, v31 + v32);
-    v45.origin.x = v11;
-    v45.origin.y = v12;
-    v45.size.width = v14;
-    v45.size.height = height + -28.0;
-    CGRectDivide(v45, &slice, &remainder, v33, CGRectMinYEdge);
-    v25 = v33 + 28.0;
+    v47 = v46;
+    v87 = *&v48;
+    v49 = v14 - (v48 + 16.0);
+    [(UILabel *)self->_frequencyLabel pkui_sizeThatFits:1 forceWordWrap:v49, height + -28.0];
+    v86 = v50;
+    v52 = v51;
+    v53 = v51 + 2.0;
+    [(UILabel *)self->_statusLabel pkui_sizeThatFits:1 forceWordWrap:v49, v15 - (v51 + 2.0)];
+    v88 = *&v55;
+    v89 = v54;
+    v56 = fmax(v47, v53 + v55);
+    v95.origin.x = v11;
+    v95.origin.y = v12;
+    v95.size.width = v14;
+    v95.size.height = v15;
+    CGRectDivide(v95, &slice, &remainder, v56, CGRectMinYEdge);
+    v45 = v56 + 28.0;
     if (!self->_sizing)
     {
-      v34 = self->_frequencyLabel;
-      PKSizeAlignedInRect();
-      [(UILabel *)v34 setFrame:?];
-      v35 = self->_amountLabel;
-      PKContentAlignmentMake();
-      PKSizeAlignedInRect();
-      [(UILabel *)v35 setFrame:?];
-      v36 = self->_statusLabel;
-      PKContentAlignmentMake();
-      PKSizeAlignedInRect();
-      [(UILabel *)v36 setFrame:?];
+      v64 = self->_frequencyLabel;
+      v59.n128_u64[0] = *&slice.origin.x;
+      v60.n128_u64[0] = *&slice.origin.y;
+      v61.n128_u64[0] = *&slice.size.width;
+      v62.n128_u64[0] = *&slice.size.height;
+      v57.n128_u64[0] = v86;
+      v58.n128_f64[0] = v52;
+      PKSizeAlignedInRect(v16, v57, v58, v59, v60, v61, v62, v63);
+      [(UILabel *)v64 setFrame:?];
+      v65 = self->_amountLabel;
+      v66 = PKContentAlignmentMake();
+      v67.n128_u64[0] = *&slice.origin.x;
+      v68.n128_u64[0] = *&slice.origin.y;
+      v69.n128_u64[0] = *&slice.size.width;
+      v70.n128_u64[0] = *&slice.size.height;
+      v71.n128_u64[0] = v87;
+      v72.n128_f64[0] = v47;
+      PKSizeAlignedInRect(v66, v71, v72, v67, v68, v69, v70, v73);
+      [(UILabel *)v65 setFrame:?];
+      v74 = self->_statusLabel;
+      v75 = PKContentAlignmentMake();
+      v76.n128_u64[0] = *&slice.origin.x;
+      v77.n128_u64[0] = *&slice.origin.y;
+      v78.n128_u64[0] = *&slice.size.width;
+      v79.n128_u64[0] = *&slice.size.height;
+      v81.n128_u64[0] = v88;
+      v80.n128_u64[0] = v89;
+      PKSizeAlignedInRect(v75, v80, v81, v76, v77, v78, v79, v82);
+      [(UILabel *)v74 setFrame:?];
     }
 
-    width = v40;
+    width = v90;
   }
 
-  v37 = v25;
-  v38 = ceilf(v37);
-  v39 = width;
-  result.height = v38;
-  result.width = v39;
+  v83 = v45;
+  v84 = ceilf(v83);
+  v85 = width;
+  result.height = v84;
+  result.width = v85;
   return result;
 }
 

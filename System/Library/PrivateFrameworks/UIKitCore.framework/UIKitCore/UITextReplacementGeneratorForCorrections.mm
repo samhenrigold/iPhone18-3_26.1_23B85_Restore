@@ -117,9 +117,9 @@
         if (v30)
         {
           candidate2 = [v17 candidate];
-          v37 = [candidate2 isEqual:v30];
+          isEqual = objc_msgSend_isEqual_(candidate2);
 
-          if (v37)
+          if (isEqual)
           {
             v29 = v29;
 
@@ -290,9 +290,9 @@ LABEL_41:
     stringToReplace = [(UITextReplacementGenerator *)self stringToReplace];
     autocorrectionRecord3 = [(UITextReplacementGeneratorForCorrections *)self autocorrectionRecord];
     candidate = [autocorrectionRecord3 candidate];
-    v11 = [stringToReplace isEqualToString:candidate];
+    isEqualToString = objc_msgSend_isEqualToString_(stringToReplace);
 
-    if (v11 && [(UITextReplacementGenerator *)self shouldAllowString:input intoReplacements:replacementsCopy])
+    if (isEqualToString && [(UITextReplacementGenerator *)self shouldAllowString:input intoReplacements:replacementsCopy])
     {
       v12 = [(UITextReplacementGenerator *)self replacementWithText:input];
       autocorrectionRecord4 = [(UITextReplacementGeneratorForCorrections *)self autocorrectionRecord];
@@ -328,9 +328,9 @@ LABEL_41:
     stringToReplace = [(UITextReplacementGenerator *)self stringToReplace];
     autocorrectionRecord2 = [(UITextReplacementGeneratorForCorrections *)self autocorrectionRecord];
     input = [autocorrectionRecord2 input];
-    v8 = [stringToReplace isEqualToString:input];
+    isEqualToString = objc_msgSend_isEqualToString_(stringToReplace);
 
-    if (v8)
+    if (isEqualToString)
     {
       autocorrectionRecord3 = [(UITextReplacementGeneratorForCorrections *)self autocorrectionRecord];
       candidate = [autocorrectionRecord3 candidate];

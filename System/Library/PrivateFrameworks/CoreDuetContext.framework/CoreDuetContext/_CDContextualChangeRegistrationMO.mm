@@ -77,26 +77,22 @@
 
 + (void)hydrateMO:(objc_class *)a1 fromRegistration:(uint64_t)a2 .cold.1(objc_class *a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = NSStringFromClass(a1);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_1A9611000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@: Error setting mo.properties: %@", &v5, 0x16u);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_1A9611000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@: Error setting mo.properties: %@", &v4, 0x16u);
 }
 
 + (void)materializedRegistrationFrom:(void *)a1 .cold.1(void *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v1 = [a1 identifier];
-  v3 = 138412290;
-  v4 = v1;
-  _os_log_fault_impl(&dword_1A9611000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Failed to materialize registration with identifier: %@", &v3, 0xCu);
-
-  v2 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = v1;
+  _os_log_fault_impl(&dword_1A9611000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Failed to materialize registration with identifier: %@", &v2, 0xCu);
 }
 
 @end

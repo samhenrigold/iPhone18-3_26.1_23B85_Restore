@@ -21,7 +21,7 @@
   v8 = iDCopy;
   if (!iDCopy)
   {
-    v10 = +[REMLog cloudkit];
+    v10 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       sub_1007600D0();
@@ -32,7 +32,7 @@
 
   if (![iDCopy length])
   {
-    v10 = +[REMLog cloudkit];
+    v10 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       sub_10076009C();
@@ -43,7 +43,7 @@
 
   if (!dCopy)
   {
-    v10 = +[REMLog cloudkit];
+    v10 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_100760060();
@@ -85,7 +85,7 @@ LABEL_14:
 
     else
     {
-      v10 = +[REMLog cloudkit];
+      v10 = objc_msgSend_cloudkit(REMLog);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
         sub_100760104();
@@ -95,7 +95,7 @@ LABEL_14:
 
   else
   {
-    v10 = +[REMLog cloudkit];
+    v10 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       sub_100760138();

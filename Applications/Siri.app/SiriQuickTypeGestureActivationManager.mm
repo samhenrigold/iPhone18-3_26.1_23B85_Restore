@@ -8,7 +8,7 @@
 
 - (void)prewarmForFirstTapOfQuickTypeToSiriGestureWithCompletionHandler:(id)handler
 {
-  v5 = sub_100093B6C(&qword_10018DFE0);
+  v5 = sub_100093B6C(&qword_10018DFE0, &qword_1000F7530);
   __chkstk_darwin(v5 - 8);
   v7 = &v13 - v6;
   v8 = _Block_copy(handler);
@@ -33,7 +33,7 @@
 
 - (void)cancelPrewarmForFirstTapOfQuickTypeToSiriGestureWithCompletionHandler:(id)handler
 {
-  v5 = sub_100093B6C(&qword_10018DFE0);
+  v5 = sub_100093B6C(&qword_10018DFE0, &qword_1000F7530);
   __chkstk_darwin(v5 - 8);
   v7 = &v13 - v6;
   v8 = _Block_copy(handler);
@@ -58,7 +58,7 @@
 
 - (void)canActivateWithCompletionHandler:(id)handler
 {
-  v5 = sub_100093B6C(&qword_10018DFE0);
+  v5 = sub_100093B6C(&qword_10018DFE0, &qword_1000F7530);
   __chkstk_darwin(v5 - 8);
   v7 = &v13 - v6;
   v8 = _Block_copy(handler);

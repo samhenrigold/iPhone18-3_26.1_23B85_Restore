@@ -181,8 +181,8 @@
   location = range.location;
   fieldCopy = field;
   stringCopy = string;
-  v11 = [stringCopy isEqualToString:@"\n"];
-  if (v11)
+  isEqualToString = objc_msgSend_isEqualToString_(stringCopy);
+  if (isEqualToString)
   {
     [(SKUICommentPostBarView *)self _postComment];
   }
@@ -195,7 +195,7 @@
     -[UIButton setEnabled:](self->_postButton, "setEnabled:", [v13 length] != 0);
   }
 
-  return v11 ^ 1;
+  return isEqualToString ^ 1;
 }
 
 - (void)layoutSubviews

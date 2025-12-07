@@ -190,9 +190,9 @@ LABEL_15:
   return v2;
 }
 
-uint64_t __51__PLIntensiveResourceTaskManager_pendingTasksCount__block_invoke(uint64_t a1)
+void *__51__PLIntensiveResourceTaskManager_pendingTasksCount__block_invoke(uint64_t a1, const char *a2)
 {
-  result = [*(*(a1 + 32) + 16) count];
+  result = objc_msgSend_count(*(*(a1 + 32) + 16), a2);
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }

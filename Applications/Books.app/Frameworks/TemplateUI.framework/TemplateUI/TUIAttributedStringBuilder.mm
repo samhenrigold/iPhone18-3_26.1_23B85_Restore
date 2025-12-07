@@ -324,7 +324,7 @@ LABEL_23:
   modelCopy = model;
   roleCopy = role;
   v7 = roleCopy;
-  if (!roleCopy || [roleCopy isEqualToString:@"content"])
+  if (!roleCopy || objc_msgSend_isEqualToString_(roleCopy))
   {
     image = [modelCopy image];
     v9 = [NSTextAttachment textAttachmentWithImage:image];

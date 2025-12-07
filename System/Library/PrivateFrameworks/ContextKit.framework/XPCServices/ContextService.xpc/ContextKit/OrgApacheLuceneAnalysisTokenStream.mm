@@ -7,27 +7,28 @@
 
 - (void)end
 {
-  [(OrgApacheLuceneUtilAttributeSource *)self clearAttributes];
-  v3 = [(OrgApacheLuceneUtilAttributeSource *)self getAttributeWithIOSClass:OrgApacheLuceneAnalysisTokenattributesPositionIncrementAttribute_class_()];
-  if (v3)
+  clearAttributes = [(OrgApacheLuceneUtilAttributeSource *)self clearAttributes];
+  v5 = [(OrgApacheLuceneUtilAttributeSource *)self getAttributeWithIOSClass:OrgApacheLuceneAnalysisTokenattributesPositionIncrementAttribute_class_(clearAttributes, v4)];
+  if (v5)
   {
 
-    [v3 setPositionIncrementWithInt:0];
+    [v5 setPositionIncrementWithInt:0];
   }
 }
 
 + (void)initialize
 {
-  if (objc_opt_class() == self)
+  v3 = objc_opt_class();
+  if (v3 == self)
   {
     if ((atomic_load_explicit(OrgApacheLuceneUtilAttributeFactory__initialized, memory_order_acquire) & 1) == 0)
     {
-      sub_100049134();
+      v3 = sub_100049134();
     }
 
-    v2 = OrgApacheLuceneUtilAttributeFactory_DEFAULT_ATTRIBUTE_FACTORY_;
-    v3 = OrgApacheLuceneAnalysisTokenattributesPackedTokenAttributeImpl_class_();
-    StaticImplementationWithOrgApacheLuceneUtilAttributeFactory_withIOSClass = OrgApacheLuceneUtilAttributeFactory_getStaticImplementationWithOrgApacheLuceneUtilAttributeFactory_withIOSClass_(v2, v3);
+    v5 = OrgApacheLuceneUtilAttributeFactory_DEFAULT_ATTRIBUTE_FACTORY_;
+    v6 = OrgApacheLuceneAnalysisTokenattributesPackedTokenAttributeImpl_class_(v3, v4);
+    StaticImplementationWithOrgApacheLuceneUtilAttributeFactory_withIOSClass = OrgApacheLuceneUtilAttributeFactory_getStaticImplementationWithOrgApacheLuceneUtilAttributeFactory_withIOSClass_(v5, v6);
     JreStrongAssign(&OrgApacheLuceneAnalysisTokenStream_DEFAULT_TOKEN_ATTRIBUTE_FACTORY_, StaticImplementationWithOrgApacheLuceneUtilAttributeFactory_withIOSClass);
     atomic_store(1u, OrgApacheLuceneAnalysisTokenStream__initialized);
   }

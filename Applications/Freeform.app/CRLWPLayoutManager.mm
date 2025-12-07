@@ -20,9 +20,9 @@
 {
   storageCopy = storage;
   ownerCopy = owner;
-  v34.receiver = self;
-  v34.super_class = CRLWPLayoutManager;
-  v9 = [(CRLWPLayoutManager *)&v34 init];
+  v27.receiver = self;
+  v27.super_class = CRLWPLayoutManager;
+  v9 = [(CRLWPLayoutManager *)&v27 init];
   v10 = v9;
   v11 = v9;
   if (v9)
@@ -53,12 +53,12 @@
         sub_10130E89C();
       }
 
-      sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Cannot initialize with a nil storage.", v23, v24, v25, v26, v27, v28, v29, "[CRLWPLayoutManager initWithStorage:owner:]");
-      v30 = [NSString stringWithUTF8String:"[CRLWPLayoutManager initWithStorage:owner:]"];
-      v31 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/CRLWPLayoutManager.mm"];
-      [CRLAssertionHandler handleFailureInFunction:v30 file:v31 lineNumber:95 isFatal:1 description:"Cannot initialize with a nil storage."];
+      sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Cannot initialize with a nil storage.", "[CRLWPLayoutManager initWithStorage:owner:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/CRLWPLayoutManager.mm", 95);
+      v23 = [NSString stringWithUTF8String:"[CRLWPLayoutManager initWithStorage:owner:]"];
+      v24 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/CRLWPLayoutManager.mm"];
+      [CRLAssertionHandler handleFailureInFunction:v23 file:v24 lineNumber:95 isFatal:1 description:"Cannot initialize with a nil storage."];
 
-      SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v32, v33);
+      SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v25, v26);
       abort();
     }
 
@@ -802,7 +802,7 @@ LABEL_55:
   [CRLWPLayoutManager setTransformForColumn:columnCopy inTarget:targetCopy metrics:v12];
   if (columnCopy)
   {
-    [columnCopy transformFromWP];
+    objc_msgSend_transformFromWP(columnCopy);
   }
 
   else

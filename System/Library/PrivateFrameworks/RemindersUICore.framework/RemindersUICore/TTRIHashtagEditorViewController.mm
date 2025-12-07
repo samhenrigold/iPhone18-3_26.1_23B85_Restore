@@ -67,7 +67,7 @@
   swift_unknownObjectRelease();
   sub_21D59AC08();
 
-  __swift_destroy_boxed_opaque_existential_0(&v5);
+  __swift_destroy_boxed_opaque_existential_0(v5);
 }
 
 - (_TtC15RemindersUICore31TTRIHashtagEditorViewController)initWithStyle:(int64_t)style

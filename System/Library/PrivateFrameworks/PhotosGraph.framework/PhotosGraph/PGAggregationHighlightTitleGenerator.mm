@@ -9,7 +9,7 @@
 
 - (id)_locationTitleUsingKeyAssetAddressNode:(id)node curationAddressNodes:(id)nodes
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   nodesCopy = nodes;
   titleGenerationContext = [(PGTitleGenerator *)self titleGenerationContext];
@@ -17,27 +17,27 @@
 
   if (nodeCopy && ([locationHelper cityNodeFromAddressNode:nodeCopy], v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "anyNode"), v11 = objc_claimAutoreleasedReturnValue(), v10, v11))
   {
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
-    v33 = nodesCopy;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
+    v32 = nodesCopy;
     v12 = nodesCopy;
-    v13 = [v12 countByEnumeratingWithState:&v34 objects:v39 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v33 objects:v38 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v35;
+      v15 = *v34;
       while (2)
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v35 != v15)
+          if (*v34 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = [locationHelper cityNodeFromAddressNode:*(*(&v34 + 1) + 8 * i)];
+          v17 = [locationHelper cityNodeFromAddressNode:*(*(&v33 + 1) + 8 * i)];
           anyNode = [v17 anyNode];
 
           LODWORD(v17) = [v11 isSameNodeAsNode:anyNode];
@@ -48,7 +48,7 @@
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v34 objects:v39 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v33 objects:v38 count:16];
         if (v14)
         {
           continue;
@@ -79,20 +79,18 @@ LABEL_14:
     v27 = [v22 localizedStringWithFormat:v26, v21];
 
     lineBreakBehavior = [(PGTitleGenerator *)self lineBreakBehavior];
-    v38 = v21;
-    v29 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
+    v37 = v21;
+    v29 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
     v30 = [PGLocationTitleUtility _titleWithLineBreakBehavior:lineBreakBehavior forTitle:v27 titleComponents:v29];
 
     v20 = v30;
-    nodesCopy = v33;
+    nodesCopy = v32;
   }
 
   else
   {
     v20 = 0;
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

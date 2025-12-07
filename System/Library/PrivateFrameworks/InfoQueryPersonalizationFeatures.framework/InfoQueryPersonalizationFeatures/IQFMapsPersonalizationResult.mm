@@ -2,6 +2,7 @@
 - (IQFMapsPersonalizationResult)initWithCoder:(id)coder;
 - (IQFMapsPersonalizationResult)initWithMUID:(id)d resultType:(unint64_t)type eventName:(id)name startEventDate:(id)date endEventDate:(id)eventDate terminal:(id)terminal flightCode:(id)code ticketNumber:(id)self0 numberOfVisits:(id)self1 numberOfVisitsGivenLocation:(id)self2 dateOfLastVisit:(id)self3 entityRelevanceScore:(id)self4 numberOfGuests:(id)self5;
 - (void)encodeWithCoder:(id)coder;
+- (void)setIsCandidateForPromotion:(BOOL)promotion;
 - (void)setScore:(double)score;
 @end
 
@@ -196,11 +197,16 @@
   }
 }
 
+- (void)setIsCandidateForPromotion:(BOOL)promotion
+{
+  self->_isCandidateForPromotion = [MEMORY[0x277CCABB0] numberWithBool:promotion];
+
+  MEMORY[0x2821F96F8]();
+}
+
 - (void)setScore:(double)score
 {
-  v4 = [MEMORY[0x277CCABB0] numberWithDouble:score];
-  score = self->_score;
-  self->_score = v4;
+  self->_score = [MEMORY[0x277CCABB0] numberWithDouble:score];
 
   MEMORY[0x2821F96F8]();
 }

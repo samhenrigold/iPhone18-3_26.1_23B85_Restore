@@ -48,7 +48,7 @@
 
   else
   {
-    _AXLogWithFacility();
+    _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Could not lookup action with nil actions");
     v7 = 0;
   }
 

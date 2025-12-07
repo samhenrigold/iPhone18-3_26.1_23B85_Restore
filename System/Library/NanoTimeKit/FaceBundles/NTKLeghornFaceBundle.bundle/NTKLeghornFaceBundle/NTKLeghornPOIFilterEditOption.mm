@@ -33,18 +33,18 @@
   deviceCopy = device;
   filterCopy = filter;
   v7 = [NTKLeghornPOIFilterEditOption alloc];
-  v10 = objc_msgSend_initWithPOIFilter_forDevice_(v7, v8, v9, filterCopy, deviceCopy);
+  v9 = objc_msgSend_initWithPOIFilter_forDevice_(v7, v8, filterCopy, deviceCopy);
 
-  return v10;
+  return v9;
 }
 
 + (id)optionForEverythingForDevice:(id)device
 {
   deviceCopy = device;
   v7 = objc_msgSend_all(NTKLeghornPOIFilter, v5, v6);
-  v10 = objc_msgSend_optionWithPOIFilter_forDevice_(self, v8, v9, v7, deviceCopy);
+  v9 = objc_msgSend_optionWithPOIFilter_forDevice_(self, v8, v7, deviceCopy);
 
-  return v10;
+  return v9;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -53,7 +53,7 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    isEqual = objc_msgSend_isEqual_(self->_filter, v5, v6, equalCopy[2]);
+    isEqual = objc_msgSend_isEqual_(self->_filter, v5, equalCopy[2]);
   }
 
   else
@@ -73,36 +73,36 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v10.receiver = self;
-  v10.super_class = NTKLeghornPOIFilterEditOption;
+  v9.receiver = self;
+  v9.super_class = NTKLeghornPOIFilterEditOption;
   coderCopy = coder;
-  [(NTKEditOption *)&v10 encodeWithCoder:coderCopy];
-  v7 = objc_msgSend_dictionaryValue(self->_filter, v5, v6, v10.receiver, v10.super_class);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v8, v9, v7, @"filter");
+  [(NTKEditOption *)&v9 encodeWithCoder:coderCopy];
+  v7 = objc_msgSend_dictionaryValue(self->_filter, v5, v6, v9.receiver, v9.super_class);
+  objc_msgSend_encodeObject_forKey_(coderCopy, v8, v7, @"filter");
 }
 
 - (NTKLeghornPOIFilterEditOption)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v14.receiver = self;
-  v14.super_class = NTKLeghornPOIFilterEditOption;
-  v6 = [(NTKEditOption *)&v14 initWithCoder:coderCopy];
+  v13.receiver = self;
+  v13.super_class = NTKLeghornPOIFilterEditOption;
+  v6 = [(NTKEditOption *)&v13 initWithCoder:coderCopy];
   if (v6)
   {
-    v8 = objc_msgSend_decodeObjectForKey_(coderCopy, v5, v7, @"filter");
+    v7 = objc_msgSend_decodeObjectForKey_(coderCopy, v5, @"filter");
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      objc_msgSend_poiFilterFromDictionary_(NTKLeghornPOIFilter, v9, v10, v8);
+      objc_msgSend_poiFilterFromDictionary_(NTKLeghornPOIFilter, v8, v7);
     }
 
     else
     {
-      objc_msgSend_all(NTKLeghornPOIFilter, v9, v10);
+      objc_msgSend_all(NTKLeghornPOIFilter, v8, v9);
     }
-    v11 = ;
+    v10 = ;
     filter = v6->_filter;
-    v6->_filter = v11;
+    v6->_filter = v10;
   }
 
   return v6;
@@ -113,28 +113,29 @@
   v20 = *MEMORY[0x277D85DE8];
   v3 = objc_msgSend_dictionaryValue(self->_filter, a2, v2);
   v15 = 0;
-  v6 = objc_msgSend_dataWithJSONObject_options_error_(MEMORY[0x277CCAAA0], v4, v5, v3, 0, &v15);
-  v7 = v15;
-  if (v7)
+  v5 = objc_msgSend_dataWithJSONObject_options_error_(MEMORY[0x277CCAAA0], v4, v3, 0, &v15);
+  v6 = v15;
+  v8 = v6;
+  if (v6)
   {
-    v8 = 1;
+    v9 = 1;
   }
 
   else
   {
-    v8 = v6 == 0;
+    v9 = v5 == 0;
   }
 
-  if (v8)
+  if (v9)
   {
-    v9 = NTKFoghornFaceBundleLogObject();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = NTKFoghornFaceBundleLogObject(v6, v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
       v17 = "[NTKLeghornPOIFilterEditOption JSONObjectRepresentation]";
       v18 = 2112;
-      v19 = v7;
-      _os_log_impl(&dword_23BEB1000, v9, OS_LOG_TYPE_DEFAULT, "%s: failed to JSON encode filter dictionary, error = %@", buf, 0x16u);
+      v19 = v8;
+      _os_log_impl(&dword_23BEB1000, v10, OS_LOG_TYPE_DEFAULT, "%s: failed to JSON encode filter dictionary, error = %@", buf, 0x16u);
     }
 
     v13 = @"bad";
@@ -142,8 +143,8 @@
 
   else
   {
-    v10 = objc_alloc(MEMORY[0x277CCACA8]);
-    v13 = objc_msgSend_initWithData_encoding_(v10, v11, v12, v6, 4);
+    v11 = objc_alloc(MEMORY[0x277CCACA8]);
+    v13 = objc_msgSend_initWithData_encoding_(v11, v12, v5, 4);
   }
 
   return v13;
@@ -152,42 +153,42 @@
 - (NTKLeghornPOIFilterEditOption)initWithJSONObjectRepresentation:(id)representation forDevice:(id)device
 {
   representationCopy = representation;
-  v9 = objc_msgSend_initWithDevice_(self, v7, v8, device);
-  if (v9)
+  v8 = objc_msgSend_initWithDevice_(self, v7, device);
+  if (v8)
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      objc_msgSend_raise_format_(MEMORY[0x277CBEAD8], v10, v11, *MEMORY[0x277CBE660], @"object must be a string - invalid value: %@", representationCopy);
+      objc_msgSend_raise_format_(MEMORY[0x277CBEAD8], v9, *MEMORY[0x277CBE660], @"object must be a string - invalid value: %@", representationCopy);
     }
 
-    v12 = objc_msgSend_dataUsingEncoding_(representationCopy, v10, v11, 4);
-    v15 = objc_msgSend_JSONObjectWithData_options_error_(MEMORY[0x277CCAAA0], v13, v14, v12, 1, 0);
+    v10 = objc_msgSend_dataUsingEncoding_(representationCopy, v9, 4);
+    v12 = objc_msgSend_JSONObjectWithData_options_error_(MEMORY[0x277CCAAA0], v11, v10, 1, 0);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      objc_msgSend_poiFilterFromDictionary_(NTKLeghornPOIFilter, v16, v17, v15);
+      objc_msgSend_poiFilterFromDictionary_(NTKLeghornPOIFilter, v13, v12);
     }
 
     else
     {
-      objc_msgSend_all(NTKLeghornPOIFilter, v16, v17);
+      objc_msgSend_all(NTKLeghornPOIFilter, v13, v14);
     }
-    v18 = ;
-    filter = v9->_filter;
-    v9->_filter = v18;
+    v15 = ;
+    filter = v8->_filter;
+    v8->_filter = v15;
   }
 
-  return v9;
+  return v8;
 }
 
 + (id)optionAtIndex:(unint64_t)index forDevice:(id)device
 {
   deviceCopy = device;
   v5 = objc_opt_class();
-  v8 = objc_msgSend_optionForEverythingForDevice_(v5, v6, v7, deviceCopy);
+  v7 = objc_msgSend_optionForEverythingForDevice_(v5, v6, deviceCopy);
 
-  return v8;
+  return v7;
 }
 
 @end

@@ -10,7 +10,7 @@ void __68___EARCustomLMBuilder_getFstGrammar_overrideFolder_weight_errorOut___bl
   v5 = *(*(a1 + 32) + 8);
   if (v3)
   {
-    [v3 ear_toString];
+    objc_msgSend_ear_toString(v3);
   }
 
   else

@@ -309,7 +309,7 @@ LABEL_14:
     v7 = v6;
     if (self->_mirroredView)
     {
-      v8 = [v6[51] isEqual:?];
+      isEqual = objc_msgSend_isEqual_(v6[51]);
 LABEL_14:
 
       goto LABEL_15;
@@ -319,16 +319,16 @@ LABEL_14:
     if (fallbackView)
     {
       fallbackView = [v6 fallbackView];
-      if (![(UIView *)fallbackView isEqual:fallbackView])
+      if (!objc_msgSend_isEqual_(fallbackView))
       {
-        v8 = 0;
+        isEqual = 0;
         goto LABEL_13;
       }
 
       associatedView = self->_associatedView;
       if (!associatedView)
       {
-        v8 = 1;
+        isEqual = 1;
 LABEL_13:
 
         goto LABEL_14;
@@ -346,12 +346,12 @@ LABEL_13:
           v15 = v14;
           v17 = v16;
           [v7 frame];
-          v8 = v17 == v19 && v15 == v18;
+          isEqual = v17 == v19 && v15 == v18;
         }
 
         else
         {
-          v8 = 0;
+          isEqual = 0;
         }
 
         goto LABEL_14;
@@ -359,7 +359,7 @@ LABEL_13:
     }
 
     associatedView = [v7 associatedView];
-    v8 = [(UIView *)associatedView isEqual:associatedView];
+    isEqual = objc_msgSend_isEqual_(associatedView);
 
     if (!fallbackView)
     {
@@ -369,10 +369,10 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v8 = 0;
+  isEqual = 0;
 LABEL_15:
 
-  return v8;
+  return isEqual;
 }
 
 - (CGSize)leftContentViewSize

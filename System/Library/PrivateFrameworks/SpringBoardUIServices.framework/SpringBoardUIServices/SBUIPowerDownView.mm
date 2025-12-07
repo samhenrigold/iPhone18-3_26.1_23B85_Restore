@@ -531,9 +531,11 @@ uint64_t __45__SBUIPowerDownView_hideAnimated_completion___block_invoke_3(uint64
 - (void)_resetAutoDismissTimer
 {
   [(SBUIPowerDownView *)self _cancelAutoDismissTimer];
-  self->_autoDismissTimer = [MEMORY[0x1E695DFF0] scheduledTimerWithTimeInterval:self target:sel__idleTimerFired selector:0 userInfo:0 repeats:30.0];
+  v3 = [MEMORY[0x1E695DFF0] scheduledTimerWithTimeInterval:self target:sel__idleTimerFired selector:0 userInfo:0 repeats:30.0];
+  autoDismissTimer = self->_autoDismissTimer;
+  self->_autoDismissTimer = v3;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v3, autoDismissTimer);
 }
 
 - (void)_updateSliderExclusionPath

@@ -241,37 +241,37 @@ LABEL_39:
 
 - (id)serializeWithError:(id *)error
 {
-  v51 = *MEMORY[0x277D85DE8];
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
+  v50 = *MEMORY[0x277D85DE8];
   v48 = 0u;
-  v45 = 0u;
+  v49 = 0u;
   v46 = 0u;
-  v43 = 0u;
+  v47 = 0u;
   v44 = 0u;
-  v41 = 0u;
+  v45 = 0u;
   v42 = 0u;
-  v39 = 0u;
+  v43 = 0u;
   v40 = 0u;
-  v37 = 0u;
+  v41 = 0u;
   v38 = 0u;
-  v35 = 0u;
+  v39 = 0u;
   v36 = 0u;
-  v33 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
+  v33 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v29 = 0u;
   TLV8BufferInit();
   clientIdentifier = [(HMDNetworkRouterClientStatus *)self clientIdentifier];
 
   if (clientIdentifier)
   {
     clientIdentifier2 = [(HMDNetworkRouterClientStatus *)self clientIdentifier];
-    v29 = 0;
-    v7 = [clientIdentifier2 serializeWithError:&v29];
-    v8 = v29;
+    v28 = 0;
+    v7 = [clientIdentifier2 serializeWithError:&v28];
+    v8 = v28;
 
     if (v8)
     {
@@ -291,9 +291,9 @@ LABEL_39:
   if (macAddress)
   {
     macAddress2 = [(HMDNetworkRouterClientStatus *)self macAddress];
-    v28 = 0;
-    v7 = [macAddress2 serializeWithError:&v28];
-    v8 = v28;
+    v27 = 0;
+    v7 = [macAddress2 serializeWithError:&v27];
+    v8 = v27;
 
     if (v8)
     {
@@ -313,9 +313,9 @@ LABEL_39:
   if (ipAddressList)
   {
     ipAddressList2 = [(HMDNetworkRouterClientStatus *)self ipAddressList];
-    v27 = 0;
-    v7 = [ipAddressList2 serializeWithError:&v27];
-    v8 = v27;
+    v26 = 0;
+    v7 = [ipAddressList2 serializeWithError:&v26];
+    v8 = v26;
 
     if (v8)
     {
@@ -338,9 +338,9 @@ LABEL_39:
   }
 
   lanIdentifier2 = [(HMDNetworkRouterClientStatus *)self lanIdentifier];
-  v26 = 0;
-  v7 = [lanIdentifier2 serializeWithError:&v26];
-  v8 = v26;
+  v25 = 0;
+  v7 = [lanIdentifier2 serializeWithError:&v25];
+  v8 = v25;
 
   if (v8)
   {
@@ -374,9 +374,9 @@ LABEL_17:
   if (name)
   {
     name2 = [(HMDNetworkRouterClientStatus *)self name];
-    v25 = 0;
-    v7 = [name2 serializeWithError:&v25];
-    v8 = v25;
+    v24 = 0;
+    v7 = [name2 serializeWithError:&v24];
+    v8 = v24;
 
     if (v8)
     {
@@ -396,9 +396,9 @@ LABEL_17:
   if (rssi)
   {
     rssi2 = [(HMDNetworkRouterClientStatus *)self rssi];
-    v24 = 0;
-    v7 = [rssi2 serializeWithError:&v24];
-    v8 = v24;
+    v23 = 0;
+    v7 = [rssi2 serializeWithError:&v23];
+    v8 = v23;
 
     if (v8)
     {
@@ -417,20 +417,18 @@ LABEL_27:
 
     [v7 bytes];
     [v7 length];
-    v23 = TLV8BufferAppend();
+    v22 = TLV8BufferAppend();
 
-    if (v23)
+    if (v22)
     {
       goto LABEL_21;
     }
   }
 
-  v17 = [MEMORY[0x277CBEA90] dataWithBytes:v30 length:?];
+  v17 = [MEMORY[0x277CBEA90] dataWithBytes:v29 length:?];
   v8 = 0;
 LABEL_30:
   TLV8BufferFree();
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

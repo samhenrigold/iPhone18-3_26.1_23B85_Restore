@@ -125,17 +125,21 @@ void __53__SUICDefaultVoicePreviewer_previewVoice_completion___block_invoke(id *
 uint64_t __53__SUICDefaultVoicePreviewer_previewVoice_completion___block_invoke_5(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 56));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
+    v5 = WeakRetained;
     [WeakRetained[3] removeObject:*(a1 + 32)];
-    v3 = *(a1 + 48);
-    if (v3)
+    v3 = v5;
+    WeakRetained = *(a1 + 48);
+    if (WeakRetained)
     {
-      (*(v3 + 16))(v3, *(a1 + 40) == 0, 0);
+      WeakRetained = (WeakRetained[2])(WeakRetained, *(a1 + 40) == 0, 0);
+      v3 = v5;
     }
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](WeakRetained, v3);
 }
 
 void __53__SUICDefaultVoicePreviewer_previewVoice_completion___block_invoke_3(uint64_t a1, void *a2)

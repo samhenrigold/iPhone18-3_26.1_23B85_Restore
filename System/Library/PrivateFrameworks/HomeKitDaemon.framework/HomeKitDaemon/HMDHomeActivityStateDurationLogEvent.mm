@@ -7,22 +7,20 @@
 
 - (NSDictionary)coreAnalyticsEventDictionary
 {
-  v11[4] = *MEMORY[0x277D85DE8];
-  v10[0] = @"state";
+  v10[4] = *MEMORY[0x277D85DE8];
+  v9[0] = @"state";
   state = [(HMDHomeActivityStateDurationLogEvent *)self state];
-  v11[0] = state;
-  v10[1] = @"nextState";
+  v10[0] = state;
+  v9[1] = @"nextState";
   nextState = [(HMDHomeActivityStateDurationLogEvent *)self nextState];
-  v11[1] = nextState;
-  v10[2] = @"durationInMinutes";
+  v10[1] = nextState;
+  v9[2] = @"durationInMinutes";
   durationInMinutes = [(HMDHomeActivityStateDurationLogEvent *)self durationInMinutes];
-  v11[2] = durationInMinutes;
-  v10[3] = @"supportsAdaptiveTemperatureAutomations";
+  v10[2] = durationInMinutes;
+  v9[3] = @"supportsAdaptiveTemperatureAutomations";
   v6 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDHomeActivityStateDurationLogEvent supportsAdaptiveTemperatureAutomations](self, "supportsAdaptiveTemperatureAutomations")}];
-  v11[3] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:4];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[3] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:4];
 
   return v7;
 }

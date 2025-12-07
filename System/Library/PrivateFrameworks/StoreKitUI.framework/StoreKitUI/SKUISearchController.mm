@@ -9,7 +9,7 @@
 
 - (void)_setSuffix:(id)suffix
 {
-  v62[1] = *MEMORY[0x277D85DE8];
+  v66[1] = *MEMORY[0x277D85DE8];
   suffixCopy = suffix;
   if (!self->_suffixLabel)
   {
@@ -36,15 +36,15 @@
     {
       mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
       keyWindow = [mEMORY[0x277D75128] keyWindow];
-      [keyWindow bounds];
-      if (v16 > SKUICompactThreshold())
+      bounds = [keyWindow bounds];
+      if (v18 > SKUICompactThreshold(bounds, v17))
       {
         [(SKUISearchController *)self delegate];
-        v18 = v17 = suffixCopy;
-        v19 = [v18 searchControllerClientContext:self];
-        shouldForceTransientSearchControllerBahavior = [v19 shouldForceTransientSearchControllerBahavior];
+        v20 = v19 = suffixCopy;
+        v21 = [v20 searchControllerClientContext:self];
+        shouldForceTransientSearchControllerBahavior = [v21 shouldForceTransientSearchControllerBahavior];
 
-        suffixCopy = v17;
+        suffixCopy = v19;
         if ((shouldForceTransientSearchControllerBahavior & 1) == 0)
         {
           searchBar = [(SKUISearchController *)self searchBar];
@@ -72,8 +72,8 @@ LABEL_10:
   [(UILabel *)self->_suffixLabel setText:suffixCopy];
   [(UILabel *)self->_suffixLabel sizeToFit];
   [(UILabel *)self->_suffixLabel frame];
-  v25 = v24;
   v27 = v26;
+  v29 = v28;
   currentDevice2 = [MEMORY[0x277D75418] currentDevice];
   if ([currentDevice2 userInterfaceIdiom] != 1)
   {
@@ -84,66 +84,66 @@ LABEL_15:
 
   mEMORY[0x277D75128]2 = [MEMORY[0x277D75128] sharedApplication];
   keyWindow2 = [mEMORY[0x277D75128]2 keyWindow];
-  [keyWindow2 bounds];
-  if (v31 <= SKUICompactThreshold())
+  bounds2 = [keyWindow2 bounds];
+  if (v35 <= SKUICompactThreshold(bounds2, v34))
   {
 
     goto LABEL_15;
   }
 
   [(SKUISearchController *)self delegate];
-  v33 = v32 = suffixCopy;
-  v34 = [v33 searchControllerClientContext:self];
-  shouldForceTransientSearchControllerBahavior2 = [v34 shouldForceTransientSearchControllerBahavior];
+  v37 = v36 = suffixCopy;
+  v38 = [v37 searchControllerClientContext:self];
+  shouldForceTransientSearchControllerBahavior2 = [v38 shouldForceTransientSearchControllerBahavior];
 
-  suffixCopy = v32;
+  suffixCopy = v36;
   if ((shouldForceTransientSearchControllerBahavior2 & 1) == 0)
   {
     superview = [(UILabel *)self->_suffixLabel superview];
     [superview frame];
-    v38 = v37 - v25 + -30.0;
+    v42 = v41 - v27 + -30.0;
 
-    v39 = 8.0;
+    v43 = 8.0;
     goto LABEL_17;
   }
 
 LABEL_16:
-  v38 = -5.0 - v25;
-  v39 = 3.0;
+  v42 = -5.0 - v27;
+  v43 = 3.0;
 LABEL_17:
-  [(UILabel *)self->_suffixLabel setFrame:v38, v39, v25, v27];
+  [(UILabel *)self->_suffixLabel setFrame:v42, v43, v27, v29];
   searchBar2 = [(SKUISearchController *)self searchBar];
   searchField2 = [searchBar2 searchField];
 
-  v41 = objc_alloc_init(MEMORY[0x277CCAB68]);
+  v45 = objc_alloc_init(MEMORY[0x277CCAB68]);
   paddingString = self->_paddingString;
-  self->_paddingString = v41;
+  self->_paddingString = v45;
 
-  v43 = suffixCopy;
+  v47 = suffixCopy;
   if ([suffixCopy length])
   {
-    v44 = 0;
-    v45 = *MEMORY[0x277D740A8];
+    v48 = 0;
+    v49 = *MEMORY[0x277D740A8];
     do
     {
       [(NSMutableString *)self->_paddingString appendString:@"_", searchField2];
-      v46 = self->_paddingString;
-      v61 = v45;
+      v50 = self->_paddingString;
+      v65 = v49;
       font = [searchField2 font];
-      v62[0] = font;
-      v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v62 forKeys:&v61 count:1];
-      [(NSMutableString *)v46 sizeWithAttributes:v48];
-      v50 = v49;
+      v66[0] = font;
+      v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v66 forKeys:&v65 count:1];
+      [(NSMutableString *)v50 sizeWithAttributes:v52];
+      v54 = v53;
 
-      if (v50 > v25)
+      if (v54 > v27)
       {
         break;
       }
 
-      ++v44;
+      ++v48;
     }
 
-    while (v44 < [v43 length]);
+    while (v48 < [v47 length]);
   }
 
   searchBar3 = [(SKUISearchController *)self searchBar];
@@ -157,16 +157,16 @@ LABEL_17:
     searchField4 = [searchBar4 searchField];
     if (([(SKUISearchController *)self isActive]& 1) != 0)
     {
-      v57 = 0;
+      v61 = 0;
     }
 
     else
     {
-      v57 = self->_paddingString;
+      v61 = self->_paddingString;
     }
 
     clearColor2 = [MEMORY[0x277D75348] clearColor];
-    [searchField4 _setSuffix:v57 withColor:clearColor2];
+    [searchField4 _setSuffix:v61 withColor:clearColor2];
   }
 }
 

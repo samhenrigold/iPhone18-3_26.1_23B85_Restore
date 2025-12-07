@@ -110,13 +110,13 @@
     v6 = string;
     v17 = v6;
     v18 = 0;
-    v7 = 0x38u;
+    v7 = 7u;
     do
     {
-      if ((*(&__allAllowedUnits + v7) & ~sessionVisibleUnits) != 0)
+      if ((__allAllowedUnits[v7] & ~sessionVisibleUnits) != 0)
       {
         v8 = 0;
-        if (!v7)
+        if (!(v7 * 8))
         {
           break;
         }
@@ -126,13 +126,13 @@
       {
         (v14)(&v12);
         v8 = v18;
-        if (!v7)
+        if (!(v7 * 8))
         {
           break;
         }
       }
 
-      v7 -= 8;
+      --v7;
     }
 
     while ((v8 & 1) == 0);
@@ -243,7 +243,7 @@ LABEL_21:
 
 - (id)_sessionAttributedTextForIndex:(unint64_t)index withStyle:(id)style
 {
-  v82[1] = *MEMORY[0x277D85DE8];
+  v84[1] = *MEMORY[0x277D85DE8];
   styleCopy = style;
   if (!self->_date)
   {
@@ -350,7 +350,7 @@ LABEL_29:
 
     if (!self->_relativeToDate && v20 * 1000.0 <= 1.84467441e19)
     {
-      v77 = wantsSubsecondsAsDashes;
+      v79 = wantsSubsecondsAsDashes;
       v22 = disableSmallCapUnits;
       v23 = sessionVisibleUnits;
       v24 = v11;
@@ -361,7 +361,7 @@ LABEL_29:
       v11 = v24;
       sessionVisibleUnits = v23;
       disableSmallCapUnits = v22;
-      wantsSubsecondsAsDashes = v77;
+      wantsSubsecondsAsDashes = v79;
       v20 = ((10 * v27) + floor(v20 * 10.0) * 100.0) / 1000.0;
     }
 
@@ -436,7 +436,7 @@ LABEL_47:
   currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
   v38 = [v16 lowercaseStringWithLocale:currentLocale];
 
-  v79 = styleCopy;
+  v81 = styleCopy;
   if (relativeDateStyle != 2 && !disableSmallCapUnits)
   {
     cLKFontWithLocalizedLowerCaseSmallCaps = [v33 CLKFontWithLocalizedLowerCaseSmallCaps];
@@ -449,26 +449,27 @@ LABEL_47:
   }
 
   SymbolicTraits = CTFontGetSymbolicTraits(v33);
-  v43 = !CLKSmallCapsAllowed();
+  v43 = SymbolicTraits;
+  v45 = !CLKSmallCapsAllowed(SymbolicTraits, v44);
   if (!v38)
   {
-    v43 = 1;
+    v45 = 1;
   }
 
-  v44 = (!v43 && relativeDateStyle != 2 && !disableSmallCapUnits) & SymbolicTraits;
+  v46 = (!v45 && relativeDateStyle != 2 && !disableSmallCapUnits) & v43;
   if (self->_shrinkUnitsInCJK)
   {
-    v45 = CLKIsCurrentLocaleCJK();
+    v47 = CLKIsCurrentLocaleCJK();
   }
 
   else
   {
-    v45 = 0;
+    v47 = 0;
   }
 
-  v46 = [v79 uppercase] & disableSmallCapUnits | v44;
+  v48 = [v81 uppercase] & disableSmallCapUnits | v46;
   currentLocale3 = [MEMORY[0x277CBEAF8] currentLocale];
-  if (v46)
+  if (v48)
   {
     [v38 uppercaseStringWithLocale:currentLocale3];
   }
@@ -477,98 +478,98 @@ LABEL_47:
   {
     [v38 lowercaseStringWithLocale:currentLocale3];
   }
-  v48 = ;
+  v50 = ;
 
-  v49 = relativeDateStyle == 1 && !self->_disableOffsetPrefix;
-  v50 = v48 != 0 && v49;
-  if (v48)
+  v51 = relativeDateStyle == 1 && !self->_disableOffsetPrefix;
+  v52 = v50 != 0 && v51;
+  if (v50)
   {
-    v51 = v48;
+    v53 = v50;
   }
 
   else
   {
-    v51 = @"---";
+    v53 = @"---";
   }
 
-  v52 = *MEMORY[0x277D740A8];
-  v81 = *MEMORY[0x277D740A8];
-  v82[0] = v33;
-  v53 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v82 forKeys:&v81 count:1];
-  v54 = [objc_alloc(MEMORY[0x277CCAB48]) initWithString:v51 attributes:v53];
-  if ((v44 | v45))
+  v54 = *MEMORY[0x277D740A8];
+  v83 = *MEMORY[0x277D740A8];
+  v84[0] = v33;
+  v55 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v84 forKeys:&v83 count:1];
+  v56 = [objc_alloc(MEMORY[0x277CCAB48]) initWithString:v53 attributes:v55];
+  if ((v46 | v47))
   {
-    v75 = v50;
-    v76 = v53;
+    v77 = v52;
+    v78 = v55;
     whitespaceAndNewlineCharacterSet = [MEMORY[0x277CCAB50] whitespaceAndNewlineCharacterSet];
     decimalDigitCharacterSet = [MEMORY[0x277CCA900] decimalDigitCharacterSet];
     [whitespaceAndNewlineCharacterSet formUnionWithCharacterSet:decimalDigitCharacterSet];
 
-    v78 = v51;
-    v57 = [MEMORY[0x277CCAC80] scannerWithString:v51];
-    [v57 setCharactersToBeSkipped:whitespaceAndNewlineCharacterSet];
+    v80 = v53;
+    v59 = [MEMORY[0x277CCAC80] scannerWithString:v53];
+    [v59 setCharactersToBeSkipped:whitespaceAndNewlineCharacterSet];
     [v33 pointSize];
-    v59 = v58 + -2.0;
-    v60 = v58 * 0.75;
-    if (v45)
+    v61 = v60 + -2.0;
+    v62 = v60 * 0.75;
+    if (v47)
     {
-      v60 = v59;
+      v62 = v61;
     }
 
-    v61 = [v33 fontWithSize:v60];
-    v80 = 0;
-    v62 = [v57 scanUpToCharactersFromSet:whitespaceAndNewlineCharacterSet intoString:&v80];
-    v63 = v80;
-    v64 = v63;
-    if (v62)
+    v63 = [v33 fontWithSize:v62];
+    v82 = 0;
+    v64 = [v59 scanUpToCharactersFromSet:whitespaceAndNewlineCharacterSet intoString:&v82];
+    v65 = v82;
+    v66 = v65;
+    if (v64)
     {
       do
       {
-        v65 = [v64 length];
-        [v54 addAttribute:v52 value:v61 range:{objc_msgSend(v57, "scanLocation") - v65, v65}];
-        v80 = v64;
-        v66 = [v57 scanUpToCharactersFromSet:whitespaceAndNewlineCharacterSet intoString:&v80];
-        v67 = v80;
+        v67 = [v66 length];
+        [v56 addAttribute:v54 value:v63 range:{objc_msgSend(v59, "scanLocation") - v67, v67}];
+        v82 = v66;
+        v68 = [v59 scanUpToCharactersFromSet:whitespaceAndNewlineCharacterSet intoString:&v82];
+        v69 = v82;
 
-        v64 = v67;
+        v66 = v69;
       }
 
-      while ((v66 & 1) != 0);
+      while ((v68 & 1) != 0);
     }
 
     else
     {
-      v67 = v63;
+      v69 = v65;
     }
 
-    v53 = v76;
-    v51 = v78;
-    v50 = v75;
+    v55 = v78;
+    v53 = v80;
+    v52 = v77;
   }
 
-  if (v50)
+  if (v52)
   {
-    v68 = objc_alloc(MEMORY[0x277CCA898]);
+    v70 = objc_alloc(MEMORY[0x277CCA898]);
     _signPrefixString = [(CLKRelativeDateTextProvider *)self _signPrefixString];
-    v70 = [v68 initWithString:_signPrefixString attributes:v53];
+    v72 = [v70 initWithString:_signPrefixString attributes:v55];
 
-    [v54 insertAttributedString:v70 atIndex:0];
+    [v56 insertAttributedString:v72 atIndex:0];
   }
 
-  styleCopy = v79;
-  if ([v79 shouldEmbedTintColors])
+  styleCopy = v81;
+  if ([v81 shouldEmbedTintColors])
   {
     tintColor = [(CLKTextProvider *)self tintColor];
 
     if (tintColor)
     {
-      v72 = *MEMORY[0x277D740C0];
+      v74 = *MEMORY[0x277D740C0];
       tintColor2 = [(CLKTextProvider *)self tintColor];
-      [v54 addAttribute:v72 value:tintColor2 range:{0, objc_msgSend(v54, "length")}];
+      [v56 addAttribute:v74 value:tintColor2 range:{0, objc_msgSend(v56, "length")}];
     }
   }
 
-  v32 = [v54 _attributedStringWithOtherAttributesFromStyle:v79];
+  v32 = [v56 _attributedStringWithOtherAttributesFromStyle:v81];
 
 LABEL_85:
 
@@ -590,7 +591,7 @@ LABEL_85:
 
 - (id)_signPrefixString
 {
-  v3 = CLKLocaleCurrentNumberSystem();
+  v3 = CLKLocaleCurrentNumberSystem(self, a2);
   v4 = &stru_284A20458;
   v5 = @"\u200F";
   if (v3 != 1)
@@ -644,13 +645,13 @@ LABEL_85:
       v13 = &unk_278A1F0C0;
       v14 = &v15;
       v19 = 0;
-      v5 = 0x38u;
+      v5 = 7u;
       do
       {
-        if ((*(&__allAllowedUnits + v5) & ~calendarUnits) != 0)
+        if ((__allAllowedUnits[v5] & ~calendarUnits) != 0)
         {
           v6 = 0;
-          if (!v5)
+          if (!(v5 * 8))
           {
             break;
           }
@@ -660,13 +661,13 @@ LABEL_85:
         {
           v12(v11);
           v6 = v19;
-          if (!v5)
+          if (!(v5 * 8))
           {
             break;
           }
         }
 
-        v5 -= 8;
+        --v5;
       }
 
       while ((v6 & 1) == 0);
@@ -970,7 +971,7 @@ LABEL_53:
   return v17;
 }
 
-uint64_t __63__CLKRelativeDateTextProvider__componentsForDate_visibleUnits___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__63__CLKRelativeDateTextProvider__componentsForDate_visibleUnits___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) valueForComponent:a2];
   if (result)

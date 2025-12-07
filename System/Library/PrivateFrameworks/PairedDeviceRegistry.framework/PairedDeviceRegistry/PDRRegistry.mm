@@ -31,30 +31,31 @@
 
 + (id)sharedInstance
 {
-  v2 = implementationClass();
+  v2 = implementationClass(self);
 
   return [v2 sharedInstance];
 }
 
 - (PDRRegistry)init
 {
-  implementationClass();
-  if (objc_opt_isKindOfClass())
+  implementationClass(self);
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v4 = dispatch_queue_create("com.apple.nanoregistry.paireddeviceregistry", v3);
-    [(PDRRegistry *)self setCallbackQueue:v4];
+    v4 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v5 = dispatch_queue_create("com.apple.nanoregistry.paireddeviceregistry", v4);
+    [(PDRRegistry *)self setCallbackQueue:v5];
 
-    v7.receiver = self;
-    v7.super_class = PDRRegistry;
-    return [(PDRRegistry *)&v7 init];
+    v8.receiver = self;
+    v8.super_class = PDRRegistry;
+    return [(PDRRegistry *)&v8 init];
   }
 
   else
   {
-    v6 = objc_alloc_init(implementationClass());
+    v7 = objc_alloc_init(implementationClass(isKindOfClass));
 
-    return v6;
+    return v7;
   }
 }
 
@@ -147,40 +148,38 @@ uint64_t __68__PDRRegistry_NanoRegistryStyle__setupCompletedDevicesSelectorBlock
 
 void __53__PDRRegistry_NanoRegistryStyle__getDevicesMatching___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * i);
+        v8 = *(*(&v9 + 1) + 8 * i);
         if (([v8 isArchived] & 1) == 0 && (objc_msgSend(v8, "isAltAccount") & 1) == 0 && (*(*(a1 + 32) + 16))())
         {
           [*(*(*(a1 + 40) + 8) + 40) addObject:v8];
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getAllDevicesWithArchivedDevicesMatching:(id)matching
@@ -209,28 +208,28 @@ void __53__PDRRegistry_NanoRegistryStyle__getDevicesMatching___block_invoke(uint
 
 void __75__PDRRegistry_NanoRegistryStyle__getAllDevicesWithArchivedDevicesMatching___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * v7);
+        v8 = *(*(&v9 + 1) + 8 * v7);
         if ((*(*(a1 + 32) + 16))() && ([v8 isAltAccount] & 1) == 0)
         {
           [*(*(*(a1 + 40) + 8) + 40) addObject:v8];
@@ -240,13 +239,11 @@ void __75__PDRRegistry_NanoRegistryStyle__getAllDevicesWithArchivedDevicesMatchi
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getAllDevicesWithArchivedAltAccountDevicesMatching:(id)matching
@@ -275,28 +272,28 @@ void __75__PDRRegistry_NanoRegistryStyle__getAllDevicesWithArchivedDevicesMatchi
 
 void __85__PDRRegistry_NanoRegistryStyle__getAllDevicesWithArchivedAltAccountDevicesMatching___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * v7);
+        v8 = *(*(&v9 + 1) + 8 * v7);
         if ((*(*(a1 + 32) + 16))())
         {
           [*(*(*(a1 + 40) + 8) + 40) addObject:v8];
@@ -306,13 +303,11 @@ void __85__PDRRegistry_NanoRegistryStyle__getAllDevicesWithArchivedAltAccountDev
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)deviceFromNRDevice:(id)device

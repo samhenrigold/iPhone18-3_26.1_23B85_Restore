@@ -102,20 +102,21 @@ uint64_t __52__MRUAssetManager_imageForEndpointRoute_completion___block_invoke(u
 - (void)imageForModelIdentifier:(id)identifier color:(id)color allowFallback:(BOOL)fallback timeout:(double)timeout completion:(id)completion
 {
   fallbackCopy = fallback;
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   completionCopy = completion;
   colorCopy = color;
   v15 = [(MRUAssetManager *)self shouldUseProductKitFor:identifierCopy];
-  v16 = MCLogCategoryDefault();
-  v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG);
-  if (v15)
+  v16 = v15;
+  v17 = MCLogCategoryDefault(v15);
+  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG);
+  if (v16)
   {
-    if (v17)
+    if (v18)
     {
-      v19 = 138412290;
-      v20 = identifierCopy;
-      _os_log_impl(&dword_1A20FC000, v16, OS_LOG_TYPE_DEBUG, "[AssetManager] Request for %@ - PK", &v19, 0xCu);
+      v20 = 138412290;
+      v21 = identifierCopy;
+      _os_log_impl(&dword_1A20FC000, v17, OS_LOG_TYPE_DEBUG, "[AssetManager] Request for %@ - PK", &v20, 0xCu);
     }
 
     timeoutCopy = 3.0;
@@ -129,11 +130,11 @@ uint64_t __52__MRUAssetManager_imageForEndpointRoute_completion___block_invoke(u
 
   else
   {
-    if (v17)
+    if (v18)
     {
-      v19 = 138412290;
-      v20 = identifierCopy;
-      _os_log_impl(&dword_1A20FC000, v16, OS_LOG_TYPE_DEBUG, "[AssetManager] Request for %@ - SF", &v19, 0xCu);
+      v20 = 138412290;
+      v21 = identifierCopy;
+      _os_log_impl(&dword_1A20FC000, v17, OS_LOG_TYPE_DEBUG, "[AssetManager] Request for %@ - SF", &v20, 0xCu);
     }
 
     [(MRUAssetManager *)self imageForModelIdentifier:identifierCopy color:colorCopy name:@"ProxCard_Setup" allowFallback:fallbackCopy timeout:completionCopy completion:timeout];
@@ -143,38 +144,38 @@ uint64_t __52__MRUAssetManager_imageForEndpointRoute_completion___block_invoke(u
 - (void)productKitImageForModelIdentifier:(id)identifier color:(id)color allowFallback:(BOOL)fallback timeout:(double)timeout completion:(id)completion
 {
   fallbackCopy = fallback;
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   colorCopy = color;
   completionCopy = completion;
   uUID = [MEMORY[0x1E696AFB0] UUID];
   uUIDString = [uUID UUIDString];
 
-  v16 = MCLogCategoryDefault();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  v17 = MCLogCategoryDefault(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138413314;
-    v23 = uUIDString;
-    v24 = 2112;
-    v25 = identifierCopy;
-    v26 = 2112;
-    v27 = colorCopy;
-    v28 = 1024;
-    v29 = fallbackCopy;
-    v30 = 2048;
+    v24 = uUIDString;
+    v25 = 2112;
+    v26 = identifierCopy;
+    v27 = 2112;
+    v28 = colorCopy;
+    v29 = 1024;
+    v30 = fallbackCopy;
+    v31 = 2048;
     timeoutCopy = timeout;
-    _os_log_impl(&dword_1A20FC000, v16, OS_LOG_TYPE_DEBUG, "[AssetManager] PK request<%@> for model: %@, color: %@, allow fallback? %{BOOL}u, timeout: %f", buf, 0x30u);
+    _os_log_impl(&dword_1A20FC000, v17, OS_LOG_TYPE_DEBUG, "[AssetManager] PK request<%@> for model: %@, color: %@, allow fallback? %{BOOL}u, timeout: %f", buf, 0x30u);
   }
 
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __92__MRUAssetManager_productKitImageForModelIdentifier_color_allowFallback_timeout_completion___block_invoke;
-  v19[3] = &unk_1E76649A0;
-  v20 = uUIDString;
-  v21 = completionCopy;
-  v17 = completionCopy;
-  v18 = uUIDString;
-  [MRUProductKit assetHardwareModel:identifierCopy color:colorCopy allowFallback:fallbackCopy timeout:v19 completion:timeout];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __92__MRUAssetManager_productKitImageForModelIdentifier_color_allowFallback_timeout_completion___block_invoke;
+  v20[3] = &unk_1E76649A0;
+  v21 = uUIDString;
+  v22 = completionCopy;
+  v18 = completionCopy;
+  v19 = uUIDString;
+  [MRUProductKit assetHardwareModel:identifierCopy color:colorCopy allowFallback:fallbackCopy timeout:v20 completion:timeout];
 }
 
 void __92__MRUAssetManager_productKitImageForModelIdentifier_color_allowFallback_timeout_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -182,7 +183,7 @@ void __92__MRUAssetManager_productKitImageForModelIdentifier_color_allowFallback
   v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = MCLogCategoryDefault();
+  v7 = MCLogCategoryDefault(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -216,7 +217,7 @@ LABEL_6:
 - (void)imageForModelIdentifier:(id)identifier color:(id)color name:(id)name allowFallback:(BOOL)fallback timeout:(double)timeout completion:(id)completion
 {
   fallbackCopy = fallback;
-  v48 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   colorCopy = color;
   nameCopy = name;
@@ -224,131 +225,131 @@ LABEL_6:
   uUID = [MEMORY[0x1E696AFB0] UUID];
   uUIDString = [uUID UUIDString];
 
-  v20 = MCLogCategoryDefault();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+  v21 = MCLogCategoryDefault(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138413314;
-    v39 = uUIDString;
-    v40 = 2112;
-    v41 = identifierCopy;
+    v41 = uUIDString;
     v42 = 2112;
-    v43 = colorCopy;
-    v44 = 1024;
-    v45 = fallbackCopy;
-    v46 = 2048;
+    v43 = identifierCopy;
+    v44 = 2112;
+    v45 = colorCopy;
+    v46 = 1024;
+    v47 = fallbackCopy;
+    v48 = 2048;
     timeoutCopy = timeout;
-    _os_log_impl(&dword_1A20FC000, v20, OS_LOG_TYPE_DEBUG, "[AssetManager] Request<%@> Bundle for model: %@, color: %@, allow fallback? %{BOOL}u, timeout: %f", buf, 0x30u);
+    _os_log_impl(&dword_1A20FC000, v21, OS_LOG_TYPE_DEBUG, "[AssetManager] Request<%@> Bundle for model: %@, color: %@, allow fallback? %{BOOL}u, timeout: %f", buf, 0x30u);
   }
 
   if (colorCopy)
   {
-    v21 = objc_alloc(MEMORY[0x1E69CDE98]);
-    v28 = MEMORY[0x1E69E9820];
-    v29 = 3221225472;
-    v30 = __87__MRUAssetManager_imageForModelIdentifier_color_name_allowFallback_timeout_completion___block_invoke;
-    v31 = &unk_1E76649C8;
-    v32 = uUIDString;
-    v34 = completionCopy;
-    v35 = fallbackCopy;
-    v33 = nameCopy;
-    v22 = [v21 initWithQueryResultHandler:&v28];
-    [v22 setTimeout:{timeout, v28, v29, v30, v31}];
-    v23 = objc_alloc(MEMORY[0x1E69CDE90]);
-    v36 = *MEMORY[0x1E69CDEF0];
-    v37 = colorCopy;
-    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
-    v25 = [v23 initWithProductType:identifierCopy additionalQueryParameters:v24];
+    v23 = objc_alloc(MEMORY[0x1E69CDE98]);
+    v30 = MEMORY[0x1E69E9820];
+    v31 = 3221225472;
+    v32 = __87__MRUAssetManager_imageForModelIdentifier_color_name_allowFallback_timeout_completion___block_invoke;
+    v33 = &unk_1E76649C8;
+    v34 = uUIDString;
+    v36 = completionCopy;
+    v37 = fallbackCopy;
+    v35 = nameCopy;
+    v24 = [v23 initWithQueryResultHandler:&v30];
+    [v24 setTimeout:{timeout, v30, v31, v32, v33}];
+    v25 = objc_alloc(MEMORY[0x1E69CDE90]);
+    v38 = *MEMORY[0x1E69CDEF0];
+    v39 = colorCopy;
+    v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+    v27 = [v25 initWithProductType:identifierCopy additionalQueryParameters:v26];
 
-    [(SFDeviceAssetManager *)self->_assetManager getAssetBundleForDeviceQuery:v25 withRequestConfiguration:v22];
-    v26 = v32;
+    [(SFDeviceAssetManager *)self->_assetManager getAssetBundleForDeviceQuery:v27 withRequestConfiguration:v24];
+    v28 = v34;
   }
 
   else
   {
-    v27 = MCLogCategoryDefault();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+    v29 = MCLogCategoryDefault(v22);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v39 = uUIDString;
-      _os_log_impl(&dword_1A20FC000, v27, OS_LOG_TYPE_DEBUG, "[AssetManager] Response<%@> No color provided, not requesting bundle", buf, 0xCu);
+      v41 = uUIDString;
+      _os_log_impl(&dword_1A20FC000, v29, OS_LOG_TYPE_DEBUG, "[AssetManager] Response<%@> No color provided, not requesting bundle", buf, 0xCu);
     }
 
-    v26 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"MRUAssetManagerErrorDomain" code:0 userInfo:0];
-    (*(completionCopy + 2))(completionCopy, 0, v26);
+    v28 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"MRUAssetManagerErrorDomain" code:0 userInfo:0];
+    (*(completionCopy + 2))(completionCopy, 0, v28);
   }
 }
 
 void __87__MRUAssetManager_imageForModelIdentifier_color_name_allowFallback_timeout_completion___block_invoke(uint64_t a1, void *a2, void *a3, int a4, void *a5)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v9 = a2;
   v10 = a3;
   v11 = a5;
-  v12 = MCLogCategoryDefault();
+  v12 = MCLogCategoryDefault(v11);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     v13 = *(a1 + 32);
-    v24 = 138413314;
-    v25 = v13;
-    v26 = 2112;
-    v27 = v9;
-    v28 = 2112;
-    v29 = v10;
-    v30 = 1024;
-    v31 = a4;
-    v32 = 2112;
-    v33 = v11;
-    _os_log_impl(&dword_1A20FC000, v12, OS_LOG_TYPE_DEBUG, "[AssetManager] Update<%@> Got bundle: %@, type: %@, fallback: %{BOOL}u, error: %@", &v24, 0x30u);
+    v25 = 138413314;
+    v26 = v13;
+    v27 = 2112;
+    v28 = v9;
+    v29 = 2112;
+    v30 = v10;
+    v31 = 1024;
+    v32 = a4;
+    v33 = 2112;
+    v34 = v11;
+    _os_log_impl(&dword_1A20FC000, v12, OS_LOG_TYPE_DEBUG, "[AssetManager] Update<%@> Got bundle: %@, type: %@, fallback: %{BOOL}u, error: %@", &v25, 0x30u);
   }
 
   if (!v9)
   {
-    v18 = MCLogCategoryDefault();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v19 = MCLogCategoryDefault(v14);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
-      v19 = *(a1 + 32);
-      v24 = 138412290;
-      v25 = v19;
-      _os_log_impl(&dword_1A20FC000, v18, OS_LOG_TYPE_DEBUG, "[AssetManager] Response<%@> Failed to obtain bundle", &v24, 0xCu);
+      v20 = *(a1 + 32);
+      v25 = 138412290;
+      v26 = v20;
+      _os_log_impl(&dword_1A20FC000, v19, OS_LOG_TYPE_DEBUG, "[AssetManager] Response<%@> Failed to obtain bundle", &v25, 0xCu);
     }
 
-    v20 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v21 = 1;
+    v21 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v22 = 1;
     goto LABEL_15;
   }
 
   if (a4 && (*(a1 + 56) & 1) == 0)
   {
-    v22 = MCLogCategoryDefault();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+    v23 = MCLogCategoryDefault(v14);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
-      v23 = *(a1 + 32);
-      v24 = 138412290;
-      v25 = v23;
-      _os_log_impl(&dword_1A20FC000, v22, OS_LOG_TYPE_DEBUG, "[AssetManager] Response<%@> Fallback bundle not allowed", &v24, 0xCu);
+      v24 = *(a1 + 32);
+      v25 = 138412290;
+      v26 = v24;
+      _os_log_impl(&dword_1A20FC000, v23, OS_LOG_TYPE_DEBUG, "[AssetManager] Response<%@> Fallback bundle not allowed", &v25, 0xCu);
     }
 
-    v20 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v21 = 2;
+    v21 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v22 = 2;
 LABEL_15:
-    v16 = [v20 initWithDomain:@"MRUAssetManagerErrorDomain" code:v21 userInfo:0];
-    v17 = *(*(a1 + 48) + 16);
+    v17 = [v21 initWithDomain:@"MRUAssetManagerErrorDomain" code:v22 userInfo:0];
+    v18 = *(*(a1 + 48) + 16);
     goto LABEL_16;
   }
 
-  v14 = MCLogCategoryDefault();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v15 = MCLogCategoryDefault(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
-    v15 = *(a1 + 32);
-    v24 = 138412290;
-    v25 = v15;
-    _os_log_impl(&dword_1A20FC000, v14, OS_LOG_TYPE_DEBUG, "[AssetManager] Response<%@> Bundle found", &v24, 0xCu);
+    v16 = *(a1 + 32);
+    v25 = 138412290;
+    v26 = v16;
+    _os_log_impl(&dword_1A20FC000, v15, OS_LOG_TYPE_DEBUG, "[AssetManager] Response<%@> Bundle found", &v25, 0xCu);
   }
 
-  v16 = [MEMORY[0x1E69DCAB8] imageNamed:*(a1 + 40) inBundle:v9 withConfiguration:0];
-  v17 = *(*(a1 + 48) + 16);
+  v17 = [MEMORY[0x1E69DCAB8] imageNamed:*(a1 + 40) inBundle:v9 withConfiguration:0];
+  v18 = *(*(a1 + 48) + 16);
 LABEL_16:
-  v17();
+  v18();
 }
 
 - (id)symbolImageForEndpointRoute:(id)route

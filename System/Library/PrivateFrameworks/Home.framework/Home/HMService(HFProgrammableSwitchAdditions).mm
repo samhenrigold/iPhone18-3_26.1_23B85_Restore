@@ -4,7 +4,7 @@
 - (id)hf_labelNamespaceCharacteristic;
 - (uint64_t)hf_fallbackProgrammableSwitchIndex;
 - (uint64_t)hf_isProgrammableSwitch;
-- (uint64_t)hf_isProgrammableSwitchConfigured;
+- (void)hf_isProgrammableSwitchConfigured;
 @end
 
 @implementation HMService(HFProgrammableSwitchAdditions)
@@ -25,12 +25,12 @@
 {
   hf_programmableSwitchServiceTypes = [objc_opt_class() hf_programmableSwitchServiceTypes];
   serviceType = [self serviceType];
-  v4 = [hf_programmableSwitchServiceTypes containsObject:serviceType];
+  v5 = [hf_programmableSwitchServiceTypes containsObject:serviceType];
 
-  return v4;
+  return v5;
 }
 
-- (uint64_t)hf_isProgrammableSwitchConfigured
+- (void)hf_isProgrammableSwitchConfigured
 {
   result = [self hf_isProgrammableSwitch];
   if (result)
@@ -85,34 +85,34 @@
 {
   hf_programmableSwitchServiceTypes = [objc_opt_class() hf_programmableSwitchServiceTypes];
   serviceType = [self serviceType];
-  v4 = [hf_programmableSwitchServiceTypes containsObject:serviceType];
+  v5 = [hf_programmableSwitchServiceTypes containsObject:serviceType];
 
-  if (v4)
+  if (v5)
   {
-    v5 = *MEMORY[0x277CD0E88];
-    v6 = [self _hf_firstLinkedServiceOfType:*MEMORY[0x277CD0E88]];
-    if (v6)
+    v6 = *MEMORY[0x277CD0E88];
+    v7 = [self _hf_firstLinkedServiceOfType:*MEMORY[0x277CD0E88]];
+    if (v7)
     {
-      v7 = v6;
+      v8 = v7;
 LABEL_5:
-      v9 = [v7 hf_characteristicOfType:*MEMORY[0x277CCF930]];
+      v10 = [v8 hf_characteristicOfType:*MEMORY[0x277CCF930]];
 
       goto LABEL_7;
     }
 
     accessory = [self accessory];
-    v7 = [accessory hf_serviceOfType:v5];
+    v8 = [accessory hf_serviceOfType:v6];
 
-    if (v7)
+    if (v8)
     {
       goto LABEL_5;
     }
   }
 
-  v9 = 0;
+  v10 = 0;
 LABEL_7:
 
-  return v9;
+  return v10;
 }
 
 - (id)_hf_firstLinkedServiceOfType:()HFProgrammableSwitchAdditions

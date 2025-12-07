@@ -98,7 +98,7 @@ void __91___SVXServiceCommandHandlerPlayVoiceMail_handleCommand_withContext_task
 
 void __91___SVXServiceCommandHandlerPlayVoiceMail_handleCommand_withContext_taskTracker_completion___block_invoke_4(uint64_t a1, void *a2, double a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = v5;
   if (a3 == 0.0 && v5 != 0)
@@ -125,15 +125,13 @@ LABEL_8:
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v16 = "[_SVXServiceCommandHandlerPlayVoiceMail handleCommand:withContext:taskTracker:completion:]_block_invoke_4";
+    v15 = "[_SVXServiceCommandHandlerPlayVoiceMail handleCommand:withContext:taskTracker:completion:]_block_invoke_4";
     _os_log_impl(&dword_2695B9000, v13, OS_LOG_TYPE_DEFAULT, "%s Voicemail did not play long enough to be marked as read", buf, 0xCu);
   }
 
   v12 = 0;
 LABEL_12:
   (*(*(a1 + 64) + 16))();
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

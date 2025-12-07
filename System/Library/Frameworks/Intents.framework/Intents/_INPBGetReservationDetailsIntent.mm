@@ -14,7 +14,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   intentMetadata = [(_INPBGetReservationDetailsIntent *)self intentMetadata];
   dictionaryRepresentation = [intentMetadata dictionaryRepresentation];
@@ -27,30 +27,30 @@
   if ([(NSArray *)self->_reservationItemReferences count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v9 = self->_reservationItemReferences;
-    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v18;
+      v12 = *v17;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v18 != v12)
+          if (*v17 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          dictionaryRepresentation3 = [*(*(&v17 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation3 = [*(*(&v16 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation3];
         }
 
-        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v11);
@@ -58,8 +58,6 @@
 
     [dictionary setObject:array forKeyedSubscript:@"reservationItemReferences"];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -206,7 +204,7 @@ LABEL_18:
 
 - (void)writeTo:(id)to
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   toCopy = to;
   intentMetadata = [(_INPBGetReservationDetailsIntent *)self intentMetadata];
 
@@ -224,39 +222,36 @@ LABEL_18:
     PBDataWriterWriteSubmessage();
   }
 
-  v18 = 0u;
-  v19 = 0u;
   v16 = 0u;
   v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v9 = self->_reservationItemReferences;
-  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v17;
+    v12 = *v15;
     do
     {
       v13 = 0;
       do
       {
-        if (*v17 != v12)
+        if (*v15 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v16 + 1) + 8 * v13);
         PBDataWriterWriteSubmessage();
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v11);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addReservationItemReferences:(id)references

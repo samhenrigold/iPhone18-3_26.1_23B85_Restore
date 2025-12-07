@@ -233,7 +233,7 @@
 
 - (id)_handleButtonPress
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   inProgressSysdiagnoseCollectionFuture = [(HFAccessorySettingDeviceOptionsAdapter *)self inProgressSysdiagnoseCollectionFuture];
 
   if (inProgressSysdiagnoseCollectionFuture)
@@ -244,8 +244,8 @@
       v6 = NSStringFromSelector(a2);
       *buf = 138412546;
       selfCopy = self;
-      v21 = 2112;
-      v22 = v6;
+      v20 = 2112;
+      v21 = v6;
       _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%@:%@ Ignoring because previous SysdiagnoseCollection future is active", buf, 0x16u);
     }
 
@@ -258,8 +258,8 @@
     date = [MEMORY[0x277CBEAA8] date];
     [date timeIntervalSince1970];
     v10 = [v8 numberWithDouble:?];
-    v18 = v10;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+    v17 = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
 
     v12 = HFLogForCategory(0x3CuLL);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
@@ -275,8 +275,6 @@
 
     inProgressSysdiagnoseCollectionFuture2 = [(HFAccessorySettingDeviceOptionsAdapter *)self inProgressSysdiagnoseCollectionFuture];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return inProgressSysdiagnoseCollectionFuture2;
 }

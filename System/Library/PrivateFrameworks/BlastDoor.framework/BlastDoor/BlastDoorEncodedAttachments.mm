@@ -7,7 +7,6 @@
 
 - (NSString)description
 {
-  v4 = *(&self->super.isa + OBJC_IVAR___BlastDoorEncodedAttachments_encodedAttachments);
 
   sub_2146D9608();
   v2 = sub_2146D9588();

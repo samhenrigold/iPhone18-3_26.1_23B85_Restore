@@ -100,7 +100,7 @@
 
 - (void)fetchMergeableDeltasRecursivelyForValueIDs:(id)ds continuationTokens:(id)tokens completionHandler:(id)handler
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   tokensCopy = tokens;
   handlerCopy = handler;
@@ -114,8 +114,8 @@
   {
     *location = 138412546;
     *&location[4] = dsCopy;
-    v39 = 2112;
-    v40 = tokensCopy;
+    v38 = 2112;
+    v39 = tokensCopy;
     _os_log_debug_impl(&dword_22506F000, v11, OS_LOG_TYPE_DEBUG, "Will fetch deltas recursively for values %@ with continuation tokens %@", location, 0x16u);
   }
 
@@ -123,55 +123,53 @@
   v14 = objc_msgSend_initWithOperation_mergeableValueIDs_previousContinuationTokens_(v12, v13, self, dsCopy, tokensCopy);
   v17 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v15, v16);
   objc_initWeak(location, self);
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = sub_2251CCB78;
-  v35[3] = &unk_278549278;
-  objc_copyWeak(&v37, location);
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = sub_2251CCB78;
+  v34[3] = &unk_278549278;
+  objc_copyWeak(&v36, location);
   v18 = v17;
-  v36 = v18;
-  objc_msgSend_setDeltasFetchedBlock_(v14, v19, v35);
+  v35 = v18;
+  objc_msgSend_setDeltasFetchedBlock_(v14, v19, v34);
   objc_initWeak(&from, v14);
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = sub_2251CCCDC;
-  v29[3] = &unk_278549340;
-  objc_copyWeak(&v32, location);
-  objc_copyWeak(&v33, &from);
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = sub_2251CCCDC;
+  v28[3] = &unk_278549340;
+  objc_copyWeak(&v31, location);
+  objc_copyWeak(&v32, &from);
   v20 = handlerCopy;
-  v31 = v20;
+  v30 = v20;
   v21 = v18;
-  v30 = v21;
-  objc_msgSend_setCompletionBlock_(v14, v22, v29);
+  v29 = v21;
+  objc_msgSend_setCompletionBlock_(v14, v22, v28);
   objc_msgSend_setRequest_(self, v23, v14);
   v26 = objc_msgSend_container(self, v24, v25);
   objc_msgSend_performRequest_(v26, v27, v14);
 
-  objc_destroyWeak(&v33);
   objc_destroyWeak(&v32);
+  objc_destroyWeak(&v31);
   objc_destroyWeak(&from);
 
-  objc_destroyWeak(&v37);
+  objc_destroyWeak(&v36);
   objc_destroyWeak(location);
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleMergeableDeltasFetchedForValueID:(id)d fetchedDeltas:(id)deltas result:(id)result
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   dCopy = d;
   deltasCopy = deltas;
   resultCopy = result;
   v13 = objc_msgSend_stateTransitionGroup(self, v11, v12);
   dispatch_group_enter(v13);
 
-  v68 = 0;
-  v69 = &v68;
-  v70 = 0x3032000000;
-  v71 = sub_225074020;
-  v72 = sub_22507359C;
-  v73 = 0;
+  v67 = 0;
+  v68 = &v67;
+  v69 = 0x3032000000;
+  v70 = sub_225074020;
+  v71 = sub_22507359C;
+  v72 = 0;
   if (objc_msgSend_code(resultCopy, v14, v15) == 1)
   {
     if (*MEMORY[0x277CBC880] != -1)
@@ -183,7 +181,7 @@
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v75 = dCopy;
+      v74 = dCopy;
       _os_log_debug_impl(&dword_22506F000, v16, OS_LOG_TYPE_DEBUG, "Successfully fetched delta for %@", buf, 0xCu);
     }
   }
@@ -198,8 +196,8 @@
     v25 = objc_msgSend_error(resultCopy, v23, v24);
     v28 = objc_msgSend_errorDescription(v25, v26, v27);
     v30 = objc_msgSend_errorWithDomain_code_userInfo_format_(v22, v29, *MEMORY[0x277CBC120], v17, v21, @"Error fetching deltas for %@ from server: %@", dCopy, v28);
-    v31 = v69[5];
-    v69[5] = v30;
+    v31 = v68[5];
+    v68[5] = v30;
 
     if (*MEMORY[0x277CBC880] != -1)
     {
@@ -209,11 +207,11 @@
     v32 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
     {
-      v56 = v69[5];
+      v55 = v68[5];
       *buf = 138412546;
-      v75 = dCopy;
-      v76 = 2112;
-      v77 = v56;
+      v74 = dCopy;
+      v75 = 2112;
+      v76 = v55;
       _os_log_error_impl(&dword_22506F000, v32, OS_LOG_TYPE_ERROR, "Failed to fetch deltas for %@: %@", buf, 0x16u);
     }
   }
@@ -221,26 +219,26 @@
   v33 = dispatch_group_create();
   if (objc_msgSend_useEncryption(self, v34, v35) && objc_msgSend_CKContains_(deltasCopy, v36, &unk_28385D540))
   {
-    v57 = objc_msgSend_recordID(dCopy, v36, v37);
-    if (v57)
+    v56 = objc_msgSend_recordID(dCopy, v36, v37);
+    if (v56)
     {
       dispatch_group_enter(v33);
       objc_initWeak(buf, self);
       v40 = objc_msgSend_container(self, v38, v39);
       v43 = objc_msgSend_pcsCache(v40, v41, v42);
       v46 = objc_msgSend_recordID(dCopy, v44, v45);
-      v62[0] = MEMORY[0x277D85DD0];
-      v62[1] = 3221225472;
-      v62[2] = sub_2251CD5C0;
-      v62[3] = &unk_278549388;
-      objc_copyWeak(&v67, buf);
-      v63 = dCopy;
-      v66 = &v68;
-      v64 = deltasCopy;
-      v65 = v33;
-      objc_msgSend_fetchPCSForRecordWithID_forOperation_options_withCompletionHandler_(v43, v47, v46, self, 0, v62);
+      v61[0] = MEMORY[0x277D85DD0];
+      v61[1] = 3221225472;
+      v61[2] = sub_2251CD5C0;
+      v61[3] = &unk_278549388;
+      objc_copyWeak(&v66, buf);
+      v62 = dCopy;
+      v65 = &v67;
+      v63 = deltasCopy;
+      v64 = v33;
+      objc_msgSend_fetchPCSForRecordWithID_forOperation_options_withCompletionHandler_(v43, v47, v46, self, 0, v61);
 
-      objc_destroyWeak(&v67);
+      objc_destroyWeak(&v66);
       objc_destroyWeak(buf);
     }
 
@@ -255,13 +253,13 @@
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v75 = dCopy;
+        v74 = dCopy;
         _os_log_error_impl(&dword_22506F000, v48, OS_LOG_TYPE_ERROR, "Unable to determine record ID for value %@", buf, 0xCu);
       }
 
       v50 = objc_msgSend_errorWithDomain_code_userInfo_format_(MEMORY[0x277CBC560], v49, *MEMORY[0x277CBC120], 1017, 0, @"Unable to determine record ID for mergeable delta for value ID: %@", dCopy);
-      v51 = v69[5];
-      v69[5] = v50;
+      v51 = v68[5];
+      v68[5] = v50;
     }
   }
 
@@ -271,15 +269,14 @@
   block[2] = sub_2251CD940;
   block[3] = &unk_2785493B0;
   block[4] = self;
-  v59 = dCopy;
-  v60 = deltasCopy;
-  v61 = &v68;
+  v58 = dCopy;
+  v59 = deltasCopy;
+  v60 = &v67;
   v53 = deltasCopy;
   v54 = dCopy;
   dispatch_group_notify(v33, v52, block);
 
-  _Block_object_dispose(&v68, 8);
-  v55 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v67, 8);
 }
 
 @end

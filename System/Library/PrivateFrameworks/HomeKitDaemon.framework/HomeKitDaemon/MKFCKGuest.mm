@@ -36,7 +36,7 @@
 
 void __100__MKFCKGuest__dictionaryRepresentationFromYearDayScheduleRules_cloudYearDayScheduleRulesDictionary___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 isValid])
   {
@@ -56,17 +56,15 @@ void __100__MKFCKGuest__dictionaryRepresentationFromYearDayScheduleRules_cloudYe
     {
       v8 = HMFGetLogIdentifier();
       v9 = [v3 debugDescription];
-      v11 = 138543618;
-      v12 = v8;
-      v13 = 2114;
-      v14 = v9;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Cannot export yearDayRule as it is not valid : %{public}@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2114;
+      v13 = v9;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Cannot export yearDayRule as it is not valid : %{public}@", &v10, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_dictionaryRepresentationFromWeekDayScheduleRules:(id)rules cloudWeekDayScheduleRulesDictionary:(id)dictionary
@@ -90,7 +88,7 @@ void __100__MKFCKGuest__dictionaryRepresentationFromYearDayScheduleRules_cloudYe
 
 void __100__MKFCKGuest__dictionaryRepresentationFromWeekDayScheduleRules_cloudWeekDayScheduleRulesDictionary___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 isValid])
   {
@@ -110,17 +108,15 @@ void __100__MKFCKGuest__dictionaryRepresentationFromWeekDayScheduleRules_cloudWe
     {
       v8 = HMFGetLogIdentifier();
       v9 = [v3 debugDescription];
-      v11 = 138543618;
-      v12 = v8;
-      v13 = 2114;
-      v14 = v9;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Cannot export weekDayRule as it is not valid : %{public}@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2114;
+      v13 = v9;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Cannot export weekDayRule as it is not valid : %{public}@", &v10, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)_importYearDayScheduleRulesIntoLocalModel:(id)model fromCloudModel:(id)cloudModel localRelationship:(id)relationship cloudAttributeName:(id)name parentRelationshipName:(id)relationshipName context:(id)context
@@ -183,7 +179,7 @@ void __139__MKFCKGuest__importYearDayScheduleRulesIntoLocalModel_fromCloudModel_
 {
   v3 = *(a1 + 32);
   v4 = a2;
-  v5 = [v3 copy];
+  v5 = objc_msgSend_copy(v3);
   v6 = [_MKFYearDayScheduleRule populateYearDayScheduleRuleFromDictionary:v4 existingLocalModels:v5 context:*(a1 + 40)];
 
   if (v6)
@@ -262,7 +258,7 @@ void __139__MKFCKGuest__importWeekDayScheduleRulesIntoLocalModel_fromCloudModel_
 {
   v3 = *(a1 + 32);
   v4 = a2;
-  v5 = [v3 copy];
+  v5 = objc_msgSend_copy(v3);
   v6 = [_MKFWeekDayScheduleRule populateWeekDayScheduleRuleFromDictionary:v4 existingLocalModels:v5 context:*(a1 + 40)];
 
   if (v6)
@@ -371,7 +367,7 @@ void __139__MKFCKGuest__importWeekDayScheduleRulesIntoLocalModel_fromCloudModel_
 
 - (BOOL)_importGuestAccessCodeIntoLocalModel:(id)model context:(id)context
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   contextCopy = context;
   homeAccessCode = [(MKFCKGuest *)self homeAccessCode];
@@ -430,13 +426,13 @@ LABEL_14:
       v25 = HMFGetLogIdentifier();
       accessCode4 = [modelCopy accessCode];
       v27 = [modelCopy debugDescription];
-      v30 = 138543874;
-      v31 = v25;
-      v32 = 2112;
-      v33 = accessCode4;
-      v34 = 2112;
-      v35 = v27;
-      _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@Deleting the MKFUserAccessCode %@ for Guest %@", &v30, 0x20u);
+      v29 = 138543874;
+      v30 = v25;
+      v31 = 2112;
+      v32 = accessCode4;
+      v33 = 2112;
+      v34 = v27;
+      _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@Deleting the MKFUserAccessCode %@ for Guest %@", &v29, 0x20u);
     }
 
     objc_autoreleasePoolPop(v22);
@@ -447,7 +443,6 @@ LABEL_14:
 
 LABEL_15:
 
-  v28 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

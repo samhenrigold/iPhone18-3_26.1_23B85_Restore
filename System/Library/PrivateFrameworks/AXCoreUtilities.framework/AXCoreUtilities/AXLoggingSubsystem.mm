@@ -31,7 +31,6 @@
 
 uint64_t __36__AXLoggingSubsystem_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedInstance_System = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x1EEE66BB8]();
@@ -71,36 +70,35 @@ uint64_t __32__AXLoggingSubsystem_initialize__block_invoke()
 
 void __40__AXLoggingSubsystem_initializeSubsytem__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_class();
+  v1 = objc_opt_class();
   ClassList = objc_getClassList(0, 0);
-  v4 = malloc_type_malloc(8 * ClassList, 0x80040B8603338uLL);
-  v5 = objc_getClassList(v4, ClassList);
-  if (v5 >= 1)
+  v3 = malloc_type_malloc(8 * ClassList, 0x80040B8603338uLL);
+  v4 = objc_getClassList(v3, ClassList);
+  if (v4 >= 1)
   {
-    v6 = 0;
-    v7 = v5;
+    v5 = 0;
+    v6 = v4;
     do
     {
-      Superclass = v4[v6];
+      Superclass = v3[v5];
       do
       {
         Superclass = class_getSuperclass(Superclass);
       }
 
-      while (Superclass && Superclass != v2);
+      while (Superclass && Superclass != v1);
       if (Superclass)
       {
-        [Subsystems addObject:v4[v6]];
+        [Subsystems addObject:v3[v5]];
       }
 
-      ++v6;
+      ++v5;
     }
 
-    while (v6 != v7);
+    while (v5 != v6);
   }
 
-  free(v4);
+  free(v3);
 }
 
 + (id)subsystems

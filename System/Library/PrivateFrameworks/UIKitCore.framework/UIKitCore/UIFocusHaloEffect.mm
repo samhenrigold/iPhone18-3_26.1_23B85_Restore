@@ -70,9 +70,9 @@
           goto LABEL_26;
         }
 
-        v14 = [v8 isEqual:v9];
+        isEqual = objc_msgSend_isEqual_(v8);
 
-        if (!v14)
+        if (!isEqual)
         {
           LOBYTE(position) = 0;
 LABEL_27:
@@ -100,7 +100,7 @@ LABEL_27:
           goto LABEL_25;
         }
 
-        v20 = [v13 isEqual:v17];
+        v20 = objc_msgSend_isEqual_(v13);
 
         if (!v20)
         {
@@ -129,7 +129,7 @@ LABEL_26:
           goto LABEL_25;
         }
 
-        LODWORD(position) = [v19 isEqual:v23];
+        LODWORD(position) = objc_msgSend_isEqual_(v19);
 
         if (!position)
         {

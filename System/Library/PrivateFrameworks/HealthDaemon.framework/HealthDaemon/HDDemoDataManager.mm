@@ -110,9 +110,9 @@ void __52__HDDemoDataManager__queue_generateDemoDataIfNeeded__block_invoke(uint6
       block[1] = 3221225472;
       block[2] = __52__HDDemoDataManager__queue_generateDemoDataIfNeeded__block_invoke_297;
       block[3] = &unk_278616F38;
-      objc_copyWeak(&v23, location);
+      objc_copyWeak(&v22, location);
       dispatch_after(v13, v14, block);
-      objc_destroyWeak(&v23);
+      objc_destroyWeak(&v22);
       objc_destroyWeak(location);
     }
 
@@ -159,14 +159,12 @@ void __52__HDDemoDataManager__queue_generateDemoDataIfNeeded__block_invoke(uint6
       _os_log_error_impl(&dword_228986000, v19, OS_LOG_TYPE_ERROR, "Failed to generate demo data: %{public}@", location, 0xCu);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __52__HDDemoDataManager__queue_generateDemoDataIfNeeded__block_invoke_297(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  [HDDemoDataManager _queue_generateDemoDataIfNeeded];
+  [(HDDemoDataManager *)WeakRetained _queue_generateDemoDataIfNeeded];
 }
 
 - (void)profileDidBecomeReady:(id)ready

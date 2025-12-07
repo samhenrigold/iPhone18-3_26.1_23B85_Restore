@@ -3,7 +3,7 @@
 
 @implementation AXSForceTouchEnabled
 
-uint64_t ___AXSForceTouchEnabled_block_invoke()
+void *___AXSForceTouchEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

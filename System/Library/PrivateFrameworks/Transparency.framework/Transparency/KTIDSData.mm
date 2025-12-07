@@ -56,11 +56,11 @@
 
 - (KTIDSData)initWithCoder:(id)coder
 {
-  v32[2] = *MEMORY[0x1E69E9840];
+  v30[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v30.receiver = self;
-  v30.super_class = KTIDSData;
-  v5 = [(KTIDSData *)&v30 init];
+  v28.receiver = self;
+  v28.super_class = KTIDSData;
+  v5 = [(KTIDSData *)&v28 init];
   if (!v5)
   {
     goto LABEL_16;
@@ -100,9 +100,9 @@
   [(KTIDSData *)v5 setKtOptChangeReason:v10];
 
   v11 = MEMORY[0x1E695DFD8];
-  v32[0] = objc_opt_class();
-  v32[1] = objc_opt_class();
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:2];
+  v30[0] = objc_opt_class();
+  v30[1] = objc_opt_class();
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:2];
   v13 = [v11 setWithArray:v12];
   v14 = [coderCopy decodeObjectOfClasses:v13 forKey:@"identities"];
   [(KTIDSData *)v5 setIdentities:v14];
@@ -124,27 +124,25 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  v28 = 0u;
-  v29 = 0u;
   v26 = 0u;
   v27 = 0u;
-  identities2 = [(KTIDSData *)v5 identities];
-  v19 = [identities2 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v25 = 0u;
+  v18 = [(KTIDSData *)v5 identities:0];
+  v19 = [v18 countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v27;
+    v21 = *v25;
     while (2)
     {
       v22 = 0;
       do
       {
-        if (*v27 != v21)
+        if (*v25 != v21)
         {
-          objc_enumerationMutation(identities2);
+          objc_enumerationMutation(v18);
         }
 
-        v23 = *(*(&v26 + 1) + 8 * v22);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -156,7 +154,7 @@ LABEL_16:
       }
 
       while (v20 != v22);
-      v20 = [identities2 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v24 objects:v29 count:16];
       if (v20)
       {
         continue;
@@ -169,7 +167,6 @@ LABEL_16:
   application = v5;
 LABEL_17:
 
-  v24 = *MEMORY[0x1E69E9840];
   return application;
 }
 

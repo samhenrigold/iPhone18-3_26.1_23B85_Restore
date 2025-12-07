@@ -11,9 +11,9 @@
 
 - (CameraCaptureButtonAppConfigurationCoordinator)init
 {
-  v34.receiver = self;
-  v34.super_class = CameraCaptureButtonAppConfigurationCoordinator;
-  v2 = [(CameraCaptureButtonAppConfigurationCoordinator *)&v34 init];
+  v33.receiver = self;
+  v33.super_class = CameraCaptureButtonAppConfigurationCoordinator;
+  v2 = [(CameraCaptureButtonAppConfigurationCoordinator *)&v33 init];
   v3 = v2;
   if (v2)
   {
@@ -33,51 +33,50 @@
     v3->__appConfigurationController = v9;
 
     objc_initWeak(&location, v3);
-    v11 = v3->__appConfigurationController;
-    v12 = objc_opt_respondsToSelector();
-    v13 = v3->__appConfigurationController;
-    if (v12)
+    v11 = objc_opt_respondsToSelector();
+    v12 = v3->__appConfigurationController;
+    if (v11)
     {
-      v31[0] = _NSConcreteStackBlock;
-      v31[1] = 3221225472;
-      v31[2] = sub_4000;
-      v31[3] = &unk_2CB60;
-      v14 = &v32;
-      objc_copyWeak(&v32, &location);
-      v15 = [(SBSCaptureButtonAppConfigurationCoordinator *)v13 addObserverForEligibleCaptureAppsUpdatesUsingBlock:v31];
+      v30[0] = _NSConcreteStackBlock;
+      v30[1] = 3221225472;
+      v30[2] = sub_4000;
+      v30[3] = &unk_2CB60;
+      v13 = &v31;
+      objc_copyWeak(&v31, &location);
+      v14 = [(SBSCaptureButtonAppConfigurationCoordinator *)v12 addObserverForEligibleCaptureAppsUpdatesUsingBlock:v30];
     }
 
     else
     {
-      v29[0] = _NSConcreteStackBlock;
-      v29[1] = 3221225472;
-      v29[2] = sub_4190;
-      v29[3] = &unk_2CB60;
-      v14 = &v30;
-      objc_copyWeak(&v30, &location);
-      v15 = [(SBSCaptureButtonAppConfigurationCoordinator *)v13 addObserverForEligibleCaptureAppsUpdatesUsingBlock:v29];
+      v28[0] = _NSConcreteStackBlock;
+      v28[1] = 3221225472;
+      v28[2] = sub_4190;
+      v28[3] = &unk_2CB60;
+      v13 = &v29;
+      objc_copyWeak(&v29, &location);
+      v14 = [(SBSCaptureButtonAppConfigurationCoordinator *)v12 addObserverForEligibleCaptureAppsUpdatesUsingBlock:v28];
     }
 
     eligibleAppsObserver = v3->__eligibleAppsObserver;
-    v3->__eligibleAppsObserver = v15;
+    v3->__eligibleAppsObserver = v14;
 
-    objc_destroyWeak(v14);
-    v17 = v3->__appConfigurationController;
-    v24 = _NSConcreteStackBlock;
-    v25 = 3221225472;
-    v26 = sub_41EC;
-    v27 = &unk_2CB88;
-    objc_copyWeak(&v28, &location);
-    v18 = [(SBSCaptureButtonAppConfigurationCoordinator *)v17 addObserverForAssociatedAppUpdatesUsingBlock:&v24];
+    objc_destroyWeak(v13);
+    v16 = v3->__appConfigurationController;
+    v23 = _NSConcreteStackBlock;
+    v24 = 3221225472;
+    v25 = sub_41EC;
+    v26 = &unk_2CB88;
+    objc_copyWeak(&v27, &location);
+    v17 = [(SBSCaptureButtonAppConfigurationCoordinator *)v16 addObserverForAssociatedAppUpdatesUsingBlock:&v23];
     associatedAppObserver = v3->__associatedAppObserver;
-    v3->__associatedAppObserver = v18;
+    v3->__associatedAppObserver = v17;
 
-    v20 = [NSHashTable weakObjectsHashTable:v24];
+    v19 = [NSHashTable weakObjectsHashTable:v23];
     coordinatorObservers = v3->__coordinatorObservers;
-    v3->__coordinatorObservers = v20;
+    v3->__coordinatorObservers = v19;
 
-    v22 = v3;
-    objc_destroyWeak(&v28);
+    v21 = v3;
+    objc_destroyWeak(&v27);
     objc_destroyWeak(&location);
   }
 

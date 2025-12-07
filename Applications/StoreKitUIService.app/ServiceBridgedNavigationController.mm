@@ -4,6 +4,7 @@
 - (ServiceBridgedNavigationControllerProxy)proxyHandler;
 - (id)popToViewController:(id)controller animated:(BOOL)animated;
 - (id)topViewController;
+- (void)pushViewController:(id)controller animated:(BOOL)animated;
 - (void)removeAllContainerViewControllers;
 - (void)setupWithContainerViewController:(id)controller;
 - (void)synchonrizeContinainerViewControllers;
@@ -103,6 +104,21 @@
   lastObject = [containerViewControllers lastObject];
 
   return lastObject;
+}
+
+- (void)pushViewController:(id)controller animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  controllerCopy = controller;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    containerViewControllers = [(ServiceBridgedNavigationController *)self containerViewControllers];
+    [containerViewControllers addObject:controllerCopy];
+
+    proxyHandler = [(ServiceBridgedNavigationController *)self proxyHandler];
+    [proxyHandler pushBridgedViewController:controllerCopy animated:animatedCopy];
+  }
 }
 
 - (id)popToViewController:(id)controller animated:(BOOL)animated

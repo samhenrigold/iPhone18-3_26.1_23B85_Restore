@@ -35,7 +35,7 @@ void __33__ContentItemMarkupGenerator_log__block_invoke(uint64_t a1)
 
 + (id)markupStringForDisplayForContentItem:(id)item
 {
-  v22[3] = *MEMORY[0x277D85DE8];
+  v21[3] = *MEMORY[0x277D85DE8];
   itemCopy = item;
   type = [itemCopy type];
   contentID = [itemCopy contentID];
@@ -60,14 +60,14 @@ void __33__ContentItemMarkupGenerator_log__block_invoke(uint64_t a1)
       [dictionary setObject:@"1px 0px 1px 0px" forKeyedSubscript:@"padding"];
     }
 
-    v22[0] = dictionary;
-    v21[0] = @"style";
-    v21[1] = @"src";
+    v21[0] = dictionary;
+    v20[0] = @"style";
+    v20[1] = @"src";
     v10 = MFCreateURLForContentID();
-    v21[2] = @"id";
-    v22[1] = v10;
-    v22[2] = contentID;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:3];
+    v20[2] = @"id";
+    v21[1] = v10;
+    v21[2] = contentID;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:3];
 
     v12 = [MEMORY[0x277D07158] htmlSnippetWithTag:@"img" includeTrailingTag:0 attributes:v11];
   }
@@ -81,28 +81,26 @@ void __33__ContentItemMarkupGenerator_log__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     ef_publicDescription = [itemCopy ef_publicDescription];
-    v17 = 138543618;
-    v18 = ef_publicDescription;
-    v19 = 2112;
-    v20 = v12;
-    _os_log_impl(&dword_2149C9000, v13, OS_LOG_TYPE_DEFAULT, "Content Item %{public}@ generated snippet: %@", &v17, 0x16u);
+    v16 = 138543618;
+    v17 = ef_publicDescription;
+    v18 = 2112;
+    v19 = v12;
+    _os_log_impl(&dword_2149C9000, v13, OS_LOG_TYPE_DEFAULT, "Content Item %{public}@ generated snippet: %@", &v16, 0x16u);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 + (id)attachmentElementMarkupStringForContentItem:(id)item
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   v4 = +[ContentItemMarkupGenerator log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     contentID = [itemCopy contentID];
     *buf = 138412290;
-    v30 = contentID;
+    v29 = contentID;
     _os_log_impl(&dword_2149C9000, v4, OS_LOG_TYPE_DEFAULT, "Start to set up markup string for content item: %@", buf, 0xCu);
   }
 
@@ -208,15 +206,13 @@ void __33__ContentItemMarkupGenerator_log__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         ef_publicDescription3 = [itemCopy ef_publicDescription];
-        [(ContentItemMarkupGenerator *)ef_publicDescription3 attachmentElementMarkupStringForContentItem:v28, v22];
+        [(ContentItemMarkupGenerator *)ef_publicDescription3 attachmentElementMarkupStringForContentItem:v27, v22];
       }
     }
   }
 
 LABEL_27:
   v25 = [MEMORY[0x277D07158] htmlSnippetWithTag:@"attachment" includeTrailingTag:1 attributes:dictionary];
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v25;
 }

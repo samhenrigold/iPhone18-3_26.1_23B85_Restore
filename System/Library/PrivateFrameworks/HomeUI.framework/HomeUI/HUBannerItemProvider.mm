@@ -20,20 +20,20 @@
   return v3;
 }
 
-void __42__HUBannerItemProvider__bannerItemClasses__block_invoke_2()
+void __42__HUBannerItemProvider__bannerItemClasses__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2[8] = *MEMORY[0x277D85DE8];
-  v2[0] = objc_opt_class();
-  v2[1] = objc_opt_class();
-  v2[2] = objc_opt_class();
-  v2[3] = objc_opt_class();
-  v2[4] = objc_opt_class();
-  v2[5] = objc_opt_class();
-  v2[6] = objc_opt_class();
-  v2[7] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:8];
-  v1 = qword_281120CF0;
-  qword_281120CF0 = v0;
+  v4[8] = *MEMORY[0x277D85DE8];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v4[2] = objc_opt_class();
+  v4[3] = objc_opt_class();
+  v4[4] = objc_opt_class();
+  v4[5] = objc_opt_class();
+  v4[6] = objc_opt_class();
+  v4[7] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:8];
+  v3 = qword_281120CF0;
+  qword_281120CF0 = v2;
 }
 
 + (id)sortOrderForBannerItemCategory:(unint64_t)category
@@ -87,44 +87,44 @@ LABEL_11:
   return self;
 }
 
-void __55__HUBannerItemProvider_sortOrderForBannerItemCategory___block_invoke_2()
+void __55__HUBannerItemProvider_sortOrderForBannerItemCategory___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2[3] = *MEMORY[0x277D85DE8];
-  v2[0] = objc_opt_class();
-  v2[1] = objc_opt_class();
-  v2[2] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:3];
-  v1 = qword_281120D00;
-  qword_281120D00 = v0;
+  v4[3] = *MEMORY[0x277D85DE8];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v4[2] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:3];
+  v3 = qword_281120D00;
+  qword_281120D00 = v2;
 }
 
-void __55__HUBannerItemProvider_sortOrderForBannerItemCategory___block_invoke_4()
+void __55__HUBannerItemProvider_sortOrderForBannerItemCategory___block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  v2[10] = *MEMORY[0x277D85DE8];
-  v2[0] = objc_opt_class();
-  v2[1] = objc_opt_class();
-  v2[2] = objc_opt_class();
-  v2[3] = objc_opt_class();
-  v2[4] = objc_opt_class();
-  v2[5] = objc_opt_class();
-  v2[6] = objc_opt_class();
-  v2[7] = objc_opt_class();
-  v2[8] = objc_opt_class();
-  v2[9] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:10];
-  v1 = qword_281120D10;
-  qword_281120D10 = v0;
+  v4[10] = *MEMORY[0x277D85DE8];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v4[2] = objc_opt_class();
+  v4[3] = objc_opt_class();
+  v4[4] = objc_opt_class();
+  v4[5] = objc_opt_class();
+  v4[6] = objc_opt_class();
+  v4[7] = objc_opt_class();
+  v4[8] = objc_opt_class();
+  v4[9] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:10];
+  v3 = qword_281120D10;
+  qword_281120D10 = v2;
 }
 
-void __55__HUBannerItemProvider_sortOrderForBannerItemCategory___block_invoke_6()
+void __55__HUBannerItemProvider_sortOrderForBannerItemCategory___block_invoke_6(uint64_t a1, uint64_t a2)
 {
-  v2[3] = *MEMORY[0x277D85DE8];
-  v2[0] = objc_opt_class();
-  v2[1] = objc_opt_class();
-  v2[2] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:3];
-  v1 = qword_281120D20;
-  qword_281120D20 = v0;
+  v4[3] = *MEMORY[0x277D85DE8];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v4[2] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:3];
+  v3 = qword_281120D20;
+  qword_281120D20 = v2;
 }
 
 uint64_t __44__HUBannerItemProvider_bannerItemComparator__block_invoke(uint64_t a1, void *a2, void *a3)

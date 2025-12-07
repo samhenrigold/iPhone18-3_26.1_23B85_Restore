@@ -9,10 +9,10 @@
 
 - (AAFamilyDetailsResponse)initWithHTTPResponse:(id)response data:(id)data
 {
-  v127 = *MEMORY[0x1E69E9840];
-  v122.receiver = self;
-  v122.super_class = AAFamilyDetailsResponse;
-  v4 = [(AAResponse *)&v122 initWithHTTPResponse:response data:data];
+  v126 = *MEMORY[0x1E69E9840];
+  v121.receiver = self;
+  v121.super_class = AAFamilyDetailsResponse;
+  v4 = [(AAResponse *)&v121 initWithHTTPResponse:response data:data];
   v5 = v4;
   if (v4 && [(NSHTTPURLResponse *)v4->super._httpResponse statusCode]== 200)
   {
@@ -20,31 +20,31 @@
     v7 = [responseDictionary objectForKey:@"family-members"];
 
     objc_opt_class();
-    v94 = v7;
-    v105 = v5;
+    v93 = v7;
+    v104 = v5;
     if (objc_opt_isKindOfClass())
     {
-      v101 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v100 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v117 = 0u;
       v118 = 0u;
       v119 = 0u;
       v120 = 0u;
-      v121 = 0u;
       obj = v7;
-      v8 = [obj countByEnumeratingWithState:&v118 objects:v126 count:16];
+      v8 = [obj countByEnumeratingWithState:&v117 objects:v125 count:16];
       if (v8)
       {
         v9 = v8;
-        v99 = *v119;
+        v98 = *v118;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v119 != v99)
+            if (*v118 != v98)
             {
               objc_enumerationMutation(obj);
             }
 
-            v11 = *(*(&v118 + 1) + 8 * i);
+            v11 = *(*(&v117 + 1) + 8 * i);
             v12 = objc_alloc_init(AAFamilyMember);
             v13 = [v11 objectForKeyedSubscript:@"member-first-name"];
             [(AAFamilyMember *)v12 setFirstName:v13];
@@ -100,58 +100,58 @@
 
             v32 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSince1970:v31];
             [(AAFamilyMember *)v12 setJoinDate:v32];
-            [(NSArray *)v101 addObject:v12];
-            v5 = v105;
+            [(NSArray *)v100 addObject:v12];
+            v5 = v104;
             if ([(AAFamilyMember *)v12 isOrganizer])
             {
-              objc_storeStrong(&v105->_organizer, v12);
+              objc_storeStrong(&v104->_organizer, v12);
             }
 
             if ([(AAFamilyMember *)v12 isMe])
             {
-              objc_storeStrong(&v105->_me, v12);
+              objc_storeStrong(&v104->_me, v12);
             }
           }
 
-          v9 = [obj countByEnumeratingWithState:&v118 objects:v126 count:16];
+          v9 = [obj countByEnumeratingWithState:&v117 objects:v125 count:16];
         }
 
         while (v9);
       }
 
-      [(NSArray *)v101 sortUsingComparator:&__block_literal_global_447];
+      [(NSArray *)v100 sortUsingComparator:&__block_literal_global_447];
       members = v5->_members;
-      v5->_members = v101;
+      v5->_members = v100;
     }
 
     responseDictionary2 = [(AAResponse *)v5 responseDictionary];
     v35 = [responseDictionary2 objectForKey:@"family-invitations"];
 
     objc_opt_class();
-    v100 = v35;
+    v99 = v35;
     if (objc_opt_isKindOfClass())
     {
       v36 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v113 = 0u;
       v114 = 0u;
       v115 = 0u;
       v116 = 0u;
-      v117 = 0u;
-      v102 = v35;
-      v37 = [v102 countByEnumeratingWithState:&v114 objects:v125 count:16];
+      v101 = v35;
+      v37 = [v101 countByEnumeratingWithState:&v113 objects:v124 count:16];
       if (v37)
       {
         v38 = v37;
-        v39 = *v115;
+        v39 = *v114;
         do
         {
           for (j = 0; j != v38; ++j)
           {
-            if (*v115 != v39)
+            if (*v114 != v39)
             {
-              objc_enumerationMutation(v102);
+              objc_enumerationMutation(v101);
             }
 
-            v41 = *(*(&v114 + 1) + 8 * j);
+            v41 = *(*(&v113 + 1) + 8 * j);
             v42 = objc_alloc_init(AAFamilyInvite);
             v43 = [v41 objectForKeyedSubscript:@"invitee-last-name"];
             [(AAFamilyInvite *)v42 setOrganizerLastName:v43];
@@ -174,45 +174,45 @@
             [(NSArray *)v36 addObject:v42];
           }
 
-          v38 = [v102 countByEnumeratingWithState:&v114 objects:v125 count:16];
+          v38 = [v101 countByEnumeratingWithState:&v113 objects:v124 count:16];
         }
 
         while (v38);
       }
 
-      v5 = v105;
-      invites = v105->_invites;
-      v105->_invites = v36;
+      v5 = v104;
+      invites = v104->_invites;
+      v104->_invites = v36;
     }
 
     responseDictionary3 = [(AAResponse *)v5 responseDictionary];
     v51 = [responseDictionary3 objectForKey:@"transfer-requests"];
 
     objc_opt_class();
-    v98 = v51;
+    v97 = v51;
     if (objc_opt_isKindOfClass())
     {
       v52 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v109 = 0u;
       v110 = 0u;
       v111 = 0u;
       v112 = 0u;
-      v113 = 0u;
-      v103 = v51;
-      v53 = [v103 countByEnumeratingWithState:&v110 objects:v124 count:16];
+      v102 = v51;
+      v53 = [v102 countByEnumeratingWithState:&v109 objects:v123 count:16];
       if (v53)
       {
         v54 = v53;
-        v55 = *v111;
+        v55 = *v110;
         do
         {
           for (k = 0; k != v54; ++k)
           {
-            if (*v111 != v55)
+            if (*v110 != v55)
             {
-              objc_enumerationMutation(v103);
+              objc_enumerationMutation(v102);
             }
 
-            v57 = *(*(&v110 + 1) + 8 * k);
+            v57 = *(*(&v109 + 1) + 8 * k);
             v58 = objc_alloc_init(AAFamilyInvite);
             [(AAFamilyInvite *)v58 setIsChildTransferInvite:1];
             v59 = [v57 objectForKeyedSubscript:@"request-code"];
@@ -236,14 +236,14 @@
             [v52 addObject:v58];
           }
 
-          v54 = [v103 countByEnumeratingWithState:&v110 objects:v124 count:16];
+          v54 = [v102 countByEnumeratingWithState:&v109 objects:v123 count:16];
         }
 
         while (v54);
       }
 
-      v5 = v105;
-      v65 = v105->_invites;
+      v5 = v104;
+      v65 = v104->_invites;
       if (v65)
       {
         v66 = [(NSArray *)v65 arrayByAddingObjectsFromArray:v52];
@@ -254,9 +254,9 @@
         v66 = v52;
       }
 
-      v51 = v98;
-      v67 = v105->_invites;
-      v105->_invites = v66;
+      v51 = v97;
+      v67 = v104->_invites;
+      v104->_invites = v66;
     }
 
     responseDictionary4 = [(AAResponse *)v5 responseDictionary];
@@ -266,27 +266,27 @@
     if (objc_opt_isKindOfClass())
     {
       v70 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v105 = 0u;
       v106 = 0u;
       v107 = 0u;
       v108 = 0u;
-      v109 = 0u;
       obja = v69;
-      v104 = v69;
-      v71 = [v104 countByEnumeratingWithState:&v106 objects:v123 count:16];
+      v103 = v69;
+      v71 = [v103 countByEnumeratingWithState:&v105 objects:v122 count:16];
       if (v71)
       {
         v72 = v71;
-        v73 = *v107;
+        v73 = *v106;
         do
         {
           for (m = 0; m != v72; ++m)
           {
-            if (*v107 != v73)
+            if (*v106 != v73)
             {
-              objc_enumerationMutation(v104);
+              objc_enumerationMutation(v103);
             }
 
-            v75 = *(*(&v106 + 1) + 8 * m);
+            v75 = *(*(&v105 + 1) + 8 * m);
             v76 = objc_alloc_init(AAFamilyMember);
             v77 = [v75 objectForKeyedSubscript:@"member-invite-email"];
             [(AAFamilyMember *)v76 setAppleID:v77];
@@ -303,18 +303,18 @@
             [(NSArray *)v70 addObject:v76];
           }
 
-          v72 = [v104 countByEnumeratingWithState:&v106 objects:v123 count:16];
+          v72 = [v103 countByEnumeratingWithState:&v105 objects:v122 count:16];
         }
 
         while (v72);
       }
 
-      v5 = v105;
-      pendingMembers = v105->_pendingMembers;
-      v105->_pendingMembers = v70;
+      v5 = v104;
+      pendingMembers = v104->_pendingMembers;
+      v104->_pendingMembers = v70;
 
       v69 = obja;
-      v51 = v98;
+      v51 = v97;
     }
 
     responseDictionary5 = [(AAResponse *)v5 responseDictionary];
@@ -346,7 +346,6 @@
     }
   }
 
-  v92 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -362,30 +361,30 @@ uint64_t __53__AAFamilyDetailsResponse_initWithHTTPResponse_data___block_invoke(
 
 - (NSArray)firstNames
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if ([(NSArray *)self->_members count])
   {
     v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     v4 = self->_members;
-    v5 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v5 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v14;
+      v7 = *v13;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v14 != v7)
+          if (*v13 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v13 + 1) + 8 * i);
+          v9 = *(*(&v12 + 1) + 8 * i);
           if (([v9 isMe] & 1) == 0)
           {
             firstName = [v9 firstName];
@@ -396,7 +395,7 @@ uint64_t __53__AAFamilyDetailsResponse_initWithHTTPResponse_data___block_invoke(
           }
         }
 
-        v6 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v6 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v6);
@@ -407,8 +406,6 @@ uint64_t __53__AAFamilyDetailsResponse_initWithHTTPResponse_data___block_invoke(
   {
     v3 = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -427,21 +424,19 @@ uint64_t __53__AAFamilyDetailsResponse_initWithHTTPResponse_data___block_invoke(
 
 void __48__AAFamilyDetailsResponse__privacySensitiveKeys__block_invoke()
 {
-  v4[8] = *MEMORY[0x1E69E9840];
-  v4[0] = @"linked-itunes-account-dsid";
-  v4[1] = @"member-altDSID";
-  v4[2] = @"member-date-of-birth";
-  v4[3] = @"member-display-label";
-  v4[4] = @"member-dsid";
-  v4[5] = @"member-first-name";
-  v4[6] = @"member-last-name";
-  v4[7] = @"member-phone-numbers";
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:8];
+  v3[8] = *MEMORY[0x1E69E9840];
+  v3[0] = @"linked-itunes-account-dsid";
+  v3[1] = @"member-altDSID";
+  v3[2] = @"member-date-of-birth";
+  v3[3] = @"member-display-label";
+  v3[4] = @"member-dsid";
+  v3[5] = @"member-first-name";
+  v3[6] = @"member-last-name";
+  v3[7] = @"member-phone-numbers";
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:8];
   v1 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v0];
   v2 = _privacySensitiveKeys_keysToRedact_513;
   _privacySensitiveKeys_keysToRedact_513 = v1;
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (id)privacySensitiveResponseBody

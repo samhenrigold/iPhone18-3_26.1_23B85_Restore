@@ -161,7 +161,7 @@
 
     else
     {
-      v13 = _PTLogSystem();
+      v13 = _PTLogSystem(lastKnownFocusDetection);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [(PTCinematographyFrameDetectionSmoother *)frameCopy _updateFocusDetectionForFrame:v13];
@@ -217,7 +217,7 @@
 
           else
           {
-            v13 = _PTLogSystem();
+            v13 = _PTLogSystem(0);
             if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
             {
               [(PTCinematographyFrameDetectionSmoother *)v20 nextFrame:trackIdentifier];
@@ -415,12 +415,13 @@ LABEL_8:
 
 - (void)_dropAllFocusSmoothersIfLeaked
 {
-  if ([(NSMutableDictionary *)self->_firstFocusSmootherByTrackNumber count])
+  v3 = [(NSMutableDictionary *)self->_firstFocusSmootherByTrackNumber count];
+  if (v3)
   {
-    v3 = _PTLogSystem();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = _PTLogSystem(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      [(PTCinematographyFrameDetectionSmoother *)v3 _dropAllFocusSmoothersIfLeaked];
+      [(PTCinematographyFrameDetectionSmoother *)v4 _dropAllFocusSmoothersIfLeaked];
     }
 
     [(NSMutableDictionary *)self->_firstFocusSmootherByTrackNumber removeAllObjects];

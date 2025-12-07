@@ -32,13 +32,11 @@
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
-        v28 = v6;
-        v29 = 2114;
-        v30 = v7;
+        v24 = v6;
+        v25 = 2114;
+        v26 = v7;
         _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: Removing %{public}@ from relativePathsToOnlyBackupEncrypted", buf, 0x16u);
-        v23 = v6;
-        v25 = v7;
-        _MBLog();
+        _MBLog(@"Df", "%{public}@: Removing %{public}@ from relativePathsToOnlyBackupEncrypted", v6, v7);
       }
 
       [v11 removeObject:v7];
@@ -57,13 +55,11 @@
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
-        v28 = v6;
-        v29 = 2114;
-        v30 = v7;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%{public}@: Removing %{public}@ from relativePathsToRestoreOnly", buf, 0x16u);
         v24 = v6;
+        v25 = 2114;
         v26 = v7;
-        _MBLog();
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%{public}@: Removing %{public}@ from relativePathsToRestoreOnly", buf, 0x16u);
+        _MBLog(@"Df", "%{public}@: Removing %{public}@ from relativePathsToRestoreOnly", v6, v7);
       }
 
       [v16 removeObject:v7];
@@ -87,11 +83,11 @@
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v28 = v6;
-      v29 = 2114;
-      v30 = @"Library/VoiceTrigger/SAT";
+      v24 = v6;
+      v25 = 2114;
+      v26 = @"Library/VoiceTrigger/SAT";
       _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "%{public}@: Adding %{public}@ to relativePathsNotToRestore", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"Df", "%{public}@: Adding %{public}@ to relativePathsNotToRestore", v6, @"Library/VoiceTrigger/SAT");
     }
 
     [v20 addObject:@"Library/VoiceTrigger/SAT"];
@@ -136,7 +132,7 @@
       v16 = 2114;
       v17 = @"Library/VoiceTrigger/SAT";
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: Adding %{public}@ to relativePathsNotToRemoveIfNotRestored", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"Df", "%{public}@: Adding %{public}@ to relativePathsNotToRemoveIfNotRestored", v8, @"Library/VoiceTrigger/SAT");
     }
 
     [v11 addObject:@"Library/VoiceTrigger/SAT"];

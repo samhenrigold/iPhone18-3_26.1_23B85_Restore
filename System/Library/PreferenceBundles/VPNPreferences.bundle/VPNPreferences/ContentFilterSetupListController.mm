@@ -9,6 +9,8 @@
 - (void)dealloc;
 - (void)loadView;
 - (void)setStateForServiceID:(id)d;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation ContentFilterSetupListController
@@ -62,6 +64,31 @@
   }
 
   return v2;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  userInfo = [*&self->PSListController_opaque[OBJC_IVAR___PSViewController__specifier] userInfo];
+  v6 = +[VPNConnectionStore sharedInstance];
+  v7 = [userInfo objectForKeyedSubscript:@"vpn-service-id"];
+  v8 = [v6 connectionWithServiceID:v7 withGrade:{-[ContentFilterSetupListController vpnGrade](self, "vpnGrade")}];
+  objc_initWeak(&location, v8);
+
+  v9 = objc_loadWeakRetained(&location);
+  sub_4760(v9);
+
+  v10.receiver = self;
+  v10.super_class = ContentFilterSetupListController;
+  [(ContentFilterSetupListController *)&v10 viewWillAppear:appearCopy];
+  objc_destroyWeak(&location);
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = ContentFilterSetupListController;
+  [(ContentFilterSetupListController *)&v3 viewDidAppear:appear];
 }
 
 - (id)bundle

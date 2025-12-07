@@ -15,38 +15,36 @@
 
 - (id)sr_dictionaryRepresentation
 {
-  v41[7] = *MEMORY[0x1E69E9840];
-  v40[0] = @"startTime";
+  v40[7] = *MEMORY[0x1E69E9840];
+  v39[0] = @"startTime";
   v4 = MEMORY[0x1E696AD98];
   objc_msgSend_startTime(self, a2, v2);
-  v41[0] = objc_msgSend_numberWithDouble_(v4, v5, v6);
-  v40[1] = @"endTime";
+  v40[0] = objc_msgSend_numberWithDouble_(v4, v5, v6);
+  v39[1] = @"endTime";
   v7 = MEMORY[0x1E696AD98];
   objc_msgSend_endTime(self, v8, v9);
-  v41[1] = objc_msgSend_numberWithDouble_(v7, v10, v11);
-  v40[2] = @"distance";
+  v40[1] = objc_msgSend_numberWithDouble_(v7, v10, v11);
+  v39[2] = @"distance";
   v12 = MEMORY[0x1E696AD98];
   objc_msgSend_distance(self, v13, v14);
-  v41[2] = objc_msgSend_numberWithDouble_(v12, v15, v16);
-  v40[3] = @"numberOfSteps";
+  v40[2] = objc_msgSend_numberWithDouble_(v12, v15, v16);
+  v39[3] = @"numberOfSteps";
   v17 = MEMORY[0x1E696AD98];
   v20 = objc_msgSend_steps(self, v18, v19);
-  v41[3] = objc_msgSend_numberWithInt_(v17, v21, v20);
-  v40[4] = @"speed";
+  v40[3] = objc_msgSend_numberWithInt_(v17, v21, v20);
+  v39[4] = @"speed";
   v22 = MEMORY[0x1E696AD98];
   objc_msgSend_speed(self, v23, v24);
-  v41[4] = objc_msgSend_numberWithDouble_(v22, v25, v26);
-  v40[5] = @"percentGrade";
+  v40[4] = objc_msgSend_numberWithDouble_(v22, v25, v26);
+  v39[5] = @"percentGrade";
   v27 = MEMORY[0x1E696AD98];
   objc_msgSend_percentGrade(self, v28, v29);
-  v41[5] = objc_msgSend_numberWithDouble_(v27, v30, v31);
-  v40[6] = @"gpsSource";
+  v40[5] = objc_msgSend_numberWithDouble_(v27, v30, v31);
+  v39[6] = @"gpsSource";
   v32 = MEMORY[0x1E696AD98];
   v35 = objc_msgSend_gpsSource(self, v33, v34);
-  v41[6] = objc_msgSend_numberWithInteger_(v32, v36, v35);
-  result = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v37, v41, v40, 7);
-  v39 = *MEMORY[0x1E69E9840];
-  return result;
+  v40[6] = objc_msgSend_numberWithInteger_(v32, v36, v35);
+  return objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v37, v40, v39, 7);
 }
 
 - (CMStrideCalibrationEntry)initWithCLStrideCalEntry:(CLStrideCalEntry *)entry

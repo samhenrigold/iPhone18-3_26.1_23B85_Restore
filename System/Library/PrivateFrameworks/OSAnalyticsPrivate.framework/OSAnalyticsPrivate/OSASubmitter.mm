@@ -39,7 +39,7 @@
 
 - (void)prefaceSubmission:(id)submission withData:(id)data usingArchive:(id)archive andHeaders:(id)headers
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   submissionCopy = submission;
   dataCopy = data;
   archiveCopy = archive;
@@ -62,9 +62,9 @@
           v19 = [v18 length];
           metaData = [(OSAEphemeralLog *)v16 metaData];
           *buf = 134218242;
-          v28 = v19;
-          v29 = 2112;
-          v30 = metaData;
+          v27 = v19;
+          v28 = 2112;
+          v29 = metaData;
           _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "preface payload %ld, metadata: %@", buf, 0x16u);
         }
 
@@ -76,8 +76,8 @@
         [v21 setValue:v23 forKey:@"length"];
 
         [v21 setValue:@"deflate" forKey:@"compression"];
-        v26 = 0;
-        v24 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v21 options:0 error:&v26];
+        v25 = 0;
+        v24 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v21 options:0 error:&v25];
         [submissionCopy appendData:v24];
         [submissionCopy appendBytes:"\n" length:1];
         [submissionCopy appendData:v18];
@@ -88,13 +88,11 @@
       else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        LODWORD(v28) = 4096;
+        LODWORD(v27) = 4096;
         _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Submission archive too big (> %u) for submission with preface", buf, 8u);
       }
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getAdditionalRequestHeaders
@@ -117,16 +115,16 @@
 
 - (id)processSubmissionJobs:(id)jobs usingConfig:(id)config summarize:(id)summarize
 {
-  v118 = *MEMORY[0x277D85DE8];
+  v117 = *MEMORY[0x277D85DE8];
   jobsCopy = jobs;
   configCopy = config;
   summarizeCopy = summarize;
   Current = CFAbsoluteTimeGetCurrent();
   self->_jobCount = 0;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v97 = configCopy;
+  v96 = configCopy;
   identifier = [configCopy identifier];
-  v78 = dictionary;
+  v77 = dictionary;
   [dictionary setObject:identifier forKeyedSubscript:@"name"];
 
   array = [MEMORY[0x277CBEB18] array];
@@ -134,12 +132,12 @@
   selfCopy = self;
   getAdditionalRequestHeaders = [(OSASubmitter *)self getAdditionalRequestHeaders];
   v13 = objc_alloc_init(OSAStreamDeflater);
+  v107 = 0u;
   v108 = 0u;
   v109 = 0u;
   v110 = 0u;
-  v111 = 0u;
   v14 = jobsCopy;
-  v15 = [v14 countByEnumeratingWithState:&v108 objects:v117 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v107 objects:v116 count:16];
   if (!v15)
   {
 
@@ -148,44 +146,44 @@
   }
 
   v16 = v15;
-  v87 = 0;
-  v17 = *v109;
-  v79 = *v109;
-  v80 = v14;
-  v89 = v13;
+  v86 = 0;
+  v17 = *v108;
+  v78 = *v108;
+  v79 = v14;
+  v88 = v13;
   do
   {
     v18 = 0;
-    v81 = v16;
+    v80 = v16;
     do
     {
-      if (*v109 != v17)
+      if (*v108 != v17)
       {
         objc_enumerationMutation(v14);
       }
 
-      v82 = v18;
-      v19 = *(*(&v108 + 1) + 8 * v18);
+      v81 = v18;
+      v19 = *(*(&v107 + 1) + 8 * v18);
       v20 = [v19 objectForKey:@"routing"];
       v21 = [v19 objectForKeyedSubscript:@"<inactive>"];
 
       if (v21)
       {
-        v112[0] = @"<inactive>";
+        v111[0] = @"<inactive>";
         v22 = [v19 objectForKeyedSubscript:@"<inactive>"];
-        v112[1] = @"routing";
-        v113[0] = v22;
-        v113[1] = v20;
-        v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v113 forKeys:v112 count:2];
+        v111[1] = @"routing";
+        v112[0] = v22;
+        v112[1] = v20;
+        v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v112 forKeys:v111 count:2];
         [array addObject:v23];
         goto LABEL_64;
       }
 
-      v85 = v19;
+      v84 = v19;
       v24 = [v19 objectForKey:@"logs"];
-      v101 = [objc_alloc(MEMORY[0x277CBEB28]) initWithCapacity:0x80000];
-      v92 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v24, "count")}];
-      v96 = v20;
+      v100 = [objc_alloc(MEMORY[0x277CBEB28]) initWithCapacity:0x80000];
+      v91 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v24, "count")}];
+      v95 = v20;
       LODWORD(v25) = ([v20 isEqualToString:@"anon"] & 1) != 0 || (objc_msgSend(v20, "isEqualToString:", @"beta") & 1) != 0 || (objc_msgSend(v20, "isEqualToString:", @"session") & 1) != 0 || (objc_msgSend(v20, "isEqualToString:", @"ca1") & 1) != 0 || objc_msgSend(v20, "isEqualToString:", @"ca1-ohttp");
       if ([v20 isEqualToString:@"anon"])
       {
@@ -202,18 +200,18 @@
         v25 = v25 | 4;
       }
 
-      v26 = [v97 assembleMetadataAt:v25 withOptions:Current];
-      v27 = [v85 objectForKey:@"submission_info"];
-      v90 = v26;
+      v26 = [v96 assembleMetadataAt:v25 withOptions:Current];
+      v27 = [v84 objectForKey:@"submission_info"];
+      v89 = v26;
       [v26 setValue:v27 forKey:@"submission_info"];
 
       dictionary3 = [MEMORY[0x277CBEB38] dictionary];
-      v29 = [v85 objectForKeyedSubscript:@"<metadata>"];
+      v29 = [v84 objectForKeyedSubscript:@"<metadata>"];
 
       if (v29)
       {
         v30 = MEMORY[0x277CCABB0];
-        v31 = [v85 objectForKeyedSubscript:@"<metadata>"];
+        v31 = [v84 objectForKeyedSubscript:@"<metadata>"];
         v32 = [v30 numberWithBool:{objc_msgSend(v31, "BOOLValue")}];
         [dictionary3 setObject:v32 forKeyedSubscript:@"<metadata>"];
       }
@@ -223,35 +221,35 @@
         [dictionary3 setObject:selfCopy->_internalWhitelist forKeyedSubscript:@"<whitelist>"];
       }
 
-      v106 = 0u;
-      v107 = 0u;
-      v104 = 0u;
       v105 = 0u;
+      v106 = 0u;
+      v103 = 0u;
+      v104 = 0u;
       v22 = v24;
-      v33 = v101;
-      v95 = [v22 countByEnumeratingWithState:&v104 objects:v116 count:16];
-      if (!v95)
+      v33 = v100;
+      v94 = [v22 countByEnumeratingWithState:&v103 objects:v115 count:16];
+      if (!v94)
       {
         goto LABEL_55;
       }
 
-      v94 = *v105;
-      v88 = v22;
+      v93 = *v104;
+      v87 = v22;
       do
       {
         v34 = 0;
         do
         {
-          if (*v105 != v94)
+          if (*v104 != v93)
           {
             objc_enumerationMutation(v22);
           }
 
-          v35 = *(*(&v104 + 1) + 8 * v34);
+          v35 = *(*(&v103 + 1) + 8 * v34);
           v36 = objc_autoreleasePoolPush();
-          v103 = 0;
-          v37 = [(OSASubmitter *)selfCopy locateLog:v35 forRouting:v20 usingConfig:v97 options:dictionary3 error:&v103];
-          v38 = v103;
+          v102 = 0;
+          v37 = [(OSASubmitter *)selfCopy locateLog:v35 forRouting:v20 usingConfig:v96 options:dictionary3 error:&v102];
+          v38 = v102;
           v39 = v38;
           if (!v37)
           {
@@ -262,17 +260,17 @@
               localizedDescription = [v39 localizedDescription];
               [summarizeCopy _recordRetirement:v56 reason:localizedDescription];
 
-              v20 = v96;
+              v20 = v95;
             }
 
             objc_autoreleasePoolPop(v36);
-            v33 = v101;
+            v33 = v100;
             goto LABEL_51;
           }
 
           v40 = -[OSAStreamDeflater copyDeflatedDataFromStream:withCap:](v13, "copyDeflatedDataFromStream:withCap:", [v37 stream], 10477568);
           context = v36;
-          v99 = v39;
+          v98 = v39;
           if (v40)
           {
             v41 = v40;
@@ -281,15 +279,15 @@
               v60 = [v41 length];
               metaData = [v37 metaData];
               *buf = 138412802;
-              *v115 = v35;
-              *&v115[8] = 2048;
-              *&v115[10] = v60;
-              *&v115[18] = 2112;
-              *&v115[20] = metaData;
+              *v114 = v35;
+              *&v114[8] = 2048;
+              *&v114[10] = v60;
+              *&v114[18] = 2112;
+              *&v114[20] = metaData;
               _os_log_debug_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "'%@' payload %ld, metadata: %@", buf, 0x20u);
             }
 
-            v42 = [v90 mutableCopy];
+            v42 = [v89 mutableCopy];
             metaData2 = [v37 metaData];
             [v42 addEntriesFromDictionary:metaData2];
 
@@ -297,28 +295,28 @@
             [v42 setValue:v44 forKey:@"length"];
 
             [v42 setValue:@"deflate" forKey:@"compression"];
-            v102 = 0;
-            v45 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v42 options:0 error:&v102];
-            v93 = v102;
+            v101 = 0;
+            v45 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v42 options:0 error:&v101];
+            v92 = v101;
             v46 = v45;
             v47 = [v45 length];
             v48 = [v41 length];
-            v49 = v101;
-            if ([v101 length])
+            v49 = v100;
+            if ([v100 length])
             {
-              v50 = v47 + v48 + [v101 length] + 2;
-              v20 = v96;
-              if (v50 > 0x80000 || [v96 isEqualToString:@"ca1-ohttp"])
+              v50 = v47 + v48 + [v100 length] + 2;
+              v20 = v95;
+              if (v50 > 0x80000 || [v95 isEqualToString:@"ca1-ohttp"])
               {
-                v51 = [(OSASubmitter *)selfCopy processJob:v101 forRouting:v96 including:v92 usingConfig:v97 taskings:dictionary2 summarize:summarizeCopy additionalRequestHeaders:getAdditionalRequestHeaders];
+                v51 = [(OSASubmitter *)selfCopy processJob:v100 forRouting:v95 including:v91 usingConfig:v96 taskings:dictionary2 summarize:summarizeCopy additionalRequestHeaders:getAdditionalRequestHeaders];
                 [array addObject:v51];
                 v52 = [v51 objectForKeyedSubscript:@"complete"];
                 bOOLValue = [v52 BOOLValue];
 
                 v54 = bOOLValue ^ 1;
-                HIDWORD(v87) += bOOLValue ^ 1;
-                LODWORD(v87) = v87 + bOOLValue;
-                v49 = v101;
+                HIDWORD(v86) += bOOLValue ^ 1;
+                LODWORD(v86) = v86 + bOOLValue;
+                v49 = v100;
 
                 goto LABEL_46;
               }
@@ -330,15 +328,15 @@
             {
               v54 = 0;
 LABEL_46:
-              v20 = v96;
+              v20 = v95;
             }
 
             if (![v49 length])
             {
-              v59 = [v85 objectForKeyedSubscript:@"<preface>"];
-              [(OSASubmitter *)selfCopy prefaceSubmission:v49 withData:v59 usingArchive:v89 andHeaders:v90];
+              v59 = [v84 objectForKeyedSubscript:@"<preface>"];
+              [(OSASubmitter *)selfCopy prefaceSubmission:v49 withData:v59 usingArchive:v88 andHeaders:v89];
 
-              v20 = v96;
+              v20 = v95;
             }
 
             [v49 appendData:v46];
@@ -346,10 +344,10 @@ LABEL_46:
             [v49 appendData:v41];
             [v49 appendBytes:"\n" length:1];
             [v37 closeFileStream];
-            [v92 addObject:v37];
+            [v91 addObject:v37];
 
-            v22 = v88;
-            v13 = v89;
+            v22 = v87;
+            v13 = v88;
             goto LABEL_50;
           }
 
@@ -358,9 +356,9 @@ LABEL_46:
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
             {
               *buf = 67109378;
-              *v115 = 10485760;
-              *&v115[4] = 2112;
-              *&v115[6] = v35;
+              *v114 = 10485760;
+              *&v114[4] = 2112;
+              *&v114[6] = v35;
               _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Submission archive too big (> %u) for submission with file %@", buf, 0x12u);
             }
 
@@ -375,7 +373,7 @@ LABEL_46:
 LABEL_50:
 
           objc_autoreleasePoolPop(context);
-          v33 = v101;
+          v33 = v100;
           if (v54)
           {
             v63 = v22;
@@ -386,15 +384,15 @@ LABEL_51:
           ++v34;
         }
 
-        while (v95 != v34);
-        v62 = [v22 countByEnumeratingWithState:&v104 objects:v116 count:16];
-        v95 = v62;
+        while (v94 != v34);
+        v62 = [v22 countByEnumeratingWithState:&v103 objects:v115 count:16];
+        v94 = v62;
       }
 
       while (v62);
 LABEL_55:
 
-      v63 = [(OSASubmitter *)selfCopy processJob:v33 forRouting:v20 including:v92 usingConfig:v97 taskings:dictionary2 summarize:summarizeCopy additionalRequestHeaders:getAdditionalRequestHeaders];
+      v63 = [(OSASubmitter *)selfCopy processJob:v33 forRouting:v20 including:v91 usingConfig:v96 taskings:dictionary2 summarize:summarizeCopy additionalRequestHeaders:getAdditionalRequestHeaders];
       [array addObject:v63];
       v64 = [v63 objectForKeyedSubscript:@"contentLength"];
 
@@ -405,49 +403,49 @@ LABEL_55:
 
         if (bOOLValue2)
         {
-          v67 = HIDWORD(v87);
+          v67 = HIDWORD(v86);
         }
 
         else
         {
-          v67 = HIDWORD(v87) + 1;
+          v67 = HIDWORD(v86) + 1;
         }
 
-        v68 = v87;
+        v68 = v86;
         if (bOOLValue2)
         {
-          v68 = v87 + 1;
+          v68 = v86 + 1;
         }
 
-        v87 = __PAIR64__(v67, v68);
+        v86 = __PAIR64__(v67, v68);
       }
 
 LABEL_63:
-      v14 = v80;
-      v16 = v81;
-      v17 = v79;
+      v14 = v79;
+      v16 = v80;
+      v17 = v78;
 
-      v20 = v96;
-      v23 = v101;
+      v20 = v95;
+      v23 = v100;
 LABEL_64:
 
-      v18 = v82 + 1;
+      v18 = v81 + 1;
     }
 
-    while (v82 + 1 != v16);
-    v69 = [v14 countByEnumeratingWithState:&v108 objects:v117 count:16];
+    while (v81 + 1 != v16);
+    v69 = [v14 countByEnumeratingWithState:&v107 objects:v116 count:16];
     v16 = v69;
   }
 
   while (v69);
 
   v70 = @"partial success";
-  if (!v87)
+  if (!v86)
   {
     v70 = @"failed";
   }
 
-  if (HIDWORD(v87))
+  if (HIDWORD(v86))
   {
     v71 = v70;
   }
@@ -466,21 +464,19 @@ LABEL_74:
     jobCount = selfCopy->_jobCount;
     v75 = CFAbsoluteTimeGetCurrent();
     *buf = 138543874;
-    *v115 = v71;
-    *&v115[8] = 1024;
-    *&v115[10] = jobCount;
-    *&v115[14] = 2048;
-    *&v115[16] = v75 - Current;
+    *v114 = v71;
+    *&v114[8] = 1024;
+    *&v114[10] = jobCount;
+    *&v114[14] = 2048;
+    *&v114[16] = v75 - Current;
     _os_log_impl(&dword_25D12D000, logDomain, OS_LOG_TYPE_DEFAULT, "Submission Result: %{public}@ after %u job(s), elapsed time %.2f s", buf, 0x1Cu);
   }
 
-  [v78 setObject:v71 forKeyedSubscript:@"result"];
-  [v78 setObject:array forKeyedSubscript:@"jobs"];
-  [v78 setObject:dictionary2 forKeyedSubscript:@"taskings"];
+  [v77 setObject:v71 forKeyedSubscript:@"result"];
+  [v77 setObject:array forKeyedSubscript:@"jobs"];
+  [v77 setObject:dictionary2 forKeyedSubscript:@"taskings"];
 
-  v76 = *MEMORY[0x277D85DE8];
-
-  return v78;
+  return v77;
 }
 
 - (id)locateLog:(id)log forRouting:(id)routing usingConfig:(id)config options:(id)options error:(id *)error
@@ -497,7 +493,7 @@ LABEL_74:
 
 - (id)applyTasking:(id)tasking taskId:(id)id usingConfig:(id)config fromBlob:(id)blob
 {
-  v20[4] = *MEMORY[0x277D85DE8];
+  v19[4] = *MEMORY[0x277D85DE8];
   taskingCopy = tasking;
   idCopy = id;
   configCopy = config;
@@ -514,16 +510,16 @@ LABEL_74:
   v13 = ;
   if (([idCopy isEqualToString:@"-1"] & 1) == 0)
   {
-    v19[0] = @"action";
-    v19[1] = @"routing";
-    v20[0] = @"received";
-    v20[1] = taskingCopy;
-    v20[2] = idCopy;
-    v19[2] = @"taskId";
-    v19[3] = @"blob";
+    v18[0] = @"action";
+    v18[1] = @"routing";
+    v19[0] = @"received";
+    v19[1] = taskingCopy;
+    v19[2] = idCopy;
+    v18[2] = @"taskId";
+    v18[3] = @"blob";
     v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(blobCopy, "length")}];
-    v20[3] = v14;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:4];
+    v19[3] = v14;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:4];
     v16 = [v15 mutableCopy];
 
     if ([configCopy isProxy])
@@ -534,14 +530,12 @@ LABEL_74:
     AnalyticsSendEvent();
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (id)processJob:(id)job forRouting:(id)routing including:(id)including usingConfig:(id)config taskings:(id)taskings summarize:(id)summarize additionalRequestHeaders:(id)headers
 {
-  v245 = *MEMORY[0x277D85DE8];
+  v244 = *MEMORY[0x277D85DE8];
   jobCopy = job;
   routingCopy = routing;
   includingCopy = including;
@@ -551,50 +545,50 @@ LABEL_74:
   headersCopy = headers;
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
   v21 = v20;
-  v183 = taskingsCopy;
+  v182 = taskingsCopy;
   v22 = [taskingsCopy objectForKeyedSubscript:routingCopy];
 
   if (v22)
   {
-    v187 = 0;
+    v186 = 0;
   }
 
   else
   {
-    v187 = [OSASubmitter taskingKeyForRouting:routingCopy withConfig:configCopy];
+    v186 = [OSASubmitter taskingKeyForRouting:routingCopy withConfig:configCopy];
   }
 
-  v185 = jobCopy;
-  v196 = routingCopy;
-  v190 = includingCopy;
-  v188 = configCopy;
+  v184 = jobCopy;
+  v195 = routingCopy;
+  v189 = includingCopy;
+  v187 = configCopy;
   if (([routingCopy isEqualToString:@"ca1"] & 1) != 0 || objc_msgSend(routingCopy, "isEqualToString:", @"ca1-ohttp"))
   {
     v23 = objc_opt_new();
+    v213 = 0u;
     v214 = 0u;
     v215 = 0u;
     v216 = 0u;
-    v217 = 0u;
     v24 = includingCopy;
-    v25 = [v24 countByEnumeratingWithState:&v214 objects:v244 count:16];
+    v25 = [v24 countByEnumeratingWithState:&v213 objects:v243 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v215;
+      v27 = *v214;
       do
       {
         for (i = 0; i != v26; ++i)
         {
-          if (*v215 != v27)
+          if (*v214 != v27)
           {
             objc_enumerationMutation(v24);
           }
 
-          filepath = [*(*(&v214 + 1) + 8 * i) filepath];
+          filepath = [*(*(&v213 + 1) + 8 * i) filepath];
           [v23 addObject:filepath];
         }
 
-        v26 = [v24 countByEnumeratingWithState:&v214 objects:v244 count:16];
+        v26 = [v24 countByEnumeratingWithState:&v213 objects:v243 count:16];
       }
 
       while (v26);
@@ -602,38 +596,38 @@ LABEL_74:
 
     v30 = MEMORY[0x277D36B78];
     v31 = *MEMORY[0x277D36BF8];
-    v242 = *MEMORY[0x277D36C00];
-    v243 = v23;
-    v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v243 forKeys:&v242 count:1];
+    v241 = *MEMORY[0x277D36C00];
+    v242 = v23;
+    v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v242 forKeys:&v241 count:1];
     [v30 recordEvent:v31 with:v32];
 
-    routingCopy = v196;
-    includingCopy = v190;
-    configCopy = v188;
+    routingCopy = v195;
+    includingCopy = v189;
+    configCopy = v187;
   }
 
   self->_responseCode = 0;
-  if (![jobCopy length] && (!v187 || !-[OSASubmitter taskingNeedsRefreshForRouting:at:](self, "taskingNeedsRefreshForRouting:at:", routingCopy, v21)))
+  if (![jobCopy length] && (!v186 || !-[OSASubmitter taskingNeedsRefreshForRouting:at:](self, "taskingNeedsRefreshForRouting:at:", routingCopy, v21)))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       identifier = [configCopy identifier];
       *buf = 138412546;
-      v237 = identifier;
-      v238 = 2112;
-      *v239 = routingCopy;
+      v236 = identifier;
+      v237 = 2112;
+      *v238 = routingCopy;
       _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "nothing to do for %@-%@", buf, 0x16u);
     }
 
-    v219[0] = MEMORY[0x277CBEC38];
-    v218[0] = @"complete";
-    v218[1] = @"logCount";
+    v218[0] = MEMORY[0x277CBEC38];
+    v217[0] = @"complete";
+    v217[1] = @"logCount";
     v53 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(includingCopy, "count")}];
-    v218[2] = @"routing";
+    v217[2] = @"routing";
     routingCopy = v53;
-    v219[1] = v53;
-    v219[2] = routingCopy;
-    [MEMORY[0x277CBEAC0] dictionaryWithObjects:v219 forKeys:v218 count:3];
+    v218[1] = v53;
+    v218[2] = routingCopy;
+    [MEMORY[0x277CBEAC0] dictionaryWithObjects:v218 forKeys:v217 count:3];
     v55 = v54 = routingCopy;
     goto LABEL_129;
   }
@@ -649,40 +643,40 @@ LABEL_74:
   releaseType = [configCopy releaseType];
   v39 = [v36 stringWithFormat:@"%@-%@", productVersion, releaseType];
 
-  v241[0] = @"application/vnd.apple.ips";
-  v240[0] = @"Content-Type";
-  v240[1] = @"x-hardware-model";
+  v240[0] = @"application/vnd.apple.ips";
+  v239[0] = @"Content-Type";
+  v239[1] = @"x-hardware-model";
   modelCode = [v33 modelCode];
-  v241[1] = modelCode;
-  v240[2] = @"x-os-version";
+  v240[1] = modelCode;
+  v239[2] = @"x-os-version";
   buildVersion = [v33 buildVersion];
-  v241[2] = buildVersion;
-  v240[3] = @"x-os-train";
+  v240[2] = buildVersion;
+  v239[3] = @"x-os-train";
   osTrain = [v33 osTrain];
-  v241[3] = osTrain;
-  v240[4] = @"x-target-audience";
+  v240[3] = osTrain;
+  v239[4] = @"x-target-audience";
   targetAudience = [v33 targetAudience];
-  v241[4] = targetAudience;
-  v180 = v39;
-  v241[5] = v39;
-  v240[5] = @"x-product-release";
-  v240[6] = @"x-routing";
-  v241[6] = routingCopy;
-  v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v241 forKeys:v240 count:7];
-  v189 = [v44 mutableCopy];
+  v240[4] = targetAudience;
+  v179 = v39;
+  v240[5] = v39;
+  v239[5] = @"x-product-release";
+  v239[6] = @"x-routing";
+  v240[6] = routingCopy;
+  v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v240 forKeys:v239 count:7];
+  v188 = [v44 mutableCopy];
 
-  v45 = v196;
-  if ([v196 isEqualToString:@"ca1-ohttp"])
+  v45 = v195;
+  if ([v195 isEqualToString:@"ca1-ohttp"])
   {
-    [v189 setObject:@"ca1" forKeyedSubscript:@"x-routing"];
+    [v188 setObject:@"ca1" forKeyedSubscript:@"x-routing"];
   }
 
-  v46 = v188;
-  currentTaskingIDByRouting = [v188 currentTaskingIDByRouting];
-  v48 = [currentTaskingIDByRouting objectForKeyedSubscript:v196];
+  v46 = v187;
+  currentTaskingIDByRouting = [v187 currentTaskingIDByRouting];
+  v48 = [currentTaskingIDByRouting objectForKeyedSubscript:v195];
 
-  v182 = v48;
-  if (v187)
+  v181 = v48;
+  if (v186)
   {
     v49 = v48 == 0;
   }
@@ -693,39 +687,39 @@ LABEL_74:
   }
 
   v50 = !v49;
-  v176 = v50;
+  v175 = v50;
   if (v49)
   {
-    [v189 setObject:@"NO" forKeyedSubscript:@"x-tasking-requested"];
-    v51 = v190;
+    [v188 setObject:@"NO" forKeyedSubscript:@"x-tasking-requested"];
+    v51 = v189;
   }
 
   else
   {
-    [v189 setObject:@"YES" forKeyedSubscript:@"x-tasking-requested"];
-    [v189 setObject:v187 forKeyedSubscript:@"x-crashreporter-key"];
-    v51 = v190;
+    [v188 setObject:@"YES" forKeyedSubscript:@"x-tasking-requested"];
+    [v188 setObject:v186 forKeyedSubscript:@"x-crashreporter-key"];
+    v51 = v189;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543874;
-      v237 = v196;
-      v238 = 2114;
-      *v239 = v187;
-      *&v239[8] = 2114;
-      *&v239[10] = v48;
+      v236 = v195;
+      v237 = 2114;
+      *v238 = v186;
+      *&v238[8] = 2114;
+      *&v238[10] = v48;
       _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Requesting tasking for routing %{public}@ using key %{public}@ with task_id %{public}@", buf, 0x20u);
     }
 
-    [v189 setObject:v48 forKeyedSubscript:@"x-task-id"];
+    [v188 setObject:v48 forKeyedSubscript:@"x-task-id"];
   }
 
-  if ([v188 isInDeviceRecoveryEnvironment])
+  if ([v187 isInDeviceRecoveryEnvironment])
   {
-    recoveryModeReason = [v188 recoveryModeReason];
-    [v189 setObject:recoveryModeReason forKeyedSubscript:@"x-dre-submission"];
+    recoveryModeReason = [v187 recoveryModeReason];
+    [v188 setObject:recoveryModeReason forKeyedSubscript:@"x-dre-submission"];
   }
 
-  if (([v196 isEqualToString:@"ca1"] & 1) != 0 || objc_msgSend(v196, "isEqualToString:", @"ca1-ohttp"))
+  if (([v195 isEqualToString:@"ca1"] & 1) != 0 || objc_msgSend(v195, "isEqualToString:", @"ca1-ohttp"))
   {
     firstObject = [v51 firstObject];
     v58 = firstObject;
@@ -733,53 +727,53 @@ LABEL_74:
     {
       metaData = [firstObject metaData];
       v60 = [metaData objectForKeyedSubscript:*MEMORY[0x277D36C08]];
-      [v189 setObject:v60 forKeyedSubscript:@"x-incident-id"];
+      [v188 setObject:v60 forKeyedSubscript:@"x-incident-id"];
 
-      v46 = v188;
+      v46 = v187;
     }
   }
 
-  [v189 addEntriesFromDictionary:headersCopy];
+  [v188 addEntriesFromDictionary:headersCopy];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v61 = [jobCopy length];
     v62 = [v51 count];
     *buf = 138412802;
-    v237 = routingCopy;
-    v238 = 2048;
-    *v239 = v61;
-    *&v239[8] = 2048;
-    *&v239[10] = v62;
+    v236 = routingCopy;
+    v237 = 2048;
+    *v238 = v61;
+    *&v238[8] = 2048;
+    *&v238[10] = v62;
     _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "'%@' posting content of %lu bytes from %lu logs", buf, 0x20u);
   }
 
-  if (([v196 isEqualToString:@"ca1"] & 1) != 0 || objc_msgSend(v196, "isEqualToString:", @"ca1-ohttp"))
+  if (([v195 isEqualToString:@"ca1"] & 1) != 0 || objc_msgSend(v195, "isEqualToString:", @"ca1-ohttp"))
   {
     v63 = objc_opt_new();
+    v209 = 0u;
     v210 = 0u;
     v211 = 0u;
     v212 = 0u;
-    v213 = 0u;
     v64 = v51;
-    v65 = [v64 countByEnumeratingWithState:&v210 objects:v235 count:16];
+    v65 = [v64 countByEnumeratingWithState:&v209 objects:v234 count:16];
     if (v65)
     {
       v66 = v65;
-      v67 = *v211;
+      v67 = *v210;
       do
       {
         for (j = 0; j != v66; ++j)
         {
-          if (*v211 != v67)
+          if (*v210 != v67)
           {
             objc_enumerationMutation(v64);
           }
 
-          filepath2 = [*(*(&v210 + 1) + 8 * j) filepath];
+          filepath2 = [*(*(&v209 + 1) + 8 * j) filepath];
           [v63 addObject:filepath2];
         }
 
-        v66 = [v64 countByEnumeratingWithState:&v210 objects:v235 count:16];
+        v66 = [v64 countByEnumeratingWithState:&v209 objects:v234 count:16];
       }
 
       while (v66);
@@ -788,18 +782,18 @@ LABEL_74:
     v70 = MEMORY[0x277D36B78];
     v71 = *MEMORY[0x277D36BE0];
     v72 = *MEMORY[0x277D36BF0];
-    v234[0] = v63;
+    v233[0] = v63;
     v73 = *MEMORY[0x277D36BE8];
-    v233[0] = v72;
-    v233[1] = v73;
+    v232[0] = v72;
+    v232[1] = v73;
     v74 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(jobCopy, "length")}];
-    v234[1] = v74;
-    v75 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v234 forKeys:v233 count:2];
+    v233[1] = v74;
+    v75 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v233 forKeys:v232 count:2];
     [v70 recordEvent:v71 with:v75];
 
-    v45 = v196;
-    v51 = v190;
-    v46 = v188;
+    v45 = v195;
+    v51 = v189;
+    v46 = v187;
   }
 
   if ([v45 isEqualToString:@"ca1-ohttp"])
@@ -814,19 +808,19 @@ LABEL_74:
 
   Current = CFAbsoluteTimeGetCurrent();
   v78 = jobCopy;
-  v178 = v76;
-  [(OSASubmitter *)self postContent:jobCopy withHeaders:v189 toEndpoint:v76];
+  v177 = v76;
+  [(OSASubmitter *)self postContent:jobCopy withHeaders:v188 toEndpoint:v76];
   v79 = CFAbsoluteTimeGetCurrent() - Current;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     responseCode = self->_responseCode;
     v81 = [(NSData *)self->_responseData length];
     *buf = 138412802;
-    v237 = routingCopy;
-    v238 = 1024;
-    *v239 = responseCode;
-    *&v239[4] = 2048;
-    *&v239[6] = v81;
+    v236 = routingCopy;
+    v237 = 1024;
+    *v238 = responseCode;
+    *&v238[4] = 2048;
+    *&v238[6] = v81;
     _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "'%@' server responded %d with %lu-byte payload", buf, 0x1Cu);
   }
 
@@ -835,31 +829,31 @@ LABEL_74:
   modelCode3 = [mEMORY[0x277D36B80] modelCode];
   v85 = [modelCode2 isEqualToString:modelCode3];
 
-  v231[0] = @"response";
+  v230[0] = @"response";
   v86 = [MEMORY[0x277CCABB0] numberWithInteger:self->_responseCode];
   connectionType = self->_connectionType;
-  v232[0] = v86;
-  v232[1] = connectionType;
-  v231[1] = @"connection";
-  v231[2] = @"routing";
-  v232[2] = v45;
-  v231[3] = @"bytes";
+  v231[0] = v86;
+  v231[1] = connectionType;
+  v230[1] = @"connection";
+  v230[2] = @"routing";
+  v231[2] = v45;
+  v230[3] = @"bytes";
   v88 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v78, "length")}];
-  v232[3] = v88;
-  v231[4] = @"logs";
+  v231[3] = v88;
+  v230[4] = @"logs";
   v89 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v51, "count")}];
-  v232[4] = v89;
-  v231[5] = @"seconds";
+  v231[4] = v89;
+  v230[5] = @"seconds";
   v90 = [MEMORY[0x277CCABB0] numberWithDouble:v79];
-  v232[5] = v90;
-  v231[6] = @"proxied";
+  v231[5] = v90;
+  v230[6] = @"proxied";
   v91 = v85;
   v92 = [MEMORY[0x277CCABB0] numberWithBool:v85 ^ 1u];
-  v232[6] = v92;
-  v93 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v232 forKeys:v231 count:7];
+  v231[6] = v92;
+  v93 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v231 forKeys:v230 count:7];
   AnalyticsSendEvent();
 
-  v181 = objc_opt_new();
+  v180 = objc_opt_new();
   v94 = self->_responseCode;
   v95 = v94 == 200;
   if (v94 == 304)
@@ -867,110 +861,110 @@ LABEL_74:
     v95 = 1;
   }
 
-  v177 = v95;
+  v176 = v95;
   selfCopy = self;
   if (v94 != 304 && v94 != 200)
   {
     v118 = MEMORY[0x277D36B78];
     v119 = *MEMORY[0x277D36BC8];
-    v225 = *MEMORY[0x277D36BC0];
+    v224 = *MEMORY[0x277D36BC0];
     v120 = [MEMORY[0x277CCABB0] numberWithInteger:v94];
-    v226 = v120;
-    v121 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v226 forKeys:&v225 count:1];
+    v225 = v120;
+    v121 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v225 forKeys:&v224 count:1];
     [v118 recordEvent:v119 with:v121];
 
     v108 = 0x277D36000;
     goto LABEL_106;
   }
 
-  v175 = self->_responseCode;
-  v208 = 0u;
-  v209 = 0u;
-  v206 = 0u;
+  v174 = self->_responseCode;
   v207 = 0u;
-  obj = v190;
-  v96 = [obj countByEnumeratingWithState:&v206 objects:v230 count:16];
+  v208 = 0u;
+  v205 = 0u;
+  v206 = 0u;
+  obj = v189;
+  v96 = [obj countByEnumeratingWithState:&v205 objects:v229 count:16];
   if (v96)
   {
     v97 = v96;
-    v98 = *v207;
+    v98 = *v206;
     do
     {
       for (k = 0; k != v97; ++k)
       {
-        if (*v207 != v98)
+        if (*v206 != v98)
         {
           objc_enumerationMutation(obj);
         }
 
-        v100 = *(*(&v206 + 1) + 8 * k);
-        v228[0] = @"bugType";
+        v100 = *(*(&v205 + 1) + 8 * k);
+        v227[0] = @"bugType";
         bugType = [v100 bugType];
         v102 = bugType;
-        v103 = v196;
+        v103 = v195;
         if (bugType)
         {
           v103 = bugType;
         }
 
-        v229[0] = v103;
-        v228[1] = @"proxied";
+        v228[0] = v103;
+        v227[1] = @"proxied";
         v104 = [MEMORY[0x277CCABB0] numberWithBool:v91 ^ 1u];
-        v228[2] = @"logCount";
-        v229[1] = v104;
-        v229[2] = &unk_286EB2208;
-        v105 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v229 forKeys:v228 count:3];
+        v227[2] = @"logCount";
+        v228[1] = v104;
+        v228[2] = &unk_286EB2208;
+        v105 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v228 forKeys:v227 count:3];
         AnalyticsSendEvent();
       }
 
-      v97 = [obj countByEnumeratingWithState:&v206 objects:v230 count:16];
+      v97 = [obj countByEnumeratingWithState:&v205 objects:v229 count:16];
     }
 
     while (v97);
   }
 
-  v204 = 0u;
-  v205 = 0u;
-  v202 = 0u;
   v203 = 0u;
+  v204 = 0u;
+  v201 = 0u;
+  v202 = 0u;
   v106 = selfCopy->_responseHeaders;
-  v107 = [(NSDictionary *)v106 countByEnumeratingWithState:&v202 objects:v227 count:16];
+  v107 = [(NSDictionary *)v106 countByEnumeratingWithState:&v201 objects:v226 count:16];
   v108 = 0x277D36000uLL;
-  v94 = v175;
+  v94 = v174;
   if (!v107)
   {
     goto LABEL_104;
   }
 
   v109 = v107;
-  v110 = *v203;
+  v110 = *v202;
   while (2)
   {
     for (m = 0; m != v109; ++m)
     {
-      if (*v203 != v110)
+      if (*v202 != v110)
       {
         objc_enumerationMutation(v106);
       }
 
-      v112 = *(*(&v202 + 1) + 8 * m);
+      v112 = *(*(&v201 + 1) + 8 * m);
       if (![v112 compare:@"x-task-id" options:1])
       {
-        if (v182)
+        if (v181)
         {
-          [v181 setObject:v182 forKeyedSubscript:@"lastId"];
+          [v180 setObject:v181 forKeyedSubscript:@"lastId"];
         }
 
         v113 = selfCopy->_responseCode;
         if (v113 == 304)
         {
-          [v181 setObject:@"affirmed" forKeyedSubscript:@"action"];
-          [v181 setObject:v182 forKeyedSubscript:@"taskId"];
-          [v181 removeObjectForKey:@"lastId"];
+          [v180 setObject:@"affirmed" forKeyedSubscript:@"action"];
+          [v180 setObject:v181 forKeyedSubscript:@"taskId"];
+          [v180 removeObjectForKey:@"lastId"];
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v237 = v196;
+            v236 = v195;
             v115 = MEMORY[0x277D86220];
             v116 = "device is already in the correct %@ investigation";
             v117 = OS_LOG_TYPE_DEFAULT;
@@ -978,7 +972,7 @@ LABEL_74:
           }
 
 LABEL_103:
-          [v183 setObject:v181 forKeyedSubscript:v196];
+          [v182 setObject:v180 forKeyedSubscript:v195];
           goto LABEL_104;
         }
 
@@ -987,14 +981,14 @@ LABEL_103:
           goto LABEL_103;
         }
 
-        v114 = [v183 objectForKeyedSubscript:v196];
+        v114 = [v182 objectForKeyedSubscript:v195];
 
         if (v114)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v237 = v196;
+            v236 = v195;
             v115 = MEMORY[0x277D86220];
             v116 = "Unexpected response data; already installed tasking blob of type %@ this session";
             v117 = OS_LOG_TYPE_INFO;
@@ -1009,11 +1003,11 @@ LABEL_89:
         v123 = [(NSDictionary *)selfCopy->_responseHeaders objectForKeyedSubscript:v112];
         if (![v123 length])
         {
-          [v181 setObject:@"unchanged" forKeyedSubscript:@"action"];
+          [v180 setObject:@"unchanged" forKeyedSubscript:@"action"];
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v237 = v196;
+            v236 = v195;
             _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "no tasking id returned for %@", buf, 0xCu);
           }
 
@@ -1031,8 +1025,8 @@ LABEL_89:
             v127 = selfCopy->_responseData;
             v128 = 0;
 LABEL_101:
-            v132 = [(OSASubmitter *)selfCopy applyTasking:v196 taskId:v123 usingConfig:v188 fromBlob:v127];
-            [v181 addEntriesFromDictionary:v132];
+            v132 = [(OSASubmitter *)selfCopy applyTasking:v195 taskId:v123 usingConfig:v187 fromBlob:v127];
+            [v180 addEntriesFromDictionary:v132];
 
 LABEL_102:
             goto LABEL_103;
@@ -1048,14 +1042,14 @@ LABEL_102:
         if ([(NSData *)v125->_responseData length])
         {
           responseData = v125->_responseData;
-          v201 = 0;
-          v127 = [OSASubmitter extractAuthenticatedBlob:responseData error:&v201];
-          v130 = v201;
+          v200 = 0;
+          v127 = [OSASubmitter extractAuthenticatedBlob:responseData error:&v200];
+          v130 = v200;
           v128 = v130;
           if (v130)
           {
             localizedDescription = [v130 localizedDescription];
-            [v181 setObject:localizedDescription forKeyedSubscript:@"authenticationError"];
+            [v180 setObject:localizedDescription forKeyedSubscript:@"authenticationError"];
           }
         }
 
@@ -1069,7 +1063,7 @@ LABEL_102:
       }
     }
 
-    v109 = [(NSDictionary *)v106 countByEnumeratingWithState:&v202 objects:v227 count:16];
+    v109 = [(NSDictionary *)v106 countByEnumeratingWithState:&v201 objects:v226 count:16];
     if (v109)
     {
       continue;
@@ -1081,10 +1075,10 @@ LABEL_102:
 LABEL_104:
 
   self = selfCopy;
-  v122 = v196;
-  if (v176)
+  v122 = v195;
+  if (v175)
   {
-    [(OSASubmitter *)selfCopy updateTaskingLastSuccessfulRequest:v196 at:v21];
+    [(OSASubmitter *)selfCopy updateTaskingLastSuccessfulRequest:v195 at:v21];
   }
 
 LABEL_106:
@@ -1101,7 +1095,7 @@ LABEL_106:
   sharedInstance = [*(v108 + 2944) sharedInstance];
   appleInternal = [sharedInstance appleInternal];
 
-  v138 = v190;
+  v138 = v189;
   if (appleInternal)
   {
     sharedInstance2 = [*(v108 + 2944) sharedInstance];
@@ -1109,13 +1103,13 @@ LABEL_106:
     v141 = [pathDiagnostics stringByAppendingPathComponent:routingCopy];
     v142 = [v141 stringByAppendingPathExtension:@"ips"];
 
-    [v185 writeToFile:v142 atomically:0];
-    v223[0] = @"logs";
-    v143 = [v190 valueForKey:@"getFilenames"];
-    v224[0] = v143;
-    v224[1] = v189;
-    v223[1] = @"postHeaders";
-    v223[2] = @"response";
+    [v184 writeToFile:v142 atomically:0];
+    v222[0] = @"logs";
+    v143 = [v189 valueForKey:@"getFilenames"];
+    v223[0] = v143;
+    v223[1] = v188;
+    v222[1] = @"postHeaders";
+    v222[2] = @"response";
     v144 = [MEMORY[0x277CCABB0] numberWithInteger:self->_responseCode];
     responseHeaders = MEMORY[0x277CBEC10];
     v146 = self->_responseData;
@@ -1124,15 +1118,15 @@ LABEL_106:
       responseHeaders = self->_responseHeaders;
     }
 
-    v224[2] = v144;
-    v224[3] = responseHeaders;
-    v223[3] = @"responseHeaders";
-    v223[4] = @"responseError";
-    v224[4] = obja;
-    v223[5] = @"payloadLength";
+    v223[2] = v144;
+    v223[3] = responseHeaders;
+    v222[3] = @"responseHeaders";
+    v222[4] = @"responseError";
+    v223[4] = obja;
+    v222[5] = @"payloadLength";
     v147 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[NSData length](v146, "length")}];
-    v224[5] = v147;
-    v148 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v224 forKeys:v223 count:6];
+    v223[5] = v147;
+    v148 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v223 forKeys:v222 count:6];
 
     sharedInstance3 = [*(v108 + 2944) sharedInstance];
     pathDiagnostics2 = [sharedInstance3 pathDiagnostics];
@@ -1140,32 +1134,32 @@ LABEL_106:
     v152 = [v151 stringByAppendingPathExtension:@"diagnostics"];
     [v148 writeToFile:v152 atomically:1];
 
-    v138 = v190;
+    v138 = v189;
   }
 
   if (v94 == 304 || v94 == 200)
   {
-    v199 = 0u;
-    v200 = 0u;
-    v197 = 0u;
     v198 = 0u;
+    v199 = 0u;
+    v196 = 0u;
+    v197 = 0u;
     v153 = v138;
-    v154 = [v153 countByEnumeratingWithState:&v197 objects:v222 count:16];
+    v154 = [v153 countByEnumeratingWithState:&v196 objects:v221 count:16];
     if (v154)
     {
       v155 = v154;
       LODWORD(v156) = 0;
-      v157 = *v198;
+      v157 = *v197;
       do
       {
         for (n = 0; n != v155; ++n)
         {
-          if (*v198 != v157)
+          if (*v197 != v157)
           {
             objc_enumerationMutation(v153);
           }
 
-          v159 = *(*(&v197 + 1) + 8 * n);
+          v159 = *(*(&v196 + 1) + 8 * n);
           bugType2 = [v159 bugType];
           v161 = [bugType2 isEqualToString:@"193"];
 
@@ -1187,7 +1181,7 @@ LABEL_106:
           self = selfCopy;
         }
 
-        v155 = [v153 countByEnumeratingWithState:&v197 objects:v222 count:16];
+        v155 = [v153 countByEnumeratingWithState:&v196 objects:v221 count:16];
       }
 
       while (v155);
@@ -1198,7 +1192,7 @@ LABEL_106:
       v156 = 0;
     }
 
-    v138 = v190;
+    v138 = v189;
   }
 
   else
@@ -1206,53 +1200,51 @@ LABEL_106:
     v156 = 0;
   }
 
-  v220[0] = @"complete";
-  v195 = [MEMORY[0x277CCABB0] numberWithBool:v177];
-  v221[0] = v195;
-  v221[1] = v196;
-  v220[1] = @"routing";
-  v220[2] = @"endpoint";
-  v179 = [OSASubmitter endpointToString:v178];
+  v219[0] = @"complete";
+  v194 = [MEMORY[0x277CCABB0] numberWithBool:v176];
+  v220[0] = v194;
+  v220[1] = v195;
+  v219[1] = @"routing";
+  v219[2] = @"endpoint";
+  v178 = [OSASubmitter endpointToString:v177];
   requestURL = self->_requestURL;
-  v221[2] = v179;
-  v221[3] = requestURL;
-  v220[3] = @"url";
-  v220[4] = @"logCount";
+  v220[2] = v178;
+  v220[3] = requestURL;
+  v219[3] = @"url";
+  v219[4] = @"logCount";
   v165 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v138, "count")}];
-  v221[4] = v165;
-  v220[5] = @"aggdCount";
+  v220[4] = v165;
+  v219[5] = @"aggdCount";
   v166 = [MEMORY[0x277CCABB0] numberWithInt:v156];
-  v221[5] = v166;
-  v220[6] = @"contentLength";
-  v167 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v185, "length")}];
-  v221[6] = v167;
-  v220[7] = @"response";
+  v220[5] = v166;
+  v219[6] = @"contentLength";
+  v167 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v184, "length")}];
+  v220[6] = v167;
+  v219[7] = @"response";
   v168 = [MEMORY[0x277CCABB0] numberWithInteger:self->_responseCode];
   selfCopy2 = self;
   v170 = v168;
-  v221[7] = v168;
-  v221[8] = obja;
-  v220[8] = @"error";
-  v220[9] = @"payloadLength";
+  v220[7] = v168;
+  v220[8] = obja;
+  v219[8] = @"error";
+  v219[9] = @"payloadLength";
   v171 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[NSData length](selfCopy2->_responseData, "length")}];
-  v221[9] = v171;
-  v221[10] = v181;
-  v220[10] = @"tasking";
-  v220[11] = @"seconds";
+  v220[9] = v171;
+  v220[10] = v180;
+  v219[10] = @"tasking";
+  v219[11] = @"seconds";
   v172 = [MEMORY[0x277CCABB0] numberWithDouble:v79];
-  v221[11] = v172;
-  v55 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v221 forKeys:v220 count:12];
+  v220[11] = v172;
+  v55 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v220 forKeys:v219 count:12];
 
-  includingCopy = v190;
-  jobCopy = v185;
-  [v190 removeAllObjects];
-  [v185 setLength:0];
+  includingCopy = v189;
+  jobCopy = v184;
+  [v189 removeAllObjects];
+  [v184 setLength:0];
 
-  v54 = v196;
-  configCopy = v188;
+  v54 = v195;
+  configCopy = v187;
 LABEL_129:
-
-  v173 = *MEMORY[0x277D85DE8];
 
   return v55;
 }
@@ -1273,7 +1265,7 @@ LABEL_129:
 
 - (void)submitLogsUsingPolicy:(id)policy resultsCallback:(id)callback
 {
-  v191[1] = *MEMORY[0x277D85DE8];
+  v190[1] = *MEMORY[0x277D85DE8];
   policyCopy = policy;
   callbackCopy = callback;
   v7 = 0x277D36000uLL;
@@ -1297,8 +1289,8 @@ LABEL_129:
     goto LABEL_128;
   }
 
-  v134 = objc_opt_new();
-  v130 = objc_opt_new();
+  v133 = objc_opt_new();
+  v129 = objc_opt_new();
   mEMORY[0x277D36B80]2 = [MEMORY[0x277D36B80] sharedInstance];
   appleInternal = [mEMORY[0x277D36B80]2 appleInternal];
 
@@ -1310,9 +1302,9 @@ LABEL_129:
     if (pathDiagnostics)
     {
       v23 = MEMORY[0x277D36B68];
-      v190 = *MEMORY[0x277D36C48];
-      v191[0] = pathDiagnostics;
-      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v191 forKeys:&v190 count:1];
+      v189 = *MEMORY[0x277D36C48];
+      v190[0] = pathDiagnostics;
+      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v190 forKeys:&v189 count:1];
       [v23 iterateLogsWithOptions:v24 usingBlock:&__block_literal_global];
     }
 
@@ -1326,7 +1318,7 @@ LABEL_129:
   v25 = MEMORY[0x277D36B68];
   mEMORY[0x277D36B80]4 = [MEMORY[0x277D36B80] sharedInstance];
   pathSubmission = [mEMORY[0x277D36B80]4 pathSubmission];
-  v128 = [v25 scanProxies:pathSubmission];
+  v127 = [v25 scanProxies:pathSubmission];
 
   if ([MEMORY[0x277D36B68] isDataVaultEnabled])
   {
@@ -1336,9 +1328,9 @@ LABEL_129:
     if (pathSubmissionDataVault)
     {
       v30 = [MEMORY[0x277D36B68] scanProxies:pathSubmissionDataVault];
-      v31 = [v128 arrayByAddingObjectsFromArray:v30];
+      v31 = [v127 arrayByAddingObjectsFromArray:v30];
 
-      v128 = v31;
+      v127 = v31;
     }
 
     else
@@ -1359,39 +1351,39 @@ LABEL_129:
 
   else
   {
-    v40 = [&unk_286EB23E0 arrayByAddingObjectsFromArray:v128];
+    v40 = [&unk_286EB23E0 arrayByAddingObjectsFromArray:v127];
   }
 
-  v169 = 0u;
-  v170 = 0u;
-  v167 = 0u;
   v168 = 0u;
+  v169 = 0u;
+  v166 = 0u;
+  v167 = 0u;
   obj = v40;
-  v143 = policyCopy;
-  v135 = [obj countByEnumeratingWithState:&v167 objects:v189 count:16];
-  if (v135)
+  v142 = policyCopy;
+  v134 = [obj countByEnumeratingWithState:&v166 objects:v188 count:16];
+  if (v134)
   {
-    v133 = *v168;
-    v144 = *MEMORY[0x277D36BD8];
-    v145 = *MEMORY[0x277D36BD0];
+    v132 = *v167;
+    v143 = *MEMORY[0x277D36BD8];
+    v144 = *MEMORY[0x277D36BD0];
     v41 = @"routing";
     do
     {
-      for (i = 0; i != v135; i = v58 + 1)
+      for (i = 0; i != v134; i = v58 + 1)
       {
-        if (*v168 != v133)
+        if (*v167 != v132)
         {
           objc_enumerationMutation(obj);
         }
 
-        v43 = *(*(&v167 + 1) + 8 * i);
+        v43 = *(*(&v166 + 1) + 8 * i);
         context = objc_autoreleasePoolPush();
-        v139 = i;
+        v138 = i;
         if ([v43 length])
         {
           lastPathComponent = [v43 lastPathComponent];
-          v188 = v43;
-          primarySubmissionPaths = [MEMORY[0x277CBEA60] arrayWithObjects:&v188 count:1];
+          v187 = v43;
+          primarySubmissionPaths = [MEMORY[0x277CBEA60] arrayWithObjects:&v187 count:1];
         }
 
         else
@@ -1400,29 +1392,29 @@ LABEL_129:
           lastPathComponent = @"Primary";
         }
 
-        v165 = 0u;
-        v166 = 0u;
-        v163 = 0u;
         v164 = 0u;
-        v146 = primarySubmissionPaths;
-        v45 = [v146 countByEnumeratingWithState:&v163 objects:v187 count:16];
+        v165 = 0u;
+        v162 = 0u;
+        v163 = 0u;
+        v145 = primarySubmissionPaths;
+        v45 = [v145 countByEnumeratingWithState:&v162 objects:v186 count:16];
         if (v45)
         {
           v46 = v45;
-          v47 = *v164;
+          v47 = *v163;
           do
           {
             for (j = 0; j != v46; ++j)
             {
-              if (*v164 != v47)
+              if (*v163 != v47)
               {
-                objc_enumerationMutation(v146);
+                objc_enumerationMutation(v145);
               }
 
-              [(OSASubmitter *)self prepConfig:*(*(&v163 + 1) + 8 * j)];
+              [(OSASubmitter *)self prepConfig:*(*(&v162 + 1) + 8 * j)];
             }
 
-            v46 = [v146 countByEnumeratingWithState:&v163 objects:v187 count:16];
+            v46 = [v145 countByEnumeratingWithState:&v162 objects:v186 count:16];
           }
 
           while (v46);
@@ -1444,7 +1436,7 @@ LABEL_129:
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v184 = lastPathComponent;
+          v183 = lastPathComponent;
           _os_log_impl(&dword_25D12D000, v51, OS_LOG_TYPE_DEFAULT, "----- '%{public}@' -----", buf, 0xCu);
         }
 
@@ -1456,17 +1448,17 @@ LABEL_129:
           if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412546;
-            v184 = v50;
-            v185 = 2112;
-            v186 = v54;
+            v183 = v50;
+            v184 = 2112;
+            v185 = v54;
             _os_log_debug_impl(&dword_25D12D000, v51, OS_LOG_TYPE_DEBUG, "config: %@\npolicy: %@", buf, 0x16u);
           }
 
-          v136 = v50;
+          v135 = v50;
           v55 = MEMORY[0x277D36B68];
           scanOptions = [policyCopy scanOptions];
-          v137 = v54;
-          if ([v55 scanLogs:v54 from:v146 options:scanOptions])
+          v136 = v54;
+          if ([v55 scanLogs:v54 from:v145 options:scanOptions])
           {
 
             goto LABEL_50;
@@ -1491,32 +1483,32 @@ LABEL_50:
                 v64 = @"IN";
               }
 
-              v184 = lastPathComponent;
-              v185 = 2112;
-              v186 = v64;
+              v183 = lastPathComponent;
+              v184 = 2112;
+              v185 = v64;
               _os_log_impl(&dword_25D12D000, logDomain, OS_LOG_TYPE_DEFAULT, "Initiating submission for '%{public}@' optIn: %@", buf, 0x16u);
             }
 
-            v161 = 0u;
-            v162 = 0u;
-            v159 = 0u;
             v160 = 0u;
+            v161 = 0u;
+            v158 = 0u;
+            v159 = 0u;
             v65 = v54;
-            v66 = [(__CFString *)v65 countByEnumeratingWithState:&v159 objects:v182 count:16];
+            v66 = [(__CFString *)v65 countByEnumeratingWithState:&v158 objects:v181 count:16];
             if (v66)
             {
               v67 = v66;
-              v68 = *v160;
+              v68 = *v159;
               do
               {
                 for (k = 0; k != v67; ++k)
                 {
-                  if (*v160 != v68)
+                  if (*v159 != v68)
                   {
                     objc_enumerationMutation(v65);
                   }
 
-                  v70 = *(*(&v159 + 1) + 8 * k);
+                  v70 = *(*(&v158 + 1) + 8 * k);
                   v71 = [v70 objectForKeyedSubscript:v41];
                   if ([v71 isEqualToString:@"ca1"])
                   {
@@ -1534,7 +1526,7 @@ LABEL_50:
                   }
 
                   v74 = MEMORY[0x277D36B78];
-                  v180 = v144;
+                  v179 = v143;
                   v75 = [v70 objectForKeyedSubscript:@"logs"];
                   v76 = v75;
                   v77 = MEMORY[0x277CBEBF8];
@@ -1543,56 +1535,56 @@ LABEL_50:
                     v77 = v75;
                   }
 
-                  v181 = v77;
-                  v78 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v181 forKeys:&v180 count:1];
-                  [v74 recordEvent:v145 with:v78];
+                  v180 = v77;
+                  v78 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v180 forKeys:&v179 count:1];
+                  [v74 recordEvent:v144 with:v78];
 
 LABEL_65:
                   v41 = @"routing";
                 }
 
-                v67 = [(__CFString *)v65 countByEnumeratingWithState:&v159 objects:v182 count:16];
+                v67 = [(__CFString *)v65 countByEnumeratingWithState:&v158 objects:v181 count:16];
               }
 
               while (v67);
             }
 
-            v50 = v136;
-            v79 = [(OSASubmitter *)self processSubmissionJobs:v65 usingConfig:v136 summarize:v130];
+            v50 = v135;
+            v79 = [(OSASubmitter *)self processSubmissionJobs:v65 usingConfig:v135 summarize:v129];
             v57 = v79;
             if (self->_dryRun)
             {
-              policyCopy = v143;
+              policyCopy = v142;
               v7 = 0x277D36000;
-              v58 = v139;
-              v80 = v137;
+              v58 = v138;
+              v80 = v136;
 LABEL_97:
 
               v52 = lastPathComponent;
               goto LABEL_98;
             }
 
-            v157 = 0u;
-            v158 = 0u;
-            v155 = 0u;
             v156 = 0u;
-            v132 = v79;
+            v157 = 0u;
+            v154 = 0u;
+            v155 = 0u;
+            v131 = v79;
             v81 = [v79 objectForKeyedSubscript:@"jobs"];
-            v82 = [v81 countByEnumeratingWithState:&v155 objects:v179 count:16];
+            v82 = [v81 countByEnumeratingWithState:&v154 objects:v178 count:16];
             if (v82)
             {
               v83 = v82;
-              v84 = *v156;
+              v84 = *v155;
               do
               {
                 for (m = 0; m != v83; ++m)
                 {
-                  if (*v156 != v84)
+                  if (*v155 != v84)
                   {
                     objc_enumerationMutation(v81);
                   }
 
-                  v86 = *(*(&v155 + 1) + 8 * m);
+                  v86 = *(*(&v154 + 1) + 8 * m);
                   v87 = [v86 objectForKeyedSubscript:@"<inactive>"];
 
                   if (!v87)
@@ -1601,18 +1593,18 @@ LABEL_97:
                     v89 = [v86 objectForKeyedSubscript:@"complete"];
                     bOOLValue = [v89 BOOLValue];
 
-                    [v143 registerRouting:v88 result:bOOLValue];
+                    [v142 registerRouting:v88 result:bOOLValue];
                   }
                 }
 
-                v83 = [v81 countByEnumeratingWithState:&v155 objects:v179 count:16];
+                v83 = [v81 countByEnumeratingWithState:&v154 objects:v178 count:16];
               }
 
               while (v83);
               goto LABEL_94;
             }
 
-            policyCopy = v143;
+            policyCopy = v142;
           }
 
           else
@@ -1620,50 +1612,50 @@ LABEL_97:
             if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
-              v184 = lastPathComponent;
+              v183 = lastPathComponent;
               _os_log_impl(&dword_25D12D000, v51, OS_LOG_TYPE_DEFAULT, "No logs/tasking found for submission from '%{public}@'", buf, 0xCu);
             }
 
             dictionary = [MEMORY[0x277CBEB38] dictionary];
-            identifier = [(__CFString *)v136 identifier];
+            identifier = [(__CFString *)v135 identifier];
             [dictionary setObject:identifier forKeyedSubscript:@"name"];
 
             [dictionary setObject:@"success" forKeyedSubscript:@"result"];
             v81 = objc_opt_new();
-            v132 = dictionary;
+            v131 = dictionary;
             [dictionary setObject:v81 forKeyedSubscript:@"jobs"];
-            v153 = 0u;
-            v154 = 0u;
-            v151 = 0u;
             v152 = 0u;
-            v141 = v54;
-            v93 = [(__CFString *)v141 countByEnumeratingWithState:&v151 objects:v178 count:16];
+            v153 = 0u;
+            v150 = 0u;
+            v151 = 0u;
+            v140 = v54;
+            v93 = [(__CFString *)v140 countByEnumeratingWithState:&v150 objects:v177 count:16];
             if (v93)
             {
               v94 = v93;
-              v142 = *v152;
+              v141 = *v151;
               do
               {
                 for (n = 0; n != v94; ++n)
                 {
-                  if (*v152 != v142)
+                  if (*v151 != v141)
                   {
-                    objc_enumerationMutation(v141);
+                    objc_enumerationMutation(v140);
                   }
 
-                  v96 = *(*(&v151 + 1) + 8 * n);
+                  v96 = *(*(&v150 + 1) + 8 * n);
                   v97 = [v96 objectForKeyedSubscript:v41];
                   [v96 objectForKeyedSubscript:@"<inactive>"];
                   v99 = v98 = v41;
 
                   if (v99)
                   {
-                    v174[0] = @"<inactive>";
+                    v173[0] = @"<inactive>";
                     v100 = [v96 objectForKeyedSubscript:@"<inactive>"];
-                    v174[1] = v98;
-                    v175[0] = v100;
-                    v175[1] = v97;
-                    v101 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v175 forKeys:v174 count:2];
+                    v173[1] = v98;
+                    v174[0] = v100;
+                    v174[1] = v97;
+                    v101 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v174 forKeys:v173 count:2];
                     [v81 addObject:v101];
 
                     v41 = v98;
@@ -1673,60 +1665,60 @@ LABEL_97:
                   {
                     if (!self->_dryRun)
                     {
-                      [v143 registerRouting:v97 result:1];
+                      [v142 registerRouting:v97 result:1];
                     }
 
-                    v176[0] = @"logCount";
+                    v175[0] = @"logCount";
                     v41 = @"routing";
-                    v176[1] = @"routing";
-                    v177[0] = &unk_286EB2220;
-                    v177[1] = v97;
-                    v100 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v177 forKeys:v176 count:2];
+                    v175[1] = @"routing";
+                    v176[0] = &unk_286EB2220;
+                    v176[1] = v97;
+                    v100 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v176 forKeys:v175 count:2];
                     [v81 addObject:v100];
                   }
                 }
 
-                v94 = [(__CFString *)v141 countByEnumeratingWithState:&v151 objects:v178 count:16];
+                v94 = [(__CFString *)v140 countByEnumeratingWithState:&v150 objects:v177 count:16];
               }
 
               while (v94);
             }
 
 LABEL_94:
-            policyCopy = v143;
-            v50 = v136;
+            policyCopy = v142;
+            v50 = v135;
           }
 
           v7 = 0x277D36000uLL;
-          v58 = v139;
-          v80 = v137;
-          v57 = v132;
+          v58 = v138;
+          v80 = v136;
+          v57 = v131;
           goto LABEL_97;
         }
 
-        v172[0] = @"name";
-        v172[1] = @"result";
-        v173[0] = lastPathComponent;
-        v173[1] = @"skipped - no metadata for proxy device";
-        v57 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v173 forKeys:v172 count:2];
+        v171[0] = @"name";
+        v171[1] = @"result";
+        v172[0] = lastPathComponent;
+        v172[1] = @"skipped - no metadata for proxy device";
+        v57 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v172 forKeys:v171 count:2];
         if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v184 = lastPathComponent;
+          v183 = lastPathComponent;
           _os_log_impl(&dword_25D12D000, v51, OS_LOG_TYPE_DEFAULT, "No submission parameters found from '%{public}@'", buf, 0xCu);
         }
 
-        v58 = v139;
+        v58 = v138;
 LABEL_98:
-        [v134 addObject:v57];
+        [v133 addObject:v57];
 
         objc_autoreleasePoolPop(context);
       }
 
-      v135 = [obj countByEnumeratingWithState:&v167 objects:v189 count:16];
+      v134 = [obj countByEnumeratingWithState:&v166 objects:v188 count:16];
     }
 
-    while (v135);
+    while (v134);
   }
 
   if (!self->_dryRun)
@@ -1758,29 +1750,29 @@ LABEL_98:
   buildVersion = [sharedInstance4 buildVersion];
   [v104 setObject:buildVersion forKeyedSubscript:@"version"];
 
-  v149 = 0u;
-  v150 = 0u;
-  v147 = 0u;
   v148 = 0u;
-  v108 = v134;
-  v109 = [v108 countByEnumeratingWithState:&v147 objects:v171 count:16];
+  v149 = 0u;
+  v146 = 0u;
+  v147 = 0u;
+  v108 = v133;
+  v109 = [v108 countByEnumeratingWithState:&v146 objects:v170 count:16];
   if (v109)
   {
     v110 = v109;
-    v111 = *v148;
+    v111 = *v147;
     LOBYTE(v112) = 1;
     do
     {
       for (ii = 0; ii != v110; ++ii)
       {
-        if (*v148 != v111)
+        if (*v147 != v111)
         {
           objc_enumerationMutation(v108);
         }
 
         if (v112)
         {
-          v114 = [*(*(&v147 + 1) + 8 * ii) objectForKeyedSubscript:@"result"];
+          v114 = [*(*(&v146 + 1) + 8 * ii) objectForKeyedSubscript:@"result"];
           v112 = [v114 isEqualToString:@"success"];
         }
 
@@ -1790,7 +1782,7 @@ LABEL_98:
         }
       }
 
-      v110 = [v108 countByEnumeratingWithState:&v147 objects:v171 count:16];
+      v110 = [v108 countByEnumeratingWithState:&v146 objects:v170 count:16];
     }
 
     while (v110);
@@ -1824,7 +1816,7 @@ LABEL_98:
     v124 = [v123 stringByAppendingPathExtension:@"results"];
 
     [v104 setObject:v108 forKeyedSubscript:@"submissions"];
-    [v104 setObject:v130 forKeyedSubscript:@"retirement-summary"];
+    [v104 setObject:v129 forKeyedSubscript:@"retirement-summary"];
     if (([v104 writeToFile:v124 atomically:1] & 1) == 0)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -1844,10 +1836,8 @@ LABEL_98:
     v18 = callbackCopy;
   }
 
-  policyCopy = v143;
+  policyCopy = v142;
 LABEL_128:
-
-  v127 = *MEMORY[0x277D85DE8];
 }
 
 void __54__OSASubmitter_submitLogsUsingPolicy_resultsCallback___block_invoke(uint64_t a1, void *a2)
@@ -1986,7 +1976,7 @@ LABEL_11:
 + (id)submissionPathsWithHomeDirectory:(id)directory withProxies:(BOOL)proxies
 {
   proxiesCopy = proxies;
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   if ([MEMORY[0x277D36B68] isDataVaultEnabled])
   {
@@ -2039,30 +2029,30 @@ LABEL_11:
   }
 
   array2 = [MEMORY[0x277CBEB18] array];
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   v27 = array;
-  v28 = [v27 countByEnumeratingWithState:&v36 objects:v40 count:16];
+  v28 = [v27 countByEnumeratingWithState:&v35 objects:v39 count:16];
   if (v28)
   {
     v29 = v28;
-    v30 = *v37;
+    v30 = *v36;
     do
     {
       for (i = 0; i != v29; ++i)
       {
-        if (*v37 != v30)
+        if (*v36 != v30)
         {
           objc_enumerationMutation(v27);
         }
 
-        v32 = [MEMORY[0x277D36B68] scanProxies:{*(*(&v36 + 1) + 8 * i), v36}];
+        v32 = [MEMORY[0x277D36B68] scanProxies:{*(*(&v35 + 1) + 8 * i), v35}];
         [array2 addObjectsFromArray:v32];
       }
 
-      v29 = [v27 countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v29 = [v27 countByEnumeratingWithState:&v35 objects:v39 count:16];
     }
 
     while (v29);
@@ -2070,9 +2060,7 @@ LABEL_11:
 
   [v27 addObjectsFromArray:array2];
 LABEL_20:
-  v33 = [MEMORY[0x277CBEA60] arrayWithArray:{array, v36}];
-
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = [MEMORY[0x277CBEA60] arrayWithArray:{array, v35}];
 
   return v33;
 }
@@ -2088,14 +2076,14 @@ LABEL_20:
 
 + (id)extractAuthenticatedBlob:(id)blob error:(id *)error
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   blobCopy = blob;
   ApplePinned = SecPolicyCreateApplePinned();
   if (ApplePinned)
   {
     v7 = ApplePinned;
     trust = 0;
-    v22 = 0;
+    v21 = 0;
     v8 = SecCMSVerifyCopyDataAndAttributes();
     if (v8)
     {
@@ -2104,16 +2092,16 @@ LABEL_20:
       if (error)
       {
         v11 = MEMORY[0x277CCA9B8];
-        v25 = *MEMORY[0x277CCA450];
-        v26 = v9;
-        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+        v24 = *MEMORY[0x277CCA450];
+        v25 = v9;
+        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
         *error = [v11 errorWithDomain:@"OSASubmitter" code:1 userInfo:v12];
       }
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v28 = v10;
+        v27 = v10;
         _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
       }
 
@@ -2125,7 +2113,7 @@ LABEL_20:
       error = 0;
       if (SecTrustEvaluateWithError(trust, &error))
       {
-        v13 = v22;
+        v13 = v21;
       }
 
       else
@@ -2134,7 +2122,7 @@ LABEL_20:
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v28 = errorCopy;
+          v27 = errorCopy;
           _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Signature on blob is not trusted, %@", buf, 0xCu);
         }
 
@@ -2158,23 +2146,21 @@ LABEL_20:
     if (error)
     {
       v14 = MEMORY[0x277CCA9B8];
-      v23 = *MEMORY[0x277CCA450];
-      v24 = @"Unable to create pinned policy";
-      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+      v22 = *MEMORY[0x277CCA450];
+      v23 = @"Unable to create pinned policy";
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
       *error = [v14 errorWithDomain:@"OSASubmitter" code:2 userInfo:v15];
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v28 = @"Unable to create pinned policy";
+      v27 = @"Unable to create pinned policy";
       _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
     }
 
     v13 = 0;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -2227,33 +2213,30 @@ LABEL_20:
 
 - (void)getAdditionalRequestHeaders
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138543362;
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138543362;
   selfCopy = self;
-  _os_log_debug_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Submission jobs will include additional request headers %{public}@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Submission jobs will include additional request headers %{public}@", &v1, 0xCu);
 }
 
 - (void)taskingNeedsRefreshForRouting:(uint64_t)a1 at:(double)a2 .cold.1(uint64_t a1, double a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 138412546;
-  v4 = a1;
-  v5 = 2048;
-  v6 = a2;
-  _os_log_debug_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%@ tasking needs refresh for routing (time elapsed: %f)", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 138412546;
+  v3 = a1;
+  v4 = 2048;
+  v5 = a2;
+  _os_log_debug_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%@ tasking needs refresh for routing (time elapsed: %f)", &v2, 0x16u);
 }
 
 + (void)taskingKeyForRouting:(uint64_t)a1 withConfig:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 138412546;
-  v4 = a1;
-  v5 = 2112;
-  v6 = a2;
-  _os_log_debug_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%@ tasking key is %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 138412546;
+  v3 = a1;
+  v4 = 2112;
+  v5 = a2;
+  _os_log_debug_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%@ tasking key is %@", &v2, 0x16u);
 }
 
 @end

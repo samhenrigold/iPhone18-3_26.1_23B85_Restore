@@ -1,7 +1,7 @@
 @interface UIView(WebKitInternal)
 - (BOOL)_wk_isAncestorOf:()WebKitInternal;
-- (uint64_t)_wk_collectDescendantsIncludingSelf:()WebKitInternal matching:;
 - (uint64_t)_wk_convertQuad:()WebKitInternal toCoordinateSpace:;
+- (void)_wk_collectDescendantsIncludingSelf:()WebKitInternal matching:;
 - (void)_wk_parentScrollView;
 - (void)_wk_previousSibling;
 - (void)_wk_viewControllerForFullScreenPresentation;
@@ -92,7 +92,7 @@ LABEL_10:
   return v9;
 }
 
-- (uint64_t)_wk_collectDescendantsIncludingSelf:()WebKitInternal matching:
+- (void)_wk_collectDescendantsIncludingSelf:()WebKitInternal matching:
 {
   v21 = *MEMORY[0x1E69E9840];
   if ((*(a4 + 16))(a4, self))
@@ -166,7 +166,8 @@ LABEL_14:
           objc_enumerationMutation(subviews);
         }
 
-        [*(*(&v16 + 1) + 8 * v15++) _wk_collectDescendantsIncludingSelf:a3 matching:a4];
+        [*(*(&v16 + 1) + 8 * v15) _wk_collectDescendantsIncludingSelf:a3 matching:a4];
+        v15 = v15 + 1;
       }
 
       while (v13 != v15);
@@ -205,29 +206,29 @@ LABEL_14:
 - (uint64_t)_wk_convertQuad:()WebKitInternal toCoordinateSpace:
 {
   WebCore::FloatPoint::operator CGPoint();
-  [self convertPoint:a2 toCoordinateSpace:?];
-  v21.x = v6;
-  v21.y = v7;
-  WebCore::FloatPoint::FloatPoint(&v22, &v21);
+  [self convertPoint:a3 toCoordinateSpace:?];
+  v22.x = v7;
+  v22.y = v8;
+  WebCore::FloatPoint::FloatPoint(&v23, &v22);
   WebCore::FloatPoint::operator CGPoint();
-  [self convertPoint:a2 toCoordinateSpace:?];
-  v19.x = v8;
-  v19.y = v9;
-  WebCore::FloatPoint::FloatPoint(&v20, &v19);
+  [self convertPoint:a3 toCoordinateSpace:?];
+  v20.x = v9;
+  v20.y = v10;
+  WebCore::FloatPoint::FloatPoint(&v21, &v20);
   WebCore::FloatPoint::operator CGPoint();
-  [self convertPoint:a2 toCoordinateSpace:?];
-  v17.x = v10;
-  v17.y = v11;
-  WebCore::FloatPoint::FloatPoint(&v18, &v17);
+  [self convertPoint:a3 toCoordinateSpace:?];
+  v18.x = v11;
+  v18.y = v12;
+  WebCore::FloatPoint::FloatPoint(&v19, &v18);
   WebCore::FloatPoint::operator CGPoint();
-  [self convertPoint:a2 toCoordinateSpace:?];
-  v16.x = v12;
-  v16.y = v13;
-  result = WebCore::FloatPoint::FloatPoint((a3 + 3), &v16);
-  v15 = v20;
-  *a3 = v22;
-  a3[1] = v15;
-  a3[2] = v18;
+  [self convertPoint:a3 toCoordinateSpace:?];
+  v17.x = v13;
+  v17.y = v14;
+  result = WebCore::FloatPoint::FloatPoint((a4 + 3), &v17);
+  v16 = v21;
+  *a4 = v23;
+  a4[1] = v16;
+  a4[2] = v19;
   return result;
 }
 

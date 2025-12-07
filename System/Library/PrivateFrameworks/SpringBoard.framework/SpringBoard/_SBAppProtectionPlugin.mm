@@ -11,7 +11,7 @@
   v18 = *MEMORY[0x277D85DE8];
   applicationCopy = application;
   completionCopy = completion;
-  v10 = SBLogAppProtection();
+  v10 = SBLogAppProtection(completionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;

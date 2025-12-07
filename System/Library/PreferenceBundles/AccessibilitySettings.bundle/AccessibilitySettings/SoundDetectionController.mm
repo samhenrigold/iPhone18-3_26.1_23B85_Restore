@@ -915,7 +915,7 @@ void __91__SoundDetectionController_detectorStore_didFinishRefreshingDetectors_w
   _os_log_error_impl(&dword_0, a2, OS_LOG_TYPE_ERROR, "[%@]: refresh wasn't successful. error: %@", &v7, 0x16u);
 }
 
-void __91__SoundDetectionController_detectorStore_didFinishRefreshingDetectors_wasSuccessful_error___block_invoke_cold_2(uint64_t a1, NSObject *a2)
+void __91__SoundDetectionController_detectorStore_didFinishRefreshingDetectors_wasSuccessful_error___block_invoke_cold_2(void *a1, NSObject *a2)
 {
   v4 = 138412290;
   v5 = objc_opt_class();

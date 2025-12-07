@@ -390,7 +390,7 @@ double __39__CIZoomBlur__blur_pass_weightsFactor___block_invoke(uint64_t a1, dou
         }
       }
 
-      Rectangle::scale(&v48, 1.0 / v13, &v49);
+      Rectangle::scale(&v49, &v48, 1.0 / v13);
       v30 = v45;
       v32.i64[1] = *(&v42 + 1);
       v31 = *&v42;
@@ -422,7 +422,7 @@ double __39__CIZoomBlur__blur_pass_weightsFactor___block_invoke(uint64_t a1, dou
         }
       }
 
-      Rectangle::Union(&v51, &v52, &v49, v32);
+      Rectangle::Union(&v49, &v51, &v52, v32);
       *&v51.var0 = v49;
       *&v51.var2 = v50;
       _kernelNew = [(CIZoomBlur *)self _kernelNew];
@@ -566,8 +566,8 @@ float64_t __25__CIZoomBlur_outputImage__block_invoke(uint64_t a1, CGFloat a2, CG
     }
   }
 
-  v14 = Rectangle::scale(&v22, *(a1 + 40), &v23);
-  v14.f64[0] = v23.f64[0];
+  v14 = Rectangle::scale(&v23, &v22, *(a1 + 40));
+  v14.i64[0] = *&v23.f64[0];
   if (fabs(v23.f64[0]) == INFINITY || fabs(v23.f64[1]) == INFINITY)
   {
     v14 = vdupq_n_s64(0x7FF0000000000000uLL);
@@ -582,7 +582,7 @@ float64_t __25__CIZoomBlur_outputImage__block_invoke(uint64_t a1, CGFloat a2, CG
     v17 = vdupq_n_s64(0xFFDFFFFFFFFFFFFFLL);
     if (vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqq_f64(v23, v17), vceqq_f64(v24, v16))))))
     {
-      v14.f64[1] = v23.f64[1];
+      v14.i64[1] = *&v23.f64[1];
       v14 = vaddq_f64(v14, vcvtq_f64_f32(*(a1 + 32)));
       *&v25.var0 = v14;
       *&v25.var2 = v24;
@@ -595,7 +595,7 @@ float64_t __25__CIZoomBlur_outputImage__block_invoke(uint64_t a1, CGFloat a2, CG
     }
   }
 
-  Rectangle::Union(&v25, &v26, &v23, v14);
+  Rectangle::Union(&v23, &v25, &v26, v14);
   result = v23.f64[0];
   if ((vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqq_f64(v23, vdupq_n_s64(0xFFDFFFFFFFFFFFFFLL)), vceqq_f64(v24, vdupq_n_s64(0x7FEFFFFFFFFFFFFFuLL)))))) & 1) == 0)
   {

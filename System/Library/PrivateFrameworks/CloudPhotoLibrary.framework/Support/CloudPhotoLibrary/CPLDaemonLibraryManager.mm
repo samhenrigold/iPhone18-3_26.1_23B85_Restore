@@ -15,7 +15,9 @@
 - (void)acknowledgeChangeBatch:(id)batch withCompletionHandler:(id)handler;
 - (void)acknowledgeChangedStatuses:(id)statuses;
 - (void)activateScopeWithIdentifier:(id)identifier completionHandler:(id)handler;
+- (void)addDropDerivativesRecipe:(id)recipe writeToUserDefaults:(BOOL)defaults withCompletionHandler:(id)handler;
 - (void)addInfoToLog:(id)log;
+- (void)addStatusChangesForRecordsWithScopedIdentifiers:(id)identifiers persist:(BOOL)persist;
 - (void)attachComputeStates:(id)states completionHandler:(id)handler;
 - (void)beginDownloadForResource:(id)resource clientBundleID:(id)d options:(id)options proposedTaskIdentifier:(id)identifier reply:(id)reply;
 - (void)beginInMemoryDownloadOfResource:(id)resource clientBundleID:(id)d reply:(id)reply;
@@ -25,7 +27,9 @@
 - (void)cancelSyncTaskWithIdentifier:(id)identifier;
 - (void)cancelTaskWithIdentifier:(id)identifier;
 - (void)checkHasBackgroundDownloadOperationsWithCompletionHandler:(id)handler;
+- (void)checkResourcesAreSafeToPrune:(id)prune checkServerIfNecessary:(BOOL)necessary completionHandler:(id)handler;
 - (void)closeLibraryWithCompletionHandler:(id)handler;
+- (void)cloudCacheGetDescriptionForRecordWithScopedIdentifier:(id)identifier related:(BOOL)related completionHandler:(id)handler;
 - (void)commitChangeBatch:(id)batch withCompletionHandler:(id)handler;
 - (void)compactFileCacheWithCompletionHandler:(id)handler;
 - (void)connection:(id)connection handleInvocation:(id)invocation isReply:(BOOL)reply;
@@ -33,6 +37,9 @@
 - (void)deactivateLibraryWithCompletionHandler:(id)handler;
 - (void)deactivateScopeWithIdentifier:(id)identifier completionHandler:(id)handler;
 - (void)dealloc;
+- (void)deleteResources:(id)resources checkServerIfNecessary:(BOOL)necessary completionHandler:(id)handler;
+- (void)deleteScopeWithIdentifier:(id)identifier forced:(BOOL)forced completionHandler:(id)handler;
+- (void)fetchComputeStatesForRecordsWithScopedIdentifiers:(id)identifiers validator:(id)validator shouldDecrypt:(BOOL)decrypt onDemand:(BOOL)demand completionHandler:(id)handler;
 - (void)fetchExistingSharedLibraryScopeWithCompletionHandler:(id)handler;
 - (void)fetchSharedScopeFromShareURL:(id)l completionHandler:(id)handler;
 - (void)finalizeSessionWithCompletionHandler:(id)handler;
@@ -49,6 +56,7 @@
 - (void)getStatusForComponents:(id)components completionHandler:(id)handler;
 - (void)getStatusForPendingRecordsSharedToScopeWithIdentifier:(id)identifier maximumCount:(unint64_t)count completionHandler:(id)handler;
 - (void)getStatusForRecordsWithScopedIdentifiers:(id)identifiers completionHandler:(id)handler;
+- (void)getStatusesForScopesWithIdentifiers:(id)identifiers includeStorages:(BOOL)storages completionHandler:(id)handler;
 - (void)getStreamingURLForResource:(id)resource intent:(unint64_t)intent hints:(id)hints timeRange:(id *)range clientBundleID:(id)d completionHandler:(id)handler;
 - (void)getTargetsForRecordsWithScopedIdentifiers:(id)identifiers completionHandler:(id)handler;
 - (void)libraryManager:(id)manager backgroundDownloadDidFailForResource:(id)resource;
@@ -244,13 +252,13 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v6 = sub_10001A484();
+      v6 = sub_10001A484(manager);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         v7 = self->_manager;
         *buf = 138412546;
         selfCopy3 = v7;
-        v21 = 2112;
+        v23 = 2112;
         selfCopy = self;
         _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Closing %@ for %@", buf, 0x16u);
       }
@@ -261,54 +269,54 @@
     currentSession = [(CPLLibraryManager *)manager currentSession];
     if (currentSession)
     {
-      sub_10018DED4(self);
+      sub_10018DED4(self, currentSession);
     }
 
-    [(NSMutableDictionary *)self->_vouchersPerTaskIdentifier removeAllObjects];
+    removeAllObjects = [(NSMutableDictionary *)self->_vouchersPerTaskIdentifier removeAllObjects];
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v9 = sub_10001A484();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v10 = sub_10001A484(removeAllObjects);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        v10 = [(NSMutableDictionary *)self->_downloadTasksPerIdentifier count];
+        v11 = [(NSMutableDictionary *)self->_downloadTasksPerIdentifier count];
         *buf = 138412546;
         selfCopy3 = self;
-        v21 = 2048;
-        selfCopy = v10;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "%@ cancelling %lu tasks", buf, 0x16u);
+        v23 = 2048;
+        selfCopy = v11;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "%@ cancelling %lu tasks", buf, 0x16u);
       }
     }
 
     [(NSMutableDictionary *)self->_downloadTasksPerIdentifier enumerateKeysAndObjectsUsingBlock:&stru_100272D00];
-    [(NSMutableDictionary *)self->_downloadTasksPerIdentifier removeAllObjects];
+    removeAllObjects2 = [(NSMutableDictionary *)self->_downloadTasksPerIdentifier removeAllObjects];
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v11 = sub_10001A484();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v13 = sub_10001A484(removeAllObjects2);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        v12 = [(NSMutableDictionary *)self->_forceSyncTasksPerIdentifier count];
+        v14 = [(NSMutableDictionary *)self->_forceSyncTasksPerIdentifier count];
         *buf = 138412546;
         selfCopy3 = self;
-        v21 = 2048;
-        selfCopy = v12;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "%@ cancelling %lu sync tasks", buf, 0x16u);
+        v23 = 2048;
+        selfCopy = v14;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEBUG, "%@ cancelling %lu sync tasks", buf, 0x16u);
       }
     }
 
     [(NSMutableDictionary *)self->_forceSyncTasksPerIdentifier enumerateKeysAndObjectsUsingBlock:&stru_100272D40];
     [(NSMutableDictionary *)self->_forceSyncTasksPerIdentifier removeAllObjects];
     [(NSMutableDictionary *)self->_uploadTasksPerIdentifier removeAllObjects];
-    v13 = self->_manager;
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_10001A96C;
-    v16[3] = &unk_1002724D0;
-    v17 = v13;
-    v18 = blockCopy;
-    v14 = v13;
-    [(CPLLibraryManager *)v14 closeWithCompletionHandler:v16];
-    self->_killed = 1;
     v15 = self->_manager;
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_10001A96C;
+    v18[3] = &unk_1002724D0;
+    v19 = v15;
+    v20 = blockCopy;
+    v16 = v15;
+    [(CPLLibraryManager *)v16 closeWithCompletionHandler:v18];
+    self->_killed = 1;
+    v17 = self->_manager;
     self->_manager = 0;
   }
 
@@ -373,27 +381,27 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v10 = sub_10001A484();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = sub_10001A484(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
         selfCopy = self;
-        v16 = 2112;
-        v17 = v9;
-        v18 = 2112;
-        v19 = v9;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%@ is connecting to engine while %@ is already connected. Will drop %@", buf, 0x20u);
+        v17 = 2112;
+        v18 = v9;
+        v19 = 2112;
+        v20 = v9;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%@ is connecting to engine while %@ is already connected. Will drop %@", buf, 0x20u);
       }
     }
 
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_10001AFF4;
-    v11[3] = &unk_100271DE0;
-    v11[4] = self;
-    v12 = identifierCopy;
-    v13 = blockCopy;
-    [v9 _killWithCompletionBlock:v11];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_10001AFF4;
+    v12[3] = &unk_100271DE0;
+    v12[4] = self;
+    v13 = identifierCopy;
+    v14 = blockCopy;
+    [v9 _killWithCompletionBlock:v12];
   }
 
   else
@@ -471,43 +479,44 @@
 - (void)closeLibraryWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
+  v5 = handlerCopy;
   if (self->_manager)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v5 = sub_10001A484();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = sub_10001A484(handlerCopy);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
         selfCopy2 = self;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Closing library manager for %@", buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Closing library manager for %@", buf, 0xCu);
       }
     }
 
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_10001BF40;
-    v8[3] = &unk_100271E98;
-    v9 = handlerCopy;
-    [(CPLDaemonLibraryManager *)self _dropManagerWithCompletionBlock:v8];
-    v6 = v9;
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_10001BF40;
+    v9[3] = &unk_100271E98;
+    v10 = v5;
+    [(CPLDaemonLibraryManager *)self _dropManagerWithCompletionBlock:v9];
+    v7 = v10;
   }
 
   else
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v7 = sub_10001A484();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = sub_10001A484(handlerCopy);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
         selfCopy2 = self;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "%@ tried to close a manager that is not present", buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%@ tried to close a manager that is not present", buf, 0xCu);
       }
     }
 
-    v6 = +[CPLErrors unknownError];
-    (*(handlerCopy + 2))(handlerCopy, v6);
+    v7 = +[CPLErrors unknownError];
+    (v5)[2](v5, v7);
   }
 }
 
@@ -518,7 +527,7 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v5 = sub_10001A484();
+      v5 = sub_10001A484(_CPLSilentLogging);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         libraryIdentifier = [(CPLLibraryManager *)self->_manager libraryIdentifier];
@@ -567,7 +576,7 @@
 
   else
   {
-    sub_10018E478();
+    sub_10018E478(self);
   }
 }
 
@@ -595,7 +604,7 @@
 
   else
   {
-    sub_10018E478();
+    sub_10018E478(self);
   }
 }
 
@@ -611,7 +620,7 @@
 
   else
   {
-    sub_10018E544();
+    sub_10018E544(self);
   }
 }
 
@@ -625,39 +634,40 @@
   if (self->_manager)
   {
     v17 = voucher_copy();
+    v18 = v17;
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v18 = sub_10001A484();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+      v19 = sub_10001A484(v17);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
         manager = self->_manager;
         *buf = 138412802;
-        v29 = manager;
-        v30 = 2112;
-        v31 = resourceCopy;
-        v32 = 2112;
-        v33 = optionsCopy;
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "Asking %@ for a task to download %@(%@)", buf, 0x20u);
+        v30 = manager;
+        v31 = 2112;
+        v32 = resourceCopy;
+        v33 = 2112;
+        v34 = optionsCopy;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEBUG, "Asking %@ for a task to download %@(%@)", buf, 0x20u);
       }
     }
 
-    v20 = self->_manager;
-    v22[0] = _NSConcreteStackBlock;
-    v22[1] = 3221225472;
-    v22[2] = sub_10001C660;
-    v22[3] = &unk_100272E48;
-    v23 = resourceCopy;
-    v24 = optionsCopy;
+    v21 = self->_manager;
+    v23[0] = _NSConcreteStackBlock;
+    v23[1] = 3221225472;
+    v23[2] = sub_10001C660;
+    v23[3] = &unk_100272E48;
+    v24 = resourceCopy;
+    v25 = optionsCopy;
     selfCopy = self;
-    v26 = v17;
-    v27 = replyCopy;
-    v21 = v17;
-    [(CPLLibraryManager *)v20 beginDownloadForResource:v23 clientBundleID:dCopy options:v24 proposedTaskIdentifier:identifierCopy completionHandler:v22];
+    v27 = v18;
+    v28 = replyCopy;
+    v22 = v18;
+    [(CPLLibraryManager *)v21 beginDownloadForResource:v24 clientBundleID:dCopy options:v25 proposedTaskIdentifier:identifierCopy completionHandler:v23];
   }
 
   else
   {
-    sub_10018E620();
+    sub_10018E620(self);
   }
 }
 
@@ -677,22 +687,90 @@
   versionCopy = version;
   contextCopy = context;
   handlerCopy = handler;
+  v11 = handlerCopy;
   if (self->_manager)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v11 = sub_10001A484();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v12 = sub_10001A484(handlerCopy);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         manager = self->_manager;
         *buf = 138412290;
         selfCopy = manager;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "Beginning push session with %@", buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "Beginning push session with %@", buf, 0xCu);
       }
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     [WeakRetained startSyncTaskForDaemonLibraryManager:self];
+
+    [(CPLDaemonLibraryManager *)self processSessionContext:contextCopy];
+    resetTracker = [contextCopy resetTracker];
+    v16 = +[CPLResetTracker currentTracker];
+    earliestReasonDate = [resetTracker earliestReasonDate];
+    earliestReasonDate2 = [v16 earliestReasonDate];
+    v19 = [earliestReasonDate compare:earliestReasonDate2];
+
+    if (v19 == -1)
+    {
+      v20 = resetTracker;
+    }
+
+    else
+    {
+      v20 = v16;
+    }
+
+    v21 = v20;
+    v22 = self->_manager;
+    v25[0] = _NSConcreteStackBlock;
+    v25[1] = 3221225472;
+    v25[2] = sub_10001CAB0;
+    v25[3] = &unk_100272E70;
+    v26 = v16;
+    v27 = v11;
+    v23 = v16;
+    [(CPLLibraryManager *)v22 beginPushChangeSessionWithKnownLibraryVersion:versionCopy resetTracker:v21 completionHandler:v25];
+  }
+
+  else
+  {
+    if ((_CPLSilentLogging & 1) == 0)
+    {
+      v24 = sub_10001A484(handlerCopy);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138412290;
+        selfCopy = self;
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "%@ tried to begin a push session for a manager that is not present", buf, 0xCu);
+      }
+    }
+
+    resetTracker = +[CPLErrors unknownError];
+    (v11)[2](v11, resetTracker);
+  }
+}
+
+- (void)beginPullSessionWithKnownLibraryVersion:(id)version context:(id)context completionHandler:(id)handler
+{
+  versionCopy = version;
+  contextCopy = context;
+  handlerCopy = handler;
+  v11 = handlerCopy;
+  if (self->_manager)
+  {
+    if ((_CPLSilentLogging & 1) == 0)
+    {
+      v12 = sub_10001A484(handlerCopy);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      {
+        manager = self->_manager;
+        *buf = 138412290;
+        selfCopy = manager;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "Beginning pull session with %@", buf, 0xCu);
+      }
+    }
 
     [(CPLDaemonLibraryManager *)self processSessionContext:contextCopy];
     resetTracker = [contextCopy resetTracker];
@@ -715,95 +793,29 @@
     v21 = self->_manager;
     v24[0] = _NSConcreteStackBlock;
     v24[1] = 3221225472;
-    v24[2] = sub_10001CAB0;
-    v24[3] = &unk_100272E70;
+    v24[2] = sub_10001CDAC;
+    v24[3] = &unk_100272E98;
     v25 = v15;
-    v26 = handlerCopy;
+    v26 = v11;
     v22 = v15;
-    [(CPLLibraryManager *)v21 beginPushChangeSessionWithKnownLibraryVersion:versionCopy resetTracker:v20 completionHandler:v24];
+    [(CPLLibraryManager *)v21 beginPullChangeSessionWithKnownLibraryVersion:versionCopy resetTracker:v20 completionHandler:v24];
   }
 
   else
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v23 = sub_10001A484();
+      v23 = sub_10001A484(handlerCopy);
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
         selfCopy = self;
-        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "%@ tried to begin a push session for a manager that is not present", buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "%@ tried to begin a pull session for a manager that is not present", buf, 0xCu);
       }
     }
 
     resetTracker = +[CPLErrors unknownError];
-    (*(handlerCopy + 2))(handlerCopy, resetTracker);
-  }
-}
-
-- (void)beginPullSessionWithKnownLibraryVersion:(id)version context:(id)context completionHandler:(id)handler
-{
-  versionCopy = version;
-  contextCopy = context;
-  handlerCopy = handler;
-  if (self->_manager)
-  {
-    if ((_CPLSilentLogging & 1) == 0)
-    {
-      v11 = sub_10001A484();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
-      {
-        manager = self->_manager;
-        *buf = 138412290;
-        selfCopy = manager;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "Beginning pull session with %@", buf, 0xCu);
-      }
-    }
-
-    [(CPLDaemonLibraryManager *)self processSessionContext:contextCopy];
-    resetTracker = [contextCopy resetTracker];
-    v14 = +[CPLResetTracker currentTracker];
-    earliestReasonDate = [resetTracker earliestReasonDate];
-    earliestReasonDate2 = [v14 earliestReasonDate];
-    v17 = [earliestReasonDate compare:earliestReasonDate2];
-
-    if (v17 == -1)
-    {
-      v18 = resetTracker;
-    }
-
-    else
-    {
-      v18 = v14;
-    }
-
-    v19 = v18;
-    v20 = self->_manager;
-    v23[0] = _NSConcreteStackBlock;
-    v23[1] = 3221225472;
-    v23[2] = sub_10001CDAC;
-    v23[3] = &unk_100272E98;
-    v24 = v14;
-    v25 = handlerCopy;
-    v21 = v14;
-    [(CPLLibraryManager *)v20 beginPullChangeSessionWithKnownLibraryVersion:versionCopy resetTracker:v19 completionHandler:v23];
-  }
-
-  else
-  {
-    if ((_CPLSilentLogging & 1) == 0)
-    {
-      v22 = sub_10001A484();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 138412290;
-        selfCopy = self;
-        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "%@ tried to begin a pull session for a manager that is not present", buf, 0xCu);
-      }
-    }
-
-    resetTracker = +[CPLErrors unknownError];
-    (*(handlerCopy + 2))(handlerCopy, resetTracker);
+    (v11)[2](v11, resetTracker);
   }
 }
 
@@ -814,53 +826,54 @@
   if (manager)
   {
     currentSession = [(CPLLibraryManager *)manager currentSession];
+    v7 = currentSession;
     if (currentSession)
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v7 = sub_10001A484();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+        v8 = sub_10001A484(currentSession);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          *&buf[4] = currentSession;
-          _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "Finalizing %@", buf, 0xCu);
+          *&buf[4] = v7;
+          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "Finalizing %@", buf, 0xCu);
         }
       }
 
-      v11[0] = _NSConcreteStackBlock;
-      v11[1] = 3221225472;
-      v11[2] = sub_10001D010;
-      v11[3] = &unk_100272EC0;
-      v12 = handlerCopy;
-      [currentSession finalizeWithCompletionHandler:v11];
-      v8 = v12;
+      v12[0] = _NSConcreteStackBlock;
+      v12[1] = 3221225472;
+      v12[2] = sub_10001D010;
+      v12[3] = &unk_100272EC0;
+      v13 = handlerCopy;
+      [v7 finalizeWithCompletionHandler:v12];
+      v9 = v13;
     }
 
     else
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v9 = sub_10001A484();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v10 = sub_10001A484(0);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
-          v10 = self->_manager;
+          v11 = self->_manager;
           *buf = 138412546;
           *&buf[4] = self;
-          v14 = 2112;
-          v15 = v10;
-          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%@ tried to finalize a session for %@ but there is no current session", buf, 0x16u);
+          v15 = 2112;
+          v16 = v11;
+          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%@ tried to finalize a session for %@ but there is no current session", buf, 0x16u);
         }
       }
 
-      v8 = [CPLErrors incorrectMachineStateErrorWithReason:@"No session opened"];
-      (*(handlerCopy + 2))(handlerCopy, v8);
+      v9 = [CPLErrors incorrectMachineStateErrorWithReason:@"No session opened"];
+      (*(handlerCopy + 2))(handlerCopy, v9);
     }
   }
 
   else
   {
     sub_10018EA3C();
-    currentSession = *buf;
+    v7 = *buf;
   }
 }
 
@@ -870,54 +883,55 @@
   manager = self->_manager;
   if (manager)
   {
-    currentSession = [(CPLLibraryManager *)manager currentSession];
-    if (currentSession && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+    isKindOfClass = [(CPLLibraryManager *)manager currentSession];
+    v7 = isKindOfClass;
+    if (isKindOfClass && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0))
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v7 = sub_10001A484();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+        v8 = sub_10001A484(isKindOfClass);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          *&buf[4] = currentSession;
-          _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "Getting changes from %@", buf, 0xCu);
+          *&buf[4] = v7;
+          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "Getting changes from %@", buf, 0xCu);
         }
       }
 
-      v11[0] = _NSConcreteStackBlock;
-      v11[1] = 3221225472;
-      v11[2] = sub_10001D284;
-      v11[3] = &unk_100272EE8;
-      v12 = handlerCopy;
-      [currentSession getChangeBatchWithCompletionHandler:v11];
-      v8 = v12;
+      v12[0] = _NSConcreteStackBlock;
+      v12[1] = 3221225472;
+      v12[2] = sub_10001D284;
+      v12[3] = &unk_100272EE8;
+      v13 = handlerCopy;
+      [v7 getChangeBatchWithCompletionHandler:v12];
+      v9 = v13;
     }
 
     else
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v9 = sub_10001A484();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v10 = sub_10001A484(isKindOfClass);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
-          v10 = self->_manager;
+          v11 = self->_manager;
           *buf = 138412546;
           *&buf[4] = self;
-          v14 = 2112;
-          v15 = v10;
-          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%@ tried to get changes for %@ but there is no current pull session", buf, 0x16u);
+          v15 = 2112;
+          v16 = v11;
+          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%@ tried to get changes for %@ but there is no current pull session", buf, 0x16u);
         }
       }
 
-      v8 = [CPLErrors incorrectMachineStateErrorWithReason:@"No session opened"];
-      (*(handlerCopy + 2))(handlerCopy, v8, 0);
+      v9 = [CPLErrors incorrectMachineStateErrorWithReason:@"No session opened"];
+      (*(handlerCopy + 2))(handlerCopy, v9, 0);
     }
   }
 
   else
   {
     sub_10018EC14();
-    currentSession = *buf;
+    v7 = *buf;
   }
 }
 
@@ -928,56 +942,57 @@
   manager = self->_manager;
   if (manager)
   {
-    currentSession = [(CPLLibraryManager *)manager currentSession];
-    if (currentSession && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+    isKindOfClass = [(CPLLibraryManager *)manager currentSession];
+    v10 = isKindOfClass;
+    if (isKindOfClass && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0))
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v10 = sub_10001A484();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+        v11 = sub_10001A484(isKindOfClass);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412546;
-          *&buf[4] = currentSession;
-          v17 = 2112;
-          v18 = batchCopy;
-          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "Acknowledging batch from %@: %@", buf, 0x16u);
+          *&buf[4] = v10;
+          v18 = 2112;
+          v19 = batchCopy;
+          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "Acknowledging batch from %@: %@", buf, 0x16u);
         }
       }
 
-      v14[0] = _NSConcreteStackBlock;
-      v14[1] = 3221225472;
-      v14[2] = sub_10001D6B8;
-      v14[3] = &unk_100272F10;
-      v15 = handlerCopy;
-      [currentSession acknowledgeChangeBatch:batchCopy withCompletionHandler:v14];
-      v11 = v15;
+      v15[0] = _NSConcreteStackBlock;
+      v15[1] = 3221225472;
+      v15[2] = sub_10001D6B8;
+      v15[3] = &unk_100272F10;
+      v16 = handlerCopy;
+      [v10 acknowledgeChangeBatch:batchCopy withCompletionHandler:v15];
+      v12 = v16;
     }
 
     else
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v12 = sub_10001A484();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v13 = sub_10001A484(isKindOfClass);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          v13 = self->_manager;
+          v14 = self->_manager;
           *buf = 138412546;
           *&buf[4] = self;
-          v17 = 2112;
-          v18 = v13;
-          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "%@ tried to acknowledge a batch for %@ but there is no current pull session", buf, 0x16u);
+          v18 = 2112;
+          v19 = v14;
+          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "%@ tried to acknowledge a batch for %@ but there is no current pull session", buf, 0x16u);
         }
       }
 
-      v11 = [CPLErrors incorrectMachineStateErrorWithReason:@"No session opened"];
-      (*(handlerCopy + 2))(handlerCopy, v11, 0);
+      v12 = [CPLErrors incorrectMachineStateErrorWithReason:@"No session opened"];
+      (*(handlerCopy + 2))(handlerCopy, v12, 0);
     }
   }
 
   else
   {
     sub_10018EE34();
-    currentSession = *buf;
+    v10 = *buf;
   }
 }
 
@@ -988,56 +1003,173 @@
   manager = self->_manager;
   if (manager)
   {
-    currentSession = [(CPLLibraryManager *)manager currentSession];
-    if (currentSession && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+    isKindOfClass = [(CPLLibraryManager *)manager currentSession];
+    v10 = isKindOfClass;
+    if (isKindOfClass && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0))
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v10 = sub_10001A484();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+        v11 = sub_10001A484(isKindOfClass);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412546;
-          *&buf[4] = currentSession;
-          v17 = 2112;
-          v18 = batchCopy;
-          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "Committing batch to %@: %@", buf, 0x16u);
+          *&buf[4] = v10;
+          v18 = 2112;
+          v19 = batchCopy;
+          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "Committing batch to %@: %@", buf, 0x16u);
         }
       }
 
-      v14[0] = _NSConcreteStackBlock;
-      v14[1] = 3221225472;
-      v14[2] = sub_10001D978;
-      v14[3] = &unk_100272F38;
-      v15 = handlerCopy;
-      [currentSession commitChangeBatch:batchCopy withUnderlyingCompletionHandler:v14];
-      v11 = v15;
+      v15[0] = _NSConcreteStackBlock;
+      v15[1] = 3221225472;
+      v15[2] = sub_10001D978;
+      v15[3] = &unk_100272F38;
+      v16 = handlerCopy;
+      [v10 commitChangeBatch:batchCopy withUnderlyingCompletionHandler:v15];
+      v12 = v16;
     }
 
     else
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v12 = sub_10001A484();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v13 = sub_10001A484(isKindOfClass);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          v13 = self->_manager;
+          v14 = self->_manager;
           *buf = 138412546;
           *&buf[4] = self;
-          v17 = 2112;
-          v18 = v13;
-          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "%@ tried to commit a batch for %@ but there is no current push session", buf, 0x16u);
+          v18 = 2112;
+          v19 = v14;
+          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "%@ tried to commit a batch for %@ but there is no current push session", buf, 0x16u);
         }
       }
 
-      v11 = [CPLErrors incorrectMachineStateErrorWithReason:@"No session opened"];
-      (*(handlerCopy + 2))(handlerCopy, v11, 0, 0, 0);
+      v12 = [CPLErrors incorrectMachineStateErrorWithReason:@"No session opened"];
+      (*(handlerCopy + 2))(handlerCopy, v12, 0, 0, 0);
     }
   }
 
   else
   {
     sub_10018F04C();
-    currentSession = *buf;
+    v10 = *buf;
+  }
+}
+
+- (void)deleteResources:(id)resources checkServerIfNecessary:(BOOL)necessary completionHandler:(id)handler
+{
+  necessaryCopy = necessary;
+  resourcesCopy = resources;
+  handlerCopy = handler;
+  manager = self->_manager;
+  if (manager)
+  {
+    [(CPLLibraryManager *)manager deleteResources:resourcesCopy checkServerIfNecessary:necessaryCopy completionHandler:handlerCopy];
+  }
+
+  else
+  {
+    if ((_CPLSilentLogging & 1) == 0)
+    {
+      v11 = sub_10001A484(0);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138412290;
+        selfCopy = self;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%@ tried to delete resources for a manager that is not present", buf, 0xCu);
+      }
+    }
+
+    v12 = [[NSMutableDictionary alloc] initWithCapacity:{objc_msgSend(resourcesCopy, "count")}];
+    v13 = +[CPLErrors unknownError];
+    v19 = 0u;
+    v20 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    v14 = resourcesCopy;
+    v15 = [v14 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    if (v15)
+    {
+      v16 = v15;
+      v17 = *v20;
+      do
+      {
+        for (i = 0; i != v16; i = i + 1)
+        {
+          if (*v20 != v17)
+          {
+            objc_enumerationMutation(v14);
+          }
+
+          [v12 setObject:v13 forKeyedSubscript:{*(*(&v19 + 1) + 8 * i), v19}];
+        }
+
+        v16 = [v14 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      }
+
+      while (v16);
+    }
+
+    handlerCopy[2](handlerCopy, &__NSArray0__struct, v12);
+  }
+}
+
+- (void)checkResourcesAreSafeToPrune:(id)prune checkServerIfNecessary:(BOOL)necessary completionHandler:(id)handler
+{
+  necessaryCopy = necessary;
+  pruneCopy = prune;
+  handlerCopy = handler;
+  manager = self->_manager;
+  if (manager)
+  {
+    [(CPLLibraryManager *)manager checkResourcesAreSafeToPrune:pruneCopy checkServerIfNecessary:necessaryCopy completionHandler:handlerCopy];
+  }
+
+  else
+  {
+    if ((_CPLSilentLogging & 1) == 0)
+    {
+      v11 = sub_10001A484(0);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138412290;
+        selfCopy = self;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%@ tried to check purgeable resources for a manager that is not present", buf, 0xCu);
+      }
+    }
+
+    v12 = [[NSMutableDictionary alloc] initWithCapacity:{objc_msgSend(pruneCopy, "count")}];
+    v13 = +[CPLErrors unknownError];
+    v19 = 0u;
+    v20 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    v14 = pruneCopy;
+    v15 = [v14 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    if (v15)
+    {
+      v16 = v15;
+      v17 = *v20;
+      do
+      {
+        for (i = 0; i != v16; i = i + 1)
+        {
+          if (*v20 != v17)
+          {
+            objc_enumerationMutation(v14);
+          }
+
+          [v12 setObject:v13 forKeyedSubscript:{*(*(&v19 + 1) + 8 * i), v19}];
+        }
+
+        v16 = [v14 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      }
+
+      while (v16);
+    }
+
+    handlerCopy[2](handlerCopy, &__NSArray0__struct, v12);
   }
 }
 
@@ -1053,7 +1185,7 @@
 
   else
   {
-    sub_10018F124();
+    sub_10018F124(self);
   }
 }
 
@@ -1068,7 +1200,7 @@
 
   else
   {
-    sub_10018F1F4();
+    sub_10018F1F4(self);
   }
 }
 
@@ -1092,7 +1224,7 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v9 = sub_10001A484();
+      v9 = sub_10001A484(handlerCopy);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         v10 = NSStringFromSelector(a2);
@@ -1252,6 +1384,23 @@
   }
 }
 
+- (void)getStatusesForScopesWithIdentifiers:(id)identifiers includeStorages:(BOOL)storages completionHandler:(id)handler
+{
+  storagesCopy = storages;
+  identifiersCopy = identifiers;
+  handlerCopy = handler;
+  manager = self->_manager;
+  if (manager)
+  {
+    [(CPLLibraryManager *)manager getStatusesForScopesWithIdentifiers:identifiersCopy includeStorages:storagesCopy completionHandler:handlerCopy];
+  }
+
+  else
+  {
+    sub_10018F2C0();
+  }
+}
+
 - (void)getCloudCacheRecordsWithLocalScopedIdentifiers:(id)identifiers desiredProperties:(id)properties completionHandler:(id)handler
 {
   identifiersCopy = identifiers;
@@ -1266,6 +1415,23 @@
   else
   {
     sub_10018F2C0();
+  }
+}
+
+- (void)cloudCacheGetDescriptionForRecordWithScopedIdentifier:(id)identifier related:(BOOL)related completionHandler:(id)handler
+{
+  relatedCopy = related;
+  identifierCopy = identifier;
+  handlerCopy = handler;
+  manager = self->_manager;
+  if (manager)
+  {
+    [(CPLLibraryManager *)manager cloudCacheGetDescriptionForRecordWithScopedIdentifier:identifierCopy related:relatedCopy completionHandler:handlerCopy];
+  }
+
+  else
+  {
+    sub_10018F47C();
   }
 }
 
@@ -1387,6 +1553,23 @@
   }
 }
 
+- (void)addDropDerivativesRecipe:(id)recipe writeToUserDefaults:(BOOL)defaults withCompletionHandler:(id)handler
+{
+  defaultsCopy = defaults;
+  recipeCopy = recipe;
+  handlerCopy = handler;
+  manager = self->_manager;
+  if (manager)
+  {
+    [(CPLLibraryManager *)manager addDropDerivativesRecipe:recipeCopy writeToUserDefaults:defaultsCopy withCompletionHandler:handlerCopy];
+  }
+
+  else
+  {
+    sub_10018F894();
+  }
+}
+
 - (void)attachComputeStates:(id)states completionHandler:(id)handler
 {
   statesCopy = states;
@@ -1400,6 +1583,47 @@
   else
   {
     sub_10018F894();
+  }
+}
+
+- (void)fetchComputeStatesForRecordsWithScopedIdentifiers:(id)identifiers validator:(id)validator shouldDecrypt:(BOOL)decrypt onDemand:(BOOL)demand completionHandler:(id)handler
+{
+  demandCopy = demand;
+  decryptCopy = decrypt;
+  identifiersCopy = identifiers;
+  validatorCopy = validator;
+  handlerCopy = handler;
+  v16 = handlerCopy;
+  manager = self->_manager;
+  if (manager)
+  {
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3221225472;
+    v21[2] = sub_10001EEB8;
+    v21[3] = &unk_100272F88;
+    v22 = handlerCopy;
+    [(CPLLibraryManager *)manager fetchComputeStatesForRecordsWithScopedIdentifiers:identifiersCopy validator:validatorCopy shouldDecrypt:decryptCopy onDemand:demandCopy completionHandler:v21];
+    v18 = v22;
+  }
+
+  else
+  {
+    if ((_CPLSilentLogging & 1) == 0)
+    {
+      v19 = sub_10001A484(handlerCopy);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      {
+        v20 = NSStringFromSelector(a2);
+        *buf = 138412546;
+        selfCopy = self;
+        v25 = 2112;
+        v26 = v20;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "%@ called for '%@' but manager is not present", buf, 0x16u);
+      }
+    }
+
+    v18 = +[CPLErrors unknownError];
+    (v16)[2](v16, 0, v18);
   }
 }
 
@@ -1430,7 +1654,7 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v23 = sub_10001A484();
+      v23 = sub_10001A484(handlerCopy);
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         v24 = NSStringFromSelector(a2);
@@ -1467,7 +1691,7 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v13 = sub_10001A484();
+      v13 = sub_10001A484(handlerCopy);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         v14 = NSStringFromSelector(a2);
@@ -1492,36 +1716,37 @@
   if (self->_manager)
   {
     v11 = voucher_copy();
+    v12 = v11;
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v12 = sub_10001A484();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v13 = sub_10001A484(v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         manager = self->_manager;
         *buf = 138412546;
-        v22 = manager;
-        v23 = 2112;
-        v24 = resourceCopy;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "Asking %@ for a task to download %@ in-memory", buf, 0x16u);
+        v23 = manager;
+        v24 = 2112;
+        v25 = resourceCopy;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEBUG, "Asking %@ for a task to download %@ in-memory", buf, 0x16u);
       }
     }
 
-    v14 = self->_manager;
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_10001F5D0;
-    v16[3] = &unk_100273000;
-    v17 = resourceCopy;
+    v15 = self->_manager;
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_10001F5D0;
+    v17[3] = &unk_100273000;
+    v18 = resourceCopy;
     selfCopy = self;
-    v19 = v11;
-    v20 = replyCopy;
-    v15 = v11;
-    [(CPLLibraryManager *)v14 beginInMemoryDownloadOfResource:v17 clientBundleID:dCopy completionHandler:v16];
+    v20 = v12;
+    v21 = replyCopy;
+    v16 = v12;
+    [(CPLLibraryManager *)v15 beginInMemoryDownloadOfResource:v18 clientBundleID:dCopy completionHandler:v17];
   }
 
   else
   {
-    sub_10018F95C();
+    sub_10018F95C(self);
   }
 }
 
@@ -1587,7 +1812,7 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v12 = sub_10001A484();
+      v12 = sub_10001A484(handlerCopy);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         v13 = NSStringFromSelector(a2);
@@ -1625,7 +1850,7 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v12 = sub_10001A484();
+      v12 = sub_10001A484(handlerCopy);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         v13 = NSStringFromSelector(a2);
@@ -1639,6 +1864,45 @@
 
     v11 = +[CPLErrors unknownError];
     (v9)[2](v9, 0, v11);
+  }
+}
+
+- (void)deleteScopeWithIdentifier:(id)identifier forced:(BOOL)forced completionHandler:(id)handler
+{
+  forcedCopy = forced;
+  identifierCopy = identifier;
+  handlerCopy = handler;
+  v11 = handlerCopy;
+  manager = self->_manager;
+  if (manager)
+  {
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_10001FDD8;
+    v16[3] = &unk_100272EC0;
+    v17 = handlerCopy;
+    [(CPLLibraryManager *)manager deleteScopeWithIdentifier:identifierCopy forced:forcedCopy completionHandler:v16];
+    v13 = v17;
+  }
+
+  else
+  {
+    if ((_CPLSilentLogging & 1) == 0)
+    {
+      v14 = sub_10001A484(handlerCopy);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      {
+        v15 = NSStringFromSelector(a2);
+        *buf = 138412546;
+        selfCopy = self;
+        v20 = 2112;
+        v21 = v15;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "%@ tried to call %@ for a manager that is not present", buf, 0x16u);
+      }
+    }
+
+    v13 = +[CPLErrors unknownError];
+    (v11)[2](v11, v13);
   }
 }
 
@@ -1663,7 +1927,7 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v12 = sub_10001A484();
+      v12 = sub_10001A484(handlerCopy);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         v13 = NSStringFromSelector(a2);
@@ -1701,7 +1965,7 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v12 = sub_10001A484();
+      v12 = sub_10001A484(handlerCopy);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         v13 = NSStringFromSelector(a2);
@@ -1739,7 +2003,7 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v12 = sub_10001A484();
+      v12 = sub_10001A484(handlerCopy);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         v13 = NSStringFromSelector(a2);
@@ -1776,7 +2040,7 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v9 = sub_10001A484();
+      v9 = sub_10001A484(handlerCopy);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         v10 = NSStringFromSelector(a2);
@@ -1814,7 +2078,7 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v16 = sub_10001A484();
+      v16 = sub_10001A484(handlerCopy);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         v17 = NSStringFromSelector(a2);
@@ -1853,7 +2117,7 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v19 = sub_10001A484();
+      v19 = sub_10001A484(handlerCopy);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         v20 = NSStringFromSelector(a2);
@@ -1890,7 +2154,7 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v9 = sub_10001A484();
+      v9 = sub_10001A484(handlerCopy);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         v10 = NSStringFromSelector(a2);
@@ -1944,7 +2208,7 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v12 = sub_10001A484();
+      v12 = sub_10001A484(handlerCopy);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         v13 = NSStringFromSelector(a2);
@@ -1968,37 +2232,38 @@
   if (self->_manager)
   {
     v8 = voucher_copy();
+    v9 = v8;
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v9 = sub_10001A484();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v10 = sub_10001A484(v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         manager = self->_manager;
-        v11 = [identifiersCopy componentsJoinedByString:{@", "}];
+        v12 = [identifiersCopy componentsJoinedByString:{@", "}];
         *buf = 138412546;
-        v20 = manager;
-        v21 = 2112;
-        v22 = v11;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "Asking %@ for a task to sync %@", buf, 0x16u);
+        v21 = manager;
+        v22 = 2112;
+        v23 = v12;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "Asking %@ for a task to sync %@", buf, 0x16u);
       }
     }
 
-    v12 = self->_manager;
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_100021138;
-    v14[3] = &unk_1002730A0;
-    v15 = identifiersCopy;
+    v13 = self->_manager;
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_100021138;
+    v15[3] = &unk_1002730A0;
+    v16 = identifiersCopy;
     selfCopy = self;
-    v17 = v8;
-    v18 = replyCopy;
-    v13 = v8;
-    [(CPLLibraryManager *)v12 forceSynchronizingScopeWithIdentifiers:v15 completionHandler:v14];
+    v18 = v9;
+    v19 = replyCopy;
+    v14 = v9;
+    [(CPLLibraryManager *)v13 forceSynchronizingScopeWithIdentifiers:v16 completionHandler:v15];
   }
 
   else
   {
-    sub_10018FAB4();
+    sub_10018FAB4(self);
   }
 }
 
@@ -2048,19 +2313,20 @@
   else
   {
     selector = [invocationCopy selector];
-    if (protocol_getMethodDescription(self->_allowedProtocol, selector, 1, 1).name)
+    name = protocol_getMethodDescription(self->_allowedProtocol, selector, 1, 1).name;
+    if (name)
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v12 = sub_10001A484();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+        v13 = sub_10001A484(name);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
-          v13 = NSStringFromSelector(selector);
-          v16 = 138412546;
+          v14 = NSStringFromSelector(selector);
+          v17 = 138412546;
           selfCopy2 = self;
-          v18 = 2112;
-          v19 = v13;
-          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "%@ is calling %@", &v16, 0x16u);
+          v19 = 2112;
+          v20 = v14;
+          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEBUG, "%@ is calling %@", &v17, 0x16u);
         }
       }
 
@@ -2071,15 +2337,15 @@
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v14 = sub_10001A484();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v15 = sub_10001A484(0);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          v15 = NSStringFromSelector(selector);
-          v16 = 138412546;
+          v16 = NSStringFromSelector(selector);
+          v17 = 138412546;
           selfCopy2 = self;
-          v18 = 2112;
-          v19 = v15;
-          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "%@ tried to call %@ but is not allowed to", &v16, 0x16u);
+          v19 = 2112;
+          v20 = v16;
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "%@ tried to call %@ but is not allowed to", &v17, 0x16u);
         }
       }
 
@@ -2125,7 +2391,7 @@
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v4 = sub_10001A484();
+    v4 = sub_10001A484(self);
     if (sub_100021E38(v4))
     {
       v7 = 138412290;
@@ -2142,21 +2408,24 @@
 - (void)cancelTaskWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
+  v6 = identifierCopy;
   if (identifierCopy)
   {
-    v3 = [(NSMutableDictionary *)self->_downloadTasksPerIdentifier objectForKey:identifierCopy];
-    if (!v3)
+    v7 = [(NSMutableDictionary *)self->_downloadTasksPerIdentifier objectForKey:identifierCopy];
+    v3 = v7;
+    if (!v7)
     {
-      v3 = [(NSMutableDictionary *)self->_uploadTasksPerIdentifier objectForKey:identifierCopy];
+      v7 = [(NSMutableDictionary *)self->_uploadTasksPerIdentifier objectForKey:v6];
+      v3 = v7;
     }
 
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v6 = sub_10001A484();
-      if (sub_100021E20(v6))
+      v8 = sub_10001A484(v7);
+      if (sub_100021E20(v8))
       {
         sub_1000139A0();
-        sub_100021D94(&_mh_execute_header, v7, v8, "Cancelling %@", v9, v10, v11, v12, v19);
+        sub_100021D94(&_mh_execute_header, v9, v10, "Cancelling %@", v11, v12, v13, v14);
       }
     }
 
@@ -2168,11 +2437,11 @@ LABEL_12:
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v13 = sub_10001A484();
-    if (sub_100003448(v13))
+    v15 = sub_10001A484(0);
+    if (sub_100003448(v15))
     {
       sub_100021D44();
-      _os_log_impl(v14, v15, v16, v17, v18, 0xCu);
+      _os_log_impl(v16, v17, v18, v19, v20, 0xCu);
     }
 
     goto LABEL_12;
@@ -2193,13 +2462,37 @@ LABEL_13:
 
   else if ((_CPLSilentLogging & 1) == 0)
   {
-    v9 = sub_10001A484();
+    v9 = sub_10001A484(0);
     if (sub_100003448(v9))
     {
       v10 = NSStringFromSelector(v5);
       sub_100021CC8();
       sub_100021D44();
       _os_log_impl(v11, v12, v13, v14, v15, 0x16u);
+    }
+  }
+}
+
+- (void)addStatusChangesForRecordsWithScopedIdentifiers:(id)identifiers persist:(BOOL)persist
+{
+  persistCopy = persist;
+  sub_100021DB4();
+  v8 = v7;
+  v9 = sub_100021EB4();
+  if (v9)
+  {
+    [v9 addStatusChangesForRecordsWithScopedIdentifiers:v4 persist:persistCopy];
+  }
+
+  else if ((_CPLSilentLogging & 1) == 0)
+  {
+    v10 = sub_10001A484(0);
+    if (sub_100003448(v10))
+    {
+      v11 = NSStringFromSelector(v5);
+      sub_100021CC8();
+      sub_100021D44();
+      _os_log_impl(v12, v13, v14, v15, v16, 0x16u);
     }
   }
 }
@@ -2215,7 +2508,7 @@ LABEL_13:
 
   else if ((_CPLSilentLogging & 1) == 0)
   {
-    v7 = sub_10001A484();
+    v7 = sub_10001A484(0);
     if (sub_100003448(v7))
     {
       sub_100021CFC();
@@ -2237,7 +2530,7 @@ LABEL_13:
 
   else if ((_CPLSilentLogging & 1) == 0)
   {
-    v9 = sub_10001A484();
+    v9 = sub_10001A484(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_100021CFC();
@@ -2260,7 +2553,7 @@ LABEL_13:
 
   else if ((_CPLSilentLogging & 1) == 0)
   {
-    v7 = sub_10001A484();
+    v7 = sub_10001A484(0);
     if (sub_100003448(v7))
     {
       sub_100021CFC();
@@ -2273,16 +2566,18 @@ LABEL_13:
 - (void)cancelSyncTaskWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
+  v6 = identifierCopy;
   if (identifierCopy)
   {
-    self = [(NSMutableDictionary *)self->_forceSyncTasksPerIdentifier objectForKeyedSubscript:identifierCopy];
+    v7 = [(NSMutableDictionary *)self->_forceSyncTasksPerIdentifier objectForKeyedSubscript:identifierCopy];
+    self = v7;
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v6 = sub_10001A484();
-      if (sub_100021E20(v6))
+      v8 = sub_10001A484(v7);
+      if (sub_100021E20(v8))
       {
         sub_1000139A0();
-        sub_100021D94(&_mh_execute_header, v7, v8, "Cancelling %@", v9, v10, v11, v12, v19);
+        sub_100021D94(&_mh_execute_header, v9, v10, "Cancelling %@", v11, v12, v13, v14);
       }
     }
 
@@ -2294,11 +2589,11 @@ LABEL_10:
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v13 = sub_10001A484();
-    if (sub_100003448(v13))
+    v15 = sub_10001A484(0);
+    if (sub_100003448(v15))
     {
       sub_100021D44();
-      _os_log_impl(v14, v15, v16, v17, v18, 0xCu);
+      _os_log_impl(v16, v17, v18, v19, v20, 0xCu);
     }
 
     goto LABEL_10;
@@ -2310,39 +2605,40 @@ LABEL_11:
 - (void)libraryManagerStatusDidChange:(id)change
 {
   changeCopy = change;
+  v6 = changeCopy;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = sub_10001A484();
-    if (sub_100021E20(v6))
+    v7 = sub_10001A484(changeCopy);
+    if (sub_100021E20(v7))
     {
       manager = self->_manager;
       status = [(CPLLibraryManager *)manager status];
       [(CPLLibraryManager *)self->_manager statusError];
-      v22 = 138412802;
-      v23 = manager;
-      v24 = 2048;
-      v25 = status;
-      v27 = v26 = 2112;
+      v23 = 138412802;
+      v24 = manager;
+      v25 = 2048;
+      v26 = status;
+      v28 = v27 = 2112;
       sub_100021DDC();
-      _os_log_impl(v9, v10, v11, v12, v13, 0x20u);
+      _os_log_impl(v10, v11, v12, v13, v14, 0x20u);
     }
   }
 
-  v14 = [(CPLDaemonLibraryManager *)self _clientWithErrorHandler:&stru_1002730C0];
-  v15 = [NSNumber numberWithUnsignedInteger:[(CPLLibraryManager *)self->_manager status]];
-  v20[1] = @"error";
-  v21[0] = v15;
+  v15 = [(CPLDaemonLibraryManager *)self _clientWithErrorHandler:&stru_1002730C0];
+  v16 = [NSNumber numberWithUnsignedInteger:[(CPLLibraryManager *)self->_manager status]];
+  v21[1] = @"error";
+  v22[0] = v16;
   statusError = [(CPLLibraryManager *)self->_manager statusError];
   cplSafeErrorForXPC = [statusError cplSafeErrorForXPC];
-  v18 = cplSafeErrorForXPC;
+  v19 = cplSafeErrorForXPC;
   if (!cplSafeErrorForXPC)
   {
-    v18 = +[NSNull null];
+    v19 = +[NSNull null];
   }
 
-  v21[1] = v18;
-  v19 = [NSDictionary dictionaryWithObjects:v21 forKeys:v20 count:2];
-  [v14 libraryManagerDidUpdateStatusWithProperties:v19];
+  v22[1] = v19;
+  v20 = [NSDictionary dictionaryWithObjects:v22 forKeys:v21 count:2];
+  [v15 libraryManagerDidUpdateStatusWithProperties:v20];
 
   if (!cplSafeErrorForXPC)
   {
@@ -2353,7 +2649,7 @@ LABEL_11:
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v4 = sub_10001A484();
+    v4 = sub_10001A484(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       v5 = NSStringFromSelector(a2);
@@ -2368,48 +2664,46 @@ LABEL_11:
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_10001A484();
+    v5 = sub_10001A484(self);
     if (sub_100021E38(v5))
     {
-      manager = self->_manager;
       sub_100003474();
       sub_100021D64();
-      _os_log_impl(v7, v8, v9, v10, v11, 0x16u);
+      _os_log_impl(v6, v7, v8, v9, v10, 0x16u);
     }
   }
 
-  v12 = [(CPLDaemonLibraryManager *)self _clientWithErrorHandler:&stru_1002730E0];
-  [v12 libraryManagerHasChangesToPull];
+  v11 = [(CPLDaemonLibraryManager *)self _clientWithErrorHandler:&stru_1002730E0];
+  [v11 libraryManagerHasChangesToPull];
 }
 
 - (void)libraryManagerHasStatusChanges:(id)changes
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_10001A484();
+    v5 = sub_10001A484(self);
     if (sub_100021E38(v5))
     {
-      manager = self->_manager;
       sub_100003474();
       sub_100021D64();
-      _os_log_impl(v7, v8, v9, v10, v11, 0x16u);
+      _os_log_impl(v6, v7, v8, v9, v10, 0x16u);
     }
   }
 
-  v12 = [(CPLDaemonLibraryManager *)self _clientWithErrorHandler:&stru_100273100];
-  [v12 libraryManagerHasStatusChanges];
+  v11 = [(CPLDaemonLibraryManager *)self _clientWithErrorHandler:&stru_100273100];
+  [v11 libraryManagerHasStatusChanges];
 }
 
 - (void)libraryManager:(id)manager provideLocalResource:(id)resource recordClass:(Class)class completionHandler:(id)handler
 {
   resourceCopy = resource;
   handlerCopy = handler;
+  v12 = handlerCopy;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v12 = sub_10001A484();
-    if (sub_100021EE0(v12))
+    v13 = sub_10001A484(handlerCopy);
+    if (sub_100021EE0(v13))
     {
-      manager = self->_manager;
       sub_100021E9C();
       v22 = 2112;
       v23 = resourceCopy;
@@ -2424,8 +2718,8 @@ LABEL_11:
   v18[2] = sub_10018C398;
   v18[3] = &unk_1002727E8;
   v19 = resourceCopy;
-  v20 = handlerCopy;
-  v14 = handlerCopy;
+  v20 = v12;
+  v14 = v12;
   v15 = resourceCopy;
   v16 = [(CPLDaemonLibraryManager *)self _clientWithErrorHandler:v18];
   v17 = NSStringFromClass(class);
@@ -2435,12 +2729,12 @@ LABEL_11:
 - (void)libraryManager:(id)manager pushAllChangesWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
+  v7 = handlerCopy;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v7 = sub_10001A484();
-    if (sub_100021E20(v7))
+    v8 = sub_10001A484(handlerCopy);
+    if (sub_100021E20(v8))
     {
-      manager = self->_manager;
       sub_100021E9C();
       sub_100021DDC();
       _os_log_impl(v9, v10, v11, v12, v13, 0x16u);
@@ -2449,7 +2743,7 @@ LABEL_11:
 
   sub_1000033D8();
   sub_10000FB28();
-  v14 = handlerCopy;
+  v14 = v7;
   [sub_100021DF8() _clientWithErrorHandler:?];
   objc_claimAutoreleasedReturnValue();
   sub_100021EA8();
@@ -2459,58 +2753,60 @@ LABEL_11:
 - (void)libraryManager:(id)manager downloadDidStartForResourceTransferTask:(id)task
 {
   taskCopy = task;
+  v6 = taskCopy;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = sub_10001A484();
-    if (sub_100021E20(v6))
+    v7 = sub_10001A484(taskCopy);
+    if (sub_100021E20(v7))
     {
       sub_100021DDC();
-      _os_log_impl(v7, v8, v9, v10, v11, 0x16u);
+      _os_log_impl(v8, v9, v10, v11, v12, 0x16u);
     }
   }
 
-  [taskCopy taskIdentifier];
+  [v6 taskIdentifier];
   objc_claimAutoreleasedReturnValue();
   sub_1000033D8();
   sub_10000FB28();
-  v15 = v12;
-  v13 = v12;
-  v14 = taskCopy;
-  [sub_100021E50() _withVoucherForTaskWithIdentifier:v13 do:?];
+  v16 = v13;
+  v14 = v13;
+  v15 = v6;
+  [sub_100021E50() _withVoucherForTaskWithIdentifier:v14 do:?];
 }
 
 - (void)libraryManager:(id)manager downloadDidProgress:(float)progress forResourceTransferTask:(id)task
 {
   taskCopy = task;
+  v9 = taskCopy;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v9 = sub_10001A484();
-    if (sub_100021E20(v9))
+    v10 = sub_10001A484(taskCopy);
+    if (sub_100021E20(v10))
     {
-      v22 = 138412802;
-      v23 = taskCopy;
-      v24 = 2048;
-      v25 = (progress * 100.0);
-      v26 = 2112;
+      v23 = 138412802;
+      v24 = v9;
+      v25 = 2048;
+      v26 = (progress * 100.0);
+      v27 = 2112;
       selfCopy = self;
       sub_100021DDC();
-      _os_log_impl(v10, v11, v12, v13, v14, 0x20u);
+      _os_log_impl(v11, v12, v13, v14, v15, 0x20u);
     }
   }
 
-  [taskCopy taskIdentifier];
+  [v9 taskIdentifier];
   objc_claimAutoreleasedReturnValue();
   sub_100021D24();
   sub_100021E90();
-  v18[2] = sub_10002132C;
-  v18[3] = &unk_100273128;
-  v18[4] = self;
-  v19 = taskCopy;
+  v19[2] = sub_10002132C;
+  v19[3] = &unk_100273128;
+  v19[4] = self;
+  v20 = v9;
   progressCopy = progress;
-  v20 = v15;
-  v16 = v15;
-  v17 = taskCopy;
-  [(CPLDaemonLibraryManager *)self _withVoucherForTaskWithIdentifier:v16 do:v18];
+  v21 = v16;
+  v17 = v16;
+  v18 = v9;
+  [(CPLDaemonLibraryManager *)self _withVoucherForTaskWithIdentifier:v17 do:v19];
 }
 
 - (void)libraryManager:(id)manager downloadDidFinishForResourceTransferTask:(id)task finalResource:(id)resource withError:(id)error
@@ -2518,34 +2814,35 @@ LABEL_11:
   taskCopy = task;
   resourceCopy = resource;
   errorCopy = error;
+  v13 = errorCopy;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v13 = sub_10001A484();
-    if (sub_100021EE0(v13))
+    v14 = sub_10001A484(errorCopy);
+    if (sub_100021EE0(v14))
     {
       resource = [taskCopy resource];
-      v26 = 138413058;
-      v27 = taskCopy;
-      v28 = 2112;
-      v29 = resource;
+      v27 = 138413058;
+      v28 = taskCopy;
+      v29 = 2112;
+      v30 = resource;
       sub_100021E7C();
-      sub_100021E60(&_mh_execute_header, v15, v16, "Download for %@ did finish with final resource %@ and error: %@. Notifying %@", &v26);
+      sub_100021E60(&_mh_execute_header, v16, v17, "Download for %@ did finish with final resource %@ and error: %@. Notifying %@", &v27);
     }
   }
 
   taskIdentifier = [taskCopy taskIdentifier];
   sub_1000033D8();
   sub_10000FB28();
-  v23 = v18;
-  v24 = resourceCopy;
-  v25 = errorCopy;
-  v19 = errorCopy;
-  v20 = resourceCopy;
-  v21 = taskIdentifier;
-  v22 = taskCopy;
-  [sub_100021E50() _withVoucherForTaskWithIdentifier:v21 do:?];
-  [(NSMutableDictionary *)self->_downloadTasksPerIdentifier removeObjectForKey:v21];
-  [(CPLDaemonLibraryManager *)self _dropVoucherForTaskWithIdentifier:v21];
+  v24 = v19;
+  v25 = resourceCopy;
+  v26 = v13;
+  v20 = v13;
+  v21 = resourceCopy;
+  v22 = taskIdentifier;
+  v23 = taskCopy;
+  [sub_100021E50() _withVoucherForTaskWithIdentifier:v22 do:?];
+  [(NSMutableDictionary *)self->_downloadTasksPerIdentifier removeObjectForKey:v22];
+  [(CPLDaemonLibraryManager *)self _dropVoucherForTaskWithIdentifier:v22];
 }
 
 - (void)libraryManager:(id)manager inMemoryDownloadDidFinishForResourceTransferTask:(id)task data:(id)data withError:(id)error
@@ -2553,164 +2850,170 @@ LABEL_11:
   taskCopy = task;
   dataCopy = data;
   errorCopy = error;
+  v13 = errorCopy;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v13 = sub_10001A484();
-    if (sub_100021EE0(v13))
+    v14 = sub_10001A484(errorCopy);
+    if (sub_100021EE0(v14))
     {
-      v25 = 138413058;
-      v26 = taskCopy;
-      v27 = 2048;
-      v28 = [dataCopy length];
+      v26 = 138413058;
+      v27 = taskCopy;
+      v28 = 2048;
+      v29 = [dataCopy length];
       sub_100021E7C();
-      sub_100021E60(&_mh_execute_header, v14, v15, "In-memory download for %@ did finish with %lu bytes and error: %@. Notifying %@", &v25);
+      sub_100021E60(&_mh_execute_header, v15, v16, "In-memory download for %@ did finish with %lu bytes and error: %@. Notifying %@", &v26);
     }
   }
 
   taskIdentifier = [taskCopy taskIdentifier];
   sub_1000033D8();
   sub_10000FB28();
-  v22 = v17;
-  v23 = dataCopy;
-  v24 = errorCopy;
-  v18 = errorCopy;
-  v19 = dataCopy;
-  v20 = taskIdentifier;
-  v21 = taskCopy;
-  [sub_100021E50() _withVoucherForTaskWithIdentifier:v20 do:?];
-  [(NSMutableDictionary *)self->_downloadTasksPerIdentifier removeObjectForKey:v20];
-  [(CPLDaemonLibraryManager *)self _dropVoucherForTaskWithIdentifier:v20];
+  v23 = v18;
+  v24 = dataCopy;
+  v25 = v13;
+  v19 = v13;
+  v20 = dataCopy;
+  v21 = taskIdentifier;
+  v22 = taskCopy;
+  [sub_100021E50() _withVoucherForTaskWithIdentifier:v21 do:?];
+  [(NSMutableDictionary *)self->_downloadTasksPerIdentifier removeObjectForKey:v21];
+  [(CPLDaemonLibraryManager *)self _dropVoucherForTaskWithIdentifier:v21];
 }
 
 - (void)libraryManager:(id)manager backgroundDownloadDidFinishForResource:(id)resource
 {
   resourceCopy = resource;
+  v7 = resourceCopy;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v7 = sub_10001A484();
-    if (sub_100021E20(v7))
+    v8 = sub_10001A484(resourceCopy);
+    if (sub_100021E20(v8))
     {
-      v12 = 138412290;
-      v13 = resourceCopy;
-      sub_100021DC0(&_mh_execute_header, v8, v9, "Background download for %@ did finish", &v12);
+      v13 = 138412290;
+      v14 = v7;
+      sub_100021DC0(&_mh_execute_header, v9, v10, "Background download for %@ did finish", &v13);
     }
   }
 
   sub_1000033D8();
   sub_10000FB28();
-  v10 = resourceCopy;
+  v11 = v7;
   [sub_100021DF8() _clientWithErrorHandler:?];
   objc_claimAutoreleasedReturnValue();
   sub_100021EA8();
-  [v11 backgroundDownloadDidFinishForResource:?];
+  [v12 backgroundDownloadDidFinishForResource:?];
 }
 
 - (void)libraryManager:(id)manager backgroundDownloadDidFailForResource:(id)resource
 {
   resourceCopy = resource;
+  v7 = resourceCopy;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v7 = sub_10001A484();
-    if (sub_100021E20(v7))
+    v8 = sub_10001A484(resourceCopy);
+    if (sub_100021E20(v8))
     {
-      v12 = 138412290;
-      v13 = resourceCopy;
-      sub_100021DC0(&_mh_execute_header, v8, v9, "Background download for %@ did fail", &v12);
+      v13 = 138412290;
+      v14 = v7;
+      sub_100021DC0(&_mh_execute_header, v9, v10, "Background download for %@ did fail", &v13);
     }
   }
 
   sub_1000033D8();
   sub_10000FB28();
-  v10 = resourceCopy;
+  v11 = v7;
   [sub_100021DF8() _clientWithErrorHandler:?];
   objc_claimAutoreleasedReturnValue();
   sub_100021EA8();
-  [v11 backgroundDownloadDidFailForResource:?];
+  [v12 backgroundDownloadDidFailForResource:?];
 }
 
 - (void)libraryManager:(id)manager uploadDidStartForResourceTransferTask:(id)task
 {
   taskCopy = task;
+  v7 = taskCopy;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v7 = sub_10001A484();
-    if (sub_100021E20(v7))
+    v8 = sub_10001A484(taskCopy);
+    if (sub_100021E20(v8))
     {
-      resource = [taskCopy resource];
-      v15 = 138412290;
-      v16 = resource;
-      sub_100021DC0(&_mh_execute_header, v9, v10, "Upload for %@ did start", &v15);
+      resource = [v7 resource];
+      v16 = 138412290;
+      v17 = resource;
+      sub_100021DC0(&_mh_execute_header, v10, v11, "Upload for %@ did start", &v16);
     }
   }
 
-  [(CPLDaemonLibraryManager *)self _storeUploadTransferTask:taskCopy];
+  [(CPLDaemonLibraryManager *)self _storeUploadTransferTask:v7];
   sub_1000033D8();
   sub_10000FB28();
-  v11 = taskCopy;
-  v12 = [sub_100021DF8() _clientWithErrorHandler:?];
-  resource2 = [taskCopy resource];
-  taskIdentifier = [taskCopy taskIdentifier];
-  [v12 uploadDidStartForResource:resource2 withResourceTransferTask:taskIdentifier];
+  v12 = v7;
+  v13 = [sub_100021DF8() _clientWithErrorHandler:?];
+  resource2 = [v7 resource];
+  taskIdentifier = [v7 taskIdentifier];
+  [v13 uploadDidStartForResource:resource2 withResourceTransferTask:taskIdentifier];
 }
 
 - (void)libraryManager:(id)manager uploadDidFinishForResourceTransferTask:(id)task withError:(id)error
 {
   taskCopy = task;
   errorCopy = error;
+  v9 = errorCopy;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v9 = sub_10001A484();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = sub_10001A484(errorCopy);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       resource = [taskCopy resource];
       *buf = 138412546;
-      v23 = resource;
-      v24 = 2112;
-      v25 = errorCopy;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "Upload for %@ did finish with error %@", buf, 0x16u);
+      v24 = resource;
+      v25 = 2112;
+      v26 = v9;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "Upload for %@ did finish with error %@", buf, 0x16u);
     }
   }
 
   sub_1000033D8();
   sub_10000FB28();
-  v19 = sub_10018D610;
-  v20 = &unk_100272468;
-  v21 = taskCopy;
-  v11 = taskCopy;
-  v12 = [(CPLDaemonLibraryManager *)self _clientWithErrorHandler:v18];
-  resource2 = [v11 resource];
-  taskIdentifier = [v11 taskIdentifier];
-  cplSafeErrorForXPC = [errorCopy cplSafeErrorForXPC];
-  [v12 uploadOfResource:resource2 didFinishForResourceTransferTask:taskIdentifier withError:cplSafeErrorForXPC];
+  v20 = sub_10018D610;
+  v21 = &unk_100272468;
+  v22 = taskCopy;
+  v12 = taskCopy;
+  v13 = [(CPLDaemonLibraryManager *)self _clientWithErrorHandler:v19];
+  resource2 = [v12 resource];
+  taskIdentifier = [v12 taskIdentifier];
+  cplSafeErrorForXPC = [v9 cplSafeErrorForXPC];
+  [v13 uploadOfResource:resource2 didFinishForResourceTransferTask:taskIdentifier withError:cplSafeErrorForXPC];
 
   uploadTasksPerIdentifier = self->_uploadTasksPerIdentifier;
-  taskIdentifier2 = [v11 taskIdentifier];
+  taskIdentifier2 = [v12 taskIdentifier];
   [(NSMutableDictionary *)uploadTasksPerIdentifier removeObjectForKey:taskIdentifier2];
 }
 
 - (void)libraryManager:(id)manager uploadDidProgress:(float)progress forResourceTransferTask:(id)task
 {
   taskCopy = task;
+  v9 = taskCopy;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v9 = sub_10001A484();
-    if (sub_100021E20(v9))
+    v10 = sub_10001A484(taskCopy);
+    if (sub_100021E20(v10))
     {
-      resource = [taskCopy resource];
+      resource = [v9 resource];
       sub_100021DDC();
-      _os_log_impl(v10, v11, v12, v13, v14, 0x16u);
+      _os_log_impl(v11, v12, v13, v14, v15, 0x16u);
     }
   }
 
-  [(CPLDaemonLibraryManager *)self _storeUploadTransferTask:taskCopy];
+  [(CPLDaemonLibraryManager *)self _storeUploadTransferTask:v9];
   sub_1000033D8();
   sub_10000FB28();
-  v15 = taskCopy;
-  v16 = [sub_100021DF8() _clientWithErrorHandler:?];
-  resource2 = [taskCopy resource];
-  taskIdentifier = [taskCopy taskIdentifier];
-  *&v19 = progress;
-  [v16 uploadOfResource:resource2 didProgress:taskIdentifier forResourceTransferTask:v19];
+  v16 = v9;
+  v17 = [sub_100021DF8() _clientWithErrorHandler:?];
+  resource2 = [v9 resource];
+  taskIdentifier = [v9 taskIdentifier];
+  *&v20 = progress;
+  [v17 uploadOfResource:resource2 didProgress:taskIdentifier forResourceTransferTask:v20];
 }
 
 - (void)sizeOfResourcesToUploadDidChangeForLibraryManager:(id)manager
@@ -2724,18 +3027,18 @@ LABEL_11:
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_10001A484();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = sub_10001A484(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       sub_1000139A0();
-      sub_10000FB94(&_mh_execute_header, v5, v6, "Size of resources to upload did change to %llu", v8);
+      sub_10000FB94(&_mh_execute_header, v6, v7, "Size of resources to upload did change to %llu", v9);
     }
   }
 
   [(CPLDaemonLibraryManager *)self _clientWithErrorHandler:&stru_100273148];
   objc_claimAutoreleasedReturnValue();
   sub_100021EA8();
-  [v7 libraryManagerDidUpdateSizeOfResourcesToUploadToSize:? sizeOfOriginalResourcesToUpload:? numberOfImages:? numberOfVideos:? numberOfOtherItems:?];
+  [v8 libraryManagerDidUpdateSizeOfResourcesToUploadToSize:? sizeOfOriginalResourcesToUpload:? numberOfImages:? numberOfVideos:? numberOfOtherItems:?];
 }
 
 - (void)libraryManager:(id)manager didFinishForceSyncTask:(id)task withErrors:(id)errors
@@ -2743,53 +3046,54 @@ LABEL_11:
   managerCopy = manager;
   taskCopy = task;
   errorsCopy = errors;
+  v12 = errorsCopy;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v12 = sub_10001A484();
-    if (sub_100021EE0(v12))
+    v13 = sub_10001A484(errorsCopy);
+    if (sub_100021EE0(v13))
     {
       scopeIdentifiers = [taskCopy scopeIdentifiers];
-      v31 = 138413058;
-      v32 = taskCopy;
-      v33 = 2112;
-      v34 = scopeIdentifiers;
-      v35 = 2112;
-      v36 = errorsCopy;
-      v37 = 2112;
+      v32 = 138413058;
+      v33 = taskCopy;
+      v34 = 2112;
+      v35 = scopeIdentifiers;
+      v36 = 2112;
+      v37 = v12;
+      v38 = 2112;
       selfCopy = self;
-      sub_100021E60(&_mh_execute_header, v14, v15, "Force sync %@ for %@ did finish with errors: %@. Notifying %@", &v31);
+      sub_100021E60(&_mh_execute_header, v15, v16, "Force sync %@ for %@ did finish with errors: %@. Notifying %@", &v32);
     }
   }
 
   taskIdentifier = [taskCopy taskIdentifier];
-  if ([errorsCopy count])
+  if ([v12 count])
   {
-    v29[0] = _NSConcreteStackBlock;
-    v29[1] = 3221225472;
-    v29[2] = sub_100021600;
-    v29[3] = &unk_100273170;
-    v17 = [[NSMutableDictionary alloc] initWithCapacity:{objc_msgSend(errorsCopy, "count")}];
-    v30 = v17;
-    [errorsCopy enumerateKeysAndObjectsUsingBlock:v29];
-    v18 = v17;
+    v30[0] = _NSConcreteStackBlock;
+    v30[1] = 3221225472;
+    v30[2] = sub_100021600;
+    v30[3] = &unk_100273170;
+    v18 = [[NSMutableDictionary alloc] initWithCapacity:{objc_msgSend(v12, "count")}];
+    v31 = v18;
+    [v12 enumerateKeysAndObjectsUsingBlock:v30];
+    v19 = v18;
 
-    errorsCopy = v18;
+    v12 = v19;
   }
 
   sub_1000033D8();
   sub_10000FB28();
-  v23 = sub_100021674;
-  v24 = &unk_100273198;
+  v24 = sub_100021674;
+  v25 = &unk_100273198;
   selfCopy2 = self;
-  v26 = taskCopy;
-  v27 = taskIdentifier;
-  v28 = errorsCopy;
-  v19 = errorsCopy;
-  v20 = taskIdentifier;
-  v21 = taskCopy;
-  [(CPLDaemonLibraryManager *)self _withVoucherForTaskWithIdentifier:v20 do:v22];
-  [(NSMutableDictionary *)self->_forceSyncTasksPerIdentifier removeObjectForKey:v20];
-  [(CPLDaemonLibraryManager *)self _dropVoucherForTaskWithIdentifier:v20];
+  v27 = taskCopy;
+  v28 = taskIdentifier;
+  v29 = v12;
+  v20 = v12;
+  v21 = taskIdentifier;
+  v22 = taskCopy;
+  [(CPLDaemonLibraryManager *)self _withVoucherForTaskWithIdentifier:v21 do:v23];
+  [(NSMutableDictionary *)self->_forceSyncTasksPerIdentifier removeObjectForKey:v21];
+  [(CPLDaemonLibraryManager *)self _dropVoucherForTaskWithIdentifier:v21];
 }
 
 @end

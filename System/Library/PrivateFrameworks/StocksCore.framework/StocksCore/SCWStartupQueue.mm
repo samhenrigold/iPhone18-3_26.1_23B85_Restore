@@ -1,9 +1,30 @@
 @interface SCWStartupQueue
+- (SCWStartupQueue)initWithDeferredStartup:(BOOL)startup;
 - (void)enqueueStartupBlock:(id)block;
 - (void)executeAfterStartup:(id)startup;
 @end
 
 @implementation SCWStartupQueue
+
+- (SCWStartupQueue)initWithDeferredStartup:(BOOL)startup
+{
+  startupCopy = startup;
+  v9.receiver = self;
+  v9.super_class = SCWStartupQueue;
+  v4 = [(SCWStartupQueue *)&v9 init];
+  if (v4)
+  {
+    v5 = [[SCWAsyncSerialQueue alloc] initWithQualityOfService:25];
+    startupTaskQueue = v4->_startupTaskQueue;
+    v4->_startupTaskQueue = v5;
+
+    v4->_startupTaskDepthLock._os_unfair_lock_opaque = 0;
+    startupTaskQueue = [(SCWStartupQueue *)v4 startupTaskQueue];
+    [startupTaskQueue setSuspended:startupCopy];
+  }
+
+  return v4;
+}
 
 - (void)enqueueStartupBlock:(id)block
 {

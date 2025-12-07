@@ -24,7 +24,7 @@
   {
     selfCopy = self;
 
-    sub_10010FC20(&qword_1011824A0);
+    sub_10010FC20(&qword_1011824A0, &unk_100EBE390);
     Task.cancel()();
   }
 
@@ -51,7 +51,7 @@
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
+  __chkstk_darwin();
   v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
@@ -67,12 +67,12 @@
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
+  __chkstk_darwin();
   v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_100810ECC(viewCopy);
+  sub_100810ECC(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
 }
@@ -83,9 +83,9 @@
   v7 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  v10 = sub_10086B65C(v7);
+  v11 = sub_10086B65C(v7, v10);
 
-  return v10;
+  return v11;
 }
 
 - (void)collectionView:(id)view willDisplayContextMenuWithConfiguration:(id)configuration animator:(id)animator
@@ -108,48 +108,48 @@
 
 - (id)_collectionView:(id)view indexPathOfReferenceItemToPreserveContentOffsetWithProposedReference:(id)reference
 {
-  v7 = sub_10010FC20(&unk_10118BCE0);
-  __chkstk_darwin(v7 - 8);
-  v9 = &v21 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v10);
-  v12 = &v21 - v11;
+  sub_10010FC20(&unk_10118BCE0, &qword_100EC6450);
+  __chkstk_darwin();
+  v8 = &v19 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v10 = &v19 - v9;
   if (reference)
   {
     static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
-    v13 = type metadata accessor for IndexPath();
-    (*(*(v13 - 8) + 56))(v9, 0, 1, v13);
+    v11 = type metadata accessor for IndexPath();
+    (*(*(v11 - 8) + 56))(v8, 0, 1, v11);
   }
 
   else
   {
-    v13 = type metadata accessor for IndexPath();
-    (*(*(v13 - 8) + 56))(v9, 1, 1, v13);
+    v11 = type metadata accessor for IndexPath();
+    (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
   }
 
   viewCopy = view;
   selfCopy = self;
-  sub_100813D14(v12);
+  sub_100813D14(v10);
 
-  sub_1000095E8(v9, &unk_10118BCE0);
+  sub_1000095E8(v8, &unk_10118BCE0, &qword_100EC6450);
   type metadata accessor for IndexPath();
-  v16 = *(v13 - 8);
-  v17 = (*(v16 + 48))(v12, 1, v13);
-  v18 = 0;
-  if (v17 != 1)
+  v14 = *(v11 - 8);
+  v15 = (*(v14 + 48))(v10, 1, v11);
+  v16 = 0;
+  if (v15 != 1)
   {
     isa = IndexPath._bridgeToObjectiveC()().super.isa;
-    (*(v16 + 8))(v12, v13);
-    v18 = isa;
+    (*(v14 + 8))(v10, v11);
+    v16 = isa;
   }
 
-  return v18;
+  return v16;
 }
 
 - (void)collectionView:(id)view willDisplayCell:(id)cell forItemAtIndexPath:(id)path
 {
   v8 = type metadata accessor for IndexPath();
   v9 = *(v8 - 8);
-  __chkstk_darwin(v8);
+  __chkstk_darwin();
   v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
@@ -164,7 +164,7 @@
 {
   v8 = type metadata accessor for IndexPath();
   v9 = *(v8 - 8);
-  __chkstk_darwin(v8);
+  __chkstk_darwin();
   v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;

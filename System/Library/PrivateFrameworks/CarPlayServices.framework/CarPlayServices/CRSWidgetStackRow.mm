@@ -13,12 +13,11 @@
 
 - (NSArray)stacks
 {
-  v2 = *(self + OBJC_IVAR___CRSWidgetStackRow_stacks);
   type metadata accessor for CRSWidgetStack(0);
 
-  v3 = sub_242FCB31C();
+  v2 = sub_242FCB31C();
 
-  return v3;
+  return v2;
 }
 
 - (CRSWidgetStackRow)initWithStacks:(id)stacks
@@ -86,10 +85,10 @@
   type metadata accessor for CRSWidgetStack(0);
   sub_242FCB32C();
 
-  sub_242FC3A88();
-  v4 = sub_242FCB34C();
+  sub_242FC3A88(v4, v5);
+  v6 = sub_242FCB34C();
 
-  return v4;
+  return v6;
 }
 
 - (NSString)description

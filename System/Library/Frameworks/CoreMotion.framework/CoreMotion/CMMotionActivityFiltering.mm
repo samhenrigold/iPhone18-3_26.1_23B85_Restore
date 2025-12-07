@@ -36,53 +36,8 @@
       v8 = objc_msgSend_automotive(activity, v6, v7) ^ 1;
     }
 
-    if (objc_msgSend_unknown(activity, v6, v7))
+    if (objc_msgSend_unknown(activity, v6, v7) && (v11 = objc_msgSend_endDate(activity, v9, v10), v14 = objc_msgSend_startDate(activity, v12, v13), objc_msgSend_timeIntervalSinceDate_(v11, v15, v14), v16 >= 300.0) || objc_msgSend_stationary(activity, v9, v10) && (v19 = objc_msgSend_endDate(activity, v17, v18), v22 = objc_msgSend_startDate(activity, v20, v21), objc_msgSend_timeIntervalSinceDate_(v19, v23, v22), v24 >= 300.0) || v8 && (v25 = objc_msgSend_endDate(activity, v17, v18), v28 = objc_msgSend_startDate(activity, v26, v27), objc_msgSend_timeIntervalSinceDate_(v25, v29, v28), v30 >= 300.0) || objc_msgSend_walking(activity, v17, v18) && (v33 = objc_msgSend_endDate(activity, v31, v32), v36 = objc_msgSend_startDate(activity, v34, v35), objc_msgSend_timeIntervalSinceDate_(v33, v37, v36), v38 >= 180.0) || objc_msgSend_running(activity, v31, v32) && (v41 = objc_msgSend_endDate(activity, v39, v40), v44 = objc_msgSend_startDate(activity, v42, v43), objc_msgSend_timeIntervalSinceDate_(v41, v45, v44), v46 >= 120.0) || objc_msgSend_cycling(activity, v39, v40) && (v49 = objc_msgSend_endDate(activity, v47, v48), v52 = objc_msgSend_startDate(activity, v50, v51), objc_msgSend_timeIntervalSinceDate_(v49, v53, v52), v54 >= 300.0))
     {
-      v11 = objc_msgSend_endDate(activity, v9, v10);
-      started = objc_msgSend_startDate(activity, v12, v13);
-      objc_msgSend_timeIntervalSinceDate_(v11, v15, started);
-      if (v16 >= 300.0)
-      {
-        goto LABEL_23;
-      }
-    }
-
-    if (objc_msgSend_stationary(activity, v9, v10))
-    {
-      v19 = objc_msgSend_endDate(activity, v17, v18);
-      v22 = objc_msgSend_startDate(activity, v20, v21);
-      objc_msgSend_timeIntervalSinceDate_(v19, v23, v22);
-      if (v24 >= 300.0)
-      {
-        goto LABEL_23;
-      }
-    }
-
-    if (v8)
-    {
-      v25 = objc_msgSend_endDate(activity, v17, v18);
-      v28 = objc_msgSend_startDate(activity, v26, v27);
-      objc_msgSend_timeIntervalSinceDate_(v25, v29, v28);
-      if (v30 >= 300.0)
-      {
-        goto LABEL_23;
-      }
-    }
-
-    if (objc_msgSend_walking(activity, v17, v18))
-    {
-      v33 = objc_msgSend_endDate(activity, v31, v32);
-      v36 = objc_msgSend_startDate(activity, v34, v35);
-      objc_msgSend_timeIntervalSinceDate_(v33, v37, v36);
-      if (v38 >= 180.0)
-      {
-        goto LABEL_23;
-      }
-    }
-
-    if (objc_msgSend_running(activity, v31, v32) && (v41 = objc_msgSend_endDate(activity, v39, v40), v44 = objc_msgSend_startDate(activity, v42, v43), objc_msgSend_timeIntervalSinceDate_(v41, v45, v44), v46 >= 120.0) || objc_msgSend_cycling(activity, v39, v40) && (v49 = objc_msgSend_endDate(activity, v47, v48), v52 = objc_msgSend_startDate(activity, v50, v51), objc_msgSend_timeIntervalSinceDate_(v49, v53, v52), v54 >= 300.0))
-    {
-LABEL_23:
       LOBYTE(v4) = 1;
     }
 
@@ -92,8 +47,8 @@ LABEL_23:
       if (v4)
       {
         v57 = objc_msgSend_endDate(activity, v55, v56);
-        v60 = objc_msgSend_startDate(activity, v58, v59);
-        objc_msgSend_timeIntervalSinceDate_(v57, v61, v60);
+        started = objc_msgSend_startDate(activity, v58, v59);
+        objc_msgSend_timeIntervalSinceDate_(v57, v61, started);
         LOBYTE(v4) = v62 >= 30.0;
       }
     }
@@ -121,53 +76,8 @@ LABEL_23:
       v10 = objc_msgSend_automotive(activity, v8, v9) ^ 1;
     }
 
-    if (objc_msgSend_unknown(activity, v8, v9))
+    if (objc_msgSend_unknown(activity, v8, v9) && (v13 = objc_msgSend_startDate(toActivity, v11, v12), v16 = objc_msgSend_endDate(activity, v14, v15), objc_msgSend_timeIntervalSinceDate_(v13, v17, v16), v18 <= 300.0) || objc_msgSend_stationary(activity, v11, v12) && (v21 = objc_msgSend_startDate(toActivity, v19, v20), v24 = objc_msgSend_endDate(activity, v22, v23), objc_msgSend_timeIntervalSinceDate_(v21, v25, v24), v26 <= 300.0) || v10 && (v27 = objc_msgSend_startDate(toActivity, v19, v20), v30 = objc_msgSend_endDate(activity, v28, v29), objc_msgSend_timeIntervalSinceDate_(v27, v31, v30), v32 <= 300.0) || objc_msgSend_walking(activity, v19, v20) && (v35 = objc_msgSend_startDate(toActivity, v33, v34), v38 = objc_msgSend_endDate(activity, v36, v37), objc_msgSend_timeIntervalSinceDate_(v35, v39, v38), v40 <= 300.0) || objc_msgSend_running(activity, v33, v34) && (v43 = objc_msgSend_startDate(toActivity, v41, v42), v46 = objc_msgSend_endDate(activity, v44, v45), objc_msgSend_timeIntervalSinceDate_(v43, v47, v46), v48 <= 300.0) || objc_msgSend_cycling(activity, v41, v42) && (v51 = objc_msgSend_startDate(toActivity, v49, v50), v54 = objc_msgSend_endDate(activity, v52, v53), objc_msgSend_timeIntervalSinceDate_(v51, v55, v54), v56 <= 300.0))
     {
-      started = objc_msgSend_startDate(toActivity, v11, v12);
-      v16 = objc_msgSend_endDate(activity, v14, v15);
-      objc_msgSend_timeIntervalSinceDate_(started, v17, v16);
-      if (v18 <= 300.0)
-      {
-        goto LABEL_23;
-      }
-    }
-
-    if (objc_msgSend_stationary(activity, v11, v12))
-    {
-      v21 = objc_msgSend_startDate(toActivity, v19, v20);
-      v24 = objc_msgSend_endDate(activity, v22, v23);
-      objc_msgSend_timeIntervalSinceDate_(v21, v25, v24);
-      if (v26 <= 300.0)
-      {
-        goto LABEL_23;
-      }
-    }
-
-    if (v10)
-    {
-      v27 = objc_msgSend_startDate(toActivity, v19, v20);
-      v30 = objc_msgSend_endDate(activity, v28, v29);
-      objc_msgSend_timeIntervalSinceDate_(v27, v31, v30);
-      if (v32 <= 300.0)
-      {
-        goto LABEL_23;
-      }
-    }
-
-    if (objc_msgSend_walking(activity, v19, v20))
-    {
-      v35 = objc_msgSend_startDate(toActivity, v33, v34);
-      v38 = objc_msgSend_endDate(activity, v36, v37);
-      objc_msgSend_timeIntervalSinceDate_(v35, v39, v38);
-      if (v40 <= 300.0)
-      {
-        goto LABEL_23;
-      }
-    }
-
-    if (objc_msgSend_running(activity, v33, v34) && (v43 = objc_msgSend_startDate(toActivity, v41, v42), v46 = objc_msgSend_endDate(activity, v44, v45), objc_msgSend_timeIntervalSinceDate_(v43, v47, v46), v48 <= 300.0) || objc_msgSend_cycling(activity, v41, v42) && (v51 = objc_msgSend_startDate(toActivity, v49, v50), v54 = objc_msgSend_endDate(activity, v52, v53), objc_msgSend_timeIntervalSinceDate_(v51, v55, v54), v56 <= 300.0))
-    {
-LABEL_23:
       LOBYTE(v5) = 1;
     }
 
@@ -176,9 +86,9 @@ LABEL_23:
       v5 = objc_msgSend_automotive(activity, v49, v50);
       if (v5)
       {
-        v59 = objc_msgSend_startDate(toActivity, v57, v58);
+        started = objc_msgSend_startDate(toActivity, v57, v58);
         v62 = objc_msgSend_endDate(activity, v60, v61);
-        objc_msgSend_timeIntervalSinceDate_(v59, v63, v62);
+        objc_msgSend_timeIntervalSinceDate_(started, v63, v62);
         LOBYTE(v5) = v64 <= 300.0;
       }
     }

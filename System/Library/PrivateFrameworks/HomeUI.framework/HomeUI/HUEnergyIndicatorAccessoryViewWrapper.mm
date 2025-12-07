@@ -8,7 +8,7 @@
 
 + (id)createEnergyIndicatorViewWithHome:(id)home
 {
-  v4 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81D510));
+  v4 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81D510, &unk_20D5BF300));
   homeCopy = home;
   v6 = sub_20D566C08();
 

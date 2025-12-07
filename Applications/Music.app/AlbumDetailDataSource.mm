@@ -18,7 +18,7 @@
   {
     selfCopy = self;
 
-    sub_10010FC20(&qword_1011824A0);
+    sub_10010FC20(&qword_1011824A0, &unk_100EBE390);
     Task.cancel()();
   }
 
@@ -45,7 +45,7 @@
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
+  __chkstk_darwin();
   v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
@@ -61,7 +61,7 @@
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
+  __chkstk_darwin();
   v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
@@ -86,7 +86,7 @@
 {
   v8 = type metadata accessor for IndexPath();
   v9 = *(v8 - 8);
-  __chkstk_darwin(v8);
+  __chkstk_darwin();
   v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
@@ -101,7 +101,7 @@
 {
   v8 = type metadata accessor for IndexPath();
   v9 = *(v8 - 8);
-  __chkstk_darwin(v8);
+  __chkstk_darwin();
   v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;

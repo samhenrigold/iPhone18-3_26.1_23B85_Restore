@@ -102,47 +102,46 @@
 
 - (id)initInternalWithServiceClass:(unsigned __int8)class highThroughout:(BOOL)throughout includeP2P:(BOOL)p
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v22.receiver = self;
-  v22.super_class = NRCompanionLinkPreferences;
-  result = [(NRCompanionLinkPreferences *)&v22 init];
+  v21 = *MEMORY[0x277D85DE8];
+  v20.receiver = self;
+  v20.super_class = NRCompanionLinkPreferences;
+  result = [(NRCompanionLinkPreferences *)&v20 init];
   if (!result)
   {
-    v10 = nrCopyLogObj_461();
+    v9 = nrCopyLogObj_461();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v11 = v10;
-      v12 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
+      v10 = v9;
+      v11 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
 
-      if (!v12)
+      if (!v11)
       {
         goto LABEL_7;
       }
     }
 
-    v13 = nrCopyLogObj_461();
-    _NRLogWithArgs(v13, 16, "%s%.30s:%-4d ABORTING: [super init] failed", v14, v15, v16, v17, v18, "");
+    v12 = nrCopyLogObj_461();
+    _NRLogWithArgs(v12, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRCompanionLinkPreferences initInternalWithServiceClass:highThroughout:includeP2P:]"", 246);
 
 LABEL_7:
-    _os_log_pack_size();
-    MEMORY[0x28223BE20]();
-    v19 = *__error();
-    v20 = _os_log_pack_fill();
-    *v20 = 136446210;
-    *(v20 + 4) = "[NRCompanionLinkPreferences initInternalWithServiceClass:highThroughout:includeP2P:]";
-    v21 = nrCopyLogObj_461();
-    _NRLogAbortWithPack(v21);
+    v13 = _os_log_pack_size();
+    v15 = &v19 - ((MEMORY[0x28223BE20](v13, v14) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v16 = __error();
+    v17 = _os_log_pack_fill(v15, v13, *v16, &dword_25B98C000, "%{public}s [super init] failed");
+    *v17 = 136446210;
+    *(v17 + 4) = "[NRCompanionLinkPreferences initInternalWithServiceClass:highThroughout:includeP2P:]";
+    v18 = nrCopyLogObj_461();
+    _NRLogAbortWithPack(v18, v15);
   }
 
   *(result + 2) = atomic_fetch_add_explicit(&initInternalWithServiceClass_highThroughout_includeP2P__sNRLinkID, 1uLL, memory_order_relaxed);
   *(result + 11) = class;
   *(result + 9) = throughout;
   *(result + 10) = p;
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 

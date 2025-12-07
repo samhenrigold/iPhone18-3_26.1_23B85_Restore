@@ -1829,7 +1829,7 @@ uint64_t HgcBlackHole::GetDOD(HgcBlackHole *this, HGRenderer *a2, int a3, HGRect
     {
       if ((*(*this + 312))(this, a2) >= 1)
       {
-        v6 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+        v6 = HGRectMake4i(-1, -1, 1, 1);
         HGRectGrow(v5, v4, v6);
       }
 
@@ -1859,7 +1859,7 @@ uint64_t HgcBlackHole::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
   v9 = v8;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v10 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(DOD, v9, v10);
   }
 
@@ -2605,7 +2605,7 @@ uint64_t HgcBulge::GetDOD(HgcBulge *this, HGRenderer *a2, int a3, HGRect a4)
     v6 = *&a4.var0;
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v7 = HGRectMake4i(-1, -1, 1, 1);
       HGRectGrow(v6, v5, v7);
     }
 
@@ -2627,7 +2627,7 @@ uint64_t HgcBulge::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
   v9 = v8;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v10 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(DOD, v9, v10);
   }
 
@@ -3159,7 +3159,7 @@ uint64_t HgcBumpMap::GetDOD(HgcBumpMap *this, HGRenderer *a2, int a3, HGRect a4)
   {
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v7 = HGRectMake4i(-1, -1, 1, 1);
       HGRectGrow(v5, v4, v7);
     }
 
@@ -3180,12 +3180,12 @@ uint64_t HgcBumpMap::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
 {
   if (a3 == 1)
   {
-    Input = HGRenderer::GetInput(a2, this, 1u);
+    Input = HGRenderer::GetInput(a2, this, 1);
     DOD = HGRenderer::GetDOD(a2, Input);
     v9 = v8;
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v10 = HGRectMake4i(-1, -1, 1, 1);
       return HGRectGrow(DOD, v9, v10);
     }
   }
@@ -3994,7 +3994,7 @@ uint64_t HgcDisplace::GetDOD(HgcDisplace *this, HGRenderer *a2, int a3, HGRect a
   {
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v7 = HGRectMake4i(-1, -1, 1, 1);
       HGRectGrow(v5, v4, v7);
     }
 
@@ -4015,12 +4015,12 @@ uint64_t HgcDisplace::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
 {
   if (a3 == 1)
   {
-    Input = HGRenderer::GetInput(a2, this, 1u);
+    Input = HGRenderer::GetInput(a2, this, 1);
     DOD = HGRenderer::GetDOD(a2, Input);
     v9 = v8;
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v10 = HGRectMake4i(-1, -1, 1, 1);
       return HGRectGrow(DOD, v9, v10);
     }
   }
@@ -4527,7 +4527,7 @@ uint64_t HgcDroplet::GetDOD(HgcDroplet *this, HGRenderer *a2, int a3, HGRect a4)
     v6 = *&a4.var0;
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v7 = HGRectMake4i(-1, -1, 1, 1);
       HGRectGrow(v6, v5, v7);
     }
 
@@ -4549,7 +4549,7 @@ uint64_t HgcDroplet::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
   v9 = v8;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v10 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(DOD, v9, v10);
   }
 
@@ -4948,7 +4948,7 @@ uint64_t HgcFunHouse::GetDOD(HgcFunHouse *this, HGRenderer *a2, int a3, HGRect a
     v6 = *&a4.var0;
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v7 = HGRectMake4i(-1, -1, 1, 1);
       HGRectGrow(v6, v5, v7);
     }
 
@@ -4970,7 +4970,7 @@ uint64_t HgcFunHouse::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
   v9 = v8;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v10 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(DOD, v9, v10);
   }
 
@@ -5389,7 +5389,7 @@ uint64_t HgcGlassBlock::GetDOD(HgcGlassBlock *this, HGRenderer *a2, int a3, HGRe
     v6 = *&a4.var0;
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v7 = HGRectMake4i(-1, -1, 1, 1);
       HGRectGrow(v6, v5, v7);
     }
 
@@ -5411,7 +5411,7 @@ uint64_t HgcGlassBlock::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
   v9 = v8;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v10 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(DOD, v9, v10);
   }
 
@@ -6227,7 +6227,7 @@ uint64_t HgcMirror::GetDOD(HgcMirror *this, HGRenderer *a2, int a3, HGRect a4)
     v6 = *&a4.var0;
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v7 = HGRectMake4i(-1, -1, 1, 1);
       HGRectGrow(v6, v5, v7);
     }
 
@@ -6249,7 +6249,7 @@ uint64_t HgcMirror::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
   v9 = v8;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v10 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(DOD, v9, v10);
   }
 
@@ -6721,7 +6721,7 @@ uint64_t HgcPoke::GetDOD(HgcPoke *this, HGRenderer *a2, int a3, HGRect a4)
     v6 = *&a4.var0;
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v7 = HGRectMake4i(-1, -1, 1, 1);
       HGRectGrow(v6, v5, v7);
     }
 
@@ -6743,7 +6743,7 @@ uint64_t HgcPoke::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
   v9 = v8;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v10 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(DOD, v9, v10);
   }
 
@@ -9211,7 +9211,7 @@ uint64_t HgcRingLens::GetDOD(HgcRingLens *this, HGRenderer *a2, int a3, HGRect a
     {
       if ((*(*this + 312))(this, a2) >= 1)
       {
-        v6 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+        v6 = HGRectMake4i(-1, -1, 1, 1);
         HGRectGrow(v5, v4, v6);
       }
 
@@ -9241,12 +9241,12 @@ uint64_t HgcRingLens::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
     return 0;
   }
 
-  Input = HGRenderer::GetInput(a2, this, 1u);
+  Input = HGRenderer::GetInput(a2, this, 1);
   DOD = HGRenderer::GetDOD(a2, Input);
   v9 = v8;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v10 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(DOD, v9, v10);
   }
 
@@ -9718,7 +9718,7 @@ uint64_t HgcScrape::GetDOD(HgcScrape *this, HGRenderer *a2, int a3, HGRect a4)
     v6 = *&a4.var0;
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v7 = HGRectMake4i(-1, -1, 1, 1);
       HGRectGrow(v6, v5, v7);
     }
 
@@ -9740,7 +9740,7 @@ uint64_t HgcScrape::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
   v9 = v8;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v10 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(DOD, v9, v10);
   }
 

@@ -3,7 +3,7 @@
 
 @implementation JSONValueToUserInfoValue
 
-void ___JSONValueToUserInfoValue_block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void ___JSONValueToUserInfoValue_block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v4 = *(a1 + 32);
   v5 = a2;

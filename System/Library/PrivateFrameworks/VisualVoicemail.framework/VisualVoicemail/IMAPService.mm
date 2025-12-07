@@ -67,7 +67,9 @@
 - (void)_setAccountState:(int64_t)state;
 - (void)_setAccountValue:(id)value forKey:(__CFString *)key inDictionary:(id *)dictionary ifDifferentInDictionary:(id)inDictionary;
 - (void)_setActiveGreetingType:(int64_t)type;
+- (void)_setBeaconCount:(unsigned int)count;
 - (void)_setDataForRecordWithIdentifier:(unsigned int)identifier;
+- (void)_setGreetingCached:(BOOL)cached;
 - (void)_setMessageWaitingFromNotification:(id)notification;
 - (void)_setServerInfoFromInterpretedNotification:(id)notification;
 - (void)_startBeacon;
@@ -120,11 +122,14 @@
 - (void)setBeaconActive:(BOOL)active;
 - (void)setChangePasswordReplyBlock:(id)block;
 - (void)setGreetingType:(int64_t)type data:(id)data duration:(unint64_t)duration;
+- (void)setMailboxRequiresSetup:(BOOL)setup;
 - (void)setMailboxUsage:(unint64_t)usage;
 - (void)setOnline:(BOOL)online;
 - (void)setPasscode:(id)passcode completion:(id)completion;
+- (void)setSMSReady:(BOOL)ready;
 - (void)setServiceAccount:(id)account;
 - (void)setSmscAddress:(id)address;
+- (void)setSubscribed:(BOOL)subscribed;
 - (void)setSyncInProgress:(BOOL)progress;
 - (void)setSyncRequired:(BOOL)required;
 - (void)setSyncScheduled:(BOOL)scheduled;
@@ -137,13 +142,13 @@
 {
   if (objc_opt_class() == self)
   {
-    [MFData setDefaultMappingThresholdInBytes:0x100000];
-    sub_10002FA58();
+    v2 = [MFData setDefaultMappingThresholdInBytes:0x100000];
+    sub_10002FA58(v2, v3);
     if (CPIsInternalDevice())
     {
-      v2 = dispatch_time(0, 100000000);
+      v4 = dispatch_time(0, 100000000);
 
-      dispatch_after(v2, &_dispatch_main_q, &stru_1000EF1C0);
+      dispatch_after(v4, &_dispatch_main_q, &stru_1000EF1C0);
     }
   }
 }
@@ -434,6 +439,231 @@
   v3[4] = self;
   scheduledCopy = scheduled;
   [(VVService *)self performAtomicAccessorBlock:v3];
+}
+
+- (void)setSubscribed:(BOOL)subscribed
+{
+  subscribedCopy = subscribed;
+  [(IMAPService *)self mf_lock];
+  v5 = (*&self->super._serviceFlags & 2) == 0;
+  v54.receiver = self;
+  v54.super_class = IMAPService;
+  [(VVService *)&v54 setSubscribed:subscribedCopy];
+  if (v5 == subscribedCopy)
+  {
+    v53 = +[NSNotificationCenter defaultCenter];
+    if (subscribedCopy)
+    {
+      if (!self->_activityController)
+      {
+        v6 = [[IMAPServiceActivityController alloc] initForService:self];
+        activityController = self->_activityController;
+        self->_activityController = v6;
+      }
+
+      serviceAccount = [(IMAPService *)self serviceAccount];
+      v8 = sub_100026660(self->logger.__ptr_);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      {
+        getServiceObjLogPrefix = [(VVService *)self getServiceObjLogPrefix];
+        *buf = 136315906;
+        v56 = getServiceObjLogPrefix;
+        v57 = 2080;
+        v58 = " ";
+        v59 = 2112;
+        selfCopy = self;
+        v61 = 2112;
+        v62 = serviceAccount;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "#I %s%sService subscribed %@, service account %@", buf, 0x2Au);
+      }
+
+      if (serviceAccount)
+      {
+        if ([serviceAccount hasPendingOfflineOperations])
+        {
+          [(IMAPService *)self setSyncRequired:1];
+        }
+
+        [v53 addObserver:self selector:"handleIMAPAccountOfflineOperationQueuedNotification:" name:IMAPAccountOfflineOperationQueuedNotification object:serviceAccount];
+      }
+
+      serviceLabelID = [(VVService *)self serviceLabelID];
+      v11 = VMStoreCopyOfAllRecordsWithFlags(16, 0, serviceLabelID);
+
+      if (v11)
+      {
+        Count = CFArrayGetCount(v11);
+        if (Count >= 1)
+        {
+          v13 = sub_100026660(self->logger.__ptr_);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          {
+            getServiceObjLogPrefix2 = [(VVService *)self getServiceObjLogPrefix];
+            *buf = 136315650;
+            v56 = getServiceObjLogPrefix2;
+            v57 = 2080;
+            v58 = " ";
+            v59 = 2048;
+            selfCopy = Count;
+            _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "#I %s%sFound %ld Temporary record(s)", buf, 0x20u);
+          }
+
+          for (i = 0; i != Count; ++i)
+          {
+            ValueAtIndex = CFArrayGetValueAtIndex(v11, i);
+            v17 = VMStoreRecordCopyDescription(ValueAtIndex);
+            v18 = sub_100026660(self->logger.__ptr_);
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+            {
+              getServiceObjLogPrefix3 = [(VVService *)self getServiceObjLogPrefix];
+              *buf = 136315650;
+              v56 = getServiceObjLogPrefix3;
+              v57 = 2080;
+              v58 = " ";
+              v59 = 2112;
+              selfCopy = v17;
+              _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "#I %s%sRemoving Temporary flag from record %@", buf, 0x20u);
+            }
+
+            serviceLabelID2 = [(VVService *)self serviceLabelID];
+            Flags = VMStoreRecordGetFlags(ValueAtIndex);
+            VMStoreRecordSetFlags(serviceLabelID2, ValueAtIndex, Flags & 0xFFFFFFEF);
+
+            if (v17)
+            {
+              CFRelease(v17);
+            }
+          }
+        }
+
+        CFRelease(v11);
+      }
+
+      serviceLabelID3 = [(VVService *)self serviceLabelID];
+      v23 = VMStoreCountOfRecordsWithFlags(0, 66, serviceLabelID3);
+
+      if (v23 >= 1)
+      {
+        [(IMAPService *)self setSyncRequired:1];
+      }
+
+      serviceLabelID4 = [(VVService *)self serviceLabelID];
+      v25 = VMStoreCountOfRecordsWithFlags(0x4000, 0, serviceLabelID4);
+
+      if (v25 >= 1)
+      {
+        v26 = sub_100026660(self->logger.__ptr_);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        {
+          getServiceObjLogPrefix4 = [(VVService *)self getServiceObjLogPrefix];
+          *buf = 136315650;
+          v56 = getServiceObjLogPrefix4;
+          v57 = 2080;
+          v58 = " ";
+          v59 = 2048;
+          selfCopy = v25;
+          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "#I %s%sFound %ld Pending record(s)", buf, 0x20u);
+        }
+
+        [(IMAPService *)self setSyncRequired:1];
+      }
+
+      [(IMAPService *)self synchronize:(*&self->_imapServiceFlags & 0x40) == 0 reason:@"SetSubscribed"];
+      serviceLabelID5 = [(VVService *)self serviceLabelID];
+      uUIDString = [serviceLabelID5 UUIDString];
+
+      if (!VMStoreGetReceiverMigration(uUIDString))
+      {
+        serviceAccount2 = [(IMAPService *)self serviceAccount];
+        v31 = [MFMonitoredInvocation invocationWithSelector:"populateReceiverInformationForServiceAccount:" target:self object:serviceAccount2 taskName:@"Synchronizing" priority:0 canBeCancelled:0];
+
+        [v31 retainArguments];
+        v32 = sub_100026660(self->logger.__ptr_);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+        {
+          getServiceObjLogPrefix5 = [(VVService *)self getServiceObjLogPrefix];
+          _messageChangeQueue = [(IMAPService *)self _messageChangeQueue];
+          monitor = [v31 monitor];
+          monitor2 = [v31 monitor];
+          *buf = 136316418;
+          v56 = getServiceObjLogPrefix5;
+          v57 = 2080;
+          v58 = " ";
+          v59 = 2112;
+          selfCopy = _messageChangeQueue;
+          v61 = 2048;
+          v62 = monitor;
+          v63 = 2112;
+          v64 = monitor2;
+          v65 = 2112;
+          v66 = v31;
+          _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "#I %s%s[IVQ] queue:%@, monitor:%p.'%@', schedule: Performing receiver column migration => %@", buf, 0x3Eu);
+        }
+
+        v37 = self->_activityController;
+        monitor3 = [v31 monitor];
+        [(IMAPServiceActivityController *)v37 addScheduledActivity:monitor3];
+
+        _messageChangeQueue2 = [(IMAPService *)self _messageChangeQueue];
+        [_messageChangeQueue2 addInvocation:v31];
+      }
+
+      if (self->isNewAccount)
+      {
+        v40 = [MFMonitoredInvocation invocationWithSelector:"populateLabelInformation" target:self taskName:@"Synchronizing" priority:0 canBeCancelled:0];
+        [v40 retainArguments];
+        v41 = sub_100026660(self->logger.__ptr_);
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+        {
+          getServiceObjLogPrefix6 = [(VVService *)self getServiceObjLogPrefix];
+          _messageChangeQueue3 = [(IMAPService *)self _messageChangeQueue];
+          monitor4 = [v40 monitor];
+          monitor5 = [v40 monitor];
+          *buf = 136316418;
+          v56 = getServiceObjLogPrefix6;
+          v57 = 2080;
+          v58 = " ";
+          v59 = 2112;
+          selfCopy = _messageChangeQueue3;
+          v61 = 2048;
+          v62 = monitor4;
+          v63 = 2112;
+          v64 = monitor5;
+          v65 = 2112;
+          v66 = v40;
+          _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "#I %s%s[IVQ] queue:%@, monitor:%p.'%@', schedule: Performing label column migration => %@", buf, 0x3Eu);
+        }
+
+        v46 = self->_activityController;
+        monitor6 = [v40 monitor];
+        [(IMAPServiceActivityController *)v46 addScheduledActivity:monitor6];
+
+        _messageChangeQueue4 = [(IMAPService *)self _messageChangeQueue];
+        [_messageChangeQueue4 addInvocation:v40];
+
+        self->isNewAccount = 0;
+      }
+    }
+
+    else
+    {
+      [(MFInvocationQueue *)self->_messageChangeQueue removeAllItems];
+      messageChangeQueue = self->_messageChangeQueue;
+      self->_messageChangeQueue = 0;
+
+      serviceAccount3 = [(IMAPService *)self serviceAccount];
+      [v53 removeObserver:self name:IMAPAccountOfflineOperationQueuedNotification object:serviceAccount3];
+
+      [(IMAPService *)self setServiceAccount:0];
+      [(NSRecursiveLock *)self->_pendingDeletesLock lock];
+      pendingDeletes = self->_pendingDeletes;
+      self->_pendingDeletes = 0;
+
+      [(NSRecursiveLock *)self->_pendingDeletesLock unlock];
+    }
+  }
+
+  [(IMAPService *)self mf_unlock];
 }
 
 - (void)_setAccountValue:(id)value forKey:(__CFString *)key inDictionary:(id *)dictionary ifDifferentInDictionary:(id)inDictionary
@@ -1549,6 +1779,34 @@ LABEL_63:
   return intValue;
 }
 
+- (void)_setBeaconCount:(unsigned int)count
+{
+  v3 = *&count;
+  [(IMAPService *)self mf_lock];
+  if ([(IMAPService *)self _beaconCount]!= v3)
+  {
+    v5 = sub_100026660(self->logger.__ptr_);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      v8 = 136315650;
+      getServiceObjLogPrefix = [(VVService *)self getServiceObjLogPrefix];
+      v10 = 2080;
+      v11 = " ";
+      v12 = 1024;
+      v13 = v3;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#I %s%sUpdating beacon count to: %u", &v8, 0x1Cu);
+    }
+
+    v6 = [[NSNumber alloc] initWithUnsignedInt:v3];
+    _parameters = [(IMAPService *)self _parameters];
+    [_parameters setObject:v6 forKey:@"BeaconCount"];
+
+    [(IMAPService *)self _saveParameters];
+  }
+
+  [(IMAPService *)self mf_unlock];
+}
+
 - (void)_cancelBeacon
 {
   v3 = sub_100026660(self->logger.__ptr_);
@@ -1908,6 +2166,26 @@ LABEL_63:
 
     serviceAccount = [(IMAPService *)self serviceAccount];
     [serviceAccount flushIMAPServiceLibraryCache];
+    [(IMAPService *)self mf_unlock];
+  }
+}
+
+- (void)setMailboxRequiresSetup:(BOOL)setup
+{
+  setupCopy = setup;
+  if ([(VVService *)self mailboxRequiresSetup]!= setup)
+  {
+    v5.receiver = self;
+    v5.super_class = IMAPService;
+    [(VVService *)&v5 setMailboxRequiresSetup:setupCopy];
+    [(IMAPService *)self mf_lock];
+    if (![(VVService *)self mailboxRequiresSetup]&& (*&self->_imapServiceFlags & 0x30) == 0x10)
+    {
+      [(IMAPService *)self _setAccountState:3];
+      [(IMAPService *)self setSyncRequired:(*&self->_imapServiceFlags & 0x40) == 0];
+      [(VVService *)self scheduleAutomatedTrashCompaction];
+    }
+
     [(IMAPService *)self mf_unlock];
   }
 }
@@ -2353,6 +2631,22 @@ LABEL_29:
   return v6;
 }
 
+- (void)setSMSReady:(BOOL)ready
+{
+  readyCopy = ready;
+  if ([(VVService *)self isSMSReady]!= ready)
+  {
+    v5.receiver = self;
+    v5.super_class = IMAPService;
+    [(VVService *)&v5 setSMSReady:readyCopy];
+    [(IMAPService *)self _cancelBeacon];
+    if (readyCopy)
+    {
+      [(IMAPService *)self _startBeacon];
+    }
+  }
+}
+
 - (int)minimumPasswordLength
 {
   v2 = [(VVService *)self carrierParameterValueForKey:@"MinPINLength"];
@@ -2675,54 +2969,56 @@ LABEL_29:
   accountCopy = account;
   serviceAccountCopy = serviceAccount;
   accountStore = [serviceAccountCopy accountStore];
-  v25 = +[NSMutableSet set];
+  v27 = +[NSMutableSet set];
   reverseObjectEnumerator = [accountCopy reverseObjectEnumerator];
   allObjects = [reverseObjectEnumerator allObjects];
 
+  v30 = 0u;
+  v31 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v26 = 0u;
-  v27 = 0u;
   obj = allObjects;
   v9 = 0;
-  v10 = [obj countByEnumeratingWithState:&v26 objects:v40 count:16];
+  v10 = [obj countByEnumeratingWithState:&v28 objects:v42 count:16];
   if (v10)
   {
-    v11 = *v27;
+    v11 = *v29;
     do
     {
       for (i = 0; i != v10; i = i + 1)
       {
-        if (*v27 != v11)
+        if (*v29 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v26 + 1) + 8 * i);
-        v14 = [NSNumber numberWithUnsignedInt:sub_10009278C(accountStore, v13)];
-        if ((sub_100092B0C(accountStore, v13) & 2) == 0)
+        v13 = *(*(&v28 + 1) + 8 * i);
+        sub_10009278C(accountStore, v13);
+        v15 = [NSNumber numberWithUnsignedInt:v14];
+        sub_100092B0C(accountStore, v13);
+        if ((v16 & 2) == 0)
         {
-          v15 = VMStoreRecordCopyDescription(v13);
-          v16 = sub_100026660(self->logger.__ptr_);
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          v17 = VMStoreRecordCopyDescription(v13);
+          v18 = sub_100026660(self->logger.__ptr_);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             getServiceObjLogPrefix = [(VVService *)self getServiceObjLogPrefix];
             *buf = 136316162;
-            v31 = getServiceObjLogPrefix;
-            v32 = 2080;
-            v33 = " ";
-            v34 = 2112;
-            v35 = v15;
+            v33 = getServiceObjLogPrefix;
+            v34 = 2080;
+            v35 = " ";
             v36 = 2112;
-            v37 = v14;
+            v37 = v17;
             v38 = 2112;
-            v39 = accountStore;
-            _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "#I %s%sRemoving record %@ with remote UID %@ from the account store %@. Could not find any audio data.", buf, 0x34u);
+            v39 = v15;
+            v40 = 2112;
+            v41 = accountStore;
+            _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "#I %s%sRemoving record %@ with remote UID %@ from the account store %@. Could not find any audio data.", buf, 0x34u);
           }
 
-          if (v15)
+          if (v17)
           {
-            CFRelease(v15);
+            CFRelease(v17);
           }
 
 LABEL_17:
@@ -2731,39 +3027,39 @@ LABEL_17:
           goto LABEL_19;
         }
 
-        if ([v25 containsObject:v14])
+        if ([v27 containsObject:v15])
         {
-          v18 = VMStoreRecordCopyDescription(v13);
-          v19 = sub_100026660(self->logger.__ptr_);
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+          v20 = VMStoreRecordCopyDescription(v13);
+          v21 = sub_100026660(self->logger.__ptr_);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
           {
             getServiceObjLogPrefix2 = [(VVService *)self getServiceObjLogPrefix];
             *buf = 136316162;
-            v31 = getServiceObjLogPrefix2;
-            v32 = 2080;
-            v33 = " ";
-            v34 = 2112;
-            v35 = v18;
+            v33 = getServiceObjLogPrefix2;
+            v34 = 2080;
+            v35 = " ";
             v36 = 2112;
-            v37 = v14;
+            v37 = v20;
             v38 = 2112;
-            v39 = accountStore;
-            _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "#I %s%sRemoving record %@ with remote UID %@ from the account store %@. A record with that remote UID already exists.", buf, 0x34u);
+            v39 = v15;
+            v40 = 2112;
+            v41 = accountStore;
+            _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "#I %s%sRemoving record %@ with remote UID %@ from the account store %@. A record with that remote UID already exists.", buf, 0x34u);
           }
 
-          if (v18)
+          if (v20)
           {
-            CFRelease(v18);
+            CFRelease(v20);
           }
 
           goto LABEL_17;
         }
 
-        [v25 addObject:v14];
+        [v27 addObject:v15];
 LABEL_19:
       }
 
-      v10 = [obj countByEnumeratingWithState:&v26 objects:v40 count:16];
+      v10 = [obj countByEnumeratingWithState:&v28 objects:v42 count:16];
     }
 
     while (v10);
@@ -2800,7 +3096,7 @@ LABEL_19:
 {
   ptr = error.__ptr_;
   v6 = error.__cntrl_;
-  v7 = sub_10006B834();
+  v7 = sub_10006B834(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -2901,7 +3197,7 @@ LABEL_19:
 - (void)_executePostSyncUpdate:(shared_ptr<VMJetsamAssertion>)update
 {
   ptr = update.__ptr_;
-  v5 = sub_10006B834();
+  v5 = sub_10006B834(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -3000,8 +3296,7 @@ LABEL_19:
   serviceAccount = [(IMAPService *)self serviceAccount];
   +[VVService obtainInsomniaAssertion];
   v4 = [MFMonitoredInvocation invocationWithSelector:"_synchronizeMailboxesForServiceAccount:" target:self object:serviceAccount taskName:@"Synchronizing" priority:0 canBeCancelled:0];
-  [v4 retainArguments];
-  v5 = sub_10006B834();
+  v5 = sub_10006B834([v4 retainArguments]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     getServiceObjLogPrefix = [(VVService *)self getServiceObjLogPrefix];
@@ -3039,29 +3334,30 @@ LABEL_19:
   reasonCopy = reason;
   [(IMAPService *)self mf_lock];
   isSyncRequired = [(IMAPService *)self isSyncRequired];
-  v8 = sub_10006B834();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v8 = isSyncRequired;
+  v9 = sub_10006B834(isSyncRequired);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136316162;
     getServiceObjLogPrefix = [(VVService *)self getServiceObjLogPrefix];
-    v37 = 2080;
-    v38 = " ";
-    v39 = 2080;
-    v40 = asStringBOOL();
-    v41 = 2080;
-    v42 = asStringBool();
-    v43 = 2112;
-    v44 = reasonCopy;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "#I %s%s[IMAPService synchronize:force=%s,]", buf, 0x34u);
+    v38 = 2080;
+    v39 = " ";
+    v40 = 2080;
+    v41 = asStringBOOL();
+    v42 = 2080;
+    v43 = asStringBool();
+    v44 = 2112;
+    v45 = reasonCopy;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "#I %s%s[IMAPService synchronize:force=%s,]", buf, 0x34u);
   }
 
-  if ((taskCopy | isSyncRequired))
+  if ((taskCopy | v8))
   {
-    if ((isSyncRequired & 1) == 0)
+    if ((v8 & 1) == 0)
     {
       _parameters = [(IMAPService *)self _parameters];
-      v10 = [NSNumber numberWithBool:1];
-      [_parameters setObject:v10 forKey:@"SyncRequired"];
+      v12 = [NSNumber numberWithBool:1];
+      [_parameters setObject:v12 forKey:@"SyncRequired"];
 
       [(IMAPService *)self _saveParameters];
     }
@@ -3070,88 +3366,86 @@ LABEL_19:
     isSyncInProgress = [(IMAPService *)self isSyncInProgress];
     if ((*&self->_imapServiceFlags & 0x38) == 0x18)
     {
-      v13 = isSyncInProgress;
+      v15 = isSyncInProgress;
     }
 
     else
     {
-      v13 = 1;
+      v15 = 1;
     }
 
-    if ((v13 & 1) != 0 || (*&self->super._serviceFlags & 1) != 0 || !serviceAccount)
+    if ((v15 & 1) != 0 || (*&self->super._serviceFlags & 1) != 0 || !serviceAccount)
     {
       imapServiceFlags = self->_imapServiceFlags;
-      v15 = sub_10006B834();
-      v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+      v17 = sub_10006B834(isSyncInProgress);
+      v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
       if ((imapServiceFlags & 0x100) != 0)
       {
-        if (v16)
+        if (v18)
         {
           getServiceObjLogPrefix2 = [(VVService *)self getServiceObjLogPrefix];
           [(IMAPService *)self isSyncInProgress];
-          v26 = asStringBool();
-          v27 = ((*&self->_imapServiceFlags >> 3) & 7) - 1;
-          if (v27 > 2)
+          v29 = asStringBool();
+          v30 = ((*&self->_imapServiceFlags >> 3) & 7) - 1;
+          if (v30 > 2)
           {
-            v28 = @"Unknown";
+            v31 = @"Unknown";
           }
 
           else
           {
-            v28 = off_1000EF368[v27];
+            v31 = off_1000EF368[v30];
           }
 
-          serviceFlags = self->super._serviceFlags;
-          v33 = asStringBool();
+          v34 = asStringBool();
           *buf = 136316418;
           getServiceObjLogPrefix = getServiceObjLogPrefix2;
-          v37 = 2080;
-          v38 = " ";
-          v39 = 2080;
-          v40 = v26;
-          v41 = 2112;
-          v42 = v28;
-          v43 = 2080;
-          v44 = v33;
-          v45 = 2112;
-          v46 = serviceAccount;
-          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "#I %s%sSuppressing synchronize because (syncInProgress:%s OR accountState:%@ is not kStateActive OR we're offline:%s OR we have no account:%@)", buf, 0x3Eu);
+          v38 = 2080;
+          v39 = " ";
+          v40 = 2080;
+          v41 = v29;
+          v42 = 2112;
+          v43 = v31;
+          v44 = 2080;
+          v45 = v34;
+          v46 = 2112;
+          v47 = serviceAccount;
+          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "#I %s%sSuppressing synchronize because (syncInProgress:%s OR accountState:%@ is not kStateActive OR we're offline:%s OR we have no account:%@)", buf, 0x3Eu);
         }
 
         goto LABEL_32;
       }
 
-      if (v16)
+      if (v18)
       {
         getServiceObjLogPrefix3 = [(VVService *)self getServiceObjLogPrefix];
         [(IMAPService *)self isSyncInProgress];
-        v18 = asStringBool();
-        v19 = ((*&self->_imapServiceFlags >> 3) & 7) - 1;
-        if (v19 > 2)
+        v20 = asStringBool();
+        v21 = ((*&self->_imapServiceFlags >> 3) & 7) - 1;
+        if (v21 > 2)
         {
-          v20 = @"Unknown";
+          v22 = @"Unknown";
         }
 
         else
         {
-          v20 = off_1000EF368[v19];
+          v22 = off_1000EF368[v21];
         }
 
-        v30 = self->super._serviceFlags;
-        v31 = asStringBool();
+        v33 = asStringBool();
         *buf = 136316418;
         getServiceObjLogPrefix = getServiceObjLogPrefix3;
-        v37 = 2080;
-        v38 = " ";
-        v39 = 2080;
-        v40 = v18;
-        v41 = 2112;
-        v42 = v20;
-        v43 = 2080;
-        v44 = v31;
-        v45 = 2112;
-        v46 = serviceAccount;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "#I %s%sDeferring synchronize because (syncInProgress:%s OR accountState:%@ is not kStateActive OR we're offline:%s OR we have no account:%@), syncRequired", buf, 0x3Eu);
+        v38 = 2080;
+        v39 = " ";
+        v40 = 2080;
+        v41 = v20;
+        v42 = 2112;
+        v43 = v22;
+        v44 = 2080;
+        v45 = v33;
+        v46 = 2112;
+        v47 = serviceAccount;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "#I %s%sDeferring synchronize because (syncInProgress:%s OR accountState:%@ is not kStateActive OR we're offline:%s OR we have no account:%@), syncRequired", buf, 0x3Eu);
       }
 
       [(IMAPService *)self setSyncRequired:1];
@@ -3159,22 +3453,26 @@ LABEL_19:
 
     else
     {
-      if (![(VVService *)self isDelayedRetryImmediate]&& [(VVService *)self isDelayedRetryScheduledGuarded])
+      if (![(VVService *)self isDelayedRetryImmediate])
       {
-        v15 = sub_10006B834();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        isDelayedRetryScheduledGuarded = [(VVService *)self isDelayedRetryScheduledGuarded];
+        if (isDelayedRetryScheduledGuarded)
         {
-          getServiceObjLogPrefix4 = [(VVService *)self getServiceObjLogPrefix];
-          *buf = 136315394;
-          getServiceObjLogPrefix = getServiceObjLogPrefix4;
-          v37 = 2080;
-          v38 = " ";
-          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "#I %s%sDeferring synchronize because delayed sync is scheduled", buf, 0x16u);
-        }
+          v17 = sub_10006B834(isDelayedRetryScheduledGuarded);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          {
+            getServiceObjLogPrefix4 = [(VVService *)self getServiceObjLogPrefix];
+            *buf = 136315394;
+            getServiceObjLogPrefix = getServiceObjLogPrefix4;
+            v38 = 2080;
+            v39 = " ";
+            _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "#I %s%sDeferring synchronize because delayed sync is scheduled", buf, 0x16u);
+          }
 
 LABEL_32:
 
-        goto LABEL_33;
+          goto LABEL_33;
+        }
       }
 
       [(IMAPService *)self setSyncInProgress:1];
@@ -3193,20 +3491,20 @@ LABEL_32:
 
   else
   {
-    serviceAccount = sub_10006B834();
+    serviceAccount = sub_10006B834(v10);
     if (os_log_type_enabled(serviceAccount, OS_LOG_TYPE_DEFAULT))
     {
       getServiceObjLogPrefix5 = [(VVService *)self getServiceObjLogPrefix];
-      v22 = asStringBOOL();
-      v23 = asStringBool();
+      v24 = asStringBOOL();
+      v25 = asStringBool();
       *buf = 136315906;
       getServiceObjLogPrefix = getServiceObjLogPrefix5;
-      v37 = 2080;
-      v38 = " ";
-      v39 = 2080;
-      v40 = v22;
-      v41 = 2080;
-      v42 = v23;
+      v38 = 2080;
+      v39 = " ";
+      v40 = 2080;
+      v41 = v24;
+      v42 = 2080;
+      v43 = v25;
       _os_log_impl(&_mh_execute_header, serviceAccount, OS_LOG_TYPE_DEFAULT, "#I %s%sSuppressing synchronize because (force=%s, syncRequired=%s)", buf, 0x2Au);
     }
   }
@@ -3555,104 +3853,105 @@ LABEL_25:
 - (void)_retrieveBodies:(id)bodies
 {
   bodiesCopy = bodies;
-  v27 = +[MFActivityMonitor currentTracebleMonitor];
-  v22 = [bodiesCopy objectForKeyedSubscript:@"FetchRecord"];
-  v4 = [v22 count];
-  v23 = [bodiesCopy objectForKeyedSubscript:@"FetchJetsam"];
+  v28 = +[MFActivityMonitor currentTracebleMonitor];
+  v23 = [bodiesCopy objectForKeyedSubscript:@"FetchRecord"];
+  v4 = [v23 count];
+  v24 = [bodiesCopy objectForKeyedSubscript:@"FetchJetsam"];
   v5 = sub_100026660(self->logger.__ptr_);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     getServiceObjLogPrefix = [(VVService *)self getServiceObjLogPrefix];
     serviceAccount = [(IMAPService *)self serviceAccount];
     *buf = 136316674;
-    v34 = getServiceObjLogPrefix;
-    v35 = 2080;
-    v36 = " ";
-    v37 = 2112;
-    v38 = serviceAccount;
-    v39 = 2048;
-    v40 = v4;
-    v41 = 2048;
-    v42 = v27;
-    v43 = 2112;
-    v44 = v27;
-    v45 = 2112;
-    v46 = v23;
+    v35 = getServiceObjLogPrefix;
+    v36 = 2080;
+    v37 = " ";
+    v38 = 2112;
+    v39 = serviceAccount;
+    v40 = 2048;
+    v41 = v4;
+    v42 = 2048;
+    v43 = v28;
+    v44 = 2112;
+    v45 = v28;
+    v46 = 2112;
+    v47 = v24;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#I %s%s[IVQ] Retrieving audio data for account %@, fetch %lu records, monitor %p.'%@', jetsam %@", buf, 0x48u);
   }
 
-  v30 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  obj = v22;
-  v8 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v30 = 0u;
+  obj = v23;
+  v8 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v8)
   {
-    v26 = *v29;
+    v27 = *v30;
     do
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v29 != v26)
+        if (*v30 != v27)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v28 + 1) + 8 * i);
-        [v27 setError:0];
+        v10 = *(*(&v29 + 1) + 8 * i);
+        [v28 setError:0];
         serviceAccount2 = [(IMAPService *)self serviceAccount];
         accountStore = [serviceAccount2 accountStore];
-        v13 = sub_100092B0C(accountStore, v10);
+        sub_100092B0C(accountStore, v10);
+        v14 = v13;
 
-        v14 = VMStoreRecordCopyDescription(v10);
-        v15 = sub_100026660(self->logger.__ptr_);
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v15 = VMStoreRecordCopyDescription(v10);
+        v16 = sub_100026660(self->logger.__ptr_);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           getServiceObjLogPrefix2 = [(VVService *)self getServiceObjLogPrefix];
           serviceAccount3 = [(IMAPService *)self serviceAccount];
           accountStore2 = [serviceAccount3 accountStore];
           *buf = 136315906;
-          v34 = getServiceObjLogPrefix2;
-          v35 = 2080;
-          v36 = " ";
-          v37 = 2112;
-          v38 = accountStore2;
-          v39 = 2112;
-          v40 = v14;
-          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "#I %s%s[IVQ] Retrieving audio data for account store %@, record %@", buf, 0x2Au);
+          v35 = getServiceObjLogPrefix2;
+          v36 = 2080;
+          v37 = " ";
+          v38 = 2112;
+          v39 = accountStore2;
+          v40 = 2112;
+          v41 = v15;
+          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "#I %s%s[IVQ] Retrieving audio data for account store %@, record %@", buf, 0x2Au);
         }
 
-        if (v14)
+        if (v15)
         {
-          CFRelease(v14);
+          CFRelease(v15);
         }
 
-        if ((v13 & 0x14) == 0)
+        if ((v14 & 0x14) == 0)
         {
-          [v27 setPrimaryTarget:v10];
+          [v28 setPrimaryTarget:v10];
           [(IMAPService *)self _synchronouslyRetrieveBodyForRecord:v10];
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v8 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v8);
   }
 
-  v19 = sub_100026660(self->logger.__ptr_);
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v20 = sub_100026660(self->logger.__ptr_);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     getServiceObjLogPrefix3 = [(VVService *)self getServiceObjLogPrefix];
     serviceAccount4 = [(IMAPService *)self serviceAccount];
     *buf = 136315650;
-    v34 = getServiceObjLogPrefix3;
-    v35 = 2080;
-    v36 = " ";
-    v37 = 2112;
-    v38 = serviceAccount4;
-    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "#I %s%s[IVQ] Retrieve audio data for account %@ completed", buf, 0x20u);
+    v35 = getServiceObjLogPrefix3;
+    v36 = 2080;
+    v37 = " ";
+    v38 = 2112;
+    v39 = serviceAccount4;
+    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "#I %s%s[IVQ] Retrieve audio data for account %@ completed", buf, 0x20u);
   }
 }
 
@@ -3839,7 +4138,7 @@ LABEL_25:
   serviceAccount = [(IMAPService *)self serviceAccount];
   accountStore = [serviceAccount accountStore];
 
-  v64 = accountStore;
+  v65 = accountStore;
   v6 = sub_100092A8C(accountStore, record);
   RecordWithToken = VMStoreCopyFirstRecordWithToken(v6, 0);
   if (v6)
@@ -3853,7 +4152,7 @@ LABEL_25:
   }
 
   serviceLabelID = [(VVService *)self serviceLabelID];
-  RecordWithToken = sub_100093040(v64, record, serviceLabelID);
+  RecordWithToken = sub_100093040(v65, record, serviceLabelID);
 
   VMStoreSave();
   v9 = VMStoreRecordCopyDescription(RecordWithToken);
@@ -3862,25 +4161,25 @@ LABEL_25:
   {
     *buf = 136315650;
     getServiceObjLogPrefix = [(VVService *)self getServiceObjLogPrefix];
-    v74 = 2080;
-    v75 = " ";
-    v76 = 2112;
-    v77 = v9;
+    v75 = 2080;
+    v76 = " ";
+    v77 = 2112;
+    v78 = v9;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "#I %s%sCreated new global record for audio data %@", buf, 0x20u);
   }
 
   if (RecordWithToken)
   {
-    v11 = VMStoreRecordCopyDataPath();
+    v11 = VMStoreRecordCopyDataPath(RecordWithToken);
     v12 = +[NSFileManager defaultManager];
     v13 = [v12 fileExistsAtPath:v11];
 
     if (v13)
     {
       v14 = +[NSFileManager defaultManager];
-      v71 = 0;
-      [v14 removeItemAtPath:v11 error:&v71];
-      v15 = v71;
+      v72 = 0;
+      [v14 removeItemAtPath:v11 error:&v72];
+      v15 = v72;
     }
 
     else
@@ -3906,17 +4205,17 @@ LABEL_14:
       getServiceObjLogPrefix2 = [(VVService *)self getServiceObjLogPrefix];
       *buf = 136315650;
       getServiceObjLogPrefix = getServiceObjLogPrefix2;
-      v74 = 2080;
-      v75 = " ";
-      v76 = 2112;
-      v77 = cf;
+      v75 = 2080;
+      v76 = " ";
+      v77 = 2112;
+      v78 = cf;
       _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "#I %s%sCopying audio data to record %@", buf, 0x20u);
     }
 
-    v62 = sub_100092DDC(v64, record);
-    v66 = VMStoreRecordCopyDataPath();
+    v63 = sub_100092DDC(v65, record);
+    v67 = VMStoreRecordCopyDataPath(RecordWithToken);
     v18 = +[NSFileManager defaultManager];
-    v19 = [v18 fileExistsAtPath:v66];
+    v19 = [v18 fileExistsAtPath:v67];
 
     if (!v19)
     {
@@ -3931,10 +4230,10 @@ LABEL_14:
         getServiceObjLogPrefix3 = [(VVService *)self getServiceObjLogPrefix];
         *buf = 136315650;
         getServiceObjLogPrefix = getServiceObjLogPrefix3;
-        v74 = 2080;
-        v75 = " ";
-        v76 = 2112;
-        v77 = cf;
+        v75 = 2080;
+        v76 = " ";
+        v77 = 2112;
+        v78 = cf;
         _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "#I %s%sData available flag is set, but audio file does not exist, for record %@", buf, 0x20u);
       }
 
@@ -3942,34 +4241,34 @@ LABEL_33:
 
 LABEL_34:
       v44 = +[NSFileManager defaultManager];
-      v67 = 0;
-      v45 = [v44 copyItemAtPath:v62 toPath:v66 error:&v67];
-      v46 = v67;
+      v68 = 0;
+      v45 = [v44 copyItemAtPath:v63 toPath:v67 error:&v68];
+      v46 = v68;
 
       if (v45)
       {
-        sub_100092850(v64, record);
-        VMStoreRecordSetDuration(RecordWithToken);
+        sub_100092850(v65, record);
+        VMStoreRecordSetDuration(RecordWithToken, v47);
         Flags = VMStoreRecordGetFlags(RecordWithToken);
         serviceLabelID2 = [(VVService *)self serviceLabelID];
         VMStoreRecordSetFlags(serviceLabelID2, RecordWithToken, Flags | 2u);
 
         VMStoreSave();
-        v49 = VMStoreRecordCopyDescription(RecordWithToken);
-        v50 = sub_100026660(self->logger.__ptr_);
-        if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+        v50 = VMStoreRecordCopyDescription(RecordWithToken);
+        v51 = sub_100026660(self->logger.__ptr_);
+        if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
         {
           getServiceObjLogPrefix4 = [(VVService *)self getServiceObjLogPrefix];
           *buf = 136315650;
           getServiceObjLogPrefix = getServiceObjLogPrefix4;
-          v74 = 2080;
-          v75 = " ";
-          v76 = 2112;
-          v77 = v49;
-          _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "#I %s%sCopying audio data completed for global record %@", buf, 0x20u);
+          v75 = 2080;
+          v76 = " ";
+          v77 = 2112;
+          v78 = v50;
+          _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "#I %s%sCopying audio data completed for global record %@", buf, 0x20u);
         }
 
-        if (!v49)
+        if (!v50)
         {
           goto LABEL_48;
         }
@@ -3977,65 +4276,65 @@ LABEL_34:
 
       else
       {
-        v52 = sub_100026660(self->logger.__ptr_);
-        if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+        v53 = sub_100026660(self->logger.__ptr_);
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
         {
           getServiceObjLogPrefix5 = [(VVService *)self getServiceObjLogPrefix];
           *buf = 136315906;
           getServiceObjLogPrefix = getServiceObjLogPrefix5;
-          v74 = 2080;
-          v75 = " ";
-          v76 = 2112;
-          v77 = cf;
-          v78 = 2112;
-          v79 = v46;
-          _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEFAULT, "#I %s%sUnable to copy audio data from account store to global record %@ with error %@", buf, 0x2Au);
+          v75 = 2080;
+          v76 = " ";
+          v77 = 2112;
+          v78 = cf;
+          v79 = 2112;
+          v80 = v46;
+          _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEFAULT, "#I %s%sUnable to copy audio data from account store to global record %@ with error %@", buf, 0x2Au);
         }
 
-        v54 = VMStoreRecordGetFlags(RecordWithToken);
-        if ((v54 & 2) == 0)
+        v55 = VMStoreRecordGetFlags(RecordWithToken);
+        if ((v55 & 2) == 0)
         {
           goto LABEL_48;
         }
 
-        v55 = sub_100026660(self->logger.__ptr_);
-        if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+        v56 = sub_100026660(self->logger.__ptr_);
+        if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
         {
           getServiceObjLogPrefix6 = [(VVService *)self getServiceObjLogPrefix];
           *buf = 136315650;
           getServiceObjLogPrefix = getServiceObjLogPrefix6;
-          v74 = 2080;
-          v75 = " ";
-          v76 = 2112;
-          v77 = cf;
-          _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "#I %s%sData available flag is set, but audio file does not exist, record %@", buf, 0x20u);
+          v75 = 2080;
+          v76 = " ";
+          v77 = 2112;
+          v78 = cf;
+          _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_DEFAULT, "#I %s%sData available flag is set, but audio file does not exist, record %@", buf, 0x20u);
         }
 
         serviceLabelID3 = [(VVService *)self serviceLabelID];
-        VMStoreRecordSetFlags(serviceLabelID3, RecordWithToken, v54 & 0xFFFFFFFD);
+        VMStoreRecordSetFlags(serviceLabelID3, RecordWithToken, v55 & 0xFFFFFFFD);
 
         VMStoreSave();
-        v49 = VMStoreRecordCopyDescription(RecordWithToken);
-        v58 = sub_100026660(self->logger.__ptr_);
-        if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+        v50 = VMStoreRecordCopyDescription(RecordWithToken);
+        v59 = sub_100026660(self->logger.__ptr_);
+        if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
         {
           getServiceObjLogPrefix7 = [(VVService *)self getServiceObjLogPrefix];
           *buf = 136315650;
           getServiceObjLogPrefix = getServiceObjLogPrefix7;
-          v74 = 2080;
-          v75 = " ";
-          v76 = 2112;
-          v77 = v49;
-          _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, "#I %s%sData available flag is removed for global record %@", buf, 0x20u);
+          v75 = 2080;
+          v76 = " ";
+          v77 = 2112;
+          v78 = v50;
+          _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEFAULT, "#I %s%sData available flag is removed for global record %@", buf, 0x20u);
         }
 
-        if (!v49)
+        if (!v50)
         {
           goto LABEL_48;
         }
       }
 
-      CFRelease(v49);
+      CFRelease(v50);
 LABEL_48:
       [(IMAPService *)self addTranscriptForRecord:RecordWithToken];
       if (cf)
@@ -4044,54 +4343,54 @@ LABEL_48:
       }
 
       CFRelease(RecordWithToken);
-      CFRelease(v66);
-      CFRelease(v62);
+      CFRelease(v67);
+      CFRelease(v63);
 
       goto LABEL_51;
     }
 
     v20 = +[NSFileManager defaultManager];
-    v70 = 0;
-    v21 = [v20 attributesOfItemAtPath:v62 error:&v70];
-    v22 = v70;
+    v71 = 0;
+    v21 = [v20 attributesOfItemAtPath:v63 error:&v71];
+    v22 = v71;
 
     v23 = +[NSFileManager defaultManager];
-    v69 = v22;
-    v61 = [v23 attributesOfItemAtPath:v66 error:&v69];
-    v24 = v69;
+    v70 = v22;
+    v62 = [v23 attributesOfItemAtPath:v67 error:&v70];
+    v24 = v70;
 
     v25 = sub_100026660(self->logger.__ptr_);
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
-      v60 = v21;
+      v61 = v21;
       getServiceObjLogPrefix8 = [(VVService *)self getServiceObjLogPrefix];
       fileSize = [v21 fileSize];
       fileModificationDate = [v21 fileModificationDate];
-      fileSize2 = [v61 fileSize];
-      fileModificationDate2 = [v61 fileModificationDate];
+      fileSize2 = [v62 fileSize];
+      fileModificationDate2 = [v62 fileModificationDate];
       *buf = 136316674;
       getServiceObjLogPrefix = getServiceObjLogPrefix8;
-      v74 = 2080;
-      v75 = " ";
-      v76 = 2048;
-      v77 = fileSize;
-      v78 = 2112;
-      v79 = fileModificationDate;
-      v80 = 2048;
-      v81 = fileSize2;
-      v82 = 2112;
-      v83 = fileModificationDate2;
-      v84 = 2112;
-      v85 = cf;
+      v75 = 2080;
+      v76 = " ";
+      v77 = 2048;
+      v78 = fileSize;
+      v79 = 2112;
+      v80 = fileModificationDate;
+      v81 = 2048;
+      v82 = fileSize2;
+      v83 = 2112;
+      v84 = fileModificationDate2;
+      v85 = 2112;
+      v86 = cf;
       _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "#I %s%sAudio file already exists, <src size=%llu, date=%@> <dst size=%llu, date=%@>, record %@", buf, 0x48u);
 
-      v21 = v60;
+      v21 = v61;
     }
 
     v31 = +[NSFileManager defaultManager];
-    v68 = v24;
-    v32 = [v31 removeItemAtPath:v66 error:&v68];
-    v33 = v68;
+    v69 = v24;
+    v32 = [v31 removeItemAtPath:v67 error:&v69];
+    v33 = v69;
 
     ptr = self->logger.__ptr_;
     if (v32)
@@ -4102,10 +4401,10 @@ LABEL_48:
         getServiceObjLogPrefix9 = [(VVService *)self getServiceObjLogPrefix];
         *buf = 136315650;
         getServiceObjLogPrefix = getServiceObjLogPrefix9;
-        v74 = 2080;
-        v75 = " ";
-        v76 = 2112;
-        v77 = cf;
+        v75 = 2080;
+        v76 = " ";
+        v77 = 2112;
+        v78 = cf;
         v37 = "#I %s%sRemoving audio data for global record %@";
         v38 = v35;
         v39 = 32;
@@ -4122,12 +4421,12 @@ LABEL_27:
         getServiceObjLogPrefix10 = [(VVService *)self getServiceObjLogPrefix];
         *buf = 136315906;
         getServiceObjLogPrefix = getServiceObjLogPrefix10;
-        v74 = 2080;
-        v75 = " ";
-        v76 = 2112;
-        v77 = cf;
-        v78 = 2112;
-        v79 = v33;
+        v75 = 2080;
+        v76 = " ";
+        v77 = 2112;
+        v78 = cf;
+        v79 = 2112;
+        v80 = v33;
         v37 = "#I %s%sUnable to remove audio data for global record %@ with error %@";
         v38 = v35;
         v39 = 42;
@@ -4143,10 +4442,10 @@ LABEL_27:
         getServiceObjLogPrefix11 = [(VVService *)self getServiceObjLogPrefix];
         *buf = 136315650;
         getServiceObjLogPrefix = getServiceObjLogPrefix11;
-        v74 = 2080;
-        v75 = " ";
-        v76 = 2112;
-        v77 = cf;
+        v75 = 2080;
+        v76 = " ";
+        v77 = 2112;
+        v78 = cf;
         _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "#I %s%sData available flag is not set, but audio file exists, for record %@", buf, 0x20u);
       }
     }
@@ -4625,10 +4924,10 @@ LABEL_51:
     v6 = @"toTrash";
   }
 
-  v45 = [NSString stringWithFormat:@"moveRecords%@", v6];
+  v44 = [NSString stringWithFormat:@"moveRecords%@", v6];
   serviceAccount = [(IMAPService *)self serviceAccount];
   ptr = self->logger.__ptr_;
-  v39 = serviceAccount;
+  v38 = serviceAccount;
   if (serviceAccount)
   {
     v9 = sub_100026660(ptr);
@@ -4636,133 +4935,129 @@ LABEL_51:
     {
       *buf = 136315906;
       getServiceObjLogPrefix = [(VVService *)self getServiceObjLogPrefix];
-      v54 = 2080;
-      v55 = " ";
-      v56 = 2112;
-      v57 = v45;
-      v58 = 2048;
-      v59 = [recordsCopy count];
+      v53 = 2080;
+      v54 = " ";
+      v55 = 2112;
+      v56 = v44;
+      v57 = 2048;
+      v58 = [recordsCopy count];
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "#I %s%s%@: moving %lu tokens started", buf, 0x2Au);
     }
 
     selfCopy = self;
 
     accountStore = [serviceAccount accountStore];
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
     v49 = 0u;
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
     v11 = recordsCopy;
-    v12 = [v11 countByEnumeratingWithState:&v48 objects:v66 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v47 objects:v65 count:16];
     if (v12)
     {
+      v42 = 0;
       v43 = 0;
-      v44 = 0;
-      v46 = 0;
+      v45 = 0;
       v13 = 0;
-      v14 = *v49;
+      v14 = *v48;
       v15 = @"set";
       if (!trashCopy)
       {
         v15 = @"reset";
       }
 
-      v41 = v15;
-      v42 = 0;
+      v40 = v15;
+      v41 = 0;
       do
       {
         v16 = 0;
         do
         {
-          if (*v49 != v14)
+          if (*v48 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v17 = sub_100093224(accountStore, *(*(&v48 + 1) + 8 * v16));
+          v17 = sub_100093224(accountStore, *(*(&v47 + 1) + 8 * v16));
           v18 = v17;
           if (v17)
           {
             v19 = VMStoreRecordCopyDescription(v17);
-            v20 = sub_100092B0C(accountStore, v18);
+            sub_100092B0C(accountStore, v18);
             if ((!trashCopy || (v20 & 8) == 0) && (trashCopy || (v20 & 8) != 0))
             {
               if ((v20 & 4) != 0)
               {
-                v24 = sub_100026660(selfCopy[53]);
-                if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+                v23 = sub_100026660(selfCopy[53]);
+                if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
                 {
                   getServiceObjLogPrefix2 = [selfCopy getServiceObjLogPrefix];
                   *buf = 136315906;
                   getServiceObjLogPrefix = getServiceObjLogPrefix2;
-                  v54 = 2080;
-                  v55 = " ";
-                  v56 = 2112;
-                  v57 = v45;
-                  v58 = 2112;
-                  v59 = v19;
-                  _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "#I %s%s%@: no changes are required for deleted record %@", buf, 0x2Au);
+                  v53 = 2080;
+                  v54 = " ";
+                  v55 = 2112;
+                  v56 = v44;
+                  v57 = 2112;
+                  v58 = v19;
+                  _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "#I %s%s%@: no changes are required for deleted record %@", buf, 0x2Au);
                 }
 
-                v46 = (v46 + 1);
+                v45 = (v45 + 1);
               }
 
-              else
+              else if ((v20 & 0x40) != 0)
               {
-                v21 = selfCopy[53];
-                if ((v20 & 0x40) != 0)
+                v25 = sub_100026660(selfCopy[53]);
+                if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
                 {
-                  v26 = sub_100026660(selfCopy[53]);
-                  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
-                  {
-                    getServiceObjLogPrefix3 = [selfCopy getServiceObjLogPrefix];
-                    *buf = 136316162;
-                    getServiceObjLogPrefix = getServiceObjLogPrefix3;
-                    v54 = 2080;
-                    v55 = " ";
-                    v56 = 2112;
-                    v57 = v45;
-                    v58 = 2112;
-                    v59 = v41;
-                    v60 = 2112;
-                    v61 = v19;
-                    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "#I %s%s%@: %@ Trashed flag for detached record %@", buf, 0x34u);
-                  }
+                  getServiceObjLogPrefix3 = [selfCopy getServiceObjLogPrefix];
+                  *buf = 136316162;
+                  getServiceObjLogPrefix = getServiceObjLogPrefix3;
+                  v53 = 2080;
+                  v54 = " ";
+                  v55 = 2112;
+                  v56 = v44;
+                  v57 = 2112;
+                  v58 = v40;
+                  v59 = 2112;
+                  v60 = v19;
+                  _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "#I %s%s%@: %@ Trashed flag for detached record %@", buf, 0x34u);
+                }
 
-                  ++v44;
-                  if (trashCopy)
-                  {
-                    sub_100092B3C(accountStore, v18, 8);
-                  }
-
-                  else
-                  {
-                    sub_100092B48(accountStore, v18, 8);
-                  }
-
-                  LOBYTE(v42) = 1;
+                ++v43;
+                if (trashCopy)
+                {
+                  sub_100092B3C(accountStore, v18, 8);
                 }
 
                 else
                 {
-                  v22 = sub_100026660(selfCopy[53]);
-                  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
-                  {
-                    getServiceObjLogPrefix4 = [selfCopy getServiceObjLogPrefix];
-                    *buf = 136315906;
-                    getServiceObjLogPrefix = getServiceObjLogPrefix4;
-                    v54 = 2080;
-                    v55 = " ";
-                    v56 = 2112;
-                    v57 = v45;
-                    v58 = 2112;
-                    v59 = v19;
-                    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "#I %s%s%@: delayed merge required for record %@", buf, 0x2Au);
-                  }
-
-                  ++v43;
-                  BYTE4(v42) = 1;
+                  sub_100092B48(accountStore, v18, 8);
                 }
+
+                LOBYTE(v41) = 1;
+              }
+
+              else
+              {
+                v21 = sub_100026660(selfCopy[53]);
+                if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+                {
+                  getServiceObjLogPrefix4 = [selfCopy getServiceObjLogPrefix];
+                  *buf = 136315906;
+                  getServiceObjLogPrefix = getServiceObjLogPrefix4;
+                  v53 = 2080;
+                  v54 = " ";
+                  v55 = 2112;
+                  v56 = v44;
+                  v57 = 2112;
+                  v58 = v19;
+                  _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "#I %s%s%@: delayed merge required for record %@", buf, 0x2Au);
+                }
+
+                ++v42;
+                BYTE4(v41) = 1;
               }
             }
 
@@ -4783,42 +5078,42 @@ LABEL_51:
         }
 
         while (v12 != v16);
-        v28 = [v11 countByEnumeratingWithState:&v48 objects:v66 count:16];
-        v12 = v28;
+        v27 = [v11 countByEnumeratingWithState:&v47 objects:v65 count:16];
+        v12 = v27;
       }
 
-      while (v28);
+      while (v27);
 
-      if (v42)
+      if (v41)
       {
-        v29 = sub_100026660(selfCopy[53]);
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+        v28 = sub_100026660(selfCopy[53]);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
           getServiceObjLogPrefix5 = [selfCopy getServiceObjLogPrefix];
           *buf = 136315650;
           getServiceObjLogPrefix = getServiceObjLogPrefix5;
-          v54 = 2080;
-          v55 = " ";
-          v56 = 2112;
-          v57 = v45;
-          _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "#I %s%s%@: saving account store", buf, 0x20u);
+          v53 = 2080;
+          v54 = " ";
+          v55 = 2112;
+          v56 = v44;
+          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "#I %s%s%@: saving account store", buf, 0x20u);
         }
 
         [accountStore save];
 LABEL_49:
-        if ((v42 & 0x100000000) != 0)
+        if ((v41 & 0x100000000) != 0)
         {
-          v33 = sub_100026660(selfCopy[53]);
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+          v32 = sub_100026660(selfCopy[53]);
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
           {
             getServiceObjLogPrefix6 = [selfCopy getServiceObjLogPrefix];
             *buf = 136315650;
             getServiceObjLogPrefix = getServiceObjLogPrefix6;
-            v54 = 2080;
-            v55 = " ";
-            v56 = 2112;
-            v57 = v45;
-            _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "#I %s%s%@: scheduling delayed merge", buf, 0x20u);
+            v53 = 2080;
+            v54 = " ";
+            v55 = 2112;
+            v56 = v44;
+            _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "#I %s%s%@: scheduling delayed merge", buf, 0x20u);
           }
 
           [selfCopy scheduleDelayedMerge];
@@ -4826,39 +5121,39 @@ LABEL_49:
 
         else
         {
-          v35 = sub_100026660(selfCopy[53]);
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+          v34 = sub_100026660(selfCopy[53]);
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
           {
             getServiceObjLogPrefix7 = [selfCopy getServiceObjLogPrefix];
             *buf = 136315650;
             getServiceObjLogPrefix = getServiceObjLogPrefix7;
-            v54 = 2080;
-            v55 = " ";
-            v56 = 2112;
-            v57 = v45;
-            _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "#I %s%s%@: no changes are required for delayed merge", buf, 0x20u);
+            v53 = 2080;
+            v54 = " ";
+            v55 = 2112;
+            v56 = v44;
+            _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "#I %s%s%@: no changes are required for delayed merge", buf, 0x20u);
           }
         }
 
-        v37 = sub_100026660(selfCopy[53]);
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+        v36 = sub_100026660(selfCopy[53]);
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
         {
           getServiceObjLogPrefix8 = [selfCopy getServiceObjLogPrefix];
           *buf = 136316674;
           getServiceObjLogPrefix = getServiceObjLogPrefix8;
-          v54 = 2080;
-          v55 = " ";
-          v56 = 2112;
-          v57 = v45;
-          v58 = 2048;
-          v59 = v13;
-          v60 = 2048;
-          v61 = v46;
-          v62 = 2048;
-          v63 = v43;
-          v64 = 2048;
-          v65 = v44;
-          _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "#I %s%s%@: moving (matched: %lu, deleted: %lu, delayed: %lu, detached: %lu) completed", buf, 0x48u);
+          v53 = 2080;
+          v54 = " ";
+          v55 = 2112;
+          v56 = v44;
+          v57 = 2048;
+          v58 = v13;
+          v59 = 2048;
+          v60 = v45;
+          v61 = 2048;
+          v62 = v42;
+          v63 = 2048;
+          v64 = v43;
+          _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "#I %s%s%@: moving (matched: %lu, deleted: %lu, delayed: %lu, detached: %lu) completed", buf, 0x48u);
         }
 
         goto LABEL_59;
@@ -4868,24 +5163,24 @@ LABEL_49:
     else
     {
 
-      BYTE4(v42) = 0;
+      BYTE4(v41) = 0;
       v13 = 0;
-      v46 = 0;
+      v45 = 0;
+      v42 = 0;
       v43 = 0;
-      v44 = 0;
     }
 
-    v31 = sub_100026660(selfCopy[53]);
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    v30 = sub_100026660(selfCopy[53]);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
       getServiceObjLogPrefix9 = [selfCopy getServiceObjLogPrefix];
       *buf = 136315650;
       getServiceObjLogPrefix = getServiceObjLogPrefix9;
-      v54 = 2080;
-      v55 = " ";
-      v56 = 2112;
-      v57 = v45;
-      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "#I %s%s%@: no changes are required for account store database", buf, 0x20u);
+      v53 = 2080;
+      v54 = " ";
+      v55 = 2112;
+      v56 = v44;
+      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "#I %s%s%@: no changes are required for account store database", buf, 0x20u);
     }
 
     goto LABEL_49;
@@ -4896,10 +5191,10 @@ LABEL_49:
   {
     *buf = 136315650;
     getServiceObjLogPrefix = [(VVService *)self getServiceObjLogPrefix];
-    v54 = 2080;
-    v55 = " ";
-    v56 = 2112;
-    v57 = v45;
+    v53 = 2080;
+    v54 = " ";
+    v55 = 2112;
+    v56 = v44;
     _os_log_impl(&_mh_execute_header, accountStore, OS_LOG_TYPE_DEFAULT, "#I %s%s%@: no serviceAccount found", buf, 0x20u);
   }
 
@@ -5058,7 +5353,7 @@ LABEL_59:
   readCopy = read;
   serviceAccount = [(IMAPService *)self serviceAccount];
   ptr = self->logger.__ptr_;
-  v34 = serviceAccount;
+  v33 = serviceAccount;
   if (!serviceAccount)
   {
     accountStore = sub_100026660(ptr);
@@ -5066,8 +5361,8 @@ LABEL_59:
     {
       *buf = 136315394;
       getServiceObjLogPrefix = [(VVService *)self getServiceObjLogPrefix];
-      v46 = 2080;
-      v47 = " ";
+      v45 = 2080;
+      v46 = " ";
       _os_log_impl(&_mh_execute_header, accountStore, OS_LOG_TYPE_DEFAULT, "#I %s%smarkRecordsAsRead: no serviceAccount found", buf, 0x16u);
     }
 
@@ -5079,52 +5374,52 @@ LABEL_59:
   {
     *buf = 136315650;
     getServiceObjLogPrefix = [(VVService *)self getServiceObjLogPrefix];
-    v46 = 2080;
-    v47 = " ";
-    v48 = 2048;
-    v49 = [readCopy count];
+    v45 = 2080;
+    v46 = " ";
+    v47 = 2048;
+    v48 = [readCopy count];
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "#I %s%smarkRecordsAsRead: changing flag for %lu tokens started", buf, 0x20u);
   }
 
   accountStore = [serviceAccount accountStore];
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   v8 = readCopy;
-  v9 = [v8 countByEnumeratingWithState:&v40 objects:v56 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v39 objects:v55 count:16];
   if (!v9)
   {
 
-    BYTE4(v36) = 0;
+    BYTE4(v35) = 0;
     v10 = 0;
-    v38 = 0;
-    v39 = 0;
     v37 = 0;
+    v38 = 0;
+    v36 = 0;
     goto LABEL_37;
   }
 
+  v36 = 0;
   v37 = 0;
   v38 = 0;
-  v39 = 0;
   v10 = 0;
-  v36 = 0;
-  v11 = *v41;
+  v35 = 0;
+  v11 = *v40;
   do
   {
     for (i = 0; i != v9; i = i + 1)
     {
-      if (*v41 != v11)
+      if (*v40 != v11)
       {
         objc_enumerationMutation(v8);
       }
 
-      v13 = sub_100093224(accountStore, *(*(&v40 + 1) + 8 * i));
+      v13 = sub_100093224(accountStore, *(*(&v39 + 1) + 8 * i));
       v14 = v13;
       if (v13)
       {
         v15 = VMStoreRecordCopyDescription(v13);
-        v16 = sub_100092B0C(accountStore, v14);
+        sub_100092B0C(accountStore, v14);
         if (v16)
         {
           v10 = (v10 + 1);
@@ -5138,20 +5433,44 @@ LABEL_59:
         {
           if ((v16 & 4) != 0)
           {
-            v20 = sub_100026660(self->logger.__ptr_);
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+            v19 = sub_100026660(self->logger.__ptr_);
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
             {
               getServiceObjLogPrefix2 = [(VVService *)self getServiceObjLogPrefix];
               *buf = 136315650;
               getServiceObjLogPrefix = getServiceObjLogPrefix2;
-              v46 = 2080;
-              v47 = " ";
-              v48 = 2112;
-              v49 = v15;
-              _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "#I %s%smarkRecordsAsRead: no changes are required for deleted record %@", buf, 0x20u);
+              v45 = 2080;
+              v46 = " ";
+              v47 = 2112;
+              v48 = v15;
+              _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "#I %s%smarkRecordsAsRead: no changes are required for deleted record %@", buf, 0x20u);
             }
 
-            ++v39;
+            ++v38;
+            if (!v15)
+            {
+              goto LABEL_27;
+            }
+          }
+
+          else if ((v16 & 0x40) != 0)
+          {
+            v21 = sub_100026660(self->logger.__ptr_);
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+            {
+              getServiceObjLogPrefix3 = [(VVService *)self getServiceObjLogPrefix];
+              *buf = 136315650;
+              getServiceObjLogPrefix = getServiceObjLogPrefix3;
+              v45 = 2080;
+              v46 = " ";
+              v47 = 2112;
+              v48 = v15;
+              _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "#I %s%smarkRecordsAsRead: changing Read flag for detached record %@", buf, 0x20u);
+            }
+
+            sub_100092B3C(accountStore, v14, 1);
+            ++v36;
+            LOBYTE(v35) = 1;
             if (!v15)
             {
               goto LABEL_27;
@@ -5160,52 +5479,24 @@ LABEL_59:
 
           else
           {
-            v17 = self->logger.__ptr_;
-            if ((v16 & 0x40) != 0)
+            v17 = sub_100026660(self->logger.__ptr_);
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
             {
-              v22 = sub_100026660(self->logger.__ptr_);
-              if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
-              {
-                getServiceObjLogPrefix3 = [(VVService *)self getServiceObjLogPrefix];
-                *buf = 136315650;
-                getServiceObjLogPrefix = getServiceObjLogPrefix3;
-                v46 = 2080;
-                v47 = " ";
-                v48 = 2112;
-                v49 = v15;
-                _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "#I %s%smarkRecordsAsRead: changing Read flag for detached record %@", buf, 0x20u);
-              }
-
-              sub_100092B3C(accountStore, v14, 1);
-              ++v37;
-              LOBYTE(v36) = 1;
-              if (!v15)
-              {
-                goto LABEL_27;
-              }
+              getServiceObjLogPrefix4 = [(VVService *)self getServiceObjLogPrefix];
+              *buf = 136315650;
+              getServiceObjLogPrefix = getServiceObjLogPrefix4;
+              v45 = 2080;
+              v46 = " ";
+              v47 = 2112;
+              v48 = v15;
+              _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "#I %s%smarkRecordsAsRead: merge required for record %@", buf, 0x20u);
             }
 
-            else
+            ++v37;
+            BYTE4(v35) = 1;
+            if (!v15)
             {
-              v18 = sub_100026660(self->logger.__ptr_);
-              if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
-              {
-                getServiceObjLogPrefix4 = [(VVService *)self getServiceObjLogPrefix];
-                *buf = 136315650;
-                getServiceObjLogPrefix = getServiceObjLogPrefix4;
-                v46 = 2080;
-                v47 = " ";
-                v48 = 2112;
-                v49 = v15;
-                _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "#I %s%smarkRecordsAsRead: merge required for record %@", buf, 0x20u);
-              }
-
-              ++v38;
-              BYTE4(v36) = 1;
-              if (!v15)
-              {
-                goto LABEL_27;
-              }
+              goto LABEL_27;
             }
           }
 
@@ -5219,22 +5510,22 @@ LABEL_27:
       }
     }
 
-    v9 = [v8 countByEnumeratingWithState:&v40 objects:v56 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v39 objects:v55 count:16];
   }
 
   while (v9);
 
-  if (v36)
+  if (v35)
   {
-    v24 = sub_100026660(self->logger.__ptr_);
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v23 = sub_100026660(self->logger.__ptr_);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       getServiceObjLogPrefix5 = [(VVService *)self getServiceObjLogPrefix];
       *buf = 136315394;
       getServiceObjLogPrefix = getServiceObjLogPrefix5;
-      v46 = 2080;
-      v47 = " ";
-      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "#I %s%smarkRecordsAsRead: saving account store", buf, 0x16u);
+      v45 = 2080;
+      v46 = " ";
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "#I %s%smarkRecordsAsRead: saving account store", buf, 0x16u);
     }
 
     [accountStore save];
@@ -5242,29 +5533,29 @@ LABEL_27:
   }
 
 LABEL_37:
-  v26 = sub_100026660(self->logger.__ptr_);
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+  v25 = sub_100026660(self->logger.__ptr_);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
     getServiceObjLogPrefix6 = [(VVService *)self getServiceObjLogPrefix];
     *buf = 136315394;
     getServiceObjLogPrefix = getServiceObjLogPrefix6;
-    v46 = 2080;
-    v47 = " ";
-    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "#I %s%smarkRecordsAsRead: no changes are required for account store database", buf, 0x16u);
+    v45 = 2080;
+    v46 = " ";
+    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "#I %s%smarkRecordsAsRead: no changes are required for account store database", buf, 0x16u);
   }
 
 LABEL_40:
-  if ((v36 & 0x100000000) != 0)
+  if ((v35 & 0x100000000) != 0)
   {
-    v28 = sub_100026660(self->logger.__ptr_);
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v27 = sub_100026660(self->logger.__ptr_);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       getServiceObjLogPrefix7 = [(VVService *)self getServiceObjLogPrefix];
       *buf = 136315394;
       getServiceObjLogPrefix = getServiceObjLogPrefix7;
-      v46 = 2080;
-      v47 = " ";
-      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "#I %s%smarkRecordsAsRead: scheduling delayed merge", buf, 0x16u);
+      v45 = 2080;
+      v46 = " ";
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "#I %s%smarkRecordsAsRead: scheduling delayed merge", buf, 0x16u);
     }
 
     [(IMAPService *)self scheduleDelayedMerge];
@@ -5272,35 +5563,35 @@ LABEL_40:
 
   else
   {
-    v30 = sub_100026660(self->logger.__ptr_);
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    v29 = sub_100026660(self->logger.__ptr_);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       getServiceObjLogPrefix8 = [(VVService *)self getServiceObjLogPrefix];
       *buf = 136315394;
       getServiceObjLogPrefix = getServiceObjLogPrefix8;
-      v46 = 2080;
-      v47 = " ";
-      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "#I %s%smarkRecordsAsRead: no changes are required for delayed merge", buf, 0x16u);
+      v45 = 2080;
+      v46 = " ";
+      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "#I %s%smarkRecordsAsRead: no changes are required for delayed merge", buf, 0x16u);
     }
   }
 
-  v32 = sub_100026660(self->logger.__ptr_);
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+  v31 = sub_100026660(self->logger.__ptr_);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
   {
     getServiceObjLogPrefix9 = [(VVService *)self getServiceObjLogPrefix];
     *buf = 136316418;
     getServiceObjLogPrefix = getServiceObjLogPrefix9;
-    v46 = 2080;
-    v47 = " ";
-    v48 = 2048;
-    v49 = v10;
-    v50 = 2048;
-    v51 = v39;
-    v52 = 2048;
-    v53 = v38;
-    v54 = 2048;
-    v55 = v37;
-    _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "#I %s%smarkRecordsAsRead: (matched: %lu, deleted: %lu, delayed: %lu, detached: %lu) completed", buf, 0x3Eu);
+    v45 = 2080;
+    v46 = " ";
+    v47 = 2048;
+    v48 = v10;
+    v49 = 2048;
+    v50 = v38;
+    v51 = 2048;
+    v52 = v37;
+    v53 = 2048;
+    v54 = v36;
+    _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "#I %s%smarkRecordsAsRead: (matched: %lu, deleted: %lu, delayed: %lu, detached: %lu) completed", buf, 0x3Eu);
   }
 
 LABEL_50:
@@ -5372,7 +5663,7 @@ LABEL_50:
 
 - (id)copyTokensForRecordsWithFlags:(unsigned int)flags flagsToNotHave:(unsigned int)have
 {
-  v5 = VMStoreCopyOfAllRecordsWithFlags(flags, have, 0);
+  v5 = VMStoreCopyOfAllRecordsWithFlags(*&flags, *&have, 0);
   v6 = [(IMAPService *)self copyTokensForRecords:v5];
 
   return v6;
@@ -5388,8 +5679,8 @@ LABEL_50:
 
 - (id)copyAccountTokensForMainRecordsWithFlags:(unsigned int)flags flagsToNotHave:(unsigned int)have
 {
-  v22 = VMStoreCopyOfAllRecordsWithFlags(flags, have, 0);
-  if ([v22 count])
+  v23 = VMStoreCopyOfAllRecordsWithFlags(*&flags, *&have, 0);
+  if ([v23 count])
   {
     serviceAccount = [(IMAPService *)self serviceAccount];
     if (serviceAccount)
@@ -5397,51 +5688,52 @@ LABEL_50:
       serviceAccount2 = [(IMAPService *)self serviceAccount];
       accountStore = [serviceAccount2 accountStore];
 
-      v23 = objc_opt_new();
-      v30 = 0u;
+      v24 = objc_opt_new();
       v31 = 0u;
-      v28 = 0u;
+      v32 = 0u;
       v29 = 0u;
-      obj = v22;
-      v9 = [obj countByEnumeratingWithState:&v28 objects:v38 count:16];
+      v30 = 0u;
+      obj = v23;
+      v9 = [obj countByEnumeratingWithState:&v29 objects:v39 count:16];
       if (v9)
       {
-        v10 = *v29;
-        v25 = have | flags;
-        v24 = serviceAccount;
+        v10 = *v30;
+        v26 = have | flags;
+        v25 = serviceAccount;
         do
         {
           for (i = 0; i != v9; i = i + 1)
           {
-            if (*v29 != v10)
+            if (*v30 != v10)
             {
               objc_enumerationMutation(obj);
             }
 
-            v12 = *(*(&v28 + 1) + 8 * i);
+            v12 = *(*(&v29 + 1) + 8 * i);
             v13 = VMStoreRecordGetToken(v12);
             if (v13)
             {
               v14 = sub_100093224(accountStore, v13);
               if (v14)
               {
-                if ((sub_100092B0C(accountStore, v14) & v25) != flags)
+                sub_100092B0C(accountStore, v14);
+                if ((v15 & v26) != flags)
                 {
-                  [v23 addObject:v13];
-                  v15 = sub_100026660(self->logger.__ptr_);
-                  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+                  [v24 addObject:v13];
+                  v16 = sub_100026660(self->logger.__ptr_);
+                  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
                   {
                     getServiceObjLogPrefix = [(VVService *)self getServiceObjLogPrefix];
-                    v17 = sub_100087658(v14);
+                    v18 = sub_100087658(v14);
                     *buf = 136315650;
                     getServiceObjLogPrefix3 = getServiceObjLogPrefix;
-                    v34 = 2080;
-                    v35 = " ";
-                    v36 = 2112;
-                    v37 = v17;
-                    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "#I %s%scopyAccountTokens: added record %@", buf, 0x20u);
+                    v35 = 2080;
+                    v36 = " ";
+                    v37 = 2112;
+                    v38 = v18;
+                    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "#I %s%scopyAccountTokens: added record %@", buf, 0x20u);
 
-                    serviceAccount = v24;
+                    serviceAccount = v25;
                   }
                 }
 
@@ -5451,25 +5743,25 @@ LABEL_50:
 
             else
             {
-              v18 = sub_100026660(self->logger.__ptr_);
-              if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+              v19 = sub_100026660(self->logger.__ptr_);
+              if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
               {
                 getServiceObjLogPrefix2 = [(VVService *)self getServiceObjLogPrefix];
-                v20 = sub_100087658(v12);
+                v21 = sub_100087658(v12);
                 *buf = 136315650;
                 getServiceObjLogPrefix3 = getServiceObjLogPrefix2;
-                v34 = 2080;
-                v35 = " ";
-                v36 = 2112;
-                v37 = v20;
-                _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "#I %s%scopyAccountTokens: no token for record %@", buf, 0x20u);
+                v35 = 2080;
+                v36 = " ";
+                v37 = 2112;
+                v38 = v21;
+                _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "#I %s%scopyAccountTokens: no token for record %@", buf, 0x20u);
 
-                serviceAccount = v24;
+                serviceAccount = v25;
               }
             }
           }
 
-          v9 = [obj countByEnumeratingWithState:&v28 objects:v38 count:16];
+          v9 = [obj countByEnumeratingWithState:&v29 objects:v39 count:16];
         }
 
         while (v9);
@@ -5483,21 +5775,21 @@ LABEL_50:
       {
         *buf = 136315394;
         getServiceObjLogPrefix3 = [(VVService *)self getServiceObjLogPrefix];
-        v34 = 2080;
-        v35 = " ";
+        v35 = 2080;
+        v36 = " ";
         _os_log_impl(&_mh_execute_header, accountStore, OS_LOG_TYPE_DEFAULT, "#I %s%scopyAccountTokens: no serviceAccount found", buf, 0x16u);
       }
 
-      v23 = 0;
+      v24 = 0;
     }
   }
 
   else
   {
-    v23 = 0;
+    v24 = 0;
   }
 
-  return v23;
+  return v24;
 }
 
 - (id)copyAccountTokensForDeletedRecords:(id)records
@@ -6019,7 +6311,7 @@ LABEL_16:
 
                 else
                 {
-                  VMStoreRecordSetReceiver(ValueAtIndex);
+                  VMStoreRecordSetReceiver(ValueAtIndex, theString);
                 }
 
                 v16 = VMStoreRecordCopyToken(ValueAtIndex);
@@ -6188,7 +6480,7 @@ LABEL_53:
   }
 
   serviceLabelID2 = [(VVService *)self serviceLabelID];
-  VMStoreSetReceiverMigration([serviceLabelID2 UUIDString]);
+  VMStoreSetReceiverMigration([serviceLabelID2 UUIDString], 1);
 
   VMStoreSave();
 }
@@ -6329,7 +6621,7 @@ LABEL_53:
   v6 = pthread_mutex_lock(&stru_10010D568);
   if (!xmmword_10010D5A8)
   {
-    ctu::XpcJetsamAssertion::create_default_global(buf, v6);
+    ctu::XpcJetsamAssertion::create_default_global(v6);
     v7 = *buf;
     *buf = 0;
     *&buf[8] = 0;
@@ -6456,7 +6748,7 @@ LABEL_53:
   v9 = pthread_mutex_lock(&stru_10010D568);
   if (!xmmword_10010D5A8)
   {
-    ctu::XpcJetsamAssertion::create_default_global(buf, v9);
+    ctu::XpcJetsamAssertion::create_default_global(v9);
     v10 = *buf;
     *buf = 0;
     *&buf[8] = 0;
@@ -7028,6 +7320,38 @@ LABEL_14:
   return v10;
 }
 
+- (void)_setGreetingCached:(BOOL)cached
+{
+  cachedCopy = cached;
+  [(IMAPService *)self mf_lock];
+  if (((*&self->_imapServiceFlags & 6) != 2) == cachedCopy)
+  {
+    v5 = [(VVService *)self carrierParameterValueForKey:@"GreetingNotification"];
+    bOOLValue = [v5 BOOLValue];
+
+    if (bOOLValue)
+    {
+      _parameters = [(IMAPService *)self _parameters];
+      v8 = [[NSNumber alloc] initWithBool:cachedCopy];
+      [_parameters setValue:v8 forKey:@"GreetingCached"];
+      [(IMAPService *)self _saveParameters];
+      if (cachedCopy)
+      {
+        v9 = 2;
+      }
+
+      else
+      {
+        v9 = 4;
+      }
+
+      *&self->_imapServiceFlags = *&self->_imapServiceFlags & 0xFFF9 | v9;
+    }
+  }
+
+  [(IMAPService *)self mf_unlock];
+}
+
 - (void)retrieveGreeting:(id)greeting
 {
   greetingCopy = greeting;
@@ -7088,7 +7412,7 @@ LABEL_14:
   v7 = pthread_mutex_lock(&stru_10010D568);
   if (!xmmword_10010D5A8)
   {
-    ctu::XpcJetsamAssertion::create_default_global(buf, v7);
+    ctu::XpcJetsamAssertion::create_default_global(v7);
     v8 = *buf;
     *buf = 0;
     *&buf[8] = 0;

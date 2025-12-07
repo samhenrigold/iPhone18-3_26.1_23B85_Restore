@@ -13,13 +13,13 @@
 
 - (id)newSignedPartWithData:()SMIMEEncoding sender:compositionSpecification:signatureData:
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v10 = a3;
   v11 = a4;
   v12 = a5;
-  v27 = 0;
-  v13 = [self _signatureDataForContentData:v10 forSender:v11 compositionSpecification:v12 outError:&v27];
-  v14 = v27;
+  v26 = 0;
+  v13 = [self _signatureDataForContentData:v10 forSender:v11 compositionSpecification:v12 outError:&v26];
+  v14 = v26;
   v15 = v14;
   if (v14)
   {
@@ -95,7 +95,6 @@
     }
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
@@ -224,14 +223,14 @@
 
 - (id)newEncryptedPartWithData:()SMIMEEncoding compositionSpecification:encryptedData:
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v8 = a3;
   v9 = a4;
+  v17 = 0;
   v18 = 0;
-  v19 = 0;
-  v10 = [self _encryptedDataForContentData:v8 compositionSpecification:v9 contentType:&v19 error:&v18];
-  v11 = v19;
-  v12 = v18;
+  v10 = [self _encryptedDataForContentData:v8 compositionSpecification:v9 contentType:&v18 error:&v17];
+  v11 = v18;
+  v12 = v17;
   if (v12)
   {
     v13 = [MEMORY[0x1E69AD720] log];
@@ -264,12 +263,11 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v21 = v11;
+      v20 = v11;
       _os_log_impl(&dword_1B0389000, v13, OS_LOG_TYPE_DEFAULT, "[S/MIME] Encrypted as multipart/pkcs7-mime (smime-type=%{public}@).", buf, 0xCu);
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -296,7 +294,7 @@
 
 - (id)_encryptedDataUsingSecCMS:()SMIMEEncoding compositionSpecification:error:
 {
-  v32[4] = *MEMORY[0x1E69E9840];
+  v31[4] = *MEMORY[0x1E69E9840];
   v8 = a3;
   v9 = a4;
   v10 = MFLogGeneral();
@@ -305,9 +303,9 @@
     [MFMimePart(SMIMEEncoding) _encryptedDataUsingSecCMS:compositionSpecification:error:];
   }
 
-  v32[0] = 0;
-  v11 = [[_MFSecCMSEncoder alloc] initForEncryptionWithCompositionSpecification:v9 error:v32];
-  v12 = v32[0];
+  v31[0] = 0;
+  v11 = [[_MFSecCMSEncoder alloc] initForEncryptionWithCompositionSpecification:v9 error:v31];
+  v12 = v31[0];
   if (v12)
   {
     goto LABEL_4;
@@ -321,22 +319,22 @@
     goto LABEL_12;
   }
 
-  if (v11 && (v26 = v11[10], v26))
+  if (v11 && (v25 = v11[10], v25))
   {
-    v27 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v28 = [v27 initWithDomain:*MEMORY[0x1E696A768] code:v26 userInfo:0];
-    v29 = objc_alloc(MEMORY[0x1E695DF20]);
-    v30 = [v29 initWithObjectsAndKeys:{v28, *MEMORY[0x1E696AA08], 0}];
+    v26 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v27 = [v26 initWithDomain:*MEMORY[0x1E696A768] code:v25 userInfo:0];
+    v28 = objc_alloc(MEMORY[0x1E695DF20]);
+    v29 = [v28 initWithObjectsAndKeys:{v27, *MEMORY[0x1E696AA08], 0}];
   }
 
   else
   {
-    v30 = 0;
+    v29 = 0;
   }
 
-  v12 = [MFError errorWithDomain:@"MFMessageErrorDomain" code:1035 userInfo:v30];
-  v31 = MFLookupLocalizedString(@"SMIME_CANT_ENCRYPT_MESSAGE", @"An error occurred while trying to encrypt your message. Verify that you have valid certificates in your keychain for all of the recipients.", @"Delayed");
-  [v12 setLocalizedDescription:v31];
+  v12 = [MFError errorWithDomain:@"MFMessageErrorDomain" code:1035 userInfo:v29];
+  v30 = MFLookupLocalizedString(@"SMIME_CANT_ENCRYPT_MESSAGE", @"An error occurred while trying to encrypt your message. Verify that you have valid certificates in your keychain for all of the recipients.", @"Delayed");
+  [v12 setLocalizedDescription:v30];
 
   if (v12)
   {
@@ -400,8 +398,6 @@ LABEL_12:
 LABEL_14:
   data = 0;
 LABEL_15:
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return data;
 }

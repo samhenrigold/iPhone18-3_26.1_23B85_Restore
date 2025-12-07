@@ -60,30 +60,31 @@
 
 - (id)initFromE5RTBuffer:(e5rt_buffer_object *)buffer
 {
-  v16 = *MEMORY[0x277D85DE8];
-  if (e5rt_buffer_object_get_iosurface())
+  v17 = *MEMORY[0x277D85DE8];
+  iosurface = e5rt_buffer_object_get_iosurface();
+  if (iosurface)
   {
-    v4 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __SceneIntelligenceLogSharedInstance(iosurface);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v5 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/Surface/SIIOSurface.m", 52);
+      v6 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/Surface/SIIOSurface.m", 52);
       *buf = 136381187;
-      v11 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/Surface/SIIOSurface.m";
-      v12 = 1025;
-      v13 = 52;
-      v14 = 2113;
-      v15 = v5;
-      _os_log_impl(&dword_21DE0D000, v4, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
+      v12 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/Surface/SIIOSurface.m";
+      v13 = 1025;
+      v14 = 52;
+      v15 = 2113;
+      v16 = v6;
+      _os_log_impl(&dword_21DE0D000, v5, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
     }
 
-    v6 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = __SceneIntelligenceLogSharedInstance(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136380931;
-      v11 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/Surface/SIIOSurface.m";
-      v12 = 1025;
-      v13 = 52;
-      _os_log_impl(&dword_21DE0D000, v6, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to get the internal iosurface from output port. ***", buf, 0x12u);
+      v12 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/Surface/SIIOSurface.m";
+      v13 = 1025;
+      v14 = 52;
+      _os_log_impl(&dword_21DE0D000, v8, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to get the internal iosurface from output port. ***", buf, 0x12u);
     }
 
     selfCopy = 0;
@@ -95,26 +96,25 @@
     selfCopy = self;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (id)initFromPixelBuffer:(__CVBuffer *)buffer
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (buffer)
   {
     IOSurface = CVPixelBufferGetIOSurface(buffer);
     if (!IOSurface)
     {
-      v5 = __SceneIntelligenceLogSharedInstance();
+      v5 = __SceneIntelligenceLogSharedInstance(0);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        v9 = 136380931;
-        v10 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/Surface/SIIOSurface.m";
-        v11 = 1025;
-        v12 = 62;
-        _os_log_impl(&dword_21DE0D000, v5, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Error extracting surface from buffer. Was not surface-backed? ***", &v9, 0x12u);
+        v8 = 136380931;
+        v9 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/Surface/SIIOSurface.m";
+        v10 = 1025;
+        v11 = 62;
+        _os_log_impl(&dword_21DE0D000, v5, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Error extracting surface from buffer. Was not surface-backed? ***", &v8, 0x12u);
       }
     }
 
@@ -127,120 +127,109 @@
     selfCopy = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (e5rt_buffer_object)createE5RTBuffer
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   [(SIIOSurface *)self surface];
-  if (e5rt_buffer_object_create_from_iosurface())
+  v3 = e5rt_buffer_object_create_from_iosurface();
+  if (!v3)
   {
-    v3 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
-      v4 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/Surface/SIIOSurface.m", 77);
-      *buf = 136381187;
-      v14 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/Surface/SIIOSurface.m";
-      v15 = 1025;
-      v16 = 77;
-      v17 = 2113;
-      v18 = v4;
-      _os_log_impl(&dword_21DE0D000, v3, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
-    }
-
-    v5 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      identifier = [(SIIOSurface *)self identifier];
-      width = [(SIIOSurface *)self width];
-      height = [(SIIOSurface *)self height];
-      bytesPerRow = [(SIIOSurface *)self bytesPerRow];
-      v10 = SIPixelFormatToStr([(SIIOSurface *)self pixelFormat]);
-      *buf = 136382211;
-      v14 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/Surface/SIIOSurface.m";
-      v15 = 1025;
-      v16 = 77;
-      v17 = 2048;
-      v18 = identifier;
-      v19 = 2049;
-      v20 = width;
-      v21 = 2049;
-      v22 = height;
-      v23 = 2049;
-      v24 = bytesPerRow;
-      v25 = 2113;
-      v26 = v10;
-      _os_log_impl(&dword_21DE0D000, v5, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to create the e5rt buffer from an existing surface: id=%lld, width=%{private}lu, height=%{private}lu, stride=%{private}lu, format=%{private}@ ***", buf, 0x44u);
-    }
-
-    result = 0;
+    return 0;
   }
 
-  else
+  v4 = __SceneIntelligenceLogSharedInstance(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    result = 0;
+    v5 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/Surface/SIIOSurface.m", 77);
+    *buf = 136381187;
+    v15 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/Surface/SIIOSurface.m";
+    v16 = 1025;
+    v17 = 77;
+    v18 = 2113;
+    v19 = v5;
+    _os_log_impl(&dword_21DE0D000, v4, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  v7 = __SceneIntelligenceLogSharedInstance(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  {
+    identifier = [(SIIOSurface *)self identifier];
+    width = [(SIIOSurface *)self width];
+    height = [(SIIOSurface *)self height];
+    bytesPerRow = [(SIIOSurface *)self bytesPerRow];
+    v12 = SIPixelFormatToStr([(SIIOSurface *)self pixelFormat]);
+    *buf = 136382211;
+    v15 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/Surface/SIIOSurface.m";
+    v16 = 1025;
+    v17 = 77;
+    v18 = 2048;
+    v19 = identifier;
+    v20 = 2049;
+    v21 = width;
+    v22 = 2049;
+    v23 = height;
+    v24 = 2049;
+    v25 = bytesPerRow;
+    v26 = 2113;
+    v27 = v12;
+    _os_log_impl(&dword_21DE0D000, v7, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to create the e5rt buffer from an existing surface: id=%lld, width=%{private}lu, height=%{private}lu, stride=%{private}lu, format=%{private}@ ***", buf, 0x44u);
+  }
+
+  return 0;
 }
 
 - (e5rt_surface_object)createE5RTSurface
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   [(SIIOSurface *)self surface];
-  if (e5rt_surface_object_create_from_iosurface())
+  v3 = e5rt_surface_object_create_from_iosurface();
+  if (!v3)
   {
-    v3 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
-      v4 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/Surface/SIIOSurface.m", 91);
-      *buf = 136381187;
-      v14 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/Surface/SIIOSurface.m";
-      v15 = 1025;
-      v16 = 91;
-      v17 = 2113;
-      v18 = v4;
-      _os_log_impl(&dword_21DE0D000, v3, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
-    }
-
-    v5 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      identifier = [(SIIOSurface *)self identifier];
-      width = [(SIIOSurface *)self width];
-      height = [(SIIOSurface *)self height];
-      bytesPerRow = [(SIIOSurface *)self bytesPerRow];
-      v10 = SIPixelFormatToStr([(SIIOSurface *)self pixelFormat]);
-      *buf = 136382211;
-      v14 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/Surface/SIIOSurface.m";
-      v15 = 1025;
-      v16 = 91;
-      v17 = 2048;
-      v18 = identifier;
-      v19 = 2049;
-      v20 = width;
-      v21 = 2049;
-      v22 = height;
-      v23 = 2049;
-      v24 = bytesPerRow;
-      v25 = 2113;
-      v26 = v10;
-      _os_log_impl(&dword_21DE0D000, v5, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to create the e5rt surface from an existing surface: id=%lld, width=%{private}lu, height=%{private}lu, stride=%{private}lu, format=%{private}@ ***", buf, 0x44u);
-    }
-
-    result = 0;
+    return 0;
   }
 
-  else
+  v4 = __SceneIntelligenceLogSharedInstance(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    result = 0;
+    v5 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/Surface/SIIOSurface.m", 91);
+    *buf = 136381187;
+    v15 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/Surface/SIIOSurface.m";
+    v16 = 1025;
+    v17 = 91;
+    v18 = 2113;
+    v19 = v5;
+    _os_log_impl(&dword_21DE0D000, v4, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  v7 = __SceneIntelligenceLogSharedInstance(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  {
+    identifier = [(SIIOSurface *)self identifier];
+    width = [(SIIOSurface *)self width];
+    height = [(SIIOSurface *)self height];
+    bytesPerRow = [(SIIOSurface *)self bytesPerRow];
+    v12 = SIPixelFormatToStr([(SIIOSurface *)self pixelFormat]);
+    *buf = 136382211;
+    v15 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/Surface/SIIOSurface.m";
+    v16 = 1025;
+    v17 = 91;
+    v18 = 2048;
+    v19 = identifier;
+    v20 = 2049;
+    v21 = width;
+    v22 = 2049;
+    v23 = height;
+    v24 = 2049;
+    v25 = bytesPerRow;
+    v26 = 2113;
+    v27 = v12;
+    _os_log_impl(&dword_21DE0D000, v7, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to create the e5rt surface from an existing surface: id=%lld, width=%{private}lu, height=%{private}lu, stride=%{private}lu, format=%{private}@ ***", buf, 0x44u);
+  }
+
+  return 0;
 }
 
 - (unsigned)pixelFormat
@@ -431,8 +420,8 @@ uint64_t __29__SIIOSurface_offsetOfPlane___block_invoke(void *a1, uint64_t a2)
 
   if (v6)
   {
-    v7 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __SceneIntelligenceLogSharedInstance(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136381187;
       v12 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/Surface/SIIOSurface.m";
@@ -440,13 +429,11 @@ uint64_t __29__SIIOSurface_offsetOfPlane___block_invoke(void *a1, uint64_t a2)
       v14 = 208;
       v15 = 1024;
       v16 = v6;
-      _os_log_impl(&dword_21DE0D000, v7, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** failed to create CVPixelBuffer from surface. Error: %d ***", buf, 0x18u);
+      _os_log_impl(&dword_21DE0D000, v8, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** failed to create CVPixelBuffer from surface. Error: %d ***", buf, 0x18u);
     }
   }
 
-  result = pixelBufferOut;
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return pixelBufferOut;
 }
 
 + (unint64_t)getSurfaceIdentifierForPixelBuffer:(__CVBuffer *)buffer

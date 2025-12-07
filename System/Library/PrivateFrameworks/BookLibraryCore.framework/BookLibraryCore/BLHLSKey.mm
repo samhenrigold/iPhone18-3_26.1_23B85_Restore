@@ -67,45 +67,8 @@ LABEL_8:
   keyCopy = key;
   v5 = keyCopy;
   url = self->_url;
-  if (url)
+  if (url && ([keyCopy url], v7 = objc_claimAutoreleasedReturnValue(), v8 = -[NSURL isEqual:](url, "isEqual:", v7), v7, !v8) || (keyFormat = self->_keyFormat) != 0 && (objc_msgSend(v5, "keyFormat"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSString isEqualToString:](keyFormat, "isEqualToString:", v10), v10, !v11) || (iv = self->_iv) != 0 && (objc_msgSend(v5, "iv"), v13 = objc_claimAutoreleasedReturnValue(), v14 = -[NSString isEqualToString:](iv, "isEqualToString:", v13), v13, !v14) || (keyFormatVersions = self->_keyFormatVersions) != 0 && (objc_msgSend(v5, "keyFormatVersions"), v16 = objc_claimAutoreleasedReturnValue(), v17 = -[NSString isEqualToString:](keyFormatVersions, "isEqualToString:", v16), v16, !v17))
   {
-    v7 = [keyCopy url];
-    v8 = [(NSURL *)url isEqual:v7];
-
-    if (!v8)
-    {
-      goto LABEL_10;
-    }
-  }
-
-  keyFormat = self->_keyFormat;
-  if (keyFormat)
-  {
-    keyFormat = [v5 keyFormat];
-    v11 = [(NSString *)keyFormat isEqualToString:keyFormat];
-
-    if (!v11)
-    {
-      goto LABEL_10;
-    }
-  }
-
-  iv = self->_iv;
-  if (iv)
-  {
-    v13 = [v5 iv];
-    v14 = [(NSString *)iv isEqualToString:v13];
-
-    if (!v14)
-    {
-      goto LABEL_10;
-    }
-  }
-
-  keyFormatVersions = self->_keyFormatVersions;
-  if (keyFormatVersions && ([v5 keyFormatVersions], v16 = objc_claimAutoreleasedReturnValue(), v17 = -[NSString isEqualToString:](keyFormatVersions, "isEqualToString:", v16), v16, !v17))
-  {
-LABEL_10:
     v19 = 0;
   }
 

@@ -92,7 +92,7 @@ void __67__HKCurrentActivityCacheQuery_client_deliverQueryResult_queryUUID___blo
 {
   updateHandler = self->_updateHandler;
   self->_updateHandler = 0;
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](self, updateHandler);
 }
 
 - (void)queue_validate

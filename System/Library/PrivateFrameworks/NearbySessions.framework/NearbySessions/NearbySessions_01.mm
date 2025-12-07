@@ -1,377 +1,18 @@
-uint64_t closure #1 in NearbyGroupTable.registerIfNotPresent(identifier:generationBlock:)(uint64_t a1)
-{
-  v3 = *(*v2 + 240);
-  v4 = *v2;
-  v4[31] = a1;
-
-  if (v1)
-  {
-    v6 = v4[23];
-    v5 = v4[24];
-    v7 = v4[21];
-    v8 = v4[22];
-
-    v9 = v4[1];
-
-    return v9();
-  }
-
-  else
-  {
-
-    return MEMORY[0x2822009F8](closure #1 in NearbyGroupTable.registerIfNotPresent(identifier:generationBlock:), 0, 0);
-  }
-}
-
-uint64_t partial apply for closure #1 in NearbyGroupTable.registerIfNotPresent(identifier:generationBlock:)(uint64_t a1)
-{
-  v4 = *(type metadata accessor for UUID() - 8);
-  v5 = (*(v4 + 80) + 24) & ~*(v4 + 80);
-  v6 = *(v1 + 16);
-  v7 = (v1 + ((*(v4 + 64) + v5 + 7) & 0xFFFFFFFFFFFFFFF8));
-  v8 = *v7;
-  v9 = v7[1];
-  v10 = swift_task_alloc();
-  *(v2 + 16) = v10;
-  *v10 = v2;
-  v10[1] = partial apply for closure #1 in NearbyGroupTable.cleanUpIfNotPresent(_:);
-
-  return closure #1 in NearbyGroupTable.registerIfNotPresent(identifier:generationBlock:)(a1, v6, v1 + v5, v8, v9);
-}
-
-uint64_t specialized Dictionary.subscript.setter(uint64_t a1, uint64_t a2)
-{
-  if (*(a1 + 8))
-  {
-    outlined destroy of NSObject?(a1, &_s14NearbySessions0A10GroupTableC04WeakaC0VSgMd, &_s14NearbySessions0A10GroupTableC04WeakaC0VSgMR);
-    specialized Dictionary._Variant.removeValue(forKey:)(a2, v10);
-    v4 = type metadata accessor for UUID();
-    (*(*(v4 - 8) + 8))(a2, v4);
-    return outlined destroy of NSObject?(v10, &_s14NearbySessions0A10GroupTableC04WeakaC0VSgMd, &_s14NearbySessions0A10GroupTableC04WeakaC0VSgMR);
-  }
-
-  else
-  {
-    outlined init with take of NearbyGroupTable.WeakNearbyGroup(a1, v10);
-    v6 = *v2;
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v9 = *v2;
-    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v10, a2, isUniquelyReferenced_nonNull_native);
-    v8 = type metadata accessor for UUID();
-    result = (*(*(v8 - 8) + 8))(a2, v8);
-    *v2 = v9;
-  }
-
-  return result;
-}
-
-uint64_t NearbyGroupTable.firstGroup()()
-{
-  v1[3] = v0;
-  v2 = type metadata accessor for AsyncSerialQueue();
-  v1[4] = v2;
-  v3 = *(v2 - 8);
-  v1[5] = v3;
-  v4 = *(v3 + 64) + 15;
-  v1[6] = swift_task_alloc();
-
-  return MEMORY[0x2822009F8](NearbyGroupTable.firstGroup(), 0, 0);
-}
-
-{
-  v1 = *(v0 + 48);
-  (*(**(v0 + 24) + 96))();
-  v2 = *(MEMORY[0x277CFD128] + 4);
-
-  v3 = swift_task_alloc();
-  *(v0 + 56) = v3;
-  v4 = type metadata accessor for NearbyGroup();
-  *v3 = v0;
-  v3[1] = NearbyGroupTable.firstGroup();
-  v5 = *(v0 + 48);
-  v6 = *(v0 + 24);
-
-  return MEMORY[0x28214FC18](v0 + 16, &async function pointer to partial apply for closure #1 in NearbyGroupTable.firstGroup(), v6, v4);
-}
-
-{
-  v2 = *(*v1 + 56);
-  v3 = *(*v1 + 48);
-  v4 = *(*v1 + 40);
-  v5 = *(*v1 + 32);
-  v6 = *(*v1 + 24);
-  v9 = *v1;
-  *(*v1 + 64) = v0;
-
-  (*(v4 + 8))(v3, v5);
-
-  if (v0)
-  {
-    v7 = NearbyGroupTable.firstGroup();
-  }
-
-  else
-  {
-    v7 = NearbyGroupTable.firstGroup();
-  }
-
-  return MEMORY[0x2822009F8](v7, 0, 0);
-}
-
-{
-  v1 = v0[6];
-  v2 = v0[2];
-
-  v3 = v0[1];
-
-  return v3(v2);
-}
-
-{
-  v1 = v0[6];
-
-  v2 = v0[1];
-  v3 = v0[8];
-
-  return v2();
-}
-
-uint64_t closure #1 in NearbyGroupTable.firstGroup()(uint64_t a1, uint64_t a2)
-{
-  v2[5] = a1;
-  v2[6] = a2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV3key_14NearbySessions0D10GroupTableC04WeakdF0V5valuetMd, &_s10Foundation4UUIDV3key_14NearbySessions0D10GroupTableC04WeakdF0V5valuetMR);
-  v2[7] = v3;
-  v4 = *(*(v3 - 8) + 64) + 15;
-  v2[8] = swift_task_alloc();
-
-  return MEMORY[0x2822009F8](closure #1 in NearbyGroupTable.firstGroup(), 0, 0);
-}
-
-uint64_t closure #1 in NearbyGroupTable.firstGroup()()
-{
-  v1 = v0[6];
-  v25 = v0[7];
-  v2 = OBJC_IVAR____TtC14NearbySessions16NearbyGroupTable_contents;
-  swift_beginAccess();
-  v3 = *(v1 + v2);
-  v4 = MEMORY[0x277D84F90];
-  v26 = MEMORY[0x277D84F90];
-  v5 = -1;
-  v6 = -1 << *(v3 + 32);
-  if (-v6 < 64)
-  {
-    v5 = ~(-1 << -v6);
-  }
-
-  v7 = v5 & *(v3 + 64);
-  v8 = (63 - v6) >> 6;
-  swift_bridgeObjectRetain_n();
-  v9 = 0;
-  if (!v7)
-  {
-    goto LABEL_6;
-  }
-
-  do
-  {
-LABEL_4:
-    while (1)
-    {
-      v10 = v0[8];
-      v11 = __clz(__rbit64(v7));
-      v7 &= v7 - 1;
-      v12 = v11 | (v9 << 6);
-      v13 = *(v3 + 48);
-      v14 = type metadata accessor for UUID();
-      (*(*(v14 - 8) + 16))(v10, v13 + *(*(v14 - 8) + 72) * v12, v14);
-      outlined init with copy of NearbyGroupTable.WeakNearbyGroup(*(v3 + 56) + 8 * v12, v10 + *(v25 + 48));
-      Strong = swift_weakLoadStrong();
-      v16 = outlined destroy of NSObject?(v10, &_s10Foundation4UUIDV3key_14NearbySessions0D10GroupTableC04WeakdF0V5valuetMd, &_s10Foundation4UUIDV3key_14NearbySessions0D10GroupTableC04WeakdF0V5valuetMR);
-      if (Strong)
-      {
-        break;
-      }
-
-      if (!v7)
-      {
-        goto LABEL_6;
-      }
-    }
-
-    MEMORY[0x25F86F0D0](v16);
-    if (*((v26 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v26 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
-    {
-      v18 = *((v26 & 0xFFFFFFFFFFFFFF8) + 0x10);
-      specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
-    }
-
-    specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-    v4 = v26;
-  }
-
-  while (v7);
-  while (1)
-  {
-LABEL_6:
-    v17 = v9 + 1;
-    if (__OFADD__(v9, 1))
-    {
-      __break(1u);
-LABEL_21:
-      result = __CocoaSet.count.getter();
-      if (result)
-      {
-        goto LABEL_16;
-      }
-
-LABEL_22:
-      v24 = v0[8];
-
-      lazy protocol witness table accessor for type Errors #1 in NearbyGroupTable.firstGroup() and conformance Errors #1 in NearbyGroupTable.firstGroup()();
-      swift_allocError();
-      swift_willThrow();
-
-      v23 = v0[1];
-      goto LABEL_23;
-    }
-
-    if (v17 >= v8)
-    {
-      break;
-    }
-
-    v7 = *(v3 + 64 + 8 * v17);
-    ++v9;
-    if (v7)
-    {
-      v9 = v17;
-      goto LABEL_4;
-    }
-  }
-
-  if (v4 >> 62)
-  {
-    goto LABEL_21;
-  }
-
-  if (!*((v4 & 0xFFFFFFFFFFFFFF8) + 0x10))
-  {
-    goto LABEL_22;
-  }
-
-LABEL_16:
-  if ((v4 & 0xC000000000000001) != 0)
-  {
-    v20 = MEMORY[0x25F86F4A0](0, v4);
-  }
-
-  else
-  {
-    if (!*((v4 & 0xFFFFFFFFFFFFFF8) + 0x10))
-    {
-      __break(1u);
-      return result;
-    }
-
-    v20 = *(v4 + 32);
-  }
-
-  v21 = v0[8];
-  v22 = v0[5];
-
-  *v22 = v20;
-
-  v23 = v0[1];
-LABEL_23:
-
-  return v23();
-}
-
-uint64_t partial apply for closure #1 in NearbyGroupTable.firstGroup()(uint64_t a1)
-{
-  v4 = swift_task_alloc();
-  *(v2 + 16) = v4;
-  *v4 = v2;
-  v4[1] = partial apply for closure #1 in NearbyGroupTable.firstGroup();
-
-  return closure #1 in NearbyGroupTable.firstGroup()(a1, v1);
-}
-
-uint64_t partial apply for closure #1 in NearbyGroupTable.firstGroup()()
-{
-  v1 = *(*v0 + 16);
-  v4 = *v0;
-
-  v2 = *(v4 + 8);
-
-  return v2();
-}
-
-uint64_t NearbyGroupTable.deinit()
-{
-  v1 = OBJC_IVAR____TtC14NearbySessions16NearbyGroupTable_serialQueue;
-  v2 = type metadata accessor for AsyncSerialQueue();
-  (*(*(v2 - 8) + 8))(v0 + v1, v2);
-  v3 = *(v0 + OBJC_IVAR____TtC14NearbySessions16NearbyGroupTable_contents);
-
-  return v0;
-}
-
-uint64_t NearbyGroupTable.__deallocating_deinit()
-{
-  v1 = OBJC_IVAR____TtC14NearbySessions16NearbyGroupTable_serialQueue;
-  v2 = type metadata accessor for AsyncSerialQueue();
-  (*(*(v2 - 8) + 8))(v0 + v1, v2);
-  v3 = *(v0 + OBJC_IVAR____TtC14NearbySessions16NearbyGroupTable_contents);
-
-  v4 = *(*v0 + 48);
-  v5 = *(*v0 + 52);
-
-  return MEMORY[0x2821FE8D8](v0, v4, v5);
-}
-
-uint64_t NearbyGroupTable.__allocating_init()()
-{
-  v1 = v0;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV15BufferingPolicyOyyyYaYbc__GMd, &_sScS12ContinuationV15BufferingPolicyOyyyYaYbc__GMR);
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x28223BE20](v2);
-  v6 = &v17 - v5;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
-  v10 = &v17 - v9;
-  v11 = *(v1 + 48);
-  v12 = *(v1 + 52);
-  v13 = swift_allocObject();
-  v14 = type metadata accessor for TaskPriority();
-  (*(*(v14 - 8) + 56))(v10, 1, 1, v14);
-  (*(v3 + 104))(v6, *MEMORY[0x277D85778], v2);
-  AsyncSerialQueue.init(priority:bufferingPolicy:)();
-  v15 = OBJC_IVAR____TtC14NearbySessions16NearbyGroupTable_contents;
-  *(v13 + v15) = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC10Foundation4UUIDV_14NearbySessions0E10GroupTableC04WeakeG0VTt0g5Tf4g_n(MEMORY[0x277D84F90]);
-  return v13;
-}
-
 uint64_t NearbyGroupTable.init()()
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV15BufferingPolicyOyyyYaYbc__GMd, &_sScS12ContinuationV15BufferingPolicyOyyyYaYbc__GMR);
   v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
   MEMORY[0x28223BE20](v1);
-  v5 = &v13 - v4;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x28223BE20](v6 - 8);
-  v9 = &v13 - v8;
-  v10 = type metadata accessor for TaskPriority();
-  (*(*(v10 - 8) + 56))(v9, 1, 1, v10);
-  (*(v2 + 104))(v5, *MEMORY[0x277D85778], v1);
+  v4 = &v11 - v3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = &v11 - v6;
+  v8 = type metadata accessor for TaskPriority();
+  (*(*(v8 - 8) + 56))(v7, 1, 1, v8);
+  (*(v2 + 104))(v4, *MEMORY[0x277D85778], v1);
   AsyncSerialQueue.init(priority:bufferingPolicy:)();
-  v11 = OBJC_IVAR____TtC14NearbySessions16NearbyGroupTable_contents;
-  *(v0 + v11) = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC10Foundation4UUIDV_14NearbySessions0E10GroupTableC04WeakeG0VTt0g5Tf4g_n(MEMORY[0x277D84F90]);
+  v9 = OBJC_IVAR____TtC14NearbySessions16NearbyGroupTable_contents;
+  *(v0 + v9) = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC10Foundation4UUIDV_14NearbySessions0E10GroupTableC04WeakeG0VTt0g5Tf4g_n(MEMORY[0x277D84F90]);
   return v0;
 }
 
@@ -382,12 +23,14 @@ char *one-time initialization function for shared()
   return result;
 }
 
-uint64_t static NearbyInvitationsController.shared.getter()
+double static NearbyInvitationsController.shared.getter()
 {
   if (one-time initialization token for shared != -1)
   {
     swift_once();
   }
+
+  return result;
 }
 
 uint64_t NearbyInvitationsController.groups.getter()
@@ -399,28 +42,25 @@ uint64_t NearbyInvitationsController.groups.getter()
   return v1;
 }
 
-uint64_t key path getter for NearbyInvitationsController.groups : NearbyInvitationsController@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t key path getter for NearbyInvitationsController.groups : NearbyInvitationsController@<X0>(void *a2@<X8>)
 {
-  v3 = *a1;
   swift_getKeyPath();
   swift_getKeyPath();
   static Published.subscript.getter();
 
-  *a2 = v5;
+  *a2 = v4;
   return result;
 }
 
 uint64_t key path setter for NearbyInvitationsController.groups : NearbyInvitationsController(uint64_t *a1, uint64_t *a2)
 {
-  v2 = *a1;
-  v3 = *a2;
   swift_getKeyPath();
   swift_getKeyPath();
 
   return static Published.subscript.setter();
 }
 
-uint64_t NearbyInvitationsController.groups.setter()
+uint64_t NearbyInvitationsController.groups.setter(uint64_t a1)
 {
   swift_getKeyPath();
   swift_getKeyPath();
@@ -428,7 +68,7 @@ uint64_t NearbyInvitationsController.groups.setter()
   return static Published.subscript.setter();
 }
 
-void (*NearbyInvitationsController.groups.modify(uint64_t *a1))(void *a1)
+uint64_t (*NearbyInvitationsController.groups.modify(uint64_t *a1))()
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -451,8 +91,6 @@ void (*NearbyInvitationsController.groups.modify(uint64_t *a1))(void *a1)
 void NearbyInvitationsController.groups.modify(void *a1)
 {
   v1 = *a1;
-  v2 = *(*a1 + 40);
-  v3 = *(*a1 + 32);
   (*(*a1 + 48))(*a1, 0);
 
   free(v1);
@@ -466,9 +104,8 @@ uint64_t NearbyInvitationsController.$groups.getter()
   return swift_endAccess();
 }
 
-uint64_t key path getter for NearbyInvitationsController.$groups : NearbyInvitationsController(uint64_t *a1)
+uint64_t key path getter for NearbyInvitationsController.$groups : NearbyInvitationsController(void *a1)
 {
-  v1 = *a1;
   swift_beginAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySDy10Foundation4UUIDV14NearbySessions0E19GroupConnectionInfoCGGMd, &_s7Combine9PublishedVySDy10Foundation4UUIDV14NearbySessions0E19GroupConnectionInfoCGGMR);
   Published.projectedValue.getter();
@@ -477,31 +114,28 @@ uint64_t key path getter for NearbyInvitationsController.$groups : NearbyInvitat
 
 uint64_t key path setter for NearbyInvitationsController.$groups : NearbyInvitationsController(uint64_t a1, uint64_t *a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySDy10Foundation4UUIDV14NearbySessions0F19GroupConnectionInfoCG_GMd, &_s7Combine9PublishedV9PublisherVySDy10Foundation4UUIDV14NearbySessions0F19GroupConnectionInfoCG_GMR);
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v7 = MEMORY[0x28223BE20](v4);
-  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v7);
-  v11 = &v15 - v10;
-  v12 = *(v5 + 16);
-  v12(&v15 - v10, a1, v4);
-  v13 = *a2;
-  v12(v9, v11, v4);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySDy10Foundation4UUIDV14NearbySessions0F19GroupConnectionInfoCG_GMd, &_s7Combine9PublishedV9PublisherVySDy10Foundation4UUIDV14NearbySessions0F19GroupConnectionInfoCG_GMR);
+  v4 = *(v3 - 8);
+  v5 = MEMORY[0x28223BE20](v3);
+  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v5);
+  v9 = &v12 - v8;
+  v10 = *(v4 + 16);
+  v10(&v12 - v8, a1, v3);
+  v10(v7, v9, v3);
   swift_beginAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySDy10Foundation4UUIDV14NearbySessions0E19GroupConnectionInfoCGGMd, &_s7Combine9PublishedVySDy10Foundation4UUIDV14NearbySessions0E19GroupConnectionInfoCGGMR);
   Published.projectedValue.setter();
   swift_endAccess();
-  return (*(v5 + 8))(v11, v4);
+  return (*(v4 + 8))(v9, v3);
 }
 
 uint64_t NearbyInvitationsController.$groups.setter(uint64_t a1)
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySDy10Foundation4UUIDV14NearbySessions0F19GroupConnectionInfoCG_GMd, &_s7Combine9PublishedV9PublisherVySDy10Foundation4UUIDV14NearbySessions0F19GroupConnectionInfoCG_GMR);
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  (*(v3 + 16))(&v7 - v5, a1, v2);
+  (*(v3 + 16))(&v6 - v4, a1, v2);
   swift_beginAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySDy10Foundation4UUIDV14NearbySessions0E19GroupConnectionInfoCGGMd, &_s7Combine9PublishedVySDy10Foundation4UUIDV14NearbySessions0E19GroupConnectionInfoCGGMR);
   Published.projectedValue.setter();
@@ -559,23 +193,21 @@ void NearbyInvitationsController.$groups.modify(uint64_t a1, char a2)
   v3 = *a1;
   v4 = *(*(*a1 + 88) + 16);
   v4(*(*a1 + 104), v3[14], v3[10]);
-  v5 = v3[16];
-  v6 = v3[13];
-  v13 = v3[14];
-  v8 = v3[11];
-  v7 = v3[12];
-  v10 = v3[9];
-  v9 = v3[10];
+  v5 = v3[13];
+  v11 = v3[14];
+  v7 = v3[11];
+  v6 = v3[12];
+  v8 = v3[10];
   if (a2)
   {
-    v4(v3[12], v6, v3[10]);
+    v4(v3[12], v5, v3[10]);
     swift_beginAccess();
     Published.projectedValue.setter();
     swift_endAccess();
-    v11 = *(v8 + 8);
-    v11(v6, v9);
-    v12 = v13;
-    v11(v13, v9);
+    v9 = *(v7 + 8);
+    v9(v5, v8);
+    v10 = v11;
+    v9(v11, v8);
   }
 
   else
@@ -583,29 +215,28 @@ void NearbyInvitationsController.$groups.modify(uint64_t a1, char a2)
     swift_beginAccess();
     Published.projectedValue.setter();
     swift_endAccess();
-    v12 = v13;
-    (*(v8 + 8))(v13, v9);
+    v10 = v11;
+    (*(v7 + 8))(v11, v8);
   }
 
-  free(v12);
+  free(v10);
+  free(v5);
   free(v6);
-  free(v7);
 
   free(v3);
 }
 
-uint64_t NearbyInvitationsController.approvalRequests.getter()
+double NearbyInvitationsController.approvalRequests.getter()
 {
-  v1 = OBJC_IVAR____TtC14NearbySessions27NearbyInvitationsController_approvalRequests;
   swift_beginAccess();
-  v2 = *(v0 + v1);
+
+  return result;
 }
 
 uint64_t NearbyInvitationsController.approvalRequests.setter(uint64_t a1)
 {
   v3 = OBJC_IVAR____TtC14NearbySessions27NearbyInvitationsController_approvalRequests;
   swift_beginAccess();
-  v4 = *(v1 + v3);
   *(v1 + v3) = a1;
 }
 
@@ -637,35 +268,30 @@ uint64_t NearbyInvitationsController.createGroup(with:)()
   v1 = swift_task_alloc();
   *(v0 + 40) = v1;
   v1[1] = vextq_s8(*(v0 + 24), *(v0 + 24), 8uLL);
-  v2 = *(MEMORY[0x277D85A40] + 4);
-  v3 = swift_task_alloc();
-  *(v0 + 48) = v3;
-  v4 = type metadata accessor for NearbyGroupConnectionInfo(0);
-  *v3 = v0;
-  v3[1] = NearbyInvitationsController.createGroup(with:);
+  v2 = swift_task_alloc();
+  *(v0 + 48) = v2;
+  v3 = type metadata accessor for NearbyGroupConnectionInfo(0);
+  *v2 = v0;
+  v2[1] = NearbyInvitationsController.createGroup(with:);
 
-  return MEMORY[0x2822008A0](v0 + 16, 0, 0, 0xD000000000000012, 0x800000025B830470, partial apply for closure #1 in NearbyInvitationsController.createGroup(with:), v1, v4);
+  return MEMORY[0x2822008A0](v0 + 16, 0, 0, 0xD000000000000012, 0x800000025B830470, partial apply for closure #1 in NearbyInvitationsController.createGroup(with:), v1, v3);
 }
 
 {
-  v2 = *v1;
-  v3 = *(*v1 + 48);
-  v7 = *v1;
   *(*v1 + 56) = v0;
 
   if (v0)
   {
-    v4 = NearbyInvitationsController.createGroup(with:);
+    v2 = NearbyInvitationsController.createGroup(with:);
   }
 
   else
   {
-    v5 = *(v2 + 40);
 
-    v4 = NearbyInvitationsController.createGroup(with:);
+    v2 = NearbyInvitationsController.createGroup(with:);
   }
 
-  return MEMORY[0x2822009F8](v4, 0, 0);
+  return MEMORY[0x2822009F8](v2, 0, 0);
 }
 
 {
@@ -673,110 +299,103 @@ uint64_t NearbyInvitationsController.createGroup(with:)()
 }
 
 {
-  v1 = v0[5];
 
-  v2 = v0[1];
-  v3 = v0[7];
+  v1 = *(v0 + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t closure #1 in NearbyInvitationsController.createGroup(with:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v24[0] = a3;
+  v21[0] = a3;
   v5 = type metadata accessor for DispatchWorkItemFlags();
-  v27 = *(v5 - 8);
-  v6 = *(v27 + 64);
+  v24 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
-  v8 = v24 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for DispatchQoS();
-  v25 = *(v9 - 8);
-  v26 = v9;
-  v10 = *(v25 + 64);
-  MEMORY[0x28223BE20](v9);
-  v12 = v24 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy14NearbySessions0A19GroupConnectionInfoCs5Error_pGMd, &_sScCy14NearbySessions0A19GroupConnectionInfoCs5Error_pGMR);
-  v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
-  MEMORY[0x28223BE20](v13);
-  v17 = v24 - v16;
-  v24[1] = *(a2 + 32);
-  (*(v14 + 16))(v24 - v16, a1, v13);
-  v18 = (*(v14 + 80) + 32) & ~*(v14 + 80);
-  v19 = swift_allocObject();
-  v20 = v24[0];
-  *(v19 + 16) = v24[0];
-  *(v19 + 24) = a2;
-  (*(v14 + 32))(v19 + v18, v17, v13);
+  v7 = v21 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = type metadata accessor for DispatchQoS();
+  v22 = *(v8 - 8);
+  v23 = v8;
+  MEMORY[0x28223BE20](v8);
+  v10 = v21 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy14NearbySessions0A19GroupConnectionInfoCs5Error_pGMd, &_sScCy14NearbySessions0A19GroupConnectionInfoCs5Error_pGMR);
+  v12 = *(v11 - 8);
+  MEMORY[0x28223BE20](v11);
+  v14 = v21 - v13;
+  v21[1] = *(a2 + 32);
+  (*(v12 + 16))(v21 - v13, a1, v11);
+  v15 = (*(v12 + 80) + 32) & ~*(v12 + 80);
+  v16 = swift_allocObject();
+  v17 = v21[0];
+  *(v16 + 16) = v21[0];
+  *(v16 + 24) = a2;
+  (*(v12 + 32))(v16 + v15, v14, v11);
   aBlock[4] = partial apply for closure #1 in closure #1 in NearbyInvitationsController.createGroup(with:);
-  aBlock[5] = v19;
+  aBlock[5] = v16;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable () -> ();
   aBlock[3] = &block_descriptor_186_0;
-  v21 = _Block_copy(aBlock);
-  v22 = v20;
+  v18 = _Block_copy(aBlock);
+  v19 = v17;
 
   static DispatchQoS.unspecified.getter();
-  v28 = MEMORY[0x277D84F90];
-  _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198]);
+  v25 = MEMORY[0x277D84F90];
+  _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
-  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
+  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR, MEMORY[0x277D83970]);
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  MEMORY[0x25F86F310](0, v12, v8, v21);
-  _Block_release(v21);
-  (*(v27 + 8))(v8, v5);
-  (*(v25 + 8))(v12, v26);
+  MEMORY[0x25F86F310](0, v10, v7, v18);
+  _Block_release(v18);
+  (*(v24 + 8))(v7, v5);
+  (*(v22 + 8))(v10, v23);
 }
 
 uint64_t closure #1 in closure #1 in NearbyInvitationsController.createGroup(with:)(void *a1, uint64_t a2, uint64_t a3)
 {
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy14NearbySessions0A19GroupConnectionInfoCs5Error_pGMd, &_sScCy14NearbySessions0A19GroupConnectionInfoCs5Error_pGMR);
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v28 - v9;
+  v9 = &v26 - v8;
   if (one-time initialization token for client != -1)
   {
     swift_once();
   }
 
-  v11 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v11, static Log.client);
-  v12 = a1;
-  v13 = Logger.logObject.getter();
-  v14 = static os_log_type_t.default.getter();
+  v10 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v10, static Log.client);
+  v11 = a1;
+  v12 = Logger.logObject.getter();
+  v13 = static os_log_type_t.default.getter();
 
-  if (os_log_type_enabled(v13, v14))
+  if (os_log_type_enabled(v12, v13))
   {
+    v14 = swift_slowAlloc();
     v15 = swift_slowAlloc();
-    v16 = swift_slowAlloc();
-    v29 = a2;
-    v17 = a3;
-    v18 = v6;
-    v19 = v16;
-    *v15 = 138412290;
-    *(v15 + 4) = v12;
-    *v16 = v12;
-    v20 = v12;
-    _os_log_impl(&dword_25B7C4000, v13, v14, "NearbyInvitationsController received request to create group %@", v15, 0xCu);
-    outlined destroy of NSObject?(v19, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    v21 = v19;
-    v6 = v18;
-    a3 = v17;
-    a2 = v29;
-    MEMORY[0x25F86FE20](v21, -1, -1);
-    MEMORY[0x25F86FE20](v15, -1, -1);
+    v27 = a2;
+    v16 = a3;
+    v17 = v6;
+    v18 = v15;
+    *v14 = 138412290;
+    *(v14 + 4) = v11;
+    *v15 = v11;
+    v19 = v11;
+    _os_log_impl(&dword_25B7C4000, v12, v13, "NearbyInvitationsController received request to create group %@", v14, 0xCu);
+    outlined destroy of NSObject?(v18, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v20 = v18;
+    v6 = v17;
+    a3 = v16;
+    a2 = v27;
+    MEMORY[0x25F86FE20](v20, -1, -1);
+    MEMORY[0x25F86FE20](v14, -1, -1);
   }
 
-  v22 = *(a2 + 16);
-  v23 = *(a2 + 24);
+  v21 = *(a2 + 24);
   ObjectType = swift_getObjectType();
-  (*(v7 + 16))(v10, a3, v6);
-  v25 = (*(v7 + 80) + 16) & ~*(v7 + 80);
-  v26 = swift_allocObject();
-  (*(v7 + 32))(v26 + v25, v10, v6);
-  (*(v23 + 32))(v12, partial apply for closure #1 in closure #1 in closure #1 in NearbyInvitationsController.createGroup(with:), v26, ObjectType, v23);
+  (*(v7 + 16))(v9, a3, v6);
+  v23 = (*(v7 + 80) + 16) & ~*(v7 + 80);
+  v24 = swift_allocObject();
+  (*(v7 + 32))(v24 + v23, v9, v6);
+  (*(v21 + 32))(v11, partial apply for closure #1 in closure #1 in closure #1 in NearbyInvitationsController.createGroup(with:), v24, ObjectType, v21);
 }
 
 uint64_t NearbyInvitationsController.addObserver(_:)(uint64_t a1)
@@ -803,12 +422,12 @@ uint64_t closure #1 in NearbyInvitationsController.requestApproval(with:completi
   {
     v12 = swift_slowAlloc();
     v13 = swift_slowAlloc();
-    v22 = v13;
+    v21 = v13;
     *v12 = 136315138;
     type metadata accessor for InvitationApprovalRequest();
     v14 = v9;
     v15 = String.init<A>(reflecting:)();
-    v17 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v15, v16, &v22);
+    v17 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v15, v16, &v21);
 
     *(v12 + 4) = v17;
     _os_log_impl(&dword_25B7C4000, v10, v11, "NearbyInvitationsController requestApproval with %s", v12, 0xCu);
@@ -817,10 +436,9 @@ uint64_t closure #1 in NearbyInvitationsController.requestApproval(with:completi
     MEMORY[0x25F86FE20](v12, -1, -1);
   }
 
-  v18 = *(a2 + 16);
-  v19 = *(a2 + 24);
+  v18 = *(a2 + 24);
   ObjectType = swift_getObjectType();
-  return (*(v19 + 40))(v9, a3, a4, ObjectType, v19);
+  return (*(v18 + 40))(v9, a3, a4, ObjectType, v18);
 }
 
 uint64_t NearbyInvitationsController.approveConnectionRequest(_:localInvitation:)(void *a1, void *a2)
@@ -837,40 +455,38 @@ uint64_t NearbyInvitationsController.approveConnectionRequest(_:localInvitation:
   v4 = v3;
   v8 = type metadata accessor for DispatchWorkItemFlags();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   MEMORY[0x28223BE20](v8);
-  v12 = v21 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = type metadata accessor for DispatchQoS();
-  v13 = *(v22 - 8);
-  v14 = *(v13 + 64);
-  MEMORY[0x28223BE20](v22);
-  v16 = v21 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21[1] = *(v4 + 32);
-  v17 = swift_allocObject();
-  v17[2] = a1;
-  v17[3] = v4;
-  v17[4] = a2;
-  v17[5] = a3;
+  v11 = v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v20 = type metadata accessor for DispatchQoS();
+  v12 = *(v20 - 8);
+  MEMORY[0x28223BE20](v20);
+  v14 = v19 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19[1] = *(v4 + 32);
+  v15 = swift_allocObject();
+  v15[2] = a1;
+  v15[3] = v4;
+  v15[4] = a2;
+  v15[5] = a3;
   aBlock[4] = partial apply for closure #1 in NearbyInvitationsController.approveConnectionRequest(_:localInvitation:);
-  aBlock[5] = v17;
+  aBlock[5] = v15;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable () -> ();
   aBlock[3] = &block_descriptor_24;
-  v18 = _Block_copy(aBlock);
-  v19 = a1;
+  v16 = _Block_copy(aBlock);
+  v17 = a1;
 
   outlined copy of Data._Representation(a2, a3);
   static DispatchQoS.unspecified.getter();
-  v23 = MEMORY[0x277D84F90];
-  _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198]);
+  v21 = MEMORY[0x277D84F90];
+  _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
-  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
+  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR, MEMORY[0x277D83970]);
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  MEMORY[0x25F86F310](0, v16, v12, v18);
-  _Block_release(v18);
-  (*(v9 + 8))(v12, v8);
-  (*(v13 + 8))(v16, v22);
+  MEMORY[0x25F86F310](0, v14, v11, v16);
+  _Block_release(v16);
+  (*(v9 + 8))(v11, v8);
+  (*(v12 + 8))(v14, v20);
 }
 
 uint64_t closure #1 in NearbyInvitationsController.approveConnectionRequest(_:localInvitation:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -890,12 +506,12 @@ uint64_t closure #1 in NearbyInvitationsController.approveConnectionRequest(_:lo
   {
     v12 = swift_slowAlloc();
     v13 = swift_slowAlloc();
-    v22 = v13;
+    v21 = v13;
     *v12 = 136315138;
     type metadata accessor for NearbyAdvertisement(0);
     v14 = v9;
     v15 = String.init<A>(reflecting:)();
-    v17 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v15, v16, &v22);
+    v17 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v15, v16, &v21);
 
     *(v12 + 4) = v17;
     _os_log_impl(&dword_25B7C4000, v10, v11, "NearbyInvitationsController approving connection request of advertisement %s", v12, 0xCu);
@@ -904,10 +520,9 @@ uint64_t closure #1 in NearbyInvitationsController.approveConnectionRequest(_:lo
     MEMORY[0x25F86FE20](v12, -1, -1);
   }
 
-  v18 = *(a2 + 16);
-  v19 = *(a2 + 24);
+  v18 = *(a2 + 24);
   ObjectType = swift_getObjectType();
-  return (*(v19 + 176))(v9, a3, a4, ObjectType, v19);
+  return (*(v18 + 176))(v9, a3, a4, ObjectType, v18);
 }
 
 uint64_t closure #1 in NearbyInvitationsController.denyConnectionRequest(_:localInvitation:)(void *a1, uint64_t a2)
@@ -927,12 +542,12 @@ uint64_t closure #1 in NearbyInvitationsController.denyConnectionRequest(_:local
   {
     v8 = swift_slowAlloc();
     v9 = swift_slowAlloc();
-    v18 = v9;
+    v17 = v9;
     *v8 = 136315138;
     type metadata accessor for NearbyAdvertisement(0);
     v10 = v5;
     v11 = String.init<A>(reflecting:)();
-    v13 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v11, v12, &v18);
+    v13 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v11, v12, &v17);
 
     *(v8 + 4) = v13;
     _os_log_impl(&dword_25B7C4000, v6, v7, "NearbyInvitationsController approving connection request of advertisement %s", v8, 0xCu);
@@ -941,7 +556,6 @@ uint64_t closure #1 in NearbyInvitationsController.denyConnectionRequest(_:local
     MEMORY[0x25F86FE20](v8, -1, -1);
   }
 
-  v15 = *(a2 + 16);
   v14 = *(a2 + 24);
   ObjectType = swift_getObjectType();
   return (*(v14 + 184))(v5, ObjectType, v14);
@@ -952,41 +566,39 @@ uint64_t NearbyInvitationsController.approve(pendingMember:response:completion:)
   v5 = v4;
   v10 = type metadata accessor for DispatchWorkItemFlags();
   v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
   MEMORY[0x28223BE20](v10);
-  v14 = v24 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v25 = type metadata accessor for DispatchQoS();
-  v15 = *(v25 - 8);
-  v16 = *(v15 + 64);
-  MEMORY[0x28223BE20](v25);
-  v18 = v24 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v24[1] = *(v5 + 32);
-  v19 = swift_allocObject();
-  v19[2] = a1;
-  v19[3] = a2;
-  v19[4] = v5;
-  v19[5] = a3;
-  v19[6] = a4;
+  v13 = v22 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = type metadata accessor for DispatchQoS();
+  v14 = *(v23 - 8);
+  MEMORY[0x28223BE20](v23);
+  v16 = v22 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v22[1] = *(v5 + 32);
+  v17 = swift_allocObject();
+  v17[2] = a1;
+  v17[3] = a2;
+  v17[4] = v5;
+  v17[5] = a3;
+  v17[6] = a4;
   aBlock[4] = partial apply for closure #1 in NearbyInvitationsController.approve(pendingMember:response:completion:);
-  aBlock[5] = v19;
+  aBlock[5] = v17;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable () -> ();
   aBlock[3] = &block_descriptor_30;
-  v20 = _Block_copy(aBlock);
-  v21 = a1;
-  v22 = a2;
+  v18 = _Block_copy(aBlock);
+  v19 = a1;
+  v20 = a2;
 
   static DispatchQoS.unspecified.getter();
-  v26 = MEMORY[0x277D84F90];
-  _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198]);
+  v24 = MEMORY[0x277D84F90];
+  _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
-  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
+  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR, MEMORY[0x277D83970]);
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  MEMORY[0x25F86F310](0, v18, v14, v20);
-  _Block_release(v20);
-  (*(v11 + 8))(v14, v10);
-  (*(v15 + 8))(v18, v25);
+  MEMORY[0x25F86F310](0, v16, v13, v18);
+  _Block_release(v18);
+  (*(v11 + 8))(v13, v10);
+  (*(v14 + 8))(v16, v23);
 }
 
 uint64_t closure #1 in NearbyInvitationsController.approve(pendingMember:response:completion:)(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -1005,33 +617,32 @@ uint64_t closure #1 in NearbyInvitationsController.approve(pendingMember:respons
 
   if (os_log_type_enabled(v13, v14))
   {
-    v30 = a5;
+    v29 = a5;
     v15 = swift_slowAlloc();
     v16 = swift_slowAlloc();
-    v31 = v16;
+    v30 = v16;
     *v15 = 136315394;
     type metadata accessor for IncomingInvitationJoinRequest(0);
     v17 = v11;
     v18 = String.init<A>(reflecting:)();
-    v20 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v19, &v31);
+    v20 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v19, &v30);
 
     *(v15 + 4) = v20;
     *(v15 + 12) = 2080;
     type metadata accessor for InvitationJoinResponse();
     v21 = v12;
     v22 = String.init<A>(reflecting:)();
-    v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v22, v23, &v31);
+    v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v22, v23, &v30);
 
     *(v15 + 14) = v24;
     _os_log_impl(&dword_25B7C4000, v13, v14, "NearbyInvitationsController requested approval of pendingMember %s with response: %s", v15, 0x16u);
     swift_arrayDestroy();
     MEMORY[0x25F86FE20](v16, -1, -1);
     v25 = v15;
-    a5 = v30;
+    a5 = v29;
     MEMORY[0x25F86FE20](v25, -1, -1);
   }
 
-  v27 = *(a3 + 16);
   v26 = *(a3 + 24);
   ObjectType = swift_getObjectType();
   return (*(v26 + 48))(v11, v12, a4, a5, ObjectType, v26);
@@ -1039,43 +650,41 @@ uint64_t closure #1 in NearbyInvitationsController.approve(pendingMember:respons
 
 uint64_t NearbyInvitationsController.requestApproval(with:completion:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v25 = a6;
+  v23 = a6;
   v8 = v6;
   v12 = type metadata accessor for DispatchWorkItemFlags();
-  v28 = *(v12 - 8);
-  v13 = *(v28 + 64);
+  v26 = *(v12 - 8);
   MEMORY[0x28223BE20](v12);
-  v15 = &v24 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v27 = type metadata accessor for DispatchQoS();
-  v16 = *(v27 - 8);
-  v17 = *(v16 + 64);
-  MEMORY[0x28223BE20](v27);
-  v19 = &v24 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v26 = *(v8 + 32);
-  v20 = swift_allocObject();
-  v20[2] = a1;
-  v20[3] = v8;
-  v20[4] = a2;
-  v20[5] = a3;
+  v14 = &v22 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v25 = type metadata accessor for DispatchQoS();
+  v15 = *(v25 - 8);
+  MEMORY[0x28223BE20](v25);
+  v17 = &v22 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v24 = *(v8 + 32);
+  v18 = swift_allocObject();
+  v18[2] = a1;
+  v18[3] = v8;
+  v18[4] = a2;
+  v18[5] = a3;
   aBlock[4] = a5;
-  aBlock[5] = v20;
+  aBlock[5] = v18;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable () -> ();
-  aBlock[3] = v25;
-  v21 = _Block_copy(aBlock);
-  v22 = a1;
+  aBlock[3] = v23;
+  v19 = _Block_copy(aBlock);
+  v20 = a1;
 
   static DispatchQoS.unspecified.getter();
-  v29 = MEMORY[0x277D84F90];
-  _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198]);
+  v27 = MEMORY[0x277D84F90];
+  _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
-  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
+  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR, MEMORY[0x277D83970]);
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  MEMORY[0x25F86F310](0, v19, v15, v21);
-  _Block_release(v21);
-  (*(v28 + 8))(v15, v12);
-  (*(v16 + 8))(v19, v27);
+  MEMORY[0x25F86F310](0, v17, v14, v19);
+  _Block_release(v19);
+  (*(v26 + 8))(v14, v12);
+  (*(v15 + 8))(v17, v25);
 }
 
 uint64_t closure #1 in NearbyInvitationsController.reject(pendingMember:completion:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -1105,10 +714,9 @@ uint64_t closure #1 in NearbyInvitationsController.reject(pendingMember:completi
     MEMORY[0x25F86FE20](v12, -1, -1);
   }
 
-  v15 = *(a2 + 16);
-  v16 = *(a2 + 24);
+  v15 = *(a2 + 24);
   ObjectType = swift_getObjectType();
-  return (*(v16 + 56))(v9, a3, a4, ObjectType, v16);
+  return (*(v15 + 56))(v9, a3, a4, ObjectType, v15);
 }
 
 uint64_t closure #1 in NearbyInvitationsController.generateNearbyInvitation(response:)(void *a1, uint64_t a2, uint64_t a3)
@@ -1130,49 +738,47 @@ uint64_t closure #1 in NearbyInvitationsController.generateNearbyInvitation(resp
     MEMORY[0x25F86FE20](v9, -1, -1);
   }
 
-  v10 = a1[2];
-  v11 = a1[3];
+  v10 = a1[3];
   ObjectType = swift_getObjectType();
-  return (*(v11 + 64))(a1[5], a2, a3, ObjectType, v11);
+  return (*(v10 + 64))(a1[5], a2, a3, ObjectType, v10);
 }
 
 uint64_t NearbyInvitationsController.advertiseNearbyInvitation(_:response:)(void *a1, uint64_t a2, uint64_t a3)
 {
   v4 = v3;
   v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v9 = *(*(v8 - 8) + 64);
   MEMORY[0x28223BE20](v8 - 8);
-  v11 = &v20 - v10;
+  v10 = &v19 - v9;
   if (one-time initialization token for client != -1)
   {
     swift_once();
   }
 
-  v12 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v12, static Log.client);
-  v13 = Logger.logObject.getter();
-  v14 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v13, v14))
+  v11 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v11, static Log.client);
+  v12 = Logger.logObject.getter();
+  v13 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v12, v13))
   {
-    v15 = swift_slowAlloc();
-    *v15 = 0;
-    _os_log_impl(&dword_25B7C4000, v13, v14, "Utilization of deprecated SPI advertiseNearbyInvitation.", v15, 2u);
-    MEMORY[0x25F86FE20](v15, -1, -1);
+    v14 = swift_slowAlloc();
+    *v14 = 0;
+    _os_log_impl(&dword_25B7C4000, v12, v13, "Utilization of deprecated SPI advertiseNearbyInvitation.", v14, 2u);
+    MEMORY[0x25F86FE20](v14, -1, -1);
   }
 
-  v16 = type metadata accessor for TaskPriority();
-  (*(*(v16 - 8) + 56))(v11, 1, 1, v16);
-  v17 = swift_allocObject();
-  v17[2] = 0;
-  v17[3] = 0;
-  v17[4] = v4;
-  v17[5] = a1;
-  v17[6] = a2;
-  v17[7] = a3;
+  v15 = type metadata accessor for TaskPriority();
+  (*(*(v15 - 8) + 56))(v10, 1, 1, v15);
+  v16 = swift_allocObject();
+  v16[2] = 0;
+  v16[3] = 0;
+  v16[4] = v4;
+  v16[5] = a1;
+  v16[6] = a2;
+  v16[7] = a3;
 
-  v18 = a1;
+  v17 = a1;
 
-  _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCyt_Tt2g5(0, 0, v11, &async function pointer to partial apply for closure #1 in NearbyInvitationsController.advertiseNearbyInvitation(_:response:), v17);
+  _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCyt_Tt2g5(0, 0, v10, &async function pointer to partial apply for closure #1 in NearbyInvitationsController.advertiseNearbyInvitation(_:response:), v16);
 }
 
 {
@@ -1187,15 +793,11 @@ uint64_t closure #1 in NearbyInvitationsController.advertiseNearbyInvitation(_:r
   v7[13] = a5;
   v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVyShy14NearbySessions0C10InvitationC13PendingMemberVyAD0C5GroupC_GGGMd, &_s7Combine9PublishedVyShy14NearbySessions0C10InvitationC13PendingMemberVyAD0C5GroupC_GGGMR);
   v7[16] = v8;
-  v9 = *(v8 - 8);
-  v7[17] = v9;
-  v10 = *(v9 + 64) + 15;
+  v7[17] = *(v8 - 8);
   v7[18] = swift_task_alloc();
-  v11 = type metadata accessor for UUID();
-  v7[19] = v11;
-  v12 = *(v11 - 8);
-  v7[20] = v12;
-  v13 = *(v12 + 64) + 15;
+  v9 = type metadata accessor for UUID();
+  v7[19] = v9;
+  v7[20] = *(v9 - 8);
   v7[21] = swift_task_alloc();
   v7[22] = swift_task_alloc();
 
@@ -1204,91 +806,85 @@ uint64_t closure #1 in NearbyInvitationsController.advertiseNearbyInvitation(_:r
 
 uint64_t closure #1 in NearbyInvitationsController.advertiseNearbyInvitation(_:response:)()
 {
-  v1 = *(**(*(v0 + 96) + OBJC_IVAR____TtC14NearbySessions27NearbyInvitationsController_groupTable) + 160);
-  v5 = (v1 + *v1);
-  v2 = v1[1];
-  v3 = swift_task_alloc();
-  *(v0 + 184) = v3;
-  *v3 = v0;
-  v3[1] = closure #1 in NearbyInvitationsController.advertiseNearbyInvitation(_:response:);
+  v3 = (*(**(*(v0 + 96) + OBJC_IVAR____TtC14NearbySessions27NearbyInvitationsController_groupTable) + 160) + **(**(*(v0 + 96) + OBJC_IVAR____TtC14NearbySessions27NearbyInvitationsController_groupTable) + 160));
+  v1 = swift_task_alloc();
+  *(v0 + 184) = v1;
+  *v1 = v0;
+  v1[1] = closure #1 in NearbyInvitationsController.advertiseNearbyInvitation(_:response:);
 
-  return v5();
+  return v3();
 }
 
 {
-  receiver = v0[12].receiver;
   super_class = v0[6].super_class;
-  v49 = *(v0[10].receiver + 2);
-  v49(v0[11].receiver, super_class + OBJC_IVAR____TtC14NearbySessions23NearbySessionInvitation_identifier, v0[9].super_class);
-  v3 = *(super_class + OBJC_IVAR____TtC14NearbySessions23NearbySessionInvitation_displayName + 8);
-  v41 = *(super_class + OBJC_IVAR____TtC14NearbySessions23NearbySessionInvitation_displayName);
-  v44 = *(super_class + OBJC_IVAR____TtC14NearbySessions23NearbySessionInvitation_metadata);
-  v4 = one-time initialization token for shared;
+  v41 = *(v0[10].receiver + 2);
+  v41(v0[11].receiver, super_class + OBJC_IVAR____TtC14NearbySessions23NearbySessionInvitation_identifier, v0[9].super_class);
+  v2 = *(super_class + OBJC_IVAR____TtC14NearbySessions23NearbySessionInvitation_displayName + 8);
+  v36 = *(super_class + OBJC_IVAR____TtC14NearbySessions23NearbySessionInvitation_displayName);
+  v38 = *(super_class + OBJC_IVAR____TtC14NearbySessions23NearbySessionInvitation_metadata);
+  v3 = one-time initialization token for shared;
 
-  if (v4 != -1)
+  if (v3 != -1)
   {
     swift_once();
   }
 
-  v5 = v0[11].receiver;
-  v46 = v0[10].super_class;
-  v48 = v0[12].super_class;
-  v50 = v0[10].receiver;
-  v37 = v0[9].super_class;
-  v39 = v0[12].receiver;
-  v6 = v0[8].super_class;
-  v7 = v0[9].receiver;
-  v8 = v0[8].receiver;
-  v9 = static NearbyInvitationsController.shared;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NearbySessions0A10InvitationCyAA0A5GroupCGMd, &_s14NearbySessions0A10InvitationCyAA0A5GroupCGMR);
-  v11 = *(v10 + 48);
-  v12 = *(v10 + 52);
-  v13 = swift_allocObject();
-  v14 = *(*v13 + 144);
-  v15 = MEMORY[0x277D84FA0];
+  receiver = v0[11].receiver;
+  v39 = v0[10].super_class;
+  v40 = v0[12].super_class;
+  v42 = v0[10].receiver;
+  v32 = v0[9].super_class;
+  v34 = v0[12].receiver;
+  v5 = v0[8].super_class;
+  v6 = v0[9].receiver;
+  v7 = v0[8].receiver;
+  v8 = static NearbyInvitationsController.shared;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NearbySessions0A10InvitationCyAA0A5GroupCGMd, &_s14NearbySessions0A10InvitationCyAA0A5GroupCGMR);
+  v9 = swift_allocObject();
+  v10 = *(*v9 + 144);
+  v11 = MEMORY[0x277D84FA0];
   v0[5].receiver = MEMORY[0x277D84FA0];
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sShy14NearbySessions0A10InvitationC13PendingMemberVyAA0A5GroupC_GGMd, &_sShy14NearbySessions0A10InvitationC13PendingMemberVyAA0A5GroupC_GGMR);
   Published.init(initialValue:)();
-  (*(v6 + 4))(v13 + v14, v7, v8);
-  *(v13 + *(*v13 + 152)) = v15;
-  *(v13 + direct field offset for NearbyInvitation.invitationHostInfo) = v44;
-  *(v13 + direct field offset for NearbyInvitation.controller) = v9;
-  v49((v13 + direct field offset for NearbyInvitation.id), v5, v37);
-  v16 = (v13 + direct field offset for NearbyInvitation.displayName);
-  *v16 = v41;
-  v16[1] = v3;
-  *(v13 + direct field offset for NearbyInvitation.userInfo) = xmmword_25B82C300;
-  v17 = (v13 + direct field offset for NearbyInvitation.sourceProvider);
-  v17[3] = type metadata accessor for NearbyGroup();
-  v17[4] = &protocol witness table for NearbyGroup;
-  *v17 = v39;
-  v18 = OBJC_IVAR____TtC14NearbySessions27NearbyInvitationsController_approvalRequests;
+  (*(v5 + 4))(v9 + v10, v6, v7);
+  *(v9 + *(*v9 + 152)) = v11;
+  *(v9 + direct field offset for NearbyInvitation.invitationHostInfo) = v38;
+  *(v9 + direct field offset for NearbyInvitation.controller) = v8;
+  v41((v9 + direct field offset for NearbyInvitation.id), receiver, v32);
+  v12 = (v9 + direct field offset for NearbyInvitation.displayName);
+  *v12 = v36;
+  v12[1] = v2;
+  *(v9 + direct field offset for NearbyInvitation.userInfo) = xmmword_25B82C300;
+  v13 = (v9 + direct field offset for NearbyInvitation.sourceProvider);
+  v13[3] = type metadata accessor for NearbyGroup(0);
+  v13[4] = &protocol witness table for NearbyGroup;
+  *v13 = v34;
+  v14 = OBJC_IVAR____TtC14NearbySessions27NearbyInvitationsController_approvalRequests;
   swift_beginAccess();
-  v0[5].super_class = *(v9 + v18);
+  v0[5].super_class = *(v8 + v14);
   swift_allocObject();
   swift_weakInit();
-  v19 = v44;
+  v15 = v38;
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine18PassthroughSubjectCy14NearbySessions29IncomingInvitationJoinRequestCs5NeverOGMd, &_s7Combine18PassthroughSubjectCy14NearbySessions29IncomingInvitationJoinRequestCs5NeverOGMR);
-  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type PassthroughSubject<IncomingInvitationJoinRequest, Never> and conformance PassthroughSubject<A, B>, &_s7Combine18PassthroughSubjectCy14NearbySessions29IncomingInvitationJoinRequestCs5NeverOGMd, &_s7Combine18PassthroughSubjectCy14NearbySessions29IncomingInvitationJoinRequestCs5NeverOGMR);
+  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type PassthroughSubject<IncomingInvitationJoinRequest, Never> and conformance PassthroughSubject<A, B>, &_s7Combine18PassthroughSubjectCy14NearbySessions29IncomingInvitationJoinRequestCs5NeverOGMd, &_s7Combine18PassthroughSubjectCy14NearbySessions29IncomingInvitationJoinRequestCs5NeverOGMR, MEMORY[0x277CBCE20]);
   Publisher<>.sink(receiveValue:)();
 
-  v20 = *(*v13 + 152);
   swift_beginAccess();
   AnyCancellable.store(in:)();
   swift_endAccess();
 
-  v21 = v50[1];
-  v21(v5, v37);
-  v49(v46, (v13 + direct field offset for NearbyInvitation.id), v37);
-  v22 = objc_allocWithZone(type metadata accessor for NearbyInvitationData(0));
+  v16 = v42[1];
+  v16(receiver, v32);
+  v41(v39, (v9 + direct field offset for NearbyInvitation.id), v32);
+  v17 = objc_allocWithZone(type metadata accessor for NearbyInvitationData(0));
 
-  v24 = specialized NearbyInvitationData.init<A>(from:)(v23);
+  v19 = specialized NearbyInvitationData.init<A>(from:)(v18);
 
-  v26 = (*((*MEMORY[0x277D85000] & *v24) + 0x80))(v25);
-  v28 = v27;
+  v21 = (*((*MEMORY[0x277D85000] & *v19) + 0x80))(v20);
+  v23 = v22;
 
-  if (v48)
+  if (v40)
   {
 
     return swift_unexpectedError();
@@ -1296,50 +892,43 @@ uint64_t closure #1 in NearbyInvitationsController.advertiseNearbyInvitation(_:r
 
   else
   {
-    v45 = v0[12].receiver;
-    v47 = v0[11].receiver;
-    v38 = v21;
-    v30 = v0[10].super_class;
-    v31 = v0[9].super_class;
-    v40 = v0[7].receiver;
-    v42 = v0[6].receiver;
-    v43 = v0[7].super_class;
-    v32 = type metadata accessor for NearbyAdvertisementRequest();
-    v33 = objc_allocWithZone(v32);
-    v49(&v33[OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_identifier], v30, v31);
-    v34 = &v33[OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_invitation];
-    *v34 = v26;
-    v34[1] = v28;
-    v33[OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_route] = 2;
-    *&v33[OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_activityType] = 1;
-    v0[4].receiver = v33;
-    v0[4].super_class = v32;
-    v35 = objc_msgSendSuper2(v0 + 4, sel_init);
-    v38(v30, v31);
-    NearbyInvitationsController.advertiseNearbyInvitation(_:response:)(v35, v40, v43);
+    v33 = v16;
+    v25 = v0[10].super_class;
+    v26 = v0[9].super_class;
+    v35 = v0[7].receiver;
+    v37 = v0[7].super_class;
+    v27 = type metadata accessor for NearbyAdvertisementRequest(0);
+    v28 = objc_allocWithZone(v27);
+    v41(&v28[OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_identifier], v25, v26);
+    v29 = &v28[OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_invitation];
+    *v29 = v21;
+    v29[1] = v23;
+    v28[OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_route] = 2;
+    *&v28[OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_activityType] = 1;
+    v0[4].receiver = v28;
+    v0[4].super_class = v27;
+    v30 = objc_msgSendSuper2(v0 + 4, sel_init);
+    v33(v25, v26);
+    NearbyInvitationsController.advertiseNearbyInvitation(_:response:)(v30, v35, v37);
 
-    v36 = v0->super_class;
+    v31 = v0->super_class;
 
-    return v36();
+    return v31();
   }
 }
 
 uint64_t closure #1 in NearbyInvitationsController.advertiseNearbyInvitation(_:response:)(uint64_t a1)
 {
-  v3 = *(*v2 + 184);
-  v4 = *v2;
-  v4[24] = a1;
-  v4[25] = v1;
+  v3 = *v2;
+  v3[24] = a1;
+  v3[25] = v1;
 
   if (v1)
   {
-    v6 = v4[21];
-    v5 = v4[22];
-    v7 = v4[18];
 
-    v8 = v4[1];
+    v4 = v3[1];
 
-    return v8();
+    return v4();
   }
 
   else
@@ -1352,69 +941,67 @@ uint64_t closure #1 in NearbyInvitationsController.advertiseNearbyInvitation(_:r
 uint64_t _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCyt_Tt2g5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v9 = *(*(v8 - 8) + 64);
   MEMORY[0x28223BE20](v8 - 8);
-  v11 = v24 - v10;
-  outlined init with copy of (UUID, Bool)(a3, v24 - v10, &_sScPSgMd, &_sScPSgMR);
-  v12 = type metadata accessor for TaskPriority();
-  v13 = *(v12 - 8);
-  v14 = (*(v13 + 48))(v11, 1, v12);
+  v10 = v22 - v9;
+  outlined init with copy of (UUID, Bool)(a3, v22 - v9, &_sScPSgMd, &_sScPSgMR);
+  v11 = type metadata accessor for TaskPriority();
+  v12 = *(v11 - 8);
+  v13 = (*(v12 + 48))(v10, 1, v11);
 
-  if (v14 == 1)
+  if (v13 == 1)
   {
-    outlined destroy of NSObject?(v11, &_sScPSgMd, &_sScPSgMR);
+    outlined destroy of NSObject?(v10, &_sScPSgMd, &_sScPSgMR);
   }
 
   else
   {
     TaskPriority.rawValue.getter();
-    (*(v13 + 8))(v11, v12);
+    (*(v12 + 8))(v10, v11);
   }
 
-  v16 = *(a5 + 16);
-  v15 = *(a5 + 24);
+  v14 = *(a5 + 16);
   swift_unknownObjectRetain();
 
-  if (v16)
+  if (v14)
   {
     swift_getObjectType();
-    v17 = dispatch thunk of Actor.unownedExecutor.getter();
-    v19 = v18;
+    v15 = dispatch thunk of Actor.unownedExecutor.getter();
+    v17 = v16;
     swift_unknownObjectRelease();
     if (a2)
     {
 LABEL_6:
-      v20 = String.utf8CString.getter() + 32;
+      v18 = String.utf8CString.getter() + 32;
 
-      if (v19 | v17)
+      if (v17 | v15)
       {
-        v25[0] = 0;
-        v25[1] = 0;
-        v21 = v25;
-        v25[2] = v17;
-        v25[3] = v19;
+        v23[0] = 0;
+        v23[1] = 0;
+        v19 = v23;
+        v23[2] = v15;
+        v23[3] = v17;
       }
 
       else
       {
-        v21 = 0;
+        v19 = 0;
       }
 
-      v24[1] = 7;
-      v24[2] = v21;
-      v24[3] = v20;
-      v22 = swift_task_create();
+      v22[1] = 7;
+      v22[2] = v19;
+      v22[3] = v18;
+      v20 = swift_task_create();
 
       outlined destroy of NSObject?(a3, &_sScPSgMd, &_sScPSgMR);
 
-      return v22;
+      return v20;
     }
   }
 
   else
   {
+    v15 = 0;
     v17 = 0;
-    v19 = 0;
     if (a2)
     {
       goto LABEL_6;
@@ -1422,47 +1009,46 @@ LABEL_6:
   }
 
   outlined destroy of NSObject?(a3, &_sScPSgMd, &_sScPSgMR);
-  if (v19 | v17)
+  if (v17 | v15)
   {
-    v25[4] = 0;
-    v25[5] = 0;
-    v25[6] = v17;
-    v25[7] = v19;
+    v23[4] = 0;
+    v23[5] = 0;
+    v23[6] = v15;
+    v23[7] = v17;
   }
 
   return swift_task_create();
 }
 
-uint64_t closure #1 in NearbyInvitationsController.advertiseNearbyInvitation(_:response:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t closure #1 in NearbyInvitationsController.advertiseNearbyInvitation(_:response:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (one-time initialization token for client != -1)
   {
     swift_once();
   }
 
-  v8 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v8, static Log.client);
-  v9 = Logger.logObject.getter();
-  v10 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v9, v10))
+  v9 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v9, static Log.client);
+  v10 = Logger.logObject.getter();
+  v11 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v10, v11))
   {
-    v11 = swift_slowAlloc();
     v12 = swift_slowAlloc();
-    v20 = v12;
-    *v11 = 136315394;
-    v13 = _typeName(_:qualified:)();
-    v15 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v13, v14, &v20);
+    v13 = swift_slowAlloc();
+    v20 = v13;
+    *v12 = 136315394;
+    v14 = _typeName(_:qualified:)();
+    v16 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v15, &v20);
 
-    *(v11 + 4) = v15;
-    *(v11 + 12) = 2080;
-    *(v11 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000026, 0x800000025B830630, &v20);
-    _os_log_impl(&dword_25B7C4000, v9, v10, "%s %s", v11, 0x16u);
+    *(v12 + 4) = v16;
+    *(v12 + 12) = 2080;
+    *(v12 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000026, 0x800000025B830630, &v20);
+    _os_log_impl(&dword_25B7C4000, v10, v11, "%s %s", v12, 0x16u);
     swift_arrayDestroy();
+    MEMORY[0x25F86FE20](v13, -1, -1);
     MEMORY[0x25F86FE20](v12, -1, -1);
-    MEMORY[0x25F86FE20](v11, -1, -1);
   }
 
-  v16 = a1[2];
   v17 = a1[3];
   ObjectType = swift_getObjectType();
   return (*(v17 + 72))(a2, a1[5], a3, a4, ObjectType, v17);
@@ -1470,79 +1056,76 @@ uint64_t closure #1 in NearbyInvitationsController.advertiseNearbyInvitation(_:r
 
 uint64_t NearbyInvitationsController.advertiseNearbyInvitation(_:response:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v24 = a5;
-  v25 = a6;
+  v22 = a5;
+  v23 = a6;
   v7 = v6;
   v11 = *v7;
   v12 = type metadata accessor for DispatchWorkItemFlags();
-  v28 = *(v12 - 8);
-  v13 = *(v28 + 64);
+  v26 = *(v12 - 8);
   MEMORY[0x28223BE20](v12);
-  v15 = &v24 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v27 = type metadata accessor for DispatchQoS();
-  v16 = *(v27 - 8);
-  v17 = *(v16 + 64);
-  MEMORY[0x28223BE20](v27);
-  v19 = &v24 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v26 = v7[4];
-  v20 = swift_allocObject();
-  v20[2] = v7;
-  v20[3] = a1;
-  v20[4] = a2;
-  v20[5] = a3;
-  v20[6] = v11;
-  aBlock[4] = v24;
-  aBlock[5] = v20;
+  v14 = &v22 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v25 = type metadata accessor for DispatchQoS();
+  v15 = *(v25 - 8);
+  MEMORY[0x28223BE20](v25);
+  v17 = &v22 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v24 = v7[4];
+  v18 = swift_allocObject();
+  v18[2] = v7;
+  v18[3] = a1;
+  v18[4] = a2;
+  v18[5] = a3;
+  v18[6] = v11;
+  aBlock[4] = v22;
+  aBlock[5] = v18;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable () -> ();
-  aBlock[3] = v25;
-  v21 = _Block_copy(aBlock);
+  aBlock[3] = v23;
+  v19 = _Block_copy(aBlock);
 
-  v22 = a1;
+  v20 = a1;
 
   static DispatchQoS.unspecified.getter();
-  v29 = MEMORY[0x277D84F90];
-  _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198]);
+  v27 = MEMORY[0x277D84F90];
+  _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
-  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
+  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR, MEMORY[0x277D83970]);
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  MEMORY[0x25F86F310](0, v19, v15, v21);
-  _Block_release(v21);
-  (*(v28 + 8))(v15, v12);
-  (*(v16 + 8))(v19, v27);
+  MEMORY[0x25F86F310](0, v17, v14, v19);
+  _Block_release(v19);
+  (*(v26 + 8))(v14, v12);
+  (*(v15 + 8))(v17, v25);
 }
 
-uint64_t closure #1 in NearbyInvitationsController.advertiseNearbySessionEndpoint(params:response:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t closure #1 in NearbyInvitationsController.advertiseNearbySessionEndpoint(params:response:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (one-time initialization token for client != -1)
   {
     swift_once();
   }
 
-  v8 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v8, static Log.client);
-  v9 = Logger.logObject.getter();
-  v10 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v9, v10))
+  v9 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v9, static Log.client);
+  v10 = Logger.logObject.getter();
+  v11 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v10, v11))
   {
-    v11 = swift_slowAlloc();
     v12 = swift_slowAlloc();
-    v20 = v12;
-    *v11 = 136315394;
-    v13 = _typeName(_:qualified:)();
-    v15 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v13, v14, &v20);
+    v13 = swift_slowAlloc();
+    v20 = v13;
+    *v12 = 136315394;
+    v14 = _typeName(_:qualified:)();
+    v16 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v15, &v20);
 
-    *(v11 + 4) = v15;
-    *(v11 + 12) = 2080;
-    *(v11 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000030, 0x800000025B82F610, &v20);
-    _os_log_impl(&dword_25B7C4000, v9, v10, "%s %s", v11, 0x16u);
+    *(v12 + 4) = v16;
+    *(v12 + 12) = 2080;
+    *(v12 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000030, 0x800000025B82F610, &v20);
+    _os_log_impl(&dword_25B7C4000, v10, v11, "%s %s", v12, 0x16u);
     swift_arrayDestroy();
+    MEMORY[0x25F86FE20](v13, -1, -1);
     MEMORY[0x25F86FE20](v12, -1, -1);
-    MEMORY[0x25F86FE20](v11, -1, -1);
   }
 
-  v16 = *(a1 + 16);
   v17 = *(a1 + 24);
   ObjectType = swift_getObjectType();
   return (*(v17 + 80))(a2, a3, a4, ObjectType, v17);
@@ -1565,250 +1148,241 @@ uint64_t closure #1 in NearbyInvitationsController.markInvitationUsed(_:response
   {
     v12 = swift_slowAlloc();
     v13 = swift_slowAlloc();
-    v18 = v13;
+    v17 = v13;
     *v12 = 136315138;
-    *(v12 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(*&v9[OBJC_IVAR____TtC14NearbySessions35NearbyInvitationJoinRequestMetadata_pseudonym], *&v9[OBJC_IVAR____TtC14NearbySessions35NearbyInvitationJoinRequestMetadata_pseudonym + 8], &v18);
+    *(v12 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(*&v9[OBJC_IVAR____TtC14NearbySessions35NearbyInvitationJoinRequestMetadata_pseudonym], *&v9[OBJC_IVAR____TtC14NearbySessions35NearbyInvitationJoinRequestMetadata_pseudonym + 8], &v17);
     _os_log_impl(&dword_25B7C4000, v10, v11, "Requesting to mark pseudonym %s as used.", v12, 0xCu);
     __swift_destroy_boxed_opaque_existential_0(v13);
     MEMORY[0x25F86FE20](v13, -1, -1);
     MEMORY[0x25F86FE20](v12, -1, -1);
   }
 
-  v14 = *(a2 + 16);
-  v15 = *(a2 + 24);
+  v14 = *(a2 + 24);
   ObjectType = swift_getObjectType();
-  return (*(v15 + 104))(v9, a3, a4, ObjectType, v15);
+  return (*(v14 + 104))(v9, a3, a4, ObjectType, v14);
 }
 
 uint64_t NearbyInvitationsController.assertAdvertisementPublic(_:rotations:response:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v5 = v4;
-  v28 = a3;
-  v29 = a4;
-  v27 = a2;
-  v33 = type metadata accessor for DispatchWorkItemFlags();
-  v35 = *(v33 - 8);
-  v7 = *(v35 + 64);
-  MEMORY[0x28223BE20](v33);
-  v31 = &v27 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v34 = type metadata accessor for DispatchQoS();
-  v32 = *(v34 - 8);
-  v9 = *(v32 + 64);
-  MEMORY[0x28223BE20](v34);
-  v11 = &v27 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = type metadata accessor for UUID();
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  MEMORY[0x28223BE20](v12);
-  v15 = &v27 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v30 = *(v5 + 32);
-  (*(v13 + 16))(v15, a1, v12);
-  v16 = (*(v13 + 80) + 16) & ~*(v13 + 80);
-  v17 = (v14 + v16 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v18 = (v17 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v19 = swift_allocObject();
-  (*(v13 + 32))(v19 + v16, v15, v12);
-  *(v19 + v17) = v5;
-  v20 = v28;
-  *(v19 + v18) = v27;
-  v21 = (v19 + ((v18 + 15) & 0xFFFFFFFFFFFFFFF8));
-  v22 = v29;
-  *v21 = v20;
-  v21[1] = v22;
+  v26 = a3;
+  v27 = a4;
+  v25 = a2;
+  v31 = type metadata accessor for DispatchWorkItemFlags();
+  v33 = *(v31 - 8);
+  MEMORY[0x28223BE20](v31);
+  v29 = &v25 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v32 = type metadata accessor for DispatchQoS();
+  v30 = *(v32 - 8);
+  MEMORY[0x28223BE20](v32);
+  v9 = &v25 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for UUID();
+  v11 = *(v10 - 8);
+  v12 = *(v11 + 64);
+  MEMORY[0x28223BE20](v10);
+  v13 = &v25 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v28 = *(v5 + 32);
+  (*(v11 + 16))(v13, a1, v10);
+  v14 = (*(v11 + 80) + 16) & ~*(v11 + 80);
+  v15 = (v12 + v14 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v16 = (v15 + 15) & 0xFFFFFFFFFFFFFFF8;
+  v17 = swift_allocObject();
+  (*(v11 + 32))(v17 + v14, v13, v10);
+  *(v17 + v15) = v5;
+  v18 = v26;
+  *(v17 + v16) = v25;
+  v19 = (v17 + ((v16 + 15) & 0xFFFFFFFFFFFFFFF8));
+  v20 = v27;
+  *v19 = v18;
+  v19[1] = v20;
   aBlock[4] = partial apply for closure #1 in NearbyInvitationsController.assertAdvertisementPublic(_:rotations:response:);
-  aBlock[5] = v19;
+  aBlock[5] = v17;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable () -> ();
   aBlock[3] = &block_descriptor_70;
-  v23 = _Block_copy(aBlock);
+  v21 = _Block_copy(aBlock);
 
   static DispatchQoS.unspecified.getter();
-  v36 = MEMORY[0x277D84F90];
-  _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198]);
+  v34 = MEMORY[0x277D84F90];
+  _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
-  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
-  v24 = v31;
-  v25 = v33;
+  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR, MEMORY[0x277D83970]);
+  v22 = v29;
+  v23 = v31;
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  MEMORY[0x25F86F310](0, v11, v24, v23);
-  _Block_release(v23);
-  (*(v35 + 8))(v24, v25);
-  (*(v32 + 8))(v11, v34);
+  MEMORY[0x25F86F310](0, v9, v22, v21);
+  _Block_release(v21);
+  (*(v33 + 8))(v22, v23);
+  (*(v30 + 8))(v9, v32);
 }
 
 uint64_t closure #1 in NearbyInvitationsController.assertAdvertisementPublic(_:rotations:response:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v36 = a2;
+  v34 = a2;
   v9 = type metadata accessor for UUID();
   v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
   MEMORY[0x28223BE20](v9);
-  v13 = &v32 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = &v30 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (one-time initialization token for client != -1)
   {
     swift_once();
   }
 
-  v14 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v14, static Log.client);
-  (*(v10 + 16))(v13, a1, v9);
-  v15 = Logger.logObject.getter();
-  v16 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v15, v16))
+  v13 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v13, static Log.client);
+  (*(v10 + 16))(v12, a1, v9);
+  v14 = Logger.logObject.getter();
+  v15 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v14, v15))
   {
-    v17 = swift_slowAlloc();
-    v34 = a1;
-    v18 = v17;
-    v19 = swift_slowAlloc();
-    v35 = a5;
-    v33 = v19;
-    v37 = v19;
-    *v18 = 136315138;
-    _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0]);
-    v20 = dispatch thunk of CustomStringConvertible.description.getter();
-    v21 = a3;
-    v22 = a4;
-    v24 = v23;
-    (*(v10 + 8))(v13, v9);
-    v25 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v20, v24, &v37);
-    a4 = v22;
-    a3 = v21;
+    v16 = swift_slowAlloc();
+    v32 = a1;
+    v17 = v16;
+    v18 = swift_slowAlloc();
+    v33 = a5;
+    v31 = v18;
+    v35 = v18;
+    *v17 = 136315138;
+    _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0], MEMORY[0x277CC9628]);
+    v19 = dispatch thunk of CustomStringConvertible.description.getter();
+    v20 = a3;
+    v21 = a4;
+    v23 = v22;
+    (*(v10 + 8))(v12, v9);
+    v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v19, v23, &v35);
+    a4 = v21;
+    a3 = v20;
 
-    *(v18 + 4) = v25;
-    _os_log_impl(&dword_25B7C4000, v15, v16, "Requesting to assert invitation %s as public.", v18, 0xCu);
-    v26 = v33;
-    __swift_destroy_boxed_opaque_existential_0(v33);
-    a5 = v35;
+    *(v17 + 4) = v24;
+    _os_log_impl(&dword_25B7C4000, v14, v15, "Requesting to assert invitation %s as public.", v17, 0xCu);
+    v25 = v31;
+    __swift_destroy_boxed_opaque_existential_0(v31);
+    a5 = v33;
+    MEMORY[0x25F86FE20](v25, -1, -1);
+    v26 = v17;
+    a1 = v32;
     MEMORY[0x25F86FE20](v26, -1, -1);
-    v27 = v18;
-    a1 = v34;
-    MEMORY[0x25F86FE20](v27, -1, -1);
   }
 
   else
   {
 
-    (*(v10 + 8))(v13, v9);
+    (*(v10 + 8))(v12, v9);
   }
 
-  v29 = *(v36 + 16);
-  v28 = *(v36 + 24);
+  v27 = *(v34 + 24);
   ObjectType = swift_getObjectType();
-  return (*(v28 + 112))(a1, a3, a4, a5, ObjectType, v28);
+  return (*(v27 + 112))(a1, a3, a4, a5, ObjectType, v27);
 }
 
 uint64_t NearbyInvitationsController.releaseAdvertisementPublicAssertion(_:assertionIdentifier:)(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
-  v29 = a2;
-  v34 = type metadata accessor for DispatchWorkItemFlags();
-  v36 = *(v34 - 8);
-  v5 = *(v36 + 64);
-  MEMORY[0x28223BE20](v34);
-  v32 = &v28 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v35 = type metadata accessor for DispatchQoS();
-  v33 = *(v35 - 8);
-  v7 = *(v33 + 64);
-  MEMORY[0x28223BE20](v35);
-  v30 = &v28 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for UUID();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  v12 = MEMORY[0x28223BE20](v9);
-  v13 = &v28 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v12);
-  v15 = &v28 - v14;
-  v31 = *(v2 + 32);
-  v16 = *(v10 + 16);
-  v16(&v28 - v14, v29, v9);
-  v16(v13, a1, v9);
-  v17 = *(v10 + 80);
-  v18 = (v17 + 16) & ~v17;
-  v19 = (v11 + v18 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v20 = (v17 + v19 + 8) & ~v17;
-  v21 = swift_allocObject();
-  v22 = *(v10 + 32);
-  v22(v21 + v18, v15, v9);
-  *(v21 + v19) = v3;
-  v22(v21 + v20, v13, v9);
+  v27 = a2;
+  v32 = type metadata accessor for DispatchWorkItemFlags();
+  v34 = *(v32 - 8);
+  MEMORY[0x28223BE20](v32);
+  v30 = &v26 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v33 = type metadata accessor for DispatchQoS();
+  v31 = *(v33 - 8);
+  MEMORY[0x28223BE20](v33);
+  v28 = &v26 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for UUID();
+  v8 = *(v7 - 8);
+  v9 = *(v8 + 64);
+  v10 = MEMORY[0x28223BE20](v7);
+  v11 = &v26 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v10);
+  v13 = &v26 - v12;
+  v29 = *(v2 + 32);
+  v14 = *(v8 + 16);
+  v14(&v26 - v12, v27, v7);
+  v14(v11, a1, v7);
+  v15 = *(v8 + 80);
+  v16 = (v15 + 16) & ~v15;
+  v17 = (v9 + v16 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v18 = (v15 + v17 + 8) & ~v15;
+  v19 = swift_allocObject();
+  v20 = *(v8 + 32);
+  v20(v19 + v16, v13, v7);
+  *(v19 + v17) = v3;
+  v20(v19 + v18, v11, v7);
   aBlock[4] = partial apply for closure #1 in NearbyInvitationsController.releaseAdvertisementPublicAssertion(_:assertionIdentifier:);
-  aBlock[5] = v21;
+  aBlock[5] = v19;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable () -> ();
   aBlock[3] = &block_descriptor_76;
-  v23 = _Block_copy(aBlock);
+  v21 = _Block_copy(aBlock);
 
-  v24 = v30;
+  v22 = v28;
   static DispatchQoS.unspecified.getter();
-  v37 = MEMORY[0x277D84F90];
-  _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198]);
+  v35 = MEMORY[0x277D84F90];
+  _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
-  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
-  v25 = v32;
-  v26 = v34;
+  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR, MEMORY[0x277D83970]);
+  v23 = v30;
+  v24 = v32;
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  MEMORY[0x25F86F310](0, v24, v25, v23);
-  _Block_release(v23);
-  (*(v36 + 8))(v25, v26);
-  (*(v33 + 8))(v24, v35);
+  MEMORY[0x25F86F310](0, v22, v23, v21);
+  _Block_release(v21);
+  (*(v34 + 8))(v23, v24);
+  (*(v31 + 8))(v22, v33);
 }
 
 uint64_t closure #1 in NearbyInvitationsController.releaseAdvertisementPublicAssertion(_:assertionIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = type metadata accessor for UUID();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v28 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v26 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (one-time initialization token for client != -1)
   {
     swift_once();
   }
 
-  v11 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v11, static Log.client);
-  (*(v7 + 16))(v10, a1, v6);
-  v12 = Logger.logObject.getter();
-  v13 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v12, v13))
+  v10 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v10, static Log.client);
+  (*(v7 + 16))(v9, a1, v6);
+  v11 = Logger.logObject.getter();
+  v12 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v11, v12))
   {
-    v14 = swift_slowAlloc();
-    v30 = a3;
-    v15 = v14;
-    v16 = swift_slowAlloc();
-    v29 = a1;
-    v17 = v16;
-    v31 = v16;
-    *v15 = 136315138;
-    _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0]);
-    v18 = dispatch thunk of CustomStringConvertible.description.getter();
-    v20 = v19;
-    (*(v7 + 8))(v10, v6);
-    v21 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v20, &v31);
+    v13 = swift_slowAlloc();
+    v28 = a3;
+    v14 = v13;
+    v15 = swift_slowAlloc();
+    v27 = a1;
+    v16 = v15;
+    v29 = v15;
+    *v14 = 136315138;
+    _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0], MEMORY[0x277CC9628]);
+    v17 = dispatch thunk of CustomStringConvertible.description.getter();
+    v19 = v18;
+    (*(v7 + 8))(v9, v6);
+    v20 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v17, v19, &v29);
 
-    *(v15 + 4) = v21;
-    _os_log_impl(&dword_25B7C4000, v12, v13, "Request to release assertion identifier: %s", v15, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v17);
-    v22 = v17;
-    a1 = v29;
+    *(v14 + 4) = v20;
+    _os_log_impl(&dword_25B7C4000, v11, v12, "Request to release assertion identifier: %s", v14, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v16);
+    v21 = v16;
+    a1 = v27;
+    MEMORY[0x25F86FE20](v21, -1, -1);
+    v22 = v14;
+    a3 = v28;
     MEMORY[0x25F86FE20](v22, -1, -1);
-    v23 = v15;
-    a3 = v30;
-    MEMORY[0x25F86FE20](v23, -1, -1);
   }
 
   else
   {
 
-    (*(v7 + 8))(v10, v6);
+    (*(v7 + 8))(v9, v6);
   }
 
-  v25 = *(a2 + 16);
-  v24 = *(a2 + 24);
+  v23 = *(a2 + 24);
   ObjectType = swift_getObjectType();
-  return (*(v24 + 120))(a3, a1, ObjectType, v24);
+  return (*(v23 + 120))(a3, a1, ObjectType, v23);
 }
 
 uint64_t closure #1 in NearbyInvitationsController.releaseInvitation(_:response:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -1828,19 +1402,18 @@ uint64_t closure #1 in NearbyInvitationsController.releaseInvitation(_:response:
   {
     v12 = swift_slowAlloc();
     v13 = swift_slowAlloc();
-    v18 = v13;
+    v17 = v13;
     *v12 = 136315138;
-    *(v12 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(*&v9[OBJC_IVAR____TtC14NearbySessions35NearbyInvitationJoinRequestMetadata_pseudonym], *&v9[OBJC_IVAR____TtC14NearbySessions35NearbyInvitationJoinRequestMetadata_pseudonym + 8], &v18);
+    *(v12 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(*&v9[OBJC_IVAR____TtC14NearbySessions35NearbyInvitationJoinRequestMetadata_pseudonym], *&v9[OBJC_IVAR____TtC14NearbySessions35NearbyInvitationJoinRequestMetadata_pseudonym + 8], &v17);
     _os_log_impl(&dword_25B7C4000, v10, v11, "Requesting to release invitation from pseudonym %s.", v12, 0xCu);
     __swift_destroy_boxed_opaque_existential_0(v13);
     MEMORY[0x25F86FE20](v13, -1, -1);
     MEMORY[0x25F86FE20](v12, -1, -1);
   }
 
-  v14 = *(a2 + 16);
-  v15 = *(a2 + 24);
+  v14 = *(a2 + 24);
   ObjectType = swift_getObjectType();
-  return (*(v15 + 128))(v9, a3, a4, ObjectType, v15);
+  return (*(v14 + 128))(v9, a3, a4, ObjectType, v14);
 }
 
 uint64_t NearbyInvitationsController.stopAdvertisingNearbyInvitation(_:response:)(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1869,87 +1442,84 @@ uint64_t NearbyInvitationsController.stopAdvertisingNearbyInvitation(_:response:
 
 {
   v4 = v3;
-  v26 = a2;
-  v27 = a3;
-  v25 = *v3;
-  v30 = type metadata accessor for DispatchWorkItemFlags();
-  v32 = *(v30 - 8);
-  v6 = *(v32 + 64);
-  MEMORY[0x28223BE20](v30);
-  v8 = &v24 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v31 = type metadata accessor for DispatchQoS();
-  v29 = *(v31 - 8);
-  v9 = *(v29 + 64);
-  MEMORY[0x28223BE20](v31);
-  v11 = &v24 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = type metadata accessor for UUID();
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  MEMORY[0x28223BE20](v12);
-  v15 = &v24 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v28 = v4[4];
-  (*(v13 + 16))(v15, a1, v12);
-  v16 = (*(v13 + 80) + 24) & ~*(v13 + 80);
-  v17 = (v14 + v16 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v18 = swift_allocObject();
-  *(v18 + 16) = v4;
-  (*(v13 + 32))(v18 + v16, v15, v12);
-  v19 = (v18 + v17);
-  v20 = v27;
-  *v19 = v26;
-  v19[1] = v20;
-  *(v18 + ((v17 + 23) & 0xFFFFFFFFFFFFFFF8)) = v25;
+  v24 = a2;
+  v25 = a3;
+  v23 = *v3;
+  v28 = type metadata accessor for DispatchWorkItemFlags();
+  v30 = *(v28 - 8);
+  MEMORY[0x28223BE20](v28);
+  v7 = &v22 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v29 = type metadata accessor for DispatchQoS();
+  v27 = *(v29 - 8);
+  MEMORY[0x28223BE20](v29);
+  v9 = &v22 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for UUID();
+  v11 = *(v10 - 8);
+  v12 = *(v11 + 64);
+  MEMORY[0x28223BE20](v10);
+  v13 = &v22 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v26 = v4[4];
+  (*(v11 + 16))(v13, a1, v10);
+  v14 = (*(v11 + 80) + 24) & ~*(v11 + 80);
+  v15 = (v12 + v14 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v16 = swift_allocObject();
+  *(v16 + 16) = v4;
+  (*(v11 + 32))(v16 + v14, v13, v10);
+  v17 = (v16 + v15);
+  v18 = v25;
+  *v17 = v24;
+  v17[1] = v18;
+  *(v16 + ((v15 + 23) & 0xFFFFFFFFFFFFFFF8)) = v23;
   aBlock[4] = partial apply for closure #1 in NearbyInvitationsController.stopAdvertisingNearbyInvitation(_:response:);
-  aBlock[5] = v18;
+  aBlock[5] = v16;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable () -> ();
   aBlock[3] = &block_descriptor_88;
-  v21 = _Block_copy(aBlock);
+  v19 = _Block_copy(aBlock);
 
   static DispatchQoS.unspecified.getter();
-  v33 = MEMORY[0x277D84F90];
-  _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198]);
+  v31 = MEMORY[0x277D84F90];
+  _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
-  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
-  v22 = v30;
+  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR, MEMORY[0x277D83970]);
+  v20 = v28;
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  MEMORY[0x25F86F310](0, v11, v8, v21);
-  _Block_release(v21);
-  (*(v32 + 8))(v8, v22);
-  (*(v29 + 8))(v11, v31);
+  MEMORY[0x25F86F310](0, v9, v7, v19);
+  _Block_release(v19);
+  (*(v30 + 8))(v7, v20);
+  (*(v27 + 8))(v9, v29);
 }
 
-uint64_t closure #1 in NearbyInvitationsController.stopAdvertisingNearbyInvitation(_:response:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t closure #1 in NearbyInvitationsController.stopAdvertisingNearbyInvitation(_:response:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (one-time initialization token for client != -1)
   {
     swift_once();
   }
 
-  v8 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v8, static Log.client);
-  v9 = Logger.logObject.getter();
-  v10 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v9, v10))
+  v9 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v9, static Log.client);
+  v10 = Logger.logObject.getter();
+  v11 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v10, v11))
   {
-    v11 = swift_slowAlloc();
     v12 = swift_slowAlloc();
-    v20 = v12;
-    *v11 = 136315394;
-    v13 = _typeName(_:qualified:)();
-    v15 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v13, v14, &v20);
+    v13 = swift_slowAlloc();
+    v20 = v13;
+    *v12 = 136315394;
+    v14 = _typeName(_:qualified:)();
+    v16 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v15, &v20);
 
-    *(v11 + 4) = v15;
-    *(v11 + 12) = 2080;
-    *(v11 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000002CLL, 0x800000025B82F5E0, &v20);
-    _os_log_impl(&dword_25B7C4000, v9, v10, "%s %s", v11, 0x16u);
+    *(v12 + 4) = v16;
+    *(v12 + 12) = 2080;
+    *(v12 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000002CLL, 0x800000025B82F5E0, &v20);
+    _os_log_impl(&dword_25B7C4000, v10, v11, "%s %s", v12, 0x16u);
     swift_arrayDestroy();
+    MEMORY[0x25F86FE20](v13, -1, -1);
     MEMORY[0x25F86FE20](v12, -1, -1);
-    MEMORY[0x25F86FE20](v11, -1, -1);
   }
 
-  v16 = *(a1 + 16);
   v17 = *(a1 + 24);
   ObjectType = swift_getObjectType();
   return (*(v17 + 88))(a2, a3, a4, ObjectType, v17);
@@ -1961,70 +1531,67 @@ uint64_t NearbyInvitationsController.stopAdvertisingNearbySessionEndpoint(respon
   v6 = *v3;
   v7 = type metadata accessor for DispatchWorkItemFlags();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
   MEMORY[0x28223BE20](v7);
-  v11 = v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v20 = type metadata accessor for DispatchQoS();
-  v12 = *(v20 - 8);
-  v13 = *(v12 + 64);
-  MEMORY[0x28223BE20](v20);
-  v15 = v19 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19[1] = v3[4];
-  v16 = swift_allocObject();
-  v16[2] = v3;
-  v16[3] = a1;
-  v16[4] = a2;
-  v16[5] = v6;
+  v10 = v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = type metadata accessor for DispatchQoS();
+  v11 = *(v18 - 8);
+  MEMORY[0x28223BE20](v18);
+  v13 = v17 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17[1] = v3[4];
+  v14 = swift_allocObject();
+  v14[2] = v3;
+  v14[3] = a1;
+  v14[4] = a2;
+  v14[5] = v6;
   aBlock[4] = partial apply for closure #1 in NearbyInvitationsController.stopAdvertisingNearbySessionEndpoint(response:);
-  aBlock[5] = v16;
+  aBlock[5] = v14;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable () -> ();
   aBlock[3] = &block_descriptor_94;
-  v17 = _Block_copy(aBlock);
+  v15 = _Block_copy(aBlock);
 
   static DispatchQoS.unspecified.getter();
-  v21 = MEMORY[0x277D84F90];
-  _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198]);
+  v19 = MEMORY[0x277D84F90];
+  _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
-  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
+  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR, MEMORY[0x277D83970]);
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  MEMORY[0x25F86F310](0, v15, v11, v17);
-  _Block_release(v17);
-  (*(v8 + 8))(v11, v7);
-  (*(v12 + 8))(v15, v20);
+  MEMORY[0x25F86F310](0, v13, v10, v15);
+  _Block_release(v15);
+  (*(v8 + 8))(v10, v7);
+  (*(v11 + 8))(v13, v18);
 }
 
-uint64_t closure #1 in NearbyInvitationsController.stopAdvertisingNearbySessionEndpoint(response:)(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t closure #1 in NearbyInvitationsController.stopAdvertisingNearbySessionEndpoint(response:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (one-time initialization token for client != -1)
   {
     swift_once();
   }
 
-  v6 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v6, static Log.client);
-  v7 = Logger.logObject.getter();
-  v8 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v7, v8))
+  v7 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v7, static Log.client);
+  v8 = Logger.logObject.getter();
+  v9 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v8, v9))
   {
-    v9 = swift_slowAlloc();
     v10 = swift_slowAlloc();
-    v18 = v10;
-    *v9 = 136315394;
-    v11 = _typeName(_:qualified:)();
-    v13 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v11, v12, &v18);
+    v11 = swift_slowAlloc();
+    v18 = v11;
+    *v10 = 136315394;
+    v12 = _typeName(_:qualified:)();
+    v14 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v12, v13, &v18);
 
-    *(v9 + 4) = v13;
-    *(v9 + 12) = 2080;
-    *(v9 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000002FLL, 0x800000025B82F5B0, &v18);
-    _os_log_impl(&dword_25B7C4000, v7, v8, "%s %s", v9, 0x16u);
+    *(v10 + 4) = v14;
+    *(v10 + 12) = 2080;
+    *(v10 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000002FLL, 0x800000025B82F5B0, &v18);
+    _os_log_impl(&dword_25B7C4000, v8, v9, "%s %s", v10, 0x16u);
     swift_arrayDestroy();
+    MEMORY[0x25F86FE20](v11, -1, -1);
     MEMORY[0x25F86FE20](v10, -1, -1);
-    MEMORY[0x25F86FE20](v9, -1, -1);
   }
 
-  v14 = *(a1 + 16);
   v15 = *(a1 + 24);
   ObjectType = swift_getObjectType();
   return (*(v15 + 96))(a2, a3, ObjectType, v15);
@@ -2033,53 +1600,51 @@ uint64_t closure #1 in NearbyInvitationsController.stopAdvertisingNearbySessionE
 uint64_t NearbyInvitationsController.scanNearbyInvitations(scannerID:response:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = v3;
-  v26 = a2;
-  v27 = a3;
+  v24 = a2;
+  v25 = a3;
   v6 = type metadata accessor for DispatchWorkItemFlags();
-  v31 = *(v6 - 8);
-  v7 = *(v31 + 64);
+  v29 = *(v6 - 8);
   MEMORY[0x28223BE20](v6);
-  v9 = &v25 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for DispatchQoS();
-  v29 = *(v10 - 8);
-  v30 = v10;
-  v11 = *(v29 + 64);
-  MEMORY[0x28223BE20](v10);
-  v13 = &v25 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for UUID();
-  v15 = *(v14 - 8);
-  v16 = *(v15 + 64);
-  MEMORY[0x28223BE20](v14);
-  v17 = &v25 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v28 = *(v3 + 32);
-  (*(v15 + 16))(v17, a1, v14);
-  v18 = (*(v15 + 80) + 24) & ~*(v15 + 80);
-  v19 = (v16 + v18 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v20 = swift_allocObject();
-  *(v20 + 16) = v4;
-  (*(v15 + 32))(v20 + v18, v17, v14);
-  v21 = (v20 + v19);
-  v22 = v27;
-  *v21 = v26;
-  v21[1] = v22;
+  v8 = &v23 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = type metadata accessor for DispatchQoS();
+  v27 = *(v9 - 8);
+  v28 = v9;
+  MEMORY[0x28223BE20](v9);
+  v11 = &v23 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for UUID();
+  v13 = *(v12 - 8);
+  v14 = *(v13 + 64);
+  MEMORY[0x28223BE20](v12);
+  v15 = &v23 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v26 = *(v3 + 32);
+  (*(v13 + 16))(v15, a1, v12);
+  v16 = (*(v13 + 80) + 24) & ~*(v13 + 80);
+  v17 = (v14 + v16 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v18 = swift_allocObject();
+  *(v18 + 16) = v4;
+  (*(v13 + 32))(v18 + v16, v15, v12);
+  v19 = (v18 + v17);
+  v20 = v25;
+  *v19 = v24;
+  v19[1] = v20;
   aBlock[4] = partial apply for closure #1 in NearbyInvitationsController.scanNearbyInvitations(scannerID:response:);
-  aBlock[5] = v20;
+  aBlock[5] = v18;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable () -> ();
   aBlock[3] = &block_descriptor_100;
-  v23 = _Block_copy(aBlock);
+  v21 = _Block_copy(aBlock);
 
   static DispatchQoS.unspecified.getter();
-  v32 = MEMORY[0x277D84F90];
-  _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198]);
+  v30 = MEMORY[0x277D84F90];
+  _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
-  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
+  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR, MEMORY[0x277D83970]);
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  MEMORY[0x25F86F310](0, v13, v9, v23);
-  _Block_release(v23);
-  (*(v31 + 8))(v9, v6);
-  (*(v29 + 8))(v13, v30);
+  MEMORY[0x25F86F310](0, v11, v8, v21);
+  _Block_release(v21);
+  (*(v29 + 8))(v8, v6);
+  (*(v27 + 8))(v11, v28);
 }
 
 uint64_t closure #1 in NearbyInvitationsController.scanNearbyInvitations(scannerID:response:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -2101,66 +1666,63 @@ uint64_t closure #1 in NearbyInvitationsController.scanNearbyInvitations(scanner
     MEMORY[0x25F86FE20](v11, -1, -1);
   }
 
-  v12 = *(a1 + 16);
-  v13 = *(a1 + 24);
+  v12 = *(a1 + 24);
   ObjectType = swift_getObjectType();
-  return (*(v13 + 136))(a2, a3, a4, ObjectType, v13);
+  return (*(v12 + 136))(a2, a3, a4, ObjectType, v12);
 }
 
 uint64_t NearbyInvitationsController.scanNearbyEndpoints(params:scannerID:response:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v5 = v4;
-  v28 = a3;
-  v29 = a4;
-  v31 = type metadata accessor for DispatchWorkItemFlags();
-  v34 = *(v31 - 8);
-  v8 = *(v34 + 64);
-  MEMORY[0x28223BE20](v31);
-  v10 = &v28 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = type metadata accessor for DispatchQoS();
-  v32 = *(v11 - 8);
-  v33 = v11;
-  v12 = *(v32 + 64);
-  MEMORY[0x28223BE20](v11);
-  v14 = &v28 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = type metadata accessor for UUID();
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  MEMORY[0x28223BE20](v15);
-  v18 = &v28 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v30 = *(v5 + 32);
-  (*(v16 + 16))(v18, a2, v15);
-  v19 = (*(v16 + 80) + 32) & ~*(v16 + 80);
-  v20 = (v17 + v19 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v21 = swift_allocObject();
-  *(v21 + 16) = v5;
-  *(v21 + 24) = a1;
-  (*(v16 + 32))(v21 + v19, v18, v15);
-  v22 = (v21 + v20);
-  v23 = v29;
-  *v22 = v28;
-  v22[1] = v23;
+  v26 = a3;
+  v27 = a4;
+  v29 = type metadata accessor for DispatchWorkItemFlags();
+  v32 = *(v29 - 8);
+  MEMORY[0x28223BE20](v29);
+  v9 = &v26 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for DispatchQoS();
+  v30 = *(v10 - 8);
+  v31 = v10;
+  MEMORY[0x28223BE20](v10);
+  v12 = &v26 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = type metadata accessor for UUID();
+  v14 = *(v13 - 8);
+  v15 = *(v14 + 64);
+  MEMORY[0x28223BE20](v13);
+  v16 = &v26 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v28 = *(v5 + 32);
+  (*(v14 + 16))(v16, a2, v13);
+  v17 = (*(v14 + 80) + 32) & ~*(v14 + 80);
+  v18 = (v15 + v17 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v19 = swift_allocObject();
+  *(v19 + 16) = v5;
+  *(v19 + 24) = a1;
+  (*(v14 + 32))(v19 + v17, v16, v13);
+  v20 = (v19 + v18);
+  v21 = v27;
+  *v20 = v26;
+  v20[1] = v21;
   aBlock[4] = partial apply for closure #1 in NearbyInvitationsController.scanNearbyEndpoints(params:scannerID:response:);
-  aBlock[5] = v21;
+  aBlock[5] = v19;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable () -> ();
   aBlock[3] = &block_descriptor_106;
-  v24 = _Block_copy(aBlock);
+  v22 = _Block_copy(aBlock);
 
-  v25 = a1;
+  v23 = a1;
 
   static DispatchQoS.unspecified.getter();
-  v35 = MEMORY[0x277D84F90];
-  _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198]);
+  v33 = MEMORY[0x277D84F90];
+  _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
-  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
-  v26 = v31;
+  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR, MEMORY[0x277D83970]);
+  v24 = v29;
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  MEMORY[0x25F86F310](0, v14, v10, v24);
-  _Block_release(v24);
-  (*(v34 + 8))(v10, v26);
-  (*(v32 + 8))(v14, v33);
+  MEMORY[0x25F86F310](0, v12, v9, v22);
+  _Block_release(v22);
+  (*(v32 + 8))(v9, v24);
+  (*(v30 + 8))(v12, v31);
 }
 
 uint64_t closure #1 in NearbyInvitationsController.scanNearbyEndpoints(params:scannerID:response:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -2182,48 +1744,45 @@ uint64_t closure #1 in NearbyInvitationsController.scanNearbyEndpoints(params:sc
     MEMORY[0x25F86FE20](v13, -1, -1);
   }
 
-  v14 = *(a1 + 16);
-  v15 = *(a1 + 24);
+  v14 = *(a1 + 24);
   ObjectType = swift_getObjectType();
-  return (*(v15 + 144))(a2, a3, a4, a5, ObjectType, v15);
+  return (*(v14 + 144))(a2, a3, a4, a5, ObjectType, v14);
 }
 
 uint64_t NearbyInvitationsController.generateNearbyInvitation(response:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v8 = v5;
   v11 = type metadata accessor for DispatchWorkItemFlags();
-  v24 = *(v11 - 8);
-  v12 = *(v24 + 64);
+  v22 = *(v11 - 8);
   MEMORY[0x28223BE20](v11);
-  v14 = &v22 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v23 = type metadata accessor for DispatchQoS();
-  v15 = *(v23 - 8);
-  v16 = *(v15 + 64);
-  MEMORY[0x28223BE20](v23);
-  v18 = &v22 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = *(v8 + 32);
-  v19 = swift_allocObject();
-  v19[2] = v8;
-  v19[3] = a1;
-  v19[4] = a2;
+  v13 = &v20 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v21 = type metadata accessor for DispatchQoS();
+  v14 = *(v21 - 8);
+  MEMORY[0x28223BE20](v21);
+  v16 = &v20 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v20 = *(v8 + 32);
+  v17 = swift_allocObject();
+  v17[2] = v8;
+  v17[3] = a1;
+  v17[4] = a2;
   aBlock[4] = a4;
-  aBlock[5] = v19;
+  aBlock[5] = v17;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable () -> ();
   aBlock[3] = a5;
-  v20 = _Block_copy(aBlock);
+  v18 = _Block_copy(aBlock);
 
   static DispatchQoS.unspecified.getter();
-  v25 = MEMORY[0x277D84F90];
-  _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198]);
+  v23 = MEMORY[0x277D84F90];
+  _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
-  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
+  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR, MEMORY[0x277D83970]);
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  MEMORY[0x25F86F310](0, v18, v14, v20);
-  _Block_release(v20);
-  (*(v24 + 8))(v14, v11);
-  (*(v15 + 8))(v18, v23);
+  MEMORY[0x25F86F310](0, v16, v13, v18);
+  _Block_release(v18);
+  (*(v22 + 8))(v13, v11);
+  (*(v14 + 8))(v16, v21);
 }
 
 uint64_t closure #1 in NearbyInvitationsController.stopScanningNearbyInvitations(response:)(void *a1, uint64_t a2, uint64_t a3)
@@ -2245,10 +1804,9 @@ uint64_t closure #1 in NearbyInvitationsController.stopScanningNearbyInvitations
     MEMORY[0x25F86FE20](v9, -1, -1);
   }
 
-  v10 = a1[2];
-  v11 = a1[3];
+  v10 = a1[3];
   ObjectType = swift_getObjectType();
-  return (*(v11 + 152))(a1[5], a2, a3, ObjectType, v11);
+  return (*(v10 + 152))(a1[5], a2, a3, ObjectType, v10);
 }
 
 uint64_t NearbyInvitationsController.requestConnection(with:localInvitation:response:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -2297,55 +1855,52 @@ uint64_t closure #1 in NearbyInvitationsController.requestConnection(with:localI
     MEMORY[0x25F86FE20](v13, -1, -1);
   }
 
-  v14 = *(a1 + 16);
-  v15 = *(a1 + 24);
+  v14 = *(a1 + 24);
   ObjectType = swift_getObjectType();
-  return (*(v15 + 160))(a2, a3, a4, a5, ObjectType, v15);
+  return (*(v14 + 160))(a2, a3, a4, a5, ObjectType, v14);
 }
 
 uint64_t NearbyInvitationsController.requestConnection(with:localInvitation:response:)(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v27[0] = a7;
+  v25[0] = a7;
   v9 = v7;
   v14 = type metadata accessor for DispatchWorkItemFlags();
-  v30 = *(v14 - 8);
-  v15 = *(v30 + 64);
+  v28 = *(v14 - 8);
   MEMORY[0x28223BE20](v14);
-  v17 = v27 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = type metadata accessor for DispatchQoS();
-  v28 = *(v18 - 8);
-  v29 = v18;
-  v19 = *(v28 + 64);
-  MEMORY[0x28223BE20](v18);
-  v21 = v27 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v27[1] = *(v9 + 32);
-  v22 = swift_allocObject();
-  v22[2] = v9;
-  v22[3] = a1;
-  v22[4] = a2;
-  v22[5] = a3;
-  v22[6] = a4;
+  v16 = v25 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = type metadata accessor for DispatchQoS();
+  v26 = *(v17 - 8);
+  v27 = v17;
+  MEMORY[0x28223BE20](v17);
+  v19 = v25 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v25[1] = *(v9 + 32);
+  v20 = swift_allocObject();
+  v20[2] = v9;
+  v20[3] = a1;
+  v20[4] = a2;
+  v20[5] = a3;
+  v20[6] = a4;
   aBlock[4] = a6;
-  aBlock[5] = v22;
+  aBlock[5] = v20;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable () -> ();
-  aBlock[3] = v27[0];
-  v23 = _Block_copy(aBlock);
+  aBlock[3] = v25[0];
+  v21 = _Block_copy(aBlock);
 
-  v24 = a1;
-  v25 = a2;
+  v22 = a1;
+  v23 = a2;
 
   static DispatchQoS.unspecified.getter();
-  v31 = MEMORY[0x277D84F90];
-  _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198]);
+  v29 = MEMORY[0x277D84F90];
+  _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
-  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
+  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR, MEMORY[0x277D83970]);
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  MEMORY[0x25F86F310](0, v21, v17, v23);
-  _Block_release(v23);
-  (*(v30 + 8))(v17, v14);
-  (*(v28 + 8))(v21, v29);
+  MEMORY[0x25F86F310](0, v19, v16, v21);
+  _Block_release(v21);
+  (*(v28 + 8))(v16, v14);
+  (*(v26 + 8))(v19, v27);
 }
 
 uint64_t closure #1 in NearbyInvitationsController.requestEndpointConnection(with:pseudonym:response:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -2367,10 +1922,9 @@ uint64_t closure #1 in NearbyInvitationsController.requestEndpointConnection(wit
     MEMORY[0x25F86FE20](v13, -1, -1);
   }
 
-  v14 = *(a1 + 16);
-  v15 = *(a1 + 24);
+  v14 = *(a1 + 24);
   ObjectType = swift_getObjectType();
-  return (*(v15 + 168))(a2, a3, a4, a5, ObjectType, v15);
+  return (*(v14 + 168))(a2, a3, a4, a5, ObjectType, v14);
 }
 
 void NearbyInvitationsController.requestJoiningSession(with:response:)(uint64_t a1, void (*a2)(void))
@@ -2383,114 +1937,98 @@ void NearbyInvitationsController.requestJoiningSession(with:response:)(uint64_t 
 
 uint64_t NearbyInvitationsController.deinit()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
 
-  v2 = *(v0 + 48);
-
-  v3 = OBJC_IVAR____TtC14NearbySessions27NearbyInvitationsController__groups;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySDy10Foundation4UUIDV14NearbySessions0E19GroupConnectionInfoCGGMd, &_s7Combine9PublishedVySDy10Foundation4UUIDV14NearbySessions0E19GroupConnectionInfoCGGMR);
-  (*(*(v4 - 8) + 8))(v0 + v3, v4);
-  v5 = *(v0 + OBJC_IVAR____TtC14NearbySessions27NearbyInvitationsController_approvalRequests);
-
-  v6 = *(v0 + OBJC_IVAR____TtC14NearbySessions27NearbyInvitationsController_groupTable);
+  v1 = OBJC_IVAR____TtC14NearbySessions27NearbyInvitationsController__groups;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySDy10Foundation4UUIDV14NearbySessions0E19GroupConnectionInfoCGGMd, &_s7Combine9PublishedVySDy10Foundation4UUIDV14NearbySessions0E19GroupConnectionInfoCGGMR);
+  (*(*(v2 - 8) + 8))(v0 + v1, v2);
 
   return v0;
 }
 
 uint64_t NearbyInvitationsController.__deallocating_deinit()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
 
-  v2 = *(v0 + 48);
+  v1 = OBJC_IVAR____TtC14NearbySessions27NearbyInvitationsController__groups;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySDy10Foundation4UUIDV14NearbySessions0E19GroupConnectionInfoCGGMd, &_s7Combine9PublishedVySDy10Foundation4UUIDV14NearbySessions0E19GroupConnectionInfoCGGMR);
+  (*(*(v2 - 8) + 8))(v0 + v1, v2);
 
-  v3 = OBJC_IVAR____TtC14NearbySessions27NearbyInvitationsController__groups;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySDy10Foundation4UUIDV14NearbySessions0E19GroupConnectionInfoCGGMd, &_s7Combine9PublishedVySDy10Foundation4UUIDV14NearbySessions0E19GroupConnectionInfoCGGMR);
-  (*(*(v4 - 8) + 8))(v0 + v3, v4);
-  v5 = *(v0 + OBJC_IVAR____TtC14NearbySessions27NearbyInvitationsController_approvalRequests);
+  v3 = *(*v0 + 12);
+  v4 = *(*v0 + 26);
 
-  v6 = *(v0 + OBJC_IVAR____TtC14NearbySessions27NearbyInvitationsController_groupTable);
-
-  v7 = *(*v0 + 48);
-  v8 = *(*v0 + 52);
-
-  return MEMORY[0x2821FE8D8](v0, v7, v8);
+  return MEMORY[0x2821FE8D8](v0, v3, v4);
 }
 
 uint64_t NearbyInvitationsController.didReceiveInvitationApprovalRequest(request:)(void *a1)
 {
-  v2 = v1;
   if (one-time initialization token for client != -1)
   {
     swift_once();
   }
 
-  v4 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v4, static Log.client);
-  v5 = a1;
-  v6 = Logger.logObject.getter();
-  v7 = static os_log_type_t.default.getter();
+  v2 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v2, static Log.client);
+  v3 = a1;
+  v4 = Logger.logObject.getter();
+  v5 = static os_log_type_t.default.getter();
 
-  if (os_log_type_enabled(v6, v7))
+  if (os_log_type_enabled(v4, v5))
   {
-    v8 = swift_slowAlloc();
-    v9 = swift_slowAlloc();
-    *v8 = 138412290;
-    *(v8 + 4) = v5;
-    *v9 = v5;
-    v10 = v5;
-    _os_log_impl(&dword_25B7C4000, v6, v7, "NearbyInvitationsController didReceiveInvitationApprovalRequest %@", v8, 0xCu);
-    outlined destroy of NSObject?(v9, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x25F86FE20](v9, -1, -1);
-    MEMORY[0x25F86FE20](v8, -1, -1);
+    v6 = swift_slowAlloc();
+    v7 = swift_slowAlloc();
+    *v6 = 138412290;
+    *(v6 + 4) = v3;
+    *v7 = v3;
+    v8 = v3;
+    _os_log_impl(&dword_25B7C4000, v4, v5, "NearbyInvitationsController didReceiveInvitationApprovalRequest %@", v6, 0xCu);
+    outlined destroy of NSObject?(v7, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    MEMORY[0x25F86FE20](v7, -1, -1);
+    MEMORY[0x25F86FE20](v6, -1, -1);
   }
 
-  v11 = OBJC_IVAR____TtC14NearbySessions27NearbyInvitationsController_approvalRequests;
   swift_beginAccess();
-  v12 = *(v2 + v11);
 
   PassthroughSubject.send(_:)();
 }
 
-uint64_t NearbyInvitationsController.notifyObservers(with:)()
+uint64_t NearbyInvitationsController.notifyObservers(with:)(void (*a1)(uint64_t))
 {
-  v1 = *(v0 + 48);
   result = Lock.withLock<A>(_:)();
   __break(1u);
   return result;
 }
 
-void NearbyInvitationsController.didDiscoverNearbyAdvertisement(advertisement:)(void *a1, const char *a2)
+void NearbyInvitationsController.didDiscoverNearbyAdvertisement(advertisement:)(void *a1, const char *a2, uint64_t a3, SEL *a4, ...)
 {
-  v4 = v2;
+  v8 = v4;
   if (one-time initialization token for client != -1)
   {
     swift_once();
   }
 
-  v6 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v6, static Log.client);
-  v7 = a1;
-  v8 = Logger.logObject.getter();
-  v9 = static os_log_type_t.default.getter();
+  v10 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v10, static Log.client);
+  v11 = a1;
+  v12 = Logger.logObject.getter();
+  v13 = static os_log_type_t.default.getter();
 
-  if (os_log_type_enabled(v8, v9))
+  if (os_log_type_enabled(v12, v13))
   {
-    v10 = swift_slowAlloc();
-    v11 = swift_slowAlloc();
-    *v10 = 138412290;
-    *(v10 + 4) = v7;
-    *v11 = v7;
-    v12 = v7;
-    _os_log_impl(&dword_25B7C4000, v8, v9, a2, v10, 0xCu);
-    outlined destroy of NSObject?(v11, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x25F86FE20](v11, -1, -1);
-    MEMORY[0x25F86FE20](v10, -1, -1);
+    v14 = swift_slowAlloc();
+    v15 = swift_slowAlloc();
+    *v14 = 138412290;
+    *(v14 + 4) = v11;
+    *v15 = v11;
+    v16 = v11;
+    _os_log_impl(&dword_25B7C4000, v12, v13, a2, v14, 0xCu);
+    outlined destroy of NSObject?(v15, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    MEMORY[0x25F86FE20](v15, -1, -1);
+    MEMORY[0x25F86FE20](v14, -1, -1);
   }
 
-  v13 = v7;
-  specialized NearbyInvitationsController.notifyObservers(with:)(v4);
+  v17 = v11;
+  specialized NearbyInvitationsController.notifyObservers(with:)(v8, v17, a3, a4);
 }
 
 uint64_t NearbyInvitationsController.didDiscoverNearbySessionInvitation(id:invitation:)(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
@@ -2501,105 +2039,109 @@ uint64_t NearbyInvitationsController.didDiscoverNearbySessionInvitation(id:invit
     swift_once();
   }
 
-  v8 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v8, static Log.client);
+  v10 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v10, static Log.client);
   outlined copy of Data._Representation(a3, a4);
-  v9 = Logger.logObject.getter();
-  v10 = static os_log_type_t.default.getter();
+  v11 = Logger.logObject.getter();
+  v12 = static os_log_type_t.default.getter();
   outlined consume of Data._Representation(a3, a4);
-  if (os_log_type_enabled(v9, v10))
+  if (os_log_type_enabled(v11, v12))
   {
-    v11 = swift_slowAlloc();
-    v12 = swift_slowAlloc();
-    v18 = v12;
-    *v11 = 136315138;
-    v13 = Data.description.getter();
-    v15 = v5;
-    v16 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v13, v14, &v18);
+    v13 = swift_slowAlloc();
+    v14 = swift_slowAlloc();
+    v23 = v14;
+    *v13 = 136315138;
+    v15 = Data.description.getter();
+    v22 = v12;
+    v17 = a2;
+    v18 = a1;
+    v19 = v5;
+    v20 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v15, v16, &v23);
 
-    *(v11 + 4) = v16;
-    v5 = v15;
-    _os_log_impl(&dword_25B7C4000, v9, v10, "NearbyInvitationsController didDiscoverNearbySessionInvitation %s", v11, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v12);
-    MEMORY[0x25F86FE20](v12, -1, -1);
-    MEMORY[0x25F86FE20](v11, -1, -1);
+    *(v13 + 4) = v20;
+    v5 = v19;
+    a1 = v18;
+    a2 = v17;
+    _os_log_impl(&dword_25B7C4000, v11, v22, "NearbyInvitationsController didDiscoverNearbySessionInvitation %s", v13, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v14);
+    MEMORY[0x25F86FE20](v14, -1, -1);
+    MEMORY[0x25F86FE20](v13, -1, -1);
   }
 
   outlined copy of Data._Representation(a3, a4);
 
-  specialized NearbyInvitationsController.notifyObservers(with:)(v5);
+  specialized NearbyInvitationsController.notifyObservers(with:)(v5, a1, a2, a3, a4);
   outlined consume of Data._Representation(a3, a4);
 }
 
-void closure #1 in NearbyInvitationsController.didDiscoverNearbySessionInvitation(id:invitation:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5)
+void closure #1 in NearbyInvitationsController.didDiscoverNearbySessionInvitation(id:invitation:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, char *a5)
 {
   v10 = type metadata accessor for UUID();
   v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
   MEMORY[0x28223BE20](v10);
-  v14 = &v40 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = &v39 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   if ([a1 respondsToSelector_])
   {
-    v15 = MEMORY[0x25F86F000](a2, a3);
+    v14 = MEMORY[0x25F86F000](a2, a3);
     isa = Data._bridgeToObjectiveC()().super.isa;
-    [a1 didDiscoverNearbySessionInvitationWithId:v15 invitation:isa];
+    [a1 didDiscoverNearbySessionInvitationWithId:v14 invitation:isa];
   }
 
-  v17 = specialized static NearbyInvitationData.create(from:)(a4, a5);
-  v18 = *(v11 + 16);
-  v18(v14, &v17[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_invitationID], v10);
-  v46 = *&v17[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_hostConnectionInfo];
-  v19 = UUID.uuidString.getter();
-  v44 = v20;
-  v45 = v19;
-  v21 = *&v17[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_sourceProviderName];
-  v42 = *&v17[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_sourceProviderName + 8];
-  v43 = v21;
-  v22 = v11;
-  v23 = *&v17[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_displayName];
-  v24 = *&v17[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_displayName + 8];
-  v25 = *&v17[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_userInfo];
-  v40 = *&v17[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_userInfo + 8];
-  v41 = v25;
-  v47 = type metadata accessor for NearbySessionInvitation();
-  v48 = a1;
-  v26 = objc_allocWithZone(v47);
-  v18(&v26[OBJC_IVAR____TtC14NearbySessions23NearbySessionInvitation_identifier], v14, v10);
-  *&v26[OBJC_IVAR____TtC14NearbySessions23NearbySessionInvitation_activityType] = 1;
-  v27 = v45;
-  *&v26[OBJC_IVAR____TtC14NearbySessions23NearbySessionInvitation_metadata] = v46;
-  v28 = &v26[OBJC_IVAR____TtC14NearbySessions23NearbySessionInvitation_sourceProviderID];
+  v16 = specialized static NearbyInvitationData.create(from:)(a4, a5);
+  v17 = *(v11 + 16);
+  v17(v13, &v16[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_invitationID], v10);
+  v45 = *&v16[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_hostConnectionInfo];
+  v18 = UUID.uuidString.getter();
+  v43 = v19;
+  v44 = v18;
+  v20 = *&v16[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_sourceProviderName];
+  v41 = *&v16[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_sourceProviderName + 8];
+  v42 = v20;
+  v21 = v11;
+  v22 = *&v16[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_displayName];
+  v23 = *&v16[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_displayName + 8];
+  v24 = *&v16[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_userInfo];
+  v39 = *&v16[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_userInfo + 8];
+  v40 = v24;
+  v46 = type metadata accessor for NearbySessionInvitation(0);
+  v47 = a1;
+  v25 = objc_allocWithZone(v46);
+  v17(&v25[OBJC_IVAR____TtC14NearbySessions23NearbySessionInvitation_identifier], v13, v10);
+  *&v25[OBJC_IVAR____TtC14NearbySessions23NearbySessionInvitation_activityType] = 1;
+  v26 = v44;
+  *&v25[OBJC_IVAR____TtC14NearbySessions23NearbySessionInvitation_metadata] = v45;
+  v27 = &v25[OBJC_IVAR____TtC14NearbySessions23NearbySessionInvitation_sourceProviderID];
+  v28 = v42;
   v29 = v43;
-  v30 = v44;
-  *v28 = v27;
-  v28[1] = v30;
-  v31 = &v26[OBJC_IVAR____TtC14NearbySessions23NearbySessionInvitation_sourceProviderName];
-  v33 = v41;
-  v32 = v42;
-  *v31 = v29;
-  v31[1] = v32;
-  v34 = &v26[OBJC_IVAR____TtC14NearbySessions23NearbySessionInvitation_userInfo];
-  v35 = v40;
-  *v34 = v33;
-  v34[1] = v35;
-  v26[OBJC_IVAR____TtC14NearbySessions23NearbySessionInvitation_isPublic] = 0;
-  v36 = &v26[OBJC_IVAR____TtC14NearbySessions23NearbySessionInvitation_displayName];
-  *v36 = v23;
-  v36[1] = v24;
-  v37 = &v26[OBJC_IVAR____TtC14NearbySessions23NearbySessionInvitation_handle];
-  *v37 = v23;
-  v37[1] = v24;
+  *v27 = v26;
+  v27[1] = v29;
+  v30 = &v25[OBJC_IVAR____TtC14NearbySessions23NearbySessionInvitation_sourceProviderName];
+  v32 = v40;
+  v31 = v41;
+  *v30 = v28;
+  v30[1] = v31;
+  v33 = &v25[OBJC_IVAR____TtC14NearbySessions23NearbySessionInvitation_userInfo];
+  v34 = v39;
+  *v33 = v32;
+  v33[1] = v34;
+  v25[OBJC_IVAR____TtC14NearbySessions23NearbySessionInvitation_isPublic] = 0;
+  v35 = &v25[OBJC_IVAR____TtC14NearbySessions23NearbySessionInvitation_displayName];
+  *v35 = v22;
+  v35[1] = v23;
+  v36 = &v25[OBJC_IVAR____TtC14NearbySessions23NearbySessionInvitation_handle];
+  *v36 = v22;
+  v36[1] = v23;
   swift_bridgeObjectRetain_n();
 
-  outlined copy of Data?(v33, v35);
-  v38 = v48;
-  v49.receiver = v26;
-  v49.super_class = v47;
-  v39 = objc_msgSendSuper2(&v49, sel_init);
-  (*(v22 + 8))(v14, v10);
-  if ([v38 respondsToSelector_])
+  outlined copy of Data?(v32, v34);
+  v37 = v47;
+  v48.receiver = v25;
+  v48.super_class = v46;
+  v38 = objc_msgSendSuper2(&v48, sel_init);
+  (*(v21 + 8))(v13, v10);
+  if ([v37 respondsToSelector_])
   {
-    [v38 didDiscoverNearbySessionInvitationWithInvitation_];
+    [v37 didDiscoverNearbySessionInvitationWithInvitation_];
   }
 }
 
@@ -2609,7 +2151,6 @@ uint64_t closure #1 in NearbyInvitationsController.notifyObservers(with:)(uint64
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NearbySessions0A29InvitationsControllerObserver_pMd, &_s14NearbySessions0A29InvitationsControllerObserver_pMR);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v5 = *a1;
   *a1 = v4;
 }
 
@@ -2620,57 +2161,57 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Errors 
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Errors #1 in NearbyGroupTable.firstGroup()()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Errors #1 in NearbyGroupTable.firstGroup()(uint64_t a1)
 {
   Hasher.init(_seed:)();
   MEMORY[0x25F86F720](0);
   return Hasher._finalize()();
 }
 
-uint64_t specialized closure #1 in NearbyInvitation.init<A>(id:displayName:hostInfo:userInfo:controller:invitationSourceProvider:)(void *a1)
+uint64_t specialized closure #1 in NearbyInvitation.init<A>(id:displayName:hostInfo:userInfo:controller:invitationSourceProvider:)(void *a1, uint64_t a2)
 {
   swift_beginAccess();
   result = swift_weakLoadStrong();
   if (result)
   {
-    v3 = result;
-    v4 = MEMORY[0x277D85000];
-    v5 = (*((*MEMORY[0x277D85000] & *a1) + 0x88))();
-    if (v5)
+    v4 = result;
+    v5 = MEMORY[0x277D85000];
+    v6 = (*((*MEMORY[0x277D85000] & *a1) + 0x88))();
+    if (v6)
     {
-      v7 = *(v5 + OBJC_IVAR____TtC14NearbySessions35NearbyInvitationJoinRequestMetadata_pseudonym);
-      v6 = *(v5 + OBJC_IVAR____TtC14NearbySessions35NearbyInvitationJoinRequestMetadata_pseudonym + 8);
-      v8 = v5;
+      v8 = *(v6 + OBJC_IVAR____TtC14NearbySessions35NearbyInvitationJoinRequestMetadata_pseudonym);
+      v7 = *(v6 + OBJC_IVAR____TtC14NearbySessions35NearbyInvitationJoinRequestMetadata_pseudonym + 8);
+      v9 = v6;
 
-      v9 = direct field offset for NearbyInvitation.invitationHostInfo;
-      v10 = (*(v3 + direct field offset for NearbyInvitation.invitationHostInfo) + OBJC_IVAR____TtC14NearbySessions35NearbyInvitationJoinRequestMetadata_pseudonym);
-      if (v7 == *v10 && v6 == v10[1])
+      v10 = direct field offset for NearbyInvitation.invitationHostInfo;
+      v11 = (*(v4 + direct field offset for NearbyInvitation.invitationHostInfo) + OBJC_IVAR____TtC14NearbySessions35NearbyInvitationJoinRequestMetadata_pseudonym);
+      if (v8 == *v11 && v7 == v11[1])
       {
       }
 
       else
       {
-        v12 = _stringCompareWithSmolCheck(_:_:expecting:)();
+        v13 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-        if ((v12 & 1) == 0)
+        if ((v13 & 1) == 0)
         {
         }
       }
 
       swift_weakInit();
-      v13 = *(v3 + v9);
-      v14 = *((*v4 & *a1) + 0x90);
+      v14 = *(v4 + v10);
+      v15 = *((*v5 & *a1) + 0x90);
 
-      v15 = v13;
-      v14(v13);
-      v19 = a1;
+      v16 = v14;
+      v15(v14);
+      v20 = a1;
       swift_weakAssign();
-      v16 = a1;
+      v17 = a1;
 
-      v17 = (*(*v3 + 184))(v18);
-      specialized Set._Variant.insert(_:)(v20, &v19);
-      outlined destroy of NSObject?(v20, &_s14NearbySessions0A10InvitationC13PendingMemberVyAA0A5GroupC_GMd, &_s14NearbySessions0A10InvitationC13PendingMemberVyAA0A5GroupC_GMR);
-      v17(v18, 0);
+      v18 = (*(*v4 + 184))(v19);
+      specialized Set._Variant.insert(_:)(v21, &v20);
+      outlined destroy of NSObject?(v21, &_s14NearbySessions0A10InvitationC13PendingMemberVyAA0A5GroupC_GMd, &_s14NearbySessions0A10InvitationC13PendingMemberVyAA0A5GroupC_GMR);
+      v18(v19, 0);
     }
   }
 
@@ -2703,13 +2244,12 @@ unint64_t *_ss13_UnsafeBitsetV013withTemporaryB08capacity4bodyxSi_xABKXEtKlFZxAB
 
 uint64_t specialized _NativeDictionary.extractDictionary(using:count:)(unint64_t *a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v46 = type metadata accessor for UUID();
-  v44 = *(v46 - 8);
-  v8 = *(v44 + 64);
-  v9 = MEMORY[0x28223BE20](v46);
-  v11 = v38 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v9);
-  v41 = v38 - v12;
+  v44 = type metadata accessor for UUID();
+  v42 = *(v44 - 8);
+  v8 = MEMORY[0x28223BE20](v44);
+  v10 = v36 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v8);
+  v39 = v36 - v11;
   if (!a3)
   {
     return MEMORY[0x277D84F98];
@@ -2723,67 +2263,66 @@ uint64_t specialized _NativeDictionary.extractDictionary(using:count:)(unint64_t
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation4UUIDV14NearbySessions0E10GroupTableC04WeakeG0VGMd, &_ss18_DictionaryStorageCy10Foundation4UUIDV14NearbySessions0E10GroupTableC04WeakeG0VGMR);
   result = static _DictionaryStorage.allocate(capacity:)();
-  v14 = result;
+  v13 = result;
   if (a2 < 1)
   {
-    v15 = 0;
+    v14 = 0;
   }
 
   else
   {
-    v15 = *a1;
+    v14 = *a1;
   }
 
-  v16 = 0;
-  v38[1] = v44 + 16;
-  v39 = result;
-  v45 = v44 + 32;
-  v17 = result + 64;
-  v40 = a1;
-  v38[0] = a4;
-  v18 = v46;
-  while (v15)
+  v15 = 0;
+  v36[1] = v42 + 16;
+  v37 = result;
+  v43 = v42 + 32;
+  v16 = result + 64;
+  v38 = a1;
+  v36[0] = a4;
+  v17 = v44;
+  while (v14)
   {
-    v19 = v11;
-    v20 = __clz(__rbit64(v15));
-    v42 = (v15 - 1) & v15;
+    v18 = v10;
+    v19 = __clz(__rbit64(v14));
+    v40 = (v14 - 1) & v14;
 LABEL_16:
-    v23 = v20 | (v16 << 6);
-    v24 = a4[6];
-    v25 = v44;
-    v43 = *(v44 + 72);
-    v26 = v41;
-    (*(v44 + 16))(v41, v24 + v43 * v23, v18);
-    outlined init with copy of NearbyGroupTable.WeakNearbyGroup(a4[7] + 8 * v23, v48);
-    v27 = *(v25 + 32);
-    v11 = v19;
-    v27(v19, v26, v18);
-    outlined init with take of NearbyGroupTable.WeakNearbyGroup(v48, v47);
-    v14 = v39;
-    v28 = *(v39 + 40);
-    _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0]);
+    v22 = v19 | (v15 << 6);
+    v23 = a4[6];
+    v24 = v42;
+    v41 = *(v42 + 72);
+    v25 = v39;
+    (*(v42 + 16))(v39, v23 + v41 * v22, v17);
+    outlined init with copy of NearbyGroupTable.WeakNearbyGroup(a4[7] + 8 * v22, v46);
+    v26 = *(v24 + 32);
+    v10 = v18;
+    v26(v18, v25, v17);
+    outlined init with take of NearbyGroupTable.WeakNearbyGroup(v46, v45);
+    v13 = v37;
+    _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0], MEMORY[0x277CC9600]);
     result = dispatch thunk of Hashable._rawHashValue(seed:)();
-    v29 = -1 << *(v14 + 32);
-    v30 = result & ~v29;
-    v31 = v30 >> 6;
-    if (((-1 << v30) & ~*(v17 + 8 * (v30 >> 6))) == 0)
+    v27 = -1 << *(v13 + 32);
+    v28 = result & ~v27;
+    v29 = v28 >> 6;
+    if (((-1 << v28) & ~*(v16 + 8 * (v28 >> 6))) == 0)
     {
-      v33 = 0;
-      v34 = (63 - v29) >> 6;
-      a1 = v40;
-      while (++v31 != v34 || (v33 & 1) == 0)
+      v31 = 0;
+      v32 = (63 - v27) >> 6;
+      a1 = v38;
+      while (++v29 != v32 || (v31 & 1) == 0)
       {
-        v35 = v31 == v34;
-        if (v31 == v34)
+        v33 = v29 == v32;
+        if (v29 == v32)
         {
-          v31 = 0;
+          v29 = 0;
         }
 
-        v33 |= v35;
-        v36 = *(v17 + 8 * v31);
-        if (v36 != -1)
+        v31 |= v33;
+        v34 = *(v16 + 8 * v29);
+        if (v34 != -1)
         {
-          v32 = __clz(__rbit64(~v36)) + (v31 << 6);
+          v30 = __clz(__rbit64(~v34)) + (v29 << 6);
           goto LABEL_26;
         }
       }
@@ -2791,47 +2330,47 @@ LABEL_16:
       goto LABEL_31;
     }
 
-    v32 = __clz(__rbit64((-1 << v30) & ~*(v17 + 8 * (v30 >> 6)))) | v30 & 0x7FFFFFFFFFFFFFC0;
-    a1 = v40;
+    v30 = __clz(__rbit64((-1 << v28) & ~*(v16 + 8 * (v28 >> 6)))) | v28 & 0x7FFFFFFFFFFFFFC0;
+    a1 = v38;
 LABEL_26:
-    *(v17 + ((v32 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v32;
-    v27((*(v14 + 48) + v32 * v43), v11, v46);
-    result = outlined init with take of NearbyGroupTable.WeakNearbyGroup(v47, *(v14 + 56) + 8 * v32);
-    ++*(v14 + 16);
+    *(v16 + ((v30 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v30;
+    v26((*(v13 + 48) + v30 * v41), v10, v44);
+    result = outlined init with take of NearbyGroupTable.WeakNearbyGroup(v45, *(v13 + 56) + 8 * v30);
+    ++*(v13 + 16);
     if (__OFSUB__(a3--, 1))
     {
       goto LABEL_32;
     }
 
-    a4 = v38[0];
-    v15 = v42;
+    a4 = v36[0];
+    v14 = v40;
     if (!a3)
     {
-      return v14;
+      return v13;
     }
   }
 
-  v21 = v16;
+  v20 = v15;
   while (1)
   {
-    v16 = v21 + 1;
-    if (__OFADD__(v21, 1))
+    v15 = v20 + 1;
+    if (__OFADD__(v20, 1))
     {
       break;
     }
 
-    if (v16 >= a2)
+    if (v15 >= a2)
     {
-      return v14;
+      return v13;
     }
 
-    v22 = a1[v16];
-    ++v21;
-    if (v22)
+    v21 = a1[v15];
+    ++v20;
+    if (v21)
     {
-      v19 = v11;
-      v20 = __clz(__rbit64(v22));
-      v42 = (v22 - 1) & v22;
+      v18 = v10;
+      v19 = __clz(__rbit64(v21));
+      v40 = (v21 - 1) & v21;
       goto LABEL_16;
     }
   }
@@ -2847,28 +2386,26 @@ LABEL_32:
 unint64_t specialized Dictionary._Variant.removeValue(forKey:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v3 = v2;
-  v5 = *v2;
   result = specialized __RawDictionaryStorage.find<A>(_:)(a1);
-  v8 = v7;
-  if (v7)
+  v7 = v6;
+  if (v6)
   {
-    v9 = result;
-    v10 = *v3;
+    v8 = result;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v12 = *v3;
-    v15 = *v3;
+    v10 = *v2;
+    v13 = *v3;
     if (!isUniquelyReferenced_nonNull_native)
     {
       specialized _NativeDictionary.copy()();
-      v12 = v15;
+      v10 = v13;
     }
 
-    v13 = *(v12 + 48);
-    v14 = type metadata accessor for UUID();
-    (*(*(v14 - 8) + 8))(v13 + *(*(v14 - 8) + 72) * v9, v14);
-    outlined init with take of NearbyGroupTable.WeakNearbyGroup(*(v12 + 56) + 8 * v9, a2);
-    result = specialized _NativeDictionary._delete(at:)(v9, v12);
-    *v3 = v12;
+    v11 = *(v10 + 48);
+    v12 = type metadata accessor for UUID();
+    (*(*(v12 - 8) + 8))(v11 + *(*(v12 - 8) + 72) * v8, v12);
+    outlined init with take of NearbyGroupTable.WeakNearbyGroup(*(v10 + 56) + 8 * v8, a2);
+    result = specialized _NativeDictionary._delete(at:)(v8, v10);
+    *v3 = v10;
   }
 
   else
@@ -2876,82 +2413,80 @@ unint64_t specialized Dictionary._Variant.removeValue(forKey:)@<X0>(uint64_t a1@
     *a2 = 0;
   }
 
-  *(a2 + 8) = (v8 & 1) == 0;
+  *(a2 + 8) = (v7 & 1) == 0;
   return result;
 }
 
 unint64_t specialized _NativeDictionary._delete(at:)(int64_t a1, uint64_t a2)
 {
-  v37 = type metadata accessor for UUID();
-  v4 = *(v37 - 8);
-  v5 = *(v4 + 64);
-  result = MEMORY[0x28223BE20](v37);
-  v8 = &v33 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = a2 + 64;
-  v10 = -1 << *(a2 + 32);
-  v11 = (a1 + 1) & ~v10;
-  if ((*(a2 + 64 + ((v11 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v11))
+  v35 = type metadata accessor for UUID();
+  v4 = *(v35 - 8);
+  result = MEMORY[0x28223BE20](v35);
+  v7 = &v31 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = a2 + 64;
+  v9 = -1 << *(a2 + 32);
+  v10 = (a1 + 1) & ~v9;
+  if ((*(a2 + 64 + ((v10 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v10))
   {
-    v12 = ~v10;
-    v13 = _HashTable.previousHole(before:)();
-    v14 = v12;
-    v36 = (v13 + 1) & v12;
-    v16 = *(v4 + 16);
-    v15 = v4 + 16;
-    v34 = a2 + 64;
-    v35 = v16;
-    v17 = *(v15 + 56);
-    v33 = (v15 - 8);
-    v38 = v14;
-    v18 = v37;
+    v11 = ~v9;
+    v12 = _HashTable.previousHole(before:)();
+    v13 = v11;
+    v34 = (v12 + 1) & v11;
+    v15 = *(v4 + 16);
+    v14 = v4 + 16;
+    v32 = a2 + 64;
+    v33 = v15;
+    v16 = *(v14 + 56);
+    v31 = (v14 - 8);
+    v36 = v13;
+    v17 = v35;
     do
     {
-      v19 = v17;
-      v20 = v17 * v11;
-      v21 = *(a2 + 48) + v17 * v11;
-      v22 = v15;
-      v35(v8, v21, v18);
-      v23 = *(a2 + 40);
-      _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0]);
-      v24 = dispatch thunk of Hashable._rawHashValue(seed:)();
-      result = (*v33)(v8, v18);
-      v25 = v38;
-      v26 = v24 & v38;
-      if (a1 >= v36)
+      v18 = v16;
+      v19 = v16 * v10;
+      v20 = *(a2 + 48) + v16 * v10;
+      v21 = v14;
+      v33(v7, v20, v17);
+      _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0], MEMORY[0x277CC9600]);
+      v22 = dispatch thunk of Hashable._rawHashValue(seed:)();
+      result = (*v31)(v7, v17);
+      v23 = v36;
+      v24 = v22 & v36;
+      if (a1 >= v34)
       {
-        if (v26 >= v36 && a1 >= v26)
+        if (v24 >= v34 && a1 >= v24)
         {
 LABEL_15:
-          v15 = v22;
-          v17 = v19;
-          if (v19 * a1 < v20 || *(a2 + 48) + v19 * a1 >= (*(a2 + 48) + v20 + v19))
+          v14 = v21;
+          v16 = v18;
+          if (v18 * a1 < v19 || *(a2 + 48) + v18 * a1 >= (*(a2 + 48) + v19 + v18))
           {
             swift_arrayInitWithTakeFrontToBack();
           }
 
-          else if (v19 * a1 != v20)
+          else if (v18 * a1 != v19)
           {
             swift_arrayInitWithTakeBackToFront();
           }
 
-          v29 = *(a2 + 56);
-          result = v29 + 8 * a1;
-          v9 = v34;
-          if (a1 < v11 || result >= v29 + 8 * v11 + 8)
+          v27 = *(a2 + 56);
+          result = v27 + 8 * a1;
+          v8 = v32;
+          if (a1 < v10 || result >= v27 + 8 * v10 + 8)
           {
             result = swift_arrayInitWithTakeFrontToBack();
-            a1 = v11;
-            v25 = v38;
+            a1 = v10;
+            v23 = v36;
           }
 
           else
           {
-            v25 = v38;
-            if (a1 != v11)
+            v23 = v36;
+            if (a1 != v10)
             {
               result = swift_arrayInitWithTakeBackToFront();
-              v25 = v38;
-              a1 = v11;
+              v23 = v36;
+              a1 = v10;
             }
           }
 
@@ -2959,33 +2494,33 @@ LABEL_15:
         }
       }
 
-      else if (v26 >= v36 || a1 >= v26)
+      else if (v24 >= v34 || a1 >= v24)
       {
         goto LABEL_15;
       }
 
-      v15 = v22;
-      v9 = v34;
-      v17 = v19;
+      v14 = v21;
+      v8 = v32;
+      v16 = v18;
 LABEL_4:
-      v11 = (v11 + 1) & v25;
+      v10 = (v10 + 1) & v23;
     }
 
-    while (((*(v9 + ((v11 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v11) & 1) != 0);
+    while (((*(v8 + ((v10 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v10) & 1) != 0);
   }
 
-  *(v9 + ((a1 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << a1) - 1;
-  v30 = *(a2 + 16);
-  v31 = __OFSUB__(v30, 1);
-  v32 = v30 - 1;
-  if (v31)
+  *(v8 + ((a1 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << a1) - 1;
+  v28 = *(a2 + 16);
+  v29 = __OFSUB__(v28, 1);
+  v30 = v28 - 1;
+  if (v29)
   {
     __break(1u);
   }
 
   else
   {
-    *(a2 + 16) = v32;
+    *(a2 + 16) = v30;
     ++*(a2 + 36);
   }
 
@@ -2997,45 +2532,43 @@ uint64_t specialized _NativeDictionary.setValue(_:forKey:isUnique:)(uint64_t a1,
   v4 = v3;
   v8 = type metadata accessor for UUID();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   MEMORY[0x28223BE20](v8);
-  v12 = &v27 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = *v3;
-  v15 = specialized __RawDictionaryStorage.find<A>(_:)(a2);
-  v16 = *(v13 + 16);
-  v17 = (v14 & 1) == 0;
-  v18 = v16 + v17;
-  if (__OFADD__(v16, v17))
+  v11 = &v25 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = *v3;
+  v14 = specialized __RawDictionaryStorage.find<A>(_:)(a2);
+  v15 = v12[2];
+  v16 = (v13 & 1) == 0;
+  v17 = v15 + v16;
+  if (__OFADD__(v15, v16))
   {
     __break(1u);
     goto LABEL_15;
   }
 
-  v19 = v14;
-  v20 = *(v13 + 24);
-  if (v20 < v18 || (a3 & 1) == 0)
+  v18 = v13;
+  v19 = v12[3];
+  if (v19 < v17 || (a3 & 1) == 0)
   {
-    if (v20 >= v18 && (a3 & 1) == 0)
+    if (v19 >= v17 && (a3 & 1) == 0)
     {
       specialized _NativeDictionary.copy()();
       goto LABEL_7;
     }
 
-    specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v18, a3 & 1);
-    v24 = *v4;
-    v25 = specialized __RawDictionaryStorage.find<A>(_:)(a2);
-    if ((v19 & 1) == (v26 & 1))
+    specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v17, a3 & 1);
+    v23 = specialized __RawDictionaryStorage.find<A>(_:)(a2);
+    if ((v18 & 1) == (v24 & 1))
     {
-      v15 = v25;
-      v21 = *v4;
-      if (v19)
+      v14 = v23;
+      v20 = *v4;
+      if (v18)
       {
         goto LABEL_8;
       }
 
 LABEL_13:
-      (*(v9 + 16))(v12, a2, v8);
-      return specialized _NativeDictionary._insert(at:key:value:)(v15, v12, a1, v21);
+      (*(v9 + 16))(v11, a2, v8);
+      return specialized _NativeDictionary._insert(at:key:value:)(v14, v11, a1, v20);
     }
 
 LABEL_15:
@@ -3045,16 +2578,16 @@ LABEL_15:
   }
 
 LABEL_7:
-  v21 = *v4;
-  if ((v19 & 1) == 0)
+  v20 = *v4;
+  if ((v18 & 1) == 0)
   {
     goto LABEL_13;
   }
 
 LABEL_8:
-  v22 = v21[7] + 8 * v15;
+  v21 = v20[7] + 8 * v14;
 
-  return outlined assign with take of NearbyGroupTable.WeakNearbyGroup(a1, v22);
+  return outlined assign with take of NearbyGroupTable.WeakNearbyGroup(a1, v21);
 }
 
 uint64_t specialized _NativeDictionary._insert(at:key:value:)(unint64_t a1, uint64_t a2, uint64_t a3, void *a4)
@@ -3082,59 +2615,50 @@ uint64_t specialized _NativeDictionary._insert(at:key:value:)(unint64_t a1, uint
 
 char *specialized NearbyInvitationsController.init(dataSource:queue:provider:)(uint64_t a1, uint64_t a2, uint64_t a3, char *a4)
 {
-  v39 = a2;
-  v40 = a3;
+  v27 = a2;
+  v28 = a3;
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV15BufferingPolicyOyyyYaYbc__GMd, &_sScS12ContinuationV15BufferingPolicyOyyyYaYbc__GMR);
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v38 - v9;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x28223BE20](v11 - 8);
-  v14 = &v38 - v13;
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySDy10Foundation4UUIDV14NearbySessions0E19GroupConnectionInfoCGGMd, &_s7Combine9PublishedVySDy10Foundation4UUIDV14NearbySessions0E19GroupConnectionInfoCGGMR);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  MEMORY[0x28223BE20](v15);
-  v19 = &v38 - v18;
-  v20 = type metadata accessor for Lock();
-  v21 = *(v20 + 48);
-  v22 = *(v20 + 52);
+  v9 = &v26 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
+  MEMORY[0x28223BE20](v10 - 8);
+  v12 = &v26 - v11;
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySDy10Foundation4UUIDV14NearbySessions0E19GroupConnectionInfoCGGMd, &_s7Combine9PublishedVySDy10Foundation4UUIDV14NearbySessions0E19GroupConnectionInfoCGGMR);
+  v14 = *(v13 - 8);
+  MEMORY[0x28223BE20](v13);
+  v16 = &v26 - v15;
+  type metadata accessor for Lock();
   swift_allocObject();
   *(a4 + 6) = Lock.init()();
   *(a4 + 7) = [objc_opt_self() weakObjectsHashTable];
-  v23 = OBJC_IVAR____TtC14NearbySessions27NearbyInvitationsController__groups;
-  v41 = MEMORY[0x277D84F98];
+  v17 = OBJC_IVAR____TtC14NearbySessions27NearbyInvitationsController__groups;
+  v29 = MEMORY[0x277D84F98];
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDy10Foundation4UUIDV14NearbySessions0C19GroupConnectionInfoCGMd, &_sSDy10Foundation4UUIDV14NearbySessions0C19GroupConnectionInfoCGMR);
   Published.init(initialValue:)();
-  (*(v16 + 32))(&a4[v23], v19, v15);
-  v24 = OBJC_IVAR____TtC14NearbySessions27NearbyInvitationsController_approvalRequests;
-  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine18PassthroughSubjectCy14NearbySessions29IncomingInvitationJoinRequestCs5NeverOGMd, &_s7Combine18PassthroughSubjectCy14NearbySessions29IncomingInvitationJoinRequestCs5NeverOGMR);
-  v26 = *(v25 + 48);
-  v27 = *(v25 + 52);
+  (*(v14 + 32))(&a4[v17], v16, v13);
+  v18 = OBJC_IVAR____TtC14NearbySessions27NearbyInvitationsController_approvalRequests;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine18PassthroughSubjectCy14NearbySessions29IncomingInvitationJoinRequestCs5NeverOGMd, &_s7Combine18PassthroughSubjectCy14NearbySessions29IncomingInvitationJoinRequestCs5NeverOGMR);
   swift_allocObject();
-  *&a4[v24] = PassthroughSubject.init()();
-  v28 = OBJC_IVAR____TtC14NearbySessions27NearbyInvitationsController_groupTable;
-  v29 = type metadata accessor for NearbyGroupTable(0);
-  v30 = *(v29 + 48);
-  v31 = *(v29 + 52);
-  v32 = swift_allocObject();
-  v33 = type metadata accessor for TaskPriority();
-  (*(*(v33 - 8) + 56))(v14, 1, 1, v33);
-  (*(v7 + 104))(v10, *MEMORY[0x277D85778], v6);
+  *&a4[v18] = PassthroughSubject.init()();
+  v19 = OBJC_IVAR____TtC14NearbySessions27NearbyInvitationsController_groupTable;
+  type metadata accessor for NearbyGroupTable(0);
+  v20 = swift_allocObject();
+  v21 = type metadata accessor for TaskPriority();
+  (*(*(v21 - 8) + 56))(v12, 1, 1, v21);
+  (*(v7 + 104))(v9, *MEMORY[0x277D85778], v6);
   AsyncSerialQueue.init(priority:bufferingPolicy:)();
-  v34 = OBJC_IVAR____TtC14NearbySessions16NearbyGroupTable_contents;
-  *(v32 + v34) = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC10Foundation4UUIDV_14NearbySessions0E10GroupTableC04WeakeG0VTt0g5Tf4g_n(MEMORY[0x277D84F90]);
-  *&a4[v28] = v32;
+  v22 = OBJC_IVAR____TtC14NearbySessions16NearbyGroupTable_contents;
+  *(v20 + v22) = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC10Foundation4UUIDV_14NearbySessions0E10GroupTableC04WeakeG0VTt0g5Tf4g_n(MEMORY[0x277D84F90]);
+  *&a4[v19] = v20;
   *(a4 + 2) = a1;
   *(a4 + 3) = &protocol witness table for NearbyInvitationServiceClient;
-  v35 = v40;
-  *(a4 + 4) = v39;
-  *(a4 + 5) = v35;
-  v36 = a1 + direct field offset for NearbyInvitationServiceClient.delegate;
+  v23 = v28;
+  *(a4 + 4) = v27;
+  *(a4 + 5) = v23;
+  v24 = a1 + direct field offset for NearbyInvitationServiceClient.delegate;
   swift_beginAccess();
-  *(v36 + 8) = &protocol witness table for NearbyInvitationsController;
+  *(v24 + 8) = &protocol witness table for NearbyInvitationsController;
   swift_unknownObjectWeakAssign();
   return a4;
 }
@@ -3159,16 +2683,15 @@ void specialized NearbyInvitationsController.didDisconnect(client:)()
   }
 }
 
-uint64_t specialized NearbyInvitationsController.notifyObservers(with:)(uint64_t a1)
+uint64_t specialized NearbyInvitationsController.notifyObservers(with:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v1 = *(a1 + 48);
   result = Lock.withLock<A>(_:)();
   __break(1u);
   return result;
 }
 
+uint64_t specialized NearbyInvitationsController.notifyObservers(with:)(uint64_t a1, uint64_t a2, uint64_t a3, SEL *a4)
 {
-  v1 = *(a1 + 48);
   result = Lock.withLock<A>(_:)();
   __break(1u);
   return result;
@@ -3178,47 +2701,46 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC10Foundation4UUIDV_14NearbySe
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV_14NearbySessions0C10GroupTableC04WeakcE0VtMd, &_s10Foundation4UUIDV_14NearbySessions0C10GroupTableC04WeakcE0VtMR);
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = &v20 - v5;
-  v7 = *(a1 + 16);
-  if (v7)
+  v5 = &v19 - v4;
+  v6 = *(a1 + 16);
+  if (v6)
   {
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation4UUIDV14NearbySessions0E10GroupTableC04WeakeG0VGMd, &_ss18_DictionaryStorageCy10Foundation4UUIDV14NearbySessions0E10GroupTableC04WeakeG0VGMR);
-    v8 = static _DictionaryStorage.allocate(capacity:)();
-    v9 = *(v2 + 48);
-    v10 = a1 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
-    v11 = *(v3 + 72);
+    v7 = static _DictionaryStorage.allocate(capacity:)();
+    v8 = *(v2 + 48);
+    v9 = a1 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
+    v10 = *(v3 + 72);
 
     while (1)
     {
-      outlined init with copy of (UUID, Bool)(v10, v6, &_s10Foundation4UUIDV_14NearbySessions0C10GroupTableC04WeakcE0VtMd, &_s10Foundation4UUIDV_14NearbySessions0C10GroupTableC04WeakcE0VtMR);
-      result = specialized __RawDictionaryStorage.find<A>(_:)(v6);
-      if (v13)
+      outlined init with copy of (UUID, Bool)(v9, v5, &_s10Foundation4UUIDV_14NearbySessions0C10GroupTableC04WeakcE0VtMd, &_s10Foundation4UUIDV_14NearbySessions0C10GroupTableC04WeakcE0VtMR);
+      result = specialized __RawDictionaryStorage.find<A>(_:)(v5);
+      if (v12)
       {
         break;
       }
 
-      v14 = result;
-      *(v8 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
-      v15 = v8[6];
-      v16 = type metadata accessor for UUID();
-      (*(*(v16 - 8) + 32))(v15 + *(*(v16 - 8) + 72) * v14, v6, v16);
-      result = outlined init with take of NearbyGroupTable.WeakNearbyGroup(&v6[v9], v8[7] + 8 * v14);
-      v17 = v8[2];
-      v18 = __OFADD__(v17, 1);
-      v19 = v17 + 1;
-      if (v18)
+      v13 = result;
+      *(v7 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
+      v14 = v7[6];
+      v15 = type metadata accessor for UUID();
+      (*(*(v15 - 8) + 32))(v14 + *(*(v15 - 8) + 72) * v13, v5, v15);
+      result = outlined init with take of NearbyGroupTable.WeakNearbyGroup(&v5[v8], v7[7] + 8 * v13);
+      v16 = v7[2];
+      v17 = __OFADD__(v16, 1);
+      v18 = v16 + 1;
+      if (v17)
       {
         goto LABEL_10;
       }
 
-      v8[2] = v19;
-      v10 += v11;
-      if (!--v7)
+      v7[2] = v18;
+      v9 += v10;
+      if (!--v6)
       {
 
-        return v8;
+        return v7;
       }
     }
 
@@ -3239,47 +2761,46 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC10Foundation4UUIDV_SbTt0g5Tf4
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV_SbtMd, &_s10Foundation4UUIDV_SbtMR);
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = &v20 - v5;
-  v7 = *(a1 + 16);
-  if (v7)
+  v5 = &v19 - v4;
+  v6 = *(a1 + 16);
+  if (v6)
   {
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation4UUIDVSbGMd, &_ss18_DictionaryStorageCy10Foundation4UUIDVSbGMR);
-    v8 = static _DictionaryStorage.allocate(capacity:)();
-    v9 = *(v2 + 48);
-    v10 = a1 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
-    v11 = *(v3 + 72);
+    v7 = static _DictionaryStorage.allocate(capacity:)();
+    v8 = *(v2 + 48);
+    v9 = a1 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
+    v10 = *(v3 + 72);
 
     while (1)
     {
-      outlined init with copy of (UUID, Bool)(v10, v6, &_s10Foundation4UUIDV_SbtMd, &_s10Foundation4UUIDV_SbtMR);
-      result = specialized __RawDictionaryStorage.find<A>(_:)(v6);
-      if (v13)
+      outlined init with copy of (UUID, Bool)(v9, v5, &_s10Foundation4UUIDV_SbtMd, &_s10Foundation4UUIDV_SbtMR);
+      result = specialized __RawDictionaryStorage.find<A>(_:)(v5);
+      if (v12)
       {
         break;
       }
 
-      v14 = result;
-      *(v8 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
-      v15 = v8[6];
-      v16 = type metadata accessor for UUID();
-      result = (*(*(v16 - 8) + 32))(v15 + *(*(v16 - 8) + 72) * v14, v6, v16);
-      *(v8[7] + v14) = v6[v9];
-      v17 = v8[2];
-      v18 = __OFADD__(v17, 1);
-      v19 = v17 + 1;
-      if (v18)
+      v13 = result;
+      *(v7 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
+      v14 = v7[6];
+      v15 = type metadata accessor for UUID();
+      result = (*(*(v15 - 8) + 32))(v14 + *(*(v15 - 8) + 72) * v13, v5, v15);
+      *(v7[7] + v13) = v5[v8];
+      v16 = v7[2];
+      v17 = __OFADD__(v16, 1);
+      v18 = v16 + 1;
+      if (v17)
       {
         goto LABEL_10;
       }
 
-      v8[2] = v19;
-      v10 += v11;
-      if (!--v7)
+      v7[2] = v18;
+      v9 += v10;
+      if (!--v6)
       {
 
-        return v8;
+        return v7;
       }
     }
 
@@ -3298,75 +2819,74 @@ LABEL_10:
 
 uint64_t specialized closure #1 in _NativeDictionary.filter(_:)(unint64_t *a1, uint64_t a2, void *a3, uint64_t a4)
 {
-  v26 = a2;
-  v32 = a4;
-  v27 = a1;
-  v31 = type metadata accessor for UUID();
-  v5 = *(v31 - 8);
-  v6 = *(v5 + 64);
-  result = MEMORY[0x28223BE20](v31);
-  v9 = &v25 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = 0;
-  v33 = a3;
-  v13 = a3[8];
-  v12 = a3 + 8;
-  v11 = v13;
-  v14 = 1 << *(v12 - 32);
-  v15 = -1;
-  if (v14 < 64)
+  v25 = a2;
+  v31 = a4;
+  v26 = a1;
+  v30 = type metadata accessor for UUID();
+  v5 = *(v30 - 8);
+  result = MEMORY[0x28223BE20](v30);
+  v8 = &v24 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = 0;
+  v32 = a3;
+  v12 = a3[8];
+  v11 = a3 + 8;
+  v10 = v12;
+  v13 = 1 << *(v11 - 32);
+  v14 = -1;
+  if (v13 < 64)
   {
-    v15 = ~(-1 << v14);
+    v14 = ~(-1 << v13);
   }
 
-  v16 = v15 & v11;
-  v17 = (v14 + 63) >> 6;
-  v30 = v5 + 16;
-  v28 = 0;
-  v29 = v5 + 8;
-  while (v16)
+  v15 = v14 & v10;
+  v16 = (v13 + 63) >> 6;
+  v29 = v5 + 16;
+  v27 = 0;
+  v28 = v5 + 8;
+  while (v15)
   {
-    v18 = __clz(__rbit64(v16));
-    v16 &= v16 - 1;
+    v17 = __clz(__rbit64(v15));
+    v15 &= v15 - 1;
 LABEL_11:
-    v21 = v18 | (v10 << 6);
-    v22 = v33;
-    v23 = v31;
-    (*(v5 + 16))(v9, v33[6] + *(v5 + 72) * v21, v31);
-    outlined init with copy of NearbyGroupTable.WeakNearbyGroup(v22[7] + 8 * v21, v34);
-    LOBYTE(v22) = closure #1 in closure #1 in NearbyGroupTable.cleanUpIfNotPresent(_:)(v9, v34, v32);
-    outlined destroy of NearbyGroupTable.WeakNearbyGroup(v34);
-    result = (*(v5 + 8))(v9, v23);
-    if (v22)
+    v20 = v17 | (v9 << 6);
+    v21 = v32;
+    v22 = v30;
+    (*(v5 + 16))(v8, v32[6] + *(v5 + 72) * v20, v30);
+    outlined init with copy of NearbyGroupTable.WeakNearbyGroup(v21[7] + 8 * v20, v33);
+    LOBYTE(v21) = closure #1 in closure #1 in NearbyGroupTable.cleanUpIfNotPresent(_:)(v8, v33, v31);
+    outlined destroy of NearbyGroupTable.WeakNearbyGroup(v33);
+    result = (*(v5 + 8))(v8, v22);
+    if (v21)
     {
-      *(v27 + ((v21 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v21;
-      if (__OFADD__(v28++, 1))
+      *(v26 + ((v20 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v20;
+      if (__OFADD__(v27++, 1))
       {
         __break(1u);
-        return specialized _NativeDictionary.extractDictionary(using:count:)(v27, v26, v28, v33);
+        return specialized _NativeDictionary.extractDictionary(using:count:)(v26, v25, v27, v32);
       }
     }
   }
 
-  v19 = v10;
+  v18 = v9;
   while (1)
   {
-    v10 = v19 + 1;
-    if (__OFADD__(v19, 1))
+    v9 = v18 + 1;
+    if (__OFADD__(v18, 1))
     {
       break;
     }
 
-    if (v10 >= v17)
+    if (v9 >= v16)
     {
-      return specialized _NativeDictionary.extractDictionary(using:count:)(v27, v26, v28, v33);
+      return specialized _NativeDictionary.extractDictionary(using:count:)(v26, v25, v27, v32);
     }
 
-    v20 = v12[v10];
-    ++v19;
-    if (v20)
+    v19 = v11[v9];
+    ++v18;
+    if (v19)
     {
-      v18 = __clz(__rbit64(v20));
-      v16 = (v20 - 1) & v20;
+      v17 = __clz(__rbit64(v19));
+      v15 = (v19 - 1) & v19;
       goto LABEL_11;
     }
   }
@@ -3377,7 +2897,7 @@ LABEL_11:
 
 uint64_t specialized _NativeDictionary.filter(_:)(uint64_t a1, uint64_t a2)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 32);
   v6 = v5 & 0x3F;
   v7 = ((1 << v5) + 63) >> 6;
@@ -3388,19 +2908,19 @@ uint64_t specialized _NativeDictionary.filter(_:)(uint64_t a1, uint64_t a2)
 
     if (!swift_stdlib_isStackAllocationSafe())
     {
-      v13 = swift_slowAlloc();
+      v12 = swift_slowAlloc();
 
-      v10 = _ss13_UnsafeBitsetV013withTemporaryB08capacity4bodyxSi_xABKXEtKlFZxABKXEfU_s17_NativeDictionaryVy10Foundation4UUIDV14NearbySessions0K10GroupTableC04WeakkM0VG_Tg506_ss17_gh46V6filteryAByxq_GSbx3key_q_5valuet_tKXEKFADs13_ab28VKXEfU_10Foundation4UUIDV_14k12Sessions0J10mN14C04WeakjL0VTG5APxq_Sbs5Error_pRi_zRi0_zRi__Ri0__r0_lyAjOIsgnndzo_Tf1nc_n04_s14ky3A10mn29C19cleanUpIfNotPresentyySDy10W44UUIDVSbGYaFyyYaYbcfU_SbAG_AC04WeakaC0VtXEfU_SDyAJSbGTf1nnc_n(v13, v7, a1, a2);
-      MEMORY[0x25F86FE20](v13, -1, -1);
+      v10 = _ss13_UnsafeBitsetV013withTemporaryB08capacity4bodyxSi_xABKXEtKlFZxABKXEfU_s17_NativeDictionaryVy10Foundation4UUIDV14NearbySessions0K10GroupTableC04WeakkM0VG_Tg506_ss17_gh46V6filteryAByxq_GSbx3key_q_5valuet_tKXEKFADs13_ab28VKXEfU_10Foundation4UUIDV_14k12Sessions0J10mN14C04WeakjL0VTG5APxq_Sbs5Error_pRi_zRi0_zRi__Ri0__r0_lyAjOIsgnndzo_Tf1nc_n04_s14ky3A10mn29C19cleanUpIfNotPresentyySDy10W44UUIDVSbGYaFyyYaYbcfU_SbAG_AC04WeakaC0VtXEfU_SDyAJSbGTf1nnc_n(v12, v7, a1, a2);
+      MEMORY[0x25F86FE20](v12, -1, -1);
       swift_bridgeObjectRelease_n();
-      goto LABEL_6;
+      return v10;
     }
   }
 
   MEMORY[0x28223BE20](v9);
-  bzero(v14 - ((v8 + 15) & 0x3FFFFFFFFFFFFFF0), v8);
+  bzero(v13 - ((v8 + 15) & 0x3FFFFFFFFFFFFFF0), v8);
 
-  v10 = specialized closure #1 in _NativeDictionary.filter(_:)((v14 - ((v8 + 15) & 0x3FFFFFFFFFFFFFF0)), v7, a1, a2);
+  v10 = specialized closure #1 in _NativeDictionary.filter(_:)((v13 - ((v8 + 15) & 0x3FFFFFFFFFFFFFF0)), v7, a1, a2);
 
   if (v2)
   {
@@ -3408,172 +2928,151 @@ uint64_t specialized _NativeDictionary.filter(_:)(uint64_t a1, uint64_t a2)
   }
 
   swift_bridgeObjectRelease_n();
-LABEL_6:
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 char *specialized NearbyInvitationsController.__allocating_init(provider:)(uint64_t a1)
 {
-  v28 = a1;
+  v21 = a1;
   v1 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
-  v26 = *(v1 - 8);
-  v27 = v1;
-  v2 = *(v26 + 64);
+  v19 = *(v1 - 8);
+  v20 = v1;
   MEMORY[0x28223BE20](v1);
-  v4 = &v25 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = type metadata accessor for OS_dispatch_queue.Attributes();
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5);
-  v7 = type metadata accessor for DispatchQoS();
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
-  v9 = type metadata accessor for UUID();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = &v25 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v25 = type metadata accessor for NSSet(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x277D85C78);
-  v29 = 0;
-  v30 = 0xE000000000000000;
+  v3 = &v18 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = type metadata accessor for OS_dispatch_queue.Attributes();
+  MEMORY[0x28223BE20](v4);
+  v5 = type metadata accessor for DispatchQoS();
+  MEMORY[0x28223BE20](v5 - 8);
+  v6 = type metadata accessor for UUID();
+  v7 = *(v6 - 8);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = type metadata accessor for NSSet(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x277D85C78);
+  v22 = 0;
+  v23 = 0xE000000000000000;
   _StringGuts.grow(_:)(40);
 
-  v29 = 0xD000000000000026;
-  v30 = 0x800000025B830690;
+  v22 = 0xD000000000000026;
+  v23 = 0x800000025B830690;
   UUID.init()();
-  v14 = UUID.uuidString.getter();
-  v16 = v15;
-  (*(v10 + 8))(v13, v9);
-  MEMORY[0x25F86F070](v14, v16);
+  v10 = UUID.uuidString.getter();
+  v12 = v11;
+  (*(v7 + 8))(v9, v6);
+  MEMORY[0x25F86F070](v10, v12);
 
   static DispatchQoS.unspecified.getter();
-  v29 = MEMORY[0x277D84F90];
-  _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes, MEMORY[0x277D85230]);
+  v22 = MEMORY[0x277D84F90];
+  _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes, MEMORY[0x277D85230], MEMORY[0x277D85238]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd, &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMR);
-  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [OS_dispatch_queue.Attributes] and conformance [A], &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd, &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMR);
+  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [OS_dispatch_queue.Attributes] and conformance [A], &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd, &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMR, MEMORY[0x277D83970]);
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  (*(v26 + 104))(v4, *MEMORY[0x277D85260], v27);
-  v17 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
+  (*(v19 + 104))(v3, *MEMORY[0x277D85260], v20);
+  v13 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
   if (one-time initialization token for shared != -1)
   {
     swift_once();
   }
 
-  v18 = static NearbyInvitationServiceClient.shared;
-  v19 = type metadata accessor for NearbyInvitationsController(0);
-  v20 = *(v19 + 48);
-  v21 = *(v19 + 52);
-  v22 = swift_allocObject();
-  v23 = v18;
-  return specialized NearbyInvitationsController.init(dataSource:queue:provider:)(v23, v17, v28, v22);
+  v14 = static NearbyInvitationServiceClient.shared;
+  type metadata accessor for NearbyInvitationsController(0);
+  v15 = swift_allocObject();
+  v16 = v14;
+  return specialized NearbyInvitationsController.init(dataSource:queue:provider:)(v16, v13, v21, v15);
 }
 
 char *specialized NearbyInvitationsController.init(dataSource:queue:provider:)(uint64_t a1, void *a2, uint64_t a3, char *a4, uint64_t a5, uint64_t a6)
 {
-  v46 = a3;
-  v47 = a5;
-  v45 = a2;
-  v44 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV15BufferingPolicyOyyyYaYbc__GMd, &_sScS12ContinuationV15BufferingPolicyOyyyYaYbc__GMR);
-  v9 = *(v44 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x28223BE20](v44);
-  v12 = &v43 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13 - 8);
-  v16 = &v43 - v15;
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySDy10Foundation4UUIDV14NearbySessions0E19GroupConnectionInfoCGGMd, &_s7Combine9PublishedVySDy10Foundation4UUIDV14NearbySessions0E19GroupConnectionInfoCGGMR);
-  v18 = *(v17 - 8);
-  v19 = *(v18 + 64);
-  MEMORY[0x28223BE20](v17);
-  v21 = &v43 - v20;
-  v22 = type metadata accessor for Lock();
-  v23 = *(v22 + 48);
-  v24 = *(v22 + 52);
+  v34 = a3;
+  v35 = a5;
+  v33 = a2;
+  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV15BufferingPolicyOyyyYaYbc__GMd, &_sScS12ContinuationV15BufferingPolicyOyyyYaYbc__GMR);
+  v9 = *(v32 - 8);
+  MEMORY[0x28223BE20](v32);
+  v11 = &v31 - v10;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
+  MEMORY[0x28223BE20](v12 - 8);
+  v14 = &v31 - v13;
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySDy10Foundation4UUIDV14NearbySessions0E19GroupConnectionInfoCGGMd, &_s7Combine9PublishedVySDy10Foundation4UUIDV14NearbySessions0E19GroupConnectionInfoCGGMR);
+  v16 = *(v15 - 8);
+  MEMORY[0x28223BE20](v15);
+  v18 = &v31 - v17;
+  type metadata accessor for Lock();
   swift_allocObject();
   *(a4 + 6) = Lock.init()();
   *(a4 + 7) = [objc_opt_self() weakObjectsHashTable];
-  v25 = OBJC_IVAR____TtC14NearbySessions27NearbyInvitationsController__groups;
-  v48 = MEMORY[0x277D84F98];
+  v19 = OBJC_IVAR____TtC14NearbySessions27NearbyInvitationsController__groups;
+  v36 = MEMORY[0x277D84F98];
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDy10Foundation4UUIDV14NearbySessions0C19GroupConnectionInfoCGMd, &_sSDy10Foundation4UUIDV14NearbySessions0C19GroupConnectionInfoCGMR);
   Published.init(initialValue:)();
-  (*(v18 + 32))(&a4[v25], v21, v17);
-  v26 = OBJC_IVAR____TtC14NearbySessions27NearbyInvitationsController_approvalRequests;
-  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine18PassthroughSubjectCy14NearbySessions29IncomingInvitationJoinRequestCs5NeverOGMd, &_s7Combine18PassthroughSubjectCy14NearbySessions29IncomingInvitationJoinRequestCs5NeverOGMR);
-  v28 = *(v27 + 48);
-  v29 = *(v27 + 52);
+  (*(v16 + 32))(&a4[v19], v18, v15);
+  v20 = OBJC_IVAR____TtC14NearbySessions27NearbyInvitationsController_approvalRequests;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine18PassthroughSubjectCy14NearbySessions29IncomingInvitationJoinRequestCs5NeverOGMd, &_s7Combine18PassthroughSubjectCy14NearbySessions29IncomingInvitationJoinRequestCs5NeverOGMR);
   swift_allocObject();
-  *&a4[v26] = PassthroughSubject.init()();
-  v30 = OBJC_IVAR____TtC14NearbySessions27NearbyInvitationsController_groupTable;
-  v31 = type metadata accessor for NearbyGroupTable(0);
-  v32 = *(v31 + 48);
-  v33 = *(v31 + 52);
-  v34 = swift_allocObject();
-  v35 = type metadata accessor for TaskPriority();
-  (*(*(v35 - 8) + 56))(v16, 1, 1, v35);
-  (*(v9 + 104))(v12, *MEMORY[0x277D85778], v44);
+  *&a4[v20] = PassthroughSubject.init()();
+  v21 = OBJC_IVAR____TtC14NearbySessions27NearbyInvitationsController_groupTable;
+  type metadata accessor for NearbyGroupTable(0);
+  v22 = swift_allocObject();
+  v23 = type metadata accessor for TaskPriority();
+  (*(*(v23 - 8) + 56))(v14, 1, 1, v23);
+  (*(v9 + 104))(v11, *MEMORY[0x277D85778], v32);
   AsyncSerialQueue.init(priority:bufferingPolicy:)();
-  v36 = OBJC_IVAR____TtC14NearbySessions16NearbyGroupTable_contents;
-  *(v34 + v36) = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC10Foundation4UUIDV_14NearbySessions0E10GroupTableC04WeakeG0VTt0g5Tf4g_n(MEMORY[0x277D84F90]);
-  *&a4[v30] = v34;
+  v24 = OBJC_IVAR____TtC14NearbySessions16NearbyGroupTable_contents;
+  *(v22 + v24) = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC10Foundation4UUIDV_14NearbySessions0E10GroupTableC04WeakeG0VTt0g5Tf4g_n(MEMORY[0x277D84F90]);
+  *&a4[v21] = v22;
   *(a4 + 2) = a1;
   *(a4 + 3) = a6;
-  v38 = v45;
-  v37 = v46;
-  *(a4 + 4) = v45;
-  *(a4 + 5) = v37;
-  v39 = *(a6 + 16);
+  v26 = v33;
+  v25 = v34;
+  *(a4 + 4) = v33;
+  *(a4 + 5) = v25;
+  v27 = *(a6 + 16);
   swift_unknownObjectRetain();
-  v40 = v38;
+  v28 = v26;
 
-  v39(v41, &protocol witness table for NearbyInvitationsController, v47, a6);
+  v27(v29, &protocol witness table for NearbyInvitationsController, v35, a6);
   return a4;
 }
 
 char *specialized NearbyInvitationsController.__allocating_init(dataSource:queue:provider:)(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v11 = *(a4 + 48);
-  v12 = *(a4 + 52);
-  v13 = swift_allocObject();
+  v11 = swift_allocObject();
 
-  return specialized NearbyInvitationsController.init(dataSource:queue:provider:)(a1, a2, a3, v13, a5, a6);
+  return specialized NearbyInvitationsController.init(dataSource:queue:provider:)(a1, a2, a3, v11, a5, a6);
 }
 
 uint64_t specialized NearbyInvitationsController.denyConnectionRequest(_:localInvitation:)(void *a1)
 {
   v3 = type metadata accessor for DispatchWorkItemFlags();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = v16 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = type metadata accessor for DispatchQoS();
-  v8 = *(v17 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v17);
-  v11 = v16 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16[1] = *(v1 + 32);
-  v12 = swift_allocObject();
-  *(v12 + 16) = a1;
-  *(v12 + 24) = v1;
+  v6 = v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = type metadata accessor for DispatchQoS();
+  v7 = *(v15 - 8);
+  MEMORY[0x28223BE20](v15);
+  v9 = v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14[1] = *(v1 + 32);
+  v10 = swift_allocObject();
+  *(v10 + 16) = a1;
+  *(v10 + 24) = v1;
   aBlock[4] = partial apply for closure #1 in NearbyInvitationsController.denyConnectionRequest(_:localInvitation:);
-  aBlock[5] = v12;
+  aBlock[5] = v10;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable () -> ();
   aBlock[3] = &block_descriptor_180_0;
-  v13 = _Block_copy(aBlock);
-  v14 = a1;
+  v11 = _Block_copy(aBlock);
+  v12 = a1;
 
   static DispatchQoS.unspecified.getter();
-  v18 = MEMORY[0x277D84F90];
-  _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198]);
+  v16 = MEMORY[0x277D84F90];
+  _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
-  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
+  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR, MEMORY[0x277D83970]);
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  MEMORY[0x25F86F310](0, v11, v7, v13);
-  _Block_release(v13);
-  (*(v4 + 8))(v7, v3);
-  (*(v8 + 8))(v11, v17);
+  MEMORY[0x25F86F310](0, v9, v6, v11);
+  _Block_release(v11);
+  (*(v4 + 8))(v6, v3);
+  (*(v7 + 8))(v9, v15);
 }
 
 uint64_t partial apply for closure #1 in NearbyInvitationsController.advertiseNearbyInvitation(_:response:)(uint64_t a1)
@@ -3594,9 +3093,6 @@ uint64_t partial apply for closure #1 in NearbyInvitationsController.advertiseNe
 
 uint64_t objectdestroy_48Tm()
 {
-  v1 = *(v0 + 16);
-
-  v2 = *(v0 + 40);
 
   return MEMORY[0x2821FE8E8](v0, 56, 7);
 }
@@ -3629,9 +3125,6 @@ uint64_t partial apply for closure #1 in NearbyInvitationsController.releaseAdve
 
 uint64_t objectdestroy_17Tm()
 {
-  v1 = *(v0 + 24);
-
-  v2 = *(v0 + 40);
 
   return MEMORY[0x2821FE8E8](v0, 48, 7);
 }
@@ -3648,7 +3141,7 @@ uint64_t partial apply for closure #1 in NearbyInvitationsController.stopAdverti
   v8 = *v6;
   v9 = v6[1];
 
-  return closure #1 in NearbyInvitationsController.stopAdvertisingNearbyInvitation(_:response:)(v5, v0 + v2, v8, v9);
+  return closure #1 in NearbyInvitationsController.stopAdvertisingNearbyInvitation(_:response:)(v5, v0 + v2, v8, v9, v7);
 }
 
 uint64_t objectdestroy_4Tm()
@@ -3658,10 +3151,8 @@ uint64_t objectdestroy_4Tm()
   v3 = *(v2 + 80);
   v4 = (v3 + 24) & ~v3;
   v5 = (*(v2 + 64) + v4 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v6 = *(v0 + 16);
 
   (*(v2 + 8))(v0 + v4, v1);
-  v7 = *(v0 + v5 + 8);
 
   return MEMORY[0x2821FE8E8](v0, v5 + 16, v3 | 7);
 }
@@ -3693,25 +3184,12 @@ uint64_t partial apply for closure #1 in NearbyInvitationsController.scanNearbyE
 
 uint64_t objectdestroy_38Tm(uint64_t a1)
 {
-  v3 = *(v1 + 16);
-
-  v4 = *(v1 + 32);
 
   return MEMORY[0x2821FE8E8](v1, a1, 7);
 }
 
-uint64_t partial apply for closure #1 in NearbyInvitationsController.requestConnection(with:localInvitation:response:)(uint64_t a1, uint64_t a2)
-{
-  v3 = *(v2 + 16);
-  v4 = *(v2 + 24);
-  return v3(a2);
-}
-
 uint64_t objectdestroy_117Tm()
 {
-  v1 = *(v0 + 16);
-
-  v2 = *(v0 + 48);
 
   return MEMORY[0x2821FE8E8](v0, 56, 7);
 }
@@ -3741,19 +3219,15 @@ unint64_t lazy protocol witness table accessor for type NearbyInvitationsControl
 
 uint64_t objectdestroyTm_0()
 {
-  v1 = *(v0 + 16);
-
-  v2 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
 
-uint64_t type metadata completion function for NearbyGroupConnectionInfo()
+uint64_t type metadata completion function for NearbyGroupConnectionInfo(uint64_t a1)
 {
   result = type metadata accessor for UUID();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v2 = *(result - 8) + 64;
     result = swift_updateClassMetadata2();
     if (!result)
     {
@@ -3764,12 +3238,11 @@ uint64_t type metadata completion function for NearbyGroupConnectionInfo()
   return result;
 }
 
-uint64_t type metadata completion function for NearbyGroupCreationRequest(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t))
+uint64_t type metadata completion function for NearbyGroupCreationRequest(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t))
 {
-  result = a4(319);
+  result = a4(319, a2, a3);
   if (v5 <= 0x3F)
   {
-    v6 = *(result - 8) + 64;
     result = swift_updateClassMetadata2();
     if (!result)
     {
@@ -3782,51 +3255,44 @@ uint64_t type metadata completion function for NearbyGroupCreationRequest(uint64
 
 uint64_t dispatch thunk of NearbyGroupTable.cleanUpIfNotPresent(_:)(uint64_t a1)
 {
-  v4 = *(*v1 + 144);
-  v8 = (v4 + *v4);
-  v5 = v4[1];
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = partial apply for closure #1 in NearbyGroupTable.firstGroup();
+  v6 = (*(*v1 + 144) + **(*v1 + 144));
+  v4 = swift_task_alloc();
+  *(v2 + 16) = v4;
+  *v4 = v2;
+  v4[1] = partial apply for closure #1 in NearbyGroupTable.firstGroup();
 
-  return v8(a1);
+  return v6(a1);
 }
 
 uint64_t dispatch thunk of NearbyGroupTable.registerIfNotPresent(identifier:generationBlock:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v8 = *(*v3 + 152);
-  v12 = (v8 + *v8);
-  v9 = v8[1];
-  v10 = swift_task_alloc();
-  *(v4 + 16) = v10;
-  *v10 = v4;
-  v10[1] = dispatch thunk of NearbyGroupTable.registerIfNotPresent(identifier:generationBlock:);
+  v10 = (*(*v3 + 152) + **(*v3 + 152));
+  v8 = swift_task_alloc();
+  *(v4 + 16) = v8;
+  *v8 = v4;
+  v8[1] = dispatch thunk of NearbyGroupTable.registerIfNotPresent(identifier:generationBlock:);
 
-  return v12(a1, a2, a3);
+  return v10(a1, a2, a3);
 }
 
 uint64_t dispatch thunk of NearbyGroupTable.firstGroup()()
 {
-  v2 = *(*v0 + 160);
-  v6 = (v2 + *v2);
-  v3 = v2[1];
-  v4 = swift_task_alloc();
-  *(v1 + 16) = v4;
-  *v4 = v1;
-  v4[1] = dispatch thunk of NearbyGroupTable.firstGroup();
+  v4 = (*(*v0 + 160) + **(*v0 + 160));
+  v2 = swift_task_alloc();
+  *(v1 + 16) = v2;
+  *v2 = v1;
+  v2[1] = dispatch thunk of NearbyGroupTable.firstGroup();
 
-  return v6();
+  return v4();
 }
 
 uint64_t dispatch thunk of NearbyGroupTable.firstGroup()(uint64_t a1)
 {
-  v3 = *(*v1 + 16);
-  v6 = *v1;
+  v5 = *v1;
 
-  v4 = *(v6 + 8);
+  v3 = *(v5 + 8);
 
-  return v4(a1);
+  return v3(a1);
 }
 
 uint64_t getEnumTagSinglePayload for NearbyGroupTable.WeakNearbyGroup(uint64_t a1, int a2)
@@ -3869,12 +3335,11 @@ uint64_t storeEnumTagSinglePayload for NearbyGroupTable.WeakNearbyGroup(uint64_t
   return result;
 }
 
-void type metadata completion function for NearbyInvitationsController()
+void type metadata completion function for NearbyInvitationsController(uint64_t a1)
 {
-  type metadata accessor for Published<[UUID : NearbyGroupConnectionInfo]>();
+  type metadata accessor for Published<[UUID : NearbyGroupConnectionInfo]>(319);
   if (v1 <= 0x3F)
   {
-    v2 = *(v0 - 8) + 64;
     swift_updateClassMetadata2();
   }
 }
@@ -4045,67 +3510,65 @@ id specialized NearbyInvitationData.init<A>(from:)(uint64_t a1)
 {
   v3 = type metadata accessor for UUID();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v20 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v19 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   (*(v4 + 16))(&v1[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_invitationID], a1 + direct field offset for NearbyInvitation.id, v3);
-  v8 = *(a1 + direct field offset for NearbyInvitation.displayName + 8);
-  v9 = &v1[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_displayName];
-  *v9 = *(a1 + direct field offset for NearbyInvitation.displayName);
-  *(v9 + 1) = v8;
-  v10 = *(a1 + direct field offset for NearbyInvitation.userInfo);
-  v11 = *(a1 + direct field offset for NearbyInvitation.userInfo + 8);
-  v12 = &v1[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_userInfo];
-  *v12 = v10;
-  v12[1] = v11;
-  v13 = *(a1 + direct field offset for NearbyInvitation.invitationHostInfo);
-  *&v1[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_hostConnectionInfo] = v13;
+  v7 = *(a1 + direct field offset for NearbyInvitation.displayName + 8);
+  v8 = &v1[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_displayName];
+  *v8 = *(a1 + direct field offset for NearbyInvitation.displayName);
+  *(v8 + 1) = v7;
+  v9 = *(a1 + direct field offset for NearbyInvitation.userInfo);
+  v10 = *(a1 + direct field offset for NearbyInvitation.userInfo + 8);
+  v11 = &v1[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_userInfo];
+  *v11 = v9;
+  v11[1] = v10;
+  v12 = *(a1 + direct field offset for NearbyInvitation.invitationHostInfo);
+  *&v1[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_hostConnectionInfo] = v12;
 
-  outlined copy of Data?(v10, v11);
-  v14 = v13;
+  outlined copy of Data?(v9, v10);
+  v13 = v12;
   UUID.init()();
-  (*(v4 + 32))(&v1[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_sourceProviderID], v7, v3);
-  v15 = _s14NearbySessions24InvitationSourceProviderPAAE18providerIdentifierSSvgZAA0A5GroupC_Ttg5();
-  v16 = &v1[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_sourceProviderName];
-  *v16 = v15;
-  v16[1] = v17;
-  v18 = type metadata accessor for NearbyInvitationData(0);
-  v20.receiver = v1;
-  v20.super_class = v18;
-  return objc_msgSendSuper2(&v20, sel_init);
+  (*(v4 + 32))(&v1[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_sourceProviderID], v6, v3);
+  v14 = _s14NearbySessions24InvitationSourceProviderPAAE18providerIdentifierSSvgZAA0A5GroupC_Ttg5();
+  v15 = &v1[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_sourceProviderName];
+  *v15 = v14;
+  v15[1] = v16;
+  v17 = type metadata accessor for NearbyInvitationData(0);
+  v19.receiver = v1;
+  v19.super_class = v17;
+  return objc_msgSendSuper2(&v19, sel_init);
 }
 
 {
   v3 = type metadata accessor for UUID();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v20 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v19 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   (*(v4 + 16))(&v1[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_invitationID], a1 + direct field offset for NearbyInvitation.id, v3);
-  v8 = *(a1 + direct field offset for NearbyInvitation.displayName + 8);
-  v9 = &v1[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_displayName];
-  *v9 = *(a1 + direct field offset for NearbyInvitation.displayName);
-  *(v9 + 1) = v8;
-  v10 = *(a1 + direct field offset for NearbyInvitation.userInfo);
-  v11 = *(a1 + direct field offset for NearbyInvitation.userInfo + 8);
-  v12 = &v1[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_userInfo];
-  *v12 = v10;
-  v12[1] = v11;
-  v13 = *(a1 + direct field offset for NearbyInvitation.invitationHostInfo);
-  *&v1[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_hostConnectionInfo] = v13;
+  v7 = *(a1 + direct field offset for NearbyInvitation.displayName + 8);
+  v8 = &v1[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_displayName];
+  *v8 = *(a1 + direct field offset for NearbyInvitation.displayName);
+  *(v8 + 1) = v7;
+  v9 = *(a1 + direct field offset for NearbyInvitation.userInfo);
+  v10 = *(a1 + direct field offset for NearbyInvitation.userInfo + 8);
+  v11 = &v1[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_userInfo];
+  *v11 = v9;
+  v11[1] = v10;
+  v12 = *(a1 + direct field offset for NearbyInvitation.invitationHostInfo);
+  *&v1[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_hostConnectionInfo] = v12;
 
-  outlined copy of Data?(v10, v11);
-  v14 = v13;
+  outlined copy of Data?(v9, v10);
+  v13 = v12;
   UUID.init()();
-  (*(v4 + 32))(&v1[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_sourceProviderID], v7, v3);
-  v15 = _s14NearbySessions24InvitationSourceProviderPAAE18providerIdentifierSSvgZAA0A5GroupC_Ttg5();
-  v16 = &v1[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_sourceProviderName];
-  *v16 = v15;
-  v16[1] = v17;
-  v18 = type metadata accessor for NearbyInvitationData(0);
-  v20.receiver = v1;
-  v20.super_class = v18;
-  return objc_msgSendSuper2(&v20, sel_init);
+  (*(v4 + 32))(&v1[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_sourceProviderID], v6, v3);
+  v14 = _s14NearbySessions24InvitationSourceProviderPAAE18providerIdentifierSSvgZAA0A5GroupC_Ttg5();
+  v15 = &v1[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_sourceProviderName];
+  *v15 = v14;
+  v15[1] = v16;
+  v17 = type metadata accessor for NearbyInvitationData(0);
+  v19.receiver = v1;
+  v19.super_class = v17;
+  return objc_msgSendSuper2(&v19, sel_init);
 }
 
 uint64_t partial apply for closure #1 in closure #1 in NearbyInvitationsController.createGroup(with:)()
@@ -4165,10 +3628,10 @@ Swift::Int NearbyInvitationAdvertiser.Errors.hashValue.getter(char a1)
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance NearbyInvitationAdvertiser<A>.Errors()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance NearbyInvitationAdvertiser<A>.Errors(uint64_t a1)
 {
   Hasher.init(_seed:)();
-  NearbyInvitationAdvertiser.Errors.hash(into:)(v2, *v0);
+  NearbyInvitationAdvertiser.Errors.hash(into:)(v3, *v1);
   return Hasher._finalize()();
 }
 
@@ -4194,53 +3657,56 @@ uint64_t NearbyInvitationAdvertiser.didReceiveConnectionRequest(advertisement:)(
     v10 = swift_slowAlloc();
     v11 = swift_slowAlloc();
     *v9 = 136315394;
-    v31[0] = v2;
+    v34[0] = v2;
     v12 = *(v4 + 80);
     v13 = *(v4 + 88);
-    v30[0] = v11;
-    v14 = type metadata accessor for NearbyInvitationAdvertiser();
-    v15 = >> prefix<A>(_:)(v31, v14);
-    v17 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v15, v16, v30);
+    v32 = v12;
+    v33[0] = v11;
+    v15 = type metadata accessor for NearbyInvitationAdvertiser(0, v12, v13, v14);
+    v16 = >> prefix<A>(_:)(v34, v15);
+    v18 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v16, v17, v33);
 
-    *(v9 + 4) = v17;
+    *(v9 + 4) = v18;
     *(v9 + 12) = 2112;
     *(v9 + 14) = v6;
     *v10 = v6;
-    v18 = v6;
+    v19 = v6;
     _os_log_impl(&dword_25B7C4000, v7, v8, "%s did receive connection request for advertisement %@ about to insert pending invitation member", v9, 0x16u);
     outlined destroy of NSObject?(v10, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
     MEMORY[0x25F86FE20](v10, -1, -1);
     __swift_destroy_boxed_opaque_existential_0(v11);
-    MEMORY[0x25F86FE20](v11, -1, -1);
+    v20 = v11;
+    v21 = v32;
+    MEMORY[0x25F86FE20](v20, -1, -1);
     MEMORY[0x25F86FE20](v9, -1, -1);
   }
 
   else
   {
 
-    v20 = *(v4 + 80);
-    v19 = *(v4 + 88);
+    v21 = *(v4 + 80);
+    v13 = *(v4 + 88);
   }
 
-  v21 = (v2[3] + OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_invitation);
-  v22 = *v21;
-  v23 = v21[1];
-  v30[4] = v6;
-  v30[5] = v22;
-  v30[6] = v23;
-  v24 = *(*v2 + 192);
-  v25 = v6;
-  outlined copy of Data._Representation(v22, v23);
-  v26 = v24(v30);
-  type metadata accessor for NearbyInvitationAdvertiser.PendingMember();
+  v22 = (v2[3] + OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_invitation);
+  v23 = *v22;
+  v24 = v22[1];
+  v33[4] = v6;
+  v33[5] = v23;
+  v33[6] = v24;
+  v25 = *(*v2 + 192);
+  v26 = v6;
+  outlined copy of Data._Representation(v23, v24);
+  v27 = v25(v33);
+  type metadata accessor for NearbyInvitationAdvertiser.PendingMember(255, v21, v13, v28);
   swift_getWitnessTable();
   type metadata accessor for Set();
   Set.insert(_:)();
-  v27 = v31[1];
-  v28 = v31[2];
+  v29 = v34[1];
+  v30 = v34[2];
 
-  outlined consume of Data._Representation(v27, v28);
-  return v26(v30, 0);
+  outlined consume of Data._Representation(v29, v30);
+  return v27(v33, 0);
 }
 
 uint64_t NearbyInvitationAdvertiser.PendingMember.init(advertisement:invitationData:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
@@ -4257,12 +3723,9 @@ uint64_t NearbyInvitationAdvertiser.didReceiveSessionJoinResponse(response:)(uin
   v4 = *v1;
   v5 = type metadata accessor for UUID();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v46 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for JSONDecoder();
-  v11 = *(v10 + 48);
-  v12 = *(v10 + 52);
+  v8 = &v42 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for JSONDecoder();
   swift_allocObject();
   result = JSONDecoder.init()();
   if (*(a1 + OBJC_IVAR____TtC14NearbySessions22InvitationJoinResponse_userInfo + 8) >> 60 == 15)
@@ -4271,129 +3734,128 @@ uint64_t NearbyInvitationAdvertiser.didReceiveSessionJoinResponse(response:)(uin
     goto LABEL_10;
   }
 
-  v14 = result;
-  v15 = *(a1 + OBJC_IVAR____TtC14NearbySessions22InvitationJoinResponse_userInfo);
+  v10 = result;
   lazy protocol witness table accessor for type InvitationRequestData and conformance InvitationRequestData();
   dispatch thunk of JSONDecoder.decode<A>(_:from:)();
-  v54 = v5;
-  v49 = v4;
-  v53 = v14;
-  v50 = v62[0];
-  v51 = v62[1];
-  v16 = v62[4];
-  v52 = v62[3];
-  v17 = v62[5];
+  v50 = v5;
+  v45 = v4;
+  v49 = v10;
+  v46 = v53[0];
+  v47 = v53[1];
+  v11 = v53[4];
+  v48 = v53[3];
+  v12 = v53[5];
   result = UUID.init()();
-  v48 = *(a1 + OBJC_IVAR____TtC14NearbySessions22InvitationJoinResponse_sessionIdentifier + 8);
-  if (!v48)
+  v44 = *(a1 + OBJC_IVAR____TtC14NearbySessions22InvitationJoinResponse_sessionIdentifier + 8);
+  if (!v44)
   {
 LABEL_10:
     __break(1u);
     return result;
   }
 
-  v18 = *(a1 + OBJC_IVAR____TtC14NearbySessions22InvitationJoinResponse_sessionIdentifier);
-  v47 = type metadata accessor for NearbyAdvertisement(0);
-  v19 = objc_allocWithZone(v47);
-  v20 = &v19[OBJC_IVAR____TtC14NearbySessions19NearbyAdvertisement_deviceColor];
-  *v20 = 0;
-  v20[8] = 1;
-  v21 = &v19[OBJC_IVAR____TtC14NearbySessions19NearbyAdvertisement_deviceModel];
-  *v21 = 0;
-  *(v21 + 1) = 0;
-  v22 = &v19[OBJC_IVAR____TtC14NearbySessions19NearbyAdvertisement_deviceID];
-  *v22 = 0;
-  *(v22 + 1) = 0;
-  v23 = &v19[OBJC_IVAR____TtC14NearbySessions19NearbyAdvertisement____lazy_storage___dataSource];
-  *v23 = 0;
-  *(v23 + 1) = 0;
-  (*(v6 + 16))(&v19[OBJC_IVAR____TtC14NearbySessions19NearbyAdvertisement_scannerID], v9, v54);
-  v24 = &v19[OBJC_IVAR____TtC14NearbySessions19NearbyAdvertisement_identifier];
-  *v24 = v18;
-  *(v24 + 1) = v48;
-  *&v19[OBJC_IVAR____TtC14NearbySessions19NearbyAdvertisement_activityType] = 1;
-  v25 = &v19[OBJC_IVAR____TtC14NearbySessions19NearbyAdvertisement_contactID];
-  *v25 = v16;
-  *(v25 + 1) = v17;
-  v26 = &v19[OBJC_IVAR____TtC14NearbySessions19NearbyAdvertisement_handle];
-  *v26 = v16;
-  *(v26 + 1) = v17;
-  v27 = &v19[OBJC_IVAR____TtC14NearbySessions19NearbyAdvertisement_displayName];
-  *v27 = v16;
-  *(v27 + 1) = v17;
-  *&v19[OBJC_IVAR____TtC14NearbySessions19NearbyAdvertisement_userInfo] = xmmword_25B82C300;
+  v13 = *(a1 + OBJC_IVAR____TtC14NearbySessions22InvitationJoinResponse_sessionIdentifier);
+  v43 = type metadata accessor for NearbyAdvertisement(0);
+  v14 = objc_allocWithZone(v43);
+  v15 = &v14[OBJC_IVAR____TtC14NearbySessions19NearbyAdvertisement_deviceColor];
+  *v15 = 0;
+  v15[8] = 1;
+  v16 = &v14[OBJC_IVAR____TtC14NearbySessions19NearbyAdvertisement_deviceModel];
+  *v16 = 0;
+  *(v16 + 1) = 0;
+  v17 = &v14[OBJC_IVAR____TtC14NearbySessions19NearbyAdvertisement_deviceID];
+  *v17 = 0;
+  *(v17 + 1) = 0;
+  v18 = &v14[OBJC_IVAR____TtC14NearbySessions19NearbyAdvertisement____lazy_storage___dataSource];
+  *v18 = 0;
+  *(v18 + 1) = 0;
+  (*(v6 + 16))(&v14[OBJC_IVAR____TtC14NearbySessions19NearbyAdvertisement_scannerID], v8, v50);
+  v19 = &v14[OBJC_IVAR____TtC14NearbySessions19NearbyAdvertisement_identifier];
+  *v19 = v13;
+  *(v19 + 1) = v44;
+  *&v14[OBJC_IVAR____TtC14NearbySessions19NearbyAdvertisement_activityType] = 1;
+  v20 = &v14[OBJC_IVAR____TtC14NearbySessions19NearbyAdvertisement_contactID];
+  *v20 = v11;
+  *(v20 + 1) = v12;
+  v21 = &v14[OBJC_IVAR____TtC14NearbySessions19NearbyAdvertisement_handle];
+  *v21 = v11;
+  *(v21 + 1) = v12;
+  v22 = &v14[OBJC_IVAR____TtC14NearbySessions19NearbyAdvertisement_displayName];
+  *v22 = v11;
+  *(v22 + 1) = v12;
+  *&v14[OBJC_IVAR____TtC14NearbySessions19NearbyAdvertisement_userInfo] = xmmword_25B82C300;
   swift_beginAccess();
-  *v20 = 0;
-  v20[8] = 1;
+  *v15 = 0;
+  v15[8] = 1;
   swift_beginAccess();
-  *v21 = 0;
-  *(v21 + 1) = 0;
+  *v16 = 0;
+  *(v16 + 1) = 0;
   swift_beginAccess();
-  *v22 = 0;
-  *(v22 + 1) = 0;
-  v61.receiver = v19;
-  v61.super_class = v47;
-  v47 = v17;
+  *v17 = 0;
+  *(v17 + 1) = 0;
+  v52.receiver = v14;
+  v52.super_class = v43;
+  v43 = v12;
   swift_bridgeObjectRetain_n();
 
-  v28 = objc_msgSendSuper2(&v61, sel_init);
-  (*(v6 + 8))(v9, v54);
-  v29 = (v2[3] + OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_invitation);
-  v30 = *v29;
-  v31 = v29[1];
-  v32 = *(v49 + 80);
-  v33 = *(v49 + 88);
-  v55 = v28;
-  v56 = v30;
-  v57 = v31;
-  v34 = *(*v2 + 192);
-  v35 = v28;
-  outlined copy of Data._Representation(v30, v31);
-  v36 = v34(v62);
-  type metadata accessor for NearbyInvitationAdvertiser.PendingMember();
+  v23 = objc_msgSendSuper2(&v52, sel_init);
+  (*(v6 + 8))(v8, v50);
+  v24 = (v2[3] + OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_invitation);
+  v25 = *v24;
+  v26 = v24[1];
+  v27 = *(v45 + 80);
+  v28 = *(v45 + 88);
+  v51[0] = v23;
+  v51[1] = v25;
+  v51[2] = v26;
+  v29 = *(*v2 + 192);
+  v30 = v23;
+  outlined copy of Data._Representation(v25, v26);
+  v31 = v29(v53);
+  type metadata accessor for NearbyInvitationAdvertiser.PendingMember(255, v27, v28, v32);
   swift_getWitnessTable();
   type metadata accessor for Set();
   Set.insert(_:)();
-  v37 = v59;
-  v38 = v60;
+  v33 = v51[4];
+  v34 = v51[5];
 
-  outlined consume of Data._Representation(v37, v38);
-  v36(v62, 0);
+  outlined consume of Data._Representation(v33, v34);
+  v31(v53, 0);
   if (one-time initialization token for client != -1)
   {
     swift_once();
   }
 
-  v39 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v39, static Log.client);
-  v40 = v35;
-  v41 = Logger.logObject.getter();
-  v42 = static os_log_type_t.debug.getter();
+  v35 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v35, static Log.client);
+  v36 = v30;
+  v37 = Logger.logObject.getter();
+  v38 = static os_log_type_t.debug.getter();
 
-  if (os_log_type_enabled(v41, v42))
+  if (os_log_type_enabled(v37, v38))
   {
-    v43 = swift_slowAlloc();
-    v44 = swift_slowAlloc();
-    *v43 = 138412290;
-    *(v43 + 4) = v40;
-    *v44 = v40;
-    v45 = v40;
-    _os_log_impl(&dword_25B7C4000, v41, v42, "NearbyInvitationAdvertiser is sending pendingMember through %@", v43, 0xCu);
-    outlined destroy of NSObject?(v44, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x25F86FE20](v44, -1, -1);
-    MEMORY[0x25F86FE20](v43, -1, -1);
+    v39 = swift_slowAlloc();
+    v40 = swift_slowAlloc();
+    *v39 = 138412290;
+    *(v39 + 4) = v36;
+    *v40 = v36;
+    v41 = v36;
+    _os_log_impl(&dword_25B7C4000, v37, v38, "NearbyInvitationAdvertiser is sending pendingMember through %@", v39, 0xCu);
+    outlined destroy of NSObject?(v40, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    MEMORY[0x25F86FE20](v40, -1, -1);
+    MEMORY[0x25F86FE20](v39, -1, -1);
 
-    outlined consume of Data?(v50, v51);
+    outlined consume of Data?(v46, v47);
   }
 
   else
   {
 
-    outlined consume of Data?(v50, v51);
+    outlined consume of Data?(v46, v47);
   }
 }
 
-uint64_t @objc NearbyInvitationAdvertiser.didReceiveConnectionRequest(advertisement:)(uint64_t a1, uint64_t a2, void *a3, void (*a4)(id))
+uint64_t @objc NearbyInvitationAdvertiser.didReceiveConnectionRequest(advertisement:)(uint64_t a1, uint64_t a2, void *a3, void (*a4)(void *))
 {
   v5 = a3;
 
@@ -4423,11 +3885,9 @@ uint64_t NearbyInvitationAdvertiser.PendingMember.displayName.getter(uint64_t a1
 
 uint64_t NearbyInvitationAdvertiser.PendingMember.identifier.getter()
 {
-  v1 = (*v0 + OBJC_IVAR____TtC14NearbySessions19NearbyAdvertisement_identifier);
-  v2 = *v1;
-  v3 = v1[1];
+  v1 = *(*v0 + OBJC_IVAR____TtC14NearbySessions19NearbyAdvertisement_identifier);
 
-  return v2;
+  return v1;
 }
 
 uint64_t NearbyInvitationAdvertiser.PendingMember.userInfo.getter()
@@ -4453,33 +3913,32 @@ uint64_t NearbyInvitationAdvertiser.PendingMember.invitationData.setter(uint64_t
   return result;
 }
 
-uint64_t NearbyInvitationAdvertiser.PendingMember.description.getter()
+uint64_t NearbyInvitationAdvertiser.PendingMember.description.getter(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   _StringGuts.grow(_:)(44);
 
-  v2 = _typeName(_:qualified:)();
-  MEMORY[0x25F86F070](v2);
+  v3 = _typeName(_:qualified:)();
+  MEMORY[0x25F86F070](v3);
 
   result = MEMORY[0x25F86F070](2108704, 0xE300000000000000);
-  v4 = *&v1[OBJC_IVAR____TtC14NearbySessions19NearbyAdvertisement_displayName + 8];
-  if (v4)
+  v5 = *&v2[OBJC_IVAR____TtC14NearbySessions19NearbyAdvertisement_displayName + 8];
+  if (v5)
   {
-    v5 = *&v1[OBJC_IVAR____TtC14NearbySessions19NearbyAdvertisement_displayName];
-    v6 = *&v1[OBJC_IVAR____TtC14NearbySessions19NearbyAdvertisement_displayName + 8];
+    v6 = *&v2[OBJC_IVAR____TtC14NearbySessions19NearbyAdvertisement_displayName];
 
-    MEMORY[0x25F86F070](v5, v4);
+    MEMORY[0x25F86F070](v6, v5);
 
     MEMORY[0x25F86F070](0xD000000000000012, 0x800000025B8306C0);
-    v7 = [v1 description];
+    v7 = [v2 description];
     v8 = static String._unconditionallyBridgeFromObjectiveC(_:)();
     v10 = v9;
 
     MEMORY[0x25F86F070](v8, v10);
 
     result = MEMORY[0x25F86F070](0x6361746E6F63202CLL, 0xED0000203A444974);
-    v11 = &v1[OBJC_IVAR____TtC14NearbySessions19NearbyAdvertisement_contactID];
-    v12 = *&v1[OBJC_IVAR____TtC14NearbySessions19NearbyAdvertisement_contactID + 8];
+    v11 = &v2[OBJC_IVAR____TtC14NearbySessions19NearbyAdvertisement_contactID];
+    v12 = *&v2[OBJC_IVAR____TtC14NearbySessions19NearbyAdvertisement_contactID + 8];
     if (v12)
     {
       v13 = *v11;
@@ -4498,14 +3957,6 @@ uint64_t NearbyInvitationAdvertiser.PendingMember.description.getter()
 
   __break(1u);
   return result;
-}
-
-uint64_t static NearbyInvitationAdvertiser.PendingMember.== infix(_:_:)(uint64_t *a1, uint64_t *a2)
-{
-  v2 = *a1;
-  v3 = *a2;
-  type metadata accessor for NSObject();
-  return static NSObject.== infix(_:_:)() & 1;
 }
 
 uint64_t NearbyInvitationAdvertiser.PendingMember.approve()()
@@ -4547,22 +3998,21 @@ uint64_t NearbyInvitationAdvertiser.PendingMember.reject()()
 
 Swift::Int NearbyInvitationAdvertiser.PendingMember.hashValue.getter()
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   NSObject.hash(into:)();
   return Hasher._finalize()();
 }
 
-uint64_t property wrapper backing initializer of NearbyInvitationAdvertiser.pendingMembers(uint64_t a1)
+uint64_t property wrapper backing initializer of NearbyInvitationAdvertiser.pendingMembers(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v3 = a1;
-  type metadata accessor for NearbyInvitationAdvertiser.PendingMember();
+  v6 = a1;
+  type metadata accessor for NearbyInvitationAdvertiser.PendingMember(255, a2, a3, a4);
   swift_getWitnessTable();
-  v1 = type metadata accessor for Set();
-  return Published.init(wrappedValue:)(&v3, v1);
+  v4 = type metadata accessor for Set();
+  return Published.init(wrappedValue:)(&v6, v4);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance NearbyInvitationAdvertiser<A>.PendingMember()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance NearbyInvitationAdvertiser<A>.PendingMember(uint64_t a1)
 {
   Hasher.init(_seed:)();
   NearbyInvitationAdvertiser.PendingMember.hash(into:)();
@@ -4576,29 +4026,24 @@ uint64_t key path getter for NearbyInvitationAdvertiser.pendingMembers : <A>Near
   return result;
 }
 
-uint64_t key path setter for NearbyInvitationAdvertiser.pendingMembers : <A>NearbyInvitationAdvertiser<A>(uint64_t *a1, uint64_t a2)
+uint64_t key path setter for NearbyInvitationAdvertiser.pendingMembers : <A>NearbyInvitationAdvertiser<A>(void *a1, uint64_t a2)
 {
-  v2 = *a1;
-  v3 = *(**a2 + 184);
+  v2 = *(**a2 + 184);
 
-  return v3(v4);
+  return v2(v3);
 }
 
 uint64_t NearbyInvitationAdvertiser.pendingMembers.getter()
 {
-  v1 = *(*v0 + 80);
-  v2 = *(*v0 + 88);
   swift_getKeyPath();
   swift_getKeyPath();
   static Published.subscript.getter();
 
-  return v4;
+  return v1;
 }
 
-uint64_t NearbyInvitationAdvertiser.pendingMembers.setter()
+uint64_t NearbyInvitationAdvertiser.pendingMembers.setter(uint64_t a1)
 {
-  v1 = *(*v0 + 80);
-  v2 = *(*v0 + 88);
   swift_getKeyPath();
   swift_getKeyPath();
 
@@ -4609,51 +4054,42 @@ void (*NearbyInvitationAdvertiser.pendingMembers.modify(uint64_t *a1))(void *a1)
 {
   if (MEMORY[0x277D84FD8])
   {
-    v3 = swift_coroFrameAlloc();
+    v2 = swift_coroFrameAlloc();
   }
 
   else
   {
-    v3 = malloc(0x38uLL);
+    v2 = malloc(0x38uLL);
   }
 
-  v4 = v3;
-  *a1 = v3;
-  v5 = *v1;
-  MEMORY[0x28223BE20](v3);
-  v7 = *(v6 + 80);
-  v8 = *(v6 + 88);
+  v3 = v2;
+  *a1 = v2;
+  MEMORY[0x28223BE20](v2);
   KeyPath = swift_getKeyPath();
-  v4[4] = KeyPath;
+  v3[4] = KeyPath;
   MEMORY[0x28223BE20](KeyPath);
-  v4[5] = swift_getKeyPath();
-  v4[6] = static Published.subscript.modify();
+  v3[5] = swift_getKeyPath();
+  v3[6] = static Published.subscript.modify();
   return NearbyInvitationsController.groups.modify;
 }
 
 uint64_t key path setter for NearbyInvitationAdvertiser.$pendingMembers : <A>NearbyInvitationAdvertiser<A>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v6 = *(a3 + a4 - 16);
-  v7 = *(a3 + a4 - 8);
-  type metadata accessor for NearbyInvitationAdvertiser.PendingMember();
+  type metadata accessor for NearbyInvitationAdvertiser.PendingMember(255, *(a3 + a4 - 16), *(a3 + a4 - 8), a4);
   swift_getWitnessTable();
   type metadata accessor for Set();
-  v8 = type metadata accessor for Published.Publisher();
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8);
-  v11 = &v14 - v10;
-  (*(v12 + 16))(&v14 - v10, a1);
-  return (*(**a2 + 208))(v11);
+  v6 = type metadata accessor for Published.Publisher();
+  MEMORY[0x28223BE20](v6);
+  v8 = &v11 - v7;
+  (*(v9 + 16))(&v11 - v7, a1);
+  return (*(**a2 + 208))(v8);
 }
 
 uint64_t NearbyInvitationAdvertiser.$pendingMembers.getter()
 {
   v1 = *v0;
-  v2 = *(*v0 + 120);
   swift_beginAccess();
-  v3 = *(v1 + 80);
-  v4 = *(v1 + 88);
-  type metadata accessor for NearbyInvitationAdvertiser.PendingMember();
+  type metadata accessor for NearbyInvitationAdvertiser.PendingMember(255, *(v1 + 80), *(v1 + 88), v2);
   swift_getWitnessTable();
   type metadata accessor for Set();
   type metadata accessor for Published();
@@ -4661,22 +4097,20 @@ uint64_t NearbyInvitationAdvertiser.$pendingMembers.getter()
   return swift_endAccess();
 }
 
-uint64_t NearbyInvitationAdvertiser.$pendingMembers.setter(uint64_t a1)
+uint64_t NearbyInvitationAdvertiser.$pendingMembers.setter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v3 = *v1;
-  specialized NearbyInvitationAdvertiser.$pendingMembers.setter(a1);
-  v4 = *(v3 + 80);
-  v5 = *(v3 + 88);
-  type metadata accessor for NearbyInvitationAdvertiser.PendingMember();
+  v6 = *v4;
+  specialized NearbyInvitationAdvertiser.$pendingMembers.setter(a1, a2, a3, a4);
+  type metadata accessor for NearbyInvitationAdvertiser.PendingMember(255, *(v6 + 80), *(v6 + 88), v7);
   swift_getWitnessTable();
   type metadata accessor for Set();
-  v6 = type metadata accessor for Published.Publisher();
-  v7 = *(*(v6 - 8) + 8);
+  v8 = type metadata accessor for Published.Publisher();
+  v9 = *(*(v8 - 8) + 8);
 
-  return v7(a1, v6);
+  return v9(a1, v8);
 }
 
-void (*NearbyInvitationAdvertiser.$pendingMembers.modify(void *a1))(uint64_t **a1, char a2)
+void (*NearbyInvitationAdvertiser.$pendingMembers.modify(void *a1))(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v3 = MEMORY[0x277D84FD8];
   if (MEMORY[0x277D84FD8])
@@ -4689,105 +4123,102 @@ void (*NearbyInvitationAdvertiser.$pendingMembers.modify(void *a1))(uint64_t **a
     v4 = malloc(0x28uLL);
   }
 
-  v5 = v4;
+  v6 = v4;
   *a1 = v4;
   *v4 = v1;
-  v6 = *(*v1 + 80);
-  v7 = *(*v1 + 88);
-  type metadata accessor for NearbyInvitationAdvertiser.PendingMember();
+  type metadata accessor for NearbyInvitationAdvertiser.PendingMember(255, *(*v1 + 80), *(*v1 + 88), v5);
   swift_getWitnessTable();
   type metadata accessor for Set();
-  v8 = type metadata accessor for Published.Publisher();
-  v5[1] = v8;
-  v9 = *(v8 - 8);
-  v5[2] = v9;
-  v10 = *(v9 + 64);
+  v7 = type metadata accessor for Published.Publisher();
+  v6[1] = v7;
+  v8 = *(v7 - 8);
+  v6[2] = v8;
+  v9 = *(v8 + 64);
   if (v3)
   {
-    v5[3] = swift_coroFrameAlloc();
-    v11 = swift_coroFrameAlloc();
+    v6[3] = swift_coroFrameAlloc();
+    v10 = swift_coroFrameAlloc();
   }
 
   else
   {
-    v5[3] = malloc(*(v9 + 64));
-    v11 = malloc(v10);
+    v6[3] = malloc(*(v8 + 64));
+    v10 = malloc(v9);
   }
 
-  v5[4] = v11;
+  v6[4] = v10;
   NearbyInvitationAdvertiser.$pendingMembers.getter();
   return NearbyInvitationAdvertiser.$pendingMembers.modify;
 }
 
-void NearbyInvitationAdvertiser.$pendingMembers.modify(uint64_t **a1, char a2)
+void NearbyInvitationAdvertiser.$pendingMembers.modify(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *a1;
-  v3 = (*a1)[3];
-  v4 = (*a1)[4];
-  v5 = (*a1)[1];
-  v6 = (*a1)[2];
-  v7 = **a1;
+  v4 = *a1;
+  v5 = *(*a1 + 24);
+  v6 = *(*a1 + 32);
+  v7 = *(*a1 + 8);
+  v8 = *(*a1 + 16);
   if (a2)
   {
-    (*(v6 + 16))((*a1)[3], v4, v5);
-    specialized NearbyInvitationAdvertiser.$pendingMembers.setter(v3);
-    v8 = *(v6 + 8);
-    v8(v3, v5);
-    v8(v4, v5);
+    (*(v8 + 16))(*(*a1 + 24), v6, v7);
+    specialized NearbyInvitationAdvertiser.$pendingMembers.setter(v5, v9, v10, v11);
+    v12 = *(v8 + 8);
+    v12(v5, v7);
+    v12(v6, v7);
   }
 
   else
   {
-    specialized NearbyInvitationAdvertiser.$pendingMembers.setter((*a1)[4]);
-    (*(v6 + 8))(v4, v5);
+    specialized NearbyInvitationAdvertiser.$pendingMembers.setter(*(*a1 + 32), a2, a3, a4);
+    (*(v8 + 8))(v6, v7);
   }
 
+  free(v6);
+  free(v5);
+
   free(v4);
-  free(v3);
-
-  free(v2);
 }
 
-char *NearbyInvitationAdvertiser.__allocating_init(invitation:provider:activityType:route:)(uint64_t a1, uint64_t a2, int a3, int a4)
+char *NearbyInvitationAdvertiser.__allocating_init(invitation:provider:activityType:route:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v8 = *(v4 + 48);
-  v9 = *(v4 + 52);
+  v4 = a4;
+  v5 = a3;
   swift_allocObject();
-  v10 = specialized NearbyInvitationAdvertiser.init(invitation:provider:activityType:route:)(a1, a3, a4);
+  v7 = specialized NearbyInvitationAdvertiser.init(invitation:provider:activityType:route:)(a1, v5, v4);
 
-  return v10;
+  return v7;
 }
 
-char *NearbyInvitationAdvertiser.init(invitation:provider:activityType:route:)(uint64_t a1, uint64_t a2, int a3, int a4)
+char *NearbyInvitationAdvertiser.init(invitation:provider:activityType:route:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v4 = specialized NearbyInvitationAdvertiser.init(invitation:provider:activityType:route:)(a1, a3, a4);
 
   return v4;
 }
 
-char *NearbyInvitationAdvertiser.__allocating_init(invitation:provider:activityType:route:params:)(uint64_t a1, uint64_t a2, int a3, int a4, void *a5)
+char *NearbyInvitationAdvertiser.__allocating_init(invitation:provider:activityType:route:params:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v10 = *(v5 + 48);
-  v11 = *(v5 + 52);
+  v6 = a4;
+  v7 = a3;
   swift_allocObject();
-  v12 = specialized NearbyInvitationAdvertiser.init(invitation:provider:activityType:route:params:)(a1, a3, a4, a5);
+  v9 = specialized NearbyInvitationAdvertiser.init(invitation:provider:activityType:route:params:)(a1, v7, v6, a5);
 
-  return v12;
+  return v9;
 }
 
-char *NearbyInvitationAdvertiser.init(invitation:provider:activityType:route:params:)(uint64_t a1, uint64_t a2, int a3, int a4, void *a5)
+char *NearbyInvitationAdvertiser.init(invitation:provider:activityType:route:params:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
   v6 = specialized NearbyInvitationAdvertiser.init(invitation:provider:activityType:route:params:)(a1, a3, a4, a5);
 
   return v6;
 }
 
-char *NearbyInvitationAdvertiser.__allocating_init(remoteInvitationData:provider:activityType:route:params:)(uint64_t a1, unint64_t a2, uint64_t a3, int a4, int a5, void *a6)
+char *NearbyInvitationAdvertiser.__allocating_init(remoteInvitationData:provider:activityType:route:params:)(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6)
 {
-  v12 = *(v6 + 48);
-  v13 = *(v6 + 52);
+  v7 = a5;
+  v8 = a4;
   swift_allocObject();
-  return specialized NearbyInvitationAdvertiser.init(remoteInvitationData:provider:activityType:route:params:)(a1, a2, a4, a5, a6);
+  return specialized NearbyInvitationAdvertiser.init(remoteInvitationData:provider:activityType:route:params:)(a1, a2, v8, v7, a6);
 }
 
 uint64_t NearbyInvitationAdvertiser.start()()
@@ -4798,68 +4229,62 @@ uint64_t NearbyInvitationAdvertiser.start()()
 }
 
 {
-  v21 = v0;
+  v18 = v0;
   if (one-time initialization token for client != -1)
   {
     swift_once();
   }
 
-  v1 = v0[3];
-  v2 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v2, static Log.client);
+  v1 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v1, static Log.client);
 
-  v3 = Logger.logObject.getter();
-  v4 = static os_log_type_t.default.getter();
+  v2 = Logger.logObject.getter();
+  v3 = static os_log_type_t.default.getter();
 
-  if (os_log_type_enabled(v3, v4))
+  if (os_log_type_enabled(v2, v3))
   {
-    v6 = v0[3];
-    v5 = v0[4];
+    v5 = v0[3];
+    v4 = v0[4];
+    v6 = swift_slowAlloc();
     v7 = swift_slowAlloc();
-    v8 = swift_slowAlloc();
-    v20 = v8;
-    *v7 = 136315138;
-    v0[2] = v6;
-    v9 = *(v5 + 80);
-    v10 = *(v5 + 88);
-    v11 = type metadata accessor for NearbyInvitationAdvertiser();
-    v12 = >> prefix<A>(_:)((v0 + 2), v11);
-    v14 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v12, v13, &v20);
+    v17 = v7;
+    *v6 = 136315138;
+    v0[2] = v5;
+    v9 = type metadata accessor for NearbyInvitationAdvertiser(0, *(v4 + 80), *(v4 + 88), v8);
+    v10 = >> prefix<A>(_:)((v0 + 2), v9);
+    v12 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v10, v11, &v17);
 
-    *(v7 + 4) = v14;
-    _os_log_impl(&dword_25B7C4000, v3, v4, "%s: client called start on NearbyInvitationsAdvertiser", v7, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v8);
-    MEMORY[0x25F86FE20](v8, -1, -1);
+    *(v6 + 4) = v12;
+    _os_log_impl(&dword_25B7C4000, v2, v3, "%s: client called start on NearbyInvitationsAdvertiser", v6, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v7);
     MEMORY[0x25F86FE20](v7, -1, -1);
+    MEMORY[0x25F86FE20](v6, -1, -1);
   }
 
-  v15 = *(MEMORY[0x277D85A40] + 4);
-  v16 = swift_task_alloc();
-  v0[5] = v16;
-  *v16 = v0;
-  v16[1] = NearbyInvitationAdvertiser.start();
-  v17 = v0[3];
-  v18 = MEMORY[0x277D84F78] + 8;
+  v13 = swift_task_alloc();
+  v0[5] = v13;
+  *v13 = v0;
+  v13[1] = NearbyInvitationAdvertiser.start();
+  v14 = v0[3];
+  v15 = MEMORY[0x277D84F78] + 8;
 
-  return MEMORY[0x2822008A0](v16, 0, 0, 0x29287472617473, 0xE700000000000000, partial apply for closure #1 in NearbyInvitationAdvertiser.start(), v17, v18);
+  return MEMORY[0x2822008A0](v13, 0, 0, 0x29287472617473, 0xE700000000000000, partial apply for closure #1 in NearbyInvitationAdvertiser.start(), v14, v15);
 }
 
 {
-  v2 = *(*v1 + 40);
-  v5 = *v1;
   *(*v1 + 48) = v0;
 
   if (v0)
   {
-    v3 = NearbyInvitationAdvertiser.start();
+    v2 = NearbyInvitationAdvertiser.start();
   }
 
   else
   {
-    v3 = NearbyInvitationAdvertiser.start();
+    v2 = NearbyInvitationAdvertiser.start();
   }
 
-  return MEMORY[0x2822009F8](v3, 0, 0);
+  return MEMORY[0x2822009F8](v2, 0, 0);
 }
 
 void closure #1 in NearbyInvitationAdvertiser.start()(uint64_t a1, uint64_t *a2)
@@ -4869,34 +4294,32 @@ void closure #1 in NearbyInvitationAdvertiser.start()(uint64_t a1, uint64_t *a2)
   v6 = *(v5 - 8);
   v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v21 - v8;
+  v9 = &v19 - v8;
   v10 = [objc_allocWithZone(MEMORY[0x277CFD160]) init];
   v11 = [v10 wranglerHomePodBoopEnabled];
 
   if (v11 && (v12 = a2[4]) != 0)
   {
-    v13 = a2[2];
     (*(v6 + 16))(v9, a1, v5);
-    v14 = (*(v6 + 80) + 16) & ~*(v6 + 80);
-    v15 = swift_allocObject();
-    (*(v6 + 32))(v15 + v14, v9, v5);
-    v16 = v12;
-    NearbyInvitationsController.advertiseNearbySessionEndpoint(params:response:)(v16, partial apply for closure #1 in closure #1 in NearbyInvitationAdvertiser.start(), v15);
+    v13 = (*(v6 + 80) + 16) & ~*(v6 + 80);
+    v14 = swift_allocObject();
+    (*(v6 + 32))(v14 + v13, v9, v5);
+    v15 = v12;
+    NearbyInvitationsController.advertiseNearbySessionEndpoint(params:response:)(v15, partial apply for closure #1 in closure #1 in NearbyInvitationAdvertiser.start(), v14);
   }
 
   else
   {
-    v17 = a2[2];
-    v18 = a2[3];
+    v16 = a2[3];
     (*(v6 + 16))(v9, a1, v5);
-    v19 = (*(v6 + 80) + 32) & ~*(v6 + 80);
-    v20 = swift_allocObject();
-    *(v20 + 16) = *(v4 + 80);
-    *(v20 + 24) = *(v4 + 88);
-    (*(v6 + 32))(v20 + v19, v9, v5);
-    *(v20 + ((v7 + v19 + 7) & 0xFFFFFFFFFFFFFFF8)) = a2;
+    v17 = (*(v6 + 80) + 32) & ~*(v6 + 80);
+    v18 = swift_allocObject();
+    *(v18 + 16) = *(v4 + 80);
+    *(v18 + 24) = *(v4 + 88);
+    (*(v6 + 32))(v18 + v17, v9, v5);
+    *(v18 + ((v7 + v17 + 7) & 0xFFFFFFFFFFFFFFF8)) = a2;
 
-    NearbyInvitationsController.advertiseNearbyInvitation(_:response:)(v18, partial apply for closure #2 in closure #1 in NearbyInvitationAdvertiser.start(), v20);
+    NearbyInvitationsController.advertiseNearbyInvitation(_:response:)(v16, partial apply for closure #2 in closure #1 in NearbyInvitationAdvertiser.start(), v18);
   }
 }
 
@@ -4972,68 +4395,62 @@ uint64_t NearbyInvitationAdvertiser.stop()()
 }
 
 {
-  v21 = v0;
+  v18 = v0;
   if (one-time initialization token for client != -1)
   {
     swift_once();
   }
 
-  v1 = v0[3];
-  v2 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v2, static Log.client);
+  v1 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v1, static Log.client);
 
-  v3 = Logger.logObject.getter();
-  v4 = static os_log_type_t.default.getter();
+  v2 = Logger.logObject.getter();
+  v3 = static os_log_type_t.default.getter();
 
-  if (os_log_type_enabled(v3, v4))
+  if (os_log_type_enabled(v2, v3))
   {
-    v6 = v0[3];
-    v5 = v0[4];
+    v5 = v0[3];
+    v4 = v0[4];
+    v6 = swift_slowAlloc();
     v7 = swift_slowAlloc();
-    v8 = swift_slowAlloc();
-    v20 = v8;
-    *v7 = 136315138;
-    v0[2] = v6;
-    v9 = *(v5 + 80);
-    v10 = *(v5 + 88);
-    v11 = type metadata accessor for NearbyInvitationAdvertiser();
-    v12 = >> prefix<A>(_:)((v0 + 2), v11);
-    v14 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v12, v13, &v20);
+    v17 = v7;
+    *v6 = 136315138;
+    v0[2] = v5;
+    v9 = type metadata accessor for NearbyInvitationAdvertiser(0, *(v4 + 80), *(v4 + 88), v8);
+    v10 = >> prefix<A>(_:)((v0 + 2), v9);
+    v12 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v10, v11, &v17);
 
-    *(v7 + 4) = v14;
-    _os_log_impl(&dword_25B7C4000, v3, v4, "%s: client called stop on NearbyInvitationsAdvertiser", v7, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v8);
-    MEMORY[0x25F86FE20](v8, -1, -1);
+    *(v6 + 4) = v12;
+    _os_log_impl(&dword_25B7C4000, v2, v3, "%s: client called stop on NearbyInvitationsAdvertiser", v6, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v7);
     MEMORY[0x25F86FE20](v7, -1, -1);
+    MEMORY[0x25F86FE20](v6, -1, -1);
   }
 
-  v15 = *(MEMORY[0x277D85A40] + 4);
-  v16 = swift_task_alloc();
-  v0[5] = v16;
-  *v16 = v0;
-  v16[1] = NearbyInvitationAdvertiser.stop();
-  v17 = v0[3];
-  v18 = MEMORY[0x277D84F78] + 8;
+  v13 = swift_task_alloc();
+  v0[5] = v13;
+  *v13 = v0;
+  v13[1] = NearbyInvitationAdvertiser.stop();
+  v14 = v0[3];
+  v15 = MEMORY[0x277D84F78] + 8;
 
-  return MEMORY[0x2822008A0](v16, 0, 0, 0x2928706F7473, 0xE600000000000000, partial apply for closure #1 in NearbyInvitationAdvertiser.stop(), v17, v18);
+  return MEMORY[0x2822008A0](v13, 0, 0, 0x2928706F7473, 0xE600000000000000, partial apply for closure #1 in NearbyInvitationAdvertiser.stop(), v14, v15);
 }
 
 {
-  v2 = *(*v1 + 40);
-  v5 = *v1;
   *(*v1 + 48) = v0;
 
   if (v0)
   {
-    v3 = NearbyInvitationAdvertiser.stop();
+    v2 = NearbyInvitationAdvertiser.stop();
   }
 
   else
   {
-    v3 = NearbyInvitationAdvertiser.stop();
+    v2 = NearbyInvitationAdvertiser.stop();
   }
 
-  return MEMORY[0x2822009F8](v3, 0, 0);
+  return MEMORY[0x2822009F8](v2, 0, 0);
 }
 
 {
@@ -5041,63 +4458,59 @@ uint64_t NearbyInvitationAdvertiser.stop()()
 }
 
 {
-  v1 = *(v0 + 48);
   return (*(v0 + 8))();
 }
 
 void closure #1 in NearbyInvitationAdvertiser.stop()(uint64_t a1, uint64_t *a2)
 {
   v3 = *a2;
-  v30 = a1;
-  v31 = v3;
+  v27 = a1;
+  v28 = v3;
   v4 = type metadata accessor for UUID();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v28 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5Error_pGMd, &_sScCyyts5Error_pGMR);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = &v28 - v12;
-  v14 = [objc_allocWithZone(MEMORY[0x277CFD160]) init];
-  v15 = [v14 wranglerHomePodBoopEnabled];
+  v7 = &v25 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5Error_pGMd, &_sScCyyts5Error_pGMR);
+  v9 = *(v8 - 8);
+  v10 = *(v9 + 64);
+  MEMORY[0x28223BE20](v8);
+  v12 = &v25 - v11;
+  v13 = [objc_allocWithZone(MEMORY[0x277CFD160]) init];
+  v14 = [v13 wranglerHomePodBoopEnabled];
 
-  if (v15 && (v16 = a2[4]) != 0)
+  if (v14 && (v15 = a2[4]) != 0)
   {
-    v17 = a2[2];
-    (*(v10 + 16))(v13, v30, v9);
-    v18 = (*(v10 + 80) + 32) & ~*(v10 + 80);
-    v19 = swift_allocObject();
-    v20 = v31;
-    *(v19 + 16) = *(v31 + 80);
-    *(v19 + 24) = *(v20 + 88);
-    (*(v10 + 32))(v19 + v18, v13, v9);
-    *(v19 + ((v11 + v18 + 7) & 0xFFFFFFFFFFFFFFF8)) = a2;
-    v21 = v16;
+    (*(v9 + 16))(v12, v27, v8);
+    v16 = (*(v9 + 80) + 32) & ~*(v9 + 80);
+    v17 = swift_allocObject();
+    v18 = v28;
+    *(v17 + 16) = *(v28 + 80);
+    *(v17 + 24) = *(v18 + 88);
+    (*(v9 + 32))(v17 + v16, v12, v8);
+    *(v17 + ((v10 + v16 + 7) & 0xFFFFFFFFFFFFFFF8)) = a2;
+    v19 = v15;
 
-    NearbyInvitationsController.stopAdvertisingNearbySessionEndpoint(response:)(partial apply for closure #1 in closure #1 in NearbyInvitationAdvertiser.stop(), v19);
+    NearbyInvitationsController.stopAdvertisingNearbySessionEndpoint(response:)(partial apply for closure #1 in closure #1 in NearbyInvitationAdvertiser.stop(), v17);
   }
 
   else
   {
-    v22 = a2[2];
-    v23 = *(v5 + 16);
-    v24 = a2[3] + OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_identifier;
-    v29 = v4;
-    v23(v8, v24, v4);
-    (*(v10 + 16))(v13, v30, v9);
-    v25 = (*(v10 + 80) + 32) & ~*(v10 + 80);
-    v26 = swift_allocObject();
-    v27 = v31;
-    *(v26 + 16) = *(v31 + 80);
-    *(v26 + 24) = *(v27 + 88);
-    (*(v10 + 32))(v26 + v25, v13, v9);
-    *(v26 + ((v11 + v25 + 7) & 0xFFFFFFFFFFFFFFF8)) = a2;
+    v20 = *(v5 + 16);
+    v21 = a2[3] + OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_identifier;
+    v26 = v4;
+    v20(v7, v21, v4);
+    (*(v9 + 16))(v12, v27, v8);
+    v22 = (*(v9 + 80) + 32) & ~*(v9 + 80);
+    v23 = swift_allocObject();
+    v24 = v28;
+    *(v23 + 16) = *(v28 + 80);
+    *(v23 + 24) = *(v24 + 88);
+    (*(v9 + 32))(v23 + v22, v12, v8);
+    *(v23 + ((v10 + v22 + 7) & 0xFFFFFFFFFFFFFFF8)) = a2;
 
-    NearbyInvitationsController.stopAdvertisingNearbyInvitation(_:response:)(v8, partial apply for closure #2 in closure #1 in NearbyInvitationAdvertiser.stop(), v26);
+    NearbyInvitationsController.stopAdvertisingNearbyInvitation(_:response:)(v7, partial apply for closure #2 in closure #1 in NearbyInvitationAdvertiser.stop(), v23);
 
-    (*(v5 + 8))(v8, v29);
+    (*(v5 + 8))(v7, v26);
   }
 }
 
@@ -5132,7 +4545,7 @@ uint64_t closure #1 in closure #1 in NearbyInvitationAdvertiser.stop()(void *a1,
       MEMORY[0x25F86FE20](v9, -1, -1);
     }
 
-    v28 = a1;
+    v27 = a1;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5Error_pGMd, &_sScCyyts5Error_pGMR);
     return CheckedContinuation.resume(throwing:)();
   }
@@ -5155,16 +4568,14 @@ uint64_t closure #1 in closure #1 in NearbyInvitationAdvertiser.stop()(void *a1,
     {
       v19 = swift_slowAlloc();
       v20 = swift_slowAlloc();
-      v27 = a3;
-      v28 = v20;
+      v26 = a3;
+      v27 = v20;
       *v19 = 136315138;
-      v21 = *(v15 + 80);
-      v22 = *(v15 + 88);
-      v23 = type metadata accessor for NearbyInvitationAdvertiser();
-      v24 = >> prefix<A>(_:)(&v27, v23);
-      v26 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v24, v25, &v28);
+      v22 = type metadata accessor for NearbyInvitationAdvertiser(0, *(v15 + 80), *(v15 + 88), v21);
+      v23 = >> prefix<A>(_:)(&v26, v22);
+      v25 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v23, v24, &v27);
 
-      *(v19 + 4) = v26;
+      *(v19 + 4) = v25;
       _os_log_impl(&dword_25B7C4000, v17, v18, "%s: stopping advertising for NearbySessionEndpoint", v19, 0xCu);
       __swift_destroy_boxed_opaque_existential_0(v20);
       MEMORY[0x25F86FE20](v20, -1, -1);
@@ -5207,7 +4618,7 @@ uint64_t closure #2 in closure #1 in NearbyInvitationAdvertiser.start()(void *a1
       MEMORY[0x25F86FE20](v12, -1, -1);
     }
 
-    v37 = a1;
+    v36 = a1;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5Error_pGMd, &_sScCyyts5Error_pGMR);
     return CheckedContinuation.resume(throwing:)();
   }
@@ -5230,24 +4641,22 @@ uint64_t closure #2 in closure #1 in NearbyInvitationAdvertiser.start()(void *a1
     {
       v23 = swift_slowAlloc();
       v24 = swift_slowAlloc();
-      v36 = a3;
-      v37 = v24;
+      v35 = a3;
+      v36 = v24;
       *v23 = 136315394;
-      v25 = *(v18 + 80);
-      v26 = *(v18 + 88);
-      v27 = type metadata accessor for NearbyInvitationAdvertiser();
-      v28 = >> prefix<A>(_:)(&v36, v27);
-      v30 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v28, v29, &v37);
+      v26 = type metadata accessor for NearbyInvitationAdvertiser(0, *(v18 + 80), *(v18 + 88), v25);
+      v27 = >> prefix<A>(_:)(&v35, v26);
+      v29 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v27, v28, &v36);
 
-      *(v23 + 4) = v30;
+      *(v23 + 4) = v29;
       *(v23 + 12) = 2080;
-      v31 = [a3[3] description];
-      v32 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v34 = v33;
+      v30 = [a3[3] description];
+      v31 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v33 = v32;
 
-      v35 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v32, v34, &v37);
+      v34 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v31, v33, &v36);
 
-      *(v23 + 14) = v35;
+      *(v23 + 14) = v34;
       _os_log_impl(&dword_25B7C4000, v21, v22, a5, v23, 0x16u);
       swift_arrayDestroy();
       MEMORY[0x25F86FE20](v24, -1, -1);
@@ -5277,189 +4686,169 @@ uint64_t NearbyInvitationAdvertiser.assertPublic(rotations:)(uint64_t a1)
 
 uint64_t NearbyInvitationAdvertiser.assertPublic(rotations:)()
 {
-  v25 = v0;
+  v22 = v0;
   if (one-time initialization token for client != -1)
   {
     swift_once();
   }
 
-  v1 = v0[4];
-  v2 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v2, static Log.client);
+  v1 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v1, static Log.client);
 
-  v3 = Logger.logObject.getter();
-  v4 = static os_log_type_t.default.getter();
+  v2 = Logger.logObject.getter();
+  v3 = static os_log_type_t.default.getter();
 
-  if (os_log_type_enabled(v3, v4))
+  if (os_log_type_enabled(v2, v3))
   {
-    v6 = v0[4];
-    v5 = v0[5];
-    v7 = v0[3];
+    v5 = v0[4];
+    v4 = v0[5];
+    v6 = v0[3];
+    v7 = swift_slowAlloc();
     v8 = swift_slowAlloc();
-    v9 = swift_slowAlloc();
-    v24 = v9;
-    *v8 = 136315394;
-    v0[2] = v6;
-    v10 = *(v5 + 80);
-    v11 = *(v5 + 88);
-    v12 = type metadata accessor for NearbyInvitationAdvertiser();
-    v13 = >> prefix<A>(_:)((v0 + 2), v12);
-    v15 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v13, v14, &v24);
+    v21 = v8;
+    *v7 = 136315394;
+    v0[2] = v5;
+    v10 = type metadata accessor for NearbyInvitationAdvertiser(0, *(v4 + 80), *(v4 + 88), v9);
+    v11 = >> prefix<A>(_:)((v0 + 2), v10);
+    v13 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v11, v12, &v21);
 
-    *(v8 + 4) = v15;
-    *(v8 + 12) = 2048;
-    *(v8 + 14) = v7;
-    _os_log_impl(&dword_25B7C4000, v3, v4, "%s: Client wants to assert for the advertisement to be public for %lu rotations", v8, 0x16u);
-    __swift_destroy_boxed_opaque_existential_0(v9);
-    MEMORY[0x25F86FE20](v9, -1, -1);
+    *(v7 + 4) = v13;
+    *(v7 + 12) = 2048;
+    *(v7 + 14) = v6;
+    _os_log_impl(&dword_25B7C4000, v2, v3, "%s: Client wants to assert for the advertisement to be public for %lu rotations", v7, 0x16u);
+    __swift_destroy_boxed_opaque_existential_0(v8);
     MEMORY[0x25F86FE20](v8, -1, -1);
+    MEMORY[0x25F86FE20](v7, -1, -1);
   }
 
-  v17 = v0[3];
-  v16 = v0[4];
-  v18 = swift_task_alloc();
-  v0[11] = v18;
-  *(v18 + 16) = v16;
-  *(v18 + 24) = v17;
-  v19 = *(MEMORY[0x277D85A40] + 4);
-  v20 = swift_task_alloc();
-  v0[12] = v20;
-  *v20 = v0;
-  v20[1] = NearbyInvitationAdvertiser.assertPublic(rotations:);
-  v21 = v0[10];
-  v22 = v0[6];
+  v15 = v0[3];
+  v14 = v0[4];
+  v16 = swift_task_alloc();
+  v0[11] = v16;
+  *(v16 + 16) = v14;
+  *(v16 + 24) = v15;
+  v17 = swift_task_alloc();
+  v0[12] = v17;
+  *v17 = v0;
+  v17[1] = NearbyInvitationAdvertiser.assertPublic(rotations:);
+  v18 = v0[10];
+  v19 = v0[6];
 
-  return MEMORY[0x2822008A0](v21, 0, 0, 0xD000000000000018, 0x800000025B8306E0, partial apply for closure #1 in NearbyInvitationAdvertiser.assertPublic(rotations:), v18, v22);
+  return MEMORY[0x2822008A0](v18, 0, 0, 0xD000000000000018, 0x800000025B8306E0, partial apply for closure #1 in NearbyInvitationAdvertiser.assertPublic(rotations:), v16, v19);
 }
 
 {
-  v2 = *v1;
-  v3 = *(*v1 + 96);
-  v7 = *v1;
   *(*v1 + 104) = v0;
 
   if (v0)
   {
-    v4 = NearbyInvitationAdvertiser.assertPublic(rotations:);
+    v2 = NearbyInvitationAdvertiser.assertPublic(rotations:);
   }
 
   else
   {
-    v5 = *(v2 + 88);
 
-    v4 = NearbyInvitationAdvertiser.assertPublic(rotations:);
+    v2 = NearbyInvitationAdvertiser.assertPublic(rotations:);
   }
 
-  return MEMORY[0x2822009F8](v4, 0, 0);
+  return MEMORY[0x2822009F8](v2, 0, 0);
 }
 
 {
   v1 = v0[9];
   v2 = v0[10];
-  v4 = v0[7];
-  v3 = v0[8];
-  v6 = v0[5];
-  v5 = v0[6];
-  v7 = v0[4];
-  v8 = swift_allocObject();
+  v3 = v0[7];
+  v5 = v0[5];
+  v4 = v0[6];
+  v6 = swift_allocObject();
   swift_weakInit();
-  (*(v4 + 16))(v1, v2, v5);
-  v9 = (*(v4 + 80) + 40) & ~*(v4 + 80);
-  v10 = swift_allocObject();
-  *(v10 + 2) = *(v6 + 80);
-  *(v10 + 3) = *(v6 + 88);
-  *(v10 + 4) = v8;
-  (*(v4 + 32))(&v10[v9], v1, v5);
-  v11 = type metadata accessor for AnyCancellable();
-  v12 = *(v11 + 48);
-  v13 = *(v11 + 52);
+  (*(v3 + 16))(v1, v2, v4);
+  v7 = (*(v3 + 80) + 40) & ~*(v3 + 80);
+  v8 = swift_allocObject();
+  *(v8 + 2) = *(v5 + 80);
+  *(v8 + 3) = *(v5 + 88);
+  *(v8 + 4) = v6;
+  (*(v3 + 32))(&v8[v7], v1, v4);
+  type metadata accessor for AnyCancellable();
   swift_allocObject();
 
-  v14 = AnyCancellable.init(_:)();
-  (*(v4 + 8))(v2, v5);
+  v9 = AnyCancellable.init(_:)();
+  (*(v3 + 8))(v2, v4);
 
-  v15 = v0[1];
+  v10 = v0[1];
 
-  return v15(v14);
+  return v10(v9);
 }
 
 {
-  v2 = v0[10];
-  v1 = v0[11];
-  v3 = v0[9];
 
-  v4 = v0[1];
-  v5 = v0[13];
+  v1 = *(v0 + 8);
 
-  return v4();
+  return v1();
 }
 
 uint64_t closure #1 in NearbyInvitationAdvertiser.assertPublic(rotations:)(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
-  v21 = *a2;
-  v22 = a3;
+  v19 = *a2;
+  v20 = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy10Foundation4UUIDVs5Error_pGMd, &_sScCy10Foundation4UUIDVs5Error_pGMR);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = v20 - v8;
-  v10 = type metadata accessor for UUID();
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  MEMORY[0x28223BE20](v10);
-  v14 = v20 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = a2[3];
-  v20[1] = a2[2];
-  (*(v11 + 16))(v14, v15 + OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_identifier, v10);
-  (*(v6 + 16))(v9, a1, v5);
-  v16 = (*(v6 + 80) + 32) & ~*(v6 + 80);
-  v17 = swift_allocObject();
-  v18 = v21;
-  *(v17 + 16) = *(v21 + 80);
-  *(v17 + 24) = *(v18 + 88);
-  (*(v6 + 32))(v17 + v16, v9, v5);
-  NearbyInvitationsController.assertAdvertisementPublic(_:rotations:response:)(v14, v22, partial apply for closure #1 in closure #1 in NearbyInvitationAdvertiser.assertPublic(rotations:), v17);
+  v8 = v18 - v7;
+  v9 = type metadata accessor for UUID();
+  v10 = *(v9 - 8);
+  MEMORY[0x28223BE20](v9);
+  v12 = v18 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = a2[3];
+  v18[1] = a2[2];
+  (*(v10 + 16))(v12, v13 + OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_identifier, v9);
+  (*(v6 + 16))(v8, a1, v5);
+  v14 = (*(v6 + 80) + 32) & ~*(v6 + 80);
+  v15 = swift_allocObject();
+  v16 = v19;
+  *(v15 + 16) = *(v19 + 80);
+  *(v15 + 24) = *(v16 + 88);
+  (*(v6 + 32))(v15 + v14, v8, v5);
+  NearbyInvitationsController.assertAdvertisementPublic(_:rotations:response:)(v12, v20, partial apply for closure #1 in closure #1 in NearbyInvitationAdvertiser.assertPublic(rotations:), v15);
 
-  return (*(v11 + 8))(v14, v10);
+  return (*(v10 + 8))(v12, v9);
 }
 
-uint64_t closure #1 in closure #1 in NearbyInvitationAdvertiser.assertPublic(rotations:)(uint64_t a1, void *a2)
+uint64_t closure #1 in closure #1 in NearbyInvitationAdvertiser.assertPublic(rotations:)(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v20 - v6;
-  v8 = type metadata accessor for UUID();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  v11 = MEMORY[0x28223BE20](v8);
-  v13 = &v20 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v11);
-  v15 = &v20 - v14;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  MEMORY[0x28223BE20](v9 - 8);
+  v11 = &v24 - v10;
+  v12 = type metadata accessor for UUID();
+  v13 = *(v12 - 8);
+  v14 = MEMORY[0x28223BE20](v12);
+  v16 = &v24 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v14);
+  v18 = &v24 - v17;
   if (a2)
   {
-    v21 = a2;
-    v16 = a2;
+    v25 = a2;
+    v19 = a2;
   }
 
   else
   {
-    outlined init with copy of UUID?(a1, v7);
-    if ((*(v9 + 48))(v7, 1, v8) != 1)
+    outlined init with copy of UUID?(a1, v11);
+    if ((*(v13 + 48))(v11, 1, v12) != 1)
     {
-      (*(v9 + 32))(v15, v7, v8);
-      (*(v9 + 16))(v13, v15, v8);
+      (*(v13 + 32))(v18, v11, v12);
+      (*(v13 + 16))(v16, v18, v12);
       __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy10Foundation4UUIDVs5Error_pGMd, &_sScCy10Foundation4UUIDVs5Error_pGMR);
       CheckedContinuation.resume(returning:)();
-      return (*(v9 + 8))(v15, v8);
+      return (*(v13 + 8))(v18, v12);
     }
 
-    outlined destroy of NSObject?(v7, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-    type metadata accessor for NearbyInvitationAdvertiser.Errors();
+    outlined destroy of NSObject?(v11, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+    type metadata accessor for NearbyInvitationAdvertiser.Errors(0, a4, a5, v20);
     swift_getWitnessTable();
-    v17 = swift_allocError();
-    *v18 = 1;
-    v21 = v17;
+    v21 = swift_allocError();
+    *v22 = 1;
+    v25 = v21;
   }
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy10Foundation4UUIDVs5Error_pGMd, &_sScCy10Foundation4UUIDVs5Error_pGMR);
@@ -5470,101 +4859,95 @@ uint64_t closure #2 in NearbyInvitationAdvertiser.assertPublic(rotations:)(uint6
 {
   v3 = type metadata accessor for UUID();
   v4 = *(v3 - 8);
-  v5 = v4[8];
-  v6 = MEMORY[0x28223BE20](v3);
-  v8 = &v35 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v6);
-  v10 = &v35 - v9;
+  v5 = MEMORY[0x28223BE20](v3);
+  v7 = &v32 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v5);
+  v9 = &v32 - v8;
   swift_beginAccess();
   result = swift_weakLoadStrong();
   if (result)
   {
-    v12 = result;
+    v11 = result;
     if (one-time initialization token for client != -1)
     {
       swift_once();
     }
 
-    v13 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v13, static Log.client);
-    v14 = v4[2];
-    v14(v10, a2, v3);
+    v12 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v12, static Log.client);
+    v13 = *(v4 + 16);
+    v13(v9, a2, v3);
     swift_retain_n();
-    v15 = Logger.logObject.getter();
-    v39 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v15, v39))
+    v14 = Logger.logObject.getter();
+    v36 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v14, v36))
     {
-      v16 = swift_slowAlloc();
-      v40 = v14;
-      v17 = v16;
-      v37 = swift_slowAlloc();
-      v41 = v37;
-      *v17 = 136315394;
-      v18 = lazy protocol witness table accessor for type UUID and conformance UUID();
-      v38 = a2;
-      v35 = v18;
-      v19 = dispatch thunk of CustomStringConvertible.description.getter();
-      v21 = v20;
-      v22 = v4[1];
-      v36 = v15;
-      v23 = v10;
-      v24 = v22;
-      v22(v23, v3);
-      v25 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v19, v21, &v41);
+      v15 = swift_slowAlloc();
+      v37 = v13;
+      v16 = v15;
+      v34 = swift_slowAlloc();
+      v38 = v34;
+      *v16 = 136315394;
+      v17 = lazy protocol witness table accessor for type UUID and conformance UUID();
+      v35 = a2;
+      v32 = v17;
+      v18 = dispatch thunk of CustomStringConvertible.description.getter();
+      v20 = v19;
+      v21 = *(v4 + 8);
+      v33 = v14;
+      v22 = v9;
+      v23 = v21;
+      v21(v22, v3);
+      v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v20, &v38);
 
-      *(v17 + 4) = v25;
-      *(v17 + 12) = 2080;
-      v40(v8, *(v12 + 24) + OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_identifier, v3);
+      *(v16 + 4) = v24;
+      *(v16 + 12) = 2080;
+      v37(v7, *(v11 + 24) + OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_identifier, v3);
 
-      v26 = dispatch thunk of CustomStringConvertible.description.getter();
-      v28 = v27;
+      v25 = dispatch thunk of CustomStringConvertible.description.getter();
+      v27 = v26;
 
-      v22(v8, v3);
-      v29 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v26, v28, &v41);
+      v21(v7, v3);
+      v28 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v25, v27, &v38);
 
-      *(v17 + 14) = v29;
-      a2 = v38;
-      v30 = v36;
-      _os_log_impl(&dword_25B7C4000, v36, v39, "Releasing assertionIdentifier: %s for invitationID: %s", v17, 0x16u);
-      v31 = v37;
+      *(v16 + 14) = v28;
+      a2 = v35;
+      v29 = v33;
+      _os_log_impl(&dword_25B7C4000, v33, v36, "Releasing assertionIdentifier: %s for invitationID: %s", v16, 0x16u);
+      v30 = v34;
       swift_arrayDestroy();
-      MEMORY[0x25F86FE20](v31, -1, -1);
-      MEMORY[0x25F86FE20](v17, -1, -1);
+      MEMORY[0x25F86FE20](v30, -1, -1);
+      MEMORY[0x25F86FE20](v16, -1, -1);
 
-      v32 = v40;
+      v37(v7, *(v11 + 24) + OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_identifier, v3);
     }
 
     else
     {
 
-      v33 = v10;
-      v24 = v4[1];
-      v24(v33, v3);
-      v32 = v14;
+      v31 = v9;
+      v23 = *(v4 + 8);
+      v23(v31, v3);
+      v13(v7, *(v11 + 24) + OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_identifier, v3);
     }
 
-    v34 = *(v12 + 16);
-    v32(v8, *(v12 + 24) + OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_identifier, v3);
-    NearbyInvitationsController.releaseAdvertisementPublicAssertion(_:assertionIdentifier:)(v8, a2);
-    v24(v8, v3);
+    NearbyInvitationsController.releaseAdvertisementPublicAssertion(_:assertionIdentifier:)(v7, a2);
+    v23(v7, v3);
   }
 
   return result;
 }
 
-uint64_t *NearbyInvitationAdvertiser.deinit()
+id *NearbyInvitationAdvertiser.deinit()
 {
   v1 = *v0;
-  v2 = v0[2];
 
-  v3 = *(*v0 + 120);
-  v4 = *(v1 + 80);
-  v5 = *(v1 + 88);
-  type metadata accessor for NearbyInvitationAdvertiser.PendingMember();
+  v2 = *(*v0 + 15);
+  type metadata accessor for NearbyInvitationAdvertiser.PendingMember(255, v1[10], v1[11], v3);
   swift_getWitnessTable();
   type metadata accessor for Set();
-  v6 = type metadata accessor for Published();
-  (*(*(v6 - 8) + 8))(v0 + v3, v6);
+  v4 = type metadata accessor for Published();
+  (*(*(v4 - 8) + 8))(v0 + v2, v4);
   return v0;
 }
 
@@ -5580,9 +4963,8 @@ uint64_t NearbyInvitationAdvertiser.__deallocating_deinit()
 uint64_t Published.init(wrappedValue:)(uint64_t a1, uint64_t a2)
 {
   v4 = *(a2 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](a1);
-  (*(v4 + 16))(&v8 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), a1, a2);
+  (*(v4 + 16))(&v7 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0), a1, a2);
   Published.init(initialValue:)();
   return (*(v4 + 8))(a1, a2);
 }
@@ -5624,18 +5006,14 @@ unint64_t type metadata accessor for NSObject()
   return result;
 }
 
-uint64_t specialized NearbyInvitationAdvertiser.$pendingMembers.setter(uint64_t a1)
+uint64_t specialized NearbyInvitationAdvertiser.$pendingMembers.setter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v3 = *(*v1 + 80);
-  v4 = *(*v1 + 88);
-  type metadata accessor for NearbyInvitationAdvertiser.PendingMember();
+  type metadata accessor for NearbyInvitationAdvertiser.PendingMember(255, *(*v4 + 80), *(*v4 + 88), a4);
   swift_getWitnessTable();
   type metadata accessor for Set();
-  v5 = type metadata accessor for Published.Publisher();
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5);
-  (*(v8 + 16))(&v11 - v7, a1);
-  v9 = *(*v1 + 120);
+  v6 = type metadata accessor for Published.Publisher();
+  MEMORY[0x28223BE20](v6);
+  (*(v8 + 16))(&v10 - v7, a1);
   swift_beginAccess();
   type metadata accessor for Published();
   Published.projectedValue.setter();
@@ -5645,64 +5023,62 @@ uint64_t specialized NearbyInvitationAdvertiser.$pendingMembers.setter(uint64_t 
 char *specialized NearbyInvitationAdvertiser.init(invitation:provider:activityType:route:)(uint64_t a1, int a2, int a3)
 {
   v4 = v3;
-  v38 = a3;
-  v39 = a2;
+  v40 = a3;
+  v41 = a2;
   v6 = *v4;
-  v40 = type metadata accessor for UUID();
-  v36 = *(v40 - 8);
-  v7 = *(v36 + 64);
-  MEMORY[0x28223BE20](v40);
-  v35[0] = v35 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = v6[10];
-  v10 = v6[11];
-  type metadata accessor for NearbyInvitationAdvertiser.PendingMember();
+  v42 = type metadata accessor for UUID();
+  v38 = *(v42 - 8);
+  MEMORY[0x28223BE20](v42);
+  v36 = &v36 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = v6[10];
+  v9 = v6[11];
+  type metadata accessor for NearbyInvitationAdvertiser.PendingMember(255, v8, v9, v10);
   swift_getWitnessTable();
   type metadata accessor for Set();
   v11 = type metadata accessor for Published();
   v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
   MEMORY[0x28223BE20](v11);
-  v15 = v35 - v14;
-  v16 = v6[15];
-  v17 = Set.init()();
+  v14 = &v36 - v13;
+  v15 = v6[15];
+  v16 = Set.init()();
+  v39 = v8;
   v37 = v9;
-  v35[1] = v10;
-  property wrapper backing initializer of NearbyInvitationAdvertiser.pendingMembers(v17);
-  (*(v12 + 32))(&v4[v16], v15, v11);
+  property wrapper backing initializer of NearbyInvitationAdvertiser.pendingMembers(v16, v8, v9, v17);
+  (*(v12 + 32))(&v4[v15], v14, v11);
   if (one-time initialization token for shared != -1)
   {
     swift_once();
   }
 
   *(v4 + 2) = static NearbyInvitationsController.shared;
-  v18 = v36;
-  v19 = *(v36 + 16);
-  v20 = v35[0];
-  v21 = v40;
-  v19(v35[0], a1 + direct field offset for NearbyInvitation.id, v40);
+  v18 = v38;
+  v19 = *(v38 + 16);
+  v20 = v36;
+  v21 = v42;
+  v19(v36, a1 + direct field offset for NearbyInvitation.id, v42);
   v22 = *(*a1 + 160);
 
   v24 = v22(v23);
   v26 = v25;
-  v27 = type metadata accessor for NearbyAdvertisementRequest();
+  v27 = type metadata accessor for NearbyAdvertisementRequest(0);
   v28 = objc_allocWithZone(v27);
   v19(&v28[OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_identifier], v20, v21);
   v29 = &v28[OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_invitation];
   *v29 = v24;
   v29[1] = v26;
-  v30 = v39;
-  v28[OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_route] = v38;
+  v30 = v41;
+  v28[OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_route] = v40;
   *&v28[OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_activityType] = v30;
-  v41.receiver = v28;
-  v41.super_class = v27;
-  v31 = objc_msgSendSuper2(&v41, sel_init);
+  v43.receiver = v28;
+  v43.super_class = v27;
+  v31 = objc_msgSendSuper2(&v43, sel_init);
   (*(v18 + 8))(v20, v21);
   *(v4 + 3) = v31;
   *(v4 + 4) = 0;
   v32 = *(v4 + 2);
-  type metadata accessor for NearbyInvitationAdvertiser();
+  type metadata accessor for NearbyInvitationAdvertiser(0, v39, v37, v33);
 
-  specialized NearbyInvitationsController.addObserver(_:)(v33, v32);
+  specialized NearbyInvitationsController.addObserver(_:)(v34, v32);
 
   return v4;
 }
@@ -5710,136 +5086,138 @@ char *specialized NearbyInvitationAdvertiser.init(invitation:provider:activityTy
 char *specialized NearbyInvitationAdvertiser.init(invitation:provider:activityType:route:params:)(uint64_t a1, int a2, int a3, void *a4)
 {
   v5 = v4;
-  v63 = a4;
-  v59 = a3;
-  v60 = a2;
+  v69 = a4;
+  v65 = a3;
+  v66 = a2;
   v7 = *v5;
   v8 = type metadata accessor for UUID();
-  v61 = *(v8 - 8);
-  v62 = v8;
-  v9 = *(v61 + 64);
+  v67 = *(v8 - 8);
+  v68 = v8;
   MEMORY[0x28223BE20](v8);
-  v58 = v57 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = v7[10];
-  v12 = v7[11];
-  type metadata accessor for NearbyInvitationAdvertiser.PendingMember();
+  v64 = &v62 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = v7[10];
+  v11 = v7[11];
+  type metadata accessor for NearbyInvitationAdvertiser.PendingMember(255, v10, v11, v12);
   swift_getWitnessTable();
   type metadata accessor for Set();
   v13 = type metadata accessor for Published();
   v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
   MEMORY[0x28223BE20](v13);
-  v17 = v57 - v16;
-  v18 = v7[15];
-  v19 = Set.init()();
-  v64 = v11;
-  v57[1] = v12;
-  property wrapper backing initializer of NearbyInvitationAdvertiser.pendingMembers(v19);
-  (*(v14 + 32))(&v5[v18], v17, v13);
+  v16 = &v62 - v15;
+  v17 = v7[15];
+  v18 = Set.init()();
+  v70 = v10;
+  v63 = v11;
+  property wrapper backing initializer of NearbyInvitationAdvertiser.pendingMembers(v18, v10, v11, v19);
+  (*(v14 + 32))(&v5[v17], v16, v13);
   if (one-time initialization token for shared != -1)
   {
     swift_once();
   }
 
   *(v5 + 2) = static NearbyInvitationsController.shared;
-  v21 = v61;
-  v20 = v62;
-  v22 = *(v61 + 16);
-  v23 = v58;
-  v22(v58, a1 + direct field offset for NearbyInvitation.id, v62);
+  v21 = v67;
+  v20 = v68;
+  v22 = *(v67 + 16);
+  v23 = v64;
+  v22(v64, a1 + direct field offset for NearbyInvitation.id, v68);
   v24 = *(*a1 + 160);
 
   v26 = v24(v25);
   v28 = v27;
-  v29 = type metadata accessor for NearbyAdvertisementRequest();
+  v29 = type metadata accessor for NearbyAdvertisementRequest(0);
   v30 = objc_allocWithZone(v29);
   v22(&v30[OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_identifier], v23, v20);
   v31 = &v30[OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_invitation];
   *v31 = v26;
   v31[1] = v28;
-  v32 = v60;
-  v30[OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_route] = v59;
+  v32 = v66;
+  v30[OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_route] = v65;
   *&v30[OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_activityType] = v32;
-  v67.receiver = v30;
-  v67.super_class = v29;
-  v33 = objc_msgSendSuper2(&v67, sel_init);
+  v73.receiver = v30;
+  v73.super_class = v29;
+  v33 = objc_msgSendSuper2(&v73, sel_init);
   (*(v21 + 8))(v23, v20);
   *(v5 + 3) = v33;
-  v34 = v63;
-  if (!v63)
+  v35 = v69;
+  v36 = v70;
+  if (!v69)
   {
-    goto LABEL_10;
-  }
-
-  v35 = objc_allocWithZone(MEMORY[0x277CFD160]);
-  v36 = v34;
-  v37 = [v35 init];
-  v38 = [v37 wranglerHomePodBoopEnabled];
-
-  if (!v38)
-  {
-
-LABEL_10:
-    *(v5 + 4) = 0;
     goto LABEL_11;
   }
 
-  *(v5 + 4) = v34;
-  v39 = one-time initialization token for client;
-  v40 = v36;
-  if (v39 != -1)
+  v37 = objc_allocWithZone(MEMORY[0x277CFD160]);
+  v38 = v35;
+  v39 = [v37 init];
+  v40 = [v39 wranglerHomePodBoopEnabled];
+
+  if (!v40)
+  {
+
+LABEL_11:
+    *(v5 + 4) = 0;
+    v58 = v63;
+    goto LABEL_12;
+  }
+
+  v41 = v63;
+  *(v5 + 4) = v35;
+  v42 = one-time initialization token for client;
+  v43 = v38;
+  if (v42 != -1)
   {
     swift_once();
   }
 
-  v41 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v41, static Log.client);
+  v44 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v44, static Log.client);
 
-  v42 = Logger.logObject.getter();
-  v43 = static os_log_type_t.default.getter();
+  v45 = Logger.logObject.getter();
+  v46 = static os_log_type_t.default.getter();
 
-  if (os_log_type_enabled(v42, v43))
+  if (os_log_type_enabled(v45, v46))
   {
-    v44 = swift_slowAlloc();
-    v45 = swift_slowAlloc();
-    v46 = swift_slowAlloc();
-    v65 = v5;
-    v66 = v46;
-    *v44 = 136315394;
-    v47 = type metadata accessor for NearbyInvitationAdvertiser();
-    v48 = >> prefix<A>(_:)(&v65, v47);
-    v50 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v48, v49, &v66);
-    v63 = v40;
-    v51 = v50;
+    v47 = swift_slowAlloc();
+    v48 = swift_slowAlloc();
+    v49 = swift_slowAlloc();
+    v71 = v5;
+    v72 = v49;
+    *v47 = 136315394;
+    v51 = type metadata accessor for NearbyInvitationAdvertiser(0, v36, v41, v50);
+    v52 = >> prefix<A>(_:)(&v71, v51);
+    v54 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v52, v53, &v72);
+    v69 = v43;
+    v55 = v54;
 
-    *(v44 + 4) = v51;
-    *(v44 + 12) = 2112;
-    v52 = *(v5 + 4);
-    *(v44 + 14) = v52;
-    *v45 = v52;
-    v53 = v52;
-    _os_log_impl(&dword_25B7C4000, v42, v43, "%s: parameters = %@", v44, 0x16u);
-    outlined destroy of NSObject?(v45, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x25F86FE20](v45, -1, -1);
-    __swift_destroy_boxed_opaque_existential_0(v46);
-    MEMORY[0x25F86FE20](v46, -1, -1);
-    MEMORY[0x25F86FE20](v44, -1, -1);
+    *(v47 + 4) = v55;
+    *(v47 + 12) = 2112;
+    v56 = *(v5 + 4);
+    *(v47 + 14) = v56;
+    *v48 = v56;
+    v57 = v56;
+    _os_log_impl(&dword_25B7C4000, v45, v46, "%s: parameters = %@", v47, 0x16u);
+    outlined destroy of NSObject?(v48, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    MEMORY[0x25F86FE20](v48, -1, -1);
+    __swift_destroy_boxed_opaque_existential_0(v49);
+    MEMORY[0x25F86FE20](v49, -1, -1);
+    MEMORY[0x25F86FE20](v47, -1, -1);
   }
 
   else
   {
   }
 
-LABEL_11:
-  v54 = *(v5 + 2);
-  type metadata accessor for NearbyInvitationAdvertiser();
+  v58 = v41;
+LABEL_12:
+  v59 = *(v5 + 2);
+  type metadata accessor for NearbyInvitationAdvertiser(0, v36, v58, v34);
 
-  specialized NearbyInvitationsController.addObserver(_:)(v55, v54);
+  specialized NearbyInvitationsController.addObserver(_:)(v60, v59);
 
   return v5;
 }
 
-char *specialized NearbyInvitationAdvertiser.init(remoteInvitationData:provider:activityType:route:params:)(uint64_t a1, unint64_t a2, int a3, int a4, void *a5)
+char *specialized NearbyInvitationAdvertiser.init(remoteInvitationData:provider:activityType:route:params:)(uint64_t a1, char *a2, int a3, int a4, void *a5)
 {
   v6 = v5;
   v85 = a5;
@@ -5851,27 +5229,25 @@ char *specialized NearbyInvitationAdvertiser.init(remoteInvitationData:provider:
   v8 = type metadata accessor for UUID();
   v79 = *(v8 - 1);
   v80 = v8;
-  v9 = v79[8];
   MEMORY[0x28223BE20](v8);
-  v76 = v75 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = v7[10];
-  v12 = v7[11];
-  type metadata accessor for NearbyInvitationAdvertiser.PendingMember();
+  v76 = v75 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = v7[10];
+  v11 = v7[11];
+  type metadata accessor for NearbyInvitationAdvertiser.PendingMember(255, v10, v11, v12);
   swift_getWitnessTable();
   type metadata accessor for Set();
   v13 = type metadata accessor for Published();
   v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
   MEMORY[0x28223BE20](v13);
-  v17 = v75 - v16;
-  v18 = v7[15];
-  v19 = Set.init()();
-  v83 = v12;
-  v84 = v11;
-  property wrapper backing initializer of NearbyInvitationAdvertiser.pendingMembers(v19);
+  v16 = v75 - v15;
+  v17 = v7[15];
+  v18 = Set.init()();
+  v83 = v11;
+  v84 = v10;
+  property wrapper backing initializer of NearbyInvitationAdvertiser.pendingMembers(v18, v10, v11, v19);
   v20 = *(v14 + 32);
   v81 = v13;
-  v20(&v6[v18], v17, v13);
+  v20(&v6[v17], v16, v13);
   if (one-time initialization token for shared != -1)
   {
     swift_once();
@@ -5905,94 +5281,94 @@ char *specialized NearbyInvitationAdvertiser.init(remoteInvitationData:provider:
   {
     v75[1] = v23;
     v81 = 0;
-    v43 = v79;
-    v44 = v80;
-    v45 = v79[2];
-    v46 = v76;
+    v41 = v79;
+    v42 = v80;
+    v43 = v79[2];
+    v44 = v76;
     v82 = v30;
-    v45(v76, &v30[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_invitationID], v80);
-    v47 = type metadata accessor for NearbyAdvertisementRequest();
-    v48 = objc_allocWithZone(v47);
-    v45(&v48[OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_identifier], v46, v44);
-    v49 = v87;
-    v50 = &v48[OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_invitation];
-    *v50 = v28;
-    v50[1] = v49;
-    v51 = v78;
-    v48[OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_route] = v77;
-    *&v48[OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_activityType] = v51;
-    outlined copy of Data._Representation(v28, v49);
-    v88.receiver = v48;
-    v88.super_class = v47;
-    v52 = objc_msgSendSuper2(&v88, sel_init);
-    (v43[1])(v46, v44);
-    *(v6 + 3) = v52;
-    v53 = v82;
-    v54 = v85;
+    v43(v76, &v30[OBJC_IVAR____TtC14NearbySessions20NearbyInvitationData_invitationID], v80);
+    v45 = type metadata accessor for NearbyAdvertisementRequest(0);
+    v46 = objc_allocWithZone(v45);
+    v43(&v46[OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_identifier], v44, v42);
+    v47 = v87;
+    v48 = &v46[OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_invitation];
+    *v48 = v28;
+    v48[1] = v47;
+    v49 = v78;
+    v46[OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_route] = v77;
+    *&v46[OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_activityType] = v49;
+    outlined copy of Data._Representation(v28, v47);
+    v88.receiver = v46;
+    v88.super_class = v45;
+    v50 = objc_msgSendSuper2(&v88, sel_init);
+    (v41[1])(v44, v42);
+    *(v6 + 3) = v50;
+    v52 = v82;
+    v53 = v85;
     if (v85)
     {
-      v55 = objc_allocWithZone(MEMORY[0x277CFD160]);
-      v56 = v54;
-      v57 = [v55 init];
-      v58 = [v57 wranglerHomePodBoopEnabled];
+      v54 = objc_allocWithZone(MEMORY[0x277CFD160]);
+      v55 = v53;
+      v56 = [v54 init];
+      v57 = [v56 wranglerHomePodBoopEnabled];
 
-      if (v58)
+      if (v57)
       {
-        *(v6 + 4) = v54;
-        v59 = v56;
+        *(v6 + 4) = v53;
+        v58 = v55;
 
-        v60 = Logger.logObject.getter();
-        v61 = static os_log_type_t.default.getter();
+        v59 = Logger.logObject.getter();
+        v60 = static os_log_type_t.default.getter();
 
-        if (os_log_type_enabled(v60, v61))
+        if (os_log_type_enabled(v59, v60))
         {
+          v61 = swift_slowAlloc();
           v62 = swift_slowAlloc();
-          v63 = swift_slowAlloc();
-          v80 = v59;
-          v64 = v63;
+          v80 = v58;
+          v63 = v62;
           v79 = swift_slowAlloc();
           v90 = v79;
-          *v62 = 136315394;
+          *v61 = 136315394;
           v89 = v6;
-          v65 = type metadata accessor for NearbyInvitationAdvertiser();
+          v65 = type metadata accessor for NearbyInvitationAdvertiser(0, v84, v83, v64);
           v66 = >> prefix<A>(_:)(&v89, v65);
           v68 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v66, v67, &v90);
 
-          *(v62 + 4) = v68;
-          *(v62 + 12) = 2112;
+          *(v61 + 4) = v68;
+          *(v61 + 12) = 2112;
           v69 = *(v6 + 4);
-          *(v62 + 14) = v69;
-          *v64 = v69;
+          *(v61 + 14) = v69;
+          *v63 = v69;
           v70 = v69;
-          _os_log_impl(&dword_25B7C4000, v60, v61, "%s: parameters = %@", v62, 0x16u);
-          outlined destroy of NSObject?(v64, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-          MEMORY[0x25F86FE20](v64, -1, -1);
+          _os_log_impl(&dword_25B7C4000, v59, v60, "%s: parameters = %@", v61, 0x16u);
+          outlined destroy of NSObject?(v63, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+          MEMORY[0x25F86FE20](v63, -1, -1);
           v71 = v79;
           __swift_destroy_boxed_opaque_existential_0(v79);
           MEMORY[0x25F86FE20](v71, -1, -1);
-          MEMORY[0x25F86FE20](v62, -1, -1);
+          MEMORY[0x25F86FE20](v61, -1, -1);
         }
 
         else
         {
         }
 
-        v54 = v85;
-        v53 = v82;
+        v53 = v85;
+        v52 = v82;
         goto LABEL_19;
       }
 
-      v53 = v82;
+      v52 = v82;
     }
 
     *(v6 + 4) = 0;
 LABEL_19:
     v72 = *(v6 + 2);
-    type metadata accessor for NearbyInvitationAdvertiser();
+    type metadata accessor for NearbyInvitationAdvertiser(0, v84, v83, v51);
 
     specialized NearbyInvitationsController.addObserver(_:)(v73, v72);
 
-    outlined consume of Data._Representation(v28, v49);
+    outlined consume of Data._Representation(v28, v47);
     return v6;
   }
 
@@ -6022,38 +5398,30 @@ LABEL_19:
 
   swift_willThrow();
   outlined consume of Data._Representation(v86, v27);
-  v40 = *(v6 + 2);
 
   (*(v14 + 8))(&v6[*(*v6 + 120)], v81);
-  type metadata accessor for NearbyInvitationAdvertiser();
-  v41 = *(*v6 + 48);
-  v42 = *(*v6 + 52);
+  type metadata accessor for NearbyInvitationAdvertiser(0, v84, v83, v40);
   swift_deallocPartialClassInstance();
   return v6;
 }
 
 uint64_t partial apply for closure #2 in NearbyInvitationAdvertiser.assertPublic(rotations:)()
 {
-  v1 = v0[2];
-  v2 = v0[3];
-  v3 = *(type metadata accessor for UUID() - 8);
-  v4 = v0[4];
-  v5 = v0 + ((*(v3 + 80) + 40) & ~*(v3 + 80));
+  v1 = *(type metadata accessor for UUID() - 8);
+  v2 = *(v0 + 32);
+  v3 = v0 + ((*(v1 + 80) + 40) & ~*(v1 + 80));
 
-  return closure #2 in NearbyInvitationAdvertiser.assertPublic(rotations:)(v4, v5);
+  return closure #2 in NearbyInvitationAdvertiser.assertPublic(rotations:)(v2, v3);
 }
 
-uint64_t type metadata completion function for NearbyInvitationAdvertiser(uint64_t a1)
+uint64_t type metadata completion function for NearbyInvitationAdvertiser(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1 = *(a1 + 80);
-  v2 = *(a1 + 88);
-  type metadata accessor for NearbyInvitationAdvertiser.PendingMember();
+  type metadata accessor for NearbyInvitationAdvertiser.PendingMember(255, *(a1 + 80), *(a1 + 88), a4);
   swift_getWitnessTable();
   type metadata accessor for Set();
   result = type metadata accessor for Published();
-  if (v4 <= 0x3F)
+  if (v5 <= 0x3F)
   {
-    v5 = *(result - 8) + 64;
     result = swift_initClassMetadata2();
     if (!result)
     {
@@ -6066,41 +5434,35 @@ uint64_t type metadata completion function for NearbyInvitationAdvertiser(uint64
 
 uint64_t dispatch thunk of NearbyInvitationAdvertiser.start()()
 {
-  v2 = *(*v0 + 248);
-  v6 = (v2 + *v2);
-  v3 = v2[1];
-  v4 = swift_task_alloc();
-  *(v1 + 16) = v4;
-  *v4 = v1;
-  v4[1] = partial apply for closure #1 in NearbyGroupTable.cleanUpIfNotPresent(_:);
+  v4 = (*(*v0 + 248) + **(*v0 + 248));
+  v2 = swift_task_alloc();
+  *(v1 + 16) = v2;
+  *v2 = v1;
+  v2[1] = partial apply for closure #1 in NearbyGroupTable.cleanUpIfNotPresent(_:);
 
-  return v6();
+  return v4();
 }
 
 uint64_t dispatch thunk of NearbyInvitationAdvertiser.stop()()
 {
-  v2 = *(*v0 + 256);
-  v6 = (v2 + *v2);
-  v3 = v2[1];
-  v4 = swift_task_alloc();
-  *(v1 + 16) = v4;
-  *v4 = v1;
-  v4[1] = partial apply for closure #1 in NearbyGroupTable.firstGroup();
+  v4 = (*(*v0 + 256) + **(*v0 + 256));
+  v2 = swift_task_alloc();
+  *(v1 + 16) = v2;
+  *v2 = v1;
+  v2[1] = partial apply for closure #1 in NearbyGroupTable.firstGroup();
 
-  return v6();
+  return v4();
 }
 
 uint64_t dispatch thunk of NearbyInvitationAdvertiser.assertPublic(rotations:)(uint64_t a1)
 {
-  v4 = *(*v1 + 264);
-  v8 = (v4 + *v4);
-  v5 = v4[1];
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = dispatch thunk of NearbyGroupTable.firstGroup();
+  v6 = (*(*v1 + 264) + **(*v1 + 264));
+  v4 = swift_task_alloc();
+  *(v2 + 16) = v4;
+  *v4 = v2;
+  v4[1] = dispatch thunk of NearbyGroupTable.firstGroup();
 
-  return v8(a1);
+  return v6(a1);
 }
 
 uint64_t getEnumTagSinglePayload for NearbyInvitationAdvertiser.Errors(unsigned __int8 *a1, unsigned int a2)
@@ -6265,7 +5627,7 @@ LABEL_20:
   return result;
 }
 
-uint64_t type metadata instantiation function for NearbyInvitationAdvertiser.PendingMember()
+uint64_t type metadata instantiation function for NearbyInvitationAdvertiser.PendingMember(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
@@ -6369,9 +5731,10 @@ uint64_t partial apply for closure #1 in closure #1 in NearbyInvitationAdvertise
 {
   v5 = *(v2 + 16);
   v6 = *(v2 + 24);
-  v7 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy10Foundation4UUIDVs5Error_pGMd, &_sScCy10Foundation4UUIDVs5Error_pGMR) - 8) + 80);
+  v7 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy10Foundation4UUIDVs5Error_pGMd, &_sScCy10Foundation4UUIDVs5Error_pGMR) - 8);
+  v8 = v2 + ((*(v7 + 80) + 32) & ~*(v7 + 80));
 
-  return closure #1 in closure #1 in NearbyInvitationAdvertiser.assertPublic(rotations:)(a1, a2);
+  return closure #1 in closure #1 in NearbyInvitationAdvertiser.assertPublic(rotations:)(a1, a2, v8, v5, v6);
 }
 
 uint64_t outlined init with copy of UUID?(uint64_t a1, uint64_t a2)
@@ -6398,12 +5761,11 @@ uint64_t objectdestroy_34Tm()
   v4 = (v3 + 32) & ~v3;
   v5 = (*(v2 + 64) + v4 + 7) & 0xFFFFFFFFFFFFFFF8;
   (*(v2 + 8))(v0 + v4, v1);
-  v6 = *(v0 + v5);
 
   return MEMORY[0x2821FE8E8](v0, v5 + 8, v3 | 7);
 }
 
-uint64_t partial apply for closure #2 in closure #1 in NearbyInvitationAdvertiser.stop()(void *a1, const char *a2, const char *a3)
+uint64_t partial apply for closure #2 in closure #1 in NearbyInvitationAdvertiser.stop()(void *a1, const char *a2, const char *a3, ...)
 {
   v7 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5Error_pGMd, &_sScCyyts5Error_pGMR) - 8);
   v8 = (*(v7 + 80) + 32) & ~*(v7 + 80);
@@ -6412,7 +5774,7 @@ uint64_t partial apply for closure #2 in closure #1 in NearbyInvitationAdvertise
 
 void partial apply for closure #1 in closure #1 in NearbyInvitationAdvertiser.start()(NSObject *a1)
 {
-  v2 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5Error_pGMd, &_sScCyyts5Error_pGMR) - 8) + 80);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5Error_pGMd, &_sScCyyts5Error_pGMR);
 
   closure #1 in closure #1 in NearbyInvitationAdvertiser.start()(a1);
 }
@@ -6425,11 +5787,11 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance NearbyI
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance NearbyInvitationSessionProvider()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance NearbyInvitationSessionProvider(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  MEMORY[0x25F86F720](v1);
+  MEMORY[0x25F86F720](v2);
   return Hasher._finalize()();
 }
 
@@ -6475,7 +5837,7 @@ id closure #1 in variable initialization expression of static NearbyInvitationSe
   *(inited + 112) = type metadata accessor for InvitationApprovalRequest();
   *(inited + 120) = type metadata accessor for NearbyInvitationData(0);
   *(inited + 128) = type metadata accessor for NearbyGroupMember();
-  *(inited + 136) = type metadata accessor for NearbyAdvertisementRequest();
+  *(inited + 136) = type metadata accessor for NearbyAdvertisementRequest(0);
   *(inited + 144) = type metadata accessor for NearbyInvitationParameters();
   *(inited + 152) = type metadata accessor for InvitationBlob();
   specialized _arrayForceCast<A, B>(_:)(inited);
@@ -6545,26 +5907,25 @@ uint64_t specialized _arrayForceCast<A, B>(_:)(uint64_t a1)
   v2 = MEMORY[0x277D84F90];
   if (v1)
   {
-    v10 = MEMORY[0x277D84F90];
+    v9 = MEMORY[0x277D84F90];
     specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v1, 0);
-    v4 = (a1 + 32);
-    v2 = v10;
+    v4 = a1 + 32;
+    v2 = v9;
     do
     {
-      v8 = *v4;
       __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCmMd, "<G");
       __swift_instantiateConcreteTypeFromMangledNameV2(&_syXlXpMd, "BG");
       swift_dynamicCast();
-      v6 = *(v10 + 16);
-      v5 = *(v10 + 24);
+      v6 = *(v9 + 16);
+      v5 = *(v9 + 24);
       if (v6 >= v5 >> 1)
       {
         specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v5 > 1), v6 + 1, 1);
       }
 
-      *(v10 + 16) = v6 + 1;
-      *(v10 + 8 * v6 + 32) = v9;
-      ++v4;
+      *(v9 + 16) = v6 + 1;
+      *(v9 + 8 * v6 + 32) = v8;
+      v4 += 8;
       --v1;
     }
 
@@ -6625,20 +5986,20 @@ id closure #1 in variable initialization expression of static NearbyInvitationSe
   return v0;
 }
 
-id static NearbyInvitationServiceInterface.hostObjectInterface.getter(void *a1, void **a2)
+id static NearbyInvitationServiceInterface.hostObjectInterface.getter(void *a1, void **a2, uint64_t a3)
 {
   if (*a1 == -1)
   {
-    v3 = *a2;
+    v4 = *a2;
   }
 
   else
   {
     swift_once();
-    v3 = *a2;
+    v4 = *a2;
   }
 
-  return v3;
+  return v4;
 }
 
 unint64_t lazy protocol witness table accessor for type NearbyInvitationSessionProvider and conformance NearbyInvitationSessionProvider()
@@ -6667,20 +6028,20 @@ uint64_t protocol witness for static XPCInterface.identity.getter in conformance
   return v4(a1, v3, v2);
 }
 
-id protocol witness for static XPCInterface.hostObjectInterface.getter in conformance NearbyInvitationServiceInterface(uint64_t a1, uint64_t a2, void *a3, void **a4)
+id protocol witness for static XPCInterface.hostObjectInterface.getter in conformance NearbyInvitationServiceInterface(uint64_t a1, uint64_t a2, void *a3, void **a4, uint64_t a5)
 {
   if (*a3 == -1)
   {
-    v5 = *a4;
+    v6 = *a4;
   }
 
   else
   {
     swift_once();
-    v5 = *a4;
+    v6 = *a4;
   }
 
-  return v5;
+  return v6;
 }
 
 uint64_t _ss29getContiguousArrayStorageType3fors01_bcD0CyxGmxm_tlFSo8NSObjectCm_Ttg5()
@@ -6727,10 +6088,10 @@ Swift::Int NearbyInvitationScanner.Errors.hashValue.getter(char a1)
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance NearbyInvitationScanner<A>.Errors()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance NearbyInvitationScanner<A>.Errors(uint64_t a1)
 {
   Hasher.init(_seed:)();
-  NearbyInvitationScanner.Errors.hash(into:)(v2, *v0);
+  NearbyInvitationScanner.Errors.hash(into:)(v3, *v1);
   return Hasher._finalize()();
 }
 
@@ -6750,26 +6111,24 @@ void NearbyInvitationScanner.didDiscoverNearbyAdvertisement(advertisement:)(void
   v7 = Logger.logObject.getter();
   v8 = static os_log_type_t.info.getter();
 
-  v37 = v4;
+  v33 = v4;
   if (os_log_type_enabled(v7, v8))
   {
     v9 = swift_slowAlloc();
     v10 = swift_slowAlloc();
     v11 = swift_slowAlloc();
-    v38[0] = v11;
+    v34[0] = v11;
     *v9 = 136315394;
-    v39 = v1;
-    v12 = *(v4 + 80);
-    v13 = *(v4 + 88);
-    v14 = type metadata accessor for NearbyInvitationScanner();
-    v15 = >> prefix<A>(_:)(&v39, v14);
-    v17 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v15, v16, v38);
+    v35 = v1;
+    v13 = type metadata accessor for NearbyInvitationScanner(0, *(v4 + 80), *(v4 + 88), v12);
+    v14 = >> prefix<A>(_:)(&v35, v13);
+    v16 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v15, v34);
 
-    *(v9 + 4) = v17;
+    *(v9 + 4) = v16;
     *(v9 + 12) = 2112;
     *(v9 + 14) = v6;
     *v10 = v6;
-    v18 = v6;
+    v17 = v6;
     _os_log_impl(&dword_25B7C4000, v7, v8, "%s Did discover NearbyAdvertisement callback: %@", v9, 0x16u);
     outlined destroy of NSObject?(v10, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
     MEMORY[0x25F86FE20](v10, -1, -1);
@@ -6778,53 +6137,49 @@ void NearbyInvitationScanner.didDiscoverNearbyAdvertisement(advertisement:)(void
     MEMORY[0x25F86FE20](v9, -1, -1);
   }
 
-  v19 = static UUID.== infix(_:_:)();
-  if (v19)
+  v18 = static UUID.== infix(_:_:)();
+  if (v18)
   {
-    MEMORY[0x28223BE20](v19);
-    v20 = *(v37 + 80);
-    v21 = *(v37 + 88);
+    MEMORY[0x28223BE20](v18);
     KeyPath = swift_getKeyPath();
     MEMORY[0x28223BE20](KeyPath);
     swift_getKeyPath();
-    v23 = static Published.subscript.modify();
-    specialized Set._Variant.insert(_:)(&v39, v6, type metadata accessor for NearbyAdvertisement, &_ss11_SetStorageCy14NearbySessions0C13AdvertisementCGMd, &_ss11_SetStorageCy14NearbySessions0C13AdvertisementCGMR, type metadata accessor for NearbyAdvertisement);
+    v20 = static Published.subscript.modify();
+    specialized Set._Variant.insert(_:)(&v35, v6, type metadata accessor for NearbyAdvertisement, &_ss11_SetStorageCy14NearbySessions0C13AdvertisementCGMd, &_ss11_SetStorageCy14NearbySessions0C13AdvertisementCGMR, type metadata accessor for NearbyAdvertisement);
 
-    v23(v38, 0);
+    v20(v34, 0);
   }
 
   else
   {
 
-    v24 = v6;
-    v25 = Logger.logObject.getter();
-    v26 = static os_log_type_t.debug.getter();
+    v21 = v6;
+    v22 = Logger.logObject.getter();
+    v23 = static os_log_type_t.debug.getter();
 
-    if (os_log_type_enabled(v25, v26))
+    if (os_log_type_enabled(v22, v23))
     {
-      v27 = swift_slowAlloc();
-      v28 = swift_slowAlloc();
-      v29 = swift_slowAlloc();
-      v38[0] = v29;
-      *v27 = 136315394;
-      v39 = v2;
-      v30 = *(v37 + 80);
-      v31 = *(v37 + 88);
-      v32 = type metadata accessor for NearbyInvitationScanner();
-      v33 = >> prefix<A>(_:)(&v39, v32);
-      v35 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v33, v34, v38);
+      v24 = swift_slowAlloc();
+      v25 = swift_slowAlloc();
+      v26 = swift_slowAlloc();
+      v34[0] = v26;
+      *v24 = 136315394;
+      v35 = v2;
+      v28 = type metadata accessor for NearbyInvitationScanner(0, *(v33 + 80), *(v33 + 88), v27);
+      v29 = >> prefix<A>(_:)(&v35, v28);
+      v31 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v29, v30, v34);
 
-      *(v27 + 4) = v35;
-      *(v27 + 12) = 2112;
-      *(v27 + 14) = v24;
-      *v28 = v24;
-      v36 = v24;
-      _os_log_impl(&dword_25B7C4000, v25, v26, "%s Ignored discovered advertisement: %@ since it's not for our scanner", v27, 0x16u);
-      outlined destroy of NSObject?(v28, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-      MEMORY[0x25F86FE20](v28, -1, -1);
-      __swift_destroy_boxed_opaque_existential_0(v29);
-      MEMORY[0x25F86FE20](v29, -1, -1);
-      MEMORY[0x25F86FE20](v27, -1, -1);
+      *(v24 + 4) = v31;
+      *(v24 + 12) = 2112;
+      *(v24 + 14) = v21;
+      *v25 = v21;
+      v32 = v21;
+      _os_log_impl(&dword_25B7C4000, v22, v23, "%s Ignored discovered advertisement: %@ since it's not for our scanner", v24, 0x16u);
+      outlined destroy of NSObject?(v25, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      MEMORY[0x25F86FE20](v25, -1, -1);
+      __swift_destroy_boxed_opaque_existential_0(v26);
+      MEMORY[0x25F86FE20](v26, -1, -1);
+      MEMORY[0x25F86FE20](v24, -1, -1);
     }
   }
 }
@@ -6845,26 +6200,24 @@ void NearbyInvitationScanner.didLoseNearbyAdvertisement(advertisement:)(void *a1
   v7 = Logger.logObject.getter();
   v8 = static os_log_type_t.info.getter();
 
-  v37 = v4;
+  v33 = v4;
   if (os_log_type_enabled(v7, v8))
   {
     v9 = swift_slowAlloc();
     v10 = swift_slowAlloc();
     v11 = swift_slowAlloc();
-    v38[0] = v11;
+    v34[0] = v11;
     *v9 = 136315394;
-    v39 = v1;
-    v12 = *(v4 + 80);
-    v13 = *(v4 + 88);
-    v14 = type metadata accessor for NearbyInvitationScanner();
-    v15 = >> prefix<A>(_:)(&v39, v14);
-    v17 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v15, v16, v38);
+    v35 = v1;
+    v13 = type metadata accessor for NearbyInvitationScanner(0, *(v4 + 80), *(v4 + 88), v12);
+    v14 = >> prefix<A>(_:)(&v35, v13);
+    v16 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v15, v34);
 
-    *(v9 + 4) = v17;
+    *(v9 + 4) = v16;
     *(v9 + 12) = 2112;
     *(v9 + 14) = v6;
     *v10 = v6;
-    v18 = v6;
+    v17 = v6;
     _os_log_impl(&dword_25B7C4000, v7, v8, "%s Did lose NearbyAdvertisement callback: %@", v9, 0x16u);
     outlined destroy of NSObject?(v10, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
     MEMORY[0x25F86FE20](v10, -1, -1);
@@ -6873,57 +6226,53 @@ void NearbyInvitationScanner.didLoseNearbyAdvertisement(advertisement:)(void *a1
     MEMORY[0x25F86FE20](v9, -1, -1);
   }
 
-  v19 = static UUID.== infix(_:_:)();
-  if (v19)
+  v18 = static UUID.== infix(_:_:)();
+  if (v18)
   {
-    MEMORY[0x28223BE20](v19);
-    v20 = *(v37 + 80);
-    v21 = *(v37 + 88);
+    MEMORY[0x28223BE20](v18);
     KeyPath = swift_getKeyPath();
     MEMORY[0x28223BE20](KeyPath);
     swift_getKeyPath();
-    v23 = static Published.subscript.modify();
+    v20 = static Published.subscript.modify();
 
-    v23(v38, 0);
+    v20(v34, 0);
   }
 
   else
   {
 
-    v24 = v6;
-    v25 = Logger.logObject.getter();
-    v26 = static os_log_type_t.debug.getter();
+    v21 = v6;
+    v22 = Logger.logObject.getter();
+    v23 = static os_log_type_t.debug.getter();
 
-    if (os_log_type_enabled(v25, v26))
+    if (os_log_type_enabled(v22, v23))
     {
-      v27 = swift_slowAlloc();
-      v28 = swift_slowAlloc();
-      v29 = swift_slowAlloc();
-      v38[0] = v29;
-      *v27 = 136315394;
-      v39 = v2;
-      v30 = *(v37 + 80);
-      v31 = *(v37 + 88);
-      v32 = type metadata accessor for NearbyInvitationScanner();
-      v33 = >> prefix<A>(_:)(&v39, v32);
-      v35 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v33, v34, v38);
+      v24 = swift_slowAlloc();
+      v25 = swift_slowAlloc();
+      v26 = swift_slowAlloc();
+      v34[0] = v26;
+      *v24 = 136315394;
+      v35 = v2;
+      v28 = type metadata accessor for NearbyInvitationScanner(0, *(v33 + 80), *(v33 + 88), v27);
+      v29 = >> prefix<A>(_:)(&v35, v28);
+      v31 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v29, v30, v34);
 
-      *(v27 + 4) = v35;
-      *(v27 + 12) = 2112;
-      *(v27 + 14) = v24;
-      *v28 = v24;
-      v36 = v24;
-      _os_log_impl(&dword_25B7C4000, v25, v26, "%s Ignored lost advertisement: %@ since it's not for our scanner", v27, 0x16u);
-      outlined destroy of NSObject?(v28, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-      MEMORY[0x25F86FE20](v28, -1, -1);
-      __swift_destroy_boxed_opaque_existential_0(v29);
-      MEMORY[0x25F86FE20](v29, -1, -1);
-      MEMORY[0x25F86FE20](v27, -1, -1);
+      *(v24 + 4) = v31;
+      *(v24 + 12) = 2112;
+      *(v24 + 14) = v21;
+      *v25 = v21;
+      v32 = v21;
+      _os_log_impl(&dword_25B7C4000, v22, v23, "%s Ignored lost advertisement: %@ since it's not for our scanner", v24, 0x16u);
+      outlined destroy of NSObject?(v25, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      MEMORY[0x25F86FE20](v25, -1, -1);
+      __swift_destroy_boxed_opaque_existential_0(v26);
+      MEMORY[0x25F86FE20](v26, -1, -1);
+      MEMORY[0x25F86FE20](v24, -1, -1);
     }
   }
 }
 
-uint64_t @objc NearbyInvitationScanner.didDiscoverNearbyAdvertisement(advertisement:)(uint64_t a1, uint64_t a2, void *a3, void (*a4)(id))
+uint64_t @objc NearbyInvitationScanner.didDiscoverNearbyAdvertisement(advertisement:)(uint64_t a1, uint64_t a2, void *a3, void (*a4)(void *))
 {
   v5 = a3;
 
@@ -6950,42 +6299,39 @@ uint64_t NearbyInvitationScanner.didDiscoverNearbySessionInvitation(id:invitatio
   if (os_log_type_enabled(v12, v13))
   {
     v14 = swift_slowAlloc();
-    v28 = swift_slowAlloc();
-    v29 = v5;
-    v30[0] = v28;
+    v26 = swift_slowAlloc();
+    v27 = v5;
+    v28[0] = v26;
     *v14 = 136315650;
-    v15 = *(v10 + 80);
-    v16 = *(v10 + 88);
-    v17 = type metadata accessor for NearbyInvitationScanner();
-    v18 = >> prefix<A>(_:)(&v29, v17);
-    v20 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v19, v30);
+    v16 = type metadata accessor for NearbyInvitationScanner(0, *(v10 + 80), *(v10 + 88), v15);
+    v17 = >> prefix<A>(_:)(&v27, v16);
+    v19 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v17, v18, v28);
 
-    *(v14 + 4) = v20;
+    *(v14 + 4) = v19;
     *(v14 + 12) = 2080;
-    *(v14 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a1, a2, v30);
+    *(v14 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a1, a2, v28);
     *(v14 + 22) = 2080;
-    v21 = Data.description.getter();
-    v23 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v21, v22, v30);
+    v20 = Data.description.getter();
+    v22 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v20, v21, v28);
 
-    *(v14 + 24) = v23;
+    *(v14 + 24) = v22;
     _os_log_impl(&dword_25B7C4000, v12, v13, "%s Did discover NearbySessionInvitation callback: [%s:%s]", v14, 0x20u);
     swift_arrayDestroy();
-    MEMORY[0x25F86FE20](v28, -1, -1);
+    MEMORY[0x25F86FE20](v26, -1, -1);
     MEMORY[0x25F86FE20](v14, -1, -1);
   }
 
-  v24 = *(v5 + direct field offset for NearbyInvitationScanner.invitationDataBlobs);
-  v30[0] = a1;
-  v30[1] = a2;
-  v31 = a3;
-  v32 = a4;
+  v28[0] = a1;
+  v28[1] = a2;
+  v29 = a3;
+  v30 = a4;
 
   outlined copy of Data._Representation(a3, a4);
   PassthroughSubject.send(_:)();
-  v25 = v31;
-  v26 = v32;
+  v23 = v29;
+  v24 = v30;
 
-  return outlined consume of Data._Representation(v25, v26);
+  return outlined consume of Data._Representation(v23, v24);
 }
 
 uint64_t @objc NearbyInvitationScanner.didDiscoverNearbySessionInvitation(id:invitation:)(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
@@ -7008,44 +6354,30 @@ uint64_t key path getter for NearbyInvitationScanner.advertisements : <A>NearbyI
   return result;
 }
 
-uint64_t key path setter for NearbyInvitationScanner.advertisements : <A>NearbyInvitationScanner<A>(uint64_t *a1, uint64_t *a2)
-{
-  v2 = *a1;
-  v3 = *a2;
-
-  return NearbyInvitationScanner.advertisements.setter();
-}
-
 uint64_t NearbyInvitationScanner.advertisements.getter()
 {
-  v1 = *(*v0 + 80);
-  v2 = *(*v0 + 88);
   swift_getKeyPath();
   swift_getKeyPath();
   static Published.subscript.getter();
 
-  return v4;
+  return v1;
 }
 
-uint64_t NearbyInvitationScanner.advertisements.setter()
+uint64_t NearbyInvitationScanner.advertisements.setter(uint64_t a1)
 {
-  v1 = *(*v0 + 80);
-  v2 = *(*v0 + 88);
   swift_getKeyPath();
   swift_getKeyPath();
 
   return static Published.subscript.setter();
 }
 
-uint64_t key path setter for NearbyInvitationScanner.$advertisements : <A>NearbyInvitationScanner<A>(uint64_t a1, uint64_t *a2)
+uint64_t key path setter for NearbyInvitationScanner.$advertisements : <A>NearbyInvitationScanner<A>(uint64_t a1)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVyShy14NearbySessions0D13AdvertisementCG_GMd, &_s7Combine9PublishedV9PublisherVyShy14NearbySessions0D13AdvertisementCG_GMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4);
-  v7 = &v11 - v6;
-  (*(v8 + 16))(&v11 - v6, a1);
-  v9 = *a2;
-  return NearbyInvitationScanner.$advertisements.setter(v7);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVyShy14NearbySessions0D13AdvertisementCG_GMd, &_s7Combine9PublishedV9PublisherVyShy14NearbySessions0D13AdvertisementCG_GMR);
+  MEMORY[0x28223BE20](v2);
+  v4 = &v7 - v3;
+  (*(v5 + 16))(&v7 - v3, a1);
+  return NearbyInvitationScanner.$advertisements.setter(v4);
 }
 
 uint64_t NearbyInvitationScanner.$advertisements.getter()
@@ -7060,9 +6392,8 @@ uint64_t NearbyInvitationScanner.$advertisements.setter(uint64_t a1)
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVyShy14NearbySessions0D13AdvertisementCG_GMd, &_s7Combine9PublishedV9PublisherVyShy14NearbySessions0D13AdvertisementCG_GMR);
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  (*(v3 + 16))(&v7 - v5, a1, v2);
+  (*(v3 + 16))(&v6 - v4, a1, v2);
   swift_beginAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVyShy14NearbySessions0C13AdvertisementCGGMd, &_s7Combine9PublishedVyShy14NearbySessions0C13AdvertisementCGGMR);
   Published.projectedValue.setter();
@@ -7070,22 +6401,12 @@ uint64_t NearbyInvitationScanner.$advertisements.setter(uint64_t a1)
   return (*(v3 + 8))(a1, v2);
 }
 
-void *NearbyInvitationScanner.__allocating_init(provider:)()
-{
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 52);
-  swift_allocObject();
-  return specialized NearbyInvitationScanner.init(provider:)();
-}
-
 void *NearbyInvitationScanner.__allocating_init(provider:configuration:)(uint64_t a1, void *a2)
 {
-  v4 = *(v2 + 48);
-  v5 = *(v2 + 52);
   swift_allocObject();
-  v6 = specialized NearbyInvitationScanner.init(provider:configuration:)(a2);
+  v3 = specialized NearbyInvitationScanner.init(provider:configuration:)(a2);
 
-  return v6;
+  return v3;
 }
 
 void *NearbyInvitationScanner.init(provider:configuration:)(uint64_t a1, void *a2)
@@ -7103,50 +6424,46 @@ uint64_t NearbyInvitationScanner.start()()
 }
 
 {
-  v21 = v0;
+  v18 = v0;
   if (one-time initialization token for client != -1)
   {
     swift_once();
   }
 
-  v1 = v0[3];
-  v2 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v2, static Log.client);
+  v1 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v1, static Log.client);
 
-  v3 = Logger.logObject.getter();
-  v4 = static os_log_type_t.default.getter();
+  v2 = Logger.logObject.getter();
+  v3 = static os_log_type_t.default.getter();
 
-  if (os_log_type_enabled(v3, v4))
+  if (os_log_type_enabled(v2, v3))
   {
-    v6 = v0[3];
-    v5 = v0[4];
+    v5 = v0[3];
+    v4 = v0[4];
+    v6 = swift_slowAlloc();
     v7 = swift_slowAlloc();
-    v8 = swift_slowAlloc();
-    v20 = v8;
-    *v7 = 136315138;
-    v0[2] = v6;
-    v9 = *(v5 + 80);
-    v10 = *(v5 + 88);
-    v11 = type metadata accessor for NearbyInvitationScanner();
-    v12 = >> prefix<A>(_:)((v0 + 2), v11);
-    v14 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v12, v13, &v20);
+    v17 = v7;
+    *v6 = 136315138;
+    v0[2] = v5;
+    v9 = type metadata accessor for NearbyInvitationScanner(0, *(v4 + 80), *(v4 + 88), v8);
+    v10 = >> prefix<A>(_:)((v0 + 2), v9);
+    v12 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v10, v11, &v17);
 
-    *(v7 + 4) = v14;
-    _os_log_impl(&dword_25B7C4000, v3, v4, "%s: client called start on NearbyInvitationsScanner", v7, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v8);
-    MEMORY[0x25F86FE20](v8, -1, -1);
+    *(v6 + 4) = v12;
+    _os_log_impl(&dword_25B7C4000, v2, v3, "%s: client called start on NearbyInvitationsScanner", v6, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v7);
     MEMORY[0x25F86FE20](v7, -1, -1);
+    MEMORY[0x25F86FE20](v6, -1, -1);
   }
 
-  v15 = *(MEMORY[0x277D85A40] + 4);
-  v16 = swift_task_alloc();
-  v0[5] = v16;
-  *v16 = v0;
-  v16[1] = NearbyInvitationAdvertiser.start();
-  v17 = v0[3];
-  v18 = MEMORY[0x277D84F78] + 8;
+  v13 = swift_task_alloc();
+  v0[5] = v13;
+  *v13 = v0;
+  v13[1] = NearbyInvitationAdvertiser.start();
+  v14 = v0[3];
+  v15 = MEMORY[0x277D84F78] + 8;
 
-  return MEMORY[0x2822008A0](v16, 0, 0, 0x29287472617473, 0xE700000000000000, partial apply for closure #1 in NearbyInvitationScanner.start(), v17, v18);
+  return MEMORY[0x2822008A0](v13, 0, 0, 0x29287472617473, 0xE700000000000000, partial apply for closure #1 in NearbyInvitationScanner.start(), v14, v15);
 }
 
 void closure #1 in NearbyInvitationScanner.start()(uint64_t a1, uint64_t *a2)
@@ -7156,13 +6473,13 @@ void closure #1 in NearbyInvitationScanner.start()(uint64_t a1, uint64_t *a2)
   v6 = *(v5 - 8);
   v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = v21 - v8;
+  v9 = v20 - v8;
   v10 = [objc_allocWithZone(MEMORY[0x277CFD160]) init];
   v11 = [v10 wranglerHomePodBoopEnabled];
 
   if (v11 && (v12 = *(a2 + direct field offset for NearbyInvitationScanner.setup)) != 0)
   {
-    v21[1] = *(a2 + direct field offset for NearbyInvitationScanner.controller);
+    v20[1] = *(a2 + direct field offset for NearbyInvitationScanner.controller);
     v13 = direct field offset for NearbyInvitationScanner.uuid;
     (*(v6 + 16))(v9, a1, v5);
     v14 = (*(v6 + 80) + 32) & ~*(v6 + 80);
@@ -7178,17 +6495,16 @@ void closure #1 in NearbyInvitationScanner.start()(uint64_t a1, uint64_t *a2)
 
   else
   {
-    v17 = *(a2 + direct field offset for NearbyInvitationScanner.controller);
-    v18 = direct field offset for NearbyInvitationScanner.uuid;
+    v17 = direct field offset for NearbyInvitationScanner.uuid;
     (*(v6 + 16))(v9, a1, v5);
-    v19 = (*(v6 + 80) + 32) & ~*(v6 + 80);
-    v20 = swift_allocObject();
-    *(v20 + 16) = *(v4 + 80);
-    *(v20 + 24) = *(v4 + 88);
-    (*(v6 + 32))(v20 + v19, v9, v5);
-    *(v20 + ((v7 + v19 + 7) & 0xFFFFFFFFFFFFFFF8)) = a2;
+    v18 = (*(v6 + 80) + 32) & ~*(v6 + 80);
+    v19 = swift_allocObject();
+    *(v19 + 16) = *(v4 + 80);
+    *(v19 + 24) = *(v4 + 88);
+    (*(v6 + 32))(v19 + v18, v9, v5);
+    *(v19 + ((v7 + v18 + 7) & 0xFFFFFFFFFFFFFFF8)) = a2;
 
-    NearbyInvitationsController.scanNearbyInvitations(scannerID:response:)(a2 + v18, partial apply for closure #2 in closure #1 in NearbyInvitationScanner.start(), v20);
+    NearbyInvitationsController.scanNearbyInvitations(scannerID:response:)(a2 + v17, partial apply for closure #2 in closure #1 in NearbyInvitationScanner.start(), v19);
   }
 }
 
@@ -7223,7 +6539,7 @@ uint64_t closure #1 in closure #1 in NearbyInvitationScanner.start()(void *a1, u
       MEMORY[0x25F86FE20](v9, -1, -1);
     }
 
-    v28 = a1;
+    v27 = a1;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5Error_pGMd, &_sScCyyts5Error_pGMR);
     return CheckedContinuation.resume(throwing:)();
   }
@@ -7246,16 +6562,14 @@ uint64_t closure #1 in closure #1 in NearbyInvitationScanner.start()(void *a1, u
     {
       v19 = swift_slowAlloc();
       v20 = swift_slowAlloc();
-      v27 = a3;
-      v28 = v20;
+      v26 = a3;
+      v27 = v20;
       *v19 = 136315138;
-      v21 = *(v15 + 80);
-      v22 = *(v15 + 88);
-      v23 = type metadata accessor for NearbyInvitationScanner();
-      v24 = >> prefix<A>(_:)(&v27, v23);
-      v26 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v24, v25, &v28);
+      v22 = type metadata accessor for NearbyInvitationScanner(0, *(v15 + 80), *(v15 + 88), v21);
+      v23 = >> prefix<A>(_:)(&v26, v22);
+      v25 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v23, v24, &v27);
 
-      *(v19 + 4) = v26;
+      *(v19 + 4) = v25;
       _os_log_impl(&dword_25B7C4000, v17, v18, "%s NearbyInvitationScanner did start scanning", v19, 0xCu);
       __swift_destroy_boxed_opaque_existential_0(v20);
       MEMORY[0x25F86FE20](v20, -1, -1);
@@ -7275,50 +6589,46 @@ uint64_t NearbyInvitationScanner.stop()()
 }
 
 {
-  v21 = v0;
+  v18 = v0;
   if (one-time initialization token for client != -1)
   {
     swift_once();
   }
 
-  v1 = v0[3];
-  v2 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v2, static Log.client);
+  v1 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v1, static Log.client);
 
-  v3 = Logger.logObject.getter();
-  v4 = static os_log_type_t.default.getter();
+  v2 = Logger.logObject.getter();
+  v3 = static os_log_type_t.default.getter();
 
-  if (os_log_type_enabled(v3, v4))
+  if (os_log_type_enabled(v2, v3))
   {
-    v6 = v0[3];
-    v5 = v0[4];
+    v5 = v0[3];
+    v4 = v0[4];
+    v6 = swift_slowAlloc();
     v7 = swift_slowAlloc();
-    v8 = swift_slowAlloc();
-    v20 = v8;
-    *v7 = 136315138;
-    v0[2] = v6;
-    v9 = *(v5 + 80);
-    v10 = *(v5 + 88);
-    v11 = type metadata accessor for NearbyInvitationScanner();
-    v12 = >> prefix<A>(_:)((v0 + 2), v11);
-    v14 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v12, v13, &v20);
+    v17 = v7;
+    *v6 = 136315138;
+    v0[2] = v5;
+    v9 = type metadata accessor for NearbyInvitationScanner(0, *(v4 + 80), *(v4 + 88), v8);
+    v10 = >> prefix<A>(_:)((v0 + 2), v9);
+    v12 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v10, v11, &v17);
 
-    *(v7 + 4) = v14;
-    _os_log_impl(&dword_25B7C4000, v3, v4, "%s: client called stop on NearbyInvitationsScanner", v7, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v8);
-    MEMORY[0x25F86FE20](v8, -1, -1);
+    *(v6 + 4) = v12;
+    _os_log_impl(&dword_25B7C4000, v2, v3, "%s: client called stop on NearbyInvitationsScanner", v6, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v7);
     MEMORY[0x25F86FE20](v7, -1, -1);
+    MEMORY[0x25F86FE20](v6, -1, -1);
   }
 
-  v15 = *(MEMORY[0x277D85A40] + 4);
-  v16 = swift_task_alloc();
-  v0[5] = v16;
-  *v16 = v0;
-  v16[1] = NearbyInvitationAdvertiser.stop();
-  v17 = v0[3];
-  v18 = MEMORY[0x277D84F78] + 8;
+  v13 = swift_task_alloc();
+  v0[5] = v13;
+  *v13 = v0;
+  v13[1] = NearbyInvitationAdvertiser.stop();
+  v14 = v0[3];
+  v15 = MEMORY[0x277D84F78] + 8;
 
-  return MEMORY[0x2822008A0](v16, 0, 0, 0x2928706F7473, 0xE600000000000000, partial apply for closure #1 in NearbyInvitationScanner.stop(), v17, v18);
+  return MEMORY[0x2822008A0](v13, 0, 0, 0x2928706F7473, 0xE600000000000000, partial apply for closure #1 in NearbyInvitationScanner.stop(), v14, v15);
 }
 
 uint64_t closure #1 in NearbyInvitationScanner.stop()(uint64_t a1, void *a2)
@@ -7326,45 +6636,41 @@ uint64_t closure #1 in NearbyInvitationScanner.stop()(uint64_t a1, void *a2)
   v4 = *a2;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5Error_pGMd, &_sScCyyts5Error_pGMR);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v25 - v8;
-  v10 = *(a2 + direct field offset for NearbyInvitationScanner.controller);
-  (*(v6 + 16))(&v25 - v8, a1, v5);
-  v11 = (*(v6 + 80) + 16) & ~*(v6 + 80);
-  v12 = swift_allocObject();
-  (*(v6 + 32))(v12 + v11, v9, v5);
-  NearbyInvitationsController.stopScanningNearbyInvitations(response:)(partial apply for closure #1 in closure #1 in NearbyInvitationScanner.stop(), v12);
+  v8 = &v22 - v7;
+  (*(v6 + 16))(&v22 - v7, a1, v5);
+  v9 = (*(v6 + 80) + 16) & ~*(v6 + 80);
+  v10 = swift_allocObject();
+  (*(v6 + 32))(v10 + v9, v8, v5);
+  NearbyInvitationsController.stopScanningNearbyInvitations(response:)(partial apply for closure #1 in closure #1 in NearbyInvitationScanner.stop(), v10);
 
   if (one-time initialization token for client != -1)
   {
     swift_once();
   }
 
-  v13 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v13, static Log.client);
+  v11 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v11, static Log.client);
 
-  v14 = Logger.logObject.getter();
-  v15 = static os_log_type_t.default.getter();
+  v12 = Logger.logObject.getter();
+  v13 = static os_log_type_t.default.getter();
 
-  if (os_log_type_enabled(v14, v15))
+  if (os_log_type_enabled(v12, v13))
   {
-    v16 = swift_slowAlloc();
-    v17 = swift_slowAlloc();
-    v25 = a2;
-    v26 = v17;
-    *v16 = 136315138;
-    v18 = *(v4 + 80);
-    v19 = *(v4 + 88);
-    v20 = type metadata accessor for NearbyInvitationScanner();
-    v21 = >> prefix<A>(_:)(&v25, v20);
-    v23 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v21, v22, &v26);
+    v14 = swift_slowAlloc();
+    v15 = swift_slowAlloc();
+    v22 = a2;
+    v23 = v15;
+    *v14 = 136315138;
+    v17 = type metadata accessor for NearbyInvitationScanner(0, *(v4 + 80), *(v4 + 88), v16);
+    v18 = >> prefix<A>(_:)(&v22, v17);
+    v20 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v19, &v23);
 
-    *(v16 + 4) = v23;
-    _os_log_impl(&dword_25B7C4000, v14, v15, "%s NearbyInvitationScanner did stop scanning", v16, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v17);
-    MEMORY[0x25F86FE20](v17, -1, -1);
-    MEMORY[0x25F86FE20](v16, -1, -1);
+    *(v14 + 4) = v20;
+    _os_log_impl(&dword_25B7C4000, v12, v13, "%s NearbyInvitationScanner did stop scanning", v14, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v15);
+    MEMORY[0x25F86FE20](v15, -1, -1);
+    MEMORY[0x25F86FE20](v14, -1, -1);
   }
 
   return CheckedContinuation.resume(returning:)();
@@ -7414,13 +6720,10 @@ uint64_t NearbyInvitationScanner.deinit()
   v1 = direct field offset for NearbyInvitationScanner.uuid;
   v2 = type metadata accessor for UUID();
   (*(*(v2 - 8) + 8))(v0 + v1, v2);
-  v3 = *(v0 + direct field offset for NearbyInvitationScanner.invitationDataBlobs);
 
-  v4 = *(v0 + direct field offset for NearbyInvitationScanner.controller);
-
-  v5 = direct field offset for NearbyInvitationScanner._advertisements;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVyShy14NearbySessions0C13AdvertisementCGGMd, &_s7Combine9PublishedVyShy14NearbySessions0C13AdvertisementCGGMR);
-  (*(*(v6 - 8) + 8))(v0 + v5, v6);
+  v3 = direct field offset for NearbyInvitationScanner._advertisements;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVyShy14NearbySessions0C13AdvertisementCGGMd, &_s7Combine9PublishedVyShy14NearbySessions0C13AdvertisementCGGMR);
+  (*(*(v4 - 8) + 8))(v0 + v3, v4);
   return v0;
 }
 
@@ -7444,15 +6747,11 @@ uint64_t NearbyInvitationScanner<>.request(_:displayName:userInfo:)(uint64_t a1,
   v7[38] = a1;
   v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine14AsyncPublisherVyAA18PassthroughSubjectCySS_10Foundation4DataVts5NeverOGGMd, &_s7Combine14AsyncPublisherVyAA18PassthroughSubjectCySS_10Foundation4DataVts5NeverOGGMR);
   v7[45] = v8;
-  v9 = *(v8 - 8);
-  v7[46] = v9;
-  v10 = *(v9 + 64) + 15;
+  v7[46] = *(v8 - 8);
   v7[47] = swift_task_alloc();
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine14AsyncPublisherV8IteratorVyAA18PassthroughSubjectCySS_10Foundation4DataVts5NeverOG_GMd, &_s7Combine14AsyncPublisherV8IteratorVyAA18PassthroughSubjectCySS_10Foundation4DataVts5NeverOG_GMR);
-  v7[48] = v11;
-  v12 = *(v11 - 8);
-  v7[49] = v12;
-  v13 = *(v12 + 64) + 15;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine14AsyncPublisherV8IteratorVyAA18PassthroughSubjectCySS_10Foundation4DataVts5NeverOG_GMd, &_s7Combine14AsyncPublisherV8IteratorVyAA18PassthroughSubjectCySS_10Foundation4DataVts5NeverOG_GMR);
+  v7[48] = v9;
+  v7[49] = *(v9 - 8);
   v7[50] = swift_task_alloc();
 
   return MEMORY[0x2822009F8](NearbyInvitationScanner<>.request(_:displayName:userInfo:), 0, 0);
@@ -7460,260 +6759,240 @@ uint64_t NearbyInvitationScanner<>.request(_:displayName:userInfo:)(uint64_t a1,
 
 uint64_t NearbyInvitationScanner<>.request(_:displayName:userInfo:)()
 {
-  v22 = v0;
+  v20 = v0;
   if (one-time initialization token for client != -1)
   {
     swift_once();
   }
 
-  v1 = v0[44];
-  v2 = v0[39];
-  v3 = type metadata accessor for Logger();
-  v0[51] = __swift_project_value_buffer(v3, static Log.client);
+  v1 = v0[39];
+  v2 = type metadata accessor for Logger();
+  v0[51] = __swift_project_value_buffer(v2, static Log.client);
 
-  v4 = v2;
-  v5 = Logger.logObject.getter();
-  v6 = static os_log_type_t.default.getter();
+  v3 = v1;
+  v4 = Logger.logObject.getter();
+  v5 = static os_log_type_t.default.getter();
 
-  if (os_log_type_enabled(v5, v6))
+  if (os_log_type_enabled(v4, v5))
   {
-    v7 = v0[44];
-    v8 = v0[39];
+    v6 = v0[44];
+    v7 = v0[39];
+    v8 = swift_slowAlloc();
     v9 = swift_slowAlloc();
     v10 = swift_slowAlloc();
-    v11 = swift_slowAlloc();
-    v21 = v11;
-    *v9 = 136315394;
-    v0[37] = v7;
+    v19 = v10;
+    *v8 = 136315394;
+    v0[37] = v6;
 
     __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NearbySessions0A17InvitationScannerCyAA0A5GroupCGMd, &_s14NearbySessions0A17InvitationScannerCyAA0A5GroupCGMR);
-    v12 = String.init<A>(reflecting:)();
-    v14 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v12, v13, &v21);
+    v11 = String.init<A>(reflecting:)();
+    v13 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v11, v12, &v19);
 
-    *(v9 + 4) = v14;
-    *(v9 + 12) = 2112;
-    *(v9 + 14) = v8;
-    *v10 = v8;
-    v15 = v8;
-    _os_log_impl(&dword_25B7C4000, v5, v6, "%s: about to request to be let in to NearbyAdvertisement %@", v9, 0x16u);
-    outlined destroy of NSObject?(v10, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x25F86FE20](v10, -1, -1);
-    __swift_destroy_boxed_opaque_existential_0(v11);
-    MEMORY[0x25F86FE20](v11, -1, -1);
+    *(v8 + 4) = v13;
+    *(v8 + 12) = 2112;
+    *(v8 + 14) = v7;
+    *v9 = v7;
+    v14 = v7;
+    _os_log_impl(&dword_25B7C4000, v4, v5, "%s: about to request to be let in to NearbyAdvertisement %@", v8, 0x16u);
+    outlined destroy of NSObject?(v9, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
     MEMORY[0x25F86FE20](v9, -1, -1);
+    __swift_destroy_boxed_opaque_existential_0(v10);
+    MEMORY[0x25F86FE20](v10, -1, -1);
+    MEMORY[0x25F86FE20](v8, -1, -1);
   }
 
-  v16 = *(MEMORY[0x277D85A40] + 4);
-  v17 = swift_task_alloc();
-  v0[52] = v17;
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NearbySessions0A29InvitationJoinRequestMetadataCSgMd, &_s14NearbySessions0A29InvitationJoinRequestMetadataCSgMR);
-  *v17 = v0;
-  v17[1] = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
-  v19 = v0[44];
+  v15 = swift_task_alloc();
+  v0[52] = v15;
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NearbySessions0A29InvitationJoinRequestMetadataCSgMd, &_s14NearbySessions0A29InvitationJoinRequestMetadataCSgMR);
+  *v15 = v0;
+  v15[1] = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
+  v17 = v0[44];
 
-  return MEMORY[0x2822008A0](v0 + 24, 0, 0, 0xD000000000000020, 0x800000025B830750, partial apply for closure #1 in NearbyInvitationScanner<>.request(_:displayName:userInfo:), v19, v18);
+  return MEMORY[0x2822008A0](v0 + 24, 0, 0, 0xD000000000000020, 0x800000025B830750, partial apply for closure #1 in NearbyInvitationScanner<>.request(_:displayName:userInfo:), v17, v16);
 }
 
 {
-  v2 = *(*v1 + 416);
-  v5 = *v1;
   *(*v1 + 424) = v0;
 
   if (v0)
   {
-    v3 = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
+    v2 = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
   }
 
   else
   {
-    v3 = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
+    v2 = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
   }
 
-  return MEMORY[0x2822009F8](v3, 0, 0);
+  return MEMORY[0x2822009F8](v2, 0, 0);
 }
 
 {
-  v32 = v0;
+  v26 = v0;
   v1 = v0[24];
   v0[54] = v1;
   if (v1)
   {
-    v2 = v0[51];
-    v3 = v0[44];
 
-    v4 = v1;
-    v5 = Logger.logObject.getter();
-    v6 = static os_log_type_t.default.getter();
+    v2 = v1;
+    v3 = Logger.logObject.getter();
+    v4 = static os_log_type_t.default.getter();
 
-    if (os_log_type_enabled(v5, v6))
+    if (os_log_type_enabled(v3, v4))
     {
-      v7 = v0[44];
-      v8 = swift_slowAlloc();
-      v9 = swift_slowAlloc();
-      v31 = v9;
-      *v8 = 136315138;
-      v0[36] = v7;
+      v5 = v0[44];
+      v6 = swift_slowAlloc();
+      v7 = swift_slowAlloc();
+      v25 = v7;
+      *v6 = 136315138;
+      v0[36] = v5;
 
       __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NearbySessions0A17InvitationScannerCyAA0A5GroupCGMd, &_s14NearbySessions0A17InvitationScannerCyAA0A5GroupCGMR);
-      v10 = String.init<A>(reflecting:)();
-      v12 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v10, v11, &v31);
+      v8 = String.init<A>(reflecting:)();
+      v10 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v8, v9, &v25);
 
-      *(v8 + 4) = v12;
-      _os_log_impl(&dword_25B7C4000, v5, v6, "%s requesting for preLMI, and now going to await for datablobs", v8, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v9);
-      MEMORY[0x25F86FE20](v9, -1, -1);
-      MEMORY[0x25F86FE20](v8, -1, -1);
+      *(v6 + 4) = v10;
+      _os_log_impl(&dword_25B7C4000, v3, v4, "%s requesting for preLMI, and now going to await for datablobs", v6, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v7);
+      MEMORY[0x25F86FE20](v7, -1, -1);
+      MEMORY[0x25F86FE20](v6, -1, -1);
     }
 
-    v13 = [objc_allocWithZone(MEMORY[0x277CFD160]) init];
-    v14 = [v13 wranglerHomePodBoopEnabled];
+    v11 = [objc_allocWithZone(MEMORY[0x277CFD160]) init];
+    v12 = [v11 wranglerHomePodBoopEnabled];
 
-    if (v14)
+    if (v12)
     {
-      v15 = v0[44];
-      v16 = v0[39];
-      v17 = swift_task_alloc();
-      v0[55] = v17;
-      v17[2] = v15;
-      v17[3] = v16;
-      v17[4] = v4;
-      v18 = *(MEMORY[0x277D85A40] + 4);
-      v19 = swift_task_alloc();
-      v0[56] = v19;
-      *v19 = v0;
-      v19[1] = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
-      v20 = partial apply for closure #2 in NearbyInvitationScanner<>.request(_:displayName:userInfo:);
-      v21 = MEMORY[0x277D84F78] + 8;
+      v13 = v0[44];
+      v14 = v0[39];
+      v15 = swift_task_alloc();
+      v0[55] = v15;
+      v15[2] = v13;
+      v15[3] = v14;
+      v15[4] = v2;
+      v16 = swift_task_alloc();
+      v0[56] = v16;
+      *v16 = v0;
+      v16[1] = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
+      v17 = partial apply for closure #2 in NearbyInvitationScanner<>.request(_:displayName:userInfo:);
+      v18 = MEMORY[0x277D84F78] + 8;
     }
 
     else
     {
-      v27 = v0[44];
-      v28 = v0[39];
-      v17 = swift_task_alloc();
-      v0[66] = v17;
-      v17[2] = v27;
-      v17[3] = v28;
-      v17[4] = v4;
-      v29 = *(MEMORY[0x277D85A40] + 4);
-      v30 = swift_task_alloc();
-      v0[67] = v30;
-      v21 = type metadata accessor for InvitationBlob();
-      v0[68] = v21;
-      *v30 = v0;
-      v30[1] = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
-      v20 = partial apply for closure #3 in NearbyInvitationScanner<>.request(_:displayName:userInfo:);
-      v19 = v0 + 25;
+      v22 = v0[44];
+      v23 = v0[39];
+      v15 = swift_task_alloc();
+      v0[66] = v15;
+      v15[2] = v22;
+      v15[3] = v23;
+      v15[4] = v2;
+      v24 = swift_task_alloc();
+      v0[67] = v24;
+      v18 = type metadata accessor for InvitationBlob();
+      v0[68] = v18;
+      *v24 = v0;
+      v24[1] = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
+      v17 = partial apply for closure #3 in NearbyInvitationScanner<>.request(_:displayName:userInfo:);
+      v16 = v0 + 25;
     }
 
-    return MEMORY[0x2822008A0](v19, 0, 0, 0xD000000000000020, 0x800000025B830750, v20, v17, v21);
+    return MEMORY[0x2822008A0](v16, 0, 0, 0xD000000000000020, 0x800000025B830750, v17, v15, v18);
   }
 
   else
   {
     __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NearbySessions0A17InvitationScannerC6ErrorsOyAA0A5GroupC_GMd, &_s14NearbySessions0A17InvitationScannerC6ErrorsOyAA0A5GroupC_GMR);
-    lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type NearbyInvitationScanner<NearbyGroup>.Errors and conformance NearbyInvitationScanner<A>.Errors, &_s14NearbySessions0A17InvitationScannerC6ErrorsOyAA0A5GroupC_GMd, &_s14NearbySessions0A17InvitationScannerC6ErrorsOyAA0A5GroupC_GMR);
+    lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type NearbyInvitationScanner<NearbyGroup>.Errors and conformance NearbyInvitationScanner<A>.Errors, &_s14NearbySessions0A17InvitationScannerC6ErrorsOyAA0A5GroupC_GMd, &_s14NearbySessions0A17InvitationScannerC6ErrorsOyAA0A5GroupC_GMR, &protocol conformance descriptor for NearbyInvitationScanner<A>.Errors);
     swift_allocError();
-    *v22 = 0;
+    *v19 = 0;
     swift_willThrow();
-    v23 = v0[50];
-    v24 = v0[47];
 
-    v25 = v0[1];
+    v20 = v0[1];
 
-    return v25();
+    return v20();
   }
 }
 
 {
   v2 = *v1;
-  v3 = *(*v1 + 448);
-  v4 = *v1;
-  *(v2 + 456) = v0;
-
-  v5 = *(v2 + 440);
-  if (v0)
-  {
-
-    v6 = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
-  }
-
-  else
-  {
-
-    v6 = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
-  }
-
-  return MEMORY[0x2822009F8](v6, 0, 0);
-}
-
-{
-  v24 = v0;
-  v1 = v0[51];
-  v2 = v0[44];
-
-  v3 = Logger.logObject.getter();
-  v4 = static os_log_type_t.default.getter();
-
-  if (os_log_type_enabled(v3, v4))
-  {
-    v5 = v0[44];
-    v6 = swift_slowAlloc();
-    v7 = swift_slowAlloc();
-    v23 = v7;
-    *v6 = 136315138;
-    v0[35] = v5;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NearbySessions0A17InvitationScannerCyAA0A5GroupCGMd, &_s14NearbySessions0A17InvitationScannerCyAA0A5GroupCGMR);
-    v8 = String.init<A>(reflecting:)();
-    v10 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v8, v9, &v23);
-
-    *(v6 + 4) = v10;
-    _os_log_impl(&dword_25B7C4000, v3, v4, "%s", v6, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v7);
-    MEMORY[0x25F86FE20](v7, -1, -1);
-    MEMORY[0x25F86FE20](v6, -1, -1);
-  }
-
-  v11 = v0[50];
-  v13 = v0[46];
-  v12 = v0[47];
-  v14 = v0[45];
-  v0[30] = *(v0[44] + direct field offset for NearbyInvitationScanner.invitationDataBlobs);
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine18PassthroughSubjectCySS_10Foundation4DataVts5NeverOGMd, &_s7Combine18PassthroughSubjectCySS_10Foundation4DataVts5NeverOGMR);
-  v16 = lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type PassthroughSubject<(String, Data), Never> and conformance PassthroughSubject<A, B>, &_s7Combine18PassthroughSubjectCySS_10Foundation4DataVts5NeverOGMd, &_s7Combine18PassthroughSubjectCySS_10Foundation4DataVts5NeverOGMR);
-  MEMORY[0x25F86EF60](v15, v16);
-  AsyncPublisher.makeAsyncIterator()();
-  (*(v13 + 8))(v12, v14);
-  v0[58] = OBJC_IVAR____TtC14NearbySessions19NearbyAdvertisement_identifier;
-  v17 = lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type AsyncPublisher<PassthroughSubject<(String, Data), Never>>.Iterator and conformance AsyncPublisher<A>.Iterator, &_s7Combine14AsyncPublisherV8IteratorVyAA18PassthroughSubjectCySS_10Foundation4DataVts5NeverOG_GMd, &_s7Combine14AsyncPublisherV8IteratorVyAA18PassthroughSubjectCySS_10Foundation4DataVts5NeverOG_GMR);
-  v18 = *(MEMORY[0x277D856D0] + 4);
-  v19 = swift_task_alloc();
-  v0[59] = v19;
-  *v19 = v0;
-  v19[1] = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
-  v20 = v0[50];
-  v21 = v0[48];
-
-  return MEMORY[0x282200308](v0 + 2, v21, v17);
-}
-
-{
-  v2 = *(*v1 + 472);
-  v5 = *v1;
-  *(*v1 + 480) = v0;
+  *(*v1 + 456) = v0;
 
   if (v0)
   {
+
     v3 = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
   }
 
   else
   {
+
     v3 = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
   }
 
   return MEMORY[0x2822009F8](v3, 0, 0);
+}
+
+{
+  v19 = v0;
+
+  v1 = Logger.logObject.getter();
+  v2 = static os_log_type_t.default.getter();
+
+  if (os_log_type_enabled(v1, v2))
+  {
+    v3 = v0[44];
+    v4 = swift_slowAlloc();
+    v5 = swift_slowAlloc();
+    v18 = v5;
+    *v4 = 136315138;
+    v0[35] = v3;
+
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NearbySessions0A17InvitationScannerCyAA0A5GroupCGMd, &_s14NearbySessions0A17InvitationScannerCyAA0A5GroupCGMR);
+    v6 = String.init<A>(reflecting:)();
+    v8 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v6, v7, &v18);
+
+    *(v4 + 4) = v8;
+    _os_log_impl(&dword_25B7C4000, v1, v2, "%s", v4, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v5);
+    MEMORY[0x25F86FE20](v5, -1, -1);
+    MEMORY[0x25F86FE20](v4, -1, -1);
+  }
+
+  v10 = v0[46];
+  v9 = v0[47];
+  v11 = v0[45];
+  v0[30] = *(v0[44] + direct field offset for NearbyInvitationScanner.invitationDataBlobs);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine18PassthroughSubjectCySS_10Foundation4DataVts5NeverOGMd, &_s7Combine18PassthroughSubjectCySS_10Foundation4DataVts5NeverOGMR);
+  v13 = lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type PassthroughSubject<(String, Data), Never> and conformance PassthroughSubject<A, B>, &_s7Combine18PassthroughSubjectCySS_10Foundation4DataVts5NeverOGMd, &_s7Combine18PassthroughSubjectCySS_10Foundation4DataVts5NeverOGMR, MEMORY[0x277CBCE20]);
+  MEMORY[0x25F86EF60](v12, v13);
+  AsyncPublisher.makeAsyncIterator()();
+  (*(v10 + 8))(v9, v11);
+  v0[58] = OBJC_IVAR____TtC14NearbySessions19NearbyAdvertisement_identifier;
+  v14 = lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type AsyncPublisher<PassthroughSubject<(String, Data), Never>>.Iterator and conformance AsyncPublisher<A>.Iterator, &_s7Combine14AsyncPublisherV8IteratorVyAA18PassthroughSubjectCySS_10Foundation4DataVts5NeverOG_GMd, &_s7Combine14AsyncPublisherV8IteratorVyAA18PassthroughSubjectCySS_10Foundation4DataVts5NeverOG_GMR, MEMORY[0x277CBCDD0]);
+  v15 = swift_task_alloc();
+  v0[59] = v15;
+  *v15 = v0;
+  v15[1] = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
+  v16 = v0[48];
+
+  return MEMORY[0x282200308](v0 + 2, v16, v14);
+}
+
+{
+  *(*v1 + 480) = v0;
+
+  if (v0)
+  {
+    v2 = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
+  }
+
+  else
+  {
+    v2 = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
+  }
+
+  return MEMORY[0x2822009F8](v2, 0, 0);
 }
 
 {
@@ -7721,203 +7000,193 @@ uint64_t NearbyInvitationScanner<>.request(_:displayName:userInfo:)()
 }
 
 {
-  v85 = v0;
+  v73 = v0;
   v1 = v0[2];
   v2 = v0[3];
   v4 = v0[4];
   v3 = v0[5];
   v0[61] = v4;
   v0[62] = v3;
-  v5 = v0[51];
   if (!v2)
   {
-    v35 = v0[44];
     (*(v0[49] + 8))(v0[50], v0[48]);
 
-    v36 = Logger.logObject.getter();
-    v37 = static os_log_type_t.default.getter();
+    v29 = Logger.logObject.getter();
+    v30 = static os_log_type_t.default.getter();
 
-    if (os_log_type_enabled(v36, v37))
+    if (os_log_type_enabled(v29, v30))
     {
-      v38 = v0[44];
-      v39 = swift_slowAlloc();
-      v40 = swift_slowAlloc();
-      v84[0] = v40;
-      *v39 = 136315138;
-      v0[32] = v38;
+      v31 = v0[44];
+      v32 = swift_slowAlloc();
+      v33 = swift_slowAlloc();
+      v72[0] = v33;
+      *v32 = 136315138;
+      v0[32] = v31;
 
       __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NearbySessions0A17InvitationScannerCyAA0A5GroupCGMd, &_s14NearbySessions0A17InvitationScannerCyAA0A5GroupCGMR);
-      v41 = String.init<A>(reflecting:)();
-      v43 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v41, v42, v84);
+      v34 = String.init<A>(reflecting:)();
+      v36 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v34, v35, v72);
 
-      *(v39 + 4) = v43;
-      _os_log_impl(&dword_25B7C4000, v36, v37, "%s scanner could not request for invitation request for NearbyGroups", v39, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v40);
-      MEMORY[0x25F86FE20](v40, -1, -1);
-      MEMORY[0x25F86FE20](v39, -1, -1);
+      *(v32 + 4) = v36;
+      _os_log_impl(&dword_25B7C4000, v29, v30, "%s scanner could not request for invitation request for NearbyGroups", v32, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v33);
+      MEMORY[0x25F86FE20](v33, -1, -1);
+      MEMORY[0x25F86FE20](v32, -1, -1);
     }
 
-    v44 = v0[54];
+    v37 = v0[54];
     __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NearbySessions0A17InvitationScannerC6ErrorsOyAA0A5GroupC_GMd, &_s14NearbySessions0A17InvitationScannerC6ErrorsOyAA0A5GroupC_GMR);
-    lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type NearbyInvitationScanner<NearbyGroup>.Errors and conformance NearbyInvitationScanner<A>.Errors, &_s14NearbySessions0A17InvitationScannerC6ErrorsOyAA0A5GroupC_GMd, &_s14NearbySessions0A17InvitationScannerC6ErrorsOyAA0A5GroupC_GMR);
+    lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type NearbyInvitationScanner<NearbyGroup>.Errors and conformance NearbyInvitationScanner<A>.Errors, &_s14NearbySessions0A17InvitationScannerC6ErrorsOyAA0A5GroupC_GMd, &_s14NearbySessions0A17InvitationScannerC6ErrorsOyAA0A5GroupC_GMR, &protocol conformance descriptor for NearbyInvitationScanner<A>.Errors);
     swift_allocError();
-    *v45 = 1;
+    *v38 = 1;
     swift_willThrow();
 
     goto LABEL_14;
   }
 
-  v6 = v0[44];
-
   outlined copy of Data._Representation(v4, v3);
-  v7 = Logger.logObject.getter();
-  v8 = static os_log_type_t.default.getter();
+  v5 = Logger.logObject.getter();
+  v6 = static os_log_type_t.default.getter();
 
   outlined consume of Data._Representation(v4, v3);
-  if (os_log_type_enabled(v7, v8))
+  if (os_log_type_enabled(v5, v6))
   {
-    v82 = v1;
-    v9 = v0[44];
-    v10 = swift_slowAlloc();
-    v79 = swift_slowAlloc();
-    v84[0] = v79;
-    *v10 = 136315650;
-    v0[34] = v9;
+    v70 = v1;
+    v7 = v0[44];
+    v8 = swift_slowAlloc();
+    v67 = swift_slowAlloc();
+    v72[0] = v67;
+    *v8 = 136315650;
+    v0[34] = v7;
 
     __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NearbySessions0A17InvitationScannerCyAA0A5GroupCGMd, &_s14NearbySessions0A17InvitationScannerCyAA0A5GroupCGMR);
-    v11 = String.init<A>(reflecting:)();
-    v13 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v11, v12, v84);
+    v9 = String.init<A>(reflecting:)();
+    v11 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v9, v10, v72);
 
-    *(v10 + 4) = v13;
-    *(v10 + 12) = 2080;
-    *(v10 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v82, v2, v84);
-    *(v10 + 22) = 2080;
+    *(v8 + 4) = v11;
+    *(v8 + 12) = 2080;
+    *(v8 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v70, v2, v72);
+    *(v8 + 22) = 2080;
     outlined copy of Data._Representation(v4, v3);
-    v14 = Data.description.getter();
-    v16 = v15;
+    v12 = Data.description.getter();
+    v14 = v13;
     outlined consume of Data._Representation(v4, v3);
-    v17 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v16, v84);
+    v15 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v12, v14, v72);
 
-    *(v10 + 24) = v17;
-    v1 = v82;
-    _os_log_impl(&dword_25B7C4000, v7, v8, "%s Starting to request: [%s:%s]", v10, 0x20u);
+    *(v8 + 24) = v15;
+    v1 = v70;
+    _os_log_impl(&dword_25B7C4000, v5, v6, "%s Starting to request: [%s:%s]", v8, 0x20u);
     swift_arrayDestroy();
-    MEMORY[0x25F86FE20](v79, -1, -1);
-    MEMORY[0x25F86FE20](v10, -1, -1);
+    MEMORY[0x25F86FE20](v67, -1, -1);
+    MEMORY[0x25F86FE20](v8, -1, -1);
   }
 
-  v18 = (v0[39] + v0[58]);
-  v19 = *v18;
-  v20 = v18[1];
-  v21 = v1 == *v18 && v2 == v20;
-  if (v21 || (v22 = *v18, v23 = v18[1], (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0))
+  v16 = (v0[39] + v0[58]);
+  v17 = *v16;
+  v18 = v16[1];
+  v19 = v1 == *v16 && v2 == v18;
+  if (v19 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
   {
-    v24 = v0[60];
-    v25 = v0[54];
-    v26 = v0[42];
-    v27 = v0[43];
-    v28 = v0[41];
+    v20 = v0[60];
+    v21 = v0[54];
+    v22 = v0[42];
+    v23 = v0[43];
 
     outlined copy of Data._Representation(v4, v3);
-    outlined copy of Data?(v26, v27);
+    outlined copy of Data?(v22, v23);
 
-    v29 = specialized static NearbyInvitationData.create(from:)(v4, v3);
-    if (v24)
+    v24 = specialized static NearbyInvitationData.create(from:)(v4, v3);
+    if (v20)
     {
-      v30 = v0[54];
-      v32 = v0[49];
-      v31 = v0[50];
-      v33 = v0[48];
-      v34 = v0[41];
+      v25 = v0[54];
+      v27 = v0[49];
+      v26 = v0[50];
+      v28 = v0[48];
       outlined consume of Data?(v0[42], v0[43]);
 
       outlined consume of Data._Representation(v4, v3);
-      (*(v32 + 8))(v31, v33);
+      (*(v27 + 8))(v26, v28);
 
       outlined consume of Data._Representation(v4, v3);
 LABEL_14:
-      v46 = v0[50];
-      v47 = v0[47];
 
-      v48 = v0[1];
+      v39 = v0[1];
 
-      return v48();
+      return v39();
     }
 
-    v50 = v29;
-    v52 = v0[42];
-    v51 = v0[43];
-    v54 = v0[40];
-    v53 = v0[41];
+    v41 = v24;
+    v43 = v0[42];
+    v42 = v0[43];
+    v45 = v0[40];
+    v44 = v0[41];
     outlined consume of Data._Representation(v4, v3);
     __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NearbySessions17InvitationRequestCyAA0A5GroupCGMd, &_s14NearbySessions17InvitationRequestCyAA0A5GroupCGMR);
-    v55 = swift_allocObject();
-    v0[63] = v55;
-    v55[3] = 0;
-    v55[4] = 0;
-    v55[2] = 0;
-    v55[5] = 0xF000000000000000;
-    v55[6] = v50;
+    v46 = swift_allocObject();
+    v0[63] = v46;
+    v46[3] = 0;
+    v46[4] = 0;
+    v46[2] = 0;
+    v46[5] = 0xF000000000000000;
+    v46[6] = v41;
     swift_beginAccess();
-    v55[2] = v54;
-    v55[3] = v53;
+    v46[2] = v45;
+    v46[3] = v44;
     swift_beginAccess();
-    v56 = v55[4];
-    v57 = v55[5];
-    outlined copy of Data?(v52, v51);
-    v55[4] = v52;
-    v55[5] = v51;
-    outlined consume of Data?(v56, v57);
-    outlined consume of Data?(v52, v51);
-    v58 = swift_task_alloc();
-    v0[64] = v58;
-    *v58 = v0;
-    v58[1] = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
-    v59 = v0[38];
+    v47 = v46[4];
+    v48 = v46[5];
+    outlined copy of Data?(v43, v42);
+    v46[4] = v43;
+    v46[5] = v42;
+    outlined consume of Data?(v47, v48);
+    outlined consume of Data?(v43, v42);
+    v49 = swift_task_alloc();
+    v0[64] = v49;
+    *v49 = v0;
+    v49[1] = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
+    v50 = v0[38];
 
-    return InvitationRequest<>.request()(v59);
+    return InvitationRequest<>.request()(v50);
   }
 
   else
   {
-    v83 = v1;
-    v60 = v0[51];
-    v61 = v0[44];
-    v62 = v0[39];
+    v71 = v1;
+    v51 = v0[39];
 
-    v80 = v62;
+    v68 = v51;
 
-    v63 = Logger.logObject.getter();
-    LOBYTE(v60) = static os_log_type_t.error.getter();
+    v52 = Logger.logObject.getter();
+    v53 = static os_log_type_t.error.getter();
 
-    v81 = v60;
-    v64 = v60;
-    v65 = v63;
-    if (os_log_type_enabled(v63, v64))
+    v69 = v53;
+    v54 = v53;
+    v55 = v52;
+    if (os_log_type_enabled(v52, v54))
     {
-      v66 = v0[44];
-      v67 = swift_slowAlloc();
-      v78 = swift_slowAlloc();
-      v84[0] = v78;
-      *v67 = 136315650;
-      v0[33] = v66;
+      v56 = v0[44];
+      v57 = swift_slowAlloc();
+      v66 = swift_slowAlloc();
+      v72[0] = v66;
+      *v57 = 136315650;
+      v0[33] = v56;
 
       __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NearbySessions0A17InvitationScannerCyAA0A5GroupCGMd, &_s14NearbySessions0A17InvitationScannerCyAA0A5GroupCGMR);
-      v68 = String.init<A>(reflecting:)();
-      log = v65;
-      v70 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v68, v69, v84);
+      v58 = String.init<A>(reflecting:)();
+      log = v55;
+      v60 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v58, v59, v72);
 
-      *(v67 + 4) = v70;
-      *(v67 + 12) = 2080;
-      v71 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v83, v2, v84);
+      *(v57 + 4) = v60;
+      *(v57 + 12) = 2080;
+      v61 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v71, v2, v72);
 
-      *(v67 + 14) = v71;
-      *(v67 + 22) = 2080;
-      *(v67 + 24) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v19, v20, v84);
-      _os_log_impl(&dword_25B7C4000, log, v81, "%s: Datablob does not have valid id %s and advertisement = %s", v67, 0x20u);
+      *(v57 + 14) = v61;
+      *(v57 + 22) = 2080;
+      *(v57 + 24) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v17, v18, v72);
+      _os_log_impl(&dword_25B7C4000, log, v69, "%s: Datablob does not have valid id %s and advertisement = %s", v57, 0x20u);
       swift_arrayDestroy();
-      MEMORY[0x25F86FE20](v78, -1, -1);
-      MEMORY[0x25F86FE20](v67, -1, -1);
+      MEMORY[0x25F86FE20](v66, -1, -1);
+      MEMORY[0x25F86FE20](v57, -1, -1);
       outlined consume of Data._Representation(v4, v3);
     }
 
@@ -7926,16 +7195,14 @@ LABEL_14:
       outlined consume of Data._Representation(v4, v3);
     }
 
-    v72 = lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type AsyncPublisher<PassthroughSubject<(String, Data), Never>>.Iterator and conformance AsyncPublisher<A>.Iterator, &_s7Combine14AsyncPublisherV8IteratorVyAA18PassthroughSubjectCySS_10Foundation4DataVts5NeverOG_GMd, &_s7Combine14AsyncPublisherV8IteratorVyAA18PassthroughSubjectCySS_10Foundation4DataVts5NeverOG_GMR);
-    v73 = *(MEMORY[0x277D856D0] + 4);
-    v74 = swift_task_alloc();
-    v0[59] = v74;
-    *v74 = v0;
-    v74[1] = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
-    v75 = v0[50];
-    v76 = v0[48];
+    v62 = lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type AsyncPublisher<PassthroughSubject<(String, Data), Never>>.Iterator and conformance AsyncPublisher<A>.Iterator, &_s7Combine14AsyncPublisherV8IteratorVyAA18PassthroughSubjectCySS_10Foundation4DataVts5NeverOG_GMd, &_s7Combine14AsyncPublisherV8IteratorVyAA18PassthroughSubjectCySS_10Foundation4DataVts5NeverOG_GMR, MEMORY[0x277CBCDD0]);
+    v63 = swift_task_alloc();
+    v0[59] = v63;
+    *v63 = v0;
+    v63[1] = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
+    v64 = v0[48];
 
-    return MEMORY[0x282200308](v0 + 2, v76, v72);
+    return MEMORY[0x282200308](v0 + 2, v64, v62);
   }
 }
 
@@ -7948,403 +7215,335 @@ LABEL_14:
 }
 
 {
-  v2 = v0[62];
-  v1 = v0[63];
-  v3 = v0[61];
-  v4 = v0[54];
-  v6 = v0[49];
-  v5 = v0[50];
-  v7 = v0[48];
+  v1 = v0[62];
+  v2 = v0[61];
+  v3 = v0[54];
+  v5 = v0[49];
+  v4 = v0[50];
+  v6 = v0[48];
 
-  outlined consume of Data._Representation(v3, v2);
+  outlined consume of Data._Representation(v2, v1);
 
-  (*(v6 + 8))(v5, v7);
-  v8 = v0[19];
-  v9 = v0[50];
-  v10 = v0[47];
+  (*(v5 + 8))(v4, v6);
+  v7 = v0[19];
 
-  v11 = v0[1];
+  v8 = v0[1];
 
-  return v11(v8);
+  return v8(v7);
 }
 
 {
   v2 = *v1;
-  v3 = *(*v1 + 536);
-  v4 = *v1;
-  *(v2 + 552) = v0;
+  *(*v1 + 552) = v0;
 
-  v5 = *(v2 + 528);
   if (v0)
   {
 
-    v6 = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
+    v3 = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
   }
 
   else
   {
 
-    v6 = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
+    v3 = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
   }
 
-  return MEMORY[0x2822009F8](v6, 0, 0);
+  return MEMORY[0x2822009F8](v3, 0, 0);
 }
 
 {
-  v82 = v0;
-  v1 = v0[51];
-  v2 = v0[25];
-  v0[70] = v2;
-  v3 = v2;
-  v4 = Logger.logObject.getter();
-  v5 = static os_log_type_t.default.getter();
+  v71 = v0;
+  v1 = v0[25];
+  v0[70] = v1;
+  v2 = v1;
+  v3 = Logger.logObject.getter();
+  v4 = static os_log_type_t.default.getter();
 
-  if (os_log_type_enabled(v4, v5))
+  if (os_log_type_enabled(v3, v4))
   {
-    v6 = v0[68];
+    v5 = swift_slowAlloc();
+    v6 = swift_slowAlloc();
+    v70[0] = v6;
+    *v5 = 136315138;
+    v0[29] = v2;
+    v7 = v2;
+    v8 = String.init<A>(reflecting:)();
+    v10 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v8, v9, v70);
+
+    *(v5 + 4) = v10;
+    _os_log_impl(&dword_25B7C4000, v3, v4, "Received connection Info %s", v5, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v6);
+    MEMORY[0x25F86FE20](v6, -1, -1);
+    MEMORY[0x25F86FE20](v5, -1, -1);
+  }
+
+  v11 = v0[39];
+  v12 = *&v2[OBJC_IVAR____TtC14NearbySessions14InvitationBlob_invitationID];
+  v13 = *&v2[OBJC_IVAR____TtC14NearbySessions14InvitationBlob_invitationID + 8];
+  v14 = &v2[OBJC_IVAR____TtC14NearbySessions14InvitationBlob_dataBlob];
+  v15 = *&v2[OBJC_IVAR____TtC14NearbySessions14InvitationBlob_dataBlob];
+  v0[71] = v15;
+  v16 = *(v14 + 1);
+  v0[72] = v16;
+  v17 = (v11 + OBJC_IVAR____TtC14NearbySessions19NearbyAdvertisement_identifier);
+  v18 = *v17;
+  v19 = v17[1];
+  v20 = v12 == *v17 && v13 == v19;
+  if (!v20 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  {
+    v69 = v12;
+    v49 = v0[39];
+
+    v66 = v49;
+    outlined copy of Data._Representation(v15, v16);
+
+    v50 = Logger.logObject.getter();
+    v51 = static os_log_type_t.default.getter();
+
+    v64 = v51;
+    v52 = v51;
+    v53 = v50;
+    if (os_log_type_enabled(v50, v52))
+    {
+      v54 = v0[44];
+      v67 = v2;
+      v55 = swift_slowAlloc();
+      v63 = swift_slowAlloc();
+      v70[0] = v63;
+      *v55 = 136315650;
+      v0[26] = v54;
+
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NearbySessions0A17InvitationScannerCyAA0A5GroupCGMd, &_s14NearbySessions0A17InvitationScannerCyAA0A5GroupCGMR);
+      v56 = String.init<A>(reflecting:)();
+      v58 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v56, v57, v70);
+
+      *(v55 + 4) = v58;
+      *(v55 + 12) = 2080;
+      v59 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v69, v13, v70);
+
+      *(v55 + 14) = v59;
+      *(v55 + 22) = 2080;
+      *(v55 + 24) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v19, v70);
+      _os_log_impl(&dword_25B7C4000, v53, v64, "%s: Datablob does not have valid id %s and advertisement = %s", v55, 0x20u);
+      swift_arrayDestroy();
+      MEMORY[0x25F86FE20](v63, -1, -1);
+      v60 = v55;
+      v2 = v67;
+      MEMORY[0x25F86FE20](v60, -1, -1);
+    }
+
+    else
+    {
+    }
+
+    v37 = v0[54];
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NearbySessions0A17InvitationScannerC6ErrorsOyAA0A5GroupC_GMd, &_s14NearbySessions0A17InvitationScannerC6ErrorsOyAA0A5GroupC_GMR);
+    lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type NearbyInvitationScanner<NearbyGroup>.Errors and conformance NearbyInvitationScanner<A>.Errors, &_s14NearbySessions0A17InvitationScannerC6ErrorsOyAA0A5GroupC_GMd, &_s14NearbySessions0A17InvitationScannerC6ErrorsOyAA0A5GroupC_GMR, &protocol conformance descriptor for NearbyInvitationScanner<A>.Errors);
+    swift_allocError();
+    *v61 = 0;
+    swift_willThrow();
+    goto LABEL_20;
+  }
+
+  outlined copy of Data._Representation(v15, v16);
+
+  outlined copy of Data._Representation(v15, v16);
+
+  v21 = Logger.logObject.getter();
+  v22 = static os_log_type_t.default.getter();
+
+  outlined consume of Data._Representation(v15, v16);
+  if (os_log_type_enabled(v21, v22))
+  {
+    v68 = v12;
+    v23 = v0[44];
+    v24 = swift_slowAlloc();
+    v65 = v2;
+    v25 = swift_slowAlloc();
+    v70[0] = v25;
+    *v24 = 136315650;
+    v0[28] = v23;
+
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NearbySessions0A17InvitationScannerCyAA0A5GroupCGMd, &_s14NearbySessions0A17InvitationScannerCyAA0A5GroupCGMR);
+    v26 = String.init<A>(reflecting:)();
+    v28 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v26, v27, v70);
+
+    *(v24 + 4) = v28;
+    *(v24 + 12) = 2080;
+    v29 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v68, v13, v70);
+
+    *(v24 + 14) = v29;
+    *(v24 + 22) = 2080;
+    outlined copy of Data._Representation(v15, v16);
+    v30 = Data.description.getter();
+    v32 = v31;
+    outlined consume of Data._Representation(v15, v16);
+    v33 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v30, v32, v70);
+
+    *(v24 + 24) = v33;
+    _os_log_impl(&dword_25B7C4000, v21, v22, "%s Starting to request: [%s:%s]", v24, 0x20u);
+    swift_arrayDestroy();
+    v34 = v25;
+    v2 = v65;
+    MEMORY[0x25F86FE20](v34, -1, -1);
+    MEMORY[0x25F86FE20](v24, -1, -1);
+  }
+
+  else
+  {
+  }
+
+  v35 = v0[69];
+  outlined copy of Data?(v0[42], v0[43]);
+
+  outlined copy of Data._Representation(v15, v16);
+  v36 = specialized static NearbyInvitationData.create(from:)(v15, v16);
+  if (v35)
+  {
+    v37 = v0[54];
+    outlined consume of Data?(v0[42], v0[43]);
+
+    outlined consume of Data._Representation(v15, v16);
+LABEL_20:
+    outlined consume of Data._Representation(v15, v16);
+
+    v62 = v0[1];
+
+    return v62();
+  }
+
+  v38 = v36;
+  v40 = v0[42];
+  v39 = v0[43];
+  v42 = v0[40];
+  v41 = v0[41];
+  outlined consume of Data._Representation(v15, v16);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NearbySessions17InvitationRequestCyAA0A5GroupCGMd, &_s14NearbySessions17InvitationRequestCyAA0A5GroupCGMR);
+  v43 = swift_allocObject();
+  v0[73] = v43;
+  v43[3] = 0;
+  v43[4] = 0;
+  v43[2] = 0;
+  v43[5] = 0xF000000000000000;
+  v43[6] = v38;
+  swift_beginAccess();
+  v43[2] = v42;
+  v43[3] = v41;
+  swift_beginAccess();
+  v44 = v43[4];
+  v45 = v43[5];
+  outlined copy of Data?(v40, v39);
+  v43[4] = v40;
+  v43[5] = v39;
+  outlined consume of Data?(v44, v45);
+  outlined consume of Data?(v40, v39);
+  v46 = swift_task_alloc();
+  v0[74] = v46;
+  *v46 = v0;
+  v46[1] = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
+  v47 = v0[38];
+
+  return InvitationRequest<>.request()(v47);
+}
+
+{
+  v1 = v0[72];
+  v2 = v0[71];
+  v3 = v0[70];
+  v4 = v0[54];
+  v5 = v0[44];
+  v6 = swift_allocObject();
+  *(v6 + 16) = v5;
+  *(v6 + 24) = v4;
+
+  v7 = v4;
+  NearbyInvitationsController.releaseInvitation(_:response:)(v7, closure #1 in $defer #1 <A>() in NearbyInvitationScanner<>.request(_:displayName:userInfo:)partial apply, v6);
+
+  outlined consume of Data._Representation(v2, v1);
+
+  v8 = v0[22];
+
+  v9 = v0[1];
+
+  return v9(v8);
+}
+
+{
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+{
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+{
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+{
+  v25 = v0;
+  v1 = v0[75];
+
+  v2 = v1;
+  v3 = Logger.logObject.getter();
+  v4 = static os_log_type_t.error.getter();
+
+  if (os_log_type_enabled(v3, v4))
+  {
+    v5 = v0[75];
+    v6 = v0[44];
     v7 = swift_slowAlloc();
     v8 = swift_slowAlloc();
-    v81[0] = v8;
-    *v7 = 136315138;
-    v0[29] = v3;
-    v9 = v3;
+    v9 = swift_slowAlloc();
+    v24 = v9;
+    *v7 = 136315394;
+    v0[27] = v6;
+
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NearbySessions0A17InvitationScannerCyAA0A5GroupCGMd, &_s14NearbySessions0A17InvitationScannerCyAA0A5GroupCGMR);
     v10 = String.init<A>(reflecting:)();
-    v12 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v10, v11, v81);
+    v12 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v10, v11, &v24);
 
     *(v7 + 4) = v12;
-    _os_log_impl(&dword_25B7C4000, v4, v5, "Received connection Info %s", v7, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v8);
+    *(v7 + 12) = 2112;
+    v13 = v5;
+    v14 = _swift_stdlib_bridgeErrorToNSError();
+    *(v7 + 14) = v14;
+    *v8 = v14;
+    _os_log_impl(&dword_25B7C4000, v3, v4, "%s scanner could not request for invitation request for NearbyGroups %@", v7, 0x16u);
+    outlined destroy of NSObject?(v8, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
     MEMORY[0x25F86FE20](v8, -1, -1);
+    __swift_destroy_boxed_opaque_existential_0(v9);
+    MEMORY[0x25F86FE20](v9, -1, -1);
     MEMORY[0x25F86FE20](v7, -1, -1);
   }
 
-  v13 = v0[39];
-  v14 = *&v3[OBJC_IVAR____TtC14NearbySessions14InvitationBlob_invitationID];
-  v15 = *&v3[OBJC_IVAR____TtC14NearbySessions14InvitationBlob_invitationID + 8];
-  v16 = &v3[OBJC_IVAR____TtC14NearbySessions14InvitationBlob_dataBlob];
-  v17 = *&v3[OBJC_IVAR____TtC14NearbySessions14InvitationBlob_dataBlob];
-  v0[71] = v17;
-  v18 = *(v16 + 1);
-  v0[72] = v18;
-  v19 = (v13 + OBJC_IVAR____TtC14NearbySessions19NearbyAdvertisement_identifier);
-  v20 = *v19;
-  v21 = v19[1];
-  if (v14 != *v19 || v15 != v21)
-  {
-    v23 = *v19;
-    v24 = v19[1];
-    if ((_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-    {
-      v80 = v14;
-      v57 = v0[51];
-      v58 = v0[44];
-      v59 = v0[39];
-
-      v77 = v59;
-      outlined copy of Data._Representation(v17, v18);
-
-      v60 = Logger.logObject.getter();
-      LOBYTE(v57) = static os_log_type_t.default.getter();
-
-      v75 = v57;
-      v61 = v57;
-      v62 = v60;
-      if (os_log_type_enabled(v60, v61))
-      {
-        v63 = v0[44];
-        v78 = v3;
-        v64 = swift_slowAlloc();
-        v74 = swift_slowAlloc();
-        v81[0] = v74;
-        *v64 = 136315650;
-        v0[26] = v63;
-
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NearbySessions0A17InvitationScannerCyAA0A5GroupCGMd, &_s14NearbySessions0A17InvitationScannerCyAA0A5GroupCGMR);
-        v65 = String.init<A>(reflecting:)();
-        v67 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v65, v66, v81);
-
-        *(v64 + 4) = v67;
-        *(v64 + 12) = 2080;
-        v68 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v80, v15, v81);
-
-        *(v64 + 14) = v68;
-        *(v64 + 22) = 2080;
-        *(v64 + 24) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v20, v21, v81);
-        _os_log_impl(&dword_25B7C4000, v62, v75, "%s: Datablob does not have valid id %s and advertisement = %s", v64, 0x20u);
-        swift_arrayDestroy();
-        MEMORY[0x25F86FE20](v74, -1, -1);
-        v69 = v64;
-        v3 = v78;
-        MEMORY[0x25F86FE20](v69, -1, -1);
-      }
-
-      else
-      {
-      }
-
-      v44 = v0[54];
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NearbySessions0A17InvitationScannerC6ErrorsOyAA0A5GroupC_GMd, &_s14NearbySessions0A17InvitationScannerC6ErrorsOyAA0A5GroupC_GMR);
-      lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type NearbyInvitationScanner<NearbyGroup>.Errors and conformance NearbyInvitationScanner<A>.Errors, &_s14NearbySessions0A17InvitationScannerC6ErrorsOyAA0A5GroupC_GMd, &_s14NearbySessions0A17InvitationScannerC6ErrorsOyAA0A5GroupC_GMR);
-      swift_allocError();
-      *v70 = 0;
-      swift_willThrow();
-      goto LABEL_20;
-    }
-  }
-
-  v25 = v0[51];
-  v26 = v0[44];
-  outlined copy of Data._Representation(v17, v18);
-
-  outlined copy of Data._Representation(v17, v18);
-
-  v27 = Logger.logObject.getter();
-  v28 = static os_log_type_t.default.getter();
-
-  outlined consume of Data._Representation(v17, v18);
-  if (os_log_type_enabled(v27, v28))
-  {
-    v79 = v14;
-    v29 = v0[44];
-    v30 = swift_slowAlloc();
-    v76 = v3;
-    v31 = swift_slowAlloc();
-    v81[0] = v31;
-    *v30 = 136315650;
-    v0[28] = v29;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NearbySessions0A17InvitationScannerCyAA0A5GroupCGMd, &_s14NearbySessions0A17InvitationScannerCyAA0A5GroupCGMR);
-    v32 = String.init<A>(reflecting:)();
-    v34 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v32, v33, v81);
-
-    *(v30 + 4) = v34;
-    *(v30 + 12) = 2080;
-    v35 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v79, v15, v81);
-
-    *(v30 + 14) = v35;
-    *(v30 + 22) = 2080;
-    outlined copy of Data._Representation(v17, v18);
-    v36 = Data.description.getter();
-    v38 = v37;
-    outlined consume of Data._Representation(v17, v18);
-    v39 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v36, v38, v81);
-
-    *(v30 + 24) = v39;
-    _os_log_impl(&dword_25B7C4000, v27, v28, "%s Starting to request: [%s:%s]", v30, 0x20u);
-    swift_arrayDestroy();
-    v40 = v31;
-    v3 = v76;
-    MEMORY[0x25F86FE20](v40, -1, -1);
-    MEMORY[0x25F86FE20](v30, -1, -1);
-  }
-
-  else
-  {
-  }
-
-  v41 = v0[69];
-  v42 = v0[41];
-  outlined copy of Data?(v0[42], v0[43]);
-
-  outlined copy of Data._Representation(v17, v18);
-  v43 = specialized static NearbyInvitationData.create(from:)(v17, v18);
-  if (v41)
-  {
-    v44 = v0[54];
-    v45 = v0[41];
-    outlined consume of Data?(v0[42], v0[43]);
-
-    outlined consume of Data._Representation(v17, v18);
-LABEL_20:
-    outlined consume of Data._Representation(v17, v18);
-
-    v71 = v0[50];
-    v72 = v0[47];
-
-    v73 = v0[1];
-
-    return v73();
-  }
-
-  v46 = v43;
-  v48 = v0[42];
-  v47 = v0[43];
-  v50 = v0[40];
-  v49 = v0[41];
-  outlined consume of Data._Representation(v17, v18);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NearbySessions17InvitationRequestCyAA0A5GroupCGMd, &_s14NearbySessions17InvitationRequestCyAA0A5GroupCGMR);
-  v51 = swift_allocObject();
-  v0[73] = v51;
-  v51[3] = 0;
-  v51[4] = 0;
-  v51[2] = 0;
-  v51[5] = 0xF000000000000000;
-  v51[6] = v46;
-  swift_beginAccess();
-  v51[2] = v50;
-  v51[3] = v49;
-  swift_beginAccess();
-  v52 = v51[4];
-  v53 = v51[5];
-  outlined copy of Data?(v48, v47);
-  v51[4] = v48;
-  v51[5] = v47;
-  outlined consume of Data?(v52, v53);
-  outlined consume of Data?(v48, v47);
-  v54 = swift_task_alloc();
-  v0[74] = v54;
-  *v54 = v0;
-  v54[1] = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
-  v55 = v0[38];
-
-  return InvitationRequest<>.request()(v55);
-}
-
-{
-  v1 = v0[73];
-  v2 = v0[72];
-  v3 = v0[71];
-  v4 = v0[70];
-  v5 = v0[54];
-  v6 = v0[44];
-  v7 = *(v6 + direct field offset for NearbyInvitationScanner.controller);
-  v8 = swift_allocObject();
-  *(v8 + 16) = v6;
-  *(v8 + 24) = v5;
-
-  v9 = v5;
-  NearbyInvitationsController.releaseInvitation(_:response:)(v9, closure #1 in $defer #1 <A>() in NearbyInvitationScanner<>.request(_:displayName:userInfo:)partial apply, v8);
-
-  outlined consume of Data._Representation(v3, v2);
-
-  v10 = v0[22];
-  v11 = v0[50];
-  v12 = v0[47];
-
-  v13 = v0[1];
-
-  return v13(v10);
-}
-
-{
-  v1 = v0[53];
-  v2 = v0[50];
-  v3 = v0[47];
-
-  v4 = v0[1];
-
-  return v4();
-}
-
-{
-
-  v1 = *(v0 + 456);
-  v2 = *(v0 + 400);
-  v3 = *(v0 + 376);
-
-  v4 = *(v0 + 8);
-
-  return v4();
-}
-
-{
-  v1 = v0[65];
-  v2 = v0[62];
-  v3 = v0[63];
-  v4 = v0[61];
-  v5 = v0[54];
-  v7 = v0[49];
-  v6 = v0[50];
-  v8 = v0[48];
+  v15 = v0[72];
+  v16 = v0[71];
+  v17 = v0[70];
+  v18 = v0[54];
+  v19 = v0[44];
   swift_willThrow();
+  v20 = swift_allocObject();
+  *(v20 + 16) = v19;
+  *(v20 + 24) = v18;
 
-  outlined consume of Data._Representation(v4, v2);
+  v21 = v18;
+  NearbyInvitationsController.releaseInvitation(_:response:)(v21, partial apply for closure #1 in $defer #1 <A>() in NearbyInvitationScanner<>.request(_:displayName:userInfo:), v20);
 
-  (*(v7 + 8))(v6, v8);
-  v9 = v0[65];
-  v10 = v0[50];
-  v11 = v0[47];
+  outlined consume of Data._Representation(v16, v15);
 
-  v12 = v0[1];
+  v22 = v0[1];
 
-  return v12();
-}
-
-{
-
-  v1 = *(v0 + 552);
-  v2 = *(v0 + 400);
-  v3 = *(v0 + 376);
-
-  v4 = *(v0 + 8);
-
-  return v4();
-}
-
-{
-  v33 = v0;
-  v1 = v0[75];
-  v2 = v0[51];
-  v3 = v0[44];
-
-  v4 = v1;
-  v5 = Logger.logObject.getter();
-  v6 = static os_log_type_t.error.getter();
-
-  if (os_log_type_enabled(v5, v6))
-  {
-    v7 = v0[75];
-    v8 = v0[44];
-    v9 = swift_slowAlloc();
-    v10 = swift_slowAlloc();
-    v11 = swift_slowAlloc();
-    v32 = v11;
-    *v9 = 136315394;
-    v0[27] = v8;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NearbySessions0A17InvitationScannerCyAA0A5GroupCGMd, &_s14NearbySessions0A17InvitationScannerCyAA0A5GroupCGMR);
-    v12 = String.init<A>(reflecting:)();
-    v14 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v12, v13, &v32);
-
-    *(v9 + 4) = v14;
-    *(v9 + 12) = 2112;
-    v15 = v7;
-    v16 = _swift_stdlib_bridgeErrorToNSError();
-    *(v9 + 14) = v16;
-    *v10 = v16;
-    _os_log_impl(&dword_25B7C4000, v5, v6, "%s scanner could not request for invitation request for NearbyGroups %@", v9, 0x16u);
-    outlined destroy of NSObject?(v10, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x25F86FE20](v10, -1, -1);
-    __swift_destroy_boxed_opaque_existential_0(v11);
-    MEMORY[0x25F86FE20](v11, -1, -1);
-    MEMORY[0x25F86FE20](v9, -1, -1);
-  }
-
-  v17 = v0[75];
-  v18 = v0[73];
-  v19 = v0[72];
-  v20 = v0[71];
-  v21 = v0[70];
-  v22 = v0[54];
-  v23 = v0[44];
-  swift_willThrow();
-  v24 = *(v23 + direct field offset for NearbyInvitationScanner.controller);
-  v25 = swift_allocObject();
-  *(v25 + 16) = v23;
-  *(v25 + 24) = v22;
-
-  v26 = v22;
-  NearbyInvitationsController.releaseInvitation(_:response:)(v26, partial apply for closure #1 in $defer #1 <A>() in NearbyInvitationScanner<>.request(_:displayName:userInfo:), v25);
-
-  outlined consume of Data._Representation(v20, v19);
-
-  v27 = v0[75];
-  v28 = v0[50];
-  v29 = v0[47];
-
-  v30 = v0[1];
-
-  return v30();
+  return v22();
 }
 
 {
@@ -8352,76 +7551,85 @@ LABEL_20:
 }
 
 {
-  v1 = *(v0 + 40);
   return (*(v0 + 8))();
 }
 
 uint64_t NearbyInvitationScanner<>.request(_:displayName:userInfo:)(uint64_t a1)
 {
   v3 = *v2;
-  v4 = *v2;
-  v4[18] = v2;
-  v4[19] = a1;
-  v4[20] = v1;
-  v5 = v3[64];
-  v8 = *v2;
-  v4[65] = v1;
+  v3[18] = v2;
+  v3[19] = a1;
+  v3[20] = v1;
+  v3[65] = v1;
 
   if (v1)
   {
-    v6 = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
+    v4 = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
   }
 
   else
   {
-    v6 = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
+    v4 = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
   }
 
-  return MEMORY[0x2822009F8](v6, 0, 0);
+  return MEMORY[0x2822009F8](v4, 0, 0);
 }
 
 {
   v3 = *v2;
-  v4 = *v2;
-  v4[21] = v2;
-  v4[22] = a1;
-  v4[23] = v1;
-  v5 = v3[74];
-  v8 = *v2;
-  v4[75] = v1;
+  v3[21] = v2;
+  v3[22] = a1;
+  v3[23] = v1;
+  v3[75] = v1;
 
   if (v1)
   {
-    v6 = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
+    v4 = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
   }
 
   else
   {
-    v6 = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
+    v4 = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
   }
 
-  return MEMORY[0x2822009F8](v6, 0, 0);
+  return MEMORY[0x2822009F8](v4, 0, 0);
+}
+
+{
+  v2 = v1[62];
+  v3 = v1[61];
+  v4 = v1[54];
+  v6 = v1[49];
+  v5 = v1[50];
+  v7 = v1[48];
+  swift_willThrow();
+
+  outlined consume of Data._Representation(v3, v2);
+
+  (*(v6 + 8))(v5, v7);
+
+  v8 = v1[1];
+
+  return v8();
 }
 
 {
   v4 = *v2;
-  v5 = *(*v2 + 32);
-  v6 = *v2;
   *(*v2 + 40) = v1;
 
   if (v1)
   {
-    v7 = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
+    v5 = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
   }
 
   else
   {
     v4[6] = a1;
     outlined consume of Data?(v4[2], v4[3]);
-    v7 = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
+    v5 = NearbyInvitationScanner<>.request(_:displayName:userInfo:);
   }
 
-  return MEMORY[0x2822009F8](v7, 0, 0);
+  return MEMORY[0x2822009F8](v5, 0, 0);
 }
 
 uint64_t closure #1 in NearbyInvitationScanner<>.request(_:displayName:userInfo:)(uint64_t a1, uint64_t a2)
@@ -8430,24 +7638,23 @@ uint64_t closure #1 in NearbyInvitationScanner<>.request(_:displayName:userInfo:
   v5 = *(v4 - 8);
   v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v14 - v7;
-  v9 = *(a2 + direct field offset for NearbyInvitationScanner.controller);
-  (*(v5 + 16))(&v14 - v7, a1, v4);
-  v10 = (*(v5 + 80) + 16) & ~*(v5 + 80);
-  v11 = (v6 + v10 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v12 = swift_allocObject();
-  (*(v5 + 32))(v12 + v10, v8, v4);
-  *(v12 + v11) = a2;
+  v8 = &v13 - v7;
+  (*(v5 + 16))(&v13 - v7, a1, v4);
+  v9 = (*(v5 + 80) + 16) & ~*(v5 + 80);
+  v10 = (v6 + v9 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v11 = swift_allocObject();
+  (*(v5 + 32))(v11 + v9, v8, v4);
+  *(v11 + v10) = a2;
 
-  NearbyInvitationsController.generateNearbyInvitation(response:)(partial apply for closure #1 in closure #1 in NearbyInvitationScanner<>.request(_:displayName:userInfo:), v12);
+  NearbyInvitationsController.generateNearbyInvitation(response:)(partial apply for closure #1 in closure #1 in NearbyInvitationScanner<>.request(_:displayName:userInfo:), v11);
 }
 
-uint64_t closure #1 in closure #1 in NearbyInvitationScanner<>.request(_:displayName:userInfo:)(void *a1, uint64_t *a2)
+uint64_t closure #1 in closure #1 in NearbyInvitationScanner<>.request(_:displayName:userInfo:)(void *a1, id a2, uint64_t a3, uint64_t a4)
 {
   if (a2)
   {
-    v17 = a2;
-    v2 = a2;
+    v19 = a2;
+    v4 = a2;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy14NearbySessions0A29InvitationJoinRequestMetadataCSgs5Error_pGMd, &_sScCy14NearbySessions0A29InvitationJoinRequestMetadataCSgs5Error_pGMR);
     return CheckedContinuation.resume(throwing:)();
   }
@@ -8459,40 +7666,40 @@ uint64_t closure #1 in closure #1 in NearbyInvitationScanner<>.request(_:display
       swift_once();
     }
 
-    v5 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v5, static Log.client);
-    v6 = a1;
+    v7 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v7, static Log.client);
+    v8 = a1;
 
-    v7 = Logger.logObject.getter();
-    v8 = static os_log_type_t.default.getter();
+    v9 = Logger.logObject.getter();
+    v10 = static os_log_type_t.default.getter();
 
-    if (os_log_type_enabled(v7, v8))
+    if (os_log_type_enabled(v9, v10))
     {
-      v9 = swift_slowAlloc();
-      v10 = swift_slowAlloc();
       v11 = swift_slowAlloc();
-      v17 = v11;
-      *v9 = 136315394;
+      v12 = swift_slowAlloc();
+      v13 = swift_slowAlloc();
+      v19 = v13;
+      *v11 = 136315394;
 
       __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NearbySessions0A17InvitationScannerCyAA0A5GroupCGMd, &_s14NearbySessions0A17InvitationScannerCyAA0A5GroupCGMR);
-      v12 = String.init<A>(reflecting:)();
-      v14 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v12, v13, &v17);
+      v14 = String.init<A>(reflecting:)();
+      v16 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v15, &v19);
 
-      *(v9 + 4) = v14;
-      *(v9 + 12) = 2112;
-      *(v9 + 14) = v6;
-      *v10 = a1;
-      v15 = v6;
-      _os_log_impl(&dword_25B7C4000, v7, v8, "%s scanner is generating metadata %@", v9, 0x16u);
-      outlined destroy of NSObject?(v10, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-      MEMORY[0x25F86FE20](v10, -1, -1);
-      __swift_destroy_boxed_opaque_existential_0(v11);
+      *(v11 + 4) = v16;
+      *(v11 + 12) = 2112;
+      *(v11 + 14) = v8;
+      *v12 = a1;
+      v17 = v8;
+      _os_log_impl(&dword_25B7C4000, v9, v10, "%s scanner is generating metadata %@", v11, 0x16u);
+      outlined destroy of NSObject?(v12, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      MEMORY[0x25F86FE20](v12, -1, -1);
+      __swift_destroy_boxed_opaque_existential_0(v13);
+      MEMORY[0x25F86FE20](v13, -1, -1);
       MEMORY[0x25F86FE20](v11, -1, -1);
-      MEMORY[0x25F86FE20](v9, -1, -1);
     }
 
-    v17 = a1;
-    v16 = v6;
+    v19 = a1;
+    v18 = v8;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy14NearbySessions0A29InvitationJoinRequestMetadataCSgs5Error_pGMd, &_sScCy14NearbySessions0A29InvitationJoinRequestMetadataCSgs5Error_pGMR);
     return CheckedContinuation.resume(returning:)();
   }
@@ -8502,64 +7709,62 @@ uint64_t closure #2 in NearbyInvitationScanner<>.request(_:displayName:userInfo:
 {
   v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5Error_pGMd, &_sScCyyts5Error_pGMR);
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   MEMORY[0x28223BE20](v8);
-  v12 = &v18 - v11;
-  v13 = *(a2 + direct field offset for NearbyInvitationScanner.controller);
-  (*(v9 + 16))(&v18 - v11, a1, v8);
-  v14 = (*(v9 + 80) + 32) & ~*(v9 + 80);
-  v15 = swift_allocObject();
-  *(v15 + 16) = a3;
-  *(v15 + 24) = a2;
-  (*(v9 + 32))(v15 + v14, v12, v8);
-  v16 = a3;
+  v11 = &v16 - v10;
+  (*(v9 + 16))(&v16 - v10, a1, v8);
+  v12 = (*(v9 + 80) + 32) & ~*(v9 + 80);
+  v13 = swift_allocObject();
+  *(v13 + 16) = a3;
+  *(v13 + 24) = a2;
+  (*(v9 + 32))(v13 + v12, v11, v8);
+  v14 = a3;
 
-  NearbyInvitationsController.requestEndpointConnection(with:pseudonym:response:)(v16, a4, partial apply for closure #1 in closure #2 in NearbyInvitationScanner<>.request(_:displayName:userInfo:), v15);
+  NearbyInvitationsController.requestEndpointConnection(with:pseudonym:response:)(v14, a4, partial apply for closure #1 in closure #2 in NearbyInvitationScanner<>.request(_:displayName:userInfo:), v13);
 }
 
-void closure #1 in closure #2 in NearbyInvitationScanner<>.request(_:displayName:userInfo:)(NSObject *a1, void *a2)
+void closure #1 in closure #2 in NearbyInvitationScanner<>.request(_:displayName:userInfo:)(NSObject *a1, void *a2, uint64_t a3)
 {
   if (a1)
   {
-    v4 = a1;
+    v5 = a1;
     if (one-time initialization token for client != -1)
     {
       swift_once();
     }
 
-    v5 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v5, static Log.client);
-    v6 = a1;
-    v7 = a2;
+    v6 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v6, static Log.client);
+    v7 = a1;
+    v8 = a2;
     oslog = Logger.logObject.getter();
-    v8 = static os_log_type_t.error.getter();
+    v9 = static os_log_type_t.error.getter();
 
-    if (os_log_type_enabled(oslog, v8))
+    if (os_log_type_enabled(oslog, v9))
     {
-      v9 = swift_slowAlloc();
       v10 = swift_slowAlloc();
-      *v9 = 138412546;
-      *(v9 + 4) = v7;
-      *v10 = v7;
-      *(v9 + 12) = 2112;
-      v11 = a1;
-      v12 = v7;
-      v13 = _swift_stdlib_bridgeErrorToNSError();
-      *(v9 + 14) = v13;
-      v10[1] = v13;
-      _os_log_impl(&dword_25B7C4000, oslog, v8, "We could not establish connection to our endpoint %@ with err: %@", v9, 0x16u);
+      v11 = swift_slowAlloc();
+      *v10 = 138412546;
+      *(v10 + 4) = v8;
+      *v11 = v8;
+      *(v10 + 12) = 2112;
+      v12 = a1;
+      v13 = v8;
+      v14 = _swift_stdlib_bridgeErrorToNSError();
+      *(v10 + 14) = v14;
+      v11[1] = v14;
+      _os_log_impl(&dword_25B7C4000, oslog, v9, "We could not establish connection to our endpoint %@ with err: %@", v10, 0x16u);
       __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
       swift_arrayDestroy();
+      MEMORY[0x25F86FE20](v11, -1, -1);
       MEMORY[0x25F86FE20](v10, -1, -1);
-      MEMORY[0x25F86FE20](v9, -1, -1);
 
-      v14 = oslog;
+      v15 = oslog;
     }
 
     else
     {
 
-      v14 = a1;
+      v15 = a1;
     }
   }
 
@@ -8570,36 +7775,36 @@ void closure #1 in closure #2 in NearbyInvitationScanner<>.request(_:displayName
       swift_once();
     }
 
-    v15 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v15, static Log.client);
-    v16 = a2;
+    v16 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v16, static Log.client);
+    v17 = a2;
 
-    v17 = Logger.logObject.getter();
-    v18 = static os_log_type_t.default.getter();
+    v18 = Logger.logObject.getter();
+    v19 = static os_log_type_t.default.getter();
 
-    if (os_log_type_enabled(v17, v18))
+    if (os_log_type_enabled(v18, v19))
     {
-      v19 = swift_slowAlloc();
       v20 = swift_slowAlloc();
       v21 = swift_slowAlloc();
-      v27 = v21;
-      *v19 = 136315394;
+      v22 = swift_slowAlloc();
+      v28 = v22;
+      *v20 = 136315394;
 
       __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NearbySessions0A17InvitationScannerCyAA0A5GroupCGMd, &_s14NearbySessions0A17InvitationScannerCyAA0A5GroupCGMR);
-      v22 = String.init<A>(reflecting:)();
-      v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v22, v23, &v27);
+      v23 = String.init<A>(reflecting:)();
+      v25 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v23, v24, &v28);
 
-      *(v19 + 4) = v24;
-      *(v19 + 12) = 2112;
-      *(v19 + 14) = v16;
-      *v20 = v16;
-      v25 = v16;
-      _os_log_impl(&dword_25B7C4000, v17, v18, "%s scanner is requesting connection to our endpoint %@", v19, 0x16u);
-      outlined destroy of NSObject?(v20, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-      MEMORY[0x25F86FE20](v20, -1, -1);
-      __swift_destroy_boxed_opaque_existential_0(v21);
+      *(v20 + 4) = v25;
+      *(v20 + 12) = 2112;
+      *(v20 + 14) = v17;
+      *v21 = v17;
+      v26 = v17;
+      _os_log_impl(&dword_25B7C4000, v18, v19, "%s scanner is requesting connection to our endpoint %@", v20, 0x16u);
+      outlined destroy of NSObject?(v21, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
       MEMORY[0x25F86FE20](v21, -1, -1);
-      MEMORY[0x25F86FE20](v19, -1, -1);
+      __swift_destroy_boxed_opaque_existential_0(v22);
+      MEMORY[0x25F86FE20](v22, -1, -1);
+      MEMORY[0x25F86FE20](v20, -1, -1);
     }
 
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5Error_pGMd, &_sScCyyts5Error_pGMR);
@@ -8635,7 +7840,7 @@ uint64_t closure #1 in closure #3 in NearbyInvitationScanner<>.request(_:display
 {
   if (a2)
   {
-    v25 = a2;
+    v24 = a2;
     v6 = a2;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy14NearbySessions14InvitationBlobCs5Error_pGMd, &_sScCy14NearbySessions14InvitationBlobCs5Error_pGMR);
     return CheckedContinuation.resume(throwing:)();
@@ -8652,38 +7857,38 @@ uint64_t closure #1 in closure #3 in NearbyInvitationScanner<>.request(_:display
 
       while (1)
       {
-        v15 = type metadata accessor for Logger();
-        __swift_project_value_buffer(v15, static Log.client);
+        v14 = type metadata accessor for Logger();
+        __swift_project_value_buffer(v14, static Log.client);
 
-        v16 = a5;
+        v15 = a5;
         a5 = Logger.logObject.getter();
-        v17 = static os_log_type_t.error.getter();
+        v16 = static os_log_type_t.error.getter();
 
-        if (os_log_type_enabled(a5, v17))
+        if (os_log_type_enabled(a5, v16))
         {
+          v17 = swift_slowAlloc();
           v18 = swift_slowAlloc();
           v19 = swift_slowAlloc();
-          v20 = swift_slowAlloc();
-          v25 = v20;
-          *v18 = 136315650;
+          v24 = v19;
+          *v17 = 136315650;
 
           __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NearbySessions0A17InvitationScannerCyAA0A5GroupCGMd, &_s14NearbySessions0A17InvitationScannerCyAA0A5GroupCGMR);
-          v21 = String.init<A>(reflecting:)();
-          v23 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v21, v22, &v25);
+          v20 = String.init<A>(reflecting:)();
+          v22 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v20, v21, &v24);
 
-          *(v18 + 4) = v23;
-          *(v18 + 12) = 2112;
-          *(v18 + 14) = v16;
-          *v19 = v16;
-          *(v18 + 22) = 2080;
-          v24 = v16;
-          *(v18 + 24) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(7104878, 0xE300000000000000, &v25);
-          _os_log_impl(&dword_25B7C4000, a5, v17, "%s: Failed to get InvitationData from requestConnection(with: %@, error: %s", v18, 0x20u);
-          outlined destroy of NSObject?(v19, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-          MEMORY[0x25F86FE20](v19, -1, -1);
-          swift_arrayDestroy();
-          MEMORY[0x25F86FE20](v20, -1, -1);
+          *(v17 + 4) = v22;
+          *(v17 + 12) = 2112;
+          *(v17 + 14) = v15;
+          *v18 = v15;
+          *(v17 + 22) = 2080;
+          v23 = v15;
+          *(v17 + 24) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(7104878, 0xE300000000000000, &v24);
+          _os_log_impl(&dword_25B7C4000, a5, v16, "%s: Failed to get InvitationData from requestConnection(with: %@, error: %s", v17, 0x20u);
+          outlined destroy of NSObject?(v18, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
           MEMORY[0x25F86FE20](v18, -1, -1);
+          swift_arrayDestroy();
+          MEMORY[0x25F86FE20](v19, -1, -1);
+          MEMORY[0x25F86FE20](v17, -1, -1);
 
           __break(1u);
         }
@@ -8694,15 +7899,14 @@ LABEL_9:
       }
     }
 
-    v10 = *(a4 + direct field offset for NearbyInvitationScanner.controller);
-    v12 = swift_allocObject();
-    *(v12 + 16) = a4;
-    *(v12 + 24) = a6;
-    v13 = a1;
+    v11 = swift_allocObject();
+    *(v11 + 16) = a4;
+    *(v11 + 24) = a6;
+    v12 = a1;
 
-    NearbyInvitationsController.markInvitationUsed(_:response:)(a6, partial apply for closure #1 in closure #1 in closure #3 in NearbyInvitationScanner<>.request(_:displayName:userInfo:), v12);
+    NearbyInvitationsController.markInvitationUsed(_:response:)(a6, partial apply for closure #1 in closure #1 in closure #3 in NearbyInvitationScanner<>.request(_:displayName:userInfo:), v11);
 
-    v25 = v13;
+    v24 = v12;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy14NearbySessions14InvitationBlobCs5Error_pGMd, &_sScCy14NearbySessions14InvitationBlobCs5Error_pGMR);
     return CheckedContinuation.resume(returning:)();
   }
@@ -8821,48 +8025,45 @@ uint64_t specialized Set._Variant.insert(_:)(uint64_t a1, uint64_t *a2)
 {
   v3 = v2;
   v5 = *v2;
-  v6 = *(*v2 + 40);
   Hasher.init(_seed:)();
-  v7 = *a2;
   NSObject.hash(into:)();
-  v8 = Hasher._finalize()();
-  v9 = -1 << *(v5 + 32);
-  v10 = v8 & ~v9;
-  if ((*(v5 + 56 + ((v10 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v10))
+  v6 = Hasher._finalize()();
+  v7 = -1 << *(v5 + 32);
+  v8 = v6 & ~v7;
+  if ((*(v5 + 56 + ((v8 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v8))
   {
-    v11 = ~v9;
+    v9 = ~v7;
     while (1)
     {
-      outlined init with copy of NearbyInvitation<NearbyGroup>.PendingMember(*(v5 + 48) + 16 * v10, v18);
+      outlined init with copy of NearbyInvitation<NearbyGroup>.PendingMember(*(v5 + 48) + 16 * v8, v15);
       type metadata accessor for NSObject();
-      v12 = static NSObject.== infix(_:_:)();
-      outlined destroy of NSObject?(v18, &_s14NearbySessions0A10InvitationC13PendingMemberVyAA0A5GroupC_GMd, &_s14NearbySessions0A10InvitationC13PendingMemberVyAA0A5GroupC_GMR);
-      if (v12)
+      v10 = static NSObject.== infix(_:_:)();
+      outlined destroy of NSObject?(v15, &_s14NearbySessions0A10InvitationC13PendingMemberVyAA0A5GroupC_GMd, &_s14NearbySessions0A10InvitationC13PendingMemberVyAA0A5GroupC_GMR);
+      if (v10)
       {
         break;
       }
 
-      v10 = (v10 + 1) & v11;
-      if (((*(v5 + 56 + ((v10 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v10) & 1) == 0)
+      v8 = (v8 + 1) & v9;
+      if (((*(v5 + 56 + ((v8 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v8) & 1) == 0)
       {
         goto LABEL_5;
       }
     }
 
     outlined destroy of NSObject?(a2, &_s14NearbySessions0A10InvitationC13PendingMemberVyAA0A5GroupC_GMd, &_s14NearbySessions0A10InvitationC13PendingMemberVyAA0A5GroupC_GMR);
-    outlined init with copy of NearbyInvitation<NearbyGroup>.PendingMember(*(v5 + 48) + 16 * v10, a1);
+    outlined init with copy of NearbyInvitation<NearbyGroup>.PendingMember(*(v5 + 48) + 16 * v8, a1);
     return 0;
   }
 
   else
   {
 LABEL_5:
-    v13 = *v3;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    outlined init with copy of NearbyInvitation<NearbyGroup>.PendingMember(a2, v18);
-    v17 = *v3;
-    specialized _NativeSet.insertNew(_:at:isUnique:)(v18, v10, isUniquelyReferenced_nonNull_native);
-    *v3 = v17;
+    outlined init with copy of NearbyInvitation<NearbyGroup>.PendingMember(a2, v15);
+    v14 = *v3;
+    specialized _NativeSet.insertNew(_:at:isUnique:)(v15, v8, isUniquelyReferenced_nonNull_native);
+    *v3 = v14;
     outlined init with take of NearbyInvitation<NearbyGroup>.PendingMember(a2, a1);
     return 1;
   }
@@ -8873,77 +8074,74 @@ uint64_t specialized Set._Variant.insert(_:)(uint64_t a1, char *a2)
   v3 = v2;
   v6 = type metadata accessor for AddressableMember();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = v29 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = *v2;
-  v12 = *(*v2 + 40);
-  lazy protocol witness table accessor for type AddressableMember and conformance AddressableMember(&lazy protocol witness table cache variable for type AddressableMember and conformance AddressableMember);
-  v36 = a2;
-  v13 = dispatch thunk of Hashable._rawHashValue(seed:)();
-  v14 = v11 + 56;
-  v34 = v11 + 56;
-  v35 = v11;
-  v15 = -1 << *(v11 + 32);
-  v16 = v13 & ~v15;
-  if ((*(v14 + ((v16 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v16))
+  v9 = v26 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = *v2;
+  lazy protocol witness table accessor for type AddressableMember and conformance AddressableMember(&lazy protocol witness table cache variable for type AddressableMember and conformance AddressableMember, MEMORY[0x277CCB298]);
+  v33 = a2;
+  v11 = dispatch thunk of Hashable._rawHashValue(seed:)();
+  v12 = v10 + 56;
+  v31 = v10 + 56;
+  v32 = v10;
+  v13 = -1 << *(v10 + 32);
+  v14 = v11 & ~v13;
+  if ((*(v12 + ((v14 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v14))
   {
-    v31 = v3;
-    v32 = a1;
-    v33 = ~v15;
-    v30 = v7;
-    v19 = *(v7 + 16);
-    v18 = v7 + 16;
-    v17 = v19;
-    v20 = *(v18 + 56);
-    v21 = (v18 - 8);
-    v29[1] = v18 & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+    v28 = v2;
+    v29 = a1;
+    v30 = ~v13;
+    v27 = v7;
+    v17 = *(v7 + 16);
+    v16 = v7 + 16;
+    v15 = v17;
+    v18 = *(v16 + 56);
+    v19 = (v16 - 8);
+    v26[1] = v16 & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
     while (1)
     {
-      v22 = v17;
-      v17(v10, *(v35 + 48) + v20 * v16, v6);
-      lazy protocol witness table accessor for type AddressableMember and conformance AddressableMember(&lazy protocol witness table cache variable for type AddressableMember and conformance AddressableMember);
-      v23 = dispatch thunk of static Equatable.== infix(_:_:)();
-      v24 = *v21;
-      (*v21)(v10, v6);
-      if (v23)
+      v20 = v15;
+      v15(v9, *(v32 + 48) + v18 * v14, v6);
+      lazy protocol witness table accessor for type AddressableMember and conformance AddressableMember(&lazy protocol witness table cache variable for type AddressableMember and conformance AddressableMember, MEMORY[0x277CCB2A0]);
+      v21 = dispatch thunk of static Equatable.== infix(_:_:)();
+      v22 = *v19;
+      (*v19)(v9, v6);
+      if (v21)
       {
         break;
       }
 
-      v16 = (v16 + 1) & v33;
-      v17 = v22;
-      if (((*(v34 + ((v16 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v16) & 1) == 0)
+      v14 = (v14 + 1) & v30;
+      v15 = v20;
+      if (((*(v31 + ((v14 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v14) & 1) == 0)
       {
-        v3 = v31;
-        a1 = v32;
-        v7 = v30;
+        v3 = v28;
+        a1 = v29;
+        v7 = v27;
         goto LABEL_7;
       }
     }
 
-    v24(v36, v6);
-    v22(v32, *(v35 + 48) + v20 * v16, v6);
+    v22(v33, v6);
+    v20(v29, *(v32 + 48) + v18 * v14, v6);
     return 0;
   }
 
   else
   {
-    v17 = *(v7 + 16);
+    v15 = *(v7 + 16);
 LABEL_7:
-    v25 = *v3;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v27 = v36;
-    v17(v10, v36, v6);
-    v37 = *v3;
-    specialized _NativeSet.insertNew(_:at:isUnique:)(v10, v16, isUniquelyReferenced_nonNull_native);
-    *v3 = v37;
-    (*(v7 + 32))(a1, v27, v6);
+    v24 = v33;
+    v15(v9, v33, v6);
+    v34 = *v3;
+    specialized _NativeSet.insertNew(_:at:isUnique:)(v9, v14, isUniquelyReferenced_nonNull_native);
+    *v3 = v34;
+    (*(v7 + 32))(a1, v24, v6);
     return 1;
   }
 }
 
-uint64_t specialized Set._Variant.insert(_:)(void *a1, void *a2, void (*a3)(void), uint64_t *a4, uint64_t *a5, void (*a6)(void))
+uint64_t specialized Set._Variant.insert(_:)(uint64_t *a1, void *a2, uint64_t (*a3)(void), uint64_t *a4, uint64_t *a5, void (*a6)(void))
 {
   v11 = v6;
   v14 = *v6;
@@ -8969,7 +8167,7 @@ uint64_t specialized Set._Variant.insert(_:)(void *a1, void *a2, void (*a3)(void
       a3(0);
       swift_dynamicCast();
       result = 0;
-      *a1 = v36;
+      *a1 = v35;
     }
 
     else
@@ -8982,18 +8180,18 @@ uint64_t specialized Set._Variant.insert(_:)(void *a1, void *a2, void (*a3)(void
 
       else
       {
-        v28 = _ss10_NativeSetV_8capacityAByxGs07__CocoaB0Vn_SitcfC14NearbySessions0E13AdvertisementC_Tt1g5Tm(v15, result + 1, a4, a5, a6);
-        v29 = *(v28 + 16);
-        if (*(v28 + 24) <= v29)
+        v27 = _ss10_NativeSetV_8capacityAByxGs07__CocoaB0Vn_SitcfC14NearbySessions0E13AdvertisementC_Tt1g5Tm(v15, result + 1, a4, a5, a6);
+        v28 = v27[2];
+        if (v27[3] <= v28)
         {
-          specialized _NativeSet.resize(capacity:)(v29 + 1, a4, a5);
+          specialized _NativeSet.resize(capacity:)(v28 + 1, a4, a5);
         }
 
-        v30 = v16;
-        specialized _NativeSet._unsafeInsertNew(_:)(v30, v28);
+        v29 = v16;
+        specialized _NativeSet._unsafeInsertNew(_:)(v29, v27);
 
-        *v11 = v28;
-        *a1 = v30;
+        *v11 = v27;
+        *a1 = v29;
         return 1;
       }
     }
@@ -9025,22 +8223,21 @@ uint64_t specialized Set._Variant.insert(_:)(void *a1, void *a2, void (*a3)(void
         }
       }
 
-      v31 = *(*(v14 + 48) + 8 * v21);
-      *a1 = v31;
-      v32 = v31;
+      v30 = *(*(v14 + 48) + 8 * v21);
+      *a1 = v30;
+      v31 = v30;
       return 0;
     }
 
     else
     {
 LABEL_11:
-      v25 = *v11;
       isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-      v37 = *v11;
-      v27 = a2;
-      specialized _NativeSet.insertNew(_:at:isUnique:)(v27, v21, isUniquelyReferenced_nonNull_native, a4, a5, a6);
-      *v11 = v37;
-      *a1 = v27;
+      v36 = *v11;
+      v26 = a2;
+      specialized _NativeSet.insertNew(_:at:isUnique:)(v26, v21, isUniquelyReferenced_nonNull_native, a4, a5, a6);
+      *v11 = v36;
+      *a1 = v26;
       return 1;
     }
   }
@@ -9051,7 +8248,6 @@ LABEL_11:
 uint64_t specialized Set._Variant.insert(_:)(Swift::Int *a1, Swift::Int a2, Swift::Int a3, Swift::Int a4, Swift::Int a5)
 {
   v10 = *v5;
-  v11 = *(*v5 + 40);
   Hasher.init(_seed:)();
   String.hash(into:)();
   if (a5)
@@ -9065,19 +8261,18 @@ uint64_t specialized Set._Variant.insert(_:)(Swift::Int *a1, Swift::Int a2, Swif
     Hasher._combine(_:)(0);
   }
 
-  v12 = Hasher._finalize()();
-  v13 = v10 + 56;
-  v14 = -1 << *(v10 + 32);
-  v15 = v12 & ~v14;
-  if (((*(v10 + 56 + ((v15 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v15) & 1) == 0)
+  v11 = Hasher._finalize()();
+  v12 = v10 + 56;
+  v13 = -1 << *(v10 + 32);
+  v14 = v11 & ~v13;
+  if (((*(v10 + 56 + ((v14 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v14) & 1) == 0)
   {
 LABEL_21:
-    v23 = *v31;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v33 = *v31;
+    v31 = *v29;
 
-    specialized _NativeSet.insertNew(_:at:isUnique:)(a2, a3, a4, a5, v15, isUniquelyReferenced_nonNull_native);
-    *v31 = v33;
+    specialized _NativeSet.insertNew(_:at:isUnique:)(a2, a3, a4, a5, v14, isUniquelyReferenced_nonNull_native);
+    *v29 = v31;
     *a1 = a2;
     a1[1] = a3;
     a1[2] = a4;
@@ -9085,21 +8280,21 @@ LABEL_21:
     return 1;
   }
 
-  v16 = ~v14;
-  v30 = v10;
-  v17 = *(v10 + 48);
+  v15 = ~v13;
+  v28 = v10;
+  v16 = *(v10 + 48);
   while (1)
   {
-    v18 = (v17 + 32 * v15);
-    v20 = v18[2];
-    v19 = v18[3];
-    v21 = *v18 == a2 && v18[1] == a3;
-    if (!v21 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+    v17 = (v16 + 32 * v14);
+    v19 = v17[2];
+    v18 = v17[3];
+    v20 = *v17 == a2 && v17[1] == a3;
+    if (!v20 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
     {
       goto LABEL_7;
     }
 
-    if (v19)
+    if (v18)
     {
       break;
     }
@@ -9110,8 +8305,8 @@ LABEL_21:
     }
 
 LABEL_7:
-    v15 = (v15 + 1) & v16;
-    if (((*(v13 + ((v15 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v15) & 1) == 0)
+    v14 = (v14 + 1) & v15;
+    if (((*(v12 + ((v14 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v14) & 1) == 0)
     {
       goto LABEL_21;
     }
@@ -9122,27 +8317,27 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v22 = v20 == a4 && v19 == a5;
-  if (!v22 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  v21 = v19 == a4 && v18 == a5;
+  if (!v21 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
   {
     goto LABEL_7;
   }
 
 LABEL_22:
 
-  v26 = (*(v30 + 48) + 32 * v15);
-  v27 = v26[1];
-  v29 = v26[2];
-  v28 = v26[3];
-  *a1 = *v26;
-  a1[1] = v27;
-  a1[2] = v29;
-  a1[3] = v28;
+  v24 = (*(v28 + 48) + 32 * v14);
+  v25 = v24[1];
+  v27 = v24[2];
+  v26 = v24[3];
+  *a1 = *v24;
+  a1[1] = v25;
+  a1[2] = v27;
+  a1[3] = v26;
 
   return 0;
 }
 
-Swift::Int _ss10_NativeSetV_8capacityAByxGs07__CocoaB0Vn_SitcfC14NearbySessions0E13AdvertisementC_Tt1g5Tm(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, void (*a5)(void))
+Swift::Int _ss10_NativeSetV_8capacityAByxGs07__CocoaB0Vn_SitcfC14NearbySessions0E13AdvertisementC_Tt1g5Tm(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t (*a5)(void))
 {
   if (a2)
   {
@@ -9217,419 +8412,1422 @@ Swift::Int _ss10_NativeSetV_8capacityAByxGs07__CocoaB0Vn_SitcfC14NearbySessions0
   return v8;
 }
 
-uint64_t specialized _NativeSet.resize(capacity:)(uint64_t a1)
+Swift::Int specialized _NativeSet.resize(capacity:)(uint64_t a1)
 {
-  v2 = v1;
-  v3 = *v1;
-  if (*(*v1 + 24) > a1)
-  {
-    v4 = *(*v1 + 24);
-  }
-
+  v2 = *v1;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy14NearbySessions0C10InvitationC13PendingMemberVyAC0C5GroupC_GGMd, &_ss11_SetStorageCy14NearbySessions0C10InvitationC13PendingMemberVyAC0C5GroupC_GGMR);
   result = static _SetStorage.resize(original:capacity:move:)();
-  v6 = result;
-  if (*(v3 + 16))
+  v4 = result;
+  if (*(v2 + 16))
   {
-    v7 = 0;
-    v8 = (v3 + 56);
-    v9 = 1 << *(v3 + 32);
-    if (v9 < 64)
+    v5 = 0;
+    v6 = (v2 + 56);
+    v7 = 1 << *(v2 + 32);
+    if (v7 < 64)
     {
-      v10 = ~(-1 << v9);
+      v8 = ~(-1 << v7);
     }
 
     else
     {
-      v10 = -1;
+      v8 = -1;
     }
 
-    v11 = v10 & *(v3 + 56);
-    v12 = (v9 + 63) >> 6;
-    v13 = result + 56;
-    while (v11)
+    v9 = v8 & *(v2 + 56);
+    v10 = (v7 + 63) >> 6;
+    v11 = result + 56;
+    while (v9)
     {
-      v15 = __clz(__rbit64(v11));
-      v11 &= v11 - 1;
-LABEL_17:
-      outlined init with take of NearbyInvitation<NearbyGroup>.PendingMember(*(v3 + 48) + 16 * (v15 | (v7 << 6)), v27);
-      v18 = *(v6 + 40);
+      v13 = __clz(__rbit64(v9));
+      v9 &= v9 - 1;
+LABEL_15:
+      outlined init with take of NearbyInvitation<NearbyGroup>.PendingMember(*(v2 + 48) + 16 * (v13 | (v5 << 6)), v24);
       Hasher.init(_seed:)();
       NSObject.hash(into:)();
       result = Hasher._finalize()();
-      v19 = -1 << *(v6 + 32);
-      v20 = result & ~v19;
-      v21 = v20 >> 6;
-      if (((-1 << v20) & ~*(v13 + 8 * (v20 >> 6))) == 0)
+      v16 = -1 << *(v4 + 32);
+      v17 = result & ~v16;
+      v18 = v17 >> 6;
+      if (((-1 << v17) & ~*(v11 + 8 * (v17 >> 6))) == 0)
       {
-        v22 = 0;
-        v23 = (63 - v19) >> 6;
-        while (++v21 != v23 || (v22 & 1) == 0)
+        v19 = 0;
+        v20 = (63 - v16) >> 6;
+        while (++v18 != v20 || (v19 & 1) == 0)
         {
-          v24 = v21 == v23;
-          if (v21 == v23)
+          v21 = v18 == v20;
+          if (v18 == v20)
           {
-            v21 = 0;
+            v18 = 0;
           }
 
-          v22 |= v24;
-          v25 = *(v13 + 8 * v21);
-          if (v25 != -1)
+          v19 |= v21;
+          v22 = *(v11 + 8 * v18);
+          if (v22 != -1)
           {
-            v14 = __clz(__rbit64(~v25)) + (v21 << 6);
-            goto LABEL_9;
+            v12 = __clz(__rbit64(~v22)) + (v18 << 6);
+            goto LABEL_7;
           }
         }
 
-LABEL_32:
+LABEL_30:
         __break(1u);
         return result;
       }
 
-      v14 = __clz(__rbit64((-1 << v20) & ~*(v13 + 8 * (v20 >> 6)))) | v20 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v13 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v14;
-      result = outlined init with take of NearbyInvitation<NearbyGroup>.PendingMember(v27, *(v6 + 48) + 16 * v14);
-      ++*(v6 + 16);
+      v12 = __clz(__rbit64((-1 << v17) & ~*(v11 + 8 * (v17 >> 6)))) | v17 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v11 + ((v12 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v12;
+      result = outlined init with take of NearbyInvitation<NearbyGroup>.PendingMember(v24, *(v4 + 48) + 16 * v12);
+      ++*(v4 + 16);
     }
 
-    v16 = v7;
+    v14 = v5;
     while (1)
     {
-      v7 = v16 + 1;
-      if (__OFADD__(v16, 1))
+      v5 = v14 + 1;
+      if (__OFADD__(v14, 1))
       {
         __break(1u);
-        goto LABEL_32;
+        goto LABEL_30;
       }
 
-      if (v7 >= v12)
+      if (v5 >= v10)
       {
         break;
       }
 
-      v17 = v8[v7];
-      ++v16;
-      if (v17)
+      v15 = v6[v5];
+      ++v14;
+      if (v15)
       {
-        v15 = __clz(__rbit64(v17));
-        v11 = (v17 - 1) & v17;
-        goto LABEL_17;
+        v13 = __clz(__rbit64(v15));
+        v9 = (v15 - 1) & v15;
+        goto LABEL_15;
       }
     }
 
-    v26 = 1 << *(v3 + 32);
-    if (v26 >= 64)
+    v23 = 1 << *(v2 + 32);
+    if (v23 >= 64)
     {
-      bzero((v3 + 56), ((v26 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+      bzero((v2 + 56), ((v23 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
     }
 
     else
     {
-      *v8 = -1 << v26;
+      *v6 = -1 << v23;
     }
 
-    *(v3 + 16) = 0;
+    *(v2 + 16) = 0;
   }
 
-  *v2 = v6;
-  return result;
-}
-
-{
-  v2 = v1;
-  v41 = type metadata accessor for AddressableMember();
-  v4 = *(v41 - 8);
-  v5 = v4[8];
-  MEMORY[0x28223BE20](v41);
-  v40 = &v34 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = *v2;
-  if (*(*v2 + 24) > a1)
-  {
-    v8 = *(*v2 + 24);
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy15GroupActivities17AddressableMemberVGMd, &_ss11_SetStorageCy15GroupActivities17AddressableMemberVGMR);
-  result = static _SetStorage.resize(original:capacity:move:)();
-  v10 = result;
-  if (*(v7 + 16))
-  {
-    v35 = v2;
-    v36 = v7;
-    v11 = 0;
-    v12 = (v7 + 56);
-    v13 = 1 << *(v7 + 32);
-    if (v13 < 64)
-    {
-      v14 = ~(-1 << v13);
-    }
-
-    else
-    {
-      v14 = -1;
-    }
-
-    v15 = v14 & *(v7 + 56);
-    v16 = (v13 + 63) >> 6;
-    v39 = v4 + 4;
-    v17 = result + 56;
-    while (v15)
-    {
-      v19 = __clz(__rbit64(v15));
-      v15 &= v15 - 1;
-LABEL_17:
-      v22 = *(v7 + 48) + v4[9] * (v19 | (v11 << 6));
-      v23 = v4[4];
-      v37 = v4[9];
-      v38 = v23;
-      v23(v40, v22, v41);
-      v24 = v10;
-      v25 = *(v10 + 40);
-      lazy protocol witness table accessor for type AddressableMember and conformance AddressableMember(&lazy protocol witness table cache variable for type AddressableMember and conformance AddressableMember);
-      result = dispatch thunk of Hashable._rawHashValue(seed:)();
-      v10 = v24;
-      v26 = -1 << *(v24 + 32);
-      v27 = result & ~v26;
-      v28 = v27 >> 6;
-      if (((-1 << v27) & ~*(v17 + 8 * (v27 >> 6))) == 0)
-      {
-        v29 = 0;
-        v30 = (63 - v26) >> 6;
-        while (++v28 != v30 || (v29 & 1) == 0)
-        {
-          v31 = v28 == v30;
-          if (v28 == v30)
-          {
-            v28 = 0;
-          }
-
-          v29 |= v31;
-          v32 = *(v17 + 8 * v28);
-          if (v32 != -1)
-          {
-            v18 = __clz(__rbit64(~v32)) + (v28 << 6);
-            goto LABEL_9;
-          }
-        }
-
-LABEL_32:
-        __break(1u);
-        return result;
-      }
-
-      v18 = __clz(__rbit64((-1 << v27) & ~*(v17 + 8 * (v27 >> 6)))) | v27 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v17 + ((v18 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v18;
-      result = v38(*(v24 + 48) + v18 * v37, v40, v41);
-      ++*(v24 + 16);
-      v7 = v36;
-    }
-
-    v20 = v11;
-    while (1)
-    {
-      v11 = v20 + 1;
-      if (__OFADD__(v20, 1))
-      {
-        __break(1u);
-        goto LABEL_32;
-      }
-
-      if (v11 >= v16)
-      {
-        break;
-      }
-
-      v21 = v12[v11];
-      ++v20;
-      if (v21)
-      {
-        v19 = __clz(__rbit64(v21));
-        v15 = (v21 - 1) & v21;
-        goto LABEL_17;
-      }
-    }
-
-    v33 = 1 << *(v7 + 32);
-    if (v33 >= 64)
-    {
-      bzero(v12, ((v33 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
-    }
-
-    else
-    {
-      *v12 = -1 << v33;
-    }
-
-    v2 = v35;
-    *(v7 + 16) = 0;
-  }
-
-  *v2 = v10;
+  *v1 = v4;
   return result;
 }
 
 {
   v2 = v1;
   v3 = *v1;
-  if (*(*v1 + 24) > a1)
-  {
-    v4 = *(*v1 + 24);
-  }
-
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy14NearbySessions0C5GroupC6MemberVGMd, &_ss11_SetStorageCy14NearbySessions0C5GroupC6MemberVGMR);
   result = static _SetStorage.resize(original:capacity:move:)();
-  v6 = result;
+  v5 = result;
   if (*(v3 + 16))
   {
-    v34 = v2;
-    v35 = v3;
-    v7 = 0;
-    v8 = (v3 + 56);
-    v9 = 1 << *(v3 + 32);
-    if (v9 < 64)
+    v32 = v1;
+    v33 = v3;
+    v6 = 0;
+    v7 = (v3 + 56);
+    v8 = 1 << *(v3 + 32);
+    if (v8 < 64)
     {
-      v10 = ~(-1 << v9);
+      v9 = ~(-1 << v8);
     }
 
     else
     {
-      v10 = -1;
+      v9 = -1;
     }
 
-    v11 = v10 & *(v3 + 56);
-    v12 = (v9 + 63) >> 6;
-    v13 = result + 56;
-    while (v11)
+    v10 = v9 & *(v3 + 56);
+    v11 = (v8 + 63) >> 6;
+    v12 = result + 56;
+    while (v10)
     {
-      v16 = __clz(__rbit64(v11));
-      v11 &= v11 - 1;
-LABEL_17:
-      v19 = (*(v3 + 48) + 32 * (v16 | (v7 << 6)));
-      v20 = *v19;
-      v21 = v19[1];
-      v22 = v19[2];
-      v23 = v19[3];
-      v24 = *(v6 + 40);
+      v15 = __clz(__rbit64(v10));
+      v10 &= v10 - 1;
+LABEL_15:
+      v18 = (*(v3 + 48) + 32 * (v15 | (v6 << 6)));
+      v19 = *v18;
+      v20 = v18[1];
+      v21 = v18[2];
+      v22 = v18[3];
       Hasher.init(_seed:)();
-      v36 = v21;
+      v34 = v20;
       String.hash(into:)();
-      if (v23)
+      if (v22)
       {
         Hasher._combine(_:)(1u);
-        v25 = v22;
+        v23 = v21;
         String.hash(into:)();
       }
 
       else
       {
-        v25 = v22;
+        v23 = v21;
         Hasher._combine(_:)(0);
       }
 
       result = Hasher._finalize()();
-      v26 = -1 << *(v6 + 32);
-      v27 = result & ~v26;
-      v28 = v27 >> 6;
-      if (((-1 << v27) & ~*(v13 + 8 * (v27 >> 6))) == 0)
+      v24 = -1 << *(v5 + 32);
+      v25 = result & ~v24;
+      v26 = v25 >> 6;
+      if (((-1 << v25) & ~*(v12 + 8 * (v25 >> 6))) == 0)
       {
-        v29 = 0;
-        v30 = (63 - v26) >> 6;
-        while (++v28 != v30 || (v29 & 1) == 0)
+        v27 = 0;
+        v28 = (63 - v24) >> 6;
+        while (++v26 != v28 || (v27 & 1) == 0)
         {
-          v31 = v28 == v30;
-          if (v28 == v30)
+          v29 = v26 == v28;
+          if (v26 == v28)
           {
-            v28 = 0;
+            v26 = 0;
           }
 
-          v29 |= v31;
-          v32 = *(v13 + 8 * v28);
-          if (v32 != -1)
+          v27 |= v29;
+          v30 = *(v12 + 8 * v26);
+          if (v30 != -1)
           {
-            v14 = __clz(__rbit64(~v32)) + (v28 << 6);
-            goto LABEL_9;
+            v13 = __clz(__rbit64(~v30)) + (v26 << 6);
+            goto LABEL_7;
           }
         }
 
-LABEL_35:
+LABEL_33:
         __break(1u);
         return result;
       }
 
-      v14 = __clz(__rbit64((-1 << v27) & ~*(v13 + 8 * (v27 >> 6)))) | v27 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v13 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v14;
-      v15 = (*(v6 + 48) + 32 * v14);
-      *v15 = v20;
-      v15[1] = v36;
-      v15[2] = v25;
-      v15[3] = v23;
-      ++*(v6 + 16);
-      v3 = v35;
+      v13 = __clz(__rbit64((-1 << v25) & ~*(v12 + 8 * (v25 >> 6)))) | v25 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v12 + ((v13 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v13;
+      v14 = (*(v5 + 48) + 32 * v13);
+      *v14 = v19;
+      v14[1] = v34;
+      v14[2] = v23;
+      v14[3] = v22;
+      ++*(v5 + 16);
+      v3 = v33;
     }
 
-    v17 = v7;
+    v16 = v6;
     while (1)
     {
-      v7 = v17 + 1;
-      if (__OFADD__(v17, 1))
+      v6 = v16 + 1;
+      if (__OFADD__(v16, 1))
       {
         __break(1u);
-        goto LABEL_35;
+        goto LABEL_33;
       }
 
-      if (v7 >= v12)
+      if (v6 >= v11)
       {
         break;
       }
 
-      v18 = v8[v7];
-      ++v17;
-      if (v18)
+      v17 = v7[v6];
+      ++v16;
+      if (v17)
       {
-        v16 = __clz(__rbit64(v18));
-        v11 = (v18 - 1) & v18;
-        goto LABEL_17;
+        v15 = __clz(__rbit64(v17));
+        v10 = (v17 - 1) & v17;
+        goto LABEL_15;
       }
     }
 
-    v33 = 1 << *(v3 + 32);
-    if (v33 >= 64)
+    v31 = 1 << *(v3 + 32);
+    if (v31 >= 64)
     {
-      bzero(v8, ((v33 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+      bzero(v7, ((v31 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
     }
 
     else
     {
-      *v8 = -1 << v33;
+      *v7 = -1 << v31;
     }
 
-    v2 = v34;
+    v2 = v32;
     *(v3 + 16) = 0;
   }
 
-  *v2 = v6;
+  *v2 = v5;
   return result;
 }
 
-uint64_t specialized _NativeSet.resize(capacity:)(uint64_t a1, uint64_t *a2, uint64_t *a3)
+uint64_t specialized _NativeSet.resize(capacity:)(uint64_t a1)
+{
+  v2 = v1;
+  v36 = type metadata accessor for AddressableMember();
+  v3 = *(v36 - 8);
+  MEMORY[0x28223BE20](v36);
+  v35 = &v29 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = *v1;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy15GroupActivities17AddressableMemberVGMd, &_ss11_SetStorageCy15GroupActivities17AddressableMemberVGMR);
+  result = static _SetStorage.resize(original:capacity:move:)();
+  v7 = result;
+  if (*(v5 + 16))
+  {
+    v30 = v1;
+    v31 = v5;
+    v8 = 0;
+    v9 = (v5 + 56);
+    v10 = 1 << *(v5 + 32);
+    if (v10 < 64)
+    {
+      v11 = ~(-1 << v10);
+    }
+
+    else
+    {
+      v11 = -1;
+    }
+
+    v12 = v11 & *(v5 + 56);
+    v13 = (v10 + 63) >> 6;
+    v34 = v3 + 32;
+    v14 = result + 56;
+    while (v12)
+    {
+      v16 = __clz(__rbit64(v12));
+      v12 &= v12 - 1;
+LABEL_15:
+      v19 = *(v5 + 48) + *(v3 + 72) * (v16 | (v8 << 6));
+      v20 = *(v3 + 32);
+      v32 = *(v3 + 72);
+      v33 = v20;
+      v20(v35, v19, v36);
+      lazy protocol witness table accessor for type AddressableMember and conformance AddressableMember(&lazy protocol witness table cache variable for type AddressableMember and conformance AddressableMember, MEMORY[0x277CCB298]);
+      result = dispatch thunk of Hashable._rawHashValue(seed:)();
+      v21 = -1 << *(v7 + 32);
+      v22 = result & ~v21;
+      v23 = v22 >> 6;
+      if (((-1 << v22) & ~*(v14 + 8 * (v22 >> 6))) == 0)
+      {
+        v24 = 0;
+        v25 = (63 - v21) >> 6;
+        while (++v23 != v25 || (v24 & 1) == 0)
+        {
+          v26 = v23 == v25;
+          if (v23 == v25)
+          {
+            v23 = 0;
+          }
+
+          v24 |= v26;
+          v27 = *(v14 + 8 * v23);
+          if (v27 != -1)
+          {
+            v15 = __clz(__rbit64(~v27)) + (v23 << 6);
+            goto LABEL_7;
+          }
+        }
+
+LABEL_30:
+        __break(1u);
+        return result;
+      }
+
+      v15 = __clz(__rbit64((-1 << v22) & ~*(v14 + 8 * (v22 >> 6)))) | v22 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v14 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v15;
+      result = v33(*(v7 + 48) + v15 * v32, v35, v36);
+      ++*(v7 + 16);
+      v5 = v31;
+    }
+
+    v17 = v8;
+    while (1)
+    {
+      v8 = v17 + 1;
+      if (__OFADD__(v17, 1))
+      {
+        __break(1u);
+        goto LABEL_30;
+      }
+
+      if (v8 >= v13)
+      {
+        break;
+      }
+
+      v18 = v9[v8];
+      ++v17;
+      if (v18)
+      {
+        v16 = __clz(__rbit64(v18));
+        v12 = (v18 - 1) & v18;
+        goto LABEL_15;
+      }
+    }
+
+    v28 = 1 << *(v5 + 32);
+    if (v28 >= 64)
+    {
+      bzero(v9, ((v28 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+    }
+
+    else
+    {
+      *v9 = -1 << v28;
+    }
+
+    v2 = v30;
+    *(v5 + 16) = 0;
+  }
+
+  *v2 = v7;
+  return result;
+}
+
+Swift::Int specialized _NativeSet.resize(capacity:)(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
   v4 = v3;
   v5 = *v3;
-  if (*(*v3 + 24) > a1)
-  {
-    v6 = *(*v3 + 24);
-  }
-
   __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
   result = static _SetStorage.resize(original:capacity:move:)();
-  v8 = result;
+  v7 = result;
   if (*(v5 + 16))
   {
+    v8 = 0;
+    v9 = (v5 + 56);
+    v10 = 1 << *(v5 + 32);
+    if (v10 < 64)
+    {
+      v11 = ~(-1 << v10);
+    }
+
+    else
+    {
+      v11 = -1;
+    }
+
+    v12 = v11 & *(v5 + 56);
+    v13 = (v10 + 63) >> 6;
+    v14 = result + 56;
+    while (v12)
+    {
+      v16 = __clz(__rbit64(v12));
+      v12 &= v12 - 1;
+LABEL_15:
+      v19 = *(*(v5 + 48) + 8 * (v16 | (v8 << 6)));
+      result = NSObject._rawHashValue(seed:)(*(v7 + 40));
+      v20 = -1 << *(v7 + 32);
+      v21 = result & ~v20;
+      v22 = v21 >> 6;
+      if (((-1 << v21) & ~*(v14 + 8 * (v21 >> 6))) == 0)
+      {
+        v23 = 0;
+        v24 = (63 - v20) >> 6;
+        while (++v22 != v24 || (v23 & 1) == 0)
+        {
+          v25 = v22 == v24;
+          if (v22 == v24)
+          {
+            v22 = 0;
+          }
+
+          v23 |= v25;
+          v26 = *(v14 + 8 * v22);
+          if (v26 != -1)
+          {
+            v15 = __clz(__rbit64(~v26)) + (v22 << 6);
+            goto LABEL_7;
+          }
+        }
+
+LABEL_30:
+        __break(1u);
+        return result;
+      }
+
+      v15 = __clz(__rbit64((-1 << v21) & ~*(v14 + 8 * (v21 >> 6)))) | v21 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v14 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v15;
+      *(*(v7 + 48) + 8 * v15) = v19;
+      ++*(v7 + 16);
+    }
+
+    v17 = v8;
+    while (1)
+    {
+      v8 = v17 + 1;
+      if (__OFADD__(v17, 1))
+      {
+        __break(1u);
+        goto LABEL_30;
+      }
+
+      if (v8 >= v13)
+      {
+        break;
+      }
+
+      v18 = v9[v8];
+      ++v17;
+      if (v18)
+      {
+        v16 = __clz(__rbit64(v18));
+        v12 = (v18 - 1) & v18;
+        goto LABEL_15;
+      }
+    }
+
+    v27 = 1 << *(v5 + 32);
+    if (v27 >= 64)
+    {
+      bzero((v5 + 56), ((v27 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+    }
+
+    else
+    {
+      *v9 = -1 << v27;
+    }
+
+    *(v5 + 16) = 0;
+  }
+
+  *v4 = v7;
+  return result;
+}
+
+unint64_t specialized _NativeSet._unsafeInsertNew(_:)(uint64_t a1, void *a2)
+{
+  NSObject._rawHashValue(seed:)(a2[5]);
+  result = _HashTable.nextHole(atOrAfter:)();
+  *(a2 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 56) |= 1 << result;
+  *(a2[6] + 8 * result) = a1;
+  ++a2[2];
+  return result;
+}
+
+uint64_t specialized _NativeSet.insertNew(_:at:isUnique:)(uint64_t *a1, unint64_t a2, char a3)
+{
+  v4 = v3;
+  v6 = *(*v3 + 16);
+  v7 = *(*v3 + 24);
+  if (v7 > v6 && (a3 & 1) != 0)
+  {
+    goto LABEL_12;
+  }
+
+  if (a3)
+  {
+    specialized _NativeSet.resize(capacity:)(v6 + 1);
+  }
+
+  else
+  {
+    if (v7 > v6)
+    {
+      specialized _NativeSet.copy()();
+      goto LABEL_12;
+    }
+
+    specialized _NativeSet.copyAndResize(capacity:)(v6 + 1);
+  }
+
+  v8 = *v3;
+  Hasher.init(_seed:)();
+  NSObject.hash(into:)();
+  v9 = Hasher._finalize()();
+  v10 = -1 << *(v8 + 32);
+  a2 = v9 & ~v10;
+  if ((*(v8 + 56 + ((a2 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a2))
+  {
+    v11 = ~v10;
+    do
+    {
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NearbySessions0A10InvitationC13PendingMemberVyAA0A5GroupC_GMd, &_s14NearbySessions0A10InvitationC13PendingMemberVyAA0A5GroupC_GMR);
+      outlined init with copy of NearbyInvitation<NearbyGroup>.PendingMember(*(v8 + 48) + 16 * a2, v19);
+      type metadata accessor for NSObject();
+      v12 = static NSObject.== infix(_:_:)();
+      outlined destroy of NSObject?(v19, &_s14NearbySessions0A10InvitationC13PendingMemberVyAA0A5GroupC_GMd, &_s14NearbySessions0A10InvitationC13PendingMemberVyAA0A5GroupC_GMR);
+      if (v12)
+      {
+        goto LABEL_15;
+      }
+
+      a2 = (a2 + 1) & v11;
+    }
+
+    while (((*(v8 + 56 + ((a2 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a2) & 1) != 0);
+  }
+
+LABEL_12:
+  v13 = *v4;
+  *(*v4 + 8 * (a2 >> 6) + 56) |= 1 << a2;
+  result = outlined init with take of NearbyInvitation<NearbyGroup>.PendingMember(a1, *(v13 + 48) + 16 * a2);
+  v15 = *(v13 + 16);
+  v16 = __OFADD__(v15, 1);
+  v17 = v15 + 1;
+  if (!v16)
+  {
+    *(v13 + 16) = v17;
+    return result;
+  }
+
+  __break(1u);
+LABEL_15:
+  result = ELEMENT_TYPE_OF_SET_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+  __break(1u);
+  return result;
+}
+
+uint64_t specialized _NativeSet.insertNew(_:at:isUnique:)(uint64_t a1, unint64_t a2, char a3)
+{
+  v31 = a1;
+  v6 = type metadata accessor for AddressableMember();
+  v7 = *(v6 - 8);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v28 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = *(*v3 + 16);
+  v11 = *(*v3 + 24);
+  v28 = v3;
+  v29 = v7;
+  if (v11 > v10 && (a3 & 1) != 0)
+  {
+    goto LABEL_12;
+  }
+
+  if (a3)
+  {
+    specialized _NativeSet.resize(capacity:)(v10 + 1);
+  }
+
+  else
+  {
+    if (v11 > v10)
+    {
+      specialized _NativeSet.copy()();
+      goto LABEL_12;
+    }
+
+    specialized _NativeSet.copyAndResize(capacity:)(v10 + 1);
+  }
+
+  v12 = *v3;
+  lazy protocol witness table accessor for type AddressableMember and conformance AddressableMember(&lazy protocol witness table cache variable for type AddressableMember and conformance AddressableMember, MEMORY[0x277CCB298]);
+  v13 = dispatch thunk of Hashable._rawHashValue(seed:)();
+  v14 = v12 + 56;
+  v30 = v12;
+  v15 = -1 << *(v12 + 32);
+  a2 = v13 & ~v15;
+  if ((*(v12 + 56 + ((a2 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a2))
+  {
+    v16 = ~v15;
+    v19 = *(v7 + 16);
+    v18 = v7 + 16;
+    v17 = v19;
+    v20 = *(v18 + 56);
+    do
+    {
+      v17(v9, *(v30 + 48) + v20 * a2, v6);
+      lazy protocol witness table accessor for type AddressableMember and conformance AddressableMember(&lazy protocol witness table cache variable for type AddressableMember and conformance AddressableMember, MEMORY[0x277CCB2A0]);
+      v21 = dispatch thunk of static Equatable.== infix(_:_:)();
+      (*(v18 - 8))(v9, v6);
+      if (v21)
+      {
+        goto LABEL_15;
+      }
+
+      a2 = (a2 + 1) & v16;
+    }
+
+    while (((*(v14 + ((a2 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a2) & 1) != 0);
+  }
+
+LABEL_12:
+  v22 = v29;
+  v23 = *v28;
+  *(v23 + 8 * (a2 >> 6) + 56) |= 1 << a2;
+  result = (*(v22 + 32))(*(v23 + 48) + *(v22 + 72) * a2, v31, v6);
+  v25 = *(v23 + 16);
+  v26 = __OFADD__(v25, 1);
+  v27 = v25 + 1;
+  if (!v26)
+  {
+    *(v23 + 16) = v27;
+    return result;
+  }
+
+  __break(1u);
+LABEL_15:
+  result = ELEMENT_TYPE_OF_SET_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+  __break(1u);
+  return result;
+}
+
+void specialized _NativeSet.insertNew(_:at:isUnique:)(uint64_t a1, unint64_t a2, char a3, uint64_t *a4, uint64_t *a5, void (*a6)(void))
+{
+  v9 = *(*v6 + 16);
+  v10 = *(*v6 + 24);
+  if (v10 > v9 && (a3 & 1) != 0)
+  {
+    goto LABEL_12;
+  }
+
+  if (a3)
+  {
+    v11 = a6;
+    specialized _NativeSet.resize(capacity:)(v9 + 1, a4, a5);
+  }
+
+  else
+  {
+    if (v10 > v9)
+    {
+      specialized _NativeSet.copy()(a4, a5);
+      goto LABEL_12;
+    }
+
+    v11 = a6;
+    specialized _NativeSet.copyAndResize(capacity:)(v9 + 1, a4, a5);
+  }
+
+  v12 = *v6;
+  v13 = NSObject._rawHashValue(seed:)(*(*v6 + 40));
+  v14 = -1 << *(v12 + 32);
+  a2 = v13 & ~v14;
+  if ((*(v12 + 56 + ((a2 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a2))
+  {
+    v15 = ~v14;
+    v11(0);
+    do
+    {
+      v16 = *(*(v12 + 48) + 8 * a2);
+      v17 = static NSObject.== infix(_:_:)();
+
+      if (v17)
+      {
+        goto LABEL_15;
+      }
+
+      a2 = (a2 + 1) & v15;
+    }
+
+    while (((*(v12 + 56 + ((a2 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a2) & 1) != 0);
+  }
+
+LABEL_12:
+  v18 = *v6;
+  *(*v6 + 8 * (a2 >> 6) + 56) |= 1 << a2;
+  *(*(v18 + 48) + 8 * a2) = a1;
+  v19 = *(v18 + 16);
+  v20 = __OFADD__(v19, 1);
+  v21 = v19 + 1;
+  if (!v20)
+  {
+    *(v18 + 16) = v21;
+    return;
+  }
+
+  __break(1u);
+LABEL_15:
+  ELEMENT_TYPE_OF_SET_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+  __break(1u);
+}
+
+Swift::Int specialized _NativeSet.insertNew(_:at:isUnique:)(Swift::Int result, Swift::Int a2, Swift::Int a3, Swift::Int a4, unint64_t a5, char a6)
+{
+  v11 = result;
+  v12 = *(*v6 + 16);
+  v13 = *(*v6 + 24);
+  if (v13 > v12 && (a6 & 1) != 0)
+  {
+    goto LABEL_28;
+  }
+
+  if (a6)
+  {
+    specialized _NativeSet.resize(capacity:)(v12 + 1);
+  }
+
+  else
+  {
+    if (v13 > v12)
+    {
+      result = specialized _NativeSet.copy()();
+      goto LABEL_28;
+    }
+
+    specialized _NativeSet.copyAndResize(capacity:)(v12 + 1);
+  }
+
+  v14 = *v6;
+  Hasher.init(_seed:)();
+  String.hash(into:)();
+  if (a4)
+  {
+    Hasher._combine(_:)(1u);
+    String.hash(into:)();
+  }
+
+  else
+  {
+    Hasher._combine(_:)(0);
+  }
+
+  result = Hasher._finalize()();
+  v15 = v14 + 56;
+  v16 = -1 << *(v14 + 32);
+  a5 = result & ~v16;
+  if ((*(v14 + 56 + ((a5 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a5))
+  {
+    v17 = ~v16;
+    v18 = *(v14 + 48);
+    do
+    {
+      v19 = (v18 + 32 * a5);
+      result = *v19;
+      v21 = v19[2];
+      v20 = v19[3];
+      v22 = *v19 == v11 && v19[1] == a2;
+      if (v22 || (result = _stringCompareWithSmolCheck(_:_:expecting:)(), (result & 1) != 0))
+      {
+        if (v20)
+        {
+          if (a4)
+          {
+            v23 = v21 == a3 && v20 == a4;
+            if (v23 || (result = _stringCompareWithSmolCheck(_:_:expecting:)(), (result & 1) != 0))
+            {
+LABEL_27:
+              result = ELEMENT_TYPE_OF_SET_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+              __break(1u);
+              break;
+            }
+          }
+        }
+
+        else if (!a4)
+        {
+          goto LABEL_27;
+        }
+      }
+
+      a5 = (a5 + 1) & v17;
+    }
+
+    while (((*(v15 + ((a5 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a5) & 1) != 0);
+  }
+
+LABEL_28:
+  v24 = *v29;
+  *(*v29 + 8 * (a5 >> 6) + 56) |= 1 << a5;
+  v25 = (*(v24 + 48) + 32 * a5);
+  *v25 = v11;
+  v25[1] = a2;
+  v25[2] = a3;
+  v25[3] = a4;
+  v26 = *(v24 + 16);
+  v27 = __OFADD__(v26, 1);
+  v28 = v26 + 1;
+  if (v27)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    *(v24 + 16) = v28;
+  }
+
+  return result;
+}
+
+void *specialized _NativeSet.copy()()
+{
+  v1 = v0;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy14NearbySessions0C10InvitationC13PendingMemberVyAC0C5GroupC_GGMd, &_ss11_SetStorageCy14NearbySessions0C10InvitationC13PendingMemberVyAC0C5GroupC_GGMR);
+  v2 = *v0;
+  v3 = static _SetStorage.copy(original:)();
+  v4 = v3;
+  if (*(v2 + 16))
+  {
+    result = (v3 + 56);
+    v6 = ((1 << *(v4 + 32)) + 63) >> 6;
+    if (v4 != v2 || result >= v2 + 56 + 8 * v6)
+    {
+      result = memmove(result, (v2 + 56), 8 * v6);
+    }
+
+    v8 = 0;
+    *(v4 + 16) = *(v2 + 16);
+    v9 = 1 << *(v2 + 32);
+    v10 = *(v2 + 56);
+    v11 = -1;
+    if (v9 < 64)
+    {
+      v11 = ~(-1 << v9);
+    }
+
+    v12 = v11 & v10;
+    v13 = (v9 + 63) >> 6;
+    if ((v11 & v10) != 0)
+    {
+      do
+      {
+        v14 = __clz(__rbit64(v12));
+        v12 &= v12 - 1;
+LABEL_17:
+        v17 = 16 * (v14 | (v8 << 6));
+        outlined init with copy of NearbyInvitation<NearbyGroup>.PendingMember(*(v2 + 48) + v17, v18);
+        result = outlined init with take of NearbyInvitation<NearbyGroup>.PendingMember(v18, *(v4 + 48) + v17);
+      }
+
+      while (v12);
+    }
+
+    v15 = v8;
+    while (1)
+    {
+      v8 = v15 + 1;
+      if (__OFADD__(v15, 1))
+      {
+        break;
+      }
+
+      if (v8 >= v13)
+      {
+        goto LABEL_19;
+      }
+
+      v16 = *(v2 + 56 + 8 * v8);
+      ++v15;
+      if (v16)
+      {
+        v14 = __clz(__rbit64(v16));
+        v12 = (v16 - 1) & v16;
+        goto LABEL_17;
+      }
+    }
+
+    __break(1u);
+  }
+
+  else
+  {
+LABEL_19:
+
+    *v1 = v4;
+  }
+
+  return result;
+}
+
+{
+  v1 = v0;
+  v2 = type metadata accessor for AddressableMember();
+  v3 = *(v2 - 8);
+  MEMORY[0x28223BE20](v2);
+  v5 = &v21 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy15GroupActivities17AddressableMemberVGMd, &_ss11_SetStorageCy15GroupActivities17AddressableMemberVGMR);
+  v6 = *v0;
+  v7 = static _SetStorage.copy(original:)();
+  v8 = v7;
+  if (*(v6 + 16))
+  {
+    v22 = v1;
+    result = (v7 + 56);
+    v10 = v6 + 56;
+    v11 = ((1 << *(v8 + 32)) + 63) >> 6;
+    if (v8 != v6 || result >= v10 + 8 * v11)
+    {
+      result = memmove(result, (v6 + 56), 8 * v11);
+    }
+
+    v12 = 0;
+    *(v8 + 16) = *(v6 + 16);
+    v13 = 1 << *(v6 + 32);
+    v14 = -1;
+    if (v13 < 64)
+    {
+      v14 = ~(-1 << v13);
+    }
+
+    v15 = v14 & *(v6 + 56);
+    v16 = (v13 + 63) >> 6;
+    v23 = v3 + 32;
+    for (i = v3 + 16; v15; result = (*(v3 + 32))(*(v8 + 48) + v20, v5, v2))
+    {
+      v17 = __clz(__rbit64(v15));
+      v15 &= v15 - 1;
+LABEL_14:
+      v20 = *(v3 + 72) * (v17 | (v12 << 6));
+      (*(v3 + 16))(v5, *(v6 + 48) + v20, v2);
+    }
+
+    v18 = v12;
+    while (1)
+    {
+      v12 = v18 + 1;
+      if (__OFADD__(v18, 1))
+      {
+        break;
+      }
+
+      if (v12 >= v16)
+      {
+
+        v1 = v22;
+        goto LABEL_18;
+      }
+
+      v19 = *(v10 + 8 * v12);
+      ++v18;
+      if (v19)
+      {
+        v17 = __clz(__rbit64(v19));
+        v15 = (v19 - 1) & v19;
+        goto LABEL_14;
+      }
+    }
+
+    __break(1u);
+  }
+
+  else
+  {
+
+LABEL_18:
+    *v1 = v8;
+  }
+
+  return result;
+}
+
+{
+  v1 = v0;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy14NearbySessions0C5GroupC6MemberVGMd, &_ss11_SetStorageCy14NearbySessions0C5GroupC6MemberVGMR);
+  v2 = *v0;
+  v3 = static _SetStorage.copy(original:)();
+  v4 = v3;
+  if (*(v2 + 16))
+  {
+    result = (v3 + 56);
+    v6 = ((1 << *(v4 + 32)) + 63) >> 6;
+    if (v4 != v2 || result >= v2 + 56 + 8 * v6)
+    {
+      result = memmove(result, (v2 + 56), 8 * v6);
+    }
+
+    v8 = 0;
+    *(v4 + 16) = *(v2 + 16);
+    v9 = 1 << *(v2 + 32);
+    v10 = *(v2 + 56);
+    v11 = -1;
+    if (v9 < 64)
+    {
+      v11 = ~(-1 << v9);
+    }
+
+    v12 = v11 & v10;
+    v13 = (v9 + 63) >> 6;
+    if ((v11 & v10) != 0)
+    {
+      do
+      {
+        v14 = __clz(__rbit64(v12));
+        v12 &= v12 - 1;
+LABEL_17:
+        v17 = 32 * (v14 | (v8 << 6));
+        v18 = (*(v2 + 48) + v17);
+        v19 = v18[1];
+        v21 = v18[2];
+        v20 = v18[3];
+        v22 = (*(v4 + 48) + v17);
+        *v22 = *v18;
+        v22[1] = v19;
+        v22[2] = v21;
+        v22[3] = v20;
+      }
+
+      while (v12);
+    }
+
+    v15 = v8;
+    while (1)
+    {
+      v8 = v15 + 1;
+      if (__OFADD__(v15, 1))
+      {
+        break;
+      }
+
+      if (v8 >= v13)
+      {
+        goto LABEL_19;
+      }
+
+      v16 = *(v2 + 56 + 8 * v8);
+      ++v15;
+      if (v16)
+      {
+        v14 = __clz(__rbit64(v16));
+        v12 = (v16 - 1) & v16;
+        goto LABEL_17;
+      }
+    }
+
+    __break(1u);
+  }
+
+  else
+  {
+LABEL_19:
+
+    *v1 = v4;
+  }
+
+  return result;
+}
+
+id specialized _NativeSet.copy()(uint64_t *a1, uint64_t *a2)
+{
+  v3 = v2;
+  __swift_instantiateConcreteTypeFromMangledNameV2(a1, a2);
+  v4 = *v2;
+  v5 = static _SetStorage.copy(original:)();
+  v6 = v5;
+  if (*(v4 + 16))
+  {
+    result = (v5 + 56);
+    v8 = ((1 << *(v6 + 32)) + 63) >> 6;
+    if (v6 != v4 || result >= v4 + 56 + 8 * v8)
+    {
+      result = memmove(result, (v4 + 56), 8 * v8);
+    }
+
+    v10 = 0;
+    *(v6 + 16) = *(v4 + 16);
+    v11 = 1 << *(v4 + 32);
+    v12 = *(v4 + 56);
+    v13 = -1;
+    if (v11 < 64)
+    {
+      v13 = ~(-1 << v11);
+    }
+
+    v14 = v13 & v12;
+    v15 = (v11 + 63) >> 6;
+    if ((v13 & v12) != 0)
+    {
+      do
+      {
+        v16 = __clz(__rbit64(v14));
+        v14 &= v14 - 1;
+LABEL_17:
+        v19 = v16 | (v10 << 6);
+        v20 = *(*(v4 + 48) + 8 * v19);
+        *(*(v6 + 48) + 8 * v19) = v20;
+        result = v20;
+      }
+
+      while (v14);
+    }
+
+    v17 = v10;
+    while (1)
+    {
+      v10 = v17 + 1;
+      if (__OFADD__(v17, 1))
+      {
+        break;
+      }
+
+      if (v10 >= v15)
+      {
+        goto LABEL_19;
+      }
+
+      v18 = *(v4 + 56 + 8 * v10);
+      ++v17;
+      if (v18)
+      {
+        v16 = __clz(__rbit64(v18));
+        v14 = (v18 - 1) & v18;
+        goto LABEL_17;
+      }
+    }
+
+    __break(1u);
+  }
+
+  else
+  {
+LABEL_19:
+
+    *v3 = v6;
+  }
+
+  return result;
+}
+
+Swift::Int specialized _NativeSet.copyAndResize(capacity:)(uint64_t a1)
+{
+  v2 = *v1;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy14NearbySessions0C10InvitationC13PendingMemberVyAC0C5GroupC_GGMd, &_ss11_SetStorageCy14NearbySessions0C10InvitationC13PendingMemberVyAC0C5GroupC_GGMR);
+  result = static _SetStorage.resize(original:capacity:move:)();
+  v4 = result;
+  if (*(v2 + 16))
+  {
+    v5 = 0;
+    v6 = 1 << *(v2 + 32);
+    if (v6 < 64)
+    {
+      v7 = ~(-1 << v6);
+    }
+
+    else
+    {
+      v7 = -1;
+    }
+
+    v8 = v7 & *(v2 + 56);
+    v9 = (v6 + 63) >> 6;
+    v10 = result + 56;
+    while (v8)
+    {
+      v12 = __clz(__rbit64(v8));
+      v8 &= v8 - 1;
+LABEL_15:
+      outlined init with copy of NearbyInvitation<NearbyGroup>.PendingMember(*(v2 + 48) + 16 * (v12 | (v5 << 6)), v22);
+      Hasher.init(_seed:)();
+      NSObject.hash(into:)();
+      result = Hasher._finalize()();
+      v15 = -1 << *(v4 + 32);
+      v16 = result & ~v15;
+      v17 = v16 >> 6;
+      if (((-1 << v16) & ~*(v10 + 8 * (v16 >> 6))) == 0)
+      {
+        v18 = 0;
+        v19 = (63 - v15) >> 6;
+        while (++v17 != v19 || (v18 & 1) == 0)
+        {
+          v20 = v17 == v19;
+          if (v17 == v19)
+          {
+            v17 = 0;
+          }
+
+          v18 |= v20;
+          v21 = *(v10 + 8 * v17);
+          if (v21 != -1)
+          {
+            v11 = __clz(__rbit64(~v21)) + (v17 << 6);
+            goto LABEL_7;
+          }
+        }
+
+        goto LABEL_26;
+      }
+
+      v11 = __clz(__rbit64((-1 << v16) & ~*(v10 + 8 * (v16 >> 6)))) | v16 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v10 + ((v11 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v11;
+      result = outlined init with take of NearbyInvitation<NearbyGroup>.PendingMember(v22, *(v4 + 48) + 16 * v11);
+      ++*(v4 + 16);
+    }
+
+    v13 = v5;
+    while (1)
+    {
+      v5 = v13 + 1;
+      if (__OFADD__(v13, 1))
+      {
+        break;
+      }
+
+      if (v5 >= v9)
+      {
+        goto LABEL_24;
+      }
+
+      v14 = *(v2 + 56 + 8 * v5);
+      ++v13;
+      if (v14)
+      {
+        v12 = __clz(__rbit64(v14));
+        v8 = (v14 - 1) & v14;
+        goto LABEL_15;
+      }
+    }
+
+    __break(1u);
+LABEL_26:
+    __break(1u);
+  }
+
+  else
+  {
+LABEL_24:
+
+    *v1 = v4;
+  }
+
+  return result;
+}
+
+{
+  v2 = v1;
+  v3 = *v1;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy14NearbySessions0C5GroupC6MemberVGMd, &_ss11_SetStorageCy14NearbySessions0C5GroupC6MemberVGMR);
+  result = static _SetStorage.resize(original:capacity:move:)();
+  v5 = result;
+  if (*(v3 + 16))
+  {
+    v31 = v2;
+    v32 = v3;
+    v6 = 0;
+    v7 = v3 + 56;
+    v8 = 1 << *(v3 + 32);
+    if (v8 < 64)
+    {
+      v9 = ~(-1 << v8);
+    }
+
+    else
+    {
+      v9 = -1;
+    }
+
+    v10 = v9 & *(v3 + 56);
+    v11 = (v8 + 63) >> 6;
+    v12 = result + 56;
+    while (v10)
+    {
+      v15 = __clz(__rbit64(v10));
+      v34 = (v10 - 1) & v10;
+LABEL_15:
+      v18 = (*(v3 + 48) + 32 * (v15 | (v6 << 6)));
+      v19 = *v18;
+      v20 = v18[1];
+      v21 = v18[2];
+      v22 = v18[3];
+      Hasher.init(_seed:)();
+
+      v33 = v19;
+      String.hash(into:)();
+      if (v22)
+      {
+        Hasher._combine(_:)(1u);
+        v23 = v21;
+        String.hash(into:)();
+      }
+
+      else
+      {
+        v23 = v21;
+        Hasher._combine(_:)(0);
+      }
+
+      result = Hasher._finalize()();
+      v24 = -1 << *(v5 + 32);
+      v25 = result & ~v24;
+      v26 = v25 >> 6;
+      if (((-1 << v25) & ~*(v12 + 8 * (v25 >> 6))) == 0)
+      {
+        v27 = 0;
+        v28 = (63 - v24) >> 6;
+        while (++v26 != v28 || (v27 & 1) == 0)
+        {
+          v29 = v26 == v28;
+          if (v26 == v28)
+          {
+            v26 = 0;
+          }
+
+          v27 |= v29;
+          v30 = *(v12 + 8 * v26);
+          if (v30 != -1)
+          {
+            v13 = __clz(__rbit64(~v30)) + (v26 << 6);
+            goto LABEL_7;
+          }
+        }
+
+        goto LABEL_31;
+      }
+
+      v13 = __clz(__rbit64((-1 << v25) & ~*(v12 + 8 * (v25 >> 6)))) | v25 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v12 + ((v13 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v13;
+      v14 = (*(v5 + 48) + 32 * v13);
+      v3 = v32;
+      *v14 = v33;
+      v14[1] = v20;
+      v14[2] = v23;
+      v14[3] = v22;
+      ++*(v5 + 16);
+      v10 = v34;
+    }
+
+    v16 = v6;
+    while (1)
+    {
+      v6 = v16 + 1;
+      if (__OFADD__(v16, 1))
+      {
+        break;
+      }
+
+      if (v6 >= v11)
+      {
+
+        v2 = v31;
+        goto LABEL_29;
+      }
+
+      v17 = *(v7 + 8 * v6);
+      ++v16;
+      if (v17)
+      {
+        v15 = __clz(__rbit64(v17));
+        v34 = (v17 - 1) & v17;
+        goto LABEL_15;
+      }
+    }
+
+    __break(1u);
+LABEL_31:
+    __break(1u);
+  }
+
+  else
+  {
+
+LABEL_29:
+    *v2 = v5;
+  }
+
+  return result;
+}
+
+uint64_t specialized _NativeSet.copyAndResize(capacity:)(uint64_t a1)
+{
+  v2 = v1;
+  v33 = type metadata accessor for AddressableMember();
+  v3 = *(v33 - 8);
+  MEMORY[0x28223BE20](v33);
+  v5 = &v28 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = *v1;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy15GroupActivities17AddressableMemberVGMd, &_ss11_SetStorageCy15GroupActivities17AddressableMemberVGMR);
+  v7 = static _SetStorage.resize(original:capacity:move:)();
+  result = v6;
+  if (*(v6 + 16))
+  {
+    v28 = v1;
     v9 = 0;
-    v10 = (v5 + 56);
-    v11 = 1 << *(v5 + 32);
+    v10 = v6 + 56;
+    v11 = 1 << *(v6 + 32);
     if (v11 < 64)
     {
       v12 = ~(-1 << v11);
@@ -9640,17 +9838,23 @@ uint64_t specialized _NativeSet.resize(capacity:)(uint64_t a1, uint64_t *a2, uin
       v12 = -1;
     }
 
-    v13 = v12 & *(v5 + 56);
+    v13 = v12 & *(v6 + 56);
     v14 = (v11 + 63) >> 6;
-    v15 = result + 56;
+    v31 = v3 + 16;
+    v32 = v3;
+    v15 = v7 + 56;
+    v29 = (v3 + 32);
+    v30 = result;
     while (v13)
     {
       v17 = __clz(__rbit64(v13));
       v13 &= v13 - 1;
-LABEL_17:
-      v20 = *(*(v5 + 48) + 8 * (v17 | (v9 << 6)));
-      result = NSObject._rawHashValue(seed:)(*(v8 + 40));
-      v21 = -1 << *(v8 + 32);
+LABEL_15:
+      v20 = *(v32 + 72);
+      (*(v32 + 16))(v5, *(result + 48) + v20 * (v17 | (v9 << 6)), v33);
+      lazy protocol witness table accessor for type AddressableMember and conformance AddressableMember(&lazy protocol witness table cache variable for type AddressableMember and conformance AddressableMember, MEMORY[0x277CCB298]);
+      result = dispatch thunk of Hashable._rawHashValue(seed:)();
+      v21 = -1 << *(v7 + 32);
       v22 = result & ~v21;
       v23 = v22 >> 6;
       if (((-1 << v22) & ~*(v15 + 8 * (v22 >> 6))) == 0)
@@ -9670,20 +9874,19 @@ LABEL_17:
           if (v27 != -1)
           {
             v16 = __clz(__rbit64(~v27)) + (v23 << 6);
-            goto LABEL_9;
+            goto LABEL_7;
           }
         }
 
-LABEL_32:
-        __break(1u);
-        return result;
+        goto LABEL_28;
       }
 
       v16 = __clz(__rbit64((-1 << v22) & ~*(v15 + 8 * (v22 >> 6)))) | v22 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
+LABEL_7:
       *(v15 + ((v16 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v16;
-      *(*(v8 + 48) + 8 * v16) = v20;
-      ++*(v8 + 16);
+      (*v29)(*(v7 + 48) + v16 * v20, v5, v33);
+      ++*(v7 + 16);
+      result = v30;
     }
 
     v18 = v9;
@@ -9692,211 +9895,37 @@ LABEL_9:
       v9 = v18 + 1;
       if (__OFADD__(v18, 1))
       {
-        __break(1u);
-        goto LABEL_32;
+        break;
       }
 
       if (v9 >= v14)
       {
-        break;
+
+        v2 = v28;
+        goto LABEL_26;
       }
 
-      v19 = v10[v9];
+      v19 = *(v10 + 8 * v9);
       ++v18;
       if (v19)
       {
         v17 = __clz(__rbit64(v19));
         v13 = (v19 - 1) & v19;
-        goto LABEL_17;
+        goto LABEL_15;
       }
     }
 
-    v28 = 1 << *(v5 + 32);
-    if (v28 >= 64)
-    {
-      bzero((v5 + 56), ((v28 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
-    }
-
-    else
-    {
-      *v10 = -1 << v28;
-    }
-
-    *(v5 + 16) = 0;
-  }
-
-  *v4 = v8;
-  return result;
-}
-
-unint64_t specialized _NativeSet._unsafeInsertNew(_:)(uint64_t a1, uint64_t a2)
-{
-  NSObject._rawHashValue(seed:)(*(a2 + 40));
-  v4 = -1 << *(a2 + 32);
-  result = _HashTable.nextHole(atOrAfter:)();
-  *(a2 + 56 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << result;
-  *(*(a2 + 48) + 8 * result) = a1;
-  ++*(a2 + 16);
-  return result;
-}
-
-uint64_t specialized _NativeSet.insertNew(_:at:isUnique:)(uint64_t *a1, unint64_t a2, char a3)
-{
-  v4 = v3;
-  v7 = *(*v3 + 16);
-  v8 = *(*v3 + 24);
-  if (v8 > v7 && (a3 & 1) != 0)
-  {
-    goto LABEL_12;
-  }
-
-  if (a3)
-  {
-    specialized _NativeSet.resize(capacity:)(v7 + 1);
+    __break(1u);
+LABEL_28:
+    __break(1u);
   }
 
   else
   {
-    if (v8 > v7)
-    {
-      specialized _NativeSet.copy()();
-      goto LABEL_12;
-    }
 
-    specialized _NativeSet.copyAndResize(capacity:)(v7 + 1);
+LABEL_26:
+    *v2 = v7;
   }
 
-  v9 = *v3;
-  v10 = *(*v3 + 40);
-  Hasher.init(_seed:)();
-  v11 = *a1;
-  NSObject.hash(into:)();
-  v12 = Hasher._finalize()();
-  v13 = -1 << *(v9 + 32);
-  a2 = v12 & ~v13;
-  if ((*(v9 + 56 + ((a2 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a2))
-  {
-    v14 = ~v13;
-    do
-    {
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NearbySessions0A10InvitationC13PendingMemberVyAA0A5GroupC_GMd, &_s14NearbySessions0A10InvitationC13PendingMemberVyAA0A5GroupC_GMR);
-      outlined init with copy of NearbyInvitation<NearbyGroup>.PendingMember(*(v9 + 48) + 16 * a2, v22);
-      type metadata accessor for NSObject();
-      v15 = static NSObject.== infix(_:_:)();
-      outlined destroy of NSObject?(v22, &_s14NearbySessions0A10InvitationC13PendingMemberVyAA0A5GroupC_GMd, &_s14NearbySessions0A10InvitationC13PendingMemberVyAA0A5GroupC_GMR);
-      if (v15)
-      {
-        goto LABEL_15;
-      }
-
-      a2 = (a2 + 1) & v14;
-    }
-
-    while (((*(v9 + 56 + ((a2 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a2) & 1) != 0);
-  }
-
-LABEL_12:
-  v16 = *v4;
-  *(*v4 + 8 * (a2 >> 6) + 56) |= 1 << a2;
-  result = outlined init with take of NearbyInvitation<NearbyGroup>.PendingMember(a1, *(v16 + 48) + 16 * a2);
-  v18 = *(v16 + 16);
-  v19 = __OFADD__(v18, 1);
-  v20 = v18 + 1;
-  if (!v19)
-  {
-    *(v16 + 16) = v20;
-    return result;
-  }
-
-  __break(1u);
-LABEL_15:
-  result = ELEMENT_TYPE_OF_SET_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
-  __break(1u);
-  return result;
-}
-
-uint64_t specialized _NativeSet.insertNew(_:at:isUnique:)(uint64_t a1, unint64_t a2, char a3)
-{
-  v33 = a1;
-  v6 = type metadata accessor for AddressableMember();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v6);
-  v10 = &v30 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = *(*v3 + 16);
-  v12 = *(*v3 + 24);
-  v30 = v3;
-  v31 = v7;
-  if (v12 > v11 && (a3 & 1) != 0)
-  {
-    goto LABEL_12;
-  }
-
-  if (a3)
-  {
-    specialized _NativeSet.resize(capacity:)(v11 + 1);
-  }
-
-  else
-  {
-    if (v12 > v11)
-    {
-      specialized _NativeSet.copy()();
-      goto LABEL_12;
-    }
-
-    specialized _NativeSet.copyAndResize(capacity:)(v11 + 1);
-  }
-
-  v13 = *v3;
-  v14 = *(*v3 + 40);
-  lazy protocol witness table accessor for type AddressableMember and conformance AddressableMember(&lazy protocol witness table cache variable for type AddressableMember and conformance AddressableMember);
-  v15 = dispatch thunk of Hashable._rawHashValue(seed:)();
-  v16 = v13 + 56;
-  v32 = v13;
-  v17 = -1 << *(v13 + 32);
-  a2 = v15 & ~v17;
-  if ((*(v13 + 56 + ((a2 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a2))
-  {
-    v18 = ~v17;
-    v21 = *(v7 + 16);
-    v20 = v7 + 16;
-    v19 = v21;
-    v22 = *(v20 + 56);
-    do
-    {
-      v19(v10, *(v32 + 48) + v22 * a2, v6);
-      lazy protocol witness table accessor for type AddressableMember and conformance AddressableMember(&lazy protocol witness table cache variable for type AddressableMember and conformance AddressableMember);
-      v23 = dispatch thunk of static Equatable.== infix(_:_:)();
-      (*(v20 - 8))(v10, v6);
-      if (v23)
-      {
-        goto LABEL_15;
-      }
-
-      a2 = (a2 + 1) & v18;
-    }
-
-    while (((*(v16 + ((a2 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a2) & 1) != 0);
-  }
-
-LABEL_12:
-  v24 = v31;
-  v25 = *v30;
-  *(v25 + 8 * (a2 >> 6) + 56) |= 1 << a2;
-  result = (*(v24 + 32))(*(v25 + 48) + *(v24 + 72) * a2, v33, v6);
-  v27 = *(v25 + 16);
-  v28 = __OFADD__(v27, 1);
-  v29 = v27 + 1;
-  if (!v28)
-  {
-    *(v25 + 16) = v29;
-    return result;
-  }
-
-  __break(1u);
-LABEL_15:
-  result = ELEMENT_TYPE_OF_SET_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
-  __break(1u);
   return result;
 }

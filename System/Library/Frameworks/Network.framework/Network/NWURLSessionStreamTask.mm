@@ -52,21 +52,21 @@
     if (startTimeoutTimer)
     {
       self->super._startTimeoutTimer = 0;
-      nw_queue_cancel_source(startTimeoutTimer, v9);
+      nw_queue_cancel_source(startTimeoutTimer);
     }
 
     requestTimeoutTimer = self->super._requestTimeoutTimer;
     if (requestTimeoutTimer)
     {
       self->super._requestTimeoutTimer = 0;
-      nw_queue_cancel_source(requestTimeoutTimer, v9);
+      nw_queue_cancel_source(requestTimeoutTimer);
     }
 
     resourceTimeoutTimer = self->super._resourceTimeoutTimer;
     if (resourceTimeoutTimer)
     {
       self->super._resourceTimeoutTimer = 0;
-      nw_queue_cancel_source(resourceTimeoutTimer, v9);
+      nw_queue_cancel_source(resourceTimeoutTimer);
     }
   }
 }
@@ -197,9 +197,9 @@ void __47__NWURLSessionStreamTask_startSecureConnection__block_invoke(uint64_t a
   dispatch_async(queue, block);
 }
 
-void __35__NWURLSessionStreamTask_closeRead__block_invoke(uint64_t a1)
+void __35__NWURLSessionStreamTask_closeRead__block_invoke(uint64_t result)
 {
-  v2 = *(a1 + 32);
+  v2 = *(result + 32);
   if (!v2)
   {
     goto LABEL_12;
@@ -211,7 +211,7 @@ void __35__NWURLSessionStreamTask_closeRead__block_invoke(uint64_t a1)
   }
 
   *(v2 + 492) = 1;
-  v3 = *(a1 + 32);
+  v3 = *(result + 32);
   if (v3)
   {
     v4 = 248;
@@ -221,7 +221,7 @@ void __35__NWURLSessionStreamTask_closeRead__block_invoke(uint64_t a1)
     }
 
     v5 = *(v3 + v4);
-    v6 = *(a1 + 32);
+    v6 = *(result + 32);
   }
 
   else
@@ -233,7 +233,7 @@ LABEL_12:
 
   [(NWURLSessionDelegateWrapper *)v5 readClosedForStreamTask:v6];
 
-  v7 = *(a1 + 32);
+  v7 = *(result + 32);
 
   [(NWURLSessionStreamTask *)v7 checkForCompletion];
 }
@@ -420,9 +420,9 @@ LABEL_6:
   dispatch_async(queue, block);
 }
 
-uint64_t __36__NWURLSessionStreamTask_closeWrite__block_invoke(uint64_t result)
+void *__36__NWURLSessionStreamTask_closeWrite__block_invoke(void *result)
 {
-  v3 = *(result + 32);
+  v3 = result[4];
   if (!v3)
   {
     goto LABEL_8;
@@ -431,7 +431,7 @@ uint64_t __36__NWURLSessionStreamTask_closeWrite__block_invoke(uint64_t result)
   if (*(v3 + 296) != 2 && (*(v3 + 493) & 1) == 0)
   {
     ++*(v3 + 496);
-    v3 = *(result + 32);
+    v3 = result[4];
     if (v3)
     {
       v4 = *(v3 + 264);

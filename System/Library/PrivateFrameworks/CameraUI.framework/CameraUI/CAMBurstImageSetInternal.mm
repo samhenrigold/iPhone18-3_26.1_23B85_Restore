@@ -507,11 +507,11 @@ LABEL_52:
       v5 = [(NSMutableArray *)selfCopy->clusterArray objectAtIndex:selfCopy->curClusterIndexToProcess];
       v6 = [objc_msgSend(v5 "burstImages")];
       v7 = [objc_msgSend(v6 "imageId")];
-      [v6 timestamp];
+      objc_msgSend_timestamp(v6);
       BurstLoggingMessage("Examining image, id=%s, timestamp = %.6f, done=%d\n", v7, v8, clustersCopy);
       if (!clustersCopy)
       {
-        [v6 timestamp];
+        objc_msgSend_timestamp(v6);
         v10 = v9;
         [(CAMBurstImageFaceAnalysisContext *)selfCopy->faceAnalysisContext latestFaceTimestamp];
         if (v10 > v11 && [(NSMutableArray *)selfCopy->clusterArray count]- selfCopy->curClusterIndexToProcess < (selfCopy->maxNumPendingFrames - 1))
@@ -529,7 +529,7 @@ LABEL_52:
       [imageProps2 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithDouble:", timeElapsedSinceInit()), kCAMBurstImageProperty_TimeStartedFaceDetection[0]}];
       imageProps3 = [v5 imageProps];
       v17 = MEMORY[0x1E696AD98];
-      [v6 timestamp];
+      objc_msgSend_timestamp(v6);
       v18 = [v17 numberWithDouble:?];
       [imageProps3 setObject:v18 forKey:kCAMBurstImageProperty_ImageTimestamp[0]];
       v168 = v6;
@@ -581,7 +581,7 @@ LABEL_52:
               v42 = [v39 numberWithFloat:v41];
               [v26 setObject:v42 forKey:kCAMBurstImageFaceProperty_H[0]];
               v43 = MEMORY[0x1E696AD98];
-              [v25 timestamp];
+              objc_msgSend_timestamp(v25);
               v44 = [v43 numberWithDouble:?];
               [v26 setObject:v44 forKey:kCAMBurstImageFaceProperty_Timestamp[0]];
               if ([v25 hasRollAngle])
@@ -925,7 +925,7 @@ LABEL_52:
       }
     }
 
-    [v6 timestamp];
+    objc_msgSend_timestamp(v6);
     [(CAMBurstImageFaceAnalysisContext *)selfCopy->faceAnalysisContext latestFaceTimestamp];
     BurstLoggingMessage("Not processing frames, imageStat.timestamp = %.6f, latestFaceTimestamp = %.6f\n");
   }
@@ -955,7 +955,7 @@ LABEL_52:
   }
 }
 
-uint64_t __89__CAMBurstImageSetInternal_addYUVImage_properties_identifier_imageProps_completionBlock___block_invoke(uint64_t a1)
+void *__89__CAMBurstImageSetInternal_addYUVImage_properties_identifier_imageProps_completionBlock___block_invoke(uint64_t a1)
 {
   if (*(*(a1 + 32) + 52))
   {
@@ -1002,7 +1002,7 @@ uint64_t __89__CAMBurstImageSetInternal_addYUVImage_properties_identifier_imageP
     result = *(a1 + 72);
     if (result)
     {
-      v7 = *(result + 16);
+      v7 = result[2];
 
       return v7();
     }
@@ -2785,7 +2785,7 @@ void __48__CAMBurstImageSetInternal_bestImageIdentifiers__block_invoke(uint64_t 
         {
           v463 = 0uLL;
           *&v464 = 0;
-          findBestThreeWayDivision(v381, v379, &v450, &v449, 0, -1, 0xFFFFFFFF, &v463);
+          findBestThreeWayDivision(v381, v379, &v450, &v449, 0, -1, -1, &v463);
           v91 = v463;
           BurstLoggingMessage("Result of three-way division: finalCost: %f, inOutRatio: %f\n", *&v463, *(&v463 + 1));
           LODWORD(v92) = v91;

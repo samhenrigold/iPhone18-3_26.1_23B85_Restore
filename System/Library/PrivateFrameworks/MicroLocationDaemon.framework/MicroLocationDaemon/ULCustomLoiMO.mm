@@ -20,7 +20,7 @@
 
 - (optional<ULCustomLoiDO>)convertToDO
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   [(ULCustomLoiMO *)self lastSeenTimeStamp];
   v5 = v4;
   v6 = [(ULCustomLoiMO *)self loi];
@@ -28,17 +28,17 @@
   v8 = loiId;
   if (loiId)
   {
-    [loiId boostUUID];
+    objc_msgSend_boostUUID(loiId);
   }
 
   else
   {
+    v17 = 0;
     v18 = 0;
     v19 = 0;
-    v20 = 0;
   }
 
-  if ((v20 & 1) == 0)
+  if ((v19 & 1) == 0)
   {
     if (onceToken_MicroLocation_Default != -1)
     {
@@ -48,15 +48,15 @@
     v9 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v15) = 0;
-      _os_log_impl(&dword_258FE9000, v9, OS_LOG_TYPE_ERROR, "convertToDO: CustomLOI record's LoiId has no value", &v15, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_258FE9000, v9, OS_LOG_TYPE_ERROR, "convertToDO: CustomLOI record's LoiId has no value", &v14, 2u);
     }
 
+    v17 = 0;
     v18 = 0;
-    v19 = 0;
-    if ((v20 & 1) == 0)
+    if ((v19 & 1) == 0)
     {
-      v20 = 1;
+      v19 = 1;
     }
   }
 
@@ -65,31 +65,30 @@
   v12 = serviceUUID;
   if (serviceUUID)
   {
-    [serviceUUID boostUUID];
+    objc_msgSend_boostUUID(serviceUUID);
   }
 
   else
   {
+    v14 = 0;
     v15 = 0;
     v16 = 0;
-    v17 = 0;
   }
 
-  if ((v17 & 1) == 0)
+  if ((v16 & 1) == 0)
   {
+    v14 = 0;
     v15 = 0;
-    v16 = 0;
-    v17 = 1;
+    v16 = 1;
   }
 
-  if ((v20 & 1) == 0)
+  if ((v19 & 1) == 0)
   {
     std::__throw_bad_optional_access[abi:ne200100]();
   }
 
-  result = ULCustomLoiDO::ULCustomLoiDO(retstr, v15, v16, v18, v19, v5);
+  result = ULCustomLoiDO::ULCustomLoiDO(retstr, v14, v15, v17, v18, v5);
   retstr[1].var0.var1.var0.data[8] = 1;
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 

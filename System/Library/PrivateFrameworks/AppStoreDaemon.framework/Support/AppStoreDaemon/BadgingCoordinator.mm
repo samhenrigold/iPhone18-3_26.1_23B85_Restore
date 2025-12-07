@@ -27,7 +27,7 @@
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Registering the push token for badge pushes", buf, 0xCu);
     }
 
-    v9 = sub_100336524();
+    v9 = sub_100336524(PushService);
     sub_1003367D0(v9, v2, 35);
   }
 

@@ -58,28 +58,28 @@ uint64_t __32__CSContextStore_sharedInstance__block_invoke()
 
 - (BOOL)satisfiesCriteriaForScenario:(id)scenario
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   scenarioCopy = scenario;
   [scenarioCopy scenarioCriteria];
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
-  v5 = v41 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v38 objects:v47 count:16];
+  v5 = v40 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v37 objects:v46 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v39;
+    v8 = *v38;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v39 != v8)
+        if (*v38 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v38 + 1) + 8 * i);
+        v10 = *(*(&v37 + 1) + 8 * i);
         v11 = [(NSMutableDictionary *)self->_currentContext objectForKeyedSubscript:v10];
         if (v11)
         {
@@ -97,7 +97,7 @@ uint64_t __32__CSContextStore_sharedInstance__block_invoke()
         goto LABEL_24;
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v38 objects:v47 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v37 objects:v46 count:16];
       if (v7)
       {
         continue;
@@ -108,27 +108,27 @@ uint64_t __32__CSContextStore_sharedInstance__block_invoke()
   }
 
   [scenarioCopy setRestrictionsByProcess:0];
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v15 = v5;
-  v16 = [v15 countByEnumeratingWithState:&v34 objects:v46 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v33 objects:v45 count:16];
   if (v16)
   {
     v17 = v16;
-    v33 = v5;
-    v18 = *v35;
+    v32 = v5;
+    v18 = *v34;
     do
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v35 != v18)
+        if (*v34 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v34 + 1) + 8 * j);
+        v20 = *(*(&v33 + 1) + 8 * j);
         v21 = [(NSMutableDictionary *)self->_currentAffectedRestrictionsForContext objectForKeyedSubscript:v20];
         if (v21)
         {
@@ -145,9 +145,9 @@ uint64_t __32__CSContextStore_sharedInstance__block_invoke()
               v28 = logger;
               v29 = [(NSMutableDictionary *)currentAffectedRestrictionsForContext objectForKeyedSubscript:v20];
               *buf = 138412546;
-              v43 = scenarioCopy;
-              v44 = 2112;
-              v45 = v29;
+              v42 = scenarioCopy;
+              v43 = 2112;
+              v44 = v29;
               _os_log_debug_impl(&dword_243DC3000, v28, OS_LOG_TYPE_DEBUG, "scenario: %@, set restrictions:%@", buf, 0x16u);
             }
 
@@ -157,12 +157,12 @@ uint64_t __32__CSContextStore_sharedInstance__block_invoke()
         }
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v34 objects:v46 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v33 objects:v45 count:16];
     }
 
     while (v17);
     v30 = 1;
-    v5 = v33;
+    v5 = v32;
   }
 
   else
@@ -172,7 +172,6 @@ uint64_t __32__CSContextStore_sharedInstance__block_invoke()
 
 LABEL_24:
 
-  v31 = *MEMORY[0x277D85DE8];
   return v30;
 }
 
@@ -230,38 +229,6 @@ LABEL_24:
 
     [(NSMutableDictionary *)self->_currentAffectedRestrictionsForContext setValue:restrictionsCopy forKey:identifierCopy];
   }
-}
-
-- (void)updateState:forIdentifier:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_243DC3000, v0, v1, "Value for contextIdentifier:%@ updated to %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)updateState:forIdentifier:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_243DC3000, v0, v1, "Value for contextIdentifier:%@ was already set to %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)updateState:forIdentifier:withRestrictions:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_243DC3000, v0, v1, "AffectedProcesses for contextIdentifier:%@ updated to %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)updateState:forIdentifier:withRestrictions:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_243DC3000, v0, v1, "AffectedProcesses for contextIdentifier:%@ was already set to %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

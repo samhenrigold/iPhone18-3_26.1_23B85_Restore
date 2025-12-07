@@ -282,7 +282,7 @@
 
 - (void)updatePreferredContentSize
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   if ([(RUIPage *)self isPrimaryElementNilOrKindOf:objc_opt_class()])
   {
     navigationController = [(RUIPage *)self navigationController];
@@ -331,65 +331,68 @@
         v35 = v34;
         v36 = v25 + v30;
 
-        if (_isInternalInstall())
+        isInternalInstall = _isInternalInstall(v37, v38);
+        if (isInternalInstall)
         {
-          v37 = _RUILoggingFacility();
-          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+          v41 = _RUILoggingFacility(isInternalInstall);
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
           {
             elementProvider3 = [(RUIPage *)self elementProvider];
             tableViewOM7 = [elementProvider3 tableViewOM];
             tableView7 = [tableViewOM7 tableView];
             [tableView7 window];
-            v41 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-            v58 = 138412290;
-            v59 = v41;
-            _os_log_impl(&dword_21B93D000, v37, OS_LOG_TYPE_DEFAULT, ">> window: %@", &v58, 0xCu);
+            v45 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+            v65 = 138412290;
+            v66 = v45;
+            _os_log_impl(&dword_21B93D000, v41, OS_LOG_TYPE_DEFAULT, ">> window: %@", &v65, 0xCu);
           }
         }
 
-        v42 = v36 + v35;
-        if (_isInternalInstall())
+        v46 = v36 + v35;
+        v47 = _isInternalInstall(isInternalInstall, v40);
+        if (v47)
         {
-          v43 = _RUILoggingFacility();
-          if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+          v49 = _RUILoggingFacility(v47);
+          if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
           {
             elementProvider4 = [(RUIPage *)self elementProvider];
             tableViewOM8 = [elementProvider4 tableViewOM];
             tableView8 = [tableViewOM8 tableView];
             [tableView8 adjustedContentInset];
-            v58 = 134217984;
-            v59 = v47;
-            _os_log_impl(&dword_21B93D000, v43, OS_LOG_TYPE_DEFAULT, ">> adjustedContentInset: %f", &v58, 0xCu);
+            v65 = 134217984;
+            v66 = v53;
+            _os_log_impl(&dword_21B93D000, v49, OS_LOG_TYPE_DEFAULT, ">> adjustedContentInset: %f", &v65, 0xCu);
           }
         }
 
-        v48 = v42 + 0.0;
-        if (_isInternalInstall())
+        v54 = v46 + 0.0;
+        v55 = _isInternalInstall(v47, v48);
+        if (v55)
         {
-          v49 = _RUILoggingFacility();
-          if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+          v56 = _RUILoggingFacility(v55);
+          if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
           {
-            v58 = 134217984;
-            v59 = v42 + 0.0;
-            _os_log_impl(&dword_21B93D000, v49, OS_LOG_TYPE_DEFAULT, ">> preferredContentSize: %f", &v58, 0xCu);
+            v65 = 134217984;
+            v66 = v46 + 0.0;
+            _os_log_impl(&dword_21B93D000, v56, OS_LOG_TYPE_DEFAULT, ">> preferredContentSize: %f", &v65, 0xCu);
           }
         }
 
         [(RUIPage *)self preferredContentSize];
-        if (v51 != v13 || v50 != v42)
+        if (v58 != v13 || v57 != v46)
         {
-          [(RUIPage *)self setPreferredContentSize:v13, v48];
+          [(RUIPage *)self setPreferredContentSize:v13, v54];
         }
 
         navigationController3 = [(RUIPage *)self navigationController];
         [navigationController3 preferredContentSize];
-        v54 = v53;
-        v56 = v55;
+        v61 = v60;
+        v63 = v62;
 
-        if (v54 != v13 || v56 != v42)
+        if (v61 != v13 || v63 != v46)
         {
           navigationController4 = [(RUIPage *)self navigationController];
-          [navigationController4 setPreferredContentSize:{v13, v48}];
+          [navigationController4 setPreferredContentSize:{v13, v54}];
         }
       }
     }
@@ -2690,10 +2693,10 @@ LABEL_21:
 
 - (void)viewDidLoad
 {
-  v36 = *MEMORY[0x277D85DE8];
-  v32.receiver = self;
-  v32.super_class = RUIPage;
-  [(RUIPage *)&v32 viewDidLoad];
+  v39 = *MEMORY[0x277D85DE8];
+  v35.receiver = self;
+  v35.super_class = RUIPage;
+  [(RUIPage *)&v35 viewDidLoad];
   elementProvider = [(RUIPage *)self elementProvider];
   tableViewOM = [elementProvider tableViewOM];
   tableView = [tableViewOM tableView];
@@ -2721,15 +2724,16 @@ LABEL_11:
 
   if (pageID)
   {
-    if (_isInternalInstall())
+    isInternalInstall = _isInternalInstall(v12, v13);
+    if (isInternalInstall)
     {
-      v12 = _RUILoggingFacility();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v15 = _RUILoggingFacility(isInternalInstall);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         pageID2 = [(RUIPage *)self pageID];
         *buf = 138412290;
-        v35 = pageID2;
-        _os_log_impl(&dword_21B93D000, v12, OS_LOG_TYPE_DEFAULT, "Refresh notification listener added for page: %@", buf, 0xCu);
+        v38 = pageID2;
+        _os_log_impl(&dword_21B93D000, v15, OS_LOG_TYPE_DEFAULT, "Refresh notification listener added for page: %@", buf, 0xCu);
       }
     }
 
@@ -2754,28 +2758,28 @@ LABEL_12:
   view4 = [toolbarContentViewController view];
   [view3 addSubview:view4];
 
-  v28 = MEMORY[0x277CCAAD0];
+  v31 = MEMORY[0x277CCAAD0];
   view5 = [toolbarContentViewController view];
   topAnchor = [view5 topAnchor];
   view6 = [(RUIPage *)self view];
   topAnchor2 = [view6 topAnchor];
-  v21 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v33[0] = v21;
+  v24 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v36[0] = v24;
   view7 = [toolbarContentViewController view];
   leadingAnchor = [view7 leadingAnchor];
   view8 = [(RUIPage *)self view];
   leadingAnchor2 = [view8 leadingAnchor];
-  v26 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v33[1] = v26;
-  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
-  [v28 activateConstraints:v27];
+  v29 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v36[1] = v29;
+  v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
+  [v31 activateConstraints:v30];
 
   [toolbarContentViewController didMoveToParentViewController:self];
 }
 
 - (void)_handlePageUpdateRequestedNotification:(id)notification
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   object = [notificationCopy object];
   pageID = [(RUIPage *)self pageID];
@@ -2784,55 +2788,57 @@ LABEL_12:
   if (v7)
   {
     attributes = [(RUIPage *)self attributes];
-    v9 = [attributes objectForKeyedSubscript:@"refreshUrl"];
+    v11 = [attributes objectForKeyedSubscript:@"refreshUrl"];
 
     attributes2 = [(RUIPage *)self attributes];
-    v11 = [attributes2 objectForKeyedSubscript:@"refreshHttpMethod"];
-    v12 = v11;
-    v13 = @"GET";
-    if (v11)
+    v13 = [attributes2 objectForKeyedSubscript:@"refreshHttpMethod"];
+    v14 = v13;
+    v15 = @"GET";
+    if (v13)
     {
-      v13 = v11;
+      v15 = v13;
     }
 
-    object2 = v13;
+    object2 = v15;
 
-    if (_isInternalInstall())
+    isInternalInstall = _isInternalInstall(v17, v18);
+    if (isInternalInstall)
     {
-      v15 = _RUILoggingFacility();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v20 = _RUILoggingFacility(isInternalInstall);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         pageID2 = [(RUIPage *)self pageID];
-        v18 = 138412802;
-        v19 = pageID2;
-        v20 = 2112;
-        v21 = v9;
-        v22 = 2112;
-        v23 = object2;
-        _os_log_impl(&dword_21B93D000, v15, OS_LOG_TYPE_DEFAULT, "Notification received for page %@. will refresh from url: %@ method: %@", &v18, 0x20u);
+        v24 = 138412802;
+        v25 = pageID2;
+        v26 = 2112;
+        v27 = v11;
+        v28 = 2112;
+        v29 = object2;
+        _os_log_impl(&dword_21B93D000, v20, OS_LOG_TYPE_DEFAULT, "Notification received for page %@. will refresh from url: %@ method: %@", &v24, 0x20u);
       }
     }
 
     objectModel = [(RUIPage *)self objectModel];
-    [objectModel openLink:v9 HTTPMethod:object2 completion:0];
+    [objectModel openLink:v11 HTTPMethod:object2 completion:0];
     goto LABEL_9;
   }
 
-  if (!_isInternalInstall())
+  v23 = _isInternalInstall(v8, v9);
+  if (!v23)
   {
     goto LABEL_14;
   }
 
-  v9 = _RUILoggingFacility();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v11 = _RUILoggingFacility(v23);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     object2 = [notificationCopy object];
     objectModel = [(RUIPage *)self pageID];
-    v18 = 138412546;
-    v19 = object2;
-    v20 = 2112;
-    v21 = objectModel;
-    _os_log_impl(&dword_21B93D000, v9, OS_LOG_TYPE_DEFAULT, "Ignoring refresh notification requestedPage: %@. currentPage: %@", &v18, 0x16u);
+    v24 = 138412546;
+    v25 = object2;
+    v26 = 2112;
+    v27 = objectModel;
+    _os_log_impl(&dword_21B93D000, v11, OS_LOG_TYPE_DEFAULT, "Ignoring refresh notification requestedPage: %@. currentPage: %@", &v24, 0x16u);
 LABEL_9:
   }
 
@@ -3387,13 +3393,14 @@ LABEL_8:
 
     if (presentingViewController)
     {
-      if (_isInternalInstall())
+      isInternalInstall = _isInternalInstall(v9, v10);
+      if (isInternalInstall)
       {
-        v9 = _RUILoggingFacility();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v12 = _RUILoggingFacility(isInternalInstall);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          *v11 = 0;
-          _os_log_impl(&dword_21B93D000, v9, OS_LOG_TYPE_DEFAULT, "Dismissing modally presented view controller.", v11, 2u);
+          *v14 = 0;
+          _os_log_impl(&dword_21B93D000, v12, OS_LOG_TYPE_DEFAULT, "Dismissing modally presented view controller.", v14, 2u);
         }
       }
 
@@ -3402,10 +3409,10 @@ LABEL_8:
 
     else
     {
-      v10 = _RUILoggingFacility();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v13 = _RUILoggingFacility(v9);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        [RUIPage dismissIfPresentedWithCompletion:v10];
+        [RUIPage dismissIfPresentedWithCompletion:v13];
       }
 
       completionCopy[2](completionCopy);
@@ -3537,7 +3544,7 @@ LABEL_8:
   selfCopy = self;
   if (!sub_21B9BE0B0())
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD9D358);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD9D358, &unk_21BA95BA0);
     swift_allocObject();
     v3 = sub_21BA8691C();
     v4 = type metadata accessor for SubjectBox();
@@ -3552,8 +3559,8 @@ LABEL_8:
     swift_endAccess();
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD9D358);
-  sub_21B9BE594(&qword_27CD9D368);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD9D358, &unk_21BA95BA0);
+  sub_21B9BE594(&qword_27CD9D368, MEMORY[0x277CBCE18]);
   sub_21BA8694C();
 }
 

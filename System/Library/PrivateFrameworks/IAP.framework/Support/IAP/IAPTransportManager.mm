@@ -8,9 +8,9 @@
 
 - (IAPTransportManager)initWithService:(unsigned int)service andNotificationPort:(IONotificationPort *)port
 {
-  v13.receiver = self;
-  v13.super_class = IAPTransportManager;
-  v6 = [(IAPTransportManager *)&v13 init];
+  v11.receiver = self;
+  v11.super_class = IAPTransportManager;
+  v6 = [(IAPTransportManager *)&v11 init];
   v7 = v6;
   if (v6)
   {
@@ -29,9 +29,7 @@
       NSLog(@"ERROR - %s:%s - %d couldn't add interest notification %#x", "/Library/Caches/com.apple.xbs/Sources/iapd/iaptransportd/IAPTransportManager.mm", "[IAPTransportManager initWithService:andNotificationPort:]", 69, v9);
     }
 
-    v10 = [NSNumber alloc];
-    service = v7->_service;
-    v7->_portNumber = [v10 initWithInt:IOAccessoryManagerGetPrimaryPort()];
+    v7->_portNumber = [[NSNumber alloc] initWithInt:IOAccessoryManagerGetPrimaryPort()];
   }
 
   return v7;

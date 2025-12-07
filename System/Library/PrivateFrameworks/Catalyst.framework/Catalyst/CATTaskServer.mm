@@ -114,7 +114,7 @@
   v8 = v13;
   v9 = infoCopy;
   v10 = nameCopy;
-  v11 = CATGetCatalystQueue();
+  v11 = CATGetCatalystQueue(v10);
   v12 = v8;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -126,38 +126,36 @@
 
 void __51__CATTaskServer_postNotificationWithName_userInfo___block_invoke(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v10 = 0u;
-  v11 = 0u;
-  v8 = 0u;
+  v12 = *MEMORY[0x277D85DE8];
   v9 = 0u;
+  v10 = 0u;
+  v7 = 0u;
+  v8 = 0u;
   v2 = *(a1[4] + 16);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) postNotificationWithName:a1[5] userInfo:{a1[6], v8}];
+        [*(*(&v7 + 1) + 8 * v6++) postNotificationWithName:a1[5] userInfo:{a1[6], v7}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectWithClientTransport:(id)transport
@@ -172,7 +170,7 @@ void __51__CATTaskServer_postNotificationWithName_userInfo___block_invoke(void *
   v10[4] = self;
   v6 = v10;
   v7 = transportCopy;
-  v8 = CATGetCatalystQueue();
+  v8 = CATGetCatalystQueue(v7);
   v9 = v6;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -202,7 +200,7 @@ void __44__CATTaskServer_connectWithClientTransport___block_invoke(uint64_t a1)
   v10 = transportCopy;
   v5 = v9;
   v6 = transportCopy;
-  v7 = CATGetCatalystQueue();
+  v7 = CATGetCatalystQueue(v6);
   v8 = v5;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -231,7 +229,7 @@ void __48__CATTaskServer_makeSessionWithClientTransport___block_invoke(uint64_t 
   v4[3] = &unk_278DA72D0;
   v4[4] = self;
   v2 = v4;
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(v2);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __CATPerformBlock_block_invoke_15;
@@ -248,7 +246,7 @@ void __48__CATTaskServer_makeSessionWithClientTransport___block_invoke(uint64_t 
   v4[3] = &unk_278DA72D0;
   v4[4] = self;
   v2 = v4;
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(v2);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __CATPerformBlock_block_invoke_15;
@@ -269,7 +267,7 @@ void __48__CATTaskServer_makeSessionWithClientTransport___block_invoke(uint64_t 
   v10[4] = self;
   v6 = v10;
   v7 = errorCopy;
-  v8 = CATGetCatalystQueue();
+  v8 = CATGetCatalystQueue(v7);
   v9 = v6;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -290,25 +288,25 @@ void __37__CATTaskServer_invalidateWithError___block_invoke(uint64_t a1)
 - (void)startInvalidatingWithError:(id)error
 {
   errorCopy = error;
-  v5 = CATGetCatalystQueue();
+  v5 = CATGetCatalystQueue(errorCopy);
   CATAssertIsQueue(v5);
 
   objc_storeStrong(&self->mStrongSelf, self);
   [(NSMutableSet *)self->mSessions makeObjectsPerformSelector:sel_invalidateWithError_ withObject:errorCopy];
 
   mAllSessionsDidInvalidateGroup = self->mAllSessionsDidInvalidateGroup;
-  v7 = CATGetCatalystQueue();
+  v8 = CATGetCatalystQueue(v7);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __44__CATTaskServer_startInvalidatingWithError___block_invoke;
   block[3] = &unk_278DA72D0;
   block[4] = self;
-  dispatch_group_notify(mAllSessionsDidInvalidateGroup, v7, block);
+  dispatch_group_notify(mAllSessionsDidInvalidateGroup, v8, block);
 }
 
 - (void)allSessionsDidInvalidate
 {
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v4);
 
   mFSM = self->mFSM;
@@ -341,7 +339,7 @@ void __49__CATTaskServer_delegateDidInvalidateAndFinalize__block_invoke(uint64_t
 {
   sessionCopy = session;
   transportCopy = transport;
-  v8 = CATGetCatalystQueue();
+  v8 = CATGetCatalystQueue(transportCopy);
   CATAssertIsQueue(v8);
 
   sessionUUID = [sessionCopy sessionUUID];
@@ -387,7 +385,7 @@ LABEL_9:
 - (void)sessionDidConnect:(id)connect
 {
   connectCopy = connect;
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(connectCopy);
   CATAssertIsQueue(v4);
 
   mConnectedSessionsByUUID = self->mConnectedSessionsByUUID;
@@ -400,7 +398,7 @@ LABEL_9:
 - (void)sessionDidDisconnect:(id)disconnect
 {
   disconnectCopy = disconnect;
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(disconnectCopy);
   CATAssertIsQueue(v4);
 
   mConnectedSessionsByUUID = self->mConnectedSessionsByUUID;
@@ -421,7 +419,7 @@ LABEL_9:
 {
   errorCopy = error;
   sessionCopy = session;
-  v7 = CATGetCatalystQueue();
+  v7 = CATGetCatalystQueue(sessionCopy);
   CATAssertIsQueue(v7);
 
   [(CATTaskServer *)self delegateClientSession:sessionCopy didInterruptWithError:errorCopy];
@@ -430,7 +428,7 @@ LABEL_9:
 - (void)sessionWillInvalidate:(id)invalidate
 {
   invalidateCopy = invalidate;
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(invalidateCopy);
   CATAssertIsQueue(v4);
 
   sessionUUID = [invalidateCopy sessionUUID];
@@ -449,7 +447,7 @@ LABEL_9:
 - (void)sessionDidInvalidate:(id)invalidate
 {
   invalidateCopy = invalidate;
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(invalidateCopy);
   CATAssertIsQueue(v4);
 
   sessionUUID = [invalidateCopy sessionUUID];
@@ -476,7 +474,7 @@ LABEL_9:
   infoCopy = info;
   nameCopy = name;
   sessionCopy = session;
-  v10 = CATGetCatalystQueue();
+  v10 = CATGetCatalystQueue(sessionCopy);
   CATAssertIsQueue(v10);
 
   [(CATTaskServer *)self delegateClientSession:sessionCopy didReceiveNotificationWithName:nameCopy userInfo:infoCopy];
@@ -484,10 +482,10 @@ LABEL_9:
 
 - (id)session:(id)session prepareOperationForRequest:(id)request error:(id *)error
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   requestCopy = request;
-  v11 = CATGetCatalystQueue();
+  v11 = CATGetCatalystQueue(requestCopy);
   CATAssertIsQueue(v11);
 
   if (!requestCopy)
@@ -522,35 +520,33 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  v21 = v15;
-  v22 = objc_opt_class();
-  v23 = NSStringFromClass(v22);
+  v20 = v15;
+  v21 = objc_opt_class();
+  v22 = NSStringFromClass(v21);
   delegate3 = [(CATTaskServer *)self delegate];
-  v25 = NSStringFromSelector(sel_server_clientSession_operationForRequest_error_);
+  v24 = NSStringFromSelector(sel_server_clientSession_operationForRequest_error_);
   *buf = 138412802;
-  v29 = v23;
-  v30 = 2112;
-  v31 = delegate3;
-  v32 = 2112;
-  v33 = v25;
-  _os_log_error_impl(&dword_24329F000, v21, OS_LOG_TYPE_ERROR, "Dropping message (%@) because delegate (%@) does not implement %@", buf, 0x20u);
+  v28 = v22;
+  v29 = 2112;
+  v30 = delegate3;
+  v31 = 2112;
+  v32 = v24;
+  _os_log_error_impl(&dword_24329F000, v20, OS_LOG_TYPE_ERROR, "Dropping message (%@) because delegate (%@) does not implement %@", buf, 0x20u);
 
   if (error)
   {
 LABEL_9:
-    v26 = @"kCATErrorRequestNameKey";
+    v25 = @"kCATErrorRequestNameKey";
     v16 = objc_opt_class();
     v17 = NSStringFromClass(v16);
-    v27 = v17;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    v26 = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
     *error = CATErrorWithCodeAndUserInfo(400, v18);
 
     error = 0;
   }
 
 LABEL_10:
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return error;
 }
@@ -559,7 +555,7 @@ LABEL_10:
 {
   sessionCopy = session;
   operationCopy = operation;
-  v7 = CATGetCatalystQueue();
+  v7 = CATGetCatalystQueue(operationCopy);
   CATAssertIsQueue(v7);
 
   delegate = [(CATTaskServer *)self delegate];
@@ -595,7 +591,7 @@ LABEL_10:
 {
   sessionCopy = session;
   transportCopy = transport;
-  v8 = CATGetCatalystQueue();
+  v8 = CATGetCatalystQueue(transportCopy);
   CATAssertIsQueue(v8);
 
   delegate = [(CATTaskServer *)self delegate];
@@ -617,7 +613,7 @@ LABEL_10:
 
 - (void)delegateDidInvalidate
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   delegate = [(CATTaskServer *)self delegate];
@@ -634,7 +630,7 @@ LABEL_10:
 {
   sessionCopy = session;
   errorCopy = error;
-  v7 = CATGetCatalystQueue();
+  v7 = CATGetCatalystQueue(errorCopy);
   CATAssertIsQueue(v7);
 
   delegate = [(CATTaskServer *)self delegate];
@@ -655,7 +651,7 @@ LABEL_10:
 - (void)delegateClientSessionDidConnect:(id)connect
 {
   connectCopy = connect;
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(connectCopy);
   CATAssertIsQueue(v4);
 
   delegate = [(CATTaskServer *)self delegate];
@@ -671,7 +667,7 @@ LABEL_10:
 - (void)delegateClientSessionDidDisconnect:(id)disconnect
 {
   disconnectCopy = disconnect;
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(disconnectCopy);
   CATAssertIsQueue(v4);
 
   delegate = [(CATTaskServer *)self delegate];
@@ -687,7 +683,7 @@ LABEL_10:
 - (void)delegateSessionDidInvalidate:(id)invalidate
 {
   invalidateCopy = invalidate;
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(invalidateCopy);
   CATAssertIsQueue(v4);
 
   delegate = [(CATTaskServer *)self delegate];
@@ -705,7 +701,7 @@ LABEL_10:
   sessionCopy = session;
   nameCopy = name;
   infoCopy = info;
-  v10 = CATGetCatalystQueue();
+  v10 = CATGetCatalystQueue(infoCopy);
   CATAssertIsQueue(v10);
 
   delegate = [(CATTaskServer *)self delegate];

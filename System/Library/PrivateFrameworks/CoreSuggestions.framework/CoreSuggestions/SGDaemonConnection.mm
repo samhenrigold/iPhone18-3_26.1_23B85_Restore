@@ -150,7 +150,7 @@ void __38__SGDaemonConnection__connectToServer__block_invoke_12(uint64_t a1)
 
 - (id)waitUntilReturn:(id)return withTimeout:(double)timeout error:(id *)error
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   returnCopy = return;
   v9 = fmax(timeout * 1000000000.0, 1.0);
   if (COERCE__INT64(fabs(timeout * 1000000000.0)) >= 0x7FF0000000000000)
@@ -167,35 +167,35 @@ void __38__SGDaemonConnection__connectToServer__block_invoke_12(uint64_t a1)
   v12 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
   v13 = dispatch_queue_create("SGDaemonConnection-waitUntilReturn", v12);
 
-  v57 = 0;
-  v58 = &v57;
-  v59 = 0x3032000000;
-  v60 = __Block_byref_object_copy__10240;
-  v61 = __Block_byref_object_dispose__10241;
-  v62 = 0;
-  v51 = 0;
-  v52 = &v51;
-  v53 = 0x3032000000;
-  v54 = __Block_byref_object_copy__10240;
-  v55 = __Block_byref_object_dispose__10241;
   v56 = 0;
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x2020000000;
+  v57 = &v56;
+  v58 = 0x3032000000;
+  v59 = __Block_byref_object_copy__10240;
+  v60 = __Block_byref_object_dispose__10241;
+  v61 = 0;
   v50 = 0;
+  v51 = &v50;
+  v52 = 0x3032000000;
+  v53 = __Block_byref_object_copy__10240;
+  v54 = __Block_byref_object_dispose__10241;
+  v55 = 0;
+  v46 = 0;
+  v47 = &v46;
+  v48 = 0x2020000000;
+  v49 = 0;
   dispatch_group_enter(v11);
-  v41[0] = MEMORY[0x1E69E9820];
-  v41[1] = 3221225472;
-  v41[2] = __56__SGDaemonConnection_waitUntilReturn_withTimeout_error___block_invoke;
-  v41[3] = &unk_1E7EFD1D8;
+  v40[0] = MEMORY[0x1E69E9820];
+  v40[1] = 3221225472;
+  v40[2] = __56__SGDaemonConnection_waitUntilReturn_withTimeout_error___block_invoke;
+  v40[3] = &unk_1E7EFD1D8;
   v14 = v13;
-  v42 = v14;
-  v44 = &v47;
-  v45 = &v57;
-  v46 = &v51;
+  v41 = v14;
+  v43 = &v46;
+  v44 = &v56;
+  v45 = &v50;
   v15 = v11;
-  v43 = v15;
-  v16 = MEMORY[0x1BFAF7240](v41);
+  v42 = v15;
+  v16 = MEMORY[0x1BFAF7240](v40);
   if (v10)
   {
     v17 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, v14);
@@ -209,8 +209,8 @@ void __38__SGDaemonConnection__connectToServer__block_invoke_12(uint64_t a1)
       handler[2] = __56__SGDaemonConnection_waitUntilReturn_withTimeout_error___block_invoke_18;
       handler[3] = &unk_1E7EFD200;
       selfCopy = self;
-      v40 = &v47;
-      v38 = v15;
+      v39 = &v46;
+      v37 = v15;
       dispatch_source_set_event_handler(v18, handler);
       dispatch_resume(v18);
 
@@ -232,15 +232,15 @@ void __38__SGDaemonConnection__connectToServer__block_invoke_12(uint64_t a1)
 
   v18 = 0;
 LABEL_11:
-  v31 = MEMORY[0x1E69E9820];
-  v32 = 3221225472;
-  v33 = __56__SGDaemonConnection_waitUntilReturn_withTimeout_error___block_invoke_19;
-  v34 = &unk_1E7EFD228;
+  v30 = MEMORY[0x1E69E9820];
+  v31 = 3221225472;
+  v32 = __56__SGDaemonConnection_waitUntilReturn_withTimeout_error___block_invoke_19;
+  v33 = &unk_1E7EFD228;
   v21 = returnCopy;
-  v35 = v21;
+  v34 = v21;
   v22 = v16;
-  v36 = v22;
-  [SGDaemonConnection _useSyncXPCWithBlock:&v31];
+  v35 = v22;
+  [SGDaemonConnection _useSyncXPCWithBlock:&v30];
   if (v10)
   {
     v23 = dispatch_time(0, v10);
@@ -251,17 +251,17 @@ LABEL_11:
     v23 = -1;
   }
 
-  if (dispatch_group_wait(v15, v23) || *(v48 + 24) == 1)
+  if (dispatch_group_wait(v15, v23) || *(v47 + 24) == 1)
   {
     v24 = sgLogHandle();
     if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      v64 = v10 / 0xF4240;
+      v63 = v10 / 0xF4240;
       _os_log_impl(&dword_1BA729000, v24, OS_LOG_TYPE_INFO, "SGDaemonConnection remote call taking longer than %llu milliseconds(s). Returning empty result with timeout error.", buf, 0xCu);
     }
 
-    *(v48 + 24) = 1;
+    *(v47 + 24) = 1;
     if (os_variant_has_internal_diagnostics())
     {
       v25 = sgLogHandle();
@@ -269,7 +269,7 @@ LABEL_11:
       {
         callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
         *buf = 138412290;
-        v64 = callStackSymbols;
+        v63 = callStackSymbols;
         _os_log_impl(&dword_1BA729000, v25, OS_LOG_TYPE_INFO, "SGDaemonConnection %@", buf, 0xCu);
       }
     }
@@ -280,7 +280,7 @@ LABEL_11:
     dispatch_source_cancel(v18);
   }
 
-  if (v48[3])
+  if (v47[3])
   {
     incrementKeyWithSuffix(@"apicalls.all.timedout");
     if (error)
@@ -299,10 +299,10 @@ LABEL_11:
   {
     if (error)
     {
-      *error = v52[5];
+      *error = v51[5];
     }
 
-    if (v52[5])
+    if (v51[5])
     {
       v28 = @"apicalls.all.errored";
     }
@@ -313,14 +313,13 @@ LABEL_11:
     }
 
     incrementKeyWithSuffix(v28);
-    v27 = v58[5];
+    v27 = v57[5];
   }
 
-  _Block_object_dispose(&v47, 8);
-  _Block_object_dispose(&v51, 8);
+  _Block_object_dispose(&v46, 8);
+  _Block_object_dispose(&v50, 8);
 
-  _Block_object_dispose(&v57, 8);
-  v29 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v56, 8);
 
   return v27;
 }
@@ -375,7 +374,7 @@ void __56__SGDaemonConnection_waitUntilReturn_withTimeout_error___block_invoke_1
 
 void __56__SGDaemonConnection_waitUntilReturn_withTimeout_error___block_invoke_2(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if ((*(*(*(a1 + 56) + 8) + 24) & 1) == 0)
   {
     objc_storeStrong((*(*(a1 + 64) + 8) + 40), *(a1 + 32));
@@ -385,17 +384,15 @@ void __56__SGDaemonConnection_waitUntilReturn_withTimeout_error___block_invoke_2
       v2 = sgLogHandle();
       if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
       {
-        v4 = *(*(*(a1 + 72) + 8) + 40);
-        v5 = 138412290;
-        v6 = v4;
-        _os_log_error_impl(&dword_1BA729000, v2, OS_LOG_TYPE_ERROR, "SGDaemonConnection Error! %@", &v5, 0xCu);
+        v3 = *(*(*(a1 + 72) + 8) + 40);
+        v4 = 138412290;
+        v5 = v3;
+        _os_log_error_impl(&dword_1BA729000, v2, OS_LOG_TYPE_ERROR, "SGDaemonConnection Error! %@", &v4, 0xCu);
       }
     }
 
     dispatch_group_leave(*(a1 + 48));
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (id)remoteObjectProxyWithErrorHandler:(id)handler
@@ -443,43 +440,41 @@ void __56__SGDaemonConnection_waitUntilReturn_withTimeout_error___block_invoke_2
 
 - (void)_callAbortBlocks
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   pthread_mutex_lock(&self->_abortLock);
   v3 = [(NSMutableArray *)self->_abortBlocks copy];
   [(NSMutableArray *)self->_abortBlocks removeAllObjects];
   pthread_mutex_unlock(&self->_abortLock);
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        (*(*(*(&v10 + 1) + 8 * v8) + 16))(*(*(&v10 + 1) + 8 * v8));
+        (*(*(*(&v9 + 1) + 8 * v8) + 16))(*(*(&v9 + 1) + 8 * v8));
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __38__SGDaemonConnection__connectToServer__block_invoke(uint64_t a1)

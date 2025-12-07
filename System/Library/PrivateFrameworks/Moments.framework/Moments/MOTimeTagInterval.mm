@@ -24,7 +24,7 @@
 
 - (double)overlapsScoreForStartDate:(id)date endDate:(id)endDate
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   endDateCopy = endDate;
   v8 = _mo_log_facility_get_os_log(MOLogFacilityEventBundleManager);
@@ -34,15 +34,15 @@
     startDate = [dateInterval startDate];
     dateInterval2 = [(MOTimeTagInterval *)self dateInterval];
     endDate = [dateInterval2 endDate];
-    v36 = 138413058;
-    v37 = dateCopy;
-    v38 = 2112;
-    v39 = endDateCopy;
-    v40 = 2112;
-    v41 = startDate;
-    v42 = 2112;
-    v43 = endDate;
-    _os_log_debug_impl(&dword_22D8C5000, v8, OS_LOG_TYPE_DEBUG, "overlapsScoreForStartDate, startDate, %@, endDate, %@, self.startDate, %@, self.endDate, %@", &v36, 0x2Au);
+    v35 = 138413058;
+    v36 = dateCopy;
+    v37 = 2112;
+    v38 = endDateCopy;
+    v39 = 2112;
+    v40 = startDate;
+    v41 = 2112;
+    v42 = endDate;
+    _os_log_debug_impl(&dword_22D8C5000, v8, OS_LOG_TYPE_DEBUG, "overlapsScoreForStartDate, startDate, %@, endDate, %@, self.startDate, %@, self.endDate, %@", &v35, 0x2Au);
   }
 
   if (!endDateCopy || [dateCopy isEqualToDate:endDateCopy])
@@ -59,15 +59,15 @@
       startDate2 = [dateInterval3 startDate];
       dateInterval4 = [(MOTimeTagInterval *)self dateInterval];
       endDate2 = [dateInterval4 endDate];
-      v36 = 138413058;
-      v37 = dateCopy;
-      v38 = 2112;
-      v39 = endDateCopy;
-      v40 = 2112;
-      v41 = startDate2;
-      v42 = 2112;
-      v43 = endDate2;
-      _os_log_error_impl(&dword_22D8C5000, v9, OS_LOG_TYPE_ERROR, "overlapsScoreForStartDate, invalid time range, startDate, %@, endDate, %@, self.startDate, %@, self.endDate, %@", &v36, 0x2Au);
+      v35 = 138413058;
+      v36 = dateCopy;
+      v37 = 2112;
+      v38 = endDateCopy;
+      v39 = 2112;
+      v40 = startDate2;
+      v41 = 2112;
+      v42 = endDate2;
+      _os_log_error_impl(&dword_22D8C5000, v9, OS_LOG_TYPE_ERROR, "overlapsScoreForStartDate, invalid time range, startDate, %@, endDate, %@, self.startDate, %@, self.endDate, %@", &v35, 0x2Au);
     }
 
 LABEL_9:
@@ -87,39 +87,38 @@ LABEL_9:
     goto LABEL_12;
   }
 
-  v15 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:dateCopy endDate:endDateCopy];
-  [v15 duration];
+  v14 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:dateCopy endDate:endDateCopy];
+  [v14 duration];
   v12 = 0.0;
-  if (v16 > 0.0)
+  if (v15 > 0.0)
   {
     dateInterval6 = [(MOTimeTagInterval *)self dateInterval];
-    v18 = [dateInterval6 intersectsDateInterval:v15];
+    v17 = [dateInterval6 intersectsDateInterval:v14];
 
-    if (v18)
+    if (v17)
     {
       dateInterval7 = [(MOTimeTagInterval *)self dateInterval];
-      v20 = [dateInterval7 intersectionWithDateInterval:v15];
-      [v20 duration];
-      v22 = v21;
+      v19 = [dateInterval7 intersectionWithDateInterval:v14];
+      [v19 duration];
+      v21 = v20;
 
-      [v15 duration];
-      v24 = v23 - v22;
-      [v15 duration];
-      v26 = v22 / v25;
-      if (v26 > 0.5 && v24 < 1800.0)
+      [v14 duration];
+      v23 = v22 - v21;
+      [v14 duration];
+      v25 = v21 / v24;
+      if (v25 > 0.5 && v23 < 1800.0)
       {
         v12 = 1.0;
       }
 
       else
       {
-        v12 = v26;
+        v12 = v25;
       }
     }
   }
 
 LABEL_12:
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

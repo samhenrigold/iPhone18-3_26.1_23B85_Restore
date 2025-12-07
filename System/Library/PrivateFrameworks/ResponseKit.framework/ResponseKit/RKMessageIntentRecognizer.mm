@@ -88,53 +88,51 @@ uint64_t __42__RKMessageIntentRecognizer_sharedManager__block_invoke(uint64_t a1
 
 + (id)getRangesOfKeywords:(id)keywords forMessage:(id)message
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   keywordsCopy = keywords;
   messageCopy = message;
-  v21 = objc_opt_new();
+  v20 = objc_opt_new();
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   obj = keywordsCopy;
-  v7 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v7 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v24;
+    v10 = *v23;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v24 != v10)
+        if (*v23 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v23 + 1) + 8 * i);
-        v13 = [messageCopy substringFromIndex:{v9, v21}];
+        v12 = *(*(&v22 + 1) + 8 * i);
+        v13 = [messageCopy substringFromIndex:{v9, v20}];
         v14 = [v13 rangeOfString:v12];
         if (v14 != 0x7FFFFFFFFFFFFFFFLL)
         {
           v16 = v14;
           v17 = v15;
           v18 = [MEMORY[0x277CCAE60] valueWithRange:{v14 + v9, v15}];
-          [v21 addObject:v18];
+          [v20 addObject:v18];
 
           v9 += v17 + v16;
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v8 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v8);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v20;
 }
 
 - (id)copyAttributedTokensForMessage:(id)message conversationTurns:(id)turns metadata:(id)metadata languageID:(id)d

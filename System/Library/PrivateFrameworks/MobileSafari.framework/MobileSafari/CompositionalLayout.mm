@@ -46,7 +46,7 @@
 
   if (v9)
   {
-    sub_18B7B0AC0(0, &qword_1EA9D5BC8);
+    sub_18B7B0AC0(0, &qword_1EA9D5BC8, 0x1E69DC858);
     v10 = sub_18BC20D88();
   }
 

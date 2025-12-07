@@ -72,7 +72,7 @@
   v5 = representationCopy;
   if (representationCopy)
   {
-    v6 = [representationCopy objectForKey:@"deviceIDPair"];
+    v6 = objc_msgSend_objectForKey_(representationCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -129,7 +129,7 @@
       v15 = 0;
     }
 
-    v17 = [v5 objectForKey:@"proximity"];
+    v17 = objc_msgSend_objectForKey_(v5);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -142,7 +142,7 @@
     }
 
     intValue = [v18 intValue];
-    v20 = [v5 objectForKey:@"observationDate"];
+    v20 = objc_msgSend_objectForKey_(v5);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {

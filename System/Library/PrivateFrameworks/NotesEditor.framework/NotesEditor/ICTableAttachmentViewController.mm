@@ -973,7 +973,7 @@ uint64_t __84__ICTableAttachmentViewController_beginEditingCellWithColumnID_andR
   [v10 tableRowOrColumnSelectionDidChange];
 }
 
-uint64_t __82__ICTableAttachmentViewController_beginEditingCellWithColumnID_andRowID_location___block_invoke(uint64_t a1, void *a2)
+char *__82__ICTableAttachmentViewController_beginEditingCellWithColumnID_andRowID_location___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
   objc_opt_class();
@@ -10528,31 +10528,31 @@ LABEL_54:
   }
 }
 
-void __69__ICTableAttachmentViewController_saveAttachmentChangesInBackground___block_invoke(uint64_t a1)
+void __69__ICTableAttachmentViewController_saveAttachmentChangesInBackground___block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
-  v2 = [*(a1 + 32) attachmentModel];
-  v8 = ICDynamicCast();
+  v3 = [*(a1 + 32) attachmentModel];
+  v9 = ICDynamicCast();
 
-  [v8 updateAttachmentByMergingWithTableData:*(a1 + 40)];
-  [v8 regenerateTextContentInNote];
+  [v9 updateAttachmentByMergingWithTableData:*(a1 + 40)];
+  [v9 regenerateTextContentInNote];
   if ([*(a1 + 32) isInNoteTitleOrSnippet])
   {
-    v3 = [*(a1 + 32) note];
-    v4 = [v3 regenerateTitle:1 snippet:1];
+    v4 = [*(a1 + 32) note];
+    v5 = [v4 regenerateTitle:1 snippet:1];
 
-    if (v4)
+    if (v5)
     {
-      v5 = [*(a1 + 32) note];
-      [v5 markShareDirtyIfNeededWithReason:@"Updated title from table change"];
-
       v6 = [*(a1 + 32) note];
-      [v6 updateChangeCountWithReason:@"Updated title from table change"];
+      [v6 markShareDirtyIfNeededWithReason:@"Updated title from table change"];
+
+      v7 = [*(a1 + 32) note];
+      [v7 updateChangeCountWithReason:@"Updated title from table change"];
     }
   }
 
-  v7 = [*(a1 + 32) managedObjectContext];
-  [v7 ic_save];
+  v8 = [*(a1 + 32) managedObjectContext];
+  [v8 ic_save];
 }
 
 - (void)tableAttachmentProviderWillMergeTable:(id)table

@@ -26,9 +26,11 @@
 
 uint64_t __39__OverrideTrackerPolicy_sharedInstance__block_invoke(uint64_t a1)
 {
-  sharedInstance_sharedInstance_24 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = sharedInstance_sharedInstance_24;
+  sharedInstance_sharedInstance_24 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 - (OverrideTrackerPolicy)init
@@ -63,7 +65,7 @@ uint64_t __39__OverrideTrackerPolicy_sharedInstance__block_invoke(uint64_t a1)
 
 void __29__OverrideTrackerPolicy_init__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (!v4 || MEMORY[0x238389170](v4) != MEMORY[0x277D86468])
@@ -81,32 +83,32 @@ void __29__OverrideTrackerPolicy_init__block_invoke(uint64_t a1, uint64_t a2, vo
   v11 = *(v10 + 8);
   *(v10 + 8) = v9;
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v12 = v8;
-  v13 = [v12 countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (!v13)
   {
     goto LABEL_22;
   }
 
   v14 = v13;
-  v30 = v5;
+  v29 = v5;
   v15 = 0;
-  v16 = *v32;
+  v16 = *v31;
   do
   {
     for (i = 0; i != v14; ++i)
     {
       v18 = v15;
-      if (*v32 != v16)
+      if (*v31 != v16)
       {
         objc_enumerationMutation(v12);
       }
 
-      v19 = *(*(&v31 + 1) + 8 * i);
+      v19 = *(*(&v30 + 1) + 8 * i);
       v15 = [v12 objectForKeyedSubscript:v19];
 
       objc_opt_class();
@@ -126,9 +128,9 @@ void __29__OverrideTrackerPolicy_init__block_invoke(uint64_t a1, uint64_t a2, vo
         }
 
         *buf = 138412546;
-        v36 = v15;
-        v37 = 2112;
-        v38 = v19;
+        v35 = v15;
+        v36 = 2112;
+        v37 = v19;
         v23 = v22;
         v24 = "Unsupported type %@ for key:%@";
         v25 = 22;
@@ -148,7 +150,7 @@ void __29__OverrideTrackerPolicy_init__block_invoke(uint64_t a1, uint64_t a2, vo
       if (os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v36 = v19;
+        v35 = v19;
         v23 = v26;
         v24 = "Please use -int 0 if you want to whitelist a value for key:%@";
         v25 = 12;
@@ -158,12 +160,12 @@ LABEL_18:
       }
     }
 
-    v14 = [v12 countByEnumeratingWithState:&v31 objects:v39 count:16];
+    v14 = [v12 countByEnumeratingWithState:&v30 objects:v38 count:16];
   }
 
   while (v14);
 
-  v5 = v30;
+  v5 = v29;
 LABEL_22:
 
 LABEL_23:
@@ -172,16 +174,14 @@ LABEL_23:
   {
     v28 = *(*(a1 + 32) + 8);
     *buf = 138412290;
-    v36 = v28;
+    v35 = v28;
     _os_log_impl(&dword_23255B000, v27, OS_LOG_TYPE_INFO, "_maxConnectionPolicyOverrides is %@", buf, 0xCu);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __29__OverrideTrackerPolicy_init__block_invoke_61(uint64_t a1, uint64_t a2, void *a3)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (!v4 || MEMORY[0x238389170](v4) != MEMORY[0x277D86468])
@@ -199,32 +199,32 @@ void __29__OverrideTrackerPolicy_init__block_invoke_61(uint64_t a1, uint64_t a2,
   v11 = *(v10 + 16);
   *(v10 + 16) = v9;
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v12 = v8;
-  v13 = [v12 countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (!v13)
   {
     goto LABEL_22;
   }
 
   v14 = v13;
-  v30 = v5;
+  v29 = v5;
   v15 = 0;
-  v16 = *v32;
+  v16 = *v31;
   do
   {
     for (i = 0; i != v14; ++i)
     {
       v18 = v15;
-      if (*v32 != v16)
+      if (*v31 != v16)
       {
         objc_enumerationMutation(v12);
       }
 
-      v19 = *(*(&v31 + 1) + 8 * i);
+      v19 = *(*(&v30 + 1) + 8 * i);
       v15 = [v12 objectForKeyedSubscript:v19];
 
       objc_opt_class();
@@ -244,9 +244,9 @@ void __29__OverrideTrackerPolicy_init__block_invoke_61(uint64_t a1, uint64_t a2,
         }
 
         *buf = 138412546;
-        v36 = v15;
-        v37 = 2112;
-        v38 = v19;
+        v35 = v15;
+        v36 = 2112;
+        v37 = v19;
         v23 = v22;
         v24 = "Unsupported type %@ for key:%@";
         v25 = 22;
@@ -266,7 +266,7 @@ void __29__OverrideTrackerPolicy_init__block_invoke_61(uint64_t a1, uint64_t a2,
       if (os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v36 = v19;
+        v35 = v19;
         v23 = v26;
         v24 = "Please use -int 0 if you want to whitelist a value for key:%@";
         v25 = 12;
@@ -276,12 +276,12 @@ LABEL_18:
       }
     }
 
-    v14 = [v12 countByEnumeratingWithState:&v31 objects:v39 count:16];
+    v14 = [v12 countByEnumeratingWithState:&v30 objects:v38 count:16];
   }
 
   while (v14);
 
-  v5 = v30;
+  v5 = v29;
 LABEL_22:
 
 LABEL_23:
@@ -290,11 +290,9 @@ LABEL_23:
   {
     v28 = *(*(a1 + 32) + 16);
     *buf = 138412290;
-    v36 = v28;
+    v35 = v28;
     _os_log_impl(&dword_23255B000, v27, OS_LOG_TYPE_INFO, "_maxRRCTimePolicyOverrides is %@", buf, 0xCu);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (id)maxConnectionPolicyForTarget:(id)target

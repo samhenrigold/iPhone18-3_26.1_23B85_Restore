@@ -8,22 +8,24 @@
 
 - (_TtC10HearingApp21LiveListenLeadingView)initWithCoder:(id)coder
 {
-  v5 = self + OBJC_IVAR____TtC10HearingApp21LiveListenLeadingView_compressedElementSize;
-  *v5 = nullsub_1(14.3, 19.0);
-  *(v5 + 1) = v6;
-  v7 = self + OBJC_IVAR____TtC10HearingApp21LiveListenLeadingView_customElementSize;
-  *v7 = nullsub_1(28.0, 37.7);
-  *(v7 + 1) = v8;
-  v12.receiver = self;
-  v12.super_class = type metadata accessor for LiveListenLeadingView();
+  v5 = (&self->super.super.super.isa + OBJC_IVAR____TtC10HearingApp21LiveListenLeadingView_compressedElementSize);
+  nullsub_1();
+  *v5 = v6;
+  v5[1] = v7;
+  v8 = (&self->super.super.super.isa + OBJC_IVAR____TtC10HearingApp21LiveListenLeadingView_customElementSize);
+  nullsub_1();
+  *v8 = v9;
+  v8[1] = v10;
+  v14.receiver = self;
+  v14.super_class = type metadata accessor for LiveListenLeadingView();
   coderCopy = coder;
-  v10 = [(LiveListenLeadingView *)&v12 initWithCoder:coderCopy];
+  v12 = [(LiveListenLeadingView *)&v14 initWithCoder:coderCopy];
 
-  if (v10)
+  if (v12)
   {
   }
 
-  return v10;
+  return v12;
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits forLayoutMode:(int64_t)mode

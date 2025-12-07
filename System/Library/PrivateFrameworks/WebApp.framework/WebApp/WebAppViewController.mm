@@ -10,6 +10,8 @@
 - (void)openURLWithCustomSchemeIfNeeded;
 - (void)processWebPushWithIdentifier:(id)identifier;
 - (void)timeLimitForLoadCompletionExpired;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)webAppViewController:(id)controller didChangeLoadingState:(BOOL)state;
 - (void)webAppViewController:(id)controller viewServiceDidTerminateWithError:(id)error;
 @end
 
@@ -85,6 +87,7 @@ void __41__WebAppViewController__connectToService__block_invoke(uint64_t a1, voi
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v5)
   {
     [*(a1 + 32) _setUpContentViewController:v5];
@@ -93,10 +96,10 @@ void __41__WebAppViewController__connectToService__block_invoke(uint64_t a1, voi
 
   else
   {
-    v7 = viewServiceLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v8 = viewServiceLog(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      __41__WebAppViewController__connectToService__block_invoke_cold_1(v6, v7);
+      __41__WebAppViewController__connectToService__block_invoke_cold_1(v7, v8);
     }
 
     [*(a1 + 32) webAppViewController:0 viewServiceDidTerminateWithError:0];
@@ -176,6 +179,18 @@ void __41__WebAppViewController__connectToService__block_invoke(uint64_t a1, voi
   self->_loadingViewController = 0;
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = WebAppViewController;
+  [(WebAppViewController *)&v4 viewDidAppear:appear];
+  if (!self->_hasCustomScheme && !self->_hasShownLoadingViewController)
+  {
+    self->_hasShownLoadingViewController = 1;
+    [(WebAppViewController *)self presentViewController:self->_loadingViewController animated:0 completion:0];
+  }
+}
+
 - (void)openURLWithCustomSchemeIfNeeded
 {
   if (self->_hasCustomScheme)
@@ -250,6 +265,13 @@ void __41__WebAppViewController__connectToService__block_invoke(uint64_t a1, voi
   }
 }
 
+- (void)webAppViewController:(id)controller didChangeLoadingState:(BOOL)state
+{
+  stateCopy = state;
+  mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
+  [mEMORY[0x277D75128] setNetworkActivityIndicatorVisible:stateCopy];
+}
+
 - (void)webAppViewController:(id)controller viewServiceDidTerminateWithError:(id)error
 {
   controllerCopy = controller;
@@ -284,13 +306,11 @@ void __78__WebAppViewController_webAppViewController_viewServiceDidTerminateWith
 
 void __41__WebAppViewController__connectToService__block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 safari_privacyPreservingDescription];
-  v5 = 138543362;
-  v6 = v3;
-  _os_log_fault_impl(&dword_272C17000, a2, OS_LOG_TYPE_FAULT, "failed to connect to SafariViewService for Web.app: %{public}@; trying again…", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543362;
+  v5 = v3;
+  _os_log_fault_impl(&dword_272C17000, a2, OS_LOG_TYPE_FAULT, "failed to connect to SafariViewService for Web.app: %{public}@; trying again…", &v4, 0xCu);
 }
 
 @end

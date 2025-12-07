@@ -73,14 +73,14 @@
 {
   scrollCopy = scroll;
   selfCopy = self;
-  v6 = sub_21542F188();
+  v6 = sub_21542F188(v9);
   if (*(v7 + 56))
   {
     [scrollCopy contentOffset];
     sub_215431618(v8);
   }
 
-  (v6)(&v9, 0);
+  (v6)(v9, 0);
   sub_21542FD78();
 }
 

@@ -90,11 +90,11 @@
 
 + (id)resultFromURL:(id)l error:(id)error
 {
-  v18[3] = *MEMORY[0x1E69E9840];
+  v17[3] = *MEMORY[0x1E69E9840];
   errorCopy = error;
   lCopy = l;
   ams_parameters = [lCopy ams_parameters];
-  v17[0] = @"callbackURL";
+  v16[0] = @"callbackURL";
   absoluteString = [lCopy absoluteString];
   v9 = absoluteString;
   v10 = &stru_1F3921360;
@@ -119,30 +119,28 @@
     v12 = lCopy == 0;
   }
 
-  v18[0] = v10;
-  v18[1] = v11;
-  v17[1] = @"query";
-  v17[2] = @"success";
+  v17[0] = v10;
+  v17[1] = v11;
+  v16[1] = @"query";
+  v16[2] = @"success";
   v13 = @"false";
   if (!v12)
   {
     v13 = @"true";
   }
 
-  v18[2] = v13;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:3];
-
-  v15 = *MEMORY[0x1E69E9840];
+  v17[2] = v13;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:3];
 
   return v14;
 }
 
 - (id)runAction
 {
-  v43 = *MEMORY[0x1E69E9840];
-  v38.receiver = self;
-  v38.super_class = AMSUIWebOpenSafariAction;
-  runAction = [(AMSUIWebAction *)&v38 runAction];
+  v42 = *MEMORY[0x1E69E9840];
+  v37.receiver = self;
+  v37.super_class = AMSUIWebOpenSafariAction;
+  runAction = [(AMSUIWebAction *)&v37 runAction];
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedWebUIConfig];
   if (!mEMORY[0x1E698C968])
   {
@@ -161,7 +159,7 @@
     *&buf[12] = 2114;
     *&buf[14] = v7;
     *&buf[22] = 2114;
-    v40 = v9;
+    v39 = v9;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Running safari action with URL: %{public}@", buf, 0x20u);
   }
 
@@ -190,101 +188,94 @@
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v40 = __Block_byref_object_copy__9;
-    v41 = __Block_byref_object_dispose__9;
+    v39 = __Block_byref_object_copy__9;
+    v40 = __Block_byref_object_dispose__9;
     selfCopy = self;
-    v42 = selfCopy;
+    v41 = selfCopy;
     v19 = [(AMSUIWebOpenSafariAction *)selfCopy URL];
     data = [(AMSUIWebOpenSafariAction *)selfCopy data];
     callbackScheme = [(AMSUIWebOpenSafariAction *)selfCopy callbackScheme];
-    v30 = MEMORY[0x1E69E9820];
-    v31 = 3221225472;
-    v32 = __37__AMSUIWebOpenSafariAction_runAction__block_invoke;
-    v33 = &unk_1E7F269A8;
+    v29 = MEMORY[0x1E69E9820];
+    v30 = 3221225472;
+    v31 = __37__AMSUIWebOpenSafariAction_runAction__block_invoke;
+    v32 = &unk_1E7F269A8;
     v22 = v14;
-    v34 = v22;
-    v35 = selfCopy;
+    v33 = v22;
+    v34 = selfCopy;
     v23 = v13;
-    v36 = v23;
-    v37 = buf;
-    [(AMSUIWebSafariViewController *)v17 loadActionURL:v19 data:data callbackScheme:callbackScheme actionHandler:&v30];
+    v35 = v23;
+    v36 = buf;
+    [(AMSUIWebSafariViewController *)v17 loadActionURL:v19 data:data callbackScheme:callbackScheme actionHandler:&v29];
 
-    if (![(AMSUIWebOpenSafariAction *)selfCopy _presentViewContoller:v17, v30, v31, v32, v33])
+    if (![(AMSUIWebOpenSafariAction *)selfCopy _presentViewContoller:v17, v29, v30, v31, v32])
     {
       v24 = AMSError();
       [v23 finishWithError:v24];
     }
 
-    v25 = v36;
+    v25 = v35;
     v26 = v23;
 
     _Block_object_dispose(buf, 8);
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return v26;
 }
 
 void __37__AMSUIWebOpenSafariAction_runAction__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = *(a1 + 32);
-  v7 = a2;
-  v8 = AMSSetLogKey();
-  v9 = [MEMORY[0x1E698C968] sharedWebUIConfig];
-  if (!v9)
+  v6 = a2;
+  v7 = AMSSetLogKey();
+  v8 = [MEMORY[0x1E698C968] sharedWebUIConfig];
+  if (!v8)
   {
-    v9 = [MEMORY[0x1E698C968] sharedConfig];
+    v8 = [MEMORY[0x1E698C968] sharedConfig];
   }
 
-  v10 = [v9 OSLogObject];
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v9 = [v8 OSLogObject];
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = *(a1 + 40);
-    v12 = objc_opt_class();
-    v13 = AMSLogKey();
-    v14 = v13;
-    v15 = &stru_1F3921360;
-    *v25 = 138543874;
-    *&v25[4] = v12;
+    v10 = objc_opt_class();
+    v11 = AMSLogKey();
+    v12 = v11;
+    v13 = &stru_1F3921360;
+    *v21 = 138543874;
+    *&v21[4] = v10;
     if (v5)
     {
-      v15 = v5;
+      v13 = v5;
     }
 
-    *&v25[12] = 2114;
-    *&v25[14] = v13;
-    v26 = 2114;
-    v27 = v15;
-    _os_log_impl(&dword_1BB036000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Received safari callback. %{public}@", v25, 0x20u);
+    *&v21[12] = 2114;
+    *&v21[14] = v11;
+    v22 = 2114;
+    v23 = v13;
+    _os_log_impl(&dword_1BB036000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Received safari callback. %{public}@", v21, 0x20u);
   }
 
-  v16 = *(a1 + 40);
-  v17 = [objc_opt_class() resultFromURL:v7 error:v5];
+  v14 = [objc_opt_class() resultFromURL:v6 error:v5];
 
-  v18 = [*(a1 + 40) context];
-  v19 = [v18 dataProvider];
-  v20 = [v19 postEvent:@"SafariDataUpdate" options:v17];
+  v15 = [*(a1 + 40) context];
+  v16 = [v15 dataProvider];
+  v17 = [v16 postEvent:@"SafariDataUpdate" options:v14];
 
-  v21 = *(a1 + 48);
+  v18 = *(a1 + 48);
   if (v5)
   {
-    [v21 finishWithError:v5];
+    [v18 finishWithError:v5];
   }
 
   else
   {
-    [v21 finishWithResult:v17];
+    [v18 finishWithResult:v14];
   }
 
-  [*(a1 + 40) setSafariViewController:{0, *v25}];
-  v22 = *(*(a1 + 56) + 8);
-  v23 = *(v22 + 40);
-  *(v22 + 40) = 0;
-
-  v24 = *MEMORY[0x1E69E9840];
+  [*(a1 + 40) setSafariViewController:{0, *v21, *&v21[8]}];
+  v19 = *(*(a1 + 56) + 8);
+  v20 = *(v19 + 40);
+  *(v19 + 40) = 0;
 }
 
 - (BOOL)_presentViewContoller:(id)contoller
@@ -319,7 +310,7 @@ void __37__AMSUIWebOpenSafariAction_runAction__block_invoke(uint64_t a1, void *a
 
 - (void)_safariDataUpdate:(id)update
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   object = [update object];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -345,11 +336,11 @@ void __37__AMSUIWebOpenSafariAction_runAction__block_invoke(uint64_t a1, void *a
     {
       v17 = objc_opt_class();
       v18 = AMSLogKey();
-      v24 = 138543618;
-      v25 = v17;
-      v26 = 2114;
-      v27 = v18;
-      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Safari data update called without a URL", &v24, 0x16u);
+      v23 = 138543618;
+      v24 = v17;
+      v25 = 2114;
+      v26 = v18;
+      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Safari data update called without a URL", &v23, 0x16u);
     }
 
     goto LABEL_22;
@@ -386,15 +377,15 @@ void __37__AMSUIWebOpenSafariAction_runAction__block_invoke(uint64_t a1, void *a
       v20 = AMSLogKey();
       callbackScheme2 = [(AMSUIWebOpenSafariAction *)self callbackScheme];
       v22 = AMSLogableURL();
-      v24 = 138544130;
-      v25 = v19;
-      v26 = 2114;
-      v27 = v20;
-      v28 = 2114;
-      v29 = callbackScheme2;
-      v30 = 2114;
-      v31 = v22;
-      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] ScriptDataUpdate scheme does not match callbackScheme (%{public}@): %{public}@", &v24, 0x2Au);
+      v23 = 138544130;
+      v24 = v19;
+      v25 = 2114;
+      v26 = v20;
+      v27 = 2114;
+      v28 = callbackScheme2;
+      v29 = 2114;
+      v30 = v22;
+      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] ScriptDataUpdate scheme does not match callbackScheme (%{public}@): %{public}@", &v23, 0x2Au);
     }
 
 LABEL_22:
@@ -412,18 +403,16 @@ LABEL_22:
   {
     v14 = objc_opt_class();
     v15 = AMSLogKey();
-    v24 = 138543618;
-    v25 = v14;
-    v26 = 2114;
-    v27 = v15;
-    _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Received ScriptDataUpdate notification", &v24, 0x16u);
+    v23 = 138543618;
+    v24 = v14;
+    v25 = 2114;
+    v26 = v15;
+    _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Received ScriptDataUpdate notification", &v23, 0x16u);
   }
 
   mEMORY[0x1E698C968] = [(AMSUIWebOpenSafariAction *)self safariViewController];
   [mEMORY[0x1E698C968] receiveCallbackURL:v5];
 LABEL_23:
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (UIViewController)presentedViewController

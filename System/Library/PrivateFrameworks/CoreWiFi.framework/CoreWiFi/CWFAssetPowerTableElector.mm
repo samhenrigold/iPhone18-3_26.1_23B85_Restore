@@ -27,6 +27,8 @@
 - (void)performVersionFetchBlockify:(id)blockify;
 - (void)persist:(id)persist forKey:(id)key;
 - (void)persistSession:(id)session data:(id)data forKey:(id)key;
+- (void)powerTableReadiness:(BOOL)readiness;
+- (void)powerTableVote:(BOOL)vote;
 - (void)processTransitionToTerminalState:(id)state;
 - (void)setupInterfaceAddedAndDriverAvailMonitor;
 - (void)waitForPowerTableBootedThenVoteInBlock:(id)block completion:(id)completion;
@@ -36,11 +38,11 @@
 
 - (CWFAssetPowerTableElector)initWithNotificationCenter:(id)center
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   centerCopy = center;
-  v24.receiver = self;
-  v24.super_class = CWFAssetPowerTableElector;
-  v5 = [(CWFAssetPowerTableElector *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = CWFAssetPowerTableElector;
+  v5 = [(CWFAssetPowerTableElector *)&v23 init];
   if (v5)
   {
     v6 = dispatch_queue_create("com.apple.wifi.CWFAssetPowerTableElector", 0);
@@ -103,27 +105,27 @@
             if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
             {
               *buf = 136446722;
-              v26 = "[CWFAssetPowerTableElector initWithNotificationCenter:]";
-              v27 = 1024;
-              v28 = 123;
-              v29 = 2080;
-              v30 = "[CWFAssetPowerTableElector initWithNotificationCenter:]";
+              v25 = "[CWFAssetPowerTableElector initWithNotificationCenter:]";
+              v26 = 1024;
+              v27 = 123;
+              v28 = 2080;
+              v29 = "[CWFAssetPowerTableElector initWithNotificationCenter:]";
               _os_log_impl(&dword_1E0BBF000, v18, OS_LOG_TYPE_DEBUG, "%{public}s::%d:%s: init complete", buf, 0x1Cu);
             }
 
             goto LABEL_12;
           }
 
-          v22 = CWFGetOTAOSLog();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+          v21 = CWFGetOTAOSLog();
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
             *buf = 136446722;
-            v26 = "[CWFAssetPowerTableElector initWithNotificationCenter:]";
-            v27 = 1024;
-            v28 = 99;
-            v29 = 2080;
-            v30 = "[CWFAssetPowerTableElector initWithNotificationCenter:]";
-            v23 = "%{public}s::%d:%s: Failed to alloc _waitingQueue";
+            v25 = "[CWFAssetPowerTableElector initWithNotificationCenter:]";
+            v26 = 1024;
+            v27 = 99;
+            v28 = 2080;
+            v29 = "[CWFAssetPowerTableElector initWithNotificationCenter:]";
+            v22 = "%{public}s::%d:%s: Failed to alloc _waitingQueue";
             goto LABEL_22;
           }
 
@@ -133,58 +135,58 @@ LABEL_23:
           goto LABEL_13;
         }
 
-        v22 = CWFGetOTAOSLog();
-        if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        v21 = CWFGetOTAOSLog();
+        if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_23;
         }
 
         *buf = 136446722;
-        v26 = "[CWFAssetPowerTableElector initWithNotificationCenter:]";
-        v27 = 1024;
-        v28 = 96;
-        v29 = 2080;
-        v30 = "[CWFAssetPowerTableElector initWithNotificationCenter:]";
-        v23 = "%{public}s::%d:%s: Failed to alloc _signalQueue";
+        v25 = "[CWFAssetPowerTableElector initWithNotificationCenter:]";
+        v26 = 1024;
+        v27 = 96;
+        v28 = 2080;
+        v29 = "[CWFAssetPowerTableElector initWithNotificationCenter:]";
+        v22 = "%{public}s::%d:%s: Failed to alloc _signalQueue";
       }
 
       else
       {
-        v22 = CWFGetOTAOSLog();
-        if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        v21 = CWFGetOTAOSLog();
+        if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_23;
         }
 
         *buf = 136446722;
-        v26 = "[CWFAssetPowerTableElector initWithNotificationCenter:]";
-        v27 = 1024;
-        v28 = 93;
-        v29 = 2080;
-        v30 = "[CWFAssetPowerTableElector initWithNotificationCenter:]";
-        v23 = "%{public}s::%d:%s: Failed to alloc _apiQueue";
+        v25 = "[CWFAssetPowerTableElector initWithNotificationCenter:]";
+        v26 = 1024;
+        v27 = 93;
+        v28 = 2080;
+        v29 = "[CWFAssetPowerTableElector initWithNotificationCenter:]";
+        v22 = "%{public}s::%d:%s: Failed to alloc _apiQueue";
       }
     }
 
     else
     {
-      v22 = CWFGetOTAOSLog();
-      if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v21 = CWFGetOTAOSLog();
+      if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_23;
       }
 
       *buf = 136446722;
-      v26 = "[CWFAssetPowerTableElector initWithNotificationCenter:]";
-      v27 = 1024;
-      v28 = 90;
-      v29 = 2080;
-      v30 = "[CWFAssetPowerTableElector initWithNotificationCenter:]";
-      v23 = "%{public}s::%d:%s: Failed to alloc _coordinationQueue";
+      v25 = "[CWFAssetPowerTableElector initWithNotificationCenter:]";
+      v26 = 1024;
+      v27 = 90;
+      v28 = 2080;
+      v29 = "[CWFAssetPowerTableElector initWithNotificationCenter:]";
+      v22 = "%{public}s::%d:%s: Failed to alloc _coordinationQueue";
     }
 
 LABEL_22:
-    _os_log_impl(&dword_1E0BBF000, v22, OS_LOG_TYPE_ERROR, v23, buf, 0x1Cu);
+    _os_log_impl(&dword_1E0BBF000, v21, OS_LOG_TYPE_ERROR, v22, buf, 0x1Cu);
     goto LABEL_23;
   }
 
@@ -192,7 +194,6 @@ LABEL_12:
   v19 = v5;
 LABEL_13:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -221,7 +222,7 @@ LABEL_13:
 
 - (void)persist:(id)persist forKey:(id)key
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   persistCopy = persist;
   keyCopy = key;
   if (keyCopy)
@@ -242,22 +243,20 @@ LABEL_13:
     getPersistedDict = CWFGetOTAOSLog();
     if (os_log_type_enabled(getPersistedDict, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136446722;
-      v12 = "[CWFAssetPowerTableElector persist:forKey:]";
-      v13 = 1024;
-      v14 = 147;
-      v15 = 2080;
-      v16 = "[CWFAssetPowerTableElector persist:forKey:]";
-      _os_log_impl(&dword_1E0BBF000, getPersistedDict, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: Failed access userDefaults", &v11, 0x1Cu);
+      v10 = 136446722;
+      v11 = "[CWFAssetPowerTableElector persist:forKey:]";
+      v12 = 1024;
+      v13 = 147;
+      v14 = 2080;
+      v15 = "[CWFAssetPowerTableElector persist:forKey:]";
+      _os_log_impl(&dword_1E0BBF000, getPersistedDict, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: Failed access userDefaults", &v10, 0x1Cu);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)persistSession:(id)session data:(id)data forKey:(id)key
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   dataCopy = data;
   selfCopy = self;
@@ -272,26 +271,26 @@ LABEL_13:
     array = [MEMORY[0x1E695DF70] array];
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v13 = array;
-  v14 = [v13 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v28;
+    v16 = *v27;
 LABEL_5:
     v17 = 0;
     while (1)
     {
-      if (*v28 != v16)
+      if (*v27 != v16)
       {
         objc_enumerationMutation(v13);
       }
 
-      v18 = *(*(&v27 + 1) + 8 * v17);
+      v18 = *(*(&v26 + 1) + 8 * v17);
       v19 = [v18 objectForKeyedSubscript:@"session-id"];
       v20 = [sessionCopy isEqualToString:v19];
 
@@ -302,7 +301,7 @@ LABEL_5:
 
       if (v15 == ++v17)
       {
-        v15 = [v13 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v26 objects:v30 count:16];
         if (v15)
         {
           goto LABEL_5;
@@ -335,8 +334,6 @@ LABEL_14:
   [dictionary setObject:dataCopy forKeyedSubscript:keyCopy];
   [v13 addObject:dictionary];
   [(CWFAssetPowerTableElector *)selfCopy persist:v13 forKey:@"powertable-election-sessions-history"];
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (id)getPersistedDict
@@ -401,34 +398,34 @@ LABEL_14:
 
 - (id)getSession:(id)session
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   getPersistedDict = [(CWFAssetPowerTableElector *)self getPersistedDict];
   v6 = [getPersistedDict objectForKey:@"powertable-election-sessions-history"];
   v7 = v6;
   if (v6)
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v8 = v6;
-    v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v9)
     {
       v10 = v9;
-      v19 = getPersistedDict;
-      v11 = *v21;
+      v18 = getPersistedDict;
+      v11 = *v20;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v21 != v11)
+          if (*v20 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v20 + 1) + 8 * i);
+          v13 = *(*(&v19 + 1) + 8 * i);
           v14 = [v13 objectForKeyedSubscript:@"session-id"];
           v15 = [sessionCopy isEqualToString:v14];
 
@@ -439,7 +436,7 @@ LABEL_14:
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
         if (v10)
         {
           continue;
@@ -450,7 +447,7 @@ LABEL_14:
 
       v16 = 0;
 LABEL_12:
-      getPersistedDict = v19;
+      getPersistedDict = v18;
     }
 
     else
@@ -464,14 +461,12 @@ LABEL_12:
     v16 = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v16;
 }
 
 - (void)waitForPowerTableBootedThenVoteInBlock:(id)block completion:(id)completion
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   completionCopy = completion;
   [(CWFAssetPowerTableElector *)self _dateToBlockWaitingForDriverReload];
@@ -483,22 +478,22 @@ LABEL_12:
     v12 = CWFGetOTAOSLog();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v27 = 136446978;
-      v28 = "[CWFAssetPowerTableElector waitForPowerTableBootedThenVoteInBlock:completion:]";
-      v29 = 1024;
-      v30 = 268;
-      v31 = 2080;
-      v32 = "[CWFAssetPowerTableElector waitForPowerTableBootedThenVoteInBlock:completion:]";
-      v33 = 2112;
-      v34 = v9;
-      _os_log_impl(&dword_1E0BBF000, v12, OS_LOG_TYPE_INFO, "%{public}s::%d:%s: _readyToFetchLoadedPT FALSE, will block waiting for _readyToFetchLoadedPTCondition until date: %@", &v27, 0x26u);
+      v26 = 136446978;
+      v27 = "[CWFAssetPowerTableElector waitForPowerTableBootedThenVoteInBlock:completion:]";
+      v28 = 1024;
+      v29 = 268;
+      v30 = 2080;
+      v31 = "[CWFAssetPowerTableElector waitForPowerTableBootedThenVoteInBlock:completion:]";
+      v32 = 2112;
+      v33 = v9;
+      _os_log_impl(&dword_1E0BBF000, v12, OS_LOG_TYPE_INFO, "%{public}s::%d:%s: _readyToFetchLoadedPT FALSE, will block waiting for _readyToFetchLoadedPTCondition until date: %@", &v26, 0x26u);
     }
 
     v13 = CWFGetOTAOSLog();
     if (os_signpost_enabled(v13))
     {
-      LOWORD(v27) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1E0BBF000, v13, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "wait _readyToFetchLoadedPTCondition", "", &v27, 2u);
+      LOWORD(v26) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1E0BBF000, v13, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "wait _readyToFetchLoadedPTCondition", "", &v26, 2u);
     }
 
     _readyToFetchLoadedPTCondition = [(CWFAssetPowerTableElector *)self _readyToFetchLoadedPTCondition];
@@ -514,15 +509,15 @@ LABEL_12:
         v17 = CWFGetOTAOSLog();
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
-          v27 = 136446978;
-          v28 = "[CWFAssetPowerTableElector waitForPowerTableBootedThenVoteInBlock:completion:]";
-          v29 = 1024;
-          v30 = 274;
-          v31 = 2080;
-          v32 = "[CWFAssetPowerTableElector waitForPowerTableBootedThenVoteInBlock:completion:]";
-          v33 = 2112;
-          v34 = blockCopy;
-          _os_log_impl(&dword_1E0BBF000, v17, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: Wait for _readyToFetchLoadedPTCondition timed out at date %@", &v27, 0x26u);
+          v26 = 136446978;
+          v27 = "[CWFAssetPowerTableElector waitForPowerTableBootedThenVoteInBlock:completion:]";
+          v28 = 1024;
+          v29 = 274;
+          v30 = 2080;
+          v31 = "[CWFAssetPowerTableElector waitForPowerTableBootedThenVoteInBlock:completion:]";
+          v32 = 2112;
+          v33 = blockCopy;
+          _os_log_impl(&dword_1E0BBF000, v17, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: Wait for _readyToFetchLoadedPTCondition timed out at date %@", &v26, 0x26u);
         }
 
         break;
@@ -535,8 +530,8 @@ LABEL_12:
     v19 = CWFGetOTAOSLog();
     if (os_signpost_enabled(v19))
     {
-      LOWORD(v27) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1E0BBF000, v19, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "wait _readyToFetchLoadedPTCondition", "", &v27, 2u);
+      LOWORD(v26) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1E0BBF000, v19, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "wait _readyToFetchLoadedPTCondition", "", &v26, 2u);
     }
   }
 
@@ -545,15 +540,15 @@ LABEL_12:
     v20 = CWFGetOTAOSLog();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
-      v27 = 136446978;
-      v28 = "[CWFAssetPowerTableElector waitForPowerTableBootedThenVoteInBlock:completion:]";
-      v29 = 1024;
-      v30 = 283;
-      v31 = 2080;
-      v32 = "[CWFAssetPowerTableElector waitForPowerTableBootedThenVoteInBlock:completion:]";
-      v33 = 2112;
-      v34 = v9;
-      _os_log_impl(&dword_1E0BBF000, v20, OS_LOG_TYPE_INFO, "%{public}s::%d:%s: _readyToFetchLoadedPT TRUE, will fetch PT until date: %@", &v27, 0x26u);
+      v26 = 136446978;
+      v27 = "[CWFAssetPowerTableElector waitForPowerTableBootedThenVoteInBlock:completion:]";
+      v28 = 1024;
+      v29 = 283;
+      v30 = 2080;
+      v31 = "[CWFAssetPowerTableElector waitForPowerTableBootedThenVoteInBlock:completion:]";
+      v32 = 2112;
+      v33 = v9;
+      _os_log_impl(&dword_1E0BBF000, v20, OS_LOG_TYPE_INFO, "%{public}s::%d:%s: _readyToFetchLoadedPT TRUE, will fetch PT until date: %@", &v26, 0x26u);
     }
 
     v21 = [(CWFAssetPowerTableElector *)self performPowerTableVersionRequestWithDeadline:v11];
@@ -566,13 +561,13 @@ LABEL_12:
       v25 = CWFGetOTAOSLog();
       if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
       {
-        v27 = 136446722;
-        v28 = "[CWFAssetPowerTableElector waitForPowerTableBootedThenVoteInBlock:completion:]";
-        v29 = 1024;
-        v30 = 288;
-        v31 = 2080;
-        v32 = "[CWFAssetPowerTableElector waitForPowerTableBootedThenVoteInBlock:completion:]";
-        _os_log_impl(&dword_1E0BBF000, v25, OS_LOG_TYPE_INFO, "%{public}s::%d:%s: ERROR failed to retrieve current PT Version, setting voteResult = FALSE", &v27, 0x1Cu);
+        v26 = 136446722;
+        v27 = "[CWFAssetPowerTableElector waitForPowerTableBootedThenVoteInBlock:completion:]";
+        v28 = 1024;
+        v29 = 288;
+        v30 = 2080;
+        v31 = "[CWFAssetPowerTableElector waitForPowerTableBootedThenVoteInBlock:completion:]";
+        _os_log_impl(&dword_1E0BBF000, v25, OS_LOG_TYPE_INFO, "%{public}s::%d:%s: ERROR failed to retrieve current PT Version, setting voteResult = FALSE", &v26, 0x1Cu);
       }
     }
   }
@@ -583,8 +578,6 @@ LABEL_12:
   }
 
   completionCopy[2](completionCopy, v24, 0);
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dispatchWaitForInterfaceAddedThenBlockify:(id)blockify completion:(id)completion
@@ -609,7 +602,7 @@ LABEL_12:
 
 - (void)setupInterfaceAddedAndDriverAvailMonitor
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v3 = CWFGetOTAOSLog();
   if (os_signpost_enabled(v3))
   {
@@ -631,24 +624,24 @@ LABEL_12:
 
   objc_initWeak(&location, self);
   wifiInterface3 = [(CWFAssetPowerTableElector *)self wifiInterface];
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = sub_1E0C4D1C4;
-  v23[3] = &unk_1E86E6F30;
-  objc_copyWeak(&v24, &location);
-  [wifiInterface3 setEventHandler:v23];
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = sub_1E0C4D1C4;
+  v22[3] = &unk_1E86E6F30;
+  objc_copyWeak(&v23, &location);
+  [wifiInterface3 setEventHandler:v22];
 
   wifiInterface4 = [(CWFAssetPowerTableElector *)self wifiInterface];
-  v22 = 0;
-  v10 = [wifiInterface4 startMonitoringEventType:10 error:&v22];
-  v11 = v22;
+  v21 = 0;
+  v10 = [wifiInterface4 startMonitoringEventType:10 error:&v21];
+  v11 = v21;
 
   if (v10)
   {
     wifiInterface5 = [(CWFAssetPowerTableElector *)self wifiInterface];
-    v21 = v11;
-    v13 = [wifiInterface5 startMonitoringEventType:42 error:&v21];
-    v14 = v21;
+    v20 = v11;
+    v13 = [wifiInterface5 startMonitoringEventType:42 error:&v20];
+    v14 = v20;
 
     if (v13)
     {
@@ -661,11 +654,11 @@ LABEL_10:
       }
 
       *buf = 136446722;
-      v27 = "[CWFAssetPowerTableElector setupInterfaceAddedAndDriverAvailMonitor]";
-      v28 = 1024;
-      v29 = 406;
-      v30 = 2080;
-      v31 = "[CWFAssetPowerTableElector setupInterfaceAddedAndDriverAvailMonitor]";
+      v26 = "[CWFAssetPowerTableElector setupInterfaceAddedAndDriverAvailMonitor]";
+      v27 = 1024;
+      v28 = 406;
+      v29 = 2080;
+      v30 = "[CWFAssetPowerTableElector setupInterfaceAddedAndDriverAvailMonitor]";
       v16 = "%{public}s::%d:%s: setupInterfaceAddedAndDriverAvailMonitor complete";
       v17 = v15;
       v18 = 28;
@@ -680,13 +673,13 @@ LABEL_10:
       }
 
       *buf = 136446978;
-      v27 = "[CWFAssetPowerTableElector setupInterfaceAddedAndDriverAvailMonitor]";
-      v28 = 1024;
-      v29 = 403;
-      v30 = 2080;
-      v31 = "[CWFAssetPowerTableElector setupInterfaceAddedAndDriverAvailMonitor]";
-      v32 = 2114;
-      v33 = v14;
+      v26 = "[CWFAssetPowerTableElector setupInterfaceAddedAndDriverAvailMonitor]";
+      v27 = 1024;
+      v28 = 403;
+      v29 = 2080;
+      v30 = "[CWFAssetPowerTableElector setupInterfaceAddedAndDriverAvailMonitor]";
+      v31 = 2114;
+      v32 = v14;
       v16 = "%{public}s::%d:%s: Failed to start monitoring for CWFEventTypeDriverAvailable event; error %{public}@";
       v17 = v15;
       v18 = 38;
@@ -700,13 +693,13 @@ LABEL_10:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446978;
-    v27 = "[CWFAssetPowerTableElector setupInterfaceAddedAndDriverAvailMonitor]";
-    v28 = 1024;
-    v29 = 401;
-    v30 = 2080;
-    v31 = "[CWFAssetPowerTableElector setupInterfaceAddedAndDriverAvailMonitor]";
-    v32 = 2114;
-    v33 = v11;
+    v26 = "[CWFAssetPowerTableElector setupInterfaceAddedAndDriverAvailMonitor]";
+    v27 = 1024;
+    v28 = 401;
+    v29 = 2080;
+    v30 = "[CWFAssetPowerTableElector setupInterfaceAddedAndDriverAvailMonitor]";
+    v31 = 2114;
+    v32 = v11;
     _os_log_impl(&dword_1E0BBF000, v15, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: Failed to start monitoring for CWFEventTypeInterfaceAdded event; error %{public}@", buf, 0x26u);
   }
 
@@ -719,28 +712,26 @@ LABEL_11:
     _os_signpost_emit_with_name_impl(&dword_1E0BBF000, v19, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "setupInterfaceAddedAndDriverAvailMonitor", "", buf, 2u);
   }
 
-  objc_destroyWeak(&v24);
+  objc_destroyWeak(&v23);
   objc_destroyWeak(&location);
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)waitForInterfaceAdded:(id)added
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   addedCopy = added;
   v5 = CWFGetOTAOSLog();
   if (os_signpost_enabled(v5))
   {
-    LOWORD(v23) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E0BBF000, v5, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "waitForInterfaceAdded", "", &v23, 2u);
+    LOWORD(v22) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E0BBF000, v5, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "waitForInterfaceAdded", "", &v22, 2u);
   }
 
   v6 = CWFGetOTAOSLog();
   if (os_signpost_enabled(v6))
   {
-    LOWORD(v23) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E0BBF000, v6, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "wait _interfaceAddedEventCondition", "", &v23, 2u);
+    LOWORD(v22) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E0BBF000, v6, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "wait _interfaceAddedEventCondition", "", &v22, 2u);
   }
 
   _interfaceAddedEventCondition = [(CWFAssetPowerTableElector *)self _interfaceAddedEventCondition];
@@ -756,15 +747,15 @@ LABEL_11:
       v10 = CWFGetOTAOSLog();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = 136446978;
-        v24 = "[CWFAssetPowerTableElector waitForInterfaceAdded:]";
-        v25 = 1024;
-        v26 = 426;
-        v27 = 2080;
-        v28 = "[CWFAssetPowerTableElector waitForInterfaceAdded:]";
-        v29 = 2112;
-        *v30 = addedCopy;
-        _os_log_impl(&dword_1E0BBF000, v10, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: Wait for _condInterfaceAddedAfterEvaluationStart timed out at date %@", &v23, 0x26u);
+        v22 = 136446978;
+        v23 = "[CWFAssetPowerTableElector waitForInterfaceAdded:]";
+        v24 = 1024;
+        v25 = 426;
+        v26 = 2080;
+        v27 = "[CWFAssetPowerTableElector waitForInterfaceAdded:]";
+        v28 = 2112;
+        *v29 = addedCopy;
+        _os_log_impl(&dword_1E0BBF000, v10, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: Wait for _condInterfaceAddedAfterEvaluationStart timed out at date %@", &v22, 0x26u);
       }
 
       break;
@@ -777,17 +768,17 @@ LABEL_11:
   {
     _interfaceAddedEventCondition3 = [(CWFAssetPowerTableElector *)self _interfaceAddedEventCondition];
     _interfaceAddedEventOccurred2 = [(CWFAssetPowerTableElector *)self _interfaceAddedEventOccurred];
-    v23 = 136447234;
-    v24 = "[CWFAssetPowerTableElector waitForInterfaceAdded:]";
-    v25 = 1024;
-    v26 = 431;
-    v27 = 2080;
-    v28 = "[CWFAssetPowerTableElector waitForInterfaceAdded:]";
-    v29 = 2112;
-    *v30 = _interfaceAddedEventCondition3;
-    *&v30[8] = 1024;
-    v31 = _interfaceAddedEventOccurred2;
-    _os_log_impl(&dword_1E0BBF000, v12, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: _interfaceAddedEventCondition %@ or _interfaceAddedEventOccurred %d Done", &v23, 0x2Cu);
+    v22 = 136447234;
+    v23 = "[CWFAssetPowerTableElector waitForInterfaceAdded:]";
+    v24 = 1024;
+    v25 = 431;
+    v26 = 2080;
+    v27 = "[CWFAssetPowerTableElector waitForInterfaceAdded:]";
+    v28 = 2112;
+    *v29 = _interfaceAddedEventCondition3;
+    *&v29[8] = 1024;
+    v30 = _interfaceAddedEventOccurred2;
+    _os_log_impl(&dword_1E0BBF000, v12, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: _interfaceAddedEventCondition %@ or _interfaceAddedEventOccurred %d Done", &v22, 0x2Cu);
   }
 
   _interfaceAddedEventCondition4 = [(CWFAssetPowerTableElector *)self _interfaceAddedEventCondition];
@@ -796,8 +787,8 @@ LABEL_11:
   v16 = CWFGetOTAOSLog();
   if (os_signpost_enabled(v16))
   {
-    LOWORD(v23) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E0BBF000, v16, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "wait _interfaceAddedEventCondition", "", &v23, 2u);
+    LOWORD(v22) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E0BBF000, v16, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "wait _interfaceAddedEventCondition", "", &v22, 2u);
   }
 
   v17 = CWFGetOTAOSLog();
@@ -805,33 +796,32 @@ LABEL_11:
   {
     _interfaceAddedEventOccurred3 = [(CWFAssetPowerTableElector *)self _interfaceAddedEventOccurred];
     _driverAvailEventOccurred = [(CWFAssetPowerTableElector *)self _driverAvailEventOccurred];
-    v23 = 136447234;
-    v24 = "[CWFAssetPowerTableElector waitForInterfaceAdded:]";
-    v25 = 1024;
-    v26 = 447;
-    v27 = 2080;
-    v28 = "[CWFAssetPowerTableElector waitForInterfaceAdded:]";
-    v29 = 1024;
-    *v30 = _interfaceAddedEventOccurred3;
-    *&v30[4] = 1024;
-    *&v30[6] = _driverAvailEventOccurred;
-    _os_log_impl(&dword_1E0BBF000, v17, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: waitForInterfaceAdded completed _interfaceAddedEventOccurred %d _driverAvailEventOccurred %d", &v23, 0x28u);
+    v22 = 136447234;
+    v23 = "[CWFAssetPowerTableElector waitForInterfaceAdded:]";
+    v24 = 1024;
+    v25 = 447;
+    v26 = 2080;
+    v27 = "[CWFAssetPowerTableElector waitForInterfaceAdded:]";
+    v28 = 1024;
+    *v29 = _interfaceAddedEventOccurred3;
+    *&v29[4] = 1024;
+    *&v29[6] = _driverAvailEventOccurred;
+    _os_log_impl(&dword_1E0BBF000, v17, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: waitForInterfaceAdded completed _interfaceAddedEventOccurred %d _driverAvailEventOccurred %d", &v22, 0x28u);
   }
 
   v20 = CWFGetOTAOSLog();
   if (os_signpost_enabled(v20))
   {
-    LOWORD(v23) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E0BBF000, v20, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "waitForInterfaceAdded", "", &v23, 2u);
+    LOWORD(v22) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E0BBF000, v20, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "waitForInterfaceAdded", "", &v22, 2u);
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return _interfaceAddedEventOccurred;
 }
 
 - (void)performVersionFetchBlockify:(id)blockify
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   blockifyCopy = blockify;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v6 = CWFGetOTAOSLog();
@@ -860,28 +850,26 @@ LABEL_11:
   v9 = [delegate performVersionFetch:dictionary];
 
   buf[24] = v9;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = sub_1E0C4E358;
-  v13[3] = &unk_1E86E6F08;
-  v13[4] = buf;
-  sub_1E0BF1DA8(@"override-ver-fetch-success", @"com.apple.wifi.powertable", v13);
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = sub_1E0C4E358;
+  v12[3] = &unk_1E86E6F08;
+  v12[4] = buf;
+  sub_1E0BF1DA8(@"override-ver-fetch-success", @"com.apple.wifi.powertable", v12);
   v10 = CWFGetOTAOSLog();
   if (os_signpost_enabled(v10))
   {
-    *v12 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E0BBF000, v10, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "performVersionFetch", "", v12, 2u);
+    *v11 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E0BBF000, v10, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "performVersionFetch", "", v11, 2u);
   }
 
   (*(blockifyCopy + 2))(blockifyCopy, *(*&buf[8] + 24), dictionary, 0);
   _Block_object_dispose(buf, 8);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)performPowerTableVersionRequestWithDeadline:(id)deadline
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   deadlineCopy = deadline;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   [(CWFAssetPowerTableElector *)self set_powerTableFetched:0];
@@ -908,49 +896,49 @@ LABEL_11:
   }
 
   *buf = 0;
-  v46 = buf;
-  v47 = 0x3032000000;
-  v48 = sub_1E0BC2D14;
-  v49 = sub_1E0BC61D4;
-  v50 = 0;
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x3042000000;
-  v42 = sub_1E0C4EAB8;
-  v43 = sub_1E0C4EAC4;
-  v44 = 0;
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3221225472;
-  v35[2] = sub_1E0C4EACC;
-  v35[3] = &unk_1E86E6F80;
-  v35[4] = self;
+  v45 = buf;
+  v46 = 0x3032000000;
+  v47 = sub_1E0BC2D14;
+  v48 = sub_1E0BC61D4;
+  v49 = 0;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x3042000000;
+  v41 = sub_1E0C4EAB8;
+  v42 = sub_1E0C4EAC4;
+  v43 = 0;
+  v34[0] = MEMORY[0x1E69E9820];
+  v34[1] = 3221225472;
+  v34[2] = sub_1E0C4EACC;
+  v34[3] = &unk_1E86E6F80;
+  v34[4] = self;
   v12 = dictionary;
-  v36 = v12;
+  v35 = v12;
   v13 = deadlineCopy;
-  v37 = v13;
-  v38 = &v39;
-  v14 = MEMORY[0x1E12EA400](v35);
-  v15 = *(v46 + 5);
-  *(v46 + 5) = v14;
+  v36 = v13;
+  v37 = &v38;
+  v14 = MEMORY[0x1E12EA400](v34);
+  v15 = *(v45 + 5);
+  *(v45 + 5) = v14;
 
   v16 = CWFGetOTAOSLog();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     v17 = [MEMORY[0x1E695DF00] now];
-    *v53 = 136447234;
-    v54 = "[CWFAssetPowerTableElector performPowerTableVersionRequestWithDeadline:]";
-    v55 = 1024;
-    v56 = 548;
-    v57 = 2080;
-    v58 = "[CWFAssetPowerTableElector performPowerTableVersionRequestWithDeadline:]";
-    v59 = 2112;
-    v60 = v13;
-    v61 = 2112;
-    v62 = v17;
-    _os_log_impl(&dword_1E0BBF000, v16, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: Calling retryingVersionFetchBlock dueDate %@ now %@", v53, 0x30u);
+    *v52 = 136447234;
+    v53 = "[CWFAssetPowerTableElector performPowerTableVersionRequestWithDeadline:]";
+    v54 = 1024;
+    v55 = 548;
+    v56 = 2080;
+    v57 = "[CWFAssetPowerTableElector performPowerTableVersionRequestWithDeadline:]";
+    v58 = 2112;
+    v59 = v13;
+    v60 = 2112;
+    v61 = v17;
+    _os_log_impl(&dword_1E0BBF000, v16, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: Calling retryingVersionFetchBlock dueDate %@ now %@", v52, 0x30u);
   }
 
-  objc_storeWeak(v40 + 5, *(v46 + 5));
+  objc_storeWeak(v39 + 5, *(v45 + 5));
   _apiQueue = [(CWFAssetPowerTableElector *)self _apiQueue];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
@@ -962,8 +950,8 @@ LABEL_11:
   v19 = CWFGetOTAOSLog();
   if (os_signpost_enabled(v19))
   {
-    *v53 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E0BBF000, v19, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "wait _condPowerTableFetched", "", v53, 2u);
+    *v52 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E0BBF000, v19, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "wait _condPowerTableFetched", "", v52, 2u);
   }
 
   _condPowerTableFetched = [(CWFAssetPowerTableElector *)self _condPowerTableFetched];
@@ -979,19 +967,19 @@ LABEL_11:
       v23 = CWFGetOTAOSLog();
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        *v53 = 136446722;
-        v54 = "[CWFAssetPowerTableElector performPowerTableVersionRequestWithDeadline:]";
-        v55 = 1024;
-        v56 = 565;
-        v57 = 2080;
-        v58 = "[CWFAssetPowerTableElector performPowerTableVersionRequestWithDeadline:]";
-        _os_log_impl(&dword_1E0BBF000, v23, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: Timed Out waiting to retrieve valid performVersionFetch", v53, 0x1Cu);
+        *v52 = 136446722;
+        v53 = "[CWFAssetPowerTableElector performPowerTableVersionRequestWithDeadline:]";
+        v54 = 1024;
+        v55 = 565;
+        v56 = 2080;
+        v57 = "[CWFAssetPowerTableElector performPowerTableVersionRequestWithDeadline:]";
+        _os_log_impl(&dword_1E0BBF000, v23, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: Timed Out waiting to retrieve valid performVersionFetch", v52, 0x1Cu);
       }
 
       v24 = MEMORY[0x1E696ABC0];
-      v51 = *MEMORY[0x1E696A588];
-      v52 = @"CWFPowerTableElectionTimedOutWaitingForPerformVersionFetch";
-      v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+      v50 = *MEMORY[0x1E696A588];
+      v51 = @"CWFPowerTableElectionTimedOutWaitingForPerformVersionFetch";
+      v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
       v26 = [v24 errorWithDomain:@"com.apple.wifi.powertable" code:5 userInfo:v25];
       [(CWFAssetPowerTableElector *)self setError:v26];
 
@@ -1005,32 +993,176 @@ LABEL_11:
   v28 = CWFGetOTAOSLog();
   if (os_signpost_enabled(v28))
   {
-    *v53 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E0BBF000, v28, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "wait _condPowerTableFetched", "", v53, 2u);
+    *v52 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E0BBF000, v28, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "wait _condPowerTableFetched", "", v52, 2u);
   }
 
   v29 = CWFGetOTAOSLog();
   if (os_signpost_enabled(v29))
   {
-    *v53 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E0BBF000, v29, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "performPowerTableVersionRequestWithDeadline", "", v53, 2u);
+    *v52 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E0BBF000, v29, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "performPowerTableVersionRequestWithDeadline", "", v52, 2u);
   }
 
-  v30 = v37;
+  v30 = v36;
   v31 = v12;
 
-  _Block_object_dispose(&v39, 8);
-  objc_destroyWeak(&v44);
+  _Block_object_dispose(&v38, 8);
+  objc_destroyWeak(&v43);
   _Block_object_dispose(buf, 8);
-
-  v32 = *MEMORY[0x1E69E9840];
 
   return v31;
 }
 
+- (void)powerTableVote:(BOOL)vote
+{
+  voteCopy = vote;
+  v24 = *MEMORY[0x1E69E9840];
+  v5 = CWFGetOTAOSLog();
+  if (os_signpost_enabled(v5))
+  {
+    v14 = 67109120;
+    LODWORD(v15) = voteCopy;
+    _os_signpost_emit_with_name_impl(&dword_1E0BBF000, v5, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "powerTableVote", "%d", &v14, 8u);
+  }
+
+  v6 = CWFGetOTAOSLog();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    v14 = 136446978;
+    v15 = "[CWFAssetPowerTableElector powerTableVote:]";
+    v16 = 1024;
+    v17 = 584;
+    v18 = 2080;
+    v19 = "[CWFAssetPowerTableElector powerTableVote:]";
+    v20 = 1024;
+    v21 = voteCopy;
+    _os_log_impl(&dword_1E0BBF000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: Calling powerTableVote WeLike: %d", &v14, 0x22u);
+  }
+
+  delegate = [(CWFAssetPowerTableElector *)self delegate];
+  _powerTableSession = [(CWFAssetPowerTableElector *)self _powerTableSession];
+  v9 = [delegate powerTableVote:_powerTableSession voter:0 vote:voteCopy];
+
+  v10 = +[CWFPowerTableElectionTelemetry sharedObj];
+  [v10 setPowerTableVote:voteCopy];
+
+  if ((v9 & 1) == 0)
+  {
+    v13 = CWFGetOTAOSLog();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      v14 = 136446722;
+      v15 = "[CWFAssetPowerTableElector powerTableVote:]";
+      v16 = 1024;
+      v17 = 590;
+      v18 = 2080;
+      v19 = "[CWFAssetPowerTableElector powerTableVote:]";
+      _os_log_impl(&dword_1E0BBF000, v13, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: Call to delegate powerTableVote Failed", &v14, 0x1Cu);
+    }
+  }
+
+  v11 = CWFGetOTAOSLog();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    v14 = 136447234;
+    v15 = "[CWFAssetPowerTableElector powerTableVote:]";
+    v16 = 1024;
+    v17 = 594;
+    v18 = 2080;
+    v19 = "[CWFAssetPowerTableElector powerTableVote:]";
+    v20 = 1024;
+    v21 = voteCopy;
+    v22 = 1024;
+    v23 = v9;
+    _os_log_impl(&dword_1E0BBF000, v11, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: Done powerTableVote WeLike: %d call success: %d", &v14, 0x28u);
+  }
+
+  v12 = CWFGetOTAOSLog();
+  if (os_signpost_enabled(v12))
+  {
+    v14 = 67109120;
+    LODWORD(v15) = voteCopy;
+    _os_signpost_emit_with_name_impl(&dword_1E0BBF000, v12, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "powerTableVote", "%d", &v14, 8u);
+  }
+}
+
+- (void)powerTableReadiness:(BOOL)readiness
+{
+  readinessCopy = readiness;
+  v24 = *MEMORY[0x1E69E9840];
+  v5 = CWFGetOTAOSLog();
+  if (os_signpost_enabled(v5))
+  {
+    v14 = 67109120;
+    LODWORD(v15) = readinessCopy;
+    _os_signpost_emit_with_name_impl(&dword_1E0BBF000, v5, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "powerTableReadiness", "%d", &v14, 8u);
+  }
+
+  v6 = CWFGetOTAOSLog();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    v14 = 136446978;
+    v15 = "[CWFAssetPowerTableElector powerTableReadiness:]";
+    v16 = 1024;
+    v17 = 604;
+    v18 = 2080;
+    v19 = "[CWFAssetPowerTableElector powerTableReadiness:]";
+    v20 = 1024;
+    v21 = readinessCopy;
+    _os_log_impl(&dword_1E0BBF000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: Calling powerTableReadiness WeCan: %d", &v14, 0x22u);
+  }
+
+  delegate = [(CWFAssetPowerTableElector *)self delegate];
+  _powerTableSession = [(CWFAssetPowerTableElector *)self _powerTableSession];
+  v9 = [delegate powerTableReadiness:_powerTableSession voter:0 vote:readinessCopy];
+
+  v10 = +[CWFPowerTableElectionTelemetry sharedObj];
+  [v10 setPowerTableReadiness:readinessCopy];
+
+  if ((v9 & 1) == 0)
+  {
+    v13 = CWFGetOTAOSLog();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      v14 = 136446722;
+      v15 = "[CWFAssetPowerTableElector powerTableReadiness:]";
+      v16 = 1024;
+      v17 = 610;
+      v18 = 2080;
+      v19 = "[CWFAssetPowerTableElector powerTableReadiness:]";
+      _os_log_impl(&dword_1E0BBF000, v13, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: Call to delegate powerTableReadiness Failed", &v14, 0x1Cu);
+    }
+  }
+
+  v11 = CWFGetOTAOSLog();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    v14 = 136447234;
+    v15 = "[CWFAssetPowerTableElector powerTableReadiness:]";
+    v16 = 1024;
+    v17 = 614;
+    v18 = 2080;
+    v19 = "[CWFAssetPowerTableElector powerTableReadiness:]";
+    v20 = 1024;
+    v21 = readinessCopy;
+    v22 = 1024;
+    v23 = v9;
+    _os_log_impl(&dword_1E0BBF000, v11, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: powerTableReadiness WeCan: %d call success %d", &v14, 0x28u);
+  }
+
+  v12 = CWFGetOTAOSLog();
+  if (os_signpost_enabled(v12))
+  {
+    v14 = 67109120;
+    LODWORD(v15) = readinessCopy;
+    _os_signpost_emit_with_name_impl(&dword_1E0BBF000, v12, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "powerTableReadiness", "%d", &v14, 8u);
+  }
+}
+
 - (void)handleCENPowerTableEvaluationNotification:(id)notification
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v6 = [userInfo objectForKey:*MEMORY[0x1E6993C10]];
@@ -1044,29 +1176,27 @@ LABEL_11:
   {
     v11 = [objc_opt_class() powerTableEvaluationStateAsString:{objc_msgSend(v6, "integerValue")}];
     *buf = 138412290;
-    v21 = v11;
+    v20 = v11;
     _os_signpost_emit_with_name_impl(&dword_1E0BBF000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v8, "NSNotification", "%@", buf, 0xCu);
   }
 
   _coordinationQueue = [(CWFAssetPowerTableElector *)self _coordinationQueue];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = sub_1E0C4F914;
-  v16[3] = &unk_1E86E6B18;
-  v16[4] = self;
-  v17 = notificationCopy;
-  v18 = v6;
-  v19 = v8;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = sub_1E0C4F914;
+  v15[3] = &unk_1E86E6B18;
+  v15[4] = self;
+  v16 = notificationCopy;
+  v17 = v6;
+  v18 = v8;
   v13 = v6;
   v14 = notificationCopy;
-  dispatch_async(_coordinationQueue, v16);
-
-  v15 = *MEMORY[0x1E69E9840];
+  dispatch_async(_coordinationQueue, v15);
 }
 
 - (void)_handleCENPowerTableEvaluationNotification:(id)notification
 {
-  v76 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   v5 = CWFGetOTAOSLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -1077,8 +1207,8 @@ LABEL_11:
     *&buf[14] = 643;
     *&buf[18] = 2080;
     *&buf[20] = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
-    v58 = 2112;
-    v59 = notificationCopy;
+    v57 = 2112;
+    v58 = notificationCopy;
     _os_log_impl(&dword_1E0BBF000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: Election NSNotification %@", buf, 0x26u);
   }
 
@@ -1091,7 +1221,7 @@ LABEL_11:
       goto LABEL_50;
     }
 
-    v39 = name;
+    v38 = name;
     uTF8String = [name UTF8String];
     *buf = 136446978;
     *&buf[4] = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
@@ -1099,13 +1229,13 @@ LABEL_11:
     *&buf[14] = 661;
     *&buf[18] = 2080;
     *&buf[20] = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
-    v58 = 2080;
-    v59 = uTF8String;
-    v41 = "%{public}s::%d:%s: unexpected notification %s";
-    v42 = v7;
-    v43 = 38;
+    v57 = 2080;
+    v58 = uTF8String;
+    v40 = "%{public}s::%d:%s: unexpected notification %s";
+    v41 = v7;
+    v42 = 38;
 LABEL_55:
-    _os_log_impl(&dword_1E0BBF000, v42, OS_LOG_TYPE_ERROR, v41, buf, v43);
+    _os_log_impl(&dword_1E0BBF000, v41, OS_LOG_TYPE_ERROR, v40, buf, v42);
     goto LABEL_50;
   }
 
@@ -1126,17 +1256,17 @@ LABEL_55:
     *&buf[14] = 664;
     *&buf[18] = 2080;
     *&buf[20] = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
-    v41 = "%{public}s::%d:%s: identifier missing";
-    v42 = v7;
-    v43 = 28;
+    v40 = "%{public}s::%d:%s: identifier missing";
+    v41 = v7;
+    v42 = 28;
     goto LABEL_55;
   }
 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v44 = CWFGetOTAOSLog();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+    v43 = CWFGetOTAOSLog();
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
       *&buf[4] = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
@@ -1144,19 +1274,19 @@ LABEL_55:
       *&buf[14] = 665;
       *&buf[18] = 2080;
       *&buf[20] = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
-      _os_log_impl(&dword_1E0BBF000, v44, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: identifier has wrong type", buf, 0x1Cu);
+      _os_log_impl(&dword_1E0BBF000, v43, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: identifier has wrong type", buf, 0x1Cu);
     }
 
     goto LABEL_58;
   }
 
   userInfo2 = [notificationCopy userInfo];
-  v53 = [userInfo2 objectForKey:*MEMORY[0x1E6993C10]];
+  v52 = [userInfo2 objectForKey:*MEMORY[0x1E6993C10]];
 
-  if (!v53)
+  if (!v52)
   {
-    v44 = CWFGetOTAOSLog();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+    v43 = CWFGetOTAOSLog();
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
       *&buf[4] = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
@@ -1164,7 +1294,7 @@ LABEL_55:
       *&buf[14] = 668;
       *&buf[18] = 2080;
       *&buf[20] = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
-      _os_log_impl(&dword_1E0BBF000, v44, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: state missing", buf, 0x1Cu);
+      _os_log_impl(&dword_1E0BBF000, v43, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: state missing", buf, 0x1Cu);
     }
 
 LABEL_58:
@@ -1175,8 +1305,8 @@ LABEL_58:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v45 = CWFGetOTAOSLog();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+    v44 = CWFGetOTAOSLog();
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
       *&buf[4] = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
@@ -1184,17 +1314,17 @@ LABEL_58:
       *&buf[14] = 669;
       *&buf[18] = 2080;
       *&buf[20] = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
-      _os_log_impl(&dword_1E0BBF000, v45, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: state has wrong type", buf, 0x1Cu);
+      _os_log_impl(&dword_1E0BBF000, v44, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: state has wrong type", buf, 0x1Cu);
     }
 
     goto LABEL_70;
   }
 
-  integerValue = [v53 integerValue];
+  integerValue = [v52 integerValue];
   if ((integerValue - 7) <= 0xFFFFFFFFFFFFFFF9)
   {
-    v45 = CWFGetOTAOSLog();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+    v44 = CWFGetOTAOSLog();
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446978;
       *&buf[4] = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
@@ -1202,9 +1332,9 @@ LABEL_58:
       *&buf[14] = 671;
       *&buf[18] = 2080;
       *&buf[20] = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
-      v58 = 2048;
-      v59 = integerValue;
-      _os_log_impl(&dword_1E0BBF000, v45, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: invalid state %ld", buf, 0x26u);
+      v57 = 2048;
+      v58 = integerValue;
+      _os_log_impl(&dword_1E0BBF000, v44, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: invalid state %ld", buf, 0x26u);
     }
 
     goto LABEL_70;
@@ -1215,8 +1345,8 @@ LABEL_58:
 
   if (!v11)
   {
-    v45 = CWFGetOTAOSLog();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+    v44 = CWFGetOTAOSLog();
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
       *&buf[4] = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
@@ -1224,7 +1354,7 @@ LABEL_58:
       *&buf[14] = 674;
       *&buf[18] = 2080;
       *&buf[20] = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
-      _os_log_impl(&dword_1E0BBF000, v45, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: new asset versions missing", buf, 0x1Cu);
+      _os_log_impl(&dword_1E0BBF000, v44, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: new asset versions missing", buf, 0x1Cu);
     }
 
 LABEL_70:
@@ -1235,8 +1365,8 @@ LABEL_70:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v46 = CWFGetOTAOSLog();
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+    v45 = CWFGetOTAOSLog();
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
       *&buf[4] = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
@@ -1244,7 +1374,7 @@ LABEL_70:
       *&buf[14] = 675;
       *&buf[18] = 2080;
       *&buf[20] = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
-      _os_log_impl(&dword_1E0BBF000, v46, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: new asset versions has wrong type", buf, 0x1Cu);
+      _os_log_impl(&dword_1E0BBF000, v45, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: new asset versions has wrong type", buf, 0x1Cu);
     }
 
     goto LABEL_85;
@@ -1252,19 +1382,19 @@ LABEL_70:
 
   if ([v11 count] != 2)
   {
-    v46 = CWFGetOTAOSLog();
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+    v45 = CWFGetOTAOSLog();
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
     {
-      v47 = [v11 count];
+      v46 = [v11 count];
       *buf = 136446978;
       *&buf[4] = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
       *&buf[12] = 1024;
       *&buf[14] = 676;
       *&buf[18] = 2080;
       *&buf[20] = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
-      v58 = 2048;
-      v59 = v47;
-      _os_log_impl(&dword_1E0BBF000, v46, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: new asset versions has wrong count %lu", buf, 0x26u);
+      v57 = 2048;
+      v58 = v46;
+      _os_log_impl(&dword_1E0BBF000, v45, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: new asset versions has wrong count %lu", buf, 0x26u);
     }
 
     goto LABEL_85;
@@ -1276,8 +1406,8 @@ LABEL_70:
 
   if ((isKindOfClass & 1) == 0)
   {
-    v46 = CWFGetOTAOSLog();
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+    v45 = CWFGetOTAOSLog();
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
       *&buf[4] = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
@@ -1285,7 +1415,7 @@ LABEL_70:
       *&buf[14] = 677;
       *&buf[18] = 2080;
       *&buf[20] = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
-      _os_log_impl(&dword_1E0BBF000, v46, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: new asset versions[CENPowerTableVoterWiFi] has wrong type", buf, 0x1Cu);
+      _os_log_impl(&dword_1E0BBF000, v45, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: new asset versions[CENPowerTableVoterWiFi] has wrong type", buf, 0x1Cu);
     }
 
     goto LABEL_85;
@@ -1297,8 +1427,8 @@ LABEL_70:
 
   if ((v15 & 1) == 0)
   {
-    v46 = CWFGetOTAOSLog();
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+    v45 = CWFGetOTAOSLog();
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
       *&buf[4] = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
@@ -1306,7 +1436,7 @@ LABEL_70:
       *&buf[14] = 678;
       *&buf[18] = 2080;
       *&buf[20] = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
-      _os_log_impl(&dword_1E0BBF000, v46, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: new asset versions[CENPowerTableVoterBT] has wrong type", buf, 0x1Cu);
+      _os_log_impl(&dword_1E0BBF000, v45, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: new asset versions[CENPowerTableVoterBT] has wrong type", buf, 0x1Cu);
     }
 
     goto LABEL_85;
@@ -1317,8 +1447,8 @@ LABEL_70:
 
   if (!v17)
   {
-    v46 = CWFGetOTAOSLog();
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+    v45 = CWFGetOTAOSLog();
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
       *&buf[4] = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
@@ -1326,7 +1456,7 @@ LABEL_70:
       *&buf[14] = 681;
       *&buf[18] = 2080;
       *&buf[20] = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
-      _os_log_impl(&dword_1E0BBF000, v46, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: previous asset versions missing", buf, 0x1Cu);
+      _os_log_impl(&dword_1E0BBF000, v45, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: previous asset versions missing", buf, 0x1Cu);
     }
 
 LABEL_85:
@@ -1337,8 +1467,8 @@ LABEL_85:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v48 = CWFGetOTAOSLog();
-    if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+    v47 = CWFGetOTAOSLog();
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
       *&buf[4] = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
@@ -1346,7 +1476,7 @@ LABEL_85:
       *&buf[14] = 682;
       *&buf[18] = 2080;
       *&buf[20] = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
-      _os_log_impl(&dword_1E0BBF000, v48, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: previous asset versions has wrong type", buf, 0x1Cu);
+      _os_log_impl(&dword_1E0BBF000, v47, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: previous asset versions has wrong type", buf, 0x1Cu);
     }
 
     goto LABEL_88;
@@ -1358,8 +1488,8 @@ LABEL_85:
 
   if ((v19 & 1) == 0)
   {
-    v48 = CWFGetOTAOSLog();
-    if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+    v47 = CWFGetOTAOSLog();
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
       *&buf[4] = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
@@ -1367,7 +1497,7 @@ LABEL_85:
       *&buf[14] = 683;
       *&buf[18] = 2080;
       *&buf[20] = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
-      _os_log_impl(&dword_1E0BBF000, v48, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: previous wifi asset version has wrong type", buf, 0x1Cu);
+      _os_log_impl(&dword_1E0BBF000, v47, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: previous wifi asset version has wrong type", buf, 0x1Cu);
     }
 
 LABEL_88:
@@ -1393,12 +1523,12 @@ LABEL_88:
       *&buf[14] = 687;
       *&buf[18] = 2080;
       *&buf[20] = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
-      v58 = 2112;
-      v59 = v7;
-      v60 = 2112;
-      v61 = v24;
-      v62 = 2112;
-      v63 = v25;
+      v57 = 2112;
+      v58 = v7;
+      v59 = 2112;
+      v60 = v24;
+      v61 = 2112;
+      v62 = v25;
       _os_log_impl(&dword_1E0BBF000, v23, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: identifier: %@ state: %@ previous state: %@", buf, 0x3Au);
     }
 
@@ -1474,12 +1604,12 @@ LABEL_88:
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
       buf[24] = 0;
-      v56[0] = MEMORY[0x1E69E9820];
-      v56[1] = 3221225472;
-      v56[2] = sub_1E0C50F08;
-      v56[3] = &unk_1E86E6F08;
-      v56[4] = buf;
-      sub_1E0BF1DA8(@"ignore-readiness-request", @"com.apple.wifi.powertable", v56);
+      v55[0] = MEMORY[0x1E69E9820];
+      v55[1] = 3221225472;
+      v55[2] = sub_1E0C50F08;
+      v55[3] = &unk_1E86E6F08;
+      v55[4] = buf;
+      sub_1E0BF1DA8(@"ignore-readiness-request", @"com.apple.wifi.powertable", v55);
       if (!*(*&buf[8] + 24))
       {
         [(CWFAssetPowerTableElector *)self _readinessTimeoutInterval];
@@ -1496,16 +1626,16 @@ LABEL_88:
         goto LABEL_43;
       }
 
-      v49 = CWFGetOTAOSLog();
-      if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+      v48 = CWFGetOTAOSLog();
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
       {
-        *v70 = 136446722;
-        v71 = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
-        v72 = 1024;
-        v73 = 704;
-        v74 = 2080;
-        v75 = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
-        _os_log_impl(&dword_1E0BBF000, v49, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: kPowerTable_ignore_readiness_input is set, bailing before processing input", v70, 0x1Cu);
+        *v69 = 136446722;
+        v70 = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
+        v71 = 1024;
+        v72 = 704;
+        v73 = 2080;
+        v74 = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
+        _os_log_impl(&dword_1E0BBF000, v48, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: kPowerTable_ignore_readiness_input is set, bailing before processing input", v69, 0x1Cu);
       }
 
       _Block_object_dispose(buf, 8);
@@ -1528,12 +1658,12 @@ LABEL_88:
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
       buf[24] = 0;
-      v55[0] = MEMORY[0x1E69E9820];
-      v55[1] = 3221225472;
-      v55[2] = sub_1E0C51004;
-      v55[3] = &unk_1E86E6F08;
-      v55[4] = buf;
-      sub_1E0BF1DA8(@"ignore-start-request", @"com.apple.wifi.powertable", v55);
+      v54[0] = MEMORY[0x1E69E9820];
+      v54[1] = 3221225472;
+      v54[2] = sub_1E0C51004;
+      v54[3] = &unk_1E86E6F08;
+      v54[4] = buf;
+      sub_1E0BF1DA8(@"ignore-start-request", @"com.apple.wifi.powertable", v54);
       if (!*(*&buf[8] + 24))
       {
         [(CWFAssetPowerTableElector *)self handleCENPowerTableEvaluationStateStarting:v7];
@@ -1554,34 +1684,34 @@ LABEL_47:
           *&buf[14] = 772;
           *&buf[18] = 2080;
           *&buf[20] = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
-          v58 = 2112;
-          v59 = v7;
-          v60 = 2112;
-          v61 = v33;
-          v62 = 2112;
-          v63 = v34;
-          v64 = 2112;
-          v65 = v35;
-          v66 = 2112;
-          v67 = v36;
-          v68 = 2112;
-          v69 = v37;
+          v57 = 2112;
+          v58 = v7;
+          v59 = 2112;
+          v60 = v33;
+          v61 = 2112;
+          v62 = v34;
+          v63 = 2112;
+          v64 = v35;
+          v65 = 2112;
+          v66 = v36;
+          v67 = 2112;
+          v68 = v37;
           _os_log_impl(&dword_1E0BBF000, v32, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: identifier: %@ \nstate: %@ \nnewAssetVersions[CENPowerTableVoterWiFi] %@ newAssetVersions[CENPowerTableVoterBT] %@ \npreviousAssetVersions[CENPowerTableVoterWiFi] %@ previousAssetVersions[CENPowerTableVoterBT] %@", buf, 0x58u);
         }
 
         goto LABEL_50;
       }
 
-      v50 = CWFGetOTAOSLog();
-      if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+      v49 = CWFGetOTAOSLog();
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
       {
-        *v70 = 136446722;
-        v71 = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
-        v72 = 1024;
-        v73 = 724;
-        v74 = 2080;
-        v75 = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
-        _os_log_impl(&dword_1E0BBF000, v50, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: kPowerTable_ignore_start_input is set, bailing before processing input", v70, 0x1Cu);
+        *v69 = 136446722;
+        v70 = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
+        v71 = 1024;
+        v72 = 724;
+        v73 = 2080;
+        v74 = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
+        _os_log_impl(&dword_1E0BBF000, v49, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: kPowerTable_ignore_start_input is set, bailing before processing input", v69, 0x1Cu);
       }
 
       _Block_object_dispose(buf, 8);
@@ -1604,12 +1734,12 @@ LABEL_47:
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
       buf[24] = 0;
-      v54[0] = MEMORY[0x1E69E9820];
-      v54[1] = 3221225472;
-      v54[2] = sub_1E0C51100;
-      v54[3] = &unk_1E86E6F08;
-      v54[4] = buf;
-      sub_1E0BF1DA8(@"ignore-vote-request", @"com.apple.wifi.powertable", v54);
+      v53[0] = MEMORY[0x1E69E9820];
+      v53[1] = 3221225472;
+      v53[2] = sub_1E0C51100;
+      v53[3] = &unk_1E86E6F08;
+      v53[4] = buf;
+      sub_1E0BF1DA8(@"ignore-vote-request", @"com.apple.wifi.powertable", v53);
       if (!*(*&buf[8] + 24))
       {
         [(CWFAssetPowerTableElector *)self _votingTimeoutInterval];
@@ -1617,16 +1747,16 @@ LABEL_47:
         goto LABEL_43;
       }
 
-      v51 = CWFGetOTAOSLog();
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+      v50 = CWFGetOTAOSLog();
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
       {
-        *v70 = 136446722;
-        v71 = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
-        v72 = 1024;
-        v73 = 738;
-        v74 = 2080;
-        v75 = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
-        _os_log_impl(&dword_1E0BBF000, v51, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: kPowerTable_ignore_requesting_vote_input is set, bailing before processing input", v70, 0x1Cu);
+        *v69 = 136446722;
+        v70 = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
+        v71 = 1024;
+        v72 = 738;
+        v73 = 2080;
+        v74 = "[CWFAssetPowerTableElector _handleCENPowerTableEvaluationNotification:]";
+        _os_log_impl(&dword_1E0BBF000, v50, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: kPowerTable_ignore_requesting_vote_input is set, bailing before processing input", v69, 0x1Cu);
       }
 
       _Block_object_dispose(buf, 8);
@@ -1648,13 +1778,11 @@ LABEL_47:
   }
 
 LABEL_50:
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 - (void)checkForExistingSessionAndRecover
 {
-  v45[1] = *MEMORY[0x1E69E9840];
+  v44[1] = *MEMORY[0x1E69E9840];
   v3 = [(CWFAssetPowerTableElector *)self getPersistedKey:@"powertable-election-session-id"];
   v4 = [(CWFAssetPowerTableElector *)self getPersistedKey:@"powertable-election-session-start-date"];
   v5 = [(CWFAssetPowerTableElector *)self getPersistedKey:@"powertable-election-session-state"];
@@ -1665,15 +1793,15 @@ LABEL_50:
     v7 = CWFGetOTAOSLog();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v32 = 136446978;
-      v33 = "[CWFAssetPowerTableElector checkForExistingSessionAndRecover]";
-      v34 = 1024;
-      v35 = 799;
-      v36 = 2080;
-      v37 = "[CWFAssetPowerTableElector checkForExistingSessionAndRecover]";
-      v38 = 2112;
-      v39 = v3;
-      _os_log_impl(&dword_1E0BBF000, v7, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: Recovered Missing _powerTableSession from persisted data %@", &v32, 0x26u);
+      v31 = 136446978;
+      v32 = "[CWFAssetPowerTableElector checkForExistingSessionAndRecover]";
+      v33 = 1024;
+      v34 = 799;
+      v35 = 2080;
+      v36 = "[CWFAssetPowerTableElector checkForExistingSessionAndRecover]";
+      v37 = 2112;
+      v38 = v3;
+      _os_log_impl(&dword_1E0BBF000, v7, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: Recovered Missing _powerTableSession from persisted data %@", &v31, 0x26u);
     }
 
     [(CWFAssetPowerTableElector *)self set_powerTableSession:v3];
@@ -1686,15 +1814,15 @@ LABEL_50:
     v9 = CWFGetOTAOSLog();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v32 = 136446978;
-      v33 = "[CWFAssetPowerTableElector checkForExistingSessionAndRecover]";
-      v34 = 1024;
-      v35 = 804;
-      v36 = 2080;
-      v37 = "[CWFAssetPowerTableElector checkForExistingSessionAndRecover]";
-      v38 = 2112;
-      v39 = v4;
-      _os_log_impl(&dword_1E0BBF000, v9, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: Recovered Missing _powerTableSessionStartDate from persisted data %@", &v32, 0x26u);
+      v31 = 136446978;
+      v32 = "[CWFAssetPowerTableElector checkForExistingSessionAndRecover]";
+      v33 = 1024;
+      v34 = 804;
+      v35 = 2080;
+      v36 = "[CWFAssetPowerTableElector checkForExistingSessionAndRecover]";
+      v37 = 2112;
+      v38 = v4;
+      _os_log_impl(&dword_1E0BBF000, v9, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: Recovered Missing _powerTableSessionStartDate from persisted data %@", &v31, 0x26u);
     }
 
     [(CWFAssetPowerTableElector *)self set_powerTableSessionStartDate:v4];
@@ -1710,15 +1838,15 @@ LABEL_50:
       v12 = CWFGetOTAOSLog();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v32 = 136446978;
-        v33 = "[CWFAssetPowerTableElector checkForExistingSessionAndRecover]";
-        v34 = 1024;
-        v35 = 809;
-        v36 = 2080;
-        v37 = "[CWFAssetPowerTableElector checkForExistingSessionAndRecover]";
-        v38 = 2112;
-        v39 = v5;
-        _os_log_impl(&dword_1E0BBF000, v12, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: Recovered Missing _powerTableEvaluationState from persisted data %@", &v32, 0x26u);
+        v31 = 136446978;
+        v32 = "[CWFAssetPowerTableElector checkForExistingSessionAndRecover]";
+        v33 = 1024;
+        v34 = 809;
+        v35 = 2080;
+        v36 = "[CWFAssetPowerTableElector checkForExistingSessionAndRecover]";
+        v37 = 2112;
+        v38 = v5;
+        _os_log_impl(&dword_1E0BBF000, v12, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: Recovered Missing _powerTableEvaluationState from persisted data %@", &v31, 0x26u);
       }
 
       -[CWFAssetPowerTableElector set_powerTableEvaluationState:](self, "set_powerTableEvaluationState:", [objc_opt_class() powerTableEvaluationStringToState:v5]);
@@ -1726,24 +1854,12 @@ LABEL_50:
   }
 
   _powerTableSessionStartDate2 = [(CWFAssetPowerTableElector *)self _powerTableSessionStartDate];
-  if (!_powerTableSessionStartDate2)
-  {
-    goto LABEL_21;
-  }
-
-  v14 = _powerTableSessionStartDate2;
-  _powerTableSessionStartDate3 = [(CWFAssetPowerTableElector *)self _powerTableSessionStartDate];
-  [_powerTableSessionStartDate3 timeIntervalSinceNow];
-  v17 = v16;
-  [(CWFAssetPowerTableElector *)self _maxSessionActiveInterval];
-  v19 = v18;
-
-  if (v17 > v19)
+  if (_powerTableSessionStartDate2 && (v14 = _powerTableSessionStartDate2, -[CWFAssetPowerTableElector _powerTableSessionStartDate](self, "_powerTableSessionStartDate"), v15 = objc_claimAutoreleasedReturnValue(), [v15 timeIntervalSinceNow], v17 = v16, -[CWFAssetPowerTableElector _maxSessionActiveInterval](self, "_maxSessionActiveInterval"), v19 = v18, v15, v14, v17 > v19))
   {
     v20 = MEMORY[0x1E696ABC0];
-    v44 = *MEMORY[0x1E696A588];
-    v45[0] = @"CWFPowerTableElectionExistingSessionPastMaxSessionInterval";
-    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:&v44 count:1];
+    v43 = *MEMORY[0x1E696A588];
+    v44[0] = @"CWFPowerTableElectionExistingSessionPastMaxSessionInterval";
+    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:&v43 count:1];
     v22 = [v20 errorWithDomain:@"com.apple.wifi.powertable" code:4 userInfo:v21];
     [(CWFAssetPowerTableElector *)self setError:v22];
 
@@ -1754,19 +1870,19 @@ LABEL_50:
       [(CWFAssetPowerTableElector *)self _maxSessionActiveInterval];
       v26 = v25;
       error = [(CWFAssetPowerTableElector *)self error];
-      v32 = 136447490;
-      v33 = "[CWFAssetPowerTableElector checkForExistingSessionAndRecover]";
-      v34 = 1024;
-      v35 = 818;
-      v36 = 2080;
-      v37 = "[CWFAssetPowerTableElector checkForExistingSessionAndRecover]";
-      v38 = 2112;
-      v39 = v24;
-      v40 = 2048;
-      v41 = v26;
-      v42 = 2112;
-      v43 = error;
-      _os_log_impl(&dword_1E0BBF000, v23, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: Session id %@ has expired past max interval of %f, recovering by removing stale session - error %@", &v32, 0x3Au);
+      v31 = 136447490;
+      v32 = "[CWFAssetPowerTableElector checkForExistingSessionAndRecover]";
+      v33 = 1024;
+      v34 = 818;
+      v35 = 2080;
+      v36 = "[CWFAssetPowerTableElector checkForExistingSessionAndRecover]";
+      v37 = 2112;
+      v38 = v24;
+      v39 = 2048;
+      v40 = v26;
+      v41 = 2112;
+      v42 = error;
+      _os_log_impl(&dword_1E0BBF000, v23, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: Session id %@ has expired past max interval of %f, recovering by removing stale session - error %@", &v31, 0x3Au);
     }
 
     [(CWFAssetPowerTableElector *)self removePersistedKey:@"powertable-election-session-id"];
@@ -1779,32 +1895,29 @@ LABEL_50:
 
   else
   {
-LABEL_21:
     v28 = CWFGetOTAOSLog();
     if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
       v29 = [(CWFAssetPowerTableElector *)self getPersistedKey:@"powertable-election-session-id"];
       v30 = [(CWFAssetPowerTableElector *)self description];
-      v32 = 136447234;
-      v33 = "[CWFAssetPowerTableElector checkForExistingSessionAndRecover]";
-      v34 = 1024;
-      v35 = 829;
-      v36 = 2080;
-      v37 = "[CWFAssetPowerTableElector checkForExistingSessionAndRecover]";
-      v38 = 2112;
-      v39 = v29;
-      v40 = 2112;
-      v41 = v30;
-      _os_log_impl(&dword_1E0BBF000, v28, OS_LOG_TYPE_INFO, "%{public}s::%d:%s: Session id %@ was recovered: desc %@", &v32, 0x30u);
+      v31 = 136447234;
+      v32 = "[CWFAssetPowerTableElector checkForExistingSessionAndRecover]";
+      v33 = 1024;
+      v34 = 829;
+      v35 = 2080;
+      v36 = "[CWFAssetPowerTableElector checkForExistingSessionAndRecover]";
+      v37 = 2112;
+      v38 = v29;
+      v39 = 2112;
+      v40 = v30;
+      _os_log_impl(&dword_1E0BBF000, v28, OS_LOG_TYPE_INFO, "%{public}s::%d:%s: Session id %@ was recovered: desc %@", &v31, 0x30u);
     }
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isSessionCurrentlyBlocking
 {
-  v41[1] = *MEMORY[0x1E69E9840];
+  v40[1] = *MEMORY[0x1E69E9840];
   [(CWFAssetPowerTableElector *)self checkForExistingSessionAndRecover];
   v3 = [(CWFAssetPowerTableElector *)self getPersistedKey:@"powertable-election-session-id"];
 
@@ -1814,12 +1927,12 @@ LABEL_21:
     LOBYTE(v3) = v4 == 0;
     if (v4)
     {
-      v25[0] = MEMORY[0x1E69E9820];
-      v25[1] = 3221225472;
-      v25[2] = sub_1E0C51B60;
-      v25[3] = &unk_1E86E6FA8;
-      v25[4] = self;
-      sub_1E0BF1DA8(@"max-session-active-interval", @"com.apple.wifi.powertable", v25);
+      v24[0] = MEMORY[0x1E69E9820];
+      v24[1] = 3221225472;
+      v24[2] = sub_1E0C51B60;
+      v24[3] = &unk_1E86E6FA8;
+      v24[4] = self;
+      sub_1E0BF1DA8(@"max-session-active-interval", @"com.apple.wifi.powertable", v24);
       [v4 timeIntervalSinceNow];
       v6 = v5;
       [(CWFAssetPowerTableElector *)self _maxSessionActiveInterval];
@@ -1827,13 +1940,13 @@ LABEL_21:
       {
 LABEL_11:
 
-        goto LABEL_12;
+        return v3;
       }
 
       v8 = MEMORY[0x1E696ABC0];
-      v38 = *MEMORY[0x1E696A588];
-      v39 = @"CWFPowerTableElectionRxReadinessWhileExistingSessionPastMaxSessionInterval";
-      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+      v37 = *MEMORY[0x1E696A588];
+      v38 = @"CWFPowerTableElectionRxReadinessWhileExistingSessionPastMaxSessionInterval";
+      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
       v10 = [v8 errorWithDomain:@"com.apple.wifi.powertable" code:3 userInfo:v9];
       [(CWFAssetPowerTableElector *)self setError:v10];
 
@@ -1845,17 +1958,17 @@ LABEL_11:
         v14 = v13;
         error = [(CWFAssetPowerTableElector *)self error];
         *buf = 136447490;
-        v27 = "[CWFAssetPowerTableElector isSessionCurrentlyBlocking]";
-        v28 = 1024;
-        v29 = 863;
-        v30 = 2080;
-        v31 = "[CWFAssetPowerTableElector isSessionCurrentlyBlocking]";
-        v32 = 2112;
-        v33 = v12;
-        v34 = 2048;
-        v35 = v14;
-        v36 = 2112;
-        v37 = error;
+        v26 = "[CWFAssetPowerTableElector isSessionCurrentlyBlocking]";
+        v27 = 1024;
+        v28 = 863;
+        v29 = 2080;
+        v30 = "[CWFAssetPowerTableElector isSessionCurrentlyBlocking]";
+        v31 = 2112;
+        v32 = v12;
+        v33 = 2048;
+        v34 = v14;
+        v35 = 2112;
+        v36 = error;
         _os_log_impl(&dword_1E0BBF000, v11, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: Session id %@ has expired past max interval of %f, recovering by removing stale session - error %@", buf, 0x3Au);
       }
 
@@ -1866,9 +1979,9 @@ LABEL_11:
     else
     {
       v17 = MEMORY[0x1E696ABC0];
-      v40 = *MEMORY[0x1E696A588];
-      v41[0] = @"CWFPowerTableElectionRxReadinessWithCorruptActiveSession";
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:&v40 count:1];
+      v39 = *MEMORY[0x1E696A588];
+      v40[0] = @"CWFPowerTableElectionRxReadinessWithCorruptActiveSession";
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:&v39 count:1];
       v19 = [v17 errorWithDomain:@"com.apple.wifi.powertable" code:2 userInfo:v18];
       [(CWFAssetPowerTableElector *)self setError:v19];
 
@@ -1878,15 +1991,15 @@ LABEL_11:
         v21 = [(CWFAssetPowerTableElector *)self getPersistedKey:@"powertable-election-session-id"];
         error2 = [(CWFAssetPowerTableElector *)self error];
         *buf = 136447234;
-        v27 = "[CWFAssetPowerTableElector isSessionCurrentlyBlocking]";
-        v28 = 1024;
-        v29 = 850;
-        v30 = 2080;
-        v31 = "[CWFAssetPowerTableElector isSessionCurrentlyBlocking]";
-        v32 = 2112;
-        v33 = v21;
-        v34 = 2112;
-        v35 = error2;
+        v26 = "[CWFAssetPowerTableElector isSessionCurrentlyBlocking]";
+        v27 = 1024;
+        v28 = 850;
+        v29 = 2080;
+        v30 = "[CWFAssetPowerTableElector isSessionCurrentlyBlocking]";
+        v31 = 2112;
+        v32 = v21;
+        v33 = 2112;
+        v34 = error2;
         _os_log_impl(&dword_1E0BBF000, v20, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: Session id %@ has missing start date, recovering by removing session id - error %@", buf, 0x30u);
       }
 
@@ -1897,29 +2010,27 @@ LABEL_11:
     goto LABEL_11;
   }
 
-LABEL_12:
-  v23 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 - (void)processTransitionToTerminalState:(id)state
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   v5 = [MEMORY[0x1E695DF00] now];
   v6 = CWFGetOTAOSLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [(CWFAssetPowerTableElector *)self description];
-    v28 = 136446978;
-    v29 = "[CWFAssetPowerTableElector processTransitionToTerminalState:]";
-    v30 = 1024;
-    v31 = 879;
-    v32 = 2080;
-    v33 = "[CWFAssetPowerTableElector processTransitionToTerminalState:]";
-    v34 = 2112;
-    v35 = v7;
-    _os_log_impl(&dword_1E0BBF000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: Process transition to terminal state from %@", &v28, 0x26u);
+    v27 = 136446978;
+    v28 = "[CWFAssetPowerTableElector processTransitionToTerminalState:]";
+    v29 = 1024;
+    v30 = 879;
+    v31 = 2080;
+    v32 = "[CWFAssetPowerTableElector processTransitionToTerminalState:]";
+    v33 = 2112;
+    v34 = v7;
+    _os_log_impl(&dword_1E0BBF000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: Process transition to terminal state from %@", &v27, 0x26u);
   }
 
   v8 = [v5 dateByAddingTimeInterval:10.0];
@@ -1962,15 +2073,15 @@ LABEL_12:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       v19 = [(CWFAssetPowerTableElector *)self description];
-      v28 = 136446978;
-      v29 = "[CWFAssetPowerTableElector processTransitionToTerminalState:]";
-      v30 = 1024;
-      v31 = 904;
-      v32 = 2080;
-      v33 = "[CWFAssetPowerTableElector processTransitionToTerminalState:]";
-      v34 = 2112;
-      v35 = v19;
-      _os_log_impl(&dword_1E0BBF000, v18, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: Calling ABC due to terminal _powerTableEvaluationState != Accepted %@", &v28, 0x26u);
+      v27 = 136446978;
+      v28 = "[CWFAssetPowerTableElector processTransitionToTerminalState:]";
+      v29 = 1024;
+      v30 = 904;
+      v31 = 2080;
+      v32 = "[CWFAssetPowerTableElector processTransitionToTerminalState:]";
+      v33 = 2112;
+      v34 = v19;
+      _os_log_impl(&dword_1E0BBF000, v18, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: Calling ABC due to terminal _powerTableEvaluationState != Accepted %@", &v27, 0x26u);
     }
 
     v20 = [objc_opt_class() powerTableEvaluationStateAsString:{-[CWFAssetPowerTableElector _powerTableEvaluationState](self, "_powerTableEvaluationState")}];
@@ -1988,47 +2099,43 @@ LABEL_12:
   if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
     v26 = [(CWFAssetPowerTableElector *)self description];
-    v28 = 136446978;
-    v29 = "[CWFAssetPowerTableElector processTransitionToTerminalState:]";
-    v30 = 1024;
-    v31 = 914;
-    v32 = 2080;
-    v33 = "[CWFAssetPowerTableElector processTransitionToTerminalState:]";
-    v34 = 2112;
-    v35 = v26;
-    _os_log_impl(&dword_1E0BBF000, v25, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: Process transition to terminal state complete %@", &v28, 0x26u);
+    v27 = 136446978;
+    v28 = "[CWFAssetPowerTableElector processTransitionToTerminalState:]";
+    v29 = 1024;
+    v30 = 914;
+    v31 = 2080;
+    v32 = "[CWFAssetPowerTableElector processTransitionToTerminalState:]";
+    v33 = 2112;
+    v34 = v26;
+    _os_log_impl(&dword_1E0BBF000, v25, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: Process transition to terminal state complete %@", &v27, 0x26u);
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleCENPowerTableEvaluationStateUninitialized
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = CWFGetOTAOSLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v4 = 136446722;
-    v5 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateUninitialized]";
-    v6 = 1024;
-    v7 = 919;
-    v8 = 2080;
-    v9 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateUninitialized]";
-    _os_log_impl(&dword_1E0BBF000, v2, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: ERROR got state CENPowerTableEvaluationStateUninitialized, why would we get this??", &v4, 0x1Cu);
+    v3 = 136446722;
+    v4 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateUninitialized]";
+    v5 = 1024;
+    v6 = 919;
+    v7 = 2080;
+    v8 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateUninitialized]";
+    _os_log_impl(&dword_1E0BBF000, v2, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: ERROR got state CENPowerTableEvaluationStateUninitialized, why would we get this??", &v3, 0x1Cu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleCENPowerTableEvaluationStateRequestingReadiness:(id)readiness dueInterval:(double)interval
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   readinessCopy = readiness;
   v7 = [MEMORY[0x1E695DF00] now];
-  v50 = 0;
-  v51 = &v50;
-  v52 = 0x2020000000;
-  v53 = 1;
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x2020000000;
+  v52 = 1;
   isSessionCurrentlyBlocking = [(CWFAssetPowerTableElector *)self isSessionCurrentlyBlocking];
   if (isSessionCurrentlyBlocking)
   {
@@ -2037,13 +2144,13 @@ LABEL_12:
     {
       v10 = [(CWFAssetPowerTableElector *)self description];
       *buf = 136446978;
-      v55 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateRequestingReadiness:dueInterval:]";
-      v56 = 1024;
-      v57 = 946;
-      v58 = 2080;
-      v59 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateRequestingReadiness:dueInterval:]";
-      v60 = 2112;
-      v61 = v10;
+      v54 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateRequestingReadiness:dueInterval:]";
+      v55 = 1024;
+      v56 = 946;
+      v57 = 2080;
+      v58 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateRequestingReadiness:dueInterval:]";
+      v59 = 2112;
+      v60 = v10;
       _os_log_impl(&dword_1E0BBF000, v9, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: Error Session Creation Blocked by _maxSessionActiveInterval, sending powerTableReadiness FALSE - self desc: %@", buf, 0x26u);
     }
 
@@ -2053,17 +2160,17 @@ LABEL_12:
       v12 = [(CWFAssetPowerTableElector *)self getPersistedKey:@"powertable-election-session-id"];
       v13 = [(CWFAssetPowerTableElector *)self getPersistedKey:@"powertable-election-session-start-date"];
       *buf = 136447490;
-      v55 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateRequestingReadiness:dueInterval:]";
-      v56 = 1024;
-      v57 = 948;
-      v58 = 2080;
-      v59 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateRequestingReadiness:dueInterval:]";
-      v60 = 2112;
-      v61 = readinessCopy;
-      v62 = 2112;
+      v54 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateRequestingReadiness:dueInterval:]";
+      v55 = 1024;
+      v56 = 948;
+      v57 = 2080;
+      v58 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateRequestingReadiness:dueInterval:]";
+      v59 = 2112;
+      v60 = readinessCopy;
+      v61 = 2112;
       intervalCopy = *&v12;
-      v64 = 2112;
-      v65 = v13;
+      v63 = 2112;
+      v64 = v13;
       _os_log_impl(&dword_1E0BBF000, v11, OS_LOG_TYPE_FAULT, "%{public}s::%d:%s: Got unexpected Readiness Request with session %@ when existng session running %@ which was started at %@", buf, 0x3Au);
     }
 
@@ -2088,31 +2195,31 @@ LABEL_12:
     {
       v17 = [(CWFAssetPowerTableElector *)self description];
       *buf = 136447490;
-      v55 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateRequestingReadiness:dueInterval:]";
-      v56 = 1024;
-      v57 = 942;
-      v58 = 2080;
-      v59 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateRequestingReadiness:dueInterval:]";
-      v60 = 2112;
-      v61 = readinessCopy;
-      v62 = 2048;
+      v54 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateRequestingReadiness:dueInterval:]";
+      v55 = 1024;
+      v56 = 942;
+      v57 = 2080;
+      v58 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateRequestingReadiness:dueInterval:]";
+      v59 = 2112;
+      v60 = readinessCopy;
+      v61 = 2048;
       intervalCopy = interval;
-      v64 = 2112;
-      v65 = v17;
+      v63 = 2112;
+      v64 = v17;
       _os_log_impl(&dword_1E0BBF000, v11, OS_LOG_TYPE_INFO, "%{public}s::%d:%s: Session Created - Session %@ interval %f - self desc: %@", buf, 0x3Au);
 
       v14 = 1;
     }
   }
 
-  *(v51 + 24) = v14;
-  v49[0] = MEMORY[0x1E69E9820];
-  v49[1] = 3221225472;
-  v49[2] = sub_1E0C52C40;
-  v49[3] = &unk_1E86E6F08;
-  v49[4] = &v50;
-  sub_1E0BF1DA8(@"override-readiness-response", @"com.apple.wifi.powertable", v49);
-  if (*(v51 + 24) == 1)
+  *(v50 + 24) = v14;
+  v48[0] = MEMORY[0x1E69E9820];
+  v48[1] = 3221225472;
+  v48[2] = sub_1E0C52C40;
+  v48[3] = &unk_1E86E6F08;
+  v48[4] = &v49;
+  sub_1E0BF1DA8(@"override-readiness-response", @"com.apple.wifi.powertable", v48);
+  if (*(v50 + 24) == 1)
   {
     v18 = [(CWFAssetPowerTableElector *)self getSession:readinessCopy forKey:@"readiness-deadline-date"];
     v19 = [(CWFAssetPowerTableElector *)self performPowerTableVersionRequestWithDeadline:v18];
@@ -2142,34 +2249,34 @@ LABEL_12:
       if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
       {
         *buf = 136446722;
-        v55 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateRequestingReadiness:dueInterval:]";
-        v56 = 1024;
-        v57 = 971;
-        v58 = 2080;
-        v59 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateRequestingReadiness:dueInterval:]";
+        v54 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateRequestingReadiness:dueInterval:]";
+        v55 = 1024;
+        v56 = 971;
+        v57 = 2080;
+        v58 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateRequestingReadiness:dueInterval:]";
         _os_log_impl(&dword_1E0BBF000, v28, OS_LOG_TYPE_INFO, "%{public}s::%d:%s: ERROR failed to retrieve current PT Version, setting areWeReady = FALSE", buf, 0x1Cu);
       }
 
-      *(v51 + 24) = 0;
+      *(v50 + 24) = 0;
     }
   }
 
   v29 = CWFGetOTAOSLog();
   if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
   {
-    v30 = *(v51 + 24);
+    v30 = *(v50 + 24);
     *buf = 136446978;
-    v55 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateRequestingReadiness:dueInterval:]";
-    v56 = 1024;
-    v57 = 976;
-    v58 = 2080;
-    v59 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateRequestingReadiness:dueInterval:]";
-    v60 = 1024;
-    LODWORD(v61) = v30;
+    v54 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateRequestingReadiness:dueInterval:]";
+    v55 = 1024;
+    v56 = 976;
+    v57 = 2080;
+    v58 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateRequestingReadiness:dueInterval:]";
+    v59 = 1024;
+    LODWORD(v60) = v30;
     _os_log_impl(&dword_1E0BBF000, v29, OS_LOG_TYPE_INFO, "%{public}s::%d:%s: Sending powerTableReadiness areWeReady %d", buf, 0x22u);
   }
 
-  if (*(v51 + 24) == 1)
+  if (*(v50 + 24) == 1)
   {
     v31 = objc_alloc_init(MEMORY[0x1E696AB30]);
     [(CWFAssetPowerTableElector *)self set_interfaceAddedEventCondition:v31];
@@ -2184,13 +2291,13 @@ LABEL_12:
     {
       _interfaceAddedEventOccurred = [(CWFAssetPowerTableElector *)self _interfaceAddedEventOccurred];
       *buf = 136446978;
-      v55 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateRequestingReadiness:dueInterval:]";
-      v56 = 1024;
-      v57 = 986;
-      v58 = 2080;
-      v59 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateRequestingReadiness:dueInterval:]";
-      v60 = 1024;
-      LODWORD(v61) = _interfaceAddedEventOccurred;
+      v54 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateRequestingReadiness:dueInterval:]";
+      v55 = 1024;
+      v56 = 986;
+      v57 = 2080;
+      v58 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateRequestingReadiness:dueInterval:]";
+      v59 = 1024;
+      LODWORD(v60) = _interfaceAddedEventOccurred;
       _os_log_impl(&dword_1E0BBF000, v33, OS_LOG_TYPE_INFO, "%{public}s::%d:%s: SET _interfaceAddedEventOccurred %d", buf, 0x22u);
     }
 
@@ -2199,13 +2306,13 @@ LABEL_12:
     {
       _driverAvailEventOccurred = [(CWFAssetPowerTableElector *)self _driverAvailEventOccurred];
       *buf = 136446978;
-      v55 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateRequestingReadiness:dueInterval:]";
-      v56 = 1024;
-      v57 = 987;
-      v58 = 2080;
-      v59 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateRequestingReadiness:dueInterval:]";
-      v60 = 1024;
-      LODWORD(v61) = _driverAvailEventOccurred;
+      v54 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateRequestingReadiness:dueInterval:]";
+      v55 = 1024;
+      v56 = 987;
+      v57 = 2080;
+      v58 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateRequestingReadiness:dueInterval:]";
+      v59 = 1024;
+      LODWORD(v60) = _driverAvailEventOccurred;
       _os_log_impl(&dword_1E0BBF000, v35, OS_LOG_TYPE_INFO, "%{public}s::%d:%s: SET _driverAvailEventOccurred %d", buf, 0x22u);
     }
 
@@ -2221,26 +2328,26 @@ LABEL_12:
     v40 = [MEMORY[0x1E695DF00] now];
     [(CWFAssetPowerTableElector *)self _votingTimeoutInterval];
     v41 = [v40 dateByAddingTimeInterval:?];
-    v48[0] = MEMORY[0x1E69E9820];
-    v48[1] = 3221225472;
-    v48[2] = sub_1E0C52D3C;
-    v48[3] = &unk_1E86E6FD0;
-    v48[4] = self;
-    [(CWFAssetPowerTableElector *)self dispatchWaitForInterfaceAddedThenBlockify:v41 completion:v48];
+    v47[0] = MEMORY[0x1E69E9820];
+    v47[1] = 3221225472;
+    v47[2] = sub_1E0C52D3C;
+    v47[3] = &unk_1E86E6FD0;
+    v47[4] = self;
+    [(CWFAssetPowerTableElector *)self dispatchWaitForInterfaceAddedThenBlockify:v41 completion:v47];
   }
 
   _apiQueue = [(CWFAssetPowerTableElector *)self _apiQueue];
-  v47[0] = MEMORY[0x1E69E9820];
-  v47[1] = 3221225472;
-  v47[2] = sub_1E0C52F20;
-  v47[3] = &unk_1E86E6A28;
-  v47[4] = self;
-  v47[5] = &v50;
-  dispatch_async(_apiQueue, v47);
+  v46[0] = MEMORY[0x1E69E9820];
+  v46[1] = 3221225472;
+  v46[2] = sub_1E0C52F20;
+  v46[3] = &unk_1E86E6A28;
+  v46[4] = self;
+  v46[5] = &v49;
+  dispatch_async(_apiQueue, v46);
 
   if (!isSessionCurrentlyBlocking)
   {
-    if (*(v51 + 24))
+    if (*(v50 + 24))
     {
       v43 = &unk_1F5BBC3D0;
     }
@@ -2251,7 +2358,7 @@ LABEL_12:
     }
 
     [(CWFAssetPowerTableElector *)self persistSession:readinessCopy data:v43 forKey:@"readiness-reply"];
-    [(CWFAssetPowerTableElector *)self set_powerTableEvaluationState:*(v51 + 24)];
+    [(CWFAssetPowerTableElector *)self set_powerTableEvaluationState:*(v50 + 24)];
     v44 = [objc_opt_class() powerTableEvaluationStateAsString:{-[CWFAssetPowerTableElector _powerTableEvaluationState](self, "_powerTableEvaluationState")}];
     [(CWFAssetPowerTableElector *)self persistSession:readinessCopy data:v44 forKey:@"state"];
 
@@ -2259,23 +2366,21 @@ LABEL_12:
     [(CWFAssetPowerTableElector *)self persist:v45 forKey:@"powertable-election-session-state"];
   }
 
-  _Block_object_dispose(&v50, 8);
-
-  v46 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v49, 8);
 }
 
 - (void)handleCENPowerTableEvaluationStateStarting:(id)starting
 {
-  v34[1] = *MEMORY[0x1E69E9840];
+  v33[1] = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E695DF00];
   startingCopy = starting;
   v6 = [v4 now];
   if ([(CWFAssetPowerTableElector *)self _powerTableEvaluationState]!= 1)
   {
     v7 = MEMORY[0x1E696ABC0];
-    v33 = *MEMORY[0x1E696A588];
-    v34[0] = @"CWFPowerTableElectionUnexpectedStateStarting";
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+    v32 = *MEMORY[0x1E696A588];
+    v33[0] = @"CWFPowerTableElectionUnexpectedStateStarting";
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
     v9 = [v7 errorWithDomain:@"com.apple.wifi.powertable" code:6 userInfo:v8];
     [(CWFAssetPowerTableElector *)self setError:v9];
 
@@ -2285,19 +2390,19 @@ LABEL_12:
       v11 = [objc_opt_class() powerTableEvaluationStateAsString:{-[CWFAssetPowerTableElector _powerTableEvaluationState](self, "_powerTableEvaluationState")}];
       v12 = [objc_opt_class() powerTableEvaluationStateAsString:1];
       v13 = [(CWFAssetPowerTableElector *)self description];
-      v21 = 136447490;
-      v22 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateStarting:]";
-      v23 = 1024;
-      v24 = 1040;
-      v25 = 2080;
-      v26 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateStarting:]";
-      v27 = 2112;
-      v28 = v11;
-      v29 = 2112;
-      v30 = v12;
-      v31 = 2112;
-      v32 = v13;
-      _os_log_impl(&dword_1E0BBF000, v10, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: ERROR got notice of StateStarting when current state is %@ instead of %@ - desc %@", &v21, 0x3Au);
+      v20 = 136447490;
+      v21 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateStarting:]";
+      v22 = 1024;
+      v23 = 1040;
+      v24 = 2080;
+      v25 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateStarting:]";
+      v26 = 2112;
+      v27 = v11;
+      v28 = 2112;
+      v29 = v12;
+      v30 = 2112;
+      v31 = v13;
+      _os_log_impl(&dword_1E0BBF000, v10, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: ERROR got notice of StateStarting when current state is %@ instead of %@ - desc %@", &v20, 0x3Au);
     }
 
     v14 = CWFGetOTAOSLog();
@@ -2305,17 +2410,17 @@ LABEL_12:
     {
       v15 = [objc_opt_class() powerTableEvaluationStateAsString:{-[CWFAssetPowerTableElector _powerTableEvaluationState](self, "_powerTableEvaluationState")}];
       v16 = [objc_opt_class() powerTableEvaluationStateAsString:1];
-      v21 = 136447234;
-      v22 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateStarting:]";
-      v23 = 1024;
-      v24 = 1042;
-      v25 = 2080;
-      v26 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateStarting:]";
-      v27 = 2112;
-      v28 = v15;
-      v29 = 2112;
-      v30 = v16;
-      _os_log_impl(&dword_1E0BBF000, v14, OS_LOG_TYPE_FAULT, "%{public}s::%d:%s: ERROR got notice of StateStarting when current state is %@ instead of %@ ", &v21, 0x30u);
+      v20 = 136447234;
+      v21 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateStarting:]";
+      v22 = 1024;
+      v23 = 1042;
+      v24 = 2080;
+      v25 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateStarting:]";
+      v26 = 2112;
+      v27 = v15;
+      v28 = 2112;
+      v29 = v16;
+      _os_log_impl(&dword_1E0BBF000, v14, OS_LOG_TYPE_FAULT, "%{public}s::%d:%s: ERROR got notice of StateStarting when current state is %@ instead of %@ ", &v20, 0x30u);
     }
   }
 
@@ -2329,21 +2434,19 @@ LABEL_12:
 
   v19 = [objc_opt_class() powerTableEvaluationStateAsString:{-[CWFAssetPowerTableElector _powerTableEvaluationState](self, "_powerTableEvaluationState")}];
   [(CWFAssetPowerTableElector *)self persist:v19 forKey:@"powertable-election-session-state"];
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleCENPowerTableEvaluationStateRequestingVotes:(id)votes dueInterval:(double)interval
 {
-  v40[1] = *MEMORY[0x1E69E9840];
+  v39[1] = *MEMORY[0x1E69E9840];
   votesCopy = votes;
   v7 = [MEMORY[0x1E695DF00] now];
   if ([(CWFAssetPowerTableElector *)self _powerTableEvaluationState]!= 2)
   {
     v8 = MEMORY[0x1E696ABC0];
-    v39 = *MEMORY[0x1E696A588];
-    v40[0] = @"CWFPowerTableElectionUnexpectedStateRequestingVotes";
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:&v39 count:1];
+    v38 = *MEMORY[0x1E696A588];
+    v39[0] = @"CWFPowerTableElectionUnexpectedStateRequestingVotes";
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:&v38 count:1];
     v10 = [v8 errorWithDomain:@"com.apple.wifi.powertable" code:7 userInfo:v9];
     [(CWFAssetPowerTableElector *)self setError:v10];
 
@@ -2354,17 +2457,17 @@ LABEL_12:
       v13 = [objc_opt_class() powerTableEvaluationStateAsString:2];
       v14 = [(CWFAssetPowerTableElector *)self description];
       *buf = 136447490;
-      v28 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateRequestingVotes:dueInterval:]";
-      v29 = 1024;
-      v30 = 1063;
-      v31 = 2080;
-      v32 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateRequestingVotes:dueInterval:]";
-      v33 = 2112;
-      v34 = v12;
-      v35 = 2112;
-      v36 = v13;
-      v37 = 2112;
-      v38 = v14;
+      v27 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateRequestingVotes:dueInterval:]";
+      v28 = 1024;
+      v29 = 1063;
+      v30 = 2080;
+      v31 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateRequestingVotes:dueInterval:]";
+      v32 = 2112;
+      v33 = v12;
+      v34 = 2112;
+      v35 = v13;
+      v36 = 2112;
+      v37 = v14;
       _os_log_impl(&dword_1E0BBF000, v11, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: ERROR got notice of RequestingVotes when current state is %@ instead of %@ - desc %@", buf, 0x3Au);
     }
 
@@ -2374,15 +2477,15 @@ LABEL_12:
       v16 = [objc_opt_class() powerTableEvaluationStateAsString:{-[CWFAssetPowerTableElector _powerTableEvaluationState](self, "_powerTableEvaluationState")}];
       v17 = [objc_opt_class() powerTableEvaluationStateAsString:2];
       *buf = 136447234;
-      v28 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateRequestingVotes:dueInterval:]";
-      v29 = 1024;
-      v30 = 1065;
-      v31 = 2080;
-      v32 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateRequestingVotes:dueInterval:]";
-      v33 = 2112;
-      v34 = v16;
-      v35 = 2112;
-      v36 = v17;
+      v27 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateRequestingVotes:dueInterval:]";
+      v28 = 1024;
+      v29 = 1065;
+      v30 = 2080;
+      v31 = "[CWFAssetPowerTableElector handleCENPowerTableEvaluationStateRequestingVotes:dueInterval:]";
+      v32 = 2112;
+      v33 = v16;
+      v34 = 2112;
+      v35 = v17;
       _os_log_impl(&dword_1E0BBF000, v15, OS_LOG_TYPE_FAULT, "%{public}s::%d:%s: ERROR got notice of RequestingVotes when current state is %@ instead of %@ ", buf, 0x30u);
     }
   }
@@ -2396,16 +2499,14 @@ LABEL_12:
   [v19 requestWiFiToBlockABCSignatureUntil:v20 signature:@"mute-abc-driver-availability-until"];
 
   v21 = [(CWFAssetPowerTableElector *)self getSession:votesCopy forKey:@"vote-deadline-date"];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = sub_1E0C536B4;
-  v24[3] = &unk_1E86E6FF8;
-  v25 = votesCopy;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = sub_1E0C536B4;
+  v23[3] = &unk_1E86E6FF8;
+  v24 = votesCopy;
   selfCopy = self;
   v22 = votesCopy;
-  [(CWFAssetPowerTableElector *)self waitForPowerTableBootedThenVoteInBlock:v21 completion:v24];
-
-  v23 = *MEMORY[0x1E69E9840];
+  [(CWFAssetPowerTableElector *)self waitForPowerTableBootedThenVoteInBlock:v21 completion:v23];
 }
 
 - (void)handleCENPowerTableEvaluationStateRejected:(id)rejected
@@ -2474,28 +2575,24 @@ LABEL_12:
 
 + (id)powerTableEvaluationStateAsString:(int64_t)string
 {
-  v12 = *MEMORY[0x1E69E9840];
-  if (string >= 7)
+  v11 = *MEMORY[0x1E69E9840];
+  if (string < 7)
   {
-    v4 = CWFGetOTAOSLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-    {
-      v6 = 136446722;
-      v7 = "+[CWFAssetPowerTableElector powerTableEvaluationStateAsString:]";
-      v8 = 1024;
-      v9 = 1158;
-      v10 = 2080;
-      v11 = "+[CWFAssetPowerTableElector powerTableEvaluationStateAsString:]";
-      _os_log_impl(&dword_1E0BBF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: Missing case", &v6, 0x1Cu);
-    }
+    return off_1E86E7018[string];
   }
 
-  else
+  v4 = CWFGetOTAOSLog();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    result = off_1E86E7018[string];
+    v5 = 136446722;
+    v6 = "+[CWFAssetPowerTableElector powerTableEvaluationStateAsString:]";
+    v7 = 1024;
+    v8 = 1158;
+    v9 = 2080;
+    v10 = "+[CWFAssetPowerTableElector powerTableEvaluationStateAsString:]";
+    _os_log_impl(&dword_1E0BBF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: Missing case", &v5, 0x1Cu);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 

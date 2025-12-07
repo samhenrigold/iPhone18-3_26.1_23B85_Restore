@@ -96,9 +96,9 @@
 
   v4 = v3;
   v5 = [VFXTimingFunction alloc];
-  v8 = objc_msgSend_initWithTimingFunctionRef_(v5, v6, v4, v7);
+  v7 = objc_msgSend_initWithTimingFunctionRef_(v5, v6, v4);
 
-  return v8;
+  return v7;
 }
 
 + (id)functionWithMass:(float)mass stiffness:(float)stiffness damping:(float)damping initialVelocity:(float)velocity
@@ -108,10 +108,10 @@
   {
     v7 = result;
     v8 = [VFXTimingFunction alloc];
-    v11 = objc_msgSend_initWithTimingFunctionRef_(v8, v9, v7, v10);
+    v10 = objc_msgSend_initWithTimingFunctionRef_(v8, v9, v7);
     CFRelease(v7);
 
-    return v11;
+    return v10;
   }
 
   return result;
@@ -119,84 +119,84 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  if (objc_msgSend_isSpring(self, a2, zone, v3))
+  if (objc_msgSend_isSpring(self, a2, zone))
   {
-    objc_msgSend_springCoefiscients(self, v5, v6, v7);
-    LODWORD(v9) = HIDWORD(v8);
+    objc_msgSend_springCoefiscients(self, v4, v5);
+    LODWORD(v7) = HIDWORD(v6);
+    LODWORD(v9) = v8;
     LODWORD(v11) = v10;
-    LODWORD(v13) = v12;
-    v17 = objc_msgSend_functionWithMass_stiffness_damping_initialVelocity_(VFXTimingFunction, v14, v15, v16, v8, v9, v11, v13);
+    v14 = objc_msgSend_functionWithMass_stiffness_damping_initialVelocity_(VFXTimingFunction, v12, v13, v6, v7, v9, v11);
   }
 
   else
   {
-    v18 = objc_msgSend_caMediaTimingFunction(self, v5, v6, v7);
-    v17 = objc_msgSend_functionWithCAMediaTimingFunction_(VFXTimingFunction, v19, v18, v20);
+    v15 = objc_msgSend_caMediaTimingFunction(self, v4, v5);
+    v14 = objc_msgSend_functionWithCAMediaTimingFunction_(VFXTimingFunction, v16, v15);
   }
 
-  return v17;
+  return v14;
 }
 
 - (double)perceptualDuration
 {
-  v8 = 0.0;
-  if (objc_msgSend_isSpring(self, a2, v2, v3))
+  v6 = 0.0;
+  if (objc_msgSend_isSpring(self, a2, v2))
   {
-    objc_msgSend_springCoefiscients(self, v5, v6, v7);
-    if ((HIDWORD(v9) & 0x7FFFFFFFu) <= 0x7F7FFFFF)
+    objc_msgSend_springCoefiscients(self, v4, v5);
+    if ((HIDWORD(v7) & 0x7FFFFFFFu) <= 0x7F7FFFFF)
     {
-      return sqrtf(*&v9 / *(&v9 + 1)) * 6.28318531;
+      return sqrtf(*&v7 / *(&v7 + 1)) * 6.28318531;
     }
   }
 
-  return v8;
+  return v6;
 }
 
 - (double)springDuration
 {
-  v8 = 0.0;
-  if (objc_msgSend_isSpring(self, a2, v2, v3))
+  v6 = 0.0;
+  if (objc_msgSend_isSpring(self, a2, v2))
   {
-    objc_msgSend_springCoefiscients(self, v5, v6, v7);
-    if ((HIDWORD(v9) & 0x7FFFFFFFu) <= 0x7F7FFFFF)
+    objc_msgSend_springCoefiscients(self, v4, v5);
+    if ((HIDWORD(v7) & 0x7FFFFFFFu) <= 0x7F7FFFFF)
     {
-      if (v10 == 0.0)
+      if (v8 == 0.0)
       {
         return 1000.0;
       }
 
       else
       {
-        v11 = fmax((20.0 / v10), 1.0);
-        return (v11 + v11) * 3.14159265 * sqrtf(*&v9 / *(&v9 + 1)) * *&v9;
+        v9 = fmax((20.0 / v8), 1.0);
+        return (v9 + v9) * 3.14159265 * sqrtf(*&v7 / *(&v7 + 1)) * *&v7;
       }
     }
   }
 
-  return v8;
+  return v6;
 }
 
 - (float)bounce
 {
-  isSpring = objc_msgSend_isSpring(self, a2, v2, v3);
+  isSpring = objc_msgSend_isSpring(self, a2, v2);
   result = 0.0;
   if (isSpring)
   {
-    objc_msgSend_springCoefiscients(self, v6, v7, v8, 0.0);
-    v20 = v10;
-    v12 = v11;
-    v13 = v11;
-    objc_msgSend_perceptualDuration(self, v14, v15, v16);
-    v18 = v17 * v13 / (v20.f32[0] * 12.5663706);
-    v19 = sqrtf(vmuls_lane_f32(v20.f32[0], v20, 1));
-    if ((v12 / (v19 + v19)) <= 1.0)
+    objc_msgSend_springCoefiscients(self, v5, v6, 0.0);
+    v17 = v8;
+    v10 = v9;
+    v11 = v9;
+    objc_msgSend_perceptualDuration(self, v12, v13);
+    v15 = v14 * v11 / (v17.f32[0] * 12.5663706);
+    v16 = sqrtf(vmuls_lane_f32(v17.f32[0], v17, 1));
+    if ((v10 / (v16 + v16)) <= 1.0)
     {
-      return 1.0 - v18;
+      return 1.0 - v15;
     }
 
     else
     {
-      return 1.0 / v18 + -1.0;
+      return 1.0 / v15 + -1.0;
     }
   }
 
@@ -206,8 +206,8 @@
 - (void)setSpringCoefiscients:(VFXTimingFunction *)self
 {
   v4 = sub_1AF120B08(*&v2, *(&v2 + 1), *(&v2 + 2), *(&v2 + 3));
-  v5 = sub_1AF120CF4(v4);
-  *sub_1AF120CF4(self->_timingFunction) = *v5;
+  v6 = sub_1AF120CF4(v4, v5);
+  *sub_1AF120CF4(self->_timingFunction, v7) = *v6;
   if (v4)
   {
 
@@ -217,85 +217,85 @@
 
 - (void)setMass:(float)mass
 {
-  objc_msgSend_springCoefiscients(self, a2, v3, v4);
+  objc_msgSend_springCoefiscients(self, a2, v3);
 
-  MEMORY[0x1EEE66B58](self, sel_setSpringCoefiscients_, v6, v7);
+  MEMORY[0x1EEE66B58](self, sel_setSpringCoefiscients_, v5);
 }
 
 - (void)setStiffness:(float)stiffness
 {
-  objc_msgSend_springCoefiscients(self, a2, v3, v4);
+  objc_msgSend_springCoefiscients(self, a2, v3);
 
-  MEMORY[0x1EEE66B58](self, sel_setSpringCoefiscients_, v6, v7);
+  MEMORY[0x1EEE66B58](self, sel_setSpringCoefiscients_, v5);
 }
 
 - (void)setDamping:(float)damping
 {
-  objc_msgSend_springCoefiscients(self, a2, v3, v4);
+  objc_msgSend_springCoefiscients(self, a2, v3);
 
-  MEMORY[0x1EEE66B58](self, sel_setSpringCoefiscients_, v6, v7);
+  MEMORY[0x1EEE66B58](self, sel_setSpringCoefiscients_, v5);
 }
 
 - (void)setInitialVelocity:(float)velocity
 {
-  objc_msgSend_springCoefiscients(self, a2, v3, v4);
+  objc_msgSend_springCoefiscients(self, a2, v3);
 
-  MEMORY[0x1EEE66B58](self, sel_setSpringCoefiscients_, v6, v7);
+  MEMORY[0x1EEE66B58](self, sel_setSpringCoefiscients_, v5);
 }
 
 - (void)setBounce:(float)bounce
 {
-  if (objc_msgSend_isSpring(self, a2, v3, v4))
+  if (objc_msgSend_isSpring(self, a2, v3))
   {
-    v6 = objc_alloc(MEMORY[0x1E69794A8]);
-    objc_msgSend_perceptualDuration(self, v7, v8, v9);
-    v35 = objc_msgSend_initWithPerceptualDuration_bounce_(v6, v10, v11, v12);
-    objc_msgSend_mass(v35, v13, v14, v15);
+    v5 = objc_alloc(MEMORY[0x1E69794A8]);
+    objc_msgSend_perceptualDuration(self, v6, v7);
+    v30 = objc_msgSend_initWithPerceptualDuration_bounce_(v5, v8, v9);
+    objc_msgSend_mass(v30, v10, v11);
+    v13 = v12;
+    objc_msgSend_stiffness(v30, v14, v15);
     v17 = v16;
-    objc_msgSend_stiffness(v35, v18, v19, v20);
-    v22 = v21;
-    objc_msgSend_damping(v35, v23, v24, v25);
-    v27 = v26;
-    objc_msgSend_initialVelocity(v35, v28, v29, v30);
-    v32 = v31;
-    v33 = sub_1AF120B08(v17, v22, v27, v32);
-    v34 = sub_1AF120CF4(v33);
-    *sub_1AF120CF4(self->_timingFunction) = *v34;
-    if (v33)
+    objc_msgSend_damping(v30, v18, v19);
+    v21 = v20;
+    objc_msgSend_initialVelocity(v30, v22, v23);
+    v25 = v24;
+    v26 = sub_1AF120B08(v13, v17, v21, v25);
+    v28 = sub_1AF120CF4(v26, v27);
+    *sub_1AF120CF4(self->_timingFunction, v29) = *v28;
+    if (v26)
     {
-      CFRelease(v33);
+      CFRelease(v26);
     }
   }
 }
 
 - (void)setPerceptualDuration:(double)duration
 {
-  if (objc_msgSend_isSpring(self, a2, v3, v4))
+  if (objc_msgSend_isSpring(self, a2, v3))
   {
-    v7 = objc_alloc(MEMORY[0x1E69794A8]);
-    objc_msgSend_bounce(self, v8, v9, v10);
-    v37 = objc_msgSend_initWithPerceptualDuration_bounce_(v7, v12, v13, v14, duration, v11);
-    objc_msgSend_mass(v37, v15, v16, v17);
+    v6 = objc_alloc(MEMORY[0x1E69794A8]);
+    objc_msgSend_bounce(self, v7, v8);
+    v32 = objc_msgSend_initWithPerceptualDuration_bounce_(v6, v10, v11, duration, v9);
+    objc_msgSend_mass(v32, v12, v13);
+    v15 = v14;
+    objc_msgSend_stiffness(v32, v16, v17);
     v19 = v18;
-    objc_msgSend_stiffness(v37, v20, v21, v22);
-    v24 = v23;
-    objc_msgSend_damping(v37, v25, v26, v27);
-    v29 = v28;
-    objc_msgSend_initialVelocity(v37, v30, v31, v32);
-    v34 = v33;
-    v35 = sub_1AF120B08(v19, v24, v29, v34);
-    v36 = sub_1AF120CF4(v35);
-    *sub_1AF120CF4(self->_timingFunction) = *v36;
-    if (v35)
+    objc_msgSend_damping(v32, v20, v21);
+    v23 = v22;
+    objc_msgSend_initialVelocity(v32, v24, v25);
+    v27 = v26;
+    v28 = sub_1AF120B08(v15, v19, v23, v27);
+    v30 = sub_1AF120CF4(v28, v29);
+    *sub_1AF120CF4(self->_timingFunction, v31) = *v30;
+    if (v28)
     {
-      CFRelease(v35);
+      CFRelease(v28);
     }
   }
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  if (sub_1AF120D3C(self->_timingFunction))
+  if (sub_1AF120D3C(self->_timingFunction, a2))
   {
 
     objc_msgSend_encodeBool_forKey_(coder, v5, 1, @"linear");
@@ -309,63 +309,63 @@
       objc_msgSend_encodeBool_forKey_(coder, v6, 1, @"spring");
     }
 
-    v8 = sub_1AF120CF4(self->_timingFunction);
+    v8 = sub_1AF120CF4(self->_timingFunction, v6);
     LODWORD(v9) = *v8;
-    objc_msgSend_encodeFloat_forKey_(coder, v10, @"c0", v11, v9);
-    LODWORD(v12) = v8[1];
-    objc_msgSend_encodeFloat_forKey_(coder, v13, @"c1", v14, v12);
-    LODWORD(v15) = v8[2];
-    objc_msgSend_encodeFloat_forKey_(coder, v16, @"c2", v17, v15);
-    LODWORD(v18) = v8[3];
-    objc_msgSend_encodeFloat_forKey_(coder, v19, @"c3", v20, v18);
+    objc_msgSend_encodeFloat_forKey_(coder, v10, @"c0", v9);
+    LODWORD(v11) = v8[1];
+    objc_msgSend_encodeFloat_forKey_(coder, v12, @"c1", v11);
+    LODWORD(v13) = v8[2];
+    objc_msgSend_encodeFloat_forKey_(coder, v14, @"c2", v13);
+    LODWORD(v15) = v8[3];
+    objc_msgSend_encodeFloat_forKey_(coder, v16, @"c3", v15);
     if (v7)
     {
-      LODWORD(v23) = v8[4];
+      LODWORD(v18) = v8[4];
 
-      objc_msgSend_encodeFloat_forKey_(coder, v21, @"c4", v22, v23);
+      objc_msgSend_encodeFloat_forKey_(coder, v17, @"c4", v18);
     }
   }
 }
 
 - (VFXTimingFunction)initWithCoder:(id)coder
 {
-  v31.receiver = self;
-  v31.super_class = VFXTimingFunction;
-  v6 = [(VFXTimingFunction *)&v31 init];
-  if (v6)
+  v24.receiver = self;
+  v24.super_class = VFXTimingFunction;
+  v5 = [(VFXTimingFunction *)&v24 init];
+  if (v5)
   {
-    if (objc_msgSend_decodeBoolForKey_(coder, v4, @"linear", v5))
+    if (objc_msgSend_decodeBoolForKey_(coder, v4, @"linear"))
     {
       sub_1AF120994(@"linear");
     }
 
     else
     {
-      v10 = objc_msgSend_decodeBoolForKey_(coder, v7, @"spring", v8);
-      objc_msgSend_decodeFloatForKey_(coder, v11, @"c0", v12);
+      v8 = objc_msgSend_decodeBoolForKey_(coder, v6, @"spring");
+      objc_msgSend_decodeFloatForKey_(coder, v9, @"c0");
+      v11 = v10;
+      objc_msgSend_decodeFloatForKey_(coder, v12, @"c1");
       v14 = v13;
-      objc_msgSend_decodeFloatForKey_(coder, v15, @"c1", v16);
-      v18 = v17;
-      objc_msgSend_decodeFloatForKey_(coder, v19, @"c2", v20);
-      v22 = v21;
-      objc_msgSend_decodeFloatForKey_(coder, v23, @"c3", v24);
-      v28 = v27;
-      if (v10)
+      objc_msgSend_decodeFloatForKey_(coder, v15, @"c2");
+      v17 = v16;
+      objc_msgSend_decodeFloatForKey_(coder, v18, @"c3");
+      v21 = v20;
+      if (v8)
       {
-        objc_msgSend_decodeFloatForKey_(coder, v25, @"c4", v26);
-        v9 = sub_1AF120A84(v14, v18, v22, v28, v29);
+        objc_msgSend_decodeFloatForKey_(coder, v19, @"c4");
+        v7 = sub_1AF120A84(v11, v14, v17, v21, v22);
       }
 
       else
       {
-        v9 = sub_1AF120C80(v14, v18, v22, v27);
+        v7 = sub_1AF120C80(v11, v14, v17, v20);
       }
     }
 
-    v6->_timingFunction = v9;
+    v5->_timingFunction = v7;
   }
 
-  return v6;
+  return v5;
 }
 
 @end

@@ -2,6 +2,7 @@
 + (id)sharedKeyboardInputManagerServer;
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection;
 - (TIKeyboardInputManagerServer)init;
+- (id)reduceCacheToSize:(int)size;
 - (void)appleKeyboardsSettingsChanged:(id)changed;
 - (void)checkAndFlushDynamicCaches;
 - (void)dealloc;
@@ -104,6 +105,26 @@
 
   v3 = +[TIKeyboardInputManagerLoader sharedLoader];
   [v3 releaseAllInputManagers];
+}
+
+- (id)reduceCacheToSize:(int)size
+{
+  v3 = *&size;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = 136315394;
+    v8 = "[TIKeyboardInputManagerServer reduceCacheToSize:]";
+    v9 = 2048;
+    v10 = v3;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%s  Reduce cache to size=%lu", &v7, 0x16u);
+  }
+
+  v4 = +[TIKeyboardInputManagerLoader sharedLoader];
+  [v4 reduceInputManagerCacheToSize:v3 switchingToInputMode:0];
+  currentLoadedInputModes = [v4 currentLoadedInputModes];
+  [TILanguageModelLoaderManager dropResourcesExcludingInputModes:currentLoadedInputModes];
+
+  return currentLoadedInputModes;
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection

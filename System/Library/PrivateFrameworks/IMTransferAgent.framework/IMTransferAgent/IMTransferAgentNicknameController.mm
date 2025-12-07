@@ -44,45 +44,45 @@
   recipeDataTagCopy = recipeDataTag;
   queueCopy = queue;
   blockCopy = block;
-  if (objc_msgSend_supportsNameAndPhoto(MEMORY[0x277D1A9A0], v26, v27))
+  if ([MEMORY[0x277D1A9A0] supportsNameAndPhoto])
   {
-    if (objc_msgSend_length(dCopy, v28, v29))
+    if ([dCopy length])
     {
-      v49 = 0;
-      v50 = &v49;
-      v51 = 0x3032000000;
-      v52 = sub_25485D6FC;
-      v53 = sub_25485D70C;
-      v54 = 0;
-      v36[0] = MEMORY[0x277D85DD0];
-      v36[1] = 3221225472;
-      v36[2] = sub_25485D714;
-      v36[3] = &unk_27978CF70;
-      v37 = dCopy;
-      v38 = metadataTagCopy;
-      v39 = tagCopy;
-      v40 = dataTagCopy;
+      v43 = 0;
+      v44 = &v43;
+      v45 = 0x3032000000;
+      v46 = sub_25485D6FC;
+      v47 = sub_25485D70C;
+      v48 = 0;
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = sub_25485D714;
+      v30[3] = &unk_27978CF70;
+      v31 = dCopy;
+      v32 = metadataTagCopy;
+      v33 = tagCopy;
+      v34 = dataTagCopy;
       senderCopy = sender;
-      v41 = recipeDataTagCopy;
+      v35 = recipeDataTagCopy;
       selfCopy = self;
-      v31 = queueCopy;
-      v43 = v31;
-      v35 = keyCopy;
-      v44 = keyCopy;
+      v26 = queueCopy;
+      v37 = v26;
+      v29 = keyCopy;
+      v38 = keyCopy;
       fieldsCopy = fields;
-      v45 = blockCopy;
-      v46 = &v49;
-      v32 = MEMORY[0x259C1C440](v36);
-      objc_msgSend_performCloudKitOperation_queue_withError_(self, v33, v32, v31, v50[5]);
+      v39 = blockCopy;
+      v40 = &v43;
+      v27 = MEMORY[0x259C1C440](v30);
+      [(IMTransferAgentNicknameController *)self performCloudKitOperation:v27 queue:v26 withError:v44[5]];
 
-      _Block_object_dispose(&v49, 8);
-      keyCopy = v35;
+      _Block_object_dispose(&v43, 8);
+      keyCopy = v29;
     }
 
     else
     {
-      v34 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v30, @"com.apple.nickname", 1, 0);
-      (*(blockCopy + 2))(blockCopy, 0, v34);
+      v28 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.nickname" code:1 userInfo:0];
+      (*(blockCopy + 2))(blockCopy, 0, v28);
     }
   }
 }
@@ -90,27 +90,27 @@
 - (void)fetchCurrentUserForNicknameContainer:(id)container
 {
   containerCopy = container;
-  v7 = objc_msgSend__nickNameContainer(self, v5, v6);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = sub_25485E218;
-  v10[3] = &unk_27978CF98;
-  v11 = containerCopy;
+  _nickNameContainer = [(IMTransferAgentNicknameController *)self _nickNameContainer];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = sub_25485E218;
+  v7[3] = &unk_27978CF98;
   v8 = containerCopy;
-  objc_msgSend_fetchUserRecordIDWithCompletionHandler_(v7, v9, v10);
+  v6 = containerCopy;
+  [_nickNameContainer fetchUserRecordIDWithCompletionHandler:v7];
 }
 
 - (void)fetchAllNicknamesForCurrentUser:(id)user
 {
   userCopy = user;
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = sub_25485E2BC;
-  v7[3] = &unk_27978CFE8;
-  v7[4] = self;
-  v8 = userCopy;
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = sub_25485E2BC;
+  v6[3] = &unk_27978CFE8;
+  v6[4] = self;
+  v7 = userCopy;
   v5 = userCopy;
-  objc_msgSend_fetchCurrentUserForNicknameContainer_(self, v6, v7);
+  [(IMTransferAgentNicknameController *)self fetchCurrentUserForNicknameContainer:v6];
 }
 
 - (void)setPersonalNicknameData:(id)data oldRecordID:(id)d queue:(id)queue completionBlock:(id)block
@@ -121,37 +121,36 @@
   v13 = MEMORY[0x277CCAAC8];
   v14 = MEMORY[0x277CBEB98];
   dataCopy = data;
-  v16 = objc_opt_class();
-  v18 = objc_msgSend_setWithObject_(v14, v17, v16);
-  v25 = 0;
-  v20 = objc_msgSend__strictlyUnarchivedObjectOfClasses_fromData_error_(v13, v19, v18, dataCopy, &v25);
+  v16 = [v14 setWithObject:objc_opt_class()];
+  v21 = 0;
+  v17 = [v13 _strictlyUnarchivedObjectOfClasses:v16 fromData:dataCopy error:&v21];
 
-  v21 = v25;
-  if (v20)
+  v18 = v21;
+  if (v17)
   {
-    v23 = v21 == 0;
+    v19 = v18 == 0;
   }
 
   else
   {
-    v23 = 0;
+    v19 = 0;
   }
 
-  if (v23)
+  if (v19)
   {
-    objc_msgSend_setPersonalNickname_oldRecordID_queue_completionBlock_(self, v22, v20, dCopy, queueCopy, blockCopy);
+    [(IMTransferAgentNicknameController *)self setPersonalNickname:v17 oldRecordID:dCopy queue:queueCopy completionBlock:blockCopy];
   }
 
   else
   {
-    v24 = objc_msgSend__errorWrappingError_(self, v22, v21);
-    (*(blockCopy + 2))(blockCopy, 0, 0, 0, 0, 0, 0, 0, 0, v24);
+    v20 = [(IMTransferAgentNicknameController *)self _errorWrappingError:v18];
+    (*(blockCopy + 2))(blockCopy, 0, 0, 0, 0, 0, 0, 0, 0, v20);
   }
 }
 
 - (void)setPersonalNickname:(id)nickname oldRecordID:(id)d queue:(id)queue completionBlock:(id)block
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   nicknameCopy = nickname;
   dCopy = d;
   queueCopy = queue;
@@ -163,93 +162,90 @@
     selfCopy = self;
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      v19 = objc_msgSend_avatar(v14, v17, v18);
-      v22 = objc_msgSend_imageFilePath(v19, v20, v21);
+      avatar = [v14 avatar];
+      imageFilePath = [avatar imageFilePath];
       *buf = 138412546;
-      v70 = v14;
-      v71 = 2112;
-      v72 = v22;
+      v55 = v14;
+      v56 = 2112;
+      v57 = imageFilePath;
       _os_log_impl(&dword_254850000, v15, OS_LOG_TYPE_INFO, "Client request to store new personal nickname %@ path%@", buf, 0x16u);
     }
 
     self = selfCopy;
   }
 
-  v67[0] = MEMORY[0x277D85DD0];
-  v67[1] = 3221225472;
-  v67[2] = sub_25485EC18;
-  v67[3] = &unk_27978D010;
-  v23 = blockCopy;
-  v67[4] = self;
-  v68 = v23;
+  v52[0] = MEMORY[0x277D85DD0];
+  v52[1] = 3221225472;
+  v52[2] = sub_25485EC18;
+  v52[3] = &unk_27978D010;
+  v19 = blockCopy;
+  v52[4] = self;
+  v53 = v19;
   selfCopy2 = self;
-  v24 = MEMORY[0x259C1C440](v67);
-  v66 = 0;
-  v26 = objc_msgSend_generatePreKeyWithError_(MEMORY[0x277D1AB00], v25, &v66);
-  v27 = v66;
-  v29 = v27;
-  if (v26)
+  v20 = MEMORY[0x259C1C440](v52);
+  v51 = 0;
+  v21 = [MEMORY[0x277D1AB00] generatePreKeyWithError:&v51];
+  v22 = v51;
+  v23 = v22;
+  if (v21)
   {
-    v65 = 0;
-    v63 = 0;
-    v64 = 0;
-    v61 = v27;
-    v62 = 0;
-    v50 = objc_msgSend_publicRecordsForNicknameWithPreKey_wallpaperDataTag_lowResWallpaperDataTag_wallpaperMetadataTag_avatarRecipeDataTag_error_(v14, v28, v26, &v65, &v64, &v63, &v62, &v61);
-    v30 = v65;
-    v31 = v64;
-    v46 = v63;
-    v47 = v62;
-    v45 = v61;
+    v50 = 0;
+    v48 = 0;
+    v49 = 0;
+    v46 = v22;
+    v47 = 0;
+    v35 = [v14 publicRecordsForNicknameWithPreKey:v21 wallpaperDataTag:&v50 lowResWallpaperDataTag:&v49 wallpaperMetadataTag:&v48 avatarRecipeDataTag:&v47 error:&v46];
+    v24 = v50;
+    v25 = v49;
+    v31 = v48;
+    v32 = v47;
+    v30 = v46;
 
-    v49 = objc_msgSend_objectForKeyedSubscript_(v50, v32, @"profileRecord");
-    v48 = objc_msgSend_objectForKeyedSubscript_(v50, v33, @"wallpaperRecord");
-    if (v49)
+    v34 = [v35 objectForKeyedSubscript:@"profileRecord"];
+    v33 = [v35 objectForKeyedSubscript:@"wallpaperRecord"];
+    if (v34)
     {
-      if (objc_msgSend_length(dCopy, v34, v35))
+      if ([dCopy length])
       {
-        v36 = objc_alloc(MEMORY[0x277CBC5D0]);
-        v43 = objc_msgSend_initWithRecordName_(v36, v37, dCopy);
+        v28 = [objc_alloc(MEMORY[0x277CBC5D0]) initWithRecordName:dCopy];
       }
 
       else
       {
-        v43 = 0;
+        v28 = 0;
       }
 
-      v38 = objc_alloc_init(MEMORY[0x277D192C0]);
-      objc_msgSend_startTimingForKey_(v38, v39, @"Nickname Upload");
-      v51[0] = MEMORY[0x277D85DD0];
-      v51[1] = 3221225472;
-      v51[2] = sub_25485ED70;
-      v51[3] = &unk_27978D038;
-      v52 = v38;
-      v53 = v14;
-      v54 = v49;
-      v60 = v24;
-      v55 = v26;
-      v56 = v30;
-      v57 = v31;
-      v58 = v46;
-      v59 = v47;
-      v40 = v38;
-      objc_msgSend__updateEncryptedPersonalNicknameToPublicCloudKitDBSavingRecord_wallpaperRecordToSave_deletingRecordID_queue_withCompletionBlock_(selfCopy2, v41, v54, v48, v43, queueCopy, v51);
+      v26 = objc_alloc_init(MEMORY[0x277D192C0]);
+      [v26 startTimingForKey:@"Nickname Upload"];
+      v36[0] = MEMORY[0x277D85DD0];
+      v36[1] = 3221225472;
+      v36[2] = sub_25485ED70;
+      v36[3] = &unk_27978D038;
+      v37 = v26;
+      v38 = v14;
+      v39 = v34;
+      v45 = v20;
+      v40 = v21;
+      v41 = v24;
+      v42 = v25;
+      v43 = v31;
+      v44 = v32;
+      v27 = v26;
+      [(IMTransferAgentNicknameController *)selfCopy2 _updateEncryptedPersonalNicknameToPublicCloudKitDBSavingRecord:v39 wallpaperRecordToSave:v33 deletingRecordID:v28 queue:queueCopy withCompletionBlock:v36];
     }
 
     else
     {
-      (v24)[2](v24, 0, 0, 0, 0, 0, 0, 0, 0, v45);
+      (v20)[2](v20, 0, 0, 0, 0, 0, 0, 0, 0, v30);
     }
 
-    v29 = v45;
+    v23 = v30;
   }
 
   else
   {
-    (v24)[2](v24, 0, 0, 0, 0, 0, 0, 0, 0, v27);
+    (v20)[2](v20, 0, 0, 0, 0, 0, 0, 0, 0, v22);
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteAllPersonalNicknamesOnQueue:(id)queue withCompletion:(id)completion
@@ -266,16 +262,16 @@
     }
   }
 
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = sub_25485F1FC;
-  v12[3] = &unk_27978D088;
-  v12[4] = self;
-  v13 = queueCopy;
-  v14 = completionCopy;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = sub_25485F1FC;
+  v11[3] = &unk_27978D088;
+  v11[4] = self;
+  v12 = queueCopy;
+  v13 = completionCopy;
   v9 = completionCopy;
   v10 = queueCopy;
-  objc_msgSend_fetchAllNicknamesForCurrentUser_(self, v11, v12);
+  [(IMTransferAgentNicknameController *)self fetchAllNicknamesForCurrentUser:v11];
 }
 
 - (void)_updateEncryptedPersonalNicknameToPublicCloudKitDBSavingRecord:(id)record wallpaperRecordToSave:(id)save deletingRecordID:(id)d queue:(id)queue withCompletionBlock:(id)block
@@ -287,63 +283,63 @@
   blockCopy = block;
   if (dCopy)
   {
-    v19 = objc_msgSend_arrayWithObject_(MEMORY[0x277CBEA60], v16, dCopy);
+    v17 = [MEMORY[0x277CBEA60] arrayWithObject:dCopy];
   }
 
   else
   {
-    v19 = 0;
+    v17 = 0;
   }
 
-  v20 = objc_msgSend_array(MEMORY[0x277CBEB18], v16, v17);
-  v23 = v20;
+  array = [MEMORY[0x277CBEB18] array];
+  v19 = array;
   if (recordCopy)
   {
-    objc_msgSend_addObject_(v20, v21, recordCopy);
+    [array addObject:recordCopy];
     if (saveCopy)
     {
-      objc_msgSend_addObject_(v23, v21, saveCopy);
+      [v19 addObject:saveCopy];
     }
   }
 
-  if (objc_msgSend_count(v19, v21, v22))
+  if ([v17 count])
   {
-    v25 = objc_alloc_init(MEMORY[0x277D192C0]);
-    objc_msgSend_startTimingForKey_(v25, v26, @"Nickname Delete");
-    v36 = MEMORY[0x277D85DD0];
-    v37 = 3221225472;
-    v38 = sub_25485F67C;
-    v39 = &unk_27978D0B0;
-    v40 = v25;
-    v41 = recordCopy;
+    v20 = objc_alloc_init(MEMORY[0x277D192C0]);
+    [v20 startTimingForKey:@"Nickname Delete"];
+    v29 = MEMORY[0x277D85DD0];
+    v30 = 3221225472;
+    v31 = sub_25485F67C;
+    v32 = &unk_27978D0B0;
+    v33 = v20;
+    v34 = recordCopy;
     selfCopy = self;
-    v43 = v23;
-    v27 = queueCopy;
-    v44 = v27;
-    v45 = blockCopy;
-    v28 = v25;
-    v29 = MEMORY[0x259C1C440](&v36);
+    v36 = v19;
+    v21 = queueCopy;
+    v37 = v21;
+    v38 = blockCopy;
+    v22 = v20;
+    v23 = MEMORY[0x259C1C440](&v29);
     selfCopy2 = self;
-    v31 = blockCopy;
-    v32 = queueCopy;
-    v33 = saveCopy;
-    v34 = v29;
-    objc_msgSend__updateEncryptedPersonalNicknameToPublicCloudKitDBSavingRecords_deletingRecordIDs_queue_withCompletionBlock_(selfCopy2, v35, 0, v19, v27, v29, v36, v37, v38, v39);
+    v25 = blockCopy;
+    v26 = queueCopy;
+    v27 = saveCopy;
+    v28 = v23;
+    [(IMTransferAgentNicknameController *)selfCopy2 _updateEncryptedPersonalNicknameToPublicCloudKitDBSavingRecords:0 deletingRecordIDs:v17 queue:v21 withCompletionBlock:v23, v29, v30, v31, v32];
 
-    saveCopy = v33;
-    queueCopy = v32;
-    blockCopy = v31;
+    saveCopy = v27;
+    queueCopy = v26;
+    blockCopy = v25;
   }
 
   else
   {
-    objc_msgSend__updateEncryptedPersonalNicknameToPublicCloudKitDBSavingRecords_deletingRecordIDs_queue_withCompletionBlock_(self, v24, v23, 0, queueCopy, blockCopy);
+    [(IMTransferAgentNicknameController *)self _updateEncryptedPersonalNicknameToPublicCloudKitDBSavingRecords:v19 deletingRecordIDs:0 queue:queueCopy withCompletionBlock:blockCopy];
   }
 }
 
 - (void)_updateEncryptedPersonalNicknameToPublicCloudKitDBSavingRecords:(id)records deletingRecordIDs:(id)ds queue:(id)queue withCompletionBlock:(id)block
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   recordsCopy = records;
   dsCopy = ds;
   queueCopy = queue;
@@ -372,108 +368,107 @@
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v34 = 0x3032000000;
-  v35 = sub_25485D6FC;
-  v36 = sub_25485D70C;
-  v37 = 0;
-  v23 = MEMORY[0x277D85DD0];
-  v24 = 3221225472;
-  v25 = sub_25485FA94;
-  v26 = &unk_27978D178;
+  v32 = 0x3032000000;
+  v33 = sub_25485D6FC;
+  v34 = sub_25485D70C;
+  v35 = 0;
+  v21 = MEMORY[0x277D85DD0];
+  v22 = 3221225472;
+  v23 = sub_25485FA94;
+  v24 = &unk_27978D178;
   v16 = dsCopy;
-  v27 = v16;
+  v25 = v16;
   v17 = recordsCopy;
-  v28 = v17;
+  v26 = v17;
   selfCopy = self;
   v18 = queueCopy;
-  v30 = v18;
+  v28 = v18;
   v19 = blockCopy;
-  v31 = v19;
+  v29 = v19;
   p_buf = &buf;
-  v20 = MEMORY[0x259C1C440](&v23);
-  objc_msgSend_performCloudKitOperation_queue_withError_(self, v21, v20, v18, *(*(&buf + 1) + 40), v23, v24, v25, v26);
+  v20 = MEMORY[0x259C1C440](&v21);
+  [(IMTransferAgentNicknameController *)self performCloudKitOperation:v20 queue:v18 withError:*(*(&buf + 1) + 40), v21, v22, v23, v24];
 
   _Block_object_dispose(&buf, 8);
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleSaveNicknameError:(id)error queue:(id)queue withCompletionBlock:(id)block
 {
-  v49[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   errorCopy = error;
   queueCopy = queue;
   blockCopy = block;
-  v44 = 0;
-  v45 = &v44;
-  v46 = 0x2020000000;
-  v47 = 1;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 1;
   if (errorCopy)
   {
-    if (objc_msgSend_code(errorCopy, v10, v11) == 2)
+    if ([errorCopy code] == 2)
     {
-      v15 = objc_msgSend_userInfo(errorCopy, v13, v14);
-      v17 = objc_msgSend_valueForKey_(v15, v16, *MEMORY[0x277CBBFB0]);
-      v20 = objc_msgSend_allValues(v17, v18, v19);
+      userInfo = [errorCopy userInfo];
+      v12 = [userInfo valueForKey:*MEMORY[0x277CBBFB0]];
+      allValues = [v12 allValues];
     }
 
     else
     {
-      v49[0] = errorCopy;
-      v20 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v13, v49, 1);
+      v31[0] = errorCopy;
+      allValues = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
     }
   }
 
   else
   {
-    v20 = 0;
+    allValues = 0;
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
-  v41 = 0u;
-  v21 = v20;
-  v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v40, v48, 16);
-  if (v25)
+  v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v14 = allValues;
+  v15 = [v14 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  if (v15)
   {
-    v26 = *v41;
+    v16 = *v23;
     while (2)
     {
-      for (i = 0; i != v25; ++i)
+      for (i = 0; i != v15; ++i)
       {
-        if (*v41 != v26)
+        if (*v23 != v16)
         {
-          objc_enumerationMutation(v21);
+          objc_enumerationMutation(v14);
         }
 
-        v28 = *(*(&v40 + 1) + 8 * i);
-        if (objc_msgSend_code(v28, v23, v24) == 19 || objc_msgSend_code(v28, v29, v30) == 12)
+        v18 = *(*(&v22 + 1) + 8 * i);
+        if ([v18 code] == 19 || objc_msgSend(v18, "code") == 12)
         {
-          *(v45 + 24) = 1;
-          v37[0] = MEMORY[0x277D85DD0];
-          v37[1] = 3221225472;
-          v37[2] = sub_2548604E0;
-          v37[3] = &unk_27978D1A0;
-          v39 = &v44;
-          v38 = blockCopy;
-          objc_msgSend_deleteAllPersonalNicknamesOnQueue_withCompletion_(self, v35, queueCopy, v37);
+          *(v27 + 24) = 1;
+          v19[0] = MEMORY[0x277D85DD0];
+          v19[1] = 3221225472;
+          v19[2] = sub_2548604E0;
+          v19[3] = &unk_27978D1A0;
+          v21 = &v26;
+          v20 = blockCopy;
+          [(IMTransferAgentNicknameController *)self deleteAllPersonalNicknamesOnQueue:queueCopy withCompletion:v19];
 
           goto LABEL_22;
         }
 
-        if (objc_msgSend_code(v28, v31, v32) == 14)
+        if ([v18 code] == 14)
         {
-          *(v45 + 24) = 0;
+          *(v27 + 24) = 0;
         }
 
-        if (objc_msgSend_code(v28, v33, v34) == 15)
+        if ([v18 code] == 15)
         {
-          *(v45 + 24) = 0;
+          *(v27 + 24) = 0;
         }
       }
 
-      v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v23, &v40, v48, 16);
-      if (v25)
+      v15 = [v14 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      if (v15)
       {
         continue;
       }
@@ -484,105 +479,101 @@
 
   if (blockCopy)
   {
-    (*(blockCopy + 2))(blockCopy, *(v45 + 24));
+    (*(blockCopy + 2))(blockCopy, *(v27 + 24));
   }
 
 LABEL_22:
-  _Block_object_dispose(&v44, 8);
-
-  v36 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v26, 8);
 }
 
 - (void)cloudKitOperationWithRetryCount:(unint64_t)count queue:(id)queue withError:(id)error operation:(id)operation
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   errorCopy = error;
   operationCopy = operation;
-  v15 = objc_msgSend_userInfo(errorCopy, v13, v14);
-  v17 = objc_msgSend_objectForKey_(v15, v16, *MEMORY[0x277CBBF68]);
+  userInfo = [errorCopy userInfo];
+  v14 = [userInfo objectForKey:*MEMORY[0x277CBBF68]];
 
-  if (v17)
+  if (v14)
   {
-    objc_msgSend__retryIntervalForRetryCount_(self, v18, count);
-    v20 = v19;
+    [(IMTransferAgentNicknameController *)self _retryIntervalForRetryCount:count];
+    v16 = v15;
   }
 
   else
   {
-    v20 = 0.0;
+    v16 = 0.0;
   }
 
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = sub_254860764;
-  v28[3] = &unk_27978D1F0;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = sub_254860764;
+  v23[3] = &unk_27978D1F0;
   countCopy = count;
-  v28[4] = self;
-  v21 = queueCopy;
-  v29 = v21;
-  v22 = errorCopy;
-  v30 = v22;
-  v23 = operationCopy;
-  v31 = v23;
-  v24 = MEMORY[0x259C1C440](v28);
+  v23[4] = self;
+  v17 = queueCopy;
+  v24 = v17;
+  v18 = errorCopy;
+  v25 = v18;
+  v19 = operationCopy;
+  v26 = v19;
+  v20 = MEMORY[0x259C1C440](v23);
   if (IMOSLoggingEnabled())
   {
-    v25 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+    v21 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       *buf = 134218240;
       countCopy2 = count;
-      v35 = 2048;
-      v36 = v20;
-      _os_log_impl(&dword_254850000, v25, OS_LOG_TYPE_INFO, "Dispatching CloudKit operation with retry: %lu and retryInterval: %f", buf, 0x16u);
+      v30 = 2048;
+      v31 = v16;
+      _os_log_impl(&dword_254850000, v21, OS_LOG_TYPE_INFO, "Dispatching CloudKit operation with retry: %lu and retryInterval: %f", buf, 0x16u);
     }
   }
 
-  if (v20 <= 0.0)
+  if (v16 <= 0.0)
   {
-    v24[2](v24);
+    v20[2](v20);
   }
 
   else
   {
-    v26 = dispatch_time(0, (v20 * 1000000000.0));
-    dispatch_after(v26, v21, v24);
+    v22 = dispatch_time(0, (v16 * 1000000000.0));
+    dispatch_after(v22, v17, v20);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (id)nickNamePublicDatabase
 {
   if (IMSharedHelperNickNameEnabled())
   {
-    v5 = objc_msgSend__nickNameContainer(self, v3, v4);
-    v8 = objc_msgSend_publicCloudDatabase(v5, v6, v7);
+    _nickNameContainer = [(IMTransferAgentNicknameController *)self _nickNameContainer];
+    publicCloudDatabase = [_nickNameContainer publicCloudDatabase];
   }
 
   else
   {
     if (IMOSLoggingEnabled())
     {
-      v9 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v5 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        *v11 = 0;
-        _os_log_impl(&dword_254850000, v9, OS_LOG_TYPE_INFO, "Nicknames NOT enabled, returning nil public database", v11, 2u);
+        *v7 = 0;
+        _os_log_impl(&dword_254850000, v5, OS_LOG_TYPE_INFO, "Nicknames NOT enabled, returning nil public database", v7, 2u);
       }
     }
 
-    v8 = 0;
+    publicCloudDatabase = 0;
   }
 
-  return v8;
+  return publicCloudDatabase;
 }
 
 - (id)_nickNameSaveConfiguration
 {
   v2 = objc_alloc_init(MEMORY[0x277CBC4F0]);
-  objc_msgSend_setQualityOfService_(v2, v3, 25);
+  [v2 setQualityOfService:25];
 
   return v2;
 }
@@ -590,52 +581,51 @@ LABEL_22:
 - (id)_nickNameFetchConfiguration
 {
   v2 = objc_alloc_init(MEMORY[0x277CBC4F0]);
-  objc_msgSend_setQualityOfService_(v2, v3, 25);
-  objc_msgSend_setPreferAnonymousRequests_(v2, v4, 1);
+  [v2 setQualityOfService:25];
+  [v2 setPreferAnonymousRequests:1];
 
   return v2;
 }
 
 - (BOOL)_serverSaysToUseOldContainer
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v2 = objc_msgSend_sharedInstanceForBagType_(MEMORY[0x277D18A10], a2, 1);
-  v4 = objc_msgSend_objectForKey_(v2, v3, @"use-old-nickname-container");
-  v7 = objc_msgSend_unsignedIntegerValue(v4, v5, v6) != 0;
-  v10 = objc_msgSend_sharedInstance(MEMORY[0x277D1A990], v8, v9);
-  BoolFromDomain_forKey = objc_msgSend_getBoolFromDomain_forKey_(v10, v11, *MEMORY[0x277D1A3C0], @"UseOldProfilesContainer");
+  v19 = *MEMORY[0x277D85DE8];
+  v2 = [MEMORY[0x277D18A10] sharedInstanceForBagType:1];
+  v3 = [v2 objectForKey:@"use-old-nickname-container"];
+  v4 = [v3 unsignedIntegerValue] != 0;
+  mEMORY[0x277D1A990] = [MEMORY[0x277D1A990] sharedInstance];
+  v6 = [mEMORY[0x277D1A990] getBoolFromDomain:*MEMORY[0x277D1A3C0] forKey:@"UseOldProfilesContainer"];
 
-  v13 = BoolFromDomain_forKey | v7;
+  v7 = v6 | v4;
   if (IMOSLoggingEnabled())
   {
-    v14 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v8 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v16 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v15, 0);
-      v17 = v16;
-      v18 = @"NO";
-      v21 = 138412802;
-      if (v13)
+      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:0];
+      v10 = v9;
+      v11 = @"NO";
+      v13 = 138412802;
+      if (v7)
       {
-        v18 = @"YES";
+        v11 = @"YES";
       }
 
-      v22 = v18;
-      v23 = 2112;
-      v24 = v4;
-      v25 = 2112;
-      v26 = v16;
-      _os_log_impl(&dword_254850000, v14, OS_LOG_TYPE_INFO, "Server says to use new container? %@ {serverbagValue: %@ version: %@}", &v21, 0x20u);
+      v14 = v11;
+      v15 = 2112;
+      v16 = v3;
+      v17 = 2112;
+      v18 = v9;
+      _os_log_impl(&dword_254850000, v8, OS_LOG_TYPE_INFO, "Server says to use new container? %@ {serverbagValue: %@ version: %@}", &v13, 0x20u);
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-  return v13 & 1;
+  return v7 & 1;
 }
 
 - (id)_nickNameContainerIdentifier
 {
-  if (objc_msgSend__serverSaysToUseOldContainer(self, a2, v2))
+  if ([(IMTransferAgentNicknameController *)self _serverSaysToUseOldContainer])
   {
     return @"com.apple.internal.messages.memoji";
   }
@@ -648,141 +638,132 @@ LABEL_22:
 
 - (id)_nickNameContainer
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   nickNameContainer = self->_nickNameContainer;
   if (!nickNameContainer)
   {
-    v5 = objc_msgSend__nickNameContainerIdentifier(self, a2, v2);
-    shouldUseDevNickNameContainer = objc_msgSend_shouldUseDevNickNameContainer(self, v6, v7);
-    v9 = IMOSLoggingEnabled();
+    _nickNameContainerIdentifier = [(IMTransferAgentNicknameController *)self _nickNameContainerIdentifier];
+    shouldUseDevNickNameContainer = [(IMTransferAgentNicknameController *)self shouldUseDevNickNameContainer];
+    v6 = IMOSLoggingEnabled();
     if (shouldUseDevNickNameContainer)
     {
-      if (v9)
+      if (v6)
       {
-        v10 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+        v7 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
         {
-          v25 = 138412290;
-          v26 = v5;
-          _os_log_impl(&dword_254850000, v10, OS_LOG_TYPE_INFO, "**** Initializing dev nick name container with ID %@", &v25, 0xCu);
+          v16 = 138412290;
+          v17 = _nickNameContainerIdentifier;
+          _os_log_impl(&dword_254850000, v7, OS_LOG_TYPE_INFO, "**** Initializing dev nick name container with ID %@", &v16, 0xCu);
         }
       }
 
-      v11 = 2;
+      v8 = 2;
     }
 
     else
     {
-      if (v9)
+      if (v6)
       {
-        v12 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+        v9 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
-          v25 = 138412290;
-          v26 = v5;
-          _os_log_impl(&dword_254850000, v12, OS_LOG_TYPE_INFO, "Initializing production container %@", &v25, 0xCu);
+          v16 = 138412290;
+          v17 = _nickNameContainerIdentifier;
+          _os_log_impl(&dword_254850000, v9, OS_LOG_TYPE_INFO, "Initializing production container %@", &v16, 0xCu);
         }
       }
 
-      v11 = 1;
+      v8 = 1;
     }
 
-    v13 = objc_alloc(MEMORY[0x277CBC220]);
-    v15 = objc_msgSend_initWithContainerIdentifier_environment_(v13, v14, v5, v11);
-    v16 = objc_alloc_init(MEMORY[0x277CBC230]);
-    objc_msgSend_setUseZoneWidePCS_(v16, v17, 1);
-    v18 = objc_alloc(MEMORY[0x277CBC218]);
-    v20 = objc_msgSend_initWithContainerID_options_(v18, v19, v15, v16);
-    v22 = self->_nickNameContainer;
+    v10 = [objc_alloc(MEMORY[0x277CBC220]) initWithContainerIdentifier:_nickNameContainerIdentifier environment:v8];
+    v11 = objc_alloc_init(MEMORY[0x277CBC230]);
+    [v11 setUseZoneWidePCS:1];
+    v12 = [objc_alloc(MEMORY[0x277CBC218]) initWithContainerID:v10 options:v11];
+    v14 = self->_nickNameContainer;
     p_nickNameContainer = &self->_nickNameContainer;
-    *p_nickNameContainer = v20;
+    *p_nickNameContainer = v12;
 
     nickNameContainer = *p_nickNameContainer;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return nickNameContainer;
 }
 
 - (BOOL)shouldUseDevNickNameContainer
 {
-  v3 = *MEMORY[0x277D19A08];
-  v4 = *MEMORY[0x277D19BE8];
-  v5 = IMGetCachedDomainBoolForKey();
-  if (v5)
+  v3 = IMGetCachedDomainBoolForKey();
+  if (v3)
   {
-    v8 = objc_msgSend_lockdownManager(self, v6, v7);
-    isInternalInstall = objc_msgSend_isInternalInstall(v8, v9, v10);
+    lockdownManager = [(IMTransferAgentNicknameController *)self lockdownManager];
+    isInternalInstall = [lockdownManager isInternalInstall];
 
-    LOBYTE(v5) = isInternalInstall;
+    LOBYTE(v3) = isInternalInstall;
   }
 
-  return v5;
+  return v3;
 }
 
 - (id)_errorWrappingError:(id)error
 {
-  v40[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   errorCopy = error;
-  v6 = errorCopy;
+  v4 = errorCopy;
   if (errorCopy)
   {
-    v7 = objc_msgSend_domain(errorCopy, v4, v5);
-    v10 = objc_msgSend_lowercaseString(v7, v8, v9);
-    v12 = objc_msgSend_containsString_(v10, v11, @"blastdoor");
+    domain = [errorCopy domain];
+    lowercaseString = [domain lowercaseString];
+    v7 = [lowercaseString containsString:@"blastdoor"];
 
-    if (v12)
+    if (v7)
     {
-      v15 = v6;
+      v8 = v4;
     }
 
     else
     {
-      v21 = objc_msgSend_description(v6, v13, v14);
-      if (v21)
+      v11 = [v4 description];
+      if (v11)
       {
-        v39 = *MEMORY[0x277CCA068];
-        v22 = objc_msgSend_description(v6, v19, v20);
-        v40[0] = v22;
-        v24 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v23, v40, &v39, 1);
+        v21 = *MEMORY[0x277CCA068];
+        v12 = [v4 description];
+        v22[0] = v12;
+        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       }
 
       else
       {
-        v24 = 0;
+        v13 = 0;
       }
 
-      v25 = MEMORY[0x277CCA9B8];
-      v28 = objc_msgSend_domain(v6, v26, v27);
-      v31 = v28;
-      if (v28)
+      v14 = MEMORY[0x277CCA9B8];
+      domain2 = [v4 domain];
+      v16 = domain2;
+      if (domain2)
       {
-        v32 = v28;
+        v17 = domain2;
       }
 
       else
       {
-        v32 = @"com.apple.nickname";
+        v17 = @"com.apple.nickname";
       }
 
-      v33 = objc_msgSend_code(v6, v29, v30);
-      v15 = objc_msgSend_errorWithDomain_code_userInfo_(v25, v34, v32, v33, v24);
+      v8 = [v14 errorWithDomain:v17 code:objc_msgSend(v4 userInfo:{"code"), v13}];
     }
   }
 
   else
   {
-    v16 = MEMORY[0x277CCA9B8];
-    v37 = *MEMORY[0x277CCA068];
-    v38 = @"Unknown error (inner error is nil).";
-    v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v4, &v38, &v37, 1);
-    v15 = objc_msgSend_errorWithDomain_code_userInfo_(v16, v18, @"com.apple.nickname", 1, v17);
+    v9 = MEMORY[0x277CCA9B8];
+    v19 = *MEMORY[0x277CCA068];
+    v20 = @"Unknown error (inner error is nil).";
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+    v8 = [v9 errorWithDomain:@"com.apple.nickname" code:1 userInfo:v10];
   }
 
-  v35 = *MEMORY[0x277D85DE8];
-
-  return v15;
+  return v8;
 }
 
 @end

@@ -12,28 +12,26 @@
 {
   v4 = type metadata accessor for Notification();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Notification._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   sub_100080190();
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)performedSearchNotification:(id)notification
 {
   v4 = type metadata accessor for Notification();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Notification._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   sub_100080D04();
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations
@@ -47,9 +45,10 @@
 
 - (void)locationManager:(id)manager didChangeAuthorizationStatus:(int)status
 {
+  v4 = *&status;
   managerCopy = manager;
   selfCopy = self;
-  sub_10008254C(selfCopy, status);
+  sub_10008254C(selfCopy, v4);
 }
 
 - (void)locationManager:(id)manager didFailWithError:(id)error
@@ -57,7 +56,7 @@
   managerCopy = manager;
   errorCopy = error;
   selfCopy = self;
-  sub_10008281C();
+  sub_10008281C(selfCopy, errorCopy);
 }
 
 @end

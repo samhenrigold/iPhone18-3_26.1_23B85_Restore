@@ -18,35 +18,35 @@
 
 - (id)dictionaryRepresentation
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(NSArray *)self->_matchedTimers count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
     v5 = self->_matchedTimers;
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v35 objects:v41 count:16];
+    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v34 objects:v40 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v36;
+      v8 = *v35;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v36 != v8)
+          if (*v35 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          dictionaryRepresentation = [*(*(&v35 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v34 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation];
         }
 
-        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v35 objects:v41 count:16];
+        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v34 objects:v40 count:16];
       }
 
       while (v7);
@@ -58,30 +58,30 @@
   if ([(NSArray *)self->_timers count])
   {
     array2 = [MEMORY[0x1E695DF70] array];
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
     v12 = self->_timers;
-    v13 = [(NSArray *)v12 countByEnumeratingWithState:&v31 objects:v40 count:16];
+    v13 = [(NSArray *)v12 countByEnumeratingWithState:&v30 objects:v39 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v32;
+      v15 = *v31;
       do
       {
         for (j = 0; j != v14; ++j)
         {
-          if (*v32 != v15)
+          if (*v31 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          dictionaryRepresentation2 = [*(*(&v31 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v30 + 1) + 8 * j) dictionaryRepresentation];
           [array2 addObject:dictionaryRepresentation2];
         }
 
-        v14 = [(NSArray *)v12 countByEnumeratingWithState:&v31 objects:v40 count:16];
+        v14 = [(NSArray *)v12 countByEnumeratingWithState:&v30 objects:v39 count:16];
       }
 
       while (v14);
@@ -93,30 +93,30 @@
   if ([(NSArray *)self->_unmatchedTimers count])
   {
     array3 = [MEMORY[0x1E695DF70] array];
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
     v19 = self->_unmatchedTimers;
-    v20 = [(NSArray *)v19 countByEnumeratingWithState:&v27 objects:v39 count:16];
+    v20 = [(NSArray *)v19 countByEnumeratingWithState:&v26 objects:v38 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v28;
+      v22 = *v27;
       do
       {
         for (k = 0; k != v21; ++k)
         {
-          if (*v28 != v22)
+          if (*v27 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          dictionaryRepresentation3 = [*(*(&v27 + 1) + 8 * k) dictionaryRepresentation];
+          dictionaryRepresentation3 = [*(*(&v26 + 1) + 8 * k) dictionaryRepresentation];
           [array3 addObject:dictionaryRepresentation3];
         }
 
-        v21 = [(NSArray *)v19 countByEnumeratingWithState:&v27 objects:v39 count:16];
+        v21 = [(NSArray *)v19 countByEnumeratingWithState:&v26 objects:v38 count:16];
       }
 
       while (v21);
@@ -124,8 +124,6 @@
 
     [dictionary setObject:array3 forKeyedSubscript:@"unmatchedTimers"];
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -272,105 +270,100 @@ LABEL_18:
 
 - (void)writeTo:(id)to
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   toCopy = to;
-  v32 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  v35 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v5 = self->_matchedTimers;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v32 objects:v38 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v28 objects:v34 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v33;
+    v8 = *v29;
     do
     {
       v9 = 0;
       do
       {
-        if (*v33 != v8)
+        if (*v29 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v32 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v32 objects:v38 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v28 objects:v34 count:16];
     }
 
     while (v7);
-  }
-
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v11 = self->_timers;
-  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v28 objects:v37 count:16];
-  if (v12)
-  {
-    v13 = v12;
-    v14 = *v29;
-    do
-    {
-      v15 = 0;
-      do
-      {
-        if (*v29 != v14)
-        {
-          objc_enumerationMutation(v11);
-        }
-
-        v16 = *(*(&v28 + 1) + 8 * v15);
-        PBDataWriterWriteSubmessage();
-        ++v15;
-      }
-
-      while (v13 != v15);
-      v13 = [(NSArray *)v11 countByEnumeratingWithState:&v28 objects:v37 count:16];
-    }
-
-    while (v13);
   }
 
   v26 = 0u;
   v27 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v17 = self->_unmatchedTimers;
-  v18 = [(NSArray *)v17 countByEnumeratingWithState:&v24 objects:v36 count:16];
-  if (v18)
+  v10 = self->_timers;
+  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v24 objects:v33 count:16];
+  if (v11)
   {
-    v19 = v18;
-    v20 = *v25;
+    v12 = v11;
+    v13 = *v25;
     do
     {
-      v21 = 0;
+      v14 = 0;
       do
       {
-        if (*v25 != v20)
+        if (*v25 != v13)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v10);
         }
 
-        v22 = *(*(&v24 + 1) + 8 * v21);
         PBDataWriterWriteSubmessage();
-        ++v21;
+        ++v14;
       }
 
-      while (v19 != v21);
-      v19 = [(NSArray *)v17 countByEnumeratingWithState:&v24 objects:v36 count:16];
+      while (v12 != v14);
+      v12 = [(NSArray *)v10 countByEnumeratingWithState:&v24 objects:v33 count:16];
     }
 
-    while (v19);
+    while (v12);
   }
 
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v15 = self->_unmatchedTimers;
+  v16 = [(NSArray *)v15 countByEnumeratingWithState:&v20 objects:v32 count:16];
+  if (v16)
+  {
+    v17 = v16;
+    v18 = *v21;
+    do
+    {
+      v19 = 0;
+      do
+      {
+        if (*v21 != v18)
+        {
+          objc_enumerationMutation(v15);
+        }
+
+        PBDataWriterWriteSubmessage();
+        ++v19;
+      }
+
+      while (v17 != v19);
+      v17 = [(NSArray *)v15 countByEnumeratingWithState:&v20 objects:v32 count:16];
+    }
+
+    while (v17);
+  }
 }
 
 - (void)addUnmatchedTimers:(id)timers

@@ -54,7 +54,7 @@
 
         v27 = [model gridSize] >> 16;
         numberOfUsedRows += v27;
-        v28 = SBIconCoordinateMake(0, v27);
+        SBIconCoordinateMake();
         [listViewCopy centerForIconCoordinate:{v28, v29}];
         [viewCopy convertPoint:listViewCopy fromView:?];
         [viewCopy fractionalCoordinateAtPoint:?];
@@ -160,7 +160,7 @@
   completionCopy = completion;
   if (self->_startedAnimation)
   {
-    [SBHWidgetInsertionRippleIconAnimator animateWithCompletion:a2];
+    [(SBHWidgetInsertionRippleIconAnimator *)a2 animateWithCompletion:?];
   }
 
   v6 = completionCopy;
@@ -193,8 +193,7 @@
   v20[2] = __62__SBHWidgetInsertionRippleIconAnimator_animateWithCompletion___block_invoke;
   v20[3] = &unk_1E808AEC0;
   v20[4] = self;
-  [(SBIconListView *)v10 enumerateIconViewsUsingBlock:v20];
-  v15 = SBLogWidgets();
+  v15 = SBLogWidgets([(SBIconListView *)v10 enumerateIconViewsUsingBlock:v20]);
   if (os_signpost_enabled(v15))
   {
     activeWidget = [(SBWidgetIcon *)self->_widgetIcon activeWidget];
@@ -316,7 +315,7 @@ uint64_t __81__SBHWidgetInsertionRippleIconAnimator__performWidgetIconScaleOvers
   v6 = v5;
   v8 = v7;
 
-  [pointCopy bounds];
+  objc_msgSend_bounds(pointCopy);
   v10 = v9;
   v12 = v11;
   [pointCopy center];
@@ -552,8 +551,7 @@ LABEL_3:
 LABEL_4:
   v6 = [(NSMapTable *)self->_disableGlassGroupingAssertionsForIconViews objectForKey:viewCopy];
   [v6 invalidate];
-  [(NSMapTable *)self->_disableGlassGroupingAssertionsForIconViews removeObjectForKey:viewCopy];
-  v7 = SBLogWidgets();
+  v7 = SBLogWidgets([(NSMapTable *)self->_disableGlassGroupingAssertionsForIconViews removeObjectForKey:viewCopy]);
   if (os_signpost_enabled(v7))
   {
     *v9 = 0;
@@ -563,35 +561,35 @@ LABEL_4:
 
 - (void)_finishRippleAnimation
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   [(CADisplayLink *)self->_displayLink invalidate];
   displayLink = self->_displayLink;
   self->_displayLink = 0;
 
   [(SBIconView *)self->_widgetIconView removeObserver:self];
-  v39 = 0u;
   v40 = 0u;
-  v37 = 0u;
+  v41 = 0u;
   v38 = 0u;
+  v39 = 0u;
   objectEnumerator = [(NSMapTable *)self->_disableGlassGroupingAssertionsForIconViews objectEnumerator];
-  v5 = [objectEnumerator countByEnumeratingWithState:&v37 objects:v43 count:16];
+  v5 = [objectEnumerator countByEnumeratingWithState:&v38 objects:v44 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v38;
+    v7 = *v39;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v38 != v7)
+        if (*v39 != v7)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        [*(*(&v37 + 1) + 8 * i) invalidate];
+        [*(*(&v38 + 1) + 8 * i) invalidate];
       }
 
-      v6 = [objectEnumerator countByEnumeratingWithState:&v37 objects:v43 count:16];
+      v6 = [objectEnumerator countByEnumeratingWithState:&v38 objects:v44 count:16];
     }
 
     while (v6);
@@ -600,59 +598,59 @@ LABEL_4:
   disableGlassGroupingAssertionsForIconViews = self->_disableGlassGroupingAssertionsForIconViews;
   self->_disableGlassGroupingAssertionsForIconViews = 0;
 
-  v35 = 0u;
   v36 = 0u;
-  v33 = 0u;
+  v37 = 0u;
   v34 = 0u;
+  v35 = 0u;
   objectEnumerator2 = [(NSMapTable *)self->_portalViewsForIconViews objectEnumerator];
-  v11 = [objectEnumerator2 countByEnumeratingWithState:&v33 objects:v42 count:16];
+  v11 = [objectEnumerator2 countByEnumeratingWithState:&v34 objects:v43 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v34;
+    v13 = *v35;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v34 != v13)
+        if (*v35 != v13)
         {
           objc_enumerationMutation(objectEnumerator2);
         }
 
-        v15 = *(*(&v33 + 1) + 8 * j);
+        v15 = *(*(&v34 + 1) + 8 * j);
         [v15 setSourceView:0];
         [v15 removeFromSuperview];
       }
 
-      v12 = [objectEnumerator2 countByEnumeratingWithState:&v33 objects:v42 count:16];
+      v12 = [objectEnumerator2 countByEnumeratingWithState:&v34 objects:v43 count:16];
     }
 
     while (v12);
   }
 
-  v31 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
+  v31 = 0u;
   keyEnumerator = [(NSMapTable *)self->_portalViewsForIconViews keyEnumerator];
-  v17 = [keyEnumerator countByEnumeratingWithState:&v29 objects:v41 count:16];
+  v17 = [keyEnumerator countByEnumeratingWithState:&v30 objects:v42 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v30;
+    v19 = *v31;
     do
     {
       for (k = 0; k != v18; ++k)
       {
-        if (*v30 != v19)
+        if (*v31 != v19)
         {
           objc_enumerationMutation(keyEnumerator);
         }
 
-        [*(*(&v29 + 1) + 8 * k) removeObserver:self];
+        [*(*(&v30 + 1) + 8 * k) removeObserver:self];
       }
 
-      v18 = [keyEnumerator countByEnumeratingWithState:&v29 objects:v41 count:16];
+      v18 = [keyEnumerator countByEnumeratingWithState:&v30 objects:v42 count:16];
     }
 
     while (v18);
@@ -678,11 +676,11 @@ LABEL_4:
   portalContainerView = self->_portalContainerView;
   self->_portalContainerView = 0;
 
-  v26 = SBLogWidgets();
-  if (os_signpost_enabled(v26))
+  v27 = SBLogWidgets(v26);
+  if (os_signpost_enabled(v27))
   {
-    *v28 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1BEB18000, v26, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_WIDGET_RIPPLE_ANIMATION", " isAnimation=YES ", v28, 2u);
+    *v29 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1BEB18000, v27, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_WIDGET_RIPPLE_ANIMATION", " isAnimation=YES ", v29, 2u);
   }
 
   animationCompletion = self->_animationCompletion;
@@ -762,7 +760,7 @@ void __62__SBHWidgetInsertionRippleIconAnimator__layoutRippleIconViews__block_in
     v14 = *(*(a1 + 32) + 144);
     if (v14)
     {
-      [v14 transformForGridCoordinate:{v9, v11}];
+      objc_msgSend_transformForGridCoordinate_(v14, v9, v11);
     }
 
     v15 = [v4 layer];
@@ -800,12 +798,12 @@ void __62__SBHWidgetInsertionRippleIconAnimator__layoutRippleIconViews__block_in
   completionCopy = completion;
   if (!self->_referenceIconView)
   {
-    [SBHWidgetInsertionRippleIconAnimator _performJumpAnimationWithCompletion:a2];
+    [(SBHWidgetInsertionRippleIconAnimator *)a2 _performJumpAnimationWithCompletion:?];
   }
 
   if (!self->_widgetIconView)
   {
-    [SBHWidgetInsertionRippleIconAnimator _performJumpAnimationWithCompletion:a2];
+    [(SBHWidgetInsertionRippleIconAnimator *)a2 _performJumpAnimationWithCompletion:?];
   }
 
   v57 = completionCopy;
@@ -821,7 +819,7 @@ void __62__SBHWidgetInsertionRippleIconAnimator__layoutRippleIconViews__block_in
   [(SBIconView *)self->_widgetIconView setIconLabelAlpha:v8, v57];
   v9 = objc_alloc(MEMORY[0x1E69DD250]);
   window = [(SBIconListView *)self->_iconListView window];
-  [window bounds];
+  objc_msgSend_bounds(window);
   v11 = [v9 initWithFrame:?];
   portalContainerView = self->_portalContainerView;
   self->_portalContainerView = v11;
@@ -838,7 +836,7 @@ void __62__SBHWidgetInsertionRippleIconAnimator__layoutRippleIconViews__block_in
   [(_UIPortalView *)self->_widgetIconPortalView setMatchesTransform:1];
   [(_UIPortalView *)self->_widgetIconPortalView setAllowsBackdropGroups:1];
   [(SBIconView *)self->_widgetIconView addObserver:self];
-  [(SBIconView *)self->_widgetIconView bounds];
+  objc_msgSend_bounds(self->_widgetIconView);
   [(_UIPortalView *)self->_widgetIconPortalView setCenter:self->_referenceIconViewOriginInWindow.x + v16 * 0.5, self->_referenceIconViewOriginInWindow.y + v17 * 0.5];
   [(UIView *)self->_portalContainerView addSubview:self->_widgetIconPortalView];
   animation = [MEMORY[0x1E69793B8] animation];
@@ -851,7 +849,7 @@ void __62__SBHWidgetInsertionRippleIconAnimator__layoutRippleIconViews__block_in
   [animation setAppliesY:1];
   [animation setAppliesX:1];
   v20 = self->_portalContainerView;
-  [(UIView *)v20 bounds];
+  objc_msgSend_bounds(v20);
   UIRectGetCenter();
   [(UIView *)v20 convertPoint:self->_iconListView toView:?];
   v21 = [MEMORY[0x1E696B098] valueWithCGPoint:?];
@@ -984,7 +982,7 @@ uint64_t __76__SBHWidgetInsertionRippleIconAnimator__performJumpAnimationWithCom
 uint64_t __76__SBHWidgetInsertionRippleIconAnimator__performJumpAnimationWithCompletion___block_invoke_2(uint64_t a1)
 {
   v2 = [*(*(a1 + 32) + 120) superview];
-  [*(*(a1 + 32) + 48) bounds];
+  objc_msgSend_bounds(*(*(a1 + 32) + 48));
   UIRectGetCenter();
   [v2 convertPoint:*(*(a1 + 32) + 48) fromView:?];
   v4 = v3;
@@ -1096,7 +1094,7 @@ uint64_t __76__SBHWidgetInsertionRippleIconAnimator__performJumpAnimationWithCom
 - (void)_reparentPortalViewIntoIconListViewNow
 {
   portalContainerView = self->_portalContainerView;
-  [(UIView *)portalContainerView bounds];
+  objc_msgSend_bounds(portalContainerView, a2);
   [(UIView *)portalContainerView convertRect:self->_iconListView toView:?];
   [(UIView *)self->_portalContainerView setFrame:?];
   iconListView = self->_iconListView;
@@ -1123,53 +1121,53 @@ uint64_t __76__SBHWidgetInsertionRippleIconAnimator__performJumpAnimationWithCom
   dispatch_after(v8, MEMORY[0x1E69E96A0], block);
 }
 
-- (void)animateWithCompletion:(const char *)a1 .cold.1(const char *a1)
+- (void)animateWithCompletion:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_startedAnimation == NO"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_1();
-    OUTLINED_FUNCTION_1_1(&dword_1BEB18000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"_startedAnimation == NO", v11, v12);
+    OUTLINED_FUNCTION_1_1(&dword_1BEB18000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)_performJumpAnimationWithCompletion:(const char *)a1 .cold.1(const char *a1)
+- (void)_performJumpAnimationWithCompletion:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_widgetIconView != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_1();
-    OUTLINED_FUNCTION_1_1(&dword_1BEB18000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"_widgetIconView != nil", v11, v12);
+    OUTLINED_FUNCTION_1_1(&dword_1BEB18000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)_performJumpAnimationWithCompletion:(const char *)a1 .cold.2(const char *a1)
+- (void)_performJumpAnimationWithCompletion:(const char *)a1 .cold.2(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_referenceIconView != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_1();
-    OUTLINED_FUNCTION_1_1(&dword_1BEB18000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"_referenceIconView != nil", v11, v12);
+    OUTLINED_FUNCTION_1_1(&dword_1BEB18000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

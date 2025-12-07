@@ -31,7 +31,7 @@ uint64_t __22__SKAServerBag_logger__block_invoke()
 
 + (BOOL)statusEnabledByServerForStatusTypeIdentifier:(id)identifier
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v4 = 1;
   v5 = [MEMORY[0x277D18A10] sharedInstanceForBagType:1];
@@ -42,34 +42,34 @@ uint64_t __22__SKAServerBag_logger__block_invoke()
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v18 = 0u;
-      v19 = 0u;
-      v16 = 0u;
       v17 = 0u;
+      v18 = 0u;
+      v15 = 0u;
+      v16 = 0u;
       v7 = v6;
-      v8 = [v7 countByEnumeratingWithState:&v16 objects:v22 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v15 objects:v21 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v17;
+        v10 = *v16;
         while (2)
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v17 != v10)
+            if (*v16 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v16 + 1) + 8 * i);
+            v12 = *(*(&v15 + 1) + 8 * i);
             objc_opt_class();
-            if ((objc_opt_isKindOfClass() & 1) != 0 && [v12 isEqualToString:{identifierCopy, v16}])
+            if ((objc_opt_isKindOfClass() & 1) != 0 && [v12 isEqualToString:{identifierCopy, v15}])
             {
               v13 = +[SKAServerBag logger];
               if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v21 = identifierCopy;
+                v20 = identifierCopy;
                 _os_log_impl(&dword_220099000, v13, OS_LOG_TYPE_DEFAULT, "Server bag indicates status disablement for status type identifier: %@", buf, 0xCu);
               }
 
@@ -78,7 +78,7 @@ uint64_t __22__SKAServerBag_logger__block_invoke()
             }
           }
 
-          v9 = [v7 countByEnumeratingWithState:&v16 objects:v22 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v15 objects:v21 count:16];
           if (v9)
           {
             continue;
@@ -98,13 +98,12 @@ LABEL_17:
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 + (BOOL)presenceEnabledByServer
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   LOBYTE(bOOLValue) = 1;
   v3 = [MEMORY[0x277D18A10] sharedInstanceForBagType:1];
   v4 = [v3 objectForKey:@"activity-presence-enabled"];
@@ -118,9 +117,9 @@ LABEL_17:
       v5 = +[SKAServerBag logger];
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = 134217984;
-        v9 = bOOLValue;
-        _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Server bag indicates presence enablement with status: %lu", &v8, 0xCu);
+        v7 = 134217984;
+        v8 = bOOLValue;
+        _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Server bag indicates presence enablement with status: %lu", &v7, 0xCu);
       }
     }
 
@@ -130,13 +129,12 @@ LABEL_17:
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return bOOLValue;
 }
 
 + (BOOL)presenceEnabledByServerForServiceIdentifier:(id)identifier
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v4 = 1;
   v5 = [MEMORY[0x277D18A10] sharedInstanceForBagType:1];
@@ -147,34 +145,34 @@ LABEL_17:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v18 = 0u;
-      v19 = 0u;
-      v16 = 0u;
       v17 = 0u;
+      v18 = 0u;
+      v15 = 0u;
+      v16 = 0u;
       v7 = v6;
-      v8 = [v7 countByEnumeratingWithState:&v16 objects:v22 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v15 objects:v21 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v17;
+        v10 = *v16;
         while (2)
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v17 != v10)
+            if (*v16 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v16 + 1) + 8 * i);
+            v12 = *(*(&v15 + 1) + 8 * i);
             objc_opt_class();
-            if ((objc_opt_isKindOfClass() & 1) != 0 && [v12 isEqualToString:{identifierCopy, v16}])
+            if ((objc_opt_isKindOfClass() & 1) != 0 && [v12 isEqualToString:{identifierCopy, v15}])
             {
               v13 = +[SKAServerBag logger];
               if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v21 = identifierCopy;
+                v20 = identifierCopy;
                 _os_log_impl(&dword_220099000, v13, OS_LOG_TYPE_DEFAULT, "Server bag indicates presence disablement for service: %@", buf, 0xCu);
               }
 
@@ -183,7 +181,7 @@ LABEL_17:
             }
           }
 
-          v9 = [v7 countByEnumeratingWithState:&v16 objects:v22 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v15 objects:v21 count:16];
           if (v9)
           {
             continue;
@@ -203,7 +201,6 @@ LABEL_17:
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -229,7 +226,7 @@ LABEL_17:
 
 + (BOOL)presenceReverseInviteEnabledByServer
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   LOBYTE(bOOLValue) = 1;
   v3 = [MEMORY[0x277D18A10] sharedInstanceForBagType:1];
   v4 = [v3 objectForKey:@"presence-reverse-invite-enabled"];
@@ -243,9 +240,9 @@ LABEL_17:
       v5 = +[SKAServerBag logger];
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = 134217984;
-        v9 = bOOLValue;
-        _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Server bag indicates reverse invite enablement with status: %lu", &v8, 0xCu);
+        v7 = 134217984;
+        v8 = bOOLValue;
+        _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Server bag indicates reverse invite enablement with status: %lu", &v7, 0xCu);
       }
     }
 
@@ -255,13 +252,12 @@ LABEL_17:
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return bOOLValue;
 }
 
 + (unint64_t)serverResponseInternalErrorRetryCount
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277D18A10] sharedInstanceForBagType:1];
   v3 = [v2 objectForKey:@"activity-presence-retry-count"];
 
@@ -270,9 +266,9 @@ LABEL_17:
     v4 = +[SKAServerBag logger];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = v3;
-      _os_log_impl(&dword_220099000, v4, OS_LOG_TYPE_DEFAULT, "Server bag indicates server responses with internal errors should be retried %@ times", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v3;
+      _os_log_impl(&dword_220099000, v4, OS_LOG_TYPE_DEFAULT, "Server bag indicates server responses with internal errors should be retried %@ times", &v7, 0xCu);
     }
 
     unsignedIntegerValue = [v3 unsignedIntegerValue];
@@ -283,7 +279,6 @@ LABEL_17:
     unsignedIntegerValue = 2;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return unsignedIntegerValue;
 }
 

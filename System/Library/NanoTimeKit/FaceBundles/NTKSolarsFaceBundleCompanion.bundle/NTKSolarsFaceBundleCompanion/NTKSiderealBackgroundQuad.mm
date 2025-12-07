@@ -111,222 +111,220 @@
   device = self->_device;
   self->_device = v10;
 
-  v159[0] = 1;
+  v157[0] = 1;
   v12 = self->_device;
   v13 = [NSBundle bundleForClass:objc_opt_class()];
   v14 = [(MTLDevice *)v12 newDefaultLibraryWithBundle:v13 error:0];
 
   v15 = [v14 newFunctionWithName:@"sidereal_fragment_solid_shader"];
-  v121 = [v14 newFunctionWithName:@"sidereal_fragment_gradient_shader"];
+  v119 = [v14 newFunctionWithName:@"sidereal_fragment_gradient_shader"];
   v16 = [v14 newFunctionWithName:@"sidereal_vertex_shader"];
   v17 = objc_opt_new();
-  [v17 setConstantValue:v159 type:53 atIndex:0];
-  v18 = [NSBundle bundleForClass:objc_opt_class()];
-  v19 = self->_device;
-  v108 = v18;
-  v20 = [CLKUIMetalBinaryArchive archiveWithName:"archiveWithName:bundle:device:" bundle:@"sidereal" device:?];
-  v21 = +[MTLFunctionDescriptor functionDescriptor];
-  v109 = v17;
-  [v21 setConstantValues:v17];
-  [v21 setName:@"sidereal_fragment_glow_shader"];
-  v22 = [v20 newFunctionInLibrary:v14 withDescriptor:v21];
-  [v21 setName:@"sidereal_fragment_sprite_shader"];
-  v107 = v21;
-  v119 = [v20 newFunctionInLibrary:v14 withDescriptor:v21];
-  v117 = [v14 newFunctionWithName:@"sidereal_vertex_sprite_shader"];
-  v115 = [v14 newFunctionWithName:@"sidereal_fragment_blur_shader"];
-  v113 = [v14 newFunctionWithName:@"sidereal_vertex_blur_shader"];
-  v112 = [v14 newFunctionWithName:@"sidereal_fragment_composite_shader"];
-  v110 = v14;
-  v111 = [v14 newFunctionWithName:@"sidereal_vertex_composite_shader"];
+  [v17 setConstantValue:v157 type:53 atIndex:0];
+  v106 = [NSBundle bundleForClass:objc_opt_class()];
+  v18 = [CLKUIMetalBinaryArchive archiveWithName:"archiveWithName:bundle:device:" bundle:@"sidereal" device:?];
+  v19 = +[MTLFunctionDescriptor functionDescriptor];
+  v107 = v17;
+  [v19 setConstantValues:v17];
+  [v19 setName:@"sidereal_fragment_glow_shader"];
+  v20 = [v18 newFunctionInLibrary:v14 withDescriptor:v19];
+  [v19 setName:@"sidereal_fragment_sprite_shader"];
+  v105 = v19;
+  v117 = [v18 newFunctionInLibrary:v14 withDescriptor:v19];
+  v115 = [v14 newFunctionWithName:@"sidereal_vertex_sprite_shader"];
+  v113 = [v14 newFunctionWithName:@"sidereal_fragment_blur_shader"];
+  v111 = [v14 newFunctionWithName:@"sidereal_vertex_blur_shader"];
+  v110 = [v14 newFunctionWithName:@"sidereal_fragment_composite_shader"];
+  v108 = v14;
+  v109 = [v14 newFunctionWithName:@"sidereal_vertex_composite_shader"];
   objc_initWeak(&location, self);
-  v155[0] = _NSConcreteStackBlock;
-  v155[1] = 3221225472;
-  v155[2] = sub_1768C;
-  v155[3] = &unk_2CD28;
-  objc_copyWeak(&v157, &location);
-  v106 = v20;
-  v156 = v106;
-  v23 = objc_retainBlock(v155);
-  v150[0] = _NSConcreteStackBlock;
-  v150[1] = 3221225472;
-  v150[2] = sub_1770C;
-  v150[3] = &unk_2CD50;
-  v24 = v16;
-  v151 = v24;
-  v105 = v15;
-  v152 = v105;
-  v25 = viewCopy;
-  v153 = v25;
-  v26 = v23;
-  v154 = v26;
-  v27 = [NTKPromise metalPipelinePromiseNamed:@"Sidereal Solid Pipeline" withBlock:v150];
+  v153[0] = _NSConcreteStackBlock;
+  v153[1] = 3221225472;
+  v153[2] = sub_1768C;
+  v153[3] = &unk_2CD28;
+  objc_copyWeak(&v155, &location);
+  v104 = v18;
+  v154 = v104;
+  v21 = objc_retainBlock(v153);
+  v148[0] = _NSConcreteStackBlock;
+  v148[1] = 3221225472;
+  v148[2] = sub_1770C;
+  v148[3] = &unk_2CD50;
+  v22 = v16;
+  v149 = v22;
+  v103 = v15;
+  v150 = v103;
+  v23 = viewCopy;
+  v151 = v23;
+  v24 = v21;
+  v152 = v24;
+  v25 = [NTKPromise metalPipelinePromiseNamed:@"Sidereal Solid Pipeline" withBlock:v148];
   mtlSolidPipelineState = self->_mtlSolidPipelineState;
-  self->_mtlSolidPipelineState = v27;
+  self->_mtlSolidPipelineState = v25;
 
-  v145[0] = _NSConcreteStackBlock;
-  v145[1] = 3221225472;
-  v145[2] = sub_177FC;
-  v145[3] = &unk_2CD50;
-  v29 = v24;
-  v146 = v29;
-  v122 = v121;
-  v147 = v122;
-  v30 = v25;
-  v148 = v30;
-  v31 = v26;
-  v149 = v31;
-  v32 = [NTKPromise metalPipelinePromiseNamed:@"Sidereal Gradient Pipeline" withBlock:v145];
-  mtlGradientPipelineState = self->_mtlGradientPipelineState;
-  self->_mtlGradientPipelineState = v32;
-
-  v139[0] = _NSConcreteStackBlock;
-  v139[1] = 3221225472;
-  v139[2] = sub_178EC;
-  v139[3] = &unk_2CD78;
-  v104 = v29;
-  v140 = v104;
-  v103 = v22;
-  v141 = v103;
-  v34 = v30;
-  v142 = v34;
-  v144 = v159[0];
-  v35 = v31;
-  v143 = v35;
-  v36 = [NTKPromise metalPipelinePromiseNamed:@"Sidereal Glow Pipeline" withBlock:v139];
-  mtlGlowPipelineState = self->_mtlGlowPipelineState;
-  self->_mtlGlowPipelineState = v36;
-
-  v133[0] = _NSConcreteStackBlock;
-  v133[1] = 3221225472;
-  v133[2] = sub_17AB4;
-  v133[3] = &unk_2CD78;
-  v38 = v117;
-  v134 = v38;
+  v143[0] = _NSConcreteStackBlock;
+  v143[1] = 3221225472;
+  v143[2] = sub_177FC;
+  v143[3] = &unk_2CD50;
+  v27 = v22;
+  v144 = v27;
   v120 = v119;
-  v135 = v120;
-  v39 = v34;
-  v136 = v39;
-  v138 = v159[0];
-  v40 = v35;
-  v137 = v40;
-  v41 = [NTKPromise metalPipelinePromiseNamed:@"Sidereal Sprite Pipeline" withBlock:v133];
+  v145 = v120;
+  v28 = v23;
+  v146 = v28;
+  v29 = v24;
+  v147 = v29;
+  v30 = [NTKPromise metalPipelinePromiseNamed:@"Sidereal Gradient Pipeline" withBlock:v143];
+  mtlGradientPipelineState = self->_mtlGradientPipelineState;
+  self->_mtlGradientPipelineState = v30;
+
+  v137[0] = _NSConcreteStackBlock;
+  v137[1] = 3221225472;
+  v137[2] = sub_178EC;
+  v137[3] = &unk_2CD78;
+  v102 = v27;
+  v138 = v102;
+  v101 = v20;
+  v139 = v101;
+  v32 = v28;
+  v140 = v32;
+  v142 = v157[0];
+  v33 = v29;
+  v141 = v33;
+  v34 = [NTKPromise metalPipelinePromiseNamed:@"Sidereal Glow Pipeline" withBlock:v137];
+  mtlGlowPipelineState = self->_mtlGlowPipelineState;
+  self->_mtlGlowPipelineState = v34;
+
+  v131[0] = _NSConcreteStackBlock;
+  v131[1] = 3221225472;
+  v131[2] = sub_17AB4;
+  v131[3] = &unk_2CD78;
+  v36 = v115;
+  v132 = v36;
+  v118 = v117;
+  v133 = v118;
+  v37 = v32;
+  v134 = v37;
+  v136 = v157[0];
+  v38 = v33;
+  v135 = v38;
+  v39 = [NTKPromise metalPipelinePromiseNamed:@"Sidereal Sprite Pipeline" withBlock:v131];
   mtlSpritePipelineState = self->_mtlSpritePipelineState;
-  self->_mtlSpritePipelineState = v41;
+  self->_mtlSpritePipelineState = v39;
 
-  v128[0] = _NSConcreteStackBlock;
-  v128[1] = 3221225472;
-  v128[2] = sub_17C7C;
-  v128[3] = &unk_2CD50;
-  v118 = v113;
-  v129 = v118;
-  v116 = v115;
-  v130 = v116;
-  v43 = v39;
-  v131 = v43;
-  v44 = v40;
-  v132 = v44;
-  v45 = [NTKPromise metalPipelinePromiseNamed:@"Sidereal Blur Pipeline" withBlock:v128];
+  v126[0] = _NSConcreteStackBlock;
+  v126[1] = 3221225472;
+  v126[2] = sub_17C7C;
+  v126[3] = &unk_2CD50;
+  v116 = v111;
+  v127 = v116;
+  v114 = v113;
+  v128 = v114;
+  v41 = v37;
+  v129 = v41;
+  v42 = v38;
+  v130 = v42;
+  v43 = [NTKPromise metalPipelinePromiseNamed:@"Sidereal Blur Pipeline" withBlock:v126];
   mtlBlurPipelineState = self->_mtlBlurPipelineState;
-  self->_mtlBlurPipelineState = v45;
+  self->_mtlBlurPipelineState = v43;
 
-  v123[0] = _NSConcreteStackBlock;
-  v123[1] = 3221225472;
-  v123[2] = sub_17D9C;
-  v123[3] = &unk_2CD50;
-  v47 = v111;
-  v124 = v47;
-  v114 = v112;
-  v125 = v114;
-  v48 = v43;
-  v126 = v48;
-  v49 = v44;
-  v127 = v49;
-  v50 = [NTKPromise metalPipelinePromiseNamed:@"Sidereal Composite Pipeline" withBlock:v123];
+  v121[0] = _NSConcreteStackBlock;
+  v121[1] = 3221225472;
+  v121[2] = sub_17D9C;
+  v121[3] = &unk_2CD50;
+  v45 = v109;
+  v122 = v45;
+  v112 = v110;
+  v123 = v112;
+  v46 = v41;
+  v124 = v46;
+  v47 = v42;
+  v125 = v47;
+  v48 = [NTKPromise metalPipelinePromiseNamed:@"Sidereal Composite Pipeline" withBlock:v121];
   mtlCompositePipelineState = self->_mtlCompositePipelineState;
-  self->_mtlCompositePipelineState = v50;
+  self->_mtlCompositePipelineState = v48;
 
   for (i = 0; i != 3; ++i)
   {
-    v53 = [(MTLDevice *)self->_device newBufferWithLength:1728 options:0];
-    v54 = self->_mtlSectorDescriptorBuffers[i];
-    self->_mtlSectorDescriptorBuffers[i] = v53;
+    v51 = [(MTLDevice *)self->_device newBufferWithLength:1728 options:0];
+    v52 = self->_mtlSectorDescriptorBuffers[i];
+    self->_mtlSectorDescriptorBuffers[i] = v51;
   }
 
-  v55 = [(MTLDevice *)self->_device newBufferWithLength:512 options:0];
+  v53 = [(MTLDevice *)self->_device newBufferWithLength:512 options:0];
   mtlIndexBuffer = self->_mtlIndexBuffer;
-  self->_mtlIndexBuffer = v55;
+  self->_mtlIndexBuffer = v53;
 
   contents = [(MTLBuffer *)self->_mtlIndexBuffer contents];
-  v58 = 0;
-  v59 = xmmword_21220;
-  v60 = xmmword_21230;
-  v61 = xmmword_21240;
-  v62 = xmmword_21250;
-  v63 = xmmword_21260;
-  v64 = vdupq_n_s64(1uLL);
-  v65 = vdupq_n_s64(8uLL);
-  v66.i64[0] = 0x8000800080008;
-  v66.i64[1] = 0x8000800080008;
+  v56 = 0;
+  v57 = xmmword_21220;
+  v58 = xmmword_21230;
+  v59 = xmmword_21240;
+  v60 = xmmword_21250;
+  v61 = xmmword_21260;
+  v62 = vdupq_n_s64(1uLL);
+  v63 = vdupq_n_s64(8uLL);
+  v64.i64[0] = 0x8000800080008;
+  v64.i64[1] = 0x8000800080008;
   do
   {
-    *&contents[v58] = vbicq_s8(v63, vuzp1q_s16(vuzp1q_s32(vceqzq_s64(vandq_s8(v62, v64)), vceqzq_s64(vandq_s8(v61, v64))), vuzp1q_s32(vceqzq_s64(vandq_s8(v60, v64)), vceqzq_s64(vandq_s8(v59, v64)))));
-    v60 = vaddq_s64(v60, v65);
-    v61 = vaddq_s64(v61, v65);
-    v62 = vaddq_s64(v62, v65);
-    v59 = vaddq_s64(v59, v65);
-    v63 = vaddq_s16(v63, v66);
-    v58 += 16;
+    *&contents[v56] = vbicq_s8(v61, vuzp1q_s16(vuzp1q_s32(vceqzq_s64(vandq_s8(v60, v62)), vceqzq_s64(vandq_s8(v59, v62))), vuzp1q_s32(vceqzq_s64(vandq_s8(v58, v62)), vceqzq_s64(vandq_s8(v57, v62)))));
+    v58 = vaddq_s64(v58, v63);
+    v59 = vaddq_s64(v59, v63);
+    v60 = vaddq_s64(v60, v63);
+    v57 = vaddq_s64(v57, v63);
+    v61 = vaddq_s16(v61, v64);
+    v56 += 16;
   }
 
-  while (v58 != 512);
+  while (v56 != 512);
   CLKUIConvertToRGBfFromSRGBf_fast();
-  *self->_ticksColor_dim = vsqrtq_f32(v67);
+  *self->_ticksColor_dim = vsqrtq_f32(v65);
   CLKUIConvertToRGBfFromSRGBf_fast();
-  *self->_ticksColor_bright = vsqrtq_f32(v68);
+  *self->_ticksColor_bright = vsqrtq_f32(v66);
   CLKUIConvertToRGBfFromSRGBf_fast();
-  *self->_waypointsColor = vsqrtq_f32(v69);
-  v70 = +[NTKSiderealColorManager sharedInstance];
-  v71 = v70;
+  *self->_waypointsColor = vsqrtq_f32(v67);
+  v68 = +[NTKSiderealColorManager sharedInstance];
+  v69 = v68;
   if (self->_useXR)
   {
-    civilTwilightCurveP3 = [v70 civilTwilightCurveP3];
+    civilTwilightCurveP3 = [v68 civilTwilightCurveP3];
     civilTwilightCurve = self->_civilTwilightCurve;
     self->_civilTwilightCurve = civilTwilightCurveP3;
 
-    nauticalTwilightCurveP3 = [v71 nauticalTwilightCurveP3];
+    nauticalTwilightCurveP3 = [v69 nauticalTwilightCurveP3];
     nauticalTwilightCurve = self->_nauticalTwilightCurve;
     self->_nauticalTwilightCurve = nauticalTwilightCurveP3;
 
-    astronomicalTwilightCurveP3 = [v71 astronomicalTwilightCurveP3];
+    astronomicalTwilightCurveP3 = [v69 astronomicalTwilightCurveP3];
     astronomicalTwilightCurve = self->_astronomicalTwilightCurve;
     self->_astronomicalTwilightCurve = astronomicalTwilightCurveP3;
 
-    [v71 dialBackgroundCurveP3];
+    [v69 dialBackgroundCurveP3];
   }
 
   else
   {
-    civilTwilightColorCurve = [v70 civilTwilightColorCurve];
-    v80 = self->_civilTwilightCurve;
+    civilTwilightColorCurve = [v68 civilTwilightColorCurve];
+    v78 = self->_civilTwilightCurve;
     self->_civilTwilightCurve = civilTwilightColorCurve;
 
-    nauticalTwilightColorCurve = [v71 nauticalTwilightColorCurve];
-    v82 = self->_nauticalTwilightCurve;
+    nauticalTwilightColorCurve = [v69 nauticalTwilightColorCurve];
+    v80 = self->_nauticalTwilightCurve;
     self->_nauticalTwilightCurve = nauticalTwilightColorCurve;
 
-    astronomicalTwilightColorCurve = [v71 astronomicalTwilightColorCurve];
-    v84 = self->_astronomicalTwilightCurve;
+    astronomicalTwilightColorCurve = [v69 astronomicalTwilightColorCurve];
+    v82 = self->_astronomicalTwilightCurve;
     self->_astronomicalTwilightCurve = astronomicalTwilightColorCurve;
 
-    [v71 dialBackgroundColorCurve];
+    [v69 dialBackgroundColorCurve];
   }
-  v78 = ;
+  v76 = ;
   nightColorCurve = self->_nightColorCurve;
-  self->_nightColorCurve = v78;
+  self->_nightColorCurve = v76;
 
-  dayDiskBloomColorCurve = [v71 dayDiskBloomColorCurve];
-  v87 = v38;
+  dayDiskBloomColorCurve = [v69 dayDiskBloomColorCurve];
+  v85 = v36;
   bloomColorCurve = self->_bloomColorCurve;
   self->_bloomColorCurve = dayDiskBloomColorCurve;
 
@@ -336,35 +334,35 @@
   self->_shouldDrawGlowPath = 0;
   if (self->_useXR)
   {
-    v91 = 555;
+    v89 = 555;
   }
 
   else
   {
-    v91 = 81;
+    v89 = 81;
   }
 
-  v92 = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:v91 width:width height:height mipmapped:0];
-  [v92 setUsage:5];
-  v93 = +[CLKUIMetalResourceManager sharedDevice];
-  v94 = [v93 newTextureWithDescriptor:v92];
+  v90 = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:v89 width:width height:height mipmapped:0];
+  [v90 setUsage:5];
+  v91 = +[CLKUIMetalResourceManager sharedDevice];
+  v92 = [v91 newTextureWithDescriptor:v90];
   offscreenBuffer = self->_offscreenBuffer;
-  self->_offscreenBuffer = v94;
+  self->_offscreenBuffer = v92;
 
-  v96 = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:v91 width:(self->_size.width * 0.125) height:(self->_size.height * 0.125) mipmapped:0];
-  [v96 setUsage:5];
-  v97 = +[CLKUIMetalResourceManager sharedDevice];
-  v98 = [v97 newTextureWithDescriptor:v96];
+  v94 = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:v89 width:(self->_size.width * 0.125) height:(self->_size.height * 0.125) mipmapped:0];
+  [v94 setUsage:5];
+  v95 = +[CLKUIMetalResourceManager sharedDevice];
+  v96 = [v95 newTextureWithDescriptor:v94];
   verticalBlurBuffer = self->_verticalBlurBuffer;
-  self->_verticalBlurBuffer = v98;
+  self->_verticalBlurBuffer = v96;
 
-  v100 = +[CLKUIMetalResourceManager sharedDevice];
-  v101 = [v100 newTextureWithDescriptor:v96];
+  v98 = +[CLKUIMetalResourceManager sharedDevice];
+  v99 = [v98 newTextureWithDescriptor:v94];
   horizontalBlurBuffer = self->_horizontalBlurBuffer;
-  self->_horizontalBlurBuffer = v101;
+  self->_horizontalBlurBuffer = v99;
 
   [(NTKSiderealBackgroundQuad *)self siderealDataChanged:self->_currentData];
-  objc_destroyWeak(&v157);
+  objc_destroyWeak(&v155);
   objc_destroyWeak(&location);
 }
 
@@ -763,10 +761,10 @@ LABEL_9:
     FMOV            V1.2S, #1.0
   }
 
-  *v23 = _D0;
-  *&v23[1] = -_D1;
-  *&v23[2] = -_D0;
-  *&v23[3] = _D1;
+  *v21 = _D0;
+  *&v21[1] = -_D1;
+  *&v21[2] = -_D0;
+  *&v21[3] = _D1;
   *&_D0 = self->_dayProgress * -3.14159265 * 2.0 + 1.57079633;
   v12 = __sincosf_stret(*&_D0);
   v13 = vmul_n_f32(__PAIR64__(LODWORD(v12.__sinval), LODWORD(v12.__cosval)), self->_blurOrbitRadius);
@@ -774,7 +772,7 @@ LABEL_9:
   *&v14 = v14;
   v15 = self->_size.width * 0.5;
   *&v15 = v15;
-  v23[4] = vmul_n_f32(vdiv_f32(vmul_n_f32(v13, *&v14), vdup_lane_s32(*&v15, 0)), self->_blurScale);
+  v21[4] = vmul_n_f32(vdiv_f32(vmul_n_f32(v13, *&v14), vdup_lane_s32(*&v15, 0)), self->_blurScale);
   v16 = -1.0;
   if (!self->_renderingMode)
   {
@@ -783,17 +781,14 @@ LABEL_9:
     v16 = v18 * blurRadius / (self->_size.width * 0.5) * self->_blurScale;
   }
 
-  v26 = 0;
-  v24 = v16;
-  litProgress = self->_litProgress;
+  v22 = v16;
+  CLKInterpolateBetweenFloatsClipped();
+  *&v19 = v19;
+  v23 = LODWORD(v19);
   CLKInterpolateBetweenFloatsClipped();
   *&v20 = v20;
-  v25 = LODWORD(v20);
-  v21 = self->_litProgress;
-  CLKInterpolateBetweenFloatsClipped();
-  *&v22 = v22;
-  LODWORD(v26) = LODWORD(v22);
-  [encoderCopy setVertexBytes:v23 length:56 atIndex:3];
+  v24 = LODWORD(v20);
+  [encoderCopy setVertexBytes:v21 length:56 atIndex:3];
   [encoderCopy setFragmentTexture:self->_horizontalBlurBuffer atIndex:5];
   [encoderCopy setFragmentTexture:self->_offscreenBuffer atIndex:4];
   [encoderCopy drawPrimitives:4 vertexStart:0 vertexCount:4];

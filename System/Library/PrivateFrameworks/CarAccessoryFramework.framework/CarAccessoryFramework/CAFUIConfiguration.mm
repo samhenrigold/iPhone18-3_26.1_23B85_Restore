@@ -7,6 +7,7 @@
 - (CAFStringCharacteristic)configurationIdentifierCharacteristic;
 - (NSArray)configurationOptions;
 - (NSString)configurationIdentifier;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -130,6 +131,60 @@
   v3 = configurationOptionsCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000048000010"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    configurationIdentifierCharacteristic = [(CAFUIConfiguration *)self configurationIdentifierCharacteristic];
+    uniqueIdentifier2 = [configurationIdentifierCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      configurationIdentifier = [(CAFUIConfiguration *)self configurationIdentifier];
+      [observers uiConfigurationService:self didUpdateConfigurationIdentifier:configurationIdentifier];
+LABEL_8:
+
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000047000011"])
+  {
+LABEL_9:
+
+    goto LABEL_10;
+  }
+
+  uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+  configurationOptionsCharacteristic = [(CAFUIConfiguration *)self configurationOptionsCharacteristic];
+  uniqueIdentifier4 = [configurationOptionsCharacteristic uniqueIdentifier];
+  v17 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+  if (v17)
+  {
+    observers = [(CAFService *)self observers];
+    configurationIdentifier = [(CAFUIConfiguration *)self configurationOptions];
+    [observers uiConfigurationService:self didUpdateConfigurationOptions:configurationIdentifier];
+    goto LABEL_8;
+  }
+
+LABEL_10:
+  v18.receiver = self;
+  v18.super_class = CAFUIConfiguration;
+  [(CAFService *)&v18 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForConfigurationIdentifier

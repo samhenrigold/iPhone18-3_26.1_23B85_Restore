@@ -75,45 +75,43 @@ void __52__AXRDeviceDiscoveryManager_cachedDiscoveredDevices__block_invoke(uint6
 
 - (void)_enumerateObservers:(id)observers
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   observersCopy = observers;
   if (observersCopy)
   {
     os_unfair_lock_lock(&self->_observersLock);
     allObjects = [(NSHashTable *)self->_observers allObjects];
     os_unfair_lock_unlock(&self->_observersLock);
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v6 = allObjects;
-    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v13;
+      v9 = *v12;
       do
       {
         v10 = 0;
         do
         {
-          if (*v13 != v9)
+          if (*v12 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          observersCopy[2](observersCopy, *(*(&v12 + 1) + 8 * v10++));
+          observersCopy[2](observersCopy, *(*(&v11 + 1) + 8 * v10++));
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v8);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_init
@@ -193,42 +191,42 @@ void __52__AXRDeviceDiscoveryManager_cachedDiscoveredDevices__block_invoke(uint6
   return v2;
 }
 
-void __34__AXRDeviceDiscoveryManager__init__block_invoke()
+void __34__AXRDeviceDiscoveryManager__init__block_invoke(uint64_t a1)
 {
-  v0 = ax_remote_connection_log();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = ax_remote_connection_log(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_22952F000, v0, OS_LOG_TYPE_INFO, "discovery companion link disconnected", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_22952F000, v1, OS_LOG_TYPE_INFO, "discovery companion link disconnected", v2, 2u);
   }
 }
 
-void __34__AXRDeviceDiscoveryManager__init__block_invoke_15()
+void __34__AXRDeviceDiscoveryManager__init__block_invoke_15(uint64_t a1)
 {
-  v0 = ax_remote_connection_log();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = ax_remote_connection_log(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_22952F000, v0, OS_LOG_TYPE_INFO, "discovery companion link interrupted", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_22952F000, v1, OS_LOG_TYPE_INFO, "discovery companion link interrupted", v2, 2u);
   }
 }
 
-void __34__AXRDeviceDiscoveryManager__init__block_invoke_18()
+void __34__AXRDeviceDiscoveryManager__init__block_invoke_18(uint64_t a1)
 {
-  v0 = ax_remote_connection_log();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = ax_remote_connection_log(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_22952F000, v0, OS_LOG_TYPE_INFO, "discovery companion link invalidated", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_22952F000, v1, OS_LOG_TYPE_INFO, "discovery companion link invalidated", v2, 2u);
   }
 }
 
 void __34__AXRDeviceDiscoveryManager__init__block_invoke_21(uint64_t a1, void *a2)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 sourceVersion];
-  v5 = ax_remote_connection_log();
+  v5 = ax_remote_connection_log(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = [v3 proximity];
@@ -260,11 +258,11 @@ void __34__AXRDeviceDiscoveryManager__init__block_invoke_21(uint64_t a1, void *a
         v7 = "Immed";
 LABEL_12:
         *buf = 138412802;
-        v49 = v3;
-        v50 = 2112;
-        v51 = v4;
-        v52 = 2080;
-        v53 = v7;
+        v51 = v3;
+        v52 = 2112;
+        v53 = v4;
+        v54 = 2080;
+        v55 = v7;
         _os_log_impl(&dword_22952F000, v5, OS_LOG_TYPE_INFO, "found device: %@ (version: %@), proximity: %s", buf, 0x20u);
         goto LABEL_13;
       }
@@ -279,64 +277,66 @@ LABEL_13:
   if (!v4)
   {
     v8 = _os_feature_enabled_impl();
-    v9 = ax_remote_connection_log();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_INFO);
-    if (!v8)
+    v9 = v8;
+    v10 = ax_remote_connection_log(v8);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
+    if (!v9)
     {
-      if (v10)
+      if (v11)
       {
         *buf = 0;
-        _os_log_impl(&dword_22952F000, v9, OS_LOG_TYPE_INFO, "No source version!", buf, 2u);
+        _os_log_impl(&dword_22952F000, v10, OS_LOG_TYPE_INFO, "No source version!", buf, 2u);
       }
 
       goto LABEL_61;
     }
 
-    if (v10)
+    if (v11)
     {
       *buf = 0;
-      _os_log_impl(&dword_22952F000, v9, OS_LOG_TYPE_INFO, "Ignoring source version", buf, 2u);
+      _os_log_impl(&dword_22952F000, v10, OS_LOG_TYPE_INFO, "Ignoring source version", buf, 2u);
     }
   }
 
-  v9 = [v4 componentsSeparatedByString:@"."];
-  v11 = [v9 count];
-  if (v11 < 1)
+  v10 = [v4 componentsSeparatedByString:@"."];
+  v12 = [v10 count];
+  if (v12 < 1)
   {
-    v14 = 0.0;
+    v15 = 0.0;
   }
 
   else
   {
-    v12 = v11;
-    v13 = [v9 objectAtIndexedSubscript:0];
-    v14 = (10000 * [v13 integerValue]);
+    v13 = v12;
+    v14 = [v10 objectAtIndexedSubscript:0];
+    v15 = (10000 * [v14 integerValue]);
 
-    if (v12 != 1)
+    if (v13 != 1)
     {
-      v15 = [v9 objectAtIndexedSubscript:1];
-      v16 = (fmax([v15 integerValue], 99.0) * 100.0 + v14);
+      v16 = [v10 objectAtIndexedSubscript:1];
+      v17 = (fmax([v16 integerValue], 99.0) * 100.0 + v15);
 
-      if (v12 > 2)
+      if (v13 > 2)
       {
-        v17 = [v9 objectAtIndexedSubscript:2];
-        v16 = (fmax([v17 integerValue], 99.0) + v16);
+        v18 = [v10 objectAtIndexedSubscript:2];
+        v17 = (fmax([v18 integerValue], 99.0) + v17);
       }
 
       goto LABEL_24;
     }
   }
 
-  v16 = v14;
+  v17 = v15;
 LABEL_24:
-  if (v16 <= 3999999)
+  if (v17 <= 3999999)
   {
-    v18 = _os_feature_enabled_impl();
-    WeakRetained = ax_remote_connection_log();
-    v20 = os_log_type_enabled(WeakRetained, OS_LOG_TYPE_INFO);
-    if (!v18)
+    v19 = _os_feature_enabled_impl();
+    v20 = v19;
+    WeakRetained = ax_remote_connection_log(v19);
+    v22 = os_log_type_enabled(WeakRetained, OS_LOG_TYPE_INFO);
+    if (!v20)
     {
-      if (v20)
+      if (v22)
       {
         *buf = 0;
         _os_log_impl(&dword_22952F000, WeakRetained, OS_LOG_TYPE_INFO, "skipping older source version", buf, 2u);
@@ -345,7 +345,7 @@ LABEL_24:
       goto LABEL_60;
     }
 
-    if (v20)
+    if (v22)
     {
       *buf = 0;
       _os_log_impl(&dword_22952F000, WeakRetained, OS_LOG_TYPE_INFO, "Ignoring rapport version", buf, 2u);
@@ -353,93 +353,94 @@ LABEL_24:
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v43 = 0u;
-  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v21 = [WeakRetained mineDevices];
-  v22 = [v21 countByEnumeratingWithState:&v43 objects:v47 count:16];
-  if (!v22)
+  v47 = 0u;
+  v48 = 0u;
+  v23 = [WeakRetained mineDevices];
+  v24 = [v23 countByEnumeratingWithState:&v45 objects:v49 count:16];
+  if (!v24)
   {
-    v30 = v21;
+    v32 = v23;
     goto LABEL_59;
   }
 
-  v23 = v22;
-  v39 = v9;
-  v40 = v4;
-  v24 = *v44;
+  v25 = v24;
+  v41 = v10;
+  v42 = v4;
+  v26 = *v46;
   while (2)
   {
-    for (i = 0; i != v23; ++i)
+    for (i = 0; i != v25; ++i)
     {
-      if (*v44 != v24)
+      if (*v46 != v26)
       {
-        objc_enumerationMutation(v21);
+        objc_enumerationMutation(v23);
       }
 
-      v26 = *(*(&v43 + 1) + 8 * i);
-      v27 = [v3 idsDeviceIdentifier];
-      v28 = [v26 uniqueIDOverride];
-      v29 = [v27 isEqualToString:v28];
+      v28 = *(*(&v45 + 1) + 8 * i);
+      v29 = [v3 idsDeviceIdentifier];
+      v30 = [v28 uniqueIDOverride];
+      v31 = [v29 isEqualToString:v30];
 
-      if (v29)
+      if (v31)
       {
-        v30 = v26;
+        v32 = v28;
 
-        if (!v30)
+        if (!v32)
         {
-          v9 = v39;
-          v4 = v40;
+          v10 = v41;
+          v4 = v42;
           goto LABEL_60;
         }
 
-        v31 = [v30 deviceType];
-        v32 = v31 > 8 || ((1 << v31) & 0x1E3) == 0;
-        v9 = v39;
-        if (!v32)
+        v33 = [v32 deviceType];
+        v34 = v33 > 8 || ((1 << v33) & 0x1E3) == 0;
+        v10 = v41;
+        if (!v34)
         {
-          v33 = _os_feature_enabled_impl();
-          v34 = ax_remote_connection_log();
-          v35 = os_log_type_enabled(v34, OS_LOG_TYPE_INFO);
-          if (!v33)
+          v35 = _os_feature_enabled_impl();
+          v36 = v35;
+          v37 = ax_remote_connection_log(v35);
+          v38 = os_log_type_enabled(v37, OS_LOG_TYPE_INFO);
+          if (!v36)
           {
-            if (v35)
+            if (v38)
             {
               *buf = 0;
-              _os_log_impl(&dword_22952F000, v34, OS_LOG_TYPE_INFO, "skipping unsupported device type", buf, 2u);
+              _os_log_impl(&dword_22952F000, v37, OS_LOG_TYPE_INFO, "skipping unsupported device type", buf, 2u);
             }
 
             goto LABEL_58;
           }
 
-          if (v35)
+          if (v38)
           {
             *buf = 0;
-            _os_log_impl(&dword_22952F000, v34, OS_LOG_TYPE_INFO, "Ignoring unsupported device type", buf, 2u);
+            _os_log_impl(&dword_22952F000, v37, OS_LOG_TYPE_INFO, "Ignoring unsupported device type", buf, 2u);
           }
         }
 
-        v34 = [v3 effectiveIdentifier];
-        v36 = [WeakRetained _indexOfDeviceWithEffectiveIdentifier:v34];
-        v37 = [[AXRemoteDevice alloc] initWithDevice:v3];
-        if (v36 == 0x7FFFFFFFFFFFFFFFLL)
+        v37 = [v3 effectiveIdentifier];
+        v39 = [WeakRetained _indexOfDeviceWithEffectiveIdentifier:v37];
+        v40 = [[AXRemoteDevice alloc] initWithDevice:v3];
+        if (v39 == 0x7FFFFFFFFFFFFFFFLL)
         {
-          v41 = WeakRetained;
-          v42 = v37;
+          v43 = WeakRetained;
+          v44 = v40;
           AX_PERFORM_WITH_LOCK();
-          [v41 _discoveredDevicesChanged];
+          [v43 _discoveredDevicesChanged];
         }
 
 LABEL_58:
-        v4 = v40;
+        v4 = v42;
 
         goto LABEL_59;
       }
     }
 
-    v23 = [v21 countByEnumeratingWithState:&v43 objects:v47 count:16];
-    if (v23)
+    v25 = [v23 countByEnumeratingWithState:&v45 objects:v49 count:16];
+    if (v25)
     {
       continue;
     }
@@ -447,15 +448,13 @@ LABEL_58:
     break;
   }
 
-  v30 = v21;
-  v9 = v39;
-  v4 = v40;
+  v32 = v23;
+  v10 = v41;
+  v4 = v42;
 LABEL_59:
 
 LABEL_60:
 LABEL_61:
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void __34__AXRDeviceDiscoveryManager__init__block_invoke_29(uint64_t a1)
@@ -466,13 +465,13 @@ void __34__AXRDeviceDiscoveryManager__init__block_invoke_29(uint64_t a1)
 
 void __34__AXRDeviceDiscoveryManager__init__block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = ax_remote_connection_log();
+  v4 = ax_remote_connection_log(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v11 = v3;
+    v10 = v3;
     _os_log_impl(&dword_22952F000, v4, OS_LOG_TYPE_INFO, "lost device: %@", buf, 0xCu);
   }
 
@@ -480,13 +479,11 @@ void __34__AXRDeviceDiscoveryManager__init__block_invoke_2(uint64_t a1, void *a2
   v6 = [v3 effectiveIdentifier];
   if ([WeakRetained _indexOfDeviceWithEffectiveIdentifier:v6] != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v8 = MEMORY[0x277D85DD0];
-    v9 = WeakRetained;
+    v7 = MEMORY[0x277D85DD0];
+    v8 = WeakRetained;
     AX_PERFORM_WITH_LOCK();
-    [v9 _discoveredDevicesChanged];
+    [v8 _discoveredDevicesChanged];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __34__AXRDeviceDiscoveryManager__init__block_invoke_31(uint64_t a1)
@@ -497,17 +494,15 @@ void __34__AXRDeviceDiscoveryManager__init__block_invoke_31(uint64_t a1)
 
 void __34__AXRDeviceDiscoveryManager__init__block_invoke_2_32(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = ax_remote_connection_log();
+  v3 = ax_remote_connection_log(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_22952F000, v3, OS_LOG_TYPE_INFO, "activated discovery companion link with error: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_22952F000, v3, OS_LOG_TYPE_INFO, "activated discovery companion link with error: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)mineDevices

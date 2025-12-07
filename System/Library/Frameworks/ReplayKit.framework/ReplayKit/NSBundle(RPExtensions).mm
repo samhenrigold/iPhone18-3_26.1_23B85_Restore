@@ -20,9 +20,9 @@
     +[NSBundle(RPExtensions) _rpFrameworkBundle];
   }
 
-  v1 = _rpFrameworkBundle_sFrameworkBundle;
+  v2 = _rpFrameworkBundle_sFrameworkBundle;
 
-  return v1;
+  return v2;
 }
 
 - (id)_rpLocalizedAppName
@@ -142,12 +142,12 @@ LABEL_11:
 + (id)preferredLanguage
 {
   preferredLanguages = [MEMORY[0x277CBEAF8] preferredLanguages];
-  v1 = MEMORY[0x277CCA8D8];
+  v2 = MEMORY[0x277CCA8D8];
   _rpFrameworkBundle = [objc_opt_class() _rpFrameworkBundle];
   localizations = [_rpFrameworkBundle localizations];
-  v4 = [v1 preferredLocalizationsFromArray:localizations forPreferences:preferredLanguages];
+  v5 = [v2 preferredLocalizationsFromArray:localizations forPreferences:preferredLanguages];
 
-  firstObject = [v4 firstObject];
+  firstObject = [v5 firstObject];
 
   return firstObject;
 }
@@ -165,29 +165,28 @@ LABEL_11:
 
 + (id)executablePathWithPID:()RPExtensions
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:buffer length:proc_pidpath(pid encoding:{buffer, 0x1000u), 4}];
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 + (id)bundleWithPID:()RPExtensions
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEBC0];
   v1 = [MEMORY[0x277CCA8D8] executablePathWithPID:?];
   v2 = [v0 fileURLWithPath:v1];
 
   if (!__RPLogLevel && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136446722;
-    v8 = "+[NSBundle(RPExtensions) bundleWithPID:]";
-    v9 = 1024;
-    v10 = 136;
-    v11 = 2112;
-    v12 = v2;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [DEBUG] %{public}s:%d  executableURL:%@", &v7, 0x1Cu);
+    v6 = 136446722;
+    v7 = "+[NSBundle(RPExtensions) bundleWithPID:]";
+    v8 = 1024;
+    v9 = 136;
+    v10 = 2112;
+    v11 = v2;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [DEBUG] %{public}s:%d  executableURL:%@", &v6, 0x1Cu);
   }
 
   if (v2)
@@ -195,13 +194,13 @@ LABEL_11:
     v3 = _CFBundleCopyBundleURLForExecutableURL();
     if (!__RPLogLevel && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136446722;
-      v8 = "+[NSBundle(RPExtensions) bundleWithPID:]";
-      v9 = 1024;
-      v10 = 140;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [DEBUG] %{public}s:%d  bundleURL:%@", &v7, 0x1Cu);
+      v6 = 136446722;
+      v7 = "+[NSBundle(RPExtensions) bundleWithPID:]";
+      v8 = 1024;
+      v9 = 140;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [DEBUG] %{public}s:%d  bundleURL:%@", &v6, 0x1Cu);
     }
 
     if (v3)
@@ -219,8 +218,6 @@ LABEL_11:
   {
     v4 = 0;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

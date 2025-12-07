@@ -24,13 +24,13 @@ void *_ZNSt3__18functionIFvN4ecs26EntityEEEaSIZNS1_13BasicRegistryIvE7storageIN2
   return a1;
 }
 
-void std::vector<ggl::Textured::SRGBBlendPos2DUVPipelineSetup *,geo::allocator_adapter<ggl::Textured::SRGBBlendPos2DUVPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::Textured::SRGBBlendPos2DUVPipelineSetup *,geo::allocator_adapter<ggl::Textured::SRGBBlendPos2DUVPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::Textured::SRGBBlendPos2DUVPipelineSetup *>(v2, v1);
   }
@@ -468,13 +468,13 @@ uint64_t md::World::mark(md::World *this)
   return gdc::ResourceManager::mark(v5, v6);
 }
 
-void std::vector<ggl::Textured::SRGBBlendPos4DUVPipelineSetup *,geo::allocator_adapter<ggl::Textured::SRGBBlendPos4DUVPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::Textured::SRGBBlendPos4DUVPipelineSetup *,geo::allocator_adapter<ggl::Textured::SRGBBlendPos4DUVPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::Textured::SRGBBlendPos4DUVPipelineSetup *>(v2, v1);
   }
@@ -796,8 +796,9 @@ void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::StencilRefVa
   }
 }
 
-void md::LogicManager::runLogicBefore(uint64_t a1, void **a2, void *a3, int a4)
+void md::LogicManager::runLogicBefore(uint64_t a1, void **a2, void *a3, uint64_t a4)
 {
+  v4 = a4;
   v33 = *MEMORY[0x1E69E9840];
   if (*(a1 + 144) == 1)
   {
@@ -814,7 +815,7 @@ void md::LogicManager::runLogicBefore(uint64_t a1, void **a2, void *a3, int a4)
   }
 
   v9 = +[VKDebugSettings sharedSettings];
-  if (a4)
+  if (v4)
   {
     v10 = 0;
   }
@@ -861,14 +862,14 @@ void md::LogicManager::runLogicBefore(uint64_t a1, void **a2, void *a3, int a4)
           }
         }
 
-        md::LogicManager::executeFlows(a1, v12 + 1, a4);
+        md::LogicManager::executeFlows(a1, v12 + 1, v4);
         (*(**v12 + 88))(*v12, a2, v15);
-        if (a4)
+        if (v4)
         {
           (*(**v12 + 72))(*v12, a2, v15);
         }
 
-        md::LogicManager::executeFlows(a1, v12 + 4, a4);
+        md::LogicManager::executeFlows(a1, v12 + 4, v4);
         if ([v9 isLogicConsoleEnabled:*(*v12 + 8)])
         {
           (*(**v12 + 104))(__p);
@@ -972,11 +973,11 @@ void sub_1B295B170(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::__function::__func<md::LogicManager::runLogicBefore(md::LayoutContext const&,gdc::Context &,BOOL)::$_0,std::allocator<md::LogicManager::runLogicBefore(md::LayoutContext const&,gdc::Context &,BOOL)::$_0>,void ()(md::LogicBase *)>::operator()(uint64_t a1, uint64_t a2)
+void std::__function::__func<md::LogicManager::runLogicBefore(md::LayoutContext const&,gdc::Context &,BOOL)::$_0,std::allocator<md::LogicManager::runLogicBefore(md::LayoutContext const&,gdc::Context &,BOOL)::$_0>,void ()(md::LogicBase *)>::operator()(uint64_t result, uint64_t a2)
 {
   if ((*(*a2 + 56) & 1) == 0)
   {
-    gdc::Context::clearContext(*(a1 + 8), *(*a2 + 32));
+    gdc::Context::clearContext(*(result + 8), *(*a2 + 32));
   }
 }
 
@@ -1040,9 +1041,9 @@ uint64_t ecs2::BasicRegistry<void>::storage<md::ls::InstanceCount>(uint64_t a1)
   return result;
 }
 
-void gdc::Context::clearContext(uint64_t *a1, unint64_t a2)
+void gdc::Context::clearContext(uint64_t *result, unint64_t a2)
 {
-  v2 = a1[1];
+  v2 = result[1];
   if (v2)
   {
     v4 = vcnt_s8(v2);
@@ -1061,8 +1062,8 @@ void gdc::Context::clearContext(uint64_t *a1, unint64_t a2)
       v5 = (*&v2 - 1) & a2;
     }
 
-    v6 = *a1;
-    v7 = *(*a1 + 8 * v5);
+    v6 = *result;
+    v7 = *(*result + 8 * v5);
     if (v7)
     {
       v8 = *v7;
@@ -1098,7 +1099,7 @@ void gdc::Context::clearContext(uint64_t *a1, unint64_t a2)
               }
 
               while (v12 != v8);
-              if (v13 == a1 + 2)
+              if (v13 == result + 2)
               {
                 goto LABEL_36;
               }
@@ -1165,14 +1166,14 @@ LABEL_37:
 
                 if (v17 != v11)
                 {
-                  *(*a1 + 8 * v17) = v13;
+                  *(*result + 8 * v17) = v13;
                   v16 = *v8;
                 }
               }
 
               *v13 = v16;
               *v8 = 0;
-              --a1[3];
+              --result[3];
               std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<gdc::TypeInfo,std::unique_ptr<gdc::BaseObjectHolder>>,void *>>>::operator()[abi:nn200100](1, v8);
               return;
             }
@@ -1278,7 +1279,7 @@ uint64_t _ZNKSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls
   return result;
 }
 
-void sub_1B295BB88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12, uint64_t a13, std::__shared_weak_count *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28)
+void sub_1B295BB88(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12, uint64_t a13, std::__shared_weak_count *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28)
 {
   v32 = v30[5];
   if (v32)
@@ -1298,7 +1299,7 @@ void sub_1B295BB88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     std::__shared_weak_count::__release_shared[abi:nn200100](v34);
   }
 
-  MEMORY[0x1B8C62190](v30, 0x10A0C4004EC7909);
+  MEMORY[0x1B8C62190](v30, 0x10A0C4004EC7909, a3, a4, a5, a6, a7, a8);
   if (__p)
   {
     operator delete(__p);
@@ -1867,7 +1868,7 @@ void md::StyleLogic::runBeforeLayout(uint64_t a1, id *a2, uint64_t a3, uint64_t 
 
   v23 = 0;
 LABEL_35:
-  gss::ClientStyleState<gss::PropertyID>::setClientStyleAttribute(*(a1 + 208), 0x10048u, v23);
+  gss::ClientStyleState<gss::PropertyID>::setClientStyleAttribute(*(a1 + 208), 65608, v23);
   v24 = *(a1 + 184);
   v25 = *v24;
   v26 = v24[1];
@@ -1889,7 +1890,7 @@ LABEL_35:
 
   v27 = 0;
 LABEL_42:
-  gss::ClientStyleState<gss::PropertyID>::setClientStyleAttribute(*(a1 + 208), 0x1007Bu, v27);
+  gss::ClientStyleState<gss::PropertyID>::setClientStyleAttribute(*(a1 + 208), 65659, v27);
   v28 = [MEMORY[0x1E695DF58] currentLocale];
   v29 = [v28 objectForKey:*MEMORY[0x1E695D980]];
 
@@ -1938,32 +1939,32 @@ LABEL_42:
   if ((v10 & 0x80000000) != 0)
   {
 LABEL_43:
-    gss::ClientStyleState<gss::PropertyID>::removeClientStyleAttribute(*(a1 + 208), 0x5Du);
+    gss::ClientStyleState<gss::PropertyID>::removeClientStyleAttribute(*(a1 + 208), 93);
   }
 
   else
   {
-    gss::ClientStyleState<gss::PropertyID>::setClientStyleAttribute(*(a1 + 208), 0x5Du, v10);
+    gss::ClientStyleState<gss::PropertyID>::setClientStyleAttribute(*(a1 + 208), 93, v10);
   }
 
   if (*(a1 + 177) == 2)
   {
     v92 = *(a1 + 1116);
-    gss::ClientStyleState<gss::PropertyID>::setClientStyleAttribute(*(a1 + 208), 0x10038u, v92);
+    gss::ClientStyleState<gss::PropertyID>::setClientStyleAttribute(*(a1 + 208), 65592, v92);
     gss::ClientStyleState<gss::ScenePropertyID>::setClientStyleAttribute(*(a1 + 224), 0x10038u, v92);
     v93 = [*(a1 + 1160) navCameraModeStyleAttribute];
-    gss::ClientStyleState<gss::PropertyID>::setClientStyleAttribute(*(a1 + 208), 0x10034u, v93);
+    gss::ClientStyleState<gss::PropertyID>::setClientStyleAttribute(*(a1 + 208), 65588, v93);
     gss::ClientStyleState<gss::ScenePropertyID>::setClientStyleAttribute(*(a1 + 224), 0x10034u, v93);
     v94 = *(a1 + 1117);
-    gss::ClientStyleState<gss::PropertyID>::setClientStyleAttribute(*(a1 + 208), 0x10074u, v94);
+    gss::ClientStyleState<gss::PropertyID>::setClientStyleAttribute(*(a1 + 208), 65652, v94);
     gss::ClientStyleState<gss::ScenePropertyID>::setClientStyleAttribute(*(a1 + 224), 0x10074u, v94);
   }
 
   else
   {
-    gss::ClientStyleState<gss::PropertyID>::removeClientStyleAttribute(*(a1 + 208), 0x10034u);
-    gss::ClientStyleState<gss::PropertyID>::removeClientStyleAttribute(*(a1 + 208), 0x10038u);
-    gss::ClientStyleState<gss::PropertyID>::removeClientStyleAttribute(*(a1 + 208), 0x10074u);
+    gss::ClientStyleState<gss::PropertyID>::removeClientStyleAttribute(*(a1 + 208), 65588);
+    gss::ClientStyleState<gss::PropertyID>::removeClientStyleAttribute(*(a1 + 208), 65592);
+    gss::ClientStyleState<gss::PropertyID>::removeClientStyleAttribute(*(a1 + 208), 65652);
   }
 
   gss::ClientStyleState<gss::ScenePropertyID>::sourceClientStyleAttributes(&__p, *(a1 + 224));
@@ -2391,11 +2392,11 @@ uint64_t ecs2::BasicRegistry<void>::storage<md::ls::DataIDSetToUse>(uint64_t a1)
   return result;
 }
 
-void std::__hash_table<std::__hash_value_type<geo::QuadTile,md::LabelCachingStore<geo::QuadTile,std::shared_ptr<md::StandardLabelMapTile>,std::weak_ptr<md::StandardLabelMapTile>,geo::QuadTileHash,std::equal_to<geo::QuadTile>>::MapEntry>,std::__unordered_map_hasher<geo::QuadTile,std::__hash_value_type<geo::QuadTile,md::LabelCachingStore<geo::QuadTile,std::shared_ptr<md::StandardLabelMapTile>,std::weak_ptr<md::StandardLabelMapTile>,geo::QuadTileHash,std::equal_to<geo::QuadTile>>::MapEntry>,geo::QuadTileHash,std::equal_to<geo::QuadTile>,true>,std::__unordered_map_equal<geo::QuadTile,std::__hash_value_type<geo::QuadTile,md::LabelCachingStore<geo::QuadTile,std::shared_ptr<md::StandardLabelMapTile>,std::weak_ptr<md::StandardLabelMapTile>,geo::QuadTileHash,std::equal_to<geo::QuadTile>>::MapEntry>,std::equal_to<geo::QuadTile>,geo::QuadTileHash,true>,geo::allocator_adapter<std::__hash_value_type<geo::QuadTile,md::LabelCachingStore<geo::QuadTile,std::shared_ptr<md::StandardLabelMapTile>,std::weak_ptr<md::StandardLabelMapTile>,geo::QuadTileHash,std::equal_to<geo::QuadTile>>::MapEntry>,mdm::zone_mallocator>>::__deallocate_node(void *a1)
+void std::__hash_table<std::__hash_value_type<geo::QuadTile,md::LabelCachingStore<geo::QuadTile,std::shared_ptr<md::StandardLabelMapTile>,std::weak_ptr<md::StandardLabelMapTile>,geo::QuadTileHash,std::equal_to<geo::QuadTile>>::MapEntry>,std::__unordered_map_hasher<geo::QuadTile,std::__hash_value_type<geo::QuadTile,md::LabelCachingStore<geo::QuadTile,std::shared_ptr<md::StandardLabelMapTile>,std::weak_ptr<md::StandardLabelMapTile>,geo::QuadTileHash,std::equal_to<geo::QuadTile>>::MapEntry>,geo::QuadTileHash,std::equal_to<geo::QuadTile>,true>,std::__unordered_map_equal<geo::QuadTile,std::__hash_value_type<geo::QuadTile,md::LabelCachingStore<geo::QuadTile,std::shared_ptr<md::StandardLabelMapTile>,std::weak_ptr<md::StandardLabelMapTile>,geo::QuadTileHash,std::equal_to<geo::QuadTile>>::MapEntry>,std::equal_to<geo::QuadTile>,geo::QuadTileHash,true>,geo::allocator_adapter<std::__hash_value_type<geo::QuadTile,md::LabelCachingStore<geo::QuadTile,std::shared_ptr<md::StandardLabelMapTile>,std::weak_ptr<md::StandardLabelMapTile>,geo::QuadTileHash,std::equal_to<geo::QuadTile>>::MapEntry>,mdm::zone_mallocator>>::__deallocate_node(void *result)
 {
-  if (a1)
+  if (result)
   {
-    v1 = a1;
+    v1 = result;
     do
     {
       v2 = *v1;
@@ -3178,9 +3179,9 @@ LABEL_17:
   return std::__function::__value_func<void ()(md::ls::RenderItemID const&,md::ls::NeedsFunctionConstantsUpdate const&,md::ls::DataIDSetToUse const&,md::ls::RequiredPipelinePoolID const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](v59);
 }
 
-void sub_1B295EEA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_1B295EEA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   std::__function::__value_func<void ()(md::ls::RenderItemID const&,md::ls::NeedsFunctionConstantsUpdate const&,md::ls::DataIDSetToUse const&,md::ls::RequiredPipelinePoolID const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -3476,7 +3477,7 @@ LABEL_42:
 LABEL_43:
 }
 
-void sub_1B295FCCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, id a22)
+void sub_1B295FCCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, id a22)
 {
   std::unique_ptr<std::__hash_node<std::__hash_value_type<geo::_retain_ptr<VKAnimation * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>,std::unique_ptr<gdc::Timer>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<geo::_retain_ptr<VKAnimation * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>,std::unique_ptr<gdc::Timer>>,void *>>>>::~unique_ptr[abi:nn200100](&a10);
   a21 = &unk_1F2A4BA00;
@@ -3871,7 +3872,7 @@ void md::DaVinciGroundRenderResources::~DaVinciGroundRenderResources(md::DaVinci
     std::__shared_weak_count::__release_shared[abi:nn200100](v9);
   }
 
-  md::FrameAllocator<ggl::RenderItem>::reset(this + 2680);
+  md::FrameAllocator<ggl::RenderItem>::reset(this + 335);
   free(*(this + 335));
   v10 = *(this + 332);
   if (v10)
@@ -4192,63 +4193,63 @@ void md::DaVinciGroundRenderResources::~DaVinciGroundRenderResources(md::DaVinci
 
   std::unique_ptr<ggl::FragmentedPool<ggl::DaVinci::GroundPipelineSetup>>::~unique_ptr[abi:nn200100](this + 154);
   std::unique_ptr<ggl::FragmentedPool<ggl::DaVinci::GroundPipelineSetup>>::~unique_ptr[abi:nn200100](this + 153);
-  std::__hash_table<std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::__unordered_map_hasher<md::LabelIdentifier,std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::hash<md::LabelIdentifier>,std::equal_to<md::LabelIdentifier>,true>,std::__unordered_map_equal<md::LabelIdentifier,std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::equal_to<md::LabelIdentifier>,std::hash<md::LabelIdentifier>,true>,std::allocator<std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>>>::~__hash_table(this + 1184);
+  std::__hash_table<std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::__unordered_map_hasher<md::LabelIdentifier,std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::hash<md::LabelIdentifier>,std::equal_to<md::LabelIdentifier>,true>,std::__unordered_map_equal<md::LabelIdentifier,std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::equal_to<md::LabelIdentifier>,std::hash<md::LabelIdentifier>,true>,std::allocator<std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>>>::~__hash_table(this + 148);
   v75 = *(this + 137);
   if (v75)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v75);
   }
 
-  std::__hash_table<std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::__unordered_map_hasher<md::LabelIdentifier,std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::hash<md::LabelIdentifier>,std::equal_to<md::LabelIdentifier>,true>,std::__unordered_map_equal<md::LabelIdentifier,std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::equal_to<md::LabelIdentifier>,std::hash<md::LabelIdentifier>,true>,std::allocator<std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>>>::~__hash_table(this + 1048);
+  std::__hash_table<std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::__unordered_map_hasher<md::LabelIdentifier,std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::hash<md::LabelIdentifier>,std::equal_to<md::LabelIdentifier>,true>,std::__unordered_map_equal<md::LabelIdentifier,std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::equal_to<md::LabelIdentifier>,std::hash<md::LabelIdentifier>,true>,std::allocator<std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>>>::~__hash_table(this + 131);
   v76 = *(this + 120);
   if (v76)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v76);
   }
 
-  std::__hash_table<std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::__unordered_map_hasher<md::LabelIdentifier,std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::hash<md::LabelIdentifier>,std::equal_to<md::LabelIdentifier>,true>,std::__unordered_map_equal<md::LabelIdentifier,std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::equal_to<md::LabelIdentifier>,std::hash<md::LabelIdentifier>,true>,std::allocator<std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>>>::~__hash_table(this + 912);
+  std::__hash_table<std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::__unordered_map_hasher<md::LabelIdentifier,std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::hash<md::LabelIdentifier>,std::equal_to<md::LabelIdentifier>,true>,std::__unordered_map_equal<md::LabelIdentifier,std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::equal_to<md::LabelIdentifier>,std::hash<md::LabelIdentifier>,true>,std::allocator<std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>>>::~__hash_table(this + 114);
   v77 = *(this + 103);
   if (v77)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v77);
   }
 
-  std::__hash_table<std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::__unordered_map_hasher<md::LabelIdentifier,std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::hash<md::LabelIdentifier>,std::equal_to<md::LabelIdentifier>,true>,std::__unordered_map_equal<md::LabelIdentifier,std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::equal_to<md::LabelIdentifier>,std::hash<md::LabelIdentifier>,true>,std::allocator<std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>>>::~__hash_table(this + 776);
+  std::__hash_table<std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::__unordered_map_hasher<md::LabelIdentifier,std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::hash<md::LabelIdentifier>,std::equal_to<md::LabelIdentifier>,true>,std::__unordered_map_equal<md::LabelIdentifier,std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::equal_to<md::LabelIdentifier>,std::hash<md::LabelIdentifier>,true>,std::allocator<std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>>>::~__hash_table(this + 97);
   v78 = *(this + 86);
   if (v78)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v78);
   }
 
-  std::__hash_table<std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::__unordered_map_hasher<md::LabelIdentifier,std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::hash<md::LabelIdentifier>,std::equal_to<md::LabelIdentifier>,true>,std::__unordered_map_equal<md::LabelIdentifier,std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::equal_to<md::LabelIdentifier>,std::hash<md::LabelIdentifier>,true>,std::allocator<std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>>>::~__hash_table(this + 640);
+  std::__hash_table<std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::__unordered_map_hasher<md::LabelIdentifier,std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::hash<md::LabelIdentifier>,std::equal_to<md::LabelIdentifier>,true>,std::__unordered_map_equal<md::LabelIdentifier,std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::equal_to<md::LabelIdentifier>,std::hash<md::LabelIdentifier>,true>,std::allocator<std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>>>::~__hash_table(this + 80);
   v79 = *(this + 69);
   if (v79)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v79);
   }
 
-  std::__hash_table<std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::__unordered_map_hasher<md::LabelIdentifier,std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::hash<md::LabelIdentifier>,std::equal_to<md::LabelIdentifier>,true>,std::__unordered_map_equal<md::LabelIdentifier,std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::equal_to<md::LabelIdentifier>,std::hash<md::LabelIdentifier>,true>,std::allocator<std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>>>::~__hash_table(this + 504);
+  std::__hash_table<std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::__unordered_map_hasher<md::LabelIdentifier,std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::hash<md::LabelIdentifier>,std::equal_to<md::LabelIdentifier>,true>,std::__unordered_map_equal<md::LabelIdentifier,std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::equal_to<md::LabelIdentifier>,std::hash<md::LabelIdentifier>,true>,std::allocator<std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>>>::~__hash_table(this + 63);
   v80 = *(this + 52);
   if (v80)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v80);
   }
 
-  std::__hash_table<std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::__unordered_map_hasher<md::LabelIdentifier,std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::hash<md::LabelIdentifier>,std::equal_to<md::LabelIdentifier>,true>,std::__unordered_map_equal<md::LabelIdentifier,std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::equal_to<md::LabelIdentifier>,std::hash<md::LabelIdentifier>,true>,std::allocator<std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>>>::~__hash_table(this + 368);
+  std::__hash_table<std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::__unordered_map_hasher<md::LabelIdentifier,std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::hash<md::LabelIdentifier>,std::equal_to<md::LabelIdentifier>,true>,std::__unordered_map_equal<md::LabelIdentifier,std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::equal_to<md::LabelIdentifier>,std::hash<md::LabelIdentifier>,true>,std::allocator<std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>>>::~__hash_table(this + 46);
   v81 = *(this + 35);
   if (v81)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v81);
   }
 
-  std::__hash_table<std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::__unordered_map_hasher<md::LabelIdentifier,std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::hash<md::LabelIdentifier>,std::equal_to<md::LabelIdentifier>,true>,std::__unordered_map_equal<md::LabelIdentifier,std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::equal_to<md::LabelIdentifier>,std::hash<md::LabelIdentifier>,true>,std::allocator<std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>>>::~__hash_table(this + 232);
+  std::__hash_table<std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::__unordered_map_hasher<md::LabelIdentifier,std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::hash<md::LabelIdentifier>,std::equal_to<md::LabelIdentifier>,true>,std::__unordered_map_equal<md::LabelIdentifier,std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::equal_to<md::LabelIdentifier>,std::hash<md::LabelIdentifier>,true>,std::allocator<std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>>>::~__hash_table(this + 29);
   v82 = *(this + 18);
   if (v82)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v82);
   }
 
-  std::__hash_table<std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::__unordered_map_hasher<md::LabelIdentifier,std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::hash<md::LabelIdentifier>,std::equal_to<md::LabelIdentifier>,true>,std::__unordered_map_equal<md::LabelIdentifier,std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::equal_to<md::LabelIdentifier>,std::hash<md::LabelIdentifier>,true>,std::allocator<std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>>>::~__hash_table(this + 96);
+  std::__hash_table<std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::__unordered_map_hasher<md::LabelIdentifier,std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::hash<md::LabelIdentifier>,std::equal_to<md::LabelIdentifier>,true>,std::__unordered_map_equal<md::LabelIdentifier,std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>,std::equal_to<md::LabelIdentifier>,std::hash<md::LabelIdentifier>,true>,std::allocator<std::__hash_value_type<md::LabelIdentifier,std::shared_ptr<md::HighPrecisionAltitudeRequest>>>>::~__hash_table(this + 12);
   v83 = *(this + 1);
   if (v83)
   {
@@ -4514,13 +4515,13 @@ void *ggl::FragmentedPool<ggl::DaVinci::PackedLinearDepthPipelineSetup>::~Fragme
   return a1;
 }
 
-void std::vector<ggl::DaVinci::PackedLinearDepthPipelineSetup *,geo::allocator_adapter<ggl::DaVinci::PackedLinearDepthPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::DaVinci::PackedLinearDepthPipelineSetup *,geo::allocator_adapter<ggl::DaVinci::PackedLinearDepthPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::DaVinci::PackedLinearDepthPipelineSetup *>(v2, v1);
   }
@@ -4560,13 +4561,13 @@ void *ggl::FragmentedPool<ggl::DaVinci::LinearDepthPipelineSetup>::~FragmentedPo
   return a1;
 }
 
-void std::vector<ggl::DaVinci::LinearDepthPipelineSetup *,geo::allocator_adapter<ggl::DaVinci::LinearDepthPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::DaVinci::LinearDepthPipelineSetup *,geo::allocator_adapter<ggl::DaVinci::LinearDepthPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::DaVinci::LinearDepthPipelineSetup *>(v2, v1);
   }
@@ -4662,13 +4663,13 @@ void *ggl::FragmentedPool<ggl::ConstantDataTyped<ggl::Tile::Clipping>>::~Fragmen
   return a1;
 }
 
-void std::vector<ggl::ConstantDataTyped<ggl::Tile::Clipping> *,geo::allocator_adapter<ggl::ConstantDataTyped<ggl::Tile::Clipping> *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::ConstantDataTyped<ggl::Tile::Clipping> *,geo::allocator_adapter<ggl::ConstantDataTyped<ggl::Tile::Clipping> *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::ConstantDataTyped<ggl::Tile::Clipping> *>(v2, v1);
   }
@@ -4710,23 +4711,23 @@ uint64_t ecs2::UtilityTaskContext::toggleTask(ecs2::UtilityTaskContext *this, un
   return result;
 }
 
-void std::vector<ggl::ConstantDataTyped<ggl::DaVinci::LandCoverSettings> *,geo::allocator_adapter<ggl::ConstantDataTyped<ggl::DaVinci::LandCoverSettings> *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::ConstantDataTyped<ggl::DaVinci::LandCoverSettings> *,geo::allocator_adapter<ggl::ConstantDataTyped<ggl::DaVinci::LandCoverSettings> *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::ConstantDataTyped<ggl::DaVinci::LandCoverSettings> *>(v2, v1);
   }
 }
 
-void *ggl::FragmentedPool<ggl::ConstantDataTyped<ggl::DaVinci::LandCoverSettings>>::~FragmentedPool(void *a1)
+ggl::zone_mallocator *ggl::FragmentedPool<ggl::ConstantDataTyped<ggl::DaVinci::LandCoverSettings>>::~FragmentedPool(ggl::zone_mallocator *a1)
 {
-  v3 = a1[4];
-  v4 = a1[5];
-  v2 = (a1 + 4);
+  v3 = *(a1 + 4);
+  v4 = *(a1 + 5);
+  v2 = (a1 + 32);
   while (v3 != v4)
   {
     if (*v3)
@@ -4738,7 +4739,7 @@ void *ggl::FragmentedPool<ggl::ConstantDataTyped<ggl::DaVinci::LandCoverSettings
   }
 
   v5 = *a1;
-  v6 = a1[1];
+  v6 = *(a1 + 1);
   while (v5 != v6)
   {
     if (*v5)
@@ -4749,8 +4750,8 @@ void *ggl::FragmentedPool<ggl::ConstantDataTyped<ggl::DaVinci::LandCoverSettings
     ++v5;
   }
 
-  std::__function::__value_func<void ()(ggl::ConstantDataTyped<ggl::DaVinci::LandCoverSettings> *)>::~__value_func[abi:nn200100]((a1 + 12));
-  std::__function::__value_func<ggl::ConstantDataTyped<ggl::DaVinci::LandCoverSettings> * ()(void)>::~__value_func[abi:nn200100]((a1 + 8));
+  std::__function::__value_func<void ()(ggl::ConstantDataTyped<ggl::DaVinci::LandCoverSettings> *)>::~__value_func[abi:nn200100](a1 + 96);
+  std::__function::__value_func<ggl::ConstantDataTyped<ggl::DaVinci::LandCoverSettings> * ()(void)>::~__value_func[abi:nn200100](a1 + 64);
   std::vector<ggl::ConstantDataTyped<ggl::DaVinci::LandCoverSettings> *,geo::allocator_adapter<ggl::ConstantDataTyped<ggl::DaVinci::LandCoverSettings> *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](v2);
   std::vector<ggl::ConstantDataTyped<ggl::DaVinci::LandCoverSettings> *,geo::allocator_adapter<ggl::ConstantDataTyped<ggl::DaVinci::LandCoverSettings> *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](a1);
   return a1;
@@ -4934,7 +4935,7 @@ void gss::StylesheetManager<gss::PropertyID>::finishBlend(uint64_t a1)
     *(v2 + 224) = 0;
     *(v2 + 232) = 0;
     *(v2 + 233) = 1;
-    geo::intern_linear_map<gss::StyleAttribute,unsigned short,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::copy(v2 + 216, v2 + 240);
+    geo::intern_linear_map<gss::StyleAttribute,unsigned short,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::copy((v2 + 216), (v2 + 240));
     gss::ClientStyleState<gss::ScenePropertyID>::setBlendingFactor(v2, 0.0);
     geo::write_lock_guard::~write_lock_guard(&v16);
   }
@@ -4992,9 +4993,9 @@ void gss::StylesheetManager<gss::PropertyID>::finishBlend(uint64_t a1)
   geo::read_write_lock::unlock((a1 + 320));
 }
 
-void sub_1B2962164(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B2962164(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   geo::write_lock_guard::~write_lock_guard(va);
   _Unwind_Resume(a1);
 }
@@ -5103,13 +5104,13 @@ uint64_t std::__function::__func<ecs2::ForwardToExecute<md::ita::AssignFlyoverNi
   return result;
 }
 
-void std::vector<ggl::ConstantDataTyped<ggl::Tile::PositionScaleInfo> *,geo::allocator_adapter<ggl::ConstantDataTyped<ggl::Tile::PositionScaleInfo> *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::ConstantDataTyped<ggl::Tile::PositionScaleInfo> *,geo::allocator_adapter<ggl::ConstantDataTyped<ggl::Tile::PositionScaleInfo> *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::ConstantDataTyped<ggl::Tile::PositionScaleInfo> *>(v2, v1);
   }
@@ -5128,9 +5129,9 @@ uint64_t md::StyleLogic::_finishStyleBlend(md::StyleLogic *this)
   return std::__function::__value_func<void ()(std::shared_ptr<gss::StylesheetManager<gss::ScenePropertyID>> const&)>::~__value_func[abi:nn200100](v3);
 }
 
-void sub_1B296247C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B296247C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(std::shared_ptr<gss::StylesheetManager<gss::ScenePropertyID>> const&)>::~__value_func[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -5254,13 +5255,13 @@ void *ggl::FragmentedPool<ggl::ConstantDataTyped<ggl::DaVinci::MaterialStyle>>::
   return a1;
 }
 
-void std::vector<ggl::ConstantDataTyped<ggl::DaVinci::MaterialStyle> *,geo::allocator_adapter<ggl::ConstantDataTyped<ggl::DaVinci::MaterialStyle> *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::ConstantDataTyped<ggl::DaVinci::MaterialStyle> *,geo::allocator_adapter<ggl::ConstantDataTyped<ggl::DaVinci::MaterialStyle> *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::ConstantDataTyped<ggl::DaVinci::MaterialStyle> *>(v2, v1);
   }
@@ -5284,7 +5285,7 @@ void std::__function::__func<md::StyleLogic::_finishStyleBlend(void)::$_1,std::a
     *(v3 + 224) = 0;
     *(v3 + 232) = 0;
     *(v3 + 233) = 1;
-    geo::intern_linear_map<gss::StyleAttribute,unsigned short,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::copy(v3 + 216, v3 + 240);
+    geo::intern_linear_map<gss::StyleAttribute,unsigned short,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::copy((v3 + 216), (v3 + 240));
     gss::ClientStyleState<gss::ScenePropertyID>::setBlendingFactor(v3, 0.0);
     geo::write_lock_guard::~write_lock_guard(&v17);
   }
@@ -5342,9 +5343,9 @@ void std::__function::__func<md::StyleLogic::_finishStyleBlend(void)::$_1,std::a
   geo::read_write_lock::unlock((v2 + 320));
 }
 
-void sub_1B2962890(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B2962890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   geo::write_lock_guard::~write_lock_guard(va);
   _Unwind_Resume(a1);
 }
@@ -5433,9 +5434,9 @@ void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShad
   }
 }
 
-void *ggl::RenderItem::gatherTextureLoadItems(uint64_t a1, void *a2, int a3)
+void *ggl::RenderItem::gatherTextureLoadItems(uint64_t a1, unint64_t *a2, int a3)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   result = *(a1 + 32);
   if (result)
   {
@@ -5443,7 +5444,7 @@ void *ggl::RenderItem::gatherTextureLoadItems(uint64_t a1, void *a2, int a3)
     if (v5 != result[22])
     {
       v8 = 0;
-      v28 = a2 + 3;
+      v32 = a2 + 3;
       v9 = MEMORY[0x1E69E9C10];
       do
       {
@@ -5458,13 +5459,13 @@ void *ggl::RenderItem::gatherTextureLoadItems(uint64_t a1, void *a2, int a3)
               v11 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
               if (v11)
               {
-                v27 = *(a1 + 16);
+                v31 = *(a1 + 16);
                 buf = 134218498;
                 buf_4 = v10;
                 buf_12 = 2080;
-                buf_14 = v27;
-                v33 = 1024;
-                v34 = a3;
+                buf_14 = v31;
+                v39 = 1024;
+                v40 = a3;
                 _os_log_error_impl(&dword_1B2754000, v9, OS_LOG_TYPE_ERROR, "Detected stale texture resource %p in render item %s within command buffer %d Please file a radar!", &buf, 0x1Cu);
               }
             }
@@ -5472,13 +5473,13 @@ void *ggl::RenderItem::gatherTextureLoadItems(uint64_t a1, void *a2, int a3)
             v12 = *(v10 + 56);
             if (v12 == 3)
             {
-              LOBYTE(v23) = 1;
+              LOBYTE(v27) = 1;
               for (i = 96; i != 192; i += 16)
               {
-                v23 = v23 & (*(v10 + i) != 0);
+                v27 = v27 & (*(v10 + i) != 0);
               }
 
-              if (v23 && (*(v10 + 193) & 1) == 0)
+              if (v27 && (*(v10 + 193) & 1) == 0)
               {
                 ggl::TextureCube::vendImplicitLoadItems(v10, a2);
               }
@@ -5503,39 +5504,50 @@ void *ggl::RenderItem::gatherTextureLoadItems(uint64_t a1, void *a2, int a3)
                 if (v14 && (*(v10 + 129) & 1) == 0)
                 {
                   v17 = a2[1];
-                  v18 = a2[2];
-                  if (v17 < v18)
+                  v18 = **(v10 + 96);
+                  v19 = *(v10 + 80);
+                  *&v33 = ggl::Texture2DArray::onImplicitLoadComplete;
+                  *(&v33 + 1) = 0;
+                  v34 = v10;
+                  v20 = a2[2];
+                  if (v17 < v20)
                   {
-                    std::construct_at[abi:nn200100]<ggl::Texture2DLoadItem,ggl::TextureData2DAbstract const*,ggl::Texture2DArray *,unsigned int &,gm::Box<unsigned int,2>,std::__bind<void (ggl::Texture2DArray::*)(ggl::Texture2DLoadItem const&),ggl::Texture2DArray *,std::placeholders::__ph<1> const&>,ggl::Texture2DLoadItem*>();
+                    std::construct_at[abi:nn200100]<ggl::Texture2DLoadItem,ggl::TextureData2DAbstract const*,ggl::Texture2DArray *,unsigned int &,gm::Box<unsigned int,2>,std::__bind<void (ggl::Texture2DArray::*)(ggl::Texture2DLoadItem const&),ggl::Texture2DArray *,std::placeholders::__ph<1> const&>,ggl::Texture2DLoadItem*>(v17, v18, v10, 0, 0, v19, &v33);
                   }
 
-                  v19 = 0xCCCCCCCCCCCCCCCDLL * ((v17 - *a2) >> 4) + 1;
-                  if (v19 <= 0x333333333333333)
+                  v21 = 0xCCCCCCCCCCCCCCCDLL * ((v17 - *a2) >> 4);
+                  v22 = v21 + 1;
+                  if (v21 + 1 <= 0x333333333333333)
                   {
-                    v20 = 0xCCCCCCCCCCCCCCCDLL * ((v18 - *a2) >> 4);
-                    if (2 * v20 > v19)
+                    v23 = 0xCCCCCCCCCCCCCCCDLL * ((v20 - *a2) >> 4);
+                    if (2 * v23 > v22)
                     {
-                      v19 = 2 * v20;
+                      v22 = 2 * v23;
                     }
 
-                    if (v20 >= 0x199999999999999)
+                    if (v23 >= 0x199999999999999)
                     {
-                      v21 = 0x333333333333333;
+                      v24 = 0x333333333333333;
                     }
 
                     else
                     {
-                      v21 = v19;
+                      v24 = v22;
                     }
 
-                    v35 = v28;
-                    if (v21)
+                    v41 = v32;
+                    if (v24)
                     {
-                      v22 = ggl::zone_mallocator::instance(v11);
-                      geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::allocate<ggl::Texture2DLoadItem>(v22, v21);
+                      v25 = ggl::zone_mallocator::instance(v11);
+                      v26 = geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::allocate<ggl::Texture2DLoadItem>(v25, v24);
                     }
 
-                    std::construct_at[abi:nn200100]<ggl::Texture2DLoadItem,ggl::TextureData2DAbstract const*,ggl::Texture2DArray *,unsigned int &,gm::Box<unsigned int,2>,std::__bind<void (ggl::Texture2DArray::*)(ggl::Texture2DLoadItem const&),ggl::Texture2DArray *,std::placeholders::__ph<1> const&>,ggl::Texture2DLoadItem*>();
+                    else
+                    {
+                      v26 = 0;
+                    }
+
+                    std::construct_at[abi:nn200100]<ggl::Texture2DLoadItem,ggl::TextureData2DAbstract const*,ggl::Texture2DArray *,unsigned int &,gm::Box<unsigned int,2>,std::__bind<void (ggl::Texture2DArray::*)(ggl::Texture2DLoadItem const&),ggl::Texture2DArray *,std::placeholders::__ph<1> const&>,ggl::Texture2DLoadItem*>(v26 + 80 * v21, v18, v10, 0, 0, v19, &v33);
                   }
 
                   std::__throw_bad_array_new_length[abi:nn200100]();
@@ -5544,18 +5556,18 @@ void *ggl::RenderItem::gatherTextureLoadItems(uint64_t a1, void *a2, int a3)
 
               else
               {
-                v26 = *(v10 + 129);
-                v25 = (v10 + 129);
-                if ((v26 & 1) == 0)
+                v30 = *(v10 + 129);
+                v29 = (v10 + 129);
+                if ((v30 & 1) == 0)
                 {
-                  *v25 = 1;
+                  *v29 = 1;
                 }
               }
             }
 
             else if (v12 == 1 && *(v10 + 112) && (*(v10 + 129) & 1) == 0)
             {
-              ggl::Texture2D::vendImplicitLoadItem(&buf);
+              ggl::Texture2D::vendImplicitLoadItem(&buf, v10);
             }
           }
         }
@@ -5572,13 +5584,13 @@ void *ggl::RenderItem::gatherTextureLoadItems(uint64_t a1, void *a2, int a3)
   return result;
 }
 
-void std::vector<ggl::ConstantDataTyped<ggl::DaVinci::StyleColor> *,geo::allocator_adapter<ggl::ConstantDataTyped<ggl::DaVinci::StyleColor> *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::ConstantDataTyped<ggl::DaVinci::StyleColor> *,geo::allocator_adapter<ggl::ConstantDataTyped<ggl::DaVinci::StyleColor> *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::ConstantDataTyped<ggl::DaVinci::StyleColor> *>(v2, v1);
   }
@@ -5662,13 +5674,13 @@ void md::AnimationManager::animationDidStop(md::AnimationManager *this, VKAnimat
     {
       for (i = *v13; i; i = *i)
       {
-        v15 = i[1];
+        v15 = *(i + 1);
         if (v15 == v9)
         {
-          if (geo::_retain_ptr<VKAnimation * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>::operator==(i[3], &v41))
+          if (geo::_retain_ptr<VKAnimation * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>::operator==(*(i + 3), &v41))
           {
             v16 = *(v7 + 8);
-            v17 = i[1];
+            v17 = *(i + 1);
             v18 = vcnt_s8(v16);
             v18.i16[0] = vaddlv_u8(v18);
             if (v18.u32[0] > 1uLL)
@@ -5719,7 +5731,7 @@ LABEL_35:
                 goto LABEL_36;
               }
 
-              v22 = (*i)[1];
+              v22 = *(*i + 8);
               if (v18.u32[0] > 1uLL)
               {
                 if (v22 >= *&v16)
@@ -5743,7 +5755,7 @@ LABEL_36:
             v23 = *i;
             if (*i)
             {
-              v24 = v23[1];
+              v24 = *(v23 + 1);
               if (v18.u32[0] > 1uLL)
               {
                 if (v24 >= *&v16)
@@ -5807,20 +5819,20 @@ LABEL_36:
   {
     (*(*v26[5] + 40))(v26[5]);
     v28 = *(this + 200);
-    v29 = v27[1];
+    v29 = *(v27 + 1);
     v30 = vcnt_s8(v28);
     v30.i16[0] = vaddlv_u8(v30);
     if (v30.u32[0] > 1uLL)
     {
       if (v29 >= *&v28)
       {
-        v29 = (v29 % *&v28);
+        v29 %= *&v28;
       }
     }
 
     else
     {
-      v29 = ((*&v28 - 1) & v29);
+      v29 &= *&v28 - 1;
     }
 
     v31 = *(*v25 + 8 * v29);
@@ -5831,12 +5843,12 @@ LABEL_36:
     }
 
     while (v31 != v27);
-    if (v32 == (this + 208))
+    if (v32 == this + 208)
     {
       goto LABEL_63;
     }
 
-    v33 = v32[1];
+    v33 = *(v32 + 1);
     if (v30.u32[0] > 1uLL)
     {
       if (v33 >= *&v28)
@@ -5858,7 +5870,7 @@ LABEL_63:
         goto LABEL_64;
       }
 
-      v34 = (*v27)[1];
+      v34 = *(*v27 + 8);
       if (v30.u32[0] > 1uLL)
       {
         if (v34 >= *&v28)
@@ -5882,7 +5894,7 @@ LABEL_64:
     v35 = *v27;
     if (*v27)
     {
-      v36 = v35[1];
+      v36 = *(v35 + 8);
       if (v30.u32[0] > 1uLL)
       {
         if (v36 >= *&v28)
@@ -5941,13 +5953,13 @@ uint64_t gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls:
   return v0[385];
 }
 
-void std::vector<ggl::ConstantDataTyped<ggl::DaVinci::PlanarParameters> *,geo::allocator_adapter<ggl::ConstantDataTyped<ggl::DaVinci::PlanarParameters> *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::ConstantDataTyped<ggl::DaVinci::PlanarParameters> *,geo::allocator_adapter<ggl::ConstantDataTyped<ggl::DaVinci::PlanarParameters> *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::ConstantDataTyped<ggl::DaVinci::PlanarParameters> *>(v2, v1);
   }
@@ -6006,13 +6018,13 @@ uint64_t _ZNKSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls
   return result;
 }
 
-void std::vector<ggl::ConstantDataTyped<ggl::DaVinci::RibbonStyle> *,geo::allocator_adapter<ggl::ConstantDataTyped<ggl::DaVinci::RibbonStyle> *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::ConstantDataTyped<ggl::DaVinci::RibbonStyle> *,geo::allocator_adapter<ggl::ConstantDataTyped<ggl::DaVinci::RibbonStyle> *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::ConstantDataTyped<ggl::DaVinci::RibbonStyle> *>(v2, v1);
   }
@@ -6060,13 +6072,13 @@ void *ggl::FragmentedPool<ggl::ConstantDataTyped<ggl::DaVinci::StyleSSAO>>::~Fra
   return a1;
 }
 
-void std::vector<ggl::ConstantDataTyped<ggl::DaVinci::StyleSSAO> *,geo::allocator_adapter<ggl::ConstantDataTyped<ggl::DaVinci::StyleSSAO> *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::ConstantDataTyped<ggl::DaVinci::StyleSSAO> *,geo::allocator_adapter<ggl::ConstantDataTyped<ggl::DaVinci::StyleSSAO> *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::ConstantDataTyped<ggl::DaVinci::StyleSSAO> *>(v2, v1);
   }
@@ -6082,7 +6094,7 @@ void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShad
   }
 }
 
-char *std::vector<std::pair<gss::StyleAttribute,unsigned short>>::insert(uint64_t *a1, uint64_t a2, uint64_t a3)
+char *std::vector<std::pair<gss::StyleAttribute,unsigned short>>::insert(uint64_t *a1, char *a2, uint64_t a3)
 {
   v3 = a2;
   v5 = a1[1];
@@ -6090,7 +6102,7 @@ char *std::vector<std::pair<gss::StyleAttribute,unsigned short>>::insert(uint64_
   if (v5 >= v6)
   {
     v8 = *a1;
-    v9 = ((v5 - *a1) >> 3) + 1;
+    v9 = (&v5[-*a1] >> 3) + 1;
     if (v9 >> 61)
     {
       std::__throw_bad_array_new_length[abi:nn200100]();
@@ -6112,7 +6124,7 @@ char *std::vector<std::pair<gss::StyleAttribute,unsigned short>>::insert(uint64_
       v11 = v9;
     }
 
-    v12 = (a2 - v8) >> 3;
+    v12 = &a2[-v8] >> 3;
     __p[4] = a1;
     if (v11)
     {
@@ -6134,7 +6146,7 @@ char *std::vector<std::pair<gss::StyleAttribute,unsigned short>>::insert(uint64_
   else if (a2 == v5)
   {
     *v5 = *a3;
-    a1[1] = (v5 + 1);
+    a1[1] = (v5 + 8);
   }
 
   else
@@ -6143,26 +6155,26 @@ char *std::vector<std::pair<gss::StyleAttribute,unsigned short>>::insert(uint64_
     if (v5 >= 8)
     {
       *v5 = *(v5 - 1);
-      v13 = v5 + 1;
+      v13 = v5 + 8;
     }
 
     a1[1] = v13;
-    if (v5 != (a2 + 8))
+    if (v5 != a2 + 8)
     {
       v14 = 0;
       do
       {
-        v15 = &v5[v14 / 8];
-        *(v15 - 2) = v5[v14 / 8 - 2];
-        *(v15 - 2) = *(&v5[v14 / 8 - 1] - 2);
-        v14 -= 8;
+        v15 = v14 + v5;
+        *(v15 - 2) = *(v14 + v5 - 16);
+        *(v15 - 2) = *(v14 + v5 - 12);
+        v14 -= 2;
       }
 
-      while (a2 - v5 + 8 != v14);
+      while ((a2 - v5 + 8) != v14);
     }
 
     *a2 = *a3;
-    *(a2 + 4) = *(a3 + 4);
+    *(a2 + 2) = *(a3 + 4);
   }
 
   return v3;
@@ -6262,28 +6274,28 @@ uint64_t std::__function::__func<ecs2::ForwardToExecute<md::ita::AssignFlyoverAt
   return result;
 }
 
-void std::vector<ggl::ConstantDataTyped<ggl::DaVinci::StyleEmissiveColor> *,geo::allocator_adapter<ggl::ConstantDataTyped<ggl::DaVinci::StyleEmissiveColor> *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::ConstantDataTyped<ggl::DaVinci::StyleEmissiveColor> *,geo::allocator_adapter<ggl::ConstantDataTyped<ggl::DaVinci::StyleEmissiveColor> *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::ConstantDataTyped<ggl::DaVinci::StyleEmissiveColor> *>(v2, v1);
   }
 }
 
-unint64_t *std::__split_buffer<std::pair<gss::StyleAttribute,unsigned short>>::emplace_back<std::pair<gss::StyleAttribute,unsigned short>>(unint64_t *result, void *a2)
+void std::__split_buffer<std::pair<gss::StyleAttribute,unsigned short>>::emplace_back<std::pair<gss::StyleAttribute,unsigned short>>(unint64_t *a1, void *a2)
 {
-  v2 = result[2];
+  v2 = a1[2];
   v3 = v2;
-  if (v2 == result[3])
+  if (v2 == a1[3])
   {
-    v4 = result[1];
-    if (v4 <= *result)
+    v4 = a1[1];
+    if (v4 <= *a1)
     {
-      v7 = v2 - *result;
+      v7 = v2 - *a1;
       v6 = v7 == 0;
       v8 = v7 >> 2;
       if (v6)
@@ -6299,11 +6311,11 @@ unint64_t *std::__split_buffer<std::pair<gss::StyleAttribute,unsigned short>>::e
       std::__allocate_at_least[abi:nn200100]<std::allocator<std::pair<gss::StyleAttribute,unsigned short>>>(v9);
     }
 
-    v5 = v4 - 8 * ((((v4 - *result) >> 3) + 1 + ((((v4 - *result) >> 3) + 1) >> 63)) >> 1);
+    v5 = v4 - 8 * ((((v4 - *a1) >> 3) + 1 + ((((v4 - *a1) >> 3) + 1) >> 63)) >> 1);
     v3 = v5;
     if (v4 != v2)
     {
-      v3 = v4 - 8 * ((((v4 - *result) >> 3) + 1 + ((((v4 - *result) >> 3) + 1) >> 63)) >> 1);
+      v3 = v4 - 8 * ((((v4 - *a1) >> 3) + 1 + ((((v4 - *a1) >> 3) + 1) >> 63)) >> 1);
       do
       {
         *v3 = *v4;
@@ -6315,13 +6327,12 @@ unint64_t *std::__split_buffer<std::pair<gss::StyleAttribute,unsigned short>>::e
       while (v4 != v2);
     }
 
-    result[1] = v5;
-    result[2] = v3;
+    a1[1] = v5;
+    a1[2] = v3;
   }
 
   *v3 = *a2;
-  result[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
 uint64_t gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::RequiresShaderTextureID<Flyover::AtmosphereTexture>>()
@@ -6608,7 +6619,7 @@ uint64_t _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZN2md10StyleLogic15runBe
         }
 
 LABEL_38:
-        result = _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZN2md10StyleLogic15runBeforeLayoutERKNS2_13LayoutContextERKNS2_17LogicDependenciesIJN3gdc8TypeListIJEEESA_EE20ResolvedDependenciesERNS2_17StyleLogicContextEE3__0PNS_4pairIN3gss14StyleAttributeEtEELb0EEEvT1_SO_T0_NS_15iterator_traitsISO_E15difference_typeEb(v7, v9 - 8, a3, a4 & 1);
+        result = _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZN2md10StyleLogic15runBeforeLayoutERKNS2_13LayoutContextERKNS2_17LogicDependenciesIJN3gdc8TypeListIJEEESA_EE20ResolvedDependenciesERNS2_17StyleLogicContextEE3__0PNS_4pairIN3gss14StyleAttributeEtEELb0EEEvT1_SO_T0_NS_15iterator_traitsISO_E15difference_typeEb(v7, (v9 - 8), a3, a4 & 1);
         a4 = 0;
       }
 
@@ -6970,19 +6981,19 @@ uint64_t _ZNKSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls
   return result;
 }
 
-void std::vector<ggl::ConstantDataTyped<ggl::DaVinci::StyleRouteLineMask> *,geo::allocator_adapter<ggl::ConstantDataTyped<ggl::DaVinci::StyleRouteLineMask> *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::ConstantDataTyped<ggl::DaVinci::StyleRouteLineMask> *,geo::allocator_adapter<ggl::ConstantDataTyped<ggl::DaVinci::StyleRouteLineMask> *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::ConstantDataTyped<ggl::DaVinci::StyleRouteLineMask> *>(v2, v1);
   }
 }
 
-void sub_1B2964FF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_1B2964FF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   std::vector<std::shared_ptr<md::TrafficDynamicTileResource>>::__destroy_vector::operator()[abi:nn200100](&a9);
   shared_weak_owners = v9[17].__shared_weak_owners_;
@@ -7073,13 +7084,13 @@ void *ggl::FragmentedPool<ggl::ConstantDataTyped<ggl::DaVinci::StyleGroundOcclus
   return a1;
 }
 
-void std::vector<ggl::ConstantDataTyped<ggl::DaVinci::StyleGroundOcclusion> *,geo::allocator_adapter<ggl::ConstantDataTyped<ggl::DaVinci::StyleGroundOcclusion> *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::ConstantDataTyped<ggl::DaVinci::StyleGroundOcclusion> *,geo::allocator_adapter<ggl::ConstantDataTyped<ggl::DaVinci::StyleGroundOcclusion> *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::ConstantDataTyped<ggl::DaVinci::StyleGroundOcclusion> *>(v2, v1);
   }
@@ -7252,13 +7263,13 @@ uint64_t *std::vector<md::LabelPoint>::__swap_out_circular_buffer(uint64_t *resu
     do
     {
       v6 = *v2;
-      *(v5 + 16) = *(v2 + 2);
+      *(v5 + 16) = *(v2 + 16);
       *v5 = v6;
       *(v5 + 24) = *(v2 + 24);
-      v7 = *(v2 + 10);
+      v7 = *(v2 + 40);
       *(v5 + 43) = *(v2 + 43);
       *(v5 + 40) = v7;
-      v2 += 3;
+      v2 += 48;
       v5 += 48;
     }
 
@@ -7374,7 +7385,7 @@ uint64_t std::vector<md::LabelExternalTextElement>::__emplace_back_slow_path<uns
   v17 = 0;
   v18 = 104 * v7;
   v19 = (104 * v7);
-  md::LabelExternalTextElement::LabelExternalTextElement((104 * v7), *a2, *a3, *a4, *a5, *a6, *a7);
+  md::LabelExternalTextElement::LabelExternalTextElement(104 * v7, *a2, *a3, *a4, *a5, *a6, *a7);
   *&v19 = 104 * v7 + 104;
   v11 = a1[1];
   v12 = 104 * v7 + *a1 - v11;
@@ -7392,83 +7403,83 @@ uint64_t std::vector<md::LabelExternalTextElement>::__emplace_back_slow_path<uns
   return v16;
 }
 
-void sub_1B2965C7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B2965C7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<md::LabelExternalTextElement>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1B29662D8(_Unwind_Exception *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B29662D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t *a9, uint64_t *a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(v8);
-  std::__list_imp<geo::MarkedLRUCache<md::SplineKey,std::pair<std::shared_ptr<ggl::ConstantDataTyped<ggl::Tile::Transform>>,md::GeometryContext::ZTransform>,md::SplineKeyHash,std::equal_to<md::SplineKey>>::CacheEntry,std::allocator<geo::MarkedLRUCache<md::SplineKey,std::pair<std::shared_ptr<ggl::ConstantDataTyped<ggl::Tile::Transform>>,md::GeometryContext::ZTransform>,md::SplineKeyHash,std::equal_to<md::SplineKey>>::CacheEntry>>::clear(a3);
-  std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(a7);
-  std::__list_imp<geo::MarkedLRUCache<md::SplineKey,std::pair<std::shared_ptr<ggl::ConstantDataTyped<ggl::Tile::Transform>>,md::GeometryContext::ZTransform>,md::SplineKeyHash,std::equal_to<md::SplineKey>>::CacheEntry,std::allocator<geo::MarkedLRUCache<md::SplineKey,std::pair<std::shared_ptr<ggl::ConstantDataTyped<ggl::Tile::Transform>>,md::GeometryContext::ZTransform>,md::SplineKeyHash,std::equal_to<md::SplineKey>>::CacheEntry>>::clear(a4);
-  v10 = v7[19];
-  if (v10)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v10);
-  }
-
-  v11 = v7[17];
-  if (v11)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v11);
-  }
-
-  v12 = v7[15];
-  if (v12)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v12);
-  }
-
-  v13 = v7[13];
-  if (v13)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v13);
-  }
-
-  v14 = v7[11];
-  if (v14)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v14);
-  }
-
-  v15 = v7[9];
-  if (v15)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v15);
-  }
-
-  v16 = v7[7];
+  va_start(va, a13);
+  std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(v14);
+  std::__list_imp<geo::MarkedLRUCache<md::SplineKey,std::pair<std::shared_ptr<ggl::ConstantDataTyped<ggl::Tile::Transform>>,md::GeometryContext::ZTransform>,md::SplineKeyHash,std::equal_to<md::SplineKey>>::CacheEntry,std::allocator<geo::MarkedLRUCache<md::SplineKey,std::pair<std::shared_ptr<ggl::ConstantDataTyped<ggl::Tile::Transform>>,md::GeometryContext::ZTransform>,md::SplineKeyHash,std::equal_to<md::SplineKey>>::CacheEntry>>::clear(a9);
+  std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(a13);
+  std::__list_imp<geo::MarkedLRUCache<md::SplineKey,std::pair<std::shared_ptr<ggl::ConstantDataTyped<ggl::Tile::Transform>>,md::GeometryContext::ZTransform>,md::SplineKeyHash,std::equal_to<md::SplineKey>>::CacheEntry,std::allocator<geo::MarkedLRUCache<md::SplineKey,std::pair<std::shared_ptr<ggl::ConstantDataTyped<ggl::Tile::Transform>>,md::GeometryContext::ZTransform>,md::SplineKeyHash,std::equal_to<md::SplineKey>>::CacheEntry>>::clear(a10);
+  v16 = v13[19];
   if (v16)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v16);
   }
 
-  v17 = v7[5];
+  v17 = v13[17];
   if (v17)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v17);
   }
 
-  v18 = v7[3];
+  v18 = v13[15];
   if (v18)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v18);
   }
 
-  v19 = v7[1];
+  v19 = v13[13];
   if (v19)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v19);
   }
 
-  MEMORY[0x1B8C62190](v7, 0x10A0C40296A7848);
+  v20 = v13[11];
+  if (v20)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v20);
+  }
+
+  v21 = v13[9];
+  if (v21)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v21);
+  }
+
+  v22 = v13[7];
+  if (v22)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v22);
+  }
+
+  v23 = v13[5];
+  if (v23)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v23);
+  }
+
+  v24 = v13[3];
+  if (v24)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v24);
+  }
+
+  v25 = v13[1];
+  if (v25)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v25);
+  }
+
+  MEMORY[0x1B8C62190](v13, 0x10A0C40296A7848);
   md::GeometryContext::~GeometryContext(va);
-  MEMORY[0x1B8C62190](a6, 0x10F1C40B0038B9CLL);
+  MEMORY[0x1B8C62190](a12, 0x10F1C40B0038B9CLL);
   _Unwind_Resume(a1);
 }
 
@@ -7483,7 +7494,7 @@ void *_ZNSt3__18functionIFvN4ecs26EntityEEEaSIZNS1_13BasicRegistryIvE7storageIN2
   return a1;
 }
 
-uint64_t md::LabelExternalFeature::addTextForZoom(uint64_t *a1, char a2, char a3, char *a4, char *a5)
+uint64_t md::LabelExternalFeature::addTextForZoom(uint64_t *a1, uint64_t a2, uint64_t a3, char *a4, char *a5)
 {
   v13 = a2;
   v12 = a3;
@@ -7526,7 +7537,7 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<md::LabelExternalText
   std::__throw_bad_array_new_length[abi:nn200100]();
 }
 
-_BYTE *md::StringWithLocaleImp<std::string>::StringWithLocaleImp(_BYTE *a1, char *a2, char *a3)
+void *md::StringWithLocaleImp<std::string>::StringWithLocaleImp(void *a1, char *a2, char *a3)
 {
   if (!a2)
   {
@@ -7544,7 +7555,7 @@ _BYTE *md::StringWithLocaleImp<std::string>::StringWithLocaleImp(_BYTE *a1, char
     v6 = "";
   }
 
-  std::string::basic_string[abi:nn200100]<0>(v5 + 24, v6);
+  std::string::basic_string[abi:nn200100]<0>(v5 + 3, v6);
   return a1;
 }
 
@@ -7593,12 +7604,12 @@ uint64_t ecs2::BasicRegistry<void>::storage<md::ls::TextureHandleForType<Flyover
   return result;
 }
 
-_BYTE *md::LabelExternalTextElement::LabelExternalTextElement(_BYTE *a1, char a2, char *a3, char *a4, char *a5, char *a6, char a7)
+uint64_t md::LabelExternalTextElement::LabelExternalTextElement(uint64_t a1, char a2, char *a3, char *a4, char *a5, char *a6, char a7)
 {
   *a1 = a2;
-  a1[1] = a7;
-  md::StringWithLocaleImp<std::string>::StringWithLocaleImp(a1 + 8, a3, a4);
-  md::StringWithLocaleImp<std::string>::StringWithLocaleImp(a1 + 56, a5, a6);
+  *(a1 + 1) = a7;
+  md::StringWithLocaleImp<std::string>::StringWithLocaleImp((a1 + 8), a3, a4);
+  md::StringWithLocaleImp<std::string>::StringWithLocaleImp((a1 + 56), a5, a6);
   return a1;
 }
 
@@ -7643,9 +7654,9 @@ void ggl::ComputeSetup::~ComputeSetup(ggl::ComputeSetup *this)
     std::__shared_weak_count::__release_shared[abi:nn200100](v2);
   }
 
-  v8.__vftable = (this + 136);
+  v8 = (this + 136);
   std::vector<std::shared_ptr<ggl::BufferData>,geo::allocator_adapter<std::shared_ptr<ggl::BufferData>,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](&v8);
-  v8.__vftable = (this + 104);
+  v8 = (this + 104);
   std::vector<std::shared_ptr<ggl::BufferData>,geo::allocator_adapter<std::shared_ptr<ggl::BufferData>,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](&v8);
   std::vector<ggl::Texture *,geo::allocator_adapter<ggl::Texture *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100]((this + 72));
   v4 = *(this + 5);
@@ -7793,12 +7804,12 @@ void ggl::DownscaleTextureComputeShaderSetup::~DownscaleTextureComputeShaderSetu
   JUMPOUT(0x1B8C62190);
 }
 
-void std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<md::LabelExternalTextElement>,md::LabelExternalTextElement*>(uint64_t a1, uint64_t a2, uint64_t a3)
+void std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<md::LabelExternalTextElement>,md::LabelExternalTextElement*>(uint64_t result, uint64_t a2, uint64_t a3)
 {
-  if (a1 != a2)
+  if (result != a2)
   {
-    v4 = a1;
-    v5 = a1;
+    v4 = result;
+    v5 = result;
     do
     {
       *a3 = *v5;
@@ -7841,13 +7852,13 @@ void std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<md::La
   }
 }
 
-void std::vector<ggl::Texture *,geo::allocator_adapter<ggl::Texture *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::Texture *,geo::allocator_adapter<ggl::Texture *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::Texture *>(v2, v1);
   }
@@ -8112,7 +8123,7 @@ uint64_t md::Logic<md::GeometryLogic,md::GeometryContext,md::LogicDependencies<g
   return result;
 }
 
-uint64_t md::GeometryLogic::runBeforeLayout(int a1, md::LayoutContext *this, uint64_t a3, int8x8_t *a4)
+uint64_t md::GeometryLogic::runBeforeLayout(int a1, md::LayoutContext *this, BOOL a3, int8x8_t *a4)
 {
   v6 = a4 + 20;
   v7 = a4[21];
@@ -8491,23 +8502,23 @@ LABEL_58:
   return result;
 }
 
-void std::vector<ggl::ConstantDataTyped<ggl::DaVinci::GradientParameters> *,geo::allocator_adapter<ggl::ConstantDataTyped<ggl::DaVinci::GradientParameters> *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::ConstantDataTyped<ggl::DaVinci::GradientParameters> *,geo::allocator_adapter<ggl::ConstantDataTyped<ggl::DaVinci::GradientParameters> *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::ConstantDataTyped<ggl::DaVinci::GradientParameters> *>(v2, v1);
   }
 }
 
-void std::__hash_table<std::__hash_value_type<unsigned int,std::vector<std::unique_ptr<md::RoadRibbon,mdm::TypeDeleter<md::RoadRibbon>>,geo::allocator_adapter<std::unique_ptr<md::RoadRibbon,mdm::TypeDeleter<md::RoadRibbon>>,mdm::zone_mallocator>>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::vector<std::unique_ptr<md::RoadRibbon,mdm::TypeDeleter<md::RoadRibbon>>,geo::allocator_adapter<std::unique_ptr<md::RoadRibbon,mdm::TypeDeleter<md::RoadRibbon>>,mdm::zone_mallocator>>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::vector<std::unique_ptr<md::RoadRibbon,mdm::TypeDeleter<md::RoadRibbon>>,geo::allocator_adapter<std::unique_ptr<md::RoadRibbon,mdm::TypeDeleter<md::RoadRibbon>>,mdm::zone_mallocator>>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,geo::allocator_adapter<std::__hash_value_type<unsigned int,std::vector<std::unique_ptr<md::RoadRibbon,mdm::TypeDeleter<md::RoadRibbon>>,geo::allocator_adapter<std::unique_ptr<md::RoadRibbon,mdm::TypeDeleter<md::RoadRibbon>>,mdm::zone_mallocator>>>,mdm::zone_mallocator>>::__deallocate_node(char *a1)
+void std::__hash_table<std::__hash_value_type<unsigned int,std::vector<std::unique_ptr<md::RoadRibbon,mdm::TypeDeleter<md::RoadRibbon>>,geo::allocator_adapter<std::unique_ptr<md::RoadRibbon,mdm::TypeDeleter<md::RoadRibbon>>,mdm::zone_mallocator>>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::vector<std::unique_ptr<md::RoadRibbon,mdm::TypeDeleter<md::RoadRibbon>>,geo::allocator_adapter<std::unique_ptr<md::RoadRibbon,mdm::TypeDeleter<md::RoadRibbon>>,mdm::zone_mallocator>>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::vector<std::unique_ptr<md::RoadRibbon,mdm::TypeDeleter<md::RoadRibbon>>,geo::allocator_adapter<std::unique_ptr<md::RoadRibbon,mdm::TypeDeleter<md::RoadRibbon>>,mdm::zone_mallocator>>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,geo::allocator_adapter<std::__hash_value_type<unsigned int,std::vector<std::unique_ptr<md::RoadRibbon,mdm::TypeDeleter<md::RoadRibbon>>,geo::allocator_adapter<std::unique_ptr<md::RoadRibbon,mdm::TypeDeleter<md::RoadRibbon>>,mdm::zone_mallocator>>>,mdm::zone_mallocator>>::__deallocate_node(char *result)
 {
-  if (a1)
+  if (result)
   {
-    v1 = a1;
+    v1 = result;
     do
     {
       v2 = *v1;
@@ -8556,22 +8567,22 @@ void *ggl::FragmentedPool<ggl::ConstantDataTyped<ggl::DaVinci::ColorCorrectionFa
   return a1;
 }
 
-void std::vector<ggl::ConstantDataTyped<ggl::DaVinci::ColorCorrectionFactor> *,geo::allocator_adapter<ggl::ConstantDataTyped<ggl::DaVinci::ColorCorrectionFactor> *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::ConstantDataTyped<ggl::DaVinci::ColorCorrectionFactor> *,geo::allocator_adapter<ggl::ConstantDataTyped<ggl::DaVinci::ColorCorrectionFactor> *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::ConstantDataTyped<ggl::DaVinci::ColorCorrectionFactor> *>(v2, v1);
   }
 }
 
-void std::vector<std::unique_ptr<md::RoadRibbon,mdm::TypeDeleter<md::RoadRibbon>>,geo::allocator_adapter<std::unique_ptr<md::RoadRibbon,mdm::TypeDeleter<md::RoadRibbon>>,mdm::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](void ***a1)
+void std::vector<std::unique_ptr<md::RoadRibbon,mdm::TypeDeleter<md::RoadRibbon>>,geo::allocator_adapter<std::unique_ptr<md::RoadRibbon,mdm::TypeDeleter<md::RoadRibbon>>,mdm::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](mdm::zone_mallocator ***result)
 {
-  v1 = *a1;
-  v2 = **a1;
+  v1 = *result;
+  v2 = **result;
   if (v2)
   {
     v4 = v1[1];
@@ -8584,7 +8595,7 @@ void std::vector<std::unique_ptr<md::RoadRibbon,mdm::TypeDeleter<md::RoadRibbon>
       }
 
       while (v4 != v2);
-      v5 = **a1;
+      v5 = **result;
     }
 
     v1[1] = v2;
@@ -8821,13 +8832,13 @@ void std::vector<std::unique_ptr<md::RibbonSection<md::Ribbons::DaVinciTrafficRi
   *(a1 + 8) = v6;
 }
 
-void std::vector<ggl::ConstantDataTyped<ggl::DaVinci::ElevatedStroke> *,geo::allocator_adapter<ggl::ConstantDataTyped<ggl::DaVinci::ElevatedStroke> *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::ConstantDataTyped<ggl::DaVinci::ElevatedStroke> *,geo::allocator_adapter<ggl::ConstantDataTyped<ggl::DaVinci::ElevatedStroke> *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::ConstantDataTyped<ggl::DaVinci::ElevatedStroke> *>(v2, v1);
   }
@@ -9056,13 +9067,13 @@ void *_ZNSt3__18functionIFvN4ecs26EntityEEEaSIZNS1_13BasicRegistryIvE7storageIN2
   return a1;
 }
 
-void std::vector<ggl::ConstantDataTyped<ggl::DaVinci::Style> *,geo::allocator_adapter<ggl::ConstantDataTyped<ggl::DaVinci::Style> *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::ConstantDataTyped<ggl::DaVinci::Style> *,geo::allocator_adapter<ggl::ConstantDataTyped<ggl::DaVinci::Style> *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::ConstantDataTyped<ggl::DaVinci::Style> *>(v2, v1);
   }
@@ -9076,23 +9087,23 @@ uint64_t _ZNKSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls
   return result;
 }
 
-void std::vector<ggl::DaVinci::DecalPipelineSetup *,geo::allocator_adapter<ggl::DaVinci::DecalPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::DaVinci::DecalPipelineSetup *,geo::allocator_adapter<ggl::DaVinci::DecalPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::DaVinci::DecalPipelineSetup *>(v2, v1);
   }
 }
 
-void *ggl::FragmentedPool<ggl::DaVinci::DecalPipelineSetup>::~FragmentedPool(void *a1)
+ggl::zone_mallocator *ggl::FragmentedPool<ggl::DaVinci::DecalPipelineSetup>::~FragmentedPool(ggl::zone_mallocator *a1)
 {
-  v3 = a1[4];
-  v4 = a1[5];
-  v2 = (a1 + 4);
+  v3 = *(a1 + 4);
+  v4 = *(a1 + 5);
+  v2 = (a1 + 32);
   while (v3 != v4)
   {
     if (*v3)
@@ -9104,7 +9115,7 @@ void *ggl::FragmentedPool<ggl::DaVinci::DecalPipelineSetup>::~FragmentedPool(voi
   }
 
   v5 = *a1;
-  v6 = a1[1];
+  v6 = *(a1 + 1);
   while (v5 != v6)
   {
     if (*v5)
@@ -9115,18 +9126,18 @@ void *ggl::FragmentedPool<ggl::DaVinci::DecalPipelineSetup>::~FragmentedPool(voi
     ++v5;
   }
 
-  std::__function::__value_func<void ()(ggl::DaVinci::DecalPipelineSetup *)>::~__value_func[abi:nn200100]((a1 + 12));
-  std::__function::__value_func<ggl::DaVinci::DecalPipelineSetup * ()(void)>::~__value_func[abi:nn200100]((a1 + 8));
+  std::__function::__value_func<void ()(ggl::DaVinci::DecalPipelineSetup *)>::~__value_func[abi:nn200100](a1 + 96);
+  std::__function::__value_func<ggl::DaVinci::DecalPipelineSetup * ()(void)>::~__value_func[abi:nn200100](a1 + 64);
   std::vector<ggl::DaVinci::DecalPipelineSetup *,geo::allocator_adapter<ggl::DaVinci::DecalPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](v2);
   std::vector<ggl::DaVinci::DecalPipelineSetup *,geo::allocator_adapter<ggl::DaVinci::DecalPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](a1);
   return a1;
 }
 
-void sub_1B2969170(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1B2969170(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   ggl::BufferMemory::~BufferMemory(va);
-  std::__shared_weak_count::__release_shared[abi:nn200100](v10);
+  std::__shared_weak_count::__release_shared[abi:nn200100](v17);
   _Unwind_Resume(a1);
 }
 
@@ -9203,13 +9214,13 @@ uint64_t ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID
   return result;
 }
 
-void std::vector<ggl::DaVinci::RibbonPipelineSetup *,geo::allocator_adapter<ggl::DaVinci::RibbonPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::DaVinci::RibbonPipelineSetup *,geo::allocator_adapter<ggl::DaVinci::RibbonPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::DaVinci::RibbonPipelineSetup *>(v2, v1);
   }
@@ -9294,31 +9305,32 @@ void *ggl::FragmentedPool<ggl::DaVinci::GroundShadowMapPipelineSetup>::~Fragment
   return a1;
 }
 
-void sub_1B2969BC8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16, char a17)
+void sub_1B2969BC8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16, ...)
 {
+  va_start(va, a16);
   ggl::BufferMemory::~BufferMemory(&a9);
   if (a16)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](a16);
   }
 
-  ggl::BufferMemory::~BufferMemory(&a17);
-  v19 = *(v17 - 88);
-  if (v19)
+  ggl::BufferMemory::~BufferMemory(va);
+  v18 = *(v16 - 88);
+  if (v18)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v19);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v18);
   }
 
   _Unwind_Resume(a1);
 }
 
-void std::vector<ggl::DaVinci::GroundShadowMapPipelineSetup *,geo::allocator_adapter<ggl::DaVinci::GroundShadowMapPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::DaVinci::GroundShadowMapPipelineSetup *,geo::allocator_adapter<ggl::DaVinci::GroundShadowMapPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::DaVinci::GroundShadowMapPipelineSetup *>(v2, v1);
   }
@@ -9384,13 +9396,13 @@ void *ggl::FragmentedPool<ggl::DaVinci::GroundDepthPipelineSetup>::~FragmentedPo
   return a1;
 }
 
-void std::vector<ggl::DaVinci::GroundDepthPipelineSetup *,geo::allocator_adapter<ggl::DaVinci::GroundDepthPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::DaVinci::GroundDepthPipelineSetup *,geo::allocator_adapter<ggl::DaVinci::GroundDepthPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::DaVinci::GroundDepthPipelineSetup *>(v2, v1);
   }
@@ -9621,9 +9633,9 @@ LABEL_26:
   return result;
 }
 
-void sub_1B296A48C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1B296A48C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   std::__function::__value_func<void ()(md::ls::FlyoverSharedConstants const&)>::~__value_func[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -9638,13 +9650,13 @@ uint64_t std::__function::__func<ecs2::ForwardToExecute<md::ita::AssignFlyoverSh
   return result;
 }
 
-void std::vector<ggl::DaVinci::GroundNonCompressedPipelineSetup *,geo::allocator_adapter<ggl::DaVinci::GroundNonCompressedPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::DaVinci::GroundNonCompressedPipelineSetup *,geo::allocator_adapter<ggl::DaVinci::GroundNonCompressedPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::DaVinci::GroundNonCompressedPipelineSetup *>(v2, v1);
   }
@@ -9666,8 +9678,8 @@ mdm::zone_mallocator *std::__split_buffer<std::unique_ptr<md::RoadRibbon,mdm::Ty
   v3 = *(a1 + 1);
   for (i = *(a1 + 2); i != v3; i = *(v1 + 2))
   {
-    *(v1 + 2) = i - 1;
-    a1 = std::unique_ptr<md::RoadRibbon,mdm::TypeDeleter<md::RoadRibbon>>::~unique_ptr[abi:nn200100](i - 1);
+    *(v1 + 2) = i - 8;
+    a1 = std::unique_ptr<md::RoadRibbon,mdm::TypeDeleter<md::RoadRibbon>>::~unique_ptr[abi:nn200100]((i - 8));
   }
 
   v4 = *v1;

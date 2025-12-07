@@ -8,6 +8,7 @@
 - (void)suspend;
 - (void)textDidChange:(id)change;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation ASAccessoryNameEditingController
@@ -67,12 +68,12 @@
     self->_deviceName = name;
 
     v9 = objc_alloc(MEMORY[0x277CBEB18]);
-    emptyGroupSpecifier = [(objc_class *)getPSSpecifierClass() emptyGroupSpecifier];
+    emptyGroupSpecifier = [getPSSpecifierClass(v9) emptyGroupSpecifier];
     v11 = [v9 initWithObjects:{emptyGroupSpecifier, 0}];
 
-    PSSpecifierClass = getPSSpecifierClass();
+    v12 = (getPSSpecifierClass)();
     WeakRetained = objc_loadWeakRetained((&self->super.super.super.super.super.isa + *MEMORY[0x277D3FD00]));
-    v14 = [(objc_class *)PSSpecifierClass preferenceSpecifierNamed:0 target:WeakRetained set:sel_saveEditedName_specifier_ get:sel_getDeviceName_ detail:0 cell:8 edit:0];
+    v14 = [(objc_class *)v12 preferenceSpecifierNamed:0 target:WeakRetained set:sel_saveEditedName_specifier_ get:sel_getDeviceName_ detail:0 cell:8 edit:0];
 
     [v14 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FF28]];
     [v11 addObject:v14];
@@ -93,6 +94,17 @@
   v4.receiver = self;
   v4.super_class = ASAccessoryNameEditingController;
   [(ASAccessoryNameEditingController *)&v4 suspend];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  firstResponder = [*(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FC58]) firstResponder];
+  [firstResponder resignFirstResponder];
+
+  v6.receiver = self;
+  v6.super_class = ASAccessoryNameEditingController;
+  [(ASAccessoryNameEditingController *)&v6 viewWillDisappear:disappearCopy];
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path

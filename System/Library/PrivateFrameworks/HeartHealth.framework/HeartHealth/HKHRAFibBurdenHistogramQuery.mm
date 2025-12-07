@@ -2,7 +2,6 @@
 - (HKHRAFibBurdenHistogramQuery)initWithResultsHandler:(id)handler;
 - (void)client_deliverHistogramResult:(id)result queryUUID:(id)d;
 - (void)queue_deliverError:(id)error;
-- (void)queue_queryDidDeactivate:(id)deactivate;
 - (void)queue_validate;
 @end
 
@@ -63,26 +62,21 @@ void __72__HKHRAFibBurdenHistogramQuery_client_deliverHistogramResult_queryUUID_
 
 uint64_t __72__HKHRAFibBurdenHistogramQuery_client_deliverHistogramResult_queryUUID___block_invoke_2(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = HKHRAFibBurdenLogForCategory(3);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = a1[4];
-    v3 = a1[5];
-    v5 = HKSensitiveLogItem();
-    v10 = 138412546;
-    v11 = v4;
-    v12 = 2112;
-    v13 = v5;
-    _os_log_impl(&dword_228942000, v2, OS_LOG_TYPE_DEFAULT, "[%@] Delivering histogram result: %@", &v10, 0x16u);
+    v3 = a1[4];
+    v4 = HKSensitiveLogItem();
+    v6 = 138412546;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v4;
+    _os_log_impl(&dword_228942000, v2, OS_LOG_TYPE_DEFAULT, "[%@] Delivering histogram result: %@", &v6, 0x16u);
   }
 
-  v6 = a1[5];
-  v7 = a1[4];
-  result = (*(a1[6] + 16))();
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(a1[6] + 16))();
 }
 
 - (void)queue_deliverError:(id)error
@@ -112,13 +106,6 @@ uint64_t __72__HKHRAFibBurdenHistogramQuery_client_deliverHistogramResult_queryU
   {
     [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CCE1C8] format:{@"%@ resultsHandler must not be nil", objc_opt_class()}];
   }
-}
-
-- (void)queue_queryDidDeactivate:(id)deactivate
-{
-  resultsHandler = self->_resultsHandler;
-  self->_resultsHandler = 0;
-  MEMORY[0x2821F96F8]();
 }
 
 @end

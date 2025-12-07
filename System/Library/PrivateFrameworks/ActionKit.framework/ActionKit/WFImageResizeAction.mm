@@ -88,42 +88,15 @@ void __50__WFImageResizeAction_runAsynchronouslyWithInput___block_invoke_4(uint6
 
 void __50__WFImageResizeAction_runAsynchronouslyWithInput___block_invoke_3(uint64_t a1, void *a2)
 {
-  v14 = a2;
-  if (v14)
+  v3 = a2;
+  if (v3)
   {
     WFImageSizeFromFile();
-    v4 = v3;
-    v6 = v5;
-    v8 = *(a1 + 48);
-    v7 = *(a1 + 56);
-    if ([*(a1 + 32) isEqualToString:@"Size"])
+    if (![*(a1 + 32) isEqualToString:@"Size"] && !objc_msgSend(*(a1 + 32), "isEqualToString:", @"Percentage"))
     {
-      if (*(a1 + 48) == 0.0)
-      {
-        v9 = v4 / v6 * *(a1 + 56);
-      }
-
-      else
-      {
-        *(a1 + 56);
-      }
+      [*(a1 + 32) isEqualToString:@"Longest Edge"];
     }
 
-    else if ([*(a1 + 32) isEqualToString:@"Percentage"])
-    {
-      v10 = v6 * *(a1 + 64) / 100.0;
-    }
-
-    else if ([*(a1 + 32) isEqualToString:@"Longest Edge"])
-    {
-      v11 = *(a1 + 72);
-      if (v6 <= v4)
-      {
-        v12 = *(a1 + 72);
-      }
-    }
-
-    v13 = *(a1 + 40);
     WFAsyncTransformedImageFromImage();
   }
 

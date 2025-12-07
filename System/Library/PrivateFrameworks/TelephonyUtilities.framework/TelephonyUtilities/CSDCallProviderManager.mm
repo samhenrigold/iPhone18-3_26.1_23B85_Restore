@@ -7,7 +7,10 @@
 - (CSDCallProviderManager)initWithDataSource:(id)source serialQueue:(id)queue;
 - (CSDCallProviderManager)initWithDataSource:(id)source serialQueue:(id)queue configurationProvider:(id)provider featureFlags:(id)flags;
 - (CSDCallProviderManager)initWithDataSource:(id)source serialQueue:(id)queue featureFlags:(id)flags;
+- (id)_defaultAppProviderForRemoteClients:(BOOL)clients;
 - (id)_providersByIdentifierForRemoteClients:(BOOL)clients;
+- (id)_providersPassingTest:(id)test forRemoteClients:(BOOL)clients;
+- (id)_sortedProvidersForRemoteClients:(BOOL)clients;
 - (id)defaultAppProviderForRemoteClients:(BOOL)clients;
 - (id)defaultAppRelayProviderToUse;
 - (id)localProvidersByIdentifierForRemoteClients:(BOOL)clients;
@@ -187,76 +190,76 @@ LABEL_4:
 
     if (v11)
     {
-      v27 = sub_100004778();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      v29 = sub_100004778(v13);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
-        v28 = [localProvidersByIdentifier objectForKeyedSubscript:@"com.apple.coretelephony"];
+        v30 = [localProvidersByIdentifier objectForKeyedSubscript:@"com.apple.coretelephony"];
         relayHostDeviceProvidersByIdentifier2 = [(CSDCallProviderManager *)selfCopy relayHostDeviceProvidersByIdentifier];
-        v30 = [relayHostDeviceProvidersByIdentifier2 objectForKeyedSubscript:@"com.apple.coretelephony"];
+        v32 = [relayHostDeviceProvidersByIdentifier2 objectForKeyedSubscript:@"com.apple.coretelephony"];
         *buf = 138412546;
-        v41 = v28;
-        v42 = 2112;
         v43 = v30;
-        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Updating current telephony provider from %@ to %@", buf, 0x16u);
+        v44 = 2112;
+        v45 = v32;
+        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Updating current telephony provider from %@ to %@", buf, 0x16u);
       }
 
       relayHostDeviceProvidersByIdentifier3 = [(CSDCallProviderManager *)selfCopy relayHostDeviceProvidersByIdentifier];
-      v32 = [relayHostDeviceProvidersByIdentifier3 objectForKeyedSubscript:@"com.apple.coretelephony"];
-      [localProvidersByIdentifier setObject:v32 forKeyedSubscript:@"com.apple.coretelephony"];
+      v34 = [relayHostDeviceProvidersByIdentifier3 objectForKeyedSubscript:@"com.apple.coretelephony"];
+      [localProvidersByIdentifier setObject:v34 forKeyedSubscript:@"com.apple.coretelephony"];
     }
   }
 
-  v13 = sub_100004778();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = sub_100004778(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v41 = localProvidersByIdentifier;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Updating current providers to %@", buf, 0xCu);
+    v43 = localProvidersByIdentifier;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Updating current providers to %@", buf, 0xCu);
   }
 
   [(CSDCallProviderManager *)selfCopy setProvidersByIdentifier:localProvidersByIdentifier];
   if (keychainCopy)
   {
+    v39 = 0u;
+    v40 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v35 = 0u;
-    v36 = 0u;
-    v14 = selfCopy;
+    v15 = selfCopy;
     obj = [(CSDCallProviderManager *)selfCopy delegateToQueue];
-    v15 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
-    if (v15)
+    v16 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+    if (v16)
     {
-      v16 = v15;
-      v17 = *v36;
+      v17 = v16;
+      v18 = *v38;
       do
       {
-        for (i = 0; i != v16; i = i + 1)
+        for (i = 0; i != v17; i = i + 1)
         {
-          if (*v36 != v17)
+          if (*v38 != v18)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v35 + 1) + 8 * i);
-          delegateToQueue = [(CSDCallProviderManager *)v14 delegateToQueue];
-          v21 = [delegateToQueue objectForKey:v19];
+          v20 = *(*(&v37 + 1) + 8 * i);
+          delegateToQueue = [(CSDCallProviderManager *)v15 delegateToQueue];
+          v22 = [delegateToQueue objectForKey:v20];
 
           block[0] = _NSConcreteStackBlock;
           block[1] = 3221225472;
           block[2] = sub_1001F2010;
           block[3] = &unk_100619D88;
-          block[4] = v19;
-          block[5] = v14;
-          dispatch_async(v21, block);
+          block[4] = v20;
+          block[5] = v15;
+          dispatch_async(v22, block);
         }
 
-        v16 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+        v17 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
       }
 
-      while (v16);
+      while (v17);
     }
 
-    selfCopy = v14;
+    selfCopy = v15;
   }
 
   featureFlags2 = [(CSDCallProviderManager *)selfCopy featureFlags];
@@ -265,20 +268,20 @@ LABEL_4:
     goto LABEL_26;
   }
 
-  v23 = +[TUCallCapabilities supportsPrimaryCalling];
+  v24 = +[TUCallCapabilities supportsPrimaryCalling];
 
-  if (v23)
+  if (v24)
   {
     providersByIdentifier = [(CSDCallProviderManager *)selfCopy providersByIdentifier];
     featureFlags2 = [providersByIdentifier objectForKeyedSubscript:@"com.apple.coretelephony"];
 
     if (featureFlags2)
     {
-      v25 = sub_100004778();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      v27 = sub_100004778(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Updating telephony provider in iCluod KVS", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Updating telephony provider in iCluod KVS", buf, 2u);
       }
 
       relayCallProviderDataSource = [(CSDCallProviderManager *)selfCopy relayCallProviderDataSource];
@@ -354,15 +357,16 @@ LABEL_26:
       v20 = *v30;
       do
       {
-        for (j = 0; j != v19; j = j + 1)
+        v21 = 0;
+        do
         {
           if (*v30 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v22 = *(*(&v29 + 1) + 8 * j);
-          v23 = sub_100004778();
+          v22 = *(*(&v29 + 1) + 8 * v21);
+          v23 = sub_100004778(v18);
           if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
@@ -373,12 +377,16 @@ LABEL_26:
           localProvidersByIdentifier2 = [(CSDCallProviderManager *)self localProvidersByIdentifier];
           identifier = [v22 identifier];
           [localProvidersByIdentifier2 setObject:0 forKeyedSubscript:identifier];
+
+          v21 = v21 + 1;
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v29 objects:v39 count:16];
+        while (v19 != v21);
+        v18 = [v17 countByEnumeratingWithState:&v29 objects:v39 count:16];
+        v19 = v18;
       }
 
-      while (v19);
+      while (v18);
     }
 
     localProvidersByIdentifier3 = [(CSDCallProviderManager *)self localProvidersByIdentifier];
@@ -447,12 +455,12 @@ LABEL_26:
   queue = [(CSDCallProviderManager *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = sub_100004778();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = identifierCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Donating user intent to call provider with identifier: %@", &v8, 0xCu);
+    v9 = 138412290;
+    v10 = identifierCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Donating user intent to call provider with identifier: %@", &v9, 0xCu);
   }
 
   userIntentManager = [(CSDCallProviderManager *)self userIntentManager];
@@ -465,12 +473,12 @@ LABEL_26:
   queue = [(CSDCallProviderManager *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = sub_100004778();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = identifierCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Donating background call intent to call provider with identifier: %@", &v8, 0xCu);
+    v9 = 138412290;
+    v10 = identifierCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Donating background call intent to call provider with identifier: %@", &v9, 0xCu);
   }
 
   userIntentManager = [(CSDCallProviderManager *)self userIntentManager];
@@ -628,40 +636,283 @@ LABEL_26:
   return v6;
 }
 
+- (id)_sortedProvidersForRemoteClients:(BOOL)clients
+{
+  clientsCopy = clients;
+  queue = [(CSDCallProviderManager *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v6 = [(CSDCallProviderManager *)self _defaultAppProviderForRemoteClients:clientsCopy];
+  v7 = [(CSDCallProviderManager *)self _providersByIdentifierForRemoteClients:clientsCopy];
+  allValues = [v7 allValues];
+
+  v9 = [allValues sortedArrayUsingComparator:&stru_10061E560];
+  v10 = [v9 mutableCopy];
+
+  if (v6)
+  {
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_1001F3258;
+    v14[3] = &unk_10061E588;
+    v11 = v6;
+    v15 = v11;
+    v12 = [v10 indexesOfObjectsPassingTest:v14];
+    [v10 removeObjectsAtIndexes:v12];
+    [v10 insertObject:v11 atIndex:0];
+  }
+
+  return v10;
+}
+
 - (id)defaultAppProviderForRemoteClients:(BOOL)clients
 {
   clientsCopy = clients;
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x3032000000;
-  v15 = sub_1000286E4;
-  v16 = sub_1000328FC;
-  v17 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = sub_1000286E4;
+  v17 = sub_1000328FC;
+  v18 = 0;
   queue = [(CSDCallProviderManager *)self queue];
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1001F3424;
   block[3] = &unk_10061CE30;
   block[4] = self;
-  block[5] = &v12;
-  v11 = clientsCopy;
+  block[5] = &v13;
+  v12 = clientsCopy;
   dispatch_sync(queue, block);
 
-  v6 = sub_100004778();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = v13[5];
+    v8 = v14[5];
     *buf = 67109378;
-    v19 = clientsCopy;
-    v20 = 2112;
-    v21 = v7;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Fetched default app provider forRemoteClient %d %@", buf, 0x12u);
+    v20 = clientsCopy;
+    v21 = 2112;
+    v22 = v8;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Fetched default app provider forRemoteClient %d %@", buf, 0x12u);
   }
 
-  v8 = v13[5];
-  _Block_object_dispose(&v12, 8);
+  v9 = v14[5];
+  _Block_object_dispose(&v13, 8);
 
-  return v8;
+  return v9;
+}
+
+- (id)_defaultAppProviderForRemoteClients:(BOOL)clients
+{
+  clientsCopy = clients;
+  queue = [(CSDCallProviderManager *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  localProvidersByIdentifier = [(CSDCallProviderManager *)self localProvidersByIdentifier];
+  v7 = [localProvidersByIdentifier objectForKeyedSubscript:@"com.apple.coretelephony"];
+
+  localProvidersByIdentifier2 = [(CSDCallProviderManager *)self localProvidersByIdentifier];
+  v9 = [localProvidersByIdentifier2 objectForKeyedSubscript:@"com.apple.telephonyutilities.callservicesd.FaceTimeProvider"];
+
+  configurationProvider = [(CSDCallProviderManager *)self configurationProvider];
+  if ([configurationProvider isUplevelFTAEnabled])
+  {
+    v11 = v9;
+  }
+
+  else
+  {
+    v11 = v7;
+  }
+
+  v12 = v11;
+
+  featureFlags = [(CSDCallProviderManager *)self featureFlags];
+  defaultAppsEnabled = [featureFlags defaultAppsEnabled];
+
+  if ((defaultAppsEnabled & 1) == 0)
+  {
+    defaultAppRelayProviderToUse = v12;
+    goto LABEL_41;
+  }
+
+  v15 = [(CSDCallProviderManager *)self _providersByIdentifierForRemoteClients:clientsCopy];
+  allValues = [v15 allValues];
+
+  v17 = +[IMLockdownManager sharedInstance];
+  isInternalInstall = [v17 isInternalInstall];
+
+  if (isInternalInstall)
+  {
+    v19 = +[NSUserDefaults tu_defaults];
+    defaultAppBundleIdentifier = [v19 stringForKey:@"DebugDefaultAppsProvider"];
+
+    v21 = [defaultAppBundleIdentifier length];
+    if (v21)
+    {
+      v49 = clientsCopy;
+      v22 = sub_100004778(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412290;
+        v59 = defaultAppBundleIdentifier;
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "[Internal] Found DebugDefaultAppsProvider userdefault value %@", buf, 0xCu);
+      }
+
+      v55 = 0u;
+      v56 = 0u;
+      v53 = 0u;
+      v54 = 0u;
+      v50 = allValues;
+      v23 = allValues;
+      v24 = [v23 countByEnumeratingWithState:&v53 objects:v57 count:16];
+      if (v24)
+      {
+        v25 = v24;
+        v26 = *v54;
+        v47 = v9;
+        v48 = v7;
+        v46 = v12;
+LABEL_11:
+        v27 = 0;
+        while (1)
+        {
+          if (*v54 != v26)
+          {
+            objc_enumerationMutation(v23);
+          }
+
+          v28 = *(*(&v53 + 1) + 8 * v27);
+          identifier = [v28 identifier];
+          if ([identifier isEqualToString:defaultAppBundleIdentifier])
+          {
+            break;
+          }
+
+          bundleIdentifier = [v28 bundleIdentifier];
+          v31 = [bundleIdentifier isEqualToString:defaultAppBundleIdentifier];
+
+          if (v31)
+          {
+            goto LABEL_21;
+          }
+
+          if (v25 == ++v27)
+          {
+            v25 = [v23 countByEnumeratingWithState:&v53 objects:v57 count:16];
+            v9 = v47;
+            v7 = v48;
+            v12 = v46;
+            if (v25)
+            {
+              goto LABEL_11;
+            }
+
+            goto LABEL_18;
+          }
+        }
+
+LABEL_21:
+        defaultAppRelayProviderToUse = v28;
+
+        v9 = v47;
+        v7 = v48;
+        v12 = v46;
+        allValues = v50;
+        clientsCopy = v49;
+        if (!defaultAppRelayProviderToUse)
+        {
+          goto LABEL_25;
+        }
+
+        v34 = sub_100004778(v33);
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412290;
+          v59 = defaultAppRelayProviderToUse;
+          _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "[Internal] Found matching debug provider %@", buf, 0xCu);
+        }
+
+        goto LABEL_39;
+      }
+
+LABEL_18:
+
+      allValues = v50;
+      clientsCopy = v49;
+    }
+
+LABEL_25:
+  }
+
+  featureFlags2 = [(CSDCallProviderManager *)self featureFlags];
+  phoneAppCoupledRelayEnabled = [featureFlags2 phoneAppCoupledRelayEnabled];
+
+  if ((phoneAppCoupledRelayEnabled & 1) == 0)
+  {
+    defaultAppRelayProviderToUse = [(CSDCallProviderManager *)self defaultAppRelayProviderToUse];
+    if (defaultAppRelayProviderToUse)
+    {
+      goto LABEL_40;
+    }
+  }
+
+  defaultAppBundleIdentifier = [objc_opt_class() defaultAppBundleIdentifier];
+  v37 = [defaultAppBundleIdentifier length];
+  if (!v37)
+  {
+    goto LABEL_33;
+  }
+
+  if (![defaultAppBundleIdentifier isEqualToString:TUBundleIdentifierPhoneApplication])
+  {
+    v51[0] = _NSConcreteStackBlock;
+    v51[1] = 3221225472;
+    v51[2] = sub_1001F3990;
+    v51[3] = &unk_10061E5B0;
+    v38 = defaultAppBundleIdentifier;
+    v52 = v38;
+    v39 = [(CSDCallProviderManager *)self _providersPassingTest:v51 forRemoteClients:clientsCopy];
+    defaultAppRelayProviderToUse = [v39 firstObject];
+
+    if (defaultAppRelayProviderToUse)
+    {
+      defaultAppBundleIdentifier = v38;
+      goto LABEL_39;
+    }
+
+LABEL_33:
+    v40 = sub_100004778(v37);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    {
+      sub_10047ADA8();
+    }
+
+    localProvidersByIdentifier3 = [(CSDCallProviderManager *)self localProvidersByIdentifier];
+    v42 = [localProvidersByIdentifier3 objectForKeyedSubscript:@"com.apple.telephonyutilities.callservicesd.FaceTimeProvider"];
+
+    configurationProvider2 = [(CSDCallProviderManager *)self configurationProvider];
+    if ([configurationProvider2 isUplevelFTAEnabled])
+    {
+      v44 = v42;
+    }
+
+    else
+    {
+      v44 = v7;
+    }
+
+    defaultAppRelayProviderToUse = v44;
+
+    goto LABEL_39;
+  }
+
+  defaultAppRelayProviderToUse = v12;
+LABEL_39:
+
+LABEL_40:
+LABEL_41:
+
+  return defaultAppRelayProviderToUse;
 }
 
 - (void)registerLocalProvider:(id)provider
@@ -816,83 +1067,133 @@ LABEL_26:
 
     v10 = TUDialRequestUserActivityTypeCall;
     v11 = [v8 containsObject:TUDialRequestUserActivityTypeCall];
+    v12 = v11;
     if (v11)
     {
-      v12 = sub_100004778();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = sub_100004778(v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
-        v21 = intentsCopy;
-        v22 = 2114;
-        v23 = v10;
-        v13 = "App %{public}@ supports %{public}@.";
-        v14 = v12;
-        v15 = 22;
+        v23 = intentsCopy;
+        v24 = 2114;
+        v25 = v10;
+        v14 = "App %{public}@ supports %{public}@.";
+        v15 = v13;
+        v16 = 22;
 LABEL_12:
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, v13, buf, v15);
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, v14, buf, v16);
       }
     }
 
     else
     {
-      v17 = TUDialRequestUserActivityTypeAudioCall;
-      if (([v8 containsObject:TUDialRequestUserActivityTypeAudioCall] & 1) == 0)
+      v18 = TUDialRequestUserActivityTypeAudioCall;
+      v19 = [v8 containsObject:TUDialRequestUserActivityTypeAudioCall];
+      if ((v19 & 1) == 0)
       {
-        v18 = TUDialRequestUserActivityTypeVideoCall;
-        if (![v8 containsObject:TUDialRequestUserActivityTypeVideoCall])
+        v20 = TUDialRequestUserActivityTypeVideoCall;
+        v19 = [v8 containsObject:TUDialRequestUserActivityTypeVideoCall];
+        if (!v19)
         {
-          v12 = sub_100004778();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+          v13 = sub_100004778(v19);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
             *buf = 138544130;
-            v21 = intentsCopy;
-            v22 = 2114;
-            v23 = v17;
+            v23 = intentsCopy;
             v24 = 2114;
             v25 = v18;
-            v26 = 2112;
-            v27 = v9;
-            _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "App %{public}@ does not declare support for any dialing intents. Using %{public}@ or %{public}@. Error: %@", buf, 0x2Au);
+            v26 = 2114;
+            v27 = v20;
+            v28 = 2112;
+            v29 = v9;
+            _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "App %{public}@ does not declare support for any dialing intents. Using %{public}@ or %{public}@. Error: %@", buf, 0x2Au);
           }
 
           goto LABEL_15;
         }
       }
 
-      v12 = sub_100004778();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = sub_100004778(v19);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138544130;
-        v21 = intentsCopy;
-        v22 = 2114;
-        v23 = v10;
+        v23 = intentsCopy;
         v24 = 2114;
-        v25 = v17;
+        v25 = v10;
         v26 = 2114;
-        v27 = TUDialRequestUserActivityTypeVideoCall;
-        v13 = "[WARN] App %{public}@ does not support %{public}@, using deprecated %{public}@ and %{public}@.";
-        v14 = v12;
-        v15 = 42;
+        v27 = v18;
+        v28 = 2114;
+        v29 = TUDialRequestUserActivityTypeVideoCall;
+        v14 = "[WARN] App %{public}@ does not support %{public}@, using deprecated %{public}@ and %{public}@.";
+        v15 = v13;
+        v16 = 42;
         goto LABEL_12;
       }
     }
 
 LABEL_15:
 
-    v16 = v11 ^ 1;
+    v17 = v12 ^ 1;
     goto LABEL_16;
   }
 
-  v9 = sub_100004778();
+  v9 = sub_100004778(0);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     sub_10047AF28();
   }
 
-  v16 = 0;
+  v17 = 0;
 LABEL_16:
 
-  return v16;
+  return v17;
+}
+
+- (id)_providersPassingTest:(id)test forRemoteClients:(BOOL)clients
+{
+  clientsCopy = clients;
+  testCopy = test;
+  queue = [(CSDCallProviderManager *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v8 = [(CSDCallProviderManager *)self _providersByIdentifierForRemoteClients:clientsCopy];
+  allValues = [v8 allValues];
+  v10 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(allValues, "count")}];
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v11 = allValues;
+  v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  if (v12)
+  {
+    v13 = v12;
+    v14 = *v20;
+    do
+    {
+      for (i = 0; i != v13; i = i + 1)
+      {
+        if (*v20 != v14)
+        {
+          objc_enumerationMutation(v11);
+        }
+
+        v16 = *(*(&v19 + 1) + 8 * i);
+        if (testCopy[2](testCopy, v16))
+        {
+          [v10 addObject:{v16, v19}];
+        }
+      }
+
+      v13 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    }
+
+    while (v13);
+  }
+
+  v17 = [v10 copy];
+
+  return v17;
 }
 
 - (id)defaultAppRelayProviderToUse
@@ -968,15 +1269,15 @@ LABEL_8:
 
     if ((v10 & 1) == 0)
     {
-      v14 = v7;
-      v11 = [NSArray arrayWithObjects:&v14 count:1];
+      v15 = v7;
+      v11 = [NSArray arrayWithObjects:&v15 count:1];
       [(CSDCallProviderManager *)self registerRelayHostDeviceProviders:v11];
 
-      v12 = sub_100004778();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = sub_100004778(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        *v13 = 0;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Updated relay host call providers", v13, 2u);
+        *v14 = 0;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Updated relay host call providers", v14, 2u);
       }
     }
   }

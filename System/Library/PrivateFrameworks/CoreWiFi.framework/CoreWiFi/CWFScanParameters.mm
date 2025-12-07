@@ -194,45 +194,8 @@ LABEL_21:
         v90 = v35;
 LABEL_37:
         numberOfScans = self->_numberOfScans;
-        if (numberOfScans != [parametersCopy numberOfScans])
+        if (numberOfScans != [parametersCopy numberOfScans] || (restTime = self->_restTime, restTime != objc_msgSend(parametersCopy, "restTime")) || (dwellTime = self->_dwellTime, dwellTime != objc_msgSend(parametersCopy, "dwellTime")) || (acceptableCacheAge = self->_acceptableCacheAge, acceptableCacheAge != objc_msgSend(parametersCopy, "acceptableCacheAge")) || (BSSType = self->_BSSType, BSSType != objc_msgSend(parametersCopy, "BSSType")) || (PHYMode = self->_PHYMode, PHYMode != objc_msgSend(parametersCopy, "PHYMode")) || (scanType = self->_scanType, scanType != objc_msgSend(parametersCopy, "scanType")) || (minimumRSSI = self->_minimumRSSI, minimumRSSI != objc_msgSend(parametersCopy, "minimumRSSI")) || (maximumAge = self->_maximumAge, maximumAge != objc_msgSend(parametersCopy, "maximumAge")) || (minimumTimestamp = self->_minimumTimestamp, minimumTimestamp != objc_msgSend(parametersCopy, "minimumTimestamp")) || (mergeScanResults = self->_mergeScanResults, mergeScanResults != objc_msgSend(parametersCopy, "mergeScanResults")) || (includeHiddenNetworks = self->_includeHiddenNetworks, includeHiddenNetworks != objc_msgSend(parametersCopy, "includeHiddenNetworks")) || (addScanDurationToMaxAge = self->_addScanDurationToMaxAge, addScanDurationToMaxAge != objc_msgSend(parametersCopy, "addScanDurationToMaxAge")) || (scanFlags = self->_scanFlags, scanFlags != objc_msgSend(parametersCopy, "scanFlags")))
         {
-          goto LABEL_56;
-        }
-
-        restTime = self->_restTime;
-        if (restTime != [parametersCopy restTime])
-        {
-          goto LABEL_56;
-        }
-
-        dwellTime = self->_dwellTime;
-        if (dwellTime != [parametersCopy dwellTime])
-        {
-          goto LABEL_56;
-        }
-
-        acceptableCacheAge = self->_acceptableCacheAge;
-        if (acceptableCacheAge != [parametersCopy acceptableCacheAge])
-        {
-          goto LABEL_56;
-        }
-
-        BSSType = self->_BSSType;
-        if (BSSType != [parametersCopy BSSType])
-        {
-          goto LABEL_56;
-        }
-
-        PHYMode = self->_PHYMode;
-        if (PHYMode != [parametersCopy PHYMode])
-        {
-          goto LABEL_56;
-        }
-
-        scanType = self->_scanType;
-        if (scanType != [parametersCopy scanType] || (minimumRSSI = self->_minimumRSSI, minimumRSSI != objc_msgSend(parametersCopy, "minimumRSSI")) || (maximumAge = self->_maximumAge, maximumAge != objc_msgSend(parametersCopy, "maximumAge")) || (minimumTimestamp = self->_minimumTimestamp, minimumTimestamp != objc_msgSend(parametersCopy, "minimumTimestamp")) || (mergeScanResults = self->_mergeScanResults, mergeScanResults != objc_msgSend(parametersCopy, "mergeScanResults")) || (includeHiddenNetworks = self->_includeHiddenNetworks, includeHiddenNetworks != objc_msgSend(parametersCopy, "includeHiddenNetworks")) || (addScanDurationToMaxAge = self->_addScanDurationToMaxAge, addScanDurationToMaxAge != objc_msgSend(parametersCopy, "addScanDurationToMaxAge")) || (scanFlags = self->_scanFlags, scanFlags != objc_msgSend(parametersCopy, "scanFlags")))
-        {
-LABEL_56:
           v52 = 0;
           v11 = 0;
           goto LABEL_57;

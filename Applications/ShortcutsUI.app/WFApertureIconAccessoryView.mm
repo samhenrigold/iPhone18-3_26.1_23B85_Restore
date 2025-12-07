@@ -4,6 +4,7 @@
 - (WFApertureIconAccessoryView)initWithIcon:(id)icon runningContext:(id)context;
 - (void)layoutSubviews;
 - (void)openShortcutInEditor;
+- (void)setIcon:(id)icon animated:(BOOL)animated;
 @end
 
 @implementation WFApertureIconAccessoryView
@@ -91,6 +92,28 @@
   {
     systemApertureElementContext = [(WFApertureIconAccessoryView *)self systemApertureElementContext];
     [systemApertureElementContext setElementNeedsUpdate];
+  }
+}
+
+- (void)setIcon:(id)icon animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  iconCopy = icon;
+  icon = [(WFApertureIconAccessoryView *)self icon];
+  v8 = [iconCopy isEqual:icon];
+
+  if ((v8 & 1) == 0)
+  {
+    v11.receiver = self;
+    v11.super_class = WFApertureIconAccessoryView;
+    [(WFApertureIconAccessoryView *)&v11 setIcon:iconCopy animated:animatedCopy];
+    v9 = dispatch_time(0, 150000000);
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_1000046F4;
+    block[3] = &unk_1000288A0;
+    block[4] = self;
+    dispatch_after(v9, &_dispatch_main_q, block);
   }
 }
 

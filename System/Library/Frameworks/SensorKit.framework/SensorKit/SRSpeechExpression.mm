@@ -68,12 +68,12 @@
     if (self && (isKindOfClass & 1) != 0 && (!-[SRSpeechExpression version](self, "version") && ![equal version] || (v10 = -[NSString isEqual:](-[SRSpeechExpression version](self, "version"), "isEqual:", objc_msgSend(equal, "version"))) != 0))
     {
       v11 = MEMORY[0x1E696B098];
-      [(SRSpeechExpression *)self timeRange];
+      objc_msgSend_timeRange(self);
       v12 = [v11 valueWithCMTimeRange:v25];
       v13 = MEMORY[0x1E696B098];
       if (equal)
       {
-        [equal timeRange];
+        objc_msgSend_timeRange(equal);
       }
 
       else
@@ -110,7 +110,7 @@
   v4 = MEMORY[0x1E696B098];
   if (self)
   {
-    [(SRSpeechExpression *)self timeRange];
+    objc_msgSend_timeRange(self);
   }
 
   else
@@ -160,7 +160,7 @@
 
   [coder encodeObject:self->_version forKey:@"version"];
   v6 = MEMORY[0x1E696B098];
-  [(SRSpeechExpression *)self timeRange];
+  objc_msgSend_timeRange(self);
   [coder encodeObject:objc_msgSend(v6 forKey:{"valueWithCMTimeRange:", v7), @"timeRange"}];
   [coder encodeDouble:@"confidence" forKey:self->_confidence];
   [coder encodeDouble:@"mood" forKey:self->_mood];
@@ -190,7 +190,7 @@
   v17 = v16;
   if (v7)
   {
-    [v7 CMTimeRangeValue];
+    objc_msgSend_CMTimeRangeValue(v7);
   }
 
   else

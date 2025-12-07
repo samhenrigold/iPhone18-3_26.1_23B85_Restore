@@ -55,30 +55,30 @@ uint64_t __36__NLPLearnerUtils_isInternalInstall__block_invoke()
 
 + (id)getAttachmentURLByName:(id)name attachments:(id)attachments error:(id *)error
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   attachmentsCopy = attachments;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v10 = attachmentsCopy;
-  v11 = [v10 countByEnumeratingWithState:&v28 objects:v36 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v27 objects:v35 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v29;
+    v13 = *v28;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v29 != v13)
+        if (*v28 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v28 + 1) + 8 * i);
+        v15 = *(*(&v27 + 1) + 8 * i);
         lastPathComponent = [v15 lastPathComponent];
         v17 = [lastPathComponent hasSuffix:nameCopy];
 
@@ -95,10 +95,10 @@ uint64_t __36__NLPLearnerUtils_isInternalInstall__block_invoke()
           else if (error)
           {
             v23 = MEMORY[0x277CCA9B8];
-            v34 = *MEMORY[0x277CCA450];
+            v33 = *MEMORY[0x277CCA450];
             nameCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ resource not downloaded", nameCopy];
-            v35 = nameCopy;
-            v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+            v34 = nameCopy;
+            v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
             *error = [v23 errorWithDomain:@"com.apple.QuickTypeDESPlugin" code:5 userInfo:v25];
 
             error = 0;
@@ -109,7 +109,7 @@ uint64_t __36__NLPLearnerUtils_isInternalInstall__block_invoke()
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v27 objects:v35 count:16];
       if (v12)
       {
         continue;
@@ -122,17 +122,15 @@ uint64_t __36__NLPLearnerUtils_isInternalInstall__block_invoke()
   if (error)
   {
     v18 = MEMORY[0x277CCA9B8];
-    v32 = *MEMORY[0x277CCA450];
+    v31 = *MEMORY[0x277CCA450];
     nameCopy2 = [MEMORY[0x277CCACA8] stringWithFormat:@"missing %@ resource for PFL", nameCopy];
-    v33 = nameCopy2;
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+    v32 = nameCopy2;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
     *error = [v18 errorWithDomain:@"com.apple.QuickTypeDESPlugin" code:5 userInfo:v20];
 
     error = 0;
 LABEL_16:
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return error;
 }
@@ -300,62 +298,27 @@ LABEL_9:
 
 + (void)removeTemporaryFile:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_25AE22000, v1, OS_LOG_TYPE_ERROR, "Failed to remove temporary file %@: %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)removeTemporaryFile:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25AE22000, v0, v1, "Removed temporary file %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)messageContentForEvent:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25AE22000, v0, v1, "Processing sent email from CoreDuet:\n'%{sensitive}@'", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)messageContentForEvent:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25AE22000, v0, v1, "Processing sent message from CoreDuet: '%{sensitive}@'", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)messageContentForEvent:andLanguage:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25AE22000, v0, v1, "'%{sensitive}@' discarded (too short)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_25AE22000, v1, OS_LOG_TYPE_ERROR, "Failed to remove temporary file %@: %@", v2, 0x16u);
 }
 
 + (void)messageContentForEvent:andLanguage:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_debug_impl(&dword_25AE22000, v1, OS_LOG_TYPE_DEBUG, "'%{sensitive}@' discarded (detected language not matching %@)", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_25AE22000, v1, OS_LOG_TYPE_DEBUG, "'%{sensitive}@' discarded (detected language not matching %@)", v2, 0x16u);
 }
 
 + (void)sourceForEvent:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_25AE22000, v0, OS_LOG_TYPE_ERROR, "Telemtry not supported for CoreDuet event %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_25AE22000, v0, OS_LOG_TYPE_ERROR, "Telemtry not supported for CoreDuet event %@", v1, 0xCu);
 }
 
 @end

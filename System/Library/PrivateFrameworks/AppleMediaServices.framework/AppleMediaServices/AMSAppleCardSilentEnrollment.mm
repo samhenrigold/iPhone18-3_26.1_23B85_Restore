@@ -11,38 +11,38 @@
 
 + (id)gsTokenForAccount:(id)account error:(id *)error
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   accountStore = [accountCopy accountStore];
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
   v7 = qword_1ED6E2710;
-  v24 = qword_1ED6E2710;
+  v25 = qword_1ED6E2710;
   if (!qword_1ED6E2710)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getAppleIDAuthenticationAppleIDSettingsTokenIdentifierSymbolLoc_block_invoke;
-    v26 = &unk_1E73B3880;
-    v27 = &v21;
+    v27 = &unk_1E73B3880;
+    v28 = &v22;
     __getAppleIDAuthenticationAppleIDSettingsTokenIdentifierSymbolLoc_block_invoke(buf);
-    v7 = v22[3];
+    v7 = v23[3];
   }
 
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v22, 8);
   if (!v7)
   {
-    dlerror();
-    abort_report_np();
+    v20 = dlerror();
+    abort_report_np("%s", v20);
     __break(1u);
   }
 
   v8 = *v7;
-  v20 = 0;
+  v21 = 0;
   v9 = v8;
-  v10 = [accountStore ams_fetchGrandSlamTokenForAccount:accountCopy withIdentifier:v9 error:&v20];
-  v11 = v20;
+  v10 = [accountStore ams_fetchGrandSlamTokenForAccount:accountCopy withIdentifier:v9 error:&v21];
+  v11 = v21;
 
   if (v10)
   {

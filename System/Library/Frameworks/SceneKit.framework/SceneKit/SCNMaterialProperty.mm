@@ -102,6 +102,7 @@
 - (void)copyPropertiesFrom:(id)from;
 - (void)dealloc;
 - (void)encodeWithCoder:(id)coder;
+- (void)image;
 - (void)linkCustomPropertyWithParent:(id)parent andCustomName:(id)name;
 - (void)parentWillDie:(id)die;
 - (void)pauseAnimationForKey:(id)key;
@@ -520,17 +521,17 @@ uint64_t __37__SCNMaterialProperty__clearContents__block_invoke(uint64_t a1)
   if (*(self + 8))
   {
     sceneRef = [(SCNMaterialProperty *)self sceneRef];
-    v5 = sceneRef;
+    v6 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v5);
     }
 
     effectSlot = [(SCNMaterialProperty *)self effectSlot];
-    if (effectSlot && (ColorIfApplicable = C3DEffectSlotGetColorIfApplicable(effectSlot)) != 0)
+    if (effectSlot && (ColorIfApplicable = C3DEffectSlotGetColorIfApplicable(effectSlot, v8)) != 0)
     {
       v3 = [MEMORY[0x277D75348] scn_colorWithC3DColor:ColorIfApplicable];
-      if (!v5)
+      if (!v6)
       {
         return v3;
       }
@@ -539,13 +540,13 @@ uint64_t __37__SCNMaterialProperty__clearContents__block_invoke(uint64_t a1)
     else
     {
       v3 = 0;
-      if (!v5)
+      if (!v6)
       {
         return v3;
       }
     }
 
-    C3DSceneUnlock(v5);
+    C3DSceneUnlock(v6, v8);
     return v3;
   }
 
@@ -554,9 +555,9 @@ uint64_t __37__SCNMaterialProperty__clearContents__block_invoke(uint64_t a1)
     return 0;
   }
 
-  v9 = self->_contents;
+  v11 = self->_contents;
 
-  return v9;
+  return v11;
 }
 
 - (void)setFloatValue:(id)value
@@ -587,31 +588,31 @@ uint64_t __37__SCNMaterialProperty__clearContents__block_invoke(uint64_t a1)
   if (*(self + 8))
   {
     sceneRef = [(SCNMaterialProperty *)self sceneRef];
-    v6 = sceneRef;
+    v7 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v6);
     }
 
     effectSlot = [(SCNMaterialProperty *)self effectSlot];
     if (effectSlot)
     {
-      v8 = effectSlot;
-      ColorIfApplicable = C3DEffectSlotGetColorIfApplicable(effectSlot);
+      v10 = effectSlot;
+      ColorIfApplicable = C3DEffectSlotGetColorIfApplicable(effectSlot, v9);
       if (ColorIfApplicable)
       {
-        EffectProperty = C3DEffectSlotGetEffectProperty(v8);
-        v12 = 12;
+        EffectProperty = C3DEffectSlotGetEffectProperty(v10);
+        v14 = 12;
         if (EffectProperty != 5)
         {
-          v12 = 0;
+          v14 = 0;
         }
 
-        LODWORD(v11) = *&ColorIfApplicable[v12];
-        ColorIfApplicable = [MEMORY[0x277CCABB0] numberWithFloat:v11];
+        LODWORD(v13) = *&ColorIfApplicable[v14];
+        ColorIfApplicable = [MEMORY[0x277CCABB0] numberWithFloat:v13];
       }
 
-      if (!v6)
+      if (!v7)
       {
         return ColorIfApplicable;
       }
@@ -620,13 +621,13 @@ uint64_t __37__SCNMaterialProperty__clearContents__block_invoke(uint64_t a1)
     else
     {
       ColorIfApplicable = 0;
-      if (!v6)
+      if (!v7)
       {
         return ColorIfApplicable;
       }
     }
 
-    C3DSceneUnlock(v6);
+    C3DSceneUnlock(v7, v9);
     return ColorIfApplicable;
   }
 
@@ -673,19 +674,19 @@ uint64_t __37__SCNMaterialProperty__clearContents__block_invoke(uint64_t a1)
     if (C3DImageIsCatalogTexture(c3dImage))
     {
 
-      v4 = C3DImageGetCatalogTextureName(self->_c3dImage);
+      v6 = C3DImageGetCatalogTextureName(self->_c3dImage, v5);
 LABEL_7:
-      self->_contents = v4;
+      self->_contents = v6;
       self->_contentType = 1;
       return;
     }
 
-    URL = C3DImageGetURL(self->_c3dImage);
+    URL = C3DImageGetURL(self->_c3dImage, v4);
     if (URL || (URL = [SCNMaterialProperty copyImageFromC3DImage:self->_c3dImage]) != 0)
     {
-      v6 = URL;
+      v8 = URL;
 
-      v4 = v6;
+      v6 = v8;
       goto LABEL_7;
     }
   }
@@ -757,17 +758,17 @@ LABEL_7:
   if (*(self + 8))
   {
     sceneRef = [(SCNMaterialProperty *)self sceneRef];
-    v5 = sceneRef;
+    v6 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v5);
     }
 
     textureSampler = [(SCNMaterialProperty *)self textureSampler];
     if (textureSampler)
     {
-      MinFilter = C3DTextureSamplerGetMinFilter(textureSampler);
-      if (!v5)
+      MinFilter = C3DTextureSamplerGetMinFilter(textureSampler, v8);
+      if (!v6)
       {
         return MinFilter;
       }
@@ -776,13 +777,13 @@ LABEL_7:
     else
     {
       MinFilter = SCNFilterModeNone;
-      if (!v5)
+      if (!v6)
       {
         return MinFilter;
       }
     }
 
-    C3DSceneUnlock(v5);
+    C3DSceneUnlock(v6, v8);
     return MinFilter;
   }
 
@@ -794,17 +795,17 @@ LABEL_7:
   if (*(self + 8))
   {
     sceneRef = [(SCNMaterialProperty *)self sceneRef];
-    v5 = sceneRef;
+    v6 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v5);
     }
 
     textureSampler = [(SCNMaterialProperty *)self textureSampler];
     if (textureSampler)
     {
-      MagFilter = C3DTextureSamplerGetMagFilter(textureSampler);
-      if (!v5)
+      MagFilter = C3DTextureSamplerGetMagFilter(textureSampler, v8);
+      if (!v6)
       {
         return MagFilter;
       }
@@ -813,13 +814,13 @@ LABEL_7:
     else
     {
       MagFilter = SCNFilterModeNone;
-      if (!v5)
+      if (!v6)
       {
         return MagFilter;
       }
     }
 
-    C3DSceneUnlock(v5);
+    C3DSceneUnlock(v6, v8);
     return MagFilter;
   }
 
@@ -831,17 +832,17 @@ LABEL_7:
   if (*(self + 8))
   {
     sceneRef = [(SCNMaterialProperty *)self sceneRef];
-    v5 = sceneRef;
+    v6 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v5);
     }
 
     textureSampler = [(SCNMaterialProperty *)self textureSampler];
     if (textureSampler)
     {
-      MipFilter = C3DTextureSamplerGetMipFilter(textureSampler);
-      if (!v5)
+      MipFilter = C3DTextureSamplerGetMipFilter(textureSampler, v8);
+      if (!v6)
       {
         return MipFilter;
       }
@@ -850,13 +851,13 @@ LABEL_7:
     else
     {
       MipFilter = SCNFilterModeNone;
-      if (!v5)
+      if (!v6)
       {
         return MipFilter;
       }
     }
 
-    C3DSceneUnlock(v5);
+    C3DSceneUnlock(v6, v8);
     return MipFilter;
   }
 
@@ -922,7 +923,7 @@ LABEL_7:
     return -1;
   }
 
-  return C3DEffectSlotGetUVSet(effectSlot);
+  return C3DEffectSlotGetUVSet(effectSlot, v3);
 }
 
 - (NSInteger)mappingChannel
@@ -935,10 +936,10 @@ LABEL_7:
   sceneRef = [(SCNMaterialProperty *)self sceneRef];
   if (sceneRef)
   {
-    v5 = sceneRef;
-    C3DSceneLock(sceneRef);
+    v6 = sceneRef;
+    C3DSceneLock(sceneRef, v5);
     _presentationMappingChannel = [(SCNMaterialProperty *)self _presentationMappingChannel];
-    C3DSceneUnlock(v5);
+    C3DSceneUnlock(v6, v8);
     return _presentationMappingChannel;
   }
 
@@ -983,17 +984,17 @@ void __41__SCNMaterialProperty_setMappingChannel___block_invoke(uint64_t a1)
   if (*(self + 8))
   {
     sceneRef = [(SCNMaterialProperty *)self sceneRef];
-    v5 = sceneRef;
+    v6 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v5);
     }
 
     effectSlot = [(SCNMaterialProperty *)self effectSlot];
     if (effectSlot)
     {
-      TextureComponents = C3DEffectSlotGetTextureComponents(effectSlot);
-      if (!v5)
+      TextureComponents = C3DEffectSlotGetTextureComponents(effectSlot, v8);
+      if (!v6)
       {
         return TextureComponents;
       }
@@ -1002,13 +1003,13 @@ void __41__SCNMaterialProperty_setMappingChannel___block_invoke(uint64_t a1)
     else
     {
       TextureComponents = 15;
-      if (!v5)
+      if (!v6)
       {
         return TextureComponents;
       }
     }
 
-    C3DSceneUnlock(v5);
+    C3DSceneUnlock(v6, v8);
     return TextureComponents;
   }
 
@@ -1067,9 +1068,9 @@ void __36__SCNMaterialProperty_setIntensity___block_invoke(uint64_t a1)
   v2 = [*(a1 + 32) effectSlot];
   if (v2)
   {
-    v3 = *(a1 + 40);
+    v4 = *(a1 + 40);
 
-    C3DEffectSlotSetIntensity(v2, v3);
+    C3DEffectSlotSetIntensity(v2, v3, v4);
   }
 }
 
@@ -1078,17 +1079,17 @@ void __36__SCNMaterialProperty_setIntensity___block_invoke(uint64_t a1)
   if (*(self + 8))
   {
     sceneRef = [(SCNMaterialProperty *)self sceneRef];
-    v5 = sceneRef;
+    v6 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v5);
     }
 
     effectSlot = [(SCNMaterialProperty *)self effectSlot];
     if (effectSlot)
     {
-      Intensity = C3DEffectSlotGetIntensity(effectSlot);
-      if (!v5)
+      Intensity = C3DEffectSlotGetIntensity(effectSlot, v8);
+      if (!v6)
       {
         return Intensity;
       }
@@ -1097,13 +1098,13 @@ void __36__SCNMaterialProperty_setIntensity___block_invoke(uint64_t a1)
     else
     {
       Intensity = 0.0;
-      if (!v5)
+      if (!v6)
       {
         return Intensity;
       }
     }
 
-    C3DSceneUnlock(v5);
+    C3DSceneUnlock(v6, v8);
     return Intensity;
   }
 
@@ -1115,17 +1116,17 @@ void __36__SCNMaterialProperty_setIntensity___block_invoke(uint64_t a1)
   if (*(self + 8))
   {
     sceneRef = [(SCNMaterialProperty *)self sceneRef];
-    v5 = sceneRef;
+    v6 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v5);
     }
 
     textureSampler = [(SCNMaterialProperty *)self textureSampler];
     if (textureSampler)
     {
-      v3 = [MEMORY[0x277D75348] scn_colorWithC3DColor:C3DTextureSamplerGetBorderColor(textureSampler)];
-      if (!v5)
+      v3 = [MEMORY[0x277D75348] scn_colorWithC3DColor:{C3DTextureSamplerGetBorderColor(textureSampler, v8)}];
+      if (!v6)
       {
         return v3;
       }
@@ -1134,13 +1135,13 @@ void __36__SCNMaterialProperty_setIntensity___block_invoke(uint64_t a1)
     else
     {
       v3 = 0;
-      if (!v5)
+      if (!v6)
       {
         return v3;
       }
     }
 
-    C3DSceneUnlock(v5);
+    C3DSceneUnlock(v6, v8);
     return v3;
   }
 
@@ -1173,17 +1174,17 @@ void __36__SCNMaterialProperty_setIntensity___block_invoke(uint64_t a1)
   if (*(self + 8))
   {
     sceneRef = [(SCNMaterialProperty *)self sceneRef];
-    v5 = sceneRef;
+    v6 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v5);
     }
 
     textureSampler = [(SCNMaterialProperty *)self textureSampler];
     if (textureSampler)
     {
-      WrapModeS = C3DTextureSamplerGetWrapModeS(textureSampler);
-      if (!v5)
+      WrapModeS = C3DTextureSamplerGetWrapModeS(textureSampler, v8);
+      if (!v6)
       {
         return WrapModeS;
       }
@@ -1192,13 +1193,13 @@ void __36__SCNMaterialProperty_setIntensity___block_invoke(uint64_t a1)
     else
     {
       WrapModeS = SCNWrapModeClamp;
-      if (!v5)
+      if (!v6)
       {
         return WrapModeS;
       }
     }
 
-    C3DSceneUnlock(v5);
+    C3DSceneUnlock(v6, v8);
     return WrapModeS;
   }
 
@@ -1224,7 +1225,7 @@ void __36__SCNMaterialProperty_setIntensity___block_invoke(uint64_t a1)
 
   else
   {
-    v3 = scn_default_log();
+    v3 = scn_default_log(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       [SCNMaterialProperty setWrapS:];
@@ -1237,17 +1238,17 @@ void __36__SCNMaterialProperty_setIntensity___block_invoke(uint64_t a1)
   if (*(self + 8))
   {
     sceneRef = [(SCNMaterialProperty *)self sceneRef];
-    v5 = sceneRef;
+    v6 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v5);
     }
 
     textureSampler = [(SCNMaterialProperty *)self textureSampler];
     if (textureSampler)
     {
-      WrapModeT = C3DTextureSamplerGetWrapModeT(textureSampler);
-      if (!v5)
+      WrapModeT = C3DTextureSamplerGetWrapModeT(textureSampler, v8);
+      if (!v6)
       {
         return WrapModeT;
       }
@@ -1256,13 +1257,13 @@ void __36__SCNMaterialProperty_setIntensity___block_invoke(uint64_t a1)
     else
     {
       WrapModeT = SCNWrapModeClamp;
-      if (!v5)
+      if (!v6)
       {
         return WrapModeT;
       }
     }
 
-    C3DSceneUnlock(v5);
+    C3DSceneUnlock(v6, v8);
     return WrapModeT;
   }
 
@@ -1288,7 +1289,7 @@ void __36__SCNMaterialProperty_setIntensity___block_invoke(uint64_t a1)
 
   else
   {
-    v3 = scn_default_log();
+    v3 = scn_default_log(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       [SCNMaterialProperty setWrapT:];
@@ -1303,16 +1304,16 @@ void __36__SCNMaterialProperty_setIntensity___block_invoke(uint64_t a1)
   {
     selfCopy = self;
     sceneRef = [(SCNMaterialProperty *)self sceneRef];
-    v5 = sceneRef;
+    v6 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v5);
     }
 
     LOBYTE(selfCopy) = C3DEffectSlotGetSRGB([(SCNMaterialProperty *)selfCopy effectSlot]);
-    if (v5)
+    if (v6)
     {
-      C3DSceneUnlock(v5);
+      C3DSceneUnlock(v6, v7);
     }
   }
 
@@ -1421,32 +1422,32 @@ void __38__SCNMaterialProperty_setSRGBTexture___block_invoke(uint64_t a1)
     self->_c3dImage = 0;
   }
 
-  v11 = 0;
-  v6 = [SCNMaterialProperty copyC3DImageFromImage:contents textureOptions:[(SCNMaterialProperty *)self _textureOptions] wasCached:&v11];
-  v7 = v6;
+  v12 = 0;
+  v6 = [SCNMaterialProperty copyC3DImageFromImage:contents textureOptions:[(SCNMaterialProperty *)self _textureOptions] wasCached:&v12];
+  v8 = v6;
   if (v6)
   {
-    v8 = v11 == 0;
+    v9 = v12 == 0;
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  if (v8 && (*(self + 8) & 8) == 0)
+  if (v9 && (*(self + 8) & 8) == 0)
   {
-    C3DImageCacheBitmap(v6);
+    C3DImageCacheBitmap(v6, v7);
   }
 
   sceneRef = [(SCNMaterialProperty *)self sceneRef];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __51__SCNMaterialProperty__updateC3DImageWithContents___block_invoke;
-  v10[3] = &unk_2782FC950;
-  v10[4] = self;
-  v10[5] = v7;
-  [SCNTransaction postCommandWithContext:sceneRef object:self applyBlock:v10];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __51__SCNMaterialProperty__updateC3DImageWithContents___block_invoke;
+  v11[3] = &unk_2782FC950;
+  v11[4] = self;
+  v11[5] = v8;
+  [SCNTransaction postCommandWithContext:sceneRef object:self applyBlock:v11];
 }
 
 - (void)setImage:(id)image
@@ -1495,17 +1496,17 @@ LABEL_3:
     v3 = [SCNMaterialProperty copyImageFromC3DImage:?];
     if (v3)
     {
-      v4 = v3;
+      v5 = v3;
       if ((self->_contentType & 0xFE) == 2)
       {
-        v5 = scn_default_log();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+        v6 = scn_default_log(v3, v4);
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
         {
-          [(SCNMaterialProperty *)v5 image:v6];
+          [(SCNMaterialProperty *)v6 image:v7];
         }
       }
 
-      self->_contents = v4;
+      self->_contents = v5;
       self->_contentType = 1;
     }
   }
@@ -1524,17 +1525,17 @@ LABEL_3:
 - (id)pvrtcData
 {
   sceneRef = [(SCNMaterialProperty *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
   c3dImage = self->_c3dImage;
   if (c3dImage && C3DImageGetTextureRawDataCompression(c3dImage) == 1)
   {
-    Data = C3DImageGetData(self->_c3dImage);
-    if (!v4)
+    Data = C3DImageGetData(self->_c3dImage, v4);
+    if (!v5)
     {
       return Data;
     }
@@ -1543,10 +1544,10 @@ LABEL_3:
   }
 
   Data = 0;
-  if (v4)
+  if (v5)
   {
 LABEL_8:
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v4);
   }
 
   return Data;
@@ -1824,13 +1825,14 @@ LABEL_8:
     v6 = effectSlot;
     if (component)
     {
-      v8[0] = MEMORY[0x277D85DD0];
-      v8[1] = 3221225472;
-      v8[2] = __50__SCNMaterialProperty__updateMaterialUIComponent___block_invoke;
-      v8[3] = &unk_2782FF8E8;
-      v8[4] = component;
-      IfNeededForSource = SCNGetCachedImageProxyOrCreateIfNeededForSource(component, v8);
-      [objc_msgSend(MEMORY[0x277CCAB98] "defaultCenter")];
+      v10[0] = MEMORY[0x277D85DD0];
+      v10[1] = 3221225472;
+      v10[2] = __50__SCNMaterialProperty__updateMaterialUIComponent___block_invoke;
+      v10[3] = &unk_2782FF8E8;
+      v10[4] = component;
+      IfNeededForSource = SCNGetCachedImageProxyOrCreateIfNeededForSource(component, v10);
+      defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+      [defaultCenter addObserver:self selector:sel__layerDidChange_ name:@"SCNUITreeDidChange" object:{C3DImageProxyGetSource(IfNeededForSource, v9)}];
       C3DEffectSlotSetImageProxy(v6, IfNeededForSource);
     }
 
@@ -1843,26 +1845,26 @@ LABEL_8:
   }
 }
 
-uint64_t __50__SCNMaterialProperty__updateMaterialUIComponent___block_invoke(uint64_t a1)
+uint64_t __50__SCNMaterialProperty__updateMaterialUIComponent___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = C3DImageProxyCreate(0);
-  v3 = objc_alloc_init(SCNUIKitSource);
+  v3 = C3DImageProxyCreate(0, a2);
+  v4 = objc_alloc_init(SCNUIKitSource);
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  v5 = *(a1 + 32);
+  v6 = *(a1 + 32);
   if (isKindOfClass)
   {
-    [(SCNUIKitSource *)v3 setUiView:v5];
+    [(SCNUIKitSource *)v4 setUiView:v6];
   }
 
   else
   {
-    [(SCNUIKitSource *)v3 setUiWindow:v5];
+    [(SCNUIKitSource *)v4 setUiWindow:v6];
   }
 
-  [(SCNImageSource *)v3 connectToProxy:v2];
+  [(SCNImageSource *)v4 connectToProxy:v3];
 
-  return v2;
+  return v3;
 }
 
 - (void)setUIView:(id)view
@@ -2117,25 +2119,25 @@ LABEL_10:
   if (*(self + 8))
   {
     sceneRef = [(SCNMaterialProperty *)self sceneRef];
-    v7 = sceneRef;
+    v8 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v7);
     }
 
-    v8 = [(SCNMaterialProperty *)self effectSlotCreateIfNeeded:0];
-    v9 = v8;
-    if (v8)
+    v9 = [(SCNMaterialProperty *)self effectSlotCreateIfNeeded:0];
+    v11 = v9;
+    if (v9)
     {
-      ImageProxy = C3DEffectSlotGetImageProxy(v8);
+      ImageProxy = C3DEffectSlotGetImageProxy(v9, v10);
       if (ImageProxy)
       {
-        Source = C3DImageProxyGetSource(ImageProxy);
+        Source = C3DImageProxyGetSource(ImageProxy, v13);
       }
 
       else
       {
-        Image = C3DEffectSlotGetImage(v9);
+        Image = C3DEffectSlotGetImage(v11, v13);
         if (Image)
         {
           Source = [SCNMaterialProperty copyImageFromC3DImage:Image];
@@ -2143,13 +2145,13 @@ LABEL_10:
 
         else
         {
-          ColorIfApplicable = C3DEffectSlotGetColorIfApplicable(v9);
+          ColorIfApplicable = C3DEffectSlotGetColorIfApplicable(v11, v16);
           if (!ColorIfApplicable)
           {
-            v9 = 0;
-            if (!v7)
+            v11 = 0;
+            if (!v8)
             {
-              return v9;
+              return v11;
             }
 
             goto LABEL_20;
@@ -2159,17 +2161,17 @@ LABEL_10:
         }
       }
 
-      v9 = Source;
+      v11 = Source;
     }
 
-    if (!v7)
+    if (!v8)
     {
-      return v9;
+      return v11;
     }
 
 LABEL_20:
-    C3DSceneUnlock(v7);
-    return v9;
+    C3DSceneUnlock(v8, v10);
+    return v11;
   }
 
   contents = self->_contents;
@@ -2203,16 +2205,17 @@ LABEL_20:
   if (*(self + 8))
   {
     sceneRef = [(SCNMaterialProperty *)self sceneRef];
-    v5 = sceneRef;
+    v6 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v5);
     }
 
-    Anisotropy = C3DTextureSamplerGetAnisotropy([(SCNMaterialProperty *)self textureSampler]);
-    if (v5)
+    textureSampler = [(SCNMaterialProperty *)self textureSampler];
+    Anisotropy = C3DTextureSamplerGetAnisotropy(textureSampler, v8);
+    if (v6)
     {
-      C3DSceneUnlock(v5);
+      C3DSceneUnlock(v6, v9);
     }
   }
 
@@ -2246,9 +2249,9 @@ int8x8_t __40__SCNMaterialProperty_setMaxAnisotropy___block_invoke(uint64_t a1)
   v2 = [*(a1 + 32) textureSampler];
   if (v2)
   {
-    v4 = *(a1 + 40);
+    v5 = *(a1 + 40);
 
-    return C3DTextureSamplerSetAnisotropy(v2, v4);
+    return C3DTextureSamplerSetAnisotropy(v2, v3, v5);
   }
 
   return result;
@@ -2322,12 +2325,13 @@ int8x8_t __40__SCNMaterialProperty_setMaxAnisotropy___block_invoke(uint64_t a1)
 
 - (void)setContentsTransform:(SCNMatrix4 *)contentsTransform
 {
+  selfCopy = self;
   contentTransform = self->_contentTransform;
-  if (!contentTransform || (v6 = *&contentsTransform->m21, *&a.m11 = *&contentsTransform->m11, *&a.m21 = v6, v7 = *&contentsTransform->m41, *&a.m31 = *&contentsTransform->m31, *&a.m41 = v7, v8 = *&contentTransform->m11, v9 = *&contentTransform->m21, v10 = *&contentTransform->m41, *&b.m31 = *&contentTransform->m31, *&b.m41 = v10, *&b.m11 = v8, *&b.m21 = v9, !SCNMatrix4EqualToMatrix4(&a, &b)))
+  if (!contentTransform || (v6 = *&contentsTransform->m21, *&a.m11 = *&contentsTransform->m11, *&a.m21 = v6, v7 = *&contentsTransform->m41, *&a.m31 = *&contentsTransform->m31, *&a.m41 = v7, v8 = *&contentTransform->m11, v9 = *&contentTransform->m21, v10 = *&contentTransform->m41, *&b.m31 = *&contentTransform->m31, *&b.m41 = v10, *&b.m11 = v8, *&b.m21 = v9, self = SCNMatrix4EqualToMatrix4(&a, &b), (self & 1) == 0))
   {
-    if (*(self + 8))
+    if (*(selfCopy + 8))
     {
-      v14 = scn_default_log();
+      v14 = scn_default_log(self, a2);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         [SCNMaterialProperty setContentsTransform:];
@@ -2344,39 +2348,39 @@ int8x8_t __40__SCNMaterialProperty_setMaxAnisotropy___block_invoke(uint64_t a1)
       *&a.m41 = v12;
       if (SCNMatrix4IsIdentity(&a))
       {
-        v13 = self->_contentTransform;
+        v13 = selfCopy->_contentTransform;
         if (!v13)
         {
           return;
         }
 
         free(v13);
-        self->_contentTransform = 0;
+        selfCopy->_contentTransform = 0;
       }
 
       else
       {
-        [(SCNMaterialProperty *)self __allocateContentTransformIfNeeded];
-        v15 = self->_contentTransform;
+        [(SCNMaterialProperty *)selfCopy __allocateContentTransformIfNeeded];
+        p_m11 = &selfCopy->_contentTransform->m11;
         v16 = *&contentsTransform->m11;
         v17 = *&contentsTransform->m21;
         v18 = *&contentsTransform->m41;
-        *&v15->m31 = *&contentsTransform->m31;
-        *&v15->m41 = v18;
-        *&v15->m11 = v16;
-        *&v15->m21 = v17;
+        p_m11[2] = *&contentsTransform->m31;
+        p_m11[3] = v18;
+        *p_m11 = v16;
+        p_m11[1] = v17;
       }
 
       memset(&a, 0, sizeof(a));
-      v19 = [(SCNMaterialProperty *)self sceneRef:C3DMatrix4x4FromSCNMatrix4(&a];
-      v20 = [(SCNMaterialProperty *)self _animationPathForKey:@"contentsTransform"];
+      v19 = [(SCNMaterialProperty *)selfCopy sceneRef:C3DMatrix4x4FromSCNMatrix4(&a];
+      v20 = [(SCNMaterialProperty *)selfCopy _animationPathForKey:@"contentsTransform"];
       v21[0] = MEMORY[0x277D85DD0];
       v21[1] = 3221225472;
       v21[2] = __44__SCNMaterialProperty_setContentsTransform___block_invoke;
       v21[3] = &unk_2782FEFE0;
-      selfCopy = self;
+      v23 = selfCopy;
       v22 = a;
-      [SCNTransaction postCommandWithContext:v19 object:self keyPath:v20 applyBlock:v21];
+      [SCNTransaction postCommandWithContext:v19 object:selfCopy keyPath:v20 applyBlock:v21];
     }
   }
 }
@@ -2415,20 +2419,20 @@ uint64_t __44__SCNMaterialProperty_setContentsTransform___block_invoke(uint64_t 
   }
 
   sceneRef = [(SCNMatrix4 *)self sceneRef];
-  v10 = sceneRef;
+  v11 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v10);
   }
 
   self = [(SCNMatrix4 *)selfCopy effectSlot];
   if (self)
   {
-    self = C3DEffectSlotGetImageTransform(self);
+    self = C3DEffectSlotGetImageTransform(self, v12);
     if (!self)
     {
       *retstr = SCNMatrix4Identity;
-      if (!v10)
+      if (!v11)
       {
         return self;
       }
@@ -2439,14 +2443,14 @@ uint64_t __44__SCNMaterialProperty_setContentsTransform___block_invoke(uint64_t 
     C3DMatrix4x4ToSCNMatrix4(self, retstr);
   }
 
-  if (!v10)
+  if (!v11)
   {
     return self;
   }
 
 LABEL_10:
 
-  return C3DSceneUnlock(v10);
+  return C3DSceneUnlock(v11, v12);
 }
 
 - (id)propertyName
@@ -2532,8 +2536,8 @@ LABEL_10:
       result = self->_customSlotName;
       break;
     default:
-      v4 = scn_default_log();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v5 = scn_default_log(@"diffuse", v3);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         [(SCNMaterialProperty *)self propertyName];
       }
@@ -2571,7 +2575,7 @@ LABEL_10:
       imageCopy = v4;
 LABEL_6:
 
-      return C3DImageCreateWithURL(imageCopy);
+      return C3DImageCreateWithURL(imageCopy, v5);
     }
 
     return C3DImageCreateWithName(image);
@@ -2590,16 +2594,16 @@ LABEL_6:
     if (objc_opt_isKindOfClass())
     {
 
-      return C3DImageCreateWithData(image);
+      return C3DImageCreateWithData(image, v8);
     }
 
     else
     {
-      v7 = CFGetTypeID(image);
-      if (v7 == CGImageGetTypeID())
+      v9 = CFGetTypeID(image);
+      if (v9 == CGImageGetTypeID())
       {
 
-        return C3DImageCreateWithCGImage(image);
+        return C3DImageCreateWithCGImage(image, v10);
       }
 
       else
@@ -2608,7 +2612,7 @@ LABEL_6:
         if (objc_opt_isKindOfClass())
         {
 
-          return C3DImageCreateWithClientImage(image);
+          return C3DImageCreateWithClientImage(image, v11);
         }
 
         else
@@ -2632,7 +2636,7 @@ LABEL_6:
 
 + (__C3DImage)copyC3DImageFromImage:(id)image textureOptions:(int)options wasCached:(BOOL *)cached
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v36[7] = *MEMORY[0x277D85DE8];
   if (!image)
   {
     return 0;
@@ -2640,22 +2644,23 @@ LABEL_6:
 
   v6 = *&options;
   v8 = CFGetTypeID(image);
-  if (v8 != C3DImageGetTypeID())
+  if (v8 != C3DImageGetTypeID(v8, v9))
   {
-    v25 = 0;
-    v26 = &v25;
-    v27 = 0x2020000000;
-    v28 = 0;
+    v30 = 0;
+    v31 = &v30;
+    v32 = 0x2020000000;
+    v33 = 0;
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
     objc_opt_class();
-    v12 = isKindOfClass ^ 1;
+    v13 = isKindOfClass ^ 1;
     if (objc_opt_isKindOfClass())
     {
-      if ([image count] != 6)
+      v14 = [image count];
+      if (v14 != 6)
       {
-        v19 = scn_default_log();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v24 = scn_default_log(v14, v15);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
           +[SCNMaterialProperty copyC3DImageFromImage:textureOptions:wasCached:];
         }
@@ -2666,46 +2671,46 @@ LABEL_6:
           goto LABEL_35;
         }
 
-        v20 = 0;
+        v25 = 0;
         goto LABEL_34;
       }
 
-      v13 = 0;
-      memset(v31, 0, 48);
-      v21 = 0x8400102uLL;
+      v16 = 0;
+      memset(v36, 0, 48);
+      v26 = 0x8400102uLL;
       do
       {
-        v14 = [self copyC3DImageFromImage:objc_msgSend(image textureOptions:"objectAtIndexedSubscript:" wasCached:{v13, v21), v6, 0}];
-        if (!v14)
+        v18 = [self copyC3DImageFromImage:objc_msgSend(image textureOptions:"objectAtIndexedSubscript:" wasCached:{v16, v26), v6, 0}];
+        if (!v18)
         {
-          v15 = scn_default_log();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          v19 = scn_default_log(0, v17);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
-            v16 = [image objectAtIndexedSubscript:v13];
-            *buf = v21;
-            v30 = v16;
-            _os_log_impl(&dword_21BEF7000, v15, OS_LOG_TYPE_DEFAULT, "Warning: copyC3DImageFromImage: invalid sub-image %@\n", buf, 0xCu);
+            v20 = [image objectAtIndexedSubscript:v16];
+            *buf = v26;
+            v35 = v20;
+            _os_log_impl(&dword_21BEF7000, v19, OS_LOG_TYPE_DEFAULT, "Warning: copyC3DImageFromImage: invalid sub-image %@\n", buf, 0xCu);
           }
         }
 
-        v31[v13++] = v14;
+        v36[v16++] = v18;
       }
 
-      while (v13 != 6);
-      v24[0] = MEMORY[0x277D85DD0];
-      v24[1] = 3221225472;
-      v24[2] = __70__SCNMaterialProperty_copyC3DImageFromImage_textureOptions_wasCached___block_invoke;
-      v24[3] = &unk_2782FF910;
-      v24[4] = &v25;
-      v24[5] = v31;
-      IfNeededForSource = C3DImageCopyCachedImageOrCreateIfNeededForSource(image, v12 & 1, v24);
+      while (v16 != 6);
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __70__SCNMaterialProperty_copyC3DImageFromImage_textureOptions_wasCached___block_invoke;
+      v29[3] = &unk_2782FF910;
+      v29[4] = &v30;
+      v29[5] = v36;
+      IfNeededForSource = C3DImageCopyCachedImageOrCreateIfNeededForSource(image, v13 & 1, v29);
       for (i = 0; i != 6; ++i)
       {
-        v18 = v31[i];
-        if (v18)
+        v23 = v36[i];
+        if (v23)
         {
-          CFRelease(v18);
-          v31[i] = 0;
+          CFRelease(v23);
+          v36[i] = 0;
         }
       }
 
@@ -2715,44 +2720,45 @@ LABEL_32:
         if (!cached)
         {
 LABEL_35:
-          _Block_object_dispose(&v25, 8);
+          _Block_object_dispose(&v30, 8);
           return IfNeededForSource;
         }
 
-        v20 = (v26[3] & 1) == 0;
+        v25 = (v31[3] & 1) == 0;
 LABEL_34:
-        *cached = v20;
+        *cached = v25;
         goto LABEL_35;
       }
     }
 
     else
     {
-      v23[0] = MEMORY[0x277D85DD0];
-      v23[1] = 3221225472;
-      v23[2] = __70__SCNMaterialProperty_copyC3DImageFromImage_textureOptions_wasCached___block_invoke_2;
-      v23[3] = &unk_2782FF938;
-      v23[4] = self;
-      v23[5] = image;
-      v23[6] = &v25;
-      IfNeededForSource = C3DImageCopyCachedImageOrCreateIfNeededForSource(image, (isKindOfClass ^ 1) & 1, v23);
-      if (!IfNeededForSource)
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __70__SCNMaterialProperty_copyC3DImageFromImage_textureOptions_wasCached___block_invoke_2;
+      v28[3] = &unk_2782FF938;
+      v28[4] = self;
+      v28[5] = image;
+      v28[6] = &v30;
+      v23 = C3DImageCopyCachedImageOrCreateIfNeededForSource(image, (isKindOfClass ^ 1) & 1, v28);
+      IfNeededForSource = v23;
+      if (!v23)
       {
         goto LABEL_32;
       }
     }
 
-    if (*(v26 + 24) == 1)
+    if (*(v31 + 24) == 1)
     {
       if ((v6 & 2) != 0)
       {
-        C3DWasLinkedBeforeMajorOSYear2016();
+        C3DWasLinkedBeforeMajorOSYear2016(v23, v21);
         C3DImageChangeImageTypeToCubeMapIfSuitable(IfNeededForSource);
       }
 
       if ((v6 & 8) != 0)
       {
-        C3DImageChangeImageTypeTo3DIfSuitable(IfNeededForSource);
+        C3DImageChangeImageTypeTo3DIfSuitable(IfNeededForSource, v21);
       }
     }
 
@@ -2767,17 +2773,17 @@ LABEL_34:
   return image;
 }
 
-uint64_t __70__SCNMaterialProperty_copyC3DImageFromImage_textureOptions_wasCached___block_invoke(uint64_t a1)
+uint64_t __70__SCNMaterialProperty_copyC3DImageFromImage_textureOptions_wasCached___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  *(*(v1 + 8) + 24) = 1;
-  return C3DImageCreateVerticalStripCubemapWithFaceImages(v2);
+  v2 = *(a1 + 32);
+  v3 = *(a1 + 40);
+  *(*(v2 + 8) + 24) = 1;
+  return C3DImageCreateVerticalStripCubemapWithFaceImages(v3, a2);
 }
 
 + (id)_copyImageFromC3DImage:(__C3DImage *)image
 {
-  v3 = C3DImageCopyCGImage(image);
+  v3 = C3DImageCopyCGImage(image, a2);
   v4 = [objc_alloc(MEMORY[0x277D755B8]) initWithCGImage:v3];
   CGImageRelease(v3);
   return v4;
@@ -2785,35 +2791,36 @@ uint64_t __70__SCNMaterialProperty_copyC3DImageFromImage_textureOptions_wasCache
 
 + (id)copyImageFromC3DImage:(__C3DImage *)image
 {
-  if (C3DImageHasTextureRawData(image))
+  HasTextureRawData = C3DImageHasTextureRawData(image);
+  if (HasTextureRawData)
   {
     return 0;
   }
 
-  SharedInstance = C3DResourceCacheGetSharedInstance();
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __45__SCNMaterialProperty_copyImageFromC3DImage___block_invoke;
-  v9[3] = &unk_2782FF960;
-  v9[4] = self;
-  v9[5] = image;
-  v5 = C3DResourceCacheCopySourceForResource(SharedInstance, image, 1, v9);
+  SharedInstance = C3DResourceCacheGetSharedInstance(HasTextureRawData, v6);
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __45__SCNMaterialProperty_copyImageFromC3DImage___block_invoke;
+  v11[3] = &unk_2782FF960;
+  v11[4] = self;
+  v11[5] = image;
+  v7 = C3DResourceCacheCopySourceForResource(SharedInstance, image, 1, v11);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v7 = [objc_alloc(MEMORY[0x277D755B8]) initWithContentsOfFile:{objc_msgSend(v5, "path")}];
-    CFRelease(v5);
-    return v7;
+    v9 = [objc_alloc(MEMORY[0x277D755B8]) initWithContentsOfFile:{objc_msgSend(v7, "path")}];
+    CFRelease(v7);
+    return v9;
   }
 
-  return v5;
+  return v7;
 }
 
 - (void)parentWillDie:(id)die
 {
   if (self->_parent != die)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       [(SCNMaterialProperty *)v4 parentWillDie:v5, v6, v7, v8, v9, v10, v11];
@@ -2842,7 +2849,7 @@ uint64_t __70__SCNMaterialProperty_copyC3DImageFromImage_textureOptions_wasCache
   if (result)
   {
 
-    return C3DEffectSlotGetTextureSampler(result);
+    return C3DEffectSlotGetTextureSampler(result, v3);
   }
 
   return result;
@@ -2854,7 +2861,7 @@ uint64_t __70__SCNMaterialProperty_copyC3DImageFromImage_textureOptions_wasCache
   if (result)
   {
 
-    return C3DSceneGetAnimationManager(result);
+    return C3DSceneGetAnimationManager(result, v3);
   }
 
   return result;
@@ -2873,12 +2880,13 @@ uint64_t __70__SCNMaterialProperty_copyC3DImageFromImage_textureOptions_wasCache
   {
     [(SCNOrderedDictionary *)self->_animations removeObjectForKey:key];
     __CFObject = [(SCNMaterialProperty *)self __CFObject];
-    if ((CFTypeIsC3DEntity(__CFObject) & 1) == 0)
+    v9 = CFTypeIsC3DEntity(__CFObject);
+    if ((v9 & 1) == 0)
     {
-      v9 = scn_default_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+      v11 = scn_default_log(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
-        [(SCNNode *)v9 __removeAnimation:v10 forKey:v11, v12, v13, v14, v15, v16];
+        [(SCNNode *)v11 __removeAnimation:v12 forKey:v13, v14, v15, v16, v17, v18];
       }
     }
 
@@ -2922,7 +2930,7 @@ uint64_t __70__SCNMaterialProperty_copyC3DImageFromImage_textureOptions_wasCache
 
   else
   {
-    v9 = scn_default_log();
+    v9 = scn_default_log(self, a2);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem addAnimationPlayer:forKey:];
@@ -2968,7 +2976,7 @@ void __49__SCNMaterialProperty_addAnimationPlayer_forKey___block_invoke(uint64_t
 
   else
   {
-    v8 = scn_default_log();
+    v8 = scn_default_log(self, a2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem addAnimation:forKey:];
@@ -3061,10 +3069,10 @@ void __49__SCNMaterialProperty_addAnimationPlayer_forKey___block_invoke(uint64_t
 - (void)_syncObjCAnimations
 {
   sceneRef = [(SCNMaterialProperty *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
   os_unfair_lock_lock(&self->_animationsLock);
@@ -3074,29 +3082,30 @@ void __49__SCNMaterialProperty_addAnimationPlayer_forKey___block_invoke(uint64_t
   __CFObject = [(SCNMaterialProperty *)self __CFObject];
   if (__CFObject)
   {
-    v6 = __CFObject;
-    if ((CFTypeIsC3DEntity(__CFObject) & 1) == 0)
+    v8 = __CFObject;
+    v9 = CFTypeIsC3DEntity(__CFObject);
+    if ((v9 & 1) == 0)
     {
-      v7 = scn_default_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+      v11 = scn_default_log(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
-        [(SCNNode *)v7 _syncObjCAnimations:v8];
+        [(SCNNode *)v11 _syncObjCAnimations:v10];
       }
     }
 
-    Animations = C3DEntityGetAnimations(v6);
+    Animations = C3DEntityGetAnimations(v8, v10);
     if (Animations)
     {
-      v16 = Animations;
+      v19 = Animations;
       os_unfair_lock_lock(&self->_animationsLock);
-      C3DOrderedDictionaryApplyFunction(v16, SCNConvertC3DAnimationDictionaryFunc, self->_animations);
+      C3DOrderedDictionaryApplyFunction(v19, SCNConvertC3DAnimationDictionaryFunc, self->_animations);
       os_unfair_lock_unlock(&self->_animationsLock);
     }
   }
 
-  if (v4)
+  if (v5)
   {
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v7);
   }
 }
 
@@ -3265,21 +3274,21 @@ void __48__SCNMaterialProperty_setSpeed_forAnimationKey___block_invoke(uint64_t 
 - (BOOL)isAnimationForKeyPaused:(id)paused
 {
   sceneRef = [(SCNMaterialProperty *)self sceneRef];
-  v6 = sceneRef;
+  v7 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v6);
   }
 
   __CFObject = [(SCNMaterialProperty *)self __CFObject];
   if (__CFObject)
   {
-    v8 = __CFObject;
+    v10 = __CFObject;
     animationManager = [(SCNMaterialProperty *)self animationManager];
     if (animationManager)
     {
-      IsPaused = C3DAnimationManagerGetAnimationForKeyIsPaused(animationManager, v8, paused);
-      if (!v6)
+      IsPaused = C3DAnimationManagerGetAnimationForKeyIsPaused(animationManager, v10, paused);
+      if (!v7)
       {
         return IsPaused;
       }
@@ -3289,10 +3298,10 @@ void __48__SCNMaterialProperty_setSpeed_forAnimationKey___block_invoke(uint64_t 
   }
 
   IsPaused = 0;
-  if (v6)
+  if (v7)
   {
 LABEL_8:
-    C3DSceneUnlock(v6);
+    C3DSceneUnlock(v7, v9);
   }
 
   return IsPaused;
@@ -3386,55 +3395,55 @@ void __40__SCNMaterialProperty_removeAllBindings__block_invoke(uint64_t a1)
 {
   v1 = [*(a1 + 32) __CFObject];
 
-  C3DEntityRemoveAllBindings(v1);
+  C3DEntityRemoveAllBindings(v1, v2);
 }
 
 - (void)_syncObjCModel
 {
   sceneRef = [(SCNMaterialProperty *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
-  v5 = [(SCNMaterialProperty *)self effectSlotCreateIfNeeded:0];
-  if (v5)
+  v6 = [(SCNMaterialProperty *)self effectSlotCreateIfNeeded:0];
+  if (v6)
   {
-    v6 = v5;
-    TextureSampler = C3DEffectSlotGetTextureSampler(v5);
-    if (TextureSampler || (TextureSampler = C3DTextureSamplerGetDefault()) != 0)
+    v8 = v6;
+    TextureSampler = C3DEffectSlotGetTextureSampler(v6, v7);
+    if (TextureSampler || (TextureSampler = C3DTextureSamplerGetDefault(0, v10)) != 0)
     {
-      v8 = TextureSampler;
-      self->_minificationFilter = C3DTextureSamplerGetMinFilter(TextureSampler);
-      self->_magnificationFilter = C3DTextureSamplerGetMagFilter(v8);
-      self->_mipFilter = C3DTextureSamplerGetMipFilter(v8);
-      self->_wrapS = C3DTextureSamplerGetWrapModeS(v8);
-      self->_wrapT = C3DTextureSamplerGetWrapModeT(v8);
-      self->_borderColor = [MEMORY[0x277D75348] scn_colorWithC3DColor:C3DTextureSamplerGetBorderColor(v8)];
-      self->_maxAnisotropy = C3DTextureSamplerGetAnisotropy(v8);
+      v11 = TextureSampler;
+      self->_minificationFilter = C3DTextureSamplerGetMinFilter(TextureSampler, v10);
+      self->_magnificationFilter = C3DTextureSamplerGetMagFilter(v11, v12);
+      self->_mipFilter = C3DTextureSamplerGetMipFilter(v11, v13);
+      self->_wrapS = C3DTextureSamplerGetWrapModeS(v11, v14);
+      self->_wrapT = C3DTextureSamplerGetWrapModeT(v11, v15);
+      self->_borderColor = [MEMORY[0x277D75348] scn_colorWithC3DColor:{C3DTextureSamplerGetBorderColor(v11, v16)}];
+      self->_maxAnisotropy = C3DTextureSamplerGetAnisotropy(v11, v17);
     }
 
     self->_mappingChannel = [(SCNMaterialProperty *)self _presentationMappingChannel];
-    self->_textureComponents = C3DEffectSlotGetTextureComponents(v6);
-    self->_intensity = C3DEffectSlotGetIntensity(v6);
-    if (C3DEffectSlotGetSRGB(v6))
+    self->_textureComponents = C3DEffectSlotGetTextureComponents(v8, v18);
+    self->_intensity = C3DEffectSlotGetIntensity(v8, v19);
+    if (C3DEffectSlotGetSRGB(v8))
     {
-      v9 = 4;
+      v20 = 4;
     }
 
     else
     {
-      v9 = 0;
+      v20 = 0;
     }
 
-    *(self + 8) = *(self + 8) & 0xFB | v9;
-    if (C3DKeyframeControllerHasInterpolationModesPerKey(v6))
+    *(self + 8) = *(self + 8) & 0xFB | v20;
+    if (C3DKeyframeControllerHasInterpolationModesPerKey(v8))
     {
       [(SCNMaterialProperty *)self __allocateContentTransformIfNeeded];
-      ImageTransform = C3DEffectSlotGetImageTransform(v6);
+      ImageTransform = C3DEffectSlotGetImageTransform(v8, v21);
       C3DMatrix4x4ToSCNMatrix4(ImageTransform, &self->_contentTransform->m11);
-      if (!v4)
+      if (!v5)
       {
         return;
       }
@@ -3444,7 +3453,7 @@ void __40__SCNMaterialProperty_removeAllBindings__block_invoke(uint64_t a1)
     {
       free(self->_contentTransform);
       self->_contentTransform = 0;
-      if (!v4)
+      if (!v5)
       {
         return;
       }
@@ -3454,7 +3463,7 @@ void __40__SCNMaterialProperty_removeAllBindings__block_invoke(uint64_t a1)
   }
 
   *&self->_minificationFilter = 514;
-  self->_mipFilter = C3DWasLinkedBeforeMajorOSYear2016() ^ 1;
+  self->_mipFilter = C3DWasLinkedBeforeMajorOSYear2016(0, v7) ^ 1;
   *&self->_wrapS = 257;
   __asm { FMOV            V0.2S, #1.0 }
 
@@ -3462,31 +3471,31 @@ void __40__SCNMaterialProperty_removeAllBindings__block_invoke(uint64_t a1)
   propertyType = self->_propertyType;
   if (propertyType == 15)
   {
-    v17 = 8;
+    v30 = 8;
   }
 
   else
   {
-    v17 = 15;
+    v30 = 15;
   }
 
-  self->_textureComponents = v17;
+  self->_textureComponents = v30;
   if (C3DEffectSlotDefaultSRGBForPropertyType(propertyType))
   {
-    v18 = 4;
+    v31 = 4;
   }
 
   else
   {
-    v18 = 0;
+    v31 = 0;
   }
 
-  *(self + 8) = *(self + 8) & 0xFB | v18;
-  if (v4)
+  *(self + 8) = *(self + 8) & 0xFB | v31;
+  if (v5)
   {
 LABEL_20:
 
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v23);
   }
 }
 
@@ -3505,7 +3514,7 @@ LABEL_20:
   -[SCNMaterialProperty setMinificationFilter:](self, "setMinificationFilter:", [from minificationFilter]);
   -[SCNMaterialProperty setMagnificationFilter:](self, "setMagnificationFilter:", [from magnificationFilter]);
   -[SCNMaterialProperty setMipFilter:](self, "setMipFilter:", [from mipFilter]);
-  [from contentsTransform];
+  objc_msgSend_contentsTransform(from);
   v5[0] = v5[4];
   v5[1] = v5[5];
   v5[2] = v5[6];
@@ -3547,13 +3556,13 @@ LABEL_20:
   v4 = [(SCNMaterialProperty *)self effectSlotCreateIfNeeded:color != 0];
   if (v4)
   {
-    TextureSampler = C3DEffectSlotGetTextureSampler(v4);
+    TextureSampler = C3DEffectSlotGetTextureSampler(v4, v5);
     if (TextureSampler)
     {
-      v6 = TextureSampler;
-      v8 = C3DColor4FromRGBCFColor(color, 0);
+      v7 = TextureSampler;
+      v9 = C3DColor4FromRGBCFColor(color, 0);
 
-      C3DTextureSamplerSetBorderColor(v6, v8, v7);
+      C3DTextureSamplerSetBorderColor(v7, v9, v8);
     }
   }
 }
@@ -3563,8 +3572,8 @@ LABEL_20:
   effectSlot = [(SCNMaterialProperty *)self effectSlot];
   if (effectSlot)
   {
-    v4 = effectSlot;
-    TextureSampler = C3DEffectSlotGetTextureSampler(effectSlot);
+    v5 = effectSlot;
+    TextureSampler = C3DEffectSlotGetTextureSampler(effectSlot, v4);
     minificationFilter = self->_minificationFilter;
     magnificationFilter = self->_magnificationFilter;
     mipFilter = self->_mipFilter;
@@ -3572,7 +3581,7 @@ LABEL_20:
     wrapT = self->_wrapT;
     if (TextureSampler)
     {
-      WrapModeP = C3DTextureSamplerGetWrapModeP(TextureSampler);
+      WrapModeP = C3DTextureSamplerGetWrapModeP(TextureSampler, v7);
     }
 
     else
@@ -3581,10 +3590,10 @@ LABEL_20:
     }
 
     borderColor4 = [(SCNMaterialProperty *)self borderColor4];
-    v14 = C3DTextureSamplerCreateEx(minificationFilter, magnificationFilter, mipFilter, wrapS, wrapT, WrapModeP, borderColor4, v13, self->_maxAnisotropy);
-    C3DEffectSlotSetTextureSampler(v4, v14);
+    v16 = C3DTextureSamplerCreateEx(minificationFilter, magnificationFilter, mipFilter, wrapS, wrapT, WrapModeP, borderColor4, v15, self->_maxAnisotropy);
+    C3DEffectSlotSetTextureSampler(v5, v16);
 
-    CFRelease(v14);
+    CFRelease(v16);
   }
 }
 
@@ -3603,55 +3612,56 @@ LABEL_20:
   if (attachment)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v5 = scn_default_log();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+      v7 = scn_default_log(isKindOfClass, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
       {
-        [(SCNMaterialProperty *)v5 _updateMaterialAttachment:v6, v7, v8, v9, v10, v11, v12];
+        [(SCNMaterialProperty *)v7 _updateMaterialAttachment:v8, v9, v10, v11, v12, v13, v14];
       }
     }
 
     glID = [attachment glID];
     target = [attachment target];
-    [attachment size];
-    v17 = 0;
-    if (glID && target && *&v15 > 0.0)
+    v17 = [attachment size];
+    v21 = 0;
+    if (glID && target && *&v19 > 0.0)
     {
-      v23 = v15;
-      v24 = v16;
-      v17 = C3DTextureCreate();
-      C3DTextureSetID(v17, glID, target);
-      *&v18.f64[0] = v23;
-      v18.f64[1] = v24;
-      C3DTextureSetSize(v17, COERCE_DOUBLE(vcvt_f32_f64(v18)));
+      v29 = v19;
+      v30 = v20;
+      v21 = C3DTextureCreate(v17, v18);
+      C3DTextureSetID(v21, glID, target);
+      *&v22.f64[0] = v29;
+      v22.f64[1] = v30;
+      C3DTextureSetSize(v21, v23, COERCE_DOUBLE(vcvt_f32_f64(v22)));
       [objc_msgSend(objc_msgSend(attachment "options")];
-      LODWORD(v24) = v19;
+      LODWORD(v30) = v24;
       [objc_msgSend(objc_msgSend(attachment "options")];
-      C3DTextureSetOffset(v17, COERCE_DOUBLE(__PAIR64__(v20, LODWORD(v24))));
-      C3DTextureSetHasAlpha(v17, 1);
+      C3DTextureSetOffset(v21, v25, COERCE_DOUBLE(__PAIR64__(v26, LODWORD(v30))));
+      C3DTextureSetHasAlpha(v21, 1);
     }
   }
 
   else
   {
-    v17 = 0;
+    v21 = 0;
   }
 
   effectSlot = [(SCNMaterialProperty *)self effectSlot];
   if (effectSlot)
   {
-    if (v17)
+    if (v21)
     {
-      v22 = v17;
+      v28 = v21;
     }
 
     else
     {
-      v22 = 0;
+      v28 = 0;
     }
 
-    C3DEffectSlotSetTexture(effectSlot, v22);
+    C3DEffectSlotSetTexture(effectSlot, v28);
   }
 }
 
@@ -3700,14 +3710,14 @@ LABEL_20:
   }
 }
 
-uint64_t __46__SCNMaterialProperty__updateMaterialSKScene___block_invoke(uint64_t a1)
+uint64_t __46__SCNMaterialProperty__updateMaterialSKScene___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = C3DImageProxyCreate(0);
-  v3 = objc_alloc_init(SCNSpriteKitSource);
-  [(SCNSpriteKitSource *)v3 setScene:*(a1 + 32)];
-  [(SCNImageSource *)v3 connectToProxy:v2];
+  v3 = C3DImageProxyCreate(0, a2);
+  v4 = objc_alloc_init(SCNSpriteKitSource);
+  [(SCNSpriteKitSource *)v4 setScene:*(a1 + 32)];
+  [(SCNImageSource *)v4 connectToProxy:v3];
 
-  return v2;
+  return v3;
 }
 
 - (void)_updateMaterialMTLTexture:(id)texture
@@ -3759,15 +3769,15 @@ uint64_t __46__SCNMaterialProperty__updateMaterialSKScene___block_invoke(uint64_
 
         if ([texture hasAlpha])
         {
-          v14 = 0;
+          v15 = 0;
         }
 
         else
         {
-          v14 = 256;
+          v15 = 256;
         }
 
-        *(effectSlot2 + 24) = *(effectSlot2 + 24) & 0xFEFF | v14;
+        *(effectSlot2 + 24) = *(effectSlot2 + 24) & 0xFEFF | v15;
       }
 
       goto LABEL_25;
@@ -3777,27 +3787,27 @@ uint64_t __46__SCNMaterialProperty__updateMaterialSKScene___block_invoke(uint64_
     glTextureId = [texture glTextureId];
     if (glTextureId)
     {
-      v11 = glTextureId;
-      v12 = C3DTextureCreate();
-      C3DTextureSetID(v12, v11, 3553);
+      v12 = glTextureId;
+      v13 = C3DTextureCreate(glTextureId, v11);
+      C3DTextureSetID(v13, v12, 3553);
       if ([texture hasAlpha])
       {
-        C3DTextureSetHasAlpha(v12, 1);
+        C3DTextureSetHasAlpha(v13, 1);
       }
 
-      C3DTextureSetFormat(v12, [texture textureTarget]);
+      C3DTextureSetFormat(v13, [texture textureTarget]);
     }
 
     else
     {
-      v12 = 0;
+      v13 = 0;
     }
 
     effectSlot3 = [(SCNMaterialProperty *)self effectSlot];
     if ([(SCNMaterialProperty *)self commonProfile])
     {
-      C3DEffectCommonProfileSetTexture([(SCNMaterialProperty *)self commonProfile], self->_propertyType, v12);
-      if (!v12)
+      C3DEffectCommonProfileSetTexture([(SCNMaterialProperty *)self commonProfile], self->_propertyType, v13);
+      if (!v13)
       {
         goto LABEL_25;
       }
@@ -3805,20 +3815,20 @@ uint64_t __46__SCNMaterialProperty__updateMaterialSKScene___block_invoke(uint64_
 
     else
     {
-      C3DEffectSlotSetTexture(effectSlot3, v12);
-      if (!v12)
+      C3DEffectSlotSetTexture(effectSlot3, v13);
+      if (!v13)
       {
 LABEL_25:
         [texture textureRect];
-        memset(&v21, 0, sizeof(v21));
-        *&v15 = v15;
+        memset(&v22, 0, sizeof(v22));
         *&v16 = v16;
         *&v17 = v17;
         *&v18 = v18;
+        *&v19 = v19;
         *&a.m14 = 0;
         *&a.m12 = 0;
-        a.m11 = *&v17;
-        a.m22 = *&v18;
+        a.m11 = *&v18;
+        a.m22 = *&v19;
         *&a.m23 = 0;
         *&a.m31 = 0;
         *&a.m42 = 0;
@@ -3832,10 +3842,10 @@ LABEL_25:
         *&b.m23 = 0;
         *&b.m31 = 0;
         *&b.m33 = 1065353216;
-        b.m41 = *&v15;
-        b.m42 = *&v16;
+        b.m41 = *&v16;
+        b.m42 = *&v17;
         *&b.m43 = 0x3F80000000000000;
-        SCNMatrix4Mult(&v21, &a, &b);
+        SCNMatrix4Mult(&v22, &a, &b);
         *&b.m14 = 0;
         *&b.m12 = 0;
         b.m11 = 1.0;
@@ -3844,17 +3854,17 @@ LABEL_25:
         *&b.m31 = 0;
         *&b.m33 = xmmword_21C2A2410;
         *&b.m43 = 0x3F80000000000000;
-        v23 = v21;
-        SCNMatrix4Mult(&a, &b, &v23);
-        v21 = a;
+        v24 = v22;
+        SCNMatrix4Mult(&a, &b, &v24);
+        v22 = a;
         if ([texture isRotated])
         {
           memset(&a, 0, sizeof(a));
           SCNMatrix4MakeRotation(&a, -1.5708, 0.0, 0.0, 1.0);
-          v23 = a;
-          v22 = v21;
-          SCNMatrix4Mult(&b, &v23, &v22);
-          v21 = b;
+          v24 = a;
+          v23 = v22;
+          SCNMatrix4Mult(&b, &v24, &v23);
+          v22 = b;
         }
 
         memset(&b.m22, 0, 40);
@@ -3863,9 +3873,9 @@ LABEL_25:
         b.m22 = -1.0;
         b.m33 = 1.0;
         b.m44 = 1.0;
-        v23 = v21;
-        SCNMatrix4Mult(&a, &b, &v23);
-        v21 = a;
+        v24 = v22;
+        SCNMatrix4Mult(&a, &b, &v24);
+        v22 = a;
         *&b.m14 = 0;
         *&b.m12 = 0;
         b.m11 = 1.0;
@@ -3874,16 +3884,16 @@ LABEL_25:
         *&b.m31 = 0;
         *&b.m33 = xmmword_21C2A2420;
         *&b.m43 = 0x3F80000000000000;
-        v23 = a;
-        SCNMatrix4Mult(&a, &b, &v23);
-        v21 = a;
-        v19 = +[SCNTransaction immediateMode];
-        if (!v19)
+        v24 = a;
+        SCNMatrix4Mult(&a, &b, &v24);
+        v22 = a;
+        v20 = +[SCNTransaction immediateMode];
+        if (!v20)
         {
           [SCNTransaction setImmediateMode:1];
         }
 
-        a = v21;
+        a = v22;
         [(SCNMaterialProperty *)self setContentsTransform:&a];
         [(SCNMaterialProperty *)self setWrapS:1];
         [(SCNMaterialProperty *)self setWrapT:1];
@@ -3891,16 +3901,16 @@ LABEL_25:
         -[SCNMaterialProperty setMagnificationFilter:](self, "setMagnificationFilter:", 2 * ([texture filteringMode] == 1));
         if ([texture usesMipmaps])
         {
-          v20 = 2;
+          v21 = 2;
         }
 
         else
         {
-          v20 = 0;
+          v21 = 0;
         }
 
-        [(SCNMaterialProperty *)self setMipFilter:v20];
-        if (!v19)
+        [(SCNMaterialProperty *)self setMipFilter:v21];
+        if (!v20)
         {
           [SCNTransaction setImmediateMode:0];
         }
@@ -3909,7 +3919,7 @@ LABEL_25:
       }
     }
 
-    CFRelease(v12);
+    CFRelease(v13);
     goto LABEL_25;
   }
 
@@ -3944,14 +3954,14 @@ LABEL_25:
   }
 }
 
-uint64_t __44__SCNMaterialProperty__updateMaterialLayer___block_invoke(uint64_t a1)
+uint64_t __44__SCNMaterialProperty__updateMaterialLayer___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = C3DImageProxyCreate(0);
-  v3 = objc_alloc_init(SCNCoreAnimationSource);
-  [(SCNCoreAnimationSource *)v3 setLayer:*(a1 + 32)];
-  [(SCNImageSource *)v3 connectToProxy:v2];
+  v3 = C3DImageProxyCreate(0, a2);
+  v4 = objc_alloc_init(SCNCoreAnimationSource);
+  [(SCNCoreAnimationSource *)v4 setLayer:*(a1 + 32)];
+  [(SCNImageSource *)v4 connectToProxy:v3];
 
-  return v2;
+  return v3;
 }
 
 - (void)_updateMaterialAVPlayer:(id)player
@@ -3979,14 +3989,14 @@ uint64_t __44__SCNMaterialProperty__updateMaterialLayer___block_invoke(uint64_t 
   }
 }
 
-uint64_t __47__SCNMaterialProperty__updateMaterialAVPlayer___block_invoke(uint64_t a1)
+uint64_t __47__SCNMaterialProperty__updateMaterialAVPlayer___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = C3DImageProxyCreate(1);
-  v3 = objc_alloc_init(SCNAVPlayerSource);
-  [(SCNAVPlayerSource *)v3 setPlayer:*(a1 + 32)];
-  [(SCNAVPlayerSource *)v3 connectToProxy:v2];
+  v3 = C3DImageProxyCreate(1, a2);
+  v4 = objc_alloc_init(SCNAVPlayerSource);
+  [(SCNAVPlayerSource *)v4 setPlayer:*(a1 + 32)];
+  [(SCNAVPlayerSource *)v4 connectToProxy:v3];
 
-  return v2;
+  return v3;
 }
 
 - (void)_updateMaterialCaptureDevice:(id)device
@@ -4014,14 +4024,14 @@ uint64_t __47__SCNMaterialProperty__updateMaterialAVPlayer___block_invoke(uint64
   }
 }
 
-uint64_t __52__SCNMaterialProperty__updateMaterialCaptureDevice___block_invoke(uint64_t a1)
+uint64_t __52__SCNMaterialProperty__updateMaterialCaptureDevice___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = C3DImageProxyCreate(2);
-  v3 = objc_alloc_init(SCNCaptureDeviceSource);
-  [(SCNCaptureDeviceSource *)v3 setCaptureDevice:*(a1 + 32)];
-  [(SCNCaptureDeviceSource *)v3 connectToProxy:v2];
+  v3 = C3DImageProxyCreate(2, a2);
+  v4 = objc_alloc_init(SCNCaptureDeviceSource);
+  [(SCNCaptureDeviceSource *)v4 setCaptureDevice:*(a1 + 32)];
+  [(SCNCaptureDeviceSource *)v4 connectToProxy:v3];
 
-  return v2;
+  return v3;
 }
 
 - (void)_updateMaterialCaptureDeviceOutputConsumerSource:(id)source
@@ -4049,11 +4059,11 @@ uint64_t __52__SCNMaterialProperty__updateMaterialCaptureDevice___block_invoke(u
   }
 }
 
-uint64_t __72__SCNMaterialProperty__updateMaterialCaptureDeviceOutputConsumerSource___block_invoke(uint64_t a1)
+uint64_t __72__SCNMaterialProperty__updateMaterialCaptureDeviceOutputConsumerSource___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = C3DImageProxyCreate(3);
-  [*(a1 + 32) connectToProxy:v2];
-  return v2;
+  v3 = C3DImageProxyCreate(3, a2);
+  [*(a1 + 32) connectToProxy:v3];
+  return v3;
 }
 
 - (void)_updateMaterialTextureProvider:(id)provider
@@ -4081,14 +4091,14 @@ uint64_t __72__SCNMaterialProperty__updateMaterialCaptureDeviceOutputConsumerSou
   }
 }
 
-uint64_t __54__SCNMaterialProperty__updateMaterialTextureProvider___block_invoke(uint64_t a1)
+uint64_t __54__SCNMaterialProperty__updateMaterialTextureProvider___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = C3DImageProxyCreate(0);
-  v3 = objc_alloc_init(SCNMaterialPropertyTextureProviderSource);
-  [(SCNMaterialPropertyTextureProviderSource *)v3 setTextureProvider:*(a1 + 32)];
-  [(SCNMaterialPropertyTextureProviderSource *)v3 connectToProxy:v2];
+  v3 = C3DImageProxyCreate(0, a2);
+  v4 = objc_alloc_init(SCNMaterialPropertyTextureProviderSource);
+  [(SCNMaterialPropertyTextureProviderSource *)v4 setTextureProvider:*(a1 + 32)];
+  [(SCNMaterialPropertyTextureProviderSource *)v4 connectToProxy:v3];
 
-  return v2;
+  return v3;
 }
 
 - (void)_updatePrecomputedLightingEnvironment:(id)environment
@@ -4123,14 +4133,14 @@ uint64_t __54__SCNMaterialProperty__updateMaterialTextureProvider___block_invoke
   }
 }
 
-uint64_t __57__SCNMaterialProperty__updateMaterialProceduralContents___block_invoke(uint64_t a1)
+uint64_t __57__SCNMaterialProperty__updateMaterialProceduralContents___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = C3DImageProxyCreate(0);
-  v3 = objc_alloc_init(SCNDelegateSource);
-  [(SCNDelegateSource *)v3 setDelegate:*(a1 + 32)];
-  [(SCNImageSource *)v3 connectToProxy:v2];
+  v3 = C3DImageProxyCreate(0, a2);
+  v4 = objc_alloc_init(SCNDelegateSource);
+  [(SCNDelegateSource *)v4 setDelegate:*(a1 + 32)];
+  [(SCNImageSource *)v4 connectToProxy:v3];
 
-  return v2;
+  return v3;
 }
 
 - (void)_updateMaterialImage:(id)image
@@ -4147,7 +4157,7 @@ uint64_t __57__SCNMaterialProperty__updateMaterialProceduralContents___block_inv
     if (!image)
     {
 
-      C3DEffectSlotSetHasNoContents(v6);
+      C3DEffectSlotSetHasNoContents(v6, v7);
     }
   }
 }
@@ -4169,7 +4179,7 @@ uint64_t __57__SCNMaterialProperty__updateMaterialProceduralContents___block_inv
     goto LABEL_7;
   }
 
-  v7 = scn_default_log();
+  v7 = scn_default_log(self, a2);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
   {
     __RemoveVRAMResourceFromDic_cold_1(v7, v8, v9, v10, v11, v12, v13, v14);
@@ -4204,7 +4214,7 @@ LABEL_7:
 {
   if (!color)
   {
-    v5 = scn_default_log();
+    v5 = scn_default_log(self, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       _C3DCGColorGetComponentsInColorSpace_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
@@ -4245,11 +4255,11 @@ LABEL_7:
     v6 = *&contentTransform->m11;
     v7 = *&contentTransform->m21;
     v8 = *&contentTransform->m41;
-    v25[2] = *&contentTransform->m31;
-    v25[3] = v8;
-    v25[0] = v6;
-    v25[1] = v7;
-    SCNEncodeSCNMatrix4(property, @"contentsTransform", v25);
+    v29[2] = *&contentTransform->m31;
+    v29[3] = v8;
+    v29[0] = v6;
+    v29[1] = v7;
+    SCNEncodeSCNMatrix4(property, @"contentsTransform", v29);
   }
 
   p_contents = &self->_contents;
@@ -4391,10 +4401,12 @@ LABEL_40:
     goto LABEL_40;
   }
 
-  if ([*p_contents conformsToProtocol:&unk_282E10C00])
+  v22 = [*p_contents conformsToProtocol:&unk_282E10C00];
+  if (v22)
   {
     classForCoder = [*p_contents classForCoder];
-    if ([classForCoder isSubclassOfClass:objc_opt_class()])
+    v25 = [classForCoder isSubclassOfClass:objc_opt_class()];
+    if (v25)
     {
       v19 = *p_contents;
       v17 = @"image";
@@ -4402,17 +4414,17 @@ LABEL_40:
       goto LABEL_38;
     }
 
-    v24 = scn_default_log();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v28 = scn_default_log(v25, v26);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
-      [(SCNMaterialProperty *)classForCoder _customEncodingOfSCNMaterialProperty:v24];
+      [(SCNMaterialProperty *)classForCoder _customEncodingOfSCNMaterialProperty:v28];
     }
   }
 
   else
   {
-    v23 = scn_default_log();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v27 = scn_default_log(v22, v23);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       [SCNMaterialProperty _customEncodingOfSCNMaterialProperty:];
     }
@@ -4437,7 +4449,7 @@ LABEL_15:
 
 - (void)_didDecodeSCNMaterialProperty:(id)property
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   if (self->_customSlotName && !self->_customSlot)
   {
     self->_customSlot = C3DEffectSlotCreate(0, 27);
@@ -4475,48 +4487,48 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v16 = SCNDecodeImageArray(property, @"imageArray");
-  if (v16)
+  v17 = SCNDecodeImageArray(property, @"imageArray");
+  if (v17)
   {
-    v17 = v16;
-    v18 = SCNEnclosingURLForSceneDecoder(property);
-    if (!v18)
+    v18 = v17;
+    v19 = SCNEnclosingURLForSceneDecoder(property);
+    if (!v19)
     {
 LABEL_37:
-      [(SCNMaterialProperty *)self setContents:v17];
+      [(SCNMaterialProperty *)self setContents:v18];
       goto LABEL_12;
     }
 
-    v19 = v18;
-    v20 = [MEMORY[0x277CBEB18] arrayWithCapacity:6];
-    v44 = 0u;
-    v45 = 0u;
-    v46 = 0u;
-    v47 = 0u;
-    v21 = [v17 countByEnumeratingWithState:&v44 objects:v48 count:16];
-    if (v21)
+    v20 = v19;
+    v21 = [MEMORY[0x277CBEB18] arrayWithCapacity:6];
+    v48 = 0u;
+    v49 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v22 = [v18 countByEnumeratingWithState:&v48 objects:v52 count:16];
+    if (v22)
     {
-      v22 = *v45;
+      v23 = *v49;
 LABEL_30:
-      v23 = 0;
+      v24 = 0;
       while (1)
       {
-        if (*v45 != v22)
+        if (*v49 != v23)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v18);
         }
 
-        v24 = SCNResolveImageContents(*(*(&v44 + 1) + 8 * v23), v19);
-        if (!v24)
+        v25 = SCNResolveImageContents(*(*(&v48 + 1) + 8 * v24), v20);
+        if (!v25)
         {
           goto LABEL_37;
         }
 
-        [v20 addObject:v24];
-        if (v21 == ++v23)
+        [v21 addObject:v25];
+        if (v22 == ++v24)
         {
-          v21 = [v17 countByEnumeratingWithState:&v44 objects:v48 count:16];
-          if (v21)
+          v22 = [v18 countByEnumeratingWithState:&v48 objects:v52 count:16];
+          if (v22)
           {
             goto LABEL_30;
           }
@@ -4526,35 +4538,35 @@ LABEL_30:
       }
     }
 
-    [(SCNMaterialProperty *)self _updateC3DImageWithContents:v20];
+    [(SCNMaterialProperty *)self _updateC3DImageWithContents:v21];
     [(SCNMaterialProperty *)self _clearContents];
-    self->_contents = v17;
+    self->_contents = v18;
     v12 = 1;
     self->_contentType = 1;
   }
 
   else
   {
-    v25 = [property decodeObjectOfClass:objc_opt_class() forKey:@"color"];
-    if (v25)
+    v26 = [property decodeObjectOfClass:objc_opt_class() forKey:@"color"];
+    if (v26)
     {
-      [(SCNMaterialProperty *)self setColor:v25];
+      [(SCNMaterialProperty *)self setColor:v26];
       goto LABEL_12;
     }
 
-    v26 = pthread_main_np();
-    if (!v26)
+    v27 = pthread_main_np();
+    if (!v27)
     {
       [MEMORY[0x277CD9FF0] begin];
       [MEMORY[0x277CD9FF0] activateBackground:1];
     }
 
-    v27 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
-    v28 = SCNDecodeUnsafeObjectForKey(property, @"layer", v27);
-    if (v28)
+    v28 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
+    v29 = SCNDecodeUnsafeObjectForKey(property, @"layer", v28);
+    if (v29)
     {
-      [(SCNMaterialProperty *)self setLayer:v28];
-      if (!v26)
+      [(SCNMaterialProperty *)self setLayer:v29];
+      if (!v27)
       {
         [MEMORY[0x277CD9FF0] commit];
       }
@@ -4562,62 +4574,63 @@ LABEL_30:
       goto LABEL_12;
     }
 
-    if (!v26)
+    if (!v27)
     {
       [MEMORY[0x277CD9FF0] commit];
     }
 
-    v29 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
-    v30 = SCNDecodeUnsafeObjectForKey(property, @"attachment", v29);
-    if (v30)
+    v30 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
+    v31 = SCNDecodeUnsafeObjectForKey(property, @"attachment", v30);
+    if (v31)
     {
-      [(SCNMaterialProperty *)self setAttachment:v30];
+      [(SCNMaterialProperty *)self setAttachment:v31];
       goto LABEL_12;
     }
 
     if ([property containsValueForKey:@"skscene"])
     {
-      if (NSClassFromString(&cfstr_Skscene.isa))
+      v32 = NSClassFromString(&cfstr_Skscene.isa);
+      if (v32)
       {
-        *&v39 = 0;
-        *(&v39 + 1) = &v39;
-        *&v40 = 0x3052000000;
-        *(&v40 + 1) = __Block_byref_object_copy__9;
-        *&v41 = __Block_byref_object_dispose__9;
-        *(&v41 + 1) = 0;
-        if (C3DIsRunningInXcode() && [MEMORY[0x277CCACC8] isMainThread])
+        *&v43 = 0;
+        *(&v43 + 1) = &v43;
+        *&v44 = 0x3052000000;
+        *(&v44 + 1) = __Block_byref_object_copy__9;
+        *&v45 = __Block_byref_object_dispose__9;
+        *(&v45 + 1) = 0;
+        if (C3DIsRunningInXcode(v32, v33) && [MEMORY[0x277CCACC8] isMainThread])
         {
           block[0] = MEMORY[0x277D85DD0];
           block[1] = 3221225472;
           block[2] = __53__SCNMaterialProperty__didDecodeSCNMaterialProperty___block_invoke;
           block[3] = &unk_2782FF988;
           block[4] = property;
-          block[5] = &v39;
+          block[5] = &v43;
           dispatch_sync(MEMORY[0x277D85CD0], block);
-          v31 = *(*(&v39 + 1) + 40);
+          v34 = *(*(&v43 + 1) + 40);
         }
 
         else
         {
-          v32 = [MEMORY[0x277CBEB98] setWithObject:NSClassFromString(&cfstr_Skscene.isa)];
-          v31 = SCNDecodeUnsafeObjectForKey(property, @"skscene", v32);
-          *(*(&v39 + 1) + 40) = v31;
+          v35 = [MEMORY[0x277CBEB98] setWithObject:NSClassFromString(&cfstr_Skscene.isa)];
+          v34 = SCNDecodeUnsafeObjectForKey(property, @"skscene", v35);
+          *(*(&v43 + 1) + 40) = v34;
         }
 
-        if (v31)
+        if (v34)
         {
           [(SCNMaterialProperty *)self setSkScene:?];
-          _Block_object_dispose(&v39, 8);
+          _Block_object_dispose(&v43, 8);
           goto LABEL_12;
         }
 
-        _Block_object_dispose(&v39, 8);
+        _Block_object_dispose(&v43, 8);
       }
 
       else
       {
-        v33 = scn_default_log();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+        v36 = scn_default_log(0, v33);
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
         {
           [SCNMaterialProperty _didDecodeSCNMaterialProperty:];
         }
@@ -4628,19 +4641,19 @@ LABEL_30:
     {
       if (NSClassFromString(&cfstr_Sktexture.isa))
       {
-        v34 = [MEMORY[0x277CBEB98] setWithObject:NSClassFromString(&cfstr_Sktexture.isa)];
-        v35 = SCNDecodeUnsafeObjectForKey(property, @"sktexture", v34);
-        if (v35)
+        v38 = [MEMORY[0x277CBEB98] setWithObject:NSClassFromString(&cfstr_Sktexture.isa)];
+        v39 = SCNDecodeUnsafeObjectForKey(property, @"sktexture", v38);
+        if (v39)
         {
-          [(SCNMaterialProperty *)self setSkTexture:v35];
+          [(SCNMaterialProperty *)self setSkTexture:v39];
           goto LABEL_12;
         }
       }
 
       else
       {
-        v36 = scn_default_log();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+        v40 = scn_default_log(0, v37);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
         {
           [SCNMaterialProperty _didDecodeSCNMaterialProperty:];
         }
@@ -4656,8 +4669,8 @@ LABEL_30:
 
     if ([property containsValueForKey:@"precomputedLightingEnvironment"])
     {
-      v37 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
-      [(SCNMaterialProperty *)self setPrecomputedLightingEnvironment:SCNDecodeUnsafeObjectForKey(property, @"precomputedLightingEnvironment", v37)];
+      v41 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
+      [(SCNMaterialProperty *)self setPrecomputedLightingEnvironment:SCNDecodeUnsafeObjectForKey(property, @"precomputedLightingEnvironment", v41)];
       goto LABEL_12;
     }
 
@@ -4694,16 +4707,16 @@ LABEL_13:
 
   if ([property containsValueForKey:@"contentsTransform"])
   {
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
-    v40 = 0u;
-    SCNDecodeSCNMatrix4(property, @"contentsTransform", &v39);
-    v38[0] = v39;
-    v38[1] = v40;
-    v38[2] = v41;
-    v38[3] = v42;
-    [(SCNMaterialProperty *)self setContentsTransform:v38];
+    v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
+    SCNDecodeSCNMatrix4(property, @"contentsTransform", &v43);
+    v42[0] = v43;
+    v42[1] = v44;
+    v42[2] = v45;
+    v42[3] = v46;
+    [(SCNMaterialProperty *)self setContentsTransform:v42];
   }
 
   if ((v12 & 1) == 0)
@@ -4711,12 +4724,12 @@ LABEL_13:
     v15 = [(SCNMaterialProperty *)self effectSlotCreateIfNeeded:0];
     if (v15)
     {
-      C3DEffectSlotSetHasNoContents(v15);
+      C3DEffectSlotSetHasNoContents(v15, v16);
     }
   }
 }
 
-uint64_t __53__SCNMaterialProperty__didDecodeSCNMaterialProperty___block_invoke(uint64_t a1)
+void *__53__SCNMaterialProperty__didDecodeSCNMaterialProperty___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = [MEMORY[0x277CBEB98] setWithObject:NSClassFromString(&cfstr_Skscene.isa)];
@@ -4777,31 +4790,31 @@ uint64_t __53__SCNMaterialProperty__didDecodeSCNMaterialProperty___block_invoke(
   }
 
   [(SCNMaterialProperty *)self _customEncodingOfSCNMaterialProperty:coder];
-  [coder encodeInt:(*(self + 8) >> 1) & 1 forKey:@"isCommonProfileProperty"];
+  v5 = [coder encodeInt:(*(self + 8) >> 1) & 1 forKey:@"isCommonProfileProperty"];
   parent = self->_parent;
   if (parent)
   {
-    [coder encodeObject:parent forKey:@"parent"];
+    v5 = [coder encodeObject:parent forKey:@"parent"];
   }
 
   propertyType = self->_propertyType;
   if (propertyType < 0x1C && ((0xFC0FFFFu >> propertyType) & 1) != 0)
   {
-    v7 = qword_21C2A2430[self->_propertyType];
+    v9 = qword_21C2A2430[self->_propertyType];
   }
 
   else
   {
-    v8 = scn_default_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = scn_default_log(v5, v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [SCNMaterialProperty encodeWithCoder:];
     }
 
-    v7 = 0;
+    v9 = 0;
   }
 
-  [coder encodeInteger:v7 forKey:@"propertyType"];
+  [coder encodeInteger:v9 forKey:@"propertyType"];
   customSlotName = self->_customSlotName;
   if (customSlotName)
   {
@@ -4814,8 +4827,8 @@ uint64_t __53__SCNMaterialProperty__didDecodeSCNMaterialProperty___block_invoke(
     SCNEncodeUnsafeObjectForKey(coder, borderColor, @"borderColor");
   }
 
-  *&v9 = self->_intensity;
-  [coder encodeFloat:@"intensity" forKey:v9];
+  *&v11 = self->_intensity;
+  [coder encodeFloat:@"intensity" forKey:v11];
   if ([(SCNMaterialProperty *)self effectSlotCreateIfNeeded:0])
   {
     [coder encodeBool:-[SCNMaterialProperty sRGBTexture](self forKey:{"sRGBTexture"), @"sRGB"}];
@@ -4826,10 +4839,10 @@ uint64_t __53__SCNMaterialProperty__didDecodeSCNMaterialProperty___block_invoke(
 
 - (SCNMaterialProperty)initWithCoder:(id)coder
 {
-  v16[4] = *MEMORY[0x277D85DE8];
-  v15.receiver = self;
-  v15.super_class = SCNMaterialProperty;
-  v4 = [(SCNMaterialProperty *)&v15 init];
+  v17[4] = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = SCNMaterialProperty;
+  v4 = [(SCNMaterialProperty *)&v16 init];
   if (v4)
   {
     v5 = +[SCNTransaction immediateMode];
@@ -4838,45 +4851,45 @@ uint64_t __53__SCNMaterialProperty__didDecodeSCNMaterialProperty___block_invoke(
     v6 = [coder decodeIntegerForKey:@"propertyType"];
     if (v6 >= 0x16)
     {
-      v8 = scn_default_log();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = scn_default_log(v6, v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [SCNMaterialProperty initWithCoder:];
       }
 
-      v7 = 0;
+      v8 = 0;
     }
 
     else
     {
-      v7 = byte_21C2A2510[v6];
+      v8 = byte_21C2A2510[v6];
     }
 
-    v4->_propertyType = v7;
-    v9 = MEMORY[0x277CBEB98];
-    v16[0] = objc_opt_class();
-    v16[1] = objc_opt_class();
-    v16[2] = objc_opt_class();
-    v16[3] = objc_opt_class();
-    v10 = [coder decodeObjectOfClasses:objc_msgSend(v9 forKey:{"setWithArray:", objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v16, 4)), @"parent"}];
-    if (v10 == v4)
+    v4->_propertyType = v8;
+    v10 = MEMORY[0x277CBEB98];
+    v17[0] = objc_opt_class();
+    v17[1] = objc_opt_class();
+    v17[2] = objc_opt_class();
+    v17[3] = objc_opt_class();
+    v11 = [coder decodeObjectOfClasses:objc_msgSend(v10 forKey:{"setWithArray:", objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v17, 4)), @"parent"}];
+    if (v11 == v4)
     {
-      v11 = 0;
+      v12 = 0;
     }
 
     else
     {
-      v11 = v10;
+      v12 = v11;
     }
 
-    v4->_parent = v11;
+    v4->_parent = v12;
     [(SCNMaterialProperty *)v4 _customDecodingOfSCNMaterialProperty:coder];
     *(v4 + 8) = (2 * ([coder decodeIntForKey:@"isCommonProfileProperty"] & 1)) | *(v4 + 8) & 0xFD;
     v4->_customSlotName = [coder decodeObjectOfClass:objc_opt_class() forKey:@"customSlotName"];
-    v12 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
-    [(SCNMaterialProperty *)v4 setBorderColor:SCNDecodeUnsafeObjectForKey(coder, @"borderColor", v12)];
+    v13 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
+    [(SCNMaterialProperty *)v4 setBorderColor:SCNDecodeUnsafeObjectForKey(coder, @"borderColor", v13)];
     [coder decodeFloatForKey:@"intensity"];
-    [(SCNMaterialProperty *)v4 setIntensity:v13];
+    [(SCNMaterialProperty *)v4 setIntensity:v14];
     if ([coder containsValueForKey:@"sRGB"])
     {
       -[SCNMaterialProperty setSRGBTexture:](v4, "setSRGBTexture:", [coder decodeBoolForKey:@"sRGB"]);
@@ -4922,43 +4935,43 @@ uint64_t __53__SCNMaterialProperty__didDecodeSCNMaterialProperty___block_invoke(
   effectSlot = [(SCNMaterialProperty *)lightingEnvironment effectSlot];
   if (!effectSlot)
   {
-    v11 = scn_default_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    v12 = scn_default_log(0, v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      [SCNMaterialProperty(SCNMaterialPropertyPrivate_PrecomputedLightingEnvironment) precomputedLightingEnvironmentDataForContents:v11 device:? error:?];
+      [SCNMaterialProperty(SCNMaterialPropertyPrivate_PrecomputedLightingEnvironment) precomputedLightingEnvironmentDataForContents:v12 device:? error:?];
     }
   }
 
   +[SCNTransaction commit];
-  if (C3DEffectSlotHasImageOrTexture(effectSlot))
+  if (C3DEffectSlotHasImageOrTexture(effectSlot, v13))
   {
-    v12 = [+[SCNRenderer rendererWithDevice:options:](SCNRenderer _renderContextMetal:device];
-    [(SCNMTLRenderContext *)v12 beginFrame:?];
-    v13 = [SCNMTLRenderContext radianceTextureForEffectSlot:v12];
-    v14 = [SCNMTLRenderContext irradianceTextureForEffectSlot:v12];
-    v21 = 5;
-    [(SCNMTLRenderContext *)v12 endFrameWaitingUntilCompleted:&v21 status:error error:?];
+    v15 = [+[SCNRenderer rendererWithDevice:options:](SCNRenderer _renderContextMetal:device];
+    [(SCNMTLRenderContext *)v15 beginFrame:?];
+    v16 = [SCNMTLRenderContext radianceTextureForEffectSlot:v15];
+    v17 = [SCNMTLRenderContext irradianceTextureForEffectSlot:v15];
+    v25 = 5;
+    [(SCNMTLRenderContext *)v15 endFrameWaitingUntilCompleted:&v25 status:error error:?];
     PrecomputedLightingEnvironment = 0;
-    if (v13 && v14 && v21 == 4)
+    if (v16 && v17 && v25 == 4)
     {
-      v16 = SCNCreateDataWithMTLTexture(v13, 1);
-      v17 = SCNCreateDataWithMTLTexture(v14, 1);
+      v19 = SCNCreateDataWithMTLTexture();
+      v20 = SCNCreateDataWithMTLTexture();
       PrecomputedLightingEnvironment = objc_alloc_init(SCNPrecomputedLightingEnvironment);
-      [(SCNPrecomputedLightingEnvironment *)PrecomputedLightingEnvironment setRadianceData:v16];
-      [(SCNPrecomputedLightingEnvironment *)PrecomputedLightingEnvironment setIrradianceData:v17];
+      [(SCNPrecomputedLightingEnvironment *)PrecomputedLightingEnvironment setRadianceData:v19];
+      [(SCNPrecomputedLightingEnvironment *)PrecomputedLightingEnvironment setIrradianceData:v20];
     }
   }
 
   else
   {
-    if (!C3DEffectSlotHasPrecomputedLightingEnvironment(effectSlot))
+    if (!C3DEffectSlotHasPrecomputedLightingEnvironment(effectSlot, v14))
     {
 
       return 0;
     }
 
-    PrecomputedLightingEnvironment = C3DEffectSlotGetPrecomputedLightingEnvironment(effectSlot);
-    v18 = PrecomputedLightingEnvironment;
+    PrecomputedLightingEnvironment = C3DEffectSlotGetPrecomputedLightingEnvironment(effectSlot, v21);
+    v22 = PrecomputedLightingEnvironment;
   }
 
   if (!PrecomputedLightingEnvironment)
@@ -4966,9 +4979,16 @@ uint64_t __53__SCNMaterialProperty__didDecodeSCNMaterialProperty___block_invoke(
     return 0;
   }
 
-  v19 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:PrecomputedLightingEnvironment requiringSecureCoding:1 error:error];
+  v23 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:PrecomputedLightingEnvironment requiringSecureCoding:1 error:error];
 
-  return v19;
+  return v23;
+}
+
+- (void)image
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_contentType != SCNContentTypeLayer && _contentType != SCNContentTypeSKScene";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, self, a3, "Assertion '%s' failed. the c3dImage should have been cleared when setting a layer or a skscene", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)propertyName
@@ -4984,6 +5004,20 @@ uint64_t __53__SCNMaterialProperty__didDecodeSCNMaterialProperty___block_invoke(
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+}
+
+- (void)parentWillDie:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "parent == _parent";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, a1, a3, "Assertion '%s' failed. inconsistency in SCNMaterialProperty::parentWillDie", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_updateMaterialAttachment:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "attachment == NULL || [(id) attachment isKindOfClass:[SCNMaterialAttachment class]]";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, a1, a3, "Assertion '%s' failed. _updateMaterialAttachment: unexpected argument", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_customEncodingOfSCNMaterialProperty:(NSObject *)a3 .cold.2(objc_class *a1, uint64_t *a2, NSObject *a3)

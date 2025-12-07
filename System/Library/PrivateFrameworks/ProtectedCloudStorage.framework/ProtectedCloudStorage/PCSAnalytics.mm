@@ -12,7 +12,7 @@
 
 + (id)databasePath
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, 1uLL, 1);
   if ([v2 count])
   {
@@ -21,9 +21,9 @@
     v5 = [v3 stringWithFormat:@"%@/com.apple.ProtectedCloudStorage", v4];
 
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    v13 = 0;
-    v7 = [defaultManager createDirectoryAtPath:v5 withIntermediateDirectories:1 attributes:0 error:&v13];
-    v8 = v13;
+    v12 = 0;
+    v7 = [defaultManager createDirectoryAtPath:v5 withIntermediateDirectories:1 attributes:0 error:&v12];
+    v8 = v12;
 
     if (v7)
     {
@@ -36,7 +36,7 @@
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v15 = v8;
+        v14 = v8;
         _os_log_impl(&dword_1B229C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Failed to create ApplicationSupport directory: %@", buf, 0xCu);
       }
 
@@ -54,8 +54,6 @@
 
     v10 = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -84,49 +82,12 @@
 
 - (void)logRecoverableError:(id)error forEvent:(id)event withAttributes:(id)attributes
 {
-  v20[3] = *MEMORY[0x1E69E9840];
-  eventCopy = event;
-  attributesCopy = attributes;
-  if (error)
-  {
-    v20[0] = MEMORY[0x1E695E118];
-    v19[0] = @"recoverableError";
-    v19[1] = @"errorDomain";
-    errorCopy = error;
-    domain = [errorCopy domain];
-    v20[1] = domain;
-    v19[2] = @"errorCode";
-    v12 = MEMORY[0x1E696AD98];
-    code = [errorCopy code];
-
-    v14 = [v12 numberWithInteger:code];
-    v20[2] = v14;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:3];
-
-    if (attributesCopy)
-    {
-      v16 = [attributesCopy mutableCopy];
-      [v16 setValuesForKeysWithDictionary:v15];
-
-      v15 = v16;
-    }
-
-    v18.receiver = self;
-    v18.super_class = PCSAnalytics;
-    [(SFAnalytics *)&v18 logSoftFailureForEventNamed:eventCopy withAttributes:v15];
-  }
-
-  v17 = *MEMORY[0x1E69E9840];
-}
-
-- (void)logUnrecoverableError:(id)error forEvent:(id)event withAttributes:(id)attributes
-{
   v19[3] = *MEMORY[0x1E69E9840];
   eventCopy = event;
   attributesCopy = attributes;
   if (error)
   {
-    v19[0] = MEMORY[0x1E695E110];
+    v19[0] = MEMORY[0x1E695E118];
     v18[0] = @"recoverableError";
     v18[1] = @"errorDomain";
     errorCopy = error;
@@ -148,10 +109,43 @@
       v15 = v16;
     }
 
+    v17.receiver = self;
+    v17.super_class = PCSAnalytics;
+    [(SFAnalytics *)&v17 logSoftFailureForEventNamed:eventCopy withAttributes:v15];
+  }
+}
+
+- (void)logUnrecoverableError:(id)error forEvent:(id)event withAttributes:(id)attributes
+{
+  v18[3] = *MEMORY[0x1E69E9840];
+  eventCopy = event;
+  attributesCopy = attributes;
+  if (error)
+  {
+    v18[0] = MEMORY[0x1E695E110];
+    v17[0] = @"recoverableError";
+    v17[1] = @"errorDomain";
+    errorCopy = error;
+    domain = [errorCopy domain];
+    v18[1] = domain;
+    v17[2] = @"errorCode";
+    v12 = MEMORY[0x1E696AD98];
+    code = [errorCopy code];
+
+    v14 = [v12 numberWithInteger:code];
+    v18[2] = v14;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:3];
+
+    if (attributesCopy)
+    {
+      v16 = [attributesCopy mutableCopy];
+      [v16 setValuesForKeysWithDictionary:v15];
+
+      v15 = v16;
+    }
+
     [(SFAnalytics *)self logHardFailureForEventNamed:eventCopy withAttributes:v15];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)noteEvent:(id)event

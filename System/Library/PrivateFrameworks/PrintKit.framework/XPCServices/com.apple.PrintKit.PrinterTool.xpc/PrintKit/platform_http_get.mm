@@ -173,19 +173,18 @@
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [(NSMutableData *)self->_data length];
-    v13[0] = 67109120;
-    v13[1] = v7;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "fetch completed with %d bytes", v13, 8u);
+    v12[0] = 67109120;
+    v12[1] = v7;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "fetch completed with %d bytes", v12, 8u);
   }
 
   cb = self->_cb;
   p_cb = &self->_cb;
-  v10 = p_cb[1];
   cb[2]();
-  v11 = *p_cb;
+  v10 = *p_cb;
   *p_cb = 0;
 
-  v12 = p_cb[1];
+  v11 = p_cb[1];
   p_cb[1] = 0;
 }
 

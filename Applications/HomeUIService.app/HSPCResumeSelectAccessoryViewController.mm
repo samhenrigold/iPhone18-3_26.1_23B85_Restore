@@ -7,6 +7,7 @@
 - (id)tableView:(id)view willSelectRowAtIndexPath:(id)path;
 - (int64_t)tableView:(id)view numberOfRowsInSection:(int64_t)section;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation HSPCResumeSelectAccessoryViewController
@@ -110,6 +111,38 @@
   v2.receiver = self;
   v2.super_class = HSPCResumeSelectAccessoryViewController;
   [(HSPCResumeSelectAccessoryViewController *)&v2 viewDidLoad];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v14.receiver = self;
+  v14.super_class = HSPCResumeSelectAccessoryViewController;
+  [(HSPCResumeSelectAccessoryViewController *)&v14 viewWillAppear:appear];
+  tableView = [(HSPCResumeSelectAccessoryViewController *)self tableView];
+  [tableView reloadData];
+
+  tableView2 = [(HSPCResumeSelectAccessoryViewController *)self tableView];
+  v6 = [tableView2 numberOfRowsInSection:0];
+
+  if (v6 >= 1)
+  {
+    for (i = 0; i != v6; ++i)
+    {
+      v8 = [NSIndexPath indexPathForRow:i inSection:0];
+      tableView3 = [(HSPCResumeSelectAccessoryViewController *)self tableView];
+      [tableView3 selectRowAtIndexPath:v8 animated:0 scrollPosition:0];
+    }
+  }
+
+  tableView4 = [(HSPCResumeSelectAccessoryViewController *)self tableView];
+  [tableView4 layoutIfNeeded];
+
+  contentView = [(HSPCResumeSelectAccessoryViewController *)self contentView];
+  [contentView setNeedsUpdateConstraints];
+
+  view = [(HSPCResumeSelectAccessoryViewController *)self view];
+  [view bounds];
+  [(HSPCResumeSelectAccessoryViewController *)self updatePreferredContentSizeForCardWidth:v13];
 }
 
 - (id)tableView:(id)view willSelectRowAtIndexPath:(id)path

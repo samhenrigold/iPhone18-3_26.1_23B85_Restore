@@ -67,7 +67,7 @@
           v37 = [v21 serviceUTIFromType:v16];
           if (v37)
           {
-            log = sub_10007FAA0();
+            log = sub_10007FAA0(0);
             if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
             {
               v22 = sub_10007FAFC(0);
@@ -91,7 +91,7 @@
           {
             if ([characteristicsCopy count] >= 0x65)
             {
-              v25 = sub_10007FAA0();
+              v25 = sub_10007FAA0(0);
               if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
               {
                 v26 = sub_10007FAFC(0);
@@ -110,7 +110,7 @@ LABEL_28:
             objc_storeStrong(&self->_characteristics, characteristics);
             if (![(HAPService *)self updateAndValidateCharacteristics])
             {
-              v25 = sub_10007FAA0();
+              v25 = sub_10007FAA0(0);
               if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
               {
                 v26 = sub_10007FAFC(0);
@@ -135,7 +135,7 @@ LABEL_29:
         goto LABEL_22;
       }
 
-      v28 = sub_10007FAA0();
+      v28 = sub_10007FAA0(0);
       if (!os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_20;
@@ -148,7 +148,7 @@ LABEL_29:
       goto LABEL_19;
     }
 
-    v28 = sub_10007FAA0();
+    v28 = sub_10007FAA0(0);
     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       v29 = sub_10007FAFC(0);
@@ -164,7 +164,7 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  v16 = sub_10007FAA0();
+  v16 = sub_10007FAA0(0);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     v28 = sub_10007FAFC(0);
@@ -213,18 +213,8 @@ LABEL_22:
     }
 
     v6 = v5;
-    if (!v6)
+    if (!v6 || ([(HAPService *)self instanceID], v7 = objc_claimAutoreleasedReturnValue(), [(HAPService *)v6 instanceID], v8 = objc_claimAutoreleasedReturnValue(), v9 = sub_10007EC60(v7, v8), v8, v7, (v9 & 1) != 0) || ([(HAPService *)self type], v10 = objc_claimAutoreleasedReturnValue(), [(HAPService *)v6 type], v11 = objc_claimAutoreleasedReturnValue(), v12 = sub_10007EC2C(v10, v11), v11, v10, (v12 & 1) != 0))
     {
-      goto LABEL_8;
-    }
-
-    instanceID = [(HAPService *)self instanceID];
-    instanceID2 = [(HAPService *)v6 instanceID];
-    v9 = sub_10007EC60(instanceID, instanceID2);
-
-    if (v9 & 1) != 0 || ([(HAPService *)self type], v10 = objc_claimAutoreleasedReturnValue(), [(HAPService *)v6 type], v11 = objc_claimAutoreleasedReturnValue(), v12 = sub_10007EC2C(v10, v11), v11, v10, (v12))
-    {
-LABEL_8:
       v13 = 0;
     }
 
@@ -383,7 +373,7 @@ LABEL_4:
       if (([selfCopy _updateCharacteristic:v11] & 1) == 0)
       {
         v20 = selfCopy;
-        v17 = sub_10007FAA0();
+        v17 = sub_10007FAA0(v20);
         if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           v18 = sub_10007FAFC(v20);
@@ -411,7 +401,7 @@ LABEL_19:
     }
 
     v16 = selfCopy;
-    v17 = sub_10007FAA0();
+    v17 = sub_10007FAA0(v16);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       v18 = sub_10007FAFC(v16);
@@ -427,7 +417,7 @@ LABEL_20:
   }
 
   v5 = selfCopy;
-  characteristics2 = sub_10007FAA0();
+  characteristics2 = sub_10007FAA0(v5);
   if (os_log_type_enabled(characteristics2, OS_LOG_TYPE_ERROR))
   {
     selfCopy = sub_10007FAFC(v5);
@@ -466,7 +456,7 @@ LABEL_23:
   else
   {
     selfCopy = self;
-    v6 = sub_10007FAA0();
+    v6 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = sub_10007FAFC(selfCopy);
@@ -613,7 +603,7 @@ LABEL_23:
           }
 
           selfCopy = self;
-          v19 = sub_10007FAA0();
+          v19 = sub_10007FAA0(selfCopy);
           if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
             v20 = sub_10007FAFC(selfCopy);
@@ -701,7 +691,7 @@ LABEL_19:
 
             v16 = *(*(&v73 + 1) + 8 * i);
             selfCopy = self;
-            v18 = sub_10007FAA0();
+            v18 = sub_10007FAA0(selfCopy);
             if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
             {
               v19 = sub_10007FAFC(selfCopy);
@@ -747,7 +737,7 @@ LABEL_19:
 
             v29 = *(*(&v69 + 1) + 8 * j);
             selfCopy2 = self;
-            v31 = sub_10007FAA0();
+            v31 = sub_10007FAA0(selfCopy2);
             if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
             {
               v32 = sub_10007FAFC(selfCopy2);
@@ -794,7 +784,7 @@ LABEL_19:
 
             v39 = *(*(&v65 + 1) + 8 * k);
             selfCopy3 = self;
-            v41 = sub_10007FAA0();
+            v41 = sub_10007FAA0(selfCopy3);
             if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
             {
               v42 = sub_10007FAFC(selfCopy3);
@@ -809,7 +799,7 @@ LABEL_19:
             if (v43 && [v39 mergeObject:v43])
             {
               v44 = selfCopy3;
-              v45 = sub_10007FAA0();
+              v45 = sub_10007FAA0(v44);
               if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
               {
                 v46 = sub_10007FAFC(v44);
@@ -854,7 +844,7 @@ LABEL_19:
     else
     {
       selfCopy4 = self;
-      v54 = sub_10007FAA0();
+      v54 = sub_10007FAA0(selfCopy4);
       v60 = v54;
       if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
       {

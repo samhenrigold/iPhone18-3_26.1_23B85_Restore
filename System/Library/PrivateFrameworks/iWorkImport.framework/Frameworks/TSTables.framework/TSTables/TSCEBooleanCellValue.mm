@@ -17,49 +17,49 @@
 {
   booleanCopy = boolean;
   localeCopy = locale;
-  v15.receiver = self;
-  v15.super_class = TSCEBooleanCellValue;
-  v7 = [(TSCECellValue *)&v15 initWithLocale:localeCopy];
-  v11 = v7;
+  v14.receiver = self;
+  v14.super_class = TSCEBooleanCellValue;
+  v7 = [(TSCECellValue *)&v14 initWithLocale:localeCopy];
+  v10 = v7;
   if (v7)
   {
     v7->super._valueType = 2;
-    v12 = objc_msgSend_BOOLValue_(TSCEBooleanValue, v8, booleanCopy, v9, v10);
-    BOOLeanValue = v11->_BOOLeanValue;
-    v11->_BOOLeanValue = v12;
+    v11 = objc_msgSend_BOOLValue_(TSCEBooleanValue, v8, booleanCopy, v9);
+    BOOLeanValue = v10->_BOOLeanValue;
+    v10->_BOOLeanValue = v11;
   }
 
-  return v11;
+  return v10;
 }
 
 - (TSCEBooleanCellValue)initWithBooleanValue:(id)value locale:(id)locale
 {
   valueCopy = value;
   localeCopy = locale;
-  v23.receiver = self;
-  v23.super_class = TSCEBooleanCellValue;
-  v8 = [(TSCECellValue *)&v23 initWithLocale:localeCopy];
-  v13 = v8;
+  v21.receiver = self;
+  v21.super_class = TSCEBooleanCellValue;
+  v8 = [(TSCECellValue *)&v21 initWithLocale:localeCopy];
+  v12 = v8;
   if (v8)
   {
     v8->super._valueType = 2;
-    v18 = objc_msgSend_asBool(valueCopy, v9, v10, v11, v12);
+    v16 = objc_msgSend_asBool(valueCopy, v9, v10, v11);
     if (valueCopy)
     {
-      objc_msgSend_format(valueCopy, v14, v15, v16, v17);
+      objc_msgSend_format(valueCopy, v13, v14, v15);
     }
 
     else
     {
-      memset(v22, 0, sizeof(v22));
+      memset(v20, 0, sizeof(v20));
     }
 
-    v19 = objc_msgSend_BOOLValue_format_(TSCEBooleanValue, v14, v18, v22, v17);
-    BOOLeanValue = v13->_BOOLeanValue;
-    v13->_BOOLeanValue = v19;
+    v17 = objc_msgSend_BOOLValue_format_(TSCEBooleanValue, v13, v16, v20);
+    BOOLeanValue = v12->_BOOLeanValue;
+    v12->_BOOLeanValue = v17;
   }
 
-  return v13;
+  return v12;
 }
 
 - (id)format
@@ -67,38 +67,38 @@
   BOOLeanValue = self->_BOOLeanValue;
   if (BOOLeanValue)
   {
-    objc_msgSend_format(BOOLeanValue, a2, v2, v3, v4);
+    objc_msgSend_format(BOOLeanValue, a2, v2, v3);
   }
 
   else
   {
-    memset(&v13, 0, sizeof(v13));
+    memset(&v11, 0, sizeof(v11));
   }
 
-  v6 = TSCEFormat::tskFormat(&v13, a2, v2, v3, v4);
-  v9 = v6;
-  if (v6)
+  v5 = TSCEFormat::tskFormat(&v11, a2, v2, v3);
+  v7 = v5;
+  if (v5)
   {
-    v10 = v6;
+    v8 = v5;
   }
 
   else
   {
-    v10 = objc_msgSend_defaultFormatWithFormatType_locale_(MEMORY[0x277D80680], v7, 1, 0, v8);
+    v8 = objc_msgSend_defaultFormatWithFormatType_locale_(MEMORY[0x277D80680], v6, 1, 0);
   }
 
-  v11 = v10;
+  v9 = v8;
 
-  return v11;
+  return v9;
 }
 
 - (id)displayString
 {
   BOOLeanValue = self->_BOOLeanValue;
-  v6 = objc_msgSend_locale(self, a2, v2, v3, v4);
-  v10 = objc_msgSend_asStringWithLocale_(BOOLeanValue, v7, v6, v8, v9);
+  v5 = objc_msgSend_locale(self, a2, v2, v3);
+  v8 = objc_msgSend_asStringWithLocale_(BOOLeanValue, v6, v5, v7);
 
-  return v10;
+  return v8;
 }
 
 - (id)tsceValue
@@ -106,25 +106,25 @@
   BOOLeanValue = self->_BOOLeanValue;
   if (BOOLeanValue)
   {
-    v6 = BOOLeanValue;
+    v5 = BOOLeanValue;
   }
 
   else
   {
-    v6 = objc_msgSend_nilValue(TSCENilValue, a2, v2, v3, v4);
+    v5 = objc_msgSend_nilValue(TSCENilValue, a2, v2, v3);
   }
 
-  return v6;
+  return v5;
 }
 
 - (BOOL)isEqualToCellValue:(id)value
 {
   valueCopy = value;
-  if (objc_msgSend_valueType(valueCopy, v5, v6, v7, v8) == 2)
+  if (objc_msgSend_valueType(valueCopy, v5, v6, v7) == 2)
   {
-    v13 = objc_msgSend_BOOLeanValue(valueCopy, v9, v10, v11, v12);
-    v18 = objc_msgSend_asBool(self->_BOOLeanValue, v14, v15, v16, v17);
-    if (v18 != objc_msgSend_asBool(v13, v19, v20, v21, v22))
+    v11 = objc_msgSend_BOOLeanValue(valueCopy, v8, v9, v10);
+    v15 = objc_msgSend_asBool(self->_BOOLeanValue, v12, v13, v14);
+    if (v15 != objc_msgSend_asBool(v11, v16, v17, v18))
     {
       isEqualNotCountingExplicitness = 0;
 LABEL_11:
@@ -135,27 +135,27 @@ LABEL_11:
     BOOLeanValue = self->_BOOLeanValue;
     if (BOOLeanValue)
     {
-      objc_msgSend_format(BOOLeanValue, v23, v24, v25, v26);
-      if (v13)
+      objc_msgSend_format(BOOLeanValue, v19, v20, v21);
+      if (v11)
       {
 LABEL_7:
-        objc_msgSend_format(v13, v23, v24, v25, v26);
+        objc_msgSend_format(v11, v19, v20, v21);
 LABEL_10:
-        isEqualNotCountingExplicitness = TSCEFormat::isEqualNotCountingExplicitness(&v31, &v30, v24, v25, v26);
+        isEqualNotCountingExplicitness = TSCEFormat::isEqualNotCountingExplicitness(&v26, &v25, v20, v21);
         goto LABEL_11;
       }
     }
 
     else
     {
-      memset(&v31, 0, sizeof(v31));
-      if (v13)
+      memset(&v26, 0, sizeof(v26));
+      if (v11)
       {
         goto LABEL_7;
       }
     }
 
-    memset(&v30, 0, sizeof(v30));
+    memset(&v25, 0, sizeof(v25));
     goto LABEL_10;
   }
 
@@ -175,128 +175,128 @@ LABEL_12:
 - (int64_t)compareToCellValue:(id)value
 {
   valueCopy = value;
-  v9 = valueCopy[8];
-  if (v9 <= 2)
+  v8 = valueCopy[8];
+  if (v8 <= 2)
   {
     if (!valueCopy[8])
     {
 LABEL_19:
-      v12 = 1;
+      v11 = 1;
       goto LABEL_20;
     }
 
-    if (v9 != 2)
+    if (v8 != 2)
     {
 LABEL_18:
-      v25 = MEMORY[0x277D81150];
-      v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSCEBooleanCellValue compareToCellValue:]", v6, v7);
-      v30 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEBooleanCellValue.mm", v28, v29);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v25, v31, v26, v30, 121, 0, "Unexpected value type found");
+      v22 = MEMORY[0x277D81150];
+      v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSCEBooleanCellValue compareToCellValue:]", v6);
+      v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEBooleanCellValue.mm", v25);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v22, v27, v23, v26, 121, 0, "Unexpected value type found");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v32, v33, v34, v35);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v28, v29, v30);
       goto LABEL_19;
     }
 
-    v13 = objc_msgSend_asBool(self->_BOOLeanValue, v4, v5, v6, v7);
-    v18 = objc_msgSend_BOOLeanValue(valueCopy, v14, v15, v16, v17);
-    v23 = objc_msgSend_asBool(v18, v19, v20, v21, v22);
+    v12 = objc_msgSend_asBool(self->_BOOLeanValue, v4, v5, v6);
+    v16 = objc_msgSend_BOOLeanValue(valueCopy, v13, v14, v15);
+    v20 = objc_msgSend_asBool(v16, v17, v18, v19);
 
-    v24 = 1;
-    if (!v13)
+    v21 = 1;
+    if (!v12)
     {
-      v24 = -1;
+      v21 = -1;
     }
 
-    if (v13 != v23)
+    if (v12 != v20)
     {
-      v12 = v24;
+      v11 = v21;
     }
 
     else
     {
-      v12 = 0;
+      v11 = 0;
     }
   }
 
   else
   {
-    if (v9 != 3 && v9 != 5 && v9 != 7)
+    if (v8 != 3 && v8 != 5 && v8 != 7)
     {
       goto LABEL_18;
     }
 
-    v12 = -1;
+    v11 = -1;
   }
 
 LABEL_20:
 
-  return v12;
+  return v11;
 }
 
 - (TSCEBooleanCellValue)initWithArchive:(const void *)archive locale:(id)locale
 {
-  v18.receiver = self;
-  v18.super_class = TSCEBooleanCellValue;
-  v5 = [(TSCECellValue *)&v18 initWithLocale:locale];
-  v10 = v5;
+  v16.receiver = self;
+  v16.super_class = TSCEBooleanCellValue;
+  v5 = [(TSCECellValue *)&v16 initWithLocale:locale];
+  v9 = v5;
   if (v5)
   {
     v5->super._valueType = 2;
     if (*(archive + 16))
     {
-      objc_msgSend_formatFromArchive_(MEMORY[0x277D80680], v6, *(archive + 3), v8, v9);
+      objc_msgSend_formatFromArchive_(MEMORY[0x277D80680], v6, *(archive + 3), v8);
     }
 
     else
     {
-      objc_msgSend_BOOLeanFormat(MEMORY[0x277D80680], v6, v7, v8, v9);
+      objc_msgSend_BOOLeanFormat(MEMORY[0x277D80680], v6, v7, v8);
     }
-    v11 = ;
-    TSCEFormat::TSCEFormat(&v17, v11, *(archive + 33) & ((*(archive + 4) & 4u) >> 2));
-    v14 = objc_msgSend_BOOLValue_format_(TSCEBooleanValue, v12, *(archive + 32), &v17, v13);
-    BOOLeanValue = v10->_BOOLeanValue;
-    v10->_BOOLeanValue = v14;
+    v10 = ;
+    TSCEFormat::TSCEFormat(&v15, v10, *(archive + 33) & ((*(archive + 4) & 4u) >> 2));
+    v12 = objc_msgSend_BOOLValue_format_(TSCEBooleanValue, v11, *(archive + 32), &v15);
+    BOOLeanValue = v9->_BOOLeanValue;
+    v9->_BOOLeanValue = v12;
   }
 
-  return v10;
+  return v9;
 }
 
 - (void)encodeToArchive:(void *)archive
 {
-  v7 = objc_msgSend_asBool(self->_BOOLeanValue, a2, archive, v3, v4);
+  v6 = objc_msgSend_asBool(self->_BOOLeanValue, a2, archive, v3);
   *(archive + 4) |= 2u;
-  *(archive + 32) = v7;
-  v15 = objc_msgSend_format(self, v8, v9, v10, v11);
+  *(archive + 32) = v6;
+  v12 = objc_msgSend_format(self, v7, v8, v9);
   *(archive + 4) |= 1u;
-  v16 = *(archive + 3);
-  if (!v16)
+  v13 = *(archive + 3);
+  if (!v13)
   {
-    v17 = *(archive + 1);
-    if (v17)
+    v14 = *(archive + 1);
+    if (v14)
     {
-      v17 = *(v17 & 0xFFFFFFFFFFFFFFFELL);
+      v14 = *(v14 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v16 = MEMORY[0x223DA02D0](v17);
-    *(archive + 3) = v16;
+    v13 = MEMORY[0x223DA02D0](v14);
+    *(archive + 3) = v13;
   }
 
-  objc_msgSend_encodeToArchive_(v15, v12, v16, v13, v14);
+  objc_msgSend_encodeToArchive_(v12, v10, v13, v11);
 
   BOOLeanValue = self->_BOOLeanValue;
   if (BOOLeanValue)
   {
-    objc_msgSend_format(BOOLeanValue, v18, v19, v20, v21);
-    v23 = v24 == 1;
+    objc_msgSend_format(BOOLeanValue, v15, v16, v17);
+    v19 = v20 == 1;
   }
 
   else
   {
-    v23 = 0;
+    v19 = 0;
   }
 
   *(archive + 4) |= 4u;
-  *(archive + 33) = v23;
+  *(archive + 33) = v19;
 }
 
 @end

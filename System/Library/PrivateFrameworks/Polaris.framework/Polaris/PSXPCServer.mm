@@ -15,42 +15,42 @@
   v6 = [NSString stringWithUTF8String:"com.apple.polaris.polarisd_debug"];
   v7 = [connectionCopy valueForEntitlement:v6];
 
-  if (v7 && [v7 BOOLValue])
+  if (v7 && (v8 = [v7 BOOLValue], v8))
   {
-    v8 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___PSXPCProtocol];
-    [connectionCopy setExportedInterface:v8];
+    v10 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___PSXPCProtocol];
+    [connectionCopy setExportedInterface:v10];
 
-    [connectionCopy setExportedObject:self];
-    v9 = sub_100013BF4();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = [connectionCopy setExportedObject:self];
+    v13 = sub_100013BF4(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v13[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "setting up new connection", v13, 2u);
+      LOWORD(v17[0]) = 0;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "setting up new connection", v17, 2u);
     }
 
     [connectionCopy resume];
-    v10 = 1;
+    v14 = 1;
   }
 
   else
   {
-    v11 = sub_100013BF4();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v15 = sub_100013BF4(v8, v9);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v13[0] = 67109120;
-      v13[1] = [connectionCopy processIdentifier];
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "PID %d tried to connect via XPC but is not entitled", v13, 8u);
+      v17[0] = 67109120;
+      v17[1] = [connectionCopy processIdentifier];
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "PID %d tried to connect via XPC but is not entitled", v17, 8u);
     }
 
-    v10 = 0;
+    v14 = 0;
   }
 
-  return v10;
+  return v14;
 }
 
 - (void)disableUserActivityOverride
 {
-  v3 = sub_100013BF4();
+  v3 = sub_100013BF4(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v5 = 0;
@@ -63,7 +63,7 @@
 
 - (void)overrideUserActivityToUserActive
 {
-  v3 = sub_100013BF4();
+  v3 = sub_100013BF4(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v5 = 0;
@@ -76,7 +76,7 @@
 
 - (void)overrideUserActivityToUserInactive
 {
-  v3 = sub_100013BF4();
+  v3 = sub_100013BF4(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v5 = 0;
@@ -90,11 +90,11 @@
 - (void)getUserActivityStatusDescription:(id)description
 {
   descriptionCopy = description;
-  v5 = sub_100013BF4();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = sub_100013BF4(descriptionCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    *v8 = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Got getUserActivityStatusDescription", v8, 2u);
+    *v9 = 0;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Got getUserActivityStatusDescription", v9, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_power_manager);

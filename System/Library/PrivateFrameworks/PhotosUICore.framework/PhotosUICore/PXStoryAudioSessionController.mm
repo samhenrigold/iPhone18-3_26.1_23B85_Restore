@@ -124,7 +124,7 @@ void __62__PXStoryAudioSessionController__workQueue_createAudioSession__block_in
 {
   model = [(PXStoryAudioSessionController *)self model];
   configuration = [model configuration];
-  v5 = ~[configuration options] & 3;
+  v5 = ~objc_msgSend_options(configuration) & 3;
 
   if (v5)
   {

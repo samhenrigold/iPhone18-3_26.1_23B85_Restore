@@ -433,7 +433,6 @@
     _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "NightShift status from preferences: %@", v8, 0xCu);
   }
 
-  *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -508,8 +507,6 @@
       _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "NightShift status update: %@ = %@", v12, 0x16u);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)updateLowPowerModeState:(id)state
@@ -901,7 +898,6 @@
     _os_log_impl(&dword_1DE8E5000, v8, OS_LOG_TYPE_DEFAULT, "Night Shift initialised: %@", v66, 0xCu);
   }
 
-  *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -1437,7 +1433,6 @@ LABEL_99:
 
 LABEL_113:
   objc_sync_exit(self);
-  *MEMORY[0x1E69E9840];
   return v51 & 1;
 }
 
@@ -1590,8 +1585,6 @@ LABEL_113:
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)setSchedule:(id)schedule
@@ -1691,8 +1684,6 @@ LABEL_113:
       _os_log_error_impl(&dword_1DE8E5000, v3, v4, "insufficient number of records in schedule", v9, 2u);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)enableBlueLightReduction:(BOOL)reduction withOption:(int)option
@@ -1760,20 +1751,16 @@ LABEL_113:
     }
 
     [(NightModeControl *)selfCopy2 setAlgoState:v5];
-    goto LABEL_27;
   }
 
-  if (!reduction)
+  else if (reduction)
   {
-    [(NightModeControl *)self setAlgoState:0];
-LABEL_27:
-    [CBAnalytics nightShiftEnabled:reduction withOption:option];
-    [(NightModeControl *)self reevaluateCurrentState];
-    goto LABEL_28;
-  }
+    if (option == 3)
+    {
+      [(NightModeControl *)self displayAlertInteractive:1];
+      return;
+    }
 
-  if (option != 3)
-  {
     if (option == 1)
     {
       [(NightModeControl *)self setAlgoState:2];
@@ -1783,13 +1770,15 @@ LABEL_27:
     {
       [(NightModeControl *)self setAlgoState:4];
     }
-
-    goto LABEL_27;
   }
 
-  [(NightModeControl *)self displayAlertInteractive:1];
-LABEL_28:
-  *MEMORY[0x1E69E9840];
+  else
+  {
+    [(NightModeControl *)self setAlgoState:0];
+  }
+
+  [CBAnalytics nightShiftEnabled:reduction withOption:option];
+  [(NightModeControl *)self reevaluateCurrentState];
 }
 
 - (void)initiateTransitionTo:(float)to andRampLength:(float)length
@@ -1848,8 +1837,6 @@ LABEL_28:
     dispatch_source_set_event_handler(transitionTimer, &handler);
     dispatch_resume(selfCopy->_transitionTimer);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t __55__NightModeControl_initiateTransitionTo_andRampLength___block_invoke(uint64_t a1)
@@ -1961,8 +1948,6 @@ uint64_t __55__NightModeControl_initiateTransitionTo_andRampLength___block_invok
     selfCopy->_currentScheduledTransitionType = typeCopy;
     dispatch_resume(selfCopy->_nextTransitionTimer);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t __52__NightModeControl_scheduleNextTransition_withType___block_invoke(uint64_t a1)
@@ -2075,8 +2060,6 @@ uint64_t __52__NightModeControl_scheduleNextTransition_withType___block_invoke(u
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)transitionTimerHandler
@@ -2142,7 +2125,6 @@ uint64_t __52__NightModeControl_scheduleNextTransition_withType___block_invoke(u
 
   *&Current = factor;
   [(NightModeControl *)self setNightModeFactor:Current];
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)updateTransitionTimesFromSchedule:(double)schedule
@@ -2383,7 +2365,6 @@ uint64_t __52__NightModeControl_scheduleNextTransition_withType___block_invoke(u
     CFRelease(v37);
   }
 
-  *MEMORY[0x1E69E9840];
   return v38 & 1;
 }
 
@@ -2426,8 +2407,6 @@ uint64_t __52__NightModeControl_scheduleNextTransition_withType___block_invoke(u
     __os_log_helper_16_0_6_8_0_8_0_8_0_8_0_8_0_8_0(v7, *&self->_sunrisePreviousAbsolute, *&self->_sunsetPreviousAbsolute, *&self->_sunriseAbsolute, *&self->_sunsetAbsolute, COERCE__INT64(self->_minFactor), COERCE__INT64(self->_maxFactor));
     _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "prev. sunrise=%f, prev. sunset=%f, sunrise=%f, sunset=%f, min factor=%f, max factor=%f", v7, 0x3Eu);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)initiateRestrictedMaxTransition
@@ -2747,8 +2726,6 @@ LABEL_42:
     __os_log_helper_16_0_2_8_0_8_0(v41, COERCE__INT64(selfCopy->_factorState.factor), COERCE__INT64(optionCopy));
     _os_log_impl(&dword_1DE8E5000, v24, OS_LOG_TYPE_INFO, "updated factor=%f with fade %f", v41, 0x16u);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)setSunPermitted:(BOOL)permitted
@@ -2879,8 +2856,6 @@ LABEL_42:
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)updateSunriseSunsetBackup
@@ -3131,7 +3106,6 @@ LABEL_42:
   }
 
   [(NightModeControl *)selfCopy updateSunriseSunsetBackup];
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)retrieveSunriseSunsetTimesFromBackup:(double)backup
@@ -3774,7 +3748,6 @@ LABEL_42:
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return v39 & 1;
 }
 
@@ -3867,9 +3840,7 @@ uint64_t __35__NightModeControl_timeZoneChanged__block_invoke(uint64_t a1)
 
   *(*(a1 + 32) + 144) = v6;
   [*(a1 + 32) reevaluateCurrentState];
-  result = objc_sync_exit(obj);
-  *MEMORY[0x1E69E9840];
-  return result;
+  return objc_sync_exit(obj);
 }
 
 - (void)clockChanged
@@ -4114,8 +4085,6 @@ uint64_t __32__NightModeControl_clockChanged__block_invoke(uint64_t a1)
       [(NightModeControl *)selfCopy enableBlueLightReduction:1 withOption:2];
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t __44__NightModeControl_displayAlertInteractive___block_invoke(CFOptionFlags a1)
@@ -4157,7 +4126,7 @@ uint64_t __44__NightModeControl_displayAlertInteractive___block_invoke(CFOptionF
   return objc_sync_exit(v2);
 }
 
-uint64_t __50__NightModeControl_setNightShiftFactorDictionary___block_invoke(uint64_t a1, void *a2)
+void *__50__NightModeControl_setNightShiftFactorDictionary___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 conformsToProtocol:&unk_1F59D3198];
   if (result)
@@ -4196,7 +4165,7 @@ uint64_t __50__NightModeControl_setNightShiftFactorDictionary___block_invoke(uin
   return v6;
 }
 
-uint64_t __46__NightModeControl_copyPreferenceForKey_user___block_invoke(void *a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__46__NightModeControl_copyPreferenceForKey_user___block_invoke(void *a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 conformsToProtocol:&unk_1F59D3198];
   if (result)
@@ -4209,7 +4178,7 @@ uint64_t __46__NightModeControl_copyPreferenceForKey_user___block_invoke(void *a
   return result;
 }
 
-uint64_t __46__NightModeControl_setPreference_forKey_user___block_invoke(void *a1, void *a2)
+void *__46__NightModeControl_setPreference_forKey_user___block_invoke(void *a1, void *a2)
 {
   result = [a2 conformsToProtocol:&unk_1F59D3198];
   if (result)

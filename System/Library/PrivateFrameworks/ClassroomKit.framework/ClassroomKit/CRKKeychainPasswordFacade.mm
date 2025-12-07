@@ -29,25 +29,26 @@
 
 - (void)setPassword:(id)password forService:(id)service accessGroup:(id)group
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   groupCopy = group;
-  v13 = 0;
-  LOBYTE(self) = [(CRKKeychainPasswordFacade *)self setPassword:password forService:serviceCopy accessGroup:groupCopy error:&v13];
-  v10 = v13;
+  v14 = 0;
+  LOBYTE(self) = [(CRKKeychainPasswordFacade *)self setPassword:password forService:serviceCopy accessGroup:groupCopy error:&v14];
+  v10 = v14;
+  v11 = v10;
   if ((self & 1) == 0)
   {
-    v11 = _CRKLogGeneral_11();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = _CRKLogGeneral_11(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      verboseDescription = [v10 verboseDescription];
+      verboseDescription = [v11 verboseDescription];
       *buf = 138412802;
-      v15 = serviceCopy;
-      v16 = 2112;
-      v17 = groupCopy;
-      v18 = 2114;
-      v19 = verboseDescription;
-      _os_log_error_impl(&dword_243550000, v11, OS_LOG_TYPE_ERROR, "Could not set password for service %@, access group %@. Error (ignored): %{public}@.", buf, 0x20u);
+      v16 = serviceCopy;
+      v17 = 2112;
+      v18 = groupCopy;
+      v19 = 2114;
+      v20 = verboseDescription;
+      _os_log_error_impl(&dword_243550000, v12, OS_LOG_TYPE_ERROR, "Could not set password for service %@, access group %@. Error (ignored): %{public}@.", buf, 0x20u);
     }
   }
 }
@@ -62,7 +63,7 @@
   v7 = v6;
   if (!v5 && v6)
   {
-    v8 = _CRKLogGeneral_11();
+    v8 = _CRKLogGeneral_11(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       verboseDescription = [v7 verboseDescription];

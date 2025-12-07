@@ -2,6 +2,7 @@
 + (id)buildFromDictionary:(id)dictionary;
 - (BOOL)loadFromDictionary:(id)dictionary serializationType:(signed __int16)type error:(id *)error;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)serializeWithType:(signed __int16)type;
 @end
 
 @implementation RMModelAnyPayload
@@ -22,6 +23,13 @@
   self->_dictKeys = v6;
 
   return 1;
+}
+
+- (id)serializeWithType:(signed __int16)type
+{
+  v3 = [(NSDictionary *)self->_dictKeys copy];
+
+  return v3;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

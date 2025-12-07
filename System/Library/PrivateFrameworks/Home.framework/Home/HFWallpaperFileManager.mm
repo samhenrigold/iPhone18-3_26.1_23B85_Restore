@@ -134,7 +134,7 @@ LABEL_13:
 
 - (id)_originalImageForWallpaper:(id)wallpaper withFileName:(id)name
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   wallpaperCopy = wallpaper;
   nameCopy = name;
   wallpaperFolderURL = [(HFWallpaperFileManager *)self wallpaperFolderURL];
@@ -144,13 +144,13 @@ LABEL_13:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v22 = wallpaperCopy;
+    v21 = wallpaperCopy;
     _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "Retrieving original image for wallpaper %@", buf, 0xCu);
   }
 
-  v19 = 0;
-  v11 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v9 options:1 error:&v19];
-  v12 = v19;
+  v18 = 0;
+  v11 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v9 options:1 error:&v18];
+  v12 = v18;
   v13 = MEMORY[0x277D755B8];
   mainScreen = [MEMORY[0x277D759A0] mainScreen];
   [mainScreen scale];
@@ -159,12 +159,10 @@ LABEL_13:
   if (!v15)
   {
     NSLog(&cfstr_UnableToLoadOr.isa, wallpaperCopy, v12);
-    v20 = wallpaperCopy;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
+    v19 = wallpaperCopy;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
     [(HFWallpaperFileManager *)self pruneUnusedOriginalWallpaperImages:v16];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -209,18 +207,18 @@ LABEL_13:
 
 - (void)_saveOriginalImage:(id)image forWallpaper:(id)wallpaper withFileName:(id)name
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   imageCopy = image;
   wallpaperCopy = wallpaper;
   nameCopy = name;
   v11 = HFLogForCategory(0x4EuLL);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v30 = 138412546;
-    v31 = nameCopy;
-    v32 = 2112;
-    v33 = wallpaperCopy;
-    _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "Writing out original image at wallpaper path: %@ for wallpaper %@", &v30, 0x16u);
+    v29 = 138412546;
+    v30 = nameCopy;
+    v31 = 2112;
+    v32 = wallpaperCopy;
+    _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "Writing out original image at wallpaper path: %@ for wallpaper %@", &v29, 0x16u);
   }
 
   wallpaperFolderURL = [(HFWallpaperFileManager *)self wallpaperFolderURL];
@@ -238,11 +236,11 @@ LABEL_13:
     v20 = HFLogForCategory(0x4EuLL);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v30 = 138412546;
-      v31 = wallpaperCopy;
-      v32 = 2112;
-      v33 = nameCopy;
-      _os_log_impl(&dword_20D9BF000, v20, OS_LOG_TYPE_DEFAULT, "Skipping write for wallpaper %@ as fileName %@ already exists", &v30, 0x16u);
+      v29 = 138412546;
+      v30 = wallpaperCopy;
+      v31 = 2112;
+      v32 = nameCopy;
+      _os_log_impl(&dword_20D9BF000, v20, OS_LOG_TYPE_DEFAULT, "Skipping write for wallpaper %@ as fileName %@ already exists", &v29, 0x16u);
     }
   }
 
@@ -267,9 +265,9 @@ LABEL_13:
       v24 = HFLogForCategory(0x4EuLL);
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        v30 = 138412290;
-        v31 = wallpaperCopy;
-        _os_log_error_impl(&dword_20D9BF000, v24, OS_LOG_TYPE_ERROR, "Failed to generate image data for wallpaper %@", &v30, 0xCu);
+        v29 = 138412290;
+        v30 = wallpaperCopy;
+        _os_log_error_impl(&dword_20D9BF000, v24, OS_LOG_TYPE_ERROR, "Failed to generate image data for wallpaper %@", &v29, 0xCu);
       }
     }
 
@@ -282,66 +280,64 @@ LABEL_13:
     {
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
-        v30 = 138412546;
-        v31 = wallpaperCopy;
-        v32 = 2112;
-        v33 = path;
-        _os_log_impl(&dword_20D9BF000, v28, OS_LOG_TYPE_DEFAULT, "Wrote original wallpaper image %@ to path %@", &v30, 0x16u);
+        v29 = 138412546;
+        v30 = wallpaperCopy;
+        v31 = 2112;
+        v32 = path;
+        _os_log_impl(&dword_20D9BF000, v28, OS_LOG_TYPE_DEFAULT, "Wrote original wallpaper image %@ to path %@", &v29, 0x16u);
       }
     }
 
     else if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      v30 = 138412290;
-      v31 = path;
-      _os_log_error_impl(&dword_20D9BF000, v28, OS_LOG_TYPE_ERROR, "Failed to write original wallpaper image at path %@", &v30, 0xCu);
+      v29 = 138412290;
+      v30 = path;
+      _os_log_error_impl(&dword_20D9BF000, v28, OS_LOG_TYPE_ERROR, "Failed to write original wallpaper image at path %@", &v29, 0xCu);
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pruneUnusedOriginalWallpaperImages:(id)images
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   imagesCopy = images;
   v5 = [MEMORY[0x277CBEB58] set];
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __61__HFWallpaperFileManager_pruneUnusedOriginalWallpaperImages___block_invoke;
-  v35[3] = &unk_277DFCBC0;
-  v35[4] = self;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __61__HFWallpaperFileManager_pruneUnusedOriginalWallpaperImages___block_invoke;
+  v34[3] = &unk_277DFCBC0;
+  v34[4] = self;
   v6 = v5;
-  v36 = v6;
-  v28 = imagesCopy;
-  [imagesCopy na_each:v35];
+  v35 = v6;
+  v27 = imagesCopy;
+  [imagesCopy na_each:v34];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   selfCopy = self;
   wallpaperFolderURL = [(HFWallpaperFileManager *)self wallpaperFolderURL];
   path = [wallpaperFolderURL path];
   v10 = [defaultManager contentsOfDirectoryAtPath:path error:0];
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v11 = v10;
-  v12 = [v11 countByEnumeratingWithState:&v31 objects:v41 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v30 objects:v40 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v32;
+    v14 = *v31;
     do
     {
       v15 = 0;
       do
       {
-        if (*v32 != v14)
+        if (*v31 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v31 + 1) + 8 * v15);
+        v16 = *(*(&v30 + 1) + 8 * v15);
         if (([v6 containsObject:v16] & 1) == 0)
         {
           wallpaperFolderURL2 = [(HFWallpaperFileManager *)selfCopy wallpaperFolderURL];
@@ -349,9 +345,9 @@ LABEL_13:
 
           defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
           path2 = [v18 path];
-          v30 = 0;
-          v21 = [defaultManager2 removeItemAtPath:path2 error:&v30];
-          v22 = v30;
+          v29 = 0;
+          v21 = [defaultManager2 removeItemAtPath:path2 error:&v29];
+          v22 = v29;
 
           v23 = HFLogForCategory(0x4EuLL);
           v24 = v23;
@@ -361,7 +357,7 @@ LABEL_13:
             {
               path3 = [v18 path];
               *buf = 138412290;
-              v38 = path3;
+              v37 = path3;
               _os_log_impl(&dword_20D9BF000, v24, OS_LOG_TYPE_DEFAULT, "Removed unused wallpaper at path %@", buf, 0xCu);
               goto LABEL_10;
             }
@@ -371,9 +367,9 @@ LABEL_13:
           {
             path3 = [v18 path];
             *buf = 138412546;
-            v38 = path3;
-            v39 = 2112;
-            v40 = v22;
+            v37 = path3;
+            v38 = 2112;
+            v39 = v22;
             _os_log_error_impl(&dword_20D9BF000, v24, OS_LOG_TYPE_ERROR, "Failed to remove wallpaper at path %@ with error %@", buf, 0x16u);
 LABEL_10:
           }
@@ -383,14 +379,12 @@ LABEL_10:
       }
 
       while (v13 != v15);
-      v26 = [v11 countByEnumeratingWithState:&v31 objects:v41 count:16];
+      v26 = [v11 countByEnumeratingWithState:&v30 objects:v40 count:16];
       v13 = v26;
     }
 
     while (v26);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __61__HFWallpaperFileManager_pruneUnusedOriginalWallpaperImages___block_invoke(uint64_t a1, void *a2)

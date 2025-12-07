@@ -7,6 +7,7 @@
 - (BOOL)_gmsEnabledChanged;
 - (BOOL)_systemLanguageChanged;
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection;
+- (UAFXPCService)initWithMachServiceName:(id)name subscriptionService:(BOOL)service;
 - (UAFXPCService)initWithXPCListener:(id)listener subscriptionService:(BOOL)service;
 - (void)_assistantGMSAvailabilityUpdate;
 - (void)_assistantLanguageUpdate;
@@ -40,20 +41,22 @@
 - (void)startAsync;
 - (void)stop;
 - (void)stopAsync;
+- (void)subscribeWithConfig:(id)config userInitiated:(BOOL)initiated completion:(id)completion;
 - (void)subscriptions:(id)subscriptions subscriber:(id)subscriber user:(id)user completion:(id)completion;
+- (void)unsubscribeWithConfig:(id)config userInitiated:(BOOL)initiated completion:(id)completion;
 @end
 
 @implementation UAFXPCService
 
 + (void)daemonLaunchTasks
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = UAFGetLogCategory(&UAFLogContextXPCService);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "+[UAFXPCService daemonLaunchTasks]";
-    _os_log_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_DEFAULT, "%s Running UAF daemon launch tasks", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "+[UAFXPCService daemonLaunchTasks]";
+    _os_log_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_DEFAULT, "%s Running UAF daemon launch tasks", &v6, 0xCu);
   }
 
   v3 = +[UAFSubscriptionStoreManager writeManager];
@@ -66,8 +69,17 @@
     v5 = +[UAFConfigurationManager defaultManager];
     [UAFAssetSetManager configureAssetDelivery:v4 configurationManager:v5 lockIfUnchanged:0];
   }
+}
 
-  v6 = *MEMORY[0x1E69E9840];
+- (UAFXPCService)initWithMachServiceName:(id)name subscriptionService:(BOOL)service
+{
+  serviceCopy = service;
+  v6 = MEMORY[0x1E696B0D8];
+  nameCopy = name;
+  v8 = [[v6 alloc] initWithMachServiceName:nameCopy];
+
+  v9 = [(UAFXPCService *)self initWithXPCListener:v8 subscriptionService:serviceCopy];
+  return v9;
 }
 
 - (UAFXPCService)initWithXPCListener:(id)listener subscriptionService:(BOOL)service
@@ -162,13 +174,13 @@
 
 - (void)_startObservers
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = UAFGetLogCategory(&UAFLogContextXPCService);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136315138;
-    v12 = "[UAFXPCService _startObservers]";
-    _os_log_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEFAULT, "%s Starting observers", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = "[UAFXPCService _startObservers]";
+    _os_log_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEFAULT, "%s Starting observers", &v10, 0xCu);
   }
 
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
@@ -183,7 +195,6 @@
   CFNotificationCenterAddObserver(v8, self, _LanguageChangedCallback, @"com.apple.language.changed", 0, CFNotificationSuspensionBehaviorDeliverImmediately);
   v9 = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterAddObserver(v9, self, _GMSAvailabilityDidChangeCallback, @"com.apple.gms.availability.notification", 0, CFNotificationSuspensionBehaviorDeliverImmediately);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopAsync
@@ -211,13 +222,13 @@
 
 - (void)_stopObservers
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = UAFGetLogCategory(&UAFLogContextXPCService);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 136315138;
-    v14 = "[UAFXPCService _stopObservers]";
-    _os_log_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEFAULT, "%s Stopping observers", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[UAFXPCService _stopObservers]";
+    _os_log_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEFAULT, "%s Stopping observers", &v12, 0xCu);
   }
 
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
@@ -242,30 +253,28 @@
   }
 
   self->_platformAssetSetObserver = 0;
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)runUpdates
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   objc_initWeak(&location, self);
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __27__UAFXPCService_runUpdates__block_invoke;
-  v13[3] = &unk_1E7FFD110;
-  objc_copyWeak(&v14, &location);
-  v3 = MEMORY[0x1BFB33950](v13);
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __27__UAFXPCService_runUpdates__block_invoke;
+  v12[3] = &unk_1E7FFD110;
+  objc_copyWeak(&v13, &location);
+  v3 = MEMORY[0x1BFB33950](v12);
   if (self->_subscriptionService)
   {
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __27__UAFXPCService_runUpdates__block_invoke_375;
-    v11[3] = &unk_1E7FFD110;
-    objc_copyWeak(&v12, &location);
-    v4 = MEMORY[0x1BFB33950](v11);
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __27__UAFXPCService_runUpdates__block_invoke_375;
+    v10[3] = &unk_1E7FFD110;
+    objc_copyWeak(&v11, &location);
+    v4 = MEMORY[0x1BFB33950](v10);
 
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v11);
     v3 = v4;
   }
 
@@ -275,17 +284,17 @@
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v17 = "[UAFXPCService runUpdates]";
+      v16 = "[UAFXPCService runUpdates]";
       _os_log_impl(&dword_1BCF2C000, v5, OS_LOG_TYPE_DEFAULT, "%s Device is locked, scheduling subscription update for unlock", buf, 0xCu);
     }
 
     v6 = MEMORY[0x1E69C5D00];
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __27__UAFXPCService_runUpdates__block_invoke_379;
-    v9[3] = &unk_1E7FFD4E8;
-    v10 = v3;
-    [v6 runBlockWhenDeviceIsClassCUnlocked:v9];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __27__UAFXPCService_runUpdates__block_invoke_379;
+    v8[3] = &unk_1E7FFD4E8;
+    v9 = v3;
+    [v6 runBlockWhenDeviceIsClassCUnlocked:v8];
   }
 
   else
@@ -294,16 +303,15 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v17 = "[UAFXPCService runUpdates]";
+      v16 = "[UAFXPCService runUpdates]";
       _os_log_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_DEFAULT, "%s Device is unlocked, running subscription update", buf, 0xCu);
     }
 
     v3[2](v3);
   }
 
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v13);
   objc_destroyWeak(&location);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __27__UAFXPCService_runUpdates__block_invoke(uint64_t a1)
@@ -334,7 +342,7 @@ void __27__UAFXPCService_runUpdates__block_invoke(uint64_t a1)
 
 uint64_t __27__UAFXPCService_runUpdates__block_invoke_2(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (+[UAFConfiguration subscriptionServiceEnabled])
   {
     +[UAFAssetSetSubscriptionManager daemonSubscriptionMigration];
@@ -366,13 +374,13 @@ uint64_t __27__UAFXPCService_runUpdates__block_invoke_2(uint64_t a1)
   {
     v5 = dispatch_group_create();
     dispatch_group_enter(v5);
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __27__UAFXPCService_runUpdates__block_invoke_3;
-    v10[3] = &unk_1E7FFD5D0;
-    v11 = v5;
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __27__UAFXPCService_runUpdates__block_invoke_3;
+    v9[3] = &unk_1E7FFD5D0;
+    v10 = v5;
     v6 = v5;
-    [UAFUserManager updateLastSeenForCurrentUserOnQueue:0 completion:v10];
+    [UAFUserManager updateLastSeenForCurrentUserOnQueue:0 completion:v9];
     dispatch_group_wait(v6, 0xFFFFFFFFFFFFFFFFLL);
   }
 
@@ -380,40 +388,36 @@ uint64_t __27__UAFXPCService_runUpdates__block_invoke_2(uint64_t a1)
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v13 = "[UAFXPCService runUpdates]_block_invoke";
+    v12 = "[UAFXPCService runUpdates]_block_invoke";
     _os_log_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_DEFAULT, "%s Posting notification of subscription availability", buf, 0xCu);
   }
 
-  result = notify_post(kUAFStartedNotification);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return notify_post(kUAFStartedNotification);
 }
 
 void __27__UAFXPCService_runUpdates__block_invoke_3(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = UAFGetLogCategory(&UAFLogContextXPCService);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = 136315394;
-      v7 = "[UAFXPCService runUpdates]_block_invoke_3";
-      v8 = 2112;
-      v9 = v3;
-      _os_log_error_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_ERROR, "%s Error updating last seen time for current user: %@", &v6, 0x16u);
+      v5 = 136315394;
+      v6 = "[UAFXPCService runUpdates]_block_invoke_3";
+      v7 = 2112;
+      v8 = v3;
+      _os_log_error_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_ERROR, "%s Error updating last seen time for current user: %@", &v5, 0x16u);
     }
   }
 
   dispatch_group_leave(*(a1 + 32));
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __27__UAFXPCService_runUpdates__block_invoke_375(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   +[UAFStagingLogManager rollStagingLogsUponNewBuildVersion];
   if (+[UAFConfiguration subscriptionServiceEnabled])
   {
@@ -423,7 +427,7 @@ void __27__UAFXPCService_runUpdates__block_invoke_375(uint64_t a1)
       if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v9 = "[UAFXPCService runUpdates]_block_invoke";
+        v8 = "[UAFXPCService runUpdates]_block_invoke";
         _os_log_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_DEFAULT, "%s Detected non-UI build. Setting inhibitremoval to NO.", buf, 0xCu);
       }
 
@@ -437,18 +441,16 @@ void __27__UAFXPCService_runUpdates__block_invoke_375(uint64_t a1)
     block[1] = 3221225472;
     block[2] = __27__UAFXPCService_runUpdates__block_invoke_377;
     block[3] = &unk_1E7FFD110;
-    objc_copyWeak(&v7, (a1 + 32));
+    objc_copyWeak(&v6, (a1 + 32));
     dispatch_async(v4, block);
 
-    objc_destroyWeak(&v7);
+    objc_destroyWeak(&v6);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __27__UAFXPCService_runUpdates__block_invoke_377(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
@@ -463,58 +465,446 @@ void __27__UAFXPCService_runUpdates__block_invoke_377(uint64_t a1)
     v5 = UAFGetLogCategory(&UAFLogContextXPCService);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315138;
-      v8 = "[UAFXPCService runUpdates]_block_invoke";
-      _os_log_impl(&dword_1BCF2C000, v5, OS_LOG_TYPE_DEFAULT, "%s Posting notification of assetsubscriptiond availability", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "[UAFXPCService runUpdates]_block_invoke";
+      _os_log_impl(&dword_1BCF2C000, v5, OS_LOG_TYPE_DEFAULT, "%s Posting notification of assetsubscriptiond availability", &v6, 0xCu);
     }
 
     notify_post(kUAFSubscriptionServiceStarted);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __27__UAFXPCService_runUpdates__block_invoke_379(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = UAFGetLogCategory(&UAFLogContextXPCService);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[UAFXPCService runUpdates]_block_invoke";
-    _os_log_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_DEFAULT, "%s Device has been unlocked, running subscription update", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[UAFXPCService runUpdates]_block_invoke";
+    _os_log_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_DEFAULT, "%s Device has been unlocked, running subscription update", &v4, 0xCu);
   }
 
-  result = (*(*(a1 + 32) + 16))();
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 32) + 16))();
+}
+
+- (void)subscribeWithConfig:(id)config userInitiated:(BOOL)initiated completion:(id)completion
+{
+  initiatedCopy = initiated;
+  v59 = *MEMORY[0x1E69E9840];
+  configCopy = config;
+  completionCopy = completion;
+  v44 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  v47 = 0u;
+  v9 = [configCopy objectForKeyedSubscript:@"Subscriptions"];
+  v10 = [v9 countByEnumeratingWithState:&v44 objects:v58 count:16];
+  if (v10)
+  {
+    v11 = v10;
+    v12 = *v45;
+    while (2)
+    {
+      for (i = 0; i != v11; ++i)
+      {
+        if (*v45 != v12)
+        {
+          objc_enumerationMutation(v9);
+        }
+
+        objc_opt_class();
+        if ((objc_opt_isKindOfClass() & 1) == 0)
+        {
+          v21 = MEMORY[0x1E696ABC0];
+          v56 = *MEMORY[0x1E696A578];
+          v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Configuration key %@ is not an NSArray of %@", @"Subscriptions", objc_opt_class()];
+          v57 = v22;
+          v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
+          v20 = [v21 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v23];
+
+          v24 = UAFGetLogCategory(&UAFLogContextXPCService);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+          {
+            v40 = objc_opt_class();
+            *buf = 136315650;
+            v53 = "[UAFXPCService subscribeWithConfig:userInitiated:completion:]";
+            v54 = 2112;
+            *v55 = @"Subscriptions";
+            *&v55[8] = 2112;
+            *&v55[10] = v40;
+            v41 = v40;
+            _os_log_error_impl(&dword_1BCF2C000, v24, OS_LOG_TYPE_ERROR, "%s Configuration key %@ is not an NSArray of %@", buf, 0x20u);
+          }
+
+          completionCopy[2](completionCopy, v20);
+          goto LABEL_30;
+        }
+      }
+
+      v11 = [v9 countByEnumeratingWithState:&v44 objects:v58 count:16];
+      if (v11)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  v9 = [configCopy objectForKeyedSubscript:@"Subscriber"];
+  v14 = [configCopy objectForKeyedSubscript:@"SubscriptionUser"];
+  if (!v14)
+  {
+    currentConnection = [MEMORY[0x1E696B0B8] currentConnection];
+    if (+[UAFUser isSystemUserUsingUID:](UAFUser, "isSystemUserUsingUID:", [currentConnection effectiveUserIdentifier]))
+    {
+      v14 = [UAFUser currentConsoleUserWithUID:0];
+      if (!v14)
+      {
+        v16 = UAFGetLogCategory(&UAFLogContextXPCService);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        {
+          processIdentifier = [currentConnection processIdentifier];
+          *buf = 136315650;
+          v53 = "[UAFXPCService subscribeWithConfig:userInitiated:completion:]";
+          v54 = 1024;
+          *v55 = processIdentifier;
+          *&v55[4] = 2114;
+          *&v55[6] = v9;
+          _os_log_error_impl(&dword_1BCF2C000, v16, OS_LOG_TYPE_ERROR, "%s Received subscription request without user from pid %d for subscriber: %{public}@, could not determine console user", buf, 0x1Cu);
+        }
+
+        v17 = MEMORY[0x1E696ABC0];
+        v50 = *MEMORY[0x1E696A588];
+        v51 = @"could not determine console user";
+        v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+        v19 = [v17 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:5000 userInfo:v18];
+        completionCopy[2](completionCopy, v19);
+
+        v20 = 0;
+        v14 = 0;
+        goto LABEL_29;
+      }
+    }
+
+    else
+    {
+      v25 = UAFGetLogCategory(&UAFLogContextXPCService);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      {
+        effectiveUserIdentifier = [currentConnection effectiveUserIdentifier];
+        *buf = 136315394;
+        v53 = "[UAFXPCService subscribeWithConfig:userInitiated:completion:]";
+        v54 = 1024;
+        *v55 = effectiveUserIdentifier;
+        _os_log_impl(&dword_1BCF2C000, v25, OS_LOG_TYPE_DEFAULT, "%s No user received, looking up %d", buf, 0x12u);
+      }
+
+      v43 = 0;
+      v14 = +[UAFUser userWithNodeForUID:uid:error:](UAFUser, "userWithNodeForUID:uid:error:", 0, [currentConnection effectiveUserIdentifier], &v43);
+      v27 = v43;
+      v20 = v27;
+      if (!v14 || v27)
+      {
+        v35 = UAFGetLogCategory(&UAFLogContextXPCService);
+        if (!os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_27;
+        }
+
+        effectiveUserIdentifier2 = [currentConnection effectiveUserIdentifier];
+        *buf = 136315650;
+        v53 = "[UAFXPCService subscribeWithConfig:userInitiated:completion:]";
+        v54 = 1024;
+        *v55 = effectiveUserIdentifier2;
+        *&v55[4] = 2114;
+        *&v55[6] = v20;
+        v37 = "%s No user received and could not look up user for uid %d: %{public}@";
+        v38 = v35;
+        v39 = 28;
+        goto LABEL_34;
+      }
+    }
+
+    v28 = UAFGetLogCategory(&UAFLogContextXPCService);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    {
+      effectiveUserIdentifier3 = [currentConnection effectiveUserIdentifier];
+      *buf = 136315650;
+      v53 = "[UAFXPCService subscribeWithConfig:userInitiated:completion:]";
+      v54 = 2112;
+      *v55 = v14;
+      *&v55[8] = 1024;
+      *&v55[10] = effectiveUserIdentifier3;
+      _os_log_impl(&dword_1BCF2C000, v28, OS_LOG_TYPE_DEFAULT, "%s Using user '%@' for uid %d", buf, 0x1Cu);
+    }
+  }
+
+  currentConnection = [configCopy objectForKeyedSubscript:@"Subscriptions"];
+  v30 = [configCopy objectForKeyedSubscript:@"Subscriber"];
+  v31 = [UAFAssetSetManager subscribe:v30 subscriptions:currentConnection user:v14 storeManager:0 configurationManager:0 userInitiated:initiatedCopy];
+
+  v20 = 0;
+  if (!v31)
+  {
+    v32 = MEMORY[0x1E696ABC0];
+    v48 = *MEMORY[0x1E696A578];
+    v33 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to subscribe to subscriptions %@ for subscriber %@", currentConnection, v9];
+    v49 = v33;
+    v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
+    v20 = [v32 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v34];
+
+    v35 = UAFGetLogCategory(&UAFLogContextXPCService);
+    if (!os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    {
+LABEL_27:
+
+      goto LABEL_28;
+    }
+
+    *buf = 136315650;
+    v53 = "[UAFXPCService subscribeWithConfig:userInitiated:completion:]";
+    v54 = 2112;
+    *v55 = currentConnection;
+    *&v55[8] = 2112;
+    *&v55[10] = v9;
+    v37 = "%s Failed to subscribe to subscriptions %@ for subscriber %@";
+    v38 = v35;
+    v39 = 32;
+LABEL_34:
+    _os_log_error_impl(&dword_1BCF2C000, v38, OS_LOG_TYPE_ERROR, v37, buf, v39);
+    goto LABEL_27;
+  }
+
+LABEL_28:
+  completionCopy[2](completionCopy, v20);
+LABEL_29:
+
+LABEL_30:
+}
+
+- (void)unsubscribeWithConfig:(id)config userInitiated:(BOOL)initiated completion:(id)completion
+{
+  initiatedCopy = initiated;
+  v59 = *MEMORY[0x1E69E9840];
+  configCopy = config;
+  completionCopy = completion;
+  v44 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  v47 = 0u;
+  v9 = [configCopy objectForKeyedSubscript:@"Subscriptions"];
+  v10 = [v9 countByEnumeratingWithState:&v44 objects:v58 count:16];
+  if (v10)
+  {
+    v11 = v10;
+    v12 = *v45;
+    while (2)
+    {
+      for (i = 0; i != v11; ++i)
+      {
+        if (*v45 != v12)
+        {
+          objc_enumerationMutation(v9);
+        }
+
+        objc_opt_class();
+        if ((objc_opt_isKindOfClass() & 1) == 0)
+        {
+          v21 = MEMORY[0x1E696ABC0];
+          v56 = *MEMORY[0x1E696A578];
+          v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Configuration key %@ is not an NSArray of %@", @"Subscriptions", objc_opt_class()];
+          v57 = v22;
+          v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
+          v20 = [v21 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v23];
+
+          v24 = UAFGetLogCategory(&UAFLogContextXPCService);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+          {
+            v40 = objc_opt_class();
+            *buf = 136315650;
+            v53 = "[UAFXPCService unsubscribeWithConfig:userInitiated:completion:]";
+            v54 = 2112;
+            *v55 = @"Subscriptions";
+            *&v55[8] = 2112;
+            *&v55[10] = v40;
+            v41 = v40;
+            _os_log_error_impl(&dword_1BCF2C000, v24, OS_LOG_TYPE_ERROR, "%s Configuration key %@ is not an NSArray of %@", buf, 0x20u);
+          }
+
+          completionCopy[2](completionCopy, v20);
+          goto LABEL_30;
+        }
+      }
+
+      v11 = [v9 countByEnumeratingWithState:&v44 objects:v58 count:16];
+      if (v11)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  v9 = [configCopy objectForKeyedSubscript:@"Subscriber"];
+  v14 = [configCopy objectForKeyedSubscript:@"SubscriptionUser"];
+  if (!v14)
+  {
+    currentConnection = [MEMORY[0x1E696B0B8] currentConnection];
+    if (+[UAFUser isSystemUserUsingUID:](UAFUser, "isSystemUserUsingUID:", [currentConnection effectiveUserIdentifier]))
+    {
+      v14 = [UAFUser currentConsoleUserWithUID:0];
+      if (!v14)
+      {
+        v16 = UAFGetLogCategory(&UAFLogContextXPCService);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        {
+          processIdentifier = [currentConnection processIdentifier];
+          *buf = 136315650;
+          v53 = "[UAFXPCService unsubscribeWithConfig:userInitiated:completion:]";
+          v54 = 1024;
+          *v55 = processIdentifier;
+          *&v55[4] = 2114;
+          *&v55[6] = v9;
+          _os_log_error_impl(&dword_1BCF2C000, v16, OS_LOG_TYPE_ERROR, "%s Received subscription request without user from pid %d for subscriber: %{public}@, could not determine console user", buf, 0x1Cu);
+        }
+
+        v17 = MEMORY[0x1E696ABC0];
+        v50 = *MEMORY[0x1E696A588];
+        v51 = @"could not determine console user";
+        v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+        v19 = [v17 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:5000 userInfo:v18];
+        completionCopy[2](completionCopy, v19);
+
+        v20 = 0;
+        v14 = 0;
+        goto LABEL_29;
+      }
+    }
+
+    else
+    {
+      v25 = UAFGetLogCategory(&UAFLogContextXPCService);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      {
+        effectiveUserIdentifier = [currentConnection effectiveUserIdentifier];
+        *buf = 136315394;
+        v53 = "[UAFXPCService unsubscribeWithConfig:userInitiated:completion:]";
+        v54 = 1024;
+        *v55 = effectiveUserIdentifier;
+        _os_log_impl(&dword_1BCF2C000, v25, OS_LOG_TYPE_DEFAULT, "%s No user received, looking up %d", buf, 0x12u);
+      }
+
+      v43 = 0;
+      v14 = +[UAFUser userWithNodeForUID:uid:error:](UAFUser, "userWithNodeForUID:uid:error:", 0, [currentConnection effectiveUserIdentifier], &v43);
+      v27 = v43;
+      v20 = v27;
+      if (!v14 || v27)
+      {
+        v35 = UAFGetLogCategory(&UAFLogContextXPCService);
+        if (!os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_27;
+        }
+
+        effectiveUserIdentifier2 = [currentConnection effectiveUserIdentifier];
+        *buf = 136315650;
+        v53 = "[UAFXPCService unsubscribeWithConfig:userInitiated:completion:]";
+        v54 = 1024;
+        *v55 = effectiveUserIdentifier2;
+        *&v55[4] = 2114;
+        *&v55[6] = v20;
+        v37 = "%s No user received and could not look up user for uid %d: %{public}@";
+        v38 = v35;
+        v39 = 28;
+        goto LABEL_34;
+      }
+    }
+
+    v28 = UAFGetLogCategory(&UAFLogContextXPCService);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    {
+      effectiveUserIdentifier3 = [currentConnection effectiveUserIdentifier];
+      *buf = 136315650;
+      v53 = "[UAFXPCService unsubscribeWithConfig:userInitiated:completion:]";
+      v54 = 2112;
+      *v55 = v14;
+      *&v55[8] = 1024;
+      *&v55[10] = effectiveUserIdentifier3;
+      _os_log_impl(&dword_1BCF2C000, v28, OS_LOG_TYPE_DEFAULT, "%s Using user '%@' for uid %d", buf, 0x1Cu);
+    }
+  }
+
+  currentConnection = [configCopy objectForKeyedSubscript:@"Subscriptions"];
+  v30 = [configCopy objectForKeyedSubscript:@"Subscriber"];
+  v31 = [UAFAssetSetManager unsubscribe:v30 subscriptions:currentConnection user:v14 storeManager:0 configurationManager:0 userInitiated:initiatedCopy];
+
+  v20 = 0;
+  if (!v31)
+  {
+    v32 = MEMORY[0x1E696ABC0];
+    v48 = *MEMORY[0x1E696A578];
+    v33 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to unsubscribe from subscriptions %@ for subscriber %@", currentConnection, v9];
+    v49 = v33;
+    v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
+    v20 = [v32 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v34];
+
+    v35 = UAFGetLogCategory(&UAFLogContextXPCService);
+    if (!os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    {
+LABEL_27:
+
+      goto LABEL_28;
+    }
+
+    *buf = 136315650;
+    v53 = "[UAFXPCService unsubscribeWithConfig:userInitiated:completion:]";
+    v54 = 2112;
+    *v55 = currentConnection;
+    *&v55[8] = 2112;
+    *&v55[10] = v9;
+    v37 = "%s Failed to unsubscribe from subscriptions %@ for subscriber %@";
+    v38 = v35;
+    v39 = 32;
+LABEL_34:
+    _os_log_error_impl(&dword_1BCF2C000, v38, OS_LOG_TYPE_ERROR, v37, buf, v39);
+    goto LABEL_27;
+  }
+
+LABEL_28:
+  completionCopy[2](completionCopy, v20);
+LABEL_29:
+
+LABEL_30:
 }
 
 - (void)configureCacheDeleteWithConfig:(id)config completion:(id)completion
 {
-  v51[1] = *MEMORY[0x1E69E9840];
+  v50[1] = *MEMORY[0x1E69E9840];
   configCopy = config;
   completionCopy = completion;
   v7 = [configCopy objectForKeyedSubscript:@"CacheDeleteDisabled"];
   if (!v7 || (v8 = v7, [configCopy objectForKeyedSubscript:@"CacheDeleteDisabled"], v9 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v9, v8, (isKindOfClass & 1) == 0))
   {
     v22 = MEMORY[0x1E696ABC0];
-    v50 = *MEMORY[0x1E696A578];
+    v49 = *MEMORY[0x1E696A578];
     v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Configuration key %@ is not an %@", @"CacheDeleteDisabled", objc_opt_class()];
-    v51[0] = v23;
-    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:&v50 count:1];
+    v50[0] = v23;
+    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:&v49 count:1];
     v25 = [v22 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v24];
 
     v26 = UAFGetLogCategory(&UAFLogContextXPCService);
     if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v45 = "[UAFXPCService configureCacheDeleteWithConfig:completion:]";
-      v46 = 2112;
-      v47 = @"CacheDeleteDisabled";
-      v48 = 2112;
-      v49 = objc_opt_class();
-      v27 = v49;
+      v44 = "[UAFXPCService configureCacheDeleteWithConfig:completion:]";
+      v45 = 2112;
+      v46 = @"CacheDeleteDisabled";
+      v47 = 2112;
+      v48 = objc_opt_class();
+      v27 = v48;
 LABEL_12:
       _os_log_error_impl(&dword_1BCF2C000, v26, OS_LOG_TYPE_ERROR, "%s Configuration key %@ is not an %@", buf, 0x20u);
     }
@@ -529,10 +919,10 @@ LABEL_13:
   if (!v11 || (v12 = v11, [configCopy objectForKeyedSubscript:@"AutoAssetType"], v13 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v14 = objc_opt_isKindOfClass(), v13, v12, (v14 & 1) == 0))
   {
     v28 = MEMORY[0x1E696ABC0];
-    v42 = *MEMORY[0x1E696A578];
+    v41 = *MEMORY[0x1E696A578];
     v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Configuration key %@ is not an %@", @"AutoAssetType", objc_opt_class()];
-    v43 = v29;
-    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+    v42 = v29;
+    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
     v25 = [v28 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v30];
 
     v26 = UAFGetLogCategory(&UAFLogContextXPCService);
@@ -540,11 +930,11 @@ LABEL_13:
     {
       v31 = objc_opt_class();
       *buf = 136315650;
-      v45 = "[UAFXPCService configureCacheDeleteWithConfig:completion:]";
-      v46 = 2112;
-      v47 = @"AutoAssetType";
-      v48 = 2112;
-      v49 = v31;
+      v44 = "[UAFXPCService configureCacheDeleteWithConfig:completion:]";
+      v45 = 2112;
+      v46 = @"AutoAssetType";
+      v47 = 2112;
+      v48 = v31;
       v27 = v31;
       goto LABEL_12;
     }
@@ -564,33 +954,31 @@ LABEL_13:
 
   else
   {
-    v33 = MEMORY[0x1E696ABC0];
-    v40 = *MEMORY[0x1E696A578];
-    v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Configuration key %@ is not an %@", @"AssetSpecifier", objc_opt_class(), v40];
-    v41 = v34;
-    v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
-    v36 = [v33 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v35];
+    v32 = MEMORY[0x1E696ABC0];
+    v39 = *MEMORY[0x1E696A578];
+    v33 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Configuration key %@ is not an %@", @"AssetSpecifier", objc_opt_class(), v39];
+    v40 = v33;
+    v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+    v35 = [v32 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v34];
 
-    v37 = UAFGetLogCategory(&UAFLogContextXPCService);
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    v36 = UAFGetLogCategory(&UAFLogContextXPCService);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
-      v38 = objc_opt_class();
+      v37 = objc_opt_class();
       *buf = 136315650;
-      v45 = "[UAFXPCService configureCacheDeleteWithConfig:completion:]";
-      v46 = 2112;
-      v47 = @"AssetSpecifier";
-      v48 = 2112;
-      v49 = v38;
-      v39 = v38;
-      _os_log_error_impl(&dword_1BCF2C000, v37, OS_LOG_TYPE_ERROR, "%s Configuration key %@ is not an %@", buf, 0x20u);
+      v44 = "[UAFXPCService configureCacheDeleteWithConfig:completion:]";
+      v45 = 2112;
+      v46 = @"AssetSpecifier";
+      v47 = 2112;
+      v48 = v37;
+      v38 = v37;
+      _os_log_error_impl(&dword_1BCF2C000, v36, OS_LOG_TYPE_ERROR, "%s Configuration key %@ is not an %@", buf, 0x20u);
     }
 
-    completionCopy[2](completionCopy, v36);
+    completionCopy[2](completionCopy, v35);
   }
 
 LABEL_14:
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
@@ -622,32 +1010,32 @@ LABEL_14:
 
 - (void)operationWithConfig:(id)config completion:(id)completion
 {
-  v142[1] = *MEMORY[0x1E69E9840];
+  v139[1] = *MEMORY[0x1E69E9840];
   configCopy = config;
   completionCopy = completion;
   if (!configCopy)
   {
     v16 = MEMORY[0x1E696ABC0];
-    v141 = *MEMORY[0x1E696A578];
+    v138 = *MEMORY[0x1E696A578];
     v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Missing configuration dictionary"];
-    v142[0] = v17;
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v142 forKeys:&v141 count:1];
+    v139[0] = v17;
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v139 forKeys:&v138 count:1];
     v9 = [v16 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v18];
 
     v19 = UAFGetLogCategory(&UAFLogContextXPCService);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v132 = "[UAFXPCService operationWithConfig:completion:]";
+      v129 = "[UAFXPCService operationWithConfig:completion:]";
       _os_log_error_impl(&dword_1BCF2C000, v19, OS_LOG_TYPE_ERROR, "%s Missing configuration dictionary", buf, 0xCu);
     }
 
     goto LABEL_9;
   }
 
-  v121 = 0;
-  v8 = [UAFConfiguration isValidValue:configCopy key:@"Operation" kind:objc_opt_class() required:1 error:&v121];
-  v9 = v121;
+  v118 = 0;
+  v8 = [UAFConfiguration isValidValue:configCopy key:@"Operation" kind:objc_opt_class() required:1 error:&v118];
+  v9 = v118;
   if (v8)
   {
     v10 = [configCopy objectForKeyedSubscript:@"UserInitiated"];
@@ -662,203 +1050,203 @@ LABEL_14:
       bOOLValue = 1;
     }
 
-    v21 = [configCopy objectForKeyedSubscript:@"Operation"];
-    if ([v21 isEqualToString:@"Subscribe"])
+    v20 = [configCopy objectForKeyedSubscript:@"Operation"];
+    if ([v20 isEqualToString:@"Subscribe"])
     {
     }
 
     else
     {
-      v22 = [configCopy objectForKeyedSubscript:@"Operation"];
-      v23 = [v22 isEqualToString:@"Unsubscribe"];
+      v21 = [configCopy objectForKeyedSubscript:@"Operation"];
+      v22 = [v21 isEqualToString:@"Unsubscribe"];
 
-      if (!v23)
+      if (!v22)
       {
         goto LABEL_19;
       }
     }
 
-    v120 = v9;
-    v24 = [UAFConfiguration isValidValue:configCopy key:@"Subscriber" kind:objc_opt_class() required:1 error:&v120];
-    v25 = v120;
+    v117 = v9;
+    v23 = [UAFConfiguration isValidValue:configCopy key:@"Subscriber" kind:objc_opt_class() required:1 error:&v117];
+    v24 = v117;
 
-    if (!v24)
+    if (!v23)
     {
       goto LABEL_50;
     }
 
-    v119 = v25;
-    v26 = [UAFConfiguration isValidValue:configCopy key:@"Subscriptions" kind:objc_opt_class() required:1 error:&v119];
-    v9 = v119;
+    v116 = v24;
+    v25 = [UAFConfiguration isValidValue:configCopy key:@"Subscriptions" kind:objc_opt_class() required:1 error:&v116];
+    v9 = v116;
 
-    if (v26)
+    if (v25)
     {
-      v118 = v9;
-      v27 = [UAFConfiguration isValidValue:configCopy key:@"SubscriptionUser" kind:objc_opt_class() required:0 error:&v118];
-      v25 = v118;
+      v115 = v9;
+      v26 = [UAFConfiguration isValidValue:configCopy key:@"SubscriptionUser" kind:objc_opt_class() required:0 error:&v115];
+      v24 = v115;
 
-      if (!v27)
+      if (!v26)
       {
         goto LABEL_50;
       }
 
-      v9 = v25;
+      v9 = v24;
 LABEL_19:
       if (+[UAFConfiguration subscriptionServiceEnabled]&& !self->_subscriptionService)
       {
         currentConnection = [MEMORY[0x1E696B0B8] currentConnection];
-        v38 = UAFGetLogCategory(&UAFLogContextXPCService);
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+        v37 = UAFGetLogCategory(&UAFLogContextXPCService);
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
         {
-          v39 = [configCopy objectForKeyedSubscript:@"Operation"];
+          v38 = [configCopy objectForKeyedSubscript:@"Operation"];
           processIdentifier = [currentConnection processIdentifier];
           *buf = 136315650;
-          v132 = "[UAFXPCService operationWithConfig:completion:]";
-          v133 = 2114;
-          v134 = v39;
-          v135 = 1024;
-          LODWORD(v136) = processIdentifier;
-          _os_log_impl(&dword_1BCF2C000, v38, OS_LOG_TYPE_DEFAULT, "%s Received '%{public}@' request, proxying to subscription service on behalf of pid %d", buf, 0x1Cu);
+          v129 = "[UAFXPCService operationWithConfig:completion:]";
+          v130 = 2114;
+          v131 = v38;
+          v132 = 1024;
+          LODWORD(v133) = processIdentifier;
+          _os_log_impl(&dword_1BCF2C000, v37, OS_LOG_TYPE_DEFAULT, "%s Received '%{public}@' request, proxying to subscription service on behalf of pid %d", buf, 0x1Cu);
         }
 
-        v41 = +[UAFAssetSetManager createSubscriptionXPCConnection];
-        v113[0] = MEMORY[0x1E69E9820];
-        v113[1] = 3221225472;
-        v113[2] = __48__UAFXPCService_operationWithConfig_completion___block_invoke;
-        v113[3] = &unk_1E7FFDD58;
-        v114 = configCopy;
-        v115 = currentConnection;
-        v116 = v41;
-        v117 = completionCopy;
-        currentConnection2 = v41;
-        v30 = currentConnection;
-        [currentConnection2 operationWithConfig:v114 completion:v113];
+        v40 = +[UAFAssetSetManager createSubscriptionXPCConnection];
+        v110[0] = MEMORY[0x1E69E9820];
+        v110[1] = 3221225472;
+        v110[2] = __48__UAFXPCService_operationWithConfig_completion___block_invoke;
+        v110[3] = &unk_1E7FFDD58;
+        v111 = configCopy;
+        v112 = currentConnection;
+        v113 = v40;
+        v114 = completionCopy;
+        currentConnection2 = v40;
+        v29 = currentConnection;
+        [currentConnection2 operationWithConfig:v111 completion:v110];
 
         goto LABEL_34;
       }
 
       if (!+[UAFConfiguration subscriptionServiceEnabled]&& self->_subscriptionService)
       {
-        v28 = MEMORY[0x1E696ABC0];
-        v139 = *MEMORY[0x1E696A588];
-        v140 = @"Request to UAF subscription service when subscription service is disabled";
-        v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v140 forKeys:&v139 count:1];
-        v30 = [v28 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:5000 userInfo:v29];
+        v27 = MEMORY[0x1E696ABC0];
+        v136 = *MEMORY[0x1E696A588];
+        v137 = @"Request to UAF subscription service when subscription service is disabled";
+        v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v137 forKeys:&v136 count:1];
+        v29 = [v27 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:5000 userInfo:v28];
 
         currentConnection2 = [MEMORY[0x1E696B0B8] currentConnection];
-        v32 = UAFGetLogCategory(&UAFLogContextXPCService);
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+        v31 = UAFGetLogCategory(&UAFLogContextXPCService);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
           processIdentifier2 = [currentConnection2 processIdentifier];
           *buf = 136315394;
-          v132 = "[UAFXPCService operationWithConfig:completion:]";
-          v133 = 1024;
-          LODWORD(v134) = processIdentifier2;
-          _os_log_error_impl(&dword_1BCF2C000, v32, OS_LOG_TYPE_ERROR, "%s Received request from pid %d while subscription service disabled", buf, 0x12u);
+          v129 = "[UAFXPCService operationWithConfig:completion:]";
+          v130 = 1024;
+          LODWORD(v131) = processIdentifier2;
+          _os_log_error_impl(&dword_1BCF2C000, v31, OS_LOG_TYPE_ERROR, "%s Received request from pid %d while subscription service disabled", buf, 0x12u);
         }
 
 LABEL_26:
-        (*(completionCopy + 2))(completionCopy, v30);
+        (*(completionCopy + 2))(completionCopy, v29);
         goto LABEL_34;
       }
 
-      v33 = [configCopy objectForKeyedSubscript:@"Operation"];
-      v34 = [v33 isEqualToString:@"Subscribe"];
+      v32 = [configCopy objectForKeyedSubscript:@"Operation"];
+      v33 = [v32 isEqualToString:@"Subscribe"];
 
-      if (v34)
+      if (v33)
       {
         [(UAFXPCService *)self subscribeWithConfig:configCopy userInitiated:bOOLValue completion:completionCopy];
         goto LABEL_10;
       }
 
-      v35 = [configCopy objectForKeyedSubscript:@"Operation"];
-      v36 = [v35 isEqualToString:@"Unsubscribe"];
+      v34 = [configCopy objectForKeyedSubscript:@"Operation"];
+      v35 = [v34 isEqualToString:@"Unsubscribe"];
 
-      if (v36)
+      if (v35)
       {
         [(UAFXPCService *)self unsubscribeWithConfig:configCopy userInitiated:bOOLValue completion:completionCopy];
         goto LABEL_10;
       }
 
-      v42 = [configCopy objectForKeyedSubscript:@"Operation"];
-      v43 = [v42 isEqualToString:@"ConfigureCacheDelete"];
+      v41 = [configCopy objectForKeyedSubscript:@"Operation"];
+      v42 = [v41 isEqualToString:@"ConfigureCacheDelete"];
 
-      if (v43)
+      if (v42)
       {
         [(UAFXPCService *)self configureCacheDeleteWithConfig:configCopy completion:completionCopy];
         goto LABEL_10;
       }
 
-      v44 = [configCopy objectForKeyedSubscript:@"Operation"];
-      v45 = [v44 isEqualToString:@"ConfigureAssetDelivery"];
+      v43 = [configCopy objectForKeyedSubscript:@"Operation"];
+      v44 = [v43 isEqualToString:@"ConfigureAssetDelivery"];
 
-      if (v45)
+      if (v44)
       {
-        v46 = [configCopy objectForKeyedSubscript:@"LockIfUnchanged"];
-        if (v46)
+        v45 = [configCopy objectForKeyedSubscript:@"LockIfUnchanged"];
+        if (v45)
         {
-          v47 = [configCopy objectForKeyedSubscript:@"LockIfUnchanged"];
+          v46 = [configCopy objectForKeyedSubscript:@"LockIfUnchanged"];
           objc_opt_class();
-          v48 = objc_opt_isKindOfClass();
+          v47 = objc_opt_isKindOfClass();
 
-          if (v48)
+          if (v47)
           {
-            v49 = [configCopy objectForKeyedSubscript:@"LockIfUnchanged"];
-            LOBYTE(v46) = [v49 BOOLValue];
+            v48 = [configCopy objectForKeyedSubscript:@"LockIfUnchanged"];
+            LOBYTE(v45) = [v48 BOOLValue];
           }
 
           else
           {
-            LOBYTE(v46) = 0;
+            LOBYTE(v45) = 0;
           }
         }
 
-        v62 = +[UAFAssetSetManager getSerialQueue];
+        v61 = +[UAFAssetSetManager getSerialQueue];
         block[0] = MEMORY[0x1E69E9820];
         block[1] = 3221225472;
         block[2] = __48__UAFXPCService_operationWithConfig_completion___block_invoke_410;
         block[3] = &__block_descriptor_34_e5_v8__0l;
-        v111 = v46;
-        v112 = 1;
-        dispatch_sync(v62, block);
+        v108 = v45;
+        v109 = 1;
+        dispatch_sync(v61, block);
 
         goto LABEL_57;
       }
 
-      v50 = [configCopy objectForKeyedSubscript:@"Operation"];
-      v51 = [v50 isEqualToString:@"UpdateLastSeen"];
+      v49 = [configCopy objectForKeyedSubscript:@"Operation"];
+      v50 = [v49 isEqualToString:@"UpdateLastSeen"];
 
-      if (v51)
+      if (v50)
       {
-        v109 = v9;
-        v52 = [UAFConfiguration isValidValue:configCopy key:@"SubscriptionUser" kind:objc_opt_class() required:1 error:&v109];
-        v25 = v109;
+        v106 = v9;
+        v51 = [UAFConfiguration isValidValue:configCopy key:@"SubscriptionUser" kind:objc_opt_class() required:1 error:&v106];
+        v24 = v106;
 
-        if (v52)
+        if (v51)
         {
-          v30 = [configCopy objectForKeyedSubscript:@"SubscriptionUser"];
-          v108 = v25;
-          currentConnection2 = [UAFUser nodeForUser:v30 error:&v108];
-          v9 = v108;
+          v29 = [configCopy objectForKeyedSubscript:@"SubscriptionUser"];
+          v105 = v24;
+          currentConnection2 = [UAFUser nodeForUser:v29 error:&v105];
+          v9 = v105;
 
           if (currentConnection2 && !v9)
           {
-            v53 = +[UAFSubscriptionStoreManager writeManager];
-            v54 = [MEMORY[0x1E695DF00] now];
-            v9 = [v53 setUserLastSeenTime:v30 node:currentConnection2 time:v54];
+            v52 = +[UAFSubscriptionStoreManager writeManager];
+            v53 = [MEMORY[0x1E695DF00] now];
+            v9 = [v52 setUserLastSeenTime:v29 node:currentConnection2 time:v53];
 
-            v55 = UAFGetLogCategory(&UAFLogContextXPCService);
-            if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+            v54 = UAFGetLogCategory(&UAFLogContextXPCService);
+            if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315906;
-              v132 = "[UAFXPCService operationWithConfig:completion:]";
-              v133 = 2112;
-              v134 = v30;
-              v135 = 2112;
-              v136 = currentConnection2;
-              v137 = 2114;
-              v138 = v9;
-              _os_log_impl(&dword_1BCF2C000, v55, OS_LOG_TYPE_DEFAULT, "%s Updated last seen time for user %@ on node %@ with result: %{public}@", buf, 0x2Au);
+              v129 = "[UAFXPCService operationWithConfig:completion:]";
+              v130 = 2112;
+              v131 = v29;
+              v132 = 2112;
+              v133 = currentConnection2;
+              v134 = 2114;
+              v135 = v9;
+              _os_log_impl(&dword_1BCF2C000, v54, OS_LOG_TYPE_DEFAULT, "%s Updated last seen time for user %@ on node %@ with result: %{public}@", buf, 0x2Au);
             }
           }
 
@@ -870,38 +1258,38 @@ LABEL_35:
         }
 
 LABEL_50:
-        (*(completionCopy + 2))(completionCopy, v25);
-        v9 = v25;
+        (*(completionCopy + 2))(completionCopy, v24);
+        v9 = v24;
         goto LABEL_10;
       }
 
-      v56 = [configCopy objectForKeyedSubscript:@"Operation"];
-      v57 = [v56 isEqualToString:@"RemoveUser"];
+      v55 = [configCopy objectForKeyedSubscript:@"Operation"];
+      v56 = [v55 isEqualToString:@"RemoveUser"];
 
-      if (v57)
+      if (v56)
       {
-        v107 = v9;
-        v58 = [UAFConfiguration isValidValue:configCopy key:@"SubscriptionUser" kind:objc_opt_class() required:1 error:&v107];
-        v59 = v107;
+        v104 = v9;
+        v57 = [UAFConfiguration isValidValue:configCopy key:@"SubscriptionUser" kind:objc_opt_class() required:1 error:&v104];
+        v58 = v104;
 
-        if (!v58)
+        if (!v57)
         {
-          (*(completionCopy + 2))(completionCopy, v59);
-          v9 = v59;
+          (*(completionCopy + 2))(completionCopy, v58);
+          v9 = v58;
           goto LABEL_10;
         }
 
-        v60 = [configCopy objectForKeyedSubscript:@"SubscriptionUser"];
-        v9 = [UAFUserManager removeUser:v60];
+        v59 = [configCopy objectForKeyedSubscript:@"SubscriptionUser"];
+        v9 = [UAFUserManager removeUser:v59];
 
 LABEL_54:
         goto LABEL_9;
       }
 
-      v63 = [configCopy objectForKeyedSubscript:@"Operation"];
-      v64 = [v63 isEqualToString:@"UserCleanup"];
+      v62 = [configCopy objectForKeyedSubscript:@"Operation"];
+      v63 = [v62 isEqualToString:@"UserCleanup"];
 
-      if (v64)
+      if (v63)
       {
         +[UAFUserManager performUserCleanup];
 LABEL_57:
@@ -909,107 +1297,106 @@ LABEL_57:
         goto LABEL_10;
       }
 
-      v65 = [configCopy objectForKeyedSubscript:@"Operation"];
-      v66 = [v65 isEqualToString:@"MigrateSubscriptions"];
+      v64 = [configCopy objectForKeyedSubscript:@"Operation"];
+      v65 = [v64 isEqualToString:@"MigrateSubscriptions"];
 
-      if (v66)
+      if (v65)
       {
-        v67 = +[UAFAssetSetManager getSerialQueue];
-        v104[0] = MEMORY[0x1E69E9820];
-        v104[1] = 3221225472;
-        v104[2] = __48__UAFXPCService_operationWithConfig_completion___block_invoke_412;
-        v104[3] = &unk_1E7FFD5A8;
-        v105 = configCopy;
-        v106 = completionCopy;
-        dispatch_async(v67, v104);
+        v66 = +[UAFAssetSetManager getSerialQueue];
+        v101[0] = MEMORY[0x1E69E9820];
+        v101[1] = 3221225472;
+        v101[2] = __48__UAFXPCService_operationWithConfig_completion___block_invoke_412;
+        v101[3] = &unk_1E7FFD5A8;
+        v102 = configCopy;
+        v103 = completionCopy;
+        dispatch_async(v66, v101);
 
-        v68 = v105;
+        v67 = v102;
       }
 
       else
       {
-        v69 = [configCopy objectForKeyedSubscript:@"Operation"];
-        v70 = [v69 isEqualToString:@"RunMaintenanceTask"];
+        v68 = [configCopy objectForKeyedSubscript:@"Operation"];
+        v69 = [v68 isEqualToString:@"RunMaintenanceTask"];
 
-        if (!v70)
+        if (!v69)
         {
-          v71 = [configCopy objectForKeyedSubscript:@"Operation"];
-          v72 = [v71 isEqualToString:@"ResetAssetSets"];
+          v70 = [configCopy objectForKeyedSubscript:@"Operation"];
+          v71 = [v70 isEqualToString:@"ResetAssetSets"];
 
-          if (v72)
+          if (v71)
           {
-            v101 = 0;
-            v73 = [UAFConfiguration isValidValue:configCopy key:@"AssetSets" kind:objc_opt_class() required:0 error:&v101];
-            v30 = v101;
-            if (v73)
+            v98 = 0;
+            v72 = [UAFConfiguration isValidValue:configCopy key:@"AssetSets" kind:objc_opt_class() required:0 error:&v98];
+            v29 = v98;
+            if (v72)
             {
-              v74 = [configCopy objectForKeyedSubscript:@"AssetSets"];
+              v73 = [configCopy objectForKeyedSubscript:@"AssetSets"];
 
-              if (v74)
+              if (v73)
               {
-                v99 = 0u;
-                v100 = 0u;
+                v96 = 0u;
                 v97 = 0u;
-                v98 = 0u;
+                v94 = 0u;
+                v95 = 0u;
                 currentConnection2 = [configCopy objectForKeyedSubscript:@"AssetSets"];
-                v75 = [currentConnection2 countByEnumeratingWithState:&v97 objects:v130 count:16];
-                if (v75)
+                v74 = [currentConnection2 countByEnumeratingWithState:&v94 objects:v127 count:16];
+                if (v74)
                 {
-                  v76 = v75;
-                  v77 = *v98;
+                  v75 = v74;
+                  v76 = *v95;
                   while (2)
                   {
-                    for (i = 0; i != v76; ++i)
+                    for (i = 0; i != v75; ++i)
                     {
-                      if (*v98 != v77)
+                      if (*v95 != v76)
                       {
                         objc_enumerationMutation(currentConnection2);
                       }
 
-                      v79 = *(*(&v97 + 1) + 8 * i);
+                      v78 = *(*(&v94 + 1) + 8 * i);
                       objc_opt_class();
                       if ((objc_opt_isKindOfClass() & 1) == 0)
                       {
-                        v91 = MEMORY[0x1E696ABC0];
-                        v92 = *MEMORY[0x1E696A578];
-                        if (v30)
+                        v89 = MEMORY[0x1E696ABC0];
+                        if (v29)
                         {
-                          v128[0] = *MEMORY[0x1E696A578];
-                          v93 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Asset Set '%@' is not a string", v79];
-                          v128[1] = *MEMORY[0x1E696AA08];
-                          v129[0] = v93;
-                          v129[1] = v30;
-                          v94 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v129 forKeys:v128 count:2];
-                          v95 = [v91 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v94];
+                          v125[0] = *MEMORY[0x1E696A578];
+                          v90 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Asset Set '%@' is not a string", v78];
+                          v125[1] = *MEMORY[0x1E696AA08];
+                          v126[0] = v90;
+                          v126[1] = v29;
+                          v91 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v126 forKeys:v125 count:2];
+                          v92 = [v89 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v91];
 
-                          v30 = v95;
+                          v29 = v92;
                         }
 
                         else
                         {
-                          v126 = *MEMORY[0x1E696A578];
-                          v93 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Asset Set '%@' is not a string", v79];
-                          v127 = v93;
-                          v94 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v127 forKeys:&v126 count:1];
-                          v30 = [v91 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v94];
+                          v123 = *MEMORY[0x1E696A578];
+                          v90 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Asset Set '%@' is not a string", v78];
+                          v124 = v90;
+                          v91 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v124 forKeys:&v123 count:1];
+                          v29 = [v89 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v91];
                         }
 
-                        v96 = UAFGetLogCategory(&UAFLogContextXPCService);
-                        if (os_log_type_enabled(v96, OS_LOG_TYPE_ERROR))
+                        v93 = UAFGetLogCategory(&UAFLogContextXPCService);
+                        if (os_log_type_enabled(v93, OS_LOG_TYPE_ERROR))
                         {
                           *buf = 136315394;
-                          v132 = "[UAFXPCService operationWithConfig:completion:]";
-                          v133 = 2112;
-                          v134 = v79;
-                          _os_log_error_impl(&dword_1BCF2C000, v96, OS_LOG_TYPE_ERROR, "%s Asset Set '%@' is not a string", buf, 0x16u);
+                          v129 = "[UAFXPCService operationWithConfig:completion:]";
+                          v130 = 2112;
+                          v131 = v78;
+                          _os_log_error_impl(&dword_1BCF2C000, v93, OS_LOG_TYPE_ERROR, "%s Asset Set '%@' is not a string", buf, 0x16u);
                         }
 
                         goto LABEL_26;
                       }
                     }
 
-                    v76 = [currentConnection2 countByEnumeratingWithState:&v97 objects:v130 count:16];
-                    if (v76)
+                    v75 = [currentConnection2 countByEnumeratingWithState:&v94 objects:v127 count:16];
+                    if (v75)
                     {
                       continue;
                     }
@@ -1019,72 +1406,71 @@ LABEL_57:
                 }
               }
 
-              v80 = [configCopy objectForKeyedSubscript:@"AssetSets"];
-              v81 = [UAFAssetSetManager resetAssetSets:v80];
+              v79 = [configCopy objectForKeyedSubscript:@"AssetSets"];
+              v80 = [UAFAssetSetManager resetAssetSets:v79];
 
-              (*(completionCopy + 2))(completionCopy, v81);
-              v30 = v81;
+              (*(completionCopy + 2))(completionCopy, v80);
+              v29 = v80;
             }
 
             else
             {
-              (*(completionCopy + 2))(completionCopy, v30);
+              (*(completionCopy + 2))(completionCopy, v29);
             }
 
             goto LABEL_35;
           }
 
-          v82 = MEMORY[0x1E696ABC0];
-          v83 = *MEMORY[0x1E696A578];
+          v81 = MEMORY[0x1E696ABC0];
           if (v9)
           {
-            v124[0] = *MEMORY[0x1E696A578];
-            v84 = MEMORY[0x1E696AEC0];
-            v85 = [configCopy objectForKeyedSubscript:@"Operation"];
-            v86 = [v84 stringWithFormat:@"Configuration key %@ is set to invalid value %@", @"Operation", v85];
-            v124[1] = *MEMORY[0x1E696AA08];
-            v125[0] = v86;
-            v125[1] = v9;
-            v87 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v125 forKeys:v124 count:2];
-            v88 = [v82 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v87];
+            v121[0] = *MEMORY[0x1E696A578];
+            v82 = MEMORY[0x1E696AEC0];
+            v83 = [configCopy objectForKeyedSubscript:@"Operation"];
+            v84 = [v82 stringWithFormat:@"Configuration key %@ is set to invalid value %@", @"Operation", v83];
+            v121[1] = *MEMORY[0x1E696AA08];
+            v122[0] = v84;
+            v122[1] = v9;
+            v85 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v122 forKeys:v121 count:2];
+            v86 = [v81 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v85];
 
-            v9 = v88;
+            v9 = v86;
           }
 
           else
           {
-            v122 = *MEMORY[0x1E696A578];
-            v89 = MEMORY[0x1E696AEC0];
-            v85 = [configCopy objectForKeyedSubscript:@"Operation"];
-            v86 = [v89 stringWithFormat:@"Configuration key %@ is set to invalid value %@", @"Operation", v85];
-            v123 = v86;
-            v87 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v123 forKeys:&v122 count:1];
-            v9 = [v82 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v87];
+            v119 = *MEMORY[0x1E696A578];
+            v87 = MEMORY[0x1E696AEC0];
+            v83 = [configCopy objectForKeyedSubscript:@"Operation"];
+            v84 = [v87 stringWithFormat:@"Configuration key %@ is set to invalid value %@", @"Operation", v83];
+            v120 = v84;
+            v85 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v120 forKeys:&v119 count:1];
+            v9 = [v81 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v85];
           }
 
-          v60 = UAFGetLogCategory(&UAFLogContextXPCService);
-          if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+          v59 = UAFGetLogCategory(&UAFLogContextXPCService);
+          if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
           {
-            v90 = [configCopy objectForKeyedSubscript:@"Operation"];
+            v88 = [configCopy objectForKeyedSubscript:@"Operation"];
             *buf = 136315650;
-            v132 = "[UAFXPCService operationWithConfig:completion:]";
-            v133 = 2112;
-            v134 = @"Operation";
-            v135 = 2112;
-            v136 = v90;
-            _os_log_error_impl(&dword_1BCF2C000, v60, OS_LOG_TYPE_ERROR, "%s Configuration key %@ is set to invalid value %@", buf, 0x20u);
+            v129 = "[UAFXPCService operationWithConfig:completion:]";
+            v130 = 2112;
+            v131 = @"Operation";
+            v132 = 2112;
+            v133 = v88;
+            _os_log_error_impl(&dword_1BCF2C000, v59, OS_LOG_TYPE_ERROR, "%s Configuration key %@ is set to invalid value %@", buf, 0x20u);
           }
 
           goto LABEL_54;
         }
 
-        v102[0] = MEMORY[0x1E69E9820];
-        v102[1] = 3221225472;
-        v102[2] = __48__UAFXPCService_operationWithConfig_completion___block_invoke_2;
-        v102[3] = &unk_1E7FFD4E8;
-        v103 = completionCopy;
-        [UAFXPCActivity maintenanceTaskWithCompletion:v102];
-        v68 = v103;
+        v99[0] = MEMORY[0x1E69E9820];
+        v99[1] = 3221225472;
+        v99[2] = __48__UAFXPCService_operationWithConfig_completion___block_invoke_2;
+        v99[3] = &unk_1E7FFD4E8;
+        v100 = completionCopy;
+        [UAFXPCActivity maintenanceTaskWithCompletion:v99];
+        v67 = v100;
       }
 
       goto LABEL_10;
@@ -1094,32 +1480,28 @@ LABEL_57:
 LABEL_9:
   (*(completionCopy + 2))(completionCopy, v9);
 LABEL_10:
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __48__UAFXPCService_operationWithConfig_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = UAFGetLogCategory(&UAFLogContextXPCService);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [*(a1 + 32) objectForKeyedSubscript:@"Operation"];
     v6 = [*(a1 + 40) processIdentifier];
-    v8 = 136315650;
-    v9 = "[UAFXPCService operationWithConfig:completion:]_block_invoke";
-    v10 = 2114;
-    v11 = v5;
-    v12 = 1024;
-    v13 = v6;
-    _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s Completed proxying '%{public}@' request on behalf of pid %d", &v8, 0x1Cu);
+    v7 = 136315650;
+    v8 = "[UAFXPCService operationWithConfig:completion:]_block_invoke";
+    v9 = 2114;
+    v10 = v5;
+    v11 = 1024;
+    v12 = v6;
+    _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s Completed proxying '%{public}@' request on behalf of pid %d", &v7, 0x1Cu);
   }
 
   [*(a1 + 48) invalidate];
   (*(*(a1 + 56) + 16))();
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __48__UAFXPCService_operationWithConfig_completion___block_invoke_412(uint64_t a1)
@@ -1169,7 +1551,7 @@ void __48__UAFXPCService_operationWithConfig_completion___block_invoke_412(uint6
 
 - (void)lockLatestAtomicInstance:(id)instance completion:(id)completion
 {
-  v36[1] = *MEMORY[0x1E69E9840];
+  v35[1] = *MEMORY[0x1E69E9840];
   instanceCopy = instance;
   completionCopy = completion;
   if (+[UAFConfiguration subscriptionServiceEnabled]&& !self->_subscriptionService)
@@ -1179,23 +1561,23 @@ void __48__UAFXPCService_operationWithConfig_completion___block_invoke_412(uint6
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v30 = "[UAFXPCService lockLatestAtomicInstance:completion:]";
-      v31 = 1024;
-      LODWORD(v32) = [currentConnection processIdentifier];
+      v29 = "[UAFXPCService lockLatestAtomicInstance:completion:]";
+      v30 = 1024;
+      LODWORD(v31) = [currentConnection processIdentifier];
       _os_log_impl(&dword_1BCF2C000, v19, OS_LOG_TYPE_DEFAULT, "%s Received request from pid %d, proxying to subscription service", buf, 0x12u);
     }
 
     v20 = +[UAFAssetSetManager createSubscriptionXPCConnection];
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __53__UAFXPCService_lockLatestAtomicInstance_completion___block_invoke;
-    v25[3] = &unk_1E7FFD648;
-    v26 = currentConnection;
-    v27 = v20;
-    v28 = completionCopy;
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __53__UAFXPCService_lockLatestAtomicInstance_completion___block_invoke;
+    v24[3] = &unk_1E7FFD648;
+    v25 = currentConnection;
+    v26 = v20;
+    v27 = completionCopy;
     currentConnection2 = v20;
     v10 = currentConnection;
-    [currentConnection2 lockLatestAtomicInstance:instanceCopy completion:v25];
+    [currentConnection2 lockLatestAtomicInstance:instanceCopy completion:v24];
   }
 
   else
@@ -1203,9 +1585,9 @@ void __48__UAFXPCService_operationWithConfig_completion___block_invoke_412(uint6
     if (!+[UAFConfiguration subscriptionServiceEnabled]&& self->_subscriptionService)
     {
       v8 = MEMORY[0x1E696ABC0];
-      v35 = *MEMORY[0x1E696A588];
-      v36[0] = @"Request to UAF subscription service when subscription service is disabled";
-      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+      v34 = *MEMORY[0x1E696A588];
+      v35[0] = @"Request to UAF subscription service when subscription service is disabled";
+      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:&v34 count:1];
       v10 = [v8 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:5000 userInfo:v9];
 
       currentConnection2 = [MEMORY[0x1E696B0B8] currentConnection];
@@ -1213,9 +1595,9 @@ void __48__UAFXPCService_operationWithConfig_completion___block_invoke_412(uint6
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v30 = "[UAFXPCService lockLatestAtomicInstance:completion:]";
-        v31 = 1024;
-        LODWORD(v32) = [currentConnection2 processIdentifier];
+        v29 = "[UAFXPCService lockLatestAtomicInstance:completion:]";
+        v30 = 1024;
+        LODWORD(v31) = [currentConnection2 processIdentifier];
         v13 = "%s Received request from pid %d while subscription service disabled";
         v14 = v12;
         v15 = 18;
@@ -1229,9 +1611,9 @@ LABEL_19:
 
     v16 = objc_alloc(MEMORY[0x1E69B1918]);
     v17 = +[UAFAutoAssetManager getConcurrentQueue];
-    v24 = 0;
-    currentConnection2 = [v16 initUsingClientDomain:@"com.apple.UnifiedAssetFramework" forClientName:@"manager" forAssetSetIdentifier:instanceCopy comprisedOfEntries:0 completingFromQueue:v17 error:&v24];
-    v10 = v24;
+    v23 = 0;
+    currentConnection2 = [v16 initUsingClientDomain:@"com.apple.UnifiedAssetFramework" forClientName:@"manager" forAssetSetIdentifier:instanceCopy comprisedOfEntries:0 completingFromQueue:v17 error:&v23];
+    v10 = v23;
 
     if (v10)
     {
@@ -1239,11 +1621,11 @@ LABEL_19:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v30 = "[UAFXPCService lockLatestAtomicInstance:completion:]";
-        v31 = 2114;
-        v32 = instanceCopy;
-        v33 = 2114;
-        v34 = v10;
+        v29 = "[UAFXPCService lockLatestAtomicInstance:completion:]";
+        v30 = 2114;
+        v31 = instanceCopy;
+        v32 = 2114;
+        v33 = v10;
         v13 = "%s Could not initialize auto asset set %{public}@ for updating: %{public}@";
         v14 = v12;
         v15 = 32;
@@ -1258,12 +1640,12 @@ LABEL_9:
 
     if (currentConnection2)
     {
-      v22[0] = MEMORY[0x1E69E9820];
-      v22[1] = 3221225472;
-      v22[2] = __53__UAFXPCService_lockLatestAtomicInstance_completion___block_invoke_421;
-      v22[3] = &unk_1E7FFD530;
-      v23 = completionCopy;
-      [UAFAutoAssetManager lockLatestAssetSet:currentConnection2 completion:v22];
+      v21[0] = MEMORY[0x1E69E9820];
+      v21[1] = 3221225472;
+      v21[2] = __53__UAFXPCService_lockLatestAtomicInstance_completion___block_invoke_421;
+      v21[3] = &unk_1E7FFD530;
+      v22 = completionCopy;
+      [UAFAutoAssetManager lockLatestAssetSet:currentConnection2 completion:v21];
     }
 
     else
@@ -1275,34 +1657,30 @@ LABEL_9:
   }
 
 LABEL_17:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __53__UAFXPCService_lockLatestAtomicInstance_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = UAFGetLogCategory(&UAFLogContextXPCService);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [*(a1 + 32) processIdentifier];
-    v7 = 136315394;
-    v8 = "[UAFXPCService lockLatestAtomicInstance:completion:]_block_invoke";
-    v9 = 1024;
-    v10 = v5;
-    _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s Completed proxying request on behalf of pid %d", &v7, 0x12u);
+    v6 = 136315394;
+    v7 = "[UAFXPCService lockLatestAtomicInstance:completion:]_block_invoke";
+    v8 = 1024;
+    v9 = v5;
+    _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s Completed proxying request on behalf of pid %d", &v6, 0x12u);
   }
 
   [*(a1 + 40) invalidate];
   (*(*(a1 + 48) + 16))();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)markAssetsExpired:(id)expired completion:(id)completion
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   expiredCopy = expired;
   completionCopy = completion;
   if (+[UAFConfiguration subscriptionServiceEnabled]&& !self->_subscriptionService)
@@ -1312,23 +1690,23 @@ void __53__UAFXPCService_lockLatestAtomicInstance_completion___block_invoke(uint
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v26 = "[UAFXPCService markAssetsExpired:completion:]";
-      v27 = 1024;
+      v25 = "[UAFXPCService markAssetsExpired:completion:]";
+      v26 = 1024;
       processIdentifier = [currentConnection processIdentifier];
       _os_log_impl(&dword_1BCF2C000, v14, OS_LOG_TYPE_DEFAULT, "%s Received request from pid %d, proxying to subscription service", buf, 0x12u);
     }
 
     v15 = +[UAFAssetSetManager createSubscriptionXPCConnection];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __46__UAFXPCService_markAssetsExpired_completion___block_invoke;
-    v19[3] = &unk_1E7FFD648;
-    v20 = currentConnection;
-    v21 = v15;
-    v22 = completionCopy;
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __46__UAFXPCService_markAssetsExpired_completion___block_invoke;
+    v18[3] = &unk_1E7FFD648;
+    v19 = currentConnection;
+    v20 = v15;
+    v21 = completionCopy;
     currentConnection2 = v15;
     v10 = currentConnection;
-    [currentConnection2 markAssetsExpired:expiredCopy completion:v19];
+    [currentConnection2 markAssetsExpired:expiredCopy completion:v18];
 
     goto LABEL_12;
   }
@@ -1336,9 +1714,9 @@ void __53__UAFXPCService_lockLatestAtomicInstance_completion___block_invoke(uint
   if (!+[UAFConfiguration subscriptionServiceEnabled]&& self->_subscriptionService)
   {
     v8 = MEMORY[0x1E696ABC0];
-    v23 = *MEMORY[0x1E696A588];
-    v24 = @"Request to UAF subscription service when subscription service is disabled";
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+    v22 = *MEMORY[0x1E696A588];
+    v23 = @"Request to UAF subscription service when subscription service is disabled";
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
     v10 = [v8 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:5000 userInfo:v9];
 
     currentConnection2 = [MEMORY[0x1E696B0B8] currentConnection];
@@ -1347,8 +1725,8 @@ void __53__UAFXPCService_lockLatestAtomicInstance_completion___block_invoke(uint
     {
       processIdentifier2 = [currentConnection2 processIdentifier];
       *buf = 136315394;
-      v26 = "[UAFXPCService markAssetsExpired:completion:]";
-      v27 = 1024;
+      v25 = "[UAFXPCService markAssetsExpired:completion:]";
+      v26 = 1024;
       processIdentifier = processIdentifier2;
       _os_log_error_impl(&dword_1BCF2C000, v12, OS_LOG_TYPE_ERROR, "%s Received request from pid %d while subscription service disabled", buf, 0x12u);
     }
@@ -1359,39 +1737,35 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v18 = 0;
-  [UAFExpiredAssets markAssetsExpired:expiredCopy error:&v18];
-  v10 = v18;
+  v17 = 0;
+  [UAFExpiredAssets markAssetsExpired:expiredCopy error:&v17];
+  v10 = v17;
   (*(completionCopy + 2))(completionCopy, v10);
 LABEL_13:
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __46__UAFXPCService_markAssetsExpired_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = UAFGetLogCategory(&UAFLogContextXPCService);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [*(a1 + 32) processIdentifier];
-    v7 = 136315394;
-    v8 = "[UAFXPCService markAssetsExpired:completion:]_block_invoke";
-    v9 = 1024;
-    v10 = v5;
-    _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s Completed proxying request on behalf of pid %d", &v7, 0x12u);
+    v6 = 136315394;
+    v7 = "[UAFXPCService markAssetsExpired:completion:]_block_invoke";
+    v8 = 1024;
+    v9 = v5;
+    _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s Completed proxying request on behalf of pid %d", &v6, 0x12u);
   }
 
   [*(a1 + 40) invalidate];
   (*(*(a1 + 48) + 16))();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSystemConfigurationForKey:(id)key withValue:(id)value completion:(id)completion
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   valueCopy = value;
   completionCopy = completion;
@@ -1402,23 +1776,23 @@ void __46__UAFXPCService_markAssetsExpired_completion___block_invoke(uint64_t a1
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v27 = "[UAFXPCService setSystemConfigurationForKey:withValue:completion:]";
-      v28 = 1024;
-      LODWORD(v29) = [currentConnection processIdentifier];
+      v26 = "[UAFXPCService setSystemConfigurationForKey:withValue:completion:]";
+      v27 = 1024;
+      LODWORD(v28) = [currentConnection processIdentifier];
       _os_log_impl(&dword_1BCF2C000, v19, OS_LOG_TYPE_DEFAULT, "%s Received request from pid %d, proxying to subscription service", buf, 0x12u);
     }
 
     v20 = +[UAFAssetSetManager createSubscriptionXPCConnection];
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __67__UAFXPCService_setSystemConfigurationForKey_withValue_completion___block_invoke;
-    v22[3] = &unk_1E7FFD648;
-    v23 = currentConnection;
-    v24 = v20;
-    v25 = completionCopy;
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __67__UAFXPCService_setSystemConfigurationForKey_withValue_completion___block_invoke;
+    v21[3] = &unk_1E7FFD648;
+    v22 = currentConnection;
+    v23 = v20;
+    v24 = completionCopy;
     currentConnection2 = v20;
     v13 = currentConnection;
-    [currentConnection2 setSystemConfigurationForKey:keyCopy withValue:valueCopy completion:v22];
+    [currentConnection2 setSystemConfigurationForKey:keyCopy withValue:valueCopy completion:v21];
 
     goto LABEL_14;
   }
@@ -1426,9 +1800,9 @@ void __46__UAFXPCService_markAssetsExpired_completion___block_invoke(uint64_t a1
   if (!+[UAFConfiguration subscriptionServiceEnabled]&& self->_subscriptionService)
   {
     v11 = MEMORY[0x1E696ABC0];
-    v32 = *MEMORY[0x1E696A588];
-    v33[0] = @"Request to UAF subscription service when subscription service is disabled";
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+    v31 = *MEMORY[0x1E696A588];
+    v32[0] = @"Request to UAF subscription service when subscription service is disabled";
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
     v13 = [v11 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:5000 userInfo:v12];
 
     currentConnection2 = [MEMORY[0x1E696B0B8] currentConnection];
@@ -1436,9 +1810,9 @@ void __46__UAFXPCService_markAssetsExpired_completion___block_invoke(uint64_t a1
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v27 = "[UAFXPCService setSystemConfigurationForKey:withValue:completion:]";
-      v28 = 1024;
-      LODWORD(v29) = [currentConnection2 processIdentifier];
+      v26 = "[UAFXPCService setSystemConfigurationForKey:withValue:completion:]";
+      v27 = 1024;
+      LODWORD(v28) = [currentConnection2 processIdentifier];
       _os_log_error_impl(&dword_1BCF2C000, v15, OS_LOG_TYPE_ERROR, "%s Received request from pid %d while subscription service disabled", buf, 0x12u);
     }
 
@@ -1455,44 +1829,40 @@ LABEL_14:
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v27 = "[UAFXPCService setSystemConfigurationForKey:withValue:completion:]";
-    v28 = 2114;
-    v29 = keyCopy;
-    v30 = 2114;
-    v31 = valueCopy;
+    v26 = "[UAFXPCService setSystemConfigurationForKey:withValue:completion:]";
+    v27 = 2114;
+    v28 = keyCopy;
+    v29 = 2114;
+    v30 = valueCopy;
     _os_log_impl(&dword_1BCF2C000, v17, OS_LOG_TYPE_DEFAULT, "%s Ran setSystemConfigurationForKey:%{public}@ withValue:%{public}@ as requested via XPC", buf, 0x20u);
   }
 
   (*(completionCopy + 2))(completionCopy, 0);
 LABEL_15:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __67__UAFXPCService_setSystemConfigurationForKey_withValue_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = UAFGetLogCategory(&UAFLogContextXPCService);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [*(a1 + 32) processIdentifier];
-    v7 = 136315394;
-    v8 = "[UAFXPCService setSystemConfigurationForKey:withValue:completion:]_block_invoke";
-    v9 = 1024;
-    v10 = v5;
-    _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s Completed proxying request on behalf of pid %d", &v7, 0x12u);
+    v6 = 136315394;
+    v7 = "[UAFXPCService setSystemConfigurationForKey:withValue:completion:]_block_invoke";
+    v8 = 1024;
+    v9 = v5;
+    _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s Completed proxying request on behalf of pid %d", &v6, 0x12u);
   }
 
   [*(a1 + 40) invalidate];
   (*(*(a1 + 48) + 16))();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)expireSubscriptions:(id)subscriptions
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   subscriptionsCopy = subscriptions;
   if (+[UAFConfiguration subscriptionServiceEnabled]&& !self->_subscriptionService)
   {
@@ -1501,23 +1871,23 @@ void __67__UAFXPCService_setSystemConfigurationForKey_withValue_completion___blo
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v24 = "[UAFXPCService expireSubscriptions:]";
-      v25 = 1024;
+      v23 = "[UAFXPCService expireSubscriptions:]";
+      v24 = 1024;
       processIdentifier = [currentConnection processIdentifier];
       _os_log_impl(&dword_1BCF2C000, v13, OS_LOG_TYPE_DEFAULT, "%s Received request from pid %d, proxying to subscription service", buf, 0x12u);
     }
 
     v14 = +[UAFAssetSetManager createSubscriptionXPCConnection];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __37__UAFXPCService_expireSubscriptions___block_invoke;
-    v17[3] = &unk_1E7FFD648;
-    v18 = currentConnection;
-    v19 = v14;
-    v20 = subscriptionsCopy;
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __37__UAFXPCService_expireSubscriptions___block_invoke;
+    v16[3] = &unk_1E7FFD648;
+    v17 = currentConnection;
+    v18 = v14;
+    v19 = subscriptionsCopy;
     currentConnection2 = v14;
     v7 = currentConnection;
-    [currentConnection2 expireSubscriptions:v17];
+    [currentConnection2 expireSubscriptions:v16];
 
     goto LABEL_14;
   }
@@ -1525,9 +1895,9 @@ void __67__UAFXPCService_setSystemConfigurationForKey_withValue_completion___blo
   if (!+[UAFConfiguration subscriptionServiceEnabled]&& self->_subscriptionService)
   {
     v5 = MEMORY[0x1E696ABC0];
-    v21 = *MEMORY[0x1E696A588];
-    v22 = @"Request to UAF subscription service when subscription service is disabled";
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+    v20 = *MEMORY[0x1E696A588];
+    v21 = @"Request to UAF subscription service when subscription service is disabled";
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
     v7 = [v5 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:5000 userInfo:v6];
 
     currentConnection2 = [MEMORY[0x1E696B0B8] currentConnection];
@@ -1536,8 +1906,8 @@ void __67__UAFXPCService_setSystemConfigurationForKey_withValue_completion___blo
     {
       processIdentifier2 = [currentConnection2 processIdentifier];
       *buf = 136315394;
-      v24 = "[UAFXPCService expireSubscriptions:]";
-      v25 = 1024;
+      v23 = "[UAFXPCService expireSubscriptions:]";
+      v24 = 1024;
       processIdentifier = processIdentifier2;
       _os_log_error_impl(&dword_1BCF2C000, v9, OS_LOG_TYPE_ERROR, "%s Received request from pid %d while subscription service disabled", buf, 0x12u);
     }
@@ -1555,40 +1925,36 @@ LABEL_14:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v24 = "[UAFXPCService expireSubscriptions:]";
+    v23 = "[UAFXPCService expireSubscriptions:]";
     _os_log_impl(&dword_1BCF2C000, v11, OS_LOG_TYPE_DEFAULT, "%s Ran expireSubscriptions as requested via XPC", buf, 0xCu);
   }
 
   (*(subscriptionsCopy + 2))(subscriptionsCopy, 0);
 LABEL_15:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __37__UAFXPCService_expireSubscriptions___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = UAFGetLogCategory(&UAFLogContextXPCService);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [*(a1 + 32) processIdentifier];
-    v7 = 136315394;
-    v8 = "[UAFXPCService expireSubscriptions:]_block_invoke";
-    v9 = 1024;
-    v10 = v5;
-    _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s Completed proxying request on behalf of pid %d", &v7, 0x12u);
+    v6 = 136315394;
+    v7 = "[UAFXPCService expireSubscriptions:]_block_invoke";
+    v8 = 1024;
+    v9 = v5;
+    _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s Completed proxying request on behalf of pid %d", &v6, 0x12u);
   }
 
   [*(a1 + 40) invalidate];
   (*(*(a1 + 48) + 16))();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)subscriptions:(id)subscriptions subscriber:(id)subscriber user:(id)user completion:(id)completion
 {
-  v45[1] = *MEMORY[0x1E69E9840];
+  v44[1] = *MEMORY[0x1E69E9840];
   subscriptionsCopy = subscriptions;
   subscriberCopy = subscriber;
   userCopy = user;
@@ -1596,9 +1962,9 @@ void __37__UAFXPCService_expireSubscriptions___block_invoke(uint64_t a1, void *a
   if (!+[UAFConfiguration subscriptionServiceEnabled]&& self->_subscriptionService)
   {
     v14 = MEMORY[0x1E696ABC0];
-    v44 = *MEMORY[0x1E696A588];
-    v45[0] = @"Request to UAF subscription service when subscription service is disabled";
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:&v44 count:1];
+    v43 = *MEMORY[0x1E696A588];
+    v44[0] = @"Request to UAF subscription service when subscription service is disabled";
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:&v43 count:1];
     v16 = [v14 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:5000 userInfo:v15];
 
     currentConnection = [MEMORY[0x1E696B0B8] currentConnection];
@@ -1606,9 +1972,9 @@ void __37__UAFXPCService_expireSubscriptions___block_invoke(uint64_t a1, void *a
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v37 = "[UAFXPCService subscriptions:subscriber:user:completion:]";
-      v38 = 1024;
-      *v39 = [currentConnection processIdentifier];
+      v36 = "[UAFXPCService subscriptions:subscriber:user:completion:]";
+      v37 = 1024;
+      *v38 = [currentConnection processIdentifier];
       _os_log_error_impl(&dword_1BCF2C000, v18, OS_LOG_TYPE_ERROR, "%s Received request from pid %d while subscription service disabled", buf, 0x12u);
     }
 
@@ -1631,7 +1997,7 @@ void __37__UAFXPCService_expireSubscriptions___block_invoke(uint64_t a1, void *a
     if (v26)
     {
       *buf = 136315138;
-      v37 = "[UAFXPCService subscriptions:subscriber:user:completion:]";
+      v36 = "[UAFXPCService subscriptions:subscriber:user:completion:]";
       _os_log_impl(&dword_1BCF2C000, v25, OS_LOG_TYPE_DEFAULT, "%s No user received and request is from uid 0, looking up console user", buf, 0xCu);
     }
 
@@ -1642,14 +2008,14 @@ void __37__UAFXPCService_expireSubscriptions___block_invoke(uint64_t a1, void *a
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v37 = "[UAFXPCService subscriptions:subscriber:user:completion:]";
+        v36 = "[UAFXPCService subscriptions:subscriber:user:completion:]";
         _os_log_impl(&dword_1BCF2C000, v27, OS_LOG_TYPE_DEFAULT, "%s Could not lookup console user", buf, 0xCu);
       }
 
       v28 = MEMORY[0x1E696ABC0];
-      v42 = *MEMORY[0x1E696A588];
-      v43 = @"Could not lookup console user";
-      currentConnection = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+      v41 = *MEMORY[0x1E696A588];
+      v42 = @"Could not lookup console user";
+      currentConnection = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
       v29 = [v28 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:5000 userInfo:currentConnection];
       completionCopy[2](completionCopy, 0, v29);
 
@@ -1663,30 +2029,30 @@ LABEL_7:
     {
       effectiveUserIdentifier = [v16 effectiveUserIdentifier];
       *buf = 136316162;
-      v37 = "[UAFXPCService subscriptions:subscriber:user:completion:]";
-      v38 = 2112;
-      *v39 = userCopy;
-      *&v39[8] = 1024;
-      *&v39[10] = effectiveUserIdentifier;
-      *&v39[14] = 2114;
-      *&v39[16] = subscriptionsCopy;
-      v40 = 2114;
-      v41 = subscriberCopy;
+      v36 = "[UAFXPCService subscriptions:subscriber:user:completion:]";
+      v37 = 2112;
+      *v38 = userCopy;
+      *&v38[8] = 1024;
+      *&v38[10] = effectiveUserIdentifier;
+      *&v38[14] = 2114;
+      *&v38[16] = subscriptionsCopy;
+      v39 = 2114;
+      v40 = subscriberCopy;
       _os_log_impl(&dword_1BCF2C000, v20, OS_LOG_TYPE_DEFAULT, "%s Using user '%@' for uid %d querying subscription: %{public}@ for subscriber: %{public}@", buf, 0x30u);
     }
 
-    v34 = 0;
-    currentConnection = [UAFAssetSetSubscriptionManager getSubscription:subscriptionsCopy subscriber:subscriberCopy user:userCopy storeManager:0 error:&v34];
-    v22 = v34;
+    v33 = 0;
+    currentConnection = [UAFAssetSetSubscriptionManager getSubscription:subscriptionsCopy subscriber:subscriberCopy user:userCopy storeManager:0 error:&v33];
+    v22 = v33;
     v23 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315650;
-      v37 = "[UAFXPCService subscriptions:subscriber:user:completion:]";
-      v38 = 2114;
-      *v39 = subscriberCopy;
-      *&v39[8] = 2114;
-      *&v39[10] = v22;
+      v36 = "[UAFXPCService subscriptions:subscriber:user:completion:]";
+      v37 = 2114;
+      *v38 = subscriberCopy;
+      *&v38[8] = 2114;
+      *&v38[10] = v22;
       _os_log_debug_impl(&dword_1BCF2C000, v23, OS_LOG_TYPE_DEBUG, "%s Subscriber: %{public}@, error: %{public}@", buf, 0x20u);
     }
 
@@ -1697,15 +2063,15 @@ LABEL_7:
   if (v26)
   {
     *buf = 136315394;
-    v37 = "[UAFXPCService subscriptions:subscriber:user:completion:]";
-    v38 = 1024;
-    *v39 = [v16 effectiveUserIdentifier];
+    v36 = "[UAFXPCService subscriptions:subscriber:user:completion:]";
+    v37 = 1024;
+    *v38 = [v16 effectiveUserIdentifier];
     _os_log_impl(&dword_1BCF2C000, v25, OS_LOG_TYPE_DEFAULT, "%s No user received, looking up %d", buf, 0x12u);
   }
 
-  v35 = 0;
-  userCopy = +[UAFUser userWithNodeForUID:uid:error:](UAFUser, "userWithNodeForUID:uid:error:", 0, [v16 effectiveUserIdentifier], &v35);
-  v30 = v35;
+  v34 = 0;
+  userCopy = +[UAFUser userWithNodeForUID:uid:error:](UAFUser, "userWithNodeForUID:uid:error:", 0, [v16 effectiveUserIdentifier], &v34);
+  v30 = v34;
   currentConnection = v30;
   if (userCopy && !v30)
   {
@@ -1717,40 +2083,35 @@ LABEL_7:
   {
     effectiveUserIdentifier2 = [v16 effectiveUserIdentifier];
     *buf = 136315650;
-    v37 = "[UAFXPCService subscriptions:subscriber:user:completion:]";
-    v38 = 1024;
-    *v39 = effectiveUserIdentifier2;
-    *&v39[4] = 2114;
-    *&v39[6] = currentConnection;
+    v36 = "[UAFXPCService subscriptions:subscriber:user:completion:]";
+    v37 = 1024;
+    *v38 = effectiveUserIdentifier2;
+    *&v38[4] = 2114;
+    *&v38[6] = currentConnection;
     _os_log_error_impl(&dword_1BCF2C000, v31, OS_LOG_TYPE_ERROR, "%s No user received and could not look up user for uid %d: %{public}@", buf, 0x1Cu);
   }
 
   completionCopy[2](completionCopy, 0, currentConnection);
 LABEL_26:
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (void)downloadSiriAssets
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (self->_subscriptionService)
   {
     v2 = UAFGetLogCategory(&UAFLogContextXPCService);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v6 = 136315138;
-      v7 = "[UAFXPCService downloadSiriAssets]";
-      _os_log_error_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_ERROR, "%s XPC received and not subscription service", &v6, 0xCu);
+      v4 = 136315138;
+      v5 = "[UAFXPCService downloadSiriAssets]";
+      _os_log_error_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_ERROR, "%s XPC received and not subscription service", &v4, 0xCu);
     }
-
-    v3 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
     assetUtilitiesService = self->_assetUtilitiesService;
-    v5 = *MEMORY[0x1E69E9840];
 
     [(UAFAssetUtilitiesService *)assetUtilitiesService downloadSiriAssets];
   }
@@ -1758,24 +2119,21 @@ LABEL_26:
 
 - (void)downloadSiriAssetsOverCellular
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (self->_subscriptionService)
   {
     v2 = UAFGetLogCategory(&UAFLogContextXPCService);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v6 = 136315138;
-      v7 = "[UAFXPCService downloadSiriAssetsOverCellular]";
-      _os_log_error_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_ERROR, "%s XPC received and not subscription service", &v6, 0xCu);
+      v4 = 136315138;
+      v5 = "[UAFXPCService downloadSiriAssetsOverCellular]";
+      _os_log_error_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_ERROR, "%s XPC received and not subscription service", &v4, 0xCu);
     }
-
-    v3 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
     assetUtilitiesService = self->_assetUtilitiesService;
-    v5 = *MEMORY[0x1E69E9840];
 
     [(UAFAssetUtilitiesService *)assetUtilitiesService downloadSiriAssetsOverCellular];
   }
@@ -1783,24 +2141,21 @@ LABEL_26:
 
 - (void)postAssetNotificationIfNeeded
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (self->_subscriptionService)
   {
     v2 = UAFGetLogCategory(&UAFLogContextXPCService);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v6 = 136315138;
-      v7 = "[UAFXPCService postAssetNotificationIfNeeded]";
-      _os_log_error_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_ERROR, "%s XPC received and not subscription service", &v6, 0xCu);
+      v4 = 136315138;
+      v5 = "[UAFXPCService postAssetNotificationIfNeeded]";
+      _os_log_error_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_ERROR, "%s XPC received and not subscription service", &v4, 0xCu);
     }
-
-    v3 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
     assetUtilitiesService = self->_assetUtilitiesService;
-    v5 = *MEMORY[0x1E69E9840];
 
     [(UAFAssetUtilitiesService *)assetUtilitiesService postAssetNotificationIfNeeded];
   }
@@ -1808,24 +2163,21 @@ LABEL_26:
 
 - (void)downloadDictationAssetsForLanguage:(id)language
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (self->_subscriptionService)
   {
     v3 = UAFGetLogCategory(&UAFLogContextXPCService);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315138;
-      v8 = "[UAFXPCService downloadDictationAssetsForLanguage:]";
-      _os_log_error_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_ERROR, "%s XPC received and not subscription service", &v7, 0xCu);
+      v5 = 136315138;
+      v6 = "[UAFXPCService downloadDictationAssetsForLanguage:]";
+      _os_log_error_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_ERROR, "%s XPC received and not subscription service", &v5, 0xCu);
     }
-
-    v4 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
     assetUtilitiesService = self->_assetUtilitiesService;
-    v6 = *MEMORY[0x1E69E9840];
 
     [(UAFAssetUtilitiesService *)assetUtilitiesService downloadDictationAssetsForLanguage:language];
   }
@@ -1833,24 +2185,21 @@ LABEL_26:
 
 - (void)postDictationAssetNotificationForLanguage:(id)language
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (self->_subscriptionService)
   {
     v3 = UAFGetLogCategory(&UAFLogContextXPCService);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315138;
-      v8 = "[UAFXPCService postDictationAssetNotificationForLanguage:]";
-      _os_log_error_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_ERROR, "%s XPC received and not subscription service", &v7, 0xCu);
+      v5 = 136315138;
+      v6 = "[UAFXPCService postDictationAssetNotificationForLanguage:]";
+      _os_log_error_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_ERROR, "%s XPC received and not subscription service", &v5, 0xCu);
     }
-
-    v4 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
     assetUtilitiesService = self->_assetUtilitiesService;
-    v6 = *MEMORY[0x1E69E9840];
 
     [(UAFAssetUtilitiesService *)assetUtilitiesService postDictationAssetNotificationForLanguage:language];
   }
@@ -1858,7 +2207,7 @@ LABEL_26:
 
 - (void)checkAssetStatus:(id)status
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   statusCopy = status;
   if (self->_subscriptionService)
   {
@@ -1866,16 +2215,16 @@ LABEL_26:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v13 = "[UAFXPCService checkAssetStatus:]";
+      v12 = "[UAFXPCService checkAssetStatus:]";
       _os_log_error_impl(&dword_1BCF2C000, v5, OS_LOG_TYPE_ERROR, "%s XPC received and not subscription service", buf, 0xCu);
     }
 
     if (statusCopy)
     {
       v6 = MEMORY[0x1E696ABC0];
-      v10 = *MEMORY[0x1E696A578];
-      v11 = @"XPC sent to wrong endpoint";
-      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+      v9 = *MEMORY[0x1E696A578];
+      v10 = @"XPC sent to wrong endpoint";
+      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
       v8 = [v6 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:5000 userInfo:v7];
 
       statusCopy[2](statusCopy, 0, v8);
@@ -1886,13 +2235,11 @@ LABEL_26:
   {
     [(UAFAssetUtilitiesService *)self->_assetUtilitiesService checkAssetStatus:statusCopy];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)diskSpaceNeededInBytesForLanguage:(id)language forClient:(unint64_t)client completion:(id)completion
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if (self->_subscriptionService)
   {
@@ -1900,16 +2247,16 @@ LABEL_26:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v17 = "[UAFXPCService diskSpaceNeededInBytesForLanguage:forClient:completion:]";
+      v16 = "[UAFXPCService diskSpaceNeededInBytesForLanguage:forClient:completion:]";
       _os_log_error_impl(&dword_1BCF2C000, v9, OS_LOG_TYPE_ERROR, "%s XPC received and not subscription service", buf, 0xCu);
     }
 
     if (completionCopy)
     {
       v10 = MEMORY[0x1E696ABC0];
-      v14 = *MEMORY[0x1E696A578];
-      v15 = @"XPC sent to wrong endpoint";
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+      v13 = *MEMORY[0x1E696A578];
+      v14 = @"XPC sent to wrong endpoint";
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
       v12 = [v10 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:5000 userInfo:v11];
 
       completionCopy[2](completionCopy, 0, v12);
@@ -1920,13 +2267,11 @@ LABEL_26:
   {
     [(UAFAssetUtilitiesService *)self->_assetUtilitiesService diskSpaceNeededInBytesForLanguage:language forClient:client completion:completionCopy];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_dictationEnabledChanged
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   dictationEnabled = self->_dictationEnabled;
   v4 = +[UAFCommonUtilities isDictationEnabled];
   self->_dictationEnabled = v4;
@@ -1942,10 +2287,10 @@ LABEL_26:
         v9 = @"enabled";
       }
 
-      v12 = 136315394;
-      v13 = "[UAFXPCService _dictationEnabledChanged]";
-      v14 = 2114;
-      v15 = v9;
+      v11 = 136315394;
+      v12 = "[UAFXPCService _dictationEnabledChanged]";
+      v13 = 2114;
+      v14 = v9;
       v8 = "%s Not updating Dictation enablement as it is unchanged from : %{public}@";
       goto LABEL_10;
     }
@@ -1959,22 +2304,21 @@ LABEL_26:
       v7 = @"enabled";
     }
 
-    v12 = 136315394;
-    v13 = "[UAFXPCService _dictationEnabledChanged]";
-    v14 = 2114;
-    v15 = v7;
+    v11 = 136315394;
+    v12 = "[UAFXPCService _dictationEnabledChanged]";
+    v13 = 2114;
+    v14 = v7;
     v8 = "%s Dictation enablement changed to : %{public}@";
 LABEL_10:
-    _os_log_impl(&dword_1BCF2C000, v5, OS_LOG_TYPE_DEFAULT, v8, &v12, 0x16u);
+    _os_log_impl(&dword_1BCF2C000, v5, OS_LOG_TYPE_DEFAULT, v8, &v11, 0x16u);
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return dictationEnabled != v4;
 }
 
 - (BOOL)_assistantEnabledChanged
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   assistantEnabled = self->_assistantEnabled;
   v4 = +[UAFCommonUtilities isAssistantEnabled];
   self->_assistantEnabled = v4;
@@ -1990,10 +2334,10 @@ LABEL_10:
         v9 = @"enabled";
       }
 
-      v12 = 136315394;
-      v13 = "[UAFXPCService _assistantEnabledChanged]";
-      v14 = 2114;
-      v15 = v9;
+      v11 = 136315394;
+      v12 = "[UAFXPCService _assistantEnabledChanged]";
+      v13 = 2114;
+      v14 = v9;
       v8 = "%s Not updating Assistant enablement as it is unchanged from : %{public}@";
       goto LABEL_10;
     }
@@ -2007,22 +2351,21 @@ LABEL_10:
       v7 = @"enabled";
     }
 
-    v12 = 136315394;
-    v13 = "[UAFXPCService _assistantEnabledChanged]";
-    v14 = 2114;
-    v15 = v7;
+    v11 = 136315394;
+    v12 = "[UAFXPCService _assistantEnabledChanged]";
+    v13 = 2114;
+    v14 = v7;
     v8 = "%s Assistant enablement changed to : %{public}@";
 LABEL_10:
-    _os_log_impl(&dword_1BCF2C000, v5, OS_LOG_TYPE_DEFAULT, v8, &v12, 0x16u);
+    _os_log_impl(&dword_1BCF2C000, v5, OS_LOG_TYPE_DEFAULT, v8, &v11, 0x16u);
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return assistantEnabled != v4;
 }
 
 - (BOOL)_gmsEnabledChanged
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   gmsEnabled = self->_gmsEnabled;
   v4 = +[UAFCommonUtilities gmsWantsAssets];
   self->_gmsEnabled = v4;
@@ -2038,10 +2381,10 @@ LABEL_10:
         v9 = @"enabled";
       }
 
-      v12 = 136315394;
-      v13 = "[UAFXPCService _gmsEnabledChanged]";
-      v14 = 2114;
-      v15 = v9;
+      v11 = 136315394;
+      v12 = "[UAFXPCService _gmsEnabledChanged]";
+      v13 = 2114;
+      v14 = v9;
       v8 = "%s Not updating GMS enablement as it is unchanged from : %{public}@";
       goto LABEL_10;
     }
@@ -2055,22 +2398,21 @@ LABEL_10:
       v7 = @"enabled";
     }
 
-    v12 = 136315394;
-    v13 = "[UAFXPCService _gmsEnabledChanged]";
-    v14 = 2114;
-    v15 = v7;
+    v11 = 136315394;
+    v12 = "[UAFXPCService _gmsEnabledChanged]";
+    v13 = 2114;
+    v14 = v7;
     v8 = "%s GMS enablement changed to : %{public}@";
 LABEL_10:
-    _os_log_impl(&dword_1BCF2C000, v5, OS_LOG_TYPE_DEFAULT, v8, &v12, 0x16u);
+    _os_log_impl(&dword_1BCF2C000, v5, OS_LOG_TYPE_DEFAULT, v8, &v11, 0x16u);
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return gmsEnabled != v4;
 }
 
 - (BOOL)_assistantLanguageChanged
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = self->_assistantLanguage;
   v4 = +[UAFCommonUtilities currentAssistantLanguage];
   assistantLanguage = self->_assistantLanguage;
@@ -2086,11 +2428,11 @@ LABEL_3:
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         v8 = self->_assistantLanguage;
-        v13 = 136315394;
-        v14 = "[UAFXPCService _assistantLanguageChanged]";
-        v15 = 2114;
-        v16 = v8;
-        _os_log_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_DEFAULT, "%s Not updating Assistant language as value is unchanged from : %{public}@", &v13, 0x16u);
+        v12 = 136315394;
+        v13 = "[UAFXPCService _assistantLanguageChanged]";
+        v14 = 2114;
+        v15 = v8;
+        _os_log_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_DEFAULT, "%s Not updating Assistant language as value is unchanged from : %{public}@", &v12, 0x16u);
       }
 
       v9 = 0;
@@ -2107,23 +2449,22 @@ LABEL_3:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v10 = self->_assistantLanguage;
-    v13 = 136315394;
-    v14 = "[UAFXPCService _assistantLanguageChanged]";
-    v15 = 2114;
-    v16 = v10;
-    _os_log_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_DEFAULT, "%s Assistant language changed to : %{public}@", &v13, 0x16u);
+    v12 = 136315394;
+    v13 = "[UAFXPCService _assistantLanguageChanged]";
+    v14 = 2114;
+    v15 = v10;
+    _os_log_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_DEFAULT, "%s Assistant language changed to : %{public}@", &v12, 0x16u);
   }
 
   v9 = 1;
 LABEL_10:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (BOOL)_systemLanguageChanged
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = self->_systemLanguage;
   v4 = +[UAFCommonUtilities systemLanguage];
   systemLanguage = self->_systemLanguage;
@@ -2139,11 +2480,11 @@ LABEL_3:
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         v8 = self->_systemLanguage;
-        v13 = 136315394;
-        v14 = "[UAFXPCService _systemLanguageChanged]";
-        v15 = 2114;
-        v16 = v8;
-        _os_log_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_DEFAULT, "%s Not updating system language as value is unchanged from : %{public}@", &v13, 0x16u);
+        v12 = 136315394;
+        v13 = "[UAFXPCService _systemLanguageChanged]";
+        v14 = 2114;
+        v15 = v8;
+        _os_log_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_DEFAULT, "%s Not updating system language as value is unchanged from : %{public}@", &v12, 0x16u);
       }
 
       v9 = 0;
@@ -2160,17 +2501,16 @@ LABEL_3:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v10 = self->_systemLanguage;
-    v13 = 136315394;
-    v14 = "[UAFXPCService _systemLanguageChanged]";
-    v15 = 2114;
-    v16 = v10;
-    _os_log_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_DEFAULT, "%s System language changed to : %{public}@", &v13, 0x16u);
+    v12 = 136315394;
+    v13 = "[UAFXPCService _systemLanguageChanged]";
+    v14 = 2114;
+    v15 = v10;
+    _os_log_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_DEFAULT, "%s System language changed to : %{public}@", &v12, 0x16u);
   }
 
   v9 = 1;
 LABEL_10:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -2215,7 +2555,7 @@ LABEL_10:
 
 - (void)_updateAssistantSubscription
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = self->_assistantLanguage;
   v4 = v3;
   if (!self->_assistantEnabled)
@@ -2224,16 +2564,16 @@ LABEL_10:
     v4 = 0;
   }
 
-  v12 = 0;
-  v5 = [UAFXPCService _currentAssistantMode:&v12];
-  v6 = v12;
+  v11 = 0;
+  v5 = [UAFXPCService _currentAssistantMode:&v11];
+  v6 = v11;
   if (v5 != 1 && !+[UAFXPCService _isOnDemandAssetSubscriptionAllowed])
   {
     v7 = UAFGetLogCategory(&UAFLogContextXPCService);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v14 = "[UAFXPCService _updateAssistantSubscription]";
+      v13 = "[UAFXPCService _updateAssistantSubscription]";
       _os_log_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_DEFAULT, "%s Assistant Subscription not allowed", buf, 0xCu);
     }
 
@@ -2246,20 +2586,19 @@ LABEL_10:
     assistantEnabled = self->_assistantEnabled;
     assistantLanguage = self->_assistantLanguage;
     *buf = 136316162;
-    v14 = "[UAFXPCService _updateAssistantSubscription]";
-    v15 = 2114;
-    v16 = v4;
-    v17 = 2114;
-    v18 = v6;
-    v19 = 1024;
-    v20 = assistantEnabled;
-    v21 = 2114;
-    v22 = assistantLanguage;
+    v13 = "[UAFXPCService _updateAssistantSubscription]";
+    v14 = 2114;
+    v15 = v4;
+    v16 = 2114;
+    v17 = v6;
+    v18 = 1024;
+    v19 = assistantEnabled;
+    v20 = 2114;
+    v21 = assistantLanguage;
     _os_log_impl(&dword_1BCF2C000, v8, OS_LOG_TYPE_DEFAULT, "%s Siri configured for: language %{public}@, mode: %{public}@ (assistant enabled: %d, assistant language: %{public}@)", buf, 0x30u);
   }
 
   [UAFManagedSubscriptions manageAssistantSubscription:v4 withMode:v5];
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateAssetUtilitiesLanguage
@@ -2293,39 +2632,38 @@ LABEL_10:
 
 - (void)_updateGMSSiriLanguageSubscription
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v9 = 0;
-  v3 = [UAFXPCService _currentAssistantMode:&v9];
-  v4 = v9;
+  v17 = *MEMORY[0x1E69E9840];
+  v8 = 0;
+  v3 = [UAFXPCService _currentAssistantMode:&v8];
+  v4 = v8;
   v5 = UAFGetLogCategory(&UAFLogContextXPCService);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     gmsEnabled = self->_gmsEnabled;
     assistantLanguage = self->_assistantLanguage;
     *buf = 136315906;
-    v11 = "[UAFXPCService _updateGMSSiriLanguageSubscription]";
-    v12 = 1024;
-    v13 = gmsEnabled;
-    v14 = 2114;
-    v15 = assistantLanguage;
-    v16 = 2114;
-    v17 = v4;
+    v10 = "[UAFXPCService _updateGMSSiriLanguageSubscription]";
+    v11 = 1024;
+    v12 = gmsEnabled;
+    v13 = 2114;
+    v14 = assistantLanguage;
+    v15 = 2114;
+    v16 = v4;
     _os_log_impl(&dword_1BCF2C000, v5, OS_LOG_TYPE_DEFAULT, "%s Siri IE is now: wants assets: %d, language: %{public}@, mode: %{public}@", buf, 0x26u);
   }
 
   [UAFManagedSubscriptions manageGMSSiriLanguageSubscription:self->_gmsEnabled language:self->_assistantLanguage mode:v3];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_assistantLanguageUpdate
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = UAFGetLogCategory(&UAFLogContextXPCService);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[UAFXPCService _assistantLanguageUpdate]";
-    _os_log_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEFAULT, "%s Processing update to assistant language", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[UAFXPCService _assistantLanguageUpdate]";
+    _os_log_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEFAULT, "%s Processing update to assistant language", &v4, 0xCu);
   }
 
   if ([(UAFXPCService *)self _assistantLanguageChanged])
@@ -2334,19 +2672,17 @@ LABEL_10:
     [(UAFXPCService *)self _updateAssetUtilitiesLanguage];
     [(UAFXPCService *)self _updateGMSSiriLanguageSubscription];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_assistantPreferencesUpdate
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = UAFGetLogCategory(&UAFLogContextXPCService);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315138;
-    v9 = "[UAFXPCService _assistantPreferencesUpdate]";
-    _os_log_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEFAULT, "%s Processing update to assistant preferences", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "[UAFXPCService _assistantPreferencesUpdate]";
+    _os_log_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEFAULT, "%s Processing update to assistant preferences", &v7, 0xCu);
   }
 
   [(UAFXPCService *)self _dictationEnabledChanged];
@@ -2368,19 +2704,17 @@ LABEL_10:
     [(UAFXPCService *)self _updateAssistantSubscription];
     [(UAFXPCService *)self _updateAssetUtilitiesLanguage];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_assistantGMSAvailabilityUpdate
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = UAFGetLogCategory(&UAFLogContextXPCService);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[UAFXPCService _assistantGMSAvailabilityUpdate]";
-    _os_log_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEFAULT, "%s Processing update to gms availability", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[UAFXPCService _assistantGMSAvailabilityUpdate]";
+    _os_log_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEFAULT, "%s Processing update to gms availability", &v4, 0xCu);
   }
 
   if ([(UAFXPCService *)self _gmsEnabledChanged])
@@ -2388,19 +2722,17 @@ LABEL_10:
     [(UAFXPCService *)self _updateAssistantSubscription];
     [(UAFXPCService *)self _updateGMSSiriLanguageSubscription];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_systemLanguageUpdate
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = UAFGetLogCategory(&UAFLogContextXPCService);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[UAFXPCService _systemLanguageUpdate]";
-    _os_log_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEFAULT, "%s Processing update to system language", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[UAFXPCService _systemLanguageUpdate]";
+    _os_log_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEFAULT, "%s Processing update to system language", &v4, 0xCu);
   }
 
   if ([(UAFXPCService *)self _systemLanguageChanged])
@@ -2408,8 +2740,6 @@ LABEL_10:
     [(UAFXPCService *)self _updateNLSystemLanguageSubscription];
     [(UAFXPCService *)self _updateMorphunSystemLanguageSubscription];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 @end

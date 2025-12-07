@@ -10,18 +10,18 @@
 {
   length = range.length;
   location = range.location;
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   v8 = SNLPOSLoggerForCategory(3);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v16 = 134218498;
-    v17 = location;
-    v18 = 2048;
-    v19 = length;
-    v20 = 2112;
-    v21 = typeCopy;
-    _os_log_impl(&dword_22284A000, v8, OS_LOG_TYPE_DEBUG, "Resolving shared entities for token range (%lu, %lu) with value type: %@", &v16, 0x20u);
+    v15 = 134218498;
+    v16 = location;
+    v17 = 2048;
+    v18 = length;
+    v19 = 2112;
+    v20 = typeCopy;
+    _os_log_impl(&dword_22284A000, v8, OS_LOG_TYPE_DEBUG, "Resolving shared entities for token range (%lu, %lu) with value type: %@", &v15, 0x20u);
   }
 
   if ([typeCopy isEqualToString:@"date"])
@@ -34,8 +34,8 @@
     {
       if (v12)
       {
-        LOWORD(v16) = 0;
-        _os_log_impl(&dword_22284A000, v11, OS_LOG_TYPE_DEBUG, "Found a corresponding matching span: returning the shared entity graph", &v16, 2u);
+        LOWORD(v15) = 0;
+        _os_log_impl(&dword_22284A000, v11, OS_LOG_TYPE_DEBUG, "Found a corresponding matching span: returning the shared entity graph", &v15, 2u);
       }
 
       sharedEntityGraph = [v10 sharedEntityGraph];
@@ -45,8 +45,8 @@
     {
       if (v12)
       {
-        LOWORD(v16) = 0;
-        _os_log_impl(&dword_22284A000, v11, OS_LOG_TYPE_DEBUG, "Returning nil since there is no corresponding matching span", &v16, 2u);
+        LOWORD(v15) = 0;
+        _os_log_impl(&dword_22284A000, v11, OS_LOG_TYPE_DEBUG, "Returning nil since there is no corresponding matching span", &v15, 2u);
       }
 
       sharedEntityGraph = 0;
@@ -58,33 +58,31 @@
     v9 = SNLPOSLoggerForCategory(3);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v16) = 0;
-      _os_log_impl(&dword_22284A000, v9, OS_LOG_TYPE_DEBUG, "Returning nil since we cannot handle non-date value types", &v16, 2u);
+      LOWORD(v15) = 0;
+      _os_log_impl(&dword_22284A000, v9, OS_LOG_TYPE_DEBUG, "Returning nil since we cannot handle non-date value types", &v15, 2u);
     }
 
     sharedEntityGraph = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return sharedEntityGraph;
 }
 
 - (UPSharedEntityResolution)initWithMatchingSpans:(id)spans
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   spansCopy = spans;
   v5 = SNLPOSLoggerForCategory(3);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134217984;
-    v13 = [spansCopy count];
+    v12 = [spansCopy count];
     _os_log_impl(&dword_22284A000, v5, OS_LOG_TYPE_DEBUG, "Initializing UPSharedEntityResolution with %lu matching spans", buf, 0xCu);
   }
 
-  v11.receiver = self;
-  v11.super_class = UPSharedEntityResolution;
-  v6 = [(UPSharedEntityResolution *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = UPSharedEntityResolution;
+  v6 = [(UPSharedEntityResolution *)&v10 init];
   if (v6)
   {
     v7 = [objc_opt_class() buildDataDetectorDateTimeSpansByTokenRange:spansCopy];
@@ -92,45 +90,44 @@
     v6->__dataDetectorDateTimeSpansByTokenRange = v7;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 + (id)buildDataDetectorDateTimeSpansByTokenRange:(id)range
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   rangeCopy = range;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   v4 = rangeCopy;
-  v5 = [v4 countByEnumeratingWithState:&v38 objects:v46 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v37 objects:v45 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v39;
+    v7 = *v38;
     v8 = "Processing matching span with category: %@";
     v9 = @"DATE_TIME";
     do
     {
       v10 = 0;
-      v36 = v6;
+      v35 = v6;
       do
       {
-        if (*v39 != v7)
+        if (*v38 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v11 = *(*(&v38 + 1) + 8 * v10);
+        v11 = *(*(&v37 + 1) + 8 * v10);
         v12 = SNLPOSLoggerForCategory(3);
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
           category = [v11 category];
           *buf = 138412290;
-          v43 = category;
+          v42 = category;
           _os_log_impl(&dword_22284A000, v12, OS_LOG_TYPE_DEBUG, v8, buf, 0xCu);
         }
 
@@ -185,9 +182,9 @@ LABEL_18:
             range2 = [v11 range];
             [v11 range];
             *buf = 134218240;
-            v43 = range2;
-            v44 = 2048;
-            v45 = v28;
+            v42 = range2;
+            v43 = 2048;
+            v44 = v28;
             _os_log_impl(&dword_22284A000, v26, OS_LOG_TYPE_DEFAULT, "Discarding duplicate matching date time span for range (%lu, %lu)", buf, 0x16u);
           }
         }
@@ -199,9 +196,9 @@ LABEL_18:
             range3 = [v11 range];
             [v11 range];
             *buf = 134218240;
-            v43 = range3;
-            v44 = 2048;
-            v45 = v32;
+            v42 = range3;
+            v43 = 2048;
+            v44 = v32;
             _os_log_impl(&dword_22284A000, v26, OS_LOG_TYPE_DEBUG, "Adding DD datetime span with token range (%lu, %lu)", buf, 0x16u);
           }
 
@@ -212,22 +209,20 @@ LABEL_18:
         v9 = v18;
         v4 = v17;
         v7 = v16;
-        v6 = v36;
+        v6 = v35;
 LABEL_23:
 
         ++v10;
       }
 
       while (v6 != v10);
-      v6 = [v4 countByEnumeratingWithState:&v38 objects:v46 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v37 objects:v45 count:16];
     }
 
     while (v6);
   }
 
   v33 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:dictionary];
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v33;
 }

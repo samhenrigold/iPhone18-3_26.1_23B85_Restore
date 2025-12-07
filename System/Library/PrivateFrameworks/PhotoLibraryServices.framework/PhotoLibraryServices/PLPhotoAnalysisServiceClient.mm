@@ -708,8 +708,8 @@ void __65__PLPhotoAnalysisServiceClient_Vision__resetFaceClusteringState___block
   suggestionsCopy = suggestions;
   identifierCopy = identifier;
   v15 = [suggestionsCopy valueForKey:@"suggestionDictionaryRepresentation"];
-  v16 = [v15 count];
-  v17 = [suggestionsCopy count];
+  v16 = objc_msgSend_count(v15);
+  v17 = objc_msgSend_count(suggestionsCopy);
 
   if (v16 != v17)
   {
@@ -718,8 +718,8 @@ void __65__PLPhotoAnalysisServiceClient_Vision__resetFaceClusteringState___block
   }
 
   v18 = [personSuggestionsCopy valueForKey:@"suggestionDictionaryRepresentation"];
-  v19 = [v18 count];
-  v20 = [personSuggestionsCopy count];
+  v19 = objc_msgSend_count(v18);
+  v20 = objc_msgSend_count(personSuggestionsCopy);
 
   if (v19 != v20)
   {
@@ -754,7 +754,7 @@ void __157__PLPhotoAnalysisServiceClient_Vision__suggestedPersonsForPersonWithLo
   v4 = v3;
   if (v3)
   {
-    v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v3, "count")}];
+    v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(v3)];
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
@@ -1232,7 +1232,7 @@ void __70__PLPhotoAnalysisServiceClient_cancelOperationsWithIdentifiers_reply___
   v3 = a2;
   if (*(a1 + 40))
   {
-    v4 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
+    v4 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:objc_msgSend_count(*(a1 + 32))];
     v10 = 0u;
     v11 = 0u;
     v12 = 0u;

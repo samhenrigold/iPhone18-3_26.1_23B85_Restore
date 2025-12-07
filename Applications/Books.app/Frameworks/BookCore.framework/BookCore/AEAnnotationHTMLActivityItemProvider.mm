@@ -26,23 +26,23 @@
 
   if (v7)
   {
-    v8 = objc_alloc_init(AESingleAnnotationHTMLGenerator);
-    [(AEAnnotationHTMLActivityItemProvider *)self populateHTMLGenerator:v8];
-    documentString = [(AESingleAnnotationHTMLGenerator *)v8 documentString];
+    v9 = objc_alloc_init(AESingleAnnotationHTMLGenerator);
+    [(AEAnnotationHTMLActivityItemProvider *)self populateHTMLGenerator:v9];
+    documentString = [(AESingleAnnotationHTMLGenerator *)v9 documentString];
   }
 
   else
   {
-    v10 = AESharingLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v11 = AESharingLog(v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
-      v14 = 138412546;
-      v15 = v12;
-      v16 = 2112;
-      v17 = typeCopy;
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_INFO, "%@ returning nil for activity:%@", &v14, 0x16u);
+      v12 = objc_opt_class();
+      v13 = NSStringFromClass(v12);
+      v15 = 138412546;
+      v16 = v13;
+      v17 = 2112;
+      v18 = typeCopy;
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "%@ returning nil for activity:%@", &v15, 0x16u);
     }
 
     documentString = 0;
@@ -62,7 +62,7 @@
     propertyProvider = [(AEAssetActivityItemProviderSource *)self propertyProvider];
     author = [propertyProvider author];
     v10 = [author length];
-    v11 = IMCommonCoreBundle();
+    v11 = IMCommonCoreBundle(v10);
     v12 = v11;
     if (v10)
     {

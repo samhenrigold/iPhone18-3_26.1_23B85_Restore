@@ -30,9 +30,11 @@
 
 uint64_t __42__NWStatsInterfaceRegistry_sharedInstance__block_invoke(uint64_t a1)
 {
-  sharedInstance_sharedInstance = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = sharedInstance_sharedInstance;
+  sharedInstance_sharedInstance = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 - (id)getState
@@ -107,24 +109,24 @@ void __36__NWStatsInterfaceRegistry_getState__block_invoke(uint64_t a1)
 
 void __56__NWStatsInterfaceRegistry_addInterfaceIndexToRegistry___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 8);
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a1 + 40)];
   LOBYTE(v2) = [v2 containsObject:v3];
 
   if ((v2 & 1) == 0)
   {
-    *v15 = 0;
-    v16 = 0;
+    *v14 = 0;
+    v15 = 0;
     *uu = 0;
-    v14 = 0;
-    if (if_indextoname(*(a1 + 40), v15))
+    v13 = 0;
+    if (if_indextoname(*(a1 + 40), v14))
     {
       ne_session_map_interface_to_provider_uuid();
     }
 
-    memset(v12, 0, sizeof(v12));
-    uuid_unparse(uu, v12);
+    memset(v11, 0, sizeof(v11));
+    uuid_unparse(uu, v11);
     if (!uuid_is_null(uu))
     {
       v4 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:uu];
@@ -141,8 +143,6 @@ void __56__NWStatsInterfaceRegistry_addInterfaceIndexToRegistry___block_invoke(u
     v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a1 + 40)];
     [v9 addObject:v10];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)machOUUIDBelongsToVPNProvider:(id)provider

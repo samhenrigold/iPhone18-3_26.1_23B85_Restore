@@ -32,7 +32,7 @@
 
 void __68__CSAudioTimeConverterPool__getAudioTimeConverterWithAudioStreamId___block_invoke(void *a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = *(a1[4] + 16);
   v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a1[6]];
   v4 = [v2 objectForKeyedSubscript:v3];
@@ -40,39 +40,35 @@ void __68__CSAudioTimeConverterPool__getAudioTimeConverterWithAudioStreamId___bl
   if (v4)
   {
     v5 = *(a1[4] + 16);
-    v18 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a1[6]];
+    v16 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a1[6]];
     v6 = [v5 objectForKeyedSubscript:?];
     v7 = *(a1[5] + 8);
     v8 = *(v7 + 40);
     *(v7 + 40) = v6;
-
-    v9 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v10 = objc_alloc_init(CSAudioTimeConverter);
-    v11 = *(a1[5] + 8);
-    v12 = *(v11 + 40);
-    *(v11 + 40) = v10;
+    v9 = objc_alloc_init(CSAudioTimeConverter);
+    v10 = *(a1[5] + 8);
+    v11 = *(v10 + 40);
+    *(v10 + 40) = v9;
 
-    v13 = *(*(a1[5] + 8) + 40);
-    v14 = *(a1[4] + 16);
-    v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a1[6]];
-    [v14 setObject:v13 forKeyedSubscript:v15];
+    v12 = *(*(a1[5] + 8) + 40);
+    v13 = *(a1[4] + 16);
+    v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a1[6]];
+    [v13 setObject:v12 forKeyedSubscript:v14];
 
     if (!a1[6])
     {
-      v16 = CSLogContextFacilityCoreSpeech;
+      v15 = CSLogContextFacilityCoreSpeech;
       if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v20 = "[CSAudioTimeConverterPool _getAudioTimeConverterWithAudioStreamId:]_block_invoke";
-        _os_log_error_impl(&dword_1DDA4B000, v16, OS_LOG_TYPE_ERROR, "%s Requested audioTimeConverter on invalid streamHandleId", buf, 0xCu);
+        v18 = "[CSAudioTimeConverterPool _getAudioTimeConverterWithAudioStreamId:]_block_invoke";
+        _os_log_error_impl(&dword_1DDA4B000, v15, OS_LOG_TYPE_ERROR, "%s Requested audioTimeConverter on invalid streamHandleId", buf, 0xCu);
       }
     }
-
-    v17 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -116,7 +112,7 @@ uint64_t __51__CSAudioTimeConverterPool_defaultExclaveConverter__block_invoke(ui
   v8 = *(v6 + 40);
   *(v6 + 40) = v7;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v7, v8);
 }
 
 - (CSAudioTimeConverterPool)init
@@ -152,9 +148,11 @@ uint64_t __51__CSAudioTimeConverterPool_defaultExclaveConverter__block_invoke(ui
 
 uint64_t __42__CSAudioTimeConverterPool_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance_321 = objc_alloc_init(CSAudioTimeConverterPool);
+  v0 = objc_alloc_init(CSAudioTimeConverterPool);
+  v1 = sharedInstance_sharedInstance_321;
+  sharedInstance_sharedInstance_321 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

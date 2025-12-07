@@ -58,75 +58,75 @@
     systemVersion = [v15 systemVersion];
     [v14 addObject:systemVersion];
 
-    if (BEIsInternalInstall())
+    if (BEIsInternalInstall(v17, v18))
     {
-      v17 = +[UIDevice currentDevice];
-      buildVersion = [v17 buildVersion];
+      v19 = +[UIDevice currentDevice];
+      buildVersion = [v19 buildVersion];
       [v14 addObject:buildVersion];
     }
 
-    v19 = [v14 componentsJoinedByString:@"_"];
+    v21 = [v14 componentsJoinedByString:@"_"];
 
     lastObject = [v13 lastObject];
-    v21 = [lastObject URLByAppendingPathComponent:v19];
+    v23 = [lastObject URLByAppendingPathComponent:v21];
 
-    v22 = [WKContentRuleListStore storeWithURL:v21];
+    v24 = [WKContentRuleListStore storeWithURL:v23];
 
     if (rule >= 3)
     {
-      v24 = _BookEPUBLog();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v27 = _BookEPUBLog(v25);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        v25 = [NSNumber numberWithUnsignedInteger:rule];
+        v28 = [NSNumber numberWithUnsignedInteger:rule];
         *buf = 138412290;
-        v43 = v25;
-        _os_log_impl(&dword_0, v24, OS_LOG_TYPE_ERROR, "Unsupported content blocking rule '%@'", buf, 0xCu);
+        v46 = v28;
+        _os_log_impl(&dword_0, v27, OS_LOG_TYPE_ERROR, "Unsupported content blocking rule '%@'", buf, 0xCu);
       }
 
-      v23 = @"RemoteContentBlocked";
+      v26 = @"RemoteContentBlocked";
     }
 
     else
     {
-      v23 = off_327F40[rule];
+      v26 = off_327F40[rule];
     }
 
     configuration = [viewCopy configuration];
     userContentController = [configuration userContentController];
 
     objc_initWeak(buf, self);
-    v36[0] = _NSConcreteStackBlock;
-    v36[1] = 3221225472;
-    v36[2] = sub_2E40;
-    v36[3] = &unk_327EF8;
-    v28 = userContentController;
-    v37 = v28;
-    v38 = viewCopy;
-    v41[1] = rule;
-    objc_copyWeak(v41, buf);
-    v39 = v23;
-    v40 = completionCopy;
-    v29 = objc_retainBlock(v36);
-    v30 = [(NSMutableDictionary *)self->_cachedRules objectForKeyedSubscript:v23];
-    if (v30)
+    v39[0] = _NSConcreteStackBlock;
+    v39[1] = 3221225472;
+    v39[2] = sub_2E40;
+    v39[3] = &unk_327EF8;
+    v31 = userContentController;
+    v40 = v31;
+    v41 = viewCopy;
+    v44[1] = rule;
+    objc_copyWeak(v44, buf);
+    v42 = v26;
+    v43 = completionCopy;
+    v32 = objc_retainBlock(v39);
+    v33 = [(NSMutableDictionary *)self->_cachedRules objectForKeyedSubscript:v26];
+    if (v33)
     {
-      (v29[2])(v29, v30, 0);
+      (v32[2])(v32, v33, 0);
     }
 
     else
     {
-      v31[0] = _NSConcreteStackBlock;
-      v31[1] = 3221225472;
-      v31[2] = sub_2F90;
-      v31[3] = &unk_327F20;
-      v34 = v29;
+      v34[0] = _NSConcreteStackBlock;
+      v34[1] = 3221225472;
+      v34[2] = sub_2F90;
+      v34[3] = &unk_327F20;
+      v37 = v32;
       ruleCopy = rule;
-      v32 = v22;
-      v33 = v23;
-      [v32 lookUpContentRuleListForIdentifier:v23 completionHandler:v31];
+      v35 = v24;
+      v36 = v26;
+      [v35 lookUpContentRuleListForIdentifier:v26 completionHandler:v34];
     }
 
-    objc_destroyWeak(v41);
+    objc_destroyWeak(v44);
     objc_destroyWeak(buf);
   }
 }

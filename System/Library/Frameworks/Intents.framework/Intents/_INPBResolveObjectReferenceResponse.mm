@@ -104,7 +104,6 @@ LABEL_8:
 
   if (resolvedReference)
   {
-    resolvedReference = self->_resolvedReference;
     PBDataWriterWriteDataField();
   }
 }

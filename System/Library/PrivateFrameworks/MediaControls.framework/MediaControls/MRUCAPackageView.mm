@@ -190,7 +190,7 @@
   v5 = assetCopy;
   if (assetCopy)
   {
-    [(MRUCAPackageAsset *)assetCopy permanentTransform];
+    objc_msgSend_permanentTransform(assetCopy);
   }
 
   else

@@ -74,7 +74,7 @@
 
 void __60__HMDRemoteDeviceMonitor_observer_didUpdateDevice_isOnline___block_invoke(uint64_t a1)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -95,11 +95,11 @@ void __60__HMDRemoteDeviceMonitor_observer_didUpdateDevice_isOnline___block_invo
       v9 = @"Disconnected";
     }
 
-    v32 = v5;
-    v33 = 2114;
-    v34 = v6;
-    v35 = 2112;
-    v36 = v9;
+    v31 = v5;
+    v32 = 2114;
+    v33 = v6;
+    v34 = 2112;
+    v35 = v9;
     _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Received IDS Activity update for device %{public}@: %@", buf, 0x20u);
   }
 
@@ -122,9 +122,9 @@ void __60__HMDRemoteDeviceMonitor_observer_didUpdateDevice_isOnline___block_invo
       v19 = HMFGetLogIdentifier();
       v20 = [*(a1 + 40) shortDescription];
       *buf = 138543618;
-      v32 = v19;
-      v33 = 2114;
-      v34 = v20;
+      v31 = v19;
+      v32 = 2114;
+      v33 = v20;
       _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@No Device Information found for device: %{public}@", buf, 0x16u);
     }
 
@@ -141,9 +141,9 @@ void __60__HMDRemoteDeviceMonitor_observer_didUpdateDevice_isOnline___block_invo
       v17 = HMFGetLogIdentifier();
       v18 = [*(a1 + 40) shortDescription];
       *buf = 138543618;
-      v32 = v17;
-      v33 = 2114;
-      v34 = v18;
+      v31 = v17;
+      v32 = 2114;
+      v33 = v18;
       _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@Server reachability is the same as our reachability for device: %{public}@", buf, 0x16u);
     }
 
@@ -163,9 +163,9 @@ LABEL_10:
     v24 = HMFGetLogIdentifier();
     v25 = [*(a1 + 40) shortDescription];
     *buf = 138543618;
-    v32 = v24;
-    v33 = 2114;
-    v34 = v25;
+    v31 = v24;
+    v32 = 2114;
+    v33 = v25;
     _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_DEFAULT, "%{public}@Confirming device %{public}@ because server reachability is different from our reachability", buf, 0x16u);
   }
 
@@ -175,16 +175,15 @@ LABEL_10:
   *(v13 + 64) = 0;
 
   v27 = *(a1 + 32);
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __60__HMDRemoteDeviceMonitor_observer_didUpdateDevice_isOnline___block_invoke_192;
-  v29[3] = &unk_27868A1D8;
-  v29[4] = v27;
-  v30 = *(a1 + 40);
-  [(HMDRemoteDeviceMonitor *)v27 _confirmDevice:v13 timeout:v29 completionHandler:65.0];
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __60__HMDRemoteDeviceMonitor_observer_didUpdateDevice_isOnline___block_invoke_192;
+  v28[3] = &unk_27868A1D8;
+  v28[4] = v27;
+  v29 = *(a1 + 40);
+  [(HMDRemoteDeviceMonitor *)v27 _confirmDevice:v13 timeout:v28 completionHandler:65.0];
 
 LABEL_17:
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_deviceInformationForDevice:(uint64_t)device
@@ -202,7 +201,7 @@ LABEL_17:
 
 void __60__HMDRemoteDeviceMonitor_observer_didUpdateDevice_isOnline___block_invoke_192(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -213,27 +212,26 @@ void __60__HMDRemoteDeviceMonitor_observer_didUpdateDevice_isOnline___block_invo
     v8 = [*(a1 + 40) shortDescription];
     v9 = v8;
     v10 = @"Success";
-    v12 = 138543874;
-    v13 = v7;
+    v11 = 138543874;
+    v12 = v7;
     if (v3)
     {
       v10 = v3;
     }
 
-    v14 = 2114;
-    v15 = v8;
-    v16 = 2112;
-    v17 = v10;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Ping result due to IDS Activity for device %{public}@: %@", &v12, 0x20u);
+    v13 = 2114;
+    v14 = v8;
+    v15 = 2112;
+    v16 = v10;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Ping result due to IDS Activity for device %{public}@: %@", &v11, 0x20u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_confirmDevice:(void *)device timeout:(double)timeout completionHandler:
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v7 = a2;
   deviceCopy = device;
   if (self)
@@ -265,9 +263,9 @@ void __60__HMDRemoteDeviceMonitor_observer_didUpdateDevice_isOnline___block_invo
           if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
           {
             v16 = HMFGetLogIdentifier();
-            v41 = 138543362;
-            v42 = v16;
-            _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Confirming ourselves, returning success", &v41, 0xCu);
+            v40 = 138543362;
+            v41 = v16;
+            _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Confirming ourselves, returning success", &v40, 0xCu);
           }
 
           objc_autoreleasePoolPop(v13);
@@ -281,24 +279,24 @@ void __60__HMDRemoteDeviceMonitor_observer_didUpdateDevice_isOnline___block_invo
 
         if (v7)
         {
-          v28 = (v7[5] & 0xA) == 0;
+          v27 = (v7[5] & 0xA) == 0;
           if ((v7[1] & 1) == 0 && (v7[5] & 0xA) != 0)
           {
-            v29 = objc_autoreleasePoolPush();
+            v28 = objc_autoreleasePoolPush();
             selfCopy2 = self;
-            v31 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+            v30 = HMFGetOSLogHandle();
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
             {
-              v32 = HMFGetLogIdentifier();
+              v31 = HMFGetLogIdentifier();
               shortDescription = [v12 shortDescription];
-              v41 = 138543618;
-              v42 = v32;
-              v43 = 2114;
-              v44 = shortDescription;
-              _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_INFO, "%{public}@The device is already unreachable: %{public}@", &v41, 0x16u);
+              v40 = 138543618;
+              v41 = v31;
+              v42 = 2114;
+              v43 = shortDescription;
+              _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_INFO, "%{public}@The device is already unreachable: %{public}@", &v40, 0x16u);
             }
 
-            objc_autoreleasePoolPop(v29);
+            objc_autoreleasePoolPop(v28);
             dispatch_assert_queue_V2(v7[3]);
             v7[5] = (v7[5] | 1);
             if (!deviceCopy)
@@ -312,7 +310,7 @@ void __60__HMDRemoteDeviceMonitor_observer_didUpdateDevice_isOnline___block_invo
 
         else
         {
-          v28 = 1;
+          v27 = 1;
         }
 
         if (deviceCopy)
@@ -320,38 +318,38 @@ void __60__HMDRemoteDeviceMonitor_observer_didUpdateDevice_isOnline___block_invo
           [(HMDRemoteDeviceInformation *)v7 queueConfirmationHandler:deviceCopy timeout:timeout];
         }
 
-        if (v28)
+        if (v27)
         {
           [(HMDRemoteDeviceMonitor *)self _sendPingToDevice:v7];
         }
 
         else
         {
-          v34 = objc_autoreleasePoolPush();
+          v33 = objc_autoreleasePoolPush();
           selfCopy3 = self;
-          v36 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+          v35 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
           {
-            v38 = HMFGetLogIdentifier();
+            v37 = HMFGetLogIdentifier();
             if (v7)
             {
-              v39 = objc_getProperty(v7, v37, 16, 1);
+              v38 = objc_getProperty(v7, v36, 16, 1);
             }
 
             else
             {
-              v39 = 0;
+              v38 = 0;
             }
 
-            shortDescription2 = [v39 shortDescription];
-            v41 = 138543618;
-            v42 = v38;
-            v43 = 2114;
-            v44 = shortDescription2;
-            _os_log_impl(&dword_229538000, v36, OS_LOG_TYPE_INFO, "%{public}@The device is already being confirmed: %{public}@", &v41, 0x16u);
+            shortDescription2 = [v38 shortDescription];
+            v40 = 138543618;
+            v41 = v37;
+            v42 = 2114;
+            v43 = shortDescription2;
+            _os_log_impl(&dword_229538000, v35, OS_LOG_TYPE_INFO, "%{public}@The device is already being confirmed: %{public}@", &v40, 0x16u);
           }
 
-          objc_autoreleasePoolPop(v34);
+          objc_autoreleasePoolPop(v33);
         }
 
         goto LABEL_19;
@@ -364,11 +362,11 @@ void __60__HMDRemoteDeviceMonitor_observer_didUpdateDevice_isOnline___block_invo
       {
         v24 = HMFGetLogIdentifier();
         shortDescription3 = [v12 shortDescription];
-        v41 = 138543618;
-        v42 = v24;
-        v43 = 2114;
-        v44 = shortDescription3;
-        _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@We are currently unreachable, so failing confirm for device: %{public}@", &v41, 0x16u);
+        v40 = 138543618;
+        v41 = v24;
+        v42 = 2114;
+        v43 = shortDescription3;
+        _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@We are currently unreachable, so failing confirm for device: %{public}@", &v40, 0x16u);
       }
 
       objc_autoreleasePoolPop(v21);
@@ -390,9 +388,9 @@ LABEL_18:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       v20 = HMFGetLogIdentifier();
-      v41 = 138543362;
-      v42 = v20;
-      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Cannot confirm device before monitor has started", &v41, 0xCu);
+      v40 = 138543362;
+      v41 = v20;
+      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Cannot confirm device before monitor has started", &v40, 0xCu);
     }
 
     objc_autoreleasePoolPop(v17);
@@ -403,13 +401,11 @@ LABEL_18:
 LABEL_19:
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendPingToDevice:(dispatch_queue_t *)device
 {
-  v63[2] = *MEMORY[0x277D85DE8];
+  v62[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (device)
   {
@@ -456,13 +452,13 @@ LABEL_19:
           [*(v3 + 8) suspend];
           objc_initWeak(&location, deviceCopy2);
           aBlock = MEMORY[0x277D85DD0];
-          v51 = 3221225472;
-          v52 = __44__HMDRemoteDeviceMonitor__sendPingToDevice___block_invoke;
-          v53 = &unk_278687540;
-          objc_copyWeak(&v55, &location);
+          v50 = 3221225472;
+          v51 = __44__HMDRemoteDeviceMonitor__sendPingToDevice___block_invoke;
+          v52 = &unk_278687540;
+          objc_copyWeak(&v54, &location);
           v17 = v3;
-          v54 = v17;
-          v49 = _Block_copy(&aBlock);
+          v53 = v17;
+          v48 = _Block_copy(&aBlock);
           v18 = 65.0;
           if ((_pingTimeoutAdjustedForIDSPushBlackout_isPushAvailable & 1) == 0)
           {
@@ -510,7 +506,7 @@ LABEL_19:
             }
           }
 
-          [(HMDRemoteDeviceInformation *)v17 queueConfirmationHandler:v49 timeout:v18];
+          [(HMDRemoteDeviceInformation *)v17 queueConfirmationHandler:v48 timeout:v18];
           dispatch_assert_queue_V2(v17[3]);
           v17[5] = (v17[5] | 2);
           dispatch_assert_queue_V2(v17[3]);
@@ -520,20 +516,20 @@ LABEL_19:
           WeakRetained = objc_loadWeakRetained(deviceCopy2 + 12);
           v38 = [WeakRetained newSendMessageOperationWithMessage:v36];
           objc_initWeak(&from, deviceCopy2);
-          objc_initWeak(&v57, v38);
+          objc_initWeak(&v56, v38);
           *buf = MEMORY[0x277D85DD0];
           *&buf[8] = 3221225472;
           *&buf[16] = __61__HMDRemoteDeviceMonitor__createRemotePingOperation_timeout___block_invoke;
-          v60 = &unk_278687590;
-          objc_copyWeak(&v62, &from);
-          objc_copyWeak(v63, &v57);
+          v59 = &unk_278687590;
+          objc_copyWeak(&v61, &from);
+          objc_copyWeak(v62, &v56);
           v39 = v34;
-          v61 = v39;
+          v60 = v39;
           [v38 setCompletionBlock:buf];
 
-          objc_destroyWeak(v63);
-          objc_destroyWeak(&v62);
-          objc_destroyWeak(&v57);
+          objc_destroyWeak(v62);
+          objc_destroyWeak(&v61);
+          objc_destroyWeak(&v56);
           objc_destroyWeak(&from);
 
           v40 = objc_autoreleasePoolPush();
@@ -550,14 +546,14 @@ LABEL_19:
             *&buf[12] = 2114;
             *&buf[14] = shortDescription;
             *&buf[22] = 2114;
-            v60 = shortDescription2;
+            v59 = shortDescription2;
             _os_log_impl(&dword_229538000, v42, OS_LOG_TYPE_INFO, "%{public}@Starting ping operation %{public}@ for device: %{public}@", buf, 0x20u);
           }
 
           objc_autoreleasePoolPop(v40);
           [v41[3] addOperation:v38];
 
-          objc_destroyWeak(&v55);
+          objc_destroyWeak(&v54);
           objc_destroyWeak(&location);
         }
 
@@ -579,13 +575,11 @@ LABEL_19:
       }
     }
   }
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 void __44__HMDRemoteDeviceMonitor__sendPingToDevice___block_invoke(uint64_t a1, void *a2)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WeakRetained;
@@ -605,13 +599,13 @@ void __44__HMDRemoteDeviceMonitor__sendPingToDevice___block_invoke(uint64_t a1, 
       }
 
       v12 = [Property shortDescription];
-      v33 = 138543874;
-      v34 = v10;
-      v35 = 2114;
-      v36 = v12;
-      v37 = 2112;
-      v38 = v3;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Confirmation completed for device %{public}@ with error: %@", &v33, 0x20u);
+      v32 = 138543874;
+      v33 = v10;
+      v34 = 2114;
+      v35 = v12;
+      v36 = 2112;
+      v37 = v3;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Confirmation completed for device %{public}@ with error: %@", &v32, 0x20u);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -630,11 +624,11 @@ void __44__HMDRemoteDeviceMonitor__sendPingToDevice___block_invoke(uint64_t a1, 
         }
 
         v30 = [v29 shortDescription];
-        v33 = 138543618;
-        v34 = v28;
-        v35 = 2114;
-        v36 = v30;
-        _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@Confirmation succeeded to reachable device: %{public}@", &v33, 0x16u);
+        v32 = 138543618;
+        v33 = v28;
+        v34 = 2114;
+        v35 = v30;
+        _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@Confirmation succeeded to reachable device: %{public}@", &v32, 0x16u);
       }
 
       objc_autoreleasePoolPop(v24);
@@ -658,13 +652,13 @@ void __44__HMDRemoteDeviceMonitor__sendPingToDevice___block_invoke(uint64_t a1, 
         }
 
         v20 = [v19 shortDescription];
-        v33 = 138543874;
-        v34 = v18;
-        v35 = 2114;
-        v36 = v20;
-        v37 = 2112;
-        v38 = v3;
-        _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Confirmation failed to unreachable device %{public}@ with error: %@", &v33, 0x20u);
+        v32 = 138543874;
+        v33 = v18;
+        v34 = 2114;
+        v35 = v20;
+        v36 = 2112;
+        v37 = v3;
+        _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Confirmation failed to unreachable device %{public}@ with error: %@", &v32, 0x20u);
       }
 
       objc_autoreleasePoolPop(v14);
@@ -703,8 +697,6 @@ LABEL_27:
   }
 
 LABEL_28:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __61__HMDRemoteDeviceMonitor__createRemotePingOperation_timeout___block_invoke(id *a1)
@@ -729,7 +721,7 @@ void __61__HMDRemoteDeviceMonitor__createRemotePingOperation_timeout___block_inv
 
 void __61__HMDRemoteDeviceMonitor__createRemotePingOperation_timeout___block_invoke_2(uint64_t a1)
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -744,13 +736,13 @@ void __61__HMDRemoteDeviceMonitor__createRemotePingOperation_timeout___block_inv
     }
 
     v9 = [Property shortDescription];
-    v51 = 138543874;
-    v52 = v6;
-    v53 = 2112;
-    v54 = v8;
-    v55 = 2114;
-    v56 = v9;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Operation completed with error %@ to device %{public}@", &v51, 0x20u);
+    v50 = 138543874;
+    v51 = v6;
+    v52 = 2112;
+    v53 = v8;
+    v54 = 2114;
+    v55 = v9;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Operation completed with error %@ to device %{public}@", &v50, 0x20u);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -775,13 +767,13 @@ void __61__HMDRemoteDeviceMonitor__createRemotePingOperation_timeout___block_inv
 
         v19 = [v18 shortDescription];
         v20 = *(a1 + 40);
-        v51 = 138543874;
-        v52 = v17;
-        v53 = 2114;
-        v54 = v19;
-        v55 = 2112;
-        v56 = v20;
-        _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to send ping to device %{public}@ with error: %@", &v51, 0x20u);
+        v50 = 138543874;
+        v51 = v17;
+        v52 = 2114;
+        v53 = v19;
+        v54 = 2112;
+        v55 = v20;
+        _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to send ping to device %{public}@ with error: %@", &v50, 0x20u);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -823,11 +815,11 @@ void __61__HMDRemoteDeviceMonitor__createRemotePingOperation_timeout___block_inv
         }
 
         v30 = [v29 shortDescription];
-        v51 = 138543618;
-        v52 = v28;
-        v53 = 2114;
-        v54 = v30;
-        _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Successfully sent ping to device: %{public}@", &v51, 0x16u);
+        v50 = 138543618;
+        v51 = v28;
+        v52 = 2114;
+        v53 = v30;
+        _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Successfully sent ping to device: %{public}@", &v50, 0x16u);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -872,11 +864,11 @@ void __61__HMDRemoteDeviceMonitor__createRemotePingOperation_timeout___block_inv
         }
 
         v42 = [v41 shortDescription];
-        v51 = 138543618;
-        v52 = v40;
-        v53 = 2114;
-        v54 = v42;
-        _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_INFO, "%{public}@Resuming actively monitoring device: %{public}@", &v51, 0x16u);
+        v50 = 138543618;
+        v51 = v40;
+        v52 = 2114;
+        v53 = v42;
+        _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_INFO, "%{public}@Resuming actively monitoring device: %{public}@", &v50, 0x16u);
       }
 
       objc_autoreleasePoolPop(v35);
@@ -888,7 +880,7 @@ LABEL_32:
         [v43 resume];
 LABEL_33:
 
-        goto LABEL_34;
+        return;
       }
     }
 
@@ -896,32 +888,32 @@ LABEL_33:
     {
       if (v38)
       {
-        v46 = HMFGetLogIdentifier();
+        v45 = HMFGetLogIdentifier();
         if (v33)
         {
-          v47 = objc_getProperty(v33, v45, 16, 1);
+          v46 = objc_getProperty(v33, v44, 16, 1);
         }
 
         else
         {
-          v47 = 0;
+          v46 = 0;
         }
 
-        v48 = [v47 shortDescription];
-        v51 = 138543618;
-        v52 = v46;
-        v53 = 2114;
-        v54 = v48;
-        _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_INFO, "%{public}@Starting to actively monitor device: %{public}@", &v51, 0x16u);
+        v47 = [v46 shortDescription];
+        v50 = 138543618;
+        v51 = v45;
+        v52 = 2114;
+        v53 = v47;
+        _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_INFO, "%{public}@Starting to actively monitor device: %{public}@", &v50, 0x16u);
       }
 
       objc_autoreleasePoolPop(v35);
-      v49 = objc_loadWeakRetained(v36 + 12);
-      v50 = [v49 newDeviceMonitoringTimer];
+      v48 = objc_loadWeakRetained(v36 + 12);
+      v49 = [v48 newDeviceMonitoringTimer];
 
-      [v50 setDelegateQueue:v36[2]];
-      [v50 setDelegate:v36];
-      [(HMDRemoteDeviceInformation *)v33 setRetryTimer:v50];
+      [v49 setDelegateQueue:v36[2]];
+      [v49 setDelegate:v36];
+      [(HMDRemoteDeviceInformation *)v33 setRetryTimer:v49];
 
       if (v33)
       {
@@ -932,14 +924,11 @@ LABEL_33:
     v43 = 0;
     goto LABEL_32;
   }
-
-LABEL_34:
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleReachabilityChange:(void *)change deviceInformation:(unint64_t)information reason:(char)reason didStartMonitoringDevice:
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   v10 = changeCopy;
   if (self)
@@ -977,13 +966,13 @@ LABEL_7:
             if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
             {
               v19 = HMFGetLogIdentifier();
-              v40 = 138543874;
-              v41 = v19;
-              v42 = 2114;
-              v43 = v13;
-              v44 = 2112;
+              v39 = 138543874;
+              v40 = v19;
+              v41 = 2114;
+              v42 = v13;
+              v43 = 2112;
               Property = objc_getProperty(v10, v20, 16, 1);
-              _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Skipping updating reachability with reason: %{public}@ because initial reachability is set and waiting for non-network reachability changes for device: %@", &v40, 0x20u);
+              _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Skipping updating reachability with reason: %{public}@ because initial reachability is set and waiting for non-network reachability changes for device: %@", &v39, 0x20u);
 
               v14 = &OBJC_IVAR___HMDHomeActivityStateManagerDataSource__queue;
             }
@@ -1028,15 +1017,15 @@ LABEL_18:
                 v32 = 0;
               }
 
-              v40 = 138544130;
-              v41 = v29;
-              v42 = 2114;
-              v43 = v31;
-              v44 = 2114;
+              v39 = 138544130;
+              v40 = v29;
+              v41 = 2114;
+              v42 = v31;
+              v43 = 2114;
               Property = v13;
-              v46 = 2112;
-              v47 = v32;
-              _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_INFO, "%{public}@Updating reachability to %{public}@ with reason: %{public}@, for device: %@", &v40, 0x2Au);
+              v45 = 2112;
+              v46 = v32;
+              _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_INFO, "%{public}@Updating reachability to %{public}@ with reason: %{public}@, for device: %@", &v39, 0x2Au);
             }
 
             objc_autoreleasePoolPop(v26);
@@ -1078,28 +1067,27 @@ LABEL_25:
       goto LABEL_5;
     }
 
-    v36 = objc_autoreleasePoolPush();
+    v35 = objc_autoreleasePoolPush();
     selfCopy3 = self;
-    v38 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+    v37 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
     {
-      v39 = HMFGetLogIdentifier();
-      v40 = 138543362;
-      v41 = v39;
-      _os_log_impl(&dword_229538000, v38, OS_LOG_TYPE_INFO, "%{public}@Skipping updating reachability with initial reachability reason", &v40, 0xCu);
+      v38 = HMFGetLogIdentifier();
+      v39 = 138543362;
+      v40 = v38;
+      _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_INFO, "%{public}@Skipping updating reachability with initial reachability reason", &v39, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v36);
+    objc_autoreleasePoolPop(v35);
   }
 
 LABEL_26:
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyDeviceReachabilityChange:(void *)change forDevice:
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v3 = a2;
+  v21 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   v6 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -1109,19 +1097,19 @@ LABEL_26:
     v9 = HMFGetLogIdentifier();
     v10 = HMFBooleanToString();
     shortDescription = [changeCopy shortDescription];
-    v16 = 138543874;
-    v17 = v9;
-    v18 = 2112;
-    v19 = v10;
-    v20 = 2114;
-    v21 = shortDescription;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Notifying clients of reachability change, %@, for device: %{public}@", &v16, 0x20u);
+    v15 = 138543874;
+    v16 = v9;
+    v17 = 2112;
+    v18 = v10;
+    v19 = 2114;
+    v20 = shortDescription;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Notifying clients of reachability change, %@, for device: %{public}@", &v15, 0x20u);
   }
 
   objc_autoreleasePoolPop(v6);
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   v13 = defaultCenter;
-  if (a2)
+  if (v3)
   {
     v14 = @"HMDRemoteDeviceIsReachableNotification";
   }
@@ -1132,13 +1120,11 @@ LABEL_26:
   }
 
   [defaultCenter postNotificationName:v14 object:changeCopy];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleIncomingMessageForDevice:(id)device
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   dispatch_assert_queue_V2(self->_queue);
   os_unfair_lock_lock_with_options();
@@ -1157,11 +1143,11 @@ LABEL_26:
       {
         v10 = HMFGetLogIdentifier();
         v12 = [objc_getProperty(v6 v11];
-        v18 = 138543618;
-        v19 = v10;
-        v20 = 2114;
-        v21 = v12;
-        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Stopping actively monitoring device: %{public}@", &v18, 0x16u);
+        v17 = 138543618;
+        v18 = v10;
+        v19 = 2114;
+        v20 = v12;
+        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Stopping actively monitoring device: %{public}@", &v17, 0x16u);
       }
 
       objc_autoreleasePoolPop(v7);
@@ -1183,22 +1169,20 @@ LABEL_26:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       v16 = HMFGetLogIdentifier();
-      v18 = 138543618;
-      v19 = v16;
-      v20 = 2112;
-      v21 = deviceCopy;
-      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring incoming message from device %@ because no clients have registered to monitor it", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v16;
+      v19 = 2112;
+      v20 = deviceCopy;
+      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring incoming message from device %@ because no clients have registered to monitor it", &v17, 0x16u);
     }
 
     objc_autoreleasePoolPop(v13);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)service:(id)service account:(id)account incomingMessage:(id)message fromID:(id)d context:(id)context
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   accountCopy = account;
   messageCopy = message;
@@ -1214,11 +1198,11 @@ LABEL_26:
     v20 = HMFGetLogIdentifier();
     serviceIdentifier = [serviceCopy serviceIdentifier];
     *buf = 138543874;
-    v32 = v20;
-    v33 = 2112;
-    v34 = v16;
-    v35 = 2114;
-    v36 = serviceIdentifier;
+    v31 = v20;
+    v32 = 2112;
+    v33 = v16;
+    v34 = 2114;
+    v35 = serviceIdentifier;
     _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_DEBUG, "%{public}@Received incoming message from: %@, on service: %{public}@", buf, 0x20u);
   }
 
@@ -1244,21 +1228,19 @@ LABEL_26:
     {
       v27 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v32 = v27;
-      v33 = 2112;
-      v34 = v23;
+      v31 = v27;
+      v32 = 2112;
+      v33 = v23;
       _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring incoming message from device because it is nil or it is the current device: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v24);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)service:(id)service activeAccountsChanged:(id)changed
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   changedCopy = changed;
   dispatch_assert_queue_V2(self->_queue);
@@ -1269,7 +1251,7 @@ LABEL_26:
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v21 = v11;
+    v20 = v11;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@IDS Service active accounts changed", buf, 0xCu);
   }
 
@@ -1284,12 +1266,12 @@ LABEL_26:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       HMFGetLogIdentifier();
-      v16 = v18 = changedCopy;
+      v16 = v17 = changedCopy;
       *buf = 138543362;
-      v21 = v16;
+      v20 = v16;
       _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@iCloud account changed, updating delegate", buf, 0xCu);
 
-      changedCopy = v18;
+      changedCopy = v17;
     }
 
     objc_autoreleasePoolPop(context);
@@ -1301,8 +1283,6 @@ LABEL_26:
   }
 
   [(HMDRemoteDeviceMonitor *)selfCopy _handleGlobalReachabilityChange];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)iCloudAccount
@@ -1318,7 +1298,7 @@ LABEL_26:
 
 - (void)account:(id)account loginChanged:(id)changed
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   changedCopy = changed;
   dispatch_assert_queue_V2(self->_queue);
@@ -1335,9 +1315,9 @@ LABEL_26:
     if (v14)
     {
       v15 = HMFGetLogIdentifier();
-      v18 = 138543362;
-      v19 = v15;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@IDS Account login changed", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v15;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@IDS Account login changed", &v17, 0xCu);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -1349,20 +1329,18 @@ LABEL_26:
     if (v14)
     {
       v16 = HMFGetLogIdentifier();
-      v18 = 138543362;
-      v19 = v16;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Ignoring IDS Account login change on non-iCloud account", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v16;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Ignoring IDS Account login change on non-iCloud account", &v17, 0xCu);
     }
 
     objc_autoreleasePoolPop(v11);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)account:(id)account isActiveChanged:(BOOL)changed
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   dispatch_assert_queue_V2(self->_queue);
   iCloudAccount = [(HMDRemoteDeviceMonitor *)&self->super.super.isa iCloudAccount];
@@ -1378,11 +1356,11 @@ LABEL_26:
     {
       v12 = HMFGetLogIdentifier();
       v13 = HMFBooleanToString();
-      v16 = 138543618;
-      v17 = v12;
-      v18 = 2112;
-      v19 = v13;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@IDS Account active state changed to %@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v12;
+      v17 = 2112;
+      v18 = v13;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@IDS Account active state changed to %@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -1394,26 +1372,24 @@ LABEL_26:
     if (v11)
     {
       v14 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v14;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Ignoring IDS Account active state change on non-iCloud account", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v14;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Ignoring IDS Account active state change on non-iCloud account", &v15, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)timerDidFire:(id)fire
 {
-  v93 = *MEMORY[0x277D85DE8];
+  v92 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   dispatch_assert_queue_V2(self->_queue);
   deviceHealthTimer = self->_deviceHealthTimer;
   if (deviceHealthTimer == fireCopy || self->_initialDeviceHealthTimer == fireCopy)
   {
-    v77 = fireCopy;
+    v76 = fireCopy;
     [(HMFTimer *)deviceHealthTimer resume];
     v18 = objc_autoreleasePoolPush();
     selfCopy = self;
@@ -1422,33 +1398,33 @@ LABEL_26:
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v89 = v21;
+      v88 = v21;
       _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@Confirming all reachable devices", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v18);
-    v85 = 0u;
-    v86 = 0u;
-    v83 = 0u;
     v84 = 0u;
+    v85 = 0u;
+    v82 = 0u;
+    v83 = 0u;
     obj = [(HMDRemoteDeviceMonitor *)selfCopy devices];
-    v22 = [obj countByEnumeratingWithState:&v83 objects:v92 count:16];
+    v22 = [obj countByEnumeratingWithState:&v82 objects:v91 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v84;
+      v24 = *v83;
       v25 = &OBJC_IVAR___HMDHomeActivityStateManagerDataSource__queue;
       do
       {
         v26 = 0;
         do
         {
-          if (*v84 != v24)
+          if (*v83 != v24)
           {
             objc_enumerationMutation(obj);
           }
 
-          v27 = *(*(&v83 + 1) + 8 * v26);
+          v27 = *(*(&v82 + 1) + 8 * v26);
           if (v27)
           {
             v28 = (v27[v25[963]] & 0xA) == 0;
@@ -1478,9 +1454,9 @@ LABEL_26:
                   v43 = HMFGetLogIdentifier();
                   v45 = [objc_getProperty(v38 v44];
                   *buf = 138543618;
-                  v89 = v43;
-                  v90 = 2114;
-                  v91 = v45;
+                  v88 = v43;
+                  v89 = 2114;
+                  v90 = v45;
                   _os_log_impl(&dword_229538000, v42, OS_LOG_TYPE_INFO, "%{public}@Trying reachability health check to device: %{public}@", buf, 0x16u);
 
                   v25 = &OBJC_IVAR___HMDHomeActivityStateManagerDataSource__queue;
@@ -1516,9 +1492,9 @@ LABEL_26:
 
               shortDescription = [Property shortDescription];
               *buf = 138543618;
-              v89 = v34;
-              v90 = 2114;
-              v91 = shortDescription;
+              v88 = v34;
+              v89 = 2114;
+              v90 = shortDescription;
               _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_DEFAULT, "%{public}@Deferring ping to device while we are unreachable: %{public}@", buf, 0x16u);
 
               v25 = &OBJC_IVAR___HMDHomeActivityStateManagerDataSource__queue;
@@ -1532,39 +1508,39 @@ LABEL_26:
         }
 
         while (v23 != v26);
-        v46 = [obj countByEnumeratingWithState:&v83 objects:v92 count:16];
+        v46 = [obj countByEnumeratingWithState:&v82 objects:v91 count:16];
         v23 = v46;
       }
 
       while (v46);
     }
 
-    fireCopy = v77;
+    fireCopy = v76;
   }
 
   else
   {
-    v81 = 0u;
-    v82 = 0u;
-    v79 = 0u;
     v80 = 0u;
+    v81 = 0u;
+    v78 = 0u;
+    v79 = 0u;
     devices = [(HMDRemoteDeviceMonitor *)self devices];
-    v7 = [devices countByEnumeratingWithState:&v79 objects:v87 count:16];
+    v7 = [devices countByEnumeratingWithState:&v78 objects:v86 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v80;
+      v9 = *v79;
       while (2)
       {
         v10 = 0;
         do
         {
-          if (*v80 != v9)
+          if (*v79 != v9)
           {
             objc_enumerationMutation(devices);
           }
 
-          v11 = *(*(&v79 + 1) + 8 * v10);
+          v11 = *(*(&v78 + 1) + 8 * v10);
           if (v11)
           {
             v12 = *(v11 + 64);
@@ -1595,9 +1571,9 @@ LABEL_26:
 
               shortDescription2 = [v52 shortDescription];
               *buf = 138543618;
-              v89 = v51;
-              v90 = 2114;
-              v91 = shortDescription2;
+              v88 = v51;
+              v89 = 2114;
+              v90 = shortDescription2;
               _os_log_impl(&dword_229538000, v49, OS_LOG_TYPE_DEBUG, "%{public}@Timer fired for device: %{public}@", buf, 0x16u);
             }
 
@@ -1625,9 +1601,9 @@ LABEL_26:
 
                   shortDescription3 = [v60 shortDescription];
                   *buf = 138543618;
-                  v89 = v58;
-                  v90 = 2114;
-                  v91 = shortDescription3;
+                  v88 = v58;
+                  v89 = 2114;
+                  v90 = shortDescription3;
                   _os_log_impl(&dword_229538000, v56, OS_LOG_TYPE_INFO, "%{public}@Timer fired but should confirm is not set for device: %{public}@", buf, 0x16u);
 
                   fireCopy = v59;
@@ -1654,9 +1630,9 @@ LABEL_26:
 
                 shortDescription4 = [v67 shortDescription];
                 *buf = 138543618;
-                v89 = v66;
-                v90 = 2114;
-                v91 = shortDescription4;
+                v88 = v66;
+                v89 = 2114;
+                v90 = shortDescription4;
                 _os_log_impl(&dword_229538000, v64, OS_LOG_TYPE_INFO, "%{public}@Retrying ping to device: %{public}@", buf, 0x16u);
               }
 
@@ -1684,9 +1660,9 @@ LABEL_26:
 
                 shortDescription5 = [v74 shortDescription];
                 *buf = 138543618;
-                v89 = v73;
-                v90 = 2114;
-                v91 = shortDescription5;
+                v88 = v73;
+                v89 = 2114;
+                v90 = shortDescription5;
                 _os_log_impl(&dword_229538000, v71, OS_LOG_TYPE_INFO, "%{public}@Deferring ping while unreachable to device: %{public}@", buf, 0x16u);
               }
 
@@ -1701,7 +1677,7 @@ LABEL_26:
         }
 
         while (v8 != v10);
-        v13 = [devices countByEnumeratingWithState:&v79 objects:v87 count:16];
+        v13 = [devices countByEnumeratingWithState:&v78 objects:v86 count:16];
         v8 = v13;
         if (v13)
         {
@@ -1719,9 +1695,9 @@ LABEL_26:
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v89 = v17;
-      v90 = 2112;
-      v91 = fireCopy;
+      v88 = v17;
+      v89 = 2112;
+      v90 = fireCopy;
       _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Unhandled timer: %@", buf, 0x16u);
     }
 
@@ -1729,8 +1705,6 @@ LABEL_26:
   }
 
 LABEL_70:
-
-  v76 = *MEMORY[0x277D85DE8];
 }
 
 - (id)devices
@@ -1765,22 +1739,20 @@ LABEL_70:
 
 uint64_t __54__HMDRemoteDeviceMonitor_networkMonitorIsUnreachable___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@NetworkMonitor status changed to disconnected", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@NetworkMonitor status changed to disconnected", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) _handleGlobalReachabilityChange];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _handleGlobalReachabilityChange];
 }
 
 - (void)networkMonitorIsReachable:(id)reachable
@@ -1796,22 +1768,20 @@ uint64_t __54__HMDRemoteDeviceMonitor_networkMonitorIsUnreachable___block_invoke
 
 uint64_t __52__HMDRemoteDeviceMonitor_networkMonitorIsReachable___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@NetworkMonitor status changed to connected", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@NetworkMonitor status changed to connected", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) _handleGlobalReachabilityChange];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _handleGlobalReachabilityChange];
 }
 
 - (id)newConfirmationHandlerWithTimeout:(double)timeout workQueue:(id)queue handler:(id)handler
@@ -1864,7 +1834,7 @@ uint64_t __52__HMDRemoteDeviceMonitor_networkMonitorIsReachable___block_invoke(u
 
 - (id)newInitialDeviceHealthTimer
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = *&remoteDeviceMonitorHealthTimerTimeInterval;
   v4 = arc4random_uniform(*&remoteDeviceMonitorHealthTimerTimeInterval) + v3 / 2;
   v5 = objc_autoreleasePoolPush();
@@ -1873,17 +1843,15 @@ uint64_t __52__HMDRemoteDeviceMonitor_networkMonitorIsReachable___block_invoke(u
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = HMFGetLogIdentifier();
-    v11 = 138543618;
-    v12 = v8;
-    v13 = 1024;
-    v14 = v4;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Initial health timer interval is %d seconds", &v11, 0x12u);
+    v10 = 138543618;
+    v11 = v8;
+    v12 = 1024;
+    v13 = v4;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Initial health timer interval is %d seconds", &v10, 0x12u);
   }
 
   objc_autoreleasePoolPop(v5);
-  result = [objc_alloc(MEMORY[0x277D0F920]) initWithTimeInterval:0 options:v4];
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return [objc_alloc(MEMORY[0x277D0F920]) initWithTimeInterval:0 options:v4];
 }
 
 - (void)handleAccountRemoved:(id)removed
@@ -1902,7 +1870,7 @@ uint64_t __52__HMDRemoteDeviceMonitor_networkMonitorIsReachable___block_invoke(u
 
 void __47__HMDRemoteDeviceMonitor_handleAccountRemoved___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 objectForKeyedSubscript:@"HMDAccountNotificationKey"];
 
@@ -1929,29 +1897,29 @@ void __47__HMDRemoteDeviceMonitor_handleAccountRemoved___block_invoke(uint64_t a
       v9 = HMFGetLogIdentifier();
       v10 = [v5 shortDescription];
       *buf = 138543618;
-      v23 = v9;
-      v24 = 2114;
-      v25 = v10;
+      v22 = v9;
+      v23 = 2114;
+      v24 = v10;
       _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Stopping monitoring account: %{public}@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v11 = [v5 devices];
-    v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v18;
+      v14 = *v17;
       do
       {
         v15 = 0;
         do
         {
-          if (*v18 != v14)
+          if (*v17 != v14)
           {
             objc_enumerationMutation(v11);
           }
@@ -1960,19 +1928,17 @@ void __47__HMDRemoteDeviceMonitor_handleAccountRemoved___block_invoke(uint64_t a
         }
 
         while (v13 != v15);
-        v13 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v13);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopMonitoringDevice:(uint64_t)device
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (device)
   {
@@ -1996,11 +1962,11 @@ void __47__HMDRemoteDeviceMonitor_handleAccountRemoved___block_invoke(uint64_t a
         {
           v10 = HMFGetLogIdentifier();
           v12 = [objc_getProperty(v5 v11];
-          v17 = 138543618;
-          v18 = v10;
-          v19 = 2114;
-          v20 = v12;
-          _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Stopping monitoring of device: %{public}@", &v17, 0x16u);
+          v16 = 138543618;
+          v17 = v10;
+          v18 = 2114;
+          v19 = v12;
+          _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Stopping monitoring of device: %{public}@", &v16, 0x16u);
         }
 
         objc_autoreleasePoolPop(v7);
@@ -2017,8 +1983,6 @@ void __47__HMDRemoteDeviceMonitor_handleAccountRemoved___block_invoke(uint64_t a
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleDeviceRemovedFromAccount:(id)account
@@ -2131,7 +2095,7 @@ void __52__HMDRemoteDeviceMonitor_handleCurrentDeviceUpdate___block_invoke(uint6
 
 void __76__HMDRemoteDeviceMonitor_confirmDevice_forClient_timeout_completionHandler___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [(HMDRemoteDeviceMonitor *)*(a1 + 32) _startMonitoringDevice:0 withInitialReachability:*(a1 + 48) forClient:?];
   if (v2)
   {
@@ -2147,22 +2111,20 @@ void __76__HMDRemoteDeviceMonitor_confirmDevice_forClient_timeout_completionHand
     {
       v6 = HMFGetLogIdentifier();
       v7 = *(a1 + 40);
-      v9 = 138543618;
-      v10 = v6;
-      v11 = 2112;
-      v12 = v7;
-      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain device information even after monitoring was started for device: %@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v6;
+      v10 = 2112;
+      v11 = v7;
+      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain device information even after monitoring was started for device: %@", &v8, 0x16u);
     }
 
     objc_autoreleasePoolPop(v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDRemoteDeviceInformation)_startMonitoringDevice:(void *)device withInitialReachability:(void *)reachability forClient:
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   v7 = a2;
   deviceCopy = device;
   reachabilityCopy = reachability;
@@ -2171,10 +2133,10 @@ void __76__HMDRemoteDeviceMonitor_confirmDevice_forClient_timeout_completionHand
     dispatch_assert_queue_V2(*(self + 16));
     if (v7)
     {
-      v66 = reachabilityCopy;
-      v70 = 0;
+      v65 = reachabilityCopy;
+      v69 = 0;
       accountRegistry = [self accountRegistry];
-      v10 = [accountRegistry deviceForDevice:v7 exists:&v70];
+      v10 = [accountRegistry deviceForDevice:v7 exists:&v69];
 
       if (([v10 isCurrentDevice] & 1) == 0)
       {
@@ -2184,28 +2146,28 @@ void __76__HMDRemoteDeviceMonitor_confirmDevice_forClient_timeout_completionHand
         if (!hmf_isEmpty)
         {
           os_unfair_lock_lock_with_options();
-          v21 = [(HMDRemoteDeviceMonitor *)self _deviceInformationForDevice:v10];
-          v23 = v21;
-          if (v21)
+          v20 = [(HMDRemoteDeviceMonitor *)self _deviceInformationForDevice:v10];
+          v22 = v20;
+          if (v20)
           {
-            objc_setProperty_atomic(v21, v22, v10, 16);
-            v18 = v23;
+            objc_setProperty_atomic(v20, v21, v10, 16);
+            v18 = v22;
           }
 
           else
           {
             v18 = [HMDRemoteDeviceInformation alloc];
-            v24 = *(self + 16);
+            v23 = *(self + 16);
             WeakRetained = objc_loadWeakRetained((self + 96));
-            v26 = v10;
-            HIDWORD(obj) = HIDWORD(v24);
-            v64 = v24;
-            v27 = WeakRetained;
-            v28 = v27;
-            v62 = v26;
+            v25 = v10;
+            HIDWORD(obj) = HIDWORD(v23);
+            v63 = v23;
+            v26 = WeakRetained;
+            v27 = v26;
+            v61 = v25;
             if (v18)
             {
-              if (!v26 || !v64 || !v27)
+              if (!v25 || !v63 || !v26)
               {
                 _HMFPreconditionFailure();
                 __break(1u);
@@ -2213,13 +2175,13 @@ void __76__HMDRemoteDeviceMonitor_confirmDevice_forClient_timeout_completionHand
 
               *buf = v18;
               *&buf[8] = HMDRemoteDeviceInformation;
-              v29 = objc_msgSendSuper2(buf, sel_init);
-              v18 = v29;
-              if (v29)
+              v28 = objc_msgSendSuper2(buf, sel_init);
+              v18 = v28;
+              if (v28)
               {
-                objc_storeStrong(&v29->_device, v10);
-                objc_storeStrong(&v18->_workQueue, v24);
-                objc_storeWeak(&v18->_factory, v28);
+                objc_storeStrong(&v28->_device, v10);
+                objc_storeStrong(&v18->_workQueue, v23);
+                objc_storeWeak(&v18->_factory, v27);
                 v18->_reachable = 1;
                 array = [MEMORY[0x277CBEB18] array];
                 confirmationHandlers = v18->_confirmationHandlers;
@@ -2231,31 +2193,31 @@ void __76__HMDRemoteDeviceMonitor_confirmDevice_forClient_timeout_completionHand
               }
             }
 
-            v34 = *(self + 104);
-            [v34 setObject:v18 forKey:v62];
+            v33 = *(self + 104);
+            [v33 setObject:v18 forKey:v61];
           }
 
           os_unfair_lock_unlock((self + 8));
-          if (v66)
+          if (v65)
           {
             os_unfair_lock_lock_with_options();
             if (v18)
             {
-              v35 = v18->_clients;
+              v34 = v18->_clients;
             }
 
             else
             {
-              v35 = 0;
+              v34 = 0;
             }
 
-            v36 = v35;
-            [(NSHashTable *)v36 addObject:v66];
+            v35 = v34;
+            [(NSHashTable *)v35 addObject:v65];
 
             os_unfair_lock_unlock((self + 8));
           }
 
-          if (v23)
+          if (v22)
           {
             if (deviceCopy && ([deviceCopy BOOLValue] & 1) == 0)
             {
@@ -2266,11 +2228,11 @@ void __76__HMDRemoteDeviceMonitor_confirmDevice_forClient_timeout_completionHand
           else
           {
             v18 = v18;
-            v63 = deviceCopy;
+            v62 = deviceCopy;
             dispatch_assert_queue_V2(*(self + 16));
             if (v18)
             {
-              Property = objc_getProperty(v18, v37, 16, 1);
+              Property = objc_getProperty(v18, v36, 16, 1);
             }
 
             else
@@ -2286,101 +2248,101 @@ void __76__HMDRemoteDeviceMonitor_confirmDevice_forClient_timeout_completionHand
             }
 
             LODWORD(obj) = [self isReachable];
-            if (v63 && ([v63 BOOLValue] & 1) == 0)
+            if (v62 && ([v62 BOOLValue] & 1) == 0)
             {
-              LODWORD(obj) = [v63 BOOLValue];
-              v40 = 6;
+              LODWORD(obj) = [v62 BOOLValue];
+              v39 = 6;
             }
 
             else
             {
-              v40 = 5;
+              v39 = 5;
             }
 
-            v59 = v40;
+            v58 = v39;
             context = objc_autoreleasePoolPush();
             selfCopy = self;
-            v42 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
+            v41 = HMFGetOSLogHandle();
+            if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
             {
-              v44 = HMFGetLogIdentifier();
+              v43 = HMFGetLogIdentifier();
               if (v18)
               {
-                v45 = objc_getProperty(v18, v43, 16, 1);
+                v44 = objc_getProperty(v18, v42, 16, 1);
               }
 
               else
               {
-                v45 = 0;
+                v44 = 0;
               }
 
-              shortDescription = [v45 shortDescription];
-              v47 = HMFBooleanToString();
+              shortDescription = [v44 shortDescription];
+              v46 = HMFBooleanToString();
               *buf = 138543874;
-              *&buf[4] = v44;
+              *&buf[4] = v43;
               *&buf[12] = 2114;
               *&buf[14] = shortDescription;
-              v72 = 2112;
-              v73 = v47;
-              _os_log_impl(&dword_229538000, v42, OS_LOG_TYPE_INFO, "%{public}@Marking newly added device: %{public}@ with reachability: %@", buf, 0x20u);
+              v71 = 2112;
+              v72 = v46;
+              _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_INFO, "%{public}@Marking newly added device: %{public}@ with reachability: %@", buf, 0x20u);
             }
 
             objc_autoreleasePoolPop(context);
-            [(HMDRemoteDeviceMonitor *)selfCopy handleReachabilityChange:v18 deviceInformation:v59 reason:1 didStartMonitoringDevice:?];
+            [(HMDRemoteDeviceMonitor *)selfCopy handleReachabilityChange:v18 deviceInformation:v58 reason:1 didStartMonitoringDevice:?];
 
             os_unfair_lock_lock_with_options();
-            v48 = BYTE1(selfCopy[8]._os_unfair_lock_opaque);
+            v47 = BYTE1(selfCopy[8]._os_unfair_lock_opaque);
             os_unfair_lock_unlock(selfCopy + 2);
-            if (v48 == 1)
+            if (v47 == 1)
             {
               isWatch();
               [(HMDRemoteDeviceInformation *)v18 addState:?];
-              v68[0] = MEMORY[0x277D85DD0];
-              v68[1] = 3221225472;
-              v68[2] = __83__HMDRemoteDeviceMonitor__startMonitoringDevice_withInitialReachability_forClient___block_invoke;
-              v68[3] = &unk_27868A1D8;
-              v68[4] = selfCopy;
-              v69 = v10;
-              [(HMDRemoteDeviceMonitor *)selfCopy _confirmDevice:v18 timeout:v68 completionHandler:65.0];
+              v67[0] = MEMORY[0x277D85DD0];
+              v67[1] = 3221225472;
+              v67[2] = __83__HMDRemoteDeviceMonitor__startMonitoringDevice_withInitialReachability_forClient___block_invoke;
+              v67[3] = &unk_27868A1D8;
+              v67[4] = selfCopy;
+              v68 = v10;
+              [(HMDRemoteDeviceMonitor *)selfCopy _confirmDevice:v18 timeout:v67 completionHandler:65.0];
             }
 
-            v49 = objc_autoreleasePoolPush();
-            v50 = selfCopy;
-            v51 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
+            v48 = objc_autoreleasePoolPush();
+            v49 = selfCopy;
+            v50 = HMFGetOSLogHandle();
+            if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
             {
-              v53 = HMFGetLogIdentifier();
+              v52 = HMFGetLogIdentifier();
               if (v18)
               {
-                v54 = objc_getProperty(v18, v52, 16, 1);
+                v53 = objc_getProperty(v18, v51, 16, 1);
               }
 
               else
               {
-                v54 = 0;
+                v53 = 0;
               }
 
-              shortDescription2 = [v54 shortDescription];
+              shortDescription2 = [v53 shortDescription];
               *buf = 138543618;
-              *&buf[4] = v53;
+              *&buf[4] = v52;
               *&buf[12] = 2114;
               *&buf[14] = shortDescription2;
-              _os_log_impl(&dword_229538000, v51, OS_LOG_TYPE_INFO, "%{public}@Starting IDS Activity for device: %{public}@", buf, 0x16u);
+              _os_log_impl(&dword_229538000, v50, OS_LOG_TYPE_INFO, "%{public}@Starting IDS Activity for device: %{public}@", buf, 0x16u);
             }
 
-            objc_autoreleasePoolPop(v49);
-            v57 = v50[8];
+            objc_autoreleasePoolPop(v48);
+            v56 = v49[8];
             if (v18)
             {
-              v58 = objc_getProperty(v18, v56, 16, 1);
+              v57 = objc_getProperty(v18, v55, 16, 1);
             }
 
             else
             {
-              v58 = 0;
+              v57 = 0;
             }
 
-            [v57 startObservingPresenceForDevice:{v58, v59}];
+            [v56 startObservingPresenceForDevice:{v57, v58}];
           }
 
           goto LABEL_9;
@@ -2397,8 +2359,8 @@ void __76__HMDRemoteDeviceMonitor_confirmDevice_forClient_timeout_completionHand
           *&buf[4] = v16;
           *&buf[12] = 2112;
           *&buf[14] = v10;
-          v72 = 2112;
-          v73 = v17;
+          v71 = 2112;
+          v72 = v17;
           _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Cannot monitor a device without any handles: %@, device found in account register: %@", buf, 0x20u);
         }
 
@@ -2408,7 +2370,7 @@ void __76__HMDRemoteDeviceMonitor_confirmDevice_forClient_timeout_completionHand
       v18 = 0;
 LABEL_9:
 
-      reachabilityCopy = v66;
+      reachabilityCopy = v65;
       goto LABEL_11;
     }
   }
@@ -2416,14 +2378,12 @@ LABEL_9:
   v18 = 0;
 LABEL_11:
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 void __83__HMDRemoteDeviceMonitor__startMonitoringDevice_withInitialReachability_forClient___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -2434,62 +2394,60 @@ void __83__HMDRemoteDeviceMonitor__startMonitoringDevice_withInitialReachability
     {
       v7 = HMFGetLogIdentifier();
       v8 = [*(a1 + 40) shortDescription];
-      v10 = 138543618;
-      v11 = v7;
-      v12 = 2114;
-      v13 = v8;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Determined newly monitored device is unreachable: %{public}@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v7;
+      v11 = 2114;
+      v12 = v8;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Determined newly monitored device is unreachable: %{public}@", &v9, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleGlobalReachabilityChange
 {
   selfCopy = self;
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   if (__HMDRemoteDeviceMonitorReachable(selfCopy))
   {
     [(HMDRemoteDeviceMonitor *)selfCopy setReachable:?];
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
     v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
     devices = [(HMDRemoteDeviceMonitor *)selfCopy devices];
     objectEnumerator = [devices objectEnumerator];
     allObjects = [objectEnumerator allObjects];
 
-    v6 = [allObjects countByEnumeratingWithState:&v49 objects:v58 count:16];
+    v6 = [allObjects countByEnumeratingWithState:&v48 objects:v57 count:16];
     if (!v6)
     {
       goto LABEL_43;
     }
 
     v9 = v6;
-    v10 = *v50;
+    v10 = *v49;
     *&v8 = 138543618;
-    v41 = v8;
-    v43 = selfCopy;
-    v44 = allObjects;
-    v42 = *v50;
+    v40 = v8;
+    v42 = selfCopy;
+    v43 = allObjects;
+    v41 = *v49;
     while (1)
     {
       v11 = 0;
       do
       {
-        if (*v50 != v10)
+        if (*v49 != v10)
         {
           objc_enumerationMutation(allObjects);
         }
 
-        v12 = *(*(&v49 + 1) + 8 * v11);
+        v12 = *(*(&v48 + 1) + 8 * v11);
         if (v12)
         {
-          if ([objc_getProperty(*(*(&v49 + 1) + 8 * v11) v7])
+          if ([objc_getProperty(*(*(&v48 + 1) + 8 * v11) v7])
           {
             goto LABEL_22;
           }
@@ -2530,19 +2488,19 @@ void __83__HMDRemoteDeviceMonitor__startMonitoringDevice_withInitialReachability
           }
 
           shortDescription = [Property shortDescription];
-          *buf = v41;
-          v55 = v19;
-          v56 = 2114;
-          v57 = shortDescription;
+          *buf = v40;
+          v54 = v19;
+          v55 = 2114;
+          v56 = shortDescription;
           _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Marking formerly unreachable device as reachable now that we are reachable: %{public}@", buf, 0x16u);
 
-          v10 = v42;
-          selfCopy = v43;
+          v10 = v41;
+          selfCopy = v42;
         }
 
         objc_autoreleasePoolPop(v15);
         [(HMDRemoteDeviceMonitor *)v16 handleReachabilityChange:v12 deviceInformation:5uLL reason:0 didStartMonitoringDevice:?];
-        allObjects = v44;
+        allObjects = v43;
 LABEL_15:
         if (v13 & 1) == 0 && (v14)
         {
@@ -2563,19 +2521,19 @@ LABEL_15:
             }
 
             shortDescription2 = [v27 shortDescription];
-            *buf = v41;
-            v55 = v26;
-            v56 = 2114;
-            v57 = shortDescription2;
+            *buf = v40;
+            v54 = v26;
+            v55 = 2114;
+            v56 = shortDescription2;
             _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@Confirming device due to network change: %{public}@", buf, 0x16u);
 
-            v10 = v42;
-            selfCopy = v43;
+            v10 = v41;
+            selfCopy = v42;
           }
 
           objc_autoreleasePoolPop(v22);
           [(HMDRemoteDeviceMonitor *)v23 _confirmDevice:v12 timeout:0 completionHandler:65.0];
-          allObjects = v44;
+          allObjects = v43;
         }
 
 LABEL_22:
@@ -2583,7 +2541,7 @@ LABEL_22:
       }
 
       while (v9 != v11);
-      v29 = [allObjects countByEnumeratingWithState:&v49 objects:v58 count:16];
+      v29 = [allObjects countByEnumeratingWithState:&v48 objects:v57 count:16];
       v9 = v29;
       if (!v29)
       {
@@ -2593,33 +2551,33 @@ LABEL_22:
   }
 
   [(HMDRemoteDeviceMonitor *)selfCopy setReachable:?];
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   devices2 = [(HMDRemoteDeviceMonitor *)selfCopy devices];
   objectEnumerator2 = [devices2 objectEnumerator];
   allObjects = [objectEnumerator2 allObjects];
 
-  v32 = [allObjects countByEnumeratingWithState:&v45 objects:v53 count:16];
+  v32 = [allObjects countByEnumeratingWithState:&v44 objects:v52 count:16];
   if (v32)
   {
     v34 = v32;
-    v35 = *v46;
+    v35 = *v45;
     do
     {
       v36 = 0;
       do
       {
-        if (*v46 != v35)
+        if (*v45 != v35)
         {
           objc_enumerationMutation(allObjects);
         }
 
-        v37 = *(*(&v45 + 1) + 8 * v36);
+        v37 = *(*(&v44 + 1) + 8 * v36);
         if (v37)
         {
-          v38 = objc_getProperty(*(*(&v45 + 1) + 8 * v36), v33, 16, 1);
+          v38 = objc_getProperty(*(*(&v44 + 1) + 8 * v36), v33, 16, 1);
         }
 
         else
@@ -2636,7 +2594,7 @@ LABEL_22:
       }
 
       while (v34 != v36);
-      v39 = [allObjects countByEnumeratingWithState:&v45 objects:v53 count:16];
+      v39 = [allObjects countByEnumeratingWithState:&v44 objects:v52 count:16];
       v34 = v39;
     }
 
@@ -2644,61 +2602,55 @@ LABEL_22:
   }
 
 LABEL_43:
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setReachable:(uint64_t)reachable
 {
-  v18 = *MEMORY[0x277D85DE8];
-  if (!reachable)
+  v16 = *MEMORY[0x277D85DE8];
+  if (reachable)
   {
-LABEL_13:
-    v13 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  os_unfair_lock_lock_with_options();
-  if (*(reachable + 32) != a2)
-  {
-    *(reachable + 32) = a2;
-    os_unfair_lock_unlock((reachable + 8));
-    WeakRetained = objc_loadWeakRetained((reachable + 72));
-    device = [WeakRetained device];
-
-    if (device)
+    os_unfair_lock_lock_with_options();
+    if (*(reachable + 32) == a2)
     {
-      v7 = objc_autoreleasePoolPush();
-      reachableCopy = reachable;
-      v9 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
-      {
-        v10 = HMFGetLogIdentifier();
-        v11 = v10;
-        v12 = "unreachable";
-        if (a2)
-        {
-          v12 = "reachable";
-        }
 
-        v14 = 138543618;
-        v15 = v10;
-        v16 = 2080;
-        v17 = v12;
-        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Marking current device as %s", &v14, 0x16u);
-      }
-
-      objc_autoreleasePoolPop(v7);
-      [(HMDRemoteDeviceMonitor *)reachableCopy notifyDeviceReachabilityChange:a2 forDevice:device];
-      logAndPostNotification(@"HMDRemoteDeviceMonitorReachableNotification", reachableCopy, 0);
+      os_unfair_lock_unlock((reachable + 8));
     }
 
-    goto LABEL_13;
+    else
+    {
+      *(reachable + 32) = a2;
+      os_unfair_lock_unlock((reachable + 8));
+      WeakRetained = objc_loadWeakRetained((reachable + 72));
+      device = [WeakRetained device];
+
+      if (device)
+      {
+        v6 = objc_autoreleasePoolPush();
+        reachableCopy = reachable;
+        v8 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+        {
+          v9 = HMFGetLogIdentifier();
+          v10 = v9;
+          v11 = "unreachable";
+          if (a2)
+          {
+            v11 = "reachable";
+          }
+
+          v12 = 138543618;
+          v13 = v9;
+          v14 = 2080;
+          v15 = v11;
+          _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Marking current device as %s", &v12, 0x16u);
+        }
+
+        objc_autoreleasePoolPop(v6);
+        [(HMDRemoteDeviceMonitor *)reachableCopy notifyDeviceReachabilityChange:a2 forDevice:device];
+        logAndPostNotification(@"HMDRemoteDeviceMonitorReachableNotification", reachableCopy, 0);
+      }
+    }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
-
-  os_unfair_lock_unlock((reachable + 8));
 }
 
 - (void)stopMonitoringDevice:(id)device forClient:(id)client
@@ -2721,7 +2673,7 @@ LABEL_13:
 
 void __57__HMDRemoteDeviceMonitor_stopMonitoringDevice_forClient___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   os_unfair_lock_lock_with_options();
   v3 = *(a1 + 32);
@@ -2753,21 +2705,21 @@ void __57__HMDRemoteDeviceMonitor_stopMonitoringDevice_forClient___block_invoke(
     v11 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v19 = v9;
+      v18 = v9;
       v12 = HMFGetLogIdentifier();
       v13 = v5[7];
       v14 = [v13 count];
       v16 = objc_getProperty(v5, v15, 16, 1);
       v17 = [v16 shortDescription];
       *buf = 138543874;
-      v21 = v12;
-      v22 = 2048;
-      v23 = v14;
-      v24 = 2114;
-      v25 = v17;
+      v20 = v12;
+      v21 = 2048;
+      v22 = v14;
+      v23 = 2114;
+      v24 = v17;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@There are still %lu clients monitoring device: %{public}@", buf, 0x20u);
 
-      v9 = v19;
+      v9 = v18;
     }
 
     objc_autoreleasePoolPop(v9);
@@ -2775,8 +2727,6 @@ void __57__HMDRemoteDeviceMonitor_stopMonitoringDevice_forClient___block_invoke(
 
   os_unfair_lock_unlock(v2 + 2);
 LABEL_10:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startMonitoringDevice:(id)device withInitialReachability:(id)reachability forClient:(id)client
@@ -2801,7 +2751,7 @@ LABEL_10:
 
 id __82__HMDRemoteDeviceMonitor_startMonitoringDevice_withInitialReachability_forClient___block_invoke(id *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = a1[4];
   v4 = HMFGetOSLogHandle();
@@ -2810,49 +2760,47 @@ id __82__HMDRemoteDeviceMonitor_startMonitoringDevice_withInitialReachability_fo
     v5 = HMFGetLogIdentifier();
     v6 = [a1[5] shortDescription];
     v7 = a1[6];
-    v10 = 138543874;
-    v11 = v5;
-    v12 = 2114;
-    v13 = v6;
-    v14 = 2114;
-    v15 = v7;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Received request to start monitoring device: %{public}@ with initial reachability: %{public}@", &v10, 0x20u);
+    v9 = 138543874;
+    v10 = v5;
+    v11 = 2114;
+    v12 = v6;
+    v13 = 2114;
+    v14 = v7;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Received request to start monitoring device: %{public}@ with initial reachability: %{public}@", &v9, 0x20u);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [(HMDRemoteDeviceMonitor *)a1[4] _startMonitoringDevice:a1[6] withInitialReachability:a1[7] forClient:?];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return [(HMDRemoteDeviceMonitor *)a1[4] _startMonitoringDevice:a1[6] withInitialReachability:a1[7] forClient:?];
 }
 
 - (NSArray)unreachableDevices
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB58] set];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   devices = [(HMDRemoteDeviceMonitor *)self devices];
-  v5 = [devices countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [devices countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (!v5)
   {
     goto LABEL_14;
   }
 
   v7 = v5;
-  v8 = *v19;
+  v8 = *v18;
   do
   {
     v9 = 0;
     do
     {
-      if (*v19 != v8)
+      if (*v18 != v8)
       {
         objc_enumerationMutation(devices);
       }
 
-      v10 = *(*(&v18 + 1) + 8 * v9);
+      v10 = *(*(&v17 + 1) + 8 * v9);
       if (v10)
       {
         if (v10[8])
@@ -2868,13 +2816,13 @@ id __82__HMDRemoteDeviceMonitor_startMonitoringDevice_withInitialReachability_fo
         Property = 0;
       }
 
-      [v3 addObject:{Property, v18}];
+      [v3 addObject:{Property, v17}];
 LABEL_10:
       ++v9;
     }
 
     while (v7 != v9);
-    v12 = [devices countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v12 = [devices countByEnumeratingWithState:&v17 objects:v21 count:16];
     v7 = v12;
   }
 
@@ -2900,8 +2848,6 @@ LABEL_14:
 
   allObjects = [v3 allObjects];
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return allObjects;
 }
 
@@ -2926,7 +2872,7 @@ LABEL_14:
 
 void __31__HMDRemoteDeviceMonitor_start__block_invoke(uint64_t a1)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -2934,7 +2880,7 @@ void __31__HMDRemoteDeviceMonitor_start__block_invoke(uint64_t a1)
   {
     v5 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v42 = v5;
+    v40 = v5;
     _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Starting", buf, 0xCu);
   }
 
@@ -2966,7 +2912,7 @@ void __31__HMDRemoteDeviceMonitor_start__block_invoke(uint64_t a1)
   [v10 addDelegate:*(a1 + 32) queue:*(*(a1 + 32) + 16)];
   [v10 addRegistrationDelegate:*(a1 + 32) queue:*(*(a1 + 32) + 16)];
   v11 = *(a1 + 32);
-  v35 = v10;
+  v33 = v10;
   if (v11 && (objc_storeWeak((v11 + 56), v10), (v12 = *(a1 + 32)) != 0))
   {
     v13 = *(v12 + 64);
@@ -2977,54 +2923,53 @@ void __31__HMDRemoteDeviceMonitor_start__block_invoke(uint64_t a1)
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x277D18518];
   [v13 addObserver:? forSubActivity:?];
-  v15 = *(a1 + 32);
-  if (v15)
+  v14 = *(a1 + 32);
+  if (v14)
   {
-    dispatch_assert_queue_V2(*(v15 + 16));
+    dispatch_assert_queue_V2(*(v14 + 16));
     os_unfair_lock_lock_with_options();
-    *(v15 + 33) = 1;
-    os_unfair_lock_unlock((v15 + 8));
-    v16 = *(a1 + 32);
+    *(v14 + 33) = 1;
+    os_unfair_lock_unlock((v14 + 8));
+    v15 = *(a1 + 32);
   }
 
   else
   {
-    v16 = 0;
+    v15 = 0;
   }
 
-  [v16 _handleGlobalReachabilityChange];
-  v39 = 0u;
-  v40 = 0u;
+  [v15 _handleGlobalReachabilityChange];
   v37 = 0u;
   v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   obj = [(HMDRemoteDeviceMonitor *)*(a1 + 32) devices];
-  v17 = [obj countByEnumeratingWithState:&v37 objects:v45 count:16];
-  if (v17)
+  v16 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
+  if (v16)
   {
-    v18 = v17;
-    v19 = *v38;
+    v17 = v16;
+    v18 = *v36;
     do
     {
-      v20 = 0;
+      v19 = 0;
       do
       {
-        if (*v38 != v19)
+        if (*v36 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v37 + 1) + 8 * v20);
-        v22 = objc_autoreleasePoolPush();
-        v23 = *(a1 + 32);
-        v24 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+        v20 = *(*(&v35 + 1) + 8 * v19);
+        v21 = objc_autoreleasePoolPush();
+        v22 = *(a1 + 32);
+        v23 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
         {
-          v26 = HMFGetLogIdentifier();
-          if (v21)
+          v25 = HMFGetLogIdentifier();
+          if (v20)
           {
-            Property = objc_getProperty(v21, v25, 16, 1);
+            Property = objc_getProperty(v20, v24, 16, 1);
           }
 
           else
@@ -3032,49 +2977,47 @@ void __31__HMDRemoteDeviceMonitor_start__block_invoke(uint64_t a1)
             Property = 0;
           }
 
-          v28 = [Property shortDescription];
+          v27 = [Property shortDescription];
           *buf = 138543618;
-          v42 = v26;
-          v43 = 2114;
-          v44 = v28;
-          _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@Initializing IDS Activity for device: %{public}@", buf, 0x16u);
+          v40 = v25;
+          v41 = 2114;
+          v42 = v27;
+          _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Initializing IDS Activity for device: %{public}@", buf, 0x16u);
         }
 
-        objc_autoreleasePoolPop(v22);
-        v29 = *(a1 + 32);
-        if (v29)
+        objc_autoreleasePoolPop(v21);
+        v28 = *(a1 + 32);
+        if (v28)
         {
-          v29 = v29[8];
+          v28 = v28[8];
         }
 
-        v31 = v29;
-        if (v21)
+        v30 = v28;
+        if (v20)
         {
-          v32 = objc_getProperty(v21, v30, 16, 1);
+          v31 = objc_getProperty(v20, v29, 16, 1);
         }
 
         else
         {
-          v32 = 0;
+          v31 = 0;
         }
 
-        [v31 startObservingPresenceForDevice:v32];
+        [v30 startObservingPresenceForDevice:v31];
 
         isWatch();
-        [(HMDRemoteDeviceInformation *)v21 addState:?];
-        [(HMDRemoteDeviceMonitor *)*(a1 + 32) _confirmDevice:v21 timeout:0 completionHandler:65.0];
-        ++v20;
+        [(HMDRemoteDeviceInformation *)v20 addState:?];
+        [(HMDRemoteDeviceMonitor *)*(a1 + 32) _confirmDevice:v20 timeout:0 completionHandler:65.0];
+        ++v19;
       }
 
-      while (v18 != v20);
-      v33 = [obj countByEnumeratingWithState:&v37 objects:v45 count:16];
-      v18 = v33;
+      while (v17 != v19);
+      v32 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
+      v17 = v32;
     }
 
-    while (v33);
+    while (v32);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -3089,35 +3032,35 @@ void __31__HMDRemoteDeviceMonitor_start__block_invoke(uint64_t a1)
 
 - (id)dumpState
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   devices = [(HMDRemoteDeviceMonitor *)self devices];
   if ([devices count])
   {
     v3 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(devices, "count")}];
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
     v4 = devices;
-    v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v13;
+      v7 = *v12;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v13 != v7)
+          if (*v12 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = [*(*(&v12 + 1) + 8 * i) description];
+          v9 = [*(*(&v11 + 1) + 8 * i) description];
           [v3 addObject:v9];
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v6);
@@ -3128,8 +3071,6 @@ void __31__HMDRemoteDeviceMonitor_start__block_invoke(uint64_t a1)
   {
     v3 = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -3197,7 +3138,7 @@ void __31__HMDRemoteDeviceMonitor_start__block_invoke(uint64_t a1)
 
 - (HMDRemoteDeviceMonitor)initWithAccountRegistry:(id)registry activityObserver:(id)observer accountManager:(id)manager
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   registryCopy = registry;
   observerCopy = observer;
   managerCopy = manager;
@@ -3219,38 +3160,37 @@ void __31__HMDRemoteDeviceMonitor_start__block_invoke(uint64_t a1)
 
   else
   {
-    v23 = objc_autoreleasePoolPush();
+    v22 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v25 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+    v24 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
     {
-      v26 = HMFGetLogIdentifier();
+      v25 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v33 = v26;
-      _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: IDSService is nil", buf, 0xCu);
+      v32 = v25;
+      _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: IDSService is nil", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v23);
-    v27 = [[HMDAssertionLogEvent alloc] initWithReason:@"IDSService is nil"];
-    v28 = +[HMDMetricsManager sharedLogEventSubmitter];
-    [v28 submitLogEvent:v27];
+    objc_autoreleasePoolPop(v22);
+    v26 = [[HMDAssertionLogEvent alloc] initWithReason:@"IDSService is nil"];
+    v27 = +[HMDMetricsManager sharedLogEventSubmitter];
+    [v27 submitLogEvent:v26];
 
-    v29 = objc_autoreleasePoolPush();
+    v28 = objc_autoreleasePoolPush();
     v19 = selfCopy;
-    v30 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v29 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      v31 = HMFGetLogIdentifier();
+      v30 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v33 = v31;
-      _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_ERROR, "%{public}@An IDS service is not available", buf, 0xCu);
+      v32 = v30;
+      _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_ERROR, "%{public}@An IDS service is not available", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v29);
+    objc_autoreleasePoolPop(v28);
     v20 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -3281,10 +3221,9 @@ void __31__HMDRemoteDeviceMonitor_start__block_invoke(uint64_t a1)
 
 void __37__HMDRemoteDeviceMonitor_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v56;
-  logCategory__hmf_once_v56 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v56;
+  logCategory__hmf_once_v56 = v0;
 }
 
 + (id)pingMessageForDevice:(id)device timeout:(double)timeout restriction:(unint64_t)restriction

@@ -22,7 +22,7 @@
   return v2;
 }
 
-uint64_t __46__MIContainerProtectionManager_defaultManager__block_invoke()
+uint64_t __46__MIContainerProtectionManager_defaultManager__block_invoke(uint64_t a1)
 {
   defaultManager_defaultManager = objc_alloc_init(objc_opt_class());
 

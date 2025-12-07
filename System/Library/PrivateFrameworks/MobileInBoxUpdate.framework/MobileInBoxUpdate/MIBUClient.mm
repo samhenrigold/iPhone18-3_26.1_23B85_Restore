@@ -36,7 +36,7 @@
 
 - (void)invalidate
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   connection = [(MIBUClient *)self connection];
 
   if (connection)
@@ -49,9 +49,9 @@
     v4 = MIBUConnObj;
     if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = @"com.apple.inboxupdaterd";
-      _os_log_impl(&dword_259ABF000, v4, OS_LOG_TYPE_DEFAULT, "Invalidating connection to %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = @"com.apple.inboxupdaterd";
+      _os_log_impl(&dword_259ABF000, v4, OS_LOG_TYPE_DEFAULT, "Invalidating connection to %@", &v6, 0xCu);
     }
 
     connection2 = [(MIBUClient *)self connection];
@@ -59,8 +59,6 @@
 
     [(MIBUClient *)self setConnection:0];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __24__MIBUClient_invalidate__block_invoke()
@@ -215,7 +213,7 @@ void __32__MIBUClient_isInBoxUpdateMode___block_invoke_2()
 
 void __32__MIBUClient_isInBoxUpdateMode___block_invoke_37(uint64_t a1, int a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (MIBUOnceToken != -1)
   {
@@ -225,13 +223,13 @@ void __32__MIBUClient_isInBoxUpdateMode___block_invoke_37(uint64_t a1, int a2, v
   v6 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136315650;
-    v12 = "[MIBUClient isInBoxUpdateMode:]_block_invoke";
-    v13 = 1024;
-    v14 = a2;
-    v15 = 2114;
-    v16 = v5;
-    _os_log_impl(&dword_259ABF000, v6, OS_LOG_TYPE_DEFAULT, "%s: isInDiagnosticMode = %d; error = %{public}@", &v11, 0x1Cu);
+    v10 = 136315650;
+    v11 = "[MIBUClient isInBoxUpdateMode:]_block_invoke";
+    v12 = 1024;
+    v13 = a2;
+    v14 = 2114;
+    v15 = v5;
+    _os_log_impl(&dword_259ABF000, v6, OS_LOG_TYPE_DEFAULT, "%s: isInDiagnosticMode = %d; error = %{public}@", &v10, 0x1Cu);
   }
 
   v7 = *(*(a1 + 32) + 8);
@@ -240,7 +238,6 @@ void __32__MIBUClient_isInBoxUpdateMode___block_invoke_37(uint64_t a1, int a2, v
   v9 = v5;
 
   *(*(*(a1 + 40) + 8) + 24) = a2;
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __32__MIBUClient_isInBoxUpdateMode___block_invoke_2_38()
@@ -311,7 +308,7 @@ void __32__MIBUClient_isInBoxUpdateMode___block_invoke_2_46()
 
 void __32__MIBUClient_isInBoxUpdateMode___block_invoke_49(uint64_t a1, int a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (MIBUOnceToken != -1)
   {
@@ -321,13 +318,13 @@ void __32__MIBUClient_isInBoxUpdateMode___block_invoke_49(uint64_t a1, int a2, v
   v6 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136315650;
-    v12 = "[MIBUClient isInBoxUpdateMode:]_block_invoke";
-    v13 = 1024;
-    v14 = a2;
-    v15 = 2114;
-    v16 = v5;
-    _os_log_impl(&dword_259ABF000, v6, OS_LOG_TYPE_DEFAULT, "%s: isInBoxUpdateMode = %d; error = %{public}@", &v11, 0x1Cu);
+    v10 = 136315650;
+    v11 = "[MIBUClient isInBoxUpdateMode:]_block_invoke";
+    v12 = 1024;
+    v13 = a2;
+    v14 = 2114;
+    v15 = v5;
+    _os_log_impl(&dword_259ABF000, v6, OS_LOG_TYPE_DEFAULT, "%s: isInBoxUpdateMode = %d; error = %{public}@", &v10, 0x1Cu);
   }
 
   v7 = *(*(a1 + 32) + 8);
@@ -336,7 +333,6 @@ void __32__MIBUClient_isInBoxUpdateMode___block_invoke_49(uint64_t a1, int a2, v
   v9 = v5;
 
   *(*(*(a1 + 40) + 8) + 24) = a2;
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __32__MIBUClient_isInBoxUpdateMode___block_invoke_2_50()
@@ -663,7 +659,7 @@ void __28__MIBUClient_connectToWiFi___block_invoke_2()
 
 void __28__MIBUClient_connectToWiFi___block_invoke_79(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (MIBUOnceToken != -1)
   {
@@ -673,18 +669,16 @@ void __28__MIBUClient_connectToWiFi___block_invoke_79(uint64_t a1, void *a2)
   v4 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "[MIBUClient connectToWiFi:]_block_invoke";
-    v10 = 2114;
-    v11 = v3;
-    _os_log_impl(&dword_259ABF000, v4, OS_LOG_TYPE_DEFAULT, "%s:error = %{public}@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[MIBUClient connectToWiFi:]_block_invoke";
+    v9 = 2114;
+    v10 = v3;
+    _os_log_impl(&dword_259ABF000, v4, OS_LOG_TYPE_DEFAULT, "%s:error = %{public}@", &v7, 0x16u);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __28__MIBUClient_connectToWiFi___block_invoke_2_80()
@@ -793,7 +787,7 @@ void __30__MIBUClient_stopWiFiMonitor___block_invoke_2()
 
 void __30__MIBUClient_stopWiFiMonitor___block_invoke_88(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (MIBUOnceToken != -1)
   {
@@ -803,18 +797,16 @@ void __30__MIBUClient_stopWiFiMonitor___block_invoke_88(uint64_t a1, void *a2)
   v4 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "[MIBUClient stopWiFiMonitor:]_block_invoke";
-    v10 = 2114;
-    v11 = v3;
-    _os_log_impl(&dword_259ABF000, v4, OS_LOG_TYPE_DEFAULT, "%s:error = %{public}@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[MIBUClient stopWiFiMonitor:]_block_invoke";
+    v9 = 2114;
+    v10 = v3;
+    _os_log_impl(&dword_259ABF000, v4, OS_LOG_TYPE_DEFAULT, "%s:error = %{public}@", &v7, 0x16u);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __30__MIBUClient_stopWiFiMonitor___block_invoke_2_89()
@@ -914,7 +906,7 @@ void __52__MIBUClient_setLowPowerModeWithOptions_completion___block_invoke_2()
 
 void __52__MIBUClient_setLowPowerModeWithOptions_completion___block_invoke_97(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (MIBUOnceToken != -1)
   {
@@ -924,16 +916,14 @@ void __52__MIBUClient_setLowPowerModeWithOptions_completion___block_invoke_97(ui
   v4 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "[MIBUClient setLowPowerModeWithOptions:completion:]_block_invoke";
-    v8 = 2114;
-    v9 = v3;
-    _os_log_impl(&dword_259ABF000, v4, OS_LOG_TYPE_DEFAULT, "%s:error = %{public}@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[MIBUClient setLowPowerModeWithOptions:completion:]_block_invoke";
+    v7 = 2114;
+    v8 = v3;
+    _os_log_impl(&dword_259ABF000, v4, OS_LOG_TYPE_DEFAULT, "%s:error = %{public}@", &v5, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __52__MIBUClient_setLowPowerModeWithOptions_completion___block_invoke_2_98()
@@ -1088,7 +1078,7 @@ void __23__MIBUClient_shutdown___block_invoke_2()
 
 void __23__MIBUClient_shutdown___block_invoke_108(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (MIBUOnceToken != -1)
   {
@@ -1098,18 +1088,16 @@ void __23__MIBUClient_shutdown___block_invoke_108(uint64_t a1, void *a2)
   v4 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "[MIBUClient shutdown:]_block_invoke";
-    v10 = 2114;
-    v11 = v3;
-    _os_log_impl(&dword_259ABF000, v4, OS_LOG_TYPE_DEFAULT, "%s:error = %{public}@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[MIBUClient shutdown:]_block_invoke";
+    v9 = 2114;
+    v10 = v3;
+    _os_log_impl(&dword_259ABF000, v4, OS_LOG_TYPE_DEFAULT, "%s:error = %{public}@", &v7, 0x16u);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __23__MIBUClient_shutdown___block_invoke_2_109()
@@ -1141,7 +1129,7 @@ void __23__MIBUClient_shutdown___block_invoke_2_109()
 
 - (void)acquireDarkWakeAssertionIfNeeded:(id *)needed
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (MIBUOnceToken != -1)
   {
     [MIBUClient acquireDarkWakeAssertionIfNeeded:];
@@ -1150,12 +1138,10 @@ void __23__MIBUClient_shutdown___block_invoke_2_109()
   v3 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[MIBUClient acquireDarkWakeAssertionIfNeeded:]";
-    _os_log_impl(&dword_259ABF000, v3, OS_LOG_TYPE_DEFAULT, "%s acquireDarkWakeAssertionIfNeeded", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[MIBUClient acquireDarkWakeAssertionIfNeeded:]";
+    _os_log_impl(&dword_259ABF000, v3, OS_LOG_TYPE_DEFAULT, "%s acquireDarkWakeAssertionIfNeeded", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __47__MIBUClient_acquireDarkWakeAssertionIfNeeded___block_invoke()
@@ -1242,7 +1228,7 @@ void __27__MIBUClient__isActivated___block_invoke()
 
 void __45__MIBUClient_eapConfigurationWithCompletion___block_invoke_61(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v9 = a2;
   v10 = a3;
   v11 = a5;
@@ -1255,11 +1241,11 @@ void __45__MIBUClient_eapConfigurationWithCompletion___block_invoke_61(uint64_t 
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v34 = "[MIBUClient eapConfigurationWithCompletion:]_block_invoke";
+    v32 = "[MIBUClient eapConfigurationWithCompletion:]_block_invoke";
+    v33 = 2114;
+    v34 = v9;
     v35 = 2114;
-    v36 = v9;
-    v37 = 2114;
-    v38 = v10;
+    v36 = v10;
     _os_log_impl(&dword_259ABF000, v12, OS_LOG_TYPE_DEFAULT, "%s: tlsCertData = %{public}@; tlsKeyData = %{public}@", buf, 0x20u);
   }
 
@@ -1286,9 +1272,9 @@ void __45__MIBUClient_eapConfigurationWithCompletion___block_invoke_61(uint64_t 
     v21 = (v20 + 40);
     if (!v22)
     {
-      v31 = 0;
-      v23 = [MIBUCertHelper suCertKeyFromData:v10 isSEPKey:a4 error:&v31];
-      objc_storeStrong(v21, v31);
+      v29 = 0;
+      v23 = [MIBUCertHelper suCertKeyFromData:v10 isSEPKey:a4 error:&v29];
+      objc_storeStrong(v21, v29);
       OUTLINED_FUNCTION_4_4();
       if (!v24)
       {
@@ -1301,11 +1287,8 @@ void __45__MIBUClient_eapConfigurationWithCompletion___block_invoke_61(uint64_t 
     }
   }
 
-  v27 = *(a1 + 32);
   OUTLINED_FUNCTION_6_3();
-  (*(v29 + 16))(v29, *(v28 + 40));
-
-  v30 = *MEMORY[0x277D85DE8];
+  (*(v28 + 16))(v28, *(v27 + 40));
 }
 
 - (void)isInBoxUpdateMode:.cold.1()
@@ -1336,11 +1319,9 @@ void __45__MIBUClient_eapConfigurationWithCompletion___block_invoke_61(uint64_t 
 
 void __32__MIBUClient_isInBoxUpdateMode___block_invoke_33_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1_6();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)eapConfigurationWithCompletion:.cold.1()
@@ -1435,7 +1416,7 @@ void __32__MIBUClient_isInBoxUpdateMode___block_invoke_33_cold_2()
 
 - (void)_isActivated:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (MIBUOnceToken != -1)
   {
     dispatch_once(&MIBUOnceToken, &__block_literal_global_179);
@@ -1444,12 +1425,10 @@ void __32__MIBUClient_isInBoxUpdateMode___block_invoke_33_cold_2()
   v2 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
   {
-    v4 = 138543362;
-    v5 = a1;
-    _os_log_error_impl(&dword_259ABF000, v2, OS_LOG_TYPE_ERROR, "Failed to retrieve device activation state with error: %{public}@", &v4, 0xCu);
+    v3 = 138543362;
+    v4 = a1;
+    _os_log_error_impl(&dword_259ABF000, v2, OS_LOG_TYPE_ERROR, "Failed to retrieve device activation state with error: %{public}@", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -64,7 +64,7 @@
 
 - (void)unregisterFromDarwinNotification:(id)notification
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v6 = objc_msgSend_objectForKey_(self->_tokenByName, v5, notificationCopy);
   v9 = v6;
@@ -84,24 +84,22 @@
       {
         if (os_log_type_enabled(CLSLogNotifications, OS_LOG_TYPE_ERROR))
         {
-          v15 = 138412546;
-          v16 = notificationCopy;
-          v17 = 1024;
-          v18 = v12;
+          v14 = 138412546;
+          v15 = notificationCopy;
+          v16 = 1024;
+          v17 = v12;
         }
       }
 
       else if (os_log_type_enabled(CLSLogNotifications, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 138412290;
-        v16 = notificationCopy;
+        v14 = 138412290;
+        v15 = notificationCopy;
       }
     }
 
     objc_msgSend_removeObjectForKey_(self->_tokenByName, v11, notificationCopy);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleObserverRemoval

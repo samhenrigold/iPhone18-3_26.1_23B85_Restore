@@ -99,16 +99,16 @@ void __30__PSAccountEnumerator_dealloc__block_invoke()
   }
 }
 
-id __39__PSAccountEnumerator_sharedEnumerator__block_invoke()
+id __39__PSAccountEnumerator_sharedEnumerator__block_invoke(uint64_t a1)
 {
   if (_block_invoke_na_once_token_5 != -1)
   {
     __39__PSAccountEnumerator_sharedEnumerator__block_invoke_cold_1();
   }
 
-  v1 = _block_invoke_na_once_object_5;
+  v2 = _block_invoke_na_once_object_5;
 
-  return v1;
+  return v2;
 }
 
 void __39__PSAccountEnumerator_sharedEnumerator__block_invoke_2()
@@ -118,16 +118,16 @@ void __39__PSAccountEnumerator_sharedEnumerator__block_invoke_2()
   _block_invoke_na_once_object_5 = v0;
 }
 
-id __45__PSAccountEnumerator__visibleAccountTypeIDs__block_invoke()
+id __45__PSAccountEnumerator__visibleAccountTypeIDs__block_invoke(uint64_t a1)
 {
   if (_block_invoke_2_na_once_token_6 != -1)
   {
     __45__PSAccountEnumerator__visibleAccountTypeIDs__block_invoke_cold_1();
   }
 
-  v1 = _block_invoke_2_na_once_object_6;
+  v2 = _block_invoke_2_na_once_object_6;
 
-  return v1;
+  return v2;
 }
 
 void __45__PSAccountEnumerator__visibleAccountTypeIDs__block_invoke_2()

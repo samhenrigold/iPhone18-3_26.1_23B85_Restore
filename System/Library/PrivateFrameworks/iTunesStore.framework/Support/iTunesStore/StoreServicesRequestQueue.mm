@@ -157,15 +157,21 @@
     shouldLog = [v10 shouldLog];
     if ([v10 shouldLogToDisk])
     {
-      v12 = shouldLog | 2;
+      LODWORD(v12) = shouldLog | 2;
     }
 
     else
     {
-      v12 = shouldLog;
+      LODWORD(v12) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v10 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v10 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = v12;
+    }
+
+    else
     {
       v12 &= 2u;
     }
@@ -176,20 +182,18 @@
       v20 = objc_opt_class();
       v21 = 2112;
       v22 = v6;
-      LODWORD(v17) = 22;
-      v16 = &v19;
-      v13 = _os_log_send_and_compose_impl();
-      if (v13)
+      v14 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot load manifest for unentitled client: %@", &v19, 22);
+      if (v14)
       {
-        v14 = v13;
-        v15 = [NSString stringWithCString:v13 encoding:4, &v19, v17];
-        free(v14);
-        v16 = v15;
+        v15 = v14;
+        v16 = [NSString stringWithCString:v14 encoding:4];
+        free(v15);
+        v17 = v16;
         SSFileLog();
       }
     }
 
-    [(StoreServicesRequestQueue *)self _sendUnentitledMessageToClient:v6, v16];
+    [(StoreServicesRequestQueue *)self _sendUnentitledMessageToClient:v6, v17];
   }
 }
 
@@ -270,15 +274,21 @@
     shouldLog = [v11 shouldLog];
     if ([v11 shouldLogToDisk])
     {
-      v13 = shouldLog | 2;
+      LODWORD(v13) = shouldLog | 2;
     }
 
     else
     {
-      v13 = shouldLog;
+      LODWORD(v13) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v11 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v11 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = v13;
+    }
+
+    else
     {
       v13 &= 2u;
     }
@@ -289,20 +299,18 @@
       v21 = objc_opt_class();
       v22 = 2112;
       v23 = v6;
-      LODWORD(v18) = 22;
-      v17 = &v20;
-      v14 = _os_log_send_and_compose_impl();
-      if (v14)
+      v15 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot authorize for unentitled client: %@", &v20, 22);
+      if (v15)
       {
-        v15 = v14;
-        v16 = [NSString stringWithCString:v14 encoding:4, &v20, v18];
-        free(v15);
-        v17 = v16;
+        v16 = v15;
+        v17 = [NSString stringWithCString:v15 encoding:4];
+        free(v16);
+        v18 = v17;
         SSFileLog();
       }
     }
 
-    [(StoreServicesRequestQueue *)self _sendUnentitledMessageToClient:v6, v17];
+    [(StoreServicesRequestQueue *)self _sendUnentitledMessageToClient:v6, v18];
   }
 }
 
@@ -334,15 +342,21 @@
     shouldLog = [v9 shouldLog];
     if ([v9 shouldLogToDisk])
     {
-      v11 = shouldLog | 2;
+      LODWORD(v11) = shouldLog | 2;
     }
 
     else
     {
-      v11 = shouldLog;
+      LODWORD(v11) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v9 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v9 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = v11;
+    }
+
+    else
     {
       v11 &= 2u;
     }
@@ -353,13 +367,12 @@
       v17 = objc_opt_class();
       v18 = 2112;
       v19 = v6;
-      LODWORD(v14) = 22;
-      v12 = _os_log_send_and_compose_impl();
-      if (v12)
+      v13 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot checkin rental for unentitled client: %@", &v16, 22);
+      if (v13)
       {
-        v13 = v12;
-        [NSString stringWithCString:v12 encoding:4, &v16, v14];
-        free(v13);
+        v14 = v13;
+        [NSString stringWithCString:v13 encoding:4];
+        free(v14);
         SSFileLog();
       }
     }
@@ -385,8 +398,8 @@
         downloadIdentifier = [v7 downloadIdentifier];
         if (downloadIdentifier)
         {
-          v18 = -[StoreDownload initWithContentsOfFile:]([StoreDownload alloc], "initWithContentsOfFile:", [+[ScratchManager directoryPathForDownloadID:kind:createIfNeeded:](ScratchManager directoryPathForDownloadID:downloadIdentifier kind:0 createIfNeeded:{1), "stringByAppendingPathComponent:", @"iTunesMetadata.plist"}]);
-          sinfs2 = [(StoreDownload *)v18 sinfs];
+          v19 = -[StoreDownload initWithContentsOfFile:]([StoreDownload alloc], "initWithContentsOfFile:", [+[ScratchManager directoryPathForDownloadID:kind:createIfNeeded:](ScratchManager directoryPathForDownloadID:downloadIdentifier kind:0 createIfNeeded:{1), "stringByAppendingPathComponent:", @"iTunesMetadata.plist"}]);
+          sinfs2 = [(StoreDownload *)v19 sinfs];
           if (sinfs2)
           {
             sinfs2 = [[CheckoutRentalKeysOperation alloc] initWithStoreDownloadSinfs:sinfs2];
@@ -394,11 +407,11 @@
 
           if (sinfs2)
           {
-            goto LABEL_18;
+            goto LABEL_19;
           }
         }
 
-        goto LABEL_25;
+        goto LABEL_26;
       }
 
       v8 = [[CheckoutRentalKeysOperation alloc] initWithSinfs:sinfs];
@@ -407,7 +420,7 @@
     sinfs2 = v8;
     if (v8)
     {
-LABEL_18:
+LABEL_19:
       [(CheckoutRentalKeysOperation *)sinfs2 setBackgroundCheckout:1];
       -[CheckoutRentalKeysOperation setCheckoutWithPlay:](sinfs2, "setCheckoutWithPlay:", [v7 shouldCheckoutWithPlay]);
       -[CheckoutRentalKeysOperation setClientIdentifierHeader:](sinfs2, "setClientIdentifierHeader:", [v6 clientIdentifierHeader]);
@@ -426,14 +439,14 @@ LABEL_18:
       v20[4] = sinfs2;
       [(StoreServicesRequestQueue *)self addOperation:sinfs2 forClient:v6 withMessageBlock:v20];
 
-      goto LABEL_26;
+      goto LABEL_27;
     }
 
-LABEL_25:
-    [(StoreServicesRequestQueue *)self _sendMessageWithError:SSError() toClient:v6];
 LABEL_26:
+    [(StoreServicesRequestQueue *)self _sendMessageWithError:SSError() toClient:v6];
+LABEL_27:
 
-    goto LABEL_27;
+    goto LABEL_28;
   }
 
   v9 = +[SSLogConfig sharedDaemonConfig];
@@ -445,15 +458,21 @@ LABEL_26:
   shouldLog = [v9 shouldLog];
   if ([v9 shouldLogToDisk])
   {
-    v11 = shouldLog | 2;
+    LODWORD(v11) = shouldLog | 2;
   }
 
   else
   {
-    v11 = shouldLog;
+    LODWORD(v11) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v9 OSLogObject], OS_LOG_TYPE_DEFAULT))
+  oSLogObject = [v9 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = v11;
+  }
+
+  else
   {
     v11 &= 2u;
   }
@@ -464,18 +483,17 @@ LABEL_26:
     v22 = objc_opt_class();
     v23 = 2112;
     v24 = v6;
-    LODWORD(v19) = 22;
-    v12 = _os_log_send_and_compose_impl();
-    if (v12)
+    v13 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot checkin rental for unentitled client: %@", &v21, 22);
+    if (v13)
     {
-      v13 = v12;
-      [NSString stringWithCString:v12 encoding:4, &v21, v19];
-      free(v13);
+      v14 = v13;
+      [NSString stringWithCString:v13 encoding:4];
+      free(v14);
       SSFileLog();
     }
   }
 
-LABEL_27:
+LABEL_28:
 }
 
 - (void)demoteApplicationWithMessage:(id)message connection:(id)connection
@@ -541,15 +559,21 @@ LABEL_27:
     shouldLog = [v13 shouldLog];
     if ([v13 shouldLogToDisk])
     {
-      v15 = shouldLog | 2;
+      LODWORD(v15) = shouldLog | 2;
     }
 
     else
     {
-      v15 = shouldLog;
+      LODWORD(v15) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v13 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v13 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = v15;
+    }
+
+    else
     {
       v15 &= 2u;
     }
@@ -560,20 +584,18 @@ LABEL_27:
       v23 = objc_opt_class();
       v24 = 2112;
       v25 = v7;
-      LODWORD(v20) = 22;
-      v19 = &v22;
-      v16 = _os_log_send_and_compose_impl();
-      if (v16)
+      v17 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot get purchase history for unentitled client: %@", &v22, 22);
+      if (v17)
       {
-        v17 = v16;
-        v18 = [NSString stringWithCString:v16 encoding:4, &v22, v20];
-        free(v17);
-        v19 = v18;
+        v18 = v17;
+        v19 = [NSString stringWithCString:v17 encoding:4];
+        free(v18);
+        v20 = v19;
         SSFileLog();
       }
     }
 
-    [(StoreServicesRequestQueue *)self _sendUnentitledMessageToClient:v7, v19];
+    [(StoreServicesRequestQueue *)self _sendUnentitledMessageToClient:v7, v20];
   }
 }
 
@@ -674,15 +696,21 @@ LABEL_27:
     shouldLog = [v9 shouldLog];
     if ([v9 shouldLogToDisk])
     {
-      v11 = shouldLog | 2;
+      LODWORD(v11) = shouldLog | 2;
     }
 
     else
     {
-      v11 = shouldLog;
+      LODWORD(v11) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v9 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v9 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = v11;
+    }
+
+    else
     {
       v11 &= 2u;
     }
@@ -691,13 +719,12 @@ LABEL_27:
     {
       v16 = 138412290;
       v17 = objc_opt_class();
-      LODWORD(v14) = 12;
-      v12 = _os_log_send_and_compose_impl();
-      if (v12)
+      v13 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Could get family circle for unentitled client", &v16, 12);
+      if (v13)
       {
-        v13 = v12;
-        [NSString stringWithCString:v12 encoding:4, &v16, v14];
-        free(v13);
+        v14 = v13;
+        [NSString stringWithCString:v13 encoding:4];
+        free(v14);
         SSFileLog();
       }
     }
@@ -762,15 +789,21 @@ LABEL_27:
     shouldLog = [v9 shouldLog];
     if ([v9 shouldLogToDisk])
     {
-      v11 = shouldLog | 2;
+      LODWORD(v11) = shouldLog | 2;
     }
 
     else
     {
-      v11 = shouldLog;
+      LODWORD(v11) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v9 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v9 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = v11;
+    }
+
+    else
     {
       v11 &= 2u;
     }
@@ -781,20 +814,18 @@ LABEL_27:
       v19 = objc_opt_class();
       v20 = 2112;
       v21 = v6;
-      LODWORD(v16) = 22;
-      v15 = &v18;
-      v12 = _os_log_send_and_compose_impl();
-      if (v12)
+      v13 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot get play info for unentitled client: %@", &v18, 22);
+      if (v13)
       {
-        v13 = v12;
-        v14 = [NSString stringWithCString:v12 encoding:4, &v18, v16];
-        free(v13);
-        v15 = v14;
+        v14 = v13;
+        v15 = [NSString stringWithCString:v13 encoding:4];
+        free(v14);
+        v16 = v15;
         SSFileLog();
       }
     }
 
-    [(StoreServicesRequestQueue *)self _sendUnentitledMessageToClient:v6, v15];
+    [(StoreServicesRequestQueue *)self _sendUnentitledMessageToClient:v6, v16];
   }
 }
 
@@ -812,104 +843,112 @@ LABEL_27:
     shouldLog = [v8 shouldLog];
     if ([v8 shouldLogToDisk])
     {
-      v10 = shouldLog | 2;
+      LODWORD(v10) = shouldLog | 2;
     }
 
     else
     {
-      v10 = shouldLog;
+      LODWORD(v10) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v8 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v8 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = v10;
+    }
+
+    else
     {
       v10 &= 2u;
     }
 
     if (v10)
     {
-      v28 = 138543618;
-      v29 = objc_opt_class();
-      v30 = 2114;
-      v31 = v7;
-      LODWORD(v26) = 22;
-      v25 = &v28;
-      v11 = _os_log_send_and_compose_impl();
-      if (v11)
+      v29 = 138543618;
+      v30 = objc_opt_class();
+      v31 = 2114;
+      v32 = v7;
+      v12 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Performing a software-library lookup operation on behalf of %{public}@…", &v29, 22);
+      if (v12)
       {
-        v12 = v11;
-        v13 = [NSString stringWithCString:v11 encoding:4, &v28, v26];
-        free(v12);
-        v25 = v13;
+        v13 = v12;
+        v14 = [NSString stringWithCString:v12 encoding:4];
+        free(v13);
+        v27 = v14;
         SSFileLog();
       }
     }
 
     objc_opt_class();
-    v14 = SSXPCDictionaryCopyCFObjectWithClass();
-    objc_opt_class();
     v15 = SSXPCDictionaryCopyCFObjectWithClass();
-    v16 = [SoftwareLibraryLookupOperation alloc];
-    if (v15)
+    objc_opt_class();
+    v16 = SSXPCDictionaryCopyCFObjectWithClass();
+    v17 = [SoftwareLibraryLookupOperation alloc];
+    if (v16)
     {
-      v17 = [(SoftwareLibraryLookupOperation *)v16 initWithItemIdentifiers:v15];
+      v18 = [(SoftwareLibraryLookupOperation *)v17 initWithItemIdentifiers:v16];
     }
 
     else
     {
-      v17 = [(SoftwareLibraryLookupOperation *)v16 initWithBundleIdentifiers:v14];
+      v18 = [(SoftwareLibraryLookupOperation *)v17 initWithBundleIdentifiers:v15];
     }
 
-    v18 = v17;
-    v27[0] = _NSConcreteStackBlock;
-    v27[1] = 3221225472;
-    v27[2] = sub_1000ED080;
-    v27[3] = &unk_100328218;
-    v27[4] = v17;
-    [(StoreServicesRequestQueue *)self addOperation:v17 forMessage:message connection:connection replyBlock:v27, v25];
+    v19 = v18;
+    v28[0] = _NSConcreteStackBlock;
+    v28[1] = 3221225472;
+    v28[2] = sub_1000ED080;
+    v28[3] = &unk_100328218;
+    v28[4] = v18;
+    [(StoreServicesRequestQueue *)self addOperation:v18 forMessage:message connection:connection replyBlock:v28, v27];
   }
 
   else
   {
-    v19 = +[SSLogConfig sharedDaemonConfig];
-    if (!v19)
+    v20 = +[SSLogConfig sharedDaemonConfig];
+    if (!v20)
     {
-      v19 = +[SSLogConfig sharedConfig];
+      v20 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v19 shouldLog];
-    if ([v19 shouldLogToDisk])
+    shouldLog2 = [v20 shouldLog];
+    if ([v20 shouldLogToDisk])
     {
-      v21 = shouldLog2 | 2;
+      LODWORD(v22) = shouldLog2 | 2;
     }
 
     else
     {
-      v21 = shouldLog2;
+      LODWORD(v22) = shouldLog2;
     }
 
-    if (!os_log_type_enabled([v19 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject2 = [v20 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
     {
-      v21 &= 2u;
+      v22 = v22;
     }
 
-    if (v21)
+    else
     {
-      v28 = 138412290;
-      v29 = objc_opt_class();
-      LODWORD(v26) = 12;
-      v25 = &v28;
-      v22 = _os_log_send_and_compose_impl();
-      if (v22)
+      v22 &= 2u;
+    }
+
+    if (v22)
+    {
+      v29 = 138412290;
+      v30 = objc_opt_class();
+      v24 = _os_log_send_and_compose_impl(v22, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Cannot get software library for unentitled client", &v29, 12);
+      if (v24)
       {
-        v23 = v22;
-        v24 = [NSString stringWithCString:v22 encoding:4, &v28, v26];
-        free(v23);
         v25 = v24;
+        v26 = [NSString stringWithCString:v24 encoding:4];
+        free(v25);
+        v27 = v26;
         SSFileLog();
       }
     }
 
-    [(StoreServicesRequestQueue *)self _sendUnentitledReplyForMessage:message connection:connection, v25];
+    [(StoreServicesRequestQueue *)self _sendUnentitledReplyForMessage:message connection:connection, v27];
   }
 }
 
@@ -937,15 +976,21 @@ LABEL_27:
     shouldLog = [v8 shouldLog];
     if ([v8 shouldLogToDisk])
     {
-      v10 = shouldLog | 2;
+      LODWORD(v10) = shouldLog | 2;
     }
 
     else
     {
-      v10 = shouldLog;
+      LODWORD(v10) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v8 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v8 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = v10;
+    }
+
+    else
     {
       v10 &= 2u;
     }
@@ -954,20 +999,18 @@ LABEL_27:
     {
       v17 = 138412290;
       v18 = objc_opt_class();
-      LODWORD(v15) = 12;
-      v14 = &v17;
-      v11 = _os_log_send_and_compose_impl();
-      if (v11)
+      v12 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot get software library for unentitled client", &v17, 12);
+      if (v12)
       {
-        v12 = v11;
-        v13 = [NSString stringWithCString:v11 encoding:4, &v17, v15];
-        free(v12);
-        v14 = v13;
+        v13 = v12;
+        v14 = [NSString stringWithCString:v12 encoding:4];
+        free(v13);
+        v15 = v14;
         SSFileLog();
       }
     }
 
-    [(StoreServicesRequestQueue *)self _sendUnentitledReplyForMessage:message connection:connection, v14];
+    [(StoreServicesRequestQueue *)self _sendUnentitledReplyForMessage:message connection:connection, v15];
   }
 }
 
@@ -1022,15 +1065,21 @@ LABEL_27:
     shouldLog = [v10 shouldLog];
     if ([v10 shouldLogToDisk])
     {
-      v12 = shouldLog | 2;
+      LODWORD(v12) = shouldLog | 2;
     }
 
     else
     {
-      v12 = shouldLog;
+      LODWORD(v12) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v10 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v10 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = v12;
+    }
+
+    else
     {
       v12 &= 2u;
     }
@@ -1041,20 +1090,18 @@ LABEL_27:
       v20 = objc_opt_class();
       v21 = 2112;
       v22 = v6;
-      LODWORD(v17) = 22;
-      v16 = &v19;
-      v13 = _os_log_send_and_compose_impl();
-      if (v13)
+      v14 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Ignoring purchase intent action from unentitled client: %@", &v19, 22);
+      if (v14)
       {
-        v14 = v13;
-        v15 = [NSString stringWithCString:v13 encoding:4, &v19, v17];
-        free(v14);
-        v16 = v15;
+        v15 = v14;
+        v16 = [NSString stringWithCString:v14 encoding:4];
+        free(v15);
+        v17 = v16;
         SSFileLog();
       }
     }
 
-    [(StoreServicesRequestQueue *)self _sendUnentitledMessageToClient:v6, v16];
+    [(StoreServicesRequestQueue *)self _sendUnentitledMessageToClient:v6, v17];
   }
 }
 
@@ -1082,15 +1129,21 @@ LABEL_27:
     shouldLog = [v8 shouldLog];
     if ([v8 shouldLogToDisk])
     {
-      v10 = shouldLog | 2;
+      LODWORD(v10) = shouldLog | 2;
     }
 
     else
     {
-      v10 = shouldLog;
+      LODWORD(v10) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v8 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v8 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = v10;
+    }
+
+    else
     {
       v10 &= 2u;
     }
@@ -1099,20 +1152,18 @@ LABEL_27:
     {
       v17 = 138412290;
       v18 = objc_opt_class();
-      LODWORD(v15) = 12;
-      v14 = &v17;
-      v11 = _os_log_send_and_compose_impl();
-      if (v11)
+      v12 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot get software library for unentitled client", &v17, 12);
+      if (v12)
       {
-        v12 = v11;
-        v13 = [NSString stringWithCString:v11 encoding:4, &v17, v15];
-        free(v12);
-        v14 = v13;
+        v13 = v12;
+        v14 = [NSString stringWithCString:v12 encoding:4];
+        free(v13);
+        v15 = v14;
         SSFileLog();
       }
     }
 
-    [(StoreServicesRequestQueue *)self _sendUnentitledReplyForMessage:message connection:connection, v14];
+    [(StoreServicesRequestQueue *)self _sendUnentitledReplyForMessage:message connection:connection, v15];
   }
 }
 
@@ -1141,15 +1192,21 @@ LABEL_27:
     shouldLog = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v9 = shouldLog | 2;
+      LODWORD(v9) = shouldLog | 2;
     }
 
     else
     {
-      v9 = shouldLog;
+      LODWORD(v9) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v7 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v7 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
@@ -1158,13 +1215,12 @@ LABEL_27:
     {
       v14 = 138412290;
       v15 = objc_opt_class();
-      LODWORD(v12) = 12;
-      v10 = _os_log_send_and_compose_impl();
-      if (v10)
+      v11 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Could discover if there are demoted applications for unentitled client", &v14, 12);
+      if (v11)
       {
-        v11 = v10;
-        [NSString stringWithCString:v10 encoding:4, &v14, v12];
-        free(v11);
+        v12 = v11;
+        [NSString stringWithCString:v11 encoding:4];
+        free(v12);
         SSFileLog();
       }
     }
@@ -1222,15 +1278,21 @@ LABEL_27:
     shouldLog = [v8 shouldLog];
     if ([v8 shouldLogToDisk])
     {
-      v10 = shouldLog | 2;
+      LODWORD(v10) = shouldLog | 2;
     }
 
     else
     {
-      v10 = shouldLog;
+      LODWORD(v10) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v8 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v8 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = v10;
+    }
+
+    else
     {
       v10 &= 2u;
     }
@@ -1241,13 +1303,12 @@ LABEL_27:
       v15 = objc_opt_class();
       v16 = 2112;
       v17 = v5;
-      LODWORD(v13) = 22;
-      v11 = _os_log_send_and_compose_impl();
-      if (v11)
+      v12 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot invalidate URL bag for unentitled client: %@", &v14, 22);
+      if (v12)
       {
-        v12 = v11;
-        [NSString stringWithCString:v11 encoding:4, &v14, v13];
-        free(v12);
+        v13 = v12;
+        [NSString stringWithCString:v12 encoding:4];
+        free(v13);
         SSFileLog();
       }
     }
@@ -1289,15 +1350,21 @@ LABEL_27:
     shouldLog = [v11 shouldLog];
     if ([v11 shouldLogToDisk])
     {
-      v13 = shouldLog | 2;
+      LODWORD(v13) = shouldLog | 2;
     }
 
     else
     {
-      v13 = shouldLog;
+      LODWORD(v13) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v11 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v11 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = v13;
+    }
+
+    else
     {
       v13 &= 2u;
     }
@@ -1308,20 +1375,18 @@ LABEL_27:
       v21 = objc_opt_class();
       v22 = 2112;
       v23 = v7;
-      LODWORD(v19) = 22;
-      v18 = &v20;
-      v14 = _os_log_send_and_compose_impl();
-      if (v14)
+      v15 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot check if application is installed for unentitled client: %@", &v20, 22);
+      if (v15)
       {
-        v15 = v14;
-        v16 = [NSString stringWithCString:v14 encoding:4, &v20, v19];
-        free(v15);
-        v18 = v16;
+        v16 = v15;
+        v17 = [NSString stringWithCString:v15 encoding:4];
+        free(v16);
+        v19 = v17;
         SSFileLog();
       }
     }
 
-    [(StoreServicesRequestQueue *)self _sendUnentitledMessageToClient:v7, v18];
+    [(StoreServicesRequestQueue *)self _sendUnentitledMessageToClient:v7, v19];
   }
 }
 
@@ -1360,15 +1425,21 @@ LABEL_27:
     shouldLog = [v11 shouldLog];
     if ([v11 shouldLogToDisk])
     {
-      v13 = shouldLog | 2;
+      LODWORD(v13) = shouldLog | 2;
     }
 
     else
     {
-      v13 = shouldLog;
+      LODWORD(v13) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v11 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v11 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = v13;
+    }
+
+    else
     {
       v13 &= 2u;
     }
@@ -1379,20 +1450,18 @@ LABEL_27:
       v21 = objc_opt_class();
       v22 = 2112;
       v23 = v7;
-      LODWORD(v19) = 22;
-      v18 = &v20;
-      v14 = _os_log_send_and_compose_impl();
-      if (v14)
+      v15 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot check if application is hidden for unentitled client: %@", &v20, 22);
+      if (v15)
       {
-        v15 = v14;
-        v16 = [NSString stringWithCString:v14 encoding:4, &v20, v19];
-        free(v15);
-        v18 = v16;
+        v16 = v15;
+        v17 = [NSString stringWithCString:v15 encoding:4];
+        free(v16);
+        v19 = v17;
         SSFileLog();
       }
     }
 
-    [(StoreServicesRequestQueue *)self _sendUnentitledMessageToClient:v7, v18];
+    [(StoreServicesRequestQueue *)self _sendUnentitledMessageToClient:v7, v19];
   }
 }
 
@@ -1453,15 +1522,21 @@ LABEL_27:
     shouldLog = [v16 shouldLog];
     if ([v16 shouldLogToDisk])
     {
-      v18 = shouldLog | 2;
+      LODWORD(v18) = shouldLog | 2;
     }
 
     else
     {
-      v18 = shouldLog;
+      LODWORD(v18) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v16 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v16 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v18 = v18;
+    }
+
+    else
     {
       v18 &= 2u;
     }
@@ -1472,20 +1547,18 @@ LABEL_27:
       v30 = objc_opt_class();
       v31 = 2112;
       v32 = v7;
-      LODWORD(v23) = 22;
-      v22 = &v29;
-      v19 = _os_log_send_and_compose_impl();
-      if (v19)
+      v20 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[%@]: Cannot check if applications are playable for unentitled client: %@", &v29, 22);
+      if (v20)
       {
-        v20 = v19;
-        v21 = [NSString stringWithCString:v19 encoding:4, &v29, v23];
-        free(v20);
-        v22 = v21;
+        v21 = v20;
+        v22 = [NSString stringWithCString:v20 encoding:4];
+        free(v21);
+        v23 = v22;
         SSFileLog();
       }
     }
 
-    [(StoreServicesRequestQueue *)self _sendUnentitledReplyForMessage:message connection:connection, v22];
+    [(StoreServicesRequestQueue *)self _sendUnentitledReplyForMessage:message connection:connection, v23];
   }
 }
 
@@ -1515,15 +1588,21 @@ LABEL_27:
     shouldLog = [v9 shouldLog];
     if ([v9 shouldLogToDisk])
     {
-      v11 = shouldLog | 2;
+      LODWORD(v11) = shouldLog | 2;
     }
 
     else
     {
-      v11 = shouldLog;
+      LODWORD(v11) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v9 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v9 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = v11;
+    }
+
+    else
     {
       v11 &= 2u;
     }
@@ -1534,20 +1613,18 @@ LABEL_27:
       v19 = objc_opt_class();
       v20 = 2112;
       v21 = v6;
-      LODWORD(v16) = 22;
-      v15 = &v18;
-      v12 = _os_log_send_and_compose_impl();
-      if (v12)
+      v13 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot request keybag for unentitled client: %@", &v18, 22);
+      if (v13)
       {
-        v13 = v12;
-        v14 = [NSString stringWithCString:v12 encoding:4, &v18, v16];
-        free(v13);
-        v15 = v14;
+        v14 = v13;
+        v15 = [NSString stringWithCString:v13 encoding:4];
+        free(v14);
+        v16 = v15;
         SSFileLog();
       }
     }
 
-    [(StoreServicesRequestQueue *)self _sendUnentitledMessageToClient:v6, v15];
+    [(StoreServicesRequestQueue *)self _sendUnentitledMessageToClient:v6, v16];
   }
 }
 
@@ -1579,15 +1656,21 @@ LABEL_27:
     shouldLog = [v10 shouldLog];
     if ([v10 shouldLogToDisk])
     {
-      v12 = shouldLog | 2;
+      LODWORD(v12) = shouldLog | 2;
     }
 
     else
     {
-      v12 = shouldLog;
+      LODWORD(v12) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v10 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v10 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = v12;
+    }
+
+    else
     {
       v12 &= 2u;
     }
@@ -1598,20 +1681,18 @@ LABEL_27:
       v20 = objc_opt_class();
       v21 = 2112;
       v22 = v6;
-      LODWORD(v17) = 22;
-      v16 = &v19;
-      v13 = _os_log_send_and_compose_impl();
-      if (v13)
+      v14 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot personalize for unentitled client: %@", &v19, 22);
+      if (v14)
       {
-        v14 = v13;
-        v15 = [NSString stringWithCString:v13 encoding:4, &v19, v17];
-        free(v14);
-        v16 = v15;
+        v15 = v14;
+        v16 = [NSString stringWithCString:v14 encoding:4];
+        free(v15);
+        v17 = v16;
         SSFileLog();
       }
     }
 
-    [(StoreServicesRequestQueue *)self _sendUnentitledMessageToClient:v6, v16];
+    [(StoreServicesRequestQueue *)self _sendUnentitledMessageToClient:v6, v17];
   }
 }
 
@@ -1629,92 +1710,100 @@ LABEL_27:
     shouldLog = [v8 shouldLog];
     if ([v8 shouldLogToDisk])
     {
-      v10 = shouldLog | 2;
+      LODWORD(v10) = shouldLog | 2;
     }
 
     else
     {
-      v10 = shouldLog;
+      LODWORD(v10) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v8 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v8 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = v10;
+    }
+
+    else
     {
       v10 &= 2u;
     }
 
     if (v10)
     {
-      v24 = 138543362;
-      v25 = objc_opt_class();
-      LODWORD(v23) = 12;
-      v22 = &v24;
-      v11 = _os_log_send_and_compose_impl();
-      if (v11)
+      v25 = 138543362;
+      v26 = objc_opt_class();
+      v12 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Received request to post push tokens", &v25, 12);
+      if (v12)
       {
-        v12 = v11;
-        v13 = [NSString stringWithCString:v11 encoding:4, &v24, v23];
-        free(v12);
-        v22 = v13;
+        v13 = v12;
+        v14 = [NSString stringWithCString:v12 encoding:4];
+        free(v13);
+        v24 = v14;
         SSFileLog();
       }
     }
 
-    [+[PushNotificationController postPushTokens:v22]];
+    [+[PushNotificationController postPushTokens:v24]];
     reply = xpc_dictionary_create_reply(message);
     if (reply)
     {
-      v15 = reply;
+      v16 = reply;
       xpc_dictionary_set_BOOL(reply, "1", 1);
       SSXPCDictionarySetCFObject();
-      xpc_connection_send_message(connection, v15);
-      xpc_release(v15);
+      xpc_connection_send_message(connection, v16);
+      xpc_release(v16);
     }
   }
 
   else
   {
-    v16 = +[SSLogConfig sharedDaemonConfig];
-    if (!v16)
+    v17 = +[SSLogConfig sharedDaemonConfig];
+    if (!v17)
     {
-      v16 = +[SSLogConfig sharedConfig];
+      v17 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v16 shouldLog];
-    if ([v16 shouldLogToDisk])
+    shouldLog2 = [v17 shouldLog];
+    if ([v17 shouldLogToDisk])
     {
-      v18 = shouldLog2 | 2;
+      LODWORD(v19) = shouldLog2 | 2;
     }
 
     else
     {
-      v18 = shouldLog2;
+      LODWORD(v19) = shouldLog2;
     }
 
-    if (!os_log_type_enabled([v16 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject2 = [v17 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
     {
-      v18 &= 2u;
+      v19 = v19;
     }
 
-    if (v18)
+    else
     {
-      v24 = 138543618;
-      v25 = objc_opt_class();
-      v26 = 2114;
-      v27 = v7;
-      LODWORD(v23) = 22;
-      v22 = &v24;
-      v19 = _os_log_send_and_compose_impl();
-      if (v19)
+      v19 &= 2u;
+    }
+
+    if (v19)
+    {
+      v25 = 138543618;
+      v26 = objc_opt_class();
+      v27 = 2114;
+      v28 = v7;
+      v21 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%{public}@: Rejecting push notification request from unentitled client: %{public}@", &v25, 22);
+      if (v21)
       {
-        v20 = v19;
-        v21 = [NSString stringWithCString:v19 encoding:4, &v24, v23];
-        free(v20);
         v22 = v21;
+        v23 = [NSString stringWithCString:v21 encoding:4];
+        free(v22);
+        v24 = v23;
         SSFileLog();
       }
     }
 
-    [(StoreServicesRequestQueue *)self _sendUnentitledMessageToClient:v7, v22];
+    [(StoreServicesRequestQueue *)self _sendUnentitledMessageToClient:v7, v24];
   }
 }
 
@@ -1745,15 +1834,21 @@ LABEL_27:
     shouldLog = [v9 shouldLog];
     if ([v9 shouldLogToDisk])
     {
-      v11 = shouldLog | 2;
+      LODWORD(v11) = shouldLog | 2;
     }
 
     else
     {
-      v11 = shouldLog;
+      LODWORD(v11) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v9 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v9 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = v11;
+    }
+
+    else
     {
       v11 &= 2u;
     }
@@ -1764,20 +1859,18 @@ LABEL_27:
       v19 = objc_opt_class();
       v20 = 2112;
       v21 = v6;
-      LODWORD(v16) = 22;
-      v15 = &v18;
-      v12 = _os_log_send_and_compose_impl();
-      if (v12)
+      v13 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Rejecting push notification request from unentitled client: %@", &v18, 22);
+      if (v13)
       {
-        v13 = v12;
-        v14 = [NSString stringWithCString:v12 encoding:4, &v18, v16];
-        free(v13);
-        v15 = v14;
+        v14 = v13;
+        v15 = [NSString stringWithCString:v13 encoding:4];
+        free(v14);
+        v16 = v15;
         SSFileLog();
       }
     }
 
-    [(StoreServicesRequestQueue *)self _sendUnentitledMessageToClient:v6, v15];
+    [(StoreServicesRequestQueue *)self _sendUnentitledMessageToClient:v6, v16];
   }
 }
 
@@ -1813,15 +1906,21 @@ LABEL_27:
     shouldLog = [v9 shouldLog];
     if ([v9 shouldLogToDisk])
     {
-      v11 = shouldLog | 2;
+      LODWORD(v11) = shouldLog | 2;
     }
 
     else
     {
-      v11 = shouldLog;
+      LODWORD(v11) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v9 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v9 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = v11;
+    }
+
+    else
     {
       v11 &= 2u;
     }
@@ -1832,20 +1931,18 @@ LABEL_27:
       v19 = objc_opt_class();
       v20 = 2112;
       v21 = v6;
-      LODWORD(v16) = 22;
-      v15 = &v18;
-      v12 = _os_log_send_and_compose_impl();
-      if (v12)
+      v13 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot redeem codes for unentitled client: %@", &v18, 22);
+      if (v13)
       {
-        v13 = v12;
-        v14 = [NSString stringWithCString:v12 encoding:4, &v18, v16];
-        free(v13);
-        v15 = v14;
+        v14 = v13;
+        v15 = [NSString stringWithCString:v13 encoding:4];
+        free(v14);
+        v16 = v15;
         SSFileLog();
       }
     }
 
-    [(StoreServicesRequestQueue *)self _sendUnentitledMessageToClient:v6, v15];
+    [(StoreServicesRequestQueue *)self _sendUnentitledMessageToClient:v6, v16];
   }
 }
 
@@ -1864,34 +1961,34 @@ LABEL_27:
 
     else
     {
-      v17 = sinfs;
+      v18 = sinfs;
       if (![sinfs count])
       {
-        goto LABEL_19;
+        goto LABEL_20;
       }
 
-      v10 = [[SyncRentalOperation alloc] initWithSinfs:v17];
+      v10 = [[SyncRentalOperation alloc] initWithSinfs:v18];
     }
 
-    v18 = v10;
+    v19 = v10;
     if (v10)
     {
       -[SyncRentalOperation setClientIdentifierHeader:](v10, "setClientIdentifierHeader:", [v6 clientIdentifierHeader]);
-      -[SyncRentalOperation setUserAgent:](v18, "setUserAgent:", [v6 userAgent]);
+      -[SyncRentalOperation setUserAgent:](v19, "setUserAgent:", [v6 userAgent]);
       v21[0] = _NSConcreteStackBlock;
       v21[1] = 3221225472;
       v21[2] = sub_1000EF9A4;
       v21[3] = &unk_100328218;
-      v21[4] = v18;
-      [(StoreServicesRequestQueue *)self addOperation:v18 forClient:v6 withMessageBlock:v21];
+      v21[4] = v19;
+      [(StoreServicesRequestQueue *)self addOperation:v19 forClient:v6 withMessageBlock:v21];
 
-LABEL_20:
-      goto LABEL_21;
+LABEL_21:
+      goto LABEL_22;
     }
 
-LABEL_19:
+LABEL_20:
     [(StoreServicesRequestQueue *)self _sendMessageWithError:SSError() toClient:v6];
-    goto LABEL_20;
+    goto LABEL_21;
   }
 
   v11 = +[SSLogConfig sharedDaemonConfig];
@@ -1903,15 +2000,21 @@ LABEL_19:
   shouldLog = [v11 shouldLog];
   if ([v11 shouldLogToDisk])
   {
-    v13 = shouldLog | 2;
+    LODWORD(v13) = shouldLog | 2;
   }
 
   else
   {
-    v13 = shouldLog;
+    LODWORD(v13) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v11 OSLogObject], OS_LOG_TYPE_DEFAULT))
+  oSLogObject = [v11 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v13 = v13;
+  }
+
+  else
   {
     v13 &= 2u;
   }
@@ -1922,21 +2025,19 @@ LABEL_19:
     v23 = objc_opt_class();
     v24 = 2112;
     v25 = v6;
-    LODWORD(v20) = 22;
-    v19 = &v22;
-    v14 = _os_log_send_and_compose_impl();
-    if (v14)
+    v15 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot sync for unentitled client: %@", &v22, 22);
+    if (v15)
     {
-      v15 = v14;
-      v16 = [NSString stringWithCString:v14 encoding:4, &v22, v20];
-      free(v15);
-      v19 = v16;
+      v16 = v15;
+      v17 = [NSString stringWithCString:v15 encoding:4];
+      free(v16);
+      v20 = v17;
       SSFileLog();
     }
   }
 
-  [(StoreServicesRequestQueue *)self _sendUnentitledMessageToClient:v6, v19];
-LABEL_21:
+  [(StoreServicesRequestQueue *)self _sendUnentitledMessageToClient:v6, v20];
+LABEL_22:
 }
 
 - (void)saveInstallAttributionParamsWithMessage:(id)message connection:(id)connection
@@ -1974,15 +2075,21 @@ LABEL_21:
     shouldLog = [v10 shouldLog];
     if ([v10 shouldLogToDisk])
     {
-      v12 = shouldLog | 2;
+      LODWORD(v12) = shouldLog | 2;
     }
 
     else
     {
-      v12 = shouldLog;
+      LODWORD(v12) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v10 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v10 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = v12;
+    }
+
+    else
     {
       v12 &= 2u;
     }
@@ -1993,20 +2100,18 @@ LABEL_21:
       v20 = objc_opt_class();
       v21 = 2112;
       v22 = v6;
-      LODWORD(v17) = 22;
-      v16 = &v19;
-      v13 = _os_log_send_and_compose_impl();
-      if (v13)
+      v14 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Ignoring install attribution params from unentitled client: %@", &v19, 22);
+      if (v14)
       {
-        v14 = v13;
-        v15 = [NSString stringWithCString:v13 encoding:4, &v19, v17];
-        free(v14);
-        v16 = v15;
+        v15 = v14;
+        v16 = [NSString stringWithCString:v14 encoding:4];
+        free(v15);
+        v17 = v16;
         SSFileLog();
       }
     }
 
-    [(StoreServicesRequestQueue *)self _sendUnentitledMessageToClient:v6, v16];
+    [(StoreServicesRequestQueue *)self _sendUnentitledMessageToClient:v6, v17];
   }
 }
 
@@ -2042,15 +2147,21 @@ LABEL_21:
     shouldLog = [v11 shouldLog];
     if ([v11 shouldLogToDisk])
     {
-      v13 = shouldLog | 2;
+      LODWORD(v13) = shouldLog | 2;
     }
 
     else
     {
-      v13 = shouldLog;
+      LODWORD(v13) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v11 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v11 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = v13;
+    }
+
+    else
     {
       v13 &= 2u;
     }
@@ -2059,13 +2170,12 @@ LABEL_21:
     {
       LODWORD(v20[0]) = 138543362;
       *(v20 + 4) = objc_opt_class();
-      LODWORD(v16) = 12;
-      v14 = _os_log_send_and_compose_impl();
-      if (v14)
+      v15 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Cannot load storefront country code for unauthorized client", v20, 12);
+      if (v15)
       {
-        v15 = v14;
-        [NSString stringWithCString:v14 encoding:4, v20, v16];
-        free(v15);
+        v16 = v15;
+        [NSString stringWithCString:v15 encoding:4];
+        free(v16);
         SSFileLog();
       }
     }
@@ -2098,15 +2208,21 @@ LABEL_21:
     shouldLog = [v9 shouldLog];
     if ([v9 shouldLogToDisk])
     {
-      v11 = shouldLog | 2;
+      LODWORD(v11) = shouldLog | 2;
     }
 
     else
     {
-      v11 = shouldLog;
+      LODWORD(v11) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v9 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v9 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = v11;
+    }
+
+    else
     {
       v11 &= 2u;
     }
@@ -2115,13 +2231,12 @@ LABEL_21:
     {
       v16 = 138412290;
       v17 = objc_opt_class();
-      LODWORD(v14) = 12;
-      v12 = _os_log_send_and_compose_impl();
-      if (v12)
+      v13 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Could not do ATB for unentitled client", &v16, 12);
+      if (v13)
       {
-        v13 = v12;
-        [NSString stringWithCString:v12 encoding:4, &v16, v14];
-        free(v13);
+        v14 = v13;
+        [NSString stringWithCString:v13 encoding:4];
+        free(v14);
         SSFileLog();
       }
     }
@@ -2143,95 +2258,105 @@ LABEL_21:
     shouldLog = [v9 shouldLog];
     if ([v9 shouldLogToDisk])
     {
-      v11 = shouldLog | 2;
+      LODWORD(v11) = shouldLog | 2;
     }
 
     else
     {
-      v11 = shouldLog;
+      LODWORD(v11) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v9 OSLogObject], OS_LOG_TYPE_ERROR))
+    oSLogObject = [v9 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v11 = v11;
+    }
+
+    else
     {
       v11 &= 2u;
     }
 
     if (v11)
     {
-      v21 = 138543618;
-      v22 = objc_opt_class();
-      v23 = 2114;
+      v22 = 138543618;
+      v23 = objc_opt_class();
+      v24 = 2114;
       clientIdentifier = [v5 clientIdentifier];
-      LODWORD(v19) = 22;
-      v12 = _os_log_send_and_compose_impl();
-      if (v12)
+      v13 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "[%{public}@]: Did not find proxy for bundle id: %{public}@", &v22, 22);
+      if (v13)
       {
-        v13 = v12;
-        [NSString stringWithCString:v12 encoding:4, &v21, v19];
-        free(v13);
+        v14 = v13;
+        [NSString stringWithCString:v13 encoding:4];
+        free(v14);
         SSFileLog();
       }
     }
 
-    goto LABEL_25;
+    goto LABEL_27;
   }
 
   itemID = [v6 itemID];
   if (!itemID)
   {
-    v14 = +[SSLogConfig sharedDaemonConfig];
-    if (!v14)
+    v15 = +[SSLogConfig sharedDaemonConfig];
+    if (!v15)
     {
-      v14 = +[SSLogConfig sharedConfig];
+      v15 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v14 shouldLog];
-    if ([v14 shouldLogToDisk])
+    shouldLog2 = [v15 shouldLog];
+    if ([v15 shouldLogToDisk])
     {
-      v16 = shouldLog2 | 2;
+      LODWORD(v17) = shouldLog2 | 2;
     }
 
     else
     {
-      v16 = shouldLog2;
+      LODWORD(v17) = shouldLog2;
     }
 
-    if (!os_log_type_enabled([v14 OSLogObject], OS_LOG_TYPE_ERROR))
+    oSLogObject2 = [v15 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
     {
-      v16 &= 2u;
+      v17 = v17;
     }
 
-    if (v16)
+    else
     {
-      v21 = 138543618;
-      v22 = objc_opt_class();
-      v23 = 2114;
+      v17 &= 2u;
+    }
+
+    if (v17)
+    {
+      v22 = 138543618;
+      v23 = objc_opt_class();
+      v24 = 2114;
       clientIdentifier = [v5 clientIdentifier];
-      LODWORD(v19) = 22;
-      v17 = _os_log_send_and_compose_impl();
-      if (v17)
+      v19 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, oSLogObject2, 16, "[%{public}@]: Did not find adam id for bundle id: %{public}@", &v22, 22);
+      if (v19)
       {
-        v18 = v17;
-        [NSString stringWithCString:v17 encoding:4, &v21, v19];
-        free(v18);
+        v20 = v19;
+        [NSString stringWithCString:v19 encoding:4];
+        free(v20);
         SSFileLog();
       }
     }
 
-LABEL_25:
+LABEL_27:
     [(StoreServicesRequestQueue *)self _sendMessageWithError:SSError() toClient:v5];
-    goto LABEL_26;
+    goto LABEL_28;
   }
 
   v8 = [[SendInstallAttributionPingbackOperation alloc] initWithAdamId:itemID];
-  v20[0] = _NSConcreteStackBlock;
-  v20[1] = 3221225472;
-  v20[2] = sub_1000F0754;
-  v20[3] = &unk_100328218;
-  v20[4] = v8;
-  [(StoreServicesRequestQueue *)self addOperation:v8 forClient:v5 withMessageBlock:v20];
+  v21[0] = _NSConcreteStackBlock;
+  v21[1] = 3221225472;
+  v21[2] = sub_1000F0754;
+  v21[3] = &unk_100328218;
+  v21[4] = v8;
+  [(StoreServicesRequestQueue *)self addOperation:v8 forClient:v5 withMessageBlock:v21];
 
-LABEL_26:
+LABEL_28:
 }
 
 - (void)showDialogRequestWithMessage:(id)message connection:(id)connection
@@ -2263,15 +2388,21 @@ LABEL_26:
     shouldLog = [v10 shouldLog];
     if ([v10 shouldLogToDisk])
     {
-      v12 = shouldLog | 2;
+      LODWORD(v12) = shouldLog | 2;
     }
 
     else
     {
-      v12 = shouldLog;
+      LODWORD(v12) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v10 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v10 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = v12;
+    }
+
+    else
     {
       v12 &= 2u;
     }
@@ -2282,20 +2413,18 @@ LABEL_26:
       v20 = objc_opt_class();
       v21 = 2112;
       v22 = v6;
-      LODWORD(v17) = 22;
-      v16 = &v19;
-      v13 = _os_log_send_and_compose_impl();
-      if (v13)
+      v14 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot show dialog for unentitled client: %@", &v19, 22);
+      if (v14)
       {
-        v14 = v13;
-        v15 = [NSString stringWithCString:v13 encoding:4, &v19, v17];
-        free(v14);
-        v16 = v15;
+        v15 = v14;
+        v16 = [NSString stringWithCString:v14 encoding:4];
+        free(v15);
+        v17 = v16;
         SSFileLog();
       }
     }
 
-    [(StoreServicesRequestQueue *)self _sendUnentitledMessageToClient:v6, v16];
+    [(StoreServicesRequestQueue *)self _sendUnentitledMessageToClient:v6, v17];
   }
 }
 
@@ -2325,15 +2454,21 @@ LABEL_26:
     shouldLog = [v9 shouldLog];
     if ([v9 shouldLogToDisk])
     {
-      v11 = shouldLog | 2;
+      LODWORD(v11) = shouldLog | 2;
     }
 
     else
     {
-      v11 = shouldLog;
+      LODWORD(v11) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v9 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v9 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = v11;
+    }
+
+    else
     {
       v11 &= 2u;
     }
@@ -2342,20 +2477,18 @@ LABEL_26:
     {
       v18 = 138412290;
       v19 = objc_opt_class();
-      LODWORD(v16) = 12;
-      v15 = &v18;
-      v12 = _os_log_send_and_compose_impl();
-      if (v12)
+      v13 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot show prompt for unentitled client", &v18, 12);
+      if (v13)
       {
-        v13 = v12;
-        v14 = [NSString stringWithCString:v12 encoding:4, &v18, v16];
-        free(v13);
-        v15 = v14;
+        v14 = v13;
+        v15 = [NSString stringWithCString:v13 encoding:4];
+        free(v14);
+        v16 = v15;
         SSFileLog();
       }
     }
 
-    [(StoreServicesRequestQueue *)self _sendUnentitledReplyForMessage:message connection:connection, v15];
+    [(StoreServicesRequestQueue *)self _sendUnentitledReplyForMessage:message connection:connection, v16];
   }
 }
 
@@ -2387,15 +2520,21 @@ LABEL_26:
     shouldLog = [v10 shouldLog];
     if ([v10 shouldLogToDisk])
     {
-      v12 = shouldLog | 2;
+      LODWORD(v12) = shouldLog | 2;
     }
 
     else
     {
-      v12 = shouldLog;
+      LODWORD(v12) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v10 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v10 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = v12;
+    }
+
+    else
     {
       v12 &= 2u;
     }
@@ -2404,20 +2543,18 @@ LABEL_26:
     {
       v19 = 138412290;
       v20 = objc_opt_class();
-      LODWORD(v17) = 12;
-      v16 = &v19;
-      v13 = _os_log_send_and_compose_impl();
-      if (v13)
+      v14 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot set software properties for unentitled client", &v19, 12);
+      if (v14)
       {
-        v14 = v13;
-        v15 = [NSString stringWithCString:v13 encoding:4, &v19, v17];
-        free(v14);
-        v16 = v15;
+        v15 = v14;
+        v16 = [NSString stringWithCString:v14 encoding:4];
+        free(v15);
+        v17 = v16;
         SSFileLog();
       }
     }
 
-    [(StoreServicesRequestQueue *)self _sendUnentitledReplyForMessage:message connection:connection, v16];
+    [(StoreServicesRequestQueue *)self _sendUnentitledReplyForMessage:message connection:connection, v17];
   }
 }
 
@@ -2446,15 +2583,21 @@ LABEL_26:
     shouldLog = [v8 shouldLog];
     if ([v8 shouldLogToDisk])
     {
-      v10 = shouldLog | 2;
+      LODWORD(v10) = shouldLog | 2;
     }
 
     else
     {
-      v10 = shouldLog;
+      LODWORD(v10) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v8 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v8 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = v10;
+    }
+
+    else
     {
       v10 &= 2u;
     }
@@ -2463,20 +2606,18 @@ LABEL_26:
     {
       v17 = 138412290;
       v18 = objc_opt_class();
-      LODWORD(v15) = 12;
-      v14 = &v17;
-      v11 = _os_log_send_and_compose_impl();
-      if (v11)
+      v12 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot collect .har file for unentitled client", &v17, 12);
+      if (v12)
       {
-        v12 = v11;
-        v13 = [NSString stringWithCString:v11 encoding:4, &v17, v15];
-        free(v12);
-        v14 = v13;
+        v13 = v12;
+        v14 = [NSString stringWithCString:v12 encoding:4];
+        free(v13);
+        v15 = v14;
         SSFileLog();
       }
     }
 
-    [(StoreServicesRequestQueue *)self _sendUnentitledReplyForMessage:message connection:connection, v14];
+    [(StoreServicesRequestQueue *)self _sendUnentitledReplyForMessage:message connection:connection, v15];
   }
 }
 

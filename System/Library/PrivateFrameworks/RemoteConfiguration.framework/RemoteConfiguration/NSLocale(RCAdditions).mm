@@ -11,9 +11,9 @@
     +[NSLocale(RCAdditions) rc_preferredLanguageCodes];
   }
 
-  v1 = rc_preferredLanguageCodes_s_languageCodes;
+  v2 = rc_preferredLanguageCodes_s_languageCodes;
 
-  return v1;
+  return v2;
 }
 
 @end

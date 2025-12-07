@@ -21,13 +21,13 @@
   v9 = +[NSNotificationCenter defaultCenter];
   v10 = VUITellAppRemovalServiceThatSecureInvalidationDidCompleteNotification;
   v11 = +[NSOperationQueue currentQueue];
-  v93[0] = _NSConcreteStackBlock;
-  v93[1] = 3221225472;
-  v93[2] = sub_10000183C;
-  v93[3] = &unk_100004288;
+  v90[0] = _NSConcreteStackBlock;
+  v90[1] = 3221225472;
+  v90[2] = sub_10000183C;
+  v90[3] = &unk_100004288;
   v12 = v8;
-  v94 = v12;
-  v13 = [v9 addObserverForName:v10 object:0 queue:v11 usingBlock:v93];
+  v91 = v12;
+  v13 = [v9 addObserverForName:v10 object:0 queue:v11 usingBlock:v90];
 
   [VUIMediaLibraryManager setDeleteAllVideosAndKeysOnInitializationForAppRemoval:1];
   v14 = +[VUIMediaLibraryManager defaultManager];
@@ -59,161 +59,156 @@
     NSLog(@"Rental count... %lu", [v21 _countOfItems]);
     if ([v21 _hasItems])
     {
-      v72 = v18;
-      v73 = replyCopy;
+      v69 = v18;
+      v70 = replyCopy;
       selfCopy = self;
-      v76 = v12;
-      v78 = v7;
-      v91 = 0u;
-      v92 = 0u;
+      v73 = v12;
+      v75 = v7;
+      v88 = 0u;
       v89 = 0u;
-      v90 = 0u;
-      v71 = v21;
+      v86 = 0u;
+      v87 = 0u;
+      v68 = v21;
       items = [v21 items];
-      v27 = [items countByEnumeratingWithState:&v89 objects:v98 count:16];
-      v28 = &NSLog_ptr;
+      v27 = [items countByEnumeratingWithState:&v86 objects:v95 count:16];
       if (v27)
       {
-        v29 = v27;
-        v30 = *v90;
-        v31 = MPMediaItemPropertyStoreAccountID;
-        v32 = MPMediaItemPropertyStoreRentalID;
-        v80 = MPMediaItemPropertyStoreRentalID;
+        v28 = v27;
+        v29 = *v87;
+        v30 = MPMediaItemPropertyStoreAccountID;
+        v31 = MPMediaItemPropertyStoreRentalID;
+        v77 = MPMediaItemPropertyStoreRentalID;
         do
         {
-          for (i = 0; i != v29; i = i + 1)
+          for (i = 0; i != v28; i = i + 1)
           {
-            if (*v90 != v30)
+            if (*v87 != v29)
             {
               objc_enumerationMutation(items);
             }
 
-            v34 = *(*(&v89 + 1) + 8 * i);
-            v35 = [v34 valueForProperty:v31];
-            v36 = [v34 valueForProperty:v32];
-            v37 = v28[47];
+            v33 = *(*(&v86 + 1) + 8 * i);
+            v34 = [v33 valueForProperty:v30];
+            v35 = [v33 valueForProperty:v31];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v38 = v28[47];
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v39 = v30;
-                v40 = v36;
-                v41 = v31;
-                v42 = items;
-                v43 = v35;
-                v44 = [[SSRentalCheckinRequest alloc] initWithAccountIdentifier:v43 rentalKeyIdentifier:v40];
+                v36 = v29;
+                v37 = v35;
+                v38 = v30;
+                v39 = items;
+                v40 = v34;
+                v41 = [[SSRentalCheckinRequest alloc] initWithAccountIdentifier:v40 rentalKeyIdentifier:v37];
 
-                v30 = v39;
-                v45 = dispatch_semaphore_create(0);
-                v87[0] = _NSConcreteStackBlock;
-                v87[1] = 3221225472;
-                v87[2] = sub_10000187C;
-                v87[3] = &unk_1000042B0;
-                v88 = v45;
-                v46 = v45;
-                [v44 startWithConnectionResponseBlock:v87];
-                v47 = dispatch_time(0, 3000000000);
-                dispatch_semaphore_wait(v46, v47);
+                v29 = v36;
+                v42 = dispatch_semaphore_create(0);
+                v84[0] = _NSConcreteStackBlock;
+                v84[1] = 3221225472;
+                v84[2] = sub_10000187C;
+                v84[3] = &unk_1000042B0;
+                v85 = v42;
+                v43 = v42;
+                [v41 startWithConnectionResponseBlock:v84];
+                v44 = dispatch_time(0, 3000000000);
+                dispatch_semaphore_wait(v43, v44);
 
-                items = v42;
-                v31 = v41;
-                v32 = v80;
-
-                v28 = &NSLog_ptr;
+                items = v39;
+                v30 = v38;
+                v31 = v77;
               }
             }
           }
 
-          v29 = [items countByEnumeratingWithState:&v89 objects:v98 count:16];
+          v28 = [items countByEnumeratingWithState:&v86 objects:v95 count:16];
         }
 
-        while (v29);
+        while (v28);
       }
 
-      v12 = v76;
-      v7 = v78;
-      v18 = v72;
-      replyCopy = v73;
+      v12 = v73;
+      v7 = v75;
+      v18 = v69;
+      replyCopy = v70;
       self = selfCopy;
       v15 = &NSLog_ptr;
       v20 = &NSLog_ptr;
-      v21 = v71;
+      v21 = v68;
     }
 
-    v48 = MPMediaItemPropertyMediaType;
+    v45 = MPMediaItemPropertyMediaType;
   }
 
   else
   {
-    v48 = MPMediaItemPropertyMediaType;
+    v45 = MPMediaItemPropertyMediaType;
   }
 
   NSLog(@"Process content for deletion...");
-  v49 = objc_alloc_init(v15[64]);
-  v50 = [v20[63] predicateWithValue:&off_100004588 forProperty:v48];
-  [v49 addFilterPredicate:v50];
+  v46 = objc_alloc_init(v15[64]);
+  v47 = [v20[63] predicateWithValue:&off_100004588 forProperty:v45];
+  [v46 addFilterPredicate:v47];
 
-  v51 = [v20[63] predicateWithValue:&__kCFBooleanTrue forProperty:MPMediaItemPropertyHasNonPurgeableAsset];
-  v97[0] = v51;
-  v52 = [v20[63] predicateWithValue:&__kCFBooleanTrue forProperty:MPMediaItemPropertyIsLocal];
-  v97[1] = v52;
-  v53 = [NSArray arrayWithObjects:v97 count:2];
-  v54 = [MPMediaCompoundAnyPredicate predicateMatchingPredicates:v53];
-  [v49 addFilterPredicate:v54];
+  v48 = [v20[63] predicateWithValue:&__kCFBooleanTrue forProperty:MPMediaItemPropertyHasNonPurgeableAsset];
+  v94[0] = v48;
+  v49 = [v20[63] predicateWithValue:&__kCFBooleanTrue forProperty:MPMediaItemPropertyIsLocal];
+  v94[1] = v49;
+  v50 = [NSArray arrayWithObjects:v94 count:2];
+  v51 = [MPMediaCompoundAnyPredicate predicateMatchingPredicates:v50];
+  [v46 addFilterPredicate:v51];
 
-  if ([v49 _hasItems])
+  if ([v46 _hasItems])
   {
-    v77 = v12;
-    v79 = v7;
-    v55 = v18;
+    v74 = v12;
+    v76 = v7;
+    v52 = v18;
     selfCopy2 = self;
-    v56 = replyCopy;
-    v57 = objc_alloc_init(NSMutableArray);
+    v53 = replyCopy;
+    v54 = objc_alloc_init(NSMutableArray);
+    v80 = 0u;
+    v81 = 0u;
+    v82 = 0u;
     v83 = 0u;
-    v84 = 0u;
-    v85 = 0u;
-    v86 = 0u;
-    items2 = [v49 items];
-    v59 = [items2 countByEnumeratingWithState:&v83 objects:v96 count:16];
-    if (v59)
+    items2 = [v46 items];
+    v56 = [items2 countByEnumeratingWithState:&v80 objects:v93 count:16];
+    if (v56)
     {
-      v60 = v59;
-      v61 = *v84;
-      v62 = MPMediaItemPropertyFilePath;
+      v57 = v56;
+      v58 = *v81;
+      v59 = MPMediaItemPropertyFilePath;
       do
       {
-        for (j = 0; j != v60; j = j + 1)
+        for (j = 0; j != v57; j = j + 1)
         {
-          if (*v84 != v61)
+          if (*v81 != v58)
           {
             objc_enumerationMutation(items2);
           }
 
-          v64 = [*(*(&v83 + 1) + 8 * j) valueForProperty:v62];
-          if ([v64 length])
+          v61 = [*(*(&v80 + 1) + 8 * j) valueForProperty:v59];
+          if ([v61 length])
           {
-            [v57 addObject:v64];
+            [v54 addObject:v61];
           }
         }
 
-        v60 = [items2 countByEnumeratingWithState:&v83 objects:v96 count:16];
+        v57 = [items2 countByEnumeratingWithState:&v80 objects:v93 count:16];
       }
 
-      while (v60);
+      while (v57);
     }
 
-    items3 = [v49 items];
-    v18 = v55;
-    [v55 removeItems:items3];
+    items3 = [v46 items];
+    v18 = v52;
+    [v52 removeItems:items3];
 
-    replyCopy = v56;
+    replyCopy = v53;
     self = selfCopy2;
-    v12 = v77;
-    v7 = v79;
-    if ([v57 count])
+    v12 = v74;
+    v7 = v76;
+    if ([v54 count])
     {
       do
       {
@@ -221,7 +216,7 @@
         sleep(1u);
       }
 
-      while ([(TVAppRemovalService *)selfCopy2 _anyDownloadsExistAtPaths:v57]);
+      while ([(TVAppRemovalService *)selfCopy2 _anyDownloadsExistAtPaths:v54]);
       NSLog(@"Done waiting for downloads to be deleted");
     }
   }
@@ -230,25 +225,25 @@
   [(TVAppRemovalService *)self _clearPreferencesForApplicationID:@"com.apple.videos-preferences"];
   CFPreferencesSetAppValue(@"VideosShowCloudMediaEnabledSetting", kCFBooleanTrue, @"com.apple.mobileipod");
   CFPreferencesSetAppValue(@"VideosAllowHDREnabledSetting", 0, @"com.apple.mobileipod");
-  v66 = [SSDownloadManager alloc];
-  v95[0] = SSDownloadKindMovie;
-  v95[1] = SSDownloadKindTelevisionEpisode;
-  v67 = [NSArray arrayWithObjects:v95 count:2];
-  v68 = [v66 initWithDownloadKinds:v67];
+  v63 = [SSDownloadManager alloc];
+  v92[0] = SSDownloadKindMovie;
+  v92[1] = SSDownloadKindTelevisionEpisode;
+  v64 = [NSArray arrayWithObjects:v92 count:2];
+  v65 = [v63 initWithDownloadKinds:v64];
 
-  downloads = [v68 downloads];
+  downloads = [v65 downloads];
   NSLog(@"Cancel downloads if needed...");
   if ([downloads count])
   {
-    [v68 cancelDownloads:downloads completionBlock:0];
+    [v65 cancelDownloads:downloads completionBlock:0];
   }
 
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100001884;
   block[3] = &unk_1000042D8;
-  v82 = replyCopy;
-  v70 = replyCopy;
+  v79 = replyCopy;
+  v67 = replyCopy;
   dispatch_group_notify(v12, &_dispatch_main_q, block);
 }
 

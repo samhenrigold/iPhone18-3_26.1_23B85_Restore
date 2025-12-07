@@ -2,9 +2,9 @@
 - (BWInferenceScheduler)init;
 - (int)performInferencesForConnection:(unint64_t)connection usingInputSampleBuffer:(opaqueCMSampleBuffer *)buffer attachingResultsToSampleBuffer:(opaqueCMSampleBuffer *)sampleBuffer skippingInferencesWithTypes:(id)types;
 - (int)prepareForInferenceRequirements:(id)requirements dependencyProviderSource:(id)source formatProvider:(id)provider pixelBufferPoolProvider:(id)poolProvider connection:(unint64_t)connection backPressureDrivenPipelining:(BOOL)pipelining processingConfiguration:(id)configuration;
-- (uint64_t)_processJobsFromFramebuffer:(uint64_t)framebuffer usingInputSampleBuffer:(uint64_t)buffer inferencePropagationHandler:(__int128 *)handler atExecutionTime:(void *)time forConnection:;
 - (uint64_t)_queueForJob:(void *)job fromConnection:;
 - (unint64_t)registerInferenceConnectionWithEngineDescription:(id)description;
+- (void)_processJobsFromFramebuffer:(uint64_t)framebuffer usingInputSampleBuffer:(uint64_t)buffer inferencePropagationHandler:(__int128 *)handler atExecutionTime:(void *)time forConnection:;
 - (void)dealloc;
 - (void)unregisterInferenceConnection:(unint64_t)connection;
 @end
@@ -91,7 +91,7 @@
   os_unfair_lock_unlock(&self->_connectionsLock);
 }
 
-uint64_t __137__BWInferenceScheduler_performInferencesForConnection_usingInputSampleBuffer_attachingResultsToSampleBuffer_skippingInferencesWithTypes___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__137__BWInferenceScheduler_performInferencesForConnection_usingInputSampleBuffer_attachingResultsToSampleBuffer_skippingInferencesWithTypes___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   v6 = [*(a1 + 32) objectForKey:a2];
   result = [a2 conformsToProtocol:&unk_1F2257088];
@@ -192,7 +192,7 @@ void __137__BWInferenceScheduler_performInferencesForConnection_usingInputSample
     if (v9)
     {
       v11 = [*(a1 + 40) objectForKey:v7];
-      if (([v11 isEqualToString:@"Scheduling"] & 1) == 0)
+      if ((objc_msgSend_isEqualToString_(v11) & 1) == 0)
       {
         v12 = [v7 type];
         v13 = [v8 inferenceStorage];
@@ -241,13 +241,13 @@ void __137__BWInferenceScheduler_performInferencesForConnection_usingInputSample
   }
 }
 
-uint64_t __137__BWInferenceScheduler_performInferencesForConnection_usingInputSampleBuffer_attachingResultsToSampleBuffer_skippingInferencesWithTypes___block_invoke_5(uint64_t a1, void *a2, uint64_t a3, unsigned int a4, void *a5)
+unsigned __int8 *__137__BWInferenceScheduler_performInferencesForConnection_usingInputSampleBuffer_attachingResultsToSampleBuffer_skippingInferencesWithTypes___block_invoke_5(uint64_t a1, void *a2, uint64_t a3, unsigned int a4, void *a5)
 {
-  result = [objc_msgSend(*(a1 + 32) "jobs")];
-  if (!atomic_load((result + 22)))
+  result = [objc_msgSend(*(a1 + 32) jobs];
+  if (!atomic_load(result + 22))
   {
     v10 = result;
-    v11 = *(result + 8);
+    v11 = *(result + 1);
     v12 = [*(a1 + 40) pixelBufferForRequirement:a2];
     if (v12 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (v12 = [*(a1 + 40) pixelBufferForRequirement:{objc_msgSend(a2, "uncompressedRequirement")}]) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (v12 = objc_msgSend(*(a1 + 40), "pixelBufferForRequirement:", objc_msgSend(a2, "sourceVideoRequirement"))) != 0)
     {
@@ -276,10 +276,10 @@ uint64_t __137__BWInferenceScheduler_performInferencesForConnection_usingInputSa
       atomic_store(v15, (*(a1 + 32) + 12));
     }
 
-    else if (atomic_fetch_add((v10 + 23), 0xFFu) == 1)
+    else if (atomic_fetch_add(v10 + 23, 0xFFu) == 1)
     {
       v16 = 0;
-      atomic_compare_exchange_strong((v10 + 22), &v16, 1u);
+      atomic_compare_exchange_strong(v10 + 22, &v16, 1u);
     }
   }
 
@@ -341,40 +341,40 @@ uint64_t __137__BWInferenceScheduler_performInferencesForConnection_usingInputSa
   return [job scalingQueue];
 }
 
-uint64_t __133__BWInferenceScheduler__processJobsFromFramebuffer_usingInputSampleBuffer_inferencePropagationHandler_atExecutionTime_forConnection___block_invoke(uint64_t result)
+dispatch_group_t *__133__BWInferenceScheduler__processJobsFromFramebuffer_usingInputSampleBuffer_inferencePropagationHandler_atExecutionTime_forConnection___block_invoke(dispatch_group_t *result)
 {
-  if (!atomic_load((*(result + 32) + 12)))
+  if (!atomic_load(&result[4][1].isa + 1))
   {
     v2 = result;
     v3 = 1;
-    atomic_compare_exchange_strong((*(result + 80) + 22), &v3, 2u);
+    atomic_compare_exchange_strong(&result[10][2].isa + 6, &v3, 2u);
     if (v3 == 1)
     {
-      dispatch_group_enter(*(result + 40));
-      v5 = *(v2 + 80);
-      v4 = *(v2 + 88);
+      dispatch_group_enter(result[5]);
+      v5 = v2[10];
+      v4 = v2[11];
       v14[0] = MEMORY[0x1E69E9820];
       v14[1] = 3221225472;
       v14[2] = __133__BWInferenceScheduler__processJobsFromFramebuffer_usingInputSampleBuffer_inferencePropagationHandler_atExecutionTime_forConnection___block_invoke_2;
       v14[3] = &unk_1E799B670;
-      v6 = *(v2 + 48);
-      v7 = *(v2 + 32);
-      v8 = *(v2 + 40);
-      v14[4] = *(v2 + 56);
+      v6 = v2[6];
+      v7 = v2[4];
+      v8 = v2[5];
+      v14[4] = v2[7];
       v14[5] = v7;
-      v16 = *(v2 + 112);
-      v9 = *(v2 + 64);
-      v14[8] = *(v2 + 72);
+      v16 = v2[14];
+      v9 = v2[8];
+      v14[8] = v2[9];
       v14[9] = v4;
-      v15 = *(v2 + 96);
+      v15 = *(v2 + 6);
       v14[10] = v5;
       v14[6] = v9;
       v14[7] = v8;
-      v12 = *(v2 + 96);
-      v13 = *(v2 + 112);
-      v10 = *(v5 + 8);
-      v11 = [*v5 submittable];
-      result = [*v5 executable];
+      v12 = *(v2 + 6);
+      v13 = v2[14];
+      isa = v5[1].isa;
+      v11 = [(objc_class *)v5->isa submittable];
+      result = [(objc_class *)v5->isa executable];
       if (v11)
       {
         v19 = MEMORY[0x1E69E9820];
@@ -385,7 +385,7 @@ uint64_t __133__BWInferenceScheduler__processJobsFromFramebuffer_usingInputSampl
         v24 = v5;
         v17 = v12;
         v18 = v13;
-        return [v11 submitForSampleBuffer:v4 usingStorage:v10 withSubmissionTime:&v17 workQueue:v6 completionHandler:&v19];
+        return [v11 submitForSampleBuffer:v4 usingStorage:isa withSubmissionTime:&v17 workQueue:v6 completionHandler:&v19];
       }
 
       else if (result)
@@ -398,7 +398,7 @@ uint64_t __133__BWInferenceScheduler__processJobsFromFramebuffer_usingInputSampl
         v24 = v5;
         v17 = v12;
         v18 = v13;
-        return [result executeOnSampleBuffer:v4 usingStorage:v10 withExecutionTime:&v17 completionHandler:&v19];
+        return [(dispatch_group_t *)result executeOnSampleBuffer:v4 usingStorage:isa withExecutionTime:&v17 completionHandler:&v19];
       }
     }
   }
@@ -406,7 +406,7 @@ uint64_t __133__BWInferenceScheduler__processJobsFromFramebuffer_usingInputSampl
   return result;
 }
 
-void __133__BWInferenceScheduler__processJobsFromFramebuffer_usingInputSampleBuffer_inferencePropagationHandler_atExecutionTime_forConnection___block_invoke_2(void *a1, unsigned int a2)
+void __133__BWInferenceScheduler__processJobsFromFramebuffer_usingInputSampleBuffer_inferencePropagationHandler_atExecutionTime_forConnection___block_invoke_2(void *a1, unsigned int a2, uint64_t a3)
 {
   if (a2)
   {
@@ -419,9 +419,9 @@ void __133__BWInferenceScheduler__processJobsFromFramebuffer_usingInputSampleBuf
   }
 
   [*(a1[10] + 8) clear];
-  v3 = a1[7];
+  v4 = a1[7];
 
-  dispatch_group_leave(v3);
+  dispatch_group_leave(v4);
 }
 
 - (int)prepareForInferenceRequirements:(id)requirements dependencyProviderSource:(id)source formatProvider:(id)provider pixelBufferPoolProvider:(id)poolProvider connection:(unint64_t)connection backPressureDrivenPipelining:(BOOL)pipelining processingConfiguration:(id)configuration
@@ -925,7 +925,7 @@ LABEL_32:
   return v38;
 }
 
-- (uint64_t)_processJobsFromFramebuffer:(uint64_t)framebuffer usingInputSampleBuffer:(uint64_t)buffer inferencePropagationHandler:(__int128 *)handler atExecutionTime:(void *)time forConnection:
+- (void)_processJobsFromFramebuffer:(uint64_t)framebuffer usingInputSampleBuffer:(uint64_t)buffer inferencePropagationHandler:(__int128 *)handler atExecutionTime:(void *)time forConnection:
 {
   if (result)
   {
@@ -983,7 +983,7 @@ LABEL_32:
               }
             }
 
-            ++v14;
+            v14 = v14 + 1;
           }
 
           while (v11 != v14);
@@ -999,7 +999,7 @@ LABEL_32:
   return result;
 }
 
-uint64_t __133__BWInferenceScheduler__processJobsFromFramebuffer_usingInputSampleBuffer_inferencePropagationHandler_atExecutionTime_forConnection___block_invoke_2_cold_1(uint64_t a1)
+void *__133__BWInferenceScheduler__processJobsFromFramebuffer_usingInputSampleBuffer_inferencePropagationHandler_atExecutionTime_forConnection___block_invoke_2_cold_1(uint64_t a1)
 {
   (*(*(a1 + 64) + 16))();
   v2 = *(a1 + 32);

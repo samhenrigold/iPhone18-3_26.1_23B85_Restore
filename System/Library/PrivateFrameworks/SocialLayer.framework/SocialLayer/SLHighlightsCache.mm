@@ -109,7 +109,7 @@
 
 - (void)updateHighlights
 {
-  v3 = SLFrameworkLogHandle();
+  v3 = SLFrameworkLogHandle(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -151,7 +151,7 @@ uint64_t __48__SLHighlightsCache_clientUpdateHighlightsBlock__block_invoke(uint6
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 void __40__SLHighlightsCache_highlightFetchQueue__block_invoke()
@@ -276,7 +276,7 @@ void __37__SLHighlightsCache_currentDelegates__block_invoke(uint64_t a1)
     if (objc_opt_respondsToSelector())
     {
       appIdentifierForHighlightsCache = [firstObject appIdentifierForHighlightsCache];
-      v7 = SLFrameworkLogHandle();
+      v7 = SLFrameworkLogHandle(appIdentifierForHighlightsCache);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         [SLHighlightsCache interactionHandler];
@@ -325,16 +325,17 @@ void __47__SLHighlightsCache_highlightQueryHandlerQueue__block_invoke()
 - (void)_leaveInitialFetchGroupIfNecessary
 {
   initialFetchGroup = [(SLHighlightsCache *)self initialFetchGroup];
+  v4 = initialFetchGroup;
   if (initialFetchGroup)
   {
-    v4 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = SLFrameworkLogHandle(initialFetchGroup);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_231772000, v4, OS_LOG_TYPE_INFO, "Leaving initial fetch group to invoke callbacks waiting on the first fetch.", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_231772000, v5, OS_LOG_TYPE_INFO, "Leaving initial fetch group to invoke callbacks waiting on the first fetch.", v6, 2u);
     }
 
-    dispatch_group_leave(initialFetchGroup);
+    dispatch_group_leave(v4);
     [(SLHighlightsCache *)self setInitialFetchGroup:0];
   }
 }
@@ -396,22 +397,22 @@ void __57__SLHighlightsCache__fetchAndUpdateHighlightsImmediately__block_invoke(
             }
 
             v12 = *(*(&v17 + 1) + 8 * v11);
-            if (objc_opt_respondsToSelector())
+            v13 = objc_opt_respondsToSelector();
+            if (v13)
             {
-              [v12 legacyDidAddHighlights];
-              v13 = SLFrameworkLogHandle();
-              if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+              v14 = SLFrameworkLogHandle([v12 legacyDidAddHighlights]);
+              if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
                 v22 = v12;
-                _os_log_impl(&dword_231772000, v13, OS_LOG_TYPE_DEFAULT, "legacyDidAddHighlights: delegate: %@", buf, 0xCu);
+                _os_log_impl(&dword_231772000, v14, OS_LOG_TYPE_DEFAULT, "legacyDidAddHighlights: delegate: %@", buf, 0xCu);
               }
             }
 
             else
             {
-              v13 = SLFrameworkLogHandle();
-              if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+              v14 = SLFrameworkLogHandle(v13);
+              if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
               {
                 __57__SLHighlightsCache__fetchAndUpdateHighlightsImmediately__block_invoke_cold_1(&v15, v16);
               }
@@ -428,14 +429,12 @@ void __57__SLHighlightsCache__fetchAndUpdateHighlightsImmediately__block_invoke(
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerNotifications
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = self;
 }
 
 + (id)userInitiatedHighlightFetchQueue
@@ -461,22 +460,22 @@ void __53__SLHighlightsCache_userInitiatedHighlightFetchQueue__block_invoke()
 void __43__SLHighlightsCache__registerNotifications__block_invoke(uint64_t a1)
 {
   objc_copyWeak(&to, (a1 + 32));
-  v1 = SLFrameworkLogHandle();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+  v2 = SLFrameworkLogHandle(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v3 = 0;
-    _os_log_impl(&dword_231772000, v1, OS_LOG_TYPE_DEFAULT, "_updateHighlights for SLSocialHighlightsRefreshedNotification: ", v3, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_231772000, v2, OS_LOG_TYPE_DEFAULT, "_updateHighlights for SLSocialHighlightsRefreshedNotification: ", v4, 2u);
   }
 
-  v2 = objc_loadWeakRetained(&to);
-  [v2 _updateHighlightsForSystemNotification];
+  v3 = objc_loadWeakRetained(&to);
+  [v3 _updateHighlightsForSystemNotification];
 
   objc_destroyWeak(&to);
 }
 
 - (void)_updateHighlightsForSystemNotification
 {
-  v3 = SLFrameworkLogHandle();
+  v3 = SLFrameworkLogHandle(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -518,7 +517,7 @@ uint64_t __48__SLHighlightsCache_systemUpdateHighlightsBlock__block_invoke(uint6
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)runAfterInitialFetch:(id)fetch onQueue:(id)queue
@@ -544,86 +543,86 @@ uint64_t __48__SLHighlightsCache_systemUpdateHighlightsBlock__block_invoke(uint6
 
 void __50__SLHighlightsCache_runAfterInitialFetch_onQueue___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = [WeakRetained initialFetchGroup];
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x2020000000;
-  v22 = 0;
+  v4 = v3;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 0;
   if (v3)
   {
-    v4 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = SLFrameworkLogHandle(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v24 = "[SLHighlightsCache runAfterInitialFetch:onQueue:]_block_invoke";
-      _os_log_impl(&dword_231772000, v4, OS_LOG_TYPE_INFO, "%s Waiting on initial fetch group before running target block.", buf, 0xCu);
+      v25 = "[SLHighlightsCache runAfterInitialFetch:onQueue:]_block_invoke";
+      _os_log_impl(&dword_231772000, v5, OS_LOG_TYPE_INFO, "%s Waiting on initial fetch group before running target block.", buf, 0xCu);
     }
 
-    v5 = [WeakRetained initialFetchGroup];
-    v6 = dispatch_time(0, 3000000000);
-    v7 = dispatch_group_wait(v5, v6);
+    v6 = [WeakRetained initialFetchGroup];
+    v7 = dispatch_time(0, 3000000000);
+    v8 = dispatch_group_wait(v6, v7);
 
-    if (v7)
+    if (v8)
     {
-      *(v20 + 24) = 1;
+      *(v21 + 24) = 1;
     }
 
-    v8 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v10 = SLFrameworkLogHandle(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      if (*(v20 + 24))
+      if (*(v21 + 24))
       {
-        v9 = @"YES";
+        v11 = @"YES";
       }
 
       else
       {
-        v9 = @"NO";
+        v11 = @"NO";
       }
 
       *buf = 136315394;
-      v24 = "[SLHighlightsCache runAfterInitialFetch:onQueue:]_block_invoke";
-      v25 = 2112;
-      v26 = v9;
-      _os_log_impl(&dword_231772000, v8, OS_LOG_TYPE_INFO, "%s Finished waiting on initial fetch group, and invoking target block. didTimeout: %@", buf, 0x16u);
+      v25 = "[SLHighlightsCache runAfterInitialFetch:onQueue:]_block_invoke";
+      v26 = 2112;
+      v27 = v11;
+      _os_log_impl(&dword_231772000, v10, OS_LOG_TYPE_INFO, "%s Finished waiting on initial fetch group, and invoking target block. didTimeout: %@", buf, 0x16u);
     }
 
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __50__SLHighlightsCache_runAfterInitialFetch_onQueue___block_invoke_28;
-    v17[3] = &unk_278926610;
-    v10 = v18;
-    v11 = *(a1 + 32);
-    v18[0] = *(a1 + 40);
-    v18[1] = &v19;
-    v12 = v17;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __50__SLHighlightsCache_runAfterInitialFetch_onQueue___block_invoke_28;
+    v18[3] = &unk_278926610;
+    v12 = v19;
+    v13 = *(a1 + 32);
+    v19[0] = *(a1 + 40);
+    v19[1] = &v20;
+    v14 = v18;
   }
 
   else
   {
-    v13 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v15 = SLFrameworkLogHandle(0);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       __50__SLHighlightsCache_runAfterInitialFetch_onQueue___block_invoke_cold_1();
     }
 
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __50__SLHighlightsCache_runAfterInitialFetch_onQueue___block_invoke_30;
-    v15[3] = &unk_278926610;
-    v10 = v16;
-    v11 = *(a1 + 32);
-    v16[0] = *(a1 + 40);
-    v16[1] = &v19;
-    v12 = v15;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __50__SLHighlightsCache_runAfterInitialFetch_onQueue___block_invoke_30;
+    v16[3] = &unk_278926610;
+    v12 = v17;
+    v13 = *(a1 + 32);
+    v17[0] = *(a1 + 40);
+    v17[1] = &v20;
+    v14 = v16;
   }
 
-  dispatch_async(v11, v12);
+  dispatch_async(v13, v14);
 
-  _Block_object_dispose(&v19, 8);
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v20, 8);
 }
 
 - (void)addDelegate:(id)delegate
@@ -642,10 +641,10 @@ void __50__SLHighlightsCache_runAfterInitialFetch_onQueue___block_invoke(uint64_
 
 uint64_t __33__SLHighlightsCache_addDelegate___block_invoke(uint64_t a1)
 {
-  v2 = SLFrameworkLogHandle();
+  v2 = SLFrameworkLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __33__SLHighlightsCache_addDelegate___block_invoke_cold_1(a1);
+    __33__SLHighlightsCache_addDelegate___block_invoke_cold_1();
   }
 
   return [*(*(a1 + 40) + 56) addObject:*(a1 + 32)];
@@ -667,10 +666,10 @@ uint64_t __33__SLHighlightsCache_addDelegate___block_invoke(uint64_t a1)
 
 uint64_t __36__SLHighlightsCache_removeDelegate___block_invoke(uint64_t a1)
 {
-  v2 = SLFrameworkLogHandle();
+  v2 = SLFrameworkLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __36__SLHighlightsCache_removeDelegate___block_invoke_cold_1(a1);
+    __36__SLHighlightsCache_removeDelegate___block_invoke_cold_1();
   }
 
   return [*(*(a1 + 40) + 56) removeObject:*(a1 + 32)];
@@ -679,22 +678,22 @@ uint64_t __36__SLHighlightsCache_removeDelegate___block_invoke(uint64_t a1)
 void __43__SLHighlightsCache__registerNotifications__block_invoke_37(uint64_t a1)
 {
   objc_copyWeak(&to, (a1 + 32));
-  v1 = SLFrameworkLogHandle();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+  v2 = SLFrameworkLogHandle(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v3 = 0;
-    _os_log_impl(&dword_231772000, v1, OS_LOG_TYPE_DEFAULT, "_updateHighlights for SLScreenTimeConversationDidObserveChangesNotification: ", v3, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_231772000, v2, OS_LOG_TYPE_DEFAULT, "_updateHighlights for SLScreenTimeConversationDidObserveChangesNotification: ", v4, 2u);
   }
 
-  v2 = objc_loadWeakRetained(&to);
-  [v2 _updateHighlightsForSystemNotification];
+  v3 = objc_loadWeakRetained(&to);
+  [v3 _updateHighlightsForSystemNotification];
 
   objc_destroyWeak(&to);
 }
 
 void __43__SLHighlightsCache__registerNotifications__block_invoke_39(uint64_t a1)
 {
-  v2 = SLFrameworkLogHandle();
+  v2 = SLFrameworkLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -711,7 +710,7 @@ void __43__SLHighlightsCache__registerNotifications__block_invoke_39(uint64_t a1
 - (id)_updateHighlightsWithPreviousUpdateBlock:(id)block debounceInterval:(unint64_t)interval
 {
   blockCopy = block;
-  v7 = SLFrameworkLogHandle();
+  v7 = SLFrameworkLogHandle(blockCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [SLHighlightsCache _updateHighlightsWithPreviousUpdateBlock:debounceInterval:];
@@ -724,7 +723,7 @@ void __43__SLHighlightsCache__registerNotifications__block_invoke_39(uint64_t a1
     dispatch_block_cancel(v8);
   }
 
-  v10 = SLFrameworkLogHandle();
+  v10 = SLFrameworkLogHandle(v8);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -757,228 +756,265 @@ void __79__SLHighlightsCache__updateHighlightsWithPreviousUpdateBlock_debounceIn
 
 - (void)didDeleteHighlightsOrAttributions
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v3 = SLFrameworkLogHandle(self);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  {
+    [SLHighlightsCache didDeleteHighlightsOrAttributions];
+  }
+
+  highlights = [(SLHighlightsCache *)self highlights];
+  v5 = SLFrameworkLogHandle(highlights);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    LODWORD(buf) = 134217984;
+    *(&buf + 4) = [highlights count];
+    _os_log_impl(&dword_231772000, v5, OS_LOG_TYPE_DEFAULT, "SLHighlightsCache didDeleteHighlightsOrAttributions: Stored %lu old highlights", &buf, 0xCu);
+  }
+
+  *&buf = 0;
+  *(&buf + 1) = &buf;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy__8;
+  v17 = __Block_byref_object_dispose__8;
+  array = [MEMORY[0x277CBEB18] array];
+  v12[0] = 0;
+  v12[1] = v12;
+  v12[2] = 0x2020000000;
+  v13 = 0;
+  v6 = +[SLHighlightsCache sharedCache];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __54__SLHighlightsCache_didDeleteHighlightsOrAttributions__block_invoke;
+  v8[3] = &unk_278926688;
+  v8[4] = self;
+  v7 = highlights;
+  v9 = v7;
+  p_buf = &buf;
+  v11 = v12;
+  [v6 fetchHighlightsWithLimit:0x7FFFFFFFFFFFFFFFLL reason:@"deleteHighlights" variant:0 completionBlock:v8];
+
+  _Block_object_dispose(v12, 8);
+  _Block_object_dispose(&buf, 8);
 }
 
 void __54__SLHighlightsCache_didDeleteHighlightsOrAttributions__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v60 = *MEMORY[0x277D85DE8];
-  if (a2)
+  v59 = *MEMORY[0x277D85DE8];
+  if (!a2)
   {
-LABEL_44:
-    v43 = *MEMORY[0x277D85DE8];
-    return;
-  }
+    v3 = [*(a1 + 32) highlights];
+    v4 = [v3 count];
 
-  v3 = [*(a1 + 32) highlights];
-  v4 = [v3 count];
-
-  if (v4)
-  {
-    v5 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    if (v4)
     {
-      __54__SLHighlightsCache_didDeleteHighlightsOrAttributions__block_invoke_cold_1();
-    }
-
-    v6 = objc_alloc(MEMORY[0x277CBEB38]);
-    v7 = [*(a1 + 32) highlights];
-    v8 = [v6 initWithCapacity:{objc_msgSend(v7, "count")}];
-
-    v9 = objc_alloc(MEMORY[0x277CBEB38]);
-    v10 = [*(a1 + 32) highlights];
-    v11 = [v9 initWithCapacity:{objc_msgSend(v10, "count")}];
-
-    v55 = 0u;
-    v56 = 0u;
-    v53 = 0u;
-    v54 = 0u;
-    v12 = *(a1 + 40);
-    v13 = [v12 countByEnumeratingWithState:&v53 objects:v59 count:16];
-    if (v13)
-    {
-      v14 = v13;
-      v15 = *v54;
-      do
+      v6 = SLFrameworkLogHandle(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
-        for (i = 0; i != v14; ++i)
-        {
-          if (*v54 != v15)
-          {
-            objc_enumerationMutation(v12);
-          }
-
-          v17 = *(*(&v53 + 1) + 8 * i);
-          v18 = [v17 identifier];
-          [v8 setObject:v17 forKey:v18];
-        }
-
-        v14 = [v12 countByEnumeratingWithState:&v53 objects:v59 count:16];
+        __54__SLHighlightsCache_didDeleteHighlightsOrAttributions__block_invoke_cold_1();
       }
 
-      while (v14);
-    }
+      v7 = objc_alloc(MEMORY[0x277CBEB38]);
+      v8 = [*(a1 + 32) highlights];
+      v9 = [v7 initWithCapacity:{objc_msgSend(v8, "count")}];
 
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
-    v50 = 0u;
-    v19 = [*(a1 + 32) highlights];
-    v20 = [v19 countByEnumeratingWithState:&v49 objects:v58 count:16];
-    if (v20)
-    {
-      v21 = v20;
-      v22 = *v50;
-      do
+      v10 = objc_alloc(MEMORY[0x277CBEB38]);
+      v11 = [*(a1 + 32) highlights];
+      v12 = [v10 initWithCapacity:{objc_msgSend(v11, "count")}];
+
+      v54 = 0u;
+      v55 = 0u;
+      v52 = 0u;
+      v53 = 0u;
+      v13 = *(a1 + 40);
+      v14 = [v13 countByEnumeratingWithState:&v52 objects:v58 count:16];
+      if (v14)
       {
-        for (j = 0; j != v21; ++j)
+        v15 = v14;
+        v16 = *v53;
+        do
         {
-          if (*v50 != v22)
+          for (i = 0; i != v15; ++i)
           {
-            objc_enumerationMutation(v19);
-          }
-
-          v24 = *(*(&v49 + 1) + 8 * j);
-          v25 = [v24 identifier];
-          [v11 setObject:v24 forKey:v25];
-        }
-
-        v21 = [v19 countByEnumeratingWithState:&v49 objects:v58 count:16];
-      }
-
-      while (v21);
-    }
-
-    v26 = a1;
-
-    v44 = v11;
-    v27 = [v11 allKeys];
-    v45 = 0u;
-    v46 = 0u;
-    v47 = 0u;
-    v48 = 0u;
-    v28 = [v8 allKeys];
-    v29 = [v28 countByEnumeratingWithState:&v45 objects:v57 count:16];
-    if (v29)
-    {
-      v30 = v29;
-      v31 = *v46;
-      do
-      {
-        for (k = 0; k != v30; ++k)
-        {
-          if (*v46 != v31)
-          {
-            objc_enumerationMutation(v28);
-          }
-
-          v33 = *(*(&v45 + 1) + 8 * k);
-          v34 = [v27 containsObject:v33];
-          v35 = [v8 objectForKey:v33];
-          if (v34)
-          {
-            v36 = [v44 objectForKey:v33];
-            if (([v35 isEqual:v36] & 1) == 0)
+            if (*v53 != v16)
             {
-              *(*(*(v26 + 56) + 8) + 24) = 1;
+              objc_enumerationMutation(v13);
+            }
+
+            v18 = *(*(&v52 + 1) + 8 * i);
+            v19 = [v18 identifier];
+            [v9 setObject:v18 forKey:v19];
+          }
+
+          v15 = [v13 countByEnumeratingWithState:&v52 objects:v58 count:16];
+        }
+
+        while (v15);
+      }
+
+      v50 = 0u;
+      v51 = 0u;
+      v48 = 0u;
+      v49 = 0u;
+      v20 = [*(a1 + 32) highlights];
+      v21 = [v20 countByEnumeratingWithState:&v48 objects:v57 count:16];
+      if (v21)
+      {
+        v22 = v21;
+        v23 = *v49;
+        do
+        {
+          for (j = 0; j != v22; ++j)
+          {
+            if (*v49 != v23)
+            {
+              objc_enumerationMutation(v20);
+            }
+
+            v25 = *(*(&v48 + 1) + 8 * j);
+            v26 = [v25 identifier];
+            [v12 setObject:v25 forKey:v26];
+          }
+
+          v22 = [v20 countByEnumeratingWithState:&v48 objects:v57 count:16];
+        }
+
+        while (v22);
+      }
+
+      v27 = a1;
+
+      v43 = v12;
+      v28 = [v12 allKeys];
+      v44 = 0u;
+      v45 = 0u;
+      v46 = 0u;
+      v47 = 0u;
+      v29 = [v9 allKeys];
+      v30 = [v29 countByEnumeratingWithState:&v44 objects:v56 count:16];
+      if (v30)
+      {
+        v31 = v30;
+        v32 = *v45;
+        do
+        {
+          for (k = 0; k != v31; ++k)
+          {
+            if (*v45 != v32)
+            {
+              objc_enumerationMutation(v29);
+            }
+
+            v34 = *(*(&v44 + 1) + 8 * k);
+            v35 = [v28 containsObject:v34];
+            v36 = [v9 objectForKey:v34];
+            if (v35)
+            {
+              v37 = [v43 objectForKey:v34];
+              if (([v36 isEqual:v37] & 1) == 0)
+              {
+                *(*(*(v27 + 56) + 8) + 24) = 1;
+              }
+            }
+
+            else
+            {
+              [*(*(*(v27 + 48) + 8) + 40) addObject:v36];
             }
           }
 
-          else
-          {
-            [*(*(*(v26 + 48) + 8) + 40) addObject:v35];
-          }
+          v31 = [v29 countByEnumeratingWithState:&v44 objects:v56 count:16];
         }
 
-        v30 = [v28 countByEnumeratingWithState:&v45 objects:v57 count:16];
+        while (v31);
       }
 
-      while (v30);
-    }
-
-    v37 = [*(*(*(v26 + 48) + 8) + 40) count];
-    v38 = SLFrameworkLogHandle();
-    v39 = os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG);
-    if (v37)
-    {
-      if (v39)
+      v38 = [*(*(*(v27 + 48) + 8) + 40) count];
+      v39 = SLFrameworkLogHandle(v38);
+      v40 = os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG);
+      if (v38)
       {
-        __54__SLHighlightsCache_didDeleteHighlightsOrAttributions__block_invoke_cold_2(v26 + 48);
+        if (v40)
+        {
+          __54__SLHighlightsCache_didDeleteHighlightsOrAttributions__block_invoke_cold_2(v27 + 48);
+        }
+
+        [*(v27 + 32) _notifyDelegatesWithNotificationType:2 withHighlights:*(*(*(v27 + 48) + 8) + 40)];
       }
 
-      [*(v26 + 32) _notifyDelegatesWithNotificationType:2 withHighlights:*(*(*(v26 + 48) + 8) + 40)];
+      else
+      {
+        if (v40)
+        {
+          __54__SLHighlightsCache_didDeleteHighlightsOrAttributions__block_invoke_cold_3();
+        }
+      }
+
+      if (*(*(*(v27 + 56) + 8) + 24) == 1)
+      {
+        [*(v27 + 32) _notifyDelegatesWithNotificationType:1 withHighlights:0];
+      }
     }
 
     else
     {
-      if (v39)
-      {
-        __54__SLHighlightsCache_didDeleteHighlightsOrAttributions__block_invoke_cold_3();
-      }
-    }
+      v41 = *(a1 + 32);
+      v42 = *(a1 + 40);
 
-    if (*(*(*(v26 + 56) + 8) + 24) == 1)
-    {
-      [*(v26 + 32) _notifyDelegatesWithNotificationType:1 withHighlights:0];
+      [v41 _notifyDelegatesWithNotificationType:2 withHighlights:v42];
     }
-
-    goto LABEL_44;
   }
-
-  v40 = *(a1 + 32);
-  v41 = *(a1 + 40);
-  v42 = *MEMORY[0x277D85DE8];
-
-  [v40 _notifyDelegatesWithNotificationType:2 withHighlights:v41];
 }
 
 - (void)_notifyDelegatesWithNotificationType:(int64_t)type withHighlights:(id)highlights
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   highlightsCopy = highlights;
   currentDelegates = [(SLHighlightsCache *)self currentDelegates];
   v8 = currentDelegates;
   switch(type)
   {
     case 2:
-      v32 = 0u;
-      v33 = 0u;
-      v30 = 0u;
       v31 = 0u;
-      v22 = [currentDelegates countByEnumeratingWithState:&v30 objects:v46 count:16];
-      if (v22)
+      v32 = 0u;
+      v29 = 0u;
+      v30 = 0u;
+      v23 = [currentDelegates countByEnumeratingWithState:&v29 objects:v45 count:16];
+      if (v23)
       {
-        v23 = v22;
-        v24 = *v31;
+        v24 = v23;
+        v25 = *v30;
         do
         {
-          for (i = 0; i != v23; ++i)
+          v26 = 0;
+          do
           {
-            if (*v31 != v24)
+            if (*v30 != v25)
             {
               objc_enumerationMutation(v8);
             }
 
-            v26 = *(*(&v30 + 1) + 8 * i);
-            if (v26 && (v27 = *(*(&v30 + 1) + 8 * i), (objc_opt_respondsToSelector() & 1) != 0))
+            v27 = *(*(&v29 + 1) + 8 * v26);
+            if (v27 && (v23 = objc_opt_respondsToSelector(), (v23 & 1) != 0))
             {
-              [v26 legacyDidRemoveHighlights:highlightsCopy];
+              v23 = [v27 legacyDidRemoveHighlights:highlightsCopy];
             }
 
             else
             {
-              v28 = SLFrameworkLogHandle();
+              v28 = SLFrameworkLogHandle(v23);
               if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
               {
-                [SLHighlightsCache _notifyDelegatesWithNotificationType:v41 withHighlights:?];
+                [SLHighlightsCache _notifyDelegatesWithNotificationType:v40 withHighlights:?];
               }
             }
+
+            ++v26;
           }
 
-          v23 = [v8 countByEnumeratingWithState:&v30 objects:v46 count:16];
+          while (v24 != v26);
+          v23 = [v8 countByEnumeratingWithState:&v29 objects:v45 count:16];
+          v24 = v23;
         }
 
         while (v23);
@@ -986,41 +1022,42 @@ LABEL_44:
 
       break;
     case 1:
-      v36 = 0u;
-      v37 = 0u;
-      v34 = 0u;
       v35 = 0u;
-      v16 = [currentDelegates countByEnumeratingWithState:&v34 objects:v47 count:16];
+      v36 = 0u;
+      v33 = 0u;
+      v34 = 0u;
+      v16 = [currentDelegates countByEnumeratingWithState:&v33 objects:v46 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v35;
+        v18 = *v34;
         do
         {
-          for (j = 0; j != v17; ++j)
+          for (i = 0; i != v17; ++i)
           {
-            if (*v35 != v18)
+            if (*v34 != v18)
             {
               objc_enumerationMutation(v8);
             }
 
-            v20 = *(*(&v34 + 1) + 8 * j);
-            if (objc_opt_respondsToSelector())
+            v20 = *(*(&v33 + 1) + 8 * i);
+            v21 = objc_opt_respondsToSelector();
+            if (v21)
             {
               [v20 legacyDidAddHighlights];
             }
 
             else
             {
-              v21 = SLFrameworkLogHandle();
-              if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+              v22 = SLFrameworkLogHandle(v21);
+              if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
               {
-                __57__SLHighlightsCache__fetchAndUpdateHighlightsImmediately__block_invoke_cold_1(&v40, v41);
+                __57__SLHighlightsCache__fetchAndUpdateHighlightsImmediately__block_invoke_cold_1(&v39, v40);
               }
             }
           }
 
-          v17 = [v8 countByEnumeratingWithState:&v34 objects:v47 count:16];
+          v17 = [v8 countByEnumeratingWithState:&v33 objects:v46 count:16];
         }
 
         while (v17);
@@ -1028,56 +1065,59 @@ LABEL_44:
 
       break;
     case 0:
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
       v43 = 0u;
-      v9 = [currentDelegates countByEnumeratingWithState:&v42 objects:v48 count:16];
-      if (v9)
+      v44 = 0u;
+      v41 = 0u;
+      v42 = 0u;
+      highlightsChanged = [currentDelegates countByEnumeratingWithState:&v41 objects:v47 count:16];
+      if (highlightsChanged)
       {
-        v10 = v9;
-        v11 = *v43;
+        v10 = highlightsChanged;
+        v11 = *v42;
         do
         {
-          for (k = 0; k != v10; ++k)
+          v12 = 0;
+          do
           {
-            if (*v43 != v11)
+            if (*v42 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            v13 = *(*(&v42 + 1) + 8 * k);
-            v14 = SLFrameworkLogHandle();
+            v13 = *(*(&v41 + 1) + 8 * v12);
+            v14 = SLFrameworkLogHandle(highlightsChanged);
             v15 = v14;
             if (v13)
             {
               if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
               {
-                [SLHighlightsCache _notifyDelegatesWithNotificationType:v41 withHighlights:?];
+                [SLHighlightsCache _notifyDelegatesWithNotificationType:v40 withHighlights:?];
               }
 
-              [v13 highlightsChanged];
+              highlightsChanged = [v13 highlightsChanged];
             }
 
             else
             {
               if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
               {
-                [SLHighlightsCache _notifyDelegatesWithNotificationType:v39 withHighlights:?];
+                [SLHighlightsCache _notifyDelegatesWithNotificationType:v38 withHighlights:?];
               }
             }
+
+            ++v12;
           }
 
-          v10 = [v8 countByEnumeratingWithState:&v42 objects:v48 count:16];
+          while (v10 != v12);
+          highlightsChanged = [v8 countByEnumeratingWithState:&v41 objects:v47 count:16];
+          v10 = highlightsChanged;
         }
 
-        while (v10);
+        while (highlightsChanged);
       }
 
       break;
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setInitialFetchGroup:(id)group
@@ -1186,28 +1226,27 @@ void __35__SLHighlightsCache_setHighlights___block_invoke(void *a1)
 
 - (void)fetchHighlightsWithLimit:(unint64_t)limit variant:(id)variant completionBlock:(id)block
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   variantCopy = variant;
-  v10 = SLFrameworkLogHandle();
+  v10 = SLFrameworkLogHandle(variantCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 134217984;
+    v11 = 134217984;
     limitCopy = limit;
-    _os_log_impl(&dword_231772000, v10, OS_LOG_TYPE_DEFAULT, "Fetching highlights with limit: %lu", &v12, 0xCu);
+    _os_log_impl(&dword_231772000, v10, OS_LOG_TYPE_DEFAULT, "Fetching highlights with limit: %lu", &v11, 0xCu);
   }
 
   [(SLHighlightsCache *)self fetchHighlightsWithLimit:limit reason:0 variant:variantCopy completionBlock:blockCopy];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchHighlightsWithLimit:(unint64_t)limit reason:(id)reason variant:(id)variant completionBlock:(id)block
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   variantCopy = variant;
   blockCopy = block;
-  v13 = SLFrameworkLogHandle();
+  v13 = SLFrameworkLogHandle(blockCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
@@ -1229,17 +1268,15 @@ void __35__SLHighlightsCache_setHighlights___block_invoke(void *a1)
   block[1] = 3221225472;
   block[2] = __77__SLHighlightsCache_fetchHighlightsWithLimit_reason_variant_completionBlock___block_invoke;
   block[3] = &unk_278926750;
-  v20 = variantCopy;
+  v19 = variantCopy;
   selfCopy = self;
-  v23 = blockCopy;
+  v22 = blockCopy;
   limitCopy2 = limit;
-  v22 = reasonCopy;
+  v21 = reasonCopy;
   v15 = blockCopy;
   v16 = reasonCopy;
   v17 = variantCopy;
   dispatch_async(v14, block);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __77__SLHighlightsCache_fetchHighlightsWithLimit_reason_variant_completionBlock___block_invoke(uint64_t a1)
@@ -1262,7 +1299,7 @@ void __77__SLHighlightsCache_fetchHighlightsWithLimit_reason_variant_completionB
 
   if (v7)
   {
-    v9 = +[SLHighlightsCache highlightQueryHandlerQueue];
+    v10 = +[SLHighlightsCache highlightQueryHandlerQueue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __77__SLHighlightsCache_fetchHighlightsWithLimit_reason_variant_completionBlock___block_invoke_2;
@@ -1271,13 +1308,13 @@ void __77__SLHighlightsCache_fetchHighlightsWithLimit_reason_variant_completionB
     v16 = v7;
     v18 = *(a1 + 56);
     v17 = v8;
-    dispatch_async(v9, block);
+    dispatch_async(v10, block);
   }
 
   else
   {
-    v10 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = SLFrameworkLogHandle(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = [v8 localizedDescription];
       v13 = *(a1 + 64);
@@ -1288,20 +1325,17 @@ void __77__SLHighlightsCache_fetchHighlightsWithLimit_reason_variant_completionB
       v23 = v13;
       v24 = 2112;
       v25 = v14;
-      _os_log_error_impl(&dword_231772000, v10, OS_LOG_TYPE_ERROR, "Failed to obtain results due to %@. Limit: %lu, Variant: %@", buf, 0x20u);
+      _os_log_error_impl(&dword_231772000, v11, OS_LOG_TYPE_ERROR, "Failed to obtain results due to %@. Limit: %lu, Variant: %@", buf, 0x20u);
     }
   }
 
   [*(a1 + 40) _leaveInitialFetchGroupIfNecessary];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __77__SLHighlightsCache_fetchHighlightsWithLimit_reason_variant_completionBlock___block_invoke_2(uint64_t a1)
 {
   v2 = (a1 + 40);
-  [*(a1 + 32) setHighlights:*(a1 + 40)];
-  v3 = SLFrameworkLogHandle();
+  v3 = SLFrameworkLogHandle([*(a1 + 32) setHighlights:*(a1 + 40)]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __77__SLHighlightsCache_fetchHighlightsWithLimit_reason_variant_completionBlock___block_invoke_2_cold_1(v2);
@@ -1309,13 +1343,12 @@ void __77__SLHighlightsCache_fetchHighlightsWithLimit_reason_variant_completionB
 
   if (*(a1 + 56))
   {
-    v4 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = SLFrameworkLogHandle(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       __77__SLHighlightsCache_fetchHighlightsWithLimit_reason_variant_completionBlock___block_invoke_2_cold_2();
     }
 
-    v5 = *(a1 + 48);
     (*(*(a1 + 56) + 16))();
   }
 }
@@ -1327,47 +1360,11 @@ void __77__SLHighlightsCache_fetchHighlightsWithLimit_reason_variant_completionB
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __50__SLHighlightsCache_runAfterInitialFetch_onQueue___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __33__SLHighlightsCache_addDelegate___block_invoke_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(a1 + 32);
-  OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __36__SLHighlightsCache_removeDelegate___block_invoke_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(a1 + 32);
-  OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)interactionHandler
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_updateHighlightsWithPreviousUpdateBlock:debounceInterval:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __54__SLHighlightsCache_didDeleteHighlightsOrAttributions__block_invoke_cold_1()
@@ -1379,11 +1376,9 @@ void __54__SLHighlightsCache_didDeleteHighlightsOrAttributions__block_invoke_col
 
 void __54__SLHighlightsCache_didDeleteHighlightsOrAttributions__block_invoke_cold_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [*(*(*a1 + 8) + 40) count];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2_3(&dword_231772000, v1, v2, "SLHighlightsCache didDeleteHighlightsOrAttributions: Notify delegates of deletion of %lu highlights", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_3(&dword_231772000, v1, v2, "SLHighlightsCache didDeleteHighlightsOrAttributions: Notify delegates of deletion of %lu highlights", v3, v4, v5, v6);
 }
 
 void __54__SLHighlightsCache_didDeleteHighlightsOrAttributions__block_invoke_cold_3()
@@ -1395,11 +1390,9 @@ void __54__SLHighlightsCache_didDeleteHighlightsOrAttributions__block_invoke_col
 
 void __77__SLHighlightsCache_fetchHighlightsWithLimit_reason_variant_completionBlock___block_invoke_2_cold_1(id *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [*a1 count];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2_3(&dword_231772000, v1, v2, "Got %tu results from InteractionHandler", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_3(&dword_231772000, v1, v2, "Got %tu results from InteractionHandler", v3, v4, v5, v6);
 }
 
 void __77__SLHighlightsCache_fetchHighlightsWithLimit_reason_variant_completionBlock___block_invoke_2_cold_2()

@@ -9,18 +9,18 @@
 
 + (id)calculateSignatureForURL:(id)l boundaryKey:(id)key error:(id *)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   lCopy = l;
   keyCopy = key;
   startAccessingSecurityScopedResource = [lCopy startAccessingSecurityScopedResource];
-  v22 = 0;
+  v21 = 0;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   path = [lCopy path];
-  v13 = [defaultManager fileExistsAtPath:path isDirectory:&v22];
+  v13 = [defaultManager fileExistsAtPath:path isDirectory:&v21];
 
   if (v13)
   {
-    if (v22 == 1)
+    if (v21 == 1)
     {
       [self _calculateSignatureForPackageAtURL:lCopy boundaryKey:keyCopy error:error];
     }
@@ -45,20 +45,20 @@
     v16 = brc_default_log();
     if (os_log_type_enabled(v16, 0x90u))
     {
-      v21 = "(passed to caller)";
+      v20 = "(passed to caller)";
       *buf = 136315906;
-      v24 = "+[BRCDocumentSignatureCalculator calculateSignatureForURL:boundaryKey:error:]";
-      v25 = 2080;
+      v23 = "+[BRCDocumentSignatureCalculator calculateSignatureForURL:boundaryKey:error:]";
+      v24 = 2080;
       if (!error)
       {
-        v21 = "(ignored by caller)";
+        v20 = "(ignored by caller)";
       }
 
-      v26 = v21;
-      v27 = 2112;
-      v28 = v14;
-      v29 = 2112;
-      v30 = v15;
+      v25 = v20;
+      v26 = 2112;
+      v27 = v14;
+      v28 = 2112;
+      v29 = v15;
       _os_log_error_impl(&dword_223E7A000, v16, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
     }
   }
@@ -77,8 +77,6 @@ LABEL_10:
   }
 
 LABEL_11:
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -108,21 +106,21 @@ LABEL_11:
 
 + (id)_calculateSignatureForPackageAtURL:(id)l boundaryKey:(id)key error:(id *)error
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   lCopy = l;
   keyCopy = key;
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x3032000000;
-  v35 = __Block_byref_object_copy__53;
-  v36 = __Block_byref_object_dispose__53;
-  v37 = 0;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x3032000000;
+  v34 = __Block_byref_object_copy__53;
+  v35 = __Block_byref_object_dispose__53;
+  v36 = 0;
   v9 = [BRCFSPackageEnumerator alloc];
-  v10 = (v33 + 5);
-  obj = v33[5];
+  v10 = (v32 + 5);
+  obj = v32[5];
   v11 = [(BRCFSPackageEnumerator *)v9 initForURL:lCopy boundaryKey:keyCopy error:&obj];
   objc_storeStrong(v10, obj);
-  v12 = v33[5];
+  v12 = v32[5];
   if (v12)
   {
     v13 = v12;
@@ -133,22 +131,22 @@ LABEL_11:
   {
     v15 = objc_opt_new();
     v16 = objc_opt_new();
-    v17 = (v33 + 5);
-    v30 = v33[5];
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __87__BRCDocumentSignatureCalculator__calculateSignatureForPackageAtURL_boundaryKey_error___block_invoke;
-    v26[3] = &unk_2785079F0;
+    v17 = (v32 + 5);
+    v29 = v32[5];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __87__BRCDocumentSignatureCalculator__calculateSignatureForPackageAtURL_boundaryKey_error___block_invoke;
+    v25[3] = &unk_2785079F0;
     v18 = v16;
-    v27 = v18;
+    v26 = v18;
     v14 = v15;
-    v28 = v14;
-    v29 = &v32;
-    [v11 enumeratePackageItemsWithSortOrder:2 error:&v30 usingBlock:v26];
-    objc_storeStrong(v17, v30);
+    v27 = v14;
+    v28 = &v31;
+    [v11 enumeratePackageItemsWithSortOrder:2 error:&v29 usingBlock:v25];
+    objc_storeStrong(v17, v29);
     [v14 done];
 
-    v13 = v33[5];
+    v13 = v32[5];
     if (!v13)
     {
       goto LABEL_6;
@@ -159,20 +157,20 @@ LABEL_11:
   v20 = brc_default_log();
   if (os_log_type_enabled(v20, 0x90u))
   {
-    v25 = "(passed to caller)";
+    v24 = "(passed to caller)";
     *buf = 136315906;
-    v39 = "+[BRCDocumentSignatureCalculator _calculateSignatureForPackageAtURL:boundaryKey:error:]";
-    v40 = 2080;
+    v38 = "+[BRCDocumentSignatureCalculator _calculateSignatureForPackageAtURL:boundaryKey:error:]";
+    v39 = 2080;
     if (!error)
     {
-      v25 = "(ignored by caller)";
+      v24 = "(ignored by caller)";
     }
 
-    v41 = v25;
-    v42 = 2112;
-    v43 = v13;
-    v44 = 2112;
-    v45 = v19;
+    v40 = v24;
+    v41 = 2112;
+    v42 = v13;
+    v43 = 2112;
+    v44 = v19;
     _os_log_error_impl(&dword_223E7A000, v20, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
   }
 
@@ -183,7 +181,7 @@ LABEL_6:
     *error = v13;
   }
 
-  if (v33[5])
+  if (v32[5])
   {
     signature = 0;
   }
@@ -193,8 +191,7 @@ LABEL_6:
     signature = [v14 signature];
   }
 
-  _Block_object_dispose(&v32, 8);
-  v23 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v31, 8);
 
   return signature;
 }
@@ -229,7 +226,7 @@ void __87__BRCDocumentSignatureCalculator__calculateSignatureForPackageAtURL_bou
 
 + (id)_calculateSignatureForFileAtURL:(id)l boundaryKey:(id)key error:(id *)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   lCopy = l;
   keyCopy = key;
   v10 = [MEMORY[0x277CFAE88] open:lCopy flags:33028];
@@ -242,12 +239,12 @@ void __87__BRCDocumentSignatureCalculator__calculateSignatureForPackageAtURL_bou
     {
       *buf = 138413058;
       selfCopy = self;
-      v26 = 2112;
-      v27 = lCopy;
-      v28 = 2112;
-      v29 = br_errorFromErrno;
-      v30 = 2112;
-      v31 = v14;
+      v25 = 2112;
+      v26 = lCopy;
+      v27 = 2112;
+      v28 = br_errorFromErrno;
+      v29 = 2112;
+      v30 = v14;
       _os_log_error_impl(&dword_223E7A000, v15, 0x90u, "[ERROR] %@ - Failed opening contents at '%@'. Error: %@%@", buf, 0x2Au);
     }
 
@@ -257,9 +254,9 @@ void __87__BRCDocumentSignatureCalculator__calculateSignatureForPackageAtURL_bou
   else
   {
     v11 = v10;
-    v23 = 0;
-    v12 = [MEMORY[0x277CBC6A8] br_signatureWithFileDescriptor:v10 boundaryKey:keyCopy error:&v23];
-    br_errorFromErrno = v23;
+    v22 = 0;
+    v12 = [MEMORY[0x277CBC6A8] br_signatureWithFileDescriptor:v10 boundaryKey:keyCopy error:&v22];
+    br_errorFromErrno = v22;
     if (!(v12 | br_errorFromErrno))
     {
       br_errorFromErrno = [MEMORY[0x277CCA9B8] br_errorWithPOSIXCode:22];
@@ -275,20 +272,20 @@ void __87__BRCDocumentSignatureCalculator__calculateSignatureForPackageAtURL_bou
     v18 = brc_default_log();
     if (os_log_type_enabled(v18, 0x90u))
     {
-      v22 = "(passed to caller)";
+      v21 = "(passed to caller)";
       *buf = 136315906;
       selfCopy = "+[BRCDocumentSignatureCalculator _calculateSignatureForFileAtURL:boundaryKey:error:]";
-      v26 = 2080;
+      v25 = 2080;
       if (!error)
       {
-        v22 = "(ignored by caller)";
+        v21 = "(ignored by caller)";
       }
 
-      v27 = v22;
-      v28 = 2112;
-      v29 = v16;
-      v30 = 2112;
-      v31 = v17;
+      v26 = v21;
+      v27 = 2112;
+      v28 = v16;
+      v29 = 2112;
+      v30 = v17;
       _os_log_error_impl(&dword_223E7A000, v18, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
     }
   }
@@ -298,8 +295,6 @@ void __87__BRCDocumentSignatureCalculator__calculateSignatureForPackageAtURL_bou
     v19 = v16;
     *error = v16;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

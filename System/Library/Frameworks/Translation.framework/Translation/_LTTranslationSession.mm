@@ -9,6 +9,7 @@
 - (void)markProgressDone;
 - (void)paragraphTranslation:(id)translation result:(id)result error:(id)error;
 - (void)provideFeedback:(id)feedback;
+- (void)translate:(id)translate useDedicatedTextMachPort:(BOOL)port;
 @end
 
 @implementation _LTTranslationSession
@@ -91,6 +92,24 @@
   dispatch_async(translationQueue, block);
 }
 
+- (void)translate:(id)translate useDedicatedTextMachPort:(BOOL)port
+{
+  portCopy = port;
+  translateCopy = translate;
+  objc_initWeak(&location, self);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __60___LTTranslationSession_translate_useDedicatedTextMachPort___block_invoke;
+  v8[3] = &unk_278B6DCF8;
+  v7 = translateCopy;
+  v9 = v7;
+  objc_copyWeak(&v10, &location);
+  [(_LTTranslationSession *)self _ensureServiceConnection:v8 useDedicatedTextMachPort:portCopy];
+  objc_destroyWeak(&v10);
+
+  objc_destroyWeak(&location);
+}
+
 - (void)cancelPendingWork
 {
   objc_initWeak(&location, self);
@@ -169,12 +188,12 @@
   translationCopy = translation;
   resultCopy = result;
   errorCopy = error;
-  v11 = _LTOSLogTranslationEngine();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v12 = _LTOSLogTranslationEngine(errorCopy, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
     v23 = translationCopy;
-    _os_log_impl(&dword_23AAF5000, v11, OS_LOG_TYPE_INFO, "Received translation result for %{public}@", buf, 0xCu);
+    _os_log_impl(&dword_23AAF5000, v12, OS_LOG_TYPE_INFO, "Received translation result for %{public}@", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
@@ -187,14 +206,13 @@
   v18 = translationCopy;
   v19 = resultCopy;
   v20 = errorCopy;
-  v13 = errorCopy;
-  v14 = resultCopy;
-  v15 = translationCopy;
+  v14 = errorCopy;
+  v15 = resultCopy;
+  v16 = translationCopy;
   dispatch_async(translationQueue, v17);
 
   objc_destroyWeak(&v21);
   objc_destroyWeak(buf);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

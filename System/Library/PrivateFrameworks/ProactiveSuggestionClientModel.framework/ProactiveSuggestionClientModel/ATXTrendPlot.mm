@@ -294,28 +294,28 @@ LABEL_5:
 
 - (unint64_t)hash
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   granularity = self->_granularity;
   v3 = self->_bins;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         startDate = [v8 startDate];
         v10 = [startDate hash] - granularity + 32 * granularity;
 
@@ -323,13 +323,12 @@ LABEL_5:
         granularity = [data hash] - v10 + 32 * v10;
       }
 
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return granularity;
 }
 

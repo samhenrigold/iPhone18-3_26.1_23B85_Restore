@@ -66,7 +66,7 @@
 
 - (void)activate:(id)activate
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   activateCopy = activate;
   if (+[COFeatureStatus isCOClusterEnabled])
   {
@@ -76,24 +76,22 @@
       clusterIdentifier = [(_COClusterRealmExplicitMembership *)self clusterIdentifier];
       *buf = 134218498;
       selfCopy = self;
-      v16 = 2112;
+      v15 = 2112;
       selfCopy2 = self;
-      v18 = 2112;
-      v19 = clusterIdentifier;
+      v17 = 2112;
+      v18 = clusterIdentifier;
       _os_log_impl(&dword_244328000, v5, OS_LOG_TYPE_DEFAULT, "%p COClusterRealmExplicitMembership %@ activate called with cluster identifier %@", buf, 0x20u);
     }
 
-    v8 = MEMORY[0x277D85DD0];
-    v9 = 3221225472;
-    v10 = __46___COClusterRealmExplicitMembership_activate___block_invoke;
-    v11 = &unk_278E121C0;
+    v7 = MEMORY[0x277D85DD0];
+    v8 = 3221225472;
+    v9 = __46___COClusterRealmExplicitMembership_activate___block_invoke;
+    v10 = &unk_278E121C0;
     selfCopy3 = self;
-    v13 = activateCopy;
-    [(COClusterRealm *)self _withLock:&v8];
-    [(COClusterRealm *)self _invokeUpdateHandler:v8];
+    v12 = activateCopy;
+    [(COClusterRealm *)self _withLock:&v7];
+    [(COClusterRealm *)self _invokeUpdateHandler:v7];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (_COClusterRealmExplicitMembership)initWithCoder:(id)coder

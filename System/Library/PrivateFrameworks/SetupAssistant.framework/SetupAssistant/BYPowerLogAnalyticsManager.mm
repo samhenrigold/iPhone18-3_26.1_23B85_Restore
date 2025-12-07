@@ -57,7 +57,7 @@
 - (void)_submitPayload:(id)payload
 {
   payloadCopy = payload;
-  v4 = _BYLoggingFacility();
+  v4 = _BYLoggingFacility(payloadCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;

@@ -7,12 +7,23 @@
 
 + (void)setEnabled:(BOOL)enabled
 {
-  v3 = PSConnected298();
-  if (v3)
+  enabledCopy = enabled;
+  v4 = PSConnected298();
+  if (v4)
   {
-    v4 = v3;
-    PSBTSetAccessoryListeningMode(v3);
-    v3 = v4;
+    if (enabledCopy)
+    {
+      v5 = 2;
+    }
+
+    else
+    {
+      v5 = 1;
+    }
+
+    v6 = v4;
+    PSBTSetAccessoryListeningMode(v4, v5);
+    v4 = v6;
   }
 }
 

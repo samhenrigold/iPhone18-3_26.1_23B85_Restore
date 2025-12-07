@@ -37,7 +37,7 @@
 
 - (void)_checkPendingLogEventBuffer
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (__ROR8__(0x1CAC083126E978D5 * [(NSMutableArray *)self->_pendingLogEvents count], 3) <= 0x4189374BC6A7EFuLL)
   {
     v3 = objc_autoreleasePoolPush();
@@ -47,22 +47,20 @@
     {
       v6 = HMFGetLogIdentifier();
       v7 = [(NSMutableArray *)self->_pendingLogEvents count];
-      v9 = 138543618;
-      v10 = v6;
-      v11 = 2048;
-      v12 = v7;
-      _os_log_impl(&dword_22B074000, v5, OS_LOG_TYPE_ERROR, "%{public}@Excessive pending log events: %ld", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v6;
+      v10 = 2048;
+      v11 = v7;
+      _os_log_impl(&dword_22B074000, v5, OS_LOG_TYPE_ERROR, "%{public}@Excessive pending log events: %ld", &v8, 0x16u);
     }
 
     objc_autoreleasePoolPop(v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processAndSubmitLogEvents
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock_with_options();
   v3 = [(NSMutableArray *)self->_pendingLogEvents copy];
   [(NSMutableArray *)self->_pendingLogEvents removeAllObjects];
@@ -87,62 +85,58 @@
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v12 = v8;
-      v13 = 2048;
-      v14 = [v3 count];
+      v11 = v8;
+      v12 = 2048;
+      v13 = [v3 count];
       _os_log_impl(&dword_22B074000, v6, v7, "%{public}@Processing %ld log events", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
 
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __50__HMMLogEventDispatcher_processAndSubmitLogEvents__block_invoke;
-  v10[3] = &unk_2786F8F90;
-  v10[4] = self;
-  [v3 hmf_enumerateWithAutoreleasePoolUsingBlock:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __50__HMMLogEventDispatcher_processAndSubmitLogEvents__block_invoke;
+  v9[3] = &unk_2786F8F90;
+  v9[4] = self;
+  [v3 hmf_enumerateWithAutoreleasePoolUsingBlock:v9];
 }
 
 void __50__HMMLogEventDispatcher_processAndSubmitLogEvents__block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [v3 prepareForObservation];
   v4 = [*(a1 + 32) _getOrCreateObserversForEventClass:objc_opt_class()];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = [v4 allObjects];
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) observeEvent:v3];
+        [*(*(&v10 + 1) + 8 * v9++) observeEvent:v3];
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleMemoryEvent:(int64_t)event
@@ -158,7 +152,7 @@ void __50__HMMLogEventDispatcher_processAndSubmitLogEvents__block_invoke(uint64_
 
 - (void)submitLogEvent:(id)event
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   [eventCopy markEndTime];
   dataSource = [(HMMLogEventDispatcher *)self dataSource];
@@ -176,9 +170,9 @@ void __50__HMMLogEventDispatcher_processAndSubmitLogEvents__block_invoke(uint64_
       {
         v12 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v19 = v12;
-        v20 = 2112;
-        v21 = objc_opt_class();
+        v18 = v12;
+        v19 = 2112;
+        v20 = objc_opt_class();
         _os_log_impl(&dword_22B074000, v11, OS_LOG_TYPE_INFO, "%{public}@Submitting event: %@", buf, 0x16u);
       }
 
@@ -212,17 +206,15 @@ void __50__HMMLogEventDispatcher_processAndSubmitLogEvents__block_invoke(uint64_
       {
         v13 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v19 = v13;
-        v20 = 2112;
-        v21 = objc_opt_class();
+        v18 = v13;
+        v19 = 2112;
+        v20 = objc_opt_class();
         _os_log_impl(&dword_22B074000, v11, OS_LOG_TYPE_ERROR, "%{public}@Event %@ was already submitted", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v8);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)submitLogEvent:(id)event error:(id)error
@@ -248,28 +240,28 @@ void __50__HMMLogEventDispatcher_processAndSubmitLogEvents__block_invoke(uint64_
 
 void __40__HMMLogEventDispatcher_removeObserver___block_invoke(uint64_t a1)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB18] array];
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v3 = [*(*(a1 + 32) + 32) keyEnumerator];
-  v4 = [v3 countByEnumeratingWithState:&v30 objects:v36 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v29 objects:v35 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v31;
+    v6 = *v30;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v31 != v6)
+        if (*v30 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v30 + 1) + 8 * i);
+        v8 = *(*(&v29 + 1) + 8 * i);
         v9 = [*(*(a1 + 32) + 32) objectForKey:v8];
         v10 = *(a1 + 40);
 
@@ -279,69 +271,67 @@ void __40__HMMLogEventDispatcher_removeObserver___block_invoke(uint64_t a1)
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v30 objects:v36 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v29 objects:v35 count:16];
     }
 
     while (v5);
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v11 = v2;
-  v12 = [v11 countByEnumeratingWithState:&v26 objects:v35 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v25 objects:v34 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v27;
+    v14 = *v26;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v27 != v14)
+        if (*v26 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        [*(*(a1 + 32) + 32) removeObjectForKey:*(*(&v26 + 1) + 8 * j)];
+        [*(*(a1 + 32) + 32) removeObjectForKey:*(*(&v25 + 1) + 8 * j)];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v26 objects:v35 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v25 objects:v34 count:16];
     }
 
     while (v13);
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v16 = [*(*(a1 + 32) + 24) objectEnumerator];
-  v17 = [v16 countByEnumeratingWithState:&v22 objects:v34 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v21 objects:v33 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v23;
+    v19 = *v22;
     do
     {
       for (k = 0; k != v18; ++k)
       {
-        if (*v23 != v19)
+        if (*v22 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        [*(*(&v22 + 1) + 8 * k) removeObject:*(a1 + 40)];
+        [*(*(&v21 + 1) + 8 * k) removeObject:*(a1 + 40)];
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v22 objects:v34 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v21 objects:v33 count:16];
     }
 
     while (v18);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addObserver:(id)observer forProtocol:(id)protocol
@@ -363,28 +353,28 @@ void __40__HMMLogEventDispatcher_removeObserver___block_invoke(uint64_t a1)
 
 void __49__HMMLogEventDispatcher_addObserver_forProtocol___block_invoke(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   [*(a1[4] + 32) setObject:a1[5] forKey:a1[6]];
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v2 = [*(a1[4] + 24) keyEnumerator];
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * i);
+        v7 = *(*(&v9 + 1) + 8 * i);
         if ([v7 conformsToProtocol:a1[6]])
         {
           v8 = [*(a1[4] + 24) objectForKey:v7];
@@ -392,43 +382,41 @@ void __49__HMMLogEventDispatcher_addObserver_forProtocol___block_invoke(void *a1
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_getOrCreateObserversForEventClass:(Class)class
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   weakObjectsHashTable = [(NSMapTable *)self->_observersByClass objectForKey:?];
   if (!weakObjectsHashTable)
   {
     weakObjectsHashTable = [MEMORY[0x277CCAA50] weakObjectsHashTable];
     [(NSMapTable *)self->_observersByClass setObject:weakObjectsHashTable forKey:class];
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     keyEnumerator = [(NSMapTable *)self->_observersByProtocol keyEnumerator];
-    v7 = [keyEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v7 = [keyEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v17;
+      v9 = *v16;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v17 != v9)
+          if (*v16 != v9)
           {
             objc_enumerationMutation(keyEnumerator);
           }
 
-          v11 = *(*(&v16 + 1) + 8 * i);
+          v11 = *(*(&v15 + 1) + 8 * i);
           if ([(objc_class *)class conformsToProtocol:v11])
           {
             v12 = [(NSMapTable *)self->_observersByProtocol objectForKey:v11];
@@ -436,7 +424,7 @@ void __49__HMMLogEventDispatcher_addObserver_forProtocol___block_invoke(void *a1
           }
         }
 
-        v8 = [keyEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v8 = [keyEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v8);
@@ -444,8 +432,6 @@ void __49__HMMLogEventDispatcher_addObserver_forProtocol___block_invoke(void *a1
   }
 
   v13 = weakObjectsHashTable;
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -469,53 +455,49 @@ void __49__HMMLogEventDispatcher_addObserver_forProtocol___block_invoke(void *a1
 
 void __53__HMMLogEventDispatcher_addObserver_forEventClasses___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = [*(a1 + 40) _getOrCreateObserversForEventClass:{*(*(&v9 + 1) + 8 * v6), v9}];
+        v7 = [*(a1 + 40) _getOrCreateObserversForEventClass:{*(*(&v8 + 1) + 8 * v6), v8}];
         [v7 addObject:*(a1 + 48)];
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addObserver:(id)observer forEventClass:(Class)class
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   classCopy = class;
   v5 = MEMORY[0x277CBEA60];
   observerCopy = observer;
   v7 = [v5 arrayWithObjects:&classCopy count:1];
-  [(HMMLogEventDispatcher *)self addObserver:observerCopy forEventClasses:v7, classCopy, v10];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [(HMMLogEventDispatcher *)self addObserver:observerCopy forEventClasses:v7, classCopy, v9];
 }
 
 - (HMMLogEventDispatcher)init
@@ -550,7 +532,6 @@ void __53__HMMLogEventDispatcher_addObserver_forEventClasses___block_invoke(uint
 
 uint64_t __36__HMMLogEventDispatcher_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
   logCategory__hmf_once_v8 = HMFCreateOSLogHandle();
 
   return MEMORY[0x2821F96F8]();

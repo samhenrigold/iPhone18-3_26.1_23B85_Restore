@@ -106,7 +106,7 @@
 
 - (id)setIncomingAudioVolume:(float)volume
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = HFLogForCategory(0x1CuLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
@@ -115,15 +115,14 @@
     _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Setting incoming audio volume to %.1f", buf, 0xCu);
   }
 
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __47__HFCameraAudioManager_setIncomingAudioVolume___block_invoke;
-  v10[3] = &unk_277DF4668;
-  v10[4] = self;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __47__HFCameraAudioManager_setIncomingAudioVolume___block_invoke;
+  v9[3] = &unk_277DF4668;
+  v9[4] = self;
   volumeCopy2 = volume;
-  v6 = [MEMORY[0x277D2C900] futureWithErrorOnlyHandlerAdapterBlock:v10];
+  v6 = [MEMORY[0x277D2C900] futureWithErrorOnlyHandlerAdapterBlock:v9];
   v7 = [v6 addFailureBlock:&__block_literal_global_21];
-  v8 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -140,22 +139,20 @@ void __47__HFCameraAudioManager_setIncomingAudioVolume___block_invoke(uint64_t a
 
 void __47__HFCameraAudioManager_setIncomingAudioVolume___block_invoke_2(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = HFLogForCategory(0x1CuLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_error_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_ERROR, "Error setting incoming audio volume:%@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_error_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_ERROR, "Error setting incoming audio volume:%@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)updateAudioStreamSetting:(unint64_t)setting
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   cameraProfile = [(HFCameraAudioManager *)self cameraProfile];
   streamControl = [cameraProfile streamControl];
   streamState = [streamControl streamState];
@@ -180,33 +177,33 @@ void __47__HFCameraAudioManager_setIncomingAudioVolume___block_invoke_2(uint64_t
       cameraProfile2 = [(HFCameraAudioManager *)self cameraProfile];
       hf_prettyDescription = [cameraProfile2 hf_prettyDescription];
       *buf = 138412546;
-      v26 = v11;
-      v27 = 2112;
-      v28 = hf_prettyDescription;
+      v25 = v11;
+      v26 = 2112;
+      v27 = hf_prettyDescription;
       _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "Updating audio stream setting to %@ for %@", buf, 0x16u);
     }
 
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __49__HFCameraAudioManager_updateAudioStreamSetting___block_invoke;
-    v24[3] = &unk_277DF46B0;
-    v24[4] = self;
-    v24[5] = setting;
-    v17 = [MEMORY[0x277D2C900] futureWithErrorOnlyHandlerAdapterBlock:v24];
-    v18 = [v17 addFailureBlock:&__block_literal_global_4_0];
     v23[0] = MEMORY[0x277D85DD0];
     v23[1] = 3221225472;
-    v23[2] = __49__HFCameraAudioManager_updateAudioStreamSetting___block_invoke_5;
-    v23[3] = &unk_277DF4700;
+    v23[2] = __49__HFCameraAudioManager_updateAudioStreamSetting___block_invoke;
+    v23[3] = &unk_277DF46B0;
     v23[4] = self;
-    v19 = [v17 addCompletionBlock:v23];
+    v23[5] = setting;
+    v17 = [MEMORY[0x277D2C900] futureWithErrorOnlyHandlerAdapterBlock:v23];
+    v18 = [v17 addFailureBlock:&__block_literal_global_4_0];
     v22[0] = MEMORY[0x277D85DD0];
     v22[1] = 3221225472;
-    v22[2] = __49__HFCameraAudioManager_updateAudioStreamSetting___block_invoke_3;
-    v22[3] = &unk_277DF4748;
+    v22[2] = __49__HFCameraAudioManager_updateAudioStreamSetting___block_invoke_5;
+    v22[3] = &unk_277DF4700;
     v22[4] = self;
-    v22[5] = setting;
-    futureWithNoResult = [v17 flatMap:v22];
+    v19 = [v17 addCompletionBlock:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __49__HFCameraAudioManager_updateAudioStreamSetting___block_invoke_3;
+    v21[3] = &unk_277DF4748;
+    v21[4] = self;
+    v21[5] = setting;
+    futureWithNoResult = [v17 flatMap:v21];
   }
 
   else
@@ -227,16 +224,14 @@ void __47__HFCameraAudioManager_setIncomingAudioVolume___block_invoke_2(uint64_t
       cameraProfile3 = [(HFCameraAudioManager *)self cameraProfile];
       hf_prettyDescription2 = [cameraProfile3 hf_prettyDescription];
       *buf = 138412546;
-      v26 = v10;
-      v27 = 2112;
-      v28 = hf_prettyDescription2;
+      v25 = v10;
+      v26 = 2112;
+      v27 = hf_prettyDescription2;
       _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "Ignoring request to update audio stream setting to %@ for %@, as the stream is stopping or has already stopped.", buf, 0x16u);
     }
 
     futureWithNoResult = [MEMORY[0x277D2C900] futureWithNoResult];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return futureWithNoResult;
 }
@@ -251,17 +246,15 @@ void __49__HFCameraAudioManager_updateAudioStreamSetting___block_invoke(uint64_t
 
 void __49__HFCameraAudioManager_updateAudioStreamSetting___block_invoke_2(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = HFLogForCategory(0x1CuLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "Error updating audio stream setting:%@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "Error updating audio stream setting:%@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __49__HFCameraAudioManager_updateAudioStreamSetting___block_invoke_5(uint64_t a1, uint64_t a2, void *a3)

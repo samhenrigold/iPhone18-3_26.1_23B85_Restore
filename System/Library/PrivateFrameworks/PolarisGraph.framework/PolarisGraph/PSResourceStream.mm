@@ -70,25 +70,25 @@
 
 - (PSResourceStream)initWithCoder:(id)coder
 {
-  v40[1] = *MEMORY[0x277D85DE8];
+  v39[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v38.receiver = self;
-  v38.super_class = PSResourceStream;
-  v5 = [(PSResourceStream *)&v38 init];
+  v37.receiver = self;
+  v37.super_class = PSResourceStream;
+  v5 = [(PSResourceStream *)&v37 init];
   if (v5)
   {
-    v37 = 0;
-    v6 = coderCopy;
-    v7 = [coderCopy decodeBytesForKey:@"resourceClass" returnedLength:&v37];
     v36 = 0;
+    v6 = coderCopy;
+    v7 = [coderCopy decodeBytesForKey:@"resourceClass" returnedLength:&v36];
+    v35 = 0;
     v8 = coderCopy;
-    v9 = [coderCopy decodeBytesForKey:@"options" returnedLength:&v36];
+    v9 = [coderCopy decodeBytesForKey:@"options" returnedLength:&v35];
     v10 = 0;
-    if (v37 == 8 && v36 == 16)
+    if (v36 == 8 && v35 == 16)
     {
       v11 = v9;
       obj = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"key"];
-      v35 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"domain"];
+      v34 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"domain"];
       v12 = [coderCopy decodeIntegerForKey:@"type"];
       v13 = [coderCopy decodeIntegerForKey:@"framerate"];
       v14 = [coderCopy decodeIntForKey:@"totalBufferCountHint"];
@@ -96,7 +96,7 @@
       v16 = [coderCopy decodeIntForKey:@"retainedISPRCCount"];
       v17 = [coderCopy decodeIntegerForKey:@"provider"];
       objc_storeStrong(&v5->_key, obj);
-      objc_storeStrong(&v5->_domain, v35);
+      objc_storeStrong(&v5->_domain, v34);
       resolvedDomain = v5->_resolvedDomain;
       v5->_resolvedDomain = 0;
 
@@ -119,12 +119,12 @@
       v5->_retainedISPRCCount = v16;
       v5->_provider = v17;
       v20 = MEMORY[0x277CBEB98];
-      v40[0] = objc_opt_class();
-      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:1];
+      v39[0] = objc_opt_class();
+      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:1];
       v22 = [v20 setWithArray:v21];
       v23 = MEMORY[0x277CBEB98];
-      v39 = objc_opt_class();
-      v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v39 count:1];
+      v38 = objc_opt_class();
+      v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
       v25 = [v23 setWithArray:v24];
       v26 = [coderCopy decodeDictionaryWithKeysOfClasses:v22 objectsOfClasses:v25 forKey:@"supportedStrides"];
       supportedStrides = v5->_supportedStrides;
@@ -147,7 +147,6 @@
     v10 = 0;
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -165,26 +164,7 @@
     v6 = v5;
     key = self->_key;
     v8 = [(PSResourceStream *)v6 key];
-    if (![(NSString *)key isEqualToString:v8])
-    {
-      goto LABEL_16;
-    }
-
-    resourceClass = self->_resourceClass;
-    if (resourceClass != [(PSResourceStream *)v6 resourceClass])
-    {
-      goto LABEL_16;
-    }
-
-    creation_mode = self->_options.creation_mode;
-    [(PSResourceStream *)v6 options];
-    if (creation_mode != v11)
-    {
-      goto LABEL_16;
-    }
-
-    storage_mode = self->_options.storage_mode;
-    if (storage_mode == [(PSResourceStream *)v6 options]&& (type = self->_type, type == [(PSResourceStream *)v6 type]) && (framerate = self->_framerate, framerate == [(PSResourceStream *)v6 framerate]) && (totalBufferCountHint = self->_totalBufferCountHint, totalBufferCountHint == [(PSResourceStream *)v6 totalBufferCountHint]) && (reservedForReaderBufferCountHint = self->_reservedForReaderBufferCountHint, reservedForReaderBufferCountHint == [(PSResourceStream *)v6 reservedForReaderBufferCountHint]) && (retainedISPRCCount = self->_retainedISPRCCount, retainedISPRCCount == [(PSResourceStream *)v6 retainedISPRCCount]))
+    if ([(NSString *)key isEqualToString:v8]&& (resourceClass = self->_resourceClass, resourceClass == [(PSResourceStream *)v6 resourceClass]) && (creation_mode = self->_options.creation_mode, [(PSResourceStream *)v6 options], creation_mode == v11) && (storage_mode = self->_options.storage_mode, storage_mode == [(PSResourceStream *)v6 options]) && (type = self->_type, type == [(PSResourceStream *)v6 type]) && (framerate = self->_framerate, framerate == [(PSResourceStream *)v6 framerate]) && (totalBufferCountHint = self->_totalBufferCountHint, totalBufferCountHint == [(PSResourceStream *)v6 totalBufferCountHint]) && (reservedForReaderBufferCountHint = self->_reservedForReaderBufferCountHint, reservedForReaderBufferCountHint == [(PSResourceStream *)v6 reservedForReaderBufferCountHint]) && (retainedISPRCCount = self->_retainedISPRCCount, retainedISPRCCount == [(PSResourceStream *)v6 retainedISPRCCount]))
     {
       baseMSGSyncID = self->_baseMSGSyncID;
       baseMSGSyncID = [(PSResourceStream *)v6 baseMSGSyncID];
@@ -193,7 +173,6 @@
 
     else
     {
-LABEL_16:
       v20 = 0;
     }
   }

@@ -1245,9 +1245,11 @@ void __38__STUIStatusBar_reinitializeStatusBar__block_invoke(uint64_t a1, void *
   regions = self->_regions;
   self->_regions = MEMORY[0x277CBEC10];
 
-  self->_displayItemStates = [MEMORY[0x277CBEB38] dictionary];
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  displayItemStates = self->_displayItemStates;
+  self->_displayItemStates = dictionary;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](dictionary, displayItemStates);
 }
 
 void __36__STUIStatusBar_resetVisualProvider__block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -1329,7 +1331,7 @@ uint64_t __94__STUIStatusBar_Wrapper__initWithFrame_showForegroundView_wantsServ
   return v4;
 }
 
-uint64_t __109__STUIStatusBar_Wrapper__requestStyle_partStyles_legibilityStyle_foregroundColor_animationParameters_forced___block_invoke(uint64_t a1)
+void *__109__STUIStatusBar_Wrapper__requestStyle_partStyles_legibilityStyle_foregroundColor_animationParameters_forced___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 56);
   result = [*(a1 + 32) _requestedResolvedStyle];
@@ -1661,7 +1663,7 @@ void __38__STUIStatusBar_reinitializeStatusBar__block_invoke_2(uint64_t a1, uint
   y = frame.origin.y;
   x = frame.origin.x;
   settingsCopy = settings;
-  [(STUIStatusBar *)self _effectiveScaleTransform];
+  objc_msgSend__effectiveScaleTransform(self);
   v22.origin.x = x;
   v22.origin.y = y;
   v22.size.width = width;
@@ -2305,7 +2307,7 @@ LABEL_13:
   }
 
   self->_statusBarFlags = (*&statusBarFlags | 1);
-  [(UIPointerInteraction *)self->_pointerInteraction invalidate];
+  [(UIPointerInteraction *)self->_pointerInteraction invalidate:*v17];
   updateCompletionHandler = [(STUIStatusBar *)self updateCompletionHandler];
 
   if (updateCompletionHandler)
@@ -2652,7 +2654,7 @@ uint64_t __79__STUIStatusBar__updateDisplayedItemsWithData_styleAttributes_extra
     [(NSMutableDictionary *)self->_displayItemStates enumerateKeysAndObjectsUsingBlock:&__block_literal_global_144];
   }
 
-  [(STUIStatusBar *)self _effectiveScaleTransform];
+  objc_msgSend__effectiveScaleTransform(self);
   foregroundView = self->_foregroundView;
   v11[0] = v11[3];
   v11[1] = v11[4];
@@ -4421,12 +4423,12 @@ void __43__STUIStatusBar_setEnabledPartIdentifiers___block_invoke(uint64_t a1, u
   VisualProviderClassForScreen = STUIStatusBarGetVisualProviderClassForScreen(screenCopy, 0);
   if (lockScreenCopy && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    [VisualProviderClassForScreen intrinsicLockScreenContentSizeForOrientation:orientation];
+    [(objc_class *)VisualProviderClassForScreen intrinsicLockScreenContentSizeForOrientation:orientation];
   }
 
   else
   {
-    [VisualProviderClassForScreen intrinsicContentSizeForOrientation:orientation];
+    [(objc_class *)VisualProviderClassForScreen intrinsicContentSizeForOrientation:orientation];
   }
 
   v14 = v12;

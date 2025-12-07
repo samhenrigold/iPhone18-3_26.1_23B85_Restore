@@ -29,8 +29,7 @@
     v16 = 0;
   }
 
-  [initForLiveSampling setDataGatheringOptions:v15 | v16];
-  v17 = sub_112C();
+  v17 = sub_112C([initForLiveSampling setDataGatheringOptions:v15 | v16]);
   if (os_signpost_enabled(v17))
   {
     dataGatheringOptions = [initForLiveSampling dataGatheringOptions];
@@ -56,7 +55,7 @@
   v23 = endDateCopy;
   systemstats_get_microstackshots();
   binaryFormat = [v21 binaryFormat];
-  v25 = sub_112C();
+  v25 = sub_112C(binaryFormat);
   if (os_signpost_enabled(v25))
   {
     *v29 = 134218240;

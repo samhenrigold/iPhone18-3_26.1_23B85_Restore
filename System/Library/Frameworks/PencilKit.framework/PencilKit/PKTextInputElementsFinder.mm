@@ -1,9 +1,9 @@
 @interface PKTextInputElementsFinder
 + (BOOL)isResponderNonEditableTextInput:(uint64_t)input;
-+ (BOOL)shouldConsiderTextInputSearchForView:(uint64_t)view referenceHitPoint:(void *)point referenceCoordSpace:(void *)space;
-+ (uint64_t)_anyOtherWindowAboveWindow:(uint64_t)window position:(void *)position;
-+ (uint64_t)_isReachableHitTestView:(uint64_t)view nearPoint:(void *)point coordSpace:(void *)space;
-+ (uint64_t)_shouldConsiderTextInputSearchForView:(uint64_t)view referenceHitPoint:(void *)point referenceCoordSpace:(void *)space nearPointOnly:(int)only;
++ (BOOL)shouldConsiderTextInputSearchForView:(void *)view referenceHitPoint:(CGFloat)point referenceCoordSpace:(CGFloat)space;
++ (uint64_t)_anyOtherWindowAboveWindow:(double)window position:(double)position;
++ (uint64_t)_isReachableHitTestView:(void *)view nearPoint:(double)point coordSpace:(double)space;
++ (uint64_t)_shouldConsiderTextInputSearchForView:(void *)view referenceHitPoint:(int)point referenceCoordSpace:(CGFloat)space nearPointOnly:(CGFloat)only;
 + (uint64_t)isResponderEditableTextInput:(uint64_t)input;
 + (uint64_t)responderSupportsPencilTextInput:(uint64_t)input;
 + (uint64_t)shouldAvoidElementWithHitView:(uint64_t)view;
@@ -406,11 +406,11 @@ void __164__PKTextInputElementsFinder__findAvailableTextInputElementsWithReusabl
   areaCopy = area;
   spaceCopy = space;
   v32 = off_1E82D4000;
-  point = [(PKTextInputElementsFinder *)only _shouldConsiderTextInputSearchForView:inputView referenceHitPoint:PKTextInputElementsFinder referenceCoordSpace:containersCopy nearPointOnly:viewCopy, point];
-  if (point)
+  inputView = [PKTextInputElementsFinder _shouldConsiderTextInputSearchForView:containersCopy referenceHitPoint:viewCopy referenceCoordSpace:point nearPointOnly:only, inputView];
+  if (inputView)
   {
-    v34 = point;
-    if (point == 1)
+    v34 = inputView;
+    if (inputView == 1)
     {
       v35 = containersCopy;
       objc_opt_self();
@@ -456,9 +456,9 @@ void __164__PKTextInputElementsFinder__findAvailableTextInputElementsWithReusabl
 
     if (!v39)
     {
-      viewCopy = [(PKTextInputElementsFinder *)only _isReachableHitTestView:inputView nearPoint:v32[389] coordSpace:containersCopy, viewCopy];
+      inputView2 = [(PKTextInputElementsFinder *)v32[389] _isReachableHitTestView:containersCopy nearPoint:viewCopy coordSpace:only, inputView];
       v41 = [PKTextInputUtilities isValidReachableInteraction:containersCopy];
-      if (viewCopy)
+      if (inputView2)
       {
         v42 = inputsCopy && v41;
         if (spaceCopy && v42)
@@ -582,7 +582,7 @@ LABEL_24:
 LABEL_33:
           if (containersCopy == areaCopy || v69)
           {
-            if (([(PKTextInputElementsFinder *)only _isReachableHitTestView:inputView nearPoint:v32[389] coordSpace:containersCopy, viewCopy]& 1) != 0)
+            if (([(PKTextInputElementsFinder *)v32[389] _isReachableHitTestView:containersCopy nearPoint:viewCopy coordSpace:only, inputView]& 1) != 0)
             {
 LABEL_47:
               [v92 addObject:{v69, v85}];
@@ -697,31 +697,31 @@ void __61__PKTextInputElementsFinder__uniqueElements_reusingElements___block_inv
   }
 }
 
-+ (uint64_t)_shouldConsiderTextInputSearchForView:(uint64_t)view referenceHitPoint:(void *)point referenceCoordSpace:(void *)space nearPointOnly:(int)only
++ (uint64_t)_shouldConsiderTextInputSearchForView:(void *)view referenceHitPoint:(int)point referenceCoordSpace:(CGFloat)space nearPointOnly:(CGFloat)only
 {
-  pointCopy = point;
-  spaceCopy = space;
+  v10 = a2;
+  viewCopy = view;
   objc_opt_self();
-  if (([pointCopy isHidden] & 1) != 0 || (objc_msgSend(pointCopy, "alpha"), v12 == 0.0))
+  if (([v10 isHidden] & 1) != 0 || (objc_msgSend(v10, "alpha"), v12 == 0.0))
   {
     v13 = 0;
     goto LABEL_4;
   }
 
-  window = [pointCopy window];
+  window = [v10 window];
   [window bounds];
   v17 = v16;
   v19 = v18;
   v21 = v20;
   v23 = v22;
-  window2 = [pointCopy window];
-  [pointCopy PK_convertRect:window2 fromView:{v17, v19, v21, v23}];
+  window2 = [v10 window];
+  [v10 PK_convertRect:window2 fromView:{v17, v19, v21, v23}];
   v26 = v25;
   v28 = v27;
   v30 = v29;
   v32 = v31;
 
-  [pointCopy bounds];
+  [v10 bounds];
   v59.origin.x = v26;
   v59.origin.y = v28;
   v59.size.width = v30;
@@ -731,10 +731,10 @@ void __61__PKTextInputElementsFinder__uniqueElements_reusingElements___block_inv
   y = v55.origin.y;
   width = v55.size.width;
   height = v55.size.height;
-  [pointCopy frame];
+  [v10 frame];
   if (CGRectIsEmpty(v56) || (v57.origin.x = x, v57.origin.y = y, v57.size.width = width, v57.size.height = height, CGRectIsNull(v57)))
   {
-    if ([pointCopy clipsToBounds])
+    if ([v10 clipsToBounds])
     {
       v13 = 0;
     }
@@ -747,10 +747,10 @@ void __61__PKTextInputElementsFinder__uniqueElements_reusingElements___block_inv
     goto LABEL_4;
   }
 
-  if (!only)
+  if (!point)
   {
 LABEL_18:
-    [PKTextInputFakeInteractions attachFakeInteractionToViewIfNecessary:pointCopy];
+    [PKTextInputFakeInteractions attachFakeInteractionToViewIfNecessary:v10];
     v13 = 1;
     goto LABEL_4;
   }
@@ -778,18 +778,18 @@ LABEL_18:
   }
 
   objc_opt_self();
-  [pointCopy bounds];
-  v49 = PK_convertRectFromCoordinateSpaceToCoordinateSpace(pointCopy, spaceCopy, v45, v46, v47, v48);
-  v58.origin.x = [(PKTextInputElement *)v49 hitToleranceFrameFromElementFrame:v50 insets:v51, v52, -v43, -v41];
-  v53.x = self;
-  v53.y = a2;
+  [v10 bounds];
+  v49 = PK_convertRectFromCoordinateSpaceToCoordinateSpace(v10, viewCopy, v45, v46, v47, v48);
+  v58.origin.x = [PKTextInputElement hitToleranceFrameFromElementFrame:v49 insets:v50, v51, v52, -v43, -v41];
+  v53.x = space;
+  v53.y = only;
   if (CGRectContainsPoint(v58, v53))
   {
 
     goto LABEL_18;
   }
 
-  if ([pointCopy clipsToBounds])
+  if ([v10 clipsToBounds])
   {
     v13 = 0;
   }
@@ -803,17 +803,17 @@ LABEL_4:
   return v13;
 }
 
-+ (uint64_t)_isReachableHitTestView:(uint64_t)view nearPoint:(void *)point coordSpace:(void *)space
++ (uint64_t)_isReachableHitTestView:(void *)view nearPoint:(double)point coordSpace:(double)space
 {
   v45 = *MEMORY[0x1E69E9840];
-  pointCopy = point;
-  spaceCopy = space;
+  v8 = a2;
+  viewCopy = view;
   v10 = objc_opt_self();
-  window = [pointCopy window];
+  window = [v8 window];
   if (window)
   {
-    [pointCopy bounds];
-    [pointCopy PK_convertRect:window toView:?];
+    [v8 bounds];
+    [v8 PK_convertRect:window toView:?];
     v13 = v12;
     v15 = v14;
     v17 = v16;
@@ -845,9 +845,9 @@ LABEL_4:
       v51.size.width = width;
       v51.size.height = height;
       MidY = CGRectGetMidY(v51);
-      if (spaceCopy)
+      if (viewCopy)
       {
-        [window PK_convertPoint:spaceCopy fromCoordinateSpace:{self, a2}];
+        [window PK_convertPoint:viewCopy fromCoordinateSpace:{point, space}];
         v32 = v31;
         v34 = v33;
         v52.origin.x = x;
@@ -893,7 +893,7 @@ LABEL_7:
 
 LABEL_14:
       v37 = [window hitTest:0 withEvent:{x, y}];
-      if (([v37 isDescendantOfView:pointCopy] & 1) == 0)
+      if (([v37 isDescendantOfView:v8] & 1) == 0)
       {
         [v37 frame];
         if (!CGRectIsEmpty(v53) || ([v37 subviews], v39 = objc_claimAutoreleasedReturnValue(), v40 = objc_msgSend(v39, "count"), v39, v40))
@@ -934,7 +934,7 @@ LABEL_24:
           else if (v38)
           {
 LABEL_29:
-            v28 = [(PKTextInputElementsFinder *)x _anyOtherWindowAboveWindow:v10 position:window]^ 1;
+            v28 = [(PKTextInputElementsFinder *)v10 _anyOtherWindowAboveWindow:window position:x, y]^ 1;
 LABEL_32:
 
             goto LABEL_33;
@@ -1084,14 +1084,14 @@ void __208__PKTextInputElementsFinder__collectTextInputs_asyncElementContainers_
   return shouldDisableInputAssistant;
 }
 
-+ (BOOL)shouldConsiderTextInputSearchForView:(uint64_t)view referenceHitPoint:(void *)point referenceCoordSpace:(void *)space
++ (BOOL)shouldConsiderTextInputSearchForView:(void *)view referenceHitPoint:(CGFloat)point referenceCoordSpace:(CGFloat)space
 {
-  spaceCopy = space;
-  pointCopy = point;
+  viewCopy = view;
+  v9 = a2;
   v10 = objc_opt_self();
-  v11 = [(PKTextInputElementsFinder *)self _shouldConsiderTextInputSearchForView:a2 referenceHitPoint:v10 referenceCoordSpace:pointCopy nearPointOnly:spaceCopy, 0];
+  space = [(PKTextInputElementsFinder *)v10 _shouldConsiderTextInputSearchForView:v9 referenceHitPoint:viewCopy referenceCoordSpace:0 nearPointOnly:point, space];
 
-  return v11 == 1;
+  return space == 1;
 }
 
 Class __74__PKTextInputElementsFinder__isReachableHitTestView_nearPoint_coordSpace___block_invoke()
@@ -1103,12 +1103,12 @@ Class __74__PKTextInputElementsFinder__isReachableHitTestView_nearPoint_coordSpa
   return result;
 }
 
-+ (uint64_t)_anyOtherWindowAboveWindow:(uint64_t)window position:(void *)position
++ (uint64_t)_anyOtherWindowAboveWindow:(double)window position:(double)position
 {
   v26 = *MEMORY[0x1E69E9840];
-  positionCopy = position;
+  v6 = a2;
   objc_opt_self();
-  windowScene = [positionCopy windowScene];
+  windowScene = [v6 windowScene];
   _visibleWindows = [windowScene _visibleWindows];
 
   v23 = 0u;
@@ -1130,14 +1130,14 @@ Class __74__PKTextInputElementsFinder__isReachableHitTestView_nearPoint_coordSpa
         }
 
         v13 = *(*(&v21 + 1) + 8 * i);
-        if (v13 != positionCopy)
+        if (v13 != v6)
         {
           [*(*(&v21 + 1) + 8 * i) windowLevel];
           v15 = v14;
-          [positionCopy windowLevel];
+          [v6 windowLevel];
           if (v15 > v16)
           {
-            [positionCopy PK_convertPoint:v13 toView:{self, a2}];
+            [v6 PK_convertPoint:v13 toView:{window, position}];
             v17 = [v13 hitTest:0 withEvent:?];
             if (v17)
             {

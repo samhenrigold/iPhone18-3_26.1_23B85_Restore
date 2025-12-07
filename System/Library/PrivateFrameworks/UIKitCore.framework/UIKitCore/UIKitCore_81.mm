@@ -1,3 +1,84 @@
+CGRect UIGraphicsGetPDFContextBounds(void)
+{
+  ContextStack = GetContextStack(0);
+  v1 = (MEMORY[0x1E695F058] + 24);
+  v2 = (MEMORY[0x1E695F058] + 8);
+  v3 = (MEMORY[0x1E695F058] + 16);
+  if (*ContextStack < 1)
+  {
+    goto LABEL_7;
+  }
+
+  v4 = &ContextStack[6 * (*ContextStack - 1)];
+  if (v4[4] != 2)
+  {
+    goto LABEL_7;
+  }
+
+  v5 = *(v4 + 3);
+  if (!v5)
+  {
+    v1 = (MEMORY[0x1E695F058] + 24);
+    v2 = (MEMORY[0x1E695F058] + 8);
+    v3 = (MEMORY[0x1E695F058] + 16);
+LABEL_7:
+    v5 = MEMORY[0x1E695F058];
+    goto LABEL_8;
+  }
+
+  if (*(v5 + 64) == 1)
+  {
+    v2 = (v5 + 40);
+    v3 = (v5 + 48);
+    v1 = (v5 + 56);
+    v5 += 32;
+  }
+
+  else
+  {
+    v2 = (v5 + 8);
+    v3 = (v5 + 16);
+    v1 = (v5 + 24);
+  }
+
+LABEL_8:
+  v6 = *v1;
+  v7 = *v5;
+  v8 = *v2;
+  v9 = *v3;
+  result.size.height = v6;
+  result.size.width = v9;
+  result.origin.y = v8;
+  result.origin.x = v7;
+  return result;
+}
+
+void UIGraphicsSetPDFContextURLForRect(NSURL *url, CGRect rect)
+{
+  height = rect.size.height;
+  width = rect.size.width;
+  y = rect.origin.y;
+  x = rect.origin.x;
+  urla = url;
+  ContextStack = GetContextStack(0);
+  if (*ContextStack >= 1)
+  {
+    v7 = &ContextStack[3 * (*ContextStack - 1)];
+    if (*(v7 + 4) == 2)
+    {
+      v8 = v7[1];
+      if (v8)
+      {
+        v11.origin.x = x;
+        v11.origin.y = y;
+        v11.size.width = width;
+        v11.size.height = height;
+        CGPDFContextSetURLForRect(v8, urla, v11);
+      }
+    }
+  }
+}
+
 void UIGraphicsAddPDFContextDestinationAtPoint(NSString *name, CGPoint point)
 {
   y = point.y;
@@ -46,23 +127,23 @@ void UIGraphicsSetPDFContextDestinationForRect(NSString *name, CGRect rect)
   }
 }
 
-void sub_18999C158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18999C158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18999C2D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18999C2D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18999C46C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18999C46C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -134,11 +215,11 @@ uint64_t _UIDocumentCarouselViewAnimateWithTracking(char a1, uint64_t a2, uint64
   return [UIView _modifyAnimationsWithPreferredFrameRateRange:1048633 updateReason:v7 animations:*&v9.minimum, *&v9.maximum, *&v9.preferred];
 }
 
-void sub_1899A05B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1899A05B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   objc_destroyWeak(va);
-  objc_destroyWeak((v5 - 40));
+  objc_destroyWeak((v9 - 40));
   _Unwind_Resume(a1);
 }
 
@@ -240,9 +321,9 @@ id LoadImageSequence(void *a1, void *a2, void *a3, char a4, uint64_t a5, double 
   return v30;
 }
 
-void sub_1899ABB54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1899ABB54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -335,116 +416,116 @@ double *__RGBtoHSV(double *result, double *a2, double *a3, double a4, double a5,
   return result;
 }
 
-void compositeCGImageRefInRect(CGImage *a1, CGFloat a2, double a3, CGFloat a4, CGFloat a5, CGFloat a6, CGFloat a7, CGFloat a8, CGFloat a9, uint64_t a10, uint64_t a11, CGFloat a12)
+void compositeCGImageRefInRect(CGImage *a1, uint64_t a2, uint64_t a3, CGFloat a4, double a5, CGFloat a6, CGFloat a7, CGFloat a8, CGFloat a9, CGFloat a10, CGFloat a11, CGFloat a12)
 {
   ContextStack = GetContextStack(0);
   if (*ContextStack < 1)
   {
-    v27 = 0;
+    v22 = 0;
   }
 
   else
   {
-    v27 = ContextStack[3 * (*ContextStack - 1) + 1];
+    v22 = ContextStack[3 * (*ContextStack - 1) + 1];
   }
 
-  CGContextSaveGState(v27);
-  CGContextSetAlpha(v27, a12);
+  CGContextSaveGState(v22);
+  CGContextSetAlpha(v22, a12);
   CGContextSetCompositeOperation();
-  CGContextTranslateCTM(v27, a2, a3 + a5);
-  v28 = -a5;
-  CGContextScaleCTM(v27, a4 / a8, -a5 / a9);
-  if (a5 > 0.0 && a4 > 0.0 && a11)
+  CGContextTranslateCTM(v22, a4, a5 + a7);
+  v23 = -a7;
+  CGContextScaleCTM(v22, a6 / a10, -a7 / a11);
+  if (a7 > 0.0 && a6 > 0.0 && a3)
   {
-    v29 = xmmword_18A67CAC0;
-    v30 = -1.0;
-    if (a11 <= 3)
+    v24 = xmmword_18A67CAC0;
+    v25 = -1.0;
+    if (a3 <= 3)
     {
-      switch(a11)
+      switch(a3)
       {
         case 1:
 LABEL_21:
-          v31 = 0.0;
+          v26 = 0.0;
           goto LABEL_25;
         case 2:
-          v31 = a5 / a4;
-          *(&v29 + 1) = 0;
-          *&v29 = -a4 / a5;
-          a5 = 0.0;
+          v26 = a7 / a6;
+          *(&v24 + 1) = 0;
+          *&v24 = -a6 / a7;
+          a7 = 0.0;
           goto LABEL_24;
         case 3:
-          v31 = v28 / a4;
-          *(&v29 + 1) = 0;
-          *&v29 = a4 / a5;
+          v26 = v23 / a6;
+          *(&v24 + 1) = 0;
+          *&v24 = a6 / a7;
 LABEL_18:
-          a4 = 0.0;
+          a6 = 0.0;
 LABEL_24:
-          v30 = 0.0;
+          v25 = 0.0;
           goto LABEL_25;
       }
     }
 
     else
     {
-      if (a11 <= 5)
+      if (a3 <= 5)
       {
-        if (a11 == 4)
+        if (a3 == 4)
         {
-          v29 = xmmword_18A64B720;
-          a5 = 0.0;
+          v24 = xmmword_18A64B720;
+          a7 = 0.0;
         }
 
         else
         {
-          v30 = 1.0;
-          a4 = 0.0;
+          v25 = 1.0;
+          a6 = 0.0;
         }
 
         goto LABEL_21;
       }
 
-      if (a11 == 6)
+      if (a3 == 6)
       {
-        v31 = v28 / a4;
-        *(&v29 + 1) = 0;
-        *&v29 = -a4 / a5;
+        v26 = v23 / a6;
+        *(&v24 + 1) = 0;
+        *&v24 = -a6 / a7;
         goto LABEL_24;
       }
 
-      if (a11 == 7)
+      if (a3 == 7)
       {
-        v31 = a5 / a4;
-        *(&v29 + 1) = 0;
-        *&v29 = a4 / a5;
-        a5 = 0.0;
+        v26 = a7 / a6;
+        *(&v24 + 1) = 0;
+        *&v24 = a6 / a7;
+        a7 = 0.0;
         goto LABEL_18;
       }
     }
 
-    v30 = *MEMORY[0x1E695EFD0];
-    v31 = *(MEMORY[0x1E695EFD0] + 8);
-    v29 = *(MEMORY[0x1E695EFD0] + 16);
-    a4 = *(MEMORY[0x1E695EFD0] + 32);
-    a5 = *(MEMORY[0x1E695EFD0] + 40);
+    v25 = *MEMORY[0x1E695EFD0];
+    v26 = *(MEMORY[0x1E695EFD0] + 8);
+    v24 = *(MEMORY[0x1E695EFD0] + 16);
+    a6 = *(MEMORY[0x1E695EFD0] + 32);
+    a7 = *(MEMORY[0x1E695EFD0] + 40);
 LABEL_25:
-    transform.a = v30;
-    transform.b = v31;
-    *&transform.c = v29;
-    transform.tx = a4;
-    transform.ty = a5;
-    CGContextConcatCTM(v27, &transform);
+    transform.a = v25;
+    transform.b = v26;
+    *&transform.c = v24;
+    transform.tx = a6;
+    transform.ty = a7;
+    CGContextConcatCTM(v22, &transform);
   }
 
-  v34.origin.y = a7;
-  v34.origin.x = a6;
-  v34.size.width = a8;
-  v34.size.height = a9;
-  v35 = CGRectOffset(v34, -a6, -a7);
-  CGContextDrawImage(v27, v35, a1);
-  CGContextRestoreGState(v27);
+  v29.origin.y = a9;
+  v29.origin.x = a8;
+  v29.size.width = a10;
+  v29.size.height = a11;
+  v30 = CGRectOffset(v29, -a8, -a9);
+  CGContextDrawImage(v22, v30, a1);
+  CGContextRestoreGState(v22);
 }
 
-void compositeCGImageRef(CGImage *a1, double a2, double a3, CGFloat a4, CGFloat a5, CGFloat a6, CGFloat a7, CGFloat a8, uint64_t a9, uint64_t a10)
+void compositeCGImageRef(CGImage *a1, uint64_t a2, uint64_t a3, double a4, double a5, CGFloat a6, CGFloat a7, CGFloat a8, CGFloat a9, CGFloat a10)
 {
   ContextStack = GetContextStack(0);
   if (*ContextStack < 1)
@@ -458,35 +539,35 @@ void compositeCGImageRef(CGImage *a1, double a2, double a3, CGFloat a4, CGFloat 
   }
 
   CGContextSaveGState(v20);
-  CGContextSetAlpha(v20, a8);
+  CGContextSetAlpha(v20, a10);
   CGContextSetCompositeOperation();
-  CGContextTranslateCTM(v20, a2 - a4, a5 + a3 + a7);
+  CGContextTranslateCTM(v20, a4 - a6, a7 + a5 + a9);
   CGContextScaleCTM(v20, 1.0, -1.0);
-  if (a7 > 0.0 && a6 > 0.0 && a10)
+  if (a9 > 0.0 && a8 > 0.0 && a3)
   {
     v21 = xmmword_18A67CAC0;
     v22 = -1.0;
-    if (a10 <= 3)
+    if (a3 <= 3)
     {
-      if (a10 != 1)
+      if (a3 != 1)
       {
-        if (a10 == 2)
+        if (a3 == 2)
         {
-          v25 = a7 / a6;
+          v25 = a9 / a8;
           *(&v21 + 1) = 0;
-          *&v21 = -a6 / a7;
+          *&v21 = -a8 / a9;
           v24 = 0.0;
-          v23 = a6;
+          v23 = a8;
           goto LABEL_25;
         }
 
-        if (a10 == 3)
+        if (a3 == 3)
         {
-          v25 = -a7 / a6;
+          v25 = -a9 / a8;
           *(&v21 + 1) = 0;
-          *&v21 = a6 / a7;
+          *&v21 = a8 / a9;
           v23 = 0.0;
-          v24 = a7;
+          v24 = a9;
 LABEL_25:
           v22 = 0.0;
           goto LABEL_26;
@@ -500,33 +581,33 @@ LABEL_25:
 
     else
     {
-      if (a10 <= 5)
+      if (a3 <= 5)
       {
-        if (a10 == 4)
+        if (a3 == 4)
         {
           v21 = xmmword_18A64B720;
           v24 = 0.0;
-          v23 = a6;
+          v23 = a8;
         }
 
         else
         {
           v22 = 1.0;
           v23 = 0.0;
-          v24 = a7;
+          v24 = a9;
         }
 
         v25 = 0.0;
         goto LABEL_26;
       }
 
-      if (a10 != 6)
+      if (a3 != 6)
       {
-        if (a10 == 7)
+        if (a3 == 7)
         {
-          v25 = a7 / a6;
+          v25 = a9 / a8;
           *(&v21 + 1) = 0;
-          *&v21 = a6 / a7;
+          *&v21 = a8 / a9;
           v24 = 0.0;
           v23 = 0.0;
           goto LABEL_25;
@@ -548,22 +629,22 @@ LABEL_26:
         goto LABEL_27;
       }
 
-      v25 = -a7 / a6;
+      v25 = -a9 / a8;
       *(&v21 + 1) = 0;
-      *&v21 = -a6 / a7;
+      *&v21 = -a8 / a9;
       v22 = 0.0;
     }
 
-    v24 = a7;
-    v23 = a6;
+    v24 = a9;
+    v23 = a8;
     goto LABEL_26;
   }
 
 LABEL_27:
-  v27.origin.x = a4;
-  v27.origin.y = a5;
-  v27.size.width = a6;
-  v27.size.height = a7;
+  v27.origin.x = a6;
+  v27.origin.y = a7;
+  v27.size.width = a8;
+  v27.size.height = a9;
   CGContextDrawImage(v20, v27, a1);
   CGContextRestoreGState(v20);
 }
@@ -593,9 +674,9 @@ BOOL _UIImageIsFilledSystemSymbolImage(void *a1)
   return v6;
 }
 
-void sub_1899B2C4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1899B2C4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -636,12 +717,12 @@ LABEL_36:
       {
         v13 = [v6 objectAtIndexedSubscript:--v9];
         v14 = v13;
-        if (v10 & 1) == 0 && (([v13 isEqualToString:@"circle"] & 1) != 0 || (objc_msgSend(v14, "isEqualToString:", @"square") & 1) != 0 || (objc_msgSend(v14, "isEqualToString:", @"rectangle")))
+        if (v10 & 1) == 0 && ((objc_msgSend_isEqualToString_(v13) & 1) != 0 || (objc_msgSend_isEqualToString_(v14) & 1) != 0 || (objc_msgSend_isEqualToString_(v14)))
         {
           v10 = 1;
         }
 
-        else if ((v12 & 1) != 0 || ([v14 isEqualToString:@"fill"] & 1) == 0)
+        else if ((v12 & 1) != 0 || (objc_msgSend_isEqualToString_(v14) & 1) == 0)
         {
           if (v11)
           {
@@ -649,7 +730,7 @@ LABEL_36:
             goto LABEL_19;
           }
 
-          if (![v14 isEqualToString:@"slash"])
+          if (!objc_msgSend_isEqualToString_(v14))
           {
             v11 = 0;
             goto LABEL_19;
@@ -775,19 +856,19 @@ uint64_t _UIImageVariantValueForName(void *a1)
           break;
         }
 
-        if ([v9 isEqualToString:@"circle"])
+        if (objc_msgSend_isEqualToString_(v9))
         {
           v5 |= 2uLL;
         }
 
-        else if ([v10 isEqualToString:@"square"])
+        else if (objc_msgSend_isEqualToString_(v10))
         {
           v5 |= 4uLL;
         }
 
         else
         {
-          if (![v10 isEqualToString:@"rectangle"])
+          if (!objc_msgSend_isEqualToString_(v10))
           {
             break;
           }
@@ -804,7 +885,7 @@ LABEL_20:
         }
       }
 
-      if ((v7 & 1) != 0 || ![v10 isEqualToString:@"fill"])
+      if ((v7 & 1) != 0 || !objc_msgSend_isEqualToString_(v10))
       {
         if (v6)
         {
@@ -813,9 +894,9 @@ LABEL_20:
 
         else
         {
-          v11 = [v10 isEqualToString:@"slash"];
-          v6 = v11;
-          if (v11)
+          isEqualToString = objc_msgSend_isEqualToString_(v10);
+          v6 = isEqualToString;
+          if (isEqualToString)
           {
             v5 |= 0x10000uLL;
           }
@@ -911,64 +992,65 @@ void __LoadImageSequence_block_invoke(uint64_t a1, void *a2)
   }
 }
 
-void Draw3PartSlice(CGContext *a1, CGImage *a2, uint64_t a3, int a4, double a5, double a6, double a7, double a8, CGFloat a9, CGFloat a10, CGFloat a11, CGFloat a12, double a13, CGFloat a14, double a15, CGFloat a16)
+void Draw3PartSlice(CGContext *a1, CGImage *a2, uint64_t a3, uint64_t a4, double a5, double a6, double a7, double a8, CGFloat a9, CGFloat a10, CGFloat a11, CGFloat a12, double a13, CGFloat a14, double a15, CGFloat a16)
 {
-  v59.origin.x = a9;
+  v16 = a4;
+  v55.origin.x = a9;
   remainder.origin.x = a9;
   remainder.origin.y = a10;
   remainder.size.width = a11;
   remainder.size.height = a12;
   memset(&slice, 0, sizeof(slice));
-  memset(&v56, 0, sizeof(v56));
-  memset(&v55, 0, sizeof(v55));
-  v59.origin.y = a10;
-  v59.size.width = a11;
-  v59.size.height = a12;
-  CGRectDivide(v59, &slice, &remainder, a14, CGRectMinXEdge);
-  CGRectDivide(remainder, &v55, &v56, a16, CGRectMaxXEdge);
-  v27 = a6 * a3;
-  v28 = a7 * a3;
-  v29 = a8 * a3;
-  v30 = a16 * a3;
-  DrawImageRegion(a1, a2, a4, a3, 0.0, v27, a14 * a3, v29, v36, v37, v38, v31, v32, v33, v34, v35, slice.origin.x, slice.origin.y, slice.size);
-  DrawImageRegion(a1, a2, a4, a3, a14 * a3, v27, v28 - a14 * a3 - v30, v29, v44, v45, v46, v39, v40, v41, v42, v43, v56.origin.x, v56.origin.y, v56.size);
-  DrawImageRegion(a1, a2, a4, a3, v28 - v30, v27, v30, v29, v52, v53, v54, v47, v48, v49, v50, v51, v55.origin.x, v55.origin.y, v55.size);
+  memset(&v52, 0, sizeof(v52));
+  memset(&v51, 0, sizeof(v51));
+  v55.origin.y = a10;
+  v55.size.width = a11;
+  v55.size.height = a12;
+  CGRectDivide(v55, &slice, &remainder, a14, CGRectMinXEdge);
+  CGRectDivide(remainder, &v51, &v52, a16, CGRectMaxXEdge);
+  v23 = a6 * a3;
+  v24 = a7 * a3;
+  v25 = a8 * a3;
+  v26 = a16 * a3;
+  DrawImageRegion(a1, a2, v16, a3, 0.0, v23, a14 * a3, v25, v32, v33, v34, v27, v28, v29, v30, v31, slice.origin.x, slice.origin.y, slice.size);
+  DrawImageRegion(a1, a2, v16, a3, a14 * a3, v23, v24 - a14 * a3 - v26, v25, v40, v41, v42, v35, v36, v37, v38, v39, v52.origin.x, v52.origin.y, v52.size);
+  DrawImageRegion(a1, a2, v16, a3, v24 - v26, v23, v26, v25, v48, v49, v50, v43, v44, v45, v46, v47, v51.origin.x, v51.origin.y, v51.size);
 }
 
-void DrawImageRegion(CGContext *a1, CGImage *a2, int a3, double a4, CGFloat a5, CGFloat a6, CGFloat a7, CGFloat a8, double a9, double a10, double a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, CGFloat a17, double a18, CGSize a19)
+void DrawImageRegion(CGContext *a1, CGImage *a2, int a3, double a4, CGFloat a5, CGFloat a6, CGFloat a7, CGFloat a8, double a9, double a10, double a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, CGFloat a17, CGFloat a18, CGSize a19)
 {
-  v31.size = a19;
-  v31.origin.x = a17;
-  v31.origin.y = a18;
-  if (!CGRectIsEmpty(v31))
+  v34.size = a19;
+  v34.origin.x = a17;
+  v34.origin.y = a18;
+  if (!CGRectIsEmpty(v34))
   {
-    v32.origin.x = a5;
-    v32.origin.y = a6;
-    v32.size.width = a7;
-    v32.size.height = a8;
-    if (!CGRectIsEmpty(v32))
+    v35.origin.x = a5;
+    v35.origin.y = a6;
+    v35.size.width = a7;
+    v35.size.height = a8;
+    if (!CGRectIsEmpty(v35))
     {
-      if (a3 && (CGContextGetCTM(&v29, a1), CGAffineTransformInvert(&v30, &v29), v22 = vmovn_s64(vmvnq_s8(vceqq_f64(vaddq_f64(vmulq_n_f64(*&v30.a, a7), vmulq_n_f64(*&v30.c, a8)), a19))), ((v22.i32[0] | v22.i32[1]) & 1) != 0))
+      if (a3 && (CGContextGetCTM(&v32, a1), CGAffineTransformInvert(&v33, &v32), v25 = vmovn_s64(vmvnq_s8(vceqq_f64(vaddq_f64(vmulq_n_f64(*&v33.a, a7), vmulq_n_f64(*&v33.c, a8)), a19))), ((v25.i32[0] | v25.i32[1]) & 1) != 0))
       {
         CGContextSaveGState(a1);
-        v33.origin.x = a17;
-        v33.origin.y = a18;
-        v33.size = a19;
-        CGContextClipToRect(a1, v33);
-        v34.origin.x = a5;
-        v34.origin.y = a6;
-        v34.size.width = a7;
-        v34.size.height = a8;
-        v23 = CGImageCreateWithImageInRect(a2, v34);
-        if (v23)
+        v36.origin.x = a17;
+        v36.origin.y = a18;
+        v36.size = a19;
+        CGContextClipToRect(a1, v36);
+        v37.origin.x = a5;
+        v37.origin.y = a6;
+        v37.size.width = a7;
+        v37.size.height = a8;
+        v26 = CGImageCreateWithImageInRect(a2, v37);
+        if (v26)
         {
-          v24 = v23;
-          v35.origin.y = a18 + a19.height;
-          v35.size.width = a7 / a4;
-          v35.size.height = a8 / a4;
-          v35.origin.x = a17;
-          CGContextDrawTiledImage(a1, v35, v23);
-          CGImageRelease(v24);
+          v27 = v26;
+          v38.origin.y = a18 + a19.height;
+          v38.size.width = a7 / a4;
+          v38.size.height = a8 / a4;
+          v38.origin.x = a17;
+          CGContextDrawTiledImage(a1, v38, v26);
+          CGImageRelease(v27);
         }
 
         CGContextRestoreGState(a1);
@@ -976,19 +1058,19 @@ void DrawImageRegion(CGContext *a1, CGImage *a2, int a3, double a4, CGFloat a5, 
 
       else
       {
-        v36.origin.x = a5;
-        v36.origin.y = a6;
-        v36.size.width = a7;
-        v36.size.height = a8;
-        v25 = CGImageCreateWithImageInRect(a2, v36);
-        if (v25)
+        v39.origin.x = a5;
+        v39.origin.y = a6;
+        v39.size.width = a7;
+        v39.size.height = a8;
+        v28 = CGImageCreateWithImageInRect(a2, v39);
+        if (v28)
         {
-          v26 = v25;
-          v37.origin.x = a17;
-          v37.origin.y = a18;
-          v37.size = a19;
-          CGContextDrawImage(a1, v37, v25);
-          CGImageRelease(v26);
+          v29 = v28;
+          v40.origin.x = a17;
+          v40.origin.y = a18;
+          v40.size = a19;
+          CGContextDrawImage(a1, v40, v28);
+          CGImageRelease(v29);
         }
       }
     }
@@ -1128,9 +1210,9 @@ id _UISceneLifecycleCompositeActionMaskComponentDescriptionComponents(int a1)
   return v2;
 }
 
-void sub_1899B76C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1899B76C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1142,16 +1224,16 @@ void sub_1899B9314(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1899B9B88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1899B9B88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1899BA718(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1899BA718(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1447,79 +1529,79 @@ UIImage *_UIImageForView(void *a1)
   return v10;
 }
 
-id _UIBezierPathAroundViewAlpha(void *a1)
+id _UIBezierPathAroundViewAlpha(void *a1, double a2, double a3)
 {
-  v33[2] = *MEMORY[0x1E69E9840];
-  v1 = a1;
-  v2 = v1;
-  if (v1 && (v32[0] = @"src-rect", v3 = MEMORY[0x1E696B098], [v1 bounds], v31.a = v4, v31.b = v5, v31.c = v6, v31.d = v7, objc_msgSend(v3, "valueWithBytes:objCType:", &v31, "{CGRect={CGPoint=dd}{CGSize=dd}}"), v8 = objc_claimAutoreleasedReturnValue(), v32[1] = @"dst-gamut", v33[0] = v8, v33[1] = &unk_1EFE30BE0, objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v33, v32, 2), v9 = objc_claimAutoreleasedReturnValue(), v10 = _UIRenderView(v2, v9, &__block_literal_global_495), v9, v8, v10) && (v11 = _UICreateCGImageFromIOSurfaceWithOptions(v10, 0), CFRelease(v10), v11))
+  v35[2] = *MEMORY[0x1E69E9840];
+  v3 = a1;
+  v4 = v3;
+  if (v3 && (v34[0] = @"src-rect", v5 = MEMORY[0x1E696B098], [v3 bounds], v33.a = v6, v33.b = v7, v33.c = v8, v33.d = v9, objc_msgSend(v5, "valueWithBytes:objCType:", &v33, "{CGRect={CGPoint=dd}{CGSize=dd}}"), v10 = objc_claimAutoreleasedReturnValue(), v34[1] = @"dst-gamut", v35[0] = v10, v35[1] = &unk_1EFE30BE0, objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v35, v34, 2), v11 = objc_claimAutoreleasedReturnValue(), v12 = _UIRenderView(v4, v11, &__block_literal_global_495), v11, v10, v12) && (v13 = _UICreateCGImageFromIOSurfaceWithOptions(v12, 0), CFRelease(v12), v13))
   {
-    Width = CGImageGetWidth(v11);
-    Height = CGImageGetHeight(v11);
-    v14 = *MEMORY[0x1E695EFF8];
-    v15 = *(MEMORY[0x1E695EFF8] + 8);
-    v16 = Width;
-    v17 = Height;
+    Width = CGImageGetWidth(v13);
+    Height = CGImageGetHeight(v13);
+    v16 = *MEMORY[0x1E695EFF8];
+    v17 = *(MEMORY[0x1E695EFF8] + 8);
+    v18 = Width;
+    v19 = Height;
     DeviceGray = CGColorSpaceCreateDeviceGray();
-    v19 = CGBitmapContextCreate(0, Width, Height, 8uLL, Width, DeviceGray, 0);
-    v20 = +[UIColor blackColor];
-    CGContextSetFillColorWithColor(v19, [v20 CGColor]);
+    v21 = CGBitmapContextCreate(0, Width, Height, 8uLL, Width, DeviceGray, 0);
+    v22 = objc_msgSend_blackColor(UIColor);
+    CGContextSetFillColorWithColor(v21, [v22 CGColor]);
 
-    v35.origin.x = v14;
-    v35.origin.y = v15;
-    v35.size.width = v16;
-    v35.size.height = v17;
-    CGContextFillRect(v19, v35);
-    v36.origin.x = v14;
-    v36.origin.y = v15;
-    v36.size.width = v16;
-    v36.size.height = v17;
-    CGContextClipToMask(v19, v36, v11);
-    v21 = +[UIColor whiteColor];
-    CGContextSetFillColorWithColor(v19, [v21 CGColor]);
+    v37.origin.x = v16;
+    v37.origin.y = v17;
+    v37.size.width = v18;
+    v37.size.height = v19;
+    CGContextFillRect(v21, v37);
+    v38.origin.x = v16;
+    v38.origin.y = v17;
+    v38.size.width = v18;
+    v38.size.height = v19;
+    CGContextClipToMask(v21, v38, v13);
+    v23 = +[UIColor whiteColor];
+    CGContextSetFillColorWithColor(v21, [v23 CGColor]);
 
-    v37.origin.x = v14;
-    v37.origin.y = v15;
-    v37.size.width = v16;
-    v37.size.height = v17;
-    CGContextFillRect(v19, v37);
-    Image = CGBitmapContextCreateImage(v19);
-    CGContextRelease(v19);
+    v39.origin.x = v16;
+    v39.origin.y = v17;
+    v39.size.width = v18;
+    v39.size.height = v19;
+    CGContextFillRect(v21, v39);
+    Image = CGBitmapContextCreateImage(v21);
+    CGContextRelease(v21);
     CGColorSpaceRelease(DeviceGray);
-    v23 = CGPathCreateWithThresholdedImage();
-    if (v23)
+    v25 = CGPathCreateWithThresholdedImage();
+    if (v25)
     {
-      v24 = v23;
-      v25 = [UIBezierPath bezierPathWithCGPath:v23];
-      [v2 bounds];
-      v26 = CGRectGetWidth(v38);
-      v27 = v26 / CGImageGetWidth(v11);
-      [v2 bounds];
-      v28 = CGRectGetHeight(v39);
-      v29 = CGImageGetHeight(v11);
-      CGAffineTransformMakeScale(&v31, v27, v28 / v29);
-      [v25 applyTransform:&v31];
-      CGPathRelease(v24);
+      v26 = v25;
+      v27 = [UIBezierPath bezierPathWithCGPath:v25];
+      [v4 bounds];
+      v28 = CGRectGetWidth(v40);
+      v29 = v28 / CGImageGetWidth(v13);
+      [v4 bounds];
+      v30 = CGRectGetHeight(v41);
+      v31 = CGImageGetHeight(v13);
+      CGAffineTransformMakeScale(&v33, v29, v30 / v31);
+      [v27 applyTransform:&v33];
+      CGPathRelease(v26);
     }
 
     else
     {
-      v25 = 0;
+      v27 = 0;
     }
 
     CFRelease(Image);
-    CFRelease(v11);
+    CFRelease(v13);
   }
 
   else
   {
-    v25 = 0;
+    v27 = 0;
   }
 
-  return v25;
+  return v27;
 }
 
-id GetTintedToolbarBackgroundImage(int a1, void *a2)
+id GetTintedToolbarBackgroundImage(unsigned int a1, void *a2)
 {
   v2 = 0;
   if (a1 >= 1 && a2)
@@ -1700,14 +1782,14 @@ LABEL_28:
   return v35;
 }
 
-void sub_1899BD8AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1899BD8AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t _DecrementImageUsage(uint64_t result)
+void *_DecrementImageUsage(void *result)
 {
   if (result)
   {
@@ -1746,7 +1828,7 @@ uint64_t _DecrementImageUsage(uint64_t result)
   return result;
 }
 
-uint64_t isRectInBoundingPathCornerWithMinimumPadding(__int128 *a1, int64x2_t *a2, uint64_t a3, double a4, double a5, double a6, double a7, double a8)
+BOOL isRectInBoundingPathCornerWithMinimumPadding(__int128 *a1, int64x2_t *a2, uint64_t a3, double a4, double a5, double a6, double a7, double a8)
 {
   v11 = a6;
   v14 = a4 + a6;
@@ -2107,7 +2189,7 @@ double _scrollRange(void *a1)
   return v3;
 }
 
-unint64_t _UIRectCornerConvertedFromOrientationToPortrait(unint64_t result, uint64_t a2)
+unint64_t _UIRectCornerConvertedFromOrientationToPortrait(unint64_t result, unint64_t a2)
 {
   if (result != -1)
   {
@@ -2232,6 +2314,13 @@ void _UIBoundingPathLargestInscribedRectWithAspectRatioAndCenter(double a1, CGFl
     v19.size.height = a5;
     CGRectGetMaxY(v19);
   }
+}
+
+void sub_1899C7080(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t _UIComputeSkipRegionForBoundingPathData(uint64_t a1, uint64_t a2, void *a3)
@@ -2718,6 +2807,13 @@ LABEL_15:
   _Block_object_dispose(&v80, 8);
 }
 
+void sub_1899C8760(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63, ...)
+{
+  va_start(va, a63);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void _UIBoundingPathBitmapDataAssertValid(__int128 *a1, void *a2)
 {
   v3 = a2;
@@ -3018,7 +3114,7 @@ id _UIBoundingPathBitmapDataImageRepresentation(unint64_t *a1)
   return v7;
 }
 
-unint64_t ___createRowsNodes_block_invoke(uint64_t a1, unint64_t a2, uint64_t a3)
+uint64_t ___createRowsNodes_block_invoke(uint64_t a1, unint64_t a2, uint64_t a3)
 {
   if (*(a1 + 32) > a2)
   {
@@ -3809,25 +3905,25 @@ void *_allocateStandardizedEndiannessByteArrayForEncodingHostReferenceEdgePositi
   return memcpy(v5, a1, v4);
 }
 
-void sub_1899D059C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1899D059C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1899D1BA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1899D1BA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1899D1CF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1899D1CF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 48), 8);
+  _Block_object_dispose((v13 - 48), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3840,7 +3936,7 @@ Class __getIATextInputActionsAnalyticsClass_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __InputAnalyticsLibraryCore_block_invoke_0()
+uint64_t __InputAnalyticsLibraryCore_block_invoke_0(uint64_t a1)
 {
   result = _sl_dlopen();
   InputAnalyticsLibraryCore_frameworkLibrary_0 = result;
@@ -3856,11 +3952,18 @@ Class __getIATextInputActionsInputModeClass_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __TextInputLibraryCore_block_invoke()
+uint64_t __TextInputLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1ED49E708 = result;
   return result;
+}
+
+void sub_1899D66EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 __CFString *StringForAlignment(unint64_t a1)
@@ -3994,9 +4097,9 @@ id getSBSKeyboardFocusServiceClass()
   return v1;
 }
 
-void sub_1899DED14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1899DED14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4008,7 +4111,7 @@ void sub_1899DF384(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t __SpringBoardServicesLibraryCore_block_invoke_2()
+uint64_t __SpringBoardServicesLibraryCore_block_invoke_2(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1ED49E738 = result;
@@ -4111,9 +4214,9 @@ void UIViewGlassSetLegibilitySetting(uint64_t a1)
   }
 }
 
-void sub_1899E2BA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1899E2BA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4145,7 +4248,7 @@ uint64_t __accelCallback_block_invoke(uint64_t a1)
   return [v6 acceleratedInX:v7 Y:v8 Z:v9];
 }
 
-uint64_t __CoreMotionLibraryCore_block_invoke()
+uint64_t __CoreMotionLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1ED49E748 = result;
@@ -4158,9 +4261,9 @@ void HardwareKeyboardAvailabilityChanged()
   [v0 performSelectorOnMainThread:sel__hardwareKeyboardAvailabilityChanged withObject:0 waitUntilDone:0];
 }
 
-void sub_1899E42A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1899E42A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4328,7 +4431,7 @@ void *__getAudioServicesSetPropertySymbolLoc_block_invoke_0(uint64_t a1)
   return result;
 }
 
-uint64_t __AudioToolboxLibraryCore_block_invoke_1()
+uint64_t __AudioToolboxLibraryCore_block_invoke_1(uint64_t a1)
 {
   result = _sl_dlopen();
   AudioToolboxLibraryCore_frameworkLibrary_1 = result;
@@ -4454,58 +4557,58 @@ LABEL_18:
   return v3;
 }
 
-void sub_1899E5F04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_1899E5F04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1899E616C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_1899E616C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1899E63D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_1899E63D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1899E6638(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_1899E6638(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1899E686C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_1899E686C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1899E6A70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_1899E6A70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1899E73A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1899E73A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1899E79D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
   va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1899E79D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
-{
-  va_start(va, a5);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4517,9 +4620,9 @@ void sub_1899E7C58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1899E8C98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1899E8C98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4665,7 +4768,7 @@ void *__getCARSessionLimitUserInterfacesChangedNotificationSymbolLoc_block_invok
   return result;
 }
 
-uint64_t __CarKitLibraryCore_block_invoke()
+uint64_t __CarKitLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   CarKitLibraryCore_frameworkLibrary = result;
@@ -4721,7 +4824,7 @@ LABEL_7:
   return result;
 }
 
-uint64_t __MediaToolboxLibraryCore_block_invoke()
+uint64_t __MediaToolboxLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1ED49ABF8 = result;
@@ -4855,37 +4958,37 @@ void *_UITraitTraceForTraitEnvironmentAndQueryString(void *a1, void *a2)
   return v15;
 }
 
-void sub_1899F4400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1899F4400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1899F66A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1899F66A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1899F6A88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1899F6A88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1899F6E54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1899F6E54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1899F70B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1899F70B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4904,12 +5007,19 @@ uint64_t _UITraitCollectionUserInterfaceRenderingModeDidChange(void *a1, void *a
   }
 }
 
-void sub_1899F74D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1899F74D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v17 - 144), 8);
-  _Block_object_dispose((v17 - 96), 8);
+  _Block_object_dispose((v24 - 144), 8);
+  _Block_object_dispose((v24 - 96), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1899F7F14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, ...)
+{
+  va_start(va, a37);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -5041,7 +5151,7 @@ LABEL_8:
   return [v2 mainScreen];
 }
 
-uint64_t _UIGetDescriptionForFallbackEnvironmentWithInvalidTraitCollection(void *a1)
+void *_UIGetDescriptionForFallbackEnvironmentWithInvalidTraitCollection(void *a1)
 {
   if (_UIGetDescriptionForFallbackEnvironmentWithInvalidTraitCollection___reentranceGuard == 1)
   {
@@ -5074,7 +5184,7 @@ __CFString *_additionalDebuggingDescriptionForFallbackEnvironment(void *a1)
   }
 }
 
-uint64_t __UISimulateCrash_0(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__UISimulateCrash_0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v10 = 0;
   v11 = &v10;
@@ -5104,9 +5214,9 @@ uint64_t __UISimulateCrash_0(uint64_t a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-void sub_189A01EDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189A01EDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5150,7 +5260,7 @@ LABEL_7:
   return result;
 }
 
-uint64_t __CrashReporterSupportLibraryCore_block_invoke_0()
+uint64_t __CrashReporterSupportLibraryCore_block_invoke_0(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1ED49ECB8 = result;
@@ -5466,28 +5576,28 @@ void sub_189A042F4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_189A04E0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_189A04E0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void __DefaultContentSizeCategory_block_invoke()
+void __DefaultContentSizeCategory_block_invoke(double a1)
 {
   if (UIApp)
   {
-    v0 = objc_opt_class();
+    v1 = objc_opt_class();
   }
 
   else
   {
-    v0 = UIApplication;
+    v1 = UIApplication;
   }
 
-  v1 = [(__objc2_class *)v0 _defaultContentSizeCategory];
-  v2 = qword_1ED49ED50;
-  qword_1ED49ED50 = v1;
+  v2 = [(__objc2_class *)v1 _defaultContentSizeCategory];
+  v3 = qword_1ED49ED50;
+  qword_1ED49ED50 = v2;
 }
 
 id _UIImageConfigurationWithFlippedLayoutDirection(void *a1)
@@ -5582,9 +5692,9 @@ void *UIResourceIdentifierForStringsFileForNIBBeingDecodedWithCoder(void *a1)
   return v5;
 }
 
-void sub_189A132CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189A132CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5635,7 +5745,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t __PencilKitLibraryCore_block_invoke()
+uint64_t __PencilKitLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1ED49EDA0 = result;
@@ -5770,35 +5880,35 @@ LABEL_3:
   return v2;
 }
 
-void sub_189A1A82C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_189A1A82C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189A1AB94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_189A1AB94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189A1BBB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_189A1BBB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t _UIShouldApplyTraitStorageRecordsForTraitChanges(uint64_t a1)
+uint64_t _UIShouldApplyTraitStorageRecordsForTraitChanges(void (*a1)(void, void, void))
 {
   if (qword_1ED49EDC8 != -1)
   {
     dispatch_once(&qword_1ED49EDC8, &__block_literal_global_264);
   }
 
-  if (_UITraitTokenSetIntersectsSet(&unk_1ED49EDD8, a1))
+  if (_UITraitTokenSetIntersectsSet(qword_1ED49EDD8, a1))
   {
     v2 = 1;
   }
@@ -5820,13 +5930,13 @@ void ___supportedTraitsForIBVariations_block_invoke()
 {
   v20 = *MEMORY[0x1E69E9840];
   v0 = _UIGetTraitTokenValue(&unk_1EFE32398);
-  _UITraitTokenSetInsert(&unk_1ED49EDD8, v0, v1);
+  _UITraitTokenSetInsert(qword_1ED49EDD8, v0, v1);
   v2 = _UIGetTraitTokenValue(&unk_1EFE323F8);
-  _UITraitTokenSetInsert(&unk_1ED49EDD8, v2, v3);
+  _UITraitTokenSetInsert(qword_1ED49EDD8, v2, v3);
   v4 = _UIGetTraitTokenValue(&unk_1EFE32410);
-  _UITraitTokenSetInsert(&unk_1ED49EDD8, v4, v5);
+  _UITraitTokenSetInsert(qword_1ED49EDD8, v4, v5);
   v6 = _UIGetTraitTokenValue(&unk_1EFE32458);
-  _UITraitTokenSetInsert(&unk_1ED49EDD8, v6, v7);
+  _UITraitTokenSetInsert(qword_1ED49EDD8, v6, v7);
   v17 = 0u;
   v18 = 0u;
   v15 = 0u;
@@ -5848,7 +5958,7 @@ void ___supportedTraitsForIBVariations_block_invoke()
         }
 
         v13 = _UIGetTraitTokenValue(*(*(&v15 + 1) + 8 * v12));
-        _UITraitTokenSetInsert(&unk_1ED49EDD8, v13, v14);
+        _UITraitTokenSetInsert(qword_1ED49EDD8, v13, v14);
         ++v12;
       }
 
@@ -5870,7 +5980,7 @@ void ___appNeedsCompatibilityBehavior_block_invoke()
   else
   {
     v0 = _UIMainBundleIdentifier();
-    _MergedGlobals_1162 = [v0 isEqualToString:@"com.crunchyroll.iphone"];
+    _MergedGlobals_1162 = objc_msgSend_isEqualToString_(v0);
   }
 }
 
@@ -5881,9 +5991,9 @@ void sub_189A28FF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_189A298A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_189A298A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5912,9 +6022,9 @@ id getTUICandidateViewClass()
   return v1;
 }
 
-void sub_189A2A988(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189A2A988(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5939,9 +6049,9 @@ void sub_189A2BFD0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_189A2E040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189A2E040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5965,7 +6075,7 @@ void __getTUICandidateViewClass_block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __TextInputUILibraryCore_block_invoke_9()
+uint64_t __TextInputUILibraryCore_block_invoke_9(uint64_t a1)
 {
   result = _sl_dlopen();
   TextInputUILibraryCore_frameworkLibrary_4 = result;
@@ -6012,9 +6122,9 @@ void *__getTUICandidateViewAnimationDurationSymbolLoc_block_invoke(uint64_t a1)
   return result;
 }
 
-void sub_189A321B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_189A321B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6089,6 +6199,13 @@ id _typedTextBackgroundColor()
   return v1;
 }
 
+void sub_189A3FB08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
+{
+  va_start(va, a38);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 BOOL SubviewAutoSizesWithPredictionBar(void *a1)
 {
   v1 = a1;
@@ -6148,7 +6265,7 @@ uint64_t IsMobileNotes()
   if ((_MergedGlobals_1165 & 1) == 0)
   {
     v0 = _UIMainBundleIdentifier();
-    byte_1ED49EE49 = [v0 isEqualToString:@"com.apple.mobilenotes"];
+    byte_1ED49EE49 = objc_msgSend_isEqualToString_(v0);
     _MergedGlobals_1165 = 1;
   }
 
@@ -6748,9 +6865,9 @@ double _textSize(void *a1, void *a2)
   return v6;
 }
 
-void sub_189A4BAF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_189A4BAF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6792,16 +6909,16 @@ void UIKeyboardHasCompletedBuddy()
   }
 }
 
-void sub_189A4BE60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189A4BE60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189A4C8D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189A4C8D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6817,9 +6934,9 @@ id _GetNormalizedIdentifiersForMultiscriptInputModes()
   return v0;
 }
 
-void sub_189A50428(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_189A50428(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6905,9 +7022,9 @@ LABEL_13:
   }
 
   v8 = [v1 softwareLayout];
-  v9 = [v8 isEqualToString:@"Thai-Four-Row"];
+  isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-  if (v9)
+  if (isEqualToString)
   {
     v10 = UIKeyboardActiveInputModes;
     v20 = 0u;
@@ -6930,7 +7047,7 @@ LABEL_13:
           }
 
           v16 = KBStarLayoutString(*(*(&v20 + 1) + 8 * i));
-          v17 = [v16 isEqualToString:@"Thai"];
+          v17 = objc_msgSend_isEqualToString_(v16);
 
           v14 &= v17 ^ 1;
         }
@@ -6983,9 +7100,9 @@ uint64_t _UIKeyboardInputModeFilterAllowedExceptLastAndCurrentAndEmojiAndSameMul
   return v6;
 }
 
-void sub_189A5450C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_189A5450C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7005,16 +7122,16 @@ void __userNotificationCallback(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_189A58808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189A58808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189A5A9EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189A5A9EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7043,9 +7160,9 @@ id getTUIKeyboardInputModeIconRendererClass_0()
   return v1;
 }
 
-void sub_189A5AACC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189A5AACC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7090,14 +7207,14 @@ LABEL_7:
   return result;
 }
 
-uint64_t __SetupAssistantLibraryCore_block_invoke()
+uint64_t __SetupAssistantLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1ED498778 = result;
   return result;
 }
 
-uint64_t __AssistantServicesLibraryCore_block_invoke()
+uint64_t __AssistantServicesLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   AssistantServicesLibraryCore_frameworkLibrary = result;
@@ -7143,7 +7260,7 @@ void *__getSBUserNotificationDefaultButtonTagSymbolLoc_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __SpringBoardServicesLibraryCore_block_invoke_3()
+uint64_t __SpringBoardServicesLibraryCore_block_invoke_3(uint64_t a1)
 {
   result = _sl_dlopen();
   SpringBoardServicesLibraryCore_frameworkLibrary_0 = result;
@@ -7159,7 +7276,7 @@ void *__getSBUserNotificationAllowInSetupKeySymbolLoc_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __SafariServicesLibraryCore_block_invoke_0()
+uint64_t __SafariServicesLibraryCore_block_invoke_0(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1ED498790 = result;
@@ -7212,7 +7329,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t __EmojiFoundationLibraryCore_block_invoke_0()
+uint64_t __EmojiFoundationLibraryCore_block_invoke_0(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1ED4987A0 = result;
@@ -7238,7 +7355,7 @@ void __getTUIKeyboardInputModeIconRendererClass_block_invoke_0(uint64_t a1)
   }
 }
 
-uint64_t __TextInputUILibraryCore_block_invoke_10()
+uint64_t __TextInputUILibraryCore_block_invoke_10(uint64_t a1)
 {
   result = _sl_dlopen();
   TextInputUILibraryCore_frameworkLibrary_5 = result;
@@ -7372,14 +7489,14 @@ LABEL_11:
   return v11;
 }
 
-uint64_t UIKeyboardHasWordNgramModelForInputMode()
+uint64_t UIKeyboardHasWordNgramModelForInputMode(uint64_t a1)
 {
-  v0 = TIInputModeGetNormalizedIdentifier();
-  v1 = TIGetInputModeProperties();
-  v2 = [v1 objectForKey:*MEMORY[0x1E69D97C0]];
-  v3 = [v2 BOOLValue];
+  v1 = TIInputModeGetNormalizedIdentifier();
+  v2 = TIGetInputModeProperties();
+  v3 = [v2 objectForKey:*MEMORY[0x1E69D97C0]];
+  v4 = [v3 BOOLValue];
 
-  return v3;
+  return v4;
 }
 
 id UIKeyboardInputModeGetLocalizedVariant(void *a1)
@@ -7419,13 +7536,13 @@ id UIKeyboardInputModesMatchingMode(uint64_t a1, void *a2)
   return v7;
 }
 
-uint64_t __UIKeyboardInputModesMatchingMode_block_invoke(uint64_t a1)
+uint64_t __UIKeyboardInputModesMatchingMode_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v2 = TIInputModeGetNormalizedIdentifier();
-  v3 = [v1 isEqualToString:v2];
+  v2 = *(a1 + 32);
+  v3 = TIInputModeGetNormalizedIdentifier();
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v3;
+  return isEqualToString;
 }
 
 id UIKeyboardInputModeWithNewSWLayout(uint64_t a1, void *a2)
@@ -7460,15 +7577,15 @@ uint64_t UIKeyboardInputModesEqual(void *a1, void *a2)
   v4 = a2;
   if ([v3 length] && objc_msgSend(v4, "length"))
   {
-    v5 = [v3 isEqualToString:v4];
+    isEqualToString = objc_msgSend_isEqualToString_(v3);
   }
 
   else
   {
-    v5 = 0;
+    isEqualToString = 0;
   }
 
-  return v5;
+  return isEqualToString;
 }
 
 id UIKeyboardLocalizedInputModeName(void *a1)
@@ -7671,7 +7788,7 @@ id UIKeyboardLocalizedDictationDisplayName(void *a1)
   v2 = +[UIKeyboardInputModeController sharedInputModeController];
   v3 = [v2 keyboardLanguageForDictationLanguage:v1];
 
-  if (([v1 isEqualToString:@"zh_HK"] & 1) != 0 || objc_msgSend(v1, "isEqualToString:", @"yue_Hant"))
+  if ((objc_msgSend_isEqualToString_(v1) & 1) != 0 || objc_msgSend_isEqualToString_(v1))
   {
 
     v3 = @"zh_HK";
@@ -7703,13 +7820,13 @@ LABEL_6:
             objc_enumerationMutation(v6);
           }
 
-          if (([(__CFString *)v3 isEqualToString:*(*(&v38 + 1) + 8 * i)]& 1) == 0)
+          if ((objc_msgSend_isEqualToString_(v3) & 1) == 0)
           {
             v11 = TIInputModeGetBaseLanguage();
             v12 = TIInputModeGetBaseLanguage();
-            v13 = [v11 isEqualToString:v12];
+            isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-            if (v13)
+            if (isEqualToString)
             {
               v15 = [v4 stringByAppendingString:@"_long"];
 
@@ -7768,7 +7885,7 @@ LABEL_35:
         v26 = v31;
       }
 
-      if (v26 && ![v26 isEqualToString:v15])
+      if (v26 && !objc_msgSend_isEqualToString_(v26))
       {
         goto LABEL_33;
       }
@@ -7831,7 +7948,7 @@ id UIKeyboardDictationDisplayNameInUILanguage(void *a1, uint64_t a2)
   v4 = TextInputUIBundle();
   v5 = [v4 localizedStringForKey:v3 value:&stru_1EFB14550 table:@"Dictation"];
 
-  if (!v5 || [v5 isEqualToString:v3])
+  if (!v5 || objc_msgSend_isEqualToString_(v5))
   {
     v6 = [MEMORY[0x1E695DF58] baseLanguageFromLanguage:v3];
     v7 = [MEMORY[0x1E695DF58] currentLocale];
@@ -7871,7 +7988,7 @@ id UIKeyboardLanguageNameInUILanguage(void *a1)
       v9 = UIKeyboardSettingsBundle();
       v10 = [v9 localizedStringForKey:v1 value:0 table:@"KeyboardTitles" localization:v8];
 
-      if (v10 && ![v10 isEqualToString:v1])
+      if (v10 && !objc_msgSend_isEqualToString_(v10))
       {
         goto LABEL_15;
       }
@@ -7958,9 +8075,9 @@ id UIKeyboardGetActiveUniqueInputModesForHardwareKeyboard()
           goto LABEL_11;
         }
 
-        if (([v9 isMultilingualOnly] & 1) == 0 && ((UIKeyboardShowsTransliterationCandidatesForInputMode() & 1) != 0 || !objc_msgSend(v9, "multilingualIndex")))
+        if (([v9 isMultilingualOnly] & 1) == 0 && ((UIKeyboardShowsTransliterationCandidatesForInputMode(v7) & 1) != 0 || !objc_msgSend(v9, "multilingualIndex")))
         {
-          if (UIKeyboardShowsTransliterationCandidatesForInputMode())
+          if (UIKeyboardShowsTransliterationCandidatesForInputMode(v7))
           {
 LABEL_11:
             if ([v9 isExtensionInputMode])
@@ -7981,7 +8098,7 @@ LABEL_11:
 
           v11 = v10;
           v12 = UIKeyboardGetCurrentInputMode();
-          if ([v7 isEqualToString:v12])
+          if (objc_msgSend_isEqualToString_(v7))
           {
 
             goto LABEL_18;
@@ -8145,9 +8262,9 @@ uint64_t UIKeyboardGetNumbersStringForPreferredLocale()
 {
   v0 = [MEMORY[0x1E695DF58] preferredLocale];
   v1 = [v0 localeIdentifier];
-  v2 = [v1 isEqualToString:qword_1ED49EF10];
+  isEqualToString = objc_msgSend_isEqualToString_(v1);
 
-  if ((v2 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     v3 = [v0 localeIdentifier];
     v4 = [v3 copy];
@@ -8193,10 +8310,10 @@ id UIKeyboardGetInputModesForLanguage(void *a1, void *a2, int a3)
   v17 = [v16 languageCode];
   v18 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:v5];
   v19 = [v18 languageCode];
-  v20 = [v17 isEqualToString:v19];
+  isEqualToString = objc_msgSend_isEqualToString_(v17);
 
   v48 = v15;
-  if (v20)
+  if (isEqualToString)
   {
     v21 = [v4 objectForKey:v15];
   }
@@ -8391,7 +8508,7 @@ id UIKeyboardGetSupportedLanguages()
             objc_enumerationMutation(v2);
           }
 
-          if (([*(*(&v12 + 1) + 8 * i) isEqualToString:{@"emoji", v12}] & 1) == 0)
+          if ((objc_msgSend_isEqualToString_(*(*(&v12 + 1) + 8 * i), v12) & 1) == 0)
           {
             v7 = TIInputModeGetLanguageWithRegion();
             [v1 addObject:v7];
@@ -8455,7 +8572,7 @@ id UIKeyboardGetSupportedInputModesFromInputModes(void *a1)
 
           v13 = [v8 objectForKeyedSubscript:@"sw"];
           v14 = KBStarLayoutString(v10);
-          if (([v13 isEqualToString:v14] & 1) == 0)
+          if ((objc_msgSend_isEqualToString_(v13) & 1) == 0)
           {
             v15 = UIKeyboardInputModeWithNewSWLayout(v10, v14);
 
@@ -8630,7 +8747,7 @@ id UIKeyboardGetDefaultHardwareKeyboardLayoutForInputMode(void *a1)
           }
 
           v8 = *(*(&v10 + 1) + 8 * i);
-          if (![v8 isEqualToString:{@"Automatic", v10}])
+          if (!objc_msgSend_isEqualToString_(v8, v10))
           {
             v2 = v8;
             goto LABEL_13;
@@ -8654,23 +8771,23 @@ LABEL_13:
   return v2;
 }
 
-uint64_t UIKeyboardRequiresFontFallbacksForInputMode()
+uint64_t UIKeyboardRequiresFontFallbacksForInputMode(uint64_t a1)
 {
-  v0 = TIInputModeGetNormalizedIdentifier();
-  v1 = TIGetInputModeProperties();
-  v2 = [v1 objectForKey:*MEMORY[0x1E69D97B8]];
-  v3 = [v2 BOOLValue];
+  v1 = TIInputModeGetNormalizedIdentifier();
+  v2 = TIGetInputModeProperties();
+  v3 = [v2 objectForKey:*MEMORY[0x1E69D97B8]];
+  v4 = [v3 BOOLValue];
 
-  return v3;
+  return v4;
 }
 
-id UIKeyboardFontFallbackLanguageForInputMode()
+id UIKeyboardFontFallbackLanguageForInputMode(uint64_t a1)
 {
-  v0 = TIInputModeGetNormalizedIdentifier();
-  v1 = TIGetInputModeProperties();
-  v2 = [v1 objectForKey:*MEMORY[0x1E69D97B0]];
+  v1 = TIInputModeGetNormalizedIdentifier();
+  v2 = TIGetInputModeProperties();
+  v3 = [v2 objectForKey:*MEMORY[0x1E69D97B0]];
 
-  return v2;
+  return v3;
 }
 
 uint64_t UIKeyboardIsEmojiInputModeActive()
@@ -8741,7 +8858,7 @@ uint64_t UIKeyboardEnabledInputModesAllowChineseTransliterationForText(void *a1)
 uint64_t __UIKeyboardEnabledInputModesAllowChineseTransliterationForText_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   v5 = TIInputModeGetLanguage();
-  if (([v5 isEqualToString:@"zh"] & 1) != 0 || objc_msgSend(v5, "isEqualToString:", @"yue"))
+  if ((objc_msgSend_isEqualToString_(v5) & 1) != 0 || objc_msgSend_isEqualToString_(v5))
   {
     v6 = 1;
     *a4 = 1;
@@ -8819,9 +8936,9 @@ uint64_t UIKeyboardSupportsSplit()
 
   v1 = +[UIKeyboardInputMode dictationInputMode];
   v2 = [v1 identifier];
-  v3 = [v0 isEqualToString:v2];
+  isEqualToString = objc_msgSend_isEqualToString_(v0);
 
-  if (v3)
+  if (isEqualToString)
   {
     v4 = +[UIDictationController sharedInstance];
     v5 = [v4 currentInputModeForDictation];
@@ -8877,9 +8994,9 @@ uint64_t UIKeyboardSplitTransitionViewSupportsPinch()
 {
   v0 = UIKeyboardSplitTransitionViewClass();
   v1 = NSStringFromClass(v0);
-  v2 = [v1 isEqualToString:@"UIKeyboardSliceTransitionView"];
+  isEqualToString = objc_msgSend_isEqualToString_(v1);
 
-  return v2;
+  return isEqualToString;
 }
 
 uint64_t UIKeyboardDynamicKeyboardShouldFallBackToStaticKeyboard(void *a1, void *a2)
@@ -8994,13 +9111,13 @@ __CFString *UIKeyboardPhoneLayoutToUseForCarPlayInputMode(void *a1)
     goto LABEL_10;
   }
 
-  if ([(__CFString *)v2 isEqualToString:@"Kana-Flick"])
+  if (objc_msgSend_isEqualToString_(v2))
   {
 
     v2 = @"Kana";
   }
 
-  if ([(__CFString *)v2 isEqualToString:@"Thai-Four-Row"])
+  if (objc_msgSend_isEqualToString_(v2))
   {
 
     v2 = @"Thai";
@@ -9137,101 +9254,4 @@ LABEL_18:
 LABEL_20:
 
   return v15;
-}
-
-uint64_t UIKeyboardCarPlayIsRightHandDrive()
-{
-  v0 = UIKeyboardCachedIsRightHandDrive;
-  if (UIKeyboardCachedIsRightHandDrive)
-  {
-
-    return [v0 BOOLValue];
-  }
-
-  else
-  {
-    v2 = +[_UICarPlaySession sharedInstance];
-    v3 = [(_UICarPlaySession *)v2 currentSession];
-
-    v4 = MEMORY[0x1E696AD98];
-    v5 = [v3 configuration];
-    v6 = [v4 numberWithBool:{objc_msgSend(v5, "rightHandDrive")}];
-    v7 = UIKeyboardCachedIsRightHandDrive;
-    UIKeyboardCachedIsRightHandDrive = v6;
-
-    v8 = [UIKeyboardCachedIsRightHandDrive BOOLValue];
-    return v8;
-  }
-}
-
-void UIKeyboardResetCarPlayInformationCache()
-{
-  v0 = UIKeyboardSupportsTouch;
-  UIKeyboardSupportsTouch = 0;
-
-  v1 = UIKeyboardCachedIsRightHandDrive;
-  UIKeyboardCachedIsRightHandDrive = 0;
-}
-
-uint64_t UIKeyboardIsFiveRowKeyboard(void *a1)
-{
-  v1 = a1;
-  if (qword_1ED49EF60 != -1)
-  {
-    dispatch_once(&qword_1ED49EF60, &__block_literal_global_484);
-  }
-
-  v2 = [v1 softwareLayout];
-  if (v2 && (v3 = v2, v4 = qword_1ED49EF68, [v1 softwareLayout], v5 = objc_claimAutoreleasedReturnValue(), LOBYTE(v4) = objc_msgSend(v4, "containsObject:", v5), v5, v3, (v4 & 1) != 0))
-  {
-    v6 = 1;
-  }
-
-  else
-  {
-    v7 = [v1 primaryLanguage];
-    v8 = [v7 hasPrefix:@"ja"];
-
-    if (v8)
-    {
-      v9 = [v1 softwareLayout];
-      v6 = [v9 isEqualToString:@"QWERTY-Japanese"];
-    }
-
-    else
-    {
-      v10 = [v1 primaryLanguage];
-      if ([v10 hasPrefix:@"zh"])
-      {
-      }
-
-      else
-      {
-        v11 = [v1 primaryLanguage];
-        v12 = [v11 hasPrefix:@"yue"];
-
-        if (!v12)
-        {
-          v6 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v9 = [v1 softwareLayout];
-      if ([v9 hasPrefix:@"Pinyin10"])
-      {
-        v6 = 0;
-      }
-
-      else
-      {
-        v13 = [v1 softwareLayout];
-        v6 = [v13 hasPrefix:@"Wubihua"] ^ 1;
-      }
-    }
-  }
-
-LABEL_15:
-
-  return v6;
 }

@@ -26,6 +26,7 @@
 - (KTContext)initWithApplicationKeyStore:(id)store dataStore:(id)dataStore smDataStore:(id)smDataStore staticKeyStore:(id)keyStore logClient:(id)client applicationID:(id)d contextStore:(id)contextStore accountKeyServer:(id)self0 stateMachine:(id)self1 kvs:(id)self2 cloudRecords:(id)self3 followup:(id)self4 settings:(id)self5 analyticsLogger:(id)self6 tapToRadar:(id)self7 eligibilityStatusReporter:(id)self8;
 - (KTContextStore)contextStore;
 - (KTSMManager)stateMachine;
+- (id)analyticsForResponse:(id)response type:(unint64_t)type uri:(id)uri result:(unint64_t)result ktCapable:(BOOL)capable;
 - (id)analyticsForType:(unint64_t)type uri:(id)uri accountKey:(id)key serverLoggableDatas:(id)datas syncedLoggableDatas:(id)loggableDatas transparentData:(id)data selfVerificationInfo:(id)info responseTime:(id)self0 result:(unint64_t)self1 failure:(id)self2 responseMetadata:(id)self3;
 - (id)copyState;
 - (id)createQueryRequestForKTRequest:(id)request error:(id *)error;
@@ -41,6 +42,7 @@
 - (unint64_t)handleBatchQueryResponse:(id)response queryRequest:(id)request receiptDate:(id)date fetchId:(id)id error:(id *)error transparentDataHandler:(id)handler;
 - (unint64_t)handleInsertResponse:(id)response uri:(id)uri fetchId:(id)id error:(id *)error transparentDataHandler:(id)handler;
 - (unint64_t)handleQueryResponse:(id)response queryRequest:(id)request receiptDate:(id)date fetchId:(id)id validateType:(unint64_t)type ktCapable:(BOOL)capable error:(id *)error transparentDataHandler:(id)self0;
+- (unint64_t)synchronousFetchAndValidatePeerKTRequest:(id)request fetchNow:(BOOL)now transparentData:(id *)data loggableDatas:(id *)datas error:(id *)error;
 - (unint64_t)validateAndReportPeerOrEnroll:(id)enroll type:(unint64_t)type transparentData:(id)data accountKey:(id)key loggableDatas:(id)datas initialResult:(unint64_t)result idsResponseTime:(id)time responseMetadata:(id)self0 error:(id *)self1;
 - (unint64_t)validateAndReportSelf:(id)self transparentData:(id)data accountKey:(id)key serverloggableDatas:(id)datas syncedLoggableDatas:(id)loggableDatas selfVerificationInfo:(id)info optInCheck:(BOOL)check cloudDevices:(id)self0 pcsAccountKey:(id)self1 kvsOptInHistory:(id)self2 isReplay:(BOOL)self3 initialResult:(unint64_t)self4 idsResponseTime:(id)self5 responseMetadata:(id)self6 error:(id *)self7;
 - (unint64_t)validateEnrollKTRequest:(id)request insertResponse:(id)response transparentData:(id *)data loggableDatas:(id *)datas cloudOptIn:(id)in error:(id *)error;
@@ -57,10 +59,12 @@
 - (void)analyticsForParseFailure:(id)failure;
 - (void)analyticsForPredateLogBeginningMs:(unint64_t)ms expectedLogBeginningMS:(unint64_t)s sth:(id)sth;
 - (void)analyticsForTooNewLogBeginningMs:(unint64_t)ms expectedLogBeginningMS:(unint64_t)s sth:(id)sth;
+- (void)analyticsForUnsupportedProtocol:(int)protocol expected:(int)expected sth:(id)sth;
 - (void)clearSelfTicketState:(id)state responseTime:(id)time;
 - (void)clearState:(id)state;
 - (void)dealloc;
 - (void)fetchAndValidatePeerKTRequest:(id)request fetchNow:(BOOL)now completionHandler:(id)handler;
+- (void)fetchQueryForKTRequest:(id)request userInitiated:(BOOL)initiated completionHandler:(id)handler;
 - (void)fetchRPCSingleQuery:(id)query userInitiated:(BOOL)initiated cachedYoungerThan:(id)than backgroundOpId:(id)id completionHandler:(id)handler;
 - (void)logFinishFailureEvent:(id)event error:(id)error;
 - (void)logFinishSuccessEvent:(id)event;
@@ -75,6 +79,7 @@
 - (void)selfValidationURIStatus:(id)status transparentData:(id)data selfDeviceID:(id)d logger:(id)logger;
 - (void)storeEligibilityMetric:(unint64_t)metric result:(unint64_t)result error:(id)error;
 - (void)validateIDSPeerWithUri:(id)uri application:(id)application idsData:(id)data ktData:(id)ktData complete:(id)complete;
+- (void)validatePeer:(id)peer verificationInfo:(id)info fetchNow:(BOOL)now completionBlock:(id)block;
 - (void)validatePeerIDSKTVerification:(id)verification batchQuery:(id)query completionBlock:(id)block;
 - (void)validatePeerIDSKTVerification:(id)verification serverRPC:(id)c completionBlock:(id)block;
 - (void)validatePeerIDSKTVerification:(id)verification singleQuery:(id)query completionBlock:(id)block;
@@ -2140,20 +2145,8 @@ LABEL_47:
       }
     }
 
-    if (v27 == 2)
+    if (v27 == 2 || ([queryRequestCopy data], v31 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v25, "setQueryRequest:", v31), v31, objc_msgSend(v26, "data"), v32 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v25, "setQueryResponse:", v32), v32, v27 != 1))
     {
-      goto LABEL_12;
-    }
-
-    data = [queryRequestCopy data];
-    [v25 setQueryRequest:data];
-
-    data2 = [v26 data];
-    [v25 setQueryResponse:data2];
-
-    if (v27 != 1)
-    {
-LABEL_12:
       if (error && v28)
       {
         v34 = v28;
@@ -2449,20 +2442,8 @@ LABEL_20:
       }
     }
 
-    if (v34 == 2)
+    if (v34 == 2 || ([queryRequestCopy data], v38 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v32, "setQueryRequest:", v38), v38, objc_msgSend(v33, "data"), v39 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v32, "setQueryResponse:", v39), v39, v34 != 1))
     {
-      goto LABEL_12;
-    }
-
-    data = [queryRequestCopy data];
-    [v32 setQueryRequest:data];
-
-    data2 = [v33 data];
-    [v32 setQueryResponse:data2];
-
-    if (v34 != 1)
-    {
-LABEL_12:
       if (error && v35)
       {
         v41 = v35;
@@ -2991,6 +2972,82 @@ LABEL_32:
   return queryResponse;
 }
 
+- (void)fetchQueryForKTRequest:(id)request userInitiated:(BOOL)initiated completionHandler:(id)handler
+{
+  initiatedCopy = initiated;
+  requestCopy = request;
+  handlerCopy = handler;
+  v27 = 0;
+  v10 = [(KTContext *)self createQueryRequestForKTRequest:requestCopy error:&v27];
+  v11 = v27;
+  if (v10)
+  {
+    dataStore = [(KTContext *)self dataStore];
+    data = [v10 data];
+    v26 = v11;
+    v14 = [dataStore createFetchRecordForRequestData:data request:requestCopy error:&v26];
+    v15 = v26;
+
+    if (v14)
+    {
+      if (qword_10038BC90 != -1)
+      {
+        sub_10024864C();
+      }
+
+      v16 = qword_10038BC98;
+      if (os_log_type_enabled(qword_10038BC98, OS_LOG_TYPE_DEFAULT))
+      {
+        v17 = v16;
+        requestId = [requestCopy requestId];
+        *buf = 138543618;
+        v29 = requestId;
+        v30 = 2114;
+        v31 = v14;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Fetching query response for requestId %{public}@ with fetchId %{public}@", buf, 0x16u);
+      }
+
+      logClient = [(KTContext *)self logClient];
+      v22[0] = _NSConcreteStackBlock;
+      v22[1] = 3221225472;
+      v22[2] = sub_100031B64;
+      v22[3] = &unk_100319060;
+      v22[4] = self;
+      v23 = v14;
+      v25 = handlerCopy;
+      v24 = v10;
+      [logClient fetchQuery:v24 uuid:v23 userInitiated:initiatedCopy completionHandler:v22];
+    }
+
+    else
+    {
+      if (qword_10038BC90 != -1)
+      {
+        sub_100248674();
+      }
+
+      v20 = qword_10038BC98;
+      if (os_log_type_enabled(qword_10038BC98, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138412290;
+        v29 = v15;
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "failed to save query request before fetch: %@", buf, 0xCu);
+      }
+
+      dataStore2 = [(KTContext *)self dataStore];
+      [dataStore2 reportCoreDataPersistEventForLocation:@"fetchQuery" underlyingError:v15];
+
+      (*(handlerCopy + 2))(handlerCopy, 0, 0, 0, v15);
+    }
+  }
+
+  else
+  {
+    (*(handlerCopy + 2))(handlerCopy, 0, 0, 0, v11);
+    v15 = v11;
+  }
+}
+
 - (BOOL)peerStaticKeyFallback:(id)fallback accountKey:(id)key transparentData:(id *)data
 {
   fallbackCopy = fallback;
@@ -3151,6 +3208,115 @@ LABEL_21:
   handlerCopy[2](handlerCopy, 0, 0, 0, v13);
   v12 = v13;
 LABEL_22:
+}
+
+- (unint64_t)synchronousFetchAndValidatePeerKTRequest:(id)request fetchNow:(BOOL)now transparentData:(id *)data loggableDatas:(id *)datas error:(id *)error
+{
+  nowCopy = now;
+  requestCopy = request;
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x2020000000;
+  v52 = 2;
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x3032000000;
+  v46 = sub_10002E95C;
+  v47 = sub_10002E96C;
+  v48 = 0;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x3032000000;
+  v40 = sub_10002E95C;
+  v41 = sub_10002E96C;
+  v42 = 0;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x3032000000;
+  v34 = sub_10002E95C;
+  v35 = sub_10002E96C;
+  v36 = 0;
+  v25[0] = _NSConcreteStackBlock;
+  v25[1] = 3221225472;
+  v25[2] = sub_100032EE8;
+  v25[3] = &unk_100319170;
+  v27 = &v43;
+  v28 = &v37;
+  v29 = &v31;
+  v30 = &v49;
+  v13 = dispatch_semaphore_create(0);
+  v26 = v13;
+  [(KTContext *)self fetchAndValidatePeerKTRequest:requestCopy fetchNow:nowCopy completionHandler:v25];
+  v14 = dispatch_time(0, 2000000000);
+  if (dispatch_semaphore_wait(v13, v14))
+  {
+    v15 = [TransparencyError errorWithDomain:kTransparencyErrorInternal code:-168 description:@"test timed out waiting for validatePeer"];
+    v16 = v32[5];
+    v32[5] = v15;
+
+    if (qword_10038BC90 != -1)
+    {
+      sub_1002487DC();
+    }
+
+    v17 = qword_10038BC98;
+    if (os_log_type_enabled(qword_10038BC98, OS_LOG_TYPE_DEBUG))
+    {
+      *v24 = 0;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "test timed out waiting for validatePeer", v24, 2u);
+    }
+
+    if (error)
+    {
+      v18 = v32[5];
+      if (v18)
+      {
+        *error = v18;
+      }
+    }
+
+    v19 = 2;
+  }
+
+  else
+  {
+    if (data)
+    {
+      v20 = v44[5];
+      if (v20)
+      {
+        *data = v20;
+      }
+    }
+
+    if (datas)
+    {
+      v21 = v38[5];
+      if (v21)
+      {
+        *datas = v21;
+      }
+    }
+
+    if (error)
+    {
+      v22 = v32[5];
+      if (v22)
+      {
+        *error = v22;
+      }
+    }
+
+    v19 = v50[3];
+  }
+
+  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v37, 8);
+
+  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v49, 8);
+
+  return v19;
 }
 
 - (unint64_t)fetchAndValidateEnrollKTRequest:(id)request transparentData:(id *)data loggableDatas:(id *)datas cloudOptIn:(id)in error:(id *)error
@@ -4143,6 +4309,55 @@ LABEL_47:
   }
 }
 
+- (id)analyticsForResponse:(id)response type:(unint64_t)type uri:(id)uri result:(unint64_t)result ktCapable:(BOOL)capable
+{
+  capableCopy = capable;
+  responseCopy = response;
+  uriCopy = uri;
+  v14 = +[NSMutableDictionary dictionary];
+  applicationKeyStore = [(KTContext *)self applicationKeyStore];
+  v16 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [applicationKeyStore inResetWindow]);
+  [v14 setObject:v16 forKeyedSubscript:@"inResetWindow"];
+
+  if (result)
+  {
+    +[TransparencyAnalytics hasInternalDiagnostics];
+  }
+
+  else
+  {
+    v17 = [NSNumber numberWithBool:capableCopy];
+    [v14 setObject:v17 forKeyedSubscript:@"ktCapable"];
+
+    if (!capableCopy && type <= 5 && ((1 << type) & 0x31) != 0)
+    {
+      [v14 setObject:&__kCFBooleanTrue forKeyedSubscript:@"ktSoftFailure"];
+    }
+
+    if (+[TransparencyAnalytics hasInternalDiagnostics])
+    {
+      [v14 setObject:uriCopy forKeyedSubscript:@"failedUri"];
+    }
+  }
+
+  v18 = kTransparencyResponseMetadataKeyServerHint;
+  v19 = [responseCopy objectForKeyedSubscript:kTransparencyResponseMetadataKeyServerHint];
+  if (v19)
+  {
+    [v14 setObject:v19 forKeyedSubscript:v18];
+  }
+
+  v20 = [responseCopy objectForKeyedSubscript:@"APS"];
+
+  if (v20)
+  {
+    v21 = [NSNumber numberWithBool:1];
+    [v14 setObject:v21 forKeyedSubscript:@"APS"];
+  }
+
+  return v14;
+}
+
 + (void)checkAndLogHardErrorIfNecessary:(unint64_t)necessary type:(unint64_t)type logger:(id)logger error:(id)error applicationID:(id)d
 {
   loggerCopy = logger;
@@ -5087,6 +5302,17 @@ LABEL_27:
   [v6 logResultForEvent:v7 hardFailure:1 result:errorCopy];
 }
 
+- (void)analyticsForUnsupportedProtocol:(int)protocol expected:(int)expected sth:(id)sth
+{
+  v5 = kTransparencyErrorGossip;
+  v6 = [NSString stringWithFormat:@"Unsupported protocol version, message version %d, expected version: %d, sth: %@", *&protocol, *&expected, sth];
+  v9 = [TransparencyError errorWithDomain:v5 code:-276 description:@"%@", v6];
+
+  v7 = [TransparencyAnalytics formatEventName:@"GossipUnsupportedProtocol" application:kKTApplicationIdentifierTLT];
+  v8 = +[TransparencyAnalytics logger];
+  [v8 logResultForEvent:v7 hardFailure:1 result:v9];
+}
+
 - (void)analyticsForParseFailure:(id)failure
 {
   v3 = kKTApplicationIdentifierTLT;
@@ -5745,6 +5971,58 @@ LABEL_23:
   else
   {
     [(KTContext *)self validatePeerIDSKTVerification:verificationCopy singleQuery:cCopy completionBlock:blockCopy];
+  }
+}
+
+- (void)validatePeer:(id)peer verificationInfo:(id)info fetchNow:(BOOL)now completionBlock:(id)block
+{
+  nowCopy = now;
+  peerCopy = peer;
+  blockCopy = block;
+  infoCopy = info;
+  dataStore = [(KTContext *)self dataStore];
+  applicationID = [(KTContext *)self applicationID];
+  v37 = 0;
+  v15 = [dataStore fetchOrCreateVerification:peerCopy application:applicationID verificationInfo:infoCopy fetchNow:nowCopy error:&v37];
+
+  v16 = v37;
+  if (v15)
+  {
+    dataStore2 = [(KTContext *)self dataStore];
+    v36 = v16;
+    v28 = _NSConcreteStackBlock;
+    v29 = 3221225472;
+    v30 = sub_1000897DC;
+    v31 = &unk_10031E560;
+    v32 = v15;
+    v18 = peerCopy;
+    v33 = v18;
+    selfCopy = self;
+    v19 = blockCopy;
+    v35 = v19;
+    v20 = [dataStore2 performAndWaitForVerificationId:v32 error:&v36 block:&v28];
+    v21 = v36;
+
+    if ((v20 & 1) == 0)
+    {
+      v22 = [KTVerifierResult alloc];
+      v23 = [(KTContext *)self applicationID:v28];
+      v24 = [v22 initWithUri:v18 application:v23 failure:v21];
+
+      (*(v19 + 2))(v19, v24, 0);
+    }
+
+    v25 = v32;
+  }
+
+  else
+  {
+    v26 = [KTVerifierResult alloc];
+    applicationID2 = [(KTContext *)self applicationID];
+    v25 = [v26 initWithUri:peerCopy application:applicationID2 failure:v16];
+
+    (*(blockCopy + 2))(blockCopy, v25, 0);
+    v21 = v16;
   }
 }
 

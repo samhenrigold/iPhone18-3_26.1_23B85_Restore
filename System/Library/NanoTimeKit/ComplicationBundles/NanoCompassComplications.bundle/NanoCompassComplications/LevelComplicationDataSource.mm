@@ -11,32 +11,32 @@
 
 + (BOOL)acceptsComplicationFamily:(int64_t)family forDevice:(id)device
 {
-  if (!objc_msgSend_supportsUrsa(device, a2, family, device))
+  if (!objc_msgSend_supportsUrsa(device, a2, family))
   {
 LABEL_6:
-    LOBYTE(v9) = 0;
-    return v9 & 1;
+    LOBYTE(v8) = 0;
+    return v8 & 1;
   }
 
-  if (objc_msgSend_showingIdealizedData(NCManager, v5, v6, v7))
+  if (objc_msgSend_showingIdealizedData(NCManager, v5, v6))
   {
-    v8 = NCLogForCategory(1uLL);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v7 = NCLogForCategory(1uLL);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 0;
-      _os_log_impl(&dword_23BD26000, v8, OS_LOG_TYPE_DEFAULT, "Running fixture demo mode. Disabling the Level complication in complication picker.", v11, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_23BD26000, v7, OS_LOG_TYPE_DEFAULT, "Running fixture demo mode. Disabling the Level complication in complication picker.", v10, 2u);
     }
 
     goto LABEL_6;
   }
 
-  v9 = 0x1700u >> family;
+  v8 = 0x1700u >> family;
   if (family > 0xC)
   {
-    LOBYTE(v9) = 0;
+    LOBYTE(v8) = 0;
   }
 
-  return v9 & 1;
+  return v8 & 1;
 }
 
 - (LevelComplicationDataSource)initWithComplication:(id)complication family:(int64_t)family forDevice:(id)device
@@ -48,36 +48,36 @@ LABEL_6:
 
 - (id)sampleTemplate
 {
-  v5 = objc_msgSend_idealizedHeading(NCHeading, a2, v2, v3);
-  v9 = objc_msgSend_idealizedBearing(NCBearing, v6, v7, v8);
-  v13 = objc_msgSend_idealizedIncline(NCIncline, v10, v11, v12);
-  v15 = objc_msgSend__templateNoData_calibrated_showAlwaysOnState_heading_bearing_incline_(self, v14, 0, 1, 0, v5, v9, v13);
+  v4 = objc_msgSend_idealizedHeading(NCHeading, a2, v2);
+  v7 = objc_msgSend_idealizedBearing(NCBearing, v5, v6);
+  v10 = objc_msgSend_idealizedIncline(NCIncline, v8, v9);
+  v12 = objc_msgSend__templateNoData_calibrated_showAlwaysOnState_heading_bearing_incline_(self, v11, 0, 1, 0, v4, v7, v10);
 
-  return v15;
+  return v12;
 }
 
 - (id)newTemplate
 {
-  v5 = objc_msgSend_calibrated(self, a2, v2, v3);
-  v9 = objc_msgSend_heading(self, v6, v7, v8);
-  v13 = objc_msgSend_copy(v9, v10, v11, v12);
-  v17 = objc_msgSend_bearing(self, v14, v15, v16);
-  v21 = objc_msgSend_copy(v17, v18, v19, v20);
-  v25 = objc_msgSend_incline(self, v22, v23, v24);
-  v29 = objc_msgSend_copy(v25, v26, v27, v28);
-  v31 = objc_msgSend__templateNoData_calibrated_showAlwaysOnState_heading_bearing_incline_(self, v30, 0, v5, 0, v13, v21, v29);
+  v4 = objc_msgSend_calibrated(self, a2, v2);
+  v7 = objc_msgSend_heading(self, v5, v6);
+  v10 = objc_msgSend_copy(v7, v8, v9);
+  v13 = objc_msgSend_bearing(self, v11, v12);
+  v16 = objc_msgSend_copy(v13, v14, v15);
+  v19 = objc_msgSend_incline(self, v17, v18);
+  v22 = objc_msgSend_copy(v19, v20, v21);
+  v24 = objc_msgSend__templateNoData_calibrated_showAlwaysOnState_heading_bearing_incline_(self, v23, 0, v4, 0, v10, v16, v22);
 
-  return v31;
+  return v24;
 }
 
 - (id)randomizedTemplate
 {
-  v5 = objc_msgSend_randomizedHeading(NCHeading, a2, v2, v3);
-  v9 = objc_msgSend_randomizedBearing(NCBearing, v6, v7, v8);
-  v13 = objc_msgSend_randomizedIncline(NCIncline, v10, v11, v12);
-  v15 = objc_msgSend__templateNoData_calibrated_showAlwaysOnState_heading_bearing_incline_(self, v14, 0, 1, 0, v5, v9, v13);
+  v4 = objc_msgSend_randomizedHeading(NCHeading, a2, v2);
+  v7 = objc_msgSend_randomizedBearing(NCBearing, v5, v6);
+  v10 = objc_msgSend_randomizedIncline(NCIncline, v8, v9);
+  v12 = objc_msgSend__templateNoData_calibrated_showAlwaysOnState_heading_bearing_incline_(self, v11, 0, 1, 0, v4, v7, v10);
 
-  return v15;
+  return v12;
 }
 
 - (id)_templateNoData:(BOOL)data calibrated:(BOOL)calibrated showAlwaysOnState:(BOOL)state heading:(id)heading bearing:(id)bearing incline:(id)incline
@@ -85,12 +85,12 @@ LABEL_6:
   stateCopy = state;
   calibratedCopy = calibrated;
   dataCopy = data;
-  v121[4] = *MEMORY[0x277D85DE8];
+  v98[4] = *MEMORY[0x277D85DE8];
   headingCopy = heading;
   bearingCopy = bearing;
   inclineCopy = incline;
-  v20 = !calibratedCopy | dataCopy;
-  if (v20 == 1)
+  v19 = !calibratedCopy | dataCopy;
+  if (v19 == 1)
   {
 
     inclineCopy = 0;
@@ -98,51 +98,51 @@ LABEL_6:
     headingCopy = 0;
   }
 
-  v21 = objc_msgSend_family(self, v16, v17, v18);
-  if (v21 > 9)
+  v20 = objc_msgSend_family(self, v16, v17);
+  if (v20 > 9)
   {
-    if (v21 != 12)
+    if (v20 != 12)
     {
-      if (v21 != 10)
+      if (v20 != 10)
       {
         goto LABEL_17;
       }
 
-      v25 = MEMORY[0x277CBBB10];
-      v26 = objc_opt_class();
-      v24 = objc_msgSend_fullColorImageProviderWithImageViewClass_(v25, v27, v26, v28);
-      v120[0] = @"heading";
-      v32 = headingCopy;
+      v23 = MEMORY[0x277CBBB10];
+      v24 = objc_opt_class();
+      v22 = objc_msgSend_fullColorImageProviderWithImageViewClass_(v23, v25, v24);
+      v97[0] = @"heading";
+      v28 = headingCopy;
       if (!headingCopy)
       {
-        v32 = objc_msgSend_null(MEMORY[0x277CBEB68], v29, v30, v31);
+        v28 = objc_msgSend_null(MEMORY[0x277CBEB68], v26, v27);
       }
 
-      v121[0] = v32;
-      v120[1] = @"incline";
-      v33 = inclineCopy;
+      v98[0] = v28;
+      v97[1] = @"incline";
+      v29 = inclineCopy;
       if (!inclineCopy)
       {
-        v33 = objc_msgSend_null(MEMORY[0x277CBEB68], v29, v30, v31);
+        v29 = objc_msgSend_null(MEMORY[0x277CBEB68], v26, v27);
       }
 
-      v121[1] = v33;
-      v120[2] = @"nodata";
-      v34 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v29, v20, v31);
-      v121[2] = v34;
-      v120[3] = @"alwayson";
-      v37 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v35, stateCopy, v36);
-      v121[3] = v37;
-      v39 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v38, v121, v120, 4);
-      objc_msgSend_setMetadata_(v24, v40, v39, v41);
+      v98[1] = v29;
+      v97[2] = @"nodata";
+      v30 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v26, v19);
+      v98[2] = v30;
+      v97[3] = @"alwayson";
+      v32 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v31, stateCopy);
+      v98[3] = v32;
+      v34 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v33, v98, v97, 4);
+      objc_msgSend_setMetadata_(v22, v35, v34);
 
       if (inclineCopy)
       {
         if (headingCopy)
         {
 LABEL_16:
-          objc_msgSend_templateWithImageProvider_(MEMORY[0x277CBB850], v42, v24, v43);
-          v46 = LABEL_29:;
+          objc_msgSend_templateWithImageProvider_(MEMORY[0x277CBB850], v36, v22);
+          v38 = LABEL_29:;
           goto LABEL_54;
         }
       }
@@ -159,40 +159,40 @@ LABEL_16:
       goto LABEL_16;
     }
 
-    v57 = MEMORY[0x277CBBB10];
-    v58 = objc_opt_class();
-    v24 = objc_msgSend_fullColorImageProviderWithImageViewClass_(v57, v59, v58, v60);
-    v118[0] = @"heading";
-    v64 = headingCopy;
+    v46 = MEMORY[0x277CBBB10];
+    v47 = objc_opt_class();
+    v22 = objc_msgSend_fullColorImageProviderWithImageViewClass_(v46, v48, v47);
+    v95[0] = @"heading";
+    v51 = headingCopy;
     if (!headingCopy)
     {
-      v64 = objc_msgSend_null(MEMORY[0x277CBEB68], v61, v62, v63);
+      v51 = objc_msgSend_null(MEMORY[0x277CBEB68], v49, v50);
     }
 
-    v119[0] = v64;
-    v118[1] = @"incline";
-    v65 = inclineCopy;
+    v96[0] = v51;
+    v95[1] = @"incline";
+    v52 = inclineCopy;
     if (!inclineCopy)
     {
-      v65 = objc_msgSend_null(MEMORY[0x277CBEB68], v61, v62, v63);
+      v52 = objc_msgSend_null(MEMORY[0x277CBEB68], v49, v50);
     }
 
-    v119[1] = v65;
-    v118[2] = @"nodata";
-    v66 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v61, v20, v63);
-    v119[2] = v66;
-    v118[3] = @"alwayson";
-    v69 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v67, stateCopy, v68);
-    v119[3] = v69;
-    v71 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v70, v119, v118, 4);
-    objc_msgSend_setMetadata_(v24, v72, v71, v73);
+    v96[1] = v52;
+    v95[2] = @"nodata";
+    v53 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v49, v19);
+    v96[2] = v53;
+    v95[3] = @"alwayson";
+    v55 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v54, stateCopy);
+    v96[3] = v55;
+    v57 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v56, v96, v95, 4);
+    objc_msgSend_setMetadata_(v22, v58, v57);
 
     if (inclineCopy)
     {
       if (headingCopy)
       {
 LABEL_28:
-        objc_msgSend_templateWithImageProvider_(MEMORY[0x277CBB938], v74, v24, v75);
+        objc_msgSend_templateWithImageProvider_(MEMORY[0x277CBB938], v59, v22);
         goto LABEL_29;
       }
     }
@@ -209,102 +209,102 @@ LABEL_28:
     goto LABEL_28;
   }
 
-  if (v21 == 8)
+  if (v20 == 8)
   {
     if (stateCopy)
     {
-      v47 = NanoCompassLocalizedString(@"LEVEL_COMPLICATION_NAME");
-      v51 = objc_msgSend_localizedUppercaseString(v47, v48, v49, v50);
+      v39 = NanoCompassLocalizedString(@"LEVEL_COMPLICATION_NAME");
+      v42 = objc_msgSend_localizedUppercaseString(v39, v40, v41);
 
-      v24 = objc_msgSend_textProviderWithText_(MEMORY[0x277CBBB88], v52, v51, v53);
-      v54 = NanoCompassAppTintColor();
-      objc_msgSend_setTintColor_(v24, v55, v54, v56);
+      v22 = objc_msgSend_textProviderWithText_(MEMORY[0x277CBBB88], v43, v42);
+      v44 = NanoCompassAppTintColor(v22);
+      objc_msgSend_setTintColor_(v22, v45, v44);
     }
 
     else
     {
-      if (v20)
+      if (v19)
       {
-        objc_msgSend_textProviderWithText_(MEMORY[0x277CBBB88], v22, &stru_284E80A60, v23);
+        objc_msgSend_textProviderWithText_(MEMORY[0x277CBBB88], v21, &stru_284E80A60);
       }
 
       else
       {
         NanoCompassComplicationHeadingDirectionBearingTextProvider(headingCopy, bearingCopy);
       }
-      v24 = ;
-    }
-
-    v96 = MEMORY[0x277CBBB10];
-    v97 = objc_opt_class();
-    v83 = objc_msgSend_fullColorImageProviderWithImageViewClass_(v96, v98, v97, v99);
-    v114[0] = @"incline";
-    v103 = inclineCopy;
-    if (!inclineCopy)
-    {
-      v103 = objc_msgSend_null(MEMORY[0x277CBEB68], v100, v101, v102);
-    }
-
-    v115[0] = v103;
-    v114[1] = @"nodata";
-    v104 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v100, v20, v102);
-    v115[1] = v104;
-    v106 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v105, v115, v114, 2);
-    objc_msgSend_setMetadata_(v83, v107, v106, v108);
-
-    if (!inclineCopy)
-    {
-    }
-
-    v46 = objc_msgSend_templateWithTextProvider_imageProvider_(MEMORY[0x277CBB908], v109, v24, v83);
-    goto LABEL_53;
-  }
-
-  if (v21 == 9)
-  {
-    if (v20)
-    {
-      v24 = 0;
-    }
-
-    else
-    {
-      v24 = NanoCompassComplicationHeadingDirectionBearingTextProvider(headingCopy, bearingCopy);
+      v22 = ;
     }
 
     v76 = MEMORY[0x277CBBB10];
     v77 = objc_opt_class();
-    v83 = objc_msgSend_fullColorImageProviderWithImageViewClass_(v76, v78, v77, v79);
-    v116[0] = @"heading";
-    v84 = headingCopy;
-    if (!headingCopy)
-    {
-      v84 = objc_msgSend_null(MEMORY[0x277CBEB68], v80, v81, v82);
-    }
-
-    v117[0] = v84;
-    v116[1] = @"incline";
-    v85 = inclineCopy;
+    v65 = objc_msgSend_fullColorImageProviderWithImageViewClass_(v76, v78, v77);
+    v91[0] = @"incline";
+    v81 = inclineCopy;
     if (!inclineCopy)
     {
-      v85 = objc_msgSend_null(MEMORY[0x277CBEB68], v80, v81, v82);
+      v81 = objc_msgSend_null(MEMORY[0x277CBEB68], v79, v80);
     }
 
-    v117[1] = v85;
-    v116[2] = @"nodata";
-    v86 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v80, v20, v82);
-    v117[2] = v86;
-    v88 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v87, v117, v116, 3);
-    objc_msgSend_setMetadata_(v83, v89, v88, v90);
+    v92[0] = v81;
+    v91[1] = @"nodata";
+    v82 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v79, v19);
+    v92[1] = v82;
+    v84 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v83, v92, v91, 2);
+    objc_msgSend_setMetadata_(v65, v85, v84);
+
+    if (!inclineCopy)
+    {
+    }
+
+    v38 = objc_msgSend_templateWithTextProvider_imageProvider_(MEMORY[0x277CBB908], v86, v22, v65);
+    goto LABEL_53;
+  }
+
+  if (v20 == 9)
+  {
+    if (v19)
+    {
+      v22 = 0;
+    }
+
+    else
+    {
+      v22 = NanoCompassComplicationHeadingDirectionBearingTextProvider(headingCopy, bearingCopy);
+    }
+
+    v60 = MEMORY[0x277CBBB10];
+    v61 = objc_opt_class();
+    v65 = objc_msgSend_fullColorImageProviderWithImageViewClass_(v60, v62, v61);
+    v93[0] = @"heading";
+    v66 = headingCopy;
+    if (!headingCopy)
+    {
+      v66 = objc_msgSend_null(MEMORY[0x277CBEB68], v63, v64);
+    }
+
+    v94[0] = v66;
+    v93[1] = @"incline";
+    v67 = inclineCopy;
+    if (!inclineCopy)
+    {
+      v67 = objc_msgSend_null(MEMORY[0x277CBEB68], v63, v64);
+    }
+
+    v94[1] = v67;
+    v93[2] = @"nodata";
+    v68 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v63, v19);
+    v94[2] = v68;
+    v70 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v69, v94, v93, 3);
+    objc_msgSend_setMetadata_(v65, v71, v70);
 
     if (inclineCopy)
     {
       if (headingCopy)
       {
 LABEL_37:
-        v93 = MEMORY[0x277CBB810];
-        v94 = objc_msgSend_templateWithImageProvider_(MEMORY[0x277CBB850], v91, v83, v92);
-        v46 = objc_msgSend_templateWithCircularTemplate_textProvider_(v93, v95, v94, v24);
+        v73 = MEMORY[0x277CBB810];
+        v74 = objc_msgSend_templateWithImageProvider_(MEMORY[0x277CBB850], v72, v65);
+        v38 = objc_msgSend_templateWithCircularTemplate_textProvider_(v73, v75, v74, v22);
 
 LABEL_53:
         goto LABEL_54;
@@ -324,19 +324,19 @@ LABEL_53:
   }
 
 LABEL_17:
-  v24 = NCLogForCategory(1uLL);
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+  v22 = NCLogForCategory(1uLL);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
   {
-    sub_23BD654BC(self, v24, v44, v45);
+    sub_23BD654BC(self, v22, v37);
   }
 
-  v46 = 0;
+  v38 = 0;
 LABEL_54:
 
-  v110 = NanoCompassAppTintColor();
-  objc_msgSend_setTintColor_(v46, v111, v110, v112);
+  v88 = NanoCompassAppTintColor(v87);
+  objc_msgSend_setTintColor_(v38, v89, v88);
 
-  return v46;
+  return v38;
 }
 
 @end

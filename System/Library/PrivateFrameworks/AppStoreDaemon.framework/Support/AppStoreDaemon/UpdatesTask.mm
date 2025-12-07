@@ -94,7 +94,7 @@
 
   [v19 setObject:v20 forKeyedSubscript:@"local-software"];
   selfCopy = v67;
-  v25 = [NSNumber numberWithBool:sub_1003D5FC8()];
+  v25 = [NSNumber numberWithBool:sub_1003D5FC8(AppDefaultsManager)];
   [v18 setObject:v25 forKeyedSubscript:@"autoUpdatesEnabled"];
 
   v26 = +[AMSDevice deviceGUID];

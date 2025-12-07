@@ -24,48 +24,48 @@
 
 - (void)axInsertFormFieldsIntoHierarchy
 {
-  v43 = *MEMORY[0x29EDCA608];
-  v40[0] = 0;
-  v40[1] = v40;
-  v40[2] = 0x3032000000;
-  v40[3] = __Block_byref_object_copy_;
-  v40[4] = __Block_byref_object_dispose_;
-  v41 = 0;
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x3032000000;
-  v37 = __Block_byref_object_copy_;
-  v38 = __Block_byref_object_dispose_;
-  v39 = 0;
-  v27 = MEMORY[0x29EDCA5F8];
-  v28 = 3221225472;
-  v29 = __65__PaperDocumentViewAccessibility_axInsertFormFieldsIntoHierarchy__block_invoke;
-  v30 = &unk_29F2E1470;
+  v42 = *MEMORY[0x29EDCA608];
+  v39[0] = 0;
+  v39[1] = v39;
+  v39[2] = 0x3032000000;
+  v39[3] = __Block_byref_object_copy_;
+  v39[4] = __Block_byref_object_dispose_;
+  v40 = 0;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x3032000000;
+  v36 = __Block_byref_object_copy_;
+  v37 = __Block_byref_object_dispose_;
+  v38 = 0;
+  v26 = MEMORY[0x29EDCA5F8];
+  v27 = 3221225472;
+  v28 = __65__PaperDocumentViewAccessibility_axInsertFormFieldsIntoHierarchy__block_invoke;
+  v29 = &unk_29F2E1470;
   selfCopy = self;
-  v32 = v40;
+  v31 = v39;
   val = self;
-  v33 = &v34;
+  v32 = &v33;
   AXPerformSafeBlock();
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
-  v2 = v35[5];
-  v3 = [v2 countByEnumeratingWithState:&v23 objects:v42 count:16];
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v2 = v34[5];
+  v3 = [v2 countByEnumeratingWithState:&v22 objects:v41 count:16];
   if (v3)
   {
-    v4 = *v24;
-    v13 = v18;
+    v4 = *v23;
+    v12 = v17;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v24 != v4)
+        if (*v23 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v23 + 1) + 8 * i);
+        v6 = *(*(&v22 + 1) + 8 * i);
         accessibilityContainer = [v6 accessibilityContainer];
         NSClassFromString(&cfstr_PaperkitFormfi.isa);
         isKindOfClass = objc_opt_isKindOfClass();
@@ -74,15 +74,15 @@
         {
           location = 0;
           p_location = &location;
-          v21 = 0x2020000000;
-          v22 = 0;
+          v20 = 0x2020000000;
+          v21 = 0;
           from[1] = MEMORY[0x29EDCA5F8];
           from[2] = 3221225472;
-          v18[0] = __65__PaperDocumentViewAccessibility_axInsertFormFieldsIntoHierarchy__block_invoke_2;
-          v18[1] = &unk_29F2E1498;
-          v18[3] = &location;
-          v18[4] = v40;
-          v18[2] = v6;
+          v17[0] = __65__PaperDocumentViewAccessibility_axInsertFormFieldsIntoHierarchy__block_invoke_2;
+          v17[1] = &unk_29F2E1498;
+          v17[3] = &location;
+          v17[4] = v39;
+          v17[2] = v6;
           AXPerformSafeBlock();
           v9 = *(p_location + 24);
           _Block_object_dispose(&location, 8);
@@ -90,33 +90,31 @@
           {
             objc_initWeak(&location, v6);
             objc_initWeak(from, val);
-            v14[0] = MEMORY[0x29EDCA5F8];
-            v14[1] = 3221225472;
-            v14[2] = __65__PaperDocumentViewAccessibility_axInsertFormFieldsIntoHierarchy__block_invoke_3;
-            v14[3] = &unk_29F2E14E8;
-            objc_copyWeak(&v15, from);
-            objc_copyWeak(&v16, &location);
-            [v6 setAccessibilityActivateBlock:v14];
+            v13[0] = MEMORY[0x29EDCA5F8];
+            v13[1] = 3221225472;
+            v13[2] = __65__PaperDocumentViewAccessibility_axInsertFormFieldsIntoHierarchy__block_invoke_3;
+            v13[3] = &unk_29F2E14E8;
+            objc_copyWeak(&v14, from);
+            objc_copyWeak(&v15, &location);
+            [v6 setAccessibilityActivateBlock:v13];
             accessibilityTraits = [v6 accessibilityTraits];
             [v6 setAccessibilityTraits:*MEMORY[0x29EDC7598] | accessibilityTraits];
-            objc_destroyWeak(&v16);
             objc_destroyWeak(&v15);
+            objc_destroyWeak(&v14);
             objc_destroyWeak(from);
             objc_destroyWeak(&location);
           }
         }
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v23 objects:v42 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v22 objects:v41 count:16];
     }
 
     while (v3);
   }
 
-  _Block_object_dispose(&v34, 8);
-  _Block_object_dispose(v40, 8);
-
-  v11 = *MEMORY[0x29EDCA608];
+  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(v39, 8);
 }
 
 uint64_t __65__PaperDocumentViewAccessibility_axInsertFormFieldsIntoHierarchy__block_invoke(uint64_t a1)
@@ -126,15 +124,12 @@ uint64_t __65__PaperDocumentViewAccessibility_axInsertFormFieldsIntoHierarchy__b
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  v5 = [*(a1 + 32) axDetectedFormElements];
-  v6 = *(*(a1 + 48) + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) axDetectedFormElements];
 
   return MEMORY[0x2A1C71028]();
 }
 
-uint64_t __65__PaperDocumentViewAccessibility_axInsertFormFieldsIntoHierarchy__block_invoke_2(void *a1)
+void *__65__PaperDocumentViewAccessibility_axInsertFormFieldsIntoHierarchy__block_invoke_2(void *a1)
 {
   result = [*(*(a1[6] + 8) + 40) _accessibilityInsertAnnotation:a1[4]];
   *(*(a1[5] + 8) + 24) = result;

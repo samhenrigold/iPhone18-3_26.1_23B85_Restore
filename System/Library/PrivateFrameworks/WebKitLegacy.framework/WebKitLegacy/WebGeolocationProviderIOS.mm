@@ -452,7 +452,7 @@ LABEL_8:
   m_table = self->_webViewsWaitingForCoreLocationAuthorization.m_impl.m_table;
   if (!m_table)
   {
-    WTF::HashTable<WTF::RetainPtr<WebView>,WTF::KeyValuePair<WTF::RetainPtr<WebView>,WTF::RetainPtr<objc_object  {objcproto44WebGeolocationProviderInitializationListener}*>>,WTF::KeyValuePairKeyExtractor<WTF::RetainPtr<objc_object  {objcproto44WebGeolocationProviderInitializationListener}*>>,WTF::DefaultHash<WTF::RetainPtr<WebView>>,WTF::HashMap<WTF::RetainPtr<WebView>,objc_object  {objcproto44WebGeolocationProviderInitializationListener}*,WTF::DefaultHash,WTF::HashTraits<WTF::RetainPtr<WebView>>,WTF::HashMap<objc_object  {objcproto44WebGeolocationProviderInitializationListener}*>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits,WTF::ShouldValidateKey>::rehash(&self->_webViewsWaitingForCoreLocationAuthorization, 8u);
+    WTF::HashTable<WTF::RetainPtr<WebView>,WTF::KeyValuePair<WTF::RetainPtr<WebView>,WTF::RetainPtr<objc_object  {objcproto44WebGeolocationProviderInitializationListener}*>>,WTF::KeyValuePairKeyExtractor<WTF::RetainPtr<objc_object  {objcproto44WebGeolocationProviderInitializationListener}*>>,WTF::DefaultHash<WTF::RetainPtr<WebView>>,WTF::HashMap<WTF::RetainPtr<WebView>,objc_object  {objcproto44WebGeolocationProviderInitializationListener}*,WTF::DefaultHash,WTF::HashTraits<WTF::RetainPtr<WebView>>,WTF::HashMap<objc_object  {objcproto44WebGeolocationProviderInitializationListener}*>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits,WTF::ShouldValidateKey>::rehash(&self->_webViewsWaitingForCoreLocationAuthorization, 8uLL);
     m_table = self->_webViewsWaitingForCoreLocationAuthorization.m_impl.m_table;
   }
 
@@ -563,7 +563,7 @@ LABEL_31:
     }
 
 LABEL_30:
-    v26 = v25 << (6 * v23 >= (2 * v25));
+    v26 = (v25 << (6 * v23 >= (2 * v25)));
     goto LABEL_31;
   }
 

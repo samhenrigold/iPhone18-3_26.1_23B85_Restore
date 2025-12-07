@@ -60,7 +60,7 @@
 {
   [(KNBuildDiffuseSystem *)self objectSize];
   v4 = v3 * 1.5;
-  [(KNBuildDiffuseSystem *)self duration];
+  objc_msgSend_duration(self);
   return v4 / sqrt(v5);
 }
 
@@ -83,7 +83,7 @@
 {
   x = point.x;
   v5 = [(KNBuildDiffuseSystem *)self direction:point.x];
-  [(KNBuildDiffuseSystem *)self duration];
+  objc_msgSend_duration(self);
   TSUClamp();
   v7 = v6;
   if (v5 == &dword_8 + 3)

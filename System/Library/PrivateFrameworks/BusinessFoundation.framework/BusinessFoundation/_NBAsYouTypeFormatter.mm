@@ -20,6 +20,7 @@
 - (id)inputDigit:(id)digit;
 - (id)inputDigitAndRememberPosition:(id)position;
 - (id)inputDigitHelper_:(id)helper_;
+- (id)inputDigitWithOptionToRememberPosition_:(id)position_ rememberPosition:(BOOL)position;
 - (id)inputString:(id)string;
 - (id)inputStringAndRememberPosition:(id)position;
 - (id)normalizeAndAccrueDigitsAndPlusSign_:(id)sign_ rememberPosition:(BOOL)position;
@@ -670,6 +671,176 @@ LABEL_17:
   currentOutput = [(_NBAsYouTypeFormatter *)self currentOutput];
 
   return currentOutput;
+}
+
+- (id)inputDigitWithOptionToRememberPosition_:(id)position_ rememberPosition:(BOOL)position
+{
+  positionCopy = position;
+  position_Copy = position_;
+  v7 = position_Copy;
+  if (!position_Copy || ![position_Copy length])
+  {
+    self->_isSuccessfulFormatting = 0;
+    currentOutput = [(_NBAsYouTypeFormatter *)self currentOutput];
+    goto LABEL_30;
+  }
+
+  accruedInput = [(_NBAsYouTypeFormatter *)self accruedInput];
+  [accruedInput appendString:v7];
+
+  if (positionCopy)
+  {
+    accruedInput2 = [(_NBAsYouTypeFormatter *)self accruedInput];
+    -[_NBAsYouTypeFormatter setOriginalPosition_:](self, "setOriginalPosition_:", [accruedInput2 length]);
+  }
+
+  if ([(_NBAsYouTypeFormatter *)self isDigitOrLeadingPlusSign_:v7])
+  {
+    v10 = [(_NBAsYouTypeFormatter *)self normalizeAndAccrueDigitsAndPlusSign_:v7 rememberPosition:positionCopy];
+
+    v7 = v10;
+  }
+
+  else
+  {
+    [(_NBAsYouTypeFormatter *)self setAbleToFormat_:0];
+    [(_NBAsYouTypeFormatter *)self setInputHasFormatting_:1];
+  }
+
+  if (([(_NBAsYouTypeFormatter *)self ableToFormat]& 1) == 0)
+  {
+    if ([(_NBAsYouTypeFormatter *)self inputHasFormatting])
+    {
+      self->_isSuccessfulFormatting = 1;
+      v14 = MEMORY[0x277CCACA8];
+      accruedInput3 = [(_NBAsYouTypeFormatter *)self accruedInput];
+      v16 = [v14 stringWithString:accruedInput3];
+LABEL_24:
+
+      goto LABEL_31;
+    }
+
+    if ([(_NBAsYouTypeFormatter *)self attemptToExtractIdd])
+    {
+      if (![(_NBAsYouTypeFormatter *)self attemptToExtractCountryCallingCode])
+      {
+        goto LABEL_28;
+      }
+    }
+
+    else
+    {
+      if (![(_NBAsYouTypeFormatter *)self ableToExtractLongerNdd])
+      {
+LABEL_28:
+        self->_isSuccessfulFormatting = 0;
+        goto LABEL_29;
+      }
+
+      prefixBeforeNationalNumber = [(_NBAsYouTypeFormatter *)self prefixBeforeNationalNumber];
+      [prefixBeforeNationalNumber appendString:@" "];
+    }
+
+    self->_isSuccessfulFormatting = 1;
+    currentOutput = [(_NBAsYouTypeFormatter *)self attemptToChoosePatternWithPrefixExtracted];
+LABEL_30:
+    v16 = currentOutput;
+    goto LABEL_31;
+  }
+
+  accruedInputWithoutFormatting = [(_NBAsYouTypeFormatter *)self accruedInputWithoutFormatting];
+  v13 = [accruedInputWithoutFormatting length];
+
+  if (v13 < 3)
+  {
+    self->_isSuccessfulFormatting = 1;
+LABEL_29:
+    currentOutput = [(_NBAsYouTypeFormatter *)self accruedInput];
+    goto LABEL_30;
+  }
+
+  if (v13 == 3)
+  {
+    if (![(_NBAsYouTypeFormatter *)self attemptToExtractIdd])
+    {
+      removeNationalPrefixFromNationalNumber = [(_NBAsYouTypeFormatter *)self removeNationalPrefixFromNationalNumber];
+      [(_NBAsYouTypeFormatter *)self setNationalPrefixExtracted_:removeNationalPrefixFromNationalNumber];
+
+      self->_isSuccessfulFormatting = 1;
+LABEL_39:
+      currentOutput = [(_NBAsYouTypeFormatter *)self attemptToChooseFormattingPattern];
+      goto LABEL_30;
+    }
+
+    [(_NBAsYouTypeFormatter *)self setIsExpectingCountryCallingCode_:1];
+  }
+
+  if ([(_NBAsYouTypeFormatter *)self isExpectingCountryCallingCode])
+  {
+    if ([(_NBAsYouTypeFormatter *)self attemptToExtractCountryCallingCode])
+    {
+      [(_NBAsYouTypeFormatter *)self setIsExpectingCountryCallingCode_:0];
+    }
+
+    self->_isSuccessfulFormatting = 1;
+    v17 = MEMORY[0x277CCACA8];
+    accruedInput3 = [(_NBAsYouTypeFormatter *)self prefixBeforeNationalNumber];
+    nationalNumber = [(_NBAsYouTypeFormatter *)self nationalNumber];
+    v16 = [v17 stringWithFormat:@"%@%@", accruedInput3, nationalNumber];
+
+    goto LABEL_24;
+  }
+
+  possibleFormats = [(_NBAsYouTypeFormatter *)self possibleFormats];
+  v22 = [possibleFormats count];
+
+  if (!v22)
+  {
+    self->_isSuccessfulFormatting = 0;
+    goto LABEL_39;
+  }
+
+  v23 = [(_NBAsYouTypeFormatter *)self inputDigitHelper_:v7];
+  attemptToFormatAccruedDigits = [(_NBAsYouTypeFormatter *)self attemptToFormatAccruedDigits];
+  if ([attemptToFormatAccruedDigits length])
+  {
+    self->_isSuccessfulFormatting = 1;
+    inputAccruedNationalNumber = attemptToFormatAccruedDigits;
+  }
+
+  else
+  {
+    nationalNumber2 = [(_NBAsYouTypeFormatter *)self nationalNumber];
+    [(_NBAsYouTypeFormatter *)self narrowDownPossibleFormats_:nationalNumber2];
+
+    if ([(_NBAsYouTypeFormatter *)self maybeCreateNewTemplate])
+    {
+      self->_isSuccessfulFormatting = 1;
+      inputAccruedNationalNumber = [(_NBAsYouTypeFormatter *)self inputAccruedNationalNumber];
+    }
+
+    else
+    {
+      if ([(_NBAsYouTypeFormatter *)self ableToFormat])
+      {
+        self->_isSuccessfulFormatting = 1;
+        [(_NBAsYouTypeFormatter *)self appendNationalNumber_:v23];
+      }
+
+      else
+      {
+        self->_isSuccessfulFormatting = 0;
+        [(_NBAsYouTypeFormatter *)self accruedInput];
+      }
+      inputAccruedNationalNumber = ;
+    }
+  }
+
+  v16 = inputAccruedNationalNumber;
+
+LABEL_31:
+
+  return v16;
 }
 
 - (id)attemptToChoosePatternWithPrefixExtracted_

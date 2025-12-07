@@ -49,6 +49,11 @@
 - (id)_searchIndicatorColorForSquishTransformFactor:(id *)factor;
 - (id)_timingFunctionForAnimation;
 - (id)_toolbarForBarItem:(id *)item;
+- (id)_updateFormatButtonAccessories;
+- (id)_updateProgressViewCornerRadius;
+- (id)_updateSeparatorAlpha;
+- (id)_updateTextFieldFrame;
+- (id)_updateURLOutlineCornerRadius;
 - (id)_viewForAccessoryButtonType:(uint64_t)type;
 - (id)availabilityDisplayController:(id)controller determineBestLabelsForPresentation:(id)presentation;
 - (id)dragInteraction:(id)interaction itemsForBeginningSession:(id)session;
@@ -58,25 +63,19 @@
 - (id)popoverSourceInfoForBarItem:(int64_t)item;
 - (id)textForNavigationBarURLButton:(id)button;
 - (int64_t)_dragInteraction:(id)interaction dataOwnerForSession:(id)session;
-- (uint64_t)_adjustLabelRectForLeadingButtonWithDelay:(uint64_t)result;
 - (uint64_t)_shouldUpdateBackdropStyleForTransitionFromItem:(void *)item toItem:;
 - (uint64_t)_showsPrivateAnnotation;
-- (uint64_t)_updateFormatButtonAccessories;
-- (uint64_t)_updateProgressViewCornerRadius;
-- (uint64_t)_updateSecurityWarningsVisibility;
-- (uint64_t)_updateSeparatorAlpha;
-- (uint64_t)_updateTextFieldFrame;
 - (uint64_t)_updateTextMetrics;
-- (uint64_t)_updateURLOutlineCornerRadius;
 - (void)_URLLabelFont;
 - (void)_URLTapped:(id)tapped;
+- (void)_adjustLabelRectForLeadingButtonWithDelay:(void *)result;
 - (void)_barMetricTraitsDidChange;
 - (void)_barMetricsDidChange;
 - (void)_cancelButtonTapped:(id)tapped;
 - (void)_compressedBarTapped;
 - (void)_configureNavigationBarTrailingButtonTintedImages;
 - (void)_copyNavigationBarURLToPasteboard;
-- (void)_customButtonHorizontalPaddingWithInset:(uint64_t *)inset;
+- (void)_customButtonHorizontalPaddingWithInset:(void *)inset;
 - (void)_didUpdateEffectiveTheme;
 - (void)_dismissButtonTapped:(id)tapped;
 - (void)_formatToggleButtonTapped:(id)tapped;
@@ -220,7 +219,7 @@
   if (self->_unifiedFieldShowsProgressView == !view)
   {
     self->_unifiedFieldShowsProgressView = view;
-    [(_SFNavigationBar *)self _updateProgressViewCornerRadius];
+    [(_SFNavigationBar *)&self->super.super.super.isa _updateProgressViewCornerRadius];
     [(_SFNavigationBar *)self _updateProgressViewFillColor];
     if ([(_SFFluidProgressView *)self->_progressView isShowingProgress])
     {
@@ -329,7 +328,7 @@
     return minimumBarHeight;
   }
 
-  [_SFNavigationBar _auxiliaryBarSquishedVerticalOffsetForSquishTransform:?];
+  [(_SFNavigationBar *)self _auxiliaryBarSquishedVerticalOffsetForSquishTransform:?];
   [(SFLockdownStatusBar *)self->_lockdownStatusBar preferredSize];
   [(SFLockdownStatusBar *)self->_lockdownStatusBar preferredSize];
   [(SFLockdownStatusBar *)self->_lockdownStatusBar titleBaselineInsetFromBottom];
@@ -638,25 +637,26 @@ LABEL_10:
 
 - (void)_dismissButtonTapped:(id)tapped
 {
-  v4 = WBS_LOG_CHANNEL_PREFIXUserInterface();
+  v4 = WBS_LOG_CHANNEL_PREFIXUserInterface(self, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v8 = 0;
-    _os_log_impl(&dword_1D4644000, v4, OS_LOG_TYPE_DEFAULT, "Dismiss button tapped", v8, 2u);
+    *v11 = 0;
+    _os_log_impl(&dword_1D4644000, v4, OS_LOG_TYPE_DEFAULT, "Dismiss button tapped", v11, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   if (WeakRetained)
   {
-    if (objc_opt_respondsToSelector())
+    v7 = objc_opt_respondsToSelector();
+    if (v7)
     {
       [WeakRetained navigationBarDoneButtonWasTapped:self];
     }
 
     else
     {
-      v7 = WBS_LOG_CHANNEL_PREFIXUserInterface();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v10 = WBS_LOG_CHANNEL_PREFIXUserInterface(v7, v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [_SFNavigationBar _dismissButtonTapped:];
       }
@@ -665,8 +665,8 @@ LABEL_10:
 
   else
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXUserInterface();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXUserInterface(0, v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [_SFNavigationBar _dismissButtonTapped:];
     }
@@ -1093,7 +1093,7 @@ LABEL_31:
   if (self->_controlsHidden != hidden)
   {
     self->_controlsHidden = hidden;
-    [(_SFNavigationBar *)self _updateSeparatorAlpha];
+    [(_SFNavigationBar *)&self->super.super.super.isa _updateSeparatorAlpha];
 
     [(_SFNavigationBar *)self setNeedsLayout];
   }
@@ -1144,22 +1144,31 @@ LABEL_31:
 
 - (void)_updateSecurityWarningsVisibility
 {
-  if ([(SFNavigationBarItem *)self->_item showsSecurityAnnotation]&& ([(SFNavigationBarItem *)self->_item hasFocusedSensitiveFieldOnCurrentPage]& 1) == 0)
+  [self layoutIfNeeded];
+  [self setNeedsLayout];
+  [self _updateText];
+  *(self + 640) = 1;
+  v4 = *(self + 432);
+  if (v4)
   {
-    [(_SFNavigationBar *)self _updateSecurityWarningsVisibility];
+    *(v4 + 408) = 1;
   }
 
-  else if ([(SFNavigationBarItem *)self->_item showsSecurityAnnotation])
+  v5 = MEMORY[0x1E69DD250];
+  *a2 = MEMORY[0x1E69E9820];
+  a2[1] = 3221225472;
+  a2[2] = __53___SFNavigationBar__updateSecurityWarningsVisibility__block_invoke;
+  a2[3] = &unk_1E848F810;
+  a2[4] = self;
+  result = [v5 animateWithDuration:0 delay:a2 usingSpringWithDamping:0 initialSpringVelocity:0.35 options:0.0 animations:2.5 completion:0.0];
+  *(self + 640) = 0;
+  v7 = *(self + 432);
+  if (v7)
   {
-
-    [(_SFNavigationBar *)self _updateText];
+    *(v7 + 408) = 0;
   }
 
-  else
-  {
-
-    [(_SFNavigationBar *)self setNeedsLayout];
-  }
+  return result;
 }
 
 - (void)setContentUnderStatusBarHeight:(double)height
@@ -1178,11 +1187,11 @@ LABEL_31:
   if (self->_suppressesBlur != blur)
   {
     self->_suppressesBlur = blur;
-    [(UIVisualEffectView *)self->_backdrop setAllowsBlurring:!blur];
-    v4 = WBS_LOG_CHANNEL_PREFIXUserInterface();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v4 = [(UIVisualEffectView *)self->_backdrop setAllowsBlurring:!blur];
+    v6 = WBS_LOG_CHANNEL_PREFIXUserInterface(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      [(_SFNavigationBar *)blur setSuppressesBlur:v4];
+      [(_SFNavigationBar *)blur setSuppressesBlur:v6];
     }
   }
 }
@@ -1191,7 +1200,7 @@ LABEL_31:
 {
   if (self->_usesFaintSeparator != separator)
   {
-    [(_SFNavigationBar *)separator setUsesFaintSeparator:separator, self];
+    [(_SFNavigationBar *)separator setUsesFaintSeparator:separator, &self->super.super.super.isa];
   }
 }
 
@@ -1349,11 +1358,12 @@ LABEL_31:
   {
     textField = [(_SFNavigationBar *)self textField];
     isFirstResponder = [textField isFirstResponder];
-    v9 = WBS_LOG_CHANNEL_PREFIXPencilInput();
-    v10 = v9;
-    if (isFirstResponder)
+    v9 = isFirstResponder;
+    v11 = WBS_LOG_CHANNEL_PREFIXPencilInput(isFirstResponder, v10);
+    v12 = v11;
+    if (v9)
     {
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [_SFNavigationBar navigationBarURLButtonDidRequestFocusForPencilInput:completionHandler:];
       }
@@ -1363,9 +1373,9 @@ LABEL_31:
 
     else
     {
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        [_SFNavigationBar navigationBarURLButtonDidRequestFocusForPencilInput:v10 completionHandler:?];
+        [_SFNavigationBar navigationBarURLButtonDidRequestFocusForPencilInput:v12 completionHandler:?];
       }
 
       [textField setText:&stru_1F4FE9E38];
@@ -1822,10 +1832,10 @@ LABEL_10:
 
 - (void)_updateShowsSearchIndicator
 {
-  if (self)
+  if (result)
   {
-    showsSearchIndicator = [*(self + 848) showsSearchIndicator];
-    v3 = *(self + 448);
+    showsSearchIndicator = [*(result + 848) showsSearchIndicator];
+    v3 = *(result + 448);
     if (showsSearchIndicator)
     {
       [v3 setFadeOutEdge:1];
@@ -1838,7 +1848,7 @@ LABEL_10:
         [OUTLINED_FUNCTION_21() setTintAdjustmentMode:1];
         OUTLINED_FUNCTION_35(objc_alloc_init(MEMORY[0x1E69DCAE0]), 672);
         [OUTLINED_FUNCTION_12(672) setImage:?];
-        [*(self + 672) setTintAdjustmentMode:1];
+        [*(result + 672) setTintAdjustmentMode:1];
 
         v4 = OUTLINED_FUNCTION_21();
       }
@@ -1847,23 +1857,23 @@ LABEL_10:
 
       if (!superview)
       {
-        [*(self + 432) addSubview:*(self + 664)];
-        [*(self + 680) addSubview:*(self + 672)];
-        [(_SFNavigationBar *)self _updateSearchIndicator];
+        [*(result + 432) addSubview:*(result + 664)];
+        [*(result + 680) addSubview:*(result + 672)];
+        [(_SFNavigationBar *)result _updateSearchIndicator];
       }
     }
 
     else
     {
       [v3 setFadeOutEdge:0];
-      [*(self + 664) removeFromSuperview];
-      [*(self + 672) removeFromSuperview];
+      [*(result + 664) removeFromSuperview];
+      [*(result + 672) removeFromSuperview];
     }
 
-    [(_SFNavigationBar *)self _updateActiveURLLabelAccessory];
-    [self setNeedsLayout];
+    [(_SFNavigationBar *)result _updateActiveURLLabelAccessory];
+    [result setNeedsLayout];
 
-    [(_SFNavigationBar *)self _updateAccessoryButtonsVisibility];
+    [(_SFNavigationBar *)result _updateAccessoryButtonsVisibility];
   }
 }
 
@@ -1873,7 +1883,7 @@ LABEL_10:
   {
     OUTLINED_FUNCTION_66();
     v2 = v1;
-    [_SFNavigationBar _updateAccessoryButtonsArrangement];
+    [(_SFNavigationBar *)v1 _updateAccessoryButtonsArrangement];
     if ([*(v2 + 848) showsStopReloadButtons] && (*(v2 + 843) & 1) == 0)
     {
       v3 = *(v2 + 656);
@@ -1976,7 +1986,7 @@ LABEL_10:
 {
   if (self)
   {
-    [_SFNavigationBar _updateAccessoryButtonsArrangement];
+    [(_SFNavigationBar *)self _updateAccessoryButtonsArrangement];
     v2 = *(self + 736);
     v3 = v2 ? *(v2 + 16) : 0;
     firstObject = [v3 firstObject];
@@ -2056,26 +2066,26 @@ LABEL_10:
 
 - (void)_updateProgressView
 {
-  if (self)
+  if (result)
   {
-    v2 = *(self + 704);
-    fluidProgressStateSource = [*(self + 848) fluidProgressStateSource];
+    v2 = *(result + 704);
+    fluidProgressStateSource = [*(result + 848) fluidProgressStateSource];
     progressState = [fluidProgressStateSource progressState];
     [v2 setProgressToCurrentPositionForState:progressState];
 
-    [(_SFNavigationBar *)self _updateProgressViewCornerRadius];
+    [(_SFNavigationBar *)result _updateProgressViewCornerRadius];
 
-    [(_SFNavigationBar *)self _updateProgressViewFillColor];
+    [(_SFNavigationBar *)result _updateProgressViewFillColor];
   }
 }
 
-- (uint64_t)_updateFormatButtonAccessories
+- (id)_updateFormatButtonAccessories
 {
   if (result)
   {
     v1 = result;
-    hasHiddenElements = [*(result + 848) hasHiddenElements];
-    v3 = *(v1 + 744);
+    hasHiddenElements = [result[106] hasHiddenElements];
+    v3 = v1[93];
     if (hasHiddenElements)
     {
       v4 = &unk_1F5023CC8;
@@ -2205,7 +2215,7 @@ LABEL_10:
   return self;
 }
 
-- (uint64_t)_updateProgressViewCornerRadius
+- (id)_updateProgressViewCornerRadius
 {
   if (result)
   {
@@ -2217,13 +2227,13 @@ LABEL_10:
       urlOutlineCornerRadius = [(SFNavigationBarMetrics *)v3 urlOutlineCornerRadius];
     }
 
-    [*(v1 + 704) setCornerRadius:urlOutlineCornerRadius];
+    [v1[88] setCornerRadius:urlOutlineCornerRadius];
     result = [MEMORY[0x1E69C8880] isSolariumEnabled];
     if (result)
     {
       v4 = OUTLINED_FUNCTION_53();
       v5 = [(SFNavigationBarMetrics *)v4 progressBarCornerRadiusWithBarMetricsCategory:?];
-      v6 = *(v1 + 704);
+      v6 = v1[88];
 
       return [v6 setCornerRadius:v5];
     }
@@ -2339,7 +2349,7 @@ LABEL_10:
   }
 }
 
-- (uint64_t)_updateSeparatorAlpha
+- (id)_updateSeparatorAlpha
 {
   if (result)
   {
@@ -2347,7 +2357,7 @@ LABEL_10:
     v2 = 0.0;
     if ((*(result + 842) & 1) == 0)
     {
-      backdropIsDark = [*(result + 864) backdropIsDark];
+      backdropIsDark = [result[108] backdropIsDark];
       v2 = 1.0;
       if (backdropIsDark)
       {
@@ -2356,7 +2366,7 @@ LABEL_10:
       }
     }
 
-    v4 = *(v1 + 720);
+    v4 = v1[90];
 
     return [v4 setAlpha:v2];
   }
@@ -2371,10 +2381,10 @@ LABEL_10:
     return 0.0;
   }
 
-  v1 = *(self + 648);
+  v2 = *(self + 648);
   _metricsCategory = [objc_opt_class() _metricsCategory];
 
-  return [(SFNavigationBarMetrics *)v1 barHeightWithBarMetricsCategory:_metricsCategory];
+  return [(SFNavigationBarMetrics *)v2 barHeightWithBarMetricsCategory:_metricsCategory];
 }
 
 - (double)defaultHeight
@@ -2428,11 +2438,11 @@ LABEL_10:
   }
 
   [(SFNavigationBarMetrics *)*(transform + 648) urlOutlineHeight];
-  v2 = OUTLINED_FUNCTION_46();
-  [(SFNavigationBarMetrics *)v2 distanceFromLabelBaselineToURLOutlineBottom];
-  v3 = *(transform + 648);
+  v3 = OUTLINED_FUNCTION_46();
+  [(SFNavigationBarMetrics *)v3 distanceFromLabelBaselineToURLOutlineBottom];
+  v4 = *(transform + 648);
   _metricsCategory = [objc_opt_class() _metricsCategory];
-  [(SFNavigationBarMetrics *)v3 squishHeightQuantizationOffsetWithBarMetricsCategory:_metricsCategory];
+  [(SFNavigationBarMetrics *)v4 squishHeightQuantizationOffsetWithBarMetricsCategory:_metricsCategory];
   [*(transform + 944) titleCapHeightInsetFromTop];
   [*(transform + 944) titleCapHeightInsetFromTop];
 
@@ -2440,7 +2450,7 @@ LABEL_10:
   return result;
 }
 
-- (void)_customButtonHorizontalPaddingWithInset:(uint64_t *)inset
+- (void)_customButtonHorizontalPaddingWithInset:(void *)inset
 {
   if (inset)
   {
@@ -2596,21 +2606,21 @@ LABEL_10:
   }
 }
 
-- (uint64_t)_updateURLOutlineCornerRadius
+- (id)_updateURLOutlineCornerRadius
 {
   if (result)
   {
     v1 = result;
-    urlOutlineCornerRadius = [(SFNavigationBarMetrics *)*(result + 648) urlOutlineCornerRadius];
-    v3 = *(v1 + 696);
-    if (v3 && *(v3 + 832) != urlOutlineCornerRadius)
+    urlOutlineCornerRadius = [(SFNavigationBarMetrics *)result[81] urlOutlineCornerRadius];
+    v3 = v1[87];
+    if (v3 && *(v3 + 104) != urlOutlineCornerRadius)
     {
-      *(v3 + 832) = urlOutlineCornerRadius;
-      [*(v3 + 768) _setContinuousCornerRadius:?];
+      *(v3 + 104) = urlOutlineCornerRadius;
+      [*(v3 + 96) _setContinuousCornerRadius:?];
     }
 
     v4 = OUTLINED_FUNCTION_46();
-    [*(v1 + 696) _setContinuousCornerRadius:-[SFNavigationBarMetrics urlOutlineCornerRadius](v4)];
+    [v1[87] _setContinuousCornerRadius:-[SFNavigationBarMetrics urlOutlineCornerRadius](v4)];
 
     return [(_SFNavigationBar *)v1 _updateProgressViewCornerRadius];
   }
@@ -3106,22 +3116,22 @@ LABEL_6:
   }
 }
 
-- (uint64_t)_updateTextFieldFrame
+- (id)_updateTextFieldFrame
 {
   if (result)
   {
     v3 = result;
-    [*(result + 696) bounds];
+    [result[87] bounds];
     v5 = v4;
     v7 = v6;
-    [*(v3 + 696) center];
+    [v3[87] center];
     OUTLINED_FUNCTION_50();
-    layer = [*(v3 + 696) layer];
+    layer = [v3[87] layer];
     [layer anchorPoint];
     v10 = v9;
     v12 = v11;
 
-    v13 = *(v3 + 872);
+    v13 = v3[109];
 
     return [v13 setFrame:{v1 + 7.0 - v5 * v10, v2 - v7 * v12, v5 + -14.0, v7}];
   }
@@ -4163,7 +4173,7 @@ LABEL_169:
 
   if (v529)
   {
-    v537 = [_SFNavigationBar _searchIndicatorColorForSquishTransformFactor:v2101];
+    v537 = [(_SFNavigationBar *)v2101 _searchIndicatorColorForSquishTransformFactor:?];
     [*(v2101 + 664) setTintColor:v537];
     [*(v2101 + 672) setTintColor:v537];
   }
@@ -4436,7 +4446,7 @@ LABEL_227:
   [*(v2103 + 944) preferredSize];
   [*(v2103 + 944) ss_setUntransformedFrame:{0.0, v635 + v626 + v637 - distanceFromLabelBaselineToURLOutlineBottom, v646, v647}];
   OUTLINED_FUNCTION_54();
-  v648 = [_SFNavigationBar _auxiliaryBarSquishedVerticalOffsetForSquishTransform:v2103];
+  v648 = [(_SFNavigationBar *)v2103 _auxiliaryBarSquishedVerticalOffsetForSquishTransform:v2037];
   CGAffineTransformMakeTranslation(&v2125, 0.0, -v648);
   v2124 = v2125;
   CGAffineTransformScale(&v2111, &v2124, sxp, sxp);
@@ -4592,18 +4602,18 @@ LABEL_227:
   {
     factorCopy = factor;
     text = [factor[106] text];
-    v4 = [text length];
+    v5 = [text length];
 
-    v5 = factorCopy[108];
-    if (v4)
+    v6 = factorCopy[108];
+    if (v5)
     {
       OUTLINED_FUNCTION_38();
-      if (!v6)
+      if (!v7)
       {
         SFBarBackgroundAlphaForSquishTransformFactor();
       }
 
-      factor = [v5 platterTextColorForPlatterAlpha:?];
+      factor = [v6 platterTextColorForPlatterAlpha:?];
     }
 
     else
@@ -4611,7 +4621,7 @@ LABEL_227:
       factor = [factorCopy[108] platterPlaceholderTextColor];
     }
 
-    v1 = vars8;
+    v2 = vars8;
   }
 
   return factor;
@@ -4950,6 +4960,7 @@ LABEL_9:
 {
   if (animated)
   {
+    v2 = a2;
     if ([*(animated + 408) isDisplaying])
     {
       if ([(SFNavigationBarAccessoryButtonArrangement *)*(animated + 736) containsButtonType:?])
@@ -4973,7 +4984,7 @@ LABEL_9:
       v14 = v7;
       v8 = _Block_copy(aBlock);
       v9 = v8;
-      if (a2)
+      if (v2)
       {
         (*(v8 + 2))(v8);
       }
@@ -4996,7 +5007,7 @@ LABEL_9:
       else
       {
 
-        [(_SFNavigationBar *)animated _hideAvailabilityLabelAnimated:a2];
+        [(_SFNavigationBar *)animated _hideAvailabilityLabelAnimated:v2];
       }
     }
   }
@@ -5066,7 +5077,7 @@ LABEL_9:
   }
 }
 
-- (uint64_t)_adjustLabelRectForLeadingButtonWithDelay:(uint64_t)result
+- (void)_adjustLabelRectForLeadingButtonWithDelay:(void *)result
 {
   if (result)
   {
@@ -5299,7 +5310,7 @@ LABEL_11:
 
 - (void)navigationBarItemDidUpdateHasHiddenElements:(id)elements
 {
-  [(_SFNavigationBar *)self _updateFormatButtonAccessories];
+  [(_SFNavigationBar *)&self->super.super.super.isa _updateFormatButtonAccessories];
 
   [(_SFNavigationBar *)self setNeedsLayout];
 }
@@ -5634,35 +5645,6 @@ LABEL_11:
   v76 = a1;
 }
 
-- (uint64_t)_updateSecurityWarningsVisibility
-{
-  [self layoutIfNeeded];
-  [self setNeedsLayout];
-  [self _updateText];
-  *(self + 640) = 1;
-  v4 = *(self + 432);
-  if (v4)
-  {
-    *(v4 + 408) = 1;
-  }
-
-  v5 = MEMORY[0x1E69DD250];
-  *a2 = MEMORY[0x1E69E9820];
-  a2[1] = 3221225472;
-  a2[2] = __53___SFNavigationBar__updateSecurityWarningsVisibility__block_invoke;
-  a2[3] = &unk_1E848F810;
-  a2[4] = self;
-  result = [v5 animateWithDuration:0 delay:a2 usingSpringWithDamping:0 initialSpringVelocity:0.35 options:0.0 animations:2.5 completion:0.0];
-  *(self + 640) = 0;
-  v7 = *(self + 432);
-  if (v7)
-  {
-    *(v7 + 408) = 0;
-  }
-
-  return result;
-}
-
 - (void)setSuppressesBlur:(char)a1 .cold.1(char a1, NSObject *a2)
 {
   v5 = *MEMORY[0x1E69E9840];
@@ -5677,7 +5659,7 @@ LABEL_11:
   _os_log_debug_impl(&dword_1D4644000, a2, OS_LOG_TYPE_DEBUG, "%{public}@ navigation bar blur suppression", &v3, 0xCu);
 }
 
-- (uint64_t)setUsesFaintSeparator:(char)a3 .cold.1(char a1, _BYTE *a2, char a3, uint64_t a4)
+- (id)setUsesFaintSeparator:(char)a3 .cold.1(char a1, _BYTE *a2, char a3, id *a4)
 {
   *a2 = a1;
   if (a3)

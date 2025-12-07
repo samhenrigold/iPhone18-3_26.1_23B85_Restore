@@ -9,17 +9,15 @@
 
 - (void)noteIdentityDoesNotNeedMigration:(uint64_t)migration
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (migration)
   {
-    v7[0] = v3;
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
+    v6[0] = v3;
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
     [*(migration + 8) setObject:v5 forKeyedSubscript:v4];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (LSApplicationIdentityMigrationResult)init

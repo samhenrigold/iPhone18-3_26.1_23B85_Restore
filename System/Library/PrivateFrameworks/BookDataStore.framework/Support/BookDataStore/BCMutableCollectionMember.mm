@@ -15,7 +15,7 @@
   dCopy = d;
   if (!dCopy)
   {
-    v7 = sub_100002660();
+    v7 = sub_100002660(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1001C43F4();
@@ -42,9 +42,9 @@ LABEL_7:
 - (BCMutableCollectionMember)initWithCloudData:(id)data
 {
   dataCopy = data;
-  v13.receiver = self;
-  v13.super_class = BCMutableCollectionMember;
-  v5 = [(BCMutableCloudData *)&v13 initWithCloudData:dataCopy];
+  v14.receiver = self;
+  v14.super_class = BCMutableCollectionMember;
+  v5 = [(BCMutableCloudData *)&v14 initWithCloudData:dataCopy];
   if (v5)
   {
     v6 = BUProtocolCast();
@@ -56,7 +56,8 @@ LABEL_7:
       collectionMemberID = v5->_collectionMemberID;
       v5->_collectionMemberID = v9;
 
-      v5->_sortOrder = [v7 sortOrder];
+      sortOrder = [v7 sortOrder];
+      v5->_sortOrder = sortOrder;
       if (v5->_collectionMemberID)
       {
 LABEL_9:
@@ -64,8 +65,8 @@ LABEL_9:
         goto LABEL_10;
       }
 
-      v11 = sub_100002660();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = sub_100002660(sortOrder);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         sub_1001C4428();
       }
@@ -73,8 +74,8 @@ LABEL_9:
 
     else
     {
-      v11 = sub_100002660();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = sub_100002660(0);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         sub_1001C445C();
       }
@@ -94,8 +95,8 @@ LABEL_10:
   recordCopy = record;
   if (!recordCopy)
   {
-    v9 = sub_100002660();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100002660(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1001C44C4();
     }
@@ -104,9 +105,9 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v11.receiver = self;
-  v11.super_class = BCMutableCollectionMember;
-  v5 = [(BCMutableCloudData *)&v11 initWithRecord:recordCopy];
+  v12.receiver = self;
+  v12.super_class = BCMutableCollectionMember;
+  v5 = [(BCMutableCloudData *)&v12 initWithRecord:recordCopy];
   if (v5)
   {
     v6 = [BCCloudData localIdentifierFromRecord:recordCopy];
@@ -115,8 +116,8 @@ LABEL_10:
 
     if (!v5->_collectionMemberID)
     {
-      v8 = sub_100002660();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = sub_100002660(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         sub_1001C4490();
       }

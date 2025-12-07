@@ -13,8 +13,8 @@
   v6 = [[INPlayMediaIntentResponse alloc] initWithCode:1 userActivity:0];
   (*(completion + 2))(completionCopy, v6);
 
-  v7 = sub_100001648();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = sub_100001648(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     sub_100005200();
   }
@@ -76,10 +76,11 @@
 - (id)_handleCompletionResponseInternal:(id)internal intent:(id)intent
 {
   intentCopy = intent;
+  v54 = intentCopy;
   if (!internal)
   {
-    v36 = sub_100001648();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    v37 = sub_100001648(intentCopy);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
       sub_1000055CC();
     }
@@ -89,19 +90,19 @@ LABEL_51:
     goto LABEL_52;
   }
 
-  v54 = 0u;
+  v57 = 0u;
+  v58 = 0u;
   v55 = 0u;
-  v52 = 0u;
-  v53 = 0u;
+  v56 = 0u;
   obj = [internal items];
-  v5 = [obj countByEnumeratingWithState:&v52 objects:v56 count:16];
-  if (!v5)
+  v6 = [obj countByEnumeratingWithState:&v55 objects:v59 count:16];
+  if (!v6)
   {
 LABEL_48:
 
 LABEL_49:
-    v36 = sub_100001648();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    v37 = sub_100001648(v51);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
       sub_100005590();
     }
@@ -109,19 +110,19 @@ LABEL_49:
     goto LABEL_51;
   }
 
-  v6 = v5;
-  v7 = *v53;
+  v7 = v6;
+  v8 = *v56;
 LABEL_4:
-  v8 = 0;
+  v9 = 0;
   while (1)
   {
-    if (*v53 != v7)
+    if (*v56 != v8)
     {
       objc_enumerationMutation(obj);
     }
 
-    v9 = *(*(&v52 + 1) + 8 * v8);
-    movieOrShowContent = [v9 movieOrShowContent];
+    v10 = *(*(&v55 + 1) + 8 * v9);
+    movieOrShowContent = [v10 movieOrShowContent];
     contentType = [movieOrShowContent contentType];
 
     if (contentType != 4)
@@ -129,7 +130,7 @@ LABEL_4:
       break;
     }
 
-    movieOrShowContent2 = [v9 movieOrShowContent];
+    movieOrShowContent2 = [v10 movieOrShowContent];
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
@@ -137,22 +138,22 @@ LABEL_4:
       goto LABEL_22;
     }
 
-    v24 = movieOrShowContent2;
-    mediaContainer = [intentCopy mediaContainer];
+    v25 = movieOrShowContent2;
+    mediaContainer = [v54 mediaContainer];
     identifier = [mediaContainer identifier];
-    canonicalShowID = [v24 canonicalShowID];
+    canonicalShowID = [v25 canonicalShowID];
 
-    v28 = [identifier isEqualToString:canonicalShowID];
-    if (v28)
+    v29 = [identifier isEqualToString:canonicalShowID];
+    if (v29)
     {
       goto LABEL_16;
     }
 
 LABEL_22:
-    if (v6 == ++v8)
+    if (v7 == ++v9)
     {
-      v6 = [obj countByEnumeratingWithState:&v52 objects:v56 count:16];
-      if (v6)
+      v7 = [obj countByEnumeratingWithState:&v55 objects:v59 count:16];
+      if (v7)
       {
         goto LABEL_4;
       }
@@ -163,13 +164,13 @@ LABEL_22:
 
   if (contentType == 2)
   {
-    mediaContainer2 = [intentCopy mediaContainer];
+    mediaContainer2 = [v54 mediaContainer];
     identifier2 = [mediaContainer2 identifier];
-    movieOrShowContent3 = [v9 movieOrShowContent];
+    movieOrShowContent3 = [v10 movieOrShowContent];
     canonicalID = [movieOrShowContent3 canonicalID];
-    v22 = [identifier2 isEqualToString:canonicalID];
+    v23 = [identifier2 isEqualToString:canonicalID];
 
-    if (!v22)
+    if (!v23)
     {
       goto LABEL_22;
     }
@@ -182,21 +183,21 @@ LABEL_22:
       goto LABEL_22;
     }
 
-    mediaItems = [intentCopy mediaItems];
+    mediaItems = [v54 mediaItems];
     firstObject = [mediaItems firstObject];
     identifier3 = [firstObject identifier];
-    movieOrShowContent4 = [v9 movieOrShowContent];
+    movieOrShowContent4 = [v10 movieOrShowContent];
     canonicalID2 = [movieOrShowContent4 canonicalID];
-    v17 = [identifier3 isEqualToString:canonicalID2];
+    v18 = [identifier3 isEqualToString:canonicalID2];
 
-    if ((v17 & 1) == 0)
+    if ((v18 & 1) == 0)
     {
       goto LABEL_22;
     }
   }
 
 LABEL_16:
-  playable = [v9 playable];
+  playable = [v10 playable];
   playPunchoutURL = [playable playPunchoutURL];
   if (playPunchoutURL)
   {
@@ -204,18 +205,18 @@ LABEL_16:
     goto LABEL_30;
   }
 
-  playable2 = [v9 playable];
+  playable2 = [v10 playable];
   openPunchoutURL = [playable2 openPunchoutURL];
   if (openPunchoutURL)
   {
     goto LABEL_29;
   }
 
-  playable3 = [v9 playable];
+  playable3 = [v10 playable];
   tvAppDeeplinkURL = [playable3 tvAppDeeplinkURL];
   if (!tvAppDeeplinkURL)
   {
-    contentTVAppDeeplinkURL = [v9 contentTVAppDeeplinkURL];
+    contentTVAppDeeplinkURL = [v10 contentTVAppDeeplinkURL];
 
     if (contentTVAppDeeplinkURL)
     {
@@ -229,20 +230,20 @@ LABEL_29:
 LABEL_30:
 
 LABEL_31:
-  playable4 = [v9 playable];
+  playable4 = [v10 playable];
   playPunchoutURL2 = [playable4 playPunchoutURL];
 
-  playable5 = [v9 playable];
+  playable5 = [v10 playable];
   tvAppDeeplinkURL2 = [playable5 tvAppDeeplinkURL];
 
   if (tvAppDeeplinkURL2)
   {
-    playable6 = [v9 playable];
+    playable6 = [v10 playable];
     tvAppDeeplinkURL3 = [playable6 tvAppDeeplinkURL];
     contentTVAppDeeplinkURL3 = [WLKPlayableUtilities _punchoutURLForDirectPlayback:tvAppDeeplinkURL3 ignoreExtras:1];
 
-    v44 = sub_100001648();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+    v46 = sub_100001648(v45);
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
     {
       sub_1000053DC(contentTVAppDeeplinkURL3);
     }
@@ -250,7 +251,7 @@ LABEL_31:
     goto LABEL_44;
   }
 
-  playable7 = [v9 playable];
+  playable7 = [v10 playable];
   if (![playable7 isEntitled])
   {
 LABEL_40:
@@ -258,20 +259,20 @@ LABEL_40:
     goto LABEL_41;
   }
 
-  playable8 = [v9 playable];
+  playable8 = [v10 playable];
   if (([playable8 isAppInstalled] & 1) == 0)
   {
 
     goto LABEL_40;
   }
 
-  v47 = [playPunchoutURL2 length];
+  v49 = [playPunchoutURL2 length];
 
-  if (v47)
+  if (v49)
   {
     contentTVAppDeeplinkURL3 = [NSURL URLWithString:playPunchoutURL2];
-    v44 = sub_100001648();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+    v46 = sub_100001648(contentTVAppDeeplinkURL3);
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
     {
       sub_100005460();
     }
@@ -280,7 +281,7 @@ LABEL_40:
   }
 
 LABEL_41:
-  contentTVAppDeeplinkURL2 = [v9 contentTVAppDeeplinkURL];
+  contentTVAppDeeplinkURL2 = [v10 contentTVAppDeeplinkURL];
 
   if (!contentTVAppDeeplinkURL2)
   {
@@ -288,9 +289,9 @@ LABEL_41:
     goto LABEL_48;
   }
 
-  contentTVAppDeeplinkURL3 = [v9 contentTVAppDeeplinkURL];
-  v44 = sub_100001648();
-  if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+  contentTVAppDeeplinkURL3 = [v10 contentTVAppDeeplinkURL];
+  v46 = sub_100001648(contentTVAppDeeplinkURL3);
+  if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
   {
     sub_1000054D0(contentTVAppDeeplinkURL3);
   }
@@ -302,8 +303,8 @@ LABEL_44:
     goto LABEL_49;
   }
 
-  v36 = sub_100001648();
-  if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+  v37 = sub_100001648(v51);
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
   {
     sub_100005554();
   }

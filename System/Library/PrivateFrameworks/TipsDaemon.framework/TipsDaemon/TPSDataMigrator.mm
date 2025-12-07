@@ -120,15 +120,15 @@ void __45__TPSDataMigrator__performSavedTipsMigration__block_invoke(void *a1, vo
 
 + (void)revertTipStatusArchivalIfNeeded
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   if (([standardUserDefaults BOOLForKey:@"TPSDidRevertArchivedTipStatuses"] & 1) == 0)
   {
     daemon = [MEMORY[0x277D71778] daemon];
     if (os_log_type_enabled(daemon, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v14) = 0;
-      _os_log_impl(&dword_232D6F000, daemon, OS_LOG_TYPE_DEFAULT, "Should revert tip status archival.", &v14, 2u);
+      LOWORD(v13) = 0;
+      _os_log_impl(&dword_232D6F000, daemon, OS_LOG_TYPE_DEFAULT, "Should revert tip status archival.", &v13, 2u);
     }
 
     mEMORY[0x277D716E8] = [MEMORY[0x277D716E8] sharedInstance];
@@ -143,9 +143,9 @@ void __45__TPSDataMigrator__performSavedTipsMigration__block_invoke(void *a1, vo
       if (os_log_type_enabled(daemon2, OS_LOG_TYPE_DEFAULT))
       {
         v9 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(tipStatusController, "tipStatusCount")}];
-        v14 = 138412290;
-        v15 = v9;
-        _os_log_impl(&dword_232D6F000, daemon2, OS_LOG_TYPE_DEFAULT, "Pre-unarchival tip status count: %@", &v14, 0xCu);
+        v13 = 138412290;
+        v14 = v9;
+        _os_log_impl(&dword_232D6F000, daemon2, OS_LOG_TYPE_DEFAULT, "Pre-unarchival tip status count: %@", &v13, 0xCu);
       }
 
       [tipStatusController addTipStatuses:archivedTipStatuses];
@@ -153,9 +153,9 @@ void __45__TPSDataMigrator__performSavedTipsMigration__block_invoke(void *a1, vo
       if (os_log_type_enabled(daemon3, OS_LOG_TYPE_DEFAULT))
       {
         v11 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(tipStatusController, "tipStatusCount")}];
-        v14 = 138412290;
-        v15 = v11;
-        _os_log_impl(&dword_232D6F000, daemon3, OS_LOG_TYPE_DEFAULT, "Post-unarchival tip status count: %@", &v14, 0xCu);
+        v13 = 138412290;
+        v14 = v11;
+        _os_log_impl(&dword_232D6F000, daemon3, OS_LOG_TYPE_DEFAULT, "Post-unarchival tip status count: %@", &v13, 0xCu);
       }
     }
 
@@ -167,24 +167,6 @@ void __45__TPSDataMigrator__performSavedTipsMigration__block_invoke(void *a1, vo
     [standardUserDefaults removeObjectForKey:@"TPSDidResetTipStatusDataProtectionLevel"];
     [standardUserDefaults synchronize];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
-}
-
-void __50__TPSDataMigrator__performDesiredOutcomeMigration__block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_5(&dword_232D6F000, v0, v1, "Migrate desiredOutomePerformed for identifier: %@, date: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __45__TPSDataMigrator__performSavedTipsMigration__block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_5(&dword_232D6F000, v0, v1, "Migrate savedTip to defaults for identifier: %@, date: %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -13,28 +13,34 @@
 
 + (CGSize)sizeWithFitting:(CGSize)fitting in:(id)in
 {
+  height = fitting.height;
+  width = fitting.width;
   swift_unknownObjectRetain();
-  v5 = static GKDashboardFriendSuggestionCollectionViewCell.size(fitting:in:)(in);
-  v7 = v6;
+  v7 = static GKDashboardFriendSuggestionCollectionViewCell.size(fitting:in:)(in, width, height);
+  v9 = v8;
   swift_unknownObjectRelease();
-  v8 = v5;
-  v9 = v7;
-  result.height = v9;
-  result.width = v8;
+  v10 = v7;
+  v11 = v9;
+  result.height = v11;
+  result.width = v10;
   return result;
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
+  height = fits.height;
+  width = fits.width;
   selfCopy = self;
-  sub_24DFE8A80();
-  v5 = v4;
-  v7 = v6;
+  v6.n128_f64[0] = width;
+  v7.n128_f64[0] = height;
+  sub_24DFE8A80(v6, v7, v8, v9);
+  v11 = v10;
+  v13 = v12;
 
-  v8 = v5;
-  v9 = v7;
-  result.height = v9;
-  result.width = v8;
+  v14 = v11;
+  v15 = v13;
+  result.height = v15;
+  result.width = v14;
   return result;
 }
 

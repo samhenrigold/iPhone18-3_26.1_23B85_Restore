@@ -8,6 +8,7 @@
 - (void)setShortNameEnabled:(id)enabled;
 - (void)setShortNameFormat:(id)format;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -21,6 +22,14 @@
   v3 = [NSBundle bundleForClass:objc_opt_class()];
   v4 = [v3 localizedStringForKey:@"Short Name" value:&stru_14F18 table:@"Contacts"];
   [(ContactsShortNameController *)self setTitle:v4];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = ContactsShortNameController;
+  [(ContactsShortNameController *)&v4 viewDidAppear:appear];
+  [(ContactsShortNameController *)self provideSettingsNavigationDonation];
 }
 
 - (void)setShortNameEnabled:(id)enabled

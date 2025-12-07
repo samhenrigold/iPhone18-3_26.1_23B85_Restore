@@ -29,9 +29,7 @@
   *(&self->super.super.super.isa + OBJC_IVAR____TtC32DynamicBackgroundPosterExtension12SnapshotView_snapshotReader) = 0;
   *(&self->super.super.super.isa + OBJC_IVAR____TtC32DynamicBackgroundPosterExtension12SnapshotView_shouldUsizeFromLayout) = 0;
   *(&self->super.super.super.isa + OBJC_IVAR____TtC32DynamicBackgroundPosterExtension12SnapshotView_timer) = 0;
-  type metadata accessor for SnapshotView();
-  v4 = *((swift_isaMask & self->super.super.super.isa) + 0x30);
-  v5 = *((swift_isaMask & self->super.super.super.isa) + 0x34);
+  type metadata accessor for SnapshotView(0);
   swift_deallocPartialClassInstance();
   return 0;
 }

@@ -2,6 +2,7 @@
 + (id)stream;
 - (NSDataOutputStream)init;
 - (void)dealloc;
+- (void)writeWithByteArray:(id)array withInt:(int)int withInt:(int)withInt;
 @end
 
 @implementation NSDataOutputStream
@@ -32,6 +33,22 @@
   v4.receiver = self;
   v4.super_class = NSDataOutputStream;
   [(NSDataOutputStream *)&v4 dealloc];
+}
+
+- (void)writeWithByteArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  if (!array)
+  {
+    JreThrowNullPointerException();
+  }
+
+  v5 = *&withInt;
+  v6 = *&int;
+  v9 = [(NSMutableData *)self->data_ length];
+  [(NSMutableData *)self->data_ increaseLengthBy:v5];
+  v10 = [(NSMutableData *)self->data_ mutableBytes]+ v9;
+
+  [array getBytes:v10 offset:v6 length:v5];
 }
 
 @end

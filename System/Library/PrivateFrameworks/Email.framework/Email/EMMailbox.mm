@@ -4,6 +4,7 @@
 + (BOOL)supportsArchivingForMailboxes:(id)mailboxes;
 + (BOOL)supportsSelectAllForMailboxes:(id)mailboxes;
 + (BOOL)typeIsValidTransferDestination:(int64_t)destination;
++ (id)_predicateForSmartMailboxes:(BOOL)mailboxes;
 + (id)predicateForMailboxAccount:(id)account;
 + (id)predicateForMailboxAccount:(id)account topLevelOnly:(BOOL)only;
 + (id)predicateForMailboxAccountIdentifier:(id)identifier topLevelOnly:(BOOL)only;
@@ -595,7 +596,7 @@ BOOL __63__EMMailbox_TriageInteraction__deleteMovesToTrashForMailboxes___block_i
 + (id)predicateForMailboxAccount:(id)account topLevelOnly:(BOOL)only
 {
   onlyCopy = only;
-  v20[2] = *MEMORY[0x1E69E9840];
+  v19[2] = *MEMORY[0x1E69E9840];
   accountCopy = account;
   v7 = MEMORY[0x1E696AB18];
   v8 = [MEMORY[0x1E696ABC8] expressionForKeyPath:@"account.objectID.representedObjectID"];
@@ -608,16 +609,14 @@ BOOL __63__EMMailbox_TriageInteraction__deleteMovesToTrashForMailboxes___block_i
   if (onlyCopy)
   {
     v14 = MEMORY[0x1E696AB28];
-    v20[0] = v13;
+    v19[0] = v13;
     predicateForTopLevelMailboxes = [self predicateForTopLevelMailboxes];
-    v20[1] = predicateForTopLevelMailboxes;
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
+    v19[1] = predicateForTopLevelMailboxes;
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
     v17 = [v14 andPredicateWithSubpredicates:v16];
 
     v13 = v17;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -625,7 +624,7 @@ BOOL __63__EMMailbox_TriageInteraction__deleteMovesToTrashForMailboxes___block_i
 + (id)predicateForMailboxAccountIdentifier:(id)identifier topLevelOnly:(BOOL)only
 {
   onlyCopy = only;
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v7 = MEMORY[0x1E696AB18];
   v8 = [MEMORY[0x1E696ABC8] expressionForKeyPath:@"account.objectID.representedObjectID"];
@@ -635,33 +634,29 @@ BOOL __63__EMMailbox_TriageInteraction__deleteMovesToTrashForMailboxes___block_i
   if (onlyCopy)
   {
     v11 = MEMORY[0x1E696AB28];
-    v17[0] = v10;
+    v16[0] = v10;
     predicateForTopLevelMailboxes = [self predicateForTopLevelMailboxes];
-    v17[1] = predicateForTopLevelMailboxes;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
+    v16[1] = predicateForTopLevelMailboxes;
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
     v14 = [v11 andPredicateWithSubpredicates:v13];
 
     v10 = v14;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)predicateForPrimaryMailboxWithAccount:(id)account
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   accountCopy = account;
   v5 = [self predicateForMailboxAccount:accountCopy topLevelOnly:0];
   v6 = [self predicateForMailboxType:7];
   v7 = MEMORY[0x1E696AB28];
-  v12[0] = v5;
-  v12[1] = v6;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
+  v11[0] = v5;
+  v11[1] = v6;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
   v9 = [v7 andPredicateWithSubpredicates:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -688,6 +683,19 @@ BOOL __63__EMMailbox_TriageInteraction__deleteMovesToTrashForMailboxes___block_i
   v5 = [v2 predicateWithLeftExpression:v3 rightExpression:v4 modifier:0 type:4 options:0];
 
   return v5;
+}
+
++ (id)_predicateForSmartMailboxes:(BOOL)mailboxes
+{
+  mailboxesCopy = mailboxes;
+  v4 = MEMORY[0x1E696AB18];
+  v5 = [MEMORY[0x1E696ABC8] expressionForKeyPath:@"isSmartMailbox"];
+  v6 = MEMORY[0x1E696ABC8];
+  v7 = [MEMORY[0x1E696AD98] numberWithBool:mailboxesCopy];
+  v8 = [v6 expressionForConstantValue:v7];
+  v9 = [v4 predicateWithLeftExpression:v5 rightExpression:v8 modifier:0 type:4 options:0];
+
+  return v9;
 }
 
 uint64_t __60__EMMailbox_EMQueryAdditions__sortDescriptorForDisplayOrder__block_invoke(uint64_t a1, void *a2, void *a3)

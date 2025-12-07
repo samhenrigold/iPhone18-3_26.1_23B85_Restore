@@ -15,67 +15,65 @@
 
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v39 = 0;
-    v3 = &CGContextFillRect_ptr;
+    v36 = 0;
     objc_opt_class();
-    v4 = __UIAccessibilityCastAsClass();
+    v3 = __UIAccessibilityCastAsClass();
+    v32 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
-    v37 = 0u;
-    v38 = 0u;
-    obj = [v4 subviews];
-    v5 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
-    if (v5)
+    obj = [v3 subviews];
+    v4 = [obj countByEnumeratingWithState:&v32 objects:v38 count:16];
+    if (v4)
     {
-      v6 = v5;
+      v5 = v4;
       selfCopy = self;
-      v28 = v4;
-      v7 = 0;
-      v30 = *v36;
+      v25 = v3;
+      v6 = 0;
+      v27 = *v33;
       do
       {
-        for (i = 0; i != v6; i = i + 1)
+        for (i = 0; i != v5; i = i + 1)
         {
-          if (*v36 != v30)
+          if (*v33 != v27)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v35 + 1) + 8 * i);
+          v8 = *(*(&v32 + 1) + 8 * i);
+          v28 = 0u;
+          v29 = 0u;
+          v30 = 0u;
           v31 = 0u;
-          v32 = 0u;
-          v33 = 0u;
-          v34 = 0u;
-          layer = [v9 layer];
+          layer = [v8 layer];
           sublayers = [layer sublayers];
 
-          v12 = [sublayers countByEnumeratingWithState:&v31 objects:v40 count:16];
-          if (v12)
+          v11 = [sublayers countByEnumeratingWithState:&v28 objects:v37 count:16];
+          if (v11)
           {
-            v13 = v12;
-            v14 = *v32;
+            v12 = v11;
+            v13 = *v29;
             while (2)
             {
-              for (j = 0; j != v13; j = j + 1)
+              for (j = 0; j != v12; ++j)
               {
-                if (*v32 != v14)
+                if (*v29 != v13)
                 {
                   objc_enumerationMutation(sublayers);
                 }
 
-                v16 = *(*(&v31 + 1) + 8 * j);
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v17 = v9;
+                  v15 = v8;
 
-                  v7 = v17;
+                  v6 = v15;
                   goto LABEL_19;
                 }
               }
 
-              v13 = [sublayers countByEnumeratingWithState:&v31 objects:v40 count:16];
-              if (v13)
+              v12 = [sublayers countByEnumeratingWithState:&v28 objects:v37 count:16];
+              if (v12)
               {
                 continue;
               }
@@ -87,48 +85,45 @@
 LABEL_19:
         }
 
-        v6 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
+        v5 = [obj countByEnumeratingWithState:&v32 objects:v38 count:16];
       }
 
-      while (v6);
+      while (v5);
 
-      if (!v7)
+      if (!v6)
       {
         self = selfCopy;
-        v4 = v28;
-        v3 = &CGContextFillRect_ptr;
+        v3 = v25;
         goto LABEL_26;
       }
 
-      layer2 = [v7 layer];
+      layer2 = [v6 layer];
       [AXInvertColorsAppHelper toggleInvertColors:layer2];
       self = selfCopy;
-      v4 = v28;
-      v3 = &CGContextFillRect_ptr;
+      v3 = v25;
     }
 
     else
     {
-      v7 = 0;
+      v6 = 0;
       layer2 = obj;
     }
 
 LABEL_26:
-    [v7 setAccessibilityIgnoresInvertColors:0];
-    [v4 setAccessibilityIgnoresInvertColors:1];
-    v39 = 0;
-    v19 = v3[137];
+    [v6 setAccessibilityIgnoresInvertColors:0];
+    [v3 setAccessibilityIgnoresInvertColors:1];
+    v36 = 0;
     objc_opt_class();
-    v20 = [(TPNumberPadButtonInvertColorsAccessibility *)self safeValueForKey:@"circleView"];
-    v21 = __UIAccessibilityCastAsClass();
+    v17 = [(TPNumberPadButtonInvertColorsAccessibility *)self safeValueForKey:@"circleView"];
+    v18 = __UIAccessibilityCastAsClass();
 
-    if (v39 == 1)
+    if (v36 == 1)
     {
       abort();
     }
 
     _accessibilityBackgroundColor = [(TPNumberPadButtonInvertColorsAccessibility *)self _accessibilityBackgroundColor];
-    v23 = _accessibilityBackgroundColor;
+    v20 = _accessibilityBackgroundColor;
     if (_accessibilityBackgroundColor)
     {
       backgroundColor = _accessibilityBackgroundColor;
@@ -136,19 +131,19 @@ LABEL_26:
 
     else
     {
-      backgroundColor = [v21 backgroundColor];
+      backgroundColor = [v18 backgroundColor];
     }
 
-    v25 = backgroundColor;
+    v22 = backgroundColor;
 
     if (_AXSInvertColorsEnabled())
     {
-      v26 = AXInvertColorForColorPreservingAlpha();
+      v23 = AXInvertColorForColorPreservingAlpha();
 
-      v25 = v26;
+      v22 = v23;
     }
 
-    [v21 setBackgroundColor:v25];
+    [v18 setBackgroundColor:v22];
   }
 }
 

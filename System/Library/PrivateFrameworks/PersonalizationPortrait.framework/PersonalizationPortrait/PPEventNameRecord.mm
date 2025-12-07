@@ -1,5 +1,6 @@
 @interface PPEventNameRecord
 + (id)describeChangeType:(unsigned __int8)type;
++ (id)eventNameRecordWithScore:(double)score eventIdentifier:(id)identifier changeType:(unsigned __int8)type title:(id)title location:(id)location participantNames:(id)names;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToEventNameRecord:(id)record;
 - (PPEventNameRecord)initWithCoder:(id)coder;
@@ -155,7 +156,7 @@ LABEL_15:
 
 - (PPEventNameRecord)initWithCoder:(id)coder
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = objc_opt_class();
   v6 = objc_opt_class();
@@ -178,7 +179,7 @@ LABEL_15:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v24 = coderCopy;
+      v23 = coderCopy;
       _os_log_error_impl(&dword_1A7FD3000, v11, OS_LOG_TYPE_ERROR, "failed to decode identifier or eventIdentifier from %@", buf, 0xCu);
     }
 
@@ -201,7 +202,6 @@ LABEL_15:
     selfCopy = self;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -277,6 +277,21 @@ LABEL_15:
   }
 
   return type;
+}
+
++ (id)eventNameRecordWithScore:(double)score eventIdentifier:(id)identifier changeType:(unsigned __int8)type title:(id)title location:(id)location participantNames:(id)names
+{
+  typeCopy = type;
+  namesCopy = names;
+  locationCopy = location;
+  titleCopy = title;
+  identifierCopy = identifier;
+  v17 = [PPEventNameRecord alloc];
+  uUID = [MEMORY[0x1E696AFB0] UUID];
+  uUIDString = [uUID UUIDString];
+  v20 = [(PPEventNameRecord *)v17 initWithIdentifier:uUIDString score:identifierCopy eventIdentifier:typeCopy changeType:titleCopy title:locationCopy location:namesCopy participantNames:score];
+
+  return v20;
 }
 
 @end

@@ -236,7 +236,7 @@ LABEL_13:
   }
 
   v4 = [PLGraphEdge updatedEdgesInvolvingNode:self];
-  v3 = [v4 count] != 0;
+  v3 = objc_msgSend_count(v4) != 0;
 
   return v3;
 }
@@ -564,8 +564,8 @@ uint64_t __51__PLGraphNode__assignmentForLabel_createIfMissing___block_invoke(ui
   pl_graphCache = [managedObjectContext pl_graphCache];
   v8 = [pl_graphCache labelWithCode:2000 inContext:managedObjectContext];
   v9 = [PLGraphNode insertGraphNodeInContext:managedObjectContext withPrimaryLabel:v8];
-  entity = [objectCopy entity];
-  name = [entity name];
+  v10 = objc_msgSend_entity(objectCopy);
+  name = [v10 name];
   v12 = [self _relationshipNameForActingEntityName:name];
 
   [v9 willChangeValueForKey:v12];
@@ -589,7 +589,7 @@ uint64_t __51__PLGraphNode__assignmentForLabel_createIfMissing___block_invoke(ui
   userInfo = [contextCopy userInfo];
   v5 = [userInfo objectForKeyedSubscript:@"pl_actingobjectIDsPendingNodeCleanup"];
 
-  if ([v5 count])
+  if (objc_msgSend_count(v5))
   {
     _actingObjectRelationshipNames = [self _actingObjectRelationshipNames];
     v7 = +[PLGraphNode entityName];
@@ -608,7 +608,7 @@ uint64_t __51__PLGraphNode__assignmentForLabel_createIfMissing___block_invoke(ui
   v119 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   contextCopy = context;
-  if (![dsCopy count])
+  if (!objc_msgSend_count(dsCopy))
   {
     v92 = 0;
     goto LABEL_61;
@@ -616,9 +616,9 @@ uint64_t __51__PLGraphNode__assignmentForLabel_createIfMissing___block_invoke(ui
 
   selfCopy = self;
   v88 = contextCopy;
-  v93 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(dsCopy, "count")}];
-  v91 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(dsCopy, "count")}];
-  v89 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(dsCopy, "count")}];
+  v93 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:objc_msgSend_count(dsCopy)];
+  v91 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:objc_msgSend_count(dsCopy)];
+  v89 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:objc_msgSend_count(dsCopy)];
   v108 = 0u;
   v109 = 0u;
   v110 = 0u;
@@ -639,23 +639,23 @@ uint64_t __51__PLGraphNode__assignmentForLabel_createIfMissing___block_invoke(ui
         }
 
         v15 = *(*(&v108 + 1) + 8 * i);
-        entity = [v15 entity];
-        v17 = +[PLManagedAsset entity];
-        v18 = [entity isKindOfEntity:v17];
+        v16 = objc_msgSend_entity(v15);
+        v17 = objc_msgSend_entity(PLManagedAsset);
+        v18 = [v16 isKindOfEntity:v17];
 
         v19 = v93;
         if ((v18 & 1) == 0)
         {
-          entity2 = [v15 entity];
-          v21 = +[PLMoment entity];
-          v22 = [entity2 isKindOfEntity:v21];
+          v20 = objc_msgSend_entity(v15);
+          v21 = objc_msgSend_entity(PLMoment);
+          v22 = [v20 isKindOfEntity:v21];
 
           v19 = v91;
           if ((v22 & 1) == 0)
           {
-            entity3 = [v15 entity];
-            v24 = +[PLPerson entity];
-            v25 = [entity3 isKindOfEntity:v24];
+            v23 = objc_msgSend_entity(v15);
+            v24 = objc_msgSend_entity(PLPerson);
+            v25 = [v23 isKindOfEntity:v24];
 
             v19 = v89;
             if (!v25)
@@ -675,7 +675,7 @@ uint64_t __51__PLGraphNode__assignmentForLabel_createIfMissing___block_invoke(ui
   }
 
   v26 = [MEMORY[0x1E695DF70] arrayWithCapacity:3];
-  if ([v93 count])
+  if (objc_msgSend_count(v93))
   {
     v27 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K IN %@", @"actingAsset", v93];
     [v26 addObject:v27];
@@ -684,13 +684,13 @@ uint64_t __51__PLGraphNode__assignmentForLabel_createIfMissing___block_invoke(ui
   v28 = v91;
   contextCopy = v88;
   v29 = v89;
-  if ([v91 count])
+  if (objc_msgSend_count(v91))
   {
     v30 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K IN %@", @"actingMoment", v91];
     [v26 addObject:v30];
   }
 
-  if ([v89 count])
+  if (objc_msgSend_count(v89))
   {
     v31 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K IN %@", @"actingPerson", v89];
     [v26 addObject:v31];
@@ -726,7 +726,7 @@ LABEL_58:
   v82 = v32;
   v83 = v26;
   v84 = dsCopy;
-  v92 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v10, "count")}];
+  v92 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:objc_msgSend_count(v10)];
   v103 = 0u;
   v104 = 0u;
   v105 = 0u;
@@ -756,9 +756,9 @@ LABEL_58:
 
       actingObject2 = [v40 actingObject];
       objectID2 = [actingObject2 objectID];
-      entity4 = [objectID2 entity];
-      v46 = +[PLManagedAsset entity];
-      v47 = [entity4 isKindOfEntity:v46];
+      v45 = objc_msgSend_entity(objectID2);
+      v46 = objc_msgSend_entity(PLManagedAsset);
+      v47 = [v45 isKindOfEntity:v46];
 
       actingObject3 = [v40 actingObject];
       objectID3 = [actingObject3 objectID];
@@ -770,9 +770,9 @@ LABEL_58:
 
       else
       {
-        entity5 = [objectID3 entity];
-        v53 = +[PLMoment entity];
-        v54 = [entity5 isKindOfEntity:v53];
+        v52 = objc_msgSend_entity(objectID3);
+        v53 = objc_msgSend_entity(PLMoment);
+        v54 = [v52 isKindOfEntity:v53];
 
         actingObject3 = [v40 actingObject];
         objectID4 = [actingObject3 objectID];
@@ -784,9 +784,9 @@ LABEL_58:
 
         else
         {
-          entity6 = [objectID4 entity];
-          v57 = +[PLPerson entity];
-          v58 = [entity6 isKindOfEntity:v57];
+          v56 = objc_msgSend_entity(objectID4);
+          v57 = objc_msgSend_entity(PLPerson);
+          v58 = [v56 isKindOfEntity:v57];
 
           if (!v58)
           {
@@ -833,12 +833,12 @@ LABEL_34:
           }
 
           v64 = *(*(&v99 + 1) + 8 * k);
-          if ([v64 count])
+          if (objc_msgSend_count(v64))
           {
             v65 = objc_alloc_init(MEMORY[0x1E695D5E0]);
             anyObject = [v64 anyObject];
-            entity7 = [anyObject entity];
-            [v65 setEntity:entity7];
+            v67 = objc_msgSend_entity(anyObject);
+            [v65 setEntity:v67];
 
             v68 = [MEMORY[0x1E696AE18] predicateWithFormat:@"self IN %@", v64];
             [v65 setPredicate:v68];
@@ -938,9 +938,9 @@ LABEL_61:
 {
   nameCopy = name;
   v6 = +[PLManagedAsset entityName];
-  v7 = [nameCopy isEqualToString:v6];
+  isEqualToString = objc_msgSend_isEqualToString_(nameCopy);
 
-  if (v7)
+  if (isEqualToString)
   {
     v8 = @"actingAsset";
   }
@@ -948,7 +948,7 @@ LABEL_61:
   else
   {
     v9 = +[PLPerson entityName];
-    v10 = [nameCopy isEqualToString:v9];
+    v10 = objc_msgSend_isEqualToString_(nameCopy);
 
     if (v10)
     {
@@ -958,7 +958,7 @@ LABEL_61:
     else
     {
       v11 = +[PLMoment entityName];
-      v12 = [nameCopy isEqualToString:v11];
+      v12 = objc_msgSend_isEqualToString_(nameCopy);
 
       if (v12)
       {
@@ -1424,8 +1424,8 @@ void __84__PLGraphNode_fetchObjectIDsForNodesWithExternalIdentifiers_inManagedOb
 
   v7 = +[PLGraphNode fetchRequest];
   v8 = MEMORY[0x1E696AEC0];
-  entity = [objectCopy entity];
-  v10 = [self _actingRelationshipNameForEntity:entity];
+  v9 = objc_msgSend_entity(objectCopy);
+  v10 = [self _actingRelationshipNameForEntity:v9];
   v11 = [v8 stringWithFormat:@"%@", v10];
 
   objectCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K = %@", v11, objectCopy];
@@ -1462,9 +1462,9 @@ void __84__PLGraphNode_fetchObjectIDsForNodesWithExternalIdentifiers_inManagedOb
   entityCopy = entity;
   name = [entityCopy name];
   v7 = +[PLManagedAsset entityName];
-  v8 = [name isEqualToString:v7];
+  isEqualToString = objc_msgSend_isEqualToString_(name);
 
-  if (v8)
+  if (isEqualToString)
   {
     v9 = @"actingAsset";
   }
@@ -1473,7 +1473,7 @@ void __84__PLGraphNode_fetchObjectIDsForNodesWithExternalIdentifiers_inManagedOb
   {
     name2 = [entityCopy name];
     v11 = +[PLPerson entityName];
-    v12 = [name2 isEqualToString:v11];
+    v12 = objc_msgSend_isEqualToString_(name2);
 
     if (v12)
     {
@@ -1484,7 +1484,7 @@ void __84__PLGraphNode_fetchObjectIDsForNodesWithExternalIdentifiers_inManagedOb
     {
       name3 = [entityCopy name];
       v14 = +[PLMoment entityName];
-      v15 = [name3 isEqualToString:v14];
+      v15 = objc_msgSend_isEqualToString_(name3);
 
       if (v15)
       {
@@ -1510,7 +1510,7 @@ void __84__PLGraphNode_fetchObjectIDsForNodesWithExternalIdentifiers_inManagedOb
   userInfo = [contextCopy userInfo];
   v5 = [userInfo objectForKeyedSubscript:@"pl_nodeIDsPendingEdgeCleanup"];
 
-  if ([v5 count])
+  if (objc_msgSend_count(v5))
   {
     _edgeRelationshipNames = [self _edgeRelationshipNames];
     v7 = +[PLGraphEdge entityName];
@@ -1530,7 +1530,7 @@ void __84__PLGraphNode_fetchObjectIDsForNodesWithExternalIdentifiers_inManagedOb
   keysCopy = keys;
   nameCopy = name;
   contextCopy = context;
-  if ([dsCopy count])
+  if (objc_msgSend_count(dsCopy))
   {
     v52 = nameCopy;
     v53 = contextCopy;
@@ -1564,7 +1564,7 @@ void __84__PLGraphNode_fetchObjectIDsForNodesWithExternalIdentifiers_inManagedOb
           v62[4] = v19;
           v62[5] = self;
           v20 = [dsCopy _pl_filter:v62];
-          if ([v20 count])
+          if (objc_msgSend_count(v20))
           {
             v21 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K IN %@", v19, v20];
             [array addObject:v21];
@@ -1615,9 +1615,9 @@ void __84__PLGraphNode_fetchObjectIDsForNodesWithExternalIdentifiers_inManagedOb
             }
 
             v32 = *(*(&v57 + 1) + 8 * j);
-            entity = [v32 entity];
-            v34 = +[PLGraphNode entity];
-            v35 = [entity isKindOfEntity:v34];
+            v33 = objc_msgSend_entity(v32);
+            v34 = objc_msgSend_entity(PLGraphNode);
+            v35 = [v33 isKindOfEntity:v34];
 
             if (v35)
             {
@@ -1625,9 +1625,9 @@ void __84__PLGraphNode_fetchObjectIDsForNodesWithExternalIdentifiers_inManagedOb
               continue;
             }
 
-            entity2 = [v32 entity];
-            v37 = +[PLGraphEdge entity];
-            v38 = [entity2 isKindOfEntity:v37];
+            v36 = objc_msgSend_entity(v32);
+            v37 = objc_msgSend_entity(PLGraphEdge);
+            v38 = [v36 isKindOfEntity:v37];
 
             if (v38)
             {
@@ -1702,12 +1702,12 @@ uint64_t __126__PLGraphNode__cleanupDanglingReferencesToDeletedObjectIDs_referen
   v2 = *(a1 + 40);
   v4 = a2;
   v5 = [v2 _entityNameFromDanglingObjectRelationshipName:v3];
-  v6 = [v4 entity];
+  v6 = objc_msgSend_entity(v4);
 
   v7 = [v6 name];
-  v8 = [v7 isEqualToString:v5];
+  isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-  return v8;
+  return isEqualToString;
 }
 
 + (id)_entityNameFromDanglingObjectRelationshipName:(id)name
@@ -1719,7 +1719,7 @@ uint64_t __126__PLGraphNode__cleanupDanglingReferencesToDeletedObjectIDs_referen
     [currentHandler handleFailureInMethod:a2 object:self file:@"PLGraphNode.m" lineNumber:196 description:{@"Invalid parameter not satisfying: %@", @"relationshipName"}];
   }
 
-  if ([nameCopy isEqualToString:@"actingAsset"])
+  if (objc_msgSend_isEqualToString_(nameCopy))
   {
     v6 = PLManagedAsset;
 LABEL_12:
@@ -1727,19 +1727,19 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  if ([nameCopy isEqualToString:@"actingPerson"])
+  if (objc_msgSend_isEqualToString_(nameCopy))
   {
     v6 = PLPerson;
     goto LABEL_12;
   }
 
-  if ([nameCopy isEqualToString:@"actingMoment"])
+  if (objc_msgSend_isEqualToString_(nameCopy))
   {
     v6 = PLMoment;
     goto LABEL_12;
   }
 
-  if ([nameCopy isEqualToString:@"sourceNode"] || objc_msgSend(nameCopy, "isEqualToString:", @"targetNode"))
+  if (objc_msgSend_isEqualToString_(nameCopy) || objc_msgSend_isEqualToString_(nameCopy))
   {
     v6 = PLGraphNode;
     goto LABEL_12;
@@ -1890,7 +1890,7 @@ LABEL_3:
 
   if (v17)
   {
-    v18 = +[PLGraphEdge entity];
+    v18 = objc_msgSend_entity(PLGraphEdge);
     v47 = 0u;
     v48 = 0u;
     v49 = 0u;
@@ -1914,8 +1914,8 @@ LABEL_3:
           }
 
           v23 = *(*(&v47 + 1) + 8 * i);
-          entity = [v23 entity];
-          v25 = [entity isKindOfEntity:v18];
+          v24 = objc_msgSend_entity(v23);
+          v25 = [v24 isKindOfEntity:v18];
 
           if (v25)
           {

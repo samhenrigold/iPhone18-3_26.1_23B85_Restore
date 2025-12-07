@@ -61,9 +61,11 @@
   swift_getKeyPath();
   swift_getKeyPath();
   selfCopy = self;
-  static Published.subscript.getter();
+  static Published.subscript.getter(&v6);
 
-  return v5;
+  v4 = v6;
+
+  return v4;
 }
 
 - (void)setSelection:(id)selection
@@ -97,7 +99,7 @@
   _bridgeAnyObjectToAny(_:)();
   swift_unknownObjectRelease();
   [*&selfCopy->ICNAViewController_opaque[OBJC_IVAR___ICActivityStreamViewController_coordinator] hideActivityStreamWithCompletion:0];
-  sub_100009F60(&v5);
+  sub_100009F60(v5);
 }
 
 - (ICActivityStreamViewController)initWithNibName:(id)name bundle:(id)bundle

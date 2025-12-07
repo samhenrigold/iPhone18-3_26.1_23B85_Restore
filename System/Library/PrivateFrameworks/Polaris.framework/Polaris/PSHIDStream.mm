@@ -1,4 +1,6 @@
 @interface PSHIDStream
+- (BOOL)setHIDBatchInterval:(unsigned int)interval;
+- (BOOL)setHIDReportInterval:(unsigned int)interval;
 - (PSHIDStream)initWithKey:(id)key rate:(unint64_t)rate queue:(id)queue writerInstance:(PRMWriterInstance *)instance execSessionName:(id)name;
 - (void)createLiveness:(id)liveness rate:(unint64_t)rate sessionName:(id)name;
 - (void)dealloc;
@@ -23,13 +25,13 @@
 
 - (PSHIDStream)initWithKey:(id)key rate:(unint64_t)rate queue:(id)queue writerInstance:(PRMWriterInstance *)instance execSessionName:(id)name
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   queueCopy = queue;
   nameCopy = name;
-  v30.receiver = self;
-  v30.super_class = PSHIDStream;
-  v16 = [(PSHIDStream *)&v30 init];
+  v31.receiver = self;
+  v31.super_class = PSHIDStream;
+  v16 = [(PSHIDStream *)&v31 init];
   v17 = v16;
   v18 = v16;
   if (!v16)
@@ -68,26 +70,26 @@
     v24 = v18;
 LABEL_7:
 
-    v25 = *MEMORY[0x277D85DE8];
     return v18;
   }
 
-  v29 = 0;
-  asprintf(&v29, "OOM!");
-  v27 = __PLSLogSharedInstance();
+  v30 = 0;
+  v26 = asprintf(&v30, "OOM!");
+  v27 = __PLSLogSharedInstance(v26);
   if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315394;
-    v32 = "[PSHIDStream initWithKey:rate:queue:writerInstance:execSessionName:]";
-    v33 = 1024;
-    v34 = 122;
+    v33 = "[PSHIDStream initWithKey:rate:queue:writerInstance:execSessionName:]";
+    v34 = 1024;
+    v35 = 122;
     _os_log_impl(&dword_25EA3A000, v27, OS_LOG_TYPE_FAULT, "%s:%d OOM!", buf, 0x12u);
   }
 
-  if (OSLogFlushBuffers())
+  v28 = OSLogFlushBuffers();
+  if (v28)
   {
-    v28 = __PLSLogSharedInstance();
-    [PSHIDStream initWithKey:v28 rate:? queue:? writerInstance:? execSessionName:?];
+    v29 = __PLSLogSharedInstance(v28);
+    [PSHIDStream initWithKey:v29 rate:? queue:? writerInstance:? execSessionName:?];
   }
 
   else
@@ -98,6 +100,24 @@ LABEL_7:
   result = abort_with_reason();
   __break(1u);
   return result;
+}
+
+- (BOOL)setHIDReportInterval:(unsigned int)interval
+{
+  serviceClient = self->_serviceClient;
+  v4 = [MEMORY[0x277CCABB0] numberWithInt:*&interval];
+  LOBYTE(serviceClient) = IOHIDServiceClientSetProperty(serviceClient, @"ReportInterval", v4) != 0;
+
+  return serviceClient;
+}
+
+- (BOOL)setHIDBatchInterval:(unsigned int)interval
+{
+  serviceClient = self->_serviceClient;
+  v4 = [MEMORY[0x277CCABB0] numberWithInt:*&interval];
+  LOBYTE(serviceClient) = IOHIDServiceClientSetProperty(serviceClient, @"BatchInterval", v4) != 0;
+
+  return serviceClient;
 }
 
 - (void)dealloc
@@ -119,33 +139,29 @@ LABEL_7:
 
 - (void)start
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_1_1(v1))
+  v2 = __PLSLogSharedInstance(self);
+  if (OUTLINED_FUNCTION_1_1(v2))
   {
     OUTLINED_FUNCTION_2_2();
     OUTLINED_FUNCTION_0_0();
-    _os_log_impl(v2, v3, v4, v5, v6, 0x12u);
+    _os_log_impl(v3, v4, v5, v6, v7, 0x12u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (self->_serviceClient)
   {
-    systemClient = self->_systemClient;
     IOHIDEventSystemClientCancel();
-    ps_system_stream_context_semaphore_wait(self->_sys_stream_context);
-    v4 = __PLSLogSharedInstance();
+    v3 = ps_system_stream_context_semaphore_wait(self->_sys_stream_context);
+    v4 = __PLSLogSharedInstance(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       v5 = [(PSHIDStream *)self key];
-      v12 = 138412290;
-      v13 = v5;
-      _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_DEBUG, "stopStreams %@", &v12, 0xCu);
+      v10 = 138412290;
+      v11 = v5;
+      _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_DEBUG, "stopStreams %@", &v10, 0xCu);
     }
 
     ps_liveness_node_pause(self->_livenessNode, 1);
@@ -156,7 +172,6 @@ LABEL_7:
     if (self->_systemClient)
     {
       IOHIDEventSystemClientUnregisterEventCallback();
-      v6 = self->_systemClient;
       queue = [(PSHIDStream *)self queue];
       IOHIDEventSystemClientCancel();
     }
@@ -167,10 +182,10 @@ LABEL_7:
       CFRelease(serviceClient);
     }
 
-    v9 = self->_systemClient;
-    if (v9)
+    systemClient = self->_systemClient;
+    if (systemClient)
     {
-      CFRelease(v9);
+      CFRelease(systemClient);
     }
   }
 
@@ -179,21 +194,16 @@ LABEL_7:
   {
     free(hid_stream_context);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithKey:(NSObject *)a1 rate:queue:writerInstance:execSessionName:.cold.1(NSObject *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_2_2();
     OUTLINED_FUNCTION_0_0();
     _os_log_impl(v2, v3, v4, v5, v6, 0x12u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

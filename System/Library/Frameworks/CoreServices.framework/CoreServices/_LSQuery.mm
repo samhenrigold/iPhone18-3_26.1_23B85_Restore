@@ -27,7 +27,7 @@
 - (void)setLegacy:(BOOL)legacy
 {
   self->_legacy = legacy;
-  if (legacy && ([__LSDefaultsGetSharedInstance() isServer] & 1) == 0)
+  if (legacy && ([__LSDefaultsGetSharedInstance(self a2)] & 1) == 0)
   {
     __LAUNCH_SERVICES_IS_GENERATING_A_SANDBOX_EXCEPTION_BECAUSE_THIS_PROCESS_MAY_NOT_MAP_THE_DATABASE__();
     __LAUNCH_SERVICES_IS_ABORTING_BECAUSE_THIS_PROCESS_MAY_NOT_MAP_THE_DATABASE__();

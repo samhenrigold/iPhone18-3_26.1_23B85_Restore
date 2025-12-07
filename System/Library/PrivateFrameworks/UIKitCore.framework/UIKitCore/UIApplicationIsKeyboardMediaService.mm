@@ -6,9 +6,9 @@
 void ___UIApplicationIsKeyboardMediaService_block_invoke()
 {
   v0 = _UIMainBundleIdentifier();
-  v1 = [v0 isEqualToString:UIKeyboardMediaServiceBundleIdentifier];
+  isEqualToString = objc_msgSend_isEqualToString_(v0);
 
-  if (v1)
+  if (isEqualToString)
   {
     byte_1EA992DAE = 1;
   }

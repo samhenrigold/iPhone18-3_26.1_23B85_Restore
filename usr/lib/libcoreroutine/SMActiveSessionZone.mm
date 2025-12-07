@@ -1185,7 +1185,7 @@ void __68__SMActiveSessionZone__updateActiveSessionDetailsFromCloudKitRecord__bl
     }
   }
 
-  [*(a1 + 32) _onActiveSessionDetailsFetchAttemptFromCKCompleted:v7 success:a3 error:{v8, *v15}];
+  [*(a1 + 32) _onActiveSessionDetailsFetchAttemptFromCKCompleted:v7 success:a3 error:{v8, *v15, *&v15[8]}];
 }
 
 - (void)fetchActiveSessionDetailsRecordWithQos:(id)qos completion:(id)completion
@@ -2647,7 +2647,7 @@ void __82__SMActiveSessionZone__writeActiveSessionDetailsOnCloudToInitiateHandof
       }
     }
 
-    [*(a1 + 40) _updateActiveSessionDetailsLocalCopy:{*(a1 + 32), *v16}];
+    [*(a1 + 40) _updateActiveSessionDetailsLocalCopy:{*(a1 + 32), *v16, *&v16[8]}];
   }
 
   else
@@ -2691,9 +2691,9 @@ void __60__SMActiveSessionZone_fetchActiveSessionDetailsWithHandler___block_invo
     v8[2] = __60__SMActiveSessionZone_fetchActiveSessionDetailsWithHandler___block_invoke_2;
     v8[3] = &unk_2788D00C0;
     v8[4] = v3;
-    *v6 = *(a1 + 40);
-    v4 = v6[0];
-    v9 = *v6;
+    v6 = *(a1 + 40);
+    v4 = v6;
+    v9 = v6;
     [v3 _fetchActiveSessionDetailsWithRetryCount:2 qosOptions:v2 completion:v8];
   }
 
@@ -2739,7 +2739,7 @@ void __60__SMActiveSessionZone_fetchActiveSessionDetailsWithHandler___block_invo
     }
   }
 
-  [*(a1 + 32) _onActiveSessionDetailsFetchAttemptFromCKCompleted:v7 success:a3 error:{v8, *v15}];
+  [*(a1 + 32) _onActiveSessionDetailsFetchAttemptFromCKCompleted:v7 success:a3 error:{v8, *v15, *&v15[8]}];
   (*(*(a1 + 40) + 16))();
 }
 

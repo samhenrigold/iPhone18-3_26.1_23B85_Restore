@@ -54,7 +54,7 @@
 
 - (id)cachedItemMatching:(id)matching
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   matchingCopy = matching;
   if ([matchingCopy type] != 5 || !objc_msgSend(matchingCopy, "conformsToProtocol:", &unk_285466B38))
   {
@@ -72,14 +72,14 @@
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         serverType2 = [v5 serverType];
-        v22 = NSStringFromBCSType([v5 type]);
-        v23 = 136315650;
-        v24 = "[BCSWebPresentmentItemResolver cachedItemMatching:]";
-        v25 = 2048;
-        v26 = serverType2;
-        v27 = 2112;
-        v28 = v22;
-        _os_log_error_impl(&dword_242072000, v9, OS_LOG_TYPE_ERROR, "%s - Invalid server type (Logos (%ld)) for type: %@", &v23, 0x20u);
+        v21 = NSStringFromBCSType([v5 type]);
+        v22 = 136315650;
+        v23 = "[BCSWebPresentmentItemResolver cachedItemMatching:]";
+        v24 = 2048;
+        v25 = serverType2;
+        v26 = 2112;
+        v27 = v21;
+        _os_log_error_impl(&dword_242072000, v9, OS_LOG_TYPE_ERROR, "%s - Invalid server type (Logos (%ld)) for type: %@", &v22, 0x20u);
       }
 
       goto LABEL_25;
@@ -96,13 +96,13 @@
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
           itemCache2 = NSStringFromBCSType([v5 type]);
-          v23 = 136315394;
-          v24 = "[BCSWebPresentmentItemResolver cachedItemMatching:]";
-          v25 = 2112;
-          v26 = itemCache2;
+          v22 = 136315394;
+          v23 = "[BCSWebPresentmentItemResolver cachedItemMatching:]";
+          v24 = 2112;
+          v25 = itemCache2;
           v11 = "%s - Caching disabled for web presentment permissions type: %@";
 LABEL_13:
-          _os_log_debug_impl(&dword_242072000, v9, OS_LOG_TYPE_DEBUG, v11, &v23, 0x16u);
+          _os_log_debug_impl(&dword_242072000, v9, OS_LOG_TYPE_DEBUG, v11, &v22, 0x16u);
 LABEL_22:
 
           goto LABEL_25;
@@ -136,11 +136,11 @@ LABEL_14:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       v18 = NSStringFromBCSType([v5 type]);
-      v23 = 136315394;
-      v24 = "[BCSWebPresentmentItemResolver cachedItemMatching:]";
-      v25 = 2112;
-      v26 = v18;
-      _os_log_impl(&dword_242072000, v17, OS_LOG_TYPE_DEFAULT, "%s - Cached item found but expired - type: %@ --> deleting", &v23, 0x16u);
+      v22 = 136315394;
+      v23 = "[BCSWebPresentmentItemResolver cachedItemMatching:]";
+      v24 = 2112;
+      v25 = v18;
+      _os_log_impl(&dword_242072000, v17, OS_LOG_TYPE_DEFAULT, "%s - Cached item found but expired - type: %@ --> deleting", &v22, 0x16u);
     }
 
     itemCache2 = [(BCSWebPresentmentItemResolver *)self itemCache];
@@ -160,10 +160,10 @@ LABEL_14:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     itemCache2 = NSStringFromBCSType([v5 type]);
-    v23 = 136315394;
-    v24 = "[BCSWebPresentmentItemResolver cachedItemMatching:]";
-    v25 = 2112;
-    v26 = itemCache2;
+    v22 = 136315394;
+    v23 = "[BCSWebPresentmentItemResolver cachedItemMatching:]";
+    v24 = 2112;
+    v25 = itemCache2;
     v11 = "%s - Caching disabled for web presentment item type: %@";
     goto LABEL_13;
   }
@@ -174,14 +174,13 @@ LABEL_25:
 LABEL_26:
 
 LABEL_27:
-  v19 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (void)itemMatching:(id)matching metric:(id)metric completion:(id)completion
 {
-  v49[1] = *MEMORY[0x277D85DE8];
+  v48[1] = *MEMORY[0x277D85DE8];
   matchingCopy = matching;
   metricCopy = metric;
   completionCopy = completion;
@@ -189,7 +188,7 @@ LABEL_27:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v45 = "[BCSWebPresentmentItemResolver itemMatching:metric:completion:]";
+    v44 = "[BCSWebPresentmentItemResolver itemMatching:metric:completion:]";
     _os_log_impl(&dword_242072000, v11, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
@@ -198,9 +197,9 @@ LABEL_27:
 
   if (type != 5)
   {
-    v48 = *MEMORY[0x277CCA450];
-    v49[0] = @"Invalid type";
-    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:&v48 count:1];
+    v47 = *MEMORY[0x277CCA450];
+    v48[0] = @"Invalid type";
+    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:&v47 count:1];
     v15 = [BCSError errorWithDomain:@"com.apple.businessservices" code:42 userInfo:v25];
 
     completionCopy[2](completionCopy, 0, v15);
@@ -226,37 +225,37 @@ LABEL_27:
     if (v22)
     {
       itemIdentifier4 = [matchingCopy itemIdentifier];
-      v28 = NSStringFromBCSType([itemIdentifier4 type]);
+      v27 = NSStringFromBCSType([itemIdentifier4 type]);
       *buf = 136315394;
-      v45 = "[BCSWebPresentmentItemResolver itemMatching:metric:completion:]";
-      v46 = 2112;
-      v47 = v28;
+      v44 = "[BCSWebPresentmentItemResolver itemMatching:metric:completion:]";
+      v45 = 2112;
+      v46 = v27;
       _os_log_impl(&dword_242072000, v21, OS_LOG_TYPE_DEFAULT, "%s - Item not found in cache for - type: %@", buf, 0x16u);
     }
 
     if ([matchingCopy cacheOnly])
     {
-      v29 = ABSLogCommon();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      v28 = ABSLogCommon();
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
         itemIdentifier5 = [matchingCopy itemIdentifier];
-        v31 = NSStringFromBCSType([itemIdentifier5 type]);
+        v30 = NSStringFromBCSType([itemIdentifier5 type]);
         *buf = 136315394;
-        v45 = "[BCSWebPresentmentItemResolver itemMatching:metric:completion:]";
-        v46 = 2112;
-        v47 = v31;
-        _os_log_impl(&dword_242072000, v29, OS_LOG_TYPE_DEFAULT, "%s - Query is cache-only, skipping fetch for item of type: %@", buf, 0x16u);
+        v44 = "[BCSWebPresentmentItemResolver itemMatching:metric:completion:]";
+        v45 = 2112;
+        v46 = v30;
+        _os_log_impl(&dword_242072000, v28, OS_LOG_TYPE_DEFAULT, "%s - Query is cache-only, skipping fetch for item of type: %@", buf, 0x16u);
       }
 
-      v32 = [BCSError errorWithDomain:@"com.apple.businessservices" code:47 errorDescription:@"Item not found in cache"];
+      v31 = [BCSError errorWithDomain:@"com.apple.businessservices" code:47 errorDescription:@"Item not found in cache"];
     }
 
     else
     {
       itemIdentifier6 = [matchingCopy itemIdentifier];
-      v34 = [itemIdentifier6 conformsToProtocol:&unk_285466B38];
+      v33 = [itemIdentifier6 conformsToProtocol:&unk_285466B38];
 
-      if (v34)
+      if (v33)
       {
         itemIdentifier7 = [matchingCopy itemIdentifier];
         serverType = [itemIdentifier7 serverType];
@@ -269,12 +268,12 @@ LABEL_27:
 
           else
           {
-            v42 = *MEMORY[0x277CCA450];
-            v43 = @"Invalid identifier type";
-            v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
-            v39 = [BCSError errorWithDomain:@"com.apple.businessservices" code:42 userInfo:v38];
+            v41 = *MEMORY[0x277CCA450];
+            v42 = @"Invalid identifier type";
+            v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+            v38 = [BCSError errorWithDomain:@"com.apple.businessservices" code:42 userInfo:v37];
 
-            completionCopy[2](completionCopy, 0, v39);
+            completionCopy[2](completionCopy, 0, v38);
           }
         }
 
@@ -286,13 +285,13 @@ LABEL_27:
         goto LABEL_25;
       }
 
-      v40 = *MEMORY[0x277CCA450];
-      v41 = @"Invalid identifier type";
-      v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
-      v32 = [BCSError errorWithDomain:@"com.apple.businessservices" code:42 userInfo:v37];
+      v39 = *MEMORY[0x277CCA450];
+      v40 = @"Invalid identifier type";
+      v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+      v31 = [BCSError errorWithDomain:@"com.apple.businessservices" code:42 userInfo:v36];
     }
 
-    completionCopy[2](completionCopy, 0, v32);
+    completionCopy[2](completionCopy, 0, v31);
 
 LABEL_25:
     v15 = 0;
@@ -304,16 +303,14 @@ LABEL_25:
     itemIdentifier8 = [matchingCopy itemIdentifier];
     v24 = NSStringFromBCSType([itemIdentifier8 type]);
     *buf = 136315394;
-    v45 = "[BCSWebPresentmentItemResolver itemMatching:metric:completion:]";
-    v46 = 2112;
-    v47 = v24;
+    v44 = "[BCSWebPresentmentItemResolver itemMatching:metric:completion:]";
+    v45 = 2112;
+    v46 = v24;
     _os_log_impl(&dword_242072000, v21, OS_LOG_TYPE_DEFAULT, "%s - Item found in cache for - type: %@", buf, 0x16u);
   }
 
   (completionCopy)[2](completionCopy, v15, 0);
 LABEL_9:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_metadataMatching:(id)matching metric:(id)metric completion:(id)completion
@@ -343,7 +340,7 @@ LABEL_9:
 
 void __69__BCSWebPresentmentItemResolver__metadataMatching_metric_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   [*(a1 + 32) end];
@@ -355,7 +352,7 @@ void __69__BCSWebPresentmentItemResolver__metadataMatching_metric_completion___b
       v8 = [*(a1 + 40) itemIdentifier];
       v9 = NSStringFromBCSType([v8 type]);
       *buf = 138412290;
-      v35 = v9;
+      v34 = v9;
       v10 = "No match found in PIR for metadata of type: %@";
       v11 = v7;
       v12 = 12;
@@ -376,11 +373,11 @@ LABEL_8:
       v8 = [*(a1 + 40) itemIdentifier];
       v9 = NSStringFromBCSType([v8 type]);
       *buf = 136315650;
-      v35 = "[BCSWebPresentmentItemResolver _metadataMatching:metric:completion:]_block_invoke";
-      v36 = 2112;
-      v37 = v9;
-      v38 = 2112;
-      v39 = v6;
+      v34 = "[BCSWebPresentmentItemResolver _metadataMatching:metric:completion:]_block_invoke";
+      v35 = 2112;
+      v36 = v9;
+      v37 = 2112;
+      v38 = v6;
       v10 = "%s - Error fetching from PIR for metadata - type: %@, error: %@";
       v11 = v7;
       v12 = 32;
@@ -424,9 +421,9 @@ LABEL_7:
       v24 = [*(a1 + 40) itemIdentifier];
       v25 = NSStringFromBCSType([v24 type]);
       *buf = 136315394;
-      v35 = "[BCSWebPresentmentItemResolver _metadataMatching:metric:completion:]_block_invoke";
-      v36 = 2112;
-      v37 = v25;
+      v34 = "[BCSWebPresentmentItemResolver _metadataMatching:metric:completion:]_block_invoke";
+      v35 = 2112;
+      v36 = v25;
       _os_log_impl(&dword_242072000, v23, OS_LOG_TYPE_DEFAULT, "%s - Item successfully fetched from PIR for metadata - type: %@", buf, 0x16u);
     }
 
@@ -435,9 +432,9 @@ LABEL_7:
 
   else
   {
-    v32 = *MEMORY[0x277CCA450];
-    v33 = @"Failed to decode PIR record";
-    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+    v31 = *MEMORY[0x277CCA450];
+    v32 = @"Failed to decode PIR record";
+    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
     v19 = [BCSError errorWithDomain:@"com.apple.businessservices" code:42 userInfo:v27];
 
     v28 = ABSLogCommon();
@@ -446,11 +443,11 @@ LABEL_7:
       v29 = [*(a1 + 40) itemIdentifier];
       v30 = NSStringFromBCSType([v29 type]);
       *buf = 136315650;
-      v35 = "[BCSWebPresentmentItemResolver _metadataMatching:metric:completion:]_block_invoke";
-      v36 = 2112;
-      v37 = v30;
-      v38 = 2112;
-      v39 = v5;
+      v34 = "[BCSWebPresentmentItemResolver _metadataMatching:metric:completion:]_block_invoke";
+      v35 = 2112;
+      v36 = v30;
+      v37 = 2112;
+      v38 = v5;
       _os_log_impl(&dword_242072000, v28, OS_LOG_TYPE_DEFAULT, "%s - Invalid message from PIR for metadata - type: %@, data: %@", buf, 0x20u);
     }
 
@@ -460,7 +457,6 @@ LABEL_7:
   v26();
 
 LABEL_20:
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_permissionsMatching:(id)matching metric:(id)metric completion:(id)completion
@@ -490,7 +486,7 @@ LABEL_20:
 
 void __72__BCSWebPresentmentItemResolver__permissionsMatching_metric_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   [*(a1 + 32) end];
@@ -502,7 +498,7 @@ void __72__BCSWebPresentmentItemResolver__permissionsMatching_metric_completion_
       v8 = [*(a1 + 40) itemIdentifier];
       v9 = NSStringFromBCSType([v8 type]);
       *buf = 138412290;
-      v37 = v9;
+      v36 = v9;
       v10 = "No match found in PIR for metadata of type: %@";
       v11 = v7;
       v12 = 12;
@@ -523,11 +519,11 @@ LABEL_8:
       v8 = [*(a1 + 40) itemIdentifier];
       v9 = NSStringFromBCSType([v8 type]);
       *buf = 136315650;
-      v37 = "[BCSWebPresentmentItemResolver _permissionsMatching:metric:completion:]_block_invoke";
-      v38 = 2112;
-      v39 = v9;
-      v40 = 2112;
-      v41 = v6;
+      v36 = "[BCSWebPresentmentItemResolver _permissionsMatching:metric:completion:]_block_invoke";
+      v37 = 2112;
+      v38 = v9;
+      v39 = 2112;
+      v40 = v6;
       v10 = "%s - Error fetching from PIR for metadata - type: %@, error: %@";
       v11 = v7;
       v12 = 32;
@@ -574,11 +570,11 @@ LABEL_7:
       v31 = [*(a1 + 40) itemIdentifier];
       v32 = NSStringFromBCSType([v31 type]);
       *buf = 136315650;
-      v37 = "[BCSWebPresentmentItemResolver _permissionsMatching:metric:completion:]_block_invoke";
-      v38 = 2112;
-      v39 = v32;
-      v40 = 2112;
-      v41 = v16;
+      v36 = "[BCSWebPresentmentItemResolver _permissionsMatching:metric:completion:]_block_invoke";
+      v37 = 2112;
+      v38 = v32;
+      v39 = 2112;
+      v40 = v16;
       _os_log_impl(&dword_242072000, v30, OS_LOG_TYPE_DEFAULT, "%s - Item fetched from PIR for metadata - type: %@, item: %@", buf, 0x20u);
     }
 
@@ -587,9 +583,9 @@ LABEL_7:
 
   else
   {
-    v34 = *MEMORY[0x277CCA450];
-    v35 = @"Failed to decode PIR record";
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+    v33 = *MEMORY[0x277CCA450];
+    v34 = @"Failed to decode PIR record";
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
     v23 = [BCSError errorWithDomain:@"com.apple.businessservices" code:42 userInfo:v22];
 
     v24 = ABSLogCommon();
@@ -598,11 +594,11 @@ LABEL_7:
       v25 = [*(a1 + 40) itemIdentifier];
       v26 = NSStringFromBCSType([v25 type]);
       *buf = 136315650;
-      v37 = "[BCSWebPresentmentItemResolver _permissionsMatching:metric:completion:]_block_invoke";
-      v38 = 2112;
-      v39 = v26;
-      v40 = 2112;
-      v41 = v5;
+      v36 = "[BCSWebPresentmentItemResolver _permissionsMatching:metric:completion:]_block_invoke";
+      v37 = 2112;
+      v38 = v26;
+      v39 = 2112;
+      v40 = v5;
       _os_log_impl(&dword_242072000, v24, OS_LOG_TYPE_DEFAULT, "%s - Invalid message from PIR for metadata - type: %@, data: %@", buf, 0x20u);
     }
 
@@ -610,7 +606,6 @@ LABEL_7:
   }
 
 LABEL_20:
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 @end

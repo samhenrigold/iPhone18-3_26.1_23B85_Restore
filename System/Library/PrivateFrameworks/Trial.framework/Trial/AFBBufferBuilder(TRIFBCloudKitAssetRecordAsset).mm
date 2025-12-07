@@ -30,7 +30,7 @@
     v7 = v9;
     if (v9)
     {
-      objc_storeStrong(&v9->_owner, self);
+      objc_storeStrong(v9 + 1, self);
       firstError = [selfCopy firstError];
 
       if (!firstError)

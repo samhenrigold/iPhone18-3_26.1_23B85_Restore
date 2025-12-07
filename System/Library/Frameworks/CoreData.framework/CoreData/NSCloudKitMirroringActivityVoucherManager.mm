@@ -34,42 +34,37 @@
 
 - (unint64_t)countVouchers
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   vouchersByEventType = self->_vouchersByEventType;
-  v4 = [(NSMutableDictionary *)vouchersByEventType countByEnumeratingWithState:&v11 objects:v15 count:16];
-  if (v4)
+  v4 = [(NSMutableDictionary *)vouchersByEventType countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (!v4)
   {
-    v5 = v4;
-    v6 = 0;
-    v7 = *v12;
-    do
-    {
-      for (i = 0; i != v5; ++i)
-      {
-        if (*v12 != v7)
-        {
-          objc_enumerationMutation(vouchersByEventType);
-        }
+    return 0;
+  }
 
-        v6 += [-[NSMutableDictionary objectForKey:](self->_vouchersByEventType objectForKey:{*(*(&v11 + 1) + 8 * i)), "count"}];
+  v5 = v4;
+  v6 = 0;
+  v7 = *v11;
+  do
+  {
+    for (i = 0; i != v5; ++i)
+    {
+      if (*v11 != v7)
+      {
+        objc_enumerationMutation(vouchersByEventType);
       }
 
-      v5 = [(NSMutableDictionary *)vouchersByEventType countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 += [-[NSMutableDictionary objectForKey:](self->_vouchersByEventType objectForKey:{*(*(&v10 + 1) + 8 * i)), "count"}];
     }
 
-    while (v5);
+    v5 = [(NSMutableDictionary *)vouchersByEventType countByEnumeratingWithState:&v10 objects:v14 count:16];
   }
 
-  else
-  {
-    v6 = 0;
-  }
-
-  v9 = *MEMORY[0x1E69E9840];
+  while (v5);
   return v6;
 }
 
@@ -110,49 +105,54 @@
 
 - (id)usableVoucherForEventType:(int64_t)type
 {
-  v15 = *MEMORY[0x1E69E9840];
-  if ((type - 1) < 2)
+  v12 = *MEMORY[0x1E69E9840];
+  if ((type - 1) >= 2)
+  {
+    if (type)
+    {
+      LogStream = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
+      {
+        v10 = 138412290;
+        v11 = [NSPersistentCloudKitContainerEvent eventTypeString:type];
+        _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Is there a new event type: %@\n", &v10, 0xCu);
+      }
+
+      v8 = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+      {
+        v9 = [NSPersistentCloudKitContainerEvent eventTypeString:type];
+        v10 = 138412290;
+        v11 = v9;
+        _os_log_fault_impl(&dword_18565F000, v8, OS_LOG_TYPE_FAULT, "CoreData: Is there a new event type: %@", &v10, 0xCu);
+      }
+
+      return 0;
+    }
+
+    else
+    {
+      result = [-[NSMutableDictionary objectForKey:](self->_vouchersByEventType objectForKey:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInteger:", 0)), "lastObject"}];
+      if (!result)
+      {
+        result = [(NSCloudKitMirroringActivityVoucherManager *)self usableVoucherForEventType:2];
+        if (!result)
+        {
+
+          return [(NSCloudKitMirroringActivityVoucherManager *)self usableVoucherForEventType:1];
+        }
+      }
+    }
+  }
+
+  else
   {
     v5 = -[NSMutableDictionary objectForKey:](self->_vouchersByEventType, "objectForKey:", [MEMORY[0x1E696AD98] numberWithInteger:type]);
-    v6 = *MEMORY[0x1E69E9840];
 
     return [v5 lastObject];
   }
 
-  if (type)
-  {
-    LogStream = _PFLogGetLogStream(17);
-    if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
-    {
-      v13 = 138412290;
-      v14 = [NSPersistentCloudKitContainerEvent eventTypeString:type];
-      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Is there a new event type: %@\n", &v13, 0xCu);
-    }
-
-    v10 = _PFLogGetLogStream(17);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
-    {
-      v12 = [NSPersistentCloudKitContainerEvent eventTypeString:type];
-      v13 = 138412290;
-      v14 = v12;
-      _os_log_fault_impl(&dword_18565F000, v10, OS_LOG_TYPE_FAULT, "CoreData: Is there a new event type: %@", &v13, 0xCu);
-    }
-
-    result = 0;
-    goto LABEL_16;
-  }
-
-  result = [-[NSMutableDictionary objectForKey:](self->_vouchersByEventType objectForKey:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInteger:", 0)), "lastObject"}];
-  if (result || (result = [(NSCloudKitMirroringActivityVoucherManager *)self usableVoucherForEventType:2]) != 0)
-  {
-LABEL_16:
-    v11 = *MEMORY[0x1E69E9840];
-    return result;
-  }
-
-  v8 = *MEMORY[0x1E69E9840];
-
-  return [(NSCloudKitMirroringActivityVoucherManager *)self usableVoucherForEventType:1];
+  return result;
 }
 
 @end

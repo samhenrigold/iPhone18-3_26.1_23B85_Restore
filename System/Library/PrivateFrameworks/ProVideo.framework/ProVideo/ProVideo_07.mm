@@ -2442,7 +2442,7 @@ uint64_t HgcBadTV::GetDOD(HgcBadTV *this, HGRenderer *a2, int a3, HGRect a4)
   if ((*(*this + 312))(this, a2) > 0)
   {
 LABEL_4:
-    v6 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v6 = HGRectMake4i(-1, -1, 1, 1);
     HGRectGrow(v5, v4, v6);
   }
 
@@ -2463,7 +2463,7 @@ uint64_t HgcBadTV::GetROI(HGNode *this, HGRenderer *a2, unsigned int a3, HGRect 
   v9 = v8;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v10 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(DOD, v9, v10);
   }
 
@@ -3917,7 +3917,7 @@ uint64_t HgcVariableBlurIntensity::RenderTile(uint64_t a1, int32x2_t *a2)
     v6 = a2[2];
     *v7.f32 = vadd_f32(vcvt_f32_s32(v2), 0x3F0000003F000000);
     v7.i64[1] = 0x3F80000000000000;
-    v8 = v6 + 2;
+    v8 = (*&v6 + 32);
     v9 = 16 * a2[3].i32[0];
     do
     {
@@ -4030,7 +4030,7 @@ uint64_t HgcVariableBlurIntensity::RenderTile(uint64_t a1, int32x2_t *a2)
           v81 = *(v72 + 96);
           v82 = vminq_f32(vrsqrteq_f32(v80), v81);
           v83 = vminq_f32(vmulq_f32(v82, vrsqrtsq_f32(vmulq_f32(v82, v80), v82)), v81);
-          v6[v10] = vminq_f32(vmaxq_f32(vmulq_n_f32(*(v72 + 16), vsubq_f32(vmulq_f32(vminq_f32(vmulq_f32(v83, vrsqrtsq_f32(vmulq_f32(v83, v80), v83)), v81), v80), *(v72 + 32)).f32[0]), *(v72 + 112)), *(v72 + 128));
+          *(*&v6 + 16 * v10) = vminq_f32(vmaxq_f32(vmulq_n_f32(*(v72 + 16), vsubq_f32(vmulq_f32(vminq_f32(vmulq_f32(v83, vrsqrtsq_f32(vmulq_f32(v83, v80), v83)), v81), v80), *(v72 + 32)).f32[0]), *(v72 + 112)), *(v72 + 128));
           v13 = vaddq_f32(v13, xmmword_2603429B0);
           ++v10;
         }
@@ -4041,7 +4041,7 @@ uint64_t HgcVariableBlurIntensity::RenderTile(uint64_t a1, int32x2_t *a2)
       v7 = vaddq_f32(v7, xmmword_2603429C0);
       ++v4;
       v8 = (v8 + v9);
-      v6 = (v6 + v9);
+      *&v6 += v9;
     }
 
     while (v4 != v3);
@@ -5772,7 +5772,7 @@ uint64_t HgcZoomBlur::GetDOD(HgcZoomBlur *this, HGRenderer *a2, int a3, HGRect a
   v6 = *&a4.var0;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v8 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v8 = HGRectMake4i(-1, -1, 1, 1);
     v6 = HGRectGrow(v6, v5, v8);
     v5 = v9;
   }
@@ -5846,7 +5846,7 @@ uint64_t HgcZoomBlur::GetROI(HgcZoomBlur *this, HGRenderer *a2, int a3, HGRect a
   HGTransform::~HGTransform(v38);
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v36 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v36 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(v4, v35, v36);
   }
 
@@ -8566,7 +8566,7 @@ uint64_t HgcConcentricCirclesGradient::GetDOD(HgcConcentricCirclesGradient *this
     v6 = *&a4.var0;
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v7 = HGRectMake4i(-1, -1, 1, 1);
       HGRectGrow(v6, v5, v7);
     }
 
@@ -8588,7 +8588,7 @@ uint64_t HgcConcentricCirclesGradient::GetROI(HGNode *this, HGRenderer *a2, int 
   v9 = v8;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v10 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(DOD, v9, v10);
   }
 

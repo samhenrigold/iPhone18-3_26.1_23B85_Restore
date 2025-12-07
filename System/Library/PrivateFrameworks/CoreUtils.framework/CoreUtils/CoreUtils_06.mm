@@ -7,7 +7,7 @@ Class initFBSDisplayLayoutMonitor()
 
   result = objc_getClass("FBSDisplayLayoutMonitor");
   classFBSDisplayLayoutMonitor = result;
-  getFBSDisplayLayoutMonitorClass[0] = FBSDisplayLayoutMonitorFunction;
+  getFBSDisplayLayoutMonitorClass = FBSDisplayLayoutMonitorFunction;
   return result;
 }
 
@@ -27,7 +27,7 @@ Class initFBSDisplayLayoutMonitorConfiguration()
 
   result = objc_getClass("FBSDisplayLayoutMonitorConfiguration");
   classFBSDisplayLayoutMonitorConfiguration = result;
-  getFBSDisplayLayoutMonitorConfigurationClass[0] = FBSDisplayLayoutMonitorConfigurationFunction;
+  getFBSDisplayLayoutMonitorConfigurationClass = FBSDisplayLayoutMonitorConfigurationFunction;
   return result;
 }
 
@@ -402,7 +402,7 @@ void __initValFBSDisplayLayoutElementControlCenterIdentifier_block_invoke()
   getFBSDisplayLayoutElementControlCenterIdentifier = FBSDisplayLayoutElementControlCenterIdentifierFunction;
 }
 
-uint64_t _systemConfigChanged(uint64_t a1, uint64_t a2, void *a3)
+void *_systemConfigChanged(uint64_t a1, uint64_t a2, void *a3)
 {
   if (a3[68])
   {
@@ -422,7 +422,7 @@ uint64_t initSBSGetScreenLockStatus(uint64_t a1)
   v2 = dlsym(SpringBoardServicesLibrary_sLib, "SBSGetScreenLockStatus");
   softLinkSBSGetScreenLockStatus = v2;
 
-  return (v2)(a1);
+  return v2(a1);
 }
 
 uint64_t initValkCTCellMonitorMCC()
@@ -444,7 +444,7 @@ uint64_t initValkCTCellMonitorMCC()
     result = constantValkCTCellMonitorMCC;
   }
 
-  getkCTCellMonitorMCC[0] = kCTCellMonitorMCCFunction;
+  getkCTCellMonitorMCC = kCTCellMonitorMCCFunction;
   return result;
 }
 
@@ -463,7 +463,7 @@ uint64_t init_CTServerConnectionCopyISOForMCC(uint64_t a1, uint64_t a2, uint64_t
   }
 
   v6 = dlsym(CoreTelephonyLibrary_sLib, "_CTServerConnectionCopyISOForMCC");
-  softLink_CTServerConnectionCopyISOForMCC[0] = v6;
+  softLink_CTServerConnectionCopyISOForMCC = v6;
 
   return (v6)(a1, a2, a3);
 }
@@ -485,8 +485,8 @@ uint64_t init_CTServerConnectionCreateOnTargetQueue(uint64_t a1, uint64_t a2, vo
     dispatch_once(&CoreTelephonyLibrary_sOnce, &__block_literal_global_1285);
   }
 
-  softLink_CTServerConnectionCreateOnTargetQueue[0] = dlsym(CoreTelephonyLibrary_sLib, "_CTServerConnectionCreateOnTargetQueue");
-  v10 = (softLink_CTServerConnectionCreateOnTargetQueue[0])(a1, a2, v9, v8);
+  softLink_CTServerConnectionCreateOnTargetQueue = dlsym(CoreTelephonyLibrary_sLib, "_CTServerConnectionCreateOnTargetQueue");
+  v10 = softLink_CTServerConnectionCreateOnTargetQueue(a1, a2, v9, v8);
 
   return v10;
 }
@@ -500,7 +500,7 @@ Class initRTRoutineManager()
 
   result = objc_getClass("RTRoutineManager");
   classRTRoutineManager = result;
-  getRTRoutineManagerClass[0] = RTRoutineManagerFunction;
+  getRTRoutineManagerClass = RTRoutineManagerFunction;
   return result;
 }
 
@@ -520,7 +520,7 @@ Class initCoreTelephonyClient()
 
   result = objc_getClass("CoreTelephonyClient");
   classCoreTelephonyClient = result;
-  getCoreTelephonyClientClass[0] = CoreTelephonyClientFunction;
+  getCoreTelephonyClientClass = CoreTelephonyClientFunction;
   return result;
 }
 
@@ -545,7 +545,7 @@ Class initAKAccountManager_8216()
 
   result = objc_getClass("AKAccountManager");
   classAKAccountManager_8218 = result;
-  getAKAccountManagerClass_8208[0] = AKAccountManagerFunction_8220;
+  getAKAccountManagerClass_8208 = AKAccountManagerFunction_8220;
   return result;
 }
 
@@ -574,7 +574,7 @@ Class initACAccountStore_8231()
 
   result = objc_getClass("ACAccountStore");
   classACAccountStore_8233 = result;
-  getACAccountStoreClass_8229[0] = ACAccountStoreFunction_8235;
+  getACAccountStoreClass_8229 = ACAccountStoreFunction_8235;
   return result;
 }
 
@@ -601,7 +601,7 @@ Class initCMDeviceOrientationManager()
 
   result = objc_getClass("CMDeviceOrientationManager");
   classCMDeviceOrientationManager = result;
-  getCMDeviceOrientationManagerClass[0] = CMDeviceOrientationManagerFunction;
+  getCMDeviceOrientationManagerClass = CMDeviceOrientationManagerFunction;
   return result;
 }
 
@@ -621,7 +621,7 @@ Class initCMMotionActivityManager()
 
   result = objc_getClass("CMMotionActivityManager");
   classCMMotionActivityManager = result;
-  getCMMotionActivityManagerClass[0] = CMMotionActivityManagerFunction;
+  getCMMotionActivityManagerClass = CMMotionActivityManagerFunction;
   return result;
 }
 
@@ -634,7 +634,7 @@ Class initFMFSession()
 
   result = objc_getClass("FMFSession");
   classFMFSession = result;
-  getFMFSessionClass[0] = FMFSessionFunction;
+  getFMFSessionClass = FMFSessionFunction;
   return result;
 }
 
@@ -710,7 +710,7 @@ Class initCUFindMyLocateMeDeviceMonitor()
 
   result = objc_getClass("CUFindMyLocateMeDeviceMonitor");
   classCUFindMyLocateMeDeviceMonitor = result;
-  getCUFindMyLocateMeDeviceMonitorClass[0] = CUFindMyLocateMeDeviceMonitorFunction;
+  getCUFindMyLocateMeDeviceMonitorClass = CUFindMyLocateMeDeviceMonitorFunction;
   return result;
 }
 
@@ -730,7 +730,7 @@ Class initCDPContext()
 
   result = objc_getClass("CDPContext");
   classCDPContext = result;
-  getCDPContextClass[0] = CDPContextFunction;
+  getCDPContextClass = CDPContextFunction;
   return result;
 }
 
@@ -743,7 +743,7 @@ Class initCDPStateController()
 
   result = objc_getClass("CDPStateController");
   classCDPStateController = result;
-  getCDPStateControllerClass[0] = CDPStateControllerFunction;
+  getCDPStateControllerClass = CDPStateControllerFunction;
   return result;
 }
 
@@ -766,7 +766,7 @@ uint64_t initValCDPManateeAvailabilityNotification()
     result = constantValCDPManateeAvailabilityNotification;
   }
 
-  getCDPManateeAvailabilityNotification[0] = CDPManateeAvailabilityNotificationFunction;
+  getCDPManateeAvailabilityNotification = CDPManateeAvailabilityNotificationFunction;
   return result;
 }
 
@@ -779,7 +779,7 @@ Class initCLLocationManager()
 
   result = objc_getClass("CLLocationManager");
   classCLLocationManager = result;
-  getCLLocationManagerClass[0] = CLLocationManagerFunction;
+  getCLLocationManagerClass = CLLocationManagerFunction;
   return result;
 }
 
@@ -803,7 +803,7 @@ uint64_t *initValkCLLocationAccuracyHundredMeters()
     constantValkCLLocationAccuracyHundredMeters = *result;
   }
 
-  getkCLLocationAccuracyHundredMeters[0] = kCLLocationAccuracyHundredMetersFunction;
+  getkCLLocationAccuracyHundredMeters = kCLLocationAccuracyHundredMetersFunction;
   return result;
 }
 
@@ -816,7 +816,7 @@ Class initFAFamilyMember()
 
   result = objc_getClass("FAFamilyMember");
   classFAFamilyMember = result;
-  getFAFamilyMemberClass[0] = FAFamilyMemberFunction;
+  getFAFamilyMemberClass = FAFamilyMemberFunction;
   return result;
 }
 
@@ -836,7 +836,7 @@ Class initFAFetchFamilyCircleRequest()
 
   result = objc_getClass("FAFetchFamilyCircleRequest");
   classFAFetchFamilyCircleRequest = result;
-  getFAFetchFamilyCircleRequestClass[0] = FAFetchFamilyCircleRequestFunction;
+  getFAFetchFamilyCircleRequestClass = FAFetchFamilyCircleRequestFunction;
   return result;
 }
 
@@ -848,7 +848,7 @@ uint64_t initBYSetupAssistantNeedsToRun()
   }
 
   v0 = dlsym(SetupAssistantLibrary_sLib, "BYSetupAssistantNeedsToRun");
-  softLinkBYSetupAssistantNeedsToRun[0] = v0;
+  softLinkBYSetupAssistantNeedsToRun = v0;
 
   return v0();
 }
@@ -879,7 +879,7 @@ uint64_t initValBYSetupAssistantFinishedDarwinNotification()
     result = constantValBYSetupAssistantFinishedDarwinNotification;
   }
 
-  getBYSetupAssistantFinishedDarwinNotification[0] = BYSetupAssistantFinishedDarwinNotificationFunction;
+  getBYSetupAssistantFinishedDarwinNotification = BYSetupAssistantFinishedDarwinNotificationFunction;
   return result;
 }
 
@@ -983,7 +983,7 @@ Class initTUCallCenter()
 
   result = objc_getClass("TUCallCenter");
   classTUCallCenter = result;
-  getTUCallCenterClass[0] = TUCallCenterFunction;
+  getTUCallCenterClass = TUCallCenterFunction;
   return result;
 }
 
@@ -997,8 +997,8 @@ void initAnalyticsSendEvent_8687(void *a1, void *a2)
     dispatch_once(&CoreAnalyticsLibrary_sOnce_8668, &__block_literal_global_8669);
   }
 
-  softLinkAnalyticsSendEvent_8682[0] = dlsym(CoreAnalyticsLibrary_sLib_8670, "AnalyticsSendEvent");
-  (softLinkAnalyticsSendEvent_8682[0])(v5, v4);
+  softLinkAnalyticsSendEvent_8682 = dlsym(CoreAnalyticsLibrary_sLib_8670, "AnalyticsSendEvent");
+  softLinkAnalyticsSendEvent_8682(v5, v4);
 }
 
 void *__CoreAnalyticsLibrary_block_invoke_8705()
@@ -1034,7 +1034,7 @@ LABEL_5:
     {
       *(a3 + 304) = a1;
       v29 = 0;
-      [a3 _setupIOAndReturnError:&v29];
+      [a3 _setupIOAndReturnError:{&v29, a4, a5, a6, a7, a8}];
       v12 = v29;
       a1 = -1;
     }
@@ -1058,7 +1058,7 @@ LABEL_5:
         v19 = *(a3 + 216);
       }
 
-      LogPrintF(v19, "void _connectHandler(SocketRef, OSStatus, void * _Nonnull)", 0x1Eu, "Connect failed. Reconfirming with Bonjour\n", v15, v16, v17, v18, v27);
+      LogPrintF(v19, "void _connectHandler(SocketRef, OSStatus, void * _Nonnull)", 30, "Connect failed. Reconfirming with Bonjour\n", v15, v16, v17, v18, v27);
     }
 
 LABEL_26:
@@ -1079,7 +1079,7 @@ LABEL_26:
           v25 = *(a3 + 216);
         }
 
-        LogPrintF(v25, "void _connectHandler(SocketRef, OSStatus, void * _Nonnull)", 0x3Cu, "### Reconfirming with Bonjour failed: %#m\n", v21, v22, v23, v24, v28);
+        LogPrintF(v25, "void _connectHandler(SocketRef, OSStatus, void * _Nonnull)", 60, "### Reconfirming with Bonjour failed: %#m\n", v21, v22, v23, v24, v28);
       }
     }
   }
@@ -1149,7 +1149,7 @@ LABEL_9:
       if (*v14 != -1)
       {
 LABEL_12:
-        LogPrintF(v14, "void _connectCompletion(AsyncConnectionCompletionInfo * _Nonnull)", 0x1Eu, "Connect failed. Reconfirming with Bonjour: %#m\n", a5, a6, a7, a8, v10);
+        LogPrintF(v14, "void _connectCompletion(AsyncConnectionCompletionInfo * _Nonnull)", 30, "Connect failed. Reconfirming with Bonjour: %#m\n", a5, a6, a7, a8, v10);
         goto LABEL_14;
       }
 
@@ -1185,7 +1185,7 @@ LABEL_14:
       v17 = *(v9 + 216);
     }
 
-    LogPrintF(v17, "void _connectCompletion(AsyncConnectionCompletionInfo * _Nonnull)", 0x3Cu, "### Reconfirming with Bonjour failed: %#m\n", a5, a6, a7, a8, v16);
+    LogPrintF(v17, "void _connectCompletion(AsyncConnectionCompletionInfo * _Nonnull)", 60, "### Reconfirming with Bonjour failed: %#m\n", a5, a6, a7, a8, v16);
 LABEL_19:
     v10 = *v13;
     if (v10)
@@ -1266,10 +1266,10 @@ LABEL_27:
   }
 }
 
-void sub_191F6F194(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_191F6F194(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
-  (*(v11 + 16))(v11);
+  va_start(va, a18);
+  (*(v18 + 16))(v18, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1364,7 +1364,7 @@ Class initUNNotificationRequest()
 
   result = objc_getClass("UNNotificationRequest");
   classUNNotificationRequest = result;
-  getUNNotificationRequestClass[0] = UNNotificationRequestFunction;
+  getUNNotificationRequestClass = UNNotificationRequestFunction;
   return result;
 }
 
@@ -1377,7 +1377,7 @@ Class initUNNotificationSound()
 
   result = objc_getClass("UNNotificationSound");
   classUNNotificationSound = result;
-  getUNNotificationSoundClass[0] = UNNotificationSoundFunction;
+  getUNNotificationSoundClass = UNNotificationSoundFunction;
   return result;
 }
 
@@ -1390,7 +1390,7 @@ Class initUNNotificationIcon()
 
   result = objc_getClass("UNNotificationIcon");
   classUNNotificationIcon = result;
-  getUNNotificationIconClass[0] = UNNotificationIconFunction;
+  getUNNotificationIconClass = UNNotificationIconFunction;
   return result;
 }
 
@@ -1403,7 +1403,7 @@ Class initUNMutableNotificationContent()
 
   result = objc_getClass("UNMutableNotificationContent");
   classUNMutableNotificationContent = result;
-  getUNMutableNotificationContentClass[0] = UNMutableNotificationContentFunction;
+  getUNMutableNotificationContentClass = UNMutableNotificationContentFunction;
   return result;
 }
 
@@ -1416,7 +1416,7 @@ Class initUNUserNotificationCenter()
 
   result = objc_getClass("UNUserNotificationCenter");
   classUNUserNotificationCenter = result;
-  getUNUserNotificationCenterClass[0] = UNUserNotificationCenterFunction;
+  getUNUserNotificationCenterClass = UNUserNotificationCenterFunction;
   return result;
 }
 
@@ -1429,7 +1429,7 @@ Class initUNNotificationCategory()
 
   result = objc_getClass("UNNotificationCategory");
   classUNNotificationCategory = result;
-  getUNNotificationCategoryClass[0] = UNNotificationCategoryFunction;
+  getUNNotificationCategoryClass = UNNotificationCategoryFunction;
   return result;
 }
 
@@ -1442,7 +1442,7 @@ Class initUNNotificationAction()
 
   result = objc_getClass("UNNotificationAction");
   classUNNotificationAction = result;
-  getUNNotificationActionClass[0] = UNNotificationActionFunction;
+  getUNNotificationActionClass = UNNotificationActionFunction;
   return result;
 }
 
@@ -1455,7 +1455,7 @@ Class initAVAudioSession_9492()
 
   result = objc_getClass("AVAudioSession");
   classAVAudioSession_9495 = result;
-  getAVAudioSessionClass_9481[0] = AVAudioSessionFunction_9497;
+  getAVAudioSessionClass_9481 = AVAudioSessionFunction_9497;
   return result;
 }
 
@@ -1475,7 +1475,7 @@ Class initSiriTTSSpeechRequest()
 
   result = objc_getClass("SiriTTSSpeechRequest");
   classSiriTTSSpeechRequest = result;
-  getSiriTTSSpeechRequestClass[0] = SiriTTSSpeechRequestFunction;
+  getSiriTTSSpeechRequestClass = SiriTTSSpeechRequestFunction;
   return result;
 }
 
@@ -1495,7 +1495,7 @@ Class initSiriTTSSynthesisVoice()
 
   result = objc_getClass("SiriTTSSynthesisVoice");
   classSiriTTSSynthesisVoice = result;
-  getSiriTTSSynthesisVoiceClass[0] = SiriTTSSynthesisVoiceFunction;
+  getSiriTTSSynthesisVoiceClass = SiriTTSSynthesisVoiceFunction;
   return result;
 }
 
@@ -1508,7 +1508,7 @@ Class initAFPreferences()
 
   result = objc_getClass("AFPreferences");
   classAFPreferences = result;
-  getAFPreferencesClass[0] = AFPreferencesFunction;
+  getAFPreferencesClass = AFPreferencesFunction;
   return result;
 }
 
@@ -1527,7 +1527,7 @@ uint64_t initVSPreferencesCopyDefaultOutputLanguageIdentifierForUserPreferences(
   }
 
   v0 = dlsym(VoiceServicesLibrary_sLib, "VSPreferencesCopyDefaultOutputLanguageIdentifierForUserPreferences");
-  softLinkVSPreferencesCopyDefaultOutputLanguageIdentifierForUserPreferences[0] = v0;
+  softLinkVSPreferencesCopyDefaultOutputLanguageIdentifierForUserPreferences = v0;
 
   return v0();
 }
@@ -1548,7 +1548,7 @@ Class initSiriTTSDaemonSession()
 
   result = objc_getClass("SiriTTSDaemonSession");
   classSiriTTSDaemonSession = result;
-  getSiriTTSDaemonSessionClass[0] = SiriTTSDaemonSessionFunction;
+  getSiriTTSDaemonSessionClass = SiriTTSDaemonSessionFunction;
   return result;
 }
 
@@ -1580,7 +1580,7 @@ Class initEasyConfigDevice()
 
   result = objc_getClass("EasyConfigDevice");
   classEasyConfigDevice = result;
-  getEasyConfigDeviceClass[0] = EasyConfigDeviceFunction;
+  getEasyConfigDeviceClass = EasyConfigDeviceFunction;
   return result;
 }
 
@@ -1645,7 +1645,7 @@ Class initCWFInterface()
 
   result = objc_getClass("CWFInterface");
   classCWFInterface = result;
-  getCWFInterfaceClass[0] = CWFInterfaceFunction;
+  getCWFInterfaceClass = CWFInterfaceFunction;
   return result;
 }
 
@@ -1670,9 +1670,9 @@ void _wifiPowerCallback(uint64_t a1, void *a2)
   dispatch_async(v4, v6);
 }
 
-uint64_t ___wifiPowerCallback_block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *___wifiPowerCallback_block_invoke(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *(result + 32);
+  v9 = result[4];
   if (*(v9 + 10))
   {
     return result;
@@ -1695,13 +1695,13 @@ LABEL_4:
         v12 = "no";
       }
 
-      LogPrintF(v11, "void _wifiPowerCallback(WiFiDeviceClientRef, void *)_block_invoke", 0x1Eu, "WiFi power changed: %s", a5, a6, a7, a8, v12);
-      v9 = *(v10 + 32);
+      LogPrintF(v11, "void _wifiPowerCallback(WiFiDeviceClientRef, void *)_block_invoke", 30, "WiFi power changed: %s", a5, a6, a7, a8, v12);
+      v9 = v10[4];
       goto LABEL_9;
     }
 
     v13 = _LogCategory_Initialize(v11, 0x1Eu);
-    v9 = *(v10 + 32);
+    v9 = v10[4];
     if (v13)
     {
       v11 = *(v9 + 16);
@@ -1728,16 +1728,16 @@ void _wifiHostAPStateChangedCallback(uint64_t a1, void *a2, void *a3)
   dispatch_async(v4, v7);
 }
 
-uint64_t ___wifiHostAPStateChangedCallback_block_invoke(uint64_t result)
+void *___wifiHostAPStateChangedCallback_block_invoke(void *result)
 {
-  if (!*(*(result + 32) + 56))
+  if (!*(*(result + 4) + 56))
   {
     return result;
   }
 
   v1 = result;
-  Int64 = CFDictionaryGetInt64(*(result + 40), @"HostApEnabled", 0);
-  v7 = *(v1 + 32);
+  Int64 = CFDictionaryGetInt64(*(result + 5), @"HostApEnabled", 0);
+  v7 = v1[4];
   v8 = v7[2];
   if (*v8 <= 30)
   {
@@ -1750,13 +1750,13 @@ LABEL_4:
         v9 = "no";
       }
 
-      LogPrintF(v8, "void _wifiHostAPStateChangedCallback(WiFiDeviceClientRef, CFDictionaryRef, void *)_block_invoke", 0x1Eu, "WiFi HostAP state changed: HostAP %s\n", v2, v3, v4, v5, v9);
-      v7 = *(v1 + 32);
+      LogPrintF(v8, "void _wifiHostAPStateChangedCallback(WiFiDeviceClientRef, CFDictionaryRef, void *)_block_invoke", 30, "WiFi HostAP state changed: HostAP %s\n", v2, v3, v4, v5, v9);
+      v7 = v1[4];
       goto LABEL_9;
     }
 
     v10 = _LogCategory_Initialize(v8, 0x1Eu);
-    v7 = *(v1 + 32);
+    v7 = v1[4];
     if (v10)
     {
       v8 = v7[2];
@@ -1877,9 +1877,9 @@ void _wifiDeviceDetached(uint64_t a1, void *a2)
   dispatch_async(v3, block);
 }
 
-uint64_t ___wifiDeviceDetached_block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *___wifiDeviceDetached_block_invoke(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *(result + 32);
+  v10 = result[4];
   if (*(v10 + 10))
   {
     return result;
@@ -1892,7 +1892,7 @@ uint64_t ___wifiDeviceDetached_block_invoke(uint64_t result, uint64_t a2, uint64
     if (*v12 == -1)
     {
       v13 = _LogCategory_Initialize(v12, 0x1Eu);
-      v10 = *(v11 + 32);
+      v10 = v11[4];
       if (!v13)
       {
         goto LABEL_6;
@@ -1901,15 +1901,15 @@ uint64_t ___wifiDeviceDetached_block_invoke(uint64_t result, uint64_t a2, uint64
       v12 = *(v10 + 16);
     }
 
-    LogPrintF(v12, "void _wifiDeviceDetached(WiFiDeviceClientRef, void *)_block_invoke", 0x1Eu, "WiFi Device Detached\n", a5, a6, a7, a8, v8);
-    v10 = *(v11 + 32);
+    LogPrintF(v12, "void _wifiDeviceDetached(WiFiDeviceClientRef, void *)_block_invoke", 30, "WiFi Device Detached\n", a5, a6, a7, a8, v8);
+    v10 = v11[4];
   }
 
 LABEL_6:
   *(v10 + 104) = 0;
-  *(*(v11 + 32) + 80) = 0;
-  *(*(v11 + 32) + 72) = 0;
-  v14 = *(v11 + 32);
+  *(v11[4] + 80) = 0;
+  *(v11[4] + 72) = 0;
+  v14 = v11[4];
 
   return [v14 _update];
 }
@@ -1949,7 +1949,7 @@ uint64_t ___wifiRestartedCallback_block_invoke(uint64_t a1, uint64_t a2, uint64_
       v10 = *(result + 16);
     }
 
-    LogPrintF(v10, "void _wifiRestartedCallback(WiFiManagerClientRef, void *)_block_invoke", 0x3Cu, "### WiFi crashed...retrying\n", a5, a6, a7, a8, v14);
+    LogPrintF(v10, "void _wifiRestartedCallback(WiFiManagerClientRef, void *)_block_invoke", 60, "### WiFi crashed...retrying\n", a5, a6, a7, a8, v14);
     result = *(a1 + 32);
   }
 
@@ -2000,7 +2000,7 @@ void _wifiDeviceAttached(uint64_t a1, uint64_t a2, void *a3)
   dispatch_async(v4, block);
 }
 
-uint64_t ___wifiDeviceAttached_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *___wifiDeviceAttached_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   result = *(a1 + 32);
   if (*(result + 10))
@@ -2008,22 +2008,22 @@ uint64_t ___wifiDeviceAttached_block_invoke(uint64_t a1, uint64_t a2, uint64_t a
     return result;
   }
 
-  v10 = *(result + 16);
+  v10 = *(result + 2);
   if (*v10 <= 30)
   {
     if (*v10 == -1)
     {
-      v11 = _LogCategory_Initialize(*(result + 16), 0x1Eu);
+      v11 = _LogCategory_Initialize(*(result + 2), 0x1Eu);
       result = *(a1 + 32);
       if (!v11)
       {
         goto LABEL_6;
       }
 
-      v10 = *(result + 16);
+      v10 = *(result + 2);
     }
 
-    LogPrintF(v10, "void _wifiDeviceAttached(WiFiManagerClientRef, WiFiDeviceClientRef, void *)_block_invoke", 0x1Eu, "WiFi Device Attached\n", a5, a6, a7, a8, v12);
+    LogPrintF(v10, "void _wifiDeviceAttached(WiFiManagerClientRef, WiFiDeviceClientRef, void *)_block_invoke", 30, "WiFi Device Attached\n", a5, a6, a7, a8, v12);
     result = *(a1 + 32);
   }
 
@@ -2046,9 +2046,9 @@ void _wifiCriticalCallback(uint64_t a1, char a2, void *a3)
   dispatch_async(v5, v7);
 }
 
-uint64_t ___wifiCriticalCallback_block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *___wifiCriticalCallback_block_invoke(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *(result + 32);
+  v9 = result[4];
   if (*(v9 + 10))
   {
     return result;
@@ -2071,13 +2071,13 @@ LABEL_4:
         v12 = "no";
       }
 
-      LogPrintF(v11, "void _wifiCriticalCallback(WiFiDeviceClientRef, _Bool, void *)_block_invoke", 0x1Eu, "WiFi critical changed: %s -> %s\n", a5, a6, a7, a8, v12);
-      v9 = *(v10 + 32);
+      LogPrintF(v11, "void _wifiCriticalCallback(WiFiDeviceClientRef, _Bool, void *)_block_invoke", 30, "WiFi critical changed: %s -> %s\n", a5, a6, a7, a8, v12);
+      v9 = v10[4];
       goto LABEL_9;
     }
 
     v13 = _LogCategory_Initialize(v11, 0x1Eu);
-    v9 = *(v10 + 32);
+    v9 = v10[4];
     if (v13)
     {
       v11 = *(v9 + 16);
@@ -2087,7 +2087,7 @@ LABEL_4:
 
 LABEL_9:
   *(v9 + 50) = *(v10 + 40);
-  v14 = *(v10 + 32);
+  v14 = v10[4];
 
   return [v14 _update];
 }
@@ -2367,7 +2367,7 @@ Class initWiFiP2PAWDLStateMonitor()
 
   result = objc_getClass("WiFiP2PAWDLStateMonitor");
   classWiFiP2PAWDLStateMonitor = result;
-  getWiFiP2PAWDLStateMonitorClass[0] = WiFiP2PAWDLStateMonitorFunction;
+  getWiFiP2PAWDLStateMonitorClass = WiFiP2PAWDLStateMonitorFunction;
   return result;
 }
 
@@ -2381,29 +2381,29 @@ uint64_t CUXPCDecodeDouble(void *a1, const char *a2, double *a3)
 
 uint64_t CUXPCDecodeSInt64RangedEx(void *a1, const char *a2, int64_t a3, int64_t a4, int64_t *a5, void *a6)
 {
-  v11 = xpc_dictionary_get_value(a1, a2);
-  v12 = v11;
-  if (!v11)
+  v10 = xpc_dictionary_get_value(a1, a2);
+  v11 = v10;
+  if (!v10)
   {
-    v19 = 2;
+    v13 = 2;
     goto LABEL_14;
   }
 
-  v13 = MEMORY[0x193B07A70](v11);
-  if (v13 == MEMORY[0x1E69E9EB0])
+  v12 = MEMORY[0x193B07A70](v10);
+  if (v12 == MEMORY[0x1E69E9EB0])
   {
-    value = xpc_int64_get_value(v12);
+    value = xpc_int64_get_value(v11);
     goto LABEL_11;
   }
 
-  if (v13 == MEMORY[0x1E69E9F18])
+  if (v12 == MEMORY[0x1E69E9F18])
   {
-    value = xpc_uint64_get_value(v12);
+    value = xpc_uint64_get_value(v11);
 LABEL_11:
     if (value >= a3 && value <= a4)
     {
       *a5 = value;
-      v19 = 6;
+      v13 = 6;
       goto LABEL_14;
     }
 
@@ -2412,21 +2412,21 @@ LABEL_11:
       goto LABEL_7;
     }
 
-    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960586, "XPC out-of-range: '%s', %lld vs min %lld, max %lld", v21, v22, v23, v24, v25, a2);
+    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960586, "XPC out-of-range: '%s', %lld vs min %lld, max %lld");
     goto LABEL_6;
   }
 
   if (a6)
   {
-    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960540, "XPC non-int64 type: '%s'", v14, v15, v16, v17, v18, a2);
+    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960540, "XPC non-int64 type: '%s'");
     *a6 = LABEL_6:;
   }
 
 LABEL_7:
-  v19 = 5;
+  v13 = 5;
 LABEL_14:
 
-  return v19;
+  return v13;
 }
 
 uint64_t __Block_byref_object_copy__10482(uint64_t result, uint64_t a2)
@@ -2448,13 +2448,13 @@ uint64_t CUXPCDecodeNSArrayOfNSData(void *a1, const char *a2, uint64_t a3, uint6
 
   if (MEMORY[0x193B07A70](v12) == MEMORY[0x1E69E9E50])
   {
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x3032000000;
+    v23 = __Block_byref_object_copy__10482;
+    v24 = __Block_byref_object_dispose__10483;
     v25 = 0;
-    v26 = &v25;
-    v27 = 0x3032000000;
-    v28 = __Block_byref_object_copy__10482;
-    v29 = __Block_byref_object_dispose__10483;
-    v30 = 0;
-    v20 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
     applier[0] = MEMORY[0x1E69E9820];
     applier[1] = 3221225472;
     applier[2] = __CUXPCDecodeNSArrayOfNSData_block_invoke;
@@ -2462,52 +2462,52 @@ uint64_t CUXPCDecodeNSArrayOfNSData(void *a1, const char *a2, uint64_t a3, uint6
     applier[6] = a2;
     applier[7] = a3;
     applier[8] = a4;
-    applier[4] = v20;
-    applier[5] = &v25;
+    applier[4] = v15;
+    applier[5] = &v20;
     xpc_array_apply(v13, applier);
-    v21 = v26[5];
-    if (v21)
+    v16 = v21[5];
+    if (v16)
     {
       if (a6)
       {
-        v23 = v21;
-        *a6 = v21;
+        v18 = v16;
+        *a6 = v16;
       }
     }
 
     else
     {
-      objc_storeStrong(a5, v20);
+      objc_storeStrong(a5, v15);
     }
 
-    _Block_object_dispose(&v25, 8);
-    if (v21)
+    _Block_object_dispose(&v20, 8);
+    if (v16)
     {
       goto LABEL_8;
     }
 
 LABEL_9:
-    v19 = 1;
+    v14 = 1;
     goto LABEL_10;
   }
 
   if (!a6)
   {
 LABEL_8:
-    v19 = 0;
+    v14 = 0;
     goto LABEL_10;
   }
 
-  NSErrorF_safe(*MEMORY[0x1E696A768], 4294960540, "XPC non-array type: '%s'", v14, v15, v16, v17, v18, a2);
-  *a6 = v19 = 0;
+  NSErrorF_safe(*MEMORY[0x1E696A768], 4294960540, "XPC non-array type: '%s'", a2);
+  *a6 = v14 = 0;
 LABEL_10:
 
-  return v19;
+  return v14;
 }
 
-void sub_191F7EE64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_191F7EE64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2517,28 +2517,28 @@ uint64_t __CUXPCDecodeNSArrayOfNSData_block_invoke(uint64_t a1, uint64_t a2, voi
   v4 = a3;
   if (MEMORY[0x193B07A70]() != MEMORY[0x1E69E9E70])
   {
-    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960540, "XPC array non-data value: '%s'", v5, v6, v7, v8, v9, *(a1 + 48));
-    v19 = LABEL_8:;
-    v17 = 0;
-    v20 = *(*(a1 + 40) + 8);
-    v16 = *(v20 + 40);
-    *(v20 + 40) = v19;
+    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960540, "XPC array non-data value: '%s'");
+    v9 = LABEL_8:;
+    v7 = 0;
+    v10 = *(*(a1 + 40) + 8);
+    v6 = *(v10 + 40);
+    *(v10 + 40) = v9;
     goto LABEL_5;
   }
 
   length = xpc_data_get_length(v4);
   if (length < *(a1 + 56) || length > *(a1 + 64))
   {
-    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960553, "XPC array bad data length: '%s', %zu bytes", v11, v12, v13, v14, v15, *(a1 + 48));
+    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960553, "XPC array bad data length: '%s', %zu bytes");
     goto LABEL_8;
   }
 
-  v16 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:xpc_data_get_bytes_ptr(v4) length:length];
-  [*(a1 + 32) addObject:v16];
-  v17 = 1;
+  v6 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:xpc_data_get_bytes_ptr(v4) length:length];
+  [*(a1 + 32) addObject:v6];
+  v7 = 1;
 LABEL_5:
 
-  return v17;
+  return v7;
 }
 
 uint64_t CUXPCDecodeNSArrayOfNSString(void *a1, const char *a2, id *a3, void *a4)
@@ -2553,64 +2553,64 @@ uint64_t CUXPCDecodeNSArrayOfNSString(void *a1, const char *a2, id *a3, void *a4
 
   if (MEMORY[0x193B07A70](v8) == MEMORY[0x1E69E9E50])
   {
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x3032000000;
+    v19 = __Block_byref_object_copy__10482;
+    v20 = __Block_byref_object_dispose__10483;
     v21 = 0;
-    v22 = &v21;
-    v23 = 0x3032000000;
-    v24 = __Block_byref_object_copy__10482;
-    v25 = __Block_byref_object_dispose__10483;
-    v26 = 0;
-    v16 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v11 = objc_alloc_init(MEMORY[0x1E695DF70]);
     applier[0] = MEMORY[0x1E69E9820];
     applier[1] = 3221225472;
     applier[2] = __CUXPCDecodeNSArrayOfNSString_block_invoke;
     applier[3] = &unk_1E73A4400;
-    applier[5] = &v21;
+    applier[5] = &v16;
     applier[6] = a2;
-    applier[4] = v16;
+    applier[4] = v11;
     xpc_array_apply(v9, applier);
-    v17 = v22[5];
-    if (v17)
+    v12 = v17[5];
+    if (v12)
     {
       if (a4)
       {
-        v19 = v17;
-        *a4 = v17;
+        v14 = v12;
+        *a4 = v12;
       }
     }
 
     else
     {
-      objc_storeStrong(a3, v16);
+      objc_storeStrong(a3, v11);
     }
 
-    _Block_object_dispose(&v21, 8);
-    if (v17)
+    _Block_object_dispose(&v16, 8);
+    if (v12)
     {
       goto LABEL_8;
     }
 
 LABEL_9:
-    v15 = 1;
+    v10 = 1;
     goto LABEL_10;
   }
 
   if (!a4)
   {
 LABEL_8:
-    v15 = 0;
+    v10 = 0;
     goto LABEL_10;
   }
 
-  NSErrorF_safe(*MEMORY[0x1E696A768], 4294960540, "XPC non-array type: '%s'", v10, v11, v12, v13, v14, a2);
-  *a4 = v15 = 0;
+  NSErrorF_safe(*MEMORY[0x1E696A768], 4294960540, "XPC non-array type: '%s'", a2);
+  *a4 = v10 = 0;
 LABEL_10:
 
-  return v15;
+  return v10;
 }
 
-void sub_191F7F14C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_191F7F14C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2620,42 +2620,42 @@ uint64_t __CUXPCDecodeNSArrayOfNSString_block_invoke(uint64_t a1, uint64_t a2, v
   v4 = a3;
   if (MEMORY[0x193B07A70]() != MEMORY[0x1E69E9F10])
   {
-    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960540, "XPC array non-string value: '%s'", v5, v6, v7, v8, v9, *(a1 + 48));
-    v24 = LABEL_8:;
-    v22 = 0;
-    v25 = *(*(a1 + 40) + 8);
-    v21 = *(v25 + 40);
-    *(v25 + 40) = v24;
+    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960540, "XPC array non-string value: '%s'");
+    v9 = LABEL_8:;
+    v7 = 0;
+    v10 = *(*(a1 + 40) + 8);
+    v6 = *(v10 + 40);
+    *(v10 + 40) = v9;
     goto LABEL_5;
   }
 
   string_ptr = xpc_string_get_string_ptr(v4);
   if (!string_ptr)
   {
-    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960540, "XPC array null string value: '%s'", v11, v12, v13, v14, v15, *(a1 + 48));
+    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960540, "XPC array null string value: '%s'");
     goto LABEL_8;
   }
 
-  v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:string_ptr];
-  if (v21)
+  v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:string_ptr];
+  if (v6)
   {
-    [*(a1 + 32) addObject:v21];
-    v22 = 1;
+    [*(a1 + 32) addObject:v6];
+    v7 = 1;
   }
 
   else
   {
-    v26 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960540, "XPC array bad string value: '%s'", v16, v17, v18, v19, v20, *(a1 + 48));
-    v27 = *(*(a1 + 40) + 8);
-    v28 = *(v27 + 40);
-    *(v27 + 40) = v26;
+    v11 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960540, "XPC array bad string value: '%s'", *(a1 + 48));
+    v12 = *(*(a1 + 40) + 8);
+    v13 = *(v12 + 40);
+    *(v12 + 40) = v11;
 
-    v22 = 0;
+    v7 = 0;
   }
 
 LABEL_5:
 
-  return v22;
+  return v7;
 }
 
 uint64_t CUXPCDecodeNSArrayOfInteger(void *a1, const char *a2, uint64_t a3, uint64_t a4, id *a5, void *a6)
@@ -2670,13 +2670,13 @@ uint64_t CUXPCDecodeNSArrayOfInteger(void *a1, const char *a2, uint64_t a3, uint
 
   if (MEMORY[0x193B07A70](v12) == MEMORY[0x1E69E9E50])
   {
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x3032000000;
+    v23 = __Block_byref_object_copy__10482;
+    v24 = __Block_byref_object_dispose__10483;
     v25 = 0;
-    v26 = &v25;
-    v27 = 0x3032000000;
-    v28 = __Block_byref_object_copy__10482;
-    v29 = __Block_byref_object_dispose__10483;
-    v30 = 0;
-    v20 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
     applier[0] = MEMORY[0x1E69E9820];
     applier[1] = 3221225472;
     applier[2] = __CUXPCDecodeNSArrayOfInteger_block_invoke;
@@ -2684,52 +2684,52 @@ uint64_t CUXPCDecodeNSArrayOfInteger(void *a1, const char *a2, uint64_t a3, uint
     applier[6] = a2;
     applier[7] = a3;
     applier[8] = a4;
-    applier[4] = v20;
-    applier[5] = &v25;
+    applier[4] = v15;
+    applier[5] = &v20;
     xpc_array_apply(v13, applier);
-    v21 = v26[5];
-    if (v21)
+    v16 = v21[5];
+    if (v16)
     {
       if (a6)
       {
-        v23 = v21;
-        *a6 = v21;
+        v18 = v16;
+        *a6 = v16;
       }
     }
 
     else
     {
-      objc_storeStrong(a5, v20);
+      objc_storeStrong(a5, v15);
     }
 
-    _Block_object_dispose(&v25, 8);
-    if (v21)
+    _Block_object_dispose(&v20, 8);
+    if (v16)
     {
       goto LABEL_8;
     }
 
 LABEL_9:
-    v19 = 1;
+    v14 = 1;
     goto LABEL_10;
   }
 
   if (!a6)
   {
 LABEL_8:
-    v19 = 0;
+    v14 = 0;
     goto LABEL_10;
   }
 
-  NSErrorF_safe(*MEMORY[0x1E696A768], 4294960540, "XPC non-array type: '%s'", v14, v15, v16, v17, v18, a2);
-  *a6 = v19 = 0;
+  NSErrorF_safe(*MEMORY[0x1E696A768], 4294960540, "XPC non-array type: '%s'", a2);
+  *a6 = v14 = 0;
 LABEL_10:
 
-  return v19;
+  return v14;
 }
 
-void sub_191F7F468(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_191F7F468(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2747,7 +2747,7 @@ uint64_t __CUXPCDecodeNSArrayOfInteger_block_invoke(void *a1, uint64_t a2, void 
   {
     if (v5 != MEMORY[0x1E69E9F18])
     {
-      NSErrorF_safe(*MEMORY[0x1E696A768], 4294960540, "XPC array non-int value: '%s'", v6, v7, v8, v9, v10, a1[6]);
+      NSErrorF_safe(*MEMORY[0x1E696A768], 4294960540, "XPC array non-int value: '%s'");
       goto LABEL_4;
     }
 
@@ -2756,22 +2756,22 @@ uint64_t __CUXPCDecodeNSArrayOfInteger_block_invoke(void *a1, uint64_t a2, void 
 
   if (value >= a1[7] && value <= a1[8])
   {
-    v22 = a1[4];
-    v14 = [MEMORY[0x1E696AD98] numberWithLongLong:value];
-    [v22 addObject:v14];
-    v12 = 1;
+    v12 = a1[4];
+    v9 = [MEMORY[0x1E696AD98] numberWithLongLong:value];
+    [v12 addObject:v9];
+    v7 = 1;
     goto LABEL_13;
   }
 
-  NSErrorF_safe(*MEMORY[0x1E696A768], 4294960586, "XPC array int out-of-range: '%s', %lld, min %lld, max %lld", v16, v17, v18, v19, v20, a1[6]);
-  v11 = LABEL_4:;
-  v12 = 0;
-  v13 = *(a1[5] + 8);
-  v14 = *(v13 + 40);
-  *(v13 + 40) = v11;
+  NSErrorF_safe(*MEMORY[0x1E696A768], 4294960586, "XPC array int out-of-range: '%s', %lld, min %lld, max %lld");
+  v6 = LABEL_4:;
+  v7 = 0;
+  v8 = *(a1[5] + 8);
+  v9 = *(v8 + 40);
+  *(v8 + 40) = v6;
 LABEL_13:
 
-  return v12;
+  return v7;
 }
 
 uint64_t CUXPCDecodeNSUUID(void *a1, const char *a2, void **a3, void *a4)
@@ -2784,7 +2784,7 @@ uint64_t CUXPCDecodeNSUUID(void *a1, const char *a2, void **a3, void *a4)
     v10 = *a3;
     *a3 = v9;
 LABEL_5:
-    v17 = 1;
+    v12 = 1;
     goto LABEL_6;
   }
 
@@ -2797,18 +2797,18 @@ LABEL_5:
 
   if (a4)
   {
-    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960540, "XPC non-UUID type: '%s'", v12, v13, v14, v15, v16, a2);
-    *a4 = v17 = 0;
+    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960540, "XPC non-UUID type: '%s'", a2);
+    *a4 = v12 = 0;
   }
 
   else
   {
-    v17 = 0;
+    v12 = 0;
   }
 
 LABEL_6:
 
-  return v17;
+  return v12;
 }
 
 void CUXPCEncodeNSArrayOfNSData(void *a1, const char *a2, void *a3, size_t a4, size_t a5)
@@ -2971,7 +2971,7 @@ BOOL CUXPCDictionaryExpectsReply(void *a1)
   return v2;
 }
 
-BOOL __CUXPCCreateCFObjectFromXPCObject_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+BOOL __CUXPCCreateCFObjectFromXPCObject_block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = CUXPCCreateCFObjectFromXPCObject(a3);
   if (v4)
@@ -3058,64 +3058,64 @@ uint64_t DACPServer_Create(void *a1, void *a2)
 uint64_t __DACPServer_ProcessRequest(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v9 = *(a1 + 8);
-  v31 = 0;
-  v29 = 0;
-  v30 = 0;
-  v28 = 0;
-  if (HTTPServer_GetNextURLSegment(a1, &v30, &v29, &v31, a5, a6, a7, a8))
+  v37 = 0;
+  v35 = 0;
+  v36 = 0;
+  v34 = 0;
+  if (HTTPServer_GetNextURLSegment(a1, &v36, &v35, &v37, a5, a6, a7, a8))
   {
-    v11 = v29;
-    v10 = v30;
-    if (strnicmpx(v30, v29, "ctrl-int"))
+    v11 = v35;
+    v10 = v36;
+    if (strnicmpx(v36, v35, "ctrl-int"))
     {
       if (!strnicmpx(v10, v11, "server-info"))
       {
 LABEL_15:
-        v23 = 404;
-        return HTTPServer_SendStatusResponse(a1, v23, v16, v17, v18, v19, v20, v21);
+        v25 = 404;
+        return HTTPServer_SendStatusResponse(a1, v25);
       }
 
 LABEL_7:
       if (gLogCategory_DACPServer <= 60 && (gLogCategory_DACPServer != -1 || _LogCategory_Initialize(&gLogCategory_DACPServer, 0x3Cu)))
       {
-        LogPrintF(&gLogCategory_DACPServer, "OSStatus __DACPServer_ProcessRequest(HTTPServerConnectionRef)", 0x3Cu, "### Bad URL: '%.*s'\n", v18, v19, v20, v21, *(a1 + 8408));
+        LogPrintF(&gLogCategory_DACPServer, "OSStatus __DACPServer_ProcessRequest(HTTPServerConnectionRef)", 60, "### Bad URL: '%.*s'\n", v16, v17, v18, v19, *(a1 + 8408));
       }
 
       goto LABEL_15;
     }
 
-    if (HTTPServer_GetNextURLSegment(a1, &v30, &v29, &v31, v12, v13, v14, v15))
+    if (HTTPServer_GetNextURLSegment(a1, &v36, &v35, &v37, v12, v13, v14, v15))
     {
-      if (strnicmpx(v30, v29, "1"))
+      if (strnicmpx(v36, v35, "1"))
       {
         goto LABEL_7;
       }
 
-      v31 = HTTPGetHeaderField((a1 + 160), *(a1 + 8352), "Active-Remote", 0, 0, &v30, &v29, 0);
-      if (v31)
+      v37 = HTTPGetHeaderField((a1 + 160), *(a1 + 8352), "Active-Remote", 0, 0, &v36, &v35, 0);
+      if (v37)
       {
         if (gLogCategory_DACPServer > 60 || gLogCategory_DACPServer == -1 && !_LogCategory_Initialize(&gLogCategory_DACPServer, 0x3Cu))
         {
           goto LABEL_40;
         }
 
-        v22 = "### No Active-Remote in headers\n";
+        v24 = "### No Active-Remote in headers\n";
       }
 
       else
       {
-        if (SNScanF(v30, v29, "%u", v17, v18, v19, v20, v21, &v28) == 1)
+        if (SNScanF(v36, v35, "%u", &v34) == 1)
         {
           pthread_mutex_lock(*(v9 + 312));
-          v25 = *(v9 + 328);
-          if (v25)
+          v27 = *(v9 + 328);
+          if (v27)
           {
-            v26 = 0;
-            while (*(*(v9 + 320) + 4 * v26) != v28)
+            v28 = 0;
+            while (*(*(v9 + 320) + 4 * v28) != v34)
             {
-              if (v25 == ++v26)
+              if (v27 == ++v28)
               {
-                v26 = *(v9 + 328);
+                v28 = *(v9 + 328);
                 break;
               }
             }
@@ -3123,40 +3123,40 @@ LABEL_7:
 
           else
           {
-            v26 = 0;
+            v28 = 0;
           }
 
           pthread_mutex_unlock(*(v9 + 312));
-          if (v26 >= *(v9 + 328))
+          if (v28 >= *(v9 + 328))
           {
             if (gLogCategory_DACPServer <= 50 && (gLogCategory_DACPServer != -1 || _LogCategory_Initialize(&gLogCategory_DACPServer, 0x32u)))
             {
-              LogPrintF(&gLogCategory_DACPServer, "OSStatus __DACPServer_ProcessRequest(HTTPServerConnectionRef)", 0x32u, "### Remote ID %u not authorized\n", v18, v19, v20, v21, v28);
+              LogPrintF(&gLogCategory_DACPServer, "OSStatus __DACPServer_ProcessRequest(HTTPServerConnectionRef)", 50, "### Remote ID %u not authorized\n", v29, v30, v31, v32, v34);
             }
 
-            v23 = 403;
+            v25 = 403;
           }
 
           else
           {
-            if (!HTTPServer_GetNextURLSegment(a1, &v30, &v29, &v31, v18, v19, v20, v21))
+            if (!HTTPServer_GetNextURLSegment(a1, &v36, &v35, &v37, v29, v30, v31, v32))
             {
-              return v31;
+              return v37;
             }
 
-            v29 = *(a1 + 8400) - v30 + *(a1 + 8408);
+            v35 = *(a1 + 8400) - v36 + *(a1 + 8408);
             if ((*(v9 + 224))(v9))
             {
-              v23 = 400;
+              v25 = 400;
             }
 
             else
             {
-              v23 = 200;
+              v25 = 200;
             }
           }
 
-          return HTTPServer_SendStatusResponse(a1, v23, v16, v17, v18, v19, v20, v21);
+          return HTTPServer_SendStatusResponse(a1, v25);
         }
 
         if (gLogCategory_DACPServer > 60 || gLogCategory_DACPServer == -1 && !_LogCategory_Initialize(&gLogCategory_DACPServer, 0x3Cu))
@@ -3164,18 +3164,18 @@ LABEL_7:
           goto LABEL_40;
         }
 
-        v27 = v29;
-        v22 = "### Bad Active-Remote '%.*s\n";
+        v33 = v35;
+        v24 = "### Bad Active-Remote '%.*s\n";
       }
 
-      LogPrintF(&gLogCategory_DACPServer, "OSStatus __DACPServer_ProcessRequest(HTTPServerConnectionRef)", 0x3Cu, v22, v18, v19, v20, v21, v27);
+      LogPrintF(&gLogCategory_DACPServer, "OSStatus __DACPServer_ProcessRequest(HTTPServerConnectionRef)", 60, v24, v20, v21, v22, v23, v33);
 LABEL_40:
-      v23 = 400;
-      return HTTPServer_SendStatusResponse(a1, v23, v16, v17, v18, v19, v20, v21);
+      v25 = 400;
+      return HTTPServer_SendStatusResponse(a1, v25);
     }
   }
 
-  return v31;
+  return v37;
 }
 
 void __DACPServer_ServerStop(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -3190,7 +3190,7 @@ void __DACPServer_ServerStop(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4,
   if (gLogCategory_DACPServer <= 40 && (gLogCategory_DACPServer != -1 || _LogCategory_Initialize(&gLogCategory_DACPServer, 0x28u)))
   {
 
-    LogPrintF(&gLogCategory_DACPServer, "void __DACPServer_ServerStop(HTTPServerOldRef)", 0x28u, "Stopped\n", a5, a6, a7, a8, a9);
+    LogPrintF(&gLogCategory_DACPServer, "void __DACPServer_ServerStop(HTTPServerOldRef)", 40, "Stopped\n", a5, a6, a7, a8, a9);
   }
 }
 
@@ -3201,7 +3201,7 @@ uint64_t __DACPServer_ServerStart(uint64_t a1)
   v6 = DNSServiceRegister((a1 + 336), 0, 0, __str, "_dacp._tcp", "local.", 0, bswap32(*(a1 + 128)) >> 16, 0, 0, 0, 0);
   if (!v6 && gLogCategory_DACPServer <= 40 && (gLogCategory_DACPServer != -1 || _LogCategory_Initialize(&gLogCategory_DACPServer, 0x28u)))
   {
-    LogPrintF(&gLogCategory_DACPServer, "OSStatus __DACPServer_ServerStart(HTTPServerOldRef)", 0x28u, "Registered %s.%s port %d\n", v2, v3, v4, v5, __str);
+    LogPrintF(&gLogCategory_DACPServer, "OSStatus __DACPServer_ServerStart(HTTPServerOldRef)", 40, "Registered %s.%s port %d\n", v2, v3, v4, v5, __str);
   }
 
   return v6;
@@ -3236,7 +3236,7 @@ uint64_t __DACPServer_ServerFree(void *a1, uint64_t a2, uint64_t a3, uint64_t a4
     if (gLogCategory_DACPServer != -1 || (result = _LogCategory_Initialize(&gLogCategory_DACPServer, 0x28u), result))
     {
 
-      return LogPrintF(&gLogCategory_DACPServer, "void __DACPServer_ServerFree(HTTPServerOldRef)", 0x28u, "Deleted\n", a5, a6, a7, a8, a9);
+      return LogPrintF(&gLogCategory_DACPServer, "void __DACPServer_ServerFree(HTTPServerOldRef)", 40, "Deleted\n", a5, a6, a7, a8, a9);
     }
   }
 
@@ -3290,7 +3290,7 @@ LABEL_10:
   {
     if (gLogCategory_DACPServer <= 40 && (gLogCategory_DACPServer != -1 || _LogCategory_Initialize(&gLogCategory_DACPServer, 0x28u)))
     {
-      LogPrintF(&gLogCategory_DACPServer, "OSStatus DACPServer_AddRemote(DACPServerRef, Boolean, uint32_t *)", 0x28u, "Added remote %u\n", v10, v11, v12, v13, bytes);
+      LogPrintF(&gLogCategory_DACPServer, "OSStatus DACPServer_AddRemote(DACPServerRef, Boolean, uint32_t *)", 40, "Added remote %u\n", v10, v11, v12, v13, bytes);
     }
 
     appended = 0;
@@ -3330,7 +3330,7 @@ uint64_t DACPServer_RemoveRemote(uint64_t a1, uint64_t a2)
 
     if (gLogCategory_DACPServer <= 40 && (gLogCategory_DACPServer != -1 || _LogCategory_Initialize(&gLogCategory_DACPServer, 0x28u)))
     {
-      LogPrintF(&gLogCategory_DACPServer, "OSStatus DACPServer_RemoveRemote(DACPServerRef, uint32_t)", 0x28u, "Removed remote %u\n", v4, v5, v6, v7, a2);
+      LogPrintF(&gLogCategory_DACPServer, "OSStatus DACPServer_RemoveRemote(DACPServerRef, uint32_t)", 40, "Removed remote %u\n", v4, v5, v6, v7, a2);
     }
 
     v11 = 0;
@@ -4008,7 +4008,7 @@ void _IPCAgent_SendMessage(CFPropertyListRef *a1)
     RandomBytes(v8 + 4, 0x10uLL);
     BYTE10(v8[0]) = BYTE10(v8[0]) & 0xF | 0x40;
     BYTE12(v8[0]) = BYTE12(v8[0]) & 0x3F | 0x80;
-    *(&v8[1] + 4) = *(v2 + 1);
+    *(&v8[1] + 4) = *(v2 + 16);
     BYTE4(v8[2]) = 0;
     BYTE5(v8[2]) = (Length + 1433) / 0x59A;
     do
@@ -4024,7 +4024,7 @@ void _IPCAgent_SendMessage(CFPropertyListRef *a1)
       }
 
       __memcpy_chk();
-      if (sendto(*(v2 + 8), v8, v7 + 38, 0, (v2 + 68), 0x10u) != v7 + 38 && (!*__error() || *__error()))
+      if (sendto(*(v2 + 32), v8, v7 + 38, 0, (v2 + 68), 0x10u) != v7 + 38 && (!*__error() || *__error()))
       {
         break;
       }
@@ -4159,23 +4159,24 @@ void DebugIPC_EnsureFinalized()
   }
 }
 
-uint64_t DebugIPC_PerformF(uint64_t (*a1)(const __CFDictionary *a1), uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t DebugIPC_PerformF(uint64_t (*a1)(const __CFDictionary *a1), uint64_t a2, const UInt8 *a3, ...)
 {
+  va_start(va, a3);
   cf = 0;
-  v11 = CFPropertyListBuildFormatted(0, 0, &cf, a3, &a9, a6, a7, a8);
-  if (!v11)
+  v5 = CFPropertyListBuildFormatted(0, 0, &cf, a3, va);
+  if (!v5)
   {
     if (a1)
     {
-      v12 = a1;
+      v6 = a1;
     }
 
     else
     {
-      v12 = _DebugIPC_ShowHandler;
+      v6 = _DebugIPC_ShowHandler;
     }
 
-    v13 = cf;
+    v7 = cf;
     *context = 0u;
     *object = 0u;
     context[1] = dispatch_semaphore_create(1);
@@ -4184,19 +4185,19 @@ uint64_t DebugIPC_PerformF(uint64_t (*a1)(const __CFDictionary *a1), uint64_t a2
       object[1] = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
       if (object[1])
       {
-        v14 = IPCAgent_Create(context);
-        if (v14 || (v15 = context[0], *(context[0] + 12) = _IPCAgent_PerformHandler, v15[13] = context, dispatch_async_f(*v15, v15, _IPCAgent_Start), v14 = IPCAgent_SendMessage(context[0], v13), v14))
+        v8 = IPCAgent_Create(context);
+        if (v8 || (v9 = context[0], *(context[0] + 12) = _IPCAgent_PerformHandler, v9[13] = context, dispatch_async_f(*v9, v9, _IPCAgent_Start), v8 = IPCAgent_SendMessage(context[0], v7), v8))
         {
-          v11 = v14;
+          v5 = v8;
         }
 
         else
         {
           while (1)
           {
-            v18 = object[0];
-            v19 = dispatch_time(0, 300000000);
-            if (dispatch_semaphore_wait(v18, v19))
+            v12 = object[0];
+            v13 = dispatch_time(0, 300000000);
+            if (dispatch_semaphore_wait(v12, v13))
             {
               break;
             }
@@ -4213,26 +4214,26 @@ uint64_t DebugIPC_PerformF(uint64_t (*a1)(const __CFDictionary *a1), uint64_t a2
               CFRetain(ValueAtIndex);
               CFArrayRemoveValueAtIndex(object[1], 0);
               dispatch_semaphore_signal(context[1]);
-              (v12)(ValueAtIndex, a2);
+              (v6)(ValueAtIndex, a2);
               CFRelease(ValueAtIndex);
             }
 
             dispatch_semaphore_signal(context[1]);
           }
 
-          v11 = 0;
+          v5 = 0;
         }
       }
 
       else
       {
-        v11 = 4294960568;
+        v5 = 4294960568;
       }
     }
 
     else
     {
-      v11 = 4294960596;
+      v5 = 4294960596;
     }
 
     if (context[0])
@@ -4258,14 +4259,14 @@ uint64_t DebugIPC_PerformF(uint64_t (*a1)(const __CFDictionary *a1), uint64_t a2
     CFRelease(cf);
   }
 
-  return v11;
+  return v5;
 }
 
 uint64_t _DebugIPC_ShowHandler(const __CFDictionary *a1)
 {
   v1 = *MEMORY[0x1E69E9858];
   Value = CFDictionaryGetValue(a1, @"value");
-  return FPrintF(v1, "%@\n", v3, v4, v5, v6, v7, v8, Value);
+  return FPrintF(v1, "%@\n", Value);
 }
 
 uint64_t DebugPrintAssert(uint64_t result, int a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -4313,7 +4314,7 @@ uint64_t DebugPrintAssert(uint64_t result, int a2, uint64_t a3, const char *a4, 
     {
       if (gLogCategory_DebugServicesLogging != -1 || (result = _LogCategory_Initialize(&gLogCategory_DebugServicesLogging, 0x46u), result))
       {
-        result = LogPrintF(&gLogCategory_DebugServicesLogging, "void DebugPrintAssert(DebugAssertFlags, OSStatus, const char *, const char *, long, const char *, const char *, ...)", 0x46u, "### [ASSERT] %s:%ld %###s, %#m %V\n%s", a5, a6, a7, a8, a4);
+        result = LogPrintF(&gLogCategory_DebugServicesLogging, "void DebugPrintAssert(DebugAssertFlags, OSStatus, const char *, const char *, long, const char *, const char *, ...)", 70, "### [ASSERT] %s:%ld %###s, %#m %V\n%s", a5, a6, a7, a8, a4);
       }
     }
   }
@@ -4322,7 +4323,7 @@ uint64_t DebugPrintAssert(uint64_t result, int a2, uint64_t a3, const char *a4, 
   {
     if (gLogCategory_DebugServicesLogging != -1 || (result = _LogCategory_Initialize(&gLogCategory_DebugServicesLogging, 0x46u), result))
     {
-      result = LogPrintF(&gLogCategory_DebugServicesLogging, "void DebugPrintAssert(DebugAssertFlags, OSStatus, const char *, const char *, long, const char *, const char *, ...)", 0x46u, "### [ASSERT] %s:%ld %###s, %s %V\n%s", a5, a6, a7, a8, a4);
+      result = LogPrintF(&gLogCategory_DebugServicesLogging, "void DebugPrintAssert(DebugAssertFlags, OSStatus, const char *, const char *, long, const char *, const char *, ...)", 70, "### [ASSERT] %s:%ld %###s, %s %V\n%s", a5, a6, a7, a8, a4);
     }
   }
 
@@ -4412,37 +4413,37 @@ BOOL DebugIsCurrentDispatchQueue(void *a1)
   return v3;
 }
 
-void CUFatalErrorV(int *a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void CUFatalErrorV(int *a1, char *a2, uint64_t a3)
 {
-  v8 = a2;
-  v14 = 0;
-  VASPrintF(&v14, a2, a3, a4, a5, a6, a7, a8);
-  if (v14)
+  v3 = a2;
+  v9 = 0;
+  VASPrintF(&v9, a2, a3);
+  if (v9)
   {
-    v8 = v14;
+    v3 = v9;
   }
 
   if (*a1 <= 90 && (*a1 != -1 || _LogCategory_Initialize(a1, 0x5Au)))
   {
-    LogPrintF(a1, "void CUFatalErrorV(LogCategory *, const char *, va_list)", 0x5Au, "### Fatal Error: %s", v10, v11, v12, v13, v8);
+    LogPrintF(a1, "void CUFatalErrorV(LogCategory *, const char *, va_list)", 90, "### Fatal Error: %s", v5, v6, v7, v8, v3);
   }
 
   _os_crash();
   __break(1u);
 }
 
-void FatalErrorV(unsigned __int8 *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void FatalErrorV(char *a1, uint64_t a2)
 {
-  v8 = a1;
-  v9 = 0;
-  VASPrintF(&v9, a1, a2, a4, a5, a6, a7, a8);
-  if (v9)
+  v2 = a1;
+  v3 = 0;
+  VASPrintF(&v3, a1, a2);
+  if (v3)
   {
-    v8 = v9;
+    v2 = v3;
   }
 
-  syslog(3, "### Fatal error: %s", v8);
-  fprintf(*MEMORY[0x1E69E9848], "### Fatal error: %s\n", v8);
+  syslog(3, "### Fatal error: %s", v2);
+  fprintf(*MEMORY[0x1E69E9848], "### Fatal error: %s\n", v2);
   _os_crash();
   __break(1u);
 }
@@ -5375,27 +5376,27 @@ id CUNormalizeEmailAddress(void *a1, int a2)
 void *CUNormalizePhoneNumber(void *a1)
 {
   v1 = a1;
-  v2 = softLinkCPPhoneNumberCopyActiveCountryCode[0]();
-  v3 = (softLinkPNCopyBestGuessNormalizedNumberForCountry[0])(v1, v2);
+  active = softLinkCPPhoneNumberCopyActiveCountryCode();
+  v3 = softLinkPNCopyBestGuessNormalizedNumberForCountry(v1, active);
   if (!v3)
   {
     goto LABEL_9;
   }
 
   v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v3];
-  v5 = (softLinkCFPhoneNumberCreate[0])(0, v4, v2);
+  v5 = softLinkCFPhoneNumberCreate(0, v4, active);
   free(v3);
   if (!v5)
   {
     goto LABEL_5;
   }
 
-  v6 = (softLinkCFPhoneNumberCreateString[0])(0, v5, 2);
+  String = softLinkCFPhoneNumberCreateString(0, v5, 2);
   CFRelease(v5);
-  if (v6)
+  if (String)
   {
     v7 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"+"];
-    v5 = [v6 stringByTrimmingCharactersInSet:v7];
+    v5 = [String stringByTrimmingCharactersInSet:v7];
   }
 
   else
@@ -5428,7 +5429,7 @@ uint64_t initCFPhoneNumberCreateString(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   v6 = dlsym(CorePhoneNumbersLibrary_sLib, "CFPhoneNumberCreateString");
-  softLinkCFPhoneNumberCreateString[0] = v6;
+  softLinkCFPhoneNumberCreateString = v6;
 
   return (v6)(a1, a2, a3);
 }
@@ -5448,7 +5449,7 @@ uint64_t initCFPhoneNumberCreate(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   v6 = dlsym(CorePhoneNumbersLibrary_sLib, "CFPhoneNumberCreate");
-  softLinkCFPhoneNumberCreate[0] = v6;
+  softLinkCFPhoneNumberCreate = v6;
 
   return (v6)(a1, a2, a3);
 }
@@ -5461,7 +5462,7 @@ uint64_t initPNCopyBestGuessNormalizedNumberForCountry(uint64_t a1, uint64_t a2)
   }
 
   v4 = dlsym(CorePhoneNumbersLibrary_sLib, "PNCopyBestGuessNormalizedNumberForCountry");
-  softLinkPNCopyBestGuessNormalizedNumberForCountry[0] = v4;
+  softLinkPNCopyBestGuessNormalizedNumberForCountry = v4;
 
   return (v4)(a1, a2);
 }
@@ -5474,7 +5475,7 @@ uint64_t initCPPhoneNumberCopyActiveCountryCode()
   }
 
   v0 = dlsym(AppSupportLibrary_sLib, "CPPhoneNumberCopyActiveCountryCode");
-  softLinkCPPhoneNumberCopyActiveCountryCode[0] = v0;
+  softLinkCPPhoneNumberCopyActiveCountryCode = v0;
 
   return v0();
 }
@@ -5518,24 +5519,24 @@ id CURandomString()
   return v5;
 }
 
-CFMutableStringRef CUStateDumpWithObject(uint64_t a1, void *a2, int *a3)
+CFMutableStringRef CUStateDumpWithObject(const char *a1, void *a2, int *a3)
 {
   v11 = a2;
   if (a3 && *a3 <= 50 && (*a3 != -1 || _LogCategory_Initialize(a3, 0x32u)))
   {
-    LogPrintF(a3, "struct os_state_data_s *CUStateDumpWithObject(const char *, __strong id, LogCategory *)", 0x32u, "State dump: %s\n", v7, v8, v9, v10, a1);
+    LogPrintF(a3, "struct os_state_data_s *CUStateDumpWithObject(const char *, __strong id, LogCategory *)", 50, "State dump: %s\n", v7, v8, v9, v10, a1);
   }
 
-  v52 = 0;
-  NSAppendPrintF(&v52, "\n", v5, v6, v7, v8, v9, v10, v47);
-  v12 = v52;
+  v47 = 0;
+  NSAppendPrintF(&v47, "\n", v5, v6, v7, v8, v9, v10, v42);
+  v12 = v47;
   v13 = CUDescriptionWithLevel(v11, 0);
   v20 = v13;
   if (v13)
   {
-    v51 = v12;
-    NSAppendPrintF(&v51, "%@\n", v14, v15, v16, v17, v18, v19, v13);
-    v21 = v51;
+    v46 = v12;
+    NSAppendPrintF(&v46, "%@\n", v14, v15, v16, v17, v18, v19, v13);
+    v21 = v46;
 
     if (!v21)
     {
@@ -5557,22 +5558,22 @@ CFMutableStringRef CUStateDumpWithObject(uint64_t a1, void *a2, int *a3)
   {
     if (a3 && *a3 <= 90 && (*a3 != -1 || _LogCategory_Initialize(a3, 0x5Au)))
     {
-      LogPrintF(a3, "struct os_state_data_s *CUStateDumpWithObject(const char *, __strong id, LogCategory *)", 0x5Au, "### Statedump truncate: %s, %zu -> %zu\n", v24, v25, v26, v27, a1);
+      LogPrintF(a3, "struct os_state_data_s *CUStateDumpWithObject(const char *, __strong id, LogCategory *)", 90, "### Statedump truncate: %s, %zu -> %zu\n", v24, v25, v26, v27, a1);
     }
 
-    v53.length = v28 - 29768;
-    v53.location = 29768;
-    CFStringDelete(v21, v53);
-    v50 = v21;
-    NSAppendPrintF(&v50, "\n...\n", v29, v30, v31, v32, v33, v34, v48);
-    v35 = v50;
+    v48.length = v28 - 29768;
+    v48.location = 29768;
+    CFStringDelete(v21, v48);
+    v45 = v21;
+    NSAppendPrintF(&v45, "\n...\n", v29, v30, v31, v32, v33, v34, v43);
+    v35 = v45;
 
     v21 = v35;
   }
 
-  v49 = v21;
-  NSAppendPrintF(&v49, "%s State End\n", v22, v23, v24, v25, v26, v27, a1);
-  v36 = v49;
+  v44 = v21;
+  NSAppendPrintF(&v44, "%s State End\n", v22, v23, v24, v25, v26, v27, a1);
+  v36 = v44;
 
   v37 = [MEMORY[0x1E696AE40] dataWithPropertyList:v36 format:100 options:0 error:0];
   v38 = v37;
@@ -5585,7 +5586,7 @@ CFMutableStringRef CUStateDumpWithObject(uint64_t a1, void *a2, int *a3)
     {
       LODWORD(v40->isa) = 1;
       HIDWORD(v40->isa) = v39;
-      SNPrintF(&v40[4].info, 64, "%s State", v41, v42, v43, v44, v45, a1);
+      SNPrintF(&v40[4].info, 64, "%s State", a1);
       memcpy(&v21[6].info, [v38 bytes], v39);
     }
   }
@@ -5638,7 +5639,7 @@ uint64_t CUTXTDataCreateWithDictionary(void *a1, uint64_t a2, void *a3)
   return v7;
 }
 
-void sub_191F85194(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_191F85194(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -6232,7 +6233,7 @@ LABEL_14:
   return v19;
 }
 
-id NSDataWithHex(char *a1, int64_t a2, char a3, char **a4, int *a5)
+id NSDataWithHex(char *a1, uint64_t a2, uint64_t a3, char **a4, int *a5)
 {
   v11 = 0;
   v12 = 0;
@@ -6605,7 +6606,7 @@ LABEL_35:
   return v25;
 }
 
-id NSErrorF(void *a1, uint64_t a2, unsigned __int8 *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+id NSErrorF(void *a1, uint64_t a2, char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   v11 = a1;
   v12 = v11;
@@ -6622,31 +6623,32 @@ id NSErrorF(void *a1, uint64_t a2, unsigned __int8 *a3, uint64_t a4, uint64_t a5
   return v13;
 }
 
-id NSErrorF_safe(void *a1, uint64_t a2, unsigned __int8 *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+id NSErrorF_safe(void *a1, uint64_t a2, char *a3, ...)
 {
-  v11 = a1;
-  v12 = v11;
+  va_start(va, a3);
+  v5 = a1;
+  v6 = v5;
   if (a2)
   {
-    v13 = NSErrorV(v11, a2, a3, &a9);
+    v7 = NSErrorV(v5, a2, a3, va);
   }
 
   else
   {
-    v13 = 0;
+    v7 = 0;
   }
 
-  return v13;
+  return v7;
 }
 
-id NSErrorV_safe(void *a1, uint64_t a2, unsigned __int8 *a3, uint64_t a4)
+id NSErrorV_safe(void *a1, uint64_t a2, char *a3, uint64_t a4)
 {
   v4 = NSErrorV(a1, a2, a3, a4);
 
   return v4;
 }
 
-id NSErrorNestedF(void *a1, uint64_t a2, void *a3, unsigned __int8 *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+id NSErrorNestedF(void *a1, uint64_t a2, void *a3, char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   v12 = a1;
   v13 = a3;
@@ -6663,80 +6665,80 @@ id NSErrorNestedF(void *a1, uint64_t a2, void *a3, unsigned __int8 *a4, uint64_t
   return v14;
 }
 
-id NSErrorNestedV(void *a1, uint64_t a2, void *a3, unsigned __int8 *a4, uint64_t a5)
+id NSErrorNestedV(void *a1, uint64_t a2, void *a3, char *a4, uint64_t a5)
 {
-  v38[4] = *MEMORY[0x1E69E9840];
+  v32[4] = *MEMORY[0x1E69E9840];
   v9 = a1;
   v10 = a3;
   if (a2)
   {
     ErrorString = DebugGetErrorStringEx(v9, a2, 0, 0);
-    v25 = NSPrintV(a4, a5, v12, v13, v14, v15, v16, v17);
+    v19 = NSPrintV(a4, a5);
     if (*ErrorString)
     {
-      NSPrintF("%s (%@)", v18, v19, v20, v21, v22, v23, v24, ErrorString);
+      NSPrintF("%s (%@)", v12, v13, v14, v15, v16, v17, v18, ErrorString);
     }
 
     else
     {
-      NSPrintF("%d (%@)", v18, v19, v20, v21, v22, v23, v24, a2);
+      NSPrintF("%d (%@)", v12, v13, v14, v15, v16, v17, v18, a2);
     }
-    v27 = ;
-    v28 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v21 = ;
+    v22 = objc_alloc(MEMORY[0x1E696ABC0]);
     if (v9)
     {
-      v29 = v9;
+      v23 = v9;
     }
 
     else
     {
-      v29 = *MEMORY[0x1E696A768];
+      v23 = *MEMORY[0x1E696A768];
     }
 
-    v30 = &stru_1F068B090;
-    if (v25)
+    v24 = &stru_1F068B090;
+    if (v19)
     {
-      v30 = v25;
+      v24 = v19;
     }
 
     if (v10)
     {
-      v37[0] = @"cuErrorDesc";
-      v37[1] = @"cuErrorMsg";
-      v38[0] = v27;
-      v38[1] = v30;
-      v31 = *MEMORY[0x1E696AA08];
-      v37[2] = *MEMORY[0x1E696A578];
-      v37[3] = v31;
-      v38[2] = v27;
-      v38[3] = v10;
-      v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:4];
+      v31[0] = @"cuErrorDesc";
+      v31[1] = @"cuErrorMsg";
+      v32[0] = v21;
+      v32[1] = v24;
+      v25 = *MEMORY[0x1E696AA08];
+      v31[2] = *MEMORY[0x1E696A578];
+      v31[3] = v25;
+      v32[2] = v21;
+      v32[3] = v10;
+      v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:4];
     }
 
     else
     {
-      v35[0] = @"cuErrorDesc";
-      v35[1] = @"cuErrorMsg";
-      v36[0] = v27;
-      v36[1] = v30;
-      v35[2] = *MEMORY[0x1E696A578];
-      v36[2] = v27;
-      v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:3];
+      v29[0] = @"cuErrorDesc";
+      v29[1] = @"cuErrorMsg";
+      v30[0] = v21;
+      v30[1] = v24;
+      v29[2] = *MEMORY[0x1E696A578];
+      v30[2] = v21;
+      v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:3];
     }
 
-    v33 = v32;
-    v26 = [v28 initWithDomain:v29 code:a2 userInfo:v32];
+    v27 = v26;
+    v20 = [v22 initWithDomain:v23 code:a2 userInfo:v26];
   }
 
   else
   {
-    v26 = 0;
+    v20 = 0;
   }
 
-  return v26;
+  return v20;
 }
 
-id NSErrorNestedF_safe(void *a1, uint64_t a2, void *a3, unsigned __int8 *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+id NSErrorNestedF_safe(void *a1, uint64_t a2, void *a3, char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   v12 = a1;
   v13 = a3;
@@ -6753,7 +6755,7 @@ id NSErrorNestedF_safe(void *a1, uint64_t a2, void *a3, unsigned __int8 *a4, uin
   return v14;
 }
 
-id NSErrorNestedV_safe(void *a1, uint64_t a2, void *a3, unsigned __int8 *a4, uint64_t a5)
+id NSErrorNestedV_safe(void *a1, uint64_t a2, void *a3, char *a4, uint64_t a5)
 {
   v5 = NSErrorNestedV(a1, a2, a3, a4, a5);
 
@@ -6975,7 +6977,7 @@ void _HIDBrowserStart(uint64_t a1)
 LABEL_4:
     if (gLogCategory_HIDUtils <= 50 && (gLogCategory_HIDUtils != -1 || _LogCategory_Initialize(&gLogCategory_HIDUtils, 0x32u)))
     {
-      LogPrintF(&gLogCategory_HIDUtils, "void _HIDBrowserStart(void *)", 0x32u, "### HID browser start failed: %#m\n", v3, v4, v5, v6, v9);
+      LogPrintF(&gLogCategory_HIDUtils, "void _HIDBrowserStart(void *)", 50, "### HID browser start failed: %#m\n", v3, v4, v5, v6, v9);
     }
 
     _HIDBrowserStop(a1);
@@ -7071,7 +7073,7 @@ LABEL_33:
 LABEL_10:
       if (gLogCategory_HIDUtils <= 50 && (gLogCategory_HIDUtils != -1 || _LogCategory_Initialize(&gLogCategory_HIDUtils, 0x32u)))
       {
-        LogPrintF(&gLogCategory_HIDUtils, "OSStatus _HIDDeviceCreateWithService(HIDDeviceRef *, HIDBrowserRef, io_object_t)", 0x32u, "### Add HID device failed: %#m\n", v8, v9, v10, v11, v14);
+        LogPrintF(&gLogCategory_HIDUtils, "OSStatus _HIDDeviceCreateWithService(HIDDeviceRef *, HIDBrowserRef, io_object_t)", 50, "### Add HID device failed: %#m\n", v8, v9, v10, v11, v14);
       }
 
       CFRelease(v12);
@@ -7138,7 +7140,7 @@ LABEL_10:
       IOObjectRelease(v6);
       if (gLogCategory_HIDUtils <= 30 && (gLogCategory_HIDUtils != -1 || _LogCategory_Initialize(&gLogCategory_HIDUtils, 0x1Eu)))
       {
-        LogPrintF(&gLogCategory_HIDUtils, "void _HIDBrowserAttachHandler(void *, io_iterator_t)", 0x1Eu, "Attached HID device %#U (%-3d byte reports): %@\n", v23, v24, v25, v26, v12 + 136);
+        LogPrintF(&gLogCategory_HIDUtils, "void _HIDBrowserAttachHandler(void *, io_iterator_t)", 30, "Attached HID device %#U (%-3d byte reports): %@\n", v23, v24, v25, v26, v12 + 136);
       }
 
       pthread_mutex_lock(*(a1 + 96));
@@ -7195,7 +7197,7 @@ CFIndex _HIDBrowserDetachHandler(void *a1, uint64_t a2, uint64_t a3, uint64_t a4
   v9 = a1[3];
   if (gLogCategory_HIDUtils <= 30 && (gLogCategory_HIDUtils != -1 || _LogCategory_Initialize(&gLogCategory_HIDUtils, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_HIDUtils, "void _HIDBrowserDetachHandler(void *, IOReturn, void *)", 0x1Eu, "Detached HID device %#U: %@\n", a5, a6, a7, a8, (a1 + 17));
+    LogPrintF(&gLogCategory_HIDUtils, "void _HIDBrowserDetachHandler(void *, IOReturn, void *)", 30, "Detached HID device %#U: %@\n", a5, a6, a7, a8, (a1 + 17));
   }
 
   v10 = *(v9 + 128);
@@ -7386,12 +7388,12 @@ uint64_t HIDDeviceSetEventHandler(uint64_t result, uint64_t a2, uint64_t a3)
   return result;
 }
 
-CFStringRef HIDDeviceCopyProperty(uint64_t a1, CFTypeRef cf1, uint64_t a3, int *a4)
+CFStringRef HIDDeviceCopyProperty(void *a1, CFTypeRef cf1, uint64_t a3, int *a4)
 {
   v11 = *MEMORY[0x1E69E9840];
   if (CFEqual(cf1, @"countryCode"))
   {
-    v7 = *(a1 + 88);
+    v7 = a1[11];
     if (!v7)
     {
       goto LABEL_10;
@@ -7402,7 +7404,7 @@ CFStringRef HIDDeviceCopyProperty(uint64_t a1, CFTypeRef cf1, uint64_t a3, int *
 
   if (CFEqual(cf1, @"displayUUID"))
   {
-    v7 = *(a1 + 96);
+    v7 = a1[12];
     if (!v7)
     {
       goto LABEL_30;
@@ -7413,13 +7415,13 @@ CFStringRef HIDDeviceCopyProperty(uint64_t a1, CFTypeRef cf1, uint64_t a3, int *
 
   if (CFEqual(cf1, @"name"))
   {
-    v7 = *(a1 + 104);
+    v7 = a1[13];
     goto LABEL_9;
   }
 
   if (CFEqual(cf1, @"productID"))
   {
-    v7 = *(a1 + 112);
+    v7 = a1[14];
     if (!v7)
     {
       goto LABEL_10;
@@ -7430,7 +7432,7 @@ CFStringRef HIDDeviceCopyProperty(uint64_t a1, CFTypeRef cf1, uint64_t a3, int *
 
   if (CFEqual(cf1, @"hidDescriptor"))
   {
-    v7 = *(a1 + 120);
+    v7 = a1[15];
     if (!v7)
     {
       goto LABEL_10;
@@ -7441,7 +7443,7 @@ CFStringRef HIDDeviceCopyProperty(uint64_t a1, CFTypeRef cf1, uint64_t a3, int *
 
   if (CFEqual(cf1, @"sampleRate"))
   {
-    v7 = *(a1 + 128);
+    v7 = a1[16];
     if (!v7)
     {
       goto LABEL_10;
@@ -7460,7 +7462,7 @@ LABEL_30:
       goto LABEL_11;
     }
 
-    v7 = *(a1 + 152);
+    v7 = a1[19];
     if (!v7)
     {
       goto LABEL_10;
@@ -7473,7 +7475,7 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  UUIDtoCStringFlags((a1 + 136), 16, 0, 0, cStr, 0);
+  UUIDtoCStringFlags(a1 + 136, 16, 0, 0, cStr, 0);
   v7 = CFStringCreateWithCString(0, cStr, 0x8000100u);
   if (v7)
   {
@@ -7514,7 +7516,7 @@ uint64_t _HIDDeviceHandleReport(uint64_t result, uint64_t a2, uint64_t a3, uint6
   {
     if (gLogCategory_HIDUtils != -1 || (result = _LogCategory_Initialize(&gLogCategory_HIDUtils, 9u), result))
     {
-      result = LogPrintF(&gLogCategory_HIDUtils, "void _HIDDeviceHandleReport(void *, IOReturn, void *, IOHIDReportType, uint32_t, uint8_t *, CFIndex)", 9u, "HID report for %#U: %.3H\n", a5, a6, a7, a8, v11 + 136);
+      result = LogPrintF(&gLogCategory_HIDUtils, "void _HIDDeviceHandleReport(void *, IOReturn, void *, IOHIDReportType, uint32_t, uint8_t *, CFIndex)", 9, "HID report for %#U: %.3H\n", a5, a6, a7, a8, v11 + 136);
     }
   }
 
@@ -7757,14 +7759,14 @@ uint64_t HTTPClientSetTimeout(uint64_t a1, uint64_t a2)
       {
         if (*result != -1)
         {
-          return LogPrintF(result, "void HTTPClientSetTimeout(HTTPClientRef, int)", 0x3Cu, "### Set TCP timeout to %d seconds failed: %#m\n", v5, v6, v7, v8, a2);
+          return LogPrintF(result, "void HTTPClientSetTimeout(HTTPClientRef, int)", 60, "### Set TCP timeout to %d seconds failed: %#m\n", v5, v6, v7, v8, a2);
         }
 
         result = _LogCategory_Initialize(result, 0x3Cu);
         if (result)
         {
           result = *(a1 + 96);
-          return LogPrintF(result, "void HTTPClientSetTimeout(HTTPClientRef, int)", 0x3Cu, "### Set TCP timeout to %d seconds failed: %#m\n", v5, v6, v7, v8, a2);
+          return LogPrintF(result, "void HTTPClientSetTimeout(HTTPClientRef, int)", 60, "### Set TCP timeout to %d seconds failed: %#m\n", v5, v6, v7, v8, a2);
         }
       }
     }
@@ -7823,7 +7825,7 @@ uint64_t HTTPClientDetach(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, u
   if (*v9 != -1)
   {
 LABEL_4:
-    LogPrintF(v9, "OSStatus HTTPClientDetach(HTTPClientRef, HTTPClientDetachHandler_f, void *, void *, void *)", 0x1Eu, "Detaching client for %s\n", a5, a6, a7, a8, a1[9]);
+    LogPrintF(v9, "OSStatus HTTPClientDetach(HTTPClientRef, HTTPClientDetachHandler_f, void *, void *, void *)", 30, "Detaching client for %s\n", a5, a6, a7, a8, a1[9]);
     return 0;
   }
 
@@ -7842,27 +7844,27 @@ uint64_t HTTPClientSendBinaryBytes(uint64_t a1, char a2, char a3, const void *a4
   cf = 0;
   if (a5 >= 0x10000)
   {
-    v25 = *(a1 + 96);
-    if (*v25 <= 90)
+    v19 = *(a1 + 96);
+    if (*v19 <= 90)
     {
-      if (*v25 == -1)
+      if (*v19 == -1)
       {
-        if (!_LogCategory_Initialize(v25, 0x5Au))
+        if (!_LogCategory_Initialize(v19, 0x5Au))
         {
           return 4294960553;
         }
 
-        v25 = *(a1 + 96);
+        v19 = *(a1 + 96);
       }
 
-      LogPrintF_safe(v25, "OSStatus HTTPClientSendBinaryBytes(HTTPClientRef, HTTPMessageFlags, uint8_t, const void *, size_t, HTTPMessageBinaryCompletion_f, void *)", 0x5Au, "### Bad binary length: %zu", a5, a6, a7, a8, a5);
+      LogPrintF_safe(v19, "OSStatus HTTPClientSendBinaryBytes(HTTPClientRef, HTTPMessageFlags, uint8_t, const void *, size_t, HTTPMessageBinaryCompletion_f, void *)", 90, "### Bad binary length: %zu", a5, a6, a7, a8, a5);
     }
 
     return 4294960553;
   }
 
   v15 = HTTPMessageCreate(&cf);
-  v22 = cf;
+  v16 = cf;
   if (v15)
   {
     goto LABEL_3;
@@ -7871,7 +7873,7 @@ uint64_t HTTPClientSendBinaryBytes(uint64_t a1, char a2, char a3, const void *a4
   if (a2)
   {
     *(cf + 1065) = a4;
-    *(v22 + 1066) = a5;
+    *(v16 + 1066) = a5;
   }
 
   else
@@ -7880,10 +7882,10 @@ uint64_t HTTPClientSendBinaryBytes(uint64_t a1, char a2, char a3, const void *a4
     if (v15)
     {
 LABEL_3:
-      v23 = v15;
-      if (!v22)
+      v17 = v15;
+      if (!v16)
       {
-        return v23;
+        return v17;
       }
 
       goto LABEL_13;
@@ -7891,26 +7893,26 @@ LABEL_3:
 
     if (a5)
     {
-      memmove(*(v22 + 1065), a4, a5);
+      memmove(*(v16 + 1065), a4, a5);
     }
   }
 
-  *(v22 + 24) = 36;
-  *(v22 + 25) = a3;
-  *(v22 + 26) = BYTE1(a5);
-  *(v22 + 27) = a5;
-  *(v22 + 1027) = 4;
+  *(v16 + 24) = 36;
+  *(v16 + 25) = a3;
+  *(v16 + 26) = BYTE1(a5);
+  *(v16 + 27) = a5;
+  *(v16 + 1027) = 4;
   if (a6)
   {
-    *(v22 + 1213) = a6;
-    *(v22 + 1209) = a7;
-    *(v22 + 1214) = _HTTPClientSendBinaryCompletion;
+    *(v16 + 1213) = a6;
+    *(v16 + 1209) = a7;
+    *(v16 + 1214) = _HTTPClientSendBinaryCompletion;
   }
 
-  v23 = HTTPClientSendMessage(a1, v22, v16, v17, v18, v19, v20, v21);
+  v17 = HTTPClientSendMessage(a1, v16);
 LABEL_13:
-  CFRelease(v22);
-  return v23;
+  CFRelease(v16);
+  return v17;
 }
 
 uint64_t _HTTPClientSocketEventsHandler(void *a1)
@@ -7936,7 +7938,7 @@ uint64_t _HTTPClientSocketEventsHandler(void *a1)
       result = a1[12];
     }
 
-    result = LogPrintF(result, "void _HTTPClientSocketEventsHandler(void *)", 0x32u, "Socket events: raw 0x%llX, flags %#{flags}", v3, v4, v5, v6, data);
+    result = LogPrintF(result, "void _HTTPClientSocketEventsHandler(void *)", 50, "Socket events: raw 0x%llX, flags %#{flags}", v3, v4, v5, v6, data);
   }
 
 LABEL_6:
@@ -7954,26 +7956,26 @@ LABEL_6:
   return result;
 }
 
-uint64_t _HTTPClientWriteHandler(uint64_t a1)
+void _HTTPClientWriteHandler(uint64_t a1)
 {
   dispatch_suspend(*(a1 + 224));
   *(a1 + 232) = 1;
-  v2 = *(a1 + 560);
-  if (v2)
+  v9 = *(a1 + 560);
+  if (v9)
   {
-    v3 = *(v2 + 9644);
-    if (v3 >= 1)
+    v10 = *(v9 + 9644);
+    if (v10 >= 1)
     {
-      v4 = *(a1 + 248);
-      if (v4)
+      v11 = *(a1 + 248);
+      if (v11)
       {
-        v5 = dispatch_time(0, 1000000000 * v3);
-        dispatch_source_set_timer(v4, v5, 0xFFFFFFFFFFFFFFFFLL, 0x1DCD6500uLL);
+        v12 = dispatch_time(0, 1000000000 * v10);
+        dispatch_source_set_timer(v11, v12, 0xFFFFFFFFFFFFFFFFLL, 0x1DCD6500uLL);
       }
     }
   }
 
-  return _HTTPClientRunStateMachine(a1);
+  _HTTPClientRunStateMachine(a1, v2, v3, v4, v5, v6, v7, v8);
 }
 
 uint64_t HTTPClientSendMessageSync(dispatch_queue_t *a1, uint64_t a2)
@@ -7984,33 +7986,33 @@ uint64_t HTTPClientSendMessageSync(dispatch_queue_t *a1, uint64_t a2)
     return 4294960568;
   }
 
-  v11 = v4;
+  v5 = v4;
   *(a2 + 9664) = v4;
   *(a2 + 9712) = _HTTPClientSendMessageSyncCompletion;
-  v12 = HTTPClientSendMessage(a1, a2, v5, v6, v7, v8, v9, v10);
-  if (!v12)
+  v6 = HTTPClientSendMessage(a1, a2);
+  if (!v6)
   {
-    dispatch_semaphore_wait(v11, 0xFFFFFFFFFFFFFFFFLL);
-    v12 = *(a2 + 9648);
-    if (!v12)
+    dispatch_semaphore_wait(v5, 0xFFFFFFFFFFFFFFFFLL);
+    v6 = *(a2 + 9648);
+    if (!v6)
     {
-      v13 = *(a2 + 8456);
-      v14 = v13 - 200;
-      v15 = v13 + 200000;
-      if (v14 >= 0x64)
+      v7 = *(a2 + 8456);
+      v8 = v7 - 200;
+      v9 = v7 + 200000;
+      if (v8 >= 0x64)
       {
-        v12 = v15;
+        v6 = v9;
       }
 
       else
       {
-        v12 = 0;
+        v6 = 0;
       }
     }
   }
 
-  dispatch_release(v11);
-  return v12;
+  dispatch_release(v5);
+  return v6;
 }
 
 uint64_t _HTTPMessageGetTypeID()
@@ -8022,8 +8024,8 @@ uint64_t _HTTPMessageGetTypeID()
 
 uint64_t HTTPMessageSetBodyFileDescriptor(uint64_t a1, int a2, unint64_t a3, uint64_t a4, char a5)
 {
-  memset(&v24, 0, sizeof(v24));
-  if (fstat(a2, &v24))
+  memset(&v19, 0, sizeof(v19));
+  if (fstat(a2, &v19))
   {
     if (!*__error())
     {
@@ -8037,10 +8039,10 @@ uint64_t HTTPMessageSetBodyFileDescriptor(uint64_t a1, int a2, unint64_t a3, uin
     }
   }
 
-  if (a3 || (v24.st_mode & 0xF000) == 0x8000)
+  if (a3 || (v19.st_mode & 0xF000) == 0x8000)
   {
-    v16 = lseek(a2, a3, (a3 >> 62) & 2);
-    if (v16 == -1)
+    v11 = lseek(a2, a3, (a3 >> 62) & 2);
+    if (v11 == -1)
     {
       if (!*__error())
       {
@@ -8053,63 +8055,63 @@ uint64_t HTTPMessageSetBodyFileDescriptor(uint64_t a1, int a2, unint64_t a3, uin
         return result;
       }
 
-      v16 = -1;
+      v11 = -1;
     }
   }
 
   else
   {
-    v16 = 0;
+    v11 = 0;
   }
 
   if (a4 >= 0)
   {
-    v17 = a4;
+    v12 = a4;
   }
 
   else
   {
-    v17 = v24.st_size - v16;
+    v12 = v19.st_size - v11;
   }
 
-  HTTPHeader_SetField((a1 + 24), "Content-Length", "%lld", v10, v11, v12, v13, v14, v17);
-  if (v17 >= 0x100000)
+  HTTPHeader_SetField((a1 + 24), "Content-Length", "%lld", v12);
+  if (v12 >= 0x100000)
   {
-    v18 = 0x100000;
+    v13 = 0x100000;
   }
 
   else
   {
-    v18 = v17;
+    v13 = v12;
   }
 
-  if (v18 > 0x3E8)
+  if (v13 > 0x3E8)
   {
-    v20 = malloc_type_realloc(*(a1 + 9552), v18, 0x100004077774924uLL);
-    if (!v20)
+    v15 = malloc_type_realloc(*(a1 + 9552), v13, 0x100004077774924uLL);
+    if (!v15)
     {
       return 4294960568;
     }
 
-    v19 = v20;
-    *(a1 + 9552) = v20;
+    v14 = v15;
+    *(a1 + 9552) = v15;
   }
 
   else
   {
-    v19 = (a1 + 8552);
+    v14 = (a1 + 8552);
   }
 
-  *(a1 + 8520) = v19;
-  *(a1 + 8536) = v18;
-  if (v17)
+  *(a1 + 8520) = v14;
+  *(a1 + 8536) = v13;
+  if (v12)
   {
-    v21 = read(a2, v19, v18);
-    if (v21 > 0)
+    v16 = read(a2, v14, v13);
+    if (v16 > 0)
     {
 LABEL_25:
-      *(a1 + 8528) = v21;
-      v22 = v17 - v21;
+      *(a1 + 8528) = v16;
+      v17 = v12 - v16;
       goto LABEL_28;
     }
 
@@ -8127,15 +8129,15 @@ LABEL_25:
     return 4294960596;
   }
 
-  v22 = 0;
+  v17 = 0;
   *(a1 + 8528) = 0;
 LABEL_28:
   if (*(a1 + 9732))
   {
-    v23 = *(a1 + 9728);
-    if ((v23 & 0x80000000) == 0)
+    v18 = *(a1 + 9728);
+    if ((v18 & 0x80000000) == 0)
     {
-      if (close(v23))
+      if (close(v18))
       {
         if (*__error())
         {
@@ -8148,7 +8150,7 @@ LABEL_28:
   result = 0;
   *(a1 + 9728) = a2;
   *(a1 + 9732) = a5;
-  *(a1 + 9736) = v22;
+  *(a1 + 9736) = v17;
   return result;
 }
 
@@ -8301,13 +8303,13 @@ LABEL_4:
   return Mutable;
 }
 
-uint64_t HTTPMessageGetOrCopyFormVariable(uint64_t a1, unsigned __int8 *a2, void *a3, void *a4, char **a5)
+uint64_t HTTPMessageGetOrCopyFormVariable(void *a1, unsigned __int8 *a2, void *a3, void *a4, char **a5)
 {
-  result = URLGetOrCopyVariable(*(a1 + 8360), (*(a1 + 8360) + *(a1 + 8368)), a2, a3, a4, a5, 0);
+  result = URLGetOrCopyVariable(a1[1045], (a1[1045] + a1[1046]), a2, a3, a4, a5, 0);
   if (result)
   {
-    v11 = *(a1 + 8520);
-    v12 = &v11[*(a1 + 8528)];
+    v11 = a1[1065];
+    v12 = &v11[a1[1066]];
 
     return URLGetOrCopyVariable(v11, v12, a2, a3, a4, a5, 0);
   }
@@ -8512,7 +8514,7 @@ LABEL_20:
             v30 = *(a1 + 24);
           }
 
-          LogPrintF(v30, "OSStatus _HTTPServerStart(HTTPServerRef)", 0x28u, "Listening on port %d\n", v26, v27, v28, v29, *(a1 + 48));
+          LogPrintF(v30, "OSStatus _HTTPServerStart(HTTPServerRef)", 40, "Listening on port %d\n", v26, v27, v28, v29, *(a1 + 48));
 LABEL_46:
           v11 = 0;
           goto LABEL_23;
@@ -8711,7 +8713,7 @@ LABEL_6:
         if (*v10 != -1)
         {
 LABEL_11:
-          LogPrintF(v10, "void _HTTPServerCloseConnection(HTTPConnectionRef, void *)", 0x1Eu, "Closing  connection from %##a to %##a\n", v6, v7, v8, v9, a1 + 256);
+          LogPrintF(v10, "void _HTTPServerCloseConnection(HTTPConnectionRef, void *)", 30, "Closing  connection from %##a to %##a\n", v6, v7, v8, v9, a1 + 256);
           goto LABEL_13;
         }
 
@@ -8825,13 +8827,13 @@ void _HTTPServerUpdateTimeoutTimer(uint64_t a1)
   }
 }
 
-uint64_t _HTTPServerTimeoutHandler(void *a1)
+void _HTTPServerTimeoutHandler(void *a1)
 {
-  result = mach_absolute_time();
+  v2 = mach_absolute_time();
   v7 = a1[7];
   if (v7)
   {
-    v8 = result;
+    v8 = v2;
     while (1)
     {
       v9 = *(v7 + 16);
@@ -8844,7 +8846,7 @@ LABEL_9:
       v7 = v9;
       if (!v9)
       {
-        return result;
+        return;
       }
     }
 
@@ -8861,15 +8863,13 @@ LABEL_9:
         v10 = a1[3];
       }
 
-      LogPrintF(v10, "void _HTTPServerTimeoutHandler(void *)", 0x32u, "Timing out connection %##a -> %##a\n", v3, v4, v5, v6, v7 + 256);
+      LogPrintF(v10, "void _HTTPServerTimeoutHandler(void *)", 50, "Timing out connection %##a -> %##a\n", v3, v4, v5, v6, v7 + 256);
     }
 
 LABEL_8:
-    result = _HTTPServerCloseConnection(v7);
+    _HTTPServerCloseConnection(v7);
     goto LABEL_9;
   }
-
-  return result;
 }
 
 void _HTTPServerListenerCanceled(uint64_t a1)
@@ -8900,7 +8900,7 @@ void _HTTPServerAcceptConnection(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
     if (*v10 != -1)
     {
 LABEL_3:
-      LogPrintF(v10, "void _HTTPServerAcceptConnection(void *)", 0x1Eu, "Accepting connection: socket=%d", a5, a6, a7, a8, *(a1 + 8));
+      LogPrintF(v10, "void _HTTPServerAcceptConnection(void *)", 30, "Accepting connection: socket=%d", a5, a6, a7, a8, *(a1 + 8));
       goto LABEL_5;
     }
 
@@ -8965,7 +8965,7 @@ LABEL_5:
         v20 = *(v9 + 24);
       }
 
-      LogPrintF(v20, "void _HTTPServerAcceptConnection(void *)", 0x1Eu, "Accepted connection from %##a to %##a\n", v14, v15, v16, v17, v19 + 256);
+      LogPrintF(v20, "void _HTTPServerAcceptConnection(void *)", 30, "Accepted connection from %##a to %##a\n", v14, v15, v16, v17, v19 + 256);
     }
 
 LABEL_27:
@@ -8992,7 +8992,7 @@ LABEL_19:
     if (*v21 != -1)
     {
 LABEL_23:
-      LogPrintF(v21, "void _HTTPServerAcceptConnection(void *)", 0x3Cu, "### Accept connection failed: %#m\n", v14, v15, v16, v17, v18);
+      LogPrintF(v21, "void _HTTPServerAcceptConnection(void *)", 60, "### Accept connection failed: %#m\n", v14, v15, v16, v17, v18);
       return;
     }
 
@@ -9228,7 +9228,7 @@ LABEL_26:
       v13 = *(a1 + 128);
     }
 
-    LogPrintF(v13, "OSStatus HTTPConnectionStart(HTTPConnectionRef)", 0x5Au, "### HTTP connection start failed: %#m\n", v6, v7, v8, v9, v4);
+    LogPrintF(v13, "OSStatus HTTPConnectionStart(HTTPConnectionRef)", 90, "### HTTP connection start failed: %#m\n", v6, v7, v8, v9, v4);
 LABEL_31:
     HTTPConnectionStop(a1);
   }
@@ -9507,14 +9507,14 @@ uint64_t HTTPConnectionSetTimeout(uint64_t a1, uint64_t a2)
       {
         if (*result != -1)
         {
-          return LogPrintF(result, "void HTTPConnectionSetTimeout(HTTPConnectionRef, int)", 0x3Cu, "### Set TCP timeout to %d seconds failed: %#m\n", v5, v6, v7, v8, a2);
+          return LogPrintF(result, "void HTTPConnectionSetTimeout(HTTPConnectionRef, int)", 60, "### Set TCP timeout to %d seconds failed: %#m\n", v5, v6, v7, v8, a2);
         }
 
         result = _LogCategory_Initialize(result, 0x3Cu);
         if (result)
         {
           result = *(a1 + 128);
-          return LogPrintF(result, "void HTTPConnectionSetTimeout(HTTPConnectionRef, int)", 0x3Cu, "### Set TCP timeout to %d seconds failed: %#m\n", v5, v6, v7, v8, a2);
+          return LogPrintF(result, "void HTTPConnectionSetTimeout(HTTPConnectionRef, int)", 60, "### Set TCP timeout to %d seconds failed: %#m\n", v5, v6, v7, v8, a2);
         }
       }
     }
@@ -9539,7 +9539,7 @@ void _HTTPConnectionStopAsync(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, u
     if (*v9 != -1)
     {
 LABEL_4:
-      LogPrintF(v9, "void _HTTPConnectionStopAsync(void *)", 0x1Eu, "HTTP connection stop async\n", a5, a6, a7, a8, v10);
+      LogPrintF(v9, "void _HTTPConnectionStopAsync(void *)", 30, "HTTP connection stop async\n", a5, a6, a7, a8, v10);
       goto LABEL_6;
     }
 
@@ -9576,7 +9576,7 @@ uint64_t HTTPConnectionDetach(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, u
   if (*v9 != -1)
   {
 LABEL_4:
-    LogPrintF(v9, "OSStatus HTTPConnectionDetach(HTTPConnectionRef, HTTPConnectionDetachHandler_f, void *, void *, void *)", 0x1Eu, "Detaching connection %##a -> %##a\n", a5, a6, a7, a8, (a1 + 32));
+    LogPrintF(v9, "OSStatus HTTPConnectionDetach(HTTPConnectionRef, HTTPConnectionDetachHandler_f, void *, void *, void *)", 30, "Detaching connection %##a -> %##a\n", a5, a6, a7, a8, (a1 + 32));
     return 0;
   }
 
@@ -9619,7 +9619,7 @@ uint64_t HTTPConnectionSetTransportDelegate(uint64_t a1, __int128 *a2)
   return result;
 }
 
-uint64_t HTTPConnectionGetNextURLSegmentEx(uint64_t a1, uint64_t *a2, int a3, unsigned __int8 **a4, void *a5, _DWORD *a6, uint64_t a7, uint64_t a8)
+uint64_t HTTPConnectionGetNextURLSegmentEx(void *a1, uint64_t *a2, int a3, unsigned __int8 **a4, void *a5, _DWORD *a6, uint64_t a7, uint64_t a8)
 {
   v11 = a2[1049];
   v12 = a2[1050];
@@ -9647,7 +9647,7 @@ uint64_t HTTPConnectionGetNextURLSegmentEx(uint64_t a1, uint64_t *a2, int a3, un
 LABEL_14:
     *a4 = v11;
     *a5 = v12 - v11;
-    a2[1049] = &v12[v18];
+    a2[1049] = v12 + v18;
     v13 = 1;
     goto LABEL_17;
   }
@@ -9662,25 +9662,25 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v14 = *(a1 + 128);
+  v14 = a1[16];
   if (*v14 <= 60)
   {
     if (*v14 != -1)
     {
 LABEL_7:
-      LogPrintF(v14, "Boolean HTTPConnectionGetNextURLSegmentEx(HTTPConnectionRef, HTTPMessageRef, Boolean, const char **, size_t *, OSStatus *)", 0x3Cu, "### Bad URL segment: '%.*s'\n", a5, a6, a7, a8, a2[1034]);
+      LogPrintF(v14, "Boolean HTTPConnectionGetNextURLSegmentEx(HTTPConnectionRef, HTTPMessageRef, Boolean, const char **, size_t *, OSStatus *)", 60, "### Bad URL segment: '%.*s'\n", a5, a6, a7, a8, a2[1034]);
       goto LABEL_16;
     }
 
     if (_LogCategory_Initialize(v14, 0x3Cu))
     {
-      v14 = *(a1 + 128);
+      v14 = a1[16];
       goto LABEL_7;
     }
   }
 
 LABEL_16:
-  v19 = HTTPConnectionSendSimpleResponseEx2(a1, 400, 4294960592, 0, 0, 0, a7, a8);
+  v19 = HTTPConnectionSendSimpleResponseEx2(a1, 400, 4294960592, 0, 0, 0);
   v13 = 0;
   v20 = 0;
   if (!v19)

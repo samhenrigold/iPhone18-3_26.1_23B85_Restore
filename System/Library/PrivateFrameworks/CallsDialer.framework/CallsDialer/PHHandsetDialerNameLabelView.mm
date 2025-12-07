@@ -2,6 +2,7 @@
 - (CGSize)intrinsicContentSize;
 - (PHHandsetDialerNameLabelView)initWithFrame:(CGRect)frame;
 - (void)setFontSize:(double)size;
+- (void)setHighlighted:(BOOL)highlighted;
 - (void)showName:(id)name label:(id)label animated:(BOOL)animated;
 @end
 
@@ -9,10 +10,10 @@
 
 - (PHHandsetDialerNameLabelView)initWithFrame:(CGRect)frame
 {
-  v20[1] = *MEMORY[0x277D85DE8];
-  v18.receiver = self;
-  v18.super_class = PHHandsetDialerNameLabelView;
-  v3 = [(PHHandsetDialerNameLabelView *)&v18 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v19[1] = *MEMORY[0x277D85DE8];
+  v17.receiver = self;
+  v17.super_class = PHHandsetDialerNameLabelView;
+  v3 = [(PHHandsetDialerNameLabelView *)&v17 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   v4 = v3;
   if (v3)
   {
@@ -41,10 +42,10 @@
     [v6 setContentCompressionResistancePriority:0 forAxis:v11];
     [(PHHandsetDialerNameLabelView *)v4 addSubview:v6];
     [(PHHandsetDialerNameLabelView *)v4 setNameAndLabelLabel:v6];
-    v19 = @"nameAndLabelLabel";
+    v18 = @"nameAndLabelLabel";
     nameAndLabelLabel = [(PHHandsetDialerNameLabelView *)v4 nameAndLabelLabel];
-    v20[0] = nameAndLabelLabel;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v19[0] = nameAndLabelLabel;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
 
     v14 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"|[nameAndLabelLabel]|" options:0 metrics:0 views:v13];
     [(PHHandsetDialerNameLabelView *)v4 addConstraints:v14];
@@ -55,7 +56,6 @@
     [(PHHandsetDialerNameLabelView *)v4 invalidateIntrinsicContentSize];
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -74,6 +74,16 @@
   result.height = v3;
   result.width = v2;
   return result;
+}
+
+- (void)setHighlighted:(BOOL)highlighted
+{
+  v6.receiver = self;
+  v6.super_class = PHHandsetDialerNameLabelView;
+  [(PHHandsetDialerNameLabelView *)&v6 setHighlighted:highlighted];
+  textColor = [(PHHandsetDialerNameLabelView *)self textColor];
+  nameAndLabelLabel = [(PHHandsetDialerNameLabelView *)self nameAndLabelLabel];
+  [nameAndLabelLabel setTextColor:textColor];
 }
 
 - (void)showName:(id)name label:(id)label animated:(BOOL)animated

@@ -2,8 +2,8 @@
 - (BOOL)isEqual:(id)equal;
 - (BWFrameStatisticsByPortType)initWithCoder:(id)coder;
 - (BWFrameStatisticsByPortType)initWithPortTypes:(id)types autoFocusRecommendedPrimaryPortTypeEnabled:(BOOL)enabled;
+- (id)_updateAutoFocusRecommendedPortTypesWithFrameMetadata:(id *)result;
 - (id)description;
-- (uint64_t)_updateAutoFocusRecommendedPortTypesWithFrameMetadata:(uint64_t)result;
 - (void)copyTo:(id)to;
 - (void)dealloc;
 - (void)encodeWithCoder:(id)coder;
@@ -277,53 +277,53 @@ LABEL_22:
 {
   if (metadata)
   {
+    distanceCopy = distance;
     memset(&v26, 0, sizeof(v26));
     CMTimeMakeFromDictionary(&v26, [metadata objectForKeyedSubscript:*off_1E798A420]);
-    v6 = -[NSDictionary objectForKeyedSubscript:](self->_portTypeToFrameStatistics, "objectForKeyedSubscript:", [metadata objectForKeyedSubscript:*off_1E798B540]);
-    v27 = v26;
-    fs_updateFrameStatisticsWithFrameMetadata(v6, metadata);
+    v7 = -[NSDictionary objectForKeyedSubscript:](self->_portTypeToFrameStatistics, "objectForKeyedSubscript:", [metadata objectForKeyedSubscript:*off_1E798B540]);
+    v27[0] = v26;
+    fs_updateFrameStatisticsWithFrameMetadata(v7, metadata, &v27[0].value, distanceCopy);
     metadataCopy = metadata;
-    v7 = [metadata objectForKeyedSubscript:*off_1E798B730];
+    v8 = [metadata objectForKeyedSubscript:*off_1E798B730];
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v8 = [v7 countByEnumeratingWithState:&v22 objects:v21 count:16];
-    if (v8)
+    v9 = [v8 countByEnumeratingWithState:&v22 objects:v21 count:16];
+    if (v9)
     {
-      v9 = v8;
-      v10 = *v23;
-      v11 = *off_1E798A0E8;
+      v10 = v9;
+      v11 = *v23;
       do
       {
-        for (i = 0; i != v9; ++i)
+        for (i = 0; i != v10; ++i)
         {
-          if (*v23 != v10)
+          if (*v23 != v11)
           {
-            objc_enumerationMutation(v7);
+            objc_enumerationMutation(v8);
           }
 
           v13 = *(*(&v22 + 1) + 8 * i);
-          if (([v13 isEqualToString:v11] & 1) == 0)
+          if ((objc_msgSend_isEqualToString_(v13) & 1) == 0)
           {
             v14 = [(NSDictionary *)self->_portTypeToFrameStatistics objectForKeyedSubscript:v13];
-            v15 = [v7 objectForKeyedSubscript:v13];
-            v27 = v26;
-            fs_updateFrameStatisticsWithFrameMetadata(v14, v15);
+            v15 = [v8 objectForKeyedSubscript:v13];
+            v27[0] = v26;
+            fs_updateFrameStatisticsWithFrameMetadata(v14, v15, &v27[0].value, distanceCopy);
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v22 objects:v21 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v22 objects:v21 count:16];
       }
 
-      while (v9);
+      while (v10);
     }
 
     if (self->_autoFocusRecommendedPrimaryPortTypeEnabled)
     {
       if ([objc_msgSend(metadataCopy objectForKeyedSubscript:{*off_1E798B710), "BOOLValue"}])
       {
-        [(BWFrameStatisticsByPortType *)self _updateAutoFocusRecommendedPortTypesWithFrameMetadata:metadataCopy];
+        [(BWFrameStatisticsByPortType *)&self->super.isa _updateAutoFocusRecommendedPortTypesWithFrameMetadata:metadataCopy];
       }
     }
 
@@ -413,7 +413,7 @@ LABEL_22:
   return v5;
 }
 
-- (uint64_t)_updateAutoFocusRecommendedPortTypesWithFrameMetadata:(uint64_t)result
+- (id)_updateAutoFocusRecommendedPortTypesWithFrameMetadata:(id *)result
 {
   if (result)
   {
@@ -432,12 +432,12 @@ LABEL_22:
         v5 = 0;
       }
 
-      result = [*(v3 + 16) objectForKeyedSubscript:v4];
+      result = [v3[2] objectForKeyedSubscript:v4];
       if (result)
       {
-        if (!v5 || (result = [*(v3 + 16) objectForKeyedSubscript:v5]) != 0)
+        if (!v5 || (result = [v3[2] objectForKeyedSubscript:v5]) != 0)
         {
-          v9 = *(v3 + 16);
+          v9 = v3[2];
           OUTLINED_FUNCTION_43();
           result = [v9 countByEnumeratingWithState:? objects:? count:?];
           if (result)
@@ -465,7 +465,7 @@ LABEL_22:
 
                 *([OUTLINED_FUNCTION_3_71() frameStatisticsStorage] + 224) = v4;
                 *([OUTLINED_FUNCTION_3_71() frameStatisticsStorage] + 240) = v5;
-                ++v12;
+                v12 = (v12 + 1);
               }
 
               while (v10 != v12);
@@ -525,7 +525,7 @@ LABEL_22:
   }
 }
 
-- (unint64_t)initWithPortTypes:(void *)a3 autoFocusRecommendedPrimaryPortTypeEnabled:.cold.1(void *a1, uint64_t a2, void *a3)
+- (void)initWithPortTypes:(void *)a3 autoFocusRecommendedPrimaryPortTypeEnabled:.cold.1(void *a1, uint64_t a2, void *a3)
 {
   v6 = 0;
   do

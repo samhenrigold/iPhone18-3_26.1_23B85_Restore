@@ -51,7 +51,7 @@
   swift_unknownObjectRelease();
   if (v16)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo18MPSearchController_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo18MPSearchController_pMd, _sSo18MPSearchController_pMR);
     v17.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 

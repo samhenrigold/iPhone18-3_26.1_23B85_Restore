@@ -9,10 +9,10 @@
 - (_TtC8AppStore37ContentSearchResultCollectionViewCell)initWithCoder:(id)coder
 {
   v4 = OBJC_IVAR____TtC8AppStore37ContentSearchResultCollectionViewCell_lockupView;
-  *(&self->super.super.super.super.super.isa + v4) = [objc_allocWithZone(type metadata accessor for SmallSearchLockupView()) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
+  *(&self->super.super.super.super.super.isa + v4) = [objc_allocWithZone(type metadata accessor for SmallSearchLockupView(0)) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
   v5 = OBJC_IVAR____TtC8AppStore37ContentSearchResultCollectionViewCell_screenshots;
-  *(&self->super.super.super.super.super.isa + v5) = [objc_allocWithZone(type metadata accessor for LockupMediaView()) init];
-  *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC8AppStore37ContentSearchResultCollectionViewCell_preferredImageSizes) = &_swiftEmptyDictionarySingleton;
+  *(&self->super.super.super.super.super.isa + v5) = [objc_allocWithZone(type metadata accessor for LockupMediaView(0)) init];
+  *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC8AppStore37ContentSearchResultCollectionViewCell_preferredImageSizes) = _swiftEmptyDictionarySingleton;
   result = _assertionFailure(_:_:file:line:flags:)();
   __break(1u);
   return result;
@@ -21,7 +21,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1003488A4();
+  sub_1003488A4(selfCopy);
 }
 
 - (void)prepareForReuse

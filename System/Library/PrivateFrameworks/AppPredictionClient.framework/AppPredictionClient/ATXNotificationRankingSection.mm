@@ -43,7 +43,7 @@
   v16[1] = objc_opt_class();
   v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
   v8 = [v6 setWithArray:v7];
-  v9 = __atxlog_handle_notification_categorization();
+  v9 = __atxlog_handle_notification_categorization(v8);
   v10 = [v5 robustDecodeObjectOfClasses:v8 forKey:@"userNotifications" withCoder:coderCopy expectNonNull:1 errorDomain:@"ATXNotificationRankingSectionError" errorCode:-1 logHandle:{v9, v16[0]}];
 
   error = [coderCopy error];

@@ -446,30 +446,30 @@ LABEL_7:
 
 + (id)_migrateDifferentAvatarKitVersionsForContent:(id)content logger:(id)logger
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   contentCopy = content;
   loggerCopy = logger;
   array = [MEMORY[0x277CBEB18] array];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   records = [contentCopy records];
-  v9 = [records countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v9 = [records countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v22;
+    v11 = *v21;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(records);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * i);
+        v13 = *(*(&v20 + 1) + 8 * i);
         avatarData = [v13 avatarData];
         if ([AVTAvatarRecord canLoadAvatarWithData:avatarData])
         {
@@ -483,7 +483,7 @@ LABEL_7:
         }
       }
 
-      v10 = [records countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v10 = [records countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v10);
@@ -492,8 +492,6 @@ LABEL_7:
   v16 = [AVTArchiverBasedStoreRoot alloc];
   domains = [contentCopy domains];
   v18 = [(AVTArchiverBasedStoreRoot *)v16 initWithDomains:domains records:array];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

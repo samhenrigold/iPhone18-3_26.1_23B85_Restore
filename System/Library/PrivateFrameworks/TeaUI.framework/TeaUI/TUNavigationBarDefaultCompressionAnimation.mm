@@ -213,7 +213,7 @@
       v9 = navigationBar;
       if (navigationBar)
       {
-        [navigationBar transform];
+        objc_msgSend_transform(navigationBar);
       }
 
       else

@@ -103,7 +103,7 @@ uint64_t __46__SDBetaEnrollmentServiceProxy_sharedInstance__block_invoke()
 
 void __58__SDBetaEnrollmentServiceProxy_initializeDaemonConnection__block_invoke(uint64_t a1)
 {
-  v2 = Log_1();
+  v2 = Log_1(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __58__SDBetaEnrollmentServiceProxy_initializeDaemonConnection__block_invoke_cold_1();
@@ -115,7 +115,7 @@ void __58__SDBetaEnrollmentServiceProxy_initializeDaemonConnection__block_invoke
 
 void __58__SDBetaEnrollmentServiceProxy_initializeDaemonConnection__block_invoke_2(uint64_t a1)
 {
-  v2 = Log_1();
+  v2 = Log_1(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __58__SDBetaEnrollmentServiceProxy_initializeDaemonConnection__block_invoke_2_cold_1();
@@ -133,105 +133,106 @@ void __58__SDBetaEnrollmentServiceProxy_initializeDaemonConnection__block_invoke
     [(SDBetaEnrollmentServiceProxy *)self initializeDaemonConnection];
   }
 
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
-  v21 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 0;
   daemonConnection = [(SDBetaEnrollmentServiceProxy *)self daemonConnection];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __72__SDBetaEnrollmentServiceProxy_betaEnrollmentProxyObjectWithCompletion___block_invoke;
-  v15[3] = &unk_2787CBB20;
-  v17 = &v18;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __72__SDBetaEnrollmentServiceProxy_betaEnrollmentProxyObjectWithCompletion___block_invoke;
+  v17[3] = &unk_2787CBB20;
+  v19 = &v20;
   v6 = completionCopy;
-  v16 = v6;
-  v7 = [daemonConnection remoteObjectProxyWithErrorHandler:v15];
+  v18 = v6;
+  v7 = [daemonConnection remoteObjectProxyWithErrorHandler:v17];
 
-  if ([v7 conformsToProtocol:&unk_284251B30])
+  v8 = [v7 conformsToProtocol:&unk_284251B30];
+  if (v8)
   {
-    v8 = v19;
-    if ((v19[3] & 1) == 0)
+    v9 = v21;
+    if ((v21[3] & 1) == 0)
     {
-      v9 = Log_1();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v10 = Log_1(v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        *v14 = 0;
-        _os_log_impl(&dword_22E41E000, v9, OS_LOG_TYPE_INFO, "Calling completion handler for betaEnrollmentProxyObjectWithCompletion with no error", v14, 2u);
+        *v16 = 0;
+        _os_log_impl(&dword_22E41E000, v10, OS_LOG_TYPE_INFO, "Calling completion handler for betaEnrollmentProxyObjectWithCompletion with no error", v16, 2u);
       }
 
       (*(v6 + 2))(v6, v7, 0);
-      v8 = v19;
+      v9 = v21;
     }
   }
 
   else
   {
-    v10 = Log_1();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v11 = Log_1(v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
       [SDBetaEnrollmentServiceProxy betaEnrollmentProxyObjectWithCompletion:];
     }
 
-    v11 = *(v19 + 24);
-    _SDErrorForDaemonClientErrorType = Log_1();
-    v13 = os_log_type_enabled(_SDErrorForDaemonClientErrorType, OS_LOG_TYPE_INFO);
-    if (v11)
+    v12 = *(v21 + 24);
+    _SDErrorForDaemonClientErrorType = Log_1(v13);
+    v15 = os_log_type_enabled(_SDErrorForDaemonClientErrorType, OS_LOG_TYPE_INFO);
+    if (v12)
     {
-      if (v13)
+      if (v15)
       {
-        *v14 = 0;
-        _os_log_impl(&dword_22E41E000, _SDErrorForDaemonClientErrorType, OS_LOG_TYPE_INFO, "Already sent conformsToProtocol error via completion handler", v14, 2u);
+        *v16 = 0;
+        _os_log_impl(&dword_22E41E000, _SDErrorForDaemonClientErrorType, OS_LOG_TYPE_INFO, "Already sent conformsToProtocol error via completion handler", v16, 2u);
       }
     }
 
     else
     {
-      if (v13)
+      if (v15)
       {
-        *v14 = 0;
-        _os_log_impl(&dword_22E41E000, _SDErrorForDaemonClientErrorType, OS_LOG_TYPE_INFO, "Sending conformsToProtocol error via completion handler", v14, 2u);
+        *v16 = 0;
+        _os_log_impl(&dword_22E41E000, _SDErrorForDaemonClientErrorType, OS_LOG_TYPE_INFO, "Sending conformsToProtocol error via completion handler", v16, 2u);
       }
 
       _SDErrorForDaemonClientErrorType = [(SDBetaEnrollmentServiceProxy *)self _SDErrorForDaemonClientErrorType];
       (*(v6 + 2))(v6, 0, _SDErrorForDaemonClientErrorType);
     }
 
-    v8 = v19;
-    *(v19 + 24) = 1;
+    v9 = v21;
+    *(v21 + 24) = 1;
   }
 
-  *(v8 + 24) = 1;
+  *(v9 + 24) = 1;
 
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v20, 8);
 }
 
 void __72__SDBetaEnrollmentServiceProxy_betaEnrollmentProxyObjectWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = Log_1();
+  v4 = Log_1(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __72__SDBetaEnrollmentServiceProxy_betaEnrollmentProxyObjectWithCompletion___block_invoke_cold_1(v3);
   }
 
   v5 = *(*(*(a1 + 40) + 8) + 24);
-  v6 = Log_1();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
+  v7 = Log_1(v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
   if (v5)
   {
-    if (v7)
+    if (v8)
     {
-      *v8 = 0;
-      _os_log_impl(&dword_22E41E000, v6, OS_LOG_TYPE_INFO, "Already sent remoteObjectProxyWithErrorHandler error via completion handler", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_22E41E000, v7, OS_LOG_TYPE_INFO, "Already sent remoteObjectProxyWithErrorHandler error via completion handler", v9, 2u);
     }
   }
 
   else
   {
-    if (v7)
+    if (v8)
     {
       *buf = 0;
-      _os_log_impl(&dword_22E41E000, v6, OS_LOG_TYPE_INFO, "Sending remoteObjectProxyWithErrorHandler error via completion handler", buf, 2u);
+      _os_log_impl(&dword_22E41E000, v7, OS_LOG_TYPE_INFO, "Sending remoteObjectProxyWithErrorHandler error via completion handler", buf, 2u);
     }
 
     (*(*(a1 + 32) + 16))();
@@ -247,28 +248,28 @@ void __72__SDBetaEnrollmentServiceProxy_betaEnrollmentProxyObjectWithCompletion_
     [(SDBetaEnrollmentServiceProxy *)self initializeDaemonConnection];
   }
 
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy__0;
-  v17 = __Block_byref_object_dispose__0;
-  v18 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__0;
+  v18 = __Block_byref_object_dispose__0;
+  v19 = 0;
   daemonConnection = [(SDBetaEnrollmentServiceProxy *)self daemonConnection];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __76__SDBetaEnrollmentServiceProxy_synchronousDaemonRemoteObjectProxyWithError___block_invoke;
-  v12[3] = &unk_2787CBB48;
-  v12[4] = &v13;
-  v6 = [daemonConnection synchronousRemoteObjectProxyWithErrorHandler:v12];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __76__SDBetaEnrollmentServiceProxy_synchronousDaemonRemoteObjectProxyWithError___block_invoke;
+  v13[3] = &unk_2787CBB48;
+  v13[4] = &v14;
+  v6 = [daemonConnection synchronousRemoteObjectProxyWithErrorHandler:v13];
 
-  v7 = v14;
+  v7 = v15;
   if (error)
   {
-    v8 = v14[5];
+    v8 = v15[5];
     if (v8)
     {
       *error = v8;
-      v7 = v14;
+      v7 = v15;
     }
   }
 
@@ -277,15 +278,16 @@ void __72__SDBetaEnrollmentServiceProxy_betaEnrollmentProxyObjectWithCompletion_
     goto LABEL_7;
   }
 
-  if ([v6 conformsToProtocol:&unk_284251B30])
+  v10 = [v6 conformsToProtocol:&unk_284251B30];
+  if (v10)
   {
     v9 = v6;
   }
 
   else
   {
-    v10 = Log_1();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v11 = Log_1(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
       [SDBetaEnrollmentServiceProxy synchronousDaemonRemoteObjectProxyWithError:];
     }
@@ -303,7 +305,7 @@ LABEL_7:
 
 LABEL_14:
 
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v14, 8);
 
   return v9;
 }
@@ -311,7 +313,7 @@ LABEL_14:
 void __76__SDBetaEnrollmentServiceProxy_synchronousDaemonRemoteObjectProxyWithError___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = Log_1();
+  v4 = Log_1(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __76__SDBetaEnrollmentServiceProxy_synchronousDaemonRemoteObjectProxyWithError___block_invoke_cold_1(v3);
@@ -1020,20 +1022,18 @@ void __62__SDBetaEnrollmentServiceProxy_loadMDMConfigurationWithError___block_in
 
 void __72__SDBetaEnrollmentServiceProxy_betaEnrollmentProxyObjectWithCompletion___block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
-  OUTLINED_FUNCTION_0_1(&dword_22E41E000, v2, v3, "Failed to get remote object proxy to betaEnrollment remote process: %{public}@.", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_1(&dword_22E41E000, v2, v3, "Failed to get remote object proxy to betaEnrollment remote process: %{public}@.", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void __76__SDBetaEnrollmentServiceProxy_synchronousDaemonRemoteObjectProxyWithError___block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
-  OUTLINED_FUNCTION_0_1(&dword_22E41E000, v2, v3, "Failed to get synchronous remote object proxy: %{public}@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_1(&dword_22E41E000, v2, v3, "Failed to get synchronous remote object proxy: %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

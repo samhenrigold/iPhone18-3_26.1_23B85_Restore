@@ -44,31 +44,31 @@
 
 - (id)filterCandidatesBySuggestionRequirements:(id)requirements
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   requirementsCopy = requirements;
-  v27 = objc_opt_new();
+  v28 = objc_opt_new();
   v4 = objc_opt_new();
-  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
   obj = requirementsCopy;
-  v5 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
+  v5 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v30;
+    v7 = *v31;
     v8 = *MEMORY[0x277CEBD00];
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v30 != v7)
+        if (*v31 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v29 + 1) + 8 * i);
+        v10 = *(*(&v30 + 1) + 8 * i);
         widgetDescriptor = [v10 widgetDescriptor];
         extensionBundleIdentifier = [widgetDescriptor extensionBundleIdentifier];
 
@@ -84,95 +84,93 @@
 
           else
           {
-            v16 = [MEMORY[0x277CEB3B0] isDebuggingAllowedForExtensionBundleId:v13];
+            v17 = [MEMORY[0x277CEB3B0] isDebuggingAllowedForExtensionBundleId:v13];
 
             v15 = v4;
-            if (!v16)
+            if (!v17)
             {
               goto LABEL_14;
             }
           }
 
-          v14 = __atxlog_handle_relevant_shortcut();
+          v14 = __atxlog_handle_relevant_shortcut(v16);
           if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
             widgetDescriptor2 = [v10 widgetDescriptor];
             *keyExistsAndHasValidFormat = 138412290;
-            v34 = widgetDescriptor2;
+            v35 = widgetDescriptor2;
             _os_log_impl(&dword_2263AA000, v14, OS_LOG_TYPE_DEFAULT, "ATXRSFilter: WidgetKit Developer Mode enabled. Bypassing filtering for debug allowed widget: %@", keyExistsAndHasValidFormat, 0xCu);
           }
 
-          v15 = v27;
+          v15 = v28;
         }
 
 LABEL_14:
         [v15 addObject:v10];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
+      v6 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
     }
 
     while (v6);
   }
 
-  v18 = __atxlog_handle_relevant_shortcut();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v20 = __atxlog_handle_relevant_shortcut(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     *keyExistsAndHasValidFormat = 0;
-    _os_log_impl(&dword_2263AA000, v18, OS_LOG_TYPE_DEFAULT, "ATXRSFilter: Filtering candidates...", keyExistsAndHasValidFormat, 2u);
+    _os_log_impl(&dword_2263AA000, v20, OS_LOG_TYPE_DEFAULT, "ATXRSFilter: Filtering candidates...", keyExistsAndHasValidFormat, 2u);
   }
 
-  v19 = [v4 copy];
-  v20 = [(ATXRSFilter *)self _candidatesByUsingAppLaunchHistogramsToFilterCandidates:v19];
+  v21 = [v4 copy];
+  v22 = [(ATXRSFilter *)self _candidatesByUsingAppLaunchHistogramsToFilterCandidates:v21];
 
-  v21 = [v27 arrayByAddingObjectsFromArray:v20];
-  v22 = __atxlog_handle_relevant_shortcut();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v23 = [v28 arrayByAddingObjectsFromArray:v22];
+  v24 = __atxlog_handle_relevant_shortcut(v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = [v21 count];
+    v25 = [v23 count];
     *keyExistsAndHasValidFormat = 134217984;
-    v34 = v23;
-    _os_log_impl(&dword_2263AA000, v22, OS_LOG_TYPE_DEFAULT, "ATXRSFilter: %lu candidates passed suggestion filters", keyExistsAndHasValidFormat, 0xCu);
+    v35 = v25;
+    _os_log_impl(&dword_2263AA000, v24, OS_LOG_TYPE_DEFAULT, "ATXRSFilter: %lu candidates passed suggestion filters", keyExistsAndHasValidFormat, 0xCu);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v23;
 }
 
 - (id)_candidatesByUsingAppLaunchHistogramsToFilterCandidates:(id)candidates
 {
-  v88 = *MEMORY[0x277D85DE8];
+  v89 = *MEMORY[0x277D85DE8];
   candidatesCopy = candidates;
   v5 = objc_opt_new();
   selfCopy = self;
-  v66 = [(_ATXAppLaunchHistogramManager *)self->_appLaunchHistogramManager histogramForLaunchType:2];
-  v73 = 0u;
+  v67 = [(_ATXAppLaunchHistogramManager *)self->_appLaunchHistogramManager histogramForLaunchType:2];
   v74 = 0u;
   v75 = 0u;
   v76 = 0u;
+  v77 = 0u;
   obj = candidatesCopy;
-  v60 = [obj countByEnumeratingWithState:&v73 objects:v87 count:16];
-  if (v60)
+  v61 = [obj countByEnumeratingWithState:&v74 objects:v88 count:16];
+  if (v61)
   {
-    v59 = *v74;
+    v60 = *v75;
     *&v6 = 138412802;
-    v55 = v6;
+    v56 = v6;
     v7 = @"ATXDateRelevantContext";
     v8 = 0x277CBE000uLL;
-    v56 = v5;
+    v57 = v5;
     do
     {
       v9 = 0;
       do
       {
-        if (*v74 != v59)
+        if (*v75 != v60)
         {
           objc_enumerationMutation(obj);
         }
 
-        v61 = v9;
-        v10 = *(*(&v73 + 1) + 8 * v9);
+        v62 = v9;
+        v10 = *(*(&v74 + 1) + 8 * v9);
         donationBundleIdentifier = [v10 donationBundleIdentifier];
         v12 = [ATXRSWidgetSuggestionProducer replacementContainerBundleIdForDonationBundleId:donationBundleIdentifier];
         v13 = v12;
@@ -205,114 +203,114 @@ LABEL_12:
           goto LABEL_12;
         }
 
-        [(ATXAppLaunches *)selfCopy->_appLaunches timesAppHasBeenLaunchedOverLast28Days:v16];
-        if (v20 >= 10.0)
+        v20 = [(ATXAppLaunches *)selfCopy->_appLaunches timesAppHasBeenLaunchedOverLast28Days:v16];
+        if (v21 >= 10.0)
         {
-          v71 = 0u;
           v72 = 0u;
-          v69 = 0u;
+          v73 = 0u;
           v70 = 0u;
-          v63 = v10;
+          v71 = 0u;
+          v64 = v10;
           relevantContexts = [v10 relevantContexts];
-          v68 = [relevantContexts countByEnumeratingWithState:&v69 objects:v86 count:16];
-          if (!v68)
+          v69 = [relevantContexts countByEnumeratingWithState:&v70 objects:v87 count:16];
+          if (!v69)
           {
 
 LABEL_41:
             v17 = v5;
-            v18 = v63;
+            v18 = v64;
 LABEL_13:
             [v17 addObject:v18];
             goto LABEL_14;
           }
 
-          v67 = *v70;
-          v32 = 1;
-          v62 = v16;
-          v65 = relevantContexts;
+          v68 = *v71;
+          v33 = 1;
+          v63 = v16;
+          v66 = relevantContexts;
           do
           {
-            for (i = 0; i != v68; ++i)
+            for (i = 0; i != v69; ++i)
             {
-              if (*v70 != v67)
+              if (*v71 != v68)
               {
                 objc_enumerationMutation(relevantContexts);
               }
 
-              v34 = *(*(&v69 + 1) + 8 * i);
-              v35 = NSClassFromString(&v7->isa);
-              v36 = v34;
-              if (v35)
+              v35 = *(*(&v70 + 1) + 8 * i);
+              v36 = NSClassFromString(&v7->isa);
+              v37 = v35;
+              if (v36)
               {
                 if (objc_opt_isKindOfClass())
                 {
-                  v37 = v36;
+                  v38 = v37;
                 }
 
                 else
                 {
-                  v37 = 0;
+                  v38 = 0;
                 }
               }
 
               else
               {
-                v37 = 0;
+                v38 = 0;
               }
 
-              v38 = v37;
+              v39 = v38;
 
-              if (v38)
+              if (v39)
               {
-                v85 = v16;
-                v39 = [*(v8 + 2656) arrayWithObjects:&v85 count:1];
-                startDate = [v38 startDate];
-                LODWORD(v41) = 1.0;
-                [v66 totalLaunchesForBundleIds:v39 forDate:startDate distanceScale:v41];
-                v43 = v42;
+                v86 = v16;
+                v40 = [*(v8 + 2656) arrayWithObjects:&v86 count:1];
+                startDate = [v39 startDate];
+                LODWORD(v42) = 1.0;
+                [v67 totalLaunchesForBundleIds:v40 forDate:startDate distanceScale:v42];
+                v44 = v43;
 
-                if (v43 < 4.0)
+                if (v44 < 4.0)
                 {
-                  v44 = __atxlog_handle_relevant_shortcut();
-                  if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+                  v46 = __atxlog_handle_relevant_shortcut(v45);
+                  if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
                   {
-                    widgetDescriptor = [v63 widgetDescriptor];
+                    widgetDescriptor = [v64 widgetDescriptor];
                     extensionBundleIdentifier = [widgetDescriptor extensionBundleIdentifier];
-                    widgetDescriptor2 = [v63 widgetDescriptor];
+                    widgetDescriptor2 = [v64 widgetDescriptor];
                     kind = [widgetDescriptor2 kind];
-                    intent = [v63 intent];
+                    intent = [v64 intent];
                     [intent intentDescription];
-                    v50 = v49 = v7;
-                    startDate2 = [v38 startDate];
+                    v52 = v51 = v7;
+                    startDate2 = [v39 startDate];
                     *buf = 138413058;
-                    v78 = extensionBundleIdentifier;
-                    v79 = 2112;
-                    v80 = kind;
-                    v81 = 2112;
-                    v82 = v50;
-                    v83 = 2112;
-                    v84 = startDate2;
-                    _os_log_impl(&dword_2263AA000, v44, OS_LOG_TYPE_DEFAULT, "ATXRSFilter: Candidate (%@ - %@ - %@) failed dayOfWeek filter for start date: %@", buf, 0x2Au);
+                    v79 = extensionBundleIdentifier;
+                    v80 = 2112;
+                    v81 = kind;
+                    v82 = 2112;
+                    v83 = v52;
+                    v84 = 2112;
+                    v85 = startDate2;
+                    _os_log_impl(&dword_2263AA000, v46, OS_LOG_TYPE_DEFAULT, "ATXRSFilter: Candidate (%@ - %@ - %@) failed dayOfWeek filter for start date: %@", buf, 0x2Au);
 
-                    v7 = v49;
-                    v16 = v62;
+                    v7 = v51;
+                    v16 = v63;
 
                     v8 = 0x277CBE000;
                   }
 
-                  v32 = 0;
-                  relevantContexts = v65;
+                  v33 = 0;
+                  relevantContexts = v66;
                 }
               }
             }
 
-            v68 = [relevantContexts countByEnumeratingWithState:&v69 objects:v86 count:16];
+            v69 = [relevantContexts countByEnumeratingWithState:&v70 objects:v87 count:16];
           }
 
-          while (v68);
+          while (v69);
 
-          v5 = v56;
-          if (v32)
+          v5 = v57;
+          if (v33)
           {
             goto LABEL_41;
           }
@@ -320,45 +318,43 @@ LABEL_13:
 
         else
         {
-          v21 = __atxlog_handle_relevant_shortcut();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+          v22 = __atxlog_handle_relevant_shortcut(v20);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
             widgetDescriptor3 = [v10 widgetDescriptor];
             extensionBundleIdentifier2 = [widgetDescriptor3 extensionBundleIdentifier];
             widgetDescriptor4 = [v10 widgetDescriptor];
             kind2 = [widgetDescriptor4 kind];
-            v26 = v10;
-            v27 = kind2;
-            intent2 = [v26 intent];
+            v27 = v10;
+            v28 = kind2;
+            intent2 = [v27 intent];
             [intent2 intentDescription];
-            v30 = v29 = v16;
-            *buf = v55;
-            v78 = extensionBundleIdentifier2;
-            v79 = 2112;
-            v80 = v27;
-            v81 = 2112;
-            v82 = v30;
-            _os_log_impl(&dword_2263AA000, v21, OS_LOG_TYPE_DEFAULT, "ATXRSFilter: Candidate (%@ - %@ - %@) failed minimum app launch count over last 28 days filter", buf, 0x20u);
+            v31 = v30 = v16;
+            *buf = v56;
+            v79 = extensionBundleIdentifier2;
+            v80 = 2112;
+            v81 = v28;
+            v82 = 2112;
+            v83 = v31;
+            _os_log_impl(&dword_2263AA000, v22, OS_LOG_TYPE_DEFAULT, "ATXRSFilter: Candidate (%@ - %@ - %@) failed minimum app launch count over last 28 days filter", buf, 0x20u);
 
-            v16 = v29;
-            v5 = v56;
+            v16 = v30;
+            v5 = v57;
           }
         }
 
 LABEL_14:
 
-        v9 = v61 + 1;
+        v9 = v62 + 1;
       }
 
-      while (v61 + 1 != v60);
-      v52 = [obj countByEnumeratingWithState:&v73 objects:v87 count:16];
-      v60 = v52;
+      while (v62 + 1 != v61);
+      v54 = [obj countByEnumeratingWithState:&v74 objects:v88 count:16];
+      v61 = v54;
     }
 
-    while (v52);
+    while (v54);
   }
-
-  v53 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

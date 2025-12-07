@@ -7,7 +7,7 @@
 
 - (void)requestAppLaunchWithBundleID:(id)d updateFrequency:(double)frequency
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dCopy = d;
   frequencyCopy = 60.0;
   if (frequency >= 60.0)
@@ -24,7 +24,7 @@
   if (os_log_type_enabled(*MEMORY[0x277CCC288], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v18 = dCopy;
+    v17 = dCopy;
     _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_DEFAULT, "Requesting to launch Duet for the App's bundleID %{public}@", buf, 0xCu);
   }
 
@@ -36,8 +36,6 @@
 
   mEMORY[0x277D06A28] = [MEMORY[0x277D06A28] sharedScheduler];
   [mEMORY[0x277D06A28] submitActivity:v13];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestAssertionInvalidationForBundleID:(id)d

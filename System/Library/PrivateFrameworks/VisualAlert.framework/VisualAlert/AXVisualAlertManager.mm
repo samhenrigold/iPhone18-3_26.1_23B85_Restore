@@ -10,6 +10,7 @@
 - (NSString)description;
 - (id)_normalizedStrobePatternForOriginalPattern:(id)pattern;
 - (id)existingBulletinForBulletin:(id)bulletin;
+- (void)_beginVisualAlertForType:(unint64_t)type repeat:(BOOL)repeat skipAutomaticStopOnUserInteraction:(BOOL)interaction bundleId:(id)id;
 - (void)_endVisualAlert;
 - (void)_handleBeginVisualAlertForAlarmWithSound:(BOOL)sound;
 - (void)_handleBeginVisualAlertForIncomingCall;
@@ -114,27 +115,27 @@
 
 - (id)existingBulletinForBulletin:(id)bulletin
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   bulletinCopy = bulletin;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = self->_bulletins;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
-    v7 = *v16;
+    v7 = *v15;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         sectionIdentifier = [v9 sectionIdentifier];
         sectionIdentifier2 = [bulletinCopy sectionIdentifier];
         v12 = [sectionIdentifier isEqualToString:sectionIdentifier2];
@@ -146,7 +147,7 @@
         }
       }
 
-      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v6)
       {
         continue;
@@ -158,15 +159,13 @@
 
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (void)_setTorchDeviceOpen:(BOOL)open withCompletion:(id)completion
 {
   openCopy = open;
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v7 = completionCopy;
   if (self->_torchDeviceOpen == openCopy)
@@ -199,19 +198,19 @@ LABEL_11:
           if (os_log_type_enabled(v12, v13))
           {
             *buf = 138543362;
-            v28 = v15;
+            v27 = v15;
             _os_log_impl(&dword_27102A000, v12, v13, "%{public}@", buf, 0xCu);
           }
         }
       }
 
       asyncManagerAdapter = self->_asyncManagerAdapter;
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __59__AXVisualAlertManager__setTorchDeviceOpen_withCompletion___block_invoke;
-      v25[3] = &unk_279E2C5D8;
-      v26 = v7;
-      [(AXCameraTorchManagerBackgroundAdapter *)asyncManagerAdapter openTorchDeviceWithCompletion:v25];
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __59__AXVisualAlertManager__setTorchDeviceOpen_withCompletion___block_invoke;
+      v24[3] = &unk_279E2C5D8;
+      v25 = v7;
+      [(AXCameraTorchManagerBackgroundAdapter *)asyncManagerAdapter openTorchDeviceWithCompletion:v24];
     }
 
     else
@@ -233,15 +232,13 @@ LABEL_11:
           if (os_log_type_enabled(v20, v21))
           {
             *buf = 138543362;
-            v28 = v23;
+            v27 = v23;
             _os_log_impl(&dword_27102A000, v20, v21, "%{public}@", buf, 0xCu);
           }
         }
       }
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __59__AXVisualAlertManager__setTorchDeviceOpen_withCompletion___block_invoke(uint64_t a1)
@@ -258,7 +255,7 @@ uint64_t __59__AXVisualAlertManager__setTorchDeviceOpen_withCompletion___block_i
 - (void)_setTorchDeviceOn:(BOOL)on withCompletion:(id)completion
 {
   onCopy = on;
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v7 = completionCopy;
   if (self->_torchDeviceOn == onCopy)
@@ -279,7 +276,7 @@ uint64_t __59__AXVisualAlertManager__setTorchDeviceOpen_withCompletion___block_i
         if (os_log_type_enabled(v11, v12))
         {
           *buf = 138543362;
-          v32 = v14;
+          v31 = v14;
           _os_log_impl(&dword_27102A000, v11, v12, "%{public}@", buf, 0xCu);
         }
       }
@@ -314,43 +311,41 @@ uint64_t __59__AXVisualAlertManager__setTorchDeviceOpen_withCompletion___block_i
           if (os_log_type_enabled(v19, v20))
           {
             *buf = 138543362;
-            v32 = v22;
+            v31 = v22;
             _os_log_impl(&dword_27102A000, v19, v20, "%{public}@", buf, 0xCu);
           }
         }
       }
 
       asyncManagerAdapter = self->_asyncManagerAdapter;
-      v29[0] = MEMORY[0x277D85DD0];
-      v29[1] = 3221225472;
-      v29[2] = __57__AXVisualAlertManager__setTorchDeviceOn_withCompletion___block_invoke;
-      v29[3] = &unk_279E2C588;
-      v29[4] = self;
-      v30 = v7;
-      [(AXCameraTorchManagerBackgroundAdapter *)asyncManagerAdapter turnTorchOnWithCompletion:v29];
-      v24 = v30;
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __57__AXVisualAlertManager__setTorchDeviceOn_withCompletion___block_invoke;
+      v28[3] = &unk_279E2C588;
+      v28[4] = self;
+      v29 = v7;
+      [(AXCameraTorchManagerBackgroundAdapter *)asyncManagerAdapter turnTorchOnWithCompletion:v28];
+      v24 = v29;
     }
 
     else
     {
       v25 = self->_asyncManagerAdapter;
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __57__AXVisualAlertManager__setTorchDeviceOn_withCompletion___block_invoke_562;
-      v27[3] = &unk_279E2C588;
-      v27[4] = self;
-      v28 = completionCopy;
-      [(AXCameraTorchManagerBackgroundAdapter *)v25 turnTorchOffWithCompletion:v27];
-      v24 = v28;
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __57__AXVisualAlertManager__setTorchDeviceOn_withCompletion___block_invoke_562;
+      v26[3] = &unk_279E2C588;
+      v26[4] = self;
+      v27 = completionCopy;
+      [(AXCameraTorchManagerBackgroundAdapter *)v25 turnTorchOffWithCompletion:v26];
+      v24 = v27;
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __57__AXVisualAlertManager__setTorchDeviceOn_withCompletion___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CE6998] sharedInstance];
   v3 = [v2 ignoreLogging];
 
@@ -363,13 +358,12 @@ uint64_t __57__AXVisualAlertManager__setTorchDeviceOn_withCompletion___block_inv
     if (os_log_type_enabled(v6, v7))
     {
       v8 = AXColorizeFormatLog();
-      v9 = *(a1 + 32);
       CFAbsoluteTimeGetCurrent();
-      v10 = _AXStringForArgs();
+      v9 = _AXStringForArgs();
       if (os_log_type_enabled(v6, v7))
       {
         *buf = 138543362;
-        v14 = v10;
+        v12 = v9;
         _os_log_impl(&dword_27102A000, v6, v7, "%{public}@", buf, 0xCu);
       }
     }
@@ -378,16 +372,15 @@ uint64_t __57__AXVisualAlertManager__setTorchDeviceOn_withCompletion___block_inv
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))(result, v4);
+    return (*(result + 16))(result, v4);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __57__AXVisualAlertManager__setTorchDeviceOn_withCompletion___block_invoke_562(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CE6998] sharedInstance];
   v3 = [v2 ignoreLogging];
 
@@ -400,13 +393,12 @@ uint64_t __57__AXVisualAlertManager__setTorchDeviceOn_withCompletion___block_inv
     if (os_log_type_enabled(v6, v7))
     {
       v8 = AXColorizeFormatLog();
-      v9 = *(a1 + 32);
       CFAbsoluteTimeGetCurrent();
-      v10 = _AXStringForArgs();
+      v9 = _AXStringForArgs();
       if (os_log_type_enabled(v6, v7))
       {
         *buf = 138543362;
-        v14 = v10;
+        v12 = v9;
         _os_log_impl(&dword_27102A000, v6, v7, "%{public}@", buf, 0xCu);
       }
     }
@@ -415,10 +407,9 @@ uint64_t __57__AXVisualAlertManager__setTorchDeviceOn_withCompletion___block_inv
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))(result, v4);
+    return (*(result + 16))(result, v4);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -468,23 +459,23 @@ uint64_t __57__AXVisualAlertManager__setTorchDeviceOn_withCompletion___block_inv
 
 - (void)_springBoardLockStateChange:(id)change
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   changeCopy = change;
   userInfo = [changeCopy userInfo];
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
   v5 = getkSBNotificationKeyDeviceLockStateSymbolLoc_ptr;
-  v16 = getkSBNotificationKeyDeviceLockStateSymbolLoc_ptr;
+  v15 = getkSBNotificationKeyDeviceLockStateSymbolLoc_ptr;
   if (!getkSBNotificationKeyDeviceLockStateSymbolLoc_ptr)
   {
     v6 = SpringBoardUILibrary();
-    v14[3] = dlsym(v6, "kSBNotificationKeyDeviceLockState");
-    getkSBNotificationKeyDeviceLockStateSymbolLoc_ptr = v14[3];
-    v5 = v14[3];
+    v13[3] = dlsym(v6, "kSBNotificationKeyDeviceLockState");
+    getkSBNotificationKeyDeviceLockStateSymbolLoc_ptr = v13[3];
+    v5 = v13[3];
   }
 
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v12, 8);
   if (!v5)
   {
     [AXVisualAlertManager _springBoardLockStateChange:];
@@ -494,18 +485,16 @@ uint64_t __57__AXVisualAlertManager__setTorchDeviceOn_withCompletion___block_inv
   bOOLValue = [v7 BOOLValue];
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  v17 = @"AXVisualAlertLockStateKey";
+  v16 = @"AXVisualAlertLockStateKey";
   v10 = [MEMORY[0x277CCABB0] numberWithBool:bOOLValue];
-  v18[0] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+  v17[0] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
   [defaultCenter postNotificationName:@"AXVisualAlertLockStateChangeNotification" object:0 userInfo:v11];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startForAlertTypes:(unint64_t)types cameraTorchManager:(id)manager
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v94 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   [(AXVisualAlertManager *)self _stop];
   self->_alertTypes = types;
@@ -514,23 +503,23 @@ uint64_t __57__AXVisualAlertManager__setTorchDeviceOn_withCompletion___block_inv
 
   if (managerCopy)
   {
-    v78 = managerCopy;
+    v76 = managerCopy;
     v8 = [[AXCameraTorchManagerBackgroundAdapter alloc] initWithCameraTorchManager:managerCopy];
     v9 = self->_asyncManagerAdapter;
     self->_asyncManagerAdapter = v8;
 
     v10 = objc_opt_new();
-    v87[0] = MEMORY[0x277D85DD0];
-    v87[1] = 3221225472;
-    v87[2] = __63__AXVisualAlertManager__startForAlertTypes_cameraTorchManager___block_invoke;
-    v87[3] = &unk_279E2C628;
-    v87[4] = self;
-    v82 = MEMORY[0x2743BB9E0](v87);
+    v85[0] = MEMORY[0x277D85DD0];
+    v85[1] = 3221225472;
+    v85[2] = __63__AXVisualAlertManager__startForAlertTypes_cameraTorchManager___block_invoke;
+    v85[3] = &unk_279E2C628;
+    v85[4] = self;
+    v80 = MEMORY[0x2743BB9E0](v85);
     alertTypes = self->_alertTypes;
     if (alertTypes)
     {
       v12 = [AXTelephonyNotificationHandler alloc];
-      v13 = [(VISAXNotificationHandler *)v12 initWithNotificationName:*MEMORY[0x277D6EFF0] target:self dispatcher:v82];
+      v13 = [(VISAXNotificationHandler *)v12 initWithNotificationName:*MEMORY[0x277D6EFF0] target:self dispatcher:v80];
       [v10 addObject:v13];
       v14 = [AXTelephonyNotificationHandler alloc];
       v15 = [(VISAXNotificationHandler *)v14 initWithNotificationName:*MEMORY[0x277D6EFE8] target:self dispatcher:&__block_literal_global_600];
@@ -542,7 +531,7 @@ uint64_t __57__AXVisualAlertManager__setTorchDeviceOn_withCompletion___block_inv
     if ((alertTypes & 2) != 0)
     {
       v16 = [AXTelephonyNotificationHandler alloc];
-      v17 = [(VISAXNotificationHandler *)v16 initWithNotificationName:*MEMORY[0x277D6F038] target:self dispatcher:v82];
+      v17 = [(VISAXNotificationHandler *)v16 initWithNotificationName:*MEMORY[0x277D6F038] target:self dispatcher:v80];
       [v10 addObject:v17];
       v18 = [AXTelephonyNotificationHandler alloc];
       v19 = [(VISAXNotificationHandler *)v18 initWithNotificationName:*MEMORY[0x277D6EFE8] target:self dispatcher:&__block_literal_global_600];
@@ -569,26 +558,26 @@ uint64_t __57__AXVisualAlertManager__setTorchDeviceOn_withCompletion___block_inv
     if (AXProcessIsSpringBoard())
     {
       defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-      v88 = 0;
-      v89 = &v88;
-      v90 = 0x2020000000;
+      v86 = 0;
+      v87 = &v86;
+      v88 = 0x2020000000;
       v24 = getSBLockButtonPressedNotificationSymbolLoc_ptr;
-      v91 = getSBLockButtonPressedNotificationSymbolLoc_ptr;
+      v89 = getSBLockButtonPressedNotificationSymbolLoc_ptr;
       if (!getSBLockButtonPressedNotificationSymbolLoc_ptr)
       {
         *&buf = MEMORY[0x277D85DD0];
         *(&buf + 1) = 3221225472;
-        v93 = __getSBLockButtonPressedNotificationSymbolLoc_block_invoke;
-        v94 = &unk_279E2C600;
-        v95 = &v88;
+        v91 = __getSBLockButtonPressedNotificationSymbolLoc_block_invoke;
+        v92 = &unk_279E2C600;
+        v93 = &v86;
         v25 = SpringBoardUILibrary();
         v26 = dlsym(v25, "SBLockButtonPressedNotification");
-        *(v95[1] + 24) = v26;
-        getSBLockButtonPressedNotificationSymbolLoc_ptr = *(v95[1] + 24);
-        v24 = v89[3];
+        *(v93[1] + 24) = v26;
+        getSBLockButtonPressedNotificationSymbolLoc_ptr = *(v93[1] + 24);
+        v24 = v87[3];
       }
 
-      _Block_object_dispose(&v88, 8);
+      _Block_object_dispose(&v86, 8);
       if (!v24)
       {
         [AXVisualAlertManager _startForAlertTypes:cameraTorchManager:];
@@ -597,26 +586,26 @@ uint64_t __57__AXVisualAlertManager__setTorchDeviceOn_withCompletion___block_inv
       [defaultCenter addObserver:self selector:sel__springBoardLockButtonPress_ name:*v24 object:0];
 
       defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
-      v88 = 0;
-      v89 = &v88;
-      v90 = 0x2020000000;
+      v86 = 0;
+      v87 = &v86;
+      v88 = 0x2020000000;
       v28 = getSBVolumeButtonPressedNotificationSymbolLoc_ptr;
-      v91 = getSBVolumeButtonPressedNotificationSymbolLoc_ptr;
+      v89 = getSBVolumeButtonPressedNotificationSymbolLoc_ptr;
       if (!getSBVolumeButtonPressedNotificationSymbolLoc_ptr)
       {
         *&buf = MEMORY[0x277D85DD0];
         *(&buf + 1) = 3221225472;
-        v93 = __getSBVolumeButtonPressedNotificationSymbolLoc_block_invoke;
-        v94 = &unk_279E2C600;
-        v95 = &v88;
+        v91 = __getSBVolumeButtonPressedNotificationSymbolLoc_block_invoke;
+        v92 = &unk_279E2C600;
+        v93 = &v86;
         v29 = SpringBoardUILibrary();
         v30 = dlsym(v29, "SBVolumeButtonPressedNotification");
-        *(v95[1] + 24) = v30;
-        getSBVolumeButtonPressedNotificationSymbolLoc_ptr = *(v95[1] + 24);
-        v28 = v89[3];
+        *(v93[1] + 24) = v30;
+        getSBVolumeButtonPressedNotificationSymbolLoc_ptr = *(v93[1] + 24);
+        v28 = v87[3];
       }
 
-      _Block_object_dispose(&v88, 8);
+      _Block_object_dispose(&v86, 8);
       if (!v28)
       {
         [AXVisualAlertManager _startForAlertTypes:cameraTorchManager:];
@@ -625,26 +614,26 @@ uint64_t __57__AXVisualAlertManager__setTorchDeviceOn_withCompletion___block_inv
       [defaultCenter2 addObserver:self selector:sel__springBoardVolumeChange_ name:*v28 object:0];
 
       defaultCenter3 = [MEMORY[0x277CCAB98] defaultCenter];
-      v88 = 0;
-      v89 = &v88;
-      v90 = 0x2020000000;
+      v86 = 0;
+      v87 = &v86;
+      v88 = 0x2020000000;
       v32 = getSBDeviceLockStateChangedNotificationSymbolLoc_ptr;
-      v91 = getSBDeviceLockStateChangedNotificationSymbolLoc_ptr;
+      v89 = getSBDeviceLockStateChangedNotificationSymbolLoc_ptr;
       if (!getSBDeviceLockStateChangedNotificationSymbolLoc_ptr)
       {
         *&buf = MEMORY[0x277D85DD0];
         *(&buf + 1) = 3221225472;
-        v93 = __getSBDeviceLockStateChangedNotificationSymbolLoc_block_invoke;
-        v94 = &unk_279E2C600;
-        v95 = &v88;
+        v91 = __getSBDeviceLockStateChangedNotificationSymbolLoc_block_invoke;
+        v92 = &unk_279E2C600;
+        v93 = &v86;
         v33 = SpringBoardUILibrary();
         v34 = dlsym(v33, "SBDeviceLockStateChangedNotification");
-        *(v95[1] + 24) = v34;
-        getSBDeviceLockStateChangedNotificationSymbolLoc_ptr = *(v95[1] + 24);
-        v32 = v89[3];
+        *(v93[1] + 24) = v34;
+        getSBDeviceLockStateChangedNotificationSymbolLoc_ptr = *(v93[1] + 24);
+        v32 = v87[3];
       }
 
-      _Block_object_dispose(&v88, 8);
+      _Block_object_dispose(&v86, 8);
       if (!v32)
       {
         [AXVisualAlertManager _startForAlertTypes:cameraTorchManager:];
@@ -653,23 +642,23 @@ uint64_t __57__AXVisualAlertManager__setTorchDeviceOn_withCompletion___block_inv
       [defaultCenter3 addObserver:self selector:sel__springBoardLockStateChange_ name:*v32 object:0];
     }
 
-    v81 = [[AXAutoForwardingLocalNotificationHandler alloc] initWithNotificationName:@"AXVisualAlertLockButtonPressedNotification" target:self handler:sel__handleLockButtonPressed];
-    [v10 addObject:v81];
-    v80 = [[AXAutoForwardingLocalNotificationHandler alloc] initWithNotificationName:@"AXVisualAlertVolumeChangeNotification" target:self handler:sel__handleVolumeChanged];
-    [v10 addObject:v80];
+    v79 = [[AXAutoForwardingLocalNotificationHandler alloc] initWithNotificationName:@"AXVisualAlertLockButtonPressedNotification" target:self handler:sel__handleLockButtonPressed];
+    [v10 addObject:v79];
+    v78 = [[AXAutoForwardingLocalNotificationHandler alloc] initWithNotificationName:@"AXVisualAlertVolumeChangeNotification" target:self handler:sel__handleVolumeChanged];
+    [v10 addObject:v78];
     v35 = [AXAutoForwardingLocalNotificationHandler alloc];
-    v85[0] = MEMORY[0x277D85DD0];
-    v85[1] = 3221225472;
-    v85[2] = __63__AXVisualAlertManager__startForAlertTypes_cameraTorchManager___block_invoke_4;
-    v85[3] = &unk_279E2C690;
-    v86 = &__block_literal_global_621;
-    v36 = [(AXAutoForwardingLocalNotificationHandler *)v35 initWithNotificationName:@"AXVisualAlertLockStateChangeNotification" target:self dispatcher:v85 possibleHandlers:sel__handleDeviceWasLocked, sel__handleDeviceWasUnlocked, 0];
+    v83[0] = MEMORY[0x277D85DD0];
+    v83[1] = 3221225472;
+    v83[2] = __63__AXVisualAlertManager__startForAlertTypes_cameraTorchManager___block_invoke_4;
+    v83[3] = &unk_279E2C690;
+    v84 = &__block_literal_global_621;
+    v36 = [(AXAutoForwardingLocalNotificationHandler *)v35 initWithNotificationName:@"AXVisualAlertLockStateChangeNotification" target:self dispatcher:v83 possibleHandlers:sel__handleDeviceWasLocked, sel__handleDeviceWasUnlocked, 0];
     deviceLockStateChangedNotificationHandler = self->_deviceLockStateChangedNotificationHandler;
     self->_deviceLockStateChangedNotificationHandler = v36;
 
     [v10 addObject:self->_deviceLockStateChangedNotificationHandler];
-    v79 = [[AXAutoForwardingLocalNotificationHandler alloc] initWithNotificationName:@"AXVisualAlertManagerDoNotDisturbStatusChangedNotification" target:self dispatcher:&__block_literal_global_627 possibleHandlers:sel__handleQuietModeWasEnabled, sel__handleQuietModeWasDisabled, 0];
-    [v10 addObject:v79];
+    v77 = [[AXAutoForwardingLocalNotificationHandler alloc] initWithNotificationName:@"AXVisualAlertManagerDoNotDisturbStatusChangedNotification" target:self dispatcher:&__block_literal_global_627 possibleHandlers:sel__handleQuietModeWasEnabled, sel__handleQuietModeWasDisabled, 0];
+    [v10 addObject:v77];
     v38 = [[AXAutoForwardingLocalNotificationHandler alloc] initWithNotificationName:@"AXVisualAlertManagerControlCenterTorchWasEnabledNotification" target:self handler:sel__handleTorchInControlCenterWasEnabled];
     torchInControlCenterWasEnabledNotificationHandler = self->_torchInControlCenterWasEnabledNotificationHandler;
     self->_torchInControlCenterWasEnabledNotificationHandler = &v38->super.super;
@@ -770,7 +759,6 @@ uint64_t __57__AXVisualAlertManager__setTorchDeviceOn_withCompletion___block_inv
       if (os_log_type_enabled(v66, v67))
       {
         v68 = AXColorizeFormatLog();
-        isRingerSwitchSilent = self->_isRingerSwitchSilent;
         v69 = _AXStringForArgs();
         if (os_log_type_enabled(v66, v67))
         {
@@ -784,26 +772,26 @@ uint64_t __57__AXVisualAlertManager__setTorchDeviceOn_withCompletion___block_inv
     if (AXProcessIsSpringBoard())
     {
       defaultCenter4 = [MEMORY[0x277CCAB98] defaultCenter];
-      v88 = 0;
-      v89 = &v88;
-      v90 = 0x2020000000;
+      v86 = 0;
+      v87 = &v86;
+      v88 = 0x2020000000;
       v71 = getSBRingerChangedNotificationSymbolLoc_ptr;
-      v91 = getSBRingerChangedNotificationSymbolLoc_ptr;
+      v89 = getSBRingerChangedNotificationSymbolLoc_ptr;
       if (!getSBRingerChangedNotificationSymbolLoc_ptr)
       {
         *&buf = MEMORY[0x277D85DD0];
         *(&buf + 1) = 3221225472;
-        v93 = __getSBRingerChangedNotificationSymbolLoc_block_invoke;
-        v94 = &unk_279E2C600;
-        v95 = &v88;
+        v91 = __getSBRingerChangedNotificationSymbolLoc_block_invoke;
+        v92 = &unk_279E2C600;
+        v93 = &v86;
         v72 = SpringBoardUILibrary();
         v73 = dlsym(v72, "SBRingerChangedNotification");
-        *(v95[1] + 24) = v73;
-        getSBRingerChangedNotificationSymbolLoc_ptr = *(v95[1] + 24);
-        v71 = v89[3];
+        *(v93[1] + 24) = v73;
+        getSBRingerChangedNotificationSymbolLoc_ptr = *(v93[1] + 24);
+        v71 = v87[3];
       }
 
-      _Block_object_dispose(&v88, 8);
+      _Block_object_dispose(&v86, 8);
       if (!v71)
       {
         [AXVisualAlertManager _startForAlertTypes:cameraTorchManager:];
@@ -823,15 +811,13 @@ uint64_t __57__AXVisualAlertManager__setTorchDeviceOn_withCompletion___block_inv
       notify_register_dispatch(uTF8String, &self->_ringerStateNotifyToken, MEMORY[0x277D85CD0], handler);
     }
 
-    managerCopy = v78;
+    managerCopy = v76;
   }
-
-  v75 = *MEMORY[0x277D85DE8];
 }
 
 char *__63__AXVisualAlertManager__startForAlertTypes_cameraTorchManager___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a4;
   v9 = a3;
@@ -848,17 +834,17 @@ char *__63__AXVisualAlertManager__startForAlertTypes_cameraTorchManager___block_
     goto LABEL_18;
   }
 
-  v35 = [v9 isVideo];
-  v34 = [v9 status];
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x3032000000;
-  v39 = __Block_byref_object_copy_;
-  v40 = __Block_byref_object_dispose_;
-  v41 = 0;
+  v33 = [v9 isVideo];
+  v32 = [v9 status];
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x3032000000;
+  v37 = __Block_byref_object_copy_;
+  v38 = __Block_byref_object_dispose_;
+  v39 = 0;
   AXPerformBlockSynchronouslyOnMainThread();
-  [v37[5] removeObject:v9];
-  v14 = [v37[5] count];
+  [v35[5] removeObject:v9];
+  v14 = [v35[5] count];
   v15 = [MEMORY[0x277CE6998] sharedInstance];
   v16 = [v15 ignoreLogging];
 
@@ -871,12 +857,11 @@ char *__63__AXVisualAlertManager__startForAlertTypes_cameraTorchManager___block_
     if (os_log_type_enabled(v18, v19))
     {
       v20 = AXColorizeFormatLog();
-      v33 = v37[5];
       v21 = _AXStringForArgs();
       if (os_log_type_enabled(v18, v19))
       {
         *buf = 138543362;
-        v43 = v21;
+        v41 = v21;
         _os_log_impl(&dword_27102A000, v18, v19, "%{public}@", buf, 0xCu);
       }
     }
@@ -900,7 +885,7 @@ char *__63__AXVisualAlertManager__startForAlertTypes_cameraTorchManager___block_
         if (os_log_type_enabled(v25, v26))
         {
           *buf = 138543362;
-          v43 = v28;
+          v41 = v28;
           _os_log_impl(&dword_27102A000, v25, v26, "%{public}@", buf, 0xCu);
         }
       }
@@ -909,20 +894,20 @@ char *__63__AXVisualAlertManager__startForAlertTypes_cameraTorchManager___block_
     goto LABEL_16;
   }
 
-  if ((v34 - 3) < 2)
+  if ((v32 - 3) < 2)
   {
-    v32 = v35;
+    v31 = v33;
   }
 
   else
   {
-    v32 = 0;
+    v31 = 0;
   }
 
-  *(*(a1 + 32) + 105) = v32;
-  if ((v34 - 3) < 2)
+  *(*(a1 + 32) + 105) = v31;
+  if ((v32 - 3) < 2)
   {
-    if (v35)
+    if (v33)
     {
       v29 = sel__handleBeginVisualAlertForIncomingVideoConferenceCall;
     }
@@ -935,14 +920,14 @@ char *__63__AXVisualAlertManager__startForAlertTypes_cameraTorchManager___block_
 
   else
   {
-    if (v34 != 1 && v34 != 6)
+    if (v32 != 1 && v32 != 6)
     {
 LABEL_16:
       v29 = 0;
       goto LABEL_17;
     }
 
-    if (v35)
+    if (v33)
     {
       v29 = sel__handleEndVisualAlertForIncomingVideoConferenceCall;
     }
@@ -954,7 +939,7 @@ LABEL_16:
   }
 
 LABEL_17:
-  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(&v34, 8);
 
   if (v14)
   {
@@ -962,7 +947,6 @@ LABEL_18:
     v29 = 0;
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v29;
 }
 
@@ -1059,7 +1043,7 @@ char *__63__AXVisualAlertManager__startForAlertTypes_cameraTorchManager___block_
 
 void __63__AXVisualAlertManager__startForAlertTypes_cameraTorchManager___block_invoke_6(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a3;
   if (v3)
   {
@@ -1079,23 +1063,21 @@ void __63__AXVisualAlertManager__startForAlertTypes_cameraTorchManager___block_i
         if (os_log_type_enabled(v7, v8))
         {
           *buf = 138543362;
-          v13 = v10;
+          v12 = v10;
           _os_log_impl(&dword_27102A000, v7, v8, "%{public}@", buf, 0xCu);
         }
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __63__AXVisualAlertManager__startForAlertTypes_cameraTorchManager___block_invoke_664(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) disturbanceService];
-  v15 = 0;
-  v3 = [v2 queryCurrentStateWithError:&v15];
-  v4 = v15;
+  v14 = 0;
+  v3 = [v2 queryCurrentStateWithError:&v14];
+  v4 = v14;
   v5 = [v3 isActive];
 
   if (v4)
@@ -1116,7 +1098,7 @@ void __63__AXVisualAlertManager__startForAlertTypes_cameraTorchManager___block_i
         if (os_log_type_enabled(v9, v10))
         {
           *buf = 138543362;
-          v17 = v12;
+          v16 = v12;
           _os_log_impl(&dword_27102A000, v9, v10, "%{public}@", buf, 0xCu);
         }
       }
@@ -1132,13 +1114,11 @@ void __63__AXVisualAlertManager__startForAlertTypes_cameraTorchManager___block_i
     block[4] = *(a1 + 32);
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stop
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CE6998] = [MEMORY[0x277CE6998] sharedInstance];
   ignoreLogging = [mEMORY[0x277CE6998] ignoreLogging];
 
@@ -1154,9 +1134,9 @@ void __63__AXVisualAlertManager__startForAlertTypes_cameraTorchManager___block_i
       v9 = _AXStringForArgs();
       if (os_log_type_enabled(v6, v7))
       {
-        v16 = 138543362;
-        v17 = v9;
-        _os_log_impl(&dword_27102A000, v6, v7, "%{public}@", &v16, 0xCu);
+        v15 = 138543362;
+        v16 = v9;
+        _os_log_impl(&dword_27102A000, v6, v7, "%{public}@", &v15, 0xCu);
       }
     }
   }
@@ -1191,13 +1171,11 @@ void __63__AXVisualAlertManager__startForAlertTypes_cameraTorchManager___block_i
 
     self->_isDeviceLocked = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startForAlertTypes:(unint64_t)types cameraTorchManager:(id)manager
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   mEMORY[0x277CE6998] = [MEMORY[0x277CE6998] sharedInstance];
   ignoreLogging = [mEMORY[0x277CE6998] ignoreLogging];
@@ -1215,7 +1193,7 @@ void __63__AXVisualAlertManager__startForAlertTypes_cameraTorchManager___block_i
       if (os_log_type_enabled(v8, v9))
       {
         *buf = 138543362;
-        v15 = v11;
+        v14 = v11;
         _os_log_impl(&dword_27102A000, v8, v9, "%{public}@", buf, 0xCu);
       }
     }
@@ -1223,13 +1201,11 @@ void __63__AXVisualAlertManager__startForAlertTypes_cameraTorchManager___block_i
 
   v12 = managerCopy;
   AXPerformBlockOnMainThread();
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stateService:(id)service didReceiveDoNotDisturbStateUpdate:(id)update
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   mEMORY[0x277CE6998] = [MEMORY[0x277CE6998] sharedInstance];
   ignoreLogging = [mEMORY[0x277CE6998] ignoreLogging];
@@ -1243,62 +1219,60 @@ void __63__AXVisualAlertManager__startForAlertTypes_cameraTorchManager___block_i
     if (os_log_type_enabled(v8, v9))
     {
       v10 = AXColorizeFormatLog();
-      v18 = updateCopy;
+      v17 = updateCopy;
       v11 = _AXStringForArgs();
       if (os_log_type_enabled(v8, v9))
       {
         *buf = 138543362;
-        v22 = v11;
+        v21 = v11;
         _os_log_impl(&dword_27102A000, v8, v9, "%{public}@", buf, 0xCu);
       }
     }
   }
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  v19 = @"active";
+  v18 = @"active";
   v13 = MEMORY[0x277CCABB0];
   state = [updateCopy state];
   v15 = [v13 numberWithBool:{objc_msgSend(state, "isActive")}];
-  v20 = v15;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+  v19 = v15;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
   [defaultCenter postNotificationName:@"AXVisualAlertManagerDoNotDisturbStatusChangedNotification" object:0 userInfo:v16];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isCameraInUse
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   nSClassFromString(&cfstr_Uiapplication.isa) = [NSClassFromString(&cfstr_Uiapplication.isa) sharedApplication];
   v3 = [nSClassFromString(&cfstr_Uiapplication.isa) safeValueForKey:@"_sensorActivityDataProvider"];
   v4 = [v3 safeSetForKey:@"activeCameraAndMicrophoneActivityAttributions"];
 
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        if (![*(*(&v12 + 1) + 8 * i) safeIntegerForKey:@"sensor"])
+        if (![*(*(&v11 + 1) + 8 * i) safeIntegerForKey:@"sensor"])
         {
           v9 = 1;
           goto LABEL_11;
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -1311,13 +1285,12 @@ void __63__AXVisualAlertManager__startForAlertTypes_cameraTorchManager___block_i
   v9 = 0;
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (BOOL)_isRingerSwitchException:(unint64_t)exception
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = exception == 32 && (self->_alertTypes & 0x20) != 0;
   mEMORY[0x277CE6998] = [MEMORY[0x277CE6998] sharedInstance];
   ignoreLogging = [mEMORY[0x277CE6998] ignoreLogging];
@@ -1335,19 +1308,432 @@ LABEL_11:
       if (os_log_type_enabled(v7, v8))
       {
         *buf = 138543362;
-        v14 = v10;
+        v13 = v10;
         _os_log_impl(&dword_27102A000, v7, v8, "%{public}@", buf, 0xCu);
       }
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v3;
+}
+
+- (void)_beginVisualAlertForType:(unint64_t)type repeat:(BOOL)repeat skipAutomaticStopOnUserInteraction:(BOOL)interaction bundleId:(id)id
+{
+  interactionCopy = interaction;
+  repeatCopy = repeat;
+  v112 = *MEMORY[0x277D85DE8];
+  idCopy = id;
+  mEMORY[0x277CE7E20] = [MEMORY[0x277CE7E20] sharedInstance];
+  shouldFlashWhileUnlocked = [mEMORY[0x277CE7E20] shouldFlashWhileUnlocked];
+
+  mEMORY[0x277CE6998] = [MEMORY[0x277CE6998] sharedInstance];
+  ignoreLogging = [mEMORY[0x277CE6998] ignoreLogging];
+
+  if ((ignoreLogging & 1) == 0)
+  {
+    identifier = [MEMORY[0x277CE6998] identifier];
+    v14 = AXLoggerForFacility();
+
+    v15 = AXOSLogLevelFromAXLogLevel();
+    if (os_log_type_enabled(v14, v15))
+    {
+      v16 = AXColorizeFormatLog();
+      v102 = interactionCopy;
+      v103 = shouldFlashWhileUnlocked;
+      selfCopy = type;
+      v100 = repeatCopy;
+      v17 = _AXStringForArgs();
+      if (os_log_type_enabled(v14, v15))
+      {
+        *buf = 138543362;
+        v111 = v17;
+        _os_log_impl(&dword_27102A000, v14, v15, "%{public}@", buf, 0xCu);
+      }
+    }
+  }
+
+  if (((self->_isDeviceLocked | shouldFlashWhileUnlocked) & 1) == 0)
+  {
+    mEMORY[0x277CE6998]2 = [MEMORY[0x277CE6998] sharedInstance];
+    ignoreLogging2 = [mEMORY[0x277CE6998]2 ignoreLogging];
+
+    if ((ignoreLogging2 & 1) == 0)
+    {
+      identifier2 = [MEMORY[0x277CE6998] identifier];
+      v21 = AXLoggerForFacility();
+
+      v28 = AXOSLogLevelFromAXLogLevel();
+      if (os_log_type_enabled(v21, v28))
+      {
+        v29 = AXColorizeFormatLog();
+        v30 = _AXStringForArgs();
+        if (os_log_type_enabled(v21, v28))
+        {
+          *buf = 138543362;
+          v111 = v30;
+          _os_log_impl(&dword_27102A000, v21, v28, "%{public}@", buf, 0xCu);
+        }
+      }
+
+      goto LABEL_86;
+    }
+
+    goto LABEL_101;
+  }
+
+  if ((AXProcessIsSpringBoard() & 1) != 0 || AXProcessIsClarityBoard())
+  {
+    if (!self->_isDeviceLocked && [(AXVisualAlertManager *)self _isCameraInUse])
+    {
+      mEMORY[0x277CE6998]3 = [MEMORY[0x277CE6998] sharedInstance];
+      ignoreLogging3 = [mEMORY[0x277CE6998]3 ignoreLogging];
+
+      if ((ignoreLogging3 & 1) == 0)
+      {
+        identifier3 = [MEMORY[0x277CE6998] identifier];
+        v21 = AXLoggerForFacility();
+
+        v22 = AXOSLogLevelFromAXLogLevel();
+        if (os_log_type_enabled(v21, v22))
+        {
+          v23 = AXColorizeFormatLog();
+          v24 = _AXStringForArgs();
+          if (os_log_type_enabled(v21, v22))
+          {
+            *buf = 138543362;
+            v111 = v24;
+            _os_log_impl(&dword_27102A000, v21, v22, "%{public}@", buf, 0xCu);
+          }
+        }
+
+LABEL_86:
+
+        goto LABEL_101;
+      }
+
+      goto LABEL_101;
+    }
+
+    v31 = 1;
+  }
+
+  else
+  {
+    v31 = 0;
+  }
+
+  if (self->_isRingerSwitchSilent)
+  {
+    mEMORY[0x277CE7E20]2 = [MEMORY[0x277CE7E20] sharedInstance];
+    if ([mEMORY[0x277CE7E20]2 shouldFlashForAlertInSilentMode])
+    {
+    }
+
+    else
+    {
+      v33 = [(AXVisualAlertManager *)self _isRingerSwitchException:type];
+
+      if (!v33)
+      {
+        mEMORY[0x277CE6998]4 = [MEMORY[0x277CE6998] sharedInstance];
+        ignoreLogging4 = [mEMORY[0x277CE6998]4 ignoreLogging];
+
+        if ((ignoreLogging4 & 1) == 0)
+        {
+          identifier4 = [MEMORY[0x277CE6998] identifier];
+          v21 = AXLoggerForFacility();
+
+          v57 = AXOSLogLevelFromAXLogLevel();
+          if (os_log_type_enabled(v21, v57))
+          {
+            v58 = AXColorizeFormatLog();
+            v59 = _AXStringForArgs();
+            if (os_log_type_enabled(v21, v57))
+            {
+              *buf = 138543362;
+              v111 = v59;
+              _os_log_impl(&dword_27102A000, v21, v57, "%{public}@", buf, 0xCu);
+            }
+          }
+
+          goto LABEL_86;
+        }
+
+        goto LABEL_101;
+      }
+    }
+  }
+
+  if (type - 1 <= 1 && self->_isQuietModeEnabled)
+  {
+    mEMORY[0x277CE6998]5 = [MEMORY[0x277CE6998] sharedInstance];
+    ignoreLogging5 = [mEMORY[0x277CE6998]5 ignoreLogging];
+
+    if ((ignoreLogging5 & 1) == 0)
+    {
+      identifier5 = [MEMORY[0x277CE6998] identifier];
+      v21 = AXLoggerForFacility();
+
+      v37 = AXOSLogLevelFromAXLogLevel();
+      if (os_log_type_enabled(v21, v37))
+      {
+        v38 = AXColorizeFormatLog();
+        v39 = _AXStringForArgs();
+        if (os_log_type_enabled(v21, v37))
+        {
+          *buf = 138543362;
+          v111 = v39;
+          _os_log_impl(&dword_27102A000, v21, v37, "%{public}@", buf, 0xCu);
+        }
+      }
+
+      goto LABEL_86;
+    }
+  }
+
+  else if (self->_isTorchEnabledInControlCenter)
+  {
+    mEMORY[0x277CE6998]6 = [MEMORY[0x277CE6998] sharedInstance];
+    ignoreLogging6 = [mEMORY[0x277CE6998]6 ignoreLogging];
+
+    if ((ignoreLogging6 & 1) == 0)
+    {
+      identifier6 = [MEMORY[0x277CE6998] identifier];
+      v21 = AXLoggerForFacility();
+
+      v43 = AXOSLogLevelFromAXLogLevel();
+      if (os_log_type_enabled(v21, v43))
+      {
+        v44 = AXColorizeFormatLog();
+        v45 = _AXStringForArgs();
+        if (os_log_type_enabled(v21, v43))
+        {
+          *buf = 138543362;
+          v111 = v45;
+          _os_log_impl(&dword_27102A000, v21, v43, "%{public}@", buf, 0xCu);
+        }
+      }
+
+      goto LABEL_86;
+    }
+  }
+
+  else if (self->_captureSessionRunning)
+  {
+    mEMORY[0x277CE6998]7 = [MEMORY[0x277CE6998] sharedInstance];
+    ignoreLogging7 = [mEMORY[0x277CE6998]7 ignoreLogging];
+
+    if ((ignoreLogging7 & 1) == 0)
+    {
+      identifier7 = [MEMORY[0x277CE6998] identifier];
+      v49 = AXLoggerForFacility();
+
+      v50 = AXOSLogLevelFromAXLogLevel();
+      if (os_log_type_enabled(v49, v50))
+      {
+        v51 = AXColorizeFormatLog();
+        selfCopy = self;
+        v52 = _AXStringForArgs();
+        if (os_log_type_enabled(v49, v50))
+        {
+          *buf = 138543362;
+          v111 = v52;
+          _os_log_impl(&dword_27102A000, v49, v50, "%{public}@", buf, 0xCu);
+        }
+      }
+    }
+
+    if (repeatCopy)
+    {
+      typeCopy2 = type;
+    }
+
+    else
+    {
+      typeCopy2 = 0;
+    }
+
+    [(AXVisualAlertManager *)self _setTypeToUseForVisualAlertAfterCaptureSessionStopsRunning:typeCopy2, selfCopy, v100, v102, v103];
+  }
+
+  else if (v31 && (_AXFrontBoardFocusedAppProcesses(), v60 = objc_claimAutoreleasedReturnValue(), [v60 firstObject], v61 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v61, "bundleIdentifier"), v62 = objc_claimAutoreleasedReturnValue(), v63 = objc_msgSend(v62, "isEqualToString:", *MEMORY[0x277CE68E0]), v62, v61, v60, v63))
+  {
+    mEMORY[0x277CE6998]8 = [MEMORY[0x277CE6998] sharedInstance];
+    ignoreLogging8 = [mEMORY[0x277CE6998]8 ignoreLogging];
+
+    if ((ignoreLogging8 & 1) == 0)
+    {
+      identifier8 = [MEMORY[0x277CE6998] identifier];
+      v21 = AXLoggerForFacility();
+
+      v67 = AXOSLogLevelFromAXLogLevel();
+      if (os_log_type_enabled(v21, v67))
+      {
+        v68 = AXColorizeFormatLog();
+        v69 = _AXStringForArgs();
+        if (os_log_type_enabled(v21, v67))
+        {
+          *buf = 138543362;
+          v111 = v69;
+          _os_log_impl(&dword_27102A000, v21, v67, "%{public}@", buf, 0xCu);
+        }
+      }
+
+      goto LABEL_86;
+    }
+  }
+
+  else
+  {
+    mEMORY[0x277CE6998]9 = [MEMORY[0x277CE6998] sharedInstance];
+    ignoreLogging9 = [mEMORY[0x277CE6998]9 ignoreLogging];
+
+    if ((ignoreLogging9 & 1) == 0)
+    {
+      identifier9 = [MEMORY[0x277CE6998] identifier];
+      v73 = AXLoggerForFacility();
+
+      v74 = AXOSLogLevelFromAXLogLevel();
+      if (os_log_type_enabled(v73, v74))
+      {
+        v75 = AXColorizeFormatLog();
+        v76 = _AXStringForArgs();
+        if (os_log_type_enabled(v73, v74))
+        {
+          *buf = 138543362;
+          v111 = v76;
+          _os_log_impl(&dword_27102A000, v73, v74, "%{public}@", buf, 0xCu);
+        }
+      }
+    }
+
+    [(AXVisualAlertManager *)self _endVisualAlert];
+    if (_AXSVisualAlertEnabled() && (MGGetBoolAnswer() & 1) != 0)
+    {
+      if (type > 7)
+      {
+        if (type == 8 || type == 16)
+        {
+          v77 = @"PushNotification";
+        }
+
+        else
+        {
+          if (type != 32)
+          {
+            goto LABEL_101;
+          }
+
+          v77 = @"Alarm";
+        }
+      }
+
+      else if (type - 1 >= 2)
+      {
+        if (type != 4)
+        {
+          goto LABEL_101;
+        }
+
+        v77 = @"IncomingMessage";
+      }
+
+      else
+      {
+        v77 = @"IncomingCall";
+      }
+
+      mEMORY[0x277CE6998]10 = [MEMORY[0x277CE6998] sharedInstance];
+      ignoreLogging10 = [mEMORY[0x277CE6998]10 ignoreLogging];
+
+      if ((ignoreLogging10 & 1) == 0)
+      {
+        identifier10 = [MEMORY[0x277CE6998] identifier];
+        v87 = AXLoggerForFacility();
+
+        v88 = AXOSLogLevelFromAXLogLevel();
+        if (os_log_type_enabled(v87, v88))
+        {
+          v89 = AXColorizeFormatLog();
+          selfCopy2 = self;
+          v101 = v77;
+          v90 = _AXStringForArgs();
+          if (os_log_type_enabled(v87, v88))
+          {
+            *buf = 138543362;
+            v111 = v90;
+            _os_log_impl(&dword_27102A000, v87, v88, "%{public}@", buf, 0xCu);
+          }
+        }
+      }
+
+      v91 = [(AXVisualAlertManager *)self _patterns:selfCopy2];
+      v92 = [v91 objectForKey:v77];
+
+      defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+      v108[0] = @"bundleId";
+      v108[1] = @"visualAlertType";
+      v109[0] = &stru_2880FAB50;
+      v94 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:type];
+      v109[1] = v94;
+      v95 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v109 forKeys:v108 count:2];
+      [defaultCenter postNotificationName:@"AXVisualAlertEvent" object:0 userInfo:v95];
+
+      self->_skipAutomaticStopOnUserInteraction = interactionCopy;
+      objc_initWeak(buf, self);
+      torchForceShutdownTimer = self->_torchForceShutdownTimer;
+      v106[0] = MEMORY[0x277D85DD0];
+      v106[1] = 3221225472;
+      v106[2] = __100__AXVisualAlertManager__beginVisualAlertForType_repeat_skipAutomaticStopOnUserInteraction_bundleId___block_invoke;
+      v106[3] = &unk_279E2C750;
+      objc_copyWeak(&v107, buf);
+      v106[4] = self;
+      [(AXDispatchTimer *)torchForceShutdownTimer afterDelay:v106 processBlock:180.0];
+      v97 = [(AXVisualAlertManager *)self _normalizedStrobePatternForOriginalPattern:v92];
+      [(AXVisualAlertManager *)self _setActivePattern:v97];
+
+      self->_shouldRepeatPattern = repeatCopy;
+      self->_activePatternCursor = 0;
+      [(AXVisualAlertManager *)self _setTorchDeviceOpen:1 withCompletion:0];
+      [(AXVisualAlertManager *)self _processNextVisualAlertComponent];
+      objc_destroyWeak(&v107);
+      objc_destroyWeak(buf);
+    }
+
+    else
+    {
+      mEMORY[0x277CE6998]11 = [MEMORY[0x277CE6998] sharedInstance];
+      ignoreLogging11 = [mEMORY[0x277CE6998]11 ignoreLogging];
+
+      if ((ignoreLogging11 & 1) == 0)
+      {
+        identifier11 = [MEMORY[0x277CE6998] identifier];
+        v21 = AXLoggerForFacility();
+
+        v81 = AXOSLogLevelFromAXLogLevel();
+        if (os_log_type_enabled(v21, v81))
+        {
+          v82 = AXColorizeFormatLog();
+          v83 = _AXStringForArgs();
+          if (os_log_type_enabled(v21, v81))
+          {
+            *buf = 138543362;
+            v111 = v83;
+            _os_log_impl(&dword_27102A000, v21, v81, "%{public}@", buf, 0xCu);
+          }
+        }
+
+        goto LABEL_86;
+      }
+    }
+  }
+
+LABEL_101:
 }
 
 void __100__AXVisualAlertManager__beginVisualAlertForType_repeat_skipAutomaticStopOnUserInteraction_bundleId___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if ([WeakRetained _isTorchDeviceOpen])
   {
@@ -1368,12 +1754,11 @@ void __100__AXVisualAlertManager__beginVisualAlertForType_repeat_skipAutomaticSt
         if (os_log_type_enabled(v7, v8))
         {
           v9 = AXColorizeFormatLog();
-          v14 = *(a1 + 32);
           v10 = _AXStringForArgs();
           if (os_log_type_enabled(v7, v8))
           {
             *buf = 138543362;
-            v17 = v10;
+            v14 = v10;
             _os_log_impl(&dword_27102A000, v7, v8, "%{public}@", buf, 0xCu);
           }
         }
@@ -1382,19 +1767,16 @@ void __100__AXVisualAlertManager__beginVisualAlertForType_repeat_skipAutomaticSt
       v11 = objc_loadWeakRetained((a1 + 40));
       [v11 _endVisualAlert];
     }
-
-    v12 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v13 = *MEMORY[0x277D85DE8];
   }
 }
 
 - (void)_endVisualAlert
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CE6998] = [MEMORY[0x277CE6998] sharedInstance];
   ignoreLogging = [mEMORY[0x277CE6998] ignoreLogging];
 
@@ -1410,9 +1792,9 @@ void __100__AXVisualAlertManager__beginVisualAlertForType_repeat_skipAutomaticSt
       v9 = _AXStringForArgs();
       if (os_log_type_enabled(v6, v7))
       {
-        v12 = 138543362;
-        v13 = v9;
-        _os_log_impl(&dword_27102A000, v6, v7, "%{public}@", &v12, 0xCu);
+        v11 = 138543362;
+        v12 = v9;
+        _os_log_impl(&dword_27102A000, v6, v7, "%{public}@", &v11, 0xCu);
       }
     }
   }
@@ -1428,13 +1810,11 @@ void __100__AXVisualAlertManager__beginVisualAlertForType_repeat_skipAutomaticSt
   self->_skipAutomaticStopOnUserInteraction = 0;
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter postNotificationName:@"AXVisualAlertEventEnded" object:0 userInfo:0];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processNextVisualAlertComponent
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   _activePattern = [(AXVisualAlertManager *)self _activePattern];
   v4 = [_activePattern objectForKey:@"StrobePattern"];
 
@@ -1456,7 +1836,7 @@ void __100__AXVisualAlertManager__beginVisualAlertForType_repeat_skipAutomaticSt
         if (os_log_type_enabled(v12, v13))
         {
           *buf = 138543362;
-          v32 = v15;
+          v31 = v15;
           _os_log_impl(&dword_27102A000, v12, v13, "%{public}@", buf, 0xCu);
         }
       }
@@ -1493,7 +1873,7 @@ LABEL_11:
         if (os_log_type_enabled(v19, v20))
         {
           *buf = 138543362;
-          v32 = v22;
+          v31 = v22;
           _os_log_impl(&dword_27102A000, v19, v20, "%{public}@", buf, 0xCu);
         }
       }
@@ -1519,21 +1899,19 @@ LABEL_11:
   objc_initWeak(buf, self);
   v24 = intValue / 1000.0;
   v25 = self->_timer;
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __56__AXVisualAlertManager__processNextVisualAlertComponent__block_invoke;
-  v28[3] = &unk_279E2C7A0;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __56__AXVisualAlertManager__processNextVisualAlertComponent__block_invoke;
+  v27[3] = &unk_279E2C7A0;
   v26 = v25;
-  v29 = v26;
-  v30[1] = *&v24;
-  objc_copyWeak(v30, buf);
-  [(AXVisualAlertManager *)self _setTorchDeviceOn:bOOLValue withCompletion:v28];
-  objc_destroyWeak(v30);
+  v28 = v26;
+  v29[1] = *&v24;
+  objc_copyWeak(v29, buf);
+  [(AXVisualAlertManager *)self _setTorchDeviceOn:bOOLValue withCompletion:v27];
+  objc_destroyWeak(v29);
 
   objc_destroyWeak(buf);
 LABEL_23:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __56__AXVisualAlertManager__processNextVisualAlertComponent__block_invoke(uint64_t a1)
@@ -1557,7 +1935,7 @@ void __56__AXVisualAlertManager__processNextVisualAlertComponent__block_invoke_2
 
 - (void)handleBulletinWithSectionID:(id)d
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if ([dCopy isEqualToString:@"com.apple.springboard.SBDismissOnlyAlertItem"])
   {
@@ -1576,9 +1954,9 @@ void __56__AXVisualAlertManager__processNextVisualAlertComponent__block_invoke_2
         v11 = _AXStringForArgs();
         if (os_log_type_enabled(v8, v9))
         {
-          v20 = 138543362;
-          v21 = v11;
-          _os_log_impl(&dword_27102A000, v8, v9, "%{public}@", &v20, 0xCu);
+          v19 = 138543362;
+          v20 = v11;
+          _os_log_impl(&dword_27102A000, v8, v9, "%{public}@", &v19, 0xCu);
         }
       }
     }
@@ -1606,9 +1984,9 @@ void __56__AXVisualAlertManager__processNextVisualAlertComponent__block_invoke_2
         v18 = _AXStringForArgs();
         if (os_log_type_enabled(v15, v16))
         {
-          v20 = 138543362;
-          v21 = v18;
-          _os_log_impl(&dword_27102A000, v15, v16, "%{public}@", &v20, 0xCu);
+          v19 = 138543362;
+          v20 = v18;
+          _os_log_impl(&dword_27102A000, v15, v16, "%{public}@", &v19, 0xCu);
         }
       }
     }
@@ -1620,13 +1998,11 @@ void __56__AXVisualAlertManager__processNextVisualAlertComponent__block_invoke_2
   {
     [(AXVisualAlertManager *)self _handleVisualAlertForRegularNotification:dCopy];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleBeginVisualAlertForIncomingCall
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (self->_alertTypes)
   {
     mEMORY[0x277CE6998] = [MEMORY[0x277CE6998] sharedInstance];
@@ -1644,22 +2020,20 @@ void __56__AXVisualAlertManager__processNextVisualAlertComponent__block_invoke_2
         v9 = _AXStringForArgs();
         if (os_log_type_enabled(v6, v7))
         {
-          v11 = 138543362;
-          v12 = v9;
-          _os_log_impl(&dword_27102A000, v6, v7, "%{public}@", &v11, 0xCu);
+          v10 = 138543362;
+          v11 = v9;
+          _os_log_impl(&dword_27102A000, v6, v7, "%{public}@", &v10, 0xCu);
         }
       }
     }
 
     [(AXVisualAlertManager *)self _beginVisualAlertForType:1 repeat:1];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleEndVisualAlertForIncomingCall
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CE6998] = [MEMORY[0x277CE6998] sharedInstance];
   ignoreLogging = [mEMORY[0x277CE6998] ignoreLogging];
 
@@ -1675,20 +2049,19 @@ void __56__AXVisualAlertManager__processNextVisualAlertComponent__block_invoke_2
       v9 = _AXStringForArgs();
       if (os_log_type_enabled(v6, v7))
       {
-        v11 = 138543362;
-        v12 = v9;
-        _os_log_impl(&dword_27102A000, v6, v7, "%{public}@", &v11, 0xCu);
+        v10 = 138543362;
+        v11 = v9;
+        _os_log_impl(&dword_27102A000, v6, v7, "%{public}@", &v10, 0xCu);
       }
     }
   }
 
   [(AXVisualAlertManager *)self _endVisualAlert];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleBeginVisualAlertForIncomingVideoConferenceCall
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if ((self->_alertTypes & 2) != 0)
   {
     mEMORY[0x277CE6998] = [MEMORY[0x277CE6998] sharedInstance];
@@ -1709,7 +2082,7 @@ void __56__AXVisualAlertManager__processNextVisualAlertComponent__block_invoke_2
         if (os_log_type_enabled(v6, v7))
         {
           *buf = 138543362;
-          v29 = v9;
+          v28 = v9;
           _os_log_impl(&dword_27102A000, v6, v7, "%{public}@", buf, 0xCu);
         }
       }
@@ -1733,7 +2106,7 @@ void __56__AXVisualAlertManager__processNextVisualAlertComponent__block_invoke_2
           if (os_log_type_enabled(v13, v14))
           {
             *buf = 138543362;
-            v29 = v16;
+            v28 = v16;
             _os_log_impl(&dword_27102A000, v13, v14, "%{public}@", buf, 0xCu);
           }
         }
@@ -1761,7 +2134,7 @@ void __56__AXVisualAlertManager__processNextVisualAlertComponent__block_invoke_2
           if (os_log_type_enabled(v20, v21))
           {
             *buf = 138543362;
-            v29 = v23;
+            v28 = v23;
             _os_log_impl(&dword_27102A000, v20, v21, "%{public}@", buf, 0xCu);
           }
         }
@@ -1773,8 +2146,6 @@ void __56__AXVisualAlertManager__processNextVisualAlertComponent__block_invoke_2
       self->_alertTypes = alertTypes;
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleEndVisualAlertForIncomingVideoConferenceCall
@@ -1794,7 +2165,7 @@ void __56__AXVisualAlertManager__processNextVisualAlertComponent__block_invoke_2
 
 - (void)_handleBeginVisualAlertForAlarmWithSound:(BOOL)sound
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CE6998] = [MEMORY[0x277CE6998] sharedInstance];
   ignoreLogging = [mEMORY[0x277CE6998] ignoreLogging];
 
@@ -1811,7 +2182,7 @@ void __56__AXVisualAlertManager__processNextVisualAlertComponent__block_invoke_2
       if (os_log_type_enabled(v7, v8))
       {
         *buf = 138543362;
-        v13 = v10;
+        v12 = v10;
         _os_log_impl(&dword_27102A000, v7, v8, "%{public}@", buf, 0xCu);
       }
     }
@@ -1821,13 +2192,11 @@ void __56__AXVisualAlertManager__processNextVisualAlertComponent__block_invoke_2
   {
     [(AXVisualAlertManager *)self _beginVisualAlertForType:32 repeat:1 skipAutomaticStopOnUserInteraction:0 bundleId:0];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleEndVisualAlertForAlarm
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CE6998] = [MEMORY[0x277CE6998] sharedInstance];
   ignoreLogging = [mEMORY[0x277CE6998] ignoreLogging];
 
@@ -1846,7 +2215,7 @@ void __56__AXVisualAlertManager__processNextVisualAlertComponent__block_invoke_2
       if (os_log_type_enabled(v7, v8))
       {
         *buf = 138543362;
-        v22 = v10;
+        v21 = v10;
         _os_log_impl(&dword_27102A000, v7, v8, "%{public}@", buf, 0xCu);
       }
     }
@@ -1870,7 +2239,7 @@ void __56__AXVisualAlertManager__processNextVisualAlertComponent__block_invoke_2
         if (os_log_type_enabled(v14, v15))
         {
           *buf = 138543362;
-          v22 = v17;
+          v21 = v17;
           _os_log_impl(&dword_27102A000, v14, v15, "%{public}@", buf, 0xCu);
         }
       }
@@ -1878,13 +2247,11 @@ void __56__AXVisualAlertManager__processNextVisualAlertComponent__block_invoke_2
 
     [(AXVisualAlertManager *)self _endVisualAlert:Name];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleVisualAlertForRegularNotification:(id)notification
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   if ((self->_alertTypes & 8) != 0)
   {
@@ -1903,17 +2270,15 @@ void __56__AXVisualAlertManager__processNextVisualAlertComponent__block_invoke_2
         v11 = _AXStringForArgs();
         if (os_log_type_enabled(v8, v9))
         {
-          v13 = 138543362;
-          v14 = v11;
-          _os_log_impl(&dword_27102A000, v8, v9, "%{public}@", &v13, 0xCu);
+          v12 = 138543362;
+          v13 = v11;
+          _os_log_impl(&dword_27102A000, v8, v9, "%{public}@", &v12, 0xCu);
         }
       }
     }
 
     [(AXVisualAlertManager *)self _beginVisualAlertForType:8 repeat:0 skipAutomaticStopOnUserInteraction:0 bundleId:notificationCopy];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleVisualAlertForExternalApplication
@@ -1929,7 +2294,7 @@ void __56__AXVisualAlertManager__processNextVisualAlertComponent__block_invoke_2
 
 - (void)_handleVisualAlertForIncomingMessage
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if ((self->_alertTypes & 4) != 0)
   {
     mEMORY[0x277CE6998] = [MEMORY[0x277CE6998] sharedInstance];
@@ -1947,22 +2312,20 @@ void __56__AXVisualAlertManager__processNextVisualAlertComponent__block_invoke_2
         v9 = _AXStringForArgs();
         if (os_log_type_enabled(v6, v7))
         {
-          v11 = 138543362;
-          v12 = v9;
-          _os_log_impl(&dword_27102A000, v6, v7, "%{public}@", &v11, 0xCu);
+          v10 = 138543362;
+          v11 = v9;
+          _os_log_impl(&dword_27102A000, v6, v7, "%{public}@", &v10, 0xCu);
         }
       }
     }
 
     [(AXVisualAlertManager *)self _beginVisualAlertForType:4 repeat:0];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleSecondaryVisualAlertManagerDidStart
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (self->_isDeviceLocked)
   {
     [(VISAXNotificationHandler *)self->_deviceLockStateChangedNotificationHandler processHandler:sel__handleDeviceWasLocked];
@@ -1990,22 +2353,20 @@ void __56__AXVisualAlertManager__processNextVisualAlertComponent__block_invoke_2
         v9 = _AXStringForArgs();
         if (os_log_type_enabled(v6, v7))
         {
-          v11 = 138543362;
-          v12 = v9;
-          _os_log_impl(&dword_27102A000, v6, v7, "%{public}@", &v11, 0xCu);
+          v10 = 138543362;
+          v11 = v9;
+          _os_log_impl(&dword_27102A000, v6, v7, "%{public}@", &v10, 0xCu);
         }
       }
     }
 
     [(AXVisualAlertManager *)self _handleBeginVisualAlertForIncomingVideoConferenceCall];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleVideoConferenceCallRinging
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if ((self->_alertTypes & 2) != 0 && [(AXVisualAlertManager *)self _hasVideoConferenceCameraTorchManager])
   {
     mEMORY[0x277CE6998] = [MEMORY[0x277CE6998] sharedInstance];
@@ -2023,22 +2384,20 @@ void __56__AXVisualAlertManager__processNextVisualAlertComponent__block_invoke_2
         v9 = _AXStringForArgs();
         if (os_log_type_enabled(v6, v7))
         {
-          v11 = 138543362;
-          v12 = v9;
-          _os_log_impl(&dword_27102A000, v6, v7, "%{public}@", &v11, 0xCu);
+          v10 = 138543362;
+          v11 = v9;
+          _os_log_impl(&dword_27102A000, v6, v7, "%{public}@", &v10, 0xCu);
         }
       }
     }
 
     [(AXVisualAlertManager *)self _handleBeginVisualAlertForIncomingVideoConferenceCall];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleLockButtonPressed
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CE6998] = [MEMORY[0x277CE6998] sharedInstance];
   ignoreLogging = [mEMORY[0x277CE6998] ignoreLogging];
 
@@ -2051,12 +2410,11 @@ void __56__AXVisualAlertManager__processNextVisualAlertComponent__block_invoke_2
     if (os_log_type_enabled(v6, v7))
     {
       v8 = AXColorizeFormatLog();
-      skipAutomaticStopOnUserInteraction = self->_skipAutomaticStopOnUserInteraction;
       v9 = _AXStringForArgs();
       if (os_log_type_enabled(v6, v7))
       {
         *buf = 138543362;
-        v13 = v9;
+        v11 = v9;
         _os_log_impl(&dword_27102A000, v6, v7, "%{public}@", buf, 0xCu);
       }
     }
@@ -2066,13 +2424,11 @@ void __56__AXVisualAlertManager__processNextVisualAlertComponent__block_invoke_2
   {
     [(AXVisualAlertManager *)self _endVisualAlert];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleVolumeChanged
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CE6998] = [MEMORY[0x277CE6998] sharedInstance];
   ignoreLogging = [mEMORY[0x277CE6998] ignoreLogging];
 
@@ -2088,20 +2444,19 @@ void __56__AXVisualAlertManager__processNextVisualAlertComponent__block_invoke_2
       v9 = _AXStringForArgs();
       if (os_log_type_enabled(v6, v7))
       {
-        v11 = 138543362;
-        v12 = v9;
-        _os_log_impl(&dword_27102A000, v6, v7, "%{public}@", &v11, 0xCu);
+        v10 = 138543362;
+        v11 = v9;
+        _os_log_impl(&dword_27102A000, v6, v7, "%{public}@", &v10, 0xCu);
       }
     }
   }
 
   [(AXVisualAlertManager *)self _handleLockButtonPressed];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleDeviceWasLocked
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CE6998] = [MEMORY[0x277CE6998] sharedInstance];
   ignoreLogging = [mEMORY[0x277CE6998] ignoreLogging];
 
@@ -2114,24 +2469,22 @@ void __56__AXVisualAlertManager__processNextVisualAlertComponent__block_invoke_2
     if (os_log_type_enabled(v6, v7))
     {
       v8 = AXColorizeFormatLog();
-      isDeviceLocked = self->_isDeviceLocked;
       v9 = _AXStringForArgs();
       if (os_log_type_enabled(v6, v7))
       {
         *buf = 138543362;
-        v13 = v9;
+        v11 = v9;
         _os_log_impl(&dword_27102A000, v6, v7, "%{public}@", buf, 0xCu);
       }
     }
   }
 
   self->_isDeviceLocked = 1;
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleDeviceWasUnlocked
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   self->_isDeviceLocked = 0;
   mEMORY[0x277CE6998] = [MEMORY[0x277CE6998] sharedInstance];
   ignoreLogging = [mEMORY[0x277CE6998] ignoreLogging];
@@ -2145,12 +2498,11 @@ void __56__AXVisualAlertManager__processNextVisualAlertComponent__block_invoke_2
     if (os_log_type_enabled(v6, v7))
     {
       v8 = AXColorizeFormatLog();
-      skipAutomaticStopOnUserInteraction = self->_skipAutomaticStopOnUserInteraction;
       v9 = _AXStringForArgs();
       if (os_log_type_enabled(v6, v7))
       {
         *buf = 138543362;
-        v13 = v9;
+        v11 = v9;
         _os_log_impl(&dword_27102A000, v6, v7, "%{public}@", buf, 0xCu);
       }
     }
@@ -2160,13 +2512,11 @@ void __56__AXVisualAlertManager__processNextVisualAlertComponent__block_invoke_2
   {
     [(AXVisualAlertManager *)self _endVisualAlert];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleRingerSwitchToggled
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   self->_isRingerSwitchSilent = BKSHIDServicesGetRingerState() == 0;
   mEMORY[0x277CE6998] = [MEMORY[0x277CE6998] sharedInstance];
   ignoreLogging = [mEMORY[0x277CE6998] ignoreLogging];
@@ -2185,7 +2535,7 @@ void __56__AXVisualAlertManager__processNextVisualAlertComponent__block_invoke_2
       if (os_log_type_enabled(v6, v7))
       {
         *buf = 138543362;
-        v22 = v9;
+        v21 = v9;
         _os_log_impl(&dword_27102A000, v6, v7, "%{public}@", buf, 0xCu);
       }
     }
@@ -2214,7 +2564,7 @@ void __56__AXVisualAlertManager__processNextVisualAlertComponent__block_invoke_2
           if (os_log_type_enabled(v15, v16))
           {
             *buf = 138543362;
-            v22 = v18;
+            v21 = v18;
             _os_log_impl(&dword_27102A000, v15, v16, "%{public}@", buf, 0xCu);
           }
         }
@@ -2223,13 +2573,11 @@ void __56__AXVisualAlertManager__processNextVisualAlertComponent__block_invoke_2
       [(AXVisualAlertManager *)self _endVisualAlert];
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleQuietModeWasEnabled
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CE6998] = [MEMORY[0x277CE6998] sharedInstance];
   ignoreLogging = [mEMORY[0x277CE6998] ignoreLogging];
 
@@ -2245,21 +2593,20 @@ void __56__AXVisualAlertManager__processNextVisualAlertComponent__block_invoke_2
       v9 = _AXStringForArgs();
       if (os_log_type_enabled(v6, v7))
       {
-        v11 = 138543362;
-        v12 = v9;
-        _os_log_impl(&dword_27102A000, v6, v7, "%{public}@", &v11, 0xCu);
+        v10 = 138543362;
+        v11 = v9;
+        _os_log_impl(&dword_27102A000, v6, v7, "%{public}@", &v10, 0xCu);
       }
     }
   }
 
   self->_isQuietModeEnabled = 1;
   [(AXVisualAlertManager *)self _endVisualAlert];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleTorchInControlCenterWasEnabled
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   self->_isTorchEnabledInControlCenter = 1;
   mEMORY[0x277CE6998] = [MEMORY[0x277CE6998] sharedInstance];
   ignoreLogging = [mEMORY[0x277CE6998] ignoreLogging];
@@ -2276,20 +2623,19 @@ void __56__AXVisualAlertManager__processNextVisualAlertComponent__block_invoke_2
       v9 = _AXStringForArgs();
       if (os_log_type_enabled(v6, v7))
       {
-        v11 = 138543362;
-        v12 = v9;
-        _os_log_impl(&dword_27102A000, v6, v7, "%{public}@", &v11, 0xCu);
+        v10 = 138543362;
+        v11 = v9;
+        _os_log_impl(&dword_27102A000, v6, v7, "%{public}@", &v10, 0xCu);
       }
     }
   }
 
   [(AXVisualAlertManager *)self _endVisualAlert];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __59__AXVisualAlertManager__handleCaptureSessionDidStopRunning__block_invoke(uint64_t a1)
+void *__59__AXVisualAlertManager__handleCaptureSessionDidStopRunning__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) _typeToUseForVisualAlertAfterCaptureSessionStopsRunning];
   if (result)
   {
@@ -2309,18 +2655,17 @@ uint64_t __59__AXVisualAlertManager__handleCaptureSessionDidStopRunning__block_i
         v10 = _AXStringForArgs();
         if (os_log_type_enabled(v7, v8))
         {
-          v12 = 138543362;
-          v13 = v10;
-          _os_log_impl(&dword_27102A000, v7, v8, "%{public}@", &v12, 0xCu);
+          v11 = 138543362;
+          v12 = v10;
+          _os_log_impl(&dword_27102A000, v7, v8, "%{public}@", &v11, 0xCu);
         }
       }
     }
 
     [*(a1 + 32) _beginVisualAlertForType:v3 repeat:1];
-    result = [*(a1 + 32) _setTypeToUseForVisualAlertAfterCaptureSessionStopsRunning:0];
+    return [*(a1 + 32) _setTypeToUseForVisualAlertAfterCaptureSessionStopsRunning:0];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2463,10 +2808,9 @@ uint64_t __68__AXVisualAlertManager__supportsVisualAlertsForVideoConferenceCalls
 
 - (BOOL)_shouldHandleVisualAlertsForVideoConferenceCallsInConferenceFramework
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (self->_isDeviceLocked || !self->_videoConferenceCallRinging)
   {
-    v11 = *MEMORY[0x277D85DE8];
 
     return [(AXVisualAlertManager *)self _supportsVisualAlertsForVideoConferenceCalls];
   }
@@ -2488,14 +2832,13 @@ uint64_t __68__AXVisualAlertManager__supportsVisualAlertsForVideoConferenceCalls
         v8 = _AXStringForArgs();
         if (os_log_type_enabled(v5, v6))
         {
-          v12 = 138543362;
-          v13 = v8;
-          _os_log_impl(&dword_27102A000, v5, v6, "%{public}@", &v12, 0xCu);
+          v10 = 138543362;
+          v11 = v8;
+          _os_log_impl(&dword_27102A000, v5, v6, "%{public}@", &v10, 0xCu);
         }
       }
     }
 
-    v9 = *MEMORY[0x277D85DE8];
     return 0;
   }
 }

@@ -124,16 +124,16 @@
   }
 }
 
-uint64_t __41__OKWidgetOpusView__loadDocumentIfNeeded__block_invoke(uint64_t result, int a2)
+void *__41__OKWidgetOpusView__loadDocumentIfNeeded__block_invoke(void *result, int a2)
 {
   if (a2)
   {
     v2 = result;
-    *(*(result + 32) + 1504) = -[OKPresentationViewControllerProxy initWithPresentation:]([OKPresentationViewController alloc], "initWithPresentation:", [*(*(result + 32) + 1496) presentation]);
-    [objc_msgSend(*(v2 + 32) "contentView")];
-    [objc_msgSend(*(*(v2 + 32) + 1504) "view")];
-    v7 = [*(v2 + 32) contentView];
-    v8 = [*(*(v2 + 32) + 1504) view];
+    *(result[4] + 1504) = -[OKPresentationViewControllerProxy initWithPresentation:]([OKPresentationViewController alloc], "initWithPresentation:", [*(result[4] + 1496) presentation]);
+    [objc_msgSend(v2[4] "contentView")];
+    [objc_msgSend(*(v2[4] + 1504) "view")];
+    v7 = [v2[4] contentView];
+    v8 = [*(v2[4] + 1504) view];
 
     return [v7 addSubview:v8];
   }

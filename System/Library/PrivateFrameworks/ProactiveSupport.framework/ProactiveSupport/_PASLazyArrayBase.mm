@@ -53,7 +53,7 @@
 
 - (id)arrayByAddingObject:(id)object
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   objectCopy = object;
   if (objectCopy)
   {
@@ -68,8 +68,8 @@
 
     else
     {
-      v12[0] = objectCopy;
-      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+      v11[0] = objectCopy;
+      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
     }
 
     objc_autoreleasePoolPop(v6);
@@ -77,12 +77,10 @@
 
   else
   {
-    v11.receiver = self;
-    v11.super_class = _PASLazyArrayBase;
-    v8 = [(_PASLazyArrayBase *)&v11 arrayByAddingObject:0];
+    v10.receiver = self;
+    v10.super_class = _PASLazyArrayBase;
+    v8 = [(_PASLazyArrayBase *)&v10 arrayByAddingObject:0];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -126,13 +124,13 @@
 {
   length = range.length;
   location = range.location;
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   v6 = [(_PASLazyArrayBase *)self count];
   if (location + length > v6)
   {
-    v15.receiver = self;
-    v15.super_class = _PASLazyArrayBase;
-    selfCopy = [(_PASLazyArrayBase *)&v15 subarrayWithRange:location, length];
+    v14.receiver = self;
+    v14.super_class = _PASLazyArrayBase;
+    selfCopy = [(_PASLazyArrayBase *)&v14 subarrayWithRange:location, length];
 LABEL_3:
     v8 = selfCopy;
     goto LABEL_13;
@@ -142,8 +140,8 @@ LABEL_3:
   {
     v9 = objc_autoreleasePoolPush();
     v10 = [(_PASLazyArrayBase *)self objectAtIndex:location];
-    v16[0] = v10;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+    v15[0] = v10;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
 
     objc_autoreleasePoolPop(v9);
   }
@@ -181,7 +179,6 @@ LABEL_3:
   }
 
 LABEL_13:
-  v13 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -205,7 +202,7 @@ LABEL_13:
 
 - (id)objectsAtIndexes:(id)indexes
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   indexesCopy = indexes;
   v5 = [indexesCopy count];
   v6 = [(_PASLazyArrayBase *)self count];
@@ -225,9 +222,9 @@ LABEL_13:
   if ([indexesCopy lastIndex] >= v6)
   {
 LABEL_6:
-    v22.receiver = self;
-    v22.super_class = _PASLazyArrayBase;
-    selfCopy = [(_PASLazyArrayBase *)&v22 objectsAtIndexes:indexesCopy];
+    v21.receiver = self;
+    v21.super_class = _PASLazyArrayBase;
+    selfCopy = [(_PASLazyArrayBase *)&v21 objectsAtIndexes:indexesCopy];
 LABEL_7:
     v10 = selfCopy;
     goto LABEL_9;
@@ -237,8 +234,8 @@ LABEL_7:
   {
     v8 = objc_autoreleasePoolPush();
     v9 = -[_PASLazyArrayBase objectAtIndex:](self, "objectAtIndex:", [indexesCopy firstIndex]);
-    v23[0] = v9;
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
+    v22[0] = v9;
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
 
     objc_autoreleasePoolPop(v8);
     goto LABEL_9;
@@ -250,19 +247,18 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v14 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v5];
-  v16 = MEMORY[0x1E69E9820];
-  v17 = 3221225472;
-  v18 = __38___PASLazyArrayBase_objectsAtIndexes___block_invoke;
-  v19 = &unk_1E77F1A00;
-  v20 = v14;
+  v13 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v5];
+  v15 = MEMORY[0x1E69E9820];
+  v16 = 3221225472;
+  v17 = __38___PASLazyArrayBase_objectsAtIndexes___block_invoke;
+  v18 = &unk_1E77F1A00;
+  v19 = v13;
   selfCopy2 = self;
-  v15 = v14;
-  [indexesCopy enumerateIndexesUsingBlock:&v16];
-  v10 = [v15 copy];
+  v14 = v13;
+  [indexesCopy enumerateIndexesUsingBlock:&v15];
+  v10 = [v14 copy];
 
 LABEL_9:
-  v12 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

@@ -1319,7 +1319,7 @@ LABEL_23:
     v23 = style5;
     if (style5)
     {
-      [style5 tv_focusTransform];
+      objc_msgSend_tv_focusTransform(style5);
     }
 
     else
@@ -3864,14 +3864,18 @@ LABEL_5:
 {
   v3 = a1;
   v4 = [a2 url];
-  OUTLINED_FUNCTION_0_2(&dword_26CD9A000, v5, v6, "width/height missing for element with URL [%@]", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_2(&dword_26CD9A000, v5, v6, "width/height missing for element with URL [%@]", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 - (void)_imageViewForBadgeElement:(void *)a1 existingView:(void *)a2 .cold.1(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 url];
-  OUTLINED_FUNCTION_0_2(&dword_26CD9A000, v5, v6, "Can't find badge named [%@]", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_2(&dword_26CD9A000, v5, v6, "Can't find badge named [%@]", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 - (void)_monogramViewForElement:(void *)a1 layout:(void *)a2 existingView:.cold.1(void *a1, void *a2)

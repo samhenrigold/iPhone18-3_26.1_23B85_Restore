@@ -51,27 +51,27 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_10007F048();
+  sub_10007F048(selfCopy, v2);
 }
 
 - (id)tableView:(id)view titleForHeaderInSection:(int64_t)section
 {
   viewCopy = view;
   selfCopy = self;
-  sub_100080A04();
-  v8 = v7;
+  sub_100080A04(selfCopy, v7);
+  v9 = v8;
 
-  if (v8)
+  if (v9)
   {
-    v9 = String._bridgeToObjectiveC()();
+    v10 = String._bridgeToObjectiveC()();
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  return v9;
+  return v10;
 }
 
 - (void)tableView:(id)view willDisplayHeaderView:(id)headerView forSection:(int64_t)section
@@ -98,11 +98,6 @@
   {
     if (v4 >> 62)
     {
-      if (v4 < 0)
-      {
-        v5 = *(self + OBJC_IVAR____TtC18Feedback_Assistant26FBABugFormPickerController_formStubs);
-      }
-
       return _CocoaArrayWrapper.endIndex.getter();
     }
 
@@ -124,45 +119,45 @@
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
   sub_10007F5D0(viewCopy);
-  v14 = v13;
+  v13 = v12;
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 
-  return v14;
+  return v13;
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
   sub_100080C04();
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_10007FA20(appear);
+  sub_10007FA20(appearCopy, selfCopy);
 }
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_10007FE28(disappear);
+  sub_10007FE28(disappearCopy, selfCopy);
 }
 
 - (void)dismissPicker

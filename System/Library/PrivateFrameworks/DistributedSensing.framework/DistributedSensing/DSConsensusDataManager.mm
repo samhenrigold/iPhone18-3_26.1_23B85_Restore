@@ -60,7 +60,7 @@
 
 - (void)addDatum:(id)datum
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   datumCopy = datum;
   [(DSConsensusDataManager *)self _evictOldestDatum];
   if ([(NSMutableArray *)self->_consensusDataArray count]< 0x64)
@@ -97,13 +97,11 @@
     {
       v6 = self->_consensusDataArray;
       v7 = v5;
-      v13 = 134217984;
-      v14 = [(NSMutableArray *)v6 count];
-      _os_log_impl(&dword_249027000, v7, OS_LOG_TYPE_DEFAULT, "consensus data array at its maximum capacity: %lu", &v13, 0xCu);
+      v12 = 134217984;
+      v13 = [(NSMutableArray *)v6 count];
+      _os_log_impl(&dword_249027000, v7, OS_LOG_TYPE_DEFAULT, "consensus data array at its maximum capacity: %lu", &v12, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addDatumtoDataArrayMap:(id)map
@@ -286,43 +284,41 @@ LABEL_13:
 
 - (void)printConsensusData
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = self->_consensusDataArray;
-  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) printInfo];
+        [*(*(&v7 + 1) + 8 * v6++) printInfo];
       }
 
       while (v4 != v6);
-      v4 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)printConsensusDataFromWindowStart:(double)start ToWindowEnd:(double)end
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v7 = end - start;
   if (v7 > 0.0 && v7 <= self->_windowOfInterest)
   {
@@ -337,33 +333,33 @@ LABEL_13:
       windowOfInterest = self->_windowOfInterest;
       *buf = 134218496;
       startCopy2 = start;
-      v32 = 2048;
+      v31 = 2048;
       endCopy2 = end;
-      v34 = 2048;
-      v35 = windowOfInterest;
+      v33 = 2048;
+      v34 = windowOfInterest;
       _os_log_impl(&dword_249027000, v10, OS_LOG_TYPE_ERROR, "window start: %f and end: %f. Configured window of interest: %f", buf, 0x20u);
     }
 
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v12 = self->_consensusDataArray;
-    v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v26;
+      v15 = *v25;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v26 != v15)
+          if (*v25 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v25 + 1) + 8 * i);
+          v17 = *(*(&v24 + 1) + 8 * i);
           date = [MEMORY[0x277CBEAA8] date];
           [date timeIntervalSince1970];
           v20 = v19;
@@ -382,7 +378,7 @@ LABEL_13:
           }
         }
 
-        v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v14);
@@ -404,15 +400,13 @@ LABEL_21:
       v9 = self->_windowOfInterest;
       *buf = 134218496;
       startCopy2 = start;
-      v32 = 2048;
+      v31 = 2048;
       endCopy2 = end;
-      v34 = 2048;
-      v35 = v9;
+      v33 = 2048;
+      v34 = v9;
       _os_log_impl(&dword_249027000, v8, OS_LOG_TYPE_ERROR, "Invalid window start: %f and end: %f. Configured window of interest: %f", buf, 0x20u);
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 @end

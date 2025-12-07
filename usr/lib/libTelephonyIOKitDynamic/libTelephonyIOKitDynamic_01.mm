@@ -1,33 +1,3 @@
-void std::__shared_ptr_pointer<ctu::power::manager *,std::shared_ptr<ctu::power::manager>::__shared_ptr_default_delete<ctu::power::manager,ctu::power::manager>,std::allocator<ctu::power::manager>>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
-{
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  operator delete(v1);
-}
-
-void std::__shared_ptr_pointer<ctu::power::manager *,std::shared_ptr<ctu::power::manager>::__shared_ptr_default_delete<ctu::power::manager,ctu::power::manager>,std::allocator<ctu::power::manager>>::__on_zero_shared(uint64_t a1)
-{
-  v1 = *(a1 + 24);
-  if (v1)
-  {
-    ctu::power::manager::~manager(v1);
-
-    operator delete(v2);
-  }
-}
-
-uint64_t std::__shared_ptr_pointer<ctu::power::manager *,std::shared_ptr<ctu::power::manager>::__shared_ptr_default_delete<ctu::power::manager,ctu::power::manager>,std::allocator<ctu::power::manager>>::__get_deleter(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
 void std::__shared_ptr_emplace<std::atomic<BOOL>>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
 {
   a1->__vftable = &unk_2A1EB0878;
@@ -293,50 +263,48 @@ void ctu::iokit::IOHIDController::~IOHIDController(ctu::iokit::IOHIDController *
   {
     if (*(this + 56) == 1)
     {
-      v2 = *(this + 2);
       MEMORY[0x29C284AB0]();
       *(this + 56) = 0;
-      v3 = *(this + 4);
     }
 
     IOHIDEventSystemClientUnregisterEventBlock();
-    v4 = *(this + 8);
-    if (v4)
+    v2 = *(this + 8);
+    if (v2)
     {
-      _Block_release(v4);
+      _Block_release(v2);
     }
 
     CFRelease(*(this + 4));
   }
 
-  v5 = *(this + 6);
+  v3 = *(this + 6);
+  if (v3)
+  {
+    _Block_release(v3);
+  }
+
+  v4 = *(this + 5);
+  if (v4)
+  {
+    _Block_release(v4);
+  }
+
+  v5 = *(this + 3);
   if (v5)
   {
-    _Block_release(v5);
+    dispatch_release(v5);
   }
 
-  v6 = *(this + 5);
+  v6 = *(this + 2);
   if (v6)
   {
-    _Block_release(v6);
+    dispatch_release(v6);
   }
 
-  v7 = *(this + 3);
+  v7 = *(this + 1);
   if (v7)
   {
-    dispatch_release(v7);
-  }
-
-  v8 = *(this + 2);
-  if (v8)
-  {
-    dispatch_release(v8);
-  }
-
-  v9 = *(this + 1);
-  if (v9)
-  {
-    std::__shared_weak_count::__release_weak(v9);
+    std::__shared_weak_count::__release_weak(v7);
   }
 }
 
@@ -480,24 +448,23 @@ void ctu::iokit::IOHIDController::queryHIDEventTrigger(ctu::iokit::IOHIDControll
 
 const void **ctu::iokit::IOHIDController::queryHIDEventTrigger_sync(IOHIDEventSystemClientRef *this)
 {
-  v2 = *MEMORY[0x29EDB8ED8];
   KeyboardEvent = IOHIDEventCreateKeyboardEvent();
-  v3 = IOHIDEventSystemClientCopyServices(this[4]);
-  theArray = v3;
-  if (v3 && this[8])
+  v2 = IOHIDEventSystemClientCopyServices(this[4]);
+  theArray = v2;
+  if (v2 && this[8])
   {
-    for (i = 0; i < CFArrayGetCount(v3); ++i)
+    for (i = 0; i < CFArrayGetCount(v2); ++i)
     {
       CFArrayGetValueAtIndex(theArray, i);
-      v6 = 0xAAAAAAAAAAAAAAAALL;
-      v6 = IOHIDServiceClientCopyEvent();
-      if (v6)
+      v5 = 0xAAAAAAAAAAAAAAAALL;
+      v5 = IOHIDServiceClientCopyEvent();
+      if (v5)
       {
         (*(this[8] + 2))();
       }
 
-      ctu::SharedRef<__IOHIDEvent,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__IOHIDEvent>::~SharedRef(&v6);
-      v3 = theArray;
+      ctu::SharedRef<__IOHIDEvent,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__IOHIDEvent>::~SharedRef(&v5);
+      v2 = theArray;
     }
   }
 
@@ -505,9 +472,9 @@ const void **ctu::iokit::IOHIDController::queryHIDEventTrigger_sync(IOHIDEventSy
   return ctu::SharedRef<__IOHIDEvent,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__IOHIDEvent>::~SharedRef(&KeyboardEvent);
 }
 
-void sub_298253728(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_298253728(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   ctu::SharedRef<__IOHIDEvent,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__IOHIDEvent>::~SharedRef(va);
   _Unwind_Resume(a1);
 }
@@ -540,18 +507,18 @@ void ctu::iokit::IOHIDController::stop(ctu::iokit::IOHIDController *this)
 uint64_t ctu::iokit::IOHIDController::setHIDMatchingDictionary@<X0>(unsigned int a1@<W1>, unsigned int a2@<W2>, CFMutableDictionaryRef *a3@<X8>)
 {
   *a3 = 0;
-  v7 = *MEMORY[0x29EDB8ED8];
+  v6 = *MEMORY[0x29EDB8ED8];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-  v10 = Mutable;
+  v9 = Mutable;
   if (Mutable)
   {
     *a3 = Mutable;
-    v13 = 0;
-    ctu::SharedRef<__CFDictionary,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary>::~SharedRef(&v13);
+    v12 = 0;
+    ctu::SharedRef<__CFDictionary,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary>::~SharedRef(&v12);
   }
 
-  ctu::cf::insert<char const*,unsigned int>(v10, "PrimaryUsagePage", a1, v7, v9);
-  return ctu::cf::insert<char const*,unsigned int>(v10, "PrimaryUsage", a2, v7, v11);
+  ctu::cf::insert<char const*,unsigned int>(v9, "PrimaryUsagePage", a1, v6, v8);
+  return ctu::cf::insert<char const*,unsigned int>(v9, "PrimaryUsage", a2, v6, v10);
 }
 
 const void **ctu::SharedRef<__IOHIDEvent,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__IOHIDEvent>::~SharedRef(const void **a1)
@@ -625,7 +592,7 @@ void **std::unique_ptr<void ctu::SharedSynchronizable<ctu::iokit::IOHIDControlle
 
 void **dispatch::async<void ctu::SharedSynchronizable<ctu::iokit::IOHIDController>::execute_wrapped<ctu::iokit::IOHIDController::init(void)::$_0>(ctu::iokit::IOHIDController::init(void)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<ctu::iokit::IOHIDController::init(void)::$_0,dispatch_queue_s *::default_delete<ctu::iokit::IOHIDController::init(void)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
 {
-  v15 = a1;
+  v13 = a1;
   v1 = *a1;
   v2 = **a1;
   v3 = *MEMORY[0x29EDB8ED8];
@@ -633,58 +600,56 @@ void **dispatch::async<void ctu::SharedSynchronizable<ctu::iokit::IOHIDControlle
   v2[4] = v4;
   if (v4)
   {
-    v20 = 0;
+    v18 = 0;
     Mutable = CFArrayCreateMutable(v3, 0, MEMORY[0x29EDB9000]);
     if (Mutable)
     {
-      v6 = v20;
-      v20 = Mutable;
+      v6 = v18;
+      v18 = Mutable;
       aBlock[0] = v6;
       ctu::SharedRef<__CFArray,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFArray>::~SharedRef(aBlock);
     }
 
-    v19 = 0xAAAAAAAAAAAAAAAALL;
-    ctu::iokit::IOHIDController::setHIDMatchingDictionary(0xFF00u, 8u, &v19);
-    ctu::cf::insert<__CFDictionary *>(v20, v19);
+    v17 = 0xAAAAAAAAAAAAAAAALL;
+    ctu::iokit::IOHIDController::setHIDMatchingDictionary(0xFF00u, 8u, &v17);
+    ctu::cf::insert<__CFDictionary *>(v18, v17);
     cf = 0xAAAAAAAAAAAAAAAALL;
     ctu::iokit::IOHIDController::setHIDMatchingDictionary(0xBu, 1u, &cf);
-    ctu::cf::insert<__CFDictionary *>(v20, cf);
-    v7 = v2[4];
+    ctu::cf::insert<__CFDictionary *>(v18, cf);
     IOHIDEventSystemClientSetMatchingMultiple();
-    v8 = v2[1];
-    if (!v8 || (v9 = *v2, (v10 = std::__shared_weak_count::lock(v8)) == 0))
+    v7 = v2[1];
+    if (!v7 || (v8 = *v2, (v9 = std::__shared_weak_count::lock(v7)) == 0))
     {
       std::__throw_bad_weak_ptr[abi:ne200100]();
     }
 
-    v11 = v10;
-    p_shared_weak_owners = &v10->__shared_weak_owners_;
-    atomic_fetch_add_explicit(&v10->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+    v10 = v9;
+    p_shared_weak_owners = &v9->__shared_weak_owners_;
+    atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
     aBlock[0] = MEMORY[0x29EDCA5F8];
     aBlock[1] = 3321888768;
     aBlock[2] = ___ZZN3ctu5iokit15IOHIDController4initEvENK3__0clEv_block_invoke;
     aBlock[3] = &__block_descriptor_56_e8_40c52_ZTSNSt3__18weak_ptrIN3ctu5iokit15IOHIDControllerEEE_e35_v40__0_v8_v16_v24____IOHIDEvent__32l;
     aBlock[4] = v2;
-    aBlock[5] = v9;
-    v17 = v11;
+    aBlock[5] = v8;
+    v15 = v10;
     atomic_fetch_add_explicit(p_shared_weak_owners, 1uLL, memory_order_relaxed);
     v2[8] = _Block_copy(aBlock);
-    v13 = v2[4];
     IOHIDEventSystemClientRegisterEventBlock();
-    if (v17)
+    if (v15)
     {
-      std::__shared_weak_count::__release_weak(v17);
+      std::__shared_weak_count::__release_weak(v15);
     }
 
-    std::__shared_weak_count::__release_weak(v11);
+    std::__shared_weak_count::__release_weak(v10);
     ctu::SharedRef<__CFDictionary,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary>::~SharedRef(&cf);
-    ctu::SharedRef<__CFDictionary,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary>::~SharedRef(&v19);
-    ctu::SharedRef<__CFArray,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFArray>::~SharedRef(&v20);
+    ctu::SharedRef<__CFDictionary,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary>::~SharedRef(&v17);
+    ctu::SharedRef<__CFArray,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFArray>::~SharedRef(&v18);
   }
 
   operator delete(v1);
-  return std::unique_ptr<void ctu::SharedSynchronizable<ctu::iokit::IOHIDController>::execute_wrapped<ctu::iokit::IOHIDController::init(void)::$_0>(ctu::iokit::IOHIDController::init(void)::$_0 &&)::{lambda(void)#1},std::default_delete<ctu::iokit::IOHIDController::init(void)::$_0 &&>>::~unique_ptr[abi:ne200100](&v15);
+  return std::unique_ptr<void ctu::SharedSynchronizable<ctu::iokit::IOHIDController>::execute_wrapped<ctu::iokit::IOHIDController::init(void)::$_0>(ctu::iokit::IOHIDController::init(void)::$_0 &&)::{lambda(void)#1},std::default_delete<ctu::iokit::IOHIDController::init(void)::$_0 &&>>::~unique_ptr[abi:ne200100](&v13);
 }
 
 void sub_298253C20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, std::__shared_weak_count *a17, const void *a18)
@@ -783,7 +748,7 @@ void **dispatch::async<void ctu::SharedSynchronizable<ctu::iokit::IOHIDControlle
 
 void **dispatch::async<void ctu::SharedSynchronizable<ctu::iokit::IOHIDController>::execute_wrapped<ctu::iokit::IOHIDController::start(void)::$_0>(ctu::iokit::IOHIDController::start(void)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<ctu::iokit::IOHIDController::start(void)::$_0,dispatch_queue_s *::default_delete<ctu::iokit::IOHIDController::start(void)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t **a1)
 {
-  v6 = a1;
+  v5 = a1;
   v1 = *a1;
   v2 = **a1;
   if (*(v2 + 56) == 1)
@@ -798,14 +763,13 @@ void **dispatch::async<void ctu::SharedSynchronizable<ctu::iokit::IOHIDControlle
 
   if (*(v2 + 32))
   {
-    v4 = *(v2 + 16);
     IOHIDEventSystemClientScheduleWithDispatchQueue();
     ctu::iokit::IOHIDController::queryHIDEventTrigger_sync(v2);
     *(v2 + 56) = 1;
   }
 
   operator delete(v1);
-  return std::unique_ptr<void ctu::SharedSynchronizable<ctu::iokit::IOHIDController>::execute_wrapped<ctu::iokit::IOHIDController::init(void)::$_0>(ctu::iokit::IOHIDController::init(void)::$_0 &&)::{lambda(void)#1},std::default_delete<ctu::iokit::IOHIDController::init(void)::$_0 &&>>::~unique_ptr[abi:ne200100](&v6);
+  return std::unique_ptr<void ctu::SharedSynchronizable<ctu::iokit::IOHIDController>::execute_wrapped<ctu::iokit::IOHIDController::init(void)::$_0>(ctu::iokit::IOHIDController::init(void)::$_0 &&)::{lambda(void)#1},std::default_delete<ctu::iokit::IOHIDController::init(void)::$_0 &&>>::~unique_ptr[abi:ne200100](&v5);
 }
 
 void sub_298253E30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10)
@@ -886,11 +850,11 @@ uint64_t TelephonyUtilWriteToCompletion(int __fd, char *__buf, size_t __nbyte, _
   return *__error();
 }
 
-ssize_t TelephonyUtilUnblockableReadWithTimeout(int a1, unsigned int a2, void *a3, unsigned int a4, unsigned int a5)
+ssize_t TelephonyUtilUnblockableReadWithTimeout(unsigned int a1, int a2, void *a3, unsigned int a4, unsigned int a5)
 {
   v13 = 0xAAAAAAAAAAAAAAAALL;
   v14 = 0xAAAAAAAAAAAAAAAALL;
-  if (a1 < 0)
+  if ((a1 & 0x80000000) != 0)
   {
     return 4294967287;
   }
@@ -945,7 +909,7 @@ ssize_t TelephonyUtilUnblockableReadWithTimeout(int a1, unsigned int a2, void *a
   return result;
 }
 
-BOOL TelephonyUtilUnblockableReadToCompletionWithTimeout(int a1, unsigned int a2, char *a3, unsigned int a4, unsigned int a5)
+BOOL TelephonyUtilUnblockableReadToCompletionWithTimeout(unsigned int a1, int a2, char *a3, unsigned int a4, unsigned int a5)
 {
   do
   {
@@ -964,10 +928,10 @@ BOOL TelephonyUtilUnblockableReadToCompletionWithTimeout(int a1, unsigned int a2
   return v9 == 0;
 }
 
-uint64_t TelephonyUtilLogBinaryToBuffer(_BYTE *a1, unsigned int a2, unsigned __int8 *a3, int a4)
+uint64_t TelephonyUtilLogBinaryToBuffer(_BYTE *a1, unsigned int a2, unsigned __int8 *a3, unsigned int a4)
 {
   v4 = a1;
-  v34 = *MEMORY[0x29EDCA608];
+  v33 = *MEMORY[0x29EDCA608];
   if (a4 < 1)
   {
     v8 = 0;
@@ -979,7 +943,7 @@ uint64_t TelephonyUtilLogBinaryToBuffer(_BYTE *a1, unsigned int a2, unsigned __i
     v5 = a4;
     v7 = 0;
     LODWORD(v8) = 0;
-    v26 = a4;
+    v25 = a4;
     v9 = a4;
     while (1)
     {
@@ -989,26 +953,26 @@ uint64_t TelephonyUtilLogBinaryToBuffer(_BYTE *a1, unsigned int a2, unsigned __i
         v9 = 32;
       }
 
-      memset(&v33[9], 0, 32);
+      memset(&v32[9], 0, 32);
       v11 = v9 <= 1 ? 1 : v9;
-      v32 = 0uLL;
-      memset(v33, 0, 144);
-      v30 = 0uLL;
       v31 = 0uLL;
-      v28 = 0uLL;
+      memset(v32, 0, 144);
       v29 = 0uLL;
-      if (v7 >= v26)
+      v30 = 0uLL;
+      v27 = 0uLL;
+      v28 = 0uLL;
+      if (v7 >= v25)
       {
-        *(v33 + 15) = 538976288;
+        *(v32 + 15) = 538976288;
         *&v22 = 0x2020202020202020;
         *(&v22 + 1) = 0x2020202020202020;
-        v32 = v22;
-        v33[0] = v22;
-        v30 = v22;
         v31 = v22;
-        v21 = 99;
-        v28 = v22;
+        v32[0] = v22;
         v29 = v22;
+        v30 = v22;
+        v21 = 99;
+        v27 = v22;
+        v28 = v22;
       }
 
       else
@@ -1017,7 +981,7 @@ uint64_t TelephonyUtilLogBinaryToBuffer(_BYTE *a1, unsigned int a2, unsigned __i
         v13 = (102 - 3 * v11) - 3;
         v14 = a3;
         v15 = v11;
-        v16 = &v28 + 1;
+        v16 = &v27 + 1;
         do
         {
           v17 = *v14++;
@@ -1040,7 +1004,7 @@ uint64_t TelephonyUtilLogBinaryToBuffer(_BYTE *a1, unsigned int a2, unsigned __i
             v20 = 46;
           }
 
-          *(&v28 + v13 + i) = v20;
+          *(&v27 + v13 + i) = v20;
         }
 
         v21 = v13 + i;
@@ -1048,8 +1012,8 @@ uint64_t TelephonyUtilLogBinaryToBuffer(_BYTE *a1, unsigned int a2, unsigned __i
         v5 = a4;
       }
 
-      *(&v28 + v21) = 10;
-      v8 = (snprintf(&v4[v8], a2 - v8, "%04x  %s", v7, &v28) + v8);
+      *(&v27 + v21) = 10;
+      v8 = (snprintf(&v4[v8], a2 - v8, "%04x  %s", v7, &v27) + v8);
       if (v8 >= a2)
       {
         break;
@@ -1060,15 +1024,13 @@ uint64_t TelephonyUtilLogBinaryToBuffer(_BYTE *a1, unsigned int a2, unsigned __i
       v9 = v10;
       if (v7 >= v5)
       {
-        goto LABEL_24;
+        return v8;
       }
     }
 
-    v8 = a2;
+    return a2;
   }
 
-LABEL_24:
-  v23 = *MEMORY[0x29EDCA608];
   return v8;
 }
 
@@ -1259,180 +1221,176 @@ uint64_t TelephonyUtilHexToBin(_BYTE *a1, uint64_t a2, char *__s)
 
 uint64_t TelephonyUtilParseHardwareModel(_BYTE *a1, uint64_t a2)
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   *(a2 + 8) = 0;
   *a2 = 0;
   if (!*a1)
   {
-    goto LABEL_21;
+    return 0;
   }
 
   *__s = 0u;
-  v20 = 0u;
+  v18 = 0u;
   __strlcpy_chk();
   v3 = strlen(__s);
-  if (v3 && !(v3 >> 31))
+  if (!v3 || v3 >> 31)
   {
-    v4 = 0;
-    *__endptr = 0u;
-    v22 = 0u;
-    v5 = -1;
-    while (1)
-    {
-      v6 = __s[(v3 + v5)];
-      if ((v6 - 48) <= 9)
-      {
-        break;
-      }
-
-      if (v4 != 32)
-      {
-        *(__endptr + v4) = v6;
-        --v5;
-        if (v3 != ++v4)
-        {
-          continue;
-        }
-      }
-
-      goto LABEL_19;
-    }
-
-    if (v3 - v4 >= 1)
-    {
-      v7 = -1 - v4;
-      while (1)
-      {
-        v8 = __s[(v3 + v7)];
-        if ((v8 - 48) > 9)
-        {
-          break;
-        }
-
-        if (v4 != 32)
-        {
-          *(__endptr + v4) = v8;
-          --v7;
-          if (v3 != ++v4)
-          {
-            continue;
-          }
-        }
-
-        goto LABEL_19;
-      }
-
-      if (v4 <= 0x1F)
-      {
-        *(__endptr + v4) = v8;
-        v11 = __s;
-        __memset_chk();
-        for (i = v4; i != -1; --i)
-        {
-          *v11++ = *(__endptr + i);
-        }
-
-        __s[v4 + 1] = 0;
-        __endptr[0] = 0;
-        v13 = __s[0];
-        *(a2 + 4) = __s[0];
-        v14 = __toupper(v13);
-        *(a2 + 4) = v14;
-        if ((v14 - 91) <= 0xFFFFFFE5)
-        {
-          goto LABEL_20;
-        }
-
-        *__error() = 0;
-        *a2 = strtoul(&__s[1], __endptr, 10);
-        if (*__error())
-        {
-          v18 = *__error();
-          goto LABEL_20;
-        }
-
-        v15 = __endptr[0];
-        if (!*__endptr[0])
-        {
-          *(a2 + 8) = 0;
-          goto LABEL_47;
-        }
-
-        if (strncasecmp("SIM", __endptr[0], 3uLL))
-        {
-          v16 = 4;
-          if (!strncasecmp("FPGA", v15, 4uLL))
-          {
-            goto LABEL_40;
-          }
-
-          if (!strncasecmp("AP", v15 + 1, 2uLL))
-          {
-            *(a2 + 8) = 2;
-            goto LABEL_46;
-          }
-
-          v16 = 2;
-          if (!strncasecmp("AP", v15, 2uLL))
-          {
-LABEL_40:
-            *(a2 + 8) = v16;
-            goto LABEL_47;
-          }
-
-          if (!strncasecmp("DEV", v15 + 1, 3uLL))
-          {
-            v17 = 1;
-          }
-
-          else
-          {
-            if (!strncasecmp("DEV", v15, 3uLL))
-            {
-              result = 1;
-              *(a2 + 8) = 1;
-              goto LABEL_22;
-            }
-
-            if (strncasecmp("Mac", v15 + 1, 3uLL))
-            {
-              if (!strncasecmp("Mac", v15, 3uLL))
-              {
-                *(a2 + 8) = 5;
-LABEL_47:
-                result = 1;
-                goto LABEL_22;
-              }
-
-LABEL_46:
-              __strlcpy_chk();
-              *(a2 + 5) = __tolower(*(a2 + 5));
-              *(a2 + 6) = __tolower(*(a2 + 6));
-              goto LABEL_47;
-            }
-
-            v17 = 5;
-          }
-
-          *(a2 + 8) = v17;
-          goto LABEL_46;
-        }
-
-        *(a2 + 8) = 3;
-        goto LABEL_46;
-      }
-    }
+    goto LABEL_19;
   }
 
+  v4 = 0;
+  *__endptr = 0u;
+  v20 = 0u;
+  v5 = -1;
+  while (1)
+  {
+    v6 = __s[(v3 + v5)];
+    if ((v6 - 48) <= 9)
+    {
+      break;
+    }
+
+    if (v4 != 32)
+    {
+      *(__endptr + v4) = v6;
+      --v5;
+      if (v3 != ++v4)
+      {
+        continue;
+      }
+    }
+
+    goto LABEL_19;
+  }
+
+  if (v3 - v4 < 1)
+  {
+    goto LABEL_19;
+  }
+
+  v7 = -1 - v4;
+  while (1)
+  {
+    v8 = __s[(v3 + v7)];
+    if ((v8 - 48) > 9)
+    {
+      break;
+    }
+
+    if (v4 != 32)
+    {
+      *(__endptr + v4) = v8;
+      --v7;
+      if (v3 != ++v4)
+      {
+        continue;
+      }
+    }
+
+    goto LABEL_19;
+  }
+
+  if (v4 > 0x1F)
+  {
 LABEL_19:
-  _TelephonyUtilDebugPrintError();
+    _TelephonyUtilDebugPrintError();
 LABEL_20:
-  _TelephonyUtilDebugPrintError();
-LABEL_21:
-  result = 0;
-LABEL_22:
-  v10 = *MEMORY[0x29EDCA608];
-  return result;
+    _TelephonyUtilDebugPrintError();
+    return 0;
+  }
+
+  *(__endptr + v4) = v8;
+  v10 = __s;
+  __memset_chk();
+  for (i = v4; i != -1; --i)
+  {
+    *v10++ = *(__endptr + i);
+  }
+
+  __s[v4 + 1] = 0;
+  __endptr[0] = 0;
+  v12 = __s[0];
+  *(a2 + 4) = __s[0];
+  v13 = __toupper(v12);
+  *(a2 + 4) = v13;
+  if ((v13 - 91) <= 0xFFFFFFE5)
+  {
+    goto LABEL_20;
+  }
+
+  *__error() = 0;
+  *a2 = strtoul(&__s[1], __endptr, 10);
+  if (*__error())
+  {
+    __error();
+    goto LABEL_20;
+  }
+
+  v14 = __endptr[0];
+  if (!*__endptr[0])
+  {
+    *(a2 + 8) = 0;
+    return 1;
+  }
+
+  if (!strncasecmp("SIM", __endptr[0], 3uLL))
+  {
+    *(a2 + 8) = 3;
+    goto LABEL_45;
+  }
+
+  v15 = 4;
+  if (!strncasecmp("FPGA", v14, 4uLL))
+  {
+    goto LABEL_39;
+  }
+
+  if (!strncasecmp("AP", v14 + 1, 2uLL))
+  {
+    *(a2 + 8) = 2;
+    goto LABEL_45;
+  }
+
+  v15 = 2;
+  if (!strncasecmp("AP", v14, 2uLL))
+  {
+LABEL_39:
+    *(a2 + 8) = v15;
+    return 1;
+  }
+
+  if (!strncasecmp("DEV", v14 + 1, 3uLL))
+  {
+    v16 = 1;
+LABEL_44:
+    *(a2 + 8) = v16;
+    goto LABEL_45;
+  }
+
+  if (!strncasecmp("DEV", v14, 3uLL))
+  {
+    result = 1;
+    *(a2 + 8) = 1;
+    return result;
+  }
+
+  if (!strncasecmp("Mac", v14 + 1, 3uLL))
+  {
+    v16 = 5;
+    goto LABEL_44;
+  }
+
+  if (strncasecmp("Mac", v14, 3uLL))
+  {
+LABEL_45:
+    __strlcpy_chk();
+    *(a2 + 5) = __tolower(*(a2 + 5));
+    *(a2 + 6) = __tolower(*(a2 + 6));
+    return 1;
+  }
+
+  *(a2 + 8) = 5;
+  return 1;
 }
 
 uint64_t TelephonyUtilIsInternalBuild()
@@ -1577,31 +1535,28 @@ size_t TelephonyUtilStrlcpy(void *a1, char *__s1, size_t __n)
 
 uint64_t TelephonyUtilRunCommand(uint64_t a1, uint64_t a2)
 {
-  v5[1] = *MEMORY[0x29EDCA608];
-  v5[0] = 0;
-  v4[0] = a1;
-  v4[1] = a2;
-  v4[4] = 0;
-  v4[5] = 0xAAAAAAAAAAAAAA00;
-  v4[2] = v5;
-  v4[3] = 0;
-  if (TelephonyUtilRunCommandExt(v4))
+  v4[1] = *MEMORY[0x29EDCA608];
+  v4[0] = 0;
+  v3[0] = a1;
+  v3[1] = a2;
+  v3[4] = 0;
+  v3[5] = 0xAAAAAAAAAAAAAA00;
+  v3[2] = v4;
+  v3[3] = 0;
+  if (TelephonyUtilRunCommandExt(v3))
   {
-    result = 0;
+    return 0;
   }
 
   else
   {
-    result = 22;
+    return 22;
   }
-
-  v3 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
-uint64_t TelephonyUtilRunCommandExt(uint64_t *a1)
+uint64_t TelephonyUtilRunCommandExt(uint64_t a1)
 {
-  v7 = 0;
+  v6 = 0;
   if (!a1)
   {
     syslog(3, "%s: parameter cannot be NULL.\n");
@@ -1614,34 +1569,33 @@ uint64_t TelephonyUtilRunCommandExt(uint64_t *a1)
     return 0;
   }
 
-  v2 = a1[1];
+  v2 = *(a1 + 8);
   if (!v2)
   {
     syslog(3, "%s: argument cannot be NULL\n");
     return 0;
   }
 
-  v3 = a1[2];
+  v3 = *(a1 + 16);
   if (!v3)
   {
     syslog(3, "%s: environment cannot be NULL\n");
     return 0;
   }
 
-  if (posix_spawn(&v7, *a1, a1[3], a1[4], v2, v3))
+  if (posix_spawn(&v6, *a1, *(a1 + 24), *(a1 + 32), v2, v3))
   {
-    v4 = *a1;
     syslog(3, "%s: spawning %s failed! ret: %d\n");
     return 0;
   }
 
-  if ((a1[5] & 1) == 0)
+  if ((*(a1 + 40) & 1) == 0)
   {
-    v6 = -1431655766;
-    waitpid(v7, &v6, 0);
+    v5 = -1431655766;
+    waitpid(v6, &v5, 0);
   }
 
-  return v7;
+  return v6;
 }
 
 uint64_t TelephonyUtilIsBBPlatformSimulationEnabled()
@@ -1656,7 +1610,7 @@ uint64_t TelephonyUtilIsBBPlatformSimulationEnabled()
 
 void __TelephonyUtilIsBBPlatformSimulationEnabled_block_invoke()
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   if (qword_2A1899B98 != -1)
   {
     dispatch_once(&qword_2A1899B98, &__block_literal_global_43);
@@ -1688,20 +1642,20 @@ void __TelephonyUtilIsBBPlatformSimulationEnabled_block_invoke()
             v1 = "disabled";
           }
 
-          v5 = 136315138;
-          v6 = v1;
-          _os_log_debug_impl(&dword_298245000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEBUG, "BBSimulation %s", &v5, 0xCu);
+          v4 = 136315138;
+          v5 = v1;
+          _os_log_debug_impl(&dword_298245000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEBUG, "BBSimulation %s", &v4, 0xCu);
         }
 
-        goto LABEL_18;
+        return;
       }
 
       if (!os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_18;
+        return;
       }
 
-      LOWORD(v5) = 0;
+      LOWORD(v4) = 0;
       v2 = MEMORY[0x29EDCA988];
       v3 = "BBSimulation disabled due to key not set";
     }
@@ -1710,19 +1664,16 @@ void __TelephonyUtilIsBBPlatformSimulationEnabled_block_invoke()
     {
       if (!os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_18;
+        return;
       }
 
-      LOWORD(v5) = 0;
+      LOWORD(v4) = 0;
       v2 = MEMORY[0x29EDCA988];
       v3 = "Platform Simulation disabled due to 'libRemoteTelephonyTransport' not found";
     }
 
-    _os_log_impl(&dword_298245000, v2, OS_LOG_TYPE_DEFAULT, v3, &v5, 2u);
+    _os_log_impl(&dword_298245000, v2, OS_LOG_TYPE_DEFAULT, v3, &v4, 2u);
   }
-
-LABEL_18:
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t TelephonyUtilIsOversteerEnabled()
@@ -1737,7 +1688,7 @@ uint64_t TelephonyUtilIsOversteerEnabled()
 
 void __TelephonyUtilIsOversteerEnabled_block_invoke()
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   if (qword_2A1899B98 != -1)
   {
     dispatch_once(&qword_2A1899B98, &__block_literal_global_43);
@@ -1769,20 +1720,20 @@ void __TelephonyUtilIsOversteerEnabled_block_invoke()
             v1 = "disabled";
           }
 
-          v5 = 136315138;
-          v6 = v1;
-          _os_log_debug_impl(&dword_298245000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEBUG, "Oversteer %s", &v5, 0xCu);
+          v4 = 136315138;
+          v5 = v1;
+          _os_log_debug_impl(&dword_298245000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEBUG, "Oversteer %s", &v4, 0xCu);
         }
 
-        goto LABEL_18;
+        return;
       }
 
       if (!os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_18;
+        return;
       }
 
-      LOWORD(v5) = 0;
+      LOWORD(v4) = 0;
       v2 = MEMORY[0x29EDCA988];
       v3 = "Oversteer disabled due to key not set";
     }
@@ -1791,26 +1742,23 @@ void __TelephonyUtilIsOversteerEnabled_block_invoke()
     {
       if (!os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_18;
+        return;
       }
 
-      LOWORD(v5) = 0;
+      LOWORD(v4) = 0;
       v2 = MEMORY[0x29EDCA988];
       v3 = "Oversteer disabled due to 'libRemoteTelephonyTransport' not found";
     }
 
-    _os_log_impl(&dword_298245000, v2, OS_LOG_TYPE_DEFAULT, v3, &v5, 2u);
+    _os_log_impl(&dword_298245000, v2, OS_LOG_TYPE_DEFAULT, v3, &v4, 2u);
   }
-
-LABEL_18:
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 void __TelephonyUtilQueryBuildInformation_block_invoke()
 {
-  v16[1] = *MEMORY[0x29EDCA608];
-  v16[0] = @"ReleaseType";
-  v0 = CFArrayCreate(*MEMORY[0x29EDB8ED8], v16, 1, MEMORY[0x29EDB9000]);
+  v15[1] = *MEMORY[0x29EDCA608];
+  v15[0] = @"ReleaseType";
+  v0 = CFArrayCreate(*MEMORY[0x29EDB8ED8], v15, 1, MEMORY[0x29EDB9000]);
   if (v0)
   {
     v1 = v0;
@@ -1840,7 +1788,7 @@ LABEL_24:
       CFRelease(v5);
 LABEL_25:
       CFRelease(v1);
-      goto LABEL_26;
+      return;
     }
 
     v7 = Value;
@@ -1892,9 +1840,6 @@ LABEL_23:
     *v14 = 1;
     goto LABEL_24;
   }
-
-LABEL_26:
-  v15 = *MEMORY[0x29EDCA608];
 }
 
 const char *__isRTDylibPresent_block_invoke()
@@ -2025,7 +1970,7 @@ void *ctu::iokit::IOPortUSBCController::IOPortUSBCController(void *a1, NSObject 
   return result;
 }
 
-BOOL ctu::iokit::IOPortUSBCController::init(uint64_t **this)
+BOOL ctu::iokit::IOPortUSBCController::init(NSObject **this)
 {
   for (i = 0; i != 5; ++i)
   {
@@ -2343,7 +2288,7 @@ LABEL_24:
   ctu::SharedSynchronizable<ctu::iokit::IOPortUSBCController>::~SharedSynchronizable(this);
 }
 
-uint64_t **ctu::iokit::IOPortUSBCController::findingServiceTCController(uint64_t **this, io_iterator_t iterator)
+NSObject **ctu::iokit::IOPortUSBCController::findingServiceTCController(NSObject **this, io_iterator_t iterator)
 {
   if (this)
   {
@@ -2418,17 +2363,17 @@ BOOL ctu::iokit::IOPortUSBCController::initNotification(ctu::iokit::IOPortUSBCCo
   return v3 != 0;
 }
 
-BOOL ctu::iokit::IOPortUSBCController::setupFindingService(uint64_t a1, void **a2)
+BOOL ctu::iokit::IOPortUSBCController::setupFindingService(uint64_t a1, char *a2)
 {
   v2 = a2;
-  v28 = *MEMORY[0x29EDCA608];
+  v27 = *MEMORY[0x29EDCA608];
   v4 = std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::find<std::string>(a1 + 80, a2);
   v5 = *(a1 + 32);
   if (a1 + 88 == v4)
   {
     if (os_log_type_enabled(*(a1 + 32), OS_LOG_TYPE_ERROR))
     {
-      if (*(v2 + 23) < 0)
+      if (v2[23] < 0)
       {
         v2 = *v2;
       }
@@ -2438,21 +2383,21 @@ BOOL ctu::iokit::IOPortUSBCController::setupFindingService(uint64_t a1, void **a
       _os_log_error_impl(&dword_298245000, v5, OS_LOG_TYPE_ERROR, "Cannot setup finding service because no find %s in the internal context", &__p, 0xCu);
     }
 
-    v12 = 0;
+    return 0;
   }
 
   else
   {
     if (os_log_type_enabled(*(a1 + 32), OS_LOG_TYPE_DEBUG))
     {
-      v24 = v2;
-      if (*(v2 + 23) < 0)
+      v23 = v2;
+      if (v2[23] < 0)
       {
-        v24 = *v2;
+        v23 = *v2;
       }
 
       LODWORD(__p.__r_.__value_.__l.__data_) = 136315138;
-      *(__p.__r_.__value_.__r.__words + 4) = v24;
+      *(__p.__r_.__value_.__r.__words + 4) = v23;
       _os_log_debug_impl(&dword_298245000, v5, OS_LOG_TYPE_DEBUG, "#D Setting up service: %s", &__p, 0xCu);
     }
 
@@ -2465,8 +2410,8 @@ BOOL ctu::iokit::IOPortUSBCController::setupFindingService(uint64_t a1, void **a
 
     else
     {
-      std::string::basic_string[abi:ne200100]<0>(&v25, "IOPortTransportState");
-      v6 = *(v2 + 23);
+      std::string::basic_string[abi:ne200100]<0>(&v24, "IOPortTransportState");
+      v6 = v2[23];
       if (v6 >= 0)
       {
         v7 = v2;
@@ -2479,18 +2424,18 @@ BOOL ctu::iokit::IOPortUSBCController::setupFindingService(uint64_t a1, void **a
 
       if (v6 >= 0)
       {
-        v8 = *(v2 + 23);
+        v8 = v2[23];
       }
 
       else
       {
-        v8 = *(v2 + 8);
+        v8 = *(v2 + 1);
       }
 
-      v9 = std::string::append(&v25, v7, v8);
+      v9 = std::string::append(&v24, v7, v8);
       v10 = v9->__r_.__value_.__r.__words[0];
-      v26[0] = v9->__r_.__value_.__l.__size_;
-      *(v26 + 7) = *(&v9->__r_.__value_.__r.__words[1] + 7);
+      v25[0] = v9->__r_.__value_.__l.__size_;
+      *(v25 + 7) = *(&v9->__r_.__value_.__r.__words[1] + 7);
       v11 = HIBYTE(v9->__r_.__value_.__r.__words[2]);
       v9->__r_.__value_.__l.__size_ = 0;
       v9->__r_.__value_.__r.__words[2] = 0;
@@ -2501,12 +2446,12 @@ BOOL ctu::iokit::IOPortUSBCController::setupFindingService(uint64_t a1, void **a
       }
 
       __p.__r_.__value_.__r.__words[0] = v10;
-      __p.__r_.__value_.__l.__size_ = v26[0];
-      *(&__p.__r_.__value_.__r.__words[1] + 7) = *(v26 + 7);
+      __p.__r_.__value_.__l.__size_ = v25[0];
+      *(&__p.__r_.__value_.__r.__words[1] + 7) = *(v25 + 7);
       *(&__p.__r_.__value_.__s + 23) = v11;
-      if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v25.__r_.__value_.__l.__data_);
+        operator delete(v24.__r_.__value_.__l.__data_);
       }
     }
 
@@ -2522,34 +2467,34 @@ BOOL ctu::iokit::IOPortUSBCController::setupFindingService(uint64_t a1, void **a
     }
 
     v15 = IOServiceMatching(p_p);
-    v25.__r_.__value_.__r.__words[0] = v2;
-    v16 = std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 80), v2, &v25)[10];
-    v25.__r_.__value_.__r.__words[0] = v2;
-    v17 = std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 80), v2, &v25);
+    v24.__r_.__value_.__r.__words[0] = v2;
+    v16 = *(std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 80), v2, &v24) + 10);
+    v24.__r_.__value_.__r.__words[0] = v2;
+    v17 = std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 80), v2, &v24);
     v18 = IOServiceAddMatchingNotification(v13, "IOServiceFirstPublish", v15, v16, a1, v17 + 16);
     v12 = v18 == 0;
-    if (v18 || (v25.__r_.__value_.__r.__words[0] = v2, !*(std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 80), v2, &v25) + 16)))
+    if (v18 || (v24.__r_.__value_.__r.__words[0] = v2, !*(std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 80), v2, &v24) + 16)))
     {
       v19 = *(a1 + 32);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        if (*(v2 + 23) < 0)
+        if (v2[23] < 0)
         {
           v2 = *v2;
         }
 
-        LODWORD(v25.__r_.__value_.__l.__data_) = 136315138;
-        *(v25.__r_.__value_.__r.__words + 4) = v2;
-        _os_log_impl(&dword_298245000, v19, OS_LOG_TYPE_DEFAULT, "#I Did not find the service (%s) yet", &v25, 0xCu);
+        LODWORD(v24.__r_.__value_.__l.__data_) = 136315138;
+        *(v24.__r_.__value_.__r.__words + 4) = v2;
+        _os_log_impl(&dword_298245000, v19, OS_LOG_TYPE_DEFAULT, "#I Did not find the service (%s) yet", &v24, 0xCu);
       }
     }
 
     else
     {
-      v25.__r_.__value_.__r.__words[0] = v2;
-      v20 = std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 80), v2, &v25)[10];
-      v25.__r_.__value_.__r.__words[0] = v2;
-      v21 = std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 80), v2, &v25);
+      v24.__r_.__value_.__r.__words[0] = v2;
+      v20 = *(std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 80), v2, &v24) + 10);
+      v24.__r_.__value_.__r.__words[0] = v2;
+      v21 = std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 80), v2, &v24);
       v20(a1, *(v21 + 16));
     }
 
@@ -2559,7 +2504,6 @@ BOOL ctu::iokit::IOPortUSBCController::setupFindingService(uint64_t a1, void **a
     }
   }
 
-  v22 = *MEMORY[0x29EDCA608];
   return v12;
 }
 
@@ -2573,18 +2517,18 @@ void sub_298256454(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-const void **ctu::iokit::IOPortUSBCController::initTCController(uint64_t **this, unsigned int *a2)
+const void **ctu::iokit::IOPortUSBCController::initTCController(NSObject **this, unsigned int *a2)
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   std::string::basic_string[abi:ne200100]<0>(__p, "AppleTCController");
-  v14 = __p;
-  *(std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, __p, &v14) + 56) = 1;
-  if (v18 < 0)
+  v13 = __p;
+  *(std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, __p, &v13) + 56) = 1;
+  if (v17 < 0)
   {
     operator delete(*__p);
   }
 
-  ctu::iokit::IOPortUSBCController::getPropertyFromIOService(this, a2, @"TransportsSupported", __p);
+  ctu::iokit::IOPortUSBCController::getPropertyFromIOService(__p, this, a2, @"TransportsSupported");
   v4 = *__p;
   if (*__p && (v5 = CFGetTypeID(*__p), v5 == CFArrayGetTypeID()))
   {
@@ -2612,18 +2556,18 @@ const void **ctu::iokit::IOPortUSBCController::initTCController(uint64_t **this,
   {
     *__p = 136315394;
     *&__p[4] = "AppleTCController";
-    v16 = 2048;
-    v17 = Count;
+    v15 = 2048;
+    v16 = Count;
     _os_log_debug_impl(&dword_298245000, v8, OS_LOG_TYPE_DEBUG, "#D The number of Supported Protocol of %s: %lu", __p, 0x16u);
     if (!Count)
     {
-      goto LABEL_25;
+      return ctu::SharedRef<__CFArray const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFArray const>::~SharedRef(&theArray);
     }
   }
 
   else if (!Count)
   {
-    goto LABEL_25;
+    return ctu::SharedRef<__CFArray const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFArray const>::~SharedRef(&theArray);
   }
 
   for (i = 0; i != Count; ++i)
@@ -2632,9 +2576,9 @@ const void **ctu::iokit::IOPortUSBCController::initTCController(uint64_t **this,
     if (CFStringCompare(ValueAtIndex, @"CC", 1uLL) == kCFCompareEqualTo)
     {
       std::string::basic_string[abi:ne200100]<0>(__p, "CC");
-      v14 = __p;
-      *(std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, __p, &v14) + 56) = 1;
-      if (v18 < 0)
+      v13 = __p;
+      *(std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, __p, &v13) + 56) = 1;
+      if (v17 < 0)
       {
         operator delete(*__p);
       }
@@ -2643,9 +2587,9 @@ const void **ctu::iokit::IOPortUSBCController::initTCController(uint64_t **this,
     if (CFStringCompare(ValueAtIndex, @"USB2", 1uLL) == kCFCompareEqualTo)
     {
       std::string::basic_string[abi:ne200100]<0>(__p, "USB2");
-      v14 = __p;
-      *(std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, __p, &v14) + 56) = 1;
-      if (v18 < 0)
+      v13 = __p;
+      *(std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, __p, &v13) + 56) = 1;
+      if (v17 < 0)
       {
         operator delete(*__p);
       }
@@ -2654,9 +2598,9 @@ const void **ctu::iokit::IOPortUSBCController::initTCController(uint64_t **this,
     if (CFStringCompare(ValueAtIndex, @"USB3", 1uLL) == kCFCompareEqualTo)
     {
       std::string::basic_string[abi:ne200100]<0>(__p, "USB3");
-      v14 = __p;
-      *(std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, __p, &v14) + 56) = 1;
-      if (v18 < 0)
+      v13 = __p;
+      *(std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, __p, &v13) + 56) = 1;
+      if (v17 < 0)
       {
         operator delete(*__p);
       }
@@ -2665,19 +2609,16 @@ const void **ctu::iokit::IOPortUSBCController::initTCController(uint64_t **this,
     if (CFStringCompare(ValueAtIndex, @"DisplayPort", 1uLL) == kCFCompareEqualTo)
     {
       std::string::basic_string[abi:ne200100]<0>(__p, "DisplayPort");
-      v14 = __p;
-      *(std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, __p, &v14) + 56) = 1;
-      if (v18 < 0)
+      v13 = __p;
+      *(std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, __p, &v13) + 56) = 1;
+      if (v17 < 0)
       {
         operator delete(*__p);
       }
     }
   }
 
-LABEL_25:
-  result = ctu::SharedRef<__CFArray const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFArray const>::~SharedRef(&theArray);
-  v12 = *MEMORY[0x29EDCA608];
-  return result;
+  return ctu::SharedRef<__CFArray const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFArray const>::~SharedRef(&theArray);
 }
 
 void sub_2982567DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
@@ -2690,40 +2631,38 @@ void sub_2982567DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ctu::iokit::IOPortUSBCController::getPropertyFromIOService(ctu::iokit::IOPortUSBCController *this@<X0>, io_registry_entry_t *a2@<X1>, CFStringRef key@<X2>, void *a4@<X8>)
+void ctu::iokit::IOPortUSBCController::getPropertyFromIOService(uint64_t *__return_ptr a1@<X8>, ctu::iokit::IOPortUSBCController *this@<X0>, io_registry_entry_t *a3@<X1>, CFStringRef key@<X2>)
 {
-  v13 = *MEMORY[0x29EDCA608];
-  *a4 = 0;
-  CFProperty = IORegistryEntryCreateCFProperty(*a2, key, *MEMORY[0x29EDB8ED8], 0);
-  *a4 = CFProperty;
-  *v10 = 0;
-  ctu::SharedRef<void const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,void const>::~SharedRef(v10);
+  v12 = *MEMORY[0x29EDCA608];
+  *a1 = 0;
+  CFProperty = IORegistryEntryCreateCFProperty(*a3, key, *MEMORY[0x29EDB8ED8], 0);
+  *a1 = CFProperty;
+  *v9 = 0;
+  ctu::SharedRef<void const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,void const>::~SharedRef(v9);
   v8 = *(this + 4);
   if (CFProperty)
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      *v10 = 138412546;
-      *&v10[4] = key;
-      v11 = 2112;
-      v12 = CFProperty;
-      _os_log_debug_impl(&dword_298245000, v8, OS_LOG_TYPE_DEBUG, "#D Property for %@: %@", v10, 0x16u);
+      *v9 = 138412546;
+      *&v9[4] = key;
+      v10 = 2112;
+      v11 = CFProperty;
+      _os_log_debug_impl(&dword_298245000, v8, OS_LOG_TYPE_DEBUG, "#D Property for %@: %@", v9, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    *v10 = 138412290;
-    *&v10[4] = key;
-    _os_log_error_impl(&dword_298245000, v8, OS_LOG_TYPE_ERROR, "Failed to get a property of %@", v10, 0xCu);
+    *v9 = 138412290;
+    *&v9[4] = key;
+    _os_log_error_impl(&dword_298245000, v8, OS_LOG_TYPE_ERROR, "Failed to get a property of %@", v9, 0xCu);
   }
-
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 void ctu::iokit::IOPortUSBCController::initProtocol(ctu::iokit::IOPortUSBCController *this, unsigned int *a2)
 {
-  v27 = *MEMORY[0x29EDCA608];
+  v26 = *MEMORY[0x29EDCA608];
   v3 = *a2;
   if (*a2)
   {
@@ -2752,15 +2691,15 @@ void ctu::iokit::IOPortUSBCController::initProtocol(ctu::iokit::IOPortUSBCContro
     }
 
     *buf = 0u;
-    v26 = 0u;
+    v25 = 0u;
     if (CFStringGetCString(cf, buf, 32, 0x600u) && !ctu::iokit::IOPortUSBCController::registerMessageNotifier(this, buf, a2))
     {
       v11 = *(this + 4);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        *v21 = 138412290;
-        *&v21[4] = cf;
-        _os_log_error_impl(&dword_298245000, v11, OS_LOG_TYPE_ERROR, "%@: Failed to initialize register message notifier", v21, 0xCu);
+        *v20 = 138412290;
+        *&v20[4] = cf;
+        _os_log_error_impl(&dword_298245000, v11, OS_LOG_TYPE_ERROR, "%@: Failed to initialize register message notifier", v20, 0xCu);
       }
 
       goto LABEL_28;
@@ -2768,8 +2707,8 @@ void ctu::iokit::IOPortUSBCController::initProtocol(ctu::iokit::IOPortUSBCContro
 
     CFProperty = 0;
     CFProperty = IORegistryEntryCreateCFProperty(*a2, @"Active", v5, 0);
-    *v21 = 0;
-    ctu::SharedRef<void const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,void const>::~SharedRef(v21);
+    *v20 = 0;
+    ctu::SharedRef<void const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,void const>::~SharedRef(v20);
     if (CFProperty)
     {
       v8 = CFGetTypeID(CFProperty);
@@ -2779,26 +2718,26 @@ void ctu::iokit::IOPortUSBCController::initProtocol(ctu::iokit::IOPortUSBCContro
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
           Value = CFBooleanGetValue(CFProperty);
-          v16 = "YES";
+          v15 = "YES";
           if (!Value)
           {
-            v16 = "NO";
+            v15 = "NO";
           }
 
-          *v21 = 138412546;
-          *&v21[4] = cf;
-          v22 = 2080;
-          v23 = v16;
-          _os_log_debug_impl(&dword_298245000, v9, OS_LOG_TYPE_DEBUG, "#D %@: [init] Active: %s", v21, 0x16u);
+          *v20 = 138412546;
+          *&v20[4] = cf;
+          v21 = 2080;
+          v22 = v15;
+          _os_log_debug_impl(&dword_298245000, v9, OS_LOG_TYPE_DEBUG, "#D %@: [init] Active: %s", v20, 0x16u);
         }
 
         if (CFBooleanGetValue(CFProperty))
         {
           if (CFStringCompare(cf, @"CC", 1uLL))
           {
-            ctu::cf::CFSharedRef<__CFString const>::CFSharedRef<void const,void>(&v17, cf);
-            ctu::iokit::IOPortUSBCController::detectingAccessories(this, &v17, a2);
-            ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v17);
+            ctu::cf::CFSharedRef<__CFString const>::CFSharedRef<void const,void>(&v16, cf);
+            ctu::iokit::IOPortUSBCController::detectingAccessories(this, &v16, a2);
+            ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v16);
           }
 
           else
@@ -2809,19 +2748,19 @@ void ctu::iokit::IOPortUSBCController::initProtocol(ctu::iokit::IOPortUSBCContro
       }
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v21, buf);
-    v20 = v21;
-    v12 = *(std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, v21, &v20) + 16);
-    if (v24 < 0)
+    std::string::basic_string[abi:ne200100]<0>(v20, buf);
+    v19 = v20;
+    v12 = *(std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, v20, &v19) + 16);
+    if (v23 < 0)
     {
-      operator delete(*v21);
+      operator delete(*v20);
       if (!v12)
       {
 LABEL_27:
         ctu::SharedRef<void const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,void const>::~SharedRef(&CFProperty);
 LABEL_28:
         ctu::SharedRef<void const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,void const>::~SharedRef(&cf);
-        goto LABEL_29;
+        return;
       }
     }
 
@@ -2830,21 +2769,21 @@ LABEL_28:
       goto LABEL_27;
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v21, buf);
-    v20 = v21;
-    v13 = std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, v21, &v20);
+    std::string::basic_string[abi:ne200100]<0>(v20, buf);
+    v19 = v20;
+    v13 = std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, v20, &v19);
     IOObjectRelease(*(v13 + 16));
-    if (v24 < 0)
+    if (v23 < 0)
     {
-      operator delete(*v21);
+      operator delete(*v20);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v21, buf);
-    v20 = v21;
-    *(std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, v21, &v20) + 16) = 0;
-    if (v24 < 0)
+    std::string::basic_string[abi:ne200100]<0>(v20, buf);
+    v19 = v20;
+    *(std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, v20, &v19) + 16) = 0;
+    if (v23 < 0)
     {
-      operator delete(*v21);
+      operator delete(*v20);
     }
 
     goto LABEL_27;
@@ -2856,9 +2795,6 @@ LABEL_28:
     *buf = 0;
     _os_log_error_impl(&dword_298245000, v10, OS_LOG_TYPE_ERROR, "service object is NULL!", buf, 2u);
   }
-
-LABEL_29:
-  v14 = *MEMORY[0x29EDCA608];
 }
 
 void sub_298256D60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10, const void *a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
@@ -2871,26 +2807,26 @@ void sub_298256D60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 BOOL ctu::iokit::IOPortUSBCController::registerMessageNotifier(ctu::iokit::IOPortUSBCController *this, char *a2, unsigned int *a3)
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   v5 = *(this + 5);
   v6 = *a3;
   std::string::basic_string[abi:ne200100]<0>(__p, a2);
-  v15 = __p;
-  v7 = std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, __p, &v15);
+  v14 = __p;
+  v7 = std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, __p, &v14);
   v8 = IOServiceAddInterestNotification(v5, v6, "IOGeneralInterest", ctu::iokit::IOPortUSBCController::serviceCallback, this, v7 + 18);
   v9 = v8;
-  if (v19 < 0)
+  if (v18 < 0)
   {
     operator delete(*__p);
     if (!v9)
     {
-      goto LABEL_15;
+      return v9 == 0;
     }
   }
 
   else if (!v8)
   {
-    goto LABEL_15;
+    return v9 == 0;
   }
 
   v10 = *(this + 4);
@@ -2898,49 +2834,46 @@ BOOL ctu::iokit::IOPortUSBCController::registerMessageNotifier(ctu::iokit::IOPor
   {
     *__p = 136315394;
     *&__p[4] = a2;
-    v17 = 1024;
-    v18 = v9;
+    v16 = 1024;
+    v17 = v9;
     _os_log_error_impl(&dword_298245000, v10, OS_LOG_TYPE_ERROR, "Failed to add notification to %s with error of 0x%x", __p, 0x12u);
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, a2);
-  v15 = __p;
-  v11 = *(std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, __p, &v15) + 18);
-  if (v19 < 0)
+  v14 = __p;
+  v11 = *(std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, __p, &v14) + 18);
+  if (v18 < 0)
   {
     operator delete(*__p);
     if (!v11)
     {
-      goto LABEL_15;
+      return v9 == 0;
     }
   }
 
   else if (!v11)
   {
-    goto LABEL_15;
+    return v9 == 0;
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, a2);
-  v15 = __p;
-  v12 = std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, __p, &v15);
+  v14 = __p;
+  v12 = std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, __p, &v14);
   IOObjectRelease(*(v12 + 18));
-  if (v19 < 0)
+  if (v18 < 0)
   {
     operator delete(*__p);
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, a2);
-  v15 = __p;
-  *(std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, __p, &v15) + 18) = 0;
-  if (v19 < 0)
+  v14 = __p;
+  *(std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, __p, &v14) + 18) = 0;
+  if (v18 < 0)
   {
     operator delete(*__p);
   }
 
-LABEL_15:
-  result = v9 == 0;
-  v14 = *MEMORY[0x29EDCA608];
-  return result;
+  return v9 == 0;
 }
 
 void sub_298256FC4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
@@ -2980,26 +2913,25 @@ void ctu::iokit::IOPortUSBCController::setupUSBProtocols(ctu::iokit::IOPortUSBCC
 
 void ctu::iokit::IOPortUSBCController::notifyCallback(ctu::iokit::IOPortUSBCController *this)
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   v2 = *(this + 4);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(this + 12);
-    LODWORD(v14[0]) = 67109120;
-    HIDWORD(v14[0]) = v3;
-    _os_log_impl(&dword_298245000, v2, OS_LOG_TYPE_DEFAULT, "#I Notifying callback with bitmask: 0x%x", v14, 8u);
+    LODWORD(v12[0]) = 67109120;
+    HIDWORD(v12[0]) = v3;
+    _os_log_impl(&dword_298245000, v2, OS_LOG_TYPE_DEFAULT, "#I Notifying callback with bitmask: 0x%x", v12, 8u);
   }
 
-  v4 = *(this + 56);
-  v5 = *(this + 8);
-  v6 = *(this + 7);
-  if (v6 == v5)
+  v4 = *(this + 8);
+  v5 = *(this + 7);
+  if (v5 == v4)
   {
-    v12 = *(this + 4);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v11 = *(this + 4);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v14[0]) = 0;
-      _os_log_error_impl(&dword_298245000, v12, OS_LOG_TYPE_ERROR, "No callback is registered yet", v14, 2u);
+      LOWORD(v12[0]) = 0;
+      _os_log_error_impl(&dword_298245000, v11, OS_LOG_TYPE_ERROR, "No callback is registered yet", v12, 2u);
     }
   }
 
@@ -3007,26 +2939,40 @@ void ctu::iokit::IOPortUSBCController::notifyCallback(ctu::iokit::IOPortUSBCCont
   {
     do
     {
-      if (*v6)
+      if (*v5)
       {
-        v7 = _Block_copy(*v6);
+        v6 = _Block_copy(*v5);
       }
 
       else
       {
-        v7 = 0;
+        v6 = 0;
       }
 
-      v8 = *(v6 + 8);
-      if (v8)
-      {
-        dispatch_retain(*(v6 + 8));
-      }
-
-      v9 = *(this + 12);
+      v7 = *(v5 + 8);
       if (v7)
       {
-        v10 = _Block_copy(v7);
+        dispatch_retain(*(v5 + 8));
+      }
+
+      v8 = *(this + 12);
+      if (v6)
+      {
+        v9 = _Block_copy(v6);
+      }
+
+      else
+      {
+        v9 = 0;
+      }
+
+      v12[0] = MEMORY[0x29EDCA5F8];
+      v12[1] = 1174405120;
+      v12[2] = ___ZNK8dispatch8callbackIU13block_pointerFvN3ctu5iokit13USBCAccessoryEEEclIJS3_EEEvDpT__block_invoke;
+      v12[3] = &__block_descriptor_tmp_3;
+      if (v9)
+      {
+        v10 = _Block_copy(v9);
       }
 
       else
@@ -3034,50 +2980,34 @@ void ctu::iokit::IOPortUSBCController::notifyCallback(ctu::iokit::IOPortUSBCCont
         v10 = 0;
       }
 
-      v14[0] = MEMORY[0x29EDCA5F8];
-      v14[1] = 1174405120;
-      v14[2] = ___ZNK8dispatch8callbackIU13block_pointerFvN3ctu5iokit13USBCAccessoryEEEclIJS3_EEEvDpT__block_invoke;
-      v14[3] = &__block_descriptor_tmp_3;
-      if (v10)
-      {
-        v11 = _Block_copy(v10);
-      }
-
-      else
-      {
-        v11 = 0;
-      }
-
-      aBlock = v11;
-      v16 = v9;
-      dispatch_async(v8, v14);
+      aBlock = v10;
+      v14 = v8;
+      dispatch_async(v7, v12);
       if (aBlock)
       {
         _Block_release(aBlock);
       }
 
-      if (v10)
+      if (v9)
       {
-        _Block_release(v10);
-      }
-
-      if (v8)
-      {
-        dispatch_release(v8);
+        _Block_release(v9);
       }
 
       if (v7)
       {
-        _Block_release(v7);
+        dispatch_release(v7);
       }
 
-      v6 += 16;
+      if (v6)
+      {
+        _Block_release(v6);
+      }
+
+      v5 += 16;
     }
 
-    while (v6 != v5);
+    while (v5 != v4);
   }
-
-  v13 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2982572C0(_Unwind_Exception *a1, int a2)
@@ -3090,10 +3020,10 @@ void sub_2982572C0(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-BOOL ctu::iokit::IOPortUSBCController::setupDisconnectingService(uint64_t a1, void **a2)
+BOOL ctu::iokit::IOPortUSBCController::setupDisconnectingService(uint64_t a1, char *a2)
 {
   v2 = a2;
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   v4 = std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::find<std::string>(a1 + 80, a2);
   v5 = *(a1 + 32);
   if (a1 + 88 == v4)
@@ -3110,25 +3040,25 @@ BOOL ctu::iokit::IOPortUSBCController::setupDisconnectingService(uint64_t a1, vo
       _os_log_error_impl(&dword_298245000, v5, OS_LOG_TYPE_ERROR, "Cannot setup disconnecting service because no find %s in the internal context", __p, 0xCu);
     }
 
-    v16 = 0;
+    return 0;
   }
 
   else
   {
     if (os_log_type_enabled(*(a1 + 32), OS_LOG_TYPE_DEBUG))
     {
-      v20 = v2;
+      v19 = v2;
       if (*(v2 + 23) < 0)
       {
-        v20 = *v2;
+        v19 = *v2;
       }
 
       LODWORD(__p[0]) = 136315138;
-      *(__p + 4) = v20;
+      *(__p + 4) = v19;
       _os_log_debug_impl(&dword_298245000, v5, OS_LOG_TYPE_DEBUG, "#D Setting up disconnecting service: %s", __p, 0xCu);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v21, "IOPortTransportState");
+    std::string::basic_string[abi:ne200100]<0>(&v20, "IOPortTransportState");
     v6 = *(v2 + 23);
     if (v6 >= 0)
     {
@@ -3150,20 +3080,20 @@ BOOL ctu::iokit::IOPortUSBCController::setupDisconnectingService(uint64_t a1, vo
       v8 = *(v2 + 8);
     }
 
-    v9 = std::string::append(&v21, v7, v8);
+    v9 = std::string::append(&v20, v7, v8);
     v10 = *&v9->__r_.__value_.__l.__data_;
-    v23 = v9->__r_.__value_.__r.__words[2];
+    v22 = v9->__r_.__value_.__r.__words[2];
     *__p = v10;
     v9->__r_.__value_.__l.__size_ = 0;
     v9->__r_.__value_.__r.__words[2] = 0;
     v9->__r_.__value_.__r.__words[0] = 0;
-    if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v21.__r_.__value_.__l.__data_);
+      operator delete(v20.__r_.__value_.__l.__data_);
     }
 
     v11 = *(a1 + 40);
-    if (v23 >= 0)
+    if (v22 >= 0)
     {
       v12 = __p;
     }
@@ -3174,28 +3104,27 @@ BOOL ctu::iokit::IOPortUSBCController::setupDisconnectingService(uint64_t a1, vo
     }
 
     v13 = IOServiceMatching(v12);
-    v21.__r_.__value_.__r.__words[0] = v2;
-    v14 = std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 80), v2, &v21);
+    v20.__r_.__value_.__r.__words[0] = v2;
+    v14 = std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 80), v2, &v20);
     v15 = IOServiceAddMatchingNotification(v11, "IOServiceTerminate", v13, ctu::iokit::IOPortUSBCController::disconnectingService, a1, v14 + 17);
     v16 = v15 == 0;
     if (!v15)
     {
-      v21.__r_.__value_.__r.__words[0] = v2;
-      if (*(std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 80), v2, &v21) + 17))
+      v20.__r_.__value_.__r.__words[0] = v2;
+      if (*(std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 80), v2, &v20) + 17))
       {
-        v21.__r_.__value_.__r.__words[0] = v2;
-        v17 = std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 80), v2, &v21);
+        v20.__r_.__value_.__r.__words[0] = v2;
+        v17 = std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 80), v2, &v20);
         ctu::iokit::IOPortUSBCController::disconnectingService(a1, *(v17 + 17));
       }
     }
 
-    if (SHIBYTE(v23) < 0)
+    if (SHIBYTE(v22) < 0)
     {
       operator delete(__p[0]);
     }
   }
 
-  v18 = *MEMORY[0x29EDCA608];
   return v16;
 }
 
@@ -3237,7 +3166,7 @@ uint64_t ctu::iokit::IOPortUSBCController::disconnectingService(ctu::iokit::IOPo
 
 const void **ctu::iokit::IOPortUSBCController::disconnectedService(ctu::iokit::IOPortUSBCController *this, unsigned int *a2)
 {
-  v27 = *MEMORY[0x29EDCA608];
+  v26 = *MEMORY[0x29EDCA608];
   cf = 0;
   cf = IORegistryEntryCreateCFProperty(*a2, @"TransportTypeDescription", *MEMORY[0x29EDB8ED8], 0);
   *buf = 0;
@@ -3285,36 +3214,36 @@ const void **ctu::iokit::IOPortUSBCController::disconnectedService(ctu::iokit::I
 
     if (CFStringCompare(cf, @"USB2", 1uLL) == kCFCompareEqualTo)
     {
-      v14 = *(this + 4);
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v13 = *(this + 4);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_298245000, v14, OS_LOG_TYPE_DEFAULT, "#I USB2 accessory is removed", buf, 2u);
+        _os_log_impl(&dword_298245000, v13, OS_LOG_TYPE_DEFAULT, "#I USB2 accessory is removed", buf, 2u);
       }
 
       std::string::basic_string[abi:ne200100]<0>(buf, "USB2");
-      v24 = buf;
-      v15 = *(std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, buf, &v24) + 17);
-      if (v26 < 0)
+      v23 = buf;
+      v14 = *(std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, buf, &v23) + 17);
+      if (v25 < 0)
       {
         operator delete(*buf);
       }
 
-      if (v15)
+      if (v14)
       {
         std::string::basic_string[abi:ne200100]<0>(buf, "USB2");
-        v24 = buf;
-        v16 = std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, buf, &v24);
-        IOObjectRelease(*(v16 + 17));
-        if (v26 < 0)
+        v23 = buf;
+        v15 = std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, buf, &v23);
+        IOObjectRelease(*(v15 + 17));
+        if (v25 < 0)
         {
           operator delete(*buf);
         }
 
         std::string::basic_string[abi:ne200100]<0>(buf, "USB2");
-        v24 = buf;
-        *(std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, buf, &v24) + 17) = 0;
-        if (v26 < 0)
+        v23 = buf;
+        *(std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, buf, &v23) + 17) = 0;
+        if (v25 < 0)
         {
           operator delete(*buf);
         }
@@ -3323,37 +3252,37 @@ const void **ctu::iokit::IOPortUSBCController::disconnectedService(ctu::iokit::I
 
     if ((v5 & 1) != 0 && CFStringCompare(cf, @"USB3", 1uLL) == kCFCompareEqualTo)
     {
-      v17 = *(this + 4);
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v16 = *(this + 4);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_298245000, v17, OS_LOG_TYPE_DEFAULT, "#I USB3 accessory is removed", buf, 2u);
+        _os_log_impl(&dword_298245000, v16, OS_LOG_TYPE_DEFAULT, "#I USB3 accessory is removed", buf, 2u);
       }
 
       *(this + 12) &= ~1u;
       std::string::basic_string[abi:ne200100]<0>(buf, "USB3");
-      v24 = buf;
-      v18 = *(std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, buf, &v24) + 17);
-      if (v26 < 0)
+      v23 = buf;
+      v17 = *(std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, buf, &v23) + 17);
+      if (v25 < 0)
       {
         operator delete(*buf);
       }
 
-      if (v18)
+      if (v17)
       {
         std::string::basic_string[abi:ne200100]<0>(buf, "USB3");
-        v24 = buf;
-        v19 = std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, buf, &v24);
-        IOObjectRelease(*(v19 + 17));
-        if (v26 < 0)
+        v23 = buf;
+        v18 = std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, buf, &v23);
+        IOObjectRelease(*(v18 + 17));
+        if (v25 < 0)
         {
           operator delete(*buf);
         }
 
         std::string::basic_string[abi:ne200100]<0>(buf, "USB3");
-        v24 = buf;
-        *(std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, buf, &v24) + 17) = 0;
-        if (v26 < 0)
+        v23 = buf;
+        *(std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, buf, &v23) + 17) = 0;
+        if (v25 < 0)
         {
           operator delete(*buf);
         }
@@ -3362,37 +3291,37 @@ const void **ctu::iokit::IOPortUSBCController::disconnectedService(ctu::iokit::I
 
     if ((v5 & 2) != 0 && CFStringCompare(cf, @"DisplayPort", 1uLL) == kCFCompareEqualTo)
     {
-      v20 = *(this + 4);
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v19 = *(this + 4);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_298245000, v20, OS_LOG_TYPE_DEFAULT, "#I DP (DisplayPort) accessory is removed", buf, 2u);
+        _os_log_impl(&dword_298245000, v19, OS_LOG_TYPE_DEFAULT, "#I DP (DisplayPort) accessory is removed", buf, 2u);
       }
 
       *(this + 12) &= ~2u;
       std::string::basic_string[abi:ne200100]<0>(buf, "DisplayPort");
-      v24 = buf;
-      v21 = *(std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, buf, &v24) + 17);
-      if (v26 < 0)
+      v23 = buf;
+      v20 = *(std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, buf, &v23) + 17);
+      if (v25 < 0)
       {
         operator delete(*buf);
       }
 
-      if (v21)
+      if (v20)
       {
         std::string::basic_string[abi:ne200100]<0>(buf, "DisplayPort");
-        v24 = buf;
-        v22 = std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, buf, &v24);
-        IOObjectRelease(*(v22 + 17));
-        if (v26 < 0)
+        v23 = buf;
+        v21 = std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, buf, &v23);
+        IOObjectRelease(*(v21 + 17));
+        if (v25 < 0)
         {
           operator delete(*buf);
         }
 
         std::string::basic_string[abi:ne200100]<0>(buf, "DisplayPort");
-        v24 = buf;
-        *(std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, buf, &v24) + 17) = 0;
-        if (v26 < 0)
+        v23 = buf;
+        *(std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 10, buf, &v23) + 17) = 0;
+        if (v25 < 0)
         {
           operator delete(*buf);
         }
@@ -3415,9 +3344,7 @@ const void **ctu::iokit::IOPortUSBCController::disconnectedService(ctu::iokit::I
     }
   }
 
-  result = ctu::SharedRef<void const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,void const>::~SharedRef(&cf);
-  v13 = *MEMORY[0x29EDCA608];
-  return result;
+  return ctu::SharedRef<void const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,void const>::~SharedRef(&cf);
 }
 
 void sub_298257B38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
@@ -3554,8 +3481,7 @@ void ctu::iokit::IOPortUSBCController::registerCallback(void *a1, uint64_t a2)
 std::string *ctu::iokit::IOPortUSBCController::asString@<X0>(std::string *result@<X0>, std::string *a2@<X8>)
 {
   v2 = result;
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   if (result)
   {
@@ -3671,7 +3597,7 @@ void std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController:
   }
 }
 
-_OWORD *std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t **a1, void **a2, _OWORD **a3)
+_OWORD *std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t ***a1, uint64_t ***a2, _OWORD **a3)
 {
   v11 = 0xAAAAAAAAAAAAAAAALL;
   v5 = std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__find_equal<std::string>(a1, &v11, a2);
@@ -3695,7 +3621,7 @@ _OWORD *std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCControll
   return v6;
 }
 
-void *std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__find_equal<std::string>(uint64_t a1, void *a2, void **a3)
+char *std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__find_equal<std::string>(uint64_t a1, char **a2, uint64_t ***a3)
 {
   v5 = (a1 + 8);
   v4 = *(a1 + 8);
@@ -3706,7 +3632,7 @@ void *std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController
       while (1)
       {
         v7 = v4;
-        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, (v4 + 32)) & 0x80) == 0)
+        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, v4 + 32) & 0x80) == 0)
         {
           break;
         }
@@ -3724,8 +3650,8 @@ void *std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController
         break;
       }
 
-      v5 = v7 + 1;
-      v4 = v7[1];
+      v5 = v7 + 8;
+      v4 = *(v7 + 1);
     }
 
     while (v4);
@@ -3741,7 +3667,7 @@ LABEL_9:
   return v5;
 }
 
-uint64_t *std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -3759,7 +3685,7 @@ uint64_t *std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCContro
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::find<std::string>(uint64_t a1, void **a2)
+uint64_t std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::find<std::string>(uint64_t a1, char *a2)
 {
   v2 = a1 + 8;
   v3 = *(a1 + 8);
@@ -3789,7 +3715,7 @@ uint64_t std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCControl
   return v5;
 }
 
-uint64_t *std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, void **a2, __int128 **a3)
+char *std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t ***a1, uint64_t ***a2, __int128 **a3)
 {
   v12 = 0xAAAAAAAAAAAAAAAALL;
   v5 = std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__find_equal<std::string>(a1, &v12, a2);
@@ -3812,8 +3738,8 @@ uint64_t *std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCContro
       *(v9 + 2) = v10;
     }
 
-    *(v6 + 9) = 0u;
-    *(v6 + 7) = 0u;
+    *(v6 + 72) = 0u;
+    *(v6 + 56) = 0u;
     std::__tree<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::iokit::IOPortUSBCController::DeviceContext>>>::__insert_node_at(a1, v12, v7, v6);
   }
 

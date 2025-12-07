@@ -27,14 +27,10 @@ void __87___PASKVOHandler_reactAsynchronouslyAfterChangesToKeyPath_ofObject_usin
   dispatch_async(v13, block);
 }
 
-void __87___PASKVOHandler_reactAsynchronouslyAfterChangesToKeyPath_ofObject_usingBlock_onQueue___block_invoke_2(void *a1)
+void __87___PASKVOHandler_reactAsynchronouslyAfterChangesToKeyPath_ofObject_usingBlock_onQueue___block_invoke_2(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
-  v3 = a1[7];
-  v4 = a1[4];
-  v5 = a1[5];
-  v6 = a1[6];
-  (*(a1[8] + 16))();
+  (*(*(a1 + 64) + 16))();
 
   objc_autoreleasePoolPop(v2);
 }

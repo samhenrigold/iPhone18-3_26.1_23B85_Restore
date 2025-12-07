@@ -55,65 +55,66 @@
 {
   activityCopy = activity;
   _timeBasedMergedPublisher = [(ATXModeTransitionMetricsLogUploader *)self _timeBasedMergedPublisher];
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy__2;
+  v33 = __Block_byref_object_dispose__2;
+  v34 = objc_opt_new();
+  v27[0] = 0;
+  v27[1] = v27;
+  v27[2] = 0x3032000000;
+  v27[3] = __Block_byref_object_copy__2;
+  v27[4] = __Block_byref_object_dispose__2;
   v28 = 0;
-  v29 = &v28;
-  v30 = 0x3032000000;
-  v31 = __Block_byref_object_copy__2;
-  v32 = __Block_byref_object_dispose__2;
-  v33 = objc_opt_new();
-  v26[0] = 0;
-  v26[1] = v26;
-  v26[2] = 0x3032000000;
-  v26[3] = __Block_byref_object_copy__2;
-  v26[4] = __Block_byref_object_dispose__2;
-  v27 = 0;
-  v24[0] = 0;
-  v24[1] = v24;
-  v24[2] = 0x3032000000;
-  v24[3] = __Block_byref_object_copy__2;
-  v24[4] = __Block_byref_object_dispose__2;
-  v25 = 0;
+  v25[0] = 0;
+  v25[1] = v25;
+  v25[2] = 0x3032000000;
+  v25[3] = __Block_byref_object_copy__2;
+  v25[4] = __Block_byref_object_dispose__2;
+  v26 = 0;
   _modeTransitionBookmark = [(ATXModeTransitionMetricsLogUploader *)self _modeTransitionBookmark];
   bookmark = [_modeTransitionBookmark bookmark];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __80__ATXModeTransitionMetricsLogUploader_uploadLogsToCoreAnalyticsWithXPCActivity___block_invoke;
-  v22[3] = &unk_278596E58;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __80__ATXModeTransitionMetricsLogUploader_uploadLogsToCoreAnalyticsWithXPCActivity___block_invoke;
+  v23[3] = &unk_278596E58;
   v8 = _modeTransitionBookmark;
-  v23 = v8;
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __80__ATXModeTransitionMetricsLogUploader_uploadLogsToCoreAnalyticsWithXPCActivity___block_invoke_2;
-  v17[3] = &unk_278596E80;
-  v19 = v26;
-  v20 = v24;
-  v17[4] = self;
-  v21 = &v28;
+  v24 = v8;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __80__ATXModeTransitionMetricsLogUploader_uploadLogsToCoreAnalyticsWithXPCActivity___block_invoke_2;
+  v18[3] = &unk_278596E80;
+  v20 = v27;
+  v21 = v25;
+  v18[4] = self;
+  v22 = &v29;
   v9 = activityCopy;
-  v18 = v9;
-  v10 = [_timeBasedMergedPublisher drivableSinkWithBookmark:bookmark completion:v22 shouldContinue:v17];
+  v19 = v9;
+  v10 = [_timeBasedMergedPublisher drivableSinkWithBookmark:bookmark completion:v23 shouldContinue:v18];
 
-  v11 = v29[5];
+  v11 = v30[5];
   v12 = [MEMORY[0x277CBEAA8] now];
   [v12 timeIntervalSinceReferenceDate];
   v13 = [(ATXModeTransitionMetricsLogUploader *)self processInferredModeEvents:v11 beforeTimestamp:?];
 
-  v16 = 0;
-  [v8 saveBookmarkWithError:&v16];
-  v14 = v16;
+  v17 = 0;
+  [v8 saveBookmarkWithError:&v17];
+  v14 = v17;
+  v15 = v14;
   if (v14)
   {
-    v15 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = __atxlog_handle_modes(v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [(ATXModeTransitionMetricsLogUploader *)v14 uploadLogsToCoreAnalyticsWithXPCActivity:v15];
+      [(ATXModeTransitionMetricsLogUploader *)v15 uploadLogsToCoreAnalyticsWithXPCActivity:v16];
     }
   }
 
-  _Block_object_dispose(v24, 8);
-  _Block_object_dispose(v26, 8);
+  _Block_object_dispose(v25, 8);
+  _Block_object_dispose(v27, 8);
 
-  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v29, 8);
 }
 
 uint64_t __80__ATXModeTransitionMetricsLogUploader_uploadLogsToCoreAnalyticsWithXPCActivity___block_invoke_2(uint64_t a1, void *a2)
@@ -128,9 +129,9 @@ uint64_t __80__ATXModeTransitionMetricsLogUploader_uploadLogsToCoreAnalyticsWith
   if ((isKindOfClass & 1) == 0)
   {
     objc_opt_class();
-    v10 = objc_opt_isKindOfClass();
+    v9 = objc_opt_isKindOfClass();
 
-    if (v10)
+    if (v9)
     {
       [*(*(*(a1 + 64) + 8) + 40) addObject:v4];
     }
@@ -142,108 +143,104 @@ uint64_t __80__ATXModeTransitionMetricsLogUploader_uploadLogsToCoreAnalyticsWith
   {
 LABEL_21:
 
-    v29 = 1;
+    v27 = 1;
     goto LABEL_22;
   }
 
-  if (!*(*(*(a1 + 48) + 8) + 40))
+  if (*(*(*(a1 + 48) + 8) + 40))
   {
-    v11 = [v7 starting];
-    v12 = (*(*(a1 + 48) + 8) + 40);
-    if (v11)
-    {
-LABEL_20:
-      objc_storeStrong(v12, a2);
-      goto LABEL_21;
-    }
-
-    if (!*v12)
-    {
-      goto LABEL_11;
-    }
+    goto LABEL_25;
   }
 
-  if (!*(*(*(a1 + 56) + 8) + 40))
+  v10 = [v7 starting];
+  v11 = (*(*(a1 + 48) + 8) + 40);
+  if (v10)
   {
-    if ([v8 starting])
+LABEL_20:
+    objc_storeStrong(v11, a2);
+    goto LABEL_21;
+  }
+
+  if (*v11)
+  {
+LABEL_25:
+    if (*(*(*(a1 + 56) + 8) + 40) || [v8 starting])
     {
-      v9 = *(*(*(a1 + 48) + 8) + 40);
       goto LABEL_11;
     }
 
-    v12 = (*(*(a1 + 56) + 8) + 40);
+    v11 = (*(*(a1 + 56) + 8) + 40);
     goto LABEL_20;
   }
 
 LABEL_11:
-  v13 = *(*(*(a1 + 64) + 8) + 40);
-  v14 = [*(a1 + 32) matchingInferredModeEvent:? inferredModeEvents:?];
-  if (v14)
+  v12 = [*(a1 + 32) matchingInferredModeEvent:? inferredModeEvents:?];
+  if (v12)
   {
-    [*(*(*(a1 + 64) + 8) + 40) removeObject:v14];
+    [*(*(*(a1 + 64) + 8) + 40) removeObject:v12];
   }
 
-  v15 = MEMORY[0x277CBEB18];
-  v16 = *(a1 + 32);
-  v17 = *(*(*(a1 + 64) + 8) + 40);
+  v13 = MEMORY[0x277CBEB18];
+  v14 = *(a1 + 32);
+  v15 = *(*(*(a1 + 64) + 8) + 40);
   [*(*(*(a1 + 48) + 8) + 40) timestamp];
-  v18 = [v16 processInferredModeEvents:v17 beforeTimestamp:?];
-  v19 = [v15 arrayWithArray:v18];
-  v20 = *(*(a1 + 64) + 8);
-  v21 = *(v20 + 40);
-  *(v20 + 40) = v19;
+  v16 = [v14 processInferredModeEvents:v15 beforeTimestamp:?];
+  v17 = [v13 arrayWithArray:v16];
+  v18 = *(*(a1 + 64) + 8);
+  v19 = *(v18 + 40);
+  *(v18 + 40) = v17;
 
   if (*(*(*(a1 + 48) + 8) + 40) && *(*(*(a1 + 56) + 8) + 40) && [v8 starting])
   {
-    v31 = [*(a1 + 32) matchingInferredModeEvent:v4 inferredModeEvents:*(*(*(a1 + 64) + 8) + 40)];
-    v22 = *(a1 + 32);
-    v23 = *(*(*(a1 + 48) + 8) + 40);
-    v24 = *(*(*(a1 + 56) + 8) + 40);
-    v25 = [v14 eventBody];
-    v26 = [v31 eventBody];
-    [v22 _logModeTransitionMetricWithPreviousModeStart:v23 previousModeEnd:v24 currentModeStart:v4 matchingPreviousInferredModeEvent:v25 matchingCurrentInferredModeEvent:v26];
+    v29 = [*(a1 + 32) matchingInferredModeEvent:v4 inferredModeEvents:*(*(*(a1 + 64) + 8) + 40)];
+    v20 = *(a1 + 32);
+    v21 = *(*(*(a1 + 48) + 8) + 40);
+    v22 = *(*(*(a1 + 56) + 8) + 40);
+    v23 = [v12 eventBody];
+    v24 = [v29 eventBody];
+    [v20 _logModeTransitionMetricWithPreviousModeStart:v21 previousModeEnd:v22 currentModeStart:v4 matchingPreviousInferredModeEvent:v23 matchingCurrentInferredModeEvent:v24];
 
     objc_storeStrong((*(*(a1 + 48) + 8) + 40), a2);
-    v27 = *(*(a1 + 56) + 8);
-    v28 = *(v27 + 40);
-    *(v27 + 40) = 0;
+    v25 = *(*(a1 + 56) + 8);
+    v26 = *(v25 + 40);
+    *(v25 + 40) = 0;
   }
 
 LABEL_18:
-  v29 = [*(a1 + 40) didDefer] ^ 1;
+  v27 = [*(a1 + 40) didDefer] ^ 1;
 LABEL_22:
 
-  return v29;
+  return v27;
 }
 
 - (id)matchingInferredModeEvent:(id)event inferredModeEvents:(id)events
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   eventsCopy = events;
   eventBody = [eventCopy eventBody];
   [eventBody semanticType];
   v8 = BMUserFocusInferredModeTypeFromBMUserFocusModeComputedSemanticType();
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v9 = eventsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v23;
+    v12 = *v22;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v23 != v12)
+        if (*v22 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v22 + 1) + 8 * i);
+        v14 = *(*(&v21 + 1) + 8 * i);
         eventBody2 = [v14 eventBody];
         if ([eventBody2 isStart])
         {
@@ -262,7 +259,7 @@ LABEL_22:
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v11)
       {
         continue;
@@ -274,8 +271,6 @@ LABEL_22:
 
   v19 = 0;
 LABEL_14:
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -400,17 +395,16 @@ LABEL_17:
   eventBody2 = [modeEventCopy eventBody];
 
   [(ATXModeTransitionMetricsLogUploader *)self _populateInferredModeFieldsOnTheModeTransitionMetric:v11 withPreviousInferredModeEvent:eventBody currentInferredModeEvent:eventBody2 duration:durationCopy];
-  v14 = __atxlog_handle_modes();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = __atxlog_handle_modes(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     coreAnalyticsDictionary = [v11 coreAnalyticsDictionary];
     v17 = 138412290;
     v18 = coreAnalyticsDictionary;
-    _os_log_impl(&dword_2263AA000, v14, OS_LOG_TYPE_DEFAULT, "ATXModeTransitionMetricsLogUploader: Uploading inferred mode metric to CA: %@", &v17, 0xCu);
+    _os_log_impl(&dword_2263AA000, v15, OS_LOG_TYPE_DEFAULT, "ATXModeTransitionMetricsLogUploader: Uploading inferred mode metric to CA: %@", &v17, 0xCu);
   }
 
   [v11 logToCoreAnalytics];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_populateInferredModeFieldsOnTheModeTransitionMetric:(id)metric withPreviousInferredModeEvent:(id)event currentInferredModeEvent:(id)modeEvent duration:(id)duration
@@ -573,8 +567,7 @@ uint64_t __64__ATXModeTransitionMetricsLogUploader__timeBasedMergedPublisher__bl
 
   v35 = modeEventCopy;
   v36 = eventCopy;
-  [(ATXModeTransitionMetricsLogUploader *)selfCopy _populateInferredModeFieldsOnTheModeTransitionMetric:v25 withPreviousInferredModeEvent:eventCopy currentInferredModeEvent:modeEventCopy duration:0];
-  v37 = __atxlog_handle_modes();
+  v37 = __atxlog_handle_modes([(ATXModeTransitionMetricsLogUploader *)selfCopy _populateInferredModeFieldsOnTheModeTransitionMetric:v25 withPreviousInferredModeEvent:eventCopy currentInferredModeEvent:modeEventCopy duration:0]);
   if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
   {
     coreAnalyticsDictionary = [(ATXModeTransitionMetric *)v25 coreAnalyticsDictionary];
@@ -612,13 +605,13 @@ uint64_t __64__ATXModeTransitionMetricsLogUploader__timeBasedMergedPublisher__bl
     modeSemanticTypeAsString3 = [v62 modeSemanticTypeAsString];
 
     v40 = [[ATXModeTransitionMetric alloc] initWithPreviousModeSemanticType:@"No Mode" previousModeDuration:0 previousModeHadScheduledExit:modeUpdateReasonAsString3 exitReason:modeUpdateReasonAsString4 enterReason:0 transitionDeviceType:modeUpdateSourceAsString2 transitionSource:v50 nextModeSemanticType:modeSemanticTypeAsString3];
-    v52 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+    v53 = __atxlog_handle_modes(v52);
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
     {
       coreAnalyticsDictionary2 = [(ATXModeTransitionMetric *)v40 coreAnalyticsDictionary];
       *buf = 138412290;
       v74 = coreAnalyticsDictionary2;
-      _os_log_impl(&dword_2263AA000, v52, OS_LOG_TYPE_DEFAULT, "ATXModeTransitionMetricsLogUploader: Uploading mode transition metric to CA: %@", buf, 0xCu);
+      _os_log_impl(&dword_2263AA000, v53, OS_LOG_TYPE_DEFAULT, "ATXModeTransitionMetricsLogUploader: Uploading mode transition metric to CA: %@", buf, 0xCu);
 
       v36 = eventCopy;
     }
@@ -630,8 +623,6 @@ uint64_t __64__ATXModeTransitionMetricsLogUploader__timeBasedMergedPublisher__bl
     v35 = modeEventCopy;
     v42 = v59;
   }
-
-  v54 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_previousModeEndEvent:(id)event isContiguousWithModeStartEvent:(id)startEvent
@@ -662,11 +653,10 @@ uint64_t __64__ATXModeTransitionMetricsLogUploader__timeBasedMergedPublisher__bl
 
 - (void)uploadLogsToCoreAnalyticsWithXPCActivity:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXModeTransitionMetricsLogUploader: Unable to save activity suggestion bookmark, error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXModeTransitionMetricsLogUploader: Unable to save activity suggestion bookmark, error: %@", &v2, 0xCu);
 }
 
 @end

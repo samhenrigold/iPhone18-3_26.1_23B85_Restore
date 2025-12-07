@@ -9,9 +9,9 @@
 
 - (LCSFirstUnlockManager)init
 {
-  v10.receiver = self;
-  v10.super_class = LCSFirstUnlockManager;
-  v2 = [(LCSFirstUnlockManager *)&v10 init];
+  v9.receiver = self;
+  v9.super_class = LCSFirstUnlockManager;
+  v2 = [(LCSFirstUnlockManager *)&v9 init];
   if (v2)
   {
     v3 = MKBDeviceUnlockedSinceBoot();
@@ -23,10 +23,9 @@
       v2->_queue = v4;
 
       objc_initWeak(&location, v2);
-      v6 = v2->_queue;
-      objc_copyWeak(&v8, &location);
+      objc_copyWeak(&v7, &location);
       v2->_aksEvent = AKSEventsRegister();
-      objc_destroyWeak(&v8);
+      objc_destroyWeak(&v7);
       objc_destroyWeak(&location);
     }
   }

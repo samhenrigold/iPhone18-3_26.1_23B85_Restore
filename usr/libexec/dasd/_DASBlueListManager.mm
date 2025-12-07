@@ -6,6 +6,7 @@
 - (void)decrementPushBudgetRemaining;
 - (void)registerForBlueListNotifications;
 - (void)setupResetTimer;
+- (void)updateBlueListStatus:(BOOL)status;
 - (void)updateBudgetsForNextSlot;
 - (void)updateGlobalBudget:(int64_t)budget;
 @end
@@ -139,6 +140,24 @@
   handler[4] = self;
   dispatch_source_set_event_handler(v8, handler);
   dispatch_resume(self->_budgetResetTimer);
+}
+
+- (void)updateBlueListStatus:(BOOL)status
+{
+  statusCopy = status;
+  obj = self;
+  objc_sync_enter(obj);
+  v4 = obj;
+  if (obj->_blueListEnabled != statusCopy)
+  {
+    v5 = [NSNumber numberWithBool:statusCopy];
+    [(_CDLocalContext *)obj->_context setObject:v5 forKeyedSubscript:obj->_blueListKeyPath];
+
+    v4 = obj;
+    obj->_blueListEnabled = statusCopy;
+  }
+
+  objc_sync_exit(v4);
 }
 
 - (BOOL)shouldBlueListPushes

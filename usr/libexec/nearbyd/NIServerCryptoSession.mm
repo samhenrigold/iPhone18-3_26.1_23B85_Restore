@@ -12,9 +12,9 @@
   encryptCopy = encrypt;
   keyCopy = key;
   identifierCopy = identifier;
-  v23.receiver = self;
-  v23.super_class = NIServerCryptoSession;
-  v11 = [(NIServerCryptoSession *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = NIServerCryptoSession;
+  v11 = [(NIServerCryptoSession *)&v22 init];
   if (!v11)
   {
     goto LABEL_18;
@@ -26,49 +26,48 @@
     {
       objc_storeStrong(&v11->_keyDerivationKey, key);
       objc_storeStrong(&v11->_sessionIdentifier, identifier);
-      sessionIdentifier = v11->_sessionIdentifier;
-      v13 = CUPrintNSObjectMasked();
+      v12 = CUPrintNSObjectMasked();
       logIdentifier = v11->_logIdentifier;
-      v11->_logIdentifier = v13;
+      v11->_logIdentifier = v12;
 
       v11->_encrypt = encryptCopy;
-      v15 = [(NIServerCryptoSession *)v11 _deriveSessionKeyFromKeyDerivationKey:keyCopy sessionIdentifier:identifierCopy];
+      v14 = [(NIServerCryptoSession *)v11 _deriveSessionKeyFromKeyDerivationKey:keyCopy sessionIdentifier:identifierCopy];
       sessionKey = v11->_sessionKey;
-      v11->_sessionKey = v15;
+      v11->_sessionKey = v14;
 
       if (v11->_sessionKey)
       {
         if (encryptCopy)
         {
           v11->_nonce = arc4random_uniform(0xFFFF0000);
-          v17 = qword_1009F9820;
+          v16 = qword_1009F9820;
           if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
           {
-            v18 = v11->_logIdentifier;
+            v17 = v11->_logIdentifier;
             *buf = 138477827;
-            v25 = v18;
-            v19 = "#crypto,[%{private}@][Encryptor] initialized";
+            v24 = v17;
+            v18 = "#crypto,[%{private}@][Encryptor] initialized";
 LABEL_17:
-            _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, v19, buf, 0xCu);
+            _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, v18, buf, 0xCu);
           }
         }
 
         else
         {
           v11->_nonce = 0;
-          v17 = qword_1009F9820;
+          v16 = qword_1009F9820;
           if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
           {
-            v21 = v11->_logIdentifier;
+            v20 = v11->_logIdentifier;
             *buf = 138477827;
-            v25 = v21;
-            v19 = "#crypto,[%{private}@][Decryptor] initialized";
+            v24 = v20;
+            v18 = "#crypto,[%{private}@][Decryptor] initialized";
             goto LABEL_17;
           }
         }
 
 LABEL_18:
-        v20 = v11;
+        v19 = v11;
         goto LABEL_19;
       }
 
@@ -89,10 +88,10 @@ LABEL_18:
     sub_1004B09B4();
   }
 
-  v20 = 0;
+  v19 = 0;
 LABEL_19:
 
-  return v20;
+  return v19;
 }
 
 - (id)encrypt:(id)encrypt
@@ -102,7 +101,7 @@ LABEL_19:
   {
     if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
     {
-      sub_1004B09F4(self);
+      sub_1004B09F4();
     }
 
     goto LABEL_23;
@@ -113,7 +112,7 @@ LABEL_19:
   {
     if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
     {
-      sub_1004B0CD4(self);
+      sub_1004B0CD4();
     }
 
     goto LABEL_23;
@@ -121,7 +120,7 @@ LABEL_19:
 
   v6 = nonce + 1;
   self->_nonce = v6;
-  v28 = v6;
+  v29 = v6;
   cryptorRef = 0;
   v7 = CCCryptorCreateWithMode(0, 0xCu, 0, 0x3E8u, 0, [(NSData *)self->_sessionKey bytes], [(NSData *)self->_sessionKey length], 0, 0, 0, 0, &cryptorRef);
   if (v7 || !cryptorRef)
@@ -134,8 +133,8 @@ LABEL_19:
       *&buf[4] = logIdentifier;
       *&buf[12] = 1024;
       *&buf[14] = v7;
-      v33 = 1024;
-      v34 = cryptorRef != 0;
+      v34 = 1024;
+      v35 = cryptorRef != 0;
       _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "#crypto,[%{private}@][Encryptor] create failed %d. Cryptor needs release: %d", buf, 0x18u);
     }
 
@@ -152,7 +151,7 @@ LABEL_19:
   {
     if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
     {
-      sub_1004B0A64(self);
+      sub_1004B0A64();
     }
 
 LABEL_22:
@@ -166,7 +165,7 @@ LABEL_23:
   {
     if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
     {
-      sub_1004B0ACC(self);
+      sub_1004B0ACC();
     }
 
     goto LABEL_22;
@@ -176,22 +175,22 @@ LABEL_23:
   {
     if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
     {
-      sub_1004B0B34(self);
+      sub_1004B0B34();
     }
 
     goto LABEL_22;
   }
 
-  v26 = 1;
-  LOBYTE(v24) = 0;
-  sub_100025100(buf, 5);
-  **buf = 1;
-  *(*buf + 1) = v28;
+  v27 = 1;
+  LOBYTE(v25) = 0;
+  sub_100025100(buf, 5, &v25);
+  **buf = v27;
+  *(*buf + 1) = v29;
   if (CCCryptorAddParameter())
   {
     if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
     {
-      sub_1004B0B9C(self);
+      sub_1004B0B9C();
     }
 
     CCCryptorRelease(cryptorRef);
@@ -202,17 +201,17 @@ LABEL_23:
   {
     OutputLength = CCCryptorGetOutputLength(cryptorRef, [encryptCopy length], 0);
     LOBYTE(__p) = 0;
-    sub_100025100(&v24, OutputLength);
+    sub_100025100(&v25, OutputLength, &__p);
     dataOutMoved = 0;
     v13 = cryptorRef;
     v14 = encryptCopy;
     bytes = [encryptCopy bytes];
     v16 = [encryptCopy length];
-    if (CCCryptorUpdate(v13, bytes, v16, v24, v25 - v24, &dataOutMoved))
+    if (CCCryptorUpdate(v13, bytes, v16, v25, v26 - v25, &dataOutMoved))
     {
       if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
       {
-        sub_1004B0C04(self);
+        sub_1004B0C04();
       }
 
       CCCryptorRelease(cryptorRef);
@@ -221,28 +220,28 @@ LABEL_23:
 
     else
     {
-      if (dataOutMoved < v25 - v24)
+      if (dataOutMoved < v26 - v25)
       {
-        sub_1002501F0(&v24, dataOutMoved);
+        sub_1002501F0(&v25, dataOutMoved);
       }
 
-      v29[0] = 0;
-      sub_100025100(&__p, 16);
-      v20 = 0;
-      v17 = CCCryptorFinal(cryptorRef, __p, v22 - __p, &v20);
-      if (v17 || v20)
+      v30[0] = 0;
+      sub_100025100(&__p, 16, v30);
+      v21 = 0;
+      v17 = CCCryptorFinal(cryptorRef, __p, v23 - __p, &v21);
+      if (v17 || v21)
       {
         v18 = qword_1009F9820;
         if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
         {
           v19 = self->_logIdentifier;
-          *v29 = 138478339;
-          *&v29[4] = v19;
-          *&v29[12] = 1024;
-          *&v29[14] = v17;
-          v30 = 1024;
-          v31 = v20;
-          _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "#crypto,[%{private}@][Encryptor] cryptor-final failed %d. Leftover: %d", v29, 0x18u);
+          *v30 = 138478339;
+          *&v30[4] = v19;
+          *&v30[12] = 1024;
+          *&v30[14] = v17;
+          v31 = 1024;
+          v32 = v21;
+          _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "#crypto,[%{private}@][Encryptor] cryptor-final failed %d. Leftover: %d", v30, 0x18u);
         }
 
         CCCryptorRelease(cryptorRef);
@@ -251,12 +250,14 @@ LABEL_23:
 
       else
       {
-        sub_100025100(v29, 6);
+        LOBYTE(v20) = 0;
+        sub_100025100(v30, 6, &v20);
+        v20 = *&v30[8] - *v30;
         if (CCCryptorGetParameter())
         {
           if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
           {
-            sub_1004B0C6C(self);
+            sub_1004B0C6C();
           }
 
           CCCryptorRelease(cryptorRef);
@@ -267,30 +268,30 @@ LABEL_23:
         {
           CCCryptorRelease(cryptorRef);
           v9 = objc_opt_new();
-          [v9 appendBytes:&v26 length:1];
-          [v9 appendBytes:&v28 length:4];
-          [v9 appendBytes:*v29 length:*&v29[8] - *v29];
-          [v9 appendBytes:v24 length:v25 - v24];
+          [v9 appendBytes:&v27 length:1];
+          [v9 appendBytes:&v29 length:4];
+          [v9 appendBytes:*v30 length:*&v30[8] - *v30];
+          [v9 appendBytes:v25 length:v26 - v25];
         }
 
-        if (*v29)
+        if (*v30)
         {
-          *&v29[8] = *v29;
-          operator delete(*v29);
+          *&v30[8] = *v30;
+          operator delete(*v30);
         }
       }
 
       if (__p)
       {
-        v22 = __p;
+        v23 = __p;
         operator delete(__p);
       }
     }
 
-    if (v24)
+    if (v25)
     {
-      v25 = v24;
-      operator delete(v24);
+      v26 = v25;
+      operator delete(v25);
     }
   }
 
@@ -313,7 +314,7 @@ LABEL_24:
   {
     if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
     {
-      sub_1004B11D0(self);
+      sub_1004B11D0();
     }
 
 LABEL_15:
@@ -321,77 +322,77 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  v31 = 0;
+  v32 = 0;
   if (![decryptCopy length])
   {
     v7 = qword_1009F9820;
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_1004B118C(self->_logIdentifier, [v5 length], &v41);
+      sub_1004B118C(self->_logIdentifier, [v5 length], &v42);
     }
 
     goto LABEL_15;
   }
 
-  [v5 getBytes:&v31 range:{0, 1}];
-  if (v31 != 1)
+  [v5 getBytes:&v32 range:{0, 1}];
+  if (v32 != 1)
   {
     if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
     {
-      sub_1004B0D44(self);
+      sub_1004B0D44();
     }
 
     goto LABEL_15;
   }
 
-  v30 = 0;
+  v31 = 0;
   if ([v5 length] <= 4)
   {
     v6 = qword_1009F9820;
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_1004B1148(self->_logIdentifier, [v5 length], &v41);
+      sub_1004B1148(self->_logIdentifier, [v5 length], &v42);
     }
 
     goto LABEL_15;
   }
 
-  [v5 getBytes:&v30 range:{1, 4}];
-  cryptorRef[1] = v30;
-  LOBYTE(v38) = 0;
-  sub_100025100(&v41, 6);
+  [v5 getBytes:&v31 range:{1, 4}];
+  cryptorRef[1] = v31;
+  LOBYTE(v39) = 0;
+  sub_100025100(&v42, 6, &v39);
   if ([v5 length] > 0xA)
   {
-    [v5 getBytes:v41 range:{5, 6}];
-    v38 = 0;
+    [v5 getBytes:v42 range:{5, 6}];
     v39 = 0;
     v40 = 0;
+    v41 = 0;
     v11 = [v5 length];
     v12 = (v11 - 11);
     if (v11 == 11)
     {
       if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
       {
-        sub_1004B1094(self);
+        sub_1004B1094();
       }
 
       goto LABEL_47;
     }
 
     buf[0] = 0;
-    v13 = v38;
-    if (v12 <= v39 - v38)
+    v13 = v39;
+    if (v12 <= v40 - v39)
     {
-      if (v12 < v39 - v38)
+      if (v12 < v40 - v39)
       {
-        v39 = &v38[v12];
+        v40 = &v39[v12];
       }
     }
 
     else
     {
-      sub_100250E48(&v38, v12 - (v39 - v38), buf);
-      v13 = v38;
+      sub_100250E48(&v39, v12 - (v40 - v39), buf);
+      v13 = v39;
     }
 
     [v5 getBytes:v13 range:{11, v12}];
@@ -412,8 +413,8 @@ LABEL_15:
         *&buf[4] = logIdentifier;
         *&buf[12] = 1024;
         *&buf[14] = v14;
-        v36 = 1024;
-        v37 = cryptorRef[0] != 0;
+        v37 = 1024;
+        v38 = cryptorRef[0] != 0;
         _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "#crypto,[%{private}@][Decryptor] create failed %d. Cryptor needs release: %d", buf, 0x18u);
       }
 
@@ -427,7 +428,7 @@ LABEL_15:
     {
       if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
       {
-        sub_1004B0DB4(self);
+        sub_1004B0DB4();
       }
     }
 
@@ -435,7 +436,7 @@ LABEL_15:
     {
       if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
       {
-        sub_1004B0E1C(self);
+        sub_1004B0E1C();
       }
     }
 
@@ -443,15 +444,15 @@ LABEL_15:
     {
       if (!CCCryptorAddParameter())
       {
-        LOBYTE(v27) = 0;
-        sub_100025100(buf, 5);
-        **buf = v31;
-        *(*buf + 1) = v30;
+        LOBYTE(v28) = 0;
+        sub_100025100(buf, 5, &v28);
+        **buf = v32;
+        *(*buf + 1) = v31;
         if (CCCryptorAddParameter())
         {
           if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
           {
-            sub_1004B0EEC(self);
+            sub_1004B0EEC();
           }
 
           CCCryptorRelease(cryptorRef[0]);
@@ -460,15 +461,15 @@ LABEL_15:
 
         else
         {
-          OutputLength = CCCryptorGetOutputLength(cryptorRef[0], v39 - v38, 0);
-          LOBYTE(v24) = 0;
-          sub_100025100(&v27, OutputLength);
+          OutputLength = CCCryptorGetOutputLength(cryptorRef[0], v40 - v39, 0);
+          LOBYTE(v25) = 0;
+          sub_100025100(&v28, OutputLength, &v25);
           dataOutMoved = 0;
-          if (CCCryptorUpdate(cryptorRef[0], v38, v39 - v38, v27, v28 - v27, &dataOutMoved))
+          if (CCCryptorUpdate(cryptorRef[0], v39, v40 - v39, v28, v29 - v28, &dataOutMoved))
           {
             if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
             {
-              sub_1004B0F54(self);
+              sub_1004B0F54();
             }
 
             CCCryptorRelease(cryptorRef[0]);
@@ -477,16 +478,16 @@ LABEL_15:
 
           else
           {
-            if (dataOutMoved < v28 - v27)
+            if (dataOutMoved < v29 - v28)
             {
-              sub_1002501F0(&v27, dataOutMoved);
+              sub_1002501F0(&v28, dataOutMoved);
             }
 
             __p[0] = 0;
-            sub_100025100(&v24, 16);
-            v23 = 0;
-            v18 = CCCryptorFinal(cryptorRef[0], v24, v25 - v24, &v23);
-            if (v18 || v23)
+            sub_100025100(&v25, 16, __p);
+            v24 = 0;
+            v18 = CCCryptorFinal(cryptorRef[0], v25, v26 - v25, &v24);
+            if (v18 || v24)
             {
               v19 = qword_1009F9820;
               if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
@@ -496,8 +497,8 @@ LABEL_15:
                 *&__p[4] = v22;
                 *&__p[12] = 1024;
                 *&__p[14] = v18;
-                v33 = 1024;
-                v34 = v23;
+                v34 = 1024;
+                v35 = v24;
                 _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "#crypto,[%{private}@][Decryptor] cryptor-final failed %d. Leftover: %d", __p, 0x18u);
               }
 
@@ -507,12 +508,14 @@ LABEL_15:
 
             else
             {
-              sub_100025100(__p, 6);
+              LOBYTE(v23) = 0;
+              sub_100025100(__p, 6, &v23);
+              v23 = *&__p[8] - *__p;
               if (CCCryptorGetParameter())
               {
                 if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
                 {
-                  sub_1004B0FBC(self);
+                  sub_1004B0FBC();
                 }
 
                 CCCryptorRelease(cryptorRef[0]);
@@ -522,18 +525,18 @@ LABEL_15:
               else
               {
                 CCCryptorRelease(cryptorRef[0]);
-                v20 = [NSData dataWithBytes:v41 length:v42 - v41];
+                v20 = [NSData dataWithBytes:v42 length:v43 - v42];
                 v21 = [NSData dataWithBytes:*__p length:*&__p[8] - *__p];
                 if ([v20 isEqualToData:v21])
                 {
-                  v8 = [NSData dataWithBytes:v27 length:v28 - v27];
+                  v8 = [NSData dataWithBytes:v28 length:v29 - v28];
                 }
 
                 else
                 {
                   if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
                   {
-                    sub_1004B1024(self);
+                    sub_1004B1024();
                   }
 
                   v8 = 0;
@@ -547,17 +550,17 @@ LABEL_15:
               }
             }
 
-            if (v24)
+            if (v25)
             {
-              v25 = v24;
-              operator delete(v24);
+              v26 = v25;
+              operator delete(v25);
             }
           }
 
-          if (v27)
+          if (v28)
           {
-            v28 = v27;
-            operator delete(v27);
+            v29 = v28;
+            operator delete(v28);
           }
         }
 
@@ -572,7 +575,7 @@ LABEL_15:
 
       if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
       {
-        sub_1004B0E84(self);
+        sub_1004B0E84();
       }
     }
 
@@ -580,10 +583,10 @@ LABEL_15:
 LABEL_47:
     v8 = 0;
 LABEL_48:
-    if (v38)
+    if (v39)
     {
-      v39 = v38;
-      operator delete(v38);
+      v40 = v39;
+      operator delete(v39);
     }
 
     goto LABEL_50;
@@ -592,15 +595,15 @@ LABEL_48:
   v10 = qword_1009F9820;
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    sub_1004B1104(self->_logIdentifier, [v5 length], &v38);
+    sub_1004B1104(self->_logIdentifier, [v5 length], &v39);
   }
 
   v8 = 0;
 LABEL_50:
-  if (v41)
+  if (v42)
   {
-    v42 = v41;
-    operator delete(v41);
+    v43 = v42;
+    operator delete(v42);
   }
 
 LABEL_16:

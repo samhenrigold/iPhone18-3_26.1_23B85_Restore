@@ -123,15 +123,15 @@ LABEL_19:
 - (void)decodedImageContentsWithData:(id)data type:(int *)type error:(id *)error
 {
   v7 = [data length];
-  v25 = 0;
+  v28 = 0;
   if (!v7)
   {
     goto LABEL_17;
   }
 
   v8 = v7;
-  [data getBytes:&v25 length:1];
-  if (v25 == 123)
+  [data getBytes:&v28 length:1];
+  if (v28 == 123)
   {
     v9 = [MEMORY[0x1E696ACB0] JSONObjectWithData:data options:0 error:0];
     objc_opt_class();
@@ -151,15 +151,20 @@ LABEL_19:
           if (objc_opt_isKindOfClass())
           {
             unsignedLongLongValue = [v12 unsignedLongLongValue];
-            [v10 unsignedLongLongValue];
-            [v11 unsignedLongLongValue];
+            unsignedLongLongValue2 = [v10 unsignedLongLongValue];
+            unsignedLongLongValue3 = [v11 unsignedLongLongValue];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              [v13 BOOLValue];
+              bOOLValue = [v13 BOOLValue];
             }
 
-            RB::cg_image_create_placeholder(unsignedLongLongValue);
+            else
+            {
+              bOOLValue = 0;
+            }
+
+            RB::cg_image_create_placeholder(unsignedLongLongValue, unsignedLongLongValue2, unsignedLongLongValue3, bOOLValue);
           }
         }
       }
@@ -167,30 +172,30 @@ LABEL_19:
   }
 
   ImageAtIndex = 0;
-  if (v8 >= 7 && v25 == 98)
+  if (v8 >= 7 && v28 == 98)
   {
-    [data getBytes:&v23 length:6];
-    if (v23 != 1768714338 || v24 != 29811)
+    [data getBytes:&v26 length:6];
+    if (v26 != 1768714338 || v27 != 29811)
     {
       goto LABEL_15;
     }
 
-    v20 = NSClassFromString(&cfstr_Caiosurfacecod.isa);
-    ImageAtIndex = v20;
-    if (v20)
+    v23 = NSClassFromString(&cfstr_Caiosurfacecod.isa);
+    ImageAtIndex = v23;
+    if (v23)
     {
-      if (![(objc_class *)v20 instancesRespondToSelector:sel_decodedObject])
+      if (![(objc_class *)v23 instancesRespondToSelector:sel_decodedObject])
       {
 LABEL_15:
         ImageAtIndex = 0;
         goto LABEL_16;
       }
 
-      v21 = objc_autoreleasePoolPush();
-      v22 = [objc_msgSend(MEMORY[0x1E696ACD0] unarchivedObjectOfClass:ImageAtIndex fromData:data error:{0), "decodedObject"}];
-      if (v22)
+      v24 = objc_autoreleasePoolPush();
+      v25 = [objc_msgSend(MEMORY[0x1E696ACD0] unarchivedObjectOfClass:ImageAtIndex fromData:data error:{0), "decodedObject"}];
+      if (v25)
       {
-        ImageAtIndex = CFRetain(v22);
+        ImageAtIndex = CFRetain(v25);
       }
 
       else
@@ -198,7 +203,7 @@ LABEL_15:
         ImageAtIndex = 0;
       }
 
-      objc_autoreleasePoolPop(v21);
+      objc_autoreleasePoolPop(v24);
       if (ImageAtIndex)
       {
         *type = 1;
@@ -215,16 +220,16 @@ LABEL_19:
   }
 
 LABEL_17:
-  v17 = CGImageSourceCreateWithData(data, 0);
-  if (!v17)
+  v20 = CGImageSourceCreateWithData(data, 0);
+  if (!v20)
   {
     return 0;
   }
 
-  v18 = v17;
-  ImageAtIndex = CGImageSourceCreateImageAtIndex(v17, 0, 0);
+  v21 = v20;
+  ImageAtIndex = CGImageSourceCreateImageAtIndex(v20, 0, 0);
   *type = 0;
-  CFRelease(v18);
+  CFRelease(v21);
   if (ImageAtIndex)
   {
     goto LABEL_19;
@@ -277,7 +282,7 @@ LABEL_6:
     v7 = [v6 objectForKeyedSubscript:@"postscriptName"];
     if (v7)
     {
-      RB::cg_font_create_with_name(v7, &arg);
+      RB::cg_font_create_with_name(&arg, v7);
       v8 = arg;
       if (!arg)
       {

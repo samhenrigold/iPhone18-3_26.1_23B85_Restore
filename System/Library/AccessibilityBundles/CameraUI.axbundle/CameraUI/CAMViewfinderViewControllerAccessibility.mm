@@ -232,7 +232,7 @@ uint64_t __72__CAMViewfinderViewControllerAccessibility_accessibilityPerformMagi
   }
 }
 
-uint64_t __74__CAMViewfinderViewControllerAccessibility__axUpdateInternalMotionManager__block_invoke(uint64_t a1)
+void *__74__CAMViewfinderViewControllerAccessibility__axUpdateInternalMotionManager__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _shouldMonitorDeviceMotionForGraphConfiguration:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;

@@ -32,21 +32,22 @@ void __81__BLSBacklightFBSSceneEnvironmentActionHandler_desiredFidelityRequestFr
 {
   v3 = (a1 + 32);
   v4 = [*(a1 + 32) canSendResponse];
-  v5 = bls_scenes_log();
-  v6 = v5;
-  if (v4)
+  v5 = v4;
+  v6 = bls_scenes_log(v4);
+  v7 = v6;
+  if (v5)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       __81__BLSBacklightFBSSceneEnvironmentActionHandler_desiredFidelityRequestFromAction___block_invoke_cold_2();
     }
 
-    v7 = *v3;
-    v6 = [[BLSDesiredFidelityResponse alloc] initWithDesiredFidelity:a2];
-    [v7 sendResponse:v6];
+    v8 = *v3;
+    v7 = [[BLSDesiredFidelityResponse alloc] initWithDesiredFidelity:a2];
+    [v8 sendResponse:v7];
   }
 
-  else if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     __81__BLSBacklightFBSSceneEnvironmentActionHandler_desiredFidelityRequestFromAction___block_invoke_cold_1();
   }
@@ -83,21 +84,22 @@ void __81__BLSBacklightFBSSceneEnvironmentActionHandler_frameSpecifiersRequestFr
   v5 = *(a1 + 32);
   v4 = (a1 + 32);
   v6 = [v5 canSendResponse];
-  v7 = bls_scenes_log();
-  v8 = v7;
-  if (v6)
+  v7 = v6;
+  v8 = bls_scenes_log(v6);
+  v9 = v8;
+  if (v7)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       __81__BLSBacklightFBSSceneEnvironmentActionHandler_frameSpecifiersRequestFromAction___block_invoke_cold_2();
     }
 
-    v9 = *v4;
-    v8 = [[BLSFrameSpecifiersRequestResponse alloc] initWithDateSpecifiers:v3];
-    [v9 sendResponse:v8];
+    v10 = *v4;
+    v9 = [[BLSFrameSpecifiersRequestResponse alloc] initWithDateSpecifiers:v3];
+    [v10 sendResponse:v9];
   }
 
-  else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     __81__BLSBacklightFBSSceneEnvironmentActionHandler_frameSpecifiersRequestFromAction___block_invoke_cold_1();
   }
@@ -105,248 +107,230 @@ void __81__BLSBacklightFBSSceneEnvironmentActionHandler_frameSpecifiersRequestFr
 
 - (id)respondToActions:(id)actions forFBSScene:(id)scene fromTransitionContext:(id)context
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   actionsCopy = actions;
-  v22 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(actionsCopy, "count")}];
+  v23 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(actionsCopy, "count")}];
   array = [MEMORY[0x277CBEB18] array];
-  v7 = bls_scenes_log();
+  v7 = bls_scenes_log(array);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [BLSBacklightFBSSceneEnvironmentActionHandler respondToActions:actionsCopy forFBSScene:? fromTransitionContext:?];
   }
 
-  v27 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
+  v27 = 0u;
   v8 = actionsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v25 objects:v31 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v26 objects:v32 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v26;
+    v11 = *v27;
     do
     {
       v12 = 0;
       do
       {
-        if (*v26 != v11)
+        if (*v27 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v25 + 1) + 8 * v12);
+        v13 = *(*(&v26 + 1) + 8 * v12);
         objc_opt_class();
-        if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()))
+        isKindOfClass = objc_opt_isKindOfClass();
+        if (isKindOfClass & 1) != 0 || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass) || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass) || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass))
         {
-          v14 = bls_scenes_log();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+          v15 = bls_scenes_log(isKindOfClass);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v30 = v13;
-            _os_log_debug_impl(&dword_21FE25000, v14, OS_LOG_TYPE_DEBUG, "respondToActions expect to handle action:%@", buf, 0xCu);
+            v31 = v13;
+            _os_log_debug_impl(&dword_21FE25000, v15, OS_LOG_TYPE_DEBUG, "respondToActions expect to handle action:%@", buf, 0xCu);
           }
 
-          v15 = array;
+          v16 = array;
         }
 
         else
         {
-          v14 = bls_scenes_log();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+          v15 = bls_scenes_log(isKindOfClass);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v30 = v13;
-            _os_log_debug_impl(&dword_21FE25000, v14, OS_LOG_TYPE_DEBUG, "respondToActions unhandled action:%@", buf, 0xCu);
+            v31 = v13;
+            _os_log_debug_impl(&dword_21FE25000, v15, OS_LOG_TYPE_DEBUG, "respondToActions unhandled action:%@", buf, 0xCu);
           }
 
-          v15 = v22;
+          v16 = v23;
         }
 
-        [v15 addObject:v13];
+        [v16 addObject:v13];
         ++v12;
       }
 
       while (v10 != v12);
-      v16 = [v8 countByEnumeratingWithState:&v25 objects:v31 count:16];
-      v10 = v16;
+      v17 = [v8 countByEnumeratingWithState:&v26 objects:v32 count:16];
+      v10 = v17;
     }
 
-    while (v16);
+    while (v17);
   }
 
-  if ([array count])
+  v18 = [array count];
+  if (v18)
   {
-    v17 = dispatch_time(0, 5000000000);
+    v19 = dispatch_time(0, 5000000000);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __99__BLSBacklightFBSSceneEnvironmentActionHandler_respondToActions_forFBSScene_fromTransitionContext___block_invoke;
     block[3] = &unk_2784291C8;
-    v24 = array;
-    dispatch_after(v17, MEMORY[0x277D85CD0], block);
+    v25 = array;
+    dispatch_after(v19, MEMORY[0x277D85CD0], block);
   }
 
-  v18 = bls_scenes_log();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+  v20 = bls_scenes_log(v18);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
-    [BLSBacklightFBSSceneEnvironmentActionHandler respondToActions:v22 forFBSScene:? fromTransitionContext:?];
+    [BLSBacklightFBSSceneEnvironmentActionHandler respondToActions:v23 forFBSScene:? fromTransitionContext:?];
   }
 
-  v19 = [MEMORY[0x277CBEB98] setWithArray:v22];
+  v21 = [MEMORY[0x277CBEB98] setWithArray:v23];
 
-  v20 = *MEMORY[0x277D85DE8];
-
-  return v19;
+  return v21;
 }
 
 void __99__BLSBacklightFBSSceneEnvironmentActionHandler_respondToActions_forFBSScene_fromTransitionContext___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v13 = 0u;
+  v21 = *MEMORY[0x277D85DE8];
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
   v1 = (a1 + 32);
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v19 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v14 objects:v20 count:16];
   if (!v3)
   {
-LABEL_16:
-
-    goto LABEL_17;
+    goto LABEL_16;
   }
 
   v5 = v3;
   v6 = 0;
-  v7 = *v14;
+  v7 = *v15;
   *&v4 = 138412290;
-  v12 = v4;
+  v13 = v4;
   do
   {
     for (i = 0; i != v5; ++i)
     {
-      if (*v14 != v7)
+      if (*v15 != v7)
       {
         objc_enumerationMutation(v2);
       }
 
-      v9 = *(*(&v13 + 1) + 8 * i);
-      if ([v9 _expectsResponse] && objc_msgSend(v9, "canSendResponse"))
+      v9 = *(*(&v14 + 1) + 8 * i);
+      if ([v9 _expectsResponse])
       {
-        v10 = bls_scenes_log();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+        v10 = [v9 canSendResponse];
+        if (v10)
         {
-          *buf = v12;
-          v18 = v9;
-          _os_log_debug_impl(&dword_21FE25000, v10, OS_LOG_TYPE_DEBUG, "response failed for action:%@", buf, 0xCu);
-        }
+          v11 = bls_scenes_log(v10);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+          {
+            *buf = v13;
+            v19 = v9;
+            _os_log_debug_impl(&dword_21FE25000, v11, OS_LOG_TYPE_DEBUG, "response failed for action:%@", buf, 0xCu);
+          }
 
-        v6 = 1;
+          v6 = 1;
+        }
       }
     }
 
-    v5 = [v2 countByEnumeratingWithState:&v13 objects:v19 count:16];
+    v5 = [v2 countByEnumeratingWithState:&v14 objects:v20 count:16];
   }
 
   while (v5);
 
   if (v6)
   {
-    v2 = bls_scenes_log();
+    v2 = bls_scenes_log(v12);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
     {
       __99__BLSBacklightFBSSceneEnvironmentActionHandler_respondToActions_forFBSScene_fromTransitionContext___block_invoke_cold_1(v1, v2);
     }
 
-    goto LABEL_16;
+LABEL_16:
   }
-
-LABEL_17:
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __81__BLSBacklightFBSSceneEnvironmentActionHandler_desiredFidelityRequestFromAction___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2_3();
-  v10 = *MEMORY[0x277D85DE8];
   NSStringFromBLSUpdateFidelity(v1);
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_4_2(&dword_21FE25000, v2, v3, "unable to send desiredFidelity:%{public}@ response to desiredFidelityAction:%{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_2(&dword_21FE25000, v2, v3, "unable to send desiredFidelity:%{public}@ response to desiredFidelityAction:%{public}@", v4, v5, v6, v7);
 }
 
 void __81__BLSBacklightFBSSceneEnvironmentActionHandler_desiredFidelityRequestFromAction___block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_2_3();
-  v8 = *MEMORY[0x277D85DE8];
   NSStringFromBLSUpdateFidelity(v1);
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_0_7();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __81__BLSBacklightFBSSceneEnvironmentActionHandler_frameSpecifiersRequestFromAction___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2_3();
-  v10 = *MEMORY[0x277D85DE8];
   [v1 bls_boundedDescription];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_4_2(&dword_21FE25000, v2, v3, "unable to send specifiers:%{public}@ response to frameSpecifiersAction:%{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_2(&dword_21FE25000, v2, v3, "unable to send specifiers:%{public}@ response to frameSpecifiersAction:%{public}@", v4, v5, v6, v7);
 }
 
 void __81__BLSBacklightFBSSceneEnvironmentActionHandler_frameSpecifiersRequestFromAction___block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_2_3();
-  v8 = *MEMORY[0x277D85DE8];
   [v1 bls_boundedDescription];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_0_7();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)respondToActions:(void *)a1 forFBSScene:fromTransitionContext:.cold.1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 count];
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)respondToActions:(void *)a1 forFBSScene:fromTransitionContext:.cold.2(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 count];
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __99__BLSBacklightFBSSceneEnvironmentActionHandler_respondToActions_forFBSScene_fromTransitionContext___block_invoke_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 134218242;
-  v5 = 0x4014000000000000;
-  v6 = 2112;
-  v7 = v2;
-  _os_log_fault_impl(&dword_21FE25000, a2, OS_LOG_TYPE_FAULT, "one or more actions did not respond after %lf seconds; %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 134218242;
+  v4 = 0x4014000000000000;
+  v5 = 2112;
+  v6 = v2;
+  _os_log_fault_impl(&dword_21FE25000, a2, OS_LOG_TYPE_FAULT, "one or more actions did not respond after %lf seconds; %@", &v3, 0x16u);
 }
 
 @end

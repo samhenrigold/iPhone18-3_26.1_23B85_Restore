@@ -6,6 +6,7 @@
 - (id)attachmentFilename;
 - (id)attachmentIdentifier;
 - (id)event;
+- (void)_clearDownloadID;
 - (void)cellSelected;
 - (void)setDelegate:(id)delegate;
 - (void)startAttachmentDownload;
@@ -100,6 +101,13 @@ LABEL_7:
   }
 
   objc_storeWeak(&self->_delegate, delegateCopy);
+}
+
+- (void)_clearDownloadID
+{
+  downloadID = self->_downloadID;
+  self->_downloadID = 0;
+  MEMORY[0x1EEE66BB8](self, downloadID);
 }
 
 - (void)tearDown

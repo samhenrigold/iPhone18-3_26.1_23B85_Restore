@@ -66,7 +66,7 @@
     v9 = v8;
     if (self->_arInfo == v8[4] && ((storeFronts = self->_storeFronts, [v8 storeFronts], v11 = objc_claimAutoreleasedReturnValue(), v12 = storeFronts, v13 = v11, !(v12 | v13)) || (v14 = v13, v15 = objc_msgSend(v12, "isEqual:", v13), v14, v12, v14, (v15 & 1) != 0)))
     {
-      styleAttributes = [v9 styleAttributes];
+      v16 = objc_msgSend_styleAttributes(v9);
       v6 = GeoCodecsFeatureStyleAttributesCompare() == 0;
     }
 

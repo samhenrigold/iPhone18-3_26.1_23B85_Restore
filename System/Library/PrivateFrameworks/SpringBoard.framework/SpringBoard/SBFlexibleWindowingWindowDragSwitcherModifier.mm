@@ -126,7 +126,7 @@ LABEL_5:
     v8 = v7;
     if (v7)
     {
-      [v7 frame];
+      objc_msgSend_frame(v7);
       self->_lastCenterYBeforeStashingOrUnstashingBegan = v10 + v9 * 0.5;
     }
 
@@ -367,11 +367,11 @@ LABEL_10:
 
 - (id)handleGestureEvent:(id)event
 {
-  v311 = *MEMORY[0x277D85DE8];
+  v310 = *MEMORY[0x277D85DE8];
   eventCopy = event;
-  v309.receiver = self;
-  v309.super_class = SBFlexibleWindowingWindowDragSwitcherModifier;
-  v5 = [(SBGestureSwitcherModifier *)&v309 handleGestureEvent:eventCopy];
+  v308.receiver = self;
+  v308.super_class = SBFlexibleWindowingWindowDragSwitcherModifier;
+  v5 = [(SBGestureSwitcherModifier *)&v308 handleGestureEvent:eventCopy];
   [eventCopy locationInContainerView];
   self->_location.x = v6;
   self->_location.y = v7;
@@ -384,7 +384,7 @@ LABEL_10:
   self->_gestureWasCanceled = v12;
   windowingConfiguration = [(SBSwitcherModifier *)self windowingConfiguration];
   phase = [eventCopy phase];
-  v280 = phase;
+  v279 = phase;
   selfCopy = self;
   if (phase == 2)
   {
@@ -393,7 +393,7 @@ LABEL_10:
       goto LABEL_49;
     }
 
-    v275 = windowingConfiguration;
+    v274 = windowingConfiguration;
     self->_layOutSlideOverItemFullyOffscreen = 0;
     [(SBFlexibleWindowingWindowDragSwitcherModifier *)self gestureHandlingModifier:self averageVelocityOverDuration:0.0416666667];
     self->_averageVelocity.x = v23;
@@ -403,8 +403,8 @@ LABEL_10:
     {
       hypot(p_translation->x, self->_translation.y);
       v26 = *(MEMORY[0x277CF0B30] + 16);
-      v295 = *MEMORY[0x277CF0B30];
-      v296 = v26;
+      v294 = *MEMORY[0x277CF0B30];
+      v295 = v26;
       BSUIConstrainValueToIntervalWithRubberBand();
       v28 = v27;
       v29 = atan2(self->_translation.y, p_translation->x);
@@ -422,31 +422,31 @@ LABEL_10:
       v15 = proposedAppLayout;
 LABEL_48:
 
-      windowingConfiguration = v275;
+      windowingConfiguration = v274;
       goto LABEL_49;
     }
 
-    v278 = v5;
-    v303 = 0u;
-    v304 = 0;
+    v277 = v5;
+    v302 = 0u;
+    v303 = 0;
     v33 = [proposedAppLayout leafAppLayoutForItem:self->_selectedDisplayItem];
-    v302.receiver = self;
-    v302.super_class = SBFlexibleWindowingWindowDragSwitcherModifier;
-    [(SBFlexibleWindowingWindowDragSwitcherModifier *)&v302 windowControlsLayoutForLeafAppLayout:v33];
+    v301.receiver = self;
+    v301.super_class = SBFlexibleWindowingWindowDragSwitcherModifier;
+    [(SBFlexibleWindowingWindowDragSwitcherModifier *)&v301 windowControlsLayoutForLeafAppLayout:v33];
 
-    v264 = [(SBFlexibleWindowingWindowDragSwitcherModifier *)self layoutAttributesForDisplayItem:self->_selectedDisplayItem inAppLayout:proposedAppLayout];
-    v271 = proposedAppLayout;
-    v267 = [(SBSwitcherTransitionRequest *)SBMutableSwitcherTransitionRequest requestForActivatingAppLayout:proposedAppLayout];
+    v263 = [(SBFlexibleWindowingWindowDragSwitcherModifier *)self layoutAttributesForDisplayItem:self->_selectedDisplayItem inAppLayout:proposedAppLayout];
+    v270 = proposedAppLayout;
+    v266 = [(SBSwitcherTransitionRequest *)SBMutableSwitcherTransitionRequest requestForActivatingAppLayout:proposedAppLayout];
     margin = self->_currentWindowControlsLayout.margin;
-    v295 = *&self->_currentWindowControlsLayout.style;
-    v296 = margin;
+    v294 = *&self->_currentWindowControlsLayout.style;
+    v295 = margin;
+    v290 = v302;
     v291 = v303;
-    v292 = v304;
-    v35 = SBWindowControlsLayoutEqual(&v295, &v291);
+    v35 = SBWindowControlsLayoutEqual(&v294, &v290);
     if (!v35)
     {
-      v36 = v304;
-      *&self->_currentWindowControlsLayout.style = v303;
+      v36 = v303;
+      *&self->_currentWindowControlsLayout.style = v302;
       self->_currentWindowControlsLayout.margin = v36;
       v37 = [(SBFlexibleWindowingWindowDragSwitcherModifier *)self _appLayoutContainingDisplayItem:self->_selectedDisplayItem];
       if (v37)
@@ -454,29 +454,29 @@ LABEL_48:
         v38 = [(SBFlexibleWindowingWindowDragSwitcherModifier *)self animationAttributesForLayoutElement:v37];
         layoutSettings = [v38 layoutSettings];
 
-        [v267 setAnimationSettings:layoutSettings];
+        [v266 setAnimationSettings:layoutSettings];
         self = selfCopy;
       }
     }
 
-    v270 = !v35;
-    v301 = 0;
-    v299 = 0u;
+    v269 = !v35;
     v300 = 0;
-    v40 = v264;
-    [(SBDisplayItemLayoutAttributes *)v264 slideOverConfiguration];
+    v298 = 0u;
+    v299 = 0;
+    v40 = v263;
+    [(SBDisplayItemLayoutAttributes *)v263 slideOverConfiguration];
+    v294 = v298;
     v295 = v299;
-    v296 = v300;
-    *&v297 = v301;
-    if ((SBDisplayItemSlideOverConfigurationIsValid(&v295) & 1) != 0 || self->_slideOverIsCenterExiting)
+    *&v296 = v300;
+    if ((SBDisplayItemSlideOverConfigurationIsValid(&v294) & 1) != 0 || self->_slideOverIsCenterExiting)
     {
       if (self->_startedStashed)
       {
-        v41 = v275;
+        v41 = v274;
         if (!self->_hasUnstashed)
         {
           v42 = fabs(p_translation->x);
-          [v275 slideOverThresholdToForegroundUnstashingApp];
+          [v274 slideOverThresholdToForegroundUnstashingApp];
           if (v42 >= v43)
           {
             allItems = [(SBAppLayout *)self->_initialAppLayout allItems];
@@ -484,7 +484,7 @@ LABEL_48:
 
             if (v45)
             {
-              v270 = 1;
+              v269 = 1;
               self->_hasUnstashed = 1;
             }
 
@@ -507,10 +507,10 @@ LABEL_48:
               [(SBSwitcherTransitionRequest *)v168 setAppLayout:v178];
               [(SBSwitcherTransitionRequest *)v168 setSource:77];
               v179 = [[SBPerformTransitionSwitcherEventResponse alloc] initWithTransitionRequest:v168 gestureInitiated:0];
-              v180 = SBAppendSwitcherModifierResponse(v179, v5);
+              v180 = SBAppendSwitcherModifierResponse();
 
               selfCopy->_hasUnstashed = 1;
-              v278 = v180;
+              v277 = v180;
               self = selfCopy;
             }
           }
@@ -519,7 +519,7 @@ LABEL_48:
 
       else
       {
-        v41 = v275;
+        v41 = v274;
       }
 
       [(SBFlexibleWindowingWindowDragSwitcherModifier *)self containerViewBounds];
@@ -546,17 +546,17 @@ LABEL_48:
       v197 = v182 * 0.5 + v195;
       [v41 slideOverExitCenterRegionThreshold];
       v199 = v191 <= v194 + v198 && v191 >= v194 - v198;
-      v5 = v278;
+      v5 = v277;
       if (v191 >= v196 && v191 <= v197 && [eventCopy selectedEdge] == 1)
       {
         if (self->_slideOverIsCenterExiting)
         {
-          v40 = v264;
+          v40 = v263;
         }
 
         else
         {
-          v40 = v264;
+          v40 = v263;
           if (![(SBFlexibleWindowingWindowDragSwitcherModifier *)self _slideOverCenterExitingTimerWaitingWhileStillCloseWithCenter:v191, v193]&& !self->_startedStashed)
           {
             v250 = MEMORY[0x277CCACA8];
@@ -569,10 +569,10 @@ LABEL_48:
             self->_slideOverCenterSettledPosition.x = v191;
             self->_slideOverCenterSettledPosition.y = v193;
             v255 = [[SBTimerEventSwitcherEventResponse alloc] initWithDelay:0 validator:self->_slideOverCenterExitingUpdateReason reason:0.1];
-            v256 = SBAppendSwitcherModifierResponse(v255, v278);
+            v256 = SBAppendSwitcherModifierResponse();
 
             ++self->_slideOverCenterExitingUpdateGeneration;
-            v40 = v264;
+            v40 = v263;
 
             v5 = v256;
           }
@@ -583,22 +583,22 @@ LABEL_48:
       {
         if (v191 >= v196 && v191 <= v197 || v199 || !self->_slideOverIsCenterExiting)
         {
-          v40 = v264;
+          v40 = v263;
         }
 
         else
         {
-          LOBYTE(v301) = 1;
+          LOBYTE(v300) = 1;
           self->_slideOverIsCenterExiting = 0;
+          v294 = v298;
           v295 = v299;
-          v296 = v300;
-          *&v297 = v301;
-          v200 = [SBDisplayItemLayoutAttributes attributesByModifyingSlideOverConfiguration:v264];
+          *&v296 = v300;
+          v200 = [SBDisplayItemLayoutAttributes attributesByModifyingSlideOverConfiguration:v263];
 
           v201 = [[SBToggleSlideOverForDisplayItemSwitcherEventResponse alloc] initWithDisplayItem:self->_selectedDisplayItem direction:0];
-          v202 = SBAppendSwitcherModifierResponse(v201, v278);
+          v202 = SBAppendSwitcherModifierResponse();
 
-          v270 = 1;
+          v269 = 1;
           v40 = v200;
           v5 = v202;
           self = selfCopy;
@@ -606,7 +606,7 @@ LABEL_48:
 
         if (!self->_startedStashed || self->_hasUnstashed)
         {
-          v270 |= BYTE1(v301);
+          v269 |= BYTE1(v300);
         }
 
         v203 = self->_slideOverCenterExitingUpdateReason;
@@ -618,22 +618,22 @@ LABEL_48:
 
     else
     {
-      [(SBDisplayItemLayoutAttributes *)v264 tileConfiguration];
-      if (SBDisplayItemTileConfigurationIsValid(&v295))
+      [(SBDisplayItemLayoutAttributes *)v263 tileConfiguration];
+      if (SBDisplayItemTileConfigurationIsValid(&v294))
       {
         windowingConfiguration2 = [(SBSwitcherModifier *)self windowingConfiguration];
         [windowingConfiguration2 screenEdgePadding];
-        v263 = v145;
+        v262 = v145;
         [windowingConfiguration2 defaultWindowSize];
         [(SBFlexibleWindowingWindowDragSwitcherModifier *)self containerViewBounds];
         v147 = v146;
         v149 = v148;
         v151 = v150;
         v153 = v152;
-        SBDisplayItemTileConfigurationMakeNotTiled(&v295);
-        v154 = [SBDisplayItemLayoutAttributes attributesByModifyingTileConfiguration:v264];
+        SBDisplayItemTileConfigurationMakeNotTiled(&v294);
+        v154 = [SBDisplayItemLayoutAttributes attributesByModifyingTileConfiguration:v263];
         displayItemLayoutAttributesCalculator = [(SBFlexibleWindowingWindowDragSwitcherModifier *)self displayItemLayoutAttributesCalculator];
-        [displayItemLayoutAttributesCalculator sizeForLayoutAttributes:v264 windowingConfiguration:windowingConfiguration2];
+        [displayItemLayoutAttributesCalculator sizeForLayoutAttributes:v263 windowingConfiguration:windowingConfiguration2];
         v157 = v156;
         v159 = v158;
 
@@ -644,26 +644,25 @@ LABEL_48:
 
         if (v162 == v151 && v164 == v153 || v162 == *MEMORY[0x277CBF3A8] && v164 == *(MEMORY[0x277CBF3A8] + 8))
         {
-          v298 = 0;
-          v296 = 0;
-          v297 = 0u;
-          v295 = 0u;
-          v262 = v263;
-          SBDisplayItemAttributedSizeInfer(&v295, v157, v159, v147, v149, v151, v153);
-          SBDisplayItemTileConfigurationMakeNotTiled(&v291);
-          v165 = [SBDisplayItemLayoutAttributes attributesByModifyingTileConfiguration:v264];
+          v297 = 0;
+          v295 = 0;
+          v296 = 0u;
+          v294 = 0u;
+          SBDisplayItemAttributedSizeInfer(&v294, v157, v159, v147, v149, v151, v153, v262);
+          SBDisplayItemTileConfigurationMakeNotTiled(&v290);
+          v165 = [SBDisplayItemLayoutAttributes attributesByModifyingTileConfiguration:v263];
 
+          v290 = v294;
           v291 = v295;
           v292 = v296;
           v293 = v297;
-          v294 = v298;
           v166 = [SBDisplayItemLayoutAttributes attributesByModifyingAttributedSize:v165];
         }
 
         else
         {
-          SBDisplayItemTileConfigurationMakeNotTiled(&v295);
-          v165 = [SBDisplayItemLayoutAttributes attributesByModifyingTileConfiguration:v264];
+          SBDisplayItemTileConfigurationMakeNotTiled(&v294);
+          v165 = [SBDisplayItemLayoutAttributes attributesByModifyingTileConfiguration:v263];
 
           v166 = [SBDisplayItemLayoutAttributes attributesByModifyingSizingPolicy:v165];
         }
@@ -676,7 +675,7 @@ LABEL_48:
         if (!prefersInitialLayout)
         {
 LABEL_159:
-          v167 = v271;
+          v167 = v270;
 LABEL_160:
           if (SBFIsFullScreenLetterboxingAvailable())
           {
@@ -686,7 +685,7 @@ LABEL_160:
             if ((layoutRestrictions & 0x10) != 0)
             {
               [(SBDisplayItemLayoutAttributes *)v40 attributedSize];
-              if (v290 == 3)
+              if (v289 == 3)
               {
                 authenticator = [(SBHomeScreenConfigurationServer *)v40 authenticator];
                 selectedDisplayItem = self->_selectedDisplayItem;
@@ -704,10 +703,10 @@ LABEL_160:
                 v222 = v221;
                 v224 = v223;
 
-                v298 = 0;
-                v296 = 0;
-                v297 = 0u;
-                v295 = 0u;
+                v297 = 0;
+                v295 = 0;
+                v296 = 0u;
+                v294 = 0u;
                 [windowingConfiguration3 containerBounds];
                 v226 = v225;
                 v228 = v227;
@@ -715,26 +714,25 @@ LABEL_160:
                 v232 = v231;
                 [windowingConfiguration3 defaultWindowSize];
                 [windowingConfiguration3 screenEdgePadding];
-                v262 = v233;
-                SBDisplayItemAttributedSizeInfer(&v295, v222, v224, v226, v228, v230, v232);
+                SBDisplayItemAttributedSizeInfer(&v294, v222, v224, v226, v228, v230, v232, v233);
+                v290 = v294;
                 v291 = v295;
                 v292 = v296;
                 v293 = v297;
-                v294 = v298;
                 v234 = [SBDisplayItemLayoutAttributes attributesByModifyingAttributedSize:v40];
 
                 v40 = [(SBDisplayItemLayoutAttributes *)v234 attributesByModifyingNormalizedCenter:0.5];
               }
             }
 
-            v167 = v271;
+            v167 = v270;
           }
 
-          v262 = [(SBFlexibleWindowingWindowDragSwitcherModifier *)self layoutAttributesMapForAppLayout:v167, v262];
-          v236 = [v262 mutableCopy];
+          v235 = [(SBFlexibleWindowingWindowDragSwitcherModifier *)self layoutAttributesMapForAppLayout:v167];
+          v236 = [v235 mutableCopy];
 
           v237 = v40;
-          if (v270)
+          if (v269)
           {
             v238 = [MEMORY[0x277CBEB98] setWithObject:self->_selectedDisplayItem];
             v239 = [(SBSwitcherModifier *)self flexibleAutoLayoutSpaceForAppLayout:v167 calculatedUsingNewLayoutAttributesMap:v236 itemsNeedingPositionSnapping:v238 itemsNeedingSizeSnapping:0];
@@ -748,16 +746,16 @@ LABEL_160:
 
           v240 = [v239 flexibleAutoLayoutItemForDisplayItem:self->_selectedDisplayItem];
           v241 = [(SBSwitcherModifier *)self autoLayoutItemIntersectsHomeAffordanceArea:v240];
-          v265 = v239;
+          v264 = v239;
           if (self->_draggedDisplayItemIntersectsHomeAffordanceArea == v241)
           {
             v11 = &OBJC_IVAR___SBExternalDisplayCoverSheetController__screenOn;
-            if ((v270 & 1) == 0)
+            if ((v269 & 1) == 0)
             {
-              v242 = v267;
+              v242 = v266;
 LABEL_173:
 
-              v15 = v271;
+              v15 = v270;
               goto LABEL_48;
             }
           }
@@ -771,7 +769,7 @@ LABEL_173:
             v247 = v246 = v5;
 
             self = selfCopy;
-            [v267 setAnimationSettings:v247];
+            [v266 setAnimationSettings:v247];
 
             v5 = v246;
             selfCopy->_draggedDisplayItemIntersectsHomeAffordanceArea = v243;
@@ -779,17 +777,17 @@ LABEL_173:
           }
 
           [v236 setObject:v40 forKey:self->_selectedDisplayItem];
-          v242 = v267;
-          [v267 setDisplayItemLayoutAttributesMap:v236];
-          [v267 setSceneUpdatesOnly:1];
-          v248 = [[SBPerformTransitionSwitcherEventResponse alloc] initWithTransitionRequest:v267 gestureInitiated:1];
-          v249 = SBAppendSwitcherModifierResponse(v248, v5);
+          v242 = v266;
+          [v266 setDisplayItemLayoutAttributesMap:v236];
+          [v266 setSceneUpdatesOnly:1];
+          v248 = [[SBPerformTransitionSwitcherEventResponse alloc] initWithTransitionRequest:v266 gestureInitiated:1];
+          v249 = SBAppendSwitcherModifierResponse();
 
           v5 = v249;
           goto LABEL_173;
         }
 
-        v167 = v271;
+        v167 = v270;
         if (self->_prefersInitialLayout)
         {
           goto LABEL_160;
@@ -797,26 +795,26 @@ LABEL_173:
 
         if (!self->_selectedAppLayoutWasInitiallyFullScreen)
         {
-          v40 = v264;
+          v40 = v263;
           goto LABEL_160;
         }
 
-        if ([(SBHomeScreenConfigurationServer *)v264 connections]== 2 || [(SBHomeScreenConfigurationServer *)v264 connections]== 1)
+        if ([(SBHomeScreenConfigurationServer *)v263 connections]== 2 || [(SBHomeScreenConfigurationServer *)v263 connections]== 1)
         {
-          windowingConfiguration2 = [SBDisplayItemLayoutAttributes attributesByModifyingSizingPolicy:v264];
+          windowingConfiguration2 = [SBDisplayItemLayoutAttributes attributesByModifyingSizingPolicy:v263];
         }
 
         else
         {
-          windowingConfiguration2 = v264;
+          windowingConfiguration2 = v263;
         }
 
         [(SBFlexibleWindowingWindowDragSwitcherModifier *)self containerViewBounds];
         v258 = v257;
         v260 = v259;
-        [v275 defaultWindowSize];
-        [v275 screenEdgePadding];
-        v270 = 1;
+        [v274 defaultWindowSize];
+        [v274 screenEdgePadding];
+        v269 = 1;
         if ([SBDisplayItemLayoutAttributes sizeInBounds:windowingConfiguration2 defaultSize:? screenEdgePadding:?]!= v258 || v261 != v260)
         {
           v40 = windowingConfiguration2;
@@ -826,7 +824,7 @@ LABEL_173:
         v40 = [(SBSwitcherModifier *)self defaultMultitaskingLayoutAttributesForDisplayItem:self->_selectedDisplayItem layoutAttributes:windowingConfiguration2 layoutGrid:self->_layoutGrid];
       }
 
-      v270 = 1;
+      v269 = 1;
     }
 
     goto LABEL_159;
@@ -834,27 +832,27 @@ LABEL_173:
 
   if (phase == 1)
   {
-    v277 = v5;
+    v276 = v5;
     v15 = [(SBFlexibleWindowingWindowDragSwitcherModifier *)self _appLayoutContainingDisplayItem:self->_selectedDisplayItem];
     draggingAppLayoutsForWindowDrag = [(SBFlexibleWindowingWindowDragSwitcherModifier *)self draggingAppLayoutsForWindowDrag];
-    v308[0] = MEMORY[0x277D85DD0];
-    v308[1] = 3221225472;
-    v308[2] = __68__SBFlexibleWindowingWindowDragSwitcherModifier_handleGestureEvent___block_invoke;
-    v308[3] = &unk_2783A8CB8;
-    v308[4] = self;
-    v17 = [draggingAppLayoutsForWindowDrag bs_firstObjectPassingTest:v308];
+    v307[0] = MEMORY[0x277D85DD0];
+    v307[1] = 3221225472;
+    v307[2] = __68__SBFlexibleWindowingWindowDragSwitcherModifier_handleGestureEvent___block_invoke;
+    v307[3] = &unk_2783A8CB8;
+    v307[4] = self;
+    v17 = [draggingAppLayoutsForWindowDrag bs_firstObjectPassingTest:v307];
 
     p_sizeOfSelectedDisplayItem = &self->_sizeOfSelectedDisplayItem;
     -[SBFlexibleWindowingWindowDragSwitcherModifier sizeOfDisplayItem:inDisplayWithOrdinal:](self, "sizeOfDisplayItem:inDisplayWithOrdinal:", self->_selectedDisplayItem, [v17 preferredDisplayOrdinal]);
     self->_sizeOfSelectedDisplayItem.width = v19;
     self->_sizeOfSelectedDisplayItem.height = v20;
-    v268 = [(SBSwitcherModifier *)self flexibleAutoLayoutSpaceForAppLayout:v15];
-    v266 = [v268 flexibleAutoLayoutItemForDisplayItem:self->_selectedDisplayItem];
+    v267 = [(SBSwitcherModifier *)self flexibleAutoLayoutSpaceForAppLayout:v15];
+    v265 = [v267 flexibleAutoLayoutItemForDisplayItem:self->_selectedDisplayItem];
     self->_draggedDisplayItemIntersectsHomeAffordanceArea = [(SBSwitcherModifier *)self autoLayoutItemIntersectsHomeAffordanceArea:?];
     [eventCopy sizeOfSelectedDisplayItem];
-    v269 = v17;
+    v268 = v17;
     preferredDisplayOrdinal = [v17 preferredDisplayOrdinal];
-    v275 = windowingConfiguration;
+    v274 = windowingConfiguration;
     if (preferredDisplayOrdinal == [(SBFlexibleWindowingWindowDragSwitcherModifier *)self displayOrdinal])
     {
       hasMultipleDisplays = 0;
@@ -875,18 +873,18 @@ LABEL_173:
       v48 = v15;
       v49 = eventCopy;
       v50 = [proposedAppLayout2 leafAppLayoutForItem:self->_selectedDisplayItem];
-      v307.receiver = self;
-      v307.super_class = SBFlexibleWindowingWindowDragSwitcherModifier;
-      [(SBFlexibleWindowingWindowDragSwitcherModifier *)&v307 windowControlsLayoutForLeafAppLayout:v50];
-      v51 = v296;
-      *&self->_currentWindowControlsLayout.style = v295;
+      v306.receiver = self;
+      v306.super_class = SBFlexibleWindowingWindowDragSwitcherModifier;
+      [(SBFlexibleWindowingWindowDragSwitcherModifier *)&v306 windowControlsLayoutForLeafAppLayout:v50];
+      v51 = v295;
+      *&self->_currentWindowControlsLayout.style = v294;
       self->_currentWindowControlsLayout.margin = v51;
 
       if ([(SBAppLayout *)self->_initialAppLayout containsItem:self->_selectedDisplayItem])
       {
         v52 = [(SBFlexibleWindowingWindowDragSwitcherModifier *)self maximizedCenteredAndUnoccludedDisplayItemsInAppLayout:self->_initialAppLayout ignoreOcclusion:0 ignoreCentering:1];
         p_selectedAppLayoutWasInitiallyFullScreen = &self->_selectedAppLayoutWasInitiallyFullScreen;
-        self->_selectedAppLayoutWasInitiallyFullScreen = [v52 containsObject:self->_selectedDisplayItem];
+        self->_selectedAppLayoutWasInitiallyFullScreen = objc_msgSend_containsObject_(v52);
       }
 
       else
@@ -913,7 +911,7 @@ LABEL_173:
       [eventCopy locationInSelectedDisplayItem];
       v59 = v58;
       v61 = v60;
-      v272 = v15;
+      v271 = v15;
       if (selfCopy->_dragBeganInOtherSwitcher)
       {
         width = p_sizeOfSelectedDisplayItem->width;
@@ -922,14 +920,14 @@ LABEL_173:
 
       else
       {
-        v306.receiver = selfCopy;
-        v306.super_class = SBFlexibleWindowingWindowDragSwitcherModifier;
-        [(SBFlexibleWindowingWindowDragSwitcherModifier *)&v306 frameForIndex:v57];
-        v64 = [v15 layoutRoleForItem:selfCopy->_selectedDisplayItem];
-        SBRectWithSize();
         v305.receiver = selfCopy;
         v305.super_class = SBFlexibleWindowingWindowDragSwitcherModifier;
-        [(SBFlexibleWindowingWindowDragSwitcherModifier *)&v305 frameForLayoutRole:v64 inAppLayout:v15 withBounds:?];
+        [(SBFlexibleWindowingWindowDragSwitcherModifier *)&v305 frameForIndex:v57];
+        v64 = [v15 layoutRoleForItem:selfCopy->_selectedDisplayItem];
+        SBRectWithSize();
+        v304.receiver = selfCopy;
+        v304.super_class = SBFlexibleWindowingWindowDragSwitcherModifier;
+        [(SBFlexibleWindowingWindowDragSwitcherModifier *)&v304 frameForLayoutRole:v64 inAppLayout:v15 withBounds:?];
         width = v65;
         height = v66;
         v67 = [(SBFlexibleWindowingWindowDragSwitcherModifier *)selfCopy layoutAttributesForDisplayItem:selfCopy->_selectedDisplayItem inAppLayout:v15];
@@ -954,7 +952,7 @@ LABEL_173:
 
         else
         {
-          [v275 slideOverBorderWidth];
+          [v274 slideOverBorderWidth];
           v73 = -v75 / width;
           v74 = (width + v75) / width;
         }
@@ -975,16 +973,16 @@ LABEL_173:
 
       v71->_initialAnchorPoint = *p_x;
       v76 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:2 updateMode:2];
-      v77 = SBAppendSwitcherModifierResponse(v76, v277);
+      v77 = SBAppendSwitcherModifierResponse();
 
       v78 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:8 updateMode:3];
-      v79 = SBAppendSwitcherModifierResponse(v78, v77);
+      v79 = SBAppendSwitcherModifierResponse();
 
       v80 = objc_alloc_init(SBDismissMenuBarSwitcherEventResponse);
-      v277 = SBAppendSwitcherModifierResponse(v80, v79);
+      v276 = SBAppendSwitcherModifierResponse();
 
       self = v71;
-      v15 = v272;
+      v15 = v271;
     }
 
     displayItemInSlideOver2 = [(SBFlexibleWindowingWindowDragSwitcherModifier *)self displayItemInSlideOver];
@@ -998,7 +996,7 @@ LABEL_173:
       v82 = 0;
     }
 
-    v5 = v277;
+    v5 = v276;
     v11 = &OBJC_IVAR___SBExternalDisplayCoverSheetController__screenOn;
     self->_layOutSlideOverItemFullyOffscreen = v82;
 
@@ -1050,13 +1048,13 @@ LABEL_53:
   }
 
 LABEL_56:
-  if (v280 == 3)
+  if (v279 == 3)
   {
     if (v92->_gestureWasCanceled)
     {
       proposedAppLayout4 = [SBSwitcherTransitionRequest requestForActivatingAppLayout:v92->_initialAppLayout];
       v95 = [[SBPerformTransitionSwitcherEventResponse alloc] initWithTransitionRequest:proposedAppLayout4 gestureInitiated:1];
-      v96 = SBAppendSwitcherModifierResponse(v95, v5);
+      v96 = SBAppendSwitcherModifierResponse();
 LABEL_113:
 
       v5 = v96;
@@ -1090,12 +1088,12 @@ LABEL_113:
 
         else
         {
-          v288[0] = MEMORY[0x277D85DD0];
-          v288[1] = 3221225472;
-          v288[2] = __68__SBFlexibleWindowingWindowDragSwitcherModifier_handleGestureEvent___block_invoke_2;
-          v288[3] = &unk_2783A8C90;
-          v288[4] = v125;
-          v171 = [proposedAppLayout4 appLayoutWithItemsPassingTest:v288];
+          v287[0] = MEMORY[0x277D85DD0];
+          v287[1] = 3221225472;
+          v287[2] = __68__SBFlexibleWindowingWindowDragSwitcherModifier_handleGestureEvent___block_invoke_2;
+          v287[3] = &unk_2783A8C90;
+          v287[4] = v125;
+          v171 = [proposedAppLayout4 appLayoutWithItemsPassingTest:v287];
 
           windowManagementContext = [(SBFlexibleWindowingWindowDragSwitcherModifier *)v125 windowManagementContext];
           if (([windowManagementContext isAutomaticStageCreationEnabled] & 1) == 0)
@@ -1103,7 +1101,7 @@ LABEL_113:
             v173 = [SBRemoveFromDesktopSwitcherEventResponse alloc];
             v174 = [MEMORY[0x277CBEB98] setWithObject:v125->_selectedDisplayItem];
             v175 = [(SBRemoveFromDesktopSwitcherEventResponse *)v173 initWithDisplayItems:v174];
-            v176 = SBAppendSwitcherModifierResponse(v175, v5);
+            v176 = SBAppendSwitcherModifierResponse();
             v177 = v5;
             v5 = v176;
           }
@@ -1121,32 +1119,32 @@ LABEL_113:
 LABEL_64:
     if ([proposedAppLayout4 containsItem:v92->_selectedDisplayItem])
     {
-      v274 = v99;
-      v276 = windowingConfiguration;
-      v279 = v5;
-      v281 = eventCopy;
+      v273 = v99;
+      v275 = windowingConfiguration;
+      v278 = v5;
+      v280 = eventCopy;
       v100 = proposedAppLayout4;
       [(SBSwitcherModifier *)v92 flexibleAutoLayoutSpaceForAppLayout:?];
+      v283 = 0u;
       v284 = 0u;
       v285 = 0u;
-      v286 = 0u;
-      v273 = v287 = 0u;
-      autoLayoutItems = [v273 autoLayoutItems];
-      v102 = [autoLayoutItems countByEnumeratingWithState:&v284 objects:v310 count:16];
+      v272 = v286 = 0u;
+      autoLayoutItems = [v272 autoLayoutItems];
+      v102 = [autoLayoutItems countByEnumeratingWithState:&v283 objects:v309 count:16];
       if (v102)
       {
         v103 = v102;
-        v104 = *v285;
+        v104 = *v284;
         do
         {
           for (i = 0; i != v103; ++i)
           {
-            if (*v285 != v104)
+            if (*v284 != v104)
             {
               objc_enumerationMutation(autoLayoutItems);
             }
 
-            v106 = *(*(&v284 + 1) + 8 * i);
+            v106 = *(*(&v283 + 1) + 8 * i);
             displayItem = [v106 displayItem];
             v108 = [(SBFlexibleWindowingWindowDragSwitcherModifier *)v92 layoutAttributesForDisplayItem:displayItem inAppLayout:proposedAppLayout4];
             if ([(SBDisplayItem *)displayItem isEqualToItem:?]&& [(SBHomeScreenConfigurationServer *)v108 connections]== 2)
@@ -1161,21 +1159,21 @@ LABEL_64:
               v112 = v111;
               v114 = v113;
               [(SBFlexibleWindowingWindowDragSwitcherModifier *)v92 containerViewBounds];
-              v118 = [(SBDisplayItemLayoutAttributes *)v112 normalizedPointForPoint:v114 inBounds:v115, v116, v117, v118];
+              v118 = [SBDisplayItemLayoutAttributes normalizedPointForPoint:v112 inBounds:v114, v115, v116, v117, v118];
               v110 = v119;
             }
 
             if (v118 != 1.79769313e308 || v110 != 1.79769313e308)
             {
               v121 = v108;
-              *&v297 = 0;
-              v295 = 0u;
-              v296 = 0;
+              *&v296 = 0;
+              v294 = 0u;
+              v295 = 0;
               [(SBDisplayItemLayoutAttributes *)v121 slideOverConfiguration];
+              v290 = v294;
               v291 = v295;
-              v292 = v296;
-              *&v293 = v297;
-              if ((SBDisplayItemSlideOverConfigurationIsValid(&v291) & 1) == 0)
+              *&v292 = v296;
+              if ((SBDisplayItemSlideOverConfigurationIsValid(&v290) & 1) == 0)
               {
                 v110 = [(SBDisplayItemLayoutAttributes *)v121 attributesByModifyingNormalizedCenter:v118, v110];
 
@@ -1189,22 +1187,22 @@ LABEL_64:
             }
           }
 
-          v103 = [autoLayoutItems countByEnumeratingWithState:&v284 objects:v310 count:16];
+          v103 = [autoLayoutItems countByEnumeratingWithState:&v283 objects:v309 count:16];
         }
 
         while (v103);
       }
 
-      v99 = v274;
-      if ((v274 & 1) == 0)
+      v99 = v273;
+      if ((v273 & 1) == 0)
       {
         proposedAppLayout4 = [(SBFlexibleWindowingWindowDragSwitcherModifier *)v92 appLayoutByBringingItemToFront:v92->_selectedDisplayItem inAppLayout:proposedAppLayout4];
       }
 
-      windowingConfiguration = v276;
-      v5 = v279;
+      windowingConfiguration = v275;
+      v5 = v278;
 
-      eventCopy = v281;
+      eventCopy = v280;
     }
 
     if (!proposedAppLayout4)
@@ -1248,17 +1246,17 @@ LABEL_64:
     }
 
     v5 = [[SBPerformTransitionSwitcherEventResponse alloc] initWithTransitionRequest:v95 gestureInitiated:1];
-    v96 = SBAppendSwitcherModifierResponse(v5, v131);
+    v96 = SBAppendSwitcherModifierResponse();
 
     [(SBFlexibleWindowingWindowDragSwitcherModifier *)v132 continuousExposeStripProgress];
-    v283.receiver = v132;
-    v283.super_class = SBFlexibleWindowingWindowDragSwitcherModifier;
-    [(SBFlexibleWindowingWindowDragSwitcherModifier *)&v283 continuousExposeStripProgress];
+    v282.receiver = v132;
+    v282.super_class = SBFlexibleWindowingWindowDragSwitcherModifier;
+    [(SBFlexibleWindowingWindowDragSwitcherModifier *)&v282 continuousExposeStripProgress];
     v136 = BSFloatEqualToFloat();
     if (proposedAppLayout4 && (v136 & 1) == 0 && ([proposedAppLayout4 containsItem:selfCopy->_selectedDisplayItem] & 1) == 0)
     {
       v137 = [[SBUpdateContinuousExposeStripsPresentationResponse alloc] initWithPresentationOptions:1 dismissalOptions:0];
-      v138 = SBAppendSwitcherModifierResponse(v137, v96);
+      v138 = SBAppendSwitcherModifierResponse();
 
       v96 = v138;
     }
@@ -1267,7 +1265,7 @@ LABEL_64:
     if (BSFloatGreaterThanFloat() && [(SBFlexibleWindowingWindowDragSwitcherModifier *)selfCopy _isStripStashed])
     {
       v139 = [[SBUpdateContinuousExposeStripsPresentationResponse alloc] initWithPresentationOptions:0 dismissalOptions:1];
-      SBAppendSwitcherModifierResponse(v139, v96);
+      SBAppendSwitcherModifierResponse();
       v141 = v140 = eventCopy;
 
       v96 = v141;
@@ -1340,7 +1338,7 @@ LABEL_114:
           [v23 setDisplayItemLayoutAttributesMap:v21];
           [v23 setSceneUpdatesOnly:1];
           v24 = [[SBPerformTransitionSwitcherEventResponse alloc] initWithTransitionRequest:v23 gestureInitiated:1];
-          v25 = SBAppendSwitcherModifierResponse(v24, v5);
+          v25 = SBAppendSwitcherModifierResponse();
 
           v5 = v25;
         }
@@ -1963,19 +1961,19 @@ LABEL_6:
 
 uint64_t __70__SBFlexibleWindowingWindowDragSwitcherModifier_topMostLayoutElements__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  if ([v3 switcherLayoutElementType] == 10)
+  v2 = a2;
+  if ([v2 switcherLayoutElementType] == 10)
   {
-    v4 = [v3 displayItems];
-    v5 = [v4 containsObject:*(*(a1 + 32) + 552)];
+    v3 = [v2 displayItems];
+    v4 = objc_msgSend_containsObject_(v3);
   }
 
   else
   {
-    v5 = 0;
+    v4 = 0;
   }
 
-  return v5;
+  return v4;
 }
 
 - (id)animationAttributesForLayoutElement:(id)element

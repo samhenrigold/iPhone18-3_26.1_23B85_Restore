@@ -400,10 +400,10 @@
   {
     v8 = objc_autoreleasePoolPush();
     v9 = objc_alloc_init(NSMutableDictionary);
-    v32 = [self maxExpressionDescriptionForProperty:@"futureProofing2" expressionName:@"futureProofing2"];
-    [v32 setExpressionResultType:700];
+    v33 = [self maxExpressionDescriptionForProperty:@"futureProofing2" expressionName:@"futureProofing2"];
+    [v33 setExpressionResultType:700];
     v10 = objc_alloc_init(NSFetchRequest);
-    v31 = [NSEntityDescription entityForName:@"AEAnnotation" inManagedObjectContext:contextCopy];
+    v32 = [NSEntityDescription entityForName:@"AEAnnotation" inManagedObjectContext:contextCopy];
     [v10 setEntity:?];
     [v10 setResultType:2];
     [v10 setReturnsDistinctResults:1];
@@ -414,36 +414,36 @@
     v12 = [NSArray arrayWithObjects:@"annotationAssetID", @"futureProofing2", 0];
     [v10 setPropertiesToFetch:v12];
 
-    v37 = 0;
-    v13 = [contextCopy executeFetchRequest:v10 error:&v37];
-    v14 = v37;
+    v38 = 0;
+    v13 = [contextCopy executeFetchRequest:v10 error:&v38];
+    v14 = v38;
     v15 = v14;
     if (v13)
     {
-      v30 = v14;
-      v35 = 0u;
+      v31 = v14;
       v36 = 0u;
-      v33 = 0u;
+      v37 = 0u;
       v34 = 0u;
+      v35 = 0u;
       v16 = v13;
-      v17 = [v16 countByEnumeratingWithState:&v33 objects:v44 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v34 objects:v45 count:16];
       if (v17)
       {
         v18 = v17;
-        v27 = v13;
-        v28 = v8;
-        v29 = predicateCopy;
-        v19 = *v34;
+        v28 = v13;
+        v29 = v8;
+        v30 = predicateCopy;
+        v19 = *v35;
         do
         {
           for (i = 0; i != v18; i = i + 1)
           {
-            if (*v34 != v19)
+            if (*v35 != v19)
             {
               objc_enumerationMutation(v16);
             }
 
-            v21 = *(*(&v33 + 1) + 8 * i);
+            v21 = *(*(&v34 + 1) + 8 * i);
             v22 = [v21 valueForKey:@"annotationAssetID"];
             if (v22)
             {
@@ -451,50 +451,50 @@
             }
           }
 
-          v18 = [v16 countByEnumeratingWithState:&v33 objects:v44 count:16];
+          v18 = [v16 countByEnumeratingWithState:&v34 objects:v45 count:16];
         }
 
         while (v18);
-        v8 = v28;
-        predicateCopy = v29;
-        v24 = v31;
-        v23 = v32;
-        v13 = v27;
+        v8 = v29;
+        predicateCopy = v30;
+        v24 = v32;
+        v23 = v33;
+        v13 = v28;
       }
 
       else
       {
-        v24 = v31;
-        v23 = v32;
+        v24 = v32;
+        v23 = v33;
       }
 
-      v15 = v30;
+      v15 = v31;
     }
 
     else
     {
-      v25 = BCIMLog();
+      v25 = BCIMLog(v14);
       if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
       {
         *buf = 136315650;
-        v39 = "+[AEAnnotation maxAnnotationVersionForAssetsWithPredicate:inManagedObjectContext:]";
-        v40 = 2080;
-        v41 = "/Library/Caches/com.apple.xbs/Sources/Alder/frameworks/BookCore/BookCore/AEAnnotation/AEAnnotation.m";
-        v42 = 1024;
-        v43 = 404;
+        v40 = "+[AEAnnotation maxAnnotationVersionForAssetsWithPredicate:inManagedObjectContext:]";
+        v41 = 2080;
+        v42 = "/Library/Caches/com.apple.xbs/Sources/Alder/frameworks/BookCore/BookCore/AEAnnotation/AEAnnotation.m";
+        v43 = 1024;
+        v44 = 404;
         _os_log_impl(&dword_0, v25, OS_LOG_TYPE_INFO, "%s %s:%d", buf, 0x1Cu);
       }
 
-      v16 = BCIMLog();
+      v16 = BCIMLog(v26);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v39 = v15;
+        v40 = v15;
         _os_log_impl(&dword_0, v16, OS_LOG_TYPE_INFO, "@Failed to fetch annotations {%@}", buf, 0xCu);
       }
 
-      v24 = v31;
-      v23 = v32;
+      v24 = v32;
+      v23 = v33;
     }
 
     objc_autoreleasePoolPop(v8);
@@ -1530,7 +1530,7 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  v18 = IMCommonCoreBundle();
+  v18 = IMCommonCoreBundle(v16);
   v19 = [v18 localizedStringForKey:@"\\U2026" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
 
   v20 = [v19 length];
@@ -1761,57 +1761,57 @@ LABEL_6:
     annotationSelectedTextRange = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  if (annotationSelectedTextRange == 0x7FFFFFFFFFFFFFFFLL || ![annotationRepresentativeText length])
+  if (annotationSelectedTextRange == 0x7FFFFFFFFFFFFFFFLL || (v8 = [annotationRepresentativeText length]) == 0)
   {
     annotationSelectedText = [annotationCopy annotationSelectedText];
     if ([annotationRepresentativeText length] && (objc_msgSend(annotationSelectedText, "isEqualToString:", annotationRepresentativeText) & 1) == 0 && objc_msgSend(annotationRepresentativeText, "ae_occurrenceCountOfString:", annotationSelectedText) == &dword_0 + 1)
     {
       annotationSelectedTextRange = [annotationRepresentativeText rangeOfString:annotationSelectedText];
-      v7 = v10;
-      v8 = 0;
+      v7 = v11;
+      v9 = 0;
     }
 
     else
     {
-      v8 = annotationSelectedText;
+      v9 = annotationSelectedText;
     }
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  if (annotationSelectedTextRange != 0x7FFFFFFFFFFFFFFFLL && !v8)
+  if (annotationSelectedTextRange != 0x7FFFFFFFFFFFFFFFLL && !v9)
   {
-    v11 = IMCommonCoreBundle();
-    v12 = [v11 localizedStringForKey:@"\\U2026" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+    v12 = IMCommonCoreBundle(v8);
+    v13 = [v12 localizedStringForKey:@"\\U2026" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
 
     [annotationRepresentativeText substringWithRange:{annotationSelectedTextRange, v7}];
-    v23 = 0;
-    v24 = &v23;
-    v25 = 0x3032000000;
-    v26 = sub_CD7AC;
-    v13 = v27 = sub_CD7BC;
-    v28 = v13;
-    v14 = [v13 length];
-    v17[0] = _NSConcreteStackBlock;
-    v17[1] = 3221225472;
-    v17[2] = sub_CDC10;
-    v17[3] = &unk_2CCBC8;
-    v21 = annotationSelectedTextRange;
-    v22 = v7;
-    v18 = annotationRepresentativeText;
-    v15 = v12;
-    v19 = v15;
-    v20 = &v23;
-    [v13 enumerateSubstringsInRange:0 options:v14 usingBlock:{4, v17}];
-    v8 = v24[5];
+    v24 = 0;
+    v25 = &v24;
+    v26 = 0x3032000000;
+    v27 = sub_CD7AC;
+    v14 = v28 = sub_CD7BC;
+    v29 = v14;
+    v15 = [v14 length];
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_CDC10;
+    v18[3] = &unk_2CCBC8;
+    v22 = annotationSelectedTextRange;
+    v23 = v7;
+    v19 = annotationRepresentativeText;
+    v16 = v13;
+    v20 = v16;
+    v21 = &v24;
+    [v14 enumerateSubstringsInRange:0 options:v15 usingBlock:{4, v18}];
+    v9 = v25[5];
 
-    _Block_object_dispose(&v23, 8);
+    _Block_object_dispose(&v24, 8);
   }
 
-  return v8;
+  return v9;
 }
 
 - (BOOL)validateForInsert:(id *)insert
@@ -1853,10 +1853,10 @@ LABEL_4:
     return 1;
   }
 
-  v9 = BCIMLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  v10 = BCIMLog(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    sub_1E9688(self, v9);
+    sub_1E9688(self, v10);
   }
 
   if (!consistency)
@@ -1864,10 +1864,10 @@ LABEL_4:
     return 0;
   }
 
-  v10 = [NSError errorWithDomain:@"AEAnnotationErrorDomain" code:1000 userInfo:0];
-  v11 = v10;
+  v11 = [NSError errorWithDomain:@"AEAnnotationErrorDomain" code:1000 userInfo:0];
+  v12 = v11;
   result = 0;
-  *consistency = v10;
+  *consistency = v11;
   return result;
 }
 
@@ -1939,112 +1939,113 @@ LABEL_4:
   v14 = v13;
 
   v15 = [objc_opt_class() annotationAssetIDFromDictionaryRepresentation:serverAnnotationCopy];
+  v16 = v15;
   if (unsignedLongLongValue < v14)
   {
-    v16 = BKMobileCloudSyncAnnotationsLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    v17 = BKMobileCloudSyncAnnotationsLog(v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
-      v29 = 138413058;
-      v30 = v15;
-      v31 = 1024;
-      *v32 = v14;
-      *&v32[4] = 1024;
-      *&v32[6] = unsignedLongLongValue;
-      LOWORD(v33) = 1024;
-      *(&v33 + 2) = v14 - unsignedLongLongValue;
-      _os_log_impl(&dword_0, v16, OS_LOG_TYPE_INFO, "MZBookKeeper annotation merge assetID=%@ Client: %d; Server: %d; (%d) client > server, not merging", &v29, 0x1Eu);
+      v33 = 138413058;
+      v34 = v16;
+      v35 = 1024;
+      *v36 = v14;
+      *&v36[4] = 1024;
+      *&v36[6] = unsignedLongLongValue;
+      LOWORD(v37) = 1024;
+      *(&v37 + 2) = v14 - unsignedLongLongValue;
+      _os_log_impl(&dword_0, v17, OS_LOG_TYPE_INFO, "MZBookKeeper annotation merge assetID=%@ Client: %d; Server: %d; (%d) client > server, not merging", &v33, 0x1Eu);
     }
 
     goto LABEL_23;
   }
 
-  v17 = BKMobileCloudSyncAnnotationsLog();
-  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_INFO);
+  v18 = BKMobileCloudSyncAnnotationsLog(v15);
+  v19 = os_log_type_enabled(v18, OS_LOG_TYPE_INFO);
   if (unsignedLongLongValue == v14)
   {
-    if (v18)
+    if (v19)
     {
-      v29 = 138413058;
-      v30 = v15;
-      v31 = 1024;
-      *v32 = unsignedLongLongValue;
-      *&v32[4] = 1024;
-      *&v32[6] = unsignedLongLongValue;
-      LOWORD(v33) = 1024;
-      *(&v33 + 2) = 0;
-      _os_log_impl(&dword_0, v17, OS_LOG_TYPE_INFO, "MZBookKeeper annotation merge assetID=%@ Client: %d; Server: %d; (%d) client == server, not merging", &v29, 0x1Eu);
+      v33 = 138413058;
+      v34 = v16;
+      v35 = 1024;
+      *v36 = unsignedLongLongValue;
+      *&v36[4] = 1024;
+      *&v36[6] = unsignedLongLongValue;
+      LOWORD(v37) = 1024;
+      *(&v37 + 2) = 0;
+      _os_log_impl(&dword_0, v18, OS_LOG_TYPE_INFO, "MZBookKeeper annotation merge assetID=%@ Client: %d; Server: %d; (%d) client == server, not merging", &v33, 0x1Eu);
     }
 
     goto LABEL_23;
   }
 
-  if (v18)
+  if (v19)
   {
-    v29 = 138413058;
-    v30 = v15;
-    v31 = 1024;
-    *v32 = v14;
-    *&v32[4] = 1024;
-    *&v32[6] = unsignedLongLongValue;
-    LOWORD(v33) = 1024;
-    *(&v33 + 2) = v14 - unsignedLongLongValue;
-    _os_log_impl(&dword_0, v17, OS_LOG_TYPE_INFO, "MZBookKeeper annotation merge assetID=%@ Client: %d; Server: %d; (%d) ... MERGING ANNOTATION", &v29, 0x1Eu);
+    v33 = 138413058;
+    v34 = v16;
+    v35 = 1024;
+    *v36 = v14;
+    *&v36[4] = 1024;
+    *&v36[6] = unsignedLongLongValue;
+    LOWORD(v37) = 1024;
+    *(&v37 + 2) = v14 - unsignedLongLongValue;
+    _os_log_impl(&dword_0, v18, OS_LOG_TYPE_INFO, "MZBookKeeper annotation merge assetID=%@ Client: %d; Server: %d; (%d) ... MERGING ANNOTATION", &v33, 0x1Eu);
   }
 
   if (!annotationCopy)
   {
-    v19 = [objc_opt_class() annotationCreatorIdentifierFromDictionaryRepresentation:serverAnnotationCopy];
+    v21 = [objc_opt_class() annotationCreatorIdentifierFromDictionaryRepresentation:serverAnnotationCopy];
     annotationUuid2 = [objc_opt_class() annotationAssetIDFromDictionaryRepresentation:serverAnnotationCopy];
-    annotationCopy = [AEAnnotation insertAnnotationWithAssetID:annotationUuid2 creatorIdentifier:v19 annotationUuid:0 intoManagedObjectContext:mocCopy];
-    v21 = BKMobileCloudSyncAnnotationsLog();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    annotationCopy = [AEAnnotation insertAnnotationWithAssetID:annotationUuid2 creatorIdentifier:v21 annotationUuid:0 intoManagedObjectContext:mocCopy];
+    v23 = BKMobileCloudSyncAnnotationsLog(annotationCopy);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
       annotationUuid = [annotationCopy annotationUuid];
-      v29 = 138412546;
-      v30 = annotationUuid2;
-      v31 = 2112;
-      *v32 = annotationUuid;
-      _os_log_impl(&dword_0, v21, OS_LOG_TYPE_INFO, "MZBookKeeper annotation merge assetID=%@ Creating new Annotation: %@", &v29, 0x16u);
+      v33 = 138412546;
+      v34 = annotationUuid2;
+      v35 = 2112;
+      *v36 = annotationUuid;
+      _os_log_impl(&dword_0, v23, OS_LOG_TYPE_INFO, "MZBookKeeper annotation merge assetID=%@ Creating new Annotation: %@", &v33, 0x16u);
     }
 
     goto LABEL_17;
   }
 
-  v19 = BKMobileCloudSyncAnnotationsLog();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+  v21 = BKMobileCloudSyncAnnotationsLog(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
   {
     annotationUuid2 = [annotationCopy annotationUuid];
-    v29 = 138412546;
-    v30 = v15;
-    v31 = 2112;
-    *v32 = annotationUuid2;
-    _os_log_impl(&dword_0, v19, OS_LOG_TYPE_INFO, "MZBookKeeper annotation merge assetID=%@ Updating existing Annotation: %@", &v29, 0x16u);
+    v33 = 138412546;
+    v34 = v16;
+    v35 = 2112;
+    *v36 = annotationUuid2;
+    _os_log_impl(&dword_0, v21, OS_LOG_TYPE_INFO, "MZBookKeeper annotation merge assetID=%@ Updating existing Annotation: %@", &v33, 0x16u);
 LABEL_17:
   }
 
-  v23 = BKMobileCloudSyncAnnotationsLog();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+  v26 = BKMobileCloudSyncAnnotationsLog(v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
   {
     redactedAnnotationLocation = [annotationCopy redactedAnnotationLocation];
     plUserData = [annotationCopy plUserData];
-    v26 = [plUserData description];
-    v29 = 138412802;
-    v30 = v15;
-    v31 = 2114;
-    *v32 = redactedAnnotationLocation;
-    *&v32[8] = 2114;
-    v33 = v26;
-    _os_log_impl(&dword_0, v23, OS_LOG_TYPE_INFO, "MZBookKeeper annotation merge assetID=%@ annotation.annotationLocation=%{public}@ annotation.plUserData=%{public}@", &v29, 0x20u);
+    v29 = [plUserData description];
+    v33 = 138412802;
+    v34 = v16;
+    v35 = 2114;
+    *v36 = redactedAnnotationLocation;
+    *&v36[8] = 2114;
+    v37 = v29;
+    _os_log_impl(&dword_0, v26, OS_LOG_TYPE_INFO, "MZBookKeeper annotation merge assetID=%@ annotation.annotationLocation=%{public}@ annotation.plUserData=%{public}@", &v33, 0x20u);
   }
 
-  v27 = BKMobileCloudSyncAnnotationsLog();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+  v31 = BKMobileCloudSyncAnnotationsLog(v30);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
   {
-    v29 = 138412546;
-    v30 = v15;
-    v31 = 2114;
-    *v32 = serverAnnotationCopy;
-    _os_log_impl(&dword_0, v27, OS_LOG_TYPE_INFO, "MZBookKeeper annotation merge assetID=%@ dictionary=%{public}@", &v29, 0x16u);
+    v33 = 138412546;
+    v34 = v16;
+    v35 = 2114;
+    *v36 = serverAnnotationCopy;
+    _os_log_impl(&dword_0, v31, OS_LOG_TYPE_INFO, "MZBookKeeper annotation merge assetID=%@ dictionary=%{public}@", &v33, 0x16u);
   }
 
   [annotationCopy deserializeFromDictionary:serverAnnotationCopy trustedSource:0];
@@ -2058,122 +2059,123 @@ LABEL_23:
   annotationsCopy = annotations;
   dCopy = d;
   mocCopy = moc;
-  v9 = BKMobileCloudSyncAnnotationsLog();
-  v33 = dCopy;
+  v9 = BKMobileCloudSyncAnnotationsLog(mocCopy);
+  v34 = dCopy;
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [annotationsCopy count]);
     *buf = 138412546;
-    v46 = v33;
-    v47 = 2112;
-    v48 = v10;
+    v47 = v34;
+    v48 = 2112;
+    v49 = v10;
     _os_log_impl(&dword_0, v9, OS_LOG_TYPE_INFO, "MZBookKeeper annotation merge assetID=%@ Merging {%@} serverAnnotations", buf, 0x16u);
 
-    dCopy = v33;
+    dCopy = v34;
   }
 
   v11 = [[NSMutableDictionary alloc] initWithCapacity:{objc_msgSend(annotationsCopy, "count")}];
   [AEAnnotation annotationsForAssetID:dCopy includingDeleted:1 inManagedObjectContext:mocCopy];
-  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  obj = v44 = 0u;
-  v12 = [obj countByEnumeratingWithState:&v41 objects:v52 count:16];
+  v44 = 0u;
+  obj = v45 = 0u;
+  v12 = [obj countByEnumeratingWithState:&v42 objects:v53 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v42;
+    v14 = *v43;
     do
     {
       for (i = 0; i != v13; i = i + 1)
       {
-        if (*v42 != v14)
+        if (*v43 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v41 + 1) + 8 * i);
+        v16 = *(*(&v42 + 1) + 8 * i);
         annotationUuid = [v16 annotationUuid];
         [v11 setObject:v16 forKey:annotationUuid];
       }
 
-      v13 = [obj countByEnumeratingWithState:&v41 objects:v52 count:16];
+      v13 = [obj countByEnumeratingWithState:&v42 objects:v53 count:16];
     }
 
     while (v13);
   }
 
-  v39 = 0u;
   v40 = 0u;
-  v37 = 0u;
+  v41 = 0u;
   v38 = 0u;
-  v34 = annotationsCopy;
-  v18 = [v34 countByEnumeratingWithState:&v37 objects:v51 count:16];
+  v39 = 0u;
+  v35 = annotationsCopy;
+  v18 = [v35 countByEnumeratingWithState:&v38 objects:v52 count:16];
   if (v18)
   {
     v20 = v18;
     v21 = 0;
-    v22 = *v38;
+    v22 = *v39;
     *&v19 = 138412802;
-    v32 = v19;
+    v33 = v19;
     do
     {
       for (j = 0; j != v20; j = j + 1)
       {
-        if (*v38 != v22)
+        if (*v39 != v22)
         {
-          objc_enumerationMutation(v34);
+          objc_enumerationMutation(v35);
         }
 
-        v24 = *(*(&v37 + 1) + 8 * j);
-        if ([AEAnnotation isValidForDeserialization:v24, v32])
+        v24 = *(*(&v38 + 1) + 8 * j);
+        v25 = [AEAnnotation isValidForDeserialization:v24, v33];
+        if (v25)
         {
-          v25 = [objc_opt_class() annotationTypeFromDictionaryRepresentation:v24];
-          v26 = objc_opt_class();
-          if (v25 == 3)
+          v26 = [objc_opt_class() annotationTypeFromDictionaryRepresentation:v24];
+          v27 = objc_opt_class();
+          if (v26 == 3)
           {
-            v27 = [v26 globalAnnotationForAssetID:dCopy inManagedObjectContext:mocCopy];
-            v28 = BKMobileCloudSyncAnnotationsLog();
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+            v28 = [v27 globalAnnotationForAssetID:dCopy inManagedObjectContext:mocCopy];
+            v29 = BKMobileCloudSyncAnnotationsLog(v28);
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
             {
-              v29 = [objc_opt_class() annotationUuidFromDictionaryRepresentation:v24];
-              annotationUuid2 = [v27 annotationUuid];
-              *buf = v32;
-              v46 = v33;
-              v47 = 2112;
-              v48 = v29;
-              v49 = 2112;
-              v50 = annotationUuid2;
-              _os_log_impl(&dword_0, v28, OS_LOG_TYPE_INFO, "MZBookKeeper annotation merge assetID=%@ Found Global Annotation -- Server: %@\nLocal: %@", buf, 0x20u);
+              v30 = [objc_opt_class() annotationUuidFromDictionaryRepresentation:v24];
+              annotationUuid2 = [v28 annotationUuid];
+              *buf = v33;
+              v47 = v34;
+              v48 = 2112;
+              v49 = v30;
+              v50 = 2112;
+              v51 = annotationUuid2;
+              _os_log_impl(&dword_0, v29, OS_LOG_TYPE_INFO, "MZBookKeeper annotation merge assetID=%@ Found Global Annotation -- Server: %@\nLocal: %@", buf, 0x20u);
 
-              dCopy = v33;
+              dCopy = v34;
             }
           }
 
           else
           {
-            v28 = [v26 annotationUuidFromDictionaryRepresentation:v24];
-            v27 = [v11 objectForKey:v28];
+            v29 = [v27 annotationUuidFromDictionaryRepresentation:v24];
+            v28 = [v11 objectForKey:v29];
           }
 
-          v21 |= [AEAnnotation mergeAnnotation:v27 withServerAnnotation:v24 moc:mocCopy];
+          v21 |= [AEAnnotation mergeAnnotation:v28 withServerAnnotation:v24 moc:mocCopy];
         }
 
         else
         {
-          v27 = BKMobileCloudSyncAnnotationsLog();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+          v28 = BKMobileCloudSyncAnnotationsLog(v25);
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
           {
             *buf = 138412546;
-            v46 = dCopy;
-            v47 = 2112;
-            v48 = v24;
-            _os_log_impl(&dword_0, v27, OS_LOG_TYPE_INFO, "MZBookKeeper annotation merge assetID=%@ Annotation not valid for deserialization: %@", buf, 0x16u);
+            v47 = dCopy;
+            v48 = 2112;
+            v49 = v24;
+            _os_log_impl(&dword_0, v28, OS_LOG_TYPE_INFO, "MZBookKeeper annotation merge assetID=%@ Annotation not valid for deserialization: %@", buf, 0x16u);
           }
         }
       }
 
-      v20 = [v34 countByEnumeratingWithState:&v37 objects:v51 count:16];
+      v20 = [v35 countByEnumeratingWithState:&v38 objects:v52 count:16];
     }
 
     while (v20);
@@ -2759,25 +2761,26 @@ LABEL_23:
   [annotationModificationDate timeIntervalSince1970];
   v5 = v4;
 
-  if ([IMUserDataCull isTimestampNewerThanMaxDeletedAge:v5])
+  v6 = [IMUserDataCull isTimestampNewerThanMaxDeletedAge:v5];
+  if (v6)
   {
     return 1;
   }
 
-  v7 = BCIMLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v8 = BCIMLog(v6);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     annotationAssetID = [(AEAnnotation *)self annotationAssetID];
     annotationUuid = [(AEAnnotation *)self annotationUuid];
-    v10 = +[NSDate date];
-    [v10 timeIntervalSince1970];
-    v12 = 138412802;
-    v13 = annotationAssetID;
-    v14 = 2112;
-    v15 = annotationUuid;
-    v16 = 2048;
-    v17 = ((v11 - v5) / 86400.0);
-    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "MZBookKeeper isValidForSerialization assetID=%@ [%@] [Deleted %llu days ago]", &v12, 0x20u);
+    v11 = +[NSDate date];
+    [v11 timeIntervalSince1970];
+    v13 = 138412802;
+    v14 = annotationAssetID;
+    v15 = 2112;
+    v16 = annotationUuid;
+    v17 = 2048;
+    v18 = ((v12 - v5) / 86400.0);
+    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "MZBookKeeper isValidForSerialization assetID=%@ [%@] [Deleted %llu days ago]", &v13, 0x20u);
   }
 
   return 0;
@@ -3004,36 +3007,36 @@ LABEL_45:
   if (![v5 BOOLValue])
   {
     objc_opt_class();
-    v14 = [deserializationCopy objectForKeyedSubscript:@"locationBPlist"];
-    v15 = BUDynamicCast();
-    if (![v15 length])
+    v15 = [deserializationCopy objectForKeyedSubscript:@"locationBPlist"];
+    v16 = BUDynamicCast();
+    if (![v16 length])
     {
       objc_opt_class();
-      v16 = [deserializationCopy objectForKeyedSubscript:@"plUserData"];
-      v17 = BUDynamicCast();
-      if (![v17 length])
+      v17 = [deserializationCopy objectForKeyedSubscript:@"plUserData"];
+      v18 = BUDynamicCast();
+      if (![v18 length])
       {
         objc_opt_class();
-        v18 = [deserializationCopy objectForKeyedSubscript:@"annotationLocation"];
-        v19 = BUDynamicCast();
-        if (![v19 length])
+        v19 = [deserializationCopy objectForKeyedSubscript:@"annotationLocation"];
+        v20 = BUDynamicCast();
+        if (![v20 length])
         {
-          v21 = [self deletedFlagFromDictionaryRepresentation:deserializationCopy];
-          bOOLValue = [v21 BOOLValue];
+          v22 = [self deletedFlagFromDictionaryRepresentation:deserializationCopy];
+          bOOLValue = [v22 BOOLValue];
 
           if ((bOOLValue & 1) == 0)
           {
-            v8 = BCIMLog();
-            if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+            v9 = BCIMLog(v23);
+            if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
             {
-              sub_1ED128(self, deserializationCopy, v8);
+              sub_1ED128(self, deserializationCopy, v9);
             }
 
             goto LABEL_5;
           }
 
 LABEL_12:
-          v13 = 1;
+          v14 = 1;
           goto LABEL_13;
         }
       }
@@ -3045,33 +3048,34 @@ LABEL_12:
   v6 = [self lastModificationFromDictionaryRepresentation:deserializationCopy];
   unsignedLongLongValue = [v6 unsignedLongLongValue];
 
-  if ([IMUserDataCull isTimestampNewerThanMaxDeletedAge:unsignedLongLongValue])
+  v8 = [IMUserDataCull isTimestampNewerThanMaxDeletedAge:unsignedLongLongValue];
+  if (v8)
   {
     goto LABEL_12;
   }
 
-  v8 = BKMobileCloudSyncAnnotationsLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = BKMobileCloudSyncAnnotationsLog(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v9 = [objc_opt_class() annotationAssetIDFromDictionaryRepresentation:deserializationCopy];
-    v10 = [objc_opt_class() annotationUuidFromDictionaryRepresentation:deserializationCopy];
-    v11 = +[NSDate date];
-    [v11 timeIntervalSince1970];
+    v10 = [objc_opt_class() annotationAssetIDFromDictionaryRepresentation:deserializationCopy];
+    v11 = [objc_opt_class() annotationUuidFromDictionaryRepresentation:deserializationCopy];
+    v12 = +[NSDate date];
+    [v12 timeIntervalSince1970];
     *buf = 138412802;
-    v24 = v9;
-    v25 = 2112;
     v26 = v10;
-    v27 = 2048;
-    v28 = ((v12 - unsignedLongLongValue) / 86400.0);
-    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "MZBookKeeper annotation merge assetID=%@ [%@] [Deleted %llu days ago]", buf, 0x20u);
+    v27 = 2112;
+    v28 = v11;
+    v29 = 2048;
+    v30 = ((v13 - unsignedLongLongValue) / 86400.0);
+    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_INFO, "MZBookKeeper annotation merge assetID=%@ [%@] [Deleted %llu days ago]", buf, 0x20u);
   }
 
 LABEL_5:
 
-  v13 = 0;
+  v14 = 0;
 LABEL_13:
 
-  return v13;
+  return v14;
 }
 
 - (id)iBooks_dictionaryRepresentation

@@ -76,7 +76,6 @@
   }
 
   self->_isActive = active;
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)setProperty:(id)property forKey:(id)key
@@ -190,7 +189,6 @@
     selfCopy->_proxReleaseTime = v3;
   }
 
-  *MEMORY[0x1E69E9840];
   return eventCopy;
 }
 
@@ -258,8 +256,6 @@
       objc_autoreleasePoolPop(context);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 @end

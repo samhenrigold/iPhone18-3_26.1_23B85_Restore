@@ -4,6 +4,7 @@
 - (BRCBasehashSaltInfo)initWithRecord:(id)record;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
+- (id)initFromResultSet:(id)set pos:(int)pos;
 @end
 
 @implementation BRCBasehashSaltInfo
@@ -61,6 +62,30 @@
   v4 = [objc_opt_class() allocWithZone:zone];
 
   return [v4 initWithBasehashSaltInfo:self];
+}
+
+- (id)initFromResultSet:(id)set pos:(int)pos
+{
+  v4 = *&pos;
+  setCopy = set;
+  v14.receiver = self;
+  v14.super_class = BRCBasehashSaltInfo;
+  v7 = [(BRCBasehashSaltInfo *)&v14 init];
+  if (v7)
+  {
+    v8 = [setCopy objectOfClass:objc_opt_class() atIndex:v4];
+    childBasehashSalt = v7->_childBasehashSalt;
+    v7->_childBasehashSalt = v8;
+
+    v10 = [setCopy numberAtIndex:(v4 + 1)];
+    v7->_saltingState = [v10 intValue];
+
+    v11 = [setCopy objectOfClass:objc_opt_class() atIndex:(v4 + 2)];
+    basehashSaltValidation = v7->_basehashSaltValidation;
+    v7->_basehashSaltValidation = v11;
+  }
+
+  return v7;
 }
 
 - (BRCBasehashSaltInfo)initWithRecord:(id)record

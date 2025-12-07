@@ -18,8 +18,8 @@
 
 - (void)present:(NSData *)present completionHandler:(id)handler
 {
-  v7 = (*(*(sub_100004054(&qword_10001DB90, &qword_100011D00) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v7 = sub_100004054(&qword_10001DB90, &qword_100011D00);
+  __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
   v11 = swift_allocObject();
@@ -45,8 +45,8 @@
 
 - (void)deletePassEntry:(NSData *)entry completionHandler:(id)handler
 {
-  v7 = (*(*(sub_100004054(&qword_10001DB90, &qword_100011D00) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v7 = sub_100004054(&qword_10001DB90, &qword_100011D00);
+  __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
   v11 = swift_allocObject();
@@ -72,8 +72,8 @@
 
 - (void)deleteSecureElementCredentials:(NSData *)credentials completionHandler:(id)handler
 {
-  v7 = (*(*(sub_100004054(&qword_10001DB90, &qword_100011D00) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v7 = sub_100004054(&qword_10001DB90, &qword_100011D00);
+  __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
   v11 = swift_allocObject();
@@ -99,8 +99,8 @@
 
 - (void)offloadMuirfieldWithCompletionHandler:(id)handler
 {
-  v5 = (*(*(sub_100004054(&qword_10001DB90, &qword_100011D00) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v5 = sub_100004054(&qword_10001DB90, &qword_100011D00);
+  __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
   v9 = swift_allocObject();
@@ -124,8 +124,8 @@
 
 - (void)dismiss:(NSData *)dismiss completionHandler:(id)handler
 {
-  v7 = (*(*(sub_100004054(&qword_10001DB90, &qword_100011D00) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v7 = sub_100004054(&qword_10001DB90, &qword_100011D00);
+  __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
   v11 = swift_allocObject();

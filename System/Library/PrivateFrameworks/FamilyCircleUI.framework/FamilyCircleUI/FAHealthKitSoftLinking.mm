@@ -187,19 +187,20 @@ uint64_t __42__FAHealthKitSoftLinking_dismissMedicalID__block_invoke(uint64_t a1
 void __42__FAHealthKitSoftLinking_dismissMedicalID__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   v3 = a3;
+  v4 = v3;
   if (v3)
   {
-    v4 = _FALogSystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _FALogSystem(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __42__FAHealthKitSoftLinking_dismissMedicalID__block_invoke_2_cold_1(v3, v4);
+      __42__FAHealthKitSoftLinking_dismissMedicalID__block_invoke_2_cold_1(v4, v5);
     }
   }
 
   else
   {
-    v4 = [MEMORY[0x277CCAB98] defaultCenter];
-    [v4 postNotificationName:*MEMORY[0x277D08118] object:0];
+    v5 = [MEMORY[0x277CCAB98] defaultCenter];
+    [v5 postNotificationName:*MEMORY[0x277D08118] object:0];
   }
 }
 
@@ -208,59 +209,60 @@ void __42__FAHealthKitSoftLinking_dismissMedicalID__block_invoke_2(uint64_t a1, 
   dataCopy = data;
   handlerCopy = handler;
   objc_storeStrong(&self->_familyCircle, data);
-  v38[0] = 0;
-  v38[1] = v38;
-  v38[2] = 0x3032000000;
-  v38[3] = __Block_byref_object_copy__0;
-  v38[4] = __Block_byref_object_dispose__0;
-  v39 = 0;
+  v39[0] = 0;
+  v39[1] = v39;
+  v39[2] = 0x3032000000;
+  v39[3] = __Block_byref_object_copy__0;
+  v39[4] = __Block_byref_object_dispose__0;
+  v40 = 0;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x2020000000;
+  v38 = 0;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy__0;
+  v33 = __Block_byref_object_dispose__0;
   v34 = 0;
-  v35 = &v34;
-  v36 = 0x2020000000;
-  v37 = 0;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3032000000;
-  v31 = __Block_byref_object_copy__0;
-  v32 = __Block_byref_object_dispose__0;
-  v33 = 0;
   v9 = dispatch_group_create();
   dispatch_group_enter(v9);
   medicalIDStore = self->_medicalIDStore;
-  v18 = MEMORY[0x277D85DD0];
-  v19 = 3221225472;
-  v20 = __63__FAHealthKitSoftLinking_fetchMedicalIDData_completionHandler___block_invoke;
-  v21 = &unk_2782F30D0;
-  v25 = v38;
+  v19 = MEMORY[0x277D85DD0];
+  v20 = 3221225472;
+  v21 = __63__FAHealthKitSoftLinking_fetchMedicalIDData_completionHandler___block_invoke;
+  v22 = &unk_2782F30D0;
+  v26 = v39;
   selfCopy = self;
   v11 = dataCopy;
-  v23 = v11;
-  v26 = &v34;
-  v27 = &v28;
+  v24 = v11;
+  v27 = &v35;
+  v28 = &v29;
   v12 = v9;
-  v24 = v12;
-  [(HKMedicalIDStore *)medicalIDStore fetchMedicalIDDataWithCompletion:&v18];
+  v25 = v12;
+  [(HKMedicalIDStore *)medicalIDStore fetchMedicalIDDataWithCompletion:&v19];
   v13 = dispatch_time(0, 1000000000);
-  if (dispatch_group_wait(v12, v13))
+  v14 = dispatch_group_wait(v12, v13);
+  if (v14)
   {
-    v14 = _FALogSystem();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = _FALogSystem(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [FAHealthKitSoftLinking fetchMedicalIDData:v14 completionHandler:?];
+      [FAHealthKitSoftLinking fetchMedicalIDData:v15 completionHandler:?];
     }
 
-    v35[3] = 0;
-    v15 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v16 = [v15 initWithDomain:@"com.apple.FAHealthKitSoftLinking" code:-1001 userInfo:{&unk_282DC0718, v18, v19, v20, v21, selfCopy, v23}];
-    v17 = v29[5];
-    v29[5] = v16;
+    v36[3] = 0;
+    v16 = objc_alloc(MEMORY[0x277CCA9B8]);
+    v17 = [v16 initWithDomain:@"com.apple.FAHealthKitSoftLinking" code:-1001 userInfo:{&unk_282DC0718, v19, v20, v21, v22, selfCopy, v24}];
+    v18 = v30[5];
+    v30[5] = v17;
   }
 
-  handlerCopy[2](handlerCopy, v35[3], v29[5]);
+  handlerCopy[2](handlerCopy, v36[3], v30[5]);
 
-  _Block_object_dispose(&v28, 8);
-  _Block_object_dispose(&v34, 8);
-  _Block_object_dispose(v38, 8);
+  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(v39, 8);
 }
 
 void __63__FAHealthKitSoftLinking_fetchMedicalIDData_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -269,119 +271,124 @@ void __63__FAHealthKitSoftLinking_fetchMedicalIDData_completionHandler___block_i
   v6 = a2;
   v7 = a3;
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v35 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  if (v6 && ([v6 isEmpty] & 1) == 0)
+  v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v35 = v9;
+  if (v6)
   {
-    v33 = v7;
-    objc_storeStrong((*(*(a1 + 56) + 8) + 40), a2);
-    objc_storeStrong((*(a1 + 32) + 24), a2);
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
-    v41 = 0u;
-    v34 = v6;
-    v10 = [v6 emergencyContacts];
-    v11 = [v10 countByEnumeratingWithState:&v40 objects:v45 count:16];
-    if (!v11)
+    v9 = [v6 isEmpty];
+    if ((v9 & 1) == 0)
     {
-      goto LABEL_18;
-    }
-
-    v12 = v11;
-    v13 = *v41;
-    while (1)
-    {
-      for (i = 0; i != v12; ++i)
-      {
-        if (*v41 != v13)
-        {
-          objc_enumerationMutation(v10);
-        }
-
-        v15 = *(*(&v40 + 1) + 8 * i);
-        v16 = [v15 nameContactIdentifier];
-        if ([v16 length])
-        {
-          v17 = [v15 name];
-          v18 = [v17 length];
-
-          if (!v18)
-          {
-            continue;
-          }
-
-          v19 = [v15 nameContactIdentifier];
-          [v8 addObject:v19];
-
-          v16 = [v15 name];
-          [v35 addObject:v16];
-        }
-      }
-
-      v12 = [v10 countByEnumeratingWithState:&v40 objects:v45 count:16];
+      v33 = v7;
+      objc_storeStrong((*(*(a1 + 56) + 8) + 40), a2);
+      objc_storeStrong((*(a1 + 32) + 24), a2);
+      v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
+      v34 = v6;
+      v11 = [v6 emergencyContacts];
+      v12 = [v11 countByEnumeratingWithState:&v40 objects:v45 count:16];
       if (!v12)
       {
-LABEL_18:
+        goto LABEL_18;
+      }
 
-        v38 = 0u;
-        v39 = 0u;
-        v36 = 0u;
-        v37 = 0u;
-        v32 = a1;
-        v20 = [*(a1 + 40) members];
-        v21 = [v20 countByEnumeratingWithState:&v36 objects:v44 count:16];
-        if (!v21)
+      v13 = v12;
+      v14 = *v41;
+      while (1)
+      {
+        for (i = 0; i != v13; ++i)
         {
-          v23 = 0;
-          goto LABEL_32;
-        }
-
-        v22 = v21;
-        v23 = 0;
-        v24 = *v37;
-        while (1)
-        {
-          for (j = 0; j != v22; ++j)
+          if (*v41 != v14)
           {
-            if (*v37 != v24)
-            {
-              objc_enumerationMutation(v20);
-            }
-
-            v26 = *(*(&v36 + 1) + 8 * j);
-            if (([v26 isMe] & 1) == 0)
-            {
-              v27 = [v26 contact];
-              v28 = [v27 identifier];
-              if ([v8 containsObject:v28])
-              {
-              }
-
-              else
-              {
-                v29 = [v26 fullName];
-                v30 = [v35 containsObject:v29];
-
-                if (!v30)
-                {
-                  continue;
-                }
-              }
-
-              ++v23;
-            }
+            objc_enumerationMutation(v11);
           }
 
-          v22 = [v20 countByEnumeratingWithState:&v36 objects:v44 count:16];
+          v16 = *(*(&v40 + 1) + 8 * i);
+          v17 = [v16 nameContactIdentifier];
+          if ([v17 length])
+          {
+            v18 = [v16 name];
+            v19 = [v18 length];
+
+            if (!v19)
+            {
+              continue;
+            }
+
+            v20 = [v16 nameContactIdentifier];
+            [v8 addObject:v20];
+
+            v17 = [v16 name];
+            [v35 addObject:v17];
+          }
+        }
+
+        v13 = [v11 countByEnumeratingWithState:&v40 objects:v45 count:16];
+        if (!v13)
+        {
+LABEL_18:
+
+          v38 = 0u;
+          v39 = 0u;
+          v36 = 0u;
+          v37 = 0u;
+          v32 = a1;
+          v21 = [*(a1 + 40) members];
+          v22 = [v21 countByEnumeratingWithState:&v36 objects:v44 count:16];
           if (!v22)
           {
+            v24 = 0;
+            goto LABEL_32;
+          }
+
+          v23 = v22;
+          v24 = 0;
+          v25 = *v37;
+          while (1)
+          {
+            for (j = 0; j != v23; ++j)
+            {
+              if (*v37 != v25)
+              {
+                objc_enumerationMutation(v21);
+              }
+
+              v27 = *(*(&v36 + 1) + 8 * j);
+              if (([v27 isMe] & 1) == 0)
+              {
+                v28 = [v27 contact];
+                v29 = [v28 identifier];
+                if ([v8 containsObject:v29])
+                {
+                }
+
+                else
+                {
+                  v30 = [v27 fullName];
+                  v31 = [v35 containsObject:v30];
+
+                  if (!v31)
+                  {
+                    continue;
+                  }
+                }
+
+                ++v24;
+              }
+            }
+
+            v23 = [v21 countByEnumeratingWithState:&v36 objects:v44 count:16];
+            if (!v23)
+            {
 LABEL_32:
 
-            a1 = v32;
-            *(*(*(v32 + 64) + 8) + 24) = v23;
-            v7 = v33;
-            v6 = v34;
-            goto LABEL_33;
+              a1 = v32;
+              *(*(*(v32 + 64) + 8) + 24) = v24;
+              v7 = v33;
+              v6 = v34;
+              goto LABEL_33;
+            }
           }
         }
       }
@@ -390,10 +397,10 @@ LABEL_32:
 
   if (v7)
   {
-    v9 = _FALogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _FALogSystem(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __63__FAHealthKitSoftLinking_fetchMedicalIDData_completionHandler___block_invoke_cold_1(v7, v9);
+      __63__FAHealthKitSoftLinking_fetchMedicalIDData_completionHandler___block_invoke_cold_1(v7, v10);
     }
 
     objc_storeStrong((*(*(a1 + 72) + 8) + 40), a3);
@@ -401,13 +408,11 @@ LABEL_32:
 
 LABEL_33:
   dispatch_group_leave(*(a1 + 48));
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)emergencyContactFlow:(id)flow didSelectContact:(id)contact
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   contactCopy = contact;
   if (([getSOSUtilitiesClass() isAllowedToMessageSOSContacts] & 1) == 0)
   {
@@ -423,12 +428,11 @@ LABEL_33:
 
   else
   {
-    v10[0] = contactCopy;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+    v9[0] = contactCopy;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
   }
 
   [(_HKMedicalIDData *)self->_medicalIDData setEmergencyContacts:v8];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchLastModifiedDate:(id)date completionHandler:(id)handler
@@ -449,24 +453,25 @@ void __66__FAHealthKitSoftLinking_fetchLastModifiedDate_completionHandler___bloc
 {
   v4 = a3;
   v5 = [*(*(a1 + 32) + 24) dateSaved];
+  v6 = v5;
   if (v4)
   {
-    v6 = _FALogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _FALogSystem(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __42__FAHealthKitSoftLinking_dismissMedicalID__block_invoke_2_cold_1(v4, v6);
+      __42__FAHealthKitSoftLinking_dismissMedicalID__block_invoke_2_cold_1(v4, v7);
     }
   }
 
   else
   {
-    v7 = [*(*(a1 + 32) + 24) emergencyContactsModifiedDate];
+    v8 = [*(*(a1 + 32) + 24) emergencyContactsModifiedDate];
 
-    if (v7)
+    if (v8)
     {
-      v8 = [*(*(a1 + 32) + 24) emergencyContactsModifiedDate];
+      v9 = [*(*(a1 + 32) + 24) emergencyContactsModifiedDate];
 
-      v5 = v8;
+      v6 = v9;
     }
   }
 
@@ -519,22 +524,19 @@ void __66__FAHealthKitSoftLinking_fetchLastModifiedDate_completionHandler___bloc
 
 void __42__FAHealthKitSoftLinking_dismissMedicalID__block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_21BB35000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch medical data %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_21BB35000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch medical data %@", &v2, 0xCu);
 }
 
 void __63__FAHealthKitSoftLinking_fetchMedicalIDData_completionHandler___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 localizedDescription];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_21BB35000, a2, OS_LOG_TYPE_ERROR, "fetchMedicalIDData failed with error: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_21BB35000, a2, OS_LOG_TYPE_ERROR, "fetchMedicalIDData failed with error: %@", &v4, 0xCu);
 }
 
 @end

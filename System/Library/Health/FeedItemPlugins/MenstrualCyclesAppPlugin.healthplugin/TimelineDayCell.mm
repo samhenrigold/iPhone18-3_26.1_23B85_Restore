@@ -54,7 +54,7 @@
 {
   v2 = self + OBJC_IVAR____TtC24MenstrualCyclesAppPlugin15TimelineDayCell_cycleDay;
   swift_beginAccess();
-  return *&v2[*(type metadata accessor for CycleDay() + 20)];
+  return *&v2[*(type metadata accessor for CycleDay(0) + 20)];
 }
 
 - (NSDate)axCycleDay

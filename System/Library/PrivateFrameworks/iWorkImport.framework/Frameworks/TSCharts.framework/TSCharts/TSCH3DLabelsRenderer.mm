@@ -261,7 +261,7 @@
 
 - (void)prerender:(id)prerender
 {
-  v177 = *MEMORY[0x277D85DE8];
+  v176 = *MEMORY[0x277D85DE8];
   prerenderCopy = prerender;
   if (byte_280A46430 == 1)
   {
@@ -295,15 +295,15 @@
 
   if (v36)
   {
-    objc_msgSend_viewport(v36, v35, v37, v38, v39);
+    objc_msgSend_viewport(v36, v37, v38, v39);
   }
 
   else
   {
-    v174[0] = 0uLL;
+    v173[0] = 0uLL;
   }
 
-  v55 = objc_msgSend_orthographicPerPixelWithBounds_(TSCH3DCamera, v35, v37, v38, v39, v174);
+  v55 = objc_msgSend_orthographicPerPixelWithBounds_(TSCH3DCamera, v35, v37, v38, v39, v173);
   labelCamera = self->_labelCamera;
   self->_labelCamera = v55;
 
@@ -314,91 +314,91 @@
   if (v71)
   {
     v75 = objc_msgSend_processor(self->_pipeline, v70, v72, v73, v74);
-    v80 = v75;
+    v79 = v75;
     if (v75)
     {
-      objc_msgSend_renderState(v75, v76, v77, v78, v79);
+      objc_msgSend_renderState(v75, v76, v77, v78);
     }
 
     else
     {
+      v174 = 0u;
       v175 = 0u;
-      v176 = 0u;
     }
   }
 
   else
   {
-    *&v175 = 0;
-    DWORD2(v175) = 16843008;
-    BYTE12(v175) = 0;
-    v176 = 0uLL;
+    *&v174 = 0;
+    DWORD2(v174) = 16843008;
+    BYTE12(v174) = 0;
+    v175 = 0uLL;
   }
 
-  LOBYTE(v175) = 1;
-  DWORD1(v175) = 2;
-  BYTE8(v175) = 0;
-  v85 = objc_msgSend_processor(self->_pipeline, v81, v82, v83, v84);
-  objc_msgSend_setRenderState_(v85, v86, v87, v88, v89, &v175);
+  LOBYTE(v174) = 1;
+  DWORD1(v174) = 2;
+  BYTE8(v174) = 0;
+  v84 = objc_msgSend_processor(self->_pipeline, v80, v81, v82, v83);
+  objc_msgSend_setRenderState_(v84, v85, v86, v87, v88, &v174);
 
   if (!self->_useLabelBounds)
   {
-    v95 = objc_msgSend_context(self->_pipeline, v90, v91, v92, v93);
-    v99 = self->_labelCamera;
-    if (v99)
+    v94 = objc_msgSend_context(self->_pipeline, v89, v90, v91, v92);
+    v98 = self->_labelCamera;
+    if (v98)
     {
-      objc_msgSend_viewport(v99, v94, v96, v97, v98);
+      objc_msgSend_viewport(v98, v95, v96, v97);
     }
 
     else
     {
-      v174[0] = 0uLL;
+      v173[0] = 0uLL;
     }
 
-    objc_msgSend_viewport_(v95, v94, v96, v97, v98, v174);
+    objc_msgSend_viewport_(v94, v93, v95, v96, v97, v173);
   }
 
-  v101 = objc_msgSend_processor(self->_pipeline, v90, v91, v92, v93);
-  v105 = self->_labelCamera;
-  if (v105)
+  v100 = objc_msgSend_processor(self->_pipeline, v89, v90, v91, v92);
+  v104 = self->_labelCamera;
+  if (v104)
   {
-    objc_msgSend_projection(v105, v100, v102, v103, v104);
+    objc_msgSend_projection(v104, v101, v102, v103);
   }
 
   else
   {
-    v106 = 0.0;
-    memset(v174, 0, sizeof(v174));
+    v105 = 0.0;
+    memset(v173, 0, sizeof(v173));
   }
 
-  objc_msgSend_projection_(v101, v100, v106, v103, v104, v174);
+  objc_msgSend_projection_(v100, v99, v105, v102, v103, v173);
 
-  v111 = objc_msgSend_processor(self->_pipeline, v107, v108, v109, v110);
-  v116 = objc_msgSend_effects(v111, v112, v113, v114, v115);
-  v121 = objc_msgSend_effects(self, v117, v118, v119, v120);
-  objc_msgSend_resetToArray_(v116, v122, v123, v124, v125, v121);
+  v110 = objc_msgSend_processor(self->_pipeline, v106, v107, v108, v109);
+  v115 = objc_msgSend_effects(v110, v111, v112, v113, v114);
+  v120 = objc_msgSend_effects(self, v116, v117, v118, v119);
+  objc_msgSend_resetToArray_(v115, v121, v122, v123, v124, v120);
 
-  v130 = objc_msgSend_processor(self->_pipeline, v126, v127, v128, v129);
-  objc_msgSend_geometry_(v130, v131, v132, v133, v134, self->_labelQuad);
+  v129 = objc_msgSend_processor(self->_pipeline, v125, v126, v127, v128);
+  objc_msgSend_geometry_(v129, v130, v131, v132, v133, self->_labelQuad);
 
-  v139 = objc_msgSend_processor(self->_pipeline, v135, v136, v137, v138);
-  objc_msgSend_texcoords_(v139, v140, v141, v142, v143, self->_labelQuad);
+  v138 = objc_msgSend_processor(self->_pipeline, v134, v135, v136, v137);
+  objc_msgSend_texcoords_(v138, v139, v140, v141, v142, self->_labelQuad);
 
   transforms = self->_transforms;
   if (!transforms)
   {
-    v149 = MEMORY[0x277D81150];
-    v150 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v144, v145, v146, v147, "[TSCH3DLabelsRenderer prerender:]");
-    v155 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v151, v152, v153, v154, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DLabelsRenderer.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v149, v156, v157, v158, v159, v150, v155, 753, 0, "invalid nil value for '%{public}s'", "_transforms");
+    v148 = MEMORY[0x277D81150];
+    v149 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v143, v144, v145, v146, "[TSCH3DLabelsRenderer prerender:]");
+    v154 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v150, v151, v152, v153, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DLabelsRenderer.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v148, v155, v156, v157, v158, v149, v154, 753, 0, "invalid nil value for '%{public}s'", "_transforms");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v160, v161, v162, v163);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v159, v160, v161, v162);
     transforms = self->_transforms;
   }
 
-  v164 = objc_msgSend_pipeline(self, v144, v145, v146, v147);
-  v169 = objc_msgSend_scene(v164, v165, v166, v167, v168);
-  objc_msgSend_resetWithScene_camera_(transforms, v170, v171, v172, v173, v169, v36);
+  v163 = objc_msgSend_pipeline(self, v143, v144, v145, v146);
+  v168 = objc_msgSend_scene(v163, v164, v165, v166, v167);
+  objc_msgSend_resetWithScene_camera_(transforms, v169, v170, v171, v172, v168, v36);
 }
 
 - (void)postrender:(id)postrender
@@ -450,138 +450,138 @@
     v12 = objc_opt_class();
     v13 = NSStringFromSelector(a2);
     v14 = MEMORY[0x277CCACA8];
-    sub_276152FD4("ivec2(%d, %d)", v15, v16, v17, v18, v19, v20, v21, *size);
-    if (v170 >= 0)
+    sub_276152FD4(__p, "ivec2(%d, %d)", *size, 0);
+    if (v148 >= 0)
     {
-      objc_msgSend_stringWithUTF8String_(v14, v22, v23, v24, v25, __p);
+      objc_msgSend_stringWithUTF8String_(v14, v15, v16, v17, v18, __p);
     }
 
     else
     {
-      objc_msgSend_stringWithUTF8String_(v14, v22, v23, v24, v25, __p[0]);
+      objc_msgSend_stringWithUTF8String_(v14, v15, v16, v17, v18, __p[0]);
     }
-    v26 = ;
-    if (v170 < 0)
+    v19 = ;
+    if (v148 < 0)
     {
       operator delete(__p[0]);
     }
 
-    NSLog(&cfstr_P_0.isa, v12, self, v13, resourcesCopy, v26);
+    NSLog(&cfstr_P_0.isa, v12, self, v13, resourcesCopy, v19);
   }
 
   if (resourcesCopy)
   {
-    v27 = resourcesCopy;
-    objc_msgSend_size(v27, v28, v29, v30, v31);
-    v37 = __p[0];
-    v36 = HIDWORD(__p[0]);
+    v20 = resourcesCopy;
+    objc_msgSend_size(v20, v21, v22, v23);
+    v29 = __p[0];
+    v28 = HIDWORD(__p[0]);
   }
 
   else
   {
-    v38 = MEMORY[0x277D81150];
-    v39 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, v9, v10, v11, "[TSCH3DLabelsRenderer beginResources:expectedSize:]");
-    v44 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v40, v41, v42, v43, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DLabelsRenderer.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v38, v45, v46, v47, v48, v39, v44, 776, 0, "invalid nil value for '%{public}s'", "r");
+    v30 = MEMORY[0x277D81150];
+    v31 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, v9, v10, v11, "[TSCH3DLabelsRenderer beginResources:expectedSize:]");
+    v36 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v32, v33, v34, v35, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DLabelsRenderer.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v30, v37, v38, v39, v40, v31, v36, 776, 0, "invalid nil value for '%{public}s'", "r");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v49, v50, v51, v52);
-    v36 = 0;
-    v37 = 0;
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v41, v42, v43, v44);
+    v28 = 0;
+    v29 = 0;
   }
 
-  if (v37 != *size || v36 != *(size + 1))
+  if (v29 != *size || v28 != *(size + 1))
   {
-    v53 = MEMORY[0x277D81150];
-    v54 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v32, v33, v34, v35, "[TSCH3DLabelsRenderer beginResources:expectedSize:]");
-    v66 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v55, v56, v57, v58, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DLabelsRenderer.mm");
+    v45 = MEMORY[0x277D81150];
+    v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, v25, v26, v27, "[TSCH3DLabelsRenderer beginResources:expectedSize:]");
+    v51 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v47, v48, v49, v50, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DLabelsRenderer.mm");
     if (resourcesCopy)
     {
-      objc_msgSend_size(resourcesCopy, v59, v67, v68, v69);
-      v70 = v168;
+      objc_msgSend_size(resourcesCopy, v52, v53, v54);
+      v55 = v146;
     }
 
     else
     {
-      v70 = 0;
+      v55 = 0;
     }
 
-    v71 = MEMORY[0x277CCACA8];
-    sub_276152FD4("ivec2(%d, %d)", v59, v60, v61, v62, v63, v64, v65, v70);
-    if (v170 >= 0)
+    v56 = MEMORY[0x277CCACA8];
+    sub_276152FD4(__p, "ivec2(%d, %d)", v55, HIDWORD(v55));
+    if (v148 >= 0)
     {
-      objc_msgSend_stringWithUTF8String_(v71, v72, v73, v74, v75, __p);
+      objc_msgSend_stringWithUTF8String_(v56, v57, v58, v59, v60, __p);
     }
 
     else
     {
-      objc_msgSend_stringWithUTF8String_(v71, v72, v73, v74, v75, __p[0]);
+      objc_msgSend_stringWithUTF8String_(v56, v57, v58, v59, v60, __p[0]);
     }
-    v83 = ;
-    if (v170 < 0)
+    v61 = ;
+    if (v148 < 0)
     {
       operator delete(__p[0]);
     }
 
-    v84 = MEMORY[0x277CCACA8];
-    sub_276152FD4("ivec2(%d, %d)", v76, v77, v78, v79, v80, v81, v82, *size);
-    if (v170 >= 0)
+    v62 = MEMORY[0x277CCACA8];
+    sub_276152FD4(__p, "ivec2(%d, %d)", *size, 0);
+    if (v148 >= 0)
     {
-      objc_msgSend_stringWithUTF8String_(v84, v85, v86, v87, v88, __p);
+      objc_msgSend_stringWithUTF8String_(v62, v63, v64, v65, v66, __p);
     }
 
     else
     {
-      objc_msgSend_stringWithUTF8String_(v84, v85, v86, v87, v88, __p[0]);
+      objc_msgSend_stringWithUTF8String_(v62, v63, v64, v65, v66, __p[0]);
     }
-    v90 = ;
-    if (v170 < 0)
+    v68 = ;
+    if (v148 < 0)
     {
       operator delete(__p[0]);
     }
 
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v53, v89, v91, v92, v93, v54, v66, 778, 0, "resource size mismatch %@ should be %@", v83, v90);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v45, v67, v69, v70, v71, v46, v51, 778, 0, "resource size mismatch %@ should be %@", v61, v68);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v94, v95, v96, v97);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v72, v73, v74, v75);
   }
 
   if (self->_resources)
   {
-    v98 = MEMORY[0x277D81150];
-    v99 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v32, v33, v34, v35, "[TSCH3DLabelsRenderer beginResources:expectedSize:]");
-    v104 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v100, v101, v102, v103, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DLabelsRenderer.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v98, v105, v106, v107, v108, v99, v104, 779, 0, "expected nil value for '%{public}s'", "_resources");
+    v76 = MEMORY[0x277D81150];
+    v77 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, v25, v26, v27, "[TSCH3DLabelsRenderer beginResources:expectedSize:]");
+    v82 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v78, v79, v80, v81, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DLabelsRenderer.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v76, v83, v84, v85, v86, v77, v82, 779, 0, "expected nil value for '%{public}s'", "_resources");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v109, v110, v111, v112);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v87, v88, v89, v90);
   }
 
-  objc_msgSend_setResources_(self, v32, v33, v34, v35, resourcesCopy);
-  v117 = objc_msgSend_scene(self->_pipeline, v113, v114, v115, v116);
+  objc_msgSend_setResources_(self, v24, v25, v26, v27, resourcesCopy);
+  v95 = objc_msgSend_scene(self->_pipeline, v91, v92, v93, v94);
   LOBYTE(__p[0]) = 0;
-  v122 = objc_msgSend_p_renderCacheFromScene_created_createIfAbsent_(self, v118, v119, v120, v121, v117, __p, 1);
-  objc_msgSend_setMeshRenderer_(self, v123, v124, v125, v126, v122);
+  v100 = objc_msgSend_p_renderCacheFromScene_created_createIfAbsent_(self, v96, v97, v98, v99, v95, __p, 1);
+  objc_msgSend_setMeshRenderer_(self, v101, v102, v103, v104, v100);
 
-  v131 = objc_msgSend_cacheEnabled(self, v127, v128, v129, v130);
-  if ((__p[0] & 1) != 0 || v131 != 1)
+  v109 = objc_msgSend_cacheEnabled(self, v105, v106, v107, v108);
+  if ((__p[0] & 1) != 0 || v109 != 1)
   {
     pipeline = self->_pipeline;
     if (!pipeline)
     {
-      v137 = MEMORY[0x277D81150];
-      v138 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v132, v133, v134, v135, "[TSCH3DLabelsRenderer beginResources:expectedSize:]");
-      v143 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v139, v140, v141, v142, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DLabelsRenderer.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v137, v144, v145, v146, v147, v138, v143, 789, 0, "invalid nil value for '%{public}s'", "_pipeline");
+      v115 = MEMORY[0x277D81150];
+      v116 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v110, v111, v112, v113, "[TSCH3DLabelsRenderer beginResources:expectedSize:]");
+      v121 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v117, v118, v119, v120, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DLabelsRenderer.mm");
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v115, v122, v123, v124, v125, v116, v121, 789, 0, "invalid nil value for '%{public}s'", "_pipeline");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v148, v149, v150, v151);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v126, v127, v128, v129);
       pipeline = self->_pipeline;
     }
 
-    objc_msgSend_renderScale(pipeline, v132, v133, v134, v135);
-    v153 = *&v152;
-    objc_msgSend_superSamples(self->_pipeline, v154, v152, v155, v156);
-    v158 = *&v157;
-    v162 = objc_msgSend_meshRenderer(self, v159, v157, v160, v161);
-    *&v163 = v153 / v158;
-    objc_msgSend_beginResources_samples_(v162, v164, v163, v165, v166, resourcesCopy);
+    objc_msgSend_renderScale(pipeline, v110, v111, v112, v113);
+    v131 = *&v130;
+    objc_msgSend_superSamples(self->_pipeline, v132, v130, v133, v134);
+    v136 = *&v135;
+    v140 = objc_msgSend_meshRenderer(self, v137, v135, v138, v139);
+    *&v141 = v131 / v136;
+    objc_msgSend_beginResources_samples_(v140, v142, v141, v143, v144, resourcesCopy);
   }
 
   return 1;
@@ -636,109 +636,109 @@
     v18 = objc_opt_class();
     v19 = NSStringFromSelector(a2);
     v20 = MEMORY[0x277CCACA8];
-    sub_276152FD4("ivec2(%d, %d)", v21, v22, v23, v24, v25, v26, v27, *index);
-    if (v104 >= 0)
+    sub_276152FD4(__p, "ivec2(%d, %d)", *index, 0);
+    if (v97 >= 0)
     {
-      objc_msgSend_stringWithUTF8String_(v20, v28, v29, v30, v31, __p);
+      objc_msgSend_stringWithUTF8String_(v20, v21, v22, v23, v24, __p);
     }
 
     else
     {
-      objc_msgSend_stringWithUTF8String_(v20, v28, v29, v30, v31, __p[0]);
+      objc_msgSend_stringWithUTF8String_(v20, v21, v22, v23, v24, __p[0]);
     }
-    v32 = ;
-    if (v104 < 0)
+    v25 = ;
+    if (v97 < 0)
     {
       operator delete(__p[0]);
     }
 
-    NSLog(&cfstr_P_0.isa, v18, self, v19, v32, stringCopy);
+    NSLog(&cfstr_P_0.isa, v18, self, v19, v25, stringCopy);
   }
 
   __p[0] = *index;
-  v33 = objc_msgSend_resourceAtIndex_string_bitmapContextInfo_labelWidth_(self->_resources, v14, width, v16, v17, __p, stringCopy, infoCopy);
-  objc_msgSend_setLabel_(self, v34, v35, v36, v37, v33);
+  v26 = objc_msgSend_resourceAtIndex_string_bitmapContextInfo_labelWidth_(self->_resources, v14, width, v16, v17, __p, stringCopy, infoCopy);
+  objc_msgSend_setLabel_(self, v27, v28, v29, v30, v26);
 
-  v42 = objc_msgSend_label(self, v38, v39, v40, v41);
+  v35 = objc_msgSend_label(self, v31, v32, v33, v34);
 
-  if (!v42)
+  if (!v35)
   {
-    v47 = MEMORY[0x277D81150];
-    v48 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v43, v44, v45, v46, "[TSCH3DLabelsRenderer prepareCachedIndex:string:alignmentPadding:width:bitmapContextInfo:]");
-    v53 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v49, v50, v51, v52, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DLabelsRenderer.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v47, v54, v55, v56, v57, v48, v53, 825, 0, "invalid nil value for '%{public}s'", "self.label");
+    v40 = MEMORY[0x277D81150];
+    v41 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v36, v37, v38, v39, "[TSCH3DLabelsRenderer prepareCachedIndex:string:alignmentPadding:width:bitmapContextInfo:]");
+    v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v42, v43, v44, v45, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DLabelsRenderer.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v40, v47, v48, v49, v50, v41, v46, 825, 0, "invalid nil value for '%{public}s'", "self.label");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v58, v59, v60, v61);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v51, v52, v53, v54);
   }
 
   pipeline = self->_pipeline;
-  objc_msgSend_renderScale(pipeline, v43, v44, v45, v46);
-  *&v64 = sub_2761FF750(v63, self, a2, pipeline);
-  v101 = v64;
-  v65 = self->_pipeline;
-  objc_msgSend_superSamples(v65, v66, v64, v67, v68);
-  *&v71 = sub_2761FF750(v69, self, a2, v65);
-  v100 = v71;
+  objc_msgSend_renderScale(pipeline, v36, v37, v38, v39);
+  *&v57 = sub_2761FF750(v56, self, a2, pipeline);
+  v94 = v57;
+  v58 = self->_pipeline;
+  objc_msgSend_superSamples(v58, v59, v57, v60, v61);
+  *&v64 = sub_2761FF750(v62, self, a2, v58);
+  v93 = v64;
   label = self->_label;
   if (!label)
   {
-    HIDWORD(v75) = 0;
-    v77 = v101;
-    *&v75 = *&v101 * 0.0;
-    v78 = vdup_lane_s32(COERCE_UNSIGNED_INT(*&v101 * 0.0), 0);
+    HIDWORD(v68) = 0;
+    v70 = v94;
+    *&v68 = *&v94 * 0.0;
+    v71 = vdup_lane_s32(COERCE_UNSIGNED_INT(*&v94 * 0.0), 0);
     goto LABEL_15;
   }
 
-  objc_msgSend_tightSize(label, v70, v71, v72, v73);
-  v75 = *&v102;
-  v76 = self->_label;
-  v77 = v101;
-  v78 = vmul_n_f32(v102, *&v101);
-  if (!v76)
+  objc_msgSend_tightSize(label, v64, v65, v66);
+  v68 = *&v95;
+  v69 = self->_label;
+  v70 = v94;
+  v71 = vmul_n_f32(v95, *&v94);
+  if (!v69)
   {
 LABEL_15:
-    v80 = 0;
+    v73 = 0;
     goto LABEL_16;
   }
 
-  objc_msgSend_labelSizeWithSamples_(v76, v70, (*&v101 / *&v100), v100, v73);
-  v75 = *&v102;
-  v79 = self->_label;
-  v80 = vcvt_f32_s32(v102);
-  if (v79)
+  objc_msgSend_labelSizeWithSamples_(v69, (*&v94 / *&v93), v93, v66);
+  v68 = *&v95;
+  v72 = self->_label;
+  v73 = vcvt_f32_s32(v95);
+  if (v72)
   {
-    objc_msgSend_labelRenderOffset(v79, v70, *&v102, v77, v73);
-    v81 = v102;
+    objc_msgSend_labelRenderOffset(v72, *&v95, v70, v66);
+    v74 = v95;
     goto LABEL_17;
   }
 
 LABEL_16:
-  v81 = 0;
+  v74 = 0;
 LABEL_17:
-  v82 = objc_msgSend_scene(self->_pipeline, v70, v75, v77, v73);
-  v87 = objc_msgSend_nonNilAccessorWithScene_(TSCH3DChartScenePropertyAccessor, v83, v84, v85, v86, v82);
+  v75 = objc_msgSend_scene(self->_pipeline, v63, v68, v70, v66);
+  v80 = objc_msgSend_nonNilAccessorWithScene_(TSCH3DChartScenePropertyAccessor, v76, v77, v78, v79, v75);
 
-  v92 = objc_msgSend_labelsShadowIgnored(v87, v88, v89, v90, v91);
-  v93 = vmul_n_f32(v80, *&v100);
-  v94 = vmul_n_f32(v81, *&v101);
-  if (v92)
+  v85 = objc_msgSend_labelsShadowIgnored(v80, v81, v82, v83, v84);
+  v86 = vmul_n_f32(v73, *&v93);
+  v87 = vmul_n_f32(v74, *&v94);
+  if (v85)
   {
-    v95 = -1;
+    v88 = -1;
   }
 
   else
   {
-    v95 = 0;
+    v88 = 0;
   }
 
-  v96 = vdup_n_s32(v95);
-  v97 = vbsl_s8(v96, v78, v93);
-  v98 = vbic_s8(v94, v96);
-  v99 = *padding;
-  self->_info.sampledLabelSize = v78;
-  self->_info.sampledLabelFullSize = v97;
-  self->_info.sampledLabelRenderOffset = v98;
-  self->_info.sampledAlignmentPadding = vmul_n_f32(v99, *&v101);
+  v89 = vdup_n_s32(v88);
+  v90 = vbsl_s8(v89, v71, v86);
+  v91 = vbic_s8(v87, v89);
+  v92 = *padding;
+  self->_info.sampledLabelSize = v71;
+  self->_info.sampledLabelFullSize = v90;
+  self->_info.sampledLabelRenderOffset = v91;
+  self->_info.sampledAlignmentPadding = vmul_n_f32(v92, *&v94);
 }
 
 - (void)renderAtPosition:(void *)position offset:(void *)offset alignment:(unsigned int)alignment offset2D:(void *)d rotation:(float)rotation externalAttribute:(id)attribute
@@ -749,238 +749,231 @@ LABEL_17:
     *&v21 = *(position + 2) + *(offset + 2);
     v22 = *offset;
     v23 = COERCE_DOUBLE(vadd_f32(*position, *offset));
-    v218 = *&v23;
-    v219 = LODWORD(v21);
-    v207 = attributeCopy;
+    v147 = *&v23;
+    v148 = *&v21;
+    v136 = attributeCopy;
     if (byte_280A46430 == 1)
     {
       v24 = objc_opt_class();
       v25 = NSStringFromSelector(a2);
       v26 = MEMORY[0x277CCACA8];
-      v198 = v218.f32[0];
-      sub_276152FD4("vec3(%f, %f, %f)", v27, v28, v29, v30, v31, v32, v33, SLOBYTE(v198));
-      if (v222 >= 0)
+      sub_276152FD4(&v149, "vec3(%f, %f, %f)", v147.f32[0], v147.f32[1], v148);
+      if (v151 >= 0)
       {
-        objc_msgSend_stringWithUTF8String_(v26, v34, v35, v36, v37, &v220);
+        objc_msgSend_stringWithUTF8String_(v26, v27, v28, v29, v30, &v149);
       }
 
       else
       {
-        objc_msgSend_stringWithUTF8String_(v26, v34, v35, v36, v37, *&v220);
+        objc_msgSend_stringWithUTF8String_(v26, v27, v28, v29, v30, *&v149);
       }
-      v45 = ;
-      if (v222 < 0)
+      v31 = ;
+      if (v151 < 0)
       {
-        operator delete(*&v220);
-      }
-
-      v46 = MEMORY[0x277CCACA8];
-      v47 = *offset;
-      sub_276152FD4("vec3(%f, %f, %f)", v38, v39, v40, v41, v42, v43, v44, SLOBYTE(v47));
-      if (v222 >= 0)
-      {
-        objc_msgSend_stringWithUTF8String_(v46, v48, v49, v50, v51, &v220);
+        operator delete(*&v149);
       }
 
-      else
+      v32 = MEMORY[0x277CCACA8];
+      sub_276152FD4(&v149, "vec3(%f, %f, %f)", *offset, *(offset + 1), *(offset + 2));
+      if (v151 >= 0)
       {
-        objc_msgSend_stringWithUTF8String_(v46, v48, v49, v50, v51, *&v220);
-      }
-      v59 = ;
-      if (v222 < 0)
-      {
-        operator delete(*&v220);
-      }
-
-      v60 = MEMORY[0x277CCACA8];
-      v199 = *d;
-      sub_276152FD4("vec2(%f, %f)", v52, v53, v54, v55, v56, v57, v58, SLOBYTE(v199));
-      if (v222 >= 0)
-      {
-        objc_msgSend_stringWithUTF8String_(v60, v61, v62, v63, v64, &v220);
+        objc_msgSend_stringWithUTF8String_(v32, v33, v34, v35, v36, &v149);
       }
 
       else
       {
-        objc_msgSend_stringWithUTF8String_(v60, v61, v62, v63, v64, *&v220);
+        objc_msgSend_stringWithUTF8String_(v32, v33, v34, v35, v36, *&v149);
       }
-      v65 = ;
-      if (v222 < 0)
+      v37 = ;
+      if (v151 < 0)
       {
-        operator delete(*&v220);
+        operator delete(*&v149);
       }
 
-      NSLog(&cfstr_PLd.isa, v24, self, v25, v45, v59, alignment, v65);
+      v38 = MEMORY[0x277CCACA8];
+      sub_276152FD4(&v149, "vec2(%f, %f)", *d, *(d + 1));
+      if (v151 >= 0)
+      {
+        objc_msgSend_stringWithUTF8String_(v38, v39, v40, v41, v42, &v149);
+      }
 
-      attributeCopy = v207;
+      else
+      {
+        objc_msgSend_stringWithUTF8String_(v38, v39, v40, v41, v42, *&v149);
+      }
+      v43 = ;
+      if (v151 < 0)
+      {
+        operator delete(*&v149);
+      }
+
+      NSLog(&cfstr_PLd.isa, v24, self, v25, v31, v37, alignment, v43);
+
+      attributeCopy = v136;
     }
 
     pipeline = self->_pipeline;
     objc_msgSend_renderScale(pipeline, v20, v21, v23, *&v22);
-    *&v69 = sub_2761FF750(v67, self, a2, pipeline);
-    v208 = v69;
+    *&v46 = sub_2761FF750(v45, self, a2, pipeline);
+    v137 = v46;
     transforms = self->_transforms;
     if (transforms)
     {
-      objc_msgSend_projectPoint_(transforms, v68, v69, v70, v71, &v218);
+      objc_msgSend_projectPoint_(transforms, v46, v47, v48);
     }
 
     else
     {
-      v217 = 0;
-      v216 = 0;
+      v146 = 0.0;
+      v145 = 0;
     }
 
-    v220 = vmul_f32(self->_info.sampledLabelSize, 0xBF000000BF000000);
-    *&v74 = sub_276205CDC(&self->_info, alignment, &v220, &v215);
-    v77 = v216;
+    v149 = vmul_f32(self->_info.sampledLabelSize, 0xBF000000BF000000);
+    *&v51 = sub_276205CDC(&self->_info, alignment, &v149, &v144);
+    v54 = v145;
     sampledLabelFullSize = self->_info.sampledLabelFullSize;
     if (byte_280A46430 == 1)
     {
-      v79 = *d;
-      v80 = v215;
-      v81 = objc_opt_class();
-      v206 = NSStringFromSelector(a2);
-      v82 = MEMORY[0x277CCACA8];
-      v200 = v218.f32[0];
-      sub_276152FD4("vec3(%f, %f, %f)", v83, v84, v85, v86, v87, v88, v89, SLOBYTE(v200));
-      if (v222 >= 0)
+      v56 = *d;
+      v57 = *(d + 1);
+      v58 = v144;
+      v59 = objc_opt_class();
+      v135 = NSStringFromSelector(a2);
+      v60 = MEMORY[0x277CCACA8];
+      sub_276152FD4(&v149, "vec3(%f, %f, %f)", v147.f32[0], v147.f32[1], v148);
+      if (v151 >= 0)
       {
-        objc_msgSend_stringWithUTF8String_(v82, v90, v91, v92, v93, &v220);
+        objc_msgSend_stringWithUTF8String_(v60, v61, v62, v63, v64, &v149);
       }
 
       else
       {
-        objc_msgSend_stringWithUTF8String_(v82, v90, v91, v92, v93, *&v220);
+        objc_msgSend_stringWithUTF8String_(v60, v61, v62, v63, v64, *&v149);
       }
-      v101 = ;
-      if (v222 < 0)
+      v65 = ;
+      if (v151 < 0)
       {
-        operator delete(*&v220);
-      }
-
-      v102 = MEMORY[0x277CCACA8];
-      v201 = *&v216;
-      sub_276152FD4("vec3(%f, %f, %f)", v94, v95, v96, v97, v98, v99, v100, SLOBYTE(v201));
-      if (v222 >= 0)
-      {
-        objc_msgSend_stringWithUTF8String_(v102, v103, v104, v105, v106, &v220);
+        operator delete(*&v149);
       }
 
-      else
+      v66 = MEMORY[0x277CCACA8];
+      sub_276152FD4(&v149, "vec3(%f, %f, %f)", *&v145, *(&v145 + 1), v146);
+      if (v151 >= 0)
       {
-        objc_msgSend_stringWithUTF8String_(v102, v103, v104, v105, v106, *&v220);
-      }
-      v114 = ;
-      if (v222 < 0)
-      {
-        operator delete(*&v220);
-      }
-
-      v115 = MEMORY[0x277CCACA8];
-      v202 = v215.f32[0];
-      sub_276152FD4("vec2(%f, %f)", v107, v108, v109, v110, v111, v112, v113, SLOBYTE(v202));
-      if (v222 >= 0)
-      {
-        objc_msgSend_stringWithUTF8String_(v115, v116, v117, v118, v119, &v220);
+        objc_msgSend_stringWithUTF8String_(v66, v67, v68, v69, v70, &v149);
       }
 
       else
       {
-        objc_msgSend_stringWithUTF8String_(v115, v116, v117, v118, v119, *&v220);
+        objc_msgSend_stringWithUTF8String_(v66, v67, v68, v69, v70, *&v149);
       }
-      v127 = ;
-      v128 = (*&v208 * v79) + v80.f32[0];
-      if (v222 < 0)
+      v71 = ;
+      if (v151 < 0)
       {
-        operator delete(*&v220);
+        operator delete(*&v149);
       }
 
-      v129 = MEMORY[0x277CCACA8];
-      v203 = v128;
-      sub_276152FD4("vec2(%f, %f)", v120, v121, v122, v123, v124, v125, v126, SLOBYTE(v203));
-      if (v222 >= 0)
+      v72 = MEMORY[0x277CCACA8];
+      sub_276152FD4(&v149, "vec2(%f, %f)", v144.f32[0], v144.f32[1]);
+      if (v151 >= 0)
       {
-        objc_msgSend_stringWithUTF8String_(v129, v130, v131, v132, v133, &v220);
+        objc_msgSend_stringWithUTF8String_(v72, v73, v74, v75, v76, &v149);
       }
 
       else
       {
-        objc_msgSend_stringWithUTF8String_(v129, v130, v131, v132, v133, *&v220);
+        objc_msgSend_stringWithUTF8String_(v72, v73, v74, v75, v76, *&v149);
       }
-      v141 = ;
-      if (v222 < 0)
+      v77 = ;
+      v78 = (*&v137 * v56) + v58.f32[0];
+      v79 = (*&v137 * v57) + v58.f32[1];
+      if (v151 < 0)
       {
-        operator delete(*&v220);
-      }
-
-      v142 = MEMORY[0x277CCACA8];
-      v204 = *&v77;
-      sub_276152FD4("vec3(%f, %f, %f)", v134, v135, v136, v137, v138, v139, v140, SLOBYTE(v204));
-      if (v222 >= 0)
-      {
-        objc_msgSend_stringWithUTF8String_(v142, v143, v144, v145, v146, &v220);
+        operator delete(*&v149);
       }
 
-      else
+      v80 = MEMORY[0x277CCACA8];
+      sub_276152FD4(&v149, "vec2(%f, %f)", v78, v79);
+      if (v151 >= 0)
       {
-        objc_msgSend_stringWithUTF8String_(v142, v143, v144, v145, v146, *&v220);
-      }
-      v154 = ;
-      if (v222 < 0)
-      {
-        operator delete(*&v220);
-      }
-
-      v155 = MEMORY[0x277CCACA8];
-      var0 = self->_info.sampledLabelSize.var0.var0;
-      sub_276152FD4("vec2(%f, %f)", v147, v148, v149, v150, v151, v152, v153, SLOBYTE(var0));
-      if (v222 >= 0)
-      {
-        objc_msgSend_stringWithUTF8String_(v155, v156, v157, v158, v159, &v220);
+        objc_msgSend_stringWithUTF8String_(v80, v81, v82, v83, v84, &v149);
       }
 
       else
       {
-        objc_msgSend_stringWithUTF8String_(v155, v156, v157, v158, v159, *&v220);
+        objc_msgSend_stringWithUTF8String_(v80, v81, v82, v83, v84, *&v149);
       }
-      v160 = ;
-      if (v222 < 0)
+      v85 = ;
+      if (v151 < 0)
       {
-        operator delete(*&v220);
+        operator delete(*&v149);
       }
 
-      NSLog(&cfstr_POffsetpositio.isa, v81, self, v206, v101, v114, v127, v141, v154, v160);
+      v86 = MEMORY[0x277CCACA8];
+      sub_276152FD4(&v149, "vec3(%f, %f, %f)", *&v54, *(&v54 + 1), 0.0);
+      if (v151 >= 0)
+      {
+        objc_msgSend_stringWithUTF8String_(v86, v87, v88, v89, v90, &v149);
+      }
 
-      attributeCopy = v207;
+      else
+      {
+        objc_msgSend_stringWithUTF8String_(v86, v87, v88, v89, v90, *&v149);
+      }
+      v91 = ;
+      if (v151 < 0)
+      {
+        operator delete(*&v149);
+      }
+
+      v92 = MEMORY[0x277CCACA8];
+      sub_276152FD4(&v149, "vec2(%f, %f)", self->_info.sampledLabelSize.var0.var0, self->_info.sampledLabelSize.var1.var0);
+      if (v151 >= 0)
+      {
+        objc_msgSend_stringWithUTF8String_(v92, v93, v94, v95, v96, &v149);
+      }
+
+      else
+      {
+        objc_msgSend_stringWithUTF8String_(v92, v93, v94, v95, v96, *&v149);
+      }
+      v97 = ;
+      if (v151 < 0)
+      {
+        operator delete(*&v149);
+      }
+
+      NSLog(&cfstr_POffsetpositio.isa, v59, self, v135, v65, v71, v77, v85, v91, v97);
+
+      attributeCopy = v136;
     }
 
-    v161 = objc_msgSend_meshRenderer(self, *&v73, v74, v75, v76);
+    v98 = objc_msgSend_meshRenderer(self, *&v50, v51, v52, v53);
 
-    if (!v161)
+    if (!v98)
     {
-      v166 = MEMORY[0x277D81150];
-      v167 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v162, v163, v164, v165, "[TSCH3DLabelsRenderer renderAtPosition:offset:alignment:offset2D:rotation:externalAttribute:]");
-      v172 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v168, v169, v170, v171, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DLabelsRenderer.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v166, v173, v174, v175, v176, v167, v172, 875, 0, "invalid nil value for '%{public}s'", "self.meshRenderer");
+      v103 = MEMORY[0x277D81150];
+      v104 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v99, v100, v101, v102, "[TSCH3DLabelsRenderer renderAtPosition:offset:alignment:offset2D:rotation:externalAttribute:]");
+      v109 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v105, v106, v107, v108, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DLabelsRenderer.mm");
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v103, v110, v111, v112, v113, v104, v109, 875, 0, "invalid nil value for '%{public}s'", "self.meshRenderer");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v177, v178, v179, v180);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v114, v115, v116, v117);
     }
 
-    v181 = [TSCH3DLabelsMeshRendererLabelInfo alloc];
-    v220 = v218;
-    v221 = v219;
-    v213 = v77;
-    v214 = 0;
-    v212 = 1065353216;
-    v210 = vmul_n_f32(*d, *&v208);
-    v211 = sampledLabelFullSize;
-    v209 = v215;
-    v184 = objc_msgSend_initWithRenderer_position_translation_scale_rotation_offset_alignmentOffset_externalAttribute_(v181, v182, COERCE_DOUBLE(__PAIR64__(v215.u32[1], LODWORD(rotation))), v208, v183, self, &v220, &v213, &v211, &v210, &v209, attributeCopy);
-    v189 = objc_msgSend_meshRenderer(self, v185, v186, v187, v188);
-    objc_msgSend_renderWithMeshRenderLabelInfo_(v189, v190, v191, v192, v193, v184);
+    v118 = [TSCH3DLabelsMeshRendererLabelInfo alloc];
+    v149 = v147;
+    v150 = v148;
+    v142 = v54;
+    v143 = 0;
+    v141 = 1065353216;
+    v139 = vmul_n_f32(*d, *&v137);
+    v140 = sampledLabelFullSize;
+    v138 = v144;
+    v121 = objc_msgSend_initWithRenderer_position_translation_scale_rotation_offset_alignmentOffset_externalAttribute_(v118, v119, COERCE_DOUBLE(__PAIR64__(v144.u32[1], LODWORD(rotation))), v137, v120, self, &v149, &v142, &v140, &v139, &v138, attributeCopy);
+    v126 = objc_msgSend_meshRenderer(self, v122, v123, v124, v125);
+    objc_msgSend_renderWithMeshRenderLabelInfo_(v126, v127, v128, v129, v130, v121);
 
-    objc_msgSend_setLabel_(self, v194, v195, v196, v197, 0);
+    objc_msgSend_setLabel_(self, v131, v132, v133, v134, 0);
   }
 }
 

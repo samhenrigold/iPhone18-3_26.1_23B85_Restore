@@ -8,7 +8,6 @@
 - (NSDate)earliestDateOfAnyOnboardingCompletion;
 - (NSSet)allOnboardedCountryCodesRegardlessOfSupportedState;
 - (NSSet)onboardedCountryCodesForOnboardingState;
-- (id)description;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -17,19 +16,19 @@
 
 - (HKFeatureOnboardingRecord)initWithOnboardingState:(int64_t)state onboardingCompletion:(id)completion featureSettings:(id)settings
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if (completionCopy)
   {
     v9 = MEMORY[0x1E696AD98];
     settingsCopy = settings;
     v11 = [v9 numberWithInteger:state];
-    v22 = v11;
+    v21 = v11;
     v12 = [completionCopy copy];
-    v21 = v12;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
-    v23[0] = v13;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+    v20 = v12;
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
+    v22[0] = v13;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
     v15 = [(HKFeatureOnboardingRecord *)self initWithOnboardingState:state onboardingCompletionsByState:v14 featureSettings:settingsCopy];
 
     v16 = v15;
@@ -43,7 +42,6 @@
     v16 = v18;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -82,48 +80,48 @@
 
 - (NSDate)earliestDateOfAnyOnboardingCompletion
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   obj = [(NSDictionary *)self->_onboardingCompletionsByState allValues];
-  v2 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v2 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v2)
   {
     v3 = v2;
     v4 = 0;
-    v5 = *v24;
+    v5 = *v23;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v24 != v5)
+        if (*v23 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v23 + 1) + 8 * i);
+        v7 = *(*(&v22 + 1) + 8 * i);
+        v18 = 0u;
         v19 = 0u;
         v20 = 0u;
         v21 = 0u;
-        v22 = 0u;
         v8 = v7;
-        v9 = [v8 countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v18 objects:v26 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v20;
+          v11 = *v19;
           do
           {
             for (j = 0; j != v10; ++j)
             {
-              if (*v20 != v11)
+              if (*v19 != v11)
               {
                 objc_enumerationMutation(v8);
               }
 
-              completionDate = [*(*(&v19 + 1) + 8 * j) completionDate];
+              completionDate = [*(*(&v18 + 1) + 8 * j) completionDate];
               v14 = completionDate;
               if (v4)
               {
@@ -138,14 +136,14 @@
               }
             }
 
-            v10 = [v8 countByEnumeratingWithState:&v19 objects:v27 count:16];
+            v10 = [v8 countByEnumeratingWithState:&v18 objects:v26 count:16];
           }
 
           while (v10);
         }
       }
 
-      v3 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v3 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v3);
@@ -155,8 +153,6 @@
   {
     v4 = 0;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -175,47 +171,8 @@
 
 - (NSSet)allOnboardedCountryCodesRegardlessOfSupportedState
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v3 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-  v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  allValues = [(NSDictionary *)self->_onboardingCompletionsByState allValues];
-  v5 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v5)
-  {
-    v6 = v5;
-    v7 = *v14;
-    do
-    {
-      for (i = 0; i != v6; ++i)
-      {
-        if (*v14 != v7)
-        {
-          objc_enumerationMutation(allValues);
-        }
-
-        v9 = [*(*(&v13 + 1) + 8 * i) hk_map:&__block_literal_global_11];
-        [v3 addObjectsFromArray:v9];
-      }
-
-      v6 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
-    }
-
-    while (v6);
-  }
-
-  v10 = [v3 copy];
-  v11 = *MEMORY[0x1E69E9840];
-
-  return v10;
-}
-
-- (NSArray)allOnboardingCompletionsRegardlessOfSupportedState
-{
   v17 = *MEMORY[0x1E69E9840];
-  v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v3 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
@@ -235,7 +192,8 @@
           objc_enumerationMutation(allValues);
         }
 
-        [v3 addObjectsFromArray:*(*(&v12 + 1) + 8 * i)];
+        v9 = [*(*(&v12 + 1) + 8 * i) hk_map:&__block_literal_global_11];
+        [v3 addObjectsFromArray:v9];
       }
 
       v6 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
@@ -244,8 +202,44 @@
     while (v6);
   }
 
+  v10 = [v3 copy];
+
+  return v10;
+}
+
+- (NSArray)allOnboardingCompletionsRegardlessOfSupportedState
+{
+  v16 = *MEMORY[0x1E69E9840];
+  v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  allValues = [(NSDictionary *)self->_onboardingCompletionsByState allValues];
+  v5 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v12;
+    do
+    {
+      for (i = 0; i != v6; ++i)
+      {
+        if (*v12 != v7)
+        {
+          objc_enumerationMutation(allValues);
+        }
+
+        [v3 addObjectsFromArray:*(*(&v11 + 1) + 8 * i)];
+      }
+
+      v6 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+    }
+
+    while (v6);
+  }
+
   v9 = [v3 copy];
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -311,14 +305,6 @@ LABEL_14:
   onboardingState = self->_onboardingState;
   v4 = [(NSDictionary *)self->_onboardingCompletionsByState hash]^ onboardingState;
   return v4 ^ [(HKFeatureSettings *)self->_featureSettings hash];
-}
-
-- (id)description
-{
-  v3 = MEMORY[0x1E696AEC0];
-  v4 = objc_opt_class();
-  onboardingCompletionsByState = self->_onboardingCompletionsByState;
-  return [v3 stringWithFormat:@"<%@:%p completionsByState:%@ settings:%@>", v4, self, onboardingCompletionsByState, self->_featureSettings];
 }
 
 - (HKFeatureOnboardingRecord)initWithCoder:(id)coder

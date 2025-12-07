@@ -36,34 +36,34 @@
 
 - (MSPSharedTripReceiverCapabilities)initWithIDSEndpointCapabilities:(id)capabilities
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   capabilitiesCopy = capabilities;
   v5 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v6 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v7 = *MEMORY[0x277D188D0];
-  v24[0] = *MEMORY[0x277D188C0];
-  v24[1] = v7;
-  v24[2] = *MEMORY[0x277D188C8];
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:{3, 0}];
-  v9 = [v8 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v23[0] = *MEMORY[0x277D188C0];
+  v23[1] = v7;
+  v23[2] = *MEMORY[0x277D188C8];
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:{3, 0}];
+  v9 = [v8 countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v21;
+    v11 = *v20;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
+        v13 = *(*(&v19 + 1) + 8 * i);
         if ([capabilitiesCopy valueForCapability:v13] == 1)
         {
           v14 = v5;
@@ -77,7 +77,7 @@
         [v14 addObject:v13];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
     while (v10);
@@ -87,7 +87,6 @@
   v16 = [v6 copy];
   v17 = [(MSPSharedTripReceiverCapabilities *)self initWithRegistrationPropertiesSupported:v15 propertiesUnsupported:v16];
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -152,20 +151,18 @@
 
 + (id)allKnownReceiverCapabilities
 {
-  v12[4] = *MEMORY[0x277D85DE8];
+  v11[4] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277CBEB70]);
   luckierReceiverCapabilities = [self luckierReceiverCapabilities];
-  v12[0] = luckierReceiverCapabilities;
+  v11[0] = luckierReceiverCapabilities;
   sydromeReceiverCapabilities = [self sydromeReceiverCapabilities];
-  v12[1] = sydromeReceiverCapabilities;
+  v11[1] = sydromeReceiverCapabilities;
   starskyReceiverCapabilities = [self starskyReceiverCapabilities];
-  v12[2] = starskyReceiverCapabilities;
+  v11[2] = starskyReceiverCapabilities;
   legacyReceiverCapabilities = [self legacyReceiverCapabilities];
-  v12[3] = legacyReceiverCapabilities;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:4];
+  v11[3] = legacyReceiverCapabilities;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:4];
   v9 = [v3 initWithArray:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -253,82 +250,79 @@ void __98__MSPSharedTripReceiverCapabilities_enumerateReceiverCapabilityConfigur
 
 + (void)fetchReceiverCapabilitiesForDestinations:(id)destinations completion:(id)completion
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   destinationsCopy = destinations;
   completionCopy = completion;
   if ([destinationsCopy count])
   {
-    v35 = 0;
-    v36 = &v35;
-    v37 = 0x3032000000;
-    v38 = __Block_byref_object_copy__8;
-    v39 = __Block_byref_object_dispose__8;
-    v40 = 0;
+    v33 = 0;
+    v34 = &v33;
+    v35 = 0x3032000000;
+    v36 = __Block_byref_object_copy__8;
+    v37 = __Block_byref_object_dispose__8;
+    v38 = 0;
     v8 = objc_alloc_init(MEMORY[0x277D18728]);
-    v9 = v36[5];
-    v36[5] = v8;
+    v9 = v34[5];
+    v34[5] = v8;
 
-    v10 = v36[5];
+    v10 = v34[5];
     v11 = NSStringFromClass(self);
     [v10 addListenerID:v11 forService:@"com.apple.private.alloy.maps.eta"];
 
     v12 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(destinationsCopy, "count")}];
-    v33 = 0u;
-    v34 = 0u;
     v31 = 0u;
     v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     v13 = destinationsCopy;
-    v14 = [v13 countByEnumeratingWithState:&v31 objects:v41 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v29 objects:v39 count:16];
     if (v14)
     {
-      v15 = *v32;
+      v15 = *v30;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v32 != v15)
+          if (*v30 != v15)
           {
             objc_enumerationMutation(v13);
           }
 
-          v17 = *(*(&v31 + 1) + 8 * i);
-          v18 = objc_autoreleasePoolPush();
-          v19 = IDSCopyAddressDestinationForDestination();
-          [v12 addObject:v19];
+          v17 = objc_autoreleasePoolPush();
+          v18 = IDSCopyAddressDestinationForDestination();
+          [v12 addObject:v18];
 
-          objc_autoreleasePoolPop(v18);
+          objc_autoreleasePoolPop(v17);
         }
 
-        v14 = [v13 countByEnumeratingWithState:&v31 objects:v41 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v29 objects:v39 count:16];
       }
 
       while (v14);
     }
 
-    v20 = dispatch_get_global_queue(25, 0);
-    v21 = v36[5];
+    v19 = dispatch_get_global_queue(25, 0);
+    v20 = v34[5];
     allObjects = [v12 allObjects];
     refreshIDInfo = [MEMORY[0x277D189C8] refreshIDInfo];
-    v24 = NSStringFromClass(self);
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __89__MSPSharedTripReceiverCapabilities_fetchReceiverCapabilitiesForDestinations_completion___block_invoke;
-    v26[3] = &unk_2798687A8;
-    v27 = v13;
-    v29 = &v35;
+    v23 = NSStringFromClass(self);
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __89__MSPSharedTripReceiverCapabilities_fetchReceiverCapabilitiesForDestinations_completion___block_invoke;
+    v24[3] = &unk_2798687A8;
+    v25 = v13;
+    v27 = &v33;
     selfCopy = self;
-    v28 = completionCopy;
-    [v21 idInfoForDestinations:allObjects service:@"com.apple.private.alloy.maps.eta" infoTypes:1 options:refreshIDInfo listenerID:v24 queue:v20 completionBlock:v26];
+    v26 = completionCopy;
+    [v20 idInfoForDestinations:allObjects service:@"com.apple.private.alloy.maps.eta" infoTypes:1 options:refreshIDInfo listenerID:v23 queue:v19 completionBlock:v24];
 
-    _Block_object_dispose(&v35, 8);
+    _Block_object_dispose(&v33, 8);
   }
 
   else
   {
     (*(completionCopy + 2))(completionCopy, MEMORY[0x277CBEC10]);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __89__MSPSharedTripReceiverCapabilities_fetchReceiverCapabilitiesForDestinations_completion___block_invoke(uint64_t a1, void *a2)
@@ -365,10 +359,10 @@ void __89__MSPSharedTripReceiverCapabilities_fetchReceiverCapabilitiesForDestina
 
 void __89__MSPSharedTripReceiverCapabilities_fetchReceiverCapabilitiesForDestinations_completion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v23 = v5;
+  v22 = v5;
   if ([*(a1 + 32) containsObject:v5])
   {
     v7 = [objc_alloc(MEMORY[0x277CBEB40]) initWithCapacity:3];
@@ -379,81 +373,79 @@ void __89__MSPSharedTripReceiverCapabilities_fetchReceiverCapabilitiesForDestina
     v7 = 0;
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   obj = [v6 endpoints];
-  v27 = [obj countByEnumeratingWithState:&v32 objects:v38 count:16];
-  if (v27)
+  v26 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
+  if (v26)
   {
-    v25 = *v33;
-    v26 = v7;
+    v24 = *v32;
+    v25 = v7;
     do
     {
-      for (i = 0; i != v27; ++i)
+      for (i = 0; i != v26; ++i)
       {
-        if (*v33 != v25)
+        if (*v32 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v32 + 1) + 8 * i);
+        v9 = *(*(&v31 + 1) + 8 * i);
         v10 = objc_alloc(*(a1 + 48));
         v11 = [v9 capabilities];
         v12 = [v10 initWithIDSEndpointCapabilities:v11];
 
         [v7 addObject:v12];
-        v30 = 0u;
-        v31 = 0u;
-        v28 = 0u;
         v29 = 0u;
+        v30 = 0u;
+        v27 = 0u;
+        v28 = 0u;
         v13 = [v9 destinationURIs];
-        v14 = [v13 countByEnumeratingWithState:&v28 objects:v37 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v27 objects:v36 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v29;
+          v16 = *v28;
           do
           {
             for (j = 0; j != v15; ++j)
             {
-              if (*v29 != v16)
+              if (*v28 != v16)
               {
                 objc_enumerationMutation(v13);
               }
 
-              v18 = *(*(&v28 + 1) + 8 * j);
+              v18 = *(*(&v27 + 1) + 8 * j);
               if ([*(a1 + 32) containsObject:v18])
               {
-                v36 = v12;
-                v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
+                v35 = v12;
+                v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
                 [*(a1 + 40) setObject:v19 forKeyedSubscript:v18];
               }
             }
 
-            v15 = [v13 countByEnumeratingWithState:&v28 objects:v37 count:16];
+            v15 = [v13 countByEnumeratingWithState:&v27 objects:v36 count:16];
           }
 
           while (v15);
         }
 
-        v7 = v26;
+        v7 = v25;
       }
 
-      v27 = [obj countByEnumeratingWithState:&v32 objects:v38 count:16];
+      v26 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
     }
 
-    while (v27);
+    while (v26);
   }
 
   if (*(a1 + 40))
   {
     v20 = [v7 array];
-    [*(a1 + 40) setObject:v20 forKeyedSubscript:v23];
+    [*(a1 + 40) setObject:v20 forKeyedSubscript:v22];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __89__MSPSharedTripReceiverCapabilities_fetchReceiverCapabilitiesForDestinations_completion___block_invoke_3(uint64_t a1)
@@ -465,8 +457,8 @@ void __89__MSPSharedTripReceiverCapabilities_fetchReceiverCapabilitiesForDestina
 
 - (id)idsSendMessageOptions
 {
-  v11[2] = *MEMORY[0x277D85DE8];
-  v10[0] = *MEMORY[0x277D18638];
+  v10[2] = *MEMORY[0x277D85DE8];
+  v9[0] = *MEMORY[0x277D18638];
   supportedProperties = self->_supportedProperties;
   v4 = supportedProperties;
   if (!supportedProperties)
@@ -474,8 +466,8 @@ void __89__MSPSharedTripReceiverCapabilities_fetchReceiverCapabilitiesForDestina
     v4 = [MEMORY[0x277CBEB98] set];
   }
 
-  v11[0] = v4;
-  v10[1] = *MEMORY[0x277D18640];
+  v10[0] = v4;
+  v9[1] = *MEMORY[0x277D18640];
   unsupportedProperties = self->_unsupportedProperties;
   v6 = unsupportedProperties;
   if (!unsupportedProperties)
@@ -483,8 +475,8 @@ void __89__MSPSharedTripReceiverCapabilities_fetchReceiverCapabilitiesForDestina
     v6 = [MEMORY[0x277CBEB98] set];
   }
 
-  v11[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
   if (unsupportedProperties)
   {
     if (supportedProperties)
@@ -503,7 +495,6 @@ void __89__MSPSharedTripReceiverCapabilities_fetchReceiverCapabilitiesForDestina
   }
 
 LABEL_7:
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

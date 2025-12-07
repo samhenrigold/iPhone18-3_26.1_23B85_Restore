@@ -704,15 +704,15 @@ void __58__PLGuestAssetSyncEngine__syncAsset_toLibrary_completion___block_invoke
   }
 }
 
-void __58__PLGuestAssetSyncEngine__syncAsset_toLibrary_completion___block_invoke_47(uint64_t a1, void *a2)
+void __58__PLGuestAssetSyncEngine__syncAsset_toLibrary_completion___block_invoke_47(void *a1, void *a2)
 {
   v3 = a2;
   if (!v3)
   {
-    [objc_opt_class() setDidIngestGuestAssetsInLibrary:*(a1 + 40)];
+    [objc_opt_class() setDidIngestGuestAssetsInLibrary:a1[5]];
   }
 
-  (*(*(a1 + 48) + 16))();
+  (*(a1[6] + 16))();
 }
 
 - (void)_markAsWasGuestAssetOnAssetWithSyndicationIdentifier:(id)identifier inLibrary:(id)library
@@ -769,7 +769,7 @@ void __89__PLGuestAssetSyncEngine__markAsWasGuestAssetOnAssetWithSyndicationIden
   return uuidCopy;
 }
 
-uint64_t __81__PLGuestAssetSyncEngine__deleteAssetWithUuid_syndicationIdentifier_fromLibrary___block_invoke(uint64_t a1)
+void *__81__PLGuestAssetSyncEngine__deleteAssetWithUuid_syndicationIdentifier_fromLibrary___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _inTransaction_deleteAssetWithUuid:*(a1 + 40) syndicationIdentifier:*(a1 + 48) fromLibrary:*(a1 + 56)];
   *(*(*(a1 + 64) + 8) + 24) = result;

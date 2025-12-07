@@ -126,56 +126,56 @@
   }
 
   v36 = memory_info;
-  v94 = memory_infoCnt;
-  v92 = names;
-  v91 = infoCnt[1];
-  v93 = v19;
+  v93 = memory_infoCnt;
+  v91 = names;
+  v90 = infoCnt[1];
+  v92 = v19;
   p_isa = &selfCopy2->super.super.isa;
   if (selfCopy2)
   {
     objc_opt_self();
     CSSymbolicatorGetFlagsForNListOnlyData();
     v38 = CSSymbolicatorCreateWithMachKernelFlagsAndNotification();
-    v96 = v39;
-    v97 = v38;
+    v95 = v39;
+    v96 = v38;
     objc_opt_self();
     v40 = OSKextCopyLoadedKextInfo();
     objc_opt_self();
     v41 = +[NSMutableDictionary dictionaryWithCapacity:](NSMutableDictionary, "dictionaryWithCapacity:", [v40 count]);
     v42 = [NSString stringWithUTF8String:"OSBundleLoadTag"];
+    v102 = 0u;
     v103 = 0u;
     v104 = 0u;
     v105 = 0u;
-    v106 = 0u;
     objectEnumerator = [v40 objectEnumerator];
-    v44 = [objectEnumerator countByEnumeratingWithState:&v103 objects:v107 count:16];
+    v44 = [objectEnumerator countByEnumeratingWithState:&v102 objects:v106 count:16];
     if (v44)
     {
       v45 = v44;
-      v46 = *v104;
+      v46 = *v103;
       do
       {
         for (i = 0; i != v45; i = i + 1)
         {
-          if (*v104 != v46)
+          if (*v103 != v46)
           {
             objc_enumerationMutation(objectEnumerator);
           }
 
-          v48 = *(*(&v103 + 1) + 8 * i);
+          v48 = *(*(&v102 + 1) + 8 * i);
           v49 = [v48 objectForKeyedSubscript:v42];
           [v41 setObject:v48 forKeyedSubscript:v49];
         }
 
-        v45 = [objectEnumerator countByEnumeratingWithState:&v103 objects:v107 count:16];
+        v45 = [objectEnumerator countByEnumeratingWithState:&v102 objects:v106 count:16];
       }
 
       while (v45);
     }
 
-    v50 = v94;
+    v50 = v93;
     p_isa = &selfCopy2->super.super.isa;
-    if (v94)
+    if (v93)
     {
       v51 = 0;
       v52 = &_mh_execute_header;
@@ -204,7 +204,7 @@
           break;
         }
 
-        v57 = sub_100009ED0(FPKernelProcess, v36, v41, v97, v96, 0, 0);
+        v57 = sub_100009ED0(FPKernelProcess, v36, v41, v96, v95, 0, 0);
         v58 = [[FPAuxData alloc] initWithValue:v56 shouldAggregate:0];
         [p_isa[12] setObject:v58 forKeyedSubscript:v57];
 
@@ -273,34 +273,33 @@ LABEL_46:
         v63 = v41;
         objc_opt_self();
         flags_low = LOBYTE(v36->flags);
-        v65 = sub_100009ED0(FPKernelProcess, v36, v63, v97, v96, v92, v91);
+        v65 = sub_100009ED0(FPKernelProcess, v36, v63, v96, v95, v91, v90);
 
         if (v65)
         {
           [(FPMemoryRegion *)v57 setName:v65];
           if (flags_low == 2)
           {
-            site = v36->site;
             CSSymbolicatorGetSourceInfoWithAddressAtTime();
             if ((CSIsNull() & 1) == 0)
             {
               Path = CSSourceInfoGetPath();
               if (Path)
               {
-                v68 = [NSString stringWithFormat:@"(%s:%d)", Path, CSSourceInfoGetLineNumber()];
-                [(FPMemoryRegion *)v57 setDetailedName:v68];
+                v67 = [NSString stringWithFormat:@"(%s:%d)", Path, CSSourceInfoGetLineNumber()];
+                [(FPMemoryRegion *)v57 setDetailedName:v67];
               }
             }
           }
 
-          [v93 addObject:v57];
+          [v92 addObject:v57];
         }
 
         else
         {
         }
 
-        v50 = v94;
+        v50 = v93;
         p_isa = &selfCopy2->super.super.isa;
         if (flags == 3 && v36->site == 10)
         {
@@ -320,53 +319,52 @@ LABEL_58:
     CSRelease();
   }
 
-  v14 = v93;
+  v14 = v92;
 
-  v69 = vm_deallocate(mach_task_self_, names, 80 * infoCnt[1]);
-  if (v69)
+  v68 = vm_deallocate(mach_task_self_, names, 80 * infoCnt[1]);
+  if (v68)
   {
-    v70 = v69;
-    v71 = __stderrp;
+    v69 = v68;
+    v70 = __stderrp;
     displayString4 = [p_isa displayString];
     uTF8String3 = [displayString4 UTF8String];
-    v74 = mach_error_string(v70);
-    v89 = uTF8String3;
+    v73 = mach_error_string(v69);
+    v88 = uTF8String3;
     p_isa = &selfCopy2->super.super.isa;
-    fprintf(v71, "%s: vm_deallocate: %s\n", v89, v74);
+    fprintf(v70, "%s: vm_deallocate: %s\n", v88, v73);
   }
 
-  v75 = vm_deallocate(mach_task_self_, memory_info, 176 * memory_infoCnt);
-  if (v75)
+  v74 = vm_deallocate(mach_task_self_, memory_info, 176 * memory_infoCnt);
+  if (v74)
   {
-    v76 = v75;
-    v77 = __stderrp;
+    v75 = v74;
+    v76 = __stderrp;
     displayString5 = [p_isa displayString];
     uTF8String4 = [displayString5 UTF8String];
-    v80 = mach_error_string(v76);
-    v90 = uTF8String4;
+    v79 = mach_error_string(v75);
+    v89 = uTF8String4;
     p_isa = &selfCopy2->super.super.isa;
-    fprintf(v77, "%s: vm_deallocate: %s\n", v90, v80);
+    fprintf(v76, "%s: vm_deallocate: %s\n", v89, v79);
   }
 
-  [p_isa setMemoryRegions:v93];
+  [p_isa setMemoryRegions:v92];
   if (p_isa)
   {
-    [p_isa pid];
-    v81 = sub_10001B844();
-    if (v81)
+    v80 = sub_10001B844([p_isa pid]);
+    if (v80)
     {
-      v82 = v81;
-      v83 = [FPAuxData alloc];
-      v84 = sub_10001B918(1u, v82);
-      v85 = [(FPAuxData *)v83 initWithValue:v84 & ~(v84 >> 63) shouldAggregate:0];
-      [p_isa[13] setObject:v85 forKeyedSubscript:@"billed footprint"];
+      v81 = v80;
+      v82 = [FPAuxData alloc];
+      v83 = sub_10001B918(1u, v81);
+      v84 = [(FPAuxData *)v82 initWithValue:v83 & ~(v83 >> 63) shouldAggregate:0];
+      [p_isa[13] setObject:v84 forKeyedSubscript:@"billed footprint"];
 
-      v86 = [FPAuxData alloc];
-      v87 = sub_10001B918(2u, v82);
-      v88 = [(FPAuxData *)v86 initWithValue:v87 & ~(v87 >> 63) shouldAggregate:0];
-      [p_isa[13] setObject:v88 forKeyedSubscript:@"billed footprint peak"];
+      v85 = [FPAuxData alloc];
+      v86 = sub_10001B918(2u, v81);
+      v87 = [(FPAuxData *)v85 initWithValue:v86 & ~(v86 >> 63) shouldAggregate:0];
+      [p_isa[13] setObject:v87 forKeyedSubscript:@"billed footprint peak"];
 
-      free(v82);
+      free(v81);
     }
   }
 

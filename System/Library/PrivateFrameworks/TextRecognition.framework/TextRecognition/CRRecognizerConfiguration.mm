@@ -12,7 +12,7 @@
 
 - (id)createTextFeatureFilter
 {
-  nullsub_1(self);
+  nullsub_1();
   v2 = sub_1B42A06D8();
 
   return v2;

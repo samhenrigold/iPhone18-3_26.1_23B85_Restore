@@ -139,7 +139,6 @@ LABEL_13:
 
   if (uuidString)
   {
-    uuidString = self->_uuidString;
     PBDataWriterWriteStringField();
   }
 

@@ -41,7 +41,7 @@
 {
   swift_beginAccess();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd, &_sSo7DOCNode_pMR);
   v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v2.super.isa;
@@ -49,7 +49,7 @@
 
 - (void)setNodes:(id)nodes
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd, &_sSo7DOCNode_pMR);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   DOCInfoActionsView.nodes.setter(v4);

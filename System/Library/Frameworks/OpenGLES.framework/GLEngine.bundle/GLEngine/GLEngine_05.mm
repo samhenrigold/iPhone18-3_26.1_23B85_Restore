@@ -65,13 +65,14 @@ LABEL_17:
   os_unfair_lock_unlock(v11);
 }
 
-void *glSamplerParameteri_PackThread(uint64_t a1, int a2, int a3, int a4)
+void *glSamplerParameteri_PackThread(uint64_t a1, int a2, uint64_t a3, int a4)
 {
+  v4 = a3;
   __src = a4;
   v6 = gleAddCommand(a1, glSamplerParameteri_UnpackThread, 24);
   *v6 = a2;
-  v6[1] = a3;
-  SamplerParameterNumParams = glGetSamplerParameterNumParams(a3, 0);
+  v6[1] = v4;
+  SamplerParameterNumParams = glGetSamplerParameterNumParams(v4, 0);
   return memcpy(v6 + 2, &__src, (4 * SamplerParameterNumParams));
 }
 
@@ -148,7 +149,7 @@ void *glSamplerParameterfv_PackThread(uint64_t a1, int a2, int a3, const void *a
   return memcpy(v7 + 2, a4, v8);
 }
 
-void glGetSamplerParameteriv_ExecThread(uint64_t a1, int a2, int a3, int *a4)
+void glGetSamplerParameteriv_ExecThread(uint64_t a1, uint64_t a2, uint64_t a3, int *a4)
 {
   (*(a1 + 27752))();
 
@@ -195,11 +196,11 @@ uint64_t glScissor_ListExec(uint64_t a1, __int128 *a2)
 {
   v4 = *MEMORY[0x277D85DE8];
   v3 = *a2;
-  glScissorArrayv_Core(a1, 0, 1, &v3);
+  glScissorArrayv_Core(a1, 0, 1u, &v3);
   return 16;
 }
 
-uint64_t glScissorArrayv_Core(uint64_t result, int a2, int a3, uint64_t a4)
+uint64_t glScissorArrayv_Core(uint64_t result, int a2, unsigned int a3, uint64_t a4)
 {
   v4 = a4;
   v7 = result;
@@ -207,7 +208,7 @@ uint64_t glScissorArrayv_Core(uint64_t result, int a2, int a3, uint64_t a4)
   if (a3 < 1)
   {
 LABEL_6:
-    if ((a3 + a2) >= 2 && !*(result + 15580))
+    if (a3 + a2 >= 2 && !*(result + 15580))
     {
       result = gleSwitchToMultiViewportMode(result);
     }
@@ -285,7 +286,7 @@ LABEL_16:
   return result;
 }
 
-void *glShadeModel_Comp(uint64_t a1, int a2)
+_DWORD *glShadeModel_Comp(uint64_t a1, int a2)
 {
   result = gleAddCommand(a1, glShadeModel_ListExec, 4);
   *result = a2;
@@ -351,8 +352,9 @@ void *glUseProgramObjectARB_Comp(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t glCreateShaderObjectARB_Exec(uint64_t a1, int a2)
+uint64_t glCreateShaderObjectARB_Exec(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = 0;
   v5 = 0;
   do
@@ -377,7 +379,7 @@ uint64_t glCreateShaderObjectARB_Exec(uint64_t a1, int a2)
   {
 LABEL_7:
     os_unfair_lock_lock((*(a1 + 19296) + 324));
-    ShaderObject = gleCreateShaderObject(a1, a2);
+    ShaderObject = gleCreateShaderObject(a1, v2);
     os_unfair_lock_unlock((*(a1 + 19296) + 324));
     return ShaderObject;
   }
@@ -576,8 +578,9 @@ LABEL_10:
   os_unfair_lock_unlock(v21);
 }
 
-void glDetachObjectARB_Exec(uint64_t a1, int a2, unsigned int a3)
+void glDetachObjectARB_Exec(uint64_t a1, int a2, uint64_t a3)
 {
+  v3 = a3;
   os_unfair_lock_lock((*(a1 + 19296) + 324));
   v6 = gleLookupHashObject(*(a1 + 19296) + 168, a2);
   if (!v6)
@@ -602,7 +605,7 @@ LABEL_17:
     return;
   }
 
-  v9 = gleLookupHashObject(&v8[42], a3);
+  v9 = gleLookupHashObject(&v8[42], v3);
   if (!v9)
   {
 LABEL_15:
@@ -687,7 +690,7 @@ LABEL_12:
   *(v11 + 5) = v26;
   if (v26 == 1)
   {
-    gleUnbindDeleteHashNameAndObject(a1, (*(a1 + 19296) + 168), gleUnbindShaderObject, a3);
+    gleUnbindDeleteHashNameAndObject(a1, (*(a1 + 19296) + 168), gleUnbindShaderObject, v3);
   }
 
   v27 = (*(a1 + 19296) + 324);
@@ -695,7 +698,7 @@ LABEL_12:
   os_unfair_lock_unlock(v27);
 }
 
-void glShaderSourceARB_Exec(uint64_t a1, int a2, int a3, const void **a4, int *a5)
+void glShaderSourceARB_Exec(uint64_t a1, int a2, int a3, const char **a4, int *a5)
 {
   if (a3 <= 0)
   {
@@ -931,18 +934,18 @@ LABEL_20:
         {
           if (v12 == 1)
           {
-            v13 = gleDoSelectiveDispatchNoErrorCoreGL3(a1, 0x8000000u, 0x80u, 0x80u, 0xF8000000, v6.n128_f64[0], v7, v8);
+            v13 = gleDoSelectiveDispatchNoErrorCoreGL3(a1, 0x8000000u, 0x80u, 0x80u, 4160749568, v6.n128_f64[0], v7, v8);
           }
 
           else
           {
-            v13 = gleDoSelectiveDispatchNoErrorCore(a1, 0x8000000u, 0x80u, 0x80u, 0xF8000000, v6, v7, v8);
+            v13 = gleDoSelectiveDispatchNoErrorCore(a1, 0x8000000u, 0x80u, 0x80u, 4160749568, v6, v7, v8);
           }
         }
 
         else
         {
-          v13 = gleDoSelectiveDispatchNoErrorCoreES2(a1, 0x8000000u, 0x80u, 0x80u, 0xF8000000, v6.n128_f64[0], v7, v8);
+          v13 = gleDoSelectiveDispatchNoErrorCoreES2(a1, 0x8000000u, 0x80u, 0x80u, 4160749568, v6.n128_f64[0], v7, v8);
         }
 
         v15 = v13;
@@ -1147,8 +1150,9 @@ LABEL_13:
   }
 }
 
-void glGetProgramiv_Exec(uint64_t a1, int a2, int a3, _DWORD *a4)
+void glGetProgramiv_Exec(uint64_t a1, int a2, uint64_t a3, _DWORD *a4)
 {
+  v5 = a3;
   os_unfair_lock_lock((*(a1 + 19296) + 324));
   v8 = gleLookupHashObject(*(a1 + 19296) + 168, a2);
   if (!v8)
@@ -1178,7 +1182,7 @@ LABEL_10:
   }
 
   v11 = 0;
-  ObjectParameter = gleGetObjectParameter(a1, v8, a3, &v11);
+  ObjectParameter = gleGetObjectParameter(a1, v8, v5, &v11);
   os_unfair_lock_unlock((*(a1 + 19296) + 324));
   if (ObjectParameter)
   {
@@ -1415,7 +1419,7 @@ LABEL_12:
   os_unfair_lock_unlock(v11);
 }
 
-void glBindAttribLocationARB_Exec(uint64_t a1, int a2, unsigned int a3, _BYTE *a4)
+void glBindAttribLocationARB_Exec(uint64_t a1, int a2, uint64_t a3, _BYTE *a4)
 {
   if (a4 && *a4 == 103 && a4[1] == 108 && a4[2] == 95)
   {
@@ -1463,13 +1467,13 @@ LABEL_15:
   os_unfair_lock_unlock(v7);
 }
 
-uint64_t glGetAttribLocationARB_Exec(uint64_t a1, int a2)
+uint64_t glGetAttribLocationARB_Exec(uint64_t a1, int a2, uint64_t a3)
 {
   os_unfair_lock_lock((*(a1 + 19296) + 324));
-  v4 = gleLookupHashObject(*(a1 + 19296) + 168, a2);
-  if (v4)
+  v5 = gleLookupHashObject(*(a1 + 19296) + 168, a2);
+  if (v5)
   {
-    if (*(v4 + 6) == 8 && *(v4 + 3976) == 1)
+    if (*(v5 + 6) == 8 && *(v5 + 3976) == 1)
     {
       AttribLocation = ShGetAttribLocation();
       os_unfair_lock_unlock((*(a1 + 19296) + 324));
@@ -1479,9 +1483,9 @@ uint64_t glGetAttribLocationARB_Exec(uint64_t a1, int a2)
     os_unfair_lock_unlock((*(a1 + 19296) + 324));
     if (!*(a1 + 29832))
     {
-      v7 = 1282;
+      v8 = 1282;
 LABEL_9:
-      *(a1 + 29832) = v7;
+      *(a1 + 29832) = v8;
     }
   }
 
@@ -1490,7 +1494,7 @@ LABEL_9:
     os_unfair_lock_unlock((*(a1 + 19296) + 324));
     if (!*(a1 + 29832))
     {
-      v7 = 1281;
+      v8 = 1281;
       goto LABEL_9;
     }
   }
@@ -1498,16 +1502,17 @@ LABEL_9:
   return 0xFFFFFFFFLL;
 }
 
-void glGetActiveAttribARB_Exec(uint64_t a1, int a2, unsigned int a3, int a4)
+void glGetActiveAttribARB_Exec(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  if (a4 < 0)
+  if ((a4 & 0x80000000) != 0)
   {
     goto LABEL_8;
   }
 
+  v9 = a3;
   os_unfair_lock_lock((*(a1 + 19296) + 324));
-  v7 = gleLookupHashObject(*(a1 + 19296) + 168, a2);
-  if (!v7)
+  v11 = gleLookupHashObject(*(a1 + 19296) + 168, a2);
+  if (!v11)
   {
 LABEL_7:
     os_unfair_lock_unlock((*(a1 + 19296) + 324));
@@ -1517,13 +1522,13 @@ LABEL_8:
       return;
     }
 
-    v9 = 1281;
+    v13 = 1281;
     goto LABEL_13;
   }
 
-  if (*(v7 + 6) == 8)
+  if (*(v11 + 6) == 8)
   {
-    if (*(v7 + 983) > a3)
+    if (*(v11 + 983) > v9)
     {
       ActiveAttrib = ShGetActiveAttrib();
       os_unfair_lock_unlock((*(a1 + 19296) + 324));
@@ -1545,18 +1550,18 @@ LABEL_11:
     return;
   }
 
-  v9 = 1282;
+  v13 = 1282;
 LABEL_13:
-  *(a1 + 29832) = v9;
+  *(a1 + 29832) = v13;
 }
 
-uint64_t glGetFragDataLocationEXT_Exec(uint64_t a1, int a2)
+uint64_t glGetFragDataLocationEXT_Exec(uint64_t a1, int a2, uint64_t a3)
 {
   os_unfair_lock_lock((*(a1 + 19296) + 324));
-  v4 = gleLookupHashObject(*(a1 + 19296) + 168, a2);
-  if (v4)
+  v5 = gleLookupHashObject(*(a1 + 19296) + 168, a2);
+  if (v5)
   {
-    if (*(v4 + 6) == 8 && *(v4 + 3976) == 1)
+    if (*(v5 + 6) == 8 && *(v5 + 3976) == 1)
     {
       FragDataLocation = ShGetFragDataLocation();
       os_unfair_lock_unlock((*(a1 + 19296) + 324));
@@ -1566,9 +1571,9 @@ uint64_t glGetFragDataLocationEXT_Exec(uint64_t a1, int a2)
     os_unfair_lock_unlock((*(a1 + 19296) + 324));
     if (!*(a1 + 29832))
     {
-      v7 = 1282;
+      v8 = 1282;
 LABEL_9:
-      *(a1 + 29832) = v7;
+      *(a1 + 29832) = v8;
     }
   }
 
@@ -1577,7 +1582,7 @@ LABEL_9:
     os_unfair_lock_unlock((*(a1 + 19296) + 324));
     if (!*(a1 + 29832))
     {
-      v7 = 1281;
+      v8 = 1281;
       goto LABEL_9;
     }
   }
@@ -1585,7 +1590,7 @@ LABEL_9:
   return 0xFFFFFFFFLL;
 }
 
-uint64_t glCreateShaderObjectARB_ExecThread(uint64_t a1, int a2)
+uint64_t glCreateShaderObjectARB_ExecThread(uint64_t a1, uint64_t a2)
 {
   (*(a1 + 27752))();
 
@@ -1622,7 +1627,7 @@ void *glDetachObjectARB_PackThread(uint64_t a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-void glShaderSourceARB_ExecThread(uint64_t a1, int a2, int a3, const void **a4, int *a5)
+void glShaderSourceARB_ExecThread(uint64_t a1, int a2, int a3, const char **a4, int *a5)
 {
   (*(a1 + 27752))();
 
@@ -1680,7 +1685,7 @@ void glGetShaderiv_ExecThread(uint64_t a1, int a2, int a3, _DWORD *a4)
   glGetShaderiv_Exec(a1, a2, a3, a4);
 }
 
-void glGetProgramiv_ExecThread(uint64_t a1, int a2, int a3, _DWORD *a4)
+void glGetProgramiv_ExecThread(uint64_t a1, int a2, uint64_t a3, _DWORD *a4)
 {
   (*(a1 + 27752))();
 
@@ -1715,7 +1720,7 @@ void glGetShaderSourceARB_ExecThread(uint64_t a1, int a2, int a3, _DWORD *a4, vo
   glGetShaderSourceARB_Exec(a1, a2, a3, a4, a5);
 }
 
-void glBindAttribLocationARB_PackThread(uint64_t a1, uint64_t a2, unsigned int a3, char *__s)
+void glBindAttribLocationARB_PackThread(uint64_t a1, uint64_t a2, uint64_t a3, char *__s)
 {
   v8 = strlen(__s) + 25;
   v9 = gleAddLargeCommand(a1, glBindAttribLocationARB_UnpackThread, v8);
@@ -1738,25 +1743,25 @@ void glBindAttribLocationARB_PackThread(uint64_t a1, uint64_t a2, unsigned int a
   }
 }
 
-void glGetActiveAttribARB_ExecThread(uint64_t a1, int a2, unsigned int a3, int a4)
+void glGetActiveAttribARB_ExecThread(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   (*(a1 + 27752))();
 
-  glGetActiveAttribARB_Exec(a1, a2, a3, a4);
+  glGetActiveAttribARB_Exec(a1, a2, a3, a4, a5, a6, a7, a8);
 }
 
-uint64_t glGetAttribLocationARB_ExecThread(uint64_t a1, int a2)
+uint64_t glGetAttribLocationARB_ExecThread(uint64_t a1, int a2, uint64_t a3)
 {
   (*(a1 + 27752))();
 
-  return glGetAttribLocationARB_Exec(a1, a2);
+  return glGetAttribLocationARB_Exec(a1, a2, a3);
 }
 
-uint64_t glGetFragDataLocationEXT_ExecThread(uint64_t a1, int a2)
+uint64_t glGetFragDataLocationEXT_ExecThread(uint64_t a1, int a2, uint64_t a3)
 {
   (*(a1 + 27752))();
 
-  return glGetFragDataLocationEXT_Exec(a1, a2);
+  return glGetFragDataLocationEXT_Exec(a1, a2, a3);
 }
 
 uint64_t glShaderBinaryOES_Exec(uint64_t result)

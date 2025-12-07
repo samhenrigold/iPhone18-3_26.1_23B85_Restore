@@ -13,21 +13,21 @@
 
 - (ARMLImageMattingMetadataTechnique)init
 {
-  v7.receiver = self;
-  v7.super_class = ARMLImageMattingMetadataTechnique;
-  v2 = [(ARImageBasedTechnique *)&v7 init];
+  v8.receiver = self;
+  v8.super_class = ARMLImageMattingMetadataTechnique;
+  v2 = [(ARImageBasedTechnique *)&v8 init];
   if (v2)
   {
     v3 = [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.matting.doubleMLResolutionForIPad"];
     if (v3)
     {
-      LOBYTE(v3) = ARDeviceIsiPad();
+      LOBYTE(v3) = ARDeviceIsiPad(v3, v4);
     }
 
     v2->_enableDoubleMLResolutionForIPad = v3;
-    v4 = ARCreateFixedPriorityDispatchQueue("com.apple.arkit.mlmattingmetadata");
+    v5 = ARCreateFixedPriorityDispatchQueue("com.apple.arkit.mlmattingmetadata", 0xFFFFFFFFLL);
     processingQueue = v2->_processingQueue;
-    v2->_processingQueue = v4;
+    v2->_processingQueue = v5;
   }
 
   return v2;
@@ -93,7 +93,7 @@
 
         if ((v11 & 1) == 0)
         {
-          [v7 timestamp];
+          objc_msgSend_timestamp(v7);
           [(ARImageBasedTechnique *)self pushResultData:MEMORY[0x1E695E0F0] forTimestamp:?];
 LABEL_9:
 
@@ -139,7 +139,7 @@ void __49__ARMLImageMattingMetadataTechnique_processData___block_invoke(uint64_t
 {
   backgoundCopy = backgound;
   dispatch_assert_queue_V2(self->_processingQueue);
-  [backgoundCopy timestamp];
+  objc_msgSend_timestamp(backgoundCopy);
   kdebug_trace();
   v4 = [(ARMLImageMattingMetadataTechnique *)self _generateMattingMetadata:backgoundCopy];
   v5 = objc_opt_new();
@@ -149,9 +149,9 @@ void __49__ARMLImageMattingMetadataTechnique_processData___block_invoke(uint64_t
     [v5 addObject:v4];
   }
 
-  [backgoundCopy timestamp];
+  objc_msgSend_timestamp(backgoundCopy);
   [(ARImageBasedTechnique *)self pushResultData:v6 forTimestamp:?];
-  [backgoundCopy timestamp];
+  objc_msgSend_timestamp(backgoundCopy);
   kdebug_trace();
 }
 
@@ -234,17 +234,17 @@ void __49__ARMLImageMattingMetadataTechnique_processData___block_invoke(uint64_t
 
   else
   {
-    [metadataCopy timestamp];
+    objc_msgSend_timestamp(metadataCopy);
     [originalImageData imageResolution];
     [originalImageData imageResolution];
     kdebug_trace();
     v29 = [(ARImageScalingTechnique *)self->_mattingImageScalingTechnique processData:originalImageData];
-    [originalImageData timestamp];
+    objc_msgSend_timestamp(originalImageData);
     kdebug_trace();
   }
 
   v30 = [ARMattingImageMetaData alloc];
-  [metadataCopy timestamp];
+  objc_msgSend_timestamp(metadataCopy);
   v32 = -[ARMattingImageMetaData initWithTimestamp:downSampledImageBuffer:mattingScaleImageBuffer:](v30, "initWithTimestamp:downSampledImageBuffer:mattingScaleImageBuffer:", [metadataCopy pixelBuffer], -[ARImageData pixelBuffer](v29, "pixelBuffer"), v31);
 
   return v32;

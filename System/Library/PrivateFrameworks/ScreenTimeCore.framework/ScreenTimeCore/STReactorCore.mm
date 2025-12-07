@@ -4,6 +4,8 @@
 + (id)reactorDirectiveForAskForTimeResponseEvent:(id)event;
 + (id)reactorDirectiveForBackgroundActivityOfType:(int64_t)type;
 + (id)reactorDirectiveForBackgroundActivityResult:(id)result activityType:(int64_t)type downtimeConfigurationsByUserID:(id)d;
++ (id)reactorDirectiveForConfigurationChange:(id)change targetableFamilyMembers:(id)members signedInUserHasMultipleDevices:(BOOL)devices;
++ (id)reactorDirectiveForDeviceStateChange:(id)change targetableFamilyMembers:(id)members signedInUserHasMultipleDevices:(BOOL)devices;
 + (id)reactorDirectiveForInitialSetupWithTargetableFamilyMembers:(id)members;
 + (id)reactorDirectiveForMessageTransportMessage:(id)message targetableFamilyMembers:(id)members communicationConfigurationByUserID:(id)d screenTimeCapabilities:(id)capabilities;
 + (id)reactorDirectiveForReconcilingWithTargetableFamilyMembers:(id)members familyMemberGenesisStateItems:(id)items localDeviceID:(id)d signedInUserHasMultipleDevices:(BOOL)devices;
@@ -17,6 +19,72 @@
 @end
 
 @implementation STReactorCore
+
++ (id)reactorDirectiveForDeviceStateChange:(id)change targetableFamilyMembers:(id)members signedInUserHasMultipleDevices:(BOOL)devices
+{
+  devicesCopy = devices;
+  changeCopy = change;
+  membersCopy = members;
+  v9 = [NSPredicate predicateWithBlock:&stru_1001A52C0];
+  v10 = [membersCopy filteredSetUsingPredicate:v9];
+  anyObject = [v10 anyObject];
+
+  if (anyObject)
+  {
+    if (![anyObject isParent])
+    {
+      v12 = objc_opt_new();
+      v13 = [[STDeviceStateChangeContent alloc] initWithDeviceStateChange:changeCopy];
+      v14 = [STSharedReactorCoreComponent buildAddressesFromTargetableFamilyMembers:membersCopy signedInUserHasMultipleDevices:devicesCopy];
+      v15 = [[STMessageTransportMessage alloc] initWithIdentifier:v12 content:v13];
+      v16 = [[STTransportEnvoyMessageEnvelope alloc] initWithMessage:v15 addresses:v14];
+      v17 = [[STReactorDirective alloc] initWithType:2 data:v16];
+
+      goto LABEL_8;
+    }
+  }
+
+  else
+  {
+    v18 = +[STLog reactorCore];
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    {
+      sub_10011B3D8(v18);
+    }
+  }
+
+  v17 = [[STReactorDirective alloc] initWithType:0 data:0];
+LABEL_8:
+
+  return v17;
+}
+
++ (id)reactorDirectiveForConfigurationChange:(id)change targetableFamilyMembers:(id)members signedInUserHasMultipleDevices:(BOOL)devices
+{
+  devicesCopy = devices;
+  membersCopy = members;
+  changeCopy = change;
+  v9 = objc_opt_new();
+  v10 = [[STOrganizationControllerConfigurationChangeContent alloc] initWithConfigurationChange:changeCopy];
+  v11 = [[STMessageTransportMessage alloc] initWithIdentifier:v9 content:v10];
+  author = [changeCopy author];
+  targetUser = [changeCopy targetUser];
+
+  v14 = [STConfigurationReactorCoreComponent computeMessageAddressesWithAuthor:author targetUser:targetUser targetableFamilyMembers:membersCopy signedInUserHasMultipleDevices:devicesCopy];
+
+  if ([v14 count])
+  {
+    v15 = [[STTransportEnvoyMessageEnvelope alloc] initWithMessage:v11 addresses:v14];
+    v16 = [[STReactorDirective alloc] initWithType:2 data:v15];
+  }
+
+  else
+  {
+    v16 = [[STReactorDirective alloc] initWithType:0 data:0];
+  }
+
+  return v16;
+}
 
 + (id)reactorDirectiveForSendingResponseForResult:(id)result downtimeConfigurationsByUserID:(id)d
 {

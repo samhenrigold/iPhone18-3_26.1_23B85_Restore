@@ -3,7 +3,7 @@
 
 @implementation StringFromPreferencesStackFlags
 
-uint64_t ___StringFromPreferencesStackFlags_block_invoke(uint64_t a1)
+void *___StringFromPreferencesStackFlags_block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) length];
   if (result)

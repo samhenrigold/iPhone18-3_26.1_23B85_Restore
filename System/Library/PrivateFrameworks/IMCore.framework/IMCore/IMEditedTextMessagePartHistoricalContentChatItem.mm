@@ -11,50 +11,50 @@
   itemCopy = item;
   contentCopy = content;
   subjectCopy = subject;
-  if (objc_msgSend_isFromMe(itemCopy, v16, v17))
+  if ([itemCopy isFromMe])
   {
-    v20 = objc_msgSend_messagePartText(contentCopy, v18, v19);
-    v23 = objc_msgSend_messagePartTranslation(contentCopy, v21, v22);
+    messagePartText = [contentCopy messagePartText];
+    messagePartTranslation = [contentCopy messagePartTranslation];
 LABEL_5:
-    v27 = v23;
+    v19 = messagePartTranslation;
     goto LABEL_6;
   }
 
-  v24 = objc_msgSend_messagePartTranslation(contentCopy, v18, v19);
-  v27 = objc_msgSend_length(v24, v25, v26);
+  messagePartTranslation2 = [contentCopy messagePartTranslation];
+  v19 = [messagePartTranslation2 length];
 
-  if (v27)
+  if (v19)
   {
-    v20 = objc_msgSend_messagePartTranslation(contentCopy, v28, v29);
-    v23 = objc_msgSend_messagePartText(contentCopy, v30, v31);
+    messagePartText = [contentCopy messagePartTranslation];
+    messagePartTranslation = [contentCopy messagePartText];
     goto LABEL_5;
   }
 
-  v20 = objc_msgSend_messagePartText(contentCopy, v28, v29);
+  messagePartText = [contentCopy messagePartText];
 LABEL_6:
-  v53.receiver = self;
-  v53.super_class = IMEditedTextMessagePartHistoricalContentChatItem;
-  BYTE2(v49) = 1;
-  BYTE1(v49) = text;
-  LOBYTE(v49) = 1;
-  v32 = [(IMTextMessagePartChatItem *)&v53 _initWithItem:itemCopy text:v20 translationSecondaryText:v27 index:index messagePartRange:location subject:length visibleAssociatedMessageChatItems:subjectCopy isShowingEditHistory:0 showTranslationAlternateText:v49 shouldDisplayLink:?];
+  v32.receiver = self;
+  v32.super_class = IMEditedTextMessagePartHistoricalContentChatItem;
+  BYTE2(v28) = 1;
+  BYTE1(v28) = text;
+  LOBYTE(v28) = 1;
+  v20 = [(IMTextMessagePartChatItem *)&v32 _initWithItem:itemCopy text:messagePartText translationSecondaryText:v19 index:index messagePartRange:location subject:length visibleAssociatedMessageChatItems:subjectCopy isShowingEditHistory:0 showTranslationAlternateText:v28 shouldDisplayLink:?];
 
-  if (v32)
+  if (v20)
   {
-    objc_storeStrong(v32 + 25, content);
-    v35 = objc_msgSend_guid(itemCopy, v33, v34);
-    v52 = v20;
-    v37 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v36, index);
-    v40 = objc_msgSend_stringValue(v37, v38, v39);
-    v42 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v41, editIndex);
-    v45 = objc_msgSend_stringValue(v42, v43, v44);
-    v46 = sub_1A83AC604();
+    objc_storeStrong(v20 + 25, content);
+    guid = [itemCopy guid];
+    v31 = messagePartText;
+    v22 = [MEMORY[0x1E696AD98] numberWithInteger:index];
+    stringValue = [v22 stringValue];
+    v24 = [MEMORY[0x1E696AD98] numberWithInteger:editIndex];
+    stringValue2 = [v24 stringValue];
+    v26 = sub_1A83AC604();
 
-    objc_msgSend__setGUID_(v32, v47, v46);
-    v20 = v52;
+    [v20 _setGUID:v26];
+    messagePartText = v31;
   }
 
-  return v32;
+  return v20;
 }
 
 @end

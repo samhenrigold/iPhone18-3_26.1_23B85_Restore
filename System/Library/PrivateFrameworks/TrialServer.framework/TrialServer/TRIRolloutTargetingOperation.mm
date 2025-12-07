@@ -56,7 +56,7 @@
 
 - (BOOL)_targetRolloutDeployment:(id)deployment appendingTelemetryToSupport:(id)support reportTelemetryToServer:(BOOL *)server factorPackSetIdToActivate:(id *)activate shouldDisenroll:(BOOL *)disenroll error:(id *)error
 {
-  v91 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   deploymentCopy = deployment;
   supportCopy = support;
   v17 = supportCopy;
@@ -114,7 +114,7 @@ LABEL_4:
     [currentHandler5 handleFailureInMethod:a2 object:self file:@"TRIRolloutTargetingOperation.m" lineNumber:84 description:{@"Invalid parameter not satisfying: %@", @"shouldDisenroll != NULL"}];
   }
 
-  v82 = v17;
+  v81 = v17;
   *disenroll = 0;
   if (!error)
   {
@@ -130,18 +130,18 @@ LABEL_4:
     artifact = [v20 artifact];
     rollout = [artifact rollout];
 
-    v84 = 0;
+    v83 = 0;
     targeter = [(TRIRolloutTargetingOperation *)self targeter];
-    v81 = rollout;
-    v24 = [targeter targetRollout:rollout factorPackSetId:&v84 relatedRampDeployment:0 error:error];
+    v80 = rollout;
+    v24 = [targeter targetRollout:rollout factorPackSetId:&v83 relatedRampDeployment:0 error:error];
 
     if (v24 <= 1u)
     {
       if (!v24)
       {
         v30 = 0;
-        v52 = v81;
-        v17 = v82;
+        v52 = v80;
+        v17 = v81;
 LABEL_61:
 
         goto LABEL_62;
@@ -149,30 +149,30 @@ LABEL_61:
 
       if (v24 == 1)
       {
-        if (!v84)
+        if (!v83)
         {
           currentHandler7 = [MEMORY[0x277CCA890] currentHandler];
           [currentHandler7 handleFailureInMethod:a2 object:self file:@"TRIRolloutTargetingOperation.m" lineNumber:104 description:{@"Invalid parameter not satisfying: %@", @"assignedFactorPackSetId"}];
         }
 
         v26 = objc_opt_new();
-        ident = [(__CFString *)v84 ident];
+        ident = [(__CFString *)v83 ident];
         v32 = loggableFactorPackSetIdFromFactorPackSetId(ident);
         ensureRolloutFields = [v26 ensureRolloutFields];
         [ensureRolloutFields setClientFactorPackSetId:v32];
 
-        if (([(__CFString *)v84 targetingRuleIndex]& 0x80000000) != 0)
+        if (([(__CFString *)v83 targetingRuleIndex]& 0x80000000) != 0)
         {
           goto LABEL_22;
         }
 
-        targetingRuleIndex = [(__CFString *)v84 targetingRuleIndex];
+        targetingRuleIndex = [(__CFString *)v83 targetingRuleIndex];
         ensureRolloutFields2 = [v26 ensureRolloutFields];
         [ensureRolloutFields2 setClientTargetingRuleGroupOrdinal:targetingRuleIndex];
 LABEL_21:
 
 LABEL_22:
-        [v82 mergeTelemetry:v26];
+        [v81 mergeTelemetry:v26];
       }
     }
 
@@ -180,8 +180,8 @@ LABEL_22:
     {
       if (v24 - 2 < 2)
       {
-        v25 = v84;
-        v84 = 0;
+        v25 = v83;
+        v83 = 0;
 
         v26 = objc_opt_new();
         ensureRolloutFields2 = [v26 ensureRolloutFields];
@@ -197,9 +197,9 @@ LABEL_22:
         ensureRolloutFields3 = [(__CFString *)v38 ensureRolloutFields];
         [ensureRolloutFields3 setClientFactorPackSetId:@"disenroll"];
 
-        v17 = v82;
-        [v82 mergeTelemetry:v38];
-        v52 = v81;
+        v17 = v81;
+        [v81 mergeTelemetry:v38];
+        v52 = v80;
         goto LABEL_60;
       }
     }
@@ -216,19 +216,19 @@ LABEL_22:
     }
 
     v38 = v36;
-    if (v84)
+    if (v83)
     {
       v39 = TRILogCategory_Server();
       if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
       {
-        v40 = v84;
+        v40 = v83;
         shortDesc = [deploymentCopy shortDesc];
         *buf = 138543874;
-        v86 = v38;
-        v87 = 2114;
-        v88 = v40;
-        v89 = 2114;
-        v90 = shortDesc;
+        v85 = v38;
+        v86 = 2114;
+        v87 = v40;
+        v88 = 2114;
+        v89 = shortDesc;
         v42 = "%{public}@Enrolling in factor pack set id %{public}@ for rollout %{public}@";
         v43 = v39;
         v44 = 32;
@@ -245,9 +245,9 @@ LABEL_32:
       {
         shortDesc = [deploymentCopy shortDesc];
         *buf = 138543618;
-        v86 = v38;
-        v87 = 2114;
-        v88 = shortDesc;
+        v85 = v38;
+        v86 = 2114;
+        v87 = shortDesc;
         v42 = "%{public}@Targeting resulted in the default treatment (non-enrollment) for rollout %{public}@";
         v43 = v39;
         v44 = 22;
@@ -255,14 +255,14 @@ LABEL_32:
       }
     }
 
-    if (v84)
+    if (v83)
     {
       targetedFactorPackSetId2 = [v20 targetedFactorPackSetId];
 
-      v80 = v38;
+      v79 = v38;
       if (targetedFactorPackSetId2)
       {
-        ident2 = [(__CFString *)v84 ident];
+        ident2 = [(__CFString *)v83 ident];
         targetedFactorPackSetId3 = [v20 targetedFactorPackSetId];
         v48 = [ident2 isEqualToString:targetedFactorPackSetId3];
 
@@ -286,9 +286,9 @@ LABEL_46:
         {
           targetedFactorPackSetId4 = [v20 targetedFactorPackSetId];
           *buf = 138543618;
-          v86 = targetedFactorPackSetId4;
-          v87 = 2114;
-          v88 = v84;
+          v85 = targetedFactorPackSetId4;
+          v86 = 2114;
+          v87 = v83;
           v60 = "Retargeting resulted in targetedFactorPackSetId change: %{public}@ --> %{public}@";
 LABEL_52:
           _os_log_impl(&dword_26F567000, v49, OS_LOG_TYPE_DEFAULT, v60, buf, 0x16u);
@@ -304,7 +304,7 @@ LABEL_52:
           goto LABEL_54;
         }
 
-        ident3 = [(__CFString *)v84 ident];
+        ident3 = [(__CFString *)v83 ident];
         activeFactorPackSetId3 = [v20 activeFactorPackSetId];
         v57 = [ident3 isEqualToString:activeFactorPackSetId3];
 
@@ -327,12 +327,12 @@ LABEL_47:
 
         if (v58)
         {
-          v61 = v84;
+          v61 = v83;
           targetedFactorPackSetId4 = [v20 activeFactorPackSetId];
           *buf = 138543618;
-          v86 = v61;
-          v87 = 2114;
-          v88 = targetedFactorPackSetId4;
+          v85 = v61;
+          v86 = 2114;
+          v87 = targetedFactorPackSetId4;
           v60 = "Retargeting result: targeted %{public}@, previously active: %{public}@";
           goto LABEL_52;
         }
@@ -341,8 +341,8 @@ LABEL_47:
 LABEL_54:
       v62 = objc_opt_new();
       rolloutDatabase2 = [(TRIRolloutTargetingOperation *)self rolloutDatabase];
-      ident4 = [(__CFString *)v84 ident];
-      if (([(__CFString *)v84 targetingRuleIndex]& 0x80000000) != 0)
+      ident4 = [(__CFString *)v83 ident];
+      if (([(__CFString *)v83 targetingRuleIndex]& 0x80000000) != 0)
       {
         v69 = [rolloutDatabase2 targetDeployment:deploymentCopy toFactorPackSetId:ident4 targetingRuleIndex:0 deallocatedDeployments:v62 usingTransaction:0];
 
@@ -354,27 +354,27 @@ LABEL_54:
 
       else
       {
-        v65 = [MEMORY[0x277CCABB0] numberWithInt:{-[__CFString targetingRuleIndex](v84, "targetingRuleIndex")}];
+        v65 = [MEMORY[0x277CCABB0] numberWithInt:{-[__CFString targetingRuleIndex](v83, "targetingRuleIndex")}];
         v66 = [rolloutDatabase2 targetDeployment:deploymentCopy toFactorPackSetId:ident4 targetingRuleIndex:v65 deallocatedDeployments:v62 usingTransaction:0];
 
         if (v66)
         {
 LABEL_56:
-          v83[0] = MEMORY[0x277D85DD0];
-          v83[1] = 3221225472;
-          v83[2] = __157__TRIRolloutTargetingOperation__targetRolloutDeployment_appendingTelemetryToSupport_reportTelemetryToServer_factorPackSetIdToActivate_shouldDisenroll_error___block_invoke;
-          v83[3] = &unk_279DE3A50;
-          v83[4] = self;
-          [v62 enumerateObjectsUsingBlock:v83];
-          v67 = v84;
+          v82[0] = MEMORY[0x277D85DD0];
+          v82[1] = 3221225472;
+          v82[2] = __157__TRIRolloutTargetingOperation__targetRolloutDeployment_appendingTelemetryToSupport_reportTelemetryToServer_factorPackSetIdToActivate_shouldDisenroll_error___block_invoke;
+          v82[3] = &unk_279DE3A50;
+          v82[4] = self;
+          [v62 enumerateObjectsUsingBlock:v82];
+          v67 = v83;
           v68 = *activate;
           *activate = v67;
           v30 = 1;
 LABEL_59:
-          v52 = v81;
+          v52 = v80;
 
-          v17 = v82;
-          v38 = v80;
+          v17 = v81;
+          v38 = v79;
           goto LABEL_60;
         }
       }
@@ -387,8 +387,8 @@ LABEL_59:
     }
 
     v30 = 1;
-    v52 = v81;
-    v17 = v82;
+    v52 = v80;
+    v17 = v81;
 LABEL_60:
 
     goto LABEL_61;
@@ -401,7 +401,6 @@ LABEL_60:
   v30 = 0;
 LABEL_62:
 
-  v71 = *MEMORY[0x277D85DE8];
   return v30;
 }
 

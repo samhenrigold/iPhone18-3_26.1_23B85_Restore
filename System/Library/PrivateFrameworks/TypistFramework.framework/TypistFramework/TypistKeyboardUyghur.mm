@@ -47,29 +47,29 @@
 
 - (void)_addDoubleVowelKeys:(id)keys withMapping:(id)mapping
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
   mappingCopy = mapping;
   obj = [mappingCopy allKeys];
-  v44 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
-  if (v44)
+  v43 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
+  if (v43)
   {
-    v42 = *v46;
+    v41 = *v45;
     do
     {
       v7 = 0;
       do
       {
-        if (*v46 != v42)
+        if (*v45 != v41)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v45 + 1) + 8 * v7);
+        v8 = *(*(&v44 + 1) + 8 * v7);
         v9 = [mappingCopy objectForKeyedSubscript:v8];
         keyPlanes = [(TypistKeyboard *)self keyPlanes];
         v11 = [keyPlanes objectForKeyedSubscript:keysCopy];
@@ -119,21 +119,19 @@ LABEL_10:
           goto LABEL_10;
         }
 
-        TYLogl(OS_LOG_TYPE_ERROR, @"CRITICAL WARNING: Neither the '%@' nor the %@ key are found!!", v26, v27, v28, v29, v30, v31, v8);
+        TYLogl(OS_LOG_TYPE_ERROR, @"CRITICAL WARNING: Neither the '%@' nor the %@ key are found!!", v26, v27, v28, v29, v30, v31, v8, v9);
 LABEL_11:
 
         ++v7;
       }
 
-      while (v44 != v7);
-      v38 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
-      v44 = v38;
+      while (v43 != v7);
+      v38 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
+      v43 = v38;
     }
 
     while (v38);
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)preprocessing

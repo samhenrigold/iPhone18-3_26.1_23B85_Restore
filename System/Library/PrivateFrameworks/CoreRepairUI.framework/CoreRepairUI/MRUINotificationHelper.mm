@@ -97,8 +97,8 @@ uint64_t __41__MRUINotificationHelper_sharedSingleton__block_invoke(uint64_t a1)
 
 void __128__MRUINotificationHelper_createRepairFollowUpWithNotification_actionURL_repairTitle_infoText_itemID_timeInterval_componentName___block_invoke(uint64_t a1)
 {
-  v35[1] = *MEMORY[0x277D85DE8];
-  v31 = [objc_alloc(MEMORY[0x277CFE500]) initWithClientIdentifier:@"com.apple.mobilerepair"];
+  v34[1] = *MEMORY[0x277D85DE8];
+  v30 = [objc_alloc(MEMORY[0x277CFE500]) initWithClientIdentifier:@"com.apple.mobilerepair"];
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v3 = objc_opt_new();
   v4 = MEMORY[0x277CFE4F8];
@@ -126,8 +126,8 @@ void __128__MRUINotificationHelper_createRepairFollowUpWithNotification_actionUR
     [v8 setClearAction:v12];
 
     v13 = MEMORY[0x277CBEB98];
-    v35[0] = *MEMORY[0x277CFE498];
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
+    v34[0] = *MEMORY[0x277CFE498];
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
     v15 = [v13 setWithArray:v14];
     [v8 setOptions:v15];
   }
@@ -166,13 +166,13 @@ void __128__MRUINotificationHelper_createRepairFollowUpWithNotification_actionUR
   if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v34 = v16;
+    v33 = v16;
     _os_log_impl(&dword_247875000, v26, OS_LOG_TYPE_DEFAULT, "Posting item: %@", buf, 0xCu);
   }
 
-  v32 = 0;
-  v27 = [v31 postFollowUpItem:v16 error:&v32];
-  v28 = v32;
+  v31 = 0;
+  v27 = [v30 postFollowUpItem:v16 error:&v31];
+  v28 = v31;
   if ((v27 & 1) == 0)
   {
     v29 = handleForCategory(1uLL);
@@ -183,14 +183,12 @@ void __128__MRUINotificationHelper_createRepairFollowUpWithNotification_actionUR
   }
 
   [*(*(a1 + 72) + 16) setObject:v16 forKeyedSubscript:*(a1 + 56)];
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)popUpNotificationNowWithMessage:(id)message title:(id)title openSensitiveURL:(id)l componentName:(id)name legacyPopup:(BOOL)popup
 {
   popupCopy = popup;
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   titleCopy = title;
   lCopy = l;
@@ -204,7 +202,7 @@ void __128__MRUINotificationHelper_createRepairFollowUpWithNotification_actionUR
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    LODWORD(v36) = v18;
+    LODWORD(v35) = v18;
     _os_log_impl(&dword_247875000, v19, OS_LOG_TYPE_DEFAULT, " value is:%d", buf, 8u);
   }
 
@@ -224,9 +222,9 @@ void __128__MRUINotificationHelper_createRepairFollowUpWithNotification_actionUR
     {
       delay = selfCopy->delay;
       *buf = 138412546;
-      v36 = titleCopy;
-      v37 = 1024;
-      v38 = delay;
+      v35 = titleCopy;
+      v36 = 1024;
+      v37 = delay;
       _os_log_impl(&dword_247875000, v22, OS_LOG_TYPE_DEFAULT, "Displaying %@ notification after %d delay", buf, 0x12u);
     }
 
@@ -237,11 +235,11 @@ void __128__MRUINotificationHelper_createRepairFollowUpWithNotification_actionUR
     block[1] = 3221225472;
     block[2] = __107__MRUINotificationHelper_popUpNotificationNowWithMessage_title_openSensitiveURL_componentName_legacyPopup___block_invoke;
     block[3] = &unk_278EB1F00;
-    v34 = popupCopy;
-    v30 = v24;
-    v31 = titleCopy;
-    v32 = messageCopy;
-    v33 = lCopy;
+    v33 = popupCopy;
+    v29 = v24;
+    v30 = titleCopy;
+    v31 = messageCopy;
+    v32 = lCopy;
     v27 = v24;
     dispatch_after(v25, v26, block);
     dispatch_semaphore_wait(v27, 0xFFFFFFFFFFFFFFFFLL);
@@ -249,13 +247,11 @@ void __128__MRUINotificationHelper_createRepairFollowUpWithNotification_actionUR
   }
 
   objc_sync_exit(selfCopy);
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __107__MRUINotificationHelper_popUpNotificationNowWithMessage_title_openSensitiveURL_componentName_legacyPopup___block_invoke(uint64_t a1)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEBD0] groupStandardUserDefaults];
   v3 = [v2 BOOLForKey:@"settingsView"];
 
@@ -263,7 +259,7 @@ void __107__MRUINotificationHelper_popUpNotificationNowWithMessage_title_openSen
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    LODWORD(v50) = v3;
+    LODWORD(v49) = v3;
     _os_log_impl(&dword_247875000, v4, OS_LOG_TYPE_DEFAULT, " value is:%d", buf, 8u);
   }
 
@@ -281,7 +277,7 @@ void __107__MRUINotificationHelper_popUpNotificationNowWithMessage_title_openSen
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v50 = v6;
+      v49 = v6;
       _os_log_impl(&dword_247875000, v7, OS_LOG_TYPE_DEFAULT, "iconpath is:%@", buf, 0xCu);
     }
 
@@ -291,14 +287,14 @@ void __107__MRUINotificationHelper_popUpNotificationNowWithMessage_title_openSen
     v9 = v8;
     if (*(a1 + 64) == 1)
     {
-      v44 = MEMORY[0x277CBEAC0];
+      v43 = MEMORY[0x277CBEAC0];
       v10 = [v8 localizedStringWithKey:*(a1 + 40) defaultString:*(a1 + 40)];
-      v43 = *MEMORY[0x277CBF188];
-      v42 = [v9 localizedStringWithKey:*(a1 + 48) defaultString:*(a1 + 48)];
-      v41 = *MEMORY[0x277CBF198];
+      v42 = *MEMORY[0x277CBF188];
+      v41 = [v9 localizedStringWithKey:*(a1 + 48) defaultString:*(a1 + 48)];
+      v40 = *MEMORY[0x277CBF198];
       v11 = [v9 localizedStringWithKey:@"LEARN_MORE" defaultString:@"LEARN_MORE"];
       v12 = *MEMORY[0x277CBF1E8];
-      v45 = a1;
+      v44 = a1;
       v13 = [MEMORY[0x277CCABB0] numberWithBool:0];
       v14 = v6;
       v15 = *MEMORY[0x277D67320];
@@ -306,13 +302,13 @@ void __107__MRUINotificationHelper_popUpNotificationNowWithMessage_title_openSen
       v17 = v9;
       v18 = *MEMORY[0x277D67340];
       v19 = [MEMORY[0x277CCABB0] numberWithBool:1];
-      v40 = v18;
+      v39 = v18;
       v9 = v17;
-      v39 = v15;
+      v38 = v15;
       v6 = v14;
-      v20 = [v44 dictionaryWithObjectsAndKeys:{v10, v43, v42, v41, v11, v12, v13, v39, v16, v40, v19, *MEMORY[0x277D672D0], &unk_28597F140, *MEMORY[0x277D67430], 0}];
+      v20 = [v43 dictionaryWithObjectsAndKeys:{v10, v42, v41, v40, v11, v12, v13, v38, v16, v39, v19, *MEMORY[0x277D672D0], &unk_28597F140, *MEMORY[0x277D67430], 0}];
 
-      a1 = v45;
+      a1 = v44;
     }
 
     else
@@ -355,15 +351,15 @@ void __107__MRUINotificationHelper_popUpNotificationNowWithMessage_title_openSen
         {
           v31 = *(a1 + 40);
           *buf = 138412290;
-          v50 = v31;
+          v49 = v31;
           _os_log_impl(&dword_247875000, v30, OS_LOG_TYPE_DEFAULT, "%@ User pressed button", buf, 0xCu);
         }
 
         v32 = [MEMORY[0x277CC1E80] defaultWorkspace];
         v33 = *(a1 + 56);
-        v46 = 0;
-        v34 = [v32 openSensitiveURL:v33 withOptions:0 error:&v46];
-        v35 = v46;
+        v45 = 0;
+        v34 = [v32 openSensitiveURL:v33 withOptions:0 error:&v45];
+        v35 = v45;
 
         if ((v34 & 1) == 0)
         {
@@ -389,8 +385,6 @@ void __107__MRUINotificationHelper_popUpNotificationNowWithMessage_title_openSen
 
     dispatch_semaphore_signal(*(a1 + 32));
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeRepairNotificationsWithUniqueID:(id)d
@@ -408,37 +402,37 @@ void __107__MRUINotificationHelper_popUpNotificationNowWithMessage_title_openSen
 
 void __64__MRUINotificationHelper_removeRepairNotificationsWithUniqueID___block_invoke(uint64_t a1)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v2 = handleForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v40 = v3;
+    v39 = v3;
     _os_log_impl(&dword_247875000, v2, OS_LOG_TYPE_DEFAULT, "removeRepairNotificationsWithUniqueID:%@", buf, 0xCu);
   }
 
   v4 = [objc_alloc(MEMORY[0x277CE2028]) initWithBundleIdentifier:@"com.apple.Preferences"];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v5 = [v4 deliveredNotifications];
-  v6 = [v5 countByEnumeratingWithState:&v32 objects:v43 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v31 objects:v42 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v33;
+    v8 = *v32;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v33 != v8)
+        if (*v32 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [*(*(&v32 + 1) + 8 * i) request];
+        v10 = [*(*(&v31 + 1) + 8 * i) request];
         v11 = [v10 identifier];
         v12 = [v11 isEqualToString:*(a1 + 32)];
 
@@ -449,21 +443,21 @@ void __64__MRUINotificationHelper_removeRepairNotificationsWithUniqueID___block_
           {
             v14 = *(a1 + 32);
             *buf = 138412546;
-            v40 = v14;
-            v41 = 2112;
-            v42 = v10;
+            v39 = v14;
+            v40 = 2112;
+            v41 = v10;
             _os_log_impl(&dword_247875000, v13, OS_LOG_TYPE_DEFAULT, "matched notification id:%@::%@", buf, 0x16u);
           }
 
-          v38 = *(a1 + 32);
-          v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
+          v37 = *(a1 + 32);
+          v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
           [v4 removeDeliveredNotificationsWithIdentifiers:v15];
 
           goto LABEL_15;
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v32 objects:v43 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v31 objects:v42 count:16];
       if (v7)
       {
         continue;
@@ -475,26 +469,26 @@ void __64__MRUINotificationHelper_removeRepairNotificationsWithUniqueID___block_
 
 LABEL_15:
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v16 = [v4 pendingNotificationRequests];
-  v17 = [v16 countByEnumeratingWithState:&v28 objects:v37 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v27 objects:v36 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v29;
+    v19 = *v28;
     while (2)
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v29 != v19)
+        if (*v28 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = *(*(&v28 + 1) + 8 * j);
+        v21 = *(*(&v27 + 1) + 8 * j);
         v22 = [v21 identifier];
         v23 = [v22 isEqualToString:*(a1 + 32)];
 
@@ -505,21 +499,21 @@ LABEL_15:
           {
             v25 = *(a1 + 32);
             *buf = 138412546;
-            v40 = v25;
-            v41 = 2112;
-            v42 = v21;
+            v39 = v25;
+            v40 = 2112;
+            v41 = v21;
             _os_log_impl(&dword_247875000, v24, OS_LOG_TYPE_DEFAULT, "matched notification id:%@::%@", buf, 0x16u);
           }
 
-          v36 = *(a1 + 32);
-          v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
+          v35 = *(a1 + 32);
+          v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
           [v4 removeDeliveredNotificationsWithIdentifiers:v26];
 
           goto LABEL_27;
         }
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v28 objects:v37 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v27 objects:v36 count:16];
       if (v18)
       {
         continue;
@@ -530,8 +524,6 @@ LABEL_15:
   }
 
 LABEL_27:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearRepairFollowUpWithUniqueID:(id)d
@@ -549,39 +541,39 @@ LABEL_27:
 
 void __58__MRUINotificationHelper_clearRepairFollowUpWithUniqueID___block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277CFE500]) initWithClientIdentifier:@"com.apple.mobilerepair"];
-  v26 = 0;
-  v3 = [v2 pendingFollowUpItems:&v26];
-  v4 = v26;
+  v25 = 0;
+  v3 = [v2 pendingFollowUpItems:&v25];
+  v4 = v25;
   v5 = handleForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v29 = v3;
+    v28 = v3;
     _os_log_impl(&dword_247875000, v5, OS_LOG_TYPE_DEFAULT, "listing Followups:%@", buf, 0xCu);
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v6 = v3;
-  v7 = [v6 countByEnumeratingWithState:&v22 objects:v32 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v21 objects:v31 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v23;
+    v9 = *v22;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * i);
+        v11 = *(*(&v21 + 1) + 8 * i);
         v12 = [v11 uniqueIdentifier];
         v13 = [v12 isEqualToString:*(a1 + 32)];
 
@@ -592,23 +584,23 @@ void __58__MRUINotificationHelper_clearRepairFollowUpWithUniqueID___block_invoke
           {
             v15 = *(a1 + 32);
             *buf = 138412546;
-            v29 = v15;
-            v30 = 2112;
-            v31 = v11;
+            v28 = v15;
+            v29 = 2112;
+            v30 = v11;
             _os_log_impl(&dword_247875000, v14, OS_LOG_TYPE_DEFAULT, "matched id:%@::%@", buf, 0x16u);
           }
 
           v16 = [MEMORY[0x277CBEA60] arrayWithObjects:{*(a1 + 32), 0}];
-          v21 = v4;
-          v17 = [v2 clearPendingFollowUpItemsWithUniqueIdentifiers:v16 error:&v21];
-          v18 = v21;
+          v20 = v4;
+          v17 = [v2 clearPendingFollowUpItemsWithUniqueIdentifiers:v16 error:&v20];
+          v18 = v20;
 
           if ((v17 & 1) == 0)
           {
             v19 = handleForCategory(1uLL);
             if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
             {
-              __58__MRUINotificationHelper_clearRepairFollowUpWithUniqueID___block_invoke_cold_1(v27, v18);
+              __58__MRUINotificationHelper_clearRepairFollowUpWithUniqueID___block_invoke_cold_1(v26, v18);
             }
           }
 
@@ -616,51 +608,49 @@ void __58__MRUINotificationHelper_clearRepairFollowUpWithUniqueID___block_invoke
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v22 objects:v32 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v21 objects:v31 count:16];
     }
 
     while (v8);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __52__MRUINotificationHelper_updateFollowupsToNewLocale__block_invoke()
 {
-  v87 = *MEMORY[0x277D85DE8];
-  v81 = 0;
-  v66 = [objc_alloc(MEMORY[0x277CFE500]) initWithClientIdentifier:@"com.apple.mobilerepair"];
-  v0 = [v66 pendingFollowUpItems:&v81];
-  v74 = v81;
+  v86 = *MEMORY[0x277D85DE8];
+  v80 = 0;
+  v65 = [objc_alloc(MEMORY[0x277CFE500]) initWithClientIdentifier:@"com.apple.mobilerepair"];
+  v0 = [v65 pendingFollowUpItems:&v80];
+  v73 = v80;
+  v76 = 0u;
   v77 = 0u;
   v78 = 0u;
   v79 = 0u;
-  v80 = 0u;
   obj = v0;
-  v1 = [obj countByEnumeratingWithState:&v77 objects:v86 count:16];
+  v1 = [obj countByEnumeratingWithState:&v76 objects:v85 count:16];
   if (v1)
   {
     v2 = v1;
-    v72 = *MEMORY[0x277CFE440];
-    v73 = *v78;
-    v63 = *MEMORY[0x277CFE3F8];
+    v71 = *MEMORY[0x277CFE440];
+    v72 = *v77;
+    v62 = *MEMORY[0x277CFE3F8];
     do
     {
       v3 = 0;
-      v64 = v2;
+      v63 = v2;
       do
       {
-        if (*v78 != v73)
+        if (*v77 != v72)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v77 + 1) + 8 * v3);
+        v4 = *(*(&v76 + 1) + 8 * v3);
         v5 = objc_alloc_init(MEMORY[0x277CFE508]);
         v6 = [v4 uniqueIdentifier];
         [v5 setUniqueIdentifier:v6];
 
-        [v5 setGroupIdentifier:v72];
+        [v5 setGroupIdentifier:v71];
         v7 = [v4 uniqueIdentifier];
         v8 = [@"com.apple.mobilerepair.DisplayRepair" isEqualToString:v7];
 
@@ -774,7 +764,7 @@ LABEL_15:
         if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v85 = v23;
+          v84 = v23;
           _os_log_impl(&dword_247875000, v26, OS_LOG_TYPE_DEFAULT, "Title key :%@", buf, 0xCu);
         }
 
@@ -782,17 +772,17 @@ LABEL_15:
         if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v85 = v25;
+          v84 = v25;
           _os_log_impl(&dword_247875000, v27, OS_LOG_TYPE_DEFAULT, "infotext key:%@", buf, 0xCu);
         }
 
         if (v23 && v25)
         {
-          v70 = v3;
+          v69 = v3;
           v28 = objc_alloc_init(MEMORY[0x277CBEB18]);
           v29 = objc_opt_new();
           v30 = v4;
-          v67 = v4;
+          v66 = v4;
           v31 = MEMORY[0x277CFE4F8];
           v32 = [v29 localizedStringWithKey:@"LEARN_MORE" defaultString:@"LEARN_MORE"];
           [v30 actions];
@@ -801,25 +791,25 @@ LABEL_15:
           v36 = [v35 url];
           v37 = [v31 actionWithLabel:v32 url:v36];
 
-          v68 = v37;
+          v67 = v37;
           [v28 addObject:v37];
           v38 = [v29 localizedStringWithKey:v23 defaultString:v23];
           [v5 setTitle:v38];
 
-          v69 = v29;
+          v68 = v29;
           v39 = [v29 localizedStringWithKey:v33 defaultString:v33];
           [v5 setInformativeText:v39];
 
           [v5 setDisplayStyle:2];
-          v71 = v28;
+          v70 = v28;
           [v5 setActions:v28];
-          [v5 setTargetBundleIdentifier:v63];
+          [v5 setTargetBundleIdentifier:v62];
           v40 = MEMORY[0x277CBEA60];
-          v41 = [v67 uniqueIdentifier];
+          v41 = [v66 uniqueIdentifier];
           v42 = [v40 arrayWithObjects:{v41, 0}];
-          v76 = v74;
-          LOBYTE(v32) = [v66 clearPendingFollowUpItemsWithUniqueIdentifiers:v42 error:&v76];
-          v43 = v76;
+          v75 = v73;
+          LOBYTE(v32) = [v65 clearPendingFollowUpItemsWithUniqueIdentifiers:v42 error:&v75];
+          v43 = v75;
 
           if (v32)
           {
@@ -832,37 +822,37 @@ LABEL_15:
 
             v45 = handleForCategory(0);
             v25 = v33;
-            v3 = v70;
-            v47 = v68;
-            v46 = v69;
+            v3 = v69;
+            v47 = v67;
+            v46 = v68;
             if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v85 = v5;
+              v84 = v5;
               _os_log_impl(&dword_247875000, v45, OS_LOG_TYPE_DEFAULT, "Re Posting item: %@", buf, 0xCu);
             }
 
-            v75 = v43;
-            v48 = [v66 postFollowUpItem:v5 error:&v75];
-            v74 = v75;
+            v74 = v43;
+            v48 = [v65 postFollowUpItem:v5 error:&v74];
+            v73 = v74;
 
             if (v48)
             {
-              v49 = v71;
+              v49 = v70;
 LABEL_35:
 
-              v2 = v64;
+              v2 = v63;
               goto LABEL_36;
             }
 
             v50 = handleForCategory(1uLL);
-            v43 = v74;
+            v43 = v73;
             if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
             {
-              __52__MRUINotificationHelper_updateFollowupsToNewLocale__block_invoke_cold_2(v82, v74);
+              __52__MRUINotificationHelper_updateFollowupsToNewLocale__block_invoke_cold_2(v81, v73);
             }
 
-            v49 = v71;
+            v49 = v70;
           }
 
           else
@@ -870,17 +860,17 @@ LABEL_35:
             v50 = handleForCategory(1uLL);
             if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
             {
-              __58__MRUINotificationHelper_clearRepairFollowUpWithUniqueID___block_invoke_cold_1(v83, v43);
+              __58__MRUINotificationHelper_clearRepairFollowUpWithUniqueID___block_invoke_cold_1(v82, v43);
             }
 
             v25 = v33;
             v49 = v28;
             v46 = v29;
-            v3 = v70;
-            v47 = v68;
+            v3 = v69;
+            v47 = v67;
           }
 
-          v74 = v43;
+          v73 = v43;
           goto LABEL_35;
         }
 
@@ -890,52 +880,45 @@ LABEL_36:
       }
 
       while (v2 != v3);
-      v61 = [obj countByEnumeratingWithState:&v77 objects:v86 count:16];
+      v61 = [obj countByEnumeratingWithState:&v76 objects:v85 count:16];
       v2 = v61;
     }
 
     while (v61);
   }
-
-  v62 = *MEMORY[0x277D85DE8];
 }
 
 void __128__MRUINotificationHelper_createRepairFollowUpWithNotification_actionURL_repairTitle_infoText_itemID_timeInterval_componentName___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 localizedDescription];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_247875000, a2, OS_LOG_TYPE_ERROR, "failed to post followup error:%@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_247875000, a2, OS_LOG_TYPE_ERROR, "failed to post followup error:%@", &v4, 0xCu);
 }
 
 void __107__MRUINotificationHelper_popUpNotificationNowWithMessage_title_openSensitiveURL_componentName_legacyPopup___block_invoke_cold_1(uint64_t *a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = *a1;
   v5 = [a2 localizedDescription];
-  v7 = 138412546;
-  v8 = v4;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_error_impl(&dword_247875000, a3, OS_LOG_TYPE_ERROR, "failed to open sensitive url:%@ :: error:%@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = v4;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_error_impl(&dword_247875000, a3, OS_LOG_TYPE_ERROR, "failed to open sensitive url:%@ :: error:%@", &v6, 0x16u);
 }
 
 void __107__MRUINotificationHelper_popUpNotificationNowWithMessage_title_openSensitiveURL_componentName_legacyPopup___block_invoke_cold_2(uint64_t a1, int *a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 40);
   v4 = *a2;
-  v6 = 138412546;
-  v7 = v3;
-  v8 = 1024;
-  v9 = v4;
-  _os_log_error_impl(&dword_247875000, log, OS_LOG_TYPE_ERROR, "Unable to display %@ notification ERROR:%d", &v6, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
+  v6 = v3;
+  v7 = 1024;
+  v8 = v4;
+  _os_log_error_impl(&dword_247875000, log, OS_LOG_TYPE_ERROR, "Unable to display %@ notification ERROR:%d", &v5, 0x12u);
 }
 
 void __58__MRUINotificationHelper_clearRepairFollowUpWithUniqueID___block_invoke_cold_1(uint64_t a1, uint64_t a2)

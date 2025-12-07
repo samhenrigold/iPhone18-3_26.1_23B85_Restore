@@ -115,15 +115,16 @@ void __80__CPSOpenClipCardPresenter_showLocationConfirmationSheetWithRequest_com
 void __80__CPSOpenClipCardPresenter_showLocationConfirmationSheetWithRequest_completion___block_invoke_2(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  v10 = 0;
-  v3 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v2 requiringSecureCoding:1 error:&v10];
-  v4 = v10;
+  v12 = 0;
+  v3 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v2 requiringSecureCoding:1 error:&v12];
+  v4 = v12;
+  v6 = v4;
   if (v4)
   {
-    v5 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = CPS_LOG_CHANNEL_PREFIXClipServices(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __80__CPSOpenClipCardPresenter_showLocationConfirmationSheetWithRequest_completion___block_invoke_2_cold_1(v4, v5);
+      __80__CPSOpenClipCardPresenter_showLocationConfirmationSheetWithRequest_completion___block_invoke_2_cold_1(v6, v7);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -131,15 +132,15 @@ void __80__CPSOpenClipCardPresenter_showLocationConfirmationSheetWithRequest_com
 
   else
   {
-    v6 = objc_alloc_init(MEMORY[0x277CF0C80]);
-    [v6 setObject:v3 forSetting:0];
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __80__CPSOpenClipCardPresenter_showLocationConfirmationSheetWithRequest_completion___block_invoke_5;
-    v8[3] = &unk_278DCF050;
-    v7 = *(a1 + 40);
-    v9 = *(a1 + 48);
-    [v7 _activateAlertHandleWithSettings:v6 viewControllerClassName:@"CPSLocationAlertViewController" repsonseHandler:v8];
+    v8 = objc_alloc_init(MEMORY[0x277CF0C80]);
+    [v8 setObject:v3 forSetting:0];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __80__CPSOpenClipCardPresenter_showLocationConfirmationSheetWithRequest_completion___block_invoke_5;
+    v10[3] = &unk_278DCF050;
+    v9 = *(a1 + 40);
+    v11 = *(a1 + 48);
+    [v9 _activateAlertHandleWithSettings:v8 viewControllerClassName:@"CPSLocationAlertViewController" repsonseHandler:v10];
   }
 }
 
@@ -148,29 +149,30 @@ void __80__CPSOpenClipCardPresenter_showLocationConfirmationSheetWithRequest_com
   v3 = [a2 info];
   v4 = [v3 objectForSetting:0];
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     (*(*(a1 + 32) + 16))(*(a1 + 32), [v4 integerValue]);
   }
 
   else
   {
-    v5 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = CPS_LOG_CHANNEL_PREFIXClipServices(isKindOfClass, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __80__CPSOpenClipCardPresenter_showLocationConfirmationSheetWithRequest_completion___block_invoke_5_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+      __80__CPSOpenClipCardPresenter_showLocationConfirmationSheetWithRequest_completion___block_invoke_5_cold_1(v7, v8, v9, v10, v11, v12, v13, v14);
     }
 
     (*(*(a1 + 32) + 16))(*(a1 + 32), 0);
   }
 }
 
-uint64_t __80__CPSOpenClipCardPresenter_showLocationConfirmationSheetWithRequest_completion___block_invoke_8(uint64_t result, char a2)
+uint64_t __80__CPSOpenClipCardPresenter_showLocationConfirmationSheetWithRequest_completion___block_invoke_8(uint64_t result, uint64_t a2)
 {
   if ((a2 & 1) == 0)
   {
     v2 = result;
-    v3 = CPS_LOG_CHANNEL_PREFIXClipServices();
+    v3 = CPS_LOG_CHANNEL_PREFIXClipServices(result, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __80__CPSOpenClipCardPresenter_showLocationConfirmationSheetWithRequest_completion___block_invoke_8_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
@@ -184,23 +186,18 @@ uint64_t __80__CPSOpenClipCardPresenter_showLocationConfirmationSheetWithRequest
 
 uint64_t __80__CPSOpenClipCardPresenter_showLocationConfirmationSheetWithRequest_completion___block_invoke_10(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  if (*(v2 + 8) || *(v2 + 16))
+  if (*(*(a1 + 32) + 8) == 0)
   {
-    v3 = MEMORY[0x245D3D5F0](*(a1 + 40));
-    v4 = *(a1 + 32);
-    v5 = *(v4 + 32);
-    *(v4 + 32) = v3;
+    v1 = *(*(a1 + 40) + 16);
 
-    return MEMORY[0x2821F96F8]();
+    return v1();
   }
 
   else
   {
-    v6 = *(a1 + 40);
-    v7 = *(*(a1 + 40) + 16);
+    *(*(a1 + 32) + 32) = MEMORY[0x245D3D5F0](*(a1 + 40));
 
-    return v7();
+    return MEMORY[0x2821F96F8]();
   }
 }
 
@@ -240,20 +237,19 @@ uint64_t __80__CPSOpenClipCardPresenter_showLocationConfirmationSheetWithRequest
   objc_destroyWeak(&location);
 }
 
-void __85__CPSOpenClipCardPresenter__showCardWithOptions_activationHandler_completionHandler___block_invoke(uint64_t a1)
+void __85__CPSOpenClipCardPresenter__showCardWithOptions_activationHandler_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  if (*(v2 + 8))
+  v3 = *(a1 + 32);
+  if (*(v3 + 8))
   {
-    v3 = *(a1 + 40);
     v4 = *(*(a1 + 40) + 16);
 
     v4();
   }
 
-  else if (*(v2 + 16))
+  else if (*(v3 + 16))
   {
-    v5 = CPS_LOG_CHANNEL_PREFIXClipServices();
+    v5 = CPS_LOG_CHANNEL_PREFIXClipServices(a1, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __85__CPSOpenClipCardPresenter__showCardWithOptions_activationHandler_completionHandler___block_invoke_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
@@ -326,18 +322,17 @@ uint64_t __85__CPSOpenClipCardPresenter__showCardWithOptions_activationHandler_c
 {
   if (*(a1 + 56) == 1)
   {
-    v2 = *(a1 + 40);
-    v3 = *(*(a1 + 40) + 16);
+    v2 = *(*(a1 + 40) + 16);
 
-    return v3();
+    return v2();
   }
 
   else
   {
     [*(a1 + 32) _invalidateSharingClient];
-    v5 = *(*(a1 + 48) + 16);
+    v4 = *(*(a1 + 48) + 16);
 
-    return v5();
+    return v4();
   }
 }
 
@@ -438,7 +433,7 @@ uint64_t __59__CPSOpenClipCardPresenter_remoteAlertHandleDidDeactivate___block_i
   dispatch_async(queue, v8);
 }
 
-uint64_t __69__CPSOpenClipCardPresenter_remoteAlertHandle_didInvalidateWithError___block_invoke(uint64_t a1)
+void *__69__CPSOpenClipCardPresenter_remoteAlertHandle_didInvalidateWithError___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) removeObserver:*(a1 + 40)];
   v3 = *(a1 + 40);
@@ -491,11 +486,10 @@ uint64_t __55__CPSOpenClipCardPresenter__sharingClientDidInvalidate__block_invok
 
 void __80__CPSOpenClipCardPresenter_showLocationConfirmationSheetWithRequest_completion___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2436ED000, a2, OS_LOG_TYPE_ERROR, "Fail to encode location request with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2436ED000, a2, OS_LOG_TYPE_ERROR, "Fail to encode location request with error: %@", &v2, 0xCu);
 }
 
 @end

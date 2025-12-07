@@ -16,7 +16,7 @@
 
 - (id)outputContentClasses
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   outputVariableString = [(WFOutputAction *)self outputVariableString];
   v3 = outputVariableString;
   if (outputVariableString)
@@ -29,30 +29,30 @@
     if (v5 == v7)
     {
       v8 = objc_opt_new();
+      v17 = 0u;
       v18 = 0u;
       v19 = 0u;
       v20 = 0u;
-      v21 = 0u;
       variables2 = [v3 variables];
-      v10 = [variables2 countByEnumeratingWithState:&v18 objects:v23 count:16];
+      v10 = [variables2 countByEnumeratingWithState:&v17 objects:v22 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v19;
+        v12 = *v18;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v19 != v12)
+            if (*v18 != v12)
             {
               objc_enumerationMutation(variables2);
             }
 
-            possibleAggrandizedContentClasses = [*(*(&v18 + 1) + 8 * i) possibleAggrandizedContentClasses];
+            possibleAggrandizedContentClasses = [*(*(&v17 + 1) + 8 * i) possibleAggrandizedContentClasses];
             [v8 unionOrderedSet:possibleAggrandizedContentClasses];
           }
 
-          v11 = [variables2 countByEnumeratingWithState:&v18 objects:v23 count:16];
+          v11 = [variables2 countByEnumeratingWithState:&v17 objects:v22 count:16];
         }
 
         while (v11);
@@ -63,8 +63,8 @@
 
     else
     {
-      v22 = objc_opt_class();
-      array = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
+      v21 = objc_opt_class();
+      array = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
     }
   }
 
@@ -72,8 +72,6 @@
   {
     array = MEMORY[0x1E695E0F0];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -153,7 +151,7 @@
 
   value = [v4 value];
 
-  LOBYTE(v4) = [value isEqualToString:@"Do Nothing"];
+  LOBYTE(v4) = objc_msgSend_isEqualToString_(value);
   return v4 ^ 1;
 }
 
@@ -216,9 +214,9 @@
 - (BOOL)outputSurfaceIsAvailable
 {
   runSource = [(WFOutputAction *)self runSource];
-  v4 = [runSource isEqualToString:*MEMORY[0x1E69E13D8]];
+  isEqualToString = objc_msgSend_isEqualToString_(runSource);
 
-  return (v4 & 1) != 0 || [(WFOutputAction *)self outputBehavior]!= 1;
+  return (isEqualToString & 1) != 0 || [(WFOutputAction *)self outputBehavior]!= 1;
 }
 
 - (BOOL)setParameterState:(id)state forKey:(id)key
@@ -251,11 +249,11 @@
 
     v10 = v9;
 
-    v11 = [keyCopy isEqualToString:@"WFNoOutputSurfaceBehavior"];
+    isEqualToString = objc_msgSend_isEqualToString_(keyCopy);
     variableString = [v10 variableString];
 
     isEmpty = [variableString isEmpty];
-    if (v11 && isEmpty)
+    if (isEqualToString && isEmpty)
     {
       v14 = [(WFAction *)self parameterStateForKey:@"WFOutput"];
       [(WFOutputAction *)self setParameterState:v14 forKey:@"WFResponse"];
@@ -267,10 +265,9 @@
 
 - (void)finishRunningWithOutput:(id)output error:(id)error
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   if (error)
   {
-    v5 = *MEMORY[0x1E69E9840];
 
     [(WFAction *)self finishRunningWithError:error];
   }
@@ -278,15 +275,14 @@
   else
   {
     [(WFAction *)self setOutput:output];
-    v6 = MEMORY[0x1E696ABC0];
-    v11 = *MEMORY[0x1E696A588];
-    v7 = WFLocalizedString(@"User requested shortcut exit.");
-    v12[0] = v7;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
-    v9 = [v6 errorWithDomain:@"WFActionErrorDomain" code:4 userInfo:v8];
+    v5 = MEMORY[0x1E696ABC0];
+    v9 = *MEMORY[0x1E696A588];
+    v6 = WFLocalizedString(@"User requested shortcut exit.");
+    v10[0] = v6;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v8 = [v5 errorWithDomain:@"WFActionErrorDomain" code:4 userInfo:v7];
 
-    [(WFAction *)self finishRunningWithError:v9];
-    v10 = *MEMORY[0x1E69E9840];
+    [(WFAction *)self finishRunningWithError:v8];
   }
 }
 
@@ -302,7 +298,7 @@
 
   else
   {
-    if ([v5 isEqualToString:@"Respond"])
+    if (objc_msgSend_isEqualToString_(v5))
     {
       v6 = [(WFAction *)self parameterValueForKey:@"WFResponse" ofClass:objc_opt_class()];
       if (!v6)
@@ -324,7 +320,7 @@ LABEL_13:
       goto LABEL_14;
     }
 
-    if ([v5 isEqualToString:@"Copy to Clipboard"])
+    if (objc_msgSend_isEqualToString_(v5))
     {
       v10 = +[WFActionRegistry sharedRegistry];
       v6 = [v10 createActionWithIdentifier:@"is.workflow.actions.setclipboard" serializedParameters:0];

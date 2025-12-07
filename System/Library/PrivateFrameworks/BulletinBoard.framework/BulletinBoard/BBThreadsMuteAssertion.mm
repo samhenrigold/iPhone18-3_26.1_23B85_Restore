@@ -97,31 +97,31 @@ LABEL_7:
 - (void)getNextExpirationDate:(id *)date wasPurged:(BOOL *)purged currentDate:(id)currentDate
 {
   dateCopy = date;
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   currentDateCopy = currentDate;
   purgedCopy = purged;
   *purged = 0;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   allKeys = [(NSMutableDictionary *)self->_mutableExpirationDateByThreadID allKeys];
-  v9 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v9 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v9)
   {
     v10 = v9;
     v11 = 0;
-    v12 = *v22;
+    v12 = *v21;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v22 != v12)
+        if (*v21 != v12)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v14 = *(*(&v21 + 1) + 8 * i);
+        v14 = *(*(&v20 + 1) + 8 * i);
         dateCopy = [(NSMutableDictionary *)self->_mutableExpirationDateByThreadID valueForKey:v14, dateCopy];
         if ([(BBThreadsMuteAssertion *)self isActiveForThreadIdentifier:v14 currentDate:currentDateCopy])
         {
@@ -140,7 +140,7 @@ LABEL_7:
         }
       }
 
-      v10 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v10 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v10);
@@ -153,8 +153,6 @@ LABEL_7:
 
   v17 = v11;
   *dateCopy = v11;
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (NSSet)threadIDs
@@ -208,20 +206,18 @@ void __30__BBThreadsMuteAssertion_hash__block_invoke(uint64_t a1, void *a2, void
 {
   equalCopy = equal;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass())) && (v5 = equalCopy) != 0)
+  if ((objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass())) && (v4 = equalCopy) != 0)
   {
-    v6 = v5;
-    mutableExpirationDateByThreadID = self->_mutableExpirationDateByThreadID;
-    v8 = v6[1];
-    v9 = BSEqualDictionaries();
+    v5 = v4;
+    v6 = BSEqualDictionaries();
   }
 
   else
   {
-    v9 = 0;
+    v6 = 0;
   }
 
-  return v9;
+  return v6;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

@@ -70,7 +70,7 @@
     {
 LABEL_3:
       v14 = swift_allocObject();
-      *(v14 + 16) = v12;
+      v14[2] = v12;
       v12 = sub_188EB2CC4;
       goto LABEL_6;
     }
@@ -90,17 +90,18 @@ LABEL_6:
   toCopy = to;
   selfCopy = self;
   sub_188F33DE8(toCopy, animation, v10, v13, v12, v14);
-  sub_188A55B8C(v12);
-  sub_188A55B8C(v10);
+  sub_188A55B8C(v12, v14);
+  sub_188A55B8C(v10, v13);
 }
 
 - (id)newInteractionAssertion
 {
-  v3 = objc_allocWithZone(type metadata accessor for _UIMagicMorphAnimation.InteractionAssertion());
+  type metadata accessor for _UIMagicMorphAnimation.InteractionAssertion();
+  v4 = objc_allocWithZone(v3);
   selfCopy = self;
-  v5 = sub_188F36294(selfCopy);
+  v6 = sub_188F36294(selfCopy);
 
-  return v5;
+  return v6;
 }
 
 - (void)cancel
@@ -139,7 +140,7 @@ LABEL_6:
   swift_unknownObjectRetain();
   selfCopy = self;
   sub_188F2E36C(with, tracking, sub_188A4AA04, v12, v11, v13);
-  sub_188A55B8C(v11);
+  sub_188A55B8C(v11, v13);
   swift_unknownObjectRelease();
 }
 

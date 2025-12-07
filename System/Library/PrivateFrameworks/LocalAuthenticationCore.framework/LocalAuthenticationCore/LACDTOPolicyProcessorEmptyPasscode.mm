@@ -36,11 +36,11 @@
 
 - (void)processRequest:(id)request configuration:(id)configuration completion:(id)completion
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   configurationCopy = configuration;
   completionCopy = completion;
-  v11 = LACLogDTOProcessor();
+  v11 = LACLogDTOProcessor(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -49,36 +49,33 @@
   }
 
   objc_initWeak(buf, self);
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __78__LACDTOPolicyProcessorEmptyPasscode_processRequest_configuration_completion___block_invoke;
-  v14[3] = &unk_1E7A95FC0;
-  objc_copyWeak(&v16, buf);
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __78__LACDTOPolicyProcessorEmptyPasscode_processRequest_configuration_completion___block_invoke;
+  v13[3] = &unk_1E7A95FC0;
+  objc_copyWeak(&v15, buf);
   v12 = completionCopy;
-  v15 = v12;
-  [(LACDTOPolicyProcessorEmptyPasscode *)self _processAndEvaluateRequest:requestCopy completion:v14];
+  v14 = v12;
+  [(LACDTOPolicyProcessorEmptyPasscode *)self _processAndEvaluateRequest:requestCopy completion:v13];
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(buf);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __78__LACDTOPolicyProcessorEmptyPasscode_processRequest_configuration_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = LACLogDTOProcessor();
+  v4 = LACLogDTOProcessor(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 40));
-    v7 = 138543362;
-    v8 = WeakRetained;
-    _os_log_impl(&dword_1B0233000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ finished", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = WeakRetained;
+    _os_log_impl(&dword_1B0233000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ finished", &v6, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_processAndEvaluateRequest:(id)request completion:(id)completion
@@ -89,8 +86,8 @@ void __78__LACDTOPolicyProcessorEmptyPasscode_processRequest_configuration_compl
   if (![(LACDTOPolicyProcessorEmptyPasscode *)self canProcessRequest:requestCopy])
   {
 LABEL_6:
-    v14 = [LACEvaluationResult resultWithNext:requestCopy];
-    completionCopy[2](completionCopy, v14);
+    v15 = [LACEvaluationResult resultWithNext:requestCopy];
+    completionCopy[2](completionCopy, v15);
 
     goto LABEL_7;
   }
@@ -135,8 +132,8 @@ LABEL_6:
   options2 = [requestCopy options];
   v10 = [v8 initWithDictionary:options2];
 
-  v11 = LACLogDTOProcessor();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = LACLogDTOProcessor(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543874;
     selfCopy = self;
@@ -144,18 +141,17 @@ LABEL_6:
     v33 = 1081;
     v34 = 1024;
     evaluationUserId = [requestCopy evaluationUserId];
-    _os_log_impl(&dword_1B0233000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ Removing %d option because user %d has passcode", buf, 0x18u);
+    _os_log_impl(&dword_1B0233000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ Removing %d option because user %d has passcode", buf, 0x18u);
   }
 
-  v12 = [MEMORY[0x1E696AD98] numberWithInteger:1081];
-  [v10 setObject:0 forKeyedSubscript:v12];
+  v13 = [MEMORY[0x1E696AD98] numberWithInteger:1081];
+  [v10 setObject:0 forKeyedSubscript:v13];
 
   [requestCopy updateOptions:v10];
-  v13 = [LACEvaluationResult resultWithNext:requestCopy];
-  completionCopy[2](completionCopy, v13);
+  v14 = [LACEvaluationResult resultWithNext:requestCopy];
+  completionCopy[2](completionCopy, v14);
 
 LABEL_7:
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 LACMutableCredentialRequest *__76__LACDTOPolicyProcessorEmptyPasscode__processAndEvaluateRequest_completion___block_invoke(uint64_t a1)
@@ -170,7 +166,7 @@ LACMutableCredentialRequest *__76__LACDTOPolicyProcessorEmptyPasscode__processAn
   v5 = v4;
   if (v4)
   {
-    [v4 auditToken];
+    objc_msgSend_auditToken(v4);
   }
 
   else
@@ -187,31 +183,30 @@ void __76__LACDTOPolicyProcessorEmptyPasscode__processAndEvaluateRequest_complet
 {
   v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = LACLogDTOProcessor();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = LACLogDTOProcessor(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       WeakRetained = objc_loadWeakRetained((a1 + 48));
       v10 = 138543618;
       v11 = WeakRetained;
       v12 = 2114;
-      v13 = v3;
-      _os_log_impl(&dword_1B0233000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ failed err=%{public}@", &v10, 0x16u);
+      v13 = v4;
+      _os_log_impl(&dword_1B0233000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ failed err=%{public}@", &v10, 0x16u);
     }
 
-    v6 = [LACEvaluationResult resultWithFailure:v3];
+    v7 = [LACEvaluationResult resultWithFailure:v4];
     (*(*(a1 + 40) + 16))();
   }
 
   else
   {
-    v7 = *(a1 + 40);
-    v8 = [LACEvaluationResult resultWithNext:*(a1 + 32)];
-    (*(v7 + 16))(v7, v8);
+    v8 = *(a1 + 40);
+    v9 = [LACEvaluationResult resultWithNext:*(a1 + 32)];
+    (*(v8 + 16))(v8, v9);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

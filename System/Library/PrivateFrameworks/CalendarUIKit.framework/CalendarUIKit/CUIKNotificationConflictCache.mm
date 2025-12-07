@@ -167,7 +167,7 @@ uint64_t __47__CUIKNotificationConflictCache_sharedInstance__block_invoke()
   objc_sync_exit(selfCopy);
 }
 
-uint64_t __93__CUIKNotificationConflictCache_updateConflictsForNotification_synchronously_withCompletion___block_invoke(uint64_t a1)
+void *__93__CUIKNotificationConflictCache_updateConflictsForNotification_synchronously_withCompletion___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _updateNotification:*(a1 + 40) withCacheObject:*(a1 + 48)];
   if (result)
@@ -175,7 +175,7 @@ uint64_t __93__CUIKNotificationConflictCache_updateConflictsForNotification_sync
     result = *(a1 + 56);
     if (result)
     {
-      v3 = *(result + 16);
+      v3 = result[2];
 
       return v3();
     }

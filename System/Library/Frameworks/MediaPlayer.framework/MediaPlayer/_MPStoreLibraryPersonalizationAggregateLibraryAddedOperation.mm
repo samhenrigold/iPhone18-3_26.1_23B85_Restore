@@ -24,8 +24,8 @@
     end = a3->__end_;
     v6 = end - a3->__begin_;
     cap = self->_persistentIDs.__cap_;
-    v8 = p_persistentIDs->__begin_;
-    if (cap - p_persistentIDs->__begin_ < v6)
+    v8 = *p_persistentIDs;
+    if (cap - *p_persistentIDs < v6)
     {
       v9 = v6 >> 3;
       if (v8)
@@ -33,9 +33,9 @@
         self->_persistentIDs.__end_ = v8;
         operator delete(v8);
         cap = 0;
-        p_persistentIDs->__begin_ = 0;
-        p_persistentIDs->__end_ = 0;
-        p_persistentIDs->__cap_ = 0;
+        *p_persistentIDs = 0;
+        p_persistentIDs[1] = 0;
+        p_persistentIDs[2] = 0;
       }
 
       if (!(v9 >> 61))
@@ -71,7 +71,7 @@
         memmove(v8, begin, v6);
       }
 
-      v15 = (v8 + v6);
+      v15 = v8 + v6;
     }
 
     else
@@ -79,8 +79,8 @@
       v14 = (begin + v13);
       if (v12 != v8)
       {
-        memmove(p_persistentIDs->__begin_, begin, v13);
-        v12 = p_persistentIDs->__end_;
+        memmove(*p_persistentIDs, begin, v13);
+        v12 = p_persistentIDs[1];
       }
 
       if (end != v14)
@@ -88,10 +88,10 @@
         memmove(v12, v14, end - v14);
       }
 
-      v15 = (v12 + end - v14);
+      v15 = v12 + end - v14;
     }
 
-    p_persistentIDs->__end_ = v15;
+    p_persistentIDs[1] = v15;
   }
 }
 
@@ -105,9 +105,9 @@
 
 - (void)execute
 {
-  v3 = *MEMORY[0x1E69E9840];
-  *&v2 = mlcore::ItemPropertyPersistentID(self);
-  std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>();
+  v5 = *MEMORY[0x1E69E9840];
+  *&v3 = mlcore::ItemPropertyPersistentID(self);
+  std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>(v4, &v3, &self->_persistentIDs);
 }
 
 @end

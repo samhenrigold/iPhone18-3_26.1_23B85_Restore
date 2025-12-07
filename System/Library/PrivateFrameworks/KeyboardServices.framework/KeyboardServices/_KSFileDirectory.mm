@@ -163,42 +163,40 @@ LABEL_22:
 
 - (void)performOnEverything:(id)everything
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   everythingCopy = everything;
-  v15.receiver = self;
-  v15.super_class = _KSFileDirectory;
-  [(_KSFileEntry *)&v15 performOnEverything:everythingCopy];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
+  v14.receiver = self;
+  v14.super_class = _KSFileDirectory;
+  [(_KSFileEntry *)&v14 performOnEverything:everythingCopy];
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   selfCopy = self;
-  v6 = [(_KSFileDirectory *)selfCopy countByEnumeratingWithState:&v11 objects:v16 count:16];
+  v6 = [(_KSFileDirectory *)selfCopy countByEnumeratingWithState:&v10 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) performOnEverything:{everythingCopy, v11}];
+        [*(*(&v10 + 1) + 8 * v9++) performOnEverything:{everythingCopy, v10}];
       }
 
       while (v7 != v9);
-      v7 = [(_KSFileDirectory *)selfCopy countByEnumeratingWithState:&v11 objects:v16 count:16];
+      v7 = [(_KSFileDirectory *)selfCopy countByEnumeratingWithState:&v10 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description
@@ -214,46 +212,44 @@ LABEL_22:
 
 - (void)consistencyCheck
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v13.receiver = self;
-  v13.super_class = _KSFileDirectory;
-  [(_KSFileEntry *)&v13 consistencyCheck];
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
+  v14 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = _KSFileDirectory;
+  [(_KSFileEntry *)&v12 consistencyCheck];
   v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   allValues = [(NSMutableDictionary *)self->_contents allValues];
-  v4 = [allValues countByEnumeratingWithState:&v9 objects:v14 count:16];
+  v4 = [allValues countByEnumeratingWithState:&v8 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) consistencyCheck];
+        [*(*(&v8 + 1) + 8 * v7++) consistencyCheck];
       }
 
       while (v5 != v7);
-      v5 = [allValues countByEnumeratingWithState:&v9 objects:v14 count:16];
+      v5 = [allValues countByEnumeratingWithState:&v8 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)restoreToPath:(id)path
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   name = [(_KSFileEntry *)self name];
   if (name && (v6 = name, -[_KSFileEntry name](self, "name"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 isEqualToString:&stru_286796E30], v7, v6, !v8))
@@ -273,64 +269,62 @@ LABEL_22:
   }
 
   [(_KSFileEntry *)self saveAttributesToURL:v9];
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   allValues = [(NSMutableDictionary *)self->_contents allValues];
-  v11 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v11 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v18;
+    v13 = *v17;
     do
     {
       v14 = 0;
       do
       {
-        if (*v18 != v13)
+        if (*v17 != v13)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v17 + 1) + 8 * v14++) restoreToPath:v9];
+        [*(*(&v16 + 1) + 8 * v14++) restoreToPath:v9];
       }
 
       while (v12 != v14);
-      v12 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v12 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v12);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)findEntryWithComparison:(id)comparison recursively:(BOOL)recursively
 {
   recursivelyCopy = recursively;
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   comparisonCopy = comparison;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   selfCopy = self;
-  v8 = [(_KSFileDirectory *)selfCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [(_KSFileDirectory *)selfCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v19;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
+        v12 = *(*(&v18 + 1) + 8 * i);
         name = [v12 name];
         v14 = comparisonCopy[2](comparisonCopy, name);
 
@@ -356,7 +350,7 @@ LABEL_14:
         }
       }
 
-      v9 = [(_KSFileDirectory *)selfCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v9 = [(_KSFileDirectory *)selfCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v9)
       {
         continue;
@@ -368,8 +362,6 @@ LABEL_14:
 
   v16 = 0;
 LABEL_15:
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

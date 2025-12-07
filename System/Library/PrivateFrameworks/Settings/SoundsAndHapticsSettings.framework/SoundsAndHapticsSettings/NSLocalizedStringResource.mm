@@ -3,16 +3,16 @@
 
 @implementation NSLocalizedStringResource
 
-id __76___NSLocalizedStringResource_SHSNavigationComponents__shs_rootPaneComponent__block_invoke()
+id __76___NSLocalizedStringResource_SHSNavigationComponents__shs_rootPaneComponent__block_invoke(uint64_t a1)
 {
   if (_block_invoke_na_once_token_7 != -1)
   {
     __76___NSLocalizedStringResource_SHSNavigationComponents__shs_rootPaneComponent__block_invoke_cold_1();
   }
 
-  v1 = _block_invoke_na_once_object_7;
+  v2 = _block_invoke_na_once_object_7;
 
-  return v1;
+  return v2;
 }
 
 void __76___NSLocalizedStringResource_SHSNavigationComponents__shs_rootPaneComponent__block_invoke_2()
@@ -29,7 +29,7 @@ void __76___NSLocalizedStringResource_SHSNavigationComponents__shs_rootPaneCompo
   }
 
   v6 = [MEMORY[0x277CBEAF8] currentLocale];
-  v2 = SHS_BundleForSoundsAndHapticsSettingsFramework();
+  v2 = SHS_BundleForSoundsAndHapticsSettingsFramework(v6);
   v3 = [v2 bundleURL];
   v4 = [v0 initWithKey:v1 table:@"Sounds" locale:v6 bundleURL:v3];
   v5 = _block_invoke_na_once_object_7;

@@ -8,7 +8,7 @@
 
 - (void)_completeRequestWithReturnItems:(id)items
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   if (self->_serviceInfo)
   {
@@ -20,8 +20,8 @@
 
     v9 = objc_alloc(MEMORY[0x277CCAA88]);
     v10 = [v9 initWithItem:self->_serviceInfo typeIdentifier:*MEMORY[0x277CC2050]];
-    v15[0] = v10;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+    v14[0] = v10;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
     [v5 setAttachments:v11];
 
     v12 = [itemsCopy arrayByAddingObject:v5];
@@ -32,8 +32,6 @@
 
   extensionContext = [(RPBroadcastHandler *)self extensionContext];
   [extensionContext completeRequestReturningItems:itemsCopy completionHandler:0];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (RPBroadcastHandler)init
@@ -57,20 +55,20 @@
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v12[8] = *MEMORY[0x277D85DE8];
+  v11[8] = *MEMORY[0x277D85DE8];
   [(RPBroadcastHandler *)self setConnection:connection];
   [(NSXPCConnection *)self->_connection setExportedObject:self];
   v5 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_284D944E8];
   v6 = MEMORY[0x277CBEB98];
-  v12[0] = objc_opt_class();
-  v12[1] = objc_opt_class();
-  v12[2] = objc_opt_class();
-  v12[3] = objc_opt_class();
-  v12[4] = objc_opt_class();
-  v12[5] = objc_opt_class();
-  v12[6] = objc_opt_class();
-  v12[7] = objc_opt_class();
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:8];
+  v11[0] = objc_opt_class();
+  v11[1] = objc_opt_class();
+  v11[2] = objc_opt_class();
+  v11[3] = objc_opt_class();
+  v11[4] = objc_opt_class();
+  v11[5] = objc_opt_class();
+  v11[6] = objc_opt_class();
+  v11[7] = objc_opt_class();
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:8];
   v8 = [v6 setWithArray:v7];
   [v5 setClasses:v8 forSelector:sel_processPayload_completion_ argumentIndex:0 ofReply:0];
 
@@ -79,7 +77,6 @@
   [(NSXPCConnection *)self->_connection setRemoteObjectInterface:v9];
 
   [(NSXPCConnection *)self->_connection resume];
-  v10 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

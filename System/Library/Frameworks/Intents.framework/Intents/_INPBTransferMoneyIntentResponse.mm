@@ -302,7 +302,6 @@ LABEL_33:
 
   if (transactionNote)
   {
-    transactionNote = self->_transactionNote;
     PBDataWriterWriteStringField();
   }
 
@@ -316,13 +315,13 @@ LABEL_33:
 
   transferFee = [(_INPBTransferMoneyIntentResponse *)self transferFee];
 
-  v15 = toCopy;
+  v14 = toCopy;
   if (transferFee)
   {
     transferFee2 = [(_INPBTransferMoneyIntentResponse *)self transferFee];
     PBDataWriterWriteSubmessage();
 
-    v15 = toCopy;
+    v14 = toCopy;
   }
 }
 

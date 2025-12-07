@@ -155,7 +155,7 @@
   v9 = v8;
   if (v8)
   {
-    [v8 auditToken];
+    objc_msgSend_auditToken(v8);
   }
 
   else
@@ -290,24 +290,25 @@ LABEL_24:
   completionCopy = completion;
   if (completionCopy)
   {
-    if ([(CredentialProviderExtensionHelper *)self _connection:connectionCopy hasEntitlementToProceedWithAccessType:accessType])
+    v18 = [(CredentialProviderExtensionHelper *)self _connection:connectionCopy hasEntitlementToProceedWithAccessType:accessType];
+    if (v18)
     {
-      v18 = +[SFCredentialProviderExtensionManager sharedManager];
-      v20[0] = _NSConcreteStackBlock;
-      v20[1] = 3221225472;
-      v20[2] = sub_100001F04;
-      v20[3] = &unk_10000C3F0;
-      v22 = completionCopy;
+      v20 = +[SFCredentialProviderExtensionManager sharedManager];
+      v22[0] = _NSConcreteStackBlock;
+      v22[1] = 3221225472;
+      v22[2] = sub_100001F04;
+      v22[3] = &unk_10000C3F0;
+      v24 = completionCopy;
       typeCopy = type;
-      v20[4] = self;
-      v21 = criteriaCopy;
-      [v18 getExtensionWithBundleID:extensionCopy completion:v20];
+      v22[4] = self;
+      v23 = criteriaCopy;
+      [v20 getExtensionWithBundleID:extensionCopy completion:v22];
     }
 
     else
     {
-      v19 = sub_100005438();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v21 = sub_100005438(v18, v19);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         sub_100005828();
       }
@@ -342,35 +343,36 @@ LABEL_24:
 - (void)replaceCredentialIdentitiesWithIdentities:(id)identities completion:(id)completion
 {
   identitiesCopy = identities;
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_100002E9C;
-  v14[3] = &unk_10000C568;
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_100002E9C;
+  v16[3] = &unk_10000C568;
   completionCopy = completion;
-  v15 = completionCopy;
-  v8 = objc_retainBlock(v14);
-  if ([(CredentialProviderExtensionHelper *)self _hasEntitlementToProceedWithAccessType:1])
+  v17 = completionCopy;
+  v8 = objc_retainBlock(v16);
+  v9 = [(CredentialProviderExtensionHelper *)self _hasEntitlementToProceedWithAccessType:1];
+  if (v9)
   {
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_100002F28;
-    v11[3] = &unk_10000C608;
-    v11[4] = self;
-    v13 = v8;
-    v12 = identitiesCopy;
-    [(CredentialProviderExtensionHelper *)self _fetchXPCCallerInformationWithCompletion:v11];
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_100002F28;
+    v13[3] = &unk_10000C608;
+    v13[4] = self;
+    v15 = v8;
+    v14 = identitiesCopy;
+    [(CredentialProviderExtensionHelper *)self _fetchXPCCallerInformationWithCompletion:v13];
   }
 
   else
   {
-    v9 = sub_100005438();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = sub_100005438(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_100005920();
     }
 
-    v10 = sub_100002EB4();
-    (v8[2])(v8, 0, v10);
+    v12 = sub_100002EB4();
+    (v8[2])(v8, 0, v12);
   }
 }
 
@@ -393,103 +395,106 @@ LABEL_24:
 - (void)saveCredentialIdentities:(id)identities completion:(id)completion
 {
   identitiesCopy = identities;
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_10000380C;
-  v14[3] = &unk_10000C568;
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_10000380C;
+  v16[3] = &unk_10000C568;
   completionCopy = completion;
-  v15 = completionCopy;
-  v8 = objc_retainBlock(v14);
-  if ([(CredentialProviderExtensionHelper *)self _hasEntitlementToProceedWithAccessType:1])
+  v17 = completionCopy;
+  v8 = objc_retainBlock(v16);
+  v9 = [(CredentialProviderExtensionHelper *)self _hasEntitlementToProceedWithAccessType:1];
+  if (v9)
   {
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_100003824;
-    v11[3] = &unk_10000C608;
-    v11[4] = self;
-    v13 = v8;
-    v12 = identitiesCopy;
-    [(CredentialProviderExtensionHelper *)self _fetchXPCCallerInformationWithCompletion:v11];
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_100003824;
+    v13[3] = &unk_10000C608;
+    v13[4] = self;
+    v15 = v8;
+    v14 = identitiesCopy;
+    [(CredentialProviderExtensionHelper *)self _fetchXPCCallerInformationWithCompletion:v13];
   }
 
   else
   {
-    v9 = sub_100005438();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = sub_100005438(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_100005954();
     }
 
-    v10 = sub_100002EB4();
-    (v8[2])(v8, 0, v10);
+    v12 = sub_100002EB4();
+    (v8[2])(v8, 0, v12);
   }
 }
 
 - (void)removeCredentialIdentities:(id)identities completion:(id)completion
 {
   identitiesCopy = identities;
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_100003CC4;
-  v14[3] = &unk_10000C568;
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_100003CC4;
+  v16[3] = &unk_10000C568;
   completionCopy = completion;
-  v15 = completionCopy;
-  v8 = objc_retainBlock(v14);
-  if ([(CredentialProviderExtensionHelper *)self _hasEntitlementToProceedWithAccessType:1])
+  v17 = completionCopy;
+  v8 = objc_retainBlock(v16);
+  v9 = [(CredentialProviderExtensionHelper *)self _hasEntitlementToProceedWithAccessType:1];
+  if (v9)
   {
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_100003CDC;
-    v11[3] = &unk_10000C608;
-    v11[4] = self;
-    v13 = v8;
-    v12 = identitiesCopy;
-    [(CredentialProviderExtensionHelper *)self _fetchXPCCallerInformationWithCompletion:v11];
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_100003CDC;
+    v13[3] = &unk_10000C608;
+    v13[4] = self;
+    v15 = v8;
+    v14 = identitiesCopy;
+    [(CredentialProviderExtensionHelper *)self _fetchXPCCallerInformationWithCompletion:v13];
   }
 
   else
   {
-    v9 = sub_100005438();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = sub_100005438(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_100005988();
     }
 
-    v10 = sub_100002EB4();
-    (v8[2])(v8, 0, v10);
+    v12 = sub_100002EB4();
+    (v8[2])(v8, 0, v12);
   }
 }
 
 - (void)removeAllCredentialIdentitiesWithCompletion:(id)completion
 {
-  v10[0] = _NSConcreteStackBlock;
-  v10[1] = 3221225472;
-  v10[2] = sub_10000415C;
-  v10[3] = &unk_10000C568;
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_10000415C;
+  v12[3] = &unk_10000C568;
   completionCopy = completion;
-  v11 = completionCopy;
-  v5 = objc_retainBlock(v10);
-  if ([(CredentialProviderExtensionHelper *)self _hasEntitlementToProceedWithAccessType:1])
+  v13 = completionCopy;
+  v5 = objc_retainBlock(v12);
+  v6 = [(CredentialProviderExtensionHelper *)self _hasEntitlementToProceedWithAccessType:1];
+  if (v6)
   {
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_100004174;
-    v8[3] = &unk_10000C6D0;
-    v8[4] = self;
-    v9 = v5;
-    [(CredentialProviderExtensionHelper *)self _fetchXPCCallerInformationWithCompletion:v8];
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_100004174;
+    v10[3] = &unk_10000C6D0;
+    v10[4] = self;
+    v11 = v5;
+    [(CredentialProviderExtensionHelper *)self _fetchXPCCallerInformationWithCompletion:v10];
   }
 
   else
   {
-    v6 = sub_100005438();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = sub_100005438(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_1000059BC();
     }
 
-    v7 = sub_100002EB4();
-    (v5[2])(v5, 0, v7);
+    v9 = sub_100002EB4();
+    (v5[2])(v5, 0, v9);
   }
 }
 
@@ -554,20 +559,20 @@ LABEL_24:
 
     if (credentialIdentityStoreIdentifier && (associatedExtensionEnabled & 1) != 0)
     {
-      v9 = +[SFExternalCredentialIdentityStoreManager sharedManager];
-      [v9 getCredentialIdentityStoreWithIdentifier:credentialIdentityStoreIdentifier completion:completionCopy];
+      v11 = +[SFExternalCredentialIdentityStoreManager sharedManager];
+      [v11 getCredentialIdentityStoreWithIdentifier:credentialIdentityStoreIdentifier completion:completionCopy];
     }
 
     else
     {
-      v10 = sub_100005438();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      v12 = sub_100005438(v9, v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        v11 = 138543618;
-        v12 = credentialIdentityStoreIdentifier;
-        v13 = 1024;
-        v14 = associatedExtensionEnabled;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Did not provide identity store for bundleIdentifier: %{public}@ extension enabled: %d", &v11, 0x12u);
+        v13 = 138543618;
+        v14 = credentialIdentityStoreIdentifier;
+        v15 = 1024;
+        v16 = associatedExtensionEnabled;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Did not provide identity store for bundleIdentifier: %{public}@ extension enabled: %d", &v13, 0x12u);
       }
 
       completionCopy[2](completionCopy, 0);
@@ -612,32 +617,33 @@ LABEL_24:
 - (void)removeCredentialIdentityStoreForApplication:(id)application completion:(id)completion
 {
   applicationCopy = application;
-  v13 = _NSConcreteStackBlock;
-  v14 = 3221225472;
-  v15 = sub_100004F74;
-  v16 = &unk_10000C568;
+  v15 = _NSConcreteStackBlock;
+  v16 = 3221225472;
+  v17 = sub_100004F74;
+  v18 = &unk_10000C568;
   completionCopy = completion;
-  v17 = completionCopy;
-  v8 = objc_retainBlock(&v13);
-  if ([(CredentialProviderExtensionHelper *)self _hasEntitlementToProceedWithAccessType:0])
+  v19 = completionCopy;
+  v8 = objc_retainBlock(&v15);
+  v9 = [(CredentialProviderExtensionHelper *)self _hasEntitlementToProceedWithAccessType:0];
+  if (v9)
   {
-    v9 = SFCredentialIdentityStoreIdentifierCreateWithApplicationBundleIdentifier();
-    v10 = +[SFExternalCredentialIdentityStoreManager sharedManager];
-    [v10 removeCredentialIdentityStoreWithIdentifier:v9 completion:v8];
+    v11 = SFCredentialIdentityStoreIdentifierCreateWithApplicationBundleIdentifier();
+    v12 = +[SFExternalCredentialIdentityStoreManager sharedManager];
+    [v12 removeCredentialIdentityStoreWithIdentifier:v11 completion:v8];
   }
 
   else
   {
-    v11 = sub_100005438();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = sub_100005438(v9, v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_100005AE4();
     }
 
-    v12 = [NSString stringWithFormat:@"The calling process is missing the entitlement %@", SFCredentialProviderSystemEntitlement, v13, v14, v15, v16];
-    v9 = sub_100005330(v12);
+    v14 = [NSString stringWithFormat:@"The calling process is missing the entitlement %@", SFCredentialProviderSystemEntitlement, v15, v16, v17, v18];
+    v11 = sub_100005330(v14);
 
-    (v8[2])(v8, 0, v9);
+    (v8[2])(v8, 0, v11);
   }
 }
 

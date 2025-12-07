@@ -126,7 +126,7 @@
       {
         if (0xAAAAAAAAAAAAAAABLL * ((v18 - v17) >> 3) == (*(costs + 1) - *costs) >> 3)
         {
-          quasar::concatNbest(&self->_loggableConcatResult, &self->_loggableConcatCosts.__begin_, &v17, costs, milliseconds, 0xAu, v14);
+          quasar::concatNbest(&self->_loggableConcatResult, &self->_loggableConcatCosts, &v17, costs, milliseconds, 0xAu, v14);
         }
 
         else

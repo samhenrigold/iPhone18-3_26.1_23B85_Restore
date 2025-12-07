@@ -34,9 +34,9 @@ LABEL_15:
       goto LABEL_8;
     }
 
-    v8 = [(__CFString *)v6 isEqualToString:@"sharedCredential"];
+    isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-    if (v8)
+    if (isEqualToString)
     {
 LABEL_6:
       v9 = 1;
@@ -48,7 +48,7 @@ LABEL_6:
       if (v25 != @"appleFeature")
       {
         v26 = v25;
-        v27 = [(__CFString *)v25 isEqualToString:@"appleFeature"];
+        v27 = objc_msgSend_isEqualToString_(v25);
 
         if (!v27)
         {

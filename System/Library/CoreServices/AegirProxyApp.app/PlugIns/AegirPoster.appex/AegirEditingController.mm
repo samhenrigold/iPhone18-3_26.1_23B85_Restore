@@ -43,7 +43,7 @@
   swift_unknownObjectRetain();
   transitionCopy = transition;
   selfCopy = self;
-  sub_100020D54();
+  sub_100020D54(transition);
 
   swift_unknownObjectRelease();
 }

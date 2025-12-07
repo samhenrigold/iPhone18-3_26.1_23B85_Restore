@@ -164,7 +164,7 @@ LABEL_13:
 
 + (void)userInteractionWithPredictedLocationOfInterest:(id)interest interaction:(unint64_t)interaction
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   interestCopy = interest;
   rtPredictedLocationOfInterest = [interestCopy rtPredictedLocationOfInterest];
   if (rtPredictedLocationOfInterest)
@@ -184,16 +184,14 @@ LABEL_13:
   {
     defaultManager = v8;
     customLabel = [interestCopy customLabel];
-    v11 = 138543618;
-    v12 = customLabel;
-    v13 = 1024;
+    v10 = 138543618;
+    v11 = customLabel;
+    v12 = 1024;
     interactionCopy = interaction;
-    _os_log_impl(&dword_1A805E000, defaultManager, OS_LOG_TYPE_DEFAULT, "Got user interaction for mocked location of interest (%{public}@). Interaction type = %d", &v11, 0x12u);
+    _os_log_impl(&dword_1A805E000, defaultManager, OS_LOG_TYPE_DEFAULT, "Got user interaction for mocked location of interest (%{public}@). Interaction type = %d", &v10, 0x12u);
 
 LABEL_7:
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __93__EKStructuredLocationPrediction_userInteractionWithPredictedLocationOfInterest_interaction___block_invoke()
@@ -363,41 +361,38 @@ void __61__EKStructuredLocationPrediction__mockLocationForEventTitle___block_inv
 
 void __93__EKStructuredLocationPrediction_locationPredictionForTitle_location_calendar_error_timeout___block_invoke_cold_1(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 code];
   v5 = [a2 domain];
-  v7 = 134218498;
-  v8 = v4;
-  v9 = 2114;
-  v10 = v5;
-  v11 = 2112;
-  v12 = a2;
-  _os_log_error_impl(&dword_1A805E000, v3, OS_LOG_TYPE_ERROR, "Failed to get map item from GEOMapService. error code = %ld, domain = %{public}@, error = %@", &v7, 0x20u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 134218498;
+  v7 = v4;
+  v8 = 2114;
+  v9 = v5;
+  v10 = 2112;
+  v11 = a2;
+  _os_log_error_impl(&dword_1A805E000, v3, OS_LOG_TYPE_ERROR, "Failed to get map item from GEOMapService. error code = %ld, domain = %{public}@, error = %@", &v6, 0x20u);
 }
 
 void __61__EKStructuredLocationPrediction__mockLocationForEventTitle___block_invoke_115_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_4(&dword_1A805E000, a2, a3, "reverse geocode timeout for %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_4(&dword_1A805E000, a2, a3, "reverse geocode timeout for %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __61__EKStructuredLocationPrediction__mockLocationForEventTitle___block_invoke_2_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_4(&dword_1A805E000, a2, a3, "error reverse geocoding: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_4(&dword_1A805E000, a2, a3, "error reverse geocoding: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __61__EKStructuredLocationPrediction__mockLocationForEventTitle___block_invoke_2_cold_2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*(a1 + 32));
-  OUTLINED_FUNCTION_0_4(&dword_1A805E000, a2, a3, "no results from reverse geocode for %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_0_4(&dword_1A805E000, a2, a3, "no results from reverse geocode for %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

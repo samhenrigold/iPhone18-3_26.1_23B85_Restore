@@ -1,6 +1,5 @@
 @interface MCMCommandInvalidateCodeSigningCache
 + (Class)incomingMessageClass;
-+ (unint64_t)command;
 - (BOOL)preflightClientAllowed;
 - (void)execute;
 @end
@@ -9,22 +8,13 @@
 
 + (Class)incomingMessageClass
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = *MEMORY[0x1E69E9840];
 
   return objc_opt_class();
 }
 
-+ (unint64_t)command
-{
-  v2 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return 20;
-}
-
 - (void)execute
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   invalidateCodeSigningInfoForAppsWithoutDataContainer = [gCodeSigningMapping invalidateCodeSigningInfoForAppsWithoutDataContainer];
   if (invalidateCodeSigningInfoForAppsWithoutDataContainer == 1)
@@ -40,9 +30,9 @@
   v6 = container_log_handle_for_category();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v11 = 138412290;
-    v12 = v5;
-    _os_log_debug_impl(&dword_1DF2C3000, v6, OS_LOG_TYPE_DEBUG, "Invalidate codesign cache; error = %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v5;
+    _os_log_debug_impl(&dword_1DF2C3000, v6, OS_LOG_TYPE_DEBUG, "Invalidate codesign cache; error = %@", &v10, 0xCu);
   }
 
   if (v5)
@@ -60,17 +50,14 @@
   [resultPromise completeWithResult:v8];
 
   objc_autoreleasePoolPop(v3);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)preflightClientAllowed
 {
-  v7 = *MEMORY[0x1E69E9840];
   context = [(MCMCommand *)self context];
   clientIdentity = [context clientIdentity];
   isAllowedToAccessCodesignMapping = [clientIdentity isAllowedToAccessCodesignMapping];
 
-  v5 = *MEMORY[0x1E69E9840];
   return isAllowedToAccessCodesignMapping;
 }
 

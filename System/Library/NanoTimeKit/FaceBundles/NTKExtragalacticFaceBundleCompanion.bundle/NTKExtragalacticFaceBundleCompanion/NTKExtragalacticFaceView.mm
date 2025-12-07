@@ -13,12 +13,32 @@
 - (void)_prepareForSnapshotting;
 - (void)_prepareSwatchImagesForSelectedOptions:(id)options;
 - (void)_unloadSnapshotContentViews;
+- (void)screenDidTurnOffAnimated:(BOOL)animated;
+- (void)screenWillTurnOnAnimated:(BOOL)animated;
 - (void)setBackgroundAlpha:(double)alpha;
 - (void)setOverrideDate:(id)date duration:(double)duration;
 - (void)setTimeOffset:(double)offset;
 @end
 
 @implementation NTKExtragalacticFaceView
+
+- (void)screenDidTurnOffAnimated:(BOOL)animated
+{
+  v5.receiver = self;
+  v5.super_class = NTKExtragalacticFaceView;
+  [(NTKExtragalacticFaceView *)&v5 screenDidTurnOffAnimated:animated];
+  extragalacticContentView = [(NTKExtragalacticFaceView *)self extragalacticContentView];
+  [extragalacticContentView screenDidTurnOff];
+}
+
+- (void)screenWillTurnOnAnimated:(BOOL)animated
+{
+  v5.receiver = self;
+  v5.super_class = NTKExtragalacticFaceView;
+  [(NTKExtragalacticFaceView *)&v5 screenWillTurnOnAnimated:animated];
+  extragalacticContentView = [(NTKExtragalacticFaceView *)self extragalacticContentView];
+  [extragalacticContentView screenWillTurnOn];
+}
 
 - (NTKExtragalacticFaceView)initWithFaceStyle:(int64_t)style forDevice:(id)device clientIdentifier:(id)identifier
 {

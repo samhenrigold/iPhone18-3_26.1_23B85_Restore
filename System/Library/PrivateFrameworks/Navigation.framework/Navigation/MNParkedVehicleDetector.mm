@@ -71,7 +71,7 @@ void __66__MNParkedVehicleDetector_vehicleMonitorDidDisconnectFromVehicle___bloc
 
 void __66__MNParkedVehicleDetector_vehicleMonitorDidDisconnectFromVehicle___block_invoke_22(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = WeakRetained;
   if (WeakRetained && *(WeakRetained + 72) == 1)
@@ -80,15 +80,13 @@ void __66__MNParkedVehicleDetector_vehicleMonitorDidDisconnectFromVehicle___bloc
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 40);
-      v7 = 134217984;
-      v8 = v5;
-      _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_DEFAULT, "Expiring _vehicleDisconnectedCondition because %g seconds has elapsed since the vehicle disconnect.", &v7, 0xCu);
+      v6 = 134217984;
+      v7 = v5;
+      _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_DEFAULT, "Expiring _vehicleDisconnectedCondition because %g seconds has elapsed since the vehicle disconnect.", &v6, 0xCu);
     }
 
     [v3 _expireVehicleDisconnectSignal];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)vehicleMonitorDidConnectToVehicle:(id)vehicle
@@ -120,7 +118,7 @@ void __66__MNParkedVehicleDetector_vehicleMonitorDidDisconnectFromVehicle___bloc
 
 - (void)_checkParkingConditions
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (self->_isMonitoring)
   {
     v3 = MNGetMNParkedVehicleDetectorLog();
@@ -128,11 +126,11 @@ void __66__MNParkedVehicleDetector_vehicleMonitorDidDisconnectFromVehicle___bloc
     {
       vehicleDisconnectedCondition = self->_vehicleDisconnectedCondition;
       locationStoppedCondition = self->_locationStoppedCondition;
-      v8[0] = 67109376;
-      v8[1] = vehicleDisconnectedCondition;
-      v9 = 1024;
-      v10 = locationStoppedCondition;
-      _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_INFO, "vehicleDisconnected: %d, locationStopped: %d", v8, 0xEu);
+      v7[0] = 67109376;
+      v7[1] = vehicleDisconnectedCondition;
+      v8 = 1024;
+      v9 = locationStoppedCondition;
+      _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_INFO, "vehicleDisconnected: %d, locationStopped: %d", v7, 0xEu);
     }
 
     if (self->_vehicleDisconnectedCondition && self->_locationStoppedCondition)
@@ -140,15 +138,13 @@ void __66__MNParkedVehicleDetector_vehicleMonitorDidDisconnectFromVehicle___bloc
       v6 = MNGetMNParkedVehicleDetectorLog();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v8[0]) = 0;
-        _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "Triggering parked car event.", v8, 2u);
+        LOWORD(v7[0]) = 0;
+        _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "Triggering parked car event.", v7, 2u);
       }
 
       [(MNParkedVehicleDetector *)self _updateForParkedCar];
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateVehicleMonitorShouldStart:(BOOL)start
@@ -225,25 +221,23 @@ LABEL_7:
 
 uint64_t __53__MNParkedVehicleDetector__locationStoppedTimerFired__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = MNGetMNParkedVehicleDetectorLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     GEOConfigGetDouble();
-    v6 = 134217984;
-    v7 = v3;
-    _os_log_impl(&dword_1D311E000, v2, OS_LOG_TYPE_INFO, "Detected stopped location for consecutive %g seconds.", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = v3;
+    _os_log_impl(&dword_1D311E000, v2, OS_LOG_TYPE_INFO, "Detected stopped location for consecutive %g seconds.", &v5, 0xCu);
   }
 
   *(*(a1 + 32) + 56) = 1;
-  result = [*(a1 + 32) _checkParkingConditions];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _checkParkingConditions];
 }
 
 - (void)updateForLocation:(id)location
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   [locationCopy speed];
   v6 = v5;
@@ -287,17 +281,17 @@ uint64_t __53__MNParkedVehicleDetector__locationStoppedTimerFired__block_invoke(
     objc_initWeak(buf, self);
     v11 = [MNDispatchTimer alloc];
     v12 = MNNavigationQueue();
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __45__MNParkedVehicleDetector_updateForLocation___block_invoke;
-    v26[3] = &unk_1E8430EA0;
-    objc_copyWeak(&v27, buf);
-    v13 = [(MNDispatchTimer *)v11 initWithTime:v12 queue:v26 handler:v10];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __45__MNParkedVehicleDetector_updateForLocation___block_invoke;
+    v25[3] = &unk_1E8430EA0;
+    objc_copyWeak(&v26, buf);
+    v13 = [(MNDispatchTimer *)v11 initWithTime:v12 queue:v25 handler:v10];
     v14 = self->_locationStoppedTimer;
     self->_locationStoppedTimer = v13;
 
     [(MNDispatchTimer *)self->_locationStoppedTimer activate];
-    objc_destroyWeak(&v27);
+    objc_destroyWeak(&v26);
     objc_destroyWeak(buf);
   }
 
@@ -313,9 +307,9 @@ uint64_t __53__MNParkedVehicleDetector__locationStoppedTimerFired__block_invoke(
       {
         [locationCopy speed];
         *buf = 134218240;
-        v29 = v22;
-        v30 = 2048;
-        v31 = v19;
+        v28 = v22;
+        v29 = 2048;
+        v30 = v19;
         _os_log_impl(&dword_1D311E000, v21, OS_LOG_TYPE_DEFAULT, "Location exceeds speed threshold while in parked state: %0.2f >= %0.2f", buf, 0x16u);
       }
 
@@ -329,17 +323,15 @@ uint64_t __53__MNParkedVehicleDetector__locationStoppedTimerFired__block_invoke(
       {
         [locationCopy speed];
         *buf = 134218240;
-        v29 = v24;
-        v30 = 2048;
-        v31 = v19;
+        v28 = v24;
+        v29 = 2048;
+        v30 = v19;
         _os_log_impl(&dword_1D311E000, v23, OS_LOG_TYPE_DEFAULT, "Vehicle disconnect signal was detected but speed is too fast (%0.2f >= %0.2f) so ignoring signal.", buf, 0x16u);
       }
 
       [(MNParkedVehicleDetector *)self _expireVehicleDisconnectSignal];
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __45__MNParkedVehicleDetector_updateForLocation___block_invoke(uint64_t a1)
@@ -452,25 +444,26 @@ void __42__MNParkedVehicleDetector_startMonitoring__block_invoke_19(uint64_t a1)
 
 void __42__MNParkedVehicleDetector_startMonitoring__block_invoke_2(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
     v2 = MNGetMNParkedVehicleDetectorLog();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       v3 = *(a1 + 32);
-      v14 = 138412290;
-      *v15 = v3;
-      _os_log_impl(&dword_1D311E000, v2, OS_LOG_TYPE_ERROR, "Error monitoring vehicle events: %@", &v14, 0xCu);
+      v13 = 138412290;
+      *v14 = v3;
+      _os_log_impl(&dword_1D311E000, v2, OS_LOG_TYPE_ERROR, "Error monitoring vehicle events: %@", &v13, 0xCu);
     }
-
-LABEL_8:
-
-    goto LABEL_9;
   }
 
-  if ([*(a1 + 40) count])
+  else
   {
+    if (![*(a1 + 40) count])
+    {
+      return;
+    }
+
     v2 = [*(a1 + 40) firstObject];
     v4 = MNGetMNParkedVehicleDetectorLog();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -482,25 +475,20 @@ LABEL_8:
       v9 = v8;
       v10 = [v2 location];
       [v10 longitude];
-      v14 = 67109890;
-      *v15 = v5;
-      *&v15[4] = 2112;
-      *&v15[6] = v6;
-      v16 = 2048;
-      v17 = v9;
-      v18 = 2048;
-      v19 = v11;
-      _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_DEFAULT, "Vehicle event (%d) received from RTRoutineManager: %@, %f, %f", &v14, 0x26u);
+      v13 = 67109890;
+      *v14 = v5;
+      *&v14[4] = 2112;
+      *&v14[6] = v6;
+      v15 = 2048;
+      v16 = v9;
+      v17 = 2048;
+      v18 = v11;
+      _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_DEFAULT, "Vehicle event (%d) received from RTRoutineManager: %@, %f, %f", &v13, 0x26u);
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 48));
     [WeakRetained _updateForParkedCar];
-
-    goto LABEL_8;
   }
-
-LABEL_9:
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc

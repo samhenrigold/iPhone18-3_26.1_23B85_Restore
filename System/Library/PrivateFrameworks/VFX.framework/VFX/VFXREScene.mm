@@ -13,8 +13,8 @@
 - (id)transientDrawCall;
 - (int64_t)drawCallCount;
 - (int64_t)fetchClientTextureIDWithNamed:(id)named;
-- (uint64_t)addCollisionPlaneWithCenter:(void *)center extents:(double)extents transform:(float32x4_t)transform;
-- (uint64_t)addCollisionPlaneWithExtents:(float32x4_t)extents transform:(float32x4_t)transform;
+- (uint64_t)addCollisionPlaneWithCenter:(__n128)center extents:(__n128)extents transform:(__n128)transform;
+- (uint64_t)addCollisionPlaneWithExtents:(__n128)extents transform:(__n128)transform;
 - (void)clear;
 - (void)collideOutsidePlaneWithId:(int64_t)id;
 - (void)copyBindingValueWithObjectName:(id)name bindingName:(id)bindingName action:(int64_t)action storageGetterBlock:(id)block;
@@ -33,8 +33,8 @@
 - (void)tickWithCommandBuffer:(id)buffer;
 - (void)tickWithDeltaTime:(double)time;
 - (void)tickWithDeltaTime:(double)time commandBuffer:(id)buffer;
-- (void)updateCollisionPlaneWithId:(float32x4_t)id center:(uint64_t)center extents:(uint64_t)extents transform:;
-- (void)updateCollisionPlaneWithId:(float32x4_t)id extents:(float32x4_t)extents transform:(float32x4_t)transform;
+- (void)updateCollisionPlaneWithId:(__n128)id center:(__n128)center extents:(__n128)extents transform:(__n128)transform;
+- (void)updateCollisionPlaneWithId:(void *)id extents:transform:;
 @end
 
 @implementation VFXREScene
@@ -107,11 +107,12 @@
   }
 
   v7 = (self + OBJC_IVAR___VFXREScene_reloadBlock);
-  v8 = *(self + OBJC_IVAR___VFXREScene_reloadBlock);
+  v9 = *(self + OBJC_IVAR___VFXREScene_reloadBlock);
+  v8 = *(self + OBJC_IVAR___VFXREScene_reloadBlock + 8);
   *v7 = v6;
   v7[1] = v4;
 
-  sub_1AF0FB8EC(v8);
+  sub_1AF0FB8EC(v9, v8);
 }
 
 - (int64_t)drawCallCount
@@ -131,7 +132,7 @@
   v6 = v4;
   v7 = v3;
 
-  result.n128_u64[0] = v7;
+  result = v7;
   result.n128_u32[2] = v6;
   return result;
 }
@@ -139,11 +140,11 @@
 - (VFXREScene)initWithContentsOf:(id)of commandQueue:(id)queue options:(id)options error:(id *)error
 {
   v8 = sub_1AFDFC128();
-  MEMORY[0x1EEE9AC00](v8 - 8, v9);
-  v11 = &v13 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v8 - 8);
+  v10 = &v12 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1AFDFC0B8();
   swift_unknownObjectRetain();
-  return VFXREScene.init(contentsOf:commandQueue:options:)(v11, queue, options);
+  return VFXREScene.init(contentsOf:commandQueue:options:)(v10, queue, options);
 }
 
 - (id)generateMaterialsAndReturnError:(id *)error
@@ -348,20 +349,20 @@
   sub_1AF68AD4C(unsignedLongLongValue, v16, data, normalData, colorData);
 }
 
-- (uint64_t)addCollisionPlaneWithCenter:(void *)center extents:(double)extents transform:(float32x4_t)transform
+- (uint64_t)addCollisionPlaneWithCenter:(__n128)center extents:(__n128)extents transform:(__n128)transform
 {
   sub_1AFCCD8C0();
-  v13 = v5;
-  v14 = v4;
-  v11 = v7;
-  v12 = v6;
-  centerCopy = center;
-  v9 = sub_1AFCCCBC8(transform, v14, v13, v12, v11);
+  v17 = v9;
+  v18 = v8;
+  v15 = v11;
+  v16 = v10;
+  selfCopy = self;
+  v13 = sub_1AFCCCBC8(center, v18, v17, v16, v15);
 
-  return v9;
+  return v13;
 }
 
-- (uint64_t)addCollisionPlaneWithExtents:(float32x4_t)extents transform:(float32x4_t)transform
+- (uint64_t)addCollisionPlaneWithExtents:(__n128)extents transform:(__n128)transform
 {
   selfCopy = self;
   v7 = sub_1AFCCCBC8(a2, extents, transform, a5, a6);
@@ -369,21 +370,28 @@
   return v7;
 }
 
-- (void)updateCollisionPlaneWithId:(float32x4_t)id center:(uint64_t)center extents:(uint64_t)extents transform:
+- (void)updateCollisionPlaneWithId:(__n128)id center:(__n128)center extents:(__n128)extents transform:(__n128)transform
 {
+  v8 = v7;
   sub_1AFCCD8C0();
-  v15 = v7;
-  v13 = v9;
-  v14 = v8;
-  v12 = v10;
+  v18 = v10;
+  v16 = v12;
+  v17 = v11;
+  v15 = v13;
   selfCopy = self;
-  sub_1AFCCCDB0(extents, id, v15, v14, v13, v12);
+  sub_1AFCCCDB0(v8, id, v18, v17, v16, v15);
 }
 
-- (void)updateCollisionPlaneWithId:(float32x4_t)id extents:(float32x4_t)extents transform:(float32x4_t)transform
+- (void)updateCollisionPlaneWithId:(void *)id extents:transform:
 {
-  selfCopy = self;
-  sub_1AFCCCDB0(a8, a2, id, extents, transform, a6);
+  v12 = v5;
+  v13 = v6;
+  v10 = v3;
+  v11 = v4;
+  v9 = v2;
+  v7 = v1;
+  idCopy = id;
+  sub_1AFCCCDB0(v7, v9, v10, v11, v12, v13);
 }
 
 - (void)removeCollisionPlaneWithId:(int64_t)id

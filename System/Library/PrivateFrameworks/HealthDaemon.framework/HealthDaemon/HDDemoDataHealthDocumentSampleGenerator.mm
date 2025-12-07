@@ -6,12 +6,12 @@
 
 - (void)generateFirstRunObjectsForDemoPerson:(id)person firstDate:(id)date objectCollection:(id)collection
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   collectionCopy = collection;
-  v28.receiver = self;
-  v28.super_class = HDDemoDataHealthDocumentSampleGenerator;
-  [(HDDemoDataBaseSampleGenerator *)&v28 generateFirstRunObjectsForDemoPerson:person firstDate:dateCopy objectCollection:collectionCopy];
+  v27.receiver = self;
+  v27.super_class = HDDemoDataHealthDocumentSampleGenerator;
+  [(HDDemoDataBaseSampleGenerator *)&v27 generateFirstRunObjectsForDemoPerson:person firstDate:dateCopy objectCollection:collectionCopy];
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   v11 = [standardUserDefaults BOOLForKey:@"HealthDemoDataGenerateHealthDocumentsKey"];
 
@@ -23,7 +23,7 @@
     if (os_log_type_enabled(*MEMORY[0x277CCC2B8], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v30 = dateCopy;
+      v29 = dateCopy;
       _os_log_impl(&dword_228986000, v13, OS_LOG_TYPE_DEFAULT, "Generating demo CDA documents for date: %@", buf, 0xCu);
     }
 
@@ -33,15 +33,15 @@
     if (path)
     {
       v17 = [objc_alloc(MEMORY[0x277CCDE88]) initWithPathname:path];
-      v27 = 0;
-      v24[0] = MEMORY[0x277D85DD0];
-      v24[1] = 3221225472;
-      v24[2] = __107__HDDemoDataHealthDocumentSampleGenerator_generateFirstRunObjectsForDemoPerson_firstDate_objectCollection___block_invoke;
-      v24[3] = &unk_278622098;
-      v25 = dateCopy;
-      v26 = collectionCopy;
-      v18 = [v17 enumerateEntriesWithError:&v27 block:v24];
-      v19 = v27;
+      v26 = 0;
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __107__HDDemoDataHealthDocumentSampleGenerator_generateFirstRunObjectsForDemoPerson_firstDate_objectCollection___block_invoke;
+      v23[3] = &unk_278622098;
+      v24 = dateCopy;
+      v25 = collectionCopy;
+      v18 = [v17 enumerateEntriesWithError:&v26 block:v23];
+      v19 = v26;
       if ((v18 & 1) == 0)
       {
         _HKInitializeLogging();
@@ -49,9 +49,9 @@
         if (os_log_type_enabled(*v12, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v30 = v17;
-          v31 = 2112;
-          v32 = v19;
+          v29 = v17;
+          v30 = 2112;
+          v31 = v19;
           _os_log_error_impl(&dword_228986000, v20, OS_LOG_TYPE_ERROR, "Error enumerating contents of %@: %@", buf, 0x16u);
         }
       }
@@ -76,8 +76,6 @@
       }
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __107__HDDemoDataHealthDocumentSampleGenerator_generateFirstRunObjectsForDemoPerson_firstDate_objectCollection___block_invoke(uint64_t a1, void *a2)

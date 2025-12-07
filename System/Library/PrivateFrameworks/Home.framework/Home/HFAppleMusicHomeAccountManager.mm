@@ -59,14 +59,14 @@ void __48__HFAppleMusicHomeAccountManager_sharedInstance__block_invoke()
 
 - (void)executeHomeMediaAccountFetchForAllHomes
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   objc_initWeak(&location, self);
   v4 = HFLogForCategory(5uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = NSStringFromSelector(a2);
     *buf = 138412290;
-    v17 = v5;
+    v16 = v5;
     _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "%@ Fetching Media Accounts for All Homes", buf, 0xCu);
   }
 
@@ -82,37 +82,35 @@ void __48__HFAppleMusicHomeAccountManager_sharedInstance__block_invoke()
   v9 = +[HFHomeKitDispatcher sharedDispatcher];
   homeManager = [v9 homeManager];
   homes = [homeManager homes];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __73__HFAppleMusicHomeAccountManager_executeHomeMediaAccountFetchForAllHomes__block_invoke;
-  v13[3] = &unk_277DF5A80;
-  objc_copyWeak(v14, &location);
-  v14[1] = a2;
-  [homes na_each:v13];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __73__HFAppleMusicHomeAccountManager_executeHomeMediaAccountFetchForAllHomes__block_invoke;
+  v12[3] = &unk_277DF5A80;
+  objc_copyWeak(v13, &location);
+  v13[1] = a2;
+  [homes na_each:v12];
 
-  objc_destroyWeak(v14);
+  objc_destroyWeak(v13);
   objc_destroyWeak(&location);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __73__HFAppleMusicHomeAccountManager_executeHomeMediaAccountFetchForAllHomes__block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = HFLogForCategory(5uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = NSStringFromSelector(*(a1 + 40));
-    v9 = 138412546;
-    v10 = v6;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%@ Fetching ams_iTunesAccount for Home  %@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%@ Fetching ams_iTunesAccount for Home  %@", &v8, 0x16u);
   }
 
   v7 = [WeakRetained executeHomeMediaAccountFetchForHome:v3];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)mediaAccountForHomeIdentifier:(id)identifier
@@ -176,19 +174,19 @@ void __64__HFAppleMusicHomeAccountManager_mediaAccountForHomeIdentifier___block_
 
 void __73__HFAppleMusicHomeAccountManager_setAMSiTunesAccount_forHome_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if (v4)
   {
     v5 = HFLogForCategory(5uLL);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v12 = NSStringFromSelector(*(a1 + 64));
-      v13 = *(a1 + 32);
+      v11 = NSStringFromSelector(*(a1 + 64));
+      v12 = *(a1 + 32);
       *buf = 138412546;
-      v20 = v12;
-      v21 = 2112;
-      v22 = v13;
+      v19 = v11;
+      v20 = 2112;
+      v21 = v12;
       _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "%@ Error setting amsMediaAccount for home %@", buf, 0x16u);
     }
 
@@ -202,21 +200,19 @@ void __73__HFAppleMusicHomeAccountManager_setAMSiTunesAccount_forHome_completion
   else
   {
     v7 = MEMORY[0x277D2C900];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __73__HFAppleMusicHomeAccountManager_setAMSiTunesAccount_forHome_completion___block_invoke_11;
-    v14[3] = &unk_277DF5AD0;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __73__HFAppleMusicHomeAccountManager_setAMSiTunesAccount_forHome_completion___block_invoke_11;
+    v13[3] = &unk_277DF5AD0;
     v8 = *(a1 + 48);
-    v14[4] = *(a1 + 40);
-    v15 = v8;
-    v16 = *(a1 + 32);
+    v13[4] = *(a1 + 40);
+    v14 = v8;
+    v15 = *(a1 + 32);
     v9 = *(a1 + 56);
-    v17 = 0;
-    v18 = v9;
-    v10 = [v7 futureWithBlock:v14];
+    v16 = 0;
+    v17 = v9;
+    v10 = [v7 futureWithBlock:v13];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __73__HFAppleMusicHomeAccountManager_setAMSiTunesAccount_forHome_completion___block_invoke_11(uint64_t a1, void *a2)
@@ -260,7 +256,7 @@ void __73__HFAppleMusicHomeAccountManager_setAMSiTunesAccount_forHome_completion
 
 void __60__HFAppleMusicHomeAccountManager__fetchMediaAccountForHome___block_invoke(uint64_t a1, void *a2)
 {
-  v62[1] = *MEMORY[0x277D85DE8];
+  v61[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = [MEMORY[0x277CB8F48] ams_sharedAccountStore];
@@ -277,20 +273,20 @@ void __60__HFAppleMusicHomeAccountManager__fetchMediaAccountForHome___block_invo
         v10 = NSStringFromSelector(*(a1 + 48));
         v11 = *(a1 + 32);
         *buf = 138412802;
-        v54 = v10;
-        v55 = 2112;
-        v56 = v11;
-        v57 = 1024;
-        LODWORD(v58) = [v11 isMultiUserEnabled];
+        v53 = v10;
+        v54 = 2112;
+        v55 = v11;
+        v56 = 1024;
+        LODWORD(v57) = [v11 isMultiUserEnabled];
         _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "%@ Now Fetching ams_iTunesAccount for Home [%@] MU enabled = %d", buf, 0x1Cu);
       }
 
       v12 = [*(a1 + 32) uniqueIdentifier];
       v13 = [v5 ams_mediaAccountForHomeWithIdentifier:v12];
 
-      v50 = 0;
-      v14 = [v13 resultWithTimeout:&v50 error:2.0];
-      v15 = v50;
+      v49 = 0;
+      v14 = [v13 resultWithTimeout:&v49 error:2.0];
+      v15 = v49;
       v16 = v15;
       if (!v14 || v15)
       {
@@ -299,14 +295,14 @@ void __60__HFAppleMusicHomeAccountManager__fetchMediaAccountForHome___block_invo
           if ([v15 code] == 13)
           {
             v33 = [WeakRetained concurrentQueryQueue];
-            v45[0] = MEMORY[0x277D85DD0];
-            v45[1] = 3221225472;
-            v45[2] = __60__HFAppleMusicHomeAccountManager__fetchMediaAccountForHome___block_invoke_2;
-            v45[3] = &unk_277DF32A8;
-            v45[4] = WeakRetained;
-            v46 = *(a1 + 32);
-            v47 = v3;
-            dispatch_sync(v33, v45);
+            v44[0] = MEMORY[0x277D85DD0];
+            v44[1] = 3221225472;
+            v44[2] = __60__HFAppleMusicHomeAccountManager__fetchMediaAccountForHome___block_invoke_2;
+            v44[3] = &unk_277DF32A8;
+            v44[4] = WeakRetained;
+            v45 = *(a1 + 32);
+            v46 = v3;
+            dispatch_sync(v33, v44);
 
             v34 = HFLogForCategory(5uLL);
             if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
@@ -314,9 +310,9 @@ void __60__HFAppleMusicHomeAccountManager__fetchMediaAccountForHome___block_invo
               v35 = NSStringFromSelector(*(a1 + 48));
               v36 = *(a1 + 32);
               *buf = 138412546;
-              v54 = v35;
-              v55 = 2112;
-              v56 = v36;
+              v53 = v35;
+              v54 = 2112;
+              v55 = v36;
               _os_log_impl(&dword_20D9BF000, v34, OS_LOG_TYPE_DEFAULT, "%@ams_iTunesAccount migration is in flight for Home [%@]. We will finish the promise later when the information is available. Right now, returning...", buf, 0x16u);
             }
 
@@ -324,13 +320,13 @@ void __60__HFAppleMusicHomeAccountManager__fetchMediaAccountForHome___block_invo
             goto LABEL_26;
           }
 
-          v44 = v13;
+          v43 = v13;
           v37 = [*(a1 + 32) uniqueIdentifier];
           v38 = [v37 UUIDString];
-          v51 = v38;
+          v50 = v38;
           v39 = [MEMORY[0x277CBEB68] null];
-          v52 = v39;
-          v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+          v51 = v39;
+          v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
 
           v40 = HFLogForCategory(5uLL);
           if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
@@ -338,16 +334,16 @@ void __60__HFAppleMusicHomeAccountManager__fetchMediaAccountForHome___block_invo
             v41 = NSStringFromSelector(*(a1 + 48));
             v42 = *(a1 + 32);
             *buf = 138412802;
-            v54 = v41;
-            v55 = 2112;
-            v56 = v42;
-            v57 = 2112;
-            v58 = v16;
+            v53 = v41;
+            v54 = 2112;
+            v55 = v42;
+            v56 = 2112;
+            v57 = v16;
             _os_log_impl(&dword_20D9BF000, v40, OS_LOG_TYPE_DEFAULT, "%@ Failed to fetch ams_iTunesAccount for Home [%@] - [%@]", buf, 0x20u);
           }
 
           [v3 finishWithResult:v24];
-          v13 = v44;
+          v13 = v43;
         }
 
         else
@@ -360,9 +356,9 @@ void __60__HFAppleMusicHomeAccountManager__fetchMediaAccountForHome___block_invo
       {
         v17 = [*(a1 + 32) uniqueIdentifier];
         v18 = [v17 UUIDString];
-        v59 = v18;
-        v60 = v14;
-        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
+        v58 = v18;
+        v59 = v14;
+        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
 
         v20 = HFLogForCategory(5uLL);
         if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
@@ -370,11 +366,11 @@ void __60__HFAppleMusicHomeAccountManager__fetchMediaAccountForHome___block_invo
           v21 = NSStringFromSelector(*(a1 + 48));
           v22 = *(a1 + 32);
           *buf = 138412802;
-          v54 = v21;
-          v55 = 2112;
-          v56 = v19;
-          v57 = 2112;
-          v58 = v22;
+          v53 = v21;
+          v54 = 2112;
+          v55 = v19;
+          v56 = 2112;
+          v57 = v22;
           _os_log_impl(&dword_20D9BF000, v20, OS_LOG_TYPE_DEFAULT, "%@ Successfully fetched ams_iTunesAccount [%@] for Home [%@]", buf, 0x20u);
         }
 
@@ -385,7 +381,7 @@ void __60__HFAppleMusicHomeAccountManager__fetchMediaAccountForHome___block_invo
         block[3] = &unk_277DF3370;
         block[4] = WeakRetained;
         v24 = v19;
-        v49 = v24;
+        v48 = v24;
         dispatch_barrier_sync(v23, block);
 
         [v3 finishWithResult:v24];
@@ -402,9 +398,9 @@ LABEL_26:
       v27 = NSStringFromSelector(*(a1 + 48));
       v28 = *(a1 + 32);
       *buf = 138412546;
-      v54 = v27;
-      v55 = 2112;
-      v56 = v28;
+      v53 = v27;
+      v54 = 2112;
+      v55 = v28;
       _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "%@ This Home [%@] does NOT have Multi-User enabled, returning", buf, 0x16u);
     }
 
@@ -413,10 +409,10 @@ LABEL_26:
 
     v30 = [*(a1 + 32) uniqueIdentifier];
     v31 = [v30 UUIDString];
-    v61 = v31;
+    v60 = v31;
     v32 = [MEMORY[0x277CBEB68] null];
-    v62[0] = v32;
-    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v62 forKeys:&v61 count:1];
+    v61[0] = v32;
+    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v61 forKeys:&v60 count:1];
 
     [v3 finishWithResult:v24];
   }
@@ -428,7 +424,7 @@ LABEL_26:
     {
       v26 = NSStringFromSelector(*(a1 + 48));
       *buf = 138412290;
-      v54 = v26;
+      v53 = v26;
       _os_log_impl(&dword_20D9BF000, v25, OS_LOG_TYPE_DEFAULT, "%@ This Home no longer exists, returning", buf, 0xCu);
     }
 
@@ -437,8 +433,6 @@ LABEL_26:
   }
 
 LABEL_27:
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 void __60__HFAppleMusicHomeAccountManager__fetchMediaAccountForHome___block_invoke_17(uint64_t a1)
@@ -500,25 +494,25 @@ void __60__HFAppleMusicHomeAccountManager__fetchMediaAccountForHome___block_invo
 
 - (id)_futureForQueryLimitForHome:(id)home
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   homeCopy = home;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2020000000;
-  v27 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
   objc_initWeak(&location, self);
   concurrentQueryQueue = [(HFAppleMusicHomeAccountManager *)self concurrentQueryQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __62__HFAppleMusicHomeAccountManager__futureForQueryLimitForHome___block_invoke;
   block[3] = &unk_277DF5B48;
-  objc_copyWeak(&v22, &location);
+  objc_copyWeak(&v21, &location);
   v7 = homeCopy;
-  v20 = v7;
-  v21 = &v24;
+  v19 = v7;
+  v20 = &v23;
   dispatch_sync(concurrentQueryQueue, block);
 
-  if (*(v25 + 24) == 1)
+  if (*(v24 + 24) == 1)
   {
     homeIdentifierToFuturePromiseMapping = [(HFAppleMusicHomeAccountManager *)self homeIdentifierToFuturePromiseMapping];
     v9 = homeIdentifierToFuturePromiseMapping == 0;
@@ -534,20 +528,20 @@ void __60__HFAppleMusicHomeAccountManager__fetchMediaAccountForHome___block_invo
     {
       v12 = NSStringFromSelector(a2);
       *buf = 138412546;
-      v29 = v12;
-      v30 = 2112;
-      v31 = v7;
+      v28 = v12;
+      v29 = 2112;
+      v30 = v7;
       _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "%@ Unable to query Home Media Account for Home [%@] query limit reached.\nWe will callback the request later when the information is available.", buf, 0x16u);
     }
 
     v13 = MEMORY[0x277D2C900];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __62__HFAppleMusicHomeAccountManager__futureForQueryLimitForHome___block_invoke_22;
-    v17[3] = &unk_277DF28D8;
-    v17[4] = self;
-    v18 = v7;
-    v14 = [v13 futureWithBlock:v17];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __62__HFAppleMusicHomeAccountManager__futureForQueryLimitForHome___block_invoke_22;
+    v16[3] = &unk_277DF28D8;
+    v16[4] = self;
+    v17 = v7;
+    v14 = [v13 futureWithBlock:v16];
   }
 
   else
@@ -555,11 +549,9 @@ void __60__HFAppleMusicHomeAccountManager__fetchMediaAccountForHome___block_invo
     v14 = 0;
   }
 
-  objc_destroyWeak(&v22);
+  objc_destroyWeak(&v21);
   objc_destroyWeak(&location);
-  _Block_object_dispose(&v24, 8);
-
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v23, 8);
 
   return v14;
 }
@@ -673,7 +665,7 @@ void __62__HFAppleMusicHomeAccountManager__futureForQueryLimitForHome___block_in
 
 void __85__HFAppleMusicHomeAccountManager__finishPendingPromisesWithMediaAccountInfo_forHome___block_invoke(id *a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = [a1[4] homeIdentifierToActiveAMSQueriesMapping];
   v3 = [a1[5] uniqueIdentifier];
   v4 = [v3 UUIDString];
@@ -696,38 +688,38 @@ void __85__HFAppleMusicHomeAccountManager__finishPendingPromisesWithMediaAccount
     [v7 setObject:v8 forKey:v10];
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v11 = [a1[4] homeIdentifierToFuturePromiseMapping];
-  v12 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v25;
+    v14 = *v24;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v25 != v14)
+        if (*v24 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v24 + 1) + 8 * i);
+        v16 = *(*(&v23 + 1) + 8 * i);
         v17 = [a1[4] homeIdentifierToFuturePromiseMapping];
         v18 = [v17 objectForKeyedSubscript:v16];
 
-        v22[0] = MEMORY[0x277D85DD0];
-        v22[1] = 3221225472;
-        v22[2] = __85__HFAppleMusicHomeAccountManager__finishPendingPromisesWithMediaAccountInfo_forHome___block_invoke_2;
-        v22[3] = &unk_277DF29A0;
-        v23 = a1[6];
-        [v18 na_each:v22];
+        v21[0] = MEMORY[0x277D85DD0];
+        v21[1] = 3221225472;
+        v21[2] = __85__HFAppleMusicHomeAccountManager__finishPendingPromisesWithMediaAccountInfo_forHome___block_invoke_2;
+        v21[3] = &unk_277DF29A0;
+        v22 = a1[6];
+        [v18 na_each:v21];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v13);
@@ -735,15 +727,13 @@ void __85__HFAppleMusicHomeAccountManager__finishPendingPromisesWithMediaAccount
 
   v19 = [a1[4] homeIdentifierToFuturePromiseMapping];
   [v19 removeAllObjects];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __85__HFAppleMusicHomeAccountManager__finishPendingPromisesWithMediaAccountInfo_forHome___block_invoke_2(uint64_t result, void *a2)
+void *__85__HFAppleMusicHomeAccountManager__finishPendingPromisesWithMediaAccountInfo_forHome___block_invoke_2(void *result, void *a2)
 {
   if (a2)
   {
-    return [a2 finishWithResult:*(result + 32)];
+    return [a2 finishWithResult:result[4]];
   }
 
   return result;
@@ -779,7 +769,7 @@ uint64_t __85__HFAppleMusicHomeAccountManager__finishPendingPromisesWithMediaAcc
 
 void __76__HFAppleMusicHomeAccountManager_getHomeMediaAccountForHome_withCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = HFLogForCategory(5uLL);
@@ -789,11 +779,11 @@ void __76__HFAppleMusicHomeAccountManager_getHomeMediaAccountForHome_withComplet
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v9 = NSStringFromSelector(*(a1 + 56));
-      v19 = 138412546;
-      v20 = v9;
-      v21 = 2112;
-      v22 = v6;
-      _os_log_error_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_ERROR, "%@ Error fetching mediaAccount [%@]", &v19, 0x16u);
+      v18 = 138412546;
+      v19 = v9;
+      v20 = 2112;
+      v21 = v6;
+      _os_log_error_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_ERROR, "%@ Error fetching mediaAccount [%@]", &v18, 0x16u);
 LABEL_6:
     }
   }
@@ -805,13 +795,13 @@ LABEL_6:
     v11 = [*(a1 + 40) uniqueIdentifier];
     v12 = [v11 UUIDString];
     v13 = [v5 objectForKeyedSubscript:v12];
-    v19 = 138412802;
-    v20 = v10;
-    v21 = 2112;
-    v22 = v9;
-    v23 = 2112;
-    v24 = v13;
-    _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "%@:%@ Fetched Home Media Account [%@]", &v19, 0x20u);
+    v18 = 138412802;
+    v19 = v10;
+    v20 = 2112;
+    v21 = v9;
+    v22 = 2112;
+    v23 = v13;
+    _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "%@:%@ Fetched Home Media Account [%@]", &v18, 0x20u);
 
     goto LABEL_6;
   }
@@ -821,8 +811,6 @@ LABEL_6:
   v16 = [v15 UUIDString];
   v17 = [v5 objectForKeyedSubscript:v16];
   (*(v14 + 16))(v14, v17);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 @end

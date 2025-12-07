@@ -56,30 +56,30 @@ void sub_1000014C8(void *a1)
   if (v11)
   {
 LABEL_16:
-    sub_100002B68();
-    sub_100002368();
-    v22 = swift_allocObject();
-    *(v22 + 16) = xmmword_100002F80;
+    v22 = sub_100002B68();
+    sub_100002368(0);
+    v23 = swift_allocObject();
+    *(v23 + 16) = xmmword_100002F80;
     ObjectType = swift_getObjectType();
     sub_100002424();
-    v23 = sub_100002AC8();
-    v25 = v24;
-    *(v22 + 56) = &type metadata for String;
-    v26 = sub_100002468();
-    *(v22 + 64) = v26;
-    *(v22 + 32) = v23;
-    *(v22 + 40) = v25;
+    v24 = sub_100002AC8();
+    v26 = v25;
+    *(v23 + 56) = &type metadata for String;
+    v27 = sub_100002468();
+    *(v23 + 64) = v27;
+    *(v23 + 32) = v24;
+    *(v23 + 40) = v26;
     ObjectType = v5;
     type metadata accessor for HKMCNotificationCategory();
-    v27 = v5;
-    v28 = sub_100002AC8();
-    *(v22 + 96) = &type metadata for String;
-    *(v22 + 104) = v26;
-    *(v22 + 72) = v28;
-    *(v22 + 80) = v29;
+    v28 = v5;
+    v29 = sub_100002AC8();
+    *(v23 + 96) = &type metadata for String;
+    *(v23 + 104) = v27;
+    *(v23 + 72) = v29;
+    *(v23 + 80) = v30;
     sub_10000250C(0, &qword_100008498, OS_os_log_ptr);
-    v30 = sub_100002B78();
-    sub_100002A78();
+    v31 = sub_100002B78();
+    sub_100002A78(v22, &_mh_execute_header, v31, "[%{public}@] Skipping adding actions for category: %@", 53, 2, v23);
 
     goto LABEL_17;
   }
@@ -107,164 +107,164 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  v31 = sub_100002BC8();
+  v32 = sub_100002BC8();
 
-  if (v31)
+  if (v32)
   {
     goto LABEL_16;
   }
 
-  v32 = sub_100002AB8();
-  v34 = v33;
-  if (v32 == sub_100002AB8() && v34 == v35)
+  v33 = sub_100002AB8();
+  v35 = v34;
+  if (v33 == sub_100002AB8() && v35 == v36)
   {
     goto LABEL_15;
   }
 
-  v36 = sub_100002BC8();
+  v37 = sub_100002BC8();
 
-  if (v36)
+  if (v37)
   {
     goto LABEL_16;
   }
 
-  v37 = sub_100002AB8();
-  v39 = v38;
-  if (v37 == sub_100002AB8() && v39 == v40)
+  v38 = sub_100002AB8();
+  v40 = v39;
+  if (v38 == sub_100002AB8() && v40 == v41)
   {
     goto LABEL_15;
   }
 
-  v41 = sub_100002BC8();
+  v42 = sub_100002BC8();
 
-  if (v41)
+  if (v42)
   {
     goto LABEL_16;
   }
 
-  v42 = sub_100002AB8();
-  v44 = v43;
-  if (v42 == sub_100002AB8() && v44 == v45)
+  v43 = sub_100002AB8();
+  v45 = v44;
+  if (v43 == sub_100002AB8() && v45 == v46)
   {
     goto LABEL_15;
   }
 
-  v46 = sub_100002BC8();
+  v47 = sub_100002BC8();
 
-  if (v46)
+  if (v47)
   {
     goto LABEL_16;
   }
 
-  v47 = sub_100002AB8();
-  v49 = v48;
-  if (v47 == sub_100002AB8() && v49 == v50)
+  v48 = sub_100002AB8();
+  v50 = v49;
+  if (v48 == sub_100002AB8() && v50 == v51)
   {
     goto LABEL_15;
   }
 
-  v51 = sub_100002BC8();
+  v52 = sub_100002BC8();
 
-  if (v51)
+  if (v52)
   {
     goto LABEL_16;
   }
 
-  v52 = sub_100002AB8();
-  v54 = v53;
-  if (v52 == sub_100002AB8() && v54 == v55)
+  v53 = sub_100002AB8();
+  v55 = v54;
+  if (v53 == sub_100002AB8() && v55 == v56)
   {
     goto LABEL_15;
   }
 
-  v56 = sub_100002BC8();
+  v57 = sub_100002BC8();
 
-  if (v56)
+  if (v57)
   {
     goto LABEL_16;
   }
 
-  v57 = sub_100002AB8();
-  v59 = v58;
-  if (v57 == sub_100002AB8() && v59 == v60)
+  v58 = sub_100002AB8();
+  v60 = v59;
+  if (v58 == sub_100002AB8() && v60 == v61)
   {
     goto LABEL_15;
   }
 
-  v61 = sub_100002BC8();
+  v62 = sub_100002BC8();
 
-  if (v61)
+  if (v62)
   {
     goto LABEL_16;
   }
 
-  v62 = sub_100002AB8();
-  v64 = v63;
-  if (v62 == sub_100002AB8() && v64 == v65)
+  v63 = sub_100002AB8();
+  v65 = v64;
+  if (v63 == sub_100002AB8() && v65 == v66)
   {
     goto LABEL_15;
   }
 
-  v66 = sub_100002BC8();
+  v67 = sub_100002BC8();
 
-  if (v66)
+  if (v67)
   {
     goto LABEL_16;
   }
 
-  v67 = sub_100002AB8();
-  v69 = v68;
-  if (v67 == sub_100002AB8() && v69 == v70)
+  v68 = sub_100002AB8();
+  v70 = v69;
+  if (v68 == sub_100002AB8() && v70 == v71)
   {
     goto LABEL_15;
   }
 
-  v71 = sub_100002BC8();
+  v72 = sub_100002BC8();
 
-  if (v71)
+  if (v72)
   {
     goto LABEL_16;
   }
 
-  v72 = sub_100002AB8();
-  v74 = v73;
-  if (v72 == sub_100002AB8() && v74 == v75)
+  v73 = sub_100002AB8();
+  v75 = v74;
+  if (v73 == sub_100002AB8() && v75 == v76)
   {
     goto LABEL_15;
   }
 
-  v76 = sub_100002BC8();
+  v77 = sub_100002BC8();
 
-  if (v76)
+  if (v77)
   {
     goto LABEL_16;
   }
 
-  v77 = sub_100002AB8();
-  v79 = v78;
-  if (v77 == sub_100002AB8() && v79 == v80)
+  v78 = sub_100002AB8();
+  v80 = v79;
+  if (v78 == sub_100002AB8() && v80 == v81)
   {
 
     goto LABEL_51;
   }
 
-  v81 = sub_100002BC8();
+  v82 = sub_100002BC8();
 
-  if (v81)
+  if (v82)
   {
 LABEL_51:
-    v82 = objc_opt_self();
-    v117[4] = [v82 hkmc_actionWithIdentifier:HKMCNotificationActionIdentifierPeriodNotStarted];
-    v83 = 0;
-    v117[5] = [v82 hkmc_actionWithIdentifier:HKMCNotificationActionIdentifierOpenAddPeriodCalendar];
-    v84 = &_swiftEmptyArrayStorage;
+    v83 = objc_opt_self();
+    v119[4] = [v83 hkmc_actionWithIdentifier:HKMCNotificationActionIdentifierPeriodNotStarted];
+    v84 = 0;
+    v119[5] = [v83 hkmc_actionWithIdentifier:HKMCNotificationActionIdentifierOpenAddPeriodCalendar];
+    v85 = &_swiftEmptyArrayStorage;
     ObjectType = &_swiftEmptyArrayStorage;
-    while (v83 != 2)
+    while (v84 != 2)
     {
-      v85 = v117[v83++ + 4];
-      if (v85)
+      v86 = v119[v84++ + 4];
+      if (v86)
       {
-        v86 = v85;
+        v87 = v86;
         sub_100002AF8();
         if (*((ObjectType & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((ObjectType & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
         {
@@ -272,39 +272,39 @@ LABEL_51:
         }
 
         sub_100002B28();
-        v84 = ObjectType;
+        v85 = ObjectType;
       }
     }
 
     goto LABEL_67;
   }
 
-  v87 = sub_100002AB8();
-  v89 = v88;
-  if (v87 == sub_100002AB8() && v89 == v90)
+  v88 = sub_100002AB8();
+  v90 = v89;
+  if (v88 == sub_100002AB8() && v90 == v91)
   {
 
     goto LABEL_61;
   }
 
-  v91 = sub_100002BC8();
+  v92 = sub_100002BC8();
 
-  if ((v91 & 1) == 0)
+  if ((v92 & 1) == 0)
   {
-    v108 = sub_100002AB8();
-    v110 = v109;
-    if (v108 != sub_100002AB8() || v110 != v111)
+    v110 = sub_100002AB8();
+    v112 = v111;
+    if (v110 != sub_100002AB8() || v112 != v113)
     {
-      v112 = sub_100002BC8();
+      v114 = sub_100002BC8();
 
-      if (v112)
+      if (v114)
       {
         goto LABEL_16;
       }
 
-      v113 = sub_100002AB8();
-      v115 = v114;
-      if (v113 != sub_100002AB8() || v115 != v116)
+      v115 = sub_100002AB8();
+      v117 = v116;
+      if (v115 != sub_100002AB8() || v117 != v118)
       {
         sub_100002BC8();
       }
@@ -314,18 +314,18 @@ LABEL_51:
   }
 
 LABEL_61:
-  v92 = objc_opt_self();
-  v119[4] = [v92 hkmc_actionWithIdentifier:HKMCNotificationActionIdentifierPeriodNotEnded];
-  v93 = 0;
-  v119[5] = [v92 hkmc_actionWithIdentifier:HKMCNotificationActionIdentifierOpenAddPeriodCalendar];
-  v84 = &_swiftEmptyArrayStorage;
+  v93 = objc_opt_self();
+  v121[4] = [v93 hkmc_actionWithIdentifier:HKMCNotificationActionIdentifierPeriodNotEnded];
+  v94 = 0;
+  v121[5] = [v93 hkmc_actionWithIdentifier:HKMCNotificationActionIdentifierOpenAddPeriodCalendar];
+  v85 = &_swiftEmptyArrayStorage;
   ObjectType = &_swiftEmptyArrayStorage;
-  while (v93 != 2)
+  while (v94 != 2)
   {
-    v94 = v119[v93++ + 4];
-    if (v94)
+    v95 = v121[v94++ + 4];
+    if (v95)
     {
-      v95 = v94;
+      v96 = v95;
       sub_100002AF8();
       if (*((ObjectType & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((ObjectType & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
       {
@@ -333,64 +333,64 @@ LABEL_61:
       }
 
       sub_100002B28();
-      v84 = ObjectType;
+      v85 = ObjectType;
     }
   }
 
 LABEL_67:
-  sub_100002794();
+  sub_100002794(0);
   swift_arrayDestroy();
-  if (!v84)
+  if (!v85)
   {
     goto LABEL_16;
   }
 
-  sub_100002B68();
-  sub_100002368();
-  v96 = swift_allocObject();
-  *(v96 + 16) = xmmword_100002F70;
+  v97 = sub_100002B68();
+  sub_100002368(0);
+  v98 = swift_allocObject();
+  *(v98 + 16) = xmmword_100002F70;
   ObjectType = swift_getObjectType();
   sub_100002424();
-  v97 = sub_100002AC8();
-  v99 = v98;
-  *(v96 + 56) = &type metadata for String;
-  v100 = sub_100002468();
-  *(v96 + 64) = v100;
-  *(v96 + 32) = v97;
-  *(v96 + 40) = v99;
-  if (v84 >> 62)
+  v99 = sub_100002AC8();
+  v101 = v100;
+  *(v98 + 56) = &type metadata for String;
+  v102 = sub_100002468();
+  *(v98 + 64) = v102;
+  *(v98 + 32) = v99;
+  *(v98 + 40) = v101;
+  if (v85 >> 62)
   {
-    v101 = sub_100002B98();
+    v103 = sub_100002B98();
   }
 
   else
   {
-    v101 = *((v84 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    v103 = *((v85 & 0xFFFFFFFFFFFFFF8) + 0x10);
   }
 
-  *(v96 + 96) = &type metadata for Int;
-  *(v96 + 104) = &protocol witness table for Int;
-  *(v96 + 72) = v101;
+  *(v98 + 96) = &type metadata for Int;
+  *(v98 + 104) = &protocol witness table for Int;
+  *(v98 + 72) = v103;
   ObjectType = v5;
   type metadata accessor for HKMCNotificationCategory();
-  v30 = v5;
-  v102 = sub_100002AC8();
-  *(v96 + 136) = &type metadata for String;
-  *(v96 + 144) = v100;
-  *(v96 + 112) = v102;
-  *(v96 + 120) = v103;
+  v31 = v5;
+  v104 = sub_100002AC8();
+  *(v98 + 136) = &type metadata for String;
+  *(v98 + 144) = v102;
+  *(v98 + 112) = v104;
+  *(v98 + 120) = v105;
   sub_10000250C(0, &qword_100008498, OS_os_log_ptr);
-  v104 = sub_100002B78();
-  sub_100002A78();
+  v106 = sub_100002B78();
+  sub_100002A78(v97, &_mh_execute_header, v106, "[%{public}@] Adding %d actions for category: %@", 47, 2, v98);
 
-  v105 = [v2 extensionContext];
-  if (v105)
+  v107 = [v2 extensionContext];
+  if (v107)
   {
-    v106 = v105;
+    v108 = v107;
     sub_10000250C(0, &qword_1000084A0, UNNotificationAction_ptr);
     isa = sub_100002B08().super.isa;
 
-    [v106 setNotificationActions:isa];
+    [v108 setNotificationActions:isa];
 
     goto LABEL_18;
   }
@@ -400,22 +400,22 @@ LABEL_17:
 LABEL_18:
 }
 
-id sub_100002310()
+id sub_100002310(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for NotificationViewController();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for NotificationViewController();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
-void sub_100002368()
+void sub_100002368(uint64_t a1)
 {
   if (!qword_100008478)
   {
     sub_1000023C0();
-    v0 = sub_100002BB8();
-    if (!v1)
+    v1 = sub_100002BB8();
+    if (!v2)
     {
-      atomic_store(v0, &qword_100008478);
+      atomic_store(v1, &qword_100008478);
     }
   }
 }
@@ -469,12 +469,11 @@ void type metadata accessor for HKMCNotificationCategory()
   }
 }
 
-uint64_t sub_10000250C(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_10000250C(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -497,102 +496,94 @@ uint64_t sub_1000025D4(uint64_t a1, id *a2)
   return v3 & 1;
 }
 
-uint64_t sub_100002654@<X0>(void *a1@<X8>)
+uint64_t sub_100002654@<X0>(uint64_t *a2@<X8>)
 {
   sub_100002AB8();
-  v2 = sub_100002A88();
+  v3 = sub_100002A88();
 
-  *a1 = v2;
+  *a2 = v3;
   return result;
 }
 
-uint64_t sub_100002698(uint64_t *a1, uint64_t *a2)
+uint64_t sub_100002698(void *a1, uint64_t *a2)
 {
-  v2 = *a1;
-  v3 = *a2;
-  v4 = sub_100002AB8();
-  v6 = v5;
-  if (v4 == sub_100002AB8() && v6 == v7)
+  v2 = sub_100002AB8();
+  v4 = v3;
+  if (v2 == sub_100002AB8() && v4 == v5)
   {
-    v9 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v9 = sub_100002BC8();
+    v7 = sub_100002BC8();
   }
 
-  return v9 & 1;
+  return v7 & 1;
 }
 
-uint64_t sub_100002720@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t sub_100002720@<X0>(uint64_t *a2@<X8>)
 {
-  v3 = *a1;
-  v4 = a1[1];
-  v5 = sub_100002A88();
+  v3 = sub_100002A88();
 
-  *a2 = v5;
+  *a2 = v3;
   return result;
 }
 
 uint64_t sub_100002768@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *v1;
   result = sub_100002AB8();
   *a1 = result;
-  a1[1] = v5;
+  a1[1] = v3;
   return result;
 }
 
-void sub_100002794()
+void sub_100002794(uint64_t a1)
 {
   if (!qword_1000084A8)
   {
     sub_10000250C(255, &qword_1000084A0, UNNotificationAction_ptr);
-    v0 = sub_100002B88();
-    if (!v1)
+    v1 = sub_100002B88();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1000084A8);
+      atomic_store(v1, &qword_1000084A8);
     }
   }
 }
 
 uint64_t sub_1000027FC(uint64_t a1)
 {
-  v2 = sub_100002A34(&qword_1000084D0);
-  v3 = sub_100002A34(&qword_1000084D8);
+  v2 = sub_100002A34(&qword_1000084D0, &unk_1000030F8);
+  v3 = sub_100002A34(&qword_1000084D8, &unk_1000030A0);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()(a1, v2, v3, &protocol witness table for String);
 }
 
 uint64_t sub_100002930()
 {
-  v1 = *v0;
   sub_100002AB8();
-  v2 = sub_100002AE8();
+  v0 = sub_100002AE8();
 
-  return v2;
+  return v0;
 }
 
-uint64_t sub_10000296C()
+uint64_t sub_10000296C(uint64_t a1)
 {
-  v1 = *v0;
   sub_100002AB8();
   sub_100002AD8();
 }
 
-Swift::Int sub_1000029C0()
+Swift::Int sub_1000029C0(uint64_t a1)
 {
-  v1 = *v0;
   sub_100002AB8();
   sub_100002BD8();
   sub_100002AD8();
-  v2 = sub_100002BE8();
+  v1 = sub_100002BE8();
 
-  return v2;
+  return v1;
 }
 
-uint64_t sub_100002A34(unint64_t *a1)
+uint64_t sub_100002A34(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)

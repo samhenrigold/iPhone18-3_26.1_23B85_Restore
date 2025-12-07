@@ -132,7 +132,7 @@
         v30 = MEMORY[0x1E696AD98];
         if (v29)
         {
-          [v29 timeRange];
+          objc_msgSend_timeRange(v29);
         }
 
         else
@@ -260,10 +260,10 @@
           v61 = v21;
           if (v25)
           {
-            [v25 timeRange];
+            objc_msgSend_timeRange(v25);
             time = v62[3];
             Seconds = CMTimeGetSeconds(&time);
-            [v25 timeRange];
+            objc_msgSend_timeRange(v25);
           }
 
           else
@@ -685,7 +685,7 @@ void __68__AVCatalystScrubber__updateSlowKnobMovementDetectedForTargetValue___bl
 {
   [(AVCatalystScrubber *)self normalizedScrollOffset];
   v4 = v3;
-  [(AVCatalystScrubber *)self duration];
+  objc_msgSend_duration(self);
   v6 = v5;
   [(AVCatalystScrubber *)self minimumValue];
   return v7 + v4 * v6;
@@ -713,7 +713,7 @@ void __68__AVCatalystScrubber__updateSlowKnobMovementDetectedForTargetValue___bl
 
 - (float)normalizedPosition
 {
-  [(AVCatalystScrubber *)self duration];
+  objc_msgSend_duration(self, a2);
   v4 = v3;
   result = 0.0;
   if (v4 > 0.0)
@@ -722,7 +722,7 @@ void __68__AVCatalystScrubber__updateSlowKnobMovementDetectedForTargetValue___bl
     v7 = v6;
     [(AVCatalystScrubber *)self minimumValue];
     v9 = v7 - v8;
-    [(AVCatalystScrubber *)self duration];
+    objc_msgSend_duration(self);
     return 1.0 - (v9 / v10);
   }
 

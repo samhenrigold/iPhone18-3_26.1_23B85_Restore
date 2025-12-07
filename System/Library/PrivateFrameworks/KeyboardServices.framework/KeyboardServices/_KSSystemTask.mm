@@ -14,9 +14,9 @@
   selfCopy = 0;
   if (nameCopy && handlerCopy)
   {
-    v31.receiver = self;
-    v31.super_class = _KSSystemTask;
-    v14 = [(_KSSystemTask *)&v31 init];
+    v30.receiver = self;
+    v30.super_class = _KSSystemTask;
+    v14 = [(_KSSystemTask *)&v30 init];
     if (v14)
     {
       v15 = [nameCopy copy];
@@ -70,7 +70,6 @@
     selfCopy = self;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -83,9 +82,9 @@
   selfCopy = 0;
   if (nameCopy && handlerCopy)
   {
-    v28.receiver = self;
-    v28.super_class = _KSSystemTask;
-    v12 = [(_KSSystemTask *)&v28 init];
+    v27.receiver = self;
+    v27.super_class = _KSSystemTask;
+    v12 = [(_KSSystemTask *)&v27 init];
     if (v12)
     {
       v13 = [nameCopy copy];
@@ -132,7 +131,6 @@
     selfCopy = self;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

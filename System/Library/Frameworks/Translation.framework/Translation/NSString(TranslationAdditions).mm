@@ -10,13 +10,13 @@
 
 - (id)lt_wordRangesWithLocale:()TranslationAdditions
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CD89D8];
   v5 = a3;
   v6 = [v4 alloc];
   v7 = *MEMORY[0x277CD8978];
-  v19[0] = *MEMORY[0x277CD8978];
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+  v18[0] = *MEMORY[0x277CD8978];
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
   v9 = [v6 initWithTagSchemes:v8];
 
   [v9 setString:self];
@@ -29,28 +29,26 @@
   }
 
   array = [MEMORY[0x277CBEB18] array];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __58__NSString_TranslationAdditions__lt_wordRangesWithLocale___block_invoke;
-  v17[3] = &unk_278B6E448;
-  v18 = array;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __58__NSString_TranslationAdditions__lt_wordRangesWithLocale___block_invoke;
+  v16[3] = &unk_278B6E448;
+  v17 = array;
   v13 = array;
-  [v9 enumerateTagsInRange:0 unit:v10 scheme:0 options:v7 usingBlock:{38, v17}];
+  [v9 enumerateTagsInRange:0 unit:v10 scheme:0 options:v7 usingBlock:{38, v16}];
   v14 = [v13 copy];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 - (id)lt_wordRangesWithoutOmittingPunctuationWithLocale:()TranslationAdditions
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = objc_alloc(MEMORY[0x277CD89D8]);
   v6 = *MEMORY[0x277CD8978];
-  v24[0] = *MEMORY[0x277CD8978];
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+  v23[0] = *MEMORY[0x277CD8978];
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
   v8 = [v5 initWithTagSchemes:v7];
 
   [v8 setString:self];
@@ -62,22 +60,21 @@
   }
 
   array = [MEMORY[0x277CBEB18] array];
-  v22[0] = 0;
-  v22[1] = v22;
-  v22[2] = 0x2020000000;
-  v23 = 0;
-  v16 = MEMORY[0x277D85DD0];
-  v17 = 3221225472;
-  v18 = __84__NSString_TranslationAdditions__lt_wordRangesWithoutOmittingPunctuationWithLocale___block_invoke;
-  v19 = &unk_278B6E470;
-  v21 = v22;
+  v21[0] = 0;
+  v21[1] = v21;
+  v21[2] = 0x2020000000;
+  v22 = 0;
+  v15 = MEMORY[0x277D85DD0];
+  v16 = 3221225472;
+  v17 = __84__NSString_TranslationAdditions__lt_wordRangesWithoutOmittingPunctuationWithLocale___block_invoke;
+  v18 = &unk_278B6E470;
+  v20 = v21;
   v12 = array;
-  v20 = v12;
-  [v8 enumerateTagsInRange:0 unit:v9 scheme:0 options:v6 usingBlock:{32, &v16}];
+  v19 = v12;
+  [v8 enumerateTagsInRange:0 unit:v9 scheme:0 options:v6 usingBlock:{32, &v15}];
   v13 = [v12 copy];
 
-  _Block_object_dispose(v22, 8);
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v21, 8);
 
   return v13;
 }

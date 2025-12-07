@@ -154,7 +154,7 @@
         }
 
         v11 = *(*(&v19 + 1) + 8 * v10);
-        if ([typeCopy isEqualToString:@"stringValue"])
+        if (objc_msgSend_isEqualToString_(typeCopy))
         {
           objc_opt_class();
           if (objc_opt_isKindOfClass())
@@ -166,7 +166,7 @@
           goto LABEL_19;
         }
 
-        if (([typeCopy isEqualToString:@"integerValue"] & 1) != 0 || (objc_msgSend(typeCopy, "isEqualToString:", @"doubleValue") & 1) != 0 || objc_msgSend(typeCopy, "isEqualToString:", @"BOOLValue"))
+        if ((objc_msgSend_isEqualToString_(typeCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(typeCopy) & 1) != 0 || objc_msgSend_isEqualToString_(typeCopy))
         {
           objc_opt_class();
           if (objc_opt_isKindOfClass())
@@ -178,7 +178,7 @@
           goto LABEL_19;
         }
 
-        if ([typeCopy isEqualToString:@"dateValue"])
+        if (objc_msgSend_isEqualToString_(typeCopy))
         {
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)

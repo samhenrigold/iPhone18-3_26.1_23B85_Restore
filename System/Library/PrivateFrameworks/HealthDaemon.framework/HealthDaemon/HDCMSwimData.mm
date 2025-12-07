@@ -12,22 +12,21 @@
 {
   v3 = MEMORY[0x277CC95F0];
   sub_2289DED0C(0, &qword_27D8630C0, MEMORY[0x277CC95F0]);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v14 - v6;
-  sub_2289DF21C(self + OBJC_IVAR____TtC12HealthDaemon12HDCMSwimData_sourceId, &v14 - v6, &qword_27D8630C0, v3);
-  v8 = sub_22911B8DC();
-  v9 = *(v8 - 8);
-  v10 = (*(v9 + 48))(v7, 1, v8);
-  v11 = 0;
-  if (v10 != 1)
+  v6 = &v13 - v5;
+  sub_2289DF21C(self + OBJC_IVAR____TtC12HealthDaemon12HDCMSwimData_sourceId, &v13 - v5, &qword_27D8630C0, v3);
+  v7 = sub_22911B8DC();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v6, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
-    v12 = sub_22911B8BC();
-    (*(v9 + 8))(v7, v8);
-    v11 = v12;
+    v11 = sub_22911B8BC();
+    (*(v8 + 8))(v6, v7);
+    v10 = v11;
   }
 
-  return v11;
+  return v10;
 }
 
 - (int64_t)strokeType

@@ -29,6 +29,7 @@
 - (void)messageViewController:(id)controller didUpdateSize:(CGSize)size;
 - (void)setImpressionsReportingFrequency:(unint64_t)frequency;
 - (void)setPreferredAppearance:(id)appearance;
+- (void)setShouldAutomaticallyReportMetrics:(BOOL)metrics;
 @end
 
 @implementation AMSUIInlineDialogViewController
@@ -55,11 +56,11 @@
 
 - (AMSUIInlineDialogViewController)initWithRequest:(id)request
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   requestCopy = request;
-  v14.receiver = self;
-  v14.super_class = AMSUIInlineDialogViewController;
-  v6 = [(AMSUIInlineDialogViewController *)&v14 initWithNibName:0 bundle:0];
+  v13.receiver = self;
+  v13.super_class = AMSUIInlineDialogViewController;
+  v6 = [(AMSUIInlineDialogViewController *)&v13 initWithNibName:0 bundle:0];
   v7 = v6;
   if (v6)
   {
@@ -78,14 +79,13 @@
       v10 = objc_opt_class();
       v11 = AMSLogKey();
       *buf = 138543618;
-      v16 = v10;
-      v17 = 2114;
-      v18 = v11;
+      v15 = v10;
+      v16 = 2114;
+      v17 = v11;
       _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Initialized with a dialog request, will not listen for engagement pushes.", buf, 0x16u);
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -106,12 +106,12 @@
 
 - (AMSUIInlineDialogViewController)initWithServiceType:(id)type placement:(id)placement
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   placementCopy = placement;
-  v18.receiver = self;
-  v18.super_class = AMSUIInlineDialogViewController;
-  v9 = [(AMSUIInlineDialogViewController *)&v18 initWithNibName:0 bundle:0];
+  v17.receiver = self;
+  v17.super_class = AMSUIInlineDialogViewController;
+  v9 = [(AMSUIInlineDialogViewController *)&v17 initWithNibName:0 bundle:0];
   if (v9)
   {
     v10 = objc_alloc_init(MEMORY[0x1E698C8D8]);
@@ -134,32 +134,31 @@
       v14 = objc_opt_class();
       v15 = AMSLogKey();
       *buf = 138544130;
-      v20 = v14;
-      v21 = 2114;
-      v22 = v15;
-      v23 = 2114;
-      v24 = placementCopy;
-      v25 = 2114;
-      v26 = typeCopy;
+      v19 = v14;
+      v20 = 2114;
+      v21 = v15;
+      v22 = 2114;
+      v23 = placementCopy;
+      v24 = 2114;
+      v25 = typeCopy;
       _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Initialized (placement: %{public}@, serviceType: %{public}@)", buf, 0x2Au);
     }
 
     [(AMSUIInlineDialogViewController *)v9 _setupEngagement];
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (AMSUIInlineDialogViewController)initWithServiceType:(id)type placement:(id)placement context:(id)context
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   placementCopy = placement;
   contextCopy = context;
-  v21.receiver = self;
-  v21.super_class = AMSUIInlineDialogViewController;
-  v12 = [(AMSUIInlineDialogViewController *)&v21 initWithNibName:0 bundle:0];
+  v20.receiver = self;
+  v20.super_class = AMSUIInlineDialogViewController;
+  v12 = [(AMSUIInlineDialogViewController *)&v20 initWithNibName:0 bundle:0];
   if (v12)
   {
     v13 = objc_alloc_init(MEMORY[0x1E698C8D8]);
@@ -182,20 +181,19 @@
       v17 = objc_opt_class();
       v18 = AMSLogKey();
       *buf = 138544130;
-      v23 = v17;
-      v24 = 2114;
-      v25 = v18;
-      v26 = 2114;
-      v27 = placementCopy;
-      v28 = 2114;
-      v29 = typeCopy;
+      v22 = v17;
+      v23 = 2114;
+      v24 = v18;
+      v25 = 2114;
+      v26 = placementCopy;
+      v27 = 2114;
+      v28 = typeCopy;
       _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Initialized (placement: %{public}@, serviceType: %{public}@)", buf, 0x2Au);
     }
 
     [(AMSUIInlineDialogViewController *)v12 _setupEngagement];
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -275,7 +273,7 @@
 
 - (void)_setDialogRequest:(id)request
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   if ([requestCopy style] == 3)
   {
@@ -290,11 +288,11 @@
     {
       v7 = objc_opt_class();
       v8 = AMSLogKey();
-      v19 = 138543618;
-      v20 = v7;
-      v21 = 2114;
-      v22 = v8;
-      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Rendering message as Banner", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = v7;
+      v20 = 2114;
+      v21 = v8;
+      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Rendering message as Banner", &v18, 0x16u);
     }
 
     [(AMSUIInlineDialogViewController *)self _setDialogRequestBanner:requestCopy];
@@ -317,11 +315,11 @@
       {
         v13 = objc_opt_class();
         v14 = AMSLogKey();
-        v19 = 138543618;
-        v20 = v13;
-        v21 = 2114;
-        v22 = v14;
-        _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Rendering message as Dashboard Message", &v19, 0x16u);
+        v18 = 138543618;
+        v19 = v13;
+        v20 = 2114;
+        v21 = v14;
+        _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Rendering message as Dashboard Message", &v18, 0x16u);
       }
 
       [(AMSUIInlineDialogViewController *)self _setDialogRequestDashboardMessage:requestCopy];
@@ -339,18 +337,16 @@
       {
         v16 = objc_opt_class();
         v17 = AMSLogKey();
-        v19 = 138543618;
-        v20 = v16;
-        v21 = 2114;
-        v22 = v17;
-        _os_log_impl(&dword_1BB036000, oSLogObject3, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Rendering message as Bubble Tip", &v19, 0x16u);
+        v18 = 138543618;
+        v19 = v16;
+        v20 = 2114;
+        v21 = v17;
+        _os_log_impl(&dword_1BB036000, oSLogObject3, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Rendering message as Bubble Tip", &v18, 0x16u);
       }
 
       [(AMSUIInlineDialogViewController *)self _setDialogRequestBubbleTip:requestCopy];
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setDialogRequestBanner:(id)banner
@@ -480,7 +476,7 @@ void __57__AMSUIInlineDialogViewController__setContentController___block_invoke(
 
 void __57__AMSUIInlineDialogViewController__setContentController___block_invoke_2(uint64_t a1)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -495,59 +491,58 @@ void __57__AMSUIInlineDialogViewController__setContentController___block_invoke_
         v5 = [MEMORY[0x1E698C968] sharedConfig];
       }
 
-      v13 = [v5 OSLogObject];
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v11 = [v5 OSLogObject];
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = *(a1 + 32);
-        v15 = objc_opt_class();
-        v16 = AMSLogKey();
+        v12 = objc_opt_class();
+        v13 = AMSLogKey();
         *buf = 138543618;
-        v35 = v15;
-        v36 = 2114;
-        v37 = v16;
-        _os_log_impl(&dword_1BB036000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Child controller loaded, adding to view heiarchy", buf, 0x16u);
+        v31 = v12;
+        v32 = 2114;
+        v33 = v13;
+        _os_log_impl(&dword_1BB036000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Child controller loaded, adding to view heiarchy", buf, 0x16u);
       }
 
-      v31 = 0u;
-      v32 = 0u;
-      v29 = 0u;
-      v30 = 0u;
-      v17 = [*(a1 + 32) view];
-      v18 = [v17 subviews];
+      v27 = 0u;
+      v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
+      v14 = [*(a1 + 32) view];
+      v15 = [v14 subviews];
 
-      v19 = [v18 countByEnumeratingWithState:&v29 objects:v33 count:16];
-      if (v19)
+      v16 = [v15 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      if (v16)
       {
-        v20 = v19;
-        v21 = *v30;
+        v17 = v16;
+        v18 = *v26;
         do
         {
-          for (i = 0; i != v20; ++i)
+          for (i = 0; i != v17; ++i)
           {
-            if (*v30 != v21)
+            if (*v26 != v18)
             {
-              objc_enumerationMutation(v18);
+              objc_enumerationMutation(v15);
             }
 
-            [*(*(&v29 + 1) + 8 * i) removeFromSuperview];
+            [*(*(&v25 + 1) + 8 * i) removeFromSuperview];
           }
 
-          v20 = [v18 countByEnumeratingWithState:&v29 objects:v33 count:16];
+          v17 = [v15 countByEnumeratingWithState:&v25 objects:v29 count:16];
         }
 
-        while (v20);
+        while (v17);
       }
 
       [*(a1 + 32) addChildViewController:WeakRetained];
-      v23 = [*(a1 + 32) view];
-      v24 = [WeakRetained view];
-      [v23 addSubview:v24];
+      v20 = [*(a1 + 32) view];
+      v21 = [WeakRetained view];
+      [v20 addSubview:v21];
 
       v5 = [*(a1 + 32) delegate];
-      v25 = *(a1 + 32);
-      v6 = [v25 view];
+      v22 = *(a1 + 32);
+      v6 = [v22 view];
       [v6 bounds];
-      [v5 messageViewController:v25 didUpdateSize:{v26, v27}];
+      [v5 messageViewController:v22 didUpdateSize:{v23, v24}];
     }
 
     else
@@ -560,16 +555,15 @@ void __57__AMSUIInlineDialogViewController__setContentController___block_invoke_
       v6 = [v5 OSLogObject];
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = *(a1 + 32);
-        v8 = objc_opt_class();
-        v9 = AMSLogKey();
+        v7 = objc_opt_class();
+        v8 = AMSLogKey();
         *buf = 138543618;
-        v35 = v8;
-        v36 = 2114;
-        v37 = v9;
-        v10 = "%{public}@: [%{public}@] Child controller loaded but a different child is being presented";
+        v31 = v7;
+        v32 = 2114;
+        v33 = v8;
+        v9 = "%{public}@: [%{public}@] Child controller loaded but a different child is being presented";
 LABEL_11:
-        _os_log_impl(&dword_1BB036000, v6, OS_LOG_TYPE_DEFAULT, v10, buf, 0x16u);
+        _os_log_impl(&dword_1BB036000, v6, OS_LOG_TYPE_DEFAULT, v9, buf, 0x16u);
       }
     }
   }
@@ -585,24 +579,21 @@ LABEL_11:
     v6 = [v5 OSLogObject];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = *(a1 + 32);
-      v12 = objc_opt_class();
-      v9 = AMSLogKey();
+      v10 = objc_opt_class();
+      v8 = AMSLogKey();
       *buf = 138543618;
-      v35 = v12;
-      v36 = 2114;
-      v37 = v9;
-      v10 = "%{public}@: [%{public}@] Child controller loaded but disappeared";
+      v31 = v10;
+      v32 = 2114;
+      v33 = v8;
+      v9 = "%{public}@: [%{public}@] Child controller loaded but disappeared";
       goto LABEL_11;
     }
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_tearDownContentView
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
   childContentController = [(AMSUIInlineDialogViewController *)self childContentController];
 
@@ -620,11 +611,11 @@ LABEL_11:
     {
       v7 = objc_opt_class();
       v8 = AMSLogKey();
-      v18 = 138543618;
-      v19 = v7;
-      v20 = 2114;
-      v21 = v8;
-      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Tearing down content", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v7;
+      v19 = 2114;
+      v20 = v8;
+      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Tearing down content", &v17, 0x16u);
     }
 
     childContentController2 = [(AMSUIInlineDialogViewController *)self childContentController];
@@ -656,15 +647,13 @@ LABEL_11:
     {
       v15 = objc_opt_class();
       v16 = AMSLogKey();
-      v18 = 138543618;
-      v19 = v15;
-      v20 = 2114;
-      v21 = v16;
-      _os_log_impl(&dword_1BB036000, view2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] No content to teardown.", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v15;
+      v19 = 2114;
+      v20 = v16;
+      _os_log_impl(&dword_1BB036000, view2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] No content to teardown.", &v17, 0x16u);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enqueueImpressionMetrics
@@ -759,102 +748,112 @@ LABEL_6:
   self->_impressionsReportingFrequency = frequency;
 }
 
+- (void)setShouldAutomaticallyReportMetrics:(BOOL)metrics
+{
+  metricsCopy = metrics;
+  childContentController = [(AMSUIInlineDialogViewController *)self childContentController];
+
+  if (childContentController)
+  {
+    childContentController2 = [(AMSUIInlineDialogViewController *)self childContentController];
+    [childContentController2 setShouldAutomaticallyReportMetrics:metricsCopy];
+  }
+
+  self->_shouldAutomaticallyReportMetrics = metricsCopy;
+}
+
 - (void)_setupEngagement
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   engagement = [(AMSUIInlineDialogViewController *)self engagement];
-  if (!engagement)
+  if (engagement)
   {
-LABEL_13:
-    v28 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  v30 = engagement;
-  serviceType = [(AMSUIInlineDialogViewController *)self serviceType];
-  if (serviceType)
-  {
-    v5 = serviceType;
-    placement = [(AMSUIInlineDialogViewController *)self placement];
-
-    if (placement)
+    v28 = engagement;
+    serviceType = [(AMSUIInlineDialogViewController *)self serviceType];
+    if (serviceType)
     {
-      mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedMessagingUIConfig];
-      if (!mEMORY[0x1E698C968])
+      v5 = serviceType;
+      placement = [(AMSUIInlineDialogViewController *)self placement];
+
+      if (placement)
       {
-        mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedConfig];
+        mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedMessagingUIConfig];
+        if (!mEMORY[0x1E698C968])
+        {
+          mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedConfig];
+        }
+
+        oSLogObject = [mEMORY[0x1E698C968] OSLogObject];
+        if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+        {
+          v9 = objc_opt_class();
+          v10 = AMSLogKey();
+          *buf = 138543618;
+          v33 = v9;
+          v34 = 2114;
+          v35 = v10;
+          _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Enqueueing initial message event request", buf, 0x16u);
+        }
+
+        v11 = objc_alloc(MEMORY[0x1E698C8E0]);
+        serviceType2 = [(AMSUIInlineDialogViewController *)self serviceType];
+        v13 = objc_alloc(MEMORY[0x1E698C900]);
+        placement2 = [(AMSUIInlineDialogViewController *)self placement];
+        context = [(AMSUIInlineDialogViewController *)self context];
+        v16 = [v13 initWithPlacement:placement2 context:context];
+        v31 = v16;
+        v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v31 count:1];
+        v18 = [v11 initWithServiceType:serviceType2 placementInfo:v17];
+
+        engagement2 = [(AMSUIInlineDialogViewController *)self engagement];
+        v20 = [engagement2 enqueueMessageEvent:v18];
+
+        v30[0] = MEMORY[0x1E69E9820];
+        v30[1] = 3221225472;
+        v30[2] = __51__AMSUIInlineDialogViewController__setupEngagement__block_invoke;
+        v30[3] = &unk_1E7F24F18;
+        v30[4] = self;
+        [v20 addSuccessBlock:v30];
+        v29[0] = MEMORY[0x1E69E9820];
+        v29[1] = 3221225472;
+        v29[2] = __51__AMSUIInlineDialogViewController__setupEngagement__block_invoke_2;
+        v29[3] = &unk_1E7F24410;
+        v29[4] = self;
+        [v20 addErrorBlock:v29];
+        mEMORY[0x1E698C968]2 = [MEMORY[0x1E698C968] sharedMessagingUIConfig];
+        if (!mEMORY[0x1E698C968]2)
+        {
+          mEMORY[0x1E698C968]2 = [MEMORY[0x1E698C968] sharedConfig];
+        }
+
+        oSLogObject2 = [mEMORY[0x1E698C968]2 OSLogObject];
+        if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+        {
+          v23 = objc_opt_class();
+          v24 = AMSLogKey();
+          *buf = 138543618;
+          v33 = v23;
+          v34 = 2114;
+          v35 = v24;
+          _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Beginning to observe for updates", buf, 0x16u);
+        }
+
+        engagement3 = [(AMSUIInlineDialogViewController *)self engagement];
+        placement3 = [(AMSUIInlineDialogViewController *)self placement];
+        serviceType3 = [(AMSUIInlineDialogViewController *)self serviceType];
+        [engagement3 addObserver:self placement:placement3 serviceType:serviceType3];
       }
-
-      oSLogObject = [mEMORY[0x1E698C968] OSLogObject];
-      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
-      {
-        v9 = objc_opt_class();
-        v10 = AMSLogKey();
-        *buf = 138543618;
-        v35 = v9;
-        v36 = 2114;
-        v37 = v10;
-        _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Enqueueing initial message event request", buf, 0x16u);
-      }
-
-      v11 = objc_alloc(MEMORY[0x1E698C8E0]);
-      serviceType2 = [(AMSUIInlineDialogViewController *)self serviceType];
-      v13 = objc_alloc(MEMORY[0x1E698C900]);
-      placement2 = [(AMSUIInlineDialogViewController *)self placement];
-      context = [(AMSUIInlineDialogViewController *)self context];
-      v16 = [v13 initWithPlacement:placement2 context:context];
-      v33 = v16;
-      v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v33 count:1];
-      v18 = [v11 initWithServiceType:serviceType2 placementInfo:v17];
-
-      engagement2 = [(AMSUIInlineDialogViewController *)self engagement];
-      v20 = [engagement2 enqueueMessageEvent:v18];
-
-      v32[0] = MEMORY[0x1E69E9820];
-      v32[1] = 3221225472;
-      v32[2] = __51__AMSUIInlineDialogViewController__setupEngagement__block_invoke;
-      v32[3] = &unk_1E7F24F18;
-      v32[4] = self;
-      [v20 addSuccessBlock:v32];
-      v31[0] = MEMORY[0x1E69E9820];
-      v31[1] = 3221225472;
-      v31[2] = __51__AMSUIInlineDialogViewController__setupEngagement__block_invoke_2;
-      v31[3] = &unk_1E7F24410;
-      v31[4] = self;
-      [v20 addErrorBlock:v31];
-      mEMORY[0x1E698C968]2 = [MEMORY[0x1E698C968] sharedMessagingUIConfig];
-      if (!mEMORY[0x1E698C968]2)
-      {
-        mEMORY[0x1E698C968]2 = [MEMORY[0x1E698C968] sharedConfig];
-      }
-
-      oSLogObject2 = [mEMORY[0x1E698C968]2 OSLogObject];
-      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
-      {
-        v23 = objc_opt_class();
-        v24 = AMSLogKey();
-        *buf = 138543618;
-        v35 = v23;
-        v36 = 2114;
-        v37 = v24;
-        _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Beginning to observe for updates", buf, 0x16u);
-      }
-
-      engagement3 = [(AMSUIInlineDialogViewController *)self engagement];
-      placement3 = [(AMSUIInlineDialogViewController *)self placement];
-      serviceType3 = [(AMSUIInlineDialogViewController *)self serviceType];
-      [engagement3 addObserver:self placement:placement3 serviceType:serviceType3];
     }
 
-    goto LABEL_13;
+    else
+    {
+    }
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void __51__AMSUIInlineDialogViewController__setupEngagement__block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [MEMORY[0x1E698C968] sharedMessagingUIConfig];
   if (!v4)
@@ -865,31 +864,28 @@ void __51__AMSUIInlineDialogViewController__setupEngagement__block_invoke(uint64
   v5 = [v4 OSLogObject];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = AMSLogKey();
+    v6 = objc_opt_class();
+    v7 = AMSLogKey();
     *buf = 138543618;
+    v12 = v6;
+    v13 = 2114;
     v14 = v7;
-    v15 = 2114;
-    v16 = v8;
     _os_log_impl(&dword_1BB036000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Successfully obtained response", buf, 0x16u);
   }
 
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __51__AMSUIInlineDialogViewController__setupEngagement__block_invoke_22;
-  v11[3] = &unk_1E7F243C0;
-  v11[4] = *(a1 + 32);
-  v12 = v3;
-  v9 = v3;
-  dispatch_async(MEMORY[0x1E69E96A0], v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __51__AMSUIInlineDialogViewController__setupEngagement__block_invoke_22;
+  v9[3] = &unk_1E7F243C0;
+  v9[4] = *(a1 + 32);
+  v10 = v3;
+  v8 = v3;
+  dispatch_async(MEMORY[0x1E69E96A0], v9);
 }
 
 void __51__AMSUIInlineDialogViewController__setupEngagement__block_invoke_2(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [MEMORY[0x1E698C968] sharedMessagingUIConfig];
   if (!v4)
@@ -900,57 +896,54 @@ void __51__AMSUIInlineDialogViewController__setupEngagement__block_invoke_2(uint
   v5 = [v4 OSLogObject];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = AMSLogKey();
+    v6 = objc_opt_class();
+    v7 = AMSLogKey();
     *buf = 138543618;
+    v12 = v6;
+    v13 = 2114;
     v14 = v7;
-    v15 = 2114;
-    v16 = v8;
     _os_log_impl(&dword_1BB036000, v5, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Successfully obtained response", buf, 0x16u);
   }
 
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __51__AMSUIInlineDialogViewController__setupEngagement__block_invoke_24;
-  v11[3] = &unk_1E7F243C0;
-  v11[4] = *(a1 + 32);
-  v12 = v3;
-  v9 = v3;
-  dispatch_async(MEMORY[0x1E69E96A0], v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __51__AMSUIInlineDialogViewController__setupEngagement__block_invoke_24;
+  v9[3] = &unk_1E7F243C0;
+  v9[4] = *(a1 + 32);
+  v10 = v3;
+  v8 = v3;
+  dispatch_async(MEMORY[0x1E69E96A0], v9);
 }
 
 - (id)_findDialogRequestInResponse:(id)response
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   placement = [(AMSUIInlineDialogViewController *)self placement];
   placement2 = [(AMSUIInlineDialogViewController *)self placement];
 
   if (placement2)
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     messageActions = [responseCopy messageActions];
-    v8 = [messageActions countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v8 = [messageActions countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v19;
+      v10 = *v18;
 LABEL_4:
       v11 = 0;
       while (1)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(messageActions);
         }
 
-        placementsMap = [*(*(&v18 + 1) + 8 * v11) placementsMap];
+        placementsMap = [*(*(&v17 + 1) + 8 * v11) placementsMap];
         v13 = [placementsMap objectForKeyedSubscript:placement];
         firstObject = [v13 firstObject];
         makeDialogRequest = [firstObject makeDialogRequest];
@@ -962,7 +955,7 @@ LABEL_4:
 
         if (v9 == ++v11)
         {
-          v9 = [messageActions countByEnumeratingWithState:&v18 objects:v22 count:16];
+          v9 = [messageActions countByEnumeratingWithState:&v17 objects:v21 count:16];
           if (v9)
           {
             goto LABEL_4;
@@ -985,14 +978,12 @@ LABEL_10:
     makeDialogRequest = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return makeDialogRequest;
 }
 
 - (void)messageViewController:(id)controller didSelectActionWithDialogResult:(id)result
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E698C968];
   resultCopy = result;
   sharedMessagingUIConfig = [v5 sharedMessagingUIConfig];
@@ -1007,19 +998,17 @@ LABEL_10:
     v9 = objc_opt_class();
     v10 = AMSLogKey();
     placement = [(AMSUIInlineDialogViewController *)self placement];
-    v14 = 138543874;
-    v15 = v9;
-    v16 = 2114;
-    v17 = v10;
-    v18 = 2112;
-    v19 = placement;
-    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] action for %@ was pushed", &v14, 0x20u);
+    v13 = 138543874;
+    v14 = v9;
+    v15 = 2114;
+    v16 = v10;
+    v17 = 2112;
+    v18 = placement;
+    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] action for %@ was pushed", &v13, 0x20u);
   }
 
   delegate = [(AMSUIInlineDialogViewController *)self delegate];
   [delegate messageViewController:self didSelectActionWithDialogResult:resultCopy];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)messageViewController:(id)controller didUpdateSize:(CGSize)size
@@ -1059,7 +1048,7 @@ LABEL_10:
 
 - (void)engagement:(id)engagement didUpdateRequest:(id)request placement:(id)placement serviceType:(id)type
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   placementCopy = placement;
   typeCopy = type;
@@ -1089,11 +1078,11 @@ LABEL_10:
           v20 = AMSLogKey();
           placement2 = [(AMSUIInlineDialogViewController *)self placement];
           *buf = 138543874;
-          v39 = v19;
-          v40 = 2114;
-          v41 = v20;
-          v42 = 2112;
-          v43 = placement2;
+          v38 = v19;
+          v39 = 2114;
+          v40 = v20;
+          v41 = 2112;
+          v42 = placement2;
           _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Message for %@ was pushed to", buf, 0x20u);
         }
 
@@ -1107,17 +1096,17 @@ LABEL_10:
           block[2] = __85__AMSUIInlineDialogViewController_engagement_didUpdateRequest_placement_serviceType___block_invoke_30;
           block[3] = &unk_1E7F243C0;
           block[4] = self;
-          v36 = requestCopy;
+          v35 = requestCopy;
           dispatch_async(MEMORY[0x1E69E96A0], block);
         }
 
-        v33[0] = MEMORY[0x1E69E9820];
-        v33[1] = 3221225472;
-        v33[2] = __85__AMSUIInlineDialogViewController_engagement_didUpdateRequest_placement_serviceType___block_invoke_2;
-        v33[3] = &unk_1E7F243C0;
-        v33[4] = self;
-        v34 = requestCopy;
-        dispatch_async(MEMORY[0x1E69E96A0], v33);
+        v32[0] = MEMORY[0x1E69E9820];
+        v32[1] = 3221225472;
+        v32[2] = __85__AMSUIInlineDialogViewController_engagement_didUpdateRequest_placement_serviceType___block_invoke_2;
+        v32[3] = &unk_1E7F243C0;
+        v32[4] = self;
+        v33 = requestCopy;
+        dispatch_async(MEMORY[0x1E69E96A0], v32);
       }
 
       else
@@ -1130,24 +1119,24 @@ LABEL_10:
         oSLogObject2 = [mEMORY[0x1E698C968]2 OSLogObject];
         if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
         {
-          v30 = objc_opt_class();
-          v31 = AMSLogKey();
+          v29 = objc_opt_class();
+          v30 = AMSLogKey();
           placement3 = [(AMSUIInlineDialogViewController *)self placement];
           *buf = 138543874;
-          v39 = v30;
-          v40 = 2114;
-          v41 = v31;
-          v42 = 2112;
-          v43 = placement3;
+          v38 = v29;
+          v39 = 2114;
+          v40 = v30;
+          v41 = 2112;
+          v42 = placement3;
           _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Nil message for %@ was pushed", buf, 0x20u);
         }
 
-        v37[0] = MEMORY[0x1E69E9820];
-        v37[1] = 3221225472;
-        v37[2] = __85__AMSUIInlineDialogViewController_engagement_didUpdateRequest_placement_serviceType___block_invoke;
-        v37[3] = &unk_1E7F242D0;
-        v37[4] = self;
-        dispatch_async(MEMORY[0x1E69E96A0], v37);
+        v36[0] = MEMORY[0x1E69E9820];
+        v36[1] = 3221225472;
+        v36[2] = __85__AMSUIInlineDialogViewController_engagement_didUpdateRequest_placement_serviceType___block_invoke;
+        v36[3] = &unk_1E7F242D0;
+        v36[4] = self;
+        dispatch_async(MEMORY[0x1E69E96A0], v36);
       }
 
       goto LABEL_17;
@@ -1170,14 +1159,13 @@ LABEL_10:
     v26 = objc_opt_class();
     v27 = AMSLogKey();
     *buf = 138543618;
-    v39 = v26;
-    v40 = 2114;
-    v41 = v27;
+    v38 = v26;
+    v39 = 2114;
+    v40 = v27;
     _os_log_impl(&dword_1BB036000, oSLogObject3, OS_LOG_TYPE_DEBUG, "%{public}@: [%{public}@] Ignoring dialog pushed due to wrong placement and service type", buf, 0x16u);
   }
 
 LABEL_17:
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __85__AMSUIInlineDialogViewController_engagement_didUpdateRequest_placement_serviceType___block_invoke_30(uint64_t a1)
@@ -1188,7 +1176,7 @@ void __85__AMSUIInlineDialogViewController_engagement_didUpdateRequest_placement
 
 - (void)_didFetchResponse:(id)response
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
   v5 = [(AMSUIInlineDialogViewController *)self _findDialogRequestInResponse:responseCopy];
@@ -1208,11 +1196,11 @@ void __85__AMSUIInlineDialogViewController_engagement_didUpdateRequest_placement
     {
       v9 = objc_opt_class();
       v10 = AMSLogKey();
-      v19 = 138543618;
-      v20 = v9;
-      v21 = 2114;
-      v22 = v10;
-      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Found message to display", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = v9;
+      v20 = 2114;
+      v21 = v10;
+      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Found message to display", &v18, 0x16u);
     }
 
     viewIfLoaded = [(AMSUIInlineDialogViewController *)self viewIfLoaded];
@@ -1244,17 +1232,15 @@ void __85__AMSUIInlineDialogViewController_engagement_didUpdateRequest_placement
     {
       v16 = objc_opt_class();
       v17 = AMSLogKey();
-      v19 = 138543618;
-      v20 = v16;
-      v21 = 2114;
-      v22 = v17;
-      _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] No message found to display", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = v16;
+      v20 = 2114;
+      v21 = v17;
+      _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] No message found to display", &v18, 0x16u);
     }
 
     [(AMSUIInlineDialogViewController *)self _tearDownContentView];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_didFailToFetchWithError:(id)error

@@ -94,40 +94,39 @@
 
 - (void)writeTo:(id)to
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_expressPassInformation)
   {
     PBDataWriterWriteDataField();
   }
 
-  v24 = 0u;
-  v25 = 0u;
+  v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v5 = self->_referenceExpressPassesInformations;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v23;
+    v8 = *v20;
     do
     {
       v9 = 0;
       do
       {
-        if (*v23 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * v9);
         PBDataWriterWriteDataField();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
     while (v7);
@@ -138,39 +137,36 @@
     PBDataWriterWriteDataField();
   }
 
-  v20 = 0u;
-  v21 = 0u;
+  v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v11 = self->_referenceExpressPassConfigurations;
-  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
-  if (v12)
+  v15 = 0u;
+  v16 = 0u;
+  v10 = self->_referenceExpressPassConfigurations;
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v15 objects:v23 count:16];
+  if (v11)
   {
-    v13 = v12;
-    v14 = *v19;
+    v12 = v11;
+    v13 = *v16;
     do
     {
-      v15 = 0;
+      v14 = 0;
       do
       {
-        if (*v19 != v14)
+        if (*v16 != v13)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v18 + 1) + 8 * v15);
         PBDataWriterWriteDataField();
-        ++v15;
+        ++v14;
       }
 
-      while (v13 != v15);
-      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
+      while (v12 != v14);
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v15 objects:v23 count:16];
     }
 
-    while (v13);
+    while (v12);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -219,40 +215,40 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSData *)self->_expressPassInformation copyWithZone:zone];
   v7 = v5[2];
   v5[2] = v6;
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v8 = self->_referenceExpressPassesInformations;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v29;
+    v11 = *v28;
     do
     {
       v12 = 0;
       do
       {
-        if (*v29 != v11)
+        if (*v28 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [*(*(&v28 + 1) + 8 * v12) copyWithZone:zone];
+        v13 = [*(*(&v27 + 1) + 8 * v12) copyWithZone:zone];
         [v5 addReferenceExpressPassesInformation:v13];
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v10);
@@ -262,40 +258,39 @@
   v15 = v5[1];
   v5[1] = v14;
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v16 = self->_referenceExpressPassConfigurations;
-  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v25;
+    v19 = *v24;
     do
     {
       v20 = 0;
       do
       {
-        if (*v25 != v19)
+        if (*v24 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = [*(*(&v24 + 1) + 8 * v20) copyWithZone:{zone, v24}];
+        v21 = [*(*(&v23 + 1) + 8 * v20) copyWithZone:{zone, v23}];
         [v5 addReferenceExpressPassConfigurations:v21];
 
         ++v20;
       }
 
       while (v18 != v20);
-      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
     while (v18);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -334,36 +329,36 @@
 
 - (void)mergeFrom:(id)from
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   if (*(fromCopy + 2))
   {
     [(NPKProtoConflictingExpressPassIdentifiersForPassInformationRequest *)self setExpressPassInformation:?];
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v5 = *(fromCopy + 4);
-  v6 = [v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v21;
+    v8 = *v20;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(NPKProtoConflictingExpressPassIdentifiersForPassInformationRequest *)self addReferenceExpressPassesInformation:*(*(&v20 + 1) + 8 * i)];
+        [(NPKProtoConflictingExpressPassIdentifiersForPassInformationRequest *)self addReferenceExpressPassesInformation:*(*(&v19 + 1) + 8 * i)];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
     while (v7);
@@ -374,35 +369,33 @@
     [(NPKProtoConflictingExpressPassIdentifiersForPassInformationRequest *)self setExpressPassConfiguration:?];
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v10 = *(fromCopy + 3);
-  v11 = [v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v15 objects:v23 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v17;
+    v13 = *v16;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v17 != v13)
+        if (*v16 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [(NPKProtoConflictingExpressPassIdentifiersForPassInformationRequest *)self addReferenceExpressPassConfigurations:*(*(&v16 + 1) + 8 * j), v16];
+        [(NPKProtoConflictingExpressPassIdentifiersForPassInformationRequest *)self addReferenceExpressPassConfigurations:*(*(&v15 + 1) + 8 * j), v15];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v15 objects:v23 count:16];
     }
 
     while (v12);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

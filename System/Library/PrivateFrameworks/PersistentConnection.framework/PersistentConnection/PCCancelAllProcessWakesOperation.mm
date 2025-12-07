@@ -6,7 +6,7 @@
 
 - (void)main
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   AssertionID = 0;
   v2 = 0x280B0B000uLL;
   v3 = 0x277CCA000uLL;
@@ -31,98 +31,95 @@
     v11 = CFGetTypeID(v9);
     if (v11 == CFArrayGetTypeID())
     {
-      v29 = v10;
-      v30 = v5;
-      v34 = 0u;
-      v35 = 0u;
+      v27 = v10;
+      v28 = v5;
       v32 = 0u;
       v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
       v12 = v10;
-      v13 = [(__CFArray *)v12 countByEnumeratingWithState:&v32 objects:v43 count:16];
+      v13 = [(__CFArray *)v12 countByEnumeratingWithState:&v30 objects:v41 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v33;
+        v15 = *v31;
         do
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v33 != v15)
+            if (*v31 != v15)
             {
               objc_enumerationMutation(v12);
             }
 
-            v17 = *(*(&v32 + 1) + 8 * i);
+            v17 = *(*(&v30 + 1) + 8 * i);
             v18 = [v17 objectForKey:@"eventtype"];
             v19 = [v17 objectForKey:@"scheduledby"];
             if ([(__CFString *)v18 isEqual:@"wake"])
             {
-              v20 = *(v3 + 3240);
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v2 + 2368 pidFromMatchingIdentifer:v19] & 0x80000000) == 0)
               {
-                v21 = v12;
-                v22 = v3;
-                v23 = [v17 objectForKey:@"time"];
-                if (v23)
+                v20 = v12;
+                v21 = v3;
+                v22 = [v17 objectForKey:@"time"];
+                if (v22)
                 {
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v24 = IOPMCancelScheduledPowerEvent(v23, v19, v18);
-                    v25 = +[PCLog wakeManager];
-                    v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
-                    if (v24)
+                    v23 = IOPMCancelScheduledPowerEvent(v22, v19, v18);
+                    v24 = +[PCLog wakeManager];
+                    v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
+                    if (v23)
                     {
-                      if (v26)
+                      if (v25)
                       {
-                        v31 = PCStringFromDate(v23);
+                        v29 = PCStringFromDate(v22);
                         *buf = 138412802;
-                        v38 = v19;
-                        v39 = 2112;
-                        v40 = v31;
-                        v41 = 1024;
-                        v42 = v24;
-                        _os_log_impl(&dword_25E3EF000, v25, OS_LOG_TYPE_DEFAULT, "Unable to unschedule orphaned wake with identifier '%@' and date [%@]. IOPMCancelScheduledPowerEvent() returned: %i", buf, 0x1Cu);
+                        v36 = v19;
+                        v37 = 2112;
+                        v38 = v29;
+                        v39 = 1024;
+                        v40 = v23;
+                        _os_log_impl(&dword_25E3EF000, v24, OS_LOG_TYPE_DEFAULT, "Unable to unschedule orphaned wake with identifier '%@' and date [%@]. IOPMCancelScheduledPowerEvent() returned: %i", buf, 0x1Cu);
                       }
                     }
 
-                    else if (v26)
+                    else if (v25)
                     {
-                      v27 = PCStringFromDate(v23);
+                      v26 = PCStringFromDate(v22);
                       *buf = 138412546;
-                      v38 = v19;
-                      v39 = 2112;
-                      v40 = v27;
-                      _os_log_impl(&dword_25E3EF000, v25, OS_LOG_TYPE_DEFAULT, "Unscheduled orphaned wake with identifier '%@' and date [%@]", buf, 0x16u);
+                      v36 = v19;
+                      v37 = 2112;
+                      v38 = v26;
+                      _os_log_impl(&dword_25E3EF000, v24, OS_LOG_TYPE_DEFAULT, "Unscheduled orphaned wake with identifier '%@' and date [%@]", buf, 0x16u);
                     }
 
                     v2 = 0x280B0B000;
                   }
                 }
 
-                v3 = v22;
-                v12 = v21;
+                v3 = v21;
+                v12 = v20;
               }
             }
           }
 
-          v14 = [(__CFArray *)v12 countByEnumeratingWithState:&v32 objects:v43 count:16];
+          v14 = [(__CFArray *)v12 countByEnumeratingWithState:&v30 objects:v41 count:16];
         }
 
         while (v14);
       }
 
-      v10 = v29;
-      v5 = v30;
+      v10 = v27;
+      v5 = v28;
     }
 
     CFRelease(v10);
   }
 
   IOPMAssertionRelease(AssertionID);
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 @end

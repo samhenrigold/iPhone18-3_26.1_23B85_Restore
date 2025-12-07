@@ -41,10 +41,10 @@
     v9 = schemeCopy;
     objc_storeStrong(&self->_colorScheme, scheme);
     headerView = self->_headerView;
-    primaryTextColor = [(SUUIColorScheme *)self->_colorScheme primaryTextColor];
-    if (primaryTextColor)
+    v7 = objc_msgSend_primaryTextColor(self->_colorScheme);
+    if (v7)
     {
-      [(SUUIProductPageTableExpandableHeaderView *)headerView setBottomBorderColor:primaryTextColor];
+      [(SUUIProductPageTableExpandableHeaderView *)headerView setBottomBorderColor:v7];
     }
 
     else
@@ -82,10 +82,10 @@
     [(SUUIProductPageTableExpandableHeaderView *)v6 setTitle:v8];
 
     v9 = self->_headerView;
-    primaryTextColor = [(SUUIColorScheme *)self->_colorScheme primaryTextColor];
-    if (primaryTextColor)
+    v10 = objc_msgSend_primaryTextColor(self->_colorScheme);
+    if (v10)
     {
-      [(SUUIProductPageTableExpandableHeaderView *)v9 setBottomBorderColor:primaryTextColor];
+      [(SUUIProductPageTableExpandableHeaderView *)v9 setBottomBorderColor:v10];
     }
 
     else
@@ -165,10 +165,10 @@
 {
   pathCopy = path;
   v7 = [(SUUIProductPageTableSection *)self textBoxTableViewCellForTableView:view indexPath:pathCopy];
-  primaryTextColor = [(SUUIColorScheme *)self->_colorScheme primaryTextColor];
-  if (primaryTextColor)
+  v8 = objc_msgSend_primaryTextColor(self->_colorScheme);
+  if (v8)
   {
-    [v7 setBottomBorderColor:primaryTextColor];
+    [v7 setBottomBorderColor:v8];
   }
 
   else

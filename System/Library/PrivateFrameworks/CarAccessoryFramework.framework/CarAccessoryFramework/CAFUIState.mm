@@ -11,6 +11,7 @@
 - (NSArray)uiSceneOptions;
 - (unsigned)driverSide;
 - (unsigned)uiSceneState;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -176,6 +177,78 @@
   v3 = driverSideCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000047000001"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    uiSceneStateCharacteristic = [(CAFUIState *)self uiSceneStateCharacteristic];
+    uniqueIdentifier2 = [uiSceneStateCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [observers uiStateService:self didUpdateUiSceneState:{-[CAFUIState uiSceneState](self, "uiSceneState")}];
+LABEL_12:
+
+      goto LABEL_13;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000047000004"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    uiSceneOptionsCharacteristic = [(CAFUIState *)self uiSceneOptionsCharacteristic];
+    uniqueIdentifier4 = [uiSceneOptionsCharacteristic uniqueIdentifier];
+    v17 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v17)
+    {
+      observers = [(CAFService *)self observers];
+      uiSceneOptions = [(CAFUIState *)self uiSceneOptions];
+      [observers uiStateService:self didUpdateUiSceneOptions:uiSceneOptions];
+
+      goto LABEL_12;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000041000009"])
+  {
+    goto LABEL_12;
+  }
+
+  uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+  driverSideCharacteristic = [(CAFUIState *)self driverSideCharacteristic];
+  uniqueIdentifier6 = [driverSideCharacteristic uniqueIdentifier];
+  v22 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+  if (v22)
+  {
+    observers = [(CAFService *)self observers];
+    [observers uiStateService:self didUpdateDriverSide:{-[CAFUIState driverSide](self, "driverSide")}];
+    goto LABEL_12;
+  }
+
+LABEL_13:
+  v23.receiver = self;
+  v23.super_class = CAFUIState;
+  [(CAFService *)&v23 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForUISceneState

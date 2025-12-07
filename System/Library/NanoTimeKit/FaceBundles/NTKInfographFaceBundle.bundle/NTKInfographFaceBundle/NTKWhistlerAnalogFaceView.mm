@@ -43,6 +43,7 @@
 - (void)_updateDialTicksForBezelText;
 - (void)bezelViewDidBecomeInteractive:(id)interactive;
 - (void)bezelViewDidEndInteractive:(id)interactive;
+- (void)complicationDisplayWrapperView:(id)view updateCustomDataAnimationFromEarlierView:(id)earlierView laterView:(id)laterView isForward:(BOOL)forward animationType:(unint64_t)type animationDuration:(double)duration animationFraction:(float)fraction;
 @end
 
 @implementation NTKWhistlerAnalogFaceView
@@ -928,6 +929,34 @@ LABEL_13:
   }
 
   return v6;
+}
+
+- (void)complicationDisplayWrapperView:(id)view updateCustomDataAnimationFromEarlierView:(id)earlierView laterView:(id)laterView isForward:(BOOL)forward animationType:(unint64_t)type animationDuration:(double)duration animationFraction:(float)fraction
+{
+  forwardCopy = forward;
+  viewCopy = view;
+  earlierViewCopy = earlierView;
+  laterViewCopy = laterView;
+  v29.receiver = self;
+  v29.super_class = NTKWhistlerAnalogFaceView;
+  *&v19 = fraction;
+  [(NTKWhistlerAnalogFaceView *)&v29 complicationDisplayWrapperView:viewCopy updateCustomDataAnimationFromEarlierView:earlierViewCopy laterView:laterViewCopy isForward:forwardCopy animationType:type animationDuration:duration animationFraction:v19];
+  if ([viewCopy family] == &dword_8 + 1)
+  {
+    objc_initWeak(&location, self);
+    v23 = _NSConcreteStackBlock;
+    v24 = 3221225472;
+    v25 = sub_3CE0;
+    v26 = &unk_C390;
+    objc_copyWeak(&v27, &location);
+    v20 = objc_retainBlock(&v23);
+    v21 = objc_opt_class();
+    *&v22 = fraction;
+    [v21 updateCustomDataAnimationFromEarlierView:earlierViewCopy laterView:laterViewCopy isForward:forwardCopy animationType:type animationDuration:v20 animationFraction:duration bezelTextUpdateHandler:{v22, v23, v24, v25, v26}];
+
+    objc_destroyWeak(&v27);
+    objc_destroyWeak(&location);
+  }
 }
 
 - (void)bezelViewDidBecomeInteractive:(id)interactive

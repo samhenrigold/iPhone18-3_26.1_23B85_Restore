@@ -2,17 +2,19 @@
 - (BOOL)vibrationRecorderTouchSurfaceDidEnterRecordingMode:(id)mode;
 - (TKVibrationRecorderView)initWithVibrationPatternMaximumDuration:(double)duration;
 - (TKVibrationRecorderViewDelegate)delegate;
-- (id)_titleForControlsToolbarButtonWithIdentifier:(int)identifier;
+- (void)_enterWaitingModeWithAnimation:(BOOL)animation enablePlayButton:(BOOL)button;
 - (void)_exitWaitingModeWithAnimation:(BOOL)animation;
 - (void)_handleLeftButtonTapped:(id)tapped;
 - (void)_handleRightButtonTapped:(id)tapped;
 - (void)_handleScreenPeripheryInsetsDidChangeNotification:(id)notification;
+- (void)_setLeftButtonIdentifier:(int)identifier enabled:(BOOL)enabled rightButtonIdentifier:(int)buttonIdentifier enabled:(BOOL)a6 animated:(BOOL)animated;
 - (void)_updateBottomLineToolbarForPeripheryInsetsChange;
 - (void)_updateProgress:(id)progress;
 - (void)dealloc;
 - (void)didMoveToWindow;
 - (void)enterRecordingMode;
 - (void)enterReplayModeWithVibrationPattern:(id)pattern;
+- (void)exitRecordingModeWithPlayButtonEnabled:(BOOL)enabled;
 - (void)exitReplayMode;
 - (void)safeAreaInsetsDidChange;
 - (void)startAnimatingProgress;
@@ -192,14 +194,56 @@
   [(TKVibrationRecorderView *)&v5 dealloc];
 }
 
-- (id)_titleForControlsToolbarButtonWithIdentifier:(int)identifier
+- (void)_setLeftButtonIdentifier:(int)identifier enabled:(BOOL)enabled rightButtonIdentifier:(int)buttonIdentifier enabled:(BOOL)a6 animated:(BOOL)animated
 {
-  if ((identifier - 1) <= 3)
+  animatedCopy = animated;
+  v7 = a6;
+  v8 = *&buttonIdentifier;
+  enabledCopy = enabled;
+  v30[5] = *MEMORY[0x277D85DE8];
+  self->_leftButtonIdentifier = identifier;
+  self->_rightButtonIdentifier = buttonIdentifier;
+  v11 = [(TKVibrationRecorderView *)self _titleForControlsToolbarButtonWithIdentifier:?];
+  v12 = [(TKVibrationRecorderView *)self _titleForControlsToolbarButtonWithIdentifier:v8];
+  v13 = [objc_alloc(MEMORY[0x277D751E0]) initWithTitle:v11 style:0 target:self action:sel__handleLeftButtonTapped_];
+  [v13 setEnabled:enabledCopy];
+  v14 = [objc_alloc(MEMORY[0x277D751E0]) initWithTitle:v12 style:0 target:self action:sel__handleRightButtonTapped_];
+  [v14 setEnabled:v7];
+  [(TKVibrationRecorderView *)self safeAreaInsets];
+  v16 = v15;
+  v18 = v17;
+  v19 = [MEMORY[0x277D75D18] userInterfaceLayoutDirectionForSemanticContentAttribute:{-[UIToolbar semanticContentAttribute](self->_controlsToolbar, "semanticContentAttribute")}];
+  [(TKVibrationRecorderStyleProvider *)self->_styleProvider vibrationRecorderControlsToolbarItemsHorizontalOffsetFromEdge];
+  v21 = v20;
+  v22 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:6 target:0 action:0];
+  v23 = v22;
+  if (v19)
   {
-    v3 = off_278316978[identifier - 1];
+    v24 = v18;
   }
 
-  return TLLocalizedString();
+  else
+  {
+    v24 = v16;
+  }
+
+  v25 = v24 + v21;
+  if (!v19)
+  {
+    v16 = v18;
+  }
+
+  [v22 setWidth:v25];
+  v26 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:6 target:0 action:0];
+  [v26 setWidth:v16 + v21];
+  v27 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:5 target:0 action:0];
+  v30[0] = v23;
+  v30[1] = v13;
+  v30[2] = v27;
+  v30[3] = v14;
+  v30[4] = v26;
+  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:5];
+  [(UIToolbar *)self->_controlsToolbar setItems:v28 animated:animatedCopy];
 }
 
 - (void)_handleLeftButtonTapped:(id)tapped
@@ -212,6 +256,47 @@
 {
   delegate = [(TKVibrationRecorderView *)self delegate];
   [delegate vibrationRecorderView:self buttonTappedWithIdentifier:self->_rightButtonIdentifier];
+}
+
+- (void)_enterWaitingModeWithAnimation:(BOOL)animation enablePlayButton:(BOOL)button
+{
+  animationCopy = animation;
+  if (button)
+  {
+    v7 = 1;
+  }
+
+  else
+  {
+    v7 = 2;
+  }
+
+  [(TKVibrationRecorderView *)self _setLeftButtonIdentifier:3 enabled:button rightButtonIdentifier:v7 enabled:button animated:animation];
+  if (button)
+  {
+    touchSurface = self->_touchSurface;
+    v12 = TLLocalizedString();
+    [(TKVibrationRecorderTouchSurface *)touchSurface setAccessibilityHint:v12];
+  }
+
+  else
+  {
+    v9 = 0.0;
+    if (animationCopy)
+    {
+      [(TKVibrationRecorderStyleProvider *)self->_styleProvider vibrationRecorderInstructionsLabelFadeAnimationDuration];
+    }
+
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __75__TKVibrationRecorderView__enterWaitingModeWithAnimation_enablePlayButton___block_invoke;
+    v13[3] = &unk_278316500;
+    v13[4] = self;
+    [MEMORY[0x277D75D18] animateWithDuration:6 delay:v13 options:&__block_literal_global_2 animations:v9 completion:0.0];
+    v10 = self->_touchSurface;
+    text = [(UILabel *)self->_instructionsLabel text];
+    [(TKVibrationRecorderTouchSurface *)v10 setAccessibilityHint:text];
+  }
 }
 
 - (void)_exitWaitingModeWithAnimation:(BOOL)animation
@@ -241,6 +326,24 @@
   touchSurface = self->_touchSurface;
 
   [(TKVibrationRecorderTouchSurface *)touchSurface enterRecordingMode];
+}
+
+- (void)exitRecordingModeWithPlayButtonEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  if (self->_isWaitingForEndOfCurrentVibrationComponent)
+  {
+    [(TKVibrationRecorderProgressView *)self->_progressView vibrationComponentDidEnd];
+  }
+
+  [(TKVibrationRecorderView *)self stopAnimatingProgress];
+  [(TKVibrationRecorderProgressView *)self->_progressView setRoundedCornersCompensationDelayMode:0];
+  [(TKVibrationRecorderProgressView *)self->_progressView setCurrentTimeInterval:0.0];
+  self->_currentVibrationProgressDidStartTimestamp = 0.0;
+  [(TKVibrationRecorderView *)self _enterWaitingModeWithAnimation:1 enablePlayButton:enabledCopy];
+  touchSurface = self->_touchSurface;
+
+  [(TKVibrationRecorderTouchSurface *)touchSurface exitRecordingMode];
 }
 
 - (void)enterReplayModeWithVibrationPattern:(id)pattern

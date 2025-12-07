@@ -24,22 +24,25 @@
 
 - (void)didTapGetStartedButton
 {
-  v2 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC10FitnessApp28TrendsOnBoardingActivityTile_configuration);
-  if (v2 - 1 >= 2)
+  v2 = self + OBJC_IVAR____TtC10FitnessApp28TrendsOnBoardingActivityTile_configuration;
+  v3 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC10FitnessApp28TrendsOnBoardingActivityTile_configuration);
+  if (v3 - 1 >= 2)
   {
-    if (v2)
+    v4 = *(v2 + 1);
+    if (v3)
     {
       selfCopy = self;
-      v4 = sub_1002C79D8(v2);
-      v2(v4);
+      v6 = sub_1002C79D8(v3, v4);
+      v3(v6);
 
-      sub_100282D3C(v2);
+      sub_100282D3C(v3, v4);
     }
 
     else
     {
+      v7 = *(v2 + 1);
 
-      sub_10000B210(0);
+      sub_10000B210(0, v7);
     }
   }
 }
@@ -47,7 +50,7 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_1002C7578();
+  sub_1002C7578(selfCopy);
 }
 
 @end

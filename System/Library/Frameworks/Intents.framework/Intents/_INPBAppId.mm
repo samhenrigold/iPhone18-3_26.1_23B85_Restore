@@ -104,7 +104,6 @@ LABEL_8:
 
   if (bundleId)
   {
-    bundleId = self->_bundleId;
     PBDataWriterWriteStringField();
   }
 }

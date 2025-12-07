@@ -313,59 +313,59 @@ LABEL_14:
 
 - (id)_vectorDatabaseReadWriteConfigWithError:(id *)error
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   _vectorDatabaseVersion = [objc_opt_class() _vectorDatabaseVersion];
-  v5 = VCPSignPostLog();
+  v5 = VCPSignPostLog(_vectorDatabaseVersion);
   v6 = os_signpost_id_generate(v5);
 
-  v7 = VCPSignPostLog();
-  v8 = v7;
-  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
+  v8 = VCPSignPostLog(v7);
+  v9 = v8;
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "MAD_VSKConfigAbbreviatedInit", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v6, "MAD_VSKConfigAbbreviatedInit", "", buf, 2u);
   }
 
-  v9 = objc_alloc(MEMORY[0x1E69DF618]);
+  v10 = objc_alloc(MEMORY[0x1E69DF618]);
   directoryURL = self->_directoryURL;
-  v57 = 0;
-  v11 = [v9 initWithBaseDirectory:directoryURL readOnly:0 perConnectionPeakMemory:0 error:&v57];
-  v12 = v57;
-  v13 = VCPSignPostLog();
-  v14 = v13;
-  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v61 = 0;
+  v12 = [v10 initWithBaseDirectory:directoryURL readOnly:0 perConnectionPeakMemory:0 error:&v61];
+  v13 = v61;
+  v14 = VCPSignPostLog(v13);
+  v15 = v14;
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v14, OS_SIGNPOST_INTERVAL_END, v6, "MAD_VSKConfigAbbreviatedInit", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v15, OS_SIGNPOST_INTERVAL_END, v6, "MAD_VSKConfigAbbreviatedInit", "", buf, 2u);
   }
 
-  clientVersion = [v11 clientVersion];
-  v16 = [clientVersion isEqualToString:_vectorDatabaseVersion];
+  clientVersion = [v12 clientVersion];
+  v17 = [clientVersion isEqualToString:_vectorDatabaseVersion];
 
-  if (!v16)
+  if (!v17)
   {
-    if (v12)
+    if (v13)
     {
       if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v61 = v12;
+        v65 = v13;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[VSKDB] Unable to initialize vector database with abbreviated initializer: %@", buf, 0xCu);
       }
     }
 
     else
     {
-      clientVersion2 = [v11 clientVersion];
-      v20 = [clientVersion2 isEqualToString:_vectorDatabaseVersion];
+      clientVersion2 = [v12 clientVersion];
+      v21 = [clientVersion2 isEqualToString:_vectorDatabaseVersion];
 
-      if ((v20 & 1) == 0 && MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+      if ((v21 & 1) == 0 && MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
-        clientVersion3 = [v11 clientVersion];
+        clientVersion3 = [v12 clientVersion];
         *buf = 138412546;
-        v61 = clientVersion3;
-        v62 = 2112;
-        v63 = _vectorDatabaseVersion;
+        v65 = clientVersion3;
+        v66 = 2112;
+        v67 = _vectorDatabaseVersion;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[VSKDB] Existing version %@, upgrading to %@", buf, 0x16u);
       }
     }
@@ -373,20 +373,20 @@ LABEL_14:
     self->_hasMigration = 1;
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
     path = [(NSURL *)self->_directoryURL path];
-    v24 = [defaultManager fileExistsAtPath:path isDirectory:0];
+    v25 = [defaultManager fileExistsAtPath:path isDirectory:0];
 
-    if (v24)
+    if (v25)
     {
-      v25 = self->_directoryURL;
-      v56 = 0;
-      v26 = [defaultManager removeItemAtURL:v25 error:&v56];
-      v27 = v56;
-      v12 = v27;
-      if ((v26 & 1) == 0)
+      v26 = self->_directoryURL;
+      v60 = 0;
+      v27 = [defaultManager removeItemAtURL:v26 error:&v60];
+      v28 = v60;
+      v13 = v28;
+      if ((v27 & 1) == 0)
       {
         if (error)
         {
-          *error = [(NSURL *)v27 copy];
+          *error = [(NSURL *)v28 copy];
         }
 
         if (MediaAnalysisLogLevel() < 3 || !os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -394,188 +394,188 @@ LABEL_14:
           goto LABEL_51;
         }
 
-        v48 = self->_directoryURL;
+        v52 = self->_directoryURL;
         *buf = 138412546;
-        v61 = v48;
-        v62 = 2112;
-        v63 = v12;
-        v45 = MEMORY[0x1E69E9C10];
-        v46 = "[VSKDB] Failed to remove %@ - %@";
-        v47 = 22;
+        v65 = v52;
+        v66 = 2112;
+        v67 = v13;
+        v49 = MEMORY[0x1E69E9C10];
+        v50 = "[VSKDB] Failed to remove %@ - %@";
+        v51 = 22;
         goto LABEL_50;
       }
 
       if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
       {
-        v28 = self->_directoryURL;
+        v29 = self->_directoryURL;
         *buf = 138412290;
-        v61 = v28;
+        v65 = v29;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[VSKDB] Removed %@", buf, 0xCu);
       }
     }
 
     else
     {
-      v12 = 0;
+      v13 = 0;
     }
 
     path2 = [(NSURL *)self->_directoryURL path];
-    v58 = *MEMORY[0x1E696A370];
-    v30 = [MEMORY[0x1E696AD98] numberWithShort:493];
-    v59 = v30;
-    v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
-    v55 = v12;
-    v32 = [defaultManager createDirectoryAtPath:path2 withIntermediateDirectories:1 attributes:v31 error:&v55];
-    v33 = v55;
+    v62 = *MEMORY[0x1E696A370];
+    v31 = [MEMORY[0x1E696AD98] numberWithShort:493];
+    v63 = v31;
+    v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
+    v59 = v13;
+    v33 = [defaultManager createDirectoryAtPath:path2 withIntermediateDirectories:1 attributes:v32 error:&v59];
+    v34 = v59;
 
-    v12 = v33;
-    if (v32)
+    v13 = v34;
+    if (v33)
     {
-      v34 = VCPSignPostLog();
-      spid = os_signpost_id_generate(v34);
+      v36 = VCPSignPostLog(v35);
+      spid = os_signpost_id_generate(v36);
 
-      v35 = VCPSignPostLog();
-      v36 = v35;
-      if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v35))
+      v38 = VCPSignPostLog(v37);
+      v39 = v38;
+      if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v38))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v36, OS_SIGNPOST_INTERVAL_BEGIN, spid, "MAD_VSKConfigFullInit", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v39, OS_SIGNPOST_INTERVAL_BEGIN, spid, "MAD_VSKConfigFullInit", "", buf, 2u);
       }
 
-      v37 = objc_alloc(MEMORY[0x1E69DF618]);
-      v38 = self->_directoryURL;
+      v40 = objc_alloc(MEMORY[0x1E69DF618]);
+      v41 = self->_directoryURL;
       _vectorDatabaseMetric = [objc_opt_class() _vectorDatabaseMetric];
       _vectorDatabaseAttributes = [objc_opt_class() _vectorDatabaseAttributes];
-      v54 = v12;
-      LOWORD(v51) = 0;
-      LOBYTE(v50) = 1;
-      v41 = [v37 initWithBaseDirectory:v38 distanceMetric:_vectorDatabaseMetric filterableAttributes:_vectorDatabaseAttributes dimension:512 averagePartitionSize:0 batchSize:0 batchFactor:0 tradeOffParameterBetweenClusteringAndBalance:0 enableFTS:v50 dataType:0 maxIndexConstructionBatches:0 readOnly:v51 pretokenizationEnabled:MEMORY[0x1E695E0F0] prefixIndices:0 perConnectionPeakMemory:_vectorDatabaseVersion clientVersion:&v54 error:?];
-      v42 = v54;
+      v58 = v13;
+      LOWORD(v55) = 0;
+      LOBYTE(v54) = 1;
+      v44 = [v40 initWithBaseDirectory:v41 distanceMetric:_vectorDatabaseMetric filterableAttributes:_vectorDatabaseAttributes dimension:512 averagePartitionSize:0 batchSize:0 batchFactor:0 tradeOffParameterBetweenClusteringAndBalance:0 enableFTS:v54 dataType:0 maxIndexConstructionBatches:0 readOnly:v55 pretokenizationEnabled:MEMORY[0x1E695E0F0] prefixIndices:0 perConnectionPeakMemory:_vectorDatabaseVersion clientVersion:&v58 error:?];
+      v45 = v58;
 
-      v43 = VCPSignPostLog();
-      v44 = v43;
-      if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v43))
+      v47 = VCPSignPostLog(v46);
+      v48 = v47;
+      if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v47))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v44, OS_SIGNPOST_INTERVAL_END, spid, "MAD_VSKConfigFullInit", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v48, OS_SIGNPOST_INTERVAL_END, spid, "MAD_VSKConfigFullInit", "", buf, 2u);
       }
 
-      if (v42)
+      if (v45)
       {
         if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v61 = v42;
+          v65 = v45;
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[VSKDB] Failed to setup VSKConfig - %@", buf, 0xCu);
         }
 
-        v18 = 0;
+        v19 = 0;
         if (error)
         {
-          *error = [(NSURL *)v42 copy];
+          *error = [(NSURL *)v45 copy];
         }
       }
 
       else
       {
-        v18 = v41;
+        v19 = v44;
       }
 
-      v12 = v42;
+      v13 = v45;
       goto LABEL_54;
     }
 
     if (error)
     {
-      *error = [(NSURL *)v33 copy];
+      *error = [(NSURL *)v34 copy];
     }
 
     if (MediaAnalysisLogLevel() < 3 || !os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
 LABEL_51:
-      v18 = 0;
+      v19 = 0;
 LABEL_54:
 
       goto LABEL_55;
     }
 
     *buf = 138412290;
-    v61 = v33;
-    v45 = MEMORY[0x1E69E9C10];
-    v46 = "[VSKDB] Failed to create database directory - %@";
-    v47 = 12;
+    v65 = v34;
+    v49 = MEMORY[0x1E69E9C10];
+    v50 = "[VSKDB] Failed to create database directory - %@";
+    v51 = 12;
 LABEL_50:
-    _os_log_impl(&dword_1C9B70000, v45, OS_LOG_TYPE_ERROR, v46, buf, v47);
+    _os_log_impl(&dword_1C9B70000, v49, OS_LOG_TYPE_ERROR, v50, buf, v51);
     goto LABEL_51;
   }
 
   if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
   {
-    clientVersion4 = [v11 clientVersion];
+    clientVersion4 = [v12 clientVersion];
     *buf = 138412290;
-    v61 = clientVersion4;
+    v65 = clientVersion4;
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[VSKDB] Existing version %@ matches target", buf, 0xCu);
   }
 
   self->_hasMigration = 0;
-  v18 = v11;
+  v19 = v12;
 LABEL_55:
 
-  return v18;
+  return v19;
 }
 
 - (id)_vectorDatabaseReadOnlyConfigWithError:(id *)error
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   path = [(NSURL *)self->_directoryURL path];
   v7 = [defaultManager fileExistsAtPath:path isDirectory:0];
 
   if (v7)
   {
-    v8 = VCPSignPostLog();
-    v9 = os_signpost_id_generate(v8);
+    v9 = VCPSignPostLog(v8);
+    v10 = os_signpost_id_generate(v9);
 
-    v10 = VCPSignPostLog();
-    v11 = v10;
-    if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+    v12 = VCPSignPostLog(v11);
+    v13 = v12;
+    if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "MAD_VSKConfigReadInitialization_ReadOnly", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v10, "MAD_VSKConfigReadInitialization_ReadOnly", "", buf, 2u);
     }
 
-    v12 = objc_alloc(MEMORY[0x1E69DF618]);
+    v14 = objc_alloc(MEMORY[0x1E69DF618]);
     directoryURL = self->_directoryURL;
-    v23 = 0;
-    v14 = [v12 initWithBaseDirectory:directoryURL readOnly:1 perConnectionPeakMemory:0 error:&v23];
-    v15 = v23;
-    v16 = VCPSignPostLog();
-    v17 = v16;
-    if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+    v25 = 0;
+    v16 = [v14 initWithBaseDirectory:directoryURL readOnly:1 perConnectionPeakMemory:0 error:&v25];
+    v17 = v25;
+    v18 = VCPSignPostLog(v17);
+    v19 = v18;
+    if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v17, OS_SIGNPOST_INTERVAL_END, v9, "MAD_VSKConfigReadInitialization_ReadOnly", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v19, OS_SIGNPOST_INTERVAL_END, v10, "MAD_VSKConfigReadInitialization_ReadOnly", "", buf, 2u);
     }
 
-    if (v15)
+    if (v17)
     {
       if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v25 = v15;
+        v27 = v17;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[VSKDB] Failed to setup read-only VSKConfig - %@", buf, 0xCu);
       }
 
-      v18 = 0;
+      v20 = 0;
       if (error)
       {
-        *error = [v15 copy];
+        *error = [v17 copy];
       }
     }
 
     else
     {
-      v18 = v14;
+      v20 = v16;
     }
   }
 
@@ -583,12 +583,12 @@ LABEL_55:
   {
     if (error)
     {
-      v19 = MEMORY[0x1E696ABC0];
-      v26 = *MEMORY[0x1E696A578];
-      v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[VSKDB] Database directory does not exist"];
-      v27[0] = v20;
-      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
-      *error = [v19 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v21];
+      v21 = MEMORY[0x1E696ABC0];
+      v28 = *MEMORY[0x1E696A578];
+      v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[VSKDB] Database directory does not exist"];
+      v29[0] = v22;
+      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+      *error = [v21 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v23];
     }
 
     if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -597,15 +597,15 @@ LABEL_55:
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[VSKDB] Database directory does not exist", buf, 2u);
     }
 
-    v18 = 0;
+    v20 = 0;
   }
 
-  return v18;
+  return v20;
 }
 
 - (int)_openVSKClientWithError:(id *)error
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   if (self->_readOnly)
   {
     v5 = @"ReadOnly";
@@ -620,23 +620,23 @@ LABEL_55:
   if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v43 = v6;
+    v48 = v6;
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%@ Start ...", buf, 0xCu);
   }
 
   [(MADVectorDatabase *)self _purgeHistoricalData];
   if (self->_readOnly)
   {
-    v41 = 0;
-    v7 = &v41;
-    v8 = [(MADVectorDatabase *)self _vectorDatabaseReadOnlyConfigWithError:&v41];
+    v46 = 0;
+    v7 = &v46;
+    v8 = [(MADVectorDatabase *)self _vectorDatabaseReadOnlyConfigWithError:&v46];
   }
 
   else
   {
-    v40 = 0;
-    v7 = &v40;
-    v8 = [(MADVectorDatabase *)self _vectorDatabaseReadWriteConfigWithError:&v40];
+    v45 = 0;
+    v7 = &v45;
+    v8 = [(MADVectorDatabase *)self _vectorDatabaseReadWriteConfigWithError:&v45];
   }
 
   v9 = v8;
@@ -655,50 +655,55 @@ LABEL_55:
     }
 
     *buf = 138412546;
-    v43 = v6;
-    v44 = 2112;
-    v45 = v11;
-    v33 = MEMORY[0x1E69E9C10];
-    v34 = "%@ Failed to create vskConfig - %@";
+    v48 = v6;
+    v49 = 2112;
+    v50 = v11;
+    v38 = MEMORY[0x1E69E9C10];
+    v39 = "%@ Failed to create vskConfig - %@";
     goto LABEL_42;
   }
 
-  if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  v12 = MediaAnalysisLogLevel();
+  if (v12 >= 6)
   {
-    directoryURL = self->_directoryURL;
-    *buf = 138412802;
-    v43 = v6;
-    v44 = 2112;
-    v45 = v9;
-    v46 = 2112;
-    v47 = directoryURL;
-    _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%@ Loaded configuration %@ at directory %@", buf, 0x20u);
+    v12 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO);
+    if (v12)
+    {
+      directoryURL = self->_directoryURL;
+      *buf = 138412802;
+      v48 = v6;
+      v49 = 2112;
+      v50 = v9;
+      v51 = 2112;
+      v52 = directoryURL;
+      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%@ Loaded configuration %@ at directory %@", buf, 0x20u);
+    }
   }
 
-  v13 = VCPSignPostLog();
-  v14 = os_signpost_id_generate(v13);
+  v14 = VCPSignPostLog(v12);
+  v15 = os_signpost_id_generate(v14);
 
-  v15 = VCPSignPostLog();
-  v16 = v15;
-  if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+  v17 = VCPSignPostLog(v16);
+  v18 = v17;
+  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v14, "MAD_VSKClientInitialization", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v18, OS_SIGNPOST_INTERVAL_BEGIN, v15, "MAD_VSKClientInitialization", "", buf, 2u);
   }
 
-  v39 = v11;
-  v17 = [[MADVSKClient alloc] initWithConfig:v9 error:&v39];
-  v18 = v39;
+  v44 = v11;
+  v19 = [[MADVSKClient alloc] initWithConfig:v9 error:&v44];
+  v20 = v44;
 
   vskClient = self->_vskClient;
-  self->_vskClient = v17;
+  self->_vskClient = v19;
 
-  v11 = v18;
+  v11 = v20;
   if (!self->_vskClient)
   {
     if (error)
     {
-      *error = [v18 copy];
+      *error = [v20 copy];
     }
 
     if (MediaAnalysisLogLevel() < 3 || !os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -707,92 +712,91 @@ LABEL_55:
     }
 
     *buf = 138412546;
-    v43 = v6;
-    v44 = 2112;
-    v45 = v18;
-    v33 = MEMORY[0x1E69E9C10];
-    v34 = "%@ Failed to initialize VSKClient - %@";
+    v48 = v6;
+    v49 = 2112;
+    v50 = v20;
+    v38 = MEMORY[0x1E69E9C10];
+    v39 = "%@ Failed to initialize VSKClient - %@";
 LABEL_42:
-    _os_log_impl(&dword_1C9B70000, v33, OS_LOG_TYPE_ERROR, v34, buf, 0x16u);
+    _os_log_impl(&dword_1C9B70000, v38, OS_LOG_TYPE_ERROR, v39, buf, 0x16u);
 LABEL_43:
-    v32 = -18;
+    v37 = -18;
     goto LABEL_51;
   }
 
-  v20 = VCPSignPostLog();
-  v21 = v20;
-  if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
+  v23 = VCPSignPostLog(v22);
+  v24 = v23;
+  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v21, OS_SIGNPOST_INTERVAL_END, v14, "MAD_VSKClientInitialization", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v24, OS_SIGNPOST_INTERVAL_END, v15, "MAD_VSKClientInitialization", "", buf, 2u);
   }
 
-  v22 = VCPSignPostLog();
-  v23 = os_signpost_id_generate(v22);
+  v26 = VCPSignPostLog(v25);
+  v27 = os_signpost_id_generate(v26);
 
-  v24 = VCPSignPostLog();
-  v25 = v24;
-  if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
+  v29 = VCPSignPostLog(v28);
+  v30 = v29;
+  if (v27 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v29))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v25, OS_SIGNPOST_INTERVAL_BEGIN, v23, "MAD_VSKWarmUp", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v30, OS_SIGNPOST_INTERVAL_BEGIN, v27, "MAD_VSKWarmUp", "", buf, 2u);
   }
 
   if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v43 = v6;
+    v48 = v6;
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%@ Warming up", buf, 0xCu);
   }
 
-  [(MADVSKClient *)self->_vskClient warmup];
-  v26 = VCPSignPostLog();
-  v27 = v26;
-  if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
+  v31 = VCPSignPostLog([(MADVSKClient *)self->_vskClient warmup]);
+  v32 = v31;
+  if (v27 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v31))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v27, OS_SIGNPOST_INTERVAL_END, v23, "MAD_VSKWarmUp", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v32, OS_SIGNPOST_INTERVAL_END, v27, "MAD_VSKWarmUp", "", buf, 2u);
   }
 
-  v38 = v18;
-  v28 = [(MADVectorDatabase *)self _vectorDatabaseReadOnlyConfigWithError:&v38];
-  v29 = v38;
+  v43 = v20;
+  v33 = [(MADVectorDatabase *)self _vectorDatabaseReadOnlyConfigWithError:&v43];
+  v34 = v43;
 
-  if (v28)
+  if (v33)
   {
-    v36[0] = MEMORY[0x1E69E9820];
-    v36[1] = 3221225472;
-    v36[2] = __45__MADVectorDatabase__openVSKClientWithError___block_invoke;
-    v36[3] = &unk_1E834D4C0;
-    v37 = v28;
-    v30 = [VCPObjectPool objectPoolWithAllocator:v36];
+    v41[0] = MEMORY[0x1E69E9820];
+    v41[1] = 3221225472;
+    v41[2] = __45__MADVectorDatabase__openVSKClientWithError___block_invoke;
+    v41[3] = &unk_1E834D4C0;
+    v42 = v33;
+    v35 = [VCPObjectPool objectPoolWithAllocator:v41];
     searchClientPool = self->_searchClientPool;
-    self->_searchClientPool = v30;
+    self->_searchClientPool = v35;
 
-    v32 = 0;
+    v37 = 0;
   }
 
   else
   {
     if (error)
     {
-      *error = [v29 copy];
+      *error = [v34 copy];
     }
 
     if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v43 = v29;
+      v48 = v34;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[VSKDB][Initialization|Search] Failed to create read-only vskConfig - %@", buf, 0xCu);
     }
 
-    v32 = -18;
+    v37 = -18;
   }
 
-  v11 = v29;
+  v11 = v34;
 LABEL_51:
 
-  return v32;
+  return v37;
 }
 
 MADVSKClient *__45__MADVectorDatabase__openVSKClientWithError___block_invoke(uint64_t a1)
@@ -857,39 +861,39 @@ MADVSKClient *__45__MADVectorDatabase__openVSKClientWithError___block_invoke(uin
 
 void __59__MADVectorDatabase_insertOrReplaceAssetsEmbeddings_error___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v2 = VCPSignPostLog();
+  v20 = *MEMORY[0x1E69E9840];
+  v2 = VCPSignPostLog(a1);
   v3 = os_signpost_id_generate(v2);
 
-  v4 = VCPSignPostLog();
-  v5 = v4;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
+  v5 = VCPSignPostLog(v4);
+  v6 = v5;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v3, "MAD_VSKInsertMultipleAssets", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v3, "MAD_VSKInsertMultipleAssets", "", buf, 2u);
   }
 
-  v6 = [*(*(a1 + 32) + 24) client];
-  v7 = *(a1 + 40);
-  v13 = 0;
-  v8 = [v6 insertAssets:v7 error:&v13];
-  v9 = v13;
+  v7 = [*(*(a1 + 32) + 24) client];
+  v8 = *(a1 + 40);
+  v15 = 0;
+  v9 = [v7 insertAssets:v8 error:&v15];
+  v10 = v15;
 
-  if (v9)
+  if (v10)
   {
     if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 48);
+      v12 = *(a1 + 48);
       *buf = 138412546;
-      v15 = v10;
-      v16 = 2112;
-      v17 = v9;
+      v17 = v12;
+      v18 = 2112;
+      v19 = v10;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Operation failed - %@", buf, 0x16u);
     }
 
     if (*(a1 + 64))
     {
-      **(a1 + 64) = [v9 copy];
+      **(a1 + 64) = [v10 copy];
     }
 
     *(*(*(a1 + 56) + 8) + 24) = -18;
@@ -897,12 +901,12 @@ void __59__MADVectorDatabase_insertOrReplaceAssetsEmbeddings_error___block_invok
 
   else
   {
-    v11 = VCPSignPostLog();
-    v12 = v11;
-    if (v3 - 1 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v11))
+    v13 = VCPSignPostLog(v11);
+    v14 = v13;
+    if (v3 - 1 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v13))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v12, OS_SIGNPOST_INTERVAL_END, v3, "MAD_VSKInsertMultipleAssets", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v14, OS_SIGNPOST_INTERVAL_END, v3, "MAD_VSKInsertMultipleAssets", "", buf, 2u);
     }
   }
 }
@@ -951,69 +955,79 @@ void __59__MADVectorDatabase_insertOrReplaceAssetsEmbeddings_error___block_invok
 
 void __64__MADVectorDatabase_removeEmbeddingsWithLocalIdentifiers_error___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v2 = VCPSignPostLog();
+  v27 = *MEMORY[0x1E69E9840];
+  v2 = VCPSignPostLog(a1);
   v3 = os_signpost_id_generate(v2);
 
-  v4 = VCPSignPostLog();
-  v5 = v4;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
+  v5 = VCPSignPostLog(v4);
+  v6 = v5;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    v6 = [*(a1 + 32) count];
+    v7 = [*(a1 + 32) count];
     *buf = 134217984;
-    v20 = v6;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v3, "MAD_VSKDeleteEmbedding", "%ld", buf, 0xCu);
+    v22 = v7;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v3, "MAD_VSKDeleteEmbedding", "%ld", buf, 0xCu);
   }
 
-  v7 = [MEMORY[0x1E69DF5F8] mad_stringIdentifiersFromLocalIdentifiers:*(a1 + 32)];
-  v8 = [*(*(a1 + 40) + 24) client];
-  v18 = 0;
-  v9 = [v8 deleteStringIdentifiers:v7 error:&v18];
-  v10 = v18;
+  v8 = [MEMORY[0x1E69DF5F8] mad_stringIdentifiersFromLocalIdentifiers:*(a1 + 32)];
+  v9 = [*(*(a1 + 40) + 24) client];
+  v20 = 0;
+  v10 = [v9 deleteStringIdentifiers:v8 error:&v20];
+  v11 = v20;
 
-  if (v10)
+  if (v11)
   {
     if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1 + 48);
-      v12 = [*(a1 + 32) count];
+      v12 = *(a1 + 48);
+      v13 = [*(a1 + 32) count];
       *buf = 138412802;
-      v20 = v11;
-      v21 = 2048;
       v22 = v12;
-      v23 = 2112;
-      v24 = v10;
+      v23 = 2048;
+      v24 = v13;
+      v25 = 2112;
+      v26 = v11;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Failed to remove embeddings for %lu assets - %@", buf, 0x20u);
     }
 
-    *(*(*(a1 + 56) + 8) + 24) = [v10 code];
+    v14 = [v11 code];
+    *(*(*(a1 + 56) + 8) + 24) = v14;
     if (*(a1 + 64))
     {
-      **(a1 + 64) = [v10 copy];
+      v14 = [v11 copy];
+      **(a1 + 64) = v14;
     }
   }
 
-  else if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  else
   {
-    v13 = *(a1 + 48);
-    v14 = [*(a1 + 32) count];
-    *buf = 138412802;
-    v20 = v13;
-    v21 = 2112;
-    v22 = v9;
-    v23 = 2048;
-    v24 = v14;
-    _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%@ Removed %@ embeddings for %lu assets", buf, 0x20u);
+    v14 = MediaAnalysisLogLevel();
+    if (v14 >= 6)
+    {
+      v14 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO);
+      if (v14)
+      {
+        v15 = *(a1 + 48);
+        v16 = [*(a1 + 32) count];
+        *buf = 138412802;
+        v22 = v15;
+        v23 = 2112;
+        v24 = v10;
+        v25 = 2048;
+        v26 = v16;
+        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%@ Removed %@ embeddings for %lu assets", buf, 0x20u);
+      }
+    }
   }
 
-  v15 = VCPSignPostLog();
-  v16 = v15;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+  v17 = VCPSignPostLog(v14);
+  v18 = v17;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
   {
-    v17 = [*(a1 + 32) count];
+    v19 = [*(a1 + 32) count];
     *buf = 134217984;
-    v20 = v17;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v16, OS_SIGNPOST_INTERVAL_END, v3, "MAD_VSKDeleteEmbedding", "%ld", buf, 0xCu);
+    v22 = v19;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v18, OS_SIGNPOST_INTERVAL_END, v3, "MAD_VSKDeleteEmbedding", "%ld", buf, 0xCu);
   }
 }
 
@@ -1062,27 +1076,27 @@ void __64__MADVectorDatabase_removeEmbeddingsWithLocalIdentifiers_error___block_
 
 void __78__MADVectorDatabase_removeEmbeddingsWithLocalIdentifiers_embeddingType_error___block_invoke(uint64_t a1)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695DF70] array];
-  v32 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v30 = 0u;
-  v31 = 0u;
+  v34 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v30 objects:v40 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v33 objects:v43 count:16];
   if (v4)
   {
-    v5 = *v31;
+    v5 = *v34;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v31 != v5)
+        if (*v34 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v30 + 1) + 8 * i);
+        v7 = *(*(&v33 + 1) + 8 * i);
         v8 = objc_autoreleasePoolPush();
         v9 = [MEMORY[0x1E69DF5F8] mad_stringIdentifierFromLocalIdentifier:v7 embeddingType:*(a1 + 64)];
         [v2 addObject:v9];
@@ -1090,85 +1104,95 @@ void __78__MADVectorDatabase_removeEmbeddingsWithLocalIdentifiers_embeddingType_
         objc_autoreleasePoolPop(v8);
       }
 
-      v4 = [v3 countByEnumeratingWithState:&v30 objects:v40 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v33 objects:v43 count:16];
     }
 
     while (v4);
   }
 
-  v10 = VCPSignPostLog();
-  v11 = os_signpost_id_generate(v10);
+  v11 = VCPSignPostLog(v10);
+  v12 = os_signpost_id_generate(v11);
 
-  v12 = VCPSignPostLog();
-  v13 = v12;
-  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+  v14 = VCPSignPostLog(v13);
+  v15 = v14;
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
-    v14 = [*(a1 + 32) count];
-    v15 = *(a1 + 64);
+    v16 = [*(a1 + 32) count];
+    v17 = *(a1 + 64);
     *buf = 134218240;
-    v35 = v14;
-    v36 = 1024;
-    *v37 = v15;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v11, "MAD_VSKDeleteEmbeddingWithType", "%ld assets, embeddingType %u", buf, 0x12u);
+    v38 = v16;
+    v39 = 1024;
+    *v40 = v17;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v12, "MAD_VSKDeleteEmbeddingWithType", "%ld assets, embeddingType %u", buf, 0x12u);
   }
 
-  v16 = [*(*(a1 + 40) + 24) client];
-  v29 = 0;
-  v17 = [v16 deleteStringIdentifiers:v2 error:&v29];
-  v18 = v29;
+  v18 = [*(*(a1 + 40) + 24) client];
+  v32 = 0;
+  v19 = [v18 deleteStringIdentifiers:v2 error:&v32];
+  v20 = v32;
 
-  if (v18)
+  if (v20)
   {
     if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v19 = *(a1 + 48);
-      v20 = *(a1 + 64);
-      v21 = [*(a1 + 32) count];
+      v21 = *(a1 + 48);
+      v22 = *(a1 + 64);
+      v23 = [*(a1 + 32) count];
       *buf = 138413058;
-      v35 = v19;
-      v36 = 1024;
-      *v37 = v20;
-      *&v37[4] = 2048;
-      *&v37[6] = v21;
-      v38 = 2112;
-      v39 = v18;
+      v38 = v21;
+      v39 = 1024;
+      *v40 = v22;
+      *&v40[4] = 2048;
+      *&v40[6] = v23;
+      v41 = 2112;
+      v42 = v20;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Failed to remove embeddings (type %u) for %lu assets - %@", buf, 0x26u);
     }
 
-    *(*(*(a1 + 56) + 8) + 24) = [v18 code];
+    v24 = [v20 code];
+    *(*(*(a1 + 56) + 8) + 24) = v24;
     if (*(a1 + 72))
     {
-      **(a1 + 72) = [v18 copy];
+      v24 = [v20 copy];
+      **(a1 + 72) = v24;
     }
   }
 
-  else if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  else
   {
-    v22 = *(a1 + 48);
-    v23 = *(a1 + 64);
-    v24 = [*(a1 + 32) count];
-    *buf = 138413058;
-    v35 = v22;
-    v36 = 2112;
-    *v37 = v17;
-    *&v37[8] = 1024;
-    *&v37[10] = v23;
-    v38 = 2048;
-    v39 = v24;
-    _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%@ Removed %@ embeddings (type %u) for %lu assets", buf, 0x26u);
+    v24 = MediaAnalysisLogLevel();
+    if (v24 >= 6)
+    {
+      v24 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO);
+      if (v24)
+      {
+        v25 = *(a1 + 48);
+        v26 = *(a1 + 64);
+        v27 = [*(a1 + 32) count];
+        *buf = 138413058;
+        v38 = v25;
+        v39 = 2112;
+        *v40 = v19;
+        *&v40[8] = 1024;
+        *&v40[10] = v26;
+        v41 = 2048;
+        v42 = v27;
+        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%@ Removed %@ embeddings (type %u) for %lu assets", buf, 0x26u);
+      }
+    }
   }
 
-  v25 = VCPSignPostLog();
-  v26 = v25;
-  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
+  v28 = VCPSignPostLog(v24);
+  v29 = v28;
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v28))
   {
-    v27 = [*(a1 + 32) count];
-    v28 = *(a1 + 64);
+    v30 = [*(a1 + 32) count];
+    v31 = *(a1 + 64);
     *buf = 134218240;
-    v35 = v27;
-    v36 = 1024;
-    *v37 = v28;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v26, OS_SIGNPOST_INTERVAL_END, v11, "MAD_VSKDeleteEmbeddingWithType", "%ld assets, embeddingType %u", buf, 0x12u);
+    v38 = v30;
+    v39 = 1024;
+    *v40 = v31;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v29, OS_SIGNPOST_INTERVAL_END, v12, "MAD_VSKDeleteEmbeddingWithType", "%ld assets, embeddingType %u", buf, 0x12u);
   }
 }
 
@@ -1284,110 +1308,110 @@ LABEL_8:
 
 void __89__MADVectorDatabase_rebuildWithForce_cancelBlock_extendTimeoutBlock_totalEmbeddingCount___block_invoke(uint64_t a1)
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 48);
   if (!v2 || !(*(v2 + 16))())
   {
     v4 = *(a1 + 56);
     if (v4)
     {
-      (*(v4 + 16))();
+      v4 = (*(v4 + 16))();
     }
 
-    v5 = VCPSignPostLog();
+    v5 = VCPSignPostLog(v4);
     v6 = os_signpost_id_generate(v5);
 
-    v7 = VCPSignPostLog();
-    v8 = v7;
-    if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
+    v8 = VCPSignPostLog(v7);
+    v9 = v8;
+    if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "MAD_VSKStatistics", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v6, "MAD_VSKStatistics", "", buf, 2u);
     }
 
-    v9 = [*(*(a1 + 40) + 24) client];
-    v55 = 0;
-    v10 = [v9 statisticsWithError:&v55];
-    v11 = v55;
+    v10 = [*(*(a1 + 40) + 24) client];
+    v59 = 0;
+    v11 = [v10 statisticsWithError:&v59];
+    v12 = v59;
 
-    if (!v10 || v11)
+    if (!v11 || v12)
     {
       if (MediaAnalysisLogLevel() < 4 || !os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_55;
       }
 
-      v21 = *(a1 + 32);
+      v23 = *(a1 + 32);
       *buf = 138412546;
-      v57 = v21;
-      v58 = 2112;
-      *v59 = v11;
-      v19 = MEMORY[0x1E69E9C10];
-      v20 = "%@ Failed to query delta embedding count, skip index rebuild: %@";
-      v22 = OS_LOG_TYPE_DEFAULT;
-      v23 = 22;
+      v61 = v23;
+      v62 = 2112;
+      *v63 = v12;
+      v21 = MEMORY[0x1E69E9C10];
+      v22 = "%@ Failed to query delta embedding count, skip index rebuild: %@";
+      v24 = OS_LOG_TYPE_DEFAULT;
+      v25 = 22;
     }
 
     else
     {
-      v12 = VCPSignPostLog();
-      v13 = v12;
-      if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+      v14 = VCPSignPostLog(v13);
+      v15 = v14;
+      if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v13, OS_SIGNPOST_INTERVAL_END, v6, "MAD_VSKStatistics", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v15, OS_SIGNPOST_INTERVAL_END, v6, "MAD_VSKStatistics", "", buf, 2u);
       }
 
       if (*(a1 + 72))
       {
-        **(a1 + 72) = [v10 storeCount];
+        **(a1 + 72) = [v11 storeCount];
       }
 
-      v14 = [v10 deltaStoreCount];
+      v16 = [v11 deltaStoreCount];
       if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
-        v15 = *(a1 + 32);
-        v16 = [v10 storeCount];
+        v17 = *(a1 + 32);
+        v18 = [v11 storeCount];
         *buf = 138412802;
-        v57 = v15;
-        v58 = 1024;
-        *v59 = v14;
-        *&v59[4] = 1024;
-        *&v59[6] = v16;
+        v61 = v17;
+        v62 = 1024;
+        *v63 = v16;
+        *&v63[4] = 1024;
+        *&v63[6] = v18;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%@[VSKStatistics] deltaStoreCount: %d, storeCount: %d", buf, 0x18u);
       }
 
-      v17 = *(a1 + 80);
-      if (v17 == 1 && v14 <= 0x3E7)
+      v19 = *(a1 + 80);
+      if (v19 == 1 && v16 <= 0x3E7)
       {
         if (MediaAnalysisLogLevel() < 6 || !os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
         {
           goto LABEL_55;
         }
 
-        v18 = *(a1 + 32);
+        v20 = *(a1 + 32);
         *buf = 138412802;
-        v57 = v18;
-        v58 = 2048;
-        *v59 = v14;
-        *&v59[8] = 2048;
-        v60 = 1000;
-        v19 = MEMORY[0x1E69E9C10];
-        v20 = "%@ delta embedding count %lu less than force limit %lu; skip index rebuild";
+        v61 = v20;
+        v62 = 2048;
+        *v63 = v16;
+        *&v63[8] = 2048;
+        v64 = 1000;
+        v21 = MEMORY[0x1E69E9C10];
+        v22 = "%@ delta embedding count %lu less than force limit %lu; skip index rebuild";
       }
 
       else
       {
-        if ((v17 & 1) != 0 || v14 >> 3 > 0x270)
+        if ((v19 & 1) != 0 || v16 >> 3 > 0x270)
         {
-          v25 = *(a1 + 48);
-          if (v25 && (*(v25 + 16))())
+          v27 = *(a1 + 48);
+          if (v27 && (*(v27 + 16))())
           {
             if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
             {
-              v26 = *(a1 + 32);
+              v28 = *(a1 + 32);
               *buf = 138412290;
-              v57 = v26;
+              v61 = v28;
               _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%@ Operation canceled before rebuilding", buf, 0xCu);
             }
 
@@ -1396,75 +1420,75 @@ void __89__MADVectorDatabase_rebuildWithForce_cancelBlock_extendTimeoutBlock_tot
 
           else
           {
-            v27 = *(a1 + 56);
-            if (v27)
+            v29 = *(a1 + 56);
+            if (v29)
             {
-              (*(v27 + 16))();
+              v29 = (*(v29 + 16))();
             }
 
-            v28 = VCPSignPostPersistentLog();
-            v29 = os_signpost_id_generate(v28);
+            v30 = VCPSignPostPersistentLog(v29);
+            v31 = os_signpost_id_generate(v30);
 
-            v30 = VCPSignPostPersistentLog();
-            v31 = v30;
-            if (v29 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
+            v33 = VCPSignPostPersistentLog(v32);
+            v34 = v33;
+            if (v31 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v33))
             {
               *buf = 0;
-              _os_signpost_emit_with_name_impl(&dword_1C9B70000, v31, OS_SIGNPOST_INTERVAL_BEGIN, v29, "MAD_vectorDatabaseRebuild", " enableTelemetry=YES ", buf, 2u);
+              _os_signpost_emit_with_name_impl(&dword_1C9B70000, v34, OS_SIGNPOST_INTERVAL_BEGIN, v31, "MAD_vectorDatabaseRebuild", " enableTelemetry=YES ", buf, 2u);
             }
 
-            v45 = objc_opt_new();
+            v49 = objc_opt_new();
             aBlock[0] = MEMORY[0x1E69E9820];
             aBlock[1] = 3221225472;
             aBlock[2] = __89__MADVectorDatabase_rebuildWithForce_cancelBlock_extendTimeoutBlock_totalEmbeddingCount___block_invoke_449;
             aBlock[3] = &unk_1E834D560;
-            v53 = *(a1 + 48);
-            v54 = *(a1 + 56);
-            v46 = _Block_copy(aBlock);
-            v32 = dispatch_semaphore_create(0);
-            v33 = [*(*(a1 + 40) + 24) client];
-            v47[0] = MEMORY[0x1E69E9820];
-            v47[1] = 3221225472;
-            v47[2] = __89__MADVectorDatabase_rebuildWithForce_cancelBlock_extendTimeoutBlock_totalEmbeddingCount___block_invoke_2;
-            v47[3] = &unk_1E834D588;
-            v50 = *(a1 + 48);
-            v34 = *(a1 + 32);
-            v35 = *(a1 + 64);
-            v48 = v34;
-            v51 = v35;
-            v36 = v32;
-            v49 = v36;
-            [v33 rebuildWithProgress:v45 checkCancellationIntervalInMilliseconds:500 shouldCancel:v46 completionHandler:v47];
+            v57 = *(a1 + 48);
+            v58 = *(a1 + 56);
+            v50 = _Block_copy(aBlock);
+            v35 = dispatch_semaphore_create(0);
+            v36 = [*(*(a1 + 40) + 24) client];
+            v51[0] = MEMORY[0x1E69E9820];
+            v51[1] = 3221225472;
+            v51[2] = __89__MADVectorDatabase_rebuildWithForce_cancelBlock_extendTimeoutBlock_totalEmbeddingCount___block_invoke_2;
+            v51[3] = &unk_1E834D588;
+            v54 = *(a1 + 48);
+            v37 = *(a1 + 32);
+            v38 = *(a1 + 64);
+            v52 = v37;
+            v55 = v38;
+            v39 = v35;
+            v53 = v39;
+            [v36 rebuildWithProgress:v49 checkCancellationIntervalInMilliseconds:500 shouldCancel:v50 completionHandler:v51];
 
-            dispatch_semaphore_wait(v36, 0xFFFFFFFFFFFFFFFFLL);
-            v37 = VCPSignPostPersistentLog();
-            v38 = v37;
-            if (v29 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v37))
+            v40 = dispatch_semaphore_wait(v39, 0xFFFFFFFFFFFFFFFFLL);
+            v41 = VCPSignPostPersistentLog(v40);
+            v42 = v41;
+            if (v31 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v41))
             {
               if (*(a1 + 80))
               {
-                v39 = "No";
+                v43 = "No";
               }
 
               else
               {
-                v39 = "Yes";
+                v43 = "Yes";
               }
 
-              v40 = qos_class_self();
-              v41 = VCPMAQoSDescription(v40);
-              v42 = v41;
-              v43 = [v41 UTF8String];
-              v44 = [v10 storeCount];
+              v44 = qos_class_self();
+              v45 = VCPMAQoSDescription(v44);
+              v46 = v45;
+              v47 = [v45 UTF8String];
+              v48 = [v11 storeCount];
               *buf = 136446978;
-              v57 = v39;
-              v58 = 2082;
-              *v59 = v43;
-              *&v59[8] = 2050;
-              v60 = v14;
-              v61 = 2050;
-              v62 = v44;
-              _os_signpost_emit_with_name_impl(&dword_1C9B70000, v38, OS_SIGNPOST_INTERVAL_END, v29, "MAD_vectorDatabaseRebuild", "IsFast=%{public, signpost.telemetry:string1}s QoS=%{public, signpost.telemetry:string2}s DeltaEmbeddingCount=%{public, signpost.telemetry:number1}lld TotalEmbeddingCount=%{public, signpost.telemetry:number2}lld  enableTelemetry=YES ", buf, 0x2Au);
+              v61 = v43;
+              v62 = 2082;
+              *v63 = v47;
+              *&v63[8] = 2050;
+              v64 = v16;
+              v65 = 2050;
+              v66 = v48;
+              _os_signpost_emit_with_name_impl(&dword_1C9B70000, v42, OS_SIGNPOST_INTERVAL_END, v31, "MAD_vectorDatabaseRebuild", "IsFast=%{public, signpost.telemetry:string1}s QoS=%{public, signpost.telemetry:string2}s DeltaEmbeddingCount=%{public, signpost.telemetry:number1}lld TotalEmbeddingCount=%{public, signpost.telemetry:number2}lld  enableTelemetry=YES ", buf, 0x2Au);
             }
           }
 
@@ -1478,22 +1502,22 @@ LABEL_55:
           return;
         }
 
-        v24 = *(a1 + 32);
+        v26 = *(a1 + 32);
         *buf = 138412802;
-        v57 = v24;
-        v58 = 2048;
-        *v59 = v14;
-        *&v59[8] = 2048;
-        v60 = 5000;
-        v19 = MEMORY[0x1E69E9C10];
-        v20 = "%@ delta embedding count %lu less than limit %lu; skip index rebuild";
+        v61 = v26;
+        v62 = 2048;
+        *v63 = v16;
+        *&v63[8] = 2048;
+        v64 = 5000;
+        v21 = MEMORY[0x1E69E9C10];
+        v22 = "%@ delta embedding count %lu less than limit %lu; skip index rebuild";
       }
 
-      v22 = OS_LOG_TYPE_INFO;
-      v23 = 32;
+      v24 = OS_LOG_TYPE_INFO;
+      v25 = 32;
     }
 
-    _os_log_impl(&dword_1C9B70000, v19, v22, v20, buf, v23);
+    _os_log_impl(&dword_1C9B70000, v21, v24, v22, buf, v25);
     goto LABEL_55;
   }
 
@@ -1501,7 +1525,7 @@ LABEL_55:
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v57 = v3;
+    v61 = v3;
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%@ Operation canceled after entering client queue", buf, 0xCu);
   }
 
@@ -1596,61 +1620,61 @@ void __89__MADVectorDatabase_rebuildWithForce_cancelBlock_extendTimeoutBlock_tot
 
 void __41__MADVectorDatabase_assetCountWithError___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v2 = VCPSignPostLog();
+  v21 = *MEMORY[0x1E69E9840];
+  v2 = VCPSignPostLog(a1);
   v3 = os_signpost_id_generate(v2);
 
-  v4 = VCPSignPostLog();
-  v5 = v4;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
+  v5 = VCPSignPostLog(v4);
+  v6 = v5;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v3, "MAD_VSKAssetCount", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v3, "MAD_VSKAssetCount", "", buf, 2u);
   }
 
-  v6 = [*(*(a1 + 32) + 24) client];
-  v15 = 0;
-  v7 = [v6 countWithError:&v15];
-  v8 = v15;
+  v7 = [*(*(a1 + 32) + 24) client];
+  v16 = 0;
+  v8 = [v7 countWithError:&v16];
+  v9 = v16;
 
-  if (v7)
+  if (v8)
   {
-    v9 = [v7 unsignedIntegerValue];
+    v10 = [v8 unsignedIntegerValue];
   }
 
   else
   {
     if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 40);
+      v11 = *(a1 + 40);
       *buf = 138412546;
-      v17 = v10;
-      v18 = 2112;
-      v19 = v8;
+      v18 = v11;
+      v19 = 2112;
+      v20 = v9;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Operation failed - %@", buf, 0x16u);
     }
 
     if (*(a1 + 56))
     {
-      v11 = [v8 copy];
-      v12 = v11;
-      v9 = 0;
-      **(a1 + 56) = v11;
+      v12 = [v9 copy];
+      v13 = v12;
+      v10 = 0;
+      **(a1 + 56) = v12;
     }
 
     else
     {
-      v9 = 0;
+      v10 = 0;
     }
   }
 
-  *(*(*(a1 + 48) + 8) + 24) = v9;
-  v13 = VCPSignPostLog();
-  v14 = v13;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  *(*(*(a1 + 48) + 8) + 24) = v10;
+  v14 = VCPSignPostLog(v10);
+  v15 = v14;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v14, OS_SIGNPOST_INTERVAL_END, v3, "MAD_VSKAssetCount", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v15, OS_SIGNPOST_INTERVAL_END, v3, "MAD_VSKAssetCount", "", buf, 2u);
   }
 }
 
@@ -1722,67 +1746,67 @@ LABEL_8:
 
 void __54__MADVectorDatabase_assetCountForEmbeddingType_error___block_invoke(uint64_t a1)
 {
-  v23[1] = *MEMORY[0x1E69E9840];
-  v2 = VCPSignPostLog();
+  v24[1] = *MEMORY[0x1E69E9840];
+  v2 = VCPSignPostLog(a1);
   v3 = os_signpost_id_generate(v2);
 
-  v4 = VCPSignPostLog();
-  v5 = v4;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
+  v5 = VCPSignPostLog(v4);
+  v6 = v5;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    v6 = *(a1 + 64);
+    v7 = *(a1 + 64);
     *buf = 67109120;
-    LODWORD(v20) = v6;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v3, "MAD_VSKAssetCountByEmbeddingType", "_%d", buf, 8u);
+    LODWORD(v21) = v7;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v3, "MAD_VSKAssetCountByEmbeddingType", "_%d", buf, 8u);
   }
 
-  v7 = [*(*(a1 + 32) + 24) client];
-  v23[0] = *(a1 + 40);
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
-  v18 = 0;
-  v9 = [v7 countWithAttributeFilters:v8 error:&v18];
-  v10 = v18;
+  v8 = [*(*(a1 + 32) + 24) client];
+  v24[0] = *(a1 + 40);
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
+  v19 = 0;
+  v10 = [v8 countWithAttributeFilters:v9 error:&v19];
+  v11 = v19;
 
-  if (v9)
+  if (v10)
   {
-    v11 = [v9 unsignedIntegerValue];
+    v12 = [v10 unsignedIntegerValue];
   }
 
   else
   {
     if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v12 = *(a1 + 48);
+      v13 = *(a1 + 48);
       *buf = 138412546;
-      v20 = v12;
-      v21 = 2112;
-      v22 = v10;
+      v21 = v13;
+      v22 = 2112;
+      v23 = v11;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Operation failed - %@", buf, 0x16u);
     }
 
     if (*(a1 + 72))
     {
-      v13 = [v10 copy];
-      v14 = v13;
-      v11 = 0;
-      **(a1 + 72) = v13;
+      v14 = [v11 copy];
+      v15 = v14;
+      v12 = 0;
+      **(a1 + 72) = v14;
     }
 
     else
     {
-      v11 = 0;
+      v12 = 0;
     }
   }
 
-  *(*(*(a1 + 56) + 8) + 24) = v11;
-  v15 = VCPSignPostLog();
-  v16 = v15;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+  *(*(*(a1 + 56) + 8) + 24) = v12;
+  v16 = VCPSignPostLog(v12);
+  v17 = v16;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
   {
-    v17 = *(a1 + 64);
+    v18 = *(a1 + 64);
     *buf = 67109120;
-    LODWORD(v20) = v17;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v16, OS_SIGNPOST_INTERVAL_END, v3, "MAD_VSKAssetCountByEmbeddingType", "_%d", buf, 8u);
+    LODWORD(v21) = v18;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v17, OS_SIGNPOST_INTERVAL_END, v3, "MAD_VSKAssetCountByEmbeddingType", "_%d", buf, 8u);
   }
 }
 
@@ -1810,61 +1834,61 @@ void __54__MADVectorDatabase_assetCountForEmbeddingType_error___block_invoke(uin
 
 void __45__MADVectorDatabase_embeddingCountWithError___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v2 = VCPSignPostLog();
+  v21 = *MEMORY[0x1E69E9840];
+  v2 = VCPSignPostLog(a1);
   v3 = os_signpost_id_generate(v2);
 
-  v4 = VCPSignPostLog();
-  v5 = v4;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
+  v5 = VCPSignPostLog(v4);
+  v6 = v5;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v3, "MAD_VSKEmbeddingCount", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v3, "MAD_VSKEmbeddingCount", "", buf, 2u);
   }
 
-  v6 = [*(*(a1 + 32) + 24) client];
-  v15 = 0;
-  v7 = [v6 embeddingCountWithError:&v15];
-  v8 = v15;
+  v7 = [*(*(a1 + 32) + 24) client];
+  v16 = 0;
+  v8 = [v7 embeddingCountWithError:&v16];
+  v9 = v16;
 
-  if (v7)
+  if (v8)
   {
-    v9 = [v7 unsignedIntegerValue];
+    v10 = [v8 unsignedIntegerValue];
   }
 
   else
   {
     if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 40);
+      v11 = *(a1 + 40);
       *buf = 138412546;
-      v17 = v10;
-      v18 = 2112;
-      v19 = v8;
+      v18 = v11;
+      v19 = 2112;
+      v20 = v9;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Operation failed - %@", buf, 0x16u);
     }
 
     if (*(a1 + 56))
     {
-      v11 = [v8 copy];
-      v12 = v11;
-      v9 = 0;
-      **(a1 + 56) = v11;
+      v12 = [v9 copy];
+      v13 = v12;
+      v10 = 0;
+      **(a1 + 56) = v12;
     }
 
     else
     {
-      v9 = 0;
+      v10 = 0;
     }
   }
 
-  *(*(*(a1 + 48) + 8) + 24) = v9;
-  v13 = VCPSignPostLog();
-  v14 = v13;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  *(*(*(a1 + 48) + 8) + 24) = v10;
+  v14 = VCPSignPostLog(v10);
+  v15 = v14;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v14, OS_SIGNPOST_INTERVAL_END, v3, "MAD_VSKEmbeddingCount", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v15, OS_SIGNPOST_INTERVAL_END, v3, "MAD_VSKEmbeddingCount", "", buf, 2u);
   }
 }
 
@@ -1897,55 +1921,61 @@ void __45__MADVectorDatabase_embeddingCountWithError___block_invoke(uint64_t a1)
 
 void __58__MADVectorDatabase_fetchAllAssetsWithLimit_offset_error___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
-  v2 = VCPSignPostLog();
+  v24 = *MEMORY[0x1E69E9840];
+  v2 = VCPSignPostLog(a1);
   v3 = os_signpost_id_generate(v2);
 
-  v4 = VCPSignPostLog();
-  v5 = v4;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
+  v5 = VCPSignPostLog(v4);
+  v6 = v5;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v3, "MAD_VSKFetchAllAssets", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v3, "MAD_VSKFetchAllAssets", "", buf, 2u);
   }
 
-  v6 = [*(*(a1 + 32) + 24) client];
-  v7 = [objc_alloc(MEMORY[0x1E69DF638]) initWithLimit:*(a1 + 56) offset:*(a1 + 64)];
-  v17 = 0;
-  v8 = [v6 stringIdentifiedAssetsWithIdentifiers:0 attributeFilters:MEMORY[0x1E695E0F0] pagination:v7 error:&v17];
-  v9 = v17;
-  v10 = *(*(a1 + 48) + 8);
-  v11 = *(v10 + 40);
-  *(v10 + 40) = v8;
+  v7 = [*(*(a1 + 32) + 24) client];
+  v8 = [objc_alloc(MEMORY[0x1E69DF638]) initWithLimit:*(a1 + 56) offset:*(a1 + 64)];
+  v19 = 0;
+  v9 = [v7 stringIdentifiedAssetsWithIdentifiers:0 attributeFilters:MEMORY[0x1E695E0F0] pagination:v8 error:&v19];
+  v10 = v19;
+  v11 = *(*(a1 + 48) + 8);
+  v12 = *(v11 + 40);
+  *(v11 + 40) = v9;
 
-  if (v9)
+  if (v10)
   {
-    v12 = *(*(a1 + 48) + 8);
-    v13 = *(v12 + 40);
-    *(v12 + 40) = 0;
+    v14 = *(*(a1 + 48) + 8);
+    v15 = *(v14 + 40);
+    *(v14 + 40) = 0;
 
-    if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    v13 = MediaAnalysisLogLevel();
+    if (v13 >= 3)
     {
-      v14 = *(a1 + 40);
-      *buf = 138412546;
-      v19 = v14;
-      v20 = 2112;
-      v21 = v9;
-      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Operation failed - %@", buf, 0x16u);
+      v13 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      if (v13)
+      {
+        v16 = *(a1 + 40);
+        *buf = 138412546;
+        v21 = v16;
+        v22 = 2112;
+        v23 = v10;
+        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Operation failed - %@", buf, 0x16u);
+      }
     }
 
     if (*(a1 + 72))
     {
-      **(a1 + 72) = [v9 copy];
+      v13 = [v10 copy];
+      **(a1 + 72) = v13;
     }
   }
 
-  v15 = VCPSignPostLog();
-  v16 = v15;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+  v17 = VCPSignPostLog(v13);
+  v18 = v17;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v16, OS_SIGNPOST_INTERVAL_END, v3, "MAD_VSKFetchAllAssets", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v18, OS_SIGNPOST_INTERVAL_END, v3, "MAD_VSKFetchAllAssets", "", buf, 2u);
   }
 }
 
@@ -2020,61 +2050,67 @@ LABEL_10:
 
 void __69__MADVectorDatabase_fetchAssetsWithEmbeddingType_limit_offset_error___block_invoke(uint64_t a1)
 {
-  v25[1] = *MEMORY[0x1E69E9840];
-  v2 = VCPSignPostLog();
+  v27[1] = *MEMORY[0x1E69E9840];
+  v2 = VCPSignPostLog(a1);
   v3 = os_signpost_id_generate(v2);
 
-  v4 = VCPSignPostLog();
-  v5 = v4;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
+  v5 = VCPSignPostLog(v4);
+  v6 = v5;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    v6 = *(a1 + 64);
+    v7 = *(a1 + 64);
     *buf = 67109120;
-    LODWORD(v22) = v6;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v3, "MAD_VSKFetchAssetsByEmbeddingType", "_%d", buf, 8u);
+    LODWORD(v24) = v7;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v3, "MAD_VSKFetchAssetsByEmbeddingType", "_%d", buf, 8u);
   }
 
-  v7 = [*(*(a1 + 32) + 24) client];
-  v25[0] = *(a1 + 40);
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
-  v9 = [objc_alloc(MEMORY[0x1E69DF638]) initWithLimit:*(a1 + 72) offset:*(a1 + 80)];
-  v20 = 0;
-  v10 = [v7 stringIdentifiedAssetsWithIdentifiers:0 attributeFilters:v8 pagination:v9 error:&v20];
-  v11 = v20;
-  v12 = *(*(a1 + 56) + 8);
-  v13 = *(v12 + 40);
-  *(v12 + 40) = v10;
+  v8 = [*(*(a1 + 32) + 24) client];
+  v27[0] = *(a1 + 40);
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
+  v10 = [objc_alloc(MEMORY[0x1E69DF638]) initWithLimit:*(a1 + 72) offset:*(a1 + 80)];
+  v22 = 0;
+  v11 = [v8 stringIdentifiedAssetsWithIdentifiers:0 attributeFilters:v9 pagination:v10 error:&v22];
+  v12 = v22;
+  v13 = *(*(a1 + 56) + 8);
+  v14 = *(v13 + 40);
+  *(v13 + 40) = v11;
 
-  if (v11)
+  if (v12)
   {
-    v14 = *(*(a1 + 56) + 8);
-    v15 = *(v14 + 40);
-    *(v14 + 40) = 0;
+    v16 = *(*(a1 + 56) + 8);
+    v17 = *(v16 + 40);
+    *(v16 + 40) = 0;
 
-    if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    v15 = MediaAnalysisLogLevel();
+    if (v15 >= 3)
     {
-      v16 = *(a1 + 48);
-      *buf = 138412546;
-      v22 = v16;
-      v23 = 2112;
-      v24 = v11;
-      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Operation failed - %@", buf, 0x16u);
+      v15 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      if (v15)
+      {
+        v18 = *(a1 + 48);
+        *buf = 138412546;
+        v24 = v18;
+        v25 = 2112;
+        v26 = v12;
+        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Operation failed - %@", buf, 0x16u);
+      }
     }
 
     if (*(a1 + 88))
     {
-      **(a1 + 88) = [v11 copy];
+      v15 = [v12 copy];
+      **(a1 + 88) = v15;
     }
   }
 
-  v17 = VCPSignPostLog();
-  v18 = v17;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+  v19 = VCPSignPostLog(v15);
+  v20 = v19;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
   {
-    v19 = *(a1 + 64);
+    v21 = *(a1 + 64);
     *buf = 67109120;
-    LODWORD(v22) = v19;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v18, OS_SIGNPOST_INTERVAL_END, v3, "MAD_VSKFetchAssetsByEmbeddingType", "_%d", buf, 8u);
+    LODWORD(v24) = v21;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v20, OS_SIGNPOST_INTERVAL_END, v3, "MAD_VSKFetchAssetsByEmbeddingType", "_%d", buf, 8u);
   }
 }
 
@@ -2108,59 +2144,65 @@ void __69__MADVectorDatabase_fetchAssetsWithEmbeddingType_limit_offset_error___b
 
 void __59__MADVectorDatabase_fetchAssetsWithLocalIdentifiers_error___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v2 = VCPSignPostLog();
+  v26 = *MEMORY[0x1E69E9840];
+  v2 = VCPSignPostLog(a1);
   v3 = os_signpost_id_generate(v2);
 
-  v4 = VCPSignPostLog();
-  v5 = v4;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
+  v5 = VCPSignPostLog(v4);
+  v6 = v5;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    v6 = [*(a1 + 32) count];
+    v7 = [*(a1 + 32) count];
     *buf = 134217984;
-    v21 = v6;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v3, "MAD_VSKFetchAssets", "%lu assets", buf, 0xCu);
+    v23 = v7;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v3, "MAD_VSKFetchAssets", "%lu assets", buf, 0xCu);
   }
 
-  v7 = [MEMORY[0x1E69DF5F8] mad_stringIdentifiersFromLocalIdentifiers:*(a1 + 32)];
-  v8 = [*(*(a1 + 40) + 24) client];
-  v19 = 0;
-  v9 = [v8 stringIdentifiedAssetsWithIdentifiers:v7 attributeFilters:MEMORY[0x1E695E0F0] pagination:0 error:&v19];
-  v10 = v19;
-  v11 = *(*(a1 + 56) + 8);
-  v12 = *(v11 + 40);
-  *(v11 + 40) = v9;
+  v8 = [MEMORY[0x1E69DF5F8] mad_stringIdentifiersFromLocalIdentifiers:*(a1 + 32)];
+  v9 = [*(*(a1 + 40) + 24) client];
+  v21 = 0;
+  v10 = [v9 stringIdentifiedAssetsWithIdentifiers:v8 attributeFilters:MEMORY[0x1E695E0F0] pagination:0 error:&v21];
+  v11 = v21;
+  v12 = *(*(a1 + 56) + 8);
+  v13 = *(v12 + 40);
+  *(v12 + 40) = v10;
 
-  if (v10)
+  if (v11)
   {
-    v13 = *(*(a1 + 56) + 8);
-    v14 = *(v13 + 40);
-    *(v13 + 40) = 0;
+    v15 = *(*(a1 + 56) + 8);
+    v16 = *(v15 + 40);
+    *(v15 + 40) = 0;
 
-    if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    v14 = MediaAnalysisLogLevel();
+    if (v14 >= 3)
     {
-      v15 = *(a1 + 48);
-      *buf = 138412546;
-      v21 = v15;
-      v22 = 2112;
-      v23 = v10;
-      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Operation failed - %@", buf, 0x16u);
+      v14 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      if (v14)
+      {
+        v17 = *(a1 + 48);
+        *buf = 138412546;
+        v23 = v17;
+        v24 = 2112;
+        v25 = v11;
+        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Operation failed - %@", buf, 0x16u);
+      }
     }
 
     if (*(a1 + 64))
     {
-      **(a1 + 64) = [v10 copy];
+      v14 = [v11 copy];
+      **(a1 + 64) = v14;
     }
   }
 
-  v16 = VCPSignPostLog();
-  v17 = v16;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+  v18 = VCPSignPostLog(v14);
+  v19 = v18;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
   {
-    v18 = [*(a1 + 32) count];
+    v20 = [*(a1 + 32) count];
     *buf = 134217984;
-    v21 = v18;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v17, OS_SIGNPOST_INTERVAL_END, v3, "MAD_VSKFetchAssets", "%lu assets", buf, 0xCu);
+    v23 = v20;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v19, OS_SIGNPOST_INTERVAL_END, v3, "MAD_VSKFetchAssets", "%lu assets", buf, 0xCu);
   }
 }
 
@@ -2195,87 +2237,93 @@ void __59__MADVectorDatabase_fetchAssetsWithLocalIdentifiers_error___block_invok
 
 void __73__MADVectorDatabase_fetchAssetsWithLocalIdentifiers_embeddingType_error___block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x1E69E9840];
-  v2 = VCPSignPostLog();
+  v36 = *MEMORY[0x1E69E9840];
+  v2 = VCPSignPostLog(a1);
   v3 = os_signpost_id_generate(v2);
 
-  v4 = VCPSignPostLog();
-  v5 = v4;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
+  v5 = VCPSignPostLog(v4);
+  v6 = v5;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    v6 = [*(a1 + 32) count];
+    v7 = [*(a1 + 32) count];
     *buf = 134217984;
-    v30 = v6;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v3, "MAD_VSKFetchAssets", "%lu assets", buf, 0xCu);
+    v32 = v7;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v3, "MAD_VSKFetchAssets", "%lu assets", buf, 0xCu);
   }
 
-  v7 = [MEMORY[0x1E695DF70] array];
+  v8 = [MEMORY[0x1E695DF70] array];
+  v29 = 0u;
+  v30 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v8 = *(a1 + 32);
-  v9 = [v8 countByEnumeratingWithState:&v25 objects:v33 count:16];
-  if (v9)
+  v9 = *(a1 + 32);
+  v10 = [v9 countByEnumeratingWithState:&v27 objects:v35 count:16];
+  if (v10)
   {
-    v10 = *v26;
+    v11 = *v28;
     do
     {
-      for (i = 0; i != v9; ++i)
+      for (i = 0; i != v10; ++i)
       {
-        if (*v26 != v10)
+        if (*v28 != v11)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v9);
         }
 
-        v12 = [MEMORY[0x1E69DF5F8] mad_stringIdentifierFromLocalIdentifier:*(*(&v25 + 1) + 8 * i) embeddingType:*(a1 + 64)];
-        [v7 addObject:v12];
+        v13 = [MEMORY[0x1E69DF5F8] mad_stringIdentifierFromLocalIdentifier:*(*(&v27 + 1) + 8 * i) embeddingType:*(a1 + 64)];
+        [v8 addObject:v13];
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v27 objects:v35 count:16];
     }
 
-    while (v9);
+    while (v10);
   }
 
-  v13 = [*(*(a1 + 40) + 24) client];
-  v24 = 0;
-  v14 = [v13 stringIdentifiedAssetsWithIdentifiers:v7 attributeFilters:MEMORY[0x1E695E0F0] pagination:0 error:&v24];
-  v15 = v24;
-  v16 = *(*(a1 + 56) + 8);
-  v17 = *(v16 + 40);
-  *(v16 + 40) = v14;
+  v14 = [*(*(a1 + 40) + 24) client];
+  v26 = 0;
+  v15 = [v14 stringIdentifiedAssetsWithIdentifiers:v8 attributeFilters:MEMORY[0x1E695E0F0] pagination:0 error:&v26];
+  v16 = v26;
+  v17 = *(*(a1 + 56) + 8);
+  v18 = *(v17 + 40);
+  *(v17 + 40) = v15;
 
-  if (v15)
+  if (v16)
   {
-    v18 = *(*(a1 + 56) + 8);
-    v19 = *(v18 + 40);
-    *(v18 + 40) = 0;
+    v20 = *(*(a1 + 56) + 8);
+    v21 = *(v20 + 40);
+    *(v20 + 40) = 0;
 
-    if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    v19 = MediaAnalysisLogLevel();
+    if (v19 >= 3)
     {
-      v20 = *(a1 + 48);
-      *buf = 138412546;
-      v30 = v20;
-      v31 = 2112;
-      v32 = v15;
-      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Operation failed - %@", buf, 0x16u);
+      v19 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      if (v19)
+      {
+        v22 = *(a1 + 48);
+        *buf = 138412546;
+        v32 = v22;
+        v33 = 2112;
+        v34 = v16;
+        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Operation failed - %@", buf, 0x16u);
+      }
     }
 
     if (*(a1 + 72))
     {
-      **(a1 + 72) = [v15 copy];
+      v19 = [v16 copy];
+      **(a1 + 72) = v19;
     }
   }
 
-  v21 = VCPSignPostLog();
-  v22 = v21;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
+  v23 = VCPSignPostLog(v19);
+  v24 = v23;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
   {
-    v23 = [*(a1 + 32) count];
+    v25 = [*(a1 + 32) count];
     *buf = 134217984;
-    v30 = v23;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v22, OS_SIGNPOST_INTERVAL_END, v3, "MAD_VSKFetchAssets", "%lu assets", buf, 0xCu);
+    v32 = v25;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v24, OS_SIGNPOST_INTERVAL_END, v3, "MAD_VSKFetchAssets", "%lu assets", buf, 0xCu);
   }
 }
 
@@ -2302,70 +2350,70 @@ void __73__MADVectorDatabase_fetchAssetsWithLocalIdentifiers_embeddingType_error
   probesCopy = probes;
   sizeCopy = size;
   readersCopy = readers;
-  v18 = VCPSignPostLog();
+  v18 = VCPSignPostLog(readersCopy);
   v19 = os_signpost_id_generate(v18);
 
-  v20 = VCPSignPostLog();
-  v21 = v20;
-  if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
+  v21 = VCPSignPostLog(v20);
+  v22 = v21;
+  if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v21, OS_SIGNPOST_INTERVAL_BEGIN, v19, "MAD_VSKSearchGetVSKClient", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v22, OS_SIGNPOST_INTERVAL_BEGIN, v19, "MAD_VSKSearchGetVSKClient", "", buf, 2u);
   }
 
   getObject = [(VCPObjectPool *)self->_searchClientPool getObject];
-  v23 = VCPSignPostLog();
-  v24 = v23;
-  if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
+  v24 = VCPSignPostLog(getObject);
+  v25 = v24;
+  if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v24, OS_SIGNPOST_INTERVAL_END, v19, "MAD_VSKSearchGetVSKClient", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v25, OS_SIGNPOST_INTERVAL_END, v19, "MAD_VSKSearchGetVSKClient", "", buf, 2u);
   }
 
   object = [getObject object];
   [object warmup];
 
-  v26 = [MEMORY[0x1E69DF5F8] mad_stringIdentifiersFromLocalIdentifiers:identifiersCopy];
-  v27 = v26;
-  v28 = MEMORY[0x1E695E0F0];
-  if (v26)
+  v27 = [MEMORY[0x1E69DF5F8] mad_stringIdentifiersFromLocalIdentifiers:identifiersCopy];
+  v28 = v27;
+  v29 = MEMORY[0x1E695E0F0];
+  if (v27)
   {
-    v28 = v26;
+    v29 = v27;
   }
 
-  v29 = v28;
+  v30 = v29;
 
-  v30 = VCPSignPostLog();
-  v31 = os_signpost_id_generate(v30);
+  v32 = VCPSignPostLog(v31);
+  v33 = os_signpost_id_generate(v32);
 
-  v32 = VCPSignPostLog();
-  v33 = v32;
-  if (v31 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v32))
+  v35 = VCPSignPostLog(v34);
+  v36 = v35;
+  if (v33 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v35))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v33, OS_SIGNPOST_INTERVAL_BEGIN, v31, "MAD_VSKSearchBatchSearch", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v36, OS_SIGNPOST_INTERVAL_BEGIN, v33, "MAD_VSKSearchBatchSearch", "", buf, 2u);
   }
 
   object2 = [getObject object];
   client = [object2 client];
-  v47 = 0;
-  v36 = [client searchByBatch:embeddingsCopy stringIdentifiers:v29 attributeFilters:filtersCopy limit:v14 fullScan:scanCopy includePayload:payloadCopy numberOfProbes:probesCopy batchSize:sizeCopy numConcurrentReaders:readersCopy error:&v47];
-  v37 = v47;
+  v51 = 0;
+  v39 = [client searchByBatch:embeddingsCopy stringIdentifiers:v30 attributeFilters:filtersCopy limit:v14 fullScan:scanCopy includePayload:payloadCopy numberOfProbes:probesCopy batchSize:sizeCopy numConcurrentReaders:readersCopy error:&v51];
+  v40 = v51;
 
-  v38 = VCPSignPostLog();
-  v39 = v38;
-  if (v31 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v38))
+  v42 = VCPSignPostLog(v41);
+  v43 = v42;
+  if (v33 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v42))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v39, OS_SIGNPOST_INTERVAL_END, v31, "MAD_VSKSearchBatchSearch", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v43, OS_SIGNPOST_INTERVAL_END, v33, "MAD_VSKSearchBatchSearch", "", buf, 2u);
   }
 
-  if (error && v37)
+  if (error && v40)
   {
-    *error = [v37 copy];
+    *error = [v40 copy];
   }
 
-  return v36;
+  return v39;
 }
 
 @end

@@ -27,18 +27,17 @@
 
 void __50__NPKMockPeerPaymentAccountManager_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_alloc_init(objc_opt_class());
-  v3 = sharedInstance_sharedInstance_5;
-  sharedInstance_sharedInstance_5 = v2;
+  v1 = objc_alloc_init(objc_opt_class());
+  v2 = sharedInstance_sharedInstance_5;
+  sharedInstance_sharedInstance_5 = v1;
 }
 
 - (NPKMockPeerPaymentAccountManager)initWithPeerPaymentService:(id)service
 {
-  v17[5] = *MEMORY[0x277D85DE8];
-  v15.receiver = self;
-  v15.super_class = NPKMockPeerPaymentAccountManager;
-  v3 = [(NPKPeerPaymentAccountManager *)&v15 initWithPeerPaymentService:service];
+  v16[5] = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = NPKMockPeerPaymentAccountManager;
+  v3 = [(NPKPeerPaymentAccountManager *)&v14 initWithPeerPaymentService:service];
   v4 = v3;
   if (v3)
   {
@@ -49,24 +48,23 @@ void __50__NPKMockPeerPaymentAccountManager_sharedInstance__block_invoke(uint64_
 
     0x406900A3D70A3D71 = [MEMORY[0x277CCACA8] stringWithFormat:@"%f", 0x406900A3D70A3D71];
     v8 = objc_alloc(MEMORY[0x277D38188]);
-    v16[0] = @"currentBalance";
-    v16[1] = @"currency";
-    v17[0] = 0x406900A3D70A3D71;
-    v17[1] = @"USD";
-    v16[2] = @"minimumTransferAmounts";
-    v16[3] = @"maximumTransferAmounts";
-    v17[2] = &unk_286CE7860;
-    v17[3] = &unk_286CE7888;
-    v16[4] = @"state";
-    v17[4] = @"active";
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:5];
+    v15[0] = @"currentBalance";
+    v15[1] = @"currency";
+    v16[0] = 0x406900A3D70A3D71;
+    v16[1] = @"USD";
+    v15[2] = @"minimumTransferAmounts";
+    v15[3] = @"maximumTransferAmounts";
+    v16[2] = &unk_286CE7860;
+    v16[3] = &unk_286CE7888;
+    v15[4] = @"state";
+    v16[4] = @"active";
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:5];
     date = [MEMORY[0x277CBEAA8] date];
     v11 = [v8 initWithDictionary:v9 lastUpdated:date];
     mockAccount = v4->_mockAccount;
     v4->_mockAccount = v11;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -79,7 +77,7 @@ void __50__NPKMockPeerPaymentAccountManager_sharedInstance__block_invoke(uint64_
 
 - (void)_updateMockBalance
 {
-  v15[4] = *MEMORY[0x277D85DE8];
+  v14[4] = *MEMORY[0x277D85DE8];
   balanceOffset = self->_balanceOffset;
   v4 = (balanceOffset + 100) % 0x12C;
   self->_balanceOffset = v4;
@@ -87,15 +85,15 @@ void __50__NPKMockPeerPaymentAccountManager_sharedInstance__block_invoke(uint64_
   {
     v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%f", balanceOffset + 200.02];
     v6 = objc_alloc(MEMORY[0x277D38188]);
-    v14[0] = @"currentBalance";
-    v14[1] = @"currency";
-    v15[0] = v5;
-    v15[1] = @"USD";
-    v14[2] = @"minimumTransferAmounts";
-    v14[3] = @"maximumTransferAmounts";
-    v15[2] = &unk_286CE78B0;
-    v15[3] = &unk_286CE78D8;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:4];
+    v13[0] = @"currentBalance";
+    v13[1] = @"currency";
+    v14[0] = v5;
+    v14[1] = @"USD";
+    v13[2] = @"minimumTransferAmounts";
+    v13[3] = @"maximumTransferAmounts";
+    v14[2] = &unk_286CE78B0;
+    v14[3] = &unk_286CE78D8;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:4];
     date = [MEMORY[0x277CBEAA8] date];
     v9 = [v6 initWithDictionary:v7 lastUpdated:date];
     mockAccount = self->_mockAccount;
@@ -110,8 +108,6 @@ void __50__NPKMockPeerPaymentAccountManager_sharedInstance__block_invoke(uint64_
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter postNotificationName:@"NPKPeerPaymentAccountManagerAccountDidChangeNotification" object:self];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)account

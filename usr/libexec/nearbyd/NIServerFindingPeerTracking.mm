@@ -1,10 +1,39 @@
 @interface NIServerFindingPeerTracking
++ (NIServerFindingPeerTracking)peerTrackingWithDiscoveryState:(int)state advertisingState:(int)advertisingState rangingState:(int)rangingState algorithmOutputFlags:(unsigned __int8)flags receivedSignalFlags:(unsigned __int8)signalFlags tellClientAboutPeer:(BOOL)peer clientWantsUpdates:(BOOL)updates nbUwbAcquisitionChannelIdx:(id)self0 nbUwbAcquisitionUseLowPriorityDutyCycle:(id)self1 oobRefreshPeriod:(id)self2 keepAliveTimeout:(id)self3;
 - (BOOL)isEqual:(id)equal;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 @end
 
 @implementation NIServerFindingPeerTracking
+
++ (NIServerFindingPeerTracking)peerTrackingWithDiscoveryState:(int)state advertisingState:(int)advertisingState rangingState:(int)rangingState algorithmOutputFlags:(unsigned __int8)flags receivedSignalFlags:(unsigned __int8)signalFlags tellClientAboutPeer:(BOOL)peer clientWantsUpdates:(BOOL)updates nbUwbAcquisitionChannelIdx:(id)self0 nbUwbAcquisitionUseLowPriorityDutyCycle:(id)self1 oobRefreshPeriod:(id)self2 keepAliveTimeout:(id)self3
+{
+  peerCopy = peer;
+  signalFlagsCopy = signalFlags;
+  flagsCopy = flags;
+  v16 = *&rangingState;
+  v17 = *&advertisingState;
+  v18 = *&state;
+  idxCopy = idx;
+  cycleCopy = cycle;
+  periodCopy = period;
+  timeoutCopy = timeout;
+  v21 = objc_alloc_init(NIServerFindingPeerTracking);
+  [(NIServerFindingPeerTracking *)v21 setDiscoveryState:v18];
+  [(NIServerFindingPeerTracking *)v21 setAdvertisingState:v17];
+  [(NIServerFindingPeerTracking *)v21 setRangingState:v16];
+  [(NIServerFindingPeerTracking *)v21 setAlgorithmOutputFlags:flagsCopy];
+  [(NIServerFindingPeerTracking *)v21 setReceivedSignalFlags:signalFlagsCopy];
+  [(NIServerFindingPeerTracking *)v21 setTellClientAboutPeer:peerCopy];
+  [(NIServerFindingPeerTracking *)v21 setClientWantsUpdates:updates];
+  [(NIServerFindingPeerTracking *)v21 setNbUwbAcquisitionChannelIdx:idxCopy];
+  [(NIServerFindingPeerTracking *)v21 setNbUwbAcquisitionUseLowPriorityDutyCycle:cycleCopy];
+  [(NIServerFindingPeerTracking *)v21 setOobRefreshPeriodSeconds:periodCopy];
+  [(NIServerFindingPeerTracking *)v21 setKeepAliveTimeoutSeconds:timeoutCopy];
+
+  return v21;
+}
 
 - (id)copyWithZone:(_NSZone *)zone
 {

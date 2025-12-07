@@ -134,30 +134,28 @@
 
 - (NSArray)targetScopedIdentifiers
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   otherScopedIdentifier = self->_otherScopedIdentifier;
-  scopedIdentifier = self->_scopedIdentifier;
   if (otherScopedIdentifier)
   {
-    v11 = self->_scopedIdentifier;
-    v12 = otherScopedIdentifier;
-    v4 = MEMORY[0x1E695DEC8];
-    v5 = &v11;
-    v6 = 2;
+    scopedIdentifier = self->_scopedIdentifier;
+    v10 = otherScopedIdentifier;
+    v3 = MEMORY[0x1E695DEC8];
+    p_scopedIdentifier = &scopedIdentifier;
+    v5 = 2;
   }
 
   else
   {
-    v10 = self->_scopedIdentifier;
-    v4 = MEMORY[0x1E695DEC8];
-    v5 = &v10;
-    v6 = 1;
+    v8 = self->_scopedIdentifier;
+    v3 = MEMORY[0x1E695DEC8];
+    p_scopedIdentifier = &v8;
+    v5 = 1;
   }
 
-  v7 = [v4 arrayWithObjects:v5 count:{v6, v10, v11, v12, v13}];
-  v8 = *MEMORY[0x1E69E9840];
+  v6 = [v3 arrayWithObjects:p_scopedIdentifier count:{v5, v8, scopedIdentifier, v10, v11}];
 
-  return v7;
+  return v6;
 }
 
 - (void)encodeWithCoder:(id)coder

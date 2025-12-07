@@ -32,7 +32,7 @@
 
 - (void)didReceiveEvent:(id)event topic:(id)topic
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   topicCopy = topic;
   delegate = [(HMDLegacyAccessorySettingsAdaptor *)self delegate];
@@ -48,11 +48,11 @@
       {
         v13 = HMFGetLogIdentifier();
         keyPath = [v9 keyPath];
-        v26 = 138543618;
-        v27 = v13;
-        v28 = 2114;
-        v29 = keyPath;
-        _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Forwarding decoded setting event for %{public}@", &v26, 0x16u);
+        v25 = 138543618;
+        v26 = v13;
+        v27 = 2114;
+        v28 = keyPath;
+        _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Forwarding decoded setting event for %{public}@", &v25, 0x16u);
       }
 
       objc_autoreleasePoolPop(v10);
@@ -73,11 +73,11 @@
         {
           v20 = HMFGetLogIdentifier();
           keyPath3 = [0 keyPath];
-          v26 = 138543618;
-          v27 = v20;
-          v28 = 2114;
-          v29 = keyPath3;
-          _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Forwarding decoded setting event for %{public}@", &v26, 0x16u);
+          v25 = 138543618;
+          v26 = v20;
+          v27 = 2114;
+          v28 = keyPath3;
+          _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Forwarding decoded setting event for %{public}@", &v25, 0x16u);
         }
 
         objc_autoreleasePoolPop(v16);
@@ -91,11 +91,11 @@
         if (v19)
         {
           v24 = HMFGetLogIdentifier();
-          v26 = 138543618;
-          v27 = v24;
-          v28 = 2114;
-          v29 = topicCopy;
-          _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Parsed setting for topic%{public}@ is neither BOOL nor integer", &v26, 0x16u);
+          v25 = 138543618;
+          v26 = v24;
+          v27 = 2114;
+          v28 = topicCopy;
+          _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Parsed setting for topic%{public}@ is neither BOOL nor integer", &v25, 0x16u);
         }
 
         objc_autoreleasePoolPop(v16);
@@ -103,13 +103,11 @@
       }
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_transformLegacyLanguageSettingValueToImmutableSetting:(id)setting
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   settingCopy = setting;
   v5 = [settingCopy componentsSeparatedByString:{@", "}];
   if ([v5 count] > 2)
@@ -134,25 +132,23 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      v17 = 138543618;
-      v18 = v9;
-      v19 = 2112;
-      v20 = settingCopy;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to get expected language code count from legacy language setting encoding: %@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v9;
+      v18 = 2112;
+      v19 = settingCopy;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to get expected language code count from legacy language setting encoding: %@", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
     v10 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)_settingValueForKeyPath:(id)path value:(id)value
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   valueCopy = value;
   if ([MEMORY[0x277CD1790] isKeyPathForBooleanSettingType:pathCopy])
@@ -190,15 +186,15 @@ LABEL_37:
     }
 
     v35 = HMFGetLogIdentifier();
-    v49 = 138543874;
-    v50 = v35;
-    v51 = 2112;
-    v52 = v8;
-    v53 = 2114;
-    v54 = pathCopy;
+    v48 = 138543874;
+    v49 = v35;
+    v50 = 2112;
+    v51 = v8;
+    v52 = 2114;
+    v53 = pathCopy;
     v36 = "%{public}@Passed in value: %@ is not a number for BOOL setting: %{public}@";
 LABEL_34:
-    _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_ERROR, v36, &v49, 0x20u);
+    _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_ERROR, v36, &v48, 0x20u);
 
 LABEL_35:
 LABEL_36:
@@ -237,15 +233,15 @@ LABEL_36:
       {
         v19 = HMFGetLogIdentifier();
         v20 = [MEMORY[0x277CCABB0] numberWithInteger:integerValue];
-        v49 = 138544130;
-        v50 = v19;
-        v51 = 2112;
-        v52 = v12;
-        v53 = 2112;
-        v54 = v20;
-        v55 = 2114;
-        v56 = pathCopy;
-        _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@Updating legacy integer value %@ to %@: %{public}@", &v49, 0x2Au);
+        v48 = 138544130;
+        v49 = v19;
+        v50 = 2112;
+        v51 = v12;
+        v52 = 2112;
+        v53 = v20;
+        v54 = 2114;
+        v55 = pathCopy;
+        _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@Updating legacy integer value %@ to %@: %{public}@", &v48, 0x2Au);
       }
 
       objc_autoreleasePoolPop(v16);
@@ -262,12 +258,12 @@ LABEL_36:
     }
 
     v35 = HMFGetLogIdentifier();
-    v49 = 138543874;
-    v50 = v35;
-    v51 = 2112;
-    v52 = v12;
-    v53 = 2114;
-    v54 = pathCopy;
+    v48 = 138543874;
+    v49 = v35;
+    v50 = 2112;
+    v51 = v12;
+    v52 = 2114;
+    v53 = pathCopy;
     v36 = "%{public}@Passed in value: %@ is not a number for integer setting: %{public}@";
     goto LABEL_34;
   }
@@ -290,15 +286,15 @@ LABEL_36:
       {
         v29 = HMFGetLogIdentifier();
         v30 = [MEMORY[0x277CCABB0] numberWithInteger:integerValue2];
-        v49 = 138544130;
-        v50 = v29;
-        v51 = 2112;
-        v52 = v10;
-        v53 = 2112;
-        v54 = v30;
-        v55 = 2114;
-        v56 = pathCopy;
-        _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_DEFAULT, "%{public}@Updating legacy selection item index value %@ to %@: %{public}@", &v49, 0x2Au);
+        v48 = 138544130;
+        v49 = v29;
+        v50 = 2112;
+        v51 = v10;
+        v52 = 2112;
+        v53 = v30;
+        v54 = 2114;
+        v55 = pathCopy;
+        _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_DEFAULT, "%{public}@Updating legacy selection item index value %@ to %@: %{public}@", &v48, 0x2Au);
       }
 
       objc_autoreleasePoolPop(v26);
@@ -309,17 +305,17 @@ LABEL_36:
 
     v32 = objc_autoreleasePoolPush();
     selfCopy5 = self;
-    v47 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+    v46 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
     {
-      v48 = HMFGetLogIdentifier();
-      v49 = 138543874;
-      v50 = v48;
-      v51 = 2112;
-      v52 = 0;
-      v53 = 2114;
-      v54 = pathCopy;
-      _os_log_impl(&dword_2531F8000, v47, OS_LOG_TYPE_ERROR, "%{public}@Passed in value: %@ is not a selection item for setting: %{public}@", &v49, 0x20u);
+      v47 = HMFGetLogIdentifier();
+      v48 = 138543874;
+      v49 = v47;
+      v50 = 2112;
+      v51 = 0;
+      v52 = 2114;
+      v53 = pathCopy;
+      _os_log_impl(&dword_2531F8000, v46, OS_LOG_TYPE_ERROR, "%{public}@Passed in value: %@ is not a selection item for setting: %{public}@", &v48, 0x20u);
     }
 
     goto LABEL_36;
@@ -352,11 +348,11 @@ LABEL_36:
       if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
       {
         v44 = HMFGetLogIdentifier();
-        v49 = 138543618;
-        v50 = v44;
-        v51 = 2112;
-        v52 = v39;
-        _os_log_impl(&dword_2531F8000, v43, OS_LOG_TYPE_DEFAULT, "%{public}@Passed value = %@, is not a language setting", &v49, 0x16u);
+        v48 = 138543618;
+        v49 = v44;
+        v50 = 2112;
+        v51 = v39;
+        _os_log_impl(&dword_2531F8000, v43, OS_LOG_TYPE_DEFAULT, "%{public}@Passed value = %@, is not a language setting", &v48, 0x16u);
       }
 
       objc_autoreleasePoolPop(v41);
@@ -369,14 +365,12 @@ LABEL_36:
   v31 = 0;
 LABEL_38:
 
-  v45 = *MEMORY[0x277D85DE8];
-
   return v31;
 }
 
 - (void)updateSettingWithKeyPath:(id)path settingValue:(id)value completion:(id)completion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   valueCopy = value;
   completionCopy = completion;
@@ -393,11 +387,11 @@ LABEL_38:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         v17 = HMFGetLogIdentifier();
-        v25 = 138543618;
-        v26 = v17;
-        v27 = 2114;
-        v28 = pathCopy;
-        _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Sending update %{public}@ to controller", &v25, 0x16u);
+        v24 = 138543618;
+        v25 = v17;
+        v26 = 2114;
+        v27 = pathCopy;
+        _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Sending update %{public}@ to controller", &v24, 0x16u);
       }
 
       objc_autoreleasePoolPop(v13);
@@ -409,9 +403,9 @@ LABEL_38:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         v22 = HMFGetLogIdentifier();
-        v25 = 138543362;
-        v26 = v22;
-        _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@No current settings controller.", &v25, 0xCu);
+        v24 = 138543362;
+        v25 = v22;
+        _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@No current settings controller.", &v24, 0xCu);
       }
 
       objc_autoreleasePoolPop(v13);
@@ -430,22 +424,20 @@ LABEL_38:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       v21 = HMFGetLogIdentifier();
-      v25 = 138543362;
-      v26 = v21;
-      _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_ERROR, "%{public}@Could not obtain setting value from given legacy value.", &v25, 0xCu);
+      v24 = 138543362;
+      v25 = v21;
+      _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_ERROR, "%{public}@Could not obtain setting value from given legacy value.", &v24, 0xCu);
     }
 
     objc_autoreleasePoolPop(v18);
     currentAccessorySettingsController = [MEMORY[0x277CCA9B8] hmErrorWithCode:3];
     completionCopy[2](completionCopy, currentAccessorySettingsController);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startup
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -455,41 +447,41 @@ LABEL_38:
     homeUUID = [(HMDLegacyAccessorySettingsAdaptor *)selfCopy homeUUID];
     accessoryUUID = [(HMDLegacyAccessorySettingsAdaptor *)selfCopy accessoryUUID];
     *buf = 138543874;
-    v24 = v6;
-    v25 = 2112;
-    v26 = homeUUID;
-    v27 = 2112;
-    v28 = accessoryUUID;
+    v23 = v6;
+    v24 = 2112;
+    v25 = homeUUID;
+    v26 = 2112;
+    v27 = accessoryUUID;
     _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Subscribing to home: %@, accessory: %@ keyPaths on startup.", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v3);
   defaultSettingsAllKeyPaths = [MEMORY[0x277CD1790] defaultSettingsAllKeyPaths];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __44__HMDLegacyAccessorySettingsAdaptor_startup__block_invoke;
-  v22[3] = &unk_279729D80;
-  v22[4] = selfCopy;
-  v10 = [defaultSettingsAllKeyPaths na_map:v22];
-
-  languageKeyPaths = [MEMORY[0x277CD1790] languageKeyPaths];
   v21[0] = MEMORY[0x277D85DD0];
   v21[1] = 3221225472;
-  v21[2] = __44__HMDLegacyAccessorySettingsAdaptor_startup__block_invoke_2;
+  v21[2] = __44__HMDLegacyAccessorySettingsAdaptor_startup__block_invoke;
   v21[3] = &unk_279729D80;
   v21[4] = selfCopy;
-  v12 = [languageKeyPaths na_map:v21];
+  v10 = [defaultSettingsAllKeyPaths na_map:v21];
+
+  languageKeyPaths = [MEMORY[0x277CD1790] languageKeyPaths];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __44__HMDLegacyAccessorySettingsAdaptor_startup__block_invoke_2;
+  v20[3] = &unk_279729D80;
+  v20[4] = selfCopy;
+  v12 = [languageKeyPaths na_map:v20];
   v13 = [v12 arrayByAddingObjectsFromArray:v10];
 
   if (v13 && [v13 count])
   {
     subscriptionProvider = [(HMDLegacyAccessorySettingsAdaptor *)selfCopy subscriptionProvider];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __44__HMDLegacyAccessorySettingsAdaptor_startup__block_invoke_3;
-    v20[3] = &unk_279734EB8;
-    v20[4] = selfCopy;
-    [subscriptionProvider changeRegistrationsForConsumer:selfCopy topicFilterAdditions:v13 topicFilterRemovals:MEMORY[0x277CBEBF8] completion:v20];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __44__HMDLegacyAccessorySettingsAdaptor_startup__block_invoke_3;
+    v19[3] = &unk_279734EB8;
+    v19[4] = selfCopy;
+    [subscriptionProvider changeRegistrationsForConsumer:selfCopy topicFilterAdditions:v13 topicFilterRemovals:MEMORY[0x277CBEBF8] completion:v19];
   }
 
   else
@@ -501,14 +493,12 @@ LABEL_38:
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v24 = v18;
+      v23 = v18;
       _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@No default settings keypaths are found", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v15);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 id __44__HMDLegacyAccessorySettingsAdaptor_startup__block_invoke(uint64_t a1, void *a2)
@@ -570,80 +560,76 @@ void __44__HMDLegacyAccessorySettingsAdaptor_startup__block_invoke_2_4(uint64_t 
 
 void __44__HMDLegacyAccessorySettingsAdaptor_startup__block_invoke_3(id *a1, void *a2, void *a3)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = a1[4];
-  v8 = [objc_opt_class() parsedBoolSettingEvent:v6 topic:v5];
-  v9 = v8;
-  if (v8)
+  v7 = [objc_opt_class() parsedBoolSettingEvent:v6 topic:v5];
+  v8 = v7;
+  if (v7)
   {
-    v12 = a1 + 4;
-    v10 = a1[4];
-    v11 = v12[1];
-    v13 = [v8 keyPath];
-    [v11 legacySettingsAdaptor:v10 didLoadSettingKeyPath:v13 BOOLValue:{objc_msgSend(v9, "BOOLValue")}];
+    v11 = a1 + 4;
+    v9 = a1[4];
+    v10 = v11[1];
+    v12 = [v7 keyPath];
+    [v10 legacySettingsAdaptor:v9 didLoadSettingKeyPath:v12 BOOLValue:{objc_msgSend(v8, "BOOLValue")}];
   }
 
   else
   {
-    v14 = a1[4];
-    v15 = [objc_opt_class() parsedLanguageSetting:v6 topic:v5];
-    if (v15)
+    v13 = [objc_opt_class() parsedLanguageSetting:v6 topic:v5];
+    if (v13)
     {
-      v16 = [a1[4] currentAccessorySettingsController];
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __44__HMDLegacyAccessorySettingsAdaptor_startup__block_invoke_4;
-      v30[3] = &unk_279729DA8;
-      v30[4] = a1[4];
-      v31 = a1[6];
-      v32 = a1[5];
-      v33 = v15;
-      v17 = v15;
-      [v16 languageValueListWithCompletion:v30];
+      v14 = [a1[4] currentAccessorySettingsController];
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __44__HMDLegacyAccessorySettingsAdaptor_startup__block_invoke_4;
+      v27[3] = &unk_279729DA8;
+      v27[4] = a1[4];
+      v28 = a1[6];
+      v29 = a1[5];
+      v30 = v13;
+      v15 = v13;
+      [v14 languageValueListWithCompletion:v27];
     }
 
     else
     {
-      v18 = [objc_opt_class() parsedIntegerSettingEvent:v6 topic:v5];
-      if (v18)
+      v16 = [objc_opt_class() parsedIntegerSettingEvent:v6 topic:v5];
+      if (v16)
       {
-        v19 = v18;
-        v20 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v18, "integerValue")}];
-        v23 = a1 + 4;
-        v21 = a1[4];
-        v22 = v23[1];
-        v24 = [v19 keyPath];
-        [v22 legacySettingsAdaptor:v21 didLoadSettingKeyPath:v24 numberValue:v20];
+        v17 = v16;
+        v18 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v16, "integerValue")}];
+        v21 = a1 + 4;
+        v19 = a1[4];
+        v20 = v21[1];
+        v22 = [v17 keyPath];
+        [v20 legacySettingsAdaptor:v19 didLoadSettingKeyPath:v22 numberValue:v18];
       }
 
       else
       {
-        v25 = objc_autoreleasePoolPush();
-        v26 = a1[4];
-        v27 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+        v23 = objc_autoreleasePoolPush();
+        v24 = a1[4];
+        v25 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
         {
-          v28 = HMFGetLogIdentifier();
+          v26 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v35 = v28;
-          v36 = 2114;
-          v37 = v5;
-          _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_INFO, "%{public}@Parsed setting for topic%{public}@ is not of {Integer, Bool, Language}", buf, 0x16u);
+          v32 = v26;
+          v33 = 2114;
+          v34 = v5;
+          _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_INFO, "%{public}@Parsed setting for topic%{public}@ is not of {Integer, Bool, Language}", buf, 0x16u);
         }
 
-        objc_autoreleasePoolPop(v25);
+        objc_autoreleasePoolPop(v23);
       }
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __44__HMDLegacyAccessorySettingsAdaptor_startup__block_invoke_4(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -655,11 +641,11 @@ void __44__HMDLegacyAccessorySettingsAdaptor_startup__block_invoke_4(uint64_t a1
     {
       v10 = HMFGetLogIdentifier();
       v11 = *(a1 + 40);
-      v17 = 138543618;
-      v18 = v10;
-      v19 = 2112;
-      v20 = v11;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@available language fetch returned Error =%@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v10;
+      v18 = 2112;
+      v19 = v11;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@available language fetch returned Error =%@", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -673,8 +659,6 @@ void __44__HMDLegacyAccessorySettingsAdaptor_startup__block_invoke_4(uint64_t a1
     v15 = [*(a1 + 56) languageValue];
     [v13 legacySettingsAdaptor:v12 didLoadSettingKeyPath:v14 selectedLanguageValue:v15 availableLanguageList:v5];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDLegacyAccessorySettingsAdaptor)initWithQueue:(id)queue homeUUID:(id)d accessoryUUID:(id)iD settingsController:(id)controller subscriptionProvider:(id)provider
@@ -702,7 +686,7 @@ void __44__HMDLegacyAccessorySettingsAdaptor_startup__block_invoke_4(uint64_t a1
 
 + (id)parsedLanguageListSetting:(id)setting topic:(id)topic
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   settingCopy = setting;
   topicCopy = topic;
   v8 = [MEMORY[0x277CD19F0] decodeTopic:topicCopy];
@@ -714,9 +698,9 @@ void __44__HMDLegacyAccessorySettingsAdaptor_startup__block_invoke_4(uint64_t a1
     goto LABEL_18;
   }
 
-  v31 = 0;
-  v13 = [MEMORY[0x277CD1AD8] decodeSettingFromEvent:settingCopy error:&v31];
-  v14 = v31;
+  v30 = 0;
+  v13 = [MEMORY[0x277CD1AD8] decodeSettingFromEvent:settingCopy error:&v30];
+  v14 = v30;
   v15 = objc_autoreleasePoolPush();
   selfCopy = self;
   v17 = HMFGetOSLogHandle();
@@ -724,11 +708,11 @@ void __44__HMDLegacyAccessorySettingsAdaptor_startup__block_invoke_4(uint64_t a1
   {
     v18 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v33 = v18;
-    v34 = 2112;
-    v35 = settingCopy;
-    v36 = 2112;
-    v37 = v14;
+    v32 = v18;
+    v33 = 2112;
+    v34 = settingCopy;
+    v35 = 2112;
+    v36 = v14;
     _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@unable to decode event:%@ %@", buf, 0x20u);
   }
 
@@ -762,9 +746,9 @@ void __44__HMDLegacyAccessorySettingsAdaptor_startup__block_invoke_4(uint64_t a1
     {
       v26 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v33 = v26;
-      v34 = 2114;
-      v35 = topicCopy;
+      v32 = v26;
+      v33 = 2114;
+      v34 = topicCopy;
       v27 = "%{public}@Obtained setting but not of Language type. %{public}@";
 LABEL_15:
       _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_ERROR, v27, buf, 0x16u);
@@ -780,9 +764,9 @@ LABEL_15:
     {
       v26 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v33 = v26;
-      v34 = 2114;
-      v35 = topicCopy;
+      v32 = v26;
+      v33 = 2114;
+      v34 = topicCopy;
       v27 = "%{public}@Received setting change event but could not decode. %{public}@";
       goto LABEL_15;
     }
@@ -793,14 +777,13 @@ LABEL_15:
 LABEL_17:
 
 LABEL_18:
-  v29 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
 
 + (id)parsedLanguageSetting:(id)setting topic:(id)topic
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   settingCopy = setting;
   topicCopy = topic;
   v8 = [MEMORY[0x277CD19F0] decodeTopic:topicCopy];
@@ -812,9 +795,9 @@ LABEL_18:
     goto LABEL_16;
   }
 
-  v27 = 0;
-  v13 = [MEMORY[0x277CD1AD8] decodeSettingFromEvent:settingCopy error:&v27];
-  v14 = v27;
+  v26 = 0;
+  v13 = [MEMORY[0x277CD1AD8] decodeSettingFromEvent:settingCopy error:&v26];
+  v14 = v26;
   if (v13)
   {
     v15 = v13;
@@ -844,9 +827,9 @@ LABEL_18:
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v29 = v22;
-      v30 = 2114;
-      v31 = topicCopy;
+      v28 = v22;
+      v29 = 2114;
+      v30 = topicCopy;
       v23 = "%{public}@Obtained setting but not of Language type. %{public}@";
 LABEL_13:
       _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_ERROR, v23, buf, 0x16u);
@@ -862,9 +845,9 @@ LABEL_13:
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v29 = v22;
-      v30 = 2114;
-      v31 = topicCopy;
+      v28 = v22;
+      v29 = 2114;
+      v30 = topicCopy;
       v23 = "%{public}@Received setting change event but could not decode. %{public}@";
       goto LABEL_13;
     }
@@ -875,14 +858,13 @@ LABEL_13:
 LABEL_15:
 
 LABEL_16:
-  v25 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
 
 + (id)parsedIntegerSettingEvent:(id)event topic:(id)topic
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   topicCopy = topic;
   v8 = [MEMORY[0x277CD19F0] decodeTopic:topicCopy];
@@ -912,9 +894,9 @@ LABEL_10:
   }
 
 LABEL_5:
-  v26 = 0;
-  v15 = [MEMORY[0x277CD1AD8] decodeSettingFromEvent:eventCopy error:&v26];
-  v16 = v26;
+  v25 = 0;
+  v15 = [MEMORY[0x277CD1AD8] decodeSettingFromEvent:eventCopy error:&v25];
+  v16 = v25;
   if (v15)
   {
     v17 = v15;
@@ -941,9 +923,9 @@ LABEL_5:
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v28 = v23;
-      v29 = 2114;
-      v30 = topicCopy;
+      v27 = v23;
+      v28 = 2114;
+      v29 = topicCopy;
       _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@Obtained setting but not of bounded integer type. %{public}@", buf, 0x16u);
     }
 
@@ -952,14 +934,13 @@ LABEL_5:
   }
 
 LABEL_15:
-  v24 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
 
 + (id)parsedBoolSettingEvent:(id)event topic:(id)topic
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   topicCopy = topic;
   v8 = [MEMORY[0x277CD19F0] decodeTopic:topicCopy];
@@ -967,9 +948,9 @@ LABEL_15:
   v10 = asAccessorySettingTopic;
   if (asAccessorySettingTopic && (v11 = MEMORY[0x277CD1790], [asAccessorySettingTopic accessorySettingKeyPath], v12 = objc_claimAutoreleasedReturnValue(), LODWORD(v11) = objc_msgSend(v11, "isKeyPathForBooleanSettingType:", v12), v12, v11))
   {
-    v31 = 0;
-    v13 = [MEMORY[0x277CD1AD8] decodeSettingFromEvent:eventCopy error:&v31];
-    v14 = v31;
+    v30 = 0;
+    v13 = [MEMORY[0x277CD1AD8] decodeSettingFromEvent:eventCopy error:&v30];
+    v14 = v30;
     if (v13)
     {
       v15 = v13;
@@ -1000,14 +981,14 @@ LABEL_15:
         if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
           HMFGetLogIdentifier();
-          v27 = v30 = v24;
+          v27 = v29 = v24;
           *buf = 138543618;
-          v33 = v27;
-          v34 = 2114;
-          v35 = topicCopy;
+          v32 = v27;
+          v33 = 2114;
+          v34 = topicCopy;
           _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_ERROR, "%{public}@Obtained setting but not of BOOL type. %{public}@", buf, 0x16u);
 
-          v24 = v30;
+          v24 = v29;
         }
 
         objc_autoreleasePoolPop(v24);
@@ -1024,9 +1005,9 @@ LABEL_15:
       {
         v23 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v33 = v23;
-        v34 = 2114;
-        v35 = topicCopy;
+        v32 = v23;
+        v33 = 2114;
+        v34 = topicCopy;
         _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@Received setting change event but could not decode. %{public}@", buf, 0x16u);
       }
 
@@ -1039,8 +1020,6 @@ LABEL_15:
   {
     v19 = 0;
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -1059,12 +1038,11 @@ LABEL_15:
 
 uint64_t __48__HMDLegacyAccessorySettingsAdaptor_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_91208;
-  logCategory__hmf_once_v1_91208 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_91208;
+  logCategory__hmf_once_v1_91208 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

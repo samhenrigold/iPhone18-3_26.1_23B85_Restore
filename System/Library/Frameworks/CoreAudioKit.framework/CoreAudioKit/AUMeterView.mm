@@ -17,12 +17,12 @@
 
 - (void)setTintColor:(id)color
 {
-  v6.receiver = self;
-  v6.super_class = type metadata accessor for AUMeterView();
+  v7.receiver = self;
+  v7.super_class = type metadata accessor for AUMeterView();
   colorCopy = color;
-  v5 = v6.receiver;
-  [(AUMeterView *)&v6 setTintColor:colorCopy];
-  sub_237110534();
+  v5 = v7.receiver;
+  v6 = [(AUMeterView *)&v7 setTintColor:colorCopy];
+  sub_237110534(v6);
 }
 
 - (void)layoutSubviews

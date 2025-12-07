@@ -8,7 +8,6 @@
 - (void)resume
 {
   v2 = *(&self->super.super.super.isa + OBJC_IVAR____TtC12FMNetworking15MockURLDataTask_executionBlock);
-  v3 = *(&self->super.super._uploadProgress + OBJC_IVAR____TtC12FMNetworking15MockURLDataTask_executionBlock);
   selfCopy = self;
   v2();
 }

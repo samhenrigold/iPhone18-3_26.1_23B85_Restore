@@ -29,7 +29,7 @@
 
 - (void)_notifyDelegateWifiInfoUpdated:(id)updated
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   v5 = updatedCopy;
   if (updatedCopy && ([updatedCopy SSID], v6 = objc_claimAutoreleasedReturnValue(), v6, v6))
@@ -43,8 +43,8 @@
       block[2] = __71__HMDAppleMediaAccessoryInfoController__notifyDelegateWifiInfoUpdated___block_invoke;
       block[3] = &unk_27868A010;
       block[4] = self;
-      v15 = v5;
-      v16 = delegate;
+      v14 = v5;
+      v15 = delegate;
       dispatch_async(queue, block);
     }
   }
@@ -58,21 +58,19 @@
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v18 = v12;
-      v19 = 2112;
-      v20 = v5;
+      v17 = v12;
+      v18 = 2112;
+      v19 = v5;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Trying to notify with invalid WiFi info: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __71__HMDAppleMediaAccessoryInfoController__notifyDelegateWifiInfoUpdated___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -80,33 +78,31 @@ uint64_t __71__HMDAppleMediaAccessoryInfoController__notifyDelegateWifiInfoUpdat
   {
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
-    v9 = 138543618;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Notifying delegate to update WiFi info: %@ ", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Notifying delegate to update WiFi info: %@ ", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 48) accessoryInfoController:*(a1 + 32) didUpdateWifiInfo:*(a1 + 40)];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 48) accessoryInfoController:*(a1 + 32) didUpdateWifiInfo:*(a1 + 40)];
 }
 
 - (void)_postUpdateSoftwareVersionIfDifferent:(id)different
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   differentCopy = different;
   if (differentCopy)
   {
     queue = [(HMDAppleMediaAccessoryInfoController *)self queue];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __78__HMDAppleMediaAccessoryInfoController__postUpdateSoftwareVersionIfDifferent___block_invoke;
-    v11[3] = &unk_27868A750;
-    v11[4] = self;
-    v12 = differentCopy;
-    dispatch_async(queue, v11);
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __78__HMDAppleMediaAccessoryInfoController__postUpdateSoftwareVersionIfDifferent___block_invoke;
+    v10[3] = &unk_27868A750;
+    v10[4] = self;
+    v11 = differentCopy;
+    dispatch_async(queue, v10);
   }
 
   else
@@ -118,19 +114,17 @@ uint64_t __71__HMDAppleMediaAccessoryInfoController__notifyDelegateWifiInfoUpdat
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v14 = v9;
+      v13 = v9;
       _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Error posting software version update: object is nil", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __78__HMDAppleMediaAccessoryInfoController__postUpdateSoftwareVersionIfDifferent___block_invoke(uint64_t a1)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -140,11 +134,11 @@ void __78__HMDAppleMediaAccessoryInfoController__postUpdateSoftwareVersionIfDiff
     v6 = *(a1 + 40);
     v7 = [v6 buildVersion];
     *buf = 138543874;
-    v39 = v5;
-    v40 = 2112;
-    v41 = v6;
-    v42 = 2112;
-    v43 = v7;
+    v38 = v5;
+    v39 = 2112;
+    v40 = v6;
+    v41 = 2112;
+    v42 = v7;
     _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Posting updated software version: %@ (%@)", buf, 0x20u);
   }
 
@@ -155,11 +149,11 @@ void __78__HMDAppleMediaAccessoryInfoController__postUpdateSoftwareVersionIfDiff
   v11 = [v10 lastEventForTopic:v9];
   if (!v11)
   {
-    v35 = v10;
+    v34 = v10;
 LABEL_13:
     v14 = 0;
 LABEL_15:
-    v25 = [v8 eventSourceIdentifierNameForAccessoryInfoController:{*(a1 + 32), v35}];
+    v25 = [v8 eventSourceIdentifierNameForAccessoryInfoController:{*(a1 + 32), v34}];
     [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
     v27 = v26;
     v28 = [objc_alloc(MEMORY[0x277CD1738]) initWithSoftwareVersion:*(a1 + 40)];
@@ -169,14 +163,14 @@ LABEL_15:
     v32 = [v30 initWithEventData:v31 metadata:v29];
 
     v33 = [v8 eventForwarder];
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = __78__HMDAppleMediaAccessoryInfoController__postUpdateSoftwareVersionIfDifferent___block_invoke_10;
-    v37[3] = &unk_27868A250;
-    v37[4] = *(a1 + 32);
-    [v33 forwardEvent:v32 topic:v9 completion:v37];
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __78__HMDAppleMediaAccessoryInfoController__postUpdateSoftwareVersionIfDifferent___block_invoke_10;
+    v36[3] = &unk_27868A250;
+    v36[4] = *(a1 + 32);
+    [v33 forwardEvent:v32 topic:v9 completion:v36];
 
-    v10 = v36;
+    v10 = v35;
     goto LABEL_16;
   }
 
@@ -193,15 +187,15 @@ LABEL_15:
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v39 = v24;
-      v40 = 2112;
-      v41 = v9;
-      v42 = 2112;
-      v43 = 0;
+      v38 = v24;
+      v39 = 2112;
+      v40 = v9;
+      v41 = 2112;
+      v42 = 0;
       _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Error reading stored software version for topic %@, error: %@", buf, 0x20u);
     }
 
-    v35 = v10;
+    v34 = v10;
 
     objc_autoreleasePoolPop(v21);
     goto LABEL_13;
@@ -212,7 +206,7 @@ LABEL_15:
 
   if (!v16)
   {
-    v35 = v10;
+    v34 = v10;
     goto LABEL_15;
   }
 
@@ -223,19 +217,17 @@ LABEL_15:
   {
     v20 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v39 = v20;
+    v38 = v20;
     _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Skip sending event update for software version as it matches stored", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v17);
 LABEL_16:
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __78__HMDAppleMediaAccessoryInfoController__postUpdateSoftwareVersionIfDifferent___block_invoke_10(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -245,34 +237,32 @@ void __78__HMDAppleMediaAccessoryInfoController__postUpdateSoftwareVersionIfDiff
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = HMFGetLogIdentifier();
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Error in forwarding the software version info event: %@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Error in forwarding the software version info event: %@", &v8, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_postUpdateWifiNetworkInfoIfDifferent:(id)different
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   differentCopy = different;
   v5 = differentCopy;
   if (differentCopy && ([differentCopy SSID], v6 = objc_claimAutoreleasedReturnValue(), v6, v6))
   {
     queue = [(HMDAppleMediaAccessoryInfoController *)self queue];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __78__HMDAppleMediaAccessoryInfoController__postUpdateWifiNetworkInfoIfDifferent___block_invoke;
-    v13[3] = &unk_27868A750;
-    v13[4] = self;
-    v14 = v5;
-    dispatch_async(queue, v13);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __78__HMDAppleMediaAccessoryInfoController__postUpdateWifiNetworkInfoIfDifferent___block_invoke;
+    v12[3] = &unk_27868A750;
+    v12[4] = self;
+    v13 = v5;
+    dispatch_async(queue, v12);
   }
 
   else
@@ -284,21 +274,19 @@ void __78__HMDAppleMediaAccessoryInfoController__postUpdateSoftwareVersionIfDiff
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v16 = v11;
-      v17 = 2112;
-      v18 = v5;
+      v15 = v11;
+      v16 = 2112;
+      v17 = v5;
       _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Trying to post invalid WiFi info: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __78__HMDAppleMediaAccessoryInfoController__postUpdateWifiNetworkInfoIfDifferent___block_invoke(uint64_t a1)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -309,11 +297,11 @@ void __78__HMDAppleMediaAccessoryInfoController__postUpdateWifiNetworkInfoIfDiff
     v7 = [*(a1 + 40) MACAddress];
     v8 = [v7 formattedString];
     *buf = 138543874;
-    v41 = v5;
-    v42 = 2112;
-    v43 = v6;
-    v44 = 2112;
-    v45 = v8;
+    v40 = v5;
+    v41 = 2112;
+    v42 = v6;
+    v43 = 2112;
+    v44 = v8;
     _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Posting updated WiFi: SSID: %@, MAC: %@", buf, 0x20u);
   }
 
@@ -324,11 +312,11 @@ void __78__HMDAppleMediaAccessoryInfoController__postUpdateWifiNetworkInfoIfDiff
   v12 = [v11 lastEventForTopic:v10];
   if (!v12)
   {
-    v37 = v11;
+    v36 = v11;
 LABEL_13:
     v15 = 0;
 LABEL_15:
-    v27 = [v9 eventSourceIdentifierNameForAccessoryInfoController:{*(a1 + 32), v37}];
+    v27 = [v9 eventSourceIdentifierNameForAccessoryInfoController:{*(a1 + 32), v36}];
     [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
     v29 = v28;
     v30 = [objc_alloc(MEMORY[0x277CD1740]) initWithWifiNetworkInfo:*(a1 + 40)];
@@ -338,14 +326,14 @@ LABEL_15:
     v34 = [v32 initWithEventData:v33 metadata:v31];
 
     v35 = [v9 eventForwarder];
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __78__HMDAppleMediaAccessoryInfoController__postUpdateWifiNetworkInfoIfDifferent___block_invoke_7;
-    v39[3] = &unk_27868A250;
-    v39[4] = *(a1 + 32);
-    [v35 forwardEvent:v34 topic:v10 completion:v39];
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __78__HMDAppleMediaAccessoryInfoController__postUpdateWifiNetworkInfoIfDifferent___block_invoke_7;
+    v38[3] = &unk_27868A250;
+    v38[4] = *(a1 + 32);
+    [v35 forwardEvent:v34 topic:v10 completion:v38];
 
-    v11 = v38;
+    v11 = v37;
     goto LABEL_16;
   }
 
@@ -362,15 +350,15 @@ LABEL_15:
     {
       v26 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v41 = v26;
-      v42 = 2112;
-      v43 = v10;
-      v44 = 2112;
-      v45 = 0;
+      v40 = v26;
+      v41 = 2112;
+      v42 = v10;
+      v43 = 2112;
+      v44 = 0;
       _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_INFO, "%{public}@Error reading stored setting for topic %@, error: %@", buf, 0x20u);
     }
 
-    v37 = v11;
+    v36 = v11;
 
     objc_autoreleasePoolPop(v23);
     goto LABEL_13;
@@ -382,7 +370,7 @@ LABEL_15:
 
   if (!v18)
   {
-    v37 = v11;
+    v36 = v11;
     goto LABEL_15;
   }
 
@@ -393,19 +381,17 @@ LABEL_15:
   {
     v22 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v41 = v22;
+    v40 = v22;
     _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Skip sending event update for WiFi as it matches stored", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v19);
 LABEL_16:
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void __78__HMDAppleMediaAccessoryInfoController__postUpdateWifiNetworkInfoIfDifferent___block_invoke_7(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -415,17 +401,15 @@ void __78__HMDAppleMediaAccessoryInfoController__postUpdateWifiNetworkInfoIfDiff
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = HMFGetLogIdentifier();
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Error in forwarding the WiFi network info event: %@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Error in forwarding the WiFi network info event: %@", &v8, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)currentWifiNetworkInfo
@@ -452,7 +436,7 @@ void __78__HMDAppleMediaAccessoryInfoController__postUpdateWifiNetworkInfoIfDiff
 
 - (void)handleCurrentNetworkChangedNotification:(id)notification
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -460,11 +444,11 @@ void __78__HMDAppleMediaAccessoryInfoController__postUpdateWifiNetworkInfoIfDiff
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = HMFGetLogIdentifier();
-    v20 = 138543618;
-    v21 = v8;
-    v22 = 2112;
-    v23 = notificationCopy;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Received current network changed notification: %@", &v20, 0x16u);
+    v19 = 138543618;
+    v20 = v8;
+    v21 = 2112;
+    v22 = notificationCopy;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Received current network changed notification: %@", &v19, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -490,8 +474,6 @@ void __78__HMDAppleMediaAccessoryInfoController__postUpdateWifiNetworkInfoIfDiff
       [(HMDAppleMediaAccessoryInfoController *)selfCopy _postUpdateWifiNetworkInfoIfDifferent:lastWifiNetworkInfo4];
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configure
@@ -554,10 +536,9 @@ void __78__HMDAppleMediaAccessoryInfoController__postUpdateWifiNetworkInfoIfDiff
 
 void __51__HMDAppleMediaAccessoryInfoController_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v14_125121;
-  logCategory__hmf_once_v14_125121 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v14_125121;
+  logCategory__hmf_once_v14_125121 = v0;
 }
 
 @end

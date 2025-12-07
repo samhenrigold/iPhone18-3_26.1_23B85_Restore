@@ -20,7 +20,7 @@
 
 - (void)handleAccountStoreDidChangeNotification:(id)notification
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -28,9 +28,9 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v18 = 138543362;
-    v19 = v8;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Received account change notification", &v18, 0xCu);
+    v17 = 138543362;
+    v18 = v8;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Received account change notification", &v17, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -46,13 +46,13 @@
       [(HMDCloudPhotosSettingObserver *)v11 isCloudPhotosEnabled];
       v14 = HMFBooleanToString();
       v15 = HMFBooleanToString();
-      v18 = 138543874;
-      v19 = v13;
-      v20 = 2112;
-      v21 = v14;
-      v22 = 2112;
-      v23 = v15;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Updating cloudPhotosEnabled from %@ to %@", &v18, 0x20u);
+      v17 = 138543874;
+      v18 = v13;
+      v19 = 2112;
+      v20 = v14;
+      v21 = 2112;
+      v22 = v15;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Updating cloudPhotosEnabled from %@ to %@", &v17, 0x20u);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -60,8 +60,6 @@
     notificationCenter = [(HMDCloudPhotosSettingObserver *)v11 notificationCenter];
     [notificationCenter postNotificationName:@"HMDCloudPhotoSettingChangedNotification" object:v11];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configure
@@ -120,10 +118,9 @@
 
 void __44__HMDCloudPhotosSettingObserver_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v3_152189;
-  logCategory__hmf_once_v3_152189 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v3_152189;
+  logCategory__hmf_once_v3_152189 = v0;
 }
 
 + (HMDCloudPhotosSettingObserver)sharedInstance

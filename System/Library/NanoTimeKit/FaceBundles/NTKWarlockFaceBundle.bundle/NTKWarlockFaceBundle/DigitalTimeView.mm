@@ -13,7 +13,7 @@
 - (BOOL)isHidden
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for DigitalTimeView();
+  v3.super_class = type metadata accessor for DigitalTimeView(0);
   return [(DigitalTimeView *)&v3 isHidden];
 }
 
@@ -45,40 +45,40 @@
 
 - (void)setOverrideDate:(id)date duration:(double)duration
 {
-  v6 = sub_815C(qword_59170);
-  __chkstk_darwin(v6 - 8);
-  v8 = &v18 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v9);
-  v11 = &v18 - v10;
+  v6 = sub_815C(qword_59170, &unk_42070);
+  __chkstk_darwin(v6 - 8, v7);
+  v9 = &v20 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v10, v11);
+  v13 = &v20 - v12;
   if (date)
   {
     sub_36CA0();
-    v12 = sub_36CB0();
-    (*(*(v12 - 8) + 56))(v11, 0, 1, v12);
+    v14 = sub_36CB0();
+    (*(*(v14 - 8) + 56))(v13, 0, 1, v14);
   }
 
   else
   {
-    v12 = sub_36CB0();
-    (*(*(v12 - 8) + 56))(v11, 1, 1, v12);
+    v14 = sub_36CB0();
+    (*(*(v14 - 8) + 56))(v13, 1, 1, v14);
   }
 
-  v13 = *(&self->super.super.super.isa + OBJC_IVAR____TtC20NTKWarlockFaceBundle15DigitalTimeView_timeFormatter);
-  sub_2B9E4(v11, v8);
+  v15 = *(&self->super.super.super.isa + OBJC_IVAR____TtC20NTKWarlockFaceBundle15DigitalTimeView_timeFormatter);
+  sub_2B9E4(v13, v9);
   sub_36CB0();
-  v14 = *(v12 - 8);
-  v15 = (*(v14 + 48))(v8, 1, v12);
+  v16 = *(v14 - 8);
+  v17 = (*(v16 + 48))(v9, 1, v14);
   selfCopy = self;
   isa = 0;
-  if (v15 != 1)
+  if (v17 != 1)
   {
     isa = sub_36C90().super.isa;
-    (*(v14 + 8))(v8, v12);
+    (*(v16 + 8))(v9, v14);
   }
 
-  [v13 setOverrideDate:isa];
+  [v15 setOverrideDate:isa];
 
-  sub_2BA54(v11);
+  sub_2BA54(v13);
 }
 
 - (void)layoutSubviews
@@ -98,7 +98,7 @@
 {
   selfCopy = self;
   sub_2A938(v4);
-  sub_815C(&qword_59CD8);
+  sub_815C(&qword_59CD8, &qword_43710);
   sub_37280();
   sub_16B38(v4);
   sub_22C2C(*(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC20NTKWarlockFaceBundle15DigitalTimeView_timeFormatter));

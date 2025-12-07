@@ -24,7 +24,7 @@
 
 - (void)migrateCache:(id)cache
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   cacheCopy = cache;
   wallpaperFolderURL = [(HFWallpaperLegacyFileManager *)self wallpaperFolderURL];
 
@@ -36,36 +36,36 @@
     path = [wallpaperFolderURL2 path];
     v9 = [defaultManager contentsOfDirectoryAtPath:path error:0];
 
-    v62 = 0u;
-    v63 = 0u;
-    v60 = 0u;
     v61 = 0u;
+    v62 = 0u;
+    v59 = 0u;
+    v60 = 0u;
     v10 = v9;
-    v11 = [v10 countByEnumeratingWithState:&v60 objects:v68 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v59 objects:v67 count:16];
     if (!v11)
     {
       goto LABEL_35;
     }
 
     v13 = v11;
-    v58 = *MEMORY[0x277CCA1E8];
-    v59 = *v61;
+    v57 = *MEMORY[0x277CCA1E8];
+    v58 = *v60;
     *&v12 = 138412290;
-    v50 = v12;
-    v52 = v10;
+    v49 = v12;
+    v51 = v10;
     selfCopy = self;
     while (1)
     {
       v14 = 0;
-      v57 = v13;
+      v56 = v13;
       do
       {
-        if (*v61 != v59)
+        if (*v60 != v58)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v60 + 1) + 8 * v14);
+        v15 = *(*(&v59 + 1) + 8 * v14);
         wallpaperFolderURL3 = [(HFWallpaperLegacyFileManager *)self wallpaperFolderURL];
         v17 = [wallpaperFolderURL3 URLByAppendingPathComponent:v15];
 
@@ -74,7 +74,7 @@
         v20 = [defaultManager2 attributesOfItemAtPath:path2 error:0];
 
         fileType = [v20 fileType];
-        LODWORD(path2) = [fileType isEqualToString:v58];
+        LODWORD(path2) = [fileType isEqualToString:v57];
 
         if (path2)
         {
@@ -94,14 +94,14 @@
               p_super = &v29->super;
               if (v29)
               {
-                v54 = v24;
-                v55 = v28;
+                v53 = v24;
+                v54 = v28;
                 v31 = [(HFWallpaperLegacyFileManager *)self filenameForType:[(HFWallpaper *)v29 type] variant:0];
                 v32 = [v17 URLByAppendingPathComponent:v31];
 
                 v33 = MEMORY[0x277D755B8];
                 defaultManager3 = [*(v5 + 2560) defaultManager];
-                v56 = v32;
+                v55 = v32;
                 path4 = [v32 path];
                 v36 = [defaultManager3 contentsAtPath:path4];
                 mainScreen = [MEMORY[0x277D759A0] mainScreen];
@@ -115,9 +115,9 @@
                   if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138412546;
-                    v65 = p_super;
-                    v66 = 2112;
-                    v67 = v23;
+                    v64 = p_super;
+                    v65 = 2112;
+                    v66 = v23;
                     _os_log_impl(&dword_20D9BF000, v40, OS_LOG_TYPE_DEFAULT, "Migrating wallpaper %@ for HomeKit identifier %@", buf, 0x16u);
                   }
 
@@ -127,16 +127,16 @@
                   path5 = [v17 path];
                   v43 = [defaultManager4 removeItemAtPath:path5 error:0];
 
-                  v10 = v52;
-                  v24 = v54;
+                  v10 = v51;
+                  v24 = v53;
                   if ((v43 & 1) == 0)
                   {
                     v40 = HFLogForCategory(0x4EuLL);
                     if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
                     {
                       path6 = [v17 path];
-                      *buf = v50;
-                      v65 = path6;
+                      *buf = v49;
+                      v64 = path6;
                       _os_log_error_impl(&dword_20D9BF000, v40, OS_LOG_TYPE_ERROR, "Failed to remove wallpaper at path %@", buf, 0xCu);
 
                       goto LABEL_26;
@@ -150,15 +150,15 @@
                 {
                   if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
                   {
-                    path7 = [v56 path];
-                    *buf = v50;
-                    v65 = path7;
+                    path7 = [v55 path];
+                    *buf = v49;
+                    v64 = path7;
                     _os_log_error_impl(&dword_20D9BF000, v40, OS_LOG_TYPE_ERROR, "Failed to read original wallpaper at path %@", buf, 0xCu);
                   }
 
-                  v10 = v52;
+                  v10 = v51;
 LABEL_26:
-                  v24 = v54;
+                  v24 = v53;
 LABEL_27:
 
                   v5 = 0x277CCA000;
@@ -166,21 +166,21 @@ LABEL_27:
 
                 self = selfCopy;
 LABEL_29:
-                v28 = v55;
+                v28 = v54;
               }
 
               else
               {
-                v56 = HFLogForCategory(0x4EuLL);
-                if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+                v55 = HFLogForCategory(0x4EuLL);
+                if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
                 {
                   [v17 path];
-                  v47 = v55 = v28;
+                  v47 = v54 = v28;
                   *buf = 138412546;
-                  v65 = v47;
-                  v66 = 2112;
-                  v67 = v55;
-                  _os_log_error_impl(&dword_20D9BF000, v56, OS_LOG_TYPE_ERROR, "Failed to create wallpaper at path %@ from dict %@", buf, 0x16u);
+                  v64 = v47;
+                  v65 = 2112;
+                  v66 = v54;
+                  _os_log_error_impl(&dword_20D9BF000, v55, OS_LOG_TYPE_ERROR, "Failed to create wallpaper at path %@ from dict %@", buf, 0x16u);
 
                   goto LABEL_29;
                 }
@@ -193,8 +193,8 @@ LABEL_29:
               if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
               {
                 path8 = [v24 path];
-                *buf = v50;
-                v65 = path8;
+                *buf = v49;
+                v64 = path8;
                 _os_log_error_impl(&dword_20D9BF000, p_super, OS_LOG_TYPE_ERROR, "No wallpaper found at path %@", buf, 0xCu);
 
                 v28 = 0;
@@ -208,20 +208,20 @@ LABEL_29:
             if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
             {
               path9 = [v17 path];
-              *buf = v50;
-              v65 = path9;
+              *buf = v49;
+              v64 = path9;
               _os_log_error_impl(&dword_20D9BF000, v23, OS_LOG_TYPE_ERROR, "Unable to migrate non-wallpaper directory %@", buf, 0xCu);
             }
           }
 
-          v13 = v57;
+          v13 = v56;
         }
 
         ++v14;
       }
 
       while (v13 != v14);
-      v13 = [v10 countByEnumeratingWithState:&v60 objects:v68 count:16];
+      v13 = [v10 countByEnumeratingWithState:&v59 objects:v67 count:16];
       if (!v13)
       {
 LABEL_35:
@@ -239,19 +239,17 @@ LABEL_35:
   }
 
 LABEL_38:
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 - (id)clearAllWallpapers
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   wallpaperFolderURL = [(HFWallpaperLegacyFileManager *)self wallpaperFolderURL];
   path = [wallpaperFolderURL path];
-  v13 = 0;
-  v6 = [defaultManager removeItemAtPath:path error:&v13];
-  v7 = v13;
+  v12 = 0;
+  v6 = [defaultManager removeItemAtPath:path error:&v12];
+  v7 = v12;
 
   if ((v6 & 1) == 0)
   {
@@ -261,12 +259,10 @@ LABEL_38:
       wallpaperFolderURL2 = [(HFWallpaperLegacyFileManager *)self wallpaperFolderURL];
       path2 = [wallpaperFolderURL2 path];
       *buf = 138412290;
-      v15 = path2;
+      v14 = path2;
       _os_log_error_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_ERROR, "Failed to remove all wallpapers at path %@", buf, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

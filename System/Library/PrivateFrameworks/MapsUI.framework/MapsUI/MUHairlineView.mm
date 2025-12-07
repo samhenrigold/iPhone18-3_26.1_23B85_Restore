@@ -83,7 +83,6 @@
 
 - (CGSize)sizeThatFits:(CGSize)result
 {
-  intrinsicThickness = self->_intrinsicThickness;
   if (self->_vertical)
   {
     result.width = self->_intrinsicThickness;
@@ -222,7 +221,7 @@
 
 - (void)customInit
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   selfCopy = self;
   window = [(MUHairlineView *)selfCopy window];
   screen = [window screen];
@@ -257,11 +256,9 @@
   LODWORD(v12) = 1148846080;
   [(MUHairlineView *)selfCopy setContentCompressionResistancePriority:1 forAxis:v12];
   v13 = objc_opt_self();
-  v17[0] = v13;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+  v16[0] = v13;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
   v15 = [(MUHairlineView *)selfCopy registerForTraitChanges:v14 withAction:sel__updateIntrinsicThicknessForDisplayScale];
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (MUHairlineView)initWithCoder:(id)coder

@@ -302,64 +302,63 @@ HKUserDomainConceptLinkStructWrapper *__64__HKUserDomainConceptLinkCollection_co
 
 - (id)collectionByMergingCollection:(id)collection
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   collectionCopy = collection;
+  v6 = collectionCopy;
   epoch = self->_epoch;
-  v6 = collectionCopy[4];
-  if (epoch <= v6)
+  v8 = collectionCopy[4];
+  if (epoch <= v8)
   {
-    if (epoch >= v6)
+    if (epoch >= v8)
     {
-      v14 = [(HKLinkSetWrapper *)self->_orderedSet mergingLinkSet:collectionCopy[1]];
-      v15 = [(HKUserDomainConceptLinkCollection *)self _copyWithLinkSetWrapper:v14];
+      v20 = [(HKLinkSetWrapper *)self->_orderedSet mergingLinkSet:collectionCopy[1]];
+      v21 = [(HKUserDomainConceptLinkCollection *)self _copyWithLinkSetWrapper:v20];
 
       goto LABEL_11;
     }
 
-    _HKInitializeLogging();
-    v11 = HKLogHealthOntology();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    _HKInitializeLogging(collectionCopy, v5);
+    v17 = HKLogHealthOntology(v15, v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = collectionCopy[4];
-      v13 = self->_epoch;
-      v18 = 138543874;
+      v18 = v6[4];
+      v19 = self->_epoch;
+      v23 = 138543874;
       selfCopy2 = self;
-      v20 = 2048;
-      v21 = v12;
-      v22 = 2048;
-      v23 = v13;
-      _os_log_impl(&dword_19197B000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: returning other because epoch %ld is higher than self epoch %ld", &v18, 0x20u);
+      v25 = 2048;
+      v26 = v18;
+      v27 = 2048;
+      v28 = v19;
+      _os_log_impl(&dword_19197B000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@: returning other because epoch %ld is higher than self epoch %ld", &v23, 0x20u);
     }
 
-    selfCopy3 = collectionCopy;
+    selfCopy3 = v6;
   }
 
   else
   {
-    _HKInitializeLogging();
-    v7 = HKLogHealthOntology();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    _HKInitializeLogging(collectionCopy, v5);
+    v11 = HKLogHealthOntology(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = self->_epoch;
-      v9 = collectionCopy[4];
-      v18 = 138543874;
+      v12 = self->_epoch;
+      v13 = v6[4];
+      v23 = 138543874;
       selfCopy2 = self;
-      v20 = 2048;
-      v21 = v8;
-      v22 = 2048;
-      v23 = v9;
-      _os_log_impl(&dword_19197B000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: returning self because epoch %ld is higher than other epoch %ld", &v18, 0x20u);
+      v25 = 2048;
+      v26 = v12;
+      v27 = 2048;
+      v28 = v13;
+      _os_log_impl(&dword_19197B000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: returning self because epoch %ld is higher than other epoch %ld", &v23, 0x20u);
     }
 
     selfCopy3 = self;
   }
 
-  v15 = selfCopy3;
+  v21 = selfCopy3;
 LABEL_11:
 
-  v16 = *MEMORY[0x1E69E9840];
-
-  return v15;
+  return v21;
 }
 
 - (id)collectionByMergingInLegacyArrayOfLinks:(id)links
@@ -416,97 +415,98 @@ HKUserDomainConceptLinkStructWrapper *__77__HKUserDomainConceptLinkCollection_co
 
 - (void)encodeWithCoder:(id)coder
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = objc_autoreleasePoolPush();
   orderedSet = self->_orderedSet;
-  v18 = 0;
-  v7 = [(HKLinkSetWrapper *)orderedSet serializedDataWithError:&v18];
-  v8 = v18;
+  v25 = 0;
+  v7 = [(HKLinkSetWrapper *)orderedSet serializedDataWithError:&v25];
+  v8 = v25;
+  v10 = v8;
   if (v7)
   {
-    if ([v7 length] < 0x32000)
+    v11 = [v7 length];
+    if (v11 < 0x32000)
     {
       [coderCopy encodeObject:v7 forKey:@"links"];
       [coderCopy encodeInteger:self->_epoch forKey:@"epoch"];
       goto LABEL_10;
     }
 
-    _HKInitializeLogging();
-    v9 = HKLogHealthOntology();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    _HKInitializeLogging(v11, v12);
+    v15 = HKLogHealthOntology(v13, v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
-      v15 = objc_opt_class();
-      v16 = [(HKLinkSetWrapper *)self->_orderedSet count];
-      v17 = [v7 length];
+      v22 = objc_opt_class();
+      v23 = [(HKLinkSetWrapper *)self->_orderedSet count];
+      v24 = [v7 length];
       *buf = 138544386;
-      v20 = v15;
-      v21 = 2048;
+      v27 = v22;
+      v28 = 2048;
       selfCopy = self;
-      v23 = 2048;
-      v24 = v16;
-      v25 = 2048;
-      v26 = v17;
-      v27 = 2048;
-      v28 = 204800;
-      _os_log_fault_impl(&dword_19197B000, v9, OS_LOG_TYPE_FAULT, "<%{public}@:%p %ld>: Dropping history because serialized data length %ld > %ld", buf, 0x34u);
+      v30 = 2048;
+      v31 = v23;
+      v32 = 2048;
+      v33 = v24;
+      v34 = 2048;
+      v35 = 204800;
+      _os_log_fault_impl(&dword_19197B000, v15, OS_LOG_TYPE_FAULT, "<%{public}@:%p %ld>: Dropping history because serialized data length %ld > %ld", buf, 0x34u);
     }
 
-    v10 = [HKLinkSetWrapper alloc];
+    v16 = [HKLinkSetWrapper alloc];
     elements = [(HKLinkSetWrapper *)self->_orderedSet elements];
-    v12 = [(HKLinkSetWrapper *)v10 initWithLinks:elements];
+    v18 = [(HKLinkSetWrapper *)v16 initWithLinks:elements];
 
-    v13 = [[HKUserDomainConceptLinkCollection alloc] initWithLinkSetWrapper:v12 epoch:self->_epoch + 1];
-    [(HKUserDomainConceptLinkCollection *)v13 encodeWithCoder:coderCopy];
+    v19 = [[HKUserDomainConceptLinkCollection alloc] initWithLinkSetWrapper:v18 epoch:self->_epoch + 1];
+    [(HKUserDomainConceptLinkCollection *)v19 encodeWithCoder:coderCopy];
   }
 
   else
   {
-    _HKInitializeLogging();
-    v12 = HKLogHealthOntology();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    _HKInitializeLogging(v8, v9);
+    v18 = HKLogHealthOntology(v20, v21);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [HKUserDomainConceptLinkCollection encodeWithCoder:];
+      [HKUserDomainConceptLinkCollection encodeWithCoder:?];
     }
   }
 
 LABEL_10:
   objc_autoreleasePoolPop(v5);
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (HKUserDomainConceptLinkCollection)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v14 = 0;
-  v5 = [(HKUserDomainConceptLinkCollection *)self _orderedSetWithDecoder:coderCopy error:&v14];
-  v6 = v14;
+  v18 = 0;
+  v5 = [(HKUserDomainConceptLinkCollection *)self _orderedSetWithDecoder:coderCopy error:&v18];
+  v6 = v18;
+  v8 = v6;
   if (v5)
   {
-    v7 = [coderCopy decodeIntegerForKey:@"epoch"];
-    v13.receiver = self;
-    v13.super_class = HKUserDomainConceptLinkCollection;
-    v8 = [(HKUserDomainConceptLinkCollection *)&v13 init];
-    v9 = v8;
-    if (v8)
+    v9 = [coderCopy decodeIntegerForKey:@"epoch"];
+    v17.receiver = self;
+    v17.super_class = HKUserDomainConceptLinkCollection;
+    v10 = [(HKUserDomainConceptLinkCollection *)&v17 init];
+    v11 = v10;
+    if (v10)
     {
-      objc_storeStrong(&v8->_orderedSet, v5);
-      v9->_epoch = v7;
-      v9->_lock._os_unfair_lock_opaque = 0;
+      objc_storeStrong(&v10->_orderedSet, v5);
+      v11->_epoch = v9;
+      v11->_lock._os_unfair_lock_opaque = 0;
     }
 
-    self = v9;
+    self = v11;
     selfCopy = self;
   }
 
   else
   {
-    _HKInitializeLogging();
-    v11 = HKLogHealthOntology();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    _HKInitializeLogging(v6, v7);
+    v15 = HKLogHealthOntology(v13, v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [HKUserDomainConceptLinkCollection initWithCoder:];
+      [HKUserDomainConceptLinkCollection initWithCoder:?];
     }
 
     selfCopy = 0;
@@ -517,15 +517,15 @@ LABEL_10:
 
 - (id)_orderedSetWithDecoder:(id)decoder error:(id *)error
 {
-  v22[4] = *MEMORY[0x1E69E9840];
+  v21[4] = *MEMORY[0x1E69E9840];
   v7 = MEMORY[0x1E695DFD8];
   decoderCopy = decoder;
   v9 = [v7 alloc];
-  v22[0] = objc_opt_class();
-  v22[1] = objc_opt_class();
-  v22[2] = objc_opt_class();
-  v22[3] = objc_opt_class();
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:4];
+  v21[0] = objc_opt_class();
+  v21[1] = objc_opt_class();
+  v21[2] = objc_opt_class();
+  v21[3] = objc_opt_class();
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:4];
   v11 = [v9 initWithArray:v10];
 
   v12 = [decoderCopy decodeObjectOfClasses:v11 forKey:@"links"];
@@ -566,8 +566,6 @@ LABEL_10:
       }
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -644,22 +642,18 @@ HKUserDomainConceptLinkStructWrapper *__54__HKUserDomainConceptLinkCollection__w
   [v0 handleFailureInMethod:@"idx2 < _orderedSet.count" object:? file:? lineNumber:? description:?];
 }
 
-- (void)encodeWithCoder:.cold.1()
+- (void)encodeWithCoder:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   OUTLINED_FUNCTION_2_4();
-  OUTLINED_FUNCTION_3_1(&dword_19197B000, v0, v1, "%{public}@: unable to encode %{public}@: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_1(&dword_19197B000, v1, v2, "%{public}@: unable to encode %{public}@: %{public}@", v3, v4, v5, v6);
 }
 
-- (void)initWithCoder:.cold.1()
+- (void)initWithCoder:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   OUTLINED_FUNCTION_2_4();
-  OUTLINED_FUNCTION_3_1(&dword_19197B000, v0, v1, "%{public}@: unable to decode %{public}@: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_1(&dword_19197B000, v1, v2, "%{public}@: unable to decode %{public}@: %{public}@", v3, v4, v5, v6);
 }
 
 @end

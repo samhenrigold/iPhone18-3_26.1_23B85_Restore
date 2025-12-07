@@ -187,9 +187,7 @@ LABEL_8:
 
 - (void)setApplication_bundle_identifier:(id)application_bundle_identifier
 {
-  v4 = [application_bundle_identifier copy];
-  application_bundle_identifier = self->_application_bundle_identifier;
-  self->_application_bundle_identifier = v4;
+  self->_application_bundle_identifier = [application_bundle_identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }

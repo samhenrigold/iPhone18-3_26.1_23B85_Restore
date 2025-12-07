@@ -41,13 +41,13 @@ uint64_t __30__TUDialAssist_sharedInstance__block_invoke()
   return v2;
 }
 
-uint64_t __20__TUDialAssist_init__block_invoke()
+uint64_t __20__TUDialAssist_init__block_invoke(uint64_t a1)
 {
-  v0 = TUDefaultLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = TUDefaultLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_1956FD000, v0, OS_LOG_TYPE_DEFAULT, "Dial assist value changed. Synchronizing prefs", v2, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_1956FD000, v1, OS_LOG_TYPE_DEFAULT, "Dial assist value changed. Synchronizing prefs", v3, 2u);
   }
 
   return CFPreferencesAppSynchronize(TUDialAssistDomain);

@@ -313,7 +313,7 @@ void __42__WRM_iRATInterface_registerClient_queue___block_invoke(uint64_t a1, vo
 
 void __53__WRM_iRATInterface_subscribeBtLqmScoreNotification___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (*(*(a1 + 32) + 8))
   {
     v2 = MEMORY[0x2743E9050](*(a1 + 40));
@@ -324,12 +324,12 @@ void __53__WRM_iRATInterface_subscribeBtLqmScoreNotification___block_invoke(uint
     v5 = xpc_dictionary_create(0, 0, 0);
     *keys = xmmword_279ED5F68;
     v6 = xpc_uint64_create(0x1A5uLL);
-    v11[0] = v6;
+    v10[0] = v6;
     v7 = v5;
-    v11[1] = v7;
-    v8 = xpc_dictionary_create(keys, v11, 2uLL);
+    v10[1] = v7;
+    v8 = xpc_dictionary_create(keys, v10, 2uLL);
     xpc_connection_send_message(*(*(a1 + 32) + 8), v8);
-    NSLog(&cfstr_XpcMessageSent.isa, v11[0]);
+    NSLog(&cfstr_XpcMessageSent.isa, v10[0]);
 
     for (i = 1; i != -1; --i)
     {
@@ -340,13 +340,11 @@ void __53__WRM_iRATInterface_subscribeBtLqmScoreNotification___block_invoke(uint
   {
     NSLog(&cfstr_Subscribebtlqm.isa);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __56__WRM_iRATInterface_getVoiceLqmValue_completionHandler___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if (*(v1 + 8))
   {
@@ -385,8 +383,8 @@ void __56__WRM_iRATInterface_getVoiceLqmValue_completionHandler___block_invoke(u
         handler[1] = 3221225472;
         handler[2] = __56__WRM_iRATInterface_getVoiceLqmValue_completionHandler___block_invoke_2;
         handler[3] = &unk_279ED5DE0;
-        v15 = *(a1 + 48);
-        v14 = *(a1 + 40);
+        v14 = *(a1 + 48);
+        v13 = *(a1 + 40);
         xpc_connection_send_message_with_reply(v9, v7, v10, handler);
 
         for (i = 1; i != -1; --i)
@@ -405,8 +403,6 @@ void __56__WRM_iRATInterface_getVoiceLqmValue_completionHandler___block_invoke(u
   {
     NSLog(&cfstr_Getvoicelqmval.isa);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __56__WRM_iRATInterface_getVoiceLqmValue_completionHandler___block_invoke_2(uint64_t a1, void *a2)
@@ -466,13 +462,11 @@ void __51__WRM_iRATInterface_subscribeVoiceLqmNotification___block_invoke(uint64
   {
     NSLog(&cfstr_Subscribevoice.isa);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __58__WRM_iRATInterface_subscribeProximityLinkRecommendation___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (*(*(a1 + 32) + 8))
   {
     v2 = MEMORY[0x2743E9050](*(a1 + 40));
@@ -515,23 +509,21 @@ void __58__WRM_iRATInterface_subscribeProximityLinkRecommendation___block_invoke
       }
 
       NSLog(&cfstr_SendingDefault.isa, v9);
-      v10 = *(a1 + 32);
-      v11 = *(v10 + 136);
-      (*(*(v10 + 72) + 16))();
+      (*(*(*(a1 + 32) + 72) + 16))();
       [*(*(a1 + 32) + 136) removeAllObjects];
     }
 
-    v12 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_uint64(v12, "kWRMApplicationType", 0);
-    xpc_dictionary_set_uint64(v12, "kWRMSubscriptionType", 0);
-    xpc_dictionary_set_BOOL(v12, "kWRMProximityLinkRecommendationSubscriptionValid", *(*(a1 + 32) + 124));
+    v10 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_uint64(v10, "kWRMApplicationType", 0);
+    xpc_dictionary_set_uint64(v10, "kWRMSubscriptionType", 0);
+    xpc_dictionary_set_BOOL(v10, "kWRMProximityLinkRecommendationSubscriptionValid", *(*(a1 + 32) + 124));
     *keys = xmmword_279ED5F68;
-    v13 = xpc_uint64_create([*(a1 + 32) getSubscribeMessageType:*(*(a1 + 32) + 16)]);
-    values[0] = v13;
-    v14 = v12;
-    values[1] = v14;
-    v15 = xpc_dictionary_create(keys, values, 2uLL);
-    xpc_connection_send_message(*(*(a1 + 32) + 8), v15);
+    v11 = xpc_uint64_create([*(a1 + 32) getSubscribeMessageType:*(*(a1 + 32) + 16)]);
+    values[0] = v11;
+    v12 = v10;
+    values[1] = v12;
+    v13 = xpc_dictionary_create(keys, values, 2uLL);
+    xpc_connection_send_message(*(*(a1 + 32) + 8), v13);
 
     for (i = 1; i != -1; --i)
     {
@@ -542,13 +534,11 @@ void __58__WRM_iRATInterface_subscribeProximityLinkRecommendation___block_invoke
   {
     NSLog(&cfstr_Subscribeproxi.isa);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __50__WRM_iRATInterface_getLinkRecommendationMetrics___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if (*(v1 + 8))
   {
@@ -568,10 +558,10 @@ void __50__WRM_iRATInterface_getLinkRecommendationMetrics___block_invoke(uint64_
     xpc_dictionary_set_BOOL(v7, "kWRMProximityGetProximityGetMetrics", *(*(a1 + 32) + 127));
     *keys = xmmword_279ED5F68;
     v8 = xpc_uint64_create(0x19FuLL);
-    v13[0] = v8;
+    v12[0] = v8;
     v9 = v7;
-    v13[1] = v9;
-    v10 = xpc_dictionary_create(keys, v13, 2uLL);
+    v12[1] = v9;
+    v10 = xpc_dictionary_create(keys, v12, 2uLL);
     xpc_connection_send_message(*(*(a1 + 32) + 8), v10);
 
     for (i = 1; i != -1; --i)
@@ -583,13 +573,11 @@ void __50__WRM_iRATInterface_getLinkRecommendationMetrics___block_invoke(uint64_
   {
     NSLog(&cfstr_Getlinkrecomme.isa);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __67__WRM_iRATInterface_getProximityLinkRecommendation_recommendation___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if (*(v1 + 8))
   {
@@ -612,10 +600,10 @@ void __67__WRM_iRATInterface_getProximityLinkRecommendation_recommendation___blo
     xpc_dictionary_set_BOOL(v7, "kWRMProximityLinkRecommendationIsRetry", *(a1 + 48));
     *keys = xmmword_279ED5F68;
     v8 = xpc_uint64_create([*(a1 + 32) getSubscribeMessageType:*(*(a1 + 32) + 16)]);
-    v13[0] = v8;
+    v12[0] = v8;
     v9 = v7;
-    v13[1] = v9;
-    v10 = xpc_dictionary_create(keys, v13, 2uLL);
+    v12[1] = v9;
+    v10 = xpc_dictionary_create(keys, v12, 2uLL);
     xpc_connection_send_message(*(*(a1 + 32) + 8), v10);
 
     for (i = 1; i != -1; --i)
@@ -627,13 +615,11 @@ void __67__WRM_iRATInterface_getProximityLinkRecommendation_recommendation___blo
   {
     NSLog(&cfstr_Getproximityli.isa);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __58__WRM_iRATInterface_statusUpdateAppLinkPreference_status___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (*(*(a1 + 32) + 8))
   {
     v2 = xpc_dictionary_create(0, 0, 0);
@@ -641,10 +627,10 @@ void __58__WRM_iRATInterface_statusUpdateAppLinkPreference_status___block_invoke
     xpc_dictionary_set_BOOL(v2, "kWRMProximityAppLinkPreferenceActive", *(a1 + 44));
     *keys = xmmword_279ED5F68;
     v3 = xpc_uint64_create([*(a1 + 32) getStatusUpdateMessageType:*(*(a1 + 32) + 16)]);
-    v8[0] = v3;
+    v7[0] = v3;
     v4 = v2;
-    v8[1] = v4;
-    v5 = xpc_dictionary_create(keys, v8, 2uLL);
+    v7[1] = v4;
+    v5 = xpc_dictionary_create(keys, v7, 2uLL);
     xpc_connection_send_message(*(*(a1 + 32) + 8), v5);
 
     for (i = 1; i != -1; --i)
@@ -656,73 +642,73 @@ void __58__WRM_iRATInterface_statusUpdateAppLinkPreference_status___block_invoke
   {
     NSLog(&cfstr_Statusupdateap.isa);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __47__WRM_iRATInterface_getStreamingInfo_linkType___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  if (!*(v1 + 8))
+  if (*(v1 + 8))
   {
-    NSLog(&cfstr_Getstreamingin.isa);
-    goto LABEL_16;
-  }
+    v3 = *(v1 + 16);
+    if (v3 < 0x2A && ((0x3EEEFFFFFFFuLL >> v3) & 1) != 0)
+    {
+      v4 = off_279ED5FB8[v3];
+    }
 
-  v3 = *(v1 + 16);
-  if (v3 < 0x2A && ((0x3EEEFFFFFFFuLL >> v3) & 1) != 0)
-  {
-    v4 = off_279ED5FB8[v3];
-  }
+    else if (v3 == 42)
+    {
+      v4 = "WRMSOS";
+    }
 
-  else if (v3 == 42)
-  {
-    v4 = "WRMSOS";
+    else
+    {
+      v4 = "INVALID_PROC_ID!!!";
+    }
+
+    NSLog(&cfstr_ReceivedGetlin.isa, v4);
+    if (*(a1 + 40) && (v5 = MEMORY[0x2743E9050]()) != 0)
+    {
+      v13 = v5;
+      v6 = xpc_dictionary_create(0, 0, 0);
+      if (v6)
+      {
+        v7 = v6;
+        xpc_dictionary_set_uint64(v6, "WRMGetStreamingMetrics_linkType", *(a1 + 48));
+        *keys = xmmword_279ED5F68;
+        values[0] = xpc_uint64_create(0x1A1uLL);
+        v8 = v7;
+        values[1] = v8;
+        v9 = xpc_dictionary_create(keys, values, 2uLL);
+        v10 = *(*(a1 + 32) + 8);
+        handler[0] = MEMORY[0x277D85DD0];
+        handler[1] = 3221225472;
+        handler[2] = __47__WRM_iRATInterface_getStreamingInfo_linkType___block_invoke_2;
+        handler[3] = &unk_279ED5D18;
+        v11 = v13;
+        v15 = v11;
+        xpc_connection_send_message_with_reply(v10, v9, 0, handler);
+
+        for (i = 1; i != -1; --i)
+        {
+        }
+      }
+
+      else
+      {
+      }
+    }
+
+    else
+    {
+      NSLog(&cfstr_ReceivedGetlin_0.isa);
+    }
   }
 
   else
   {
-    v4 = "INVALID_PROC_ID!!!";
+    NSLog(&cfstr_Getstreamingin.isa);
   }
-
-  NSLog(&cfstr_ReceivedGetlin.isa, v4);
-  if (!*(a1 + 40) || (v5 = MEMORY[0x2743E9050]()) == 0)
-  {
-    NSLog(&cfstr_ReceivedGetlin_0.isa);
-LABEL_16:
-    v13 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  v15 = v5;
-  v6 = xpc_dictionary_create(0, 0, 0);
-  if (v6)
-  {
-    v7 = v6;
-    xpc_dictionary_set_uint64(v6, "WRMGetStreamingMetrics_linkType", *(a1 + 48));
-    *keys = xmmword_279ED5F68;
-    values[0] = xpc_uint64_create(0x1A1uLL);
-    v8 = v7;
-    values[1] = v8;
-    v9 = xpc_dictionary_create(keys, values, 2uLL);
-    v10 = *(*(a1 + 32) + 8);
-    handler[0] = MEMORY[0x277D85DD0];
-    handler[1] = 3221225472;
-    handler[2] = __47__WRM_iRATInterface_getStreamingInfo_linkType___block_invoke_2;
-    handler[3] = &unk_279ED5D18;
-    v11 = v15;
-    v17 = v11;
-    xpc_connection_send_message_with_reply(v10, v9, 0, handler);
-
-    for (i = 1; i != -1; --i)
-    {
-    }
-
-    goto LABEL_16;
-  }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __47__WRM_iRATInterface_getStreamingInfo_linkType___block_invoke_2(uint64_t a1, void *a2)
@@ -741,79 +727,81 @@ uint64_t __47__WRM_iRATInterface_getStreamingInfo_linkType___block_invoke_2(uint
 
 void __54__WRM_iRATInterface_getMLPredictedThroughput_options___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  if (!*(v1 + 8))
+  if (*(v1 + 8))
   {
-    NSLog(&cfstr_Getmlpredicted.isa);
-    goto LABEL_20;
-  }
-
-  v3 = *(v1 + 16);
-  if (v3 < 0x2A && ((0x3EEEFFFFFFFuLL >> v3) & 1) != 0)
-  {
-    v4 = off_279ED5FB8[v3];
-  }
-
-  else if (v3 == 42)
-  {
-    v4 = "WRMSOS";
-  }
-
-  else
-  {
-    v4 = "INVALID_PROC_ID!!!";
-  }
-
-  NSLog(&cfstr_ReceivedGetmlp.isa, v4);
-  if (!*(a1 + 48) || (NSLog(&cfstr_ReceivedMlpred.isa), (v17 = MEMORY[0x2743E9050](*(a1 + 48))) == 0))
-  {
-    NSLog(&cfstr_ReceivedGetmlp_0.isa);
-LABEL_20:
-    v15 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  NSLog(&cfstr_ReceivedNotifi.isa);
-  v5 = xpc_dictionary_create(0, 0, 0);
-  if (v5)
-  {
-    v6 = v5;
-    NSLog(&cfstr_ReceivedArgsIs.isa);
-    v7 = *(a1 + 40);
-    if (v7 && ([v7 objectForKey:@"linkType"], v8 = objc_claimAutoreleasedReturnValue(), v8, v8))
+    v3 = *(v1 + 16);
+    if (v3 < 0x2A && ((0x3EEEFFFFFFFuLL >> v3) & 1) != 0)
     {
-      v9 = [*(a1 + 40) objectForKey:@"linkType"];
-      xpc_dictionary_set_int64(v6, "WRMMLPredictedThroughput_linkType", [v9 intValue]);
+      v4 = off_279ED5FB8[v3];
+    }
+
+    else if (v3 == 42)
+    {
+      v4 = "WRMSOS";
     }
 
     else
     {
-      xpc_dictionary_set_int64(v6, "WRMMLPredictedThroughput_linkType", -1);
+      v4 = "INVALID_PROC_ID!!!";
     }
 
-    *keys = xmmword_279ED5F68;
-    values[0] = xpc_uint64_create(0x1A7uLL);
-    v10 = v6;
-    values[1] = v10;
-    v11 = xpc_dictionary_create(keys, values, 2uLL);
-    v12 = *(*(a1 + 32) + 8);
-    handler[0] = MEMORY[0x277D85DD0];
-    handler[1] = 3221225472;
-    handler[2] = __54__WRM_iRATInterface_getMLPredictedThroughput_options___block_invoke_2;
-    handler[3] = &unk_279ED5D18;
-    v13 = v17;
-    v19 = v13;
-    xpc_connection_send_message_with_reply(v12, v11, 0, handler);
-
-    for (i = 1; i != -1; --i)
+    NSLog(&cfstr_ReceivedGetmlp.isa, v4);
+    if (*(a1 + 48) && (NSLog(&cfstr_ReceivedMlpred.isa), (v15 = MEMORY[0x2743E9050](*(a1 + 48))) != 0))
     {
+      NSLog(&cfstr_ReceivedNotifi.isa);
+      v5 = xpc_dictionary_create(0, 0, 0);
+      if (v5)
+      {
+        v6 = v5;
+        NSLog(&cfstr_ReceivedArgsIs.isa);
+        v7 = *(a1 + 40);
+        if (v7 && ([v7 objectForKey:@"linkType"], v8 = objc_claimAutoreleasedReturnValue(), v8, v8))
+        {
+          v9 = [*(a1 + 40) objectForKey:@"linkType"];
+          xpc_dictionary_set_int64(v6, "WRMMLPredictedThroughput_linkType", [v9 intValue]);
+        }
+
+        else
+        {
+          xpc_dictionary_set_int64(v6, "WRMMLPredictedThroughput_linkType", -1);
+        }
+
+        *keys = xmmword_279ED5F68;
+        values[0] = xpc_uint64_create(0x1A7uLL);
+        v10 = v6;
+        values[1] = v10;
+        v11 = xpc_dictionary_create(keys, values, 2uLL);
+        v12 = *(*(a1 + 32) + 8);
+        handler[0] = MEMORY[0x277D85DD0];
+        handler[1] = 3221225472;
+        handler[2] = __54__WRM_iRATInterface_getMLPredictedThroughput_options___block_invoke_2;
+        handler[3] = &unk_279ED5D18;
+        v13 = v15;
+        v17 = v13;
+        xpc_connection_send_message_with_reply(v12, v11, 0, handler);
+
+        for (i = 1; i != -1; --i)
+        {
+        }
+      }
+
+      else
+      {
+      }
     }
 
-    goto LABEL_20;
+    else
+    {
+      NSLog(&cfstr_ReceivedGetmlp_0.isa);
+    }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
+  else
+  {
+    NSLog(&cfstr_Getmlpredicted.isa);
+  }
 }
 
 uint64_t __54__WRM_iRATInterface_getMLPredictedThroughput_options___block_invoke_2(uint64_t a1, xpc_object_t xdict)
@@ -827,7 +815,7 @@ uint64_t __54__WRM_iRATInterface_getMLPredictedThroughput_options___block_invoke
 
 void __50__WRM_iRATInterface_assertCommCenterBaseBandMode___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (*(*(a1 + 32) + 8))
   {
     v2 = xpc_dictionary_create(0, 0, 0);
@@ -841,9 +829,9 @@ void __50__WRM_iRATInterface_assertCommCenterBaseBandMode___block_invoke(uint64_
       *(*v4 + 128) = v6;
       xpc_dictionary_set_uint64(v2, "WRMTriggerCommCenterBasebandOperatingModeChange_AssertBasebandGPS", v6);
       *keys = xmmword_279ED5F68;
-      v10[0] = xpc_uint64_create(0x19AuLL);
-      v10[1] = v3;
-      v7 = xpc_dictionary_create(keys, v10, 2uLL);
+      v9[0] = xpc_uint64_create(0x19AuLL);
+      v9[1] = v3;
+      v7 = xpc_dictionary_create(keys, v9, 2uLL);
       xpc_connection_send_message(*(*v4 + 8), v7);
 
       for (i = 1; i != -1; --i)
@@ -856,8 +844,6 @@ void __50__WRM_iRATInterface_assertCommCenterBaseBandMode___block_invoke(uint64_
   {
     NSLog(&cfstr_Assertcommcent.isa);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __54__WRM_iRATInterface_expediteCellularForReason_reason___block_invoke(uint64_t a1)
@@ -886,7 +872,7 @@ uint64_t __54__WRM_iRATInterface_expediteCellularForReason_reason___block_invoke
 
 void __41__WRM_iRATInterface_setTelephonyEnabled___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (*(*(a1 + 32) + 8))
   {
     v2 = xpc_dictionary_create(0, 0, 0);
@@ -900,9 +886,9 @@ void __41__WRM_iRATInterface_setTelephonyEnabled___block_invoke(uint64_t a1)
       *(*v4 + 122) = v6;
       xpc_dictionary_set_uint64(v2, "WRMTriggerCommCenterBasebandOperatingModeChange_AssertTelephony", v6);
       *keys = xmmword_279ED5F68;
-      v10[0] = xpc_uint64_create(0x19AuLL);
-      v10[1] = v3;
-      v7 = xpc_dictionary_create(keys, v10, 2uLL);
+      v9[0] = xpc_uint64_create(0x19AuLL);
+      v9[1] = v3;
+      v7 = xpc_dictionary_create(keys, v9, 2uLL);
       xpc_connection_send_message(*(*v4 + 8), v7);
 
       for (i = 1; i != -1; --i)
@@ -915,13 +901,11 @@ void __41__WRM_iRATInterface_setTelephonyEnabled___block_invoke(uint64_t a1)
   {
     NSLog(&cfstr_Settelephonyen.isa);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __47__WRM_iRATInterface_subscribeAppType_observer___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (*(*(a1 + 32) + 8))
   {
     v2 = [MEMORY[0x277CCAE60] valueWithBytes:a1 + 48 objCType:"{?=iiii}"];
@@ -949,10 +933,10 @@ void __47__WRM_iRATInterface_subscribeAppType_observer___block_invoke(uint64_t a
     xpc_dictionary_set_value(v9, "kWRMApplicationTypeList", v6);
     *keys = xmmword_279ED5F68;
     v10 = xpc_uint64_create([*(a1 + 32) getSubscribeMessageType:*(*(a1 + 32) + 16)]);
-    v15[0] = v10;
+    v14[0] = v10;
     v11 = v9;
-    v15[1] = v11;
-    v12 = xpc_dictionary_create(keys, v15, 2uLL);
+    v14[1] = v11;
+    v12 = xpc_dictionary_create(keys, v14, 2uLL);
     xpc_connection_send_message(*(*(a1 + 32) + 8), v12);
 
     for (i = 1; i != -1; --i)
@@ -964,13 +948,11 @@ void __47__WRM_iRATInterface_subscribeAppType_observer___block_invoke(uint64_t a
   {
     NSLog(&cfstr_Subscribeappty.isa);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __56__WRM_iRATInterface_subscribeMultipleAppTypes_observer___block_invoke(uint64_t a1)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   if (*(*(a1 + 32) + 8))
   {
     v2 = MEMORY[0x2743E9050](*(a1 + 48));
@@ -979,32 +961,32 @@ void __56__WRM_iRATInterface_subscribeMultipleAppTypes_observer___block_invoke(u
     *(v3 + 56) = v2;
 
     *(*(a1 + 32) + 48) = 1;
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     v5 = *(a1 + 40);
-    v6 = [v5 countByEnumeratingWithState:&v40 objects:v48 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v39 objects:v47 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v41;
+      v8 = *v40;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v41 != v8)
+          if (*v40 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v40 + 1) + 8 * i);
+          v10 = *(*(&v39 + 1) + 8 * i);
           keys[0] = 0;
           keys[1] = 0;
           [v10 getValue:keys];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v40 objects:v48 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v39 objects:v47 count:16];
       }
 
       while (v7);
@@ -1016,58 +998,58 @@ void __56__WRM_iRATInterface_subscribeMultipleAppTypes_observer___block_invoke(u
       objc_storeStrong((*(a1 + 32) + 40), *(a1 + 40));
     }
 
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     v11 = *(*(a1 + 32) + 40);
-    v12 = [v11 countByEnumeratingWithState:&v36 objects:v46 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v35 objects:v45 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v37;
+      v14 = *v36;
       do
       {
         for (j = 0; j != v13; ++j)
         {
-          if (*v37 != v14)
+          if (*v36 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v36 + 1) + 8 * j);
+          v16 = *(*(&v35 + 1) + 8 * j);
           keys[0] = 0;
           keys[1] = 0;
           [v16 getValue:keys];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v36 objects:v46 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v35 objects:v45 count:16];
       }
 
       while (v13);
     }
 
     v17 = xpc_array_create(0, 0);
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
     obj = *(*(a1 + 32) + 40);
-    v18 = [obj countByEnumeratingWithState:&v32 objects:v45 count:16];
+    v18 = [obj countByEnumeratingWithState:&v31 objects:v44 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v33;
+      v20 = *v32;
       do
       {
         for (k = 0; k != v19; ++k)
         {
-          if (*v33 != v20)
+          if (*v32 != v20)
           {
             objc_enumerationMutation(obj);
           }
 
-          v22 = *(*(&v32 + 1) + 8 * k);
+          v22 = *(*(&v31 + 1) + 8 * k);
           keys[0] = 0;
           keys[1] = 0;
           [v22 getValue:keys];
@@ -1081,7 +1063,7 @@ void __56__WRM_iRATInterface_subscribeMultipleAppTypes_observer___block_invoke(u
           xpc_array_append_value(v17, v23);
         }
 
-        v19 = [obj countByEnumeratingWithState:&v32 objects:v45 count:16];
+        v19 = [obj countByEnumeratingWithState:&v31 objects:v44 count:16];
       }
 
       while (v19);
@@ -1106,13 +1088,11 @@ void __56__WRM_iRATInterface_subscribeMultipleAppTypes_observer___block_invoke(u
   {
     NSLog(&cfstr_Subscribemulti.isa);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __64__WRM_iRATInterface_statusUpdateAppType_linkType_serviceStatus___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (*(*(a1 + 32) + 8))
   {
     v2 = xpc_array_create(0, 0);
@@ -1125,10 +1105,10 @@ void __64__WRM_iRATInterface_statusUpdateAppType_linkType_serviceStatus___block_
     xpc_dictionary_set_value(v4, "kWRMApplicationTypeList", v2);
     *keys = xmmword_279ED5F68;
     v5 = xpc_uint64_create([*(a1 + 32) getStatusUpdateMessageType:*(*(a1 + 32) + 16)]);
-    v10[0] = v5;
+    v9[0] = v5;
     v6 = v4;
-    v10[1] = v6;
-    v7 = xpc_dictionary_create(keys, v10, 2uLL);
+    v9[1] = v6;
+    v7 = xpc_dictionary_create(keys, v9, 2uLL);
     xpc_connection_send_message(*(*(a1 + 32) + 8), v7);
 
     for (i = 1; i != -1; --i)
@@ -1140,86 +1120,82 @@ void __64__WRM_iRATInterface_statusUpdateAppType_linkType_serviceStatus___block_
   {
     NSLog(&cfstr_Statusupdateap_0.isa);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __66__WRM_iRATInterface__expediteBBAssertionBGAppActive_sync_handler___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  if (!*(v1 + 8))
+  if (*(v1 + 8))
   {
-    NSLog(&cfstr_Expeditebbasse.isa);
-    goto LABEL_20;
-  }
-
-  if (*(v1 + 144) != *(a1 + 48))
-  {
-    v6 = xpc_dictionary_create(0, 0, 0);
-    v7 = v6;
-    if (v6)
+    if (*(v1 + 144) == *(a1 + 48))
     {
-      xpc_dictionary_set_uint64(v6, "WRMProcessIdKey", *(*(a1 + 32) + 16));
-      xpc_dictionary_set_BOOL(v7, "WRMBBAssertionBGAppActiveKey", *(a1 + 48));
-      *keys = xmmword_279ED5F68;
-      v8 = xpc_uint64_create(0x19BuLL);
-      values[0] = v8;
-      values[1] = v7;
-      v9 = xpc_dictionary_create(keys, values, 2uLL);
-      v10 = *(a1 + 40);
-      if (v8 && v9)
+      v3 = *(a1 + 40);
+      if (v3)
       {
-        v11 = MEMORY[0x2743E9050](v10);
-        NSLog(&cfstr_Expeditebbasse_0.isa);
-        v12 = *(a1 + 32);
-        v13 = *(v12 + 8);
-        v14 = *(v12 + 24);
-        handler[0] = MEMORY[0x277D85DD0];
-        handler[1] = 3221225472;
-        handler[2] = __66__WRM_iRATInterface__expediteBBAssertionBGAppActive_sync_handler___block_invoke_2;
-        handler[3] = &unk_279ED5F80;
-        v21 = *(a1 + 48);
-        handler[4] = v12;
-        v20 = v11;
-        v15 = v11;
-        xpc_connection_send_message_with_reply(v13, v9, v14, handler);
-      }
+        v4 = *(v3 + 16);
 
-      else if (v10)
-      {
-        (*(v10 + 16))(v10, 0);
-      }
-
-      for (i = 1; i != -1; --i)
-      {
+        v4();
       }
     }
 
     else
     {
-      v16 = *(a1 + 40);
-      if (v16)
+      v5 = xpc_dictionary_create(0, 0, 0);
+      v6 = v5;
+      if (v5)
       {
-        (*(v16 + 16))(v16, 0);
+        xpc_dictionary_set_uint64(v5, "WRMProcessIdKey", *(*(a1 + 32) + 16));
+        xpc_dictionary_set_BOOL(v6, "WRMBBAssertionBGAppActiveKey", *(a1 + 48));
+        *keys = xmmword_279ED5F68;
+        v7 = xpc_uint64_create(0x19BuLL);
+        values[0] = v7;
+        values[1] = v6;
+        v8 = xpc_dictionary_create(keys, values, 2uLL);
+        v9 = *(a1 + 40);
+        if (v7 && v8)
+        {
+          v10 = MEMORY[0x2743E9050](v9);
+          NSLog(&cfstr_Expeditebbasse_0.isa);
+          v11 = *(a1 + 32);
+          v12 = *(v11 + 8);
+          v13 = *(v11 + 24);
+          handler[0] = MEMORY[0x277D85DD0];
+          handler[1] = 3221225472;
+          handler[2] = __66__WRM_iRATInterface__expediteBBAssertionBGAppActive_sync_handler___block_invoke_2;
+          handler[3] = &unk_279ED5F80;
+          v19 = *(a1 + 48);
+          handler[4] = v11;
+          v18 = v10;
+          v14 = v10;
+          xpc_connection_send_message_with_reply(v12, v8, v13, handler);
+        }
+
+        else if (v9)
+        {
+          (*(v9 + 16))(v9, 0);
+        }
+
+        for (i = 1; i != -1; --i)
+        {
+        }
+      }
+
+      else
+      {
+        v15 = *(a1 + 40);
+        if (v15)
+        {
+          (*(v15 + 16))(v15, 0);
+        }
       }
     }
-
-    goto LABEL_20;
   }
 
-  v3 = *(a1 + 40);
-  if (!v3)
+  else
   {
-LABEL_20:
-    v18 = *MEMORY[0x277D85DE8];
-    return;
+    NSLog(&cfstr_Expeditebbasse.isa);
   }
-
-  v4 = *(v3 + 16);
-  v5 = *MEMORY[0x277D85DE8];
-
-  v4();
 }
 
 void __66__WRM_iRATInterface__expediteBBAssertionBGAppActive_sync_handler___block_invoke_2(uint64_t a1, void *a2)
@@ -1361,7 +1337,7 @@ LABEL_11:
 
 void __58__WRM_UCMInterface_subscribeBtConnectedLinksNotification___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 40) copy];
   v3 = *(a1 + 32);
   v4 = *(v3 + 8);
@@ -1377,25 +1353,23 @@ void __58__WRM_UCMInterface_subscribeBtConnectedLinksNotification___block_invoke
   xpc_connection_send_message(*(*(a1 + 32) + 56), v8);
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    *v11 = 0;
-    _os_log_impl(&dword_2742D6000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "XPC message sent: WCMBTConnectedDevices", v11, 2u);
+    *v10 = 0;
+    _os_log_impl(&dword_2742D6000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "XPC message sent: WCMBTConnectedDevices", v10, 2u);
   }
 
   for (i = 1; i != -1; --i)
   {
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __56__WRM_UCMInterface_processBTConnectedLinksNotification___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v2 = *(a1 + 32);
     *buf = 138412290;
-    v20 = v2;
+    v19 = v2;
     _os_log_impl(&dword_2742D6000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Received BT Connected Links message:%@", buf, 0xCu);
   }
 
@@ -1431,19 +1405,17 @@ void __56__WRM_UCMInterface_processBTConnectedLinksNotification___block_invoke(u
     *buf = 0;
     _os_log_impl(&dword_2742D6000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Discard BT Connected Links notification", buf, 2u);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __31__WRM_UCMInterface_sendBtLoad___block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   uint64 = xpc_dictionary_get_uint64(*(a1 + 32), "kWRMHomeKitBtLoad");
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v5[0] = 67109120;
-    v5[1] = uint64;
-    _os_log_impl(&dword_2742D6000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "getWirelessRadioManagerReportLoad Sending BtLoad: %u", v5, 8u);
+    v4[0] = 67109120;
+    v4[1] = uint64;
+    _os_log_impl(&dword_2742D6000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "getWirelessRadioManagerReportLoad Sending BtLoad: %u", v4, 8u);
   }
 
   v3 = *(*(a1 + 40) + 24);
@@ -1451,13 +1423,11 @@ void __31__WRM_UCMInterface_sendBtLoad___block_invoke(uint64_t a1)
   {
     v3(uint64);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __34__WRM_UCMInterface_getInstantLoad__block_invoke(int8x16_t *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (*(*(a1[3].i64[0] + 8) + 40))
   {
     v2 = xpc_dictionary_create(0, 0, 0);
@@ -1473,10 +1443,10 @@ void __34__WRM_UCMInterface_getInstantLoad__block_invoke(int8x16_t *a1)
       handler[1] = 3221225472;
       handler[2] = __34__WRM_UCMInterface_getInstantLoad__block_invoke_83;
       handler[3] = &unk_279ED6148;
-      v12 = a1[3].i64[1];
-      v9 = a1[2];
-      v6 = v9.i64[0];
-      v11 = vextq_s8(v9, v9, 8uLL);
+      v11 = a1[3].i64[1];
+      v8 = a1[2];
+      v6 = v8.i64[0];
+      v10 = vextq_s8(v8, v8, 8uLL);
       xpc_connection_send_message_with_reply(v5, v4, 0, handler);
 
       for (i = 1; i != -1; --i)
@@ -1495,13 +1465,11 @@ void __34__WRM_UCMInterface_getInstantLoad__block_invoke(int8x16_t *a1)
 
     dispatch_semaphore_signal(a1[2].i64[0]);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __34__WRM_UCMInterface_getInstantLoad__block_invoke_83(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([*(a1 + 32) checkConnection:v3])
   {
@@ -1509,20 +1477,18 @@ void __34__WRM_UCMInterface_getInstantLoad__block_invoke_83(uint64_t a1, void *a
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       v4 = *(*(*(a1 + 48) + 8) + 24);
-      v6[0] = 67109120;
-      v6[1] = v4;
-      _os_log_impl(&dword_2742D6000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "getWirelessRadioManagerReportLoad Current BT Load: %u", v6, 8u);
+      v5[0] = 67109120;
+      v5[1] = v4;
+      _os_log_impl(&dword_2742D6000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "getWirelessRadioManagerReportLoad Current BT Load: %u", v5, 8u);
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __29__WRM_UCMInterface_stopTimer__block_invoke(int8x16_t *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1546,10 +1512,10 @@ void __29__WRM_UCMInterface_stopTimer__block_invoke(int8x16_t *a1)
       handler[1] = 3221225472;
       handler[2] = __29__WRM_UCMInterface_stopTimer__block_invoke_86;
       handler[3] = &unk_279ED6148;
-      v13 = a1[3].i64[1];
-      v10 = a1[2];
-      v7 = v10.i64[0];
-      v12 = vextq_s8(v10, v10, 8uLL);
+      v12 = a1[3].i64[1];
+      v9 = a1[2];
+      v7 = v9.i64[0];
+      v11 = vextq_s8(v9, v9, 8uLL);
       xpc_connection_send_message_with_reply(v6, v5, 0, handler);
 
       for (i = 1; i != -1; --i)
@@ -1568,13 +1534,11 @@ void __29__WRM_UCMInterface_stopTimer__block_invoke(int8x16_t *a1)
 
     dispatch_semaphore_signal(a1[2].i64[0]);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __29__WRM_UCMInterface_stopTimer__block_invoke_86(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([*(a1 + 32) checkConnection:v3])
   {
@@ -1582,20 +1546,18 @@ void __29__WRM_UCMInterface_stopTimer__block_invoke_86(uint64_t a1, void *a2)
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       v4 = *(*(*(a1 + 48) + 8) + 24);
-      v6[0] = 67109120;
-      v6[1] = v4;
-      _os_log_impl(&dword_2742D6000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "getWirelessRadioManagerReportLoad Max BT Load: %u", v6, 8u);
+      v5[0] = 67109120;
+      v5[1] = v4;
+      _os_log_impl(&dword_2742D6000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "getWirelessRadioManagerReportLoad Max BT Load: %u", v5, 8u);
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __31__WRM_UCMInterface_startTimer___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1626,10 +1588,10 @@ void __31__WRM_UCMInterface_startTimer___block_invoke(uint64_t a1)
       handler[1] = 3221225472;
       handler[2] = __31__WRM_UCMInterface_startTimer___block_invoke_89;
       handler[3] = &unk_279ED6148;
-      v13 = *(a1 + 56);
-      v10 = *(a1 + 32);
-      v7 = v10.i64[0];
-      v12 = vextq_s8(v10, v10, 8uLL);
+      v12 = *(a1 + 56);
+      v9 = *(a1 + 32);
+      v7 = v9.i64[0];
+      v11 = vextq_s8(v9, v9, 8uLL);
       xpc_connection_send_message_with_reply(v6, v5, 0, handler);
 
       for (i = 1; i != -1; --i)
@@ -1648,13 +1610,11 @@ void __31__WRM_UCMInterface_startTimer___block_invoke(uint64_t a1)
 
     dispatch_semaphore_signal(*(a1 + 32));
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __31__WRM_UCMInterface_startTimer___block_invoke_89(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([*(a1 + 32) checkConnection:v3])
   {
@@ -1662,33 +1622,31 @@ void __31__WRM_UCMInterface_startTimer___block_invoke_89(uint64_t a1, void *a2)
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       v4 = *(*(*(a1 + 48) + 8) + 24);
-      v6[0] = 67109120;
-      v6[1] = v4;
-      _os_log_impl(&dword_2742D6000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "getWirelessRadioManagerReportLoad Max BT Load: %u", v6, 8u);
+      v5[0] = 67109120;
+      v5[1] = v4;
+      _os_log_impl(&dword_2742D6000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "getWirelessRadioManagerReportLoad Max BT Load: %u", v5, 8u);
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __48__WRM_UCMInterface_sendNRFrequencyUpdateForMic___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB38] dictionary];
-  v7 = MEMORY[0x277D85DD0];
-  v8 = 3221225472;
-  v9 = __48__WRM_UCMInterface_sendNRFrequencyUpdateForMic___block_invoke_2;
-  v10 = &unk_279ED61C0;
-  v11 = *(a1 + 32);
+  v6 = MEMORY[0x277D85DD0];
+  v7 = 3221225472;
+  v8 = __48__WRM_UCMInterface_sendNRFrequencyUpdateForMic___block_invoke_2;
+  v9 = &unk_279ED61C0;
+  v10 = *(a1 + 32);
   v3 = v2;
-  v12 = v3;
-  [&unk_2883510D0 enumerateKeysAndObjectsUsingBlock:&v7];
+  v11 = v3;
+  [&unk_2883510D0 enumerateKeysAndObjectsUsingBlock:&v6];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v14 = v3;
+    v13 = v3;
     _os_log_impl(&dword_2742D6000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "sendNRFrequencyUpdateForMic %@", buf, 0xCu);
   }
 
@@ -1698,8 +1656,6 @@ void __48__WRM_UCMInterface_sendNRFrequencyUpdateForMic___block_invoke(uint64_t 
     v5 = [v3 copy];
     v4();
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __48__WRM_UCMInterface_sendNRFrequencyUpdateForMic___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -1713,7 +1669,7 @@ void __48__WRM_UCMInterface_sendNRFrequencyUpdateForMic___block_invoke_2(uint64_
 
 void __58__WRM_UCMInterface_getWirelessFrequencyBandUpdatesForMIC___block_invoke(int8x16_t *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (*(*(a1[3].i64[0] + 8) + 40))
   {
     v2 = xpc_dictionary_create(0, 0, 0);
@@ -1735,10 +1691,10 @@ void __58__WRM_UCMInterface_getWirelessFrequencyBandUpdatesForMIC___block_invoke
       handler[1] = 3221225472;
       handler[2] = __58__WRM_UCMInterface_getWirelessFrequencyBandUpdatesForMIC___block_invoke_130;
       handler[3] = &unk_279ED6148;
-      v12 = a1[3].i64[1];
-      v9 = a1[2];
-      v6 = v9.i64[0];
-      v11 = vextq_s8(v9, v9, 8uLL);
+      v11 = a1[3].i64[1];
+      v8 = a1[2];
+      v6 = v8.i64[0];
+      v10 = vextq_s8(v8, v8, 8uLL);
       xpc_connection_send_message_with_reply(v5, v4, 0, handler);
 
       for (i = 1; i != -1; --i)
@@ -1757,37 +1713,33 @@ void __58__WRM_UCMInterface_getWirelessFrequencyBandUpdatesForMIC___block_invoke
 
     dispatch_semaphore_signal(a1[2].i64[0]);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __58__WRM_UCMInterface_getWirelessFrequencyBandUpdatesForMIC___block_invoke_130(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([*(a1 + 32) checkConnection:v3])
   {
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __58__WRM_UCMInterface_getWirelessFrequencyBandUpdatesForMIC___block_invoke_2;
-    v8[3] = &unk_279ED61E8;
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __58__WRM_UCMInterface_getWirelessFrequencyBandUpdatesForMIC___block_invoke_2;
+    v7[3] = &unk_279ED61E8;
     v4 = v3;
     v5 = *(a1 + 48);
-    v9 = v4;
-    v10 = v5;
-    [&unk_2883510F8 enumerateKeysAndObjectsUsingBlock:v8];
+    v8 = v4;
+    v9 = v5;
+    [&unk_2883510F8 enumerateKeysAndObjectsUsingBlock:v7];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       v6 = *(*(*(a1 + 48) + 8) + 40);
       *buf = 138412290;
-      v12 = v6;
+      v11 = v6;
       _os_log_impl(&dword_2742D6000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "getWirelessFrequencyBandUpdatesForMIC :%@", buf, 0xCu);
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __58__WRM_UCMInterface_getWirelessFrequencyBandUpdatesForMIC___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -1835,7 +1787,7 @@ void __42__WRM_UCMInterface_sendULFrequencyUpdate___block_invoke(uint64_t a1)
 
 void __54__WRM_UCMInterface_getWirelessULFrequencyBandUpdates___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (*(*(*(a1 + 32) + 8) + 40))
   {
     v2 = xpc_dictionary_create(0, 0, 0);
@@ -1849,9 +1801,9 @@ void __54__WRM_UCMInterface_getWirelessULFrequencyBandUpdates___block_invoke(uin
 
       *buf = xmmword_279ED6208;
       v3 = xpc_uint64_create(0xAF7uLL);
-      v7[0] = v3;
-      v7[1] = v2;
-      v4 = xpc_dictionary_create(buf, v7, 2uLL);
+      v6[0] = v3;
+      v6[1] = v2;
+      v4 = xpc_dictionary_create(buf, v6, 2uLL);
       xpc_connection_send_message(*(*(*(a1 + 32) + 8) + 40), v4);
 
       for (i = 1; i != -1; --i)
@@ -1865,8 +1817,6 @@ void __54__WRM_UCMInterface_getWirelessULFrequencyBandUpdates___block_invoke(uin
     *buf = 0;
     _os_log_impl(&dword_2742D6000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Invalid XPC connection.", buf, 2u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -39,7 +39,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1001A6430();
+  sub_1001A6430(selfCopy);
 }
 
 - (void)didTapWithSender:(id)sender

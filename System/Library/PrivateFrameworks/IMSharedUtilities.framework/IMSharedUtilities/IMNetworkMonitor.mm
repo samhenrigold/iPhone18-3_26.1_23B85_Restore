@@ -18,22 +18,22 @@
 {
   if (host)
   {
-    v6 = sub_1A88C82E8();
-    v8 = v7;
+    v7 = sub_1A88C82E8();
+    v9 = v8;
   }
 
   else
   {
-    v6 = 0;
-    v8 = 0;
+    v7 = 0;
+    v9 = 0;
   }
 
   swift_getObjCClassMetadata();
   swift_unknownObjectRetain();
-  v9 = sub_1A85F0920(v6, v8, delegate);
+  v10 = sub_1A85F0920(v7, v9, delegate, network);
   swift_unknownObjectRelease();
 
-  return v9;
+  return v10;
 }
 
 - (BOOL)isUltraConstrained

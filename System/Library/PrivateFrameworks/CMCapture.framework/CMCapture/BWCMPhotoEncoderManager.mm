@@ -203,7 +203,7 @@
   v14 = v20;
   if (v20)
   {
-    [BWCMPhotoEncoderManager addAuxImage:type:auxImageMetadata:options:parentImageHandle:auxImageHandleOut:];
+    [BWCMPhotoEncoderManager addAuxImage:v20 type:? auxImageMetadata:? options:? parentImageHandle:? auxImageHandleOut:?];
   }
 
   else
@@ -223,7 +223,7 @@
   v4 = CMPhotoCompressionSessionAddGroup();
   if (v4)
   {
-    v8 = v4;
+    v9 = v4;
     [BWCMPhotoEncoderManager tagStereoPairGroupWithStereoPhotoImageHandles:groupMetadata:];
   }
 
@@ -232,7 +232,7 @@
     v5 = CMPhotoCompressionSessionAddImageHandleToGroup();
     if (v5)
     {
-      v8 = v5;
+      v9 = v5;
       [BWCMPhotoEncoderManager tagStereoPairGroupWithStereoPhotoImageHandles:groupMetadata:];
     }
 
@@ -241,7 +241,7 @@
       v6 = CMPhotoCompressionSessionAddImageHandleToGroup();
       if (v6)
       {
-        v8 = v6;
+        v9 = v6;
         [BWCMPhotoEncoderManager tagStereoPairGroupWithStereoPhotoImageHandles:groupMetadata:];
       }
 
@@ -250,23 +250,24 @@
         v7 = CMPhotoCompressionSessionAddImageHandleToGroup();
         if (v7)
         {
-          v8 = v7;
+          v9 = v7;
           [BWCMPhotoEncoderManager tagStereoPairGroupWithStereoPhotoImageHandles:groupMetadata:];
         }
 
         else
         {
           v8 = CMPhotoCompressionSessionAddGroupProperties();
+          v9 = v8;
           if (v8)
           {
-            [BWCMPhotoEncoderManager tagStereoPairGroupWithStereoPhotoImageHandles:groupMetadata:];
+            [BWCMPhotoEncoderManager tagStereoPairGroupWithStereoPhotoImageHandles:v8 groupMetadata:?];
           }
         }
       }
     }
   }
 
-  return v8;
+  return v9;
 }
 
 - (int)closeContainerAndCopySurfaceOut:(__IOSurface *)out
@@ -323,13 +324,15 @@ LABEL_4:
     return -12780;
   }
 
-  v7 = CMPhotoCompressionSessionAddAuxiliaryImageMetadata();
-  if (v7)
+  v8 = CMPhotoCompressionSessionAddAuxiliaryImageMetadata();
+  v9 = v8;
+  if (v8)
   {
-    FigDebugAssert3();
+    v11 = v8;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v11, v7, v12, v13, v14, v15, v16, v17);
   }
 
-  return v7;
+  return v9;
 }
 
 - (int)addAlternateImageWithDerivedImageHandles:(id)handles options:(id)options parentImageHandle:(int64_t)handle alternateGroupHandleInOut:(int64_t *)out
@@ -338,10 +341,10 @@ LABEL_4:
   {
     if (*out == -1)
     {
-      v9 = OUTLINED_FUNCTION_2_97();
+      v9 = OUTLINED_FUNCTION_2_97(self, a2, handles, options, handle);
       if (v9)
       {
-        goto LABEL_18;
+        goto LABEL_17;
       }
 
       *out = -1;
@@ -350,10 +353,10 @@ LABEL_4:
 
   else
   {
-    v9 = OUTLINED_FUNCTION_2_97();
+    v9 = OUTLINED_FUNCTION_2_97(self, a2, handles, options, handle);
     if (v9)
     {
-      goto LABEL_18;
+      goto LABEL_17;
     }
   }
 
@@ -375,25 +378,25 @@ LABEL_4:
   v11 = v10;
   if (v10)
   {
-    goto LABEL_15;
+    goto LABEL_13;
   }
 
   v9 = CMPhotoCompressionSessionAddImageHandleToGroup();
   if (v9)
   {
-LABEL_18:
+LABEL_17:
     v11 = v9;
     OUTLINED_FUNCTION_1_5();
-    goto LABEL_19;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+    return v11;
   }
 
   v11 = CMPhotoCompressionSessionAddImageHandleToGroup();
   if (v11)
   {
-LABEL_15:
+LABEL_13:
     OUTLINED_FUNCTION_0_6();
-LABEL_19:
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v11);
   }
 
   return v11;
@@ -423,7 +426,7 @@ LABEL_19:
         if (v5)
         {
           OUTLINED_FUNCTION_0_6();
-          FigDebugAssert3();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v5);
         }
       }
     }

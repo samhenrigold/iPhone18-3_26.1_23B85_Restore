@@ -209,9 +209,9 @@
     dispatch_once(&_MergedGlobals_7_8, &__block_literal_global_20_7);
   }
 
-  v0 = qword_1ED49AD28;
+  v1 = qword_1ED49AD28;
 
-  return v0;
+  return v1;
 }
 
 - (void)displayLayer:(id)layer
@@ -279,9 +279,9 @@ LABEL_11:
       goto LABEL_12;
     }
 
-    v8 = [v5 isEqual:v6];
+    isEqual = objc_msgSend_isEqual_(v5, v6, v6);
 
-    if ((v8 & 1) == 0)
+    if ((isEqual & 1) == 0)
     {
       goto LABEL_11;
     }

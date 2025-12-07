@@ -14,6 +14,7 @@
 - (void)_updatePredicates;
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation MTBridgeShowSelectionViewController
@@ -75,6 +76,20 @@
   v3.super_class = MTBridgeShowSelectionViewController;
   [(MTBridgeShowSelectionViewController *)&v3 viewDidLoad];
   [(MTBridgeShowSelectionViewController *)self setEditable:1];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = MTBridgeShowSelectionViewController;
+  [(MTBridgeShowSelectionViewController *)&v8 viewWillAppear:appear];
+  navigationItem = [(MTBridgeShowSelectionViewController *)self navigationItem];
+  rightBarButtonItem = [navigationItem rightBarButtonItem];
+  [rightBarButtonItem setTarget:self];
+
+  navigationItem2 = [(MTBridgeShowSelectionViewController *)self navigationItem];
+  rightBarButtonItem2 = [navigationItem2 rightBarButtonItem];
+  [rightBarButtonItem2 setAction:"_doneButtonPressed:"];
 }
 
 - (id)title

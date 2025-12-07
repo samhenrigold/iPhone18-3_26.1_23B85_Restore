@@ -33,7 +33,7 @@
 
 + (id)createContainerForRemoteConfiguration
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v2 = +[AVTCoreDataPersistentStoreConfiguration currentManagedObjectModel];
   v3 = [objc_alloc(MEMORY[0x277CBE4A0]) initWithName:@"AVTCoreDataContainer" managedObjectModel:v2];
   v4 = objc_alloc_init(MEMORY[0x277CBE4E0]);
@@ -45,11 +45,9 @@
   [v4 setOption:v5 forKey:*MEMORY[0x277CBE268]];
   [v4 setOption:v5 forKey:*MEMORY[0x277CBE338]];
   [v4 setOption:v5 forKey:*MEMORY[0x277CBE210]];
-  v9[0] = v4;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = v4;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   [v3 setPersistentStoreDescriptions:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

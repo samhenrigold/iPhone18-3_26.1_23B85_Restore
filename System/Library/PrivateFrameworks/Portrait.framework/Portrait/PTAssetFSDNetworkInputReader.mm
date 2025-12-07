@@ -39,10 +39,11 @@
 - (BOOL)_readRGBABufferFromFile:(id)file to:(__CVBuffer *)to
 {
   fileCopy = file;
+  v6 = fileCopy;
   if (!to)
   {
-    v15 = _PTLogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = _PTLogSystem(fileCopy);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [PTAssetFSDNetworkInputReader _readRGBABufferFromFile:to:];
     }
@@ -52,11 +53,11 @@
 
   Width = CVPixelBufferGetWidth(to);
   Height = CVPixelBufferGetHeight(to);
-  v8 = fopen([fileCopy UTF8String], "r");
-  if (!v8)
+  v9 = fopen([v6 UTF8String], "r");
+  if (!v9)
   {
-    v15 = _PTLogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = _PTLogSystem(0);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [PTAssetFSDNetworkInputReader _readRGBABufferFromFile:to:];
     }
@@ -64,29 +65,29 @@
     goto LABEL_10;
   }
 
-  v9 = v8;
+  v10 = v9;
   CVPixelBufferLockBaseAddress(to, 0);
   BaseAddress = CVPixelBufferGetBaseAddress(to);
-  v11 = Width * Height;
-  v12 = 8 * Width * Height;
-  v13 = 1;
-  v14 = fread(BaseAddress, 1uLL, v12, v9);
+  v12 = Width * Height;
+  v13 = 8 * Width * Height;
+  v14 = 1;
+  v15 = fread(BaseAddress, 1uLL, v13, v10);
   CVPixelBufferUnlockBaseAddress(to, 0);
-  fclose(v9);
-  if (v14 != 8 * v11)
+  v16 = fclose(v10);
+  if (v15 != 8 * v12)
   {
-    v15 = _PTLogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = _PTLogSystem(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [(PTAssetFSDNetworkInputReader *)v12 _readRGBABufferFromFile:v14 to:v15];
+      [(PTAssetFSDNetworkInputReader *)v13 _readRGBABufferFromFile:v15 to:v17];
     }
 
 LABEL_10:
 
-    v13 = 0;
+    v14 = 0;
   }
 
-  return v13;
+  return v14;
 }
 
 - (id)copyNextFrame
@@ -101,7 +102,7 @@ LABEL_10:
 
   LODWORD(path2) = [(PTAssetFSDNetworkInputReader *)self _readRGBABufferFromFile:v5 to:self->_refBuffer];
   v9 = [(PTAssetFSDNetworkInputReader *)self _readRGBABufferFromFile:v8 to:self->_auxBuffer];
-  if (path2 && v9)
+  if (path2 && (v9 & 1) != 0)
   {
     v10 = MEMORY[0x277CCACA8];
     path3 = [(NSURL *)self->_url path];
@@ -112,28 +113,29 @@ LABEL_10:
     if (v13)
     {
       [v13 open];
-      v22 = 0;
-      v15 = [MEMORY[0x277CCAC58] propertyListWithStream:v14 options:0 format:0 error:&v22];
-      v16 = v22;
+      v24 = 0;
+      v15 = [MEMORY[0x277CCAC58] propertyListWithStream:v14 options:0 format:0 error:&v24];
+      v16 = v24;
+      v17 = v16;
       if (v16)
       {
-        v17 = _PTLogSystem();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v18 = _PTLogSystem(v16);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           [PTAssetFSDNetworkInputReader copyNextFrame];
         }
       }
 
       [v14 close];
-      v18 = [v15 objectForKeyedSubscript:@"CorrectedCalibration"];
+      v19 = [v15 objectForKeyedSubscript:@"CorrectedCalibration"];
 
-      if (v18)
+      if (v19)
       {
         goto LABEL_18;
       }
 
-      v19 = _PTLogSystem();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v21 = _PTLogSystem(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         [PTAssetFSDNetworkInputReader copyNextFrame];
       }
@@ -141,32 +143,32 @@ LABEL_10:
 
     else
     {
-      v19 = _PTLogSystem();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v21 = _PTLogSystem(0);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         [PTAssetFSDNetworkInputReader copyNextFrame];
       }
 
-      v16 = 0;
+      v17 = 0;
     }
 
-    v18 = 0;
+    v19 = 0;
 LABEL_18:
-    v20 = [[PTAssetFSDNetworkInputFrame alloc] initWithRef:self->_refBuffer aux:self->_auxBuffer unrectifyData:v18 index:self->_frameIndex++];
+    v22 = [[PTAssetFSDNetworkInputFrame alloc] initWithRef:self->_refBuffer aux:self->_auxBuffer unrectifyData:v19 index:self->_frameIndex++];
 
     goto LABEL_19;
   }
 
-  v16 = _PTLogSystem();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  v17 = _PTLogSystem(v9);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
     [PTAssetFSDNetworkInputReader copyNextFrame];
   }
 
-  v20 = 0;
+  v22 = 0;
 LABEL_19:
 
-  return v20;
+  return v22;
 }
 
 - (void)_readRGBABufferFromFile:(os_log_t)log to:.cold.1(int a1, int a2, os_log_t log)

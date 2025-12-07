@@ -16,9 +16,9 @@
     dispatch_once(&_MergedGlobals_151, &__block_literal_global_59);
   }
 
-  v0 = qword_1ED6A5220;
+  v1 = qword_1ED6A5220;
 
-  return v0;
+  return v1;
 }
 
 void __59__PKCanvasSessionStatisticsManager_sharedStatisticsManager__block_invoke()

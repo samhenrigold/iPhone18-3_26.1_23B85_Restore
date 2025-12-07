@@ -54,16 +54,14 @@
 
 - (void)_loadDownloadedSnapshotIfNeeded
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a2;
   safari_privacyPreservingDescription = [a3 safari_privacyPreservingDescription];
-  v8 = 138412546;
+  v7 = 138412546;
   selfCopy = self;
-  v10 = 2114;
-  v11 = safari_privacyPreservingDescription;
-  _os_log_error_impl(&dword_1B8447000, v5, OS_LOG_TYPE_ERROR, "The downloaded data file (%@) could not be loaded: %{public}@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v9 = 2114;
+  v10 = safari_privacyPreservingDescription;
+  _os_log_error_impl(&dword_1B8447000, v5, OS_LOG_TYPE_ERROR, "The downloaded data file (%@) could not be loaded: %{public}@", &v7, 0x16u);
 }
 
 - (id)_urlOfInternalOverrideList
@@ -81,25 +79,19 @@
 
 - (void)_setUpDownloadedFileMonitoring
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = __error();
   strerror(*v3);
   OUTLINED_FUNCTION_0_7();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_loadBuiltInSnapshotIfNeeded
 {
-  v11 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   safari_privacyPreservingDescription = [a2 safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_0_7();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateDownloadedDataIfNecessary
@@ -161,15 +153,16 @@ id __199__WBSRemotelyUpdatableDataController_initWithDataFormat_builtInListURL_d
   v1 = *(a1 + 32);
   if (v1)
   {
-    v6 = 0;
-    v2 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v1 options:0 error:&v6];
-    v3 = v6;
+    v8 = 0;
+    v2 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v1 options:0 error:&v8];
+    v3 = v8;
+    v5 = v3;
     if (!v2)
     {
-      v4 = WBS_LOG_CHANNEL_PREFIXRemotelyUpdatableDataController();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v6 = WBS_LOG_CHANNEL_PREFIXRemotelyUpdatableDataController(v3, v4);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        __199__WBSRemotelyUpdatableDataController_initWithDataFormat_builtInListURL_downloadsDirectoryURL_resourceName_resourceVersion_updateDateDefaultsKey_updateInterval_snapshotClass_snapshotTransformerClass___block_invoke_cold_1(v4, v3);
+        __199__WBSRemotelyUpdatableDataController_initWithDataFormat_builtInListURL_downloadsDirectoryURL_resourceName_resourceVersion_updateDateDefaultsKey_updateInterval_snapshotClass_snapshotTransformerClass___block_invoke_cold_1(v6, v5);
       }
     }
   }
@@ -602,10 +595,9 @@ uint64_t __70__WBSRemotelyUpdatableDataController_accessSnapshotLoadingItIfNeede
   [*(a1 + 32) _loadDownloadedSnapshotIfNeeded];
   [*(a1 + 32) _loadBuiltInSnapshotIfNeeded];
   [*(a1 + 32) _updateDownloadedDataIfNecessary];
-  v2 = *(*(a1 + 32) + 112);
-  v3 = *(*(a1 + 40) + 16);
+  v2 = *(*(a1 + 40) + 16);
 
-  return v3();
+  return v2();
 }
 
 - (BOOL)_shouldUpdateConfigurationGivenLastConfigurationUpdateAttemptDate:(id)date
@@ -635,13 +627,10 @@ uint64_t __70__WBSRemotelyUpdatableDataController_accessSnapshotLoadingItIfNeede
 
 void __199__WBSRemotelyUpdatableDataController_initWithDataFormat_builtInListURL_downloadsDirectoryURL_resourceName_resourceVersion_updateDateDefaultsKey_updateInterval_snapshotClass_snapshotTransformerClass___block_invoke_cold_1(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v3 = a1;
-  v10 = [a2 safari_privacyPreservingDescription];
+  v9 = [a2 safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_0_7();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

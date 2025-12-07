@@ -99,7 +99,7 @@
 
 - (void)open
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   [(NSRecursiveLock *)self->_statusLock lock];
   if (!self->_streamStatus)
   {
@@ -149,7 +149,6 @@
   }
 
   [(NSRecursiveLock *)self->_statusLock unlock];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __21__EAInputStream_open__block_invoke(uint64_t a1)
@@ -503,14 +502,13 @@ void __46__EAInputStream_processIncomingAccessoryData___block_invoke(uint64_t a1
 - (void)_streamEventTrigger
 {
   selfCopy = self;
-  v10 = objc_alloc_init(MEMORY[0x277CCA8B0]);
+  v7 = objc_alloc_init(MEMORY[0x277CCA8B0]);
   v4 = self->_inputFromAccCondition;
   v5 = self->_statusLock;
   [(NSRecursiveLock *)self->_statusLock lock];
   if (!self->_isOpenCompletedEventSent && self->_streamStatus == 2)
   {
     self->_isOpenCompletedEventSent = 1;
-    delegate = self->_delegate;
     if (objc_opt_respondsToSelector())
     {
       [self->_delegate stream:self handleEvent:1];
@@ -520,7 +518,6 @@ void __46__EAInputStream_processIncomingAccessoryData___block_invoke(uint64_t a1
   if (!self->_isAtEndEventSent && self->_streamStatus == 5)
   {
     self->_isAtEndEventSent = 1;
-    v7 = self->_delegate;
     if (objc_opt_respondsToSelector())
     {
       [self->_delegate stream:self handleEvent:16];
@@ -533,13 +530,9 @@ void __46__EAInputStream_processIncomingAccessoryData___block_invoke(uint64_t a1
     hasNewBytesAvailable = self->_hasNewBytesAvailable;
     self->_hasNewBytesAvailable = 0;
     [(NSCondition *)self->_inputFromAccCondition unlock];
-    if (hasNewBytesAvailable)
+    if (hasNewBytesAvailable && (objc_opt_respondsToSelector() & 1) != 0)
     {
-      v9 = self->_delegate;
-      if (objc_opt_respondsToSelector())
-      {
-        [self->_delegate stream:self handleEvent:2];
-      }
+      [self->_delegate stream:self handleEvent:2];
     }
   }
 

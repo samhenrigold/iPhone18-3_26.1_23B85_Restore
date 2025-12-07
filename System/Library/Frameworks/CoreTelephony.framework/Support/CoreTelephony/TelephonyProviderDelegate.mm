@@ -125,197 +125,197 @@
 {
   selfCopy = self;
   sub_10000501C(__p, "/cc/props/current_calls");
-  v3 = selfCopy;
-  v40 = off_101E2E2E0;
+  v4 = selfCopy;
+  v41 = off_101E2E2E0;
   p_fCurrentCalls = &selfCopy->fCurrentCalls;
-  v42 = v3;
-  v43 = &v40;
+  v43 = v4;
+  v44 = &v41;
   ctu::RestModule::observeProperty();
-  sub_1000062D4(&v40);
-  if (v39 < 0)
+  sub_1000062D4(&v41);
+  if (v40 < 0)
   {
     operator delete(__p[0]);
   }
 
-  v4 = v3;
+  v5 = v4;
   sub_10000501C(__p, "/cc/props/call_capabilities");
-  p_fCallCapabilities = &v4->fCallCapabilities;
-  v6 = v4;
-  v40 = off_101E2E360;
+  p_fCallCapabilities = &v5->fCallCapabilities;
+  v7 = v5;
+  v41 = off_101E2E360;
   p_fCurrentCalls = p_fCallCapabilities;
-  v42 = v6;
-  v43 = &v40;
+  v43 = v7;
+  v44 = &v41;
   ctu::RestModule::observeProperty();
-  sub_1000062D4(&v40);
-  if (v39 < 0)
+  sub_1000062D4(&v41);
+  if (v40 < 0)
   {
     operator delete(__p[0]);
   }
 
-  v7 = v6;
+  v8 = v7;
   sub_10000501C(__p, "/cc/props/emergency_numbers");
-  v8 = (v7 + 152);
-  v9 = v7;
-  v40 = off_101E2E3E0;
-  p_fCurrentCalls = v8;
-  v42 = v9;
-  v43 = &v40;
+  v9 = (v8 + 152);
+  v10 = v8;
+  v41 = off_101E2E3E0;
+  p_fCurrentCalls = v9;
+  v43 = v10;
+  v44 = &v41;
   ctu::RestModule::observeProperty();
-  sub_1000062D4(&v40);
-  if (v39 < 0)
+  sub_1000062D4(&v41);
+  if (v40 < 0)
   {
     operator delete(__p[0]);
   }
 
-  v10 = v9;
+  v11 = v10;
   sub_10000501C(__p, "/cc/props/disambiguation_emergency_numbers");
-  v11 = (v10 + 176);
-  v12 = v10;
-  v40 = off_101E2E460;
-  p_fCurrentCalls = v11;
-  v42 = v12;
-  v43 = &v40;
+  v12 = (v11 + 176);
+  v13 = v11;
+  v41 = off_101E2E460;
+  p_fCurrentCalls = v12;
+  v43 = v13;
+  v44 = &v41;
   ctu::RestModule::observeProperty();
-  sub_1000062D4(&v40);
-  if (v39 < 0)
+  sub_1000062D4(&v41);
+  if (v40 < 0)
   {
     operator delete(__p[0]);
   }
 
-  v13 = v12;
+  v14 = v13;
   sub_10000501C(__p, "/cc/props/call_frequency_data");
-  v14 = (v13 + 224);
-  v15 = v13;
-  v40 = off_101E2E4E0;
-  p_fCurrentCalls = v14;
-  v42 = v15;
-  v43 = &v40;
+  v15 = (v14 + 224);
+  v16 = v14;
+  v41 = off_101E2E4E0;
+  p_fCurrentCalls = v15;
+  v43 = v16;
+  v44 = &v41;
   ctu::RestModule::observeProperty();
-  sub_1000062D4(&v40);
-  if (v39 < 0)
+  sub_1000062D4(&v41);
+  if (v40 < 0)
   {
     operator delete(__p[0]);
   }
 
-  v16 = v15;
+  v17 = v16;
   sub_10000501C(__p, "/cc/props/thumper_handoff_allowed");
-  v17 = (v16 + 264);
-  v18 = v16;
-  v40 = off_101E2E560;
-  p_fCurrentCalls = v17;
-  v42 = v18;
-  v43 = &v40;
+  v18 = (v17 + 264);
+  v19 = v17;
+  v41 = off_101E2E560;
+  p_fCurrentCalls = v18;
+  v43 = v19;
+  v44 = &v41;
   ctu::RestModule::observeProperty();
-  sub_1000062D4(&v40);
-  if (v39 < 0)
+  sub_1000062D4(&v41);
+  if (v40 < 0)
   {
     operator delete(__p[0]);
   }
 
-  v19 = v18;
+  v20 = v19;
   sub_10000501C(__p, "/cc/props/vowifi_provisioning_state");
-  v20 = (v19 + 288);
-  v21 = v19;
-  v40 = off_101E2E5E0;
-  p_fCurrentCalls = v20;
-  v42 = v21;
-  v43 = &v40;
+  v21 = (v20 + 288);
+  v22 = v20;
+  v41 = off_101E2E5E0;
+  p_fCurrentCalls = v21;
+  v43 = v22;
+  v44 = &v41;
   ctu::RestModule::observeProperty();
-  sub_1000062D4(&v40);
-  if (v39 < 0)
+  sub_1000062D4(&v41);
+  if (v40 < 0)
   {
     operator delete(__p[0]);
   }
 
-  v22 = v21;
-  sub_10000501C(__p, "/cc/events/call_control_failure");
   v23 = v22;
-  v40 = off_101E2E660;
-  p_fCurrentCalls = v23;
-  v43 = &v40;
-  ctu::RestModule::observeEvent();
-  sub_1000062D4(&v40);
-  if (v39 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
+  sub_10000501C(__p, "/cc/events/call_control_failure");
   v24 = v23;
-  sub_10000501C(__p, "/cc/events/call_tone_complete");
+  v41 = off_101E2E660;
+  p_fCurrentCalls = v24;
+  v44 = &v41;
+  ctu::RestModule::observeEvent();
+  sub_1000062D4(&v41);
+  if (v40 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
   v25 = v24;
-  v40 = off_101E2E6E0;
-  p_fCurrentCalls = v25;
-  v43 = &v40;
-  ctu::RestModule::observeEvent();
-  sub_1000062D4(&v40);
-  if (v39 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
+  sub_10000501C(__p, "/cc/events/call_tone_complete");
   v26 = v25;
-  sub_10000501C(__p, "/cc/props/subscription_info");
-  v27 = (v26 + 320);
-  v28 = v26;
-  v40 = off_101E2E760;
-  p_fCurrentCalls = v27;
-  v42 = v28;
-  v43 = &v40;
-  ctu::RestModule::observeProperty();
-  sub_1000062D4(&v40);
-  if (v39 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  v29 = v28;
-  sub_10000501C(__p, "/cc/props/last_known_home_plmn");
-  v30 = (v29 + 416);
-  v31 = v29;
-  v40 = off_101E2E7E0;
-  p_fCurrentCalls = v30;
-  v42 = v31;
-  v43 = &v40;
-  ctu::RestModule::observeProperty();
-  sub_1000062D4(&v40);
-  if (v39 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  v32 = v31;
-  sub_10000501C(__p, "/cc/events/downlink_dtmf_complete");
-  v33 = v32;
-  v40 = off_101E2E860;
-  p_fCurrentCalls = v33;
-  v43 = &v40;
+  v41 = off_101E2E6E0;
+  p_fCurrentCalls = v26;
+  v44 = &v41;
   ctu::RestModule::observeEvent();
-  sub_1000062D4(&v40);
-  if (v39 < 0)
+  sub_1000062D4(&v41);
+  if (v40 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (capabilities::ct::supportsThumperService(v34))
+  v27 = v26;
+  sub_10000501C(__p, "/cc/props/subscription_info");
+  v28 = (v27 + 320);
+  v29 = v27;
+  v41 = off_101E2E760;
+  p_fCurrentCalls = v28;
+  v43 = v29;
+  v44 = &v41;
+  ctu::RestModule::observeProperty();
+  sub_1000062D4(&v41);
+  if (v40 < 0)
   {
-    v35 = v33;
+    operator delete(__p[0]);
+  }
+
+  v30 = v29;
+  sub_10000501C(__p, "/cc/props/last_known_home_plmn");
+  v31 = (v30 + 416);
+  v32 = v30;
+  v41 = off_101E2E7E0;
+  p_fCurrentCalls = v31;
+  v43 = v32;
+  v44 = &v41;
+  ctu::RestModule::observeProperty();
+  sub_1000062D4(&v41);
+  if (v40 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  v33 = v32;
+  sub_10000501C(__p, "/cc/events/downlink_dtmf_complete");
+  v34 = v33;
+  v41 = off_101E2E860;
+  p_fCurrentCalls = v34;
+  v44 = &v41;
+  ctu::RestModule::observeEvent();
+  sub_1000062D4(&v41);
+  if (v40 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  if (capabilities::ct::supportsThumperService(v35))
+  {
+    v36 = v34;
     sub_10000501C(__p, "/cc/props/active_subscriptions");
-    v36 = (v35 + 344);
-    v37 = v35;
-    v40 = off_101E2E8E0;
-    p_fCurrentCalls = v36;
-    v42 = v37;
-    v43 = &v40;
+    v37 = (v36 + 344);
+    v38 = v36;
+    v41 = off_101E2E8E0;
+    p_fCurrentCalls = v37;
+    v43 = v38;
+    v44 = &v41;
     ctu::RestModule::observeProperty();
-    sub_1000062D4(&v40);
-    if (v39 < 0)
+    sub_1000062D4(&v41);
+    if (v40 < 0)
     {
       operator delete(__p[0]);
     }
   }
 
-  sub_100192C94(&v33[16].fValue.__end_);
-  sub_100192D74(&v33[8].fValue.__end_);
+  sub_100192C94(&v34[16].fValue.__end_, self->fRestModule.__ptr_);
+  sub_100192D74(&v34[8].fValue.__end_, self->fRestModule.__ptr_);
 }
 
 - (BOOL)shouldIncludeInCallHistory:(int)history phoneNumber:()basic_string<char
@@ -650,7 +650,7 @@ LABEL_47:
   v70[0] = 0;
   v70[1] = 0;
   v71 = 0;
-  PersonalityIdFromSlotIdEx();
+  PersonalityIdFromSlotIdEx(v70);
   v68 = 0;
   v69 = 0;
   ServiceMap = Registry::getServiceMap(*(v4 + 24));
@@ -996,7 +996,7 @@ LABEL_71:
 - (void)checkBasebandAssertions
 {
   ptr = self->fBasebandOnlineAssertion.__ptr_;
-  [(TelephonyProviderDelegate *)self getCurrentCalls];
+  objc_msgSend_getCurrentCalls(self, a2);
   v4 = *buf;
   v5 = v19;
   if (*buf == v19)
@@ -1589,7 +1589,7 @@ LABEL_56:
   if (!v16)
   {
     memset(buf, 0, sizeof(buf));
-    [(TelephonyProviderDelegate *)selfCopy getCurrentCalls];
+    objc_msgSend_getCurrentCalls(selfCopy);
     v98 = 0u;
     v99 = 0u;
     v96 = 0u;
@@ -1821,7 +1821,7 @@ LABEL_53:
         {
           callUUID3 = [v48 callUUID];
           sub_1000B2CAC(callUUID3, __p);
-          sub_10017695C(buf, __p);
+          sub_10017695C(buf, __p, __p);
           if (SHIBYTE(v119[0]) < 0)
           {
             operator delete(__p[0]);
@@ -2086,13 +2086,13 @@ LABEL_130:
     if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      *&buf[4] = (v67 - v66) >> 3;
+      *&buf[4] = v67 - v66;
       _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_DEFAULT, "#I executeTransaction: After translation (size: %lu):", buf, 0xCu);
       v66 = v110;
       v67 = v111;
     }
 
-    for (; v66 != v67; v66 += 8)
+    for (; v66 != v67; ++v66)
     {
       *v127 = 0;
       *v127 = *v66;
@@ -2134,7 +2134,7 @@ LABEL_130:
 
     *&v121[8] = 0;
     *v121 = 0;
-    [(TelephonyProviderDelegate *)selfCopy getCurrentCalls];
+    objc_msgSend_getCurrentCalls(selfCopy);
     sub_1000B339C(buf);
   }
 
@@ -2335,7 +2335,7 @@ LABEL_11:
   }
 
   memset(v14, 0, sizeof(v14));
-  [(TelephonyProviderDelegate *)self getCurrentCalls];
+  objc_msgSend_getCurrentCalls(self);
   *v20 = 0u;
   v21 = 0u;
   *buf = 0u;
@@ -5072,7 +5072,7 @@ LABEL_15:
   v16 = 0;
   v15 = 0;
   v17 = 0;
-  [(TelephonyProviderDelegate *)self getCurrentCalls];
+  objc_msgSend_getCurrentCalls(self);
   v6 = *self->logger.__ptr_;
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
@@ -5130,7 +5130,7 @@ LABEL_15:
     v37 = 0;
     v38 = 0;
     v39 = 0;
-    [(TelephonyProviderDelegate *)self getCurrentCalls];
+    objc_msgSend_getCurrentCalls(self);
     v5 = *self->logger.__ptr_;
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
@@ -5520,7 +5520,7 @@ LABEL_38:
                     v14 = *v12;
                   }
 
-                  v15 = v12 + 3;
+                  v15 = (v12 + 24);
                   if (*(v12 + 47) < 0)
                   {
                     v15 = *v15;
@@ -5551,7 +5551,7 @@ LABEL_40:
 
                   else
                   {
-                    v19 = v12[1];
+                    v19 = *(v12 + 8);
                   }
 
                   while (1)
@@ -5581,7 +5581,7 @@ LABEL_40:
                   }
                 }
 
-                v12 += 7;
+                v12 += 56;
               }
 
               *v52 = &v43;
@@ -5792,7 +5792,7 @@ LABEL_40:
       }
 
       v14 = 0;
-      xpc::bridge(buf, &v15, v8);
+      xpc::bridge(&v15, v8);
       sub_1001B1A54(&v14, buf);
       sub_10000A1EC(buf);
       if (v14)
@@ -5830,7 +5830,7 @@ LABEL_40:
 - (void)handleThumperHandoffAvailabilityChanged
 {
   memset(v2, 0, sizeof(v2));
-  [(TelephonyProviderDelegate *)self getCurrentCalls];
+  objc_msgSend_getCurrentCalls(self, a2);
   *buf = v2;
   sub_1000B2DB4(buf);
 }
@@ -6364,21 +6364,21 @@ LABEL_26:
   sub_100006354(buf, __dst);
   xpc::dyn_cast_or_default(__dst, 1, v10);
   xpc_release(*__dst);
-  v265 = isEmergencyCall();
+  v264 = isEmergencyCall();
   *buf = info;
   *&buf[8] = "kCallSimSlot";
   sub_100006354(buf, __dst);
-  v266 = xpc::dyn_cast_or_default(__dst, 1, v11);
+  v265 = xpc::dyn_cast_or_default(__dst, 1, v11);
   xpc_release(*__dst);
   *buf = info;
   *&buf[8] = "kSupportsEmergencyFallback";
   sub_100006354(buf, __dst);
-  v263 = xpc::dyn_cast_or_default(__dst, 0, v12);
+  v262 = xpc::dyn_cast_or_default(__dst, 0, v12);
   xpc_release(*__dst);
   *buf = info;
   *&buf[8] = "kCallDirectionMobileOriginated";
   sub_100006354(buf, __dst);
-  v258 = xpc::dyn_cast_or_default(__dst, 0, v13);
+  v257 = xpc::dyn_cast_or_default(__dst, 0, v13);
   xpc_release(*__dst);
   *buf = callInfo;
   *&buf[8] = "kCallStatus";
@@ -6388,31 +6388,31 @@ LABEL_26:
   *buf = callInfo;
   *&buf[8] = "kCallSubType";
   sub_100006354(buf, __dst);
-  v259 = xpc::dyn_cast_or_default(__dst, 0, v16);
+  v258 = xpc::dyn_cast_or_default(__dst, 0, v16);
   xpc_release(*__dst);
   *buf = callInfo;
   *&buf[8] = "kCallType";
   sub_100006354(buf, __dst);
   xpc::dyn_cast_or_default(__dst, 1, v17);
   xpc_release(*__dst);
-  HIDWORD(v251) = isEmergencyCall();
-  LODWORD(v251) = isEmergencyCallNormalSetup();
+  HIDWORD(v250) = isEmergencyCall();
+  LODWORD(v250) = isEmergencyCallNormalSetup();
   *buf = callInfo;
   *&buf[8] = "kCallSimSlot";
   sub_100006354(buf, __dst);
-  v264 = xpc::dyn_cast_or_default(__dst, v266, v18);
+  v263 = xpc::dyn_cast_or_default(__dst, v265, v18);
   xpc_release(*__dst);
   *buf = callInfo;
   *&buf[8] = "kSupportsEmergencyFallback";
   sub_100006354(buf, __dst);
   v20 = xpc::dyn_cast_or_default(__dst, 0, v19);
   xpc_release(*__dst);
+  v294 = 0;
   v295 = 0;
   v296 = 0;
-  v297 = 0;
   *__dst = info;
   *&__dst[8] = "kUuid";
-  sub_100006354(__dst, &v292);
+  sub_100006354(__dst, &v291);
   memset(buf, 0, sizeof(buf));
   xpc::dyn_cast_or_default();
   if (buf[23] < 0)
@@ -6420,10 +6420,10 @@ LABEL_26:
     operator delete(*buf);
   }
 
-  xpc_release(v292);
+  xpc_release(v291);
+  v291 = 0;
   v292 = 0;
   v293 = 0;
-  v294 = 0;
   *__dst = callInfo;
   *&__dst[8] = "kUuid";
   sub_100006354(__dst, &fObj);
@@ -6445,20 +6445,20 @@ LABEL_26:
   sub_100006354(buf, __dst);
   v24 = xpc::dyn_cast_or_default(__dst, 0, v23);
   xpc_release(*__dst);
-  if (v294 >= 0)
+  if (v293 >= 0)
   {
-    v25 = HIBYTE(v294);
+    v25 = HIBYTE(v293);
   }
 
   else
   {
-    v25 = v293;
+    v25 = v292;
   }
 
-  v26 = HIBYTE(v297);
-  if (v297 < 0)
+  v26 = HIBYTE(v296);
+  if (v296 < 0)
   {
-    v26 = v296;
+    v26 = v295;
   }
 
   if (v25 != v26)
@@ -6467,40 +6467,40 @@ LABEL_26:
     goto LABEL_21;
   }
 
-  if (v294 >= 0)
+  if (v293 >= 0)
   {
-    v27 = &v292;
+    v27 = &v291;
   }
 
   else
   {
-    v27 = v292;
+    v27 = v291;
   }
 
-  if (v297 >= 0)
+  if (v296 >= 0)
   {
-    v28 = &v295;
+    v28 = &v294;
   }
 
   else
   {
-    v28 = v295;
+    v28 = v294;
   }
 
-  v268 = 1;
-  if (!memcmp(v27, v28, v25) && (v15 != 9) | v258 & 1)
+  v267 = 1;
+  if (!memcmp(v27, v28, v25) && (v15 != 9) | v257 & 1)
   {
     v29 = v22 & (v24 ^ 1);
 LABEL_21:
-    v268 = v29;
+    v267 = v29;
   }
 
-  v261 = v7;
+  v260 = v7;
   v31 = v15 != 6 && v7 == 6;
-  v255 = v31;
+  v254 = v31;
   v32 = objc_opt_new();
-  v256 = v32;
-  v267 = objc_opt_new();
+  v255 = v32;
+  v266 = objc_opt_new();
   *buf = info;
   *&buf[8] = "kAudioToneRelayFlag";
   sub_100006354(buf, __dst);
@@ -6512,8 +6512,8 @@ LABEL_21:
   v36 = xpc::dyn_cast_or_default(__dst, v34, v35);
   xpc_release(*__dst);
   v37 = v34 ^ v36;
-  v257 = v268 ^ 1;
-  if (v268)
+  v256 = v267 ^ 1;
+  if (v267)
   {
     v38 = v34;
   }
@@ -6531,13 +6531,13 @@ LABEL_21:
       *buf = 67109632;
       *&buf[4] = v34;
       *&buf[8] = 1024;
-      *&buf[10] = v268 & v34;
+      *&buf[10] = v267 & v34;
       *&buf[14] = 1024;
-      *&buf[16] = v257 & v37;
+      *&buf[16] = v256 & v37;
       _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "#I Updating requiresInCallSounds to %d. newCallAndclientShouldRelayTones: %d, sameCallAndRelayTonesFlagChanged: %d", buf, 0x14u);
     }
 
-    [v32 setRequiresInCallSounds:{v34, v251}];
+    [v32 setRequiresInCallSounds:{v34, v250}];
   }
 
   *buf = info;
@@ -6570,7 +6570,7 @@ LABEL_21:
       _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "#I Updating inCallSoundRegion to %d", buf, 8u);
     }
 
-    [v32 setInCallSoundRegion:{v44, v251}];
+    [v32 setInCallSoundRegion:{v44, v250}];
     v38 = 1;
   }
 
@@ -6584,7 +6584,7 @@ LABEL_21:
   sub_100006354(buf, __dst);
   v49 = xpc::dyn_cast_or_default(__dst, 0, v48);
   xpc_release(*__dst);
-  v50 = v268;
+  v50 = v267;
   if (v47 != v49)
   {
     v50 = 1;
@@ -6627,22 +6627,22 @@ LABEL_21:
       _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, "#I Updating failureExpected because BB has notified us that the emergency call is likely to fail", buf, 2u);
     }
 
-    [v32 setFailureExpected:{v55, v251}];
+    [v32 setFailureExpected:{v55, v250}];
     v38 = 1;
   }
 
-  if ((v268 | v263 ^ v20))
+  if ((v267 | v262 ^ v20))
   {
     v59 = *self->logger.__ptr_;
     if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
     {
-      v60 = CSIBOOLAsString(v263);
+      v60 = CSIBOOLAsString(v262);
       *buf = 136315138;
       *&buf[4] = v60;
       _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEFAULT, "#I Updating emergency fallback support to %s", buf, 0xCu);
     }
 
-    [v32 setSupportsEmergencyFallback:{v263, v251}];
+    [v32 setSupportsEmergencyFallback:{v262, v250}];
     v38 = 1;
   }
 
@@ -6653,23 +6653,23 @@ LABEL_21:
   xpc_release(*__dst);
   if (v62)
   {
-    v63 = v266;
-    v64 = v264;
-    v65 = v261;
-    v67 = v266 != v264 || v261 == 4;
+    v63 = v265;
+    v64 = v263;
+    v65 = v260;
+    v67 = v265 != v263 || v260 == 4;
   }
 
   else
   {
     v67 = 0;
-    v63 = v266;
-    v64 = v264;
-    v65 = v261;
+    v63 = v265;
+    v64 = v263;
+    v65 = v260;
   }
 
   v70 = v65 == 4 && v15 != 4 || v63 != v64;
-  v71 = v268;
-  if (v259 != v9)
+  v71 = v267;
+  if (v258 != v9)
   {
     v71 = 1;
   }
@@ -6729,7 +6729,7 @@ LABEL_90:
             sub_100004A34(v84);
           }
 
-          if (v266 == v264)
+          if (v265 == v263)
           {
             v87 = 0;
           }
@@ -6744,7 +6744,7 @@ LABEL_90:
             v88 = *self->logger.__ptr_;
             v89 = os_log_type_enabled(v88, OS_LOG_TYPE_DEFAULT);
             v90 = 0;
-            v32 = v256;
+            v32 = v255;
             if (v89)
             {
               *buf = 0;
@@ -6755,11 +6755,11 @@ LABEL_90:
 
           else
           {
-            v32 = v256;
+            v32 = v255;
             v90 = sd::IMSSubscriberConfigInterface::shouldUseAPMediaStack((v9 == 2), v75, v9 == 1, v85) ^ 1;
           }
 
-          [v32 setUsingBaseband:{v90, v251}];
+          [v32 setUsingBaseband:{v90, v250}];
           v91 = *self->logger.__ptr_;
           if (os_log_type_enabled(v91, OS_LOG_TYPE_DEFAULT))
           {
@@ -6769,9 +6769,9 @@ LABEL_90:
             _os_log_impl(&_mh_execute_header, v91, OS_LOG_TYPE_DEFAULT, "#I Updating usingBaseband to %s", buf, 0xCu);
           }
 
-          if (v265)
+          if (v264)
           {
-            [v32 setSupportsDTMFUpdates:{-[TelephonyProviderDelegate supportDownlinkDtmf:usingBaseband:isCS:](self, "supportDownlinkDtmf:usingBaseband:isCS:", v266, objc_msgSend(v32, "isUsingBaseband"), v9 == 1)}];
+            [v32 setSupportsDTMFUpdates:{-[TelephonyProviderDelegate supportDownlinkDtmf:usingBaseband:isCS:](self, "supportDownlinkDtmf:usingBaseband:isCS:", v265, objc_msgSend(v32, "isUsingBaseband"), v9 == 1)}];
             v93 = *self->logger.__ptr_;
             if (os_log_type_enabled(v93, OS_LOG_TYPE_DEFAULT))
             {
@@ -6822,7 +6822,7 @@ LABEL_107:
 
           else
           {
-            if (v261 == 3)
+            if (v260 == 3)
             {
               v100 = v62;
             }
@@ -6854,7 +6854,7 @@ LABEL_107:
         }
 
 LABEL_89:
-        v75 = (*(*v83 + 288))(v83, v266);
+        v75 = (*(*v83 + 288))(v83, v265);
         goto LABEL_90;
       }
     }
@@ -6876,9 +6876,9 @@ LABEL_89:
   }
 
 LABEL_121:
-  v251 = [NSString stringWithUTF8String:"kCallSubType", v251];
-  v254 = [NSString stringWithUTF8String:convertPhoneCallSubTypeToPublicString()];
-  [v267 setValue:? forKey:?];
+  v250 = [NSString stringWithUTF8String:"kCallSubType", v250];
+  v253 = [NSString stringWithUTF8String:convertPhoneCallSubTypeToPublicString()];
+  [v266 setValue:? forKey:?];
   *buf = info;
   *&buf[8] = "kIsTTY";
   sub_100006354(buf, __dst);
@@ -6892,9 +6892,9 @@ LABEL_121:
   *buf = info;
   *&buf[8] = "kIsTTYWithVoiceSupported";
   sub_100006354(buf, __dst);
-  v260 = xpc::dyn_cast_or_default(__dst, 1, v105);
+  v259 = xpc::dyn_cast_or_default(__dst, 1, v105);
   xpc_release(*__dst);
-  v106 = v268;
+  v106 = v267;
   if (v102 != v104)
   {
     v106 = 1;
@@ -6913,11 +6913,11 @@ LABEL_121:
     }
 
     [v32 setTTYType:sub_100B2EDD8(v102)];
-    [v32 setSupportsTTYWithVoice:v107 & v260];
+    [v32 setSupportsTTYWithVoice:v107 & v259];
     v38 = 1;
   }
 
-  if (v255)
+  if (v254)
   {
     v110 = *self->logger.__ptr_;
     if (os_log_type_enabled(v110, OS_LOG_TYPE_DEFAULT))
@@ -6933,11 +6933,11 @@ LABEL_121:
     xpc_release(*__dst);
     v113 = [NSString stringWithUTF8String:"kDisconnectCauseCode"];
     v114 = [NSNumber numberWithInt:v112];
-    [v267 setValue:v114 forKey:v113];
+    [v266 setValue:v114 forKey:v113];
     memset(__dst, 0, sizeof(__dst));
-    v304 = 0;
+    v303 = 0;
     fObj = info.fObj.fObj;
-    v290 = "kDisconnectCauseCodeString";
+    v289 = "kDisconnectCauseCodeString";
     sub_100006354(&fObj, &object);
     memset(buf, 0, sizeof(buf));
     xpc::dyn_cast_or_default();
@@ -6949,7 +6949,7 @@ LABEL_121:
     xpc_release(object);
     v115 = [NSString stringWithUTF8String:"kDisconnectCauseCodeString"];
 
-    if (v304 >= 0)
+    if (v303 >= 0)
     {
       v116 = __dst;
     }
@@ -6960,7 +6960,7 @@ LABEL_121:
     }
 
     v117 = [NSString stringWithUTF8String:v116];
-    [v267 setValue:v117 forKey:v115];
+    [v266 setValue:v117 forKey:v115];
     *buf = info;
     *&buf[8] = "kBBCallDisconnectCause";
     sub_100006354(buf, &fObj);
@@ -6970,8 +6970,8 @@ LABEL_121:
 
     v121 = [NSNumber numberWithInt:v119];
 
-    [v267 setValue:v121 forKey:v120];
-    if (SHIBYTE(v304) < 0)
+    [v266 setValue:v121 forKey:v120];
+    if (SHIBYTE(v303) < 0)
     {
       operator delete(*__dst);
     }
@@ -6980,35 +6980,35 @@ LABEL_121:
   }
 
   fObj = 0;
+  v289 = 0;
   v290 = 0;
-  v291 = 0;
   *buf = info;
   *&buf[8] = "kCallName";
   sub_100006354(buf, __dst);
-  xpc::dyn_cast_or_default(&fObj, __dst, "", v122);
+  xpc::dyn_cast_or_default(__dst, "", v122);
   xpc_release(*__dst);
   object = 0;
+  v286 = 0;
   v287 = 0;
-  v288 = 0;
   *buf = callInfo;
   *&buf[8] = "kCallName";
   sub_100006354(buf, __dst);
-  xpc::dyn_cast_or_default(&object, __dst, "", v123);
+  xpc::dyn_cast_or_default(__dst, "", v123);
   xpc_release(*__dst);
-  v124 = SHIBYTE(v291);
-  if (v291 >= 0)
+  v124 = SHIBYTE(v290);
+  if (v290 >= 0)
   {
-    v125 = HIBYTE(v291);
+    v125 = HIBYTE(v290);
   }
 
   else
   {
-    v125 = v290;
+    v125 = v289;
   }
 
   if (v125)
   {
-    if (v268)
+    if (v267)
     {
       v126 = fObj;
 LABEL_154:
@@ -7024,7 +7024,7 @@ LABEL_154:
         *buf = 136315138;
         *&buf[4] = p_fObj;
         _os_log_impl(&_mh_execute_header, v130, OS_LOG_TYPE_DEFAULT, "#I Updating callerName to %s", buf, 0xCu);
-        LOBYTE(v124) = HIBYTE(v291);
+        LOBYTE(v124) = HIBYTE(v290);
         v126 = fObj;
       }
 
@@ -7045,10 +7045,10 @@ LABEL_154:
       goto LABEL_162;
     }
 
-    v127 = HIBYTE(v288);
-    if (v288 < 0)
+    v127 = HIBYTE(v287);
+    if (v287 < 0)
     {
-      v127 = v287;
+      v127 = v286;
     }
 
     v126 = fObj;
@@ -7057,8 +7057,8 @@ LABEL_154:
       goto LABEL_154;
     }
 
-    v128 = v291 >= 0 ? &fObj : fObj;
-    v129 = v288 >= 0 ? &object : object;
+    v128 = v290 >= 0 ? &fObj : fObj;
+    v129 = v287 >= 0 ? &object : object;
     if (memcmp(v128, v129, v125))
     {
       goto LABEL_154;
@@ -7066,12 +7066,12 @@ LABEL_154:
   }
 
 LABEL_162:
+  v282 = 0;
   v283 = 0;
   v284 = 0;
-  v285 = 0;
   *__dst = info;
   *&__dst[8] = "kPhoneNumber";
-  sub_100006354(__dst, &v280);
+  sub_100006354(__dst, &v279);
   memset(buf, 0, sizeof(buf));
   xpc::dyn_cast_or_default();
   if (buf[23] < 0)
@@ -7079,13 +7079,13 @@ LABEL_162:
     operator delete(*buf);
   }
 
-  xpc_release(v280);
+  xpc_release(v279);
+  v279 = 0;
   v280 = 0;
   v281 = 0;
-  v282 = 0;
   *__dst = callInfo;
   *&__dst[8] = "kPhoneNumber";
-  sub_100006354(__dst, &v276);
+  sub_100006354(__dst, &v275);
   memset(buf, 0, sizeof(buf));
   xpc::dyn_cast_or_default();
   if (buf[23] < 0)
@@ -7093,28 +7093,28 @@ LABEL_162:
     operator delete(*buf);
   }
 
-  xpc_release(v276);
-  v134 = SHIBYTE(v285);
-  if (v285 >= 0)
+  xpc_release(v275);
+  v134 = SHIBYTE(v284);
+  if (v284 >= 0)
   {
-    v135 = HIBYTE(v285);
+    v135 = HIBYTE(v284);
   }
 
   else
   {
-    v135 = v284;
+    v135 = v283;
   }
 
   if (v135)
   {
-    if (v268)
+    if (v267)
     {
-      v136 = v283;
+      v136 = v282;
 LABEL_182:
       v140 = *self->logger.__ptr_;
       if (os_log_type_enabled(v140, OS_LOG_TYPE_DEFAULT))
       {
-        v141 = &v283;
+        v141 = &v282;
         if (v134 < 0)
         {
           v141 = v136;
@@ -7123,13 +7123,13 @@ LABEL_182:
         *buf = 136315138;
         *&buf[4] = v141;
         _os_log_impl(&_mh_execute_header, v140, OS_LOG_TYPE_DEFAULT, "#I Updating caller id/phone number to %s", buf, 0xCu);
-        LOBYTE(v134) = HIBYTE(v285);
-        v136 = v283;
+        LOBYTE(v134) = HIBYTE(v284);
+        v136 = v282;
       }
 
       if ((v134 & 0x80u) == 0)
       {
-        v142 = &v283;
+        v142 = &v282;
       }
 
       else
@@ -7141,44 +7141,44 @@ LABEL_182:
       v144 = [[CXHandle alloc] initWithType:2 value:v143];
       [v32 setRemoteHandle:v144];
 
-      if ((v265 & v252 & v263) == 1)
+      if ((v264 & v251 & v262) == 1)
       {
-        if (v285 >= 0)
+        if (v284 >= 0)
         {
-          v145 = HIBYTE(v285);
+          v145 = HIBYTE(v284);
         }
 
         else
         {
-          v145 = v284;
+          v145 = v283;
         }
 
-        v146 = HIBYTE(v282);
-        if (v282 < 0)
+        v146 = HIBYTE(v281);
+        if (v281 < 0)
         {
-          v146 = v281;
+          v146 = v280;
         }
 
         if (v145 == v146)
         {
-          if (v285 >= 0)
+          if (v284 >= 0)
           {
-            v147 = &v283;
+            v147 = &v282;
           }
 
           else
           {
-            v147 = v283;
+            v147 = v282;
           }
 
-          if (v282 >= 0)
+          if (v281 >= 0)
           {
-            v148 = &v280;
+            v148 = &v279;
           }
 
           else
           {
-            v148 = v280;
+            v148 = v279;
           }
 
           v149 = memcmp(v147, v148, v145) != 0;
@@ -7201,20 +7201,20 @@ LABEL_182:
       goto LABEL_206;
     }
 
-    v137 = HIBYTE(v282);
-    if (v282 < 0)
+    v137 = HIBYTE(v281);
+    if (v281 < 0)
     {
-      v137 = v281;
+      v137 = v280;
     }
 
-    v136 = v283;
+    v136 = v282;
     if (v135 != v137)
     {
       goto LABEL_182;
     }
 
-    v138 = v285 >= 0 ? &v283 : v283;
-    v139 = v282 >= 0 ? &v280 : v280;
+    v138 = v284 >= 0 ? &v282 : v282;
+    v139 = v281 >= 0 ? &v279 : v279;
     if (memcmp(v138, v139, v135))
     {
       goto LABEL_182;
@@ -7222,16 +7222,16 @@ LABEL_182:
   }
 
 LABEL_206:
-  if ((v268 | v265 ^ v253))
+  if ((v267 | v264 ^ v252))
   {
     *buf = info;
     *&buf[8] = "kSuspicious380Redirect";
     sub_100006354(buf, __dst);
     v151 = xpc::dyn_cast_or_default(__dst, 0, v150);
     xpc_release(*__dst);
-    if ((v151 ^ 1 | v268 | v253))
+    if ((v151 ^ 1 | v267 | v252))
     {
-      [v32 setEmergency:(v151 ^ 1) & v265];
+      [v32 setEmergency:(v151 ^ 1) & v264];
       v152 = *self->logger.__ptr_;
       if (os_log_type_enabled(v152, OS_LOG_TYPE_DEFAULT))
       {
@@ -7290,9 +7290,9 @@ LABEL_206:
 
       xpc_release(v155);
       xpc_release(*buf);
-      v276 = callInfo.fObj.fObj;
-      v277 = "kAudioStreamTokens";
-      sub_100006354(&v276, buf);
+      v275 = callInfo.fObj.fObj;
+      v276 = "kAudioStreamTokens";
+      sub_100006354(&v275, buf);
       v160 = xpc_null_create();
       v161 = *buf;
       if (*buf && xpc_get_type(*buf) == &_xpc_type_array)
@@ -7324,23 +7324,23 @@ LABEL_206:
 
       xpc_release(v160);
       xpc_release(*buf);
-      if (((v268 & 1) != 0 || !xpc_dictionary_get_value(*v276, v277) || !xpc_equal(object1[0], v161)) && xpc_get_type(object1[0]) == &_xpc_type_array && xpc_array_get_count(object1[0]) >= 3)
+      if (((v267 & 1) != 0 || !xpc_dictionary_get_value(*v275, v276) || !xpc_equal(object1[0], v161)) && xpc_get_type(object1[0]) == &_xpc_type_array && xpc_array_get_count(object1[0]) >= 3)
       {
         *buf = object1;
         *&buf[8] = 0;
-        sub_100008EF0(buf, v279);
-        v164 = xpc::dyn_cast_or_default(v279, 0, v163);
-        xpc_release(v279[0]);
+        sub_100008EF0(buf, v278);
+        v164 = xpc::dyn_cast_or_default(v278, 0, v163);
+        xpc_release(v278[0]);
         *buf = object1;
         *&buf[8] = 1;
-        sub_100008EF0(buf, v279);
-        v166 = xpc::dyn_cast_or_default(v279, 0, v165);
-        xpc_release(v279[0]);
+        sub_100008EF0(buf, v278);
+        v166 = xpc::dyn_cast_or_default(v278, 0, v165);
+        xpc_release(v278[0]);
         *buf = object1;
         *&buf[8] = 2;
-        sub_100008EF0(buf, v279);
-        v168 = xpc::dyn_cast_or_default(v279, 0, v167);
-        xpc_release(v279[0]);
+        sub_100008EF0(buf, v278);
+        v168 = xpc::dyn_cast_or_default(v278, 0, v167);
+        xpc_release(v278[0]);
         v169 = *self->logger.__ptr_;
         if (os_log_type_enabled(v169, OS_LOG_TYPE_DEFAULT))
         {
@@ -7373,11 +7373,11 @@ LABEL_206:
     }
   }
 
-  v279[0] = info.fObj.fObj;
-  v279[1] = "kTextStreamToken";
+  v278[0] = info.fObj.fObj;
+  v278[1] = "kTextStreamToken";
   if (xpc_dictionary_get_value(*info.fObj.fObj, "kTextStreamToken"))
   {
-    sub_100006354(v279, buf);
+    sub_100006354(v278, buf);
     v175 = xpc::dyn_cast_or_default(buf, 0, v174);
     xpc_release(*buf);
     *buf = callInfo;
@@ -7387,8 +7387,8 @@ LABEL_206:
     xpc_release(*__dst);
     v178 = [NSString stringWithUTF8String:"kTextStreamToken"];
     v179 = [NSNumber numberWithInt:v175];
-    [v267 setValue:v179 forKey:v178];
-    if ((v268 & 1) != 0 || !xpc_dictionary_get_value(**buf, *&buf[8]) || v175 != v177)
+    [v266 setValue:v179 forKey:v178];
+    if ((v267 & 1) != 0 || !xpc_dictionary_get_value(**buf, *&buf[8]) || v175 != v177)
     {
       v180 = *self->logger.__ptr_;
       if (os_log_type_enabled(v180, OS_LOG_TYPE_DEFAULT))
@@ -7403,22 +7403,22 @@ LABEL_206:
 
     *__dst = info;
     *&__dst[8] = "kIsTextHeldForRTTCall";
-    sub_100006354(__dst, &v276);
-    v182 = xpc::dyn_cast_or_default(&v276, 0, v181);
-    xpc_release(v276);
+    sub_100006354(__dst, &v275);
+    v182 = xpc::dyn_cast_or_default(&v275, 0, v181);
+    xpc_release(v275);
     v183 = [NSString stringWithUTF8String:"kIsTextHeldForRTTCall"];
     v184 = [NSNumber numberWithBool:v182];
-    [v267 setValue:v184 forKey:v183];
+    [v266 setValue:v184 forKey:v183];
     *__dst = callInfo;
     *&__dst[8] = "kIsTextHeldForRTTCall";
-    v276 = 0;
+    v275 = 0;
     v185 = sub_1001B1AB8(__dst);
     *__dst = callInfo;
     *&__dst[8] = "kIsTextHeldForRTTCall";
-    sub_100006354(__dst, &v276);
-    v187 = xpc::dyn_cast_or_default(&v276, 0, v186);
-    xpc_release(v276);
-    if (((v268 | v185) & 1) != 0 || v182 != v187)
+    sub_100006354(__dst, &v275);
+    v187 = xpc::dyn_cast_or_default(&v275, 0, v186);
+    xpc_release(v275);
+    if (((v267 | v185) & 1) != 0 || v182 != v187)
     {
       v188 = *self->logger.__ptr_;
       if (os_log_type_enabled(v188, OS_LOG_TYPE_DEFAULT))
@@ -7431,7 +7431,7 @@ LABEL_206:
       v38 = 1;
     }
 
-    v32 = v256;
+    v32 = v255;
   }
 
   *buf = info;
@@ -7470,9 +7470,9 @@ LABEL_206:
   memset(buf, 0, sizeof(buf));
   *__dst = info;
   *&__dst[8] = "kImagePath";
-  sub_100006354(__dst, &v276);
-  xpc::dyn_cast_or_default(buf, &v276, "", v194);
-  xpc_release(v276);
+  sub_100006354(__dst, &v275);
+  xpc::dyn_cast_or_default(&v275, "", v194);
+  xpc_release(v275);
   v195 = buf[23];
   v196 = buf[23];
   if ((buf[23] & 0x80u) != 0)
@@ -7482,7 +7482,7 @@ LABEL_206:
 
   if (v195)
   {
-    if (v268)
+    if (v267)
     {
       v197 = *self->logger.__ptr_;
       if (os_log_type_enabled(v197, OS_LOG_TYPE_DEFAULT))
@@ -7518,7 +7518,7 @@ LABEL_206:
 
     else
     {
-      if (!v255)
+      if (!v254)
       {
         goto LABEL_277;
       }
@@ -7570,7 +7570,7 @@ LABEL_279:
   xpc_release(*__dst);
   if (v206 == v208)
   {
-    v213 = v268 ^ 1;
+    v213 = v267 ^ 1;
   }
 
   else
@@ -7597,7 +7597,7 @@ LABEL_279:
     v38 = 1;
   }
 
-  if (((v257 | v258) & 1) == 0)
+  if (((v256 | v257) & 1) == 0)
   {
     *buf = info;
     *&buf[8] = "kMarkMTCallWithHighPriority";
@@ -7631,7 +7631,7 @@ LABEL_279:
     [v32 setPriority:v221];
   }
 
-  v222 = [(TelephonyProviderDelegate *)self getCallCapabilitiesUpdateForCall:v32 simSlot:v266 isEmergency:v265 supportsTextWithVoiceForCall:v260];
+  v222 = [(TelephonyProviderDelegate *)self getCallCapabilitiesUpdateForCall:v32 simSlot:v265 isEmergency:v264 supportsTextWithVoiceForCall:v259];
 
   v223 = v222;
   if ([v222 supportsUngrouping])
@@ -7660,44 +7660,43 @@ LABEL_279:
       }
 
       [v223 setSupportsUngrouping:v229];
-      v232 = v266;
-      if (v266 == v264)
+      if (v265 == v263)
       {
-        v233 = v268;
+        v232 = v267;
       }
 
       else
       {
-        v233 = 1;
+        v232 = 1;
       }
 
-      if (v233 != 1)
+      if (v232 != 1)
       {
         goto LABEL_354;
       }
 
 LABEL_309:
+      v275 = 0;
       v276 = 0;
       v277 = 0;
-      v278 = 0;
       selfCopy2 = self;
-      PersonalityIdFromSlotIdEx();
-      v236 = [[NSUUID alloc] initWithUUIDString:&stru_101F6AFB8];
+      PersonalityIdFromSlotIdEx(&v275);
+      v235 = [[NSUUID alloc] initWithUUIDString:&stru_101F6AFB8];
       uuid = 0;
       UuidFromPersonalityId();
       *buf = 0;
-      v237 = uuid;
+      v236 = uuid;
       sub_1000475BC(buf);
-      if (v237)
+      if (v236)
       {
         *buf = 0;
         *buf = CFUUIDCreateString(0, uuid);
-        v238 = *buf;
-        if (v238)
+        v237 = *buf;
+        if (v237)
         {
-          v239 = [[NSUUID alloc] initWithUUIDString:v238];
+          v238 = [[NSUUID alloc] initWithUUIDString:v237];
 
-          v236 = v239;
+          v235 = v238;
         }
 
         else if (os_log_type_enabled(*self->logger.__ptr_, OS_LOG_TYPE_ERROR))
@@ -7713,62 +7712,62 @@ LABEL_309:
         if (!os_log_type_enabled(*self->logger.__ptr_, OS_LOG_TYPE_ERROR))
         {
 LABEL_320:
-          v241 = *selfCopy2->logger.__ptr_;
-          if (os_log_type_enabled(v241, OS_LOG_TYPE_DEFAULT))
+          v240 = *selfCopy2->logger.__ptr_;
+          if (os_log_type_enabled(v240, OS_LOG_TYPE_DEFAULT))
           {
-            v242 = subscriber::asString();
-            v243 = HIBYTE(v278);
-            if (v278 < 0)
+            v241 = subscriber::asString();
+            v242 = HIBYTE(v277);
+            if (v277 < 0)
             {
-              v243 = v277;
+              v242 = v276;
             }
 
-            v244 = &v276;
-            if (v278 < 0)
+            v243 = &v275;
+            if (v277 < 0)
             {
-              v244 = v276;
+              v243 = v275;
             }
 
             *buf = 136315650;
-            if (v243)
+            if (v242)
             {
-              v245 = v244;
+              v244 = v243;
             }
 
             else
             {
-              v245 = "<invalid>";
+              v244 = "<invalid>";
             }
 
-            *&buf[4] = v242;
+            *&buf[4] = v241;
             *&buf[12] = 2080;
-            *&buf[14] = v245;
+            *&buf[14] = v244;
             *&buf[22] = 2112;
-            v302 = v236;
-            _os_log_impl(&_mh_execute_header, v241, OS_LOG_TYPE_DEFAULT, "#I Updating local sender identity UUID for sim slot %s with PersonalityID %s to %@", buf, 0x20u);
+            v301 = v235;
+            _os_log_impl(&_mh_execute_header, v240, OS_LOG_TYPE_DEFAULT, "#I Updating local sender identity UUID for sim slot %s with PersonalityID %s to %@", buf, 0x20u);
           }
 
-          [v223 setLocalSenderIdentityUUID:v236];
+          [v223 setLocalSenderIdentityUUID:v235];
           object1[0] = 0;
           object1[1] = 0;
-          v274 = 0;
-          [(TelephonyProviderDelegate *)selfCopy2 getiSOCountryCodeForCurrentLocation:v232];
-          v246 = *selfCopy2->logger.__ptr_;
-          if (os_log_type_enabled(v246, OS_LOG_TYPE_DEFAULT))
+          v273 = 0;
+          objc_msgSend_getiSOCountryCodeForCurrentLocation_(selfCopy2);
+          v245 = *selfCopy2->logger.__ptr_;
+          if (os_log_type_enabled(v245, OS_LOG_TYPE_DEFAULT))
           {
-            v247 = object1;
-            if (v274 < 0)
+            v246 = object1;
+            if (v273 < 0)
             {
-              v247 = object1[0];
+              v246 = object1[0];
             }
 
             *buf = 136446210;
-            *&buf[4] = v247;
-            _os_log_impl(&_mh_execute_header, v246, OS_LOG_TYPE_DEFAULT, "#I Updating ISO country code to '%{public}s'", buf, 0xCu);
+            *&buf[4] = v246;
+            _os_log_impl(&_mh_execute_header, v245, OS_LOG_TYPE_DEFAULT, "#I Updating ISO country code to '%{public}s'", buf, 0xCu);
           }
 
-          v272 = 0;
-          if (SHIBYTE(v274) < 0)
+          v271 = 0;
+          if (SHIBYTE(v273) < 0)
           {
             sub_100005F2C(__p, object1[0], object1[1]);
           }
@@ -7776,10 +7775,10 @@ LABEL_320:
           else
           {
             *__p = *object1;
-            v271 = v274;
+            v270 = v273;
           }
 
-          if (SHIBYTE(v271) < 0)
+          if (SHIBYTE(v270) < 0)
           {
             sub_100005F2C(__dst, __p[0], __p[1]);
           }
@@ -7787,11 +7786,11 @@ LABEL_320:
           else
           {
             *__dst = *__p;
-            v304 = v271;
+            v303 = v270;
           }
 
-          v298 = 0;
-          if (SHIBYTE(v304) < 0)
+          v297 = 0;
+          if (SHIBYTE(v303) < 0)
           {
             sub_100005F2C(buf, *__dst, *&__dst[8]);
           }
@@ -7799,16 +7798,16 @@ LABEL_320:
           else
           {
             *buf = *__dst;
-            *&buf[16] = v304;
+            *&buf[16] = v303;
           }
 
-          v299 = 0;
+          v298 = 0;
           if (ctu::cf::convert_copy())
           {
-            v248 = v298;
-            v298 = v299;
-            v300 = v248;
-            sub_100005978(&v300);
+            v247 = v297;
+            v297 = v298;
+            v299 = v247;
+            sub_100005978(&v299);
           }
 
           if (buf[23] < 0)
@@ -7816,33 +7815,33 @@ LABEL_320:
             operator delete(*buf);
           }
 
-          v272 = v298;
-          v298 = 0;
-          sub_100005978(&v298);
-          if (SHIBYTE(v304) < 0)
+          v271 = v297;
+          v297 = 0;
+          sub_100005978(&v297);
+          if (SHIBYTE(v303) < 0)
           {
             operator delete(*__dst);
           }
 
-          if (SHIBYTE(v271) < 0)
+          if (SHIBYTE(v270) < 0)
           {
             operator delete(__p[0]);
           }
 
-          v249 = v272;
-          [v223 setISOCountryCode:v249];
+          v248 = v271;
+          [v223 setISOCountryCode:v248];
 
-          sub_100005978(&v272);
-          if (SHIBYTE(v274) < 0)
+          sub_100005978(&v271);
+          if (SHIBYTE(v273) < 0)
           {
             operator delete(object1[0]);
           }
 
           sub_1000475BC(&uuid);
 
-          if (SHIBYTE(v278) < 0)
+          if (SHIBYTE(v277) < 0)
           {
-            operator delete(v276);
+            operator delete(v275);
           }
 
           goto LABEL_354;
@@ -7852,68 +7851,66 @@ LABEL_320:
       }
 
       selfCopy2 = self;
-      v232 = v266;
       goto LABEL_320;
     }
   }
 
-  v232 = v266;
-  if (v266 == v264)
+  if (v265 == v263)
   {
-    v234 = v268;
+    v233 = v267;
   }
 
   else
   {
-    v234 = 1;
+    v233 = 1;
   }
 
-  if (v234)
+  if (v233)
   {
     goto LABEL_309;
   }
 
   if (!v38)
   {
-    v240 = 0;
+    v239 = 0;
     goto LABEL_355;
   }
 
 LABEL_354:
-  [v223 setContext:v267];
-  v240 = v223;
+  [v223 setContext:v266];
+  v239 = v223;
 LABEL_355:
-  if (SHIBYTE(v282) < 0)
+  if (SHIBYTE(v281) < 0)
   {
-    operator delete(v280);
+    operator delete(v279);
   }
 
-  if (SHIBYTE(v285) < 0)
+  if (SHIBYTE(v284) < 0)
   {
-    operator delete(v283);
+    operator delete(v282);
   }
 
-  if (SHIBYTE(v288) < 0)
+  if (SHIBYTE(v287) < 0)
   {
     operator delete(object);
   }
 
-  if (SHIBYTE(v291) < 0)
+  if (SHIBYTE(v290) < 0)
   {
     operator delete(fObj);
   }
 
-  if (SHIBYTE(v294) < 0)
+  if (SHIBYTE(v293) < 0)
   {
-    operator delete(v292);
+    operator delete(v291);
   }
 
-  if (SHIBYTE(v297) < 0)
+  if (SHIBYTE(v296) < 0)
   {
-    operator delete(v295);
+    operator delete(v294);
   }
 
-  return v240;
+  return v239;
 }
 
 - (void)updateAudioCategory:(unsigned __int8)category updateToUpdate:(id)update apOnlyMode:(BOOL)mode usingBaseband:(BOOL)baseband
@@ -8198,7 +8195,7 @@ LABEL_3:
       v63 = 0;
       v64 = 0;
       v65 = 0;
-      [(TelephonyProviderDelegate *)self getCurrentCalls];
+      objc_msgSend_getCurrentCalls(self);
       v9 = v64;
       if (v63 != v64)
       {
@@ -8420,7 +8417,7 @@ LABEL_59:
 {
   existCopy = exist;
   memset(v6, 0, sizeof(v6));
-  [(TelephonyProviderDelegate *)self getCurrentCalls];
+  objc_msgSend_getCurrentCalls(self);
   __p = v6;
   sub_1000B2DB4(&__p);
 

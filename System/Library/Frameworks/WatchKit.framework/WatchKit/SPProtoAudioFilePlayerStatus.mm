@@ -81,37 +81,35 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (self->_identifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    status = self->_status;
     PBDataWriterWriteInt32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_errorDomain)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    errorCode = self->_errorCode;
     PBDataWriterWriteInt64Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_errorDict)
   {
     PBDataWriterWriteDataField();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -198,7 +196,6 @@
   }
 
   has = self->_has;
-  v7 = *(equalCopy + 44);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 44) & 2) == 0 || self->_status != *(equalCopy + 10))
@@ -218,14 +215,13 @@
     if (![(NSString *)errorDomain isEqual:?])
     {
 LABEL_19:
-      v11 = 0;
+      v9 = 0;
       goto LABEL_20;
     }
 
     has = self->_has;
   }
 
-  v9 = *(equalCopy + 44);
   if (has)
   {
     if ((*(equalCopy + 44) & 1) == 0 || self->_errorCode != *(equalCopy + 1))
@@ -242,17 +238,17 @@ LABEL_19:
   errorDict = self->_errorDict;
   if (errorDict | *(equalCopy + 2))
   {
-    v11 = [(NSData *)errorDict isEqual:?];
+    v9 = [(NSData *)errorDict isEqual:?];
   }
 
   else
   {
-    v11 = 1;
+    v9 = 1;
   }
 
 LABEL_20:
 
-  return v11;
+  return v9;
 }
 
 - (unint64_t)hash

@@ -15,7 +15,7 @@
 
 - (id)currentPoiCategory
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   poiCategoryStreamPublisher = [(ATXHeroPoiManager *)self poiCategoryStreamPublisher];
   v4 = [(ATXHeroPoiManager *)self poiCategoryEventsWithStreamPublisher:poiCategoryStreamPublisher];
   cachedPoiCategory = [(ATXHeroPoiManager *)self cachedPoiCategory];
@@ -31,20 +31,18 @@
 
   else
   {
-    v10 = __atxlog_handle_hero();
+    v10 = __atxlog_handle_hero(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 134218242;
-      v14 = 14400;
-      v15 = 2112;
-      v16 = cachedPoiCategory;
-      _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_DEFAULT, "No new POI category received from poiCategory stream since the last saved bookmark within the past %lu seconds, returning cached POI category: %@", &v13, 0x16u);
+      v12 = 134218242;
+      v13 = 14400;
+      v14 = 2112;
+      v15 = cachedPoiCategory;
+      _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_DEFAULT, "No new POI category received from poiCategory stream since the last saved bookmark within the past %lu seconds, returning cached POI category: %@", &v12, 0x16u);
     }
 
     v9 = cachedPoiCategory;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -115,14 +113,14 @@
 
 - (void)donateHeroPoiPredictions:(id)predictions
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   predictionsCopy = predictions;
-  v5 = __atxlog_handle_hero();
+  v5 = __atxlog_handle_hero(predictionsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = 134217984;
-    v24 = COERCE_DOUBLE([predictionsCopy count]);
-    _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "Received %lu Hero POI predictions.", &v23, 0xCu);
+    v25 = 134217984;
+    v26 = COERCE_DOUBLE([predictionsCopy count]);
+    _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "Received %lu Hero POI predictions.", &v25, 0xCu);
   }
 
   v6 = objc_opt_new();
@@ -132,89 +130,87 @@
     mEMORY[0x277D41BF8] = [MEMORY[0x277D41BF8] sharedInstance];
     getCurrentPreciseLocation = [mEMORY[0x277D41BF8] getCurrentPreciseLocation];
 
-    v10 = __atxlog_handle_hero();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = __atxlog_handle_hero(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       [v7 timeIntervalSinceNow];
-      v23 = 134217984;
-      v24 = -v11;
-      _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_DEFAULT, "Took %f seconds to fetch precise location", &v23, 0xCu);
+      v25 = 134217984;
+      v26 = -v12;
+      _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEFAULT, "Took %f seconds to fetch precise location", &v25, 0xCu);
     }
 
     if (getCurrentPreciseLocation)
     {
-      v12 = [ATXHeroDataServerHelper inRadiusPredictionsFrom:predictionsCopy currentLocation:getCurrentPreciseLocation];
+      v14 = [ATXHeroDataServerHelper inRadiusPredictionsFrom:predictionsCopy currentLocation:getCurrentPreciseLocation];
 
-      predictionsCopy = __atxlog_handle_hero();
+      predictionsCopy = __atxlog_handle_hero(v15);
       if (os_log_type_enabled(predictionsCopy, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = [v12 count];
-        v23 = 134217984;
-        v24 = *&v13;
-        _os_log_impl(&dword_2263AA000, predictionsCopy, OS_LOG_TYPE_DEFAULT, "Left with %lu hero poi predictions after removing predictions based on gps location.", &v23, 0xCu);
+        v16 = [v14 count];
+        v25 = 134217984;
+        v26 = *&v16;
+        _os_log_impl(&dword_2263AA000, predictionsCopy, OS_LOG_TYPE_DEFAULT, "Left with %lu hero poi predictions after removing predictions based on gps location.", &v25, 0xCu);
       }
     }
 
     else
     {
-      v14 = __atxlog_handle_hero();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v17 = __atxlog_handle_hero(v13);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        [ATXHeroAppManager donateHeroAppPredictions:v14];
+        [ATXHeroAppManager donateHeroAppPredictions:v17];
       }
 
-      v12 = objc_opt_new();
+      v14 = objc_opt_new();
     }
 
-    predictionsCopy = v12;
+    predictionsCopy = v14;
   }
 
   if ([predictionsCopy count])
   {
     if ([predictionsCopy count])
     {
-      v15 = 0;
+      v18 = 0;
       do
       {
-        v16 = [predictionsCopy objectAtIndexedSubscript:v15];
-        poiCategory = [v16 poiCategory];
+        v19 = [predictionsCopy objectAtIndexedSubscript:v18];
+        poiCategory = [v19 poiCategory];
 
         if ([poiCategory length])
         {
-          [(ATXHeroPoiManager *)self donatePoiCategoryToBiome:poiCategory rank:v15 date:v6];
+          [(ATXHeroPoiManager *)self donatePoiCategoryToBiome:poiCategory rank:v18 date:v6];
         }
 
         else
         {
-          v18 = __atxlog_handle_hero();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+          v21 = __atxlog_handle_hero(0);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
-            [(ATXHeroPoiManager *)&v23 donateHeroPoiPredictions:v18];
+            [(ATXHeroPoiManager *)&v25 donateHeroPoiPredictions:v21];
           }
         }
 
-        ++v15;
+        ++v18;
       }
 
-      while (v15 < [predictionsCopy count]);
+      while (v18 < [predictionsCopy count]);
     }
   }
 
   else
   {
-    v19 = __atxlog_handle_hero();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v22 = __atxlog_handle_hero(0);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v23) = 0;
-      _os_log_impl(&dword_2263AA000, v19, OS_LOG_TYPE_DEFAULT, "Hero POI predictions count is zero. Donating ATXDefaultHeroPOICategory to Biome", &v23, 2u);
+      LOWORD(v25) = 0;
+      _os_log_impl(&dword_2263AA000, v22, OS_LOG_TYPE_DEFAULT, "Hero POI predictions count is zero. Donating ATXDefaultHeroPOICategory to Biome", &v25, 2u);
     }
 
-    v20 = +[ATXHeroAndClipConstants sharedInstance];
-    defaultHeroPOICategory = [v20 defaultHeroPOICategory];
+    v23 = +[ATXHeroAndClipConstants sharedInstance];
+    defaultHeroPOICategory = [v23 defaultHeroPOICategory];
     [(ATXHeroPoiManager *)self donatePoiCategoryToBiome:defaultHeroPOICategory rank:0 date:v6];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)donatePoiCategoryToBiome:(id)biome rank:(unint64_t)rank date:(id)date
@@ -227,30 +223,29 @@
   v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:rank];
   v13 = [v11 initWithPoiCategory:biomeCopy rank:v12 timestamp:dateCopy];
 
-  v14 = __atxlog_handle_hero();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = __atxlog_handle_hero(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     v18 = 138412290;
     v19 = v13;
-    _os_log_impl(&dword_2263AA000, v14, OS_LOG_TYPE_DEFAULT, "Sending event to Biome: %@.", &v18, 0xCu);
+    _os_log_impl(&dword_2263AA000, v15, OS_LOG_TYPE_DEFAULT, "Sending event to Biome: %@.", &v18, 0xCu);
   }
 
   poiCategoryStream = [(ATXHeroPoiManager *)self poiCategoryStream];
   source = [poiCategoryStream source];
   [source sendEvent:v13];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logCompletion:(id)completion
 {
   completionCopy = completion;
-  if ([completionCopy state])
+  state = [completionCopy state];
+  if (state)
   {
-    v4 = __atxlog_handle_hero();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_hero(state);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [(ATXHeroPoiManager *)completionCopy logCompletion:v4];
+      [(ATXHeroPoiManager *)completionCopy logCompletion:v5];
     }
   }
 }
@@ -311,46 +306,47 @@ LABEL_9:
 - (id)poiCategoryEventsWithStreamPublisher:(id)publisher
 {
   publisherCopy = publisher;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__84;
-  v22 = __Block_byref_object_dispose__84;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__84;
+  v23 = __Block_byref_object_dispose__84;
   poiCategoryPublisherBookmark = [(ATXHeroPoiManager *)self poiCategoryPublisherBookmark];
   v5 = objc_opt_new();
-  bookmark = [v19[5] bookmark];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __58__ATXHeroPoiManager_poiCategoryEventsWithStreamPublisher___block_invoke;
-  v17[3] = &unk_27859FB30;
-  v17[4] = self;
-  v17[5] = &v18;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __58__ATXHeroPoiManager_poiCategoryEventsWithStreamPublisher___block_invoke_2;
-  v15[3] = &unk_278596F60;
+  bookmark = [v20[5] bookmark];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __58__ATXHeroPoiManager_poiCategoryEventsWithStreamPublisher___block_invoke;
+  v18[3] = &unk_27859FB30;
+  v18[4] = self;
+  v18[5] = &v19;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __58__ATXHeroPoiManager_poiCategoryEventsWithStreamPublisher___block_invoke_2;
+  v16[3] = &unk_278596F60;
   v7 = v5;
-  v16 = v7;
-  v8 = [publisherCopy sinkWithBookmark:bookmark completion:v17 receiveInput:v15];
+  v17 = v7;
+  v8 = [publisherCopy sinkWithBookmark:bookmark completion:v18 receiveInput:v16];
 
-  v9 = v19[5];
-  v14 = 0;
-  [v9 saveBookmarkWithError:&v14];
-  v10 = v14;
+  v9 = v20[5];
+  v15 = 0;
+  [v9 saveBookmarkWithError:&v15];
+  v10 = v15;
+  v11 = v10;
   if (v10)
   {
-    v11 = __atxlog_handle_hero();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = __atxlog_handle_hero(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [(ATXHeroPoiManager *)v10 poiCategoryEventsWithStreamPublisher:v11];
+      [(ATXHeroPoiManager *)v11 poiCategoryEventsWithStreamPublisher:v12];
     }
   }
 
-  v12 = v7;
+  v13 = v7;
 
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v19, 8);
 
-  return v12;
+  return v13;
 }
 
 void __58__ATXHeroPoiManager_poiCategoryEventsWithStreamPublisher___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -370,22 +366,19 @@ void __58__ATXHeroPoiManager_poiCategoryEventsWithStreamPublisher___block_invoke
 
 - (void)logCompletion:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 error];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Error in receiving events from POI category stream: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Error in receiving events from POI category stream: %@", &v4, 0xCu);
 }
 
 - (void)poiCategoryEventsWithStreamPublisher:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Unable to save POI category bookmark due to : %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Unable to save POI category bookmark due to : %@", &v2, 0xCu);
 }
 
 @end

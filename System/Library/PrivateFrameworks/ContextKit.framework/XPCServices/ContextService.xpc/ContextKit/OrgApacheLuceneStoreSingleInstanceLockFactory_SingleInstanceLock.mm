@@ -65,11 +65,10 @@
 
 - (id)description
 {
-  v13.receiver = self;
-  v13.super_class = OrgApacheLuceneStoreSingleInstanceLockFactory_SingleInstanceLock;
-  v3 = [(OrgApacheLuceneStoreSingleInstanceLockFactory_SingleInstanceLock *)&v13 description];
-  lockName = self->lockName_;
-  return JreStrcat("$$$", v4, v5, v6, v7, v8, v9, v10, v3);
+  v11.receiver = self;
+  v11.super_class = OrgApacheLuceneStoreSingleInstanceLockFactory_SingleInstanceLock;
+  v2 = [(OrgApacheLuceneStoreSingleInstanceLockFactory_SingleInstanceLock *)&v11 description];
+  return JreStrcat("$$$", v3, v4, v5, v6, v7, v8, v9, v2);
 }
 
 - (void)dealloc

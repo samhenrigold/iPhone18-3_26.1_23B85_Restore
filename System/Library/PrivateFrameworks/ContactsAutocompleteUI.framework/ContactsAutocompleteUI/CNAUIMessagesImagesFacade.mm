@@ -25,7 +25,7 @@
 {
   v11[1] = *MEMORY[0x1E69E9840];
   resultCopy = result;
-  if (IMCoreLibraryCore() && getIMSPIGetGroupPhotosForChatsWithGroupIDsSymbolLoc())
+  if (IMCoreLibraryCore(0) && getIMSPIGetGroupPhotosForChatsWithGroupIDsSymbolLoc())
   {
     psSuggestion = [resultCopy psSuggestion];
     messagesGroupIdentifier = [psSuggestion messagesGroupIdentifier];
@@ -59,11 +59,11 @@
   return v9;
 }
 
-- (uint64_t)imageDataForResult:.cold.1()
+- (void)imageDataForResult:.cold.1()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return +[(CNComposeRecipientNamer *)v0];
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  +[CNComposeRecipientNamer os_log];
 }
 
 @end

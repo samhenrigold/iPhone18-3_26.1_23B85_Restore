@@ -228,7 +228,7 @@ LABEL_6:
     v140 = _UILocalizedStringInSystemLanguage(@"Continue", @"Continue");
     if ([_inheritedRenderConfig lightKeyboard])
     {
-      +[UIColor blackColor];
+      objc_msgSend_blackColor(UIColor);
     }
 
     else

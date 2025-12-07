@@ -32,7 +32,7 @@
 
 + (id)moodVectorForHolidayCategory:(unint64_t)category
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (category > 4)
   {
     v6 = +[PGLogging sharedLogging];
@@ -40,9 +40,9 @@
 
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
     {
-      v10 = 134217984;
+      v9 = 134217984;
       categoryCopy = category;
-      _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Unknown holiday category: %lu", &v10, 0xCu);
+      _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Unknown holiday category: %lu", &v9, 0xCu);
     }
 
     v5 = 0;
@@ -61,8 +61,6 @@
       v5 = 0;
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

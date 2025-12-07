@@ -41,7 +41,7 @@ LABEL_3:
   objc_claimAutoreleasedReturnValue();
   time = *time;
   CMTimeGetSeconds(&time);
-  [(PXStoryConcreteTransition *)self duration];
+  objc_msgSend_duration(self);
   time = v12;
   CMTimeGetSeconds(&time);
   PXClamp();
@@ -92,10 +92,10 @@ LABEL_3:
   [(PXStoryConcreteTransition *)self clipLayouts];
   if (objc_claimAutoreleasedReturnValue())
   {
-    [(PXStoryAnimation *)self time];
+    objc_msgSend_time(self);
     time = v15;
     Seconds = CMTimeGetSeconds(&time);
-    [(PXStoryConcreteTransition *)self duration];
+    objc_msgSend_duration(self);
     time = v15;
     v5 = CMTimeGetSeconds(&time);
     zoomingOut = self->_zoomingOut;

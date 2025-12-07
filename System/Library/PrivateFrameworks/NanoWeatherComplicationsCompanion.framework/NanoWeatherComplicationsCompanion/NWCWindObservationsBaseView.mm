@@ -13,70 +13,69 @@
 
 - (void)_applyConstraintsWithLayoutConstants:(id *)constants
 {
-  v53[9] = *MEMORY[0x277D85DE8];
+  v52[9] = *MEMORY[0x277D85DE8];
   windDirectionAbbreviationLabel = [(NWCWindObservationsBaseView *)self windDirectionAbbreviationLabel];
   leadingAnchor = [windDirectionAbbreviationLabel leadingAnchor];
   windSpeedLabel = [(NWCWindObservationsBaseView *)self windSpeedLabel];
   leadingAnchor2 = [windSpeedLabel leadingAnchor];
-  v48 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v53[0] = v48;
+  v47 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v52[0] = v47;
   windDirectionAbbreviationLabel2 = [(NWCWindObservationsBaseView *)self windDirectionAbbreviationLabel];
   trailingAnchor = [windDirectionAbbreviationLabel2 trailingAnchor];
   windSpeedLabel2 = [(NWCWindObservationsBaseView *)self windSpeedLabel];
   trailingAnchor2 = [windSpeedLabel2 trailingAnchor];
-  v43 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v53[1] = v43;
+  v42 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+  v52[1] = v42;
   windDirectionAbbreviationLabel3 = [(NWCWindObservationsBaseView *)self windDirectionAbbreviationLabel];
   firstBaselineAnchor = [windDirectionAbbreviationLabel3 firstBaselineAnchor];
   windSpeedLabel3 = [(NWCWindObservationsBaseView *)self windSpeedLabel];
   topAnchor = [windSpeedLabel3 topAnchor];
-  v38 = [firstBaselineAnchor constraintEqualToAnchor:topAnchor constant:2.0];
-  v53[2] = v38;
+  v37 = [firstBaselineAnchor constraintEqualToAnchor:topAnchor constant:2.0];
+  v52[2] = v37;
   windSpeedLabel4 = [(NWCWindObservationsBaseView *)self windSpeedLabel];
   leadingAnchor3 = [windSpeedLabel4 leadingAnchor];
   leadingAnchor4 = [(NWCWindObservationsBaseView *)self leadingAnchor];
   v8 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4 constant:constants->var3];
 
-  v37 = v8;
+  v36 = v8;
   LODWORD(v9) = 1148829696;
   [v8 setPriority:v9];
-  v53[3] = v8;
+  v52[3] = v8;
   trailingAnchor3 = [(NWCWindObservationsBaseView *)self trailingAnchor];
   windSpeedLabel5 = [(NWCWindObservationsBaseView *)self windSpeedLabel];
   trailingAnchor4 = [windSpeedLabel5 trailingAnchor];
   v13 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4 constant:constants->var3];
 
-  v36 = v13;
+  v35 = v13;
   LODWORD(v14) = 1148829696;
   [v13 setPriority:v14];
-  v53[4] = v13;
+  v52[4] = v13;
   windSpeedLabel6 = [(NWCWindObservationsBaseView *)self windSpeedLabel];
   centerYAnchor = [windSpeedLabel6 centerYAnchor];
   centerYAnchor2 = [(NWCWindObservationsBaseView *)self centerYAnchor];
-  v32 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v53[5] = v32;
+  v31 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
+  v52[5] = v31;
   windUnitLabel = [(NWCWindObservationsBaseView *)self windUnitLabel];
   leadingAnchor5 = [windUnitLabel leadingAnchor];
   windSpeedLabel7 = [(NWCWindObservationsBaseView *)self windSpeedLabel];
   leadingAnchor6 = [windSpeedLabel7 leadingAnchor];
-  v26 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6];
-  v53[6] = v26;
+  v25 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6];
+  v52[6] = v25;
   windUnitLabel2 = [(NWCWindObservationsBaseView *)self windUnitLabel];
   trailingAnchor5 = [windUnitLabel2 trailingAnchor];
   windSpeedLabel8 = [(NWCWindObservationsBaseView *)self windSpeedLabel];
   trailingAnchor6 = [windSpeedLabel8 trailingAnchor];
   v19 = [trailingAnchor5 constraintEqualToAnchor:trailingAnchor6];
-  v53[7] = v19;
+  v52[7] = v19;
   windUnitLabel3 = [(NWCWindObservationsBaseView *)self windUnitLabel];
   topAnchor2 = [windUnitLabel3 topAnchor];
   windSpeedLabel9 = [(NWCWindObservationsBaseView *)self windSpeedLabel];
   firstBaselineAnchor2 = [windSpeedLabel9 firstBaselineAnchor];
   v24 = [topAnchor2 constraintEqualToAnchor:firstBaselineAnchor2];
-  v53[8] = v24;
-  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:9];
+  v52[8] = v24;
+  v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:9];
 
-  [MEMORY[0x277CCAAD0] activateConstraints:v31];
-  v25 = *MEMORY[0x277D85DE8];
+  [MEMORY[0x277CCAAD0] activateConstraints:v30];
 }
 
 - (void)_processWindSpeed:(id)speed unit:(id)unit directionAbbreviation:(id)abbreviation

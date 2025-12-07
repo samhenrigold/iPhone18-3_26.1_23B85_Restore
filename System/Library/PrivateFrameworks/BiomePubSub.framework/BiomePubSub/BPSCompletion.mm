@@ -50,7 +50,7 @@
 
 + (id)failureWithError:(id)error
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   errorCopy = error;
   domain = [errorCopy domain];
 
@@ -58,15 +58,13 @@
   if (domain != @"BiomePubSubError")
   {
     v7 = MEMORY[0x1E696ABC0];
-    v12 = *MEMORY[0x1E696AA08];
-    v13[0] = errorCopy;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x1E696AA08];
+    v12[0] = errorCopy;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v6 = [v7 errorWithDomain:@"BiomePubSubError" code:0 userInfo:v8];
   }
 
   v9 = [[self alloc] initWithState:1 error:v6];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

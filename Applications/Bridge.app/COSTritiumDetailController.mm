@@ -198,7 +198,7 @@
     else
     {
       v38 = v46;
-      [v46 removeObject:self->_privacyGroupSpecifier];
+      objc_msgSend_removeObject_(v46);
     }
 
     v43 = *&self->BPSListController_opaque[v47];

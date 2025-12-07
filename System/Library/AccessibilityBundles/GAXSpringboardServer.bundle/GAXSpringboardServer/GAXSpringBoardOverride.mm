@@ -8,6 +8,7 @@
 - (void)_handleGotoHomeScreenShortcut:(id)shortcut;
 - (void)_toggleAppLibraryVisibility:(id)visibility;
 - (void)_toggleSearch;
+- (void)applicationOpenURL:(id)l withApplication:(id)application animating:(BOOL)animating activationSettings:(id)settings origin:(id)origin notifyLSOnFailure:(BOOL)failure withResult:(id)result;
 - (void)batteryStatusDidChange:(id)change;
 @end
 
@@ -157,6 +158,36 @@
   }
 
   return v12;
+}
+
+- (void)applicationOpenURL:(id)l withApplication:(id)application animating:(BOOL)animating activationSettings:(id)settings origin:(id)origin notifyLSOnFailure:(BOOL)failure withResult:(id)result
+{
+  failureCopy = failure;
+  animatingCopy = animating;
+  lCopy = l;
+  applicationCopy = application;
+  settingsCopy = settings;
+  originCopy = origin;
+  resultCopy = result;
+  if ([(GAXSpringBoardOverride *)self _gaxShouldAllowOpeningURL:lCopy])
+  {
+    v21.receiver = self;
+    v21.super_class = GAXSpringBoardOverride;
+    [(GAXSpringBoardOverride *)&v21 applicationOpenURL:lCopy withApplication:applicationCopy animating:animatingCopy activationSettings:settingsCopy origin:originCopy notifyLSOnFailure:failureCopy withResult:resultCopy];
+  }
+
+  else
+  {
+    v20 = GAXLogCommon();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543618;
+      v23 = lCopy;
+      v24 = 2114;
+      v25 = applicationCopy;
+      _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "Guided Access blocking open URL: %{public}@ app:%{public}@", buf, 0x16u);
+    }
+  }
 }
 
 - (BOOL)handleEvent:(__GSEvent *)event withNewEvent:(id)newEvent

@@ -368,7 +368,7 @@ LABEL_9:
     dispatch_async(v22, block);
     v27 = dispatch_time(0, 120000000000);
     v28 = dispatch_group_wait(v26, v27);
-    v29 = sub_100007F08();
+    v29 = sub_100007F08(APMetricsObservability);
     sub_100394F00(v29, *(v49 + 5), v28 != 0, v24);
 
     if (v28)

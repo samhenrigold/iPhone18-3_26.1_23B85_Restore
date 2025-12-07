@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)rrcStateAsString:(int)string;
 - (int)StringAsRrcState:(id)state;
 - (int)rrcState;
 - (unint64_t)hash;
@@ -155,6 +156,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFEFF | v3;
+}
+
+- (id)rrcStateAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27825ED50[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsRrcState:(id)state
@@ -462,7 +478,6 @@ LABEL_14:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -482,7 +497,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  cellStatus = self->_cellStatus;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -497,7 +511,6 @@ LABEL_4:
   }
 
 LABEL_19:
-  onDurationMs = self->_onDurationMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -512,7 +525,6 @@ LABEL_5:
   }
 
 LABEL_20:
-  drxInactivityMs = self->_drxInactivityMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -527,7 +539,6 @@ LABEL_6:
   }
 
 LABEL_21:
-  drxRetxTimerMs = self->_drxRetxTimerMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -542,7 +553,6 @@ LABEL_7:
   }
 
 LABEL_22:
-  longDrxCycleMs = self->_longDrxCycleMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -557,7 +567,6 @@ LABEL_8:
   }
 
 LABEL_23:
-  shortDrxCycleMs = self->_shortDrxCycleMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -572,7 +581,6 @@ LABEL_9:
   }
 
 LABEL_24:
-  drxShortCycleNum = self->_drxShortCycleNum;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -587,7 +595,6 @@ LABEL_10:
   }
 
 LABEL_25:
-  rrcState = self->_rrcState;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -602,7 +609,6 @@ LABEL_11:
   }
 
 LABEL_26:
-  cdrxConfigStatus = self->_cdrxConfigStatus;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x800) == 0)
@@ -617,12 +623,10 @@ LABEL_12:
   }
 
 LABEL_27:
-  transmissionMode = self->_transmissionMode;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x400) != 0)
   {
 LABEL_13:
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 

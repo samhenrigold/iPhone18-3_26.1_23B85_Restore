@@ -58,7 +58,7 @@
 
 - (void)updateBackupGroupData:(id)data
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -67,19 +67,19 @@
   {
     v8 = HMFGetLogIdentifier();
     v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(dataCopy, "count")}];
-    v27 = 138543618;
-    v28 = v8;
-    v29 = 2112;
-    v30 = v9;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Update backup groups: count(%@)", &v27, 0x16u);
+    v26 = 138543618;
+    v27 = v8;
+    v28 = 2112;
+    v29 = v9;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Update backup groups: count(%@)", &v26, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   logger = selfCopy->_logger;
   if (os_signpost_enabled(logger))
   {
-    LOWORD(v27) = 0;
-    _os_signpost_emit_with_name_impl(&dword_2531F8000, logger, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "MediaGroupsParticipantUpdateBackupGroup", "", &v27, 2u);
+    LOWORD(v26) = 0;
+    _os_signpost_emit_with_name_impl(&dword_2531F8000, logger, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "MediaGroupsParticipantUpdateBackupGroup", "", &v26, 2u);
   }
 
   participantData = [(HMDMediaGroupParticipantLocalDataStorage *)selfCopy participantData];
@@ -115,22 +115,20 @@ LABEL_11:
   {
     v22 = HMFGetLogIdentifier();
     v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(dataCopy, "count")}];
-    v27 = 138543618;
-    v28 = v22;
-    v29 = 2112;
-    v30 = v23;
-    _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@Skipping backup groups update due to no change to values: count(%@)", &v27, 0x16u);
+    v26 = 138543618;
+    v27 = v22;
+    v28 = 2112;
+    v29 = v23;
+    _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@Skipping backup groups update due to no change to values: count(%@)", &v26, 0x16u);
   }
 
   objc_autoreleasePoolPop(v19);
 LABEL_12:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateDestinationSupportOptions:(unint64_t)options
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
   v7 = HMFGetOSLogHandle();
@@ -138,11 +136,11 @@ LABEL_12:
   {
     v8 = HMFGetLogIdentifier();
     v9 = HMMediaDestinationSupportOptionsAsString();
-    v20 = 138543618;
-    v21 = v8;
-    v22 = 2112;
-    v23 = v9;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating destination support options: %@", &v20, 0x16u);
+    v19 = 138543618;
+    v20 = v8;
+    v21 = 2112;
+    v22 = v9;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating destination support options: %@", &v19, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -167,22 +165,20 @@ LABEL_12:
     {
       v17 = HMFGetLogIdentifier();
       v18 = HMMediaDestinationSupportOptionsAsString();
-      v20 = 138543618;
-      v21 = v17;
-      v22 = 2112;
-      v23 = v18;
-      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to update destination support options: %@ due to no destination data", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v17;
+      v21 = 2112;
+      v22 = v18;
+      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to update destination support options: %@ due to no destination data", &v19, 0x16u);
     }
 
     objc_autoreleasePoolPop(v14);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateAudioGroupIdentifier:(id)identifier
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -190,11 +186,11 @@ LABEL_12:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v18 = 138543618;
-    v19 = v8;
-    v20 = 2112;
-    v21 = identifierCopy;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating audio group identifier: %@", &v18, 0x16u);
+    v17 = 138543618;
+    v18 = v8;
+    v19 = 2112;
+    v20 = identifierCopy;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating audio group identifier: %@", &v17, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -218,22 +214,20 @@ LABEL_12:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v16 = HMFGetLogIdentifier();
-      v18 = 138543618;
-      v19 = v16;
-      v20 = 2112;
-      v21 = identifierCopy;
-      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to update audio group identifier: %@ due to no destination data", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v16;
+      v19 = 2112;
+      v20 = identifierCopy;
+      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to update audio group identifier: %@ due to no destination data", &v17, 0x16u);
     }
 
     objc_autoreleasePoolPop(v13);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateMediaDestination:(id)destination
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   destinationCopy = destination;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -241,19 +235,19 @@ LABEL_12:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v19 = 138543618;
-    v20 = v8;
-    v21 = 2112;
-    v22 = destinationCopy;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating media destination: %@", &v19, 0x16u);
+    v18 = 138543618;
+    v19 = v8;
+    v20 = 2112;
+    v21 = destinationCopy;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating media destination: %@", &v18, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   logger = selfCopy->_logger;
   if (os_signpost_enabled(logger))
   {
-    LOWORD(v19) = 0;
-    _os_signpost_emit_with_name_impl(&dword_2531F8000, logger, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "MediaGroupsParticipantUpdateDestination", "", &v19, 2u);
+    LOWORD(v18) = 0;
+    _os_signpost_emit_with_name_impl(&dword_2531F8000, logger, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "MediaGroupsParticipantUpdateDestination", "", &v18, 2u);
   }
 
   participantData = [(HMDMediaGroupParticipantLocalDataStorage *)selfCopy participantData];
@@ -268,11 +262,11 @@ LABEL_12:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       v16 = HMFGetLogIdentifier();
-      v19 = 138543618;
-      v20 = v16;
-      v21 = 2112;
-      v22 = destinationCopy;
-      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Skipping destination update due to no changed in value: %@", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = v16;
+      v20 = 2112;
+      v21 = destinationCopy;
+      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Skipping destination update due to no changed in value: %@", &v18, 0x16u);
     }
 
     objc_autoreleasePoolPop(v13);
@@ -284,13 +278,11 @@ LABEL_12:
     [v17 setDestination:destinationCopy];
     [(HMDMediaGroupParticipantLocalDataStorage *)selfCopy updateParticipantData:v17];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateDestinationControllerAvailableDestinationIdentifiers:(id)identifiers
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -298,11 +290,11 @@ LABEL_12:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v18 = 138543618;
-    v19 = v8;
-    v20 = 2112;
-    v21 = identifiersCopy;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating destination controller available destination identifiers: %@", &v18, 0x16u);
+    v17 = 138543618;
+    v18 = v8;
+    v19 = 2112;
+    v20 = identifiersCopy;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating destination controller available destination identifiers: %@", &v17, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -326,22 +318,20 @@ LABEL_12:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v16 = HMFGetLogIdentifier();
-      v18 = 138543618;
-      v19 = v16;
-      v20 = 2112;
-      v21 = identifiersCopy;
-      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to update destination controller available destination identifiers: %@ due to no controller data", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v16;
+      v19 = 2112;
+      v20 = identifiersCopy;
+      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to update destination controller available destination identifiers: %@ due to no controller data", &v17, 0x16u);
     }
 
     objc_autoreleasePoolPop(v13);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateDestinationControllerSupportedOptions:(unint64_t)options
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
   v7 = HMFGetOSLogHandle();
@@ -349,11 +339,11 @@ LABEL_12:
   {
     v8 = HMFGetLogIdentifier();
     v9 = HMMediaDestinationControllerSupportOptionsAsString();
-    v20 = 138543618;
-    v21 = v8;
-    v22 = 2112;
-    v23 = v9;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating destination controller supported options: %@", &v20, 0x16u);
+    v19 = 138543618;
+    v20 = v8;
+    v21 = 2112;
+    v22 = v9;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating destination controller supported options: %@", &v19, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -378,22 +368,20 @@ LABEL_12:
     {
       v17 = HMFGetLogIdentifier();
       v18 = HMMediaDestinationControllerSupportOptionsAsString();
-      v20 = 138543618;
-      v21 = v17;
-      v22 = 2112;
-      v23 = v18;
-      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to update destination controller supported options: %@ due to no controller data", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v17;
+      v21 = 2112;
+      v22 = v18;
+      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to update destination controller supported options: %@ due to no controller data", &v19, 0x16u);
     }
 
     objc_autoreleasePoolPop(v14);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyDidChangeDestinationIdentifier:(id)identifier forDestinationControllerIdentifier:(id)controllerIdentifier
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   controllerIdentifierCopy = controllerIdentifier;
   delegate = [(HMDMediaGroupParticipantLocalDataStorage *)self delegate];
@@ -411,20 +399,18 @@ LABEL_12:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v13;
-      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to notify of updated destination identifier due to missing delegate", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v13;
+      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to notify of updated destination identifier due to missing delegate", &v14, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateDestinationControllerDestinationIdentifier:(id)identifier
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -432,11 +418,11 @@ LABEL_12:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v19 = 138543618;
-    v20 = v8;
-    v21 = 2112;
-    v22 = identifierCopy;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating destinaiton controller destination identifier: %@", &v19, 0x16u);
+    v18 = 138543618;
+    v19 = v8;
+    v20 = 2112;
+    v21 = identifierCopy;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating destinaiton controller destination identifier: %@", &v18, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -462,22 +448,20 @@ LABEL_12:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       v17 = HMFGetLogIdentifier();
-      v19 = 138543618;
-      v20 = v17;
-      v21 = 2112;
-      v22 = identifierCopy;
-      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to update destination controller destination identifier: %@ due to no controller data", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = v17;
+      v20 = 2112;
+      v21 = identifierCopy;
+      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to update destination controller destination identifier: %@ due to no controller data", &v18, 0x16u);
     }
 
     objc_autoreleasePoolPop(v14);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateDestinationControllerData:(id)data
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -485,19 +469,19 @@ LABEL_12:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v19 = 138543618;
-    v20 = v8;
-    v21 = 2112;
-    v22 = dataCopy;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating DestinationControllerData: %@", &v19, 0x16u);
+    v18 = 138543618;
+    v19 = v8;
+    v20 = 2112;
+    v21 = dataCopy;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating DestinationControllerData: %@", &v18, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   logger = selfCopy->_logger;
   if (os_signpost_enabled(logger))
   {
-    LOWORD(v19) = 0;
-    _os_signpost_emit_with_name_impl(&dword_2531F8000, logger, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "MediaGroupsParticipantUpdateDestinationController", "", &v19, 2u);
+    LOWORD(v18) = 0;
+    _os_signpost_emit_with_name_impl(&dword_2531F8000, logger, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "MediaGroupsParticipantUpdateDestinationController", "", &v18, 2u);
   }
 
   participantData = [(HMDMediaGroupParticipantLocalDataStorage *)selfCopy participantData];
@@ -512,11 +496,11 @@ LABEL_12:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       v16 = HMFGetLogIdentifier();
-      v19 = 138543618;
-      v20 = v16;
-      v21 = 2112;
-      v22 = dataCopy;
-      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Skipping update destination controller due to no change to value: %@", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = v16;
+      v20 = 2112;
+      v21 = dataCopy;
+      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Skipping update destination controller due to no change to value: %@", &v18, 0x16u);
     }
 
     objc_autoreleasePoolPop(v13);
@@ -528,13 +512,11 @@ LABEL_12:
     [v17 setDestinationControllerData:dataCopy];
     [(HMDMediaGroupParticipantLocalDataStorage *)selfCopy updateParticipantData:v17];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateParticipantData:(id)data
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -542,11 +524,11 @@ LABEL_12:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v12 = 138543618;
-    v13 = v8;
-    v14 = 2112;
-    v15 = dataCopy;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating participant data: %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v8;
+    v13 = 2112;
+    v14 = dataCopy;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating participant data: %@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -555,12 +537,11 @@ LABEL_12:
   [userDefaults setObject:encodeToProtoBufferData forKey:@"HMDMediaDestinationControllerLocalDataStorageHandlerObjectDataKey"];
 
   [(HMDMediaGroupParticipantLocalDataStorage *)selfCopy publishCachedObject];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)eventSource
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDMediaGroupParticipantLocalDataStorage *)self dataSource];
   v4 = dataSource;
   if (dataSource)
@@ -576,23 +557,21 @@ LABEL_12:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v9;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to get event source due to no data source", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v9;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to get event source due to no data source", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
     v5 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (id)topicName
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDMediaGroupParticipantLocalDataStorage *)self dataSource];
   v4 = dataSource;
   if (dataSource)
@@ -608,23 +587,21 @@ LABEL_12:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v9;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to get topic name due to no data source", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v9;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to get topic name due to no data source", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
     v5 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (void)publishCachedObject
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   participantData = [(HMDMediaGroupParticipantLocalDataStorage *)self participantData];
   if ([(HMDMediaGroupParticipantLocalDataStorage *)self hasDataToPublishInParticipantData:participantData])
   {
@@ -640,11 +617,11 @@ LABEL_12:
       {
         v10 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v25 = v10;
-        v26 = 2112;
-        v27 = topicName;
-        v28 = 2112;
-        v29 = participantData;
+        v24 = v10;
+        v25 = 2112;
+        v26 = topicName;
+        v27 = 2112;
+        v28 = participantData;
         _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Publishing topic: %@ data: %@", buf, 0x20u);
       }
 
@@ -657,12 +634,12 @@ LABEL_12:
       v15 = [v13 initWithEventData:encodeToProtoBufferData metadata:v12];
 
       eventForwarder = [(HMDMediaGroupParticipantLocalDataStorage *)selfCopy eventForwarder];
-      v23[0] = MEMORY[0x277D85DD0];
-      v23[1] = 3221225472;
-      v23[2] = __63__HMDMediaGroupParticipantLocalDataStorage_publishCachedObject__block_invoke;
-      v23[3] = &unk_2797359D8;
-      v23[4] = selfCopy;
-      [eventForwarder forwardEvent:v15 topic:topicName completion:v23];
+      v22[0] = MEMORY[0x277D85DD0];
+      v22[1] = 3221225472;
+      v22[2] = __63__HMDMediaGroupParticipantLocalDataStorage_publishCachedObject__block_invoke;
+      v22[3] = &unk_2797359D8;
+      v22[4] = selfCopy;
+      [eventForwarder forwardEvent:v15 topic:topicName completion:v22];
     }
 
     else
@@ -671,7 +648,7 @@ LABEL_12:
       {
         v21 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v25 = v21;
+        v24 = v21;
         _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to publish data due to no topic name or event source", buf, 0xCu);
       }
 
@@ -688,19 +665,17 @@ LABEL_12:
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v25 = v20;
+      v24 = v20;
       _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Skipping publish due to no data", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v17);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __63__HMDMediaGroupParticipantLocalDataStorage_publishCachedObject__block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -710,22 +685,20 @@ void __63__HMDMediaGroupParticipantLocalDataStorage_publishCachedObject__block_i
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = HMFGetLogIdentifier();
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Forwarding event completed with error: %@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Forwarding event completed with error: %@", &v8, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)publishCachedObjectIfNeeded
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   participantData = [(HMDMediaGroupParticipantLocalDataStorage *)self participantData];
   if ([(HMDMediaGroupParticipantLocalDataStorage *)self hasDataToPublishInParticipantData:participantData])
   {
@@ -740,11 +713,11 @@ void __63__HMDMediaGroupParticipantLocalDataStorage_publishCachedObject__block_i
       if (v9)
       {
         v10 = HMFGetLogIdentifier();
-        v13 = 138543618;
-        v14 = v10;
-        v15 = 2112;
-        v16 = lastCachedEventParticipantData;
-        _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Skipping publish due to last cached event participant data: %@", &v13, 0x16u);
+        v12 = 138543618;
+        v13 = v10;
+        v14 = 2112;
+        v15 = lastCachedEventParticipantData;
+        _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Skipping publish due to last cached event participant data: %@", &v12, 0x16u);
       }
 
       objc_autoreleasePoolPop(v6);
@@ -755,17 +728,15 @@ void __63__HMDMediaGroupParticipantLocalDataStorage_publishCachedObject__block_i
       if (v9)
       {
         v11 = HMFGetLogIdentifier();
-        v13 = 138543362;
-        v14 = v11;
-        _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Publishing cached object due to mismatching last cached event data", &v13, 0xCu);
+        v12 = 138543362;
+        v13 = v11;
+        _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Publishing cached object due to mismatching last cached event data", &v12, 0xCu);
       }
 
       objc_autoreleasePoolPop(v6);
       [(HMDMediaGroupParticipantLocalDataStorage *)selfCopy publishCachedObject];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasDataToPublishInParticipantData:(id)data
@@ -813,7 +784,7 @@ void __63__HMDMediaGroupParticipantLocalDataStorage_publishCachedObject__block_i
 
 - (void)migrateWithExpectedDestinationControllerSupportOptions:(unint64_t)options
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   destinationControllerData = [(HMDMediaGroupParticipantLocalDataStorage *)self destinationControllerData];
   v6 = destinationControllerData;
   if (destinationControllerData)
@@ -827,11 +798,11 @@ void __63__HMDMediaGroupParticipantLocalDataStorage_publishCachedObject__block_i
       {
         v10 = HMFGetLogIdentifier();
         v11 = HMMediaDestinationControllerSupportOptionsAsString();
-        v18 = 138543618;
-        v19 = v10;
-        v20 = 2112;
-        v21 = v11;
-        _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Migrating expected destination controller support options: %@", &v18, 0x16u);
+        v17 = 138543618;
+        v18 = v10;
+        v19 = 2112;
+        v20 = v11;
+        _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Migrating expected destination controller support options: %@", &v17, 0x16u);
       }
 
       objc_autoreleasePoolPop(v7);
@@ -848,22 +819,20 @@ void __63__HMDMediaGroupParticipantLocalDataStorage_publishCachedObject__block_i
     {
       v15 = HMFGetLogIdentifier();
       v16 = HMMediaDestinationControllerSupportOptionsAsString();
-      v18 = 138543618;
-      v19 = v15;
-      v20 = 2112;
-      v21 = v16;
-      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Attempted to migrate with expected support options: %@ without a destination controller", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v15;
+      v19 = 2112;
+      v20 = v16;
+      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Attempted to migrate with expected support options: %@ without a destination controller", &v17, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)migratedParticipantData:(id)data withDestinationSupportOptions:(unint64_t)options
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   destination = [dataCopy destination];
   v8 = destination;
@@ -876,11 +845,11 @@ void __63__HMDMediaGroupParticipantLocalDataStorage_publishCachedObject__block_i
     {
       v19 = HMFGetLogIdentifier();
       v20 = HMMediaDestinationSupportOptionsAsString();
-      v23 = 138543618;
-      v24 = v19;
-      v25 = 2112;
-      v26 = v20;
-      _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@Attempted to migrate expected destination support options: %@ without a destination", &v23, 0x16u);
+      v22 = 138543618;
+      v23 = v19;
+      v24 = 2112;
+      v25 = v20;
+      _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@Attempted to migrate expected destination support options: %@ without a destination", &v22, 0x16u);
     }
 
     objc_autoreleasePoolPop(v16);
@@ -901,11 +870,11 @@ LABEL_9:
   {
     v12 = HMFGetLogIdentifier();
     v13 = HMMediaDestinationSupportOptionsAsString();
-    v23 = 138543618;
-    v24 = v12;
-    v25 = 2112;
-    v26 = v13;
-    _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Migrating supported options to: %@", &v23, 0x16u);
+    v22 = 138543618;
+    v23 = v12;
+    v24 = 2112;
+    v25 = v13;
+    _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Migrating supported options to: %@", &v22, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
@@ -915,7 +884,6 @@ LABEL_9:
   [v15 setDestination:v14];
 
 LABEL_10:
-  v21 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -964,7 +932,7 @@ LABEL_5:
 
 - (id)lastCachedEventParticipantData
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   topicName = [(HMDMediaGroupParticipantLocalDataStorage *)self topicName];
   if (topicName)
   {
@@ -991,13 +959,13 @@ LABEL_5:
         {
           v17 = HMFGetLogIdentifier();
           encodedData2 = [v5 encodedData];
-          v21 = 138543874;
-          v22 = v17;
-          v23 = 2112;
-          v24 = encodedData2;
-          v25 = 2112;
-          v26 = v5;
-          _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode last cached event participant data: %@ from event: %@", &v21, 0x20u);
+          v20 = 138543874;
+          v21 = v17;
+          v22 = 2112;
+          v23 = encodedData2;
+          v24 = 2112;
+          v25 = v5;
+          _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode last cached event participant data: %@ from event: %@", &v20, 0x20u);
         }
 
         objc_autoreleasePoolPop(v14);
@@ -1018,16 +986,14 @@ LABEL_5:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v21 = 138543362;
-      v22 = v13;
-      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to get last cached event participant data due to missing topic name", &v21, 0xCu);
+      v20 = 138543362;
+      v21 = v13;
+      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to get last cached event participant data due to missing topic name", &v20, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
     v8 = 0;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -1056,7 +1022,7 @@ LABEL_5:
 
 - (void)configureWithHome:(id)home messageDispatcher:(id)dispatcher
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   dispatcherCopy = dispatcher;
   v8 = objc_autoreleasePoolPush();
@@ -1065,9 +1031,9 @@ LABEL_5:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v14 = 138543362;
-    v15 = v11;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Configuring media groups participant local storage", &v14, 0xCu);
+    v13 = 138543362;
+    v14 = v11;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Configuring media groups participant local storage", &v13, 0xCu);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -1075,7 +1041,6 @@ LABEL_5:
   [groupsBackupReceiver configureWithHome:homeCopy messageDispatcher:dispatcherCopy];
 
   [(HMDMediaGroupParticipantLocalDataStorage *)selfCopy publishCachedObjectIfNeeded];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDMediaGroupParticipantLocalDataStorage)initWithIdentifier:(id)identifier backUpReciever:(id)reciever userDefaults:(id)defaults eventForwarder:(id)forwarder eventStoreReadHandle:(id)handle featuresDataSource:(id)source
@@ -1178,12 +1143,11 @@ LABEL_15:
 
 uint64_t __55__HMDMediaGroupParticipantLocalDataStorage_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v40_176418;
-  logCategory__hmf_once_v40_176418 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v40_176418;
+  logCategory__hmf_once_v40_176418 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

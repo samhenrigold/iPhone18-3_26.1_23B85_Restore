@@ -3,6 +3,7 @@
 + (id)countStatementForPredicate:(id)predicate propertyMapper:(id)mapper distinctBy:(id)by;
 + (id)countStatementForPredicate:(id)predicate propertyMapper:(id)mapper distinctBy:(id)by groupBy:(id)groupBy groupByTable:(id)table;
 + (id)selectStatementForReturnObjectKeypaths:(id)keypaths predicate:(id)predicate sortDescriptors:(id)descriptors limit:(int64_t)limit propertyMapper:(id)mapper protectedDataAvailable:(BOOL)available;
++ (id)selectStatementForReturnObjectKeypaths:(id)keypaths predicate:(id)predicate sortDescriptors:(id)descriptors propertyMapper:(id)mapper protectedDataAvailable:(BOOL)available;
 @end
 
 @implementation EFSQLQueryGenerator
@@ -14,6 +15,13 @@ void ___ef_log_EFSQLQueryGenerator_block_invoke()
   _ef_log_EFSQLQueryGenerator_log = v0;
 }
 
++ (id)selectStatementForReturnObjectKeypaths:(id)keypaths predicate:(id)predicate sortDescriptors:(id)descriptors propertyMapper:(id)mapper protectedDataAvailable:(BOOL)available
+{
+  v7 = [self selectStatementForReturnObjectKeypaths:keypaths predicate:predicate sortDescriptors:descriptors limit:0 propertyMapper:mapper protectedDataAvailable:available];
+
+  return v7;
+}
+
 + (id)selectStatementForReturnObjectKeypaths:(id)keypaths predicate:(id)predicate sortDescriptors:(id)descriptors limit:(int64_t)limit propertyMapper:(id)mapper protectedDataAvailable:(BOOL)available
 {
   availableCopy = available;
@@ -22,7 +30,7 @@ void ___ef_log_EFSQLQueryGenerator_block_invoke()
   predicateCopy = predicate;
   descriptorsCopy = descriptors;
   mapperCopy = mapper;
-  v14 = _ef_log_EFSQLQueryGenerator();
+  v14 = _ef_log_EFSQLQueryGenerator(mapperCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
@@ -236,15 +244,15 @@ void ___ef_log_EFSQLQueryGenerator_block_invoke()
     v85 = 0u;
     v86 = 0u;
     additionalColumns = [mapperCopy additionalColumns];
-    v63 = [additionalColumns countByEnumeratingWithState:&v85 objects:v108 count:16];
-    if (v63)
+    v64 = [additionalColumns countByEnumeratingWithState:&v85 objects:v108 count:16];
+    if (v64)
     {
-      v64 = *v86;
+      v65 = *v86;
       do
       {
-        for (n = 0; n != v63; ++n)
+        for (n = 0; n != v64; ++n)
         {
-          if (*v86 != v64)
+          if (*v86 != v65)
           {
             objc_enumerationMutation(additionalColumns);
           }
@@ -252,10 +260,10 @@ void ___ef_log_EFSQLQueryGenerator_block_invoke()
           [v42 addResultColumn:*(*(&v85 + 1) + 8 * n) fromTable:name2];
         }
 
-        v63 = [additionalColumns countByEnumeratingWithState:&v85 objects:v108 count:16];
+        v64 = [additionalColumns countByEnumeratingWithState:&v85 objects:v108 count:16];
       }
 
-      while (v63);
+      while (v64);
     }
 
     additionalSelectExpressions = [mapperCopy additionalSelectExpressions];
@@ -269,19 +277,17 @@ void ___ef_log_EFSQLQueryGenerator_block_invoke()
 
   if (limit >= 1)
   {
-    [v42 setLimit:?];
+    v60 = [v42 setLimit:?];
   }
 
-  v67 = _ef_log_EFSQLQueryGenerator();
-  if (os_log_type_enabled(v67, OS_LOG_TYPE_INFO))
+  v68 = _ef_log_EFSQLQueryGenerator(v60);
+  if (os_log_type_enabled(v68, OS_LOG_TYPE_INFO))
   {
     queryString = [v42 queryString];
     *buf = 138412290;
     v114 = queryString;
-    _os_log_impl(&dword_1C6152000, v67, OS_LOG_TYPE_INFO, "selectStatementForReturnObjectKeypaths returning: %@", buf, 0xCu);
+    _os_log_impl(&dword_1C6152000, v68, OS_LOG_TYPE_INFO, "selectStatementForReturnObjectKeypaths returning: %@", buf, 0xCu);
   }
-
-  v69 = *MEMORY[0x1E69E9840];
 
   return v42;
 }
@@ -354,11 +360,11 @@ uint64_t __132__EFSQLQueryGenerator_selectStatementForReturnObjectKeypaths_predi
 
 + (id)_createStatementForPredicate:(id)predicate propertyMapper:(id)mapper tablesUsed:(id)used
 {
-  v86 = *MEMORY[0x1E69E9840];
+  v87 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   mapperCopy = mapper;
   usedCopy = used;
-  v60 = predicateCopy;
+  v61 = predicateCopy;
   if ([predicateCopy ef_matchesEverything])
   {
     sqlExpressable = 0;
@@ -378,30 +384,30 @@ uint64_t __132__EFSQLQueryGenerator_selectStatementForReturnObjectKeypaths_predi
   mainTable = [mapperCopy mainTable];
   name = [mainTable name];
 
-  v65 = name;
+  v66 = name;
   [usedCopy removeObject:name];
-  v71 = objc_opt_new();
-  v78 = 0u;
+  v72 = objc_opt_new();
   v79 = 0u;
-  v76 = 0u;
+  v80 = 0u;
   v77 = 0u;
+  v78 = 0u;
   obj = [usedCopy allObjects];
-  v11 = [obj countByEnumeratingWithState:&v76 objects:v85 count:16];
+  v11 = [obj countByEnumeratingWithState:&v77 objects:v86 count:16];
   if (v11)
   {
-    v66 = *v77;
+    v67 = *v78;
     do
     {
-      v68 = v11;
-      for (i = 0; i != v68; i = i + 1)
+      v69 = v11;
+      for (i = 0; i != v69; i = i + 1)
       {
-        if (*v77 != v66)
+        if (*v78 != v67)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v76 + 1) + 8 * i);
-        if (([v71 containsObject:v13] & 1) == 0)
+        v13 = *(*(&v77 + 1) + 8 * i);
+        if (([v72 containsObject:v13] & 1) == 0)
         {
           tableRelationships = [mapperCopy tableRelationships];
           v15 = [tableRelationships objectForKeyedSubscript:v13];
@@ -414,27 +420,27 @@ uint64_t __132__EFSQLQueryGenerator_selectStatementForReturnObjectKeypaths_predi
 
           currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
           [currentHandler handleFailureInMethod:a2 object:self file:@"EFSQLQueryGenerator.m" lineNumber:155 description:{@"Query references table %@ without a table relationship", v13}];
-          for (j = 0; ; j = v30)
+          for (j = 0; ; j = v31)
           {
 
 LABEL_16:
             sourceColumn = [j sourceColumn];
             table = [sourceColumn table];
             name2 = [table name];
-            v21 = [name2 isEqualToString:v65];
+            v21 = [name2 isEqualToString:v66];
 
             if (v21)
             {
               break;
             }
 
-            v22 = _ef_log_EFSQLQueryGenerator();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+            v23 = _ef_log_EFSQLQueryGenerator(v22);
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
             {
               ef_publicDescription = [j ef_publicDescription];
               *buf = 138543362;
-              v82 = ef_publicDescription;
-              _os_log_impl(&dword_1C6152000, v22, OS_LOG_TYPE_INFO, "Current tableRelationship %{public}@", buf, 0xCu);
+              v83 = ef_publicDescription;
+              _os_log_impl(&dword_1C6152000, v23, OS_LOG_TYPE_INFO, "Current tableRelationship %{public}@", buf, 0xCu);
             }
 
             if (!j)
@@ -447,76 +453,76 @@ LABEL_16:
             table2 = [sourceColumn2 table];
             currentHandler = [table2 name];
 
-            if ([v71 containsObject:currentHandler])
+            if ([v72 containsObject:currentHandler])
             {
 
               break;
             }
 
-            [v71 addObject:currentHandler];
+            [v72 addObject:currentHandler];
             tableRelationships2 = [mapperCopy tableRelationships];
             sourceColumn3 = [j sourceColumn];
             table3 = [sourceColumn3 table];
             name3 = [table3 name];
-            v30 = [tableRelationships2 objectForKeyedSubscript:name3];
+            v31 = [tableRelationships2 objectForKeyedSubscript:name3];
 
-            v31 = _ef_log_EFSQLQueryGenerator();
-            if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+            v33 = _ef_log_EFSQLQueryGenerator(v32);
+            if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
             {
-              ef_publicDescription2 = [v30 ef_publicDescription];
+              ef_publicDescription2 = [v31 ef_publicDescription];
               tableRelationships3 = [mapperCopy tableRelationships];
               *buf = 138543618;
-              v82 = ef_publicDescription2;
-              v83 = 2112;
-              v84 = tableRelationships3;
-              _os_log_impl(&dword_1C6152000, v31, OS_LOG_TYPE_INFO, "Iterating into tableRelationship: %{public}@ tableRelationships: %@", buf, 0x16u);
+              v83 = ef_publicDescription2;
+              v84 = 2112;
+              v85 = tableRelationships3;
+              _os_log_impl(&dword_1C6152000, v33, OS_LOG_TYPE_INFO, "Iterating into tableRelationship: %{public}@ tableRelationships: %@", buf, 0x16u);
             }
 
-            if (!v30)
+            if (!v31)
             {
               currentHandler3 = [MEMORY[0x1E696AAA8] currentHandler];
               [currentHandler3 handleFailureInMethod:a2 object:self file:@"EFSQLQueryGenerator.m" lineNumber:170 description:{@"Query references table %@ without a table relationship", v13}];
             }
           }
 
-          [v71 addObject:v13];
+          [v72 addObject:v13];
         }
       }
 
-      v11 = [obj countByEnumeratingWithState:&v76 objects:v85 count:16];
+      v11 = [obj countByEnumeratingWithState:&v77 objects:v86 count:16];
     }
 
     while (v11);
   }
 
-  v69 = [[EFSQLSelectStatement alloc] initWithTable:v65];
-  v74 = 0u;
+  v70 = [[EFSQLSelectStatement alloc] initWithTable:v66];
   v75 = 0u;
-  v72 = 0u;
+  v76 = 0u;
   v73 = 0u;
-  obja = v71;
-  v36 = [obja countByEnumeratingWithState:&v72 objects:v80 count:16];
-  if (v36)
+  v74 = 0u;
+  obja = v72;
+  v38 = [obja countByEnumeratingWithState:&v73 objects:v81 count:16];
+  if (v38)
   {
-    v67 = *v73;
+    v68 = *v74;
     do
     {
-      for (k = 0; k != v36; ++k)
+      for (k = 0; k != v38; ++k)
       {
-        if (*v73 != v67)
+        if (*v74 != v68)
         {
           objc_enumerationMutation(obja);
         }
 
-        v38 = *(*(&v72 + 1) + 8 * k);
+        v40 = *(*(&v73 + 1) + 8 * k);
         tableRelationships4 = [mapperCopy tableRelationships];
-        v40 = [tableRelationships4 objectForKeyedSubscript:v38];
+        v42 = [tableRelationships4 objectForKeyedSubscript:v40];
 
-        sourceColumn4 = [v40 sourceColumn];
+        sourceColumn4 = [v42 sourceColumn];
         columnExpressionWithFullName = [sourceColumn4 columnExpressionWithFullName];
 
-        tableAlias = [v40 tableAlias];
-        v44 = tableAlias;
+        tableAlias = [v42 tableAlias];
+        v46 = tableAlias;
         if (tableAlias)
         {
           name4 = tableAlias;
@@ -524,40 +530,39 @@ LABEL_16:
 
         else
         {
-          destinationColumn = [v40 destinationColumn];
+          destinationColumn = [v42 destinationColumn];
           table4 = [destinationColumn table];
           name4 = [table4 name];
         }
 
-        v48 = [EFSQLColumnExpression alloc];
-        destinationColumn2 = [v40 destinationColumn];
+        v50 = [EFSQLColumnExpression alloc];
+        destinationColumn2 = [v42 destinationColumn];
         name5 = [destinationColumn2 name];
-        v51 = [(EFSQLColumnExpression *)v48 initWithName:name5 table:name4];
+        v53 = [(EFSQLColumnExpression *)v50 initWithName:name5 table:name4];
 
-        v52 = [columnExpressionWithFullName equalTo:v51];
-        if ([v40 useLeftOuterJoin])
+        v54 = [columnExpressionWithFullName equalTo:v53];
+        if ([v42 useLeftOuterJoin])
         {
-          tableAlias2 = [v40 tableAlias];
-          v54 = [(EFSQLSelectStatement *)v69 leftOuterJoin:v38 alias:tableAlias2 on:v52];
+          tableAlias2 = [v42 tableAlias];
+          v56 = [(EFSQLSelectStatement *)v70 leftOuterJoin:v40 alias:tableAlias2 on:v54];
         }
 
         else
         {
-          tableAlias2 = [v40 tableAlias];
-          v55 = [(EFSQLSelectStatement *)v69 join:v38 alias:tableAlias2 on:v52];
+          tableAlias2 = [v42 tableAlias];
+          v57 = [(EFSQLSelectStatement *)v70 join:v40 alias:tableAlias2 on:v54];
         }
       }
 
-      v36 = [obja countByEnumeratingWithState:&v72 objects:v80 count:16];
+      v38 = [obja countByEnumeratingWithState:&v73 objects:v81 count:16];
     }
 
-    while (v36);
+    while (v38);
   }
 
-  [(EFSQLSelectStatement *)v69 setWhere:sqlExpressable];
-  v56 = *MEMORY[0x1E69E9840];
+  [(EFSQLSelectStatement *)v70 setWhere:sqlExpressable];
 
-  return v69;
+  return v70;
 }
 
 + (void)_createStatementForPredicate:(void *)a1 propertyMapper:(uint8_t *)buf tablesUsed:(os_log_t)log .cold.1(void *a1, uint8_t *buf, os_log_t log)

@@ -1,10 +1,12 @@
 @interface BMSQLDatabase
 - (BMSQLDatabase)initWithAdditionalVirtualTables:(id)tables privileges:(id)privileges isColumnAccessLoggingEnabled:(BOOL)enabled useCase:(id)case;
+- (BMSQLDatabase)initWithStreams:(id)streams library:(id)library privileges:(id)privileges isColumnAccessLoggingEnabled:(BOOL)enabled error:(id *)error;
 - (BMSQLDatabase)initWithVirtualTables:(id)tables privileges:(id)privileges isColumnAccessLoggingEnabled:(BOOL)enabled enableAuthorizer:(BOOL)authorizer error:(id *)error;
 - (BOOL)_attachDatabase:(id)database name:(id)name error:(id *)error;
 - (BOOL)attachDatabase:(id)database name:(id)name error:(id *)error;
 - (BOOL)attachDatabaseWithResourceIdentifier:(id)identifier useCase:(id)case error:(id *)error;
 - (BOOL)executeStatement:(id)statement error:(id *)error;
+- (BOOL)registerFunctionWithName:(id)name numArgs:(int)args function:(id)function error:(id *)error;
 - (BOOL)registerFunctionWithName:(id)name numArgs:(int)args function:(id)function userData:(id)data error:(id *)error;
 - (id)SQLSchemaString;
 - (id)_executeQuery:(id)query;
@@ -84,29 +86,62 @@
   return selfCopy;
 }
 
+- (BMSQLDatabase)initWithStreams:(id)streams library:(id)library privileges:(id)privileges isColumnAccessLoggingEnabled:(BOOL)enabled error:(id *)error
+{
+  enabledCopy = enabled;
+  privilegesCopy = privileges;
+  v13 = *MEMORY[0x1E698E928];
+  v20 = 0;
+  v14 = BMSQLVirtualTables(library, streams, v13, &v20);
+  v15 = v20;
+  v16 = v15;
+  if (v15)
+  {
+    if (error)
+    {
+      v17 = v15;
+      selfCopy = 0;
+      *error = v16;
+    }
+
+    else
+    {
+      selfCopy = 0;
+    }
+  }
+
+  else
+  {
+    self = [(BMSQLDatabase *)self initWithVirtualTables:v14 privileges:privilegesCopy isColumnAccessLoggingEnabled:enabledCopy enableAuthorizer:1 error:error];
+    selfCopy = self;
+  }
+
+  return selfCopy;
+}
+
 - (BMSQLDatabase)initWithVirtualTables:(id)tables privileges:(id)privileges isColumnAccessLoggingEnabled:(BOOL)enabled enableAuthorizer:(BOOL)authorizer error:(id *)error
 {
   authorizerCopy = authorizer;
-  v90 = *MEMORY[0x1E69E9840];
+  v89 = *MEMORY[0x1E69E9840];
   tablesCopy = tables;
   privilegesCopy = privileges;
-  v74 = 0;
-  v75 = &v74;
-  v76 = 0x3032000000;
-  v77 = __Block_byref_object_copy__5;
-  v78 = __Block_byref_object_dispose__5;
-  v79 = 0;
+  v73 = 0;
+  v74 = &v73;
+  v75 = 0x3032000000;
+  v76 = __Block_byref_object_copy__5;
+  v77 = __Block_byref_object_dispose__5;
+  v78 = 0;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __102__BMSQLDatabase_initWithVirtualTables_privileges_isColumnAccessLoggingEnabled_enableAuthorizer_error___block_invoke;
   aBlock[3] = &unk_1E6E52958;
-  aBlock[4] = &v74;
+  aBlock[4] = &v73;
   aBlock[5] = error;
-  v73 = _Block_copy(aBlock);
+  v72 = _Block_copy(aBlock);
   context = objc_autoreleasePoolPush();
-  v71.receiver = self;
-  v71.super_class = BMSQLDatabase;
-  v11 = [(BMSQLDatabase *)&v71 init];
+  v70.receiver = self;
+  v70.super_class = BMSQLDatabase;
+  v11 = [(BMSQLDatabase *)&v70 init];
   if (!v11)
   {
     goto LABEL_42;
@@ -133,8 +168,8 @@
       v18 = "Unable to load bmstream_vtab module";
 LABEL_8:
       v19 = BMSQLDatabaseError(module_v2, ppDb, v18);
-      v20 = v75[5];
-      v75[5] = v19;
+      v20 = v74[5];
+      v74[5] = v19;
 
       sqlite3_close(ppDb);
       goto LABEL_9;
@@ -155,26 +190,26 @@ LABEL_8:
     accessedColumns = v11->_accessedColumns;
     v11->_accessedColumns = v26;
 
-    v68 = 0u;
-    v69 = 0u;
-    v66 = 0u;
     v67 = 0u;
+    v68 = 0u;
+    v65 = 0u;
+    v66 = 0u;
     v28 = v11->_virtualTables;
-    v29 = [(NSArray *)v28 countByEnumeratingWithState:&v66 objects:v89 count:16];
+    v29 = [(NSArray *)v28 countByEnumeratingWithState:&v65 objects:v88 count:16];
     if (v29)
     {
-      v30 = *v67;
-      v55 = *MEMORY[0x1E696A578];
+      v30 = *v66;
+      v54 = *MEMORY[0x1E696A578];
       while (2)
       {
         for (i = 0; i != v29; ++i)
         {
-          if (*v67 != v30)
+          if (*v66 != v30)
           {
             objc_enumerationMutation(v28);
           }
 
-          v32 = *(*(&v66 + 1) + 8 * i);
+          v32 = *(*(&v65 + 1) + 8 * i);
           v33 = objc_autoreleasePoolPush();
           schema = [v32 schema];
           tableName = [schema tableName];
@@ -182,17 +217,17 @@ LABEL_8:
           if (tableName)
           {
             v36 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"CREATE VIRTUAL TABLE IF NOT EXISTS %@ USING bmstream_vtab", tableName];
-            v65 = 0;
-            [(BMSQLDatabase *)v11 executeStatement:v36 error:&v65];
-            v37 = v65;
+            v64 = 0;
+            [(BMSQLDatabase *)v11 executeStatement:v36 error:&v64];
+            v37 = v64;
           }
 
           else
           {
             v38 = objc_alloc(MEMORY[0x1E696ABC0]);
-            v87 = v55;
-            v88 = @"virtual table is missing a schema/tableName";
-            v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v88 forKeys:&v87 count:1];
+            v86 = v54;
+            v87 = @"virtual table is missing a schema/tableName";
+            v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v87 forKeys:&v86 count:1];
             v37 = [v38 initWithDomain:@"BMSQLDatabaseErrorDomain" code:1 userInfo:v36];
           }
 
@@ -204,11 +239,11 @@ LABEL_8:
             if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412802;
-              v82 = v11;
-              v83 = 2112;
-              v84 = tableName;
-              v85 = 2112;
-              v86 = v39;
+              v81 = v11;
+              v82 = 2112;
+              v83 = tableName;
+              v84 = 2112;
+              v85 = v39;
               _os_log_error_impl(&dword_1848EE000, v40, OS_LOG_TYPE_ERROR, "BMSQLDatabase failed to add virtual table to %@ with name %@. %@", buf, 0x20u);
             }
           }
@@ -219,7 +254,7 @@ LABEL_8:
             if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v82 = tableName;
+              v81 = tableName;
               _os_log_debug_impl(&dword_1848EE000, v40, OS_LOG_TYPE_DEBUG, "BMSQLDatabase finished adding virtual table with name %@", buf, 0xCu);
             }
           }
@@ -228,7 +263,7 @@ LABEL_8:
           if (v39)
           {
 
-            objc_storeStrong(v75 + 5, v39);
+            objc_storeStrong(v74 + 5, v39);
             sqlite3_close(ppDb);
             v11->_db = 0;
 
@@ -236,7 +271,7 @@ LABEL_8:
           }
         }
 
-        v29 = [(NSArray *)v28 countByEnumeratingWithState:&v66 objects:v89 count:16];
+        v29 = [(NSArray *)v28 countByEnumeratingWithState:&v65 objects:v88 count:16];
         if (v29)
         {
           continue;
@@ -247,25 +282,25 @@ LABEL_8:
     }
 
     v41 = objc_opt_new();
-    v63 = 0u;
-    v64 = 0u;
-    v61 = 0u;
     v62 = 0u;
+    v63 = 0u;
+    v60 = 0u;
+    v61 = 0u;
     v42 = tablesCopy;
-    v43 = [v42 countByEnumeratingWithState:&v61 objects:v80 count:16];
+    v43 = [v42 countByEnumeratingWithState:&v60 objects:v79 count:16];
     if (v43)
     {
-      v44 = *v62;
+      v44 = *v61;
       do
       {
         for (j = 0; j != v43; ++j)
         {
-          if (*v62 != v44)
+          if (*v61 != v44)
           {
             objc_enumerationMutation(v42);
           }
 
-          v46 = *(*(&v61 + 1) + 8 * j);
+          v46 = *(*(&v60 + 1) + 8 * j);
           stream = [v46 stream];
 
           if (stream)
@@ -281,19 +316,19 @@ LABEL_8:
           }
         }
 
-        v43 = [v42 countByEnumeratingWithState:&v61 objects:v80 count:16];
+        v43 = [v42 countByEnumeratingWithState:&v60 objects:v79 count:16];
       }
 
       while (v43);
     }
 
-    v60 = 0;
-    [BMSQLProtoUDFs registerProtoUDFsWithDatabase:v11 eventClasses:v41 error:&v60];
-    v51 = v60;
+    v59 = 0;
+    [BMSQLProtoUDFs registerProtoUDFsWithDatabase:v11 eventClasses:v41 error:&v59];
+    v51 = v59;
     if (v51)
     {
-      v52 = v75[5];
-      v75[5] = v51;
+      v52 = v74[5];
+      v74[5] = v51;
 
       goto LABEL_9;
     }
@@ -309,8 +344,8 @@ LABEL_42:
   }
 
   v13 = BMSQLDatabaseError(v12, ppDb, "Failed to open in memory database");
-  v14 = v75[5];
-  v75[5] = v13;
+  v14 = v74[5];
+  v74[5] = v13;
 
   sqlite3_close(ppDb);
 LABEL_9:
@@ -319,8 +354,7 @@ LABEL_43:
   objc_autoreleasePoolPop(context);
   bm_invoke();
 
-  _Block_object_dispose(&v74, 8);
-  v53 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v73, 8);
   return v21;
 }
 
@@ -342,27 +376,27 @@ void *__102__BMSQLDatabase_initWithVirtualTables_privileges_isColumnAccessLoggin
 
 - (id)virtualTableForName:(id)name
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   nameCopy = name;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = self->_virtualTables;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
-    v7 = *v16;
+    v7 = *v15;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         schema = [v9 schema];
         tableName = [schema tableName];
         v12 = [tableName isEqualToString:nameCopy];
@@ -374,7 +408,7 @@ void *__102__BMSQLDatabase_initWithVirtualTables_privileges_isColumnAccessLoggin
         }
       }
 
-      v6 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v6)
       {
         continue;
@@ -385,8 +419,6 @@ void *__102__BMSQLDatabase_initWithVirtualTables_privileges_isColumnAccessLoggin
   }
 
 LABEL_11:
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -405,16 +437,16 @@ LABEL_11:
 
 - (BOOL)_attachDatabase:(id)database name:(id)name error:(id *)error
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   databaseCopy = database;
   nameCopy = name;
   v10 = __biome_log_for_category();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v21 = databaseCopy;
-    v22 = 2112;
-    v23 = nameCopy;
+    v20 = databaseCopy;
+    v21 = 2112;
+    v22 = nameCopy;
     _os_log_impl(&dword_1848EE000, v10, OS_LOG_TYPE_DEFAULT, "BMSQLDatabase attaching to %@ as %@", buf, 0x16u);
   }
 
@@ -433,10 +465,10 @@ LABEL_7:
   if (error)
   {
     v14 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v18 = *MEMORY[0x1E696A578];
+    v17 = *MEMORY[0x1E696A578];
     nameCopy = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"cannot open non file database"];
-    v19 = nameCopy;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+    v18 = nameCopy;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
     *error = [v14 initWithDomain:@"BMSQLDatabaseErrorDomain" code:14 userInfo:v15];
 
     LOBYTE(error) = 0;
@@ -445,13 +477,12 @@ LABEL_7:
 
 LABEL_8:
 
-  v16 = *MEMORY[0x1E69E9840];
   return error;
 }
 
 - (BOOL)attachDatabaseWithResourceIdentifier:(id)identifier useCase:(id)case error:(id *)error
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   caseCopy = case;
   os_unfair_lock_assert_not_owner(&self->_lock);
@@ -485,10 +516,10 @@ LABEL_8:
       if (error)
       {
         v20 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v26 = *MEMORY[0x1E696A578];
+        v25 = *MEMORY[0x1E696A578];
         v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Access assertion %@ has a nil path", v12];
-        v27 = v21;
-        v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+        v26 = v21;
+        v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
         *error = [v20 initWithDomain:@"BMSQLDatabaseErrorDomain" code:14 userInfo:v22];
       }
     }
@@ -505,10 +536,10 @@ LABEL_8:
     }
 
     v18 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v28 = *MEMORY[0x1E696A578];
+    v27 = *MEMORY[0x1E696A578];
     identifierCopy = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid identifier %@", identifierCopy];
-    v29[0] = identifierCopy;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+    v28[0] = identifierCopy;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
     v19 = [v18 initWithDomain:@"BMSQLDatabaseErrorDomain" code:14 userInfo:v12];
     LOBYTE(v18) = 0;
     *error = v19;
@@ -519,7 +550,6 @@ LABEL_12:
 LABEL_13:
   os_unfair_lock_unlock(&self->_lock);
 
-  v23 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -580,34 +610,34 @@ void *__40__BMSQLDatabase_executeStatement_error___block_invoke(void *result)
 
 - (id)SQLSchemaString
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   os_unfair_lock_assert_not_owner(&self->_lock);
   os_unfair_lock_lock(&self->_lock);
   v3 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](self->_virtualTables, "count")}];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v4 = self->_virtualTables;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        schema = [*(*(&v13 + 1) + 8 * i) schema];
+        schema = [*(*(&v12 + 1) + 8 * i) schema];
         createTableSQL = [schema createTableSQL];
         [v3 addObject:createTableSQL];
       }
 
-      v5 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
@@ -616,24 +646,23 @@ void *__40__BMSQLDatabase_executeStatement_error___block_invoke(void *result)
   v10 = [v3 componentsJoinedByString:@"\n"];
 
   os_unfair_lock_unlock(&self->_lock);
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 - (void)logColumnAccess:(id)access tableName:(id)name
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   accessCopy = access;
   nameCopy = name;
   obj = self->_accessedColumns;
   objc_sync_enter(obj);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v7 = self->_accessedColumns;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (!v8)
   {
 
@@ -647,17 +676,17 @@ LABEL_13:
   }
 
   v9 = 0;
-  v10 = *v24;
+  v10 = *v23;
   do
   {
     for (i = 0; i != v8; ++i)
     {
-      if (*v24 != v10)
+      if (*v23 != v10)
       {
         objc_enumerationMutation(v7);
       }
 
-      v12 = *(*(&v23 + 1) + 8 * i);
+      v12 = *(*(&v22 + 1) + 8 * i);
       table = [v12 table];
       v14 = [table isEqual:nameCopy];
 
@@ -669,7 +698,7 @@ LABEL_13:
       }
     }
 
-    v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
   }
 
   while (v8);
@@ -684,7 +713,6 @@ LABEL_14:
   [columns addObject:accessCopy];
 
   objc_sync_exit(obja);
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetColumnAccessLog
@@ -693,6 +721,21 @@ LABEL_14:
   objc_sync_enter(obj);
   [(NSMutableArray *)self->_accessedColumns removeAllObjects];
   objc_sync_exit(obj);
+}
+
+- (BOOL)registerFunctionWithName:(id)name numArgs:(int)args function:(id)function error:(id *)error
+{
+  v7 = *&args;
+  functionCopy = function;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __65__BMSQLDatabase_registerFunctionWithName_numArgs_function_error___block_invoke;
+  v13[3] = &unk_1E6E53CB0;
+  v14 = functionCopy;
+  v11 = functionCopy;
+  LOBYTE(error) = [(BMSQLDatabase *)self registerFunctionWithName:name numArgs:v7 function:v13 userData:0 error:error];
+
+  return error;
 }
 
 - (BOOL)registerFunctionWithName:(id)name numArgs:(int)args function:(id)function userData:(id)data error:(id *)error
@@ -789,28 +832,28 @@ LABEL_10:
 
 - (id)description
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](self->_virtualTables, "count")}];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v4 = self->_virtualTables;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v20;
+    v7 = *v19;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        schema = [*(*(&v19 + 1) + 8 * i) schema];
+        schema = [*(*(&v18 + 1) + 8 * i) schema];
         tableName = [schema tableName];
 
         if (tableName)
@@ -826,7 +869,7 @@ LABEL_10:
         [v3 addObject:v11];
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v6);
@@ -843,8 +886,6 @@ LABEL_10:
 
     v15 = v16;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

@@ -26,7 +26,7 @@
 
 void __53__KTPeerOverrides_setPeerOverride_application_state___block_invoke_2(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK != -1)
   {
@@ -36,12 +36,10 @@ void __53__KTPeerOverrides_setPeerOverride_application_state___block_invoke_2(ui
   v3 = TRANSPARENCY_DEFAULT_LOG_INTERNAL;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1E10DB000, v3, OS_LOG_TYPE_ERROR, "setPeerOverride error: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1E10DB000, v3, OS_LOG_TYPE_ERROR, "setPeerOverride error: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __53__KTPeerOverrides_setPeerOverride_application_state___block_invoke_3()
@@ -68,7 +66,7 @@ uint64_t __53__KTPeerOverrides_setPeerOverride_application_state___block_invoke_
 
 void __49__KTPeerOverrides_clearPeerOverride_application___block_invoke_2(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK != -1)
   {
@@ -78,12 +76,10 @@ void __49__KTPeerOverrides_clearPeerOverride_application___block_invoke_2(uint64
   v3 = TRANSPARENCY_DEFAULT_LOG_INTERNAL;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1E10DB000, v3, OS_LOG_TYPE_ERROR, "clearPeerOverride error: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1E10DB000, v3, OS_LOG_TYPE_ERROR, "clearPeerOverride error: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __49__KTPeerOverrides_clearPeerOverride_application___block_invoke_3()
@@ -125,7 +121,7 @@ uint64_t __36__KTPeerOverrides_listPeerOverrides__block_invoke(uint64_t a1, void
 
 void __36__KTPeerOverrides_listPeerOverrides__block_invoke_3(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK != -1)
   {
@@ -135,12 +131,10 @@ void __36__KTPeerOverrides_listPeerOverrides__block_invoke_3(uint64_t a1, void *
   v3 = TRANSPARENCY_DEFAULT_LOG_INTERNAL;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1E10DB000, v3, OS_LOG_TYPE_ERROR, "listPeerOverrides error: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1E10DB000, v3, OS_LOG_TYPE_ERROR, "listPeerOverrides error: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __36__KTPeerOverrides_listPeerOverrides__block_invoke_4()

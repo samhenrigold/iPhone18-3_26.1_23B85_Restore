@@ -399,7 +399,7 @@
 
 void __35__HMDHomeKitVersion_currentVersion__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (isInternalBuild() && (v2 = CFPreferencesCopyAppValue(@"homeKitVersionOverride", *MEMORY[0x277CD0030])) != 0)
   {
     v3 = v2;
@@ -408,27 +408,24 @@ void __35__HMDHomeKitVersion_currentVersion__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = HMFGetLogIdentifier();
-      v13 = 138543618;
-      v14 = v6;
-      v15 = 2112;
-      v16 = v3;
-      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Version string is overridden to %@", &v13, 0x16u);
+      v11 = 138543618;
+      v12 = v6;
+      v13 = 2112;
+      v14 = v3;
+      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Version string is overridden to %@", &v11, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
     v7 = [objc_alloc(*(a1 + 32)) initWithString:v3];
     v8 = currentVersion_currentVersion;
     currentVersion_currentVersion = v7;
-
-    v9 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v10 = [*(a1 + 32) version13];
-    v11 = currentVersion_currentVersion;
-    currentVersion_currentVersion = v10;
-    v12 = *MEMORY[0x277D85DE8];
+    v9 = [*(a1 + 32) version13];
+    v10 = currentVersion_currentVersion;
+    currentVersion_currentVersion = v9;
   }
 }
 

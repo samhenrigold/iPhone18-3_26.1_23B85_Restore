@@ -34,7 +34,7 @@
 
 + (id)detectionPrintConfigurationForRevision:(int64_t)revision error:(id *)error
 {
-  v51[2] = *MEMORY[0x1E69E9840];
+  v50[2] = *MEMORY[0x1E69E9840];
   v7 = MEMORY[0x1E696AAE8];
   v8 = objc_opt_class();
   v12 = objc_msgSend_bundleForClass_(v7, v9, v8, v10, v11);
@@ -47,11 +47,11 @@
     v24 = objc_msgSend_initWithHeight_width_channels_(v30, v31, 45, 45, 128);
     v32 = [CSUDetectionPrintShape alloc];
     v27 = objc_msgSend_initWithHeight_width_channels_(v32, v33, 23, 23, 168);
-    v48[0] = @"6186";
-    v48[1] = @"5507";
-    v49[0] = v24;
-    v49[1] = v27;
-    v29 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v34, v49, v48, 2);
+    v47[0] = @"6186";
+    v47[1] = @"5507";
+    v48[0] = v24;
+    v48[1] = v27;
+    v29 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v34, v48, v47, 2);
     goto LABEL_5;
   }
 
@@ -62,11 +62,11 @@
     v24 = objc_msgSend_initWithHeight_width_channels_(v22, v23, 45, 45, 128);
     v25 = [CSUDetectionPrintShape alloc];
     v27 = objc_msgSend_initWithHeight_width_channels_(v25, v26, 23, 23, 168);
-    v50[0] = @"6316";
-    v50[1] = @"5637";
-    v51[0] = v24;
-    v51[1] = v27;
-    v29 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v28, v51, v50, 2);
+    v49[0] = @"6316";
+    v49[1] = @"5637";
+    v50[0] = v24;
+    v50[1] = v27;
+    v29 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v28, v50, v49, 2);
 LABEL_5:
     v35 = v29;
 
@@ -86,8 +86,6 @@ LABEL_5:
   }
 
 LABEL_8:
-
-  v46 = *MEMORY[0x1E69E9840];
 
   return error;
 }

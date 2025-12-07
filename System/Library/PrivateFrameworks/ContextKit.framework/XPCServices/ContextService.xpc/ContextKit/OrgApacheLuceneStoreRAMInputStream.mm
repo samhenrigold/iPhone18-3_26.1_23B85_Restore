@@ -4,6 +4,7 @@
 - (id)sliceWithNSString:(id)string withLong:(int64_t)long withLong:(int64_t)withLong;
 - (int64_t)getFilePointer;
 - (void)dealloc;
+- (void)readBytesWithByteArray:(id)array withInt:(int)int withInt:(int)withInt;
 - (void)seekWithLong:(int64_t)long;
 @end
 
@@ -43,6 +44,46 @@
   }
 
   return *(&currentBuffer->super.size_ + bufferPosition + 4);
+}
+
+- (void)readBytesWithByteArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  if (withInt >= 1)
+  {
+    withIntCopy = withInt;
+    v9 = *&int;
+    bufferPosition = self->bufferPosition_;
+    do
+    {
+      bufferLength = self->bufferLength_;
+      if (bufferPosition >= bufferLength)
+      {
+        ++self->currentBufferIndex_;
+        sub_10002BB44(&self->super.super.super.isa, 1, array, *&int, *&withInt, v5, v6, v7);
+        bufferLength = self->bufferLength_;
+        bufferPosition = self->bufferPosition_;
+      }
+
+      v14 = bufferLength - bufferPosition;
+      if (withIntCopy >= v14)
+      {
+        v15 = v14;
+      }
+
+      else
+      {
+        v15 = withIntCopy;
+      }
+
+      JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(self->currentBuffer_, bufferPosition, array, v9, v15);
+      v9 = (v15 + v9);
+      withIntCopy -= v15;
+      bufferPosition = (self->bufferPosition_ + v15);
+      self->bufferPosition_ = bufferPosition;
+    }
+
+    while (withIntCopy > 0);
+  }
 }
 
 - (int64_t)getFilePointer

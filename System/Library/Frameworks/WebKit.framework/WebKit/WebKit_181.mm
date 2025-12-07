@@ -2233,7 +2233,7 @@ LABEL_92:
   v61 = *(a1 + 8);
   IPC::Connection::createSyncMessageEncoder(0xFFD, a3, &v79);
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v79, *a2);
-  result = IPC::Connection::sendSyncMessage(v61, v80, &v79, 0, &v77, v9);
+  result = IPC::Connection::sendSyncMessage(&v77, v61, v80, &v79, 0, v9);
   if (!v78)
   {
     v63 = v77;
@@ -6559,7 +6559,7 @@ LABEL_99:
   v48 = v79;
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v79, *a2);
   IPC::ArgumentCoder<WTF::String,void>::encode<IPC::Encoder>(v48, *(a2 + 8));
-  result = IPC::Connection::sendSyncMessage(v47, v80, &v79, 0, &v82, v9);
+  result = IPC::Connection::sendSyncMessage(&v82, v47, v80, &v79, 0, v9);
   if (v83)
   {
     if (v83 != 1)

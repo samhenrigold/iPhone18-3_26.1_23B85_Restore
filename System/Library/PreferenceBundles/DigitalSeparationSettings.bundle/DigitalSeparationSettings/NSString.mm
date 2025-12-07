@@ -7,7 +7,7 @@
 + (id)localizedStringForKey:(id)key
 {
   keyCopy = key;
-  v4 = DSSettingsBundle();
+  v4 = DSSettingsBundle(keyCopy);
   v5 = [v4 localizedStringForKey:keyCopy value:keyCopy table:@"Localizable"];
 
   return v5;

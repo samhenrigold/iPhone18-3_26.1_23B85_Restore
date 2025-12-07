@@ -13,60 +13,60 @@
   Width = CGRectGetWidth(v49);
   [(PedestrianARGradientOverlay *)self frame];
   Height = CGRectGetHeight(v50);
-  configuration = [(PedestrianARGradientOverlay *)self configuration];
-  v6 = configuration;
+  v5 = objc_msgSend_configuration(self);
+  v6 = v5;
   if (Width <= Height)
   {
-    [configuration portraitStartPoint];
+    [v5 portraitStartPoint];
     v28 = v27;
     v30 = v29;
     gradientLayer = [self->_localizingGradientView gradientLayer];
     [gradientLayer setStartPoint:{v28, v30}];
 
-    configuration2 = [(PedestrianARGradientOverlay *)self configuration];
-    [configuration2 portraitEndPoint];
+    v32 = objc_msgSend_configuration(self);
+    [v32 portraitEndPoint];
     v34 = v33;
     v36 = v35;
     gradientLayer2 = [self->_localizingGradientView gradientLayer];
     [gradientLayer2 setEndPoint:{v34, v36}];
 
-    configuration3 = [(PedestrianARGradientOverlay *)self configuration];
-    [configuration3 portraitStartPoint];
+    v38 = objc_msgSend_configuration(self);
+    [v38 portraitStartPoint];
     v40 = v39;
     v42 = v41;
     p_runningGradientView = &self->_runningGradientView;
     gradientLayer3 = [self->_runningGradientView gradientLayer];
     [gradientLayer3 setStartPoint:{v40, v42}];
 
-    configuration4 = [(PedestrianARGradientOverlay *)self configuration];
-    [configuration4 portraitEndPoint];
+    v47 = objc_msgSend_configuration(self);
+    [v47 portraitEndPoint];
   }
 
   else
   {
-    [configuration landscapeStartPoint];
+    [v5 landscapeStartPoint];
     v8 = v7;
     v10 = v9;
     gradientLayer4 = [self->_localizingGradientView gradientLayer];
     [gradientLayer4 setStartPoint:{v8, v10}];
 
-    configuration5 = [(PedestrianARGradientOverlay *)self configuration];
-    [configuration5 landscapeEndPoint];
+    v12 = objc_msgSend_configuration(self);
+    [v12 landscapeEndPoint];
     v14 = v13;
     v16 = v15;
     gradientLayer5 = [self->_localizingGradientView gradientLayer];
     [gradientLayer5 setEndPoint:{v14, v16}];
 
-    configuration6 = [(PedestrianARGradientOverlay *)self configuration];
-    [configuration6 landscapeStartPoint];
+    v18 = objc_msgSend_configuration(self);
+    [v18 landscapeStartPoint];
     v20 = v19;
     v22 = v21;
     p_runningGradientView = &self->_runningGradientView;
     gradientLayer6 = [self->_runningGradientView gradientLayer];
     [gradientLayer6 setStartPoint:{v20, v22}];
 
-    configuration4 = [(PedestrianARGradientOverlay *)self configuration];
-    [configuration4 landscapeEndPoint];
+    v47 = objc_msgSend_configuration(self);
+    [v47 landscapeEndPoint];
   }
 
   v44 = v25;

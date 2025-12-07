@@ -34,7 +34,7 @@ LABEL_11:
   {
     [(ETPHeartbeat *)v6 beatsPerMinute];
     [(ETHeartbeatMessage *)v5 setBeatsPerMinute:?];
-    [(ETHeartbeatMessage *)v5 setDuration:[(ETHeartbeatMessage *)v7 duration]];
+    [(ETHeartbeatMessage *)v5 setDuration:objc_msgSend_duration(v7)];
     if ([(ETHeartbeatMessage *)v7 hasNormalizedCenterX]&& [(ETHeartbeatMessage *)v7 hasNormalizedCenterY])
     {
       [(ETHeartbeatMessage *)v7 normalizedCenterX];
@@ -100,7 +100,7 @@ LABEL_12:
 {
   startCopy = start;
   durationCopy = duration;
-  v147[5] = *MEMORY[0x277D85DE8];
+  v149[5] = *MEMORY[0x277D85DE8];
   sceneCopy = scene;
   [(ETHeartbeatMessage *)self beatsPerMinute];
   v9 = v8;
@@ -129,80 +129,80 @@ LABEL_12:
     v19 = v21;
   }
 
-  [(SKNode *)self->_heartNode setScale:v18 * v19];
-  v22 = ETFrameworkBundle();
-  v136 = 0;
-  v137 = &v136;
-  v138 = 0x2020000000;
-  v23 = getSKSetResourceBundleSymbolLoc_ptr_0;
-  v139 = getSKSetResourceBundleSymbolLoc_ptr_0;
+  v22 = [(SKNode *)self->_heartNode setScale:v18 * v19];
+  v24 = ETFrameworkBundle(v22, v23);
+  v138 = 0;
+  v139 = &v138;
+  v140 = 0x2020000000;
+  v25 = getSKSetResourceBundleSymbolLoc_ptr_0;
+  v141 = getSKSetResourceBundleSymbolLoc_ptr_0;
   if (!getSKSetResourceBundleSymbolLoc_ptr_0)
   {
     *buf = MEMORY[0x277D85DD0];
-    v132 = 3221225472;
-    v133 = __getSKSetResourceBundleSymbolLoc_block_invoke_0;
-    v134 = &unk_278F7A048;
-    v135 = &v136;
-    v24 = SpriteKitLibrary_0();
-    v137[3] = dlsym(v24, "SKSetResourceBundle");
-    getSKSetResourceBundleSymbolLoc_ptr_0 = *(v135[1] + 24);
-    v23 = v137[3];
+    v134 = 3221225472;
+    v135 = __getSKSetResourceBundleSymbolLoc_block_invoke_0;
+    v136 = &unk_278F7A048;
+    v137 = &v138;
+    v26 = SpriteKitLibrary_0();
+    v139[3] = dlsym(v26, "SKSetResourceBundle");
+    getSKSetResourceBundleSymbolLoc_ptr_0 = *(v137[1] + 24);
+    v25 = v139[3];
   }
 
-  _Block_object_dispose(&v136, 8);
-  if (!v23)
+  _Block_object_dispose(&v138, 8);
+  if (!v25)
   {
     [ETMessage displayInScene:];
     __break(1u);
   }
 
-  v23(v22);
+  v25(v24);
 
-  v121 = [getSKTextureClass() textureWithImageNamed:@"blends_heartToRndRect65"];
-  v120 = [getSKTextureClass() textureNoiseWithSmoothness:1 size:0.6 grayscale:{268.0, 253.0}];
-  v25 = [getSKShaderClass() shaderWithFileNamed:@"heartLines"];
+  v123 = [getSKTextureClass() textureWithImageNamed:@"blends_heartToRndRect65"];
+  v122 = [getSKTextureClass() textureNoiseWithSmoothness:1 size:0.6 grayscale:{268.0, 253.0}];
+  v27 = [getSKShaderClass() shaderWithFileNamed:@"heartLines"];
   linesShader = self->_linesShader;
-  self->_linesShader = v25;
+  self->_linesShader = v27;
 
-  v27 = [getSKUniformClass() uniformWithName:@"u_tex2" texture:v121];
+  v29 = [getSKUniformClass() uniformWithName:@"u_tex2" texture:v123];
   burTexUniform = self->_burTexUniform;
-  self->_burTexUniform = v27;
+  self->_burTexUniform = v29;
 
-  v29 = [getSKUniformClass() uniformWithName:@"u_tex3" texture:v120];
+  v31 = [getSKUniformClass() uniformWithName:@"u_tex3" texture:v122];
   noiseTexUniform = self->_noiseTexUniform;
-  self->_noiseTexUniform = v29;
+  self->_noiseTexUniform = v31;
 
   SKUniformClass = getSKUniformClass();
-  *&v32 = v9 / 60.0;
-  v33 = [SKUniformClass uniformWithName:@"u_speed" float:v32];
+  *&v34 = v9 / 60.0;
+  v35 = [SKUniformClass uniformWithName:@"u_speed" float:v34];
   speedUniform = self->_speedUniform;
-  self->_speedUniform = v33;
+  self->_speedUniform = v35;
 
-  v35 = [getSKUniformClass() uniformWithName:@"u_scale" float:0.0];
+  v37 = [getSKUniformClass() uniformWithName:@"u_scale" float:0.0];
   scaleUniform = self->_scaleUniform;
-  self->_scaleUniform = v35;
+  self->_scaleUniform = v37;
 
-  v37 = [getSKUniformClass() uniformWithName:@"u_shader_time" float:0.0];
+  v39 = [getSKUniformClass() uniformWithName:@"u_shader_time" float:0.0];
   shaderTimeUniform = self->_shaderTimeUniform;
-  self->_shaderTimeUniform = v37;
+  self->_shaderTimeUniform = v39;
 
-  v39 = self->_noiseTexUniform;
-  v147[0] = self->_burTexUniform;
-  v147[1] = v39;
-  v40 = self->_scaleUniform;
-  v147[2] = self->_speedUniform;
-  v147[3] = v40;
-  v147[4] = self->_shaderTimeUniform;
-  v41 = [MEMORY[0x277CBEA60] arrayWithObjects:v147 count:5];
-  [(SKShader *)self->_linesShader setUniforms:v41];
+  v41 = self->_noiseTexUniform;
+  v149[0] = self->_burTexUniform;
+  v149[1] = v41;
+  v42 = self->_scaleUniform;
+  v149[2] = self->_speedUniform;
+  v149[3] = v42;
+  v149[4] = self->_shaderTimeUniform;
+  v43 = [MEMORY[0x277CBEA60] arrayWithObjects:v149 count:5];
+  [(SKShader *)self->_linesShader setUniforms:v43];
 
-  v42 = [getSKSpriteNodeClass() spriteNodeWithImageNamed:@"compositeHeart"];
+  v44 = [getSKSpriteNodeClass() spriteNodeWithImageNamed:@"compositeHeart"];
   heartLines = self->_heartLines;
-  self->_heartLines = v42;
+  self->_heartLines = v44;
 
   [(SKSpriteNode *)self->_heartLines setShader:self->_linesShader];
-  v44 = [MEMORY[0x277D75348] colorWithRed:0.9046 green:0.0 blue:0.0742 alpha:1.0];
-  [(SKSpriteNode *)self->_heartLines setColor:v44];
+  v46 = [MEMORY[0x277D75348] colorWithRed:0.9046 green:0.0 blue:0.0742 alpha:1.0];
+  [(SKSpriteNode *)self->_heartLines setColor:v46];
 
   [(SKSpriteNode *)self->_heartLines setColorBlendFactor:1.0];
   [(SKSpriteNode *)self->_heartLines setBlendMode:5];
@@ -211,36 +211,36 @@ LABEL_12:
   heartScale = self->_heartScale;
   self->_heartScale = node2;
 
-  v47 = [getSKTextureClass() textureWithImageNamed:@"HeartbreakAtlas"];
+  v49 = [getSKTextureClass() textureWithImageNamed:@"HeartbreakAtlas"];
   heartbreakAtlas = self->_heartbreakAtlas;
-  self->_heartbreakAtlas = v47;
+  self->_heartbreakAtlas = v49;
 
-  v119 = [getSKTextureClass() textureWithImageNamed:@"warpedHeartAtlas"];
-  v49 = [getSKUniformClass() uniformWithName:@"u_tex2" texture:v119];
+  v121 = [getSKTextureClass() textureWithImageNamed:@"warpedHeartAtlas"];
+  v51 = [getSKUniformClass() uniformWithName:@"u_tex2" texture:v121];
   warpedTexAtlasUniform = self->_warpedTexAtlasUniform;
-  self->_warpedTexAtlasUniform = v49;
+  self->_warpedTexAtlasUniform = v51;
 
-  v51 = [getSKShaderClass() shaderWithFileNamed:@"heart"];
+  v53 = [getSKShaderClass() shaderWithFileNamed:@"heart"];
   heartShader = self->_heartShader;
-  self->_heartShader = v51;
+  self->_heartShader = v53;
 
-  v53 = self->_speedUniform;
-  v54 = self->_scaleUniform;
-  v146[0] = self->_warpedTexAtlasUniform;
-  v146[1] = v53;
-  v55 = self->_shaderTimeUniform;
-  v146[2] = v54;
-  v146[3] = v55;
-  v56 = [MEMORY[0x277CBEA60] arrayWithObjects:v146 count:4];
-  [(SKShader *)self->_heartShader setUniforms:v56];
+  v55 = self->_speedUniform;
+  v56 = self->_scaleUniform;
+  v148[0] = self->_warpedTexAtlasUniform;
+  v148[1] = v55;
+  v57 = self->_shaderTimeUniform;
+  v148[2] = v56;
+  v148[3] = v57;
+  v58 = [MEMORY[0x277CBEA60] arrayWithObjects:v148 count:4];
+  [(SKShader *)self->_heartShader setUniforms:v58];
 
-  v57 = [getSKSpriteNodeClass() spriteNodeWithImageNamed:@"heartAndBlur"];
+  v59 = [getSKSpriteNodeClass() spriteNodeWithImageNamed:@"heartAndBlur"];
   heart = self->_heart;
-  self->_heart = v57;
+  self->_heart = v59;
 
   [(SKSpriteNode *)self->_heart setShader:self->_heartShader];
-  v59 = [MEMORY[0x277D75348] colorWithRed:1.0 green:0.18 blue:0.3 alpha:1.0];
-  [(SKSpriteNode *)self->_heart setColor:v59];
+  v61 = [MEMORY[0x277D75348] colorWithRed:1.0 green:0.18 blue:0.3 alpha:1.0];
+  [(SKSpriteNode *)self->_heart setColor:v61];
 
   [(SKSpriteNode *)self->_heart setColorBlendFactor:1.0];
   [(SKSpriteNode *)self->_heart setBlendMode:5];
@@ -251,174 +251,174 @@ LABEL_12:
   [sceneCopy addChild:self->_heartNode];
   [(SKNode *)self->_heartNode setAlpha:0.0];
   [(SKSpriteNode *)self->_heartLines setAlpha:0.0];
-  v60 = self->_heartNode;
+  v62 = self->_heartNode;
   SKActionClass_0 = getSKActionClass_0();
   if (startCopy)
   {
-    v62 = 0.0;
+    v64 = 0.0;
   }
 
   else
   {
-    v62 = 0.5;
+    v64 = 0.5;
   }
 
-  v63 = [SKActionClass_0 fadeInWithDuration:v62];
-  [(SKNode *)v60 runAction:v63 withKey:@"fade"];
+  v65 = [SKActionClass_0 fadeInWithDuration:v64];
+  [(SKNode *)v62 runAction:v65 withKey:@"fade"];
 
-  v64 = self->_heartLines;
-  v65 = getSKActionClass_0();
-  v66 = getSKActionClass_0();
-  v67 = 0.0;
+  v66 = self->_heartLines;
+  v67 = getSKActionClass_0();
+  v68 = getSKActionClass_0();
+  v69 = 0.0;
   if (!startCopy)
   {
-    v67 = 0.3;
+    v69 = 0.3;
   }
 
-  v68 = [v66 waitForDuration:v67];
-  v145[0] = v68;
-  v69 = [getSKActionClass_0() fadeInWithDuration:v62];
-  v145[1] = v69;
-  v70 = [MEMORY[0x277CBEA60] arrayWithObjects:v145 count:2];
-  v71 = [v65 sequence:v70];
-  [(SKSpriteNode *)v64 runAction:v71 withKey:@"fade"];
+  v70 = [v68 waitForDuration:v69];
+  v147[0] = v70;
+  v71 = [getSKActionClass_0() fadeInWithDuration:v64];
+  v147[1] = v71;
+  v72 = [MEMORY[0x277CBEA60] arrayWithObjects:v147 count:2];
+  v73 = [v67 sequence:v72];
+  [(SKSpriteNode *)v66 runAction:v73 withKey:@"fade"];
 
   if (durationCopy && ![(ETMessage *)self isRenderingOffscreen])
   {
     if (IMOSLoggingEnabled())
     {
-      v73 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v73, OS_LOG_TYPE_INFO))
+      v75 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v75, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_248D00000, v73, OS_LOG_TYPE_INFO, "Using duration", buf, 2u);
+        _os_log_impl(&dword_248D00000, v75, OS_LOG_TYPE_INFO, "Using duration", buf, 2u);
       }
     }
 
     objc_initWeak(buf, self);
     if (self->_heartbreakTime == 0.0)
     {
-      v83 = getSKActionClass_0();
-      v75 = [getSKActionClass_0() waitForDuration:(self->_duration + 0.5)];
-      v143[0] = v75;
-      v84 = getSKActionClass_0();
-      v127[0] = MEMORY[0x277D85DD0];
-      v127[1] = 3221225472;
-      v127[2] = __60__ETHeartbeatMessage__displayInScene_useDuration_fastStart___block_invoke_2;
-      v127[3] = &unk_278F7A468;
-      v77 = &v128;
-      objc_copyWeak(&v128, buf);
-      v85 = MEMORY[0x277D85CD0];
-      v86 = MEMORY[0x277D85CD0];
-      v80 = [v84 runBlock:v127 queue:v85];
-      v143[1] = v80;
-      v81 = [MEMORY[0x277CBEA60] arrayWithObjects:v143 count:2];
-      v82 = [v83 sequence:v81];
+      v85 = getSKActionClass_0();
+      v77 = [getSKActionClass_0() waitForDuration:(self->_duration + 0.5)];
+      v145[0] = v77;
+      v86 = getSKActionClass_0();
+      v129[0] = MEMORY[0x277D85DD0];
+      v129[1] = 3221225472;
+      v129[2] = __60__ETHeartbeatMessage__displayInScene_useDuration_fastStart___block_invoke_2;
+      v129[3] = &unk_278F7A468;
+      v79 = &v130;
+      objc_copyWeak(&v130, buf);
+      v87 = MEMORY[0x277D85CD0];
+      v88 = MEMORY[0x277D85CD0];
+      v82 = [v86 runBlock:v129 queue:v87];
+      v145[1] = v82;
+      v83 = [MEMORY[0x277CBEA60] arrayWithObjects:v145 count:2];
+      v84 = [v85 sequence:v83];
     }
 
     else
     {
-      v74 = getSKActionClass_0();
-      v75 = [getSKActionClass_0() waitForDuration:self->_heartbreakTime];
-      v144[0] = v75;
       v76 = getSKActionClass_0();
-      v129[0] = MEMORY[0x277D85DD0];
-      v129[1] = 3221225472;
-      v129[2] = __60__ETHeartbeatMessage__displayInScene_useDuration_fastStart___block_invoke;
-      v129[3] = &unk_278F7A468;
-      v77 = &v130;
-      objc_copyWeak(&v130, buf);
-      v78 = MEMORY[0x277D85CD0];
-      v79 = MEMORY[0x277D85CD0];
-      v80 = [v76 runBlock:v129 queue:v78];
-      v144[1] = v80;
-      v81 = [MEMORY[0x277CBEA60] arrayWithObjects:v144 count:2];
-      v82 = [v74 sequence:v81];
+      v77 = [getSKActionClass_0() waitForDuration:self->_heartbreakTime];
+      v146[0] = v77;
+      v78 = getSKActionClass_0();
+      v131[0] = MEMORY[0x277D85DD0];
+      v131[1] = 3221225472;
+      v131[2] = __60__ETHeartbeatMessage__displayInScene_useDuration_fastStart___block_invoke;
+      v131[3] = &unk_278F7A468;
+      v79 = &v132;
+      objc_copyWeak(&v132, buf);
+      v80 = MEMORY[0x277D85CD0];
+      v81 = MEMORY[0x277D85CD0];
+      v82 = [v78 runBlock:v131 queue:v80];
+      v146[1] = v82;
+      v83 = [MEMORY[0x277CBEA60] arrayWithObjects:v146 count:2];
+      v84 = [v76 sequence:v83];
     }
 
-    v87 = v82;
+    v89 = v84;
 
-    objc_destroyWeak(v77);
-    [(SKNode *)self->_heartNode runAction:v87];
+    objc_destroyWeak(v79);
+    [(SKNode *)self->_heartNode runAction:v89];
 
     objc_destroyWeak(buf);
   }
 
   else if (IMOSLoggingEnabled())
   {
-    v72 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v72, OS_LOG_TYPE_INFO))
+    v74 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v74, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_248D00000, v72, OS_LOG_TYPE_INFO, "Not using duration", buf, 2u);
+      _os_log_impl(&dword_248D00000, v74, OS_LOG_TYPE_INFO, "Not using duration", buf, 2u);
     }
   }
 
-  v117 = self->_heartNode;
-  v88 = getSKActionClass_0();
-  v118 = [getSKActionClass_0() waitForDuration:v62];
-  v142[0] = v118;
-  v89 = getSKActionClass_0();
+  v119 = self->_heartNode;
+  v90 = getSKActionClass_0();
+  v120 = [getSKActionClass_0() waitForDuration:v64];
+  v144[0] = v120;
+  v91 = getSKActionClass_0();
+  v128[0] = MEMORY[0x277D85DD0];
+  v128[1] = 3221225472;
+  v128[2] = __60__ETHeartbeatMessage__displayInScene_useDuration_fastStart___block_invoke_41;
+  v128[3] = &unk_278F79ED0;
+  v128[4] = self;
+  v92 = [v91 runBlock:v128];
+  v144[1] = v92;
+  v93 = getSKActionClass_0();
+  v94 = getSKActionClass_0();
+  v95 = getSKActionClass_0();
   v126[0] = MEMORY[0x277D85DD0];
   v126[1] = 3221225472;
-  v126[2] = __60__ETHeartbeatMessage__displayInScene_useDuration_fastStart___block_invoke_41;
-  v126[3] = &unk_278F79ED0;
+  v126[2] = __60__ETHeartbeatMessage__displayInScene_useDuration_fastStart___block_invoke_2_42;
+  v126[3] = &unk_278F7A490;
   v126[4] = self;
-  v90 = [v89 runBlock:v126];
-  v142[1] = v90;
-  v91 = getSKActionClass_0();
-  v92 = getSKActionClass_0();
-  v93 = getSKActionClass_0();
-  v124[0] = MEMORY[0x277D85DD0];
-  v124[1] = 3221225472;
-  v124[2] = __60__ETHeartbeatMessage__displayInScene_useDuration_fastStart___block_invoke_2_42;
-  v124[3] = &unk_278F7A490;
-  v124[4] = self;
-  v125 = v12;
-  v94 = [v93 runBlock:v124];
-  v141[0] = v94;
-  v95 = [getSKActionClass_0() waitForDuration:v12];
-  v141[1] = v95;
-  v96 = [getSKActionClass_0() waitForDuration:v13];
-  v141[2] = v96;
-  v97 = [MEMORY[0x277CBEA60] arrayWithObjects:v141 count:3];
-  v98 = [v92 sequence:v97];
-  v99 = [v91 repeatActionForever:v98];
-  v142[2] = v99;
-  v100 = [MEMORY[0x277CBEA60] arrayWithObjects:v142 count:3];
-  v101 = [v88 sequence:v100];
-  [(SKNode *)v117 runAction:v101];
+  v127 = v12;
+  v96 = [v95 runBlock:v126];
+  v143[0] = v96;
+  v97 = [getSKActionClass_0() waitForDuration:v12];
+  v143[1] = v97;
+  v98 = [getSKActionClass_0() waitForDuration:v13];
+  v143[2] = v98;
+  v99 = [MEMORY[0x277CBEA60] arrayWithObjects:v143 count:3];
+  v100 = [v94 sequence:v99];
+  v101 = [v93 repeatActionForever:v100];
+  v144[2] = v101;
+  v102 = [MEMORY[0x277CBEA60] arrayWithObjects:v144 count:3];
+  v103 = [v90 sequence:v102];
+  [(SKNode *)v119 runAction:v103];
 
-  v102 = getSKActionClass_0();
-  v103 = [MEMORY[0x277D75348] colorWithRed:1.0 green:0.0 blue:0.5 alpha:1.0];
-  v104 = v12 * 0.5;
-  v105 = [v102 colorizeWithColor:v103 colorBlendFactor:1.0 duration:v104];
+  v104 = getSKActionClass_0();
+  v105 = [MEMORY[0x277D75348] colorWithRed:1.0 green:0.0 blue:0.5 alpha:1.0];
+  v106 = v12 * 0.5;
+  v107 = [v104 colorizeWithColor:v105 colorBlendFactor:1.0 duration:v106];
 
-  v106 = getSKActionClass_0();
-  v107 = [MEMORY[0x277D75348] colorWithRed:0.9046 green:0.0 blue:0.3 alpha:1.0];
-  v108 = [v106 colorizeWithColor:v107 colorBlendFactor:1.0 duration:v104];
+  v108 = getSKActionClass_0();
+  v109 = [MEMORY[0x277D75348] colorWithRed:0.9046 green:0.0 blue:0.3 alpha:1.0];
+  v110 = [v108 colorizeWithColor:v109 colorBlendFactor:1.0 duration:v106];
 
-  [v105 setTimingMode:3];
-  [v108 setTimingMode:3];
-  v109 = getSKActionClass_0();
-  v110 = getSKActionClass_0();
-  v140[0] = v105;
-  v140[1] = v108;
-  v111 = [MEMORY[0x277CBEA60] arrayWithObjects:v140 count:2];
-  v112 = [v110 sequence:v111];
-  v113 = [v109 repeatActionForever:v112];
+  [v107 setTimingMode:3];
+  [v110 setTimingMode:3];
+  v111 = getSKActionClass_0();
+  v112 = getSKActionClass_0();
+  v142[0] = v107;
+  v142[1] = v110;
+  v113 = [MEMORY[0x277CBEA60] arrayWithObjects:v142 count:2];
+  v114 = [v112 sequence:v113];
+  v115 = [v111 repeatActionForever:v114];
 
-  [(SKSpriteNode *)self->_heart runAction:v113];
-  [(SKSpriteNode *)self->_heartLines runAction:v113];
-  v114 = self->_heartNode;
-  v115 = getSKActionClass_0();
-  v123[0] = MEMORY[0x277D85DD0];
-  v123[1] = 3221225472;
-  v123[2] = __60__ETHeartbeatMessage__displayInScene_useDuration_fastStart___block_invoke_3;
-  v123[3] = &unk_278F7A4B8;
-  v123[4] = self;
-  v116 = [v115 customActionWithDuration:v123 actionBlock:((10 + 0.5) + 0.6)];
-  [(SKNode *)v114 runAction:v116];
+  [(SKSpriteNode *)self->_heart runAction:v115];
+  [(SKSpriteNode *)self->_heartLines runAction:v115];
+  v116 = self->_heartNode;
+  v117 = getSKActionClass_0();
+  v125[0] = MEMORY[0x277D85DD0];
+  v125[1] = 3221225472;
+  v125[2] = __60__ETHeartbeatMessage__displayInScene_useDuration_fastStart___block_invoke_3;
+  v125[3] = &unk_278F7A4B8;
+  v125[4] = self;
+  v118 = [v117 customActionWithDuration:v125 actionBlock:((10 + 0.5) + 0.6)];
+  [(SKNode *)v116 runAction:v118];
 }
 
 void __60__ETHeartbeatMessage__displayInScene_useDuration_fastStart___block_invoke(uint64_t a1)

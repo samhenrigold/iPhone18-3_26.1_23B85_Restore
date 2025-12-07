@@ -169,41 +169,49 @@
 - (void)setDataclassString:(id)string
 {
   stringCopy = string;
-  if ([stringCopy isEqualToString:@"Email"])
+  v4 = [stringCopy isEqualToString:@"Email"];
+  if (v4)
   {
-    v4 = 1;
+    v5 = 1;
 LABEL_9:
-    self->_dataclass = v4;
+    v6 = stringCopy;
+LABEL_10:
+    self->_dataclass = v5;
+    goto LABEL_11;
+  }
+
+  v4 = [stringCopy isEqualToString:@"Contacts"];
+  if (v4)
+  {
+    v5 = 2;
+    goto LABEL_9;
+  }
+
+  v4 = [stringCopy isEqualToString:@"Tasks"];
+  if (v4)
+  {
+    v5 = 16;
+    goto LABEL_9;
+  }
+
+  v4 = [stringCopy isEqualToString:@"Calendar"];
+  if (v4)
+  {
+    v5 = 4;
+    goto LABEL_9;
+  }
+
+  v4 = [stringCopy isEqualToString:@"Notes"];
+  v6 = stringCopy;
+  if (v4)
+  {
+    v5 = 32;
     goto LABEL_10;
   }
 
-  if ([stringCopy isEqualToString:@"Contacts"])
-  {
-    v4 = 2;
-    goto LABEL_9;
-  }
+LABEL_11:
 
-  if ([stringCopy isEqualToString:@"Tasks"])
-  {
-    v4 = 16;
-    goto LABEL_9;
-  }
-
-  if ([stringCopy isEqualToString:@"Calendar"])
-  {
-    v4 = 4;
-    goto LABEL_9;
-  }
-
-  if ([stringCopy isEqualToString:@"Notes"])
-  {
-    v4 = 32;
-    goto LABEL_9;
-  }
-
-LABEL_10:
-
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, v6);
 }
 
 - (void)setChangedItems:(id)items
@@ -372,10 +380,10 @@ LABEL_10:
 
 - (void)parseASParseContext:(id)context root:(id)root parent:(id)parent callbackDict:(id)dict streamCallbackDict:(id)callbackDict account:(id)account
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v17.receiver = self;
-  v17.super_class = ASCollection;
-  [(ASItem *)&v17 parseASParseContext:context root:root parent:parent callbackDict:dict streamCallbackDict:callbackDict account:account];
+  v21 = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = ASCollection;
+  [(ASItem *)&v16 parseASParseContext:context root:root parent:parent callbackDict:dict streamCallbackDict:callbackDict account:account];
   parsingState = self->super._parsingState;
   if (parsingState >= 2)
   {
@@ -396,23 +404,21 @@ LABEL_10:
         if (!syncKey)
         {
           self->super._parsingState = 3;
-          v14 = DALoggingwithCategory();
-          v15 = *(MEMORY[0x277D03988] + 3);
-          if (os_log_type_enabled(v14, v15))
+          v13 = DALoggingwithCategory();
+          v14 = *(MEMORY[0x277D03988] + 3);
+          if (os_log_type_enabled(v13, v14))
           {
             syncKey2 = [(ASCollection *)self syncKey];
             *buf = 67109378;
-            v19 = 1;
-            v20 = 2112;
-            v21 = syncKey2;
-            _os_log_impl(&dword_24A0AC000, v14, v15, "We received a happy value for status (%d), but syncKey %@ is missing", buf, 0x12u);
+            v18 = 1;
+            v19 = 2112;
+            v20 = syncKey2;
+            _os_log_impl(&dword_24A0AC000, v13, v14, "We received a happy value for status (%d), but syncKey %@ is missing", buf, 0x12u);
           }
         }
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (int)sniffableTypeForAccount:(id)account
@@ -480,10 +486,9 @@ LABEL_10:
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  changedItems = self->_changedItems;
-  v7 = [v3 stringWithFormat:@"<%@: Dataclass: %ld SyncKey: %@ CollectionID: %@ Status: %@ MoreAvailable: %@ ChangedItems: %@ ResponseItems: %@>", v5, self->_dataclass, self->_syncKey, self->_collectionId, self->_status, self->_moreAvailable, changedItems, self->_responseItems];
+  v6 = [v3 stringWithFormat:@"<%@: Dataclass: %ld SyncKey: %@ CollectionID: %@ Status: %@ MoreAvailable: %@ ChangedItems: %@ ResponseItems: %@>", v5, self->_dataclass, self->_syncKey, self->_collectionId, self->_status, self->_moreAvailable, self->_changedItems, self->_responseItems];
 
-  return v7;
+  return v6;
 }
 
 @end

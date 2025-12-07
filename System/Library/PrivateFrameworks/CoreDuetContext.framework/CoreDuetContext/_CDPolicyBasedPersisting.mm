@@ -42,7 +42,7 @@
 
 - (void)saveRegistration:(id)registration
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   registrationCopy = registration;
   if ([MEMORY[0x1E69C5D08] isClassCLocked])
   {
@@ -50,22 +50,20 @@
     if (os_log_type_enabled(contextChannel, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v12 = registrationCopy;
+      v11 = registrationCopy;
       _os_log_impl(&dword_1A9611000, contextChannel, OS_LOG_TYPE_DEFAULT, "Registration persistance queued %@", buf, 0xCu);
     }
   }
 
   v6 = MEMORY[0x1E69C5D08];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __45___CDPolicyBasedPersisting_saveRegistration___block_invoke;
-  v9[3] = &unk_1E7886250;
-  v9[4] = self;
-  v10 = registrationCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __45___CDPolicyBasedPersisting_saveRegistration___block_invoke;
+  v8[3] = &unk_1E7886250;
+  v8[4] = self;
+  v9 = registrationCopy;
   v7 = registrationCopy;
-  [v6 runBlockWhenDeviceIsClassCUnlocked:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  [v6 runBlockWhenDeviceIsClassCUnlocked:v8];
 }
 
 - (void)deleteRegistration:(id)registration

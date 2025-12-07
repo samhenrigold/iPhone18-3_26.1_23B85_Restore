@@ -12,7 +12,7 @@
 {
   v3 = os_transaction_create();
   v4 = [NSArray arrayWithArray:self->_workItems];
-  if ([v4 count])
+  if (objc_msgSend_count(v4))
   {
     executionQueue = self->_executionQueue;
     block[0] = _NSConcreteStackBlock;
@@ -33,9 +33,9 @@
   nameCopy = name;
   queueCopy = queue;
   handlerCopy = handler;
-  v40.receiver = self;
-  v40.super_class = _DASBatchingQueue;
-  v15 = [(_DASBatchingQueue *)&v40 init];
+  v39.receiver = self;
+  v39.super_class = _DASBatchingQueue;
+  v15 = [(_DASBatchingQueue *)&v39 init];
   v16 = v15;
   if (v15)
   {
@@ -83,18 +83,17 @@
     timer = v16->_timer;
     v16->_timer = v31;
 
-    v33 = v16->_timer;
     dispatch_set_qos_class_fallback();
-    v34 = v16->_timer;
+    v33 = v16->_timer;
     handler[0] = _NSConcreteStackBlock;
     handler[1] = 3221225472;
     handler[2] = sub_10002AD54;
     handler[3] = &unk_1001B5668;
-    v39 = v16;
-    dispatch_source_set_event_handler(v34, handler);
-    v35 = v16->_timer;
-    v36 = dispatch_time(0, (delay * 1000000000.0));
-    dispatch_source_set_timer(v35, v36, 0xFFFFFFFFFFFFFFFFLL, (delay / 10.0 * 1000000000.0));
+    v38 = v16;
+    dispatch_source_set_event_handler(v33, handler);
+    v34 = v16->_timer;
+    v35 = dispatch_time(0, (delay * 1000000000.0));
+    dispatch_source_set_timer(v34, v35, 0xFFFFFFFFFFFFFFFFLL, (delay / 10.0 * 1000000000.0));
   }
 
   return v16;

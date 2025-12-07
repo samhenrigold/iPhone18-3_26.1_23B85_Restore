@@ -460,11 +460,11 @@ void __27__WBSHistory_hasItemSince___block_invoke_2(uint64_t a1, uint64_t a2, vo
 
   else
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = WBS_LOG_CHANNEL_PREFIXHistory(0, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_INFO, "Empty list of items to remove", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_INFO, "Empty list of items to remove", v10, 2u);
     }
 
     if (handlerCopy)
@@ -583,11 +583,11 @@ uint64_t __67__WBSHistory__removeItemsInResponseToUserAction_completionHandler__
   urlString = [itemCopy urlString];
   if (urlString)
   {
-    v8 = [(WBSHistory *)self _removeItemForURLString:urlString];
-    if (v8)
+    v9 = [(WBSHistory *)self _removeItemForURLString:urlString];
+    if (v9)
     {
-      [itemCopy mergeDataFromItem:v8];
-      [(WBSHistoryStore *)self->_historyStore itemWasReplaced:v8 byItem:itemCopy];
+      [itemCopy mergeDataFromItem:v9];
+      [(WBSHistoryStore *)self->_historyStore itemWasReplaced:v9 byItem:itemCopy];
     }
 
     if (expansionsCopy)
@@ -601,17 +601,17 @@ uint64_t __67__WBSHistory__removeItemsInResponseToUserAction_completionHandler__
     block[2] = __64__WBSHistory__addItem_addToStringsForUserTypedDomainExpansions___block_invoke;
     block[3] = &unk_1E7FB7DD0;
     block[4] = self;
-    v19 = urlString;
-    v20 = itemCopy;
+    v20 = urlString;
+    v21 = itemCopy;
     dispatch_sync(entriesByURLStringAccessQueue, block);
   }
 
   else
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = WBS_LOG_CHANNEL_PREFIXHistory(0, v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(WBSHistory *)v10 _addItem:v11 addToStringsForUserTypedDomainExpansions:v12, v13, v14, v15, v16, v17];
+      [(WBSHistory *)v11 _addItem:v12 addToStringsForUserTypedDomainExpansions:v13, v14, v15, v16, v17, v18];
     }
   }
 }
@@ -619,64 +619,64 @@ uint64_t __67__WBSHistory__removeItemsInResponseToUserAction_completionHandler__
 - (id)_removeItemForURLString:(id)string
 {
   stringCopy = string;
-  v5 = stringCopy;
+  v6 = stringCopy;
   if (stringCopy)
   {
+    v30 = 0;
+    v31 = &v30;
+    v32 = 0x3032000000;
+    v33 = __Block_byref_object_copy__17;
+    v34 = __Block_byref_object_dispose__17;
+    v35 = 0;
+    v26 = 0;
+    v27 = &v26;
+    v28 = 0x2020000000;
     v29 = 0;
-    v30 = &v29;
-    v31 = 0x3032000000;
-    v32 = __Block_byref_object_copy__17;
-    v33 = __Block_byref_object_dispose__17;
-    v34 = 0;
-    v25 = 0;
-    v26 = &v25;
-    v27 = 0x2020000000;
-    v28 = 0;
     entriesByURLStringAccessQueue = self->_entriesByURLStringAccessQueue;
-    v17 = MEMORY[0x1E69E9820];
-    v18 = 3221225472;
-    v19 = __38__WBSHistory__removeItemForURLString___block_invoke;
-    v20 = &unk_1E7FC6898;
-    v23 = &v29;
+    v18 = MEMORY[0x1E69E9820];
+    v19 = 3221225472;
+    v20 = __38__WBSHistory__removeItemForURLString___block_invoke;
+    v21 = &unk_1E7FC6898;
+    v24 = &v30;
     selfCopy = self;
-    v22 = stringCopy;
-    v24 = &v25;
-    dispatch_sync(entriesByURLStringAccessQueue, &v17);
-    if (v30[5])
+    v23 = stringCopy;
+    v25 = &v26;
+    dispatch_sync(entriesByURLStringAccessQueue, &v18);
+    if (v31[5])
     {
-      [(WBSHistory *)self _removeItemFromStringsForUserTypedDomainExpansion:v17, v18, v19, v20, selfCopy];
-      if (!v26[3])
+      [(WBSHistory *)self _removeItemFromStringsForUserTypedDomainExpansion:v18, v19, v20, v21, selfCopy];
+      if (!v27[3])
       {
         [(WBSHistory *)self _removeAllVisitedLinks];
       }
 
-      v7 = v30[5];
+      v8 = v31[5];
     }
 
     else
     {
-      v7 = 0;
+      v8 = 0;
     }
 
-    _Block_object_dispose(&v25, 8);
-    _Block_object_dispose(&v29, 8);
+    _Block_object_dispose(&v26, 8);
+    _Block_object_dispose(&v30, 8);
   }
 
   else
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXHistory(0, v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(WBSHistory *)v8 _removeItemForURLString:v9, v10, v11, v12, v13, v14, v15];
+      [(WBSHistory *)v9 _removeItemForURLString:v10, v11, v12, v13, v14, v15, v16];
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
-uint64_t __38__WBSHistory__removeItemForURLString___block_invoke(void *a1)
+void *__38__WBSHistory__removeItemForURLString___block_invoke(void *a1)
 {
   v2 = [*(a1[4] + 16) objectForKeyedSubscript:a1[5]];
   v3 = *(a1[6] + 8);
@@ -721,7 +721,7 @@ uint64_t __38__WBSHistory__removeItemForURLString___block_invoke(void *a1)
   return v7 & 1;
 }
 
-uint64_t __60__WBSHistory__isStringForUserTypedDomainExpansionInHistory___block_invoke(void *a1)
+void *__60__WBSHistory__isStringForUserTypedDomainExpansionInHistory___block_invoke(void *a1)
 {
   result = [*(a1[4] + 32) containsObject:a1[5]];
   *(*(a1[6] + 8) + 24) = result;
@@ -813,7 +813,7 @@ void __22__WBSHistory_allItems__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __34__WBSHistory_numberOfHistoryItems__block_invoke(uint64_t a1)
+void *__34__WBSHistory_numberOfHistoryItems__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 16) count];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -986,116 +986,118 @@ void __47__WBSHistory_getAllItemsWithCompletionHandler___block_invoke(uint64_t a
 {
   failureCopy = failure;
   getCopy = get;
-  v49 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   titleCopy = title;
+  v46 = titleCopy;
   if (!stringCopy)
   {
-    v22 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v26 = WBS_LOG_CHANNEL_PREFIXHistory(titleCopy, v19);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      [WBSHistory itemVisitedAtURLString:v22 title:v23 timeOfVisit:v24 wasHTTPNonGet:v25 wasFailure:v26 increaseVisitCount:v27 statusCode:v28 origin:v29 attributes:?];
+      [WBSHistory itemVisitedAtURLString:v26 title:v27 timeOfVisit:v28 wasHTTPNonGet:v29 wasFailure:v30 increaseVisitCount:v31 statusCode:v32 origin:v33 attributes:?];
     }
 
     goto LABEL_24;
   }
 
   ct_green_tea_logger_create_static();
-  v18 = getCTGreenTeaOsLogHandle();
-  v19 = v18;
-  if (v18 && os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+  v20 = getCTGreenTeaOsLogHandle();
+  v21 = v20;
+  if (v20 && os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BB6F3000, v19, OS_LOG_TYPE_INFO, "Read Safari history", buf, 2u);
+    _os_log_impl(&dword_1BB6F3000, v21, OS_LOG_TYPE_INFO, "Read Safari history", buf, 2u);
   }
 
   [(WBSHistory *)self loadHistoryAsynchronouslyIfNeeded];
-  v20 = [(WBSHistory *)self itemForURLString:stringCopy];
-  if (!v20)
+  v22 = [(WBSHistory *)self itemForURLString:stringCopy];
+  if (!v22)
   {
-    if ([(WBSHistoryActivityThrottler *)self->_entryCreationThrottler shouldRecordHistoryVisitAtTime:visit])
+    v34 = [(WBSHistoryActivityThrottler *)self->_entryCreationThrottler shouldRecordHistoryVisitAtTime:visit];
+    if (v34)
     {
-      v30 = WBS_LOG_CHANNEL_PREFIXHistory();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+      v36 = WBS_LOG_CHANNEL_PREFIXHistory(v34, v35);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
       {
         *buf = 141558275;
-        v46 = 1752392040;
-        v47 = 2117;
-        v48 = stringCopy;
-        _os_log_impl(&dword_1BB6F3000, v30, OS_LOG_TYPE_INFO, "Adding new global history item for %{sensitive, mask.hash}@", buf, 0x16u);
+        v52 = 1752392040;
+        v53 = 2117;
+        v54 = stringCopy;
+        _os_log_impl(&dword_1BB6F3000, v36, OS_LOG_TYPE_INFO, "Adding new global history item for %{sensitive, mask.hash}@", buf, 0x16u);
       }
 
-      v31 = [objc_alloc(-[WBSHistory _historyItemClass](self "_historyItemClass"))];
+      v37 = [objc_alloc(-[WBSHistory _historyItemClass](self "_historyItemClass"))];
       queue = self->_entriesByURLStringAccessQueue;
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __128__WBSHistory_itemVisitedAtURLString_title_timeOfVisit_wasHTTPNonGet_wasFailure_increaseVisitCount_statusCode_origin_attributes___block_invoke;
       block[3] = &unk_1E7FB7DD0;
       block[4] = self;
-      v42 = stringCopy;
-      v21 = v31;
-      v43 = v21;
+      v48 = stringCopy;
+      v25 = v37;
+      v49 = v25;
       dispatch_sync(queue, block);
-      [(WBSHistory *)self _addItemToStringsForUserTypedDomainExpansion:v21];
+      [(WBSHistory *)self _addItemToStringsForUserTypedDomainExpansion:v25];
 
       goto LABEL_13;
     }
 
-    v37 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+    v43 = WBS_LOG_CHANNEL_PREFIXHistory(v34, v35);
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138739971;
-      v46 = stringCopy;
-      _os_log_impl(&dword_1BB6F3000, v37, OS_LOG_TYPE_DEFAULT, "Did not create history item for %{sensitive}@ because of excessive history activity requests", buf, 0xCu);
+      v52 = stringCopy;
+      _os_log_impl(&dword_1BB6F3000, v43, OS_LOG_TYPE_DEFAULT, "Did not create history item for %{sensitive}@ because of excessive history activity requests", buf, 0xCu);
     }
 
 LABEL_24:
-    v33 = 0;
+    v39 = 0;
     goto LABEL_25;
   }
 
-  [(WBSHistory *)self _dispatchHistoryItemWillChange:v20];
-  v21 = v20;
+  v23 = [(WBSHistory *)self _dispatchHistoryItemWillChange:v22];
+  v25 = v22;
 LABEL_13:
-  v32 = WBS_LOG_CHANNEL_PREFIXHistory();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+  v38 = WBS_LOG_CHANNEL_PREFIXHistory(v23, v24);
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
   {
     *buf = 141558275;
-    v46 = 1752392040;
-    v47 = 2117;
-    v48 = stringCopy;
-    _os_log_impl(&dword_1BB6F3000, v32, OS_LOG_TYPE_INFO, "Updating global history item %{sensitive, mask.hash}@", buf, 0x16u);
+    v52 = 1752392040;
+    v53 = 2117;
+    v54 = stringCopy;
+    _os_log_impl(&dword_1BB6F3000, v38, OS_LOG_TYPE_INFO, "Updating global history item %{sensitive, mask.hash}@", buf, 0x16u);
   }
 
-  v33 = [[WBSHistoryVisit alloc] initWithHistoryItem:v21 visitTime:!failureCopy loadWasSuccesful:getCopy wasHTTPNonGet:origin origin:attributes attributes:visit];
-  v34 = WBSHistoryTruncatePageTitle(titleCopy, 0x200uLL);
-  [(WBSHistoryVisit *)v33 setTitle:v34];
+  v39 = [[WBSHistoryVisit alloc] initWithHistoryItem:v25 visitTime:!failureCopy loadWasSuccesful:getCopy wasHTTPNonGet:origin origin:attributes attributes:visit];
+  v40 = WBSHistoryTruncatePageTitle(v46, 0x200uLL);
+  [(WBSHistoryVisit *)v39 setTitle:v40];
 
-  [v21 wasVisited:v33];
+  [v25 wasVisited:v39];
   if (WBSStatusCodeGroupFromStatusCode() || ([MEMORY[0x1E69C8880] isStreamlinedCompletionListEnabled] & 1) == 0)
   {
-    [v21 setStatusCode:{code, queue}];
+    [v25 setStatusCode:{code, queue}];
   }
 
-  [(WBSHistory *)self _dispatchHistoryVisitAdded:v33, queue];
-  if (v20)
+  [(WBSHistory *)self _dispatchHistoryVisitAdded:v39, queue];
+  if (v22)
   {
-    [(WBSHistory *)self _dispatchHistoryItemDidChange:v21 byUserInitiatedAction:(origin - 4) < 0xFFFFFFFFFFFFFFFDLL];
+    [(WBSHistory *)self _dispatchHistoryItemDidChange:v25 byUserInitiatedAction:(origin - 4) < 0xFFFFFFFFFFFFFFFDLL];
   }
 
   else
   {
-    [(WBSHistory *)self _dispatchHistoryItemAdded:v21 withVisitOrigin:origin];
+    [(WBSHistory *)self _dispatchHistoryItemAdded:v25 withVisitOrigin:origin];
   }
 
   historyStore = self->_historyStore;
-  v44 = v33;
-  v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v44 count:1];
-  [(WBSHistoryStore *)historyStore visitsWereAdded:v36];
+  v50 = v39;
+  v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v50 count:1];
+  [(WBSHistoryStore *)historyStore visitsWereAdded:v42];
 
 LABEL_25:
 
-  return v33;
+  return v39;
 }
 
 - (id)itemRedirectedFrom:(id)from to:(id)to origin:(int64_t)origin date:(id)date
@@ -1107,7 +1109,7 @@ LABEL_25:
 
 - (id)itemRedirectedFrom:(id)from to:(id)to origin:(int64_t)origin date:(id)date statusCode:(int64_t)code
 {
-  v48[1] = *MEMORY[0x1E69E9840];
+  v53[1] = *MEMORY[0x1E69E9840];
   fromCopy = from;
   toCopy = to;
   dateCopy = date;
@@ -1144,58 +1146,58 @@ LABEL_25:
 
     else if (toCopy)
     {
-      v22 = [(WBSHistory *)self itemForURLString:toCopy];
-      if (v22)
+      v25 = [(WBSHistory *)self itemForURLString:toCopy];
+      if (v25)
       {
-        [(WBSHistory *)self _dispatchHistoryItemWillChange:v22];
-        v23 = v22;
+        [(WBSHistory *)self _dispatchHistoryItemWillChange:v25];
+        v26 = v25;
       }
 
       else
       {
-        v25 = WBS_LOG_CHANNEL_PREFIXHistory();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+        v28 = WBS_LOG_CHANNEL_PREFIXHistory(0, v24);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
         {
           *buf = 141558275;
-          v40 = 1752392040;
-          v41 = 2117;
-          v42 = toCopy;
-          _os_log_impl(&dword_1BB6F3000, v25, OS_LOG_TYPE_INFO, "Synthesizing item for destination of redirect: %{sensitive, mask.hash}@", buf, 0x16u);
+          v45 = 1752392040;
+          v46 = 2117;
+          v47 = toCopy;
+          _os_log_impl(&dword_1BB6F3000, v28, OS_LOG_TYPE_INFO, "Synthesizing item for destination of redirect: %{sensitive, mask.hash}@", buf, 0x16u);
         }
 
-        v26 = [objc_alloc(-[WBSHistory _historyItemClass](self "_historyItemClass"))];
+        v29 = [objc_alloc(-[WBSHistory _historyItemClass](self "_historyItemClass"))];
         entriesByURLStringAccessQueue = self->_entriesByURLStringAccessQueue;
         block[0] = MEMORY[0x1E69E9820];
         block[1] = 3221225472;
         block[2] = __59__WBSHistory_itemRedirectedFrom_to_origin_date_statusCode___block_invoke;
         block[3] = &unk_1E7FB7DD0;
         block[4] = self;
-        v37 = toCopy;
-        v23 = v26;
-        v38 = v23;
+        v42 = toCopy;
+        v26 = v29;
+        v43 = v26;
         dispatch_sync(entriesByURLStringAccessQueue, block);
-        [(WBSHistory *)self _addItemToStringsForUserTypedDomainExpansion:v23];
+        [(WBSHistory *)self _addItemToStringsForUserTypedDomainExpansion:v26];
       }
 
       item2 = [(WBSHistoryVisit *)fromCopy item];
       [(WBSHistory *)self _dispatchHistoryItemWillChange:item2];
-      v18 = [[WBSHistoryVisit alloc] initWithHistoryItem:v23 visitTime:1 loadWasSuccesful:0 wasHTTPNonGet:origin origin:0 attributes:v19];
-      [v23 wasRedirectedFrom:fromCopy to:v18];
+      v18 = [[WBSHistoryVisit alloc] initWithHistoryItem:v26 visitTime:1 loadWasSuccesful:0 wasHTTPNonGet:origin origin:0 attributes:v19];
+      [v26 wasRedirectedFrom:fromCopy to:v18];
       if (WBSStatusCodeGroupFromStatusCode() || ([MEMORY[0x1E69C8880] isStreamlinedCompletionListEnabled] & 1) == 0)
       {
-        [v23 setStatusCode:code];
+        [v26 setStatusCode:code];
       }
 
       [(WBSHistory *)self _dispatchHistoryVisitAdded:v18];
       [(WBSHistory *)self _dispatchHistoryItemDidChange:item2 byUserInitiatedAction:(origin - 4) < 0xFFFFFFFFFFFFFFFDLL];
-      if (v22)
+      if (v25)
       {
-        [(WBSHistory *)self _dispatchHistoryItemDidChange:v23 byUserInitiatedAction:(origin - 4) < 0xFFFFFFFFFFFFFFFDLL];
+        [(WBSHistory *)self _dispatchHistoryItemDidChange:v26 byUserInitiatedAction:(origin - 4) < 0xFFFFFFFFFFFFFFFDLL];
       }
 
       else
       {
-        [(WBSHistory *)self _dispatchHistoryItemAdded:v23 withVisitOrigin:origin];
+        [(WBSHistory *)self _dispatchHistoryItemAdded:v26 withVisitOrigin:origin];
       }
 
       if ([(WBSHistoryVisit *)fromCopy didUserInteractWithPage])
@@ -1204,37 +1206,37 @@ LABEL_25:
       }
 
       historyStore = self->_historyStore;
-      v48[0] = fromCopy;
-      v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:v48 count:1];
-      [(WBSHistoryStore *)historyStore visitsWereModified:v30];
+      v53[0] = fromCopy;
+      v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:1];
+      [(WBSHistoryStore *)historyStore visitsWereModified:v33];
 
-      v31 = self->_historyStore;
-      v47 = v18;
-      v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v47 count:1];
-      [(WBSHistoryStore *)v31 visitsWereAdded:v32];
+      v34 = self->_historyStore;
+      v52 = v18;
+      v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v52 count:1];
+      [(WBSHistoryStore *)v34 visitsWereAdded:v35];
 
-      v33 = WBS_LOG_CHANNEL_PREFIXHistory();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+      v38 = WBS_LOG_CHANNEL_PREFIXHistory(v36, v37);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
       {
         urlString = [item2 urlString];
         *buf = 141558787;
-        v40 = 1752392040;
-        v41 = 2117;
-        v42 = urlString;
-        v43 = 2160;
-        v44 = 1752392040;
-        v45 = 2117;
-        v46 = toCopy;
-        _os_log_impl(&dword_1BB6F3000, v33, OS_LOG_TYPE_INFO, "Recorded redirect from %{sensitive, mask.hash}@ to %{sensitive, mask.hash}@", buf, 0x2Au);
+        v45 = 1752392040;
+        v46 = 2117;
+        v47 = urlString;
+        v48 = 2160;
+        v49 = 1752392040;
+        v50 = 2117;
+        v51 = toCopy;
+        _os_log_impl(&dword_1BB6F3000, v38, OS_LOG_TYPE_INFO, "Recorded redirect from %{sensitive, mask.hash}@ to %{sensitive, mask.hash}@", buf, 0x2Au);
       }
     }
 
     else
     {
-      v24 = WBS_LOG_CHANNEL_PREFIXHistory();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v27 = WBS_LOG_CHANNEL_PREFIXHistory(v22, v23);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        [WBSHistory itemRedirectedFrom:v24 to:? origin:? date:? statusCode:?];
+        [WBSHistory itemRedirectedFrom:v27 to:? origin:? date:? statusCode:?];
       }
 
       v18 = 0;
@@ -1299,59 +1301,61 @@ LABEL_25:
 
 - (BOOL)canRecordRedirectFromVisit:(id)visit to:(id)to
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   visitCopy = visit;
   toCopy = to;
   item = [visitCopy item];
   urlString = [item urlString];
 
-  if ([urlString isEqualToString:toCopy])
+  v9 = [urlString isEqualToString:toCopy];
+  if (v9)
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v11 = WBS_LOG_CHANNEL_PREFIXHistory(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v16 = 141558275;
-      v17 = 1752392040;
-      v18 = 2117;
-      v19 = toCopy;
-      v10 = "Ignoring redirect from %{sensitive, mask.hash}@ to itself";
-      v11 = v9;
-      v12 = 22;
+      v20 = 141558275;
+      v21 = 1752392040;
+      v22 = 2117;
+      v23 = toCopy;
+      v12 = "Ignoring redirect from %{sensitive, mask.hash}@ to itself";
+      v13 = v11;
+      v14 = 22;
 LABEL_7:
-      _os_log_impl(&dword_1BB6F3000, v11, OS_LOG_TYPE_INFO, v10, &v16, v12);
+      _os_log_impl(&dword_1BB6F3000, v13, OS_LOG_TYPE_INFO, v12, &v20, v14);
     }
   }
 
   else
   {
-    if ([visitCopy redirectSourceChainLength] < 0x15)
+    redirectSourceChainLength = [visitCopy redirectSourceChainLength];
+    if (redirectSourceChainLength < 0x15)
     {
-      v14 = 1;
+      v18 = 1;
       goto LABEL_10;
     }
 
-    v13 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v17 = WBS_LOG_CHANNEL_PREFIXHistory(redirectSourceChainLength, v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
-      v16 = 141558787;
-      v17 = 1752392040;
-      v18 = 2117;
-      v19 = urlString;
-      v20 = 2160;
+      v20 = 141558787;
       v21 = 1752392040;
       v22 = 2117;
-      v23 = toCopy;
-      v10 = "Ignoring redirect from %{sensitive, mask.hash}@ to %{sensitive, mask.hash}@ due to exceeding maximum redirect chain length";
-      v11 = v13;
-      v12 = 42;
+      v23 = urlString;
+      v24 = 2160;
+      v25 = 1752392040;
+      v26 = 2117;
+      v27 = toCopy;
+      v12 = "Ignoring redirect from %{sensitive, mask.hash}@ to %{sensitive, mask.hash}@ due to exceeding maximum redirect chain length";
+      v13 = v17;
+      v14 = 42;
       goto LABEL_7;
     }
   }
 
-  v14 = 0;
+  v18 = 0;
 LABEL_10:
 
-  return v14;
+  return v18;
 }
 
 - (void)updateTitle:(id)title forVisit:(id)visit
@@ -1435,39 +1439,40 @@ LABEL_10:
 
 void __77__WBSHistory_addTagWithIdentifier_title_toItemAtURL_level_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
+  v11 = v9;
   if (v7 && v8)
   {
-    v10 = [v7 arrayByAddingObjectsFromArray:v8];
-    v11 = *(a1 + 48);
-    v12 = *(*(a1 + 40) + 64);
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __77__WBSHistory_addTagWithIdentifier_title_toItemAtURL_level_completionHandler___block_invoke_73;
-    v15[3] = &unk_1E7FC6960;
-    v16 = v11;
-    v17 = *(a1 + 32);
-    v18 = *(a1 + 56);
-    [v12 assignHistoryItem:v16 toTopicTags:v10 completionHandler:v15];
+    v12 = [v7 arrayByAddingObjectsFromArray:v8];
+    v13 = *(a1 + 48);
+    v14 = *(*(a1 + 40) + 64);
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __77__WBSHistory_addTagWithIdentifier_title_toItemAtURL_level_completionHandler___block_invoke_73;
+    v19[3] = &unk_1E7FC6960;
+    v20 = v13;
+    v21 = *(a1 + 32);
+    v22 = *(a1 + 56);
+    [v14 assignHistoryItem:v20 toTopicTags:v12 completionHandler:v19];
   }
 
   else
   {
-    v13 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(v9, v10);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [v9 safari_privacyPreservingDescription];
+      [v11 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __77__WBSHistory_addTagWithIdentifier_title_toItemAtURL_level_completionHandler___block_invoke_cold_1();
     }
 
-    v14 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v18 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(v16, v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      __77__WBSHistory_addTagWithIdentifier_title_toItemAtURL_level_completionHandler___block_invoke_cold_2(a1, v14);
+      __77__WBSHistory_addTagWithIdentifier_title_toItemAtURL_level_completionHandler___block_invoke_cold_2(a1, v18);
     }
 
     (*(*(a1 + 56) + 16))();
@@ -1477,21 +1482,22 @@ void __77__WBSHistory_addTagWithIdentifier_title_toItemAtURL_level_completionHan
 void __77__WBSHistory_addTagWithIdentifier_title_toItemAtURL_level_completionHandler___block_invoke_73(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v7 = v5;
   if ((a2 & 1) == 0)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [*(a1 + 32) databaseID];
-      [v5 safari_privacyPreservingDescription];
+      [v7 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __77__WBSHistory_addTagWithIdentifier_title_toItemAtURL_level_completionHandler___block_invoke_73_cold_1();
     }
 
-    v7 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v11 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      __77__WBSHistory_addTagWithIdentifier_title_toItemAtURL_level_completionHandler___block_invoke_73_cold_2(a1, v7);
+      __77__WBSHistory_addTagWithIdentifier_title_toItemAtURL_level_completionHandler___block_invoke_73_cold_2(a1, v11);
     }
   }
 
@@ -1637,41 +1643,41 @@ uint64_t __48__WBSHistory_clearHistoryWithCompletionHandler___block_invoke_5(uin
 
 - (void)exportHistoryToFileWithURL:(id)l completionHandler:(id)handler
 {
-  v17[4] = *MEMORY[0x1E69E9840];
+  v18[4] = *MEMORY[0x1E69E9840];
   lCopy = l;
   handlerCopy = handler;
-  v17[0] = 0;
-  v8 = [objc_alloc(MEMORY[0x1E69C88A8]) initWithURL:lCopy error:v17];
-  v9 = v17[0];
-  v10 = v9;
+  v18[0] = 0;
+  v8 = [objc_alloc(MEMORY[0x1E69C88A8]) initWithURL:lCopy error:v18];
+  v9 = v18[0];
+  v11 = v9;
   if (v8)
   {
-    v11 = v9 == 0;
+    v12 = v9 == 0;
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  if (v11)
+  if (v12)
   {
     historyStore = self->_historyStore;
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __59__WBSHistory_exportHistoryToFileWithURL_completionHandler___block_invoke;
-    v14[3] = &unk_1E7FC6A00;
-    v16 = handlerCopy;
-    v15 = v8;
-    [(WBSHistoryStore *)historyStore exportHistory:v15 completionHandler:v14];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __59__WBSHistory_exportHistoryToFileWithURL_completionHandler___block_invoke;
+    v15[3] = &unk_1E7FC6A00;
+    v17 = handlerCopy;
+    v16 = v8;
+    [(WBSHistoryStore *)historyStore exportHistory:v16 completionHandler:v15];
   }
 
   else
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = WBS_LOG_CHANNEL_PREFIXHistory(v9, v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [v10 safari_privacyPreservingDescription];
+      [v11 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       [WBSHistory exportHistoryToFileWithURL:completionHandler:];
     }
@@ -1682,25 +1688,26 @@ uint64_t __48__WBSHistory_clearHistoryWithCompletionHandler___block_invoke_5(uin
 
 void __59__WBSHistory_exportHistoryToFileWithURL_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXHistory(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [v3 safari_privacyPreservingDescription];
+      [v5 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __59__WBSHistory_exportHistoryToFileWithURL_completionHandler___block_invoke_cold_1();
     }
 
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = __59__WBSHistory_exportHistoryToFileWithURL_completionHandler___block_invoke_79;
-    v6[3] = &unk_1E7FB7E48;
-    v5 = *(a1 + 32);
-    v7 = *(a1 + 40);
-    [v5 finishWithCompletionHandler:v6];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __59__WBSHistory_exportHistoryToFileWithURL_completionHandler___block_invoke_79;
+    v8[3] = &unk_1E7FB7E48;
+    v7 = *(a1 + 32);
+    v9 = *(a1 + 40);
+    [v7 finishWithCompletionHandler:v8];
   }
 
   else
@@ -1712,12 +1719,13 @@ void __59__WBSHistory_exportHistoryToFileWithURL_completionHandler___block_invok
 void __59__WBSHistory_exportHistoryToFileWithURL_completionHandler___block_invoke_79(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXHistory(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [v3 safari_privacyPreservingDescription];
+      [v5 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __59__WBSHistory_exportHistoryToFileWithURL_completionHandler___block_invoke_79_cold_1();
     }
@@ -2178,7 +2186,7 @@ void __58__WBSHistory__dispatchHistoryClearedAfterDate_beforeDate___block_invoke
   dispatch_async(MEMORY[0x1E69E96A0], v20);
 }
 
-uint64_t __40__WBSHistory_historyStore_didAddVisits___block_invoke(id *a1)
+void *__40__WBSHistory_historyStore_didAddVisits___block_invoke(id *a1)
 {
   v15 = *MEMORY[0x1E69E9840];
   if ([a1[4] count])

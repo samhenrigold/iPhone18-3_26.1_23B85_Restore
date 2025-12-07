@@ -65,7 +65,6 @@
   PBDataWriterWriteDataField();
   if (*&self->_has)
   {
-    shouldCascade = self->_shouldCascade;
     PBDataWriterWriteBOOLField();
   }
 }

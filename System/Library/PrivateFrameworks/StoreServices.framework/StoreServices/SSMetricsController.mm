@@ -87,7 +87,7 @@
 
 void __39__SSMetricsController__setupFlushTimer__block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (*(v2 + 56))
   {
@@ -116,16 +116,21 @@ void __39__SSMetricsController__setupFlushTimer__block_invoke(uint64_t a1)
       v9 = [v8 shouldLog];
       if ([v8 shouldLogToDisk])
       {
-        v10 = v9 | 2;
+        LODWORD(v10) = v9 | 2;
       }
 
       else
       {
-        v10 = v9;
+        LODWORD(v10) = v9;
       }
 
       v11 = [v8 OSLogObject];
-      if (!os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      {
+        v10 = v10;
+      }
+
+      else
       {
         v10 &= 2u;
       }
@@ -136,22 +141,21 @@ void __39__SSMetricsController__setupFlushTimer__block_invoke(uint64_t a1)
         v13 = v7;
         *location = 138412546;
         *&location[4] = v12;
-        v30 = 2048;
-        v31 = v13;
+        v29 = 2048;
+        v30 = v13;
         v14 = v12;
-        LODWORD(v26) = 22;
-        v15 = _os_log_send_and_compose_impl();
+        v15 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_1D48BA000, v11, 1, "[%@] Setting Flush Unreported Events timer: %0.2f", location, 22);
 
         if (!v15)
         {
-LABEL_17:
+LABEL_18:
 
           objc_initWeak(location, *(a1 + 32));
           block[0] = MEMORY[0x1E69E9820];
           block[1] = 3221225472;
           block[2] = __39__SSMetricsController__setupFlushTimer__block_invoke_57;
           block[3] = &unk_1E84AD870;
-          objc_copyWeak(&v28, location);
+          objc_copyWeak(&v27, location);
           block[4] = *(a1 + 32);
           v22 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, block);
           v23 = *(a1 + 32);
@@ -160,17 +164,17 @@ LABEL_17:
 
           v25 = dispatch_time(0, (v7 * 1000000000.0));
           dispatch_after(v25, *(*(a1 + 32) + 40), *(*(a1 + 32) + 56));
-          objc_destroyWeak(&v28);
+          objc_destroyWeak(&v27);
           objc_destroyWeak(location);
           return;
         }
 
-        v11 = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:{4, location, v26}];
+        v11 = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:4];
         free(v15);
         SSFileLog(v8, @"%@", v16, v17, v18, v19, v20, v21, v11);
       }
 
-      goto LABEL_17;
+      goto LABEL_18;
     }
   }
 }
@@ -277,17 +281,17 @@ LABEL_17:
 
 - (void)_serialQueueInsertEvents:(id)events withCompletionHandler:(id)handler
 {
-  v110 = *MEMORY[0x1E69E9840];
+  v111 = *MEMORY[0x1E69E9840];
   eventsCopy = events;
   handlerCopy = handler;
   selfCopy = self;
   configuration = [(SSMetricsController *)self configuration];
   reportingURLString = [configuration reportingURLString];
   objc_opt_class();
-  v91 = reportingURLString;
+  v92 = reportingURLString;
   if ((objc_opt_isKindOfClass() & 1) != 0 && [reportingURLString length])
   {
-    v86 = handlerCopy;
+    v87 = handlerCopy;
     v10 = objc_alloc_init(MEMORY[0x1E695DF90]);
     _userType = [(SSMetricsController *)self _userType];
     [v10 setObject:? forKey:?];
@@ -297,35 +301,35 @@ LABEL_17:
       [v10 setObject:v11 forKey:@"cookies"];
     }
 
-    v84 = v11;
+    v85 = v11;
     [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
-    v89 = [MEMORY[0x1E696AD98] numberWithDouble:?];
-    v90 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(eventsCopy, "count")}];
-    v101 = 0u;
+    v90 = [MEMORY[0x1E696AD98] numberWithDouble:?];
+    v91 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(eventsCopy, "count")}];
     v102 = 0u;
     v103 = 0u;
     v104 = 0u;
-    v87 = eventsCopy;
+    v105 = 0u;
+    v88 = eventsCopy;
     obj = eventsCopy;
-    v12 = [obj countByEnumeratingWithState:&v101 objects:v109 count:16];
+    v12 = [obj countByEnumeratingWithState:&v102 objects:v110 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v102;
-      v88 = configuration;
+      v14 = *v103;
+      v89 = configuration;
       do
       {
         v15 = 0;
-        v92 = v13;
+        v93 = v13;
         do
         {
-          if (*v102 != v14)
+          if (*v103 != v14)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v101 + 1) + 8 * v15);
-          if ([v16 isBlacklistedByConfiguration:{configuration, v82, v83}])
+          v16 = *(*(&v102 + 1) + 8 * v15);
+          if ([v16 isBlacklistedByConfiguration:configuration])
           {
             v17 = +[SSLogConfig sharedStoreServicesConfig];
             if (!v17)
@@ -353,18 +357,17 @@ LABEL_17:
             if (v20)
             {
               v21 = objc_opt_class();
-              v105 = 138412546;
-              v106 = v21;
-              v107 = 2112;
-              v108 = v16;
+              v106 = 138412546;
+              v107 = v21;
+              v108 = 2112;
+              v109 = v16;
               v22 = v21;
-              LODWORD(v83) = 22;
-              v82 = &v105;
-              v23 = _os_log_send_and_compose_impl();
+              LODWORD(v84) = 22;
+              v23 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &dword_1D48BA000, oSLogObject, 0, "[%@] Dropping event of a type which is blacklisted. [%@]", &v106, v84);
 
               if (v23)
               {
-                oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v23 encoding:{4, &v105, v83}];
+                oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v23 encoding:4];
                 free(v23);
                 SSFileLog(v17, @"%@", v24, v25, v26, v27, v28, v29, oSLogObject);
                 goto LABEL_27;
@@ -391,7 +394,7 @@ LABEL_27:
               underlyingDictionary = [v32 underlyingDictionary];
               v34 = [(AMSEngagement *)v30 enqueueData:underlyingDictionary];
 
-              configuration = v88;
+              configuration = v89;
             }
           }
 
@@ -401,15 +404,15 @@ LABEL_27:
           v38 = [v37 objectForKey:@"eventBody"];
           if ([v38 length])
           {
-            v39 = [v16 decorateReportingURL:v91];
+            v39 = [v16 decorateReportingURL:v92];
             oSLogObject2 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v16, "shouldSuppressUserInfo")}];
             v41 = objc_alloc_init(MEMORY[0x1E695DF90]);
-            [v41 setObject:v89 forKey:@"timestampInserted"];
+            [v41 setObject:v90 forKey:@"timestampInserted"];
             [v41 setObject:&unk_1F507A1B0 forKey:@"timestampReported"];
             [v41 setObject:v39 forKey:@"report_url"];
             [v41 setObject:oSLogObject2 forKey:@"supressDsid"];
             [v41 setObject:v38 forKey:@"eventBody"];
-            [(__CFString *)v90 addObject:v41];
+            [(__CFString *)v91 addObject:v41];
           }
 
           else
@@ -445,137 +448,136 @@ LABEL_27:
             if (v44)
             {
               v45 = objc_opt_class();
-              v105 = 138412546;
-              v106 = v45;
-              v107 = 2112;
-              v108 = v16;
+              v106 = 138412546;
+              v107 = v45;
+              v108 = 2112;
+              v109 = v16;
               v46 = v45;
-              LODWORD(v83) = 22;
-              v82 = &v105;
-              v47 = _os_log_send_and_compose_impl();
+              LODWORD(v84) = 22;
+              v47 = _os_log_send_and_compose_impl(v44, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 16, "[%@] Dropping event which has no body values after blacklist filtering. [%@]", &v106, v84);
 
               if (!v47)
               {
-                configuration = v88;
+                configuration = v89;
                 goto LABEL_42;
               }
 
-              oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v47 encoding:{4, &v105, v83}];
+              oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v47 encoding:4];
               free(v47);
               SSFileLog(v39, @"%@", v48, v49, v50, v51, v52, v53, oSLogObject2);
             }
 
-            configuration = v88;
+            configuration = v89;
           }
 
 LABEL_42:
           objc_autoreleasePoolPop(context);
           v10 = v36;
           v14 = v35;
-          v13 = v92;
+          v13 = v93;
 LABEL_43:
           ++v15;
         }
 
         while (v13 != v15);
-        v54 = [obj countByEnumeratingWithState:&v101 objects:v109 count:16];
+        v54 = [obj countByEnumeratingWithState:&v102 objects:v110 count:16];
         v13 = v54;
       }
 
       while (v54);
     }
 
-    if (![(__CFString *)v90 count])
+    v55 = [(__CFString *)v91 count];
+    if (!v55)
     {
-      handlerCopy = v86;
-      eventsCopy = v87;
-      if (!v86)
+      handlerCopy = v87;
+      eventsCopy = v88;
+      if (!v87)
       {
-LABEL_78:
+LABEL_79:
 
-        goto LABEL_79;
+        goto LABEL_80;
       }
 
-      v81 = dispatch_get_global_queue(0, 0);
+      v83 = dispatch_get_global_queue(0, 0);
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __70__SSMetricsController__serialQueueInsertEvents_withCompletionHandler___block_invoke_51;
       block[3] = &unk_1E84AED58;
-      v98 = 1;
-      v97 = v86;
-      dispatch_async(v81, block);
+      v99 = 1;
+      v98 = v87;
+      dispatch_async(v83, block);
 
-      v67 = v97;
-LABEL_77:
+      v69 = v98;
+LABEL_78:
 
+      goto LABEL_79;
+    }
+
+    handlerCopy = v87;
+    if (!SSIsInternalBuild(v55, v56) || !_os_feature_enabled_impl())
+    {
+LABEL_63:
+      v69 = xpc_dictionary_create(0, 0, 0);
+      xpc_dictionary_set_int64(v69, "0", 110);
+      SSXPCDictionarySetCFObject(v69, "1", v91);
+      _connection = [(SSMetricsController *)selfCopy _connection];
+      v100[0] = MEMORY[0x1E69E9820];
+      v100[1] = 3221225472;
+      v100[2] = __70__SSMetricsController__serialQueueInsertEvents_withCompletionHandler___block_invoke;
+      v100[3] = &unk_1E84ABEF0;
+      v100[4] = selfCopy;
+      v101 = v87;
+      [_connection sendMessage:v69 withReply:v100];
+
+      eventsCopy = v88;
       goto LABEL_78;
     }
 
-    handlerCopy = v86;
-    if (!SSIsInternalBuild() || !_os_feature_enabled_impl())
+    v57 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v57)
     {
-LABEL_63:
-      v67 = xpc_dictionary_create(0, 0, 0);
-      xpc_dictionary_set_int64(v67, "0", 110);
-      SSXPCDictionarySetCFObject(v67, "1", v90);
-      _connection = [(SSMetricsController *)selfCopy _connection];
-      v99[0] = MEMORY[0x1E69E9820];
-      v99[1] = 3221225472;
-      v99[2] = __70__SSMetricsController__serialQueueInsertEvents_withCompletionHandler___block_invoke;
-      v99[3] = &unk_1E84ABEF0;
-      v99[4] = selfCopy;
-      v100 = v86;
-      [_connection sendMessage:v67 withReply:v99];
-
-      eventsCopy = v87;
-      goto LABEL_77;
+      v57 = +[SSLogConfig sharedConfig];
     }
 
-    v55 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v55)
+    shouldLog3 = [v57 shouldLog];
+    if ([v57 shouldLogToDisk])
     {
-      v55 = +[SSLogConfig sharedConfig];
-    }
-
-    shouldLog3 = [v55 shouldLog];
-    if ([v55 shouldLogToDisk])
-    {
-      v57 = shouldLog3 | 2;
+      v59 = shouldLog3 | 2;
     }
 
     else
     {
-      v57 = shouldLog3;
+      v59 = shouldLog3;
     }
 
-    oSLogObject3 = [v55 OSLogObject];
+    oSLogObject3 = [v57 OSLogObject];
     if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEBUG))
     {
-      v59 = v57;
+      v61 = v59;
     }
 
     else
     {
-      v59 = v57 & 2;
+      v61 = v59 & 2;
     }
 
-    if (v59)
+    if (v61)
     {
-      v105 = 136446210;
-      v106 = "[SSMetricsController _serialQueueInsertEvents:withCompletionHandler:]";
-      LODWORD(v83) = 12;
-      v60 = _os_log_send_and_compose_impl();
+      v106 = 136446210;
+      v107 = "[SSMetricsController _serialQueueInsertEvents:withCompletionHandler:]";
+      LODWORD(v84) = 12;
 
-      if (!v60)
+      if (!v62)
       {
 LABEL_62:
 
         goto LABEL_63;
       }
 
-      oSLogObject3 = [MEMORY[0x1E696AEC0] stringWithCString:v60 encoding:{4, &v105, v83}];
-      free(v60);
-      SSFileLog(v55, @"%@", v61, v62, v63, v64, v65, v66, oSLogObject3);
+      oSLogObject3 = [MEMORY[0x1E696AEC0] stringWithCString:v62 encoding:4];
+      free(v62);
+      SSFileLog(v57, @"%@", v63, v64, v65, v66, v67, v68, oSLogObject3);
     }
 
     goto LABEL_62;
@@ -590,43 +592,47 @@ LABEL_62:
   shouldLog4 = [v10 shouldLog];
   if ([v10 shouldLogToDisk])
   {
-    v70 = shouldLog4 | 2;
+    LODWORD(v72) = shouldLog4 | 2;
   }
 
   else
   {
-    v70 = shouldLog4;
+    LODWORD(v72) = shouldLog4;
   }
 
   oSLogObject4 = [v10 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_ERROR))
   {
-    v70 &= 2u;
+    v72 = v72;
   }
 
-  if (!v70)
+  else
   {
-    goto LABEL_74;
+    v72 &= 2u;
   }
 
-  v72 = objc_opt_class();
-  v73 = v72;
-  v105 = 138412546;
-  v106 = v72;
-  v107 = 1024;
-  LODWORD(v108) = objc_opt_class();
-  LODWORD(v83) = 18;
-  v74 = _os_log_send_and_compose_impl();
-
-  if (v74)
+  if (!v72)
   {
-    oSLogObject4 = [MEMORY[0x1E696AEC0] stringWithCString:v74 encoding:{4, &v105, v83}];
-    free(v74);
-    SSFileLog(v10, @"%@", v75, v76, v77, v78, v79, v80, oSLogObject4);
-LABEL_74:
+    goto LABEL_75;
   }
 
-LABEL_79:
+  v74 = objc_opt_class();
+  v75 = v74;
+  v106 = 138412546;
+  v107 = v74;
+  v108 = 1024;
+  LODWORD(v109) = objc_opt_class();
+  v76 = _os_log_send_and_compose_impl(v72, 0, 0, 0, &dword_1D48BA000, oSLogObject4, 16, "[%@] Attempting to insert events with no URL. Dropping [%d] events.", &v106, 18);
+
+  if (v76)
+  {
+    oSLogObject4 = [MEMORY[0x1E696AEC0] stringWithCString:v76 encoding:4];
+    free(v76);
+    SSFileLog(v10, @"%@", v77, v78, v79, v80, v81, v82, oSLogObject4);
+LABEL_75:
+  }
+
+LABEL_80:
 }
 
 void __70__SSMetricsController__serialQueueInsertEvents_withCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -638,7 +644,7 @@ void __70__SSMetricsController__serialQueueInsertEvents_withCompletionHandler___
   {
     v6 = objc_opt_class();
     v7 = SSXPCDictionaryCopyObjectWithClass(v4, "0", v6);
-    v8 = [v7 intValue];
+    v8 = [(__CFDate *)v7 intValue];
     v9 = +[SSLogConfig sharedStoreServicesConfig];
     v10 = v9;
     if (v8)
@@ -651,23 +657,28 @@ void __70__SSMetricsController__serialQueueInsertEvents_withCompletionHandler___
       v11 = [v10 shouldLog];
       if ([v10 shouldLogToDisk])
       {
-        v12 = v11 | 2;
+        LODWORD(v12) = v11 | 2;
       }
 
       else
       {
-        v12 = v11;
+        LODWORD(v12) = v11;
       }
 
       v13 = [v10 OSLogObject];
-      if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      {
+        v12 = v12;
+      }
+
+      else
       {
         v12 &= 2u;
       }
 
       if (!v12)
       {
-        goto LABEL_30;
+        goto LABEL_32;
       }
 
       v14 = objc_opt_class();
@@ -675,8 +686,8 @@ void __70__SSMetricsController__serialQueueInsertEvents_withCompletionHandler___
       v36 = 138412546;
       v37 = v14;
       v38 = 1024;
-      v39 = [v7 intValue];
-      LODWORD(v32) = 18;
+      v39 = [(__CFDate *)v7 intValue];
+      v16 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &dword_1D48BA000, v13, 16, "[%@] Insert Metrics Events returned error code: %d", &v36, 18);
     }
 
     else
@@ -686,47 +697,52 @@ void __70__SSMetricsController__serialQueueInsertEvents_withCompletionHandler___
         v10 = +[SSLogConfig sharedConfig];
       }
 
-      v19 = [v10 shouldLog];
+      v20 = [v10 shouldLog];
       if ([v10 shouldLogToDisk])
       {
-        v20 = v19 | 2;
+        LODWORD(v21) = v20 | 2;
       }
 
       else
       {
-        v20 = v19;
+        LODWORD(v21) = v20;
       }
 
       v13 = [v10 OSLogObject];
-      if (!os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        v20 &= 2u;
+        v21 = v21;
       }
 
-      if (!v20)
+      else
       {
-        goto LABEL_30;
+        v21 &= 2u;
+      }
+
+      if (!v21)
+      {
+        goto LABEL_32;
       }
 
       v36 = 138412290;
       v37 = objc_opt_class();
       v15 = v37;
-      LODWORD(v32) = 12;
+      v16 = _os_log_send_and_compose_impl(v21, 0, 0, 0, &dword_1D48BA000, v13, 1, "[%@] Insert Metrics Events succeeded", &v36, 12);
     }
 
-    v21 = _os_log_send_and_compose_impl();
+    v22 = v16;
 
-    if (!v21)
+    if (!v22)
     {
-      goto LABEL_31;
+      goto LABEL_33;
     }
 
-    v13 = [MEMORY[0x1E696AEC0] stringWithCString:v21 encoding:{4, &v36, v32}];
-    free(v21);
-    SSFileLog(v10, @"%@", v22, v23, v24, v25, v26, v27, v13);
-LABEL_30:
+    v13 = [MEMORY[0x1E696AEC0] stringWithCString:v22 encoding:4];
+    free(v22);
+    SSFileLog(v10, @"%@", v23, v24, v25, v26, v27, v28, v13);
+LABEL_32:
 
-    goto LABEL_31;
+    goto LABEL_33;
   }
 
   if (v3 == MEMORY[0x1E69E9E18])
@@ -738,41 +754,41 @@ LABEL_30:
   {
     if (v3 && MEMORY[0x1DA6E0380](v3) == MEMORY[0x1E69E9E80])
     {
-      v28 = objc_opt_class();
-      v29 = SSXPCDictionaryCopyObjectWithClass(v4, "0", v28);
-      if ([v29 intValue])
+      v29 = objc_opt_class();
+      v30 = SSXPCDictionaryCopyObjectWithClass(v4, "0", v29);
+      if ([(__CFDate *)v30 intValue])
       {
-        v30 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v31 = xpc_dictionary_get_value(v4, "1");
-        v16 = [v30 initWithXPCEncoding:v31];
+        v31 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v32 = xpc_dictionary_get_value(v4, "1");
+        v17 = [v31 initWithXPCEncoding:v32];
       }
 
       else
       {
-        v16 = 0;
+        v17 = 0;
       }
 
-      goto LABEL_18;
+      goto LABEL_19;
     }
 
     v5 = 111;
   }
 
-  v16 = SSError(@"SSErrorDomain", v5, 0, 0);
-LABEL_18:
-  v17 = dispatch_get_global_queue(0, 0);
+  v17 = SSError(@"SSErrorDomain", v5, 0, 0);
+LABEL_19:
+  v18 = dispatch_get_global_queue(0, 0);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __70__SSMetricsController__serialQueueInsertEvents_withCompletionHandler___block_invoke_2;
   block[3] = &unk_1E84AC338;
-  v18 = *(a1 + 40);
-  v34 = v16;
-  v35 = v18;
-  v7 = v16;
-  dispatch_async(v17, block);
+  v19 = *(a1 + 40);
+  v34 = v17;
+  v35 = v19;
+  v7 = v17;
+  dispatch_async(v18, block);
 
   v10 = v35;
-LABEL_31:
+LABEL_33:
 }
 
 void __70__SSMetricsController__serialQueueInsertEvents_withCompletionHandler___block_invoke_51(uint64_t a1)
@@ -805,37 +821,41 @@ void __70__SSMetricsController__serialQueueInsertEvents_withCompletionHandler___
   shouldLog = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [v3 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (!v5)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
   LODWORD(location[0]) = 138412290;
   *(location + 4) = objc_opt_class();
   v7 = *(location + 4);
-  LODWORD(v15) = 12;
-  v8 = _os_log_send_and_compose_impl();
+  v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1D48BA000, oSLogObject, 0, "[%@] Flush timer fired", location, 12);
 
   if (v8)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, location, v15}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
     free(v8);
     SSFileLog(v3, @"%@", v9, v10, v11, v12, v13, v14, oSLogObject);
-LABEL_11:
+LABEL_12:
   }
 
   objc_initWeak(location, self);
@@ -843,9 +863,9 @@ LABEL_11:
   block[1] = 3221225472;
   block[2] = __40__SSMetricsController__handleFlushTimer__block_invoke;
   block[3] = &unk_1E84AD820;
-  objc_copyWeak(&v17, location);
+  objc_copyWeak(&v16, location);
   dispatch_async(MEMORY[0x1E69E96A0], block);
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v16);
   objc_destroyWeak(location);
 }
 
@@ -888,16 +908,21 @@ void __40__SSMetricsController__handleFlushTimer__block_invoke(uint64_t a1)
     shouldLog = [v3 shouldLog];
     if ([v3 shouldLogToDisk])
     {
-      v5 = shouldLog | 2;
+      LODWORD(v5) = shouldLog | 2;
     }
 
     else
     {
-      v5 = shouldLog;
+      LODWORD(v5) = shouldLog;
     }
 
     oSLogObject = [v3 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v5 = v5;
+    }
+
+    else
     {
       v5 &= 2u;
     }
@@ -907,12 +932,11 @@ void __40__SSMetricsController__handleFlushTimer__block_invoke(uint64_t a1)
       LODWORD(location[0]) = 138412290;
       *(location + 4) = objc_opt_class();
       v7 = *(location + 4);
-      LODWORD(v17) = 12;
-      v8 = _os_log_send_and_compose_impl();
+      v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1D48BA000, oSLogObject, 1, "[%@] Flush Unreported Events timer fired but was subsequently disabled", location, 12);
 
       if (!v8)
       {
-LABEL_14:
+LABEL_15:
 
         flushSerialQueue = self->_flushSerialQueue;
         block[0] = MEMORY[0x1E69E9820];
@@ -924,24 +948,24 @@ LABEL_14:
         return;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, location, v17}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
       free(v8);
       SSFileLog(v3, @"%@", v9, v10, v11, v12, v13, v14, oSLogObject);
     }
 
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
   objc_initWeak(location, self);
   v16 = self->_flushSerialQueue;
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __54__SSMetricsController__flushUnreportedEventsIfEnabled__block_invoke;
-  v19[3] = &unk_1E84AD870;
-  objc_copyWeak(&v20, location);
-  v19[4] = self;
-  dispatch_async(v16, v19);
-  objc_destroyWeak(&v20);
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __54__SSMetricsController__flushUnreportedEventsIfEnabled__block_invoke;
+  v18[3] = &unk_1E84AD870;
+  objc_copyWeak(&v19, location);
+  v18[4] = self;
+  dispatch_async(v16, v18);
+  objc_destroyWeak(&v19);
   objc_destroyWeak(location);
 }
 
@@ -975,23 +999,28 @@ void __54__SSMetricsController__flushUnreportedEventsIfEnabled__block_invoke_2(u
     v5 = [v4 shouldLog];
     if ([v4 shouldLogToDisk])
     {
-      v6 = v5 | 2;
+      LODWORD(v6) = v5 | 2;
     }
 
     else
     {
-      v6 = v5;
+      LODWORD(v6) = v5;
     }
 
     v7 = [v4 OSLogObject];
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      v6 = v6;
+    }
+
+    else
     {
       v6 &= 2u;
     }
 
     if (!v6)
     {
-      goto LABEL_22;
+      goto LABEL_24;
     }
 
     *v20 = 138412546;
@@ -999,7 +1028,7 @@ void __54__SSMetricsController__flushUnreportedEventsIfEnabled__block_invoke_2(u
     *&v20[12] = 2112;
     *&v20[14] = v2;
     v8 = *&v20[4];
-    LODWORD(v19) = 22;
+    v9 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1D48BA000, v7, 16, "[%@] Flush Unreported Events timer fired -- %@", v20, 22, *v20, *&v20[8], v21);
   }
 
   else
@@ -1009,46 +1038,51 @@ void __54__SSMetricsController__flushUnreportedEventsIfEnabled__block_invoke_2(u
       v4 = +[SSLogConfig sharedConfig];
     }
 
-    v9 = [v4 shouldLog];
+    v10 = [v4 shouldLog];
     if ([v4 shouldLogToDisk])
     {
-      v10 = v9 | 2;
+      LODWORD(v11) = v10 | 2;
     }
 
     else
     {
-      v10 = v9;
+      LODWORD(v11) = v10;
     }
 
     v7 = [v4 OSLogObject];
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v10 &= 2u;
+      v11 = v11;
     }
 
-    if (!v10)
+    else
     {
-      goto LABEL_22;
+      v11 &= 2u;
+    }
+
+    if (!v11)
+    {
+      goto LABEL_24;
     }
 
     *v20 = 138412290;
     *&v20[4] = objc_opt_class();
     v8 = *&v20[4];
-    LODWORD(v19) = 12;
+    v9 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_1D48BA000, v7, 1, "[%@] Flush Unreported Events timer fired & reported success", v20, 12, *v20, *&v20[8], v21);
   }
 
-  v11 = _os_log_send_and_compose_impl();
+  v12 = v9;
 
-  if (v11)
+  if (v12)
   {
-    v7 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, v20, v19, *v20}];
-    free(v11);
-    SSFileLog(v4, @"%@", v12, v13, v14, v15, v16, v17, v7);
-LABEL_22:
+    v7 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:4];
+    free(v12);
+    SSFileLog(v4, @"%@", v13, v14, v15, v16, v17, v18, v7);
+LABEL_24:
   }
 
-  v18 = +[SSTransactionStore defaultStore];
-  [v18 releaseKeepAliveWithTransactionID:@"com.apple.storeservices.metricsFlushTransactionID"];
+  v19 = +[SSTransactionStore defaultStore];
+  [v19 releaseKeepAliveWithTransactionID:@"com.apple.storeservices.metricsFlushTransactionID"];
 }
 
 void __54__SSMetricsController__flushUnreportedEventsIfEnabled__block_invoke_56(uint64_t a1)
@@ -1106,16 +1140,21 @@ void __39__SSMetricsController__setupFlushTimer__block_invoke_57(uint64_t a1)
     shouldLog = [v8 shouldLog];
     if ([v8 shouldLogToDisk])
     {
-      v10 = shouldLog | 2;
+      LODWORD(v10) = shouldLog | 2;
     }
 
     else
     {
-      v10 = shouldLog;
+      LODWORD(v10) = shouldLog;
     }
 
     oSLogObject = [v8 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = v10;
+    }
+
+    else
     {
       v10 &= 2u;
     }
@@ -1125,13 +1164,11 @@ void __39__SSMetricsController__setupFlushTimer__block_invoke_57(uint64_t a1)
       LODWORD(location[0]) = 138412290;
       *(location + 4) = objc_opt_class();
       v12 = *(location + 4);
-      LODWORD(v35) = 12;
-      v34 = location;
-      v13 = _os_log_send_and_compose_impl();
+      v13 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_1D48BA000, oSLogObject, 0, "[%@] Flushing events", location, 12);
 
       if (v13)
       {
-        v14 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, location, v35}];
+        v14 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:4];
         free(v13);
         SSFileLog(v8, @"%@", v15, v16, v17, v18, v19, v20, v14);
       }
@@ -1141,73 +1178,72 @@ void __39__SSMetricsController__setupFlushTimer__block_invoke_57(uint64_t a1)
     {
     }
 
-    if (!SSIsInternalBuild() || !_os_feature_enabled_impl())
+    if (!SSIsInternalBuild(v21, v22) || !_os_feature_enabled_impl())
     {
-      goto LABEL_30;
+      goto LABEL_31;
     }
 
-    v21 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v21)
+    v23 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v23)
     {
-      v21 = +[SSLogConfig sharedConfig];
+      v23 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v21 shouldLog];
-    if ([v21 shouldLogToDisk])
+    shouldLog2 = [v23 shouldLog];
+    if ([v23 shouldLogToDisk])
     {
-      v23 = shouldLog2 | 2;
+      v25 = shouldLog2 | 2;
     }
 
     else
     {
-      v23 = shouldLog2;
+      v25 = shouldLog2;
     }
 
-    oSLogObject2 = [v21 OSLogObject];
+    oSLogObject2 = [v23 OSLogObject];
     if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEBUG))
     {
-      v25 = v23;
+      v27 = v25;
     }
 
     else
     {
-      v25 = v23 & 2;
+      v27 = v25 & 2;
     }
 
-    if (v25)
+    if (v27)
     {
       LODWORD(location[0]) = 136446210;
       *(location + 4) = "[SSMetricsController flushUnreportedEventsWithCompletionHandler:]";
-      LODWORD(v35) = 12;
-      v26 = _os_log_send_and_compose_impl();
+      LODWORD(v36) = 12;
 
-      if (!v26)
+      if (!v28)
       {
-LABEL_29:
-
 LABEL_30:
+
+LABEL_31:
         objc_initWeak(location, self);
         serialQueue = [(SSMetricsController *)self serialQueue];
-        v36[0] = MEMORY[0x1E69E9820];
-        v36[1] = 3221225472;
-        v36[2] = __66__SSMetricsController_flushUnreportedEventsWithCompletionHandler___block_invoke_58;
-        v36[3] = &unk_1E84AED80;
-        objc_copyWeak(&v38, location);
-        v36[4] = self;
-        v37 = handlerCopy;
-        dispatch_async(serialQueue, v36);
+        v37[0] = MEMORY[0x1E69E9820];
+        v37[1] = 3221225472;
+        v37[2] = __66__SSMetricsController_flushUnreportedEventsWithCompletionHandler___block_invoke_58;
+        v37[3] = &unk_1E84AED80;
+        objc_copyWeak(&v39, location);
+        v37[4] = self;
+        v38 = handlerCopy;
+        dispatch_async(serialQueue, v37);
 
-        objc_destroyWeak(&v38);
+        objc_destroyWeak(&v39);
         objc_destroyWeak(location);
-        goto LABEL_31;
+        goto LABEL_32;
       }
 
-      oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v26 encoding:{4, location, v35}];
-      free(v26);
-      SSFileLog(v21, @"%@", v27, v28, v29, v30, v31, v32, oSLogObject2);
+      oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v28 encoding:4];
+      free(v28);
+      SSFileLog(v23, @"%@", v29, v30, v31, v32, v33, v34, oSLogObject2);
     }
 
-    goto LABEL_29;
+    goto LABEL_30;
   }
 
   if (handlerCopy)
@@ -1217,11 +1253,11 @@ LABEL_30:
     block[1] = 3221225472;
     block[2] = __66__SSMetricsController_flushUnreportedEventsWithCompletionHandler___block_invoke;
     block[3] = &unk_1E84ADED0;
-    v40 = handlerCopy;
+    v41 = handlerCopy;
     dispatch_async(v7, block);
   }
 
-LABEL_31:
+LABEL_32:
 }
 
 void __66__SSMetricsController_flushUnreportedEventsWithCompletionHandler___block_invoke_58(uint64_t a1)
@@ -1249,7 +1285,7 @@ void __66__SSMetricsController_flushUnreportedEventsWithCompletionHandler___bloc
   {
     v6 = objc_opt_class();
     v7 = SSXPCDictionaryCopyObjectWithClass(v4, "0", v6);
-    v8 = [v7 intValue];
+    v8 = [(__CFDate *)v7 intValue];
     v9 = +[SSLogConfig sharedStoreServicesConfig];
     v10 = v9;
     if (v8)
@@ -1262,23 +1298,28 @@ void __66__SSMetricsController_flushUnreportedEventsWithCompletionHandler___bloc
       v11 = [v10 shouldLog];
       if ([v10 shouldLogToDisk])
       {
-        v12 = v11 | 2;
+        LODWORD(v12) = v11 | 2;
       }
 
       else
       {
-        v12 = v11;
+        LODWORD(v12) = v11;
       }
 
       v13 = [v10 OSLogObject];
-      if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      {
+        v12 = v12;
+      }
+
+      else
       {
         v12 &= 2u;
       }
 
       if (!v12)
       {
-        goto LABEL_30;
+        goto LABEL_32;
       }
 
       v14 = objc_opt_class();
@@ -1286,8 +1327,8 @@ void __66__SSMetricsController_flushUnreportedEventsWithCompletionHandler___bloc
       v36 = 138412546;
       v37 = v14;
       v38 = 1024;
-      v39 = [v7 intValue];
-      LODWORD(v32) = 18;
+      v39 = [(__CFDate *)v7 intValue];
+      v16 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &dword_1D48BA000, v13, 16, "[%@] Report Metrics Events returned error code: %d", &v36, 18);
     }
 
     else
@@ -1297,47 +1338,52 @@ void __66__SSMetricsController_flushUnreportedEventsWithCompletionHandler___bloc
         v10 = +[SSLogConfig sharedConfig];
       }
 
-      v19 = [v10 shouldLog];
+      v20 = [v10 shouldLog];
       if ([v10 shouldLogToDisk])
       {
-        v20 = v19 | 2;
+        LODWORD(v21) = v20 | 2;
       }
 
       else
       {
-        v20 = v19;
+        LODWORD(v21) = v20;
       }
 
       v13 = [v10 OSLogObject];
-      if (!os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        v20 &= 2u;
+        v21 = v21;
       }
 
-      if (!v20)
+      else
       {
-        goto LABEL_30;
+        v21 &= 2u;
+      }
+
+      if (!v21)
+      {
+        goto LABEL_32;
       }
 
       v36 = 138412290;
       v37 = objc_opt_class();
       v15 = v37;
-      LODWORD(v32) = 12;
+      v16 = _os_log_send_and_compose_impl(v21, 0, 0, 0, &dword_1D48BA000, v13, 1, "[%@] Report Metrics Events succeeded", &v36, 12);
     }
 
-    v21 = _os_log_send_and_compose_impl();
+    v22 = v16;
 
-    if (!v21)
+    if (!v22)
     {
-      goto LABEL_31;
+      goto LABEL_33;
     }
 
-    v13 = [MEMORY[0x1E696AEC0] stringWithCString:v21 encoding:{4, &v36, v32}];
-    free(v21);
-    SSFileLog(v10, @"%@", v22, v23, v24, v25, v26, v27, v13);
-LABEL_30:
+    v13 = [MEMORY[0x1E696AEC0] stringWithCString:v22 encoding:4];
+    free(v22);
+    SSFileLog(v10, @"%@", v23, v24, v25, v26, v27, v28, v13);
+LABEL_32:
 
-    goto LABEL_31;
+    goto LABEL_33;
   }
 
   if (v3 == MEMORY[0x1E69E9E18])
@@ -1349,41 +1395,41 @@ LABEL_30:
   {
     if (v3 && MEMORY[0x1DA6E0380](v3) == MEMORY[0x1E69E9E80])
     {
-      v28 = objc_opt_class();
-      v29 = SSXPCDictionaryCopyObjectWithClass(v4, "0", v28);
-      if ([v29 intValue])
+      v29 = objc_opt_class();
+      v30 = SSXPCDictionaryCopyObjectWithClass(v4, "0", v29);
+      if ([(__CFDate *)v30 intValue])
       {
-        v30 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v31 = xpc_dictionary_get_value(v4, "1");
-        v16 = [v30 initWithXPCEncoding:v31];
+        v31 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v32 = xpc_dictionary_get_value(v4, "1");
+        v17 = [v31 initWithXPCEncoding:v32];
       }
 
       else
       {
-        v16 = 0;
+        v17 = 0;
       }
 
-      goto LABEL_18;
+      goto LABEL_19;
     }
 
     v5 = 111;
   }
 
-  v16 = SSError(@"SSErrorDomain", v5, 0, 0);
-LABEL_18:
-  v17 = dispatch_get_global_queue(0, 0);
+  v17 = SSError(@"SSErrorDomain", v5, 0, 0);
+LABEL_19:
+  v18 = dispatch_get_global_queue(0, 0);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __66__SSMetricsController_flushUnreportedEventsWithCompletionHandler___block_invoke_3;
   block[3] = &unk_1E84AC338;
-  v18 = *(a1 + 40);
-  v34 = v16;
-  v35 = v18;
-  v7 = v16;
-  dispatch_async(v17, block);
+  v19 = *(a1 + 40);
+  v34 = v17;
+  v35 = v19;
+  v7 = v17;
+  dispatch_async(v18, block);
 
   v10 = v35;
-LABEL_31:
+LABEL_33:
 }
 
 - (void)insertEvent:(id)event withCompletionHandler:(id)handler
@@ -1427,37 +1473,37 @@ LABEL_31:
 
 void __58__SSMetricsController_insertEvents_withCompletionHandler___block_invoke(uint64_t a1)
 {
-  v93 = *MEMORY[0x1E69E9840];
+  v92 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v3 = SSRestrictionsIsOnDeviceDiagnosticsAllowed();
   v4 = [MEMORY[0x1E695DF70] array];
+  v83 = 0u;
   v84 = 0u;
   v85 = 0u;
   v86 = 0u;
-  v87 = 0u;
   v5 = *(a1 + 32);
-  v6 = [v5 countByEnumeratingWithState:&v84 objects:v92 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v83 objects:v91 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v85;
+    v8 = *v84;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v85 != v8)
+        if (*v84 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v84 + 1) + 8 * i);
+        v10 = *(*(&v83 + 1) + 8 * i);
         if (v3 & 1 | (([v10 requiresDiagnosticSendingPermission] & 1) == 0))
         {
           [v4 addObject:v10];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v84 objects:v92 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v83 objects:v91 count:16];
     }
 
     while (v7);
@@ -1477,16 +1523,21 @@ void __58__SSMetricsController_insertEvents_withCompletionHandler___block_invoke
     v15 = [v14 shouldLog];
     if ([v14 shouldLogToDisk])
     {
-      v16 = v15 | 2;
+      LODWORD(v16) = v15 | 2;
     }
 
     else
     {
-      v16 = v15;
+      LODWORD(v16) = v15;
     }
 
     v17 = [v14 OSLogObject];
-    if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    {
+      v16 = v16;
+    }
+
+    else
     {
       v16 &= 2u;
     }
@@ -1494,31 +1545,29 @@ void __58__SSMetricsController_insertEvents_withCompletionHandler___block_invoke
     if (v16)
     {
       v18 = objc_opt_class();
-      v88 = 138412546;
-      v89 = v18;
-      v90 = 2048;
-      v91 = v12 - v13;
+      v87 = 138412546;
+      v88 = v18;
+      v89 = 2048;
+      v90 = v12 - v13;
       v19 = v18;
-      LODWORD(v77) = 22;
-      v76 = &v88;
-      v20 = _os_log_send_and_compose_impl();
+      v20 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &dword_1D48BA000, v17, 0, "[%@] User has opted not to send Apple diagnostic information. Dropped %li events that require it.", &v87, 22);
 
       if (!v20)
       {
-LABEL_22:
+LABEL_23:
 
-        goto LABEL_23;
+        goto LABEL_24;
       }
 
-      v17 = [MEMORY[0x1E696AEC0] stringWithCString:v20 encoding:{4, &v88, v77}];
+      v17 = [MEMORY[0x1E696AEC0] stringWithCString:v20 encoding:4];
       free(v20);
       SSFileLog(v14, @"%@", v21, v22, v23, v24, v25, v26, v17);
     }
 
-    goto LABEL_22;
+    goto LABEL_23;
   }
 
-LABEL_23:
+LABEL_24:
   if ([v4 count])
   {
     if ([WeakRetained isDisabled])
@@ -1532,16 +1581,21 @@ LABEL_23:
       v28 = [v27 shouldLog];
       if ([v27 shouldLogToDisk])
       {
-        v29 = v28 | 2;
+        LODWORD(v29) = v28 | 2;
       }
 
       else
       {
-        v29 = v28;
+        LODWORD(v29) = v28;
       }
 
       v30 = [v27 OSLogObject];
-      if (!os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+      {
+        v29 = v29;
+      }
+
+      else
       {
         v29 &= 2u;
       }
@@ -1551,24 +1605,24 @@ LABEL_23:
         v31 = objc_opt_class();
         v32 = v31;
         v33 = [v4 count];
-        v88 = 138412546;
-        v89 = v31;
-        v90 = 2048;
-        v91 = v33;
-        LODWORD(v77) = 22;
-        v34 = _os_log_send_and_compose_impl();
+        v87 = 138412546;
+        v88 = v31;
+        v89 = 2048;
+        v90 = v33;
+        LODWORD(v76) = 22;
+        v34 = _os_log_send_and_compose_impl(v29, 0, 0, 0, &dword_1D48BA000, v30, 1, "[%@] Events dropped by disabled Event Controller: [%lu events]", &v87, v76);
 
         if (!v34)
         {
-          goto LABEL_36;
+          goto LABEL_38;
         }
 
-        v30 = [MEMORY[0x1E696AEC0] stringWithCString:v34 encoding:{4, &v88, v77}];
+        v30 = [MEMORY[0x1E696AEC0] stringWithCString:v34 encoding:4];
         free(v34);
         SSFileLog(v27, @"%@", v35, v36, v37, v38, v39, v40, v30);
       }
 
-LABEL_36:
+LABEL_38:
       v41 = *(a1 + 48);
       if (v41)
       {
@@ -1577,16 +1631,16 @@ LABEL_36:
         block[1] = 3221225472;
         block[2] = __58__SSMetricsController_insertEvents_withCompletionHandler___block_invoke_61;
         block[3] = &unk_1E84ADED0;
-        v81 = v41;
+        v80 = v41;
         dispatch_async(v42, block);
 
-        v43 = v81;
-LABEL_66:
+        v43 = v80;
+LABEL_70:
 
-        goto LABEL_67;
+        goto LABEL_71;
       }
 
-      goto LABEL_67;
+      goto LABEL_71;
     }
 
     v59 = [WeakRetained configuration];
@@ -1595,7 +1649,7 @@ LABEL_66:
     if ([v43 length])
     {
       [WeakRetained _serialQueueInsertEvents:v4 withCompletionHandler:*(a1 + 48)];
-      goto LABEL_66;
+      goto LABEL_70;
     }
 
     v60 = +[SSLogConfig sharedStoreServicesConfig];
@@ -1607,16 +1661,21 @@ LABEL_66:
     v61 = [v60 shouldLog];
     if ([v60 shouldLogToDisk])
     {
-      v62 = v61 | 2;
+      LODWORD(v62) = v61 | 2;
     }
 
     else
     {
-      v62 = v61;
+      LODWORD(v62) = v61;
     }
 
     v63 = [v60 OSLogObject];
-    if (!os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+    {
+      v62 = v62;
+    }
+
+    else
     {
       v62 &= 2u;
     }
@@ -1626,37 +1685,37 @@ LABEL_66:
       v64 = objc_opt_class();
       v65 = v64;
       v66 = [v4 count];
-      v88 = 138412546;
-      v89 = v64;
-      v90 = 2048;
-      v91 = v66;
-      LODWORD(v77) = 22;
-      v67 = _os_log_send_and_compose_impl();
+      v87 = 138412546;
+      v88 = v64;
+      v89 = 2048;
+      v90 = v66;
+      LODWORD(v76) = 22;
+      v67 = _os_log_send_and_compose_impl(v62, 0, 0, 0, &dword_1D48BA000, v63, 0, "[%@] Events dropped by Event Controller with no report URL: [%lu events]", &v87, v76);
 
       if (!v67)
       {
-        goto LABEL_64;
+        goto LABEL_68;
       }
 
-      v63 = [MEMORY[0x1E696AEC0] stringWithCString:v67 encoding:{4, &v88, v77}];
+      v63 = [MEMORY[0x1E696AEC0] stringWithCString:v67 encoding:4];
       free(v67);
       SSFileLog(v60, @"%@", v68, v69, v70, v71, v72, v73, v63);
     }
 
-LABEL_64:
+LABEL_68:
     v74 = *(a1 + 48);
     if (v74)
     {
       v75 = dispatch_get_global_queue(0, 0);
-      v82[0] = MEMORY[0x1E69E9820];
-      v82[1] = 3221225472;
-      v82[2] = __58__SSMetricsController_insertEvents_withCompletionHandler___block_invoke_60;
-      v82[3] = &unk_1E84ADED0;
-      v83 = v74;
-      dispatch_async(v75, v82);
+      v81[0] = MEMORY[0x1E69E9820];
+      v81[1] = 3221225472;
+      v81[2] = __58__SSMetricsController_insertEvents_withCompletionHandler___block_invoke_60;
+      v81[3] = &unk_1E84ADED0;
+      v82 = v74;
+      dispatch_async(v75, v81);
     }
 
-    goto LABEL_66;
+    goto LABEL_70;
   }
 
   v44 = +[SSLogConfig sharedStoreServicesConfig];
@@ -1668,16 +1727,21 @@ LABEL_64:
   v45 = [v44 shouldLog];
   if ([v44 shouldLogToDisk])
   {
-    v46 = v45 | 2;
+    LODWORD(v46) = v45 | 2;
   }
 
   else
   {
-    v46 = v45;
+    LODWORD(v46) = v45;
   }
 
   v47 = [v44 OSLogObject];
-  if (!os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+  {
+    v46 = v46;
+  }
+
+  else
   {
     v46 &= 2u;
   }
@@ -1685,39 +1749,39 @@ LABEL_64:
   if (v46)
   {
     v48 = objc_opt_class();
-    v88 = 138412290;
-    v89 = v48;
+    v87 = 138412290;
+    v88 = v48;
     v49 = v48;
-    LODWORD(v77) = 12;
-    v50 = _os_log_send_and_compose_impl();
+    LODWORD(v76) = 12;
+    v50 = _os_log_send_and_compose_impl(v46, 0, 0, 0, &dword_1D48BA000, v47, 0, "[%@] Insert Events called with an empty array.", &v87, v76);
 
     if (!v50)
     {
-      goto LABEL_49;
+      goto LABEL_52;
     }
 
-    v47 = [MEMORY[0x1E696AEC0] stringWithCString:v50 encoding:{4, &v88, v77}];
+    v47 = [MEMORY[0x1E696AEC0] stringWithCString:v50 encoding:4];
     free(v50);
     SSFileLog(v44, @"%@", v51, v52, v53, v54, v55, v56, v47);
   }
 
-LABEL_49:
+LABEL_52:
   v57 = *(a1 + 48);
   if (v57)
   {
     v58 = dispatch_get_global_queue(0, 0);
-    v78[0] = MEMORY[0x1E69E9820];
-    v78[1] = 3221225472;
-    v78[2] = __58__SSMetricsController_insertEvents_withCompletionHandler___block_invoke_62;
-    v78[3] = &unk_1E84ADED0;
-    v79 = v57;
-    dispatch_async(v58, v78);
+    v77[0] = MEMORY[0x1E69E9820];
+    v77[1] = 3221225472;
+    v77[2] = __58__SSMetricsController_insertEvents_withCompletionHandler___block_invoke_62;
+    v77[3] = &unk_1E84ADED0;
+    v78 = v57;
+    dispatch_async(v58, v77);
 
-    v43 = v79;
-    goto LABEL_66;
+    v43 = v78;
+    goto LABEL_70;
   }
 
-LABEL_67:
+LABEL_71:
 }
 
 - (id)locationWithPosition:(int64_t)position type:(id)type fieldData:(id)data
@@ -1807,7 +1871,7 @@ LABEL_67:
   return v10;
 }
 
-uint64_t __59__SSMetricsController_locationWithPosition_type_fieldData___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__59__SSMetricsController_locationWithPosition_type_fieldData___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) setValue:a3 forLocationKey:a2];
   *a4 = 1;
@@ -1816,81 +1880,80 @@ uint64_t __59__SSMetricsController_locationWithPosition_type_fieldData___block_i
 
 - (void)recordAnalyticsForMetricsDialogEvent:(id)event withTopic:(id)topic
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   topicCopy = topic;
   eventCopy = event;
-  if (!SSIsDaemon())
+  v8 = SSIsDaemon();
+  if (!v8)
   {
-    if (!SSIsInternalBuild() || !_os_feature_enabled_impl())
+    if (!SSIsInternalBuild(v8, v9) || !_os_feature_enabled_impl())
     {
       goto LABEL_20;
     }
 
-    v8 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v8)
+    v10 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v10)
     {
-      v8 = +[SSLogConfig sharedConfig];
+      v10 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v8 shouldLog];
-    if ([v8 shouldLogToDisk])
+    shouldLog = [v10 shouldLog];
+    if ([v10 shouldLogToDisk])
     {
-      v10 = shouldLog | 2;
+      v12 = shouldLog | 2;
     }
 
     else
     {
-      v10 = shouldLog;
+      v12 = shouldLog;
     }
 
-    oSLogObject = [v8 OSLogObject];
+    oSLogObject = [v10 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v12 = v10;
+      v14 = v12;
     }
 
     else
     {
-      v12 = v10 & 2;
+      v14 = v12 & 2;
     }
 
-    if (v12)
+    if (v14)
     {
-      v25 = 136446210;
-      v26 = "[SSMetricsController recordAnalyticsForMetricsDialogEvent:withTopic:]";
-      LODWORD(v22) = 12;
-      v13 = _os_log_send_and_compose_impl();
+      v26 = 136446210;
+      v27 = "[SSMetricsController recordAnalyticsForMetricsDialogEvent:withTopic:]";
 
-      if (!v13)
+      if (!v15)
       {
 LABEL_19:
 
 LABEL_20:
-        v20 = SSXPCCreateMessageDictionary(197);
-        SSXPCDictionarySetObject(v20, "1", eventCopy);
+        v22 = SSXPCCreateMessageDictionary(197);
+        SSXPCDictionarySetObject(v22, "1", eventCopy);
 
-        SSXPCDictionarySetObject(v20, "2", topicCopy);
+        SSXPCDictionarySetObject(v22, "2", topicCopy);
         _connection = [(SSMetricsController *)self _connection];
-        v24[0] = MEMORY[0x1E69E9820];
-        v24[1] = 3221225472;
-        v24[2] = __70__SSMetricsController_recordAnalyticsForMetricsDialogEvent_withTopic___block_invoke;
-        v24[3] = &unk_1E84AEDD0;
-        v24[4] = self;
-        [_connection sendMessage:v20 withReply:v24];
+        v25[0] = MEMORY[0x1E69E9820];
+        v25[1] = 3221225472;
+        v25[2] = __70__SSMetricsController_recordAnalyticsForMetricsDialogEvent_withTopic___block_invoke;
+        v25[3] = &unk_1E84AEDD0;
+        v25[4] = self;
+        [_connection sendMessage:v22 withReply:v25];
 
         return;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v25, v22}];
-      free(v13);
-      SSFileLog(v8, @"%@", v14, v15, v16, v17, v18, v19, oSLogObject);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:4];
+      free(v15);
+      SSFileLog(v10, @"%@", v16, v17, v18, v19, v20, v21, oSLogObject);
     }
 
     goto LABEL_19;
   }
 
-  v23 = objc_alloc_init(NSClassFromString(&cfstr_Metricscontrol.isa));
-  [v23 recordAnalyticsWithMetricsDialogEvent:eventCopy forTopic:topicCopy];
+  v24 = objc_alloc_init(NSClassFromString(&cfstr_Metricscontrol.isa));
+  [v24 recordAnalyticsWithMetricsDialogEvent:eventCopy forTopic:topicCopy];
 }
 
 void __70__SSMetricsController_recordAnalyticsForMetricsDialogEvent_withTopic___block_invoke(uint64_t a1, void *a2)
@@ -1906,36 +1969,41 @@ void __70__SSMetricsController_recordAnalyticsForMetricsDialogEvent_withTopic___
       v4 = +[SSLogConfig sharedConfig];
     }
 
-    v8 = [v4 shouldLog];
+    v10 = [v4 shouldLog];
     if ([v4 shouldLogToDisk])
     {
-      v9 = v8 | 2;
+      LODWORD(v11) = v10 | 2;
     }
 
     else
     {
-      v9 = v8;
+      LODWORD(v11) = v10;
     }
 
     v7 = [v4 OSLogObject];
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 &= 2u;
+      v11 = v11;
     }
 
-    if (!v9)
+    else
     {
-      goto LABEL_24;
+      v11 &= 2u;
     }
 
-LABEL_21:
+    if (!v11)
+    {
+      goto LABEL_27;
+    }
+
     *v25 = 138412290;
     *&v25[4] = objc_opt_class();
-    v10 = *&v25[4];
-    LODWORD(v24) = 12;
-    v11 = _os_log_send_and_compose_impl();
+    v8 = *&v25[4];
+    v9 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_1D48BA000, v7, 16, "%@: Connection interrupted", v25, 12, *v25, *&v25[8]);
+LABEL_24:
+    v12 = v9;
 
-    goto LABEL_22;
+    goto LABEL_25;
   }
 
   if (!v2 || MEMORY[0x1DA6E0380](v2) != MEMORY[0x1E69E9E80])
@@ -1949,79 +2017,92 @@ LABEL_21:
     v5 = [v4 shouldLog];
     if ([v4 shouldLogToDisk])
     {
-      v6 = v5 | 2;
+      LODWORD(v6) = v5 | 2;
     }
 
     else
     {
-      v6 = v5;
+      LODWORD(v6) = v5;
     }
 
     v7 = [v4 OSLogObject];
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      v6 = v6;
+    }
+
+    else
     {
       v6 &= 2u;
     }
 
     if (!v6)
     {
-      goto LABEL_24;
+      goto LABEL_27;
     }
 
-    goto LABEL_21;
+    *v25 = 138412290;
+    *&v25[4] = objc_opt_class();
+    v8 = *&v25[4];
+    v9 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1D48BA000, v7, 16, "%@: Invalid response", v25, 12, *v25, *&v25[8]);
+    goto LABEL_24;
   }
 
-  v18 = xpc_dictionary_get_BOOL(v3, "0");
+  v19 = xpc_dictionary_get_BOOL(v3, "0");
   v4 = +[SSLogConfig sharedStoreServicesConfig];
   if (!v4)
   {
     v4 = +[SSLogConfig sharedConfig];
   }
 
-  v19 = [v4 shouldLog];
+  v20 = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v20 = v19 | 2;
+    LODWORD(v21) = v20 | 2;
   }
 
   else
   {
-    v20 = v19;
+    LODWORD(v21) = v20;
   }
 
   v7 = [v4 OSLogObject];
-  if (!os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v20 &= 2u;
+    v21 = v21;
   }
 
-  if (!v20)
+  else
   {
-    goto LABEL_24;
+    v21 &= 2u;
   }
 
-  v21 = objc_opt_class();
-  v22 = @"NO";
-  if (v18)
+  if (!v21)
   {
-    v22 = @"YES";
+    goto LABEL_27;
+  }
+
+  v22 = objc_opt_class();
+  v23 = @"NO";
+  if (v19)
+  {
+    v23 = @"YES";
   }
 
   *v25 = 138412546;
-  *&v25[4] = v21;
+  *&v25[4] = v22;
   *&v25[12] = 2112;
-  *&v25[14] = v22;
-  v23 = v21;
-  LODWORD(v24) = 22;
-  v11 = _os_log_send_and_compose_impl();
+  *&v25[14] = v23;
+  v24 = v22;
+  v12 = _os_log_send_and_compose_impl(v21, 0, 0, 0, &dword_1D48BA000, v7, 1, "%@: Record analytics events did succeed: %@", v25, 22);
 
-LABEL_22:
-  if (v11)
+LABEL_25:
+  if (v12)
   {
-    v7 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, v25, v24, *v25}];
-    free(v11);
-    SSFileLog(v4, @"%@", v12, v13, v14, v15, v16, v17, v7);
-LABEL_24:
+    v7 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:4];
+    free(v12);
+    SSFileLog(v4, @"%@", v13, v14, v15, v16, v17, v18, v7);
+LABEL_27:
   }
 }
 
@@ -2073,11 +2154,11 @@ void __46__SSMetricsController_setGlobalConfiguration___block_invoke(uint64_t a1
   dispatch_sync(serialQueue, v7);
 }
 
-uint64_t __44__SSMetricsController_setPageConfiguration___block_invoke(uint64_t result)
+void *__44__SSMetricsController_setPageConfiguration___block_invoke(void *result)
 {
-  if (*(*(result + 32) + 24))
+  if (*(result[4] + 24))
   {
-    return [*(*(result + 32) + 24) setChildConfiguration:*(result + 40)];
+    return [*(result[4] + 24) setChildConfiguration:result[5]];
   }
 
   return result;

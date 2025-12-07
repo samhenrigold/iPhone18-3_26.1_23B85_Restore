@@ -19,6 +19,8 @@
 - (void)setStopOnLockEnabled:(id)enabled specifier:(id)specifier;
 - (void)stopPlayingSample;
 - (void)toggleSample:(id)sample;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 - (void)willBecomeActive;
 - (void)willResignActive;
@@ -315,6 +317,25 @@
   v7 = objc_opt_class();
   v8 = +[HearingSettingsCountdownCell cellReuseIdentifier];
   [table2 registerClass:v7 forCellReuseIdentifier:v8];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = ComfortSoundsViewController;
+  [(ComfortSoundsViewController *)&v5 viewDidAppear:appear];
+  v4 = +[AXHAServer sharedInstance];
+  [v4 setDelegate:self];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = ComfortSoundsViewController;
+  [(ComfortSoundsViewController *)&v5 viewDidDisappear:disappear];
+  [(ComfortSoundsViewController *)self stopPlayingSample];
+  v4 = +[AXHAServer sharedInstance];
+  [v4 setDelegate:0];
 }
 
 - (void)willResignActive

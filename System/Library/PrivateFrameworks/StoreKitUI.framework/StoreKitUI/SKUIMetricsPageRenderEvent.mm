@@ -490,9 +490,8 @@ void __43__SKUIMetricsPageRenderEvent__randomDouble__block_invoke()
 
     if (v13)
     {
-      v16[0] = 0;
-      LODWORD(v15) = 2;
-      v14 = _os_log_send_and_compose_impl();
+      v15[0] = 0;
+      v14 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &dword_215BAE000, oSLogObject, 0, "No metrics object found in bag", v15, 2);
 
       if (!v14)
       {
@@ -501,7 +500,7 @@ LABEL_15:
         goto LABEL_16;
       }
 
-      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v14 encoding:{4, v16, v15}];
+      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v14 encoding:4];
       free(v14);
       SSFileLog();
     }

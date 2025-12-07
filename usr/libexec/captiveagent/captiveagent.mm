@@ -511,7 +511,7 @@ CFIndex sub_100002F30(const __CFArray *a1, const void *a2)
   return CFArrayGetFirstIndexOfValue(a1, v4, a2);
 }
 
-uint64_t sub_100002F84(const __CFArray *a1, const void *a2, const void *a3)
+CFIndex sub_100002F84(const __CFArray *a1, const void *a2, const void *a3)
 {
   if (a1)
   {
@@ -641,41 +641,40 @@ void sub_10000326C(uint64_t a1, xpc_object_t object)
 
   if (xpc_get_type(object) == &_xpc_type_dictionary)
   {
-    v9 = *(a1 + 32);
-    v10 = xpc_connection_copy_entitlement_value();
-    if (!v10)
+    v9 = xpc_connection_copy_entitlement_value();
+    if (!v9)
     {
 LABEL_22:
-      v18 = sub_100002A8C();
-      v19 = _SC_syslog_os_log_mapping();
-      if (!os_log_type_enabled(v18, v19))
+      v17 = sub_100002A8C();
+      v18 = _SC_syslog_os_log_mapping();
+      if (!os_log_type_enabled(v17, v18))
       {
         return;
       }
 
       *buf = 0;
-      v20 = "daemon failed to authorize the requesting process.";
+      v19 = "daemon failed to authorize the requesting process.";
       goto LABEL_24;
     }
 
-    v11 = v10;
-    if (xpc_get_type(v10) != &_xpc_type_BOOL)
+    v10 = v9;
+    if (xpc_get_type(v9) != &_xpc_type_BOOL)
     {
-      xpc_release(v11);
+      xpc_release(v10);
       goto LABEL_22;
     }
 
-    value = xpc_BOOL_get_value(v11);
-    xpc_release(v11);
+    value = xpc_BOOL_get_value(v10);
+    xpc_release(v10);
     if (!value)
     {
       goto LABEL_22;
     }
 
-    v13 = *(a1 + 32);
+    v12 = *(a1 + 32);
     uint64 = xpc_dictionary_get_uint64(object, "MessageType");
-    v15 = xpc_dictionary_get_BOOL(object, "EnableDebug");
-    sub_10000E3F0(v15);
+    v14 = xpc_dictionary_get_BOOL(object, "EnableDebug");
+    sub_10000E3F0(v14);
     if (uint64 <= 5)
     {
       if (uint64)
@@ -684,12 +683,12 @@ LABEL_22:
         {
           if (uint64 == 4)
           {
-            v16 = sub_100002A8C();
-            v17 = _SC_syslog_os_log_mapping();
-            if (os_log_type_enabled(v16, v17))
+            v15 = sub_100002A8C();
+            v16 = _SC_syslog_os_log_mapping();
+            if (os_log_type_enabled(v15, v16))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v16, v17, "Got Logoff request", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v15, v16, "Got Logoff request", buf, 2u);
             }
           }
 
@@ -698,67 +697,67 @@ LABEL_22:
 
         *buf = 0;
         string = xpc_dictionary_get_string(object, "LoginURL");
-        v67 = xpc_dictionary_get_string(object, "InterfaceName");
-        v68 = xpc_dictionary_get_string(object, "UserAgent");
+        v66 = xpc_dictionary_get_string(object, "InterfaceName");
+        v67 = xpc_dictionary_get_string(object, "UserAgent");
         data = xpc_dictionary_get_data(object, "LoginBody", buf);
-        LOBYTE(v26) = 0;
+        LOBYTE(v25) = 0;
         if (string)
         {
-          if (v67)
+          if (v66)
           {
-            if (v68)
+            if (v67)
             {
-              v70 = data;
+              v69 = data;
               if (data)
               {
                 if (*buf)
                 {
-                  v71 = CFStringCreateWithCString(kCFAllocatorDefault, string, 0x8000100u);
-                  if (v71)
+                  v70 = CFStringCreateWithCString(kCFAllocatorDefault, string, 0x8000100u);
+                  if (v70)
                   {
-                    v43 = v71;
-                    v72 = CFStringCreateWithCString(kCFAllocatorDefault, v67, 0x8000100u);
-                    if (v72)
+                    v42 = v70;
+                    v71 = CFStringCreateWithCString(kCFAllocatorDefault, v66, 0x8000100u);
+                    if (v71)
                     {
-                      v73 = v72;
-                      v74 = CFStringCreateWithCString(kCFAllocatorDefault, v68, 0x8000100u);
-                      if (v74)
+                      v72 = v71;
+                      v73 = CFStringCreateWithCString(kCFAllocatorDefault, v67, 0x8000100u);
+                      if (v73)
                       {
                         Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-                        v42 = Mutable;
+                        v41 = Mutable;
                         if (Mutable)
                         {
-                          CFDictionaryAddValue(Mutable, off_100022488, v43);
-                          CFDictionaryAddValue(v42, off_1000224E0, v74);
-                          v76 = CFDataCreate(kCFAllocatorDefault, v70, *buf);
-                          if (v76)
+                          CFDictionaryAddValue(Mutable, off_100022488, v42);
+                          CFDictionaryAddValue(v41, off_1000224E0, v73);
+                          v75 = CFDataCreate(kCFAllocatorDefault, v69, *buf);
+                          if (v75)
                           {
-                            v77 = malloc_type_malloc(0x20uLL, 0x10A0040B5E8CC92uLL);
-                            v26 = v77;
-                            if (v77)
+                            v76 = malloc_type_malloc(0x20uLL, 0x10A0040B5E8CC92uLL);
+                            v25 = v76;
+                            if (v76)
                             {
-                              *v77 = 0u;
-                              v77[1] = 0u;
-                              *(v77 + 4) = 2;
-                              *v77 = xpc_retain(v13);
-                              *(v26 + 8) = xpc_retain(object);
+                              *v76 = 0u;
+                              v76[1] = 0u;
+                              *(v76 + 4) = 2;
+                              *v76 = xpc_retain(v12);
+                              *(v25 + 8) = xpc_retain(object);
                               Current = CFRunLoopGetCurrent();
-                              v79 = sub_10000DAE8(v42, v73, v76, Current, sub_100004208, v26);
-                              *(v26 + 24) = v79;
-                              if (!v79)
+                              v78 = sub_10000DAE8(v41, v72, v75, Current, sub_100004208, v25);
+                              *(v25 + 24) = v78;
+                              if (!v78)
                               {
-                                sub_100004048(v13, object, 3u);
-                                xpc_release(*v26);
-                                xpc_release(*(v26 + 8));
-                                free(v26);
-                                CFRelease(v43);
-                                CFRelease(v73);
-                                LOBYTE(v26) = 0;
+                                sub_100004048(v12, object, 3u);
+                                xpc_release(*v25);
+                                xpc_release(*(v25 + 8));
+                                free(v25);
+                                CFRelease(v42);
+                                CFRelease(v72);
+                                LOBYTE(v25) = 0;
 LABEL_115:
-                                CFRelease(v74);
-                                v43 = v76;
+                                CFRelease(v73);
+                                v42 = v75;
 LABEL_116:
-                                if (!v42)
+                                if (!v41)
                                 {
                                   goto LABEL_118;
                                 }
@@ -766,15 +765,15 @@ LABEL_116:
                                 goto LABEL_117;
                               }
 
-                              xpc_connection_set_context(v13, v26);
-                              LOBYTE(v26) = 1;
+                              xpc_connection_set_context(v12, v25);
+                              LOBYTE(v25) = 1;
                             }
 
 LABEL_114:
-                            CFRelease(v43);
-                            CFRelease(v73);
-                            v43 = v76;
-                            if (!v74)
+                            CFRelease(v42);
+                            CFRelease(v72);
+                            v42 = v75;
+                            if (!v73)
                             {
                               goto LABEL_116;
                             }
@@ -783,17 +782,17 @@ LABEL_114:
                           }
 
 LABEL_113:
-                          LOBYTE(v26) = 0;
+                          LOBYTE(v25) = 0;
                           goto LABEL_114;
                         }
                       }
 
                       else
                       {
-                        v42 = 0;
+                        v41 = 0;
                       }
 
-                      v76 = 0;
+                      v75 = 0;
                       goto LABEL_113;
                     }
 
@@ -801,7 +800,7 @@ LABEL_113:
                   }
 
 LABEL_93:
-                  LOBYTE(v26) = 0;
+                  LOBYTE(v25) = 0;
                 }
               }
             }
@@ -809,7 +808,7 @@ LABEL_93:
         }
 
 LABEL_125:
-        if (v26)
+        if (v25)
         {
           return;
         }
@@ -817,68 +816,68 @@ LABEL_125:
         goto LABEL_126;
       }
 
-      v34 = xpc_dictionary_get_string(object, "ProbeURL");
-      v35 = xpc_dictionary_get_string(object, "InterfaceName");
-      v36 = xpc_dictionary_get_string(object, "UserAgent");
-      v37 = xpc_dictionary_get_uint64(object, "ProbeTimeout");
-      LOBYTE(v26) = 0;
-      if (!v34 || !v35 || !v36)
+      v33 = xpc_dictionary_get_string(object, "ProbeURL");
+      v34 = xpc_dictionary_get_string(object, "InterfaceName");
+      v35 = xpc_dictionary_get_string(object, "UserAgent");
+      v36 = xpc_dictionary_get_uint64(object, "ProbeTimeout");
+      LOBYTE(v25) = 0;
+      if (!v33 || !v34 || !v35)
       {
         goto LABEL_125;
       }
 
-      v38 = v37;
-      v39 = CFStringCreateWithCString(kCFAllocatorDefault, v34, 0x8000100u);
-      if (!v39)
+      v37 = v36;
+      v38 = CFStringCreateWithCString(kCFAllocatorDefault, v33, 0x8000100u);
+      if (!v38)
       {
         goto LABEL_93;
       }
 
-      v40 = v39;
-      v41 = CFStringCreateWithCString(kCFAllocatorDefault, v35, 0x8000100u);
-      if (v41)
+      v39 = v38;
+      v40 = CFStringCreateWithCString(kCFAllocatorDefault, v34, 0x8000100u);
+      if (v40)
       {
-        v42 = v41;
-        v43 = CFStringCreateWithCString(kCFAllocatorDefault, v36, 0x8000100u);
-        if (v43)
+        v41 = v40;
+        v42 = CFStringCreateWithCString(kCFAllocatorDefault, v35, 0x8000100u);
+        if (v42)
         {
-          v44 = malloc_type_malloc(0x20uLL, 0x10A0040B5E8CC92uLL);
-          if (v44)
+          v43 = malloc_type_malloc(0x20uLL, 0x10A0040B5E8CC92uLL);
+          if (v43)
           {
-            v45 = v44;
-            *v44 = 0u;
-            v44[1] = 0u;
-            *v44 = xpc_retain(v13);
-            *(v45 + 8) = xpc_retain(object);
-            v46 = CFRunLoopGetCurrent();
-            v47 = sub_10000D64C(v40, v42, v43, 0x20000, v46, v38, sub_100003F0C, v45);
-            *(v45 + 24) = v47;
-            if (!v47)
+            v44 = v43;
+            *v43 = 0u;
+            v43[1] = 0u;
+            *v43 = xpc_retain(v12);
+            *(v44 + 8) = xpc_retain(object);
+            v45 = CFRunLoopGetCurrent();
+            v46 = sub_10000D64C(v39, v41, v42, 0x20000, v45, v37, sub_100003F0C, v44);
+            *(v44 + 24) = v46;
+            if (!v46)
             {
-              v48 = v13;
-              v49 = object;
-              v50 = 1;
+              v47 = v12;
+              v48 = object;
+              v49 = 1;
 LABEL_121:
-              sub_100004048(v48, v49, v50);
-              xpc_release(*v45);
-              xpc_release(*(v45 + 8));
-              free(v45);
-              CFRelease(v40);
-              CFRelease(v42);
+              sub_100004048(v47, v48, v49);
+              xpc_release(*v44);
+              xpc_release(*(v44 + 8));
+              free(v44);
+              CFRelease(v39);
+              CFRelease(v41);
 LABEL_122:
-              LOBYTE(v26) = 0;
+              LOBYTE(v25) = 0;
               goto LABEL_123;
             }
 
 LABEL_91:
-            xpc_connection_set_context(v13, v45);
-            LOBYTE(v26) = 1;
+            xpc_connection_set_context(v12, v44);
+            LOBYTE(v25) = 1;
 LABEL_95:
-            CFRelease(v40);
+            CFRelease(v39);
 LABEL_117:
-            CFRelease(v42);
+            CFRelease(v41);
 LABEL_118:
-            if (!v43)
+            if (!v42)
             {
               goto LABEL_125;
             }
@@ -897,47 +896,47 @@ LABEL_118:
     {
       if (uint64 == 8)
       {
-        v80 = xpc_dictionary_get_string(object, "PortalAPIURI");
-        v81 = xpc_dictionary_get_string(object, "InterfaceName");
-        v82 = xpc_dictionary_get_string(object, "UserAgent");
-        v83 = xpc_dictionary_get_uint64(object, "ProbeTimeout");
-        LOBYTE(v26) = 0;
-        if (!v80 || !v81 || !v82)
+        v79 = xpc_dictionary_get_string(object, "PortalAPIURI");
+        v80 = xpc_dictionary_get_string(object, "InterfaceName");
+        v81 = xpc_dictionary_get_string(object, "UserAgent");
+        v82 = xpc_dictionary_get_uint64(object, "ProbeTimeout");
+        LOBYTE(v25) = 0;
+        if (!v79 || !v80 || !v81)
         {
           goto LABEL_125;
         }
 
-        v84 = v83;
-        v85 = CFStringCreateWithCString(kCFAllocatorDefault, v80, 0x8000100u);
-        if (!v85)
+        v83 = v82;
+        v84 = CFStringCreateWithCString(kCFAllocatorDefault, v79, 0x8000100u);
+        if (!v84)
         {
           goto LABEL_93;
         }
 
-        v40 = v85;
-        v86 = CFStringCreateWithCString(kCFAllocatorDefault, v81, 0x8000100u);
-        if (v86)
+        v39 = v84;
+        v85 = CFStringCreateWithCString(kCFAllocatorDefault, v80, 0x8000100u);
+        if (v85)
         {
-          v42 = v86;
-          v43 = CFStringCreateWithCString(kCFAllocatorDefault, v82, 0x8000100u);
-          if (v43)
+          v41 = v85;
+          v42 = CFStringCreateWithCString(kCFAllocatorDefault, v81, 0x8000100u);
+          if (v42)
           {
-            v87 = malloc_type_malloc(0x20uLL, 0x10A0040B5E8CC92uLL);
-            if (v87)
+            v86 = malloc_type_malloc(0x20uLL, 0x10A0040B5E8CC92uLL);
+            if (v86)
             {
-              v45 = v87;
-              *v87 = 0u;
-              v87[1] = 0u;
-              *(v87 + 4) = 8;
-              *v87 = xpc_retain(v13);
-              *(v45 + 8) = xpc_retain(object);
-              v88 = sub_10000D93C(v40, v42, v43, &_dispatch_main_q, v84, sub_1000040D8, v45);
-              *(v45 + 24) = v88;
-              if (!v88)
+              v44 = v86;
+              *v86 = 0u;
+              v86[1] = 0u;
+              *(v86 + 4) = 8;
+              *v86 = xpc_retain(v12);
+              *(v44 + 8) = xpc_retain(object);
+              v87 = sub_10000D93C(v39, v41, v42, &_dispatch_main_q, v83, sub_1000040D8, v44);
+              *(v44 + 24) = v87;
+              if (!v87)
               {
-                v48 = v13;
-                v49 = object;
-                v50 = 9;
+                v47 = v12;
+                v48 = object;
+                v49 = 9;
                 goto LABEL_121;
               }
 
@@ -946,93 +945,98 @@ LABEL_118:
           }
 
 LABEL_94:
-          LOBYTE(v26) = 0;
+          LOBYTE(v25) = 0;
           goto LABEL_95;
         }
 
 LABEL_96:
-        LOBYTE(v26) = 0;
-        v43 = v40;
+        LOBYTE(v25) = 0;
+        v42 = v39;
 LABEL_123:
-        v89 = v43;
+        v88 = v42;
         goto LABEL_124;
       }
 
       if (uint64 != 10)
       {
 LABEL_49:
-        v32 = sub_100002A8C();
-        v33 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(v32, v33))
+        v31 = sub_100002A8C();
+        v32 = _SC_syslog_os_log_mapping();
+        if (os_log_type_enabled(v31, v32))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v32, v33, "Got unknown request", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v31, v32, "Got unknown request", buf, 2u);
         }
 
 LABEL_126:
-        v18 = sub_100002A8C();
-        v19 = _SC_syslog_os_log_mapping();
-        if (!os_log_type_enabled(v18, v19))
+        v17 = sub_100002A8C();
+        v18 = _SC_syslog_os_log_mapping();
+        if (!os_log_type_enabled(v17, v18))
         {
           return;
         }
 
         *buf = 0;
-        v20 = "Failed to process request.";
+        v19 = "Failed to process request.";
 LABEL_24:
-        _os_log_impl(&_mh_execute_header, v18, v19, v20, buf, 2u);
+        _os_log_impl(&_mh_execute_header, v17, v18, v19, buf, 2u);
         return;
       }
 
       *buf = 0;
-      v21 = xpc_dictionary_get_string(object, "TokenAuthURL");
-      v22 = xpc_dictionary_get_string(object, "InterfaceName");
-      v23 = xpc_dictionary_get_string(object, "UserAgent");
-      v24 = xpc_dictionary_get_data(object, "TokenAuthCredential", buf);
-      v25 = xpc_dictionary_get_uint64(object, "TokenAuthTimeout");
-      LOBYTE(v26) = 0;
-      if (!v22 || !v23 || !v24 || !*buf)
+      v20 = xpc_dictionary_get_string(object, "TokenAuthURL");
+      v21 = xpc_dictionary_get_string(object, "InterfaceName");
+      v22 = xpc_dictionary_get_string(object, "UserAgent");
+      v23 = xpc_dictionary_get_data(object, "TokenAuthCredential", buf);
+      v24 = xpc_dictionary_get_uint64(object, "TokenAuthTimeout");
+      LOBYTE(v25) = 0;
+      if (!v21 || !v22 || !v23 || !*buf)
       {
         goto LABEL_125;
       }
 
-      v27 = v25;
-      if (v21)
+      v26 = v24;
+      if (v20)
       {
-        v21 = CFStringCreateWithCString(kCFAllocatorDefault, v21, 0x8000100u);
-        if (!v21)
+        v20 = CFStringCreateWithCString(kCFAllocatorDefault, v20, 0x8000100u);
+        if (!v20)
         {
           goto LABEL_93;
         }
       }
 
-      v28 = CFStringCreateWithCString(kCFAllocatorDefault, v22, 0x8000100u);
-      if (v28)
+      v27 = CFStringCreateWithCString(kCFAllocatorDefault, v21, 0x8000100u);
+      if (v27)
       {
-        v29 = CFStringCreateWithCString(kCFAllocatorDefault, v23, 0x8000100u);
-        if (v29)
+        v28 = CFStringCreateWithCString(kCFAllocatorDefault, v22, 0x8000100u);
+        if (v28)
         {
-          v30 = CFDataCreate(kCFAllocatorDefault, v24, *buf);
-          if (v30)
+          v29 = CFDataCreate(kCFAllocatorDefault, v23, *buf);
+          if (v29)
           {
-            v31 = malloc_type_malloc(0x20uLL, 0x10A0040B5E8CC92uLL);
-            v26 = v31;
-            if (v31)
+            v30 = malloc_type_malloc(0x20uLL, 0x10A0040B5E8CC92uLL);
+            v25 = v30;
+            if (v30)
             {
-              *v31 = 0u;
-              v31[1] = 0u;
-              *(v31 + 4) = 10;
-              *v31 = xpc_retain(v13);
-              *(v26 + 8) = xpc_retain(object);
-              *(v26 + 24) = sub_10000E1F8(v21, v28, v29, v30, &_dispatch_main_q, v27, sub_100004508, v26);
-              xpc_connection_set_context(v13, v26);
-              LOBYTE(v26) = 1;
+              *v30 = 0u;
+              v30[1] = 0u;
+              *(v30 + 4) = 10;
+              *v30 = xpc_retain(v12);
+              *(v25 + 8) = xpc_retain(object);
+              *(v25 + 24) = sub_10000E1F8(v20, v27, v28, v29, &_dispatch_main_q, v26, sub_100004508, v25);
+              xpc_connection_set_context(v12, v25);
+              LOBYTE(v25) = 1;
             }
 
 LABEL_100:
-            if (v21)
+            if (v20)
             {
-              CFRelease(v21);
+              CFRelease(v20);
+            }
+
+            if (v27)
+            {
+              CFRelease(v27);
             }
 
             if (v28)
@@ -1042,14 +1046,9 @@ LABEL_100:
 
             if (v29)
             {
-              CFRelease(v29);
-            }
-
-            if (v30)
-            {
-              v89 = v30;
+              v88 = v29;
 LABEL_124:
-              CFRelease(v89);
+              CFRelease(v88);
               goto LABEL_125;
             }
 
@@ -1057,104 +1056,104 @@ LABEL_124:
           }
 
 LABEL_99:
-          LOBYTE(v26) = 0;
+          LOBYTE(v25) = 0;
           goto LABEL_100;
         }
       }
 
       else
       {
-        v29 = 0;
+        v28 = 0;
       }
 
-      v30 = 0;
+      v29 = 0;
       goto LABEL_99;
     }
 
-    v51 = xpc_dictionary_get_string(object, "CredentialsURL");
-    v52 = xpc_dictionary_get_string(object, "ServiceType");
-    v53 = xpc_dictionary_get_string(object, "UserAgent");
-    v54 = xpc_dictionary_get_uint64(object, "ProbeTimeout");
-    if (!v51)
+    v50 = xpc_dictionary_get_string(object, "CredentialsURL");
+    v51 = xpc_dictionary_get_string(object, "ServiceType");
+    v52 = xpc_dictionary_get_string(object, "UserAgent");
+    v53 = xpc_dictionary_get_uint64(object, "ProbeTimeout");
+    if (!v50)
     {
       goto LABEL_93;
     }
 
-    v55 = v54;
-    v56 = CFStringCreateWithCString(kCFAllocatorDefault, v51, 0x8000100u);
-    if (!v56)
+    v54 = v53;
+    v55 = CFStringCreateWithCString(kCFAllocatorDefault, v50, 0x8000100u);
+    if (!v55)
     {
       goto LABEL_93;
     }
 
-    v57 = v56;
-    if (!v53 || (v58 = CFStringCreateWithCString(kCFAllocatorDefault, v53, 0x8000100u)) == 0)
+    v56 = v55;
+    if (!v52 || (v57 = CFStringCreateWithCString(kCFAllocatorDefault, v52, 0x8000100u)) == 0)
     {
-      CFRelease(v57);
+      CFRelease(v56);
       goto LABEL_93;
     }
 
-    v59 = v58;
-    if (v52)
+    v58 = v57;
+    if (v51)
     {
-      v52 = CFStringCreateWithCString(kCFAllocatorDefault, v52, 0x8000100u);
-      if (v52)
+      v51 = CFStringCreateWithCString(kCFAllocatorDefault, v51, 0x8000100u);
+      if (v51)
       {
-        v60 = malloc_type_malloc(0x20uLL, 0x10A0040B5E8CC92uLL);
-        if (v60)
+        v59 = malloc_type_malloc(0x20uLL, 0x10A0040B5E8CC92uLL);
+        if (v59)
         {
-          v61 = v60;
-          *v60 = 0u;
-          v60[1] = 0u;
-          *(v60 + 4) = 6;
-          *v60 = xpc_retain(v13);
-          *(v61 + 1) = xpc_retain(object);
-          v62 = sub_10000FCF8(v57, v59);
-          if (v62)
+          v60 = v59;
+          *v59 = 0u;
+          v59[1] = 0u;
+          *(v59 + 4) = 6;
+          *v59 = xpc_retain(v12);
+          *(v60 + 1) = xpc_retain(object);
+          v61 = sub_10000FCF8(v56, v58);
+          if (v61)
           {
-            v63 = v62;
-            v64 = CFRunLoopGetCurrent();
-            v65 = sub_10000E9FC(v63, 0, v52, v64, sub_10000432C, v61, 0x4000, v55, 0);
-            *(v61 + 3) = v65;
-            if (v65)
+            v62 = v61;
+            v63 = CFRunLoopGetCurrent();
+            v64 = sub_10000E9FC(v62, 0, v51, v63, sub_10000432C, v60, 0x4000, v54, 0);
+            *(v60 + 3) = v64;
+            if (v64)
             {
-              xpc_connection_set_context(v13, v61);
-              LOBYTE(v26) = 1;
+              xpc_connection_set_context(v12, v60);
+              LOBYTE(v25) = 1;
               goto LABEL_109;
             }
 
-            sub_100004048(v13, object, 7u);
+            sub_100004048(v12, object, 7u);
           }
 
           else
           {
-            v90 = sub_100002A8C();
-            v91 = _SC_syslog_os_log_mapping();
-            if (os_log_type_enabled(v90, v91))
+            v89 = sub_100002A8C();
+            v90 = _SC_syslog_os_log_mapping();
+            if (os_log_type_enabled(v89, v90))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v90, v91, "http_client_create_get_message() failed", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v89, v90, "http_client_create_get_message() failed", buf, 2u);
             }
           }
 
-          xpc_release(*v61);
-          xpc_release(*(v61 + 1));
-          free(v61);
-          CFRelease(v57);
-          CFRelease(v59);
-          LOBYTE(v26) = 0;
+          xpc_release(*v60);
+          xpc_release(*(v60 + 1));
+          free(v60);
+          CFRelease(v56);
+          CFRelease(v58);
+          LOBYTE(v25) = 0;
 LABEL_133:
-          v89 = v52;
+          v88 = v51;
           goto LABEL_124;
         }
       }
     }
 
-    LOBYTE(v26) = 0;
+    LOBYTE(v25) = 0;
 LABEL_109:
-    CFRelease(v57);
-    CFRelease(v59);
-    if (!v52)
+    CFRelease(v56);
+    CFRelease(v58);
+    if (!v51)
     {
       goto LABEL_125;
     }
@@ -1184,7 +1183,7 @@ LABEL_109:
         {
           if (*(v5 + 3))
           {
-            sub_10000FCF4(v5 + 24);
+            sub_10000FCF4(v5 + 3);
           }
         }
 
@@ -1200,7 +1199,7 @@ LABEL_109:
         {
           if (*(v5 + 3))
           {
-            sub_10000DE8C((v5 + 24));
+            sub_10000DE8C(v5 + 24);
           }
         }
       }
@@ -1718,9 +1717,9 @@ void sub_10000A078(id a1)
   qword_100022750 = v4;
 }
 
-void sub_10000A284(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000A284(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1737,9 +1736,9 @@ void sub_10000A29C(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   }
 }
 
-void sub_10000A4AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000A4AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1833,9 +1832,9 @@ void sub_10000A760(id a1)
   qword_100022760 = v9;
 }
 
-void sub_10000AB4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000AB4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1852,9 +1851,9 @@ void sub_10000AB64(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   }
 }
 
-void sub_10000AC8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000AC8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1907,9 +1906,9 @@ LABEL_5:
 LABEL_6:
 }
 
-void sub_10000AF78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000AF78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1963,9 +1962,9 @@ void sub_10000B120(id a1)
   qword_100022770 = v8;
 }
 
-void sub_10000B44C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000B44C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1982,9 +1981,9 @@ void sub_10000B464(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   }
 }
 
-void sub_10000B58C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000B58C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2037,9 +2036,9 @@ LABEL_5:
 LABEL_6:
 }
 
-void sub_10000B878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000B878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2093,9 +2092,9 @@ void sub_10000BA20(id a1)
   qword_100022780 = v8;
 }
 
-void sub_10000BD4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000BD4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2112,9 +2111,9 @@ void sub_10000BD64(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   }
 }
 
-void sub_10000BE8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000BE8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2167,9 +2166,9 @@ LABEL_5:
 LABEL_6:
 }
 
-void sub_10000C178(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000C178(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2203,7 +2202,7 @@ void sub_10000C190(void *a1, void *a2, uint64_t a3, _BYTE *a4)
   }
 }
 
-void *sub_10000D64C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t *sub_10000D64C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v14 = malloc_type_malloc(0x78uLL, 0x10E004030B74DB0uLL);
   v18 = v14;
@@ -2258,7 +2257,7 @@ uint64_t sub_10000D75C(uint64_t a1, uint64_t a2, uint64_t a3)
   return (*(v8 + 16))(*(v8 + 24), a2, a3);
 }
 
-void sub_10000D858(void **a1)
+void sub_10000D858(uint64_t **a1)
 {
   if (a1)
   {
@@ -2560,7 +2559,7 @@ void sub_10000DDBC(uint64_t a1)
   *a1 = 0;
 }
 
-void *sub_10000DE90(const __CFDictionary *a1, void *a2, __CFRunLoop *a3, uint64_t a4, uint64_t a5)
+uint64_t *sub_10000DE90(const __CFDictionary *a1, void *a2, __CFRunLoop *a3, uint64_t a4, uint64_t a5)
 {
   v10 = malloc_type_malloc(0x18uLL, 0xA0040114AFA65uLL);
   v25 = v10;
@@ -2636,7 +2635,7 @@ LABEL_13:
   return v10;
 }
 
-void sub_10000E070(void **a1)
+void sub_10000E070(uint64_t **a1)
 {
   v2 = *a1;
   if (v2[2])
@@ -2649,7 +2648,7 @@ void sub_10000E070(void **a1)
   *a1 = 0;
 }
 
-uint64_t sub_10000E0B4(void *a1, int a2, uint64_t a3, const xmlDoc *a4)
+uint64_t sub_10000E0B4(uint64_t *a1, int a2, uint64_t a3, const xmlDoc *a4)
 {
   v14 = a1;
   if ((a2 == 5 || a2 == 0) && a4 != 0)
@@ -2683,7 +2682,7 @@ uint64_t sub_10000E0B4(void *a1, int a2, uint64_t a3, const xmlDoc *a4)
   IntValue = 255;
 LABEL_17:
   a1[2] = 0;
-  (*a1)(a1[1], IntValue);
+  (*a1)(a1[1], IntValue, a3, a4);
   sub_10000E070(&v14);
   return 1;
 }
@@ -3285,16 +3284,16 @@ void sub_10000F03C(__CFReadStream *a1, char a2, uint64_t a3)
 {
   v3 = a3;
   v4 = a2;
-  v89 = a3;
+  v87 = a3;
   if ((a2 & 8) != 0)
   {
     v22 = CFReadStreamCopyError(a1);
     v18 = v22;
     if (!v22)
     {
-      v59 = 1;
+      v58 = 1;
 LABEL_80:
-      v83 = v59;
+      v81 = v58;
       goto LABEL_103;
     }
 
@@ -3331,9 +3330,9 @@ LABEL_80:
 
       else
       {
-        v66 = CFErrorGetCode(v18);
-        v83 = 1;
-        if ((v66 + 9843) > 0x24 || ((1 << (v66 + 115)) & 0x18F007D001) == 0)
+        v64 = CFErrorGetCode(v18);
+        v81 = 1;
+        if ((v64 + 9843) > 0x24 || ((1 << (v64 + 115)) & 0x18F007D001) == 0)
         {
           goto LABEL_97;
         }
@@ -3347,26 +3346,26 @@ LABEL_80:
       v23 = 1;
     }
 
-    v83 = v23;
+    v81 = v23;
 LABEL_97:
-    v67 = CFErrorCopyDescription(v18);
-    v68 = sub_100002A8C();
-    v69 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v68, v69))
+    v65 = CFErrorCopyDescription(v18);
+    v66 = sub_100002A8C();
+    v67 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v66, v67))
     {
       *buf = 138412802;
-      *v91 = CFErrorGetDomain(v18);
-      *&v91[8] = 2048;
-      *&v91[10] = CFErrorGetCode(v18);
-      *&v91[18] = 2112;
-      v92 = v67;
-      _os_log_impl(&_mh_execute_header, v68, v69, "kCFStreamEventErrorOccurred %@/%ld: %@", buf, 0x20u);
+      *v89 = CFErrorGetDomain(v18);
+      *&v89[8] = 2048;
+      *&v89[10] = CFErrorGetCode(v18);
+      *&v89[18] = 2112;
+      v90 = v65;
+      _os_log_impl(&_mh_execute_header, v66, v67, "kCFStreamEventErrorOccurred %@/%ld: %@", buf, 0x20u);
     }
 
     CFRelease(v18);
-    if (v67)
+    if (v65)
     {
-      CFRelease(v67);
+      CFRelease(v65);
     }
 
     v18 = 0;
@@ -3404,7 +3403,7 @@ LABEL_9:
       return;
     }
 
-    v83 = 1;
+    v81 = 1;
     v9 = sub_100002A8C();
     v10 = _SC_syslog_os_log_mapping();
     if (!os_log_type_enabled(v9, v10))
@@ -3420,7 +3419,7 @@ LABEL_9:
     goto LABEL_12;
   }
 
-  v81 = v4;
+  v79 = v4;
   v24 = sub_100002A8C();
   v25 = _SC_syslog_os_log_mapping();
   if (os_log_type_enabled(v24, v25))
@@ -3432,15 +3431,14 @@ LABEL_9:
   v26 = a3;
   if (!*(a3 + 16424))
   {
-    v65 = *(a3 + 16456);
     operator new();
   }
 
-  v83 = 1;
+  v81 = 1;
   v27 = a1;
 LABEL_29:
   v28 = CFReadStreamRead(v27, v26, 0x3FFFLL);
-  v85 = v28;
+  v83 = v28;
   v29 = v28;
   if (v28 < 1)
   {
@@ -3480,45 +3478,45 @@ LABEL_14:
 
     Status = CFReadStreamGetStatus(a1);
     Error = CFReadStreamGetError(a1);
-    v77 = sub_100002A8C();
-    v78 = _SC_syslog_os_log_mapping();
-    v79 = os_log_type_enabled(v77, v78);
+    v75 = sub_100002A8C();
+    v76 = _SC_syslog_os_log_mapping();
+    v77 = os_log_type_enabled(v75, v76);
     if (Error.domain == 1)
     {
-      if (!v79)
+      if (!v77)
       {
         goto LABEL_13;
       }
 
-      v80 = strerror(Error.error);
+      v78 = strerror(Error.error);
       *buf = 67109634;
-      *v91 = Status;
-      *&v91[4] = 2080;
-      *&v91[6] = v80;
-      *&v91[14] = 1024;
-      *&v91[16] = Error.error;
+      *v89 = Status;
+      *&v89[4] = 2080;
+      *&v89[6] = v78;
+      *&v89[14] = 1024;
+      *&v89[16] = Error.error;
       v11 = "CFReadStreamRead() status=%d, %s (%d)";
-      v12 = v77;
-      v13 = v78;
+      v12 = v75;
+      v13 = v76;
       v14 = 24;
     }
 
     else
     {
-      if (!v79)
+      if (!v77)
       {
         goto LABEL_13;
       }
 
       *buf = 67109632;
-      *v91 = Status;
-      *&v91[4] = 1024;
-      *&v91[6] = Error.domain;
-      *&v91[10] = 1024;
-      *&v91[12] = Error.error;
+      *v89 = Status;
+      *&v89[4] = 1024;
+      *&v89[6] = Error.domain;
+      *&v89[10] = 1024;
+      *&v89[12] = Error.error;
       v11 = "CFReadStreamRead() status=%d error=(%d, %d)";
-      v12 = v77;
-      v13 = v78;
+      v12 = v75;
+      v13 = v76;
       v14 = 20;
     }
 
@@ -3536,11 +3534,11 @@ LABEL_13:
     v31 = sub_100002A8C();
     v32 = _SC_syslog_os_log_mapping();
     v30 = a3;
-    v29 = v85;
+    v29 = v83;
     if (os_log_type_enabled(v31, v32))
     {
       *buf = 136315138;
-      *v91 = a3;
+      *v89 = a3;
       _os_log_impl(&_mh_execute_header, v31, v32, "%s", buf, 0xCu);
     }
   }
@@ -3552,7 +3550,7 @@ LABEL_13:
   *(a3 + 16432) = 0;
   while (1)
   {
-    v86 = v34;
+    v84 = v34;
     v37 = (v29 - v34);
     if (*(v35 + 72) != 1)
     {
@@ -3560,16 +3558,16 @@ LABEL_13:
       goto LABEL_55;
     }
 
-    v84 = v33;
+    v82 = v33;
     if (v37 >= 1)
     {
       v38 = 0;
-      v87 = &v30[v33];
+      v85 = &v30[v33];
       v39 = v29 - v34;
       while (1)
       {
         v40 = 0;
-        v41 = v87;
+        v41 = v85;
         v42 = &aHtml_2[v36];
         while (1)
         {
@@ -3633,7 +3631,7 @@ LABEL_53:
     v35 = a3 + 0x4000;
     *(a3 + 16432) = v37 - (v38 - v36);
 LABEL_54:
-    v33 = v84;
+    v33 = v82;
 LABEL_55:
     v48 = *(v30 + 2055);
     v49 = !v48 || v37 < 1;
@@ -3670,11 +3668,10 @@ LABEL_55:
             (*(*v56 + 8))(v56);
           }
 
-          v57 = *(a3 + 16456);
           operator new();
         }
 
-        sub_10000EF68(&v89);
+        sub_10000EF68(&v87);
         return;
       }
 
@@ -3684,12 +3681,12 @@ LABEL_55:
     (*(**(v30 + 2053) + 16))(*(v30 + 2053), &v30[v33], v37, 0);
     v30 = a3;
     *(a3 + 16448) += v37;
-    v34 = v37 + v86;
+    v34 = v37 + v84;
     v36 = 0;
     v33 = v34;
-    v29 = v85;
+    v29 = v83;
     v35 = a3 + 0x4000;
-    if (v85 <= v34)
+    if (v83 <= v34)
     {
       HasBytesAvailable = CFReadStreamHasBytesAvailable(a1);
       v26 = a3;
@@ -3699,53 +3696,53 @@ LABEL_55:
         goto LABEL_29;
       }
 
-      v4 = v81;
+      v4 = v79;
       goto LABEL_9;
     }
   }
 
-  v60 = sub_100002A8C();
-  v61 = _SC_syslog_os_log_mapping();
-  if (os_log_type_enabled(v60, v61))
+  v59 = sub_100002A8C();
+  v60 = _SC_syslog_os_log_mapping();
+  if (os_log_type_enabled(v59, v60))
   {
     v3 = a3;
-    v62 = *(a3 + 16440);
-    v63 = *(a3 + 16448);
+    v61 = *(a3 + 16440);
+    v62 = *(a3 + 16448);
     *buf = 134218496;
-    *v91 = v62;
-    *&v91[8] = 2048;
-    *&v91[10] = v63;
-    *&v91[18] = 1024;
-    LODWORD(v92) = v37;
-    _os_log_impl(&_mh_execute_header, v60, v61, "exceeding maxlen of %ld. current(%lu) + length(%d)", buf, 0x1Cu);
+    *v89 = v61;
+    *&v89[8] = 2048;
+    *&v89[10] = v62;
+    *&v89[18] = 1024;
+    LODWORD(v90) = v37;
+    _os_log_impl(&_mh_execute_header, v59, v60, "exceeding maxlen of %ld. current(%lu) + length(%d)", buf, 0x1Cu);
     v18 = 0;
-    v59 = 4;
+    v58 = 4;
     goto LABEL_80;
   }
 
   v18 = 0;
   v21 = 4;
 LABEL_89:
-  v83 = v21;
+  v81 = v21;
 LABEL_102:
   v3 = a3;
 LABEL_103:
-  v70 = v3;
-  v71 = v3[2049];
-  v72 = v70[2050];
-  v73 = v70[2053];
-  if (v73)
+  v68 = v3;
+  v69 = v3[2049];
+  v70 = v68[2050];
+  v71 = v68[2053];
+  if (v71)
   {
-    v74 = (*(*v73 + 24))(v73);
+    v72 = (*(*v71 + 24))(v71);
   }
 
   else
   {
-    v74 = 0;
+    v72 = 0;
   }
 
-  v71(v72, v83, v18, v74);
-  sub_10000EF68(&v89);
+  v69(v70, v81, v18, v72);
+  sub_10000EF68(&v87);
   if (v18)
   {
     CFRelease(v18);
@@ -4425,7 +4422,7 @@ uint64_t sub_100010B94(uint64_t a1, const char *a2, int a3)
       v6 = *(v3 + 24);
       if (v6)
       {
-        v7 = sub_100010B94(v6, a2, (a3 + 1));
+        v7 = sub_100010B94(v6, a2, a3 + 1);
         if (v7)
         {
           return v7;
@@ -4489,7 +4486,7 @@ xmlDoc *sub_100010C20(uint64_t a1, int a2)
     v9 = *(v2 + 24);
     if (v9)
     {
-      v10 = sub_100010C20(v9, (a2 + 1));
+      v10 = sub_100010C20(v9, a2 + 1);
       if (v10)
       {
         return v10;

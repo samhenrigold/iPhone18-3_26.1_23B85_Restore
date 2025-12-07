@@ -15,6 +15,7 @@
 - (void)setUsingCustomCalendars:(BOOL)calendars;
 - (void)setUsingCustomOverlayCalendar:(BOOL)calendar;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation NCALSettingsController
@@ -38,6 +39,24 @@
   [v6 setName:v8];
 
   return v5;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v12.receiver = self;
+  v12.super_class = NCALSettingsController;
+  [(NCALSettingsController *)&v12 viewWillAppear:appear];
+  v3 = [NSBundle bundleForClass:objc_opt_class()];
+  v4 = [_NSLocalizedStringResource alloc];
+  v5 = +[NSLocale currentLocale];
+  bundleURL = [v3 bundleURL];
+  v7 = [v4 initWithKey:@"PANE_TITLE" table:@"NanoCalendarBridgeSettings" locale:v5 bundleURL:bundleURL];
+
+  bundleIdentifier = [v3 bundleIdentifier];
+  bundleIdentifier2 = [v3 bundleIdentifier];
+  v10 = [NSString stringWithFormat:@"bridge:root=%@", bundleIdentifier2];
+  v11 = [NSURL URLWithString:v10];
+  [BPSWatchSettingsNavigationDonation emitNavigationEventForApplicationSettingWithIconSpecifierIdentifier:bundleIdentifier title:v7 localizedNavigationComponents:&__NSArray0__struct deepLink:v11];
 }
 
 - (id)notificationApplicationSpecifiers
@@ -493,26 +512,27 @@ LABEL_9:
 - (void)setUsingCustomCalendars:(BOOL)calendars
 {
   calendarsCopy = calendars;
-  if ([(NCALSettingsController *)self usingCustomCalendars]!= calendars)
+  usingCustomCalendars = [(NCALSettingsController *)self usingCustomCalendars];
+  if (usingCustomCalendars != calendarsCopy)
   {
-    v5 = ncs_log_selected_calendars();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = ncs_log_selected_calendars(usingCustomCalendars);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v11[0] = 67109120;
-      v11[1] = calendarsCopy;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "NCALSettingsController: Set Using Custom Calendars: %d", v11, 8u);
+      v12[0] = 67109120;
+      v12[1] = calendarsCopy;
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "NCALSettingsController: Set Using Custom Calendars: %d", v12, 8u);
     }
 
-    v6 = +[NanoCalendarPreferences sharedPreferences];
+    v7 = +[NanoCalendarPreferences sharedPreferences];
     if (calendarsCopy)
     {
-      v7 = +[EKPreferences shared];
-      deselectedCalendarSyncHashes = [v7 deselectedCalendarSyncHashes];
+      v8 = +[EKPreferences shared];
+      deselectedCalendarSyncHashes = [v8 deselectedCalendarSyncHashes];
 
       if (deselectedCalendarSyncHashes)
       {
-        v9 = +[EKPreferences shared];
-        deselectedCalendarSyncIdentifiers = [v9 deselectedCalendarSyncIdentifiers];
+        v10 = +[EKPreferences shared];
+        deselectedCalendarSyncIdentifiers = [v10 deselectedCalendarSyncIdentifiers];
       }
 
       else
@@ -528,8 +548,8 @@ LABEL_9:
       deselectedCalendarSyncIdentifiers = 0;
     }
 
-    [v6 setCustomDeselectedCalendarHashes:deselectedCalendarSyncHashes];
-    [v6 setCustomDeselectedCalendarIdentifiers:deselectedCalendarSyncIdentifiers];
+    [v7 setCustomDeselectedCalendarHashes:deselectedCalendarSyncHashes];
+    [v7 setCustomDeselectedCalendarIdentifiers:deselectedCalendarSyncIdentifiers];
     [(NCALSettingsController *)self reloadSpecifiers];
   }
 }

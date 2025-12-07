@@ -34,8 +34,8 @@
 
 - (id)toDict
 {
-  v28[7] = *MEMORY[0x277D85DE8];
-  v27[0] = @"totalNotesCollabRootReadOnlyCount";
+  v27[7] = *MEMORY[0x277D85DE8];
+  v26[0] = @"totalNotesCollabRootReadOnlyCount";
   totalNotesCollabRootReadOnlyCount = [(ICASCollabNotesItemData *)self totalNotesCollabRootReadOnlyCount];
   if (totalNotesCollabRootReadOnlyCount)
   {
@@ -47,9 +47,9 @@
     totalNotesCollabRootReadOnlyCount2 = objc_opt_new();
   }
 
-  v25 = totalNotesCollabRootReadOnlyCount2;
-  v28[0] = totalNotesCollabRootReadOnlyCount2;
-  v27[1] = @"totalNotesCollabThruFolderReadOnlyCount";
+  v24 = totalNotesCollabRootReadOnlyCount2;
+  v27[0] = totalNotesCollabRootReadOnlyCount2;
+  v26[1] = @"totalNotesCollabThruFolderReadOnlyCount";
   totalNotesCollabThruFolderReadOnlyCount = [(ICASCollabNotesItemData *)self totalNotesCollabThruFolderReadOnlyCount];
   if (totalNotesCollabThruFolderReadOnlyCount)
   {
@@ -61,9 +61,9 @@
     totalNotesCollabThruFolderReadOnlyCount2 = objc_opt_new();
   }
 
-  v23 = totalNotesCollabThruFolderReadOnlyCount2;
-  v28[1] = totalNotesCollabThruFolderReadOnlyCount2;
-  v27[2] = @"totalNotesCollabRootReadWriteJoinedCount";
+  v22 = totalNotesCollabThruFolderReadOnlyCount2;
+  v27[1] = totalNotesCollabThruFolderReadOnlyCount2;
+  v26[2] = @"totalNotesCollabRootReadWriteJoinedCount";
   totalNotesCollabRootReadWriteJoinedCount = [(ICASCollabNotesItemData *)self totalNotesCollabRootReadWriteJoinedCount];
   if (totalNotesCollabRootReadWriteJoinedCount)
   {
@@ -76,8 +76,8 @@
   }
 
   v6 = totalNotesCollabRootReadWriteJoinedCount2;
-  v28[2] = totalNotesCollabRootReadWriteJoinedCount2;
-  v27[3] = @"totalNotesCollabThruFolderReadWriteJoinedCount";
+  v27[2] = totalNotesCollabRootReadWriteJoinedCount2;
+  v26[3] = @"totalNotesCollabThruFolderReadWriteJoinedCount";
   totalNotesCollabThruFolderReadWriteJoinedCount = [(ICASCollabNotesItemData *)self totalNotesCollabThruFolderReadWriteJoinedCount];
   if (totalNotesCollabThruFolderReadWriteJoinedCount)
   {
@@ -90,8 +90,8 @@
   }
 
   v9 = totalNotesCollabThruFolderReadWriteJoinedCount2;
-  v28[3] = totalNotesCollabThruFolderReadWriteJoinedCount2;
-  v27[4] = @"totalNotesNotCollabCount";
+  v27[3] = totalNotesCollabThruFolderReadWriteJoinedCount2;
+  v26[4] = @"totalNotesNotCollabCount";
   totalNotesNotCollabCount = [(ICASCollabNotesItemData *)self totalNotesNotCollabCount];
   if (totalNotesNotCollabCount)
   {
@@ -104,8 +104,8 @@
   }
 
   v12 = totalNotesNotCollabCount2;
-  v28[4] = totalNotesNotCollabCount2;
-  v27[5] = @"totalNotesCollabRootOwnedCount";
+  v27[4] = totalNotesNotCollabCount2;
+  v26[5] = @"totalNotesCollabRootOwnedCount";
   totalNotesCollabRootOwnedCount = [(ICASCollabNotesItemData *)self totalNotesCollabRootOwnedCount];
   if (totalNotesCollabRootOwnedCount)
   {
@@ -118,8 +118,8 @@
   }
 
   v15 = totalNotesCollabRootOwnedCount2;
-  v28[5] = totalNotesCollabRootOwnedCount2;
-  v27[6] = @"totalNotesCollabThruFolderOwnedCount";
+  v27[5] = totalNotesCollabRootOwnedCount2;
+  v26[6] = @"totalNotesCollabThruFolderOwnedCount";
   totalNotesCollabThruFolderOwnedCount = [(ICASCollabNotesItemData *)self totalNotesCollabThruFolderOwnedCount];
   if (totalNotesCollabThruFolderOwnedCount)
   {
@@ -132,10 +132,8 @@
   }
 
   v18 = totalNotesCollabThruFolderOwnedCount2;
-  v28[6] = totalNotesCollabThruFolderOwnedCount2;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:7];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v27[6] = totalNotesCollabThruFolderOwnedCount2;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:7];
 
   return v19;
 }

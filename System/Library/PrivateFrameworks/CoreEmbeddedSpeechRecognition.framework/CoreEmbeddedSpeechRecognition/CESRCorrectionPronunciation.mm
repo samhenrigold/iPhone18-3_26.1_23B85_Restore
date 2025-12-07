@@ -14,7 +14,7 @@
 
 - (void)mergeFrom:(id)from
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   if (*(fromCopy + 4))
   {
@@ -42,29 +42,29 @@
     *&self->_has |= 1u;
   }
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = *(fromCopy + 6);
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(CESRCorrectionPronunciation *)self addTtsPronunciations:*(*(&v11 + 1) + 8 * i), v11];
+        [(CESRCorrectionPronunciation *)self addTtsPronunciations:*(*(&v10 + 1) + 8 * i), v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
@@ -74,8 +74,6 @@
   {
     [(CESRCorrectionPronunciation *)self setAsrPronunciationData:?];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)hash
@@ -143,7 +141,6 @@
     }
   }
 
-  v9 = *(equalCopy + 64);
   if (*&self->_has)
   {
     if ((*(equalCopy + 64) & 1) == 0 || self->_tokenOffset != *(equalCopy + 10))
@@ -155,7 +152,7 @@
   else if (*(equalCopy + 64))
   {
 LABEL_19:
-    v12 = 0;
+    v11 = 0;
     goto LABEL_20;
   }
 
@@ -168,22 +165,22 @@ LABEL_19:
   asrPronunciationData = self->_asrPronunciationData;
   if (asrPronunciationData | *(equalCopy + 2))
   {
-    v12 = [(NSData *)asrPronunciationData isEqual:?];
+    v11 = [(NSData *)asrPronunciationData isEqual:?];
   }
 
   else
   {
-    v12 = 1;
+    v11 = 1;
   }
 
 LABEL_20:
 
-  return v12;
+  return v11;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_orthography copyWithZone:zone];
   v7 = *(v5 + 32);
@@ -207,34 +204,34 @@ LABEL_20:
     *(v5 + 64) |= 1u;
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v14 = self->_ttsPronunciations;
-  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v25;
+    v17 = *v24;
     do
     {
       v18 = 0;
       do
       {
-        if (*v25 != v17)
+        if (*v24 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = [*(*(&v24 + 1) + 8 * v18) copyWithZone:{zone, v24}];
+        v19 = [*(*(&v23 + 1) + 8 * v18) copyWithZone:{zone, v23}];
         [v5 addTtsPronunciations:v19];
 
         ++v18;
       }
 
       while (v16 != v18);
-      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v16);
@@ -244,7 +241,6 @@ LABEL_20:
   v21 = *(v5 + 16);
   *(v5 + 16) = v20;
 
-  v22 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -305,7 +301,7 @@ LABEL_20:
 
 - (void)writeTo:(id)to
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_orthography)
   {
@@ -329,48 +325,44 @@ LABEL_20:
 
   if (*&self->_has)
   {
-    tokenOffset = self->_tokenOffset;
     PBDataWriterWriteInt32Field();
   }
 
-  v15 = 0u;
-  v16 = 0u;
+  v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v6 = self->_ttsPronunciations;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v7)
+  v10 = 0u;
+  v11 = 0u;
+  v5 = self->_ttsPronunciations;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v14;
+    v7 = v6;
+    v8 = *v11;
     do
     {
-      v10 = 0;
+      v9 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v11 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * v10);
         PBDataWriterWriteStringField();
-        ++v10;
+        ++v9;
       }
 
-      while (v8 != v10);
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      while (v7 != v9);
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
   if (self->_asrPronunciationData)
   {
     PBDataWriterWriteDataField();
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dictionaryRepresentation

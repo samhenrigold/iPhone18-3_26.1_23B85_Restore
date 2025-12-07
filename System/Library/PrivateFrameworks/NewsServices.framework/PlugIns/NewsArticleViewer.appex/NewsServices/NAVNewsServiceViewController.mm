@@ -1,5 +1,6 @@
 @interface NAVNewsServiceViewController
 - (void)articleViewServiceProviderShouldLoadArticlesForArticleIDs:(id)ds;
+- (void)articleViewServiceProviderShouldPresentForLinkPreviewing:(BOOL)previewing;
 - (void)dealloc;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
@@ -76,6 +77,13 @@
   dsCopy = ds;
   articleContainerViewController = [(NAVNewsServiceViewController *)self articleContainerViewController];
   [articleContainerViewController loadWithArticleIDs:dsCopy];
+}
+
+- (void)articleViewServiceProviderShouldPresentForLinkPreviewing:(BOOL)previewing
+{
+  previewingCopy = previewing;
+  articleContainerViewController = [(NAVNewsServiceViewController *)self articleContainerViewController];
+  [articleContainerViewController setLinkPreviewing:previewingCopy];
 }
 
 @end

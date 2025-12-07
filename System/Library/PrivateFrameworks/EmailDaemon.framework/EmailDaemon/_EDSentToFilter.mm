@@ -91,7 +91,7 @@ LABEL_13:
 
 - (void)updateWithSentToSimpleAddresses:(id)addresses recentNotSentToSimpleAddresses:(id)simpleAddresses
 {
-  v92 = *MEMORY[0x1E69E9840];
+  v103 = *MEMORY[0x1E69E9840];
   addressesCopy = addresses;
   simpleAddressesCopy = simpleAddresses;
   if (_os_feature_enabled_impl())
@@ -101,33 +101,33 @@ LABEL_13:
   }
 
   v9 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(addressesCopy, "count")}];
-  v84 = 0u;
-  v85 = 0u;
-  v82 = 0u;
-  v83 = 0u;
+  v95 = 0u;
+  v96 = 0u;
+  v93 = 0u;
+  v94 = 0u;
   v10 = addressesCopy;
-  v11 = [v10 countByEnumeratingWithState:&v82 objects:v91 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v93 objects:v102 count:16];
   if (v11)
   {
-    v12 = *v83;
+    v12 = *v94;
     do
     {
       v13 = 0;
       do
       {
-        if (*v83 != v12)
+        if (*v94 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        lowercaseString = [*(*(&v82 + 1) + 8 * v13) lowercaseString];
+        lowercaseString = [*(*(&v93 + 1) + 8 * v13) lowercaseString];
         [v9 addObject:lowercaseString];
 
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [v10 countByEnumeratingWithState:&v82 objects:v91 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v93 objects:v102 count:16];
     }
 
     while (v11);
@@ -136,26 +136,26 @@ LABEL_13:
   allObjects = [v9 allObjects];
 
   v16 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(simpleAddressesCopy, "count")}];
-  v80 = 0u;
-  v81 = 0u;
-  v78 = 0u;
-  v79 = 0u;
+  v91 = 0u;
+  v92 = 0u;
+  v89 = 0u;
+  v90 = 0u;
   v17 = simpleAddressesCopy;
-  v18 = [v17 countByEnumeratingWithState:&v78 objects:v90 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v89 objects:v101 count:16];
   if (v18)
   {
-    v19 = *v79;
+    v19 = *v90;
     do
     {
       v20 = 0;
       do
       {
-        if (*v79 != v19)
+        if (*v90 != v19)
         {
           objc_enumerationMutation(v17);
         }
 
-        lowercaseString2 = [*(*(&v78 + 1) + 8 * v20) lowercaseString];
+        lowercaseString2 = [*(*(&v89 + 1) + 8 * v20) lowercaseString];
         if (([v9 containsObject:lowercaseString2] & 1) == 0)
         {
           [v16 addObject:lowercaseString2];
@@ -165,7 +165,7 @@ LABEL_13:
       }
 
       while (v18 != v20);
-      v18 = [v17 countByEnumeratingWithState:&v78 objects:v90 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v89 objects:v101 count:16];
     }
 
     while (v18);
@@ -173,140 +173,143 @@ LABEL_13:
 
   allObjects2 = [v16 allObjects];
 
-  v22 = EDSenderLog();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+  v23 = EDSenderLog(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
   {
     [allObjects count];
     [_EDSentToFilter updateWithSentToSimpleAddresses:recentNotSentToSimpleAddresses:];
   }
 
-  v23 = EDSenderLog();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+  v25 = EDSenderLog(v24);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
   {
     [allObjects2 count];
     [_EDSentToFilter updateWithSentToSimpleAddresses:recentNotSentToSimpleAddresses:];
   }
 
-  v77 = 0;
-  v24 = [MEMORY[0x1E699B788] bestBloomFilterForValues:allObjects excludingValues:allObjects2 falsePositiveRate:&v77 knownFalsePositives:0.1];
-  v69 = v77;
+  v88 = 0;
+  v26 = [MEMORY[0x1E699B788] bestBloomFilterForValues:allObjects excludingValues:allObjects2 falsePositiveRate:&v88 knownFalsePositives:0.1];
+  v80 = v88;
   firstFilter = self->_firstFilter;
-  self->_firstFilter = v24;
+  self->_firstFilter = v26;
 
-  if ([v69 count])
+  v28 = [v80 count];
+  if (v28)
   {
-    v26 = EDSenderLog();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+    v29 = EDSenderLog(v28);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
     {
-      [v69 count];
+      [v80 count];
       [_EDSentToFilter updateWithSentToSimpleAddresses:recentNotSentToSimpleAddresses:];
     }
 
-    v27 = EDSenderLog();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+    v31 = EDSenderLog(v30);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
     {
       [allObjects count];
       [_EDSentToFilter updateWithSentToSimpleAddresses:recentNotSentToSimpleAddresses:];
     }
 
-    v76 = 0;
-    v28 = [MEMORY[0x1E699B788] bestBloomFilterForValues:v69 excludingValues:allObjects falsePositiveRate:&v76 knownFalsePositives:0.01];
-    v29 = v76;
+    v87 = 0;
+    v32 = [MEMORY[0x1E699B788] bestBloomFilterForValues:v80 excludingValues:allObjects falsePositiveRate:&v87 knownFalsePositives:0.01];
+    v33 = v87;
     secondFilter = self->_secondFilter;
-    self->_secondFilter = v28;
+    self->_secondFilter = v32;
 
-    if ([(EFBloomFilter *)v29 count])
+    v35 = [(EFBloomFilter *)v33 count];
+    if (v35)
     {
-      v31 = EDSenderLog();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+      v36 = EDSenderLog(v35);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
       {
-        [(EFBloomFilter *)v29 count];
+        [(EFBloomFilter *)v33 count];
         [_EDSentToFilter updateWithSentToSimpleAddresses:recentNotSentToSimpleAddresses:];
       }
 
-      v32 = EDSenderLog();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+      v38 = EDSenderLog(v37);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
       {
-        [v69 count];
+        [v80 count];
         [_EDSentToFilter updateWithSentToSimpleAddresses:recentNotSentToSimpleAddresses:];
       }
 
-      v75 = 0;
-      v33 = [MEMORY[0x1E699B788] bestBloomFilterForValues:v29 excludingValues:v69 falsePositiveRate:&v75 knownFalsePositives:0.1];
-      v34 = v75;
+      v86 = 0;
+      v39 = [MEMORY[0x1E699B788] bestBloomFilterForValues:v33 excludingValues:v80 falsePositiveRate:&v86 knownFalsePositives:0.1];
+      v40 = v86;
       thirdFilter = self->_thirdFilter;
-      self->_thirdFilter = v33;
+      self->_thirdFilter = v39;
 
-      if ([(EFBloomFilter *)v34 count])
+      v42 = [(EFBloomFilter *)v40 count];
+      if (v42)
       {
-        v36 = EDSenderLog();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+        v43 = EDSenderLog(v42);
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
         {
-          v37 = [(EFBloomFilter *)v34 count];
-          v38 = [(EFBloomFilter *)v34 ef_map:&__block_literal_global_503];
+          v44 = [(EFBloomFilter *)v40 count];
+          v45 = [(EFBloomFilter *)v40 ef_map:&__block_literal_global_503];
           *buf = 134218242;
-          v87 = v37;
-          v88 = 2114;
-          v89 = v38;
-          _os_log_impl(&dword_1C61EF000, v36, OS_LOG_TYPE_DEFAULT, "'Sent to' filter has %lu known false positives: %{public}@", buf, 0x16u);
+          v98 = v44;
+          v99 = 2114;
+          v100 = v45;
+          _os_log_impl(&dword_1C61EF000, v43, OS_LOG_TYPE_DEFAULT, "'Sent to' filter has %lu known false positives: %{public}@", buf, 0x16u);
         }
       }
     }
 
     else
     {
-      v34 = self->_thirdFilter;
+      v40 = self->_thirdFilter;
       self->_thirdFilter = 0;
     }
   }
 
   else
   {
-    v39 = self->_secondFilter;
+    v46 = self->_secondFilter;
     self->_secondFilter = 0;
 
-    v29 = self->_thirdFilter;
+    v33 = self->_thirdFilter;
     self->_thirdFilter = 0;
   }
 
-  v40 = self->_firstFilter;
+  v47 = self->_firstFilter;
   mailDataDirectory = [MEMORY[0x1E699AE20] mailDataDirectory];
-  v42 = [mailDataDirectory URLByAppendingPathComponent:@"SentToFilter"];
+  v49 = [mailDataDirectory URLByAppendingPathComponent:@"SentToFilter"];
 
-  v74 = 0;
-  v43 = [(EFBloomFilter *)v40 writeToFile:v42 options:1342177281 error:&v74];
-  v44 = v74;
+  v85 = 0;
+  v50 = [(EFBloomFilter *)v47 writeToFile:v49 options:1342177281 error:&v85];
+  v51 = v85;
 
-  if ((v43 & 1) == 0)
+  if ((v50 & 1) == 0)
   {
-    v45 = EDSenderLog();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+    v53 = EDSenderLog(v52);
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
     {
-      [v44 ef_publicDescription];
+      [v51 ef_publicDescription];
       objc_claimAutoreleasedReturnValue();
       [_EDSentToFilter updateWithSentToSimpleAddresses:recentNotSentToSimpleAddresses:];
     }
   }
 
-  v46 = self->_secondFilter;
-  if (v46)
+  v54 = self->_secondFilter;
+  if (v54)
   {
     mailDataDirectory2 = [MEMORY[0x1E699AE20] mailDataDirectory];
-    v48 = [mailDataDirectory2 URLByAppendingPathComponent:@"SentToFilter2"];
+    v56 = [mailDataDirectory2 URLByAppendingPathComponent:@"SentToFilter2"];
 
-    v73 = v44;
-    LOBYTE(mailDataDirectory2) = [(EFBloomFilter *)v46 writeToFile:v48 options:1342177281 error:&v73];
-    v49 = v73;
+    v84 = v51;
+    LOBYTE(mailDataDirectory2) = [(EFBloomFilter *)v54 writeToFile:v56 options:1342177281 error:&v84];
+    v57 = v84;
 
     if (mailDataDirectory2)
     {
       goto LABEL_51;
     }
 
-    defaultManager = EDSenderLog();
+    defaultManager = EDSenderLog(v58);
     if (os_log_type_enabled(defaultManager, OS_LOG_TYPE_ERROR))
     {
-      [v49 ef_publicDescription];
+      [v57 ef_publicDescription];
       objc_claimAutoreleasedReturnValue();
       [_EDSentToFilter updateWithSentToSimpleAddresses:recentNotSentToSimpleAddresses:];
     }
@@ -316,27 +319,27 @@ LABEL_13:
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   mailDataDirectory3 = [MEMORY[0x1E699AE20] mailDataDirectory];
-  v52 = [mailDataDirectory3 URLByAppendingPathComponent:@"SentToFilter2"];
+  v61 = [mailDataDirectory3 URLByAppendingPathComponent:@"SentToFilter2"];
 
-  v72 = v44;
-  v53 = [defaultManager removeItemAtURL:v52 error:&v72];
-  v49 = v72;
+  v83 = v51;
+  v62 = [defaultManager removeItemAtURL:v61 error:&v83];
+  v57 = v83;
 
-  if (v53)
+  if (v62)
   {
 
 LABEL_50:
     goto LABEL_51;
   }
 
-  v65 = isNoSuchFileError(v49);
+  v74 = isNoSuchFileError(v57);
 
-  if (!v65)
+  if (!v74)
   {
-    defaultManager = EDSenderLog();
+    defaultManager = EDSenderLog(v75);
     if (os_log_type_enabled(defaultManager, OS_LOG_TYPE_ERROR))
     {
-      [v49 ef_publicDescription];
+      [v57 ef_publicDescription];
       objc_claimAutoreleasedReturnValue();
       [_EDSentToFilter updateWithSentToSimpleAddresses:recentNotSentToSimpleAddresses:];
     }
@@ -345,35 +348,35 @@ LABEL_50:
   }
 
 LABEL_51:
-  v54 = v49;
-  v55 = self->_thirdFilter;
-  if (!v55)
+  v63 = v57;
+  v64 = self->_thirdFilter;
+  if (!v64)
   {
     defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
     mailDataDirectory4 = [MEMORY[0x1E699AE20] mailDataDirectory];
-    v62 = [mailDataDirectory4 URLByAppendingPathComponent:@"SentToFilter3"];
+    v72 = [mailDataDirectory4 URLByAppendingPathComponent:@"SentToFilter3"];
 
-    v70 = v54;
-    v63 = [defaultManager2 removeItemAtURL:v62 error:&v70];
-    v59 = v70;
+    v81 = v63;
+    v73 = [defaultManager2 removeItemAtURL:v72 error:&v81];
+    v68 = v81;
 
-    if (v63)
+    if (v73)
     {
     }
 
     else
     {
-      v66 = isNoSuchFileError(v59);
+      v76 = isNoSuchFileError(v68);
 
-      if (v66)
+      if (v76)
       {
         goto LABEL_58;
       }
 
-      defaultManager2 = EDSenderLog();
+      defaultManager2 = EDSenderLog(v77);
       if (os_log_type_enabled(defaultManager2, OS_LOG_TYPE_ERROR))
       {
-        [v59 ef_publicDescription];
+        [v68 ef_publicDescription];
         objc_claimAutoreleasedReturnValue();
         [_EDSentToFilter updateWithSentToSimpleAddresses:recentNotSentToSimpleAddresses:];
       }
@@ -383,18 +386,18 @@ LABEL_51:
   }
 
   mailDataDirectory5 = [MEMORY[0x1E699AE20] mailDataDirectory];
-  v57 = [mailDataDirectory5 URLByAppendingPathComponent:@"SentToFilter3"];
+  v66 = [mailDataDirectory5 URLByAppendingPathComponent:@"SentToFilter3"];
 
-  v71 = v54;
-  v58 = [(EFBloomFilter *)v55 writeToFile:v57 options:1342177281 error:&v71];
-  v59 = v71;
+  v82 = v63;
+  v67 = [(EFBloomFilter *)v64 writeToFile:v66 options:1342177281 error:&v82];
+  v68 = v82;
 
-  if ((v58 & 1) == 0)
+  if ((v67 & 1) == 0)
   {
-    defaultManager2 = EDSenderLog();
+    defaultManager2 = EDSenderLog(v69);
     if (os_log_type_enabled(defaultManager2, OS_LOG_TYPE_ERROR))
     {
-      [v59 ef_publicDescription];
+      [v68 ef_publicDescription];
       objc_claimAutoreleasedReturnValue();
       [_EDSentToFilter updateWithSentToSimpleAddresses:recentNotSentToSimpleAddresses:];
     }
@@ -403,8 +406,6 @@ LABEL_57:
   }
 
 LABEL_58:
-
-  v64 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateWithSentToSimpleAddresses:recentNotSentToSimpleAddresses:.cold.1()

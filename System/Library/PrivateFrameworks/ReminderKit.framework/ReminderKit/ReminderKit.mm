@@ -1,6 +1,6 @@
-void sub_19A0DCFE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_19A0DCFE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -174,7 +174,7 @@ void __Block_byref_object_dispose__17(uint64_t a1)
 
 uint64_t rem_currentRuntimeVersion()
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v0 = +[REMUserDefaults daemonUserDefaults];
   v1 = [v0 remCurrentRuntimeVersionDebuggingOverride];
 
@@ -184,9 +184,9 @@ uint64_t rem_currentRuntimeVersion()
     v3 = +[REMLogStore write];
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v6 = 134217984;
-      v7 = v2;
-      _os_log_impl(&dword_19A0DB000, v3, OS_LOG_TYPE_INFO, "remCurrentRuntimeVersionDebuggingOverride = %ld", &v6, 0xCu);
+      v5 = 134217984;
+      v6 = v2;
+      _os_log_impl(&dword_19A0DB000, v3, OS_LOG_TYPE_INFO, "remCurrentRuntimeVersionDebuggingOverride = %ld", &v5, 0xCu);
     }
   }
 
@@ -195,7 +195,6 @@ uint64_t rem_currentRuntimeVersion()
     v2 = 20240430;
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -237,36 +236,34 @@ id ckSymbolicColorNameToRGBMapping()
 
 void __ckSymbolicColorNameToRGBMapping_block_invoke()
 {
-  v4[12] = *MEMORY[0x1E69E9840];
-  v3[0] = @"red";
-  v3[1] = @"orange";
-  v4[0] = @"#FF3B30";
-  v4[1] = @"#FF9500";
-  v3[2] = @"yellow";
-  v3[3] = @"green";
-  v4[2] = @"#FFCC00";
-  v4[3] = @"#4CD964";
-  v3[4] = @"lightBlue";
-  v3[5] = @"blue";
-  v4[4] = @"#5AC8FA";
-  v4[5] = @"#007AFF";
-  v3[6] = @"indigo";
-  v3[7] = @"purple";
-  v4[6] = @"#5856D6";
-  v4[7] = @"#E357A8";
-  v3[8] = @"pink";
-  v3[9] = @"rose";
-  v4[8] = @"#FF2D55";
-  v4[9] = @"#D9A69F";
-  v3[10] = @"brown";
-  v3[11] = @"gray";
-  v4[10] = @"#9D8563";
-  v4[11] = @"#5B626A";
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:12];
+  v3[12] = *MEMORY[0x1E69E9840];
+  v2[0] = @"red";
+  v2[1] = @"orange";
+  v3[0] = @"#FF3B30";
+  v3[1] = @"#FF9500";
+  v2[2] = @"yellow";
+  v2[3] = @"green";
+  v3[2] = @"#FFCC00";
+  v3[3] = @"#4CD964";
+  v2[4] = @"lightBlue";
+  v2[5] = @"blue";
+  v3[4] = @"#5AC8FA";
+  v3[5] = @"#007AFF";
+  v2[6] = @"indigo";
+  v2[7] = @"purple";
+  v3[6] = @"#5856D6";
+  v3[7] = @"#E357A8";
+  v2[8] = @"pink";
+  v2[9] = @"rose";
+  v3[8] = @"#FF2D55";
+  v3[9] = @"#D9A69F";
+  v2[10] = @"brown";
+  v2[11] = @"gray";
+  v3[10] = @"#9D8563";
+  v3[11] = @"#5B626A";
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:12];
   v1 = ckSymbolicColorNameToRGBMapping_mapping;
   ckSymbolicColorNameToRGBMapping_mapping = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 BOOL REMSymbolicColorIsSupportedByDA(void *a1)
@@ -734,27 +731,28 @@ id REMBundleGet()
   return v1;
 }
 
-uint64_t __REMBundleGet_block_invoke()
+uint64_t __REMBundleGet_block_invoke(uint64_t a1, uint64_t a2)
 {
   REMBundleGet_bundle = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
 
   return MEMORY[0x1EEE66BB8]();
 }
 
-void OUTLINED_FUNCTION_1(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void OUTLINED_FUNCTION_1(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_fault_impl(a1, v11, OS_LOG_TYPE_FAULT, a4, &buf, 0x16u);
+  _os_log_fault_impl(a1, v10, OS_LOG_TYPE_FAULT, a4, va, 0x16u);
 }
 
-void sub_19A0E51DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_19A0E51DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_19A0E6140(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_19A0E6140(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -772,28 +770,28 @@ id clientDescription(void *a1)
   return v5;
 }
 
-void sub_19A0E7484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_19A0E7484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_19A0E7DA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_19A0E7DA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_19A0E7F38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_19A0E7F38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_19A0E80F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_19A0E80F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -807,7 +805,7 @@ void sub_19A0E8410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_19A0E8734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_19A0E8734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -815,21 +813,21 @@ void sub_19A0E8734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_19A0E8AF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_19A0E8AF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_19A0E8E9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_19A0E8E9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_19A0E90B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_19A0E90B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -857,9 +855,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*a1 + 8 * a2);
 }
 
-void sub_19A0EA18C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A0EA18C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -905,9 +903,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*a1 + 8 * a2);
 }
 
-void sub_19A0EA268(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A0EA268(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -933,9 +931,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*a1 + 8 * a2);
 }
 
-void sub_19A0EA344(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A0EA344(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -1015,9 +1013,9 @@ uint64_t REMWeekdayFromICSWeekday(uint64_t a1)
   return v1;
 }
 
-void sub_19A0F6314(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_19A0F6314(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1028,35 +1026,35 @@ void OUTLINED_FUNCTION_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uin
   _os_log_fault_impl(a1, v5, OS_LOG_TYPE_FAULT, a4, a5, 0x16u);
 }
 
-void sub_19A0F8E2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_19A0F8E2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 96), 8);
+  _Block_object_dispose((v20 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_19A0F9140(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_19A0F9140(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
+  _Block_object_dispose((v20 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_19A0FA8E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_19A0FA8E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 128), 8);
+  _Block_object_dispose((v22 - 128), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_19A0FACE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_19A0FACE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 128), 8);
+  _Block_object_dispose((v22 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1067,179 +1065,162 @@ void sub_19A0FB240(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_19A0FC36C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_19A0FC36C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 128), 8);
+  _Block_object_dispose((v22 - 128), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_19A0FCA0C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, os_activity_scope_state_s state, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
+void sub_19A0FCA0C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, os_activity_scope_state_s state, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
 {
+  va_start(va, a29);
   os_activity_scope_leave(&state);
   _Block_object_dispose(&a24, 8);
-  _Block_object_dispose(&a30, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_19A0FD144(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, os_activity_scope_state_s state, char a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36)
+void sub_19A0FD144(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, os_activity_scope_state_s state, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, ...)
 {
+  va_start(va, a35);
   os_activity_scope_leave(&state);
   _Block_object_dispose(&a30, 8);
-  _Block_object_dispose(&a36, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_19A0FF170(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 128), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_19A0FF588(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_19A0FF170(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 128), 8);
+  _Block_object_dispose((v22 - 128), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_19A100610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_19A0FF588(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v22 - 128), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_19A100610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 128), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_19A100D74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_19A10109C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 128), 8);
+  _Block_object_dispose((v13 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_19A100D74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_19A104878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a9);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_19A10109C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_19A10568C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a7);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 80), 8);
+  _Block_object_dispose((v22 - 128), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_19A104878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_19A107A6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a11);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_19A10568C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 128), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_19A107A6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_19A107E3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_19A1086B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_19A107E3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 128), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_19A108F98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_19A1086B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 128), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_19A108F98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va1, a13);
+  va_start(va, a13);
   v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_19A109240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_19A109240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 80), 8);
+  _Block_object_dispose((v13 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_19A109490(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_19A109490(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void OUTLINED_FUNCTION_5(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
-{
-
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
-}
-
-uint64_t *OUTLINED_FUNCTION_9@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
-}
-
-void OUTLINED_FUNCTION_10(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
-{
-
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 2u);
-}
-
-void OUTLINED_FUNCTION_20(uint64_t a1@<X1>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(a1 + 32);
-  v4 = *(a1 + 40);
-}
-
-uint64_t OUTLINED_FUNCTION_21()
-{
-  result = MEMORY[0x1E696AD98];
-  v2 = *(v0 + 40);
-  return result;
-}
-
-void sub_19A10ECD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_19A110F4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void OUTLINED_FUNCTION_5(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  va_start(va, a7);
+  va_start(va, a8);
+
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
+}
+
+void OUTLINED_FUNCTION_10(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+{
+  va_start(va, a8);
+
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 2u);
+}
+
+void sub_19A10ECD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_19A110F4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1250,15 +1231,16 @@ void __cdKeyToStorageKeyMap_block_invoke()
   cdKeyToStorageKeyMap_mapping = MEMORY[0x1E695E0F8];
 }
 
-void OUTLINED_FUNCTION_2_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, v9, OS_LOG_TYPE_FAULT, a4, &a9, 0x16u);
+  _os_log_fault_impl(a1, v8, OS_LOG_TYPE_FAULT, a4, va, 0x16u);
 }
 
 uint64_t recurrenceDateMatchesAnyDaySpecifiedInByDayList(void *a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = a2;
   v7 = a3;
@@ -1266,26 +1248,26 @@ uint64_t recurrenceDateMatchesAnyDaySpecifiedInByDayList(void *a1, void *a2, voi
   {
     v8 = [MEMORY[0x1E695DEE8] currentCalendar];
     [v8 setTimeZone:v7];
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v9 = v5;
-    v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v10)
     {
-      v19 = v5;
-      v11 = *v21;
+      v18 = v5;
+      v11 = *v20;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v21 != v11)
+          if (*v20 != v11)
           {
             objc_enumerationMutation(v9);
           }
 
-          v13 = *(*(&v20 + 1) + 8 * i);
+          v13 = *(*(&v19 + 1) + 8 * i);
           v14 = [v8 components:512 fromDate:v6];
           v15 = [v13 dayOfTheWeek];
           v16 = [v14 weekday];
@@ -1297,7 +1279,7 @@ uint64_t recurrenceDateMatchesAnyDaySpecifiedInByDayList(void *a1, void *a2, voi
           }
         }
 
-        v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
         if (v10)
         {
           continue;
@@ -1307,7 +1289,7 @@ uint64_t recurrenceDateMatchesAnyDaySpecifiedInByDayList(void *a1, void *a2, voi
       }
 
 LABEL_12:
-      v5 = v19;
+      v5 = v18;
     }
   }
 
@@ -1316,13 +1298,12 @@ LABEL_12:
     v10 = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 uint64_t recurrenceDateMatchesAnyDaySpecifiedInByMonthDayList(void *a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = a2;
   v7 = a3;
@@ -1335,27 +1316,27 @@ uint64_t recurrenceDateMatchesAnyDaySpecifiedInByMonthDayList(void *a1, void *a2
 
     [v8 rangeOfUnit:16 inUnit:8 forDate:v6];
     v12 = v11;
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v13 = v5;
-    v14 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v25;
+      v16 = *v24;
       v17 = v12 + 1;
       while (2)
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v25 != v16)
+          if (*v24 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v19 = [*(*(&v24 + 1) + 8 * i) integerValue];
+          v19 = [*(*(&v23 + 1) + 8 * i) integerValue];
           if (v19 < 0)
           {
             if (v19 == v10 || v17 + v19 == v10)
@@ -1372,7 +1353,7 @@ LABEL_17:
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
         if (v15)
         {
           continue;
@@ -1391,7 +1372,6 @@ LABEL_18:
     v21 = 0;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
@@ -1431,10 +1411,11 @@ id dynamicMethodIMP(void *a1, const char *a2)
   return v8;
 }
 
-void OUTLINED_FUNCTION_1_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 id _REMDateGetDateComponents(void *a1, uint64_t a2, void *a3)
@@ -1588,16 +1569,16 @@ LABEL_14:
   return v4;
 }
 
-id REMInvalidICSAlarmDateComponents()
+id REMInvalidICSAlarmDateComponents(uint64_t a1)
 {
   if (REMInvalidICSAlarmDateComponents_onceToken != -1)
   {
     REMInvalidICSAlarmDateComponents_cold_1();
   }
 
-  v1 = REMInvalidICSAlarmDateComponents_sInvalidDate;
+  v2 = REMInvalidICSAlarmDateComponents_sInvalidDate;
 
-  return v1;
+  return v2;
 }
 
 void __REMInvalidICSAlarmDateComponents_block_invoke()
@@ -1624,7 +1605,7 @@ void __REMInvalidICSAlarmDateComponents_block_invoke()
 uint64_t REMIsInvalidICSAlarmDateComponents(void *a1)
 {
   v1 = a1;
-  v2 = REMInvalidICSAlarmDateComponents();
+  v2 = REMInvalidICSAlarmDateComponents(v1);
   if ([v2 isEqual:v1])
   {
     v3 = 1;
@@ -1752,12 +1733,12 @@ uint64_t REMCheckedDynamicCast(uint64_t a1, uint64_t a2)
 void *REMCheckedProtocolCast(Protocol *a1, uint64_t a2)
 {
   v2 = a2;
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     if (!a2)
     {
-      goto LABEL_4;
+      return v2;
     }
   }
 
@@ -1766,16 +1747,16 @@ void *REMCheckedProtocolCast(Protocol *a1, uint64_t a2)
     REMCheckedProtocolCast_cold_1(a2);
     if (!v2)
     {
-      goto LABEL_4;
+      return v2;
     }
   }
 
   if (([v2 conformsToProtocol:a1] & 1) == 0)
   {
-    v6 = +[REMLog utility];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v5 = +[REMLog utility];
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      v7 = objc_opt_class();
+      v6 = objc_opt_class();
       if (a1)
       {
         Name = protocol_getName(a1);
@@ -1786,24 +1767,22 @@ void *REMCheckedProtocolCast(Protocol *a1, uint64_t a2)
         Name = "<No protocol supplied>";
       }
 
-      v9 = 138412546;
-      v10 = v7;
-      v11 = 2080;
-      v12 = Name;
-      _os_log_fault_impl(&dword_19A0DB000, v6, OS_LOG_TYPE_FAULT, "rem_log_fault_if (src != nil && result == nil) -- Unexpected object type in checked protocol cast %@ expects %s", &v9, 0x16u);
+      v8 = 138412546;
+      v9 = v6;
+      v10 = 2080;
+      v11 = Name;
+      _os_log_fault_impl(&dword_19A0DB000, v5, OS_LOG_TYPE_FAULT, "rem_log_fault_if (src != nil && result == nil) -- Unexpected object type in checked protocol cast %@ expects %s", &v8, 0x16u);
     }
 
-    v2 = 0;
+    return 0;
   }
 
-LABEL_4:
-  v4 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
-void sub_19A12128C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_19A12128C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1829,108 +1808,108 @@ void OUTLINED_FUNCTION_1_4(void *a1, uint64_t a2, os_log_t log, const char *a4, 
   _os_log_fault_impl(a1, log, OS_LOG_TYPE_FAULT, a4, va, 0x16u);
 }
 
-void sub_19A124148(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_19A12B338(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_19A12B7F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 64), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_19A12BABC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 64), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_19A12BE64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_19A12C240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_19A12C5B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 64), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_19A12C878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_19A124148(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_19A12CC28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_19A12B338(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a15);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 112), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_19A12D070(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 112), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_19A12D34C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_19A12D550(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_19A12B7F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 64), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_19A12BABC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 64), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_19A12BE64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 112), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_19A12C240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 112), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_19A12C5B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 64), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_19A12C878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_19A12D814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_19A12CC28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a13);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
+  _Block_object_dispose((v22 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_19A12DA44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_19A12D070(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a9);
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v22 - 112), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_19A12D34C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_19A12D550(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_19A12D814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 112), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_19A12DA44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1961,9 +1940,9 @@ void OUTLINED_FUNCTION_4_2(void *a1, uint64_t a2, uint64_t a3, const char *a4)
   _os_log_fault_impl(a1, v4, OS_LOG_TYPE_FAULT, a4, v5, 0xCu);
 }
 
-void sub_19A12EC7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_19A12EC7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1982,10 +1961,11 @@ uint64_t __cdTemplateSectionKeyToStorageKeyMap_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-void OUTLINED_FUNCTION_0_8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, v9, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, v8, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
 void OUTLINED_FUNCTION_0_9(void *a1, uint64_t a2, uint64_t a3, const char *a4)
@@ -2018,11 +1998,12 @@ uint64_t rem_loggableSupportedVersionFrom(void *a1)
   return [v1 stringWithFormat:@"supportedVersion=(V:%lld, EV:%lld, U:%@)", v3, v4, v6];
 }
 
-void sub_19A13CED4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, os_activity_scope_state_s state, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_19A13CED4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, os_activity_scope_state_s state, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
+  va_start(va, a31);
   os_activity_scope_leave(&state);
   _Block_object_dispose(&a26, 8);
-  _Block_object_dispose(&a32, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -2033,27 +2014,26 @@ void sub_19A13D310(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_19A13D6A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_19A13D6A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_19A14AC38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_19A14AC38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id _defaultPropertiesAffectingIsConcealed()
 {
-  v3[2] = *MEMORY[0x1E69E9840];
-  v3[0] = @"markedForDeletion";
-  v3[1] = @"effectiveMinimumSupportedAppVersion";
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:2];
-  v1 = *MEMORY[0x1E69E9840];
+  v2[2] = *MEMORY[0x1E69E9840];
+  v2[0] = @"markedForDeletion";
+  v2[1] = @"effectiveMinimumSupportedAppVersion";
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:2];
 
   return v0;
 }
@@ -2122,16 +2102,16 @@ uint64_t OUTLINED_FUNCTION_4_4(uint64_t result, float a2)
   return result;
 }
 
-id cloudBasedAccountTypes()
+id cloudBasedAccountTypes(uint64_t a1)
 {
   if (cloudBasedAccountTypes_onceToken != -1)
   {
     cloudBasedAccountTypes_cold_1();
   }
 
-  v1 = cloudBasedAccountTypes_result;
+  v2 = cloudBasedAccountTypes_result;
 
-  return v1;
+  return v2;
 }
 
 void __cloudBasedAccountTypes_block_invoke()
@@ -2140,16 +2120,16 @@ void __cloudBasedAccountTypes_block_invoke()
   cloudBasedAccountTypes_result = &unk_1F0D99928;
 }
 
-id cloudKitAccountTypes()
+id cloudKitAccountTypes(uint64_t a1)
 {
   if (cloudKitAccountTypes_onceToken != -1)
   {
     cloudKitAccountTypes_cold_1();
   }
 
-  v1 = cloudKitAccountTypes_result;
+  v2 = cloudKitAccountTypes_result;
 
-  return v1;
+  return v2;
 }
 
 void __cloudKitAccountTypes_block_invoke()
@@ -2283,78 +2263,72 @@ LABEL_20:
   return @"count";
 }
 
-void OUTLINED_FUNCTION_2_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
-void sub_19A15DE80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_19A15DE80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_19A15E7C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_19A15E7C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t OUTLINED_FUNCTION_2_3@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+void sub_19A16AB9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  *(v2 - 8) = a2;
-  v3 = *(result + 32);
-  return result;
-}
-
-void sub_19A16AB9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_19A16ACE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_19A16ACE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_19A16AE44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_19A16AE44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_19A16B090(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_19A16B090(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_19A16B39C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_19A16B39C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_19A16C0C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_19A16C0C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_19A16C980(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A16C980(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2383,9 +2357,9 @@ id getUMUserManagerClass()
   return v1;
 }
 
-void sub_19A16CA68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_19A16CA68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2408,43 +2382,38 @@ void __getUMUserManagerClass_block_invoke(uint64_t a1)
 
 void UserManagementLibrary()
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v2[0] = 0;
+  v4 = *MEMORY[0x1E69E9840];
+  v1[0] = 0;
   if (!UserManagementLibraryCore_frameworkLibrary)
   {
-    v2[1] = MEMORY[0x1E69E9820];
-    v2[2] = 3221225472;
-    v2[3] = __UserManagementLibraryCore_block_invoke;
-    v2[4] = &__block_descriptor_40_e5_v8__0l;
-    v2[5] = v2;
-    v3 = xmmword_1E75093C0;
-    v4 = 0;
+    v1[1] = MEMORY[0x1E69E9820];
+    v1[2] = 3221225472;
+    v1[3] = __UserManagementLibraryCore_block_invoke;
+    v1[4] = &__block_descriptor_40_e5_v8__0l;
+    v1[5] = v1;
+    v2 = xmmword_1E75093C0;
+    v3 = 0;
     UserManagementLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  v0 = v2[0];
+  v0 = v1[0];
   if (!UserManagementLibraryCore_frameworkLibrary)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
-  if (v2[0])
+  if (v1[0])
   {
 LABEL_7:
     free(v0);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __UserManagementLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   UserManagementLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2460,11 +2429,18 @@ Class __getUMUserPersonaAttributesClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __getUMUserPersonaAttributesClass_block_invoke_cold_1();
+    __getUMUserPersonaAttributesClass_block_invoke_cold_1();
     return +[(_REMNSPersistentHistoryTransactionStorage *)v3];
   }
 
   return result;
+}
+
+void sub_19A174994(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 char *NewBase64Decode(char *__s, size_t a2, uint64_t *a3)
@@ -2633,11 +2609,11 @@ LABEL_26:
   return result;
 }
 
-void sub_19A178240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_19A178240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
+  _Block_object_dispose((v20 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2648,16 +2624,16 @@ uint64_t __cdKeyToStorageKeyMap_block_invoke_0()
   return MEMORY[0x1EEE66BB8]();
 }
 
-void sub_19A180BD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_19A180BD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -2685,15 +2661,16 @@ uint64_t __cdKeyToStorageKeyMap_block_invoke_1()
   return MEMORY[0x1EEE66BB8]();
 }
 
-void OUTLINED_FUNCTION_3_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
-void sub_19A1922C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_19A1922C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2716,43 +2693,38 @@ void __getUMUserManagerClass_block_invoke_0(uint64_t a1)
 
 void UserManagementLibrary_0()
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v2[0] = 0;
+  v4 = *MEMORY[0x1E69E9840];
+  v1[0] = 0;
   if (!UserManagementLibraryCore_frameworkLibrary_0)
   {
-    v2[1] = MEMORY[0x1E69E9820];
-    v2[2] = 3221225472;
-    v2[3] = __UserManagementLibraryCore_block_invoke_0;
-    v2[4] = &__block_descriptor_40_e5_v8__0l;
-    v2[5] = v2;
-    v3 = xmmword_1E7509708;
-    v4 = 0;
+    v1[1] = MEMORY[0x1E69E9820];
+    v1[2] = 3221225472;
+    v1[3] = __UserManagementLibraryCore_block_invoke_0;
+    v1[4] = &__block_descriptor_40_e5_v8__0l;
+    v1[5] = v1;
+    v2 = xmmword_1E7509708;
+    v3 = 0;
     UserManagementLibraryCore_frameworkLibrary_0 = _sl_dlopen();
   }
 
-  v0 = v2[0];
+  v0 = v1[0];
   if (!UserManagementLibraryCore_frameworkLibrary_0)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
-  if (v2[0])
+  if (v1[0])
   {
 LABEL_7:
     free(v0);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __UserManagementLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   UserManagementLibraryCore_frameworkLibrary_0 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2768,16 +2740,16 @@ Class __getUMUserPersonaAttributesClass_block_invoke_0(uint64_t a1)
 
   else
   {
-    v3 = __getUMUserPersonaAttributesClass_block_invoke_cold_1();
+    __getUMUserPersonaAttributesClass_block_invoke_cold_1();
     return [(REMDisplayDateUtils *)v3 _displayDateWithDueDateComponents:v4 alarms:v5 hasAlarmDateComponents:v6 floatingDateComponents:v7 nonFloatingDateComponents:v8 displayDateUtils:v9, v10];
   }
 
   return result;
 }
 
-void sub_19A198FB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_19A198FB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2855,13 +2827,13 @@ id rem_ICSFloatingDateTimeFromNSDateInTimezone(void *a1, void *a2)
   return v6;
 }
 
-void ___setSubcomponentsOnICSComponent_block_invoke()
+void ___setSubcomponentsOnICSComponent_block_invoke(uint64_t a1)
 {
-  v3 = REMInvalidICSAlarmDateComponents();
-  v0 = [objc_alloc(MEMORY[0x1E69E3C98]) initWithYear:objc_msgSend(v3 month:"year") day:objc_msgSend(v3 hour:"month") minute:objc_msgSend(v3 second:{"day"), objc_msgSend(v3, "hour"), objc_msgSend(v3, "minute"), objc_msgSend(v3, "second")}];
-  v1 = [objc_alloc(MEMORY[0x1E69E3D08]) initWithDate:v0];
-  v2 = _setSubcomponentsOnICSComponent_sInvalidTrigger;
-  _setSubcomponentsOnICSComponent_sInvalidTrigger = v1;
+  v4 = REMInvalidICSAlarmDateComponents(a1);
+  v1 = [objc_alloc(MEMORY[0x1E69E3C98]) initWithYear:objc_msgSend(v4 month:"year") day:objc_msgSend(v4 hour:"month") minute:objc_msgSend(v4 second:{"day"), objc_msgSend(v4, "hour"), objc_msgSend(v4, "minute"), objc_msgSend(v4, "second")}];
+  v2 = [objc_alloc(MEMORY[0x1E69E3D08]) initWithDate:v1];
+  v3 = _setSubcomponentsOnICSComponent_sInvalidTrigger;
+  _setSubcomponentsOnICSComponent_sInvalidTrigger = v2;
 }
 
 uint64_t REMReminderPriorityLevelForPriority(unint64_t a1)
@@ -2926,22 +2898,23 @@ __CFString *PropertyNameFromREMReminderChangeTrackingProperty(uint64_t a1)
   return 0;
 }
 
-void OUTLINED_FUNCTION_0_13(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_13(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void sub_19A1A5AD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_19A1A5AD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_19A1A6008(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_19A1A6008(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3012,7 +2985,7 @@ void std::vector<CRDT::Document_DocObject *>::push_back[abi:ne200100](uint64_t a
   *(a1 + 8) = v6;
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -3026,13 +2999,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -3049,13 +3022,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -3112,16 +3085,16 @@ void std::string::__throw_length_error[abi:ne200100]()
   std::__throw_length_error[abi:ne200100]("basic_string");
 }
 
-void sub_19A1B181C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
+void sub_19A1B181C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, id a10)
 {
-  MEMORY[0x19A8FD070](v10, 0x1093C4020A6E6BFLL);
+  MEMORY[0x19A8FD070](v10, 0x1093C4020A6E6BFLL, a3, a4, a5, a6, a7, a8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_19A1B1974(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
+void sub_19A1B1974(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, id a10)
 {
-  MEMORY[0x19A8FD070](v12, 0x10B3C407D90225ELL);
+  MEMORY[0x19A8FD070](v12, 0x10B3C407D90225ELL, a3, a4, a5, a6, a7, a8);
 
   _Unwind_Resume(a1);
 }
@@ -3274,8 +3247,8 @@ LABEL_78:
       v17 = v61;
       do
       {
-        v18 = v16[-3].n128_u64[1];
-        v16 = (v16 - 40);
+        v18 = *(v16 - 5);
+        v16 -= 5;
       }
 
       while (v16 != v15);
@@ -3292,7 +3265,7 @@ LABEL_78:
     {
       obj = *v19;
       *&v66 = &obj;
-      std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::__emplace_unique_key_args<TopoSubstring *,std::piecewise_construct_t const&,std::tuple<TopoSubstring * const&>,std::tuple<>>(&v69, &obj)[3] = 1;
+      std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::__emplace_unique_key_args<TopoSubstring *,std::piecewise_construct_t const&,std::tuple<TopoSubstring * const&>,std::tuple<>>(&v69, &obj, &std::piecewise_construct, &v66)[3] = 1;
       *&v66 = 0;
       DWORD2(v66) = 0;
       v67 = obj;
@@ -3321,7 +3294,7 @@ LABEL_78:
             goto LABEL_56;
           }
 
-          minIdPath(&obj, v23);
+          minIdPath(v23, &obj);
           if (v73 == v72)
           {
             goto LABEL_48;
@@ -3329,24 +3302,24 @@ LABEL_78:
 
           v25 = 0;
           v26 = obj;
-          if (0xCCCCCCCCCCCCCCCDLL * ((v73 - v72) >> 3) <= 1)
+          if (0xCCCCCCCCCCCCCCCDLL * (v73 - v72) <= 1)
           {
             v27 = 1;
           }
 
           else
           {
-            v27 = 0xCCCCCCCCCCCCCCCDLL * ((v73 - v72) >> 3);
+            v27 = 0xCCCCCCCCCCCCCCCDLL * (v73 - v72);
           }
 
           do
           {
-            if (v72[1].n128_u64[v25] == v65 && v72->n128_u64[v25])
+            if (v72[v25 + 2] == v65 && v72[v25])
             {
               v28 = v26;
               v29 = v63;
-              v30 = v72 + v25 * 8;
-              v31 = v72->n128_u64[v25];
+              v30 = &v72[v25];
+              v31 = v72[v25];
               v32 = v31;
               v33 = *(v30 + 2);
               if (v29 < v33)
@@ -3387,23 +3360,23 @@ LABEL_38:
           {
             v35 = 0;
             v36 = v63;
-            if (0xCCCCCCCCCCCCCCCDLL * ((v73 - v72) >> 3) <= 1)
+            if (0xCCCCCCCCCCCCCCCDLL * (v73 - v72) <= 1)
             {
               v37 = 1;
             }
 
             else
             {
-              v37 = 0xCCCCCCCCCCCCCCCDLL * ((v73 - v72) >> 3);
+              v37 = 0xCCCCCCCCCCCCCCCDLL * (v73 - v72);
             }
 
             do
             {
-              v38 = v72 + v35 * 8;
-              v39 = &v72[1].n128_u64[v35];
+              v38 = &v72[v35];
+              v39 = &v72[v35 + 2];
               if (*v39 == v65)
               {
-                objc_storeStrong((v72 + v35 * 8), v26);
+                objc_storeStrong(&v72[v35], v26);
                 *(v38 + 2) = v36;
                 *v39 = v64;
               }
@@ -3459,7 +3432,7 @@ LABEL_56:
           else
           {
             obj = &v65;
-            std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::__emplace_unique_key_args<TopoSubstring *,std::piecewise_construct_t const&,std::tuple<TopoSubstring * const&>,std::tuple<>>(&v66, &v65)[3] = v24;
+            std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::__emplace_unique_key_args<TopoSubstring *,std::piecewise_construct_t const&,std::tuple<TopoSubstring * const&>,std::tuple<>>(&v66, &v65, &std::piecewise_construct, &obj)[3] = v24;
           }
 
           v22 = *v22;
@@ -3488,7 +3461,7 @@ LABEL_62:
 
       else
       {
-        v50 = 0xCCCCCCCCCCCCCCCDLL * ((v73 - v72) >> 3);
+        v50 = 0xCCCCCCCCCCCCCCCDLL * (v73 - v72);
         while (1)
         {
           v51 = operator new(40 * v50, v21);
@@ -3534,7 +3507,7 @@ LABEL_69:
       v57 = 4;
       do
       {
-        (*v60)[v55++] = v72->n128_u64[v57];
+        (*v60)[v55++] = v72[v57];
         v57 += 5;
       }
 
@@ -3560,23 +3533,21 @@ LABEL_82:
   std::vector<std::pair<minIdPathData,TopoSubstring *>>::__destroy_vector::operator()[abi:ne200100](&v69);
 }
 
-void sub_19A1B57B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void **a23)
+void sub_19A1B57B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
 {
   std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::~__hash_table(&a23);
-  a23 = (v25 - 120);
+  a23 = v25 - 120;
   std::vector<std::pair<minIdPathData,TopoSubstring *>>::__destroy_vector::operator()[abi:ne200100](&a23);
 
   _Unwind_Resume(a1);
 }
 
-void *std::vector<std::pair<minIdPathData,TopoSubstring *>>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<std::pair<minIdPathData,TopoSubstring *>>::reserve(uint64_t *result, unint64_t a2)
 {
   if (0xCCCCCCCCCCCCCCCDLL * ((result[2] - *result) >> 3) < a2)
   {
     if (a2 < 0x666666666666667)
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<minIdPathData,TopoSubstring *>>>(result, a2);
     }
 
@@ -3586,14 +3557,14 @@ void *std::vector<std::pair<minIdPathData,TopoSubstring *>>::reserve(void *resul
   return result;
 }
 
-void sub_19A1B591C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19A1B591C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::pair<minIdPathData,TopoSubstring *>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<std::pair<minIdPathData,TopoSubstring *>>::push_back[abi:ne200100](uint64_t a1, uint64_t a2)
+uint64_t std::vector<std::pair<minIdPathData,TopoSubstring *>>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
 {
   v3 = *(a1 + 8);
   if (v3 >= *(a1 + 16))
@@ -3606,9 +3577,9 @@ uint64_t std::vector<std::pair<minIdPathData,TopoSubstring *>>::push_back[abi:ne
     v4 = *a2;
     *a2 = 0;
     *v3 = v4;
-    *(v3 + 8) = *(a2 + 8);
-    *(v3 + 16) = *(a2 + 16);
-    *(v3 + 32) = *(a2 + 32);
+    *(v3 + 8) = *(a2 + 2);
+    *(v3 + 16) = *(a2 + 1);
+    *(v3 + 32) = a2[4];
     result = v3 + 40;
   }
 
@@ -3619,18 +3590,18 @@ uint64_t std::vector<std::pair<minIdPathData,TopoSubstring *>>::push_back[abi:ne
 uint64_t traverseRecursive(uint64_t a1, void *a2, void *a3)
 {
   v4 = a1;
-  v17[0] = a1;
+  v17 = a1;
   v5 = a3;
   v16 = 0;
   if (*(v4 + 72) >= 2u)
   {
-    v6 = std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::find<TopoSubstring *>(a2, v17);
+    v6 = std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::find<TopoSubstring *>(a2, &v17);
     if (!v6)
     {
-      v14 = *(v17[0] + 72);
-      v17[2] = v17;
+      v14 = *(v17 + 72);
+      v18 = &v17;
       v10 = 0;
-      *(std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned int>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned int>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned int>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned int>>>::__emplace_unique_key_args<TopoSubstring *,std::piecewise_construct_t const&,std::tuple<TopoSubstring * const&>,std::tuple<>>(a2, v17) + 6) = v14 - 1;
+      *(std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned int>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned int>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned int>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned int>>>::__emplace_unique_key_args<TopoSubstring *,std::piecewise_construct_t const&,std::tuple<TopoSubstring * const&>,std::tuple<>>(a2, &v17, &std::piecewise_construct, &v18) + 6) = v14 - 1;
       goto LABEL_20;
     }
 
@@ -3641,7 +3612,7 @@ uint64_t traverseRecursive(uint64_t a1, void *a2, void *a3)
       goto LABEL_18;
     }
 
-    v4 = v17[0];
+    v4 = v17;
   }
 
   v5[2](v5, v4, &v16);
@@ -3653,14 +3624,14 @@ uint64_t traverseRecursive(uint64_t a1, void *a2, void *a3)
       goto LABEL_20;
     }
 
-    v8 = *(v17[0] + 48);
-    v9 = *(v17[0] + 56);
+    v8 = *(v17 + 48);
+    v9 = *(v17 + 56);
     if (v9 - v8 != 8 || *(*v8 + 72) != 1)
     {
       break;
     }
 
-    v17[0] = *v8;
+    v17 = *v8;
     (v5[2])(v5);
   }
 
@@ -3671,10 +3642,10 @@ LABEL_18:
     goto LABEL_20;
   }
 
-  v11 = v8 + 8;
+  v11 = v8 + 1;
   do
   {
-    v12 = traverseRecursive(*(v11 - 8), a2, v5);
+    v12 = traverseRecursive(*(v11 - 1), a2, v5);
     v10 = v12;
     if (v11 == v9)
     {
@@ -3686,7 +3657,7 @@ LABEL_18:
       v13 = v12;
     }
 
-    v11 += 8;
+    ++v11;
   }
 
   while ((v13 & 1) == 0);
@@ -3705,7 +3676,7 @@ void traverseUnorderedSimple(uint64_t a1, void *a2)
   memset(v10, 0, sizeof(v10));
   v9 = 0;
   std::deque<TopoSubstring *>::push_back(v10, &v14);
-  std::__hash_table<TopoSubstring *,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,std::allocator<TopoSubstring *>>::__emplace_unique_key_args<TopoSubstring *,TopoSubstring * const&>(v12, &v14);
+  std::__hash_table<TopoSubstring *,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,std::allocator<TopoSubstring *>>::__emplace_unique_key_args<TopoSubstring *,TopoSubstring * const&>(v12, &v14, &v14);
   for (i = *(&v11 + 1); *(&v11 + 1); i = *(&v11 + 1))
   {
     v4 = i - 1;
@@ -3726,7 +3697,7 @@ void traverseUnorderedSimple(uint64_t a1, void *a2)
       if (!std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::find<TopoSubstring *>(v12, &v8))
       {
         std::deque<TopoSubstring *>::push_back(v10, &v8);
-        std::__hash_table<TopoSubstring *,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,std::allocator<TopoSubstring *>>::__emplace_unique_key_args<TopoSubstring *,TopoSubstring * const&>(v12, &v8);
+        std::__hash_table<TopoSubstring *,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,std::allocator<TopoSubstring *>>::__emplace_unique_key_args<TopoSubstring *,TopoSubstring * const&>(v12, &v8, &v8);
       }
 
       ++v7;
@@ -3737,16 +3708,16 @@ void traverseUnorderedSimple(uint64_t a1, void *a2)
   std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::~__hash_table(v12);
 }
 
-void sub_19A1B5CEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A1B5CEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v5 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
   v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
   v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
   std::deque<TopoSubstring *>::~deque[abi:ne200100](va);
   std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::~__hash_table(va1);
 
@@ -3763,7 +3734,7 @@ void traverseUnordered(uint64_t a1, void *a2)
   memset(v17, 0, sizeof(v17));
   v16 = 0;
   std::deque<TopoSubstring *>::push_back(v17, &v21);
-  std::__hash_table<TopoSubstring *,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,std::allocator<TopoSubstring *>>::__emplace_unique_key_args<TopoSubstring *,TopoSubstring * const&>(v19, &v21);
+  std::__hash_table<TopoSubstring *,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,std::allocator<TopoSubstring *>>::__emplace_unique_key_args<TopoSubstring *,TopoSubstring * const&>(v19, &v21, &v21);
   for (i = *(&v18 + 1); *(&v18 + 1); i = *(&v18 + 1))
   {
     v4 = i - 1;
@@ -3827,7 +3798,7 @@ void traverseUnordered(uint64_t a1, void *a2)
         if (!std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::find<TopoSubstring *>(v19, &v15))
         {
           std::deque<TopoSubstring *>::push_back(v17, &v15);
-          std::__hash_table<TopoSubstring *,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,std::allocator<TopoSubstring *>>::__emplace_unique_key_args<TopoSubstring *,TopoSubstring * const&>(v19, &v15);
+          std::__hash_table<TopoSubstring *,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,std::allocator<TopoSubstring *>>::__emplace_unique_key_args<TopoSubstring *,TopoSubstring * const&>(v19, &v15, &v15);
         }
       }
 
@@ -3845,16 +3816,16 @@ LABEL_20:
   std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::~__hash_table(v19);
 }
 
-void sub_19A1B5EE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A1B5EE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v5 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
   v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
   v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
   std::deque<TopoSubstring *>::~deque[abi:ne200100](va);
   std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::~__hash_table(va1);
 
@@ -3881,9 +3852,9 @@ void hasLoop(TopoSubstring *a1)
   traverseRecursive(a1, v2);
 }
 
-void sub_19A1B6010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_19A1B6010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3891,24 +3862,22 @@ void sub_19A1B6010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 id updateTopoID(const TopoID *a1, const TopoIDRange *a2, const TopoIDRange *a3)
 {
   v6 = a1->var0;
-  var1 = a1->var1;
   if ([a1->var0 isEqual:a2->var0.var0])
   {
-    v8 = a1->var1;
-    v9 = a2->var0.var1;
-    if (v8 >= v9 && v8 < a2->var1 + v9)
+    var1 = a1->var1;
+    v8 = a2->var0.var1;
+    if (var1 >= v8 && var1 < a2->var1 + v8)
     {
-      v10 = a3->var0.var0;
+      v9 = a3->var0.var0;
 
-      v11 = a1->var1 + a3->var0.var1 - a2->var0.var1;
-      return v10;
+      return v9;
     }
   }
 
   return v6;
 }
 
-void updateTopoIDRange(TopoIDRange *a1, void *a2, uint64_t a3, uint64_t a4)
+void updateTopoIDRange(TopoIDRange *a1, void *a2, uint64_t a3, unint64_t *a4)
 {
   if ([a1->var0.var0 isEqual:*a2])
   {
@@ -3939,7 +3908,7 @@ LABEL_8:
     v14 = *(a2 + 2);
     if (v14 > var1)
     {
-      TopoIDRange::splitPairAt(a1, v14 - var1, &location);
+      TopoIDRange::splitPairAt(&location, a1, v14 - var1);
       v15 = *a2;
       v16 = *(a2 + 4) + *(a2 + 2);
       v17 = v41;
@@ -3992,7 +3961,7 @@ LABEL_24:
 LABEL_15:
       v25 = *(a2 + 4) + *(a2 + 2) - a1->var0.var1;
       v26 = *a2;
-      TopoIDRange::splitPairAt(a1, v25, &location);
+      TopoIDRange::splitPairAt(&location, a1, v25);
 
       v27 = a1->var0.var1 + *(a3 + 8) - *(a2 + 2);
       objc_storeStrong(&location, *a3);
@@ -4033,10 +4002,10 @@ LABEL_26:
   std::vector<TopoIDRange>::push_back[abi:ne200100](a4, a1);
 }
 
-uint64_t std::vector<TopoIDRange>::push_back[abi:ne200100](uint64_t a1, uint64_t a2)
+uint64_t std::vector<TopoIDRange>::push_back[abi:ne200100](unint64_t *a1, uint64_t a2)
 {
-  v4 = *(a1 + 8);
-  if (v4 >= *(a1 + 16))
+  v4 = a1[1];
+  if (v4 >= a1[2])
   {
     result = std::vector<TopoIDRange>::__emplace_back_slow_path<TopoIDRange const&>(a1, a2);
   }
@@ -4049,7 +4018,7 @@ uint64_t std::vector<TopoIDRange>::push_back[abi:ne200100](uint64_t a1, uint64_t
     result = v4 + 24;
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
@@ -4099,26 +4068,27 @@ BOOL TopoID::operator>=(uint64_t a1, void *a2)
   return v4 == v5 && [*a1 TTCompare:*a2] == 1;
 }
 
-void TopoIDRange::splitPairAt(TopoIDRange *this@<X0>, int a2@<W1>, uint64_t a3@<X8>)
+void TopoIDRange::splitPairAt(uint64_t *__return_ptr a1@<X8>, TopoIDRange *this@<X0>, int a3@<W1>)
 {
   v6 = this->var0.var0;
   var1 = this->var0.var1;
   v8 = this->var0.var0;
-  v9 = this->var0.var1 + a2;
-  v10 = this->var1 - a2;
-  *a3 = v6;
-  *(a3 + 8) = var1;
-  *(a3 + 16) = a2;
-  *(a3 + 24) = v8;
-  *(a3 + 32) = v9;
-  *(a3 + 40) = v10;
+  v9 = this->var0.var1 + a3;
+  v10 = this->var1 - a3;
+  *a1 = v6;
+  *(a1 + 2) = var1;
+  *(a1 + 4) = a3;
+  a1[3] = v8;
+  *(a1 + 8) = v9;
+  *(a1 + 10) = v10;
   v11 = v6;
 }
 
-void sub_19A1B6B04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
+void sub_19A1B6B04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  _Block_object_dispose(&a17, 8);
-  std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::~__hash_table(v17 + 48);
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::~__hash_table(v16 + 48);
   a9.super_class = TTMergeableString;
   [(_Unwind_Exception *)&a9 dealloc];
   _Unwind_Resume(a1);
@@ -4134,10 +4104,10 @@ void sub_19A1B6FF0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::pair<TopoID,TopoID>>::push_back[abi:ne200100](uint64_t a1, uint64_t a2)
+uint64_t std::vector<std::pair<TopoID,TopoID>>::push_back[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     result = std::vector<std::pair<TopoID,TopoID>>::__emplace_back_slow_path<std::pair<TopoID,TopoID> const&>(a1, a2);
   }
@@ -4148,7 +4118,7 @@ uint64_t std::vector<std::pair<TopoID,TopoID>>::push_back[abi:ne200100](uint64_t
     result = v3 + 32;
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
@@ -4162,7 +4132,7 @@ void sub_19A1B7D7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_19A1B831C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id a21)
+void sub_19A1B831C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id a21)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -4183,7 +4153,7 @@ char *std::vector<TopoSubstring *>::insert(void *a1, char *__src, char *a3)
       std::vector<CRDT::Document_DocObject *>::__throw_length_error[abi:ne200100]();
     }
 
-    v12 = __src - v10;
+    v12 = &__src[-v10];
     v13 = v7 - v10;
     if (v13 >> 2 > v11)
     {
@@ -4253,7 +4223,7 @@ char *std::vector<TopoSubstring *>::insert(void *a1, char *__src, char *a3)
     else
     {
       *v6 = *(v6 - 1);
-      v9 = v6 + 8;
+      v9 = (v6 + 8);
     }
 
     a1[1] = v9;
@@ -4286,9 +4256,9 @@ void sub_19A1B8574(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_19A1B8650(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_19A1B8650(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::vector<TopoIDRange>::__destroy_vector::operator()[abi:ne200100](va);
 
   _Unwind_Resume(a1);
@@ -4304,32 +4274,29 @@ void sub_19A1B86C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_19A1B8F34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A1B8F34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<_NSRange>::reserve(void *result, unint64_t a2)
+void std::vector<_NSRange>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 4)
+  if (a2 > (a1[2] - *a1) >> 4)
   {
     if (!(a2 >> 60))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<_NSRange>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<_NSRange>>(a1, a2);
     }
 
     std::vector<CRDT::Document_DocObject *>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-void sub_19A1B9750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_19A1B9750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -4353,7 +4320,7 @@ void std::vector<TopoSubstring *>::shrink_to_fit(const void **a1)
     {
       v7 = 8 * (v4 >> 3);
       v8 = a1[1] - v2;
-      v9 = v7 - v8;
+      v9 = (v7 - v8);
       memcpy((v7 - v8), v2, v8);
       v6 = *a1;
       *a1 = v9;
@@ -4379,9 +4346,9 @@ void sub_19A1B9FE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_19A1BAB9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A1BAB9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::__hash_table<TopoID,std::hash<TopoID>,std::equal_to<TopoID>,std::allocator<TopoID>>::~__hash_table(va);
 
   _Unwind_Resume(a1);
@@ -4394,40 +4361,42 @@ uint64_t __Block_byref_object_copy__29(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_19A1BC474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_19A1BC474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
+  va_start(va, a36);
+
   std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::~__hash_table(&a19);
   std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::~__hash_table(&a25);
   std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::~__hash_table(&a31);
-  std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::~__hash_table(&a37);
-  std::__hash_table<TopoID,std::hash<TopoID>,std::equal_to<TopoID>,std::allocator<TopoID>>::~__hash_table(v39 - 176);
+  std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::~__hash_table(va);
+  std::__hash_table<TopoID,std::hash<TopoID>,std::equal_to<TopoID>,std::allocator<TopoID>>::~__hash_table(v38 - 176);
 
   _Unwind_Resume(a1);
 }
 
-void std::vector<TopoSubstring *>::resize(void *a1, unint64_t a2)
+void std::vector<TopoSubstring *>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<TopoSubstring *>::__append(a1, a2 - v2);
+    std::vector<TopoSubstring *>::__append(result, a2 - v2);
   }
 }
 
-void sub_19A1BCAD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_19A1BCAD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   _Block_object_dispose(va, 8);
-  std::__hash_table<TopoID,std::hash<TopoID>,std::equal_to<TopoID>,std::allocator<TopoID>>::~__hash_table(v13 + 48);
-  _Block_object_dispose((v14 - 112), 8);
+  std::__hash_table<TopoID,std::hash<TopoID>,std::equal_to<TopoID>,std::allocator<TopoID>>::~__hash_table(v20 + 48);
+  _Block_object_dispose((v21 - 112), 8);
 
   _Unwind_Resume(a1);
 }
@@ -4671,7 +4640,7 @@ void *std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,st
   return result;
 }
 
-void std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -4687,7 +4656,7 @@ void std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -4695,7 +4664,7 @@ void std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -4719,7 +4688,7 @@ void std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -4746,35 +4715,35 @@ void std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std
   *(a1 + 8) = 0;
 }
 
-void *std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::__emplace_unique_key_args<TopoSubstring *,std::piecewise_construct_t const&,std::tuple<TopoSubstring * const&>,std::tuple<>>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::__emplace_unique_key_args<TopoSubstring *,std::piecewise_construct_t const&,std::tuple<TopoSubstring * const&>,std::tuple<>>(void *a1, void *a2, uint64_t a3, void **a4)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v4 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v5 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v4 >> 47) ^ v4);
+  v6 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v9 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+    if (v6 >= *&v7)
     {
-      v7 = v4 % *&v5;
+      v9 = v6 % *&v7;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v9 = v6 & (*&v7 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
   {
 LABEL_18:
     operator new();
@@ -4782,44 +4751,44 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v12 = v11[1];
+    if (v12 == v6)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v8.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v12 >= *&v7)
       {
-        v10 %= *&v5;
+        v12 %= *&v7;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v12 &= *&v7 - 1;
     }
 
-    if (v10 != v7)
+    if (v12 != v9)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v11 = *v11;
+    if (!v11)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v11[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v11;
 }
 
 uint64_t std::vector<std::pair<minIdPathData,TopoSubstring *>>::__emplace_back_slow_path<std::pair<minIdPathData,TopoSubstring *>>(uint64_t a1, uint64_t *a2)
@@ -4879,9 +4848,9 @@ uint64_t std::vector<std::pair<minIdPathData,TopoSubstring *>>::__emplace_back_s
   return v14;
 }
 
-void sub_19A1BDC18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_19A1BDC18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::pair<minIdPathData,TopoSubstring *>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4919,45 +4888,37 @@ void *std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,st
     return 0;
   }
 
-  result = *v8;
-  if (*v8)
+  for (result = *v8; result; result = *result)
   {
-    do
+    v10 = result[1];
+    if (v10 == v5)
     {
-      v10 = result[1];
-      if (v10 == v5)
+      if (result[2] == *a2)
       {
-        if (result[2] == *a2)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v6.u32[0] > 1uLL)
+      {
+        if (v10 >= *&v2)
         {
-          return result;
+          v10 %= *&v2;
         }
       }
 
       else
       {
-        if (v6.u32[0] > 1uLL)
-        {
-          if (v10 >= *&v2)
-          {
-            v10 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v10 &= *&v2 - 1;
-        }
-
-        if (v10 != v7)
-        {
-          return 0;
-        }
+        v10 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v10 != v7)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -5007,7 +4968,7 @@ void std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std
 LABEL_11:
   if (a2 != a3)
   {
-    std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::__emplace_multi<std::pair<TopoSubstring * const,unsigned long> const&>();
+    std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::__emplace_multi<std::pair<TopoSubstring * const,unsigned long> const&>(a1);
   }
 }
 
@@ -5200,7 +5161,7 @@ LABEL_19:
   return result;
 }
 
-void std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::__rehash<false>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::__rehash<false>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -5216,7 +5177,7 @@ void std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -5224,7 +5185,7 @@ void std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -5248,7 +5209,7 @@ void std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::__do_rehash<false>(a1, prime);
+      std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::__do_rehash<false>(result, prime);
     }
   }
 }
@@ -5285,7 +5246,7 @@ void sub_19A1BE380(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__stable_sort<std::_ClassicAlgPolicy,minIdPath(TopoSubstring *)::$_0 &,std::__wrap_iter<std::pair<minIdPathData,TopoSubstring *> *>>(__n128 *a1, __n128 *a2, unint64_t a3, void **a4, uint64_t a5)
+void std::__stable_sort<std::_ClassicAlgPolicy,minIdPath(TopoSubstring *)::$_0 &,std::__wrap_iter<std::pair<minIdPathData,TopoSubstring *> *>>(uint64_t a1, id *a2, unint64_t a3, void **a4, int64_t a5)
 {
   v90 = a2;
   v91 = a1;
@@ -5296,17 +5257,17 @@ void std::__stable_sort<std::_ClassicAlgPolicy,minIdPath(TopoSubstring *)::$_0 &
 
   if (a3 == 2)
   {
-    v6 = a2[-3].n128_u64[1];
-    v90 = (a2 - 40);
+    v6 = *(a2 - 5);
+    v90 = a2 - 5;
     v86 = v6;
-    v7 = a2[-2].n128_u32[0];
-    v8 = a2[-2].n128_u64[1];
-    v9 = a1->n128_u64[0];
+    v7 = *(a2 - 8);
+    v8 = *(a2 - 3);
+    v9 = *a1;
     v10 = v9;
-    v11 = a1[1].n128_u64[0];
+    v11 = *(a1 + 16);
     if (v8 == v11)
     {
-      v18 = a1->n128_u32[2];
+      v18 = *(a1 + 8);
       if (v7 >= v18)
       {
         if (v7 != v18)
@@ -5348,8 +5309,8 @@ void std::__stable_sort<std::_ClassicAlgPolicy,minIdPath(TopoSubstring *)::$_0 &
       return;
     }
 
-    v19 = &a1[2].n128_u64[1];
-    if (&a1[2].n128_i8[8] == a2)
+    v19 = (a1 + 40);
+    if ((a1 + 40) == a2)
     {
       return;
     }
@@ -5361,15 +5322,15 @@ void std::__stable_sort<std::_ClassicAlgPolicy,minIdPath(TopoSubstring *)::$_0 &
       v21 = v20;
       v81 = v19;
       v22 = *v19;
-      v23 = v20[3].n128_u32[0];
-      v24 = v20[3].n128_u64[1];
-      v25 = v20->n128_u64[0];
+      v23 = *(v20 + 48);
+      v24 = *(v20 + 56);
+      v25 = *v20;
       v26 = v25;
-      v28 = v21 + 1;
-      v27 = v21[1].n128_u64[0];
+      v28 = (v21 + 16);
+      v27 = *(v21 + 16);
       if (v24 == v27)
       {
-        v29 = v21->n128_u32[2];
+        v29 = *(v21 + 8);
         if (v23 >= v29)
         {
           if (v23 != v29)
@@ -5405,18 +5366,18 @@ void std::__stable_sort<std::_ClassicAlgPolicy,minIdPath(TopoSubstring *)::$_0 &
         }
       }
 
-      v87 = v20->n128_u64[0];
-      v20->n128_u64[0] = 0;
-      v84 = v21[3].n128_u32[0];
-      v30 = v21[3].n128_u64[1];
-      v31 = v21[4].n128_u64[0];
-      v32 = v21[4].n128_u64[1];
-      v33 = v21->n128_u64[0];
-      v21->n128_u64[0] = 0;
-      v20->n128_u64[0] = v33;
-      v20->n128_u32[2] = v21->n128_u32[2];
-      v20[1] = *v28;
-      v20[2].n128_u64[0] = v21[2].n128_u64[0];
+      v87 = *v20;
+      *v20 = 0;
+      v84 = *(v21 + 48);
+      v30 = *(v21 + 56);
+      v31 = *(v21 + 64);
+      v32 = *(v21 + 72);
+      v33 = *v21;
+      *v21 = 0;
+      *v20 = v33;
+      *(v20 + 8) = *(v21 + 8);
+      *(v20 + 16) = *v28;
+      *(v20 + 32) = *(v21 + 32);
       if (v21 == a1)
       {
         v21 = a1;
@@ -5430,9 +5391,9 @@ void std::__stable_sort<std::_ClassicAlgPolicy,minIdPath(TopoSubstring *)::$_0 &
       {
         v35 = a1 + v34;
         v36 = v87;
-        v37 = *(&a1[-2] + v34 - 8);
+        v37 = *(a1 + v34 - 40);
         v38 = v37;
-        v39 = *(&a1[-1] + v34 - 8);
+        v39 = *(a1 + v34 - 24);
         if (v30 != v39)
         {
 
@@ -5444,7 +5405,7 @@ void std::__stable_sort<std::_ClassicAlgPolicy,minIdPath(TopoSubstring *)::$_0 &
           goto LABEL_32;
         }
 
-        v40 = *(v35 - 8);
+        v40 = *(v35 - 32);
         if (v84 >= v40)
         {
           break;
@@ -5452,20 +5413,20 @@ void std::__stable_sort<std::_ClassicAlgPolicy,minIdPath(TopoSubstring *)::$_0 &
 
 LABEL_32:
         v28 = (v21 - 24);
-        v42 = *(v35 - 5);
-        *(v35 - 5) = 0;
-        v43 = (a1 + v34);
-        v44 = *(a1->n128_u64 + v34);
-        *(a1->n128_u64 + v34) = v42;
+        v42 = *(v35 - 40);
+        *(v35 - 40) = 0;
+        v43 = a1 + v34;
+        v44 = *(a1 + v34);
+        *(a1 + v34) = v42;
 
-        v43->n128_u32[2] = *(v35 - 8);
-        v43[1] = *(a1 + v34 - 24);
-        v43[2].n128_u64[0] = v43[-1].n128_u64[1];
-        v21 = (v21 - 40);
+        *(v43 + 8) = *(v35 - 32);
+        *(v43 + 16) = *(a1 + v34 - 24);
+        *(v43 + 32) = *(v43 - 8);
+        v21 -= 40;
         v34 -= 40;
         if (!v34)
         {
-          v28 = a1 + 1;
+          v28 = (a1 + 16);
           v21 = a1;
           goto LABEL_40;
         }
@@ -5484,24 +5445,24 @@ LABEL_32:
       }
 
 LABEL_39:
-      v21 = (a1 + v34);
+      v21 = a1 + v34;
       v28 = (a1 + v34 + 16);
 LABEL_40:
       v20 = v81;
       v32 = v78;
       v31 = v79;
 LABEL_41:
-      v46 = v21->n128_u64[0];
-      v21->n128_u64[0] = v87;
+      v46 = *v21;
+      *v21 = v87;
 
-      v21->n128_u32[2] = v84;
-      v28->n128_u64[0] = v30;
-      v21[1].n128_u64[1] = v31;
-      v21[2].n128_u64[0] = v32;
+      *(v21 + 8) = v84;
+      *v28 = v30;
+      *(v21 + 24) = v31;
+      *(v21 + 32) = v32;
 LABEL_42:
-      v19 = &v20[2].n128_u64[1];
+      v19 = (v20 + 40);
       v82 += 40;
-      if (&v20[2].n128_i8[8] == a2)
+      if ((v20 + 40) == a2)
       {
         return;
       }
@@ -5509,10 +5470,10 @@ LABEL_42:
   }
 
   v15 = a3 >> 1;
-  v16 = a1 + 40 * (a3 >> 1);
+  v16 = (a1 + 40 * (a3 >> 1));
   if (a3 > a5)
   {
-    std::__stable_sort<std::_ClassicAlgPolicy,minIdPath(TopoSubstring *)::$_0 &,std::__wrap_iter<std::pair<minIdPathData,TopoSubstring *> *>>(a1, a1 + 40 * (a3 >> 1), a3 >> 1, a4, a5);
+    std::__stable_sort<std::_ClassicAlgPolicy,minIdPath(TopoSubstring *)::$_0 &,std::__wrap_iter<std::pair<minIdPathData,TopoSubstring *> *>>(a1, (a1 + 40 * (a3 >> 1)), a3 >> 1, a4, a5);
     v17 = a3 - v15;
     std::__stable_sort<std::_ClassicAlgPolicy,minIdPath(TopoSubstring *)::$_0 &,std::__wrap_iter<std::pair<minIdPathData,TopoSubstring *> *>>(v16, a2, v17, a4, a5);
 
@@ -5525,7 +5486,7 @@ LABEL_42:
   std::__stable_sort_move<std::_ClassicAlgPolicy,minIdPath(TopoSubstring *)::$_0 &,std::__wrap_iter<std::pair<minIdPathData,TopoSubstring *> *>>((a1 + 40 * (a3 >> 1)), a2, a3 - v15, v47);
   v89 = a3;
   v48 = &a4[5 * a3];
-  v49 = a1 + 2;
+  v49 = (a1 + 32);
   v83 = a4;
   v85 = v48;
   v50 = a4;
@@ -5657,13 +5618,12 @@ LABEL_68:
 
 __n128 std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<std::__wrap_iter<std::pair<minIdPathData,TopoSubstring *> *> &,std::__wrap_iter<std::pair<minIdPathData,TopoSubstring *> *> &>(__n128 **a1, uint64_t *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
   v2 = *a1;
   v3 = *a2;
   v4 = (*a1)->n128_u64[0];
   v2->n128_u64[0] = 0;
   v5 = v2->n128_u32[2];
-  v12 = v2[1];
+  v11 = v2[1];
   v6 = *v3;
   *v3 = 0;
   v7 = v2->n128_u64[0];
@@ -5675,16 +5635,15 @@ __n128 std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<std::__wra
   *v3 = v4;
 
   *(v3 + 8) = v5;
-  result = v12;
-  *(v3 + 16) = v12;
+  result = v11;
+  *(v3 + 16) = v11;
   v10 = v2[2].n128_u64[0];
   v2[2].n128_u64[0] = *(v3 + 32);
   *(v3 + 32) = v10;
-  v11 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-__n128 std::__stable_sort_move<std::_ClassicAlgPolicy,minIdPath(TopoSubstring *)::$_0 &,std::__wrap_iter<std::pair<minIdPathData,TopoSubstring *> *>>(__n128 *a1, __n128 *a2, unint64_t a3, __n128 *a4)
+__n128 std::__stable_sort_move<std::_ClassicAlgPolicy,minIdPath(TopoSubstring *)::$_0 &,std::__wrap_iter<std::pair<minIdPathData,TopoSubstring *> *>>(id *a1, id *a2, unint64_t a3, __n128 *a4)
 {
   if (!a3)
   {
@@ -5696,20 +5655,20 @@ __n128 std::__stable_sort_move<std::_ClassicAlgPolicy,minIdPath(TopoSubstring *)
   v7 = a1;
   if (a3 == 2)
   {
-    v10 = &a2[-3].n128_u64[1];
-    v11 = a2[-3].n128_u64[1];
-    v14 = v6[-2].n128_i64[1];
-    v12 = &v6[-2].n128_i64[1];
+    v10 = a2 - 5;
+    v11 = *(a2 - 5);
+    v14 = *(v6 - 3);
+    v12 = v6 - 3;
     v13 = v14;
-    v15 = (v12 - 1);
+    v15 = v12 - 1;
     v93 = *(v12 - 2);
     v95 = v12;
-    v16 = (v12 + 2);
+    v16 = v12 + 2;
     v17 = *v7;
     v18 = v17;
     v20 = (v7 + 2);
     v19 = v7[2];
-    v22 = (v7 + 1);
+    v22 = v7 + 1;
     v21 = *(v7 + 2);
     v98 = v7 + 4;
     if (v14 == v19)
@@ -5783,28 +5742,28 @@ LABEL_69:
 
     v25 = (v7 + 1);
     v26 = (v7 + 2);
-    v27 = v7 + 4;
+    v27 = (v7 + 4);
     v20 = v95;
     goto LABEL_69;
   }
 
   if (a3 == 1)
   {
-    v8 = a1->n128_u64[0];
-    a1->n128_u64[0] = 0;
+    v8 = *a1;
+    *a1 = 0;
     a4->n128_u64[0] = v8;
-    a4->n128_u32[2] = a1->n128_u32[2];
-    result = a1[1];
+    a4->n128_u32[2] = *(a1 + 2);
+    result = *(a1 + 1);
     a4[1] = result;
-    a4[2].n128_u64[0] = a1[2].n128_u64[0];
+    a4[2].n128_u64[0] = a1[4];
     return result;
   }
 
   if (a3 > 8)
   {
-    v62 = &a1->n128_u64[5 * (a3 >> 1)];
+    v62 = &a1[5 * (a3 >> 1)];
     std::__stable_sort<std::_ClassicAlgPolicy,minIdPath(TopoSubstring *)::$_0 &,std::__wrap_iter<std::pair<minIdPathData,TopoSubstring *> *>>(a1, v62, a3 >> 1, a4, a3 >> 1);
-    std::__stable_sort<std::_ClassicAlgPolicy,minIdPath(TopoSubstring *)::$_0 &,std::__wrap_iter<std::pair<minIdPathData,TopoSubstring *> *>>(&v7[5 * (a3 >> 1)], v6, a3 - (a3 >> 1), v4 + 40 * (a3 >> 1), a3 - (a3 >> 1));
+    std::__stable_sort<std::_ClassicAlgPolicy,minIdPath(TopoSubstring *)::$_0 &,std::__wrap_iter<std::pair<minIdPathData,TopoSubstring *> *>>(&v7[5 * (a3 >> 1)], v6, a3 - (a3 >> 1), v4 + 5 * (a3 >> 1), a3 - (a3 >> 1));
     v100 = &v7[5 * (a3 >> 1)];
     v102 = 0;
     v63 = v4 + 2;
@@ -5836,10 +5795,10 @@ LABEL_69:
         return result;
       }
 
-      v65 = v64->n128_u64[0];
-      v67 = v64 + 1;
-      v66 = v64[1].n128_u64[0];
-      v68 = v64->n128_u32[2];
+      v65 = *v64;
+      v67 = (v64 + 2);
+      v66 = v64[2];
+      v68 = *(v64 + 2);
       v69 = *v7;
       v70 = v69;
       v72 = (v7 + 2);
@@ -5887,15 +5846,15 @@ LABEL_52:
         }
       }
 
-      v74 = v64->n128_u64[0];
-      v64->n128_u64[0] = 0;
+      v74 = *v64;
+      *v64 = 0;
       v63[-2].n128_u64[0] = v74;
-      v63[-2].n128_u32[2] = v64->n128_u32[2];
+      v63[-2].n128_u32[2] = *(v64 + 2);
       result = *v67;
       v63[-1] = *v67;
-      v63->n128_u64[0] = v64[2].n128_u64[0];
+      v63->n128_u64[0] = v64[4];
       ++v102;
-      v64 = (v64 + 40);
+      v64 += 5;
 LABEL_53:
       v6 = a2;
       v63 = (v63 + 40);
@@ -5907,16 +5866,16 @@ LABEL_53:
           v77 = 0;
           do
           {
-            v78 = &v64->n128_u64[v77 / 8];
-            v79 = (v63 + v77);
-            v80 = v64->n128_u64[v77 / 8];
+            v78 = &v64[v77];
+            v79 = (v63 + v77 * 8);
+            v80 = v64[v77];
             *v78 = 0;
             v79[-2].n128_u64[0] = v80;
-            v79[-2].n128_u32[2] = v64->n128_u32[v77 / 4 + 2];
-            result = *(v64 + v77 + 16);
+            v79[-2].n128_u32[2] = v64[v77 + 1];
+            result = *&v64[v77 + 2];
             v79[-1] = result;
-            v79->n128_u64[0] = v64[2].n128_u64[v77 / 8];
-            v77 += 40;
+            v79->n128_u64[0] = v64[v77 + 4];
+            v77 += 5;
           }
 
           while (v78 + 5 != a2);
@@ -5932,16 +5891,16 @@ LABEL_53:
     return result;
   }
 
-  v28 = a1->n128_u64[0];
-  a1->n128_u64[0] = 0;
+  v28 = *a1;
+  *a1 = 0;
   a4->n128_u64[0] = v28;
-  a4->n128_u32[2] = a1->n128_u32[2];
-  result = a1[1];
+  a4->n128_u32[2] = *(a1 + 2);
+  result = *(a1 + 1);
   a4[1] = result;
-  a4[2].n128_u64[0] = a1[2].n128_u64[0];
+  a4[2].n128_u64[0] = a1[4];
   v101 = 1;
-  v29 = &a1[2].n128_u64[1];
-  if (&a1[2].n128_i8[8] == a2)
+  v29 = a1 + 5;
+  if (a1 + 5 == a2)
   {
     return result;
   }
@@ -6114,15 +6073,15 @@ LABEL_38:
   return result;
 }
 
-void sub_19A1BF26C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_19A1BF26C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
 
   std::unique_ptr<std::pair<minIdPathData,TopoSubstring *>,std::__destruct_n &>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void std::__inplace_merge<std::_ClassicAlgPolicy,minIdPath(TopoSubstring *)::$_0 &,std::__wrap_iter<std::pair<minIdPathData,TopoSubstring *> *>>(__n128 *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void **a6, uint64_t a7)
+void std::__inplace_merge<std::_ClassicAlgPolicy,minIdPath(TopoSubstring *)::$_0 &,std::__wrap_iter<std::pair<minIdPathData,TopoSubstring *> *>>(__n128 *a1, __n128 *a2, __n128 *a3, uint64_t a4, uint64_t a5, void **a6, uint64_t a7)
 {
   v120 = a2;
   v121 = a1;
@@ -6153,21 +6112,21 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,minIdPath(TopoSubstring *)::$_0
           do
           {
             v55 = &a6[v53 / 8];
-            v56 = (v10 + v53);
-            v57 = *(v10 + v53);
+            v56 = v10 + v53;
+            v57 = v10->n128_u64[v53 / 8];
             *v56 = 0;
             *v55 = v57;
-            *(v55 + 2) = *(v10 + v53 + 8);
+            *(v55 + 2) = v10->n128_u32[v53 / 4 + 2];
             *(v55 + 1) = *(v10 + v53 + 16);
-            v55[4] = *(v10 + v53 + 32);
+            v55[4] = v10[2].n128_u64[v53 / 8];
             ++v54;
             v53 += 40;
           }
 
-          while (v56 + 5 != a3);
+          while (v56 + 40 != a3);
           v124 = v54;
           v58 = &a6[v53 / 8];
-          v59 = a3 - 40;
+          v59 = &a3[-3].n128_i8[8];
           v60 = a3;
           v111 = &a6[v53 / 8];
           do
@@ -6178,21 +6137,21 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,minIdPath(TopoSubstring *)::$_0
               break;
             }
 
-            v113 = v58 - 40;
+            v113 = v58 - 5;
             v117 = v60;
-            v61 = *(v58 - 40);
-            v63 = v10 - 40;
-            v62 = *(v10 - 40);
+            v61 = *(v58 - 5);
+            v63 = (v10 - 40);
+            v62 = v10[-3].n128_u64[1];
             v119 = v58;
             v64 = v10;
-            v67 = *(v58 - 24);
-            v65 = (v58 - 24);
+            v67 = *(v58 - 3);
+            v65 = v58 - 3;
             v66 = v67;
             v68 = *(v65 - 2);
             v69 = v62;
             v70 = v64;
-            v73 = *(v64 - 24);
-            v72 = (v64 - 24);
+            v73 = v64[-2].n128_u64[1];
+            v72 = &v64[-2].n128_u64[1];
             v71 = v73;
             if (v66 == v73)
             {
@@ -6240,15 +6199,15 @@ LABEL_69:
             v10 = v63;
             v58 = v119;
 LABEL_74:
-            v78 = *(v70 - 40);
-            *(v70 - 40) = 0;
+            v78 = v70[-3].n128_u64[1];
+            v70[-3].n128_u64[1] = 0;
             v79 = *v59;
             *v59 = v78;
 
-            *(v59 + 8) = *(v70 - 32);
-            *(v59 + 16) = *v72;
-            *(v59 + 32) = *(v70 - 8);
-            v60 = v117 - 40;
+            *(v59 + 2) = v70[-2].n128_u32[0];
+            *(v59 + 1) = *v72;
+            *(v59 + 4) = v70[-1].n128_u64[1];
+            v60 = (v117 - 40);
             v59 -= 40;
             v52 = a6;
           }
@@ -6285,14 +6244,14 @@ LABEL_96:
       v83 = v8;
       do
       {
-        v84 = *v83;
-        *v83 = 0;
+        v84 = v83->n128_u64[0];
+        v83->n128_u64[0] = 0;
         *v82 = v84;
-        *(v82 + 2) = *(v83 + 8);
-        *(v82 + 1) = *(v83 + 16);
-        v82[4] = *(v83 + 32);
+        *(v82 + 2) = v83->n128_u32[2];
+        *(v82 + 1) = v83[1];
+        v82[4] = v83[2].n128_u64[0];
         ++v81;
-        v83 += 40;
+        v83 = (v83 + 40);
         v82 += 5;
       }
 
@@ -6308,12 +6267,12 @@ LABEL_96:
           goto LABEL_96;
         }
 
-        v86 = *v10;
+        v86 = v10->n128_u64[0];
         v114 = v10;
-        v89 = *(v10 + 16);
-        v88 = (v10 + 16);
+        v89 = v10[1].n128_u64[0];
+        v88 = v10 + 1;
         v87 = v89;
-        v90 = *(v88 - 2);
+        v90 = v88[-1].n128_u32[2];
         v91 = *v85;
         v92 = v91;
         v93 = v85[2];
@@ -6332,12 +6291,12 @@ LABEL_96:
 LABEL_90:
               v101 = *v85;
               *v85 = 0;
-              v102 = *v8;
-              *v8 = v101;
+              v102 = v8->n128_u64[0];
+              v8->n128_u64[0] = v101;
 
-              *(v8 + 8) = *(v85 + 2);
-              *(v8 + 16) = *(v85 + 1);
-              *(v8 + 32) = v85[4];
+              v8->n128_u32[2] = *(v85 + 2);
+              v8[1] = *(v85 + 1);
+              v8[2].n128_u64[0] = v85[4];
               v85 += 5;
               v10 = v114;
               goto LABEL_91;
@@ -6368,17 +6327,17 @@ LABEL_90:
           }
         }
 
-        v97 = *v114;
-        *v114 = 0;
-        v98 = *v8;
-        *v8 = v97;
+        v97 = v114->n128_u64[0];
+        v114->n128_u64[0] = 0;
+        v98 = v8->n128_u64[0];
+        v8->n128_u64[0] = v97;
 
-        *(v8 + 8) = *(v114 + 8);
-        *(v8 + 16) = *v88;
-        *(v8 + 32) = *(v114 + 32);
-        v10 = v114 + 40;
+        v8->n128_u32[2] = v114->n128_u32[2];
+        v8[1] = *v88;
+        v8[2].n128_u64[0] = v114[2].n128_u64[0];
+        v10 = (v114 + 40);
 LABEL_91:
-        v8 += 40;
+        v8 = (v8 + 40);
         v80 = a3;
         if (v82 == v85)
         {
@@ -6395,9 +6354,9 @@ LABEL_91:
     v11 = (v8 + 40);
     while (1)
     {
-      v12 = *v10;
-      v13 = *(v10 + 8);
-      v14 = *(v10 + 16);
+      v12 = v10->n128_u64[0];
+      v13 = v10->n128_u32[2];
+      v14 = v10[1].n128_u64[0];
       v15 = v11[-3].n128_u64[1];
       v16 = v15;
       v17 = v11[-2].n128_u64[1];
@@ -6435,7 +6394,7 @@ LABEL_91:
 LABEL_14:
       v121 = v11;
       v11 = (v11 + 40);
-      v8 += 40;
+      v8 = (v8 + 40);
       v118 = v8;
       if (!--a4)
       {
@@ -6463,7 +6422,7 @@ LABEL_17:
       }
 
       v105 = v8;
-      v110 = v8 + 40 * (a4 / 2);
+      v110 = (v8 + 40 * (a4 / 2));
       v35 = 0xCCCCCCCCCCCCCCCDLL * ((a3 - v10) >> 3);
       v36 = v10;
       while (2)
@@ -6472,14 +6431,14 @@ LABEL_17:
         v116 = v36;
         v38 = v36 + 40 * (v35 >> 1);
         v39 = *v38;
-        v40 = *(v38 + 8);
-        v41 = *(v38 + 16);
-        v42 = *v110;
+        v40 = *(v38 + 2);
+        v41 = *(v38 + 2);
+        v42 = v110->n128_u64[0];
         v43 = v42;
-        v44 = *(v110 + 16);
+        v44 = v110[1].n128_u64[0];
         if (v41 == v44)
         {
-          v46 = *(v110 + 8);
+          v46 = v110->n128_u32[2];
           if (v40 < v46)
           {
 
@@ -6496,7 +6455,7 @@ LABEL_17:
             if (v47 == -1)
             {
 LABEL_41:
-              v36 = v38 + 40;
+              v36 = (v38 + 40);
               v37 = v35 + ~v37;
             }
           }
@@ -6539,7 +6498,7 @@ LABEL_49:
     }
 
     v21 = v109 / 2;
-    v115 = v9 + 40 * (v109 / 2);
+    v115 = (v9 + 40 * (v109 / 2));
     if (v9 == v118)
     {
       goto LABEL_31;
@@ -6550,9 +6509,9 @@ LABEL_49:
     {
       v23 = v22 >> 1;
       v24 = v118 + 40 * (v22 >> 1);
-      v25 = *v115;
-      v26 = *(v115 + 2);
-      v27 = *(v115 + 2);
+      v25 = v115->n128_u64[0];
+      v26 = v115->n128_u32[2];
+      v27 = v115[1].n128_u64[0];
       v28 = *v24;
       v29 = v28;
       v30 = *(v24 + 2);
@@ -6624,7 +6583,7 @@ LABEL_50:
 
     v50 = a4 - v33;
     v51 = v20 - v21;
-    if (v33 + v21 >= v20 - (v33 + v21) + a4)
+    if ((v33 + v21) >= (v20 - (v33 + v21) + a4))
     {
       std::__inplace_merge<std::_ClassicAlgPolicy,minIdPath(TopoSubstring *)::$_0 &,std::__wrap_iter<std::pair<minIdPathData,TopoSubstring *> *>>(v48, v10, a3, a4 - v33, v20 - v21, a6, a7);
       v10 = v9;
@@ -6650,9 +6609,9 @@ LABEL_50:
   while (v51);
 }
 
-void sub_19A1BFA68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_19A1BFA68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   std::unique_ptr<std::pair<minIdPathData,TopoSubstring *>,std::__destruct_n &>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6793,35 +6752,35 @@ char *std::__rotate_forward[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_ite
   return v5;
 }
 
-void *std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned int>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned int>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned int>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned int>>>::__emplace_unique_key_args<TopoSubstring *,std::piecewise_construct_t const&,std::tuple<TopoSubstring * const&>,std::tuple<>>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned int>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned int>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned int>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned int>>>::__emplace_unique_key_args<TopoSubstring *,std::piecewise_construct_t const&,std::tuple<TopoSubstring * const&>,std::tuple<>>(void *a1, void *a2, uint64_t a3, void **a4)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v4 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v5 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v4 >> 47) ^ v4);
+  v6 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v9 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+    if (v6 >= *&v7)
     {
-      v7 = v4 % *&v5;
+      v9 = v6 % *&v7;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v9 = v6 & (*&v7 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
   {
 LABEL_18:
     operator new();
@@ -6829,90 +6788,87 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v12 = v11[1];
+    if (v12 == v6)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v8.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v12 >= *&v7)
       {
-        v10 %= *&v5;
+        v12 %= *&v7;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v12 &= *&v7 - 1;
     }
 
-    if (v10 != v7)
+    if (v12 != v9)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v11 = *v11;
+    if (!v11)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v11[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v11;
 }
 
-void *std::deque<TopoSubstring *>::push_back(void *result, void *a2)
+void std::deque<TopoSubstring *>::push_back(unint64_t *result, void *a2)
 {
-  v3 = result;
-  v4 = *(result + 1);
-  v5 = result[2];
-  v6 = result[1];
-  if (v5 == v6)
+  v4 = result[2];
+  v5 = result[1];
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = ((v5 - v6) << 6) - 1;
+    v6 = ((v4 - v5) << 6) - 1;
   }
 
-  v8 = result[5];
-  v9 = v8 + result[4];
-  if (v7 == v9)
+  v7 = result[5];
+  v8 = v7 + result[4];
+  if (v6 == v8)
   {
-    result = std::deque<TopoSubstring *>::__add_back_capacity(result);
-    v6 = v3[1];
-    v8 = v3[5];
-    v9 = v3[4] + v8;
+    std::deque<TopoSubstring *>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
   }
 
-  *(*(v6 + ((v9 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v9 & 0x1FF)) = *a2;
-  v3[5] = v8 + 1;
-  return result;
+  *(*(v5 + ((v8 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v8 & 0x1FF)) = *a2;
+  result[5] = v7 + 1;
 }
 
-void *std::deque<TopoSubstring *>::__add_back_capacity(void *a1)
+void std::deque<TopoSubstring *>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -6920,25 +6876,25 @@ void *std::deque<TopoSubstring *>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<TopoSubstring **>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<TopoSubstring **>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<TopoSubstring **>::emplace_back<TopoSubstring **&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<TopoSubstring **>::emplace_back<TopoSubstring **&>(a1, &v9);
 }
 
 void sub_19A1C017C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -6952,27 +6908,26 @@ void sub_19A1C017C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<TopoSubstring **>::emplace_back<TopoSubstring **&>(void *result, void *a2)
+void std::__split_buffer<TopoSubstring **>::emplace_back<TopoSubstring **&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<TopoSubstring **>>(result, v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<TopoSubstring **>>(a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -6981,28 +6936,26 @@ void *std::__split_buffer<TopoSubstring **>::emplace_back<TopoSubstring **&>(voi
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<TopoSubstring **>::emplace_front<TopoSubstring **>(const void **result, void *a2)
+void std::__split_buffer<TopoSubstring **>::emplace_front<TopoSubstring **>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -7015,52 +6968,50 @@ const void **std::__split_buffer<TopoSubstring **>::emplace_front<TopoSubstring 
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<TopoSubstring **>>(result, v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<TopoSubstring **>>(a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
-void *std::__split_buffer<TopoSubstring **>::emplace_back<TopoSubstring **>(void *result, void *a2)
+void std::__split_buffer<TopoSubstring **>::emplace_back<TopoSubstring **>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<TopoSubstring **>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<TopoSubstring **>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -7069,28 +7020,26 @@ void *std::__split_buffer<TopoSubstring **>::emplace_back<TopoSubstring **>(void
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<TopoSubstring **>::emplace_front<TopoSubstring **&>(const void **result, void *a2)
+void std::__split_buffer<TopoSubstring **>::emplace_front<TopoSubstring **&>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -7103,29 +7052,28 @@ const void **std::__split_buffer<TopoSubstring **>::emplace_front<TopoSubstring 
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<TopoSubstring **>>(result[4], v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<TopoSubstring **>>(a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<TopoSubstring **>>(uint64_t a1, unint64_t a2)
@@ -7138,35 +7086,35 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<TopoSubstring **>>(ui
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::__hash_table<TopoSubstring *,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,std::allocator<TopoSubstring *>>::__emplace_unique_key_args<TopoSubstring *,TopoSubstring * const&>(void *a1, void *a2)
+void *std::__hash_table<TopoSubstring *,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,std::allocator<TopoSubstring *>>::__emplace_unique_key_args<TopoSubstring *,TopoSubstring * const&>(void *a1, void *a2, void *a3)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v3 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v3 >> 47) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+  v6 = a1[1];
+  if (!*&v6)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v8 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+    if (v5 >= *&v6)
     {
-      v7 = v4 % *&v5;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v8 = v5 & (*&v6 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_18:
     operator new();
@@ -7174,44 +7122,44 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v10[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v10;
 }
 
 uint64_t std::deque<TopoSubstring *>::__maybe_remove_back_spare[abi:ne200100](void *a1, int a2)
@@ -7253,21 +7201,21 @@ uint64_t std::deque<TopoSubstring *>::__maybe_remove_back_spare[abi:ne200100](vo
   return v7 ^ 1u;
 }
 
-uint64_t std::vector<TopoIDRange>::__emplace_back_slow_path<TopoIDRange const&>(uint64_t a1, uint64_t a2)
+uint64_t std::vector<TopoIDRange>::__emplace_back_slow_path<TopoIDRange const&>(unint64_t *a1, uint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0xAAAAAAAAAAAAAAALL)
   {
     std::vector<CRDT::Document_DocObject *>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
   {
     v6 = 0xAAAAAAAAAAAAAAALL;
   }
@@ -7291,14 +7239,14 @@ uint64_t std::vector<TopoIDRange>::__emplace_back_slow_path<TopoIDRange const&>(
   *(v7 + 8) = *(a2 + 8);
   *(v7 + 16) = *(a2 + 16);
   *&v16 = v7 + 24;
-  v8 = *(a1 + 8);
+  v8 = a1[1];
   v9 = v7 + *a1 - v8;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<TopoIDRange>,TopoIDRange*>(a1, *a1, v8, v9);
   v10 = *a1;
   *a1 = v9;
-  v11 = *(a1 + 16);
+  v11 = a1[2];
   v13 = v16;
-  *(a1 + 8) = v16;
+  *(a1 + 1) = v16;
   *&v16 = v10;
   *(&v16 + 1) = v11;
   v14 = v10;
@@ -7307,9 +7255,9 @@ uint64_t std::vector<TopoIDRange>::__emplace_back_slow_path<TopoIDRange const&>(
   return v13;
 }
 
-void sub_19A1C0A34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_19A1C0A34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<TopoIDRange>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7366,7 +7314,7 @@ uint64_t std::__split_buffer<TopoIDRange>::~__split_buffer(uint64_t a1)
   return a1;
 }
 
-void *std::vector<TopoSubstring *>::__assign_with_size[abi:ne200100]<TopoSubstring * const*,TopoSubstring * const*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<TopoSubstring *>::__assign_with_size[abi:ne200100]<TopoSubstring * const*,TopoSubstring * const*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -7453,7 +7401,7 @@ void *std::vector<TopoSubstring *>::__assign_with_size[abi:ne200100]<TopoSubstri
   return result;
 }
 
-void std::vector<TopoSubstring *>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<TopoSubstring *>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -7503,7 +7451,7 @@ uint64_t std::__hash_table<TopoSubstring *,std::hash<TopoSubstring *>,std::equal
   return result;
 }
 
-uint64_t std::vector<_NSRange>::__init_with_size[abi:ne200100]<_NSRange const*,_NSRange const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<_NSRange>::__init_with_size[abi:ne200100]<_NSRange const*,_NSRange const*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7525,7 +7473,7 @@ void sub_19A1C0DA0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<_NSRange>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<_NSRange>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -7557,16 +7505,16 @@ id std::vector<std::pair<TopoID,TopoID>>::__construct_one_at_end[abi:ne200100]<s
   return result;
 }
 
-uint64_t std::vector<std::pair<TopoID,TopoID>>::__emplace_back_slow_path<std::pair<TopoID,TopoID> const&>(uint64_t a1, uint64_t a2)
+uint64_t std::vector<std::pair<TopoID,TopoID>>::__emplace_back_slow_path<std::pair<TopoID,TopoID> const&>(uint64_t *a1, uint64_t a2)
 {
-  v2 = (*(a1 + 8) - *a1) >> 5;
+  v2 = (a1[1] - *a1) >> 5;
   v3 = v2 + 1;
   if ((v2 + 1) >> 59)
   {
     std::vector<CRDT::Document_DocObject *>::__throw_length_error[abi:ne200100]();
   }
 
-  v6 = *(a1 + 16) - *a1;
+  v6 = a1[2] - *a1;
   if (v6 >> 4 > v3)
   {
     v3 = v6 >> 4;
@@ -7582,40 +7530,40 @@ uint64_t std::vector<std::pair<TopoID,TopoID>>::__emplace_back_slow_path<std::pa
     v7 = v3;
   }
 
-  v18 = a1;
+  v20 = a1;
   if (v7)
   {
     std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<TopoID,TopoID>>>(a1, v7);
   }
 
   v8 = 32 * v2;
-  v15 = 0;
-  v16 = v8;
-  *(&v17 + 1) = 0;
+  v17 = 0;
+  v18 = v8;
+  *(&v19 + 1) = 0;
   *v8 = *a2;
   *(v8 + 8) = *(a2 + 8);
   *(v8 + 16) = *(a2 + 16);
   *(v8 + 24) = *(a2 + 24);
-  *&v17 = v8 + 32;
-  v9 = *(a1 + 8);
+  *&v19 = v8 + 32;
+  v9 = a1[1];
   v10 = v8 + *a1 - v9;
-  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::pair<TopoID,TopoID>>,std::pair<TopoID,TopoID>*>(a1, *a1, v9, v10);
-  v11 = *a1;
+  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::pair<TopoID,TopoID>>,std::pair<TopoID,TopoID>*>(a1, *a1, v9, v10, v11, v12);
+  v13 = *a1;
   *a1 = v10;
-  v12 = *(a1 + 16);
-  v14 = v17;
-  *(a1 + 8) = v17;
-  *&v17 = v11;
-  *(&v17 + 1) = v12;
-  v15 = v11;
-  v16 = v11;
-  std::__split_buffer<std::pair<TopoID,TopoID>>::~__split_buffer(&v15);
-  return v14;
+  v14 = a1[2];
+  v16 = v19;
+  *(a1 + 1) = v19;
+  *&v19 = v13;
+  *(&v19 + 1) = v14;
+  v17 = v13;
+  v18 = v13;
+  std::__split_buffer<std::pair<TopoID,TopoID>>::~__split_buffer(&v17);
+  return v16;
 }
 
-void sub_19A1C0FB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_19A1C0FB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::pair<TopoID,TopoID>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7630,37 +7578,37 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<TopoID,Topo
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::pair<TopoID,TopoID>>,std::pair<TopoID,TopoID>*>(uint64_t a1, void **a2, void **a3, uint64_t a4)
+uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::pair<TopoID,TopoID>>,std::pair<TopoID,TopoID>*>(uint64_t a1, void **a2, void **a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v11 = a4;
-  v10 = a4;
-  v8[0] = a1;
-  v8[1] = &v10;
-  v8[2] = &v11;
+  v13 = a4;
+  v12 = a4;
+  v10[0] = a1;
+  v10[1] = &v12;
+  v10[2] = &v13;
   if (a2 != a3)
   {
-    v4 = a2;
+    v6 = a2;
     do
     {
-      v5 = *v4;
-      *v4 = 0;
-      *a4 = v5;
-      *(a4 + 8) = *(v4 + 2);
-      v6 = v4[2];
-      v4[2] = 0;
-      *(a4 + 16) = v6;
-      *(a4 + 24) = *(v4 + 6);
-      v4 += 4;
+      v7 = *v6;
+      *v6 = 0;
+      *a4 = v7;
+      *(a4 + 8) = *(v6 + 2);
+      v8 = v6[2];
+      v6[2] = 0;
+      *(a4 + 16) = v8;
+      *(a4 + 24) = *(v6 + 6);
+      v6 += 4;
       a4 += 32;
     }
 
-    while (v4 != a3);
-    v11 = a4;
+    while (v6 != a3);
+    v13 = a4;
   }
 
-  v9 = 1;
+  v11 = 1;
   std::__allocator_destroy[abi:ne200100]<std::allocator<std::pair<TopoID,TopoID>>,std::pair<TopoID,TopoID>*,std::pair<TopoID,TopoID>*>(a1, a2, a3);
-  return std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<std::pair<TopoID,TopoID>>,std::pair<TopoID,TopoID>*>>::~__exception_guard_exceptions[abi:ne200100](v8);
+  return std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<std::pair<TopoID,TopoID>>,std::pair<TopoID,TopoID>*>>::~__exception_guard_exceptions[abi:ne200100](v10);
 }
 
 void std::__allocator_destroy[abi:ne200100]<std::allocator<std::pair<TopoID,TopoID>>,std::pair<TopoID,TopoID>*,std::pair<TopoID,TopoID>*>(uint64_t a1, void **a2, void **a3)
@@ -8062,7 +8010,7 @@ LABEL_41:
   }
 }
 
-void *std::vector<TopoSubstring *>::__assign_with_size[abi:ne200100]<TopoSubstring **,TopoSubstring **>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<TopoSubstring *>::__assign_with_size[abi:ne200100]<TopoSubstring **,TopoSubstring **>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -8137,27 +8085,26 @@ void *std::vector<TopoSubstring *>::__assign_with_size[abi:ne200100]<TopoSubstri
   return result;
 }
 
-void *std::__split_buffer<TopoSubstring *>::emplace_back<TopoSubstring * const&>(void *result, void *a2)
+void std::__split_buffer<TopoSubstring *>::emplace_back<TopoSubstring * const&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<CRDT::Document_DocObject *>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<CRDT::Document_DocObject *>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -8166,18 +8113,17 @@ void *std::__split_buffer<TopoSubstring *>::emplace_back<TopoSubstring * const&>
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
 void std::vector<TopoIDRange>::__destroy_vector::operator()[abi:ne200100](void ***a1)
@@ -8360,36 +8306,36 @@ void std::__hash_table<TopoID,std::hash<TopoID>,std::equal_to<TopoID>,std::alloc
   }
 }
 
-uint64_t *std::__hash_table<TopoID,std::hash<TopoID>,std::equal_to<TopoID>,std::allocator<TopoID>>::__emplace_unique_key_args<TopoID,TopoID>(void *a1, void *a2)
+uint64_t *std::__hash_table<TopoID,std::hash<TopoID>,std::equal_to<TopoID>,std::allocator<TopoID>>::__emplace_unique_key_args<TopoID,TopoID>(void *a1, void *a2, uint64_t *a3)
 {
-  v4 = *(a2 + 2);
-  v5 = [*a2 hash];
-  v6 = v5 ^ v4;
-  v7 = a1[1];
-  if (!*&v7)
+  v5 = *(a2 + 2);
+  v6 = [*a2 hash];
+  v7 = v6 ^ v5;
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_19;
   }
 
-  v8 = vcnt_s8(v7);
-  v8.i16[0] = vaddlv_u8(v8);
-  v9 = v8.u32[0];
-  if (v8.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v10 = v5 ^ v4;
-    if (v6 >= *&v7)
+    v11 = v6 ^ v5;
+    if (v7 >= *&v8)
     {
-      v10 = v6 % *&v7;
+      v11 = v7 % *&v8;
     }
   }
 
   else
   {
-    v10 = (*&v7 - 1) & v6;
+    v11 = (*&v8 - 1) & v7;
   }
 
-  v11 = *(*a1 + 8 * v10);
-  if (!v11 || (v12 = *v11) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_19:
     operator new();
@@ -8397,49 +8343,49 @@ LABEL_19:
 
   while (1)
   {
-    v13 = v12[1];
-    if (v13 == v6)
+    v14 = v13[1];
+    if (v14 == v7)
     {
       break;
     }
 
-    if (v9 > 1)
+    if (v10 > 1)
     {
-      if (v13 >= *&v7)
+      if (v14 >= *&v8)
       {
-        v13 %= *&v7;
+        v14 %= *&v8;
       }
     }
 
     else
     {
-      v13 &= *&v7 - 1;
+      v14 &= *&v8 - 1;
     }
 
-    if (v13 != v10)
+    if (v14 != v11)
     {
       goto LABEL_19;
     }
 
 LABEL_18:
-    v12 = *v12;
-    if (!v12)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_19;
     }
   }
 
-  if (*(v12 + 6) != *(a2 + 2) || ([v12[2] isEqual:*a2] & 1) == 0)
+  if (*(v13 + 6) != *(a2 + 2) || ([v13[2] isEqual:*a2] & 1) == 0)
   {
     goto LABEL_18;
   }
 
-  return v12;
+  return v13;
 }
 
-void sub_19A1C2940(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19A1C2940(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<TopoID,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<TopoID,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8460,36 +8406,36 @@ uint64_t std::unique_ptr<std::__hash_node<TopoID,void *>,std::__hash_node_destru
   return a1;
 }
 
-uint64_t *std::__hash_table<TopoID,std::hash<TopoID>,std::equal_to<TopoID>,std::allocator<TopoID>>::__emplace_unique_key_args<TopoID,TopoID const&>(void *a1, void *a2)
+uint64_t *std::__hash_table<TopoID,std::hash<TopoID>,std::equal_to<TopoID>,std::allocator<TopoID>>::__emplace_unique_key_args<TopoID,TopoID const&>(void *a1, void *a2, uint64_t a3)
 {
-  v4 = *(a2 + 2);
-  v5 = [*a2 hash];
-  v6 = v5 ^ v4;
-  v7 = a1[1];
-  if (!*&v7)
+  v5 = *(a2 + 2);
+  v6 = [*a2 hash];
+  v7 = v6 ^ v5;
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_19;
   }
 
-  v8 = vcnt_s8(v7);
-  v8.i16[0] = vaddlv_u8(v8);
-  v9 = v8.u32[0];
-  if (v8.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v10 = v5 ^ v4;
-    if (v6 >= *&v7)
+    v11 = v6 ^ v5;
+    if (v7 >= *&v8)
     {
-      v10 = v6 % *&v7;
+      v11 = v7 % *&v8;
     }
   }
 
   else
   {
-    v10 = (*&v7 - 1) & v6;
+    v11 = (*&v8 - 1) & v7;
   }
 
-  v11 = *(*a1 + 8 * v10);
-  if (!v11 || (v12 = *v11) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_19:
     operator new();
@@ -8497,54 +8443,54 @@ LABEL_19:
 
   while (1)
   {
-    v13 = v12[1];
-    if (v13 == v6)
+    v14 = v13[1];
+    if (v14 == v7)
     {
       break;
     }
 
-    if (v9 > 1)
+    if (v10 > 1)
     {
-      if (v13 >= *&v7)
+      if (v14 >= *&v8)
       {
-        v13 %= *&v7;
+        v14 %= *&v8;
       }
     }
 
     else
     {
-      v13 &= *&v7 - 1;
+      v14 &= *&v8 - 1;
     }
 
-    if (v13 != v10)
+    if (v14 != v11)
     {
       goto LABEL_19;
     }
 
 LABEL_18:
-    v12 = *v12;
-    if (!v12)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_19;
     }
   }
 
-  if (*(v12 + 6) != *(a2 + 2) || ([v12[2] isEqual:*a2] & 1) == 0)
+  if (*(v13 + 6) != *(a2 + 2) || ([v13[2] isEqual:*a2] & 1) == 0)
   {
     goto LABEL_18;
   }
 
-  return v12;
+  return v13;
 }
 
-void sub_19A1C2C28(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19A1C2C28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<TopoID,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<TopoID,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__hash_table<TopoID,std::hash<TopoID>,std::equal_to<TopoID>,std::allocator<TopoID>>::__erase_unique<TopoID>(void *a1, void *a2)
+uint64_t std::__hash_table<TopoID,std::hash<TopoID>,std::equal_to<TopoID>,std::allocator<TopoID>>::__erase_unique<TopoID>(void *a1, void *a2)
 {
   result = std::__hash_table<TopoID,std::hash<TopoID>,std::equal_to<TopoID>,std::allocator<TopoID>>::find<TopoID>(a1, a2);
   if (result)
@@ -8627,36 +8573,36 @@ uint64_t *std::__hash_table<TopoID,std::hash<TopoID>,std::equal_to<TopoID>,std::
   return i;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<TopoID,TopoSubstring *>,std::__unordered_map_hasher<TopoID,std::__hash_value_type<TopoID,TopoSubstring *>,std::hash<TopoID>,std::equal_to<TopoID>,true>,std::__unordered_map_equal<TopoID,std::__hash_value_type<TopoID,TopoSubstring *>,std::equal_to<TopoID>,std::hash<TopoID>,true>,std::allocator<std::__hash_value_type<TopoID,TopoSubstring *>>>::__emplace_unique_key_args<TopoID,std::piecewise_construct_t const&,std::tuple<TopoID const&>,std::tuple<>>(void *a1, void *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<TopoID,TopoSubstring *>,std::__unordered_map_hasher<TopoID,std::__hash_value_type<TopoID,TopoSubstring *>,std::hash<TopoID>,std::equal_to<TopoID>,true>,std::__unordered_map_equal<TopoID,std::__hash_value_type<TopoID,TopoSubstring *>,std::equal_to<TopoID>,std::hash<TopoID>,true>,std::allocator<std::__hash_value_type<TopoID,TopoSubstring *>>>::__emplace_unique_key_args<TopoID,std::piecewise_construct_t const&,std::tuple<TopoID const&>,std::tuple<>>(void *a1, void *a2, uint64_t a3, uint64_t *a4)
 {
-  v4 = *(a2 + 2);
-  v5 = [*a2 hash];
-  v6 = v5 ^ v4;
-  v7 = a1[1];
-  if (!*&v7)
+  v6 = *(a2 + 2);
+  v7 = [*a2 hash];
+  v8 = v7 ^ v6;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_19;
   }
 
-  v8 = vcnt_s8(v7);
-  v8.i16[0] = vaddlv_u8(v8);
-  v9 = v8.u32[0];
-  if (v8.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v10 = v5 ^ v4;
-    if (v6 >= *&v7)
+    v12 = v7 ^ v6;
+    if (v8 >= *&v9)
     {
-      v10 = v6 % *&v7;
+      v12 = v8 % *&v9;
     }
   }
 
   else
   {
-    v10 = (*&v7 - 1) & v6;
+    v12 = (*&v9 - 1) & v8;
   }
 
-  v11 = *(*a1 + 8 * v10);
-  if (!v11 || (v12 = *v11) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_19:
     operator new();
@@ -8664,83 +8610,83 @@ LABEL_19:
 
   while (1)
   {
-    v13 = v12[1];
-    if (v13 == v6)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v9 > 1)
+    if (v11 > 1)
     {
-      if (v13 >= *&v7)
+      if (v15 >= *&v9)
       {
-        v13 %= *&v7;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v13 &= *&v7 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v13 != v10)
+    if (v15 != v12)
     {
       goto LABEL_19;
     }
 
 LABEL_18:
-    v12 = *v12;
-    if (!v12)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_19;
     }
   }
 
-  if (*(v12 + 6) != *(a2 + 2) || ([v12[2] isEqual:*a2] & 1) == 0)
+  if (*(v14 + 6) != *(a2 + 2) || ([v14[2] isEqual:*a2] & 1) == 0)
   {
     goto LABEL_18;
   }
 
-  return v12;
+  return v14;
 }
 
-void sub_19A1C3028(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19A1C3028(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<TopoID,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<TopoID,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<TopoID,TopoSubstring *>,std::__unordered_map_hasher<TopoID,std::__hash_value_type<TopoID,TopoSubstring *>,std::hash<TopoID>,std::equal_to<TopoID>,true>,std::__unordered_map_equal<TopoID,std::__hash_value_type<TopoID,TopoSubstring *>,std::equal_to<TopoID>,std::hash<TopoID>,true>,std::allocator<std::__hash_value_type<TopoID,TopoSubstring *>>>::__emplace_unique_key_args<TopoID,std::piecewise_construct_t const&,std::tuple<TopoID&&>,std::tuple<>>(void *a1, void *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<TopoID,TopoSubstring *>,std::__unordered_map_hasher<TopoID,std::__hash_value_type<TopoID,TopoSubstring *>,std::hash<TopoID>,std::equal_to<TopoID>,true>,std::__unordered_map_equal<TopoID,std::__hash_value_type<TopoID,TopoSubstring *>,std::equal_to<TopoID>,std::hash<TopoID>,true>,std::allocator<std::__hash_value_type<TopoID,TopoSubstring *>>>::__emplace_unique_key_args<TopoID,std::piecewise_construct_t const&,std::tuple<TopoID&&>,std::tuple<>>(void *a1, void *a2, uint64_t a3, uint64_t **a4)
 {
-  v4 = *(a2 + 2);
-  v5 = [*a2 hash];
-  v6 = v5 ^ v4;
-  v7 = a1[1];
-  if (!*&v7)
+  v6 = *(a2 + 2);
+  v7 = [*a2 hash];
+  v8 = v7 ^ v6;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_19;
   }
 
-  v8 = vcnt_s8(v7);
-  v8.i16[0] = vaddlv_u8(v8);
-  v9 = v8.u32[0];
-  if (v8.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v10 = v5 ^ v4;
-    if (v6 >= *&v7)
+    v12 = v7 ^ v6;
+    if (v8 >= *&v9)
     {
-      v10 = v6 % *&v7;
+      v12 = v8 % *&v9;
     }
   }
 
   else
   {
-    v10 = (*&v7 - 1) & v6;
+    v12 = (*&v9 - 1) & v8;
   }
 
-  v11 = *(*a1 + 8 * v10);
-  if (!v11 || (v12 = *v11) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_19:
     operator new();
@@ -8748,49 +8694,49 @@ LABEL_19:
 
   while (1)
   {
-    v13 = v12[1];
-    if (v13 == v6)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v9 > 1)
+    if (v11 > 1)
     {
-      if (v13 >= *&v7)
+      if (v15 >= *&v9)
       {
-        v13 %= *&v7;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v13 &= *&v7 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v13 != v10)
+    if (v15 != v12)
     {
       goto LABEL_19;
     }
 
 LABEL_18:
-    v12 = *v12;
-    if (!v12)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_19;
     }
   }
 
-  if (*(v12 + 6) != *(a2 + 2) || ([v12[2] isEqual:*a2] & 1) == 0)
+  if (*(v14 + 6) != *(a2 + 2) || ([v14[2] isEqual:*a2] & 1) == 0)
   {
     goto LABEL_18;
   }
 
-  return v12;
+  return v14;
 }
 
-void sub_19A1C32C8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19A1C32C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<TopoID,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<TopoID,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8870,36 +8816,36 @@ void std::vector<TopoSubstring *>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<TopoID,std::pair<TopoSubstring *,TopoSubstring *>>,std::__unordered_map_hasher<TopoID,std::__hash_value_type<TopoID,std::pair<TopoSubstring *,TopoSubstring *>>,std::hash<TopoID>,std::equal_to<TopoID>,true>,std::__unordered_map_equal<TopoID,std::__hash_value_type<TopoID,std::pair<TopoSubstring *,TopoSubstring *>>,std::equal_to<TopoID>,std::hash<TopoID>,true>,std::allocator<std::__hash_value_type<TopoID,std::pair<TopoSubstring *,TopoSubstring *>>>>::__emplace_unique_key_args<TopoID,std::piecewise_construct_t const&,std::tuple<TopoID const&>,std::tuple<>>(void *a1, void *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<TopoID,std::pair<TopoSubstring *,TopoSubstring *>>,std::__unordered_map_hasher<TopoID,std::__hash_value_type<TopoID,std::pair<TopoSubstring *,TopoSubstring *>>,std::hash<TopoID>,std::equal_to<TopoID>,true>,std::__unordered_map_equal<TopoID,std::__hash_value_type<TopoID,std::pair<TopoSubstring *,TopoSubstring *>>,std::equal_to<TopoID>,std::hash<TopoID>,true>,std::allocator<std::__hash_value_type<TopoID,std::pair<TopoSubstring *,TopoSubstring *>>>>::__emplace_unique_key_args<TopoID,std::piecewise_construct_t const&,std::tuple<TopoID const&>,std::tuple<>>(void *a1, void *a2, uint64_t a3, uint64_t *a4)
 {
-  v4 = *(a2 + 2);
-  v5 = [*a2 hash];
-  v6 = v5 ^ v4;
-  v7 = a1[1];
-  if (!*&v7)
+  v6 = *(a2 + 2);
+  v7 = [*a2 hash];
+  v8 = v7 ^ v6;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_19;
   }
 
-  v8 = vcnt_s8(v7);
-  v8.i16[0] = vaddlv_u8(v8);
-  v9 = v8.u32[0];
-  if (v8.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v10 = v5 ^ v4;
-    if (v6 >= *&v7)
+    v12 = v7 ^ v6;
+    if (v8 >= *&v9)
     {
-      v10 = v6 % *&v7;
+      v12 = v8 % *&v9;
     }
   }
 
   else
   {
-    v10 = (*&v7 - 1) & v6;
+    v12 = (*&v9 - 1) & v8;
   }
 
-  v11 = *(*a1 + 8 * v10);
-  if (!v11 || (v12 = *v11) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_19:
     operator new();
@@ -8907,70 +8853,70 @@ LABEL_19:
 
   while (1)
   {
-    v13 = v12[1];
-    if (v13 == v6)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v9 > 1)
+    if (v11 > 1)
     {
-      if (v13 >= *&v7)
+      if (v15 >= *&v9)
       {
-        v13 %= *&v7;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v13 &= *&v7 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v13 != v10)
+    if (v15 != v12)
     {
       goto LABEL_19;
     }
 
 LABEL_18:
-    v12 = *v12;
-    if (!v12)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_19;
     }
   }
 
-  if (*(v12 + 6) != *(a2 + 2) || ([v12[2] isEqual:*a2] & 1) == 0)
+  if (*(v14 + 6) != *(a2 + 2) || ([v14[2] isEqual:*a2] & 1) == 0)
   {
     goto LABEL_18;
   }
 
-  return v12;
+  return v14;
 }
 
-void sub_19A1C36B8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19A1C36B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<TopoID,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<TopoID,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_19A1C39EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_19A1C39EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_19A1C3B68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_19A1C3B68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_19A1C404C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_19A1C404C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8982,34 +8928,34 @@ void sub_19A1C4BE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<std::pair<TopoID,TopoID>>::push_back[abi:ne200100](void *a1, uint64_t a2)
+uint64_t std::vector<std::pair<TopoID,TopoID>>::push_back[abi:ne200100](uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v3 = a1[1];
-  if (v3 >= a1[2])
+  v7 = a1[1];
+  if (v7 >= a1[2])
   {
-    result = std::vector<std::pair<TopoID,TopoID>>::__emplace_back_slow_path<std::pair<TopoID,TopoID>>(a1, a2);
+    result = std::vector<std::pair<TopoID,TopoID>>::__emplace_back_slow_path<std::pair<TopoID,TopoID>>(a1, a2, a3, a4, a5, a6);
   }
 
   else
   {
-    v4 = *a2;
+    v8 = *a2;
     *a2 = 0;
-    *v3 = v4;
-    *(v3 + 8) = *(a2 + 8);
-    v5 = *(a2 + 16);
-    *(a2 + 16) = 0;
-    *(v3 + 16) = v5;
-    *(v3 + 24) = *(a2 + 24);
-    result = v3 + 32;
+    *v7 = v8;
+    *(v7 + 8) = *(a2 + 2);
+    v9 = a2[2];
+    a2[2] = 0;
+    *(v7 + 16) = v9;
+    *(v7 + 24) = *(a2 + 6);
+    result = v7 + 32;
   }
 
   a1[1] = result;
   return result;
 }
 
-void sub_19A1C56B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A1C56B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9055,70 +9001,70 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*a1 + 8 * a2);
 }
 
-void sub_19A1C5794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A1C5794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<std::pair<TopoID,TopoID>>::__emplace_back_slow_path<std::pair<TopoID,TopoID>>(void *a1, uint64_t *a2)
+uint64_t std::vector<std::pair<TopoID,TopoID>>::__emplace_back_slow_path<std::pair<TopoID,TopoID>>(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v3 = *a1;
-  v4 = a1[1];
-  v5 = (v4 - *a1) >> 5;
-  v6 = v5 + 1;
-  if ((v5 + 1) >> 59)
+  v7 = *a1;
+  v8 = a1[1];
+  v9 = (v8 - *a1) >> 5;
+  v10 = v9 + 1;
+  if ((v9 + 1) >> 59)
   {
     std::vector<CRDT::Document_DocObject *>::__throw_length_error[abi:ne200100]();
   }
 
-  v8 = a1[2] - v3;
-  if (v8 >> 4 > v6)
+  v12 = a1[2] - v7;
+  if (v12 >> 4 > v10)
   {
-    v6 = v8 >> 4;
+    v10 = v12 >> 4;
   }
 
-  if (v8 >= 0x7FFFFFFFFFFFFFE0)
+  if (v12 >= 0x7FFFFFFFFFFFFFE0)
   {
-    v6 = 0x7FFFFFFFFFFFFFFLL;
+    v10 = 0x7FFFFFFFFFFFFFFLL;
   }
 
-  v19 = a1;
-  if (v6)
+  v23 = a1;
+  if (v10)
   {
-    std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<TopoID,TopoID>>>(a1, v6);
+    std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<TopoID,TopoID>>>(a1, v10);
   }
 
-  v9 = 32 * v5;
-  v16 = 0;
-  v17 = 32 * v5;
-  v10 = *a2;
+  v13 = 32 * v9;
+  v20 = 0;
+  v21 = 32 * v9;
+  v14 = *a2;
   *a2 = 0;
-  *v9 = v10;
-  *(v9 + 8) = *(a2 + 2);
-  v11 = a2[2];
+  *v13 = v14;
+  *(v13 + 8) = *(a2 + 2);
+  v15 = a2[2];
   a2[2] = 0;
-  *(v9 + 16) = v11;
-  *(v9 + 24) = *(a2 + 6);
-  v18 = (32 * v5 + 32);
-  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::pair<TopoID,TopoID>>,std::pair<TopoID,TopoID>*>(a1, v3, v4, 0);
-  v12 = *a1;
+  *(v13 + 16) = v15;
+  *(v13 + 24) = *(a2 + 6);
+  v22 = (32 * v9 + 32);
+  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::pair<TopoID,TopoID>>,std::pair<TopoID,TopoID>*>(a1, v7, v8, 0, a5, a6);
+  v16 = *a1;
   *a1 = 0;
-  v13 = a1[2];
-  v15 = v18;
-  *(a1 + 1) = v18;
-  *&v18 = v12;
-  *(&v18 + 1) = v13;
-  v16 = v12;
-  v17 = v12;
-  std::__split_buffer<std::pair<TopoID,TopoID>>::~__split_buffer(&v16);
-  return v15;
+  v17 = a1[2];
+  v19 = v22;
+  *(a1 + 1) = v22;
+  *&v22 = v16;
+  *(&v22 + 1) = v17;
+  v20 = v16;
+  v21 = v16;
+  std::__split_buffer<std::pair<TopoID,TopoID>>::~__split_buffer(&v20);
+  return v19;
 }
 
-void sub_19A1C5938(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_19A1C5938(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::pair<TopoID,TopoID>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -9146,17 +9092,18 @@ void std::vector<std::pair<TopoID,TopoID>>::__base_destruct_at_end[abi:ne200100]
   *(a1 + 8) = a2;
 }
 
-void sub_19A1C60F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_19A1C60F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
 
   versioned_document::Version::~Version(va);
   _Unwind_Resume(a1);
 }
 
-void google::protobuf::RepeatedPtrField<versioned_document::Version>::DeleteSubrange(google::protobuf::internal::RepeatedPtrFieldBase *a1, int a2, int a3)
+void google::protobuf::RepeatedPtrField<versioned_document::Version>::DeleteSubrange(google::protobuf::internal::RepeatedPtrFieldBase *a1, uint64_t a2, int a3)
 {
-  if (a2 < 0)
+  v4 = a2;
+  if ((a2 & 0x80000000) != 0)
   {
     google::protobuf::internal::LogMessage::LogMessage(v13, 3, "/Library/Caches/com.apple.xbs/Sources/ReminderKit/CRProtobuf/protobuf-lite/google/protobuf/repeated_field.h", 1134);
     v6 = google::protobuf::internal::LogMessage::operator<<(v13, "CHECK failed: (start) >= (0): ");
@@ -9178,7 +9125,7 @@ void google::protobuf::RepeatedPtrField<versioned_document::Version>::DeleteSubr
   google::protobuf::internal::LogFinisher::operator=(&v12, v7);
   google::protobuf::internal::LogMessage::~LogMessage(&v13[0].__r_.__value_.__l.__data_);
 LABEL_6:
-  if (a3 + a2 > *(a1 + 2))
+  if (a3 + v4 > *(a1 + 2))
   {
     google::protobuf::internal::LogMessage::LogMessage(v13, 3, "/Library/Caches/com.apple.xbs/Sources/ReminderKit/CRProtobuf/protobuf-lite/google/protobuf/repeated_field.h", 1136);
     v8 = google::protobuf::internal::LogMessage::operator<<(v13, "CHECK failed: (start + num) <= (size()): ");
@@ -9188,7 +9135,7 @@ LABEL_6:
 
   if (a3 >= 1)
   {
-    v9 = a2;
+    v9 = v4;
     v10 = a3;
     do
     {
@@ -9205,26 +9152,26 @@ LABEL_6:
     while (v10);
   }
 
-  google::protobuf::RepeatedPtrField<versioned_document::Version>::ExtractSubrange(a1, a2, a3, 0);
+  google::protobuf::RepeatedPtrField<versioned_document::Version>::ExtractSubrange(a1, v4, a3, 0);
 }
 
-void sub_19A1C62A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A1C62A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-void sub_19A1C65A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A1C65A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-void sub_19A1C6834(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A1C6834(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
 
   _Unwind_Resume(a1);
@@ -9271,9 +9218,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*a1 + 8 * a2);
 }
 
-void sub_19A1C6AAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A1C6AAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9306,7 +9253,7 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Clear<google::protobu
   return result;
 }
 
-std::string *google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<versioned_document::Version>::TypeHandler>(google::protobuf::internal::RepeatedPtrFieldBase *this, google::protobuf::internal::RepeatedPtrFieldBase *a2)
+void *google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<versioned_document::Version>::TypeHandler>(int32x2_t *this, int32x2_t *a2)
 {
   if (a2 == this)
   {
@@ -9316,18 +9263,18 @@ std::string *google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google:
     google::protobuf::internal::LogMessage::~LogMessage(&v12[0].__r_.__value_.__l.__data_);
   }
 
-  result = google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this, *(a2 + 2) + *(this + 2));
-  if (*(a2 + 2) >= 1)
+  result = google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this, a2[1].i32[0] + this[1].i32[0]);
+  if (a2[1].i32[0] >= 1)
   {
     v6 = 0;
     do
     {
       v7 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<versioned_document::Version>::TypeHandler>(a2, v6);
-      v8 = *(this + 3);
-      v9 = *(this + 2);
+      v8 = this[1].i32[1];
+      v9 = this[1].i32[0];
       if (v9 >= v8)
       {
-        if (v8 == *(this + 4))
+        if (v8 == this[2].i32[0])
         {
           google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this, v8 + 1);
         }
@@ -9336,12 +9283,12 @@ std::string *google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google:
       }
 
       v10 = *this;
-      *(this + 2) = v9 + 1;
+      this[1].i32[0] = v9 + 1;
       result = versioned_document::Version::MergeFrom(*(v10 + 8 * v9), v7);
       ++v6;
     }
 
-    while (v6 < *(a2 + 2));
+    while (v6 < a2[1].i32[0]);
   }
 
   return result;
@@ -9356,18 +9303,18 @@ std::string *google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google:
     google::protobuf::internal::LogMessage::~LogMessage(&v12[0].__r_.__value_.__l.__data_);
   }
 
-  result = google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this, *(a2 + 2) + *(this + 2));
-  if (*(a2 + 2) >= 1)
+  result = google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this, a2[1].i32[0] + this[1].i32[0]);
+  if (a2[1].i32[0] >= 1)
   {
     v6 = 0;
     do
     {
       v7 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<versioned_document::Version>::TypeHandler>(a2, v6);
-      v8 = *(this + 3);
-      v9 = *(this + 2);
+      v8 = this[1].i32[1];
+      v9 = this[1].i32[0];
       if (v9 >= v8)
       {
-        if (v8 == *(this + 4))
+        if (v8 == this[2].i32[0])
         {
           google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this, v8 + 1);
         }
@@ -9376,20 +9323,20 @@ std::string *google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google:
       }
 
       v10 = *this;
-      *(this + 2) = v9 + 1;
+      this[1].i32[0] = v9 + 1;
       result = versioned_document::Version::MergeFrom(*(v10 + 8 * v9), v7);
       ++v6;
     }
 
-    while (v6 < *(a2 + 2));
+    while (v6 < a2[1].i32[0]);
   }
 
   return result;
 }
 
-void sub_19A1C6CC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A1C6CC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9415,9 +9362,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::proto
   return *(*a1 + 8 * a2);
 }
 
-void sub_19A1C6D9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A1C6D9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9473,9 +9420,9 @@ LABEL_6:
   }
 }
 
-void sub_19A1C6F14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A1C6F14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9565,9 +9512,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*a1 + 8 * a2);
 }
 
-void sub_19A1C7A9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A1C7A9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9613,9 +9560,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*a1 + 8 * a2);
 }
 
-void sub_19A1C7B78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A1C7B78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9627,4 +9574,74 @@ void google::protobuf::internal::GenericTypeHandler<topotext::VectorTimestamp_Cl
 
 {
   operator new();
+}
+
+void sub_19A1C7D58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  topotext::ParagraphStyle::~ParagraphStyle(va);
+
+  _Unwind_Resume(a1);
+}
+
+void sub_19A1C8070(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  topotext::ParagraphStyle::~ParagraphStyle(va);
+  _Unwind_Resume(a1);
+}
+
+CGColorSpaceRef ___Z22TSUDeviceRGBColorSpacev_block_invoke()
+{
+  result = CGColorSpaceCreateDeviceRGB();
+  TSUDeviceRGBColorSpace(void)::sDeviceRGBColorSpace = result;
+  return result;
+}
+
+void sub_19A1C9E98(_Unwind_Exception *a1)
+{
+  MEMORY[0x19A8FD070](v7, 0x10B3C400074EEDFLL);
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<topotext::AttributeRun>::TypeHandler>(uint64_t a1, int a2)
+{
+  if (a2 < 0)
+  {
+    google::protobuf::internal::LogMessage::LogMessage(v8, 3, "/Library/Caches/com.apple.xbs/Sources/ReminderKit/CRProtobuf/protobuf-lite/google/protobuf/repeated_field.h", 885);
+    v4 = google::protobuf::internal::LogMessage::operator<<(v8, "CHECK failed: (index) >= (0): ");
+    google::protobuf::internal::LogFinisher::operator=(&v7, v4);
+    google::protobuf::internal::LogMessage::~LogMessage(&v8[0].__r_.__value_.__l.__data_);
+  }
+
+  if (*(a1 + 8) <= a2)
+  {
+    google::protobuf::internal::LogMessage::LogMessage(v8, 3, "/Library/Caches/com.apple.xbs/Sources/ReminderKit/CRProtobuf/protobuf-lite/google/protobuf/repeated_field.h", 886);
+    v5 = google::protobuf::internal::LogMessage::operator<<(v8, "CHECK failed: (index) < (size()): ");
+    google::protobuf::internal::LogFinisher::operator=(&v7, v5);
+    google::protobuf::internal::LogMessage::~LogMessage(&v8[0].__r_.__value_.__l.__data_);
+  }
+
+  return *(*a1 + 8 * a2);
+}
+
+{
+  if (a2 < 0)
+  {
+    google::protobuf::internal::LogMessage::LogMessage(v8, 3, "/Library/Caches/com.apple.xbs/Sources/ReminderKit/CRProtobuf/protobuf-lite/google/protobuf/repeated_field.h", 885);
+    v4 = google::protobuf::internal::LogMessage::operator<<(v8, "CHECK failed: (index) >= (0): ");
+    google::protobuf::internal::LogFinisher::operator=(&v7, v4);
+    google::protobuf::internal::LogMessage::~LogMessage(&v8[0].__r_.__value_.__l.__data_);
+  }
+
+  if (*(a1 + 8) <= a2)
+  {
+    google::protobuf::internal::LogMessage::LogMessage(v8, 3, "/Library/Caches/com.apple.xbs/Sources/ReminderKit/CRProtobuf/protobuf-lite/google/protobuf/repeated_field.h", 886);
+    v5 = google::protobuf::internal::LogMessage::operator<<(v8, "CHECK failed: (index) < (size()): ");
+    google::protobuf::internal::LogFinisher::operator=(&v7, v5);
+    google::protobuf::internal::LogMessage::~LogMessage(&v8[0].__r_.__value_.__l.__data_);
+  }
+
+  return *(*a1 + 8 * a2);
 }

@@ -328,7 +328,7 @@
 - (void)buttonTapped:(id)tapped
 {
   tappedCopy = tapped;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(tappedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;

@@ -13,34 +13,33 @@
 
 + (id)typeStrings
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = @"com.apple.dnsProxy.managed";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = @"com.apple.dnsProxy.managed";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
 
   return v2;
 }
 
 - (MCDNSProxyPayload)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v39.receiver = self;
-  v39.super_class = MCDNSProxyPayload;
-  v9 = [(MCPayload *)&v39 initWithDictionary:dictionaryCopy profile:profile outError:error];
+  v38.receiver = self;
+  v38.super_class = MCDNSProxyPayload;
+  v9 = [(MCPayload *)&v38 initWithDictionary:dictionaryCopy profile:profile outError:error];
   if (v9)
   {
-    v38 = 0;
-    v10 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"AppBundleIdentifier" isRequired:1 outError:&v38];
-    v11 = v38;
+    v37 = 0;
+    v10 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"AppBundleIdentifier" isRequired:1 outError:&v37];
+    v11 = v37;
     appBundleIdentifier = v9->_appBundleIdentifier;
     v9->_appBundleIdentifier = v10;
 
     if (v9->_appBundleIdentifier)
     {
-      v37 = v11;
-      v13 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProviderBundleIdentifier" isRequired:0 outError:&v37];
-      v14 = v37;
+      v36 = v11;
+      v13 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProviderBundleIdentifier" isRequired:0 outError:&v36];
+      v14 = v36;
 
       providerBundleIdentifier = v9->_providerBundleIdentifier;
       v9->_providerBundleIdentifier = v13;
@@ -57,18 +56,18 @@
 
       if (v16)
       {
-        v36 = v14;
-        v17 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"ProviderConfiguration" isRequired:0 outError:&v36];
-        v11 = v36;
+        v35 = v14;
+        v17 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"ProviderConfiguration" isRequired:0 outError:&v35];
+        v11 = v35;
 
         providerConfiguration = v9->_providerConfiguration;
         v9->_providerConfiguration = v17;
 
         if (v9->_providerBundleIdentifier || !v11)
         {
-          v35 = v11;
-          v19 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"DNSProxyUUID" isRequired:0 outError:&v35];
-          v20 = v35;
+          v34 = v11;
+          v19 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"DNSProxyUUID" isRequired:0 outError:&v34];
+          v20 = v34;
 
           dnsProxyUUID = v9->_dnsProxyUUID;
           v9->_dnsProxyUUID = v19;
@@ -91,9 +90,9 @@
         v23 = v22;
         friendlyName = [(MCPayload *)v9 friendlyName];
         *buf = 138543618;
-        v41 = friendlyName;
-        v42 = 2114;
-        v43 = dictionaryCopy;
+        v40 = friendlyName;
+        v41 = 2114;
+        v42 = dictionaryCopy;
         _os_log_impl(&dword_1A795B000, v23, OS_LOG_TYPE_INFO, "Payload “%{public}@” contains ignored fields. They are: %{public}@", buf, 0x16u);
       }
     }
@@ -116,9 +115,9 @@
         v31 = v30;
         mCVerboseDescription = [v26 MCVerboseDescription];
         *buf = 138543618;
-        v41 = v30;
-        v42 = 2114;
-        v43 = mCVerboseDescription;
+        v40 = v30;
+        v41 = 2114;
+        v42 = mCVerboseDescription;
         _os_log_impl(&dword_1A795B000, v29, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse payload: %{public}@", buf, 0x16u);
       }
 
@@ -126,7 +125,6 @@
     }
   }
 
-  v33 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -220,7 +218,7 @@
 
 - (id)payloadDescriptionKeyValueSections
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:2];
   v4 = [MCKeyValue alloc];
   appBundleIdentifier = [(MCDNSProxyPayload *)self appBundleIdentifier];
@@ -251,24 +249,20 @@
   }
 
   v18 = [MCKeyValueSection sectionWithKeyValues:v3];
-  v22[0] = v18;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
-
-  v20 = *MEMORY[0x1E69E9840];
+  v21[0] = v18;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
 
   return v19;
 }
 
 - (id)installationWarnings
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = MCLocalizedString(@"INSTALL_WARNING_DNS_PROXY_TITLE");
   v3 = MCLocalizedStringByDevice(@"INSTALL_WARNING_DNS_PROXY");
   v4 = [MCProfileWarning warningWithLocalizedTitle:v2 localizedBody:v3 isLongForm:1];
-  v8[0] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7[0] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
 
   return v5;
 }

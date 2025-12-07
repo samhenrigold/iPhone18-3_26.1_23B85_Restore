@@ -35,16 +35,16 @@
   return v6;
 }
 
-id __46__WKParameterizedCAWallpaperInput_na_identity__block_invoke()
+id __46__WKParameterizedCAWallpaperInput_na_identity__block_invoke(uint64_t a1)
 {
   if (_block_invoke_na_once_token_0_12 != -1)
   {
     __46__WKParameterizedCAWallpaperInput_na_identity__block_invoke_cold_1();
   }
 
-  v1 = _block_invoke_na_once_object_0_12;
+  v2 = _block_invoke_na_once_object_0_12;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __46__WKParameterizedCAWallpaperInput_na_identity__block_invoke_2()

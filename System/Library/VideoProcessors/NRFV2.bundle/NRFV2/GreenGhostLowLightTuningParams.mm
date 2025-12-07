@@ -61,671 +61,659 @@
 - (int)readPlist:(id)plist
 {
   plistCopy = plist;
-  v7 = objc_msgSend_objectForKeyedSubscript_(plistCopy, v5, @"faceBoundaryPaddingRatio", v6);
+  v8 = objc_msgSend_objectForKeyedSubscript_(plistCopy, v6, @"faceBoundaryPaddingRatio", v7);
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0 || objc_msgSend_count(v7, v8, v9, v10) != 2)
+  if ((objc_opt_isKindOfClass() & 1) == 0 || objc_msgSend_count(v8, v9, v10, v11) != 2)
   {
     sub_2958B1410();
-LABEL_99:
-    v612 = -1;
+LABEL_103:
+    v613 = -1;
     goto LABEL_70;
   }
 
-  v13 = objc_msgSend_objectAtIndexedSubscript_(v7, v11, 0, v12);
-  objc_msgSend_floatValue(v13, v14, v15, v16);
-  LODWORD(self[1].super.isa) = v17;
+  v14 = objc_msgSend_objectAtIndexedSubscript_(v8, v12, 0, v13);
+  objc_msgSend_floatValue(v14, v15, v16, v17);
+  LODWORD(self[1].super.isa) = v18;
 
-  v20 = objc_msgSend_objectAtIndexedSubscript_(v7, v18, 1, v19);
-  objc_msgSend_floatValue(v20, v21, v22, v23);
-  HIDWORD(self[1].super.isa) = v24;
+  v21 = objc_msgSend_objectAtIndexedSubscript_(v8, v19, 1, v20);
+  objc_msgSend_floatValue(v21, v22, v23, v24);
+  HIDWORD(self[1].super.isa) = v25;
 
-  v27 = objc_msgSend_objectForKeyedSubscript_(plistCopy, v25, @"enabled", v26);
+  v28 = objc_msgSend_objectForKeyedSubscript_(plistCopy, v26, @"enabled", v27);
 
-  if (!v27)
+  if (!v28)
   {
     sub_2958B27EC();
-    goto LABEL_99;
+    goto LABEL_103;
   }
 
-  v30 = objc_msgSend_objectForKeyedSubscript_(plistCopy, v28, @"enabled", v29);
-  self->_tuningParams.enabled = objc_msgSend_BOOLValue(v30, v31, v32, v33);
+  v31 = objc_msgSend_objectForKeyedSubscript_(plistCopy, v29, @"enabled", v30);
+  self->_tuningParams.enabled = objc_msgSend_BOOLValue(v31, v32, v33, v34);
 
-  v36 = objc_msgSend_objectForKeyedSubscript_(plistCopy, v34, @"blurThreshold", v35);
+  v37 = objc_msgSend_objectForKeyedSubscript_(plistCopy, v35, @"blurThreshold", v36);
 
-  if (!v36)
+  if (!v37)
   {
     sub_2958B2794();
-    goto LABEL_99;
+    goto LABEL_103;
   }
 
-  v39 = objc_msgSend_objectForKeyedSubscript_(plistCopy, v37, @"blurThreshold", v38);
-  objc_msgSend_floatValue(v39, v40, v41, v42);
-  self->_tuningParams.blurThreshold = v43;
+  v40 = objc_msgSend_objectForKeyedSubscript_(plistCopy, v38, @"blurThreshold", v39);
+  objc_msgSend_floatValue(v40, v41, v42, v43);
+  self->_tuningParams.blurThreshold = v44;
 
-  v46 = objc_msgSend_objectForKeyedSubscript_(plistCopy, v44, @"maxMaskAverage", v45);
+  v47 = objc_msgSend_objectForKeyedSubscript_(plistCopy, v45, @"maxMaskAverage", v46);
 
-  if (!v46)
+  if (!v47)
   {
     sub_2958B273C();
-    goto LABEL_99;
+    goto LABEL_103;
   }
 
-  v49 = objc_msgSend_objectForKeyedSubscript_(plistCopy, v47, @"maxMaskAverage", v48);
-  objc_msgSend_floatValue(v49, v50, v51, v52);
-  self->_tuningParams.maxMaskAverage = v53;
+  v50 = objc_msgSend_objectForKeyedSubscript_(plistCopy, v48, @"maxMaskAverage", v49);
+  objc_msgSend_floatValue(v50, v51, v52, v53);
+  self->_tuningParams.maxMaskAverage = v54;
 
-  v56 = objc_msgSend_objectForKeyedSubscript_(plistCopy, v54, @"greenGhostThreshold", v55);
+  v57 = objc_msgSend_objectForKeyedSubscript_(plistCopy, v55, @"greenGhostThreshold", v56);
 
-  if (!v56)
+  if (!v57)
   {
     sub_2958B26E4();
-    goto LABEL_99;
+    goto LABEL_103;
   }
 
-  v59 = objc_msgSend_objectForKeyedSubscript_(plistCopy, v57, @"greenGhostThreshold", v58);
-  objc_msgSend_floatValue(v59, v60, v61, v62);
-  self->_tuningParams.greenGhostThreshold = v63;
+  v60 = objc_msgSend_objectForKeyedSubscript_(plistCopy, v58, @"greenGhostThreshold", v59);
+  objc_msgSend_floatValue(v60, v61, v62, v63);
+  self->_tuningParams.greenGhostThreshold = v64;
 
-  v66 = objc_msgSend_objectForKeyedSubscript_(plistCopy, v64, @"detection", v65);
-  if (!v66)
+  v67 = objc_msgSend_objectForKeyedSubscript_(plistCopy, v65, @"detection", v66);
+  if (!v67)
   {
     sub_2958B268C();
-    goto LABEL_99;
+    goto LABEL_103;
   }
 
-  v69 = v66;
-  v70 = objc_msgSend_objectForKeyedSubscript_(v66, v67, @"brightness", v68);
-  v73 = v70;
-  if (!v70)
+  v70 = v67;
+  v71 = objc_msgSend_objectForKeyedSubscript_(v67, v68, @"brightness", v69);
+  v74 = v71;
+  if (!v71)
   {
     sub_2958B2634();
-LABEL_98:
+LABEL_102:
 
-    goto LABEL_99;
+    goto LABEL_103;
   }
 
-  v74 = objc_msgSend_objectForKeyedSubscript_(v70, v71, @"threshold", v72);
+  v75 = objc_msgSend_objectForKeyedSubscript_(v71, v72, @"threshold", v73);
 
-  if (!v74)
+  if (!v75)
   {
     sub_2958B25DC();
-    goto LABEL_98;
+    goto LABEL_102;
   }
 
-  v77 = objc_msgSend_objectForKeyedSubscript_(v73, v75, @"threshold", v76);
-  objc_msgSend_floatValue(v77, v78, v79, v80);
-  *&self[1]._tuningParams.enabled = v81;
+  v78 = objc_msgSend_objectForKeyedSubscript_(v74, v76, @"threshold", v77);
+  objc_msgSend_floatValue(v78, v79, v80, v81);
+  *&self[1]._tuningParams.enabled = v82;
 
-  v84 = objc_msgSend_objectForKeyedSubscript_(v73, v82, @"dilationNormalizedRadius", v83);
+  v85 = objc_msgSend_objectForKeyedSubscript_(v74, v83, @"dilationNormalizedRadius", v84);
 
-  if (!v84)
+  if (!v85)
   {
     sub_2958B2584();
-    goto LABEL_98;
+    goto LABEL_102;
   }
 
-  v87 = objc_msgSend_objectForKeyedSubscript_(v73, v85, @"dilationNormalizedRadius", v86);
-  objc_msgSend_floatValue(v87, v88, v89, v90);
-  LODWORD(self[2].super.isa) = v91;
+  v88 = objc_msgSend_objectForKeyedSubscript_(v74, v86, @"dilationNormalizedRadius", v87);
+  objc_msgSend_floatValue(v88, v89, v90, v91);
+  LODWORD(self[2].super.isa) = v92;
 
-  v94 = objc_msgSend_objectForKeyedSubscript_(v73, v92, @"erosionNormalizedRadius", v93);
+  v95 = objc_msgSend_objectForKeyedSubscript_(v74, v93, @"erosionNormalizedRadius", v94);
 
-  if (!v94)
+  if (!v95)
   {
     sub_2958B252C();
-    goto LABEL_98;
+    goto LABEL_102;
   }
 
-  v97 = objc_msgSend_objectForKeyedSubscript_(v73, v95, @"erosionNormalizedRadius", v96);
-  objc_msgSend_floatValue(v97, v98, v99, v100);
-  HIDWORD(self[2].super.isa) = v101;
+  v98 = objc_msgSend_objectForKeyedSubscript_(v74, v96, @"erosionNormalizedRadius", v97);
+  objc_msgSend_floatValue(v98, v99, v100, v101);
+  HIDWORD(self[2].super.isa) = v102;
 
-  v104 = objc_msgSend_objectForKeyedSubscript_(v73, v102, @"normalizedOpticalCenter", v103);
+  v105 = objc_msgSend_objectForKeyedSubscript_(v74, v103, @"normalizedOpticalCenter", v104);
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0 || objc_msgSend_count(v104, v105, v106, v107) != 2)
+  if ((objc_opt_isKindOfClass() & 1) == 0 || objc_msgSend_count(v105, v106, v107, v108) != 2)
   {
-    sub_2958B1468(v104, v73, v69);
-    goto LABEL_99;
+    sub_2958B1468(v105, v74, v70);
+    goto LABEL_103;
   }
 
-  v110 = objc_msgSend_objectAtIndexedSubscript_(v104, v108, 0, v109);
-  objc_msgSend_floatValue(v110, v111, v112, v113);
-  self[1]._tuningParams.maxMaskAverage = v114;
+  v111 = objc_msgSend_objectAtIndexedSubscript_(v105, v109, 0, v110);
+  objc_msgSend_floatValue(v111, v112, v113, v114);
+  self[1]._tuningParams.maxMaskAverage = v115;
 
-  v117 = objc_msgSend_objectAtIndexedSubscript_(v104, v115, 1, v116);
-  objc_msgSend_floatValue(v117, v118, v119, v120);
-  self[1]._tuningParams.greenGhostThreshold = v121;
+  v118 = objc_msgSend_objectAtIndexedSubscript_(v105, v116, 1, v117);
+  objc_msgSend_floatValue(v118, v119, v120, v121);
+  self[1]._tuningParams.greenGhostThreshold = v122;
 
-  v124 = objc_msgSend_objectForKeyedSubscript_(v69, v122, @"blob", v123);
-  v73 = v124;
-  if (!v124)
+  v125 = objc_msgSend_objectForKeyedSubscript_(v70, v123, @"blob", v124);
+  v74 = v125;
+  if (!v125)
   {
     sub_2958B24D4();
-    goto LABEL_98;
+    goto LABEL_102;
   }
 
-  v127 = objc_msgSend_objectForKeyedSubscript_(v124, v125, @"threshold", v126);
+  v128 = objc_msgSend_objectForKeyedSubscript_(v125, v126, @"threshold", v127);
 
-  if (!v127)
+  if (!v128)
   {
     sub_2958B247C();
-    goto LABEL_98;
+    goto LABEL_102;
   }
 
-  v130 = objc_msgSend_objectForKeyedSubscript_(v73, v128, @"threshold", v129);
-  objc_msgSend_floatValue(v130, v131, v132, v133);
-  self[2]._tuningParams.maxMaskAverage = v134;
+  v131 = objc_msgSend_objectForKeyedSubscript_(v74, v129, @"threshold", v130);
+  objc_msgSend_floatValue(v131, v132, v133, v134);
+  self[2]._tuningParams.maxMaskAverage = v135;
 
-  v137 = objc_msgSend_objectForKeyedSubscript_(v73, v135, @"radius", v136);
+  v138 = objc_msgSend_objectForKeyedSubscript_(v74, v136, @"radius", v137);
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0 || objc_msgSend_count(v137, v138, v139, v140) != 2)
+  if ((objc_opt_isKindOfClass() & 1) == 0 || objc_msgSend_count(v138, v139, v140, v141) != 2)
   {
-    sub_2958B14F0(v137, v73, v69);
-    goto LABEL_99;
+    sub_2958B14F0(v138, v74, v70);
+    goto LABEL_103;
   }
 
-  v143 = objc_msgSend_objectAtIndexedSubscript_(v137, v141, 0, v142);
-  *&self[2]._tuningParams.enabled = objc_msgSend_intValue(v143, v144, v145, v146);
+  v144 = objc_msgSend_objectAtIndexedSubscript_(v138, v142, 0, v143);
+  *&self[2]._tuningParams.enabled = objc_msgSend_intValue(v144, v145, v146, v147);
 
-  v149 = objc_msgSend_objectAtIndexedSubscript_(v137, v147, 1, v148);
-  LODWORD(self[2]._tuningParams.blurThreshold) = objc_msgSend_intValue(v149, v150, v151, v152);
+  v150 = objc_msgSend_objectAtIndexedSubscript_(v138, v148, 1, v149);
+  LODWORD(self[2]._tuningParams.blurThreshold) = objc_msgSend_intValue(v150, v151, v152, v153);
 
-  v155 = objc_msgSend_objectForKeyedSubscript_(v69, v153, @"green", v154);
-  v73 = v155;
-  if (!v155)
+  v156 = objc_msgSend_objectForKeyedSubscript_(v70, v154, @"green", v155);
+  v74 = v156;
+  if (!v156)
   {
     sub_2958B2424();
-    goto LABEL_98;
+    goto LABEL_102;
   }
 
-  v158 = objc_msgSend_objectForKeyedSubscript_(v155, v156, @"hueThreshold", v157);
+  v159 = objc_msgSend_objectForKeyedSubscript_(v156, v157, @"hueThreshold", v158);
 
-  if (!v158)
+  if (!v159)
   {
     sub_2958B23CC();
-    goto LABEL_98;
+    goto LABEL_102;
   }
 
-  v161 = objc_msgSend_objectForKeyedSubscript_(v73, v159, @"hueThreshold", v160);
-  objc_msgSend_floatValue(v161, v162, v163, v164);
-  *&self[3]._tuningParams.enabled = v165;
+  v162 = objc_msgSend_objectForKeyedSubscript_(v74, v160, @"hueThreshold", v161);
+  objc_msgSend_floatValue(v162, v163, v164, v165);
+  *&self[3]._tuningParams.enabled = v166;
 
-  v168 = objc_msgSend_objectForKeyedSubscript_(v73, v166, @"openingNormalizedRadius", v167);
+  v169 = objc_msgSend_objectForKeyedSubscript_(v74, v167, @"openingNormalizedRadius", v168);
 
-  if (!v168)
+  if (!v169)
   {
     sub_2958B2374();
-    goto LABEL_98;
+    goto LABEL_102;
   }
 
-  v171 = objc_msgSend_objectForKeyedSubscript_(v73, v169, @"openingNormalizedRadius", v170);
-  objc_msgSend_floatValue(v171, v172, v173, v174);
-  *&self[4]._tuningParams.enabled = v175;
+  v172 = objc_msgSend_objectForKeyedSubscript_(v74, v170, @"openingNormalizedRadius", v171);
+  objc_msgSend_floatValue(v172, v173, v174, v175);
+  *&self[4]._tuningParams.enabled = v176;
 
-  v178 = objc_msgSend_objectForKeyedSubscript_(v73, v176, @"dilationNormalizedRadius", v177);
+  v179 = objc_msgSend_objectForKeyedSubscript_(v74, v177, @"dilationNormalizedRadius", v178);
 
-  if (!v178)
+  if (!v179)
   {
     sub_2958B231C();
-    goto LABEL_98;
+    goto LABEL_102;
   }
 
-  v181 = objc_msgSend_objectForKeyedSubscript_(v73, v179, @"dilationNormalizedRadius", v180);
-  objc_msgSend_floatValue(v181, v182, v183, v184);
-  self[4]._tuningParams.blurThreshold = v185;
+  v182 = objc_msgSend_objectForKeyedSubscript_(v74, v180, @"dilationNormalizedRadius", v181);
+  objc_msgSend_floatValue(v182, v183, v184, v185);
+  self[4]._tuningParams.blurThreshold = v186;
 
-  v188 = objc_msgSend_objectForKeyedSubscript_(v73, v186, @"hueRange", v187);
+  v189 = objc_msgSend_objectForKeyedSubscript_(v74, v187, @"hueRange", v188);
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0 || objc_msgSend_count(v188, v189, v190, v191) != 2)
+  if ((objc_opt_isKindOfClass() & 1) == 0 || objc_msgSend_count(v189, v190, v191, v192) != 2)
   {
-    sub_2958B1578(v188);
-    goto LABEL_98;
+    sub_2958B1578(v189);
+    goto LABEL_102;
   }
 
-  v194 = objc_msgSend_objectAtIndexedSubscript_(v188, v192, 0, v193);
-  objc_msgSend_floatValue(v194, v195, v196, v197);
-  LODWORD(self[3].super.isa) = v198;
+  v195 = objc_msgSend_objectAtIndexedSubscript_(v189, v193, 0, v194);
+  objc_msgSend_floatValue(v195, v196, v197, v198);
+  LODWORD(self[3].super.isa) = v199;
 
-  v201 = objc_msgSend_objectAtIndexedSubscript_(v188, v199, 1, v200);
-  objc_msgSend_floatValue(v201, v202, v203, v204);
-  HIDWORD(self[3].super.isa) = v205;
+  v202 = objc_msgSend_objectAtIndexedSubscript_(v189, v200, 1, v201);
+  objc_msgSend_floatValue(v202, v203, v204, v205);
+  HIDWORD(self[3].super.isa) = v206;
 
-  v208 = objc_msgSend_objectForKeyedSubscript_(v73, v206, @"saturationThresholds", v207);
+  v209 = objc_msgSend_objectForKeyedSubscript_(v74, v207, @"saturationThresholds", v208);
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0 || objc_msgSend_count(v208, v209, v210, v211) != 2)
+  if ((objc_opt_isKindOfClass() & 1) == 0 || objc_msgSend_count(v209, v210, v211, v212) != 2)
   {
-    sub_2958B15E8(v208);
-    goto LABEL_98;
+    sub_2958B15E8(v209);
+    goto LABEL_102;
   }
 
-  v214 = objc_msgSend_objectAtIndexedSubscript_(v208, v212, 0, v213);
-  objc_msgSend_floatValue(v214, v215, v216, v217);
-  self[3]._tuningParams.maxMaskAverage = v218;
+  v215 = objc_msgSend_objectAtIndexedSubscript_(v209, v213, 0, v214);
+  objc_msgSend_floatValue(v215, v216, v217, v218);
+  self[3]._tuningParams.maxMaskAverage = v219;
 
-  v221 = objc_msgSend_objectAtIndexedSubscript_(v208, v219, 1, v220);
-  objc_msgSend_floatValue(v221, v222, v223, v224);
-  self[3]._tuningParams.greenGhostThreshold = v225;
+  v222 = objc_msgSend_objectAtIndexedSubscript_(v209, v220, 1, v221);
+  objc_msgSend_floatValue(v222, v223, v224, v225);
+  self[3]._tuningParams.greenGhostThreshold = v226;
 
-  v228 = objc_msgSend_objectForKeyedSubscript_(v73, v226, @"valueThresholds", v227);
+  v229 = objc_msgSend_objectForKeyedSubscript_(v74, v227, @"valueThresholds", v228);
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0 || objc_msgSend_count(v228, v229, v230, v231) != 2)
+  if ((objc_opt_isKindOfClass() & 1) == 0 || objc_msgSend_count(v229, v230, v231, v232) != 2)
   {
-    sub_2958B1658(v228, v73, v69);
-    goto LABEL_99;
+    sub_2958B1658(v229, v74, v70);
+    goto LABEL_103;
   }
 
-  v234 = objc_msgSend_objectAtIndexedSubscript_(v228, v232, 0, v233);
-  objc_msgSend_floatValue(v234, v235, v236, v237);
-  LODWORD(self[4].super.isa) = v238;
+  v235 = objc_msgSend_objectAtIndexedSubscript_(v229, v233, 0, v234);
+  objc_msgSend_floatValue(v235, v236, v237, v238);
+  LODWORD(self[4].super.isa) = v239;
 
-  v241 = objc_msgSend_objectAtIndexedSubscript_(v228, v239, 1, v240);
-  objc_msgSend_floatValue(v241, v242, v243, v244);
-  HIDWORD(self[4].super.isa) = v245;
+  v242 = objc_msgSend_objectAtIndexedSubscript_(v229, v240, 1, v241);
+  objc_msgSend_floatValue(v242, v243, v244, v245);
+  HIDWORD(self[4].super.isa) = v246;
 
-  v248 = objc_msgSend_objectForKeyedSubscript_(v69, v246, @"multiBandDetection", v247);
-  if (!v248)
+  v249 = objc_msgSend_objectForKeyedSubscript_(v70, v247, @"multiBandDetection", v248);
+  if (!v249)
   {
-    sub_2958B22AC(v69);
-    goto LABEL_99;
+    sub_2958B22AC(v70);
+    goto LABEL_103;
   }
 
-  v251 = v248;
-  v252 = objc_msgSend_objectForKeyedSubscript_(v248, v249, @"tmpVarThresholds", v250);
+  v252 = v249;
+  v253 = objc_msgSend_objectForKeyedSubscript_(v249, v250, @"tmpVarThresholds", v251);
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0 || objc_msgSend_count(v252, v253, v254, v255) != 2)
+  if ((objc_opt_isKindOfClass() & 1) == 0 || objc_msgSend_count(v253, v254, v255, v256) != 2)
   {
-    sub_2958B16E0(v252, v251, v69);
-    goto LABEL_99;
+    sub_2958B16E0(v253, v252, v70);
+    goto LABEL_103;
   }
 
-  v614 = v69;
-  v258 = objc_msgSend_objectAtIndexedSubscript_(v252, v256, 0, v257);
-  objc_msgSend_floatValue(v258, v259, v260, v261);
-  self[4]._tuningParams.maxMaskAverage = v262;
+  v616 = v70;
+  v259 = objc_msgSend_objectAtIndexedSubscript_(v253, v257, 0, v258);
+  objc_msgSend_floatValue(v259, v260, v261, v262);
+  self[4]._tuningParams.maxMaskAverage = v263;
 
-  v265 = objc_msgSend_objectAtIndexedSubscript_(v252, v263, 1, v264);
-  objc_msgSend_floatValue(v265, v266, v267, v268);
-  self[4]._tuningParams.greenGhostThreshold = v269;
+  v266 = objc_msgSend_objectAtIndexedSubscript_(v253, v264, 1, v265);
+  objc_msgSend_floatValue(v266, v267, v268, v269);
+  self[4]._tuningParams.greenGhostThreshold = v270;
 
-  v272 = objc_msgSend_objectForKeyedSubscript_(plistCopy, v270, @"refinement", v271);
-  if (!v272)
+  v273 = objc_msgSend_objectForKeyedSubscript_(plistCopy, v271, @"refinement", v272);
+  if (!v273)
   {
-    sub_2958B223C(v69);
-    goto LABEL_99;
+    sub_2958B223C(v70);
+    goto LABEL_103;
   }
 
-  v275 = v272;
-  v276 = objc_msgSend_objectForKeyedSubscript_(v272, v273, @"guidedFilterRadius", v274);
+  v276 = v273;
+  v277 = objc_msgSend_objectForKeyedSubscript_(v273, v274, @"guidedFilterRadius", v275);
 
-  if (!v276)
+  if (!v277)
   {
-    sub_2958B21BC(v275, v614);
-    goto LABEL_99;
+    sub_2958B21BC(v276, v616);
+    goto LABEL_103;
   }
 
-  v279 = objc_msgSend_objectForKeyedSubscript_(v275, v277, @"guidedFilterRadius", v278);
-  LODWORD(self[5].super.isa) = objc_msgSend_unsignedIntValue(v279, v280, v281, v282);
+  v280 = objc_msgSend_objectForKeyedSubscript_(v276, v278, @"guidedFilterRadius", v279);
+  LODWORD(self[5].super.isa) = objc_msgSend_unsignedIntValue(v280, v281, v282, v283);
 
-  v285 = objc_msgSend_objectForKeyedSubscript_(v275, v283, @"guidedFilterGuideRange", v284);
+  v286 = objc_msgSend_objectForKeyedSubscript_(v276, v284, @"guidedFilterGuideRange", v285);
 
-  if (!v285)
+  if (!v286)
   {
-    sub_2958B213C(v275, v614);
-    goto LABEL_99;
+    sub_2958B213C(v276, v616);
+    goto LABEL_103;
   }
 
-  v288 = objc_msgSend_objectForKeyedSubscript_(v275, v286, @"guidedFilterGuideRange", v287);
-  objc_msgSend_floatValue(v288, v289, v290, v291);
-  HIDWORD(self[5].super.isa) = v292;
+  v289 = objc_msgSend_objectForKeyedSubscript_(v276, v287, @"guidedFilterGuideRange", v288);
+  objc_msgSend_floatValue(v289, v290, v291, v292);
+  HIDWORD(self[5].super.isa) = v293;
 
-  v295 = objc_msgSend_objectForKeyedSubscript_(v275, v293, @"guidedFilterThreshold", v294);
+  v296 = objc_msgSend_objectForKeyedSubscript_(v276, v294, @"guidedFilterThreshold", v295);
 
-  if (!v295)
+  if (!v296)
   {
-    sub_2958B20BC(v275, v614);
-    goto LABEL_99;
+    sub_2958B20BC(v276, v616);
+    goto LABEL_103;
   }
 
-  v298 = objc_msgSend_objectForKeyedSubscript_(v275, v296, @"guidedFilterThreshold", v297);
-  objc_msgSend_floatValue(v298, v299, v300, v301);
-  *&self[5]._tuningParams.enabled = v302;
+  v299 = objc_msgSend_objectForKeyedSubscript_(v276, v297, @"guidedFilterThreshold", v298);
+  objc_msgSend_floatValue(v299, v300, v301, v302);
+  *&self[5]._tuningParams.enabled = v303;
 
-  v305 = objc_msgSend_objectForKeyedSubscript_(v275, v303, @"dilationNormalizedRadius", v304);
+  v306 = objc_msgSend_objectForKeyedSubscript_(v276, v304, @"dilationNormalizedRadius", v305);
 
-  if (!v305)
+  if (!v306)
   {
-    sub_2958B203C(v275, v614);
-    goto LABEL_99;
+    sub_2958B203C(v276, v616);
+    goto LABEL_103;
   }
 
-  v308 = objc_msgSend_objectForKeyedSubscript_(v275, v306, @"dilationNormalizedRadius", v307);
-  objc_msgSend_floatValue(v308, v309, v310, v311);
-  self[5]._tuningParams.blurThreshold = v312;
+  v309 = objc_msgSend_objectForKeyedSubscript_(v276, v307, @"dilationNormalizedRadius", v308);
+  objc_msgSend_floatValue(v309, v310, v311, v312);
+  self[5]._tuningParams.blurThreshold = v313;
 
-  v315 = objc_msgSend_objectForKeyedSubscript_(v275, v313, @"maskSurroundThreshold", v314);
+  v316 = objc_msgSend_objectForKeyedSubscript_(v276, v314, @"maskSurroundThreshold", v315);
 
-  if (!v315)
+  if (!v316)
   {
-    sub_2958B1FBC(v275, v614);
-    goto LABEL_99;
+    sub_2958B1FBC(v276, v616);
+    goto LABEL_103;
   }
 
-  v318 = objc_msgSend_objectForKeyedSubscript_(v275, v316, @"maskSurroundThreshold", v317);
-  objc_msgSend_floatValue(v318, v319, v320, v321);
-  self[5]._tuningParams.maxMaskAverage = v322;
+  v319 = objc_msgSend_objectForKeyedSubscript_(v276, v317, @"maskSurroundThreshold", v318);
+  objc_msgSend_floatValue(v319, v320, v321, v322);
+  self[5]._tuningParams.maxMaskAverage = v323;
 
-  v325 = objc_msgSend_objectForKeyedSubscript_(plistCopy, v323, @"fusion", v324);
-  if (!v325)
+  v326 = objc_msgSend_objectForKeyedSubscript_(plistCopy, v324, @"fusion", v325);
+  if (!v326)
   {
-    sub_2958B1F3C(v275, v614);
-    goto LABEL_99;
+    sub_2958B1F3C(v276, v616);
+    goto LABEL_103;
   }
 
-  v328 = v325;
-  v329 = objc_msgSend_objectForKeyedSubscript_(v325, v326, @"neighborDiffFilterRadius", v327);
-  LODWORD(self[6].super.isa) = objc_msgSend_unsignedIntValue(v329, v330, v331, v332);
+  v329 = v326;
+  v330 = objc_msgSend_objectForKeyedSubscript_(v326, v327, @"neighborDiffFilterRadius", v328);
+  LODWORD(self[6].super.isa) = objc_msgSend_unsignedIntValue(v330, v331, v332, v333);
 
-  v335 = objc_msgSend_objectForKeyedSubscript_(v328, v333, @"neighborDifferenceThresholds", v334);
+  v336 = objc_msgSend_objectForKeyedSubscript_(v329, v334, @"neighborDifferenceThresholds", v335);
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0 || objc_msgSend_count(v335, v336, v337, v338) != 2)
+  if ((objc_opt_isKindOfClass() & 1) == 0 || objc_msgSend_count(v336, v337, v338, v339) != 2)
   {
     sub_2958B1768();
-    goto LABEL_99;
+    goto LABEL_103;
   }
 
-  v341 = objc_msgSend_objectAtIndexedSubscript_(v335, v339, 0, v340);
-  objc_msgSend_floatValue(v341, v342, v343, v344);
-  *&self[6]._tuningParams.enabled = v345;
+  v342 = objc_msgSend_objectAtIndexedSubscript_(v336, v340, 0, v341);
+  objc_msgSend_floatValue(v342, v343, v344, v345);
+  *&self[6]._tuningParams.enabled = v346;
 
-  v348 = objc_msgSend_objectAtIndexedSubscript_(v335, v346, 1, v347);
-  objc_msgSend_floatValue(v348, v349, v350, v351);
-  self[6]._tuningParams.blurThreshold = v352;
+  v349 = objc_msgSend_objectAtIndexedSubscript_(v336, v347, 1, v348);
+  objc_msgSend_floatValue(v349, v350, v351, v352);
+  self[6]._tuningParams.blurThreshold = v353;
 
-  v355 = objc_msgSend_objectForKeyedSubscript_(v328, v353, @"greenProbabilityThresholds", v354);
+  v356 = objc_msgSend_objectForKeyedSubscript_(v329, v354, @"greenProbabilityThresholds", v355);
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0 || objc_msgSend_count(v355, v356, v357, v358) != 2)
+  if ((objc_opt_isKindOfClass() & 1) == 0 || objc_msgSend_count(v356, v357, v358, v359) != 2)
   {
     sub_2958B17FC();
-    goto LABEL_99;
+    goto LABEL_103;
   }
 
-  v361 = objc_msgSend_objectAtIndexedSubscript_(v355, v359, 0, v360);
-  objc_msgSend_floatValue(v361, v362, v363, v364);
-  self[6]._tuningParams.maxMaskAverage = v365;
+  v362 = objc_msgSend_objectAtIndexedSubscript_(v356, v360, 0, v361);
+  objc_msgSend_floatValue(v362, v363, v364, v365);
+  self[6]._tuningParams.maxMaskAverage = v366;
 
-  v368 = objc_msgSend_objectAtIndexedSubscript_(v355, v366, 1, v367);
-  objc_msgSend_floatValue(v368, v369, v370, v371);
-  self[6]._tuningParams.greenGhostThreshold = v372;
+  v369 = objc_msgSend_objectAtIndexedSubscript_(v356, v367, 1, v368);
+  objc_msgSend_floatValue(v369, v370, v371, v372);
+  self[6]._tuningParams.greenGhostThreshold = v373;
 
-  v375 = objc_msgSend_objectForKeyedSubscript_(v328, v373, @"fusionWeightErosionNormalizedRadius", v374);
+  v376 = objc_msgSend_objectForKeyedSubscript_(v329, v374, @"fusionWeightErosionNormalizedRadius", v375);
 
-  if (!v375)
+  if (!v376)
   {
-    sub_2958B1EB4(v328, v275, v614);
-    goto LABEL_99;
+    sub_2958B1EB4(v329, v276, v616);
+    goto LABEL_103;
   }
 
-  v378 = objc_msgSend_objectForKeyedSubscript_(v328, v376, @"fusionWeightErosionNormalizedRadius", v377);
-  objc_msgSend_floatValue(v378, v379, v380, v381);
-  LODWORD(self[7].super.isa) = v382;
+  v379 = objc_msgSend_objectForKeyedSubscript_(v329, v377, @"fusionWeightErosionNormalizedRadius", v378);
+  objc_msgSend_floatValue(v379, v380, v381, v382);
+  LODWORD(self[7].super.isa) = v383;
 
-  v385 = objc_msgSend_objectForKeyedSubscript_(v328, v383, @"fusionWeightBlurRadius", v384);
+  v386 = objc_msgSend_objectForKeyedSubscript_(v329, v384, @"fusionWeightBlurRadius", v385);
 
-  if (!v385)
+  if (!v386)
   {
-    sub_2958B1E2C(v328, v275, v614);
-    goto LABEL_99;
+    sub_2958B1E2C(v329, v276, v616);
+    goto LABEL_103;
   }
 
-  v388 = objc_msgSend_objectForKeyedSubscript_(v328, v386, @"fusionWeightBlurRadius", v387);
-  HIDWORD(self[7].super.isa) = objc_msgSend_unsignedIntValue(v388, v389, v390, v391);
+  v389 = objc_msgSend_objectForKeyedSubscript_(v329, v387, @"fusionWeightBlurRadius", v388);
+  HIDWORD(self[7].super.isa) = objc_msgSend_unsignedIntValue(v389, v390, v391, v392);
 
-  v394 = objc_msgSend_objectForKeyedSubscript_(v328, v392, @"postFusionErosionNormalizedRadius", v393);
+  v395 = objc_msgSend_objectForKeyedSubscript_(v329, v393, @"postFusionErosionNormalizedRadius", v394);
 
-  if (!v394)
+  if (!v395)
   {
-    sub_2958B1DA4(v328, v275, v614);
-    goto LABEL_99;
+    sub_2958B1DA4(v329, v276, v616);
+    goto LABEL_103;
   }
 
-  v397 = objc_msgSend_objectForKeyedSubscript_(v328, v395, @"postFusionErosionNormalizedRadius", v396);
-  objc_msgSend_floatValue(v397, v398, v399, v400);
-  *&self[7]._tuningParams.enabled = v401;
+  v398 = objc_msgSend_objectForKeyedSubscript_(v329, v396, @"postFusionErosionNormalizedRadius", v397);
+  objc_msgSend_floatValue(v398, v399, v400, v401);
+  *&self[7]._tuningParams.enabled = v402;
 
-  v404 = objc_msgSend_objectForKeyedSubscript_(v328, v402, @"postFusionReferenceWeight", v403);
+  v405 = objc_msgSend_objectForKeyedSubscript_(v329, v403, @"postFusionReferenceWeight", v404);
 
-  if (!v404)
+  if (!v405)
   {
-    sub_2958B1D1C(v328, v275, v614);
-    goto LABEL_99;
+    sub_2958B1D1C(v329, v276, v616);
+    goto LABEL_103;
   }
 
-  v407 = objc_msgSend_objectForKeyedSubscript_(v328, v405, @"postFusionReferenceWeight", v406);
-  objc_msgSend_floatValue(v407, v408, v409, v410);
-  self[7]._tuningParams.blurThreshold = v411;
+  v408 = objc_msgSend_objectForKeyedSubscript_(v329, v406, @"postFusionReferenceWeight", v407);
+  objc_msgSend_floatValue(v408, v409, v410, v411);
+  self[7]._tuningParams.blurThreshold = v412;
 
-  v414 = objc_msgSend_objectForKeyedSubscript_(plistCopy, v412, @"inpaint", v413);
-  if (!v414)
+  v415 = objc_msgSend_objectForKeyedSubscript_(plistCopy, v413, @"inpaint", v414);
+  if (!v415)
   {
-    sub_2958B1C94(v328, v275, v614);
-    goto LABEL_99;
+    sub_2958B1C94(v329, v276, v616);
+    goto LABEL_103;
   }
 
-  v417 = v414;
-  v418 = objc_msgSend_objectForKeyedSubscript_(v414, v415, @"postFusionMaskThresholds", v416);
+  v418 = v415;
+  v419 = objc_msgSend_objectForKeyedSubscript_(v415, v416, @"postFusionMaskThresholds", v417);
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0 || objc_msgSend_count(v418, v419, v420, v421) != 2)
+  if ((objc_opt_isKindOfClass() & 1) == 0 || objc_msgSend_count(v419, v420, v421, v422) != 2)
   {
-    goto LABEL_78;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, "Fig", "[(postFusionMaskThresholds) isKindOfClass:[NSArray class]] && [(postFusionMaskThresholds) count] == 2", "bail", 0, "GreenGhostLowLightTuningParamsV2.m", 225, 0);
+LABEL_83:
+
+    goto LABEL_103;
   }
 
-  v424 = objc_msgSend_objectAtIndexedSubscript_(v418, v422, 0, v423);
-  objc_msgSend_floatValue(v424, v425, v426, v427);
-  self[7]._tuningParams.maxMaskAverage = v428;
+  v425 = objc_msgSend_objectAtIndexedSubscript_(v419, v423, 0, v424);
+  objc_msgSend_floatValue(v425, v426, v427, v428);
+  self[7]._tuningParams.maxMaskAverage = v429;
 
-  v431 = objc_msgSend_objectAtIndexedSubscript_(v418, v429, 1, v430);
-  objc_msgSend_floatValue(v431, v432, v433, v434);
-  self[7]._tuningParams.greenGhostThreshold = v435;
+  v432 = objc_msgSend_objectAtIndexedSubscript_(v419, v430, 1, v431);
+  objc_msgSend_floatValue(v432, v433, v434, v435);
+  self[7]._tuningParams.greenGhostThreshold = v436;
 
-  v438 = objc_msgSend_objectForKeyedSubscript_(v417, v436, @"postFusionMaskDilateRadius", v437);
+  v439 = objc_msgSend_objectForKeyedSubscript_(v418, v437, @"postFusionMaskDilateRadius", v438);
 
-  if (!v438)
+  if (!v439)
   {
     sub_2958B1C00();
-    goto LABEL_99;
+    goto LABEL_103;
   }
 
-  v441 = objc_msgSend_objectForKeyedSubscript_(v417, v439, @"postFusionMaskDilateRadius", v440);
-  LODWORD(self[8].super.isa) = objc_msgSend_unsignedIntValue(v441, v442, v443, v444);
+  v442 = objc_msgSend_objectForKeyedSubscript_(v418, v440, @"postFusionMaskDilateRadius", v441);
+  LODWORD(self[8].super.isa) = objc_msgSend_unsignedIntValue(v442, v443, v444, v445);
 
-  v447 = objc_msgSend_objectForKeyedSubscript_(v417, v445, @"propagatedLumaBlurRadius", v446);
+  v448 = objc_msgSend_objectForKeyedSubscript_(v418, v446, @"propagatedLumaBlurRadius", v447);
 
-  if (!v447)
+  if (!v448)
   {
     sub_2958B1B6C();
-    goto LABEL_99;
+    goto LABEL_103;
   }
 
-  v450 = objc_msgSend_objectForKeyedSubscript_(v417, v448, @"propagatedLumaBlurRadius", v449);
-  HIDWORD(self[8].super.isa) = objc_msgSend_unsignedIntValue(v450, v451, v452, v453);
+  v451 = objc_msgSend_objectForKeyedSubscript_(v418, v449, @"propagatedLumaBlurRadius", v450);
+  HIDWORD(self[8].super.isa) = objc_msgSend_unsignedIntValue(v451, v452, v453, v454);
 
-  v456 = objc_msgSend_objectForKeyedSubscript_(v417, v454, @"maskBlurRadius", v455);
+  v457 = objc_msgSend_objectForKeyedSubscript_(v418, v455, @"maskBlurRadius", v456);
 
-  if (!v456)
+  if (!v457)
   {
     sub_2958B1AD8();
-    goto LABEL_99;
+    goto LABEL_103;
   }
 
-  v459 = objc_msgSend_objectForKeyedSubscript_(v417, v457, @"maskBlurRadius", v458);
-  *&self[8]._tuningParams.enabled = objc_msgSend_unsignedIntValue(v459, v460, v461, v462);
+  v460 = objc_msgSend_objectForKeyedSubscript_(v418, v458, @"maskBlurRadius", v459);
+  *&self[8]._tuningParams.enabled = objc_msgSend_unsignedIntValue(v460, v461, v462, v463);
 
-  v465 = objc_msgSend_objectForKeyedSubscript_(v417, v463, @"darknessTolerance", v464);
+  v466 = objc_msgSend_objectForKeyedSubscript_(v418, v464, @"darknessTolerance", v465);
 
-  if (!v465)
+  if (!v466)
   {
     sub_2958B1A44();
-    goto LABEL_99;
+    goto LABEL_103;
   }
 
-  v468 = objc_msgSend_objectForKeyedSubscript_(v417, v466, @"darknessTolerance", v467);
-  objc_msgSend_floatValue(v468, v469, v470, v471);
-  self[8]._tuningParams.blurThreshold = v472;
+  v469 = objc_msgSend_objectForKeyedSubscript_(v418, v467, @"darknessTolerance", v468);
+  objc_msgSend_floatValue(v469, v470, v471, v472);
+  self[8]._tuningParams.blurThreshold = v473;
 
-  v475 = objc_msgSend_objectForKeyedSubscript_(v417, v473, @"lumaScale", v474);
+  v476 = objc_msgSend_objectForKeyedSubscript_(v418, v474, @"lumaScale", v475);
 
-  if (!v475)
+  if (!v476)
   {
     sub_2958B19B0();
-    goto LABEL_99;
+    goto LABEL_103;
   }
 
-  v478 = objc_msgSend_objectForKeyedSubscript_(v417, v476, @"lumaScale", v477);
-  objc_msgSend_floatValue(v478, v479, v480, v481);
-  self[8]._tuningParams.maxMaskAverage = v482;
+  v479 = objc_msgSend_objectForKeyedSubscript_(v418, v477, @"lumaScale", v478);
+  objc_msgSend_floatValue(v479, v480, v481, v482);
+  self[8]._tuningParams.maxMaskAverage = v483;
 
-  v418 = objc_msgSend_objectForKeyedSubscript_(v417, v483, @"gradientThresholds", v484);
+  v419 = objc_msgSend_objectForKeyedSubscript_(v418, v484, @"gradientThresholds", v485);
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  if ((objc_opt_isKindOfClass() & 1) == 0 || objc_msgSend_count(v419, v486, v487, v488) != 2)
   {
-    goto LABEL_78;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, "Fig", "[(gradientThresholds) isKindOfClass:[NSArray class]] && [(gradientThresholds) count] == 2", "bail", 0, "GreenGhostLowLightTuningParamsV2.m", 236, 0);
+    goto LABEL_83;
   }
 
-  if (objc_msgSend_count(v418, v485, v486, v487) != 2)
-  {
-    goto LABEL_78;
-  }
+  v491 = objc_msgSend_objectAtIndexedSubscript_(v419, v489, 0, v490);
+  objc_msgSend_floatValue(v491, v492, v493, v494);
+  LODWORD(self[9].super.isa) = v495;
 
-  v490 = objc_msgSend_objectAtIndexedSubscript_(v418, v488, 0, v489);
-  objc_msgSend_floatValue(v490, v491, v492, v493);
-  LODWORD(self[9].super.isa) = v494;
+  v498 = objc_msgSend_objectAtIndexedSubscript_(v419, v496, 1, v497);
+  objc_msgSend_floatValue(v498, v499, v500, v501);
+  HIDWORD(self[9].super.isa) = v502;
 
-  v497 = objc_msgSend_objectAtIndexedSubscript_(v418, v495, 1, v496);
-  objc_msgSend_floatValue(v497, v498, v499, v500);
-  HIDWORD(self[9].super.isa) = v501;
-
-  v418 = objc_msgSend_objectForKeyedSubscript_(v417, v502, @"detailScales", v503);
+  v419 = objc_msgSend_objectForKeyedSubscript_(v418, v503, @"detailScales", v504);
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  if ((objc_opt_isKindOfClass() & 1) == 0 || objc_msgSend_count(v419, v505, v506, v507) != 2)
   {
-    goto LABEL_78;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, "Fig", "[(detailScales) isKindOfClass:[NSArray class]] && [(detailScales) count] == 2", "bail", 0, "GreenGhostLowLightTuningParamsV2.m", 242, 0);
+    goto LABEL_83;
   }
 
-  if (objc_msgSend_count(v418, v504, v505, v506) != 2)
-  {
-    goto LABEL_78;
-  }
+  v510 = objc_msgSend_objectAtIndexedSubscript_(v419, v508, 0, v509);
+  objc_msgSend_floatValue(v510, v511, v512, v513);
+  *&self[9]._tuningParams.enabled = v514;
 
-  v509 = objc_msgSend_objectAtIndexedSubscript_(v418, v507, 0, v508);
-  objc_msgSend_floatValue(v509, v510, v511, v512);
-  *&self[9]._tuningParams.enabled = v513;
+  v517 = objc_msgSend_objectAtIndexedSubscript_(v419, v515, 1, v516);
+  objc_msgSend_floatValue(v517, v518, v519, v520);
+  self[9]._tuningParams.blurThreshold = v521;
 
-  v516 = objc_msgSend_objectAtIndexedSubscript_(v418, v514, 1, v515);
-  objc_msgSend_floatValue(v516, v517, v518, v519);
-  self[9]._tuningParams.blurThreshold = v520;
-
-  v418 = objc_msgSend_objectForKeyedSubscript_(v417, v521, @"detailBiases", v522);
+  v419 = objc_msgSend_objectForKeyedSubscript_(v418, v522, @"detailBiases", v523);
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  if ((objc_opt_isKindOfClass() & 1) == 0 || objc_msgSend_count(v419, v524, v525, v526) != 2)
   {
-    goto LABEL_78;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, "Fig", "[(detailBiases) isKindOfClass:[NSArray class]] && [(detailBiases) count] == 2", "bail", 0, "GreenGhostLowLightTuningParamsV2.m", 248, 0);
+    goto LABEL_83;
   }
 
-  if (objc_msgSend_count(v418, v523, v524, v525) != 2)
-  {
-    goto LABEL_78;
-  }
+  v529 = objc_msgSend_objectAtIndexedSubscript_(v419, v527, 0, v528);
+  objc_msgSend_floatValue(v529, v530, v531, v532);
+  self[9]._tuningParams.maxMaskAverage = v533;
 
-  v528 = objc_msgSend_objectAtIndexedSubscript_(v418, v526, 0, v527);
-  objc_msgSend_floatValue(v528, v529, v530, v531);
-  self[9]._tuningParams.maxMaskAverage = v532;
+  v536 = objc_msgSend_objectAtIndexedSubscript_(v419, v534, 1, v535);
+  objc_msgSend_floatValue(v536, v537, v538, v539);
+  self[9]._tuningParams.greenGhostThreshold = v540;
 
-  v535 = objc_msgSend_objectAtIndexedSubscript_(v418, v533, 1, v534);
-  objc_msgSend_floatValue(v535, v536, v537, v538);
-  self[9]._tuningParams.greenGhostThreshold = v539;
-
-  v418 = objc_msgSend_objectForKeyedSubscript_(v417, v540, @"detailThresholds", v541);
+  v419 = objc_msgSend_objectForKeyedSubscript_(v418, v541, @"detailThresholds", v542);
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0 || objc_msgSend_count(v418, v542, v543, v544) != 2)
+  if ((objc_opt_isKindOfClass() & 1) == 0 || objc_msgSend_count(v419, v543, v544, v545) != 2)
   {
-LABEL_78:
-    FigDebugAssert3();
-LABEL_79:
-
-    goto LABEL_99;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, "Fig", "[(detailThresholds) isKindOfClass:[NSArray class]] && [(detailThresholds) count] == 2", "bail", 0, "GreenGhostLowLightTuningParamsV2.m", 254, 0);
+    goto LABEL_83;
   }
 
-  v547 = objc_msgSend_objectAtIndexedSubscript_(v418, v545, 0, v546);
-  objc_msgSend_floatValue(v547, v548, v549, v550);
-  LODWORD(self[10].super.isa) = v551;
+  v548 = objc_msgSend_objectAtIndexedSubscript_(v419, v546, 0, v547);
+  objc_msgSend_floatValue(v548, v549, v550, v551);
+  LODWORD(self[10].super.isa) = v552;
 
-  v554 = objc_msgSend_objectAtIndexedSubscript_(v418, v552, 1, v553);
-  objc_msgSend_floatValue(v554, v555, v556, v557);
-  HIDWORD(self[10].super.isa) = v558;
+  v555 = objc_msgSend_objectAtIndexedSubscript_(v419, v553, 1, v554);
+  objc_msgSend_floatValue(v555, v556, v557, v558);
+  HIDWORD(self[10].super.isa) = v559;
 
-  v561 = objc_msgSend_objectForKeyedSubscript_(v417, v559, @"sharpening", v560);
-  v418 = v561;
-  if (!v561)
+  v562 = objc_msgSend_objectForKeyedSubscript_(v418, v560, @"sharpening", v561);
+  v419 = v562;
+  if (!v562)
   {
     sub_2958B1958();
-    goto LABEL_79;
+    goto LABEL_83;
   }
 
-  v564 = objc_msgSend_objectForKeyedSubscript_(v561, v562, @"strength", v563);
+  v565 = objc_msgSend_objectForKeyedSubscript_(v562, v563, @"strength", v564);
 
-  if (!v564)
+  if (!v565)
   {
     sub_2958B1900();
-    goto LABEL_79;
+    goto LABEL_83;
   }
 
-  v567 = objc_msgSend_objectForKeyedSubscript_(v418, v565, @"strength", v566);
-  objc_msgSend_floatValue(v567, v568, v569, v570);
-  LODWORD(self[11].super.isa) = v571;
+  v568 = objc_msgSend_objectForKeyedSubscript_(v419, v566, @"strength", v567);
+  objc_msgSend_floatValue(v568, v569, v570, v571);
+  LODWORD(self[11].super.isa) = v572;
 
-  v574 = objc_msgSend_objectForKeyedSubscript_(v418, v572, @"shift", v573);
+  v575 = objc_msgSend_objectForKeyedSubscript_(v419, v573, @"shift", v574);
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0 || objc_msgSend_count(v574, v575, v576, v577) != 2)
+  if ((objc_opt_isKindOfClass() & 1) == 0 || objc_msgSend_count(v575, v576, v577, v578) != 2)
   {
-    sub_2958B1890(v574);
-    goto LABEL_79;
+    sub_2958B1890(v575);
+    goto LABEL_83;
   }
 
-  v580 = plistCopy;
-  v581 = v7;
-  v582 = objc_msgSend_objectAtIndexedSubscript_(v574, v578, 0, v579);
-  *&self[10]._tuningParams.enabled = objc_msgSend_intValue(v582, v583, v584, v585);
+  v581 = plistCopy;
+  v582 = v8;
+  v583 = objc_msgSend_objectAtIndexedSubscript_(v575, v579, 0, v580);
+  *&self[10]._tuningParams.enabled = objc_msgSend_intValue(v583, v584, v585, v586);
 
-  v588 = objc_msgSend_objectAtIndexedSubscript_(v574, v586, 1, v587);
-  LODWORD(self[10]._tuningParams.blurThreshold) = objc_msgSend_intValue(v588, v589, v590, v591);
+  v589 = objc_msgSend_objectAtIndexedSubscript_(v575, v587, 1, v588);
+  LODWORD(self[10]._tuningParams.blurThreshold) = objc_msgSend_intValue(v589, v590, v591, v592);
 
-  v594 = objc_msgSend_objectForKeyedSubscript_(v418, v592, @"thresholds", v593);
+  v595 = objc_msgSend_objectForKeyedSubscript_(v419, v593, @"thresholds", v594);
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && objc_msgSend_count(v594, v595, v596, v597) == 2)
+  if ((objc_opt_isKindOfClass() & 1) != 0 && objc_msgSend_count(v595, v596, v597, v598) == 2)
   {
-    v600 = objc_msgSend_objectAtIndexedSubscript_(v594, v598, 0, v599);
-    objc_msgSend_floatValue(v600, v601, v602, v603);
-    self[10]._tuningParams.maxMaskAverage = v604;
+    v601 = objc_msgSend_objectAtIndexedSubscript_(v595, v599, 0, v600);
+    objc_msgSend_floatValue(v601, v602, v603, v604);
+    self[10]._tuningParams.maxMaskAverage = v605;
 
-    v607 = objc_msgSend_objectAtIndexedSubscript_(v594, v605, 1, v606);
-    objc_msgSend_floatValue(v607, v608, v609, v610);
-    self[10]._tuningParams.greenGhostThreshold = v611;
+    v608 = objc_msgSend_objectAtIndexedSubscript_(v595, v606, 1, v607);
+    objc_msgSend_floatValue(v608, v609, v610, v611);
+    self[10]._tuningParams.greenGhostThreshold = v612;
 
-    v612 = 0;
+    v613 = 0;
   }
 
   else
   {
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v3, v615, v616, v618, v619, v620, v621);
 
-    v612 = -1;
+    v613 = -1;
   }
 
-  v7 = v581;
-  plistCopy = v580;
+  v8 = v582;
+  plistCopy = v581;
 LABEL_70:
 
-  return v612;
+  return v613;
 }
 
 - (LowLightTuning)tuningParams

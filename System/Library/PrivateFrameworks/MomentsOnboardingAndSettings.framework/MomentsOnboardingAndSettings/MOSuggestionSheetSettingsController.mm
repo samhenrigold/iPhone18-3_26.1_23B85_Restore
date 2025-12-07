@@ -75,11 +75,11 @@ void __80__MOSuggestionSheetSettingsController_fetchSiginificantLocationEnableme
 
 + (int)runCommand:(id)command
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   v4 = [commandCopy count];
   v5 = v4;
-  v6 = (&v13 - ((8 * v4 + 23) & 0xFFFFFFFFFFFFFFF0));
+  v6 = (&v12 - ((8 * v4 + 23) & 0xFFFFFFFFFFFFFFF0));
   if ((8 * v4 + 8) >= 0x200)
   {
     v7 = 512;
@@ -90,7 +90,7 @@ void __80__MOSuggestionSheetSettingsController_fetchSiginificantLocationEnableme
     v7 = 8 * v4 + 8;
   }
 
-  bzero(&v13 - ((8 * v4 + 23) & 0xFFFFFFFFFFFFFFF0), v7);
+  bzero(&v12 - ((8 * v4 + 23) & 0xFFFFFFFFFFFFFFF0), v7);
   v6[v5] = 0;
   if ([commandCopy count])
   {
@@ -112,16 +112,15 @@ void __80__MOSuggestionSheetSettingsController_fetchSiginificantLocationEnableme
     while (v8 < [commandCopy count]);
   }
 
-  v14 = 0;
-  v10 = posix_spawn(&v14, *v6, 0, 0, v6, 0);
-  v13 = v10;
+  v13 = 0;
+  v10 = posix_spawn(&v13, *v6, 0, 0, v6, 0);
+  v12 = v10;
   if (!v10)
   {
-    waitpid(v14, &v13, 0);
-    v10 = v13;
+    waitpid(v13, &v12, 0);
+    v10 = v12;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -147,195 +146,191 @@ void __80__MOSuggestionSheetSettingsController_fetchSiginificantLocationEnableme
 
 - (void)_processDevicesJSON:(id)n
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   nCopy = n;
   v5 = [nCopy dataUsingEncoding:4];
   v6 = v5;
   if (v5)
   {
     selfCopy = self;
-    v46 = v5;
+    v43 = v5;
     v7 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v5 options:16 error:0];
+    v61 = 0u;
+    v62 = 0u;
+    v63 = 0u;
     v64 = 0u;
-    v65 = 0u;
-    v66 = 0u;
-    v67 = 0u;
-    v8 = [v7 countByEnumeratingWithState:&v64 objects:v74 count:16];
-    v47 = nCopy;
+    v8 = [v7 countByEnumeratingWithState:&v61 objects:v71 count:16];
+    v44 = nCopy;
     if (v8)
     {
       v9 = v8;
       v10 = 0;
-      v49 = 0;
-      v50 = 0;
-      v55 = 0;
-      v48 = 0;
-      v51 = 0;
+      v46 = 0;
+      v47 = 0;
       v52 = 0;
-      v11 = *v65;
-      LOBYTE(v60) = 1;
-      v12 = 0x277CBE000uLL;
-      v54 = 1;
-      v53 = v7;
-      v58 = *v65;
+      v45 = 0;
+      v48 = 0;
+      v49 = 0;
+      v11 = *v62;
+      LOBYTE(v57) = 1;
+      v51 = 1;
+      v50 = v7;
+      v55 = *v62;
       do
       {
-        v13 = 0;
-        v59 = v9;
+        v12 = 0;
+        v56 = v9;
         do
         {
-          if (*v65 != v11)
+          if (*v62 != v11)
           {
             objc_enumerationMutation(v7);
           }
 
-          v14 = [v7 objectForKeyedSubscript:*(*(&v64 + 1) + 8 * v13)];
-          v15 = *(v12 + 2752);
+          v13 = [v7 objectForKeyedSubscript:*(*(&v61 + 1) + 8 * v12)];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v16 = v14;
-            v63 = [v16 objectForKeyedSubscript:@"idiom"];
-            v62 = [v63 isEqualToString:@".phone"];
-            v17 = [v16 objectForKeyedSubscript:@"thisDevice"];
+            v14 = v13;
+            v60 = [v14 objectForKeyedSubscript:@"idiom"];
+            v59 = [v60 isEqualToString:@".phone"];
+            v15 = [v14 objectForKeyedSubscript:@"thisDevice"];
             objc_opt_class();
-            if ((objc_opt_isKindOfClass() & 1) != 0 && [v17 BOOLValue])
+            if ((objc_opt_isKindOfClass() & 1) != 0 && [v15 BOOLValue])
             {
-              v18 = [v16 objectForKeyedSubscript:@"id"];
+              v16 = [v14 objectForKeyedSubscript:@"id"];
               objc_opt_class();
-              if ((objc_opt_isKindOfClass() & 1) != 0 && [v18 length])
+              if ((objc_opt_isKindOfClass() & 1) != 0 && [v16 length])
               {
-                v19 = v10;
-                v20 = v18;
+                v17 = v10;
+                v18 = v16;
 
-                v50 = v20;
+                v47 = v18;
               }
 
               else
               {
-                v19 = v10;
+                v17 = v10;
               }
 
-              v21 = [v16 objectForKeyedSubscript:@"onboarded"];
+              v19 = [v14 objectForKeyedSubscript:@"onboarded"];
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v55 |= [v21 BOOLValue];
+                v52 |= [v19 BOOLValue];
               }
 
-              v22 = [v16 objectForKeyedSubscript:@"accountState"];
-              if ([v22 isEqualToString:@"signedOut"])
+              v20 = [v14 objectForKeyedSubscript:@"accountState"];
+              if ([v20 isEqualToString:@"signedOut"])
               {
-                v54 = 0;
+                v51 = 0;
               }
 
-              else if ([v22 isEqualToString:@"tccDenied"])
+              else if ([v20 isEqualToString:@"tccDenied"])
               {
-                LOBYTE(v49) = 0;
-                v54 = 1;
+                LOBYTE(v46) = 0;
+                v51 = 1;
               }
 
               else
               {
-                LOBYTE(v49) = [v22 isEqualToString:@"signedIn"];
-                BYTE4(v49) |= v49 ^ 1;
-                v54 = v49;
+                LOBYTE(v46) = [v20 isEqualToString:@"signedIn"];
+                BYTE4(v46) |= v46 ^ 1;
+                v51 = v46;
               }
 
-              v23 = [v16 objectForKeyedSubscript:@"deviceCapabilities"];
+              v21 = [v14 objectForKeyedSubscript:@"deviceCapabilities"];
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v48 = [v23 containsObject:@"neverOnboarded"];
+                v45 = [v21 containsObject:@"neverOnboarded"];
               }
 
-              v10 = v19;
-              v11 = v58;
-              v9 = v59;
+              v10 = v17;
+              v11 = v55;
+              v9 = v56;
             }
 
-            v24 = [v16 objectForKeyedSubscript:@"primary"];
+            v22 = [v14 objectForKeyedSubscript:@"primary"];
             objc_opt_class();
-            if ((objc_opt_isKindOfClass() & 1) != 0 && [v24 BOOLValue])
+            if ((objc_opt_isKindOfClass() & 1) != 0 && [v22 BOOLValue])
             {
-              v25 = [v16 objectForKeyedSubscript:@"id"];
+              v23 = [v14 objectForKeyedSubscript:@"id"];
               objc_opt_class();
+              if ((objc_opt_isKindOfClass() & 1) != 0 && [v23 length])
+              {
+                v24 = v23;
+
+                v48 = v24;
+              }
+
+              v25 = [v14 objectForKeyedSubscript:@"name"];
+              objc_opt_class();
+              v54 = v10;
+              v53 = v25;
               if ((objc_opt_isKindOfClass() & 1) != 0 && [v25 length])
               {
                 v26 = v25;
 
-                v51 = v26;
+                v49 = v26;
               }
 
-              v27 = [v16 objectForKeyedSubscript:@"name"];
-              objc_opt_class();
-              v57 = v10;
-              v56 = v27;
-              if ((objc_opt_isKindOfClass() & 1) != 0 && [v27 length])
-              {
-                v28 = v27;
-
-                v52 = v28;
-              }
-
-              v61 = [v16 objectForKeyedSubscript:@"userModificationDate"];
-              v29 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.momentsui"];
-              v30 = [v29 objectForKey:@"StalePrimaryWarningThreshold"];
+              v58 = [v14 objectForKeyedSubscript:@"userModificationDate"];
+              v27 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.momentsui"];
+              v28 = [v27 objectForKey:@"StalePrimaryWarningThreshold"];
               intValue = 604800;
-              if (v30)
+              if (v28)
               {
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  intValue = [v30 intValue];
+                  intValue = [v28 intValue];
                 }
               }
 
               date = [MEMORY[0x277CBEAA8] date];
               [date timeIntervalSinceReferenceDate];
-              v34 = v33;
-              [v61 doubleValue];
-              v36 = v34 - v35;
+              v32 = v31;
+              [v58 doubleValue];
+              v34 = v32 - v33;
 
-              v60 = (v36 >= intValue) & v60;
-              v37 = _mo_log_facility_get_os_log(MOLogFacilitySettings);
-              if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+              v57 = (v34 >= intValue) & v57;
+              v35 = _mo_log_facility_get_os_log(MOLogFacilitySettings);
+              if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
               {
                 *buf = 67109632;
-                v69 = v60;
-                v70 = 1024;
-                v71 = intValue;
-                v72 = 2048;
-                v73 = v36;
-                _os_log_impl(&dword_25A200000, v37, OS_LOG_TYPE_INFO, "primaryIsStale=%d, stalePrimaryWarningThreshold=%d, primaryStaleness=%f", buf, 0x18u);
+                v66 = v57;
+                v67 = 1024;
+                v68 = intValue;
+                v69 = 2048;
+                v70 = v34;
+                _os_log_impl(&dword_25A200000, v35, OS_LOG_TYPE_INFO, "primaryIsStale=%d, stalePrimaryWarningThreshold=%d, primaryStaleness=%f", buf, 0x18u);
               }
 
-              v7 = v53;
-              v10 = v57;
-              v11 = v58;
-              v9 = v59;
+              v7 = v50;
+              v10 = v54;
+              v11 = v55;
+              v9 = v56;
             }
 
             else
             {
-              v25 = _mo_log_facility_get_os_log(MOLogFacilitySettings);
-              if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+              v23 = _mo_log_facility_get_os_log(MOLogFacilitySettings);
+              if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
               {
                 *buf = 0;
-                _os_log_impl(&dword_25A200000, v25, OS_LOG_TYPE_INFO, "primaryIsStale=YES, no primary", buf, 2u);
+                _os_log_impl(&dword_25A200000, v23, OS_LOG_TYPE_INFO, "primaryIsStale=YES, no primary", buf, 2u);
               }
             }
 
-            v10 += v62;
-
-            v12 = 0x277CBE000;
+            v10 += v59;
           }
 
-          ++v13;
+          ++v12;
         }
 
-        while (v9 != v13);
-        v9 = [v7 countByEnumeratingWithState:&v64 objects:v74 count:16];
+        while (v9 != v12);
+        v9 = [v7 countByEnumeratingWithState:&v61 objects:v71 count:16];
       }
 
       while (v9);
@@ -344,68 +339,66 @@ void __80__MOSuggestionSheetSettingsController_fetchSiginificantLocationEnableme
     else
     {
       v10 = 0;
-      v49 = 0;
-      v50 = 0;
+      v46 = 0;
+      v47 = 0;
+      v45 = 0;
       v48 = 0;
-      v51 = 0;
-      v52 = 0;
-      LOBYTE(v60) = 1;
-      v54 = 1;
-      LOBYTE(v55) = 0;
+      v49 = 0;
+      LOBYTE(v57) = 1;
+      v51 = 1;
+      LOBYTE(v52) = 0;
     }
 
     currentDeviceID = selfCopy->_currentDeviceID;
-    selfCopy->_currentDeviceID = v50;
-    v39 = v50;
+    selfCopy->_currentDeviceID = v47;
+    v37 = v47;
 
     primaryDeviceID = selfCopy->_primaryDeviceID;
-    selfCopy->_primaryDeviceID = &v51->isa;
-    v41 = v51;
+    selfCopy->_primaryDeviceID = &v48->isa;
+    v39 = v48;
 
     primaryName = selfCopy->_primaryName;
-    selfCopy->_primaryName = v52;
-    v43 = v52;
+    selfCopy->_primaryName = v49;
+    v41 = v49;
 
-    selfCopy->_neverOnboarded = v48 & 1;
-    selfCopy->_isOnboarded = v55 & 1;
-    selfCopy->_isSignedIn = v54 & 1;
-    selfCopy->_tcc = v49 & 1;
-    selfCopy->_accountUnknown = BYTE4(v49) & 1;
+    selfCopy->_neverOnboarded = v45 & 1;
+    selfCopy->_isOnboarded = v52 & 1;
+    selfCopy->_isSignedIn = v51 & 1;
+    selfCopy->_tcc = v46 & 1;
+    selfCopy->_accountUnknown = BYTE4(v46) & 1;
     selfCopy->_numPhones = v10;
-    selfCopy->_primaryIsStale = v60 & 1;
+    selfCopy->_primaryIsStale = v57 & 1;
 
-    v6 = v46;
-    nCopy = v47;
+    v6 = v43;
+    nCopy = v44;
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 - (id)specifiers
 {
-  v218 = *MEMORY[0x277D85DE8];
+  v217 = *MEMORY[0x277D85DE8];
   v2 = +[MOSuggestionSheetSettingsController onboardingSettingsBundle];
-  v210 = 0;
-  v211 = &v210;
-  v212 = 0x3032000000;
-  v213 = __Block_byref_object_copy__0;
-  v214 = __Block_byref_object_dispose__0;
-  v215 = 0;
+  v209 = 0;
+  v210 = &v209;
+  v211 = 0x3032000000;
+  v212 = __Block_byref_object_copy__0;
+  v213 = __Block_byref_object_dispose__0;
+  v214 = 0;
   v3 = dispatch_group_create();
   v4 = objc_alloc_init(MEMORY[0x277D2A208]);
   dispatch_group_enter(v3);
-  v207[0] = MEMORY[0x277D85DD0];
-  v207[1] = 3221225472;
-  v207[2] = __49__MOSuggestionSheetSettingsController_specifiers__block_invoke;
-  v207[3] = &unk_27991F078;
-  v209 = &v210;
+  v206[0] = MEMORY[0x277D85DD0];
+  v206[1] = 3221225472;
+  v206[2] = __49__MOSuggestionSheetSettingsController_specifiers__block_invoke;
+  v206[3] = &unk_27991F078;
+  v208 = &v209;
   v5 = v3;
-  v208 = v5;
-  [v4 deviceListJSONWithCompletionHandler:v207];
+  v207 = v5;
+  [v4 deviceListJSONWithCompletionHandler:v206];
   dispatch_group_wait(v5, 0xFFFFFFFFFFFFFFFFLL);
 
-  [(MOSuggestionSheetSettingsController *)self _processDevicesJSON:v211[5]];
-  v177 = [v2 localizedStringForKey:@"Go to Settings" value:&stru_286BDDEB8 table:0];
+  [(MOSuggestionSheetSettingsController *)self _processDevicesJSON:v210[5]];
+  v176 = [v2 localizedStringForKey:@"Go to Settings" value:&stru_286BDDEB8 table:0];
   currentDevice = [MEMORY[0x277D75418] currentDevice];
   userInterfaceIdiom = [currentDevice userInterfaceIdiom];
 
@@ -452,15 +445,15 @@ void __80__MOSuggestionSheetSettingsController_fetchSiginificantLocationEnableme
       v13 = 5;
     }
 
-    v192 = [v2 localizedStringForKey:@"Sync Settings" value:&stru_286BDDEB8 table:0];
-    v10 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"SYNC_FROM_IPHONE_GROUP" name:v192];
-    v179 = *MEMORY[0x277D3FFE8];
+    v191 = [v2 localizedStringForKey:@"Sync Settings" value:&stru_286BDDEB8 table:0];
+    v10 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"SYNC_FROM_IPHONE_GROUP" name:v191];
+    v178 = *MEMORY[0x277D3FFE8];
     [v10 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:?];
     v8 = [v2 localizedStringForKey:@"Suggestions will no longer be created from" value:&stru_286BDDEB8 table:0];
     v9 = [v2 localizedStringForKey:@"You can manage how journaling suggestions on this iPhone sync to iCloud in Settings." value:&stru_286BDDEB8 table:0];
-    range = [v177 length];
-    v171 = 0;
-    v172 = v10;
+    range = [v176 length];
+    v170 = 0;
+    v171 = v10;
     if (v13 <= 2)
     {
       if (v13 == 1)
@@ -468,31 +461,31 @@ void __80__MOSuggestionSheetSettingsController_fetchSiginificantLocationEnableme
         v10 = [v2 localizedStringForKey:@"You’re using this iPhone to create journaling suggestions that can sync to iPad." value:&stru_286BDDEB8 table:0];
         v37 = MEMORY[0x277CCACA8];
         v38 = [v2 localizedStringForKey:@"%@\n\n%@ %@" value:&stru_286BDDEB8 table:0];
-        v177 = [v37 localizedStringWithFormat:v38, v10, v9, v177];
+        v176 = [v37 localizedStringWithFormat:v38, v10, v9, v176];
 
-        [v172 setObject:v177 forKeyedSubscript:*MEMORY[0x277D3FF88]];
+        [v171 setObject:v176 forKeyedSubscript:*MEMORY[0x277D3FF88]];
         v39 = objc_opt_class();
         v40 = NSStringFromClass(v39);
-        [v172 setProperty:v40 forKey:*MEMORY[0x277D3FF48]];
+        [v171 setProperty:v40 forKey:*MEMORY[0x277D3FF48]];
 
-        v41 = [v177 length];
-        v221.length = range;
-        v221.location = v41 - range;
-        v42 = NSStringFromRange(v221);
-        [v172 setProperty:v42 forKey:*MEMORY[0x277D3FF58]];
+        v41 = [v176 length];
+        v220.length = range;
+        v220.location = v41 - range;
+        v42 = NSStringFromRange(v220);
+        [v171 setProperty:v42 forKey:*MEMORY[0x277D3FF58]];
 
         v43 = [MEMORY[0x277CCAE60] valueWithNonretainedObject:self];
-        [v172 setProperty:v43 forKey:*MEMORY[0x277D3FF68]];
+        [v171 setProperty:v43 forKey:*MEMORY[0x277D3FF68]];
 
-        [v172 setProperty:@"navigateToiCloudTCC:" forKey:*MEMORY[0x277D3FF50]];
+        [v171 setProperty:@"navigateToiCloudTCC:" forKey:*MEMORY[0x277D3FF50]];
         goto LABEL_43;
       }
 
       if (v13 != 2)
       {
-        v181 = 0;
-        v161 = 0;
-        v172 = 0;
+        v180 = 0;
+        v160 = 0;
+        v171 = 0;
         goto LABEL_45;
       }
     }
@@ -504,8 +497,8 @@ void __80__MOSuggestionSheetSettingsController_fetchSiginificantLocationEnableme
         v10 = [v2 localizedStringForKey:@"Sync from This iPhone" value:&stru_286BDDEB8 table:0];
         v35 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v10 target:self set:0 get:0 detail:0 cell:13 edit:0];
         [v35 setButtonAction:sel_syncFromPhone_];
-        v161 = v35;
-        v177 = [v2 localizedStringForKey:@"Use this iPhone to create journaling suggestions that can sync to iPad." value:&stru_286BDDEB8 table:0];
+        v160 = v35;
+        v176 = [v2 localizedStringForKey:@"Use this iPhone to create journaling suggestions that can sync to iPad." value:&stru_286BDDEB8 table:0];
         if (!self->_primaryDeviceID || self->_primaryIsStale)
         {
           goto LABEL_110;
@@ -520,44 +513,44 @@ void __80__MOSuggestionSheetSettingsController_fetchSiginificantLocationEnableme
         {
           [v2 localizedStringForKey:@"your other iPhone" value:&stru_286BDDEB8 table:0];
         }
-        v129 = ;
-        v130 = MEMORY[0x277CCACA8];
-        v131 = [v2 localizedStringForKey:@"%@ %@." value:&stru_286BDDEB8 table:0];
-        v129 = [v130 localizedStringWithFormat:v131, v8, v129];
+        v128 = ;
+        v129 = MEMORY[0x277CCACA8];
+        v130 = [v2 localizedStringForKey:@"%@ %@." value:&stru_286BDDEB8 table:0];
+        v128 = [v129 localizedStringWithFormat:v130, v8, v128];
 
-        if (v129)
+        if (v128)
         {
-          v132 = MEMORY[0x277CCACA8];
-          v133 = [v2 localizedStringForKey:@"%@ %@\n\n%@ %@" value:&stru_286BDDEB8 table:0];
-          v1772 = [v132 localizedStringWithFormat:v133, v177, v129, v9, v177];
+          v131 = MEMORY[0x277CCACA8];
+          v132 = [v2 localizedStringForKey:@"%@ %@\n\n%@ %@" value:&stru_286BDDEB8 table:0];
+          v1762 = [v131 localizedStringWithFormat:v132, v176, v128, v9, v176];
         }
 
         else
         {
 LABEL_110:
-          v134 = MEMORY[0x277CCACA8];
-          v133 = [v2 localizedStringForKey:@"%@\n\n%@ %@" value:&stru_286BDDEB8 table:0];
-          v1772 = [v134 localizedStringWithFormat:v133, v177, v9, v177];
-          v129 = 0;
+          v133 = MEMORY[0x277CCACA8];
+          v132 = [v2 localizedStringForKey:@"%@\n\n%@ %@" value:&stru_286BDDEB8 table:0];
+          v1762 = [v133 localizedStringWithFormat:v132, v176, v9, v176];
+          v128 = 0;
         }
 
-        [v172 setObject:v1772 forKeyedSubscript:*MEMORY[0x277D3FF88]];
-        v135 = objc_opt_class();
-        v136 = NSStringFromClass(v135);
-        [v172 setProperty:v136 forKey:*MEMORY[0x277D3FF48]];
+        [v171 setObject:v1762 forKeyedSubscript:*MEMORY[0x277D3FF88]];
+        v134 = objc_opt_class();
+        v135 = NSStringFromClass(v134);
+        [v171 setProperty:v135 forKey:*MEMORY[0x277D3FF48]];
 
-        v137 = [v1772 length];
-        v224.length = range;
-        v224.location = v137 - range;
-        v138 = NSStringFromRange(v224);
-        [v172 setProperty:v138 forKey:*MEMORY[0x277D3FF58]];
+        v136 = [v1762 length];
+        v223.length = range;
+        v223.location = v136 - range;
+        v137 = NSStringFromRange(v223);
+        [v171 setProperty:v137 forKey:*MEMORY[0x277D3FF58]];
 
-        v139 = [MEMORY[0x277CCAE60] valueWithNonretainedObject:self];
-        [v172 setProperty:v139 forKey:*MEMORY[0x277D3FF68]];
+        v138 = [MEMORY[0x277CCAE60] valueWithNonretainedObject:self];
+        [v171 setProperty:v138 forKey:*MEMORY[0x277D3FF68]];
 
-        [v172 setProperty:@"navigateToiCloudTCC:" forKey:*MEMORY[0x277D3FF50]];
-        v171 = 0;
-        v181 = 0;
+        [v171 setProperty:@"navigateToiCloudTCC:" forKey:*MEMORY[0x277D3FF50]];
+        v170 = 0;
+        v180 = 0;
         goto LABEL_17;
       }
 
@@ -567,9 +560,9 @@ LABEL_110:
         v36 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v10 target:self set:0 get:0 detail:0 cell:13 edit:0];
         [v36 setButtonAction:sel_syncFromPhone_];
         [v36 setProperty:MEMORY[0x277CBEC28] forKey:*MEMORY[0x277D3FF38]];
-        v161 = v36;
-        v177 = [v2 localizedStringForKey:@"Use this iPhone to create journaling suggestions that can sync to iPad." value:&stru_286BDDEB8 table:0];
-        v129 = [v2 localizedStringForKey:@"You'll need Journaling Suggestions enabled in iCloud settings." value:&stru_286BDDEB8 table:0];
+        v160 = v36;
+        v176 = [v2 localizedStringForKey:@"Use this iPhone to create journaling suggestions that can sync to iPad." value:&stru_286BDDEB8 table:0];
+        v128 = [v2 localizedStringForKey:@"You'll need Journaling Suggestions enabled in iCloud settings." value:&stru_286BDDEB8 table:0];
         if (!self->_primaryDeviceID || self->_primaryIsStale)
         {
           goto LABEL_115;
@@ -584,44 +577,44 @@ LABEL_110:
         {
           [v2 localizedStringForKey:@"your other iPhone" value:&stru_286BDDEB8 table:0];
         }
-        v140 = ;
-        v141 = MEMORY[0x277CCACA8];
-        v142 = [v2 localizedStringForKey:@"%@ %@." value:&stru_286BDDEB8 table:0];
-        v1772 = [v141 localizedStringWithFormat:v142, v8, v140];
+        v139 = ;
+        v140 = MEMORY[0x277CCACA8];
+        v141 = [v2 localizedStringForKey:@"%@ %@." value:&stru_286BDDEB8 table:0];
+        v1762 = [v140 localizedStringWithFormat:v141, v8, v139];
 
-        if (v1772)
+        if (v1762)
         {
-          v143 = MEMORY[0x277CCACA8];
-          v144 = [v2 localizedStringForKey:@"%@ %@\n\n%@ %@" value:&stru_286BDDEB8 table:0];
-          v1773 = [v143 localizedStringWithFormat:v144, v177, v1772, v129, v177];
+          v142 = MEMORY[0x277CCACA8];
+          v143 = [v2 localizedStringForKey:@"%@ %@\n\n%@ %@" value:&stru_286BDDEB8 table:0];
+          v1763 = [v142 localizedStringWithFormat:v143, v176, v1762, v128, v176];
         }
 
         else
         {
 LABEL_115:
-          v145 = MEMORY[0x277CCACA8];
-          v144 = [v2 localizedStringForKey:@"%@\n\n%@ %@" value:&stru_286BDDEB8 table:0];
-          v1773 = [v145 localizedStringWithFormat:v144, v177, v129, v177];
-          v1772 = 0;
+          v144 = MEMORY[0x277CCACA8];
+          v143 = [v2 localizedStringForKey:@"%@\n\n%@ %@" value:&stru_286BDDEB8 table:0];
+          v1763 = [v144 localizedStringWithFormat:v143, v176, v128, v176];
+          v1762 = 0;
         }
 
-        [v172 setObject:v1773 forKeyedSubscript:*MEMORY[0x277D3FF88]];
-        v146 = objc_opt_class();
-        v147 = NSStringFromClass(v146);
-        [v172 setProperty:v147 forKey:*MEMORY[0x277D3FF48]];
+        [v171 setObject:v1763 forKeyedSubscript:*MEMORY[0x277D3FF88]];
+        v145 = objc_opt_class();
+        v146 = NSStringFromClass(v145);
+        [v171 setProperty:v146 forKey:*MEMORY[0x277D3FF48]];
 
-        v148 = [v1773 length];
-        v225.length = range;
-        v225.location = v148 - range;
-        v149 = NSStringFromRange(v225);
-        [v172 setProperty:v149 forKey:*MEMORY[0x277D3FF58]];
+        v147 = [v1763 length];
+        v224.length = range;
+        v224.location = v147 - range;
+        v148 = NSStringFromRange(v224);
+        [v171 setProperty:v148 forKey:*MEMORY[0x277D3FF58]];
 
-        v150 = [MEMORY[0x277CCAE60] valueWithNonretainedObject:self];
-        [v172 setProperty:v150 forKey:*MEMORY[0x277D3FF68]];
+        v149 = [MEMORY[0x277CCAE60] valueWithNonretainedObject:self];
+        [v171 setProperty:v149 forKey:*MEMORY[0x277D3FF68]];
 
-        [v172 setProperty:@"navigateToiCloudTCC:" forKey:*MEMORY[0x277D3FF50]];
-        v171 = 0;
-        v181 = 0;
+        [v171 setProperty:@"navigateToiCloudTCC:" forKey:*MEMORY[0x277D3FF50]];
+        v170 = 0;
+        v180 = 0;
         goto LABEL_16;
       }
     }
@@ -629,98 +622,98 @@ LABEL_115:
     v10 = [v2 localizedStringForKey:@"To use this iPhone to create journaling suggestions that can sync to iPad value:enable Journaling Suggestions in iCloud settings." table:{&stru_286BDDEB8, 0}];
     v28 = MEMORY[0x277CCACA8];
     v29 = [v2 localizedStringForKey:@"%@ %@" value:&stru_286BDDEB8 table:0];
-    v177 = [v28 localizedStringWithFormat:v29, v10, v177];
+    v176 = [v28 localizedStringWithFormat:v29, v10, v176];
 
-    [v172 setObject:v177 forKeyedSubscript:*MEMORY[0x277D3FF88]];
+    [v171 setObject:v176 forKeyedSubscript:*MEMORY[0x277D3FF88]];
     v30 = objc_opt_class();
     v31 = NSStringFromClass(v30);
-    [v172 setProperty:v31 forKey:*MEMORY[0x277D3FF48]];
+    [v171 setProperty:v31 forKey:*MEMORY[0x277D3FF48]];
 
-    v32 = [v177 length];
-    v220.length = range;
-    v220.location = v32 - range;
-    v33 = NSStringFromRange(v220);
-    [v172 setProperty:v33 forKey:*MEMORY[0x277D3FF58]];
+    v32 = [v176 length];
+    v219.length = range;
+    v219.location = v32 - range;
+    v33 = NSStringFromRange(v219);
+    [v171 setProperty:v33 forKey:*MEMORY[0x277D3FF58]];
 
     v34 = [MEMORY[0x277CCAE60] valueWithNonretainedObject:self];
-    [v172 setProperty:v34 forKey:*MEMORY[0x277D3FF68]];
+    [v171 setProperty:v34 forKey:*MEMORY[0x277D3FF68]];
 
-    [v172 setProperty:@"navigateToiCloudTCC:" forKey:*MEMORY[0x277D3FF50]];
+    [v171 setProperty:@"navigateToiCloudTCC:" forKey:*MEMORY[0x277D3FF50]];
 LABEL_43:
-    v171 = 0;
-    v181 = 0;
-    v161 = 0;
+    v170 = 0;
+    v180 = 0;
+    v160 = 0;
     goto LABEL_44;
   }
 
-  v192 = [v2 localizedStringForKey:@"Sync Settings" value:&stru_286BDDEB8 table:0];
-  v7 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"SYNC_TO_IPAD_GROUP" name:v192];
-  v179 = *MEMORY[0x277D3FFE8];
+  v191 = [v2 localizedStringForKey:@"Sync Settings" value:&stru_286BDDEB8 table:0];
+  v7 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"SYNC_TO_IPAD_GROUP" name:v191];
+  v178 = *MEMORY[0x277D3FFE8];
   [v7 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:?];
   v8 = [v2 localizedStringForKey:@"Show suggested moments created on your iPhone." value:&stru_286BDDEB8 table:0];
   v9 = [v2 localizedStringForKey:@"Suggestions use data from apps and services you turn on value:but can appear in any app using suggestions. Data used for suggestions is private and stored on-device." table:{&stru_286BDDEB8, 0}];
   v10 = [v2 localizedStringForKey:@"About Journaling Suggestions & Privacy" value:&stru_286BDDEB8 table:0];
-  v177 = [v2 localizedStringForKey:@"To customize journaling suggestions or clear history value:go to" table:{&stru_286BDDEB8, 0}];
+  v176 = [v2 localizedStringForKey:@"To customize journaling suggestions or clear history value:go to" table:{&stru_286BDDEB8, 0}];
   if (self->_primaryDeviceID && !self->_primaryIsStale)
   {
     v14 = v7;
     v15 = [v2 localizedStringForKey:@"the iPhone that’s set to sync journaling suggestions" value:&stru_286BDDEB8 table:0];
     v16 = MEMORY[0x277CCACA8];
     v17 = [v2 localizedStringForKey:@"%@ %@." value:&stru_286BDDEB8 table:0];
-    v129 = [v16 localizedStringWithFormat:v17, v177, v15];
+    v128 = [v16 localizedStringWithFormat:v17, v176, v15];
 
     v7 = v14;
   }
 
   else
   {
-    v129 = 0;
+    v128 = 0;
   }
 
-  v1772 = [v2 localizedStringForKey:@"You can manage how journaling suggestions sync from iCloud to this iPad in Settings." value:&stru_286BDDEB8 table:0];
-  v181 = v7;
+  v1762 = [v2 localizedStringForKey:@"You can manage how journaling suggestions sync from iCloud to this iPad in Settings." value:&stru_286BDDEB8 table:0];
+  v180 = v7;
   v19 = MEMORY[0x277CCACA8];
-  if (v129)
+  if (v128)
   {
     v20 = [v2 localizedStringForKey:@"%@\n\n%@ %@\n\n%@\n\n%@ %@" value:&stru_286BDDEB8 table:0];
-    [v19 localizedStringWithFormat:v20, v8, v9, v10, v129, v1772, v177];
+    [v19 localizedStringWithFormat:v20, v8, v9, v10, v128, v1762, v176];
   }
 
   else
   {
     v20 = [v2 localizedStringForKey:@"%@\n\n%@ %@\n\n%@ %@" value:&stru_286BDDEB8 table:0];
-    [v19 localizedStringWithFormat:v20, v8, v9, v10, v1772, v177];
+    [v19 localizedStringWithFormat:v20, v8, v9, v10, v1762, v176];
   }
-  v1773 = ;
+  v1763 = ;
 
-  [v181 setObject:v1773 forKeyedSubscript:*MEMORY[0x277D3FF88]];
+  [v180 setObject:v1763 forKeyedSubscript:*MEMORY[0x277D3FF88]];
   v22 = objc_opt_class();
   v23 = NSStringFromClass(v22);
-  [v181 setProperty:v23 forKey:*MEMORY[0x277D3FF48]];
+  [v180 setProperty:v23 forKey:*MEMORY[0x277D3FF48]];
 
-  [v181 addFooterHyperlinkWithRange:objc_msgSend(v8 target:"length") + objc_msgSend(v9 action:{"length") + 3, objc_msgSend(v10, "length"), self, sel_showPrivacyExplanationSheet_}];
-  [v181 addFooterHyperlinkWithRange:objc_msgSend(v1773 target:"length") - objc_msgSend(v177 action:{"length"), objc_msgSend(v177, "length"), self, sel_navigateToiCloudTCC_}];
+  [v180 addFooterHyperlinkWithRange:objc_msgSend(v8 target:"length") + objc_msgSend(v9 action:{"length") + 3, objc_msgSend(v10, "length"), self, sel_showPrivacyExplanationSheet_}];
+  [v180 addFooterHyperlinkWithRange:objc_msgSend(v1763 target:"length") - objc_msgSend(v176 action:{"length"), objc_msgSend(v176, "length"), self, sel_navigateToiCloudTCC_}];
   v24 = [v2 localizedStringForKey:@"Allow Sync to iPad" value:&stru_286BDDEB8 table:0];
-  v171 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v24 target:self set:sel__setStreamToggle_withSpecifier_ get:sel__getStreamToggle_ detail:0 cell:6 edit:0];
+  v170 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v24 target:self set:sel__setStreamToggle_withSpecifier_ get:sel__getStreamToggle_ detail:0 cell:6 edit:0];
   if (self->_isSignedIn && self->_tcc)
   {
-    v25 = v171;
-    [v171 setTarget:?];
+    v25 = v170;
+    [v170 setTarget:?];
   }
 
   else
   {
-    v25 = v171;
-    [v171 setProperty:MEMORY[0x277CBEC28] forKey:*MEMORY[0x277D3FF38]];
-    [v171 setTarget:0];
+    v25 = v170;
+    [v170 setProperty:MEMORY[0x277CBEC28] forKey:*MEMORY[0x277D3FF38]];
+    [v170 setTarget:0];
   }
 
   [v25 setObject:@"Sync to iPad" forKeyedSubscript:*MEMORY[0x277D3FFB8]];
   [v25 setObject:NSClassFromString(&cfstr_Pssubtitleswit.isa) forKeyedSubscript:*MEMORY[0x277D3FE58]];
   [v25 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FD80]];
 
-  v161 = 0;
-  v172 = 0;
+  v160 = 0;
+  v171 = 0;
 LABEL_16:
 
 LABEL_17:
@@ -728,33 +721,33 @@ LABEL_44:
 
 LABEL_45:
   array = [MEMORY[0x277CBEB18] array];
-  v175 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"PRE_ONBOARDING_NO_APP_WARMUP" name:&stru_286BDDEB8];
-  [v175 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:v179];
+  v174 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"PRE_ONBOARDING_NO_APP_WARMUP" name:&stru_286BDDEB8];
+  [v174 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:v178];
   v45 = [v2 localizedStringForKey:@"Journaling Suggestions are only available when there is a journaling App on iPhone" value:&stru_286BDDEB8 table:0];
-  v178 = *MEMORY[0x277D3FF88];
-  [v175 setObject:v45 forKeyedSubscript:?];
+  v177 = *MEMORY[0x277D3FF88];
+  [v174 setObject:v45 forKeyedSubscript:?];
 
   v46 = MEMORY[0x277D3FAD8];
   v47 = [v2 localizedStringForKey:@"Turn On Journaling Suggestions" value:&stru_286BDDEB8 table:0];
-  v174 = [v46 preferenceSpecifierNamed:v47 target:self set:0 get:0 detail:0 cell:13 edit:0];
+  v173 = [v46 preferenceSpecifierNamed:v47 target:self set:0 get:0 detail:0 cell:13 edit:0];
 
-  v193 = *MEMORY[0x277D3FD80];
-  [v174 setProperty:MEMORY[0x277CBEC38] forKey:?];
-  [v174 setButtonAction:sel_didTapTurnOnJournalingSuggestion_];
-  v167 = [v2 localizedStringForKey:@"Turn Off All" value:&stru_286BDDEB8 table:0];
-  v166 = [v2 localizedStringForKey:@"Turn On All" value:&stru_286BDDEB8 table:0];
+  v192 = *MEMORY[0x277D3FD80];
+  [v173 setProperty:MEMORY[0x277CBEC38] forKey:?];
+  [v173 setButtonAction:sel_didTapTurnOnJournalingSuggestion_];
+  v166 = [v2 localizedStringForKey:@"Turn Off All" value:&stru_286BDDEB8 table:0];
+  v165 = [v2 localizedStringForKey:@"Turn On All" value:&stru_286BDDEB8 table:0];
   v48 = MEMORY[0x277D3FAD8];
   if ([(MOSuggestionSheetSettingsController *)self _isAnySettingEnabled])
-  {
-    v49 = v167;
-  }
-
-  else
   {
     v49 = v166;
   }
 
-  v170 = [v48 preferenceSpecifierNamed:v49 target:self set:0 get:0 detail:0 cell:13 edit:0];
+  else
+  {
+    v49 = v165;
+  }
+
+  v169 = [v48 preferenceSpecifierNamed:v49 target:self set:0 get:0 detail:0 cell:13 edit:0];
   _isAnySettingEnabled = [(MOSuggestionSheetSettingsController *)self _isAnySettingEnabled];
   v51 = &selRef_didTapTurnOffAllWarmup_;
   if (!_isAnySettingEnabled)
@@ -762,80 +755,80 @@ LABEL_45:
     v51 = &selRef_didTapTurnOnAll_;
   }
 
-  [v170 setButtonAction:*v51];
-  v154 = [v2 localizedStringForKey:@"Include Suggestions From" value:&stru_286BDDEB8 table:0];
+  [v169 setButtonAction:*v51];
+  v153 = [v2 localizedStringForKey:@"Include Suggestions From" value:&stru_286BDDEB8 table:0];
   v52 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"INCLUDE_SUGGESTIONS_FROM_GROUP" name:?];
-  [v52 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:v179];
-  v191 = v52;
-  v153 = [MEMORY[0x277D37630] bundleWithIdentifier:@"com.apple.onboarding.journal"];
-  privacyFlow = [v153 privacyFlow];
+  [v52 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:v178];
+  v190 = v52;
+  v152 = [MEMORY[0x277D37630] bundleWithIdentifier:@"com.apple.onboarding.journal"];
+  privacyFlow = [v152 privacyFlow];
   localizedButtonTitle = [privacyFlow localizedButtonTitle];
 
-  v164 = [v2 localizedStringForKey:@"Suggestions use data from apps and services you turn on value:but can appear in any app using suggestions. Data used for suggestions is private and stored on-device." table:{&stru_286BDDEB8, 0}];
-  v173 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", v164, localizedButtonTitle];
-  [v191 setObject:v173 forKeyedSubscript:v178];
+  v163 = [v2 localizedStringForKey:@"Suggestions use data from apps and services you turn on value:but can appear in any app using suggestions. Data used for suggestions is private and stored on-device." table:{&stru_286BDDEB8, 0}];
+  v172 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", v163, localizedButtonTitle];
+  [v190 setObject:v172 forKeyedSubscript:v177];
   v54 = objc_opt_class();
   v55 = NSStringFromClass(v54);
-  v158 = *MEMORY[0x277D3FF48];
-  [v191 setProperty:v55 forKey:?];
+  v157 = *MEMORY[0x277D3FF48];
+  [v190 setProperty:v55 forKey:?];
 
-  v56 = [v164 length];
-  v222.length = [localizedButtonTitle length];
-  v222.location = v56 + 1;
-  v57 = NSStringFromRange(v222);
-  v157 = *MEMORY[0x277D3FF58];
-  [v191 setProperty:v57 forKey:?];
+  v56 = [v163 length];
+  v221.length = [localizedButtonTitle length];
+  v221.location = v56 + 1;
+  v57 = NSStringFromRange(v221);
+  v156 = *MEMORY[0x277D3FF58];
+  [v190 setProperty:v57 forKey:?];
 
   v58 = [MEMORY[0x277CCAE60] valueWithNonretainedObject:self];
-  v156 = *MEMORY[0x277D3FF68];
-  [v191 setProperty:v58 forKey:?];
+  v155 = *MEMORY[0x277D3FF68];
+  [v190 setProperty:v58 forKey:?];
 
-  v155 = *MEMORY[0x277D3FF50];
-  [v191 setProperty:@"showPrivacyExplanationSheet:" forKey:?];
+  v154 = *MEMORY[0x277D3FF50];
+  [v190 setProperty:@"showPrivacyExplanationSheet:" forKey:?];
   v59 = MEMORY[0x277D3FAD8];
   v60 = [v2 localizedStringForKey:@"Activity" value:&stru_286BDDEB8 table:0];
-  v187 = [v59 preferenceSpecifierNamed:v60 target:self set:sel__setStreamToggleWarmup_withSpecifier_ get:sel__getStreamToggle_ detail:0 cell:6 edit:0];
+  v186 = [v59 preferenceSpecifierNamed:v60 target:self set:sel__setStreamToggleWarmup_withSpecifier_ get:sel__getStreamToggle_ detail:0 cell:6 edit:0];
 
   v61 = *MEMORY[0x277D3FFB8];
-  [v187 setObject:@"Activity" forKeyedSubscript:*MEMORY[0x277D3FFB8]];
+  [v186 setObject:@"Activity" forKeyedSubscript:*MEMORY[0x277D3FFB8]];
   v62 = NSClassFromString(&cfstr_Pssubtitleswit.isa);
   v63 = *MEMORY[0x277D3FE58];
-  [v187 setObject:v62 forKeyedSubscript:*MEMORY[0x277D3FE58]];
+  [v186 setObject:v62 forKeyedSubscript:*MEMORY[0x277D3FE58]];
   v64 = [v2 localizedStringForKey:@"Your workouts and exercise" value:&stru_286BDDEB8 table:0];
   v65 = *MEMORY[0x277D40160];
-  [v187 setObject:v64 forKeyedSubscript:*MEMORY[0x277D40160]];
+  [v186 setObject:v64 forKeyedSubscript:*MEMORY[0x277D40160]];
 
-  [v187 setProperty:MEMORY[0x277CBEC38] forKey:v193];
+  [v186 setProperty:MEMORY[0x277CBEC38] forKey:v192];
   v66 = MEMORY[0x277D3FAD8];
   v67 = [v2 localizedStringForKey:@"Media" value:&stru_286BDDEB8 table:0];
-  v186 = [v66 preferenceSpecifierNamed:v67 target:self set:sel__setStreamToggleWarmup_withSpecifier_ get:sel__getStreamToggle_ detail:0 cell:6 edit:0];
+  v185 = [v66 preferenceSpecifierNamed:v67 target:self set:sel__setStreamToggleWarmup_withSpecifier_ get:sel__getStreamToggle_ detail:0 cell:6 edit:0];
 
-  [v186 setObject:@"Media" forKeyedSubscript:v61];
-  [v186 setObject:NSClassFromString(&cfstr_Pssubtitleswit.isa) forKeyedSubscript:v63];
+  [v185 setObject:@"Media" forKeyedSubscript:v61];
+  [v185 setObject:NSClassFromString(&cfstr_Pssubtitleswit.isa) forKeyedSubscript:v63];
   v68 = [v2 localizedStringForKey:@"Podcasts value:music table:{videos, and more", &stru_286BDDEB8, 0}];
-  [v186 setObject:v68 forKeyedSubscript:v65];
+  [v185 setObject:v68 forKeyedSubscript:v65];
 
-  [v186 setProperty:MEMORY[0x277CBEC38] forKey:v193];
+  [v185 setProperty:MEMORY[0x277CBEC38] forKey:v192];
   v69 = MEMORY[0x277D3FAD8];
   v70 = [v2 localizedStringForKey:@"Contacts" value:&stru_286BDDEB8 table:0];
-  v185 = [v69 preferenceSpecifierNamed:v70 target:self set:sel__setStreamToggleWarmup_withSpecifier_ get:sel__getStreamToggle_ detail:0 cell:6 edit:0];
+  v184 = [v69 preferenceSpecifierNamed:v70 target:self set:sel__setStreamToggleWarmup_withSpecifier_ get:sel__getStreamToggle_ detail:0 cell:6 edit:0];
 
-  [v185 setObject:@"Contacts" forKeyedSubscript:v61];
-  [v185 setObject:NSClassFromString(&cfstr_Pssubtitleswit.isa) forKeyedSubscript:v63];
+  [v184 setObject:@"Contacts" forKeyedSubscript:v61];
+  [v184 setObject:NSClassFromString(&cfstr_Pssubtitleswit.isa) forKeyedSubscript:v63];
   v71 = [v2 localizedStringForKey:@"People you message and call" value:&stru_286BDDEB8 table:0];
-  [v185 setObject:v71 forKeyedSubscript:v65];
+  [v184 setObject:v71 forKeyedSubscript:v65];
 
-  [v185 setProperty:MEMORY[0x277CBEC38] forKey:v193];
+  [v184 setProperty:MEMORY[0x277CBEC38] forKey:v192];
   v72 = MEMORY[0x277D3FAD8];
   v73 = [v2 localizedStringForKey:@"Photos" value:&stru_286BDDEB8 table:0];
-  v184 = [v72 preferenceSpecifierNamed:v73 target:self set:sel__setStreamToggleWarmup_withSpecifier_ get:sel__getStreamToggle_ detail:0 cell:6 edit:0];
+  v183 = [v72 preferenceSpecifierNamed:v73 target:self set:sel__setStreamToggleWarmup_withSpecifier_ get:sel__getStreamToggle_ detail:0 cell:6 edit:0];
 
-  [v184 setObject:@"Photos" forKeyedSubscript:v61];
-  [v184 setObject:NSClassFromString(&cfstr_Pssubtitleswit.isa) forKeyedSubscript:v63];
+  [v183 setObject:@"Photos" forKeyedSubscript:v61];
+  [v183 setObject:NSClassFromString(&cfstr_Pssubtitleswit.isa) forKeyedSubscript:v63];
   v74 = [v2 localizedStringForKey:@"Library value:memories and people" table:{&stru_286BDDEB8, 0}];
-  [v184 setObject:v74 forKeyedSubscript:v65];
+  [v183 setObject:v74 forKeyedSubscript:v65];
 
-  [v184 setProperty:MEMORY[0x277CBEC38] forKey:v193];
+  [v183 setProperty:MEMORY[0x277CBEC38] forKey:v192];
   LODWORD(v73) = +[MOSuggestionSheetSettingsController fetchSiginificantLocationEnablementStatus];
   v75 = MEMORY[0x277D3FAD8];
   v76 = [v2 localizedStringForKey:@"Significant Locations" value:&stru_286BDDEB8 table:0];
@@ -847,7 +840,7 @@ LABEL_45:
   [rangea setObject:v77 forKeyedSubscript:v65];
 
   v78 = MEMORY[0x277CBEC38];
-  [rangea setProperty:MEMORY[0x277CBEC38] forKey:v193];
+  [rangea setProperty:MEMORY[0x277CBEC38] forKey:v192];
   if (v73)
   {
     v79 = v78;
@@ -861,72 +854,72 @@ LABEL_45:
   [rangea setProperty:v79 forKey:*MEMORY[0x277D3FF38]];
   v80 = MEMORY[0x277D3FAD8];
   v81 = [v2 localizedStringForKey:@"State of Mind" value:&stru_286BDDEB8 table:0];
-  v183 = [v80 preferenceSpecifierNamed:v81 target:self set:sel__setStreamToggleWarmup_withSpecifier_ get:sel__getStreamToggle_ detail:0 cell:6 edit:0];
+  v182 = [v80 preferenceSpecifierNamed:v81 target:self set:sel__setStreamToggleWarmup_withSpecifier_ get:sel__getStreamToggle_ detail:0 cell:6 edit:0];
 
-  [v183 setObject:@"State of Mind" forKeyedSubscript:v61];
-  [v183 setObject:NSClassFromString(&cfstr_Pssubtitleswit.isa) forKeyedSubscript:v63];
+  [v182 setObject:@"State of Mind" forKeyedSubscript:v61];
+  [v182 setObject:NSClassFromString(&cfstr_Pssubtitleswit.isa) forKeyedSubscript:v63];
   v82 = [v2 localizedStringForKey:@"Moods and emotions you log" value:&stru_286BDDEB8 table:0];
-  [v183 setObject:v82 forKeyedSubscript:v65];
+  [v182 setObject:v82 forKeyedSubscript:v65];
 
-  [v183 setProperty:MEMORY[0x277CBEC38] forKey:v193];
+  [v182 setProperty:MEMORY[0x277CBEC38] forKey:v192];
   emptyGroupSpecifier = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
-  [emptyGroupSpecifier setObject:MEMORY[0x277CBEC38] forKeyedSubscript:v179];
+  [emptyGroupSpecifier setObject:MEMORY[0x277CBEC38] forKeyedSubscript:v178];
   v83 = [v2 localizedStringForKey:@"General prompts to reflect on gratitude value:kindness table:{purpose, and more", &stru_286BDDEB8, 0}];
-  [emptyGroupSpecifier setObject:v83 forKeyedSubscript:v178];
+  [emptyGroupSpecifier setObject:v83 forKeyedSubscript:v177];
 
   v84 = MEMORY[0x277D3FAD8];
   v85 = [v2 localizedStringForKey:@"Reflection Prompts" value:&stru_286BDDEB8 table:0];
-  v182 = [v84 preferenceSpecifierNamed:v85 target:self set:sel__setStreamToggle_withSpecifier_ get:sel__getStreamToggle_ detail:0 cell:6 edit:0];
+  v181 = [v84 preferenceSpecifierNamed:v85 target:self set:sel__setStreamToggle_withSpecifier_ get:sel__getStreamToggle_ detail:0 cell:6 edit:0];
 
-  [v182 setObject:@"Reflection" forKeyedSubscript:v61];
-  [v182 setObject:NSClassFromString(&cfstr_Pssubtitleswit.isa) forKeyedSubscript:v63];
-  [v182 setProperty:MEMORY[0x277CBEC38] forKey:v193];
+  [v181 setObject:@"Reflection" forKeyedSubscript:v61];
+  [v181 setObject:NSClassFromString(&cfstr_Pssubtitleswit.isa) forKeyedSubscript:v63];
+  [v181 setProperty:MEMORY[0x277CBEC38] forKey:v192];
   emptyGroupSpecifier2 = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
   v86 = MEMORY[0x277D3FAD8];
   v87 = [v2 localizedStringForKey:@"Clear History" value:&stru_286BDDEB8 table:0];
-  v169 = [v86 deleteButtonSpecifierWithName:v87 target:self action:sel__clearHistoryWarmup_];
+  v168 = [v86 deleteButtonSpecifierWithName:v87 target:self action:sel__clearHistoryWarmup_];
 
-  [v169 setObject:&unk_286BE0ED8 forKeyedSubscript:*MEMORY[0x277D3FD78]];
-  v163 = [v2 localizedStringForKey:@"iPhone will discover nearby contacts to show moments spent with contacts higher up in your list of suggestions. This may also allow your contacts to discover when you’re nearby. Your name and location will not be shared." value:&stru_286BDDEB8 table:0];
-  v152 = [v2 localizedStringForKey:@"Nearby People" value:&stru_286BDDEB8 table:0];
+  [v168 setObject:&unk_286BE0ED8 forKeyedSubscript:*MEMORY[0x277D3FD78]];
+  v162 = [v2 localizedStringForKey:@"iPhone will discover nearby contacts to show moments spent with contacts higher up in your list of suggestions. This may also allow your contacts to discover when you’re nearby. Your name and location will not be shared." value:&stru_286BDDEB8 table:0];
+  v151 = [v2 localizedStringForKey:@"Nearby People" value:&stru_286BDDEB8 table:0];
   v88 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"NEARBY_PEOPLE_GROUP" name:?];
-  [v88 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:v179];
-  [v88 setObject:v163 forKeyedSubscript:v178];
-  v159 = v88;
+  [v88 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:v178];
+  [v88 setObject:v162 forKeyedSubscript:v177];
+  v158 = v88;
   v89 = MEMORY[0x277D3FAD8];
   v90 = [v2 localizedStringForKey:@"Prioritize Moments with Contacts" value:&stru_286BDDEB8 table:0];
   v91 = [v89 preferenceSpecifierNamed:v90 target:self set:sel__setStreamToggle_withSpecifier_ get:sel__getStreamToggle_ detail:0 cell:6 edit:0];
 
   [v91 setObject:@"Prioritize Moments with Contacts" forKeyedSubscript:v61];
   [v91 setObject:NSClassFromString(&cfstr_Pssubtitleswit.isa) forKeyedSubscript:v63];
-  [v91 setProperty:MEMORY[0x277CBEC38] forKey:v193];
+  [v91 setProperty:MEMORY[0x277CBEC38] forKey:v192];
   emptyGroupSpecifier3 = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
   v92 = MEMORY[0x277D3FAD8];
   v93 = [v2 localizedStringForKey:@"Notifications" value:&stru_286BDDEB8 table:0];
   v94 = [v92 preferenceSpecifierNamed:v93 target:self set:0 get:0 detail:0 cell:13 edit:0];
 
-  [v94 setProperty:MEMORY[0x277CBEC38] forKey:v193];
+  [v94 setProperty:MEMORY[0x277CBEC38] forKey:v192];
   [v94 setButtonAction:sel_didTapSuggestionNotificationSettings_];
-  v151 = [v2 localizedStringForKey:@"Apps Using Private Access" value:&stru_286BDDEB8 table:0];
+  v150 = [v2 localizedStringForKey:@"Apps Using Private Access" value:&stru_286BDDEB8 table:0];
   v95 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"APPS_USING_PRIVATE_ACCESS_GROUP" name:?];
-  v194 = [v2 localizedStringForKey:@"Learn More" value:&stru_286BDDEB8 table:0];
+  v193 = [v2 localizedStringForKey:@"Learn More" value:&stru_286BDDEB8 table:0];
   v96 = [v2 localizedStringForKey:@"Apps using Private Access for suggestions data will appear here." value:&stru_286BDDEB8 table:0];
-  v194 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", v96, v194];
-  [v95 setObject:v194 forKeyedSubscript:v178];
+  v193 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", v96, v193];
+  [v95 setObject:v193 forKeyedSubscript:v177];
   v97 = objc_opt_class();
   v98 = NSStringFromClass(v97);
-  [v95 setProperty:v98 forKey:v158];
+  [v95 setProperty:v98 forKey:v157];
 
   v99 = [v96 length];
-  v223.length = [v194 length];
-  v223.location = v99 + 1;
-  v100 = NSStringFromRange(v223);
-  [v95 setProperty:v100 forKey:v157];
+  v222.length = [v193 length];
+  v222.location = v99 + 1;
+  v100 = NSStringFromRange(v222);
+  [v95 setProperty:v100 forKey:v156];
 
   v101 = [MEMORY[0x277CCAE60] valueWithNonretainedObject:self];
-  [v95 setProperty:v101 forKey:v156];
+  [v95 setProperty:v101 forKey:v155];
 
-  [v95 setProperty:@"showDataAccessExplanationSheet:" forKey:v155];
+  [v95 setProperty:@"showDataAccessExplanationSheet:" forKey:v154];
   if (!self->supportedApplicationsLoading && !self->supportedApplications && !self->supportedApplicationsWithDataAccess)
   {
     v102 = _mo_log_facility_get_os_log(MOLogFacilitySettings);
@@ -953,9 +946,9 @@ LABEL_45:
     block[1] = 3221225472;
     block[2] = __49__MOSuggestionSheetSettingsController_specifiers__block_invoke_287;
     block[3] = &unk_27991F020;
-    objc_copyWeak(&v205, buf);
+    objc_copyWeak(&v204, buf);
     dispatch_async(v108, block);
-    objc_destroyWeak(&v205);
+    objc_destroyWeak(&v204);
     objc_destroyWeak(buf);
   }
 
@@ -970,12 +963,12 @@ LABEL_45:
         {
           if ([(NSMutableArray *)v109 count])
           {
-            v110 = v174;
+            v110 = v173;
           }
 
           else
           {
-            v110 = v175;
+            v110 = v174;
           }
 
           [array addObject:v110];
@@ -983,12 +976,12 @@ LABEL_45:
       }
     }
 
-    else if (v181)
+    else if (v180)
     {
-      [array addObject:v181];
-      if (v171)
+      [array addObject:v180];
+      if (v170)
       {
-        [array addObject:v171];
+        [array addObject:v170];
       }
     }
 
@@ -1004,28 +997,28 @@ LABEL_45:
         v113 = self->supportedApplicationsWithDataAccess;
         if (v113)
         {
-          v198 = 0u;
-          v199 = 0u;
-          v196 = 0u;
           v197 = 0u;
+          v198 = 0u;
+          v195 = 0u;
+          v196 = 0u;
           v114 = v113;
-          v115 = [(NSMutableArray *)v114 countByEnumeratingWithState:&v196 objects:v216 count:16];
+          v115 = [(NSMutableArray *)v114 countByEnumeratingWithState:&v195 objects:v215 count:16];
           if (v115)
           {
-            v116 = *v197;
+            v116 = *v196;
             do
             {
               for (i = 0; i != v115; ++i)
               {
-                if (*v197 != v116)
+                if (*v196 != v116)
                 {
                   objc_enumerationMutation(v114);
                 }
 
-                [array addObject:*(*(&v196 + 1) + 8 * i)];
+                [array addObject:*(*(&v195 + 1) + 8 * i)];
               }
 
-              v115 = [(NSMutableArray *)v114 countByEnumeratingWithState:&v196 objects:v216 count:16];
+              v115 = [(NSMutableArray *)v114 countByEnumeratingWithState:&v195 objects:v215 count:16];
             }
 
             while (v115);
@@ -1044,27 +1037,27 @@ LABEL_103:
 
   if (self->_isOnboarded)
   {
-    if (v172)
+    if (v171)
     {
-      [array addObject:v172];
-      if (v161)
+      [array addObject:v171];
+      if (v160)
       {
-        [array addObject:v161];
+        [array addObject:v160];
       }
     }
 
-    [array addObject:v191];
-    [array addObject:v170];
-    [array addObject:v187];
+    [array addObject:v190];
+    [array addObject:v169];
     [array addObject:v186];
     [array addObject:v185];
     [array addObject:v184];
-    [array addObject:rangea];
     [array addObject:v183];
+    [array addObject:rangea];
+    [array addObject:v182];
     [array addObject:emptyGroupSpecifier2];
-    [array addObject:v169];
+    [array addObject:v168];
     [array addObject:emptyGroupSpecifier];
-    v111 = v182;
+    v111 = v181;
     goto LABEL_91;
   }
 
@@ -1075,12 +1068,12 @@ LABEL_103:
     {
       if ([(NSMutableArray *)v118 count])
       {
-        v111 = v174;
+        v111 = v173;
       }
 
       else
       {
-        v111 = v175;
+        v111 = v174;
       }
 
 LABEL_91:
@@ -1091,7 +1084,7 @@ LABEL_91:
   selfCopy6 = self;
   if (self->_isOnboarded)
   {
-    [array addObject:v159];
+    [array addObject:v158];
     [array addObject:v91];
     selfCopy6 = self;
     if (self->_isOnboarded)
@@ -1105,28 +1098,28 @@ LABEL_91:
         v119 = self->supportedApplicationsWithDataAccess;
         if (v119)
         {
-          v202 = 0u;
-          v203 = 0u;
-          v200 = 0u;
           v201 = 0u;
+          v202 = 0u;
+          v199 = 0u;
+          v200 = 0u;
           v114 = v119;
-          v120 = [(NSMutableArray *)v114 countByEnumeratingWithState:&v200 objects:v217 count:16];
+          v120 = [(NSMutableArray *)v114 countByEnumeratingWithState:&v199 objects:v216 count:16];
           if (v120)
           {
-            v121 = *v201;
+            v121 = *v200;
             do
             {
               for (j = 0; j != v120; ++j)
               {
-                if (*v201 != v121)
+                if (*v200 != v121)
                 {
                   objc_enumerationMutation(v114);
                 }
 
-                [array addObject:*(*(&v200 + 1) + 8 * j)];
+                [array addObject:*(*(&v199 + 1) + 8 * j)];
               }
 
-              v120 = [(NSMutableArray *)v114 countByEnumeratingWithState:&v200 objects:v217 count:16];
+              v120 = [(NSMutableArray *)v114 countByEnumeratingWithState:&v199 objects:v216 count:16];
             }
 
             while (v120);
@@ -1145,9 +1138,7 @@ LABEL_104:
   v125 = array;
 
   v126 = *(&self->super.super.super.super.super.isa + v123);
-  _Block_object_dispose(&v210, 8);
-
-  v127 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v209, 8);
 
   return v126;
 }
@@ -1904,13 +1895,13 @@ void __53__MOSuggestionSheetSettingsController_syncFromPhone___block_invoke_2(ui
 
 - (void)didTransitionTo:(id)to
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   toCopy = to;
   v5 = _mo_log_facility_get_os_log(MOLogFacilitySettings);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v10 = toCopy;
+    v9 = toCopy;
     _os_log_impl(&dword_25A200000, v5, OS_LOG_TYPE_INFO, "Sheet didTransitionTo: %@", buf, 0xCu);
   }
 
@@ -1921,13 +1912,11 @@ void __53__MOSuggestionSheetSettingsController_syncFromPhone___block_invoke_2(ui
     block[1] = 3221225472;
     block[2] = __55__MOSuggestionSheetSettingsController_didTransitionTo___block_invoke;
     block[3] = &unk_27991F020;
-    objc_copyWeak(&v8, buf);
+    objc_copyWeak(&v7, buf);
     dispatch_async(MEMORY[0x277D85CD0], block);
-    objc_destroyWeak(&v8);
+    objc_destroyWeak(&v7);
     objc_destroyWeak(buf);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __55__MOSuggestionSheetSettingsController_didTransitionTo___block_invoke(uint64_t a1)

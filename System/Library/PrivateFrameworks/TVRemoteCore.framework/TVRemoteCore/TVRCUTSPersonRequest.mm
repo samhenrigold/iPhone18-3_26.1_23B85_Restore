@@ -6,7 +6,7 @@
 
 - (void)requestForPersonID:(id)d completion:(id)completion
 {
-  v37[7] = *MEMORY[0x277D85DE8];
+  v36[7] = *MEMORY[0x277D85DE8];
   dCopy = d;
   completionCopy = completion;
   if ([dCopy length])
@@ -48,37 +48,37 @@
 
     v26 = v25;
 
-    v36[0] = @"profile";
-    v36[1] = @"caller";
-    v37[0] = @"Full";
-    v37[1] = @"tv-remote";
-    v36[2] = @"locale";
-    v36[3] = @"country";
-    v37[2] = v21;
-    v37[3] = v26;
-    v36[4] = @"sf";
-    v36[5] = @"pfm";
-    v37[4] = v15;
-    v37[5] = @"AppleTV";
-    v36[6] = @"v";
-    v37[6] = @"82";
-    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:7];
+    v35[0] = @"profile";
+    v35[1] = @"caller";
+    v36[0] = @"Full";
+    v36[1] = @"tv-remote";
+    v35[2] = @"locale";
+    v35[3] = @"country";
+    v36[2] = v21;
+    v36[3] = v26;
+    v35[4] = @"sf";
+    v35[5] = @"pfm";
+    v36[4] = v15;
+    v36[5] = @"AppleTV";
+    v35[6] = @"v";
+    v36[6] = @"82";
+    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:7];
 
     v28 = [(TVRCUTSPersonRequest *)self _requestPropertiesForEndPoint:dCopy apiVersion:&unk_287E66B20 headersDict:MEMORY[0x277CBEC10] queryParamsDict:v27];
 
     v29 = [objc_alloc(MEMORY[0x277D7A980]) initWithRequestProperties:v28];
     objc_initWeak(&location, v29);
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __54__TVRCUTSPersonRequest_requestForPersonID_completion___block_invoke;
-    v32[3] = &unk_279D82F58;
-    objc_copyWeak(&v34, &location);
-    v33 = completionCopy;
-    [v29 setCompletionBlock:v32];
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __54__TVRCUTSPersonRequest_requestForPersonID_completion___block_invoke;
+    v31[3] = &unk_279D82F58;
+    objc_copyWeak(&v33, &location);
+    v32 = completionCopy;
+    [v29 setCompletionBlock:v31];
     wlkDefaultConcurrentQueue = [MEMORY[0x277CCABD8] wlkDefaultConcurrentQueue];
     [wlkDefaultConcurrentQueue addOperation:v29];
 
-    objc_destroyWeak(&v34);
+    objc_destroyWeak(&v33);
     objc_destroyWeak(&location);
   }
 
@@ -86,8 +86,6 @@
   {
     (*(completionCopy + 2))(completionCopy, 0, 0, 0);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __54__TVRCUTSPersonRequest_requestForPersonID_completion___block_invoke(uint64_t a1)
@@ -114,13 +112,12 @@ void __54__TVRCUTSPersonRequest_requestForPersonID_completion___block_invoke(uin
 void __54__TVRCUTSPersonRequest_requestForPersonID_completion___block_invoke_2(uint64_t a1)
 {
   v2 = [*(a1 + 32) objectForKeyedSubscript:@"person"];
-  v7 = [TVRCPerson personWithDictionary:v2];
+  v6 = [TVRCPerson personWithDictionary:v2];
 
   v3 = [*(a1 + 32) objectForKeyedSubscript:@"canvas"];
   v4 = [v3 objectForKeyedSubscript:@"shelves"];
 
   v5 = [TVRCFilmography filmographyWithDictionaries:v4];
-  v6 = *(a1 + 40);
   (*(*(a1 + 48) + 16))();
 }
 

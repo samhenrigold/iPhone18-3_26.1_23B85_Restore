@@ -94,33 +94,33 @@
 
 - (AXCustomContent)initWithCoder:(id)coder
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   _init = [(AXCustomContent *)self _init];
   v6 = MEMORY[0x1E695DFD8];
-  v28[0] = objc_opt_class();
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
+  v27[0] = objc_opt_class();
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
   v8 = [v6 setWithArray:v7];
   v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"label"];
   [(AXCustomContent *)_init setLabel:v9];
 
   v10 = MEMORY[0x1E695DFD8];
-  v27 = objc_opt_class();
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v27 count:1];
+  v26 = objc_opt_class();
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v26 count:1];
   v12 = [v10 setWithArray:v11];
   v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"attributedLabel"];
   [(AXCustomContent *)_init setAttributedLabel:v13];
 
   v14 = MEMORY[0x1E695DFD8];
-  v26 = objc_opt_class();
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v26 count:1];
+  v25 = objc_opt_class();
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
   v16 = [v14 setWithArray:v15];
   v17 = [coderCopy decodeObjectOfClasses:v16 forKey:@"value"];
   [(AXCustomContent *)_init setValue:v17];
 
   v18 = MEMORY[0x1E695DFD8];
-  v25 = objc_opt_class();
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
+  v24 = objc_opt_class();
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
   v20 = [v18 setWithArray:v19];
   v21 = [coderCopy decodeObjectOfClasses:v20 forKey:@"attributedValue"];
   [(AXCustomContent *)_init setAttributedValue:v21];
@@ -128,7 +128,6 @@
   v22 = [coderCopy decodeIntegerForKey:@"importance"];
   [(AXCustomContent *)_init setImportance:v22];
 
-  v23 = *MEMORY[0x1E69E9840];
   return _init;
 }
 

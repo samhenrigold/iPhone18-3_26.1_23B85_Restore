@@ -11,6 +11,7 @@
 + (id)deleteFromTableWithName:(id)name criterion:(id)criterion returningColumns:(id)columns;
 + (id)insertCommandStringWithTableName:(id)name columnNames:(id)names returningColumns:(id)columns onConflict:(id)conflict;
 + (id)prefixColumnName:(id)name withTableName:(id)tableName;
++ (id)selectFromTableWithName:(id)name columns:(id)columns count:(BOOL)count join:(id)join criterion:(id)criterion order:(id)order limit:(id)limit offset:(id)self0;
 + (id)updateWithTableName:(id)name columnNames:(id)names columnValues:(id)values criterion:(id)criterion returningColumns:(id)columns;
 + (void)addLimit:(id)limit offset:(id)offset forSelect:(id)select;
 + (void)replaceOffset:(id)offset forSelect:(id)select;
@@ -23,6 +24,86 @@
 {
   v2 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:@"init unsupported" userInfo:MEMORY[0x1E695E0F8]];
   objc_exception_throw(v2);
+}
+
++ (id)selectFromTableWithName:(id)name columns:(id)columns count:(BOOL)count join:(id)join criterion:(id)criterion order:(id)order limit:(id)limit offset:(id)self0
+{
+  countCopy = count;
+  nameCopy = name;
+  criterionCopy = criterion;
+  orderCopy = order;
+  limitCopy = limit;
+  offsetCopy = offset;
+  joinCopy = join;
+  v20 = [self _produceSelectClauseWithTableName:nameCopy columnNames:columns count:countCopy];
+  v21 = objc_opt_new();
+  v22 = [self _generateJoinClause:joinCopy];
+
+  if (v22)
+  {
+    clause = [v22 clause];
+    v24 = [v20 stringByAppendingString:clause];
+
+    parameters = [v22 parameters];
+    [v21 addObjectsFromArray:parameters];
+
+    v20 = v24;
+  }
+
+  v26 = [self _produceCriterionClause:criterionCopy tableName:nameCopy];
+  v27 = v26;
+  if (v26)
+  {
+    clause2 = [v26 clause];
+    v29 = [v20 stringByAppendingFormat:@" WHERE %@", clause2];
+
+    parameters2 = [v27 parameters];
+    [v21 addObjectsFromArray:parameters2];
+
+    v20 = v29;
+  }
+
+  v31 = [self _generateOrderByClause:orderCopy];
+  v32 = v31;
+  if (v31)
+  {
+    v33 = [v20 stringByAppendingFormat:@" ORDER BY %@", v31];
+
+    v20 = v33;
+  }
+
+  if (limitCopy)
+  {
+    v34 = [v20 stringByAppendingFormat:@" LIMIT %@", @"?"];
+
+    [v21 addObject:limitCopy];
+    v20 = v34;
+  }
+
+  if (offsetCopy)
+  {
+    v35 = [v20 stringByAppendingFormat:@" OFFSET %@", @"?"];
+
+    [v21 addObject:offsetCopy];
+    v20 = v35;
+  }
+
+  v36 = [v20 stringByAppendingString:@""];;
+
+  v37 = [CCDatabaseSelect alloc];
+  if ([v21 count])
+  {
+    v38 = v21;
+  }
+
+  else
+  {
+    v38 = 0;
+  }
+
+  v39 = [(CCDatabaseCommand *)v37 initWithCommandString:v36 parameters:v38];
+
+  return v39;
 }
 
 + (void)addLimit:(id)limit offset:(id)offset forSelect:(id)select
@@ -275,39 +356,39 @@ LABEL_7:
 
 + (id)_generateJoinClause:(id)clause
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   clauseCopy = clause;
   v5 = clauseCopy;
   if (clauseCopy && [clauseCopy joinType])
   {
-    v25 = objc_opt_new();
+    v24 = objc_opt_new();
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     obj = [v5 joinTables];
-    v6 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v6 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v29;
+      v8 = *v28;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v29 != v8)
+          if (*v28 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v28 + 1) + 8 * i);
+          v10 = *(*(&v27 + 1) + 8 * i);
           joinCriterion = [v10 joinCriterion];
           v12 = [self _produceJoinCriterionClause:joinCriterion];
 
           joinType = [v5 joinType];
           if ((joinType - 1) <= 3)
           {
-            v27 = off_1E7C8B3C0[joinType - 1];
+            v26 = off_1E7C8B3C0[joinType - 1];
             v14 = objc_alloc(MEMORY[0x1E696AEC0]);
             table = [v10 table];
             [v12 clause];
@@ -315,7 +396,7 @@ LABEL_7:
             v17 = v8;
             selfCopy = self;
             v20 = v19 = v5;
-            v21 = [v14 initWithFormat:v27, table, v20];
+            v21 = [v14 initWithFormat:v26, table, v20];
 
             v5 = v19;
             self = selfCopy;
@@ -324,26 +405,24 @@ LABEL_7:
 
             if (v21)
             {
-              [v25 appendString:v21];
+              [v24 appendString:v21];
             }
           }
         }
 
-        v7 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v7 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
       while (v7);
     }
 
-    v22 = [[CCSQLCommandClause alloc] initWithClause:v25 parameters:0];
+    v22 = [[CCSQLCommandClause alloc] initWithClause:v24 parameters:0];
   }
 
   else
   {
     v22 = 0;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v22;
 }
@@ -369,7 +448,7 @@ LABEL_7:
 
 + (id)_produceJoinCriterionClause:(id)clause
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   clauseCopy = clause;
   subCriteria = [clauseCopy subCriteria];
   sqlOperator = [clauseCopy sqlOperator];
@@ -393,60 +472,60 @@ LABEL_6:
 
   if (sqlOperator == 1)
   {
-    v12 = objc_alloc(MEMORY[0x1E696AEC0]);
+    v11 = objc_alloc(MEMORY[0x1E696AEC0]);
     columnName = [clauseCopy columnName];
     tableName = [clauseCopy tableName];
-    v15 = [self prefixColumnName:columnName withTableName:tableName];
+    v14 = [self prefixColumnName:columnName withTableName:tableName];
     comparingColumnName = [clauseCopy comparingColumnName];
     comparingTableName = [clauseCopy comparingTableName];
-    v18 = [self prefixColumnName:comparingColumnName withTableName:comparingTableName];
-    v8 = [v12 initWithFormat:@"%@ = %@", v15, v18];
+    v17 = [self prefixColumnName:comparingColumnName withTableName:comparingTableName];
+    v8 = [v11 initWithFormat:@"%@ = %@", v14, v17];
   }
 
   else
   {
-    v31 = clauseCopy;
-    v19 = [subCriteria count];
-    v20 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v19];
+    v30 = clauseCopy;
+    v18 = [subCriteria count];
+    v19 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v18];
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
-    v30 = subCriteria;
-    v21 = subCriteria;
-    v22 = [v21 countByEnumeratingWithState:&v32 objects:v36 count:16];
-    if (v22)
+    v29 = subCriteria;
+    v20 = subCriteria;
+    v21 = [v20 countByEnumeratingWithState:&v31 objects:v35 count:16];
+    if (v21)
     {
-      v23 = v22;
-      v24 = *v33;
+      v22 = v21;
+      v23 = *v32;
       do
       {
-        for (i = 0; i != v23; ++i)
+        for (i = 0; i != v22; ++i)
         {
-          if (*v33 != v24)
+          if (*v32 != v23)
           {
-            objc_enumerationMutation(v21);
+            objc_enumerationMutation(v20);
           }
 
-          v26 = [self _produceJoinCriterionClause:*(*(&v32 + 1) + 8 * i)];
-          if (v26)
+          v25 = [self _produceJoinCriterionClause:*(*(&v31 + 1) + 8 * i)];
+          if (v25)
           {
-            v27 = objc_alloc(MEMORY[0x1E696AEC0]);
-            clause = [v26 clause];
-            v29 = [v27 initWithFormat:@"(%@)", clause];
-            [v20 addObject:v29];
+            v26 = objc_alloc(MEMORY[0x1E696AEC0]);
+            clause = [v25 clause];
+            v28 = [v26 initWithFormat:@"(%@)", clause];
+            [v19 addObject:v28];
           }
         }
 
-        v23 = [v21 countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v31 objects:v35 count:16];
       }
 
-      while (v23);
+      while (v22);
     }
 
-    if ([v20 count])
+    if ([v19 count])
     {
-      v8 = [v20 componentsJoinedByString:@" AND "];
+      v8 = [v19 componentsJoinedByString:@" AND "];
     }
 
     else
@@ -454,22 +533,20 @@ LABEL_6:
       v8 = 0;
     }
 
-    clauseCopy = v31;
+    clauseCopy = v30;
 
-    subCriteria = v30;
+    subCriteria = v29;
   }
 
 LABEL_7:
   v9 = [[CCSQLCommandClause alloc] initWithClause:v8 parameters:0];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 + (id)_produceCriterionClause:(id)clause tableName:(id)name
 {
-  v123 = *MEMORY[0x1E69E9840];
+  v122 = *MEMORY[0x1E69E9840];
   clauseCopy = clause;
   nameCopy = name;
   if (clauseCopy)
@@ -501,10 +578,10 @@ LABEL_7:
           goto LABEL_60;
         }
 
-        v103 = [v18 initWithFormat:@"%@ = %@", v9, v12];
+        v102 = [v18 initWithFormat:@"%@ = %@", v9, v12];
         v21 = subQuery;
         v15 = v16;
-        if (v103)
+        if (v102)
         {
           goto LABEL_68;
         }
@@ -528,7 +605,7 @@ LABEL_7:
         v58 = v57 = v15;
         v59 = [v61 initWithFormat:@"%@ >= %@", v9, v58];
 LABEL_32:
-        v103 = v59;
+        v102 = v59;
 
         v15 = v57;
         firstObject = [columnValues firstObject];
@@ -539,7 +616,7 @@ LABEL_32:
         v33 = v15;
         v34 = objc_alloc(MEMORY[0x1E696AEC0]);
         v35 = [self _generateCommaSeparatedPlaceholdersString:1];
-        v103 = [v34 initWithFormat:@"%@ MATCH %@", nameCopy, v35];
+        v102 = [v34 initWithFormat:@"%@ MATCH %@", nameCopy, v35];
 
         v36 = MEMORY[0x1E696AEC0];
         firstObject2 = [columnValues firstObject];
@@ -562,13 +639,13 @@ LABEL_32:
         v82 = v81 = subCriteria;
         v83 = v79;
         v15 = v78;
-        v103 = [v83 initWithFormat:@"%@ BETWEEN (%@) AND (%@)", v9, v80, v82];
+        v102 = [v83 initWithFormat:@"%@ BETWEEN (%@) AND (%@)", v9, v80, v82];
 
         subCriteria = v81;
         v40 = v78;
         goto LABEL_39;
       case 8:
-        v110 = v12;
+        v109 = v12;
         v23 = v15;
         v62 = objc_alloc(MEMORY[0x1E696AEC0]);
         v21 = subQuery;
@@ -577,9 +654,9 @@ LABEL_32:
           commandString = [subQuery commandString];
           [self _removeEndingSemicolonFromCommandString:commandString];
           v27 = v26 = subCriteria;
-          v102 = [v62 initWithFormat:@"%@ IN (%@)", v9, v27];
+          v101 = [v62 initWithFormat:@"%@ IN (%@)", v9, v27];
 LABEL_30:
-          v103 = v102;
+          v102 = v101;
 
           subCriteria = v26;
           parameters = [v21 parameters];
@@ -591,18 +668,18 @@ LABEL_30:
         else
         {
           v97 = [self _generateCommaSeparatedPlaceholdersString:{objc_msgSend(columnValues, "count")}];
-          v103 = [v62 initWithFormat:@"%@ IN (%@)", v9, v97];
+          v102 = [v62 initWithFormat:@"%@ IN (%@)", v9, v97];
 
           v15 = v23;
           [v23 addObjectsFromArray:columnValues];
         }
 
 LABEL_56:
-        v12 = v110;
-        if (v103)
+        v12 = v109;
+        if (v102)
         {
 LABEL_68:
-          v22 = [[CCSQLCommandClause alloc] initWithClause:v103 parameters:v15];
+          v22 = [[CCSQLCommandClause alloc] initWithClause:v102 parameters:v15];
         }
 
         else
@@ -620,7 +697,7 @@ LABEL_69:
         v67 = [self _generateCommaSeparatedPlaceholdersString:1];
         v68 = [v96 initWithFormat:@"%@ LIKE %@", v9, v67];
 LABEL_60:
-        v103 = v68;
+        v102 = v68;
 
         firstObject3 = [columnValues firstObject];
         [v16 addObject:firstObject3];
@@ -630,33 +707,33 @@ LABEL_60:
       case 10:
         v41 = v12;
         v42 = v15;
-        v108 = columnValues;
-        v110 = v41;
-        v104 = v9;
-        v105 = clauseCopy;
+        v107 = columnValues;
+        v109 = v41;
+        v103 = v9;
+        v104 = clauseCopy;
         v43 = [subCriteria count];
         v44 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v43];
+        v116 = 0u;
         v117 = 0u;
         v118 = 0u;
         v119 = 0u;
-        v120 = 0u;
-        v106 = subCriteria;
+        v105 = subCriteria;
         v45 = subCriteria;
-        v46 = [v45 countByEnumeratingWithState:&v117 objects:v122 count:16];
+        v46 = [v45 countByEnumeratingWithState:&v116 objects:v121 count:16];
         if (v46)
         {
           v47 = v46;
-          v48 = *v118;
+          v48 = *v117;
           do
           {
             for (i = 0; i != v47; ++i)
             {
-              if (*v118 != v48)
+              if (*v117 != v48)
               {
                 objc_enumerationMutation(v45);
               }
 
-              v50 = [self _produceCriterionClause:*(*(&v117 + 1) + 8 * i) tableName:nameCopy];
+              v50 = [self _produceCriterionClause:*(*(&v116 + 1) + 8 * i) tableName:nameCopy];
               if (v50)
               {
                 v51 = objc_alloc(MEMORY[0x1E696AEC0]);
@@ -669,7 +746,7 @@ LABEL_60:
               }
             }
 
-            v47 = [v45 countByEnumeratingWithState:&v117 objects:v122 count:16];
+            v47 = [v45 countByEnumeratingWithState:&v116 objects:v121 count:16];
           }
 
           while (v47);
@@ -685,33 +762,33 @@ LABEL_60:
       case 11:
         v84 = v12;
         v42 = v15;
-        v108 = columnValues;
-        v110 = v84;
-        v104 = v9;
-        v105 = clauseCopy;
+        v107 = columnValues;
+        v109 = v84;
+        v103 = v9;
+        v104 = clauseCopy;
         v85 = [subCriteria count];
         v44 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v85];
+        v112 = 0u;
         v113 = 0u;
         v114 = 0u;
         v115 = 0u;
-        v116 = 0u;
-        v106 = subCriteria;
+        v105 = subCriteria;
         v86 = subCriteria;
-        v87 = [v86 countByEnumeratingWithState:&v113 objects:v121 count:16];
+        v87 = [v86 countByEnumeratingWithState:&v112 objects:v120 count:16];
         if (v87)
         {
           v88 = v87;
-          v89 = *v114;
+          v89 = *v113;
           do
           {
             for (j = 0; j != v88; ++j)
             {
-              if (*v114 != v89)
+              if (*v113 != v89)
               {
                 objc_enumerationMutation(v86);
               }
 
-              v91 = [self _produceCriterionClause:*(*(&v113 + 1) + 8 * j) tableName:nameCopy];
+              v91 = [self _produceCriterionClause:*(*(&v112 + 1) + 8 * j) tableName:nameCopy];
               if (v91)
               {
                 v92 = objc_alloc(MEMORY[0x1E696AEC0]);
@@ -724,7 +801,7 @@ LABEL_60:
               }
             }
 
-            v88 = [v86 countByEnumeratingWithState:&v113 objects:v121 count:16];
+            v88 = [v86 countByEnumeratingWithState:&v112 objects:v120 count:16];
           }
 
           while (v88);
@@ -734,42 +811,42 @@ LABEL_60:
         {
           v55 = @" OR ";
 LABEL_51:
-          v103 = [v44 componentsJoinedByString:v55];
+          v102 = [v44 componentsJoinedByString:v55];
         }
 
         else
         {
 LABEL_54:
-          v103 = 0;
+          v102 = 0;
         }
 
-        v9 = v104;
-        subCriteria = v106;
-        columnValues = v108;
+        v9 = v103;
+        subCriteria = v105;
+        columnValues = v107;
         v21 = subQuery;
         v15 = v42;
 
-        clauseCopy = v105;
+        clauseCopy = v104;
         goto LABEL_56;
       case 12:
         v29 = v15;
         v30 = objc_alloc(MEMORY[0x1E696AEC0]);
         v31 = [self _generateCommaSeparatedPlaceholdersString:{objc_msgSend(columnValues, "count")}];
-        v101 = v9;
-        v103 = v31;
+        v100 = v9;
+        v102 = v31;
         v32 = @"%@ IS %@";
         goto LABEL_12;
       case 13:
         v29 = v15;
         v30 = objc_alloc(MEMORY[0x1E696AEC0]);
         v31 = [self _generateCommaSeparatedPlaceholdersString:{objc_msgSend(columnValues, "count")}];
-        v101 = v9;
-        v103 = v31;
+        v100 = v9;
+        v102 = v31;
         v32 = @"%@ IS NOT %@";
 LABEL_12:
         v39 = v30;
         v15 = v29;
-        v103 = [v39 initWithFormat:v32, v101, v103];
+        v102 = [v39 initWithFormat:v32, v100, v102];
 
         v40 = v29;
 LABEL_39:
@@ -785,8 +862,8 @@ LABEL_39:
           if (v72)
           {
             v73 = v72;
-            v107 = subCriteria;
-            v109 = columnValues;
+            v106 = subCriteria;
+            v108 = columnValues;
             v74 = objc_alloc(MEMORY[0x1E696AEC0]);
             clause3 = [v73 clause];
             v76 = [v74 initWithFormat:@"(%@)", clause3];
@@ -796,21 +873,21 @@ LABEL_39:
 
             if (v76)
             {
-              v103 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"NOT %@", v76];
+              v102 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"NOT %@", v76];
             }
 
             else
             {
-              v103 = 0;
+              v102 = 0;
             }
 
-            subCriteria = v107;
-            columnValues = v109;
+            subCriteria = v106;
+            columnValues = v108;
           }
 
           else
           {
-            v103 = 0;
+            v102 = 0;
           }
 
           v15 = v71;
@@ -819,12 +896,12 @@ LABEL_39:
 
         else
         {
-          v103 = 0;
+          v102 = 0;
         }
 
 LABEL_67:
         v21 = subQuery;
-        if (v103)
+        if (v102)
         {
           goto LABEL_68;
         }
@@ -837,13 +914,13 @@ LABEL_67:
           goto LABEL_57;
         }
 
-        v110 = v12;
+        v109 = v12;
         v23 = v15;
         v24 = objc_alloc(MEMORY[0x1E696AEC0]);
         commandString = [subQuery commandString];
         [self _removeEndingSemicolonFromCommandString:commandString];
         v27 = v26 = subCriteria;
-        v102 = [v24 initWithFormat:@"EXISTS (%@)", v27, v102];
+        v101 = [v24 initWithFormat:@"EXISTS (%@)", v27, v101];
         goto LABEL_30;
       case 16:
         v21 = subQuery;
@@ -852,13 +929,13 @@ LABEL_67:
           goto LABEL_57;
         }
 
-        v110 = v12;
+        v109 = v12;
         v23 = v15;
         v60 = objc_alloc(MEMORY[0x1E696AEC0]);
         commandString = [subQuery commandString];
         [self _removeEndingSemicolonFromCommandString:commandString];
         v27 = v26 = subCriteria;
-        v102 = [v60 initWithFormat:@"NOT EXISTS (%@)", v27, v102];
+        v101 = [v60 initWithFormat:@"NOT EXISTS (%@)", v27, v101];
         goto LABEL_30;
       default:
         v22 = 0;
@@ -871,8 +948,6 @@ LABEL_67:
   {
     v22 = 0;
   }
-
-  v99 = *MEMORY[0x1E69E9840];
 
   return v22;
 }
@@ -996,11 +1071,10 @@ LABEL_11:
 
 + (void)_produceJoinCriterionClause:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = 134217984;
-  v5 = [a1 sqlOperator];
-  _os_log_error_impl(&dword_1B6DB2000, a2, OS_LOG_TYPE_ERROR, "Inavlid join criterion, sql operator not supported for join %ld", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
+  v3 = 134217984;
+  v4 = [a1 sqlOperator];
+  _os_log_error_impl(&dword_1B6DB2000, a2, OS_LOG_TYPE_ERROR, "Inavlid join criterion, sql operator not supported for join %ld", &v3, 0xCu);
 }
 
 @end

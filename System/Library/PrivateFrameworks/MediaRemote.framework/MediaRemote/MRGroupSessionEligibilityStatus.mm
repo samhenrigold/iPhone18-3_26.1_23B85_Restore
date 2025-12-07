@@ -287,7 +287,7 @@ LABEL_19:
 
 - (id)differenceFrom:(id)from
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   dictionaryDescription = [(MRGroupSessionEligibilityStatus *)self dictionaryDescription];
   dictionaryDescription2 = [fromCopy dictionaryDescription];
@@ -303,32 +303,32 @@ LABEL_19:
   {
     if (fromCopy)
     {
-      v29 = fromCopy;
-      v30 = v12;
-      v33 = 0u;
-      v34 = 0u;
-      v31 = 0u;
+      v28 = fromCopy;
+      v29 = v12;
       v32 = 0u;
-      v28 = v11;
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
+      v27 = v11;
       v14 = v11;
-      v15 = [v14 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v30 objects:v34 count:16];
       if (!v15)
       {
         goto LABEL_14;
       }
 
       v16 = v15;
-      v17 = *v32;
+      v17 = *v31;
       while (1)
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v32 != v17)
+          if (*v31 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v31 + 1) + 8 * i);
+          v19 = *(*(&v30 + 1) + 8 * i);
           v20 = [dictionaryDescription objectForKeyedSubscript:v19];
           v21 = [dictionaryDescription2 objectForKeyedSubscript:v19];
           if (v20 != v21)
@@ -344,19 +344,19 @@ LABEL_19:
             v20 = [dictionaryDescription2 objectForKeyedSubscript:v19];
             v21 = [dictionaryDescription objectForKeyedSubscript:v19];
             v24 = [v23 pairWithFirst:v20 second:v21];
-            [v30 setObject:v24 forKeyedSubscript:v19];
+            [v29 setObject:v24 forKeyedSubscript:v19];
           }
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v30 objects:v34 count:16];
         if (!v16)
         {
 LABEL_14:
 
-          v13 = v30;
-          v25 = [v30 description];
-          v11 = v28;
-          fromCopy = v29;
+          v13 = v29;
+          v25 = [v29 description];
+          v11 = v27;
+          fromCopy = v28;
           goto LABEL_17;
         }
       }
@@ -371,8 +371,6 @@ LABEL_14:
   }
 
 LABEL_17:
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return v25;
 }

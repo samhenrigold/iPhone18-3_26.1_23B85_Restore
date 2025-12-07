@@ -222,7 +222,7 @@ void __68__TVLNetworkMonitor_startMonitoringForInterfaceTypes_updateHandler___bl
 
 BOOL __68__TVLNetworkMonitor_startMonitoringForInterfaceTypes_updateHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
@@ -240,9 +240,9 @@ BOOL __68__TVLNetworkMonitor_startMonitoringForInterfaceTypes_updateHandler___bl
         v6 = _TVLLogDefault_log_5;
         if (os_log_type_enabled(_TVLLogDefault_log_5, OS_LOG_TYPE_INFO))
         {
-          v12 = 138543362;
-          v13 = v5;
-          _os_log_impl(&dword_26CD78000, v6, OS_LOG_TYPE_INFO, "TVLNetworkMonitor found AWDL %{public}@", &v12, 0xCu);
+          v11 = 138543362;
+          v12 = v5;
+          _os_log_impl(&dword_26CD78000, v6, OS_LOG_TYPE_INFO, "TVLNetworkMonitor found AWDL %{public}@", &v11, 0xCu);
         }
 
         v7 = [[TVLNetworkInterface alloc] initWithInterfaceType:3 interfaceName:v5];
@@ -261,12 +261,12 @@ BOOL __68__TVLNetworkMonitor_startMonitoringForInterfaceTypes_updateHandler___bl
           [TVLNetworkMonitor startMonitoringForInterfaceTypes:updateHandler:];
         }
 
-        v10 = _TVLLogDefault_log_5;
+        v9 = _TVLLogDefault_log_5;
         if (os_log_type_enabled(_TVLLogDefault_log_5, OS_LOG_TYPE_INFO))
         {
-          v12 = 138543362;
-          v13 = v5;
-          _os_log_impl(&dword_26CD78000, v10, OS_LOG_TYPE_INFO, "TVLNetworkMonitor found WIFI %{public}@", &v12, 0xCu);
+          v11 = 138543362;
+          v12 = v5;
+          _os_log_impl(&dword_26CD78000, v9, OS_LOG_TYPE_INFO, "TVLNetworkMonitor found WIFI %{public}@", &v11, 0xCu);
         }
 
         v7 = [[TVLNetworkInterface alloc] initWithInterfaceType:2 interfaceName:v5];
@@ -285,12 +285,12 @@ BOOL __68__TVLNetworkMonitor_startMonitoringForInterfaceTypes_updateHandler___bl
           [TVLNetworkMonitor startMonitoringForInterfaceTypes:updateHandler:];
         }
 
-        v11 = _TVLLogDefault_log_5;
+        v10 = _TVLLogDefault_log_5;
         if (os_log_type_enabled(_TVLLogDefault_log_5, OS_LOG_TYPE_INFO))
         {
-          v12 = 138543362;
-          v13 = v5;
-          _os_log_impl(&dword_26CD78000, v11, OS_LOG_TYPE_INFO, "TVLNetworkMonitor found ETHERNET %{public}@", &v12, 0xCu);
+          v11 = 138543362;
+          v12 = v5;
+          _os_log_impl(&dword_26CD78000, v10, OS_LOG_TYPE_INFO, "TVLNetworkMonitor found ETHERNET %{public}@", &v11, 0xCu);
         }
 
         v7 = [[TVLNetworkInterface alloc] initWithInterfaceType:1 interfaceName:v5];
@@ -301,7 +301,6 @@ BOOL __68__TVLNetworkMonitor_startMonitoringForInterfaceTypes_updateHandler___bl
 LABEL_10:
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return WeakRetained != 0;
 }
 

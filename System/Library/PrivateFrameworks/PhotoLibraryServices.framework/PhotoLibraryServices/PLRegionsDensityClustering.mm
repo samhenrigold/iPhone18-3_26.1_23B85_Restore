@@ -10,7 +10,7 @@
 {
   v131 = *MEMORY[0x1E69E9840];
   datasetCopy = dataset;
-  v6 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(datasetCopy, "count")}];
+  v6 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(datasetCopy)];
   v120 = 0u;
   v121 = 0u;
   v122 = 0u;
@@ -55,7 +55,7 @@
     while (v9);
   }
 
-  if ([v6 count])
+  if (objc_msgSend_count(v6))
   {
     v81 = [v6 sortedArrayUsingComparator:&__block_literal_global_3_96567];
     v89 = [v81 mutableCopy];
@@ -83,7 +83,7 @@
       }
 
       [(PLDataDensityClustering *)v18 setMaximumDistance:self->_definiteClusterMaximumDistanceUnit];
-      v19 = vcvtmd_u64_f64(self->_definiteClusterMinimumNumberOfObjectsPercent * [v89 count]);
+      v19 = vcvtmd_u64_f64(self->_definiteClusterMinimumNumberOfObjectsPercent * objc_msgSend_count(v89));
       if (self->_definiteClusterMinimumNumberOfObjects <= v19)
       {
         definiteClusterMinimumNumberOfObjects = v19;
@@ -137,7 +137,7 @@
     }
 
     v82 = v6;
-    if (self->_includeExtensiveClusters && [v89 count])
+    if (self->_includeExtensiveClusters && objc_msgSend_count(v89))
     {
       if (self->_extensiveClusterTimeIntervalDistance == 0.0)
       {
@@ -160,7 +160,7 @@
       }
 
       [(PLDataDensityClustering *)v28 setMaximumDistance:self->_extensiveClusterMaximumDistanceUnit];
-      v29 = vcvtmd_u64_f64(self->_extensiveClusterMinimumNumberOfObjectsPercent * [v89 count]);
+      v29 = vcvtmd_u64_f64(self->_extensiveClusterMinimumNumberOfObjectsPercent * objc_msgSend_count(v89));
       if (self->_extensiveClusterMinimumNumberOfObjects <= v29)
       {
         extensiveClusterMinimumNumberOfObjects = v29;
@@ -240,7 +240,7 @@
 
             v42 = *(*(&v108 + 1) + 8 * m);
             objects3 = [v42 objects];
-            v44 = [objects3 count];
+            v44 = objc_msgSend_count(objects3);
 
             if (v44)
             {
@@ -288,7 +288,7 @@
 
             v49 = *(*(&v104 + 1) + 8 * n);
             objects5 = [v49 objects];
-            v51 = [objects5 count];
+            v51 = objc_msgSend_count(objects5);
 
             if (v51)
             {
@@ -365,7 +365,7 @@ LABEL_95:
       v6 = v82;
     }
 
-    if (![dictionary count] && objc_msgSend(v89, "count") >= 2)
+    if (!objc_msgSend_count(dictionary) && objc_msgSend_count(v89) >= 2)
     {
       if (self->_extensiveClusterTimeIntervalDistance == 0.0)
       {
@@ -378,7 +378,7 @@ LABEL_95:
       }
       v63 = ;
       v64 = [(PLDataClustering *)[PLDBSCANClustering alloc] initWithDistanceBlock:v63];
-      -[PLDataDensityClustering setMaximumDistance:](v64, "setMaximumDistance:", dbl_19C60B060[[v89 count] > self->_definiteClusterMinimumNumberOfObjects]);
+      [(PLDataDensityClustering *)v64 setMaximumDistance:dbl_19C60B060[objc_msgSend_count(v89) > self->_definiteClusterMinimumNumberOfObjects]];
       [(PLDataDensityClustering *)v64 setMinimumNumberOfObjects:1];
       v65 = [(PLDBSCANClustering *)v64 performWithDataset:v89 progressBlock:0];
       v92 = 0u;
@@ -401,7 +401,7 @@ LABEL_95:
 
             v70 = *(*(&v92 + 1) + 8 * jj);
             objects7 = [v70 objects];
-            v72 = [objects7 count];
+            v72 = objc_msgSend_count(objects7);
 
             if (v72)
             {
@@ -420,7 +420,7 @@ LABEL_95:
       v7 = v85;
     }
 
-    if (![dictionary count])
+    if (!objc_msgSend_count(dictionary))
     {
       v75 = [PLDataCluster clusterWithObjects:v6];
       v76 = [v75 meanRegion:100.0];
@@ -483,13 +483,13 @@ double __91__PLRegionsDensityClustering__timeAndLocationBasedClusteringBlockWith
   return v10 + v14;
 }
 
-uint64_t __59__PLRegionsDensityClustering__locationBasedClusteringBlock__block_invoke(uint64_t a1, void *a2, void *a3)
+void __59__PLRegionsDensityClustering__locationBasedClusteringBlock__block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v4 = a3;
   [a2 pl_coordinate];
   [v4 pl_coordinate];
 
-  return CLLocationCoordinate2DGetDistanceFrom();
+  CLLocationCoordinate2DGetDistanceFrom();
 }
 
 - (PLRegionsDensityClustering)init

@@ -13,9 +13,9 @@
     +[NSUUID(MSPAdditions) _maps_zeroUUID];
   }
 
-  v1 = _maps_zeroUUID_zeroUUID;
+  v2 = _maps_zeroUUID_zeroUUID;
 
-  return v1;
+  return v2;
 }
 
 + (id)_maps_UUIDWithUUIDString:()MSPAdditions
@@ -42,11 +42,11 @@
 
 - (uint64_t)_maps_compare:()MSPAdditions
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   *uu1 = 0;
-  v11 = 0;
+  v10 = 0;
   *uu2 = 0;
-  v9 = 0;
+  v8 = 0;
   v4 = a3;
   [self getUUIDBytes:uu1];
   [v4 getUUIDBytes:uu2];
@@ -54,16 +54,13 @@
   v5 = uuid_compare(uu1, uu2);
   if (v5 < 0)
   {
-    result = -1;
+    return -1;
   }
 
   else
   {
-    result = v5 != 0;
+    return v5 != 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 @end

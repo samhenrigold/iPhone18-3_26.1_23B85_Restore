@@ -3,6 +3,7 @@
 - (NSString)title;
 - (UIActivityIndicatorView)activityIndicator;
 - (UILabel)label;
+- (void)setActivityIndicatorHidden:(BOOL)hidden;
 - (void)setTitle:(id)title;
 - (void)updateForChangedTraitsAffectingFonts;
 @end
@@ -11,10 +12,10 @@
 
 - (FPUIAuthenticationNavigationBarTitleView)init
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  v12.receiver = self;
-  v12.super_class = FPUIAuthenticationNavigationBarTitleView;
-  v2 = [(FPUIAuthenticationNavigationBarTitleView *)&v12 init];
+  v12[2] = *MEMORY[0x277D85DE8];
+  v11.receiver = self;
+  v11.super_class = FPUIAuthenticationNavigationBarTitleView;
+  v2 = [(FPUIAuthenticationNavigationBarTitleView *)&v11 init];
   v3 = v2;
   if (v2)
   {
@@ -23,10 +24,10 @@
     objc_storeWeak(&v3->_activityIndicator, v4);
     v5 = objc_opt_new();
     v6 = objc_opt_self();
-    v13[0] = v6;
+    v12[0] = v6;
     v7 = objc_opt_self();
-    v13[1] = v7;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+    v12[1] = v7;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
     v9 = [(FPUIAuthenticationNavigationBarTitleView *)v3 registerForTraitChanges:v8 withHandler:&__block_literal_global_7];
 
     objc_storeWeak(&v3->_label, v5);
@@ -37,7 +38,6 @@
     [(FPUIAuthenticationNavigationBarTitleView *)v3 addArrangedSubview:v5];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -72,6 +72,25 @@
   text = [WeakRetained text];
 
   return text;
+}
+
+- (void)setActivityIndicatorHidden:(BOOL)hidden
+{
+  hiddenCopy = hidden;
+  activityIndicator = [(FPUIAuthenticationNavigationBarTitleView *)self activityIndicator];
+  [activityIndicator setHidden:hiddenCopy];
+
+  activityIndicator2 = [(FPUIAuthenticationNavigationBarTitleView *)self activityIndicator];
+  v7 = activityIndicator2;
+  if (hiddenCopy)
+  {
+    [activityIndicator2 stopAnimating];
+  }
+
+  else
+  {
+    [activityIndicator2 startAnimating];
+  }
 }
 
 - (UIActivityIndicatorView)activityIndicator

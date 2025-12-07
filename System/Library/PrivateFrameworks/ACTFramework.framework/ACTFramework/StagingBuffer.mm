@@ -44,77 +44,77 @@
 - (StagingBuffer)initWithContext:(__n128)context stagingWidth:(__n128)width stagingHeight:(__n128)height homography:(__n128)homography atlasHomography:(__n128)atlasHomography
 {
   v14 = a9;
-  v61.receiver = self;
-  v61.super_class = StagingBuffer;
-  v16 = [(StagingBuffer *)&v61 init];
-  if (v16)
+  v37.receiver = self;
+  v37.super_class = StagingBuffer;
+  v15 = [(StagingBuffer *)&v37 init];
+  if (v15)
   {
-    v17 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(MEMORY[0x277CD7058], v15, 25, a10, a11, 0);
-    objc_msgSend_setUsage_(v17, v18, 3, v19);
-    v23 = objc_msgSend_device(v14, v20, v21, v22);
-    v26 = objc_msgSend_newTextureWithDescriptor_(v23, v24, v17, v25);
-    luma = v16->_luma;
-    v16->_luma = v26;
+    v16 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:25 width:a10 height:a11 mipmapped:0];
+    [v16 setUsage:3];
+    device = [v14 device];
+    v18 = [device newTextureWithDescriptor:v16];
+    luma = v15->_luma;
+    v15->_luma = v18;
 
-    if (!v16->_luma)
+    if (!v15->_luma)
     {
       goto LABEL_7;
     }
 
-    v29 = a10 >> 1;
-    v30 = a11 >> 1;
-    v31 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(MEMORY[0x277CD7058], v28, 65, v29, a11 >> 1, 0);
+    v20 = a10 >> 1;
+    v21 = a11 >> 1;
+    v22 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:65 width:v20 height:a11 >> 1 mipmapped:0];
 
-    objc_msgSend_setUsage_(v31, v32, 3, v33);
-    v37 = objc_msgSend_device(v14, v34, v35, v36);
-    v40 = objc_msgSend_newTextureWithDescriptor_(v37, v38, v31, v39);
-    chroma = v16->_chroma;
-    v16->_chroma = v40;
+    [v22 setUsage:3];
+    device2 = [v14 device];
+    v24 = [device2 newTextureWithDescriptor:v22];
+    chroma = v15->_chroma;
+    v15->_chroma = v24;
 
-    if (!v16->_chroma)
+    if (!v15->_chroma)
     {
-      v53 = 0;
-      v17 = v31;
+      v29 = 0;
+      v16 = v22;
       goto LABEL_6;
     }
 
-    v17 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(MEMORY[0x277CD7058], v42, 25, v29, v30, 0);
+    v16 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:25 width:v20 height:v21 mipmapped:0];
 
-    objc_msgSend_setUsage_(v17, v43, 3, v44);
-    v48 = objc_msgSend_device(v14, v45, v46, v47);
-    v51 = objc_msgSend_newTextureWithDescriptor_(v48, v49, v17, v50);
-    weights = v16->_weights;
-    v16->_weights = v51;
+    [v16 setUsage:3];
+    device3 = [v14 device];
+    v27 = [device3 newTextureWithDescriptor:v16];
+    weights = v15->_weights;
+    v15->_weights = v27;
 
-    if (v16->_weights)
+    if (v15->_weights)
     {
-      *v16->_anon_30 = a2;
-      *&v16->_anon_30[16] = context;
-      *&v16->_anon_30[32] = width;
-      *&v16[1].super.isa = height;
-      *&v16[1]._luma = homography;
-      *&v16[1]._weights = atlasHomography;
-      v16->_dirty = 0;
+      *v15->_anon_30 = a2;
+      *&v15->_anon_30[16] = context;
+      *&v15->_anon_30[32] = width;
+      *&v15[1].super.isa = height;
+      *&v15[1]._luma = homography;
+      *&v15[1]._weights = atlasHomography;
+      v15->_dirty = 0;
       fig_note_initialize_category_with_default_work();
-      v53 = v16;
+      v29 = v15;
     }
 
     else
     {
 LABEL_7:
-      v53 = 0;
+      v29 = 0;
     }
   }
 
   else
   {
-    v53 = 0;
-    v17 = 0;
+    v29 = 0;
+    v16 = 0;
   }
 
 LABEL_6:
 
-  return v53;
+  return v29;
 }
 
 @end

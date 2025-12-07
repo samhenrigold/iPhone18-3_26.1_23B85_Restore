@@ -14,7 +14,7 @@
 
 - (void)libraryItemStateCenter:(id)center didUpdateItemState:(id)state forIdentifier:(id)identifier
 {
-  v6 = sub_6620C(&unk_3BDBB0);
+  v6 = sub_6620C(&unk_3BDBB0, &qword_2E47D0);
   __chkstk_darwin(v6 - 8);
   v8 = &v13 - v7;
   v9 = sub_2C5C58();

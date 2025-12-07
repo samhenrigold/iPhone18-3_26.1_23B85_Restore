@@ -44,11 +44,11 @@
   dispatch_async(v10, v13);
 }
 
-uint64_t __51__CPLScopeUpdateScopeTask_task_didFinishWithError___block_invoke(uint64_t result)
+id *__51__CPLScopeUpdateScopeTask_task_didFinishWithError___block_invoke(id *result)
 {
-  if (*(result + 32) == *(*(result + 40) + 168))
+  if (result[4] == *(result[5] + 21))
   {
-    return [*(result + 40) taskDidFinishWithError:*(result + 48)];
+    return [result[5] taskDidFinishWithError:result[6]];
   }
 
   return result;
@@ -56,7 +56,7 @@ uint64_t __51__CPLScopeUpdateScopeTask_task_didFinishWithError___block_invoke(ui
 
 - (BOOL)checkScopeIsValidInTransaction:(id)transaction
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   transactionCopy = transaction;
   session = [(CPLEngineSyncTask *)self session];
   shouldDefer = [session shouldDefer];
@@ -68,14 +68,14 @@ uint64_t __51__CPLScopeUpdateScopeTask_task_didFinishWithError___block_invoke(ui
       v7 = __CPLTaskOSLogDomain_17161();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        *v14 = 138412290;
-        *&v14[4] = objc_opt_class();
-        v8 = *&v14[4];
-        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Session for %@ has been deferred", v14, 0xCu);
+        *v13 = 138412290;
+        *&v13[4] = objc_opt_class();
+        v8 = *&v13[4];
+        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Session for %@ has been deferred", v13, 0xCu);
       }
     }
 
-    v9 = +[CPLErrors sessionHasBeenDeferredError];
+    v9 = [CPLErrors sessionHasBeenDeferredError:*v13];
     [transactionCopy setError:v9];
 
     v10 = 0;
@@ -87,7 +87,6 @@ uint64_t __51__CPLScopeUpdateScopeTask_task_didFinishWithError___block_invoke(ui
     v10 = error == 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -124,21 +123,21 @@ uint64_t __33__CPLScopeUpdateScopeTask_cancel__block_invoke(uint64_t a1)
 
 - (void)launch
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v11.receiver = self;
-  v11.super_class = CPLScopeUpdateScopeTask;
-  [(CPLEngineSyncTask *)&v11 launch];
+  v13 = *MEMORY[0x1E69E9840];
+  v10.receiver = self;
+  v10.super_class = CPLScopeUpdateScopeTask;
+  [(CPLEngineSyncTask *)&v10 launch];
   transportScope = [(CPLEngineScopedTask *)self transportScope];
 
   if (transportScope)
   {
     store = [(CPLEngineScopedTask *)self store];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __33__CPLScopeUpdateScopeTask_launch__block_invoke;
-    v10[3] = &unk_1E86205E0;
-    v10[4] = self;
-    v5 = [store performReadTransactionWithBlock:v10];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __33__CPLScopeUpdateScopeTask_launch__block_invoke;
+    v9[3] = &unk_1E86205E0;
+    v9[4] = self;
+    v5 = [store performReadTransactionWithBlock:v9];
   }
 
   else
@@ -151,15 +150,13 @@ uint64_t __33__CPLScopeUpdateScopeTask_cancel__block_invoke(uint64_t a1)
         scope = [(CPLEngineScopedTask *)self scope];
         scopeIdentifier = [scope scopeIdentifier];
         *buf = 138412290;
-        v13 = scopeIdentifier;
+        v12 = scopeIdentifier;
         _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_DEFAULT, "Will need to fetch transport scope for %@", buf, 0xCu);
       }
     }
 
     [(CPLScopeUpdateScopeTask *)self _fetchTransportScope];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __33__CPLScopeUpdateScopeTask_launch__block_invoke(uint64_t a1)
@@ -283,7 +280,7 @@ void __47__CPLScopeUpdateScopeTask__fetchTransportScope__block_invoke_2(uint64_t
 
 void __47__CPLScopeUpdateScopeTask__fetchTransportScope__block_invoke_3(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (!v2)
   {
@@ -302,7 +299,7 @@ void __47__CPLScopeUpdateScopeTask__fetchTransportScope__block_invoke_3(uint64_t
           v4 = [*(a1 + 48) scope];
           v5 = [v4 scopeIdentifier];
           *buf = 138412290;
-          v19 = v5;
+          v18 = v5;
           _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_ERROR, "Transport returned no transport scope for %@ but no error either", buf, 0xCu);
         }
       }
@@ -338,26 +335,24 @@ void __47__CPLScopeUpdateScopeTask__fetchTransportScope__block_invoke_3(uint64_t
   else
   {
     v6 = [*(a1 + 48) store];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __47__CPLScopeUpdateScopeTask__fetchTransportScope__block_invoke_69;
-    v16[3] = &unk_1E86205B8;
-    v14 = *(a1 + 40);
-    v7 = v14.i64[0];
-    v17 = vextq_s8(v14, v14, 8uLL);
     v15[0] = MEMORY[0x1E69E9820];
     v15[1] = 3221225472;
-    v15[2] = __47__CPLScopeUpdateScopeTask__fetchTransportScope__block_invoke_3_71;
-    v15[3] = &unk_1E86205E0;
-    v15[4] = *(a1 + 48);
-    v8 = [v6 performWriteTransactionWithBlock:v16 completionHandler:v15];
+    v15[2] = __47__CPLScopeUpdateScopeTask__fetchTransportScope__block_invoke_69;
+    v15[3] = &unk_1E86205B8;
+    v13 = *(a1 + 40);
+    v7 = v13.i64[0];
+    v16 = vextq_s8(v13, v13, 8uLL);
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __47__CPLScopeUpdateScopeTask__fetchTransportScope__block_invoke_3_71;
+    v14[3] = &unk_1E86205E0;
+    v14[4] = *(a1 + 48);
+    v8 = [v6 performWriteTransactionWithBlock:v15 completionHandler:v14];
   }
 
   v11 = *(a1 + 48);
   v12 = *(v11 + 144);
   *(v11 + 144) = 0;
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __47__CPLScopeUpdateScopeTask__fetchTransportScope__block_invoke_69(uint64_t a1, void *a2)
@@ -544,7 +539,7 @@ void __42__CPLScopeUpdateScopeTask__getLibraryInfo__block_invoke_2(uint64_t a1, 
 
 void __42__CPLScopeUpdateScopeTask__getLibraryInfo__block_invoke_3(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -565,7 +560,7 @@ void __42__CPLScopeUpdateScopeTask__getLibraryInfo__block_invoke_3(uint64_t a1)
           {
             v13 = [*(a1 + 40) scope];
             *buf = 138412290;
-            v26 = v13;
+            v25 = v13;
             _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_DEFAULT, "We will need to determine the transport scope for %@ again", buf, 0xCu);
           }
 
@@ -604,33 +599,31 @@ void __42__CPLScopeUpdateScopeTask__getLibraryInfo__block_invoke_3(uint64_t a1)
     v5 = *(a1 + 64);
     v6 = *(a1 + 72);
     v7 = *(a1 + 80);
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __42__CPLScopeUpdateScopeTask__getLibraryInfo__block_invoke_67;
-    v20[3] = &unk_1E86207D0;
-    v24 = v7;
-    v19 = *(a1 + 40);
-    v8 = *(&v19 + 1);
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __42__CPLScopeUpdateScopeTask__getLibraryInfo__block_invoke_67;
+    v19[3] = &unk_1E86207D0;
+    v23 = v7;
+    v18 = *(a1 + 40);
+    v8 = *(&v18 + 1);
     v9 = *(a1 + 56);
     v10 = *(a1 + 64);
     *&v11 = v9;
     *(&v11 + 1) = v10;
-    v21 = v19;
-    v22 = v11;
-    v23 = *(a1 + 72);
-    [v19 _performAdditionalChecksWithNewScopeType:v7 updatedScopeChange:v8 updatedFlags:v4 oldTransportScope:v5 updatedTransportScope:v6 completionHandler:v20];
+    v20 = v18;
+    v21 = v11;
+    v22 = *(a1 + 72);
+    [v18 _performAdditionalChecksWithNewScopeType:v7 updatedScopeChange:v8 updatedFlags:v4 oldTransportScope:v5 updatedTransportScope:v6 completionHandler:v19];
   }
 
   v16 = *(a1 + 40);
   v17 = *(v16 + 136);
   *(v16 + 136) = 0;
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __42__CPLScopeUpdateScopeTask__getLibraryInfo__block_invoke_67(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -640,11 +633,11 @@ void __42__CPLScopeUpdateScopeTask__getLibraryInfo__block_invoke_67(uint64_t a1,
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         v5 = [*(a1 + 32) scope];
-        v13 = 138412546;
-        v14 = v5;
-        v15 = 2112;
-        v16 = v3;
-        _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_ERROR, "Additional checks for %@ failed: %@", &v13, 0x16u);
+        v12 = 138412546;
+        v13 = v5;
+        v14 = 2112;
+        v15 = v3;
+        _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_ERROR, "Additional checks for %@ failed: %@", &v12, 0x16u);
       }
     }
 
@@ -661,8 +654,6 @@ void __42__CPLScopeUpdateScopeTask__getLibraryInfo__block_invoke_67(uint64_t a1,
     v11 = [v7 session];
     [v7 _updateScopeWithNewScopeType:v6 updatedScopeChange:v8 updatedFlags:v9 oldTransportScope:v10 session:v11 updatedTransportScope:*(a1 + 64)];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_performAdditionalChecksWithNewScopeType:(int64_t)type updatedScopeChange:(id)change updatedFlags:(id)flags oldTransportScope:(id)scope updatedTransportScope:(id)transportScope completionHandler:(id)handler
@@ -888,52 +879,49 @@ LABEL_19:
 
 void __114__CPLScopeUpdateScopeTask__updateScopeChangeForPrimaryScopeRelatedToSharingScopeWithIdentifier_completionHandler___block_invoke_60(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) isCancelled])
   {
     v2 = *(a1 + 96);
-    v15 = +[CPLErrors operationCancelledError];
+    v13 = +[CPLErrors operationCancelledError];
     (*(v2 + 16))(v2);
-    v3 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v4 = *(a1 + 40);
-    v5 = *(a1 + 48);
-    v6 = *(a1 + 56);
-    v7 = *(a1 + 64);
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __114__CPLScopeUpdateScopeTask__updateScopeChangeForPrimaryScopeRelatedToSharingScopeWithIdentifier_completionHandler___block_invoke_2_61;
-    v16[3] = &unk_1E861F220;
-    v16[4] = *(a1 + 32);
-    v21 = *(a1 + 96);
-    v17 = *(a1 + 56);
-    v18 = *(a1 + 72);
-    v19 = *(a1 + 80);
-    v20 = *(a1 + 88);
-    v8 = [v4 getScopeInfoWithTransportScope:v5 scope:v6 previousScopeChange:v7 completionHandler:v16];
-    v9 = *(a1 + 32);
-    v10 = *(v9 + 136);
-    *(v9 + 136) = v8;
+    v3 = *(a1 + 40);
+    v4 = *(a1 + 48);
+    v5 = *(a1 + 56);
+    v6 = *(a1 + 64);
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __114__CPLScopeUpdateScopeTask__updateScopeChangeForPrimaryScopeRelatedToSharingScopeWithIdentifier_completionHandler___block_invoke_2_61;
+    v14[3] = &unk_1E861F220;
+    v14[4] = *(a1 + 32);
+    v19 = *(a1 + 96);
+    v15 = *(a1 + 56);
+    v16 = *(a1 + 72);
+    v17 = *(a1 + 80);
+    v18 = *(a1 + 88);
+    v7 = [v3 getScopeInfoWithTransportScope:v4 scope:v5 previousScopeChange:v6 completionHandler:v14];
+    v8 = *(a1 + 32);
+    v9 = *(v8 + 136);
+    *(v8 + 136) = v7;
 
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v11 = __CPLTaskOSLogDomain_17161();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v10 = __CPLTaskOSLogDomain_17161();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = *(a1 + 56);
+        v11 = *(a1 + 56);
         *buf = 138412290;
-        v23 = v12;
-        _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_DEFAULT, "Fetching rewind sync anchors from %@", buf, 0xCu);
+        v21 = v11;
+        _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_DEFAULT, "Fetching rewind sync anchors from %@", buf, 0xCu);
       }
     }
 
-    v13 = [*(a1 + 40) createGroupForLibraryStateCheck];
-    [*(a1 + 32) launchTransportTask:*(*(a1 + 32) + 136) withTransportGroup:v13];
-
-    v14 = *MEMORY[0x1E69E9840];
+    v12 = [*(a1 + 40) createGroupForLibraryStateCheck];
+    [*(a1 + 32) launchTransportTask:*(*(a1 + 32) + 136) withTransportGroup:v12];
   }
 }
 
@@ -976,103 +964,101 @@ void __114__CPLScopeUpdateScopeTask__updateScopeChangeForPrimaryScopeRelatedToSh
 
 void __114__CPLScopeUpdateScopeTask__updateScopeChangeForPrimaryScopeRelatedToSharingScopeWithIdentifier_completionHandler___block_invoke_3(uint64_t a1)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
-    v2 = *(a1 + 88);
-    v3 = *(*(a1 + 88) + 16);
+    v2 = *(*(a1 + 88) + 16);
 LABEL_3:
-    v3();
+    v2();
     goto LABEL_24;
   }
 
   if ([*(a1 + 40) isCancelled])
   {
-    v4 = *(a1 + 88);
-    v5 = +[CPLErrors operationCancelledError];
-    (*(v4 + 16))(v4, v5);
+    v3 = *(a1 + 88);
+    v4 = +[CPLErrors operationCancelledError];
+    (*(v3 + 16))(v3, v4);
 
     goto LABEL_24;
   }
 
-  v6 = *(a1 + 48);
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v15 = __CPLTaskOSLogDomain_17161();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v13 = __CPLTaskOSLogDomain_17161();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v17 = *(a1 + 56);
-        v16 = *(a1 + 64);
-        v18 = *(a1 + 48);
+        v15 = *(a1 + 56);
+        v14 = *(a1 + 64);
+        v16 = *(a1 + 48);
         *buf = 138412802;
-        v32 = v17;
-        v33 = 2114;
-        v34 = v16;
-        v35 = 2112;
-        v36 = v18;
-        _os_log_impl(&dword_1DC05A000, v15, OS_LOG_TYPE_ERROR, "While checking for rewind sync anchors for %@ (related to %{public}@), got an unexpected scope change: %@", buf, 0x20u);
+        v29 = v15;
+        v30 = 2114;
+        v31 = v14;
+        v32 = 2112;
+        v33 = v16;
+        _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_ERROR, "While checking for rewind sync anchors for %@ (related to %{public}@), got an unexpected scope change: %@", buf, 0x20u);
       }
     }
 
-    v3 = *(*(a1 + 88) + 16);
+    v2 = *(*(a1 + 88) + 16);
     goto LABEL_3;
   }
 
-  v7 = [*(a1 + 48) rewindAnchorsPerSharingScopes];
-  v8 = [v7 objectForKeyedSubscript:*(a1 + 64)];
-  if (v8)
+  v5 = [*(a1 + 48) rewindAnchorsPerSharingScopes];
+  v6 = [v5 objectForKeyedSubscript:*(a1 + 64)];
+  if (v6)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v9 = __CPLTaskOSLogDomain_17161();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v7 = __CPLTaskOSLogDomain_17161();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = *(a1 + 56);
-        v10 = *(a1 + 64);
+        v9 = *(a1 + 56);
+        v8 = *(a1 + 64);
         *buf = 138543618;
-        v32 = v10;
-        v33 = 2112;
-        v34 = v11;
-        _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEFAULT, "Identified a new shared library (%{public}@) and %@ might need to rewind", buf, 0x16u);
+        v29 = v8;
+        v30 = 2112;
+        v31 = v9;
+        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Identified a new shared library (%{public}@) and %@ might need to rewind", buf, 0x16u);
       }
     }
 
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __114__CPLScopeUpdateScopeTask__updateScopeChangeForPrimaryScopeRelatedToSharingScopeWithIdentifier_completionHandler___block_invoke_63;
-    v27[3] = &unk_1E861F1D0;
-    v27[4] = *(a1 + 40);
-    v12 = *(a1 + 72);
-    v28 = *(a1 + 80);
-    v29 = *(a1 + 56);
-    v30 = v8;
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __114__CPLScopeUpdateScopeTask__updateScopeChangeForPrimaryScopeRelatedToSharingScopeWithIdentifier_completionHandler___block_invoke_65;
-    v25[3] = &unk_1E8620308;
-    v13 = *(a1 + 88);
-    v25[4] = *(a1 + 40);
-    v26 = v13;
-    v14 = [v12 performWriteTransactionWithBlock:v27 completionHandler:v25];
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __114__CPLScopeUpdateScopeTask__updateScopeChangeForPrimaryScopeRelatedToSharingScopeWithIdentifier_completionHandler___block_invoke_63;
+    v24[3] = &unk_1E861F1D0;
+    v24[4] = *(a1 + 40);
+    v10 = *(a1 + 72);
+    v25 = *(a1 + 80);
+    v26 = *(a1 + 56);
+    v27 = v6;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __114__CPLScopeUpdateScopeTask__updateScopeChangeForPrimaryScopeRelatedToSharingScopeWithIdentifier_completionHandler___block_invoke_65;
+    v22[3] = &unk_1E8620308;
+    v11 = *(a1 + 88);
+    v22[4] = *(a1 + 40);
+    v23 = v11;
+    v12 = [v10 performWriteTransactionWithBlock:v24 completionHandler:v22];
   }
 
   else
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v19 = __CPLTaskOSLogDomain_17161();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v17 = __CPLTaskOSLogDomain_17161();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = *(a1 + 56);
-        v20 = *(a1 + 64);
+        v19 = *(a1 + 56);
+        v18 = *(a1 + 64);
         *buf = 138543618;
-        v32 = v20;
-        v33 = 2112;
-        v34 = v21;
-        _os_log_impl(&dword_1DC05A000, v19, OS_LOG_TYPE_DEFAULT, "Identified a new shared library (%{public}@) but there is no need to rewind %@", buf, 0x16u);
+        v29 = v18;
+        v30 = 2112;
+        v31 = v19;
+        _os_log_impl(&dword_1DC05A000, v17, OS_LOG_TYPE_DEFAULT, "Identified a new shared library (%{public}@) but there is no need to rewind %@", buf, 0x16u);
       }
     }
 
@@ -1080,16 +1066,14 @@ LABEL_3:
   }
 
 LABEL_24:
-  v22 = *(a1 + 40);
-  v23 = *(v22 + 136);
-  *(v22 + 136) = 0;
-
-  v24 = *MEMORY[0x1E69E9840];
+  v20 = *(a1 + 40);
+  v21 = *(v20 + 136);
+  *(v20 + 136) = 0;
 }
 
 void __114__CPLScopeUpdateScopeTask__updateScopeChangeForPrimaryScopeRelatedToSharingScopeWithIdentifier_completionHandler___block_invoke_63(id *a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([a1[4] checkScopeIsValidInTransaction:v3])
   {
@@ -1100,16 +1084,16 @@ void __114__CPLScopeUpdateScopeTask__updateScopeChangeForPrimaryScopeRelatedToSh
     v7 = [v6 localIndex];
     if (v7 == [a1[6] localIndex])
     {
-      v12[0] = MEMORY[0x1E69E9820];
-      v12[1] = 3221225472;
-      v12[2] = __114__CPLScopeUpdateScopeTask__updateScopeChangeForPrimaryScopeRelatedToSharingScopeWithIdentifier_completionHandler___block_invoke_2_64;
-      v12[3] = &unk_1E861FF88;
-      v13 = a1[5];
-      v14 = a1[7];
-      v15 = v6;
-      [v3 do:v12];
+      v11[0] = MEMORY[0x1E69E9820];
+      v11[1] = 3221225472;
+      v11[2] = __114__CPLScopeUpdateScopeTask__updateScopeChangeForPrimaryScopeRelatedToSharingScopeWithIdentifier_completionHandler___block_invoke_2_64;
+      v11[3] = &unk_1E861FF88;
+      v12 = a1[5];
+      v13 = a1[7];
+      v14 = v6;
+      [v3 do:v11];
 
-      v8 = v13;
+      v8 = v12;
     }
 
     else
@@ -1121,7 +1105,7 @@ void __114__CPLScopeUpdateScopeTask__updateScopeChangeForPrimaryScopeRelatedToSh
         {
           v10 = a1[6];
           *buf = 138412290;
-          v17 = v10;
+          v16 = v10;
           _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_ERROR, "%@ has been invalidated before being able to set rewind sync anchors", buf, 0xCu);
         }
       }
@@ -1130,8 +1114,6 @@ void __114__CPLScopeUpdateScopeTask__updateScopeChangeForPrimaryScopeRelatedToSh
       [v3 setError:v8];
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __114__CPLScopeUpdateScopeTask__updateScopeChangeForPrimaryScopeRelatedToSharingScopeWithIdentifier_completionHandler___block_invoke_65(uint64_t a1, void *a2)
@@ -1203,36 +1185,35 @@ void __136__CPLScopeUpdateScopeTask__updateScopeWithNewScopeType_updatedScopeCha
   v3 = a2;
   if ([*(a1 + 32) checkScopeIsValidInTransaction:v3])
   {
-    v4 = *(a1 + 32);
-    v5 = objc_opt_class();
-    v16 = *(a1 + 88);
-    v17 = v5;
-    v6 = [*(a1 + 32) scope];
-    v7 = *(a1 + 40);
-    v8 = *(a1 + 48);
-    v9 = *(a1 + 56);
-    v10 = *(a1 + 64);
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __136__CPLScopeUpdateScopeTask__updateScopeWithNewScopeType_updatedScopeChange_updatedFlags_oldTransportScope_session_updatedTransportScope___block_invoke_2;
-    v18[3] = &unk_1E861F180;
-    v18[4] = *(a1 + 32);
-    v19 = *(a1 + 72);
-    v20 = *(a1 + 64);
-    v12 = *(a1 + 72);
-    v11 = *(a1 + 80);
-    v13 = [*(a1 + 32) session];
-    [v17 _updateScopeWithNewScopeType:v16 scope:v6 updatedScopeChange:v7 updatedFlags:v8 oldTransportScope:v9 updatedTransportScope:v10 shouldUpdateTransportScope:v18 store:v11 transport:v12 session:v13 inTransaction:v3];
+    v4 = objc_opt_class();
+    v15 = *(a1 + 88);
+    v16 = v4;
+    v5 = [*(a1 + 32) scope];
+    v6 = *(a1 + 40);
+    v7 = *(a1 + 48);
+    v8 = *(a1 + 56);
+    v9 = *(a1 + 64);
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __136__CPLScopeUpdateScopeTask__updateScopeWithNewScopeType_updatedScopeChange_updatedFlags_oldTransportScope_session_updatedTransportScope___block_invoke_2;
+    v17[3] = &unk_1E861F180;
+    v17[4] = *(a1 + 32);
+    v18 = *(a1 + 72);
+    v19 = *(a1 + 64);
+    v11 = *(a1 + 72);
+    v10 = *(a1 + 80);
+    v12 = [*(a1 + 32) session];
+    [v16 _updateScopeWithNewScopeType:v15 scope:v5 updatedScopeChange:v6 updatedFlags:v7 oldTransportScope:v8 updatedTransportScope:v9 shouldUpdateTransportScope:v17 store:v10 transport:v11 session:v12 inTransaction:v3];
   }
 
   else
   {
-    v14 = [v3 error];
+    v13 = [v3 error];
 
-    if (!v14)
+    if (!v13)
     {
-      v15 = +[CPLErrors operationCancelledError];
-      [v3 setError:v15];
+      v14 = +[CPLErrors operationCancelledError];
+      [v3 setError:v14];
     }
   }
 }
@@ -1246,7 +1227,7 @@ void __136__CPLScopeUpdateScopeTask__updateScopeWithNewScopeType_updatedScopeCha
 
 BOOL __136__CPLScopeUpdateScopeTask__updateScopeWithNewScopeType_updatedScopeChange_updatedFlags_oldTransportScope_session_updatedTransportScope___block_invoke_2(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = *(v4 + 152);
@@ -1259,11 +1240,11 @@ BOOL __136__CPLScopeUpdateScopeTask__updateScopeWithNewScopeType_updatedScopeCha
       {
         v7 = [*(a1 + 40) concreteScopeFromTransportScope:*(*(a1 + 32) + 152)];
         v8 = [*(a1 + 40) concreteScopeFromTransportScope:*(a1 + 48)];
-        v11 = 138412546;
-        v12 = v7;
-        v13 = 2112;
-        v14 = v8;
-        _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_DEFAULT, "Updated fetched transport scope from %@ to %@", &v11, 0x16u);
+        v10 = 138412546;
+        v11 = v7;
+        v12 = 2112;
+        v13 = v8;
+        _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_DEFAULT, "Updated fetched transport scope from %@ to %@", &v10, 0x16u);
       }
 
       v4 = *(a1 + 32);
@@ -1272,13 +1253,12 @@ BOOL __136__CPLScopeUpdateScopeTask__updateScopeWithNewScopeType_updatedScopeCha
     objc_storeStrong((v4 + 152), *(a1 + 48));
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v5 == 0;
 }
 
 - (void)_markScopeHasBadTransportScopeWithError:(id)error
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if ((_CPLSilentLogging & 1) == 0)
   {
@@ -1287,27 +1267,25 @@ BOOL __136__CPLScopeUpdateScopeTask__updateScopeWithNewScopeType_updatedScopeCha
     {
       scope = [(CPLEngineScopedTask *)self scope];
       *buf = 138412290;
-      v15 = scope;
+      v14 = scope;
       _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEFAULT, "Transport scope for %@ is invalid", buf, 0xCu);
     }
   }
 
   store = [(CPLEngineScopedTask *)self store];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __67__CPLScopeUpdateScopeTask__markScopeHasBadTransportScopeWithError___block_invoke;
-  v13[3] = &unk_1E86205E0;
-  v13[4] = self;
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __67__CPLScopeUpdateScopeTask__markScopeHasBadTransportScopeWithError___block_invoke_3;
-  v11[3] = &unk_1E86205B8;
-  v11[4] = self;
-  v12 = errorCopy;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __67__CPLScopeUpdateScopeTask__markScopeHasBadTransportScopeWithError___block_invoke;
+  v12[3] = &unk_1E86205E0;
+  v12[4] = self;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __67__CPLScopeUpdateScopeTask__markScopeHasBadTransportScopeWithError___block_invoke_3;
+  v10[3] = &unk_1E86205B8;
+  v10[4] = self;
+  v11 = errorCopy;
   v8 = errorCopy;
-  v9 = [store performWriteTransactionWithBlock:v13 completionHandler:v11];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = [store performWriteTransactionWithBlock:v12 completionHandler:v10];
 }
 
 void __67__CPLScopeUpdateScopeTask__markScopeHasBadTransportScopeWithError___block_invoke(uint64_t a1, void *a2)
@@ -1361,7 +1339,7 @@ uint64_t __67__CPLScopeUpdateScopeTask__markScopeHasBadTransportScopeWithError__
 
 - (void)_markScopeAsFeatureDisabledWithFlags:(id)flags
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   flagsCopy = flags;
   if ((_CPLSilentLogging & 1) == 0)
   {
@@ -1370,27 +1348,25 @@ uint64_t __67__CPLScopeUpdateScopeTask__markScopeHasBadTransportScopeWithError__
     {
       scope = [(CPLEngineScopedTask *)self scope];
       *buf = 138412290;
-      v15 = scope;
+      v14 = scope;
       _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEFAULT, "Feature is disabled for %@", buf, 0xCu);
     }
   }
 
   store = [(CPLEngineScopedTask *)self store];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __64__CPLScopeUpdateScopeTask__markScopeAsFeatureDisabledWithFlags___block_invoke;
-  v12[3] = &unk_1E86205B8;
-  v12[4] = self;
-  v13 = flagsCopy;
   v11[0] = MEMORY[0x1E69E9820];
   v11[1] = 3221225472;
-  v11[2] = __64__CPLScopeUpdateScopeTask__markScopeAsFeatureDisabledWithFlags___block_invoke_3;
-  v11[3] = &unk_1E86205E0;
+  v11[2] = __64__CPLScopeUpdateScopeTask__markScopeAsFeatureDisabledWithFlags___block_invoke;
+  v11[3] = &unk_1E86205B8;
   v11[4] = self;
+  v12 = flagsCopy;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __64__CPLScopeUpdateScopeTask__markScopeAsFeatureDisabledWithFlags___block_invoke_3;
+  v10[3] = &unk_1E86205E0;
+  v10[4] = self;
   v8 = flagsCopy;
-  v9 = [store performWriteTransactionWithBlock:v12 completionHandler:v11];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = [store performWriteTransactionWithBlock:v11 completionHandler:v10];
 }
 
 void __64__CPLScopeUpdateScopeTask__markScopeAsFeatureDisabledWithFlags___block_invoke(uint64_t a1, void *a2)
@@ -1583,7 +1559,7 @@ void __70__CPLScopeUpdateScopeTask__markScopeAsDeletedAndSucceedTaskWithFlags___
 
 uint64_t __70__CPLScopeUpdateScopeTask__markScopeAsDeletedAndSucceedTaskWithFlags___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   v4 = [*(a1 + 32) store];
   v5 = [v4 scopes];
 
@@ -1663,17 +1639,17 @@ LABEL_23:
     }
 
     v23 = v19;
-    v46 = [*(a1 + 32) engineLibrary];
-    v24 = [v46 transport];
+    v45 = [*(a1 + 32) engineLibrary];
+    v24 = [v45 transport];
+    v46 = 0;
     v47 = 0;
-    v48 = 0;
     v25 = [*(a1 + 32) scope];
     v26 = [*(a1 + 32) transportUserIdentifier];
-    v45 = v23;
-    v27 = [v24 getProposedStagingScopeIdentifier:&v48 stagingTransportScope:&v47 forScope:v25 transportScope:v23 transportUserIdentifier:v26];
-    v28 = v48;
-    obj = v47;
-    v29 = v47;
+    v44 = v23;
+    v27 = [v24 getProposedStagingScopeIdentifier:&v47 stagingTransportScope:&v46 forScope:v25 transportScope:v23 transportUserIdentifier:v26];
+    v28 = v47;
+    obj = v46;
+    v29 = v46;
 
     if (!v27)
     {
@@ -1706,44 +1682,44 @@ LABEL_22:
 
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v40 = __CPLTaskOSLogDomain_17161();
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+        v39 = __CPLTaskOSLogDomain_17161();
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
         {
-          v41 = [*(a1 + 32) scope];
+          v40 = [*(a1 + 32) scope];
           *buf = 138412290;
-          v50 = v41;
-          _os_log_impl(&dword_1DC05A000, v40, OS_LOG_TYPE_ERROR, "We should have a proposed staging scope transport scope for %@ here", buf, 0xCu);
+          v49 = v40;
+          _os_log_impl(&dword_1DC05A000, v39, OS_LOG_TYPE_ERROR, "We should have a proposed staging scope transport scope for %@ here", buf, 0xCu);
         }
       }
 
-      v35 = [MEMORY[0x1E696AAA8] currentHandler];
-      v42 = *(a1 + 56);
-      v43 = *(a1 + 32);
-      v38 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLScopeUpdateTask.m"];
-      v39 = [*(a1 + 32) scope];
-      [v35 handleFailureInMethod:v42 object:v43 file:v38 lineNumber:214 description:{@"We should have a proposed staging scope transport scope for %@ here", v39, obj}];
+      v34 = [MEMORY[0x1E696AAA8] currentHandler];
+      v41 = *(a1 + 56);
+      v42 = *(a1 + 32);
+      v37 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLScopeUpdateTask.m"];
+      v38 = [*(a1 + 32) scope];
+      [v34 handleFailureInMethod:v41 object:v42 file:v37 lineNumber:214 description:{@"We should have a proposed staging scope transport scope for %@ here", v38, obj}];
     }
 
     else
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v33 = __CPLTaskOSLogDomain_17161();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+        v32 = __CPLTaskOSLogDomain_17161();
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
-          v34 = [*(a1 + 32) scope];
+          v33 = [*(a1 + 32) scope];
           *buf = 138412290;
-          v50 = v34;
-          _os_log_impl(&dword_1DC05A000, v33, OS_LOG_TYPE_ERROR, "We should have a proposed staging scope identifier for %@ here", buf, 0xCu);
+          v49 = v33;
+          _os_log_impl(&dword_1DC05A000, v32, OS_LOG_TYPE_ERROR, "We should have a proposed staging scope identifier for %@ here", buf, 0xCu);
         }
       }
 
-      v35 = [MEMORY[0x1E696AAA8] currentHandler];
-      v36 = *(a1 + 56);
-      v37 = *(a1 + 32);
-      v38 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLScopeUpdateTask.m"];
-      v39 = [*(a1 + 32) scope];
-      [v35 handleFailureInMethod:v36 object:v37 file:v38 lineNumber:213 description:{@"We should have a proposed staging scope identifier for %@ here", v39, obj}];
+      v34 = [MEMORY[0x1E696AAA8] currentHandler];
+      v35 = *(a1 + 56);
+      v36 = *(a1 + 32);
+      v37 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLScopeUpdateTask.m"];
+      v38 = [*(a1 + 32) scope];
+      [v34 handleFailureInMethod:v35 object:v36 file:v37 lineNumber:213 description:{@"We should have a proposed staging scope identifier for %@ here", v38, obj}];
     }
 
     abort();
@@ -1751,7 +1727,6 @@ LABEL_22:
 
 LABEL_24:
 
-  v31 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -1782,44 +1757,42 @@ LABEL_24:
 
 void __77__CPLScopeUpdateScopeTask__lookForStagingScopeWithIdentifier_transportScope___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) isCancelled])
   {
     v2 = *(a1 + 32);
-    v15 = +[CPLErrors operationCancelledError];
+    v13 = +[CPLErrors operationCancelledError];
     [v2 taskDidFinishWithError:?];
-    v3 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v4 = __CPLTaskOSLogDomain_17161();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v3 = __CPLTaskOSLogDomain_17161();
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
-        v5 = [*(a1 + 32) scope];
-        v6 = *(a1 + 40);
+        v4 = [*(a1 + 32) scope];
+        v5 = *(a1 + 40);
         *buf = 138412546;
+        v15 = v4;
+        v16 = 2114;
         v17 = v5;
-        v18 = 2114;
-        v19 = v6;
-        _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEFAULT, "%@ is staged with no known staging scope - will try to look for it directly as %{public}@", buf, 0x16u);
+        _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEFAULT, "%@ is staged with no known staging scope - will try to look for it directly as %{public}@", buf, 0x16u);
       }
     }
 
-    v7 = [CPLScopeUpdateScopeTask alloc];
-    v8 = [*(a1 + 32) engineLibrary];
-    v9 = [*(a1 + 32) session];
-    v10 = [*(a1 + 32) clientCacheIdentifier];
-    v11 = [(CPLScopeUpdateScopeTask *)v7 initWithEngineLibrary:v8 session:v9 clientCacheIdentifier:v10 scope:*(a1 + 40) transportScope:*(a1 + 48)];
-    v12 = *(a1 + 32);
-    v13 = *(v12 + 168);
-    *(v12 + 168) = v11;
+    v6 = [CPLScopeUpdateScopeTask alloc];
+    v7 = [*(a1 + 32) engineLibrary];
+    v8 = [*(a1 + 32) session];
+    v9 = [*(a1 + 32) clientCacheIdentifier];
+    v10 = [(CPLScopeUpdateScopeTask *)v6 initWithEngineLibrary:v7 session:v8 clientCacheIdentifier:v9 scope:*(a1 + 40) transportScope:*(a1 + 48)];
+    v11 = *(a1 + 32);
+    v12 = *(v11 + 168);
+    *(v11 + 168) = v10;
 
     [*(*(a1 + 32) + 168) setDelegate:?];
     [*(*(a1 + 32) + 168) launch];
-    v14 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -1926,7 +1899,7 @@ void __77__CPLScopeUpdateScopeTask__lookForStagingScopeWithIdentifier_transportS
 
 uint64_t __199__CPLScopeUpdateScopeTask__updateScopeWithNewScopeType_scope_updatedScopeChange_updatedFlags_oldTransportScope_updatedTransportScope_shouldUpdateTransportScope_store_transport_session_inTransaction___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v114 = *MEMORY[0x1E69E9840];
+  v111 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 112);
   v5 = *(a1 + 32);
   v6 = *(a1 + 40);
@@ -1941,7 +1914,7 @@ uint64_t __199__CPLScopeUpdateScopeTask__updateScopeWithNewScopeType_scope_updat
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v109 = v5;
+          v106 = v5;
           _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_DEFAULT, "%@ is a scope we don't support anymore", buf, 0xCu);
         }
       }
@@ -1955,7 +1928,7 @@ uint64_t __199__CPLScopeUpdateScopeTask__updateScopeWithNewScopeType_scope_updat
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v109 = v5;
+          v106 = v5;
           _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_DEFAULT, "%@ was degraded and can't be identified anymore", buf, 0xCu);
         }
       }
@@ -1971,7 +1944,7 @@ uint64_t __199__CPLScopeUpdateScopeTask__updateScopeWithNewScopeType_scope_updat
         if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v109 = v5;
+          v106 = v5;
           _os_log_impl(&dword_1DC05A000, v22, OS_LOG_TYPE_DEFAULT, "%@ is a scope we still don't support", buf, 0xCu);
         }
       }
@@ -1997,24 +1970,24 @@ LABEL_36:
       {
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v96 = __CPLTaskOSLogDomain_17161();
-          if (os_log_type_enabled(v96, OS_LOG_TYPE_ERROR))
+          v93 = __CPLTaskOSLogDomain_17161();
+          if (os_log_type_enabled(v93, OS_LOG_TYPE_ERROR))
           {
-            v97 = [CPLScopeChange descriptionForScopeType:v4];
+            v94 = [CPLScopeChange descriptionForScopeType:v4];
             *buf = 138412546;
-            v109 = v5;
-            v110 = 2112;
-            v111 = v97;
-            _os_log_impl(&dword_1DC05A000, v96, OS_LOG_TYPE_ERROR, "Failed to find %@ after upgrading its scope type to %@", buf, 0x16u);
+            v106 = v5;
+            v107 = 2112;
+            v108 = v94;
+            _os_log_impl(&dword_1DC05A000, v93, OS_LOG_TYPE_ERROR, "Failed to find %@ after upgrading its scope type to %@", buf, 0x16u);
           }
         }
 
-        v91 = [MEMORY[0x1E696AAA8] currentHandler];
-        v99 = *(a1 + 120);
-        v98 = *(a1 + 128);
-        v100 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLScopeUpdateTask.m"];
-        v101 = [CPLScopeChange descriptionForScopeType:v4];
-        [v91 handleFailureInMethod:v99 object:v98 file:v100 lineNumber:373 description:{@"Failed to find %@ after upgrading its scope type to %@", v5, v101}];
+        v88 = [MEMORY[0x1E696AAA8] currentHandler];
+        v96 = *(a1 + 120);
+        v95 = *(a1 + 128);
+        v97 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLScopeUpdateTask.m"];
+        v98 = [CPLScopeChange descriptionForScopeType:v4];
+        [v88 handleFailureInMethod:v96 object:v95 file:v97 lineNumber:373 description:{@"Failed to find %@ after upgrading its scope type to %@", v5, v98}];
 
 LABEL_147:
         goto LABEL_148;
@@ -2038,9 +2011,9 @@ LABEL_147:
               v33 = [v24 scopeIdentifier];
               v34 = [CPLScopeChange descriptionForScopeType:v4];
               *buf = 138543618;
-              v109 = v33;
-              v110 = 2114;
-              v111 = v34;
+              v106 = v33;
+              v107 = 2114;
+              v108 = v34;
               _os_log_impl(&dword_1DC05A000, v32, OS_LOG_TYPE_DEFAULT, "Identified %{public}@ as %{public}@ - enabling sync for this scope", buf, 0x16u);
             }
           }
@@ -2068,11 +2041,11 @@ LABEL_147:
           v36 = [v24 scopeIdentifier];
           v37 = [CPLScopeChange descriptionForScopeType:v4];
           *buf = 138543874;
-          v109 = v36;
-          v110 = 2114;
-          v111 = v37;
-          v112 = 2114;
-          v113 = v25;
+          v106 = v36;
+          v107 = 2114;
+          v108 = v37;
+          v109 = 2114;
+          v110 = v25;
           _os_log_impl(&dword_1DC05A000, v35, OS_LOG_TYPE_DEFAULT, "After scope type for %{public}@ was upgraded to %{public}@, scope flags are %{public}@", buf, 0x20u);
         }
       }
@@ -2094,21 +2067,21 @@ LABEL_147:
         [v39 updateFlags:v6];
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v66 = __CPLTaskOSLogDomain_17161();
-          if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
+          v63 = __CPLTaskOSLogDomain_17161();
+          if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
           {
-            v67 = [v24 scopeIdentifier];
+            v64 = [v24 scopeIdentifier];
             *buf = 138543618;
-            v109 = v67;
-            v110 = 2114;
-            v111 = v39;
-            _os_log_impl(&dword_1DC05A000, v66, OS_LOG_TYPE_DEFAULT, "Updating flags for %{public}@: %{public}@", buf, 0x16u);
+            v106 = v64;
+            v107 = 2114;
+            v108 = v39;
+            _os_log_impl(&dword_1DC05A000, v63, OS_LOG_TYPE_DEFAULT, "Updating flags for %{public}@: %{public}@", buf, 0x16u);
           }
         }
 
-        v68 = [*(a1 + 56) updateFlags:v6 forScope:v24 error:a2];
+        v65 = [*(a1 + 56) updateFlags:v6 forScope:v24 error:a2];
 
-        if ((v68 & 1) == 0)
+        if ((v65 & 1) == 0)
         {
           goto LABEL_86;
         }
@@ -2128,183 +2101,183 @@ LABEL_62:
     }
 
 LABEL_63:
-    if (*(a1 + 64) && ([*(a1 + 72) isEqual:?] & 1) == 0 && (v41 = *(a1 + 64), (*(*(a1 + 104) + 16))()))
+    if (*(a1 + 64) && ([*(a1 + 72) isEqual:?] & 1) == 0 && (*(*(a1 + 104) + 16))())
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v42 = __CPLTaskOSLogDomain_17161();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+        v41 = __CPLTaskOSLogDomain_17161();
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
         {
-          v43 = [*(a1 + 80) concreteScopeFromTransportScope:*(a1 + 72)];
-          v44 = [*(a1 + 80) concreteScopeFromTransportScope:*(a1 + 64)];
+          v42 = [*(a1 + 80) concreteScopeFromTransportScope:*(a1 + 72)];
+          v43 = [*(a1 + 80) concreteScopeFromTransportScope:*(a1 + 64)];
           *buf = 138412546;
-          v109 = v43;
-          v110 = 2112;
-          v111 = v44;
-          _os_log_impl(&dword_1DC05A000, v42, OS_LOG_TYPE_DEFAULT, "Updated transport scope from %@ to %@", buf, 0x16u);
+          v106 = v42;
+          v107 = 2112;
+          v108 = v43;
+          _os_log_impl(&dword_1DC05A000, v41, OS_LOG_TYPE_DEFAULT, "Updated transport scope from %@ to %@", buf, 0x16u);
         }
       }
 
-      v45 = [*(a1 + 56) setTransportScope:*(a1 + 64) forScope:v24 error:a2];
+      v44 = [*(a1 + 56) setTransportScope:*(a1 + 64) forScope:v24 error:a2];
     }
 
     else
     {
-      v45 = 1;
+      v44 = 1;
     }
 
-    if (v45 && v24 && (v46 = *(a1 + 48), objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+    if (v44 && v24 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v47 = *(a1 + 48);
-      v48 = [v47 stagedScopeChange];
-      v49 = v48;
-      if (v48)
+      v45 = *(a1 + 48);
+      v46 = [v45 stagedScopeChange];
+      v47 = v46;
+      if (v46)
       {
-        v50 = *(a1 + 88);
-        v51 = [v48 scopeIdentifier];
-        LODWORD(v50) = [v50 mainScopeSupportsSharingScopeWithIdentifier:v51];
+        v48 = *(a1 + 88);
+        v49 = [v46 scopeIdentifier];
+        LODWORD(v48) = [v48 mainScopeSupportsSharingScopeWithIdentifier:v49];
 
-        if (v50)
+        if (v48)
         {
-          if (+[CPLScopeChange supportsStagingScopeForScopeWithType:](CPLScopeChange, "supportsStagingScopeForScopeWithType:", [v49 scopeType]))
+          if (+[CPLScopeChange supportsStagingScopeForScopeWithType:](CPLScopeChange, "supportsStagingScopeForScopeWithType:", [v47 scopeType]))
           {
-            v52 = [v49 scopeIdentifier];
-            v53 = [*(a1 + 56) scopeWithIdentifier:v52];
-            if (v53)
+            v50 = [v47 scopeIdentifier];
+            v51 = [*(a1 + 56) scopeWithIdentifier:v50];
+            if (v51)
             {
-              v54 = v53;
+              v52 = v51;
               if ((_CPLSilentLogging & 1) == 0)
               {
-                v55 = __CPLTaskOSLogDomain_17161();
-                if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+                v53 = __CPLTaskOSLogDomain_17161();
+                if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412802;
-                  v109 = v54;
-                  v110 = 2112;
-                  v111 = v24;
-                  v112 = 2112;
-                  v113 = v49;
-                  _os_log_impl(&dword_1DC05A000, v55, OS_LOG_TYPE_DEFAULT, "Updating staged %@ from info provided by %@: %@", buf, 0x20u);
+                  v106 = v52;
+                  v107 = 2112;
+                  v108 = v24;
+                  v109 = 2112;
+                  v110 = v47;
+                  _os_log_impl(&dword_1DC05A000, v53, OS_LOG_TYPE_DEFAULT, "Updating staged %@ from info provided by %@: %@", buf, 0x20u);
                 }
               }
 
-              if (![*(a1 + 56) storeScopeChange:v49 forScope:v54 error:a2])
+              if (![*(a1 + 56) storeScopeChange:v47 forScope:v52 error:a2])
               {
 
                 goto LABEL_86;
               }
 
-              v56 = [*(a1 + 56) setHasUpdatedScope:v54 fromTransportWithError:a2];
+              v54 = [*(a1 + 56) setHasUpdatedScope:v52 fromTransportWithError:a2];
             }
 
             else
             {
               if ((_CPLSilentLogging & 1) == 0)
               {
-                v69 = __CPLTaskOSLogDomain_17161();
-                if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
+                v66 = __CPLTaskOSLogDomain_17161();
+                if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412802;
-                  v109 = v24;
-                  v110 = 2114;
-                  v111 = v52;
-                  v112 = 2112;
-                  v113 = v49;
-                  _os_log_impl(&dword_1DC05A000, v69, OS_LOG_TYPE_DEFAULT, "%@ is a staging scope for unknown %{public}@. Assuming it has been deleted before we know. Using staged scope change: %@", buf, 0x20u);
+                  v106 = v24;
+                  v107 = 2114;
+                  v108 = v50;
+                  v109 = 2112;
+                  v110 = v47;
+                  _os_log_impl(&dword_1DC05A000, v66, OS_LOG_TYPE_DEFAULT, "%@ is a staging scope for unknown %{public}@. Assuming it has been deleted before we know. Using staged scope change: %@", buf, 0x20u);
                 }
               }
 
-              [*(a1 + 56) beginCreatingScopeWithIdentifier:v52];
-              v70 = *(a1 + 56);
-              [v49 scopeType];
-              [v47 stagedScopeFlags];
-              v71 = [v47 stagedTransportScope];
-              v72 = v52;
-              v73 = v71;
-              v107 = v72;
-              v54 = [v70 createScopeWithIdentifier:? scopeType:? flags:? transportScope:? error:?];
+              [*(a1 + 56) beginCreatingScopeWithIdentifier:v50];
+              v67 = *(a1 + 56);
+              [v47 scopeType];
+              [v45 stagedScopeFlags];
+              v68 = [v45 stagedTransportScope];
+              v69 = v50;
+              v70 = v68;
+              v104 = v69;
+              v52 = [v67 createScopeWithIdentifier:? scopeType:? flags:? transportScope:? error:?];
 
-              if (!v54)
+              if (!v52)
               {
                 goto LABEL_133;
               }
 
-              v74 = [*(a1 + 56) flagsForScope:v54];
+              v71 = [*(a1 + 56) flagsForScope:v52];
               if ((_CPLSilentLogging & 1) == 0)
               {
-                v75 = __CPLTaskOSLogDomain_17161();
-                if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
+                v72 = __CPLTaskOSLogDomain_17161();
+                if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  v109 = v54;
-                  _os_log_impl(&dword_1DC05A000, v75, OS_LOG_TYPE_DEFAULT, "Marking %@ as deleted immediately", buf, 0xCu);
+                  v106 = v52;
+                  _os_log_impl(&dword_1DC05A000, v72, OS_LOG_TYPE_DEFAULT, "Marking %@ as deleted immediately", buf, 0xCu);
                 }
               }
 
-              v76 = v54;
-              v77 = +[CPLScopeChange supportsStagingScopeForScopeWithType:](CPLScopeChange, "supportsStagingScopeForScopeWithType:", [v76 scopeType]);
+              v73 = v52;
+              v74 = +[CPLScopeChange supportsStagingScopeForScopeWithType:](CPLScopeChange, "supportsStagingScopeForScopeWithType:", [v73 scopeType]);
 
-              v78 = v77 ? 68 : 4;
-              [v74 setValue:1 forFlag:v78];
-              v79 = *(a1 + 56);
-              [v76 scopeIdentifier];
-              v105 = v74;
-              v80 = v106 = v76;
-              if ([v79 shouldAutoactivateScopeWithIdentifier:v80 scopeType:{objc_msgSend(v76, "scopeType")}])
+              v75 = v74 ? 68 : 4;
+              [v71 setValue:1 forFlag:v75];
+              v76 = *(a1 + 56);
+              [v73 scopeIdentifier];
+              v102 = v71;
+              v77 = v103 = v73;
+              if ([v76 shouldAutoactivateScopeWithIdentifier:v77 scopeType:{objc_msgSend(v73, "scopeType")}])
               {
-                v81 = [v105 valueForFlag:0x10000];
+                v78 = [v102 valueForFlag:0x10000];
 
-                v82 = v105;
-                if (v81 && [v105 valueForFlag:16] && (objc_msgSend(v105, "valueForFlag:", 32) & 1) == 0)
+                v79 = v102;
+                if (v78 && [v102 valueForFlag:16] && (objc_msgSend(v102, "valueForFlag:", 32) & 1) == 0)
                 {
                   if ((_CPLSilentLogging & 1) == 0)
                   {
-                    v83 = __CPLTaskOSLogDomain_17161();
-                    if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
+                    v80 = __CPLTaskOSLogDomain_17161();
+                    if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
                     {
-                      [v76 scopeIdentifier];
-                      v85 = v84 = v83;
-                      v86 = +[CPLScopeChange descriptionForScopeType:](CPLScopeChange, "descriptionForScopeType:", [v106 scopeType]);
+                      [v73 scopeIdentifier];
+                      v82 = v81 = v80;
+                      v83 = +[CPLScopeChange descriptionForScopeType:](CPLScopeChange, "descriptionForScopeType:", [v103 scopeType]);
                       *buf = 138543618;
-                      v109 = v85;
-                      v110 = 2114;
-                      v111 = v86;
-                      _os_log_impl(&dword_1DC05A000, v84, OS_LOG_TYPE_DEFAULT, "Identified %{public}@ as %{public}@ (inferred from staging scope) - enabling sync for this scope", buf, 0x16u);
+                      v106 = v82;
+                      v107 = 2114;
+                      v108 = v83;
+                      _os_log_impl(&dword_1DC05A000, v81, OS_LOG_TYPE_DEFAULT, "Identified %{public}@ as %{public}@ (inferred from staging scope) - enabling sync for this scope", buf, 0x16u);
 
-                      v83 = v84;
-                      v82 = v105;
-                      v76 = v106;
+                      v80 = v81;
+                      v79 = v102;
+                      v73 = v103;
                     }
                   }
 
-                  [v82 setValue:0 forFlag:16];
+                  [v79 setValue:0 forFlag:16];
                 }
               }
 
               else
               {
 
-                v82 = v105;
+                v79 = v102;
               }
 
-              v87 = [*(a1 + 56) updateFlags:v82 forScope:v76 error:a2];
+              v84 = [*(a1 + 56) updateFlags:v79 forScope:v73 error:a2];
 
-              if (v87 && [*(a1 + 56) storeScopeChange:v49 forScope:v76 error:a2])
+              if (v84 && [*(a1 + 56) storeScopeChange:v47 forScope:v73 error:a2])
               {
-                v56 = [*(a1 + 56) setHasUpdatedScope:v76 fromTransportWithError:a2];
+                v54 = [*(a1 + 56) setHasUpdatedScope:v73 fromTransportWithError:a2];
               }
 
               else
               {
 LABEL_133:
-                v56 = 0;
+                v54 = 0;
               }
 
-              v52 = v107;
-              [*(a1 + 56) endCreatingScopeWithIdentifier:v107];
+              v50 = v104;
+              [*(a1 + 56) endCreatingScopeWithIdentifier:v104];
             }
 
-            if (v56)
+            if (v54)
             {
               goto LABEL_88;
             }
@@ -2318,59 +2291,59 @@ LABEL_99:
 
           if ((_CPLSilentLogging & 1) == 0)
           {
-            v102 = __CPLTaskOSLogDomain_17161();
-            if (os_log_type_enabled(v102, OS_LOG_TYPE_ERROR))
+            v99 = __CPLTaskOSLogDomain_17161();
+            if (os_log_type_enabled(v99, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v109 = v49;
-              _os_log_impl(&dword_1DC05A000, v102, OS_LOG_TYPE_ERROR, "Staging is unsupported for %@", buf, 0xCu);
+              v106 = v47;
+              _os_log_impl(&dword_1DC05A000, v99, OS_LOG_TYPE_ERROR, "Staging is unsupported for %@", buf, 0xCu);
             }
           }
 
-          v91 = [MEMORY[0x1E696AAA8] currentHandler];
-          v104 = *(a1 + 120);
-          v103 = *(a1 + 128);
-          v100 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLScopeUpdateTask.m"];
-          [v91 handleFailureInMethod:v104 object:v103 file:v100 lineNumber:409 description:{@"Staging is unsupported for %@", v49}];
+          v88 = [MEMORY[0x1E696AAA8] currentHandler];
+          v101 = *(a1 + 120);
+          v100 = *(a1 + 128);
+          v97 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLScopeUpdateTask.m"];
+          [v88 handleFailureInMethod:v101 object:v100 file:v97 lineNumber:409 description:{@"Staging is unsupported for %@", v47}];
           goto LABEL_147;
         }
       }
     }
 
-    else if (!v45)
+    else if (!v44)
     {
       goto LABEL_86;
     }
 
 LABEL_88:
-    v57 = *(a1 + 96);
-    if (v57)
+    v55 = *(a1 + 96);
+    if (v55)
     {
-      v58 = [v57 scopeFilter];
-      if (v58)
+      v56 = [v55 scopeFilter];
+      if (v56)
       {
-        v59 = [*(a1 + 56) updatedScopeFilter:v58];
-        if (v59 != v58)
+        v57 = [*(a1 + 56) updatedScopeFilter:v56];
+        if (v57 != v56)
         {
           if ((_CPLSilentLogging & 1) == 0)
           {
-            v60 = __CPLTaskOSLogDomain_17161();
-            if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
+            v58 = __CPLTaskOSLogDomain_17161();
+            if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
             {
-              v61 = *(a1 + 96);
-              v62 = [v58 simpleDescription];
-              v63 = [v59 simpleDescription];
+              v59 = *(a1 + 96);
+              v60 = [v56 simpleDescription];
+              v61 = [v57 simpleDescription];
               *buf = 138412802;
-              v109 = v61;
-              v110 = 2114;
-              v111 = v62;
-              v112 = 2114;
-              v113 = v63;
-              _os_log_impl(&dword_1DC05A000, v60, OS_LOG_TYPE_DEFAULT, "Updating scope filter for %@ from %{public}@ to %{public}@", buf, 0x20u);
+              v106 = v59;
+              v107 = 2114;
+              v108 = v60;
+              v109 = 2114;
+              v110 = v61;
+              _os_log_impl(&dword_1DC05A000, v58, OS_LOG_TYPE_DEFAULT, "Updating scope filter for %@ from %{public}@ to %{public}@", buf, 0x20u);
             }
           }
 
-          [*(a1 + 96) updateScopeFilter:v59];
+          [*(a1 + 96) updateScopeFilter:v57];
         }
       }
     }
@@ -2383,25 +2356,25 @@ LABEL_88:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v88 = __CPLTaskOSLogDomain_17161();
-      if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
+      v85 = __CPLTaskOSLogDomain_17161();
+      if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
       {
-        v89 = [CPLScopeChange descriptionForScopeType:v4];
-        v90 = *(a1 + 48);
+        v86 = [CPLScopeChange descriptionForScopeType:v4];
+        v87 = *(a1 + 48);
         *buf = 138412546;
-        v109 = v89;
-        v110 = 2112;
-        v111 = v90;
-        _os_log_impl(&dword_1DC05A000, v88, OS_LOG_TYPE_ERROR, "Invalid scope type %@ for scope change %@", buf, 0x16u);
+        v106 = v86;
+        v107 = 2112;
+        v108 = v87;
+        _os_log_impl(&dword_1DC05A000, v85, OS_LOG_TYPE_ERROR, "Invalid scope type %@ for scope change %@", buf, 0x16u);
       }
     }
 
-    v91 = [MEMORY[0x1E696AAA8] currentHandler];
-    v92 = *(a1 + 120);
-    v93 = *(a1 + 128);
-    v94 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLScopeUpdateTask.m"];
-    v95 = [CPLScopeChange descriptionForScopeType:v4];
-    [v91 handleFailureInMethod:v92 object:v93 file:v94 lineNumber:326 description:{@"Invalid scope type %@ for scope change %@", v95, *(a1 + 48)}];
+    v88 = [MEMORY[0x1E696AAA8] currentHandler];
+    v89 = *(a1 + 120);
+    v90 = *(a1 + 128);
+    v91 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLScopeUpdateTask.m"];
+    v92 = [CPLScopeChange descriptionForScopeType:v4];
+    [v88 handleFailureInMethod:v89 object:v90 file:v91 lineNumber:326 description:{@"Invalid scope type %@ for scope change %@", v92, *(a1 + 48)}];
 
 LABEL_148:
     abort();
@@ -2473,7 +2446,6 @@ LABEL_30:
   v21 = 0;
 LABEL_100:
 
-  v64 = *MEMORY[0x1E69E9840];
   return v21;
 }
 

@@ -8,13 +8,15 @@ uint64_t ___APSRTPJitterBufferSimLegacyDiscardExcess_block_invoke(uint64_t resul
   if (gLogCategory_APSRTPJitterBufferSim <= 30)
   {
     v1 = result;
-    if (gLogCategory_APSRTPJitterBufferSim != -1 || (result = _LogCategory_Initialize(), result))
+    if (gLogCategory_APSRTPJitterBufferSim != -1)
     {
-      v2 = *(v1 + 32);
-      v4 = *(v1 + 40);
-      v5 = *(v2 + 184);
-      v3 = *(v2 + 16);
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_APSRTPJitterBufferSim, "void _APSRTPJitterBufferSimLegacyDiscardExcess(APSRTPJitterBufferSimRef, uint32_t)_block_invoke", 30, "'%@' Discard excess requested with totalSampleCount: %u, target: %u\n", *(*(v1 + 32) + 16), *(v1 + 40), *(*(v1 + 32) + 184));
+    }
+
+    result = _LogCategory_Initialize();
+    if (result)
+    {
+      return LogPrintF(&gLogCategory_APSRTPJitterBufferSim, "void _APSRTPJitterBufferSimLegacyDiscardExcess(APSRTPJitterBufferSimRef, uint32_t)_block_invoke", 30, "'%@' Discard excess requested with totalSampleCount: %u, target: %u\n", *(*(v1 + 32) + 16), *(v1 + 40), *(*(v1 + 32) + 184));
     }
   }
 
@@ -26,11 +28,15 @@ uint64_t ___APSRTPJitterBufferSimLegacyDiscardExcess_block_invoke_2(uint64_t res
   if (gLogCategory_APSRTPJitterBufferSim <= 50)
   {
     v1 = result;
-    if (gLogCategory_APSRTPJitterBufferSim != -1 || (result = _LogCategory_Initialize(), result))
+    if (gLogCategory_APSRTPJitterBufferSim != -1)
     {
-      v2 = *(*(v1 + 32) + 16);
-      v3 = *(v1 + 40);
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_APSRTPJitterBufferSim, "void _APSRTPJitterBufferSimLegacyDiscardExcess(APSRTPJitterBufferSimRef, uint32_t)_block_invoke_2", 50, "'%@' Discarding %u samples of excess pcm audio\n", *(*(v1 + 32) + 16), *(v1 + 40));
+    }
+
+    result = _LogCategory_Initialize();
+    if (result)
+    {
+      return LogPrintF(&gLogCategory_APSRTPJitterBufferSim, "void _APSRTPJitterBufferSimLegacyDiscardExcess(APSRTPJitterBufferSimRef, uint32_t)_block_invoke_2", 50, "'%@' Discarding %u samples of excess pcm audio\n", *(*(v1 + 32) + 16), *(v1 + 40));
     }
   }
 

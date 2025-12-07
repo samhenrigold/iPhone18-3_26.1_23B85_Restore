@@ -137,7 +137,7 @@ void __61__HDCloudSyncSharedSummaryManager_synchronizeWithCompletion___block_inv
 
 - (id)push:(id)push
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   pushCopy = push;
   if (self)
   {
@@ -157,23 +157,23 @@ void __61__HDCloudSyncSharedSummaryManager_synchronizeWithCompletion___block_inv
     database = [v8 database];
     v10 = objc_opt_class();
     v11 = NSStringFromClass(v10);
-    v35 = 0;
-    v12 = [database takeAccessibilityAssertionWithOwnerIdentifier:v11 timeout:&v35 error:300.0];
-    v13 = v35;
+    v34 = 0;
+    v12 = [database takeAccessibilityAssertionWithOwnerIdentifier:v11 timeout:&v34 error:300.0];
+    v13 = v34;
 
     v14 = [[HDCloudSyncContext alloc] initForPurpose:2 options:64 reason:26];
     v15 = [HDCloudSyncSharedSummaryPushTask alloc];
     v16 = objc_loadWeakRetained(&self->_profile);
     cloudSyncManager = [v16 cloudSyncManager];
-    v28 = MEMORY[0x277D85DD0];
-    v29 = 3221225472;
-    v30 = __40__HDCloudSyncSharedSummaryManager_push___block_invoke;
-    v31 = &unk_27862F8C8;
-    v32 = v12;
+    v27 = MEMORY[0x277D85DD0];
+    v28 = 3221225472;
+    v29 = __40__HDCloudSyncSharedSummaryManager_push___block_invoke;
+    v30 = &unk_27862F8C8;
+    v31 = v12;
     selfCopy = self;
-    v34 = pushCopy;
+    v33 = pushCopy;
     v18 = v12;
-    v19 = [(HDCloudSyncManagerPipelineTask *)v15 initWithManager:cloudSyncManager context:v14 accessibilityAssertion:v18 completion:&v28];
+    v19 = [(HDCloudSyncManagerPipelineTask *)v15 initWithManager:cloudSyncManager context:v14 accessibilityAssertion:v18 completion:&v27];
 
     v20 = objc_loadWeakRetained(&self->_profile);
     daemon = [v20 daemon];
@@ -200,15 +200,13 @@ void __61__HDCloudSyncSharedSummaryManager_synchronizeWithCompletion___block_inv
     progress = [MEMORY[0x277CCAC48] hk_finishedDiscreteProgressWithTotalUnitCount:1];
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return progress;
 }
 
 void __40__HDCloudSyncSharedSummaryManager_push___block_invoke(uint64_t a1, uint64_t a2, int a3, void *a4)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v15 = a4;
+  v20 = *MEMORY[0x277D85DE8];
+  v14 = a4;
   [*(a1 + 32) invalidate];
   if (a3)
   {
@@ -219,10 +217,10 @@ void __40__HDCloudSyncSharedSummaryManager_push___block_invoke(uint64_t a1, uint
     {
       v9 = v7;
       v10 = [(HDCloudSyncSharedSummaryManager *)v6 _localKeyValueDomain];
-      v16 = 0;
-      v11 = [v10 setDate:v9 forKey:@"MostRecentPushDate" error:&v16];
+      v15 = 0;
+      v11 = [v10 setDate:v9 forKey:@"MostRecentPushDate" error:&v15];
 
-      v12 = v16;
+      v12 = v15;
       if ((v11 & 1) == 0)
       {
         _HKInitializeLogging();
@@ -230,9 +228,9 @@ void __40__HDCloudSyncSharedSummaryManager_push___block_invoke(uint64_t a1, uint
         if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
         {
           *buf = 138543618;
-          v18 = v6;
-          v19 = 2114;
-          v20 = v12;
+          v17 = v6;
+          v18 = 2114;
+          v19 = v12;
           _os_log_error_impl(&dword_228986000, v13, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@: Failed to set most recent push date: %{public}@", buf, 0x16u);
         }
       }
@@ -240,12 +238,11 @@ void __40__HDCloudSyncSharedSummaryManager_push___block_invoke(uint64_t a1, uint
   }
 
   (*(*(a1 + 48) + 16))();
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)pull:(id)pull
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   pullCopy = pull;
   if (self)
   {
@@ -265,22 +262,22 @@ void __40__HDCloudSyncSharedSummaryManager_push___block_invoke(uint64_t a1, uint
     database = [v8 database];
     v10 = objc_opt_class();
     v11 = NSStringFromClass(v10);
-    v31 = 0;
-    v12 = [database takeAccessibilityAssertionWithOwnerIdentifier:v11 timeout:&v31 error:300.0];
-    v13 = v31;
+    v30 = 0;
+    v12 = [database takeAccessibilityAssertionWithOwnerIdentifier:v11 timeout:&v30 error:300.0];
+    v13 = v30;
 
     v14 = [[HDCloudSyncContext alloc] initForPurpose:3 options:64 reason:25];
     v15 = [HDCloudSyncSharedSummaryPullTask alloc];
     v16 = objc_loadWeakRetained(&self->_profile);
     cloudSyncManager = [v16 cloudSyncManager];
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __40__HDCloudSyncSharedSummaryManager_pull___block_invoke;
-    v28[3] = &unk_27861A468;
-    v29 = v12;
-    v30 = pullCopy;
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __40__HDCloudSyncSharedSummaryManager_pull___block_invoke;
+    v27[3] = &unk_27861A468;
+    v28 = v12;
+    v29 = pullCopy;
     v18 = v12;
-    v19 = [(HDCloudSyncManagerPipelineTask *)v15 initWithManager:cloudSyncManager context:v14 accessibilityAssertion:v18 completion:v28];
+    v19 = [(HDCloudSyncManagerPipelineTask *)v15 initWithManager:cloudSyncManager context:v14 accessibilityAssertion:v18 completion:v27];
 
     v20 = objc_loadWeakRetained(&self->_profile);
     daemon = [v20 daemon];
@@ -306,8 +303,6 @@ void __40__HDCloudSyncSharedSummaryManager_push___block_invoke(uint64_t a1, uint
 
     progress = [MEMORY[0x277CCAC48] hk_finishedDiscreteProgressWithTotalUnitCount:1];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return progress;
 }
@@ -376,13 +371,13 @@ void __95__HDCloudSyncSharedSummaryManager_revokeParticipantWithOutgoingSummaryS
 
 - (void)scheduleBackgroundPush
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (self)
   {
     _localKeyValueDomain = [(HDCloudSyncSharedSummaryManager *)self _localKeyValueDomain];
-    v20 = 0;
-    v4 = [_localKeyValueDomain dateForKey:@"MostRecentPushDate" error:&v20];
-    v5 = v20;
+    v19 = 0;
+    v4 = [_localKeyValueDomain dateForKey:@"MostRecentPushDate" error:&v19];
+    v5 = v19;
     v6 = v5;
     if (v4 || !v5)
     {
@@ -397,17 +392,17 @@ void __95__HDCloudSyncSharedSummaryManager_revokeParticipantWithOutgoingSummaryS
       {
         *buf = 138543618;
         selfCopy = self;
-        v23 = 2114;
-        v24 = v6;
+        v22 = 2114;
+        v23 = v6;
         _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@: Failed to lookup most recent sync date; using now: %{public}@", buf, 0x16u);
       }
 
       date = [MEMORY[0x277CBEAA8] date];
     }
 
-    v18 = date;
+    v17 = date;
 
-    [v18 timeIntervalSinceReferenceDate];
+    [v17 timeIntervalSinceReferenceDate];
   }
 
   else
@@ -424,8 +419,6 @@ void __95__HDCloudSyncSharedSummaryManager_revokeParticipantWithOutgoingSummaryS
   daemon = [WeakRetained daemon];
   cloudSyncCoordinator = [daemon cloudSyncCoordinator];
   [cloudSyncCoordinator scheduleSharedSummaryPushWithMaximumDelay:{fmax(v13, 30.0)}];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scheduleUrgentPush

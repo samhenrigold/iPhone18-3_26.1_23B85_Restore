@@ -1,469 +1,3 @@
-void __PCSGuitarfishSetupIdentitiesAndReturnRecoveryToken_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, void *a5)
-{
-  v25 = *MEMORY[0x1E69E9840];
-  v9 = a4;
-  v10 = a5;
-  v11 = pcsLogObjForScope("guitarfish-reset-protected-data");
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-  {
-    v19 = 134218498;
-    v20 = a2;
-    v21 = 2048;
-    v22 = a3;
-    v23 = 2112;
-    v24 = v10;
-    _os_log_impl(&dword_1B229C000, v11, OS_LOG_TYPE_DEFAULT, "PCSGuitarfishSetupIdentities returned with status: %ld, flags: %ld, error: %@", &v19, 0x20u);
-  }
-
-  v12 = *(*(a1 + 40) + 8);
-  v13 = *(v12 + 40);
-  *(v12 + 40) = v10;
-  v14 = v10;
-
-  v15 = *(*(a1 + 48) + 8);
-  v16 = *(v15 + 40);
-  *(v15 + 40) = v9;
-  v17 = v9;
-
-  *(*(*(a1 + 56) + 8) + 24) = a3;
-  *(*(*(a1 + 64) + 8) + 24) = a2;
-  dispatch_semaphore_signal(*(a1 + 32));
-
-  v18 = *MEMORY[0x1E69E9840];
-}
-
-__CFData *PCSBackupCreateEscrowedKeyWithIdentity(uint64_t a1, uint64_t a2, const void **a3)
-{
-  memset(v26, 0, sizeof(v26));
-  v6 = PCSIdentityCopyExportedPrivateKey(a2, a3);
-  if (!v6)
-  {
-    goto LABEL_18;
-  }
-
-  v7 = v6;
-  v8 = PCSIdentityCopyExportedPublicKey(a2);
-  if (!v8)
-  {
-    _PCSErrorOOM(a3);
-    CFRelease(v7);
-    goto LABEL_18;
-  }
-
-  v9 = v8;
-  EscrowedCommon = BackupCreateEscrowedCommon(v7, v8, v26, a3);
-  CFRelease(v7);
-  CFRelease(v9);
-  if (!EscrowedCommon)
-  {
-LABEL_18:
-    free_PCSBackupEscrow(v26);
-    return 0;
-  }
-
-  v11 = PCSIdentityCopyWrappedKey(a1, EscrowedCommon, a3);
-  if (!v11)
-  {
-    free_PCSBackupEscrow(v26);
-    CFRelease(EscrowedCommon);
-    return 0;
-  }
-
-  v12 = v11;
-  _PCSFillOctetString(v26, v11);
-  LODWORD(v26[3]) = 2;
-  v13 = PCSIdentityCopyExportedPublicKey(a1);
-  if (!_PCSFillOctetString(&v26[3] + 1, v13))
-  {
-    _PCSErrorOOM(a3);
-    goto LABEL_11;
-  }
-
-  v25 = 0;
-  v14 = length_PCSBackupEscrow(v26);
-  Mutable = CFDataCreateMutable(0, v14);
-  if (!Mutable)
-  {
-    v19 = 12;
-    goto LABEL_10;
-  }
-
-  v16 = Mutable;
-  CFDataSetLength(Mutable, v14);
-  MutableBytePtr = CFDataGetMutableBytePtr(v16);
-  v18 = encode_PCSBackupEscrow(&MutableBytePtr[v14 - 1], v14, v26, &v25);
-  if (v18)
-  {
-    v19 = v18;
-    CFRelease(v16);
-LABEL_10:
-    _PCSErrorASN1(a3, "encode PCSBackupEscrow", v19);
-LABEL_11:
-    v16 = 0;
-LABEL_13:
-    free_PCSBackupEscrow(v26);
-    if (v13)
-    {
-      CFRelease(v13);
-    }
-
-    CFRelease(EscrowedCommon);
-    CFRelease(v12);
-    return v16;
-  }
-
-  if (v14 == v25)
-  {
-    goto LABEL_13;
-  }
-
-  v21 = asn1_abort();
-  return PCSBackupCopyRecoveredKeyWithIdentitySet(v21, v22, v23, v24);
-}
-
-const void *PCSBackupCopyRecoveredKeyWithIdentitySet(uint64_t a1, uint64_t a2, CFDataRef theData, const void **a4)
-{
-  v28 = 0;
-  v29 = 0u;
-  v30 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  BytePtr = CFDataGetBytePtr(theData);
-  Length = CFDataGetLength(theData);
-  v10 = decode_PCSBackupEscrow(BytePtr, Length, &v29, &v28);
-  if (v10)
-  {
-    v25 = v10;
-    v26 = "decode PCSBackupEscrow";
-    v27 = a4;
-LABEL_28:
-    _PCSErrorASN1(v27, v26, v25);
-LABEL_31:
-    free_PCSBackupEscrow(&v29);
-    return 0;
-  }
-
-  v11 = v28;
-  if (v11 != CFDataGetLength(theData))
-  {
-    v26 = "size PCSBackupEscrow";
-    v27 = a4;
-    v25 = 1859794442;
-    goto LABEL_28;
-  }
-
-  if (v32 != 2)
-  {
-    _PCSError(a4, 57, @"wrong type: %d", v32);
-    goto LABEL_31;
-  }
-
-  v12 = _PCSCreateBase64(v33, *(&v32 + 1), 0);
-  if (!v12)
-  {
-    _PCSErrorOOM(a4);
-    goto LABEL_31;
-  }
-
-  v13 = v12;
-  if (!a2)
-  {
-    v14 = PCSIdentitySetCopyIdentity(a1, v12);
-    if (!v14)
-    {
-      goto LABEL_21;
-    }
-
-LABEL_10:
-    v16 = v14;
-LABEL_11:
-    v17 = CFDataCreate(0, *(&v29 + 1), v29);
-    if (v17)
-    {
-      v18 = PCSServiceIdentityCopyUnwrappedKey(v16, v17, a4);
-      if (v18)
-      {
-        v19 = v18;
-        v20 = CFDataCreateWithBytesNoCopy(0, *(&v30 + 1), v30, *MEMORY[0x1E695E498]);
-        if (v20)
-        {
-          v21 = _PCSStingrayCopyDecryptedData(v19, v20);
-          v22 = v21;
-          if (v21)
-          {
-            v23 = PCSIdentityCreateWithExportedPrivateKey(v21, a4);
-LABEL_16:
-            free_PCSBackupEscrow(&v29);
-            CFRelease(v19);
-            if (v22)
-            {
-              CFRelease(v22);
-            }
-
-            CFRelease(v13);
-            CFRelease(v17);
-            if (v20)
-            {
-              CFRelease(v20);
-            }
-
-LABEL_20:
-            CFRelease(v16);
-            return v23;
-          }
-
-          _PCSErrorOOM(a4);
-        }
-
-        else
-        {
-          _PCSErrorOOM(a4);
-          v22 = 0;
-        }
-
-        v23 = 0;
-        goto LABEL_16;
-      }
-    }
-
-    else
-    {
-      _PCSErrorOOM(a4);
-    }
-
-    goto LABEL_22;
-  }
-
-  v14 = PCSIdentitySetCopyIdentity(a2, v12);
-  if (v14)
-  {
-    goto LABEL_10;
-  }
-
-  v15 = PCSIdentitySetCopyIdentity(a1, v13);
-  if (v15)
-  {
-    v16 = v15;
-    PCSIdentitySetAddIdentity(a2, v15);
-    goto LABEL_11;
-  }
-
-LABEL_21:
-  _PCSError(a4, 70, @"Escrow identity missing: %@", v13);
-  v16 = 0;
-  v17 = 0;
-LABEL_22:
-  free_PCSBackupEscrow(&v29);
-  CFRelease(v13);
-  if (v17)
-  {
-    CFRelease(v17);
-  }
-
-  v23 = 0;
-  result = 0;
-  if (v16)
-  {
-    goto LABEL_20;
-  }
-
-  return result;
-}
-
-__CFData *PCSBackupCreateEscrowedKeysetWithIdentity(uint64_t a1, const __CFData *a2, int a3, const void **a4)
-{
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v28 = 0u;
-  EscrowedCommon = BackupCreateEscrowedCommon(a2, 0, &v28, a4);
-  if (!EscrowedCommon)
-  {
-    free_PCSBackupEscrow(&v28);
-    return 0;
-  }
-
-  v8 = EscrowedCommon;
-  v9 = PCSIdentityCopyWrappedKey(a1, EscrowedCommon, a4);
-  if (!v9)
-  {
-    free_PCSBackupEscrow(&v28);
-    CFRelease(v8);
-    return 0;
-  }
-
-  v10 = v9;
-  if (!_PCSFillOctetString(&v28, v9))
-  {
-    goto LABEL_26;
-  }
-
-  if (!a3)
-  {
-    goto LABEL_9;
-  }
-
-  v11 = CFDataCreateWithBytesNoCopy(0, *(&v29 + 1), v29, *MEMORY[0x1E695E498]);
-  if (!v11)
-  {
-    goto LABEL_26;
-  }
-
-  v12 = v11;
-  Signature = PCSIdentityCreateSignature(a1, 0, v11, a4);
-  CFRelease(v12);
-  if (!Signature)
-  {
-LABEL_27:
-    free_PCSBackupEscrow(&v28);
-    v19 = 0;
-LABEL_19:
-    CFRelease(v8);
-    CFRelease(v10);
-    return v19;
-  }
-
-  v14 = malloc_type_calloc(1uLL, 0x10uLL, 0x108004057E67DB5uLL);
-  *(&v32 + 1) = v14;
-  if (!v14)
-  {
-    CFRelease(Signature);
-    goto LABEL_26;
-  }
-
-  v15 = _PCSFillOctetString(v14, Signature);
-  CFRelease(Signature);
-  if (!v15)
-  {
-LABEL_26:
-    _PCSErrorOOM(a4);
-    goto LABEL_27;
-  }
-
-LABEL_9:
-  LODWORD(v31) = 3;
-  v16 = PCSIdentityCopyExportedPublicKey(a1);
-  if (!_PCSFillOctetString(&v31 + 1, v16))
-  {
-    _PCSErrorOOM(a4);
-    goto LABEL_15;
-  }
-
-  v27 = 0;
-  v17 = length_PCSBackupEscrow(&v28);
-  Mutable = CFDataCreateMutable(0, v17);
-  if (!Mutable)
-  {
-    v22 = 12;
-    goto LABEL_14;
-  }
-
-  v19 = Mutable;
-  CFDataSetLength(Mutable, v17);
-  MutableBytePtr = CFDataGetMutableBytePtr(v19);
-  v21 = encode_PCSBackupEscrow(&MutableBytePtr[v17 - 1], v17, &v28, &v27);
-  if (v21)
-  {
-    v22 = v21;
-    CFRelease(v19);
-LABEL_14:
-    _PCSErrorASN1(a4, "encode PCSBackupEscrow", v22);
-LABEL_15:
-    v19 = 0;
-    goto LABEL_17;
-  }
-
-  if (v17 == v27)
-  {
-LABEL_17:
-    free_PCSBackupEscrow(&v28);
-    if (v16)
-    {
-      CFRelease(v16);
-    }
-
-    goto LABEL_19;
-  }
-
-  v24 = asn1_abort();
-  return PCSBackupCopyRecoveredKeysetWithIdentity(v24, v25, v26);
-}
-
-__CFData *PCSBackupCopyRecoveredKeysetWithIdentity(uint64_t a1, CFDataRef theData, const void **a3)
-{
-  v20 = 0;
-  v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  BytePtr = CFDataGetBytePtr(theData);
-  Length = CFDataGetLength(theData);
-  v8 = decode_PCSBackupEscrow(BytePtr, Length, &v21, &v20);
-  if (v8)
-  {
-    v17 = v8;
-    v18 = "decode PCSBackupEscrow";
-    v19 = a3;
-LABEL_14:
-    _PCSErrorASN1(v19, v18, v17);
-LABEL_17:
-    free_PCSBackupEscrow(&v21);
-    return 0;
-  }
-
-  v9 = v20;
-  if (v9 != CFDataGetLength(theData))
-  {
-    v18 = "size PCSBackupEscrow";
-    v19 = a3;
-    v17 = 1859794442;
-    goto LABEL_14;
-  }
-
-  if (v24 != 3)
-  {
-    _PCSError(a3, 57, @"wrong type: %d", v24);
-    goto LABEL_17;
-  }
-
-  v10 = CFDataCreate(0, *(&v21 + 1), v21);
-  if (!v10)
-  {
-    _PCSErrorOOM(a3);
-    goto LABEL_17;
-  }
-
-  v11 = v10;
-  v12 = PCSServiceIdentityCopyUnwrappedKey(a1, v10, a3);
-  if (!v12)
-  {
-    free_PCSBackupEscrow(&v21);
-    CFRelease(v11);
-    return 0;
-  }
-
-  v13 = v12;
-  v14 = CFDataCreateWithBytesNoCopy(0, *(&v22 + 1), v22, *MEMORY[0x1E695E498]);
-  if (!v14 || (v15 = _PCSStingrayCopyDecryptedData(v13, v14)) == 0)
-  {
-    _PCSErrorOOM(a3);
-    v15 = 0;
-  }
-
-  free_PCSBackupEscrow(&v21);
-  CFRelease(v13);
-  CFRelease(v11);
-  if (v14)
-  {
-    CFRelease(v14);
-  }
-
-  return v15;
-}
-
 void _PCSBackupGuitarfishGetRecoveredInnerBlobFromOuterBlobWithWrappingKey(void *a1, void *a2, void *a3)
 {
   v5 = a1;
@@ -586,15 +120,16 @@ void _PCSBackupGuitarfishGetRecoveredInnerBlobFromOuterBlobWithWrappingKey(void 
   _Block_object_dispose(&v59, 8);
 }
 
-void sub_1B22D8F44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47)
+void sub_1B22D8F44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, ...)
 {
+  va_start(va, a46);
   _Block_object_dispose(&a29, 8);
   _Block_object_dispose(&a35, 8);
   _Block_object_dispose(&a41, 8);
-  _Block_object_dispose(&a47, 8);
-  _Block_object_dispose((v47 - 224), 8);
-  _Block_object_dispose((v47 - 176), 8);
-  _Block_object_dispose((v47 - 128), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v46 - 224), 8);
+  _Block_object_dispose((v46 - 176), 8);
+  _Block_object_dispose((v46 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -771,7 +306,7 @@ LABEL_22:
   free_PCSBackupGuitarfishEscrowContents(&v38);
 }
 
-__CFData *_PCSBackupGuitarfishEncodeOuterRecord(void *a1, __CFData *a2, void *a3, void *a4, void *a5, void *a6, uint64_t a7)
+__CFData *_PCSBackupGuitarfishEncodeOuterRecord(void *a1, __CFData *a2, void *a3, void *a4, void *a5, void *a6, void *a7)
 {
   v76 = a7;
   v80 = a1;
@@ -1197,10 +732,11 @@ LABEL_68:
   return a2;
 }
 
-void sub_1B22D9F80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, char a60)
+void sub_1B22D9F80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, ...)
 {
-  _Block_object_dispose(&a60, 8);
-  _Block_object_dispose((v60 - 216), 8);
+  va_start(va, a59);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v59 - 216), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1288,9 +824,9 @@ void _PCSSyncingSetupInterface(void *a1)
   [v5 setClasses:_PCSSyncingSetupInterface_errClasses forSelector:sel_setupIdentitiesWithParameters_complete_ argumentIndex:2 ofReply:1];
 }
 
-void sub_1B22DA9A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B22DA9A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1298,7 +834,7 @@ void sub_1B22DA9A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void PCSKeySyncingGetAllClients(void *a1)
 {
   v1 = a1;
-  v2 = connectionPCSKeySyncing();
+  v2 = connectionPCSKeySyncing(v1);
   v5[0] = MEMORY[0x1E69E9820];
   v5[1] = 3221225472;
   v5[2] = __PCSKeySyncingGetAllClients_block_invoke;
@@ -1309,23 +845,23 @@ void PCSKeySyncingGetAllClients(void *a1)
   [v4 getAllClients:v3];
 }
 
-id connectionPCSKeySyncing()
+id connectionPCSKeySyncing(uint64_t a1)
 {
   if (connectionPCSKeySyncing_onceToken != -1)
   {
     connectionPCSKeySyncing_cold_1();
   }
 
-  v1 = connectionPCSKeySyncing_connection;
+  v2 = connectionPCSKeySyncing_connection;
 
-  return v1;
+  return v2;
 }
 
 void PCSKeySyncingSyncKeys(void *a1, void *a2)
 {
   v3 = a2;
   v4 = a1;
-  v5 = connectionPCSKeySyncing();
+  v5 = connectionPCSKeySyncing(v4);
   v8[0] = MEMORY[0x1E69E9820];
   v8[1] = 3221225472;
   v8[2] = __PCSKeySyncingSyncKeys_block_invoke;
@@ -1336,49 +872,48 @@ void PCSKeySyncingSyncKeys(void *a1, void *a2)
   [v7 syncKeys:v4 withReply:v6];
 }
 
-void PCSKeySyncingTriggerDaily()
+void PCSKeySyncingTriggerDaily(uint64_t a1)
 {
-  v0 = connectionPCSKeySyncing();
-  v1 = dispatch_semaphore_create(0);
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __PCSKeySyncingTriggerDaily_block_invoke;
-  v8[3] = &unk_1E7B19CB8;
-  v2 = v1;
-  v9 = v2;
-  v3 = [v0 remoteObjectProxyWithErrorHandler:v8];
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __PCSKeySyncingTriggerDaily_block_invoke_2;
-  v6[3] = &unk_1E7B19CE0;
-  v7 = v2;
-  v4 = v2;
-  [v3 triggerDaily:MEMORY[0x1E695E0F8] withReply:v6];
+  v1 = connectionPCSKeySyncing(a1);
+  v2 = dispatch_semaphore_create(0);
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __PCSKeySyncingTriggerDaily_block_invoke;
+  v9[3] = &unk_1E7B19CB8;
+  v3 = v2;
+  v10 = v3;
+  v4 = [v1 remoteObjectProxyWithErrorHandler:v9];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __PCSKeySyncingTriggerDaily_block_invoke_2;
+  v7[3] = &unk_1E7B19CE0;
+  v8 = v3;
+  v5 = v3;
+  [v4 triggerDaily:MEMORY[0x1E695E0F8] withReply:v7];
 
-  v5 = dispatch_time(0, 5000000000);
-  dispatch_semaphore_wait(v4, v5);
+  v6 = dispatch_time(0, 5000000000);
+  dispatch_semaphore_wait(v5, v6);
 }
 
 void PCSSyncKeyRegistryWithServiceName(void *a1, void *a2)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
-  v8 = kPCSSetupService[0];
-  v9[0] = a1;
+  v8[1] = *MEMORY[0x1E69E9840];
+  v7 = kPCSSetupService[0];
+  v8[0] = a1;
   v3 = MEMORY[0x1E695DF20];
   v4 = a2;
   v5 = a1;
-  v6 = [v3 dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v6 = [v3 dictionaryWithObjects:v8 forKeys:&v7 count:1];
 
   PCSSyncKeyRegistryWithOptions(v6, v4);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void PCSSyncKeyRegistryWithOptions(void *a1, void *a2)
 {
-  v50[1] = *MEMORY[0x1E69E9840];
+  v49[1] = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
-  v5 = connectionPCSKeySyncing();
+  v5 = connectionPCSKeySyncing(v4);
   if (v3)
   {
     v6 = [v3 objectForKeyedSubscript:kPCSSetupService[0]];
@@ -1387,9 +922,9 @@ void PCSSyncKeyRegistryWithOptions(void *a1, void *a2)
     {
       v26 = MEMORY[0x1E696ABC0];
       v27 = kPCSErrorDomain;
-      v49 = *MEMORY[0x1E696A578];
-      v50[0] = @"Current persona does not match chosen dsid";
-      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:&v49 count:1];
+      v48 = *MEMORY[0x1E696A578];
+      v49[0] = @"Current persona does not match chosen dsid";
+      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:&v48 count:1];
       v25 = [v26 errorWithDomain:v27 code:152 userInfo:v8];
       v4[2](v4, 0, v25);
       goto LABEL_18;
@@ -1409,80 +944,78 @@ void PCSSyncKeyRegistryWithOptions(void *a1, void *a2)
 
   v10 = +[PCSAccountsModel accountForCurrentPersona];
   v11 = v10;
-  v37 = v9;
+  v36 = v9;
   if (v7 || ([v10 aa_personID], (v7 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v35 = v11;
-    v36 = v3;
-    v34 = [v11 identifier];
-    v44 = 0;
-    v12 = [PCSAccountsModel settingsKeyForKey:@"nextRegistrySync" error:&v44];
-    v13 = v44;
+    v34 = v11;
+    v35 = v3;
+    v33 = [v11 identifier];
+    v43 = 0;
+    v12 = [PCSAccountsModel settingsKeyForKey:@"nextRegistrySync" error:&v43];
+    v13 = v43;
     v14 = v13;
-    v33 = v12;
+    v32 = v12;
     if ((!v12 || v13) && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v46 = v14;
+      v45 = v14;
       _os_log_impl(&dword_1B229C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Failed to get key: %@", buf, 0xCu);
     }
 
-    v32 = v14;
-    v43 = 0;
-    v15 = [PCSAccountsModel settingsKeyForKey:@"registrySyncIdentifier" error:&v43];
-    v16 = v43;
+    v31 = v14;
+    v42 = 0;
+    v15 = [PCSAccountsModel settingsKeyForKey:@"registrySyncIdentifier" error:&v42];
+    v16 = v42;
     v17 = v16;
     v18 = v15;
     if ((!v15 || v16) && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v46 = v17;
+      v45 = v17;
       _os_log_impl(&dword_1B229C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Failed to get key: %@", buf, 0xCu);
     }
 
-    v40[0] = MEMORY[0x1E69E9820];
-    v40[1] = 3221225472;
-    v40[2] = __PCSSyncKeyRegistryWithOptions_block_invoke;
-    v40[3] = &unk_1E7B19D08;
-    v41 = v9;
-    v42 = v4;
-    v19 = MEMORY[0x1B2745320](v40);
-    v38[0] = MEMORY[0x1E69E9820];
-    v38[1] = 3221225472;
-    v38[2] = __PCSSyncKeyRegistryWithOptions_block_invoke_2;
-    v38[3] = &unk_1E7B19C90;
-    v39 = v19;
+    v39[0] = MEMORY[0x1E69E9820];
+    v39[1] = 3221225472;
+    v39[2] = __PCSSyncKeyRegistryWithOptions_block_invoke;
+    v39[3] = &unk_1E7B19D08;
+    v40 = v9;
+    v41 = v4;
+    v19 = MEMORY[0x1B2745320](v39);
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __PCSSyncKeyRegistryWithOptions_block_invoke_2;
+    v37[3] = &unk_1E7B19C90;
+    v38 = v19;
     v20 = v19;
-    [v5 remoteObjectProxyWithErrorHandler:v38];
+    [v5 remoteObjectProxyWithErrorHandler:v37];
     v21 = v5;
     v23 = v22 = v4;
-    v24 = v34;
-    [v23 triggerSyncingWithEscrowProxy:v6 dsid:v7 publicKeys:v8 accountIdentifier:v34 settingsKeyExpirationDate:v33 settingsKeyIdentifier:v18 complete:v20];
+    v24 = v33;
+    [v23 triggerSyncingWithEscrowProxy:v6 dsid:v7 publicKeys:v8 accountIdentifier:v33 settingsKeyExpirationDate:v32 settingsKeyIdentifier:v18 complete:v20];
 
     v4 = v22;
     v5 = v21;
 
-    v11 = v35;
-    v3 = v36;
+    v11 = v34;
+    v3 = v35;
   }
 
   else
   {
-    v29 = MEMORY[0x1E696ABC0];
-    v30 = kPCSErrorDomain;
-    v47 = *MEMORY[0x1E696A578];
-    v48 = @"unable to determine DSID";
-    v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
-    v24 = [v29 errorWithDomain:v30 code:66 userInfo:v31];
+    v28 = MEMORY[0x1E696ABC0];
+    v29 = kPCSErrorDomain;
+    v46 = *MEMORY[0x1E696A578];
+    v47 = @"unable to determine DSID";
+    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
+    v24 = [v28 errorWithDomain:v29 code:66 userInfo:v30];
 
     v4[2](v4, 0, v24);
     v7 = 0;
   }
 
-  v25 = v37;
+  v25 = v36;
 LABEL_18:
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __PCSSyncKeyRegistryWithOptions_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
@@ -1501,7 +1034,7 @@ void PCSAccountOldSetupIdentities(void *a1, void *a2, uint64_t a3)
 {
   v5 = a2;
   v6 = a1;
-  v8 = connectionPCSKeySyncing();
+  v8 = connectionPCSKeySyncing(v6);
   v7 = [v8 remoteObjectProxyWithErrorHandler:&__block_literal_global_173];
   [v7 setupIdentitiesForAccount:v6 withParameters:v5 optional:a3];
 }
@@ -1510,7 +1043,7 @@ uint64_t PCSAccountMigrateToiCDP(void *a1, void *a2, void *a3)
 {
   v5 = a1;
   v6 = a2;
-  v7 = connectionPCSKeySyncing();
+  v7 = connectionPCSKeySyncing(v6);
   v20 = 0;
   v21 = &v20;
   v22 = 0x2020000000;
@@ -1551,11 +1084,11 @@ uint64_t PCSAccountMigrateToiCDP(void *a1, void *a2, void *a3)
   return v10;
 }
 
-void sub_1B22DB5A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1B22DB5A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
+  _Block_object_dispose((v20 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1563,7 +1096,7 @@ uint64_t PCSAccountEnableWalrus(void *a1, void *a2, void *a3)
 {
   v5 = a1;
   v6 = a2;
-  v7 = connectionPCSKeySyncing();
+  v7 = connectionPCSKeySyncing(v6);
   v25 = 0;
   v26 = &v25;
   v27 = 0x2020000000;
@@ -1640,26 +1173,26 @@ LABEL_13:
   return v12 & 1;
 }
 
-void sub_1B22DB858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1B22DB858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
+  _Block_object_dispose((v20 - 112), 8);
   _Unwind_Resume(a1);
 }
 
 id PCSGuitarfishCreateSetupParameters(void *a1, uint64_t a2, int a3, void *a4)
 {
-  v125 = *MEMORY[0x1E69E9840];
+  v124 = *MEMORY[0x1E69E9840];
   v7 = a1;
   v14 = v7;
-  v119[0] = 0;
-  v119[1] = v119;
-  v119[2] = 0x2020000000;
-  v119[3] = 0;
+  v118[0] = 0;
+  v118[1] = v118;
+  v118[2] = 0x2020000000;
+  v118[3] = 0;
   if (!v7 || ([v7 objectForKeyedSubscript:kPCSSetupDSID[0]], (v15 = objc_claimAutoreleasedReturnValue()) == 0))
   {
-    PCSErrorCreate(121, @"Missing DSID in parameters", v8, v9, v10, v11, v12, v13, v88);
+    PCSErrorCreate(121, @"Missing DSID in parameters", v8, v9, v10, v11, v12, v13, v87);
     *a4 = v50 = 0;
     goto LABEL_25;
   }
@@ -1667,7 +1200,7 @@ id PCSGuitarfishCreateSetupParameters(void *a1, uint64_t a2, int a3, void *a4)
   v22 = [v14 objectForKeyedSubscript:kPCSSetupRawPassword[0]];
   if (!v22)
   {
-    *a4 = PCSErrorCreate(123, @"Missing raw password in parameters", v16, v17, v18, v19, v20, v21, v88);
+    *a4 = PCSErrorCreate(123, @"Missing raw password in parameters", v16, v17, v18, v19, v20, v21, v87);
 
 LABEL_24:
     v50 = 0;
@@ -1677,98 +1210,98 @@ LABEL_24:
   v29 = [v14 objectForKeyedSubscript:kPCSSetupPassword[0]];
   if (!v29)
   {
-    *a4 = PCSErrorCreate(123, @"Missing password in parameters", v23, v24, v25, v26, v27, v28, v88);
+    *a4 = PCSErrorCreate(123, @"Missing password in parameters", v23, v24, v25, v26, v27, v28, v87);
 
     goto LABEL_24;
   }
 
   if (!PCSCurrentPersonaMatchesDSID(v15))
   {
-    *a4 = PCSErrorCreate(152, @"Current persona does not match chosen dsid", v30, v31, v32, v33, v34, v35, v88);
+    *a4 = PCSErrorCreate(152, @"Current persona does not match chosen dsid", v30, v31, v32, v33, v34, v35, v87);
 
     goto LABEL_24;
   }
 
-  v95 = 0;
-  v97 = 0;
-  v118 = 0;
+  v94 = 0;
+  v96 = 0;
+  v117 = 0;
   if (!a2)
   {
     goto LABEL_44;
   }
 
-  Random = _PCSStingrayCreateRandom(0x20uLL, &v118);
-  if (v118 || !Random)
+  Random = _PCSStingrayCreateRandom(0x20uLL, &v117);
+  if (v117 || !Random)
   {
-    v95 = 0;
-    v97 = 0;
+    v94 = 0;
+    v96 = 0;
     v50 = 0;
-    *a4 = v118;
+    *a4 = v117;
   }
 
   else
   {
-    v36 = _PCSStingrayCreateRandom(0x20uLL, &v118);
-    if (!v118 && v36)
+    v36 = _PCSStingrayCreateRandom(0x20uLL, &v117);
+    if (!v117 && v36)
     {
-      v93 = v36;
+      v92 = v36;
       p_buf = &buf;
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v121 = 0x3032000000;
-      v122 = __Block_byref_object_copy__5;
-      v123 = __Block_byref_object_dispose__5;
-      v124 = 0;
+      v120 = 0x3032000000;
+      v121 = __Block_byref_object_copy__5;
+      v122 = __Block_byref_object_dispose__5;
+      v123 = 0;
       if (!a3)
       {
+        v53 = 0;
         v54 = 0;
+        v91 = 0;
         v55 = 0;
-        v92 = 0;
-        v56 = 0;
         goto LABEL_31;
       }
 
-      v38 = _PCSStingrayCreateRandom(0x20uLL, &v118);
-      v92 = v38;
-      if (v118 || !v38)
+      v38 = _PCSStingrayCreateRandom(0x20uLL, &v117);
+      v91 = v38;
+      if (v117 || !v38)
       {
         v49 = 0;
-        v95 = 0;
-        v97 = 0;
+        v94 = 0;
+        v96 = 0;
         LOBYTE(v39) = 0;
-        *a4 = v118;
+        *a4 = v117;
         goto LABEL_43;
       }
 
-      v39 = _PCSStingrayCreateRandom(0x10uLL, &v118);
-      v97 = 0;
-      v40 = v118;
-      if (!v118 && v39)
+      v39 = _PCSStingrayCreateRandom(0x10uLL, &v117);
+      v96 = 0;
+      v40 = v117;
+      if (!v117 && v39)
       {
-        v97 = [MnemonicRepresentation mnemonicFrom:v39];
-        if (!v118 && v97)
+        v96 = [MnemonicRepresentation mnemonicFrom:v39];
+        if (!v117 && v96)
         {
-          v96 = v39;
-          v116[0] = 0;
-          v116[1] = v116;
-          v116[2] = 0x3032000000;
-          v116[3] = __Block_byref_object_copy__5;
-          v116[4] = __Block_byref_object_dispose__5;
-          v117 = 0;
-          v110 = 0;
-          v111 = &v110;
-          v112 = 0x3032000000;
-          v113 = __Block_byref_object_copy__5;
-          v114 = __Block_byref_object_dispose__5;
-          v115 = 0;
-          v109[0] = MEMORY[0x1E69E9820];
-          v109[1] = 3221225472;
-          v109[2] = __PCSGuitarfishCreateSetupParameters_block_invoke;
-          v109[3] = &unk_1E7B19A88;
-          v109[4] = v116;
-          v109[5] = &v110;
-          v109[6] = &buf;
-          PCSGuitarfishDeriveRecoveryKeyFromMnemonic(v97, v109);
+          v95 = v39;
+          v115[0] = 0;
+          v115[1] = v115;
+          v115[2] = 0x3032000000;
+          v115[3] = __Block_byref_object_copy__5;
+          v115[4] = __Block_byref_object_dispose__5;
+          v116 = 0;
+          v109 = 0;
+          v110 = &v109;
+          v111 = 0x3032000000;
+          v112 = __Block_byref_object_copy__5;
+          v113 = __Block_byref_object_dispose__5;
+          v114 = 0;
+          v108[0] = MEMORY[0x1E69E9820];
+          v108[1] = 3221225472;
+          v108[2] = __PCSGuitarfishCreateSetupParameters_block_invoke;
+          v108[3] = &unk_1E7B19A88;
+          v108[4] = v115;
+          v108[5] = &v109;
+          v108[6] = &buf;
+          PCSGuitarfishDeriveRecoveryKeyFromMnemonic(v96, v108);
           v48 = (*(&buf + 1) + 40);
           v47 = *(*(&buf + 1) + 40);
           if (v47)
@@ -1778,10 +1311,10 @@ LABEL_24:
 
           else
           {
-            v87 = v111[5];
-            v108 = 0;
-            v49 = _PCSGuitarfishDeriveRecoveryTokenWrap(v87, v38, &v108);
-            objc_storeStrong(v48, v108);
+            v86 = v110[5];
+            v107 = 0;
+            v49 = _PCSGuitarfishDeriveRecoveryTokenWrap(v86, v38, &v107);
+            objc_storeStrong(v48, v107);
             v47 = *(*(&buf + 1) + 40);
             if (!v47)
             {
@@ -1793,61 +1326,61 @@ LABEL_24:
           LODWORD(v39) = 0;
           *a4 = v47;
 LABEL_74:
-          _Block_object_dispose(&v110, 8);
+          _Block_object_dispose(&v109, 8);
 
-          _Block_object_dispose(v116, 8);
+          _Block_object_dispose(v115, 8);
           if (v39)
           {
             p_buf = *(&buf + 1);
-            v54 = *(*(&buf + 1) + 40);
-            v56 = v97;
-            v55 = v49;
+            v53 = *(*(&buf + 1) + 40);
+            v55 = v96;
+            v54 = v49;
 LABEL_31:
-            obj = v54;
-            v97 = v56;
-            v49 = v55;
-            v91 = _PCSBackupGuitarfishEncodeInnerRecord(0, v56, Random, v55);
+            obj = v53;
+            v96 = v55;
+            v49 = v54;
+            v90 = _PCSBackupGuitarfishEncodeInnerRecord(0, v55, Random, v54);
             objc_storeStrong(p_buf + 5, obj);
-            v58 = (*(&buf + 1) + 40);
-            v57 = *(*(&buf + 1) + 40);
-            if (v57)
+            v57 = (*(&buf + 1) + 40);
+            v56 = *(*(&buf + 1) + 40);
+            if (v56)
             {
-              v59 = v57;
-              v95 = 0;
+              v58 = v56;
+              v94 = 0;
             }
 
             else
             {
-              v106 = 0;
-              v95 = _PCSBackupGuitarfishEncodeOuterRecord(v93, 0, Random, v49, v91, 0, &v106);
-              objc_storeStrong(v58, v106);
-              v60 = *(*(&buf + 1) + 40);
-              if (!v60)
+              v105 = 0;
+              v94 = _PCSBackupGuitarfishEncodeOuterRecord(v92, 0, Random, v49, v90, 0, &v105);
+              objc_storeStrong(v57, v105);
+              v59 = *(*(&buf + 1) + 40);
+              if (!v59)
               {
-                v61 = dispatch_semaphore_create(0);
-                v103[0] = MEMORY[0x1E69E9820];
-                v103[1] = 3221225472;
-                v103[2] = __PCSGuitarfishCreateSetupParameters_block_invoke_2;
-                v103[3] = &unk_1E7B19A60;
-                v105 = v119;
-                v39 = v61;
-                v104 = v39;
-                _PCSGuitarfishSetKeychainItem(@"WrappingKey", v15, v93, v103);
+                v60 = dispatch_semaphore_create(0);
+                v102[0] = MEMORY[0x1E69E9820];
+                v102[1] = 3221225472;
+                v102[2] = __PCSGuitarfishCreateSetupParameters_block_invoke_2;
+                v102[3] = &unk_1E7B19A60;
+                v104 = v118;
+                v39 = v60;
+                v103 = v39;
+                _PCSGuitarfishSetKeychainItem(@"WrappingKey", v15, v92, v102);
                 dispatch_semaphore_wait(v39, 0xFFFFFFFFFFFFFFFFLL);
                 if (a3)
                 {
-                  v89 = dispatch_semaphore_create(0);
+                  v88 = dispatch_semaphore_create(0);
 
-                  v90 = [v97 componentsJoinedByString:@" "];
-                  v62 = [v90 dataUsingEncoding:4];
-                  v100[0] = MEMORY[0x1E69E9820];
-                  v100[1] = 3221225472;
-                  v100[2] = __PCSGuitarfishCreateSetupParameters_block_invoke_245;
-                  v100[3] = &unk_1E7B19A60;
-                  v102 = v119;
-                  v39 = v89;
-                  v101 = v39;
-                  _PCSGuitarfishSetKeychainItem(@"RecoveryToken", v15, v62, v100);
+                  v89 = [v96 componentsJoinedByString:@" "];
+                  v61 = [v89 dataUsingEncoding:4];
+                  v99[0] = MEMORY[0x1E69E9820];
+                  v99[1] = 3221225472;
+                  v99[2] = __PCSGuitarfishCreateSetupParameters_block_invoke_245;
+                  v99[3] = &unk_1E7B19A60;
+                  v101 = v118;
+                  v39 = v88;
+                  v100 = v39;
+                  _PCSGuitarfishSetKeychainItem(@"RecoveryToken", v15, v61, v99);
 
                   dispatch_semaphore_wait(v39, 0xFFFFFFFFFFFFFFFFLL);
                 }
@@ -1856,17 +1389,17 @@ LABEL_31:
                 goto LABEL_37;
               }
 
-              v59 = v60;
+              v58 = v59;
             }
 
             LOBYTE(v39) = 0;
-            *a4 = v59;
+            *a4 = v58;
 LABEL_37:
 
             goto LABEL_43;
           }
 
-          v95 = 0;
+          v94 = 0;
 LABEL_43:
           _Block_object_dispose(&buf, 8);
 
@@ -1877,93 +1410,93 @@ LABEL_43:
           }
 
 LABEL_44:
-          v63 = [MEMORY[0x1E6959A48] defaultStore];
-          Random = [v63 aa_appleAccountWithPersonID:v15];
+          v62 = [MEMORY[0x1E6959A48] defaultStore];
+          Random = [v62 aa_appleAccountWithPersonID:v15];
 
-          v64 = [v14 mutableCopy];
-          v65 = [MEMORY[0x1E696AD98] numberWithBool:a2];
-          [v64 setObject:v65 forKeyedSubscript:kPCSSetupGuitarfishReEnroll[0]];
+          v63 = [v14 mutableCopy];
+          v64 = [MEMORY[0x1E696AD98] numberWithBool:a2];
+          [v63 setObject:v64 forKeyedSubscript:kPCSSetupGuitarfishReEnroll[0]];
 
-          [v64 setObject:v95 forKeyedSubscript:kPCSSetupOuterGuitarfishEncodedTemplate[0]];
-          [v64 setObject:v97 forKeyedSubscript:kPCSSetupRecoveryToken[0]];
-          v66 = [v14 objectForKeyedSubscript:kPCSSetupUsername[0]];
-          v67 = v66;
-          if (!v66)
+          [v63 setObject:v94 forKeyedSubscript:kPCSSetupOuterGuitarfishEncodedTemplate[0]];
+          [v63 setObject:v96 forKeyedSubscript:kPCSSetupRecoveryToken[0]];
+          v65 = [v14 objectForKeyedSubscript:kPCSSetupUsername[0]];
+          v66 = v65;
+          if (!v65)
           {
-            v67 = [Random username];
+            v66 = [Random username];
           }
 
-          [v64 setObject:v67 forKeyedSubscript:kPCSSetupUsername[0]];
-          if (!v66)
+          [v63 setObject:v66 forKeyedSubscript:kPCSSetupUsername[0]];
+          if (!v65)
           {
           }
 
-          [v64 setObject:v22 forKeyedSubscript:kPCSSetupRawPassword[0]];
-          [v64 setObject:v29 forKeyedSubscript:kPCSSetupPassword[0]];
-          [v64 setObject:MEMORY[0x1E695E118] forKeyedSubscript:kPCSSetupGuitarfish[0]];
-          v68 = [v64 objectForKeyedSubscript:kPCSSetupPasswordGeneration[0]];
-          v69 = v68 == 0;
+          [v63 setObject:v22 forKeyedSubscript:kPCSSetupRawPassword[0]];
+          [v63 setObject:v29 forKeyedSubscript:kPCSSetupPassword[0]];
+          [v63 setObject:MEMORY[0x1E695E118] forKeyedSubscript:kPCSSetupGuitarfish[0]];
+          v67 = [v63 objectForKeyedSubscript:kPCSSetupPasswordGeneration[0]];
+          v68 = v67 == 0;
 
           if (Random)
           {
-            v70 = v69;
+            v69 = v68;
           }
 
           else
           {
-            v70 = 0;
+            v69 = 0;
           }
 
-          if (v70)
+          if (v69)
           {
-            v71 = [getAKAccountManagerClass() sharedInstance];
-            v72 = [Random aa_altDSID];
-            v99 = 0;
-            v73 = [v71 authKitAccountWithAltDSID:v72 error:&v99];
-            v94 = v71;
-            v74 = v99;
+            v70 = [getAKAccountManagerClass() sharedInstance];
+            v71 = [Random aa_altDSID];
+            v98 = 0;
+            v72 = [v70 authKitAccountWithAltDSID:v71 error:&v98];
+            v93 = v70;
+            v73 = v98;
 
-            if (!v73 || v74)
+            if (!v72 || v73)
             {
-              v75 = pcsLogObjForScope("Guitarfish");
-              if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
+              v74 = pcsLogObjForScope("Guitarfish");
+              if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
               {
                 LODWORD(buf) = 138412290;
-                *(&buf + 4) = v74;
-                _os_log_impl(&dword_1B229C000, v75, OS_LOG_TYPE_DEFAULT, "Unable to get AKAccount: %@", &buf, 0xCu);
+                *(&buf + 4) = v73;
+                _os_log_impl(&dword_1B229C000, v74, OS_LOG_TYPE_DEFAULT, "Unable to get AKAccount: %@", &buf, 0xCu);
               }
             }
 
             else
             {
-              v75 = pcsLogObjForScope("Guitarfish");
-              if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
+              v74 = pcsLogObjForScope("Guitarfish");
+              if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
               {
-                v76 = [v64 objectForKeyedSubscript:kPCSSetupPasswordGeneration[0]];
+                v75 = [v63 objectForKeyedSubscript:kPCSSetupPasswordGeneration[0]];
                 LODWORD(buf) = 138412290;
-                *(&buf + 4) = v76;
-                _os_log_impl(&dword_1B229C000, v75, OS_LOG_TYPE_DEFAULT, "Got passwordVersionForAccount: %@", &buf, 0xCu);
+                *(&buf + 4) = v75;
+                _os_log_impl(&dword_1B229C000, v74, OS_LOG_TYPE_DEFAULT, "Got passwordVersionForAccount: %@", &buf, 0xCu);
               }
             }
           }
 
-          v77 = [v64 objectForKeyedSubscript:kPCSSetupVerifierIterationCount[0]];
-          v78 = v77 == 0;
+          v76 = [v63 objectForKeyedSubscript:kPCSSetupVerifierIterationCount[0]];
+          v77 = v76 == 0;
 
-          if (v78)
+          if (v77)
           {
-            [v64 setObject:&unk_1F2998490 forKeyedSubscript:kPCSSetupVerifierIterationCount[0]];
+            [v63 setObject:&unk_1F2998490 forKeyedSubscript:kPCSSetupVerifierIterationCount[0]];
           }
 
-          v79 = [v64 objectForKeyedSubscript:kPCSSetupVerifierSalt[0]];
-          v80 = v79 == 0;
+          v78 = [v63 objectForKeyedSubscript:kPCSSetupVerifierSalt[0]];
+          v79 = v78 == 0;
 
-          if (v80)
+          if (v79)
           {
-            v86 = _PCSStingrayCreateRandom(0x20uLL, &v118);
-            if (v118)
+            v85 = _PCSStingrayCreateRandom(0x20uLL, &v117);
+            if (v117)
             {
-              *a4 = v118;
+              *a4 = v117;
 
               v50 = 0;
 LABEL_67:
@@ -1971,46 +1504,46 @@ LABEL_67:
               goto LABEL_68;
             }
 
-            [v64 setObject:v86 forKeyedSubscript:kPCSSetupVerifierSalt[0]];
+            [v63 setObject:v85 forKeyedSubscript:kPCSSetupVerifierSalt[0]];
           }
 
-          v81 = [v64 objectForKeyedSubscript:kPCSSetupVerifierProtocol[0]];
-          v82 = v81 == 0;
+          v80 = [v63 objectForKeyedSubscript:kPCSSetupVerifierProtocol[0]];
+          v81 = v80 == 0;
 
-          if (v82)
+          if (v81)
           {
-            [v64 setObject:@"s2k" forKeyedSubscript:kPCSSetupVerifierProtocol[0]];
+            [v63 setObject:@"s2k" forKeyedSubscript:kPCSSetupVerifierProtocol[0]];
           }
 
-          v83 = [v14 objectForKeyedSubscript:kPCSAltDSID[0]];
-          [v64 setObject:v83 forKeyedSubscript:kPCSAltDSID[0]];
+          v82 = [v14 objectForKeyedSubscript:kPCSAltDSID[0]];
+          [v63 setObject:v82 forKeyedSubscript:kPCSAltDSID[0]];
 
-          v84 = [v14 objectForKeyedSubscript:kPCSDeviceSessionID[0]];
-          [v64 setObject:v84 forKeyedSubscript:kPCSDeviceSessionID[0]];
+          v83 = [v14 objectForKeyedSubscript:kPCSDeviceSessionID[0]];
+          [v63 setObject:v83 forKeyedSubscript:kPCSDeviceSessionID[0]];
 
-          v85 = [v14 objectForKeyedSubscript:kPCSFlowID[0]];
-          [v64 setObject:v85 forKeyedSubscript:kPCSFlowID[0]];
+          v84 = [v14 objectForKeyedSubscript:kPCSFlowID[0]];
+          [v63 setObject:v84 forKeyedSubscript:kPCSFlowID[0]];
 
-          v50 = v64;
+          v50 = v63;
           goto LABEL_67;
         }
 
-        v40 = PCSErrorCreate(214, @"unable to create mnemonic from input entropy", v41, v42, v43, v44, v45, v46, v88);
+        v40 = PCSErrorCreate(214, @"unable to create mnemonic from input entropy", v41, v42, v43, v44, v45, v46, v87);
       }
 
       *a4 = v40;
 
       v49 = 0;
-      v95 = 0;
+      v94 = 0;
       LOBYTE(v39) = 0;
       goto LABEL_43;
     }
 
-    v53 = v36;
-    *a4 = v118;
+    v52 = v36;
+    *a4 = v117;
 
-    v95 = 0;
-    v97 = 0;
+    v94 = 0;
+    v96 = 0;
     v50 = 0;
   }
 
@@ -2018,19 +1551,18 @@ LABEL_68:
 
 LABEL_69:
 LABEL_25:
-  _Block_object_dispose(v119, 8);
-
-  v51 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v118, 8);
 
   return v50;
 }
 
-void sub_1B22DC3E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48)
+void sub_1B22DC3E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, ...)
 {
+  va_start(va, a47);
   _Block_object_dispose(&a42, 8);
-  _Block_object_dispose(&a48, 8);
-  _Block_object_dispose((v48 - 176), 8);
-  _Block_object_dispose((v48 - 208), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v47 - 176), 8);
+  _Block_object_dispose((v47 - 208), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2038,7 +1570,7 @@ uint64_t PCSAccountDisableWalrus(void *a1, void *a2, void *a3)
 {
   v5 = a1;
   v6 = a2;
-  v7 = connectionPCSKeySyncing();
+  v7 = connectionPCSKeySyncing(v6);
   v25 = 0;
   v26 = &v25;
   v27 = 0x2020000000;
@@ -2115,18 +1647,18 @@ LABEL_13:
   return v12 & 1;
 }
 
-void sub_1B22DC6F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1B22DC6F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
+  _Block_object_dispose((v20 - 112), 8);
   _Unwind_Resume(a1);
 }
 
 void PCSTriggerWatchSyncing(void *a1)
 {
   v1 = a1;
-  v2 = connectionPCSKeySyncing();
+  v2 = connectionPCSKeySyncing(v1);
   v5[0] = MEMORY[0x1E69E9820];
   v5[1] = 3221225472;
   v5[2] = __PCSTriggerWatchSyncing_block_invoke;
@@ -2141,7 +1673,7 @@ void PCSBackupCheckUserRegistry(void *a1, void *a2)
 {
   v3 = a2;
   v4 = a1;
-  v5 = connectionPCSKeySyncing();
+  v5 = connectionPCSKeySyncing(v4);
   v8[0] = MEMORY[0x1E69E9820];
   v8[1] = 3221225472;
   v8[2] = __PCSBackupCheckUserRegistry_block_invoke;
@@ -2160,15 +1692,15 @@ void PCSBackupRestoreMobileBackup(uint64_t a1, void *a2)
 
   if (v5)
   {
-    v6 = connectionPCSKeySyncing();
-    v10 = MEMORY[0x1E69E9820];
-    v11 = 3221225472;
-    v12 = __PCSBackupRestoreMobileBackup_block_invoke;
-    v13 = &unk_1E7B19C90;
-    v7 = v3;
-    v14 = v7;
-    v8 = [v6 remoteObjectProxyWithErrorHandler:&v10];
-    [v8 restoreMobileBackup:a1 dsid:v5 withReply:{v7, v10, v11, v12, v13}];
+    v7 = connectionPCSKeySyncing(v6);
+    v11 = MEMORY[0x1E69E9820];
+    v12 = 3221225472;
+    v13 = __PCSBackupRestoreMobileBackup_block_invoke;
+    v14 = &unk_1E7B19C90;
+    v8 = v3;
+    v15 = v8;
+    v9 = [v7 remoteObjectProxyWithErrorHandler:&v11];
+    [v9 restoreMobileBackup:a1 dsid:v5 withReply:{v8, v11, v12, v13, v14}];
   }
 
   else
@@ -2176,11 +1708,11 @@ void PCSBackupRestoreMobileBackup(uint64_t a1, void *a2)
     cf = 0;
     _PCSError(&cf, 66, @"unable to determine DSID");
     (*(v3 + 2))(v3, 0, 0, 0, cf);
-    v9 = cf;
+    v10 = cf;
     if (cf)
     {
       cf = 0;
-      CFRelease(v9);
+      CFRelease(v10);
     }
   }
 }
@@ -2188,7 +1720,7 @@ void PCSBackupRestoreMobileBackup(uint64_t a1, void *a2)
 void PCSMobileBackupStatusXPC(void *a1)
 {
   v1 = a1;
-  v2 = connectionPCSKeySyncing();
+  v2 = connectionPCSKeySyncing(v1);
   v5[0] = MEMORY[0x1E69E9820];
   v5[1] = 3221225472;
   v5[2] = __PCSMobileBackupStatusXPC_block_invoke;
@@ -2201,24 +1733,22 @@ void PCSMobileBackupStatusXPC(void *a1)
 
 void __PCSMobileBackupStatusXPC_block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_1B229C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "PCSMobileBackupStatusXPC failed:%@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_1B229C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "PCSMobileBackupStatusXPC failed:%@", &v4, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void PCSBackupRegistryMobileBackupRecords(void *a1)
 {
   v1 = a1;
-  v2 = connectionPCSKeySyncing();
+  v2 = connectionPCSKeySyncing(v1);
   v5[0] = MEMORY[0x1E69E9820];
   v5[1] = 3221225472;
   v5[2] = __PCSBackupRegistryMobileBackupRecords_block_invoke;
@@ -2232,7 +1762,7 @@ void PCSBackupRegistryMobileBackupRecords(void *a1)
 void PCSBackupLocalDBMobileBackupRecords(void *a1)
 {
   v1 = a1;
-  v2 = connectionPCSKeySyncing();
+  v2 = connectionPCSKeySyncing(v1);
   v5[0] = MEMORY[0x1E69E9820];
   v5[1] = 3221225472;
   v5[2] = __PCSBackupLocalDBMobileBackupRecords_block_invoke;
@@ -2252,64 +1782,77 @@ void PCSIdentitySetCreateManatee(uint64_t a1, uint64_t a2, void *a3, void *a4)
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v8, &state);
-  v9 = connectionPCSKeySyncing();
-  v10 = v9;
+  v10 = connectionPCSKeySyncing(v9);
+  v11 = v10;
   if (a2)
   {
-    v32 = v9;
+    v32 = v10;
     if (v6)
     {
-      v11 = [v6 objectForKeyedSubscript:kPCSSetupLogContext[0]];
+      v12 = [v6 objectForKeyedSubscript:kPCSSetupLogContext[0]];
 
-      v12 = PCSCopyPIIClearedOptions(v6);
-      v13 = PCSLogGetOSLog(v11);
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v13 = PCSCopyPIIClearedOptions(v6);
+      v14 = PCSLogGetOSLog(v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
         *&buf[4] = a2;
         v43 = 2114;
-        v44 = v12;
-        _os_log_impl(&dword_1B229C000, v13, OS_LOG_TYPE_DEFAULT, "PCSIdentitySetCreateManatee: %{public}@ %{public}@", buf, 0x16u);
+        v44 = v13;
+        _os_log_impl(&dword_1B229C000, v14, OS_LOG_TYPE_DEFAULT, "PCSIdentitySetCreateManatee: %{public}@ %{public}@", buf, 0x16u);
       }
 
-      if (v12)
+      if (v13)
       {
-        CFRelease(v12);
+        CFRelease(v13);
       }
 
-      v14 = [v6 objectForKeyedSubscript:kPCSSetupDSID[0]];
+      v15 = [v6 objectForKeyedSubscript:kPCSSetupDSID[0]];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v15 = v14;
+        v16 = v15;
       }
 
       else
       {
-        v15 = 0;
+        v16 = 0;
       }
 
-      if (!PCSCurrentPersonaMatchesDSID(v15))
+      if (!PCSCurrentPersonaMatchesDSID(v16))
       {
-        v21 = MEMORY[0x1E696ABC0];
-        v22 = kPCSErrorDomain;
+        v22 = MEMORY[0x1E696ABC0];
+        v23 = kPCSErrorDomain;
         v40 = *MEMORY[0x1E696A578];
         v41 = @"Current persona does not match chosen dsid";
-        v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
-        v24 = [v21 errorWithDomain:v22 code:152 userInfo:v23];
-        v7[2](v7, 0, v24);
+        v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+        v25 = [v22 errorWithDomain:v23 code:152 userInfo:v24];
+        v7[2](v7, 0, v25);
 
 LABEL_23:
-        v10 = v32;
+        v11 = v32;
         goto LABEL_24;
       }
 
-      v20 = [v6 objectForKeyedSubscript:kPCSSetupRollIdentity[0]];
+      v21 = [v6 objectForKeyedSubscript:kPCSSetupRollIdentity[0]];
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v19 = [v20 BOOLValue];
+        v20 = [v21 BOOLValue];
+      }
+
+      else
+      {
+        v20 = 0;
+      }
+
+      v26 = [v6 objectForKeyedSubscript:kPCSSetupSyncIdentity[0]];
+
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        v19 = [v26 BOOLValue];
       }
 
       else
@@ -2317,48 +1860,35 @@ LABEL_23:
         v19 = 0;
       }
 
-      v25 = [v6 objectForKeyedSubscript:kPCSSetupSyncIdentity[0]];
-
-      objc_opt_class();
-      if (objc_opt_isKindOfClass())
-      {
-        v18 = [v25 BOOLValue];
-      }
-
-      else
-      {
-        v18 = 0;
-      }
-
-      v17 = [v6 objectForKeyedSubscript:kPCSSetupMTTCallback[0]];
+      v18 = [v6 objectForKeyedSubscript:kPCSSetupMTTCallback[0]];
     }
 
     else
     {
-      v17 = 0;
-      v15 = 0;
       v18 = 0;
+      v16 = 0;
       v19 = 0;
+      v20 = 0;
     }
 
     v35[0] = MEMORY[0x1E69E9820];
     v35[1] = 3221225472;
     v35[2] = __PCSIdentitySetCreateManatee_block_invoke;
     v35[3] = &unk_1E7B19D78;
-    v26 = v15;
-    v36 = v26;
-    v27 = v17;
-    v37 = v27;
+    v27 = v16;
+    v36 = v27;
+    v28 = v18;
+    v37 = v28;
     v38 = v7;
-    v28 = MEMORY[0x1B2745320](v35);
+    v29 = MEMORY[0x1B2745320](v35);
     v33[0] = MEMORY[0x1E69E9820];
     v33[1] = 3221225472;
     v33[2] = __PCSIdentitySetCreateManatee_block_invoke_2;
     v33[3] = &unk_1E7B19C90;
-    v29 = v28;
-    v34 = v29;
-    v30 = [v32 remoteObjectProxyWithErrorHandler:v33];
-    [v30 createIdentity:a2 dsid:v26 roll:v19 sync:v18 forceSync:0 complete:v29];
+    v30 = v29;
+    v34 = v30;
+    v31 = [v32 remoteObjectProxyWithErrorHandler:v33];
+    [v31 createIdentity:a2 dsid:v27 roll:v20 sync:v19 forceSync:0 complete:v30];
 
     goto LABEL_23;
   }
@@ -2366,17 +1896,16 @@ LABEL_23:
   *buf = 0;
   _PCSError(buf, 124, @"No ServiceName Specified");
   v7[2](v7, 0, *buf);
-  v16 = *buf;
+  v17 = *buf;
   if (*buf)
   {
     *buf = 0;
-    CFRelease(v16);
+    CFRelease(v17);
   }
 
 LABEL_24:
 
   os_activity_scope_leave(&state);
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 void __PCSIdentitySetCreateManatee_block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -2409,57 +1938,44 @@ void __PCSIdentitySetCreateManatee_block_invoke(uint64_t a1, void *a2, void *a3,
 
 void PCSIdentitySetCreateAllManateeIdentities(uint64_t a1, void *a2, void *a3)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = a3;
   v6 = _os_activity_create(&dword_1B229C000, "PCSIdentitySetCreateAllManateeIdentities", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v6, &state);
-  v7 = connectionPCSKeySyncing();
-  v8 = pcsLogObjForScope("Manatee");
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v8 = connectionPCSKeySyncing(v7);
+  v9 = pcsLogObjForScope("Manatee");
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1B229C000, v8, OS_LOG_TYPE_DEFAULT, "Starting creation of all manatee identities", buf, 2u);
+    _os_log_impl(&dword_1B229C000, v9, OS_LOG_TYPE_DEFAULT, "Starting creation of all manatee identities", buf, 2u);
   }
 
   if (v4)
   {
-    v9 = [v4 objectForKeyedSubscript:kPCSSetupLogContext[0]];
+    v10 = [v4 objectForKeyedSubscript:kPCSSetupLogContext[0]];
 
-    v10 = PCSCopyPIIClearedOptions(v4);
-    v11 = PCSLogGetOSLog(v9);
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v11 = PCSCopyPIIClearedOptions(v4);
+    v12 = PCSLogGetOSLog(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v34 = v10;
-      _os_log_impl(&dword_1B229C000, v11, OS_LOG_TYPE_DEFAULT, "PCSIdentitySetCreateAllManateeIdentities: %{public}@", buf, 0xCu);
+      v35 = v11;
+      _os_log_impl(&dword_1B229C000, v12, OS_LOG_TYPE_DEFAULT, "PCSIdentitySetCreateAllManateeIdentities: %{public}@", buf, 0xCu);
     }
 
-    if (v10)
+    if (v11)
     {
-      CFRelease(v10);
+      CFRelease(v11);
     }
 
-    v12 = [v4 objectForKeyedSubscript:kPCSSetupDSID[0]];
+    v13 = [v4 objectForKeyedSubscript:kPCSSetupDSID[0]];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v13 = v12;
-    }
-
-    else
-    {
-      v13 = 0;
-    }
-
-    v15 = [v4 objectForKeyedSubscript:kPCSSetupSyncIdentity[0]];
-
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v14 = [v15 BOOLValue];
+      v14 = v13;
     }
 
     else
@@ -2467,15 +1983,28 @@ void PCSIdentitySetCreateAllManateeIdentities(uint64_t a1, void *a2, void *a3)
       v14 = 0;
     }
 
-    if (!PCSCurrentPersonaMatchesDSID(v13))
+    v16 = [v4 objectForKeyedSubscript:kPCSSetupSyncIdentity[0]];
+
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
     {
-      v20 = MEMORY[0x1E696ABC0];
-      v21 = kPCSErrorDomain;
-      v31 = *MEMORY[0x1E696A578];
-      v32 = @"Current persona does not match chosen dsid";
-      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
-      v23 = [v20 errorWithDomain:v21 code:152 userInfo:v22];
-      v5[2](v5, 0, v23);
+      v15 = [v16 BOOLValue];
+    }
+
+    else
+    {
+      v15 = 0;
+    }
+
+    if (!PCSCurrentPersonaMatchesDSID(v14))
+    {
+      v22 = MEMORY[0x1E696ABC0];
+      v23 = kPCSErrorDomain;
+      v32 = *MEMORY[0x1E696A578];
+      v33 = @"Current persona does not match chosen dsid";
+      v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+      v25 = [v22 errorWithDomain:v23 code:152 userInfo:v24];
+      v5[2](v5, 0, v25);
 
       goto LABEL_19;
     }
@@ -2483,62 +2012,61 @@ void PCSIdentitySetCreateAllManateeIdentities(uint64_t a1, void *a2, void *a3)
 
   else
   {
+    v15 = 0;
     v14 = 0;
-    v13 = 0;
   }
 
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __PCSIdentitySetCreateAllManateeIdentities_block_invoke;
-  v27[3] = &unk_1E7B19DA0;
-  v13 = v13;
-  v28 = v13;
-  v29 = v5;
-  v16 = MEMORY[0x1B2745320](v27);
-  v17 = _PCSServiceItemsGetAllManateeServices();
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __PCSIdentitySetCreateAllManateeIdentities_block_invoke_2;
-  v25[3] = &unk_1E7B19C90;
-  v18 = v16;
-  v26 = v18;
-  v19 = [v7 remoteObjectProxyWithErrorHandler:v25];
-  [v19 createIdentities:v17 dsid:v13 roll:0 sync:v14 forceSync:0 complete:v18];
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __PCSIdentitySetCreateAllManateeIdentities_block_invoke;
+  v28[3] = &unk_1E7B19DA0;
+  v14 = v14;
+  v29 = v14;
+  v30 = v5;
+  v17 = MEMORY[0x1B2745320](v28);
+  v19 = _PCSServiceItemsGetAllManateeServices(v17, v18);
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __PCSIdentitySetCreateAllManateeIdentities_block_invoke_2;
+  v26[3] = &unk_1E7B19C90;
+  v20 = v17;
+  v27 = v20;
+  v21 = [v8 remoteObjectProxyWithErrorHandler:v26];
+  [v21 createIdentities:v19 dsid:v14 roll:0 sync:v15 forceSync:0 complete:v20];
 
-  v15 = v28;
+  v16 = v29;
 LABEL_19:
 
   os_activity_scope_leave(&state);
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __PCSIdentitySetCreateAllManateeIdentities_block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a4;
   Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v9 = v6;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       v13 = 0;
       do
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v17 + 1) + 8 * v13);
+        v14 = *(*(&v16 + 1) + 8 * v13);
         if (v14)
         {
           v15 = PCSIdentityCreateFromPersistentReference(v14, *(a1 + 32));
@@ -2552,57 +2080,55 @@ void __PCSIdentitySetCreateAllManateeIdentities_block_invoke(uint64_t a1, void *
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
   }
 
   (*(*(a1 + 40) + 16))(*(a1 + 40));
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t PCSReportManateeStatus(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v1 = a1;
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x2020000000;
-  v14 = 11;
-  v2 = connectionPCSKeySyncing();
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __PCSReportManateeStatus_block_invoke;
-  v10[3] = &unk_1E7B19AB0;
-  v10[4] = &v11;
-  v3 = [v2 synchronousRemoteObjectProxyWithErrorHandler:v10];
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2020000000;
+  v13 = 11;
+  v2 = connectionPCSKeySyncing(v1);
   v9[0] = MEMORY[0x1E69E9820];
   v9[1] = 3221225472;
-  v9[2] = __PCSReportManateeStatus_block_invoke_2;
-  v9[3] = &unk_1E7B19DC8;
-  v9[4] = &v11;
-  [v3 manateeStatus:v1 complete:v9];
+  v9[2] = __PCSReportManateeStatus_block_invoke;
+  v9[3] = &unk_1E7B19AB0;
+  v9[4] = &v10;
+  v3 = [v2 synchronousRemoteObjectProxyWithErrorHandler:v9];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __PCSReportManateeStatus_block_invoke_2;
+  v8[3] = &unk_1E7B19DC8;
+  v8[4] = &v10;
+  [v3 manateeStatus:v1 complete:v8];
 
   v4 = pcsLogObjForScope("ManateeStatus");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(v12 + 6);
+    v5 = *(v11 + 6);
     *buf = 67109120;
-    v16 = v5;
+    v15 = v5;
     _os_log_impl(&dword_1B229C000, v4, OS_LOG_TYPE_DEFAULT, "PCSReportManateeStatus: %d", buf, 8u);
   }
 
-  v6 = *(v12 + 6);
-  _Block_object_dispose(&v11, 8);
+  v6 = *(v11 + 6);
+  _Block_object_dispose(&v10, 8);
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
-void sub_1B22DDAC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1B22DDAC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2614,7 +2140,7 @@ uint64_t PCSReportKeyRollPending(void *a1)
   v8 = &v7;
   v9 = 0x2020000000;
   v10 = 0;
-  v2 = connectionPCSKeySyncing();
+  v2 = connectionPCSKeySyncing(v1);
   v3 = [v2 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_186_0];
   v6[0] = MEMORY[0x1E69E9820];
   v6[1] = 3221225472;
@@ -2629,35 +2155,34 @@ uint64_t PCSReportKeyRollPending(void *a1)
   return v4;
 }
 
-void sub_1B22DDBF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B22DDBF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void __PCSReportKeyRollPending_block_invoke_2(uint64_t a1, int a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = pcsLogObjForScope("ManateeStatus");
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8[0] = 67109378;
-    v8[1] = a2;
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_1B229C000, v6, OS_LOG_TYPE_DEFAULT, "PCSReportKeyRollPending: %d: %@", v8, 0x12u);
+    v7[0] = 67109378;
+    v7[1] = a2;
+    v8 = 2112;
+    v9 = v5;
+    _os_log_impl(&dword_1B229C000, v6, OS_LOG_TYPE_DEFAULT, "PCSReportKeyRollPending: %d: %@", v7, 0x12u);
   }
 
   *(*(*(a1 + 32) + 8) + 24) = a2;
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void PCSGetHealthSummary(void *a1)
 {
   v1 = a1;
-  v2 = connectionPCSKeySyncing();
+  v2 = connectionPCSKeySyncing(v1);
   v5[0] = MEMORY[0x1E69E9820];
   v5[1] = 3221225472;
   v5[2] = __PCSGetHealthSummary_block_invoke;
@@ -2684,9 +2209,9 @@ void PCSGuitarfishChangePassword(void *a1, void *a2)
 
 void PCSGuitarfishRepairIdentities(void *a1, void *a2)
 {
-  v342[1] = *MEMORY[0x1E69E9840];
-  v239 = a1;
-  v238 = a2;
+  v341[1] = *MEMORY[0x1E69E9840];
+  v238 = a1;
+  v237 = a2;
   v3 = pcsLogObjForScope("Guitarfish");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -2694,20 +2219,20 @@ void PCSGuitarfishRepairIdentities(void *a1, void *a2)
     _os_log_impl(&dword_1B229C000, v3, OS_LOG_TYPE_DEFAULT, "PCSGuitarfishRepairIdentities entered", buf, 2u);
   }
 
-  v317 = 0;
-  v318 = &v317;
-  v319 = 0x2020000000;
-  v320 = 0;
-  if (v239)
+  v316 = 0;
+  v317 = &v316;
+  v318 = 0x2020000000;
+  v319 = 0;
+  if (v238)
   {
-    v10 = [v239 objectForKeyedSubscript:kPCSSetupDSID[0]];
+    v10 = [v238 objectForKeyedSubscript:kPCSSetupDSID[0]];
     v11 = v10;
     if (v10)
     {
       if (!PCSCurrentPersonaMatchesDSID(v10))
       {
-        v55 = PCSErrorCreate(152, @"Current persona does not match chosen dsid", v12, v13, v14, v15, v16, v17, v224);
-        completeRepairIdentities(v238, 2, 1uLL, v55);
+        v55 = PCSErrorCreate(152, @"Current persona does not match chosen dsid", v12, v13, v14, v15, v16, v17, v223);
+        completeRepairIdentities(v237, 2, 1uLL, v55);
 LABEL_143:
 
         goto LABEL_144;
@@ -2720,31 +2245,31 @@ LABEL_143:
         _os_log_impl(&dword_1B229C000, v18, OS_LOG_TYPE_DEFAULT, "Repair: Entered", buf, 2u);
       }
 
-      v313 = 0;
-      v314 = &v313;
-      v315 = 0x2020000000;
-      v316 = 2;
-      v19 = dispatch_semaphore_create(0);
-      v309 = 0;
-      v310 = &v309;
-      v311 = 0x2020000000;
       v312 = 0;
-      v341 = kPCSSetupDSID[0];
-      v342[0] = v11;
-      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v342 forKeys:&v341 count:1];
-      v304[0] = MEMORY[0x1E69E9820];
-      v304[1] = 3221225472;
-      v304[2] = __PCSGuitarfishRepairIdentities_block_invoke;
-      v304[3] = &unk_1E7B19E18;
-      v306 = &v313;
-      v307 = &v309;
-      v308 = &v317;
+      v313 = &v312;
+      v314 = 0x2020000000;
+      v315 = 2;
+      v19 = dispatch_semaphore_create(0);
+      v308 = 0;
+      v309 = &v308;
+      v310 = 0x2020000000;
+      v311 = 0;
+      v340 = kPCSSetupDSID[0];
+      v341[0] = v11;
+      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v341 forKeys:&v340 count:1];
+      v303[0] = MEMORY[0x1E69E9820];
+      v303[1] = 3221225472;
+      v303[2] = __PCSGuitarfishRepairIdentities_block_invoke;
+      v303[3] = &unk_1E7B19E18;
+      v305 = &v312;
+      v306 = &v308;
+      v307 = &v316;
       dsema = v19;
-      v305 = dsema;
-      PCSGuitarfishValidateIdentities(v20, v304);
+      v304 = dsema;
+      PCSGuitarfishValidateIdentities(v20, v303);
 
       dispatch_semaphore_wait(dsema, 0xFFFFFFFFFFFFFFFFLL);
-      if (!v314[3])
+      if (!v313[3])
       {
         v56 = pcsLogObjForScope("Guitarfish");
         if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
@@ -2753,31 +2278,31 @@ LABEL_143:
           _os_log_impl(&dword_1B229C000, v56, OS_LOG_TYPE_DEFAULT, "skipping repair because we are already in a good state", buf, 2u);
         }
 
-        if ((*(v310 + 25) & 0xC) != 0)
+        if ((*(v309 + 25) & 0xC) != 0)
         {
           DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
           CFNotificationCenterPostNotification(DarwinNotifyCenter, kPCSNotificationGuitarfishRepairCompleted, 0, 0, 0);
         }
 
-        completeRepairIdentities(v238, v314[3], v318[3], 0);
+        completeRepairIdentities(v237, v313[3], v317[3], 0);
         goto LABEL_142;
       }
 
       v21 = [MEMORY[0x1E6959A48] defaultStore];
-      v235 = [v21 aa_appleAccountWithPersonID:v11];
+      v234 = [v21 aa_appleAccountWithPersonID:v11];
 
-      v22 = [v239 objectForKeyedSubscript:kPCSSetupPassword[0]];
+      v22 = [v238 objectForKeyedSubscript:kPCSSetupPassword[0]];
       v23 = v22 == 0;
 
       if (v23)
       {
-        v58 = PCSErrorCreate(123, @"must provide kPCSSetupPassword", v24, v25, v26, v27, v28, v29, v224);
-        completeRepairIdentities(v238, 2, 1uLL, v58);
+        v58 = PCSErrorCreate(123, @"must provide kPCSSetupPassword", v24, v25, v26, v27, v28, v29, v223);
+        completeRepairIdentities(v237, 2, 1uLL, v58);
       }
 
       else
       {
-        v30 = [v239 objectForKeyedSubscript:kPCSSetupRawPassword[0]];
+        v30 = [v238 objectForKeyedSubscript:kPCSSetupRawPassword[0]];
         v31 = v30 == 0;
 
         if (!v31)
@@ -2789,31 +2314,31 @@ LABEL_143:
             _os_log_impl(&dword_1B229C000, v38, OS_LOG_TYPE_DEFAULT, "Repair: Fetching Primary Record", buf, 2u);
           }
 
-          v303 = 0;
-          v339 = kPCSSetupDSID[0];
-          v340 = v11;
-          v234 = __PCSCopyStingrayInfo(1, 0, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v340 forKeys:&v339 count:1], &v303);
-          v44 = v303;
-          if (v303 || !v234)
+          v302 = 0;
+          v338 = kPCSSetupDSID[0];
+          v339 = v11;
+          v233 = __PCSCopyStingrayInfo(1, 0, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v339 forKeys:&v338 count:1], &v302);
+          v44 = v302;
+          if (v302 || !v233)
           {
-            v318[3] |= 2uLL;
-            v302 = v44;
-            _PCSNSError(&v302, 200, @"Unable to retrieve primary record, nothing to repair from!", v39, v40, v41, v42, v43, v224);
-            v60 = v302;
+            v317[3] |= 2uLL;
+            v301 = v44;
+            _PCSNSError(&v301, 200, @"Unable to retrieve primary record, nothing to repair from!", v39, v40, v41, v42, v43, v223);
+            v60 = v301;
 
-            completeRepairIdentities(v238, 2, v318[3], v60);
+            completeRepairIdentities(v237, 2, v317[3], v60);
 LABEL_140:
 
             goto LABEL_141;
           }
 
-          v233 = *MEMORY[0x1E6994F70];
-          v45 = [v234 objectForKeyedSubscript:?];
+          v232 = *MEMORY[0x1E6994F70];
+          v45 = [v233 objectForKeyedSubscript:?];
           v46 = v45 == 0;
 
           if (v46)
           {
-            v318[3] |= 2uLL;
+            v317[3] |= 2uLL;
             v61 = pcsLogObjForScope("Guitarfish");
             if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
             {
@@ -2821,9 +2346,9 @@ LABEL_140:
               _os_log_impl(&dword_1B229C000, v61, OS_LOG_TYPE_DEFAULT, "No Guitarfish Primary Record to decode", buf, 2u);
             }
 
-            v62 = v318[3];
-            v60 = PCSErrorCreate(238, @"No Primary Guitarfish Record. Account needs PCSGuitarfishSetupIdentities or migration.", v63, v64, v65, v66, v67, v68, v224);
-            completeRepairIdentities(v238, 2, v62, v60);
+            v62 = v317[3];
+            v60 = PCSErrorCreate(238, @"No Primary Guitarfish Record. Account needs PCSGuitarfishSetupIdentities or migration.", v63, v64, v65, v66, v67, v68, v223);
+            completeRepairIdentities(v237, 2, v62, v60);
             goto LABEL_140;
           }
 
@@ -2834,16 +2359,16 @@ LABEL_140:
             _os_log_impl(&dword_1B229C000, v47, OS_LOG_TYPE_DEFAULT, "Repair: Decoding Outer Record", buf, 2u);
           }
 
-          v48 = [v234 objectForKeyedSubscript:v233];
-          v231 = [v48 objectForKeyedSubscript:*MEMORY[0x1E6994E48]];
+          v48 = [v233 objectForKeyedSubscript:v232];
+          v230 = [v48 objectForKeyedSubscript:*MEMORY[0x1E6994E48]];
 
-          v49 = [v231 objectForKeyedSubscript:kPCSSecureBackupCFiCloudDataProtectionKey[0]];
-          v232 = [v49 objectForKeyedSubscript:@"SecureBackupWrappedKeys"];
-          v50 = [v231 objectForKeyedSubscript:@"IdMSPasswordGeneration"];
+          v49 = [v230 objectForKeyedSubscript:kPCSSecureBackupCFiCloudDataProtectionKey[0]];
+          v231 = [v49 objectForKeyedSubscript:@"SecureBackupWrappedKeys"];
+          v50 = [v230 objectForKeyedSubscript:@"IdMSPasswordGeneration"];
           v51 = [v49 objectForKeyedSubscript:@"DerivedDBRSeedAESPID"];
           v52 = pcsLogObjForScope("Guitarfish");
-          v225 = @"IdMSPasswordGeneration";
-          v228 = v49;
+          v224 = @"IdMSPasswordGeneration";
+          v227 = v49;
           if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
@@ -2853,123 +2378,123 @@ LABEL_140:
             _os_log_impl(&dword_1B229C000, v52, OS_LOG_TYPE_DEFAULT, "Repair: Primary Record PWGeneration: %@, PID: %@", buf, 0x16u);
           }
 
-          v229 = v50;
-          v230 = v51;
+          v228 = v50;
+          v229 = v51;
 
           *buf = 0;
           *&buf[8] = buf;
           *&buf[16] = 0x3032000000;
-          v336 = __Block_byref_object_copy__5;
-          v337 = __Block_byref_object_dispose__5;
-          v338 = 0;
-          v296 = 0;
-          v297 = &v296;
-          v298 = 0x3032000000;
-          v299 = __Block_byref_object_copy__5;
-          v300 = __Block_byref_object_dispose__5;
-          v301 = 0;
-          v294[0] = 0;
-          v294[1] = v294;
-          v294[2] = 0x3032000000;
-          v294[3] = __Block_byref_object_copy__5;
-          v294[4] = __Block_byref_object_dispose__5;
+          v335 = __Block_byref_object_copy__5;
+          v336 = __Block_byref_object_dispose__5;
+          v337 = 0;
           v295 = 0;
-          v292[0] = 0;
-          v292[1] = v292;
-          v292[2] = 0x3032000000;
-          v292[3] = __Block_byref_object_copy__5;
-          v292[4] = __Block_byref_object_dispose__5;
-          v293 = 0;
-          v286 = 0;
-          v287 = &v286;
-          v288 = 0x3032000000;
-          v289 = __Block_byref_object_copy__5;
-          v290 = __Block_byref_object_dispose__5;
-          v291 = 0;
+          v296 = &v295;
+          v297 = 0x3032000000;
+          v298 = __Block_byref_object_copy__5;
+          v299 = __Block_byref_object_dispose__5;
+          v300 = 0;
+          v293[0] = 0;
+          v293[1] = v293;
+          v293[2] = 0x3032000000;
+          v293[3] = __Block_byref_object_copy__5;
+          v293[4] = __Block_byref_object_dispose__5;
+          v294 = 0;
+          v291[0] = 0;
+          v291[1] = v291;
+          v291[2] = 0x3032000000;
+          v291[3] = __Block_byref_object_copy__5;
+          v291[4] = __Block_byref_object_dispose__5;
+          v292 = 0;
+          v285 = 0;
+          v286 = &v285;
+          v287 = 0x3032000000;
+          v288 = __Block_byref_object_copy__5;
+          v289 = __Block_byref_object_dispose__5;
+          v290 = 0;
           v53 = dispatch_semaphore_create(0);
 
-          v278[0] = MEMORY[0x1E69E9820];
-          v278[1] = 3221225472;
-          v278[2] = __PCSGuitarfishRepairIdentities_block_invoke_204;
-          v278[3] = &unk_1E7B19E40;
-          v280 = &v317;
-          v281 = &v286;
-          v282 = buf;
-          v283 = &v296;
-          v284 = v294;
-          v285 = v292;
+          v277[0] = MEMORY[0x1E69E9820];
+          v277[1] = 3221225472;
+          v277[2] = __PCSGuitarfishRepairIdentities_block_invoke_204;
+          v277[3] = &unk_1E7B19E40;
+          v279 = &v316;
+          v280 = &v285;
+          v281 = buf;
+          v282 = &v295;
+          v283 = v293;
+          v284 = v291;
           dsema = v53;
-          v279 = dsema;
-          _PCSBackupGuitarfishDecodeOuterRecord(v232, v278);
+          v278 = dsema;
+          _PCSBackupGuitarfishDecodeOuterRecord(v231, v277);
           dispatch_semaphore_wait(dsema, 0xFFFFFFFFFFFFFFFFLL);
-          v54 = v287[5];
+          v54 = v286[5];
           if (v54)
           {
-            completeRepairIdentities(v238, 3, v318[3], v54);
+            completeRepairIdentities(v237, 3, v317[3], v54);
 LABEL_139:
 
-            _Block_object_dispose(&v286, 8);
-            _Block_object_dispose(v292, 8);
+            _Block_object_dispose(&v285, 8);
+            _Block_object_dispose(v291, 8);
 
-            _Block_object_dispose(v294, 8);
-            _Block_object_dispose(&v296, 8);
+            _Block_object_dispose(v293, 8);
+            _Block_object_dispose(&v295, 8);
 
             _Block_object_dispose(buf, 8);
-            v60 = v231;
+            v60 = v230;
             goto LABEL_140;
           }
 
           v69 = pcsLogObjForScope("Guitarfish");
           if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
           {
-            *v272 = 0;
-            _os_log_impl(&dword_1B229C000, v69, OS_LOG_TYPE_DEFAULT, "Repair: Primary Record obtained and decoded", v272, 2u);
+            *v271 = 0;
+            _os_log_impl(&dword_1B229C000, v69, OS_LOG_TYPE_DEFAULT, "Repair: Primary Record obtained and decoded", v271, 2u);
           }
 
-          *v272 = 0;
-          v273 = v272;
-          v274 = 0x3032000000;
-          v275 = __Block_byref_object_copy__5;
-          v276 = __Block_byref_object_dispose__5;
-          v277 = 0;
+          *v271 = 0;
+          v272 = v271;
+          v273 = 0x3032000000;
+          v274 = __Block_byref_object_copy__5;
+          v275 = __Block_byref_object_dispose__5;
+          v276 = 0;
           v70 = dispatch_semaphore_create(0);
 
-          v268[0] = MEMORY[0x1E69E9820];
-          v268[1] = 3221225472;
-          v268[2] = __PCSGuitarfishRepairIdentities_block_invoke_205;
-          v268[3] = &unk_1E7B199C0;
-          v270 = v272;
-          v271 = &v317;
+          v267[0] = MEMORY[0x1E69E9820];
+          v267[1] = 3221225472;
+          v267[2] = __PCSGuitarfishRepairIdentities_block_invoke_205;
+          v267[3] = &unk_1E7B199C0;
+          v269 = v271;
+          v270 = &v316;
           v71 = v70;
-          v269 = v71;
-          _PCSGuitarfishGetKeychainItem(@"WrappingKey", v11, v268);
+          v268 = v71;
+          _PCSGuitarfishGetKeychainItem(@"WrappingKey", v11, v267);
           dsema = v71;
           dispatch_semaphore_wait(v71, 0xFFFFFFFFFFFFFFFFLL);
-          if (*(v273 + 5))
+          if (*(v272 + 5))
           {
-            *&v330 = 0;
-            *(&v330 + 1) = &v330;
-            v331 = 0x3032000000;
-            v332 = __Block_byref_object_copy__5;
-            v333 = __Block_byref_object_dispose__5;
-            v334 = 0;
-            v72 = *(v273 + 5);
-            v267[0] = MEMORY[0x1E69E9820];
-            v267[1] = 3221225472;
-            v267[2] = __PCSGuitarfishRepairIdentities_block_invoke_207;
-            v267[3] = &unk_1E7B19E68;
-            v267[4] = &v330;
-            _PCSBackupGuitarfishGetRecoveredInnerBlobFromOuterBlobWithWrappingKey(v72, v232, v267);
-            if (*(*(&v330 + 1) + 40))
+            *&v329 = 0;
+            *(&v329 + 1) = &v329;
+            v330 = 0x3032000000;
+            v331 = __Block_byref_object_copy__5;
+            v332 = __Block_byref_object_dispose__5;
+            v333 = 0;
+            v72 = *(v272 + 5);
+            v266[0] = MEMORY[0x1E69E9820];
+            v266[1] = 3221225472;
+            v266[2] = __PCSGuitarfishRepairIdentities_block_invoke_207;
+            v266[3] = &unk_1E7B19E68;
+            v266[4] = &v329;
+            _PCSBackupGuitarfishGetRecoveredInnerBlobFromOuterBlobWithWrappingKey(v72, v231, v266);
+            if (*(*(&v329 + 1) + 40))
             {
               v73 = pcsLogObjForScope("Guitarfish");
               if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
               {
-                PCSGuitarfishRepairIdentities_cold_1(&v330 + 8, v73);
+                PCSGuitarfishRepairIdentities_cold_1(&v329 + 8, v73);
               }
 
-              v74 = *(v273 + 5);
-              *(v273 + 5) = 0;
+              v74 = *(v272 + 5);
+              *(v272 + 5) = 0;
             }
 
             else
@@ -2977,42 +2502,42 @@ LABEL_139:
               v74 = pcsLogObjForScope("Guitarfish");
               if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
               {
-                *v261 = 0;
-                _os_log_impl(&dword_1B229C000, v74, OS_LOG_TYPE_DEFAULT, "Existing stashed wrappingKey is valid for the current record. No need to recover via p_password or p_token", v261, 2u);
+                *v260 = 0;
+                _os_log_impl(&dword_1B229C000, v74, OS_LOG_TYPE_DEFAULT, "Existing stashed wrappingKey is valid for the current record. No need to recover via p_password or p_token", v260, 2u);
               }
             }
 
-            _Block_object_dispose(&v330, 8);
+            _Block_object_dispose(&v329, 8);
           }
 
           cf = objc_alloc_init(MEMORY[0x1E695DF90]);
           [cf setObject:v11 forKeyedSubscript:kPCSSetupDSID[0]];
-          v75 = [v235 username];
+          v75 = [v234 username];
           [cf setObject:v75 forKeyedSubscript:kPCSSetupUsername[0]];
 
-          v76 = [v239 objectForKeyedSubscript:kPCSSetupPassword[0]];
+          v76 = [v238 objectForKeyedSubscript:kPCSSetupPassword[0]];
           [cf setObject:v76 forKeyedSubscript:kPCSSetupPassword[0]];
 
-          v77 = [v239 objectForKeyedSubscript:kPCSSetupRawPassword[0]];
+          v77 = [v238 objectForKeyedSubscript:kPCSSetupRawPassword[0]];
           [cf setObject:v77 forKeyedSubscript:kPCSSetupRawPassword[0]];
 
           [cf setObject:MEMORY[0x1E695E118] forKeyedSubscript:kPCSSetupGuitarfish[0]];
-          v78 = [v239 objectForKeyedSubscript:kPCSSetupVerifierProtocol[0]];
+          v78 = [v238 objectForKeyedSubscript:kPCSSetupVerifierProtocol[0]];
           [cf setObject:v78 forKeyedSubscript:kPCSSetupVerifierProtocol[0]];
 
-          v79 = [v239 objectForKeyedSubscript:kPCSSetupVerifierIterationCount[0]];
+          v79 = [v238 objectForKeyedSubscript:kPCSSetupVerifierIterationCount[0]];
           [cf setObject:v79 forKeyedSubscript:kPCSSetupVerifierIterationCount[0]];
 
-          v80 = [v239 objectForKeyedSubscript:kPCSSetupVerifierSalt[0]];
+          v80 = [v238 objectForKeyedSubscript:kPCSSetupVerifierSalt[0]];
           [cf setObject:v80 forKeyedSubscript:kPCSSetupVerifierSalt[0]];
 
-          v81 = [v239 objectForKeyedSubscript:kPCSSetupPasswordGeneration[0]];
+          v81 = [v238 objectForKeyedSubscript:kPCSSetupPasswordGeneration[0]];
           [cf setObject:v81 forKeyedSubscript:kPCSSetupPasswordGeneration[0]];
 
-          v82 = [v231 objectForKeyedSubscript:@"IdMSPasswordGeneration"];
+          v82 = [v230 objectForKeyedSubscript:@"IdMSPasswordGeneration"];
           [cf setObject:v82 forKeyedSubscript:kPCSPasswordGenerationFromExistingMetadata[0]];
 
-          if (*(v273 + 5))
+          if (*(v272 + 5))
           {
             goto LABEL_46;
           }
@@ -3020,11 +2545,11 @@ LABEL_139:
           v85 = pcsLogObjForScope("Guitarfish");
           if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
           {
-            LOWORD(v330) = 0;
-            _os_log_impl(&dword_1B229C000, v85, OS_LOG_TYPE_DEFAULT, "wrappingKey is not already available locally, performing recovery", &v330, 2u);
+            LOWORD(v329) = 0;
+            _os_log_impl(&dword_1B229C000, v85, OS_LOG_TYPE_DEFAULT, "wrappingKey is not already available locally, performing recovery", &v329, 2u);
           }
 
-          v86 = [v239 objectForKeyedSubscript:kPCSSetupRecoveryToken[0]];
+          v86 = [v238 objectForKeyedSubscript:kPCSSetupRecoveryToken[0]];
           v87 = v86 == 0;
 
           if (v87)
@@ -3032,105 +2557,105 @@ LABEL_139:
             v108 = pcsLogObjForScope("Guitarfish");
             if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
             {
-              LOWORD(v330) = 0;
-              _os_log_impl(&dword_1B229C000, v108, OS_LOG_TYPE_DEFAULT, "Repair: Attempting p_password recovery", &v330, 2u);
+              LOWORD(v329) = 0;
+              _os_log_impl(&dword_1B229C000, v108, OS_LOG_TYPE_DEFAULT, "Repair: Attempting p_password recovery", &v329, 2u);
             }
 
-            v109 = [v239 objectForKeyedSubscript:kPCSSetupPreviousiCloudPassword[0]];
+            v109 = [v238 objectForKeyedSubscript:kPCSSetupPreviousiCloudPassword[0]];
 
             if (v109)
             {
               v110 = pcsLogObjForScope("Guitarfish");
               if (os_log_type_enabled(v110, OS_LOG_TYPE_DEFAULT))
               {
-                LOWORD(v330) = 0;
-                _os_log_impl(&dword_1B229C000, v110, OS_LOG_TYPE_DEFAULT, "Repair: Provided a previous iCloud Password, using that for p_password recovery", &v330, 2u);
+                LOWORD(v329) = 0;
+                _os_log_impl(&dword_1B229C000, v110, OS_LOG_TYPE_DEFAULT, "Repair: Provided a previous iCloud Password, using that for p_password recovery", &v329, 2u);
               }
 
-              v111 = [v239 objectForKeyedSubscript:kPCSSetupPreviousiCloudPassword[0]];
+              v111 = [v238 objectForKeyedSubscript:kPCSSetupPreviousiCloudPassword[0]];
               [cf setObject:v111 forKeyedSubscript:kPCSSetupRawPassword[0]];
 
-              v112 = [v239 objectForKeyedSubscript:kPCSSetupPreviousiCloudPasswordGeneration[0]];
+              v112 = [v238 objectForKeyedSubscript:kPCSSetupPreviousiCloudPasswordGeneration[0]];
               [cf setObject:v112 forKeyedSubscript:kPCSSetupPasswordGeneration[0]];
             }
 
-            v303 = 0;
-            v113 = __PCSCopyHSMData(1, 0, cf, &v303);
-            v114 = v303;
-            if (v303)
+            v302 = 0;
+            v113 = __PCSCopyHSMData(1, 0, cf, &v302);
+            v114 = v302;
+            if (v302)
             {
               v115 = pcsLogObjForScope("Guitarfish");
               if (os_log_type_enabled(v115, OS_LOG_TYPE_DEFAULT))
               {
-                LODWORD(v330) = 138412290;
-                *(&v330 + 4) = v114;
-                _os_log_impl(&dword_1B229C000, v115, OS_LOG_TYPE_DEFAULT, "Repair: FAILED to recover p_password from HSM: %@", &v330, 0xCu);
+                LODWORD(v329) = 138412290;
+                *(&v329 + 4) = v114;
+                _os_log_impl(&dword_1B229C000, v115, OS_LOG_TYPE_DEFAULT, "Repair: FAILED to recover p_password from HSM: %@", &v329, 0xCu);
               }
 
-              v253 = v114;
-              _PCSNSError(&v253, 221, @"Unable to recover wrappingKey with p_password", v116, v117, v118, v119, v120, @"IdMSPasswordGeneration");
-              v121 = v253;
+              v252 = v114;
+              _PCSNSError(&v252, 221, @"Unable to recover wrappingKey with p_password", v116, v117, v118, v119, v120, @"IdMSPasswordGeneration");
+              v121 = v252;
 
-              completeRepairIdentities(v238, 2, v318[3], v121);
+              completeRepairIdentities(v237, 2, v317[3], v121);
             }
 
             else
             {
-              v176 = [v239 objectForKeyedSubscript:kPCSSetupRawPassword[0]];
-              [cf setObject:v176 forKeyedSubscript:kPCSSetupRawPassword[0]];
+              v175 = [v238 objectForKeyedSubscript:kPCSSetupRawPassword[0]];
+              [cf setObject:v175 forKeyedSubscript:kPCSSetupRawPassword[0]];
 
-              v177 = [v239 objectForKeyedSubscript:kPCSSetupPasswordGeneration[0]];
-              [cf setObject:v177 forKeyedSubscript:kPCSSetupPasswordGeneration[0]];
+              v176 = [v238 objectForKeyedSubscript:kPCSSetupPasswordGeneration[0]];
+              [cf setObject:v176 forKeyedSubscript:kPCSSetupPasswordGeneration[0]];
 
-              v178 = pcsLogObjForScope("Guitarfish");
-              if (os_log_type_enabled(v178, OS_LOG_TYPE_DEFAULT))
+              v177 = pcsLogObjForScope("Guitarfish");
+              if (os_log_type_enabled(v177, OS_LOG_TYPE_DEFAULT))
               {
-                v179 = [v113 length];
-                LODWORD(v330) = 134217984;
-                *(&v330 + 4) = v179;
-                _os_log_impl(&dword_1B229C000, v178, OS_LOG_TYPE_DEFAULT, "Repair: Obtained ClassicContent with length of: %lu", &v330, 0xCu);
+                v178 = [v113 length];
+                LODWORD(v329) = 134217984;
+                *(&v329 + 4) = v178;
+                _os_log_impl(&dword_1B229C000, v177, OS_LOG_TYPE_DEFAULT, "Repair: Obtained ClassicContent with length of: %lu", &v329, 0xCu);
               }
 
-              v180 = *(*&buf[8] + 40);
-              v181 = (v287 + 5);
-              obj = v287[5];
-              v182 = _PCSGuitarfishUnwrapKeyWithAESKey(v180, v113, &obj);
-              objc_storeStrong(v181, obj);
-              v183 = *(v273 + 5);
-              *(v273 + 5) = v182;
+              v179 = *(*&buf[8] + 40);
+              v180 = (v286 + 5);
+              obj = v286[5];
+              v181 = _PCSGuitarfishUnwrapKeyWithAESKey(v179, v113, &obj);
+              objc_storeStrong(v180, obj);
+              v182 = *(v272 + 5);
+              *(v272 + 5) = v181;
 
-              if (v287[5])
+              if (v286[5])
               {
-                v190 = pcsLogObjForScope("Guitarfish");
-                if (os_log_type_enabled(v190, OS_LOG_TYPE_DEFAULT))
+                v189 = pcsLogObjForScope("Guitarfish");
+                if (os_log_type_enabled(v189, OS_LOG_TYPE_DEFAULT))
                 {
-                  v191 = v287[5];
-                  LODWORD(v330) = 138412290;
-                  *(&v330 + 4) = v191;
-                  _os_log_impl(&dword_1B229C000, v190, OS_LOG_TYPE_DEFAULT, "Unable to unwrap wrappingKey with p_password: %@", &v330, 0xCu);
+                  v190 = v286[5];
+                  LODWORD(v329) = 138412290;
+                  *(&v329 + 4) = v190;
+                  _os_log_impl(&dword_1B229C000, v189, OS_LOG_TYPE_DEFAULT, "Unable to unwrap wrappingKey with p_password: %@", &v329, 0xCu);
                 }
               }
 
-              v192 = v318[3];
-              if (*(v273 + 5))
+              v191 = v317[3];
+              if (*(v272 + 5))
               {
-                v318[3] = v192 & 0xFFFFFFFFFFF9FFFDLL | 0x60000;
-                v193 = pcsLogObjForScope("Guitarfish");
-                if (os_log_type_enabled(v193, OS_LOG_TYPE_DEFAULT))
+                v317[3] = v191 & 0xFFFFFFFFFFF9FFFDLL | 0x60000;
+                v192 = pcsLogObjForScope("Guitarfish");
+                if (os_log_type_enabled(v192, OS_LOG_TYPE_DEFAULT))
                 {
-                  LOWORD(v330) = 0;
-                  _os_log_impl(&dword_1B229C000, v193, OS_LOG_TYPE_DEFAULT, "Repair: wrappingKey recovered with p_password", &v330, 2u);
+                  LOWORD(v329) = 0;
+                  _os_log_impl(&dword_1B229C000, v192, OS_LOG_TYPE_DEFAULT, "Repair: wrappingKey recovered with p_password", &v329, 2u);
                 }
 
                 goto LABEL_46;
               }
 
-              v121 = PCSErrorCreate(221, @"Unable to recover wrappingKey with p_password", v184, v185, v186, v187, v188, v189, @"IdMSPasswordGeneration");
-              completeRepairIdentities(v238, 2, v192, v121);
+              v121 = PCSErrorCreate(221, @"Unable to recover wrappingKey with p_password", v183, v184, v185, v186, v187, v188, @"IdMSPasswordGeneration");
+              completeRepairIdentities(v237, 2, v191, v121);
             }
 
 LABEL_138:
-            _Block_object_dispose(v272, 8);
+            _Block_object_dispose(v271, 8);
 
             goto LABEL_139;
           }
@@ -3138,53 +2663,53 @@ LABEL_138:
           v88 = pcsLogObjForScope("Guitarfish");
           if (os_log_type_enabled(v88, OS_LOG_TYPE_DEFAULT))
           {
-            LOWORD(v330) = 0;
-            _os_log_impl(&dword_1B229C000, v88, OS_LOG_TYPE_DEFAULT, "Repair: Attempting recovery token repair", &v330, 2u);
+            LOWORD(v329) = 0;
+            _os_log_impl(&dword_1B229C000, v88, OS_LOG_TYPE_DEFAULT, "Repair: Attempting recovery token repair", &v329, 2u);
           }
 
-          *&v330 = 0;
-          *(&v330 + 1) = &v330;
-          v331 = 0x3032000000;
-          v332 = __Block_byref_object_copy__5;
-          v333 = __Block_byref_object_dispose__5;
-          v334 = 0;
-          *v261 = 0;
-          v262 = v261;
-          v263 = 0x3032000000;
-          v264 = __Block_byref_object_copy__5;
-          v265 = __Block_byref_object_dispose__5;
-          v266 = 0;
-          v89 = [v239 objectForKeyedSubscript:kPCSSetupRecoveryToken[0]];
+          *&v329 = 0;
+          *(&v329 + 1) = &v329;
+          v330 = 0x3032000000;
+          v331 = __Block_byref_object_copy__5;
+          v332 = __Block_byref_object_dispose__5;
+          v333 = 0;
+          *v260 = 0;
+          v261 = v260;
+          v262 = 0x3032000000;
+          v263 = __Block_byref_object_copy__5;
+          v264 = __Block_byref_object_dispose__5;
+          v265 = 0;
+          v89 = [v238 objectForKeyedSubscript:kPCSSetupRecoveryToken[0]];
           v90 = dispatch_semaphore_create(0);
 
-          v256[0] = MEMORY[0x1E69E9820];
-          v256[1] = 3221225472;
-          v256[2] = __PCSGuitarfishRepairIdentities_block_invoke_209;
-          v256[3] = &unk_1E7B19E90;
-          v258 = &v286;
-          v259 = &v330;
-          v260 = v261;
+          v255[0] = MEMORY[0x1E69E9820];
+          v255[1] = 3221225472;
+          v255[2] = __PCSGuitarfishRepairIdentities_block_invoke_209;
+          v255[3] = &unk_1E7B19E90;
+          v257 = &v285;
+          v258 = &v329;
+          v259 = v260;
           dsema = v90;
-          v257 = dsema;
-          PCSGuitarfishDeriveRecoveryKeyFromMnemonic(v89, v256);
+          v256 = dsema;
+          PCSGuitarfishDeriveRecoveryKeyFromMnemonic(v89, v255);
           dispatch_semaphore_wait(dsema, 0xFFFFFFFFFFFFFFFFLL);
-          if (v287[5])
+          if (v286[5])
           {
             v91 = pcsLogObjForScope("Guitarfish");
             if (os_log_type_enabled(v91, OS_LOG_TYPE_DEFAULT))
             {
-              v92 = v287[5];
-              *v326 = 138412290;
-              *&v326[4] = v92;
-              _os_log_impl(&dword_1B229C000, v91, OS_LOG_TYPE_DEFAULT, "unable to derive PID from provided mnemonic: %@", v326, 0xCu);
+              v92 = v286[5];
+              *v325 = 138412290;
+              *&v325[4] = v92;
+              _os_log_impl(&dword_1B229C000, v91, OS_LOG_TYPE_DEFAULT, "unable to derive PID from provided mnemonic: %@", v325, 0xCu);
             }
 
-            completeRepairIdentities(v238, 2, v318[3], v287[5]);
+            completeRepairIdentities(v237, 2, v317[3], v286[5]);
             v93 = 0;
 LABEL_168:
 
-            _Block_object_dispose(v261, 8);
-            _Block_object_dispose(&v330, 8);
+            _Block_object_dispose(v260, 8);
+            _Block_object_dispose(&v329, 8);
 
             if ((v93 & 1) == 0)
             {
@@ -3192,123 +2717,123 @@ LABEL_168:
             }
 
 LABEL_46:
-            *&v330 = 0;
-            *(&v330 + 1) = &v330;
-            v331 = 0x3032000000;
-            v332 = __Block_byref_object_copy__5;
-            v333 = __Block_byref_object_dispose__5;
-            v334 = 0;
-            *v261 = 0;
-            v262 = v261;
-            v263 = 0x3032000000;
-            v264 = __Block_byref_object_copy__5;
-            v265 = __Block_byref_object_dispose__5;
-            v266 = 0;
-            *v326 = 0;
-            *&v326[8] = v326;
-            *&v326[16] = 0x3032000000;
-            v327 = __Block_byref_object_copy__5;
-            v328 = __Block_byref_object_dispose__5;
-            v329 = 0;
-            v83 = *(v273 + 5);
+            *&v329 = 0;
+            *(&v329 + 1) = &v329;
+            v330 = 0x3032000000;
+            v331 = __Block_byref_object_copy__5;
+            v332 = __Block_byref_object_dispose__5;
+            v333 = 0;
+            *v260 = 0;
+            v261 = v260;
+            v262 = 0x3032000000;
+            v263 = __Block_byref_object_copy__5;
+            v264 = __Block_byref_object_dispose__5;
+            v265 = 0;
+            *v325 = 0;
+            *&v325[8] = v325;
+            *&v325[16] = 0x3032000000;
+            v326 = __Block_byref_object_copy__5;
+            v327 = __Block_byref_object_dispose__5;
+            v328 = 0;
+            v83 = *(v272 + 5);
             if (!v83)
             {
               v94 = pcsLogObjForScope("Guitarfish");
               if (os_log_type_enabled(v94, OS_LOG_TYPE_DEFAULT))
               {
-                *v322 = 0;
-                _os_log_impl(&dword_1B229C000, v94, OS_LOG_TYPE_DEFAULT, "Unable to recover wrapping key from recovery mechanism, unable to repair", v322, 2u);
+                *v321 = 0;
+                _os_log_impl(&dword_1B229C000, v94, OS_LOG_TYPE_DEFAULT, "Unable to recover wrapping key from recovery mechanism, unable to repair", v321, 2u);
               }
 
-              v95 = v318[3];
-              v102 = PCSErrorCreate(223, @"Unable to recover wrappingKey from provided recovery mechanism", v96, v97, v98, v99, v100, v101, v225);
-              completeRepairIdentities(v238, 3, v95, v102);
+              v95 = v317[3];
+              v102 = PCSErrorCreate(223, @"Unable to recover wrappingKey from provided recovery mechanism", v96, v97, v98, v99, v100, v101, v224);
+              completeRepairIdentities(v237, 3, v95, v102);
               goto LABEL_136;
             }
 
-            v251[0] = MEMORY[0x1E69E9820];
-            v251[1] = 3221225472;
-            v251[2] = __PCSGuitarfishRepairIdentities_block_invoke_220;
-            v251[3] = &unk_1E7B19EB8;
-            v251[4] = &v286;
-            v251[5] = &v330;
-            v251[6] = v261;
-            v251[7] = v326;
-            _PCSBackupGuitarfishGetRecoveredInnerBlobFromOuterBlobWithWrappingKey(v83, v232, v251);
-            v84 = v287[5];
+            v250[0] = MEMORY[0x1E69E9820];
+            v250[1] = 3221225472;
+            v250[2] = __PCSGuitarfishRepairIdentities_block_invoke_220;
+            v250[3] = &unk_1E7B19EB8;
+            v250[4] = &v285;
+            v250[5] = &v329;
+            v250[6] = v260;
+            v250[7] = v325;
+            _PCSBackupGuitarfishGetRecoveredInnerBlobFromOuterBlobWithWrappingKey(v83, v231, v250);
+            v84 = v286[5];
             if (v84)
             {
-              completeRepairIdentities(v238, 3, v318[3], v84);
+              completeRepairIdentities(v237, 3, v317[3], v84);
 LABEL_137:
-              _Block_object_dispose(v326, 8);
+              _Block_object_dispose(v325, 8);
 
-              _Block_object_dispose(v261, 8);
-              _Block_object_dispose(&v330, 8);
+              _Block_object_dispose(v260, 8);
+              _Block_object_dispose(&v329, 8);
 
               goto LABEL_138;
             }
 
             v103 = dispatch_semaphore_create(0);
 
-            v104 = *(v273 + 5);
-            v248[0] = MEMORY[0x1E69E9820];
-            v248[1] = 3221225472;
-            v248[2] = __PCSGuitarfishRepairIdentities_block_invoke_221;
-            v248[3] = &unk_1E7B19A60;
-            v250 = &v317;
+            v104 = *(v272 + 5);
+            v247[0] = MEMORY[0x1E69E9820];
+            v247[1] = 3221225472;
+            v247[2] = __PCSGuitarfishRepairIdentities_block_invoke_221;
+            v247[3] = &unk_1E7B19A60;
+            v249 = &v316;
             dsema = v103;
-            v249 = dsema;
-            _PCSGuitarfishSetKeychainItem(@"WrappingKey", v11, v104, v248);
+            v248 = dsema;
+            _PCSGuitarfishSetKeychainItem(@"WrappingKey", v11, v104, v247);
             dispatch_semaphore_wait(dsema, 0xFFFFFFFFFFFFFFFFLL);
-            if (*(*(&v330 + 1) + 40))
+            if (*(*(&v329 + 1) + 40))
             {
               v105 = dispatch_semaphore_create(0);
 
-              v106 = [*(*(&v330 + 1) + 40) componentsJoinedByString:@" "];
+              v106 = [*(*(&v329 + 1) + 40) componentsJoinedByString:@" "];
               v107 = [v106 dataUsingEncoding:4];
-              v245[0] = MEMORY[0x1E69E9820];
-              v245[1] = 3221225472;
-              v245[2] = __PCSGuitarfishRepairIdentities_block_invoke_222;
-              v245[3] = &unk_1E7B19A60;
-              v247 = &v317;
+              v244[0] = MEMORY[0x1E69E9820];
+              v244[1] = 3221225472;
+              v244[2] = __PCSGuitarfishRepairIdentities_block_invoke_222;
+              v244[3] = &unk_1E7B19A60;
+              v246 = &v316;
               dsema = v105;
-              v246 = dsema;
-              _PCSGuitarfishSetKeychainItem(@"RecoveryToken", v11, v107, v245);
+              v245 = dsema;
+              _PCSGuitarfishSetKeychainItem(@"RecoveryToken", v11, v107, v244);
 
               dispatch_semaphore_wait(dsema, 0xFFFFFFFFFFFFFFFFLL);
             }
 
             else
             {
-              v318[3] &= ~0x40000uLL;
+              v317[3] &= ~0x40000uLL;
               _PCSGuitarfishDeleteKeychainItem(@"RecoveryToken", v11, &__block_literal_global_225);
             }
 
-            if (!v235)
+            if (!v234)
             {
               v132 = pcsLogObjForScope("Guitarfish");
               if (os_log_type_enabled(v132, OS_LOG_TYPE_DEFAULT))
               {
-                *v322 = 0;
-                _os_log_impl(&dword_1B229C000, v132, OS_LOG_TYPE_DEFAULT, "Unable to get ACAccount", v322, 2u);
+                *v321 = 0;
+                _os_log_impl(&dword_1B229C000, v132, OS_LOG_TYPE_DEFAULT, "Unable to get ACAccount", v321, 2u);
               }
 
 LABEL_93:
 
-              v318[3] |= 0x1000uLL;
+              v317[3] |= 0x1000uLL;
               v135 = pcsLogObjForScope("Guitarfish");
               if (os_log_type_enabled(v135, OS_LOG_TYPE_DEFAULT))
               {
-                *v322 = 0;
-                _os_log_impl(&dword_1B229C000, v135, OS_LOG_TYPE_DEFAULT, "Unable to resolve password version from AKAccount", v322, 2u);
+                *v321 = 0;
+                _os_log_impl(&dword_1B229C000, v135, OS_LOG_TYPE_DEFAULT, "Unable to resolve password version from AKAccount", v321, 2u);
               }
 
-              v136 = [v234 objectForKeyedSubscript:v233];
+              v136 = [v233 objectForKeyedSubscript:v232];
               v137 = *MEMORY[0x1E6994EB0];
               v138 = [v136 objectForKeyedSubscript:*MEMORY[0x1E6994EB0]];
               if (v138)
               {
-                v139 = [v234 objectForKeyedSubscript:v233];
+                v139 = [v233 objectForKeyedSubscript:v232];
                 v140 = *MEMORY[0x1E6994E98];
                 v141 = [v139 objectForKeyedSubscript:*MEMORY[0x1E6994E98]];
                 v142 = v141 == 0;
@@ -3321,20 +2846,20 @@ LABEL_93:
                 v143 = pcsLogObjForScope("Guitarfish");
                 if (os_log_type_enabled(v143, OS_LOG_TYPE_DEFAULT))
                 {
-                  v144 = [v234 objectForKeyedSubscript:v233];
+                  v144 = [v233 objectForKeyedSubscript:v232];
                   v145 = [v144 objectForKeyedSubscript:v137];
-                  v146 = [v234 objectForKeyedSubscript:v233];
+                  v146 = [v233 objectForKeyedSubscript:v232];
                   v147 = [v146 objectForKeyedSubscript:v140];
-                  *v322 = 138412546;
-                  v323 = v145;
-                  v324 = 2112;
-                  v325 = v147;
-                  _os_log_impl(&dword_1B229C000, v143, OS_LOG_TYPE_DEFAULT, "Existing Federation: %@, Expected Federation: %@", v322, 0x16u);
+                  *v321 = 138412546;
+                  v322 = v145;
+                  v323 = 2112;
+                  v324 = v147;
+                  _os_log_impl(&dword_1B229C000, v143, OS_LOG_TYPE_DEFAULT, "Existing Federation: %@, Expected Federation: %@", v321, 0x16u);
                 }
 
-                v148 = [v234 objectForKeyedSubscript:v233];
+                v148 = [v233 objectForKeyedSubscript:v232];
                 v149 = [v148 objectForKeyedSubscript:v137];
-                v150 = [v234 objectForKeyedSubscript:v233];
+                v150 = [v233 objectForKeyedSubscript:v232];
                 v151 = [v150 objectForKeyedSubscript:v140];
                 v152 = [v149 isEqual:v151];
 
@@ -3343,59 +2868,59 @@ LABEL_93:
                   goto LABEL_103;
                 }
 
-                v318[3] |= 0x80uLL;
+                v317[3] |= 0x80uLL;
                 v136 = pcsLogObjForScope("Guitarfish");
                 if (os_log_type_enabled(v136, OS_LOG_TYPE_DEFAULT))
                 {
-                  *v322 = 0;
-                  _os_log_impl(&dword_1B229C000, v136, OS_LOG_TYPE_DEFAULT, "Federation Migration Needed", v322, 2u);
+                  *v321 = 0;
+                  _os_log_impl(&dword_1B229C000, v136, OS_LOG_TYPE_DEFAULT, "Federation Migration Needed", v321, 2u);
                 }
               }
 
 LABEL_103:
-              v153 = [v234 objectForKeyedSubscript:{v233, v225, v228, v229}];
-              v226 = [v153 objectForKeyedSubscript:*MEMORY[0x1E6994F50]];
+              v153 = [v233 objectForKeyedSubscript:{v232, v224, v227, v228}];
+              v225 = [v153 objectForKeyedSubscript:*MEMORY[0x1E6994F50]];
 
               v154 = pcsLogObjForScope("Guitarfish");
               if (os_log_type_enabled(v154, OS_LOG_TYPE_DEFAULT))
               {
-                *v322 = 138412290;
-                v323 = v226;
-                _os_log_impl(&dword_1B229C000, v154, OS_LOG_TYPE_DEFAULT, "Primary record has %@ attempts remaining", v322, 0xCu);
+                *v321 = 138412290;
+                v322 = v225;
+                _os_log_impl(&dword_1B229C000, v154, OS_LOG_TYPE_DEFAULT, "Primary record has %@ attempts remaining", v321, 0xCu);
               }
 
-              if (v226 && [v226 isEqualToNumber:&unk_1F2998448])
+              if (v225 && [v225 isEqualToNumber:&unk_1F2998448])
               {
                 v155 = pcsLogObjForScope("Guitarfish");
                 if (os_log_type_enabled(v155, OS_LOG_TYPE_DEFAULT))
                 {
-                  *v322 = 0;
-                  _os_log_impl(&dword_1B229C000, v155, OS_LOG_TYPE_DEFAULT, "Primary record is terminal, re-enroll is required", v322, 2u);
+                  *v321 = 0;
+                  _os_log_impl(&dword_1B229C000, v155, OS_LOG_TYPE_DEFAULT, "Primary record is terminal, re-enroll is required", v321, 2u);
                 }
 
                 [cf setObject:MEMORY[0x1E695E118] forKeyedSubscript:kPCSSetupForceEnroll[0]];
               }
 
-              v242 = 0u;
-              v243 = 0u;
-              v240 = 0u;
               v241 = 0u;
-              v156 = [&unk_1F29983D0 countByEnumeratingWithState:&v240 objects:v321 count:{16, v226}];
+              v242 = 0u;
+              v239 = 0u;
+              v240 = 0u;
+              v156 = [&unk_1F29983D0 countByEnumeratingWithState:&v239 objects:v320 count:{16, v225}];
               if (v156)
               {
-                v157 = *v241;
+                v157 = *v240;
                 v158 = MEMORY[0x1E695E118];
                 do
                 {
                   for (i = 0; i != v156; ++i)
                   {
-                    if (*v241 != v157)
+                    if (*v240 != v157)
                     {
                       objc_enumerationMutation(&unk_1F29983D0);
                     }
 
-                    v160 = *(*(&v240 + 1) + 8 * i);
-                    v161 = v318[3];
+                    v160 = *(*(&v239 + 1) + 8 * i);
+                    v161 = v317[3];
                     v162 = [v160 intValue];
                     if ((v161 & v162) == [v160 intValue])
                     {
@@ -3403,18 +2928,18 @@ LABEL_103:
                       if (os_log_type_enabled(v163, OS_LOG_TYPE_DEFAULT))
                       {
                         v164 = _PCSGuitarfishPopulateFlagNamesToTelemetryArray([v160 intValue], 0);
-                        *v322 = 138412290;
-                        v323 = v164;
-                        _os_log_impl(&dword_1B229C000, v163, OS_LOG_TYPE_DEFAULT, "Flag %@ was set, forcing re-enrollment and unsetting flag", v322, 0xCu);
+                        *v321 = 138412290;
+                        v322 = v164;
+                        _os_log_impl(&dword_1B229C000, v163, OS_LOG_TYPE_DEFAULT, "Flag %@ was set, forcing re-enrollment and unsetting flag", v321, 0xCu);
                       }
 
                       [cf setObject:v158 forKeyedSubscript:kPCSSetupForceEnroll[0]];
                       v165 = [v160 intValue];
-                      v318[3] &= ~v165;
+                      v317[3] &= ~v165;
                     }
                   }
 
-                  v156 = [&unk_1F29983D0 countByEnumeratingWithState:&v240 objects:v321 count:16];
+                  v156 = [&unk_1F29983D0 countByEnumeratingWithState:&v239 objects:v320 count:16];
                 }
 
                 while (v156);
@@ -3427,41 +2952,41 @@ LABEL_103:
                 v167 = pcsLogObjForScope("Guitarfish");
                 if (os_log_type_enabled(v167, OS_LOG_TYPE_DEFAULT))
                 {
-                  *v322 = 0;
-                  _os_log_impl(&dword_1B229C000, v167, OS_LOG_TYPE_DEFAULT, "Forcing enroll of Primary record", v322, 2u);
+                  *v321 = 0;
+                  _os_log_impl(&dword_1B229C000, v167, OS_LOG_TYPE_DEFAULT, "Forcing enroll of Primary record", v321, 2u);
                 }
               }
 
-              v303 = 0;
+              v302 = 0;
               v168 = pcsLogObjForScope("Guitarfish");
               if (os_log_type_enabled(v168, OS_LOG_TYPE_DEFAULT))
               {
-                *v322 = 0;
-                _os_log_impl(&dword_1B229C000, v168, OS_LOG_TYPE_DEFAULT, "Repair: Calling Synchronize", v322, 2u);
+                *v321 = 0;
+                _os_log_impl(&dword_1B229C000, v168, OS_LOG_TYPE_DEFAULT, "Repair: Calling Synchronize", v321, 2u);
               }
 
-              v169 = PCSIdentitySynchronizeKeys(cf, &v303);
+              v169 = PCSIdentitySynchronizeKeys(cf, &v302);
               v170 = pcsLogObjForScope("Guitarfish");
               if (os_log_type_enabled(v170, OS_LOG_TYPE_DEFAULT))
               {
-                *v322 = 67109120;
-                LODWORD(v323) = v169;
-                _os_log_impl(&dword_1B229C000, v170, OS_LOG_TYPE_DEFAULT, "Repair: Synchronize status: %d", v322, 8u);
+                *v321 = 67109120;
+                LODWORD(v322) = v169;
+                _os_log_impl(&dword_1B229C000, v170, OS_LOG_TYPE_DEFAULT, "Repair: Synchronize status: %d", v321, 8u);
               }
 
-              v171 = v303;
-              if (v303)
+              v171 = v302;
+              if (v302)
               {
                 v172 = pcsLogObjForScope("Guitarfish");
                 if (os_log_type_enabled(v172, OS_LOG_TYPE_DEFAULT))
                 {
-                  *v322 = 138412290;
-                  v323 = v171;
-                  _os_log_impl(&dword_1B229C000, v172, OS_LOG_TYPE_DEFAULT, "Repair: Synchronize error: %@", v322, 0xCu);
+                  *v321 = 138412290;
+                  v322 = v171;
+                  _os_log_impl(&dword_1B229C000, v172, OS_LOG_TYPE_DEFAULT, "Repair: Synchronize error: %@", v321, 0xCu);
                 }
 
-                completeRepairIdentities(v238, 2, v318[3], v171);
-                v102 = v227;
+                completeRepairIdentities(v237, 2, v317[3], v171);
+                v102 = v226;
               }
 
               else
@@ -3469,14 +2994,14 @@ LABEL_103:
                 v173 = pcsLogObjForScope("Guitarfish");
                 if (os_log_type_enabled(v173, OS_LOG_TYPE_DEFAULT))
                 {
-                  *v322 = 0;
-                  _os_log_impl(&dword_1B229C000, v173, OS_LOG_TYPE_DEFAULT, "Repair: Finished", v322, 2u);
+                  *v321 = 0;
+                  _os_log_impl(&dword_1B229C000, v173, OS_LOG_TYPE_DEFAULT, "Repair: Finished", v321, 2u);
                 }
 
                 v174 = CFNotificationCenterGetDarwinNotifyCenter();
-                v102 = v227;
+                v102 = v226;
                 CFNotificationCenterPostNotification(v174, kPCSNotificationGuitarfishRepairCompleted, 0, 0, 0);
-                completeRepairIdentities(v238, 0, v318[3], 0);
+                completeRepairIdentities(v237, 0, v317[3], 0);
               }
 
 LABEL_136:
@@ -3485,18 +3010,18 @@ LABEL_136:
             }
 
             v129 = [getAKAccountManagerClass() sharedInstance];
-            v130 = [v235 aa_altDSID];
-            v244 = 0;
-            v131 = [v129 authKitAccountWithAltDSID:v130 error:&v244];
-            v132 = v244;
+            v130 = [v234 aa_altDSID];
+            v243 = 0;
+            v131 = [v129 authKitAccountWithAltDSID:v130 error:&v243];
+            v132 = v243;
 
             if (!v131 || v132)
             {
               v133 = pcsLogObjForScope("Guitarfish");
               if (os_log_type_enabled(v133, OS_LOG_TYPE_DEFAULT))
               {
-                *v322 = 138412290;
-                v323 = v132;
+                *v321 = 138412290;
+                v322 = v132;
                 v134 = "Unable to get AKAccount: %@";
                 goto LABEL_91;
               }
@@ -3507,33 +3032,33 @@ LABEL_136:
               v133 = pcsLogObjForScope("Guitarfish");
               if (os_log_type_enabled(v133, OS_LOG_TYPE_DEFAULT))
               {
-                *v322 = 138412290;
-                v323 = 0;
+                *v321 = 138412290;
+                v322 = 0;
                 v134 = "Got passwordVersionForAccount: %@";
 LABEL_91:
-                _os_log_impl(&dword_1B229C000, v133, OS_LOG_TYPE_DEFAULT, v134, v322, 0xCu);
+                _os_log_impl(&dword_1B229C000, v133, OS_LOG_TYPE_DEFAULT, v134, v321, 0xCu);
               }
             }
 
             goto LABEL_93;
           }
 
-          if (([*(*(&v330 + 1) + 40) isEqualToData:v51] & 1) == 0)
+          if (([*(*(&v329 + 1) + 40) isEqualToData:v51] & 1) == 0)
           {
-            v194 = pcsLogObjForScope("Guitarfish");
-            if (os_log_type_enabled(v194, OS_LOG_TYPE_DEFAULT))
+            v193 = pcsLogObjForScope("Guitarfish");
+            if (os_log_type_enabled(v193, OS_LOG_TYPE_DEFAULT))
             {
-              v195 = *(*(&v330 + 1) + 40);
-              *v326 = 138412546;
-              *&v326[4] = v195;
-              *&v326[12] = 2112;
-              *&v326[14] = v51;
-              _os_log_impl(&dword_1B229C000, v194, OS_LOG_TYPE_DEFAULT, "derived PID isn't equal to record PID: %@, %@", v326, 0x16u);
+              v194 = *(*(&v329 + 1) + 40);
+              *v325 = 138412546;
+              *&v325[4] = v194;
+              *&v325[12] = 2112;
+              *&v325[14] = v51;
+              _os_log_impl(&dword_1B229C000, v193, OS_LOG_TYPE_DEFAULT, "derived PID isn't equal to record PID: %@, %@", v325, 0x16u);
             }
 
-            v196 = v318[3];
-            v123 = PCSErrorCreate(235, @"Recovery token record has a different PID, not attempting recovery", v197, v198, v199, v200, v201, v202, @"IdMSPasswordGeneration");
-            completeRepairIdentities(v238, 2, v196, v123);
+            v195 = v317[3];
+            v123 = PCSErrorCreate(235, @"Recovery token record has a different PID, not attempting recovery", v196, v197, v198, v199, v200, v201, @"IdMSPasswordGeneration");
+            completeRepairIdentities(v237, 2, v195, v123);
             v93 = 0;
             goto LABEL_167;
           }
@@ -3541,101 +3066,101 @@ LABEL_91:
           v122 = pcsLogObjForScope("Guitarfish");
           if (os_log_type_enabled(v122, OS_LOG_TYPE_DEFAULT))
           {
-            *v326 = 0;
-            _os_log_impl(&dword_1B229C000, v122, OS_LOG_TYPE_DEFAULT, "Repair: Recovering RT Record hsm contents", v326, 2u);
+            *v325 = 0;
+            _os_log_impl(&dword_1B229C000, v122, OS_LOG_TYPE_DEFAULT, "Repair: Recovering RT Record hsm contents", v325, 2u);
           }
 
           v123 = objc_alloc_init(MEMORY[0x1E695DF90]);
           [v123 setObject:MEMORY[0x1E695E118] forKeyedSubscript:kPCSSetupGuitarfishToken[0]];
-          v124 = [v239 objectForKeyedSubscript:kPCSSetupDSID[0]];
+          v124 = [v238 objectForKeyedSubscript:kPCSSetupDSID[0]];
           [v123 setObject:v124 forKeyedSubscript:kPCSSetupDSID[0]];
 
-          v303 = 0;
-          v125 = __PCSCopyGuitarfishTokenData(0, v123, &v303);
-          if (v303)
+          v302 = 0;
+          v125 = __PCSCopyGuitarfishTokenData(0, v123, &v302);
+          if (v302)
           {
-            v126 = v287[5];
-            v287[5] = v303;
+            v126 = v286[5];
+            v286[5] = v302;
 
             v127 = pcsLogObjForScope("Guitarfish");
             if (os_log_type_enabled(v127, OS_LOG_TYPE_DEFAULT))
             {
-              v128 = v287[5];
-              *v326 = 138412290;
-              *&v326[4] = v128;
-              _os_log_impl(&dword_1B229C000, v127, OS_LOG_TYPE_DEFAULT, "unable to obtain p_token from hsm: %@", v326, 0xCu);
+              v128 = v286[5];
+              *v325 = 138412290;
+              *&v325[4] = v128;
+              _os_log_impl(&dword_1B229C000, v127, OS_LOG_TYPE_DEFAULT, "unable to obtain p_token from hsm: %@", v325, 0xCu);
             }
 
-            completeRepairIdentities(v238, 2, v318[3], v287[5]);
+            completeRepairIdentities(v237, 2, v317[3], v286[5]);
             v93 = 0;
             goto LABEL_166;
           }
 
-          v203 = *(v262 + 5);
-          v204 = (v287 + 5);
-          v255 = v287[5];
-          v205 = _PCSGuitarfishDeriveRecoveryTokenWrap(v203, v125, &v255);
-          objc_storeStrong(v204, v255);
-          if (v205 && !v287[5])
+          v202 = *(v261 + 5);
+          v203 = (v286 + 5);
+          v254 = v286[5];
+          v204 = _PCSGuitarfishDeriveRecoveryTokenWrap(v202, v125, &v254);
+          objc_storeStrong(v203, v254);
+          if (v204 && !v286[5])
           {
-            v208 = pcsLogObjForScope("Guitarfish");
-            if (os_log_type_enabled(v208, OS_LOG_TYPE_DEFAULT))
+            v207 = pcsLogObjForScope("Guitarfish");
+            if (os_log_type_enabled(v207, OS_LOG_TYPE_DEFAULT))
             {
-              *v326 = 0;
-              _os_log_impl(&dword_1B229C000, v208, OS_LOG_TYPE_DEFAULT, "Repair: Unwrapping wrappingKey with p_recovery", v326, 2u);
+              *v325 = 0;
+              _os_log_impl(&dword_1B229C000, v207, OS_LOG_TYPE_DEFAULT, "Repair: Unwrapping wrappingKey with p_recovery", v325, 2u);
             }
 
-            v209 = v297[5];
-            v210 = (v287 + 5);
-            v254 = v287[5];
-            v211 = _PCSGuitarfishUnwrapKeyWithAESKey(v209, v205, &v254);
-            objc_storeStrong(v210, v254);
-            v212 = *(v273 + 5);
-            *(v273 + 5) = v211;
+            v208 = v296[5];
+            v209 = (v286 + 5);
+            v253 = v286[5];
+            v210 = _PCSGuitarfishUnwrapKeyWithAESKey(v208, v204, &v253);
+            objc_storeStrong(v209, v253);
+            v211 = *(v272 + 5);
+            *(v272 + 5) = v210;
 
-            if (v287[5])
+            if (v286[5])
             {
-              v219 = pcsLogObjForScope("Guitarfish");
-              if (os_log_type_enabled(v219, OS_LOG_TYPE_DEFAULT))
+              v218 = pcsLogObjForScope("Guitarfish");
+              if (os_log_type_enabled(v218, OS_LOG_TYPE_DEFAULT))
               {
-                v220 = v287[5];
-                *v326 = 138412290;
-                *&v326[4] = v220;
-                _os_log_impl(&dword_1B229C000, v219, OS_LOG_TYPE_DEFAULT, "Unable to unwrap wrappingKey with p_recovery: %@", v326, 0xCu);
+                v219 = v286[5];
+                *v325 = 138412290;
+                *&v325[4] = v219;
+                _os_log_impl(&dword_1B229C000, v218, OS_LOG_TYPE_DEFAULT, "Unable to unwrap wrappingKey with p_recovery: %@", v325, 0xCu);
               }
             }
 
-            if (*(v273 + 5))
+            if (*(v272 + 5))
             {
-              v221 = pcsLogObjForScope("Guitarfish");
-              if (os_log_type_enabled(v221, OS_LOG_TYPE_DEFAULT))
+              v220 = pcsLogObjForScope("Guitarfish");
+              if (os_log_type_enabled(v220, OS_LOG_TYPE_DEFAULT))
               {
-                *v326 = 0;
-                _os_log_impl(&dword_1B229C000, v221, OS_LOG_TYPE_DEFAULT, "Repair: wrappingKey recovered with p_recovery", v326, 2u);
+                *v325 = 0;
+                _os_log_impl(&dword_1B229C000, v220, OS_LOG_TYPE_DEFAULT, "Repair: wrappingKey recovered with p_recovery", v325, 2u);
               }
 
-              v318[3] |= 0x180000uLL;
+              v317[3] |= 0x180000uLL;
               v93 = 1;
               goto LABEL_165;
             }
 
-            v222 = v318[3];
-            v223 = PCSErrorCreate(222, @"Unable to recover wrappingKey with p_recovery", v213, v214, v215, v216, v217, v218, @"IdMSPasswordGeneration");
-            completeRepairIdentities(v238, 2, v222, v223);
+            v221 = v317[3];
+            v222 = PCSErrorCreate(222, @"Unable to recover wrappingKey with p_recovery", v212, v213, v214, v215, v216, v217, @"IdMSPasswordGeneration");
+            completeRepairIdentities(v237, 2, v221, v222);
           }
 
           else
           {
-            v206 = pcsLogObjForScope("Guitarfish");
-            if (os_log_type_enabled(v206, OS_LOG_TYPE_DEFAULT))
+            v205 = pcsLogObjForScope("Guitarfish");
+            if (os_log_type_enabled(v205, OS_LOG_TYPE_DEFAULT))
             {
-              v207 = v287[5];
-              *v326 = 138412290;
-              *&v326[4] = v207;
-              _os_log_impl(&dword_1B229C000, v206, OS_LOG_TYPE_DEFAULT, "unable to derive token wrap: %@", v326, 0xCu);
+              v206 = v286[5];
+              *v325 = 138412290;
+              *&v325[4] = v206;
+              _os_log_impl(&dword_1B229C000, v205, OS_LOG_TYPE_DEFAULT, "unable to derive token wrap: %@", v325, 0xCu);
             }
 
-            completeRepairIdentities(v238, 2, v318[3], v287[5]);
+            completeRepairIdentities(v237, 2, v317[3], v286[5]);
           }
 
           v93 = 0;
@@ -3647,26 +3172,25 @@ LABEL_167:
           goto LABEL_168;
         }
 
-        v59 = PCSErrorCreate(123, @"must provide kPCSSetupRawPassword", v32, v33, v34, v35, v36, v37, v224);
-        completeRepairIdentities(v238, 2, 1uLL, v59);
+        v59 = PCSErrorCreate(123, @"must provide kPCSSetupRawPassword", v32, v33, v34, v35, v36, v37, v223);
+        completeRepairIdentities(v237, 2, 1uLL, v59);
       }
 
 LABEL_141:
 
 LABEL_142:
-      _Block_object_dispose(&v309, 8);
-      _Block_object_dispose(&v313, 8);
+      _Block_object_dispose(&v308, 8);
+      _Block_object_dispose(&v312, 8);
       v55 = dsema;
       goto LABEL_143;
     }
   }
 
-  v11 = PCSErrorCreate(121, @"Missing DSID in parameters", v4, v5, v6, v7, v8, v9, v224);
-  completeRepairIdentities(v238, 2, 1uLL, v11);
+  v11 = PCSErrorCreate(121, @"Missing DSID in parameters", v4, v5, v6, v7, v8, v9, v223);
+  completeRepairIdentities(v237, 2, 1uLL, v11);
 LABEL_144:
 
-  _Block_object_dispose(&v317, 8);
-  v175 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v316, 8);
 }
 
 void sub_1B22E03D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
@@ -3687,31 +3211,30 @@ void sub_1B22E03D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void completeRepairIdentities(void *a1, uint64_t a2, unint64_t a3, void *a4)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v7 = a4;
   v8 = a1;
   v9 = pcsLogObjForScope("Guitarfish");
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = _PCSGuitarfishPopulateFlagNamesToTelemetryArray(a3, 0);
-    v12 = 134218754;
-    v13 = a2;
-    v14 = 2112;
-    v15 = v7;
-    v16 = 2048;
-    v17 = a3;
-    v18 = 2112;
-    v19 = v10;
-    _os_log_impl(&dword_1B229C000, v9, OS_LOG_TYPE_DEFAULT, "PCSGuitarfishRepairIdentities Complete: Status: %lu, error: %@, flags: %lu, flags_dict: %@", &v12, 0x2Au);
+    v11 = 134218754;
+    v12 = a2;
+    v13 = 2112;
+    v14 = v7;
+    v15 = 2048;
+    v16 = a3;
+    v17 = 2112;
+    v18 = v10;
+    _os_log_impl(&dword_1B229C000, v9, OS_LOG_TYPE_DEFAULT, "PCSGuitarfishRepairIdentities Complete: Status: %lu, error: %@, flags: %lu, flags_dict: %@", &v11, 0x2Au);
   }
 
   v8[2](v8, a2, a3, v7);
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void PCSGuitarfishValidateIdentities(void *a1, void *a2)
 {
-  v270[1] = *MEMORY[0x1E69E9840];
+  v269[1] = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   v5 = pcsLogObjForScope("Guitarfish");
@@ -3721,14 +3244,14 @@ void PCSGuitarfishValidateIdentities(void *a1, void *a2)
     _os_log_impl(&dword_1B229C000, v5, OS_LOG_TYPE_DEFAULT, "PCSGuitarfishValidateIdentities entered", buf, 2u);
   }
 
-  v248 = 0;
-  v249 = &v248;
-  v250 = 0x2020000000;
-  v251 = 0;
-  v244 = 0;
-  v245 = &v244;
-  v246 = 0x2020000000;
   v247 = 0;
+  v248 = &v247;
+  v249 = 0x2020000000;
+  v250 = 0;
+  v243 = 0;
+  v244 = &v243;
+  v245 = 0x2020000000;
+  v246 = 0;
   v12 = objc_alloc_init(MEMORY[0x1E695DF90]);
   if (v3 && ([(__CFDictionary *)v3 objectForKeyedSubscript:kPCSSetupDSID[0]], v13 = objc_claimAutoreleasedReturnValue(), (v14 = v13) != 0))
   {
@@ -3745,12 +3268,12 @@ void PCSGuitarfishValidateIdentities(void *a1, void *a2)
           CFRelease(v22);
         }
 
-        v242 = 0;
-        v23 = PCSIdentitySetIsWalrusWithForceFetch(v21, 0, &v242);
-        v24 = v242;
-        if (v242)
+        v241 = 0;
+        v23 = PCSIdentitySetIsWalrusWithForceFetch(v21, 0, &v241);
+        v24 = v241;
+        if (v241)
         {
-          completeValidateIdentities(v4, 2, 1uLL, v12, v242);
+          completeValidateIdentities(v4, 2, 1uLL, v12, v241);
 
 LABEL_100:
           CFRelease(v21);
@@ -3759,100 +3282,100 @@ LABEL_100:
 
         v26 = v23;
         *buf = 0;
-        v237 = buf;
-        v238 = 0x3032000000;
-        v239 = __Block_byref_object_copy__5;
-        v240 = __Block_byref_object_dispose__5;
-        v241 = 0;
-        v234[0] = 0;
-        v234[1] = v234;
-        v234[2] = 0x3032000000;
-        v234[3] = __Block_byref_object_copy__5;
-        v234[4] = __Block_byref_object_dispose__5;
-        v235 = 0;
-        v228 = 0;
-        v229 = &v228;
-        v230 = 0x3032000000;
-        v231 = __Block_byref_object_copy__5;
-        v232 = __Block_byref_object_dispose__5;
-        v233 = 0;
+        v236 = buf;
+        v237 = 0x3032000000;
+        v238 = __Block_byref_object_copy__5;
+        v239 = __Block_byref_object_dispose__5;
+        v240 = 0;
+        v233[0] = 0;
+        v233[1] = v233;
+        v233[2] = 0x3032000000;
+        v233[3] = __Block_byref_object_copy__5;
+        v233[4] = __Block_byref_object_dispose__5;
+        v234 = 0;
+        v227 = 0;
+        v228 = &v227;
+        v229 = 0x3032000000;
+        v230 = __Block_byref_object_copy__5;
+        v231 = __Block_byref_object_dispose__5;
+        v232 = 0;
         if ((v23 & 1) == 0)
         {
           v27 = dispatch_semaphore_create(0);
-          v269 = kPCSSetupDSID[0];
-          v270[0] = v14;
-          v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v270 forKeys:&v269 count:1];
-          v222[0] = MEMORY[0x1E69E9820];
-          v222[1] = 3221225472;
-          v222[2] = __PCSGuitarfishValidateIdentities_block_invoke;
-          v222[3] = &unk_1E7B19F08;
-          v224 = &v244;
-          v225 = &v248;
-          v226 = v234;
-          v227 = buf;
+          v268 = kPCSSetupDSID[0];
+          v269[0] = v14;
+          v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v269 forKeys:&v268 count:1];
+          v221[0] = MEMORY[0x1E69E9820];
+          v221[1] = 3221225472;
+          v221[2] = __PCSGuitarfishValidateIdentities_block_invoke;
+          v221[3] = &unk_1E7B19F08;
+          v223 = &v243;
+          v224 = &v247;
+          v225 = v233;
+          v226 = buf;
           v24 = v27;
-          v223 = v24;
-          PCSGuitarfishGetRecoveryTokenInfo(v28, v222);
+          v222 = v24;
+          PCSGuitarfishGetRecoveryTokenInfo(v28, v221);
 
           dispatch_semaphore_wait(v24, 0xFFFFFFFFFFFFFFFFLL);
         }
 
-        v221 = 0;
-        v267 = kPCSSetupDSID[0];
-        v268 = v14;
-        v181 = __PCSCopyStingrayInfo(1, 0, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v268 forKeys:&v267 count:1], &v221);
-        v29 = v221;
-        if (v221 || !v181)
+        v220 = 0;
+        v266 = kPCSSetupDSID[0];
+        v267 = v14;
+        v180 = __PCSCopyStingrayInfo(1, 0, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v267 forKeys:&v266 count:1], &v220);
+        v29 = v220;
+        if (v220 || !v180)
         {
-          v59 = v245[3] | 2;
-          v245[3] = v59;
+          v59 = v244[3] | 2;
+          v244[3] = v59;
           v60 = v29;
           completeValidateIdentities(v4, 2, v59, v12, v29);
         }
 
         else
         {
-          v177 = *MEMORY[0x1E6994F70];
-          v30 = [v181 objectForKeyedSubscript:?];
+          v176 = *MEMORY[0x1E6994F70];
+          v30 = [v180 objectForKeyedSubscript:?];
           v31 = v30 == 0;
 
           if (!v31)
           {
-            v32 = [v181 objectForKeyedSubscript:v177];
-            v174 = *MEMORY[0x1E6994E48];
-            v179 = [v32 objectForKeyedSubscript:?];
+            v32 = [v180 objectForKeyedSubscript:v176];
+            v173 = *MEMORY[0x1E6994E48];
+            v178 = [v32 objectForKeyedSubscript:?];
 
-            v178 = [v179 objectForKeyedSubscript:kPCSSecureBackupCFiCloudDataProtectionKey[0]];
-            v180 = [v178 objectForKeyedSubscript:@"SecureBackupWrappedKeys"];
-            v176 = [v178 objectForKeyedSubscript:?];
-            v175 = [v179 objectForKeyedSubscript:@"IdMSPasswordGeneration"];
+            v177 = [v178 objectForKeyedSubscript:kPCSSecureBackupCFiCloudDataProtectionKey[0]];
+            v179 = [v177 objectForKeyedSubscript:@"SecureBackupWrappedKeys"];
+            v175 = [v177 objectForKeyedSubscript:?];
+            v174 = [v178 objectForKeyedSubscript:@"IdMSPasswordGeneration"];
             v33 = pcsLogObjForScope("Guitarfish");
             if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
             {
-              v34 = [v180 base64EncodedStringWithOptions:0];
-              LODWORD(v262) = 138412290;
-              *(&v262 + 4) = v34;
-              _os_log_impl(&dword_1B229C000, v33, OS_LOG_TYPE_DEFAULT, "OuterBlob: %@", &v262, 0xCu);
+              v34 = [v179 base64EncodedStringWithOptions:0];
+              LODWORD(v261) = 138412290;
+              *(&v261 + 4) = v34;
+              _os_log_impl(&dword_1B229C000, v33, OS_LOG_TYPE_DEFAULT, "OuterBlob: %@", &v261, 0xCu);
             }
 
             v35 = pcsLogObjForScope("Guitarfish");
             if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
             {
-              v36 = [v176 base64EncodedStringWithOptions:0];
-              LODWORD(v262) = 138412290;
-              *(&v262 + 4) = v36;
-              _os_log_impl(&dword_1B229C000, v35, OS_LOG_TYPE_DEFAULT, "PID: %@", &v262, 0xCu);
+              v36 = [v175 base64EncodedStringWithOptions:0];
+              LODWORD(v261) = 138412290;
+              *(&v261 + 4) = v36;
+              _os_log_impl(&dword_1B229C000, v35, OS_LOG_TYPE_DEFAULT, "PID: %@", &v261, 0xCu);
             }
 
-            if (!v180)
+            if (!v179)
             {
-              v69 = v245[3] | 2;
-              v245[3] = v69;
+              v69 = v244[3] | 2;
+              v244[3] = v69;
               v70 = PCSErrorCreate(200, @"Failed to decode Outer blob, potential missing guitarfish record", v37, v38, v39, v40, v41, v42, log);
               completeValidateIdentities(v4, 1, v69, v12, v70);
 
 LABEL_98:
-              v60 = v176;
+              v60 = v175;
               goto LABEL_99;
             }
 
@@ -3860,186 +3383,186 @@ LABEL_98:
             {
               v43 = dispatch_semaphore_create(0);
 
-              v217[0] = MEMORY[0x1E69E9820];
-              v217[1] = 3221225472;
-              v217[2] = __PCSGuitarfishValidateIdentities_block_invoke_268;
-              v217[3] = &unk_1E7B199C0;
-              v219 = &v228;
-              v220 = &v244;
+              v216[0] = MEMORY[0x1E69E9820];
+              v216[1] = 3221225472;
+              v216[2] = __PCSGuitarfishValidateIdentities_block_invoke_268;
+              v216[3] = &unk_1E7B199C0;
+              v218 = &v227;
+              v219 = &v243;
               v24 = v43;
-              v218 = v24;
-              _PCSGuitarfishGetKeychainItem(@"RecoveryToken", v14, v217);
+              v217 = v24;
+              _PCSGuitarfishGetKeychainItem(@"RecoveryToken", v14, v216);
               dispatch_semaphore_wait(v24, 0xFFFFFFFFFFFFFFFFLL);
             }
 
-            *&v262 = 0;
-            *(&v262 + 1) = &v262;
-            v263 = 0x3032000000;
-            v264 = __Block_byref_object_copy__5;
-            v265 = __Block_byref_object_dispose__5;
-            v266 = 0;
+            *&v261 = 0;
+            *(&v261 + 1) = &v261;
+            v262 = 0x3032000000;
+            v263 = __Block_byref_object_copy__5;
+            v264 = __Block_byref_object_dispose__5;
+            v265 = 0;
             v44 = dispatch_semaphore_create(0);
 
-            v213[0] = MEMORY[0x1E69E9820];
-            v213[1] = 3221225472;
-            v213[2] = __PCSGuitarfishValidateIdentities_block_invoke_269;
-            v213[3] = &unk_1E7B199C0;
-            v215 = &v262;
-            v216 = &v244;
-            v214 = v44;
-            v24 = v214;
-            _PCSGuitarfishGetKeychainItem(@"WrappingKey", v14, v213);
+            v212[0] = MEMORY[0x1E69E9820];
+            v212[1] = 3221225472;
+            v212[2] = __PCSGuitarfishValidateIdentities_block_invoke_269;
+            v212[3] = &unk_1E7B199C0;
+            v214 = &v261;
+            v215 = &v243;
+            v213 = v44;
+            v24 = v213;
+            _PCSGuitarfishGetKeychainItem(@"WrappingKey", v14, v212);
             dispatch_semaphore_wait(v24, 0xFFFFFFFFFFFFFFFFLL);
-            if (*(*(&v262 + 1) + 40))
+            if (*(*(&v261 + 1) + 40))
             {
-              if ((v26 & 1) != 0 || v229[5])
+              if ((v26 & 1) != 0 || v228[5])
               {
-                v207 = 0;
-                v208 = &v207;
-                v209 = 0x3032000000;
-                v210 = __Block_byref_object_copy__5;
-                v211 = __Block_byref_object_dispose__5;
-                v212 = 0;
+                v206 = 0;
+                v207 = &v206;
+                v208 = 0x3032000000;
+                v209 = __Block_byref_object_copy__5;
+                v210 = __Block_byref_object_dispose__5;
+                v211 = 0;
                 v51 = dispatch_semaphore_create(0);
 
-                v204[0] = MEMORY[0x1E69E9820];
-                v204[1] = 3221225472;
-                v204[2] = __PCSGuitarfishValidateIdentities_block_invoke_276;
-                v204[3] = &unk_1E7B19F30;
-                v206 = &v207;
+                v203[0] = MEMORY[0x1E69E9820];
+                v203[1] = 3221225472;
+                v203[2] = __PCSGuitarfishValidateIdentities_block_invoke_276;
+                v203[3] = &unk_1E7B19F30;
+                v205 = &v206;
                 v24 = v51;
-                v205 = v24;
-                _PCSBackupGuitarfishDecodeOuterRecord(v180, v204);
+                v204 = v24;
+                _PCSBackupGuitarfishDecodeOuterRecord(v179, v203);
                 dispatch_semaphore_wait(v24, 0xFFFFFFFFFFFFFFFFLL);
-                v57 = (v208 + 5);
-                if (v208[5])
+                v57 = (v207 + 5);
+                if (v207[5])
                 {
-                  obj = v208[5];
+                  obj = v207[5];
                   _PCSNSError(&obj, 200, @"Failed to decode Outer blob", v52, v53, v54, v55, v56, log);
                   objc_storeStrong(v57, obj);
-                  v58 = v245[3] | 2;
-                  v245[3] = v58;
-                  completeValidateIdentities(v4, 1, v58, 0, v208[5]);
+                  v58 = v244[3] | 2;
+                  v244[3] = v58;
+                  completeValidateIdentities(v4, 1, v58, 0, v207[5]);
 LABEL_96:
 
-                  _Block_object_dispose(&v207, 8);
+                  _Block_object_dispose(&v206, 8);
                   goto LABEL_97;
                 }
 
-                v197 = 0;
-                v198 = &v197;
-                v199 = 0x3032000000;
-                v200 = __Block_byref_object_copy__5;
-                v201 = __Block_byref_object_dispose__5;
-                v202 = 0;
-                v73 = *(*(&v262 + 1) + 40);
-                v196[0] = MEMORY[0x1E69E9820];
-                v196[1] = 3221225472;
-                v196[2] = __PCSGuitarfishValidateIdentities_block_invoke_2;
-                v196[3] = &unk_1E7B19E68;
-                v196[4] = &v197;
-                _PCSBackupGuitarfishGetRecoveredInnerBlobFromOuterBlobWithWrappingKey(v73, v180, v196);
-                if (v198[5])
+                v196 = 0;
+                v197 = &v196;
+                v198 = 0x3032000000;
+                v199 = __Block_byref_object_copy__5;
+                v200 = __Block_byref_object_dispose__5;
+                v201 = 0;
+                v73 = *(*(&v261 + 1) + 40);
+                v195[0] = MEMORY[0x1E69E9820];
+                v195[1] = 3221225472;
+                v195[2] = __PCSGuitarfishValidateIdentities_block_invoke_2;
+                v195[3] = &unk_1E7B19E68;
+                v195[4] = &v196;
+                _PCSBackupGuitarfishGetRecoveredInnerBlobFromOuterBlobWithWrappingKey(v73, v179, v195);
+                if (v197[5])
                 {
                   v74 = pcsLogObjForScope("Guitarfish");
                   if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
                   {
-                    *v258 = 0;
-                    _os_log_impl(&dword_1B229C000, v74, OS_LOG_TYPE_DEFAULT, "wrappingKey is not valid for the inner record, needs repair", v258, 2u);
+                    *v257 = 0;
+                    _os_log_impl(&dword_1B229C000, v74, OS_LOG_TYPE_DEFAULT, "wrappingKey is not valid for the inner record, needs repair", v257, 2u);
                   }
 
-                  v245[3] |= 0x30uLL;
-                  v191[0] = MEMORY[0x1E69E9820];
-                  v191[1] = 3221225472;
-                  v191[2] = __PCSGuitarfishValidateIdentities_block_invoke_280;
-                  v191[3] = &unk_1E7B19F80;
-                  v192 = v14;
-                  v193 = v4;
-                  v194 = &v244;
-                  v195 = &v197;
-                  _PCSGuitarfishDeleteKeychainItem(@"WrappingKey", v192, v191);
+                  v244[3] |= 0x30uLL;
+                  v190[0] = MEMORY[0x1E69E9820];
+                  v190[1] = 3221225472;
+                  v190[2] = __PCSGuitarfishValidateIdentities_block_invoke_280;
+                  v190[3] = &unk_1E7B19F80;
+                  v191 = v14;
+                  v192 = v4;
+                  v193 = &v243;
+                  v194 = &v196;
+                  _PCSGuitarfishDeleteKeychainItem(@"WrappingKey", v191, v190);
 
-                  v75 = v192;
+                  v75 = v191;
                   goto LABEL_95;
                 }
 
                 v78 = pcsLogObjForScope("Guitarfish");
                 if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
                 {
-                  *v258 = 0;
-                  _os_log_impl(&dword_1B229C000, v78, OS_LOG_TYPE_DEFAULT, "wrappingKey is valid for the inner record", v258, 2u);
+                  *v257 = 0;
+                  _os_log_impl(&dword_1B229C000, v78, OS_LOG_TYPE_DEFAULT, "wrappingKey is valid for the inner record", v257, 2u);
                 }
 
                 v79 = +[PCSAccountsModel defaultAccountsModel];
                 v80 = [v79 store];
-                v173 = [v80 aa_appleAccountWithPersonID:v14];
+                v172 = [v80 aa_appleAccountWithPersonID:v14];
 
-                if (!v173)
+                if (!v172)
                 {
                   v85 = pcsLogObjForScope("Guitarfish");
                   if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
                   {
-                    *v258 = 0;
-                    _os_log_impl(&dword_1B229C000, v85, OS_LOG_TYPE_DEFAULT, "Unable to get ACAccount", v258, 2u);
+                    *v257 = 0;
+                    _os_log_impl(&dword_1B229C000, v85, OS_LOG_TYPE_DEFAULT, "Unable to get ACAccount", v257, 2u);
                   }
 
 LABEL_56:
 
-                  v245[3] |= 0x1000uLL;
+                  v244[3] |= 0x1000uLL;
                   v86 = pcsLogObjForScope("Guitarfish");
                   if (os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT))
                   {
-                    *v258 = 0;
-                    _os_log_impl(&dword_1B229C000, v86, OS_LOG_TYPE_DEFAULT, "Unable to resolve password version from AKAccount", v258, 2u);
+                    *v257 = 0;
+                    _os_log_impl(&dword_1B229C000, v86, OS_LOG_TYPE_DEFAULT, "Unable to resolve password version from AKAccount", v257, 2u);
                   }
 
-                  [v12 setObject:v175 forKeyedSubscript:@"recordPasswordVersion"];
-                  v169 = [v181 objectForKeyedSubscript:v177];
-                  v165 = *MEMORY[0x1E6994EB0];
-                  v87 = [v169 objectForKeyedSubscript:?];
+                  [v12 setObject:v174 forKeyedSubscript:@"recordPasswordVersion"];
+                  v168 = [v180 objectForKeyedSubscript:v176];
+                  v164 = *MEMORY[0x1E6994EB0];
+                  v87 = [v168 objectForKeyedSubscript:?];
                   if (v87)
                   {
-                    v88 = [v181 objectForKeyedSubscript:v177];
-                    v159 = *MEMORY[0x1E6994E98];
+                    v88 = [v180 objectForKeyedSubscript:v176];
+                    v158 = *MEMORY[0x1E6994E98];
                     v89 = [v88 objectForKeyedSubscript:?];
-                    v161 = v89 == 0;
+                    v160 = v89 == 0;
 
-                    if (!v161)
+                    if (!v160)
                     {
                       v90 = pcsLogObjForScope("Guitarfish");
                       if (os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT))
                       {
                         log = v90;
-                        v170 = [v181 objectForKeyedSubscript:v177];
-                        v162 = [v170 objectForKeyedSubscript:v165];
-                        v91 = [v181 objectForKeyedSubscript:v177];
-                        v92 = [v91 objectForKeyedSubscript:v159];
-                        *v258 = 138412546;
-                        *&v258[4] = v162;
-                        *&v258[12] = 2112;
-                        *&v258[14] = v92;
-                        _os_log_impl(&dword_1B229C000, log, OS_LOG_TYPE_DEFAULT, "Existing Federation: %@, Expected Federation: %@", v258, 0x16u);
+                        v169 = [v180 objectForKeyedSubscript:v176];
+                        v161 = [v169 objectForKeyedSubscript:v164];
+                        v91 = [v180 objectForKeyedSubscript:v176];
+                        v92 = [v91 objectForKeyedSubscript:v158];
+                        *v257 = 138412546;
+                        *&v257[4] = v161;
+                        *&v257[12] = 2112;
+                        *&v257[14] = v92;
+                        _os_log_impl(&dword_1B229C000, log, OS_LOG_TYPE_DEFAULT, "Existing Federation: %@, Expected Federation: %@", v257, 0x16u);
 
                         v90 = log;
                       }
 
-                      v171 = [v181 objectForKeyedSubscript:v177];
-                      v166 = [v171 objectForKeyedSubscript:v165];
-                      v93 = [v181 objectForKeyedSubscript:v177];
-                      v94 = [v93 objectForKeyedSubscript:v159];
-                      v163 = [v166 isEqual:v94];
+                      v170 = [v180 objectForKeyedSubscript:v176];
+                      v165 = [v170 objectForKeyedSubscript:v164];
+                      v93 = [v180 objectForKeyedSubscript:v176];
+                      v94 = [v93 objectForKeyedSubscript:v158];
+                      v162 = [v165 isEqual:v94];
 
-                      if ((v163 & 1) == 0)
+                      if ((v162 & 1) == 0)
                       {
-                        v245[3] |= 0x80uLL;
+                        v244[3] |= 0x80uLL;
                         v95 = pcsLogObjForScope("Guitarfish");
                         if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
                         {
-                          *v258 = 0;
-                          _os_log_impl(&dword_1B229C000, v95, OS_LOG_TYPE_DEFAULT, "Federation Migration Needed", v258, 2u);
+                          *v257 = 0;
+                          _os_log_impl(&dword_1B229C000, v95, OS_LOG_TYPE_DEFAULT, "Federation Migration Needed", v257, 2u);
                         }
 
-                        v96 = v245[3];
+                        v96 = v244[3];
                         v103 = PCSErrorCreate(229, @"Federation Migration Needed", v97, v98, v99, v100, v101, v102, log);
                         completeValidateIdentities(v4, 1, v96, 0, v103);
 
@@ -4052,135 +3575,135 @@ LABEL_56:
                   {
                   }
 
-                  v172 = 0;
-                  *v258 = 0;
-                  *&v258[8] = v258;
-                  *&v258[16] = 0x3032000000;
-                  v259 = __Block_byref_object_copy__5;
-                  v260 = __Block_byref_object_dispose__5;
-                  v261 = 0;
+                  v171 = 0;
+                  *v257 = 0;
+                  *&v257[8] = v257;
+                  *&v257[16] = 0x3032000000;
+                  v258 = __Block_byref_object_copy__5;
+                  v259 = __Block_byref_object_dispose__5;
+                  v260 = 0;
                   if ((v26 & 1) == 0)
                   {
                     v117 = dispatch_semaphore_create(0);
 
-                    v118 = v229[5];
-                    v186[0] = MEMORY[0x1E69E9820];
-                    v186[1] = 3221225472;
-                    v186[2] = __PCSGuitarfishValidateIdentities_block_invoke_288;
-                    v186[3] = &unk_1E7B19FA8;
-                    v188 = &v207;
-                    v189 = v258;
+                    v118 = v228[5];
+                    v185[0] = MEMORY[0x1E69E9820];
+                    v185[1] = 3221225472;
+                    v185[2] = __PCSGuitarfishValidateIdentities_block_invoke_288;
+                    v185[3] = &unk_1E7B19FA8;
+                    v187 = &v206;
+                    v188 = v257;
                     v24 = v117;
-                    v187 = v24;
-                    PCSGuitarfishDeriveRecoveryKeyFromMnemonic(v118, v186);
+                    v186 = v24;
+                    PCSGuitarfishDeriveRecoveryKeyFromMnemonic(v118, v185);
                     dispatch_semaphore_wait(v24, 0xFFFFFFFFFFFFFFFFLL);
-                    if (v208[5])
+                    if (v207[5])
                     {
                       v119 = pcsLogObjForScope("Guitarfish");
                       if (os_log_type_enabled(v119, OS_LOG_TYPE_DEFAULT))
                       {
-                        v120 = v208[5];
-                        *v254 = 138412290;
-                        v255 = v120;
-                        _os_log_impl(&dword_1B229C000, v119, OS_LOG_TYPE_DEFAULT, "unable to derive PID from stashed mnemonic: %@", v254, 0xCu);
+                        v120 = v207[5];
+                        *v253 = 138412290;
+                        v254 = v120;
+                        _os_log_impl(&dword_1B229C000, v119, OS_LOG_TYPE_DEFAULT, "unable to derive PID from stashed mnemonic: %@", v253, 0xCu);
                       }
 
-                      if (v208[5])
+                      if (v207[5])
                       {
                         goto LABEL_87;
                       }
                     }
 
-                    if (([*(*&v258[8] + 40) isEqualToData:v176] & 1) == 0)
+                    if (([*(*&v257[8] + 40) isEqualToData:v175] & 1) == 0)
                     {
 LABEL_87:
                       v137 = pcsLogObjForScope("Guitarfish");
                       if (os_log_type_enabled(v137, OS_LOG_TYPE_DEFAULT))
                       {
-                        v138 = *(*&v258[8] + 40);
-                        *v254 = 138412546;
-                        v255 = v138;
-                        v256 = 2112;
-                        v257 = v176;
-                        _os_log_impl(&dword_1B229C000, v137, OS_LOG_TYPE_DEFAULT, "derived PID isn't equal to record PID: %@, %@", v254, 0x16u);
+                        v138 = *(*&v257[8] + 40);
+                        *v253 = 138412546;
+                        v254 = v138;
+                        v255 = 2112;
+                        v256 = v175;
+                        _os_log_impl(&dword_1B229C000, v137, OS_LOG_TYPE_DEFAULT, "derived PID isn't equal to record PID: %@, %@", v253, 0x16u);
                       }
 
-                      v245[3] |= 0x10uLL;
-                      v182[0] = MEMORY[0x1E69E9820];
-                      v182[1] = 3221225472;
-                      v182[2] = __PCSGuitarfishValidateIdentities_block_invoke_289;
-                      v182[3] = &unk_1E7B19F58;
-                      v183 = v4;
-                      v184 = &v244;
-                      v185 = &v207;
-                      _PCSGuitarfishDeleteKeychainItem(@"RecoveryToken", v14, v182);
+                      v244[3] |= 0x10uLL;
+                      v181[0] = MEMORY[0x1E69E9820];
+                      v181[1] = 3221225472;
+                      v181[2] = __PCSGuitarfishValidateIdentities_block_invoke_289;
+                      v181[3] = &unk_1E7B19F58;
+                      v182 = v4;
+                      v183 = &v243;
+                      v184 = &v206;
+                      _PCSGuitarfishDeleteKeychainItem(@"RecoveryToken", v14, v181);
 
-                      v139 = v187;
+                      v139 = v186;
                       goto LABEL_93;
                     }
 
-                    v221 = 0;
-                    v252 = kPCSSetupDSID[0];
-                    v253 = v14;
-                    v172 = __PCSCopyStingrayInfo(2, 0, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v253 forKeys:&v252 count:1], &v221);
-                    v127 = v221;
-                    if (v221)
+                    v220 = 0;
+                    v251 = kPCSSetupDSID[0];
+                    v252 = v14;
+                    v171 = __PCSCopyStingrayInfo(2, 0, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v252 forKeys:&v251 count:1], &v220);
+                    v127 = v220;
+                    if (v220)
                     {
-                      v128 = v245[3] | 4;
-                      v245[3] = v128;
+                      v128 = v244[3] | 4;
+                      v244[3] = v128;
                       completeValidateIdentities(v4, 2, v128, v12, v127);
 
 LABEL_92:
-                      v139 = v172;
+                      v139 = v171;
 LABEL_93:
 
-                      _Block_object_dispose(v258, 8);
+                      _Block_object_dispose(v257, 8);
 LABEL_94:
-                      v75 = v173;
+                      v75 = v172;
 LABEL_95:
 
-                      _Block_object_dispose(&v197, 8);
+                      _Block_object_dispose(&v196, 8);
                       goto LABEL_96;
                     }
 
-                    if (!v172 || (v141 = *MEMORY[0x1E6994EC0], [v172 objectForKeyedSubscript:*MEMORY[0x1E6994EC0]], v142 = objc_claimAutoreleasedReturnValue(), v143 = v142 == 0, v142, v143))
+                    if (!v171 || (v140 = *MEMORY[0x1E6994EC0], [v171 objectForKeyedSubscript:*MEMORY[0x1E6994EC0]], v141 = objc_claimAutoreleasedReturnValue(), v142 = v141 == 0, v141, v142))
                     {
-                      v147 = v245[3] | 4;
-                      v245[3] = v147;
-                      v148 = PCSErrorCreate(234, @"Recovery Token record is missing, needs repair", v121, v122, v123, v124, v125, v126, log);
-                      completeValidateIdentities(v4, 1, v147, v12, v148);
+                      v146 = v244[3] | 4;
+                      v244[3] = v146;
+                      v147 = PCSErrorCreate(234, @"Recovery Token record is missing, needs repair", v121, v122, v123, v124, v125, v126, log);
+                      completeValidateIdentities(v4, 1, v146, v12, v147);
 
                       goto LABEL_92;
                     }
 
-                    v167 = [v172 objectForKeyedSubscript:v141];
-                    v144 = [v167 objectForKeyedSubscript:v174];
-                    v145 = [v144 objectForKeyedSubscript:kPCSSecureBackupCFiCloudDataProtectionKey[0]];
-                    v146 = [v145 objectForKeyedSubscript:@"DerivedDBRSeedAESPID"];
+                    v166 = [v171 objectForKeyedSubscript:v140];
+                    v143 = [v166 objectForKeyedSubscript:v173];
+                    v144 = [v143 objectForKeyedSubscript:kPCSSecureBackupCFiCloudDataProtectionKey[0]];
+                    v145 = [v144 objectForKeyedSubscript:@"DerivedDBRSeedAESPID"];
 
-                    if (!v146 || ([v146 isEqualToData:v176] & 1) == 0)
+                    if (!v145 || ([v145 isEqualToData:v175] & 1) == 0)
                     {
-                      v149 = pcsLogObjForScope("Guitarfish");
-                      if (os_log_type_enabled(v149, OS_LOG_TYPE_DEFAULT))
+                      v148 = pcsLogObjForScope("Guitarfish");
+                      if (os_log_type_enabled(v148, OS_LOG_TYPE_DEFAULT))
                       {
-                        *v254 = 0;
-                        _os_log_impl(&dword_1B229C000, v149, OS_LOG_TYPE_DEFAULT, "healthcheck: PID mismatch, needs repair", v254, 2u);
+                        *v253 = 0;
+                        _os_log_impl(&dword_1B229C000, v148, OS_LOG_TYPE_DEFAULT, "healthcheck: PID mismatch, needs repair", v253, 2u);
                       }
 
-                      v150 = v245[3] | 4;
-                      v245[3] = v150;
-                      v157 = PCSErrorCreate(235, @"Recovery Token PID is unexpected, needs repair", v151, v152, v153, v154, v155, v156, log);
-                      completeValidateIdentities(v4, 1, v150, v12, v157);
+                      v149 = v244[3] | 4;
+                      v244[3] = v149;
+                      v156 = PCSErrorCreate(235, @"Recovery Token PID is unexpected, needs repair", v150, v151, v152, v153, v154, v155, log);
+                      completeValidateIdentities(v4, 1, v149, v12, v156);
 
                       goto LABEL_92;
                     }
                   }
 
-                  v104 = [v181 objectForKeyedSubscript:v177];
+                  v104 = [v180 objectForKeyedSubscript:v176];
                   v105 = *MEMORY[0x1E6994F50];
                   v106 = [v104 objectForKeyedSubscript:*MEMORY[0x1E6994F50]];
 
-                  v107 = [v172 objectForKeyedSubscript:*MEMORY[0x1E6994EC0]];
+                  v107 = [v171 objectForKeyedSubscript:*MEMORY[0x1E6994EC0]];
                   v108 = [v107 objectForKeyedSubscript:v105];
 
                   [v12 setObject:v106 forKeyedSubscript:@"primaryRecordAttemptsRemaining"];
@@ -4191,8 +3714,8 @@ LABEL_95:
 
                   if (v106 && [v106 isEqualToNumber:&unk_1F2998448])
                   {
-                    v115 = v245[3] | 2;
-                    v245[3] = v115;
+                    v115 = v244[3] | 2;
+                    v244[3] = v115;
                     v116 = PCSErrorCreate(236, @"Primary Record is terminal, needs repair", v109, v110, v111, v112, v113, v114, log);
                     completeValidateIdentities(v4, 1, v115, v12, v116);
                   }
@@ -4211,12 +3734,12 @@ LABEL_95:
 
                     if ((v129 & 1) != 0 || ![v108 isEqualToNumber:&unk_1F2998448])
                     {
-                      completeValidateIdentities(v4, v249[3], v245[3], v12, 0);
+                      completeValidateIdentities(v4, v248[3], v244[3], v12, 0);
                       goto LABEL_91;
                     }
 
-                    v136 = v245[3] | 4;
-                    v245[3] = v136;
+                    v136 = v244[3] | 4;
+                    v244[3] = v136;
                     v116 = PCSErrorCreate(237, @"Recovery Token Record is terminal, needs repair", v130, v131, v132, v133, v134, v135, log);
                     completeValidateIdentities(v4, 1, v136, v12, v116);
                   }
@@ -4226,19 +3749,19 @@ LABEL_91:
                 }
 
                 v81 = [getAKAccountManagerClass() sharedInstance];
-                v82 = [v173 aa_altDSID];
-                v190 = 0;
-                v168 = [v81 authKitAccountWithAltDSID:v82 error:&v190];
-                v160 = v81;
-                v164 = v190;
+                v82 = [v172 aa_altDSID];
+                v189 = 0;
+                v167 = [v81 authKitAccountWithAltDSID:v82 error:&v189];
+                v159 = v81;
+                v163 = v189;
 
-                if (!v168 || v164)
+                if (!v167 || v163)
                 {
                   v83 = pcsLogObjForScope("Guitarfish");
                   if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
                   {
-                    *v258 = 138412290;
-                    *&v258[4] = v164;
+                    *v257 = 138412290;
+                    *&v257[4] = v163;
                     v84 = "Unable to get AKAccount: %@";
                     goto LABEL_54;
                   }
@@ -4249,54 +3772,54 @@ LABEL_91:
                   v83 = pcsLogObjForScope("Guitarfish");
                   if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
                   {
-                    *v258 = 138412290;
-                    *&v258[4] = 0;
+                    *v257 = 138412290;
+                    *&v257[4] = 0;
                     v84 = "Got passwordVersionForAccount: %@";
 LABEL_54:
-                    _os_log_impl(&dword_1B229C000, v83, OS_LOG_TYPE_DEFAULT, v84, v258, 0xCu);
+                    _os_log_impl(&dword_1B229C000, v83, OS_LOG_TYPE_DEFAULT, v84, v257, 0xCu);
                   }
                 }
 
-                v85 = v164;
+                v85 = v163;
                 goto LABEL_56;
               }
 
-              v76 = v245[3];
+              v76 = v244[3];
               v77 = PCSErrorCreate(216, @"Missing Recovery Token in Keychain, needs repair", v45, v46, v47, v48, v49, v50, log);
               completeValidateIdentities(v4, 1, v76, v12, v77);
             }
 
             else
             {
-              v71 = v245[3];
+              v71 = v244[3];
               v72 = PCSErrorCreate(215, @"Missing Wrapping Key in Keychain, needs repair", v45, v46, v47, v48, v49, v50, log);
               completeValidateIdentities(v4, 1, v71, v12, v72);
             }
 
 LABEL_97:
 
-            _Block_object_dispose(&v262, 8);
+            _Block_object_dispose(&v261, 8);
             goto LABEL_98;
           }
 
-          v245[3] |= 2uLL;
+          v244[3] |= 2uLL;
           v61 = pcsLogObjForScope("Guitarfish");
           if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
           {
-            LOWORD(v262) = 0;
-            _os_log_impl(&dword_1B229C000, v61, OS_LOG_TYPE_DEFAULT, "No Guitarfish Primary Record to decode", &v262, 2u);
+            LOWORD(v261) = 0;
+            _os_log_impl(&dword_1B229C000, v61, OS_LOG_TYPE_DEFAULT, "No Guitarfish Primary Record to decode", &v261, 2u);
           }
 
-          v62 = v245[3];
+          v62 = v244[3];
           v60 = PCSErrorCreate(238, @"No Primary Guitarfish Record. Account needs PCSGuitarfishSetupIdentities or migration.", v63, v64, v65, v66, v67, v68, log);
           completeValidateIdentities(v4, 2, v62, v12, v60);
         }
 
-        v180 = 0;
+        v179 = 0;
 LABEL_99:
 
-        _Block_object_dispose(&v228, 8);
-        _Block_object_dispose(v234, 8);
+        _Block_object_dispose(&v227, 8);
+        _Block_object_dispose(v233, 8);
 
         _Block_object_dispose(buf, 8);
         goto LABEL_100;
@@ -4320,13 +3843,11 @@ LABEL_99:
 
 LABEL_101:
 
-  _Block_object_dispose(&v244, 8);
-  _Block_object_dispose(&v248, 8);
-
-  v140 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v243, 8);
+  _Block_object_dispose(&v247, 8);
 }
 
-void sub_1B22E1E2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, char a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_1B22E1E2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose((v66 - 256), 8);
   _Block_object_dispose(&a52, 8);
@@ -4343,7 +3864,7 @@ void sub_1B22E1E2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void __PCSGuitarfishRepairIdentities_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v8 = a5;
   v9 = v8;
   *(*(*(a1 + 40) + 8) + 24) = a2;
@@ -4382,15 +3903,13 @@ LABEL_7:
   v11 = pcsLogObjForScope("Guitarfish");
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412290;
-    v14 = v9;
-    _os_log_impl(&dword_1B229C000, v11, OS_LOG_TYPE_DEFAULT, "Encountered error retrieving existing health status: %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = v9;
+    _os_log_impl(&dword_1B229C000, v11, OS_LOG_TYPE_DEFAULT, "Encountered error retrieving existing health status: %@", &v12, 0xCu);
   }
 
 LABEL_10:
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __PCSGuitarfishRepairIdentities_block_invoke_204(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6)
@@ -4438,7 +3957,7 @@ void __PCSGuitarfishRepairIdentities_block_invoke_204(uint64_t a1, void *a2, voi
 
 void __PCSGuitarfishRepairIdentities_block_invoke_205(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a3;
   v8 = v7;
@@ -4447,9 +3966,9 @@ void __PCSGuitarfishRepairIdentities_block_invoke_205(uint64_t a1, void *a2, voi
     v10 = pcsLogObjForScope("Guitarfish");
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412290;
-      v13 = v8;
-      _os_log_impl(&dword_1B229C000, v10, OS_LOG_TYPE_DEFAULT, "unable to recover wrapping key from keychain: %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v8;
+      _os_log_impl(&dword_1B229C000, v10, OS_LOG_TYPE_DEFAULT, "unable to recover wrapping key from keychain: %@", &v11, 0xCu);
     }
 
     *(*(*(a1 + 48) + 8) + 24) |= 0x20uLL;
@@ -4461,15 +3980,13 @@ void __PCSGuitarfishRepairIdentities_block_invoke_205(uint64_t a1, void *a2, voi
     v9 = pcsLogObjForScope("Guitarfish");
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 134217984;
-      v13 = [v6 length];
-      _os_log_impl(&dword_1B229C000, v9, OS_LOG_TYPE_DEFAULT, "recovered wrapping key from keychain of length: %lu", &v12, 0xCu);
+      v11 = 134217984;
+      v12 = [v6 length];
+      _os_log_impl(&dword_1B229C000, v9, OS_LOG_TYPE_DEFAULT, "recovered wrapping key from keychain of length: %lu", &v11, 0xCu);
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __PCSGuitarfishRepairIdentities_block_invoke_207(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6)
@@ -4508,7 +4025,7 @@ void __PCSGuitarfishRepairIdentities_block_invoke_209(uint64_t a1, void *a2, voi
 
 void __PCSGuitarfishRepairIdentities_block_invoke_220(void *a1, uint64_t a2, void *a3, void *a4, void *a5, void *a6)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v10 = a3;
   v11 = a4;
   v12 = a5;
@@ -4519,9 +4036,9 @@ void __PCSGuitarfishRepairIdentities_block_invoke_220(void *a1, uint64_t a2, voi
     v14 = pcsLogObjForScope("Guitarfish");
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = 138412290;
-      v25 = v13;
-      _os_log_impl(&dword_1B229C000, v14, OS_LOG_TYPE_DEFAULT, "Error decoding inner record: %@", &v24, 0xCu);
+      v23 = 138412290;
+      v24 = v13;
+      _os_log_impl(&dword_1B229C000, v14, OS_LOG_TYPE_DEFAULT, "Error decoding inner record: %@", &v23, 0xCu);
     }
   }
 
@@ -4538,13 +4055,11 @@ void __PCSGuitarfishRepairIdentities_block_invoke_220(void *a1, uint64_t a2, voi
   v21 = *(a1[7] + 8);
   v22 = *(v21 + 40);
   *(v21 + 40) = v12;
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __PCSGuitarfishRepairIdentities_block_invoke_221(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = pcsLogObjForScope("Guitarfish");
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
@@ -4552,9 +4067,9 @@ void __PCSGuitarfishRepairIdentities_block_invoke_221(uint64_t a1, void *a2)
   {
     if (v5)
     {
-      v9 = 138412290;
-      v10 = v3;
-      _os_log_impl(&dword_1B229C000, v4, OS_LOG_TYPE_DEFAULT, "unable to save wrapping key to keychain: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v3;
+      _os_log_impl(&dword_1B229C000, v4, OS_LOG_TYPE_DEFAULT, "unable to save wrapping key to keychain: %@", &v8, 0xCu);
     }
 
     v6 = *(*(a1 + 40) + 8);
@@ -4565,8 +4080,8 @@ void __PCSGuitarfishRepairIdentities_block_invoke_221(uint64_t a1, void *a2)
   {
     if (v5)
     {
-      LOWORD(v9) = 0;
-      _os_log_impl(&dword_1B229C000, v4, OS_LOG_TYPE_DEFAULT, "saved wrapping key to keychain successfully", &v9, 2u);
+      LOWORD(v8) = 0;
+      _os_log_impl(&dword_1B229C000, v4, OS_LOG_TYPE_DEFAULT, "saved wrapping key to keychain successfully", &v8, 2u);
     }
 
     v6 = *(*(a1 + 40) + 8);
@@ -4575,13 +4090,11 @@ void __PCSGuitarfishRepairIdentities_block_invoke_221(uint64_t a1, void *a2)
 
   *(v6 + 24) = v7;
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __PCSGuitarfishRepairIdentities_block_invoke_222(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = pcsLogObjForScope("Guitarfish");
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
@@ -4589,9 +4102,9 @@ void __PCSGuitarfishRepairIdentities_block_invoke_222(uint64_t a1, void *a2)
   {
     if (v5)
     {
-      v9 = 138412290;
-      v10 = v3;
-      _os_log_impl(&dword_1B229C000, v4, OS_LOG_TYPE_DEFAULT, "unable to save recoveryToken key to keychain: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v3;
+      _os_log_impl(&dword_1B229C000, v4, OS_LOG_TYPE_DEFAULT, "unable to save recoveryToken key to keychain: %@", &v8, 0xCu);
     }
 
     v6 = *(*(a1 + 40) + 8);
@@ -4602,8 +4115,8 @@ void __PCSGuitarfishRepairIdentities_block_invoke_222(uint64_t a1, void *a2)
   {
     if (v5)
     {
-      LOWORD(v9) = 0;
-      _os_log_impl(&dword_1B229C000, v4, OS_LOG_TYPE_DEFAULT, "saved recoveryToken key to keychain successfully", &v9, 2u);
+      LOWORD(v8) = 0;
+      _os_log_impl(&dword_1B229C000, v4, OS_LOG_TYPE_DEFAULT, "saved recoveryToken key to keychain successfully", &v8, 2u);
     }
 
     v6 = *(*(a1 + 40) + 8);
@@ -4612,26 +4125,22 @@ void __PCSGuitarfishRepairIdentities_block_invoke_222(uint64_t a1, void *a2)
 
   *(v6 + 24) = v7;
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __PCSGuitarfishRepairIdentities_block_invoke_223(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
     v3 = pcsLogObjForScope("Guitarfish");
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138412290;
-      v6 = v2;
-      _os_log_impl(&dword_1B229C000, v3, OS_LOG_TYPE_DEFAULT, "Failed to delete recovery token from keychain: %@", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = v2;
+      _os_log_impl(&dword_1B229C000, v3, OS_LOG_TYPE_DEFAULT, "Failed to delete recovery token from keychain: %@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 id getAKAccountManagerClass()
@@ -4658,9 +4167,9 @@ id getAKAccountManagerClass()
   return v1;
 }
 
-void sub_1B22E29E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B22E29E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4687,7 +4196,7 @@ void __PCSGuitarfishCreateSetupParameters_block_invoke(void *a1, void *a2, void 
 
 void __PCSGuitarfishCreateSetupParameters_block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = pcsLogObjForScope("Guitarfish");
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
@@ -4695,9 +4204,9 @@ void __PCSGuitarfishCreateSetupParameters_block_invoke_2(uint64_t a1, void *a2)
   {
     if (v5)
     {
-      v9 = 138412290;
-      v10 = v3;
-      _os_log_impl(&dword_1B229C000, v4, OS_LOG_TYPE_DEFAULT, "unable to save wrapping key to keychain: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v3;
+      _os_log_impl(&dword_1B229C000, v4, OS_LOG_TYPE_DEFAULT, "unable to save wrapping key to keychain: %@", &v8, 0xCu);
     }
 
     v6 = *(*(a1 + 40) + 8);
@@ -4708,8 +4217,8 @@ void __PCSGuitarfishCreateSetupParameters_block_invoke_2(uint64_t a1, void *a2)
   {
     if (v5)
     {
-      LOWORD(v9) = 0;
-      _os_log_impl(&dword_1B229C000, v4, OS_LOG_TYPE_DEFAULT, "saved wrapping key to keychain successfully", &v9, 2u);
+      LOWORD(v8) = 0;
+      _os_log_impl(&dword_1B229C000, v4, OS_LOG_TYPE_DEFAULT, "saved wrapping key to keychain successfully", &v8, 2u);
     }
 
     v6 = *(*(a1 + 40) + 8);
@@ -4718,13 +4227,11 @@ void __PCSGuitarfishCreateSetupParameters_block_invoke_2(uint64_t a1, void *a2)
 
   *(v6 + 24) = v7;
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __PCSGuitarfishCreateSetupParameters_block_invoke_245(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = pcsLogObjForScope("Guitarfish");
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
@@ -4732,9 +4239,9 @@ void __PCSGuitarfishCreateSetupParameters_block_invoke_245(uint64_t a1, void *a2
   {
     if (v5)
     {
-      v9 = 138412290;
-      v10 = v3;
-      _os_log_impl(&dword_1B229C000, v4, OS_LOG_TYPE_DEFAULT, "unable to save wrapping key to keychain: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v3;
+      _os_log_impl(&dword_1B229C000, v4, OS_LOG_TYPE_DEFAULT, "unable to save wrapping key to keychain: %@", &v8, 0xCu);
     }
 
     v6 = *(*(a1 + 40) + 8);
@@ -4745,8 +4252,8 @@ void __PCSGuitarfishCreateSetupParameters_block_invoke_245(uint64_t a1, void *a2
   {
     if (v5)
     {
-      LOWORD(v9) = 0;
-      _os_log_impl(&dword_1B229C000, v4, OS_LOG_TYPE_DEFAULT, "saved wrapping key to keychain successfully", &v9, 2u);
+      LOWORD(v8) = 0;
+      _os_log_impl(&dword_1B229C000, v4, OS_LOG_TYPE_DEFAULT, "saved wrapping key to keychain successfully", &v8, 2u);
     }
 
     v6 = *(*(a1 + 40) + 8);
@@ -4755,13 +4262,11 @@ void __PCSGuitarfishCreateSetupParameters_block_invoke_245(uint64_t a1, void *a2
 
   *(v6 + 24) = v7;
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void PCSGuitarfishSetupIdentities(void *a1, void *a2)
 {
-  v91[1] = *MEMORY[0x1E69E9840];
+  v90[1] = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   v5 = pcsLogObjForScope("Guitarfish");
@@ -4777,16 +4282,16 @@ void PCSGuitarfishSetupIdentities(void *a1, void *a2)
     v13 = v12;
     if (v12)
     {
-      v84 = 0;
-      v90 = kPCSSetupDSID[0];
-      v91[0] = v12;
-      v14 = __PCSCopyStingrayInfo(1, 0, [MEMORY[0x1E695DF20] dictionaryWithObjects:v91 forKeys:&v90 count:1], &v84);
+      v83 = 0;
+      v89 = kPCSSetupDSID[0];
+      v90[0] = v12;
+      v14 = __PCSCopyStingrayInfo(1, 0, [MEMORY[0x1E695DF20] dictionaryWithObjects:v90 forKeys:&v89 count:1], &v83);
       v15 = v14;
-      if (v84)
+      if (v83)
       {
-        _PCSError(&v84, 231, @"Unable to get the current primary record state, can't setupIdentities!");
-        v16 = v84;
-        v4[2](v4, 2, 1, 0, v84);
+        _PCSError(&v83, 231, @"Unable to get the current primary record state, can't setupIdentities!");
+        v16 = v83;
+        v4[2](v4, 2, 1, 0, v83);
 LABEL_53:
 
         goto LABEL_54;
@@ -4815,9 +4320,9 @@ LABEL_28:
             _os_log_impl(&dword_1B229C000, v41, OS_LOG_TYPE_DEFAULT, "No existing Guitarfish state detected, ok to enroll", &buf, 2u);
           }
 
-          v74 = 0;
-          v48 = __PCSDeleteFromKeychainICDPForRPD(v13, &v74, v42, v43, v44, v45, v46, v47);
-          if (v74)
+          v73 = 0;
+          v48 = __PCSDeleteFromKeychainICDPForRPD(v13, &v73, v42, v43, v44, v45, v46, v47);
+          if (v73)
           {
             v49 = 0;
           }
@@ -4832,17 +4337,17 @@ LABEL_28:
             v50 = pcsLogObjForScope("Guitarfish");
             if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
             {
-              v51 = v74;
+              v51 = v73;
               LODWORD(buf) = 138412290;
-              *(&buf + 4) = v74;
+              *(&buf + 4) = v73;
               _os_log_impl(&dword_1B229C000, v50, OS_LOG_TYPE_DEFAULT, "Error deleting previous icloud keychain stash: %@", &buf, 0xCu);
             }
           }
         }
 
-        v68 = 0;
-        v52 = [PCSAccountsModel adpEnabledForDSID:v13 error:&v68];
-        v53 = v68;
+        v67 = 0;
+        v52 = [PCSAccountsModel adpEnabledForDSID:v13 error:&v67];
+        v53 = v67;
         v16 = v53;
         if (v52)
         {
@@ -4878,9 +4383,9 @@ LABEL_46:
         }
 
 LABEL_48:
-        v67 = 0;
-        v58 = PCSGuitarfishCreateSetupParameters(v3, v18 == 0, !v52, &v67);
-        v59 = v67;
+        v66 = 0;
+        v58 = PCSGuitarfishCreateSetupParameters(v3, v18 == 0, !v52, &v66);
+        v59 = v66;
         v60 = v59;
         if (!v58 || v59)
         {
@@ -4889,7 +4394,7 @@ LABEL_48:
 
         else
         {
-          v61 = connectionPCSKeySyncing();
+          v61 = connectionPCSKeySyncing(0);
           v62 = [v61 remoteObjectProxyWithErrorHandler:&__block_literal_global_263];
           [v62 setupIdentitiesWithParameters:v58 complete:v4];
         }
@@ -4939,55 +4444,55 @@ LABEL_27:
         _os_log_impl(&dword_1B229C000, v27, OS_LOG_TYPE_DEFAULT, "Attempting recovery first since Guitarfish record already exists with pid: %@", &buf, 0xCu);
       }
 
-      v66 = v26;
+      v65 = v26;
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v86 = 0x3032000000;
-      v87 = __Block_byref_object_copy__5;
-      v88 = __Block_byref_object_dispose__5;
-      v89 = dispatch_semaphore_create(0);
-      v80 = 0;
-      v81 = &v80;
-      v82 = 0x2020000000;
-      v83 = 2;
-      v74 = 0;
-      v75 = &v74;
-      v76 = 0x3032000000;
-      v77 = __Block_byref_object_copy__5;
-      v78 = __Block_byref_object_dispose__5;
+      v85 = 0x3032000000;
+      v86 = __Block_byref_object_copy__5;
+      v87 = __Block_byref_object_dispose__5;
+      v88 = dispatch_semaphore_create(0);
       v79 = 0;
-      v70 = 0;
-      v71 = &v70;
-      v72 = 0x2020000000;
+      v80 = &v79;
+      v81 = 0x2020000000;
+      v82 = 2;
       v73 = 0;
-      v69[0] = MEMORY[0x1E69E9820];
-      v69[1] = 3221225472;
-      v69[2] = __PCSGuitarfishSetupIdentities_block_invoke;
-      v69[3] = &unk_1E7B19EE0;
-      v69[4] = &v80;
-      v69[5] = &v74;
-      v69[6] = &v70;
-      v69[7] = &buf;
-      PCSGuitarfishRepairIdentities(v3, v69);
+      v74 = &v73;
+      v75 = 0x3032000000;
+      v76 = __Block_byref_object_copy__5;
+      v77 = __Block_byref_object_dispose__5;
+      v78 = 0;
+      v69 = 0;
+      v70 = &v69;
+      v71 = 0x2020000000;
+      v72 = 0;
+      v68[0] = MEMORY[0x1E69E9820];
+      v68[1] = 3221225472;
+      v68[2] = __PCSGuitarfishSetupIdentities_block_invoke;
+      v68[3] = &unk_1E7B19EE0;
+      v68[4] = &v79;
+      v68[5] = &v73;
+      v68[6] = &v69;
+      v68[7] = &buf;
+      PCSGuitarfishRepairIdentities(v3, v68);
       dispatch_semaphore_wait(*(*(&buf + 1) + 40), 0xFFFFFFFFFFFFFFFFLL);
-      v28 = v75;
-      if (v81[3] || v75[5])
+      v28 = v74;
+      if (v80[3] || v74[5])
       {
-        v29 = v71[3] | 0x400000;
-        v71[3] = v29;
+        v29 = v70[3] | 0x400000;
+        v70[3] = v29;
         v30 = v28[5];
         v31 = v30;
         if (!v30)
         {
-          v65 = [v66 base64EncodedStringWithOptions:0];
-          v31 = PCSErrorCreate(231, @"primary record already exists in EP (PID:%@), and was unrecoverable, account may need another repair or RPD before SetupIdentities will continue", v32, v33, v34, v35, v36, v37, v65);
+          v64 = [v65 base64EncodedStringWithOptions:0];
+          v31 = PCSErrorCreate(231, @"primary record already exists in EP (PID:%@), and was unrecoverable, account may need another repair or RPD before SetupIdentities will continue", v32, v33, v34, v35, v36, v37, v64);
         }
 
         v4[2](v4, 2, v29, 0, v31);
         if (!v30)
         {
 
-          v39 = v66;
+          v39 = v65;
           v38 = 0;
           goto LABEL_26;
         }
@@ -5000,12 +4505,12 @@ LABEL_27:
         v38 = 1;
       }
 
-      v39 = v66;
+      v39 = v65;
 LABEL_26:
-      _Block_object_dispose(&v70, 8);
-      _Block_object_dispose(&v74, 8);
+      _Block_object_dispose(&v69, 8);
+      _Block_object_dispose(&v73, 8);
 
-      _Block_object_dispose(&v80, 8);
+      _Block_object_dispose(&v79, 8);
       _Block_object_dispose(&buf, 8);
 
       if (!v38)
@@ -5018,25 +4523,24 @@ LABEL_26:
     }
   }
 
-  v13 = PCSErrorCreate(121, @"Missing DSID in parameters", v6, v7, v8, v9, v10, v11, v64);
+  v13 = PCSErrorCreate(121, @"Missing DSID in parameters", v6, v7, v8, v9, v10, v11, v63);
   v4[2](v4, 2, 1, 0, v13);
 LABEL_54:
-
-  v63 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1B22E3514(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_1B22E3514(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
+  va_start(va, a31);
   _Block_object_dispose(&a22, 8);
   _Block_object_dispose(&a26, 8);
-  _Block_object_dispose(&a32, 8);
-  _Block_object_dispose((v32 - 192), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v31 - 192), 8);
   _Unwind_Resume(a1);
 }
 
 void __PCSGuitarfishSetupIdentities_block_invoke(void *a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v8 = a4;
   *(*(a1[4] + 8) + 24) = a2;
   objc_storeStrong((*(a1[5] + 8) + 40), a4);
@@ -5044,22 +4548,21 @@ void __PCSGuitarfishSetupIdentities_block_invoke(void *a1, uint64_t a2, uint64_t
   v9 = pcsLogObjForScope("Guitarfish");
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 134218498;
-    v12 = a2;
-    v13 = 2048;
-    v14 = a3;
-    v15 = 2112;
-    v16 = v8;
-    _os_log_impl(&dword_1B229C000, v9, OS_LOG_TYPE_DEFAULT, "Attempted repair during SetupIdentities with status: %lu, flags: %lu, and error: %@", &v11, 0x20u);
+    v10 = 134218498;
+    v11 = a2;
+    v12 = 2048;
+    v13 = a3;
+    v14 = 2112;
+    v15 = v8;
+    _os_log_impl(&dword_1B229C000, v9, OS_LOG_TYPE_DEFAULT, "Attempted repair during SetupIdentities with status: %lu, flags: %lu, and error: %@", &v10, 0x20u);
   }
 
   dispatch_semaphore_signal(*(*(a1[7] + 8) + 40));
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void completeValidateIdentities(void *a1, uint64_t a2, unint64_t a3, void *a4, void *a5)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v9 = a1;
   v10 = a4;
   v11 = a5;
@@ -5080,18 +4583,17 @@ void completeValidateIdentities(void *a1, uint64_t a2, unint64_t a3, void *a4, v
   v15 = pcsLogObjForScope("Guitarfish");
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138412290;
-    v18 = v10;
-    _os_log_impl(&dword_1B229C000, v15, OS_LOG_TYPE_DEFAULT, "PCSGuitarfishValidateIdentities Complete: Status: %@", &v17, 0xCu);
+    v16 = 138412290;
+    v17 = v10;
+    _os_log_impl(&dword_1B229C000, v15, OS_LOG_TYPE_DEFAULT, "PCSGuitarfishValidateIdentities Complete: Status: %@", &v16, 0xCu);
   }
 
   v9[2](v9, a2, a3, v10, v11);
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __PCSGuitarfishValidateIdentities_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, void *a5, void *a6)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v11 = a4;
   v12 = a5;
   v13 = a6;
@@ -5101,9 +4603,9 @@ void __PCSGuitarfishValidateIdentities_block_invoke(uint64_t a1, uint64_t a2, ui
     v14 = pcsLogObjForScope("Guitarfish");
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = 138412290;
-      v23 = v13;
-      _os_log_impl(&dword_1B229C000, v14, OS_LOG_TYPE_DEFAULT, "error while attempting to fetch recovery token info: %@", &v22, 0xCu);
+      v21 = 138412290;
+      v22 = v13;
+      _os_log_impl(&dword_1B229C000, v14, OS_LOG_TYPE_DEFAULT, "error while attempting to fetch recovery token info: %@", &v21, 0xCu);
     }
   }
 
@@ -5123,12 +4625,11 @@ void __PCSGuitarfishValidateIdentities_block_invoke(uint64_t a1, uint64_t a2, ui
   v20 = v11;
 
   dispatch_semaphore_signal(*(a1 + 32));
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __PCSGuitarfishValidateIdentities_block_invoke_268(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -5137,9 +4638,9 @@ void __PCSGuitarfishValidateIdentities_block_invoke_268(uint64_t a1, void *a2, v
     v14 = pcsLogObjForScope("Guitarfish");
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = v7;
-      _os_log_impl(&dword_1B229C000, v14, OS_LOG_TYPE_DEFAULT, "unable to recover token from keychain: %@", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = v7;
+      _os_log_impl(&dword_1B229C000, v14, OS_LOG_TYPE_DEFAULT, "unable to recover token from keychain: %@", &v15, 0xCu);
     }
 
     *(*(*(a1 + 48) + 8) + 24) |= 0x10uLL;
@@ -5157,20 +4658,18 @@ void __PCSGuitarfishValidateIdentities_block_invoke_268(uint64_t a1, void *a2, v
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v13 = [*(*(*(a1 + 40) + 8) + 40) count];
-      v16 = 134217984;
-      v17 = v13;
-      _os_log_impl(&dword_1B229C000, v12, OS_LOG_TYPE_DEFAULT, "recovered token from keychain of length: %lu", &v16, 0xCu);
+      v15 = 134217984;
+      v16 = v13;
+      _os_log_impl(&dword_1B229C000, v12, OS_LOG_TYPE_DEFAULT, "recovered token from keychain of length: %lu", &v15, 0xCu);
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __PCSGuitarfishValidateIdentities_block_invoke_269(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a3;
   v8 = v7;
@@ -5179,9 +4678,9 @@ void __PCSGuitarfishValidateIdentities_block_invoke_269(uint64_t a1, void *a2, v
     v10 = pcsLogObjForScope("Guitarfish");
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412290;
-      v13 = v8;
-      _os_log_impl(&dword_1B229C000, v10, OS_LOG_TYPE_DEFAULT, "unable to recover wrapping key from keychain: %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v8;
+      _os_log_impl(&dword_1B229C000, v10, OS_LOG_TYPE_DEFAULT, "unable to recover wrapping key from keychain: %@", &v11, 0xCu);
     }
 
     *(*(*(a1 + 48) + 8) + 24) |= 0x20uLL;
@@ -5193,15 +4692,13 @@ void __PCSGuitarfishValidateIdentities_block_invoke_269(uint64_t a1, void *a2, v
     v9 = pcsLogObjForScope("Guitarfish");
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 134217984;
-      v13 = [v6 length];
-      _os_log_impl(&dword_1B229C000, v9, OS_LOG_TYPE_DEFAULT, "recovered wrapping key from keychain of length: %lu", &v12, 0xCu);
+      v11 = 134217984;
+      v12 = [v6 length];
+      _os_log_impl(&dword_1B229C000, v9, OS_LOG_TYPE_DEFAULT, "recovered wrapping key from keychain of length: %lu", &v11, 0xCu);
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __PCSGuitarfishValidateIdentities_block_invoke_276(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6)
@@ -5228,7 +4725,7 @@ void __PCSGuitarfishValidateIdentities_block_invoke_2(uint64_t a1, uint64_t a2, 
 
 void __PCSGuitarfishValidateIdentities_block_invoke_280(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -5236,41 +4733,37 @@ void __PCSGuitarfishValidateIdentities_block_invoke_280(uint64_t a1, void *a2)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v11 = v3;
+      v10 = v3;
       _os_log_impl(&dword_1B229C000, v4, OS_LOG_TYPE_DEFAULT, "Failed to delete wrapping key from keychain: %@", buf, 0xCu);
     }
   }
 
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __PCSGuitarfishValidateIdentities_block_invoke_281;
-  v7[3] = &unk_1E7B19F58;
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __PCSGuitarfishValidateIdentities_block_invoke_281;
+  v6[3] = &unk_1E7B19F58;
   v5 = *(a1 + 32);
-  v8 = *(a1 + 40);
-  v9 = *(a1 + 48);
-  _PCSGuitarfishDeleteKeychainItem(@"RecoveryToken", v5, v7);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7 = *(a1 + 40);
+  v8 = *(a1 + 48);
+  _PCSGuitarfishDeleteKeychainItem(@"RecoveryToken", v5, v6);
 }
 
 void __PCSGuitarfishValidateIdentities_block_invoke_281(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = pcsLogObjForScope("Guitarfish");
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 138412290;
-      v7 = v3;
-      _os_log_impl(&dword_1B229C000, v4, OS_LOG_TYPE_DEFAULT, "Failed to delete recovery token from keychain: %@", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v3;
+      _os_log_impl(&dword_1B229C000, v4, OS_LOG_TYPE_DEFAULT, "Failed to delete recovery token from keychain: %@", &v5, 0xCu);
     }
   }
 
   completeValidateIdentities(*(a1 + 32), 1, *(*(*(a1 + 40) + 8) + 24), 0, *(*(*(a1 + 48) + 8) + 40));
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __PCSGuitarfishValidateIdentities_block_invoke_288(uint64_t a1, uint64_t a2, void *a3, void *a4)
@@ -5292,43 +4785,41 @@ void __PCSGuitarfishValidateIdentities_block_invoke_288(uint64_t a1, uint64_t a2
 
 void __PCSGuitarfishValidateIdentities_block_invoke_289(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = pcsLogObjForScope("Guitarfish");
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 138412290;
-      v7 = v3;
-      _os_log_impl(&dword_1B229C000, v4, OS_LOG_TYPE_DEFAULT, "Failed to delete recovery token from keychain: %@", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v3;
+      _os_log_impl(&dword_1B229C000, v4, OS_LOG_TYPE_DEFAULT, "Failed to delete recovery token from keychain: %@", &v5, 0xCu);
     }
   }
 
   completeValidateIdentities(*(a1 + 32), 1, *(*(*(a1 + 40) + 8) + 24), 0, *(*(*(a1 + 48) + 8) + 40));
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void *__getCKAcceptableValueClassesSymbolLoc_block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v6[0] = 0;
+  v8 = *MEMORY[0x1E69E9840];
+  v5[0] = 0;
   if (!CloudKitLibraryCore_frameworkLibrary)
   {
-    v6[1] = MEMORY[0x1E69E9820];
-    v6[2] = 3221225472;
-    v6[3] = __CloudKitLibraryCore_block_invoke;
-    v6[4] = &__block_descriptor_40_e5_v8__0l;
-    v6[5] = v6;
-    v7 = xmmword_1E7B19FC8;
-    v8 = 0;
+    v5[1] = MEMORY[0x1E69E9820];
+    v5[2] = 3221225472;
+    v5[3] = __CloudKitLibraryCore_block_invoke;
+    v5[4] = &__block_descriptor_40_e5_v8__0l;
+    v5[5] = v5;
+    v6 = xmmword_1E7B19FC8;
+    v7 = 0;
     CloudKitLibraryCore_frameworkLibrary = _sl_dlopen();
-    v3 = v6[0];
+    v3 = v5[0];
     v2 = CloudKitLibraryCore_frameworkLibrary;
     if (CloudKitLibraryCore_frameworkLibrary)
     {
-      if (!v6[0])
+      if (!v5[0])
       {
         goto LABEL_5;
       }
@@ -5336,7 +4827,7 @@ void *__getCKAcceptableValueClassesSymbolLoc_block_invoke(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -5348,17 +4839,13 @@ LABEL_5:
   result = dlsym(v2, "CKAcceptableValueClasses");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCKAcceptableValueClassesSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __CloudKitLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CloudKitLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5405,22 +4892,22 @@ void __connectionPCSKeySyncing_block_invoke_358()
 
 Class __getAKAccountManagerClass_block_invoke_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!AuthKitLibraryCore_frameworkLibrary_1)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __AuthKitLibraryCore_block_invoke_1;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E7B19FE0;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __AuthKitLibraryCore_block_invoke_1;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E7B19FE0;
+    v6 = 0;
     AuthKitLibraryCore_frameworkLibrary_1 = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (AuthKitLibraryCore_frameworkLibrary_1)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -5428,7 +4915,7 @@ Class __getAKAccountManagerClass_block_invoke_1(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -5443,21 +4930,17 @@ LABEL_4:
   }
 
   getAKAccountManagerClass_softClass_1 = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __AuthKitLibraryCore_block_invoke_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AuthKitLibraryCore_frameworkLibrary_1 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t PCSSupportGetClientInfo()
+uint64_t PCSSupportGetClientInfo(uint64_t a1, uint64_t a2)
 {
   if (PCSSupportGetClientInfo_onceToken != -1)
   {
@@ -5474,16 +4957,16 @@ void sub_1B22E4CF4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1B22E69BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1B22E69BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -5575,7 +5058,7 @@ void PCSGetBoundaryKey(void *a1, void *a2)
 void __PCSGetBoundaryKey_block_invoke(uint64_t a1)
 {
   v1 = a1;
-  v120[1] = *MEMORY[0x1E69E9840];
+  v119[1] = *MEMORY[0x1E69E9840];
   cf = 0;
   v2 = [*(a1 + 32) objectForKeyedSubscript:kPCSSetupDSID[0]];
   v3 = v2;
@@ -5584,9 +5067,9 @@ void __PCSGetBoundaryKey_block_invoke(uint64_t a1)
     v34 = *(v1 + 40);
     v35 = MEMORY[0x1E696ABC0];
     v36 = kPCSErrorDomain;
-    v119 = *MEMORY[0x1E695E620];
-    v120[0] = @"dsid not available";
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v120 forKeys:&v119 count:1];
+    v118 = *MEMORY[0x1E695E620];
+    v119[0] = @"dsid not available";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v119 forKeys:&v118 count:1];
     v37 = v35;
     v38 = v36;
     v39 = 121;
@@ -5602,9 +5085,9 @@ LABEL_29:
     v34 = *(v1 + 40);
     v40 = MEMORY[0x1E696ABC0];
     v41 = kPCSErrorDomain;
-    v117 = *MEMORY[0x1E696A578];
-    v118 = @"Current persona does not match chosen dsid";
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v118 forKeys:&v117 count:1];
+    v116 = *MEMORY[0x1E696A578];
+    v117 = @"Current persona does not match chosen dsid";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v117 forKeys:&v116 count:1];
     v37 = v40;
     v38 = v41;
     v39 = 152;
@@ -5613,33 +5096,33 @@ LABEL_29:
 
   v4 = *MEMORY[0x1E697B018];
   v5 = *MEMORY[0x1E697AC30];
-  v84 = *MEMORY[0x1E697AFF8];
-  v115[0] = *MEMORY[0x1E697AFF8];
-  v115[1] = v5;
-  v86 = v5;
-  v85 = v4;
-  v116[0] = v4;
-  v116[1] = kPCSAccountBoundaryKey[0];
+  v83 = *MEMORY[0x1E697AFF8];
+  v114[0] = *MEMORY[0x1E697AFF8];
+  v114[1] = v5;
+  v85 = v5;
+  v84 = v4;
+  v115[0] = v4;
+  v115[1] = kPCSAccountBoundaryKey[0];
   v6 = *MEMORY[0x1E695E4D0];
   v7 = *MEMORY[0x1E697AE80];
-  v87 = *MEMORY[0x1E697AEB0];
-  v115[2] = *MEMORY[0x1E697AEB0];
-  v115[3] = v7;
-  v116[2] = v6;
-  v116[3] = v3;
+  v86 = *MEMORY[0x1E697AEB0];
+  v114[2] = *MEMORY[0x1E697AEB0];
+  v114[3] = v7;
+  v115[2] = v6;
+  v115[3] = v3;
   v8 = *MEMORY[0x1E697B318];
-  v88 = *MEMORY[0x1E697ABD0];
-  v115[4] = *MEMORY[0x1E697ABD0];
-  v115[5] = v8;
-  v116[4] = kPCSDefaultKeychainGroup[0];
-  v116[5] = v6;
+  v87 = *MEMORY[0x1E697ABD0];
+  v114[4] = *MEMORY[0x1E697ABD0];
+  v114[5] = v8;
+  v115[4] = kPCSDefaultKeychainGroup[0];
+  v115[5] = v6;
   v9 = *MEMORY[0x1E697B260];
-  v115[6] = *MEMORY[0x1E697B310];
-  v115[7] = v9;
+  v114[6] = *MEMORY[0x1E697B310];
+  v114[7] = v9;
   v10 = *MEMORY[0x1E697B268];
-  v116[6] = v6;
-  v116[7] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v116 forKeys:v115 count:8];
+  v115[6] = v6;
+  v115[7] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v115 forKeys:v114 count:8];
   v12 = PCSMeasureRelativeNanoTime();
   ++qword_1ED6F2630;
   v13 = _PCSKeychainForwardTable(v11, &cf);
@@ -5648,40 +5131,40 @@ LABEL_29:
   {
     if (!v13)
     {
+      v93 = 0u;
       v94 = 0u;
       v95 = 0u;
       v96 = 0u;
-      v97 = 0u;
       obj = cf;
-      v14 = [obj countByEnumeratingWithState:&v94 objects:v114 count:16];
+      v14 = [obj countByEnumeratingWithState:&v93 objects:v113 count:16];
       if (v14)
       {
         v15 = v14;
-        v82 = v7;
-        v79 = v6;
-        v80 = v1;
-        v81 = v11;
+        v81 = v7;
+        v78 = v6;
+        v79 = v1;
+        v80 = v11;
         v16 = 0;
-        v91 = 0;
-        v92 = 0;
         v90 = 0;
-        v17 = *v95;
+        v91 = 0;
+        v89 = 0;
+        v17 = *v94;
         v18 = *MEMORY[0x1E697ABD8];
         v19 = *MEMORY[0x1E697AC20];
         v20 = *MEMORY[0x1E697AEA8];
-        v89 = *MEMORY[0x1E697AF18];
+        v88 = *MEMORY[0x1E697AF18];
         do
         {
           v21 = 0;
           v22 = v16;
           do
           {
-            if (*v95 != v17)
+            if (*v94 != v17)
             {
               objc_enumerationMutation(obj);
             }
 
-            v16 = *(*(&v94 + 1) + 8 * v21);
+            v16 = *(*(&v93 + 1) + 8 * v21);
 
             v23 = [v16 objectForKeyedSubscript:v18];
             v24 = [v23 isEqualToString:v19];
@@ -5695,23 +5178,23 @@ LABEL_29:
                 _os_log_impl(&dword_1B229C000, v25, OS_LOG_TYPE_DEFAULT, "Item needs upgrading", buf, 2u);
               }
 
-              v90 = 1;
+              v89 = 1;
             }
 
             v26 = [v16 objectForKeyedSubscript:v20];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              if ([v26 isEqualToString:v89])
+              if ([v26 isEqualToString:v88])
               {
-                v27 = v91;
-                v91 = _PCSMostRecentlyCreatedItem(v91, v16);
+                v27 = v90;
+                v90 = _PCSMostRecentlyCreatedItem(v90, v16);
               }
 
               else
               {
-                v27 = v92;
-                v92 = _PCSMostRecentlyCreatedItem(v92, v16);
+                v27 = v91;
+                v91 = _PCSMostRecentlyCreatedItem(v91, v16);
               }
             }
 
@@ -5720,70 +5203,70 @@ LABEL_29:
           }
 
           while (v15 != v21);
-          v15 = [obj countByEnumeratingWithState:&v94 objects:v114 count:16];
+          v15 = [obj countByEnumeratingWithState:&v93 objects:v113 count:16];
         }
 
         while (v15);
 
-        if (v90)
+        if (v89)
         {
+          v111[0] = v83;
+          v111[1] = v85;
           v112[0] = v84;
-          v112[1] = v86;
-          v113[0] = v85;
-          v113[1] = kPCSAccountBoundaryKey[0];
-          v112[2] = v87;
-          v112[3] = v18;
-          v113[2] = v79;
-          v113[3] = v19;
-          v112[4] = v82;
-          v112[5] = v88;
-          v113[4] = v3;
-          v113[5] = kPCSDefaultKeychainGroup[0];
-          v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v113 forKeys:v112 count:6];
-          v110 = v18;
-          v111 = *MEMORY[0x1E697ABE0];
-          v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v111 forKeys:&v110 count:1];
+          v112[1] = kPCSAccountBoundaryKey[0];
+          v111[2] = v86;
+          v111[3] = v18;
+          v112[2] = v78;
+          v112[3] = v19;
+          v111[4] = v81;
+          v111[5] = v87;
+          v112[4] = v3;
+          v112[5] = kPCSDefaultKeychainGroup[0];
+          v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v112 forKeys:v111 count:6];
+          v109 = v18;
+          v110 = *MEMORY[0x1E697ABE0];
+          v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v110 forKeys:&v109 count:1];
           v30 = qword_1ED6F2358(v28, v29);
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 67109120;
-            v107 = v30;
+            v106 = v30;
             _os_log_impl(&dword_1B229C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Item upgrade resulted in: %d", buf, 8u);
           }
         }
 
-        if (v91)
+        if (v90)
         {
-          v31 = v91;
+          v31 = v90;
           v32 = v31;
-          v1 = v80;
-          v11 = v81;
-          v33 = v92;
+          v1 = v79;
+          v11 = v80;
+          v33 = v91;
           goto LABEL_38;
         }
 
-        v1 = v80;
-        v11 = v81;
-        v57 = v92;
-        v58 = v89;
+        v1 = v79;
+        v11 = v80;
+        v56 = v91;
+        v57 = v88;
       }
 
       else
       {
-        v57 = 0;
-        v58 = *MEMORY[0x1E697AF18];
+        v56 = 0;
+        v57 = *MEMORY[0x1E697AF18];
         v20 = *MEMORY[0x1E697AEA8];
       }
 
-      v31 = v57;
-      v59 = [v31 mutableCopy];
-      [v59 setObject:v58 forKeyedSubscript:v20];
-      (*(&_PCSKeychainForwardTable + 1))(v59, 0);
+      v31 = v56;
+      v58 = [v31 mutableCopy];
+      [v58 setObject:v57 forKeyedSubscript:v20];
+      (*(&_PCSKeychainForwardTable + 1))(v58, 0);
 
       v32 = 0;
+      v59 = 0;
       v60 = 0;
       v61 = 0;
-      v62 = 0;
       v33 = v31;
       if (!v31)
       {
@@ -5795,51 +5278,51 @@ LABEL_41:
       }
 
 LABEL_38:
-      v62 = [v31 objectForKeyedSubscript:*MEMORY[0x1E697B3C0]];
+      v61 = [v31 objectForKeyedSubscript:*MEMORY[0x1E697B3C0]];
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
 
-        v62 = 0;
+        v61 = 0;
       }
 
-      v60 = v31;
-      v61 = v33;
+      v59 = v31;
+      v60 = v33;
       goto LABEL_41;
     }
 
     goto LABEL_32;
   }
 
-  v44 = [*(v1 + 32) objectForKeyedSubscript:kPCSSetupBoundaryNoCreate[0]];
-  v45 = [v44 BOOLValue];
+  v43 = [*(v1 + 32) objectForKeyedSubscript:kPCSSetupBoundaryNoCreate[0]];
+  v44 = [v43 BOOLValue];
 
-  if (v45)
+  if (v44)
   {
 LABEL_32:
-    v46 = *(v1 + 40);
-    v47 = MEMORY[0x1E696ABC0];
-    v48 = kPCSErrorDomain;
-    v108 = *MEMORY[0x1E696A578];
-    v49 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Boundary key not available: %d", v13];
-    v109 = v49;
-    v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v109 forKeys:&v108 count:1];
-    v51 = [v47 errorWithDomain:v48 code:91 userInfo:v50];
-    (*(v46 + 16))(v46, 0, v51);
+    v45 = *(v1 + 40);
+    v46 = MEMORY[0x1E696ABC0];
+    v47 = kPCSErrorDomain;
+    v107 = *MEMORY[0x1E696A578];
+    v48 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Boundary key not available: %d", v13];
+    v108 = v48;
+    v49 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v108 forKeys:&v107 count:1];
+    v50 = [v46 errorWithDomain:v47 code:91 userInfo:v49];
+    (*(v45 + 16))(v45, 0, v50);
 
     goto LABEL_30;
   }
 
   if (SecRandomCopyBytes(*MEMORY[0x1E697B308], 0x20uLL, buf))
   {
-    v52 = *(v1 + 40);
-    v53 = MEMORY[0x1E696ABC0];
-    v54 = kPCSErrorDomain;
-    v103 = *MEMORY[0x1E696A578];
-    v104 = @"out of random";
-    v55 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v104 forKeys:&v103 count:1];
-    v56 = [v53 errorWithDomain:v54 code:92 userInfo:v55];
-    (*(v52 + 16))(v52, 0, v56);
+    v51 = *(v1 + 40);
+    v52 = MEMORY[0x1E696ABC0];
+    v53 = kPCSErrorDomain;
+    v102 = *MEMORY[0x1E696A578];
+    v103 = @"out of random";
+    v54 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v103 forKeys:&v102 count:1];
+    v55 = [v52 errorWithDomain:v53 code:92 userInfo:v54];
+    (*(v51 + 16))(v51, 0, v55);
   }
 
   else
@@ -5847,63 +5330,62 @@ LABEL_32:
     ccsha256_di();
     ccdigest();
     [MEMORY[0x1E695DEF0] dataWithBytes:buf length:32];
-    v55 = v83 = v7;
-    v63 = [MEMORY[0x1E695DEF0] dataWithBytes:v105 length:32];
-    v56 = [v63 base64EncodedStringWithOptions:0];
+    v54 = v82 = v7;
+    v62 = [MEMORY[0x1E695DEF0] dataWithBytes:v104 length:32];
+    v55 = [v62 base64EncodedStringWithOptions:0];
 
-    v64 = *MEMORY[0x1E697AE70];
+    v63 = *MEMORY[0x1E697AE70];
+    v100[0] = v83;
+    v100[1] = v63;
     v101[0] = v84;
-    v101[1] = v64;
-    v102[0] = v85;
-    v102[1] = v56;
-    v65 = *MEMORY[0x1E697AEA8];
-    v101[2] = v86;
+    v101[1] = v55;
+    v64 = *MEMORY[0x1E697AEA8];
+    v100[2] = v85;
+    v100[3] = v64;
+    v65 = *MEMORY[0x1E697AF18];
+    v101[2] = kPCSAccountBoundaryKey[0];
     v101[3] = v65;
-    v66 = *MEMORY[0x1E697AF18];
-    v102[2] = kPCSAccountBoundaryKey[0];
-    v102[3] = v66;
-    v67 = *MEMORY[0x1E697ABD8];
-    v101[4] = v87;
+    v66 = *MEMORY[0x1E697ABD8];
+    v100[4] = v86;
+    v100[5] = v66;
+    v67 = *MEMORY[0x1E697ABE0];
+    v101[4] = v6;
     v101[5] = v67;
-    v68 = *MEMORY[0x1E697ABE0];
-    v102[4] = v6;
-    v102[5] = v68;
-    v101[6] = v83;
-    v101[7] = v88;
-    v102[6] = v3;
-    v102[7] = kPCSDefaultKeychainGroup[0];
-    v101[8] = *MEMORY[0x1E697B3C0];
-    v102[8] = v55;
-    v69 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v102 forKeys:v101 count:9];
-    v70 = [v69 mutableCopy];
+    v100[6] = v82;
+    v100[7] = v87;
+    v101[6] = v3;
+    v101[7] = kPCSDefaultKeychainGroup[0];
+    v100[8] = *MEMORY[0x1E697B3C0];
+    v101[8] = v54;
+    v68 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v101 forKeys:v100 count:9];
+    v69 = [v68 mutableCopy];
 
-    v71 = (*(&_PCSKeychainForwardTable + 1))(v70, 0);
-    if (v71)
+    v70 = (*(&_PCSKeychainForwardTable + 1))(v69, 0);
+    if (v70)
     {
-      v72 = *(v1 + 40);
-      v73 = MEMORY[0x1E696ABC0];
-      v74 = kPCSErrorDomain;
-      v99 = *MEMORY[0x1E696A578];
-      v75 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to write into keychain: %d", v71];
-      v100 = v75;
-      [MEMORY[0x1E695DF20] dictionaryWithObjects:&v100 forKeys:&v99 count:1];
-      v77 = v76 = v3;
-      v78 = [v73 errorWithDomain:v74 code:4 userInfo:v77];
-      (*(v72 + 16))(v72, 0, v78);
+      v71 = *(v1 + 40);
+      v72 = MEMORY[0x1E696ABC0];
+      v73 = kPCSErrorDomain;
+      v98 = *MEMORY[0x1E696A578];
+      v74 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to write into keychain: %d", v70];
+      v99 = v74;
+      [MEMORY[0x1E695DF20] dictionaryWithObjects:&v99 forKeys:&v98 count:1];
+      v76 = v75 = v3;
+      v77 = [v72 errorWithDomain:v73 code:4 userInfo:v76];
+      (*(v71 + 16))(v71, 0, v77);
 
-      v3 = v76;
+      v3 = v75;
     }
 
     else
     {
-      [v70 setObject:*MEMORY[0x1E697AF30] forKeyedSubscript:v65];
-      (*(&_PCSKeychainForwardTable + 1))(v70, 0);
+      [v69 setObject:*MEMORY[0x1E697AF30] forKeyedSubscript:v64];
+      (*(&_PCSKeychainForwardTable + 1))(v69, 0);
       (*(*(v1 + 40) + 16))();
     }
   }
 
 LABEL_30:
-  v43 = *MEMORY[0x1E69E9840];
 }
 
 void PCSGetAppBoundaryKey(void *a1, void *a2, void *a3)
@@ -5928,7 +5410,7 @@ void PCSGetAppBoundaryKey(void *a1, void *a2, void *a3)
 void __PCSGetAppBoundaryKey_block_invoke(uint64_t a1)
 {
   v1 = a1;
-  v115[1] = *MEMORY[0x1E69E9840];
+  v114[1] = *MEMORY[0x1E69E9840];
   cf = 0;
   v2 = [*(a1 + 32) objectForKeyedSubscript:kPCSSetupDSID[0]];
   v3 = v2;
@@ -5937,9 +5419,9 @@ void __PCSGetAppBoundaryKey_block_invoke(uint64_t a1)
     v36 = *(v1 + 48);
     v37 = MEMORY[0x1E696ABC0];
     v38 = kPCSErrorDomain;
-    v114 = *MEMORY[0x1E695E620];
-    v115[0] = @"dsid not available";
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v115 forKeys:&v114 count:1];
+    v113 = *MEMORY[0x1E695E620];
+    v114[0] = @"dsid not available";
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v114 forKeys:&v113 count:1];
     v39 = v37;
     v40 = v38;
     v41 = 121;
@@ -5954,9 +5436,9 @@ LABEL_27:
     v36 = *(v1 + 48);
     v42 = MEMORY[0x1E696ABC0];
     v43 = kPCSErrorDomain;
-    v112 = *MEMORY[0x1E696A578];
-    v113 = @"Current persona does not match chosen dsid";
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v113 forKeys:&v112 count:1];
+    v111 = *MEMORY[0x1E696A578];
+    v112 = @"Current persona does not match chosen dsid";
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v112 forKeys:&v111 count:1];
     v39 = v42;
     v40 = v43;
     v41 = 152;
@@ -5965,34 +5447,34 @@ LABEL_27:
 
   v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@", kPCSAccountBoundaryKey[0], *(v1 + 40)];
   v5 = *MEMORY[0x1E697B018];
-  v80 = *MEMORY[0x1E697AFF8];
-  v81 = *MEMORY[0x1E697AC30];
-  v110[0] = *MEMORY[0x1E697AFF8];
-  v110[1] = v81;
-  v82 = v5;
-  v111[0] = v5;
-  v111[1] = v4;
+  v79 = *MEMORY[0x1E697AFF8];
+  v80 = *MEMORY[0x1E697AC30];
+  v109[0] = *MEMORY[0x1E697AFF8];
+  v109[1] = v80;
+  v81 = v5;
+  v110[0] = v5;
+  v110[1] = v4;
   v6 = *MEMORY[0x1E695E4D0];
-  v84 = *MEMORY[0x1E697AEB0];
-  v85 = *MEMORY[0x1E697AE80];
-  v110[2] = *MEMORY[0x1E697AEB0];
-  v110[3] = v85;
-  v111[2] = v6;
-  v111[3] = v3;
+  v83 = *MEMORY[0x1E697AEB0];
+  v84 = *MEMORY[0x1E697AE80];
+  v109[2] = *MEMORY[0x1E697AEB0];
+  v109[3] = v84;
+  v110[2] = v6;
+  v110[3] = v3;
   v7 = *(v1 + 40);
   v8 = *MEMORY[0x1E697B318];
-  v83 = *MEMORY[0x1E697ABD0];
-  v110[4] = *MEMORY[0x1E697ABD0];
-  v110[5] = v8;
-  v111[4] = v7;
-  v111[5] = v6;
+  v82 = *MEMORY[0x1E697ABD0];
+  v109[4] = *MEMORY[0x1E697ABD0];
+  v109[5] = v8;
+  v110[4] = v7;
+  v110[5] = v6;
   v9 = *MEMORY[0x1E697B260];
-  v110[6] = *MEMORY[0x1E697B310];
-  v110[7] = v9;
+  v109[6] = *MEMORY[0x1E697B310];
+  v109[7] = v9;
   v10 = *MEMORY[0x1E697B268];
-  v111[6] = v6;
-  v111[7] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v111 forKeys:v110 count:8];
+  v110[6] = v6;
+  v110[7] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v110 forKeys:v109 count:8];
   v12 = PCSMeasureRelativeNanoTime();
   ++qword_1ED6F2630;
   v13 = _PCSKeychainForwardTable(v11, &cf);
@@ -6001,24 +5483,24 @@ LABEL_27:
   {
     if (!v13)
     {
-      v77 = v6;
+      v76 = v6;
+      v88 = 0u;
       v89 = 0u;
       v90 = 0u;
       v91 = 0u;
-      v92 = 0u;
       obj = cf;
-      v14 = [obj countByEnumeratingWithState:&v89 objects:v109 count:16];
+      v14 = [obj countByEnumeratingWithState:&v88 objects:v108 count:16];
       if (v14)
       {
         v15 = v14;
-        v74 = v1;
-        v75 = v11;
-        v78 = v4;
-        v76 = v3;
+        v73 = v1;
+        v74 = v11;
+        v77 = v4;
+        v75 = v3;
         v16 = 0;
         v17 = 0;
-        v86 = 0;
-        v18 = *v90;
+        v85 = 0;
+        v18 = *v89;
         v19 = *MEMORY[0x1E697ABD8];
         v20 = *MEMORY[0x1E697AC20];
         v21 = *MEMORY[0x1E697AEA8];
@@ -6028,12 +5510,12 @@ LABEL_27:
           v23 = v16;
           do
           {
-            if (*v90 != v18)
+            if (*v89 != v18)
             {
               objc_enumerationMutation(obj);
             }
 
-            v16 = *(*(&v89 + 1) + 8 * v22);
+            v16 = *(*(&v88 + 1) + 8 * v22);
 
             v24 = [v16 objectForKeyedSubscript:v19];
             v25 = [v24 isEqualToString:v20];
@@ -6047,7 +5529,7 @@ LABEL_27:
                 _os_log_impl(&dword_1B229C000, v26, OS_LOG_TYPE_DEFAULT, "Item needs upgrading", buf, 2u);
               }
 
-              v86 = 1;
+              v85 = 1;
             }
 
             v27 = [v16 objectForKeyedSubscript:v21];
@@ -6064,37 +5546,37 @@ LABEL_27:
           }
 
           while (v15 != v22);
-          v15 = [obj countByEnumeratingWithState:&v89 objects:v109 count:16];
+          v15 = [obj countByEnumeratingWithState:&v88 objects:v108 count:16];
         }
 
         while (v15);
 
-        v3 = v76;
-        v1 = v74;
-        if (v86)
+        v3 = v75;
+        v1 = v73;
+        if (v85)
         {
-          v107[0] = v80;
-          v107[1] = v81;
-          v108[0] = v82;
-          v108[1] = v78;
-          v107[2] = v84;
-          v107[3] = v19;
-          v108[2] = v77;
-          v108[3] = v20;
-          v107[4] = v85;
-          v107[5] = v83;
-          v29 = *(v74 + 40);
-          v108[4] = v76;
-          v108[5] = v29;
-          v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v108 forKeys:v107 count:6];
-          v105 = v19;
-          v106 = *MEMORY[0x1E697ABE0];
-          v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v106 forKeys:&v105 count:1];
+          v106[0] = v79;
+          v106[1] = v80;
+          v107[0] = v81;
+          v107[1] = v77;
+          v106[2] = v83;
+          v106[3] = v19;
+          v107[2] = v76;
+          v107[3] = v20;
+          v106[4] = v84;
+          v106[5] = v82;
+          v29 = *(v73 + 40);
+          v107[4] = v75;
+          v107[5] = v29;
+          v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v107 forKeys:v106 count:6];
+          v104 = v19;
+          v105 = *MEMORY[0x1E697ABE0];
+          v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v105 forKeys:&v104 count:1];
           v32 = qword_1ED6F2358(v30, v31);
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 67109120;
-            v102 = v32;
+            v101 = v32;
             _os_log_impl(&dword_1B229C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Item upgrade resulted in: %d", buf, 8u);
           }
         }
@@ -6104,15 +5586,15 @@ LABEL_27:
         if (!v33)
         {
           v35 = 0;
-          v4 = v78;
-          v11 = v75;
+          v4 = v77;
+          v11 = v74;
           goto LABEL_36;
         }
 
         v35 = [v33 objectForKeyedSubscript:*MEMORY[0x1E697B3C0]];
         objc_opt_class();
-        v4 = v78;
-        v11 = v75;
+        v4 = v77;
+        v11 = v74;
         if (objc_opt_isKindOfClass())
         {
 LABEL_36:
@@ -6135,120 +5617,119 @@ LABEL_36:
     goto LABEL_30;
   }
 
-  v45 = [*(v1 + 32) objectForKeyedSubscript:kPCSSetupBoundaryNoCreate[0]];
-  v46 = [v45 BOOLValue];
+  v44 = [*(v1 + 32) objectForKeyedSubscript:kPCSSetupBoundaryNoCreate[0]];
+  v45 = [v44 BOOLValue];
 
-  if (v46)
+  if (v45)
   {
 LABEL_30:
-    v47 = *(v1 + 48);
-    v48 = MEMORY[0x1E696ABC0];
-    v49 = kPCSErrorDomain;
-    v103 = *MEMORY[0x1E696A578];
-    v50 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Boundary key not available: %d", v13];
-    v104 = v50;
-    v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v104 forKeys:&v103 count:1];
-    v52 = [v48 errorWithDomain:v49 code:91 userInfo:v51];
-    (*(v47 + 16))(v47, 0, v52);
+    v46 = *(v1 + 48);
+    v47 = MEMORY[0x1E696ABC0];
+    v48 = kPCSErrorDomain;
+    v102 = *MEMORY[0x1E696A578];
+    v49 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Boundary key not available: %d", v13];
+    v103 = v49;
+    v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v103 forKeys:&v102 count:1];
+    v51 = [v47 errorWithDomain:v48 code:91 userInfo:v50];
+    (*(v46 + 16))(v46, 0, v51);
 
     goto LABEL_28;
   }
 
   if (SecRandomCopyBytes(*MEMORY[0x1E697B308], 0x20uLL, buf))
   {
-    v53 = *(v1 + 48);
-    v54 = MEMORY[0x1E696ABC0];
-    v55 = kPCSErrorDomain;
-    v98 = *MEMORY[0x1E696A578];
-    v99 = @"out of random";
-    v56 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v99 forKeys:&v98 count:1];
-    v57 = [v54 errorWithDomain:v55 code:92 userInfo:v56];
-    (*(v53 + 16))(v53, 0, v57);
+    v52 = *(v1 + 48);
+    v53 = MEMORY[0x1E696ABC0];
+    v54 = kPCSErrorDomain;
+    v97 = *MEMORY[0x1E696A578];
+    v98 = @"out of random";
+    v55 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v98 forKeys:&v97 count:1];
+    v56 = [v53 errorWithDomain:v54 code:92 userInfo:v55];
+    (*(v52 + 16))(v52, 0, v56);
   }
 
   else
   {
     ccsha256_di();
     ccdigest();
-    v56 = [MEMORY[0x1E695DEF0] dataWithBytes:buf length:32];
-    v58 = [MEMORY[0x1E695DEF0] dataWithBytes:v100 length:32];
-    v57 = [v58 base64EncodedStringWithOptions:0];
+    v55 = [MEMORY[0x1E695DEF0] dataWithBytes:buf length:32];
+    v57 = [MEMORY[0x1E695DEF0] dataWithBytes:v99 length:32];
+    v56 = [v57 base64EncodedStringWithOptions:0];
 
-    v59 = *MEMORY[0x1E697AE70];
-    v96[0] = v80;
-    v96[1] = v59;
-    v97[0] = v82;
-    v97[1] = v57;
-    v60 = *MEMORY[0x1E697AEA8];
-    v96[2] = v81;
+    v58 = *MEMORY[0x1E697AE70];
+    v95[0] = v79;
+    v95[1] = v58;
+    v96[0] = v81;
+    v96[1] = v56;
+    v59 = *MEMORY[0x1E697AEA8];
+    v95[2] = v80;
+    v95[3] = v59;
+    v60 = *MEMORY[0x1E697AF18];
+    v96[2] = v4;
     v96[3] = v60;
-    v61 = *MEMORY[0x1E697AF18];
-    v97[2] = v4;
-    v97[3] = v61;
-    v62 = *MEMORY[0x1E697ABD8];
-    v96[4] = v84;
+    v61 = *MEMORY[0x1E697ABD8];
+    v95[4] = v83;
+    v95[5] = v61;
+    v62 = *MEMORY[0x1E697ABE0];
+    v96[4] = v6;
     v96[5] = v62;
-    v63 = *MEMORY[0x1E697ABE0];
-    v97[4] = v6;
-    v97[5] = v63;
-    v96[6] = v85;
-    v96[7] = v83;
-    v64 = *(v1 + 40);
-    v97[6] = v3;
-    v97[7] = v64;
-    v96[8] = *MEMORY[0x1E697B3C0];
-    v97[8] = v56;
-    v65 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v97 forKeys:v96 count:9];
-    v66 = [v65 mutableCopy];
+    v95[6] = v84;
+    v95[7] = v82;
+    v63 = *(v1 + 40);
+    v96[6] = v3;
+    v96[7] = v63;
+    v95[8] = *MEMORY[0x1E697B3C0];
+    v96[8] = v55;
+    v64 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v96 forKeys:v95 count:9];
+    v65 = [v64 mutableCopy];
 
-    v67 = (*(&_PCSKeychainForwardTable + 1))(v66, 0);
-    v68 = *(v1 + 48);
-    if (v67)
+    v66 = (*(&_PCSKeychainForwardTable + 1))(v65, 0);
+    v67 = *(v1 + 48);
+    if (v66)
     {
       obja = MEMORY[0x1E696ABC0];
-      v69 = kPCSErrorDomain;
-      v94 = *MEMORY[0x1E696A578];
-      [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to write into keychain: %d", v67];
-      v70 = v79 = v4;
-      v95 = v70;
-      [MEMORY[0x1E695DF20] dictionaryWithObjects:&v95 forKeys:&v94 count:1];
-      v72 = v71 = v11;
-      v73 = [obja errorWithDomain:v69 code:4 userInfo:v72];
-      (*(v68 + 16))(v68, 0, v73);
+      v68 = kPCSErrorDomain;
+      v93 = *MEMORY[0x1E696A578];
+      [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to write into keychain: %d", v66];
+      v69 = v78 = v4;
+      v94 = v69;
+      [MEMORY[0x1E695DF20] dictionaryWithObjects:&v94 forKeys:&v93 count:1];
+      v71 = v70 = v11;
+      v72 = [obja errorWithDomain:v68 code:4 userInfo:v71];
+      (*(v67 + 16))(v67, 0, v72);
 
-      v11 = v71;
-      v4 = v79;
+      v11 = v70;
+      v4 = v78;
     }
 
     else
     {
-      (*(v68 + 16))(*(v1 + 48), v56, 0);
+      (*(v67 + 16))(*(v1 + 48), v55, 0);
     }
   }
 
 LABEL_28:
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 void PCSDeleteBoundaryKey(void *a1)
 {
-  v10[4] = *MEMORY[0x1E69E9840];
+  v9[4] = *MEMORY[0x1E69E9840];
   v1 = [a1 objectForKeyedSubscript:kPCSSetupDSID[0]];
   if (PCSCurrentPersonaMatchesDSID(v1))
   {
     v2 = MEMORY[0x1E695DF90];
     v3 = *MEMORY[0x1E697B018];
     v4 = *MEMORY[0x1E697AC30];
-    v9[0] = *MEMORY[0x1E697AFF8];
-    v9[1] = v4;
-    v10[0] = v3;
-    v10[1] = kPCSAccountBoundaryKey[0];
+    v8[0] = *MEMORY[0x1E697AFF8];
+    v8[1] = v4;
+    v9[0] = v3;
+    v9[1] = kPCSAccountBoundaryKey[0];
     v5 = *MEMORY[0x1E697ABD0];
-    v9[2] = *MEMORY[0x1E697AEB0];
-    v9[3] = v5;
-    v10[2] = *MEMORY[0x1E695E4D0];
-    v10[3] = kPCSDefaultKeychainGroup[0];
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:4];
+    v8[2] = *MEMORY[0x1E697AEB0];
+    v8[3] = v5;
+    v9[2] = *MEMORY[0x1E695E4D0];
+    v9[3] = kPCSDefaultKeychainGroup[0];
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:4];
     v7 = [v2 dictionaryWithDictionary:v6];
 
     if (v1)
@@ -6258,13 +5739,11 @@ void PCSDeleteBoundaryKey(void *a1)
 
     off_1ED6F2360(v7);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void PCSDeleteAppBoundaryKey(void *a1, void *a2)
 {
-  v14[4] = *MEMORY[0x1E69E9840];
+  v13[4] = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 objectForKeyedSubscript:kPCSSetupDSID[0]];
   if (PCSCurrentPersonaMatchesDSID(v4))
@@ -6273,16 +5752,16 @@ void PCSDeleteAppBoundaryKey(void *a1, void *a2)
     v6 = MEMORY[0x1E695DF90];
     v7 = *MEMORY[0x1E697B018];
     v8 = *MEMORY[0x1E697AC30];
-    v13[0] = *MEMORY[0x1E697AFF8];
-    v13[1] = v8;
+    v12[0] = *MEMORY[0x1E697AFF8];
+    v12[1] = v8;
     v9 = *MEMORY[0x1E697ABD0];
-    v13[2] = *MEMORY[0x1E697AEB0];
-    v13[3] = v9;
-    v14[0] = v7;
-    v14[1] = v5;
-    v14[2] = *MEMORY[0x1E695E4D0];
-    v14[3] = v3;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:4];
+    v12[2] = *MEMORY[0x1E697AEB0];
+    v12[3] = v9;
+    v13[0] = v7;
+    v13[1] = v5;
+    v13[2] = *MEMORY[0x1E695E4D0];
+    v13[3] = v3;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:4];
     v11 = [v6 dictionaryWithDictionary:v10];
 
     if (v4)
@@ -6292,14 +5771,19 @@ void PCSDeleteAppBoundaryKey(void *a1, void *a2)
 
     off_1ED6F2360(v11);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 CFIndex _PCSErrorContext(uint64_t a1, const void **a2, CFIndex a3, CFStringRef format, ...)
 {
   va_start(va, format);
   _PCSErrorVA(a1, a2, a3, 0, format, va);
+  return a3;
+}
+
+CFIndex _PCSErrorUserInfo(uint64_t a1, const void **a2, CFIndex a3, const __CFDictionary *a4, const __CFString *a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+{
+  va_start(va, a8);
+  _PCSErrorVA(a1, a2, a3, a4, a5, va);
   return a3;
 }
 
@@ -6312,7 +5796,7 @@ uint64_t _PCSErrorASN1(const void **a1, uint64_t a2, uint64_t a3)
 
 id PCSErrorCreate(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v10 = MEMORY[0x1E696AEC0];
   v11 = a2;
   v12 = [[v10 alloc] initWithFormat:v11 arguments:&a9];
@@ -6320,24 +5804,22 @@ id PCSErrorCreate(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, 
   if (do_error_as_log == 1 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v21 = v12;
+    v20 = v12;
     _os_log_impl(&dword_1B229C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "PCSErrorCreate: %@", buf, 0xCu);
   }
 
-  v18 = *MEMORY[0x1E696A578];
-  v19 = v12;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+  v17 = *MEMORY[0x1E696A578];
+  v18 = v12;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
   v14 = objc_alloc(MEMORY[0x1E696ABC0]);
   v15 = [v14 initWithDomain:kPCSErrorDomain code:a1 userInfo:v13];
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
 
 uint64_t _PCSNSErrorVA(uint64_t a1, id *a2, uint64_t a3, void *a4, void *a5, uint64_t a6)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v11 = a4;
   v12 = MEMORY[0x1E696AEC0];
   v13 = a5;
@@ -6358,11 +5840,11 @@ uint64_t _PCSNSErrorVA(uint64_t a1, id *a2, uint64_t a3, void *a4, void *a5, uin
     v17 = PCSLogGetOSLog(a1);
     if (os_log_type_enabled(v17, v16))
     {
-      v24[0] = 67109378;
-      v24[1] = a3;
-      v25 = 2114;
-      v26 = v14;
-      _os_log_impl(&dword_1B229C000, v17, v16, "PCSError: %d : %{public}@", v24, 0x12u);
+      v23[0] = 67109378;
+      v23[1] = a3;
+      v24 = 2114;
+      v25 = v14;
+      _os_log_impl(&dword_1B229C000, v17, v16, "PCSError: %d : %{public}@", v23, 0x12u);
     }
   }
 
@@ -6386,7 +5868,6 @@ uint64_t _PCSNSErrorVA(uint64_t a1, id *a2, uint64_t a3, void *a4, void *a5, uin
     *a2 = [MEMORY[0x1E696ABC0] errorWithDomain:kPCSErrorDomain code:a3 userInfo:v19];
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return a3;
 }
 
@@ -6445,7 +5926,6 @@ LABEL_11:
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -6492,24 +5972,22 @@ uint64_t PCSRestoreCKBackupWithCompletion(uint64_t a1, void *a2)
 
 void __PCSRestoreCKBackup_block_invoke(uint64_t a1, int a2, int a3, int a4, void *a5)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v9 = a5;
   if (v9 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
-    v11[0] = 67109890;
-    v11[1] = a2;
-    v12 = 1024;
-    v13 = a3;
-    v14 = 1024;
-    v15 = a4;
-    v16 = 2112;
-    v17 = v9;
-    _os_log_impl(&dword_1B229C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "PCSRestoreCKBackupWithCompletion returned recoverIssue %u missing %u present %u error: %@", v11, 0x1Eu);
+    v10[0] = 67109890;
+    v10[1] = a2;
+    v11 = 1024;
+    v12 = a3;
+    v13 = 1024;
+    v14 = a4;
+    v15 = 2112;
+    v16 = v9;
+    _os_log_impl(&dword_1B229C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "PCSRestoreCKBackupWithCompletion returned recoverIssue %u missing %u present %u error: %@", v10, 0x1Eu);
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __PCSRestoreCKBackupWithCompletion_block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
@@ -6582,7 +6060,7 @@ uint64_t PCSMobileBackupStatus(uint64_t a1)
 
 void __PCSMobileBackupStatus_block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
@@ -6592,11 +6070,11 @@ void __PCSMobileBackupStatus_block_invoke(uint64_t a1, int a2, void *a3)
       v6 = @"ON";
     }
 
-    v8 = 138412546;
-    v9 = v6;
-    v10 = 2112;
-    v11 = v5;
-    _os_log_impl(&dword_1B229C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "PCSMobileBackupStatus %@ error %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v6;
+    v9 = 2112;
+    v10 = v5;
+    _os_log_impl(&dword_1B229C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "PCSMobileBackupStatus %@ error %@", &v7, 0x16u);
   }
 
   *(*(*(a1 + 40) + 8) + 24) = a2;
@@ -6606,48 +6084,52 @@ void __PCSMobileBackupStatus_block_invoke(uint64_t a1, int a2, void *a3)
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1B22EBE24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B22EBE24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t AuthKitLibraryCore()
+uint64_t AuthKitLibraryCore(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
   if (!AuthKitLibraryCore_frameworkLibrary_2)
   {
     AuthKitLibraryCore_frameworkLibrary_2 = _sl_dlopen();
   }
 
-  result = AuthKitLibraryCore_frameworkLibrary_2;
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return AuthKitLibraryCore_frameworkLibrary_2;
 }
 
 uint64_t __AuthKitLibraryCore_block_invoke_2(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AuthKitLibraryCore_frameworkLibrary_2 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 Class __getAKAccountManagerClass_block_invoke_2(uint64_t a1)
 {
-  if (!AuthKitLibraryCore())
+  v7 = 0;
+  v2 = AuthKitLibraryCore(&v7);
+  v3 = v7;
+  if (v2)
   {
-    v3 = abort_report_np();
-    free(v3);
+    if (!v7)
+    {
+      goto LABEL_3;
+    }
   }
 
+  else
+  {
+    v3 = abort_report_np("%s", v7);
+  }
+
+  free(v3);
+LABEL_3:
   result = objc_getClass("AKAccountManager");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (*(*(*(a1 + 32) + 8) + 24))
@@ -6657,8 +6139,8 @@ Class __getAKAccountManagerClass_block_invoke_2(uint64_t a1)
 
   else
   {
-    v4 = __getAKAccountManagerClass_block_invoke_cold_1();
-    return PCSCopyWrappedKey(v4);
+    v5 = __getAKAccountManagerClass_block_invoke_cold_1();
+    return PCSCopyWrappedKey(v5, v6);
   }
 
   return result;
@@ -6666,7 +6148,6 @@ Class __getAKAccountManagerClass_block_invoke_2(uint64_t a1)
 
 __CFData *PCSCopyWrappedKey(const __CFData *a1, const __CFData *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
   ccaes_ecb_encrypt_mode();
   v4 = ccecb_context_size();
   MEMORY[0x1EEE9AC00](v4);
@@ -6704,13 +6185,11 @@ LABEL_7:
 
   ccecb_context_size();
   cc_clear();
-  v8 = *MEMORY[0x1E69E9840];
   return Mutable;
 }
 
 __CFData *PCSCopyUnwrappedKey(const __CFData *a1, const __CFData *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
   ccaes_ecb_decrypt_mode();
   v4 = ccecb_context_size();
   MEMORY[0x1EEE9AC00](v4);
@@ -6749,24 +6228,23 @@ LABEL_7:
 LABEL_9:
   ccecb_context_size();
   cc_clear();
-  v8 = *MEMORY[0x1E69E9840];
   return Mutable;
 }
 
-BOOL PCSMMCSGetDerivedSIVKey(const __CFData *a1, char *a2)
+BOOL PCSMMCSGetDerivedSIVKey(const __CFData *a1, char *a2, uint64_t a3)
 {
   Length = CFDataGetLength(a1);
   if (Length == 16)
   {
-    v5 = 3;
+    v6 = 3;
     goto LABEL_5;
   }
 
   if (Length == 32)
   {
-    v5 = 4;
+    v6 = 4;
 LABEL_5:
-    *a2 = v5;
+    *a2 = v6;
     ccsha256_di();
     CFDataGetLength(a1);
     CFDataGetBytePtr(a1);
@@ -6880,13 +6358,13 @@ LABEL_11:
 
 uint64_t _PCSKEExtractSeed(uint64_t a1, uint64_t a2, const void **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x2020000000;
-  v45 = 0;
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x2020000000;
+  v44 = 0;
   if (!a1)
   {
-    _PCSError(a3, 128, @"%s: sp argument NULL", "CFDataRef _PCSKEExtractSeed(PCSShareProtectionRef, PCSKeyEnvelopeRef, CFErrorRef *)");
+    _PCSError(a3, 128, @"%s: sp argument NULL", a4, a5, a6, a7, a8, "CFDataRef _PCSKEExtractSeed(PCSShareProtectionRef, PCSKeyEnvelopeRef, CFErrorRef *)");
 LABEL_34:
     v21 = 0;
     goto LABEL_27;
@@ -6894,12 +6372,12 @@ LABEL_34:
 
   if (*(a1 + 216) != 1192348414)
   {
-    PCSAbort("PCSShareProtectionObject no longer alive (overrelease):(sp)->alive == pcsfpTruelyAlive", a2, a3, a4, a5, a6, a7, a8, v35);
+    PCSAbort("PCSShareProtectionObject no longer alive (overrelease):(sp)->alive == pcsfpTruelyAlive", a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (!*(a1 + 72))
   {
-    _PCSError(a3, 25, @"%s: cannot decrypt envelope without master key", "CFDataRef _PCSKEExtractSeed(PCSShareProtectionRef, PCSKeyEnvelopeRef, CFErrorRef *)");
+    _PCSError(a3, 25, @"%s: cannot decrypt envelope without master key", a4, a5, a6, a7, a8, "CFDataRef _PCSKEExtractSeed(PCSShareProtectionRef, PCSKeyEnvelopeRef, CFErrorRef *)");
     goto LABEL_34;
   }
 
@@ -6908,7 +6386,7 @@ LABEL_34:
   {
     v34 = @"%s: keyEnvelope->context argument not CFData";
 LABEL_33:
-    _PCSError(a3, 126, v34, "CFDataRef _PCSKEExtractSeed(PCSShareProtectionRef, PCSKeyEnvelopeRef, CFErrorRef *)");
+    _PCSError(a3, 126, v34, a4, a5, a6, a7, a8, "CFDataRef _PCSKEExtractSeed(PCSShareProtectionRef, PCSKeyEnvelopeRef, CFErrorRef *)");
     goto LABEL_34;
   }
 
@@ -6985,20 +6463,20 @@ LABEL_16:
       }
 
       v30 = _PCSKEExtractSeedWithMasterKey(v27, v26, v29, *(a2 + 24), a3);
-      v43[3] = v30;
+      v42[3] = v30;
 
-      if (!v43[3] && [(PCSEnvelopedKeyMaterial *)v21 hasMasterKeyId])
+      if (!v42[3] && [(PCSEnvelopedKeyMaterial *)v21 hasMasterKeyId])
       {
         v31 = *(a1 + 112);
         context[0] = MEMORY[0x1E69E9820];
         context[1] = 3221225472;
         context[2] = ___PCSKEExtractSeed_block_invoke;
         context[3] = &unk_1E7B1A270;
-        v38 = &v42;
-        v37 = v21;
-        v39 = a3;
-        v40 = v26;
-        v41 = a2;
+        v37 = &v41;
+        v36 = v21;
+        v38 = a3;
+        v39 = v26;
+        v40 = a2;
         CFDictionaryApplyFunction(v31, apply_block_2_5, context);
       }
 
@@ -7012,15 +6490,15 @@ LABEL_16:
   }
 
 LABEL_27:
-  v32 = v43[3];
+  v32 = v42[3];
 
-  _Block_object_dispose(&v42, 8);
+  _Block_object_dispose(&v41, 8);
   return v32;
 }
 
-void sub_1B22ED334(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1B22ED334(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7184,7 +6662,7 @@ __CFData *_PCSKEAesSivKeyFromMasterKey(const __CFData *a1, void *a2, const __CFD
   return v16;
 }
 
-__CFData *_PCSKEKeyFromSeed(const __CFData *a1, int a2, int a3, const void **a4)
+__CFData *_PCSKEKeyFromSeed(const __CFData *a1, uint64_t a2, uint64_t a3, const void **a4)
 {
   Mutable = CFDataCreateMutable(0, 0);
   CFDataSetLength(Mutable, 32);
@@ -7435,16 +6913,15 @@ LABEL_23:
   return [a2 hasError] ^ 1;
 }
 
-uint64_t add_PCSAttributes(unsigned int *a1)
+uint64_t add_PCSAttributes(unsigned int *a1, uint64_t a2)
 {
-  v2 = malloc_type_realloc(*(a1 + 1), 24 * *a1 + 24, 0xE41EEFE5uLL);
-  if (!v2)
+  v3 = malloc_type_realloc(*(a1 + 1), 24 * *a1 + 24, 0xE41EEFE5uLL);
+  if (!v3)
   {
     return 12;
   }
 
-  *(a1 + 1) = v2;
-  v3 = *a1;
+  *(a1 + 1) = v3;
   result = _asn1_copy_top();
   if (!result)
   {
@@ -7454,16 +6931,15 @@ uint64_t add_PCSAttributes(unsigned int *a1)
   return result;
 }
 
-uint64_t add_PCSPrivateKeys(unsigned int *a1)
+uint64_t add_PCSPrivateKeys(unsigned int *a1, uint64_t a2)
 {
-  v2 = malloc_type_realloc(*(a1 + 1), 24 * *a1 + 24, 0xBA7EE958uLL);
-  if (!v2)
+  v3 = malloc_type_realloc(*(a1 + 1), 24 * *a1 + 24, 0xBA7EE958uLL);
+  if (!v3)
   {
     return 12;
   }
 
-  *(a1 + 1) = v2;
-  v3 = *a1;
+  *(a1 + 1) = v3;
   result = _asn1_copy_top();
   if (!result)
   {
@@ -7473,16 +6949,15 @@ uint64_t add_PCSPrivateKeys(unsigned int *a1)
   return result;
 }
 
-uint64_t add_PCSSPKeyList(unsigned int *a1)
+uint64_t add_PCSSPKeyList(unsigned int *a1, uint64_t a2)
 {
-  v2 = malloc_type_realloc(*(a1 + 1), 32 * *a1 + 32, 0x58A9B1E6uLL);
-  if (!v2)
+  v3 = malloc_type_realloc(*(a1 + 1), 32 * *a1 + 32, 0x58A9B1E6uLL);
+  if (!v3)
   {
     return 12;
   }
 
-  *(a1 + 1) = v2;
-  v3 = *a1;
+  *(a1 + 1) = v3;
   result = _asn1_copy_top();
   if (!result)
   {
@@ -7563,17 +7038,11 @@ uint64_t aks_assert_hold(int a1, unsigned int a2, uint64_t a3)
   aks_client_connection = get_aks_client_connection();
   if (aks_client_connection)
   {
-    result = IOConnectCallMethod(aks_client_connection, 0x1Au, input, 3u, 0, 0, 0, 0, 0, 0);
+    return IOConnectCallMethod(aks_client_connection, 0x1Au, input, 3u, 0, 0, 0, 0, 0, 0);
   }
 
-  else
-  {
-    aks_assert_hold_cold_1();
-    result = 3758097084;
-  }
-
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  aks_assert_hold_cold_1();
+  return 3758097084;
 }
 
 uint64_t aks_assert_drop(int a1, unsigned int a2)
@@ -7584,17 +7053,11 @@ uint64_t aks_assert_drop(int a1, unsigned int a2)
   aks_client_connection = get_aks_client_connection();
   if (aks_client_connection)
   {
-    result = IOConnectCallMethod(aks_client_connection, 0x1Bu, input, 2u, 0, 0, 0, 0, 0, 0);
+    return IOConnectCallMethod(aks_client_connection, 0x1Bu, input, 2u, 0, 0, 0, 0, 0, 0);
   }
 
-  else
-  {
-    aks_assert_drop_cold_1();
-    result = 3758097084;
-  }
-
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  aks_assert_drop_cold_1();
+  return 3758097084;
 }
 
 void PEMStateInData_cold_1(const void *a1)
@@ -7609,7 +7072,7 @@ void PEMStateInData_cold_1(const void *a1)
 
 uint64_t PCSIdentityRollIdentity(uint64_t a1, void *cf1, const void **a3)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (CFEqual(cf1, kPCSServiceMaster))
   {
     v6 = _PCSIdentitySetCopyCurrentIdentityInternal(a1, kPCSServiceMaster, a3);
@@ -7633,48 +7096,48 @@ LABEL_32:
       goto LABEL_36;
     }
 
-    goto LABEL_27;
+    return 0;
   }
 
   if (!CFEqual(cf1, kPCSServiceEscrow) && !CFEqual(cf1, kPCSServiceFDE))
   {
-    v15 = _PCSIdentitySetCopyCurrentIdentityInternal(a1, kPCSServiceMaster, a3);
-    if (v15)
+    v14 = _PCSIdentitySetCopyCurrentIdentityInternal(a1, kPCSServiceMaster, a3);
+    if (v14)
     {
-      v7 = v15;
+      v7 = v14;
       IsManatee = PCSServiceItemTypeIsManatee(cf1);
-      v17 = pcsLogObjForScope("keyRoll");
-      v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+      v16 = pcsLogObjForScope("keyRoll");
+      v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
       if (IsManatee)
       {
-        if (v18)
+        if (v17)
         {
           OUTLINED_FUNCTION_0();
-          OUTLINED_FUNCTION_1(&dword_1B229C000, v17, v19, "Asked to roll key for Manatee Service Identity %@", v28);
+          OUTLINED_FUNCTION_1(&dword_1B229C000, v16, v18, "Asked to roll key for Manatee Service Identity %@", v27);
         }
 
-        v20 = 5;
+        v19 = 5;
       }
 
       else
       {
-        if (v18)
+        if (v17)
         {
           OUTLINED_FUNCTION_0();
-          OUTLINED_FUNCTION_1(&dword_1B229C000, v17, v21, "Asked to roll key for Non-Manatee Service Identity %@", v28);
+          OUTLINED_FUNCTION_1(&dword_1B229C000, v16, v20, "Asked to roll key for Non-Manatee Service Identity %@", v27);
         }
 
-        v20 = 1;
+        v19 = 1;
       }
 
-      Service = PCSIdentityCreateService(v7, v20, cf1, a3);
+      Service = PCSIdentityCreateService(v7, v19, cf1, a3);
       if (Service)
       {
         v9 = Service;
         if ((PCSIdentitySetAddIdentityWithError(a1, Service, a3) & 1) == 0)
         {
-          v23 = pcsLogObjForScope("keyRoll");
-          if (!os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+          v22 = pcsLogObjForScope("keyRoll");
+          if (!os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
 LABEL_31:
 
@@ -7682,9 +7145,9 @@ LABEL_31:
           }
 
           OUTLINED_FUNCTION_0();
-          v25 = "Failed to add new key for Service Identity %@";
+          v24 = "Failed to add new key for Service Identity %@";
 LABEL_30:
-          OUTLINED_FUNCTION_1(&dword_1B229C000, v23, v24, v25, v28);
+          OUTLINED_FUNCTION_1(&dword_1B229C000, v22, v23, v24, v27);
           goto LABEL_31;
         }
 
@@ -7696,25 +7159,25 @@ LABEL_7:
           CFRelease(v9);
 LABEL_8:
           CFRelease(v7);
-          goto LABEL_14;
+          return v10;
         }
 
-        v23 = pcsLogObjForScope("keyRoll");
-        if (!os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v22 = pcsLogObjForScope("keyRoll");
+        if (!os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_31;
         }
 
         OUTLINED_FUNCTION_0();
-        v25 = "Failed to set new key as current for Service Identity %@";
+        v24 = "Failed to set new key as current for Service Identity %@";
         goto LABEL_30;
       }
 
-      v26 = pcsLogObjForScope("keyRoll");
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v25 = pcsLogObjForScope("keyRoll");
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         OUTLINED_FUNCTION_0();
-        OUTLINED_FUNCTION_1(&dword_1B229C000, v26, v27, "Failed to create key for Service Identity %@", v28);
+        OUTLINED_FUNCTION_1(&dword_1B229C000, v25, v26, "Failed to create key for Service Identity %@", v27);
       }
 
 LABEL_36:
@@ -7722,29 +7185,22 @@ LABEL_36:
       goto LABEL_8;
     }
 
-LABEL_27:
-    v10 = 0;
-    goto LABEL_14;
+    return 0;
   }
 
   v11 = pcsLogObjForScope("keyRoll");
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_1B229C000, v11, v12, "Skipping Rolling Service Identity for %@", v28);
+    OUTLINED_FUNCTION_1(&dword_1B229C000, v11, v12, "Skipping Rolling Service Identity for %@", v27);
   }
 
-  v10 = 1;
-LABEL_14:
-  v13 = *MEMORY[0x1E69E9840];
-  return v10;
+  return 1;
 }
 
 __CFData *_PCSStingrayCopyEncryptedData(const __CFData *a1, const __CFData *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v4 = ccaes_gcm_encrypt_mode();
-  v5 = (*v4 + 15) & 0xFFFFFFFFFFFFFFF0;
   MEMORY[0x1EEE9AC00](v4);
   CFDataGetLength(a1);
   CFDataGetBytePtr(a1);
@@ -7752,15 +7208,15 @@ __CFData *_PCSStingrayCopyEncryptedData(const __CFData *a1, const __CFData *a2)
   ccgcm_init();
   Length = CFDataGetLength(a2);
   Mutable = CFDataCreateMutable(0, Length + 32);
-  v8 = Mutable;
+  v7 = Mutable;
   if (Mutable)
   {
     CFDataSetLength(Mutable, Length + 32);
-    MutableBytePtr = CFDataGetMutableBytePtr(v8);
+    MutableBytePtr = CFDataGetMutableBytePtr(v7);
     if (!MutableBytePtr || SecRandomCopyBytes(*MEMORY[0x1E697B308], 0x10uLL, MutableBytePtr))
     {
-      CFRelease(v8);
-      v8 = 0;
+      CFRelease(v7);
+      v7 = 0;
     }
 
     else
@@ -7779,8 +7235,7 @@ __CFData *_PCSStingrayCopyEncryptedData(const __CFData *a1, const __CFData *a2)
 
   ccgcm_context_size();
   cc_clear();
-  v10 = *MEMORY[0x1E69E9840];
-  return v8;
+  return v7;
 }
 
 void __PCSCopyHSMData_cold_1(const void *a1, const void **a2, const __CFData **a3)
@@ -7896,11 +7351,10 @@ __CFData *_PCSKeyCopyExportedPrivateKey(uint64_t a1)
 
   if ((*(a1 + 32) & 2) != 0)
   {
-    v6 = **(a1 + 40);
-    v7 = (cczp_bitlen() + 7) >> 2;
-    v8 = OUTLINED_FUNCTION_0_1();
-    Mutable = CFDataCreateMutable(v8, v9);
-    CFDataSetLength(Mutable, v7 & 0x3FFFFFFFFFFFFFFELL);
+    v6 = (cczp_bitlen() + 7) >> 2;
+    v7 = OUTLINED_FUNCTION_0_1();
+    Mutable = CFDataCreateMutable(v7, v8);
+    CFDataSetLength(Mutable, v6 & 0x3FFFFFFFFFFFFFFELL);
     if (Mutable)
     {
       CFDataGetMutableBytePtr(Mutable);
@@ -7961,40 +7415,40 @@ void PCSIdentityCreateDiversifiedIdentityOptions()
     }
 
     v12 = **(v4 + 40);
-    PCSKeyGetTypeID();
-    v13 = OUTLINED_FUNCTION_2();
-    if (!v13)
+    TypeID = PCSKeyGetTypeID();
+    v14 = OUTLINED_FUNCTION_2(TypeID);
+    if (!v14)
     {
       goto LABEL_20;
     }
 
-    v14 = v13;
-    v15 = OUTLINED_FUNCTION_6(v13);
-    if (!v18)
+    v15 = v14;
+    OUTLINED_FUNCTION_6();
+    if (!v19)
     {
-      v17 = 6;
+      v18 = 6;
     }
 
-    *(v15 + 32) = v16 | v17;
-    *(v15 + 40) = 0;
-    *(v15 + 48) = 0;
-    v19 = MEMORY[0x1B2744AF0](v12);
-    v20 = malloc_type_malloc(v19, 0x770DC380uLL);
-    if (!v20 || (ccsha256_di(), CFDataGetLength(v7), CFDataGetBytePtr(v7), cchkdf()) || !_PCSKeyAllocateDiversizedKey(v12, v14) || (v21 = *(v4 + 40), ccDRBGGetRngState(), v23 = v14[5], v22 = v14[6], ccec_diversify_pub()))
+    *(v16 + 32) = v17 | v18;
+    *(v16 + 40) = 0;
+    *(v16 + 48) = 0;
+    v20 = MEMORY[0x1B2744AF0](v12);
+    v21 = malloc_type_malloc(v20, 0x770DC380uLL);
+    if (!v21 || (ccsha256_di(), CFDataGetLength(v7), CFDataGetBytePtr(v7), cchkdf()) || !_PCSKeyAllocateDiversizedKey(v12, v15) || (ccDRBGGetRngState(), ccec_diversify_pub()))
     {
-      v24 = 0;
+      v22 = 0;
     }
 
     else
     {
-      v24 = CFRetain(v14);
+      v22 = CFRetain(v15);
     }
 
-    CFRelease(v14);
-    free(v20);
-    if (v24)
+    CFRelease(v15);
+    free(v21);
+    if (v22)
     {
-      _PCSPublicIdentityCreateWithKey(v24, v5);
+      _PCSPublicIdentityCreateWithKey(v22, v5);
       OUTLINED_FUNCTION_11();
     }
 
@@ -8049,50 +7503,48 @@ void PCSIdentityCreateDiversifiedIdentityFromPublicIdentityOptions()
     }
 
     v15 = MEMORY[0x1B2744AF0](*v6);
-    PCSKeyGetTypeID();
-    v16 = OUTLINED_FUNCTION_2();
-    if (!v16)
+    TypeID = PCSKeyGetTypeID();
+    v17 = OUTLINED_FUNCTION_2(TypeID);
+    if (!v17)
     {
       goto LABEL_29;
     }
 
-    v17 = v16;
-    v18 = OUTLINED_FUNCTION_6(v16);
-    if (!v21)
-    {
-      v20 = 6;
-    }
-
-    *(v18 + 32) = v19 | v20;
-    *(v18 + 40) = 0;
-    *(v18 + 48) = 0;
-    v22 = malloc_type_malloc(v15, 0x5ACBECA8uLL);
+    v18 = v17;
+    OUTLINED_FUNCTION_6();
     if (!v22)
     {
-      CFRelease(v17);
+      v21 = 6;
+    }
+
+    *(v19 + 32) = v20 | v21;
+    *(v19 + 40) = 0;
+    *(v19 + 48) = 0;
+    v23 = malloc_type_malloc(v15, 0x5ACBECA8uLL);
+    if (!v23)
+    {
+      CFRelease(v18);
       goto LABEL_29;
     }
 
-    v23 = v22;
+    v24 = v23;
     ccsha256_di();
     CFDataGetLength(v8);
     CFDataGetBytePtr(v8);
     if (cchkdf())
     {
-      v26 = 0;
-      v30 = 0;
+      v25 = 0;
+      v27 = 0;
     }
 
     else
     {
-      if (!_PCSKeyAllocateDiversizedKey(v14, v17))
+      if (!_PCSKeyAllocateDiversizedKey(v14, v18))
       {
         goto LABEL_26;
       }
 
       ccDRBGGetRngState();
-      v25 = *(v17 + 40);
-      v24 = *(v17 + 48);
       if (ccec_diversify_pub())
       {
         goto LABEL_26;
@@ -8100,24 +7552,22 @@ void PCSIdentityCreateDiversifiedIdentityFromPublicIdentityOptions()
 
       if ((v9 & 4) == 0)
       {
-        v26 = 0;
+        v25 = 0;
 LABEL_21:
-        v30 = CFRetain(v17);
+        v27 = CFRetain(v18);
         goto LABEL_22;
       }
 
-      free(*(v17 + 48));
-      *(v17 + 48) = 0;
-      v27 = OUTLINED_FUNCTION_5_0();
-      *(v17 + 48) = v27;
-      if (v27)
+      free(v18[6]);
+      v18[6] = 0;
+      v26 = OUTLINED_FUNCTION_5_0();
+      v18[6] = v26;
+      if (v26)
       {
-        v26 = OUTLINED_FUNCTION_5_0();
-        if (v26)
+        v25 = OUTLINED_FUNCTION_5_0();
+        if (v25)
         {
-          v28 = *(v4 + 48);
           ccDRBGGetRngState();
-          v29 = *(v17 + 48);
           if (!ccec_diversify_pub())
           {
             goto LABEL_21;
@@ -8128,27 +7578,26 @@ LABEL_21:
       else
       {
 LABEL_26:
-        v26 = 0;
+        v25 = 0;
       }
 
-      v30 = 0;
+      v27 = 0;
     }
 
 LABEL_22:
-    CFRelease(v17);
-    memset_s(v23, v15, 0, v15);
-    free(v23);
-    if (v26)
+    CFRelease(v18);
+    memset_s(v24, v15, 0, v15);
+    free(v24);
+    if (v25)
     {
-      v31 = *v14;
       cc_clear();
     }
 
-    free(v26);
-    if (v30)
+    free(v25);
+    if (v27)
     {
-      _PCSPublicIdentityCreateWithKey(v30, v5);
-      CFRelease(v30);
+      _PCSPublicIdentityCreateWithKey(v27, v5);
+      CFRelease(v27);
       goto LABEL_30;
     }
 
@@ -8173,35 +7622,35 @@ CFDataRef PCSPublicIdentityCopyExportedPublicKey(uint64_t a1)
 
 void *PCSPublicIdentityCreateWithPublicKeyInfo(const __CFData *a1, const void **a2)
 {
-  v10 = 0;
-  memset(v11, 0, sizeof(v11));
+  v11 = 0;
+  memset(v12, 0, sizeof(v12));
   BytePtr = CFDataGetBytePtr(a1);
   Length = CFDataGetLength(a1);
-  v6 = decode_PCSPublicKeyInfo(BytePtr, Length, v11, &v10);
+  v6 = decode_PCSPublicKeyInfo(BytePtr, Length, v12, &v11);
   if (v6)
   {
     _PCSErrorASN1(a2, "PCSPublicKeyInfo", v6);
 LABEL_7:
-    v7 = 0;
+    v8 = 0;
     goto LABEL_4;
   }
 
-  PCSPublicIdentityGetTypeID();
-  v7 = OUTLINED_FUNCTION_4();
-  if (v7)
+  TypeID = PCSPublicIdentityGetTypeID();
+  v8 = OUTLINED_FUNCTION_4(TypeID);
+  if (v8)
   {
-    v8 = PCSKeyCreateWithPKI(v11, a2);
-    v7[3] = v8;
-    if (!v8)
+    v9 = PCSKeyCreateWithPKI(v12, a2);
+    v8[3] = v9;
+    if (!v9)
     {
-      CFRelease(v7);
+      CFRelease(v8);
       goto LABEL_7;
     }
   }
 
 LABEL_4:
-  free_PCSPublicKeyInfo(v11);
-  return v7;
+  free_PCSPublicKeyInfo(v12);
+  return v8;
 }
 
 BOOL _PCSValidatePCSKey(uint64_t a1, const void *a2, _BYTE *a3, __CFString *a4)
@@ -8364,42 +7813,42 @@ void *_PCSIdentityCreateFromRawWithPublic(const __CFData *a1, const __CFData *a2
   Empty = _PCSIdentityCreateEmpty(0);
   if (Empty)
   {
-    v16 = 0;
-    v17[1] = CFDataGetBytePtr(a1);
-    v17[0] = CFDataGetLength(a1);
-    PCSKeyGetTypeID();
-    v9 = OUTLINED_FUNCTION_2();
-    if (v9)
+    v17 = 0;
+    v18[1] = CFDataGetBytePtr(a1);
+    v18[0] = CFDataGetLength(a1);
+    TypeID = PCSKeyGetTypeID();
+    v10 = OUTLINED_FUNCTION_2(TypeID);
+    if (v10)
     {
-      v10 = v9;
-      *(v9 + 32) = *(v9 + 32) & 0xFA | 1;
-      v11 = CopyPrivKeyFromOctetString(v17, a3, &v16);
-      *(v10 + 40) = v11;
-      if (v11)
+      v11 = v10;
+      *(v10 + 32) = *(v10 + 32) & 0xFA | 1;
+      v12 = CopyPrivKeyFromOctetString(v18, a3, &v17);
+      *(v11 + 40) = v12;
+      if (v12)
       {
-        *(v10 + 32) = *(v10 + 32) & 0xFD | (2 * v16);
+        *(v11 + 32) = *(v11 + 32) & 0xFD | (2 * v17);
         if (a2)
         {
-          *(v10 + 16) = malloc_type_calloc(1uLL, 0x30uLL, 0x10A0040698877B7uLL);
-          v15 = 0;
+          *(v11 + 16) = malloc_type_calloc(1uLL, 0x30uLL, 0x10A0040698877B7uLL);
+          v16 = 0;
           BytePtr = CFDataGetBytePtr(a2);
           Length = CFDataGetLength(a2);
-          if (decode_PCSPublicKeyInfo(BytePtr, Length, *(v10 + 16), &v15))
+          if (decode_PCSPublicKeyInfo(BytePtr, Length, *(v11 + 16), &v16))
           {
-            free(*(v10 + 16));
-            *(v10 + 16) = 0;
+            free(*(v11 + 16));
+            *(v11 + 16) = 0;
           }
         }
 
-        if (SetKeyID(v10))
+        if (SetKeyID(v11))
         {
-          Empty[2] = v10;
+          Empty[2] = v11;
           return Empty;
         }
       }
 
       _PCSErrorOOM(a4);
-      CFRelease(v10);
+      CFRelease(v11);
     }
 
     else
@@ -8492,21 +7941,21 @@ LABEL_12:
 
 void *PCSPublicIdentityCreateFromKeyData()
 {
-  PCSPublicIdentityGetTypeID();
-  v0 = OUTLINED_FUNCTION_4();
-  if (v0)
+  TypeID = PCSPublicIdentityGetTypeID();
+  v1 = OUTLINED_FUNCTION_4(TypeID);
+  if (v1)
   {
-    v1 = OUTLINED_FUNCTION_8();
-    PublicWithData = PCSKeyCreatePublicWithData(v1, v2);
-    v0[3] = PublicWithData;
+    v2 = OUTLINED_FUNCTION_8();
+    PublicWithData = PCSKeyCreatePublicWithData(v2, v3);
+    v1[3] = PublicWithData;
     if (!PublicWithData)
     {
-      CFRelease(v0);
+      CFRelease(v1);
       return 0;
     }
   }
 
-  return v0;
+  return v1;
 }
 
 uint64_t _PCSExportRandomPCSSPKey(uint64_t a1)
@@ -8517,7 +7966,7 @@ uint64_t _PCSExportRandomPCSSPKey(uint64_t a1)
   *(a1 + 8) = 0;
   if (!_PCSFillOctetString((a1 + 16), v3))
   {
-    PCSAbort("failed to allocate keydata:_PCSFillOctetString(&data->keyData, keydata)", v4, v5, v6, v7, v8, v9, v10, v12);
+    PCSAbort("failed to allocate keydata:_PCSFillOctetString(&data->keyData, keydata)", v4, v5, v6, v7, v8, v9, v10);
   }
 
   if (v3)
@@ -8584,33 +8033,33 @@ uint64_t _PCSIdentityIsShareableManatee(uint64_t a1)
   return v1;
 }
 
-uint64_t PCSIdentityCopyExportedPrivateKey(uint64_t a1, const void **a2)
+__CFData *PCSIdentityCopyExportedPrivateKey(uint64_t a1, const void **a2)
 {
   if (!_PCSIdentityIsShareableManatee(a1))
   {
-    v36 = 0;
     v37 = 0;
+    v38 = 0;
     v5 = *(a1 + 16);
-    v38 = *(v5 + 16);
-    if ((CopyOctetStringFromPrivKey((*(v5 + 32) >> 1) & 1, 0, *(v5 + 40), &v36) & 1) == 0)
+    v39 = *(v5 + 16);
+    if ((CopyOctetStringFromPrivKey((*(v5 + 32) >> 1) & 1, 0, *(v5 + 40), &v37) & 1) == 0)
     {
       _PCSError(a2, 42, @"failed to export full key");
       return 0;
     }
 
-    v35 = 0;
-    v6 = length_PCSPrivateKey(&v36);
+    v36 = 0;
+    v6 = length_PCSPrivateKey(&v37);
     Mutable = CFDataCreateMutable(0, v6);
     if (Mutable)
     {
       v8 = Mutable;
       CFDataSetLength(Mutable, v6);
       MutableBytePtr = CFDataGetMutableBytePtr(v8);
-      if (!encode_PCSPrivateKey(&MutableBytePtr[v6 - 1], v6, &v36, &v35))
+      if (!encode_PCSPrivateKey(&MutableBytePtr[v6 - 1], v6, &v37, &v36))
       {
-        if (v6 == v35)
+        if (v6 == v36)
         {
-          free(v37);
+          free(v38);
           return v8;
         }
 
@@ -8620,7 +8069,7 @@ uint64_t PCSIdentityCopyExportedPrivateKey(uint64_t a1, const void **a2)
       CFRelease(v8);
     }
 
-    free(v37);
+    free(v38);
     return 0;
   }
 
@@ -8680,13 +8129,13 @@ LABEL_31:
     return v8;
   }
 
-  v36 = 0;
   v37 = 0;
+  v38 = 0;
   v26 = [(PCSManateeShareableIdentity *)v22 data];
-  _PCSFillOctetString(&v36, v26);
+  _PCSFillOctetString(&v37, v26);
 
-  v35 = 0;
-  v27 = length_PCSPrivateKeyProtoBuf(&v36);
+  v36 = 0;
+  v27 = length_PCSPrivateKeyProtoBuf(&v37);
   v28 = CFDataCreateMutable(0, v27);
   if (!v28)
   {
@@ -8697,26 +8146,26 @@ LABEL_31:
   v8 = v28;
   CFDataSetLength(v28, v27);
   v29 = CFDataGetMutableBytePtr(v8);
-  v30 = encode_PCSPrivateKeyProtoBuf(&v29[v27 - 1], v27, &v36, &v35);
+  v30 = encode_PCSPrivateKeyProtoBuf(&v29[v27 - 1], v27, &v37, &v36);
   if (v30)
   {
     v31 = v30;
     CFRelease(v8);
 LABEL_29:
-    free(v37);
+    free(v38);
     _PCSErrorASN1(a2, "Failed to encode PCSPrivateKeyProtoBuf", v31);
     goto LABEL_30;
   }
 
-  if (v27 == v35)
+  if (v27 == v36)
   {
-    free(v37);
+    free(v38);
     goto LABEL_31;
   }
 
 LABEL_34:
   v32 = asn1_abort();
-  return PCSIdentityGetService(v32, v33, v34);
+  return PCSIdentityGetService(v32, v33, v34, v35);
 }
 
 const __CFDictionary *PCSIdentityGetService(uint64_t a1, const __CFNumber *key, void *a3, const void **a4)
@@ -8744,7 +8193,7 @@ const __CFDictionary *PCSIdentityGetService(uint64_t a1, const __CFNumber *key, 
   }
 }
 
-const __CFDictionary *_PCSIdentityGetServiceWithID(uint64_t a1, unsigned int a2, const void **a3)
+const __CFDictionary *_PCSIdentityGetServiceWithID(uint64_t a1, int a2, const void **a3)
 {
   NumberByIndex = PCSServiceItemGetNumberByIndex(a2);
   if (!NumberByIndex)
@@ -8946,7 +8395,7 @@ LABEL_21:
   if (v17 == PCSIdentityGetTypeID())
   {
     v18 = a1[2];
-    v15 = *(v18 + 40);
+    v15 = v18[5];
     if (*(a2 + 18))
     {
 LABEL_42:
@@ -8966,7 +8415,7 @@ LABEL_42:
   }
 
   v18 = a1[3];
-  if (!v18 || (*(v18 + 32) & 4) != 0)
+  if (!v18 || (v18[4] & 4) != 0)
   {
 LABEL_45:
     _PCSError(a4, 30, @"Unsupported signer: %@"), a1);
@@ -8980,11 +8429,11 @@ LABEL_39:
     goto LABEL_36;
   }
 
-  v15 = *(v18 + 40);
+  v15 = v18[5];
   if ((*(a2 + 18) & 1) == 0)
   {
 LABEL_20:
-    v16 = *(v18 + 24);
+    v16 = v18[3];
     goto LABEL_21;
   }
 
@@ -9119,69 +8568,64 @@ CFDictionaryRef PCSIdentitySetCopyPublishableIdentities(uint64_t a1, CFDictionar
   return Copy;
 }
 
-BOOL generate_publickey(uint64_t *a1, int a2, void **a3)
+BOOL generate_publickey(void *a1, int a2, void **a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
   cczp_bitlen();
-  v6 = OUTLINED_FUNCTION_7();
-  v7 = MEMORY[0x1B2744970](v6);
-  v8 = MEMORY[0x1EEE9AC00](v7);
-  MEMORY[0x1EEE9AC00](v8);
-  v9 = *a1;
-  v10 = &a3[3 * **a3];
+  v4 = OUTLINED_FUNCTION_7();
+  v5 = MEMORY[0x1B2744970](v4);
+  v6 = MEMORY[0x1EEE9AC00](v5);
+  MEMORY[0x1EEE9AC00](v6);
   ccn_write_uint_padded();
-  v11 = *a1;
   if (ccder_encode_eckey())
   {
-    v12 = ccec_der_import_priv();
-    v13 = v12 == 0;
-    if (!v12 && a2)
+    v7 = ccec_der_import_priv();
+    v8 = v7 == 0;
+    if (!v7 && a2)
     {
       ccec_compact_transform_key();
-      v13 = 1;
+      v8 = 1;
     }
   }
 
   else
   {
-    v13 = 0;
+    v8 = 0;
   }
 
   cc_clear();
   cc_clear();
-  v14 = *MEMORY[0x1E69E9840];
-  return v13;
+  return v8;
 }
 
 void *_PCSPublicIdentityCreateFromPKI(uint64_t a1)
 {
-  PCSPublicIdentityGetTypeID();
-  v2 = OUTLINED_FUNCTION_4();
-  if (v2)
+  TypeID = PCSPublicIdentityGetTypeID();
+  v3 = OUTLINED_FUNCTION_4(TypeID);
+  if (v3)
   {
-    v3 = PCSKeyCreateWithPKI(a1, 0);
-    v2[3] = v3;
-    if (v3)
+    v4 = PCSKeyCreateWithPKI(a1, 0);
+    v3[3] = v4;
+    if (v4)
     {
-      if (*(*(v3 + 16) + 4) == 1)
+      if (*(*(v4 + 16) + 4) == 1)
       {
-        v4 = MEMORY[0x1E695E9D8];
-        v5 = MEMORY[0x1E695E9E8];
-        v6 = OUTLINED_FUNCTION_0_1();
-        v2[5] = CFDictionaryCreateMutable(v6, v7, v4, v5);
-        v8 = OUTLINED_FUNCTION_0_1();
-        v2[4] = CFDictionaryCreateMutable(v8, v9, v4, v5);
+        v5 = MEMORY[0x1E695E9D8];
+        v6 = MEMORY[0x1E695E9E8];
+        v7 = OUTLINED_FUNCTION_0_1();
+        v3[5] = CFDictionaryCreateMutable(v7, v8, v5, v6);
+        v9 = OUTLINED_FUNCTION_0_1();
+        v3[4] = CFDictionaryCreateMutable(v9, v10, v5, v6);
       }
     }
 
     else
     {
-      CFRelease(v2);
+      CFRelease(v3);
       return 0;
     }
   }
 
-  return v2;
+  return v3;
 }
 
 void _PCSIdentityGetSigningIdentity_cold_1(uint64_t *a1, CFTypeRef *a2)
@@ -9245,7 +8689,7 @@ uint64_t _PCSPublicIdentityExportPCSSPKey_cold_1(uint64_t a1, uint64_t *a2, uint
   *(a3 + 8) = 0;
   if (!_PCSFillOctetString((a3 + 16), v5))
   {
-    PCSAbort("failed to allocate keydata:_PCSFillOctetString(&data->keyData, keydata)", v11, v12, v13, v14, v15, v16, v17, v19);
+    PCSAbort("failed to allocate keydata:_PCSFillOctetString(&data->keyData, keydata)", v11, v12, v13, v14, v15, v16, v17);
   }
 
   CFRelease(v6);
@@ -9328,15 +8772,13 @@ LABEL_7:
     goto LABEL_12;
   }
 
-  v19 = asn1_abort();
-  PCSPublicIdentityCreatePEMParser_cold_4(v19);
+  asn1_abort();
+  PCSPublicIdentityCreatePEMParser_cold_4();
 }
 
 __CFData *PCSCloudKitShareTokenCopyEncryptedData(const __CFData *a1, const __CFData *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v4 = ccaes_gcm_encrypt_mode();
-  v5 = (*v4 + 15) & 0xFFFFFFFFFFFFFFF0;
   MEMORY[0x1EEE9AC00](v4);
   CFDataGetLength(a1);
   CFDataGetBytePtr(a1);
@@ -9344,15 +8786,15 @@ __CFData *PCSCloudKitShareTokenCopyEncryptedData(const __CFData *a1, const __CFD
   ccgcm_init();
   Length = CFDataGetLength(a2);
   Mutable = CFDataCreateMutable(0, Length + 32);
-  v8 = Mutable;
+  v7 = Mutable;
   if (Mutable)
   {
     CFDataSetLength(Mutable, Length + 32);
-    MutableBytePtr = CFDataGetMutableBytePtr(v8);
+    MutableBytePtr = CFDataGetMutableBytePtr(v7);
     if (!MutableBytePtr || SecRandomCopyBytes(*MEMORY[0x1E697B308], 0x10uLL, MutableBytePtr))
     {
-      CFRelease(v8);
-      v8 = 0;
+      CFRelease(v7);
+      v7 = 0;
     }
 
     else
@@ -9371,8 +8813,7 @@ __CFData *PCSCloudKitShareTokenCopyEncryptedData(const __CFData *a1, const __CFD
 
   ccgcm_context_size();
   cc_clear();
-  v10 = *MEMORY[0x1E69E9840];
-  return v8;
+  return v7;
 }
 
 CFTypeRef __PCSCopyFromKeychain(int a1, const __CFString *a2, const __CFString *a3, const void **a4, int a5, int a6, int a7, int a8)
@@ -9538,5 +8979,386 @@ LABEL_33:
     CFRelease(v47);
   }
 
+  return v8;
+}
+
+BOOL __PCSDeleteFromKeychainICDP(const void *a1, CFErrorRef *a2, int a3, int a4, int a5, int a6, int a7, int a8)
+{
+  v9 = 0;
+  v10 = 0;
+  v23[3] = *MEMORY[0x1E69E9840];
+  v23[0] = kPCSServiceName[0];
+  v23[1] = kPCSiCloudServiceMarkerName[0];
+  v23[2] = kPCSiCloudServiceName[0];
+  v22 = *MEMORY[0x1E697AFF8];
+  v21 = *MEMORY[0x1E697B018];
+  v11 = *MEMORY[0x1E695E4D0];
+  key = *MEMORY[0x1E697AE80];
+  v18 = *MEMORY[0x1E697AEB0];
+  do
+  {
+    v12 = v23[v9];
+    MutableForCFTypesWith = CFDictionaryCreateMutableForCFTypesWith(a1, a2, a3, a4, a5, a6, a7, a8, v22, v21);
+    if (!MutableForCFTypesWith)
+    {
+      break;
+    }
+
+    v14 = MutableForCFTypesWith;
+    if (a1)
+    {
+      CFDictionarySetValue(MutableForCFTypesWith, key, a1);
+    }
+
+    if (PCSUseSyncKeychain == 1)
+    {
+      CFDictionarySetValue(v14, v18, v11);
+    }
+
+    v15 = _PCSSecItemDeleteIfPresent(v14);
+    v16 = PCSSecError(v15, a2, @"SecItem failed to delete iCDP %@ domain", v12);
+    CFRelease(v14);
+    if (!v16)
+    {
+      break;
+    }
+
+    v10 = v9++ > 1;
+  }
+
+  while (v9 != 3);
+  return v10;
+}
+
+__CFDictionary *__PCSDeleteFromKeychainICDPForRPD(const void *a1, CFErrorRef *a2, int a3, int a4, int a5, int a6, int a7, int a8)
+{
+  v10 = kPCSiCloudServiceGuitarfishName[0];
+  v11 = *MEMORY[0x1E695E4D0];
+  result = CFDictionaryCreateMutableForCFTypesWith(a1, a2, a3, a4, a5, a6, a7, a8, *MEMORY[0x1E697AFF8], *MEMORY[0x1E697B018]);
+  if (result)
+  {
+    v13 = result;
+    if (a1)
+    {
+      CFDictionarySetValue(result, *MEMORY[0x1E697AE80], a1);
+    }
+
+    if (PCSUseSyncKeychain == 1)
+    {
+      CFDictionarySetValue(v13, *MEMORY[0x1E697AEB0], v11);
+    }
+
+    v14 = _PCSSecItemDeleteIfPresent(v13);
+    v15 = PCSSecError(v14, a2, @"SecItem failed to delete iCDP %@ domain", v10);
+    CFRelease(v13);
+    return v15;
+  }
+
+  return result;
+}
+
+CFTypeRef PCSFPCreate(void *a1, void *a2, const void **a3)
+{
+  v5 = a1;
+  v6 = a2;
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0 || v6 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || (Empty = __PCSShareProtectionCreateEmpty(a3)) == 0)
+  {
+    v17 = 0;
+    goto LABEL_13;
+  }
+
+  v8 = Empty;
+  RandomKey = CreateRandomKey();
+  if (!RandomKey)
+  {
+    v17 = 0;
+    goto LABEL_12;
+  }
+
+  v10 = RandomKey;
+  *(v8 + 208) = 1;
+  if ([v5 isEqualToString:kPCSFPTypeClassic])
+  {
+    *(v8 + 204) = 2;
+    v20 = CFRetain(v10);
+    *(v8 + 72) = v20;
+    generateObjectKey(v8, v20, 0);
+  }
+
+  else if ([v5 isEqualToString:kPCSFPTypeShare])
+  {
+    *(v8 + 204) = 3;
+    *(v8 + 209) = 0;
+    *(v8 + 213) = 0;
+    generateOtherKeysFromRWMasterKey(v8, v10, v11, v12, v13, v14, v15, v16);
+  }
+
+  else
+  {
+    if (![v5 isEqualToString:kPCSFPTypeLight])
+    {
+      v17 = 0;
+      goto LABEL_10;
+    }
+
+    *(v8 + 204) = 0;
+    generateObjectKey(v8, v10, 0);
+    *(v8 + 72) = CFRetain(v10);
+  }
+
+  *(v8 + 176) = PCFPOptionCopyIdentity(v6);
+  v21 = PCFPOptionCopyIdentity(v6);
+  if (v21)
+  {
+    v23 = v21;
+    SigningIdentity = _PCSIdentityGetSigningIdentity(v21);
+    v22 = SigningIdentity;
+    if (SigningIdentity)
+    {
+      CFRetain(SigningIdentity);
+    }
+
+    CFRelease(v23);
+  }
+
+  else
+  {
+    v22 = 0;
+  }
+
+  *(v8 + 184) = v22;
+  v25 = v6;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v26 = [v25 objectForKeyedSubscript:kPCSFPService];
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v27 = PCSServiceItemRequireAuthorship(v26);
+    }
+
+    else
+    {
+      v27 = 0;
+    }
+  }
+
+  else
+  {
+    v27 = 0;
+  }
+
+  *(v8 + 214) = v27;
+  v28 = [v25 objectForKeyedSubscript:kPCSFPZoneObject];
+
+  if (v28)
+  {
+    v29 = v28[50];
+    if (v29)
+    {
+      *(v8 + 200) = v29;
+    }
+  }
+
+  KeyIDFromKey = CreateKeyIDFromKey(*(v8 + 72));
+  *(v8 + 80) = KeyIDFromKey;
+  if (!KeyIDFromKey)
+  {
+    v17 = 0;
+    v18 = v8;
+    v8 = v10;
+    goto LABEL_11;
+  }
+
+  v17 = CFRetain(v8);
+LABEL_10:
+  v18 = v10;
+LABEL_11:
+  CFRelease(v18);
+LABEL_12:
+  CFRelease(v8);
+LABEL_13:
+
+  return v17;
+}
+
+void *PCFPOptionCopyIdentity(void *a1)
+{
+  v17 = *MEMORY[0x1E69E9840];
+  v1 = a1;
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    goto LABEL_19;
+  }
+
+  v2 = [v1 objectForKeyedSubscript:kPCSFPIdentity];
+
+  if (v2)
+  {
+    v3 = CFGetTypeID(v2);
+    if (v3 == PCSIdentityGetTypeID())
+    {
+      v4 = CFRetain(v2);
+LABEL_18:
+      v9 = v4;
+      goto LABEL_20;
+    }
+  }
+
+  v5 = [v1 objectForKeyedSubscript:kPCSFPIdentitySet];
+
+  if (!v5 || (v6 = CFGetTypeID(v5), v6 != PCSIdentitySetGetTypeID()))
+  {
+    v9 = [v1 objectForKeyedSubscript:kPCSFPZoneObject];
+
+    if (!v9)
+    {
+      goto LABEL_20;
+    }
+
+    v11 = CFGetTypeID(v9);
+    if (v11 == PCSShareProtectionGetTypeID())
+    {
+      v12 = v9[2];
+      if (v12)
+      {
+        v4 = PCSIdentitySetCopyCurrentIdentityWithError(v12, kPCSServiceRaw, 0);
+        goto LABEL_18;
+      }
+    }
+
+LABEL_19:
+    v9 = 0;
+    goto LABEL_20;
+  }
+
+  v7 = [v1 objectForKeyedSubscript:kPCSFPService];
+
+  if (!v7)
+  {
+    goto LABEL_19;
+  }
+
+  v8 = CFGetTypeID(v7);
+  if (v8 != CFStringGetTypeID())
+  {
+    goto LABEL_19;
+  }
+
+  cf = 0;
+  v9 = PCSIdentitySetCopyCurrentIdentityWithError(v5, v7, &cf);
+  if (!v9 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v16 = cf;
+    _os_log_impl(&dword_1B229C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "PCFPOptionCopyIdentity(kPCSFPIdentitySet) but failed to find identity: %@", buf, 0xCu);
+  }
+
+  v10 = cf;
+  if (cf)
+  {
+    cf = 0;
+    CFRelease(v10);
+  }
+
+LABEL_20:
+
+  return v9;
+}
+
+uint64_t MarkForCounterSigning(uint64_t a1, uint64_t a2)
+{
+  result = 0;
+  if (a1)
+  {
+    if (a2)
+    {
+      result = *(a2 + 16);
+      if (result)
+      {
+        result = PCSIdentitySetCopyCurrentIdentityWithError(result, kPCSServiceRaw, 0);
+        if (result)
+        {
+          v5 = result;
+          v6 = *(a1 + 176);
+          if (v6)
+          {
+            *(a1 + 176) = 0;
+            CFRelease(v6);
+          }
+
+          v7 = *(a1 + 184);
+          if (v7)
+          {
+            *(a1 + 184) = 0;
+            CFRelease(v7);
+          }
+
+          *(a1 + 176) = v5;
+          SigningIdentity = _PCSIdentityGetSigningIdentity(v5);
+          v9 = SigningIdentity;
+          if (SigningIdentity)
+          {
+            CFRetain(SigningIdentity);
+          }
+
+          *(a1 + 184) = v9;
+          result = 1;
+          *(a1 + 214) = 1;
+          v10 = *(a2 + 200);
+          if (v10)
+          {
+            *(a1 + 200) = v10;
+          }
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+const void *PCSFPCopyCurrentPrivateKey(uint64_t a1)
+{
+  if (a1 && (v1 = *(a1 + 16)) != 0)
+  {
+    return PCSIdentitySetCopyCurrentIdentityWithError(v1, kPCSServiceRaw, 0);
+  }
+
+  else
+  {
+    return OUTLINED_FUNCTION_3_0();
+  }
+}
+
+_DWORD *PCSFPCreateWithExported(void *a1, uint64_t a2, const void **a3)
+{
+  if (!a2)
+  {
+    _PCSError(a3, 27, @"PCSFPCreateWithExported need an identity");
+    return 0;
+  }
+
+  Mutable = PCSIdentitySetCreateMutable(a3);
+  if (!Mutable)
+  {
+    return 0;
+  }
+
+  v7 = Mutable;
+  if (PCSIdentitySetAddIdentity(Mutable, a2))
+  {
+    v8 = CreateWithExportedInternal(a1, v7, 0, 0, 0, 0, 0, a3);
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  CFRelease(v7);
   return v8;
 }

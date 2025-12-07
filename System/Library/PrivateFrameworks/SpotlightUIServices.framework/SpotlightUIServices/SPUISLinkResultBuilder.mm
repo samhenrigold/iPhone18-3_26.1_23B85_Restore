@@ -161,74 +161,70 @@
 
 - (id)buildBadgingImageWithThumbnail:(id)thumbnail
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   thumbnailCopy = thumbnail;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 || (-[SPUISLinkResultBuilder senderContactIdentifiers](self, "senderContactIdentifiers"), v5 = objc_claimAutoreleasedReturnValue(), [v5 firstObject], v6 = objc_claimAutoreleasedReturnValue(), v5, !v6))
   {
-    v11.receiver = self;
-    v11.super_class = SPUISLinkResultBuilder;
-    v7 = [(SPUISResultBuilder *)&v11 buildBadgingImageWithThumbnail:thumbnailCopy];
+    v10.receiver = self;
+    v10.super_class = SPUISLinkResultBuilder;
+    v7 = [(SPUISResultBuilder *)&v10 buildBadgingImageWithThumbnail:thumbnailCopy];
   }
 
   else
   {
     v7 = objc_opt_new();
-    v12[0] = v6;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+    v11[0] = v6;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
     [v7 setContactIdentifiers:v8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (id)buildDescriptions
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = [(SPUISLinkResultBuilder *)self url];
   host = [v2 host];
 
   v4 = [MEMORY[0x277D4C598] textWithString:host];
-  v8[0] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7[0] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
 
   return v5;
 }
 
 - (id)subclassBuildHorizontallyScrollingCardSection
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   senderContactIdentifiers = [(SPUISLinkResultBuilder *)self senderContactIdentifiers];
-  v5 = [senderContactIdentifiers countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [senderContactIdentifiers countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(senderContactIdentifiers);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         v10 = objc_opt_new();
         [v10 setContactIdentifier:v9];
         [v3 addObject:v10];
       }
 
-      v6 = [senderContactIdentifiers countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [senderContactIdentifiers countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v6);
@@ -239,7 +235,7 @@
   absoluteString = [v12 absoluteString];
   [v11 setUrl:absoluteString];
 
-  if ([v3 count])
+  if (objc_msgSend_count(v3))
   {
     v14 = v3;
   }
@@ -254,7 +250,6 @@
   [v11 setCoreSpotlightIdentifier:coreSpotlightId];
 
   [v11 setIsHighlighted:{-[SPUISLinkResultBuilder syndicationStatus](self, "syndicationStatus") == 2}];
-  v16 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

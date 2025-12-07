@@ -99,8 +99,8 @@ void __52__PLAppDeletion_traverseVersionDirectory_withBlock___block_invoke(uint6
 
   if (v10)
   {
-    v11 = PLLogAppDeletion();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = PLLogAppDeletion(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
       v16 = levelCopy;
@@ -108,11 +108,10 @@ void __52__PLAppDeletion_traverseVersionDirectory_withBlock___block_invoke(uint6
       v18 = pathCopy;
       v19 = 2112;
       v20 = v10;
-      _os_log_error_impl(&dword_1D8611000, v11, OS_LOG_TYPE_ERROR, "Failed to set file protection %@ for file at path: %@ with error: %@", buf, 0x20u);
+      _os_log_error_impl(&dword_1D8611000, v12, OS_LOG_TYPE_ERROR, "Failed to set file protection %@ for file at path: %@ with error: %@", buf, 0x20u);
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -145,7 +144,7 @@ void __52__PLAppDeletion_traverseVersionDirectory_withBlock___block_invoke(uint6
         }
 
         v15 = [directoryCopy stringByAppendingPathComponent:{*(*(&v22 + 1) + 8 * v14), v21, v22}];
-        v16 = PLLogAppDeletion();
+        v16 = PLLogAppDeletion(v15);
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
           *buf = v21;
@@ -155,15 +154,16 @@ void __52__PLAppDeletion_traverseVersionDirectory_withBlock___block_invoke(uint6
           _os_log_debug_impl(&dword_1D8611000, v16, OS_LOG_TYPE_DEBUG, "Changing permission for file %@ to %@", buf, 0x16u);
         }
 
-        if (([self setFileProtectionForPath:v15 withLevel:levelCopy] & 1) == 0)
+        v17 = [self setFileProtectionForPath:v15 withLevel:levelCopy];
+        if ((v17 & 1) == 0)
         {
-          v18 = PLLogAppDeletion();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+          v19 = PLLogAppDeletion(v17);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
             +[PLAppDeletion changePermissionsForFilesInDirectory:withProtectionLevel:];
           }
 
-          v17 = 0;
+          v18 = 0;
           goto LABEL_15;
         }
 
@@ -181,11 +181,10 @@ void __52__PLAppDeletion_traverseVersionDirectory_withBlock___block_invoke(uint6
     }
   }
 
-  v17 = 1;
+  v18 = 1;
 LABEL_15:
 
-  v19 = *MEMORY[0x1E69E9840];
-  return v17;
+  return v18;
 }
 
 + (BOOL)changePermissionForDirectory:(id)directory withProtectionLevel:(id)level
@@ -214,11 +213,12 @@ LABEL_15:
 void __66__PLAppDeletion_changePermissionForDirectory_withProtectionLevel___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  *(*(*(a1 + 40) + 8) + 24) = [*(a1 + 48) changePermissionsForFilesInDirectory:v3 withProtectionLevel:*(a1 + 32)];
+  v4 = [*(a1 + 48) changePermissionsForFilesInDirectory:v3 withProtectionLevel:*(a1 + 32)];
+  *(*(*(a1 + 40) + 8) + 24) = v4;
   if ((*(*(*(a1 + 40) + 8) + 24) & 1) == 0)
   {
-    v4 = PLLogAppDeletion();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = PLLogAppDeletion(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __66__PLAppDeletion_changePermissionForDirectory_withProtectionLevel___block_invoke_cold_1();
     }
@@ -230,8 +230,8 @@ void __66__PLAppDeletion_changePermissionForDirectory_withProtectionLevel___bloc
   v4 = [self getProtectionLevel:?];
   if (!v4)
   {
-    v12 = PLLogAppDeletion();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = PLLogAppDeletion(0);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       +[PLAppDeletion changeClassProtection:];
     }
@@ -245,8 +245,8 @@ void __66__PLAppDeletion_changePermissionForDirectory_withProtectionLevel___bloc
 
   if ((v7 & 1) == 0)
   {
-    v12 = PLLogAppDeletion();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = PLLogAppDeletion(v8);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       +[PLAppDeletion changeClassProtection:];
     }
@@ -254,38 +254,38 @@ void __66__PLAppDeletion_changePermissionForDirectory_withProtectionLevel___bloc
     goto LABEL_13;
   }
 
-  v8 = +[PLUtilities containerPath];
-  v9 = [v8 stringByAppendingString:@"/Library/BatteryLife/UpgradeLogs/MinorVersion"];
-  v10 = [self changePermissionForDirectory:v9 withProtectionLevel:v4];
+  v9 = +[PLUtilities containerPath];
+  v10 = [v9 stringByAppendingString:@"/Library/BatteryLife/UpgradeLogs/MinorVersion"];
+  v11 = [self changePermissionForDirectory:v10 withProtectionLevel:v4];
 
-  v11 = PLLogAppDeletion();
-  v12 = v11;
-  if ((v10 & 1) == 0)
+  v13 = PLLogAppDeletion(v12);
+  v14 = v13;
+  if ((v11 & 1) == 0)
   {
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       +[PLAppDeletion changeClassProtection:];
     }
 
 LABEL_13:
-    v13 = 0;
+    v15 = 0;
     goto LABEL_14;
   }
 
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     +[PLAppDeletion changeClassProtection:];
   }
 
-  v13 = 1;
+  v15 = 1;
 LABEL_14:
 
-  return v13;
+  return v15;
 }
 
 + (id)filePermissionCriteria
 {
-  v2 = PLLogAppDeletion();
+  v2 = PLLogAppDeletion(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     +[PLAppDeletion filePermissionCriteria];
@@ -312,15 +312,16 @@ LABEL_14:
 void __47__PLAppDeletion_registerFilePermissionActivity__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if (xpc_activity_get_state(v3) == 2)
+  state = xpc_activity_get_state(v3);
+  if (state == 2)
   {
     [*(a1 + 32) handleFilePermissionXPCActivityCallback:v3];
   }
 
   else
   {
-    v4 = PLLogAppDeletion();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = PLLogAppDeletion(state);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       __47__PLAppDeletion_registerFilePermissionActivity__block_invoke_cold_1();
     }
@@ -331,11 +332,12 @@ void __47__PLAppDeletion_registerFilePermissionActivity__block_invoke(uint64_t a
 {
   callbackCopy = callback;
   v5 = [PLAppDeletion changeClassProtection:1];
-  v6 = PLLogAppDeletion();
-  v7 = v6;
-  if (v5)
+  v6 = v5;
+  v7 = PLLogAppDeletion(v5);
+  v8 = v7;
+  if (v6)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       +[PLAppDeletion handleFilePermissionXPCActivityCallback:];
     }
@@ -346,10 +348,10 @@ void __47__PLAppDeletion_registerFilePermissionActivity__block_invoke(uint64_t a
 
   else
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_1D8611000, v7, OS_LOG_TYPE_DEFAULT, "Deferring activity as changing class protection to ClassC failed", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_1D8611000, v8, OS_LOG_TYPE_DEFAULT, "Deferring activity as changing class protection to ClassC failed", v9, 2u);
     }
 
     if (([self deferXPCActivity:callbackCopy] & 1) == 0)
@@ -369,33 +371,33 @@ void __47__PLAppDeletion_registerFilePermissionActivity__block_invoke(uint64_t a
 
 + (void)resetStateVariables
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   processedFilesCounter = 0;
   allKeys = [listOfFileNames allKeys];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v3 = [allKeys countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [allKeys countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        [listOfFileNames setObject:&unk_1F5406048 forKeyedSubscript:*(*(&v9 + 1) + 8 * v6++)];
+        [listOfFileNames setObject:&unk_1F5406048 forKeyedSubscript:*(*(&v8 + 1) + 8 * v6++)];
       }
 
       while (v4 != v6);
-      v4 = [allKeys countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [allKeys countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
@@ -403,51 +405,47 @@ void __47__PLAppDeletion_registerFilePermissionActivity__block_invoke(uint64_t a
 
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   [defaultCenter postNotificationName:@"PLAppDeletionActivityComplete" object:0 userInfo:0];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (id)pluginsForBundleID:(id)d
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   v4 = [[PLValueComparison alloc] initWithKey:@"PluginParentApp" withValue:dCopy withComparisonOperation:0];
 
   v5 = +[PowerlogCore sharedCore];
   storage = [v5 storage];
-  v11[0] = v4;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+  v10[0] = v4;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
   v8 = [storage entriesForKey:@"PLApplicationAgent_EventNone_AllPlugins" withComparisons:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 + (void)maskAssociatedPlugins:(id)plugins withMaskedDictionary:(id)dictionary
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [self pluginsForBundleID:plugins];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v21;
+    v10 = *v20;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * i);
+        v12 = *(*(&v19 + 1) + 8 * i);
         v13 = [v12 objectForKeyedSubscript:@"PluginId"];
 
         if (v13)
@@ -467,30 +465,26 @@ void __47__PLAppDeletion_registerFilePermissionActivity__block_invoke(uint64_t a
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v9);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 + (id)processNameForBundleID:(id)d
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   v4 = [[PLValueComparison alloc] initWithKey:@"BundleID" withValue:dCopy withComparisonOperation:0];
 
   v5 = +[PowerlogCore sharedCore];
   storage = [v5 storage];
-  v12[0] = v4;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+  v11[0] = v4;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
   v8 = [storage lastEntryForKey:@"PLProcessMonitorAgent_EventForward_ProcessID" withComparisons:v7 isSingleton:1];
 
   v9 = [v8 objectForKeyedSubscript:@"ProcessName"];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -507,49 +501,47 @@ void __47__PLAppDeletion_registerFilePermissionActivity__block_invoke(uint64_t a
 
 + (void)constructAppReferenceMapping
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)populateIdentifiers:(id)identifiers
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   identifiersCopy = identifiers;
-  v4 = [identifiersCopy countByEnumeratingWithState:&v38 objects:v42 count:16];
+  v4 = [identifiersCopy countByEnumeratingWithState:&v37 objects:v41 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v39;
-    v24 = v34;
-    v25 = v29;
+    v6 = *v38;
+    v23 = v33;
+    v24 = v28;
     v7 = 0x1E8518000uLL;
     v8 = 0x1E8518000uLL;
-    v26 = identifiersCopy;
+    v25 = identifiersCopy;
     do
     {
       v9 = 0;
       do
       {
-        if (*v39 != v6)
+        if (*v38 != v6)
         {
           objc_enumerationMutation(identifiersCopy);
         }
 
-        v10 = *(*(&v38 + 1) + 8 * v9);
+        v10 = *(*(&v37 + 1) + 8 * v9);
         v11 = objc_autoreleasePoolPush();
         sharedSQLiteConnection = [*(v7 + 2384) sharedSQLiteConnection];
         v13 = [sharedSQLiteConnection tableExistsForTableName:v10];
 
         if (v13)
         {
-          v27 = v11;
+          v26 = v11;
           v14 = v5;
           v15 = v6;
           v16 = v8;
@@ -561,20 +553,20 @@ void __47__PLAppDeletion_registerFilePermissionActivity__block_invoke(uint64_t a
             v20 = [*(v16 + 2656) hasAppIdentiferKeys:v10];
             v6 = v15;
             v5 = v14;
-            v11 = v27;
+            v11 = v26;
             if (v20)
             {
               v21 = [PPSEntryKey allMetricsForEntryKey:v10];
-              v33[0] = MEMORY[0x1E69E9820];
-              v33[1] = 3221225472;
-              v34[0] = __37__PLAppDeletion_populateIdentifiers___block_invoke;
-              v34[1] = &unk_1E851A6A8;
-              v35 = v17;
-              v36 = v18;
-              v37 = v19;
-              [v21 enumerateKeysAndObjectsUsingBlock:v33];
+              v32[0] = MEMORY[0x1E69E9820];
+              v32[1] = 3221225472;
+              v33[0] = __37__PLAppDeletion_populateIdentifiers___block_invoke;
+              v33[1] = &unk_1E851A6A8;
+              v34 = v17;
+              v35 = v18;
+              v36 = v19;
+              [v21 enumerateKeysAndObjectsUsingBlock:v32];
 
-              v22 = v35;
+              v22 = v34;
               goto LABEL_12;
             }
           }
@@ -585,28 +577,28 @@ void __47__PLAppDeletion_registerFilePermissionActivity__block_invoke(uint64_t a
             if ([PLEntryDefinition hasAppIdentifierKeysForEntryDefinition:v21])
             {
               v22 = [PLEntryDefinition keyConfigsForEntryDefinition:v21];
-              v28[0] = MEMORY[0x1E69E9820];
-              v28[1] = 3221225472;
-              v29[0] = __37__PLAppDeletion_populateIdentifiers___block_invoke_2;
-              v29[1] = &unk_1E8519318;
-              v30 = v17;
-              v31 = v18;
-              v32 = v19;
-              [v22 enumerateKeysAndObjectsUsingBlock:v28];
+              v27[0] = MEMORY[0x1E69E9820];
+              v27[1] = 3221225472;
+              v28[0] = __37__PLAppDeletion_populateIdentifiers___block_invoke_2;
+              v28[1] = &unk_1E8519318;
+              v29 = v17;
+              v30 = v18;
+              v31 = v19;
+              [v22 enumerateKeysAndObjectsUsingBlock:v27];
 
               v6 = v15;
               v5 = v14;
-              v11 = v27;
+              v11 = v26;
 LABEL_12:
 
-              identifiersCopy = v26;
+              identifiersCopy = v25;
             }
 
             else
             {
               v6 = v15;
               v5 = v14;
-              v11 = v27;
+              v11 = v26;
             }
 
             v7 = 0x1E8518000;
@@ -635,13 +627,11 @@ LABEL_12:
       }
 
       while (v5 != v9);
-      v5 = [identifiersCopy countByEnumeratingWithState:&v38 objects:v42 count:16];
+      v5 = [identifiersCopy countByEnumeratingWithState:&v37 objects:v41 count:16];
     }
 
     while (v5);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __37__PLAppDeletion_populateIdentifiers___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -685,31 +675,31 @@ void __37__PLAppDeletion_populateIdentifiers___block_invoke_2(id *a1, void *a2, 
 
 + (void)iterateAgents
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v3 = +[PowerlogCore sharedCore];
   agents = [v3 agents];
   allOperators = [agents allOperators];
 
-  v6 = [allOperators countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [allOperators countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(allOperators);
         }
 
-        entryKeys = [*(*(&v13 + 1) + 8 * v9) entryKeys];
+        entryKeys = [*(*(&v12 + 1) + 8 * v9) entryKeys];
         v11 = [entryKeys copy];
 
         [self populateIdentifiers:v11];
@@ -717,42 +707,40 @@ void __37__PLAppDeletion_populateIdentifiers___block_invoke_2(id *a1, void *a2, 
       }
 
       while (v7 != v9);
-      v7 = [allOperators countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [allOperators countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (void)iterateServices
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v3 = +[PowerlogCore sharedCore];
   services = [v3 services];
   allOperators = [services allOperators];
 
-  v6 = [allOperators countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [allOperators countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(allOperators);
         }
 
-        entryKeys = [*(*(&v13 + 1) + 8 * v9) entryKeys];
+        entryKeys = [*(*(&v12 + 1) + 8 * v9) entryKeys];
         v11 = [entryKeys copy];
 
         [self populateIdentifiers:v11];
@@ -760,13 +748,11 @@ void __37__PLAppDeletion_populateIdentifiers___block_invoke_2(id *a1, void *a2, 
       }
 
       while (v7 != v9);
-      v7 = [allOperators countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [allOperators countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (void)iterateMetrics
@@ -777,11 +763,9 @@ void __37__PLAppDeletion_populateIdentifiers___block_invoke_2(id *a1, void *a2, 
 
 + (void)constructAppReferenceTableList
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __47__PLAppDeletion_constructAppReferenceTableList__block_invoke(uint64_t a1)
@@ -820,8 +804,7 @@ uint64_t __47__PLAppDeletion_constructAppReferenceTableList__block_invoke(uint64
   v10 = @"AppDistributorID";
   [tableNameToBundleIdentifier enumerateKeysAndObjectsUsingBlock:v8];
   [tableNameToAppIdentifier enumerateKeysAndObjectsUsingBlock:&__block_literal_global_111];
-  [tableNameToProcessIdentifier enumerateKeysAndObjectsUsingBlock:&__block_literal_global_113];
-  v4 = PLLogAppDeletion();
+  v4 = PLLogAppDeletion([tableNameToProcessIdentifier enumerateKeysAndObjectsUsingBlock:&__block_literal_global_113]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     +[PLAppDeletion constructUpdateQueries];
@@ -835,52 +818,52 @@ uint64_t __47__PLAppDeletion_constructAppReferenceTableList__block_invoke(uint64
 
 void __39__PLAppDeletion_constructUpdateQueries__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   v5 = a2;
+  v59 = 0u;
   v60 = 0u;
   v61 = 0u;
   v62 = 0u;
-  v63 = 0u;
   obj = a3;
-  v44 = [obj countByEnumeratingWithState:&v60 objects:v68 count:16];
-  if (v44)
+  v43 = [obj countByEnumeratingWithState:&v59 objects:v67 count:16];
+  if (v43)
   {
-    v43 = *v61;
+    v42 = *v60;
     v6 = &sharedInstance_result;
-    v51 = v5;
-    v48 = a1;
+    v50 = v5;
+    v47 = a1;
     do
     {
       v7 = 0;
       do
       {
-        if (*v61 != v43)
+        if (*v60 != v42)
         {
           objc_enumerationMutation(obj);
         }
 
-        v45 = v7;
-        v8 = *(*(&v60 + 1) + 8 * v7);
+        v44 = v7;
+        v8 = *(*(&v59 + 1) + 8 * v7);
+        v55 = 0u;
         v56 = 0u;
         v57 = 0u;
         v58 = 0u;
-        v59 = 0u;
-        v47 = v6[77];
-        v49 = [v47 countByEnumeratingWithState:&v56 objects:v67 count:16];
-        if (v49)
+        v46 = v6[77];
+        v48 = [v46 countByEnumeratingWithState:&v55 objects:v66 count:16];
+        if (v48)
         {
-          v9 = *v57;
-          v46 = *v57;
+          v9 = *v56;
+          v45 = *v56;
           do
           {
-            for (i = 0; i != v49; i = i + 1)
+            for (i = 0; i != v48; i = i + 1)
             {
-              if (*v57 != v9)
+              if (*v56 != v9)
               {
-                objc_enumerationMutation(v47);
+                objc_enumerationMutation(v46);
               }
 
-              v11 = *(*(&v56 + 1) + 8 * i);
+              v11 = *(*(&v55 + 1) + 8 * i);
               v12 = [v5 isEqualToString:*(a1 + 32)];
               v13 = MEMORY[0x1E696AD60];
               if (v12)
@@ -891,23 +874,22 @@ void __39__PLAppDeletion_constructUpdateQueries__block_invoke(uint64_t a1, void 
                 v17 = [v16 objectForKeyedSubscript:@"MaskedName"];
                 v18 = [v13 stringWithFormat:@"UPDATE '%@' SET %@ ='%@' WHERE %@ = '%@' AND AppDeletedDate != 0", v14, v15, v17, v8, v11];;
 
-                [updateQueries addObject:v18];
-                v19 = PLLogAppDeletion();
+                v19 = PLLogAppDeletion([updateQueries addObject:v18]);
                 if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 138412290;
-                  v66 = v18;
+                  v65 = v18;
                   _os_log_debug_impl(&dword_1D8611000, v19, OS_LOG_TYPE_DEBUG, "AppDeletion : updateQueries for AppDistributorID is %@", buf, 0xCu);
                 }
 
                 v20 = MEMORY[0x1E696AD60];
                 v21 = [v6[77] objectForKeyedSubscript:v11];
                 v22 = [v21 objectForKeyedSubscript:@"MaskedName"];
-                v5 = v51;
-                v23 = [v20 stringWithFormat:@"UPDATE '%@' SET %@ ='%@' WHERE %@ = '%@' AND AppDeletedDate != 0", v51, v8, v22, v8, v11];;
+                v5 = v50;
+                v23 = [v20 stringWithFormat:@"UPDATE '%@' SET %@ ='%@' WHERE %@ = '%@' AND AppDeletedDate != 0", v50, v8, v22, v8, v11];;
 
                 [updateQueries addObject:v23];
-                v9 = v46;
+                v9 = v45;
               }
 
               else
@@ -922,217 +904,211 @@ void __39__PLAppDeletion_constructUpdateQueries__block_invoke(uint64_t a1, void 
                 [updateQueries addObject:v18];
               }
 
-              a1 = v48;
+              a1 = v47;
               v6 = &sharedInstance_result;
             }
 
-            v49 = [v47 countByEnumeratingWithState:&v56 objects:v67 count:16];
+            v48 = [v46 countByEnumeratingWithState:&v55 objects:v66 count:16];
           }
 
-          while (v49);
+          while (v48);
         }
 
-        v54 = 0u;
-        v55 = 0u;
-        v52 = 0u;
         v53 = 0u;
-        v50 = _MergedGlobals;
-        v29 = [v50 countByEnumeratingWithState:&v52 objects:v64 count:16];
+        v54 = 0u;
+        v51 = 0u;
+        v52 = 0u;
+        v49 = _MergedGlobals;
+        v29 = [v49 countByEnumeratingWithState:&v51 objects:v63 count:16];
         if (v29)
         {
           v30 = v29;
-          v31 = *v53;
+          v31 = *v52;
           do
           {
             for (j = 0; j != v30; ++j)
             {
-              if (*v53 != v31)
+              if (*v52 != v31)
               {
-                objc_enumerationMutation(v50);
+                objc_enumerationMutation(v49);
               }
 
-              v33 = *(*(&v52 + 1) + 8 * j);
+              v33 = *(*(&v51 + 1) + 8 * j);
               v34 = MEMORY[0x1E696AD60];
               v35 = [_MergedGlobals objectForKeyedSubscript:v33];
               v36 = [v35 objectForKeyedSubscript:@"MaskedName"];
               v37 = [_MergedGlobals objectForKeyedSubscript:v33];
               v38 = [v37 objectForKeyedSubscript:@"DeleteTimestamp"];
               [v38 doubleValue];
-              v40 = [v34 stringWithFormat:@"UPDATE '%@' SET %@ ='%@' WHERE %@ = '%@' AND timestamp <= %f", v51, v8, v36, v8, v33, v39];;
+              v40 = [v34 stringWithFormat:@"UPDATE '%@' SET %@ ='%@' WHERE %@ = '%@' AND timestamp <= %f", v50, v8, v36, v8, v33, v39];;
 
               [updateQueries addObject:v40];
             }
 
-            v30 = [v50 countByEnumeratingWithState:&v52 objects:v64 count:16];
+            v30 = [v49 countByEnumeratingWithState:&v51 objects:v63 count:16];
           }
 
           while (v30);
         }
 
-        v7 = v45 + 1;
-        v5 = v51;
-        a1 = v48;
+        v7 = v44 + 1;
+        v5 = v50;
+        a1 = v47;
         v6 = &sharedInstance_result;
       }
 
-      while (v45 + 1 != v44);
-      v44 = [obj countByEnumeratingWithState:&v60 objects:v68 count:16];
+      while (v44 + 1 != v43);
+      v43 = [obj countByEnumeratingWithState:&v59 objects:v67 count:16];
     }
 
-    while (v44);
+    while (v43);
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 void __39__PLAppDeletion_constructUpdateQueries__block_invoke_109(uint64_t a1, void *a2, void *a3)
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v24 = a2;
+  v34 = *MEMORY[0x1E69E9840];
+  v23 = a2;
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   obj = a3;
-  v21 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
-  if (v21)
+  v20 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+  if (v20)
   {
-    v20 = *v30;
+    v19 = *v29;
     do
     {
       v4 = 0;
       do
       {
-        if (*v30 != v20)
+        if (*v29 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = v4;
-        v5 = *(*(&v29 + 1) + 8 * v4);
+        v21 = v4;
+        v5 = *(*(&v28 + 1) + 8 * v4);
+        v24 = 0u;
         v25 = 0u;
         v26 = 0u;
         v27 = 0u;
-        v28 = 0u;
-        v23 = qword_1EDFFF270;
-        v6 = [v23 countByEnumeratingWithState:&v25 objects:v33 count:16];
+        v22 = qword_1EDFFF270;
+        v6 = [v22 countByEnumeratingWithState:&v24 objects:v32 count:16];
         if (v6)
         {
           v7 = v6;
-          v8 = *v26;
+          v8 = *v25;
           do
           {
             for (i = 0; i != v7; ++i)
             {
-              if (*v26 != v8)
+              if (*v25 != v8)
               {
-                objc_enumerationMutation(v23);
+                objc_enumerationMutation(v22);
               }
 
-              v10 = *(*(&v25 + 1) + 8 * i);
+              v10 = *(*(&v24 + 1) + 8 * i);
               v11 = MEMORY[0x1E696AD60];
               v12 = [qword_1EDFFF270 objectForKeyedSubscript:v10];
               v13 = [v12 objectForKeyedSubscript:@"MaskedName"];
               v14 = [qword_1EDFFF270 objectForKeyedSubscript:v10];
               v15 = [v14 objectForKeyedSubscript:@"DeleteTimestamp"];
               [v15 doubleValue];
-              v17 = [v11 stringWithFormat:@"UPDATE '%@' SET %@ ='%@' WHERE %@ = '%@' AND timestamp <= %f", v24, v5, v13, v5, v10, v16];;
+              v17 = [v11 stringWithFormat:@"UPDATE '%@' SET %@ ='%@' WHERE %@ = '%@' AND timestamp <= %f", v23, v5, v13, v5, v10, v16];;
 
               [updateQueries addObject:v17];
             }
 
-            v7 = [v23 countByEnumeratingWithState:&v25 objects:v33 count:16];
+            v7 = [v22 countByEnumeratingWithState:&v24 objects:v32 count:16];
           }
 
           while (v7);
         }
 
-        v4 = v22 + 1;
+        v4 = v21 + 1;
       }
 
-      while (v22 + 1 != v21);
-      v21 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+      while (v21 + 1 != v20);
+      v20 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
-    while (v21);
+    while (v20);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __39__PLAppDeletion_constructUpdateQueries__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v24 = a2;
+  v34 = *MEMORY[0x1E69E9840];
+  v23 = a2;
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   obj = a3;
-  v21 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
-  if (v21)
+  v20 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+  if (v20)
   {
-    v20 = *v30;
+    v19 = *v29;
     do
     {
       v4 = 0;
       do
       {
-        if (*v30 != v20)
+        if (*v29 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = v4;
-        v5 = *(*(&v29 + 1) + 8 * v4);
+        v21 = v4;
+        v5 = *(*(&v28 + 1) + 8 * v4);
+        v24 = 0u;
         v25 = 0u;
         v26 = 0u;
         v27 = 0u;
-        v28 = 0u;
-        v23 = qword_1EDFFF260;
-        v6 = [v23 countByEnumeratingWithState:&v25 objects:v33 count:16];
+        v22 = qword_1EDFFF260;
+        v6 = [v22 countByEnumeratingWithState:&v24 objects:v32 count:16];
         if (v6)
         {
           v7 = v6;
-          v8 = *v26;
+          v8 = *v25;
           do
           {
             for (i = 0; i != v7; ++i)
             {
-              if (*v26 != v8)
+              if (*v25 != v8)
               {
-                objc_enumerationMutation(v23);
+                objc_enumerationMutation(v22);
               }
 
-              v10 = *(*(&v25 + 1) + 8 * i);
+              v10 = *(*(&v24 + 1) + 8 * i);
               v11 = MEMORY[0x1E696AD60];
               v12 = [qword_1EDFFF260 objectForKeyedSubscript:v10];
               v13 = [v12 objectForKeyedSubscript:@"MaskedName"];
               v14 = [qword_1EDFFF260 objectForKeyedSubscript:v10];
               v15 = [v14 objectForKeyedSubscript:@"DeleteTimestamp"];
               [v15 doubleValue];
-              v17 = [v11 stringWithFormat:@"UPDATE '%@' SET %@ ='%@' WHERE %@ = '%@' AND timestamp <= %f", v24, v5, v13, v5, v10, v16];;
+              v17 = [v11 stringWithFormat:@"UPDATE '%@' SET %@ ='%@' WHERE %@ = '%@' AND timestamp <= %f", v23, v5, v13, v5, v10, v16];;
 
               [updateQueries addObject:v17];
             }
 
-            v7 = [v23 countByEnumeratingWithState:&v25 objects:v33 count:16];
+            v7 = [v22 countByEnumeratingWithState:&v24 objects:v32 count:16];
           }
 
           while (v7);
         }
 
-        v4 = v22 + 1;
+        v4 = v21 + 1;
       }
 
-      while (v22 + 1 != v21);
-      v21 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+      while (v21 + 1 != v20);
+      v20 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
-    while (v21);
+    while (v20);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 + (void)addFilesToList:(id)list
@@ -1164,20 +1140,21 @@ void __39__PLAppDeletion_constructUpdateQueries__block_invoke_2(uint64_t a1, voi
         pathExtension = [v8 pathExtension];
         v11 = [v9 stringWithFormat:@".%@", pathExtension];
 
-        if ([v11 isEqualToString:@".gz"])
+        v12 = [v11 isEqualToString:@".gz"];
+        if (v12)
         {
-          v12 = [listCopy stringByAppendingPathComponent:v8];
-          [listOfFileNames setObject:&unk_1F5406048 forKeyedSubscript:v12];
+          v13 = [listCopy stringByAppendingPathComponent:v8];
+          [listOfFileNames setObject:&unk_1F5406048 forKeyedSubscript:v13];
         }
 
         else
         {
-          v12 = PLLogAppDeletion();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+          v13 = PLLogAppDeletion(v12);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
             v21 = v8;
-            _os_log_debug_impl(&dword_1D8611000, v12, OS_LOG_TYPE_DEBUG, "AppDeletion : skipping non-gz file %@", buf, 0xCu);
+            _os_log_debug_impl(&dword_1D8611000, v13, OS_LOG_TYPE_DEBUG, "AppDeletion : skipping non-gz file %@", buf, 0xCu);
           }
         }
       }
@@ -1187,8 +1164,6 @@ void __39__PLAppDeletion_constructUpdateQueries__block_invoke_2(uint64_t a1, voi
 
     while (v5);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 + (void)constructFileNames
@@ -1226,10 +1201,11 @@ void __39__PLAppDeletion_constructUpdateQueries__block_invoke_2(uint64_t a1, voi
   queryCopy = query;
   errmsg = 0;
   ppDb = 0;
-  if (sqlite3_open_v2([queryCopy UTF8String], &ppDb, 2, 0))
+  v4 = sqlite3_open_v2([queryCopy UTF8String], &ppDb, 2, 0);
+  if (v4)
   {
-    v4 = PLLogAppDeletion();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = PLLogAppDeletion(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       +[PLAppDeletion updateQuery:];
     }
@@ -1241,95 +1217,94 @@ void __39__PLAppDeletion_constructUpdateQueries__block_invoke_2(uint64_t a1, voi
     v19 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v4 = updateQueries;
-    v5 = [v4 countByEnumeratingWithState:&v16 objects:v28 count:16];
-    if (v5)
+    v5 = updateQueries;
+    v6 = [v5 countByEnumeratingWithState:&v16 objects:v28 count:16];
+    if (v6)
     {
-      v6 = v5;
+      v7 = v6;
       v15 = queryCopy;
-      v7 = *v17;
+      v8 = *v17;
       do
       {
-        for (i = 0; i != v6; ++i)
+        for (i = 0; i != v7; ++i)
         {
-          if (*v17 != v7)
+          if (*v17 != v8)
           {
-            objc_enumerationMutation(v4);
+            objc_enumerationMutation(v5);
           }
 
-          v9 = *(*(&v16 + 1) + 8 * i);
-          v10 = objc_autoreleasePoolPush();
-          v11 = sqlite3_exec(ppDb, [v9 UTF8String], 0, 0, &errmsg);
-          if (v11)
+          v10 = *(*(&v16 + 1) + 8 * i);
+          v11 = objc_autoreleasePoolPush();
+          v12 = sqlite3_exec(ppDb, [v10 UTF8String], 0, 0, &errmsg);
+          if (v12)
           {
-            v12 = v11;
-            v13 = PLLogAppDeletion();
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+            v13 = v12;
+            v14 = PLLogAppDeletion(v12);
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412802;
-              v23 = v9;
+              v23 = v10;
               v24 = 1024;
-              v25 = v12;
+              v25 = v13;
               v26 = 2080;
               v27 = errmsg;
-              _os_log_error_impl(&dword_1D8611000, v13, OS_LOG_TYPE_ERROR, "failed to execute update query %@ - %d and %s", buf, 0x1Cu);
+              _os_log_error_impl(&dword_1D8611000, v14, OS_LOG_TYPE_ERROR, "failed to execute update query %@ - %d and %s", buf, 0x1Cu);
             }
 
             sqlite3_free(errmsg);
           }
 
-          objc_autoreleasePoolPop(v10);
+          objc_autoreleasePoolPop(v11);
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v16 objects:v28 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v16 objects:v28 count:16];
       }
 
-      while (v6);
+      while (v7);
       queryCopy = v15;
     }
   }
 
   sqlite3_close(ppDb);
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 + (void)deleteAppReferencesFromCompressedFiles:(id)files
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   activity = files;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   [listOfFileNames allKeys];
-  v39 = 0u;
-  v40 = 0u;
-  v41 = 0u;
-  obj = v42 = 0u;
-  v3 = [obj countByEnumeratingWithState:&v39 objects:v47 count:16];
+  v44 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  obj = v47 = 0u;
+  v3 = [obj countByEnumeratingWithState:&v44 objects:v52 count:16];
   if (v3)
   {
     v5 = v3;
-    v6 = *v40;
+    v6 = *v45;
     *&v4 = 138412546;
-    v32 = v4;
+    v37 = v4;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v40 != v6)
+        if (*v45 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v39 + 1) + 8 * i);
-        v9 = [listOfFileNames objectForKeyedSubscript:{v8, v32}];
+        v8 = *(*(&v44 + 1) + 8 * i);
+        v9 = [listOfFileNames objectForKeyedSubscript:{v8, v37}];
         intValue = [v9 intValue];
 
         if (intValue)
         {
-          stringByDeletingLastPathComponent = PLLogAppDeletion();
+          stringByDeletingLastPathComponent = PLLogAppDeletion(v11);
           if (os_log_type_enabled(stringByDeletingLastPathComponent, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v44 = v8;
+            v49 = v8;
             _os_log_impl(&dword_1D8611000, stringByDeletingLastPathComponent, OS_LOG_TYPE_DEFAULT, "AppDeletion : filename %@ is processed", buf, 0xCu);
           }
         }
@@ -1340,80 +1315,83 @@ void __39__PLAppDeletion_constructUpdateQueries__block_invoke_2(uint64_t a1, voi
           lastPathComponent = [v8 lastPathComponent];
           stringByDeletingPathExtension = [lastPathComponent stringByDeletingPathExtension];
 
-          v14 = [stringByDeletingLastPathComponent stringByAppendingPathComponent:stringByDeletingPathExtension];
-          v15 = PLLogAppDeletion();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          v15 = [stringByDeletingLastPathComponent stringByAppendingPathComponent:stringByDeletingPathExtension];
+          v16 = PLLogAppDeletion(v15);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v44 = v8;
-            _os_log_impl(&dword_1D8611000, v15, OS_LOG_TYPE_DEFAULT, "AppDeletion : invoking decompress on file %@", buf, 0xCu);
+            v49 = v8;
+            _os_log_impl(&dword_1D8611000, v16, OS_LOG_TYPE_DEFAULT, "AppDeletion : invoking decompress on file %@", buf, 0xCu);
           }
 
-          v16 = [PLUtilities decompressWithSource:v8 withDestination:v14 withRemoveSrc:1];
-          v17 = PLLogAppDeletion();
+          v17 = [PLUtilities decompressWithSource:v8 withDestination:v15 withRemoveSrc:1];
           v18 = v17;
-          if (v16)
+          v19 = PLLogAppDeletion(v17);
+          v20 = v19;
+          if (v18)
           {
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v44 = v14;
-              _os_log_debug_impl(&dword_1D8611000, v18, OS_LOG_TYPE_DEBUG, "AppDeletion : invoking update query on file %@", buf, 0xCu);
+              v49 = v15;
+              _os_log_debug_impl(&dword_1D8611000, v20, OS_LOG_TYPE_DEBUG, "AppDeletion : invoking update query on file %@", buf, 0xCu);
             }
 
-            [self updateQuery:v14];
-            v19 = PLLogAppDeletion();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+            v21 = PLLogAppDeletion([self updateQuery:v15]);
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v44 = v14;
-              _os_log_impl(&dword_1D8611000, v19, OS_LOG_TYPE_DEFAULT, "AppDeletion : invoking compress on file %@", buf, 0xCu);
+              v49 = v15;
+              _os_log_impl(&dword_1D8611000, v21, OS_LOG_TYPE_DEFAULT, "AppDeletion : invoking compress on file %@", buf, 0xCu);
             }
 
-            [PLUtilities compressWithSource:v14 withDestination:v8 withLevel:4];
-            [defaultManager removeItemAtPath:v14 error:0];
-            v20 = [v14 stringByAppendingString:@"-shm"];
-            [defaultManager removeItemAtPath:v20 error:0];
+            [PLUtilities compressWithSource:v15 withDestination:v8 withLevel:4];
+            [defaultManager removeItemAtPath:v15 error:0];
+            v22 = [v15 stringByAppendingString:@"-shm"];
+            [defaultManager removeItemAtPath:v22 error:0];
 
-            v21 = [v14 stringByAppendingString:@"-wal"];
-            [defaultManager removeItemAtPath:v21 error:0];
+            v23 = [v15 stringByAppendingString:@"-wal"];
+            [defaultManager removeItemAtPath:v23 error:0];
 
             [listOfFileNames setObject:&unk_1F5406060 forKeyedSubscript:v8];
-            v22 = ++processedFilesCounter;
-            if (v22 == [obj count])
+            v24 = ++processedFilesCounter;
+            v25 = [obj count];
+            if (v24 == v25)
             {
-              v28 = PLLogAppDeletion();
-              if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+              v33 = PLLogAppDeletion(v25);
+              if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
               {
-                v29 = [listOfFileNames objectForKeyedSubscript:v8];
-                intValue2 = [v29 intValue];
-                *buf = v32;
-                v44 = v8;
-                v45 = 1024;
-                v46 = intValue2;
-                _os_log_impl(&dword_1D8611000, v28, OS_LOG_TYPE_DEFAULT, "Did not defer activity file %@ and processed %d", buf, 0x12u);
+                v34 = [listOfFileNames objectForKeyedSubscript:v8];
+                intValue2 = [v34 intValue];
+                *buf = v37;
+                v49 = v8;
+                v50 = 1024;
+                v51 = intValue2;
+                _os_log_impl(&dword_1D8611000, v33, OS_LOG_TYPE_DEFAULT, "Did not defer activity file %@ and processed %d", buf, 0x12u);
               }
 
-              v24 = PLLogAppDeletion();
-              if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+              v29 = PLLogAppDeletion(v36);
+              if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 0;
-                _os_log_impl(&dword_1D8611000, v24, OS_LOG_TYPE_DEFAULT, "All compressed files processed", buf, 2u);
+                _os_log_impl(&dword_1D8611000, v29, OS_LOG_TYPE_DEFAULT, "All compressed files processed", buf, 2u);
               }
 
               goto LABEL_38;
             }
 
-            if (activity && xpc_activity_should_defer(activity))
+            should_defer = activity;
+            if (activity && (should_defer = xpc_activity_should_defer(activity)))
             {
-              v23 = [self deferXPCActivity:activity];
-              v24 = PLLogAppDeletion();
-              v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG);
-              if (v23)
+              v27 = [self deferXPCActivity:activity];
+              v28 = v27;
+              v29 = PLLogAppDeletion(v27);
+              v30 = os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG);
+              if (v28)
               {
-                if (v25)
+                if (v30)
                 {
-                  [(PLAppDeletion *)v8 deleteAppReferencesFromCompressedFiles:v24];
+                  [(PLAppDeletion *)v8 deleteAppReferencesFromCompressedFiles:v29];
                 }
 
 LABEL_38:
@@ -1421,35 +1399,35 @@ LABEL_38:
                 goto LABEL_39;
               }
 
-              if (v25)
+              if (v30)
               {
-                [(PLAppDeletion *)&v37 deleteAppReferencesFromCompressedFiles:v38, v24];
+                [(PLAppDeletion *)&v42 deleteAppReferencesFromCompressedFiles:v43, v29];
               }
             }
 
             else
             {
-              v24 = PLLogAppDeletion();
-              if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+              v29 = PLLogAppDeletion(should_defer);
+              if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
               {
-                v26 = [listOfFileNames objectForKeyedSubscript:v8];
-                intValue3 = [v26 intValue];
-                *buf = v32;
-                v44 = v8;
-                v45 = 1024;
-                v46 = intValue3;
-                _os_log_impl(&dword_1D8611000, v24, OS_LOG_TYPE_DEFAULT, "Did not defer activity file %@ and processed %d", buf, 0x12u);
+                v31 = [listOfFileNames objectForKeyedSubscript:v8];
+                intValue3 = [v31 intValue];
+                *buf = v37;
+                v49 = v8;
+                v50 = 1024;
+                v51 = intValue3;
+                _os_log_impl(&dword_1D8611000, v29, OS_LOG_TYPE_DEFAULT, "Did not defer activity file %@ and processed %d", buf, 0x12u);
               }
             }
           }
 
           else
           {
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v44 = v14;
-              _os_log_error_impl(&dword_1D8611000, v18, OS_LOG_TYPE_ERROR, "AppDeletion : failed to decompress file %@", buf, 0xCu);
+              v49 = v15;
+              _os_log_error_impl(&dword_1D8611000, v20, OS_LOG_TYPE_ERROR, "AppDeletion : failed to decompress file %@", buf, 0xCu);
             }
 
             ++processedFilesCounter;
@@ -1457,7 +1435,7 @@ LABEL_38:
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v39 objects:v47 count:16];
+      v5 = [obj countByEnumeratingWithState:&v44 objects:v52 count:16];
       if (v5)
       {
         continue;
@@ -1468,34 +1446,32 @@ LABEL_38:
   }
 
 LABEL_39:
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 + (void)deleteAppReferencesInCurrentPowerlog
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = updateQueries;
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       v6 = 0;
       do
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * v6);
+        v7 = *(*(&v10 + 1) + 8 * v6);
         v8 = +[PLSQLiteConnection sharedSQLiteConnection];
         v9 = [v8 performQuery:v7 returnValue:0 returnResult:0];
 
@@ -1503,38 +1479,36 @@ LABEL_39:
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (void)deleteAppReferenceMapping
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   obj = qword_1EDFFF268;
-  v2 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
+  v2 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v38;
+    v4 = *v37;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v38 != v4)
+        if (*v37 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v37 + 1) + 8 * i);
+        v6 = *(*(&v36 + 1) + 8 * i);
         v7 = MEMORY[0x1E696AD60];
         v8 = [qword_1EDFFF268 objectForKeyedSubscript:v6];
         v9 = [v8 objectForKeyedSubscript:@"MaskedName"];
@@ -1547,32 +1521,32 @@ LABEL_39:
         v15 = [v14 performQuery:v13 returnValue:0 returnResult:0];
       }
 
-      v3 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
+      v3 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
     }
 
     while (v3);
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   obja = qword_1EDFFF270;
-  v16 = [obja countByEnumeratingWithState:&v33 objects:v41 count:16];
+  v16 = [obja countByEnumeratingWithState:&v32 objects:v40 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v34;
+    v18 = *v33;
     do
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v34 != v18)
+        if (*v33 != v18)
         {
           objc_enumerationMutation(obja);
         }
 
-        v20 = *(*(&v33 + 1) + 8 * j);
+        v20 = *(*(&v32 + 1) + 8 * j);
         v21 = MEMORY[0x1E696AD60];
         v22 = [qword_1EDFFF270 objectForKeyedSubscript:v20];
         v23 = [v22 objectForKeyedSubscript:@"MaskedName"];
@@ -1585,13 +1559,11 @@ LABEL_39:
         v29 = [v28 performQuery:v27 returnValue:0 returnResult:0];
       }
 
-      v17 = [obja countByEnumeratingWithState:&v33 objects:v41 count:16];
+      v17 = [obja countByEnumeratingWithState:&v32 objects:v40 count:16];
     }
 
     while (v17);
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 + (void)deleteAppReferences:(id)references
@@ -1599,7 +1571,7 @@ LABEL_39:
   referencesCopy = references;
   [self setup];
   v5 = [updateQueries count];
-  v6 = PLLogAppDeletion();
+  v6 = PLLogAppDeletion(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -1651,7 +1623,7 @@ void __44__PLAppDeletion_registerAppDeletionActivity__block_invoke(uint64_t a1, 
 {
   v3 = a2;
   state = xpc_activity_get_state(v3);
-  v5 = PLLogAppDeletion();
+  v5 = PLLogAppDeletion(state);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     __44__PLAppDeletion_registerAppDeletionActivity__block_invoke_cold_1();
@@ -1664,8 +1636,8 @@ void __44__PLAppDeletion_registerAppDeletionActivity__block_invoke(uint64_t a1, 
 
   else
   {
-    v6 = PLLogAppDeletion();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = PLLogAppDeletion(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       __44__PLAppDeletion_registerAppDeletionActivity__block_invoke_cold_2();
     }
@@ -1675,7 +1647,7 @@ void __44__PLAppDeletion_registerAppDeletionActivity__block_invoke(uint64_t a1, 
 + (void)handleAppDeletionXPCActivityCallback:(id)callback
 {
   callbackCopy = callback;
-  v5 = PLLogAppDeletion();
+  v5 = PLLogAppDeletion(callbackCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     +[PLAppDeletion handleAppDeletionXPCActivityCallback:];
@@ -1683,18 +1655,18 @@ void __44__PLAppDeletion_registerAppDeletionActivity__block_invoke(uint64_t a1, 
 
   [self deleteAppReferences:callbackCopy];
   v6 = processedFilesCounter;
-  if (v6 == [listOfFileNames count])
+  v7 = [listOfFileNames count];
+  if (v6 == v7)
   {
     [self deleteAppReferenceMapping];
-    [self finishXPCActivity:callbackCopy];
-    v7 = PLLogAppDeletion();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = PLLogAppDeletion([self finishXPCActivity:callbackCopy]);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       +[PLAppDeletion handleAppDeletionXPCActivityCallback:];
     }
 
-    v8 = PLLogAppDeletion();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v10 = PLLogAppDeletion(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       +[PLAppDeletion handleAppDeletionXPCActivityCallback:];
     }
@@ -1705,8 +1677,8 @@ void __44__PLAppDeletion_registerAppDeletionActivity__block_invoke(uint64_t a1, 
 
   else
   {
-    v9 = PLLogAppDeletion();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v11 = PLLogAppDeletion(v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       +[PLAppDeletion handleAppDeletionXPCActivityCallback:];
     }
@@ -1720,7 +1692,7 @@ void __44__PLAppDeletion_registerAppDeletionActivity__block_invoke(uint64_t a1, 
   if (activityCopy)
   {
     v5 = xpc_activity_set_state(activityCopy, 5);
-    v6 = PLLogAppDeletion();
+    v6 = PLLogAppDeletion(v5);
     v7 = v6;
     if (v5)
     {
@@ -1752,7 +1724,7 @@ void __44__PLAppDeletion_registerAppDeletionActivity__block_invoke(uint64_t a1, 
   {
     if (xpc_activity_get_state(activityCopy) == 3)
     {
-      v5 = PLLogAppDeletion();
+      v5 = PLLogAppDeletion(3);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
         +[PLAppDeletion deferXPCActivity:];
@@ -1762,11 +1734,12 @@ void __44__PLAppDeletion_registerAppDeletionActivity__block_invoke(uint64_t a1, 
     else
     {
       v7 = xpc_activity_set_state(v4, 3);
-      v5 = PLLogAppDeletion();
-      v8 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
-      if (!v7)
+      v8 = v7;
+      v5 = PLLogAppDeletion(v7);
+      v9 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
+      if (!v8)
       {
-        if (v8)
+        if (v9)
         {
           +[PLAppDeletion deferXPCActivity:];
         }
@@ -1775,7 +1748,7 @@ void __44__PLAppDeletion_registerAppDeletionActivity__block_invoke(uint64_t a1, 
         goto LABEL_13;
       }
 
-      if (v8)
+      if (v9)
       {
         +[PLAppDeletion deferXPCActivity:];
       }
@@ -1795,20 +1768,16 @@ LABEL_14:
 
 + (void)changePermissionsForFilesInDirectory:withProtectionLevel:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __66__PLAppDeletion_changePermissionForDirectory_withProtectionLevel___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)changeClassProtection:.cold.1()
@@ -1830,14 +1799,6 @@ void __66__PLAppDeletion_changePermissionForDirectory_withProtectionLevel___bloc
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-+ (void)changeClassProtection:.cold.4()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)filePermissionCriteria
@@ -1863,20 +1824,16 @@ void __47__PLAppDeletion_registerFilePermissionActivity__block_invoke_cold_1()
 
 + (void)constructUpdateQueries
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)updateQuery:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)deleteAppReferencesFromCompressedFiles:(os_log_t)log .cold.1(uint8_t *buf, _BYTE *a2, os_log_t log)
@@ -1888,15 +1845,13 @@ void __47__PLAppDeletion_registerFilePermissionActivity__block_invoke_cold_1()
 
 + (void)deleteAppReferencesFromCompressedFiles:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v4 = [listOfFileNames objectForKeyedSubscript:a1];
-  v6 = 138412546;
-  v7 = a1;
-  v8 = 1024;
-  v9 = [v4 intValue];
-  _os_log_debug_impl(&dword_1D8611000, a2, OS_LOG_TYPE_DEBUG, "Deferring activity after file %@ and processed %d", &v6, 0x12u);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138412546;
+  v6 = a1;
+  v7 = 1024;
+  v8 = [v4 intValue];
+  _os_log_debug_impl(&dword_1D8611000, a2, OS_LOG_TYPE_DEBUG, "Deferring activity after file %@ and processed %d", &v5, 0x12u);
 }
 
 + (void)deleteAppReferences:.cold.1()
@@ -1915,11 +1870,9 @@ void __47__PLAppDeletion_registerFilePermissionActivity__block_invoke_cold_1()
 
 void __44__PLAppDeletion_registerAppDeletionActivity__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __44__PLAppDeletion_registerAppDeletionActivity__block_invoke_cold_2()
@@ -1980,11 +1933,9 @@ void __44__PLAppDeletion_registerAppDeletionActivity__block_invoke_cold_2()
 
 + (void)deferXPCActivity:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)deferXPCActivity:.cold.3()

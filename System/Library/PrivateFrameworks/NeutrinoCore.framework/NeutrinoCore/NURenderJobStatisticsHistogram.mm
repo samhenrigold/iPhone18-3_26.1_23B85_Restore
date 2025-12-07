@@ -467,7 +467,7 @@ id __45__NURenderJobStatisticsHistogram_description__block_invoke(void *a1)
   (v5)[2](v5, self->_completeLatencyHistogram, &self->_completeLatencyHistogramCount);
   [histogramCopy completeDuration];
   (v5)[2](v5, self->_completeDurationHistogram, &self->_completeDurationHistogramCount);
-  [histogramCopy duration];
+  objc_msgSend_duration(histogramCopy);
   (v5)[2](v5, self->_totalDurationHistogram, &self->_totalDurationHistogramCount);
   [histogramCopy latency];
   (v5)[2](v5, self->_totalLatencyHistogram, &self->_totalLatencyHistogramCount);
@@ -477,18 +477,18 @@ id __45__NURenderJobStatisticsHistogram_description__block_invoke(void *a1)
   (v5[2])(v5, self->_totalHistogram, &self->_totalHistogramCount, v7);
 }
 
-uint64_t __59__NURenderJobStatisticsHistogram_addStatisticsToHistogram___block_invoke(uint64_t result, uint64_t a2, void *a3, double a4)
+id *__59__NURenderJobStatisticsHistogram_addStatisticsToHistogram___block_invoke(id *result, uint64_t a2, void *a3, double a4)
 {
   if (a4 > 0.0)
   {
     v6 = result;
     v7 = a4 * 1000.0;
-    [*(result + 32) millisPerBin];
+    [result[4] millisPerBin];
     v9 = (v7 / v8);
-    result = [*(v6 + 32) binCount];
+    result = [v6[4] binCount];
     if (result - 1 <= v9)
     {
-      result = [*(v6 + 32) binCount];
+      result = [v6[4] binCount];
       v9 = result - 1;
     }
 

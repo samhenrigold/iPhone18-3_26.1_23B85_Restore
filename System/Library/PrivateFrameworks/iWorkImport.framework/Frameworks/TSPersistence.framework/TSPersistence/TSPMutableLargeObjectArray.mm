@@ -10,37 +10,35 @@
 
 - (void)addObjectsFromArray:(id)array
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   arrayCopy = array;
-  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(arrayCopy, v5, &v11, v15, 16);
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(arrayCopy, v5, &v10, v14, 16);
   if (v7)
   {
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(arrayCopy);
         }
 
-        objc_msgSend_addObject_(self, v6, *(*(&v11 + 1) + 8 * v9++), v11);
+        objc_msgSend_addObject_(self, v6, *(*(&v10 + 1) + 8 * v9++), v10);
       }
 
       while (v7 != v9);
-      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(arrayCopy, v6, &v11, v15, 16);
+      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(arrayCopy, v6, &v10, v14, 16);
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)saveToArchiver:(id)archiver

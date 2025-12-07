@@ -1,4 +1,5 @@
 @interface MLCLSTMDescriptor
++ (MLCLSTMDescriptor)descriptorWithInputSize:(NSUInteger)inputSize hiddenSize:(NSUInteger)hiddenSize layerCount:(NSUInteger)layerCount usesBiases:(BOOL)usesBiases batchFirst:(BOOL)batchFirst isBidirectional:(BOOL)isBidirectional returnsSequences:(BOOL)returnsSequences dropout:(float)dropout resultMode:(MLCLSTMResultMode)resultMode;
 - (BOOL)isEqual:(id)equal;
 - (MLCLSTMDescriptor)initWithInputSize:(unint64_t)size hiddenSize:(unint64_t)hiddenSize layerCount:(unint64_t)count usesBiases:(BOOL)biases batchFirst:(BOOL)first isBidirectional:(BOOL)bidirectional returnsSequences:(BOOL)sequences dropout:(float)self0 resultMode:(unint64_t)self1;
 - (id)copyWithZone:(_NSZone *)zone;
@@ -7,6 +8,19 @@
 @end
 
 @implementation MLCLSTMDescriptor
+
++ (MLCLSTMDescriptor)descriptorWithInputSize:(NSUInteger)inputSize hiddenSize:(NSUInteger)hiddenSize layerCount:(NSUInteger)layerCount usesBiases:(BOOL)usesBiases batchFirst:(BOOL)batchFirst isBidirectional:(BOOL)isBidirectional returnsSequences:(BOOL)returnsSequences dropout:(float)dropout resultMode:(MLCLSTMResultMode)resultMode
+{
+  v12 = isBidirectional;
+  v13 = batchFirst;
+  v14 = usesBiases;
+  v18 = [self alloc];
+  LOBYTE(v22) = returnsSequences;
+  *&v19 = dropout;
+  v20 = [v18 initWithInputSize:inputSize hiddenSize:hiddenSize layerCount:layerCount usesBiases:v14 batchFirst:v13 isBidirectional:v12 returnsSequences:v19 dropout:v22 resultMode:resultMode];
+
+  return v20;
+}
 
 - (MLCLSTMDescriptor)initWithInputSize:(unint64_t)size hiddenSize:(unint64_t)hiddenSize layerCount:(unint64_t)count usesBiases:(BOOL)biases batchFirst:(BOOL)first isBidirectional:(BOOL)bidirectional returnsSequences:(BOOL)sequences dropout:(float)self0 resultMode:(unint64_t)self1
 {
@@ -54,25 +68,7 @@
   {
     v5 = equalCopy;
     inputSize = [v5 inputSize];
-    if (inputSize != [(MLCLSTMDescriptor *)self inputSize])
-    {
-      goto LABEL_12;
-    }
-
-    hiddenSize = [v5 hiddenSize];
-    if (hiddenSize != [(MLCLSTMDescriptor *)self hiddenSize])
-    {
-      goto LABEL_12;
-    }
-
-    layerCount = [v5 layerCount];
-    if (layerCount != [(MLCLSTMDescriptor *)self layerCount])
-    {
-      goto LABEL_12;
-    }
-
-    usesBiases = [v5 usesBiases];
-    if (usesBiases == -[MLCLSTMDescriptor usesBiases](self, "usesBiases") && (v10 = [v5 batchFirst], v10 == -[MLCLSTMDescriptor batchFirst](self, "batchFirst")) && (v11 = objc_msgSend(v5, "isBidirectional"), v11 == -[MLCLSTMDescriptor isBidirectional](self, "isBidirectional")) && (v12 = objc_msgSend(v5, "returnsSequences"), v12 == -[MLCLSTMDescriptor returnsSequences](self, "returnsSequences")) && (objc_msgSend(v5, "dropout"), v14 = v13, -[MLCLSTMDescriptor dropout](self, "dropout"), v14 == v15))
+    if (inputSize == -[MLCLSTMDescriptor inputSize](self, "inputSize") && (v7 = [v5 hiddenSize], v7 == -[MLCLSTMDescriptor hiddenSize](self, "hiddenSize")) && (v8 = objc_msgSend(v5, "layerCount"), v8 == -[MLCLSTMDescriptor layerCount](self, "layerCount")) && (v9 = objc_msgSend(v5, "usesBiases"), v9 == -[MLCLSTMDescriptor usesBiases](self, "usesBiases")) && (v10 = objc_msgSend(v5, "batchFirst"), v10 == -[MLCLSTMDescriptor batchFirst](self, "batchFirst")) && (v11 = objc_msgSend(v5, "isBidirectional"), v11 == -[MLCLSTMDescriptor isBidirectional](self, "isBidirectional")) && (v12 = objc_msgSend(v5, "returnsSequences"), v12 == -[MLCLSTMDescriptor returnsSequences](self, "returnsSequences")) && (objc_msgSend(v5, "dropout"), v14 = v13, -[MLCLSTMDescriptor dropout](self, "dropout"), v14 == v15))
     {
       resultMode = [v5 resultMode];
       v17 = resultMode == [(MLCLSTMDescriptor *)self resultMode];
@@ -80,7 +76,6 @@
 
     else
     {
-LABEL_12:
       v17 = 0;
     }
   }

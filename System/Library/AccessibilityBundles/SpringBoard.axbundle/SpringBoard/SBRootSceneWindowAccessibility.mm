@@ -26,33 +26,35 @@
   [firstObject _setAccessibilityElementsHiddenBlock:&__block_literal_global_11];
 }
 
-uint64_t __76__SBRootSceneWindowAccessibility__accessibilityLoadAccessibilityInformation__block_invoke()
+uint64_t __76__SBRootSceneWindowAccessibility__accessibilityLoadAccessibilityInformation__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = AXSBHIconManagerFromSharedIconController();
-  v2 = [v1 safeBoolForKey:@"isEditing"];
-  if (v2)
+  v3 = AXSBHIconManagerFromSharedIconController(a1, a2);
+  v4 = [v3 safeBoolForKey:@"isEditing"];
+  v6 = v4;
+  if (v4)
   {
-    v0 = +[AXSpringBoardGlue sharedInstance];
-    if ([v0 _axIsAppLibraryOrTodayViewPresent])
+    v2 = +[AXSpringBoardGlue sharedInstance];
+    v4 = [v2 _axIsAppLibraryOrTodayViewPresent];
+    if (v4)
     {
-      v3 = 1;
+      v7 = 1;
 LABEL_5:
 
       goto LABEL_6;
     }
   }
 
-  v4 = AXSBHIconManagerFromSharedIconController();
-  v3 = [v4 safeBoolForKey:@"hasOpenFolder"];
+  v8 = AXSBHIconManagerFromSharedIconController(v4, v5);
+  v7 = [v8 safeBoolForKey:@"hasOpenFolder"];
 
-  if (v2)
+  if (v6)
   {
     goto LABEL_5;
   }
 
 LABEL_6:
 
-  return v3;
+  return v7;
 }
 
 @end

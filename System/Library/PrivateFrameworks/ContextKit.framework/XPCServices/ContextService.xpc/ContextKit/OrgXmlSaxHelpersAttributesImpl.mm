@@ -14,7 +14,14 @@
 - (void)addAttributeWithNSString:(id)string withNSString:(id)sString withNSString:(id)nSString withNSString:(id)withNSString withNSString:(id)a7;
 - (void)clear;
 - (void)dealloc;
+- (void)removeAttributeWithInt:(int)int;
+- (void)setAttributeWithInt:(int)int withNSString:(id)string withNSString:(id)sString withNSString:(id)nSString withNSString:(id)withNSString withNSString:(id)a8;
 - (void)setAttributesWithOrgXmlSaxAttributes:(id)attributes;
+- (void)setLocalNameWithInt:(int)int withNSString:(id)string;
+- (void)setQNameWithInt:(int)int withNSString:(id)string;
+- (void)setTypeWithInt:(int)int withNSString:(id)string;
+- (void)setURIWithInt:(int)int withNSString:(id)string;
+- (void)setValueWithInt:(int)int withNSString:(id)string;
 @end
 
 @implementation OrgXmlSaxHelpersAttributesImpl
@@ -559,6 +566,136 @@ LABEL_15:
   IOSObjectArray_Set(self->data_, 5 * self->length_ + 3, withNSString);
   IOSObjectArray_Set(self->data_, 5 * self->length_ + 4, a7);
   ++self->length_;
+}
+
+- (void)setAttributeWithInt:(int)int withNSString:(id)string withNSString:(id)sString withNSString:(id)nSString withNSString:(id)withNSString withNSString:(id)a8
+{
+  if (int < 0 || self->length_ <= int)
+  {
+    sub_100154128(*&int, a2, *&int, string, sString, nSString, withNSString, a8);
+  }
+
+  data = self->data_;
+  if (!data)
+  {
+    JreThrowNullPointerException();
+  }
+
+  v14 = 5 * int;
+  IOSObjectArray_Set(data, 5 * int, string);
+  IOSObjectArray_Set(self->data_, v14 + 1, sString);
+  IOSObjectArray_Set(self->data_, v14 + 2, nSString);
+  IOSObjectArray_Set(self->data_, v14 + 3, withNSString);
+  v15 = self->data_;
+
+  IOSObjectArray_Set(v15, v14 + 4, a8);
+}
+
+- (void)removeAttributeWithInt:(int)int
+{
+  if (int < 0 || (length = self->length_, length <= int))
+  {
+    sub_100154128(*&int, a2, *&int, v3, v4, v5, v6, v7);
+  }
+
+  if (length - 1 > int)
+  {
+    JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(self->data_, (5 * int + 5), self->data_, (5 * int), (5 * (length + ~int)));
+  }
+
+  data = self->data_;
+  if (!data)
+  {
+    JreThrowNullPointerException();
+  }
+
+  v11 = 5 * self->length_;
+  IOSObjectArray_Set(data, v11 - 5, 0);
+  IOSObjectArray_Set(self->data_, v11 - 4, 0);
+  IOSObjectArray_Set(self->data_, v11 - 3, 0);
+  IOSObjectArray_Set(self->data_, v11 - 2, 0);
+  IOSObjectArray_Set(self->data_, v11 - 1, 0);
+  --self->length_;
+}
+
+- (void)setURIWithInt:(int)int withNSString:(id)string
+{
+  if (int < 0 || self->length_ <= int)
+  {
+    sub_100154128(*&int, a2, *&int, string, v4, v5, v6, v7);
+  }
+
+  data = self->data_;
+  if (!data)
+  {
+    JreThrowNullPointerException();
+  }
+
+  IOSObjectArray_Set(data, 5 * int, string);
+}
+
+- (void)setLocalNameWithInt:(int)int withNSString:(id)string
+{
+  if (int < 0 || self->length_ <= int)
+  {
+    sub_100154128(*&int, a2, *&int, string, v4, v5, v6, v7);
+  }
+
+  data = self->data_;
+  if (!data)
+  {
+    JreThrowNullPointerException();
+  }
+
+  IOSObjectArray_Set(data, 5 * int + 1, string);
+}
+
+- (void)setQNameWithInt:(int)int withNSString:(id)string
+{
+  if (int < 0 || self->length_ <= int)
+  {
+    sub_100154128(*&int, a2, *&int, string, v4, v5, v6, v7);
+  }
+
+  data = self->data_;
+  if (!data)
+  {
+    JreThrowNullPointerException();
+  }
+
+  IOSObjectArray_Set(data, 5 * int + 2, string);
+}
+
+- (void)setTypeWithInt:(int)int withNSString:(id)string
+{
+  if (int < 0 || self->length_ <= int)
+  {
+    sub_100154128(*&int, a2, *&int, string, v4, v5, v6, v7);
+  }
+
+  data = self->data_;
+  if (!data)
+  {
+    JreThrowNullPointerException();
+  }
+
+  IOSObjectArray_Set(data, 5 * int + 3, string);
+}
+
+- (void)setValueWithInt:(int)int withNSString:(id)string
+{
+  if (int < 0 || self->length_ <= int)
+  {
+    sub_100154128(*&int, a2, *&int, string, v4, v5, v6, v7);
+  }
+
+  data = self->data_;
+  if (!data)
+  {
+    JreThrowNullPointerException();
+  }
+
+  IOSObjectArray_Set(data, 5 * int + 4, string);
 }
 
 - (void)dealloc

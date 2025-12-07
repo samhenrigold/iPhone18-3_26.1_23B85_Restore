@@ -11,10 +11,10 @@
   {
     v6 = *&self->onBackgroundLumaChanged[8];
 
-    sub_1000253F8(v4);
+    sub_1000253F8(v4, v6);
     v4(level);
 
-    sub_10002534C(v4);
+    sub_10002534C(v4, v6);
   }
 }
 

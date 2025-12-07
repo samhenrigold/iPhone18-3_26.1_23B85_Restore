@@ -798,7 +798,7 @@ LABEL_28:
         }
 
 LABEL_27:
-        error = [MEMORY[0x1E696ABC0] errorWithDomain:@"VCMovieWriter" code:-1 userInfo:{0, *v24, *&v24[16], v25, selfCopy2, *v27, *&v27[16]}];
+        error = [MEMORY[0x1E696ABC0] errorWithDomain:@"VCMovieWriter" code:-1 userInfo:{0, *v24, *&v24[8], v25, selfCopy2, *v27, *&v27[8]}];
         goto LABEL_28;
       }
 
@@ -1896,7 +1896,7 @@ uint64_t __28__VCMovieWriter_setupInputs__block_invoke(uint64_t a1)
   }
 }
 
-- (uint64_t)addAudioTrackForLocalAudio:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t *a2)
+- (void)addAudioTrackForLocalAudio:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
   v12 = *MEMORY[0x1E69E9840];
   if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -1921,7 +1921,7 @@ uint64_t __28__VCMovieWriter_setupInputs__block_invoke(uint64_t a1)
   return result;
 }
 
-- (uint64_t)addVideoTrackWithWidth:(uint64_t *)a1 height:.cold.1(uint64_t *a1)
+- (void)addVideoTrackWithWidth:(void *)a1 height:.cold.1(void *a1)
 {
   v7 = *MEMORY[0x1E69E9840];
   if (VRTraceGetErrorLogLevelForModule() >= 3)

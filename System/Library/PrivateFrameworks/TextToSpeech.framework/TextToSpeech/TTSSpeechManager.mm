@@ -1,9 +1,11 @@
 @interface TTSSpeechManager
++ (BOOL)_isCharacterNativelySpeakable:(unsigned __int16)speakable languageCode:(id)code;
 + (BOOL)currentProcessAllowedToSaveVoiceInfo;
 + (URegularExpression)createRegularExpressionFromString:(id)string;
 + (id)_resetAvailableVoices;
 + (id)availableSuperCompactVoices;
 + (id)availableVoices;
++ (id)availableVoices:(BOOL)voices;
 + (id)currentLanguageCode;
 + (id)languageCodeForVoiceIdentifier:(id)identifier;
 + (id)literalStringMarkup:(id)markup string:(id)string speakCap:(BOOL)cap;
@@ -11,6 +13,7 @@
 + (id)spellOutLetterCaseMarkupString:(id)string string:(id)a4;
 + (void)test_actionStartTap:(id)tap;
 - (AVAudioSession)audioSession;
+- (BOOL)_enqueueSelectorOnSpeechThread:(SEL)thread object:(id)object waitUntilDone:(BOOL)done;
 - (BOOL)isInAudioInterruption;
 - (BOOL)isPaused;
 - (BOOL)isSpeaking;
@@ -54,6 +57,7 @@
 - (void)dealloc;
 - (void)dispatchSpeechAction:(id)action;
 - (void)handleAudioInterruption:(id)interruption;
+- (void)handleAudioSessionObservers:(BOOL)observers;
 - (void)handleMediaServicesWereLost:(id)lost;
 - (void)handleMediaServicesWereReset:(id)reset;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
@@ -66,10 +70,12 @@
 - (void)setIsPaused:(BOOL)paused;
 - (void)setOutputChannels:(id)channels;
 - (void)setSetActiveOptions:(unint64_t)options;
+- (void)setSpeechEnabled:(BOOL)enabled;
 - (void)setSpeechSource:(id)source;
 - (void)setUsesAuxiliarySession:(BOOL)session;
 - (void)speechSynthesizer:(id)synthesizer didContinueSpeakingRequest:(id)request;
 - (void)speechSynthesizer:(id)synthesizer didEncounterMarker:(id)marker forRequest:(id)request;
+- (void)speechSynthesizer:(id)synthesizer didFinishSpeakingRequest:(id)request successfully:(BOOL)successfully withError:(id)error;
 - (void)speechSynthesizer:(id)synthesizer didPauseSpeakingRequest:(id)request;
 - (void)speechSynthesizer:(id)synthesizer didStartSpeakingRequest:(id)request;
 - (void)stopSpeaking:(int64_t)speaking;
@@ -80,9 +86,9 @@
 
 - (TTSSpeechManager)init
 {
-  v36.receiver = self;
-  v36.super_class = TTSSpeechManager;
-  v2 = [(TTSSpeechManager *)&v36 init];
+  v18.receiver = self;
+  v18.super_class = TTSSpeechManager;
+  v2 = [(TTSSpeechManager *)&v18 init];
   if (v2)
   {
     v3 = dispatch_queue_create("speech-manager-properties", 0);
@@ -98,25 +104,25 @@
     v2->_speechQueue = v7;
 
     v2->_speechEnabled = 1;
-    objc_msgSend_setShouldHandleAudioInterruptions_(v2, v9, 1, v10, v11);
-    v12 = objc_alloc(MEMORY[0x1E6988780]);
-    v16 = objc_msgSend_initWithTargetSerialQueue_(v12, v13, MEMORY[0x1E69E96A0], v14, v15);
+    [(TTSSpeechManager *)v2 setShouldHandleAudioInterruptions:1];
+    v9 = objc_alloc(MEMORY[0x1E6988780]);
+    v10 = [v9 initWithTargetSerialQueue:MEMORY[0x1E69E96A0]];
     audioDeactivatorTimer = v2->_audioDeactivatorTimer;
-    v2->_audioDeactivatorTimer = v16;
+    v2->_audioDeactivatorTimer = v10;
 
-    objc_msgSend_setAutomaticallyCancelPendingBlockUponSchedulingNewBlock_(v2->_audioDeactivatorTimer, v18, 1, v19, v20);
-    objc_msgSend_setAudioSessionInactiveTimeout_(v2, v21, v22, v23, v24, 2.0);
-    v25 = objc_opt_new();
+    [(AXDispatchTimer *)v2->_audioDeactivatorTimer setAutomaticallyCancelPendingBlockUponSchedulingNewBlock:1];
+    [(TTSSpeechManager *)v2 setAudioSessionInactiveTimeout:2.0];
+    v12 = objc_opt_new();
     speechThreadQueueLock = v2->_speechThreadQueueLock;
-    v2->_speechThreadQueueLock = v25;
+    v2->_speechThreadQueueLock = v12;
 
-    v27 = objc_alloc_init(TTSSpeechThread);
+    v14 = objc_alloc_init(TTSSpeechThread);
     runThread = v2->_runThread;
-    v2->_runThread = v27;
+    v2->_runThread = v14;
 
-    objc_msgSend_start(v2->_runThread, v29, v30, v31, v32);
-    objc_msgSend_performSelector_onThread_withObject_waitUntilDone_(v2, v33, sel__initialize, v2->_runThread, 0, 0);
-    v34 = v2;
+    [(TTSSpeechThread *)v2->_runThread start];
+    [(TTSSpeechManager *)v2 performSelector:sel__initialize onThread:v2->_runThread withObject:0 waitUntilDone:0];
+    v16 = v2;
   }
 
   return v2;
@@ -126,7 +132,7 @@
 {
   objc_storeStrong(&self->_speechSource, source);
   sourceCopy = source;
-  objc_msgSend_setSpeechSource_(self->_synthesizer, v5, sourceCopy, v6, v7);
+  [(TTSSpeechSynthesizer *)self->_synthesizer setSpeechSource:sourceCopy];
 }
 
 - (void)setUsesAuxiliarySession:(BOOL)session
@@ -134,70 +140,70 @@
   if (self->_usesAuxiliarySession != session)
   {
     self->_usesAuxiliarySession = session;
-    objc_msgSend_performSelector_onThread_withObject_waitUntilDone_(self, a2, sel__updateAuxiliarySession, self->_runThread, 0, 0);
+    [(TTSSpeechManager *)self performSelector:sel__updateAuxiliarySession onThread:self->_runThread withObject:0 waitUntilDone:0];
   }
 }
 
 - (void)_updateAuxiliarySession
 {
-  v172 = *MEMORY[0x1E69E9840];
-  v6 = objc_msgSend_currentThread(MEMORY[0x1E696AF00], a2, v2, v3, v4);
-  if (v6 != self->_runThread)
+  v52 = *MEMORY[0x1E69E9840];
+  currentThread = [MEMORY[0x1E696AF00] currentThread];
+  if (currentThread != self->_runThread)
   {
     sub_1A9579270();
   }
 
-  objc_msgSend_handleAudioSessionObservers_(self, v7, 0, v8, v9);
+  [(TTSSpeechManager *)self handleAudioSessionObservers:0];
   if (self->_synthesizer)
   {
-    v14 = objc_msgSend_audioSession(self, v10, v11, v12, v13);
-    v19 = objc_msgSend_audioSessionCategory(self, v15, v16, v17, v18);
-    v24 = objc_msgSend_audioSessionCategoryOptions(self, v20, v21, v22, v23);
+    audioSession = [(TTSSpeechManager *)self audioSession];
+    audioSessionCategory = [(TTSSpeechManager *)self audioSessionCategory];
+    audioSessionCategoryOptions = [(TTSSpeechManager *)self audioSessionCategoryOptions];
     if (self->_usesAuxiliarySession)
     {
-      v29 = v24;
-      v30 = AXLogSpeechSynthesis();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+      v7 = audioSessionCategoryOptions;
+      v8 = AXLogSpeechSynthesis();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A9324000, v30, OS_LOG_TYPE_INFO, "Requesting use of aux session", buf, 2u);
+        _os_log_impl(&dword_1A9324000, v8, OS_LOG_TYPE_INFO, "Requesting use of aux session", buf, 2u);
       }
 
-      v35 = objc_msgSend_audioSession(self, v31, v32, v33, v34);
-      if (v35)
+      audioSession2 = [(TTSSpeechManager *)self audioSession];
+      if (audioSession2)
       {
-        v40 = v35;
-        v41 = objc_msgSend_audioSession(self, v36, v37, v38, v39);
-        v46 = objc_msgSend_sharedInstance(MEMORY[0x1E6958468], v42, v43, v44, v45);
-        isEqual = objc_msgSend_isEqual_(v41, v47, v46, v48, v49);
+        v10 = audioSession2;
+        audioSession3 = [(TTSSpeechManager *)self audioSession];
+        mEMORY[0x1E6958468] = [MEMORY[0x1E6958468] sharedInstance];
+        v13 = [audioSession3 isEqual:mEMORY[0x1E6958468]];
 
-        if ((isEqual & 1) == 0)
+        if ((v13 & 1) == 0)
         {
-          if (!v19)
+          if (!audioSessionCategory)
           {
-            v19 = *MEMORY[0x1E6958098];
+            audioSessionCategory = *MEMORY[0x1E6958098];
           }
 
-          v118 = AXLogSpeechSynthesis();
-          if (os_log_type_enabled(v118, OS_LOG_TYPE_INFO))
+          v34 = AXLogSpeechSynthesis();
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v171 = v19;
-            _os_log_impl(&dword_1A9324000, v118, OS_LOG_TYPE_INFO, "Aux session exists. Updating with category: %@", buf, 0xCu);
+            v51 = audioSessionCategory;
+            _os_log_impl(&dword_1A9324000, v34, OS_LOG_TYPE_INFO, "Aux session exists. Updating with category: %@", buf, 0xCu);
           }
 
-          v123 = objc_msgSend_audioSession(self, v119, v120, v121, v122);
-          v169 = 0;
-          v126 = objc_msgSend_setCategory_error_(v123, v124, v19, &v169, v125);
-          v88 = v169;
+          audioSession4 = [(TTSSpeechManager *)self audioSession];
+          v49 = 0;
+          v36 = [audioSession4 setCategory:audioSessionCategory error:&v49];
+          v26 = v49;
 
-          if (!v88 && (v126 & 1) != 0)
+          if (!v26 && (v36 & 1) != 0)
           {
             goto LABEL_46;
           }
 
-          v127 = AXLogSpeechSynthesis();
-          if (os_log_type_enabled(v127, OS_LOG_TYPE_ERROR))
+          v37 = AXLogSpeechSynthesis();
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
           {
             sub_1A957929C();
           }
@@ -206,105 +212,104 @@
         }
       }
 
-      v51 = objc_msgSend_audioSession(self, v36, v37, v38, v39);
-      if (v51)
+      audioSession5 = [(TTSSpeechManager *)self audioSession];
+      if (audioSession5)
       {
-        v56 = v51;
-        v57 = objc_msgSend_audioSession(self, v52, v53, v54, v55);
-        v62 = objc_msgSend_sharedInstance(MEMORY[0x1E6958468], v58, v59, v60, v61);
-        v66 = objc_msgSend_isEqual_(v57, v63, v62, v64, v65);
+        v15 = audioSession5;
+        audioSession6 = [(TTSSpeechManager *)self audioSession];
+        mEMORY[0x1E6958468]2 = [MEMORY[0x1E6958468] sharedInstance];
+        v18 = [audioSession6 isEqual:mEMORY[0x1E6958468]2];
 
-        if (!v66)
+        if (!v18)
         {
           goto LABEL_46;
         }
       }
 
-      if (!v29)
+      if (!v7)
       {
-        v29 = 3;
+        v7 = 3;
       }
 
-      if (!v19)
+      if (!audioSessionCategory)
       {
-        v19 = *MEMORY[0x1E6958098];
+        audioSessionCategory = *MEMORY[0x1E6958098];
       }
 
-      v67 = objc_msgSend_auxiliarySession(MEMORY[0x1E6958468], v52, v53, v54, v55);
-      objc_msgSend_setAudioSession_(self, v68, v67, v69, v70);
+      auxiliarySession = [MEMORY[0x1E6958468] auxiliarySession];
+      [(TTSSpeechManager *)self setAudioSession:auxiliarySession];
 
-      v75 = objc_msgSend_audioSession(self, v71, v72, v73, v74);
-      v168 = 0;
-      v78 = objc_msgSend_setParticipatesInNowPlayingAppPolicy_error_(v75, v76, 0, &v168, v77);
-      v79 = v168;
+      audioSession7 = [(TTSSpeechManager *)self audioSession];
+      v48 = 0;
+      v21 = [audioSession7 setParticipatesInNowPlayingAppPolicy:0 error:&v48];
+      v22 = v48;
 
-      if (v79 || (v78 & 1) == 0)
+      if (v22 || (v21 & 1) == 0)
       {
-        v80 = AXLogSpeechSynthesis();
-        if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
+        v23 = AXLogSpeechSynthesis();
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           sub_1A9579304();
         }
       }
 
-      v81 = AXLogSpeechSynthesis();
-      if (os_log_type_enabled(v81, OS_LOG_TYPE_INFO))
+      v24 = AXLogSpeechSynthesis();
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v171 = v19;
-        _os_log_impl(&dword_1A9324000, v81, OS_LOG_TYPE_INFO, "Aux session does not exist. Creating and updating with category: %@", buf, 0xCu);
+        v51 = audioSessionCategory;
+        _os_log_impl(&dword_1A9324000, v24, OS_LOG_TYPE_INFO, "Aux session does not exist. Creating and updating with category: %@", buf, 0xCu);
       }
 
-      v86 = objc_msgSend_audioSession(self, v82, v83, v84, v85);
-      v167 = v79;
-      objc_msgSend_setCategory_withOptions_error_(v86, v87, v19, v29, &v167);
-      v88 = v167;
+      audioSession8 = [(TTSSpeechManager *)self audioSession];
+      v47 = v22;
+      [audioSession8 setCategory:audioSessionCategory withOptions:v7 error:&v47];
+      v26 = v47;
 
-      if (((v88 == 0) & v78) != 0)
+      if (((v26 == 0) & v21) != 0)
       {
-        v88 = 0;
+        v26 = 0;
 LABEL_41:
         synthesizer = self->_synthesizer;
-        v129 = objc_msgSend_audioSession(self, v89, v90, v91, v92);
-        v134 = objc_msgSend_opaqueSessionID(v129, v130, v131, v132, v133);
-        objc_msgSend_useSpecificAudioSession_(synthesizer, v135, v134, v136, v137);
+        audioSession9 = [(TTSSpeechManager *)self audioSession];
+        -[TTSSpeechSynthesizer useSpecificAudioSession:](synthesizer, "useSpecificAudioSession:", [audioSession9 opaqueSessionID]);
 
-        v142 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v138, v139, v140, v141);
-        v127 = v142;
-        v147 = *MEMORY[0x1E69580E0];
-        if (v14)
+        defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+        v37 = defaultCenter;
+        v41 = *MEMORY[0x1E69580E0];
+        if (audioSession)
         {
-          objc_msgSend_removeObserver_name_object_(v142, v143, self, *MEMORY[0x1E69580E0], v14);
-          v148 = *MEMORY[0x1E6958118];
-          objc_msgSend_removeObserver_name_object_(v127, v149, self, *MEMORY[0x1E6958118], v14);
-          v150 = *MEMORY[0x1E6958120];
-          objc_msgSend_removeObserver_name_object_(v127, v151, self, *MEMORY[0x1E6958120], v14);
+          [defaultCenter removeObserver:self name:*MEMORY[0x1E69580E0] object:audioSession];
+          v42 = *MEMORY[0x1E6958118];
+          [v37 removeObserver:self name:*MEMORY[0x1E6958118] object:audioSession];
+          v43 = *MEMORY[0x1E6958120];
+          [v37 removeObserver:self name:*MEMORY[0x1E6958120] object:audioSession];
         }
 
         else
         {
-          v148 = *MEMORY[0x1E6958118];
-          v150 = *MEMORY[0x1E6958120];
+          v42 = *MEMORY[0x1E6958118];
+          v43 = *MEMORY[0x1E6958120];
         }
 
-        v152 = objc_msgSend_audioSession(self, v143, v144, v145, v146);
-        objc_msgSend_addObserver_selector_name_object_(v127, v153, self, sel_handleAudioInterruption_, v147, v152);
+        audioSession10 = [(TTSSpeechManager *)self audioSession];
+        [v37 addObserver:self selector:sel_handleAudioInterruption_ name:v41 object:audioSession10];
 
-        v158 = objc_msgSend_audioSession(self, v154, v155, v156, v157);
-        objc_msgSend_addObserver_selector_name_object_(v127, v159, self, sel_handleMediaServicesWereLost_, v148, v158);
+        audioSession11 = [(TTSSpeechManager *)self audioSession];
+        [v37 addObserver:self selector:sel_handleMediaServicesWereLost_ name:v42 object:audioSession11];
 
-        v164 = objc_msgSend_audioSession(self, v160, v161, v162, v163);
-        objc_msgSend_addObserver_selector_name_object_(v127, v165, self, sel_handleMediaServicesWereReset_, v150, v164);
+        audioSession12 = [(TTSSpeechManager *)self audioSession];
+        [v37 addObserver:self selector:sel_handleMediaServicesWereReset_ name:v43 object:audioSession12];
 
 LABEL_45:
 LABEL_46:
-        objc_msgSend_handleAudioSessionObservers_(self, v52, 1, v54, v55);
+        [(TTSSpeechManager *)self handleAudioSessionObservers:1];
 
         goto LABEL_47;
       }
 
-      v114 = AXLogSpeechSynthesis();
-      if (os_log_type_enabled(v114, OS_LOG_TYPE_ERROR))
+      mEMORY[0x1E6958468]4 = AXLogSpeechSynthesis();
+      if (os_log_type_enabled(mEMORY[0x1E6958468]4, OS_LOG_TYPE_ERROR))
       {
         sub_1A957929C();
       }
@@ -312,116 +317,163 @@ LABEL_46:
 
     else
     {
-      v93 = objc_msgSend_audioSession(self, v25, v26, v27, v28);
-      if (v93)
+      audioSession13 = [(TTSSpeechManager *)self audioSession];
+      if (audioSession13)
       {
-        v98 = v93;
-        v99 = objc_msgSend_audioSession(self, v94, v95, v96, v97);
-        v104 = objc_msgSend_sharedInstance(MEMORY[0x1E6958468], v100, v101, v102, v103);
-        v108 = objc_msgSend_isEqual_(v99, v105, v104, v106, v107);
+        v28 = audioSession13;
+        audioSession14 = [(TTSSpeechManager *)self audioSession];
+        mEMORY[0x1E6958468]3 = [MEMORY[0x1E6958468] sharedInstance];
+        v31 = [audioSession14 isEqual:mEMORY[0x1E6958468]3];
 
-        if (v108)
+        if (v31)
         {
           goto LABEL_46;
         }
       }
 
-      v109 = AXLogSpeechSynthesis();
-      if (os_log_type_enabled(v109, OS_LOG_TYPE_INFO))
+      v32 = AXLogSpeechSynthesis();
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A9324000, v109, OS_LOG_TYPE_INFO, "Reverting back to shared audio session", buf, 2u);
+        _os_log_impl(&dword_1A9324000, v32, OS_LOG_TYPE_INFO, "Reverting back to shared audio session", buf, 2u);
       }
 
-      v114 = objc_msgSend_sharedInstance(MEMORY[0x1E6958468], v110, v111, v112, v113);
-      objc_msgSend_setAudioSession_(self, v115, v114, v116, v117);
-      v88 = 0;
+      mEMORY[0x1E6958468]4 = [MEMORY[0x1E6958468] sharedInstance];
+      [(TTSSpeechManager *)self setAudioSession:mEMORY[0x1E6958468]4];
+      v26 = 0;
     }
 
     goto LABEL_41;
   }
 
-  v14 = AXLogSpeechSynthesis();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  audioSession = AXLogSpeechSynthesis();
+  if (os_log_type_enabled(audioSession, OS_LOG_TYPE_ERROR))
   {
-    sub_1A957936C(v14);
+    sub_1A957936C(audioSession);
   }
 
 LABEL_47:
+}
 
-  v166 = *MEMORY[0x1E69E9840];
+- (void)handleAudioSessionObservers:(BOOL)observers
+{
+  observersCopy = observers;
+  currentThread = [MEMORY[0x1E696AF00] currentThread];
+  if (currentThread != self->_runThread)
+  {
+    sub_1A95793B0();
+  }
+
+  if (observersCopy)
+  {
+    if (!self->_audioSessionObserversEnabled)
+    {
+      [(TTSSpeechManager *)self addObserver:self forKeyPath:@"audioSessionCategory" options:0 context:0];
+      [(TTSSpeechManager *)self addObserver:self forKeyPath:@"audioSessionCategoryOptions" options:0 context:0];
+    }
+  }
+
+  else if (self->_audioSessionObserversEnabled)
+  {
+    [(TTSSpeechManager *)self removeObserver:self forKeyPath:@"audioSessionCategory" context:0];
+    [(TTSSpeechManager *)self removeObserver:self forKeyPath:@"audioSessionCategoryOptions" context:0];
+  }
+
+  self->_audioSessionObserversEnabled = observersCopy;
 }
 
 - (void)dealloc
 {
-  v6 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], a2, v2, v3, v4);
-  objc_msgSend_removeObserver_(v6, v7, self, v8, v9);
+  defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+  [defaultCenter removeObserver:self];
 
-  v10.receiver = self;
-  v10.super_class = TTSSpeechManager;
-  [(TTSSpeechManager *)&v10 dealloc];
+  v4.receiver = self;
+  v4.super_class = TTSSpeechManager;
+  [(TTSSpeechManager *)&v4 dealloc];
+}
+
+- (BOOL)_enqueueSelectorOnSpeechThread:(SEL)thread object:(id)object waitUntilDone:(BOOL)done
+{
+  doneCopy = done;
+  objectCopy = object;
+  currentThread = [MEMORY[0x1E696AF00] currentThread];
+  if ([currentThread isEqual:self->_runThread])
+  {
+    sub_1A95793DC();
+  }
+
+  [(NSLock *)self->_speechThreadQueueLock lock];
+  speechThreadFinished = self->_speechThreadFinished;
+  if (!speechThreadFinished)
+  {
+    [(TTSSpeechManager *)self performSelector:thread onThread:self->_runThread withObject:objectCopy waitUntilDone:doneCopy];
+  }
+
+  [(NSLock *)self->_speechThreadQueueLock unlock];
+
+  return !speechThreadFinished;
 }
 
 - (void)tearDown
 {
-  objc_msgSend_lock(self->_speechThreadQueueLock, a2, v2, v3, v4);
+  [(NSLock *)self->_speechThreadQueueLock lock];
   self->_speechThreadFinished = 1;
   CFRetain(self);
-  objc_msgSend_performSelector_onThread_withObject_waitUntilDone_(self, v6, sel__tearDown, self->_runThread, 0, 0);
+  [(TTSSpeechManager *)self performSelector:sel__tearDown onThread:self->_runThread withObject:0 waitUntilDone:0];
   speechThreadQueueLock = self->_speechThreadQueueLock;
 
-  objc_msgSend_unlock(speechThreadQueueLock, v7, v8, v9, v10);
+  [(NSLock *)speechThreadQueueLock unlock];
 }
 
 - (void)_tearDown
 {
   if (self->_usesAuxiliarySession)
   {
-    v6 = objc_msgSend_audioDeactivatorTimer(self, a2, v2, v3, v4);
-    objc_msgSend_cancel(v6, v7, v8, v9, v10);
+    audioDeactivatorTimer = [(TTSSpeechManager *)self audioDeactivatorTimer];
+    [audioDeactivatorTimer cancel];
 
-    v15 = objc_msgSend_audioSession(self, v11, v12, v13, v14);
-    objc_msgSend_setActive_withOptions_error_(v15, v16, 0, 0, 0);
+    audioSession = [(TTSSpeechManager *)self audioSession];
+    [audioSession setActive:0 withOptions:0 error:0];
   }
 
-  objc_msgSend_setAudioSession_(self, a2, 0, v3, v4);
-  v49 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v17, v18, v19, v20);
-  v21 = *MEMORY[0x1E69580E0];
-  v26 = objc_msgSend_audioSession(self, v22, v23, v24, v25);
-  objc_msgSend_removeObserver_name_object_(v49, v27, self, v21, v26);
+  [(TTSSpeechManager *)self setAudioSession:0];
+  defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+  v5 = *MEMORY[0x1E69580E0];
+  audioSession2 = [(TTSSpeechManager *)self audioSession];
+  [defaultCenter removeObserver:self name:v5 object:audioSession2];
 
-  v28 = *MEMORY[0x1E6958118];
-  v33 = objc_msgSend_audioSession(self, v29, v30, v31, v32);
-  objc_msgSend_removeObserver_name_object_(v49, v34, self, v28, v33);
+  v7 = *MEMORY[0x1E6958118];
+  audioSession3 = [(TTSSpeechManager *)self audioSession];
+  [defaultCenter removeObserver:self name:v7 object:audioSession3];
 
-  v35 = *MEMORY[0x1E6958120];
-  v40 = objc_msgSend_audioSession(self, v36, v37, v38, v39);
-  objc_msgSend_removeObserver_name_object_(v49, v41, self, v35, v40);
+  v9 = *MEMORY[0x1E6958120];
+  audioSession4 = [(TTSSpeechManager *)self audioSession];
+  [defaultCenter removeObserver:self name:v9 object:audioSession4];
 
-  objc_msgSend_handleAudioSessionObservers_(self, v42, 0, v43, v44);
-  objc_msgSend_stop(self->_runThread, v45, v46, v47, v48);
+  [(TTSSpeechManager *)self handleAudioSessionObservers:0];
+  [(TTSSpeechThread *)self->_runThread stop];
   CFRelease(self);
 }
 
 - (void)handleMediaServicesWereLost:(id)lost
 {
   lostCopy = lost;
-  v9 = objc_msgSend_audioOperationQueue(self, v5, v6, v7, v8);
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = sub_1A93625D0;
-  v11[3] = &unk_1E787FE98;
-  v11[4] = self;
-  v12 = lostCopy;
-  v10 = lostCopy;
-  dispatch_async(v9, v11);
+  audioOperationQueue = [(TTSSpeechManager *)self audioOperationQueue];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = sub_1A93625D0;
+  v7[3] = &unk_1E787FE98;
+  v7[4] = self;
+  v8 = lostCopy;
+  v6 = lostCopy;
+  dispatch_async(audioOperationQueue, v7);
 }
 
 - (void)_handleMediaServicesWereLost:(id)lost
 {
-  if (objc_msgSend_shouldHandleAudioInterruptions(self, a2, lost, v3, v4))
+  if ([(TTSSpeechManager *)self shouldHandleAudioInterruptions])
   {
-    objc_msgSend__didBeginInterruption(self, v6, v7, v8, v9);
+    [(TTSSpeechManager *)self _didBeginInterruption];
   }
 
   if (self->_usesAuxiliarySession)
@@ -433,200 +485,194 @@ LABEL_47:
     block[3] = &unk_1E787FE20;
     block[4] = self;
     dispatch_sync(propertyQueue, block);
-    objc_msgSend_performSelector_onThread_withObject_waitUntilDone_(self, v11, sel__updateAuxiliarySession, self->_runThread, 0, 0);
+    [(TTSSpeechManager *)self performSelector:sel__updateAuxiliarySession onThread:self->_runThread withObject:0 waitUntilDone:0];
   }
 
-  objc_msgSend_performSelector_onThread_withObject_waitUntilDone_(self, v6, sel__updateAudioSessionProperties, self->_runThread, 0, 0);
+  [(TTSSpeechManager *)self performSelector:sel__updateAudioSessionProperties onThread:self->_runThread withObject:0 waitUntilDone:0];
 }
 
 - (void)handleMediaServicesWereReset:(id)reset
 {
   resetCopy = reset;
-  v9 = objc_msgSend_audioOperationQueue(self, v5, v6, v7, v8);
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = sub_1A936276C;
-  v11[3] = &unk_1E787FE98;
-  v11[4] = self;
-  v12 = resetCopy;
-  v10 = resetCopy;
-  dispatch_async(v9, v11);
+  audioOperationQueue = [(TTSSpeechManager *)self audioOperationQueue];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = sub_1A936276C;
+  v7[3] = &unk_1E787FE98;
+  v7[4] = self;
+  v8 = resetCopy;
+  v6 = resetCopy;
+  dispatch_async(audioOperationQueue, v7);
 }
 
 - (void)_handleMediaServicesWereReset:(id)reset
 {
-  if (objc_msgSend_shouldHandleAudioInterruptions(self, a2, reset, v3, v4))
+  if ([(TTSSpeechManager *)self shouldHandleAudioInterruptions])
   {
-    objc_msgSend__didEndInterruption(self, v6, v7, v8, v9);
+    [(TTSSpeechManager *)self _didEndInterruption];
   }
 
   runThread = self->_runThread;
 
-  objc_msgSend_performSelector_onThread_withObject_waitUntilDone_(self, v6, sel__updateAudioSessionProperties, runThread, 0, 0);
+  [(TTSSpeechManager *)self performSelector:sel__updateAudioSessionProperties onThread:runThread withObject:0 waitUntilDone:0];
 }
 
 - (void)_resetInterruptionTracking
 {
-  objc_msgSend_setAudioInterruptionStartedTime_(self, a2, v2, v3, v4, 0.0);
-  objc_msgSend_setWasSpeakingBeforeAudioInterruption_(self, v6, 0, v7, v8);
-  objc_msgSend_setDidRequestStartSpeakingDuringAudioInterruption_(self, v9, 0, v10, v11);
-  objc_msgSend_setDidRequestPauseSpeakingDuringAudioInterruption_(self, v12, 0, v13, v14);
-  objc_msgSend_setDidRequestResumeSpeakingDuringAudioInterruption_(self, v15, 0, v16, v17);
+  [(TTSSpeechManager *)self setAudioInterruptionStartedTime:0.0];
+  [(TTSSpeechManager *)self setWasSpeakingBeforeAudioInterruption:0];
+  [(TTSSpeechManager *)self setDidRequestStartSpeakingDuringAudioInterruption:0];
+  [(TTSSpeechManager *)self setDidRequestPauseSpeakingDuringAudioInterruption:0];
+  [(TTSSpeechManager *)self setDidRequestResumeSpeakingDuringAudioInterruption:0];
 
-  objc_msgSend_setRequestedActionDuringAudioInterruption_(self, v18, 0, v19, v20);
+  [(TTSSpeechManager *)self setRequestedActionDuringAudioInterruption:0];
 }
 
 - (void)_didEndInterruption
 {
-  objc_msgSend_setIsInAudioInterruption_(self, a2, 0, v2, v3);
-  if (objc_msgSend_didRequestStartSpeakingDuringAudioInterruption(self, v5, v6, v7, v8))
+  [(TTSSpeechManager *)self setIsInAudioInterruption:0];
+  if ([(TTSSpeechManager *)self didRequestStartSpeakingDuringAudioInterruption])
   {
-    v13 = objc_msgSend_requestedActionDuringAudioInterruption(self, v9, v10, v11, v12);
-    objc_msgSend_dispatchSpeechAction_(self, v14, v13, v15, v16);
+    requestedActionDuringAudioInterruption = [(TTSSpeechManager *)self requestedActionDuringAudioInterruption];
+    [(TTSSpeechManager *)self dispatchSpeechAction:requestedActionDuringAudioInterruption];
   }
 
-  else if (objc_msgSend_wasSpeakingBeforeAudioInterruption(self, v9, v10, v11, v12) && !objc_msgSend_didRequestPauseSpeakingDuringAudioInterruption(self, v20, v17, v18, v19) || objc_msgSend_didRequestResumeSpeakingDuringAudioInterruption(self, v20, v17, v18, v19))
+  else if ([(TTSSpeechManager *)self wasSpeakingBeforeAudioInterruption]&& ![(TTSSpeechManager *)self didRequestPauseSpeakingDuringAudioInterruption]|| [(TTSSpeechManager *)self didRequestResumeSpeakingDuringAudioInterruption])
   {
-    objc_msgSend_continueSpeaking(self, v20, v17, v18, v19);
+    [(TTSSpeechManager *)self continueSpeaking];
   }
 
-  MEMORY[0x1EEE66B58](self, sel__resetInterruptionTracking, v17, v18, v19);
+  MEMORY[0x1EEE66B58](self, sel__resetInterruptionTracking);
 }
 
 - (void)_didBeginInterruption
 {
-  v42 = *MEMORY[0x1E69E9840];
-  if (objc_msgSend_isSpeaking(self, a2, v2, v3, v4) && (objc_msgSend_isPaused(self, v6, v7, v8, v9) & 1) == 0)
+  v10 = *MEMORY[0x1E69E9840];
+  if ([(TTSSpeechManager *)self isSpeaking]&& ![(TTSSpeechManager *)self isPaused])
   {
-    objc_msgSend_setWasSpeakingBeforeAudioInterruption_(self, v10, 1, v11, v12);
-    objc_msgSend_pauseSpeaking_(self, v13, 0, v14, v15);
-    v19 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v16, @"Speech interrupted, pausing", v17, v18);
-    v23 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v20, @"%s:%d %@", v21, v22, "[TTSSpeechManager _didBeginInterruption]", 642, v19);
+    [(TTSSpeechManager *)self setWasSpeakingBeforeAudioInterruption:1];
+    [(TTSSpeechManager *)self pauseSpeaking:0];
+    v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Speech interrupted, pausing"];
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d %@", "-[TTSSpeechManager _didBeginInterruption]", 642, v3];
     if (qword_1ED970350 != -1)
     {
       sub_1A9579408();
     }
 
-    v24 = qword_1ED970348;
+    v5 = qword_1ED970348;
     if (os_log_type_enabled(qword_1ED970348, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = v23;
-      v26 = v24;
+      v6 = v4;
+      v7 = v5;
       *buf = 136446210;
-      v41 = objc_msgSend_UTF8String(v23, v27, v28, v29, v30);
-      _os_log_impl(&dword_1A9324000, v26, OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
+      uTF8String = [v4 UTF8String];
+      _os_log_impl(&dword_1A9324000, v7, OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
     }
   }
 
-  Current = CFAbsoluteTimeGetCurrent();
-  objc_msgSend_setAudioInterruptionStartedTime_(self, v32, v33, v34, v35, Current);
-  objc_msgSend_setIsInAudioInterruption_(self, v36, 1, v37, v38);
-  v39 = *MEMORY[0x1E69E9840];
+  [(TTSSpeechManager *)self setAudioInterruptionStartedTime:CFAbsoluteTimeGetCurrent()];
+  [(TTSSpeechManager *)self setIsInAudioInterruption:1];
 }
 
 - (void)handleAudioInterruption:(id)interruption
 {
   interruptionCopy = interruption;
-  v9 = objc_msgSend_audioOperationQueue(self, v5, v6, v7, v8);
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = sub_1A9362B40;
-  v11[3] = &unk_1E787FE98;
-  v11[4] = self;
-  v12 = interruptionCopy;
-  v10 = interruptionCopy;
-  dispatch_async(v9, v11);
+  audioOperationQueue = [(TTSSpeechManager *)self audioOperationQueue];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = sub_1A9362B40;
+  v7[3] = &unk_1E787FE98;
+  v7[4] = self;
+  v8 = interruptionCopy;
+  v6 = interruptionCopy;
+  dispatch_async(audioOperationQueue, v7);
 }
 
 - (void)_handleAudioInterruption:(id)interruption
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   interruptionCopy = interruption;
-  if (objc_msgSend_shouldHandleAudioInterruptions(self, v5, v6, v7, v8))
+  if ([(TTSSpeechManager *)self shouldHandleAudioInterruptions])
   {
-    v13 = MEMORY[0x1E696AEC0];
-    v14 = objc_msgSend_userInfo(interruptionCopy, v9, v10, v11, v12);
-    v18 = objc_msgSend_stringWithFormat_(v13, v15, @"AVSpeechSynthesizer Audio interruption notification: %@", v16, v17, v14);
+    v5 = MEMORY[0x1E696AEC0];
+    userInfo = [interruptionCopy userInfo];
+    v7 = [v5 stringWithFormat:@"AVSpeechSynthesizer Audio interruption notification: %@", userInfo];
 
-    v22 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v19, @"%s:%d %@", v20, v21, "[TTSSpeechManager _handleAudioInterruption:]", 660, v18);
+    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d %@", "-[TTSSpeechManager _handleAudioInterruption:]", 660, v7];
     if (qword_1ED970350 != -1)
     {
       sub_1A957941C();
     }
 
-    v23 = qword_1ED970348;
+    v9 = qword_1ED970348;
     if (os_log_type_enabled(qword_1ED970348, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = v22;
-      v25 = v23;
+      v10 = v8;
+      v11 = v9;
       *buf = 136446210;
-      v50 = objc_msgSend_UTF8String(v22, v26, v27, v28, v29);
-      _os_log_impl(&dword_1A9324000, v25, OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
+      uTF8String = [v8 UTF8String];
+      _os_log_impl(&dword_1A9324000, v11, OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
     }
 
-    v34 = objc_msgSend_userInfo(interruptionCopy, v30, v31, v32, v33);
-    v38 = objc_msgSend_objectForKey_(v34, v35, *MEMORY[0x1E69580F8], v36, v37);
-    v43 = objc_msgSend_integerValue(v38, v39, v40, v41, v42);
+    userInfo2 = [interruptionCopy userInfo];
+    v13 = [userInfo2 objectForKey:*MEMORY[0x1E69580F8]];
+    integerValue = [v13 integerValue];
 
-    if (v43)
+    if (integerValue)
     {
-      if (v43 == 1)
+      if (integerValue == 1)
       {
-        objc_msgSend__didBeginInterruption(self, v44, v45, v46, v47);
+        [(TTSSpeechManager *)self _didBeginInterruption];
       }
     }
 
     else
     {
-      objc_msgSend__didEndInterruption(self, v44, v45, v46, v47);
+      [(TTSSpeechManager *)self _didEndInterruption];
     }
   }
-
-  v48 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateAudioSessionProperties
 {
-  v48 = *MEMORY[0x1E69E9840];
-  v6 = objc_msgSend_currentThread(MEMORY[0x1E696AF00], a2, v2, v3, v4);
-  if ((objc_msgSend_isEqual_(v6, v7, self->_runThread, v8, v9) & 1) == 0)
+  v18 = *MEMORY[0x1E69E9840];
+  currentThread = [MEMORY[0x1E696AF00] currentThread];
+  if (([currentThread isEqual:self->_runThread] & 1) == 0)
   {
     sub_1A9579430();
   }
 
-  v14 = objc_msgSend_audioSessionCategory(self, v10, v11, v12, v13);
-  v19 = objc_msgSend_audioSessionCategoryOptions(self, v15, v16, v17, v18);
-  if (v14)
+  audioSessionCategory = [(TTSSpeechManager *)self audioSessionCategory];
+  audioSessionCategoryOptions = [(TTSSpeechManager *)self audioSessionCategoryOptions];
+  if (audioSessionCategory)
   {
-    v24 = v19;
-    v25 = objc_msgSend_audioSession(self, v20, v21, v22, v23);
-    v45 = 0;
-    objc_msgSend_setCategory_withOptions_error_(v25, v26, v14, v24, &v45);
-    v27 = v45;
+    v6 = audioSessionCategoryOptions;
+    audioSession = [(TTSSpeechManager *)self audioSession];
+    v15 = 0;
+    [audioSession setCategory:audioSessionCategory withOptions:v6 error:&v15];
+    v8 = v15;
 
-    if (v27)
+    if (v8)
     {
-      v31 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v28, @"Error setting category: %@", v29, v30, v27);
-      v35 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v32, @"%s:%d %@", v33, v34, "[TTSSpeechManager _updateAudioSessionProperties]", 687, v31);
+      v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error setting category: %@", v8];
+      v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d %@", "-[TTSSpeechManager _updateAudioSessionProperties]", 687, v9];
       if (qword_1ED970350 != -1)
       {
         sub_1A957945C();
       }
 
-      v36 = qword_1ED970348;
+      v11 = qword_1ED970348;
       if (os_log_type_enabled(qword_1ED970348, OS_LOG_TYPE_DEFAULT))
       {
-        v37 = v35;
-        v38 = v36;
-        v43 = objc_msgSend_UTF8String(v35, v39, v40, v41, v42);
+        v12 = v10;
+        v13 = v11;
+        uTF8String = [v10 UTF8String];
         *buf = 136446210;
-        v47 = v43;
-        _os_log_impl(&dword_1A9324000, v38, OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
+        v17 = uTF8String;
+        _os_log_impl(&dword_1A9324000, v13, OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
       }
     }
   }
-
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
@@ -634,69 +680,66 @@ LABEL_47:
   pathCopy = path;
   objectCopy = object;
   changeCopy = change;
-  if ((objc_msgSend_isEqualToString_(pathCopy, v13, @"audioSessionCategory", v14, v15) & 1) != 0 || objc_msgSend_isEqualToString_(pathCopy, v16, @"audioSessionCategoryOptions", v17, v18))
+  if (([pathCopy isEqualToString:@"audioSessionCategory"] & 1) != 0 || objc_msgSend(pathCopy, "isEqualToString:", @"audioSessionCategoryOptions"))
   {
-    objc_msgSend__enqueueSelectorOnSpeechThread_object_waitUntilDone_(self, v16, sel__updateAudioSessionProperties, 0, 0);
+    [(TTSSpeechManager *)self _enqueueSelectorOnSpeechThread:sel__updateAudioSessionProperties object:0 waitUntilDone:0];
   }
 
   else
   {
-    v19.receiver = self;
-    v19.super_class = TTSSpeechManager;
-    [(TTSSpeechManager *)&v19 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
+    v13.receiver = self;
+    v13.super_class = TTSSpeechManager;
+    [(TTSSpeechManager *)&v13 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
   }
 }
 
 - (void)_initialize
 {
-  v81 = *MEMORY[0x1E69E9840];
-  objc_msgSend_handleAudioSessionObservers_(self, a2, 1, v2, v3);
-  objc_msgSend__updateAudioSessionProperties(self, v5, v6, v7, v8);
+  v19 = *MEMORY[0x1E69E9840];
+  [(TTSSpeechManager *)self handleAudioSessionObservers:1];
+  [(TTSSpeechManager *)self _updateAudioSessionProperties];
   objc_initWeak(&location, self);
-  v9 = objc_allocWithZone(TTSSpeechSynthesizer);
-  v14 = objc_msgSend_init(v9, v10, v11, v12, v13);
+  v3 = [objc_allocWithZone(TTSSpeechSynthesizer) init];
   synthesizer = self->_synthesizer;
-  self->_synthesizer = v14;
+  self->_synthesizer = v3;
 
-  v20 = objc_msgSend_speechSource(self, v16, v17, v18, v19);
-  objc_msgSend_setSpeechSource_(self->_synthesizer, v21, v20, v22, v23);
+  speechSource = [(TTSSpeechManager *)self speechSource];
+  [(TTSSpeechSynthesizer *)self->_synthesizer setSpeechSource:speechSource];
 
-  objc_msgSend_setDelegate_(self->_synthesizer, v24, self, v25, v26);
-  v31 = objc_msgSend_mainBundle(MEMORY[0x1E696AAE8], v27, v28, v29, v30);
-  v36 = objc_msgSend_bundleIdentifier(v31, v32, v33, v34, v35);
-  objc_msgSend_setBundleIdentifier_(self->_synthesizer, v37, v36, v38, v39);
+  [(TTSSpeechSynthesizer *)self->_synthesizer setDelegate:self];
+  mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
+  bundleIdentifier = [mainBundle bundleIdentifier];
+  [(TTSSpeechSynthesizer *)self->_synthesizer setBundleIdentifier:bundleIdentifier];
 
-  v45 = sub_1A93632E0(v40, v41, v42, v43, v44);
-  v50 = objc_msgSend_sharedInstance(v45, v46, v47, v48, v49);
-  v76[0] = MEMORY[0x1E69E9820];
-  v76[1] = 3221225472;
-  v76[2] = sub_1A93633C0;
-  v76[3] = &unk_1E7880C60;
-  objc_copyWeak(&v77, &location);
-  objc_msgSend_registerUpdateBlock_forRetrieveSelector_withListener_(v50, v51, v76, sel_customPronunciationSubstitutions, self);
+  sharedInstance = [sub_1A93632E0() sharedInstance];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = sub_1A93633C0;
+  v14[3] = &unk_1E7880C60;
+  objc_copyWeak(&v15, &location);
+  [sharedInstance registerUpdateBlock:v14 forRetrieveSelector:sel_customPronunciationSubstitutions withListener:self];
 
-  objc_msgSend__updateUserSubstitutions(self, v52, v53, v54, v55);
-  v59 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v56, @"Synthesizer created: %@", v57, v58, self->_synthesizer);
-  v63 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v60, @"%s:%d %@", v61, v62, "[TTSSpeechManager _initialize]", 729, v59);
+  [(TTSSpeechManager *)self _updateUserSubstitutions];
+  v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Synthesizer created: %@", self->_synthesizer];
+  v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d %@", "-[TTSSpeechManager _initialize]", 729, v9];
   if (qword_1ED970350 != -1)
   {
     sub_1A9579484();
   }
 
-  v64 = qword_1ED970348;
-  if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
+  v11 = qword_1ED970348;
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v65 = v63;
-    v70 = objc_msgSend_UTF8String(v63, v66, v67, v68, v69);
+    v12 = v10;
+    uTF8String = [v10 UTF8String];
     *buf = 136446210;
-    v80 = v70;
-    _os_log_impl(&dword_1A9324000, v64, OS_LOG_TYPE_DEBUG, "%{public}s", buf, 0xCu);
+    v18 = uTF8String;
+    _os_log_impl(&dword_1A9324000, v11, OS_LOG_TYPE_DEBUG, "%{public}s", buf, 0xCu);
   }
 
-  objc_msgSend__updateAuxiliarySession(self, v71, v72, v73, v74);
-  objc_destroyWeak(&v77);
+  [(TTSSpeechManager *)self _updateAuxiliarySession];
+  objc_destroyWeak(&v15);
   objc_destroyWeak(&location);
-  v75 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)setActiveOptions
@@ -897,10 +940,9 @@ LABEL_47:
 
 - (void)_updateUserSubstitutions
 {
-  v6 = sub_1A93632E0(self, a2, v2, v3, v4);
-  v19 = objc_msgSend_sharedInstance(v6, v7, v8, v9, v10);
-  v15 = objc_msgSend_customPronunciationSubstitutions(v19, v11, v12, v13, v14);
-  objc_msgSend_setUserSubstitutions_(self->_synthesizer, v16, v15, v17, v18);
+  sharedInstance = [sub_1A93632E0() sharedInstance];
+  customPronunciationSubstitutions = [sharedInstance customPronunciationSubstitutions];
+  [(TTSSpeechSynthesizer *)self->_synthesizer setUserSubstitutions:customPronunciationSubstitutions];
 }
 
 + (id)currentLanguageCode
@@ -914,768 +956,815 @@ LABEL_47:
 {
   stringCopy = string;
   v6 = a4;
-  if (objc_msgSend_length(v6, v7, v8, v9, v10) == 1)
+  if ([v6 length] == 1)
   {
-    v15 = objc_msgSend_uppercaseLetterCharacterSet(MEMORY[0x1E696AB08], v11, v12, v13, v14);
-    v19 = objc_msgSend_characterAtIndex_(v6, v16, 0, v17, v18);
-    if (objc_msgSend_characterIsMember_(v15, v20, v19, v21, v22))
+    uppercaseLetterCharacterSet = [MEMORY[0x1E696AB08] uppercaseLetterCharacterSet];
+    if ([uppercaseLetterCharacterSet characterIsMember:{objc_msgSend(v6, "characterAtIndex:", 0)}])
     {
-      v23 = 3;
+      v8 = 3;
     }
 
     else
     {
-      v23 = 2;
+      v8 = 2;
     }
   }
 
   else
   {
-    v23 = 2;
+    v8 = 2;
   }
 
-  v24 = objc_msgSend_speechMarkupStringForType_forIdentifier_string_(TTSSpeechSynthesizer, v11, v23, stringCopy, v6);
+  v9 = [TTSSpeechSynthesizer speechMarkupStringForType:v8 forIdentifier:stringCopy string:v6];
 
-  return v24;
+  return v9;
 }
 
 + (id)languageCodeForVoiceIdentifier:(id)identifier
 {
-  v5 = objc_msgSend_voiceForIdentifier_(TTSSpeechSynthesizer, a2, identifier, v3, v4);
-  v10 = objc_msgSend_language(v5, v6, v7, v8, v9);
+  v3 = [TTSSpeechSynthesizer voiceForIdentifier:identifier];
+  language = [v3 language];
 
-  return v10;
+  return language;
+}
+
++ (BOOL)_isCharacterNativelySpeakable:(unsigned __int16)speakable languageCode:(id)code
+{
+  speakableCopy = speakable;
+  codeCopy = code;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2050000000;
+  v6 = qword_1EB3910D0;
+  v18 = qword_1EB3910D0;
+  if (!qword_1EB3910D0)
+  {
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = sub_1A9369604;
+    v14[3] = &unk_1E787FF60;
+    v14[4] = &v15;
+    sub_1A9369604(v14);
+    v6 = v16[3];
+  }
+
+  v7 = v6;
+  _Block_object_dispose(&v15, 8);
+  sharedInstance = [v6 sharedInstance];
+  v9 = [sharedInstance dialectForLanguageID:codeCopy];
+
+  locale = [v9 locale];
+  exemplarCharacterSet = [locale exemplarCharacterSet];
+
+  if (exemplarCharacterSet)
+  {
+    v12 = [exemplarCharacterSet characterIsMember:speakableCopy];
+  }
+
+  else
+  {
+    v12 = 1;
+  }
+
+  return (speakableCopy != 12540) & v12;
 }
 
 + (id)literalStringMarkup:(id)markup string:(id)string speakCap:(BOOL)cap
 {
   markupCopy = markup;
   stringCopy = string;
-  if (!objc_msgSend_length(stringCopy, v9, v10, v11, v12))
+  if (![stringCopy length])
   {
-    v86 = stringCopy;
+    v26 = stringCopy;
     goto LABEL_23;
   }
 
-  v20 = objc_msgSend_languageCodeForVoiceIdentifier_(TTSSpeechManager, v13, markupCopy, v14, v15);
-  if (!v20)
+  v9 = [TTSSpeechManager languageCodeForVoiceIdentifier:markupCopy];
+  if (!v9)
   {
-    v20 = objc_msgSend_currentLanguageCode(TTSSpeechManager, v16, v17, v18, v19);
+    v9 = +[TTSSpeechManager currentLanguageCode];
   }
 
-  v21 = objc_msgSend_spellOutLetterCaseMarkupString_string_(TTSSpeechManager, v16, markupCopy, stringCopy, v19);
-  v26 = objc_msgSend_length(stringCopy, v22, v23, v24, v25);
-  if (v26 == 1)
+  v10 = [TTSSpeechManager spellOutLetterCaseMarkupString:markupCopy string:stringCopy];
+  if ([stringCopy length] == 1)
   {
-    v31 = objc_msgSend_characterAtIndex_(stringCopy, v27, 0, v29, v30);
-    v36 = objc_msgSend_uppercaseLetterCharacterSet(MEMORY[0x1E696AB08], v32, v33, v34, v35);
-    objc_msgSend_characterIsMember_(v36, v37, v31, v38, v39);
+    v11 = [stringCopy characterAtIndex:0];
+    uppercaseLetterCharacterSet = [MEMORY[0x1E696AB08] uppercaseLetterCharacterSet];
+    [uppercaseLetterCharacterSet characterIsMember:v11];
 
-    isCharacterNativelySpeakable_languageCode = objc_msgSend__isCharacterNativelySpeakable_languageCode_(self, v40, v31, v20, v41);
-    v43 = v20;
-    v48 = v43;
-    v94 = 0;
-    v95 = &v94;
-    v96 = 0x2020000000;
-    v49 = off_1EB3910D8;
-    v97 = off_1EB3910D8;
+    v13 = [self _isCharacterNativelySpeakable:v11 languageCode:v9];
+    v14 = v9;
+    v34 = 0;
+    v35 = &v34;
+    v36 = 0x2020000000;
+    v15 = off_1EB3910D8;
+    v37 = off_1EB3910D8;
     if (!off_1EB3910D8)
     {
-      v50 = sub_1A9369498(v43, v44, v45, v46, v47);
-      v95[3] = dlsym(v50, "AXVOLocalizedStringForCharacter");
-      off_1EB3910D8 = v95[3];
-      v49 = v95[3];
+      v16 = sub_1A9369498();
+      v35[3] = dlsym(v16, "AXVOLocalizedStringForCharacter");
+      off_1EB3910D8 = v35[3];
+      v15 = v35[3];
     }
 
-    _Block_object_dispose(&v94, 8);
-    if (!v49)
+    _Block_object_dispose(&v34, 8);
+    if (!v15)
     {
-      sub_1A95794AC(v51, v52, v53, v54, v55);
+      sub_1A95794AC();
     }
 
-    v56 = v49(v31, v48);
+    v17 = v15(v11, v14);
 
-    if (v56)
+    if (v17)
     {
-      v60 = isCharacterNativelySpeakable_languageCode;
+      v18 = v13;
     }
 
     else
     {
-      v60 = 1;
+      v18 = 1;
     }
 
-    if (v60 & 1) != 0 || (objc_msgSend_isEqualToString_(v56, v57, stringCopy, v58, v59))
+    if (v18 & 1) != 0 || ([v17 isEqualToString:stringCopy])
     {
       goto LABEL_21;
     }
 
-    v64 = objc_msgSend_characterSetWithCharactersInString_(MEMORY[0x1E696AB08], v61, @"]\\-^", v62, v63);
-    v68 = objc_msgSend_characterAtIndex_(stringCopy, v65, 0, v66, v67);
-    objc_msgSend_characterIsMember_(v64, v69, v68, v70, v71);
-    v72 = AXCFormattedString();
-    v75 = objc_msgSend_rangeOfString_options_(v56, v73, v72, 1024, v74, stringCopy);
-    v93 = v76;
+    v19 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"]\\-^"];
+    [v19 characterIsMember:{objc_msgSend(stringCopy, "characterAtIndex:", 0)}];
+    v20 = AXCFormattedString();
+    v21 = [v17 rangeOfString:v20 options:{1024, stringCopy}];
+    v33 = v22;
 
-    if (v75 == 0x7FFFFFFFFFFFFFFFLL)
+    if (v21 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v92 = objc_msgSend_stringByApplyingTransform_reverse_(stringCopy, v77, *MEMORY[0x1E695DA48], 0, v78);
-      v79 = AXCFormattedString();
-      v75 = objc_msgSend_rangeOfString_options_(v56, v80, v79, 1024, v81, v92);
-      v93 = v82;
+      v32 = [stringCopy stringByApplyingTransform:*MEMORY[0x1E695DA48] reverse:0];
+      v23 = AXCFormattedString();
+      v21 = [v17 rangeOfString:v23 options:{1024, v32}];
+      v33 = v24;
 
-      if (v75 == 0x7FFFFFFFFFFFFFFFLL)
+      if (v21 == 0x7FFFFFFFFFFFFFFFLL)
       {
 
-        v85 = v56;
+        v25 = v17;
 LABEL_20:
-        v88 = v85;
+        v28 = v25;
 
-        v21 = v88;
+        v10 = v28;
 LABEL_21:
 
         goto LABEL_22;
       }
 
-      v87 = objc_msgSend_spellOutLetterCaseMarkupString_string_(TTSSpeechManager, v83, markupCopy, v92, v84);
+      v27 = [TTSSpeechManager spellOutLetterCaseMarkupString:markupCopy string:v32];
 
-      v21 = v87;
+      v10 = v27;
     }
 
-    v85 = objc_msgSend_stringByReplacingCharactersInRange_withString_(v56, v77, v75, v93, v21);
+    v25 = [v17 stringByReplacingCharactersInRange:v21 withString:{v33, v10}];
     goto LABEL_20;
   }
 
 LABEL_22:
-  v89 = VOTBundle(v26, v27, v28, v29, v30);
-  v90 = AXNSLocalizedStringForLocale();
+  v29 = VOTBundle();
+  v30 = AXNSLocalizedStringForLocale();
 
-  v86 = AXCFormattedString();
+  v26 = AXCFormattedString();
 
 LABEL_23:
 
-  return v86;
+  return v26;
 }
 
 + (id)availableVoices
 {
-  v6 = objc_msgSend_currentProcessAllowedToSaveVoiceInfo(self, a2, v2, v3, v4);
+  [self currentProcessAllowedToSaveVoiceInfo];
 
-  return MEMORY[0x1EEE66B58](self, sel_availableVoices_, v6, v7, v8);
+  return MEMORY[0x1EEE66B58](self, sel_availableVoices_);
 }
 
 + (id)availableSuperCompactVoices
 {
-  v5 = objc_msgSend_sharedInstance(TTSAXResourceManager, a2, v2, v3, v4);
-  v8 = objc_msgSend_resourcesWithType_subType_(v5, v6, 4, 2, v7);
+  v2 = +[TTSAXResourceManager sharedInstance];
+  v3 = [v2 resourcesWithType:4 subType:2];
 
-  v12 = objc_msgSend_ax_filteredArrayUsingBlock_(v8, v9, &unk_1F1CF0298, v10, v11);
+  v4 = [v3 ax_filteredArrayUsingBlock:&unk_1F1CF0298];
 
-  v16 = objc_msgSend_ax_flatMappedArrayUsingBlock_(v12, v13, &unk_1F1CF02B8, v14, v15);
+  v5 = [v4 ax_flatMappedArrayUsingBlock:&unk_1F1CF02B8];
 
-  return v16;
+  return v5;
 }
 
-+ (id)_resetAvailableVoices
++ (id)availableVoices:(BOOL)voices
 {
-  v6 = objc_msgSend_currentProcessAllowedToSaveVoiceInfo(self, a2, v2, v3, v4);
-
-  return MEMORY[0x1EEE66B58](self, sel__resetAvailableVoices_, v6, v7, v8);
-}
-
-+ (BOOL)currentProcessAllowedToSaveVoiceInfo
-{
-  v5 = objc_msgSend_processInfo(MEMORY[0x1E696AE30], a2, v2, v3, v4);
-  v10 = objc_msgSend_processName(v5, v6, v7, v8, v9);
-  if (objc_msgSend_isEqualToString_(v10, v11, @"com.apple.accessibility.AccessibilityUIServer", v12, v13))
+  if (byte_1EB3910C0 != 1 || qword_1EB3910B8 == 0)
   {
-    isEqualToString = 1;
+    if (qword_1ED971000 != -1)
+    {
+      sub_1A95795C0();
+    }
+
+    v4 = +[TTSAXResourceManager sharedInstance];
+    v5 = [v4 allVoices:1];
+
+    v6 = [v5 ax_flatMappedArrayUsingBlock:&unk_1F1CF0338];
   }
 
   else
   {
-    v19 = objc_msgSend_processInfo(MEMORY[0x1E696AE30], v14, v15, v16, v17);
-    v24 = objc_msgSend_processName(v19, v20, v21, v22, v23);
-    if (objc_msgSend_isEqualToString_(v24, v25, @"com.apple.AccessibilityUIServer", v26, v27))
+    v6 = qword_1EB3910B8;
+  }
+
+  return v6;
+}
+
++ (id)_resetAvailableVoices
+{
+  [self currentProcessAllowedToSaveVoiceInfo];
+
+  return MEMORY[0x1EEE66B58](self, sel__resetAvailableVoices_);
+}
+
++ (BOOL)currentProcessAllowedToSaveVoiceInfo
+{
+  processInfo = [MEMORY[0x1E696AE30] processInfo];
+  processName = [processInfo processName];
+  if ([processName isEqualToString:@"com.apple.accessibility.AccessibilityUIServer"])
+  {
+    v4 = 1;
+  }
+
+  else
+  {
+    processInfo2 = [MEMORY[0x1E696AE30] processInfo];
+    processName2 = [processInfo2 processName];
+    if ([processName2 isEqualToString:@"com.apple.AccessibilityUIServer"])
     {
-      isEqualToString = 1;
+      v4 = 1;
     }
 
     else
     {
-      v32 = objc_msgSend_mainBundle(MEMORY[0x1E696AAE8], v28, v29, v30, v31);
-      v37 = objc_msgSend_bundleIdentifier(v32, v33, v34, v35, v36);
-      isEqualToString = objc_msgSend_isEqualToString_(v37, v38, @"com.apple.springboard", v39, v40);
+      mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
+      bundleIdentifier = [mainBundle bundleIdentifier];
+      v4 = [bundleIdentifier isEqualToString:@"com.apple.springboard"];
     }
   }
 
-  return isEqualToString;
+  return v4;
 }
 
 + (URegularExpression)createRegularExpressionFromString:(id)string
 {
   status = U_ZERO_ERROR;
   stringCopy = string;
-  v8 = objc_msgSend_length(stringCopy, v4, v5, v6, v7, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-  v9 = malloc_type_malloc(2 * v8, 0x1000040BDFB0063uLL);
-  objc_msgSend_getCharacters_range_(stringCopy, v10, v9, 0, v8);
+  v4 = [stringCopy length];
+  v5 = malloc_type_malloc(2 * v4, 0x1000040BDFB0063uLL);
+  [stringCopy getCharacters:v5 range:{0, v4}];
 
-  v11 = uregex_open(v9, v8, 0, &v13, &status);
-  free(v9);
-  uregex_useAnchoringBounds(v11, 1, &status);
-  return v11;
+  v6 = uregex_open(v5, v4, 0, &v8, &status);
+  free(v5);
+  uregex_useAnchoringBounds(v6, 1, &status);
+  return v6;
 }
 
 + (id)matchedRangesForString:(id)string withRegularExpression:(URegularExpression *)expression
 {
   stringCopy = string;
   status = U_ZERO_ERROR;
-  v10 = objc_msgSend_length(stringCopy, v6, v7, v8, v9);
-  v11 = malloc_type_malloc(2 * v10, 0x1000040BDFB0063uLL);
-  objc_msgSend_getCharacters_(stringCopy, v12, v11, v13, v14);
-  uregex_setText(expression, v11, v10, &status);
-  v19 = objc_msgSend_array(MEMORY[0x1E695DF70], v15, v16, v17, v18);
+  v6 = [stringCopy length];
+  v7 = malloc_type_malloc(2 * v6, 0x1000040BDFB0063uLL);
+  [stringCopy getCharacters:v7];
+  uregex_setText(expression, v7, v6, &status);
+  array = [MEMORY[0x1E695DF70] array];
   if (uregex_find(expression, -1, &status) && status == U_ZERO_ERROR)
   {
     do
     {
-      v20 = uregex_start(expression, 0, &status);
-      v21 = uregex_end(expression, 0, &status);
-      v24 = objc_msgSend_valueWithRange_(MEMORY[0x1E696B098], v22, v20, v21 - v20, v23);
-      objc_msgSend_addObject_(v19, v25, v24, v26, v27);
+      v9 = uregex_start(expression, 0, &status);
+      v10 = uregex_end(expression, 0, &status);
+      v11 = [MEMORY[0x1E696B098] valueWithRange:{v9, v10 - v9}];
+      [array addObject:v11];
     }
 
-    while (uregex_find(expression, v21, &status) && status == U_ZERO_ERROR);
+    while (uregex_find(expression, v10, &status) && status == U_ZERO_ERROR);
   }
 
-  free(v11);
+  free(v7);
 
-  return v19;
+  return array;
 }
 
 - (void)_speechJobFinished:(BOOL)finished action:(id)action
 {
-  v122 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   actionCopy = action;
-  objc_msgSend_setIsPaused_(self, v7, 0, v8, v9);
-  objc_msgSend_setState_(actionCopy, v10, 2, v11, v12);
+  [(TTSSpeechManager *)self setIsPaused:0];
+  [actionCopy setState:2];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = sub_1A93655B0;
   block[3] = &unk_1E7880CB0;
-  v13 = actionCopy;
-  v118 = v13;
+  v7 = actionCopy;
+  v41 = v7;
   finishedCopy = finished;
   dispatch_async(MEMORY[0x1E69E96A0], block);
-  v14 = MEMORY[0x1E696AEC0];
-  v19 = objc_msgSend_firstObject(self->_speechQueue, v15, v16, v17, v18);
-  v23 = objc_msgSend_stringWithFormat_(v14, v20, @"Removing from queue: %@", v21, v22, v19);
+  v8 = MEMORY[0x1E696AEC0];
+  firstObject = [(NSMutableArray *)self->_speechQueue firstObject];
+  v10 = [v8 stringWithFormat:@"Removing from queue: %@", firstObject];
 
-  v27 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v24, @"%s:%d %@", v25, v26, "[TTSSpeechManager _speechJobFinished:action:]", 1120, v23);
+  v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d %@", "-[TTSSpeechManager _speechJobFinished:action:]", 1120, v10];
   if (qword_1ED970350 != -1)
   {
     sub_1A9579610();
   }
 
-  v28 = qword_1ED970348;
+  v12 = qword_1ED970348;
   if (os_log_type_enabled(qword_1ED970348, OS_LOG_TYPE_DEBUG))
   {
-    v29 = v27;
-    v30 = v28;
-    v35 = objc_msgSend_UTF8String(v27, v31, v32, v33, v34);
+    v13 = v11;
+    v14 = v12;
+    uTF8String = [v11 UTF8String];
     *buf = 136446210;
-    v121 = v35;
-    _os_log_impl(&dword_1A9324000, v30, OS_LOG_TYPE_DEBUG, "%{public}s", buf, 0xCu);
+    v44 = uTF8String;
+    _os_log_impl(&dword_1A9324000, v14, OS_LOG_TYPE_DEBUG, "%{public}s", buf, 0xCu);
   }
 
-  objc_msgSend_removeObjectIdenticalTo_(self->_speechQueue, v36, v13, v37, v38);
-  v42 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v39, @"Remaining queue: %@", v40, v41, self->_speechQueue);
-  v46 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v43, @"%s:%d %@", v44, v45, "[TTSSpeechManager _speechJobFinished:action:]", 1123, v42);
+  [(NSMutableArray *)self->_speechQueue removeObjectIdenticalTo:v7];
+  v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Remaining queue: %@", self->_speechQueue];
+  v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d %@", "-[TTSSpeechManager _speechJobFinished:action:]", 1123, v16];
   if (qword_1ED970350 != -1)
   {
     sub_1A9579638();
   }
 
-  v47 = qword_1ED970348;
+  v18 = qword_1ED970348;
   if (os_log_type_enabled(qword_1ED970348, OS_LOG_TYPE_DEBUG))
   {
-    v48 = v46;
-    v49 = v47;
-    v54 = objc_msgSend_UTF8String(v46, v50, v51, v52, v53);
+    v19 = v17;
+    v20 = v18;
+    uTF8String2 = [v17 UTF8String];
     *buf = 136446210;
-    v121 = v54;
-    _os_log_impl(&dword_1A9324000, v49, OS_LOG_TYPE_DEBUG, "%{public}s", buf, 0xCu);
+    v44 = uTF8String2;
+    _os_log_impl(&dword_1A9324000, v20, OS_LOG_TYPE_DEBUG, "%{public}s", buf, 0xCu);
   }
 
-  v59 = objc_msgSend_audioOperationQueue(self, v55, v56, v57, v58);
-  v116[0] = MEMORY[0x1E69E9820];
-  v116[1] = 3221225472;
-  v116[2] = sub_1A93656C0;
-  v116[3] = &unk_1E787FE20;
-  v116[4] = self;
-  dispatch_sync(v59, v116);
+  audioOperationQueue = [(TTSSpeechManager *)self audioOperationQueue];
+  v39[0] = MEMORY[0x1E69E9820];
+  v39[1] = 3221225472;
+  v39[2] = sub_1A93656C0;
+  v39[3] = &unk_1E787FE20;
+  v39[4] = self;
+  dispatch_sync(audioOperationQueue, v39);
 
   self->_isSpeaking = 0;
-  objc_msgSend_setIsPaused_(self, v60, 0, v61, v62);
-  if (objc_msgSend_count(self->_speechQueue, v63, v64, v65, v66))
+  [(TTSSpeechManager *)self setIsPaused:0];
+  if ([(NSMutableArray *)self->_speechQueue count])
   {
-    v71 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v67, @"Start next job", v69, v70);
-    v75 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v72, @"%s:%d %@", v73, v74, "[TTSSpeechManager _speechJobFinished:action:]", 1133, v71);
+    v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Start next job"];
+    v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d %@", "-[TTSSpeechManager _speechJobFinished:action:]", 1133, v23];
     if (qword_1ED970350 != -1)
     {
       sub_1A9579660();
     }
 
-    v76 = qword_1ED970348;
+    v25 = qword_1ED970348;
     if (os_log_type_enabled(qword_1ED970348, OS_LOG_TYPE_DEBUG))
     {
-      v77 = v75;
-      v78 = v76;
-      v83 = objc_msgSend_UTF8String(v75, v79, v80, v81, v82);
+      v26 = v24;
+      v27 = v25;
+      uTF8String3 = [v24 UTF8String];
       *buf = 136446210;
-      v121 = v83;
-      _os_log_impl(&dword_1A9324000, v78, OS_LOG_TYPE_DEBUG, "%{public}s", buf, 0xCu);
+      v44 = uTF8String3;
+      _os_log_impl(&dword_1A9324000, v27, OS_LOG_TYPE_DEBUG, "%{public}s", buf, 0xCu);
     }
 
-    objc_msgSend__startNextSpeechJob(self, v84, v85, v86, v87);
+    [(TTSSpeechManager *)self _startNextSpeechJob];
   }
 
   else if (self->_usesAuxiliarySession)
   {
-    objc_msgSend_audioSessionInactiveTimeout(self, v67, v68, v69, v70);
-    v89 = v88;
-    v93 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v90, @"Scheduling audio session deactivation in: %f", v91, v92, *&v88);
-    v97 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v94, @"%s:%d %@", v95, v96, "[TTSSpeechManager _speechJobFinished:action:]", 1141, v93);
+    [(TTSSpeechManager *)self audioSessionInactiveTimeout];
+    v30 = v29;
+    v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Scheduling audio session deactivation in: %f", *&v29];
+    v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d %@", "-[TTSSpeechManager _speechJobFinished:action:]", 1141, v31];
     if (qword_1ED970350 != -1)
     {
       sub_1A9579688();
     }
 
-    v98 = qword_1ED970348;
+    v33 = qword_1ED970348;
     if (os_log_type_enabled(qword_1ED970348, OS_LOG_TYPE_DEFAULT))
     {
-      v99 = v97;
-      v100 = v98;
-      v105 = objc_msgSend_UTF8String(v97, v101, v102, v103, v104);
+      v34 = v32;
+      v35 = v33;
+      uTF8String4 = [v32 UTF8String];
       *buf = 136446210;
-      v121 = v105;
-      _os_log_impl(&dword_1A9324000, v100, OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
+      v44 = uTF8String4;
+      _os_log_impl(&dword_1A9324000, v35, OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
     }
 
-    v110 = objc_msgSend_audioDeactivatorTimer(self, v106, v107, v108, v109);
-    v115[0] = MEMORY[0x1E69E9820];
-    v115[1] = 3221225472;
-    v115[2] = sub_1A9365750;
-    v115[3] = &unk_1E787FE20;
-    v115[4] = self;
-    objc_msgSend_afterDelay_processBlock_(v110, v111, v115, v112, v113, v89);
+    audioDeactivatorTimer = [(TTSSpeechManager *)self audioDeactivatorTimer];
+    v38[0] = MEMORY[0x1E69E9820];
+    v38[1] = 3221225472;
+    v38[2] = sub_1A9365750;
+    v38[3] = &unk_1E787FE20;
+    v38[4] = self;
+    [audioDeactivatorTimer afterDelay:v38 processBlock:v30];
   }
-
-  v114 = *MEMORY[0x1E69E9840];
 }
 
 - (id)externalVoiceIdentifierUsedForLanguage:(id)language
 {
-  synthesizer = self->_synthesizer;
   languageCopy = language;
-  v5 = objc_opt_class();
-  v7 = objc_msgSend__speechVoiceForIdentifier_language_footprint_(v5, v6, 0, languageCopy, 1);
+  v4 = [objc_opt_class() _speechVoiceForIdentifier:0 language:languageCopy footprint:1];
 
-  v12 = objc_msgSend_identifier(v7, v8, v9, v10, v11);
+  identifier = [v4 identifier];
 
-  return v12;
+  return identifier;
 }
 
 - (id)voiceIdentifierUsedForLanguage:(id)language
 {
-  synthesizer = self->_synthesizer;
   languageCopy = language;
-  v5 = objc_opt_class();
-  v7 = objc_msgSend__speechVoiceForIdentifier_language_footprint_(v5, v6, 0, languageCopy, 1);
+  v4 = [objc_opt_class() _speechVoiceForIdentifier:0 language:languageCopy footprint:1];
 
-  v12 = objc_msgSend_identifier(v7, v8, v9, v10, v11);
+  identifier = [v4 identifier];
 
-  return v12;
+  return identifier;
 }
 
 - (id)_phonemeSubstitutionsForAction:(id)action
 {
-  v5 = objc_msgSend_attributedString(action, a2, action, v3, v4);
-  if (objc_msgSend_length(v5, v6, v7, v8, v9))
+  attributedString = [action attributedString];
+  if ([attributedString length])
   {
-    v14 = objc_msgSend_array(MEMORY[0x1E695DF70], v10, v11, v12, v13);
-    v15 = *MEMORY[0x1E6958358];
-    v20 = objc_msgSend_length(v5, v16, v17, v18, v19);
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = sub_1A9365B14;
-    v24[3] = &unk_1E7880CF8;
-    v25 = v5;
-    v21 = v14;
-    v26 = v21;
-    objc_msgSend_enumerateAttribute_inRange_options_usingBlock_(v25, v22, v15, 0, v20, 0, v24);
+    array = [MEMORY[0x1E695DF70] array];
+    v5 = *MEMORY[0x1E6958358];
+    v6 = [attributedString length];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = sub_1A9365B14;
+    v9[3] = &unk_1E7880CF8;
+    v10 = attributedString;
+    v7 = array;
+    v11 = v7;
+    [v10 enumerateAttribute:v5 inRange:0 options:v6 usingBlock:{0, v9}];
   }
 
   else
   {
-    v21 = 0;
+    v7 = 0;
   }
 
-  return v21;
+  return v7;
 }
 
 - (void)_startNextSpeechJob
 {
-  v383 = *MEMORY[0x1E69E9840];
-  if (objc_msgSend_count(self->_speechQueue, a2, v2, v3, v4))
+  v95 = *MEMORY[0x1E69E9840];
+  if ([(NSMutableArray *)self->_speechQueue count])
   {
-    v9 = objc_msgSend_objectAtIndex_(self->_speechQueue, v6, 0, v7, v8);
-    if (objc_msgSend_state(v9, v10, v11, v12, v13))
+    v3 = [(NSMutableArray *)self->_speechQueue objectAtIndex:0];
+    if ([v3 state])
     {
-      v18 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v14, @"Existing speech job already in flight", v16, v17);
-      v22 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v19, @"%s:%d %@", v20, v21, "[TTSSpeechManager _startNextSpeechJob]", 1197, v18);
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Existing speech job already in flight"];
+      v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d %@", "-[TTSSpeechManager _startNextSpeechJob]", 1197, v4];
       if (qword_1ED970350 != -1)
       {
         sub_1A95796D8();
       }
 
-      v23 = qword_1ED970348;
+      v6 = qword_1ED970348;
       if (os_log_type_enabled(qword_1ED970348, OS_LOG_TYPE_DEBUG))
       {
-        v24 = v22;
-        v25 = v23;
+        v7 = v5;
+        v8 = v6;
         *buf = 136446210;
-        v382 = objc_msgSend_UTF8String(v22, v26, v27, v28, v29);
-        _os_log_impl(&dword_1A9324000, v25, OS_LOG_TYPE_DEBUG, "%{public}s", buf, 0xCu);
+        uTF8String = [v5 UTF8String];
+        _os_log_impl(&dword_1A9324000, v8, OS_LOG_TYPE_DEBUG, "%{public}s", buf, 0xCu);
       }
     }
 
-    else if (objc_msgSend_isInAudioInterruption(self, v14, v15, v16, v17) && (v34 = CFAbsoluteTimeGetCurrent(), objc_msgSend_audioInterruptionStartedTime(self, v35, v36, v37, v38), v34 - v39 < 1.5))
+    else if ([(TTSSpeechManager *)self isInAudioInterruption]&& (Current = CFAbsoluteTimeGetCurrent(), [(TTSSpeechManager *)self audioInterruptionStartedTime], Current - v10 < 1.5))
     {
-      v40 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v30, @"Is in audio interruption, not starting speech", v32, v33);
-      v44 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v41, @"%s:%d %@", v42, v43, "[TTSSpeechManager _startNextSpeechJob]", 1205, v40);
+      v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Is in audio interruption, not starting speech"];
+      v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d %@", "-[TTSSpeechManager _startNextSpeechJob]", 1205, v11];
       if (qword_1ED970350 != -1)
       {
         sub_1A9579778();
       }
 
-      v45 = qword_1ED970348;
+      v13 = qword_1ED970348;
       if (os_log_type_enabled(qword_1ED970348, OS_LOG_TYPE_DEFAULT))
       {
-        v46 = v44;
-        v47 = v45;
+        v14 = v12;
+        v15 = v13;
         *buf = 136446210;
-        v382 = objc_msgSend_UTF8String(v44, v48, v49, v50, v51);
-        _os_log_impl(&dword_1A9324000, v47, OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
+        uTF8String = [v12 UTF8String];
+        _os_log_impl(&dword_1A9324000, v15, OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
       }
 
-      objc_msgSend_setDidRequestStartSpeakingDuringAudioInterruption_(self, v52, 1, v53, v54);
-      objc_msgSend_setDidRequestPauseSpeakingDuringAudioInterruption_(self, v55, 0, v56, v57);
-      objc_msgSend_setDidRequestResumeSpeakingDuringAudioInterruption_(self, v58, 0, v59, v60);
-      objc_msgSend_setRequestedActionDuringAudioInterruption_(self, v61, v9, v62, v63);
+      [(TTSSpeechManager *)self setDidRequestStartSpeakingDuringAudioInterruption:1];
+      [(TTSSpeechManager *)self setDidRequestPauseSpeakingDuringAudioInterruption:0];
+      [(TTSSpeechManager *)self setDidRequestResumeSpeakingDuringAudioInterruption:0];
+      [(TTSSpeechManager *)self setRequestedActionDuringAudioInterruption:v3];
     }
 
     else
     {
-      objc_msgSend_preprocessAction(v9, v30, v31, v32, v33);
-      v64 = MEMORY[0x1E696AEC0];
-      v69 = objc_msgSend_currentThread(MEMORY[0x1E696AF00], v65, v66, v67, v68);
-      v74 = objc_msgSend_name(v69, v70, v71, v72, v73);
-      v79 = objc_msgSend_string(v9, v75, v76, v77, v78);
-      Current = CFAbsoluteTimeGetCurrent();
-      v84 = objc_msgSend_stringWithFormat_(v64, v81, @"%@ Will speak: %@ %f", v82, v83, v74, v79, *&Current);
+      [v3 preprocessAction];
+      v16 = MEMORY[0x1E696AEC0];
+      currentThread = [MEMORY[0x1E696AF00] currentThread];
+      name = [currentThread name];
+      string = [v3 string];
+      v20 = [v16 stringWithFormat:@"%@ Will speak: %@ %f", name, string, CFAbsoluteTimeGetCurrent()];
 
-      v88 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v85, @"%s:%d %@", v86, v87, "[TTSSpeechManager _startNextSpeechJob]", 1215, v84);
+      v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d %@", "-[TTSSpeechManager _startNextSpeechJob]", 1215, v20];
       if (qword_1ED970350 != -1)
       {
         sub_1A95796EC();
       }
 
-      v89 = qword_1ED970348;
+      v22 = qword_1ED970348;
       if (os_log_type_enabled(qword_1ED970348, OS_LOG_TYPE_DEBUG))
       {
-        v90 = v88;
-        v91 = v89;
+        v23 = v21;
+        v24 = v22;
         *buf = 136446210;
-        v382 = objc_msgSend_UTF8String(v88, v92, v93, v94, v95);
-        _os_log_impl(&dword_1A9324000, v91, OS_LOG_TYPE_DEBUG, "%{public}s", buf, 0xCu);
+        uTF8String = [v21 UTF8String];
+        _os_log_impl(&dword_1A9324000, v24, OS_LOG_TYPE_DEBUG, "%{public}s", buf, 0xCu);
       }
 
-      if (objc_msgSend_isSpeaking(self->_synthesizer, v96, v97, v98, v99))
+      if ([(TTSSpeechSynthesizer *)self->_synthesizer isSpeaking])
       {
-        v104 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v100, @"Stopping existing job", v102, v103);
-        v108 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v105, @"%s:%d %@", v106, v107, "[TTSSpeechManager _startNextSpeechJob]", 1219, v104);
+        v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Stopping existing job"];
+        v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d %@", "-[TTSSpeechManager _startNextSpeechJob]", 1219, v25];
         if (qword_1ED970350 != -1)
         {
           sub_1A9579700();
         }
 
-        v109 = qword_1ED970348;
+        v27 = qword_1ED970348;
         if (os_log_type_enabled(qword_1ED970348, OS_LOG_TYPE_DEFAULT))
         {
-          v110 = v108;
-          v111 = v109;
-          v116 = objc_msgSend_UTF8String(v108, v112, v113, v114, v115);
+          v28 = v26;
+          v29 = v27;
+          uTF8String2 = [v26 UTF8String];
           *buf = 136446210;
-          v382 = v116;
-          _os_log_impl(&dword_1A9324000, v111, OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
+          uTF8String = uTF8String2;
+          _os_log_impl(&dword_1A9324000, v29, OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
         }
 
-        objc_msgSend_stopSpeakingAtNextBoundary_synchronously_error_(self->_synthesizer, v117, 0, 1, 0);
+        [(TTSSpeechSynthesizer *)self->_synthesizer stopSpeakingAtNextBoundary:0 synchronously:1 error:0];
       }
 
-      objc_msgSend_speakingRate(v9, v100, v101, v102, v103);
-      *&v118 = v118;
-      objc_msgSend_setNormalizedRate_(self->_synthesizer, v119, v120, v121, v122, v118);
-      objc_msgSend_volume(v9, v123, v124, v125, v126);
-      *&v127 = v127;
-      objc_msgSend_setVolume_(self->_synthesizer, v128, v129, v130, v131, v127);
-      v136 = objc_msgSend_voiceSelection(v9, v132, v133, v134, v135);
-      v141 = objc_msgSend_voiceSettings(v136, v137, v138, v139, v140);
-      objc_msgSend_setPerVoiceSettings_(self->_synthesizer, v142, v141, v143, v144);
+      [v3 speakingRate];
+      *&v31 = v31;
+      [(TTSSpeechSynthesizer *)self->_synthesizer setNormalizedRate:v31];
+      [v3 volume];
+      *&v32 = v32;
+      [(TTSSpeechSynthesizer *)self->_synthesizer setVolume:v32];
+      voiceSelection = [v3 voiceSelection];
+      voiceSettings = [voiceSelection voiceSettings];
+      [(TTSSpeechSynthesizer *)self->_synthesizer setPerVoiceSettings:voiceSettings];
 
-      v149 = objc_msgSend_voiceSelection(v9, v145, v146, v147, v148);
-      v154 = objc_msgSend_effects(v149, v150, v151, v152, v153);
-      objc_msgSend_setAudioEffects_(self->_synthesizer, v155, v154, v156, v157);
+      voiceSelection2 = [v3 voiceSelection];
+      effects = [voiceSelection2 effects];
+      [(TTSSpeechSynthesizer *)self->_synthesizer setAudioEffects:effects];
 
       synthesizer = self->_synthesizer;
-      objc_msgSend_pitch(v9, v159, v160, v161, v162);
-      *&v163 = v163;
-      objc_msgSend_setPitch_(synthesizer, v164, v165, v166, v167, v163);
-      v172 = objc_msgSend_audioQueueFlags(self, v168, v169, v170, v171);
-      objc_msgSend_setAudioQueueFlags_(self->_synthesizer, v173, v172, v174, v175);
-      v180 = objc_msgSend_voiceIdentifier(v9, v176, v177, v178, v179);
-      objc_msgSend_setVoiceIdentifier_(self->_synthesizer, v181, v180, v182, v183);
+      [v3 pitch];
+      *&v38 = v38;
+      [(TTSSpeechSynthesizer *)synthesizer setPitch:v38];
+      [(TTSSpeechSynthesizer *)self->_synthesizer setAudioQueueFlags:[(TTSSpeechManager *)self audioQueueFlags]];
+      voiceIdentifier = [v3 voiceIdentifier];
+      [(TTSSpeechSynthesizer *)self->_synthesizer setVoiceIdentifier:voiceIdentifier];
 
-      if (objc_msgSend_ignoreCustomSubstitutions(v9, v184, v185, v186, v187))
+      if ([v3 ignoreCustomSubstitutions])
       {
-        objc_msgSend_setUserSubstitutions_(self->_synthesizer, v188, 0, v190, v191);
+        [(TTSSpeechSynthesizer *)self->_synthesizer setUserSubstitutions:0];
       }
 
-      v192 = objc_msgSend_synthesizeSilently(v9, v188, v189, v190, v191);
-      objc_msgSend_setSynthesizeSilently_(self->_synthesizer, v193, v192, v194, v195);
-      v199 = objc_msgSend__phonemeSubstitutionsForAction_(self, v196, v9, v197, v198);
-      objc_msgSend_setPhonemeSubstitutions_(self->_synthesizer, v200, v199, v201, v202);
+      -[TTSSpeechSynthesizer setSynthesizeSilently:](self->_synthesizer, "setSynthesizeSilently:", [v3 synthesizeSilently]);
+      v40 = [(TTSSpeechManager *)self _phonemeSubstitutionsForAction:v3];
+      [(TTSSpeechSynthesizer *)self->_synthesizer setPhonemeSubstitutions:v40];
 
-      objc_msgSend_setSpeakingRequestClientContext_(self->_synthesizer, v203, v9, v204, v205);
-      v210 = objc_msgSend_audioBufferCallback(v9, v206, v207, v208, v209);
-      v211 = v210 != 0;
+      [(TTSSpeechSynthesizer *)self->_synthesizer setSpeakingRequestClientContext:v3];
+      audioBufferCallback = [v3 audioBufferCallback];
+      v42 = audioBufferCallback != 0;
 
-      v216 = objc_msgSend_voiceIdentifier(self->_synthesizer, v212, v213, v214, v215);
-      IsAllowedToUseBufferCallbackAPIInCurrentProcess = TTSVoiceWithIdentifierIsAllowedToUseBufferCallbackAPIInCurrentProcess(v216, v217, v218, v219, v220);
+      voiceIdentifier2 = [(TTSSpeechSynthesizer *)self->_synthesizer voiceIdentifier];
+      IsAllowedToUseBufferCallbackAPIInCurrentProcess = TTSVoiceWithIdentifierIsAllowedToUseBufferCallbackAPIInCurrentProcess(voiceIdentifier2);
 
-      if ((IsAllowedToUseBufferCallbackAPIInCurrentProcess & v211) == 1)
+      if ((IsAllowedToUseBufferCallbackAPIInCurrentProcess & v42) == 1)
       {
         objc_initWeak(buf, self);
-        v378[0] = MEMORY[0x1E69E9820];
-        v378[1] = 3221225472;
-        v378[2] = sub_1A93668A0;
-        v378[3] = &unk_1E7880D20;
-        objc_copyWeak(&v380, buf);
-        v379 = v9;
-        objc_msgSend_setAudioBufferCallback_(self->_synthesizer, v225, v378, v226, v227);
+        v90[0] = MEMORY[0x1E69E9820];
+        v90[1] = 3221225472;
+        v90[2] = sub_1A93668A0;
+        v90[3] = &unk_1E7880D20;
+        objc_copyWeak(&v92, buf);
+        v91 = v3;
+        [(TTSSpeechSynthesizer *)self->_synthesizer setAudioBufferCallback:v90];
 
-        objc_destroyWeak(&v380);
+        objc_destroyWeak(&v92);
         objc_destroyWeak(buf);
       }
 
       else
       {
-        objc_msgSend_setAudioBufferCallback_(self->_synthesizer, v222, 0, v223, v224);
+        [(TTSSpeechSynthesizer *)self->_synthesizer setAudioBufferCallback:0];
       }
 
       self->_isSpeaking = 1;
-      objc_msgSend_setIsPaused_(self, v228, 0, v229, v230);
-      v235 = objc_msgSend_attributedString(v9, v231, v232, v233, v234);
-      v240 = objc_msgSend_string(v235, v236, v237, v238, v239);
-      v245 = v240;
-      if (v240)
+      [(TTSSpeechManager *)self setIsPaused:0];
+      attributedString = [v3 attributedString];
+      string2 = [attributedString string];
+      v47 = string2;
+      if (string2)
       {
-        v246 = v240;
+        string3 = string2;
       }
 
       else
       {
-        v246 = objc_msgSend_string(v9, v241, v242, v243, v244);
+        string3 = [v3 string];
       }
 
-      v247 = v246;
+      v49 = string3;
 
-      v252 = objc_msgSend_processedString(v9, v248, v249, v250, v251);
-      v253 = v252 == 0;
+      processedString = [v3 processedString];
+      v51 = processedString == 0;
 
-      if (!v253)
+      if (!v51)
       {
-        v258 = objc_msgSend_processedString(v9, v254, v255, v256, v257);
+        processedString2 = [v3 processedString];
 
-        v247 = v258;
+        v49 = processedString2;
       }
 
-      if (objc_msgSend_length(v247, v254, v255, v256, v257))
+      if ([v49 length])
       {
-        v263 = objc_msgSend_requestWillStart(self, v259, v260, v261, v262);
-        v264 = v263 == 0;
+        requestWillStart = [(TTSSpeechManager *)self requestWillStart];
+        v54 = requestWillStart == 0;
 
-        if (!v264)
+        if (!v54)
         {
-          v269 = objc_msgSend_requestWillStart(self, v265, v266, v267, v268);
-          (v269)[2](v269, v9);
+          requestWillStart2 = [(TTSSpeechManager *)self requestWillStart];
+          (requestWillStart2)[2](requestWillStart2, v3);
         }
 
-        v270 = objc_msgSend_audioDeactivatorTimer(self, v265, v266, v267, v268);
-        objc_msgSend_cancel(v270, v271, v272, v273, v274);
+        audioDeactivatorTimer = [(TTSSpeechManager *)self audioDeactivatorTimer];
+        [audioDeactivatorTimer cancel];
 
-        v279 = objc_msgSend_audioSession(self, v275, v276, v277, v278);
-        active = objc_msgSend_setActiveOptions(self, v280, v281, v282, v283);
-        v377 = 0;
-        objc_msgSend_setActive_withOptions_error_(v279, v285, 1, active, &v377);
-        v286 = v377;
+        audioSession = [(TTSSpeechManager *)self audioSession];
+        v89 = 0;
+        [audioSession setActive:1 withOptions:-[TTSSpeechManager setActiveOptions](self error:{"setActiveOptions"), &v89}];
+        v58 = v89;
 
-        if (v286)
+        if (v58)
         {
-          v290 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v287, @"Error setting active: %@", v288, v289, v286);
-          v294 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v291, @"%s:%d %@", v292, v293, "[TTSSpeechManager _startNextSpeechJob]", 1328, v290);
+          v59 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error setting active: %@", v58];
+          v60 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d %@", "-[TTSSpeechManager _startNextSpeechJob]", 1328, v59];
           if (qword_1ED970350 != -1)
           {
             sub_1A9579728();
           }
 
-          v295 = qword_1ED970348;
+          v61 = qword_1ED970348;
           if (os_log_type_enabled(qword_1ED970348, OS_LOG_TYPE_DEFAULT))
           {
-            v296 = v294;
-            v297 = v295;
-            v302 = objc_msgSend_UTF8String(v294, v298, v299, v300, v301);
+            v62 = v60;
+            v63 = v61;
+            uTF8String3 = [v60 UTF8String];
             *buf = 136446210;
-            v382 = v302;
-            _os_log_impl(&dword_1A9324000, v297, OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
+            uTF8String = uTF8String3;
+            _os_log_impl(&dword_1A9324000, v63, OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
           }
         }
 
-        objc_msgSend_setState_(v9, v287, 1, v288, v289);
-        v307 = objc_msgSend_taggedSSML(v9, v303, v304, v305, v306);
-        v308 = v307 == 0;
+        [v3 setState:1];
+        taggedSSML = [v3 taggedSSML];
+        v66 = taggedSSML == 0;
 
-        if (v308)
+        if (v66)
         {
-          v348 = self->_synthesizer;
-          v327 = objc_msgSend_language(v9, v309, v310, v311, v312);
-          v373 = v286;
-          v374 = 0;
-          objc_msgSend_startSpeakingString_withLanguageCode_request_error_(v348, v349, v247, v327, &v374, &v373);
-          v342 = v374;
-          v343 = v373;
-          v335 = v286;
+          v76 = self->_synthesizer;
+          language = [v3 language];
+          v85 = v58;
+          v86 = 0;
+          [(TTSSpeechSynthesizer *)v76 startSpeakingString:v49 withLanguageCode:language request:&v86 error:&v85];
+          v73 = v86;
+          v74 = v85;
+          ssml = v58;
         }
 
         else
         {
-          v313 = objc_msgSend_taggedSSML(v9, v309, v310, v311, v312);
-          v318 = objc_msgSend_ssmlSnippets(v313, v314, v315, v316, v317);
-          v323 = objc_msgSend_currentSSMLSnippetIndex(v9, v319, v320, v321, v322);
-          v327 = objc_msgSend_objectAtIndexedSubscript_(v318, v324, v323, v325, v326);
+          taggedSSML2 = [v3 taggedSSML];
+          ssmlSnippets = [taggedSSML2 ssmlSnippets];
+          language = [ssmlSnippets objectAtIndexedSubscript:{objc_msgSend(v3, "currentSSMLSnippetIndex")}];
 
-          objc_msgSend__setVoiceForAction_snippet_(self, v328, v9, v327, v329);
-          v330 = self->_synthesizer;
-          v335 = objc_msgSend_ssml(v327, v331, v332, v333, v334);
-          v340 = objc_msgSend_language(v9, v336, v337, v338, v339);
-          v375 = v286;
-          v376 = 0;
-          objc_msgSend_startSpeakingSSML_withLanguageCode_request_error_(v330, v341, v335, v340, &v376, &v375);
-          v342 = v376;
-          v343 = v375;
+          [(TTSSpeechManager *)self _setVoiceForAction:v3 snippet:language];
+          v70 = self->_synthesizer;
+          ssml = [language ssml];
+          language2 = [v3 language];
+          v87 = v58;
+          v88 = 0;
+          [(TTSSpeechSynthesizer *)v70 startSpeakingSSML:ssml withLanguageCode:language2 request:&v88 error:&v87];
+          v73 = v88;
+          v74 = v87;
         }
 
-        if (v9 && v342)
+        if (v3 && v73)
         {
-          objc_setAssociatedObject(v342, &unk_1EB3910E0, v9, 1);
+          objc_setAssociatedObject(v73, &unk_1EB3910E0, v3, 1);
         }
 
-        if (v343)
+        if (v74)
         {
-          v354 = MEMORY[0x1E696AEC0];
-          v355 = objc_msgSend_localizedDescription(v343, v350, v351, v352, v353);
-          v359 = objc_msgSend_stringWithFormat_(v354, v356, @"Speech Error:%@", v357, v358, v355);
+          v77 = MEMORY[0x1E696AEC0];
+          localizedDescription = [v74 localizedDescription];
+          v79 = [v77 stringWithFormat:@"Speech Error:%@", localizedDescription];
 
-          v363 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v360, @"%s:%d %@", v361, v362, "[TTSSpeechManager _startNextSpeechJob]", 1346, v359);
+          v80 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d %@", "-[TTSSpeechManager _startNextSpeechJob]", 1346, v79];
           if (qword_1ED970350 != -1)
           {
             sub_1A9579750();
           }
 
-          v364 = qword_1ED970348;
+          v81 = qword_1ED970348;
           if (os_log_type_enabled(qword_1ED970348, OS_LOG_TYPE_DEFAULT))
           {
-            v365 = v363;
-            v366 = v364;
-            v371 = objc_msgSend_UTF8String(v363, v367, v368, v369, v370);
+            v82 = v80;
+            v83 = v81;
+            uTF8String4 = [v80 UTF8String];
             *buf = 136446210;
-            v382 = v371;
-            _os_log_impl(&dword_1A9324000, v366, OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
+            uTF8String = uTF8String4;
+            _os_log_impl(&dword_1A9324000, v83, OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
           }
         }
       }
 
       else
       {
-        v344 = objc_alloc_init(TTSSpeechRequest);
-        v342 = v344;
-        if (v9 && v344)
+        v75 = objc_alloc_init(TTSSpeechRequest);
+        v73 = v75;
+        if (v3 && v75)
         {
-          objc_setAssociatedObject(v344, &unk_1EB3910E0, v9, 1);
+          objc_setAssociatedObject(v75, &unk_1EB3910E0, v3, 1);
         }
 
-        objc_msgSend_speechSynthesizer_didStartSpeakingRequest_(self, v345, self->_synthesizer, v342, v346);
-        objc_msgSend_speechSynthesizer_didFinishSpeakingRequest_successfully_withError_(self, v347, self->_synthesizer, v342, 1, 0);
-        v343 = 0;
+        [(TTSSpeechManager *)self speechSynthesizer:self->_synthesizer didStartSpeakingRequest:v73];
+        [(TTSSpeechManager *)self speechSynthesizer:self->_synthesizer didFinishSpeakingRequest:v73 successfully:1 withError:0];
+        v74 = 0;
       }
     }
   }
-
-  v372 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setVoiceForAction:(id)action snippet:(id)snippet
 {
   actionCopy = action;
   snippetCopy = snippet;
-  v11 = objc_msgSend_voiceName(snippetCopy, v7, v8, v9, v10);
+  voiceName = [snippetCopy voiceName];
 
-  if (v11)
+  if (voiceName)
   {
-    v16 = MEMORY[0x1E69584F8];
-    v17 = objc_msgSend_voiceName(snippetCopy, v12, v13, v14, v15);
-    v21 = objc_msgSend__voiceFromInternalVoiceListWithIdentifier_(v16, v18, v17, v19, v20);
+    v8 = MEMORY[0x1E69584F8];
+    voiceName2 = [snippetCopy voiceName];
+    v10 = [v8 _voiceFromInternalVoiceListWithIdentifier:voiceName2];
 LABEL_5:
-    v35 = v21;
-    v36 = objc_msgSend_identifier(v21, v22, v23, v24, v25);
-    objc_msgSend_setVoiceIdentifier_(self->_synthesizer, v37, v36, v38, v39);
+    v13 = v10;
+    identifier = [v10 identifier];
+    [(TTSSpeechSynthesizer *)self->_synthesizer setVoiceIdentifier:identifier];
 
     goto LABEL_6;
   }
 
-  v26 = objc_msgSend_language(snippetCopy, v12, v13, v14, v15);
+  language = [snippetCopy language];
 
-  if (v26)
+  if (language)
   {
-    v31 = MEMORY[0x1E69584F8];
-    v17 = objc_msgSend_language(snippetCopy, v27, v28, v29, v30);
-    v21 = objc_msgSend_voiceWithLanguage_(v31, v32, v17, v33, v34);
+    v12 = MEMORY[0x1E69584F8];
+    voiceName2 = [snippetCopy language];
+    v10 = [v12 voiceWithLanguage:voiceName2];
     goto LABEL_5;
   }
 
-  v17 = objc_msgSend_voiceIdentifier(actionCopy, v27, v28, v29, v30);
-  objc_msgSend_setVoiceIdentifier_(self->_synthesizer, v40, v17, v41, v42);
+  voiceName2 = [actionCopy voiceIdentifier];
+  [(TTSSpeechSynthesizer *)self->_synthesizer setVoiceIdentifier:voiceName2];
 LABEL_6:
 }
 
 - (void)_processAudioBufferCallback:(id)callback
 {
   callbackCopy = callback;
-  if (objc_msgSend_count(callbackCopy, v4, v5, v6, v7) != 2)
+  if ([callbackCopy count] != 2)
   {
-    v8 = AXLogSpeechSynthesis();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v4 = AXLogSpeechSynthesis();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       sub_1A957978C();
     }
@@ -1685,343 +1774,347 @@ LABEL_6:
   block[1] = 3221225472;
   block[2] = sub_1A9366C8C;
   block[3] = &unk_1E787FE20;
-  v11 = callbackCopy;
-  v9 = callbackCopy;
+  v7 = callbackCopy;
+  v5 = callbackCopy;
   dispatch_async(MEMORY[0x1E69E96A0], block);
+}
+
+- (void)setSpeechEnabled:(BOOL)enabled
+{
+  self->_speechEnabled = enabled;
+  if (!enabled)
+  {
+    [(TTSSpeechManager *)self clearSpeechQueue];
+  }
 }
 
 - (void)_dispatchSpeechAction:(id)action
 {
-  v129 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   v5 = MEMORY[0x1E696AEC0];
-  v10 = objc_msgSend_currentThread(MEMORY[0x1E696AF00], v6, v7, v8, v9);
-  v15 = objc_msgSend_name(v10, v11, v12, v13, v14);
-  v20 = objc_msgSend_string(actionCopy, v16, v17, v18, v19);
-  shouldQueue = objc_msgSend_shouldQueue(actionCopy, v21, v22, v23, v24);
-  v29 = objc_msgSend_stringWithFormat_(v5, v26, @"%@ Should queue: %@ -> %d", v27, v28, v15, v20, shouldQueue);
+  currentThread = [MEMORY[0x1E696AF00] currentThread];
+  name = [currentThread name];
+  string = [actionCopy string];
+  v9 = [v5 stringWithFormat:@"%@ Should queue: %@ -> %d", name, string, objc_msgSend(actionCopy, "shouldQueue")];
 
-  v33 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v30, @"%s:%d %@", v31, v32, "[TTSSpeechManager _dispatchSpeechAction:]", 1392, v29);
+  v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d %@", "-[TTSSpeechManager _dispatchSpeechAction:]", 1392, v9];
   if (qword_1ED970350 != -1)
   {
     sub_1A9579800();
   }
 
-  v34 = qword_1ED970348;
+  v11 = qword_1ED970348;
   if (os_log_type_enabled(qword_1ED970348, OS_LOG_TYPE_DEBUG))
   {
-    v35 = v33;
-    v36 = v34;
+    v12 = v10;
+    v13 = v11;
     *buf = 136446210;
-    v128 = objc_msgSend_UTF8String(v33, v37, v38, v39, v40);
-    _os_log_impl(&dword_1A9324000, v36, OS_LOG_TYPE_DEBUG, "%{public}s", buf, 0xCu);
+    uTF8String = [v10 UTF8String];
+    _os_log_impl(&dword_1A9324000, v13, OS_LOG_TYPE_DEBUG, "%{public}s", buf, 0xCu);
   }
 
-  if (objc_msgSend_shouldQueue(actionCopy, v41, v42, v43, v44) & 1) != 0 || objc_msgSend_count(self->_speechQueue, v45, v46, v47, v48) && (objc_msgSend_objectAtIndex_(self->_speechQueue, v45, 0, v47, v48), v49 = objc_claimAutoreleasedReturnValue(), v54 = objc_msgSend_cannotInterrupt(v49, v50, v51, v52, v53), v49, (v54))
+  if ([actionCopy shouldQueue] & 1) != 0 || -[NSMutableArray count](self->_speechQueue, "count") && (-[NSMutableArray objectAtIndex:](self->_speechQueue, "objectAtIndex:", 0), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "cannotInterrupt"), v14, (v15))
   {
-    v55 = 1;
+    v16 = 1;
   }
 
   else
   {
-    v56 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v45, @"Telling synthesizer to stop because this job doesn't want to queue", v47, v48);
-    v60 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v57, @"%s:%d %@", v58, v59, "[TTSSpeechManager _dispatchSpeechAction:]", 1402, v56);
+    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Telling synthesizer to stop because this job doesn't want to queue"];
+    v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d %@", "-[TTSSpeechManager _dispatchSpeechAction:]", 1402, v17];
     if (qword_1ED970350 != -1)
     {
       sub_1A9579814();
     }
 
-    v61 = qword_1ED970348;
+    v19 = qword_1ED970348;
     if (os_log_type_enabled(qword_1ED970348, OS_LOG_TYPE_DEBUG))
     {
-      v62 = v60;
-      v63 = v61;
-      v68 = objc_msgSend_UTF8String(v60, v64, v65, v66, v67);
+      v20 = v18;
+      v21 = v19;
+      uTF8String2 = [v18 UTF8String];
       *buf = 136446210;
-      v128 = v68;
-      _os_log_impl(&dword_1A9324000, v63, OS_LOG_TYPE_DEBUG, "%{public}s", buf, 0xCu);
+      uTF8String = uTF8String2;
+      _os_log_impl(&dword_1A9324000, v21, OS_LOG_TYPE_DEBUG, "%{public}s", buf, 0xCu);
     }
 
-    objc_msgSend_removeAllObjects(self->_speechQueue, v69, v70, v71, v72);
-    objc_msgSend_stopSpeakingAtNextBoundary_synchronously_error_(self->_synthesizer, v73, 0, 1, 0);
-    v55 = 0;
+    [(NSMutableArray *)self->_speechQueue removeAllObjects];
+    [(TTSSpeechSynthesizer *)self->_synthesizer stopSpeakingAtNextBoundary:0 synchronously:1 error:0];
+    v16 = 0;
   }
 
-  objc_msgSend_addObject_(self->_speechQueue, v45, actionCopy, v47, v48);
-  v77 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v74, @"isSpeaking: %d", v75, v76, self->_isSpeaking);
-  v81 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v78, @"%s:%d %@", v79, v80, "[TTSSpeechManager _dispatchSpeechAction:]", 1410, v77);
+  [(NSMutableArray *)self->_speechQueue addObject:actionCopy];
+  v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"isSpeaking: %d", self->_isSpeaking];
+  v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d %@", "-[TTSSpeechManager _dispatchSpeechAction:]", 1410, v23];
   if (qword_1ED970350 != -1)
   {
     sub_1A957983C();
   }
 
-  v82 = qword_1ED970348;
+  v25 = qword_1ED970348;
   if (os_log_type_enabled(qword_1ED970348, OS_LOG_TYPE_DEBUG))
   {
-    v83 = v81;
-    v84 = v82;
-    v89 = objc_msgSend_UTF8String(v81, v85, v86, v87, v88);
+    v26 = v24;
+    v27 = v25;
+    uTF8String3 = [v24 UTF8String];
     *buf = 136446210;
-    v128 = v89;
-    _os_log_impl(&dword_1A9324000, v84, OS_LOG_TYPE_DEBUG, "%{public}s", buf, 0xCu);
+    uTF8String = uTF8String3;
+    _os_log_impl(&dword_1A9324000, v27, OS_LOG_TYPE_DEBUG, "%{public}s", buf, 0xCu);
   }
 
-  v93 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v90, @"Speech queue items: %@", v91, v92, self->_speechQueue);
-  v97 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v94, @"%s:%d %@", v95, v96, "[TTSSpeechManager _dispatchSpeechAction:]", 1411, v93);
+  v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Speech queue items: %@", self->_speechQueue];
+  v30 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d %@", "-[TTSSpeechManager _dispatchSpeechAction:]", 1411, v29];
   if (qword_1ED970350 != -1)
   {
     sub_1A9579864();
   }
 
-  v98 = qword_1ED970348;
+  v31 = qword_1ED970348;
   if (os_log_type_enabled(qword_1ED970348, OS_LOG_TYPE_DEBUG))
   {
-    v99 = v97;
-    v100 = v98;
-    v105 = objc_msgSend_UTF8String(v97, v101, v102, v103, v104);
+    v32 = v30;
+    v33 = v31;
+    uTF8String4 = [v30 UTF8String];
     *buf = 136446210;
-    v128 = v105;
-    _os_log_impl(&dword_1A9324000, v100, OS_LOG_TYPE_DEBUG, "%{public}s", buf, 0xCu);
+    uTF8String = uTF8String4;
+    _os_log_impl(&dword_1A9324000, v33, OS_LOG_TYPE_DEBUG, "%{public}s", buf, 0xCu);
   }
 
-  if (!v55 || !self->_isSpeaking)
+  if (!v16 || !self->_isSpeaking)
   {
-    v109 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v106, @"Starting next job", v107, v108);
-    v113 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v110, @"%s:%d %@", v111, v112, "[TTSSpeechManager _dispatchSpeechAction:]", 1414, v109);
+    v35 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Starting next job"];
+    v36 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d %@", "-[TTSSpeechManager _dispatchSpeechAction:]", 1414, v35];
     if (qword_1ED970350 != -1)
     {
       sub_1A957988C();
     }
 
-    v114 = qword_1ED970348;
+    v37 = qword_1ED970348;
     if (os_log_type_enabled(qword_1ED970348, OS_LOG_TYPE_DEBUG))
     {
-      v115 = v113;
-      v116 = v114;
-      v121 = objc_msgSend_UTF8String(v113, v117, v118, v119, v120);
+      v38 = v36;
+      v39 = v37;
+      uTF8String5 = [v36 UTF8String];
       *buf = 136446210;
-      v128 = v121;
-      _os_log_impl(&dword_1A9324000, v116, OS_LOG_TYPE_DEBUG, "%{public}s", buf, 0xCu);
+      uTF8String = uTF8String5;
+      _os_log_impl(&dword_1A9324000, v39, OS_LOG_TYPE_DEBUG, "%{public}s", buf, 0xCu);
     }
 
-    objc_msgSend__startNextSpeechJob(self, v122, v123, v124, v125);
+    [(TTSSpeechManager *)self _startNextSpeechJob];
   }
-
-  v126 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clearSpeechQueue
 {
-  if (_AXSInUnitTestMode() && objc_msgSend_isFinished(self->_runThread, v3, v4, v5, v6))
+  if (_AXSInUnitTestMode() && [(TTSSpeechThread *)self->_runThread isFinished])
   {
     sub_1A95798B4();
   }
 
-  objc_msgSend__enqueueSelectorOnSpeechThread_object_waitUntilDone_(self, v3, sel__clearSpeechQueue, 0, 0);
+  [(TTSSpeechManager *)self _enqueueSelectorOnSpeechThread:sel__clearSpeechQueue object:0 waitUntilDone:0];
 }
 
 - (void)dispatchSpeechAction:(id)action
 {
   actionCopy = action;
-  if (objc_msgSend_speechEnabled(self, v4, v5, v6, v7))
+  if ([(TTSSpeechManager *)self speechEnabled])
   {
-    if (_AXSInUnitTestMode() && objc_msgSend_isFinished(self->_runThread, v8, v9, v10, v11))
+    if (_AXSInUnitTestMode() && [(TTSSpeechThread *)self->_runThread isFinished])
     {
       sub_1A95798E0();
     }
 
-    objc_msgSend__enqueueSelectorOnSpeechThread_object_waitUntilDone_(self, v8, sel__dispatchSpeechAction_, actionCopy, 0);
+    [(TTSSpeechManager *)self _enqueueSelectorOnSpeechThread:sel__dispatchSpeechAction_ object:actionCopy waitUntilDone:0];
   }
 }
 
 - (void)_pauseSpeaking:(id)speaking
 {
   speakingCopy = speaking;
-  if (objc_msgSend_isInAudioInterruption(self, v4, v5, v6, v7) && objc_msgSend_wasSpeakingBeforeAudioInterruption(self, v8, v9, v10, v11))
+  if ([(TTSSpeechManager *)self isInAudioInterruption]&& [(TTSSpeechManager *)self wasSpeakingBeforeAudioInterruption])
   {
-    objc_msgSend_setDidRequestPauseSpeakingDuringAudioInterruption_(self, v8, 1, v10, v11);
-    objc_msgSend_setDidRequestResumeSpeakingDuringAudioInterruption_(self, v12, 0, v13, v14);
-    objc_msgSend_setDidRequestStartSpeakingDuringAudioInterruption_(self, v15, 0, v16, v17);
-    objc_msgSend_setRequestedActionDuringAudioInterruption_(self, v18, 0, v19, v20);
+    [(TTSSpeechManager *)self setDidRequestPauseSpeakingDuringAudioInterruption:1];
+    [(TTSSpeechManager *)self setDidRequestResumeSpeakingDuringAudioInterruption:0];
+    [(TTSSpeechManager *)self setDidRequestStartSpeakingDuringAudioInterruption:0];
+    [(TTSSpeechManager *)self setRequestedActionDuringAudioInterruption:0];
   }
 
-  synthesizer = self->_synthesizer;
-  v22 = objc_msgSend_intValue(speakingCopy, v8, v9, v10, v11);
-  objc_msgSend_pauseSpeakingAtNextBoundary_error_(synthesizer, v23, v22, 0, v24);
+  -[TTSSpeechSynthesizer pauseSpeakingAtNextBoundary:error:](self->_synthesizer, "pauseSpeakingAtNextBoundary:error:", [speakingCopy intValue], 0);
 }
 
 - (void)pauseSpeaking:(int64_t)speaking
 {
-  if (_AXSInUnitTestMode() && objc_msgSend_isFinished(self->_runThread, v5, v6, v7, v8))
+  if (_AXSInUnitTestMode() && [(TTSSpeechThread *)self->_runThread isFinished])
   {
     sub_1A957990C();
   }
 
-  v10 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v5, speaking, v7, v8);
-  objc_msgSend__enqueueSelectorOnSpeechThread_object_waitUntilDone_(self, v9, sel__pauseSpeaking_, v10, 1);
+  v5 = [MEMORY[0x1E696AD98] numberWithInteger:speaking];
+  [(TTSSpeechManager *)self _enqueueSelectorOnSpeechThread:sel__pauseSpeaking_ object:v5 waitUntilDone:1];
 }
 
 - (void)_continueSpeaking
 {
-  if (objc_msgSend_isInAudioInterruption(self, a2, v2, v3, v4))
+  if ([(TTSSpeechManager *)self isInAudioInterruption])
   {
-    objc_msgSend_setDidRequestResumeSpeakingDuringAudioInterruption_(self, v6, 1, v7, v8);
-    objc_msgSend_setDidRequestPauseSpeakingDuringAudioInterruption_(self, v9, 0, v10, v11);
-    objc_msgSend_setDidRequestStartSpeakingDuringAudioInterruption_(self, v12, 0, v13, v14);
-    objc_msgSend_setRequestedActionDuringAudioInterruption_(self, v15, 0, v16, v17);
+    [(TTSSpeechManager *)self setDidRequestResumeSpeakingDuringAudioInterruption:1];
+    [(TTSSpeechManager *)self setDidRequestPauseSpeakingDuringAudioInterruption:0];
+    [(TTSSpeechManager *)self setDidRequestStartSpeakingDuringAudioInterruption:0];
+    [(TTSSpeechManager *)self setRequestedActionDuringAudioInterruption:0];
   }
 
   synthesizer = self->_synthesizer;
 
-  MEMORY[0x1EEE66B58](synthesizer, sel_continueSpeakingWithError_, 0, v7, v8);
+  MEMORY[0x1EEE66B58](synthesizer, sel_continueSpeakingWithError_);
 }
 
 - (void)continueSpeaking
 {
-  if (_AXSInUnitTestMode() && objc_msgSend_isFinished(self->_runThread, v3, v4, v5, v6))
+  if (_AXSInUnitTestMode() && [(TTSSpeechThread *)self->_runThread isFinished])
   {
     sub_1A9579938();
   }
 
-  objc_msgSend__enqueueSelectorOnSpeechThread_object_waitUntilDone_(self, v3, sel__continueSpeaking, 0, 0);
+  [(TTSSpeechManager *)self _enqueueSelectorOnSpeechThread:sel__continueSpeaking object:0 waitUntilDone:0];
 }
 
 - (void)_stopSpeaking:(id)speaking
 {
   synthesizer = self->_synthesizer;
-  v7 = objc_msgSend_integerValue(speaking, a2, speaking, v3, v4);
+  integerValue = [speaking integerValue];
 
-  objc_msgSend_stopSpeakingAtNextBoundary_synchronously_error_(synthesizer, v6, v7, 1, 0);
+  [(TTSSpeechSynthesizer *)synthesizer stopSpeakingAtNextBoundary:integerValue synchronously:1 error:0];
 }
 
 - (void)stopSpeaking:(int64_t)speaking
 {
-  v7 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], a2, speaking, v3, v4);
-  objc_msgSend__enqueueSelectorOnSpeechThread_object_waitUntilDone_(self, v6, sel__stopSpeaking_, v7, 0);
+  v4 = [MEMORY[0x1E696AD98] numberWithInteger:speaking];
+  [(TTSSpeechManager *)self _enqueueSelectorOnSpeechThread:sel__stopSpeaking_ object:v4 waitUntilDone:0];
 }
 
 - (void)_isSpeaking:(id)speaking
 {
   synthesizer = self->_synthesizer;
   speakingCopy = speaking;
-  if (objc_msgSend_isSpeaking(synthesizer, v4, v5, v6, v7))
+  if ([(TTSSpeechSynthesizer *)synthesizer isSpeaking])
   {
-    objc_msgSend_setString_(speakingCopy, v8, @"1", v9, v10);
+    v4 = @"1";
   }
 
   else
   {
-    objc_msgSend_setString_(speakingCopy, v8, @"0", v9, v10);
+    v4 = @"0";
   }
+
+  [speakingCopy setString:v4];
 }
 
 - (BOOL)isSpeaking
 {
-  if (_AXSInUnitTestMode() && objc_msgSend_isFinished(self->_runThread, v3, v4, v5, v6))
+  if (_AXSInUnitTestMode() && [(TTSSpeechThread *)self->_runThread isFinished])
   {
     sub_1A9579964();
   }
 
-  if (objc_msgSend_isFinished(self->_runThread, v3, v4, v5, v6))
+  if (([(TTSSpeechThread *)self->_runThread isFinished]& 1) != 0)
   {
     return 0;
   }
 
-  v12 = objc_msgSend_string(MEMORY[0x1E696AD60], v7, v8, v9, v10);
-  objc_msgSend__enqueueSelectorOnSpeechThread_object_waitUntilDone_(self, v13, sel__isSpeaking_, v12, 1);
-  v18 = objc_msgSend_BOOLValue(v12, v14, v15, v16, v17);
+  string = [MEMORY[0x1E696AD60] string];
+  [(TTSSpeechManager *)self _enqueueSelectorOnSpeechThread:sel__isSpeaking_ object:string waitUntilDone:1];
+  bOOLValue = [string BOOLValue];
 
-  return v18;
+  return bOOLValue;
 }
 
 - (NSArray)outputChannels
 {
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x3032000000;
-  v12 = sub_1A9363718;
-  v13 = sub_1A9363728;
-  v14 = 0;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x3032000000;
+  v9 = sub_1A9363718;
+  v10 = sub_1A9363728;
+  v11 = 0;
   propertyQueue = self->_propertyQueue;
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = sub_1A936798C;
-  v8[3] = &unk_1E7880670;
-  v8[4] = self;
-  v8[5] = &v9;
-  dispatch_sync(propertyQueue, v8);
-  v6 = objc_msgSend_convertChannels_(TTSAudioSessionChannel, v3, v10[5], v4, v5);
-  _Block_object_dispose(&v9, 8);
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = sub_1A936798C;
+  v5[3] = &unk_1E7880670;
+  v5[4] = self;
+  v5[5] = &v6;
+  dispatch_sync(propertyQueue, v5);
+  v3 = [TTSAudioSessionChannel convertChannels:v7[5]];
+  _Block_object_dispose(&v6, 8);
 
-  return v6;
+  return v3;
 }
 
 - (void)setOutputChannels:(id)channels
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   channelsCopy = channels;
-  if (objc_msgSend_count(channelsCopy, v5, v6, v7, v8))
+  if ([channelsCopy count])
   {
-    v13 = objc_msgSend_array(MEMORY[0x1E695DF70], v9, v10, v11, v12);
-    v33 = 0u;
-    v34 = 0u;
-    v35 = 0u;
-    v36 = 0u;
-    v14 = channelsCopy;
-    v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v15, &v33, v38, 16);
-    if (v16)
+    array = [MEMORY[0x1E695DF70] array];
+    v17 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    v20 = 0u;
+    v6 = channelsCopy;
+    v7 = [v6 countByEnumeratingWithState:&v17 objects:v22 count:16];
+    if (v7)
     {
-      v20 = v16;
-      v21 = *v34;
+      v8 = v7;
+      v9 = *v18;
       do
       {
-        v22 = 0;
+        v10 = 0;
         do
         {
-          if (*v34 != v21)
+          if (*v18 != v9)
           {
-            objc_enumerationMutation(v14);
+            objc_enumerationMutation(v6);
           }
 
-          v26 = objc_msgSend_channelWithChannel_(TTSAudioSessionChannel, v17, *(*(&v33 + 1) + 8 * v22), v18, v19);
-          if (v26)
+          v11 = [TTSAudioSessionChannel channelWithChannel:*(*(&v17 + 1) + 8 * v10)];
+          if (v11)
           {
-            objc_msgSend_addObject_(v13, v23, v26, v24, v25);
+            [array addObject:v11];
           }
 
-          ++v22;
+          ++v10;
         }
 
-        while (v20 != v22);
-        v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v17, &v33, v38, 16);
+        while (v8 != v10);
+        v8 = [v6 countByEnumeratingWithState:&v17 objects:v22 count:16];
       }
 
-      while (v20);
+      while (v8);
     }
 
     propertyQueue = self->_propertyQueue;
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = sub_1A9367BF8;
-    v31[3] = &unk_1E787FE98;
-    v31[4] = self;
-    v32 = v13;
-    v28 = v13;
-    dispatch_async(propertyQueue, v31);
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = sub_1A9367BF8;
+    v15[3] = &unk_1E787FE98;
+    v15[4] = self;
+    v16 = array;
+    v13 = array;
+    dispatch_async(propertyQueue, v15);
   }
 
   else
   {
-    v29 = self->_propertyQueue;
+    v14 = self->_propertyQueue;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = sub_1A9367BE8;
     block[3] = &unk_1E787FE20;
     block[4] = self;
-    dispatch_async(v29, block);
+    dispatch_async(v14, block);
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (unsigned)audioQueueFlags
@@ -2058,224 +2151,373 @@ LABEL_6:
 - (void)_processDidStartCallback:(id)callback
 {
   callbackCopy = callback;
-  v9 = objc_msgSend_currentThread(MEMORY[0x1E696AF00], v5, v6, v7, v8);
-  if ((objc_msgSend_isEqual_(v9, v10, self->_runThread, v11, v12) & 1) == 0)
+  currentThread = [MEMORY[0x1E696AF00] currentThread];
+  if (([currentThread isEqual:self->_runThread] & 1) == 0)
   {
     sub_1A9579990();
   }
 
-  v13 = objc_autoreleasePoolPush();
-  v14 = objc_getAssociatedObject(callbackCopy, &unk_1EB3910E0);
-  v19 = objc_msgSend_taggedSSML(v14, v15, v16, v17, v18);
-  if (!v19 || (v24 = v19, v25 = objc_msgSend_currentSSMLSnippetIndex(v14, v20, v21, v22, v23), v24, !v25))
+  v6 = objc_autoreleasePoolPush();
+  v7 = objc_getAssociatedObject(callbackCopy, &unk_1EB3910E0);
+  taggedSSML = [v7 taggedSSML];
+  if (!taggedSSML || (v9 = taggedSSML, v10 = [v7 currentSSMLSnippetIndex], v9, !v10))
   {
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = sub_1A9367E74;
     block[3] = &unk_1E787FE20;
-    v27 = v14;
+    v12 = v7;
     dispatch_async(MEMORY[0x1E69E96A0], block);
   }
 
-  objc_autoreleasePoolPop(v13);
+  objc_autoreleasePoolPop(v6);
 }
 
 - (void)speechSynthesizer:(id)synthesizer didStartSpeakingRequest:(id)request
 {
   v5 = MEMORY[0x1E696AF00];
   requestCopy = request;
-  v10 = objc_msgSend_currentThread(v5, v6, v7, v8, v9);
-  isEqual = objc_msgSend_isEqual_(v10, v11, self->_runThread, v12, v13);
+  currentThread = [v5 currentThread];
+  v7 = [currentThread isEqual:self->_runThread];
 
-  if (isEqual)
+  if (v7)
   {
-    objc_msgSend__processDidStartCallback_(self, v15, requestCopy, v16, v17);
+    [(TTSSpeechManager *)self _processDidStartCallback:requestCopy];
   }
 
   else
   {
-    objc_msgSend__enqueueSelectorOnSpeechThread_object_waitUntilDone_(self, v15, sel__processDidStartCallback_, requestCopy, 1);
+    [(TTSSpeechManager *)self _enqueueSelectorOnSpeechThread:sel__processDidStartCallback_ object:requestCopy waitUntilDone:1];
   }
 }
 
 - (void)__speechJobFinished:(id)finished
 {
   finishedCopy = finished;
-  v19 = objc_msgSend_objectAtIndexedSubscript_(finishedCopy, v5, 0, v6, v7);
-  v12 = objc_msgSend_BOOLValue(v19, v8, v9, v10, v11);
-  v16 = objc_msgSend_objectAtIndexedSubscript_(finishedCopy, v13, 1, v14, v15);
+  v7 = [finishedCopy objectAtIndexedSubscript:0];
+  bOOLValue = [v7 BOOLValue];
+  v6 = [finishedCopy objectAtIndexedSubscript:1];
 
-  objc_msgSend__speechJobFinished_action_(self, v17, v12, v16, v18);
+  [(TTSSpeechManager *)self _speechJobFinished:bOOLValue action:v6];
+}
+
+- (void)speechSynthesizer:(id)synthesizer didFinishSpeakingRequest:(id)request successfully:(BOOL)successfully withError:(id)error
+{
+  successfullyCopy = successfully;
+  v60 = *MEMORY[0x1E69E9840];
+  synthesizerCopy = synthesizer;
+  requestCopy = request;
+  errorCopy = error;
+  context = objc_autoreleasePoolPush();
+  v11 = MEMORY[0x1E696AEC0];
+  currentThread = [MEMORY[0x1E696AF00] currentThread];
+  name = [currentThread name];
+  errorCopy = [v11 stringWithFormat:@"%@ Speech finished: %d %@", name, successfullyCopy, errorCopy];
+
+  v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d %@", "-[TTSSpeechManager speechSynthesizer:didFinishSpeakingRequest:successfully:withError:]", 1642, errorCopy];
+  if (qword_1ED970350 != -1)
+  {
+    sub_1A95799BC();
+  }
+
+  v16 = qword_1ED970348;
+  if (os_log_type_enabled(qword_1ED970348, OS_LOG_TYPE_DEBUG))
+  {
+    v17 = v15;
+    v18 = v16;
+    *buf = 136446210;
+    uTF8String = [v15 UTF8String];
+    _os_log_impl(&dword_1A9324000, v18, OS_LOG_TYPE_DEBUG, "%{public}s", buf, 0xCu);
+  }
+
+  if (([(TTSSpeechThread *)self->_runThread isFinished]& 1) == 0)
+  {
+    v19 = objc_getAssociatedObject(requestCopy, &unk_1EB3910E0);
+    v20 = v19;
+    if (v19)
+    {
+      if (errorCopy)
+      {
+        v21 = [v19 copy];
+        languageCode = [requestCopy languageCode];
+        v23 = [TTSSpeechSynthesizer _speechVoiceForIdentifier:0 language:languageCode footprint:1];
+
+        v24 = VOTLogSpeech();
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        {
+          sub_1A95799D0(errorCopy, v23, v24);
+        }
+
+        identifier = [v23 identifier];
+        [v21 setVoiceIdentifier:identifier];
+
+        [(TTSSpeechManager *)self dispatchSpeechAction:v21];
+      }
+
+      taggedSSML = [v20 taggedSSML];
+
+      if (taggedSSML && ([v20 setCurrentSSMLSnippetIndex:{objc_msgSend(v20, "currentSSMLSnippetIndex") + 1}], v27 = objc_msgSend(v20, "currentSSMLSnippetIndex"), objc_msgSend(v20, "taggedSSML"), v28 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v28, "ssmlSnippets"), v29 = objc_claimAutoreleasedReturnValue(), v30 = objc_msgSend(v29, "count"), v29, v28, v27 < v30))
+      {
+        taggedSSML2 = [v20 taggedSSML];
+        ssmlSnippets = [taggedSSML2 ssmlSnippets];
+        v33 = [ssmlSnippets objectAtIndexedSubscript:{objc_msgSend(v20, "currentSSMLSnippetIndex")}];
+
+        [(TTSSpeechManager *)self _setVoiceForAction:v20 snippet:v33];
+        synthesizer = self->_synthesizer;
+        ssml = [v33 ssml];
+        language = [v33 language];
+        v55 = errorCopy;
+        v56 = 0;
+        [(TTSSpeechSynthesizer *)synthesizer startSpeakingSSML:ssml withLanguageCode:language request:&v56 error:&v55];
+        v37 = v56;
+        v38 = v55;
+
+        if (v37)
+        {
+          objc_setAssociatedObject(v37, &unk_1EB3910E0, v20, 1);
+        }
+
+        errorCopy = v38;
+      }
+
+      else
+      {
+        if ([v20 ignoreCustomSubstitutions])
+        {
+          [(TTSSpeechManager *)self _updateUserSubstitutions];
+        }
+
+        text = [requestCopy text];
+
+        if (text)
+        {
+          text2 = [requestCopy text];
+          [v20 setFinalSpokenString:text2];
+        }
+
+        if (errorCopy)
+        {
+          v41 = 0;
+        }
+
+        else
+        {
+          v41 = successfullyCopy;
+        }
+
+        v42 = [MEMORY[0x1E696AD98] numberWithInt:v41];
+        v57[0] = v42;
+        v57[1] = v20;
+        v43 = [MEMORY[0x1E695DEC8] arrayWithObjects:v57 count:2];
+
+        currentThread2 = [MEMORY[0x1E696AF00] currentThread];
+        v45 = [currentThread2 isEqual:self->_runThread];
+
+        if (v45)
+        {
+          [(TTSSpeechManager *)self __speechJobFinished:v43];
+        }
+
+        else
+        {
+          [(TTSSpeechManager *)self _enqueueSelectorOnSpeechThread:sel___speechJobFinished_ object:v43 waitUntilDone:0];
+        }
+      }
+    }
+
+    else
+    {
+      requestCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"No action for request: %@", requestCopy];
+      v47 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d %@", "-[TTSSpeechManager speechSynthesizer:didFinishSpeakingRequest:successfully:withError:]", 1653, requestCopy];
+      if (qword_1ED970350 != -1)
+      {
+        sub_1A9579A84();
+      }
+
+      v48 = qword_1ED970348;
+      if (os_log_type_enabled(qword_1ED970348, OS_LOG_TYPE_DEFAULT))
+      {
+        v49 = v47;
+        v50 = v48;
+        uTF8String2 = [v47 UTF8String];
+        *buf = 136446210;
+        uTF8String = uTF8String2;
+        _os_log_impl(&dword_1A9324000, v50, OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
+      }
+
+      [(TTSSpeechManager *)self _enqueueSelectorOnSpeechThread:sel___speechJobFinished_ object:0 waitUntilDone:0];
+    }
+  }
+
+  objc_autoreleasePoolPop(context);
 }
 
 - (void)speechSynthesizer:(id)synthesizer didPauseSpeakingRequest:(id)request
 {
   v5 = MEMORY[0x1E696AF00];
   requestCopy = request;
-  v10 = objc_msgSend_currentThread(v5, v6, v7, v8, v9);
-  isEqual = objc_msgSend_isEqual_(v10, v11, self->_runThread, v12, v13);
+  currentThread = [v5 currentThread];
+  v7 = [currentThread isEqual:self->_runThread];
 
-  if (isEqual)
+  if (v7)
   {
-    objc_msgSend__processDidPauseCallback_(self, v15, requestCopy, v16, v17);
+    [(TTSSpeechManager *)self _processDidPauseCallback:requestCopy];
   }
 
   else
   {
-    objc_msgSend__enqueueSelectorOnSpeechThread_object_waitUntilDone_(self, v15, sel__processDidPauseCallback_, requestCopy, 1);
+    [(TTSSpeechManager *)self _enqueueSelectorOnSpeechThread:sel__processDidPauseCallback_ object:requestCopy waitUntilDone:1];
   }
 }
 
 - (void)_processDidPauseCallback:(id)callback
 {
   callbackCopy = callback;
-  objc_msgSend_setIsPaused_(self, v5, 1, v6, v7);
-  v8 = objc_autoreleasePoolPush();
-  v9 = objc_getAssociatedObject(callbackCopy, &unk_1EB3910E0);
+  [(TTSSpeechManager *)self setIsPaused:1];
+  v5 = objc_autoreleasePoolPush();
+  v6 = objc_getAssociatedObject(callbackCopy, &unk_1EB3910E0);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = sub_1A93687E4;
   block[3] = &unk_1E787FE20;
-  v12 = v9;
-  v10 = v9;
+  v9 = v6;
+  v7 = v6;
   dispatch_async(MEMORY[0x1E69E96A0], block);
 
-  objc_autoreleasePoolPop(v8);
+  objc_autoreleasePoolPop(v5);
 }
 
 - (void)speechSynthesizer:(id)synthesizer didContinueSpeakingRequest:(id)request
 {
   v5 = MEMORY[0x1E696AF00];
   requestCopy = request;
-  v10 = objc_msgSend_currentThread(v5, v6, v7, v8, v9);
-  isEqual = objc_msgSend_isEqual_(v10, v11, self->_runThread, v12, v13);
+  currentThread = [v5 currentThread];
+  v7 = [currentThread isEqual:self->_runThread];
 
-  if (isEqual)
+  if (v7)
   {
-    objc_msgSend__processDidContinueCallback_(self, v15, requestCopy, v16, v17);
+    [(TTSSpeechManager *)self _processDidContinueCallback:requestCopy];
   }
 
   else
   {
-    objc_msgSend__enqueueSelectorOnSpeechThread_object_waitUntilDone_(self, v15, sel__processDidContinueCallback_, requestCopy, 1);
+    [(TTSSpeechManager *)self _enqueueSelectorOnSpeechThread:sel__processDidContinueCallback_ object:requestCopy waitUntilDone:1];
   }
 }
 
 - (void)_processDidContinueCallback:(id)callback
 {
   callbackCopy = callback;
-  objc_msgSend_setIsPaused_(self, v5, 0, v6, v7);
-  v8 = objc_autoreleasePoolPush();
-  v9 = objc_getAssociatedObject(callbackCopy, &unk_1EB3910E0);
+  [(TTSSpeechManager *)self setIsPaused:0];
+  v5 = objc_autoreleasePoolPush();
+  v6 = objc_getAssociatedObject(callbackCopy, &unk_1EB3910E0);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = sub_1A93689E0;
   block[3] = &unk_1E787FE20;
-  v12 = v9;
-  v10 = v9;
+  v9 = v6;
+  v7 = v6;
   dispatch_async(MEMORY[0x1E69E96A0], block);
 
-  objc_autoreleasePoolPop(v8);
+  objc_autoreleasePoolPop(v5);
 }
 
 - (void)speechSynthesizer:(id)synthesizer didEncounterMarker:(id)marker forRequest:(id)request
 {
-  v59[2] = *MEMORY[0x1E69E9840];
+  v21[2] = *MEMORY[0x1E69E9840];
   markerCopy = marker;
   requestCopy = request;
-  v59[0] = requestCopy;
-  v59[1] = markerCopy;
-  v11 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v9, v59, 2, v10);
-  if (objc_msgSend_markType(markerCopy, v12, v13, v14, v15) == 1)
+  v21[0] = requestCopy;
+  v21[1] = markerCopy;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
+  if ([markerCopy markType] == 1)
   {
-    v20 = markerCopy;
-    v58[0] = requestCopy;
-    v21 = MEMORY[0x1E696B098];
-    v26 = objc_msgSend_wordRange(v20, v22, v23, v24, v25);
-    v29 = objc_msgSend_valueWithRange_(v21, v27, v26, v27, v28);
-    v58[1] = v29;
-    v32 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v30, v58, 2, v31);
+    v10 = markerCopy;
+    v20[0] = requestCopy;
+    v11 = MEMORY[0x1E696B098];
+    wordRange = [v10 wordRange];
+    v14 = [v11 valueWithRange:{wordRange, v13}];
+    v20[1] = v14;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
 
-    v37 = objc_msgSend_currentThread(MEMORY[0x1E696AF00], v33, v34, v35, v36);
-    isEqual = objc_msgSend_isEqual_(v37, v38, self->_runThread, v39, v40);
+    currentThread = [MEMORY[0x1E696AF00] currentThread];
+    v17 = [currentThread isEqual:self->_runThread];
 
-    if (isEqual)
+    if (v17)
     {
-      objc_msgSend__processDidEncounterMarker_(self, v42, v11, v43, v44);
-      objc_msgSend__processWillSpeechRange_(self, v45, v32, v46, v47);
+      [(TTSSpeechManager *)self _processDidEncounterMarker:v9];
+      [(TTSSpeechManager *)self _processWillSpeechRange:v15];
     }
 
     else
     {
-      objc_msgSend__enqueueSelectorOnSpeechThread_object_waitUntilDone_(self, v42, sel__processDidEncounterMarker_, v11, 1);
-      objc_msgSend__enqueueSelectorOnSpeechThread_object_waitUntilDone_(self, v56, sel__processWillSpeechRange_, v32, 1);
+      [(TTSSpeechManager *)self _enqueueSelectorOnSpeechThread:sel__processDidEncounterMarker_ object:v9 waitUntilDone:1];
+      [(TTSSpeechManager *)self _enqueueSelectorOnSpeechThread:sel__processWillSpeechRange_ object:v15 waitUntilDone:1];
     }
   }
 
   else
   {
-    v48 = objc_msgSend_currentThread(MEMORY[0x1E696AF00], v16, v17, v18, v19);
-    v52 = objc_msgSend_isEqual_(v48, v49, self->_runThread, v50, v51);
+    currentThread2 = [MEMORY[0x1E696AF00] currentThread];
+    v19 = [currentThread2 isEqual:self->_runThread];
 
-    if (v52)
+    if (v19)
     {
-      objc_msgSend__processDidEncounterMarker_(self, v53, v11, v54, v55);
+      [(TTSSpeechManager *)self _processDidEncounterMarker:v9];
     }
 
     else
     {
-      objc_msgSend__enqueueSelectorOnSpeechThread_object_waitUntilDone_(self, v53, sel__processDidEncounterMarker_, v11, 1);
+      [(TTSSpeechManager *)self _enqueueSelectorOnSpeechThread:sel__processDidEncounterMarker_ object:v9 waitUntilDone:1];
     }
   }
-
-  v57 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_processDidEncounterMarker:(id)marker
 {
   markerCopy = marker;
-  v7 = objc_msgSend_objectAtIndexedSubscript_(markerCopy, v4, 0, v5, v6);
-  v11 = objc_msgSend_objectAtIndexedSubscript_(markerCopy, v8, 1, v9, v10);
+  v4 = [markerCopy objectAtIndexedSubscript:0];
+  v5 = [markerCopy objectAtIndexedSubscript:1];
 
-  v12 = objc_getAssociatedObject(v7, &unk_1EB3910E0);
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = sub_1A9368D38;
-  v15[3] = &unk_1E787FE98;
-  v16 = v12;
-  v17 = v11;
-  v13 = v11;
-  v14 = v12;
-  dispatch_async(MEMORY[0x1E69E96A0], v15);
+  v6 = objc_getAssociatedObject(v4, &unk_1EB3910E0);
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = sub_1A9368D38;
+  v9[3] = &unk_1E787FE98;
+  v10 = v6;
+  v11 = v5;
+  v7 = v5;
+  v8 = v6;
+  dispatch_async(MEMORY[0x1E69E96A0], v9);
 }
 
 - (void)_processWillSpeechRange:(id)range
 {
   rangeCopy = range;
-  v7 = objc_msgSend_objectAtIndexedSubscript_(rangeCopy, v4, 0, v5, v6);
-  v23[0] = 0;
-  v23[1] = v23;
-  v23[2] = 0x3010000000;
-  v24 = 0;
-  v25 = 0;
-  v23[3] = &unk_1A95FC00D;
-  v11 = objc_msgSend_objectAtIndexedSubscript_(rangeCopy, v8, 1, v9, v10);
-  v24 = objc_msgSend_rangeValue(v11, v12, v13, v14, v15);
-  v25 = v16;
+  v4 = [rangeCopy objectAtIndexedSubscript:0];
+  v13[0] = 0;
+  v13[1] = v13;
+  v13[2] = 0x3010000000;
+  rangeValue = 0;
+  v15 = 0;
+  v13[3] = &unk_1A95FC00D;
+  v5 = [rangeCopy objectAtIndexedSubscript:1];
+  rangeValue = [v5 rangeValue];
+  v15 = v6;
 
-  v17 = objc_autoreleasePoolPush();
-  v18 = objc_getAssociatedObject(v7, &unk_1EB3910E0);
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = sub_1A9368F04;
-  v20[3] = &unk_1E787FF38;
-  v21 = v18;
-  v22 = v23;
-  v19 = v18;
-  dispatch_async(MEMORY[0x1E69E96A0], v20);
+  v7 = objc_autoreleasePoolPush();
+  v8 = objc_getAssociatedObject(v4, &unk_1EB3910E0);
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = sub_1A9368F04;
+  v10[3] = &unk_1E787FF38;
+  v11 = v8;
+  v12 = v13;
+  v9 = v8;
+  dispatch_async(MEMORY[0x1E69E96A0], v10);
 
-  objc_autoreleasePoolPop(v17);
-  _Block_object_dispose(v23, 8);
+  objc_autoreleasePoolPop(v7);
+  _Block_object_dispose(v13, 8);
 }
 
 + (void)test_actionStartTap:(id)tap

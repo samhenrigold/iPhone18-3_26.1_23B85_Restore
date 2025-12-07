@@ -42,13 +42,13 @@ void __32__MEComposeExtensionsHelper_log__block_invoke(uint64_t a1)
 
 - (MEComposeExtensionsHelper)initWithComposeSession:(id)session extensionsController:(id)controller iconReloader:(id)reloader
 {
-  v41[1] = *MEMORY[0x277D85DE8];
+  v40[1] = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   controllerCopy = controller;
   reloaderCopy = reloader;
-  v40.receiver = self;
-  v40.super_class = MEComposeExtensionsHelper;
-  v12 = [(MEComposeExtensionsHelper *)&v40 init];
+  v39.receiver = self;
+  v39.super_class = MEComposeExtensionsHelper;
+  v12 = [(MEComposeExtensionsHelper *)&v39 init];
   v13 = v12;
   if (v12)
   {
@@ -85,20 +85,19 @@ void __32__MEComposeExtensionsHelper_log__block_invoke(uint64_t a1)
 
     objc_initWeak(&location, v13);
     extensionsController = v13->_extensionsController;
-    v41[0] = @"MEComposeSessionHandler";
-    v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:1];
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = __86__MEComposeExtensionsHelper_initWithComposeSession_extensionsController_iconReloader___block_invoke;
-    v37[3] = &unk_279858ED0;
-    objc_copyWeak(&v38, &location);
-    [(MEAppExtensionsController *)extensionsController registerMailAppExtensionsObserver:v13 capabilities:v34 includeDisabled:0 completion:v37];
+    v40[0] = @"MEComposeSessionHandler";
+    v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:1];
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __86__MEComposeExtensionsHelper_initWithComposeSession_extensionsController_iconReloader___block_invoke;
+    v36[3] = &unk_279858ED0;
+    objc_copyWeak(&v37, &location);
+    [(MEAppExtensionsController *)extensionsController registerMailAppExtensionsObserver:v13 capabilities:v34 includeDisabled:0 completion:v36];
 
-    objc_destroyWeak(&v38);
+    objc_destroyWeak(&v37);
     objc_destroyWeak(&location);
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -139,44 +138,43 @@ void __86__MEComposeExtensionsHelper_initWithComposeSession_extensionsController
 
 - (void)dealloc
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   [(EFLocked *)self->_remoteExtensions getObject];
+  v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
-  v3 = v11 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v9 = 0u;
+  v3 = v10 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        composeSessionInterface = [*(*(&v10 + 1) + 8 * v6) composeSessionInterface];
+        composeSessionInterface = [*(*(&v9 + 1) + 8 * v6) composeSessionInterface];
         [composeSessionInterface mailComposeSessionDidEnd:self->_composeSession];
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
 
   [(EFManualCancelationToken *)self->_extensionsObserverCancelable cancel];
-  v9.receiver = self;
-  v9.super_class = MEComposeExtensionsHelper;
-  [(MEComposeExtensionsHelper *)&v9 dealloc];
-  v8 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = MEComposeExtensionsHelper;
+  [(MEComposeExtensionsHelper *)&v8 dealloc];
 }
 
 - (void)extensionsMatched:(id)matched
@@ -228,71 +226,69 @@ void __86__MEComposeExtensionsHelper_initWithComposeSession_extensionsController
 
 void __78__MEComposeExtensionsHelper__dispatchMailComposeSessionDidBeginForExtensions___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     obj = *(a1 + 32);
-    v3 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v3 = [obj countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v3)
     {
-      v4 = *v14;
+      v4 = *v13;
       do
       {
         for (i = 0; i != v3; ++i)
         {
-          if (*v14 != v4)
+          if (*v13 != v4)
           {
             objc_enumerationMutation(obj);
           }
 
-          v6 = *(*(&v13 + 1) + 8 * i);
+          v6 = *(*(&v12 + 1) + 8 * i);
           v7 = [v6 interfaceForExtensionCapability:@"MEComposeSessionHandler"];
-          v12[0] = MEMORY[0x277D85DD0];
-          v12[1] = 3221225472;
-          v12[2] = __78__MEComposeExtensionsHelper__dispatchMailComposeSessionDidBeginForExtensions___block_invoke_2;
-          v12[3] = &unk_279858EF8;
-          v12[4] = WeakRetained;
-          v12[5] = v6;
-          [v7 addSuccessBlock:v12];
-
-          v8 = [v6 interfaceForExtensionCapability:@"MEComposeSessionHandler"];
           v11[0] = MEMORY[0x277D85DD0];
           v11[1] = 3221225472;
-          v11[2] = __78__MEComposeExtensionsHelper__dispatchMailComposeSessionDidBeginForExtensions___block_invoke_15;
-          v11[3] = &unk_279858F20;
+          v11[2] = __78__MEComposeExtensionsHelper__dispatchMailComposeSessionDidBeginForExtensions___block_invoke_2;
+          v11[3] = &unk_279858EF8;
           v11[4] = WeakRetained;
-          [v8 addFailureBlock:v11];
+          v11[5] = v6;
+          [v7 addSuccessBlock:v11];
+
+          v8 = [v6 interfaceForExtensionCapability:@"MEComposeSessionHandler"];
+          v10[0] = MEMORY[0x277D85DD0];
+          v10[1] = 3221225472;
+          v10[2] = __78__MEComposeExtensionsHelper__dispatchMailComposeSessionDidBeginForExtensions___block_invoke_15;
+          v10[3] = &unk_279858F20;
+          v10[4] = WeakRetained;
+          [v8 addFailureBlock:v10];
         }
 
-        v3 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v3 = [obj countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v3);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __78__MEComposeExtensionsHelper__dispatchMailComposeSessionDidBeginForExtensions___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = +[MEComposeExtensionsHelper log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 40);
     v6 = *(*(a1 + 32) + 8);
-    v10 = 138412546;
-    v11 = v6;
-    v12 = 2112;
-    v13 = v5;
-    _os_log_impl(&dword_257F67000, v4, OS_LOG_TYPE_DEFAULT, "ComposeSession:%@ Dispatchin mailComposeSessionDidBegin for extension %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v5;
+    _os_log_impl(&dword_257F67000, v4, OS_LOG_TYPE_DEFAULT, "ComposeSession:%@ Dispatchin mailComposeSessionDidBegin for extension %@", &v9, 0x16u);
   }
 
   [v3 mailComposeSessionDidBegin:*(*(a1 + 32) + 8)];
@@ -301,8 +297,6 @@ void __78__MEComposeExtensionsHelper__dispatchMailComposeSessionDidBeginForExten
 
   v8 = [*(a1 + 40) extensionHostContext];
   [v8 setComposeExtensionHostDelegate:*(a1 + 32)];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __78__MEComposeExtensionsHelper__dispatchMailComposeSessionDidBeginForExtensions___block_invoke_15(uint64_t a1, void *a2)
@@ -341,73 +335,72 @@ void __78__MEComposeExtensionsHelper__dispatchMailComposeSessionDidBeginForExten
 
 void __99__MEComposeExtensionsHelper_dispatchEmailAddressTokenIconRequestsForMailMessage_completionHandler___block_invoke(uint64_t a1)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v21 = WeakRetained;
+  v19 = WeakRetained;
   if (WeakRetained)
   {
     v3 = WeakRetained;
-    v19 = [*(WeakRetained + 3) getObject];
+    v17 = [*(WeakRetained + 3) getObject];
     [v3[1] setMailMessage:*(a1 + 32)];
-    v28 = 0u;
-    v29 = 0u;
     v26 = 0u;
     v27 = 0u;
-    obj = v19;
-    v4 = [obj countByEnumeratingWithState:&v26 objects:v34 count:16];
+    v24 = 0u;
+    v25 = 0u;
+    obj = v17;
+    v4 = [obj countByEnumeratingWithState:&v24 objects:v32 count:16];
     if (v4)
     {
-      v5 = *v27;
+      v5 = *v25;
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v27 != v5)
+          if (*v25 != v5)
           {
             objc_enumerationMutation(obj);
           }
 
-          v7 = *(*(&v26 + 1) + 8 * i);
+          v7 = *(*(&v24 + 1) + 8 * i);
           v8 = [MEMORY[0x277D071A8] promise];
           v9 = [v7 synchronousComposeSessionInterface];
-          v10 = v21[1];
-          v23[0] = MEMORY[0x277D85DD0];
-          v23[1] = 3221225472;
-          v23[2] = __99__MEComposeExtensionsHelper_dispatchEmailAddressTokenIconRequestsForMailMessage_completionHandler___block_invoke_2;
-          v23[3] = &unk_279858F70;
-          v23[4] = v7;
-          v24 = *(a1 + 40);
+          v10 = v19[1];
+          v21[0] = MEMORY[0x277D85DD0];
+          v21[1] = 3221225472;
+          v21[2] = __99__MEComposeExtensionsHelper_dispatchEmailAddressTokenIconRequestsForMailMessage_completionHandler___block_invoke_2;
+          v21[3] = &unk_279858F70;
+          v21[4] = v7;
+          v22 = *(a1 + 40);
           v11 = v8;
-          v25 = v11;
-          [v9 session:v10 annotateAddressesWithCompletionHandler:v23];
+          v23 = v11;
+          [v9 session:v10 annotateAddressesWithCompletionHandler:v21];
 
           v12 = [v11 future];
-          v22 = 0;
-          v13 = [v12 resultWithTimeout:&v22 error:3.0];
-          v14 = v22;
+          v20 = 0;
+          v13 = [v12 resultWithTimeout:&v20 error:3.0];
+          v14 = v20;
 
           if (v14)
           {
             v15 = +[MEComposeExtensionsHelper log];
             if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
             {
-              v16 = v21[1];
+              v16 = v19[1];
               *buf = 138412546;
-              v31 = v7;
-              v32 = 2112;
-              v33 = v16;
+              v29 = v7;
+              v30 = 2112;
+              v31 = v16;
               _os_log_error_impl(&dword_257F67000, v15, OS_LOG_TYPE_ERROR, "Extension:%@ timeout when requesting address annotations for session %@", buf, 0x16u);
             }
           }
         }
 
-        v4 = [obj countByEnumeratingWithState:&v26 objects:v34 count:16];
+        v4 = [obj countByEnumeratingWithState:&v24 objects:v32 count:16];
       }
 
       while (v4);
     }
 
-    v17 = *(a1 + 40);
     (*(*(a1 + 48) + 16))();
   }
 
@@ -415,38 +408,36 @@ void __99__MEComposeExtensionsHelper_dispatchEmailAddressTokenIconRequestsForMai
   {
     (*(*(a1 + 48) + 16))();
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __99__MEComposeExtensionsHelper_dispatchEmailAddressTokenIconRequestsForMailMessage_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __99__MEComposeExtensionsHelper_dispatchEmailAddressTokenIconRequestsForMailMessage_completionHandler___block_invoke_3;
-  v18[3] = &unk_279858F48;
-  v18[4] = *(a1 + 32);
-  v3 = [a2 ef_mapValues:v18];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
+  v19 = *MEMORY[0x277D85DE8];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __99__MEComposeExtensionsHelper_dispatchEmailAddressTokenIconRequestsForMailMessage_completionHandler___block_invoke_3;
+  v17[3] = &unk_279858F48;
+  v17[4] = *(a1 + 32);
+  v3 = [a2 ef_mapValues:v17];
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v4 = [v3 allKeys];
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v19 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v18 count:16];
   if (v5)
   {
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         v9 = [*(a1 + 40) objectForKeyedSubscript:v8];
         if (!v9)
         {
@@ -458,7 +449,7 @@ void __99__MEComposeExtensionsHelper_dispatchEmailAddressTokenIconRequestsForMai
         [v9 addObject:v10];
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v14 objects:v19 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v13 objects:v18 count:16];
     }
 
     while (v5);
@@ -467,8 +458,6 @@ void __99__MEComposeExtensionsHelper_dispatchEmailAddressTokenIconRequestsForMai
   v11 = *(a1 + 48);
   v12 = [MEMORY[0x277CBEB68] null];
   [v11 finishWithResult:v12];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 id __99__MEComposeExtensionsHelper_dispatchEmailAddressTokenIconRequestsForMailMessage_completionHandler___block_invoke_3(uint64_t a1, void *a2)
@@ -482,42 +471,38 @@ id __99__MEComposeExtensionsHelper_dispatchEmailAddressTokenIconRequestsForMailM
 
 - (void)regenerateEmailAddressTokenChangesForSession:(id)session forContextUUID:(id)d
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = [MEComposeExtensionsHelper log:session];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     extensionDelegate = [(MEComposeExtensionsHelper *)self extensionDelegate];
-    v9 = 138412546;
+    v8 = 138412546;
     selfCopy = self;
-    v11 = 2112;
-    v12 = extensionDelegate;
-    _os_log_impl(&dword_257F67000, v5, OS_LOG_TYPE_DEFAULT, "MEMailComposeExtensionsHelper[%@]: Ivoking %@ to reload address token icons.", &v9, 0x16u);
+    v10 = 2112;
+    v11 = extensionDelegate;
+    _os_log_impl(&dword_257F67000, v5, OS_LOG_TYPE_DEFAULT, "MEMailComposeExtensionsHelper[%@]: Ivoking %@ to reload address token icons.", &v8, 0x16u);
   }
 
   extensionDelegate2 = [(MEComposeExtensionsHelper *)self extensionDelegate];
   [extensionDelegate2 reloadEmailAddressTokenIcons];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)regenerateSecurityStatusInformationForSession:(id)session forContextUUID:(id)d
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = [MEComposeExtensionsHelper log:session];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     extensionDelegate = [(MEComposeExtensionsHelper *)self extensionDelegate];
-    v9 = 138412546;
+    v8 = 138412546;
     selfCopy = self;
-    v11 = 2112;
-    v12 = extensionDelegate;
-    _os_log_impl(&dword_257F67000, v5, OS_LOG_TYPE_DEFAULT, "MEMailComposeExtensionsHelper[%@]: Ivoking %@ to reload message security status information.", &v9, 0x16u);
+    v10 = 2112;
+    v11 = extensionDelegate;
+    _os_log_impl(&dword_257F67000, v5, OS_LOG_TYPE_DEFAULT, "MEMailComposeExtensionsHelper[%@]: Ivoking %@ to reload message security status information.", &v8, 0x16u);
   }
 
   extensionDelegate2 = [(MEComposeExtensionsHelper *)self extensionDelegate];
   [extensionDelegate2 reloadCanSignAndEncryptControls];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getAdditionalHeadersForMessage:(id)message completionHandler:(id)handler
@@ -546,72 +531,71 @@ id __99__MEComposeExtensionsHelper_dispatchEmailAddressTokenIconRequestsForMailM
 
 void __78__MEComposeExtensionsHelper_getAdditionalHeadersForMessage_completionHandler___block_invoke(uint64_t a1)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v21 = WeakRetained;
+  v19 = WeakRetained;
   if (WeakRetained)
   {
     v3 = WeakRetained;
-    v19 = [*(WeakRetained + 3) getObject];
+    v17 = [*(WeakRetained + 3) getObject];
     [v3[1] setMailMessage:*(a1 + 32)];
-    v28 = 0u;
-    v29 = 0u;
     v26 = 0u;
     v27 = 0u;
-    obj = v19;
-    v4 = [obj countByEnumeratingWithState:&v26 objects:v34 count:16];
+    v24 = 0u;
+    v25 = 0u;
+    obj = v17;
+    v4 = [obj countByEnumeratingWithState:&v24 objects:v32 count:16];
     if (v4)
     {
-      v5 = *v27;
+      v5 = *v25;
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v27 != v5)
+          if (*v25 != v5)
           {
             objc_enumerationMutation(obj);
           }
 
-          v7 = *(*(&v26 + 1) + 8 * i);
+          v7 = *(*(&v24 + 1) + 8 * i);
           v8 = [MEMORY[0x277D071A8] promise];
           v9 = [v7 synchronousComposeSessionInterface];
-          v10 = v21[1];
-          v23[0] = MEMORY[0x277D85DD0];
-          v23[1] = 3221225472;
-          v23[2] = __78__MEComposeExtensionsHelper_getAdditionalHeadersForMessage_completionHandler___block_invoke_2;
-          v23[3] = &unk_279858FC0;
-          v24 = *(a1 + 40);
+          v10 = v19[1];
+          v21[0] = MEMORY[0x277D85DD0];
+          v21[1] = 3221225472;
+          v21[2] = __78__MEComposeExtensionsHelper_getAdditionalHeadersForMessage_completionHandler___block_invoke_2;
+          v21[3] = &unk_279858FC0;
+          v22 = *(a1 + 40);
           v11 = v8;
-          v25 = v11;
-          [v9 session:v10 getAdditionalHeadersWithCompletion:v23];
+          v23 = v11;
+          [v9 session:v10 getAdditionalHeadersWithCompletion:v21];
 
           v12 = [v11 future];
-          v22 = 0;
-          v13 = [v12 resultWithTimeout:&v22 error:3.0];
-          v14 = v22;
+          v20 = 0;
+          v13 = [v12 resultWithTimeout:&v20 error:3.0];
+          v14 = v20;
 
           if (v14)
           {
             v15 = +[MEComposeExtensionsHelper log];
             if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
             {
-              v16 = v21[1];
+              v16 = v19[1];
               *buf = 138412546;
-              v31 = v7;
-              v32 = 2112;
-              v33 = v16;
+              v29 = v7;
+              v30 = 2112;
+              v31 = v16;
               _os_log_error_impl(&dword_257F67000, v15, OS_LOG_TYPE_ERROR, "Extension:%@ timeout when fetching additional headers for session %@", buf, 0x16u);
             }
           }
         }
 
-        v4 = [obj countByEnumeratingWithState:&v26 objects:v34 count:16];
+        v4 = [obj countByEnumeratingWithState:&v24 objects:v32 count:16];
       }
 
       while (v4);
     }
 
-    v17 = *(a1 + 40);
     (*(*(a1 + 48) + 16))();
   }
 
@@ -619,8 +603,6 @@ void __78__MEComposeExtensionsHelper_getAdditionalHeadersForMessage_completionHa
   {
     (*(*(a1 + 48) + 16))();
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __78__MEComposeExtensionsHelper_getAdditionalHeadersForMessage_completionHandler___block_invoke_2(uint64_t a1, void *a2)
@@ -671,23 +653,21 @@ uint64_t __96__MEComposeExtensionsHelper_appExtensionViewControllerForExtensionI
 
 void __86__MEComposeExtensionsHelper_initWithComposeSession_extensionsController_iconReloader___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_257F67000, a2, OS_LOG_TYPE_ERROR, "Failed to register for app extensions changes error:%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_257F67000, a2, OS_LOG_TYPE_ERROR, "Failed to register for app extensions changes error:%@", &v2, 0xCu);
 }
 
 void __78__MEComposeExtensionsHelper__dispatchMailComposeSessionDidBeginForExtensions___block_invoke_15_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(*(a1 + 32) + 8);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_257F67000, log, OS_LOG_TYPE_ERROR, "ComposeSession:%@ Failed to fetch the compose session interface due to %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_257F67000, log, OS_LOG_TYPE_ERROR, "ComposeSession:%@ Failed to fetch the compose session interface due to %@", &v4, 0x16u);
 }
 
 @end

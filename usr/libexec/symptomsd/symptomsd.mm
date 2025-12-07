@@ -15,7 +15,7 @@ void sub_1000008EC(uint64_t a1)
   v2 = objc_autoreleasePoolPush();
   if (*(a1 + 40) >= 1)
   {
-    v3 = strncmp(**(a1 + 32), "/usr/libexec/symptomsd-helper", 0x1DuLL) == 0;
+    strncmp(**(a1 + 32), "/usr/libexec/symptomsd-helper", 0x1DuLL);
   }
 
   configure_symptom_logging();

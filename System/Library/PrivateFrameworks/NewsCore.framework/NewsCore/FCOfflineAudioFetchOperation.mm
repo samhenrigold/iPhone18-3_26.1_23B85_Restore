@@ -33,7 +33,7 @@
 
 - (BOOL)validateOperation
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (self && self->_context)
   {
     v3 = 1;
@@ -43,16 +43,16 @@
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"offline article fetch operation requires a context"];
-      v9 = 136315906;
-      v10 = "[FCOfflineAudioFetchOperation validateOperation]";
-      v11 = 2080;
-      v12 = "FCOfflineAudioFetchOperation.m";
-      v13 = 1024;
-      v14 = 65;
-      v15 = 2114;
-      v16 = v7;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v9, 0x26u);
+      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"offline article fetch operation requires a context"];
+      v8 = 136315906;
+      v9 = "[FCOfflineAudioFetchOperation validateOperation]";
+      v10 = 2080;
+      v11 = "FCOfflineAudioFetchOperation.m";
+      v12 = 1024;
+      v13 = 65;
+      v14 = 2114;
+      v15 = v6;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v8, 0x26u);
     }
 
     v3 = 0;
@@ -65,33 +65,31 @@
   if (self->_articleID)
   {
     v4 = 1;
-    goto LABEL_12;
+    return v4 & v3;
   }
 
 LABEL_9:
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"offline article fetch operation requires an article ID"];
-    v9 = 136315906;
-    v10 = "[FCOfflineAudioFetchOperation validateOperation]";
-    v11 = 2080;
-    v12 = "FCOfflineAudioFetchOperation.m";
-    v13 = 1024;
-    v14 = 69;
-    v15 = 2114;
-    v16 = v8;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v9, 0x26u);
+    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"offline article fetch operation requires an article ID"];
+    v8 = 136315906;
+    v9 = "[FCOfflineAudioFetchOperation validateOperation]";
+    v10 = 2080;
+    v11 = "FCOfflineAudioFetchOperation.m";
+    v12 = 1024;
+    v13 = 69;
+    v14 = 2114;
+    v15 = v7;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v8, 0x26u);
   }
 
   v4 = 0;
-LABEL_12:
-  v5 = *MEMORY[0x1E69E9840];
   return v4 & v3;
 }
 
 - (void)performOperation
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = FCOperationLog;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -114,43 +112,41 @@ LABEL_12:
     }
 
     *buf = 138543874;
-    v21 = shortOperationDescription;
-    v22 = 2114;
-    v23 = v6;
-    v24 = 2114;
-    v25 = articleID;
+    v20 = shortOperationDescription;
+    v21 = 2114;
+    v22 = v6;
+    v23 = 2114;
+    v24 = articleID;
     _os_log_impl(&dword_1B63EF000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ will %{public}@ article id=%{public}@", buf, 0x20u);
   }
 
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __48__FCOfflineAudioFetchOperation_performOperation__block_invoke;
-  v19[3] = &unk_1E7C396C0;
-  v19[4] = self;
-  v8 = [MEMORY[0x1E69B68F8] firstly:v19];
-  v9 = zalgo();
   v18[0] = MEMORY[0x1E69E9820];
   v18[1] = 3221225472;
-  v18[2] = __48__FCOfflineAudioFetchOperation_performOperation__block_invoke_2;
-  v18[3] = &unk_1E7C37528;
+  v18[2] = __48__FCOfflineAudioFetchOperation_performOperation__block_invoke;
+  v18[3] = &unk_1E7C396C0;
   v18[4] = self;
-  v10 = [v8 thenOn:v9 then:v18];
-  v11 = zalgo();
+  v8 = [MEMORY[0x1E69B68F8] firstly:v18];
+  v9 = zalgo();
   v17[0] = MEMORY[0x1E69E9820];
   v17[1] = 3221225472;
-  v17[2] = __48__FCOfflineAudioFetchOperation_performOperation__block_invoke_3;
-  v17[3] = &unk_1E7C403D8;
+  v17[2] = __48__FCOfflineAudioFetchOperation_performOperation__block_invoke_2;
+  v17[3] = &unk_1E7C37528;
   v17[4] = self;
-  v12 = [v10 thenOn:v11 then:v17];
-  v13 = zalgo();
+  v10 = [v8 thenOn:v9 then:v17];
+  v11 = zalgo();
   v16[0] = MEMORY[0x1E69E9820];
   v16[1] = 3221225472;
-  v16[2] = __48__FCOfflineAudioFetchOperation_performOperation__block_invoke_4;
-  v16[3] = &unk_1E7C36E50;
+  v16[2] = __48__FCOfflineAudioFetchOperation_performOperation__block_invoke_3;
+  v16[3] = &unk_1E7C403D8;
   v16[4] = self;
-  v14 = [v12 errorOn:v13 error:v16];
-
-  v15 = *MEMORY[0x1E69E9840];
+  v12 = [v10 thenOn:v11 then:v16];
+  v13 = zalgo();
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __48__FCOfflineAudioFetchOperation_performOperation__block_invoke_4;
+  v15[3] = &unk_1E7C36E50;
+  v15[4] = self;
+  v14 = [v12 errorOn:v13 error:v15];
 }
 
 id __48__FCOfflineAudioFetchOperation_performOperation__block_invoke(uint64_t a1)
@@ -267,7 +263,7 @@ void __61__FCOfflineAudioFetchOperation_operationWillFinishWithError___block_inv
 
 void __48__FCOfflineAudioFetchOperation__promiseHeadline__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [FCArticleHeadlinesFetchOperation alloc];
@@ -283,11 +279,11 @@ void __48__FCOfflineAudioFetchOperation__promiseHeadline__block_invoke(uint64_t 
     v9 = 0;
   }
 
-  v27[0] = v8;
+  v26[0] = v8;
   v10 = MEMORY[0x1E695DEC8];
   v11 = v8;
   v12 = v9;
-  v13 = [v10 arrayWithObjects:v27 count:1];
+  v13 = [v10 arrayWithObjects:v26 count:1];
   v14 = [(FCArticleHeadlinesFetchOperation *)v7 initWithContext:v12 articleIDs:v13 ignoreCacheForArticleIDs:0];
 
   [(FCFetchOperation *)v14 setShouldFailOnMissingObjects:1];
@@ -302,33 +298,31 @@ void __48__FCOfflineAudioFetchOperation__promiseHeadline__block_invoke(uint64_t 
   }
 
   [(FCFetchOperation *)v14 setCachePolicy:v15];
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __48__FCOfflineAudioFetchOperation__promiseHeadline__block_invoke_2;
-  v26[3] = &unk_1E7C40478;
-  v26[4] = *(a1 + 32);
-  [(FCArticleHeadlinesFetchOperation *)v14 setInterestTokenHandler:v26];
-  v19 = MEMORY[0x1E69E9820];
-  v20 = 3221225472;
-  v21 = __48__FCOfflineAudioFetchOperation__promiseHeadline__block_invoke_3;
-  v22 = &unk_1E7C3B740;
-  v23 = *(a1 + 32);
-  v24 = v6;
-  v25 = v5;
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __48__FCOfflineAudioFetchOperation__promiseHeadline__block_invoke_2;
+  v25[3] = &unk_1E7C40478;
+  v25[4] = *(a1 + 32);
+  [(FCArticleHeadlinesFetchOperation *)v14 setInterestTokenHandler:v25];
+  v18 = MEMORY[0x1E69E9820];
+  v19 = 3221225472;
+  v20 = __48__FCOfflineAudioFetchOperation__promiseHeadline__block_invoke_3;
+  v21 = &unk_1E7C3B740;
+  v22 = *(a1 + 32);
+  v23 = v6;
+  v24 = v5;
   v16 = v5;
   v17 = v6;
-  [(FCFetchOperation *)v14 setFetchCompletionBlock:&v19];
-  [*(a1 + 32) associateChildOperation:{v14, v19, v20, v21, v22, v23}];
+  [(FCFetchOperation *)v14 setFetchCompletionBlock:&v18];
+  [*(a1 + 32) associateChildOperation:{v14, v18, v19, v20, v21, v22}];
   [(FCOperation *)v14 start];
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __48__FCOfflineAudioFetchOperation__promiseHeadline__block_invoke_2(uint64_t result, uint64_t a2)
+void *__48__FCOfflineAudioFetchOperation__promiseHeadline__block_invoke_2(void *result, uint64_t a2)
 {
   if (a2)
   {
-    v2 = *(result + 32);
+    v2 = result[4];
     if (v2)
     {
       return [*(v2 + 440) addObject:a2];
@@ -495,11 +489,11 @@ void __66__FCOfflineAudioFetchOperation__promiseNarrativeTrackForHeadline___bloc
   [(FCOperation *)v10 start];
 }
 
-uint64_t __66__FCOfflineAudioFetchOperation__promiseNarrativeTrackForHeadline___block_invoke_3(uint64_t result, uint64_t a2)
+void *__66__FCOfflineAudioFetchOperation__promiseNarrativeTrackForHeadline___block_invoke_3(void *result, uint64_t a2)
 {
   if (a2)
   {
-    v2 = *(result + 32);
+    v2 = result[4];
     if (v2)
     {
       return [*(v2 + 440) addObject:a2];

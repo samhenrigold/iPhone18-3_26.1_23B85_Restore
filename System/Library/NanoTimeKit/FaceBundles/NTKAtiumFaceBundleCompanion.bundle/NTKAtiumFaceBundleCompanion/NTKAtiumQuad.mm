@@ -19,9 +19,9 @@
 - (NTKAtiumQuad)initWithDevice:(id)device
 {
   deviceCopy = device;
-  v82.receiver = self;
-  v82.super_class = NTKAtiumQuad;
-  v6 = [(NTKAtiumQuad *)&v82 init];
+  v83.receiver = self;
+  v83.super_class = NTKAtiumQuad;
+  v6 = [(NTKAtiumQuad *)&v83 init];
   v7 = v6;
   if (v6)
   {
@@ -31,23 +31,23 @@
     v7->_mtlDevice = v8;
 
     v10 = v7->_mtlDevice;
-    v11 = sub_424C();
-    v12 = [(MTLDevice *)v10 newDefaultLibraryWithBundle:v11 error:0];
+    v12 = sub_424C(v11);
+    v13 = [(MTLDevice *)v10 newDefaultLibraryWithBundle:v12 error:0];
     library = v7->_library;
-    v7->_library = v12;
+    v7->_library = v13;
 
     [deviceCopy screenScale];
-    v7->_screenScale = v14;
+    v7->_screenScale = v15;
     v7->_tritiumProgress = 0.0;
     v7->_shadowStrength = 1.0;
     v7->_timeShadowOverride = 1.0;
     *v7->_anon_80 = xmmword_8980;
-    v15 = matrix_identity_float4x4.columns[1];
+    v16 = matrix_identity_float4x4.columns[1];
     *v7->_anon_90 = matrix_identity_float4x4.columns[0];
-    *&v7->_anon_90[16] = v15;
-    v16 = matrix_identity_float4x4.columns[3];
+    *&v7->_anon_90[16] = v16;
+    v17 = matrix_identity_float4x4.columns[3];
     *&v7->_anon_90[32] = matrix_identity_float4x4.columns[2];
-    *&v7->_anon_90[48] = v16;
+    *&v7->_anon_90[48] = v17;
     v7->dialSize = 500.0;
     v7->_materialRoughness = 0.25;
     if (_os_feature_enabled_impl())
@@ -56,123 +56,123 @@
     }
 
     v7->_blendTransitionFraction = 0.0;
-    v17 = objc_alloc_init(NSMutableDictionary);
+    v18 = objc_alloc_init(NSMutableDictionary);
     renderPipelines = v7->_renderPipelines;
-    v7->_renderPipelines = v17;
+    v7->_renderPipelines = v18;
 
-    v19 = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
+    v20 = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
     calendar = v7->_calendar;
-    v7->_calendar = v19;
+    v7->_calendar = v20;
 
-    v21 = [CLKUIAnalogHandConfiguration defaultHourConfigurationForDevice:deviceCopy];
-    v22 = [CLKUIAnalogHandConfiguration defaultMinuteConfigurationForDevice:deviceCopy];
-    v23 = [CLKUIAnalogHandConfiguration defaultSecondConfigurationForDevice:deviceCopy];
+    v22 = [CLKUIAnalogHandConfiguration defaultHourConfigurationForDevice:deviceCopy];
+    v23 = [CLKUIAnalogHandConfiguration defaultMinuteConfigurationForDevice:deviceCopy];
+    v24 = [CLKUIAnalogHandConfiguration defaultSecondConfigurationForDevice:deviceCopy];
     screenScale = v7->_screenScale;
-    [v21 handWidth];
-    *&v25 = screenScale * v25 * 0.5;
-    v7->_layoutConstants.radius = *&v25;
-    v26 = v7->_screenScale;
-    [v21 armLength];
-    v28 = v27;
-    [v21 pegRadius];
-    v30 = v28 + v29;
-    [v21 pegStrokeWidth];
-    *&v31 = v26 * (v30 + v31);
-    v7->_layoutConstants.armLength = *&v31;
-    v32 = v7->_screenScale;
-    [v21 handLength];
-    *&v33 = v32 * v33;
-    v7->_layoutConstants.handLength1 = *&v33;
-    v34 = v7->_screenScale;
+    [v22 handWidth];
+    *&v26 = screenScale * v26 * 0.5;
+    v7->_layoutConstants.radius = *&v26;
+    v27 = v7->_screenScale;
+    [v22 armLength];
+    v29 = v28;
+    [v22 pegRadius];
+    v31 = v29 + v30;
+    [v22 pegStrokeWidth];
+    *&v32 = v27 * (v31 + v32);
+    v7->_layoutConstants.armLength = *&v32;
+    v33 = v7->_screenScale;
     [v22 handLength];
-    *&v35 = v34 * v35;
-    v7->_layoutConstants.handLength2 = *&v35;
-    v36 = v7->_screenScale;
+    *&v34 = v33 * v34;
+    v7->_layoutConstants.handLength1 = *&v34;
+    v35 = v7->_screenScale;
     [v23 handLength];
-    *&v37 = v36 * v37;
-    v7->_layoutConstants.secondHandLength = *&v37;
-    v38 = v7->_screenScale;
-    [v23 tailLength];
-    *&v39 = v38 * v39;
-    v7->_layoutConstants.secondHandTailLength = *&v39;
-    v40 = sub_4290(1.5708, xmmword_8990);
-    v47 = v46 + (*&v40 + v43);
-    if (v47 >= 0.0)
+    *&v36 = v35 * v36;
+    v7->_layoutConstants.handLength2 = *&v36;
+    v37 = v7->_screenScale;
+    [v24 handLength];
+    *&v38 = v37 * v38;
+    v7->_layoutConstants.secondHandLength = *&v38;
+    v39 = v7->_screenScale;
+    [v24 tailLength];
+    *&v40 = v39 * v40;
+    v7->_layoutConstants.secondHandTailLength = *&v40;
+    v41 = sub_4290(1.5708, xmmword_8990);
+    v48 = v47 + (*&v41 + v44);
+    if (v48 >= 0.0)
     {
-      v57 = sqrtf(v47 + 1.0);
-      v58 = v57 + v57;
-      v59 = vrecpe_f32(COERCE_UNSIGNED_INT(v57 + v57));
-      v60 = vmul_f32(v59, vrecps_f32(COERCE_UNSIGNED_INT(v57 + v57), v59));
-      v61 = vmul_f32(v60, vrecps_f32(COERCE_UNSIGNED_INT(v57 + v57), v60)).f32[0];
-      v53 = (v44 - *(&v45 + 1)) * v61;
-      v54 = (*&v45 - v41) * v61;
-      v55 = (*(&v40 + 1) - v42) * v61;
-      v62 = v58 * 0.25;
+      v58 = sqrtf(v48 + 1.0);
+      v59 = v58 + v58;
+      v60 = vrecpe_f32(COERCE_UNSIGNED_INT(v58 + v58));
+      v61 = vmul_f32(v60, vrecps_f32(COERCE_UNSIGNED_INT(v58 + v58), v60));
+      v62 = vmul_f32(v61, vrecps_f32(COERCE_UNSIGNED_INT(v58 + v58), v61)).f32[0];
+      v54 = (v45 - *(&v46 + 1)) * v62;
+      v55 = (*&v46 - v42) * v62;
+      v56 = (*(&v41 + 1) - v43) * v62;
+      v63 = v59 * 0.25;
     }
 
     else
     {
-      if (*&v40 < v43 || *&v40 < v46)
+      if (*&v41 < v44 || *&v41 < v47)
       {
-        v63 = 1.0 - *&v40;
-        if (v43 >= v46)
+        v64 = 1.0 - *&v41;
+        if (v44 >= v47)
         {
-          v68 = sqrtf(v43 + (v63 - v46));
-          v69 = v68 + v68;
-          v70 = vrecpe_f32(COERCE_UNSIGNED_INT(v68 + v68));
-          v71 = vmul_f32(v70, vrecps_f32(COERCE_UNSIGNED_INT(v68 + v68), v70));
-          v52 = vmul_f32(v71, vrecps_f32(COERCE_UNSIGNED_INT(v68 + v68), v71)).f32[0];
-          v53 = (*(&v40 + 1) + v42) * v52;
-          v54 = v69 * 0.25;
-          v55 = (v44 + *(&v45 + 1)) * v52;
-          v56 = *&v45 - v41;
+          v69 = sqrtf(v44 + (v64 - v47));
+          v70 = v69 + v69;
+          v71 = vrecpe_f32(COERCE_UNSIGNED_INT(v69 + v69));
+          v72 = vmul_f32(v71, vrecps_f32(COERCE_UNSIGNED_INT(v69 + v69), v71));
+          v53 = vmul_f32(v72, vrecps_f32(COERCE_UNSIGNED_INT(v69 + v69), v72)).f32[0];
+          v54 = (*(&v41 + 1) + v43) * v53;
+          v55 = v70 * 0.25;
+          v56 = (v45 + *(&v46 + 1)) * v53;
+          v57 = *&v46 - v42;
         }
 
         else
         {
-          v64 = sqrtf(v46 + (v63 - v43));
-          v65 = v64 + v64;
-          v66 = vrecpe_f32(COERCE_UNSIGNED_INT(v64 + v64));
-          v67 = vmul_f32(v66, vrecps_f32(COERCE_UNSIGNED_INT(v64 + v64), v66));
-          v52 = vmul_f32(v67, vrecps_f32(COERCE_UNSIGNED_INT(v64 + v64), v67)).f32[0];
-          v53 = (v41 + *&v45) * v52;
-          v54 = (v44 + *(&v45 + 1)) * v52;
-          v55 = v65 * 0.25;
-          v56 = *(&v40 + 1) - v42;
+          v65 = sqrtf(v47 + (v64 - v44));
+          v66 = v65 + v65;
+          v67 = vrecpe_f32(COERCE_UNSIGNED_INT(v65 + v65));
+          v68 = vmul_f32(v67, vrecps_f32(COERCE_UNSIGNED_INT(v65 + v65), v67));
+          v53 = vmul_f32(v68, vrecps_f32(COERCE_UNSIGNED_INT(v65 + v65), v68)).f32[0];
+          v54 = (v42 + *&v46) * v53;
+          v55 = (v45 + *(&v46 + 1)) * v53;
+          v56 = v66 * 0.25;
+          v57 = *(&v41 + 1) - v43;
         }
       }
 
       else
       {
-        v48 = sqrtf(*&v40 + ((1.0 - v43) - v46));
-        *&v49 = v48 + v48;
-        v50 = vrecpe_f32(v49);
-        v51 = vmul_f32(v50, vrecps_f32(v49, v50));
-        v52 = vmul_f32(v51, vrecps_f32(v49, v51)).f32[0];
-        v53 = *&v49 * 0.25;
-        v54 = (*(&v40 + 1) + v42) * v52;
-        v55 = (v41 + *&v45) * v52;
-        v56 = v44 - *(&v45 + 1);
+        v49 = sqrtf(*&v41 + ((1.0 - v44) - v47));
+        *&v50 = v49 + v49;
+        v51 = vrecpe_f32(v50);
+        v52 = vmul_f32(v51, vrecps_f32(v50, v51));
+        v53 = vmul_f32(v52, vrecps_f32(v50, v52)).f32[0];
+        v54 = *&v50 * 0.25;
+        v55 = (*(&v41 + 1) + v43) * v53;
+        v56 = (v42 + *&v46) * v53;
+        v57 = v45 - *(&v46 + 1);
       }
 
-      v62 = v56 * v52;
+      v63 = v57 * v53;
     }
 
-    *&v72 = __PAIR64__(LODWORD(v54), LODWORD(v53));
-    *(&v72 + 1) = __PAIR64__(LODWORD(v62), LODWORD(v55));
-    *v7->_anon_d0 = v72;
+    *&v73 = __PAIR64__(LODWORD(v55), LODWORD(v54));
+    *(&v73 + 1) = __PAIR64__(LODWORD(v63), LODWORD(v56));
+    *v7->_anon_d0 = v73;
     v7->_tritiumMaskMultiplier = 1.0;
-    *&v73 = sub_438C(vaddq_f32(vmlaq_n_f32(vmulq_n_f32(xmmword_89A0, v54), xmmword_89B0, v53), vmlaq_n_f32(vmulq_n_f32(xmmword_89C0, v62), xmmword_89D0, v55)));
-    *v7->_anon_e0 = v73;
-    *&v7->_anon_e0[16] = v74;
-    *&v7->_anon_e0[32] = v75;
-    *&v7->_anon_e0[48] = v76;
+    *&v74 = sub_438C(vaddq_f32(vmlaq_n_f32(vmulq_n_f32(xmmword_89A0, v55), xmmword_89B0, v54), vmlaq_n_f32(vmulq_n_f32(xmmword_89C0, v63), xmmword_89D0, v56)));
+    *v7->_anon_e0 = v74;
+    *&v7->_anon_e0[16] = v75;
+    *&v7->_anon_e0[32] = v76;
+    *&v7->_anon_e0[48] = v77;
     *v7->_anon_120 = xmmword_8980;
-    *&v77 = sub_438C(vaddq_f32(vmlaq_n_f32(vmulq_lane_f32(xmmword_89E0, *v7->_anon_d0, 1), xmmword_89F0, COERCE_FLOAT(*v7->_anon_d0)), vmlaq_laneq_f32(vmulq_laneq_f32(xmmword_8980, *v7->_anon_d0, 3), xmmword_8A00, *v7->_anon_d0, 2)));
-    *v7->_anon_130 = v77;
-    *&v7->_anon_130[16] = v78;
-    *&v7->_anon_130[32] = v79;
-    *&v7->_anon_130[48] = v80;
+    *&v78 = sub_438C(vaddq_f32(vmlaq_n_f32(vmulq_lane_f32(xmmword_89E0, *v7->_anon_d0, 1), xmmword_89F0, COERCE_FLOAT(*v7->_anon_d0)), vmlaq_laneq_f32(vmulq_laneq_f32(xmmword_8980, *v7->_anon_d0, 3), xmmword_8A00, *v7->_anon_d0, 2)));
+    *v7->_anon_130 = v78;
+    *&v7->_anon_130[16] = v79;
+    *&v7->_anon_130[32] = v80;
+    *&v7->_anon_130[48] = v81;
   }
 
   return v7;
@@ -181,7 +181,6 @@
 - (void)setOverrideDate:(id)date duration:(double)duration
 {
   dateCopy = date;
-  overrideDate = self->_overrideDate;
   if ((NTKEqualObjects() & 1) == 0)
   {
     if (duration > 0.0)
@@ -189,42 +188,40 @@
       [(NTKAtiumQuad *)self setAnimatingOverrideDate:1];
     }
 
-    v9 = +[NTKDate faceDate];
-    v10 = v9;
-    v11 = self->_overrideDate;
-    if (!v11)
+    v8 = +[NTKDate faceDate];
+    v9 = v8;
+    overrideDate = self->_overrideDate;
+    if (!overrideDate)
     {
-      v11 = v9;
+      overrideDate = v8;
     }
 
-    v12 = v11;
+    v11 = overrideDate;
     if (dateCopy)
     {
-      v13 = dateCopy;
+      v12 = dateCopy;
     }
 
     else
     {
-      v13 = [v10 dateByAddingTimeInterval:duration];
+      v12 = [v9 dateByAddingTimeInterval:duration];
     }
 
-    v14 = v13;
+    v13 = v12;
     objc_storeStrong(&self->_overrideDate, date);
-    v15 = CACurrentMediaTime();
-    self->_startOverrideTime = v15;
-    self->_endOverrideTime = v15 + duration;
-    calendar = self->_calendar;
+    v14 = CACurrentMediaTime();
+    self->_startOverrideTime = v14;
+    self->_endOverrideTime = v14 + duration;
     NTKHourMinuteSecondAnglesForTime();
-    HIDWORD(v17) = 0;
-    *&v17 = vcvt_f32_f64(0);
-    *(&v17 + 2) = 0.0;
-    *self->_startOverrideAngles = v17;
-    v18 = self->_calendar;
+    HIDWORD(v15) = 0;
+    *&v15 = vcvt_f32_f64(0);
+    *(&v15 + 2) = 0.0;
+    *self->_startOverrideAngles = v15;
     NTKHourMinuteSecondAnglesForTime();
-    HIDWORD(v19) = 0;
-    *&v19 = vcvt_f32_f64(0);
-    *(&v19 + 2) = 0.0;
-    *self->_endOverrideAngles = v19;
+    HIDWORD(v16) = 0;
+    *&v16 = vcvt_f32_f64(0);
+    *(&v16 + 2) = 0.0;
+    *self->_endOverrideAngles = v16;
   }
 }
 
@@ -279,9 +276,7 @@
   aodMaskTexture = self->_aodMaskTexture;
   self->_aodMaskTexture = v19;
 
-  v21 = [(NTKAtiumQuad *)self _createTextureWithName:@"AODMaskTextureBlurred"];
-  aodMaskTextureBlurred = self->_aodMaskTextureBlurred;
-  self->_aodMaskTextureBlurred = v21;
+  self->_aodMaskTextureBlurred = [(NTKAtiumQuad *)self _createTextureWithName:@"AODMaskTextureBlurred"];
 
   _objc_release_x1();
 }
@@ -305,29 +300,28 @@
   v3 = *(self + 424);
   if (v2 >= v3)
   {
-    v16 = *(self + 600);
-    if (v16)
+    v11 = *(self + 600);
+    if (v11)
     {
-      v17 = v16;
+      v12 = v11;
     }
 
     else
     {
-      v17 = +[NTKDate faceDate];
+      v12 = +[NTKDate faceDate];
     }
 
-    v5 = v17;
-    v18 = *(self + 376);
+    v5 = v12;
     NTKHourMinuteSecondAnglesForTime();
-    v19 = vcvt_f32_f64(0);
-    v20 = 0.0;
+    v13 = vcvt_f32_f64(0);
+    v14 = 0.0;
     if (!*(self + 600))
     {
-      v20 = 1.0;
+      v14 = 1.0;
     }
 
-    *(self + 464) = v20;
-    [self setAnimatingOverrideDate:{0, *&v19}];
+    *(self + 464) = v14;
+    [self setAnimatingOverrideDate:{0, *&v13}];
   }
 
   else
@@ -336,29 +330,23 @@
     v5 = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     *&v6 = v4;
     [v5 _solveForInput:v6];
-    v7 = *(self + 448);
-    v8 = *(self + 432);
     CLKInterpolateShortestPathBetweenAnglesUnclipped();
-    v22 = v9;
-    v10 = *(self + 436);
-    v11 = *(self + 452);
+    v16 = v7;
     CLKInterpolateShortestPathBetweenAnglesUnclipped();
-    v12.f64[0] = v22;
-    v12.f64[1] = v13;
-    v23 = vcvt_f32_f64(v12);
-    v14 = *(self + 440);
-    v12.f64[0] = *(self + 456);
+    v8.f64[0] = v16;
+    v8.f64[1] = v9;
+    v17 = vcvt_f32_f64(v8);
     CLKInterpolateShortestPathBetweenAnglesUnclipped();
-    v15 = v4;
+    v10 = v4;
     if (*(self + 600))
     {
-      v15 = 1.0 - v4;
+      v10 = 1.0 - v4;
     }
 
-    *(self + 464) = v15;
+    *(self + 464) = v10;
   }
 
-  return vcvt_f32_f64(vaddq_f64(vsubq_f64(vdupq_n_s64(0x401921FB54442D18uLL), vcvtq_f64_f32(v23)), vdupq_n_s64(0x3FF921FB54442D18uLL)));
+  return vcvt_f32_f64(vaddq_f64(vsubq_f64(vdupq_n_s64(0x401921FB54442D18uLL), vcvtq_f64_f32(v17)), vdupq_n_s64(0x3FF921FB54442D18uLL)));
 }
 
 - (void)renderForDisplayWithEncoder:(id)encoder
@@ -410,7 +398,7 @@
     v12 = v14 | recolorLightingTextureEnabled | ((blendTransitionFraction > 0.0) << 16) | v8 | v9;
     if (!overrideTritiumAnimation)
     {
-      v110 = 0;
+      v104 = 0;
       v15 = 0;
       goto LABEL_18;
     }
@@ -427,16 +415,16 @@
     v12 = v11 | recolorLightingTextureEnabled | ((blendTransitionFraction > 0.0) << 16) | v8 | v9;
   }
 
-  v110 = 1;
+  v104 = 1;
   v15 = 256;
 LABEL_18:
   v16 = 0;
   LODWORD(v17) = 0;
   v18 = v12 | ((v15 | _needsOrientationBlend) << 48);
-  *&v125 = v18;
+  *&v119 = v18;
   do
   {
-    v17 = *(&v125 + v16++) | (2 * v17);
+    v17 = *(&v119 + v16++) | (2 * v17);
   }
 
   while (v16 != 8);
@@ -455,340 +443,333 @@ LABEL_18:
   }
 
   [encoderCopy setLabel:{@"Atium Render Encoder", v18}];
-  v125 = 0uLL;
+  v119 = 0uLL;
   renderSize = self->_renderSize;
-  v127 = xmmword_8A10;
-  [encoderCopy setViewport:&v125];
+  v121 = xmmword_8A10;
+  [encoderCopy setViewport:&v119];
   [encoderCopy setRenderPipelineState:v21];
   [encoderCopy setCullMode:0];
-  memset(v134, 0, sizeof(v134));
-  v132 = 0u;
-  v133 = 0u;
-  v130 = 0u;
-  v131 = 0u;
-  v128 = 0;
-  v129 = 0;
-  renderSize = 0;
+  memset(v128, 0, sizeof(v128));
+  v126 = 0u;
   v127 = 0u;
+  v124 = 0u;
   v125 = 0u;
+  v122 = 0;
+  v123 = 0;
+  renderSize = 0;
+  v121 = 0u;
+  v119 = 0u;
   __asm { FMOV            V1.2D, #0.5 }
 
-  *&v125 = vcvt_f32_f64(vmulq_f64(self->_renderSize, _Q1));
-  firstLightColor = self->firstLightColor;
+  *&v119 = vcvt_f32_f64(vmulq_f64(self->_renderSize, _Q1));
   CLKUIConvertToRGBfFromUIColor();
-  v108 = v28;
-  secondLightColor = self->secondLightColor;
+  v102 = v27;
   CLKUIConvertToRGBfFromUIColor();
-  v111 = v30;
-  backgroundLightColor = self->backgroundLightColor;
+  v105 = v28;
   CLKUIConvertToRGBfFromUIColor();
-  v32 = vcvt_f16_f32(v108);
-  _S2 = v108.i32[2];
+  v29 = vcvt_f16_f32(v102);
+  _S2 = v102.i32[2];
   __asm { FCVT            H2, S2 }
 
-  v32.i16[2] = _S2;
-  v34 = vcvt_f16_f32(v111);
-  _S3 = v111.i32[2];
+  v29.i16[2] = _S2;
+  v31 = vcvt_f16_f32(v105);
+  _S3 = v105.i32[2];
   __asm { FCVT            H3, S3 }
 
-  v34.i16[2] = _S3;
-  v37 = vcvt_f16_f32(_Q0);
+  v31.i16[2] = _S3;
+  v34 = vcvt_f16_f32(_Q0);
   _Q0.i32[0] = _Q0.i32[2];
   __asm { FCVT            H0, S0 }
 
-  v37.i16[2] = _Q0.i16[0];
-  *&v130 = v32;
-  *(&v130 + 1) = v34;
-  *&v131 = v37;
+  v34.i16[2] = _Q0.i16[0];
+  *&v124 = v29;
+  *(&v124 + 1) = v31;
+  *&v125 = v34;
   _Q0.f32[0] = self->dialSize;
-  DWORD2(v131) = _Q0.i32[0];
+  DWORD2(v125) = _Q0.i32[0];
   if (self->_tritiumProgress == 1.0)
   {
-    v38 = &OBJC_IVAR___NTKAtiumQuad__tritiumRotationMatrix;
+    v35 = &OBJC_IVAR___NTKAtiumQuad__tritiumRotationMatrix;
   }
 
   else
   {
     [(NTKAtiumQuad *)self _updateDeviceRotationMatrix];
-    v39 = CACurrentMediaTime();
+    v36 = CACurrentMediaTime();
     endOverrideTime = self->_endOverrideTime;
-    if (v39 > endOverrideTime && self->_overrideDate || v39 < endOverrideTime && !self->_overrideDate)
+    if (v36 > endOverrideTime && self->_overrideDate || v36 < endOverrideTime && !self->_overrideDate)
     {
-      v38 = &OBJC_IVAR___NTKAtiumQuad__idealizedRotationMatrix;
+      v35 = &OBJC_IVAR___NTKAtiumQuad__idealizedRotationMatrix;
     }
 
     else
     {
-      v38 = &OBJC_IVAR___NTKAtiumQuad__idealizedRotationMatrix;
+      v35 = &OBJC_IVAR___NTKAtiumQuad__idealizedRotationMatrix;
       if (!IsReduceMotionEnabled)
       {
-        v38 = &OBJC_IVAR___NTKAtiumQuad__deviceRotationMatrix;
+        v35 = &OBJC_IVAR___NTKAtiumQuad__deviceRotationMatrix;
       }
     }
   }
 
-  v41 = &self->CLKUIQuad_opaque[*v38];
-  v42 = v41[1];
-  renderSize = *v41;
-  v127 = v42;
-  v43 = v41[3];
-  v128 = v41[2];
-  v129 = v43;
+  v38 = &self->CLKUIQuad_opaque[*v35];
+  v39 = v38[1];
+  renderSize = *v38;
+  v121 = v39;
+  v40 = v38[3];
+  v122 = v38[2];
+  v123 = v40;
   materialRoughness = self->_materialRoughness;
-  *(&v131 + 3) = materialRoughness;
+  *(&v125 + 3) = materialRoughness;
   [(NTKAtiumQuad *)self _getHandAngles];
-  v112 = v45;
-  v46 = __sincosf_stret(*&v45);
-  *(&v132 + 1) = __PAIR64__(LODWORD(v46.__sinval), LODWORD(v46.__cosval));
-  v47 = __sincosf_stret(*(&v112 + 1));
-  *&v133 = __PAIR64__(LODWORD(v47.__sinval), LODWORD(v47.__cosval));
-  v48 = __sincosf_stret(*(&v112 + 2));
-  *(&v133 + 1) = __PAIR64__(LODWORD(v48.__sinval), LODWORD(v48.__cosval));
-  v49 = self->_shadowStrength * self->_timeShadowOverride;
-  *&v132 = v49;
-  *(v134 + 8) = *&self->_layoutConstants.handLength1;
-  *(&v134[1] + 1) = *&self->_layoutConstants.secondHandLength;
-  v50 = 0.0;
+  v106 = v42;
+  v43 = __sincosf_stret(*&v42);
+  *(&v126 + 1) = __PAIR64__(LODWORD(v43.__sinval), LODWORD(v43.__cosval));
+  v44 = __sincosf_stret(*(&v106 + 1));
+  *&v127 = __PAIR64__(LODWORD(v44.__sinval), LODWORD(v44.__cosval));
+  v45 = __sincosf_stret(*(&v106 + 2));
+  *(&v127 + 1) = __PAIR64__(LODWORD(v45.__sinval), LODWORD(v45.__cosval));
+  v46 = self->_shadowStrength * self->_timeShadowOverride;
+  *&v126 = v46;
+  *(v128 + 8) = *&self->_layoutConstants.handLength1;
+  *(&v128[1] + 1) = *&self->_layoutConstants.secondHandLength;
+  v47 = 0.0;
   if (self->_tritiumProgress == 1.0)
   {
-    v50 = 1.0;
+    v47 = 1.0;
   }
 
-  v51 = v50;
-  *v134 = v51;
+  v48 = v47;
+  *v128 = v48;
   [(NTKAtiumQuad *)self tritiumMaskMultiplier];
-  *&v52 = v52;
-  DWORD1(v134[0]) = LODWORD(v52);
-  v53 = [(MTLDevice *)self->_mtlDevice newBufferWithBytes:&v125 length:176 options:1];
+  *&v49 = v49;
+  DWORD1(v128[0]) = LODWORD(v49);
+  v50 = [(MTLDevice *)self->_mtlDevice newBufferWithBytes:&v119 length:176 options:1];
   [encoderCopy setVertexBuffer:self->_vertexBuffer offset:0 atIndex:0];
-  [encoderCopy setVertexBuffer:v53 offset:0 atIndex:1];
-  [encoderCopy setFragmentBuffer:v53 offset:0 atIndex:0];
+  [encoderCopy setVertexBuffer:v50 offset:0 atIndex:1];
+  [encoderCopy setFragmentBuffer:v50 offset:0 atIndex:0];
   if (blendTransitionFraction > 0.0)
   {
-    v123 = 0u;
-    v124 = 0u;
-    v121 = 0u;
-    v122 = 0u;
-    v119 = 0u;
-    v120 = 0u;
-    blendFirstLightColor = self->blendFirstLightColor;
+    v117 = 0u;
+    v118 = 0u;
+    v115 = 0u;
+    v116 = 0u;
+    v114 = 0u;
     CLKUIConvertToRGBfFromUIColor();
-    v109 = v55;
-    blendSecondLightColor = self->blendSecondLightColor;
+    v103 = v51;
     CLKUIConvertToRGBfFromUIColor();
-    v113 = v57;
-    blendBackgroundLightColor = self->blendBackgroundLightColor;
+    v107 = v52;
     CLKUIConvertToRGBfFromUIColor();
-    v59 = vcvt_f16_f32(v109);
-    _S2 = v109.i32[2];
+    v53 = vcvt_f16_f32(v103);
+    _S2 = v103.i32[2];
     __asm { FCVT            H2, S2 }
 
-    v59.i16[2] = _S2;
-    v61 = vcvt_f16_f32(v113);
-    _S3 = v113.i32[2];
+    v53.i16[2] = _S2;
+    v55 = vcvt_f16_f32(v107);
+    _S3 = v107.i32[2];
     __asm { FCVT            H3, S3 }
 
-    v61.i16[2] = _S3;
-    *&v119 = v59;
-    *(&v119 + 1) = v61;
-    v64 = vcvt_f16_f32(_Q0);
+    v55.i16[2] = _S3;
+    *&v113 = v53;
+    *(&v113 + 1) = v55;
+    v58 = vcvt_f16_f32(_Q0);
     _Q0.i32[0] = _Q0.i32[2];
     __asm { FCVT            H0, S0 }
 
-    v64.i16[2] = _Q0.i16[0];
-    *v120.f32 = v64;
+    v58.i16[2] = _Q0.i16[0];
+    *v114.f32 = v58;
     _Q0.f32[0] = self->_blendTransitionFraction;
-    v120.i32[2] = _Q0.i32[0];
-    v65 = [(MTLDevice *)self->_mtlDevice newBufferWithBytes:&v119 length:96 options:1];
-    [encoderCopy setFragmentBuffer:v65 offset:0 atIndex:1];
+    v114.i32[2] = _Q0.i32[0];
+    v59 = [(MTLDevice *)self->_mtlDevice newBufferWithBytes:&v113 length:96 options:1];
+    [encoderCopy setFragmentBuffer:v59 offset:0 atIndex:1];
   }
 
   if (_needsOrientationBlend)
   {
-    v123 = 0u;
-    v124 = 0u;
-    v121 = 0u;
-    v122 = 0u;
-    v119 = 0u;
-    v120 = 0u;
-    v66 = CACurrentMediaTime();
-    v68 = self->_endOverrideTime;
-    if (v66 >= v68)
+    v117 = 0u;
+    v118 = 0u;
+    v115 = 0u;
+    v116 = 0u;
+    v113 = 0u;
+    v114 = 0u;
+    v60 = CACurrentMediaTime();
+    v62 = self->_endOverrideTime;
+    if (v60 >= v62)
     {
       if ([(NTKAtiumQuad *)self overrideTritiumAnimation])
       {
-        v74 = CACurrentMediaTime();
+        v68 = CACurrentMediaTime();
         endWristRaiseTime = self->_endWristRaiseTime;
-        if (v74 >= endWristRaiseTime)
+        if (v68 >= endWristRaiseTime)
         {
-          v69 = 0;
-          LODWORD(v119) = 0;
+          v63 = 0;
+          LODWORD(v113) = 0;
           self->_overrideTritiumAnimation = 0;
           tritiumProgress = 0.0;
         }
 
         else
         {
-          tritiumProgress = 1.0 - (v74 - self->_startWristRaiseTime) / (endWristRaiseTime - self->_startWristRaiseTime);
-          *&v119 = tritiumProgress;
-          v69 = 1;
+          tritiumProgress = 1.0 - (v68 - self->_startWristRaiseTime) / (endWristRaiseTime - self->_startWristRaiseTime);
+          *&v113 = tritiumProgress;
+          v63 = 1;
         }
       }
 
       else
       {
-        v69 = 0;
+        v63 = 0;
         tritiumProgress = self->_tritiumProgress;
-        *&v119 = tritiumProgress;
+        *&v113 = tritiumProgress;
       }
 
-      v71 = IsReduceMotionEnabled;
-      v73 = 1.0;
-      v72 = &OBJC_IVAR___NTKAtiumQuad__tritiumRotationMatrix;
+      v65 = IsReduceMotionEnabled;
+      v67 = 1.0;
+      v66 = &OBJC_IVAR___NTKAtiumQuad__tritiumRotationMatrix;
     }
 
     else
     {
-      v69 = 0;
-      tritiumProgress = (v66 - self->_startOverrideTime) / (v68 - self->_startOverrideTime);
-      *&v119 = tritiumProgress;
-      v71 = IsReduceMotionEnabled;
-      v72 = &OBJC_IVAR___NTKAtiumQuad__idealizedRotationMatrix;
+      v63 = 0;
+      tritiumProgress = (v60 - self->_startOverrideTime) / (v62 - self->_startOverrideTime);
+      *&v113 = tritiumProgress;
+      v65 = IsReduceMotionEnabled;
+      v66 = &OBJC_IVAR___NTKAtiumQuad__idealizedRotationMatrix;
       if (self->_overrideDate == 0 && !IsReduceMotionEnabled)
       {
-        v72 = &OBJC_IVAR___NTKAtiumQuad__deviceRotationMatrix;
+        v66 = &OBJC_IVAR___NTKAtiumQuad__deviceRotationMatrix;
       }
 
-      v73 = 0.0;
+      v67 = 0.0;
     }
 
-    v76 = &self->CLKUIQuad_opaque[*v72];
-    v77 = v76[1];
-    v120 = *v76;
-    v121 = v77;
-    v78 = v76[2];
-    v79 = v76[3];
-    v122 = v78;
-    v123 = v79;
-    *&v124 = v73;
-    if (!v71)
+    v70 = &self->CLKUIQuad_opaque[*v66];
+    v71 = v70[1];
+    v114 = *v70;
+    v115 = v71;
+    v72 = v70[2];
+    v73 = v70[3];
+    v116 = v72;
+    v117 = v73;
+    *&v118 = v67;
+    if (!v65)
     {
-      v78.i32[0] = 1045220557;
-      LODWORD(v67) = 1.0;
-      v80 = [CAMediaTimingFunction functionWithControlPoints:0.0];
-      v82 = v80;
-      if (v69)
+      v72.i32[0] = 1045220557;
+      LODWORD(v61) = 1.0;
+      v74 = [CAMediaTimingFunction functionWithControlPoints:0.0];
+      v76 = v74;
+      if (v63)
       {
-        *&v81 = 1.0 - tritiumProgress;
-        [v80 _solveForInput:v81];
+        *&v75 = 1.0 - tritiumProgress;
+        [v74 _solveForInput:v75];
       }
 
       else
       {
-        *&v81 = tritiumProgress;
-        [v80 _solveForInput:v81];
-        v83 = 1.0 - v84;
+        *&v75 = tritiumProgress;
+        [v74 _solveForInput:v75];
+        v77 = 1.0 - v78;
       }
 
-      v85 = v83 * 1.57079633 * 0.7;
-      *&v86 = sub_4290(v85, xmmword_8A20);
-      v87 = 0;
-      v88 = v120;
-      v89 = v121;
-      v90 = v122;
-      v91 = v123;
-      v114[0] = v86;
-      v114[1] = v92;
-      v114[2] = v93;
-      v114[3] = v94;
-      v115 = 0u;
-      v116 = 0u;
-      v117 = 0u;
-      v118 = 0u;
+      v79 = v77 * 1.57079633 * 0.7;
+      *&v80 = sub_4290(v79, xmmword_8A20);
+      v81 = 0;
+      v82 = v114;
+      v83 = v115;
+      v84 = v116;
+      v85 = v117;
+      v108[0] = v80;
+      v108[1] = v86;
+      v108[2] = v87;
+      v108[3] = v88;
+      v109 = 0u;
+      v110 = 0u;
+      v111 = 0u;
+      v112 = 0u;
       do
       {
-        *(&v115 + v87 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v88, COERCE_FLOAT(v114[v87])), v89, *&v114[v87], 1), v90, v114[v87], 2), v91, v114[v87], 3);
-        ++v87;
+        *(&v109 + v81 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v82, COERCE_FLOAT(v108[v81])), v83, *&v108[v81], 1), v84, v108[v81], 2), v85, v108[v81], 3);
+        ++v81;
       }
 
-      while (v87 != 4);
-      v120 = v115;
-      v121 = v116;
-      v122 = v117;
-      v123 = v118;
+      while (v81 != 4);
+      v114 = v109;
+      v115 = v110;
+      v116 = v111;
+      v117 = v112;
     }
 
-    v95 = [(MTLDevice *)self->_mtlDevice newBufferWithBytes:&v119 length:96 options:1];
-    [encoderCopy setFragmentBuffer:v95 offset:0 atIndex:2];
+    v89 = [(MTLDevice *)self->_mtlDevice newBufferWithBytes:&v113 length:96 options:1];
+    [encoderCopy setFragmentBuffer:v89 offset:0 atIndex:2];
   }
 
   if ([(NTKAtiumQuad *)self useRainbowTexture])
   {
-    v96 = &OBJC_IVAR___NTKAtiumQuad__reflectionRainbowCubeTexture;
+    v90 = &OBJC_IVAR___NTKAtiumQuad__reflectionRainbowCubeTexture;
   }
 
   else
   {
     useThreeColorTexture2 = [(NTKAtiumQuad *)self useThreeColorTexture];
-    v96 = &OBJC_IVAR___NTKAtiumQuad__reflectionCubeTexture;
+    v90 = &OBJC_IVAR___NTKAtiumQuad__reflectionCubeTexture;
     if (useThreeColorTexture2)
     {
-      v96 = &OBJC_IVAR___NTKAtiumQuad__reflectionThreeColorCubeTexture;
+      v90 = &OBJC_IVAR___NTKAtiumQuad__reflectionThreeColorCubeTexture;
     }
   }
 
-  [encoderCopy setFragmentTexture:*&self->CLKUIQuad_opaque[*v96] atIndex:0];
+  [encoderCopy setFragmentTexture:*&self->CLKUIQuad_opaque[*v90] atIndex:0];
   if (blendTransitionFraction > 0.0)
   {
     if ([(NTKAtiumQuad *)self blendUseRainbowTexture])
     {
-      v98 = &OBJC_IVAR___NTKAtiumQuad__reflectionRainbowCubeTexture;
+      v92 = &OBJC_IVAR___NTKAtiumQuad__reflectionRainbowCubeTexture;
     }
 
     else
     {
       blendUseThreeColorTexture = [(NTKAtiumQuad *)self blendUseThreeColorTexture];
-      v98 = &OBJC_IVAR___NTKAtiumQuad__reflectionCubeTexture;
+      v92 = &OBJC_IVAR___NTKAtiumQuad__reflectionCubeTexture;
       if (blendUseThreeColorTexture)
       {
-        v98 = &OBJC_IVAR___NTKAtiumQuad__reflectionThreeColorCubeTexture;
+        v92 = &OBJC_IVAR___NTKAtiumQuad__reflectionThreeColorCubeTexture;
       }
     }
 
-    [encoderCopy setFragmentTexture:*&self->CLKUIQuad_opaque[*v98] atIndex:1];
+    [encoderCopy setFragmentTexture:*&self->CLKUIQuad_opaque[*v92] atIndex:1];
   }
 
   [encoderCopy setFragmentTexture:self->_centerMaskTexture atIndex:2];
-  if (v110)
+  if (v104)
   {
     [encoderCopy setFragmentTexture:self->_aodMaskTexture atIndex:3];
   }
 
   [encoderCopy drawPrimitives:4 vertexStart:0 vertexCount:4];
   [(NTKAtiumQuad *)self dialSize];
-  if (v100 < sqrtf(vaddv_f32(vmul_f32(*&v125, *&v125))))
+  if (v94 < sqrtf(vaddv_f32(vmul_f32(*&v119, *&v119))))
   {
-    v101 = 0;
-    LODWORD(v102) = 0;
-    *&v119 = v106 | 0x10000000000;
+    v95 = 0;
+    LODWORD(v96) = 0;
+    *&v113 = v100 | 0x10000000000;
     do
     {
-      v102 = *(&v119 + v101++) | (2 * v102);
+      v96 = *(&v113 + v95++) | (2 * v96);
     }
 
-    while (v101 != 8);
-    v103 = [NSNumber numberWithUnsignedInt:v102];
-    v104 = [(NSMutableDictionary *)self->_renderPipelines objectForKey:v103];
+    while (v95 != 8);
+    v97 = [NSNumber numberWithUnsignedInt:v96];
+    v98 = [(NSMutableDictionary *)self->_renderPipelines objectForKey:v97];
 
-    if (v104)
+    if (v98)
     {
-      0x10000000000 = [(NSMutableDictionary *)self->_renderPipelines objectForKey:v103];
+      0x10000000000 = [(NSMutableDictionary *)self->_renderPipelines objectForKey:v97];
     }
 
     else
     {
-      0x10000000000 = [(NTKAtiumQuad *)self _createRenderPipelineWithPixelFormat:self->_pixelFormat functionConstants:v106 | 0x10000000000];
-      [(NSMutableDictionary *)self->_renderPipelines setObject:0x10000000000 forKey:v103];
+      0x10000000000 = [(NTKAtiumQuad *)self _createRenderPipelineWithPixelFormat:self->_pixelFormat functionConstants:v100 | 0x10000000000];
+      [(NSMutableDictionary *)self->_renderPipelines setObject:0x10000000000 forKey:v97];
     }
 
     [encoderCopy setRenderPipelineState:0x10000000000];
@@ -820,61 +801,62 @@ LABEL_18:
   formatCopy = format;
   constantsCopy = constants;
   v5 = self->_library;
+  v6 = v5;
   if (!self->_binaryArchive)
   {
-    v6 = sub_424C();
-    v7 = [CLKUIMetalBinaryArchive archiveWithName:@"atium" bundle:v6 device:self->_mtlDevice];
+    v7 = sub_424C(v5);
+    v8 = [CLKUIMetalBinaryArchive archiveWithName:@"atium" bundle:v7 device:self->_mtlDevice];
     binaryArchive = self->_binaryArchive;
-    self->_binaryArchive = v7;
+    self->_binaryArchive = v8;
   }
 
-  v9 = objc_opt_new();
+  v10 = objc_opt_new();
   for (i = 0; i != 8; ++i)
   {
-    [v9 setConstantValue:&constantsCopy.var0[i] type:53 atIndex:{i, formatCopy}];
+    [v10 setConstantValue:&constantsCopy.var0[i] type:53 atIndex:{i, formatCopy}];
   }
 
-  v11 = [(MTLLibrary *)v5 newFunctionWithName:@"atiumVertexShader"];
-  v12 = +[MTLFunctionDescriptor functionDescriptor];
-  [v12 setName:@"atiumFragmentShader"];
-  [v12 setConstantValues:v9];
-  v22 = v5;
-  v13 = [(CLKUIMetalBinaryArchive *)self->_binaryArchive newFunctionInLibrary:v5 withDescriptor:v12];
-  if (!v13)
+  v12 = [(MTLLibrary *)v6 newFunctionWithName:@"atiumVertexShader"];
+  v13 = +[MTLFunctionDescriptor functionDescriptor];
+  [v13 setName:@"atiumFragmentShader"];
+  [v13 setConstantValues:v10];
+  v23 = v6;
+  v14 = [(CLKUIMetalBinaryArchive *)self->_binaryArchive newFunctionInLibrary:v6 withDescriptor:v13];
+  if (!v14)
   {
-    v14 = _NTKLoggingObjectForDomain();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    v15 = _NTKLoggingObjectForDomain();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
-      sub_6034(self);
+      sub_6034();
     }
   }
 
-  v15 = objc_alloc_init(MTLRenderPipelineDescriptor);
-  [v15 setVertexFunction:v11];
-  [v15 setFragmentFunction:v13];
-  [v15 setLabel:@"Atium Render Pipeline"];
-  colorAttachments = [v15 colorAttachments];
-  v17 = [colorAttachments objectAtIndexedSubscript:0];
+  v16 = objc_alloc_init(MTLRenderPipelineDescriptor);
+  [v16 setVertexFunction:v12];
+  [v16 setFragmentFunction:v14];
+  [v16 setLabel:@"Atium Render Pipeline"];
+  colorAttachments = [v16 colorAttachments];
+  v18 = [colorAttachments objectAtIndexedSubscript:0];
 
-  [v17 setPixelFormat:formatCopy];
-  [v17 setBlendingEnabled:1];
-  [v17 setRgbBlendOperation:0];
-  [v17 setAlphaBlendOperation:0];
-  [v17 setSourceRGBBlendFactor:4];
-  [v17 setSourceAlphaBlendFactor:4];
-  [v17 setDestinationRGBBlendFactor:5];
-  [v17 setDestinationAlphaBlendFactor:5];
-  v18 = [(CLKUIMetalBinaryArchive *)self->_binaryArchive newRenderPipelineStateForDevice:self->_mtlDevice withDescriptor:v15];
-  if (!v18)
+  [v18 setPixelFormat:formatCopy];
+  [v18 setBlendingEnabled:1];
+  [v18 setRgbBlendOperation:0];
+  [v18 setAlphaBlendOperation:0];
+  [v18 setSourceRGBBlendFactor:4];
+  [v18 setSourceAlphaBlendFactor:4];
+  [v18 setDestinationRGBBlendFactor:5];
+  [v18 setDestinationAlphaBlendFactor:5];
+  v19 = [(CLKUIMetalBinaryArchive *)self->_binaryArchive newRenderPipelineStateForDevice:self->_mtlDevice withDescriptor:v16];
+  if (!v19)
   {
-    v19 = _NTKLoggingObjectForDomain();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+    v20 = _NTKLoggingObjectForDomain();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
     {
-      sub_60C4(&self->_mtlDevice);
+      sub_60C4();
     }
   }
 
-  return v18;
+  return v19;
 }
 
 - (id)_createVertexBuffer
@@ -895,7 +877,7 @@ LABEL_18:
   v15[0] = &off_CB90;
   v15[1] = &off_CBA8;
   v6 = [NSDictionary dictionaryWithObjects:v15 forKeys:v14 count:2];
-  v7 = sub_424C();
+  v7 = sub_424C(v6);
   v13 = 0;
   v8 = [v5 newTextureWithName:nameCopy scaleFactor:v7 bundle:v6 options:&v13 error:1.0];
 
@@ -915,7 +897,7 @@ LABEL_18:
     v11 = _NTKLoggingObjectForDomain();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      sub_614C(&self->_mtlDevice);
+      sub_614C();
     }
   }
 

@@ -16,7 +16,7 @@
 
 - (id)responseForRequest:(id)request
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   [(MDMInstalledApplicationListCommand *)self _reset];
   [(MDMInstalledApplicationListCommand *)self setRequest:requestCopy];
@@ -24,44 +24,43 @@
   [(MDMInstalledApplicationListCommand *)self fetchAppProperties];
   v5 = objc_opt_new();
   appItems = [(MDMInstalledApplicationListCommand *)self appItems];
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
-  v7 = [appItems countByEnumeratingWithState:&v16 objects:v22 count:16];
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v7 = [appItems countByEnumeratingWithState:&v15 objects:v21 count:16];
   if (v7)
   {
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(appItems);
         }
 
-        v10 = [appItems objectForKeyedSubscript:*(*(&v16 + 1) + 8 * i)];
+        v10 = [appItems objectForKeyedSubscript:*(*(&v15 + 1) + 8 * i)];
         if (v10)
         {
           [v5 addObject:v10];
         }
       }
 
-      v7 = [appItems countByEnumeratingWithState:&v16 objects:v22 count:16];
+      v7 = [appItems countByEnumeratingWithState:&v15 objects:v21 count:16];
     }
 
     while (v7);
   }
 
   v11 = [(MDMAbstractTunnelParser *)MDMParser responseWithStatus:@"Acknowledged"];
-  v20 = @"InstalledApplicationList";
-  v21 = v5;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+  v19 = @"InstalledApplicationList";
+  v20 = v5;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
   [v11 addEntriesFromDictionary:v12];
 
   v13 = [v11 copy];
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -85,7 +84,7 @@
 
 - (void)_processIdentifiersArgument
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   [(MDMInstalledApplicationListCommand *)self _validateRequestDictionaryIsPresentAndADictionary];
   request = [(MDMInstalledApplicationListCommand *)self request];
   v4 = [request objectForKeyedSubscript:@"Identifiers"];
@@ -100,28 +99,28 @@
     }
 
     v5 = objc_opt_new();
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
-    v15 = v4;
+    v14 = v4;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v17;
+      v9 = *v16;
       do
       {
         v10 = 0;
         do
         {
-          if (*v17 != v9)
+          if (*v16 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v16 + 1) + 8 * v10);
+          v11 = *(*(&v15 + 1) + 8 * v10);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -133,7 +132,7 @@
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v8);
@@ -142,15 +141,13 @@
     v12 = [v5 copy];
     [(MDMInstalledApplicationListCommand *)selfCopy setAppsRequested:v12];
 
-    v4 = v15;
+    v4 = v14;
   }
 
   else
   {
     [(MDMInstalledApplicationListCommand *)self setAppsRequested:0];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processManagedAppsOnlyArgument
@@ -178,7 +175,7 @@
 - (void)_processItemsArgument
 {
   selfCopy = self;
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   [(MDMInstalledApplicationListCommand *)self _validateRequestDictionaryIsPresentAndADictionary];
   request = [(MDMInstalledApplicationListCommand *)selfCopy request];
   v4 = [request objectForKeyedSubscript:@"Items"];
@@ -188,41 +185,41 @@
   v7 = allItems;
   if (v4)
   {
-    v20 = selfCopy;
+    v19 = selfCopy;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       [MEMORY[0x277CBEAD8] raise:@"InvalidArgument" format:@"argument Items is not an array"];
     }
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
-    v19 = v4;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
+    v18 = v4;
     v8 = v4;
-    v9 = [v8 countByEnumeratingWithState:&v21 objects:v27 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v20 objects:v26 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v22;
+      v11 = *v21;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v22 != v11)
+          if (*v21 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v21 + 1) + 8 * i);
+          v13 = *(*(&v20 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             [MEMORY[0x277CBEAD8] raise:@"InvalidArgument" format:@"item is not a string"];
           }
 
-          if ([v7 containsObject:{v13, v19}])
+          if ([v7 containsObject:{v13, v18}])
           {
             [v5 addObject:v13];
           }
@@ -233,20 +230,20 @@
             if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              v26 = v13;
+              v25 = v13;
               _os_log_impl(&dword_2561F5000, v14, OS_LOG_TYPE_ERROR, "InstalledApplicationList command requested invalid Item %{public}@. Ignored.", buf, 0xCu);
             }
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v21 objects:v27 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v20 objects:v26 count:16];
       }
 
       while (v10);
     }
 
-    v4 = v19;
-    selfCopy = v20;
+    v4 = v18;
+    selfCopy = v19;
   }
 
   else
@@ -262,18 +259,15 @@
   [v5 unionSet:itemsThatMustAlwaysBeReturned];
 
   [(MDMInstalledApplicationListCommand *)selfCopy setItemsRequested:v5];
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 + (id)itemsThatMustAlwaysBeReturned
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"Identifier";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+  v6[0] = @"Identifier";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -316,42 +310,38 @@
 
 + (id)allItems
 {
-  v7[16] = *MEMORY[0x277D85DE8];
+  v6[16] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"Identifier";
-  v7[1] = @"ExternalVersionIdentifier";
-  v7[2] = @"DistributorIdentifier";
-  v7[3] = @"Version";
-  v7[4] = @"ShortVersion";
-  v7[5] = @"Name";
-  v7[6] = @"BundleSize";
-  v7[7] = @"DynamicSize";
-  v7[8] = @"IsValidated";
-  v7[9] = @"Installing";
-  v7[10] = @"AppStoreVendable";
-  v7[11] = @"DeviceBasedVPP";
-  v7[12] = @"BetaApp";
-  v7[13] = @"AdHocCodeSigned";
-  v7[14] = @"HasUpdateAvailable";
-  v7[15] = @"IsAppClip";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:16];
+  v6[0] = @"Identifier";
+  v6[1] = @"ExternalVersionIdentifier";
+  v6[2] = @"DistributorIdentifier";
+  v6[3] = @"Version";
+  v6[4] = @"ShortVersion";
+  v6[5] = @"Name";
+  v6[6] = @"BundleSize";
+  v6[7] = @"DynamicSize";
+  v6[8] = @"IsValidated";
+  v6[9] = @"Installing";
+  v6[10] = @"AppStoreVendable";
+  v6[11] = @"DeviceBasedVPP";
+  v6[12] = @"BetaApp";
+  v6[13] = @"AdHocCodeSigned";
+  v6[14] = @"HasUpdateAvailable";
+  v6[15] = @"IsAppClip";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:16];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 + (id)expensiveItems
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"BundleSize";
-  v7[1] = @"DynamicSize";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
+  v6[0] = @"BundleSize";
+  v6[1] = @"DynamicSize";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

@@ -3508,12 +3508,12 @@ LABEL_26:
     goto LABEL_7;
   }
 
-  path2 = [*p_uuidDatabaseURL path];
+  path2 = [(NSURL *)*p_uuidDatabaseURL path];
   v13 = [v9 fileExistsAtPath:path2];
 
   if ((v13 & 1) == 0)
   {
-    path3 = [*p_uuidDatabaseURL path];
+    path3 = [(NSURL *)*p_uuidDatabaseURL path];
     v15 = [v9 createFileAtPath:path3 contents:0 attributes:0];
 
     if ((v15 & 1) == 0)

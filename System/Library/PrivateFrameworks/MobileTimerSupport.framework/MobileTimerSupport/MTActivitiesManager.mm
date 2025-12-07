@@ -68,15 +68,15 @@
 
 - (void)createActivityWithAlarm:(id)alarm completion:(id)completion
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   alarmCopy = alarm;
   completionCopy = completion;
   v8 = MTLogForCategory();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v12 = 138543362;
+    v11 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_22D741000, v8, OS_LOG_TYPE_INFO, "%{public}@ creating new alarm session", &v12, 0xCu);
+    _os_log_impl(&dword_22D741000, v8, OS_LOG_TYPE_INFO, "%{public}@ creating new alarm session", &v11, 0xCu);
   }
 
   if (_os_feature_enabled_impl())
@@ -91,21 +91,19 @@
     v10 = [(MTActivitiesManager *)self contextForAlarm:alarmCopy];
     [alarmKitProxy createActivityWithContext:v10 completion:completionCopy];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)restoreActivityWithAlarm:(id)alarm completion:(id)completion
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   alarmCopy = alarm;
   completionCopy = completion;
   v8 = MTLogForCategory();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v12 = 138543362;
+    v11 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_22D741000, v8, OS_LOG_TYPE_INFO, "%{public}@ restoring alarm session", &v12, 0xCu);
+    _os_log_impl(&dword_22D741000, v8, OS_LOG_TYPE_INFO, "%{public}@ restoring alarm session", &v11, 0xCu);
   }
 
   if (_os_feature_enabled_impl())
@@ -121,24 +119,22 @@
     alarmProxy = [(MTActivitiesManager *)self alarmProxy];
     [alarmProxy createActivityWithContext:alarmKitProxy completion:completionCopy];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateActivityWithAlarm:(id)alarm completion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   alarmCopy = alarm;
   completionCopy = completion;
   v8 = MTLogForCategory();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     alarmIDString = [alarmCopy alarmIDString];
-    v13 = 138543618;
+    v12 = 138543618;
     selfCopy = self;
-    v15 = 2114;
-    v16 = alarmIDString;
-    _os_log_impl(&dword_22D741000, v8, OS_LOG_TYPE_INFO, "%{public}@ updating session for alarm: %{public}@", &v13, 0x16u);
+    v14 = 2114;
+    v15 = alarmIDString;
+    _os_log_impl(&dword_22D741000, v8, OS_LOG_TYPE_INFO, "%{public}@ updating session for alarm: %{public}@", &v12, 0x16u);
   }
 
   if (_os_feature_enabled_impl())
@@ -154,27 +150,25 @@
     alarmProxy = [(MTActivitiesManager *)self alarmProxy];
     [alarmProxy updateActivityWithContext:alarmKitProxy completion:completionCopy];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)alertActivityWithAlarm:(id)alarm playSound:(BOOL)sound completion:(id)completion
 {
   soundCopy = sound;
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   alarmCopy = alarm;
   completionCopy = completion;
   v10 = MTLogForCategory();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     alarmIDString = [alarmCopy alarmIDString];
-    v19 = 138543874;
+    v18 = 138543874;
     selfCopy = self;
-    v21 = 2114;
-    v22 = alarmIDString;
-    v23 = 1024;
-    v24 = soundCopy;
-    _os_log_impl(&dword_22D741000, v10, OS_LOG_TYPE_INFO, "%{public}@ alerting session for alarm: %{public}@, play sound: %i", &v19, 0x1Cu);
+    v20 = 2114;
+    v21 = alarmIDString;
+    v22 = 1024;
+    v23 = soundCopy;
+    _os_log_impl(&dword_22D741000, v10, OS_LOG_TYPE_INFO, "%{public}@ alerting session for alarm: %{public}@, play sound: %i", &v18, 0x1Cu);
   }
 
   isSleepAlarm = [alarmCopy isSleepAlarm];
@@ -212,23 +206,21 @@
     alarmProxy = [(MTActivitiesManager *)self alarmProxy];
     [alarmProxy alertActivityWithContext:alarmKitProxy tlConfig:v15 completion:completionCopy];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endActivityWithAlarmID:(id)d completion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dCopy = d;
   completionCopy = completion;
   v8 = MTLogForCategory();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v11 = 138543618;
+    v10 = 138543618;
     selfCopy = self;
-    v13 = 2114;
-    v14 = dCopy;
-    _os_log_impl(&dword_22D741000, v8, OS_LOG_TYPE_INFO, "%{public}@ ending session for alarm: %{public}@", &v11, 0x16u);
+    v12 = 2114;
+    v13 = dCopy;
+    _os_log_impl(&dword_22D741000, v8, OS_LOG_TYPE_INFO, "%{public}@ ending session for alarm: %{public}@", &v10, 0x16u);
   }
 
   if (_os_feature_enabled_impl())
@@ -242,13 +234,11 @@
   }
   v9 = ;
   [v9 endActivityWithId:dCopy completion:completionCopy];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)contextForAlarm:(id)alarm
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   alarmCopy = alarm;
   v5 = [_TtC18MobileTimerSupport12AlarmContext alloc];
   title = [alarmCopy title];
@@ -259,34 +249,32 @@
   snoozeFireDate = [alarmCopy snoozeFireDate];
   isFiring = [alarmCopy isFiring];
 
-  LOBYTE(v17) = isFiring;
-  v13 = [(AlarmContext *)v5 initWithTitle:title alarmId:alarmIDString hour:hour min:minute isSnoozed:isSnoozed snoozeFireDate:snoozeFireDate isFiring:v17];
+  LOBYTE(v16) = isFiring;
+  v13 = [(AlarmContext *)v5 initWithTitle:title alarmId:alarmIDString hour:hour min:minute isSnoozed:isSnoozed snoozeFireDate:snoozeFireDate isFiring:v16];
 
   v14 = MTLogForCategory();
   if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     *buf = 138543618;
     selfCopy = self;
-    v20 = 2114;
-    v21 = v13;
+    v19 = 2114;
+    v20 = v13;
     _os_log_impl(&dword_22D741000, v14, OS_LOG_TYPE_INFO, "%{public}@ created alarm context: %{public}@", buf, 0x16u);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 - (void)alarmCountdownActivities:(id)activities
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   activitiesCopy = activities;
   v5 = MTLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v8 = 138543362;
+    v7 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_22D741000, v5, OS_LOG_TYPE_INFO, "%{public}@ alarmCountdownActivities", &v8, 0xCu);
+    _os_log_impl(&dword_22D741000, v5, OS_LOG_TYPE_INFO, "%{public}@ alarmCountdownActivities", &v7, 0xCu);
   }
 
   if (_os_feature_enabled_impl())
@@ -300,20 +288,18 @@
     alarmKitProxy = [(MTActivitiesManager *)self alarmProxy];
     [alarmKitProxy activitiesWithAlert:0 completion:activitiesCopy];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)alarmAlertingActivities:(id)activities
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   activitiesCopy = activities;
   v5 = MTLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v8 = 138543362;
+    v7 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_22D741000, v5, OS_LOG_TYPE_INFO, "%{public}@ alarmAlertingActivities", &v8, 0xCu);
+    _os_log_impl(&dword_22D741000, v5, OS_LOG_TYPE_INFO, "%{public}@ alarmAlertingActivities", &v7, 0xCu);
   }
 
   if (_os_feature_enabled_impl())
@@ -327,20 +313,18 @@
     alarmKitProxy = [(MTActivitiesManager *)self alarmProxy];
     [alarmKitProxy activitiesWithAlert:1 completion:activitiesCopy];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)alarmActivities:(id)activities
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   activitiesCopy = activities;
   v5 = MTLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v8 = 138543362;
+    v7 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_22D741000, v5, OS_LOG_TYPE_INFO, "%{public}@ alarmActivities", &v8, 0xCu);
+    _os_log_impl(&dword_22D741000, v5, OS_LOG_TYPE_INFO, "%{public}@ alarmActivities", &v7, 0xCu);
   }
 
   if (_os_feature_enabled_impl())
@@ -354,21 +338,19 @@
     alarmKitProxy = [(MTActivitiesManager *)self alarmProxy];
     [alarmKitProxy activitiesWithCompletion:activitiesCopy];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createActivityWithTimer:(id)timer completion:(id)completion
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   timerCopy = timer;
   completionCopy = completion;
   v8 = MTLogForCategory();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v12 = 138543362;
+    v11 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_22D741000, v8, OS_LOG_TYPE_INFO, "%{public}@ creating new timer session", &v12, 0xCu);
+    _os_log_impl(&dword_22D741000, v8, OS_LOG_TYPE_INFO, "%{public}@ creating new timer session", &v11, 0xCu);
   }
 
   if (_os_feature_enabled_impl())
@@ -383,21 +365,19 @@
     timerProxy = [(MTActivitiesManager *)self timerProxy];
     [timerProxy createActivityWithContext:alarmKitProxy completion:completionCopy];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)restoreActivityWithTimer:(id)timer completion:(id)completion
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   timerCopy = timer;
   completionCopy = completion;
   v8 = MTLogForCategory();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v12 = 138543362;
+    v11 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_22D741000, v8, OS_LOG_TYPE_INFO, "%{public}@ restoring timer session", &v12, 0xCu);
+    _os_log_impl(&dword_22D741000, v8, OS_LOG_TYPE_INFO, "%{public}@ restoring timer session", &v11, 0xCu);
   }
 
   if (_os_feature_enabled_impl())
@@ -413,24 +393,22 @@
     timerProxy = [(MTActivitiesManager *)self timerProxy];
     [timerProxy createActivityWithContext:alarmKitProxy completion:completionCopy];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateActivityWithTimer:(id)timer completion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   timerCopy = timer;
   completionCopy = completion;
   v8 = MTLogForCategory();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     timerIDString = [timerCopy timerIDString];
-    v13 = 138543618;
+    v12 = 138543618;
     selfCopy = self;
-    v15 = 2114;
-    v16 = timerIDString;
-    _os_log_impl(&dword_22D741000, v8, OS_LOG_TYPE_INFO, "%{public}@ updating session for timer: %{public}@", &v13, 0x16u);
+    v14 = 2114;
+    v15 = timerIDString;
+    _os_log_impl(&dword_22D741000, v8, OS_LOG_TYPE_INFO, "%{public}@ updating session for timer: %{public}@", &v12, 0x16u);
   }
 
   if (_os_feature_enabled_impl())
@@ -445,24 +423,22 @@
     v11 = [(MTActivitiesManager *)self contextForTimer:timerCopy];
     [alarmKitProxy updateActivityWithContext:v11 completion:completionCopy];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)alertActivityWithTimer:(id)timer completion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   timerCopy = timer;
   completionCopy = completion;
   v8 = MTLogForCategory();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     timerIDString = [timerCopy timerIDString];
-    v15 = 138543618;
+    v14 = 138543618;
     selfCopy = self;
-    v17 = 2114;
-    v18 = timerIDString;
-    _os_log_impl(&dword_22D741000, v8, OS_LOG_TYPE_INFO, "%{public}@ alerting session for timer: %{public}@", &v15, 0x16u);
+    v16 = 2114;
+    v17 = timerIDString;
+    _os_log_impl(&dword_22D741000, v8, OS_LOG_TYPE_INFO, "%{public}@ alerting session for timer: %{public}@", &v14, 0x16u);
   }
 
   sound = [timerCopy sound];
@@ -481,23 +457,21 @@
     timerProxy = [(MTActivitiesManager *)self timerProxy];
     [timerProxy alertActivityWithContext:alarmKitProxy tlConfig:v11 completion:completionCopy];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endActivityWithTimerID:(id)d completion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dCopy = d;
   completionCopy = completion;
   v8 = MTLogForCategory();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v11 = 138543618;
+    v10 = 138543618;
     selfCopy = self;
-    v13 = 2114;
-    v14 = dCopy;
-    _os_log_impl(&dword_22D741000, v8, OS_LOG_TYPE_INFO, "%{public}@ ending session for timer: %{public}@", &v11, 0x16u);
+    v12 = 2114;
+    v13 = dCopy;
+    _os_log_impl(&dword_22D741000, v8, OS_LOG_TYPE_INFO, "%{public}@ ending session for timer: %{public}@", &v10, 0x16u);
   }
 
   if (_os_feature_enabled_impl())
@@ -511,20 +485,18 @@
   }
   v9 = ;
   [v9 endActivityWithId:dCopy completion:completionCopy];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)timerCountdownActivities:(id)activities
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   activitiesCopy = activities;
   v5 = MTLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v8 = 138543362;
+    v7 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_22D741000, v5, OS_LOG_TYPE_INFO, "%{public}@ timerCountdownActivities", &v8, 0xCu);
+    _os_log_impl(&dword_22D741000, v5, OS_LOG_TYPE_INFO, "%{public}@ timerCountdownActivities", &v7, 0xCu);
   }
 
   if (_os_feature_enabled_impl())
@@ -538,20 +510,18 @@
     alarmKitProxy = [(MTActivitiesManager *)self timerProxy];
     [alarmKitProxy activitiesWithAlert:0 completion:activitiesCopy];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)timerAlertingActivities:(id)activities
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   activitiesCopy = activities;
   v5 = MTLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v8 = 138543362;
+    v7 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_22D741000, v5, OS_LOG_TYPE_INFO, "%{public}@ timerAlertingActivities", &v8, 0xCu);
+    _os_log_impl(&dword_22D741000, v5, OS_LOG_TYPE_INFO, "%{public}@ timerAlertingActivities", &v7, 0xCu);
   }
 
   if (_os_feature_enabled_impl())
@@ -565,20 +535,18 @@
     alarmKitProxy = [(MTActivitiesManager *)self timerProxy];
     [alarmKitProxy activitiesWithAlert:1 completion:activitiesCopy];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)timerActivities:(id)activities
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   activitiesCopy = activities;
   v5 = MTLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v8 = 138543362;
+    v7 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_22D741000, v5, OS_LOG_TYPE_INFO, "%{public}@ timerActivities", &v8, 0xCu);
+    _os_log_impl(&dword_22D741000, v5, OS_LOG_TYPE_INFO, "%{public}@ timerActivities", &v7, 0xCu);
   }
 
   if (_os_feature_enabled_impl())
@@ -592,13 +560,11 @@
     alarmKitProxy = [(MTActivitiesManager *)self timerProxy];
     [alarmKitProxy activitiesWithCompletion:activitiesCopy];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)contextForTimer:(id)timer
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   timerCopy = timer;
   v5 = [_TtC18MobileTimerSupport12TimerContext alloc];
   v6 = [(MTActivitiesManager *)self sessionStateForTimer:timerCopy];
@@ -616,14 +582,12 @@
   v17 = MTLogForCategory();
   if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
-    v20 = 138543618;
+    v19 = 138543618;
     selfCopy = self;
-    v22 = 2114;
-    v23 = v16;
-    _os_log_impl(&dword_22D741000, v17, OS_LOG_TYPE_INFO, "%{public}@ created timer context: %{public}@ ", &v20, 0x16u);
+    v21 = 2114;
+    v22 = v16;
+    _os_log_impl(&dword_22D741000, v17, OS_LOG_TYPE_INFO, "%{public}@ created timer context: %{public}@ ", &v19, 0x16u);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -644,15 +608,15 @@
 
 - (void)clearOutdatedAlarmAndTimerActivities
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (_os_feature_enabled_impl())
   {
     v3 = MTLogForCategory();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v7 = 138543362;
+      v6 = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_22D741000, v3, OS_LOG_TYPE_INFO, "%{public}@ removing all outdated alarm and timer activities", &v7, 0xCu);
+      _os_log_impl(&dword_22D741000, v3, OS_LOG_TYPE_INFO, "%{public}@ removing all outdated alarm and timer activities", &v6, 0xCu);
     }
 
     alarmProxy = [(MTActivitiesManager *)self alarmProxy];
@@ -661,8 +625,6 @@
     timerProxy = [(MTActivitiesManager *)self timerProxy];
     [timerProxy endAllActivities];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -15,7 +15,7 @@
 {
   formatterCopy = formatter;
   _string = [(_BKSHIDStringIdentifierEventDeferringToken *)self _string];
-  v5 = [formatterCopy appendObject:_string withName:0 skipIfNil:0];
+  v5 = [formatterCopy appendObject:? withName:? skipIfNil:?];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -31,7 +31,7 @@
     v5 = objc_opt_class();
     if (v5 == objc_opt_class())
     {
-      v6 = [(NSString *)self->_stringIdentifier isEqual:equalCopy->_stringIdentifier];
+      v6 = [(NSString *)self->_stringIdentifier isEqual:?];
     }
 
     else
@@ -45,51 +45,49 @@
 
 - (_BKSHIDStringIdentifierEventDeferringToken)initWithCoder:(id)coder
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v22.receiver = self;
-  v22.super_class = _BKSHIDStringIdentifierEventDeferringToken;
-  _init = [(BKSHIDEventDeferringToken *)&v22 _init];
+  v19.receiver = self;
+  v19.super_class = _BKSHIDStringIdentifierEventDeferringToken;
+  _init = [(BKSHIDEventDeferringToken *)&v19 _init];
   v6 = objc_opt_class();
   if (v6 == objc_opt_class())
   {
-    v13 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"stringIdentifier"];
-    if ([v13 length])
+    objc_opt_class();
+    v12 = [coderCopy decodeObjectOfClass:? forKey:?];
+    if ([v12 length])
     {
-      v14 = _init[1];
-      _init[1] = v13;
+      v13 = _init[1];
+      _init[1] = v12;
 
-      v12 = _init;
+      v11 = _init;
       goto LABEL_6;
     }
 
-    v17 = MEMORY[0x1E696ABC0];
-    v18 = *MEMORY[0x1E696A250];
-    v25 = *MEMORY[0x1E696A588];
-    v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to decode BKSHIDEventDeferringToken: empty string"];
-    v26[0] = v19;
-    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
-    v21 = [v17 errorWithDomain:v18 code:4866 userInfo:v20];
-    [coderCopy failWithError:v21];
+    v15 = MEMORY[0x1E696ABC0];
+    v22 = *MEMORY[0x1E696A588];
+    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
+    v23 = v16;
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+    v18 = [v15 errorWithDomain:? code:? userInfo:?];
+    [coderCopy failWithError:?];
   }
 
   else
   {
     v7 = MEMORY[0x1E696ABC0];
-    v8 = *MEMORY[0x1E696A250];
-    v23 = *MEMORY[0x1E696A588];
-    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to decode BKSHIDEventDeferringToken: subclasses are not allowed : %@", objc_opt_class()];
-    v24 = v9;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
-    v11 = [v7 errorWithDomain:v8 code:4866 userInfo:v10];
-    [coderCopy failWithError:v11];
+    v20 = *MEMORY[0x1E696A588];
+    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:objc_opt_class()];
+    v21 = v8;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+    v10 = [v7 errorWithDomain:? code:? userInfo:?];
+    [coderCopy failWithError:?];
   }
 
-  v12 = 0;
+  v11 = 0;
 LABEL_6:
 
-  v15 = *MEMORY[0x1E69E9840];
-  return v12;
+  return v11;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -97,47 +95,46 @@ LABEL_6:
   coderCopy = coder;
   if ([(NSString *)self->_stringIdentifier length])
   {
-    [coderCopy encodeObject:self->_stringIdentifier forKey:@"stringIdentifier"];
+    [coderCopy encodeObject:? forKey:?];
   }
 }
 
 - (id)initForProtobufDecoding
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v11.receiver = self;
-  v11.super_class = _BKSHIDStringIdentifierEventDeferringToken;
-  _init = [(BKSHIDEventDeferringToken *)&v11 _init];
+  v23 = *MEMORY[0x1E69E9840];
+  v10.receiver = self;
+  v10.super_class = _BKSHIDStringIdentifierEventDeferringToken;
+  _init = [(BKSHIDEventDeferringToken *)&v10 _init];
   v4 = objc_opt_class();
   if (v4 != objc_opt_class())
   {
-    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot subclass BKSHIDEventDeferringToken"];
+    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v8 = NSStringFromSelector(a2);
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
+      v7 = NSStringFromSelector(a2);
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
       *buf = 138544642;
-      v13 = v8;
-      v14 = 2114;
-      v15 = v10;
-      v16 = 2048;
-      v17 = _init;
-      v18 = 2114;
-      v19 = @"BKSHIDEventDeferringToken.m";
-      v20 = 1024;
-      v21 = 179;
-      v22 = 2114;
-      v23 = v7;
+      v12 = v7;
+      v13 = 2114;
+      v14 = v9;
+      v15 = 2048;
+      v16 = _init;
+      v17 = 2114;
+      v18 = @"BKSHIDEventDeferringToken.m";
+      v19 = 1024;
+      v20 = 179;
+      v21 = 2114;
+      v22 = v6;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v7 UTF8String];
+    [v6 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x18637E90CLL);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return _init;
 }
 
@@ -159,7 +156,7 @@ LABEL_6:
 
 - (_BKSHIDStringIdentifierEventDeferringToken)init
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"-init is not allowed on _BKSHIDStringIdentifierEventDeferringToken"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v5 = NSStringFromSelector(a2);

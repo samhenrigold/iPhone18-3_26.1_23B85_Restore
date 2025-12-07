@@ -178,25 +178,25 @@ void __71__AFConversationStore_fetchConversationWithIdentifier_completionBlock__
 
 void __71__AFConversationStore_saveConversation_withIdentifier_completionBlock___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _registerConversation:*(a1 + 40) withIdentifier:*(a1 + 48)];
   v2 = [*(a1 + 40) propertyListRepresentation];
-  v16 = 0;
-  v3 = [MEMORY[0x1E696AE40] dataWithPropertyList:v2 format:200 options:0 error:&v16];
-  v4 = v16;
+  v15 = 0;
+  v3 = [MEMORY[0x1E696AE40] dataWithPropertyList:v2 format:200 options:0 error:&v15];
+  v4 = v15;
   if (v3)
   {
     v5 = AFFileURLForConversationWithIdentifier(*(a1 + 48));
-    v15 = v4;
-    v6 = [v3 writeToURL:v5 options:805306369 error:&v15];
-    v7 = v15;
+    v14 = v4;
+    v6 = [v3 writeToURL:v5 options:805306369 error:&v14];
+    v7 = v14;
 
     if (v6)
     {
       v8 = *MEMORY[0x1E695DB80];
-      v14 = v7;
-      v9 = [v5 setResourceValue:MEMORY[0x1E695E118] forKey:v8 error:&v14];
-      v4 = v14;
+      v13 = v7;
+      v9 = [v5 setResourceValue:MEMORY[0x1E695E118] forKey:v8 error:&v13];
+      v4 = v13;
 
       if (v9)
       {
@@ -209,9 +209,9 @@ void __71__AFConversationStore_saveConversation_withIdentifier_completionBlock__
         if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v18 = "[AFConversationStore saveConversation:withIdentifier:completionBlock:]_block_invoke";
-          v19 = 2112;
-          v20 = v5;
+          v17 = "[AFConversationStore saveConversation:withIdentifier:completionBlock:]_block_invoke";
+          v18 = 2112;
+          v19 = v5;
           _os_log_error_impl(&dword_1912FE000, v10, OS_LOG_TYPE_ERROR, "%s Unable to exclude %@ from backup; deleting.", buf, 0x16u);
         }
 
@@ -238,8 +238,6 @@ void __71__AFConversationStore_saveConversation_withIdentifier_completionBlock__
   {
     (*(v12 + 16))(v12, v6, v4);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_registerConversation:(id)conversation withIdentifier:(id)identifier

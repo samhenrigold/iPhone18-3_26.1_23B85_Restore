@@ -1,11 +1,80 @@
-H16ISP::H16ISPDevice **H16ISP::ProjectorManager::updateOnChange(H16ISP::H16ISPDevice **this, int a2, int a3)
+uint64_t H16ISP::ProjectorManager::setProjectorType(H16ISP::ProjectorManager *this, unsigned int a2)
+{
+  v2 = a2;
+  if (a2 == 47)
+  {
+    if (H16ISP::g_UserDefinedProjectorType)
+    {
+
+      return H16ISP::ProjectorManager::applyUserDefinedType(this);
+    }
+
+    v2 = 0;
+  }
+
+  *(this + 20) = 0x4000000040;
+  v10 = 1572;
+  v11 = *this;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  memset(v20, 0, 128);
+  v5 = H16ISP::ProjectorManager::_projectorSequences[129 * v2];
+  if (v5 >= 1)
+  {
+    v6 = v20;
+    v7 = &H16ISP::ProjectorManager::_projectorSequences[129 * v2 + 2];
+    do
+    {
+      v8 = *v7;
+      *(v6 - 64) = *(v7 - 1);
+      *v6++ = v8;
+      v7 += 2;
+      --v5;
+    }
+
+    while (v5);
+  }
+
+  H16ISP::ProjectorManager::updateOnChange(this, *(this + 2 * v2 + 8), *(this + 2 * v2 + 9));
+  result = H16ISP::H16ISPDevice::ISP_SendCommand(*(this + 1), v9, 0x12Cu, 0, 0xFFFFFFFF);
+  *(this + 4) = v2;
+  return result;
+}
+
+uint64_t H16ISP::ProjectorManager::setProjectorType(H16ISP::ProjectorManager *this, CFDictionaryRef theDict)
+{
+  H16ISP::ProjectorManager::setUserDefinedProjectorType(theDict, theDict);
+
+  return H16ISP::ProjectorManager::setProjectorType(this, 0x2Fu);
+}
+
+CFDictionaryRef H16ISP::ProjectorManager::setUserDefinedProjectorType(CFDictionaryRef theDict, const __CFDictionary *a2)
+{
+  if (H16ISP::g_UserDefinedProjectorType)
+  {
+    CFRelease(H16ISP::g_UserDefinedProjectorType);
+    H16ISP::g_UserDefinedProjectorType = 0;
+  }
+
+  result = CFDictionaryCreateCopy(*MEMORY[0x277CBECE8], theDict);
+  H16ISP::g_UserDefinedProjectorType = result;
+  return result;
+}
+
+uint64_t H16ISP::ProjectorManager::updateOnChange(uint64_t this, int a2, int a3)
 {
   if (a2)
   {
     v5 = this;
-    if (this[52])
+    if (*(this + 416))
     {
-      if (*(this + 103) == a3)
+      if (*(this + 412) == a3)
       {
         return this;
       }
@@ -13,22 +82,22 @@ H16ISP::H16ISPDevice **H16ISP::ProjectorManager::updateOnChange(H16ISP::H16ISPDe
 
     else
     {
-      H16ISP::H16ISPDevice::EnableAE(this[1], *this, 0);
+      H16ISP::H16ISPDevice::EnableAE(*(this + 8), *this, 0);
       *(v5 + 416) = 1;
     }
 
-    v6 = v5[1];
+    v6 = *(v5 + 8);
     v7 = *(v6 + 24);
     if (v7 != *v5)
     {
-      H16ISP::H16ISPDevice::SetMinimumFrameRate(v6, *v5);
-      H16ISP::H16ISPDevice::SetMaximumFrameRate(v5[1], *v5);
-      v6 = v5[1];
+      H16ISP::H16ISPDevice::SetMinimumFrameRate(v6);
+      H16ISP::H16ISPDevice::SetMaximumFrameRate(*(v5 + 8));
+      v6 = *(v5 + 8);
       v7 = *v5;
     }
 
     this = H16ISP::H16ISPDevice::SetAEIntegrationTimeAndGains(v6, v7, a2, 256, 256, 256, 0, a3, 0, 0, 0, 0);
-    *(v5 + 103) = a3;
+    *(v5 + 412) = a3;
   }
 
   return this;
@@ -833,7 +902,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t applyHouseholder(uint64_t result, uint64_t a2, uint64_t a3, double *a4, uint64_t a5, double *a6, uint64_t a7)
+uint64_t applyHouseholder(uint64_t result, uint64_t a2, unint64_t a3, double *a4, uint64_t a5, double *a6, uint64_t a7)
 {
   if (a2 >= 2 && a3 >= 1 && *a4 != 0.0)
   {
@@ -934,12 +1003,12 @@ uint64_t bidiagonalSVD(uint64_t a1, double *a2, double *a3, double *a4, double *
   return v14 | v17;
 }
 
-uint64_t dbdsqr_(uint64_t *a1, uint64_t *a2, uint64_t *a3, double *a4, double *a5, double *a6, uint64_t *a7, double *a8, double a9, int8x16_t a10, int8x16_t a11, int8x16_t a12, int8x16_t a13, double a14, int8x16_t a15, int8x16_t a16, uint64_t *a17, double *a18, uint64_t *a19)
+uint64_t dbdsqr_(uint64_t *a1, uint64_t *a2, uint64_t *a3, double *a4, double *a5, double *a6, uint64_t *a7, double *a8, double a9, int8x16_t a10, int8x16_t a11, int8x16_t a12, int8x16_t a13, double a14, int8x16_t a15, int8x16_t q7_0, uint64_t *a16, double *a17, uint64_t *a18)
 {
-  v19 = a19;
+  v19 = a18;
   v259 = 0.0;
   v260[0] = 0;
-  v20 = *a17;
+  v20 = *a16;
   v257 = 0.0;
   v258 = 0.0;
   v255 = 0.0;
@@ -951,7 +1020,7 @@ uint64_t dbdsqr_(uint64_t *a1, uint64_t *a2, uint64_t *a3, double *a4, double *a
   v249 = 0.0;
   v250 = 0.0;
   v248 = 0.0;
-  *a19 = 0;
+  *a18 = 0;
   v21 = *a1;
   if (!*a1)
   {
@@ -1017,23 +1086,23 @@ uint64_t dbdsqr_(uint64_t *a1, uint64_t *a2, uint64_t *a3, double *a4, double *a
 
   v71 = 0;
   v72 = 0;
-  v223 = &a18[2 * v28];
-  v222 = &a18[3 * v28];
-  v221 = a18 - 1;
-  v244 = &a18[v21 - 1];
+  v223 = &a17[2 * v28];
+  v222 = &a17[3 * v28];
+  v221 = a17 - 1;
+  v244 = &a17[v21 - 1];
   v239 = a5 - 1;
   v212 = v25 + 1;
   v204 = a6 - 1;
   v230 = a5 - 2;
   v225 = v25 - 2;
   v226 = &a8[~v20 + 1];
-  v73 = &a18[3 * v21];
-  v209 = &a18[2 * v21 - 4];
+  v73 = &a17[3 * v21];
+  v209 = &a17[2 * v21 - 4];
   v210 = v73 - 5;
   v243 = v73 - 3;
-  v207 = a18 - 2;
-  v208 = &a18[v21 - 3];
-  v242 = &a18[2 * v21 - 2];
+  v207 = a17 - 2;
+  v208 = &a17[v21 - 3];
+  v242 = &a17[2 * v21 - 2];
   v203 = a5 + 1;
   v74 = -1;
   v75.f64[0] = NAN;
@@ -1351,12 +1420,12 @@ LABEL_151:
                     dlasr_("L", "B", v260, v26, v223, v222, &v24[v90], a7);
                     v260[0] = v186;
                     v20 = v224;
-                    dlasr_("R", "B", v229, v260, a18, &v221[*v231], &v226[v246 * v224], a17);
+                    dlasr_("R", "B", v229, v260, a17, &v221[*v231], &v226[v246 * v224], a16);
                     v86 = v246;
                     a1 = v231;
                     a5 = v232;
                     v84 = &v239[v21 - 1];
-                    v19 = a19;
+                    v19 = a18;
                     v87 = &v225[v21];
                     v72 = v234;
                     v71 = v236;
@@ -1413,7 +1482,7 @@ LABEL_151:
 
                       ++v150;
                       v145 = v158 * v160 + v159 * v161;
-                      a18[v147] = v153;
+                      a17[v147] = v153;
                       v244[v147] = v152;
                       v242[v147] = v159;
                       v243[v147++] = v160;
@@ -1435,10 +1504,10 @@ LABEL_137:
                   v144 = v24;
                   v26 = a2;
                   a7 = v216;
-                  dlasr_("L", "F", v260, a2, a18, &v221[v240], &v24[v238], v216);
+                  dlasr_("L", "F", v260, a2, a17, &v221[v240], &v24[v238], v216);
                   v260[0] = v163;
                   v20 = v224;
-                  dlasr_("R", "F", v229, v260, v223, v222, &v226[v246 * v224], a17);
+                  dlasr_("R", "F", v229, v260, v223, v222, &v226[v246 * v224], a16);
                   v84 = &v239[v21 - 1];
                   if (fabs(*v233) <= v40)
                   {
@@ -1543,7 +1612,7 @@ LABEL_137:
                 dlasr_("L", "B", v260, v26, v223, v222, &v24[v90], a7);
                 v260[0] = v140;
                 v20 = v224;
-                dlasr_("R", "B", v229, v260, a18, &v221[*v231], &v226[v141 * v224], a17);
+                dlasr_("R", "B", v229, v260, a17, &v221[*v231], &v226[v141 * v224], a16);
                 a5 = v232;
                 if (fabs(v232[v238]) <= v40)
                 {
@@ -1551,7 +1620,7 @@ LABEL_137:
                 }
 
                 v79 = v78;
-                v19 = a19;
+                v19 = a18;
                 a1 = v231;
                 v72 = v234;
                 v71 = v236;
@@ -1585,7 +1654,7 @@ LABEL_137:
                   }
 
                   v116 = v258;
-                  a18[v113] = v258;
+                  a17[v113] = v258;
                   v244[v113] = v121;
                   v115 = v252;
                   v242[v113] = v252;
@@ -1619,10 +1688,10 @@ LABEL_120:
               v260[0] = v112 + 1;
               v144 = v24;
               v26 = a2;
-              dlasr_("L", "F", v260, a2, a18, &v221[v102], &v24[v90], a7);
+              dlasr_("L", "F", v260, a2, a17, &v221[v102], &v24[v90], a7);
               v260[0] = v143;
               v20 = v224;
-              dlasr_("R", "F", v229, v260, v223, v222, &v226[v246 * v224], a17);
+              dlasr_("R", "F", v229, v260, v223, v222, &v226[v246 * v224], a16);
               v84 = &v239[v21 - 1];
               if (fabs(*v233) <= v40)
               {
@@ -1633,7 +1702,7 @@ LABEL_120:
               v79 = v77;
 LABEL_123:
               a5 = v232;
-              v19 = a19;
+              v19 = a18;
               a1 = v231;
               v72 = v234;
               v71 = v236;
@@ -1668,7 +1737,7 @@ LABEL_84:
           v237 = v71;
           v260[0] = v21 - 1;
           v187 = v84;
-          dlasv2_(v219, v84, v83, &v250, &v248, &v253, &v254, &v255, v76, a10, a11, a12, a13, v89, *a15.i64, a16, &v256);
+          dlasv2_(v219, v84, v83, &v250, &v248, &v253, &v254, &v255, v76, a10, a11, a12, a13, v89, *a15.i64, q7_0, &v256);
           *v219 = v248;
           *v187 = 0.0;
           *v83 = v250;
@@ -1697,7 +1766,7 @@ LABEL_84:
           a3 = v229;
           v194 = *v229;
           a5 = v232;
-          v19 = a19;
+          v19 = a18;
           a1 = v231;
           v71 = v237;
           v22 = a8;
@@ -2395,23 +2464,23 @@ CFDictionaryRef JasperCalibration::nvmToDictionary(JasperCalibration *this, H16I
   v4[0] = &unk_283813120;
   v4[1] = v5;
   theDict = 0;
-  NvmPeridotInputFactory::validate(v4, a2);
+  NvmPeridotInputFactory::validate(v4);
   Copy = CFDictionaryCreateCopy(*MEMORY[0x277CBECE8], theDict);
   NvmPeridotInputFactory::~NvmPeridotInputFactory(v4);
   return Copy;
 }
 
-void sub_224871044(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_224871044(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   NvmPeridotInputFactory::~NvmPeridotInputFactory(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t NvmPeridotInputFactory::validate(NvmPeridotInputFactory *this, uint64_t a2)
+uint64_t NvmPeridotInputFactory::validate(NvmPeridotInputFactory *this)
 {
-  v2 = MEMORY[0x28223BE20](this, a2);
-  v11 = *MEMORY[0x277D85DE8];
+  v1 = MEMORY[0x28223BE20](this);
+  v10 = *MEMORY[0x277D85DE8];
   result = NvmPeridotInputFactory::pDevice;
   if (NvmPeridotInputFactory::pDevice)
   {
@@ -2424,19 +2493,19 @@ uint64_t NvmPeridotInputFactory::validate(NvmPeridotInputFactory *this, uint64_t
 
     else
     {
-      v5 = SensorChannel;
-      SensorNVM = NvmPeridotInputFactory::readSensorNVM(v2, NvmPeridotInputFactory::pDevice, SensorChannel, v10, 0xA000u);
+      v4 = SensorChannel;
+      SensorNVM = NvmPeridotInputFactory::readSensorNVM(v1, NvmPeridotInputFactory::pDevice, SensorChannel, v9, 0xA000u);
       if (SensorNVM)
       {
-        v7 = SensorNVM;
-        DeviceNVM = NvmPeridotInputFactory::readDeviceNVM(v2, NvmPeridotInputFactory::pDevice, v5, 13, v10, 0xA000u);
+        v6 = SensorNVM;
+        DeviceNVM = NvmPeridotInputFactory::readDeviceNVM(v1, NvmPeridotInputFactory::pDevice, v4, 13, v9, 0xA000u);
         if (DeviceNVM)
         {
-          v9 = DeviceNVM;
-          *(v2 + 4) = PDPeridotCalibCalibrationBlobsFromNVM();
-          CFRelease(v7);
-          CFRelease(v9);
-          if (*(v2 + 4))
+          v8 = DeviceNVM;
+          *(v1 + 4) = PDPeridotCalibCalibrationBlobsFromNVM();
+          CFRelease(v6);
+          CFRelease(v8);
+          if (*(v1 + 4))
           {
             NSLog(&cfstr_DefaultCalibra_3.isa);
             return 1;
@@ -2448,7 +2517,7 @@ uint64_t NvmPeridotInputFactory::validate(NvmPeridotInputFactory *this, uint64_t
         else
         {
           NSLog(&cfstr_DefaultCalibra_1.isa);
-          CFRelease(v7);
+          CFRelease(v6);
         }
       }
 
@@ -2562,7 +2631,7 @@ LABEL_7:
 
 uint64_t FileInputFactory::overrideFilesAllowed(FileInputFactory *this)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (FileInputFactory::_entitlementsChecked != 1)
   {
     NSLog(&cfstr_TestingIfAfdrM.isa);
@@ -2576,7 +2645,7 @@ uint64_t FileInputFactory::overrideFilesAllowed(FileInputFactory *this)
 
     else
     {
-      v12 = 0;
+      v16 = 0;
       v2 = MGCopyAnswer();
       if (!v2)
       {
@@ -2626,37 +2695,37 @@ LABEL_15:
         goto LABEL_15;
       }
 
-      if (Img4DecodeInitManifest([v8 bytes], objc_msgSend(v8, "length"), v13))
+      if (Img4DecodeInitManifest([v8 bytes], objc_msgSend(v8, "length"), v17))
       {
         NSLog(&cfstr_FailedToInitia.isa);
         v1 = 1;
         return v1 & 1;
       }
 
-      if (Img4DecodeGetBooleanFromSection(v13, 0, 1717660003, &v12))
+      if (Img4DecodeGetBooleanFromSection(v17, 0, 1717660003, &v16, v10, v11))
       {
-        LOBYTE(v12) = 0;
+        LOBYTE(v16) = 0;
       }
 
-      if (Img4DecodeGetBooleanFromSection(v13, 0, 1717663091, &v12 + 1))
+      if (Img4DecodeGetBooleanFromSection(v17, 0, 1717663091, &v16 + 1, v12, v13))
       {
-        v10 = 0;
-        HIBYTE(v12) = 0;
+        v14 = 0;
+        HIBYTE(v16) = 0;
       }
 
       else
       {
-        v10 = HIBYTE(v12);
+        v14 = HIBYTE(v16);
       }
 
-      FileInputFactory::_overrideFilesAllowed = (v10 | v12) & 1;
-      v11 = " not";
-      if ((v10 | v12))
+      FileInputFactory::_overrideFilesAllowed = (v14 | v16) & 1;
+      v15 = " not";
+      if ((v14 | v16))
       {
-        v11 = "";
+        v15 = "";
       }
 
-      NSLog(&cfstr_AfdrMaySBeUsed.isa, v11, v12, v10);
+      NSLog(&cfstr_AfdrMaySBeUsed.isa, v15, v16, v14);
     }
 
     v1 = FileInputFactory::_overrideFilesAllowed;
@@ -2701,10 +2770,10 @@ uint64_t PCECalibration::readRosalineConfiguration(PCECalibration *this, unsigne
   return PFCL;
 }
 
-void sub_224871888(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_224871888(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
-  FDRInputFactory::~FDRInputFactory((v13 + 8));
+  va_start(va, a20);
+  FDRInputFactory::~FDRInputFactory((v20 + 8));
   FileInputFactory::~FileInputFactory(va);
   _Unwind_Resume(a1);
 }
@@ -2716,14 +2785,14 @@ void *PCECalibrationManager<FDRInputFactory>::~PCECalibrationManager(void *a1)
   return a1;
 }
 
-uint64_t PCECalibrationManager<FileInputFactory>::~PCECalibrationManager(uint64_t a1)
+CFTypeRef *PCECalibrationManager<FileInputFactory>::~PCECalibrationManager(CFTypeRef *a1)
 {
   *a1 = &unk_283813278;
-  FileInputFactory::~FileInputFactory((a1 + 8));
+  FileInputFactory::~FileInputFactory(a1 + 1);
   return a1;
 }
 
-const void *PCECalibration::readNVMBuffer(size_t *this, unint64_t *a2)
+void *PCECalibration::readNVMBuffer(size_t *this, unint64_t *a2)
 {
   v3 = fopen("/var/mobile/Library/ISP/Pearl/NVM.bin", "rb");
   if (v3)
@@ -2759,57 +2828,57 @@ const void *PCECalibration::readNVMBuffer(size_t *this, unint64_t *a2)
   return PWCL;
 }
 
-void sub_224871B90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_224871B90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
-  FDRInputFactory::~FDRInputFactory((v13 + 8));
+  va_start(va, a20);
+  FDRInputFactory::~FDRInputFactory((v20 + 8));
   FileInputFactory::~FileInputFactory(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t PCECalibration::readColorAssembly(uint64_t a1)
+uint64_t PCECalibration::readColorAssembly(uint64_t a1, uint64_t a2)
 {
-  CalibrationManager<FileInputFactory>::CalibrationManager(&v10);
-  v10 = &unk_283813468;
-  v12 = 1;
-  if (PCECalibrationManager<FileInputFactory>::readPCVE(&v10, a1) && (PCECalibrationManager<FileInputFactory>::readPCVI(&v10), (v2 & 1) != 0))
+  CalibrationManager<FileInputFactory>::CalibrationManager(&v12);
+  v12 = &unk_283813468;
+  v14 = 1;
+  if (PCECalibrationManager<FileInputFactory>::readPCVE(&v12, a1) && (PCECalibrationManager<FileInputFactory>::readPCVI(&v12, a2), (v4 & 1) != 0))
   {
-    v3 = 1;
+    v5 = 1;
   }
 
   else
   {
-    CalibrationManager<FDRInputFactory>::CalibrationManager(&v6);
-    v6 = &unk_2838130A0;
-    v9 = 1;
-    if (v8 == 1)
+    CalibrationManager<FDRInputFactory>::CalibrationManager(&v8);
+    v8 = &unk_2838130A0;
+    v11 = 1;
+    if (v10 == 1)
     {
-      v8 = v7[33];
+      v10 = v9[33];
     }
 
-    if (PCECalibrationManager<FileInputFactory>::readPCVE(&v6, a1))
+    if (PCECalibrationManager<FileInputFactory>::readPCVE(&v8, a1))
     {
-      PCECalibrationManager<FileInputFactory>::readPCVI(&v6);
-      v3 = v4;
+      PCECalibrationManager<FileInputFactory>::readPCVI(&v8, a2);
+      v5 = v6;
     }
 
     else
     {
-      v3 = 0;
+      v5 = 0;
     }
 
-    v6 = &unk_2838133A0;
-    FDRInputFactory::~FDRInputFactory(v7);
+    v8 = &unk_2838133A0;
+    FDRInputFactory::~FDRInputFactory(v9);
   }
 
-  v10 = &unk_283813278;
-  FileInputFactory::~FileInputFactory(&v11);
-  return v3;
+  v12 = &unk_283813278;
+  FileInputFactory::~FileInputFactory(&v13);
+  return v5;
 }
 
-void sub_224871D4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_224871D4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   FileInputFactory::~FileInputFactory(va);
   _Unwind_Resume(a1);
 }
@@ -2847,22 +2916,22 @@ uint64_t PCECalibrationManager<FileInputFactory>::readPCVE(uint64_t a1, uint64_t
   return result;
 }
 
-void PCECalibrationManager<FileInputFactory>::readPCVI(uint64_t a1)
+void PCECalibrationManager<FileInputFactory>::readPCVI(uint64_t a1, uint64_t a2)
 {
   Input = InputFactory::getInput((a1 + 8), 3);
   if ((*(*Input + 16))(Input))
   {
-    (*(*Input + 24))(Input, &v3, 4);
-    switch(v3)
+    (*(*Input + 24))(Input, &v4, 4);
+    switch(v4)
     {
       case 3:
-        PCECalibrationManager<FileInputFactory>::readPCIIv3(a1, Input);
+        PCECalibrationManager<FileInputFactory>::readPCIIv3(a1);
         break;
       case 2:
-        PCECalibrationManager<FileInputFactory>::readPCIIv2(a1, Input);
+        PCECalibrationManager<FileInputFactory>::readPCIIv2(a1);
         break;
       case 1:
-        PCECalibrationManager<FileInputFactory>::readPCIIv1(a1, Input);
+        PCECalibrationManager<FileInputFactory>::readPCIIv1(a1);
         break;
     }
   }
@@ -2940,91 +3009,91 @@ void FileInput::~FileInput(FileInput *this)
   JUMPOUT(0x22AA55B60);
 }
 
-uint64_t PCECalibration::fill(uint64_t a1, uint64_t a2)
+BOOL PCECalibration::fill(uint64_t a1)
 {
-  MEMORY[0x28223BE20](a1, a2);
-  v3 = v2;
-  v5 = v4;
-  v33 = *MEMORY[0x277D85DE8];
+  MEMORY[0x28223BE20](a1);
+  v2 = v1;
+  v4 = v3;
+  v32 = *MEMORY[0x277D85DE8];
   NSLog(&cfstr_PearlCalibrati_53.isa);
   umask(0);
-  if ((makeDirectories("/var/mobile/Library/ISP/Pearl", v6) & 1) == 0)
+  if ((makeDirectories("/var/mobile/Library/ISP/Pearl", v5) & 1) == 0)
   {
     NSLog(&cfstr_CouldnTValidat.isa);
     return 0;
   }
 
   NSLog(&cfstr_LookingForLoca.isa);
-  v7 = fopen("/var/mobile/Library/ISP/Pearl/PCECalib.bin", "rb");
-  if (!v7)
+  v6 = fopen("/var/mobile/Library/ISP/Pearl/PCECalib.bin", "rb");
+  if (!v6)
   {
     goto LABEL_27;
   }
 
-  v8 = v7;
-  fread(v5, 1uLL, 0x3400uLL, v7);
-  if (!v3)
+  v7 = v6;
+  fread(v4, 1uLL, 0x3400uLL, v6);
+  if (!v2)
   {
     goto LABEL_20;
   }
 
   NSLog(&cfstr_ValidatingCali.isa);
-  CalibrationManager<FileInputFactory>::CalibrationManager(&v24);
-  v24 = &unk_283813468;
-  v29 = 0;
-  if ((PCECalibrationManager<FileInputFactory>::readPRF1(&v24, &v30) & 1) == 0)
+  CalibrationManager<FileInputFactory>::CalibrationManager(&v23);
+  v23 = &unk_283813468;
+  v28 = 0;
+  if ((PCECalibrationManager<FileInputFactory>::readPRF1(&v23, &v29) & 1) == 0)
   {
-    CalibrationManager<FDRInputFactory>::CalibrationManager(&v20);
-    v20 = &unk_2838130A0;
-    if (v22 == 1)
+    CalibrationManager<FDRInputFactory>::CalibrationManager(&v19);
+    v19 = &unk_2838130A0;
+    if (v21 == 1)
     {
-      v22 = v21[33];
+      v21 = v20[33];
     }
 
-    v23 = 0;
-    if ((PCECalibrationManager<FDRInputFactory>::readPRF1(&v20, &v30) & 1) == 0)
+    v22 = 0;
+    if ((PCECalibrationManager<FDRInputFactory>::readPRF1(&v19, &v29) & 1) == 0)
     {
       NSLog(&cfstr_FailedToReadUu.isa);
-      v20 = &unk_2838133A0;
-      FDRInputFactory::~FDRInputFactory(v21);
-      v24 = &unk_283813278;
-      FileInputFactory::~FileInputFactory(v25);
+      v19 = &unk_2838133A0;
+      FDRInputFactory::~FDRInputFactory(v20);
+      v23 = &unk_283813278;
+      FileInputFactory::~FileInputFactory(v24);
       goto LABEL_25;
     }
 
-    v20 = &unk_2838133A0;
-    FDRInputFactory::~FDRInputFactory(v21);
+    v19 = &unk_2838133A0;
+    FDRInputFactory::~FDRInputFactory(v20);
   }
 
-  v9 = 0;
-  v11 = v5[1] != v31[0] || v5[2] != v31[1];
-  v12 = @"Cached UUID: 0x";
+  v8 = 0;
+  v10 = v4[1] != v30[0] || v4[2] != v30[1];
+  v11 = @"Cached UUID: 0x";
   do
   {
-    v12 = [(__CFString *)v12 stringByAppendingFormat:@"%02X", *(v5 + v9++ + 8)];
+    v11 = [(__CFString *)v11 stringByAppendingFormat:@"%02X", *(v4 + v8++ + 8)];
   }
 
-  while (v9 != 16);
-  v13 = [(__CFString *)v12 stringByAppendingString:@", calibration: 0x"];
+  while (v8 != 16);
+  v12 = [(__CFString *)v11 stringByAppendingString:@", calibration: 0x"];
   for (i = 8; i != 24; ++i)
   {
-    v13 = [v13 stringByAppendingFormat:@"%02X", *(&v31[-1] + i)];
+    v12 = [v12 stringByAppendingFormat:@"%02X", *(&v30[-1] + i)];
   }
 
-  NSLog(&stru_283816880.isa, v13);
-  v24 = &unk_283813278;
-  FileInputFactory::~FileInputFactory(v25);
-  if (!v11)
+  NSLog(&stru_283816880.isa, v12);
+  v23 = &unk_283813278;
+  FileInputFactory::~FileInputFactory(v24);
+  if (!v10)
   {
 LABEL_20:
-    if (*v5 == 8)
+    if (*v4 == 8)
     {
       NSLog(&cfstr_Found.isa);
-      fclose(v8);
+      fclose(v7);
       return 1;
     }
 
-    NSLog(&cfstr_IgnoringUnexpe.isa, *v5, 8);
+    NSLog(&cfstr_IgnoringUnexpe.isa, *v4, 8);
     goto LABEL_26;
   }
 
@@ -3032,55 +3101,55 @@ LABEL_25:
   deleteDirectoryContent("/var/mobile/Library/ISP/Pearl");
   NSLog(&cfstr_CalibrationUui.isa);
 LABEL_26:
-  fclose(v8);
+  fclose(v7);
 LABEL_27:
   NSLog(&cfstr_LookingForLoca_0.isa);
-  CalibrationManager<FileInputFactory>::CalibrationManager(&v30);
-  v30 = &unk_283813468;
-  v32 = 1;
-  PCECalibrationManager<FileInputFactory>::read(&v30, v5);
-  if (v16)
+  CalibrationManager<FileInputFactory>::CalibrationManager(&v29);
+  v29 = &unk_283813468;
+  v31 = 1;
+  PCECalibrationManager<FileInputFactory>::read(&v29, v4);
+  if (v15)
   {
     goto LABEL_31;
   }
 
   NSLog(&cfstr_LookingForFdrD.isa);
   NSLog(&cfstr_ReadingFromFdr.isa);
-  CalibrationManager<FDRInputFactory>::CalibrationManager(&v24);
-  v24 = &unk_2838130A0;
-  if (v27 == 1)
+  CalibrationManager<FDRInputFactory>::CalibrationManager(&v23);
+  v23 = &unk_2838130A0;
+  if (v26 == 1)
   {
-    v27 = v26;
+    v26 = v25;
   }
 
-  v28 = (pceConfiguration & 1) == 0;
-  PCECalibrationManager<FDRInputFactory>::read(&v24, v5);
-  v18 = v17;
-  v24 = &unk_2838133A0;
-  FDRInputFactory::~FDRInputFactory(v25);
-  if (v18)
+  v27 = (pceConfiguration & 1) == 0;
+  PCECalibrationManager<FDRInputFactory>::read(&v23, v4);
+  v17 = v16;
+  v23 = &unk_2838133A0;
+  FDRInputFactory::~FDRInputFactory(v24);
+  if (v17)
   {
 LABEL_31:
     NSLog(&cfstr_CreatingLocalC.isa);
-    *v5 = 8;
+    *v4 = 8;
     kdebug_trace();
-    v15 = saveEntireCalibration(v5);
+    v14 = saveEntireCalibration(v4);
   }
 
   else
   {
     NSLog(&cfstr_DidnTFindCalib.isa);
-    v15 = 0;
+    v14 = 0;
   }
 
-  v30 = &unk_283813278;
-  FileInputFactory::~FileInputFactory(v31);
-  return v15;
+  v29 = &unk_283813278;
+  FileInputFactory::~FileInputFactory(v30);
+  return v14;
 }
 
-void sub_224872694(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_224872694(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   FileInputFactory::~FileInputFactory(va);
   _Unwind_Resume(a1);
 }
@@ -3119,7 +3188,7 @@ uint64_t makeDirectories(const char *a1, const char *a2)
   return v8;
 }
 
-uint64_t deleteDirectoryContent(const char *a1)
+void *deleteDirectoryContent(const char *a1)
 {
   v15 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAA00] defaultManager];
@@ -3146,7 +3215,7 @@ uint64_t deleteDirectoryContent(const char *a1)
         v8 = *(*(&v10 + 1) + 8 * v7);
         v9 = [MEMORY[0x277CCAA00] defaultManager];
         [v9 removeItemAtPath:objc_msgSend(MEMORY[0x277CCACA8] error:{"stringWithFormat:", @"%s/%@", a1, v8), 0}];
-        ++v7;
+        v7 = v7 + 1;
       }
 
       while (v5 != v7);
@@ -3160,7 +3229,7 @@ uint64_t deleteDirectoryContent(const char *a1)
   return result;
 }
 
-void PCECalibrationManager<FileInputFactory>::read(uint64_t a1, void *a2)
+void PCECalibrationManager<FileInputFactory>::read(uint64_t a1, char *a2)
 {
   if (*(a1 + 80) == 1)
   {
@@ -3171,9 +3240,9 @@ void PCECalibrationManager<FileInputFactory>::read(uint64_t a1, void *a2)
       PCECalibrationManager<FileInputFactory>::readPCII(a1);
       if (v5)
       {
-        if ((pceConfiguration & 4) != 0 || (PCECalibrationManager<FileInputFactory>::readPCVC(a1, a2), v6) && (PCECalibrationManager<FileInputFactory>::readPCVI(a1), v7) && (PCECalibrationManager<FileInputFactory>::readPCVE(a1, a2 + 8552) & 1) != 0 || (pceConfiguration & 0x10) != 0)
+        if ((pceConfiguration & 4) != 0 || (PCECalibrationManager<FileInputFactory>::readPCVC(a1, a2), v6) && (PCECalibrationManager<FileInputFactory>::readPCVI(a1, (a2 + 4288)), v7) && (PCECalibrationManager<FileInputFactory>::readPCVE(a1, (a2 + 8552)) & 1) != 0 || (pceConfiguration & 0x10) != 0)
         {
-          if (PCECalibrationManager<FileInputFactory>::readPBAS(a1, a2 + 8648) && PCECalibrationManager<FileInputFactory>::readPMPC(a1, a2 + 8672) && PCECalibrationManager<FileInputFactory>::initRuntime(a1, a2))
+          if (PCECalibrationManager<FileInputFactory>::readPBAS(a1, (a2 + 8648)) && PCECalibrationManager<FileInputFactory>::readPMPC(a1, (a2 + 8672)) && PCECalibrationManager<FileInputFactory>::initRuntime(a1, a2))
           {
             if (PCECalibrationManager<FileInputFactory>::readPRF1(a1, a2))
             {
@@ -3187,7 +3256,7 @@ void PCECalibrationManager<FileInputFactory>::read(uint64_t a1, void *a2)
   }
 }
 
-void PCECalibrationManager<FDRInputFactory>::read(uint64_t a1, void *a2)
+void PCECalibrationManager<FDRInputFactory>::read(uint64_t a1, char *a2)
 {
   if (*(a1 + 72) == 1)
   {
@@ -3198,9 +3267,9 @@ void PCECalibrationManager<FDRInputFactory>::read(uint64_t a1, void *a2)
       PCECalibrationManager<FileInputFactory>::readPCII(a1);
       if (v5)
       {
-        if ((pceConfiguration & 4) != 0 || (PCECalibrationManager<FileInputFactory>::readPCVC(a1, a2), v6) && (PCECalibrationManager<FileInputFactory>::readPCVI(a1), v7) && (PCECalibrationManager<FileInputFactory>::readPCVE(a1, a2 + 8552) & 1) != 0 || (pceConfiguration & 0x10) != 0)
+        if ((pceConfiguration & 4) != 0 || (PCECalibrationManager<FileInputFactory>::readPCVC(a1, a2), v6) && (PCECalibrationManager<FileInputFactory>::readPCVI(a1, (a2 + 4288)), v7) && (PCECalibrationManager<FileInputFactory>::readPCVE(a1, (a2 + 8552)) & 1) != 0 || (pceConfiguration & 0x10) != 0)
         {
-          if (PCECalibrationManager<FileInputFactory>::readPBAS(a1, a2 + 8648) && PCECalibrationManager<FileInputFactory>::readPMPC(a1, a2 + 8672) && PCECalibrationManager<FileInputFactory>::initRuntime(a1, a2))
+          if (PCECalibrationManager<FileInputFactory>::readPBAS(a1, (a2 + 8648)) && PCECalibrationManager<FileInputFactory>::readPMPC(a1, (a2 + 8672)) && PCECalibrationManager<FileInputFactory>::initRuntime(a1, a2))
           {
             if (PCECalibrationManager<FDRInputFactory>::readPRF1(a1, a2))
             {
@@ -3217,7 +3286,7 @@ void PCECalibrationManager<FDRInputFactory>::read(uint64_t a1, void *a2)
 const void *JasperCalibration::get(JasperCalibration *this, H16ISP::H16ISPDevice *a2)
 {
   v2 = a2;
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   NvmPeridotInputFactory::pDevice = this;
   NSLog(&cfstr_JasperCalibrat.isa);
   umask(0);
@@ -3245,11 +3314,11 @@ const void *JasperCalibration::get(JasperCalibration *this, H16ISP::H16ISPDevice
       }
 
       NSLog(&cfstr_ValidatingCali_0.isa);
-      JasperCalibrationManager<FileInputFactory>::JasperCalibrationManager(&v35);
-      OnlyBlob = JasperCalibrationManager<FileInputFactory>::readOnlyBlob(&v35, 18);
+      JasperCalibrationManager<FileInputFactory>::JasperCalibrationManager(&v34);
+      OnlyBlob = JasperCalibrationManager<FileInputFactory>::readOnlyBlob(&v34, 18);
       if (!OnlyBlob)
       {
-        if (allowFdrForTof != 1 || (JasperCalibrationManager<FDRInputFactory>::JasperCalibrationManager(&v33), OnlyBlob = JasperCalibrationManager<FileInputFactory>::readOnlyBlob(&v33, 18), v33 = &unk_2838133A0, FDRInputFactory::~FDRInputFactory(v34), !OnlyBlob))
+        if (allowFdrForTof != 1 || (JasperCalibrationManager<FDRInputFactory>::JasperCalibrationManager(&v32), OnlyBlob = JasperCalibrationManager<FileInputFactory>::readOnlyBlob(&v32, 18), v32 = &unk_2838133A0, FDRInputFactory::~FDRInputFactory(v33), !OnlyBlob))
         {
           NSLog(&cfstr_ValidtingSnReg.isa);
           v15 = PDPeridotCalibCopySerialNumber();
@@ -3257,11 +3326,11 @@ const void *JasperCalibration::get(JasperCalibration *this, H16ISP::H16ISPDevice
           if (v15)
           {
             v17 = [v15 UTF8String];
-            v18 = strlen(v37);
+            v18 = strlen(v36);
             if (v18 == strlen(v17))
             {
-              v10 = strncmp(v37, v17, v18);
-              NSLog(&cfstr_CachedSerialNu.isa, v17, v37);
+              v10 = strncmp(v36, v17, v18);
+              NSLog(&cfstr_CachedSerialNu.isa, v17, v36);
               CFRelease(v16);
               goto LABEL_20;
             }
@@ -3275,8 +3344,8 @@ const void *JasperCalibration::get(JasperCalibration *this, H16ISP::H16ISPDevice
             NSLog(&cfstr_CanTReadSerial.isa);
           }
 
-          v35 = &unk_283813278;
-          FileInputFactory::~FileInputFactory(v36);
+          v34 = &unk_283813278;
+          FileInputFactory::~FileInputFactory(v35);
 LABEL_30:
           deleteDirectoryContent("/var/mobile/Library/ISP/JasperL");
           NSLog(&cfstr_CalibrationUui.isa);
@@ -3285,15 +3354,15 @@ LABEL_30:
         }
       }
 
-      v33 = 0;
-      v34[0] = 0;
-      v31 = 0;
       v32 = 0;
+      v33[0] = 0;
+      v30 = 0;
+      v31 = 0;
       PDPeridotCalibGetMpcUUID();
       PDPeridotCalibGetMpcUUIDFromCalibrationBlob();
-      v8 = bswap64(v33);
+      v8 = bswap64(v32);
       v9 = bswap64(0);
-      if (v8 == v9 && (v8 = bswap64(v34[0]), v9 = bswap64(v32), v8 == v9))
+      if (v8 == v9 && (v8 = bswap64(v33[0]), v9 = bswap64(v31), v8 == v9))
       {
         v10 = 0;
       }
@@ -3312,21 +3381,21 @@ LABEL_30:
       v12 = @"Cached UUID: 0x";
       do
       {
-        v12 = [(__CFString *)v12 stringByAppendingFormat:@"%02X", *(&v34[-1] + v11++)];
+        v12 = [(__CFString *)v12 stringByAppendingFormat:@"%02X", *(&v33[-1] + v11++)];
       }
 
       while (v11 != 16);
       v13 = [(__CFString *)v12 stringByAppendingString:@", calibration: 0x"];
       for (i = 0; i != 16; ++i)
       {
-        v13 = [v13 stringByAppendingFormat:@"%02X", *(&v31 + i)];
+        v13 = [v13 stringByAppendingFormat:@"%02X", *(&v30 + i)];
       }
 
       NSLog(&stru_283816880.isa, v13);
       CFRelease(OnlyBlob);
 LABEL_20:
-      v35 = &unk_283813278;
-      FileInputFactory::~FileInputFactory(v36);
+      v34 = &unk_283813278;
+      FileInputFactory::~FileInputFactory(v35);
       if (!v10)
       {
 LABEL_21:
@@ -3340,8 +3409,8 @@ LABEL_21:
 
 LABEL_31:
   NSLog(&cfstr_LookingForLoca_0.isa);
-  JasperCalibrationManager<FileInputFactory>::JasperCalibrationManager(&v35);
-  v6 = JasperCalibrationManager<FileInputFactory>::read(&v35, 0);
+  JasperCalibrationManager<FileInputFactory>::JasperCalibrationManager(&v34);
+  v6 = JasperCalibrationManager<FileInputFactory>::read(&v34, 0);
   if (v6)
   {
     goto LABEL_44;
@@ -3383,15 +3452,15 @@ LABEL_31:
     }
 
     NSLog(&cfstr_ReadingFromFdr.isa);
-    JasperCalibrationManager<FDRInputFactory>::JasperCalibrationManager(&v33);
-    v6 = JasperCalibrationManager<FDRInputFactory>::read(&v33, v22);
+    JasperCalibrationManager<FDRInputFactory>::JasperCalibrationManager(&v32);
+    v6 = JasperCalibrationManager<FDRInputFactory>::read(&v32, v22);
     if (v22)
     {
       CFRelease(v22);
     }
 
-    v33 = &unk_2838133A0;
-    FDRInputFactory::~FDRInputFactory(v34);
+    v32 = &unk_2838133A0;
+    FDRInputFactory::~FDRInputFactory(v33);
     if (v6)
     {
       goto LABEL_44;
@@ -3399,10 +3468,10 @@ LABEL_31:
   }
 
   NSLog(&cfstr_LookingForCali.isa);
-  JasperCalibrationManager<NvmPeridotInputFactory>::JasperCalibrationManager(&v33, v29);
-  v6 = JasperCalibrationManager<NvmPeridotInputFactory>::read(&v33, 0);
-  v33 = &unk_283813370;
-  NvmPeridotInputFactory::~NvmPeridotInputFactory(v34);
+  JasperCalibrationManager<NvmPeridotInputFactory>::JasperCalibrationManager(&v32);
+  v6 = JasperCalibrationManager<NvmPeridotInputFactory>::read(&v32, 0);
+  v32 = &unk_283813370;
+  NvmPeridotInputFactory::~NvmPeridotInputFactory(v33);
   if (v6)
   {
 LABEL_44:
@@ -3418,8 +3487,8 @@ LABEL_44:
     v6 = 0;
   }
 
-  v35 = &unk_283813278;
-  FileInputFactory::~FileInputFactory(v36);
+  v34 = &unk_283813278;
+  FileInputFactory::~FileInputFactory(v35);
   return v6;
 }
 
@@ -3505,9 +3574,9 @@ LABEL_16:
   return 0;
 }
 
-void sub_224873558(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_224873558(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3520,9 +3589,9 @@ uint64_t JasperCalibrationManager<FileInputFactory>::read(uint64_t a1, const voi
   }
 
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  if (JasperCalibrationManager<FileInputFactory>::readBlob(a1, 0x13u, Mutable) && JasperCalibrationManager<FileInputFactory>::readBlob(a1, 0x14u, Mutable) && JasperCalibrationManager<FileInputFactory>::readBlob(a1, 0x15u, Mutable) && JasperCalibrationManager<FileInputFactory>::readBlob(a1, 0x16u, Mutable) && JasperCalibrationManager<FileInputFactory>::readBlob(a1, 0x17u, Mutable) && JasperCalibrationManager<FileInputFactory>::readBlob(a1, 0x11u, Mutable) && JasperCalibrationManager<FileInputFactory>::readBlob(a1, 0x12u, Mutable))
+  if (JasperCalibrationManager<FileInputFactory>::readBlob(a1, 19, Mutable) && JasperCalibrationManager<FileInputFactory>::readBlob(a1, 20, Mutable) && JasperCalibrationManager<FileInputFactory>::readBlob(a1, 21, Mutable) && JasperCalibrationManager<FileInputFactory>::readBlob(a1, 22, Mutable) && JasperCalibrationManager<FileInputFactory>::readBlob(a1, 23, Mutable) && JasperCalibrationManager<FileInputFactory>::readBlob(a1, 17, Mutable) && JasperCalibrationManager<FileInputFactory>::readBlob(a1, 18, Mutable))
   {
-    JasperCalibrationManager<FileInputFactory>::readBlob(a1, 0x18u, Mutable);
+    JasperCalibrationManager<FileInputFactory>::readBlob(a1, 24, Mutable);
     if (a2)
     {
       CFDictionarySetValue(Mutable, [MEMORY[0x277CCACA8] stringWithUTF8String:"PrCL"], a2);
@@ -3530,7 +3599,7 @@ uint64_t JasperCalibrationManager<FileInputFactory>::read(uint64_t a1, const voi
 
     else
     {
-      JasperCalibrationManager<FileInputFactory>::readBlob(a1, 0x1Au, Mutable);
+      JasperCalibrationManager<FileInputFactory>::readBlob(a1, 26, Mutable);
     }
 
     v5 = PDPeridotCalibCreateWithCalibrationDictionary();
@@ -3557,9 +3626,9 @@ uint64_t JasperCalibrationManager<FDRInputFactory>::read(uint64_t a1, const void
   }
 
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  if (JasperCalibrationManager<FileInputFactory>::readBlob(a1, 0x13u, Mutable) && JasperCalibrationManager<FileInputFactory>::readBlob(a1, 0x14u, Mutable) && JasperCalibrationManager<FileInputFactory>::readBlob(a1, 0x15u, Mutable) && JasperCalibrationManager<FileInputFactory>::readBlob(a1, 0x16u, Mutable) && JasperCalibrationManager<FileInputFactory>::readBlob(a1, 0x17u, Mutable) && JasperCalibrationManager<FileInputFactory>::readBlob(a1, 0x11u, Mutable) && JasperCalibrationManager<FileInputFactory>::readBlob(a1, 0x12u, Mutable))
+  if (JasperCalibrationManager<FileInputFactory>::readBlob(a1, 19, Mutable) && JasperCalibrationManager<FileInputFactory>::readBlob(a1, 20, Mutable) && JasperCalibrationManager<FileInputFactory>::readBlob(a1, 21, Mutable) && JasperCalibrationManager<FileInputFactory>::readBlob(a1, 22, Mutable) && JasperCalibrationManager<FileInputFactory>::readBlob(a1, 23, Mutable) && JasperCalibrationManager<FileInputFactory>::readBlob(a1, 17, Mutable) && JasperCalibrationManager<FileInputFactory>::readBlob(a1, 18, Mutable))
   {
-    JasperCalibrationManager<FileInputFactory>::readBlob(a1, 0x18u, Mutable);
+    JasperCalibrationManager<FileInputFactory>::readBlob(a1, 24, Mutable);
     if (a2)
     {
       CFDictionarySetValue(Mutable, [MEMORY[0x277CCACA8] stringWithUTF8String:"PrCL"], a2);
@@ -3567,7 +3636,7 @@ uint64_t JasperCalibrationManager<FDRInputFactory>::read(uint64_t a1, const void
 
     else
     {
-      JasperCalibrationManager<FileInputFactory>::readBlob(a1, 0x1Au, Mutable);
+      JasperCalibrationManager<FileInputFactory>::readBlob(a1, 26, Mutable);
     }
 
     v5 = PDPeridotCalibCreateWithCalibrationDictionary();
@@ -3601,9 +3670,9 @@ uint64_t JasperCalibrationManager<NvmPeridotInputFactory>::read(uint64_t a1, con
   }
 
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  if (JasperCalibrationManager<FileInputFactory>::readBlob(a1, 0x13u, Mutable) && JasperCalibrationManager<FileInputFactory>::readBlob(a1, 0x14u, Mutable) && JasperCalibrationManager<FileInputFactory>::readBlob(a1, 0x15u, Mutable) && JasperCalibrationManager<FileInputFactory>::readBlob(a1, 0x16u, Mutable) && JasperCalibrationManager<FileInputFactory>::readBlob(a1, 0x17u, Mutable) && JasperCalibrationManager<FileInputFactory>::readBlob(a1, 0x11u, Mutable) && JasperCalibrationManager<FileInputFactory>::readBlob(a1, 0x12u, Mutable))
+  if (JasperCalibrationManager<FileInputFactory>::readBlob(a1, 19, Mutable) && JasperCalibrationManager<FileInputFactory>::readBlob(a1, 20, Mutable) && JasperCalibrationManager<FileInputFactory>::readBlob(a1, 21, Mutable) && JasperCalibrationManager<FileInputFactory>::readBlob(a1, 22, Mutable) && JasperCalibrationManager<FileInputFactory>::readBlob(a1, 23, Mutable) && JasperCalibrationManager<FileInputFactory>::readBlob(a1, 17, Mutable) && JasperCalibrationManager<FileInputFactory>::readBlob(a1, 18, Mutable))
   {
-    JasperCalibrationManager<FileInputFactory>::readBlob(a1, 0x18u, Mutable);
+    JasperCalibrationManager<FileInputFactory>::readBlob(a1, 24, Mutable);
     if (a2)
     {
       CFDictionarySetValue(Mutable, [MEMORY[0x277CCACA8] stringWithUTF8String:"PrCL"], a2);
@@ -3611,7 +3680,7 @@ uint64_t JasperCalibrationManager<NvmPeridotInputFactory>::read(uint64_t a1, con
 
     else
     {
-      JasperCalibrationManager<FileInputFactory>::readBlob(a1, 0x1Au, Mutable);
+      JasperCalibrationManager<FileInputFactory>::readBlob(a1, 26, Mutable);
     }
 
     v5 = PDPeridotCalibCreateWithCalibrationDictionary();
@@ -3637,10 +3706,10 @@ void *JasperCalibrationManager<NvmPeridotInputFactory>::~JasperCalibrationManage
   return a1;
 }
 
-uint64_t JasperCalibrationManager<FileInputFactory>::~JasperCalibrationManager(uint64_t a1)
+CFTypeRef *JasperCalibrationManager<FileInputFactory>::~JasperCalibrationManager(CFTypeRef *a1)
 {
   *a1 = &unk_283813278;
-  FileInputFactory::~FileInputFactory((a1 + 8));
+  FileInputFactory::~FileInputFactory(a1 + 1);
   return a1;
 }
 
@@ -3805,14 +3874,14 @@ void *BufferInput::readBuffer(const void **this, void *__dst, int a3)
   return result;
 }
 
-CFDataRef NvmPeridotInputFactory::readSensorNVM(NvmPeridotInputFactory *this, H16ISP::H16ISPDevice *a2, unsigned int a3, unsigned __int8 *a4, unsigned int a5)
+CFDataRef NvmPeridotInputFactory::readSensorNVM(NvmPeridotInputFactory *this, H16ISP::H16ISPDevice *a2, uint64_t a3, unsigned __int8 *a4, unsigned int a5)
 {
   LODWORD(length) = a5;
   bzero(a4, a5);
   SensorNVMBytes = H16ISP::H16ISPDevice::GetSensorNVMBytes(a2, a3, a4, 0, &length);
   if (SensorNVMBytes == -536870184)
   {
-    H16ISP::H16ISPDevice::CacheDeviceConfigs(a2, v9);
+    H16ISP::H16ISPDevice::CacheDeviceConfigs(a2);
     SensorNVMBytes = H16ISP::H16ISPDevice::GetSensorNVMBytes(a2, a3, a4, 0, &length);
   }
 
@@ -3827,11 +3896,13 @@ CFDataRef NvmPeridotInputFactory::readSensorNVM(NvmPeridotInputFactory *this, H1
   }
 }
 
-CFDataRef NvmPeridotInputFactory::readDeviceNVM(int a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, unsigned int a6)
+CFDataRef NvmPeridotInputFactory::readDeviceNVM(int a1, H16ISP::H16ISPDevice *a2, uint64_t a3, uint64_t a4, void *a5, unsigned int a6)
 {
+  v7 = a4;
+  v8 = a3;
   LODWORD(length) = a6;
   bzero(a5, a6);
-  if (H16ISP::H16ISPDevice::GetDeviceNVMBytes(a2, a3, a4, a5, 0, &length))
+  if (H16ISP::H16ISPDevice::GetDeviceNVMBytes(a2, v8, v7, a5, 0, &length))
   {
     return 0;
   }
@@ -3994,14 +4065,14 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
@@ -4029,7 +4100,7 @@ LABEL_8:
     v17 = *v7;
     if (*v7 && *(v17 + 24) != 1)
     {
-      v18 = v7[1];
+      v18 = *(v7 + 8);
       if (!v18)
       {
         goto LABEL_55;
@@ -4041,18 +4112,18 @@ LABEL_54:
 LABEL_55:
         *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v26 = v17[1];
+        v26 = *(v17 + 8);
         *v7 = v26;
         if (v26)
         {
           *(v26 + 16) = v7;
         }
 
-        v27 = v7[2];
-        v17[2] = v27;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
         v27[*v27 != v7] = v17;
-        v17[1] = v7;
-        v7[2] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
         v18 = v7;
       }
 
@@ -4061,7 +4132,7 @@ LABEL_55:
         v17 = v7;
       }
 
-      v28 = v17[2];
+      v28 = *(v17 + 16);
       *(v17 + 24) = *(v28 + 24);
       *(v28 + 24) = 1;
       *(v18 + 24) = 1;
@@ -4080,14 +4151,14 @@ LABEL_55:
       goto LABEL_72;
     }
 
-    v18 = v7[1];
+    v18 = *(v7 + 8);
     if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_54;
     }
 
     *(v7 + 24) = 0;
-    v19 = v7[2];
+    v19 = *(v7 + 16);
     if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
@@ -4097,11 +4168,11 @@ LABEL_49:
     v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v20 = v13[1];
+    v20 = *(v13 + 8);
     *v12 = v20;
     if (v20)
     {
@@ -4109,11 +4180,11 @@ LABEL_49:
     }
 
     v21 = v12[2];
-    v13[2] = v21;
+    *(v13 + 16) = v21;
     v21[*v21 != v12] = v13;
-    v13[1] = v12;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v22 = v7[1];
+    v22 = *(v7 + 8);
     if (result == v22)
     {
       result = v7;
@@ -4128,11 +4199,11 @@ LABEL_49:
     goto LABEL_68;
   }
 
-  v24 = v7[1];
+  v24 = *(v7 + 8);
   if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v19 = v7[2];
+    v19 = *(v7 + 16);
     if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
@@ -4148,24 +4219,24 @@ LABEL_52:
     goto LABEL_65;
   }
 
-  if (v23[3])
+  if (*(v23 + 24))
   {
-    v24 = v7[1];
+    v24 = *(v7 + 8);
 LABEL_65:
     *(v24 + 24) = 1;
     *(v7 + 24) = 0;
     v32 = *v24;
-    v7[1] = *v24;
+    *(v7 + 8) = *v24;
     if (v32)
     {
       *(v32 + 16) = v7;
     }
 
-    v33 = v7[2];
-    v24[2] = v33;
+    v33 = *(v7 + 16);
+    *(v24 + 16) = v33;
     v33[*v33 != v7] = v24;
     *v24 = v7;
-    v7[2] = v24;
+    *(v7 + 16) = v24;
     v23 = v7;
   }
 
@@ -4175,7 +4246,7 @@ LABEL_68:
     v24 = v7;
   }
 
-  v28 = v24[2];
+  v28 = *(v24 + 16);
   *(v24 + 24) = *(v28 + 24);
   *(v28 + 24) = 1;
   *(v23 + 24) = 1;
@@ -4196,17 +4267,17 @@ LABEL_72:
   return result;
 }
 
-uint64_t CalibrationManager<FileInputFactory>::~CalibrationManager(uint64_t a1)
+CFTypeRef *CalibrationManager<FileInputFactory>::~CalibrationManager(CFTypeRef *a1)
 {
   *a1 = &unk_283813278;
-  FileInputFactory::~FileInputFactory((a1 + 8));
+  FileInputFactory::~FileInputFactory(a1 + 1);
   return a1;
 }
 
-void CalibrationManager<FileInputFactory>::~CalibrationManager(uint64_t a1)
+void CalibrationManager<FileInputFactory>::~CalibrationManager(CFTypeRef *a1)
 {
   *a1 = &unk_283813278;
-  FileInputFactory::~FileInputFactory((a1 + 8));
+  FileInputFactory::~FileInputFactory(a1 + 1);
 
   JUMPOUT(0x22AA55B60);
 }
@@ -4278,7 +4349,7 @@ uint64_t FileInputFactory::validate(FileInputFactory *this)
   return result;
 }
 
-uint64_t FileInputFactory::createInput(uint64_t a1, unsigned int a2)
+uint64_t FileInputFactory::createInput(uint64_t a1, uint64_t a2)
 {
   if (a2 <= 0x10)
   {
@@ -4290,7 +4361,7 @@ uint64_t FileInputFactory::createInput(uint64_t a1, unsigned int a2)
     operator new();
   }
 
-  if (a2 - 17 <= 0xA)
+  if ((a2 - 17) <= 0xA)
   {
     if (*(a1 + 56) == 1)
     {
@@ -4406,7 +4477,7 @@ uint64_t PCECalibrationManager<FileInputFactory>::readPRF1(uint64_t a1, uint64_t
 
         else
         {
-          result = PCECalibrationManager<FileInputFactory>::prepareReferencesByType(a1, Input, &v9);
+          result = PCECalibrationManager<FileInputFactory>::prepareReferencesByType(a1, Input, &v9, off_278530E80[v9]);
         }
 
         if (v7 >= v6)
@@ -4480,7 +4551,7 @@ uint64_t PCECalibrationManager<FDRInputFactory>::readPRF1(uint64_t a1, uint64_t 
 
         else
         {
-          result = PCECalibrationManager<FileInputFactory>::prepareReferencesByType(a1, Input, &v9);
+          result = PCECalibrationManager<FileInputFactory>::prepareReferencesByType(a1, Input, &v9, off_278530E80[v9]);
         }
 
         if (v7 >= v6)
@@ -4498,9 +4569,9 @@ uint64_t PCECalibrationManager<FDRInputFactory>::readPRF1(uint64_t a1, uint64_t 
   return result;
 }
 
-uint64_t PCECalibrationManager<FileInputFactory>::prepareReferencesByType(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t PCECalibrationManager<FileInputFactory>::prepareReferencesByType(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4)
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (*(a3 + 4) <= 3u)
   {
     operator new[]();
@@ -4513,7 +4584,7 @@ uint64_t InputFactory::getInput(void *a1, int a2)
 {
   v7 = a2;
   v2 = a1[2];
-  v3 = (a1 + 1);
+  v3 = a1 + 1;
   if (!v2)
   {
     goto LABEL_8;
@@ -4536,48 +4607,48 @@ uint64_t InputFactory::getInput(void *a1, int a2)
 LABEL_8:
     v5 = (*(*a1 + 40))(a1);
     v8 = &v7;
-    std::__tree<std::__value_type<CalibrationDataTypes,Input *>,std::__map_value_compare<CalibrationDataTypes,std::__value_type<CalibrationDataTypes,Input *>,std::less<CalibrationDataTypes>,true>,std::allocator<std::__value_type<CalibrationDataTypes,Input *>>>::__emplace_unique_key_args<CalibrationDataTypes,std::piecewise_construct_t const&,std::tuple<CalibrationDataTypes const&>,std::tuple<>>(v3, &v7)[5] = v5;
+    std::__tree<std::__value_type<CalibrationDataTypes,Input *>,std::__map_value_compare<CalibrationDataTypes,std::__value_type<CalibrationDataTypes,Input *>,std::less<CalibrationDataTypes>,true>,std::allocator<std::__value_type<CalibrationDataTypes,Input *>>>::__emplace_unique_key_args<CalibrationDataTypes,std::piecewise_construct_t const&,std::tuple<CalibrationDataTypes const&>,std::tuple<>>(v3, &v7, &std::piecewise_construct, &v8)[5] = v5;
   }
 
   v8 = &v7;
-  return std::__tree<std::__value_type<CalibrationDataTypes,Input *>,std::__map_value_compare<CalibrationDataTypes,std::__value_type<CalibrationDataTypes,Input *>,std::less<CalibrationDataTypes>,true>,std::allocator<std::__value_type<CalibrationDataTypes,Input *>>>::__emplace_unique_key_args<CalibrationDataTypes,std::piecewise_construct_t const&,std::tuple<CalibrationDataTypes const&>,std::tuple<>>(v3, &v7)[5];
+  return std::__tree<std::__value_type<CalibrationDataTypes,Input *>,std::__map_value_compare<CalibrationDataTypes,std::__value_type<CalibrationDataTypes,Input *>,std::less<CalibrationDataTypes>,true>,std::allocator<std::__value_type<CalibrationDataTypes,Input *>>>::__emplace_unique_key_args<CalibrationDataTypes,std::piecewise_construct_t const&,std::tuple<CalibrationDataTypes const&>,std::tuple<>>(v3, &v7, &std::piecewise_construct, &v8)[5];
 }
 
-uint64_t *std::__tree<std::__value_type<CalibrationDataTypes,Input *>,std::__map_value_compare<CalibrationDataTypes,std::__value_type<CalibrationDataTypes,Input *>,std::less<CalibrationDataTypes>,true>,std::allocator<std::__value_type<CalibrationDataTypes,Input *>>>::__emplace_unique_key_args<CalibrationDataTypes,std::piecewise_construct_t const&,std::tuple<CalibrationDataTypes const&>,std::tuple<>>(uint64_t a1, int *a2)
+uint64_t *std::__tree<std::__value_type<CalibrationDataTypes,Input *>,std::__map_value_compare<CalibrationDataTypes,std::__value_type<CalibrationDataTypes,Input *>,std::less<CalibrationDataTypes>,true>,std::allocator<std::__value_type<CalibrationDataTypes,Input *>>>::__emplace_unique_key_args<CalibrationDataTypes,std::piecewise_construct_t const&,std::tuple<CalibrationDataTypes const&>,std::tuple<>>(uint64_t a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -4749,14 +4820,14 @@ void FDRInputFactory::~FDRInputFactory(FDRInputFactory *this)
   InputFactory::~InputFactory(this);
 }
 
-void FDRInputFactory::createInput(uint64_t a1, unsigned int a2)
+void FDRInputFactory::createInput(uint64_t a1, uint64_t a2)
 {
   if (a2 <= 0x10 && (*(a1 + 32) & 1) != 0)
   {
     operator new();
   }
 
-  if (a2 - 17 <= 0xA && (*(a1 + 48) & 1) != 0)
+  if (a2 - 17) <= 0xA && (*(a1 + 48))
   {
     operator new();
   }
@@ -5009,99 +5080,99 @@ BOOL Input::readAll<pcve>(const char *a1, uint64_t a2)
   return v5 == 96;
 }
 
-BOOL PCECalibrationManager<FileInputFactory>::readPCIIv1(uint64_t a1, uint64_t a2)
+BOOL PCECalibrationManager<FileInputFactory>::readPCIIv1(uint64_t a1)
 {
-  MEMORY[0x28223BE20](a1, a2);
-  v3 = v2;
-  v5 = Input::readAll<pcii_v1>(v4, &v11);
-  if (v5)
+  MEMORY[0x28223BE20](a1);
+  v2 = v1;
+  v4 = Input::readAll<pcii_v1>(v3, &v10);
+  if (v4)
   {
-    v6 = 0;
-    v7 = *v3;
-    *(v3 + 8) = vmulq_n_f64(v11, *v3);
-    *(v3 + 24) = v7 * v12;
-    v8 = v3;
+    v5 = 0;
+    v6 = *v2;
+    *(v2 + 8) = vmulq_n_f64(v10, *v2);
+    *(v2 + 24) = v6 * v11;
+    v7 = v2;
     do
     {
-      v9 = &v13[v6];
-      v14 = vld2q_f64(v9);
-      v8[2] = vmulq_n_f64(v14.val[0], v7);
-      v8[130] = vmulq_n_f64(v14.val[1], v7);
-      v6 += 32;
+      v8 = &v12[v5];
+      v13 = vld2q_f64(v8);
+      v7[2] = vmulq_n_f64(v13.val[0], v6);
+      v7[130] = vmulq_n_f64(v13.val[1], v6);
+      v5 += 32;
+      ++v7;
+    }
+
+    while (v5 != 4096);
+    bzero((v2 + 4128), 0x40uLL);
+    bzero((v2 + 4192), 0x40uLL);
+  }
+
+  return v4;
+}
+
+BOOL PCECalibrationManager<FileInputFactory>::readPCIIv2(uint64_t a1)
+{
+  MEMORY[0x28223BE20](a1);
+  v2 = v1;
+  v4 = Input::readAll<pcii_v1>(v3, &v10);
+  if (v4)
+  {
+    v5 = *v2;
+    *(v2 + 8) = vmulq_n_f64(v10, *v2);
+    *(v2 + 24) = v5 * v11;
+    v6 = &v10;
+    v7 = 256;
+    v8 = v2;
+    do
+    {
+      v8[2] = vmulq_n_f64(*(v6 + 24), v5);
+      v8[130] = vmulq_n_f64(*(v6++ + 2072), v5);
       ++v8;
+      v7 -= 2;
     }
 
-    while (v6 != 4096);
-    bzero((v3 + 4128), 0x40uLL);
-    bzero((v3 + 4192), 0x40uLL);
+    while (v7);
+    bzero((v2 + 4128), 0x40uLL);
+    bzero((v2 + 4192), 0x40uLL);
   }
 
-  return v5;
+  return v4;
 }
 
-BOOL PCECalibrationManager<FileInputFactory>::readPCIIv2(uint64_t a1, uint64_t a2)
+double PCECalibrationManager<FileInputFactory>::readPCIIv3(uint64_t a1)
 {
-  MEMORY[0x28223BE20](a1, a2);
-  v3 = v2;
-  v5 = Input::readAll<pcii_v1>(v4, &v11);
-  if (v5)
+  MEMORY[0x28223BE20](a1);
+  v2 = v1;
+  if (Input::readAll<pcii_v3>(v3, &v13))
   {
-    v6 = *v3;
-    *(v3 + 8) = vmulq_n_f64(v11, *v3);
-    *(v3 + 24) = v6 * v12;
-    v7 = &v11;
-    v8 = 256;
-    v9 = v3;
+    v5 = *v2;
+    *(v2 + 8) = vmulq_n_f64(v13, *v2);
+    *(v2 + 24) = v5 * v14;
+    v6 = &v13;
+    v7 = 256;
+    v8 = v2;
     do
     {
-      v9[2] = vmulq_n_f64(*(v7 + 24), v6);
-      v9[130] = vmulq_n_f64(*(v7++ + 2072), v6);
-      ++v9;
-      v8 -= 2;
+      v8[2] = vmulq_n_f64(*(v6 + 24), v5);
+      v8[130] = vmulq_n_f64(*(v6++ + 2072), v5);
+      ++v8;
+      v7 -= 2;
     }
 
-    while (v8);
-    bzero((v3 + 4128), 0x40uLL);
-    bzero((v3 + 4192), 0x40uLL);
-  }
-
-  return v5;
-}
-
-double PCECalibrationManager<FileInputFactory>::readPCIIv3(uint64_t a1, uint64_t a2)
-{
-  MEMORY[0x28223BE20](a1, a2);
-  v3 = v2;
-  if (Input::readAll<pcii_v3>(v4, &v14))
-  {
-    v6 = *v3;
-    *(v3 + 8) = vmulq_n_f64(v14, *v3);
-    *(v3 + 24) = v6 * v15;
-    v7 = &v14;
-    v8 = 256;
-    v9 = v3;
-    do
-    {
-      v9[2] = vmulq_n_f64(*(v7 + 24), v6);
-      v9[130] = vmulq_n_f64(*(v7++ + 2072), v6);
-      ++v9;
-      v8 -= 2;
-    }
-
-    while (v8);
-    v10 = v17;
-    *(v3 + 4128) = v16;
-    *(v3 + 4144) = v10;
-    v11 = v19;
-    *(v3 + 4160) = v18;
-    *(v3 + 4176) = v11;
-    v12 = v21;
-    *(v3 + 4192) = v20;
-    *(v3 + 4208) = v12;
-    result = *&v22;
-    v13 = v23;
-    *(v3 + 4224) = v22;
-    *(v3 + 4240) = v13;
+    while (v7);
+    v9 = v16;
+    *(v2 + 4128) = v15;
+    *(v2 + 4144) = v9;
+    v10 = v18;
+    *(v2 + 4160) = v17;
+    *(v2 + 4176) = v10;
+    v11 = v20;
+    *(v2 + 4192) = v19;
+    *(v2 + 4208) = v11;
+    result = *&v21;
+    v12 = v22;
+    *(v2 + 4224) = v21;
+    *(v2 + 4240) = v12;
   }
 
   return result;
@@ -5261,13 +5332,13 @@ void PCECalibrationManager<FileInputFactory>::readPCII(uint64_t a1)
     switch(v3)
     {
       case 3:
-        PCECalibrationManager<FileInputFactory>::readPCIIv3(a1, Input);
+        PCECalibrationManager<FileInputFactory>::readPCIIv3(a1);
         break;
       case 2:
-        PCECalibrationManager<FileInputFactory>::readPCIIv2(a1, Input);
+        PCECalibrationManager<FileInputFactory>::readPCIIv2(a1);
         break;
       case 1:
-        PCECalibrationManager<FileInputFactory>::readPCIIv1(a1, Input);
+        PCECalibrationManager<FileInputFactory>::readPCIIv1(a1);
         break;
     }
   }
@@ -5653,7 +5724,7 @@ BOOL Input::readAll<pmpc>(const char *a1, uint64_t a2)
   return v5 == 32;
 }
 
-BOOL JasperCalibrationManager<FileInputFactory>::readBlob(uint64_t a1, unsigned int a2, __CFDictionary *a3)
+BOOL JasperCalibrationManager<FileInputFactory>::readBlob(uint64_t a1, int a2, __CFDictionary *a3)
 {
   OnlyBlob = JasperCalibrationManager<FileInputFactory>::readOnlyBlob(a1, a2);
   if (OnlyBlob)
@@ -5670,11 +5741,11 @@ BOOL JasperCalibrationManager<FileInputFactory>::readBlob(uint64_t a1, unsigned 
   return OnlyBlob != 0;
 }
 
-uint64_t JasperCalibrationManager<NvmPeridotInputFactory>::JasperCalibrationManager(uint64_t a1, uint64_t a2)
+uint64_t JasperCalibrationManager<NvmPeridotInputFactory>::JasperCalibrationManager(uint64_t a1)
 {
-  v3 = CalibrationManager<NvmPeridotInputFactory>::CalibrationManager(a1, a2);
-  *v3 = &unk_2838134D8;
-  JasperCalibrationManager<NvmPeridotInputFactory>::readSerialNumber(v3);
+  v2 = CalibrationManager<NvmPeridotInputFactory>::CalibrationManager(a1);
+  *v2 = &unk_2838134D8;
+  JasperCalibrationManager<NvmPeridotInputFactory>::readSerialNumber(v2);
   return a1;
 }
 
@@ -5685,7 +5756,7 @@ void sub_224877E10(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t CalibrationManager<NvmPeridotInputFactory>::CalibrationManager(uint64_t a1, uint64_t a2)
+uint64_t CalibrationManager<NvmPeridotInputFactory>::CalibrationManager(uint64_t a1)
 {
   *a1 = &unk_283813370;
   *(a1 + 24) = 0;
@@ -5694,7 +5765,7 @@ uint64_t CalibrationManager<NvmPeridotInputFactory>::CalibrationManager(uint64_t
   *(a1 + 8) = &unk_283813120;
   *(a1 + 16) = a1 + 24;
   *(a1 + 48) = 0;
-  *(a1 + 48) = NvmPeridotInputFactory::validate((a1 + 8), a2);
+  *(a1 + 48) = NvmPeridotInputFactory::validate((a1 + 8));
   return a1;
 }
 
@@ -5860,7 +5931,7 @@ LABEL_31:
   return result;
 }
 
-unint64_t FLD::GetAFEAddress(FLD *a1, unsigned int *a2, uint64_t a3, uint64_t *a4, uint64_t *a5, void *a6)
+unint64_t FLD::GetAFEAddress(FLD *a1, unsigned int *a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6)
 {
   v11 = a1;
   result = FLD::GetAFEDelayV(a1, a2[8]);
@@ -6017,7 +6088,7 @@ LABEL_24:
     }
 
     v18 = a2[7];
-    if ((v18 - 4) <= 0xFFFFFFFD)
+    if (v18 - 4 <= 0xFFFFFFFD)
     {
       FLD::GetInputAFE();
     }
@@ -6131,7 +6202,7 @@ LABEL_35:
   return v12;
 }
 
-double FLD::Init(uint64_t a1)
+double FLD::Init(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
@@ -6145,7 +6216,7 @@ double FLD::Init(uint64_t a1)
   return result;
 }
 
-uint64_t FLD::Prepare(uint64_t result)
+uint64_t FLD::Prepare(uint64_t result, uint64_t a2)
 {
   if (!result)
   {
@@ -6246,10 +6317,10 @@ void FLD::ComputeBinnedXtalk(unsigned int *a1, uint64_t a2, int a3)
     v44 = v9;
     v21 = &v17[48 * v9 + 2 * v8];
     v22 = (2 * (v5 - v54 * v7)) & 0xFFFFFFFFFFFFFFFCLL;
-    v51 = &v19[12 * v8];
+    v51 = &v19[3 * v8];
     v23 = (v49 * v54);
     v48 = v19;
-    v50 = &v18[12 * v8];
+    v50 = &v18[3 * v8];
     v8 = v47;
     do
     {
@@ -7367,7 +7438,7 @@ void H16ISP::H16ISPGraphExclaveAttentionDetectionNode::H16ISPGraphExclaveAttenti
   *(v5 + 96) = a3;
 }
 
-void H16ISP::H16ISPGraphExclaveAttentionDetectionNode::~H16ISPGraphExclaveAttentionDetectionNode(H16ISP::H16ISPGraphExclaveAttentionDetectionNode *this)
+void H16ISP::H16ISPGraphExclaveAttentionDetectionNode::~H16ISPGraphExclaveAttentionDetectionNode(NSObject **this)
 {
   H16ISP::H16ISPFilterGraphNode::~H16ISPFilterGraphNode(this);
 
@@ -7746,11 +7817,11 @@ uint64_t H16ISP::H16ISPGraphExclaveAttentionDetectionNode::onMessageProcessing(H
 
 uint64_t H16ISP::LoadPDEFiles(H16ISP *this, H16ISP::H16ISPDevice *a2)
 {
-  v2 = MEMORY[0x28223BE20](this, a2);
+  v2 = MEMORY[0x28223BE20](this);
   v3 = 0;
   v61 = *MEMORY[0x277D85DE8];
   v4 = (*(v2 + 538) + 8);
-  v5 = -1;
+  v5 = 0xFFFFFFFFLL;
   v6 = -1;
   do
   {
@@ -7763,9 +7834,17 @@ uint64_t H16ISP::LoadPDEFiles(H16ISP *this, H16ISP::H16ISPDevice *a2)
       }
     }
 
-    else if (v7 == 1718186595 && *v4)
+    else if (v7 == 1718186595)
     {
-      v5 = v3;
+      if (*v4)
+      {
+        v5 = v3;
+      }
+
+      else
+      {
+        v5 = v5;
+      }
     }
 
     v4 += 26;
@@ -7777,7 +7856,7 @@ uint64_t H16ISP::LoadPDEFiles(H16ISP *this, H16ISP::H16ISPDevice *a2)
   if (v5 == -1)
   {
     NSLog(&cfstr_FoundNoIrSenso.isa);
-    goto LABEL_67;
+    goto LABEL_68;
   }
 
   v9 = *MEMORY[0x277CD2898];
@@ -7907,7 +7986,7 @@ uint64_t H16ISP::LoadPDEFiles(H16ISP *this, H16ISP::H16ISPDevice *a2)
   if (!v35)
   {
     NSLog(&cfstr_CouldnTReadSer.isa);
-    goto LABEL_54;
+    goto LABEL_55;
   }
 
   BytePtr = CFDataGetBytePtr(v35);
@@ -7932,7 +8011,7 @@ uint64_t H16ISP::LoadPDEFiles(H16ISP *this, H16ISP::H16ISPDevice *a2)
         if (valuePtr < 0x10000)
         {
           CFRelease(v43);
-          goto LABEL_51;
+          goto LABEL_52;
         }
 
         NSLog(&cfstr_ErrorConvertin_0.isa);
@@ -7959,30 +8038,30 @@ uint64_t H16ISP::LoadPDEFiles(H16ISP *this, H16ISP::H16ISPDevice *a2)
     if (!v46)
     {
       NSLog(&cfstr_CouldNotReadCa_0.isa);
-      goto LABEL_54;
+      goto LABEL_55;
     }
 
     LOWORD(__p[0].__r_.__value_.__l.__data_) = *(CFDataGetBytePtr(v46) + 1);
     CFRelease(v47);
   }
 
-LABEL_51:
+LABEL_52:
   NSLog(&cfstr_SendingRosalin.isa, &__p[0].__r_.__value_.__s.__data_[2], LOWORD(__p[0].__r_.__value_.__l.__data_));
   DataFile = H16ISP::H16ISPDevice::ISP_LoadDataFile(v2, v5, __p, 0x14u, 6u);
   if (!DataFile)
   {
-    goto LABEL_55;
+    goto LABEL_56;
   }
 
   NSLog(&cfstr_FailedToSendRo_0.isa, DataFile);
-LABEL_54:
-  NSLog(&cfstr_ErrorCouldnTSe_0.isa);
 LABEL_55:
+  NSLog(&cfstr_ErrorCouldnTSe_0.isa);
+LABEL_56:
   bzero(__p, 0x3400uLL);
-  if ((PCECalibration::fill(v2, __p) & 1) == 0)
+  if (!PCECalibration::fill(v2))
   {
     NSLog(&cfstr_FailedToReadPc.isa);
-    goto LABEL_64;
+    goto LABEL_65;
   }
 
   if (v29)
@@ -7998,20 +8077,20 @@ LABEL_55:
   if (sendReferences(v2, &v49->__r_.__value_.__l.__data_, v5))
   {
     NSLog(&cfstr_FailedToSendRe.isa);
-LABEL_64:
+LABEL_65:
     if (SHIBYTE(v57.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v57.__r_.__value_.__l.__data_);
     }
 
     NSLog(&cfstr_FailedToLoadPd.isa);
-    goto LABEL_67;
+    goto LABEL_68;
   }
 
   if (H16ISP::H16ISPDevice::ISP_LoadDataFile(v2, v5, __p, 0x3400u, 0xFFu))
   {
     NSLog(&cfstr_FailedToSendPc.isa);
-    goto LABEL_64;
+    goto LABEL_65;
   }
 
   if (SHIBYTE(v57.__r_.__value_.__r.__words[2]) < 0)
@@ -8019,7 +8098,7 @@ LABEL_64:
     operator delete(v57.__r_.__value_.__l.__data_);
   }
 
-LABEL_67:
+LABEL_68:
   if (v6 != -1)
   {
     H16ISP::H16ISPDevice::ISP_GetCameraStatus(v2, __p);
@@ -8156,8 +8235,9 @@ void sub_22487B988(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sendReferences(uint64_t a1, const void **a2, int a3)
+uint64_t sendReferences(uint64_t a1, const void **a2, uint64_t a3)
 {
+  v3 = a3;
   v19 = 256;
   v6 = MEMORY[0x277CBEAC0];
   v7 = MEMORY[0x277CCACA8];
@@ -8172,7 +8252,7 @@ uint64_t sendReferences(uint64_t a1, const void **a2, int a3)
     p_p = __p.__r_.__value_.__r.__words[0];
   }
 
-  processReferenceList(a1, a3, [v6 dictionaryWithContentsOfFile:{objc_msgSend(v7, "stringWithUTF8String:", p_p)}], a2, 2, &v19);
+  processReferenceList(a1, v3, [v6 dictionaryWithContentsOfFile:{objc_msgSend(v7, "stringWithUTF8String:", p_p)}], a2, 2, &v19);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -8191,7 +8271,7 @@ uint64_t sendReferences(uint64_t a1, const void **a2, int a3)
     v11 = __p.__r_.__value_.__r.__words[0];
   }
 
-  v12 = processReferenceList(a1, a3, [v9 dictionaryWithContentsOfFile:{objc_msgSend(v10, "stringWithUTF8String:", v11)}], a2, 1, &v19);
+  v12 = processReferenceList(a1, v3, [v9 dictionaryWithContentsOfFile:{objc_msgSend(v10, "stringWithUTF8String:", v11)}], a2, 1, &v19);
   v13 = v12;
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -8220,7 +8300,7 @@ uint64_t sendReferences(uint64_t a1, const void **a2, int a3)
     v16 = __p.__r_.__value_.__r.__words[0];
   }
 
-  processReferenceList(a1, a3, [v14 dictionaryWithContentsOfFile:{objc_msgSend(v15, "stringWithUTF8String:", v16)}], a2, 3, &v19);
+  processReferenceList(a1, v3, [v14 dictionaryWithContentsOfFile:{objc_msgSend(v15, "stringWithUTF8String:", v16)}], a2, 3, &v19);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -8526,12 +8606,13 @@ uint64_t processReferenceList(uint64_t a1, int a2, void *a3, uint64_t a4, int a5
   return v6;
 }
 
-void sub_22487C160(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_22487C160(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 176), 8);
-  _Block_object_dispose((v27 - 144), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 176), 8);
+  _Block_object_dispose((v26 - 144), 8);
   _Unwind_Resume(a1);
 }
 
@@ -10381,7 +10462,7 @@ LABEL_366:
 
               if (os_log_type_enabled(v285, OS_LOG_TYPE_ERROR))
               {
-                CopySupportedFormatsArray(&v476, &v477);
+                CopySupportedFormatsArray(v476, &v477);
               }
             }
           }
@@ -10409,7 +10490,7 @@ LABEL_366:
 
             if (os_log_type_enabled(v289, OS_LOG_TYPE_ERROR))
             {
-              CopySupportedFormatsArray(&v478, &v479);
+              CopySupportedFormatsArray(v478, &v479);
             }
           }
         }
@@ -10457,7 +10538,7 @@ LABEL_315:
 
               if (os_log_type_enabled(v306, OS_LOG_TYPE_ERROR))
               {
-                CopySupportedFormatsArray(&v483, &v484);
+                CopySupportedFormatsArray(v483, &v484);
               }
             }
           }
@@ -10485,7 +10566,7 @@ LABEL_315:
 
                   if (os_log_type_enabled(v309, OS_LOG_TYPE_ERROR))
                   {
-                    CopySupportedFormatsArray(&v487, &v488);
+                    CopySupportedFormatsArray(v487, &v488);
                   }
 
 LABEL_342:
@@ -10525,7 +10606,7 @@ LABEL_342:
 
                 if (os_log_type_enabled(v316, OS_LOG_TYPE_ERROR))
                 {
-                  CopySupportedFormatsArray(&v485, &v486);
+                  CopySupportedFormatsArray(v485, &v486);
                 }
               }
 
@@ -10541,7 +10622,7 @@ LABEL_342:
 
             if (os_log_type_enabled(v310, OS_LOG_TYPE_ERROR))
             {
-              CopySupportedFormatsArray(&v489, &v490);
+              CopySupportedFormatsArray(v489, &v490);
             }
           }
 
@@ -10567,7 +10648,7 @@ LABEL_364:
 
             if (os_log_type_enabled(v320, OS_LOG_TYPE_ERROR))
             {
-              CopySupportedFormatsArray(&v495, v496);
+              CopySupportedFormatsArray(v495, v496);
             }
 
             goto LABEL_364;
@@ -10590,7 +10671,7 @@ LABEL_364:
 
               if (os_log_type_enabled(v319, OS_LOG_TYPE_ERROR))
               {
-                CopySupportedFormatsArray(&v493, &v494);
+                CopySupportedFormatsArray(v493, &v494);
               }
 
 LABEL_363:
@@ -10630,7 +10711,7 @@ LABEL_363:
 
             if (os_log_type_enabled(v326, OS_LOG_TYPE_ERROR))
             {
-              CopySupportedFormatsArray(&v491, &v492);
+              CopySupportedFormatsArray(v491, &v492);
             }
           }
 

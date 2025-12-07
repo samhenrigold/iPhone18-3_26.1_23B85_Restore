@@ -23,7 +23,7 @@
 - (void)didMoveToWindow
 {
   selfCopy = self;
-  sub_1004EDF2C();
+  sub_1004EDF2C(selfCopy);
 }
 
 - (CGSize)intrinsicContentSize

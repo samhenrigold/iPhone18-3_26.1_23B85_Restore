@@ -360,16 +360,15 @@ LABEL_13:
   v10 = *(&self->super.isa + OBJC_IVAR____TtC16RemoteManagement15ManagedKeychain_accessGroup);
   v11 = *&self->accessGroup[OBJC_IVAR____TtC16RemoteManagement15ManagedKeychain_accessGroup];
   selfCopy = self;
-  v13 = sub_1E118F5E8(scope, v7, v9, v10, v11);
+  sub_1E118F5E8(scope, v7, v9, v10, v11);
 
   swift_beginAccess();
-  v14 = *(v13 + 56);
 
-  sub_1E11834A4(v15);
+  sub_1E11834A4(v13);
 
-  v16 = sub_1E11B31D0();
+  v14 = sub_1E11B31D0();
 
-  return v16;
+  return v14;
 }
 
 - (id)assetKeysForIdentitiesWithScope:(int64_t)scope persona:(id)persona error:(id *)error
@@ -390,16 +389,15 @@ LABEL_13:
   v10 = *(&self->super.isa + OBJC_IVAR____TtC16RemoteManagement15ManagedKeychain_accessGroup);
   v11 = *&self->accessGroup[OBJC_IVAR____TtC16RemoteManagement15ManagedKeychain_accessGroup];
   selfCopy = self;
-  v13 = sub_1E118F5E8(scope, v7, v9, v10, v11);
+  sub_1E118F5E8(scope, v7, v9, v10, v11);
 
   swift_beginAccess();
-  v14 = *(v13 + 72);
 
-  sub_1E11834A4(v15);
+  sub_1E11834A4(v13);
 
-  v16 = sub_1E11B31D0();
+  v14 = sub_1E11B31D0();
 
-  return v16;
+  return v14;
 }
 
 - (id)assetKeysForPasswordsWithScope:(int64_t)scope persona:(id)persona error:(id *)error
@@ -420,16 +418,15 @@ LABEL_13:
   v10 = *(&self->super.isa + OBJC_IVAR____TtC16RemoteManagement15ManagedKeychain_accessGroup);
   v11 = *&self->accessGroup[OBJC_IVAR____TtC16RemoteManagement15ManagedKeychain_accessGroup];
   selfCopy = self;
-  v13 = sub_1E118F5E8(scope, v7, v9, v10, v11);
+  sub_1E118F5E8(scope, v7, v9, v10, v11);
 
   swift_beginAccess();
-  v14 = *(v13 + 88);
 
-  sub_1E11834A4(v15);
+  sub_1E11834A4(v13);
 
-  v16 = sub_1E11B31D0();
+  v14 = sub_1E11B31D0();
 
-  return v16;
+  return v14;
 }
 
 - (id)certificatePersistentRefWithAssetKey:(id)key scope:(int64_t)scope persona:(id)persona error:(id *)error

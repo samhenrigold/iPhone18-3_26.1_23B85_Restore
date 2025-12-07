@@ -28,7 +28,7 @@
   y = frame.origin.y;
   x = frame.origin.x;
   selfCopy = self;
-  sub_100369C9C(x, y, width, height);
+  sub_100369C9C(selfCopy, x, y, width, height);
 }
 
 - (void)layoutSubviews
@@ -46,7 +46,7 @@
 - (void)didMoveToSuperview
 {
   selfCopy = self;
-  sub_10036B800();
+  sub_10036B800(selfCopy);
 }
 
 - (void)_observeScrollViewDidScroll:(id)scroll

@@ -10,14 +10,14 @@
 
 - (RTTripSegmentLocationType)initWithDateInterval:(id)interval distanceInterval:(id)distanceInterval locationType:(int64_t)type
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   intervalCopy = interval;
   distanceIntervalCopy = distanceInterval;
   if (intervalCopy)
   {
-    v18.receiver = self;
-    v18.super_class = RTTripSegmentLocationType;
-    v11 = [(RTTripSegmentLocationType *)&v18 init];
+    v17.receiver = self;
+    v17.super_class = RTTripSegmentLocationType;
+    v11 = [(RTTripSegmentLocationType *)&v17 init];
     v12 = v11;
     if (v11)
     {
@@ -30,7 +30,7 @@
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v20 = v12;
+          v19 = v12;
           _os_log_debug_impl(&dword_1BF1C4000, v13, OS_LOG_TYPE_DEBUG, "tripSegmentLocationType, %@", buf, 0xCu);
         }
       }
@@ -52,7 +52,6 @@
     selfCopy = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

@@ -29,7 +29,7 @@
 
   if (background)
   {
-    [(BKSegmentedControl *)self _appearanceStruct:0];
+    objc_msgSend__appearanceStruct(self, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     [(BKSegmentedControl *)self _setSegmentedControlAppearance:&v4];
   }
 }

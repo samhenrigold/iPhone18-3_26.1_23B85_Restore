@@ -7,56 +7,55 @@
 + (id)evaluateForArgsWithContext:(id)context functionSpec:(id)spec arguments:(const void *)arguments
 {
   v8 = **arguments;
-  v49 = 0;
-  v10 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v8, v9, context, spec, 0, &v49);
-  v11 = v49;
-  objc_msgSend_doubleRepresentation(v10, v12, v13, v14, v15);
+  v42 = 0;
+  v10 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v8, v9, context, spec, 0, &v42);
+  v11 = v42;
+  objc_msgSend_doubleRepresentation(v10, v12, v13, v14);
   if (v11)
   {
-    v20 = objc_msgSend_raiseErrorOrConvert_(context, v16, v11, v17, v18);
+    v18 = objc_msgSend_raiseErrorOrConvert_(context, v15, v11, v16);
   }
 
   else
   {
-    v21 = v19;
-    v22 = *(*arguments + 8);
-    v48 = 0;
-    v24 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v22, v23, context, spec, 1, &v48);
-    v11 = v48;
-    v29 = objc_msgSend_trunc(v24, v25, v26, v27, v28);
+    v19 = v17;
+    v20 = *(*arguments + 8);
+    v41 = 0;
+    v22 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v20, v21, context, spec, 1, &v41);
+    v11 = v41;
+    v26 = objc_msgSend_trunc(v22, v23, v24, v25);
 
-    objc_msgSend_doubleRepresentation(v29, v30, v31, v32, v33);
+    objc_msgSend_doubleRepresentation(v26, v27, v28, v29);
     if (v11)
     {
-      v38 = objc_msgSend_raiseErrorOrConvert_(context, v34, v11, v35, v36);
+      v33 = objc_msgSend_raiseErrorOrConvert_(context, v30, v11, v31);
     }
 
     else
     {
-      v39 = v37;
+      v34 = v32;
       pthread_mutex_lock(&stru_27CFB4098);
-      v40.n128_u64[0] = v39;
-      v41.n128_u64[0] = v21;
-      sub_2213BCC9C(v40, v41);
+      v35.n128_u64[0] = v34;
+      sub_2213BCC9C(v35, v19);
       pthread_mutex_unlock(&stru_27CFB4098);
       TSUDecimal::operator=();
       if (v8)
       {
-        objc_msgSend_formatWithContext_(v8, v42, context, v43, v44);
+        objc_msgSend_formatWithContext_(v8, v36, context, v37);
       }
 
       else
       {
-        memset(v46, 0, sizeof(v46));
+        memset(v39, 0, sizeof(v39));
       }
 
-      v38 = objc_msgSend_numberWithDecimal_format_(TSCENumberValue, v42, v47, v46, v44);
+      v33 = objc_msgSend_numberWithDecimal_format_(TSCENumberValue, v36, v40, v39);
     }
 
-    v20 = v38;
+    v18 = v33;
   }
 
-  return v20;
+  return v18;
 }
 
 @end

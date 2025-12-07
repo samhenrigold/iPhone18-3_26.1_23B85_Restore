@@ -152,9 +152,7 @@
     firmwareVersionVDO2 = [(UARPAppleHPM *)self->_hpm firmwareVersionVDO];
     v6 = strtoul([firmwareVersionVDO2 UTF8String], 0, 16);
 
-    v7 = [[UARPAssetVersion alloc] initWithMajorVersion:(HIBYTE(v6) - 6 * (HIBYTE(v6) >> 4)) minorVersion:(BYTE2(v6) - 6 * (BYTE2(v6) >> 4)) releaseVersion:(v6 - 6 * (v6 >> 4)) buildVersion:0];
-    fwVersion = self->_fwVersion;
-    self->_fwVersion = v7;
+    self->_fwVersion = [[UARPAssetVersion alloc] initWithMajorVersion:(HIBYTE(v6) - 6 * (HIBYTE(v6) >> 4)) minorVersion:(BYTE2(v6) - 6 * (BYTE2(v6) >> 4)) releaseVersion:(v6 - 6 * (v6 >> 4)) buildVersion:0];
 
     _objc_release_x1();
   }

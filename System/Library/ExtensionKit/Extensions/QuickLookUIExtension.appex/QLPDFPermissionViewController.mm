@@ -8,6 +8,7 @@
 - (void)presentationControllerDidDismiss:(id)dismiss;
 - (void)traitCollectionDidChange:(id)change;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation QLPDFPermissionViewController
@@ -71,6 +72,20 @@
   objc_destroyWeak(&v20);
   objc_destroyWeak(&v22);
   objc_destroyWeak(&location);
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = QLPDFPermissionViewController;
+  [(QLPDFPermissionViewController *)&v6 viewWillAppear:appear];
+  v4 = dispatch_time(0, 50000000);
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_1000053FC;
+  block[3] = &unk_100024A00;
+  block[4] = self;
+  dispatch_after(v4, &_dispatch_main_q, block);
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path

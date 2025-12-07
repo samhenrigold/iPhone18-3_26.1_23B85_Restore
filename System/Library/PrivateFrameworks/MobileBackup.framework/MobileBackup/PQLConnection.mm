@@ -1,10 +1,12 @@
 @interface PQLConnection
+- (BOOL)_performSchemaUpgrade:(id)upgrade fromDatabaseVersion:(unsigned int)version error:(id *)error;
 - (BOOL)_recordVerificationState:(unint64_t)state domainID:(unint64_t)d error:(id *)error;
 - (BOOL)executeStatements:(id)statements error:(id *)error;
 - (BOOL)executeWithError:(id *)error sql:(id)sql;
 - (BOOL)fetchObjectOfClass:(Class)class outObject:(id *)object error:(id *)error sql:(id)sql;
 - (BOOL)groupInTransaction:(id *)transaction transaction:(id)a4;
 - (BOOL)performSchemaUpgrades:(id)upgrades isReadOnly:(BOOL)only error:(id *)error;
+- (id)_insertFailure:(id)failure domainID:(unint64_t)d restoreType:(int)type inode:(id)inode restorableID:(id)iD error:(id *)error;
 - (id)fetchObjectOfClass:(Class)class error:(id *)error sql:(id)sql;
 - (unint64_t)fetchCountWithError:(id *)error sql:(id)sql;
 @end
@@ -275,6 +277,144 @@ LABEL_28:
   return v20;
 }
 
+- (BOOL)_performSchemaUpgrade:(id)upgrade fromDatabaseVersion:(unsigned int)version error:(id *)error
+{
+  v6 = *&version;
+  upgradeCopy = upgrade;
+  if (!error)
+  {
+    __assert_rtn("[PQLConnection(MBAdditions) _performSchemaUpgrade:fromDatabaseVersion:error:]", "PQLConnection+MBAdditions.m", 153, "error");
+  }
+
+  v9 = upgradeCopy;
+  version = [upgradeCopy version];
+  upgradeBlock = [v9 upgradeBlock];
+
+  if (upgradeBlock)
+  {
+    if (version > v6)
+    {
+      v12 = MBGetDefaultLog();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 67109376;
+        *&buf[4] = v6;
+        LOWORD(v37) = 1024;
+        *(&v37 + 2) = version;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "=pqldb= Migrating database from version %d to %d", buf, 0xEu);
+        _MBLog(@"Df", "=pqldb= Migrating database from version %d to %d", v6, version);
+      }
+
+      *buf = 0;
+      v37 = buf;
+      v38 = 0x3032000000;
+      v39 = sub_1001E4AA0;
+      v40 = sub_1001E4AB0;
+      v41 = 0;
+      v22 = _NSConcreteStackBlock;
+      v23 = 3221225472;
+      v24 = sub_1001E4AB8;
+      v25 = &unk_1003C13D0;
+      v13 = v9;
+      v28 = v6;
+      v29 = version;
+      v26 = v13;
+      v27 = buf;
+      if (([(PQLConnection *)self performWithFlags:10 action:&v22]& 1) != 0)
+      {
+
+        if (![v13 shouldVacuum])
+        {
+LABEL_12:
+          [(PQLConnection *)self setUserVersion:version];
+          v15 = 1;
+LABEL_22:
+          _Block_object_dispose(buf, 8);
+
+          goto LABEL_23;
+        }
+
+        if (([(PQLConnection *)self execute:@"vacuum;"]& 1) != 0)
+        {
+          v14 = MBGetDefaultLog();
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          {
+            *v30 = 67109376;
+            v31 = v6;
+            v32 = 1024;
+            v33 = version;
+            _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "=pqldb= Vacuumed after migrating database from version %d to %d", v30, 0xEu);
+            _MBLog(@"Df", "=pqldb= Vacuumed after migrating database from version %d to %d", v6, version);
+          }
+
+          goto LABEL_12;
+        }
+
+        lastError = [(PQLConnection *)self lastError];
+        v20 = MBGetDefaultLog();
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        {
+          *v30 = 67109634;
+          v31 = v6;
+          v32 = 1024;
+          v33 = version;
+          v34 = 2112;
+          v35 = lastError;
+          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "=pqldb= Vacuum after migration from version %d to %d failed: %@", v30, 0x18u);
+          _MBLog(@"E ", "=pqldb= Vacuum after migration from version %d to %d failed: %@", v6, version, lastError, v22, v23, v24, v25);
+        }
+
+        v21 = lastError;
+        *error = lastError;
+      }
+
+      else
+      {
+        v17 = MBGetDefaultLog();
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        {
+          *v30 = 67109376;
+          v31 = v6;
+          v32 = 1024;
+          v33 = version;
+          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "=pqldb= Migration from version %d to %d failed", v30, 0xEu);
+          _MBLog(@"E ", "=pqldb= Migration from version %d to %d failed", v6, version);
+        }
+
+        *error = *(v37 + 5);
+        lastError = v26;
+      }
+
+      v15 = 0;
+      goto LABEL_22;
+    }
+
+    goto LABEL_17;
+  }
+
+  if (version != v6)
+  {
+LABEL_17:
+    v15 = 1;
+    goto LABEL_23;
+  }
+
+  v16 = MBGetDefaultLog();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109120;
+    *&buf[4] = v6;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "=pqldb= Found invalid database version %d", buf, 8u);
+    _MBLog(@"Df", "=pqldb= Found invalid database version %d", v6);
+  }
+
+  [MBError errorWithCode:1 format:@"Found invalid database version %d", v6];
+  *error = v15 = 0;
+LABEL_23:
+
+  return v15;
+}
+
 - (BOOL)groupInTransaction:(id *)transaction transaction:(id)a4
 {
   v12 = 0;
@@ -318,6 +458,89 @@ LABEL_28:
   }
 
   return [(PQLConnection *)self executeWithError:error sql:@"\nUPDATE Domains\n    SET verificationStatus = %u\n WHERE domainID = %llu", state, d];
+}
+
+- (id)_insertFailure:(id)failure domainID:(unint64_t)d restoreType:(int)type inode:(id)inode restorableID:(id)iD error:(id *)error
+{
+  v11 = *&type;
+  failureCopy = failure;
+  inodeCopy = inode;
+  iDCopy = iD;
+  if (!failureCopy)
+  {
+    __assert_rtn("[PQLConnection(_MBPlanAdditions) _insertFailure:domainID:restoreType:inode:restorableID:error:]", "MBRestorePlanDB.m", 2459, "failure");
+  }
+
+  if (!d)
+  {
+    __assert_rtn("[PQLConnection(_MBPlanAdditions) _insertFailure:domainID:restoreType:inode:restorableID:error:]", "MBRestorePlanDB.m", 2460, "domainID");
+  }
+
+  if (!error)
+  {
+    __assert_rtn("[PQLConnection(_MBPlanAdditions) _insertFailure:domainID:restoreType:inode:restorableID:error:]", "MBRestorePlanDB.m", 2461, "error");
+  }
+
+  userInfo = [failureCopy userInfo];
+  v16 = [userInfo objectForKeyedSubscript:@"kMBErrorDateKey"];
+  v17 = v16;
+  if (v16)
+  {
+    v18 = v16;
+  }
+
+  else
+  {
+    v18 = +[NSDate now];
+  }
+
+  v19 = v18;
+
+  [v19 timeIntervalSinceReferenceDate];
+  v21 = v20;
+  domain = [failureCopy domain];
+  code = [failureCopy code];
+  localizedDescription = [failureCopy localizedDescription];
+  v25 = MBGetDefaultLog();
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+  {
+    *buf = 138412802;
+    v37 = domain;
+    v38 = 2048;
+    v39 = code;
+    v40 = 2112;
+    v41 = localizedDescription;
+    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "=plan= Inserting error %@ (%ld): %@", buf, 0x20u);
+    _MBLog(@"I ", "=plan= Inserting error %@ (%ld): %@", domain, code, localizedDescription);
+  }
+
+  v35 = 0;
+  iDCopy = [(PQLConnection *)self fetchObjectOfClass:objc_opt_class() outObject:&v35 error:error sql:@"\nINSERT INTO Errors (\ncount, \ntimestamp, \nerrorDomain, \nerrorCode, \ndescription, \ndomainID, \nrestoreType, \ninode, \nrestorableID\n) VALUES (\n1, \n%g, \n%@, \n%lld, \n%@, \n%lld, \n%u, \n%@, \n%@\n) RETURNING errorID;", v21, domain, code, localizedDescription, d, v11, inodeCopy, iDCopy];
+  v27 = v35;
+  v28 = v27;
+  if (iDCopy)
+  {
+    v29 = v27;
+  }
+
+  else
+  {
+    v30 = MBGetDefaultLog();
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    {
+      v31 = *error;
+      *buf = 138412546;
+      v37 = localizedDescription;
+      v38 = 2112;
+      v39 = v31;
+      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "=plan= Failed inserting error %@: %@", buf, 0x16u);
+      _MBLog(@"E ", "=plan= Failed inserting error %@: %@", localizedDescription, *error);
+    }
+
+    v29 = 0;
+  }
+
+  return v29;
 }
 
 @end

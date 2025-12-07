@@ -5,6 +5,7 @@
 - (void)applicationWillEnterForeground;
 - (void)dealloc;
 - (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation TipsTOCViewController
@@ -36,6 +37,21 @@
 {
   selfCopy = self;
   sub_1000581B8(appear);
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for TipsTOCViewController();
+  v4 = v5.receiver;
+  [(TPSAppViewController *)&v5 viewWillDisappear:disappearCopy];
+  v4[OBJC_IVAR____TtC4Tips21TipsTOCViewController_canIncreaseViewCount] = 0;
+  if (*&v4[OBJC_IVAR____TtC4Tips21TipsTOCViewController_analyticsLoggingTask])
+  {
+
+    Task.cancel()();
+  }
 }
 
 - (void)applicationWillEnterForeground

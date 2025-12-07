@@ -16,6 +16,7 @@
 - (void)processPayloadInfo:(id)info;
 - (void)pushAutocorrections:(id)autocorrections requestToken:(id)token;
 - (void)pushCandidateResultSet:(id)set requestToken:(id)token;
+- (void)releaseConnectedClients;
 - (void)removeAllClients;
 - (void)removeClient:(id)client;
 - (void)setResponseDelegate:(id)delegate;
@@ -53,9 +54,11 @@
 
 uint64_t __44__TUIKeyboardInputManagerMux_sharedInstance__block_invoke()
 {
-  sharedInstance___instance = objc_alloc_init(TUIKeyboardInputManagerMux);
+  v0 = objc_alloc_init(TUIKeyboardInputManagerMux);
+  v1 = sharedInstance___instance;
+  sharedInstance___instance = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (TUIKeyboardInputManagerMux)init
@@ -281,6 +284,13 @@ void __43__TUIKeyboardInputManagerMux__systemHasKbd__block_invoke()
 
     while (v7);
   }
+}
+
+- (void)releaseConnectedClients
+{
+  systemInputManager = self->_systemInputManager;
+  self->_systemInputManager = 0;
+  MEMORY[0x1EEE66BB8](self, systemInputManager);
 }
 
 - (void)removeAllClients

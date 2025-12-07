@@ -58,32 +58,32 @@
 
 - (BOOL)canThrowRenderOutput:(id)output withInput:(id)input withInfo:(id *)info
 {
-  v9 = [(PROAPIAccessing *)self->super.super._apiManager apiForProtocol:&unk_28735E258];
-  if (v9)
+  v8 = [(PROAPIAccessing *)self->super.super._apiManager apiForProtocol:&unk_28735E258];
+  if (v8)
   {
-    v10 = v9;
-    [(PAESharedDefaultBase *)self getScaleForImage:input];
+    v9 = v8;
+    objc_msgSend_getScaleForImage_(self);
+    v16 = 0x3FE0000000000000;
     v17 = 0x3FE0000000000000;
-    v18 = 0x3FE0000000000000;
-    [v10 getXValue:&v18 YValue:&v17 fromParm:1 atFxTime:info->var0.var1];
-    v16 = 0;
-    [v10 getFloatValue:&v16 fromParm:2 atFxTime:info->var0.var1];
+    [v9 getXValue:&v17 YValue:&v16 fromParm:1 atFxTime:info->var0.var1];
     v15 = 0;
-    [v10 getFloatValue:&v15 fromParm:3 atFxTime:info->var0.var1];
-    v14 = 30.0;
-    [v10 getFloatValue:&v14 fromParm:4 atFxTime:info->var0.var1];
-    v11 = [(PAESharedDefaultBase *)self getRenderMode:info->var0.var1];
-    __sincos_stret(v14);
-    if (v11 && [output imageType] == 3)
+    [v9 getFloatValue:&v15 fromParm:2 atFxTime:info->var0.var1];
+    v14 = 0;
+    [v9 getFloatValue:&v14 fromParm:3 atFxTime:info->var0.var1];
+    v13 = 30.0;
+    [v9 getFloatValue:&v13 fromParm:4 atFxTime:info->var0.var1];
+    v10 = [(PAESharedDefaultBase *)self getRenderMode:info->var0.var1];
+    __sincos_stret(v13);
+    if (v10 && [output imageType] == 3)
     {
-      v12 = HGObject::operator new(0x1B0uLL);
-      HFunHouse::HFunHouse(v12);
+      v11 = HGObject::operator new(0x1B0uLL);
+      HFunHouse::HFunHouse(v11);
     }
 
-    LOBYTE(v9) = 0;
+    LOBYTE(v8) = 0;
   }
 
-  return v9;
+  return v8;
 }
 
 - (BOOL)frameSetup:(id *)setup inputInfo:(id *)info hardware:(BOOL *)hardware software:(BOOL *)software

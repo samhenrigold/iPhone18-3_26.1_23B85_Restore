@@ -18,6 +18,10 @@
 - (void)setCurrentAudioInputDeviceToDeviceWithUID:(id)d;
 - (void)setCurrentAudioOutputDeviceToDeviceWithUID:(id)d;
 - (void)setCurrentOutputDevice:(id)device;
+- (void)setFollowsSystemInputSetting:(BOOL)setting;
+- (void)setFollowsSystemOutputSetting:(BOOL)setting;
+- (void)setMediaPlaybackOnExternalDevice:(BOOL)device;
+- (void)setMixesVoiceWithMedia:(BOOL)media;
 @end
 
 @implementation TUAudioDeviceController
@@ -84,8 +88,7 @@ void __63__TUAudioDeviceController_initWithActionsDelegate_serialQueue___block_i
   v5[2] = __63__TUAudioDeviceController_initWithActionsDelegate_serialQueue___block_invoke_3;
   v5[3] = &unk_1E7425748;
   objc_copyWeak(&v6, (a1 + 32));
-  [v2 registerForMutedTalkerNotifications:v5];
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog([v2 registerForMutedTalkerNotifications:v5]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -114,95 +117,94 @@ void __63__TUAudioDeviceController_initWithActionsDelegate_serialQueue___block_i
 
 void __63__TUAudioDeviceController_initWithActionsDelegate_serialQueue___block_invoke_4(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 40);
   if (v2 == 1)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v3 = [*(a1 + 32) delegates];
-    v9 = [v3 countByEnumeratingWithState:&v15 objects:v23 count:16];
+    v9 = [v3 countByEnumeratingWithState:&v14 objects:v22 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v16;
+      v11 = *v15;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v16 != v11)
+          if (*v15 != v11)
           {
             objc_enumerationMutation(v3);
           }
 
-          v13 = *(*(&v15 + 1) + 8 * i);
+          v13 = *(*(&v14 + 1) + 8 * i);
           if (objc_opt_respondsToSelector())
           {
             [v13 audioDeviceControllerMutedTalkerDidEnd:*(a1 + 32)];
           }
         }
 
-        v10 = [v3 countByEnumeratingWithState:&v15 objects:v23 count:16];
+        v10 = [v3 countByEnumeratingWithState:&v14 objects:v22 count:16];
       }
 
       while (v10);
     }
-
-    goto LABEL_22;
   }
 
-  if (!v2)
+  else
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
+    if (v2)
+    {
+      return;
+    }
+
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v3 = [*(a1 + 32) delegates];
-    v4 = [v3 countByEnumeratingWithState:&v19 objects:v24 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v18 objects:v23 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v20;
+      v6 = *v19;
       do
       {
         for (j = 0; j != v5; ++j)
         {
-          if (*v20 != v6)
+          if (*v19 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = *(*(&v19 + 1) + 8 * j);
+          v8 = *(*(&v18 + 1) + 8 * j);
           if (objc_opt_respondsToSelector())
           {
             [v8 audioDeviceControllerMutedTalkerDidStart:*(a1 + 32)];
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v19 objects:v24 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v18 objects:v23 count:16];
       }
 
       while (v5);
     }
-
-LABEL_22:
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleCallStatusChangedNotification:(id)notification
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412290;
-    v14 = notificationCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "notification: %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = notificationCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "notification: %@", &v12, 0xCu);
   }
 
   if (_TUIsInternalInstall())
@@ -239,8 +241,6 @@ LABEL_11:
   }
 
 LABEL_12:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyDelegatesOfDeviceListChange
@@ -256,35 +256,35 @@ LABEL_12:
 
 void __60__TUAudioDeviceController_notifyDelegatesOfDeviceListChange__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v2 = TUDefaultLog();
+  v15 = *MEMORY[0x1E69E9840];
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "Audio devices changed", buf, 2u);
   }
 
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v3 = [*(a1 + 32) delegates];
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * v7);
+        v8 = *(*(&v9 + 1) + 8 * v7);
         if (objc_opt_respondsToSelector())
         {
           [v8 audioDeviceControllerDeviceListChanged:*(a1 + 32)];
@@ -294,13 +294,11 @@ void __60__TUAudioDeviceController_notifyDelegatesOfDeviceListChange__block_invo
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -329,6 +327,42 @@ void __60__TUAudioDeviceController_notifyDelegatesOfDeviceListChange__block_invo
   v6 = [v3 stringWithFormat:@"<%@ %p devices=%@>", v4, self, devices];
 
   return v6;
+}
+
+- (void)setMixesVoiceWithMedia:(BOOL)media
+{
+  mediaCopy = media;
+  v8 = *MEMORY[0x1E69E9840];
+  v5 = TUDefaultLog(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v7[0] = 67109120;
+    v7[1] = mediaCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "Setting mixesVoiceWithMedia: %d", v7, 8u);
+  }
+
+  audioClient = [(TUAudioDeviceController *)self audioClient];
+  [objc_opt_class() setMixingVoiceWithMediaEnabled:mediaCopy];
+}
+
+- (void)setMediaPlaybackOnExternalDevice:(BOOL)device
+{
+  deviceCopy = device;
+  v14 = *MEMORY[0x1E69E9840];
+  v5 = TUDefaultLog(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109120;
+    v13 = deviceCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "Setting mediaPlaybackOnExternalDevice: %d", buf, 8u);
+  }
+
+  audioClient = [(TUAudioDeviceController *)self audioClient];
+  v7 = objc_opt_class();
+  v8 = [MEMORY[0x1E696AD98] numberWithBool:{deviceCopy, @"kAUVoiceIOProperty_MediaPlaybackOnExternalDevice"}];
+  v11 = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+  [v7 setAudioSessionProperties:v9];
 }
 
 - (void)addDelegate:(id)delegate
@@ -397,6 +431,12 @@ void __60__TUAudioDeviceController_notifyDelegatesOfDeviceListChange__block_invo
   return v4;
 }
 
+- (void)setFollowsSystemInputSetting:(BOOL)setting
+{
+  serialQueue = [(TUAudioDeviceController *)self serialQueue];
+  dispatch_assert_queue_V2(serialQueue);
+}
+
 - (BOOL)isFollowingSystemOutputSetting
 {
   v2 = TUPreferredFaceTimeBundleIdentifier();
@@ -404,6 +444,12 @@ void __60__TUAudioDeviceController_notifyDelegatesOfDeviceListChange__block_invo
   v4 = [v3 length] == 0;
 
   return v4;
+}
+
+- (void)setFollowsSystemOutputSetting:(BOOL)setting
+{
+  serialQueue = [(TUAudioDeviceController *)self serialQueue];
+  dispatch_assert_queue_V2(serialQueue);
 }
 
 - (NSArray)devices

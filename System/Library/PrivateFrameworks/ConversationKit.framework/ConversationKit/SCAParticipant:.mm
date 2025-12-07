@@ -6,22 +6,22 @@
 
 - (uint64_t)SCSensitivityAnalysis
 {
-  v4 = *__swift_project_boxed_opaque_existential_1((self + 32), *(self + 56));
+  __swift_project_boxed_opaque_existential_1((self + 32), *(self + 56));
   if (a3)
   {
-    v5 = a3;
+    v4 = a3;
 
-    return specialized _resumeUnsafeThrowingContinuationWithError<A>(_:_:)(v4, v5);
+    return specialized _resumeUnsafeThrowingContinuationWithError<A>(_:_:)();
   }
 
   else
   {
-    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for SCAParticipant);
-    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for SCSensitivityAnalysis);
+    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for SCAParticipant, 0x1E697B648);
+    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for SCSensitivityAnalysis, 0x1E697B670);
     lazy protocol witness table accessor for type SCAParticipant and conformance NSObject();
-    v7 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+    static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
-    return specialized _resumeUnsafeThrowingContinuation<A>(_:_:)(v4, v7);
+    return specialized _resumeUnsafeThrowingContinuation<A>(_:_:)();
   }
 }
 

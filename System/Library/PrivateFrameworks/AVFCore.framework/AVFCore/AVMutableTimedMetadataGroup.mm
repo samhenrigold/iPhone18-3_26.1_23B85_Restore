@@ -72,7 +72,7 @@
   items = [(AVMutableTimedMetadataGroup *)self items];
   if (self)
   {
-    [(AVMutableTimedMetadataGroup *)self timeRange];
+    objc_msgSend_timeRange(self);
   }
 
   else

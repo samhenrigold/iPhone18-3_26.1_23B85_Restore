@@ -73,32 +73,32 @@
 
 - (id)accessibilityCustomActions
 {
-  v32 = *MEMORY[0x29EDCA608];
+  v31 = *MEMORY[0x29EDCA608];
   array = [MEMORY[0x29EDB8DE8] array];
   _axAdvisoryViews = [(RouteOverviewCellAccessibility *)self _axAdvisoryViews];
-  v21 = _axAdvisoryViews;
+  v20 = _axAdvisoryViews;
   v4 = _axAdvisoryViews;
   if (_axAdvisoryViews)
   {
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     obj = _axAdvisoryViews;
-    v5 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v5 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v5)
     {
-      v6 = *v28;
+      v6 = *v27;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v28 != v6)
+          if (*v27 != v6)
           {
             objc_enumerationMutation(obj);
           }
 
-          v8 = *(*(&v27 + 1) + 8 * i);
+          v8 = *(*(&v26 + 1) + 8 * i);
           v9 = [v8 safeValueForKey:@"actionHandler"];
           v10 = v9 == 0;
 
@@ -121,29 +121,27 @@
 
             objc_initWeak(&location, v8);
             v17 = objc_alloc(MEMORY[0x29EDC78E0]);
-            v24[0] = MEMORY[0x29EDCA5F8];
-            v24[1] = 3221225472;
-            v24[2] = __60__RouteOverviewCellAccessibility_accessibilityCustomActions__block_invoke;
-            v24[3] = &unk_29F2CC4B8;
-            objc_copyWeak(&v25, &location);
-            v18 = [v17 initWithName:v16 actionHandler:v24];
+            v23[0] = MEMORY[0x29EDCA5F8];
+            v23[1] = 3221225472;
+            v23[2] = __60__RouteOverviewCellAccessibility_accessibilityCustomActions__block_invoke;
+            v23[3] = &unk_29F2CC4B8;
+            objc_copyWeak(&v24, &location);
+            v18 = [v17 initWithName:v16 actionHandler:v23];
             [array addObject:v18];
 
-            objc_destroyWeak(&v25);
+            objc_destroyWeak(&v24);
             objc_destroyWeak(&location);
           }
         }
 
-        v5 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v5 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v5);
     }
 
-    v4 = v21;
+    v4 = v20;
   }
-
-  v19 = *MEMORY[0x29EDCA608];
 
   return array;
 }
@@ -192,120 +190,120 @@ uint64_t __70__RouteOverviewCellAccessibility_accessibilityElementDidBecomeFocus
 
 - (id)_axTextForElement
 {
-  v64 = *MEMORY[0x29EDCA608];
+  v63 = *MEMORY[0x29EDCA608];
   v3 = [(RouteOverviewCellAccessibility *)self safeValueForKey:@"_primaryLabel"];
   accessibilityLabel = [v3 accessibilityLabel];
   v5 = AXMapsStringReplacingMiddleDots();
   v6 = [(RouteOverviewCellAccessibility *)self safeValueForKey:@"_secondaryLabel"];
   accessibilityLabel2 = [v6 accessibilityLabel];
-  v31 = AXMapsStringReplacingMiddleDots();
+  v30 = AXMapsStringReplacingMiddleDots();
   v8 = __AXStringForVariables();
 
-  if ([(RouteOverviewCellAccessibility *)self safeBoolForKey:@"_tertiaryLabelVisible", v31, @"__AXStringForVariablesSentinel"])
+  if ([(RouteOverviewCellAccessibility *)self safeBoolForKey:@"_tertiaryLabelVisible", v30, @"__AXStringForVariablesSentinel"])
   {
     v9 = [(RouteOverviewCellAccessibility *)self safeValueForKey:@"_tertiaryLabel"];
     accessibilityLabel3 = [v9 accessibilityLabel];
-    v32 = AXMapsStringReplacingMiddleDots();
-    v36 = @"__AXStringForVariablesSentinel";
+    v31 = AXMapsStringReplacingMiddleDots();
+    v35 = @"__AXStringForVariablesSentinel";
     v11 = __AXStringForVariables();
 
     v8 = v11;
   }
 
-  if ([(RouteOverviewCellAccessibility *)self safeBoolForKey:@"_routeDescritptionLabelVisible", v32, v36])
+  if ([(RouteOverviewCellAccessibility *)self safeBoolForKey:@"_routeDescritptionLabelVisible", v31, v35])
   {
     v12 = [(RouteOverviewCellAccessibility *)self safeValueForKey:@"_routeDescriptionLabel"];
     accessibilityLabel4 = [v12 accessibilityLabel];
-    v33 = AXMapsStringReplacingMiddleDots();
-    v37 = @"__AXStringForVariablesSentinel";
+    v32 = AXMapsStringReplacingMiddleDots();
+    v36 = @"__AXStringForVariablesSentinel";
     v14 = __AXStringForVariables();
 
     v8 = v14;
   }
 
-  if ([(RouteOverviewCellAccessibility *)self safeBoolForKey:@"_artworkListVisible", v33, v37])
+  if ([(RouteOverviewCellAccessibility *)self safeBoolForKey:@"_artworkListVisible", v32, v36])
   {
-    v62 = 0;
-    objc_opt_class();
-    v56 = 0;
-    v57 = &v56;
-    v58 = 0x3032000000;
-    v59 = __Block_byref_object_copy__0;
-    v60 = __Block_byref_object_dispose__0;
     v61 = 0;
-    v50 = MEMORY[0x29EDCA5F8];
-    v51 = 3221225472;
-    v52 = __51__RouteOverviewCellAccessibility__axTextForElement__block_invoke;
-    v53 = &unk_29F2CC600;
+    objc_opt_class();
+    v55 = 0;
+    v56 = &v55;
+    v57 = 0x3032000000;
+    v58 = __Block_byref_object_copy__0;
+    v59 = __Block_byref_object_dispose__0;
+    v60 = 0;
+    v49 = MEMORY[0x29EDCA5F8];
+    v50 = 3221225472;
+    v51 = __51__RouteOverviewCellAccessibility__axTextForElement__block_invoke;
+    v52 = &unk_29F2CC600;
     selfCopy = self;
-    v55 = &v56;
+    v54 = &v55;
     AXPerformSafeBlock();
-    v15 = v57[5];
-    _Block_object_dispose(&v56, 8);
+    v15 = v56[5];
+    _Block_object_dispose(&v55, 8);
 
     v16 = __UIAccessibilityCastAsClass();
 
-    if (v62 == 1)
+    if (v61 == 1)
     {
 LABEL_21:
       abort();
     }
 
-    v56 = 0;
-    v57 = &v56;
-    v58 = 0x3032000000;
-    v59 = __Block_byref_object_copy__0;
-    v60 = __Block_byref_object_dispose__0;
-    v61 = 0;
-    v44 = MEMORY[0x29EDCA5F8];
-    v45 = 3221225472;
-    v46 = __51__RouteOverviewCellAccessibility__axTextForElement__block_invoke_2;
-    v47 = &unk_29F2CC600;
-    v49 = &v56;
-    v48 = v16;
+    v55 = 0;
+    v56 = &v55;
+    v57 = 0x3032000000;
+    v58 = __Block_byref_object_copy__0;
+    v59 = __Block_byref_object_dispose__0;
+    v60 = 0;
+    v43 = MEMORY[0x29EDCA5F8];
+    v44 = 3221225472;
+    v45 = __51__RouteOverviewCellAccessibility__axTextForElement__block_invoke_2;
+    v46 = &unk_29F2CC600;
+    v48 = &v55;
+    v47 = v16;
     AXPerformSafeBlock();
-    v17 = v57[5];
+    v17 = v56[5];
 
-    _Block_object_dispose(&v56, 8);
-    v34 = v17;
-    v38 = @"__AXStringForVariablesSentinel";
+    _Block_object_dispose(&v55, 8);
+    v33 = v17;
+    v37 = @"__AXStringForVariablesSentinel";
     v18 = __AXStringForVariables();
 
     v8 = v18;
   }
 
-  v19 = [(RouteOverviewCellAccessibility *)self _axAdvisoryViews:v34];
-  v39 = v19;
+  v19 = [(RouteOverviewCellAccessibility *)self _axAdvisoryViews:v33];
+  v38 = v19;
   v20 = v19;
   if (v19)
   {
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     v21 = v19;
-    v22 = [v21 countByEnumeratingWithState:&v40 objects:v63 count:16];
+    v22 = [v21 countByEnumeratingWithState:&v39 objects:v62 count:16];
     if (v22)
     {
-      v23 = *v41;
+      v23 = *v40;
       do
       {
         v24 = 0;
         v25 = v8;
         do
         {
-          if (*v41 != v23)
+          if (*v40 != v23)
           {
             objc_enumerationMutation(v21);
           }
 
-          v26 = *(*(&v40 + 1) + 8 * v24);
-          LOBYTE(v56) = 0;
+          v26 = *(*(&v39 + 1) + 8 * v24);
+          LOBYTE(v55) = 0;
           objc_opt_class();
           v27 = [v26 safeValueForKey:@"_advisoryLabel"];
           v28 = __UIAccessibilityCastAsClass();
 
-          if (v56 == 1)
+          if (v55 == 1)
           {
             goto LABEL_21;
           }
@@ -318,16 +316,14 @@ LABEL_21:
         }
 
         while (v22 != v24);
-        v22 = [v21 countByEnumeratingWithState:&v40 objects:v63 count:{16, text, @"__AXStringForVariablesSentinel"}];
+        v22 = [v21 countByEnumeratingWithState:&v39 objects:v62 count:{16, text, @"__AXStringForVariablesSentinel"}];
       }
 
       while (v22);
     }
 
-    v20 = v39;
+    v20 = v38;
   }
-
-  v29 = *MEMORY[0x29EDCA608];
 
   return v8;
 }
@@ -343,21 +339,18 @@ void __51__RouteOverviewCellAccessibility__axTextForElement__block_invoke(uint64
 
 uint64_t __51__RouteOverviewCellAccessibility__axTextForElement__block_invoke_2(uint64_t a1)
 {
-  v2 = [MEMORY[0x29EDC14A8] _accessibilityTransitArtworkTextForDataList:*(a1 + 32)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [MEMORY[0x29EDC14A8] _accessibilityTransitArtworkTextForDataList:*(a1 + 32)];
 
   return MEMORY[0x2A1C71028]();
 }
 
 - (void)_axAnnotateLabels
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v3 = MEMORY[0x29EDB8D80];
   v4 = [(RouteOverviewCellAccessibility *)self safeValueForKey:@"_primaryLabel"];
   v5 = [(RouteOverviewCellAccessibility *)self safeValueForKey:@"_secondaryLabel"];
@@ -365,37 +358,35 @@ uint64_t __51__RouteOverviewCellAccessibility__axTextForElement__block_invoke_2(
   v7 = [(RouteOverviewCellAccessibility *)self safeValueForKey:@"_artworkList"];
   v8 = [v3 axArrayByIgnoringNilElementsWithCount:{4, v4, v5, v6, v7}];
 
-  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [*(*(&v14 + 1) + 8 * v12++) setAccessibilityElementsHidden:1];
+        [*(*(&v13 + 1) + 8 * v12++) setAccessibilityElementsHidden:1];
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
   }
-
-  v13 = *MEMORY[0x29EDCA608];
 }
 
 - (id)_axAdvisoryViews
 {
-  v12[1] = *MEMORY[0x29EDCA608];
+  v11[1] = *MEMORY[0x29EDCA608];
   if ([(RouteOverviewCellAccessibility *)self safeBoolForKey:@"_advisoriesViewVisible"]&& ([(RouteOverviewCellAccessibility *)self safeValueForKey:@"_advisoriesView"], (v3 = objc_claimAutoreleasedReturnValue()) != 0))
   {
     v4 = v3;
@@ -411,8 +402,8 @@ uint64_t __51__RouteOverviewCellAccessibility__axTextForElement__block_invoke_2(
 
     else
     {
-      v12[0] = v4;
-      arrangedSubviews2 = [MEMORY[0x29EDB8D80] arrayWithObjects:v12 count:1];
+      v11[0] = v4;
+      arrangedSubviews2 = [MEMORY[0x29EDB8D80] arrayWithObjects:v11 count:1];
     }
 
     v9 = arrangedSubviews2;
@@ -422,8 +413,6 @@ uint64_t __51__RouteOverviewCellAccessibility__axTextForElement__block_invoke_2(
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x29EDCA608];
 
   return v9;
 }

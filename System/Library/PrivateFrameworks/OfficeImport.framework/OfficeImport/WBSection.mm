@@ -54,13 +54,14 @@
 + (void)readHeaderFrom:(id)from type:(int)type index:(int)index header:(id)header
 {
   indexCopy = index;
+  v8 = *&type;
   fromCopy = from;
   headerCopy = header;
   tableHeaders = [fromCopy tableHeaders];
   if (((*(tableHeaders + 16) - *(tableHeaders + 8)) & 0x3FFFC) != 0)
   {
     v12[0] = &unk_286ED3718;
-    WrdCPTableHeaders::getTextRun(tableHeaders, v12, type, indexCopy);
+    WrdCPTableHeaders::getTextRun(tableHeaders, v12, v8, indexCopy);
     [WBText readFrom:fromCopy text:headerCopy textRun:v12];
     if ([headerCopy blockCount] >= 2)
     {
@@ -664,14 +665,14 @@ LABEL_100:
             *(properties + 2) |= 0x40000000uLL;
             v20 = v13;
             v21 = &v20;
-            *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(properties + 192, &v20) + 8) = v15;
+            *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(properties + 192, &v20, &std::piecewise_construct, &v21) + 8) = v15;
             if (v13 < v14)
             {
               v16 = [sectionCopy columnSpaceAt:v13];
               *(properties + 2) |= 0x20000000uLL;
               v20 = v13;
               v21 = &v20;
-              *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(properties + 168, &v20) + 8) = v16;
+              *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(properties + 168, &v20, &std::piecewise_construct, &v21) + 8) = v16;
             }
 
             v13 = (v13 + 1);

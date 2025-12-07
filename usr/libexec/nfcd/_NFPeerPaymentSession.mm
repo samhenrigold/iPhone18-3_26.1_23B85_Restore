@@ -83,7 +83,7 @@
 
 - (BOOL)willStartSession
 {
-  sub_10026449C();
+  sub_10026449C(NFSecureElementWrapper);
   v4.receiver = self;
   v4.super_class = _NFPeerPaymentSession;
   return [(_NFSession *)&v4 willStartSession];

@@ -12,19 +12,17 @@
 
 + (NSSet)allowedStatusKeys
 {
-  v7[7] = *MEMORY[0x277D85DE8];
+  v6[7] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"identifier";
-  v7[1] = @"_removed";
-  v7[2] = @"name";
-  v7[3] = @"external-version-id";
-  v7[4] = @"version";
-  v7[5] = @"short-version";
-  v7[6] = @"state";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:7];
+  v6[0] = @"identifier";
+  v6[1] = @"_removed";
+  v6[2] = @"name";
+  v6[3] = @"external-version-id";
+  v6[4] = @"version";
+  v6[5] = @"short-version";
+  v6[6] = @"state";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:7];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -75,45 +73,43 @@
 
 + (id)supportedOS
 {
-  v26[5] = *MEMORY[0x277D85DE8];
-  v25[0] = &unk_28746CA40;
-  v19 = [MEMORY[0x277CBEB98] setWithArray:&unk_2874698C0];
-  v24[0] = v19;
-  v18 = [MEMORY[0x277CBEB98] setWithArray:&unk_2874698D8];
-  v24[1] = v18;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
-  v26[0] = v17;
-  v25[1] = &unk_28746CA88;
-  v16 = [MEMORY[0x277CBEB98] setWithArray:&unk_2874698F0];
-  v23[0] = v16;
-  v15 = [MEMORY[0x277CBEB98] setWithArray:&unk_287469908];
-  v23[1] = v15;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
-  v26[1] = v14;
-  v25[2] = &unk_28746CA70;
+  v25[5] = *MEMORY[0x277D85DE8];
+  v24[0] = &unk_28746CA40;
+  v18 = [MEMORY[0x277CBEB98] setWithArray:&unk_2874698C0];
+  v23[0] = v18;
+  v17 = [MEMORY[0x277CBEB98] setWithArray:&unk_2874698D8];
+  v23[1] = v17;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+  v25[0] = v16;
+  v24[1] = &unk_28746CA88;
+  v15 = [MEMORY[0x277CBEB98] setWithArray:&unk_2874698F0];
+  v22[0] = v15;
+  v14 = [MEMORY[0x277CBEB98] setWithArray:&unk_287469908];
+  v22[1] = v14;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+  v25[1] = v13;
+  v24[2] = &unk_28746CA70;
   v2 = [MEMORY[0x277CBEB98] setWithArray:&unk_287469920];
-  v22[0] = v2;
+  v21[0] = v2;
   v3 = [MEMORY[0x277CBEB98] setWithArray:&unk_287469938];
-  v22[1] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
-  v26[2] = v4;
-  v25[3] = &unk_28746CAA0;
+  v21[1] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+  v25[2] = v4;
+  v24[3] = &unk_28746CAA0;
   v5 = [MEMORY[0x277CBEB98] setWithArray:&unk_287469950];
-  v21[0] = v5;
+  v20[0] = v5;
   v6 = [MEMORY[0x277CBEB98] setWithArray:&unk_287469968];
-  v21[1] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
-  v26[3] = v7;
-  v25[4] = &unk_28746CAB8;
+  v20[1] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+  v25[3] = v7;
+  v24[4] = &unk_28746CAB8;
   v8 = [MEMORY[0x277CBEB98] setWithArray:&unk_287469980];
-  v20[0] = v8;
+  v19[0] = v8;
   v9 = [MEMORY[0x277CBEB98] setWithArray:&unk_287469998];
-  v20[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
-  v26[4] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:5];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v19[1] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+  v25[4] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:5];
 
   return v11;
 }

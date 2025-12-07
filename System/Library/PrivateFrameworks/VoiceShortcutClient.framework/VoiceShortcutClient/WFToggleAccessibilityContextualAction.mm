@@ -156,19 +156,19 @@ LABEL_24:
 
 - (WFToggleAccessibilityContextualAction)initWithSetting:(unint64_t)setting
 {
-  v27[2] = *MEMORY[0x1E69E9840];
+  v26[2] = *MEMORY[0x1E69E9840];
   v4 = [(WFToggleAccessibilityContextualAction *)self settingDescriptionFromSetting:?];
   v5 = [WFContextualActionIcon iconWithSystemName:@"accessibility"];
   if (setting > 9)
   {
     v6 = 0;
-    v23 = 0;
+    v22 = 0;
   }
 
   else
   {
     v6 = off_1E7B01050[setting];
-    v23 = off_1E7B010A0[setting];
+    v22 = off_1E7B010A0[setting];
     v7 = [WFContextualActionIcon iconWithSystemName:off_1E7B01000[setting]];
 
     v5 = v7;
@@ -179,22 +179,22 @@ LABEL_24:
   v10 = [v8 stringWithFormat:v9, v4];
 
   v11 = WFLocalizedStringWithKey(@"Toggle (System Setting, Subtitle)", @"Toggle");
-  v27[0] = @"com.apple.shortcuts.toggle-acessibility";
-  v27[1] = v6;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
+  v26[0] = @"com.apple.shortcuts.toggle-acessibility";
+  v26[1] = v6;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
   v13 = [v12 componentsJoinedByString:@"."];
 
   v14 = [[WFContextualActionParameter alloc] initWithType:@"WFNumberContentItem" displayString:0 wfParameterKey:@"OnValue" wfSerializedRepresentation:&unk_1F29311D0];
-  v26[0] = v14;
+  v25[0] = v14;
   v15 = [[WFContextualActionParameter alloc] initWithType:@"WFStringContentItem" displayString:0 wfParameterKey:@"operation" wfSerializedRepresentation:@"toggle"];
-  v26[1] = v15;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
+  v25[1] = v15;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
 
-  v25.receiver = self;
-  v25.super_class = WFToggleAccessibilityContextualAction;
-  BYTE2(v22) = 0;
-  LOWORD(v22) = 0;
-  v17 = [WFContextualAction initWithIdentifier:sel_initWithIdentifier_wfActionIdentifier_associatedAppBundleIdentifier_parameters_displayString_title_subtitle_icon_accessoryIcon_actionShowsUserInterface_actionHasResult_isReversible_ wfActionIdentifier:v13 associatedAppBundleIdentifier:v23 parameters:@"com.apple.Preferences" displayString:v16 title:v10 subtitle:v4 icon:v11 accessoryIcon:v5 actionShowsUserInterface:0 actionHasResult:v22 isReversible:?];
+  v24.receiver = self;
+  v24.super_class = WFToggleAccessibilityContextualAction;
+  BYTE2(v21) = 0;
+  LOWORD(v21) = 0;
+  v17 = [WFContextualAction initWithIdentifier:sel_initWithIdentifier_wfActionIdentifier_associatedAppBundleIdentifier_parameters_displayString_title_subtitle_icon_accessoryIcon_actionShowsUserInterface_actionHasResult_isReversible_ wfActionIdentifier:v13 associatedAppBundleIdentifier:v22 parameters:@"com.apple.Preferences" displayString:v16 title:v10 subtitle:v4 icon:v11 accessoryIcon:v5 actionShowsUserInterface:0 actionHasResult:v21 isReversible:?];
   v18 = v17;
   if (v17)
   {
@@ -202,7 +202,6 @@ LABEL_24:
     v19 = v17;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v18;
 }
 

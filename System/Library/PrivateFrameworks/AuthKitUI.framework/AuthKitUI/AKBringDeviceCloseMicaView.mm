@@ -30,56 +30,54 @@
 - (void)loadMicaFile
 {
   selfCopy = self;
-  v22[1] = a2;
-  v5 = [AKUIMicaPlayer alloc];
+  v21[1] = a2;
+  v4 = [AKUIMicaPlayer alloc];
   mainScreen = [MEMORY[0x277D759A0] mainScreen];
   [mainScreen scale];
-  v6 = [(AKUIMicaPlayer *)v5 initWithFileName:@"SignInProximity" retinaScale:?];
+  v5 = [(AKUIMicaPlayer *)v4 initWithFileName:@"SignInProximity" retinaScale:?];
   [(AKBringDeviceCloseMicaView *)selfCopy setMicaPlayer:?];
-  MEMORY[0x277D82BD8](v6);
+  MEMORY[0x277D82BD8](v5);
   micaPlayer = [(AKBringDeviceCloseMicaView *)selfCopy micaPlayer];
   layer = [(AKBringDeviceCloseMicaView *)selfCopy layer];
-  v2 = *MEMORY[0x277CDA710];
   [AKUIMicaPlayer addToLayer:micaPlayer onTop:"addToLayer:onTop:gravity:" gravity:?];
   MEMORY[0x277D82BD8](layer);
   micaPlayer2 = [(AKBringDeviceCloseMicaView *)selfCopy micaPlayer];
   [(AKUIMicaPlayer *)micaPlayer2 play];
   micaPlayer3 = [(AKBringDeviceCloseMicaView *)selfCopy micaPlayer];
-  v11 = [(AKUIMicaPlayer *)micaPlayer3 publishedLayerWithKey:@"Dot Cloud" required:1];
+  v10 = [(AKUIMicaPlayer *)micaPlayer3 publishedLayerWithKey:@"Dot Cloud" required:1];
   [(AKBringDeviceCloseMicaView *)selfCopy setDotCloudLayer:?];
-  MEMORY[0x277D82BD8](v11);
+  MEMORY[0x277D82BD8](v10);
   clearColor = [MEMORY[0x277D75348] clearColor];
-  v3 = clearColor;
+  v2 = clearColor;
   cGColor = [clearColor CGColor];
   dotCloudLayer = [(AKBringDeviceCloseMicaView *)selfCopy dotCloudLayer];
   [(CALayer *)dotCloudLayer setBackgroundColor:cGColor];
   MEMORY[0x277D82BD8](dotCloudLayer);
-  v22[0] = [MEMORY[0x277CCA8D8] bundleWithPath:{@"/System/Library/PrivateFrameworks/AuthKitUI.framework", MEMORY[0x277D82BD8](clearColor).n128_f64[0]}];
-  v16 = MEMORY[0x277D755B8];
-  v19 = [v22[0] pathForResource:@"DotCloud@2x" ofType:@"png"];
-  v18 = [v16 imageWithContentsOfFile:?];
+  v21[0] = [MEMORY[0x277CCA8D8] bundleWithPath:{@"/System/Library/PrivateFrameworks/AuthKitUI.framework", MEMORY[0x277D82BD8](clearColor).n128_f64[0]}];
+  v15 = MEMORY[0x277D755B8];
+  v18 = [v21[0] pathForResource:@"DotCloud@2x" ofType:@"png"];
+  v17 = [v15 imageWithContentsOfFile:?];
   dotCloudLayer2 = [(AKBringDeviceCloseMicaView *)selfCopy dotCloudLayer];
-  [(CALayer *)dotCloudLayer2 setContents:v18];
+  [(CALayer *)dotCloudLayer2 setContents:v17];
   MEMORY[0x277D82BD8](dotCloudLayer2);
-  MEMORY[0x277D82BD8](v18);
-  *&v4 = MEMORY[0x277D82BD8](v19).n128_u64[0];
-  v20 = selfCopy;
+  MEMORY[0x277D82BD8](v17);
+  *&v3 = MEMORY[0x277D82BD8](v18).n128_u64[0];
+  v19 = selfCopy;
   micaPlayer4 = [(AKBringDeviceCloseMicaView *)selfCopy micaPlayer];
-  [(AKUIMicaPlayer *)micaPlayer4 setDelegate:v20];
+  [(AKUIMicaPlayer *)micaPlayer4 setDelegate:v19];
   MEMORY[0x277D82BD8](micaPlayer4);
-  objc_storeStrong(v22, 0);
+  objc_storeStrong(v21, 0);
 }
 
 - (void)layoutSubviews
 {
   selfCopy = self;
-  v6 = a2;
-  v5.receiver = self;
-  v5.super_class = AKBringDeviceCloseMicaView;
-  [(AKBringDeviceCloseMicaView *)&v5 layoutSubviews];
+  v5 = a2;
+  v4.receiver = self;
+  v4.super_class = AKBringDeviceCloseMicaView;
+  [(AKBringDeviceCloseMicaView *)&v4 layoutSubviews];
   micaPlayer = selfCopy->_micaPlayer;
   layer = [(AKBringDeviceCloseMicaView *)selfCopy layer];
-  v2 = *MEMORY[0x277CDA710];
   [AKUIMicaPlayer moveAndResizeWithinParentLayer:"moveAndResizeWithinParentLayer:usingGravity:animate:" usingGravity:? animate:?];
   MEMORY[0x277D82BD8](layer);
 }

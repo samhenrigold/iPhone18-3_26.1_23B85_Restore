@@ -22,7 +22,7 @@
 
   v6 = VMVoicemailGreeting.isEqual(_:)(v8);
 
-  outlined destroy of (NSAttributedStringKey, Any)(v8, &_sypSgMd);
+  outlined destroy of (NSAttributedStringKey, Any)(v8, &_sypSgMd, &_sypSgMR);
   return v6;
 }
 

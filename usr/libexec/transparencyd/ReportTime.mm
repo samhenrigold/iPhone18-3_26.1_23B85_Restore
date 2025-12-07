@@ -11,49 +11,47 @@
 - (NSDate)lastReport
 {
   v3 = sub_100095820(&qword_100383FB0, &unk_1002D6690);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v6 = &v14 - v5;
-  v7 = OBJC_IVAR____TtC13transparencyd10ReportTime_lastReport;
+  v5 = &v13 - v4;
+  v6 = OBJC_IVAR____TtC13transparencyd10ReportTime_lastReport;
   swift_beginAccess();
-  sub_1000AB050(self + v7, v6, &qword_100383FB0, &unk_1002D6690);
-  v8 = type metadata accessor for Date();
-  v9 = *(v8 - 8);
-  v10 = (*(v9 + 48))(v6, 1, v8);
-  v11 = 0;
-  if (v10 != 1)
+  sub_1000AB050(self + v6, v5, &qword_100383FB0, &unk_1002D6690);
+  v7 = type metadata accessor for Date();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v5, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
     isa = Date._bridgeToObjectiveC()().super.isa;
-    (*(v9 + 8))(v6, v8);
-    v11 = isa;
+    (*(v8 + 8))(v5, v7);
+    v10 = isa;
   }
 
-  return v11;
+  return v10;
 }
 
 - (void)setLastReport:(id)report
 {
   v5 = sub_100095820(&qword_100383FB0, &unk_1002D6690);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v13 - v7;
+  v7 = &v12 - v6;
   if (report)
   {
     static Date._unconditionallyBridgeFromObjectiveC(_:)();
-    v9 = type metadata accessor for Date();
-    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
+    v8 = type metadata accessor for Date();
+    (*(*(v8 - 8) + 56))(v7, 0, 1, v8);
   }
 
   else
   {
-    v10 = type metadata accessor for Date();
-    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
+    v9 = type metadata accessor for Date();
+    (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
   }
 
-  v11 = OBJC_IVAR____TtC13transparencyd10ReportTime_lastReport;
+  v10 = OBJC_IVAR____TtC13transparencyd10ReportTime_lastReport;
   swift_beginAccess();
   selfCopy = self;
-  sub_1000BECD4(v8, self + v11);
+  sub_1000BECD4(v7, self + v10);
   swift_endAccess();
 }
 

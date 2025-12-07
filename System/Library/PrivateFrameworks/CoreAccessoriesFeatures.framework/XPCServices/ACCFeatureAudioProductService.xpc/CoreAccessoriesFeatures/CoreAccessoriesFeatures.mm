@@ -140,10 +140,11 @@ void init_logging()
   init_logging_signposts();
 }
 
-void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x12u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
 void init_logging_modules(uint64_t a1, char a2, uint64_t a3)
@@ -192,7 +193,7 @@ void __init_logging_modules_block_invoke(uint64_t a1)
         v8 = "<Undefined>";
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
-          __init_logging_modules_block_invoke_cold_1(v15, v4, &v16);
+          __init_logging_modules_block_invoke_cold_1(v15, v4, &v15[4]);
           v8 = "<Undefined>";
         }
       }
@@ -294,7 +295,7 @@ void __init_logging_signpost_modules_block_invoke(uint64_t a1)
         v8 = "<Undefined>";
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
-          __init_logging_signpost_modules_block_invoke_cold_1(v15, v4, &v16);
+          __init_logging_signpost_modules_block_invoke_cold_1(v15, v4, &v15[4]);
           v8 = "<Undefined>";
         }
       }

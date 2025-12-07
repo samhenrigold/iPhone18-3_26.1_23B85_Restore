@@ -28,7 +28,7 @@
 
 - (NSString)element
 {
-  DynamicImpressionMetricsIdentifier.element.getter();
+  DynamicImpressionMetricsIdentifier.element.getter(self);
   v2 = sub_1CA19C0E8();
 
   return v2;
@@ -44,7 +44,7 @@
 
 - (NSString)parent
 {
-  DynamicImpressionMetricsIdentifier.parent.getter();
+  DynamicImpressionMetricsIdentifier.parent.getter(self);
   if (v2)
   {
     v3 = sub_1CA19C0E8();

@@ -1,11 +1,33 @@
 @interface OrgApacheLuceneSearchTermQuery
 - (BOOL)isEqual:(id)equal;
+- (id)createWeightWithOrgApacheLuceneSearchIndexSearcher:(id)searcher withBoolean:(BOOL)boolean;
 - (id)toStringWithNSString:(id)string;
 - (unint64_t)hash;
 - (void)dealloc;
 @end
 
 @implementation OrgApacheLuceneSearchTermQuery
+
+- (id)createWeightWithOrgApacheLuceneSearchIndexSearcher:(id)searcher withBoolean:(BOOL)boolean
+{
+  if (!searcher)
+  {
+    JreThrowNullPointerException();
+  }
+
+  booleanCopy = boolean;
+  getTopReaderContext = [searcher getTopReaderContext];
+  v8 = *(&self->term_ + 4);
+  if (!v8 || v8->topReaderContext_ != getTopReaderContext)
+  {
+    v8 = OrgApacheLuceneIndexTermContext_buildWithOrgApacheLuceneIndexIndexReaderContext_withOrgApacheLuceneIndexTerm_(getTopReaderContext, *(&self->super.boost_ + 1));
+  }
+
+  v9 = [OrgApacheLuceneSearchTermQuery_TermWeight alloc];
+  OrgApacheLuceneSearchTermQuery_TermWeight_initWithOrgApacheLuceneSearchTermQuery_withOrgApacheLuceneSearchIndexSearcher_withBoolean_withOrgApacheLuceneIndexTermContext_(v9, self, searcher, booleanCopy, v8);
+
+  return v9;
+}
 
 - (id)toStringWithNSString:(id)string
 {
@@ -23,8 +45,8 @@
   }
 
   -[JavaLangStringBuilder appendWithNSString:](v5, "appendWithNSString:", [*(&self->super.boost_ + 1) text]);
-  [(OrgApacheLuceneSearchQuery *)self getBoost];
-  [(JavaLangStringBuilder *)v5 appendWithNSString:OrgApacheLuceneUtilToStringUtils_boostWithFloat_(v8)];
+  getBoost = [(OrgApacheLuceneSearchQuery *)self getBoost];
+  [(JavaLangStringBuilder *)v5 appendWithNSString:OrgApacheLuceneUtilToStringUtils_boostWithFloat_(v10, getBoost, v9)];
 
   return [(JavaLangStringBuilder *)v5 description];
 }

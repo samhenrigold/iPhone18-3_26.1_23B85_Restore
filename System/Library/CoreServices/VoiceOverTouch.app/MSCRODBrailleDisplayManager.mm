@@ -15,6 +15,7 @@
 - (void)_eventQueue_begin;
 - (void)_eventQueue_brailleDriverDisconnected:(id)disconnected;
 - (void)_eventQueue_setMasterStatusCellIndex:(int64_t)index;
+- (void)_eventQueue_setVirtualStatusAlignment:(int)alignment;
 - (void)_loadBluetoothDriverFromPreferences;
 - (void)_loadBluetoothDriverWithAddress:(id)address;
 - (void)_reallyDelayedWakeFromSleep;
@@ -23,6 +24,7 @@
 - (void)_removeBluetoothDriverWithIOElement:(id)element removeFromPreferences:(BOOL)preferences;
 - (void)_saveBluetoothDisplayConfiguration:(id)configuration;
 - (void)_setupBluetooth;
+- (void)_updateScreenUILock:(int)lock screenBlank:(int)blank;
 - (void)addToDisplays:(id)displays;
 - (void)airplaneModeChanged;
 - (void)handleSettingsChange:(id)change;
@@ -184,6 +186,20 @@
   AXPerformBlockAsynchronouslyOnMainThread();
 }
 
+- (void)_eventQueue_setVirtualStatusAlignment:(int)alignment
+{
+  v3 = *&alignment;
+  v5 = OBJC_IVAR___SCROBrailleDisplayManager__status;
+  virtualAlignment = [*&self->SCROBrailleDisplayManager_opaque[OBJC_IVAR___SCROBrailleDisplayManager__status] virtualAlignment];
+  v7.receiver = self;
+  v7.super_class = MSCRODBrailleDisplayManager;
+  [(MSCRODBrailleDisplayManager *)&v7 _eventQueue_setVirtualStatusAlignment:v3];
+  if (virtualAlignment != v3 && [*&self->SCROBrailleDisplayManager_opaque[v5] virtualAlignment] == v3)
+  {
+    _AXSVoiceOverTouchSetBrailleVirtualStatusAlignment();
+  }
+}
+
 - (void)_eventQueue_setMasterStatusCellIndex:(int64_t)index
 {
   v5 = OBJC_IVAR___SCROBrailleDisplayManager__status;
@@ -314,27 +330,27 @@ LABEL_6:
 {
   addressCopy = address;
   dispatch_assert_queue_V2(&_dispatch_main_q);
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
   v56 = 0u;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
   v3 = +[BluetoothManager sharedInstance];
   pairedDevices = [v3 pairedDevices];
 
-  v5 = [pairedDevices countByEnumeratingWithState:&v55 objects:v64 count:16];
+  v5 = [pairedDevices countByEnumeratingWithState:&v54 objects:v63 count:16];
   if (v5)
   {
-    v6 = *v56;
+    v6 = *v55;
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v56 != v6)
+      if (*v55 != v6)
       {
         objc_enumerationMutation(pairedDevices);
       }
 
-      v8 = *(*(&v55 + 1) + 8 * v7);
+      v8 = *(*(&v54 + 1) + 8 * v7);
       address = [v8 address];
       v10 = [address isEqualToString:addressCopy];
 
@@ -345,7 +361,7 @@ LABEL_3:
 
       if (v5 == ++v7)
       {
-        v5 = [pairedDevices countByEnumeratingWithState:&v55 objects:v64 count:16];
+        v5 = [pairedDevices countByEnumeratingWithState:&v54 objects:v63 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -363,31 +379,31 @@ LABEL_3:
     }
 
     delegate2 = v11;
-    v36 = +[NSBundle brailleDriverDeviceDetectionInfo];
-    if ([v36 count])
+    v35 = +[NSBundle brailleDriverDeviceDetectionInfo];
+    if ([v35 count])
     {
-      v40 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v36 count]);
+      v39 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v35 count]);
       name = [delegate2 name];
-      v45 = +[NSExpression expressionForEvaluatedObject];
-      v77 = 0u;
-      v78 = 0u;
-      *buf = 0u;
+      v44 = +[NSExpression expressionForEvaluatedObject];
       v76 = 0u;
-      obj = v36;
-      v42 = [obj countByEnumeratingWithState:buf objects:&v69 count:16];
-      if (v42)
+      v77 = 0u;
+      *buf = 0u;
+      v75 = 0u;
+      obj = v35;
+      v41 = [obj countByEnumeratingWithState:buf objects:&v68 count:16];
+      if (v41)
       {
-        v41 = *v76;
+        v40 = *v75;
         do
         {
-          for (i = 0; i != v42; i = i + 1)
+          for (i = 0; i != v41; i = i + 1)
           {
-            if (*v76 != v41)
+            if (*v75 != v40)
             {
               objc_enumerationMutation(obj);
             }
 
-            v43 = *(*&buf[8] + 8 * i);
+            v42 = *(*&buf[8] + 8 * i);
             v14 = [obj objectForKey:?];
             v15 = [v14 objectForKey:kSCROBrailleDriverBluetoothSearchDictionary];
 
@@ -396,37 +412,37 @@ LABEL_3:
               if (name)
               {
                 v16 = [v15 objectForKey:kSCROBrailleDriverBluetoothDeviceNameRegexPatterns];
-                v61 = 0u;
-                v62 = 0u;
-                v59 = 0u;
                 v60 = 0u;
+                v61 = 0u;
+                v58 = 0u;
+                v59 = 0u;
                 v17 = v16;
-                v18 = [v17 countByEnumeratingWithState:&v59 objects:&v65 count:16];
+                v18 = [v17 countByEnumeratingWithState:&v58 objects:&v64 count:16];
                 if (v18)
                 {
-                  v19 = *v60;
+                  v19 = *v59;
                   while (2)
                   {
                     for (j = 0; j != v18; j = j + 1)
                     {
-                      if (*v60 != v19)
+                      if (*v59 != v19)
                       {
                         objc_enumerationMutation(v17);
                       }
 
-                      v21 = [objc_allocWithZone(NSConstantValueExpression) initWithObject:*(*(&v59 + 1) + 8 * j)];
-                      v22 = [objc_allocWithZone(NSComparisonPredicate) initWithLeftExpression:v45 rightExpression:v21 modifier:0 type:6 options:0];
+                      v21 = [objc_allocWithZone(NSConstantValueExpression) initWithObject:*(*(&v58 + 1) + 8 * j)];
+                      v22 = [objc_allocWithZone(NSComparisonPredicate) initWithLeftExpression:v44 rightExpression:v21 modifier:0 type:6 options:0];
                       v23 = [v22 evaluateWithObject:name];
 
                       if (v23)
                       {
 
-                        [v40 insertObject:v43 atIndex:0];
+                        [v39 insertObject:v42 atIndex:0];
                         goto LABEL_31;
                       }
                     }
 
-                    v18 = [v17 countByEnumeratingWithState:&v59 objects:&v65 count:16];
+                    v18 = [v17 countByEnumeratingWithState:&v58 objects:&v64 count:16];
                     if (v18)
                     {
                       continue;
@@ -441,35 +457,35 @@ LABEL_31:
 
               else
               {
-                [v40 addObject:v43];
+                [v39 addObject:v42];
               }
             }
           }
 
-          v42 = [obj countByEnumeratingWithState:buf objects:&v69 count:16];
+          v41 = [obj countByEnumeratingWithState:buf objects:&v68 count:16];
         }
 
-        while (v42);
+        while (v41);
       }
     }
 
     else
     {
-      v40 = 0;
+      v39 = 0;
     }
 
-    if ([v40 count] && (v24 = objc_msgSend(objc_allocWithZone(MSCRODIOBluetoothElement), "initWithAddress:", addressCopy)) != 0)
+    if ([v39 count] && (v24 = objc_msgSend(objc_allocWithZone(MSCRODIOBluetoothElement), "initWithAddress:", addressCopy)) != 0)
     {
-      v65 = 0;
-      v66 = &v65;
-      v67 = 0x2020000000;
+      v64 = 0;
+      v65 = &v64;
+      v66 = 0x2020000000;
+      v67 = 0;
       v68 = 0;
-      v69 = 0;
-      v70 = &v69;
-      v71 = 0x3032000000;
-      v72 = sub_100003BDC;
-      v73 = sub_100003BEC;
-      v74 = 0;
+      v69 = &v68;
+      v70 = 0x3032000000;
+      v71 = sub_100003BDC;
+      v72 = sub_100003BEC;
+      v73 = 0;
       v25 = *&self->SCROBrailleDisplayManager_opaque[OBJC_IVAR___SCROBrailleDisplayManager__eventQueue];
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
@@ -477,33 +493,33 @@ LABEL_31:
       block[3] = &unk_1000147C0;
       block[4] = self;
       delegate = v24;
-      v51 = delegate;
-      v53 = &v65;
-      v54 = &v69;
-      v52 = v40;
+      v50 = delegate;
+      v52 = &v64;
+      v53 = &v68;
+      v51 = v39;
       dispatch_sync(v25, block);
-      if ((v66[3] & 1) == 0)
+      if ((v65[3] & 1) == 0)
       {
         [(MSCRODBrailleDisplayManager *)self _loadNextDriverForIOElement:delegate];
-        v48 = 0u;
-        v49 = 0u;
-        v46 = 0u;
         v47 = 0u;
+        v48 = 0u;
+        v45 = 0u;
+        v46 = 0u;
         loadingDisplays = [*&self->SCROBrailleDisplayManager_opaque[OBJC_IVAR___SCROBrailleDisplayManager__managedDisplayQueue] loadingDisplays];
-        v28 = [loadingDisplays countByEnumeratingWithState:&v46 objects:v63 count:16];
+        v28 = [loadingDisplays countByEnumeratingWithState:&v45 objects:v62 count:16];
         if (v28)
         {
-          v29 = *v47;
+          v29 = *v46;
           while (2)
           {
             for (k = 0; k != v28; k = k + 1)
             {
-              if (*v47 != v29)
+              if (*v46 != v29)
               {
                 objc_enumerationMutation(loadingDisplays);
               }
 
-              v31 = *(*(&v46 + 1) + 8 * k);
+              v31 = *(*(&v45 + 1) + 8 * k);
               ioElement = [v31 ioElement];
               v33 = [ioElement isEqual:delegate];
 
@@ -522,7 +538,7 @@ LABEL_31:
               }
             }
 
-            v28 = [loadingDisplays countByEnumeratingWithState:&v46 objects:v63 count:16];
+            v28 = [loadingDisplays countByEnumeratingWithState:&v45 objects:v62 count:16];
             if (v28)
             {
               continue;
@@ -534,13 +550,12 @@ LABEL_31:
 
 LABEL_53:
 
-        v35 = self->SCROBrailleDisplayManager_opaque[OBJC_IVAR___SCROBrailleDisplayManager__automaticBrailleTranslation];
         _updateNewlyActiveDisplay();
-        [v70[5] configurationDidChange];
+        [v69[5] configurationDidChange];
       }
 
-      _Block_object_dispose(&v69, 8);
-      _Block_object_dispose(&v65, 8);
+      _Block_object_dispose(&v68, 8);
+      _Block_object_dispose(&v64, 8);
     }
 
     else
@@ -890,207 +905,172 @@ LABEL_35:
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v104 = 0x3032000000;
-    v105 = sub_100003BDC;
-    v106 = sub_100003BEC;
-    v107 = 0;
-    v96[0] = 0;
-    v96[1] = v96;
-    v96[2] = 0x2020000000;
-    v97 = 0;
-    v90 = 0;
-    v91 = &v90;
-    v92 = 0x3032000000;
-    v93 = sub_100003BDC;
-    v94 = sub_100003BEC;
-    v95 = 0;
-    v84 = 0;
-    v85 = &v84;
-    v86 = 0x3032000000;
-    v87 = sub_100003BDC;
-    v88 = sub_100003BEC;
-    v89 = 0;
-    v78 = 0;
-    v79 = &v78;
-    v80 = 0x3032000000;
-    v81 = sub_100003BDC;
-    v82 = sub_100003BEC;
-    v83 = 0;
-    v74 = 0;
-    v75 = &v74;
-    v76 = 0x2020000000;
-    v77 = 0;
-    v70 = 0;
-    v71 = &v70;
-    v72 = 0x2020000000;
-    v73 = 0;
-    v66 = 0;
-    v67 = &v66;
-    v68 = 0x2020000000;
+    v78 = 0x3032000000;
+    v79 = sub_100003BDC;
+    v80 = sub_100003BEC;
+    v81 = 0;
+    v70[0] = 0;
+    v70[1] = v70;
+    v70[2] = 0x2020000000;
+    v71 = 0;
+    v64 = 0;
+    v65 = &v64;
+    v66 = 0x3032000000;
+    v67 = sub_100003BDC;
+    v68 = sub_100003BEC;
     v69 = 0;
-    v62 = 0;
-    v63 = &v62;
-    v64 = 0x2020000000;
-    v65 = 0;
     v58 = 0;
     v59 = &v58;
-    v60 = 0x2020000000;
-    v61 = 2;
-    v52 = 0;
-    v53 = &v52;
-    v54 = 0x3032000000;
-    v55 = sub_100003BDC;
-    v56 = sub_100003BEC;
+    v60 = 0x3032000000;
+    v61 = sub_100003BDC;
+    v62 = sub_100003BEC;
+    v63 = 0;
+    v56[0] = 0;
+    v56[1] = v56;
+    v56[2] = 0x3032000000;
+    v56[3] = sub_100003BDC;
+    v56[4] = sub_100003BEC;
     v57 = 0;
+    v54[0] = 0;
+    v54[1] = v54;
+    v54[2] = 0x2020000000;
+    v55 = 0;
+    v50 = 0;
+    v51 = &v50;
+    v52 = 0x2020000000;
+    v53 = 0;
+    v48[0] = 0;
+    v48[1] = v48;
+    v48[2] = 0x2020000000;
+    v49 = 0;
+    v47[0] = 0;
+    v47[1] = v47;
+    v47[2] = 0x2020000000;
+    v47[3] = 0;
+    v45[0] = 0;
+    v45[1] = v45;
+    v45[2] = 0x2020000000;
+    v46 = 2;
+    v43[0] = 0;
+    v43[1] = v43;
+    v43[2] = 0x3032000000;
+    v43[3] = sub_100003BDC;
+    v43[4] = sub_100003BEC;
+    v44 = 0;
     displays = self->_displays;
-    v50[0] = _NSConcreteStackBlock;
-    v50[1] = 3221225472;
-    v50[2] = sub_10000510C;
-    v50[3] = &unk_100014810;
+    v41[0] = _NSConcreteStackBlock;
+    v41[1] = 3221225472;
+    v41[2] = sub_10000510C;
+    v41[3] = &unk_100014810;
     v9 = elementCopy;
-    v51 = v9;
-    v10 = [(NSMutableArray *)displays indexOfObjectPassingTest:v50];
-    if (v10 == 0x7FFFFFFFFFFFFFFFLL || v10 >= [(NSMutableArray *)self->_displays count])
+    v42 = v9;
+    v10 = [(NSMutableArray *)displays indexOfObjectPassingTest:v41];
+    if (v10 != 0x7FFFFFFFFFFFFFFFLL && v10 < [(NSMutableArray *)self->_displays count])
     {
-      goto LABEL_24;
-    }
+      v11 = [(NSMutableArray *)self->_displays objectAtIndexedSubscript:v10];
+      v12 = *(*(&buf + 1) + 40);
+      *(*(&buf + 1) + 40) = v11;
 
-    v11 = [(NSMutableArray *)self->_displays objectAtIndexedSubscript:v10];
-    v12 = *(*(&buf + 1) + 40);
-    *(*(&buf + 1) + 40) = v11;
-
-    v13 = *&self->SCROBrailleDisplayManager_opaque[OBJC_IVAR___SCROBrailleDisplayManager__eventQueue];
-    block[0] = _NSConcreteStackBlock;
-    block[1] = 3221225472;
-    block[2] = sub_100005150;
-    block[3] = &unk_100014838;
-    block[4] = self;
-    p_buf = &buf;
-    v40 = &v70;
-    v41 = &v78;
-    v42 = &v74;
-    v43 = &v66;
-    v44 = &v62;
-    v45 = &v58;
-    v46 = &v52;
-    v47 = v96;
-    v38 = v9;
-    v48 = &v90;
-    v49 = &v84;
-    dispatch_sync(v13, block);
-    if (!*(*(&buf + 1) + 40))
-    {
-LABEL_23:
-      [v91[5] handleBrailleDriverDisconnected];
-      [v85[5] configurationDidChange];
-
-LABEL_24:
-      _Block_object_dispose(&v52, 8);
-
-      _Block_object_dispose(&v58, 8);
-      _Block_object_dispose(&v62, 8);
-      _Block_object_dispose(&v66, 8);
-      _Block_object_dispose(&v70, 8);
-      _Block_object_dispose(&v74, 8);
-      _Block_object_dispose(&v78, 8);
-
-      _Block_object_dispose(&v84, 8);
-      _Block_object_dispose(&v90, 8);
-
-      _Block_object_dispose(v96, 8);
-      _Block_object_dispose(&buf, 8);
-
-      goto LABEL_25;
-    }
-
-    [(NSMutableArray *)self->_displays removeObject:?];
-    v14 = AXLogBrailleHW();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
-    {
-      v15 = *(*(&buf + 1) + 40);
-      LODWORD(v100) = 138412290;
-      *(&v100 + 4) = v15;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Removing BT display: %@", &v100, 0xCu);
-    }
-
-    *&v100 = 0;
-    *(&v100 + 1) = &v100;
-    v101 = 0x2020000000;
-    v102 = 0x7FFFFFFFFFFFFFFFLL;
-    configuration = [*(*(&buf + 1) + 40) configuration];
-    v17 = +[AXSettings sharedInstance];
-    voiceOverBrailleDisplays = [v17 voiceOverBrailleDisplays];
-    v34[0] = _NSConcreteStackBlock;
-    v34[1] = 3221225472;
-    v34[2] = sub_1000053FC;
-    v34[3] = &unk_100014860;
-    v34[4] = self;
-    v19 = configuration;
-    v35 = v19;
-    v36 = &v100;
-    [voiceOverBrailleDisplays enumerateObjectsUsingBlock:v34];
-
-    if (preferencesCopy && *(*(&v100 + 1) + 24) != 0x7FFFFFFFFFFFFFFFLL)
-    {
-      v20 = +[AXSettings sharedInstance];
-      voiceOverBrailleDisplays2 = [v20 voiceOverBrailleDisplays];
-      v22 = [voiceOverBrailleDisplays2 mutableCopy];
-
-      [v22 removeObjectAtIndex:*(*(&v100 + 1) + 24)];
-      v23 = +[AXSettings sharedInstance];
-      [v23 setVoiceOverBrailleDisplays:v22];
-
-      v24 = AXLogBrailleHW();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v13 = *&self->SCROBrailleDisplayManager_opaque[OBJC_IVAR___SCROBrailleDisplayManager__eventQueue];
+      block[0] = _NSConcreteStackBlock;
+      block[1] = 3221225472;
+      block[2] = sub_100005150;
+      block[3] = &unk_100014838;
+      block[4] = self;
+      p_buf = &buf;
+      v31 = &v50;
+      v32 = v56;
+      v33 = v54;
+      v34 = v48;
+      v35 = v47;
+      v36 = v45;
+      v37 = v43;
+      v38 = v70;
+      v29 = v9;
+      v39 = &v64;
+      v40 = &v58;
+      dispatch_sync(v13, block);
+      if (*(*(&buf + 1) + 40))
       {
-        *v98 = 138412290;
-        v99 = v19;
-        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Removed display from list: %@", v98, 0xCu);
+        [(NSMutableArray *)self->_displays removeObject:?];
+        v14 = AXLogBrailleHW();
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        {
+          v15 = *(*(&buf + 1) + 40);
+          LODWORD(v74) = 138412290;
+          *(&v74 + 4) = v15;
+          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Removing BT display: %@", &v74, 0xCu);
+        }
+
+        *&v74 = 0;
+        *(&v74 + 1) = &v74;
+        v75 = 0x2020000000;
+        v76 = 0x7FFFFFFFFFFFFFFFLL;
+        configuration = [*(*(&buf + 1) + 40) configuration];
+        v17 = +[AXSettings sharedInstance];
+        voiceOverBrailleDisplays = [v17 voiceOverBrailleDisplays];
+        v25[0] = _NSConcreteStackBlock;
+        v25[1] = 3221225472;
+        v25[2] = sub_1000053FC;
+        v25[3] = &unk_100014860;
+        v25[4] = self;
+        v19 = configuration;
+        v26 = v19;
+        v27 = &v74;
+        [voiceOverBrailleDisplays enumerateObjectsUsingBlock:v25];
+
+        if (preferencesCopy && *(*(&v74 + 1) + 24) != 0x7FFFFFFFFFFFFFFFLL)
+        {
+          v20 = +[AXSettings sharedInstance];
+          voiceOverBrailleDisplays2 = [v20 voiceOverBrailleDisplays];
+          v22 = [voiceOverBrailleDisplays2 mutableCopy];
+
+          [v22 removeObjectAtIndex:*(*(&v74 + 1) + 24)];
+          v23 = +[AXSettings sharedInstance];
+          [v23 setVoiceOverBrailleDisplays:v22];
+
+          v24 = AXLogBrailleHW();
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+          {
+            *v72 = 138412290;
+            v73 = v19;
+            _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Removed display from list: %@", v72, 0xCu);
+          }
+        }
+
+        [*(*(&buf + 1) + 40) invalidate];
+        if (*(v51 + 24) == 1)
+        {
+          _updateNewlyActiveDisplay();
+        }
+
+        else
+        {
+          [(MSCRODBrailleDisplayManager *)self setUIDisplayMode];
+          [(MSCRODBrailleDisplayManager *)self performSelector:"_loadStealthDisplay" withObject:0 afterDelay:0.0];
+        }
+
+        _Block_object_dispose(&v74, 8);
       }
+
+      [v65[5] handleBrailleDriverDisconnected];
+      [v59[5] configurationDidChange];
     }
 
-    [*(*(&buf + 1) + 40) invalidate];
-    if (*(v71 + 24) != 1)
-    {
-      [(MSCRODBrailleDisplayManager *)self setUIDisplayMode];
-      [(MSCRODBrailleDisplayManager *)self performSelector:"_loadStealthDisplay" withObject:0 afterDelay:0.0];
-LABEL_22:
+    _Block_object_dispose(v43, 8);
+    _Block_object_dispose(v45, 8);
+    _Block_object_dispose(v47, 8);
+    _Block_object_dispose(v48, 8);
+    _Block_object_dispose(&v50, 8);
+    _Block_object_dispose(v54, 8);
+    _Block_object_dispose(v56, 8);
 
-      _Block_object_dispose(&v100, 8);
-      goto LABEL_23;
-    }
+    _Block_object_dispose(&v58, 8);
+    _Block_object_dispose(&v64, 8);
 
-    v25 = *(v75 + 24);
-    if (*(v59 + 6))
-    {
-      v26 = v79[5];
-      v27 = v53[5];
-      if ((v75[3] & 1) == 0)
-      {
-        goto LABEL_21;
-      }
-    }
-
-    else
-    {
-      v28 = v79[5];
-      v29 = v53[5];
-      if ((v75[3] & 1) == 0)
-      {
-LABEL_21:
-        v31 = v63[3];
-        v32 = *(v67 + 6);
-        v33 = self->SCROBrailleDisplayManager_opaque[OBJC_IVAR___SCROBrailleDisplayManager__automaticBrailleTranslation];
-        _updateNewlyActiveDisplay();
-        goto LABEL_22;
-      }
-    }
-
-    v30 = self->SCROBrailleDisplayManager_opaque[OBJC_IVAR___SCROBrailleDisplayManager__lineDescriptorDisplayCallbackEnabled];
-    goto LABEL_21;
+    _Block_object_dispose(v70, 8);
+    _Block_object_dispose(&buf, 8);
   }
-
-LABEL_25:
 }
 
 - (id)driverConfiguration
@@ -1472,6 +1452,74 @@ LABEL_3:
   }
 
   [(MSCRODBrailleDisplayManager *)self setIsBrailleSystemSleeping:1];
+}
+
+- (void)_updateScreenUILock:(int)lock screenBlank:(int)blank
+{
+  v4 = *&blank;
+  v5 = *&lock;
+  v7 = sub_100006E58();
+  v8 = _SCROD_LOG();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = [NSNumber numberWithInt:v5];
+    v10 = [NSNumber numberWithInt:v4];
+    v11 = [NSNumber numberWithBool:v7];
+    *buf = 138412802;
+    *&buf[4] = v9;
+    *&buf[12] = 2112;
+    *&buf[14] = v10;
+    *&buf[22] = 2112;
+    v26 = v11;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Updating system ui lock status: %@, screen blank status: %@, system lock: %@", buf, 0x20u);
+  }
+
+  self->_isScreenUILocked = v5 != 0;
+  v12 = v4 != 0;
+  self->_isScreenBlank = v12;
+  *buf = 0;
+  *&buf[8] = buf;
+  *&buf[16] = 0x2020000000;
+  v13 = v12 & v7 & self->_isScreenUILocked;
+  LOBYTE(v26) = v13;
+  if (byte_1000198A0 != 1 || self->_isInDisconnectedState != v13)
+  {
+    v14 = _SCROD_LOG();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = [NSNumber numberWithBool:byte_1000198A0];
+      v16 = [NSNumber numberWithBool:*(*&buf[8] + 24)];
+      v17 = [NSNumber numberWithBool:self->_isInDisconnectedState];
+      *v19 = 138412802;
+      v20 = v15;
+      v21 = 2112;
+      v22 = v16;
+      v23 = 2112;
+      v24 = v17;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Initialized: %@, should disconnected %@, is disconnected: %@", v19, 0x20u);
+    }
+
+    if (*(*&buf[8] + 24) == 1)
+    {
+      AXPerformBlockOnMainThreadAfterDelay();
+    }
+
+    else
+    {
+      [(MSCRODBrailleDisplayManager *)self _wakeFromSleep];
+      v18 = _SCROD_LOG();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      {
+        *v19 = 0;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Braille Device: Waking", v19, 2u);
+      }
+    }
+
+    byte_1000198A0 = 1;
+    self->_isInDisconnectedState = *(*&buf[8] + 24);
+  }
+
+  _Block_object_dispose(buf, 8);
 }
 
 - (void)_registerHasBlankedScreenNotification

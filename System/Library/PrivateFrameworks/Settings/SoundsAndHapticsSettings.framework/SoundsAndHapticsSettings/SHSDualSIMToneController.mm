@@ -25,16 +25,16 @@
 
 - (void)setSpecifier:(id)specifier
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
   v5 = [specifierCopy propertyForKey:@"accountIdentifier"];
   v6 = SHSLogForCategory(0);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v33 = "[SHSDualSIMToneController setSpecifier:]";
-    v34 = 2112;
-    v35 = v5;
+    v32 = "[SHSDualSIMToneController setSpecifier:]";
+    v33 = 2112;
+    v34 = v5;
     _os_log_impl(&dword_265896000, v6, OS_LOG_TYPE_DEFAULT, "%s with topic: %@", buf, 0x16u);
   }
 
@@ -48,7 +48,7 @@
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v33 = v7;
+        v32 = v7;
         _os_log_impl(&dword_265896000, v8, OS_LOG_TYPE_DEFAULT, "SHSDualSIMToneController context:%@", buf, 0xCu);
       }
 
@@ -79,9 +79,9 @@
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v33 = label;
-          v34 = 2112;
-          v35 = v16;
+          v32 = label;
+          v33 = 2112;
+          v34 = v16;
           _os_log_impl(&dword_265896000, v17, OS_LOG_TYPE_DEFAULT, "SHSDualSIMToneController creating titleView with simLabel: %@, simShortLabel: %@", buf, 0x16u);
         }
 
@@ -101,9 +101,9 @@
     }
   }
 
-  v31.receiver = self;
-  v31.super_class = SHSDualSIMToneController;
-  [(SHSToneController *)&v31 setSpecifier:specifierCopy];
+  v30.receiver = self;
+  v30.super_class = SHSDualSIMToneController;
+  [(SHSToneController *)&v30 setSpecifier:specifierCopy];
   tonePickerViewController = [(SHSToneController *)self tonePickerViewController];
   if (tonePickerViewController)
   {
@@ -125,8 +125,6 @@
       }
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateReloadSpecifierInParentController
@@ -141,17 +139,17 @@
 
 - (void)tonePickerViewController:(id)controller selectedToneWithIdentifier:(id)identifier
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   identifierCopy = identifier;
   v8 = SHSLogForCategory(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = 136315394;
-    v21 = "[SHSDualSIMToneController tonePickerViewController:selectedToneWithIdentifier:]";
-    v22 = 2112;
-    v23 = identifierCopy;
-    _os_log_impl(&dword_265896000, v8, OS_LOG_TYPE_DEFAULT, "%s selectedToneWithIdentifier:%@", &v20, 0x16u);
+    v19 = 136315394;
+    v20 = "[SHSDualSIMToneController tonePickerViewController:selectedToneWithIdentifier:]";
+    v21 = 2112;
+    v22 = identifierCopy;
+    _os_log_impl(&dword_265896000, v8, OS_LOG_TYPE_DEFAULT, "%s selectedToneWithIdentifier:%@", &v19, 0x16u);
   }
 
   mEMORY[0x277D71F78] = [MEMORY[0x277D71F78] sharedToneManager];
@@ -181,22 +179,21 @@
   }
 
   [(SHSDualSIMToneController *)self _updateReloadSpecifierInParentController];
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)vibrationPickerViewController:(id)controller selectedVibrationWithIdentifier:(id)identifier
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   identifierCopy = identifier;
   v8 = SHSLogForCategory(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = 136315394;
-    v21 = "[SHSDualSIMToneController vibrationPickerViewController:selectedVibrationWithIdentifier:]";
-    v22 = 2112;
-    v23 = identifierCopy;
-    _os_log_impl(&dword_265896000, v8, OS_LOG_TYPE_DEFAULT, "%s selectedToneWithIdentifier:%@", &v20, 0x16u);
+    v19 = 136315394;
+    v20 = "[SHSDualSIMToneController vibrationPickerViewController:selectedVibrationWithIdentifier:]";
+    v21 = 2112;
+    v22 = identifierCopy;
+    _os_log_impl(&dword_265896000, v8, OS_LOG_TYPE_DEFAULT, "%s selectedToneWithIdentifier:%@", &v19, 0x16u);
   }
 
   mEMORY[0x277D71F88] = [MEMORY[0x277D71F88] sharedVibrationManager];
@@ -226,7 +223,6 @@
   }
 
   [(SHSDualSIMToneController *)self _updateReloadSpecifierInParentController];
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_defaultVibrationIdentifierForVibrationPickerWithAlertType:(int64_t)type topic:(id)topic

@@ -6,10 +6,10 @@
 
 - (VUIPlaybackUpNextConfig)init
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v26.receiver = self;
-  v26.super_class = VUIPlaybackUpNextConfig;
-  v2 = [(VUIPlaybackUpNextConfig *)&v26 init];
+  v30 = *MEMORY[0x1E69E9840];
+  v27.receiver = self;
+  v27.super_class = VUIPlaybackUpNextConfig;
+  v2 = [(VUIPlaybackUpNextConfig *)&v27 init];
   v3 = v2;
   if (v2)
   {
@@ -20,12 +20,12 @@
 
     if (v5)
     {
-      v6 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = VUIDefaultLogObject(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v28 = v5;
-        _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_DEFAULT, "VUIFeaturesConfiguration:: overriding max auto playable items from user defaults %@", buf, 0xCu);
+        v29 = v5;
+        _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "VUIFeaturesConfiguration:: overriding max auto playable items from user defaults %@", buf, 0xCu);
       }
 
       v3->_maximumAutoPlayableItems = [v5 unsignedIntegerValue];
@@ -34,11 +34,11 @@
     else
     {
       standardUserDefaults2 = [MEMORY[0x1E695E000] standardUserDefaults];
-      v8 = [standardUserDefaults2 objectForKey:@"maximumAutoPlayableItems"];
+      v9 = [standardUserDefaults2 objectForKey:@"maximumAutoPlayableItems"];
 
-      if (v8)
+      if (v9)
       {
-        unsignedIntegerValue = [v8 unsignedIntegerValue];
+        unsignedIntegerValue = [v9 unsignedIntegerValue];
       }
 
       else
@@ -50,74 +50,74 @@
     }
 
     standardUserDefaults3 = [MEMORY[0x1E695E000] standardUserDefaults];
-    v11 = [standardUserDefaults3 objectForKey:@"autoPlayTimerDuration"];
+    v12 = [standardUserDefaults3 objectForKey:@"autoPlayTimerDuration"];
 
-    if (v11)
+    if (v12)
     {
-      [v11 doubleValue];
+      [v12 doubleValue];
     }
 
     else
     {
-      v12 = 15.0;
+      v13 = 15.0;
     }
 
-    v3->_autoPlayTimerDuration = v12;
+    v3->_autoPlayTimerDuration = v13;
     standardUserDefaults4 = [MEMORY[0x1E695E000] standardUserDefaults];
-    v14 = [standardUserDefaults4 objectForKey:@"bootStrapInterval"];
+    v15 = [standardUserDefaults4 objectForKey:@"bootStrapInterval"];
 
-    if (v14)
+    if (v15)
     {
-      [v14 doubleValue];
+      [v15 doubleValue];
     }
 
     else
     {
-      v15 = 30.0;
+      v16 = 30.0;
     }
 
-    v3->_bootstrapInterval = v15;
+    v3->_bootstrapInterval = v16;
     standardUserDefaults5 = [MEMORY[0x1E695E000] standardUserDefaults];
-    v17 = [standardUserDefaults5 objectForKey:@"minAutoPlayStopTimeQAOverride"];
+    v18 = [standardUserDefaults5 objectForKey:@"minAutoPlayStopTimeQAOverride"];
 
-    if (v17)
+    if (v18)
     {
-      [v17 doubleValue];
-      v3->_minAutoPlayStopTime = v18;
+      [v18 doubleValue];
+      v3->_minAutoPlayStopTime = v19;
     }
 
     else
     {
       standardUserDefaults6 = [MEMORY[0x1E695E000] standardUserDefaults];
-      v20 = [standardUserDefaults6 objectForKey:@"minAutoPlayStopTime"];
+      v21 = [standardUserDefaults6 objectForKey:@"minAutoPlayStopTime"];
 
-      if (v20)
+      if (v21)
       {
-        [v20 doubleValue];
+        [v21 doubleValue];
       }
 
       else
       {
-        v21 = 0x40BC200000000000;
+        v22 = 0x40BC200000000000;
       }
 
-      *&v3->_minAutoPlayStopTime = v21;
+      *&v3->_minAutoPlayStopTime = v22;
     }
 
     standardUserDefaults7 = [MEMORY[0x1E695E000] standardUserDefaults];
-    v23 = [standardUserDefaults7 objectForKey:@"minTimeIntervalFromEndToDisplay"];
+    v24 = [standardUserDefaults7 objectForKey:@"minTimeIntervalFromEndToDisplay"];
 
-    if (v23)
+    if (v24)
     {
-      [v23 doubleValue];
+      [v24 doubleValue];
     }
 
     else
     {
-      v24 = 20.0;
+      v25 = 20.0;
     }
 
-    v3->_minTimeIntervalFromEndToDisplay = v24;
+    v3->_minTimeIntervalFromEndToDisplay = v25;
   }
 
   return v3;

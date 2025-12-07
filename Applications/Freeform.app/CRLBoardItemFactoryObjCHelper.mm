@@ -76,7 +76,7 @@
   memset(&v69, 0, sizeof(v69));
   if (strokeCopy)
   {
-    [strokeCopy transform];
+    objc_msgSend_transform(strokeCopy);
   }
 
   mask = [strokeCopy mask];
@@ -359,12 +359,12 @@ LABEL_29:
     v15 = 0;
     v16.f64[0] = NAN;
     v16.f64[1] = NAN;
-    v30 = vnegq_f64(v16);
+    v29 = vnegq_f64(v16);
     v17 = -1.0;
     do
     {
-      v36 = NAN;
-      v18 = [mapCopy inputPathIndexForOutputElementIndex:v15 outInputT:&v36];
+      v35 = NAN;
+      v18 = [mapCopy inputPathIndexForOutputElementIndex:v15 outInputT:&v35];
       if (v18)
       {
         v20 = -1.0;
@@ -372,12 +372,12 @@ LABEL_29:
 
       else
       {
-        v20 = v36;
+        v20 = v35;
       }
 
       if (!v18)
       {
-        v17 = v36;
+        v17 = v35;
       }
 
       if (v17 >= 0.0 && v20 < 0.0)
@@ -392,10 +392,10 @@ LABEL_29:
 
       if (v22 < 0.0 && v15 + 1 < elementCount)
       {
-        *&v35[2] = 0x7FF8000000000000;
-        if (![mapCopy inputPathIndexForOutputElementIndex:v36 outInputT:v20])
+        *&v34[2] = 0x7FF8000000000000;
+        if (![mapCopy inputPathIndexForOutputElementIndex:v35 outInputT:v20])
         {
-          v22 = *&v35[2];
+          v22 = *&v34[2];
         }
       }
 
@@ -409,47 +409,46 @@ LABEL_29:
         *v19.i64 = 0.0;
       }
 
-      v31 = v19;
+      v30 = v19;
       v24 = vcvtmd_u64_f64(*v19.i64);
-      memset(&v35[2], 0, 28);
+      memset(&v34[2], 0, 28);
       if (dataCopy)
       {
-        [dataCopy strokePointCompactDataAtIndex:v24];
+        objc_msgSend_strokePointCompactDataAtIndex_(dataCopy);
       }
 
-      *v19.i64 = *v31.i64 - trunc(*v31.i64);
-      v19.i64[0] = vbslq_s8(v30, v19, v31).i64[0];
+      *v19.i64 = *v30.i64 - trunc(*v30.i64);
+      v19.i64[0] = vbslq_s8(v29, v19, v30).i64[0];
       if (*v19.i64 != 0.0)
       {
-        v25 = v24 + 1;
-        v29 = *v19.i64;
+        v28 = *v19.i64;
         pointCount = [dataCopy pointCount];
-        v27 = v29;
-        if (v25 < pointCount)
+        v26 = v28;
+        if (v24 + 1 < pointCount)
         {
-          memset(v35, 0, 28);
+          memset(v34, 0, 28);
           if (dataCopy)
           {
-            [dataCopy strokePointCompactDataAtIndex:{v25, v29}];
-            v27 = v29;
+            objc_msgSend_strokePointCompactDataAtIndex_(dataCopy, v28);
+            v26 = v28;
           }
 
-          v33[0] = v35[2];
-          *(v33 + 12) = *(&v35[2] + 12);
-          v32[0] = v35[0];
-          *(v32 + 12) = *(v35 + 12);
-          sub_1001C7670(v33, v32, v34, v27);
-          v35[2] = *v34;
-          *(&v35[2] + 12) = *&v34[12];
+          v32[0] = v34[2];
+          *(v32 + 12) = *(&v34[2] + 12);
+          v31[0] = v34[0];
+          *(v31 + 12) = *(v34 + 12);
+          sub_1001C7670(v32, v31, v33, v26);
+          v34[2] = *v33;
+          *(&v34[2] + 12) = *&v33[12];
         }
       }
 
-      v35[0] = v35[2];
-      *(v35 + 12) = *(&v35[2] + 12);
-      [(CRLPKStrokePathCompactData *)v13 appendStrokePointCompactData:v35];
+      v34[0] = v34[2];
+      *(v34 + 12) = *(&v34[2] + 12);
+      [(CRLPKStrokePathCompactData *)v13 appendStrokePointCompactData:v34];
       if (value && !v15)
       {
-        *value = *v31.i64;
+        *value = *v30.i64;
       }
 
       ++v15;

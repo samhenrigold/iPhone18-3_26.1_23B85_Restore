@@ -42,7 +42,7 @@
   v16 = 0u;
   v13 = 0u;
   v14 = 0u;
-  _LabelContextMakeGadgetSpec(a7, a8, a9, &v13, self, a2, a3, a4);
+  _LabelContextMakeGadgetSpec(a3, a4, a5, &v13, a6, a7, a8, a9);
   v11[2] = v15;
   v11[3] = v16;
   v12 = v17;
@@ -60,7 +60,7 @@
   v16 = 0u;
   v13 = 0u;
   v14 = 0u;
-  _LabelContextMakeFeatureSpec(a7, a8, a9, &v13, self, a2, a3, a4);
+  _LabelContextMakeFeatureSpec(a3, a4, a5, &v13, a6, a7, a8, a9);
   v11[2] = v15;
   v11[3] = v16;
   v12 = v17;

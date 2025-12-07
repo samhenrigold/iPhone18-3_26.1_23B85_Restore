@@ -39,20 +39,20 @@
 
 - (FCPeopleAlsoReadInventoryManager)initWithInventory:(id)inventory readingHistory:(id)history
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   inventoryCopy = inventory;
   historyCopy = history;
   if (!inventoryCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "inventory"];
+    v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "inventory"];
     *buf = 136315906;
-    v19 = "[FCPeopleAlsoReadInventoryManager initWithInventory:readingHistory:]";
-    v20 = 2080;
-    v21 = "FCPeopleAlsoReadInventoryManager.m";
-    v22 = 1024;
-    v23 = 32;
-    v24 = 2114;
-    v25 = v15;
+    v18 = "[FCPeopleAlsoReadInventoryManager initWithInventory:readingHistory:]";
+    v19 = 2080;
+    v20 = "FCPeopleAlsoReadInventoryManager.m";
+    v21 = 1024;
+    v22 = 32;
+    v23 = 2114;
+    v24 = v14;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (historyCopy)
@@ -68,22 +68,22 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "readingHistory"];
+    v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "readingHistory"];
     *buf = 136315906;
-    v19 = "[FCPeopleAlsoReadInventoryManager initWithInventory:readingHistory:]";
-    v20 = 2080;
-    v21 = "FCPeopleAlsoReadInventoryManager.m";
-    v22 = 1024;
-    v23 = 33;
-    v24 = 2114;
-    v25 = v16;
+    v18 = "[FCPeopleAlsoReadInventoryManager initWithInventory:readingHistory:]";
+    v19 = 2080;
+    v20 = "FCPeopleAlsoReadInventoryManager.m";
+    v21 = 1024;
+    v22 = 33;
+    v23 = 2114;
+    v24 = v15;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
-  v17.receiver = self;
-  v17.super_class = FCPeopleAlsoReadInventoryManager;
-  v9 = [(FCPeopleAlsoReadInventoryManager *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = FCPeopleAlsoReadInventoryManager;
+  v9 = [(FCPeopleAlsoReadInventoryManager *)&v16 init];
   v10 = v9;
   if (v9)
   {
@@ -94,7 +94,6 @@ LABEL_6:
     v10->_refreshThrottler = v11;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -137,27 +136,27 @@ LABEL_6:
 
 - (void)readingHistory:(id)history didChangeFeaturesForArticles:(id)articles
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   allValues = [articles allValues];
-  v6 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        if ([*(*(&v12 + 1) + 8 * i) unsignedIntegerValue] == 1)
+        if ([*(*(&v11 + 1) + 8 * i) unsignedIntegerValue] == 1)
         {
           refreshThrottler = [(FCPeopleAlsoReadInventoryManager *)self refreshThrottler];
           [refreshThrottler tickle];
@@ -166,7 +165,7 @@ LABEL_6:
         }
       }
 
-      v7 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v7)
       {
         continue;
@@ -177,8 +176,6 @@ LABEL_6:
   }
 
 LABEL_11:
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

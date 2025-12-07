@@ -51,7 +51,7 @@
   v4 = v3;
   if (v3)
   {
-    [v3 CAColorMatrixValue];
+    objc_msgSend_CAColorMatrixValue(v3);
   }
 
   else

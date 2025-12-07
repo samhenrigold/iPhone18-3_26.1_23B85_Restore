@@ -12,11 +12,11 @@
 - (uint64_t)isAudio;
 - (uint64_t)isCC;
 - (uint64_t)isMain;
-- (uint64_t)isSDH;
 - (uint64_t)languageCompare:()AVPlayerController displayNameCache:;
 - (void)avkit_persistentIdentifier;
 - (void)avkit_setBestChoiceForRecentLanguage:()AVPlayerController;
 - (void)avkit_setPreferredSortIndex:()AVPlayerController;
+- (void)isSDH;
 @end
 
 @implementation AVMediaSelectionOption(AVPlayerController)
@@ -251,7 +251,7 @@ LABEL_15:
   return v2;
 }
 
-- (uint64_t)isSDH
+- (void)isSDH
 {
   result = [self hasMediaCharacteristic:*MEMORY[0x1E6987588]];
   if (result)

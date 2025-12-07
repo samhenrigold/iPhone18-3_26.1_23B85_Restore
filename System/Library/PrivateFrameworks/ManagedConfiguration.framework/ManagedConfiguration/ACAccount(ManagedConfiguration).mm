@@ -395,33 +395,33 @@
 
 - (id)mcBackingProfile
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   mcProfileUUID = [self mcProfileUUID];
   if (mcProfileUUID)
   {
     v2 = +[MCProfileConnection sharedConnection];
     [v2 installedProfileIdentifiersWithFilterFlags:3];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
-    v3 = v18 = 0u;
-    v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v3 = v17 = 0u;
+    v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v16;
+      v6 = *v15;
       while (2)
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v16 != v6)
+          if (*v15 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = *(*(&v15 + 1) + 8 * i);
+          v8 = *(*(&v14 + 1) + 8 * i);
           v9 = objc_autoreleasePoolPush();
-          v10 = [v2 installedProfileWithIdentifier:{v8, v15}];
+          v10 = [v2 installedProfileWithIdentifier:{v8, v14}];
           uUID = [v10 UUID];
           v12 = [uUID isEqualToString:mcProfileUUID];
 
@@ -434,7 +434,7 @@
           objc_autoreleasePoolPop(v9);
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v5)
         {
           continue;
@@ -453,14 +453,12 @@ LABEL_12:
     v10 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 - (id)mcBackingPayload
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   mcProfileUUID = [self mcProfileUUID];
   mcPayloadUUID = [self mcPayloadUUID];
   v4 = mcPayloadUUID;
@@ -469,29 +467,29 @@ LABEL_12:
   {
     v6 = +[MCProfileConnection sharedConnection];
     [v6 installedProfileIdentifiersWithFilterFlags:3];
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
-    v7 = v40 = 0u;
-    v32 = [v7 countByEnumeratingWithState:&v37 objects:v42 count:16];
-    if (v32)
+    v7 = v39 = 0u;
+    v31 = [v7 countByEnumeratingWithState:&v36 objects:v41 count:16];
+    if (v31)
     {
-      v8 = *v38;
-      v29 = v6;
-      v30 = mcProfileUUID;
-      v27 = *v38;
-      v28 = v7;
+      v8 = *v37;
+      v28 = v6;
+      v29 = mcProfileUUID;
+      v26 = *v37;
+      v27 = v7;
       do
       {
-        for (i = 0; i != v32; ++i)
+        for (i = 0; i != v31; ++i)
         {
           v10 = v8;
-          if (*v38 != v8)
+          if (*v37 != v8)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v37 + 1) + 8 * i);
+          v11 = *(*(&v36 + 1) + 8 * i);
           v12 = objc_autoreleasePoolPush();
           v13 = [v6 installedProfileWithIdentifier:v11];
           uUID = [v13 UUID];
@@ -502,26 +500,26 @@ LABEL_12:
           {
             context = v12;
             payloads = [v13 payloads];
+            v32 = 0u;
             v33 = 0u;
             v34 = 0u;
             v35 = 0u;
-            v36 = 0u;
             v17 = payloads;
-            v18 = [v17 countByEnumeratingWithState:&v33 objects:v41 count:16];
+            v18 = [v17 countByEnumeratingWithState:&v32 objects:v40 count:16];
             if (v18)
             {
               v19 = v18;
-              v20 = *v34;
+              v20 = *v33;
               while (2)
               {
                 for (j = 0; j != v19; ++j)
                 {
-                  if (*v34 != v20)
+                  if (*v33 != v20)
                   {
                     objc_enumerationMutation(v17);
                   }
 
-                  v22 = *(*(&v33 + 1) + 8 * j);
+                  v22 = *(*(&v32 + 1) + 8 * j);
                   uUID2 = [v22 UUID];
                   v24 = [uUID2 isEqualToString:v4];
 
@@ -530,14 +528,14 @@ LABEL_12:
                     v5 = v22;
 
                     objc_autoreleasePoolPop(context);
-                    v6 = v29;
-                    mcProfileUUID = v30;
-                    v7 = v28;
+                    v6 = v28;
+                    mcProfileUUID = v29;
+                    v7 = v27;
                     goto LABEL_23;
                   }
                 }
 
-                v19 = [v17 countByEnumeratingWithState:&v33 objects:v41 count:16];
+                v19 = [v17 countByEnumeratingWithState:&v32 objects:v40 count:16];
                 if (v19)
                 {
                   continue;
@@ -547,10 +545,10 @@ LABEL_12:
               }
             }
 
-            v6 = v29;
-            mcProfileUUID = v30;
-            v8 = v27;
-            v7 = v28;
+            v6 = v28;
+            mcProfileUUID = v29;
+            v8 = v26;
+            v7 = v27;
             v12 = context;
           }
 
@@ -558,10 +556,10 @@ LABEL_12:
         }
 
         v5 = 0;
-        v32 = [v7 countByEnumeratingWithState:&v37 objects:v42 count:16];
+        v31 = [v7 countByEnumeratingWithState:&v36 objects:v41 count:16];
       }
 
-      while (v32);
+      while (v31);
     }
 
     else
@@ -571,8 +569,6 @@ LABEL_12:
 
 LABEL_23:
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

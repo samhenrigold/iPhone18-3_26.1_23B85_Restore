@@ -1,6 +1,6 @@
-void sub_23D7038B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23D7038B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -21,11 +21,11 @@ void sub_23D70493C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_23D713C80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_23D713C80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 96), 8);
+  _Block_object_dispose((v18 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -205,75 +205,75 @@ void sub_23D71E234(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void updateTimestampOfResults(void *a1, void *a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   obj = v3;
-  v21 = [v3 countByEnumeratingWithState:&v30 objects:v36 count:16];
-  if (v21)
+  v20 = [v3 countByEnumeratingWithState:&v29 objects:v35 count:16];
+  if (v20)
   {
-    v20 = *v31;
+    v19 = *v30;
     do
     {
       v5 = 0;
       do
       {
-        if (*v31 != v20)
+        if (*v30 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v30 + 1) + 8 * v5);
+        v6 = *(*(&v29 + 1) + 8 * v5);
+        v25 = 0u;
         v26 = 0u;
         v27 = 0u;
         v28 = 0u;
-        v29 = 0u;
         v7 = [v6 caseResults];
-        v8 = [v7 countByEnumeratingWithState:&v26 objects:v35 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v25 objects:v34 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v27;
+          v10 = *v26;
           do
           {
             v11 = 0;
             do
             {
-              if (*v27 != v10)
+              if (*v26 != v10)
               {
                 objc_enumerationMutation(v7);
               }
 
-              v12 = *(*(&v26 + 1) + 8 * v11);
+              v12 = *(*(&v25 + 1) + 8 * v11);
+              v21 = 0u;
               v22 = 0u;
               v23 = 0u;
               v24 = 0u;
-              v25 = 0u;
               v13 = [v12 auditIssues];
-              v14 = [v13 countByEnumeratingWithState:&v22 objects:v34 count:16];
+              v14 = [v13 countByEnumeratingWithState:&v21 objects:v33 count:16];
               if (v14)
               {
                 v15 = v14;
-                v16 = *v23;
+                v16 = *v22;
                 do
                 {
                   v17 = 0;
                   do
                   {
-                    if (*v23 != v16)
+                    if (*v22 != v16)
                     {
                       objc_enumerationMutation(v13);
                     }
 
-                    [*(*(&v22 + 1) + 8 * v17++) setTimeStamp:v4];
+                    [*(*(&v21 + 1) + 8 * v17++) setTimeStamp:v4];
                   }
 
                   while (v15 != v17);
-                  v15 = [v13 countByEnumeratingWithState:&v22 objects:v34 count:16];
+                  v15 = [v13 countByEnumeratingWithState:&v21 objects:v33 count:16];
                 }
 
                 while (v15);
@@ -283,7 +283,7 @@ void updateTimestampOfResults(void *a1, void *a2)
             }
 
             while (v11 != v9);
-            v9 = [v7 countByEnumeratingWithState:&v26 objects:v35 count:16];
+            v9 = [v7 countByEnumeratingWithState:&v25 objects:v34 count:16];
           }
 
           while (v9);
@@ -292,14 +292,12 @@ void updateTimestampOfResults(void *a1, void *a2)
         ++v5;
       }
 
-      while (v5 != v21);
-      v21 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
+      while (v5 != v20);
+      v20 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
     }
 
-    while (v21);
+    while (v20);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void _axNotificationHandler(uint64_t a1, uint64_t a2, int a3, uint64_t a4, void *a5)
@@ -309,4 +307,14 @@ void _axNotificationHandler(uint64_t a1, uint64_t a2, int a3, uint64_t a4, void 
   {
     [v6 _screenChangedNotification];
   }
+}
+
+NSRect NSInsetRect(NSRect aRect, CGFloat dX, CGFloat dY)
+{
+  MEMORY[0x28211F7A0](aRect.origin, *&aRect.origin.y, aRect.size, *&aRect.size.height, dX, dY);
+  result.size.height = v6;
+  result.size.width = v5;
+  result.origin.y = v4;
+  result.origin.x = v3;
+  return result;
 }

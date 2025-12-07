@@ -95,11 +95,10 @@ LABEL_3:
   v5 = NSStringFromClinicalIngestionInteractionType(self->_interactionType);
   requestedURL = self->_requestedURL;
   responseStatusCode = self->_responseStatusCode;
-  hadError = self->_hadError;
-  v9 = HKStringFromBool();
-  v10 = [v3 stringWithFormat:@"End state for resource %@ %@ URL: %@; HTTP status: %lu; had error: %@", resourceType, v5, requestedURL, responseStatusCode, v9];;
+  v8 = HKStringFromBool();
+  v9 = [v3 stringWithFormat:@"End state for resource %@ %@ URL: %@; HTTP status: %lu; had error: %@", resourceType, v5, requestedURL, responseStatusCode, v8];;
 
-  return v10;
+  return v9;
 }
 
 - (id)asErrorEndStateWithErrorCode:(id)code
@@ -116,10 +115,9 @@ LABEL_3:
   v4 = objc_opt_class();
   resourceType = self->_resourceType;
   v6 = NSStringFromClinicalIngestionInteractionType(self->_interactionType);
-  requestedURL = self->_requestedURL;
-  v8 = [v3 stringWithFormat:@"<%@ %p> resource: %@ %@, URL: %@ HTTP status: %lu", v4, self, resourceType, v6, requestedURL, self->_responseStatusCode];;
+  v7 = [v3 stringWithFormat:@"<%@ %p> resource: %@ %@, URL: %@ HTTP status: %lu", v4, self, resourceType, v6, self->_requestedURL, self->_responseStatusCode];;
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

@@ -61,11 +61,11 @@
   v5 = type metadata accessor for IndexPath();
   v6 = *(v5 - 8);
   __chkstk_darwin(v5);
-  v8 = &v17 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v18 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v9);
-  v11 = &v17 - v10;
+  v11 = &v18 - v10;
   __chkstk_darwin(v12);
-  v14 = &v17 - v13;
+  v14 = &v18 - v13;
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   (*(v6 + 16))(v11, v14, v5);
   selfCopy = self;
@@ -76,7 +76,7 @@
   v16(v11, v5);
   if (self)
   {
-    sub_10014FC1C();
+    sub_10014FC1C(v17);
     v16(v14, v5);
   }
 
@@ -114,8 +114,8 @@
   selfCopy = self;
   _bridgeAnyObjectToAny(_:)();
   swift_unknownObjectRelease();
-  sub_10014FA60();
-  sub_100004758(&v5);
+  sub_10014FA60(v5);
+  sub_100004758(v6);
 }
 
 - (void)didTapCreate:(id)create
@@ -126,7 +126,7 @@
   swift_unknownObjectRelease();
   sub_100541DBC();
 
-  sub_100004758(&v5);
+  sub_100004758(v5);
 }
 
 - (void)nameTextFieldDidChange:(id)change
@@ -137,7 +137,7 @@
   swift_unknownObjectRelease();
   sub_100541EC4();
 
-  sub_100004758(&v5);
+  sub_100004758(v5);
 }
 
 - (_TtC9Reminders29TTRIGroupDetailViewController)initWithStyle:(int64_t)style

@@ -523,7 +523,7 @@ LABEL_97:
   backgroundActivityEntry = [currentData backgroundActivityEntry];
 
   v18 = dataCopy;
-  if (![(_UIStatusBarDataBackgroundActivityEntry *)v10 isEqual:backgroundActivityEntry])
+  if ((objc_msgSend_isEqual_(v10) & 1) == 0)
   {
     if (dataCopy)
     {

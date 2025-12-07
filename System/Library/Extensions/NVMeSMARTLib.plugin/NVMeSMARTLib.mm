@@ -557,10 +557,11 @@ uint64_t NVMeSMARTClient::CopyInternalLabNANDInfo(NVMeSMARTClient *this, const _
   return result;
 }
 
-void *sub_1B54(int a1, const void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char __dst)
+void *sub_1B54(int a1, const void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
+  va_start(va, a15);
 
-  return memmove(&__dst, a2, v16);
+  return memmove(va, a2, v15);
 }
 
 uint64_t NVMeSMARTClient::sGetIdentifyData(uint64_t a1, uint64_t a2)
@@ -570,9 +571,8 @@ uint64_t NVMeSMARTClient::sGetIdentifyData(uint64_t a1, uint64_t a2)
     return sub_1B48();
   }
 
-  v2 = *(*(a1 + 8) + 52);
   sub_1B20();
-  return IOConnectCallStructMethod(v3, v4, v5, v6, v7, v8);
+  return IOConnectCallStructMethod(v2, v3, v4, v5, v6, v7);
 }
 
 uint64_t NVMeSMARTClient::sGetFieldCounters(NVMeSMARTClient *this, void *a2, char *a3)
@@ -582,9 +582,8 @@ uint64_t NVMeSMARTClient::sGetFieldCounters(NVMeSMARTClient *this, void *a2, cha
     return 3758097090;
   }
 
-  v3 = *(*(this + 1) + 52);
   sub_1B20();
-  return IOConnectCallScalarMethod(v4, v5, v6, v7, v8, v9);
+  return IOConnectCallScalarMethod(v3, v4, v5, v6, v7, v8);
 }
 
 uint64_t NVMeSMARTClient::sGetLogPage(NVMeSMARTClient *this, void *a2, void *a3)
@@ -594,9 +593,8 @@ uint64_t NVMeSMARTClient::sGetLogPage(NVMeSMARTClient *this, void *a2, void *a3)
     return sub_1B48();
   }
 
-  v3 = *(*(this + 1) + 52);
   sub_1B20();
-  return IOConnectCallStructMethod(v4, v5, v6, v7, v8, v9);
+  return IOConnectCallStructMethod(v3, v4, v5, v6, v7, v8);
 }
 
 uint64_t NVMeSMARTClient::sGetSamsungDebugLog(NVMeSMARTClient *this, void *a2, char *a3)
@@ -606,9 +604,8 @@ uint64_t NVMeSMARTClient::sGetSamsungDebugLog(NVMeSMARTClient *this, void *a2, c
     return sub_1B48();
   }
 
-  v3 = *(*(this + 1) + 52);
   sub_1B20();
-  return IOConnectCallStructMethod(v4, v5, v6, v7, v8, v9);
+  return IOConnectCallStructMethod(v3, v4, v5, v6, v7, v8);
 }
 
 uint64_t NVMeSMARTClient::SMARTReadData(uint64_t a1, void *a2)
@@ -617,20 +614,19 @@ uint64_t NVMeSMARTClient::SMARTReadData(uint64_t a1, void *a2)
   if (a2)
   {
     sub_1B78();
-    v6 = malloc_type_malloc(0x1000uLL, v5);
-    if (v6)
+    v5 = malloc_type_malloc(0x1000uLL, v4);
+    if (v5)
     {
-      v7 = v6;
-      bzero(v6, 0x1000uLL);
-      v8 = *(a1 + 52);
+      v6 = v5;
+      bzero(v5, 0x1000uLL);
       sub_1B20();
-      v2 = IOConnectCallScalarMethod(v9, v10, v11, v12, v13, v14);
+      v2 = IOConnectCallScalarMethod(v7, v8, v9, v10, v11, v12);
       if (!v2)
       {
-        memmove(a2, v7, 0x200uLL);
+        memmove(a2, v6, 0x200uLL);
       }
 
-      free(v7);
+      free(v6);
     }
   }
 
@@ -644,9 +640,8 @@ uint64_t NVMeSMARTClient::GetIdentifyData(uint64_t a1, uint64_t a2)
     return sub_1B48();
   }
 
-  v2 = *(a1 + 52);
   sub_1B20();
-  return IOConnectCallStructMethod(v3, v4, v5, v6, v7, v8);
+  return IOConnectCallStructMethod(v2, v3, v4, v5, v6, v7);
 }
 
 void NVMeSMARTClient::GetSystemCounters(NVMeSMARTClient *this, char *a2, unsigned int *a3)
@@ -754,9 +749,8 @@ uint64_t NVMeSMARTClient::GetFieldCounters(NVMeSMARTClient *this, char *a2)
     return 3758097090;
   }
 
-  v2 = *(this + 13);
   sub_1B20();
-  return IOConnectCallScalarMethod(v3, v4, v5, v6, v7, v8);
+  return IOConnectCallScalarMethod(v2, v3, v4, v5, v6, v7);
 }
 
 void NVMeSMARTClient::GetFieldCountersV2(NVMeSMARTClient *this, char *a2, unsigned int *a3)
@@ -822,9 +816,8 @@ uint64_t NVMeSMARTClient::GetLogPage(NVMeSMARTClient *this, void *a2)
     return sub_1B48();
   }
 
-  v2 = *(this + 13);
   sub_1B20();
-  return IOConnectCallStructMethod(v3, v4, v5, v6, v7, v8);
+  return IOConnectCallStructMethod(v2, v3, v4, v5, v6, v7);
 }
 
 uint64_t NVMeSMARTClient::GetSamsungDebugLogCount(NVMeSMARTClient *this, unsigned int a2, unsigned int *a3)
@@ -865,9 +858,8 @@ uint64_t NVMeSMARTClient::GetSamsungDebugLog(NVMeSMARTClient *this, char *a2)
     return sub_1B48();
   }
 
-  v2 = *(this + 13);
   sub_1B20();
-  return IOConnectCallStructMethod(v3, v4, v5, v6, v7, v8);
+  return IOConnectCallStructMethod(v2, v3, v4, v5, v6, v7);
 }
 
 void NVMeSMARTClient::GetDefectEntries(NVMeSMARTClient *this, char *a2, unsigned int *a3)
@@ -1012,11 +1004,11 @@ __CFDictionary *NVMeSMARTClient::CopyNANDInfo(NVMeSMARTClient *this)
       switch(v15)
       {
         case 9:
-          v19 = sub_1B54(Mutable, v18, v7, v8, v9, v10, v11, v12, v30, v31, v32, v33, v34, v35, output, input);
+          v19 = sub_1B54(Mutable, v18, v7, v8, v9, v10, v11, v12, v30, v31, v32, v33, v34, v35, output);
           v20 = kNANDHealthInfoRAIDSMARTErrors[0];
           goto LABEL_36;
         case 12:
-          v19 = sub_1B54(Mutable, v18, v7, v8, v9, v10, v11, v12, v30, v31, v32, v33, v34, v35, output, input);
+          v19 = sub_1B54(Mutable, v18, v7, v8, v9, v10, v11, v12, v30, v31, v32, v33, v34, v35, output);
           v20 = kNANDHealthInfoSpareAvailablePercent[0];
           goto LABEL_36;
         case 117:
@@ -1072,15 +1064,15 @@ LABEL_30:
 
           break;
         case 1048:
-          v19 = sub_1B54(Mutable, v18, v7, v8, v9, v10, v11, v12, v30, v31, v32, v33, v34, v35, output, input);
+          v19 = sub_1B54(Mutable, v18, v7, v8, v9, v10, v11, v12, v30, v31, v32, v33, v34, v35, output);
           v20 = kNANDHealthInfoIntPartitionUsed[0];
           goto LABEL_36;
         case 1049:
-          v19 = sub_1B54(Mutable, v18, v7, v8, v9, v10, v11, v12, v30, v31, v32, v33, v34, v35, output, input);
+          v19 = sub_1B54(Mutable, v18, v7, v8, v9, v10, v11, v12, v30, v31, v32, v33, v34, v35, output);
           v20 = kNANDHealthInfoUserPartitionUsed[0];
           goto LABEL_36;
         case 1525:
-          v19 = sub_1B54(Mutable, v18, v7, v8, v9, v10, v11, v12, v30, v31, v32, v33, v34, v35, output, input);
+          v19 = sub_1B54(Mutable, v18, v7, v8, v9, v10, v11, v12, v30, v31, v32, v33, v34, v35, output);
           v20 = kNANDHealthInfoNumGrowBadBlocksKey[0];
           goto LABEL_36;
         case 1829:
@@ -1095,7 +1087,7 @@ LABEL_30:
 
           break;
         case 2125:
-          v19 = sub_1B54(Mutable, v18, v7, v8, v9, v10, v11, v12, v30, v31, v32, v33, v34, v35, output, input);
+          v19 = sub_1B54(Mutable, v18, v7, v8, v9, v10, v11, v12, v30, v31, v32, v33, v34, v35, output);
           v20 = kNANDHealthInfoDieFailures[0];
           goto LABEL_36;
         case 1998:

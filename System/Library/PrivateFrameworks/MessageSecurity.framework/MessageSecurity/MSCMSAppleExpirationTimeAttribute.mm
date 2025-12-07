@@ -49,7 +49,7 @@ LABEL_11:
   v25 = 0;
   attributeValues2 = [attributeCopy attributeValues];
   v12 = [attributeValues2 objectAtIndex:0];
-  v13 = nsheim_decode_Time(v12);
+  v13 = nsheim_decode_Time(v12, &v24);
 
   if (v13)
   {
@@ -86,7 +86,7 @@ LABEL_10:
     }
   }
 
-  free_Time();
+  free_Time(&v24);
   self = v19;
   selfCopy = self;
 LABEL_19:

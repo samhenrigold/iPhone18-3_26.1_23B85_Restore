@@ -94,18 +94,18 @@
 - (NSNumber)currentDuration
 {
   currentDurationValue = [(HUTriggerDurationPickerCell *)self currentDurationValue];
-  duration = [currentDurationValue duration];
+  v3 = objc_msgSend_duration(currentDurationValue);
 
-  return duration;
+  return v3;
 }
 
 - (void)setCurrentDuration:(id)duration
 {
   durationCopy = duration;
   currentDurationValue = [(HUTriggerDurationPickerCell *)self currentDurationValue];
-  duration = [currentDurationValue duration];
+  v6 = objc_msgSend_duration(currentDurationValue);
   v10 = durationCopy;
-  v7 = duration;
+  v7 = v6;
   if (v7 == v10)
   {
 
@@ -221,38 +221,38 @@ void __54__HUTriggerDurationPickerCell__defaultDurationOptions__block_invoke()
 void __53__HUTriggerDurationPickerCell__updateDurationOptions__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v7 = a2;
-  v8 = [v7 duration];
-  v9 = [*(a1 + 32) duration];
-  v12 = MEMORY[0x277D85DD0];
-  v13 = 3221225472;
-  v14 = __53__HUTriggerDurationPickerCell__updateDurationOptions__block_invoke_2;
-  v15 = &unk_277DB78F8;
-  v16 = *(a1 + 32);
-  v10 = v7;
-  v17 = v10;
+  v8 = objc_msgSend_duration(v7);
+  v9 = objc_msgSend_duration(*(a1 + 32));
+  v13 = MEMORY[0x277D85DD0];
+  v14 = 3221225472;
+  v15 = __53__HUTriggerDurationPickerCell__updateDurationOptions__block_invoke_2;
+  v16 = &unk_277DB78F8;
+  v17 = *(a1 + 32);
+  v11 = v7;
+  v18 = v11;
   if (v8)
   {
-    v11 = -1;
+    v12 = -1;
   }
 
   else
   {
-    v11 = v9 != 0;
+    v12 = v9 != 0;
   }
 
   if (v8 && v9)
   {
-    v11 = __53__HUTriggerDurationPickerCell__updateDurationOptions__block_invoke_2(&v12);
+    v12 = __53__HUTriggerDurationPickerCell__updateDurationOptions__block_invoke_2(&v13, v10);
   }
 
-  if (v11 == -1)
+  if (v12 == -1)
   {
     *(*(*(a1 + 48) + 8) + 24) = 1;
-    [*(a1 + 40) insertObject:*(a1 + 32) atIndex:{a3, v12, v13, v14, v15, v16, v17}];
+    [*(a1 + 40) insertObject:*(a1 + 32) atIndex:{a3, v13, v14, v15, v16, v17, v18}];
     goto LABEL_11;
   }
 
-  if (!v11)
+  if (!v12)
   {
     *(*(*(a1 + 48) + 8) + 24) = 1;
 LABEL_11:
@@ -261,13 +261,13 @@ LABEL_11:
   }
 }
 
-uint64_t __53__HUTriggerDurationPickerCell__updateDurationOptions__block_invoke_2(uint64_t a1)
+uint64_t __53__HUTriggerDurationPickerCell__updateDurationOptions__block_invoke_2(uint64_t a1, const char *a2)
 {
-  v2 = [*(a1 + 32) duration];
-  v3 = [*(a1 + 40) duration];
-  v4 = [v2 compare:v3];
+  v4 = objc_msgSend_duration(*(a1 + 32), a2);
+  v5 = objc_msgSend_duration(*(a1 + 40));
+  v6 = [v4 compare:v5];
 
-  return v4;
+  return v6;
 }
 
 - (int64_t)pickerView:(id)view numberOfRowsInComponent:(int64_t)component
@@ -283,8 +283,8 @@ uint64_t __53__HUTriggerDurationPickerCell__updateDurationOptions__block_invoke_
   v6 = MEMORY[0x277CD19F8];
   v7 = [(HUTriggerDurationPickerCell *)self durationOptions:view];
   v8 = [v7 objectAtIndexedSubscript:row];
-  duration = [v8 duration];
-  v10 = [v6 hf_naturalLanguageTurnOffAfterDuration:duration style:0];
+  v9 = objc_msgSend_duration(v8);
+  v10 = [v6 hf_naturalLanguageTurnOffAfterDuration:v9 style:0];
 
   return v10;
 }

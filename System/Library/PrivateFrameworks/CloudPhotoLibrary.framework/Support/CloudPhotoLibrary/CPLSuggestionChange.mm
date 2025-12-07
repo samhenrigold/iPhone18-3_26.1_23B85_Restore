@@ -204,7 +204,7 @@ LABEL_8:
     if (sub_10002B0A8(v16))
     {
       sub_1000187DC();
-      sub_1000A1044(&_mh_execute_header, v17, v18, "Failed to find any assetListData for %@", v19, v20, v21, v22, v24);
+      sub_1000A1044(&_mh_execute_header, v17, v18, "Failed to find any assetListData for %@", v19, v20, v21, v22);
     }
 
     goto LABEL_8;

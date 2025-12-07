@@ -2,7 +2,6 @@
 - (ATXMediaNowPlayingEvent)initWithStartTime:(id)time endTime:(id)endTime bundleID:(id)d title:(id)title playbackState:(int64_t)state;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToATXMediaNowPlayingEvent:(id)event;
-- (NSString)debugDescription;
 - (double)eventDuration;
 - (unint64_t)hash;
 @end
@@ -61,14 +60,6 @@
 
   [(NSDate *)endTime timeIntervalSinceDate:?];
   return result;
-}
-
-- (NSString)debugDescription
-{
-  v3 = MEMORY[0x277CCACA8];
-  v4 = objc_opt_class();
-  title = self->_title;
-  return [v3 stringWithFormat:@"%@ start: %@, end: %@, bundleID: %@, title: %@, playbackState: %ld", v4, self->_startTime, self->_endTime, self->_bundleID, title, self->_playbackState];
 }
 
 - (BOOL)isEqual:(id)equal

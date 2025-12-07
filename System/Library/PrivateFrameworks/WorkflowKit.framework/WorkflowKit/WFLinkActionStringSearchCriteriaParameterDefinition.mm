@@ -10,7 +10,7 @@
 
 - (id)parameterStateFromLinkValue:(id)value
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   value = [value value];
   if (value)
   {
@@ -47,19 +47,17 @@
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       valueType2 = [(WFLinkActionParameterDefinition *)self valueType];
-      v19 = 136315650;
-      v20 = "[WFLinkActionStringSearchCriteriaParameterDefinition parameterStateFromLinkValue:]";
-      v21 = 2114;
-      v22 = value;
-      v23 = 2114;
-      v24 = valueType2;
+      v18 = 136315650;
+      v19 = "[WFLinkActionStringSearchCriteriaParameterDefinition parameterStateFromLinkValue:]";
+      v20 = 2114;
+      v21 = value;
+      v22 = 2114;
+      v23 = valueType2;
     }
   }
 
   v14 = 0;
 LABEL_11:
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -149,27 +147,25 @@ LABEL_11:
 
 - (id)parameterDefinitionDictionary
 {
-  v12[5] = *MEMORY[0x1E69E9840];
-  v10.receiver = self;
-  v10.super_class = WFLinkActionStringSearchCriteriaParameterDefinition;
-  parameterDefinitionDictionary = [(WFLinkActionParameterDefinition *)&v10 parameterDefinitionDictionary];
+  v11[5] = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = WFLinkActionStringSearchCriteriaParameterDefinition;
+  parameterDefinitionDictionary = [(WFLinkActionParameterDefinition *)&v9 parameterDefinitionDictionary];
   v3 = *MEMORY[0x1E69E12D0];
-  v11[0] = @"TextAlignment";
-  v11[1] = @"KeyboardType";
+  v10[0] = @"TextAlignment";
+  v10[1] = @"KeyboardType";
   v4 = *MEMORY[0x1E69E1288];
-  v12[0] = v3;
-  v12[1] = v4;
+  v11[0] = v3;
+  v11[1] = v4;
   v5 = *MEMORY[0x1E69E1268];
-  v11[2] = @"AutocapitalizationType";
-  v11[3] = @"DisableSmartDashes";
-  v12[2] = v5;
-  v12[3] = MEMORY[0x1E695E110];
-  v11[4] = @"DisableSmartQuotes";
-  v12[4] = MEMORY[0x1E695E110];
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:5];
+  v10[2] = @"AutocapitalizationType";
+  v10[3] = @"DisableSmartDashes";
+  v11[2] = v5;
+  v11[3] = MEMORY[0x1E695E110];
+  v10[4] = @"DisableSmartQuotes";
+  v11[4] = MEMORY[0x1E695E110];
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:5];
   v7 = [parameterDefinitionDictionary definitionByAddingEntriesInDictionary:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

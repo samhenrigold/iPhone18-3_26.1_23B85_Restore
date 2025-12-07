@@ -9,25 +9,25 @@
 
 - (void)showSingIndicator
 {
-  v3 = sub_10010FC20(&unk_101181520);
-  __chkstk_darwin(v3 - 8);
-  v5 = &v10 - v4;
-  v6 = type metadata accessor for TaskPriority();
-  (*(*(v6 - 8) + 56))(v5, 1, 1, v6);
+  sub_10010FC20(&unk_101181520, &qword_100EBCC60);
+  __chkstk_darwin();
+  v4 = &v9 - v3;
+  v5 = type metadata accessor for TaskPriority();
+  (*(*(v5 - 8) + 56))(v4, 1, 1, v5);
   type metadata accessor for MainActor();
   selfCopy = self;
-  v8 = static MainActor.shared.getter();
-  v9 = swift_allocObject();
-  v9[2] = v8;
-  v9[3] = &protocol witness table for MainActor;
-  v9[4] = selfCopy;
-  sub_1001F4CB8(0, 0, v5, &unk_100EBF450, v9);
+  v7 = static MainActor.shared.getter();
+  v8 = swift_allocObject();
+  v8[2] = v7;
+  v8[3] = &protocol witness table for MainActor;
+  v8[4] = selfCopy;
+  sub_1001F4CB8(0, 0, v4, &unk_100EBF450, v8);
 }
 
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_10035CA90();
+  sub_10035CA90(selfCopy);
 }
 
 - (void)traitCollectionDidChange:(id)change

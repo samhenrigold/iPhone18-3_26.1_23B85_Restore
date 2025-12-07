@@ -28,19 +28,18 @@
 - (void)cloudKitManager:(id)manager didBeginUpdatesForFetchWithType:(int64_t)type
 {
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CFEC3A0, &qword_221FB8B70);
-  v7 = *(*(v6 - 8) + 64);
   MEMORY[0x28223BE20](v6 - 8);
-  v9 = &v13 - v8;
+  v8 = &v12 - v7;
   if (!type)
   {
-    v10 = sub_221FB64C8();
-    (*(*(v10 - 8) + 56))(v9, 1, 1, v10);
-    v11 = swift_allocObject();
-    v11[2] = 0;
-    v11[3] = 0;
-    v11[4] = self;
+    v9 = sub_221FB64C8();
+    (*(*(v9 - 8) + 56))(v8, 1, 1, v9);
+    v10 = swift_allocObject();
+    v10[2] = 0;
+    v10[3] = 0;
+    v10[4] = self;
     selfCopy = self;
-    sub_221FA7A78(0, 0, v9, &unk_221FBC6A0, v11);
+    sub_221FA7A78(0, 0, v8, &unk_221FBC6A0, v10);
   }
 }
 

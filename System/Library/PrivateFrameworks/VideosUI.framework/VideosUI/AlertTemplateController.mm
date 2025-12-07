@@ -16,7 +16,7 @@
   selfCopy = self;
   sub_1E3E73EC4();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECF31D30);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECF31D30, &unk_1E42B7150);
   v3 = sub_1E42062A4();
 
   return v3;
@@ -64,11 +64,11 @@
   viewCopy = view;
   selfCopy = self;
   v15 = OUTLINED_FUNCTION_23_16();
-  v16 = sub_1E3E75A18(v15);
+  v17 = sub_1E3E75A18(v15, v16);
 
   (*(v8 + 8))(v12, v6);
 
-  return v16;
+  return v17;
 }
 
 - (BOOL)collectionView:(id)view canFocusItemAtIndexPath:(id)path
@@ -86,7 +86,7 @@
 
 - (id)indexPathForPreferredFocusedViewInCollectionView:(id)view
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECF309A0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECF309A0, &qword_1E42A7870);
   OUTLINED_FUNCTION_17_2(v5);
   OUTLINED_FUNCTION_5_7();
   MEMORY[0x1EEE9AC00](v6);

@@ -119,7 +119,6 @@
   toCopy = to;
   if ((*&self->_has & 4) != 0)
   {
-    state = self->_state;
     PBDataWriterWriteInt32Field();
   }
 
@@ -135,7 +134,6 @@
 
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteDoubleField();
   }
 
@@ -161,7 +159,6 @@
 
   if ((*&self->_has & 2) != 0)
   {
-    originIdentifier = self->_originIdentifier;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -275,7 +272,6 @@
     goto LABEL_28;
   }
 
-  v5 = *(equalCopy + 80);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 80) & 4) == 0 || self->_state != *(equalCopy + 16))
@@ -287,7 +283,7 @@
   else if ((*(equalCopy + 80) & 4) != 0)
   {
 LABEL_28:
-    v13 = 0;
+    v11 = 0;
     goto LABEL_29;
   }
 
@@ -306,7 +302,6 @@ LABEL_28:
     }
   }
 
-  v8 = *(equalCopy + 80);
   if (*&self->_has)
   {
     if ((*(equalCopy + 80) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -353,7 +348,7 @@ LABEL_28:
     }
   }
 
-  v13 = (*(equalCopy + 80) & 2) == 0;
+  v11 = (*(equalCopy + 80) & 2) == 0;
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 80) & 2) == 0 || self->_originIdentifier != *(equalCopy + 10))
@@ -361,12 +356,12 @@ LABEL_28:
       goto LABEL_28;
     }
 
-    v13 = 1;
+    v11 = 1;
   }
 
 LABEL_29:
 
-  return v13;
+  return v11;
 }
 
 - (unint64_t)hash

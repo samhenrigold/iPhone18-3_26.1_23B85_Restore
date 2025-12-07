@@ -42,7 +42,7 @@
 
 void __68__WFListeningModeDeviceAccessResource_makeSettingsClientIfNecessary__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   if (v6)
@@ -50,15 +50,15 @@ void __68__WFListeningModeDeviceAccessResource_makeSettingsClientIfNecessary__bl
     objc_storeStrong((*(a1 + 32) + 64), a2);
     objc_initWeak(location, *(a1 + 32));
     v8 = [*(a1 + 32) bluetoothClient];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __68__WFListeningModeDeviceAccessResource_makeSettingsClientIfNecessary__block_invoke_179;
-    v11[3] = &unk_278C1A2F8;
-    objc_copyWeak(&v12, location);
-    v11[4] = *(a1 + 32);
-    [v8 observePairedDevicesMatchingType:2 update:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __68__WFListeningModeDeviceAccessResource_makeSettingsClientIfNecessary__block_invoke_179;
+    v10[3] = &unk_278C1A2F8;
+    objc_copyWeak(&v11, location);
+    v10[4] = *(a1 + 32);
+    [v8 observePairedDevicesMatchingType:2 update:v10];
 
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v11);
     objc_destroyWeak(location);
   }
 
@@ -69,13 +69,11 @@ void __68__WFListeningModeDeviceAccessResource_makeSettingsClientIfNecessary__bl
     {
       *location = 136315394;
       *&location[4] = "[WFListeningModeDeviceAccessResource makeSettingsClientIfNecessary]_block_invoke";
-      v14 = 2114;
-      v15 = v7;
+      v13 = 2114;
+      v14 = v7;
       _os_log_impl(&dword_23DE30000, v9, OS_LOG_TYPE_ERROR, "%s Error creating WFBluetoothSettingsClient: %{public}@", location, 0x16u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __68__WFListeningModeDeviceAccessResource_makeSettingsClientIfNecessary__block_invoke_179(uint64_t a1, void *a2)
@@ -125,16 +123,14 @@ void __68__WFListeningModeDeviceAccessResource_makeSettingsClientIfNecessary__bl
 
 - (id)unavailableAccessResourceError
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCA9B8];
   v3 = *MEMORY[0x277D7CB08];
-  v9 = *MEMORY[0x277CCA450];
+  v8 = *MEMORY[0x277CCA450];
   localizedAccessResourceErrorString = [(WFListeningModeDeviceAccessResource *)self localizedAccessResourceErrorString];
-  v10[0] = localizedAccessResourceErrorString;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v9[0] = localizedAccessResourceErrorString;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v6 = [v2 errorWithDomain:v3 code:0 userInfo:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

@@ -16,7 +16,7 @@
 {
   optionsCopy = options;
   selfCopy = self;
-  sub_1C72CE9B4(optionsCopy);
+  sub_1C72CE9B4(optionsCopy, selfCopy, v5);
 }
 
 @end

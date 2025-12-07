@@ -158,8 +158,8 @@ uint64_t sub_1002F99A8()
 {
   v1 = STACK[0x2F8];
   (*(&off_100C005A0 + LODWORD(STACK[0x2F8]) + 1410))(v0);
-  v2 = (*(&off_100C005A0 + (v1 ^ 0xA8E)))(STACK[0x530]);
-  return sub_1002F99E8(v2);
+  (*(&off_100C005A0 + (v1 ^ 0xA8E)))(STACK[0x530]);
+  return sub_1002F99E8();
 }
 
 uint64_t sub_1002F9AD4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X3>, int a4@<W4>, int a5@<W8>)
@@ -190,7 +190,7 @@ uint64_t sub_1002F9E90(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 {
   v10 = v6 ^ (v8 + 2949);
   LODWORD(STACK[0x4D4]) = v5;
-  v11 = (*(a5 + 8 * (v6 + 1621655402)))(v7 + 4, 0);
+  v11 = (*(a5 + 8 * (v6 + 1621655402)))(v7 + 4, 0, a3, a4);
   v12 = v7[4] + 1616031516 - ((2 * v7[4]) & 0xC0A55E38);
   v7[1] = v7[6] + 1616031516 - ((2 * v7[6]) & 0xC0A55E38);
   v7[2] = v12;
@@ -296,7 +296,7 @@ uint64_t sub_1002FA870(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   v14 = v10 + 1;
   *v13 = v13[397] ^ *(v12 - 224 + 4 * ((*(v11 + 4 * (v14 + a4)) & 1) == 0)) ^ ((((*(v11 + 4 * (v14 + a4)) & 0x7FFFFFFE | v9 & 0x80000000) ^ (a6 - 1)) - ((v8 ^ 0x10F85FE9) & (2 * ((*(v11 + 4 * (v14 + a4)) & 0x7FFFFFFE | v9 & 0x80000000) ^ (a6 - 1)))) - 1197885634) >> 1) ^ 0x19457C94;
   LODWORD(v13) = ((v14 - v8) | (v8 - v14)) >= 0;
-  return (*(a8 + 8 * (((8 * v13) | (v13 << 9)) ^ (v8 - 1640705382))))();
+  return (*(a8 + 8 * (((8 * v13) | (v13 << 9)) ^ (v8 - 1640705382))))(a1, a2, a3);
 }
 
 uint64_t sub_1002FA91C(double a1, double a2, double a3, double a4, double a5, double a6, double a7, int8x16_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
@@ -353,18 +353,19 @@ uint64_t sub_1002FAB14()
 
 uint64_t sub_1002FAC4C(uint64_t a1, uint64_t a2)
 {
+  v4 = (LODWORD(STACK[0x3BC]) - 1853134135) & 0x6E7497FC;
   if (v2 >= LODWORD(STACK[0x3BC]) + 521537026)
   {
-    v4 = dword_100CBC3B0 + 1;
+    v5 = dword_100CBC3B0 + 1;
   }
 
   else
   {
-    v4 = v3 + 1198;
+    v5 = v3 + 1198;
   }
 
-  dword_100CBC3B0 = v4;
-  return sub_1002FADD8(a1, a2, STACK[0x340], &off_100C005A0, byte_1009E35C0, byte_100A0D9B0, byte_1009E8DA0, 3508697990);
+  dword_100CBC3B0 = v5;
+  return sub_1002FADD8(STACK[0x340], &off_100C005A0, byte_1009E35C0, byte_100A0D9B0, byte_1009E8DA0, -786269306, v4);
 }
 
 uint64_t sub_1002FADD8@<X0>(uint64_t a1@<X2>, uint64_t a2@<X3>, uint64_t a3@<X4>, uint64_t a4@<X5>, uint64_t a5@<X6>, int a6@<W7>, int a7@<W8>)
@@ -391,7 +392,7 @@ uint64_t sub_1002FAEC4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   *(v6 - 132) = v4 + 2017757611 - v8;
   *(v6 - 128) = ((v4 + 2017757611) ^ 0x54) - v8;
   *(v6 - 136) = (v4 - 1723652839) ^ v8;
-  v11 = (*(a4 + 8 * (v4 ^ 0xCA2)))(v6 - 152);
+  v11 = (*(a4 + 8 * (v4 ^ 0xCA2)))(v6 - 152, a2, a3);
   return (*(a4 + 8 * *(v6 - 112)))(v11);
 }
 
@@ -400,12 +401,12 @@ uint64_t sub_1002FB06C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   STACK[0x420] = STACK[0x360];
   STACK[0x3D8] = v4;
   STACK[0x430] = STACK[0x3B0];
-  return (*(a4 + 8 * (((*(STACK[0x378] + 8) == 0) * (((v5 + 210494393) & 0xF3741CD6 ^ 0xFFFFFA28) + (v5 ^ 0x90))) ^ v5)))();
+  return (*(a4 + 8 * (((*(STACK[0x378] + 8) == 0) * (((v5 + 210494393) & 0xF3741CD6 ^ 0xFFFFFA28) + (v5 ^ 0x90))) ^ v5)))(a1, a2, a3);
 }
 
 void sub_1002FB0EC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  (*(a4 + 8 * (v4 ^ 0xCBE)))(v7);
+  (*(a4 + 8 * (v4 ^ 0xCBE)))(v7, a2, a3);
   *(v6 + 8) = 0;
   *(v6 + 16) = v5 + 3144;
   JUMPOUT(0x1002CF1B8);
@@ -486,7 +487,7 @@ uint64_t sub_1002FB714@<X0>(int a1@<W8>)
   return (*(v9 + 8 * ((!v10 * a1) ^ v2)))();
 }
 
-uint64_t sub_1002FB7A8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, int a11, uint64_t a12, int a13, int a14)
+void sub_1002FB7A8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, int a11, uint64_t a12, int a13, int a14)
 {
   v16 = *v14;
   v17 = v14[8];
@@ -495,7 +496,7 @@ uint64_t sub_1002FB7A8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v18 - 0x5D2B4A43FB20F38ELL) = a14 - ((a14 << ((v15 - 106) ^ 0x84)) & 0xFC1BB2CA) - 32646811;
   *(v17 - 0x19A6F59238F03C52) = a1;
   *(v16 - 0x361FD146DC902E64) = a11;
-  return sub_1002FB83C();
+  sub_1002FB83C();
 }
 
 void sub_1002FB860(uint64_t a1)
@@ -547,7 +548,7 @@ uint64_t sub_1002FBDFC@<X0>(uint64_t a1@<X0>, int a2@<W8>)
 
 uint64_t sub_1002FBEAC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10)
 {
-  v14 = (*(v13 + 8 * (v12 ^ 0xD36)))((*(v10 + 24) - a10) ^ 0x17B5BA7Du, 0x100004077774924);
+  v14 = (*(v13 + 8 * (v12 ^ 0xD36)))((*(v10 + 24) - a10) ^ 0x17B5BA7Du, 0x100004077774924, a3, a4, a5, a6, a7, a8);
   *(v11 + 24) = v14;
   return (*(v13 + 8 * (((v14 != 0) * (((v12 + 1952202928) & 0x8BA3BEEF) - 1244)) ^ v12)))();
 }
@@ -1014,7 +1015,7 @@ uint64_t sub_100302FEC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v47 - 192) = 0x906249FEB2907B24;
   *(v47 - 184) = 0x798D38F436DABF7FLL;
   v50 = a2 != 1622093268 && (a2 & 0xF) == ((v45 + 774) ^ 0x4CB);
-  return (*(v46 + 8 * ((11 * v50) ^ v48)))(a1, a2, 1622093268, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29, a30, a31, a32, a33, a34, a35, a36, a37, a38, a39, a40, a41, a42, a43, a44, a45);
+  return (*(v46 + 8 * ((11 * v50) ^ v48)))(a1);
 }
 
 uint64_t sub_100304B1C@<X0>(uint64_t a1@<X0>, int a2@<W1>, unsigned int a3@<W2>, int a4@<W8>)
@@ -1991,16 +1992,20 @@ void sub_10030C504(uint64_t a1, void *a2)
 
 void sub_10030C848(id a1)
 {
-  qword_100CBCDB8 = objc_alloc_init(IDSDeviceHeartbeatCenter);
+  v1 = objc_alloc_init(IDSDeviceHeartbeatCenter);
+  v2 = qword_100CBCDB8;
+  qword_100CBCDB8 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10030FA70(id a1)
 {
-  qword_100CBCDD8 = objc_alloc_init(IDSPeerIDManager);
+  v1 = objc_alloc_init(IDSPeerIDManager);
+  v2 = qword_100CBCDD8;
+  qword_100CBCDD8 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100310108(_Unwind_Exception *a1)
@@ -2231,7 +2236,7 @@ void sub_100310130(uint64_t a1, void *a2)
     [v5 appendFormat:@"KT Opt In State: %@\n", v59];
 
     v3 = v61;
-    (v61)[2](v61, v5);
+    v61[2](v61, v5);
 
     WeakRetained = v60;
   }
@@ -3389,9 +3394,9 @@ void sub_100321390(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_1003217BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1003217BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3598,9 +3603,11 @@ void sub_1003238BC(uint64_t a1, uint64_t a2, void *a3, void *a4)
 
 void sub_100323D3C(id a1)
 {
-  qword_100CBCDE8 = objc_alloc_init(IDSPublicIdentityCache);
+  v1 = objc_alloc_init(IDSPublicIdentityCache);
+  v2 = qword_100CBCDE8;
+  qword_100CBCDE8 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1003240EC(id a1, BOOL a2, NSError *a3)
@@ -3704,10 +3711,11 @@ BOOL sub_100325250(id a1, IDSURI *a2)
   return v4;
 }
 
-void sub_1003260B0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1003260B0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void sub_1003265A4(_Unwind_Exception *exception_object, int a2)
@@ -3968,9 +3976,11 @@ void sub_1003286BC(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5)
 
 uint64_t sub_100328BD0(uint64_t a1)
 {
-  qword_100CBCDF0 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = qword_100CBCDF0;
+  qword_100CBCDF0 = v1;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v1, v2);
 }
 
 void sub_100328D68(_Unwind_Exception *a1)
@@ -4610,7 +4620,7 @@ void sub_10032EB68(uint64_t a1, uint64_t a2, void *a3)
     v4 = *(v3 + 16);
     v5 = *(a1 + 32);
 
-    v4(v5);
+    v4(v5, a2);
   }
 }
 
@@ -4885,9 +4895,11 @@ void sub_100330428(uint64_t a1, void *a2, void *a3)
 
 void sub_100330D08(id a1)
 {
-  qword_100CBCE28 = objc_alloc_init(IDSRegistrationKeyManager);
+  v1 = objc_alloc_init(IDSRegistrationKeyManager);
+  v2 = qword_100CBCE28;
+  qword_100CBCE28 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100330D88(id a1)
@@ -5148,10 +5160,11 @@ void sub_10033BB1C(uint64_t a1)
   *(v2 + 48) = 0;
 }
 
-void sub_10033C430(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10033C430(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 uint64_t sub_10033C484(uint64_t result, uint64_t a2, float a3)
@@ -5167,9 +5180,9 @@ void sub_10033C4C4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t 
   _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, a5, 0x16u);
 }
 
-void sub_10033C84C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10033C84C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5215,14 +5228,14 @@ uint64_t sub_10033CA20(uint64_t a1, void *a2)
   return v4;
 }
 
-void sub_10033CAD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10033CAD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_10033CAF0(uint64_t a1)
+uint64_t sub_10033CAF0(uint64_t a1, uint64_t a2)
 {
   result = CSDBRecordStoreCopyInstanceOfClassWithUID();
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -5271,17 +5284,17 @@ uint64_t sub_10033CB34(const __CFString *a1, uint64_t a2, void *a3)
   return a1 & 1;
 }
 
-void sub_10033CC2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10033CC2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_10033CC44(uint64_t a1)
+uint64_t sub_10033CC44(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   CSDBSqliteBindTextFromCFString();
-  if (*(a1 + 48))
+  if (a1[6])
   {
     CSDBSqliteBindTextFromCFString();
   }
@@ -5290,7 +5303,7 @@ uint64_t sub_10033CC44(uint64_t a1)
   if (result)
   {
     result = CSDBSqliteStatementInteger64ResultColumn();
-    *(*(*(a1 + 32) + 8) + 24) = result > 0;
+    *(*(a1[4] + 8) + 24) = result > 0;
   }
 
   return result;
@@ -5315,14 +5328,14 @@ uint64_t sub_10033CCB0(void *a1)
   return v2;
 }
 
-void sub_10033CD64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10033CD64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_10033CD7C(uint64_t a1)
+uint64_t sub_10033CD7C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = CSDBSqliteDatabaseStatementForReading();
   if (result && *(result + 8))
@@ -5354,14 +5367,14 @@ uint64_t sub_10033CDF8(void *a1)
   return v2;
 }
 
-void sub_10033CEAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10033CEAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_10033CEC4(uint64_t a1)
+uint64_t sub_10033CEC4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = CSDBSqliteDatabaseStatementForReading();
   if (result && *(result + 8))
@@ -5396,42 +5409,42 @@ uint64_t sub_10033CF40(uint64_t a1, void *a2, char a3)
   return v4;
 }
 
-void sub_10033D028(uint64_t a1)
+void sub_10033D028(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   Mutable = CFStringCreateMutable(0, 0);
-  v3 = Mutable;
+  v5 = Mutable;
   if (*(a1 + 56))
   {
-    v4 = @"SELECT ROWID, guid, alternate_guid, account_guid, from_identifier, message_data, data, protobuf_data, destinations, data_to_encrypt, encrypt_payload, compress_payload, use_top_level_dict, wants_response, expiration_date, command, wants_delivery_status, delivery_status_context, message_uuid, priority, date, is_sent, identifier, forced_local, peer_response_identifier, expects_peer_response, wants_app_ack, non_waking, fire_and_forget, stored_size, duet_identifiers, bypass_duet, queue_one_identifier, enforce_remote_timeout, main_account_guid, pending_delete, local_destination_device_uuid, enqueued_date, message_type, skip_self, include_self, push_priority, non_cloud_waking, live_delivery, require_bluetooth, require_local_wifi, wants_progress, ignore_max_retry_count, wants_certified_delivery, original_timestamp, kt_uri_verification_map, wants_firewall_donation, send_mode, delivery_minimum_time_delay, delivery_minimum_time, send_reason FROM outgoing_message ";
+    v6 = @"SELECT ROWID, guid, alternate_guid, account_guid, from_identifier, message_data, data, protobuf_data, destinations, data_to_encrypt, encrypt_payload, compress_payload, use_top_level_dict, wants_response, expiration_date, command, wants_delivery_status, delivery_status_context, message_uuid, priority, date, is_sent, identifier, forced_local, peer_response_identifier, expects_peer_response, wants_app_ack, non_waking, fire_and_forget, stored_size, duet_identifiers, bypass_duet, queue_one_identifier, enforce_remote_timeout, main_account_guid, pending_delete, local_destination_device_uuid, enqueued_date, message_type, skip_self, include_self, push_priority, non_cloud_waking, live_delivery, require_bluetooth, require_local_wifi, wants_progress, ignore_max_retry_count, wants_certified_delivery, original_timestamp, kt_uri_verification_map, wants_firewall_donation, send_mode, delivery_minimum_time_delay, delivery_minimum_time, send_reason FROM outgoing_message ";
   }
 
   else
   {
-    v4 = @"SELECT ROWID, guid, alternate_guid, account_guid, from_identifier, NULL AS message_data, NULL AS data, NULL AS protobuf_data, destinations, NULL AS data_to_encrypt, encrypt_payload, compress_payload, use_top_level_dict, wants_response, expiration_date, command, wants_delivery_status, delivery_status_context, message_uuid, priority, date, is_sent, identifier, forced_local, peer_response_identifier, expects_peer_response, wants_app_ack, non_waking, fire_and_forget, stored_size, duet_identifiers, bypass_duet, queue_one_identifier, enforce_remote_timeout, main_account_guid, pending_delete, local_destination_device_uuid, enqueued_date, message_type, skip_self, include_self, push_priority, non_cloud_waking, live_delivery, require_bluetooth, require_local_wifi, wants_progress, ignore_max_retry_count, wants_certified_delivery, original_timestamp, kt_uri_verification_map, wants_firewall_donation, send_mode, delivery_minimum_time_delay, delivery_minimum_time, send_reason FROM outgoing_message ";
+    v6 = @"SELECT ROWID, guid, alternate_guid, account_guid, from_identifier, NULL AS message_data, NULL AS data, NULL AS protobuf_data, destinations, NULL AS data_to_encrypt, encrypt_payload, compress_payload, use_top_level_dict, wants_response, expiration_date, command, wants_delivery_status, delivery_status_context, message_uuid, priority, date, is_sent, identifier, forced_local, peer_response_identifier, expects_peer_response, wants_app_ack, non_waking, fire_and_forget, stored_size, duet_identifiers, bypass_duet, queue_one_identifier, enforce_remote_timeout, main_account_guid, pending_delete, local_destination_device_uuid, enqueued_date, message_type, skip_self, include_self, push_priority, non_cloud_waking, live_delivery, require_bluetooth, require_local_wifi, wants_progress, ignore_max_retry_count, wants_certified_delivery, original_timestamp, kt_uri_verification_map, wants_firewall_donation, send_mode, delivery_minimum_time_delay, delivery_minimum_time, send_reason FROM outgoing_message ";
   }
 
-  CFStringAppend(Mutable, v4);
-  CFStringAppend(v3, @"WHERE pending_delete = 0 AND guid = ? ");
-  v5 = CSDBSqliteDatabaseStatementForReading();
-  if (v5)
+  CFStringAppend(Mutable, v6);
+  CFStringAppend(v5, @"WHERE pending_delete = 0 AND guid = ? ");
+  v7 = CSDBSqliteDatabaseStatementForReading();
+  if (v7)
   {
-    if (*(v5 + 8))
+    if (*(v7 + 8))
     {
       CSDBSqliteBindTextFromCFString();
-      v6 = CSDBRecordStoreProcessStatement();
-      *(*(*(a1 + 40) + 8) + 24) = sub_100010150(v6, *(a1 + 32));
+      v8 = CSDBRecordStoreProcessStatement();
+      *(*(*(a1 + 40) + 8) + 24) = sub_100010150(v8, *(a1 + 32));
       CSDBSqliteStatementReset();
-      if (v6)
+      if (v8)
       {
-        CFRelease(v6);
+        CFRelease(v8);
       }
     }
   }
 
-  if (v3)
+  if (v5)
   {
 
-    CFRelease(v3);
+    CFRelease(v5);
   }
 }
 
@@ -5458,35 +5471,35 @@ uint64_t sub_10033D130(uint64_t a1, uint64_t a2, void *a3, char a4)
   return v5;
 }
 
-void sub_10033D228(uint64_t a1)
+void sub_10033D228(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   Mutable = CFStringCreateMutable(0, 0);
-  v3 = Mutable;
+  v5 = Mutable;
   if (*(a1 + 64))
   {
-    v4 = @"SELECT ROWID, guid, alternate_guid, account_guid, from_identifier, message_data, data, protobuf_data, destinations, data_to_encrypt, encrypt_payload, compress_payload, use_top_level_dict, wants_response, expiration_date, command, wants_delivery_status, delivery_status_context, message_uuid, priority, date, is_sent, identifier, forced_local, peer_response_identifier, expects_peer_response, wants_app_ack, non_waking, fire_and_forget, stored_size, duet_identifiers, bypass_duet, queue_one_identifier, enforce_remote_timeout, main_account_guid, pending_delete, local_destination_device_uuid, enqueued_date, message_type, skip_self, include_self, push_priority, non_cloud_waking, live_delivery, require_bluetooth, require_local_wifi, wants_progress, ignore_max_retry_count, wants_certified_delivery, original_timestamp, kt_uri_verification_map, wants_firewall_donation, send_mode, delivery_minimum_time_delay, delivery_minimum_time, send_reason FROM outgoing_message ";
+    v6 = @"SELECT ROWID, guid, alternate_guid, account_guid, from_identifier, message_data, data, protobuf_data, destinations, data_to_encrypt, encrypt_payload, compress_payload, use_top_level_dict, wants_response, expiration_date, command, wants_delivery_status, delivery_status_context, message_uuid, priority, date, is_sent, identifier, forced_local, peer_response_identifier, expects_peer_response, wants_app_ack, non_waking, fire_and_forget, stored_size, duet_identifiers, bypass_duet, queue_one_identifier, enforce_remote_timeout, main_account_guid, pending_delete, local_destination_device_uuid, enqueued_date, message_type, skip_self, include_self, push_priority, non_cloud_waking, live_delivery, require_bluetooth, require_local_wifi, wants_progress, ignore_max_retry_count, wants_certified_delivery, original_timestamp, kt_uri_verification_map, wants_firewall_donation, send_mode, delivery_minimum_time_delay, delivery_minimum_time, send_reason FROM outgoing_message ";
   }
 
   else
   {
-    v4 = @"SELECT ROWID, guid, alternate_guid, account_guid, from_identifier, NULL AS message_data, NULL AS data, NULL AS protobuf_data, destinations, NULL AS data_to_encrypt, encrypt_payload, compress_payload, use_top_level_dict, wants_response, expiration_date, command, wants_delivery_status, delivery_status_context, message_uuid, priority, date, is_sent, identifier, forced_local, peer_response_identifier, expects_peer_response, wants_app_ack, non_waking, fire_and_forget, stored_size, duet_identifiers, bypass_duet, queue_one_identifier, enforce_remote_timeout, main_account_guid, pending_delete, local_destination_device_uuid, enqueued_date, message_type, skip_self, include_self, push_priority, non_cloud_waking, live_delivery, require_bluetooth, require_local_wifi, wants_progress, ignore_max_retry_count, wants_certified_delivery, original_timestamp, kt_uri_verification_map, wants_firewall_donation, send_mode, delivery_minimum_time_delay, delivery_minimum_time, send_reason FROM outgoing_message ";
+    v6 = @"SELECT ROWID, guid, alternate_guid, account_guid, from_identifier, NULL AS message_data, NULL AS data, NULL AS protobuf_data, destinations, NULL AS data_to_encrypt, encrypt_payload, compress_payload, use_top_level_dict, wants_response, expiration_date, command, wants_delivery_status, delivery_status_context, message_uuid, priority, date, is_sent, identifier, forced_local, peer_response_identifier, expects_peer_response, wants_app_ack, non_waking, fire_and_forget, stored_size, duet_identifiers, bypass_duet, queue_one_identifier, enforce_remote_timeout, main_account_guid, pending_delete, local_destination_device_uuid, enqueued_date, message_type, skip_self, include_self, push_priority, non_cloud_waking, live_delivery, require_bluetooth, require_local_wifi, wants_progress, ignore_max_retry_count, wants_certified_delivery, original_timestamp, kt_uri_verification_map, wants_firewall_donation, send_mode, delivery_minimum_time_delay, delivery_minimum_time, send_reason FROM outgoing_message ";
   }
 
-  CFStringAppend(Mutable, v4);
-  CFStringAppend(v3, @"WHERE is_sent = 0 AND pending_delete = 0 AND account_guid = ? ");
+  CFStringAppend(Mutable, v6);
+  CFStringAppend(v5, @"WHERE is_sent = 0 AND pending_delete = 0 AND account_guid = ? ");
   if (*(a1 + 48))
   {
-    v5 = @"AND local_destination_device_uuid = ? ";
+    v7 = @"AND local_destination_device_uuid = ? ";
   }
 
   else
   {
-    v5 = @"AND local_destination_device_uuid is null ";
+    v7 = @"AND local_destination_device_uuid is null ";
   }
 
-  CFStringAppend(v3, v5);
-  v6 = CSDBSqliteDatabaseStatementForReading();
-  if (v6 && *(v6 + 8))
+  CFStringAppend(v5, v7);
+  v8 = CSDBSqliteDatabaseStatementForReading();
+  if (v8 && *(v8 + 8))
   {
     CSDBSqliteBindTextFromCFString();
     if (*(a1 + 48))
@@ -5494,19 +5507,19 @@ void sub_10033D228(uint64_t a1)
       CSDBSqliteBindTextFromCFString();
     }
 
-    v7 = CSDBRecordStoreProcessStatement();
-    *(*(*(a1 + 40) + 8) + 24) = sub_100010150(v7, *(a1 + 32));
+    v9 = CSDBRecordStoreProcessStatement();
+    *(*(*(a1 + 40) + 8) + 24) = sub_100010150(v9, *(a1 + 32));
     CSDBSqliteStatementReset();
-    if (v7)
+    if (v9)
     {
-      CFRelease(v7);
+      CFRelease(v9);
     }
   }
 
-  if (v3)
+  if (v5)
   {
 
-    CFRelease(v3);
+    CFRelease(v5);
   }
 }
 
@@ -5543,54 +5556,54 @@ uint64_t sub_10033D364(void *a1, uint64_t a2, uint64_t a3, void *a4, char a5)
   return v10;
 }
 
-void sub_10033D478(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10033D478(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10033D490(uint64_t a1)
+void sub_10033D490(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   Mutable = CFStringCreateMutable(0, 0);
-  v3 = Mutable;
+  v5 = Mutable;
   if (*(a1 + 64))
   {
-    v4 = @"SELECT ROWID, guid, alternate_guid, account_guid, from_identifier, message_data, data, protobuf_data, destinations, data_to_encrypt, encrypt_payload, compress_payload, use_top_level_dict, wants_response, expiration_date, command, wants_delivery_status, delivery_status_context, message_uuid, priority, date, is_sent, identifier, forced_local, peer_response_identifier, expects_peer_response, wants_app_ack, non_waking, fire_and_forget, stored_size, duet_identifiers, bypass_duet, queue_one_identifier, enforce_remote_timeout, main_account_guid, pending_delete, local_destination_device_uuid, enqueued_date, message_type, skip_self, include_self, push_priority, non_cloud_waking, live_delivery, require_bluetooth, require_local_wifi, wants_progress, ignore_max_retry_count, wants_certified_delivery, original_timestamp, kt_uri_verification_map, wants_firewall_donation, send_mode, delivery_minimum_time_delay, delivery_minimum_time, send_reason FROM outgoing_message ";
+    v6 = @"SELECT ROWID, guid, alternate_guid, account_guid, from_identifier, message_data, data, protobuf_data, destinations, data_to_encrypt, encrypt_payload, compress_payload, use_top_level_dict, wants_response, expiration_date, command, wants_delivery_status, delivery_status_context, message_uuid, priority, date, is_sent, identifier, forced_local, peer_response_identifier, expects_peer_response, wants_app_ack, non_waking, fire_and_forget, stored_size, duet_identifiers, bypass_duet, queue_one_identifier, enforce_remote_timeout, main_account_guid, pending_delete, local_destination_device_uuid, enqueued_date, message_type, skip_self, include_self, push_priority, non_cloud_waking, live_delivery, require_bluetooth, require_local_wifi, wants_progress, ignore_max_retry_count, wants_certified_delivery, original_timestamp, kt_uri_verification_map, wants_firewall_donation, send_mode, delivery_minimum_time_delay, delivery_minimum_time, send_reason FROM outgoing_message ";
   }
 
   else
   {
-    v4 = @"SELECT ROWID, guid, alternate_guid, account_guid, from_identifier, NULL AS message_data, NULL AS data, NULL AS protobuf_data, destinations, NULL AS data_to_encrypt, encrypt_payload, compress_payload, use_top_level_dict, wants_response, expiration_date, command, wants_delivery_status, delivery_status_context, message_uuid, priority, date, is_sent, identifier, forced_local, peer_response_identifier, expects_peer_response, wants_app_ack, non_waking, fire_and_forget, stored_size, duet_identifiers, bypass_duet, queue_one_identifier, enforce_remote_timeout, main_account_guid, pending_delete, local_destination_device_uuid, enqueued_date, message_type, skip_self, include_self, push_priority, non_cloud_waking, live_delivery, require_bluetooth, require_local_wifi, wants_progress, ignore_max_retry_count, wants_certified_delivery, original_timestamp, kt_uri_verification_map, wants_firewall_donation, send_mode, delivery_minimum_time_delay, delivery_minimum_time, send_reason FROM outgoing_message ";
+    v6 = @"SELECT ROWID, guid, alternate_guid, account_guid, from_identifier, NULL AS message_data, NULL AS data, NULL AS protobuf_data, destinations, NULL AS data_to_encrypt, encrypt_payload, compress_payload, use_top_level_dict, wants_response, expiration_date, command, wants_delivery_status, delivery_status_context, message_uuid, priority, date, is_sent, identifier, forced_local, peer_response_identifier, expects_peer_response, wants_app_ack, non_waking, fire_and_forget, stored_size, duet_identifiers, bypass_duet, queue_one_identifier, enforce_remote_timeout, main_account_guid, pending_delete, local_destination_device_uuid, enqueued_date, message_type, skip_self, include_self, push_priority, non_cloud_waking, live_delivery, require_bluetooth, require_local_wifi, wants_progress, ignore_max_retry_count, wants_certified_delivery, original_timestamp, kt_uri_verification_map, wants_firewall_donation, send_mode, delivery_minimum_time_delay, delivery_minimum_time, send_reason FROM outgoing_message ";
   }
 
-  CFStringAppend(Mutable, v4);
-  CFStringAppend(v3, @"WHERE is_sent = 0 AND pending_delete = 0 AND account_guid ");
+  CFStringAppend(Mutable, v6);
+  CFStringAppend(v5, @"WHERE is_sent = 0 AND pending_delete = 0 AND account_guid ");
   [*(a1 + 32) count];
-  v5 = CSDBGenerateInClauseForCount();
-  CFStringAppend(v3, v5);
-  CFStringAppend(v3, @"LIMIT ? ");
-  v6 = CSDBSqliteDatabaseStatementForReading();
-  if (v6)
+  v7 = CSDBGenerateInClauseForCount();
+  CFStringAppend(v5, v7);
+  CFStringAppend(v5, @"LIMIT ? ");
+  v8 = CSDBSqliteDatabaseStatementForReading();
+  if (v8)
   {
-    if (*(v6 + 8))
+    if (*(v8 + 8))
     {
       CSDBSqliteBindTextFromCFArrayOfCFStrings();
       CSDBSqliteBindInt64();
-      v7 = CSDBRecordStoreProcessStatement();
-      *(*(*(a1 + 48) + 8) + 24) = sub_100010150(v7, *(a1 + 40));
+      v9 = CSDBRecordStoreProcessStatement();
+      *(*(*(a1 + 48) + 8) + 24) = sub_100010150(v9, *(a1 + 40));
       CSDBSqliteStatementReset();
-      if (v7)
+      if (v9)
       {
-        CFRelease(v7);
+        CFRelease(v9);
       }
     }
   }
 
-  if (v3)
+  if (v5)
   {
 
-    CFRelease(v3);
+    CFRelease(v5);
   }
 }
 
@@ -5629,47 +5642,47 @@ uint64_t sub_10033D5CC(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5
   return v13;
 }
 
-void sub_10033D6F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10033D6F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10033D710(uint64_t a1)
+void sub_10033D710(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   Mutable = CFStringCreateMutable(0, 0);
-  v3 = Mutable;
+  v5 = Mutable;
   if (*(a1 + 80))
   {
-    v4 = @"SELECT ROWID, guid, alternate_guid, account_guid, from_identifier, message_data, data, protobuf_data, destinations, data_to_encrypt, encrypt_payload, compress_payload, use_top_level_dict, wants_response, expiration_date, command, wants_delivery_status, delivery_status_context, message_uuid, priority, date, is_sent, identifier, forced_local, peer_response_identifier, expects_peer_response, wants_app_ack, non_waking, fire_and_forget, stored_size, duet_identifiers, bypass_duet, queue_one_identifier, enforce_remote_timeout, main_account_guid, pending_delete, local_destination_device_uuid, enqueued_date, message_type, skip_self, include_self, push_priority, non_cloud_waking, live_delivery, require_bluetooth, require_local_wifi, wants_progress, ignore_max_retry_count, wants_certified_delivery, original_timestamp, kt_uri_verification_map, wants_firewall_donation, send_mode, delivery_minimum_time_delay, delivery_minimum_time, send_reason FROM outgoing_message ";
+    v6 = @"SELECT ROWID, guid, alternate_guid, account_guid, from_identifier, message_data, data, protobuf_data, destinations, data_to_encrypt, encrypt_payload, compress_payload, use_top_level_dict, wants_response, expiration_date, command, wants_delivery_status, delivery_status_context, message_uuid, priority, date, is_sent, identifier, forced_local, peer_response_identifier, expects_peer_response, wants_app_ack, non_waking, fire_and_forget, stored_size, duet_identifiers, bypass_duet, queue_one_identifier, enforce_remote_timeout, main_account_guid, pending_delete, local_destination_device_uuid, enqueued_date, message_type, skip_self, include_self, push_priority, non_cloud_waking, live_delivery, require_bluetooth, require_local_wifi, wants_progress, ignore_max_retry_count, wants_certified_delivery, original_timestamp, kt_uri_verification_map, wants_firewall_donation, send_mode, delivery_minimum_time_delay, delivery_minimum_time, send_reason FROM outgoing_message ";
   }
 
   else
   {
-    v4 = @"SELECT ROWID, guid, alternate_guid, account_guid, from_identifier, NULL AS message_data, NULL AS data, NULL AS protobuf_data, destinations, NULL AS data_to_encrypt, encrypt_payload, compress_payload, use_top_level_dict, wants_response, expiration_date, command, wants_delivery_status, delivery_status_context, message_uuid, priority, date, is_sent, identifier, forced_local, peer_response_identifier, expects_peer_response, wants_app_ack, non_waking, fire_and_forget, stored_size, duet_identifiers, bypass_duet, queue_one_identifier, enforce_remote_timeout, main_account_guid, pending_delete, local_destination_device_uuid, enqueued_date, message_type, skip_self, include_self, push_priority, non_cloud_waking, live_delivery, require_bluetooth, require_local_wifi, wants_progress, ignore_max_retry_count, wants_certified_delivery, original_timestamp, kt_uri_verification_map, wants_firewall_donation, send_mode, delivery_minimum_time_delay, delivery_minimum_time, send_reason FROM outgoing_message ";
+    v6 = @"SELECT ROWID, guid, alternate_guid, account_guid, from_identifier, NULL AS message_data, NULL AS data, NULL AS protobuf_data, destinations, NULL AS data_to_encrypt, encrypt_payload, compress_payload, use_top_level_dict, wants_response, expiration_date, command, wants_delivery_status, delivery_status_context, message_uuid, priority, date, is_sent, identifier, forced_local, peer_response_identifier, expects_peer_response, wants_app_ack, non_waking, fire_and_forget, stored_size, duet_identifiers, bypass_duet, queue_one_identifier, enforce_remote_timeout, main_account_guid, pending_delete, local_destination_device_uuid, enqueued_date, message_type, skip_self, include_self, push_priority, non_cloud_waking, live_delivery, require_bluetooth, require_local_wifi, wants_progress, ignore_max_retry_count, wants_certified_delivery, original_timestamp, kt_uri_verification_map, wants_firewall_donation, send_mode, delivery_minimum_time_delay, delivery_minimum_time, send_reason FROM outgoing_message ";
   }
 
-  CFStringAppend(Mutable, v4);
-  CFStringAppend(v3, @"WHERE is_sent = 0 AND pending_delete = 0 AND account_guid ");
+  CFStringAppend(Mutable, v6);
+  CFStringAppend(v5, @"WHERE is_sent = 0 AND pending_delete = 0 AND account_guid ");
   [*(a1 + 32) count];
-  v5 = CSDBGenerateInClauseForCount();
-  CFStringAppend(v3, v5);
-  CFStringAppend(v3, @"AND priority = ? ");
+  v7 = CSDBGenerateInClauseForCount();
+  CFStringAppend(v5, v7);
+  CFStringAppend(v5, @"AND priority = ? ");
   if (*(a1 + 56))
   {
-    v6 = @"AND local_destination_device_uuid = ? ";
+    v8 = @"AND local_destination_device_uuid = ? ";
   }
 
   else
   {
-    v6 = @"AND local_destination_device_uuid is null ";
+    v8 = @"AND local_destination_device_uuid is null ";
   }
 
-  CFStringAppend(v3, v6);
-  CFStringAppend(v3, @"LIMIT ? ");
-  v7 = CSDBSqliteDatabaseStatementForReading();
-  if (v7 && *(v7 + 8))
+  CFStringAppend(v5, v8);
+  CFStringAppend(v5, @"LIMIT ? ");
+  v9 = CSDBSqliteDatabaseStatementForReading();
+  if (v9 && *(v9 + 8))
   {
     CSDBSqliteBindTextFromCFArrayOfCFStrings();
     CSDBSqliteBindInt64();
@@ -5679,19 +5692,19 @@ void sub_10033D710(uint64_t a1)
     }
 
     CSDBSqliteBindInt64();
-    v8 = CSDBRecordStoreProcessStatement();
-    *(*(*(a1 + 48) + 8) + 24) = sub_100010150(v8, *(a1 + 40));
+    v10 = CSDBRecordStoreProcessStatement();
+    *(*(*(a1 + 48) + 8) + 24) = sub_100010150(v10, *(a1 + 40));
     CSDBSqliteStatementReset();
-    if (v8)
+    if (v10)
     {
-      CFRelease(v8);
+      CFRelease(v10);
     }
   }
 
-  if (v3)
+  if (v5)
   {
 
-    CFRelease(v3);
+    CFRelease(v5);
   }
 }
 
@@ -5742,52 +5755,52 @@ uint64_t sub_10033D89C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5
   return v17;
 }
 
-void sub_10033DA0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_10033DA0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v14 - 120), 8);
+  _Block_object_dispose((v21 - 120), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10033DA30(uint64_t a1)
+void sub_10033DA30(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   Mutable = CFStringCreateMutable(0, 0);
-  v3 = Mutable;
+  v5 = Mutable;
   if (*(a1 + 96))
   {
-    v4 = @"SELECT ROWID, guid, alternate_guid, account_guid, from_identifier, message_data, data, protobuf_data, destinations, data_to_encrypt, encrypt_payload, compress_payload, use_top_level_dict, wants_response, expiration_date, command, wants_delivery_status, delivery_status_context, message_uuid, priority, date, is_sent, identifier, forced_local, peer_response_identifier, expects_peer_response, wants_app_ack, non_waking, fire_and_forget, stored_size, duet_identifiers, bypass_duet, queue_one_identifier, enforce_remote_timeout, main_account_guid, pending_delete, local_destination_device_uuid, enqueued_date, message_type, skip_self, include_self, push_priority, non_cloud_waking, live_delivery, require_bluetooth, require_local_wifi, wants_progress, ignore_max_retry_count, wants_certified_delivery, original_timestamp, kt_uri_verification_map, wants_firewall_donation, send_mode, delivery_minimum_time_delay, delivery_minimum_time, send_reason FROM outgoing_message ";
+    v6 = @"SELECT ROWID, guid, alternate_guid, account_guid, from_identifier, message_data, data, protobuf_data, destinations, data_to_encrypt, encrypt_payload, compress_payload, use_top_level_dict, wants_response, expiration_date, command, wants_delivery_status, delivery_status_context, message_uuid, priority, date, is_sent, identifier, forced_local, peer_response_identifier, expects_peer_response, wants_app_ack, non_waking, fire_and_forget, stored_size, duet_identifiers, bypass_duet, queue_one_identifier, enforce_remote_timeout, main_account_guid, pending_delete, local_destination_device_uuid, enqueued_date, message_type, skip_self, include_self, push_priority, non_cloud_waking, live_delivery, require_bluetooth, require_local_wifi, wants_progress, ignore_max_retry_count, wants_certified_delivery, original_timestamp, kt_uri_verification_map, wants_firewall_donation, send_mode, delivery_minimum_time_delay, delivery_minimum_time, send_reason FROM outgoing_message ";
   }
 
   else
   {
-    v4 = @"SELECT ROWID, guid, alternate_guid, account_guid, from_identifier, NULL AS message_data, NULL AS data, NULL AS protobuf_data, destinations, NULL AS data_to_encrypt, encrypt_payload, compress_payload, use_top_level_dict, wants_response, expiration_date, command, wants_delivery_status, delivery_status_context, message_uuid, priority, date, is_sent, identifier, forced_local, peer_response_identifier, expects_peer_response, wants_app_ack, non_waking, fire_and_forget, stored_size, duet_identifiers, bypass_duet, queue_one_identifier, enforce_remote_timeout, main_account_guid, pending_delete, local_destination_device_uuid, enqueued_date, message_type, skip_self, include_self, push_priority, non_cloud_waking, live_delivery, require_bluetooth, require_local_wifi, wants_progress, ignore_max_retry_count, wants_certified_delivery, original_timestamp, kt_uri_verification_map, wants_firewall_donation, send_mode, delivery_minimum_time_delay, delivery_minimum_time, send_reason FROM outgoing_message ";
+    v6 = @"SELECT ROWID, guid, alternate_guid, account_guid, from_identifier, NULL AS message_data, NULL AS data, NULL AS protobuf_data, destinations, NULL AS data_to_encrypt, encrypt_payload, compress_payload, use_top_level_dict, wants_response, expiration_date, command, wants_delivery_status, delivery_status_context, message_uuid, priority, date, is_sent, identifier, forced_local, peer_response_identifier, expects_peer_response, wants_app_ack, non_waking, fire_and_forget, stored_size, duet_identifiers, bypass_duet, queue_one_identifier, enforce_remote_timeout, main_account_guid, pending_delete, local_destination_device_uuid, enqueued_date, message_type, skip_self, include_self, push_priority, non_cloud_waking, live_delivery, require_bluetooth, require_local_wifi, wants_progress, ignore_max_retry_count, wants_certified_delivery, original_timestamp, kt_uri_verification_map, wants_firewall_donation, send_mode, delivery_minimum_time_delay, delivery_minimum_time, send_reason FROM outgoing_message ";
   }
 
-  CFStringAppend(Mutable, v4);
-  CFStringAppend(v3, @"WHERE is_sent = 0 AND pending_delete = 0 AND account_guid ");
+  CFStringAppend(Mutable, v6);
+  CFStringAppend(v5, @"WHERE is_sent = 0 AND pending_delete = 0 AND account_guid ");
   [*(a1 + 32) count];
-  v5 = CSDBGenerateInClauseForCount();
-  CFStringAppend(v3, v5);
-  CFStringAppend(v3, @"AND priority = ? ");
-  CFStringAppend(v3, @"AND message_type = ? ");
+  v7 = CSDBGenerateInClauseForCount();
+  CFStringAppend(v5, v7);
+  CFStringAppend(v5, @"AND priority = ? ");
+  CFStringAppend(v5, @"AND message_type = ? ");
   if (*(a1 + 64))
   {
-    v6 = @"AND local_destination_device_uuid = ? ";
+    v8 = @"AND local_destination_device_uuid = ? ";
   }
 
   else
   {
-    v6 = @"AND local_destination_device_uuid is null ";
+    v8 = @"AND local_destination_device_uuid is null ";
   }
 
-  CFStringAppend(v3, v6);
-  CFStringAppend(v3, @"LIMIT ? ");
-  v7 = CSDBSqliteDatabaseStatementForReading();
-  if (!v7 || !*(v7 + 8))
+  CFStringAppend(v5, v8);
+  CFStringAppend(v5, @"LIMIT ? ");
+  v9 = CSDBSqliteDatabaseStatementForReading();
+  if (!v9 || !*(v9 + 8))
   {
     *(*(*(a1 + 56) + 8) + 24) = 0;
-    if (!v3)
+    if (!v5)
     {
       return;
     }
@@ -5804,19 +5817,19 @@ void sub_10033DA30(uint64_t a1)
   }
 
   CSDBSqliteBindInt64();
-  v8 = CSDBRecordStoreProcessStatement();
-  *(*(*(a1 + 48) + 8) + 24) = sub_100010150(v8, *(a1 + 40));
+  v10 = CSDBRecordStoreProcessStatement();
+  *(*(*(a1 + 48) + 8) + 24) = sub_100010150(v10, *(a1 + 40));
   CSDBSqliteStatementReset();
-  if (v8)
+  if (v10)
   {
-    CFRelease(v8);
+    CFRelease(v10);
   }
 
-  if (v3)
+  if (v5)
   {
 LABEL_14:
 
-    CFRelease(v3);
+    CFRelease(v5);
   }
 }
 
@@ -5894,10 +5907,10 @@ uint64_t sub_10033DBE8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char 
   return v18;
 }
 
-void sub_10033DE80(uint64_t a1)
+void sub_10033DE80(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = CSDBSqliteDatabaseStatementForReading();
-  if (v2 && *(v2 + 8))
+  v4 = CSDBSqliteDatabaseStatementForReading();
+  if (v4 && *(v4 + 8))
   {
     CSDBSqliteBindInt64();
     CSDBSqliteBindTextFromCFString();
@@ -5919,69 +5932,69 @@ void sub_10033DE80(uint64_t a1)
       CSDBSqliteBindTextFromCFString();
     }
 
-    v3 = CSDBRecordStoreProcessStatement();
-    Count = CFArrayGetCount(v3);
+    v5 = CSDBRecordStoreProcessStatement();
+    Count = CFArrayGetCount(v5);
     if (Count << 32)
     {
-      v5 = 0;
-      v6 = Count;
+      v7 = 0;
+      v8 = Count;
       if (Count <= 1)
       {
-        v7 = 1;
+        v9 = 1;
       }
 
       else
       {
-        v7 = Count;
+        v9 = Count;
       }
 
       while (1)
       {
-        CFArrayGetValueAtIndex(v3, v5);
+        CFArrayGetValueAtIndex(v5, v7);
         ID = CSDBRecordGetID();
-        v9 = sub_10001F054(kCFAllocatorDefault, ID, 0, *(a1 + 32));
-        v10 = v9;
+        v11 = sub_10001F054(kCFAllocatorDefault, ID, 0, *(a1 + 32));
+        v12 = v11;
         if (!*(*(*(a1 + 48) + 8) + 24))
         {
           break;
         }
 
-        if (v9)
+        if (v11)
         {
           goto LABEL_13;
         }
 
 LABEL_14:
-        if (v7 == ++v5)
+        if (v9 == ++v7)
         {
           goto LABEL_18;
         }
       }
 
-      *(*(*(a1 + 48) + 8) + 24) = CFArrayCreateMutable(kCFAllocatorDefault, v6, &kCFTypeArrayCallBacks);
-      if (!v10)
+      *(*(*(a1 + 48) + 8) + 24) = CFArrayCreateMutable(kCFAllocatorDefault, v8, &kCFTypeArrayCallBacks);
+      if (!v12)
       {
         goto LABEL_14;
       }
 
 LABEL_13:
-      CFArrayAppendValue(*(*(*(a1 + 48) + 8) + 24), v10);
-      CFRelease(v10);
+      CFArrayAppendValue(*(*(*(a1 + 48) + 8) + 24), v12);
+      CFRelease(v12);
       goto LABEL_14;
     }
 
 LABEL_18:
     CSDBSqliteStatementReset();
-    if (v3)
+    if (v5)
     {
-      CFRelease(v3);
+      CFRelease(v5);
     }
   }
 
-  v11 = *(*(*(a1 + 40) + 8) + 24);
-  if (v11)
+  v13 = *(*(*(a1 + 40) + 8) + 24);
+  if (v13)
   {
-    CFRelease(v11);
+    CFRelease(v13);
     *(*(*(a1 + 40) + 8) + 24) = 0;
   }
 }
@@ -6071,10 +6084,10 @@ uint64_t sub_10033E098(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char 
   return v22;
 }
 
-void sub_10033E390(uint64_t a1)
+void sub_10033E390(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = CSDBSqliteDatabaseStatementForReading();
-  if (v2 && *(v2 + 8))
+  v4 = CSDBSqliteDatabaseStatementForReading();
+  if (v4 && *(v4 + 8))
   {
     CSDBSqliteBindInt64();
     CSDBSqliteBindTextFromCFString();
@@ -6098,102 +6111,102 @@ void sub_10033E390(uint64_t a1)
 
     if ([*(a1 + 32) count])
     {
+      v21 = 0u;
+      v22 = 0u;
       v19 = 0u;
       v20 = 0u;
-      v17 = 0u;
-      v18 = 0u;
-      v3 = *(a1 + 32);
-      v4 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
-      if (v4)
+      v5 = *(a1 + 32);
+      v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      if (v6)
       {
-        v5 = v4;
-        v6 = *v18;
+        v7 = v6;
+        v8 = *v20;
         do
         {
-          v7 = 0;
+          v9 = 0;
           do
           {
-            if (*v18 != v6)
+            if (*v20 != v8)
             {
-              objc_enumerationMutation(v3);
+              objc_enumerationMutation(v5);
             }
 
-            [*(*(&v17 + 1) + 8 * v7) longLongValue];
+            [*(*(&v19 + 1) + 8 * v9) longLongValue];
             CSDBSqliteBindInt64();
-            v7 = v7 + 1;
+            v9 = v9 + 1;
           }
 
-          while (v5 != v7);
-          v5 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
+          while (v7 != v9);
+          v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
         }
 
-        while (v5);
+        while (v7);
       }
     }
 
-    v8 = CSDBRecordStoreProcessStatement();
-    Count = CFArrayGetCount(v8);
+    v10 = CSDBRecordStoreProcessStatement();
+    Count = CFArrayGetCount(v10);
     if (Count << 32)
     {
-      v10 = 0;
-      v11 = Count;
+      v12 = 0;
+      v13 = Count;
       if (Count <= 1)
       {
-        v12 = 1;
+        v14 = 1;
       }
 
       else
       {
-        v12 = Count;
+        v14 = Count;
       }
 
       while (1)
       {
-        CFArrayGetValueAtIndex(v8, v10);
+        CFArrayGetValueAtIndex(v10, v12);
         ID = CSDBRecordGetID();
-        v14 = sub_10001F054(kCFAllocatorDefault, ID, 0, *(a1 + 40));
-        v15 = v14;
+        v16 = sub_10001F054(kCFAllocatorDefault, ID, 0, *(a1 + 40));
+        v17 = v16;
         if (!*(*(*(a1 + 56) + 8) + 24))
         {
           break;
         }
 
-        if (v14)
+        if (v16)
         {
           goto LABEL_22;
         }
 
 LABEL_23:
-        if (v12 == ++v10)
+        if (v14 == ++v12)
         {
           goto LABEL_27;
         }
       }
 
-      *(*(*(a1 + 56) + 8) + 24) = CFArrayCreateMutable(kCFAllocatorDefault, v11, &kCFTypeArrayCallBacks);
-      if (!v15)
+      *(*(*(a1 + 56) + 8) + 24) = CFArrayCreateMutable(kCFAllocatorDefault, v13, &kCFTypeArrayCallBacks);
+      if (!v17)
       {
         goto LABEL_23;
       }
 
 LABEL_22:
-      CFArrayAppendValue(*(*(*(a1 + 56) + 8) + 24), v15);
-      CFRelease(v15);
+      CFArrayAppendValue(*(*(*(a1 + 56) + 8) + 24), v17);
+      CFRelease(v17);
       goto LABEL_23;
     }
 
 LABEL_27:
     CSDBSqliteStatementReset();
-    if (v8)
+    if (v10)
     {
-      CFRelease(v8);
+      CFRelease(v10);
     }
   }
 
-  v16 = *(*(*(a1 + 48) + 8) + 24);
-  if (v16)
+  v18 = *(*(*(a1 + 48) + 8) + 24);
+  if (v18)
   {
-    CFRelease(v16);
+    CFRelease(v18);
     *(*(*(a1 + 48) + 8) + 24) = 0;
   }
 }
@@ -6224,53 +6237,53 @@ uint64_t sub_10033E680(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t 
   return v8;
 }
 
-void sub_10033E780(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10033E780(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10033E798(uint64_t a1)
+void sub_10033E798(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   Mutable = CFStringCreateMutable(0, 0);
-  v3 = Mutable;
+  v5 = Mutable;
   if (*(a1 + 80))
   {
-    v4 = @"SELECT ROWID, guid, alternate_guid, account_guid, from_identifier, message_data, data, protobuf_data, destinations, data_to_encrypt, encrypt_payload, compress_payload, use_top_level_dict, wants_response, expiration_date, command, wants_delivery_status, delivery_status_context, message_uuid, priority, date, is_sent, identifier, forced_local, peer_response_identifier, expects_peer_response, wants_app_ack, non_waking, fire_and_forget, stored_size, duet_identifiers, bypass_duet, queue_one_identifier, enforce_remote_timeout, main_account_guid, pending_delete, local_destination_device_uuid, enqueued_date, message_type, skip_self, include_self, push_priority, non_cloud_waking, live_delivery, require_bluetooth, require_local_wifi, wants_progress, ignore_max_retry_count, wants_certified_delivery, original_timestamp, kt_uri_verification_map, wants_firewall_donation, send_mode, delivery_minimum_time_delay, delivery_minimum_time, send_reason FROM outgoing_message ";
+    v6 = @"SELECT ROWID, guid, alternate_guid, account_guid, from_identifier, message_data, data, protobuf_data, destinations, data_to_encrypt, encrypt_payload, compress_payload, use_top_level_dict, wants_response, expiration_date, command, wants_delivery_status, delivery_status_context, message_uuid, priority, date, is_sent, identifier, forced_local, peer_response_identifier, expects_peer_response, wants_app_ack, non_waking, fire_and_forget, stored_size, duet_identifiers, bypass_duet, queue_one_identifier, enforce_remote_timeout, main_account_guid, pending_delete, local_destination_device_uuid, enqueued_date, message_type, skip_self, include_self, push_priority, non_cloud_waking, live_delivery, require_bluetooth, require_local_wifi, wants_progress, ignore_max_retry_count, wants_certified_delivery, original_timestamp, kt_uri_verification_map, wants_firewall_donation, send_mode, delivery_minimum_time_delay, delivery_minimum_time, send_reason FROM outgoing_message ";
   }
 
   else
   {
-    v4 = @"SELECT ROWID, guid, alternate_guid, account_guid, from_identifier, NULL AS message_data, NULL AS data, NULL AS protobuf_data, destinations, NULL AS data_to_encrypt, encrypt_payload, compress_payload, use_top_level_dict, wants_response, expiration_date, command, wants_delivery_status, delivery_status_context, message_uuid, priority, date, is_sent, identifier, forced_local, peer_response_identifier, expects_peer_response, wants_app_ack, non_waking, fire_and_forget, stored_size, duet_identifiers, bypass_duet, queue_one_identifier, enforce_remote_timeout, main_account_guid, pending_delete, local_destination_device_uuid, enqueued_date, message_type, skip_self, include_self, push_priority, non_cloud_waking, live_delivery, require_bluetooth, require_local_wifi, wants_progress, ignore_max_retry_count, wants_certified_delivery, original_timestamp, kt_uri_verification_map, wants_firewall_donation, send_mode, delivery_minimum_time_delay, delivery_minimum_time, send_reason FROM outgoing_message ";
+    v6 = @"SELECT ROWID, guid, alternate_guid, account_guid, from_identifier, NULL AS message_data, NULL AS data, NULL AS protobuf_data, destinations, NULL AS data_to_encrypt, encrypt_payload, compress_payload, use_top_level_dict, wants_response, expiration_date, command, wants_delivery_status, delivery_status_context, message_uuid, priority, date, is_sent, identifier, forced_local, peer_response_identifier, expects_peer_response, wants_app_ack, non_waking, fire_and_forget, stored_size, duet_identifiers, bypass_duet, queue_one_identifier, enforce_remote_timeout, main_account_guid, pending_delete, local_destination_device_uuid, enqueued_date, message_type, skip_self, include_self, push_priority, non_cloud_waking, live_delivery, require_bluetooth, require_local_wifi, wants_progress, ignore_max_retry_count, wants_certified_delivery, original_timestamp, kt_uri_verification_map, wants_firewall_donation, send_mode, delivery_minimum_time_delay, delivery_minimum_time, send_reason FROM outgoing_message ";
   }
 
-  CFStringAppend(Mutable, v4);
-  CFStringAppend(v3, @"WHERE priority = ? AND is_sent = 0 AND pending_delete = 0 ");
+  CFStringAppend(Mutable, v6);
+  CFStringAppend(v5, @"WHERE priority = ? AND is_sent = 0 AND pending_delete = 0 ");
   if (*(a1 + 48))
   {
-    CFStringAppend(v3, @"AND account_guid = ? ");
+    CFStringAppend(v5, @"AND account_guid = ? ");
   }
 
   if (*(a1 + 81) == 1)
   {
-    CFStringAppend(v3, @"AND bypass_duet = 0 ");
+    CFStringAppend(v5, @"AND bypass_duet = 0 ");
   }
 
   if (*(a1 + 56))
   {
-    v5 = @"AND local_destination_device_uuid = ? ";
+    v7 = @"AND local_destination_device_uuid = ? ";
   }
 
   else
   {
-    v5 = @"AND local_destination_device_uuid is null ";
+    v7 = @"AND local_destination_device_uuid is null ";
   }
 
-  CFStringAppend(v3, v5);
-  CFStringAppend(v3, @"ORDER BY ROWID ASC LIMIT ?");
-  v6 = CSDBSqliteDatabaseStatementForReading();
-  if (v6 && *(v6 + 8))
+  CFStringAppend(v5, v7);
+  CFStringAppend(v5, @"ORDER BY ROWID ASC LIMIT ?");
+  v8 = CSDBSqliteDatabaseStatementForReading();
+  if (v8 && *(v8 + 8))
   {
     CSDBSqliteBindInt64();
     if (*(a1 + 48))
@@ -6284,69 +6297,69 @@ void sub_10033E798(uint64_t a1)
     }
 
     CSDBSqliteBindInt64();
-    v7 = CSDBRecordStoreProcessStatement();
-    Count = CFArrayGetCount(v7);
+    v9 = CSDBRecordStoreProcessStatement();
+    Count = CFArrayGetCount(v9);
     if (Count << 32)
     {
-      v9 = 0;
-      v10 = Count;
+      v11 = 0;
+      v12 = Count;
       if (Count <= 1)
       {
-        v11 = 1;
+        v13 = 1;
       }
 
       else
       {
-        v11 = Count;
+        v13 = Count;
       }
 
       while (1)
       {
-        CFArrayGetValueAtIndex(v7, v9);
+        CFArrayGetValueAtIndex(v9, v11);
         ID = CSDBRecordGetID();
-        v13 = sub_10001F054(kCFAllocatorDefault, ID, 0, *(a1 + 32));
-        v14 = v13;
+        v15 = sub_10001F054(kCFAllocatorDefault, ID, 0, *(a1 + 32));
+        v16 = v15;
         if (!*(*(*(a1 + 40) + 8) + 24))
         {
           break;
         }
 
-        if (v13)
+        if (v15)
         {
           goto LABEL_23;
         }
 
 LABEL_24:
-        if (v11 == ++v9)
+        if (v13 == ++v11)
         {
           goto LABEL_28;
         }
       }
 
-      *(*(*(a1 + 40) + 8) + 24) = CFArrayCreateMutable(kCFAllocatorDefault, v10, &kCFTypeArrayCallBacks);
-      if (!v14)
+      *(*(*(a1 + 40) + 8) + 24) = CFArrayCreateMutable(kCFAllocatorDefault, v12, &kCFTypeArrayCallBacks);
+      if (!v16)
       {
         goto LABEL_24;
       }
 
 LABEL_23:
-      CFArrayAppendValue(*(*(*(a1 + 40) + 8) + 24), v14);
-      CFRelease(v14);
+      CFArrayAppendValue(*(*(*(a1 + 40) + 8) + 24), v16);
+      CFRelease(v16);
       goto LABEL_24;
     }
 
 LABEL_28:
     CSDBSqliteStatementReset();
-    if (v7)
+    if (v9)
     {
-      CFRelease(v7);
+      CFRelease(v9);
     }
   }
 
-  if (v3)
+  if (v5)
   {
 
-    CFRelease(v3);
+    CFRelease(v5);
   }
 }
 
@@ -6379,61 +6392,61 @@ uint64_t sub_10033EA00(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t 
   return v18;
 }
 
-void sub_10033EB2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10033EB2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10033EB44(uint64_t a1)
+void sub_10033EB44(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   Mutable = CFStringCreateMutable(0, 0);
-  v3 = Mutable;
+  v5 = Mutable;
   if (*(a1 + 88))
   {
-    v4 = @"SELECT ROWID, guid, alternate_guid, account_guid, from_identifier, message_data, data, protobuf_data, destinations, data_to_encrypt, encrypt_payload, compress_payload, use_top_level_dict, wants_response, expiration_date, command, wants_delivery_status, delivery_status_context, message_uuid, priority, date, is_sent, identifier, forced_local, peer_response_identifier, expects_peer_response, wants_app_ack, non_waking, fire_and_forget, stored_size, duet_identifiers, bypass_duet, queue_one_identifier, enforce_remote_timeout, main_account_guid, pending_delete, local_destination_device_uuid, enqueued_date, message_type, skip_self, include_self, push_priority, non_cloud_waking, live_delivery, require_bluetooth, require_local_wifi, wants_progress, ignore_max_retry_count, wants_certified_delivery, original_timestamp, kt_uri_verification_map, wants_firewall_donation, send_mode, delivery_minimum_time_delay, delivery_minimum_time, send_reason FROM outgoing_message ";
+    v6 = @"SELECT ROWID, guid, alternate_guid, account_guid, from_identifier, message_data, data, protobuf_data, destinations, data_to_encrypt, encrypt_payload, compress_payload, use_top_level_dict, wants_response, expiration_date, command, wants_delivery_status, delivery_status_context, message_uuid, priority, date, is_sent, identifier, forced_local, peer_response_identifier, expects_peer_response, wants_app_ack, non_waking, fire_and_forget, stored_size, duet_identifiers, bypass_duet, queue_one_identifier, enforce_remote_timeout, main_account_guid, pending_delete, local_destination_device_uuid, enqueued_date, message_type, skip_self, include_self, push_priority, non_cloud_waking, live_delivery, require_bluetooth, require_local_wifi, wants_progress, ignore_max_retry_count, wants_certified_delivery, original_timestamp, kt_uri_verification_map, wants_firewall_donation, send_mode, delivery_minimum_time_delay, delivery_minimum_time, send_reason FROM outgoing_message ";
   }
 
   else
   {
-    v4 = @"SELECT ROWID, guid, alternate_guid, account_guid, from_identifier, NULL AS message_data, NULL AS data, NULL AS protobuf_data, destinations, NULL AS data_to_encrypt, encrypt_payload, compress_payload, use_top_level_dict, wants_response, expiration_date, command, wants_delivery_status, delivery_status_context, message_uuid, priority, date, is_sent, identifier, forced_local, peer_response_identifier, expects_peer_response, wants_app_ack, non_waking, fire_and_forget, stored_size, duet_identifiers, bypass_duet, queue_one_identifier, enforce_remote_timeout, main_account_guid, pending_delete, local_destination_device_uuid, enqueued_date, message_type, skip_self, include_self, push_priority, non_cloud_waking, live_delivery, require_bluetooth, require_local_wifi, wants_progress, ignore_max_retry_count, wants_certified_delivery, original_timestamp, kt_uri_verification_map, wants_firewall_donation, send_mode, delivery_minimum_time_delay, delivery_minimum_time, send_reason FROM outgoing_message ";
+    v6 = @"SELECT ROWID, guid, alternate_guid, account_guid, from_identifier, NULL AS message_data, NULL AS data, NULL AS protobuf_data, destinations, NULL AS data_to_encrypt, encrypt_payload, compress_payload, use_top_level_dict, wants_response, expiration_date, command, wants_delivery_status, delivery_status_context, message_uuid, priority, date, is_sent, identifier, forced_local, peer_response_identifier, expects_peer_response, wants_app_ack, non_waking, fire_and_forget, stored_size, duet_identifiers, bypass_duet, queue_one_identifier, enforce_remote_timeout, main_account_guid, pending_delete, local_destination_device_uuid, enqueued_date, message_type, skip_self, include_self, push_priority, non_cloud_waking, live_delivery, require_bluetooth, require_local_wifi, wants_progress, ignore_max_retry_count, wants_certified_delivery, original_timestamp, kt_uri_verification_map, wants_firewall_donation, send_mode, delivery_minimum_time_delay, delivery_minimum_time, send_reason FROM outgoing_message ";
   }
 
-  CFStringAppend(Mutable, v4);
-  CFStringAppend(v3, @"WHERE priority = ? AND is_sent = 0 AND pending_delete = 0 ");
+  CFStringAppend(Mutable, v6);
+  CFStringAppend(v5, @"WHERE priority = ? AND is_sent = 0 AND pending_delete = 0 ");
   if (*(a1 + 56))
   {
-    CFStringAppend(v3, @"AND account_guid = ? ");
+    CFStringAppend(v5, @"AND account_guid = ? ");
   }
 
   if (*(a1 + 89) == 1)
   {
-    CFStringAppend(v3, @"AND bypass_duet = 0 ");
+    CFStringAppend(v5, @"AND bypass_duet = 0 ");
   }
 
   if (*(a1 + 64))
   {
-    v5 = @"AND local_destination_device_uuid = ? ";
+    v7 = @"AND local_destination_device_uuid = ? ";
   }
 
   else
   {
-    v5 = @"AND local_destination_device_uuid is null ";
+    v7 = @"AND local_destination_device_uuid is null ";
   }
 
-  CFStringAppend(v3, v5);
+  CFStringAppend(v5, v7);
   if ([*(a1 + 32) count])
   {
-    CFStringAppend(v3, @"AND message_type ");
+    CFStringAppend(v5, @"AND message_type ");
     [*(a1 + 32) count];
-    v6 = CSDBGenerateInClauseForCount();
-    CFStringAppend(v3, v6);
+    v8 = CSDBGenerateInClauseForCount();
+    CFStringAppend(v5, v8);
   }
 
-  CFStringAppend(v3, @"ORDER BY ROWID ASC LIMIT ?");
-  v7 = CSDBSqliteDatabaseStatementForReading();
-  if (v7 && *(v7 + 8))
+  CFStringAppend(v5, @"ORDER BY ROWID ASC LIMIT ?");
+  v9 = CSDBSqliteDatabaseStatementForReading();
+  if (v9 && *(v9 + 8))
   {
     CSDBSqliteBindInt64();
     if (*(a1 + 56))
@@ -6448,102 +6461,102 @@ void sub_10033EB44(uint64_t a1)
 
     if ([*(a1 + 32) count])
     {
+      v25 = 0u;
+      v26 = 0u;
       v23 = 0u;
       v24 = 0u;
-      v21 = 0u;
-      v22 = 0u;
-      v8 = *(a1 + 32);
-      v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
-      if (v9)
+      v10 = *(a1 + 32);
+      v11 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      if (v11)
       {
-        v10 = v9;
-        v11 = *v22;
+        v12 = v11;
+        v13 = *v24;
         do
         {
-          v12 = 0;
+          v14 = 0;
           do
           {
-            if (*v22 != v11)
+            if (*v24 != v13)
             {
-              objc_enumerationMutation(v8);
+              objc_enumerationMutation(v10);
             }
 
-            [*(*(&v21 + 1) + 8 * v12) longLongValue];
+            [*(*(&v23 + 1) + 8 * v14) longLongValue];
             CSDBSqliteBindInt64();
-            v12 = v12 + 1;
+            v14 = v14 + 1;
           }
 
-          while (v10 != v12);
-          v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+          while (v12 != v14);
+          v12 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
         }
 
-        while (v10);
+        while (v12);
       }
     }
 
     CSDBSqliteBindInt64();
-    v13 = CSDBRecordStoreProcessStatement();
-    Count = CFArrayGetCount(v13);
+    v15 = CSDBRecordStoreProcessStatement();
+    Count = CFArrayGetCount(v15);
     if (Count << 32)
     {
-      v15 = 0;
-      v16 = Count;
+      v17 = 0;
+      v18 = Count;
       if (Count <= 1)
       {
-        v17 = 1;
+        v19 = 1;
       }
 
       else
       {
-        v17 = Count;
+        v19 = Count;
       }
 
       while (1)
       {
-        CFArrayGetValueAtIndex(v13, v15);
+        CFArrayGetValueAtIndex(v15, v17);
         ID = CSDBRecordGetID();
-        v19 = sub_10001F054(kCFAllocatorDefault, ID, 0, *(a1 + 40));
-        v20 = v19;
+        v21 = sub_10001F054(kCFAllocatorDefault, ID, 0, *(a1 + 40));
+        v22 = v21;
         if (!*(*(*(a1 + 48) + 8) + 24))
         {
           break;
         }
 
-        if (v19)
+        if (v21)
         {
           goto LABEL_34;
         }
 
 LABEL_35:
-        if (v17 == ++v15)
+        if (v19 == ++v17)
         {
           goto LABEL_39;
         }
       }
 
-      *(*(*(a1 + 48) + 8) + 24) = CFArrayCreateMutable(kCFAllocatorDefault, v16, &kCFTypeArrayCallBacks);
-      if (!v20)
+      *(*(*(a1 + 48) + 8) + 24) = CFArrayCreateMutable(kCFAllocatorDefault, v18, &kCFTypeArrayCallBacks);
+      if (!v22)
       {
         goto LABEL_35;
       }
 
 LABEL_34:
-      CFArrayAppendValue(*(*(*(a1 + 48) + 8) + 24), v20);
-      CFRelease(v20);
+      CFArrayAppendValue(*(*(*(a1 + 48) + 8) + 24), v22);
+      CFRelease(v22);
       goto LABEL_35;
     }
 
 LABEL_39:
     CSDBSqliteStatementReset();
-    if (v13)
+    if (v15)
     {
-      CFRelease(v13);
+      CFRelease(v15);
     }
   }
 
-  if (v3)
+  if (v5)
   {
-    CFRelease(v3);
+    CFRelease(v5);
   }
 }
 
@@ -6563,7 +6576,7 @@ uint64_t sub_10033EF08(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   CSDBSqliteBindInt64();
   CSDBSqliteBindTextFromCFString();
 
-  return _CSDBSqliteStatementPerform(a4, v5, v6);
+  return _CSDBSqliteStatementPerform(a4);
 }
 
 void sub_10033EF78(void *a1, void *a2)
@@ -6581,7 +6594,7 @@ uint64_t sub_10033F014(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   CSDBSqliteBindTextFromCFString();
 
-  return _CSDBSqliteStatementPerform(a4, v5, v6);
+  return _CSDBSqliteStatementPerform(a4);
 }
 
 void sub_10033F054(void *a1, void *a2, void *a3)
@@ -6615,7 +6628,7 @@ uint64_t sub_10033F16C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   CSDBSqliteBindTextFromCFString();
   CSDBSqliteBindTextFromCFArrayOfCFStrings();
 
-  return _CSDBSqliteStatementPerform(a4, v5, v6);
+  return _CSDBSqliteStatementPerform(a4);
 }
 
 void sub_10033F1BC(void *a1, void *a2, void *a3)
@@ -6650,7 +6663,7 @@ uint64_t sub_10033F2D4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   CSDBSqliteBindTextFromCFString();
   CSDBSqliteBindTextFromCFArrayOfCFStrings();
 
-  return _CSDBSqliteStatementPerform(a4, v5, v6);
+  return _CSDBSqliteStatementPerform(a4);
 }
 
 void sub_10033F324(int a1, void *a2)
@@ -6682,14 +6695,14 @@ uint64_t sub_10033F3A8(void *a1)
   return v2;
 }
 
-void sub_10033F460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10033F460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_10033F478(uint64_t a1)
+uint64_t sub_10033F478(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = CSDBSqliteConnectionIntegerForProperty();
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -6715,14 +6728,14 @@ uint64_t sub_10033F4B4(void *a1)
   return v2;
 }
 
-void sub_10033F56C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10033F56C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_10033F584(uint64_t a1)
+uint64_t sub_10033F584(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = CSDBSqliteDatabaseCheckpointAndVacuum();
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -6810,13 +6823,12 @@ uint64_t sub_10033F834(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   [*(a1 + 32) dataProtectionClass];
   CSDBSqliteBindInt();
   CSDBSqliteBindTextFromCFString();
-  v7 = *(a1 + 48);
-  if (v7)
+  if (*(a1 + 48))
   {
     CSDBSqliteBindTextFromCFString();
   }
 
-  return _CSDBSqliteStatementPerform(a4, v7, v6);
+  return _CSDBSqliteStatementPerform(a4);
 }
 
 void sub_10033F89C(uint64_t a1, void *a2)
@@ -6836,7 +6848,7 @@ uint64_t sub_10033F91C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   CSDBSqliteBindTextFromCFString();
 
-  return _CSDBSqliteStatementPerform(a4, v5, v6);
+  return _CSDBSqliteStatementPerform(a4);
 }
 
 void sub_10033F95C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, void *a58)
@@ -7232,33 +7244,33 @@ CFStringRef sub_1003405B4(os_unfair_lock_s *a1)
 
 void sub_100340B7C(uint64_t a1)
 {
-  [*(a1 + 32) doubleValue];
+  objc_msgSend_doubleValue(*(a1 + 32));
   v3 = v2;
-  [*(a1 + 40) doubleValue];
+  objc_msgSend_doubleValue(*(a1 + 40));
   v55 = llround((v3 - v4) * 1000.0);
-  [*(a1 + 48) doubleValue];
+  objc_msgSend_doubleValue(*(a1 + 48));
   v6 = v5;
-  [*(a1 + 40) doubleValue];
+  objc_msgSend_doubleValue(*(a1 + 40));
   v54 = llround((v6 - v7) * 1000.0);
-  [*(a1 + 56) doubleValue];
+  objc_msgSend_doubleValue(*(a1 + 56));
   v9 = v8;
-  [*(a1 + 48) doubleValue];
+  objc_msgSend_doubleValue(*(a1 + 48));
   v11 = llround((v9 - v10) * 1000.0);
-  [*(a1 + 64) doubleValue];
+  objc_msgSend_doubleValue(*(a1 + 64));
   v13 = v12;
-  [*(a1 + 32) doubleValue];
+  objc_msgSend_doubleValue(*(a1 + 32));
   v15 = llround((v13 - v14) * 1000.0);
-  [*(a1 + 48) doubleValue];
+  objc_msgSend_doubleValue(*(a1 + 48));
   v17 = v16;
-  [*(a1 + 64) doubleValue];
+  objc_msgSend_doubleValue(*(a1 + 64));
   v19 = llround((v17 - v18) * 1000.0);
-  [*(a1 + 56) doubleValue];
+  objc_msgSend_doubleValue(*(a1 + 56));
   v21 = v20;
-  [*(a1 + 64) doubleValue];
+  objc_msgSend_doubleValue(*(a1 + 64));
   v23 = llround((v21 - v22) * 1000.0);
-  [*(a1 + 56) doubleValue];
+  objc_msgSend_doubleValue(*(a1 + 56));
   v25 = v24;
-  [*(a1 + 72) doubleValue];
+  objc_msgSend_doubleValue(*(a1 + 72));
   v27 = llround((v25 - v26) * 1000.0);
   v28 = v15 & ~(v15 >> 63);
   v29 = v11 & ~(v11 >> 63);
@@ -7575,10 +7587,11 @@ void sub_1003455E0(uint64_t a1)
   }
 }
 
-void sub_100346704(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100346704(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x12u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
 void sub_100346D10(uint64_t a1, void *a2)
@@ -7704,9 +7717,11 @@ void sub_10034A760(id a1)
   dword_100CBCF68 = 4;
   qword_100CBCFB0 = sub_10034A7D0;
   qword_100CBCFB8 = sub_10034AD1C;
-  qword_100CBCF40 = objc_alloc_init(IDSClientChannelManager);
+  v1 = objc_alloc_init(IDSClientChannelManager);
+  v2 = qword_100CBCF40;
+  qword_100CBCF40 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10034A7D0(uint64_t a1, uint64_t a2)
@@ -7892,7 +7907,7 @@ void sub_10034AD1C(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_10034B5D4(int a1, unsigned __int16 **a2, void *a3, unsigned int *a4)
+uint64_t sub_10034B5D4(int a1, unsigned __int16 **a2, unsigned __int16 **a3, unsigned int *a4)
 {
   if (!a1)
   {
@@ -7938,7 +7953,7 @@ uint64_t sub_10034B5D4(int a1, unsigned __int16 **a2, void *a3, unsigned int *a4
         return result;
       }
 
-      v12 = v8 + 2;
+      v12 = (v8 + 2);
     }
 
     else
@@ -8062,7 +8077,7 @@ void sub_10034BE94(uint64_t a1)
             {
               v39 = *(v12 + 16);
               v16 = v40;
-              v14[2](v14, v12, v41, v40, 0);
+              (v14)[2](v14, v12, v41, v40, 0);
               if (v5)
               {
                 if (qword_100CBD080 != -1)
@@ -8271,7 +8286,7 @@ void sub_10034D4E8(uint64_t a1)
   [v2 cleanupSessionWithChannelDestination:*(a1 + 32) clientChannelUUID:*(a1 + 40)];
 }
 
-void sub_10034D540(uint64_t a1, char a2)
+void sub_10034D540(uint64_t a1, uint64_t a2)
 {
   if ((a2 & 1) == 0)
   {
@@ -8304,14 +8319,14 @@ void sub_10034DBB4(id a1)
   *&qword_100CBD088 = v1 / v2 / 1000000000.0;
 }
 
-uint64_t sub_10034DFB0(uint64_t a1, char a2)
+uint64_t sub_10034DFB0(uint64_t result, char a2)
 {
   if ((a2 & 1) == 0)
   {
     return IDSTransportThreadAddSocketWithPriority();
   }
 
-  return result;
+  return v2;
 }
 
 void sub_10034E068(uint64_t a1)
@@ -8868,9 +8883,11 @@ void sub_1003551E4(uint64_t a1, void *a2)
 
 void sub_100356B44(id a1)
 {
-  qword_100CBD0C0 = objc_alloc_init(IDSNanoRegistryPluginManager);
+  v1 = objc_alloc_init(IDSNanoRegistryPluginManager);
+  v2 = qword_100CBD0C0;
+  qword_100CBD0C0 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 id sub_100356C64(uint64_t a1)
@@ -9055,6 +9072,13 @@ void sub_1003583C4(uint64_t a1)
   v4 = [v2 initWithURI:v3 verified:*(a1 + 56) error:*(a1 + 40)];
 
   [*(a1 + 48) fulfillWithValue:v4];
+}
+
+void sub_100358B38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, ...)
+{
+  va_start(va, a60);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t sub_100358BB8(uint64_t a1, void *a2)

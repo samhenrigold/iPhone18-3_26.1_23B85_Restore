@@ -56,7 +56,7 @@
       v9 = sLogObject_17;
       if (os_log_type_enabled(sLogObject_17, OS_LOG_TYPE_ERROR))
       {
-        [VUILibraryMediaItem_iOS initWithMPMediaItem:v9];
+        [(VUILibraryMediaItem_iOS *)v9 initWithMPMediaItem:v6];
       }
     }
   }
@@ -671,15 +671,15 @@ LABEL_50:
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-- (void)initWithMPMediaItem:(void *)a1 .cold.1(void *a1)
+- (void)initWithMPMediaItem:(void *)a1 .cold.1(void *a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v1 = a1;
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
-  v4 = 138412290;
-  v5 = v3;
-  _os_log_error_impl(&dword_1E323F000, v1, OS_LOG_TYPE_ERROR, "%@ created with nil MPMediaItem", &v4, 0xCu);
+  v7 = *MEMORY[0x1E69E9840];
+  v2 = a1;
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_error_impl(&dword_1E323F000, v2, OS_LOG_TYPE_ERROR, "%@ created with nil MPMediaItem", &v5, 0xCu);
 }
 
 @end

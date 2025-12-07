@@ -58,77 +58,78 @@
 
 - (ATXDigestOnboardingLoggingEvent)initWithProto:(id)proto
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   protoCopy = proto;
   if (protoCopy)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
       selfCopy = self;
-      v31 = protoCopy;
-      v5 = protoCopy;
-      v6 = objc_alloc(MEMORY[0x1E696AFB0]);
-      sessionUUID = [v5 sessionUUID];
-      v28 = [v6 initWithUUIDString:sessionUUID];
+      v32 = protoCopy;
+      v6 = protoCopy;
+      v7 = objc_alloc(MEMORY[0x1E696AFB0]);
+      sessionUUID = [v6 sessionUUID];
+      v29 = [v7 initWithUUIDString:sessionUUID];
 
-      entrySource = [v5 entrySource];
-      digestOnboardingOutcome = [v5 digestOnboardingOutcome];
-      finalUIShown = [v5 finalUIShown];
-      didSelectShowMore = [v5 didSelectShowMore];
-      [v5 timeTaken];
-      v9 = v8;
-      v10 = objc_opt_new();
-      v32 = 0u;
+      entrySource = [v6 entrySource];
+      digestOnboardingOutcome = [v6 digestOnboardingOutcome];
+      finalUIShown = [v6 finalUIShown];
+      didSelectShowMore = [v6 didSelectShowMore];
+      [v6 timeTaken];
+      v10 = v9;
+      v11 = objc_opt_new();
       v33 = 0u;
       v34 = 0u;
       v35 = 0u;
-      v29 = v5;
-      deliveryTimes = [v5 deliveryTimes];
-      v12 = [deliveryTimes countByEnumeratingWithState:&v32 objects:v36 count:16];
-      if (v12)
+      v36 = 0u;
+      v30 = v6;
+      deliveryTimes = [v6 deliveryTimes];
+      v13 = [deliveryTimes countByEnumeratingWithState:&v33 objects:v37 count:16];
+      if (v13)
       {
-        v13 = v12;
-        v14 = *v33;
+        v14 = v13;
+        v15 = *v34;
         do
         {
-          for (i = 0; i != v13; ++i)
+          for (i = 0; i != v14; ++i)
           {
-            if (*v33 != v14)
+            if (*v34 != v15)
             {
               objc_enumerationMutation(deliveryTimes);
             }
 
-            v16 = *(*(&v32 + 1) + 8 * i);
-            v17 = objc_opt_new();
-            v18 = [v16 componentsSeparatedByString:@":"];
-            v19 = [v18 objectAtIndexedSubscript:0];
-            [v17 setHour:{objc_msgSend(v19, "integerValue")}];
+            v17 = *(*(&v33 + 1) + 8 * i);
+            v18 = objc_opt_new();
+            v19 = [v17 componentsSeparatedByString:@":"];
+            v20 = [v19 objectAtIndexedSubscript:0];
+            [v18 setHour:{objc_msgSend(v20, "integerValue")}];
 
-            v20 = [v18 objectAtIndexedSubscript:1];
-            [v17 setMinute:{objc_msgSend(v20, "integerValue")}];
+            v21 = [v19 objectAtIndexedSubscript:1];
+            [v18 setMinute:{objc_msgSend(v21, "integerValue")}];
 
-            [v10 addObject:v17];
+            [v11 addObject:v18];
           }
 
-          v13 = [deliveryTimes countByEnumeratingWithState:&v32 objects:v36 count:16];
+          v14 = [deliveryTimes countByEnumeratingWithState:&v33 objects:v37 count:16];
         }
 
-        while (v13);
+        while (v14);
       }
 
-      self = [(ATXDigestOnboardingLoggingEvent *)selfCopy initWithSessionUUID:v28 entrySource:entrySource digestOnboardingOutcome:digestOnboardingOutcome finalUIShown:finalUIShown didSelectShowMore:didSelectShowMore timeTaken:v10 deliveryTimes:v9];
+      self = [(ATXDigestOnboardingLoggingEvent *)selfCopy initWithSessionUUID:v29 entrySource:entrySource digestOnboardingOutcome:digestOnboardingOutcome finalUIShown:finalUIShown didSelectShowMore:didSelectShowMore timeTaken:v11 deliveryTimes:v10];
       selfCopy2 = self;
-      protoCopy = v31;
-      v22 = v29;
+      protoCopy = v32;
+      v23 = v30;
     }
 
     else
     {
-      v22 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+      v23 = __atxlog_handle_notification_management(isKindOfClass);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
       {
-        [(ATXDigestTimeline *)self initWithProto:v22];
+        [(ATXDigestTimeline *)self initWithProto:v23];
       }
 
       selfCopy2 = 0;

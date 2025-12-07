@@ -3,10 +3,20 @@
 - (BOOL)_updateBatteryConnectedStateWithBatteryEntry:(unsigned int)entry;
 - (MSBatteryPowerMonitor)init;
 - (void)dealloc;
+- (void)updateBatteryConnectedStateWithBatteryEntry:(unsigned int)entry;
 - (void)updateBatteryLevelWithBatteryEntry:(unsigned int)entry;
 @end
 
 @implementation MSBatteryPowerMonitor
+
+- (void)updateBatteryConnectedStateWithBatteryEntry:(unsigned int)entry
+{
+  if ([(MSBatteryPowerMonitor *)self _updateBatteryConnectedStateWithBatteryEntry:*&entry])
+  {
+    defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+    [defaultCenter postNotificationName:@"MSBatteryPowerMonitorExternalPowerSourceChangedNotification" object:self];
+  }
+}
 
 - (BOOL)_updateBatteryConnectedStateWithBatteryEntry:(unsigned int)entry
 {
@@ -56,7 +66,7 @@ LABEL_9:
 
 - (void)updateBatteryLevelWithBatteryEntry:(unsigned int)entry
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = *MEMORY[0x277CBECE8];
   CFProperty = IORegistryEntryCreateCFProperty(entry, @"MaxCapacity", *MEMORY[0x277CBECE8], 0);
   v7 = IORegistryEntryCreateCFProperty(entry, @"CurrentCapacity", v5, 0);
@@ -84,9 +94,9 @@ LABEL_9:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     [(MSBatteryPowerMonitor *)self currentLevel];
-    v16 = 134217984;
-    v17 = v14 * 100.0;
-    _os_log_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Battery level: %.1f%%.", &v16, 0xCu);
+    v15 = 134217984;
+    v16 = v14 * 100.0;
+    _os_log_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Battery level: %.1f%%.", &v15, 0xCu);
   }
 
   if (CFProperty)
@@ -98,8 +108,6 @@ LABEL_9:
   {
     CFRelease(v8);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc

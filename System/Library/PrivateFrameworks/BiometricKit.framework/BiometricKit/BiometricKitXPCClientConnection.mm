@@ -23,7 +23,7 @@
 
 - (NSXPCConnection)xpcConnection
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   xpcConnection = selfCopy->_xpcConnection;
@@ -58,15 +58,15 @@ LABEL_15:
       if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
       {
         *buf = 136316162;
-        v55 = "0";
-        v56 = 2048;
-        v57 = 0;
-        v58 = 2080;
-        v59 = &unk_1C82F52EE;
-        v60 = 2080;
-        v61 = "/Library/Caches/com.apple.xbs/Sources/BiometricKit/BiometricKit/BiometricKitXPCClient.m";
-        v62 = 1024;
-        v63 = 163;
+        v54 = "0";
+        v55 = 2048;
+        v56 = 0;
+        v57 = 2080;
+        v58 = &unk_1C82F52EE;
+        v59 = 2080;
+        v60 = "/Library/Caches/com.apple.xbs/Sources/BiometricKit/BiometricKit/BiometricKitXPCClient.m";
+        v61 = 1024;
+        v62 = 163;
         _os_log_impl(&dword_1C82AD000, v42, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
       }
 
@@ -129,19 +129,19 @@ LABEL_15:
     v37 = [v31 setWithObjects:{v32, v33, v34, v35, v36, objc_opt_class(), 0}];
     [exportedInterface setClasses:v37 forSelector:sel_statusMessage_details_client_ argumentIndex:1 ofReply:0];
 
-    v51[0] = MEMORY[0x1E69E9820];
-    v51[1] = 3221225472;
-    v51[2] = __48__BiometricKitXPCClientConnection_xpcConnection__block_invoke;
-    v51[3] = &unk_1E8303C80;
-    objc_copyWeak(&v52, &location);
-    [(NSXPCConnection *)selfCopy->_xpcConnection setInterruptionHandler:v51];
-    v49[0] = MEMORY[0x1E69E9820];
-    v49[1] = 3221225472;
-    v49[2] = __48__BiometricKitXPCClientConnection_xpcConnection__block_invoke_228;
-    v49[3] = &unk_1E8303CA8;
-    objc_copyWeak(&v50, &location);
-    v49[4] = selfCopy;
-    [(NSXPCConnection *)selfCopy->_xpcConnection setInvalidationHandler:v49];
+    v50[0] = MEMORY[0x1E69E9820];
+    v50[1] = 3221225472;
+    v50[2] = __48__BiometricKitXPCClientConnection_xpcConnection__block_invoke;
+    v50[3] = &unk_1E8303C80;
+    objc_copyWeak(&v51, &location);
+    [(NSXPCConnection *)selfCopy->_xpcConnection setInterruptionHandler:v50];
+    v48[0] = MEMORY[0x1E69E9820];
+    v48[1] = 3221225472;
+    v48[2] = __48__BiometricKitXPCClientConnection_xpcConnection__block_invoke_228;
+    v48[3] = &unk_1E8303CA8;
+    objc_copyWeak(&v49, &location);
+    v48[4] = selfCopy;
+    [(NSXPCConnection *)selfCopy->_xpcConnection setInvalidationHandler:v48];
     if (!selfCopy->_serverStartedNotificationToken)
     {
       v38 = dispatch_get_global_queue(0, 0);
@@ -149,10 +149,10 @@ LABEL_15:
       handler[1] = 3221225472;
       handler[2] = __48__BiometricKitXPCClientConnection_xpcConnection__block_invoke_230;
       handler[3] = &unk_1E8303CD0;
-      objc_copyWeak(&v48, &location);
+      objc_copyWeak(&v47, &location);
       notify_register_dispatch("com.apple.BiometricKit.serverStarted", &selfCopy->_serverStartedNotificationToken, v38, handler);
 
-      objc_destroyWeak(&v48);
+      objc_destroyWeak(&v47);
     }
 
     if (selfCopy->_invalidated)
@@ -163,10 +163,10 @@ LABEL_15:
       block[1] = 3221225472;
       block[2] = __48__BiometricKitXPCClientConnection_xpcConnection__block_invoke_232;
       block[3] = &unk_1E8303C80;
-      objc_copyWeak(&v46, &location);
+      objc_copyWeak(&v45, &location);
       dispatch_async(v39, block);
 
-      objc_destroyWeak(&v46);
+      objc_destroyWeak(&v45);
     }
 
     if (xpc_user_sessions_enabled())
@@ -177,8 +177,8 @@ LABEL_15:
     }
 
     [(NSXPCConnection *)selfCopy->_xpcConnection resume];
-    objc_destroyWeak(&v50);
-    objc_destroyWeak(&v52);
+    objc_destroyWeak(&v49);
+    objc_destroyWeak(&v51);
     objc_destroyWeak(&location);
     xpcConnection = selfCopy->_xpcConnection;
     goto LABEL_15;
@@ -191,24 +191,22 @@ LABEL_21:
 LABEL_22:
   objc_sync_exit(selfCopy);
 
-  v43 = *MEMORY[0x1E69E9840];
-
   return v41;
 }
 
 + (id)connectionWithDeviceType:(int64_t)type
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (type == 2)
   {
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __60__BiometricKitXPCClientConnection_connectionWithDeviceType___block_invoke_2;
-    v8[3] = &__block_descriptor_40_e5_v8__0l;
-    v8[4] = self;
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __60__BiometricKitXPCClientConnection_connectionWithDeviceType___block_invoke_2;
+    v7[3] = &__block_descriptor_40_e5_v8__0l;
+    v7[4] = self;
     if (connectionWithDeviceType__once_1 != -1)
     {
-      dispatch_once(&connectionWithDeviceType__once_1, v8);
+      dispatch_once(&connectionWithDeviceType__once_1, v7);
     }
 
     v3 = connectionWithDeviceType__pearlConnection;
@@ -246,21 +244,20 @@ LABEL_9:
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     *buf = 136316162;
-    v11 = "0";
-    v12 = 2048;
-    v13 = 0;
-    v14 = 2080;
-    v15 = &unk_1C82F52EE;
-    v16 = 2080;
-    v17 = "/Library/Caches/com.apple.xbs/Sources/BiometricKit/BiometricKit/BiometricKitXPCClient.m";
-    v18 = 1024;
-    v19 = 90;
+    v10 = "0";
+    v11 = 2048;
+    v12 = 0;
+    v13 = 2080;
+    v14 = &unk_1C82F52EE;
+    v15 = 2080;
+    v16 = "/Library/Caches/com.apple.xbs/Sources/BiometricKit/BiometricKit/BiometricKitXPCClient.m";
+    v17 = 1024;
+    v18 = 90;
     _os_log_impl(&dword_1C82AD000, v5, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
   }
 
   v4 = 0;
 LABEL_16:
-  v6 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -277,22 +274,22 @@ void __60__BiometricKitXPCClientConnection_connectionWithDeviceType___block_invo
   }
 }
 
-void __60__BiometricKitXPCClientConnection_connectionWithDeviceType___block_invoke_2(uint64_t a1)
+void __60__BiometricKitXPCClientConnection_connectionWithDeviceType___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  if (isFaceIDPlatform())
+  if (isFaceIDPlatform(a1, a2))
   {
-    v4.receiver = *(a1 + 32);
-    v4.super_class = &OBJC_METACLASS___BiometricKitXPCClientConnection;
-    v2 = [objc_msgSendSuper2(&v4 allocWithZone_];
-    v3 = connectionWithDeviceType__pearlConnection;
-    connectionWithDeviceType__pearlConnection = v2;
+    v5.receiver = *(a1 + 32);
+    v5.super_class = &OBJC_METACLASS___BiometricKitXPCClientConnection;
+    v3 = [objc_msgSendSuper2(&v5 allocWithZone_];
+    v4 = connectionWithDeviceType__pearlConnection;
+    connectionWithDeviceType__pearlConnection = v3;
   }
 }
 
 - (BiometricKitXPCClientConnection)initWithDeviceType:(int64_t)type
 {
   selfCopy = self;
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if ((type - 1) > 1)
   {
     if (__osLog)
@@ -308,15 +305,15 @@ void __60__BiometricKitXPCClientConnection_connectionWithDeviceType___block_invo
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316162;
-      v17 = "0";
-      v18 = 2048;
-      v19 = 0;
-      v20 = 2080;
-      v21 = &unk_1C82F52EE;
-      v22 = 2080;
-      v23 = "/Library/Caches/com.apple.xbs/Sources/BiometricKit/BiometricKit/BiometricKitXPCClient.m";
-      v24 = 1024;
-      v25 = 113;
+      v16 = "0";
+      v17 = 2048;
+      v18 = 0;
+      v19 = 2080;
+      v20 = &unk_1C82F52EE;
+      v21 = 2080;
+      v22 = "/Library/Caches/com.apple.xbs/Sources/BiometricKit/BiometricKit/BiometricKitXPCClient.m";
+      v23 = 1024;
+      v24 = 113;
       _os_log_impl(&dword_1C82AD000, v12, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
     }
 
@@ -326,9 +323,9 @@ void __60__BiometricKitXPCClientConnection_connectionWithDeviceType___block_invo
   else
   {
     self->_deviceType = type;
-    v15.receiver = self;
-    v15.super_class = BiometricKitXPCClientConnection;
-    v4 = [(BiometricKitXPCClientConnection *)&v15 init];
+    v14.receiver = self;
+    v14.super_class = BiometricKitXPCClientConnection;
+    v4 = [(BiometricKitXPCClientConnection *)&v14 init];
     if (v4)
     {
       v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
@@ -357,7 +354,6 @@ void __60__BiometricKitXPCClientConnection_connectionWithDeviceType___block_invo
     v11 = selfCopy;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -376,7 +372,7 @@ void __60__BiometricKitXPCClientConnection_connectionWithDeviceType___block_invo
 
 void __48__BiometricKitXPCClientConnection_xpcConnection__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (__osLog)
   {
     v2 = __osLog;
@@ -400,27 +396,27 @@ void __48__BiometricKitXPCClientConnection_xpcConnection__block_invoke(uint64_t 
     v5 = WeakRetained;
     objc_sync_enter(v5);
     [v5[5] allValues];
+    v12 = 0u;
     v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
-    v6 = v12 = 0u;
-    v7 = [v6 countByEnumeratingWithState:&v11 objects:v16 count:16];
+    v10 = 0u;
+    v6 = v11 = 0u;
+    v7 = [v6 countByEnumeratingWithState:&v10 objects:v15 count:16];
     if (v7)
     {
-      v8 = *v12;
+      v8 = *v11;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v12 != v8)
+          if (*v11 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          [*(*(&v11 + 1) + 8 * i) interruptConnection];
+          [*(*(&v10 + 1) + 8 * i) interruptConnection];
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v11 objects:v16 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v10 objects:v15 count:16];
       }
 
       while (v7);
@@ -428,13 +424,11 @@ void __48__BiometricKitXPCClientConnection_xpcConnection__block_invoke(uint64_t 
 
     objc_sync_exit(v5);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __48__BiometricKitXPCClientConnection_xpcConnection__block_invoke_228(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (__osLog)
   {
     v2 = __osLog;
@@ -459,27 +453,27 @@ void __48__BiometricKitXPCClientConnection_xpcConnection__block_invoke_228(uint6
     objc_sync_enter(v5);
     *(*(a1 + 32) + 24) = 1;
     [v5[5] allValues];
+    v12 = 0u;
     v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
-    v6 = v12 = 0u;
-    v7 = [v6 countByEnumeratingWithState:&v11 objects:v16 count:16];
+    v10 = 0u;
+    v6 = v11 = 0u;
+    v7 = [v6 countByEnumeratingWithState:&v10 objects:v15 count:16];
     if (v7)
     {
-      v8 = *v12;
+      v8 = *v11;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v12 != v8)
+          if (*v11 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          [*(*(&v11 + 1) + 8 * i) interruptConnection];
+          [*(*(&v10 + 1) + 8 * i) interruptConnection];
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v11 objects:v16 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v10 objects:v15 count:16];
       }
 
       while (v7);
@@ -487,13 +481,11 @@ void __48__BiometricKitXPCClientConnection_xpcConnection__block_invoke_228(uint6
 
     objc_sync_exit(v5);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __48__BiometricKitXPCClientConnection_xpcConnection__block_invoke_230(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   if (__osLog)
   {
@@ -520,28 +512,28 @@ void __48__BiometricKitXPCClientConnection_xpcConnection__block_invoke_230(uint6
     v7 = [v6[5] allValues];
     objc_sync_exit(v6);
 
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v8 = v7;
-    v9 = [v8 countByEnumeratingWithState:&v13 objects:v18 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v12 objects:v17 count:16];
     if (v9)
     {
-      v10 = *v14;
+      v10 = *v13;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v14 != v10)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          [*(*(&v13 + 1) + 8 * i) initializeConnection];
+          [*(*(&v12 + 1) + 8 * i) initializeConnection];
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v13 objects:v18 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v12 objects:v17 count:16];
       }
 
       while (v9);
@@ -549,12 +541,11 @@ void __48__BiometricKitXPCClientConnection_xpcConnection__block_invoke_230(uint6
   }
 
   objc_autoreleasePoolPop(v2);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __48__BiometricKitXPCClientConnection_xpcConnection__block_invoke_232(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v4 = WeakRetained;
@@ -565,30 +556,30 @@ void __48__BiometricKitXPCClientConnection_xpcConnection__block_invoke_232(uint6
     v6 = [v5[5] allValues];
     objc_sync_exit(v5);
 
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v7 = v6;
-    v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v8)
     {
-      v9 = *v13;
+      v9 = *v12;
       do
       {
         v10 = 0;
         do
         {
-          if (*v13 != v9)
+          if (*v12 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          [*(*(&v12 + 1) + 8 * v10++) initializeConnection];
+          [*(*(&v11 + 1) + 8 * v10++) initializeConnection];
         }
 
         while (v8 != v10);
-        v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v8);
@@ -596,7 +587,6 @@ void __48__BiometricKitXPCClientConnection_xpcConnection__block_invoke_232(uint6
   }
 
   objc_autoreleasePoolPop(v2);
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)addClient:(id)client
@@ -886,67 +876,52 @@ void __59__BiometricKitXPCClientConnection_taskResumeStatus_client___block_invok
 
 - (void)initWithDeviceType:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initWithDeviceType:.cold.2()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)xpcConnection
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addClient:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeClient:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

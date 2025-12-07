@@ -37,7 +37,7 @@
 
 - (float)blendTimeMs
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   outValue = 0.0;
   Parameter = AudioUnitGetParameter(self->mAUDSPGraph.__ptr_, 1u, 0, 0, &outValue);
   if (Parameter)
@@ -48,33 +48,31 @@
     {
       isUplink = self->_isUplink;
       v7 = "downlink";
-      v12 = "ATBlurMixer.mm";
+      v11 = "ATBlurMixer.mm";
       *buf = 136316162;
-      v13 = 1024;
+      v12 = 1024;
       if (isUplink)
       {
         v7 = "uplink";
       }
 
-      v14 = 537;
-      v15 = 2048;
+      v13 = 537;
+      v14 = 2048;
       selfCopy = self;
-      v17 = 2080;
-      v18 = v7;
-      v19 = 1024;
-      v20 = v4;
+      v16 = 2080;
+      v17 = v7;
+      v18 = 1024;
+      v19 = v4;
       _os_log_impl(&dword_1B9A08000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d ATBlurMixer@%p(%s): Error setting parameter BlurBlendTimeMs, err = %d", buf, 0x2Cu);
     }
   }
 
-  result = outValue;
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return outValue;
 }
 
 - (void)setBlendTimeMs:(float)ms
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v4 = AudioUnitSetParameter(self->mAUDSPGraph.__ptr_, 1u, 0, 0, ms, 0);
   if (v4)
   {
@@ -84,43 +82,41 @@
     {
       isUplink = self->_isUplink;
       v8 = "donwlink";
-      v11 = "ATBlurMixer.mm";
-      v10 = 136316162;
-      v12 = 1024;
+      v10 = "ATBlurMixer.mm";
+      v9 = 136316162;
+      v11 = 1024;
       if (isUplink)
       {
         v8 = "uplink";
       }
 
-      v13 = 524;
-      v14 = 2048;
+      v12 = 524;
+      v13 = 2048;
       selfCopy = self;
-      v16 = 2080;
-      v17 = v8;
-      v18 = 1024;
-      v19 = v5;
-      _os_log_impl(&dword_1B9A08000, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d ATBlurMixer@%p(%s): Error setting parameter BlurBlendTimeMs, err = %d", &v10, 0x2Cu);
+      v15 = 2080;
+      v16 = v8;
+      v17 = 1024;
+      v18 = v5;
+      _os_log_impl(&dword_1B9A08000, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d ATBlurMixer@%p(%s): Error setting parameter BlurBlendTimeMs, err = %d", &v9, 0x2Cu);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isBlurEnabled
 {
-  outValue = 0.0;
-  Parameter = AudioUnitGetParameter(self->mAUDSPGraph.__ptr_, 0, 0, 0, &outValue);
+  HIDWORD(v17) = 0;
+  Parameter = AudioUnitGetParameter(self->mAUDSPGraph.__ptr_, 0, 0, 0, &v17 + 1);
   if (Parameter)
   {
     v4 = Parameter;
     v5 = self->_isUplink ? 7 : 9;
-    v6 = _os_log_pack_size() + 88;
-    message = caulk::deferred_logger::create_message(AT::Translation::gTranslationDeferredLog, v6 + v5, 16);
+    v6 = _os_log_pack_size();
+    message = caulk::deferred_logger::create_message(AT::Translation::gTranslationDeferredLog, v6 + 88 + v5, 16);
     if (message)
     {
       v8 = message;
-      v9 = (message + v6);
-      v10 = _os_log_pack_fill();
+      v9 = (message + v6 + 88);
+      v10 = _os_log_pack_fill(message + 40, v6, 0, &dword_1B9A08000, "ATBlurMixer@%p(%s): Error getting parameter BlurOnOff, err = %d", v16, v17, v18);
       selfCopy = self;
       if (self->_isUplink)
       {
@@ -143,7 +139,7 @@
     }
   }
 
-  v13 = fabsf(outValue);
+  v13 = fabsf(*(&v17 + 1));
   v14 = 1.0;
   if (v13 >= 1.0)
   {
@@ -160,13 +156,13 @@
   {
     v5 = v4;
     v6 = self->_isUplink ? 7 : 9;
-    v7 = _os_log_pack_size() + 88;
-    message = caulk::deferred_logger::create_message(AT::Translation::gTranslationDeferredLog, v7 + v6, 16);
+    v7 = _os_log_pack_size();
+    message = caulk::deferred_logger::create_message(AT::Translation::gTranslationDeferredLog, v7 + 88 + v6, 16);
     if (message)
     {
       v9 = message;
-      v10 = (message + v7);
-      v11 = _os_log_pack_fill();
+      v10 = (message + v7 + 88);
+      v11 = _os_log_pack_fill(message + 40, v7, 0, &dword_1B9A08000, "ATBlurMixer@%p(%s): Error setting parameter BlurOnOff, err = %d", v13, v14, v16);
       selfCopy = self;
       if (self->_isUplink)
       {
@@ -219,7 +215,7 @@
   return v5;
 }
 
-uint64_t __27__ATBlurMixer_processBlock__block_invoke(uint64_t a1, AudioTimeStamp *inTimeStamp, UInt32 inNumberFrames, AudioBufferList *a4, AudioBufferList *a5, AudioBufferList *a6, AudioBufferList *a7)
+id __27__ATBlurMixer_processBlock__block_invoke(uint64_t a1, AudioTimeStamp *inTimeStamp, UInt32 inNumberFrames, AudioBufferList *a4, AudioBufferList *a5, AudioBufferList *a6, AudioBufferList *a7, __n128 a8)
 {
   if (a7)
   {
@@ -233,12 +229,12 @@ uint64_t __27__ATBlurMixer_processBlock__block_invoke(uint64_t a1, AudioTimeStam
 
   else
   {
-    v8 = CAAssertRtn();
-    return __27__ATBlurMixer_processBlock__block_invoke_2(v8, v9, v10);
+    v16.n128_f64[0] = CAAssertRtn();
+    return __27__ATBlurMixer_processBlock__block_invoke_2(v9, v10, v11, v12, v13, v14, v15, v16);
   }
 }
 
-id __27__ATBlurMixer_processBlock__block_invoke_2(uint64_t a1, AudioTimeStamp *inTimeStamp, UInt32 inNumberFrames, AudioBufferList *a4, AudioBufferList *a5, AudioBufferList *a6, AudioBufferList *a7)
+id __27__ATBlurMixer_processBlock__block_invoke_2(uint64_t a1, AudioTimeStamp *inTimeStamp, UInt32 inNumberFrames, AudioBufferList *a4, AudioBufferList *a5, AudioBufferList *a6, AudioBufferList *a7, __n128 a8)
 {
   inInputBufferLists[0] = a4;
   inInputBufferLists[1] = a5;
@@ -246,24 +242,24 @@ id __27__ATBlurMixer_processBlock__block_invoke_2(uint64_t a1, AudioTimeStamp *i
   if ((*(a1 + 40) & 1) == 0)
   {
     ioOutputBufferLists[0] = a6;
-    v7 = *(a1 + 32);
-    v8 = inNumberFrames;
-    v9 = 1;
-    return AudioUnitProcessMultiple(v7, &ioActionFlags, inTimeStamp, v8, 2u, inInputBufferLists, v9, ioOutputBufferLists);
+    v8 = *(a1 + 32);
+    v9 = inNumberFrames;
+    v10 = 1;
+    return AudioUnitProcessMultiple(v8, &ioActionFlags, inTimeStamp, v9, 2u, inInputBufferLists, v10, ioOutputBufferLists);
   }
 
   if (a7)
   {
     ioOutputBufferLists[0] = a6;
     ioOutputBufferLists[1] = a7;
-    v7 = *(a1 + 32);
-    v8 = inNumberFrames;
-    v9 = 2;
-    return AudioUnitProcessMultiple(v7, &ioActionFlags, inTimeStamp, v8, 2u, inInputBufferLists, v9, ioOutputBufferLists);
+    v8 = *(a1 + 32);
+    v9 = inNumberFrames;
+    v10 = 2;
+    return AudioUnitProcessMultiple(v8, &ioActionFlags, inTimeStamp, v9, 2u, inInputBufferLists, v10, ioOutputBufferLists);
   }
 
-  v11 = CAAssertRtn();
-  return [(ATBlurMixer *)v11 initInternalWithFormat:v12 maxFrames:v13 isUplink:v14 error:v15, v16];
+  CAAssertRtn();
+  return [(ATBlurMixer *)v12 initInternalWithFormat:v13 maxFrames:v14 isUplink:v15 error:v16, v17];
 }
 
 - (id)initInternalWithFormat:(const AudioStreamBasicDescription *)format maxFrames:(unsigned int)frames isUplink:(BOOL)uplink error:(id *)error
@@ -310,7 +306,7 @@ id __27__ATBlurMixer_processBlock__block_invoke_2(uint64_t a1, AudioTimeStamp *i
 
 - (int)configure
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(__dst, &self->mTuningDirectory);
   std::__fs::filesystem::__status(__dst, 0);
   v3 = 1;
@@ -355,12 +351,12 @@ LABEL_7:
         *&__dst[14] = 391;
         *&__dst[18] = 2048;
         *&__dst[20] = self;
-        v19 = 2080;
-        v20 = v7;
+        v18 = 2080;
+        v19 = v7;
         _os_log_impl(&dword_1B9A08000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d ATBlurMixer@%p(%s): Tuning directory does not exist", __dst, 0x26u);
       }
 
-      goto LABEL_28;
+      return setupAU;
     }
   }
 
@@ -390,8 +386,8 @@ LABEL_7:
     *__dst = v9;
     if (!v9)
     {
-      v15 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v15, "Could not construct");
+      v14 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v14, "Could not construct");
     }
 
     Value = CFDictionaryGetValue(v8, v9);
@@ -423,14 +419,12 @@ LABEL_7:
     CFRelease(__p.__r_.__value_.__l.__data_);
   }
 
-LABEL_28:
-  v12 = *MEMORY[0x1E69E9840];
   return setupAU;
 }
 
 - (int)setupAU
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   *&inDesc.componentType = *"xfuagpsdlppa";
   inDesc.componentFlagsMask = 0;
   Next = AudioComponentFindNext(0, &inDesc);
@@ -456,7 +450,7 @@ LABEL_28:
       setMaxFramesPerSlice = [(ATBlurMixer *)self setElementCount:2];
       if (!setMaxFramesPerSlice)
       {
-        [(ATBlurMixer *)self getDSPGraphPath];
+        objc_msgSend_getDSPGraphPath(self);
         setMaxFramesPerSlice = [(ATBlurMixer *)self setDSPGraph:*buf];
         if (!setMaxFramesPerSlice)
         {
@@ -488,30 +482,29 @@ LABEL_28:
       v9 = "downlink";
       *&buf[4] = "ATBlurMixer.mm";
       *buf = 136316162;
-      v15 = 1024;
+      v14 = 1024;
       if (isUplink)
       {
         v9 = "uplink";
       }
 
-      v16 = 347;
-      v17 = 2048;
+      v15 = 347;
+      v16 = 2048;
       selfCopy = self;
-      v19 = 2080;
-      v20 = v9;
-      v21 = 1024;
-      v22 = setMaxFramesPerSlice;
+      v18 = 2080;
+      v19 = v9;
+      v20 = 1024;
+      v21 = setMaxFramesPerSlice;
       _os_log_impl(&dword_1B9A08000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d ATBlurMixer@%p(%s): Error opening AUDSPGraph, err = %d", buf, 0x2Cu);
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return setMaxFramesPerSlice;
 }
 
 - (int)setMaxFramesPerSlice
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = AudioUnitSetProperty(self->mAUDSPGraph.__ptr_, 0xEu, 0, 0, &self->mMaxFrames, 4u);
   if (v3)
   {
@@ -529,29 +522,28 @@ LABEL_28:
         v6 = "downlink";
       }
 
-      v9 = 136316418;
-      v10 = "ATBlurMixer.mm";
-      v11 = 1024;
-      v12 = 331;
-      v13 = 2048;
+      v8 = 136316418;
+      v9 = "ATBlurMixer.mm";
+      v10 = 1024;
+      v11 = 331;
+      v12 = 2048;
       selfCopy = self;
-      v15 = 2080;
-      v16 = v6;
-      v17 = 1024;
-      v18 = mMaxFrames;
-      v19 = 1024;
-      v20 = v3;
-      _os_log_impl(&dword_1B9A08000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d ATBlurMixer@%p(%s): Error setting kAudioUnitProperty_MaximumFramesPerSlice = %d, err = %d", &v9, 0x32u);
+      v14 = 2080;
+      v15 = v6;
+      v16 = 1024;
+      v17 = mMaxFrames;
+      v18 = 1024;
+      v19 = v3;
+      _os_log_impl(&dword_1B9A08000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d ATBlurMixer@%p(%s): Error setting kAudioUnitProperty_MaximumFramesPerSlice = %d, err = %d", &v8, 0x32u);
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 - (int)setDSPGraph:(__CFString *)graph
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   inData = graph;
   v4 = AudioUnitSetProperty(self->mAUDSPGraph.__ptr_, 0x64737067u, 0, 0, &inData, 8u);
   if (v4)
@@ -561,32 +553,31 @@ LABEL_28:
     {
       isUplink = self->_isUplink;
       v7 = "downlink";
-      v12 = "ATBlurMixer.mm";
+      v11 = "ATBlurMixer.mm";
       *buf = 136316162;
-      v13 = 1024;
+      v12 = 1024;
       if (isUplink)
       {
         v7 = "uplink";
       }
 
-      v14 = 317;
-      v15 = 2048;
+      v13 = 317;
+      v14 = 2048;
       selfCopy = self;
-      v17 = 2080;
-      v18 = v7;
-      v19 = 1024;
-      v20 = v4;
+      v16 = 2080;
+      v17 = v7;
+      v18 = 1024;
+      v19 = v4;
       _os_log_impl(&dword_1B9A08000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d ATBlurMixer@%p(%s): Error setting kAUDSPGraphProperty_GraphTextFilePath, err = %d", buf, 0x2Cu);
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 - (int)setElementCount:(unsigned int)count
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   inData = [(ATBlurMixer *)self getBusCountForScope:?];
   v5 = AudioUnitSetProperty(self->mAUDSPGraph.__ptr_, 0xBu, count, 0, &inData, 4u);
   if (v5)
@@ -602,74 +593,68 @@ LABEL_28:
         v7 = "uplink";
       }
 
-      v14 = "ATBlurMixer.mm";
-      v16 = 303;
+      v13 = "ATBlurMixer.mm";
+      v15 = 303;
       v9 = "output";
-      v17 = 2048;
-      v15 = 1024;
+      v16 = 2048;
+      v14 = 1024;
       selfCopy = self;
       if (count == 1)
       {
         v9 = "input";
       }
 
-      v19 = 2080;
-      v20 = v7;
-      v21 = 2080;
-      v22 = v9;
-      v23 = 1024;
-      v24 = inData;
-      v25 = 1024;
-      v26 = v5;
+      v18 = 2080;
+      v19 = v7;
+      v20 = 2080;
+      v21 = v9;
+      v22 = 1024;
+      v23 = inData;
+      v24 = 1024;
+      v25 = v5;
       _os_log_impl(&dword_1B9A08000, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d ATBlurMixer@%p(%s): Error setting kAudioUnitProperty_ElementCount on %s to %d, err = %d", buf, 0x3Cu);
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (int)uninitializeAU
 {
-  v19 = *MEMORY[0x1E69E9840];
-  if (self->mIsInitialized)
+  v18 = *MEMORY[0x1E69E9840];
+  if (!self->mIsInitialized)
   {
-    v3 = AudioUnitUninitialize(self->mAUDSPGraph.__ptr_);
-    if (v3)
+    return 0;
+  }
+
+  v3 = AudioUnitUninitialize(self->mAUDSPGraph.__ptr_);
+  if (v3)
+  {
+    v4 = AT::Translation::gTranslationLog;
+    if (os_log_type_enabled(AT::Translation::gTranslationLog, OS_LOG_TYPE_ERROR))
     {
-      v4 = AT::Translation::gTranslationLog;
-      if (os_log_type_enabled(AT::Translation::gTranslationLog, OS_LOG_TYPE_ERROR))
+      isUplink = self->_isUplink;
+      v6 = "downlink";
+      v9 = "ATBlurMixer.mm";
+      v8 = 136316162;
+      v10 = 1024;
+      if (isUplink)
       {
-        isUplink = self->_isUplink;
-        v6 = "downlink";
-        v10 = "ATBlurMixer.mm";
-        v9 = 136316162;
-        v11 = 1024;
-        if (isUplink)
-        {
-          v6 = "uplink";
-        }
-
-        v12 = 286;
-        v13 = 2048;
-        selfCopy = self;
-        v15 = 2080;
-        v16 = v6;
-        v17 = 1024;
-        v18 = v3;
-        _os_log_impl(&dword_1B9A08000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d ATBlurMixer@%p(%s): Error uninitializing AUDSPGraph, err = %d", &v9, 0x2Cu);
+        v6 = "uplink";
       }
+
+      v11 = 286;
+      v12 = 2048;
+      selfCopy = self;
+      v14 = 2080;
+      v15 = v6;
+      v16 = 1024;
+      v17 = v3;
+      _os_log_impl(&dword_1B9A08000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d ATBlurMixer@%p(%s): Error uninitializing AUDSPGraph, err = %d", &v8, 0x2Cu);
     }
-
-    self->mIsInitialized = 0;
   }
 
-  else
-  {
-    v3 = 0;
-  }
-
-  v7 = *MEMORY[0x1E69E9840];
+  self->mIsInitialized = 0;
   return v3;
 }
 
@@ -837,79 +822,75 @@ LABEL_9:
 
 - (int)initializeAU
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (self->mIsInitialized)
   {
-    v2 = 0;
+    return 0;
+  }
+
+  objc_msgSend_getAUStripPath(self, a2);
+  ResourcePathUtilities::CFDictFromPath(&v9, cf);
+  if (*cf)
+  {
+    CFRelease(*cf);
+  }
+
+  objc_msgSend_getPropStripPath(self);
+  ResourcePathUtilities::CFDictFromPath(&v8, cf);
+  if (*cf)
+  {
+    CFRelease(*cf);
+  }
+
+  [(ATBlurMixer *)self setAUStrip:v9 propertyStrip:v8];
+  v2 = AudioUnitInitialize(self->mAUDSPGraph.__ptr_);
+  if (v2)
+  {
+    v4 = AT::Translation::gTranslationLog;
+    if (os_log_type_enabled(AT::Translation::gTranslationLog, OS_LOG_TYPE_ERROR))
+    {
+      isUplink = self->_isUplink;
+      v6 = "downlink";
+      *&cf[4] = "ATBlurMixer.mm";
+      *cf = 136316162;
+      v11 = 1024;
+      if (isUplink)
+      {
+        v6 = "uplink";
+      }
+
+      v12 = 193;
+      v13 = 2048;
+      selfCopy = self;
+      v15 = 2080;
+      v16 = v6;
+      v17 = 1024;
+      v18 = v2;
+      _os_log_impl(&dword_1B9A08000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d ATBlurMixer@%p(%s): Error initializing AUDSPGraph, err = %d", cf, 0x2Cu);
+    }
   }
 
   else
   {
-    [(ATBlurMixer *)self getAUStripPath];
-    ResourcePathUtilities::CFDictFromPath(&v10, cf);
-    if (*cf)
-    {
-      CFRelease(*cf);
-    }
-
-    [(ATBlurMixer *)self getPropStripPath];
-    ResourcePathUtilities::CFDictFromPath(&v9, cf);
-    if (*cf)
-    {
-      CFRelease(*cf);
-    }
-
-    [(ATBlurMixer *)self setAUStrip:v10 propertyStrip:v9];
-    v2 = AudioUnitInitialize(self->mAUDSPGraph.__ptr_);
-    if (v2)
-    {
-      v4 = AT::Translation::gTranslationLog;
-      if (os_log_type_enabled(AT::Translation::gTranslationLog, OS_LOG_TYPE_ERROR))
-      {
-        isUplink = self->_isUplink;
-        v6 = "downlink";
-        *&cf[4] = "ATBlurMixer.mm";
-        *cf = 136316162;
-        v12 = 1024;
-        if (isUplink)
-        {
-          v6 = "uplink";
-        }
-
-        v13 = 193;
-        v14 = 2048;
-        selfCopy = self;
-        v16 = 2080;
-        v17 = v6;
-        v18 = 1024;
-        v19 = v2;
-        _os_log_impl(&dword_1B9A08000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d ATBlurMixer@%p(%s): Error initializing AUDSPGraph, err = %d", cf, 0x2Cu);
-      }
-    }
-
-    else
-    {
-      self->mIsInitialized = 1;
-    }
-
-    if (v9)
-    {
-      CFRelease(v9);
-    }
-
-    if (v10)
-    {
-      CFRelease(v10);
-    }
+    self->mIsInitialized = 1;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
+  if (v8)
+  {
+    CFRelease(v8);
+  }
+
+  if (v9)
+  {
+    CFRelease(v9);
+  }
+
   return v2;
 }
 
 - (int)setAUStrip:(__CFDictionary *)strip propertyStrip:(__CFDictionary *)propertyStrip
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   propertyStripCopy = propertyStrip;
   inData = strip;
   v5 = AudioUnitSetProperty(self->mAUDSPGraph.__ptr_, 0x61757370u, 0, 0, &inData, 8u);
@@ -921,21 +902,21 @@ LABEL_9:
     {
       isUplink = self->_isUplink;
       v9 = "downlink";
-      v18 = "ATBlurMixer.mm";
+      v17 = "ATBlurMixer.mm";
       *buf = 136316162;
-      v19 = 1024;
+      v18 = 1024;
       if (isUplink)
       {
         v9 = "uplink";
       }
 
-      v20 = 155;
-      v21 = 2048;
+      v19 = 155;
+      v20 = 2048;
       selfCopy2 = self;
-      v23 = 2080;
-      v24 = v9;
-      v25 = 1024;
-      v26 = v6;
+      v22 = 2080;
+      v23 = v9;
+      v24 = 1024;
+      v25 = v6;
       v10 = "%25s:%-5d ATBlurMixer@%p(%s): Error setting kAUDSPGraphProperty_AUStrip, err = %d";
 LABEL_11:
       _os_log_impl(&dword_1B9A08000, v7, OS_LOG_TYPE_ERROR, v10, buf, 0x2Cu);
@@ -952,28 +933,27 @@ LABEL_11:
       {
         v11 = self->_isUplink;
         v12 = "downlink";
-        v18 = "ATBlurMixer.mm";
+        v17 = "ATBlurMixer.mm";
         *buf = 136316162;
-        v19 = 1024;
+        v18 = 1024;
         if (v11)
         {
           v12 = "uplink";
         }
 
-        v20 = 166;
-        v21 = 2048;
+        v19 = 166;
+        v20 = 2048;
         selfCopy2 = self;
-        v23 = 2080;
-        v24 = v12;
-        v25 = 1024;
-        v26 = v6;
+        v22 = 2080;
+        v23 = v12;
+        v24 = 1024;
+        v25 = v6;
         v10 = "%25s:%-5d ATBlurMixer@%p(%s): Error setting kAUDSPGraphProperty_PropertyStrip, err = %d";
         goto LABEL_11;
       }
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -1001,75 +981,70 @@ LABEL_11:
 
 - (int)setFormat:(unsigned int)format
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v5 = [(ATBlurMixer *)self getBusCountForScope:?];
-  if (v5)
+  if (!v5)
   {
-    v6 = v5;
-    v7 = 0;
-    while (1)
-    {
-      v8 = AudioUnitSetProperty(self->mAUDSPGraph.__ptr_, 8u, format, v7, &self->mStreamDescription, 0x28u);
-      if (v8)
-      {
-        break;
-      }
+    return 0;
+  }
 
-      if (v6 == ++v7)
-      {
-        goto LABEL_5;
-      }
+  v6 = v5;
+  v7 = 0;
+  while (1)
+  {
+    v8 = AudioUnitSetProperty(self->mAUDSPGraph.__ptr_, 8u, format, v7, &self->mStreamDescription, 0x28u);
+    if (v8)
+    {
+      break;
     }
 
-    v9 = v8;
-    v10 = AT::Translation::gTranslationLog;
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    if (v6 == ++v7)
     {
-      isUplink = self->_isUplink;
-      CAFormatter::CAFormatter(&v16, &self->mStreamDescription);
-      v12 = "output";
-      v18 = "ATBlurMixer.mm";
-      *buf = 136316930;
-      v19 = 1024;
-      if (format == 1)
-      {
-        v12 = "input";
-      }
-
-      v20 = 117;
-      v21 = 2048;
-      v13 = "downlink";
-      selfCopy = self;
-      v23 = 2080;
-      if (isUplink)
-      {
-        v13 = "uplink";
-      }
-
-      v24 = v13;
-      v25 = 2080;
-      v26 = v12;
-      v27 = 2080;
-      v28 = v16;
-      v29 = 1024;
-      v30 = v7;
-      v31 = 1024;
-      v32 = v9;
-      _os_log_impl(&dword_1B9A08000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d ATBlurMixer@%p(%s): Error setting %s stream format (%s) on element = %d, err = %d", buf, 0x46u);
-      if (v16)
-      {
-        free(v16);
-      }
+      return 0;
     }
   }
 
-  else
+  v9 = v8;
+  v10 = AT::Translation::gTranslationLog;
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-LABEL_5:
-    v9 = 0;
+    isUplink = self->_isUplink;
+    CAFormatter::CAFormatter(&v15, &self->mStreamDescription);
+    v12 = "output";
+    v17 = "ATBlurMixer.mm";
+    *buf = 136316930;
+    v18 = 1024;
+    if (format == 1)
+    {
+      v12 = "input";
+    }
+
+    v19 = 117;
+    v20 = 2048;
+    v13 = "downlink";
+    selfCopy = self;
+    v22 = 2080;
+    if (isUplink)
+    {
+      v13 = "uplink";
+    }
+
+    v23 = v13;
+    v24 = 2080;
+    v25 = v12;
+    v26 = 2080;
+    v27 = v15;
+    v28 = 1024;
+    v29 = v7;
+    v30 = 1024;
+    v31 = v9;
+    _os_log_impl(&dword_1B9A08000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d ATBlurMixer@%p(%s): Error setting %s stream format (%s) on element = %d, err = %d", buf, 0x46u);
+    if (v15)
+    {
+      free(v15);
+    }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

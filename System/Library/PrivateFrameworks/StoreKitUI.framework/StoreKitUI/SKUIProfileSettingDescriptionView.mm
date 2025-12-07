@@ -5,6 +5,7 @@
 + (void)requestLayoutForSettingDescription:(id)description width:(double)width context:(id)context;
 - (BOOL)hasDisclosureChevron;
 - (BOOL)setImage:(id)image forArtworkRequest:(id)request context:(id)context;
+- (void)hasDisclosureChevron;
 - (void)layoutSubviews;
 - (void)reloadWithSettingDescription:(id)description width:(double)width context:(id)context;
 @end
@@ -210,80 +211,50 @@
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIProfileSettingDescriptionView *)v3 layoutSubviews:v4];
-      }
-    }
-  }
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProfileSettingDescriptionView layoutSubviews]";
+}
 
-  v41.receiver = self;
-  v41.super_class = SKUIProfileSettingDescriptionView;
-  [(SKUIProfileSettingDescriptionView *)&v41 layoutSubviews];
-  [(SKUISettingDescriptionView *)self layoutMargins];
-  v12 = v11;
-  v14 = v13;
-  [(SKUIProfileSettingDescriptionView *)self bounds];
-  x = v42.origin.x;
-  y = v42.origin.y;
-  width = v42.size.width;
-  height = v42.size.height;
-  v19 = floor((CGRectGetHeight(v42) + -56.0) * 0.5);
-  imageView = self->_imageView;
-  SKUIRectByApplyingUserInterfaceLayoutDirectionInRect(v12, v19, 56.0, 56.0, x, y, width, height);
-  [(SKUIImageView *)imageView setFrame:?];
-  v43.origin.x = v12;
-  v43.origin.y = v19;
-  v43.size.width = 56.0;
-  v43.size.height = 56.0;
-  v21 = CGRectGetMaxX(v43) + 8.0;
-  v44.origin.x = x;
-  v44.origin.y = y;
-  v44.size.width = width;
-  v44.size.height = height;
-  v22 = CGRectGetWidth(v44) - v21 - v14;
-  v23 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D76918]];
-  [(UILabel *)self->_nameLabel setFont:v23];
-  [(UILabel *)self->_nameLabel sizeThatFits:v22, 1.0];
-  v25 = v24;
-  if ([(UILabel *)self->_handleLabel isHidden])
-  {
-    v45.origin.x = x;
-    v45.origin.y = y;
-    v45.size.width = width;
-    v45.size.height = height;
-    v26 = CGRectGetHeight(v45);
-    nameLabel = self->_nameLabel;
-    SKUIRectByApplyingUserInterfaceLayoutDirectionInRect(v21, floor((v26 - v25) * 0.5), v22, v25, x, y, width, height);
-    [(UILabel *)nameLabel setFrame:?];
-  }
++ (void)prefetchResourcesForSettingDescription:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIProfileSettingDescriptionView prefetchResourcesForSettingDescription:reason:context:]";
+}
 
-  else
-  {
-    [v23 _scaledValueForValue:36.0];
-    v29 = v28;
-    [(UILabel *)self->_nameLabel _firstBaselineOffsetFromTop];
-    v31 = self->_nameLabel;
-    SKUIRectByApplyingUserInterfaceLayoutDirectionInRect(v21, v29 - v30, v22, v25, x, y, width, height);
-    [(UILabel *)v31 setFrame:?];
-    v32 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D76940]];
-    [(UILabel *)self->_handleLabel setFont:v32];
-    [(UILabel *)self->_handleLabel sizeThatFits:v22, 1.0];
-    v34 = v33;
-    [v32 _scaledValueForValue:16.0];
-    v36 = v35;
-    [(UILabel *)self->_nameLabel _lastLineBaselineFrameOriginY];
-    v38 = v36 + v37;
-    [(UILabel *)self->_handleLabel _firstBaselineOffsetFromTop];
-    handleLabel = self->_handleLabel;
-    SKUIRectByApplyingUserInterfaceLayoutDirectionInRect(v21, v38 - v39, v22, v34, x, y, width, height);
-    [(UILabel *)handleLabel setFrame:?];
-  }
++ (void)preferredSizeForSettingDescription:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIProfileSettingDescriptionView preferredSizeForSettingDescription:context:]";
+}
+
++ (void)requestLayoutForSettingDescription:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIProfileSettingDescriptionView requestLayoutForSettingDescription:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 settingDescription:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIProfileSettingDescriptionView sizeThatFitsWidth:settingDescription:context:]";
+}
+
+- (void)hasDisclosureChevron
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProfileSettingDescriptionView hasDisclosureChevron]";
+}
+
+- (void)reloadWithSettingDescription:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProfileSettingDescriptionView reloadWithSettingDescription:width:context:]";
+}
+
+- (void)setImage:(uint64_t)a3 forArtworkRequest:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProfileSettingDescriptionView setImage:forArtworkRequest:context:]";
 }
 
 @end

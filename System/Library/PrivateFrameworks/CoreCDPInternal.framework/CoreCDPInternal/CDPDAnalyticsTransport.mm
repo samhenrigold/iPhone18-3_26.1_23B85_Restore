@@ -55,13 +55,13 @@
 
 - (CDPDAnalyticsTransport)initWithClientType:(id)type clientBundleId:(id)id clientName:(id)name
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   idCopy = id;
   nameCopy = name;
-  v28.receiver = self;
-  v28.super_class = CDPDAnalyticsTransport;
-  v12 = [(CDPDAnalyticsTransport *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = CDPDAnalyticsTransport;
+  v12 = [(CDPDAnalyticsTransport *)&v27 init];
   v13 = v12;
   if (v12)
   {
@@ -89,13 +89,13 @@
       v18 = _CDPLogSystem();
       if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
       {
-        v27 = v13->_clientBundleId;
+        v26 = v13->_clientBundleId;
         *buf = 138412802;
-        v30 = typeCopy;
-        v31 = 2112;
-        v32 = v27;
-        v33 = 2112;
-        v34 = nameCopy;
+        v29 = typeCopy;
+        v30 = 2112;
+        v31 = v26;
+        v32 = 2112;
+        v33 = nameCopy;
         _os_log_fault_impl(&dword_24510B000, v18, OS_LOG_TYPE_FAULT, "Underlying transport is nil. clientType = %@, clientBundleId = %@, clientName = %@", buf, 0x20u);
       }
     }
@@ -113,7 +113,6 @@
     v13->_ttrController = v23;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -210,7 +209,21 @@ uint64_t __57__CDPDAnalyticsTransport_getAllEventsForDataSanitization__block_inv
 
 uint64_t __50__CDPDAnalyticsTransport_getAllowedSecurityEvents__block_invoke()
 {
-  getAllowedSecurityEvents_approvedSecurityEvents = [MEMORY[0x277CBEB98] setWithObjects:{@"com.apple.security.primaryAccountAdded", @"com.apple.security.idMSSecurityLevel", @"com.apple.security.cloudKitAccountAvailability", @"com.apple.security.initiatorCreatesPacket1", @"com.apple.security.acceptorCreatesPacket2", @"com.apple.security.kVSSyncAndWait", @"com.apple.security.flush", @"com.apple.security.validatedStashedAccountCredential", @"com.apple.security.initiatorCreatesPacket3", @"com.apple.security.fetchMachineID", @"com.apple.security.prepareIdentityInTPH", @"com.apple.security.createSOSApplication", @"com.apple.security.acceptorCreatesPacket4", @"com.apple.security.verifySOSApplication", @"com.apple.security.createSOSCircleBlob", @"com.apple.security.cKKSTLKFetch", @"com.apple.security.updateTrust", @"com.apple.security.initiatorJoinsTrustSystems", @"com.apple.security.initiatorJoinSOS", @"com.apple.security.updateTDL", @"com.apple.security.fetchAndPersistChanges", @"com.apple.security.fetchPolicyDocument", @"com.apple.security.joinWithVoucher", @"com.apple.security.initiatorWaitsForUpgrade", @"com.apple.security.preApprovedJoin", @"com.apple.security.acceptorCreatesPacket5", @"com.apple.security.initiatorImportsInitialSyncData", @"com.apple.security.acceptorCreatesVoucher", @"com.apple.security.acceptorFetchesInitialSyncData", @"com.apple.security.ckks.launchStart", @"com.apple.security.ckks.syncingPolicySet", @"com.apple.security.ckks.CKAccountLogin", @"com.apple.security.ckks.zoneChangeFetch", @"com.apple.security.ckks.zoneCreation", @"com.apple.security.ckks.trustGain", @"com.apple.security.ckks.trustLoss", @"com.apple.security.ckks.healKeyHierarchy", @"com.apple.security.ckks.healKeyHierarchy.healBrokenRecords", @"com.apple.security.ckks.healKeyHierarchy.uploadHealedTLKShares", @"com.apple.security.ckks.healTLKShares", @"com.apple.security.ckks.healTLKShares.createMissingTLKShares", @"com.apple.security.ckks.healTLKShares.uploadMissingTLKShares", @"com.apple.security.ckks.processIncomingQueue", @"com.apple.security.ckks.processIncomingQueue.loadAndProcessIQEs", @"com.apple.security.ckks.processIncomingQueue.fixMismatchedViewItems", @"com.apple.security.ckks.processReceivedKeys", @"com.apple.security.ckks.scanLocalItems", @"com.apple.security.ckks.scanLocalItems.querySyncableItems", @"com.apple.security.ckks.scanLocalItems.onboardMissingItems", @"com.apple.security.ckks.processOutgoingQueue", @"com.apple.security.ckks.processOutgoingQueue.uploadOQEstoCK", @"com.apple.security.ckks.processOutgoingQueue.saveCKMirrorEntries", @"com.apple.security.ckks.firstManateeKeyFetch", @"com.apple.security.ckks.localSyncFinish", @"com.apple.security.ckks.contentSyncFinish", @"com.apple.security.ckks.deviceLocked", @"com.apple.security.ckks.deviceUnlocked", @"com.apple.security.ckks.localReset", @"com.apple.security.cliqueMemberIdentifier", @"com.apple.security.duplicateMachineID", @"com.apple.security.midVanishedFromTDL"}];
+  objc_msgSend( MEMORY[0x277CBEB98],  "setWithObjects:",  @"com.apple.security.primaryAccountAdded",  @"com.apple.security.idMSSecurityLevel",  @"com.apple.security.cloudKitAccountAvailability",  @"com.apple.security.initiatorCreatesPacket1",  @"com.apple.security.acceptorCreatesPacket2",  @"com.apple.security.kVSSyncAndWait",  @"com.apple.security.flush",  @"com.apple.security.validatedStashedAccountCredential",  @"com.apple.security.initiatorCreatesPacket3",  @"com.apple.security.fetchMachineID",  @"com.apple.security.prepareIdentityInTPH",  @"com.apple.security.createSOSApplication",  @"com.apple.security.acceptorCreatesPacket4",  @"com.apple.security.verifySOSApplication",  @"com.apple.security.createSOSCircleBlob",  @"com.apple.security.cKKSTLKFetch",  @"com.apple.security.updateTrust",  @"com.apple.security.initiatorJoinsTrustSystems",  @"com.apple.security.initiatorJoinSOS",  @"com.apple.security.updateTDL",  @"com.apple.security.fetchAndPersistChanges",  @"com.apple.security.fetchPolicyDocument",  @"com.apple.security.joinWithVoucher",  @"com.apple.security.initiatorWaitsForUpgrade",  @"com.apple.security.preApprovedJoin",  @"com.apple.security.acceptorCreatesPacket5",  @"com.apple.security.initiatorImportsInitialSyncData",  @"com.apple.security.acceptorCreatesVoucher",  @"com.apple.security.acceptorFetchesInitialSyncData",  @"com.apple.security.ckks.launchStart",  @"com.apple.security.ckks.syncingPolicySet",  @"com.apple.security.ckks.CKAccountLogin",  @"com.apple.security.ckks.zoneChangeFetch",  @"com.apple.security.ckks.zoneCreation",  @"com.apple.security.ckks.trustGain",  @"com.apple.security.ckks.trustLoss",  @"com.apple.security.ckks.healKeyHierarchy",  @"com.apple.security.ckks.healKeyHierarchy.healBrokenRecords",  @"com.apple.security.ckks.healKeyHierarchy.uploadHealedTLKShares",  @"com.apple.security.ckks.healTLKShares",  @"com.apple.security.ckks.healTLKShares.createMissingTLKShares",  @"com.apple.security.ckks.healTLKShares.uploadMissingTLKShares",  @"com.apple.security.ckks.processIncomingQueue",  @"com.apple.security.ckks.processIncomingQueue.loadAndProcessIQEs",  @"com.apple.security.ckks.processIncomingQueue.fixMismatchedViewItems",  @"com.apple.security.ckks.processReceivedKeys",  @"com.apple.security.ckks.scanLocalItems",
+    @"com.apple.security.ckks.scanLocalItems.querySyncableItems",
+    @"com.apple.security.ckks.scanLocalItems.onboardMissingItems",
+    @"com.apple.security.ckks.processOutgoingQueue",
+    @"com.apple.security.ckks.processOutgoingQueue.uploadOQEstoCK",
+    @"com.apple.security.ckks.processOutgoingQueue.saveCKMirrorEntries",
+    @"com.apple.security.ckks.firstManateeKeyFetch",
+    @"com.apple.security.ckks.localSyncFinish",
+    @"com.apple.security.ckks.contentSyncFinish",
+    @"com.apple.security.ckks.deviceLocked",
+    @"com.apple.security.ckks.deviceUnlocked",
+    @"com.apple.security.ckks.localReset",
+    @"com.apple.security.cliqueMemberIdentifier",
+    @"com.apple.security.duplicateMachineID",
+  getAllowedSecurityEvents_approvedSecurityEvents = @"com.apple.security.midVanishedFromTDL");
 
   return MEMORY[0x2821F96F8]();
 }
@@ -272,10 +285,10 @@ void __45__CDPDAnalyticsTransport_getAllowedDNUEvents__block_invoke(uint64_t a1)
 
 void __45__CDPDAnalyticsTransport_getAllowedADPEvents__block_invoke(uint64_t a1)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB58];
-  v13[0] = *MEMORY[0x277CFD700];
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = *MEMORY[0x277CFD700];
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   v4 = [v2 setWithArray:v3];
   v5 = getAllowedADPEvents_approvedADPEvents;
   getAllowedADPEvents_approvedADPEvents = v4;
@@ -293,8 +306,6 @@ void __45__CDPDAnalyticsTransport_getAllowedADPEvents__block_invoke(uint64_t a1)
   v10 = [v6 copy];
   v11 = getAllowedADPEvents_approvedADPEvents;
   getAllowedADPEvents_approvedADPEvents = v10;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (id)getAllowedAccountAccessEvents
@@ -335,185 +346,159 @@ uint64_t __55__CDPDAnalyticsTransport_getAllowedAccountAccessEvents__block_invok
 
 void __55__CDPDAnalyticsTransport_getApprovedEventsForADPAndDNU__block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277CE4568];
-  v31 = *MEMORY[0x277CFD658];
-  v30 = *MEMORY[0x277CFD7C0];
-  v29 = *MEMORY[0x277CFD800];
-  v28 = *MEMORY[0x277CFD7B0];
-  v27 = *MEMORY[0x277CFD848];
-  v26 = *MEMORY[0x277CFD868];
-  v25 = *MEMORY[0x277CFD858];
-  v24 = *MEMORY[0x277CFD8C8];
-  v23 = *MEMORY[0x277CFD6E8];
-  v22 = *MEMORY[0x277CFD678];
-  v21 = *MEMORY[0x277CFD738];
-  v20 = *MEMORY[0x277CFD698];
-  v19 = *MEMORY[0x277CFD8D0];
-  v18 = *MEMORY[0x277CFD8D8];
-  v17 = *MEMORY[0x277CFD700];
-  v16 = *MEMORY[0x277CFD8B8];
-  v15 = *MEMORY[0x277CFD6F8];
-  v14 = *MEMORY[0x277CFD8E8];
-  v13 = *MEMORY[0x277CFD8F0];
-  v12 = *MEMORY[0x277CEC8F8];
-  v11 = *MEMORY[0x277CFD620];
-  v10 = *MEMORY[0x277CFD628];
-  v9 = *MEMORY[0x277CFD630];
-  v8 = *MEMORY[0x277CFD638];
-  v7 = *MEMORY[0x277CFD640];
   v1 = [MEMORY[0x277CBEB58] setWithObjects:{*MEMORY[0x277CFD728], *MEMORY[0x277CFD768], *MEMORY[0x277CFD648], *MEMORY[0x277CFD690], *MEMORY[0x277CFD880], *MEMORY[0x277CFD820], *MEMORY[0x277CFD828], *MEMORY[0x277CFD6D0], *MEMORY[0x277CFD6E0], *MEMORY[0x277CFD6B0], *MEMORY[0x277CFD898], *MEMORY[0x277CFD740], *MEMORY[0x277CFD830], *MEMORY[0x277CFD7D0], *MEMORY[0x277CFD6F0], *MEMORY[0x277CFD708], *MEMORY[0x277CFD890], *MEMORY[0x277CFD888], *MEMORY[0x277CFD650], *MEMORY[0x277CE45D0], *MEMORY[0x277CE4570], *MEMORY[0x277CE4568], *MEMORY[0x277CFD660], *MEMORY[0x277CFD658], *MEMORY[0x277CFD6A8], *MEMORY[0x277CFD7C0], *MEMORY[0x277CFD7C8], *MEMORY[0x277CFD800], *MEMORY[0x277CFD7B8], *MEMORY[0x277CFD7B0], *MEMORY[0x277CFD750], *MEMORY[0x277CFD848], *MEMORY[0x277CFD850], *MEMORY[0x277CFD868], *MEMORY[0x277CFD860], *MEMORY[0x277CFD858], *MEMORY[0x277CFD840], *MEMORY[0x277CFD8C8], *MEMORY[0x277CFD8E0], kAKAnalyticsEventMIDInvalidation, @"com.apple.authkit.proximityAuthentication", *MEMORY[0x277CFD838], @"com.apple.appleaccount.iCloudAuthLoginAndUpdate", @"com.apple.appleaccount.iCloudAuthPreflightSave", *MEMORY[0x277CFD730], @"com.apple.appleid.accountHealthEvent", @"com.apple.appleaccount.iCloudAccountAdd", *MEMORY[0x277CFD8C0], *MEMORY[0x277CFD7D8], @"com.apple.appleaccount.escapeOfferSelected", *MEMORY[0x277CEC8E8], *MEMORY[0x277CEC8E0], *MEMORY[0x277CEC8D0], *MEMORY[0x277CEC8D8], *MEMORY[0x277CEC8A0], *MEMORY[0x277CEC8B8], *MEMORY[0x277CEC8C8], *MEMORY[0x277CEC8B0], *MEMORY[0x277CEC8A8], @"com.apple.authkit.baa.signing.cached", @"com.apple.authkit.baa.signing"}];
   v2 = getApprovedEventsForADPAndDNU_approvedEvents;
   getApprovedEventsForADPAndDNU_approvedEvents = v1;
 
-  v34 = [MEMORY[0x277CBEB58] setWithSet:getApprovedEventsForADPAndDNU_approvedEvents];
+  v8 = [MEMORY[0x277CBEB58] setWithSet:getApprovedEventsForADPAndDNU_approvedEvents];
   v3 = [*(a1 + 32) getAllowedSecurityEvents];
-  [v34 unionSet:v3];
+  [v8 unionSet:v3];
 
   v4 = [*(a1 + 32) approvedRecoveryContactEventsForADPAndDNU];
-  [v34 unionSet:v4];
+  [v8 unionSet:v4];
 
-  v5 = [v34 copy];
+  v5 = [v8 copy];
   v6 = getApprovedEventsForADPAndDNU_approvedEvents;
   getApprovedEventsForADPAndDNU_approvedEvents = v5;
 }
 
 + (id)approvedRecoveryContactEventsForADPAndDNU
 {
-  v33[13] = *MEMORY[0x277D85DE8];
+  v32[13] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v33[0] = @"com.apple.appleAccount.recoveryContactCodeEntryLanding";
-  v33[1] = @"com.apple.appleAccount.recoveryContactRecoveryLanding";
+  v32[0] = @"com.apple.appleAccount.recoveryContactCodeEntryLanding";
+  v32[1] = @"com.apple.appleAccount.recoveryContactRecoveryLanding";
   v3 = *MEMORY[0x277CFD7E8];
-  v33[2] = *MEMORY[0x277CFD7F0];
-  v33[3] = v3;
-  v33[4] = *MEMORY[0x277CFD7E0];
-  v33[5] = @"com.apple.appleaccount.addRecoveryContactLanding";
-  v33[6] = @"com.apple.appleaccount.localSecretCollection";
-  v33[7] = @"com.apple.appleaccount.selectRecoveryContact";
-  v33[8] = @"com.apple.appleaccount.recoveryContactSendMessageLanding";
-  v33[9] = @"com.apple.appleaccount.custodian.ui.openAccountRecovery";
-  v33[10] = @"com.apple.appleaccount.custodian.ui.exitAccountRecovery";
-  v33[11] = @"com.apple.appleaccount.custodian.ui.openCustodianDetails";
-  v33[12] = @"com.apple.appleaccount.custodian.ui.exitCustodianDetails";
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:13];
+  v32[2] = *MEMORY[0x277CFD7F0];
+  v32[3] = v3;
+  v32[4] = *MEMORY[0x277CFD7E0];
+  v32[5] = @"com.apple.appleaccount.addRecoveryContactLanding";
+  v32[6] = @"com.apple.appleaccount.localSecretCollection";
+  v32[7] = @"com.apple.appleaccount.selectRecoveryContact";
+  v32[8] = @"com.apple.appleaccount.recoveryContactSendMessageLanding";
+  v32[9] = @"com.apple.appleaccount.custodian.ui.openAccountRecovery";
+  v32[10] = @"com.apple.appleaccount.custodian.ui.exitAccountRecovery";
+  v32[11] = @"com.apple.appleaccount.custodian.ui.openCustodianDetails";
+  v32[12] = @"com.apple.appleaccount.custodian.ui.exitCustodianDetails";
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:13];
   v5 = [v2 setWithArray:v4];
 
   v6 = MEMORY[0x277CBEB98];
   v7 = *MEMORY[0x277CEC978];
-  v32[0] = *MEMORY[0x277CEC970];
-  v32[1] = v7;
-  v32[2] = *MEMORY[0x277CEC918];
-  v32[3] = @"com.apple.appleaccount.custodian.preflight.crk.stateChangedFromGoodToBad";
-  v32[4] = @"com.apple.appleaccount.custodian.healthcheck.owner";
-  v32[5] = @"com.apple.appleaccount.custodian.healthcheck.owner.sendRecoveryInfoMessage";
-  v32[6] = @"com.apple.appleaccount.custodian.healthcheck.owner.confirmCustodianWithServer";
-  v32[7] = @"com.apple.appleaccount.custodian.healthcheck.owner.finalizeSetupWithServer";
-  v32[8] = @"com.apple.appleaccount.fetchUserInfo";
-  v32[9] = @"com.apple.appleaccount.custodian.healthcheck.ownerUpdatedCustodianRecord";
-  v32[10] = @"com.apple.appleaccount.custodian.healthcheck.custodian";
-  v32[11] = @"com.apple.appleaccount.custodian.healthcheck.incompleteinvitation.custodianResendInvitationAcceptanceMessage";
-  v32[12] = @"com.apple.appleaccount.custodian.setupFailSafe.pending";
-  v32[13] = @"com.apple.appleaccount.custodian.setupFailSafe.ready";
-  v32[14] = @"com.apple.appleaccount.custodian.setupFailSafe.gracePeriodExpired";
-  v32[15] = @"com.apple.appleaccount.custodian.setupFailSafe.tearDown";
-  v32[16] = @"com.apple.appleaccount.custodian.setupFailSafe";
-  v32[17] = @"com.apple.appleaccount.custodian.setupFailSafe.healthCheckRun";
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:18];
+  v31[0] = *MEMORY[0x277CEC970];
+  v31[1] = v7;
+  v31[2] = *MEMORY[0x277CEC918];
+  v31[3] = @"com.apple.appleaccount.custodian.preflight.crk.stateChangedFromGoodToBad";
+  v31[4] = @"com.apple.appleaccount.custodian.healthcheck.owner";
+  v31[5] = @"com.apple.appleaccount.custodian.healthcheck.owner.sendRecoveryInfoMessage";
+  v31[6] = @"com.apple.appleaccount.custodian.healthcheck.owner.confirmCustodianWithServer";
+  v31[7] = @"com.apple.appleaccount.custodian.healthcheck.owner.finalizeSetupWithServer";
+  v31[8] = @"com.apple.appleaccount.fetchUserInfo";
+  v31[9] = @"com.apple.appleaccount.custodian.healthcheck.ownerUpdatedCustodianRecord";
+  v31[10] = @"com.apple.appleaccount.custodian.healthcheck.custodian";
+  v31[11] = @"com.apple.appleaccount.custodian.healthcheck.incompleteinvitation.custodianResendInvitationAcceptanceMessage";
+  v31[12] = @"com.apple.appleaccount.custodian.setupFailSafe.pending";
+  v31[13] = @"com.apple.appleaccount.custodian.setupFailSafe.ready";
+  v31[14] = @"com.apple.appleaccount.custodian.setupFailSafe.gracePeriodExpired";
+  v31[15] = @"com.apple.appleaccount.custodian.setupFailSafe.tearDown";
+  v31[16] = @"com.apple.appleaccount.custodian.setupFailSafe";
+  v31[17] = @"com.apple.appleaccount.custodian.setupFailSafe.healthCheckRun";
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:18];
   v9 = [v6 setWithArray:v8];
 
   v10 = MEMORY[0x277CBEB98];
   v11 = *MEMORY[0x277CEC928];
-  v31[0] = *MEMORY[0x277CEC910];
-  v31[1] = v11;
+  v30[0] = *MEMORY[0x277CEC910];
+  v30[1] = v11;
   v12 = *MEMORY[0x277CEC938];
-  v31[2] = *MEMORY[0x277CEC930];
-  v31[3] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:4];
+  v30[2] = *MEMORY[0x277CEC930];
+  v30[3] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:4];
   v14 = [v10 setWithArray:v13];
 
   v15 = [MEMORY[0x277CBEB98] setWithArray:&unk_285822318];
   v16 = MEMORY[0x277CBEB98];
   v17 = *MEMORY[0x277CEC8C0];
-  v30[0] = @"com.apple.appleaccount.recoveryContactInviteSent";
-  v30[1] = v17;
-  v30[2] = @"com.apple.appleaccount.custodianFirstTimeSetup";
-  v30[3] = @"com.apple.appleaccount.familyCustodianAdded";
+  v29[0] = @"com.apple.appleaccount.recoveryContactInviteSent";
+  v29[1] = v17;
+  v29[2] = @"com.apple.appleaccount.custodianFirstTimeSetup";
+  v29[3] = @"com.apple.appleaccount.familyCustodianAdded";
   v18 = *MEMORY[0x277CEC920];
-  v30[4] = @"com.apple.appleaccount.custodianInviteSent";
-  v30[5] = v18;
-  v30[6] = @"com.apple.appleaccount.custodian.setup.newCustodian";
-  v30[7] = @"com.apple.appleaccount.custodian.setup.ownerGenerateCustodianRecoveryKey";
-  v30[8] = @"com.apple.appleaccount.custodian.setup.ownerGenerateEncryptedCPRK";
-  v30[9] = @"com.apple.appleaccount.custodian.setup.ownerStoredCustodianRecordToCloud";
-  v30[10] = @"com.apple.appleaccount.custodian.setup.sendInvitation";
-  v30[11] = @"com.apple.appleaccount.custodian.setup.resendInvitation";
-  v30[12] = @"com.apple.appleaccount.custodian.setup.processInvitationAcceptanceResponse";
-  v30[13] = @"com.apple.appleaccount.custodian.setup.processInvitationDeclineResponse";
-  v30[14] = @"com.apple.appleaccount.custodian.setup.processDecline.cleanup";
-  v30[15] = @"com.apple.appleaccount.custodian.setup.processNotReachable";
-  v30[16] = @"com.apple.appleaccount.custodian.setup.ownerUpdatedCustodianRecord";
-  v30[17] = @"com.apple.appleaccount.custodian.setup.processAccept.fetchRecoveryInfo";
-  v30[18] = @"com.apple.appleaccount.custodian.setup.processAccept.createRecoveryInfoShare";
-  v30[19] = @"com.apple.appleaccount.custodian.setup.processAccept.sendRecoveryInfoMessage";
-  v30[20] = @"com.apple.appleaccount.custodian.setup.processFinalizeSetupMessage";
-  v30[21] = @"com.apple.appleaccount.custodian.setup.finalizeSetupWithServer";
-  v30[22] = @"com.apple.appleaccount.custodian.setup.remove.sendRemovalMessageToCustodian";
-  v30[23] = @"com.apple.appleaccount.custodian.setup.cleanup.revokeCustodianFromServer";
-  v30[24] = @"com.apple.appleaccount.custodian.setup.cleanup.deleteRecoveryKeyByCustodianIDFromSecurity";
-  v30[25] = @"com.apple.appleaccount.custodian.setup.cleanup.deleteRecoveryKeyByOctagonIDFromSecurity";
-  v30[26] = @"com.apple.appleaccount.custodian.setup.cleanup.deleteCustodianshipRecordFromCloud";
-  v30[27] = @"com.apple.appleaccount.custodian.setup.processInvitation";
-  v30[28] = @"com.apple.appleaccount.custodian.setup.accountEligibilityCheck";
-  v30[29] = @"com.apple.appleaccount.custodian.setup.familyMemberCheck";
-  v30[30] = @"com.apple.appleaccount.custodian.setup.storeInvitationToCloud";
-  v30[31] = @"com.apple.appleaccount.custodian.setup.invitationProcessedForManualAccept";
-  v30[32] = @"com.apple.appleaccount.custodian.setup.accountNotEligible";
-  v30[33] = @"com.apple.appleaccount.custodian.setup.sendAutoAcceptInvitationMessage";
-  v30[34] = @"com.apple.appleaccount.custodian.setup.processSharedRecoveryInfo";
-  v30[35] = @"com.apple.appleaccount.custodian.setup.acceptSharedRecoveryInfo";
-  v30[36] = @"com.apple.appleaccount.custodian.setup.sendFinalizeSetupMessage";
-  v30[37] = @"com.apple.appleaccount.custodian.setup.processRemoveCustodian";
-  v30[38] = @"com.apple.appleaccount.custodian.setup.stopBeingCustodian";
-  v30[39] = @"com.apple.appleaccount.custodian.setup.respondToInvite";
-  v30[40] = @"com.apple.appleaccount.custodian.setup.custodianUpdatedCustodianshipRecord";
-  v30[41] = @"com.apple.appleaccount.custodian.setup.sendInvitationAcceptanceMessage";
-  v30[42] = @"com.apple.appleaccount.custodian.setup.sendInvitationDeclineMessage";
-  v30[43] = @"com.apple.appleaccount.custodian.decodeIDSMessage";
-  v30[44] = @"com.apple.appleaccount.custodian.setup.newCustodian.signpost.begin";
-  v30[45] = @"com.apple.appleaccount.custodian.setup.processInvitation.signpost.begin";
-  v30[46] = @"com.apple.appleaccount.custodian.setup.respondToInvite.signpost.begin";
-  v30[47] = @"com.apple.appleaccount.custodian.setup.processInvitationResponse.signpost.begin";
-  v30[48] = @"com.apple.appleaccount.custodian.setup.processSharedRecoveryInfosignpost.begin";
-  v30[49] = @"com.apple.appleaccount.custodian.setup.processFinalizeSetupMessage.begin";
-  v30[50] = @"com.apple.appleaccount.custodian.setup.success";
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:51];
+  v29[4] = @"com.apple.appleaccount.custodianInviteSent";
+  v29[5] = v18;
+  v29[6] = @"com.apple.appleaccount.custodian.setup.newCustodian";
+  v29[7] = @"com.apple.appleaccount.custodian.setup.ownerGenerateCustodianRecoveryKey";
+  v29[8] = @"com.apple.appleaccount.custodian.setup.ownerGenerateEncryptedCPRK";
+  v29[9] = @"com.apple.appleaccount.custodian.setup.ownerStoredCustodianRecordToCloud";
+  v29[10] = @"com.apple.appleaccount.custodian.setup.sendInvitation";
+  v29[11] = @"com.apple.appleaccount.custodian.setup.resendInvitation";
+  v29[12] = @"com.apple.appleaccount.custodian.setup.processInvitationAcceptanceResponse";
+  v29[13] = @"com.apple.appleaccount.custodian.setup.processInvitationDeclineResponse";
+  v29[14] = @"com.apple.appleaccount.custodian.setup.processDecline.cleanup";
+  v29[15] = @"com.apple.appleaccount.custodian.setup.processNotReachable";
+  v29[16] = @"com.apple.appleaccount.custodian.setup.ownerUpdatedCustodianRecord";
+  v29[17] = @"com.apple.appleaccount.custodian.setup.processAccept.fetchRecoveryInfo";
+  v29[18] = @"com.apple.appleaccount.custodian.setup.processAccept.createRecoveryInfoShare";
+  v29[19] = @"com.apple.appleaccount.custodian.setup.processAccept.sendRecoveryInfoMessage";
+  v29[20] = @"com.apple.appleaccount.custodian.setup.processFinalizeSetupMessage";
+  v29[21] = @"com.apple.appleaccount.custodian.setup.finalizeSetupWithServer";
+  v29[22] = @"com.apple.appleaccount.custodian.setup.remove.sendRemovalMessageToCustodian";
+  v29[23] = @"com.apple.appleaccount.custodian.setup.cleanup.revokeCustodianFromServer";
+  v29[24] = @"com.apple.appleaccount.custodian.setup.cleanup.deleteRecoveryKeyByCustodianIDFromSecurity";
+  v29[25] = @"com.apple.appleaccount.custodian.setup.cleanup.deleteRecoveryKeyByOctagonIDFromSecurity";
+  v29[26] = @"com.apple.appleaccount.custodian.setup.cleanup.deleteCustodianshipRecordFromCloud";
+  v29[27] = @"com.apple.appleaccount.custodian.setup.processInvitation";
+  v29[28] = @"com.apple.appleaccount.custodian.setup.accountEligibilityCheck";
+  v29[29] = @"com.apple.appleaccount.custodian.setup.familyMemberCheck";
+  v29[30] = @"com.apple.appleaccount.custodian.setup.storeInvitationToCloud";
+  v29[31] = @"com.apple.appleaccount.custodian.setup.invitationProcessedForManualAccept";
+  v29[32] = @"com.apple.appleaccount.custodian.setup.accountNotEligible";
+  v29[33] = @"com.apple.appleaccount.custodian.setup.sendAutoAcceptInvitationMessage";
+  v29[34] = @"com.apple.appleaccount.custodian.setup.processSharedRecoveryInfo";
+  v29[35] = @"com.apple.appleaccount.custodian.setup.acceptSharedRecoveryInfo";
+  v29[36] = @"com.apple.appleaccount.custodian.setup.sendFinalizeSetupMessage";
+  v29[37] = @"com.apple.appleaccount.custodian.setup.processRemoveCustodian";
+  v29[38] = @"com.apple.appleaccount.custodian.setup.stopBeingCustodian";
+  v29[39] = @"com.apple.appleaccount.custodian.setup.respondToInvite";
+  v29[40] = @"com.apple.appleaccount.custodian.setup.custodianUpdatedCustodianshipRecord";
+  v29[41] = @"com.apple.appleaccount.custodian.setup.sendInvitationAcceptanceMessage";
+  v29[42] = @"com.apple.appleaccount.custodian.setup.sendInvitationDeclineMessage";
+  v29[43] = @"com.apple.appleaccount.custodian.decodeIDSMessage";
+  v29[44] = @"com.apple.appleaccount.custodian.setup.newCustodian.signpost.begin";
+  v29[45] = @"com.apple.appleaccount.custodian.setup.processInvitation.signpost.begin";
+  v29[46] = @"com.apple.appleaccount.custodian.setup.respondToInvite.signpost.begin";
+  v29[47] = @"com.apple.appleaccount.custodian.setup.processInvitationResponse.signpost.begin";
+  v29[48] = @"com.apple.appleaccount.custodian.setup.processSharedRecoveryInfosignpost.begin";
+  v29[49] = @"com.apple.appleaccount.custodian.setup.processFinalizeSetupMessage.begin";
+  v29[50] = @"com.apple.appleaccount.custodian.setup.success";
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:51];
   v20 = [v16 setWithArray:v19];
 
   v21 = MEMORY[0x277CBEB98];
-  v29[0] = *MEMORY[0x277CEC908];
-  v29[1] = @"com.apple.appleaccount.custodian.fetchRecoveryConfiguration";
-  v29[2] = @"com.apple.appleaccount.custodian.generate";
-  v29[3] = @"com.apple.appleaccount.custodian.fetchCustodianshipInfo";
-  v29[4] = @"com.apple.appleaccount.custodian.fetchRecoveryInfo";
-  v29[5] = @"com.apple.appleaccount.custodian.fetchCustodianHealthRecord";
-  v29[6] = @"com.apple.appleaccount.custodian.fetchRecoverySessionCreatedByOwner";
-  v29[7] = @"com.apple.appleaccount.custodian.keyexchange.begin";
-  v29[8] = @"com.apple.appleaccount.custodian.keyexchange.generateCustodianKeys";
-  v29[9] = @"com.apple.appleaccount.custodian.keyexchange.generateOwnerKeys";
-  v29[10] = @"com.apple.appleaccount.custodian.keyexchange.finalize";
-  v29[11] = @"com.apple.appleaccount.custodian.keyexchange.complete";
-  v29[12] = @"com.apple.appleaccount.custodian.keyexchange.error";
-  v29[13] = @"com.apple.appleaccount.custodian.keyexchange.sendMessage";
-  v29[14] = @"com.apple.appleaccount.custodian.keyexchange.retry";
-  v29[15] = @"com.apple.appleaccount.custodian.recovery.ownerCreateSession";
-  v29[16] = @"com.apple.appleaccount.custodian.dataRecovery";
-  v29[17] = @"com.apple.appleaccount.custodian.accountRecovery";
-  v29[18] = @"com.apple.appleaccount.custodian.recovery.fetchAPSToken";
-  v29[19] = @"com.apple.appleaccount.custodian.recovery.initializeSessionWithServer";
-  v29[20] = @"com.apple.appleaccount.custodian.recovery.ownerValidateCode";
-  v29[21] = @"com.apple.appleaccount.custodian.recovery.ownerFetchCustodianRecoveryKeys";
-  v29[22] = @"com.apple.appleaccount.custodian.recovery.cancel";
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:23];
+  v28[0] = *MEMORY[0x277CEC908];
+  v28[1] = @"com.apple.appleaccount.custodian.fetchRecoveryConfiguration";
+  v28[2] = @"com.apple.appleaccount.custodian.generate";
+  v28[3] = @"com.apple.appleaccount.custodian.fetchCustodianshipInfo";
+  v28[4] = @"com.apple.appleaccount.custodian.fetchRecoveryInfo";
+  v28[5] = @"com.apple.appleaccount.custodian.fetchCustodianHealthRecord";
+  v28[6] = @"com.apple.appleaccount.custodian.fetchRecoverySessionCreatedByOwner";
+  v28[7] = @"com.apple.appleaccount.custodian.keyexchange.begin";
+  v28[8] = @"com.apple.appleaccount.custodian.keyexchange.generateCustodianKeys";
+  v28[9] = @"com.apple.appleaccount.custodian.keyexchange.generateOwnerKeys";
+  v28[10] = @"com.apple.appleaccount.custodian.keyexchange.finalize";
+  v28[11] = @"com.apple.appleaccount.custodian.keyexchange.complete";
+  v28[12] = @"com.apple.appleaccount.custodian.keyexchange.error";
+  v28[13] = @"com.apple.appleaccount.custodian.keyexchange.sendMessage";
+  v28[14] = @"com.apple.appleaccount.custodian.keyexchange.retry";
+  v28[15] = @"com.apple.appleaccount.custodian.recovery.ownerCreateSession";
+  v28[16] = @"com.apple.appleaccount.custodian.dataRecovery";
+  v28[17] = @"com.apple.appleaccount.custodian.accountRecovery";
+  v28[18] = @"com.apple.appleaccount.custodian.recovery.fetchAPSToken";
+  v28[19] = @"com.apple.appleaccount.custodian.recovery.initializeSessionWithServer";
+  v28[20] = @"com.apple.appleaccount.custodian.recovery.ownerValidateCode";
+  v28[21] = @"com.apple.appleaccount.custodian.recovery.ownerFetchCustodianRecoveryKeys";
+  v28[22] = @"com.apple.appleaccount.custodian.recovery.cancel";
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:23];
   v23 = [v21 setWithArray:v22];
 
   v24 = [MEMORY[0x277CBEB98] setWithArray:&unk_285822330];
@@ -527,8 +512,6 @@ void __55__CDPDAnalyticsTransport_getApprovedEventsForADPAndDNU__block_invoke(ui
   [v26 unionSet:v24];
   [v26 unionSet:v25];
   [v26 unionSet:v15];
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
@@ -632,21 +615,17 @@ uint64_t __51__CDPDAnalyticsTransport_getAllowedLocalSecretType__block_invoke()
 
 void __47__CDPDAnalyticsTransport_getAllowedEscapeOffer__block_invoke(uint64_t a1)
 {
-  v1 = *MEMORY[0x277CFD948];
-  v2 = *MEMORY[0x277CFD998];
-  v3 = *MEMORY[0x277CFD9A0];
-  v4 = *MEMORY[0x277CFD970];
-  v5 = [MEMORY[0x277CBEB98] setWithObjects:{*MEMORY[0x277CFD950], *MEMORY[0x277CFD958], *MEMORY[0x277CFD968], *MEMORY[0x277CFD978], *MEMORY[0x277CFD980], *MEMORY[0x277CFD988], *MEMORY[0x277CFDA38], *MEMORY[0x277CFDA40], *MEMORY[0x277CFDA48], *MEMORY[0x277CFD938], *MEMORY[0x277CFD940], *MEMORY[0x277CFD948], *MEMORY[0x277CFD990], *MEMORY[0x277CFD998], *MEMORY[0x277CFD9A8], *MEMORY[0x277CFD9A0], *MEMORY[0x277CFD9B8], *MEMORY[0x277CFD9C0], *MEMORY[0x277CFD9C8], *MEMORY[0x277CFD9D0], *MEMORY[0x277CFD9D8], *MEMORY[0x277CFD9E0], *MEMORY[0x277CFD9E8], *MEMORY[0x277CFD9F0], *MEMORY[0x277CFD9F8], *MEMORY[0x277CFDA00], *MEMORY[0x277CFDA08], *MEMORY[0x277CFDA10], *MEMORY[0x277CFDA18], *MEMORY[0x277CFDA20], *MEMORY[0x277CFDA30], *MEMORY[0x277CFD970], *MEMORY[0x277CFDA28], *MEMORY[0x277CFD960], 0}];
-  v6 = getAllowedEscapeOffer_approvedEscapeOffers;
-  getAllowedEscapeOffer_approvedEscapeOffers = v5;
+  v1 = [MEMORY[0x277CBEB98] setWithObjects:{*MEMORY[0x277CFD950], *MEMORY[0x277CFD958], *MEMORY[0x277CFD968], *MEMORY[0x277CFD978], *MEMORY[0x277CFD980], *MEMORY[0x277CFD988], *MEMORY[0x277CFDA38], *MEMORY[0x277CFDA40], *MEMORY[0x277CFDA48], *MEMORY[0x277CFD938], *MEMORY[0x277CFD940], *MEMORY[0x277CFD948], *MEMORY[0x277CFD990], *MEMORY[0x277CFD998], *MEMORY[0x277CFD9A8], *MEMORY[0x277CFD9A0], *MEMORY[0x277CFD9B8], *MEMORY[0x277CFD9C0], *MEMORY[0x277CFD9C8], *MEMORY[0x277CFD9D0], *MEMORY[0x277CFD9D8], *MEMORY[0x277CFD9E0], *MEMORY[0x277CFD9E8], *MEMORY[0x277CFD9F0], *MEMORY[0x277CFD9F8], *MEMORY[0x277CFDA00], *MEMORY[0x277CFDA08], *MEMORY[0x277CFDA10], *MEMORY[0x277CFDA18], *MEMORY[0x277CFDA20], *MEMORY[0x277CFDA30], *MEMORY[0x277CFD970], *MEMORY[0x277CFDA28], *MEMORY[0x277CFD960], 0}];
+  v2 = getAllowedEscapeOffer_approvedEscapeOffers;
+  getAllowedEscapeOffer_approvedEscapeOffers = v1;
 
-  v11 = [MEMORY[0x277CBEB58] setWithSet:getAllowedEscapeOffer_approvedEscapeOffers];
-  v7 = [*(a1 + 32) getAllowedElementIdentifiers];
-  [v11 unionSet:v7];
+  v7 = [MEMORY[0x277CBEB58] setWithSet:getAllowedEscapeOffer_approvedEscapeOffers];
+  v3 = [*(a1 + 32) getAllowedElementIdentifiers];
+  [v7 unionSet:v3];
 
-  v8 = [v11 copy];
-  v9 = getAllowedEscapeOffer_approvedEscapeOffers;
-  getAllowedEscapeOffer_approvedEscapeOffers = v8;
+  v4 = [v7 copy];
+  v5 = getAllowedEscapeOffer_approvedEscapeOffers;
+  getAllowedEscapeOffer_approvedEscapeOffers = v4;
 }
 
 + (id)getAllowedErrorDomain
@@ -663,8 +642,6 @@ void __47__CDPDAnalyticsTransport_getAllowedEscapeOffer__block_invoke(uint64_t a
 
 uint64_t __47__CDPDAnalyticsTransport_getAllowedErrorDomain__block_invoke()
 {
-  v0 = *MEMORY[0x277CCA590];
-  v1 = *MEMORY[0x277CFB298];
   getAllowedErrorDomain_approvedErrorDomains = [MEMORY[0x277CBEB98] setWithObjects:{*MEMORY[0x277CCA050], *MEMORY[0x277CCA590], *MEMORY[0x277CCA5B8], *MEMORY[0x277CCA738], *MEMORY[0x277CDBCF8], *MEMORY[0x277CBBF50], *MEMORY[0x277CBBF98], *MEMORY[0x277CBE2C8], *MEMORY[0x277CFD418], *MEMORY[0x277CEFF48], *MEMORY[0x277CFB2F0], *MEMORY[0x277CFB298], *MEMORY[0x277CFB290], *MEMORY[0x277CEFF18], @"securityd", @"EscrowProxyErrorDomain", @"FLErrorDomain", @"SyncedDefaults", @"AKUnderlyingADIErrors", @"CKKSResultOperationError", @"com.apple.security.trustedpeers", @"com.apple.security.trustedpeers.EscrowKeys", @"com.apple.security.trustedpeers.container", @"com.apple.security.trustedpeers.peerstatus", @"com.apple.security.sos.error", @"com.apple.security.keychaincircle", @"com.apple.LocalAuthentication", @"com.apple.AppleIDAuthSupport", @"com.apple.appleaccount", @"com.apple.protectedcloudstorage", @"com.apple.security.octagon", @"com.apple.accounts", @"com.apple.accounts.keychain", @"AOSErrorDomain", @"AKAuthenticationServerError", @"com.apple.AppleAccount.Error", @"com.apple.utilities.sqlite3", @"com.apple.security.kcparingchannel", @"CKKSResultOperationDescriptionError", @"com.appple.ckks.state", @"com.apple.security.octagon.state", @"AACustodianErrors", @"AACustodianRecoveryErrors", @"CKKSResultOperationDescriptionError", @"com.apple.security.trustedpeers.RecoveryKeySetError", @"com.apple.security.octagon.state", @"com.apple.MobileActivation.ErrorDomain", @"com.apple.MobileActivation.ServerErrorDomain", @"CryptoTokenKit", @"AACustodianSystemStateError", 0}];
 
   return MEMORY[0x2821F96F8]();
@@ -741,55 +718,67 @@ uint64_t __46__CDPDAnalyticsTransport_getAllowedHandlerKey__block_invoke()
 
 uint64_t __54__CDPDAnalyticsTransport_getAllowedElementIdentifiers__block_invoke()
 {
-  getAllowedElementIdentifiers_approvedElementIdentifiers = [MEMORY[0x277CBEB98] setWithObjects:{@"com.apple.remoteui.iforgot_account_inactive", @"com.apple.remoteui.iforgot_account_locked", @"com.apple.remoteui.iforgot_account_not-eligible", @"com.apple.remoteui.iforgot_appleid_locked", @"com.apple.remoteui.iforgot_appleid_settings_dismiss", @"com.apple.remoteui.iforgot_dismiss", @"com.apple.remoteui.iforgot_email_add", @"com.apple.remoteui.iforgot_embargo_cancel", @"com.apple.remoteui.iforgot_embargo_cancel_page", @"com.apple.remoteui.iforgot_embargo_cancel_choice_1", @"com.apple.remoteui.iforgot_embargo_cancel_teardown", @"com.apple.remoteui.iforgot_embargo_inprogress", @"com.apple.remoteui.iforgot_embargo_inprogress_page", @"com.apple.remoteui.iforgot_embargo_inprogress_multiChoice_2", @"com.apple.remoteui.iforgot_embargo_inprogress_multiChoice_1", @"com.apple.remoteui.iforgot_embargo_inprogress_choice_2", @"com.apple.remoteui.iforgot_embargo_inprogress_choice_1", @"com.apple.remoteui.iforgot_embargo_inprogress_button_1", @"com.apple.remoteui.iforgot_embargo_inprogress_alert", @"com.apple.remoteui.iforgot_embargo_recovery_startover", @"com.apple.remoteui.iforgot_embargo_verification_startover", @"com.apple.remoteui.iforgot_embargo_verify_existingphone_account", @"com.apple.remoteui.iforgot_embargo_verify_existingphone_account_send", @"com.apple.remoteui.iforgot_embargo_verify_existingphone_trusted", @"com.apple.remoteui.iforgot_embargo_verify_existingphone_trusted_send", @"com.apple.remoteui.iforgot_embargo_verify_newphone", @"com.apple.remoteui.iforgot_embargo_verify_newphone_send", @"com.apple.remoteui.iforgot_embargo_verify_newphone_smscode", @"com.apple.remoteui.iforgot_embargo_verify_phoneoptions", @"com.apple.remoteui.iforgot_embargo_verify_recoverycode", @"com.apple.remoteui.iforgot_embargo_verify_recoverycode_send", @"com.apple.remoteui.iforgot_embargo_verify_recoveryphone", @"com.apple.remoteui.iforgot_embargo_verify_trustedphone", @"com.apple.remoteui.iforgot_embargo_verify_verificationcode", @"com.apple.remoteui.iforgot_embargo_verify_verificationcode_pinView_1", @"com.apple.remoteui.iforgot_embargo_verify_verificationcode_page", @"com.apple.remoteui.iforgot_embargo_verify_verificationcode_footer_1", @"com.apple.remoteui.iforgot_embargo_verify_verificationcode_button_1", @"com.apple.remoteui.iforgot_embargo_verify_verificationcode_alert_1", @"com.apple.remoteui.iforgot_embargo_verify_verificationcode_alert", @"com.apple.remoteui.iforgot_embargo_verify_verificationcode_send", @"com.apple.remoteui.iforgot_embargo_verify_verificationcode_send_pinView_1", @"com.apple.remoteui.iforgot_embargo_verify_verificationcode_send_page", @"com.apple.remoteui.iforgot_iforgot_password_reset", @"com.apple.remoteui.iforgot_iforgot_password_verify_appleid", @"com.apple.remoteui.iforgot_password_authenticationmethod", @"com.apple.remoteui.iforgot_password_authenticationmethod_page", @"com.apple.remoteui.iforgot_password_authenticationmethod_linkRow_1", @"com.apple.remoteui.iforgot_password_authenticationmethod_button_1", @"com.apple.remoteui.iforgot_password_authenticationmethod_alert_1", @"com.apple.remoteui.iforgot_password_resend_securitycode", @"com.apple.remoteui.iforgot_password_reset", @"com.apple.remoteui.iforgot_password_reset_buttonBarItem_1", @"com.apple.remoteui.iforgot_password_reset_editableTextRow_1", @"com.apple.remoteui.iforgot_password_reset_editableTextRow_2", @"com.apple.remoteui.iforgot_password_reset_footer_1", @"com.apple.remoteui.iforgot_password_reset_multiChoice_1", @"com.apple.remoteui.iforgot_password_reset_page", @"com.apple.remoteui.iforgot_password_reset_navigationBar_1", @"com.apple.remoteui.iforgot_password_reset_header_1", @"com.apple.remoteui.iforgot_password_reset_choice_1"}];
+  objc_msgSend( MEMORY[0x277CBEB98],  "setWithObjects:",  @"com.apple.remoteui.iforgot_account_inactive",  @"com.apple.remoteui.iforgot_account_locked",  @"com.apple.remoteui.iforgot_account_not-eligible",  @"com.apple.remoteui.iforgot_appleid_locked",  @"com.apple.remoteui.iforgot_appleid_settings_dismiss",  @"com.apple.remoteui.iforgot_dismiss",  @"com.apple.remoteui.iforgot_email_add",  @"com.apple.remoteui.iforgot_embargo_cancel",  @"com.apple.remoteui.iforgot_embargo_cancel_page",  @"com.apple.remoteui.iforgot_embargo_cancel_choice_1",  @"com.apple.remoteui.iforgot_embargo_cancel_teardown",  @"com.apple.remoteui.iforgot_embargo_inprogress",  @"com.apple.remoteui.iforgot_embargo_inprogress_page",  @"com.apple.remoteui.iforgot_embargo_inprogress_multiChoice_2",  @"com.apple.remoteui.iforgot_embargo_inprogress_multiChoice_1",  @"com.apple.remoteui.iforgot_embargo_inprogress_choice_2",  @"com.apple.remoteui.iforgot_embargo_inprogress_choice_1",  @"com.apple.remoteui.iforgot_embargo_inprogress_button_1",  @"com.apple.remoteui.iforgot_embargo_inprogress_alert",  @"com.apple.remoteui.iforgot_embargo_recovery_startover",  @"com.apple.remoteui.iforgot_embargo_verification_startover",  @"com.apple.remoteui.iforgot_embargo_verify_existingphone_account",  @"com.apple.remoteui.iforgot_embargo_verify_existingphone_account_send",  @"com.apple.remoteui.iforgot_embargo_verify_existingphone_trusted",  @"com.apple.remoteui.iforgot_embargo_verify_existingphone_trusted_send",  @"com.apple.remoteui.iforgot_embargo_verify_newphone",  @"com.apple.remoteui.iforgot_embargo_verify_newphone_send",  @"com.apple.remoteui.iforgot_embargo_verify_newphone_smscode",  @"com.apple.remoteui.iforgot_embargo_verify_phoneoptions",  @"com.apple.remoteui.iforgot_embargo_verify_recoverycode",  @"com.apple.remoteui.iforgot_embargo_verify_recoverycode_send",  @"com.apple.remoteui.iforgot_embargo_verify_recoveryphone",  @"com.apple.remoteui.iforgot_embargo_verify_trustedphone",  @"com.apple.remoteui.iforgot_embargo_verify_verificationcode",  @"com.apple.remoteui.iforgot_embargo_verify_verificationcode_pinView_1",  @"com.apple.remoteui.iforgot_embargo_verify_verificationcode_page",  @"com.apple.remoteui.iforgot_embargo_verify_verificationcode_footer_1",  @"com.apple.remoteui.iforgot_embargo_verify_verificationcode_button_1",  @"com.apple.remoteui.iforgot_embargo_verify_verificationcode_alert_1",  @"com.apple.remoteui.iforgot_embargo_verify_verificationcode_alert",  @"com.apple.remoteui.iforgot_embargo_verify_verificationcode_send",  @"com.apple.remoteui.iforgot_embargo_verify_verificationcode_send_pinView_1",  @"com.apple.remoteui.iforgot_embargo_verify_verificationcode_send_page",  @"com.apple.remoteui.iforgot_iforgot_password_reset",  @"com.apple.remoteui.iforgot_iforgot_password_verify_appleid",  @"com.apple.remoteui.iforgot_password_authenticationmethod",  @"com.apple.remoteui.iforgot_password_authenticationmethod_page",
+    @"com.apple.remoteui.iforgot_password_authenticationmethod_linkRow_1",
+    @"com.apple.remoteui.iforgot_password_authenticationmethod_button_1",
+    @"com.apple.remoteui.iforgot_password_authenticationmethod_alert_1",
+    @"com.apple.remoteui.iforgot_password_resend_securitycode",
+    @"com.apple.remoteui.iforgot_password_reset",
+    @"com.apple.remoteui.iforgot_password_reset_buttonBarItem_1",
+    @"com.apple.remoteui.iforgot_password_reset_editableTextRow_1",
+    @"com.apple.remoteui.iforgot_password_reset_editableTextRow_2",
+    @"com.apple.remoteui.iforgot_password_reset_footer_1",
+    @"com.apple.remoteui.iforgot_password_reset_multiChoice_1",
+    @"com.apple.remoteui.iforgot_password_reset_page",
+    @"com.apple.remoteui.iforgot_password_reset_navigationBar_1",
+    @"com.apple.remoteui.iforgot_password_reset_header_1",
+  getAllowedElementIdentifiers_approvedElementIdentifiers = @"com.apple.remoteui.iforgot_password_reset_choice_1");
 
   return MEMORY[0x2821F96F8]();
 }
 
 void __55__CDPDAnalyticsTransport_getAllowedStringsForTelemetry__block_invoke()
 {
-  v16[12] = *MEMORY[0x277D85DE8];
-  v15[0] = *MEMORY[0x277CFD770];
-  v14 = +[CDPDAnalyticsTransport getAllowedLocalSecretType];
-  v16[0] = v14;
-  v15[1] = *MEMORY[0x277CFD6C8];
-  v13 = +[CDPDAnalyticsTransport getAllowedEscapeOffer];
-  v16[1] = v13;
-  v15[2] = *MEMORY[0x277CFD6D8];
+  v15[12] = *MEMORY[0x277D85DE8];
+  v14[0] = *MEMORY[0x277CFD770];
+  v13 = +[CDPDAnalyticsTransport getAllowedLocalSecretType];
+  v15[0] = v13;
+  v14[1] = *MEMORY[0x277CFD6C8];
+  v12 = +[CDPDAnalyticsTransport getAllowedEscapeOffer];
+  v15[1] = v12;
+  v14[2] = *MEMORY[0x277CFD6D8];
   v0 = +[CDPDAnalyticsTransport getAllowedEscapeOffer];
-  v16[2] = v0;
-  v15[3] = *MEMORY[0x277CE45A0];
+  v15[2] = v0;
+  v14[3] = *MEMORY[0x277CE45A0];
   v1 = +[CDPDAnalyticsTransport getAllowedErrorDomain];
-  v16[3] = v1;
-  v15[4] = *MEMORY[0x277CFD680];
+  v15[3] = v1;
+  v14[4] = *MEMORY[0x277CFD680];
   v2 = +[CDPDAnalyticsTransport getAllowedCfuType];
-  v16[4] = v2;
-  v15[5] = *MEMORY[0x277CE45C8];
+  v15[4] = v2;
+  v14[5] = *MEMORY[0x277CE45C8];
   v3 = +[CDPDAnalyticsTransport getAllowedCfuType];
-  v16[5] = v3;
-  v15[6] = @"underlyingErrorDomain1";
+  v15[5] = v3;
+  v14[6] = @"underlyingErrorDomain1";
   v4 = +[CDPDAnalyticsTransport getAllowedErrorDomain];
-  v16[6] = v4;
-  v15[7] = @"underlyingErrorDomain2";
+  v15[6] = v4;
+  v14[7] = @"underlyingErrorDomain2";
   v5 = +[CDPDAnalyticsTransport getAllowedErrorDomain];
-  v16[7] = v5;
-  v15[8] = @"underlyingErrorDomain3";
+  v15[7] = v5;
+  v14[8] = @"underlyingErrorDomain3";
   v6 = +[CDPDAnalyticsTransport getAllowedErrorDomain];
-  v16[8] = v6;
-  v15[9] = *MEMORY[0x277CF0360];
+  v15[8] = v6;
+  v14[9] = *MEMORY[0x277CF0360];
   v7 = +[CDPDAnalyticsTransport getAllowedElementIdentifiers];
-  v16[9] = v7;
-  v15[10] = *MEMORY[0x277CF0368];
+  v15[9] = v7;
+  v14[10] = *MEMORY[0x277CF0368];
   v8 = +[CDPDAnalyticsTransport getAllowedHandlerKey];
-  v16[10] = v8;
-  v15[11] = *MEMORY[0x277CF0370];
+  v15[10] = v8;
+  v14[11] = *MEMORY[0x277CF0370];
   v9 = +[CDPDAnalyticsTransport getAllowedHookName];
-  v16[11] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:12];
+  v15[11] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:12];
   v11 = getAllowedStringsForTelemetry_allowedStringsDict;
   getAllowedStringsForTelemetry_allowedStringsDict = v10;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (id)getAllowedStringsForInternalTelemetry
@@ -806,15 +795,13 @@ void __55__CDPDAnalyticsTransport_getAllowedStringsForTelemetry__block_invoke()
 
 void __63__CDPDAnalyticsTransport_getAllowedStringsForInternalTelemetry__block_invoke()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = *MEMORY[0x277CE45C8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277CE45C8];
   v0 = +[CDPDAnalyticsTransport getAllowedCfuType];
-  v5[0] = v0;
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
+  v4[0] = v0;
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
   v2 = getAllowedStringsForInternalTelemetry_allowedAttributesDict;
   getAllowedStringsForInternalTelemetry_allowedAttributesDict = v1;
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 + (id)transportForClientType:(id)type clientBundleId:(id)id clientName:(id)name
@@ -884,24 +871,23 @@ id __75__CDPDAnalyticsTransport_transportForClientType_clientBundleId_clientName
   v2 = _CDPLogSystemAnalytics();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __75__CDPDAnalyticsTransport_transportForClientType_clientBundleId_clientName___block_invoke_2_cold_1(a1);
+    __75__CDPDAnalyticsTransport_transportForClientType_clientBundleId_clientName___block_invoke_2_cold_1();
   }
 
-  v3 = (a1 + 32);
-  v4 = [transportCache objectForKeyedSubscript:*(a1 + 32)];
-  if (!v4)
+  v3 = [transportCache objectForKeyedSubscript:*(a1 + 32)];
+  if (!v3)
   {
-    v4 = [objc_alloc(*(a1 + 64)) initWithClientType:*(a1 + 40) clientBundleId:*(a1 + 48) clientName:*(a1 + 56)];
-    [transportCache setObject:v4 forKeyedSubscript:*(a1 + 32)];
+    v3 = [objc_alloc(*(a1 + 64)) initWithClientType:*(a1 + 40) clientBundleId:*(a1 + 48) clientName:*(a1 + 56)];
+    [transportCache setObject:v3 forKeyedSubscript:*(a1 + 32)];
   }
 
-  v5 = _CDPLogSystemAnalytics();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v4 = _CDPLogSystemAnalytics();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    __75__CDPDAnalyticsTransport_transportForClientType_clientBundleId_clientName___block_invoke_2_cold_2(v3);
+    __75__CDPDAnalyticsTransport_transportForClientType_clientBundleId_clientName___block_invoke_2_cold_2();
   }
 
-  return v4;
+  return v3;
 }
 
 - (BOOL)_isEventPrivacyApprovedIdentifiable:(id)identifiable
@@ -1016,7 +1002,7 @@ id __75__CDPDAnalyticsTransport_transportForClientType_clientBundleId_clientName
 
 - (void)enforcePrivacyComplianceOnEvent:(id)event key:(id)key value:(id)value
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   keyCopy = key;
   valueCopy = value;
@@ -1029,34 +1015,34 @@ id __75__CDPDAnalyticsTransport_transportForClientType_clientBundleId_clientName
   {
     if ([keyCopy isEqualToString:*MEMORY[0x277CFD6C8]])
     {
-      v30 = mEMORY[0x277CF0130];
+      v29 = mEMORY[0x277CF0130];
       v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v32 = keyCopy;
+      v31 = keyCopy;
       v14 = [eventCopy objectForKeyedSubscript:keyCopy];
       v15 = [v14 componentsSeparatedByString:{@", "}];
 
-      v35 = 0u;
-      v36 = 0u;
-      v33 = 0u;
       v34 = 0u;
+      v35 = 0u;
+      v32 = 0u;
+      v33 = 0u;
       v16 = v15;
-      v17 = [v16 countByEnumeratingWithState:&v33 objects:v43 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v32 objects:v42 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = *v34;
+        v19 = *v33;
         v20 = *MEMORY[0x277CFDA50];
-        v31 = eventCopy;
+        v30 = eventCopy;
         do
         {
           for (i = 0; i != v18; ++i)
           {
-            if (*v34 != v19)
+            if (*v33 != v19)
             {
               objc_enumerationMutation(v16);
             }
 
-            v22 = *(*(&v33 + 1) + 8 * i);
+            v22 = *(*(&v32 + 1) + 8 * i);
             if ([valueCopy containsObject:v22])
             {
               [v13 addObject:v22];
@@ -1070,29 +1056,29 @@ id __75__CDPDAnalyticsTransport_transportForClientType_clientBundleId_clientName
               {
                 eventName = [eventCopy eventName];
                 *buf = 138412802;
-                v38 = v22;
-                v39 = 2112;
-                v40 = eventName;
-                v41 = 2112;
-                v42 = v32;
+                v37 = v22;
+                v38 = 2112;
+                v39 = eventName;
+                v40 = 2112;
+                v41 = v31;
                 _os_log_fault_impl(&dword_24510B000, v23, OS_LOG_TYPE_FAULT, "Received not approved data %@ for event %@ attribute %@", buf, 0x20u);
 
-                eventCopy = v31;
+                eventCopy = v30;
               }
             }
           }
 
-          v18 = [v16 countByEnumeratingWithState:&v33 objects:v43 count:16];
+          v18 = [v16 countByEnumeratingWithState:&v32 objects:v42 count:16];
         }
 
         while (v18);
       }
 
       aaf_arrayAsCommaSeperatedString = [v13 aaf_arrayAsCommaSeperatedString];
-      keyCopy = v32;
-      [eventCopy setObject:aaf_arrayAsCommaSeperatedString forKeyedSubscript:v32];
+      keyCopy = v31;
+      [eventCopy setObject:aaf_arrayAsCommaSeperatedString forKeyedSubscript:v31];
 
-      mEMORY[0x277CF0130] = v30;
+      mEMORY[0x277CF0130] = v29;
     }
 
     else if ([keyCopy isEqualToString:*MEMORY[0x277CE45C8]])
@@ -1117,8 +1103,6 @@ id __75__CDPDAnalyticsTransport_transportForClientType_clientBundleId_clientName
       }
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldEnforcePrivacyComplianceForEvent:(id)event
@@ -1140,35 +1124,35 @@ id __75__CDPDAnalyticsTransport_transportForClientType_clientBundleId_clientName
 
 - (void)santizeEventForPendingCFUType:(id)type value:(id)value
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   valueCopy = value;
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v8 = *MEMORY[0x277CE45C8];
-  v20 = typeCopy;
+  v19 = typeCopy;
   v9 = [typeCopy objectForKeyedSubscript:*MEMORY[0x277CE45C8]];
   v10 = [v9 componentsSeparatedByString:{@", "}];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v11 = v10;
-  v12 = [v11 countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v22;
+    v14 = *v21;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v22 != v14)
+        if (*v21 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v21 + 1) + 8 * i);
+        v16 = *(*(&v20 + 1) + 8 * i);
         if ([valueCopy containsObject:v16])
         {
           [v7 addObject:v16];
@@ -1180,24 +1164,22 @@ id __75__CDPDAnalyticsTransport_transportForClientType_clientBundleId_clientName
           if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412546;
-            v26 = v16;
-            v27 = 2112;
-            v28 = v8;
+            v25 = v16;
+            v26 = 2112;
+            v27 = v8;
             _os_log_debug_impl(&dword_24510B000, v17, OS_LOG_TYPE_DEBUG, "Unapproved CFUType %@ received in telemetry for %@ attribute", buf, 0x16u);
           }
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v20 objects:v28 count:16];
     }
 
     while (v13);
   }
 
   aaf_arrayAsCommaSeperatedString = [v7 aaf_arrayAsCommaSeperatedString];
-  [v20 setObject:aaf_arrayAsCommaSeperatedString forKeyedSubscript:v8];
-
-  v19 = *MEMORY[0x277D85DE8];
+  [v19 setObject:aaf_arrayAsCommaSeperatedString forKeyedSubscript:v8];
 }
 
 - (void)sanitizeEventForInternalReporting:(id)reporting key:(id)key value:(id)value
@@ -1316,10 +1298,10 @@ void __36__CDPDAnalyticsTransport_sendEvent___block_invoke_2114(uint64_t a1, voi
   }
 }
 
-void __36__CDPDAnalyticsTransport_sendEvent___block_invoke_2115()
+void __36__CDPDAnalyticsTransport_sendEvent___block_invoke_2115(uint64_t a1)
 {
-  v0 = _CDPLogSystemAnalytics();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = _CDPLogSystemAnalytics();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     __36__CDPDAnalyticsTransport_sendEvent___block_invoke_2115_cold_1();
   }
@@ -1334,16 +1316,15 @@ void __36__CDPDAnalyticsTransport_sendEvent___block_invoke_2178(uint64_t a1)
   switch(v4)
   {
     case 3:
-      v13 = *(a1 + 40);
-      v14 = *(*(a1 + 48) + 16);
+      v13 = *(*(a1 + 48) + 16);
 
-      v14();
+      v13();
       break;
     case 2:
       v9 = _CDPLogSystemAnalytics();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        __36__CDPDAnalyticsTransport_sendEvent___block_invoke_2178_cold_1(a1);
+        __36__CDPDAnalyticsTransport_sendEvent___block_invoke_2178_cold_1();
       }
 
       v10 = [*(a1 + 32) transport];
@@ -1446,10 +1427,10 @@ void __81__CDPDAnalyticsTransport_configureSessionForEvent_sendEventBlock_teleme
   [v7 removeAllObjects];
 }
 
-uint64_t __81__CDPDAnalyticsTransport_configureSessionForEvent_sendEventBlock_telemetryQueue___block_invoke_2_2181()
+uint64_t __81__CDPDAnalyticsTransport_configureSessionForEvent_sendEventBlock_telemetryQueue___block_invoke_2_2181(uint64_t a1)
 {
-  v0 = _CDPLogSystemAnalytics();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = _CDPLogSystemAnalytics();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     __81__CDPDAnalyticsTransport_configureSessionForEvent_sendEventBlock_telemetryQueue___block_invoke_2_2181_cold_1();
   }
@@ -1654,127 +1635,98 @@ LABEL_20:
 
 - (void)initWithClientType:clientBundleId:clientName:.cold.1()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
-  v4 = v0;
-  _os_log_fault_impl(&dword_24510B000, v1, OS_LOG_TYPE_FAULT, "clientBundleID is nil, transport will not be initialized properly. clientType = %@, clientName = %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_fault_impl(&dword_24510B000, v1, OS_LOG_TYPE_FAULT, "clientBundleID is nil, transport will not be initialized properly. clientType = %@, clientName = %@", v2, 0x16u);
 }
 
 + (void)transportForEvent:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 eventName];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)transportForEvent:(void *)a1 .cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 eventName];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void __75__CDPDAnalyticsTransport_transportForClientType_clientBundleId_clientName___block_invoke_2_cold_1(uint64_t a1)
+void __75__CDPDAnalyticsTransport_transportForClientType_clientBundleId_clientName___block_invoke_2_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __75__CDPDAnalyticsTransport_transportForClientType_clientBundleId_clientName___block_invoke_2_cold_2(uint64_t *a1)
+void __75__CDPDAnalyticsTransport_transportForClientType_clientBundleId_clientName___block_invoke_2_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_4();
-  v6 = v2;
-  _os_log_debug_impl(&dword_24510B000, v3, OS_LOG_TYPE_DEBUG, "Returning transport for key: %@ - %@", v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_debug_impl(&dword_24510B000, v1, OS_LOG_TYPE_DEBUG, "Returning transport for key: %@ - %@", v2, 0x16u);
 }
 
 - (void)_renewMissingDeviceSessionIDIfNeeded:(void *)a1 manager:account:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 eventName];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_enforceIdentifiableDataPrivacyComplianceOnEvent:(void *)a1 manager:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 eventName];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_enforceIdentifiableDataPrivacyComplianceOnEvent:(void *)a1 manager:.cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 eventName];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enforcePrivacyComplianceOnEvent:(void *)a1 key:(uint64_t)a2 value:(NSObject *)a3 .cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v6 = [a1 objectForKeyedSubscript:a2];
   v7 = [a1 eventName];
-  v11 = 138412802;
-  v12 = v6;
+  v10 = 138412802;
+  v11 = v6;
   OUTLINED_FUNCTION_4();
-  v13 = v8;
-  v14 = v9;
-  v15 = a2;
-  _os_log_fault_impl(&dword_24510B000, a3, OS_LOG_TYPE_FAULT, "Received not approved data %@ for event %@ attribute %@", &v11, 0x20u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12 = v8;
+  v13 = v9;
+  v14 = a2;
+  _os_log_fault_impl(&dword_24510B000, a3, OS_LOG_TYPE_FAULT, "Received not approved data %@ for event %@ attribute %@", &v10, 0x20u);
 }
 
 - (void)sendEvent:(void *)a1 .cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 debugDescription];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __36__CDPDAnalyticsTransport_sendEvent___block_invoke_2114_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) transport];
   [v1 sessionState];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __36__CDPDAnalyticsTransport_sendEvent___block_invoke_2115_cold_1()
@@ -1784,27 +1736,21 @@ void __36__CDPDAnalyticsTransport_sendEvent___block_invoke_2115_cold_1()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __36__CDPDAnalyticsTransport_sendEvent___block_invoke_2178_cold_1(uint64_t a1)
+void __36__CDPDAnalyticsTransport_sendEvent___block_invoke_2178_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 40);
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void __36__CDPDAnalyticsTransport_sendEvent___block_invoke_2178_cold_2(id *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [*a1 transport];
   v2 = [v1 eventQueue];
   [v2 count];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureSessionForEvent:sendEventBlock:telemetryQueue:.cold.1()
@@ -1816,24 +1762,19 @@ void __36__CDPDAnalyticsTransport_sendEvent___block_invoke_2178_cold_2(id *a1)
 
 - (void)configureSessionForEvent:sendEventBlock:telemetryQueue:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __81__CDPDAnalyticsTransport_configureSessionForEvent_sendEventBlock_telemetryQueue___block_invoke_2_cold_1(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) transport];
   v2 = [v1 eventQueue];
   [v2 count];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __81__CDPDAnalyticsTransport_configureSessionForEvent_sendEventBlock_telemetryQueue___block_invoke_2_2181_cold_1()
@@ -1845,43 +1786,34 @@ void __81__CDPDAnalyticsTransport_configureSessionForEvent_sendEventBlock_teleme
 
 void __58__CDPDAnalyticsTransport__updateEventWithDefaultMetadata___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendEvent:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 eventName];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendEvent:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_fault_impl(&dword_24510B000, v0, OS_LOG_TYPE_FAULT, "Transport is nil, event: %@ will not be sent.", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_24510B000, v0, OS_LOG_TYPE_FAULT, "Transport is nil, event: %@ will not be sent.", v1, 0xCu);
 }
 
 - (void)_sendEvent:(void *)a1 .cold.3(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 eventName];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -85,11 +85,11 @@
 
 - (CXStartCallAction)initWithCallUUID:(NSUUID *)callUUID handle:(CXHandle *)handle
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v6 = handle;
-  v12.receiver = self;
-  v12.super_class = CXStartCallAction;
-  v7 = [(CXCallAction *)&v12 initWithCallUUID:callUUID];
+  v11.receiver = self;
+  v11.super_class = CXStartCallAction;
+  v7 = [(CXCallAction *)&v11 initWithCallUUID:callUUID];
   if (v7)
   {
     if (!v6)
@@ -97,13 +97,12 @@
       [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"%s: parameter '%@' cannot be nil", "-[CXStartCallAction initWithCallUUID:handle:]", @"handle"}];
     }
 
-    v13[0] = v6;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+    v12[0] = v6;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
     handles = v7->_handles;
     v7->_handles = v8;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -128,14 +127,13 @@
 
 - (void)setHandle:(CXHandle *)handle
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = handle;
+  v8 = *MEMORY[0x1E69E9840];
+  v7 = handle;
   v4 = MEMORY[0x1E695DEC8];
   v5 = handle;
-  v6 = [v4 arrayWithObjects:&v8 count:1];
+  v6 = [v4 arrayWithObjects:&v7 count:1];
 
-  [(CXStartCallAction *)self setHandles:v6, v8, v9];
-  v7 = *MEMORY[0x1E69E9840];
+  [(CXStartCallAction *)self setHandles:v6, v7, v8];
 }
 
 - (void)fulfill

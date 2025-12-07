@@ -218,34 +218,13 @@ LABEL_17:
   v14.super_class = KCSharingLocalItem;
   v6 = [(KCSharingLocalItem *)&v14 init];
   v7 = v6;
-  if (!v6)
+  if (!v6 || (v6->_type = 2, v8 = [[KCSharingInternetPasswordCredential alloc] initWithDatabaseItem:item error:error], internetPassword = v7->_internetPassword, v7->_internetPassword = v8, internetPassword, v7->_internetPassword) && (v10 = [[KCSharingLocalFingerprint alloc] initWithDatabaseItem:item error:error], internetPasswordFingerprint = v7->_internetPasswordFingerprint, v7->_internetPasswordFingerprint = v10, internetPasswordFingerprint, v7->_internetPasswordFingerprint))
   {
-    goto LABEL_4;
-  }
-
-  v6->_type = 2;
-  v8 = [[KCSharingInternetPasswordCredential alloc] initWithDatabaseItem:item error:error];
-  internetPassword = v7->_internetPassword;
-  v7->_internetPassword = v8;
-
-  if (!v7->_internetPassword)
-  {
-    goto LABEL_5;
-  }
-
-  v10 = [[KCSharingLocalFingerprint alloc] initWithDatabaseItem:item error:error];
-  internetPasswordFingerprint = v7->_internetPasswordFingerprint;
-  v7->_internetPasswordFingerprint = v10;
-
-  if (v7->_internetPasswordFingerprint)
-  {
-LABEL_4:
     v12 = v7;
   }
 
   else
   {
-LABEL_5:
     v12 = 0;
   }
 
@@ -258,34 +237,13 @@ LABEL_5:
   v14.super_class = KCSharingLocalItem;
   v6 = [(KCSharingLocalItem *)&v14 init];
   v7 = v6;
-  if (!v6)
+  if (!v6 || (v6->_type = 1, v8 = [[KCSharingPrivateKeyCredential alloc] initWithDatabaseItem:item error:error], privateKey = v7->_privateKey, v7->_privateKey = v8, privateKey, v7->_privateKey) && (v10 = [[KCSharingLocalFingerprint alloc] initWithDatabaseItem:item error:error], privateKeyFingerprint = v7->_privateKeyFingerprint, v7->_privateKeyFingerprint = v10, privateKeyFingerprint, v7->_privateKeyFingerprint))
   {
-    goto LABEL_4;
-  }
-
-  v6->_type = 1;
-  v8 = [[KCSharingPrivateKeyCredential alloc] initWithDatabaseItem:item error:error];
-  privateKey = v7->_privateKey;
-  v7->_privateKey = v8;
-
-  if (!v7->_privateKey)
-  {
-    goto LABEL_5;
-  }
-
-  v10 = [[KCSharingLocalFingerprint alloc] initWithDatabaseItem:item error:error];
-  privateKeyFingerprint = v7->_privateKeyFingerprint;
-  v7->_privateKeyFingerprint = v10;
-
-  if (v7->_privateKeyFingerprint)
-  {
-LABEL_4:
     v12 = v7;
   }
 
   else
   {
-LABEL_5:
     v12 = 0;
   }
 

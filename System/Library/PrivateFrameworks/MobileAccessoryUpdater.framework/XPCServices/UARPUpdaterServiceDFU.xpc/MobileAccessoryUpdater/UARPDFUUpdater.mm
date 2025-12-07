@@ -26,6 +26,7 @@
 - (void)firmwareStagingComplete:(id)complete assetID:(id)d withStatus:(unint64_t)status;
 - (void)firmwareStagingProgress:(id)progress assetID:(id)d bytesSent:(unint64_t)sent bytesTotal:(unint64_t)total;
 - (void)holdPowerAssertionForAccessory;
+- (void)matchingService:(unsigned int)service identifier:(id)identifier;
 - (void)queryCompleteForAccessory:(id)accessory appleModelNumber:(id)number error:(id)error;
 - (void)queryCompleteForAccessory:(id)accessory firmwareVersion:(id)version error:(id)error;
 - (void)queryCompleteForAccessory:(id)accessory friendlyName:(id)name error:(id)error;
@@ -133,6 +134,56 @@
   dispatch_async(uarpMessageQueue, block);
 
   return 1;
+}
+
+- (void)matchingService:(unsigned int)service identifier:(id)identifier
+{
+  v4 = *&service;
+  identifierCopy = identifier;
+  if (os_log_type_enabled(self->_log, OS_LOG_TYPE_DEBUG))
+  {
+    sub_100015F7C();
+  }
+
+  log = self->_log;
+  if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
+  {
+    v11 = 136315394;
+    v12 = "[UARPDFUUpdater matchingService:identifier:]";
+    v13 = 2112;
+    v14 = identifierCopy;
+    _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: Instantiating detected accessory %@", &v11, 0x16u);
+  }
+
+  v8 = [(UARPDFUUpdater *)self createAccessoryFromService:v4 identifier:identifierCopy];
+  if ([(UARPDFUUpdater *)self connectUARPForUARPAccessory:v8])
+  {
+    [(UARPDFUUpdater *)self addAccessory:v8 enableNotification:1];
+    v9 = self->_log;
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    {
+      v11 = 136315394;
+      v12 = "[UARPDFUUpdater matchingService:identifier:]";
+      v13 = 2112;
+      v14 = identifierCopy;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "%s: Kicking off update for matched identifier %@", &v11, 0x16u);
+    }
+
+    [(UARPDFUUpdater *)self startUpdateForAccessory:v8 assetID:0];
+  }
+
+  else
+  {
+    v10 = self->_log;
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    {
+      v11 = 136315394;
+      v12 = "[UARPDFUUpdater matchingService:identifier:]";
+      v13 = 2112;
+      v14 = identifierCopy;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "%s: Unable to initialize UARP for identifier %@", &v11, 0x16u);
+    }
+  }
 }
 
 - (id)getAccessoriesForIdentifier:(id)identifier
@@ -1006,15 +1057,14 @@ LABEL_25:
   if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v15 = "[UARPDFUUpdater assetDownloadFailed:assetID:]";
-    v16 = 2112;
-    v17 = failedCopy;
-    v18 = 2112;
-    v19 = dCopy;
+    v14 = "[UARPDFUUpdater assetDownloadFailed:assetID:]";
+    v15 = 2112;
+    v16 = failedCopy;
+    v17 = 2112;
+    v18 = dCopy;
     _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: dfuotp = %@, assetID = %@", buf, 0x20u);
   }
 
-  goldRestoreDelegate = self->_goldRestoreDelegate;
   if (objc_opt_respondsToSelector())
   {
     delegateQueue = self->_delegateQueue;
@@ -1023,8 +1073,8 @@ LABEL_25:
     block[2] = sub_100005160;
     block[3] = &unk_100024428;
     block[4] = self;
-    v12 = failedCopy;
-    v13 = dCopy;
+    v11 = failedCopy;
+    v12 = dCopy;
     dispatch_async(delegateQueue, block);
   }
 
@@ -1039,15 +1089,14 @@ LABEL_25:
   if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v15 = "[UARPDFUUpdater assetNotFound:assetID:]";
-    v16 = 2112;
-    v17 = foundCopy;
-    v18 = 2112;
-    v19 = dCopy;
+    v14 = "[UARPDFUUpdater assetNotFound:assetID:]";
+    v15 = 2112;
+    v16 = foundCopy;
+    v17 = 2112;
+    v18 = dCopy;
     _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: dfuotp = %@, assetID = %@", buf, 0x20u);
   }
 
-  goldRestoreDelegate = self->_goldRestoreDelegate;
   if (objc_opt_respondsToSelector())
   {
     delegateQueue = self->_delegateQueue;
@@ -1056,8 +1105,8 @@ LABEL_25:
     block[2] = sub_10000534C;
     block[3] = &unk_100024428;
     block[4] = self;
-    v12 = foundCopy;
-    v13 = dCopy;
+    v11 = foundCopy;
+    v12 = dCopy;
     dispatch_async(delegateQueue, block);
   }
 
@@ -1256,29 +1305,28 @@ LABEL_18:
     if (os_log_type_enabled(self->_log, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315906;
-      v21 = "[UARPDFUUpdater firmwareStagingProgress:assetID:bytesSent:bytesTotal:]";
-      v22 = 2112;
-      v23 = progressCopy;
-      v24 = 2112;
-      v25 = dCopy;
-      v26 = 2048;
-      v27 = ((sent / total) * 100.0);
+      v20 = "[UARPDFUUpdater firmwareStagingProgress:assetID:bytesSent:bytesTotal:]";
+      v21 = 2112;
+      v22 = progressCopy;
+      v23 = 2112;
+      v24 = dCopy;
+      v25 = 2048;
+      v26 = ((sent / total) * 100.0);
       _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "%s: accessory=%@, assetID=%@, progress=%f", buf, 0x2Au);
     }
 
-    goldRestoreDelegate = self->_goldRestoreDelegate;
     if (objc_opt_respondsToSelector())
     {
       delegateQueue = self->_delegateQueue;
-      v16[0] = _NSConcreteStackBlock;
-      v16[1] = 3221225472;
-      v16[2] = sub_100005C8C;
-      v16[3] = &unk_1000244A0;
-      v16[4] = self;
-      v17 = v12;
+      v15[0] = _NSConcreteStackBlock;
+      v15[1] = 3221225472;
+      v15[2] = sub_100005C8C;
+      v15[3] = &unk_1000244A0;
+      v15[4] = self;
+      v16 = v12;
       sentCopy = sent;
       totalCopy = total;
-      dispatch_async(delegateQueue, v16);
+      dispatch_async(delegateQueue, v15);
     }
   }
 
@@ -1296,12 +1344,12 @@ LABEL_18:
   if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
   {
     *buf = 136315906;
-    v18 = "[UARPDFUUpdater firmwareStagingComplete:assetID:withStatus:]";
-    v19 = 2112;
-    v20 = completeCopy;
-    v21 = 2112;
-    v22 = dCopy;
-    v23 = 2048;
+    v17 = "[UARPDFUUpdater firmwareStagingComplete:assetID:withStatus:]";
+    v18 = 2112;
+    v19 = completeCopy;
+    v20 = 2112;
+    v21 = dCopy;
+    v22 = 2048;
     statusCopy = status;
     _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: accessory=%@, assetID=%@, status=%lu", buf, 0x2Au);
   }
@@ -1309,7 +1357,6 @@ LABEL_18:
   v11 = [(UARPDFUUpdater *)self getDfuAccessoryForUarpAccessory:completeCopy];
   if (v11)
   {
-    goldRestoreDelegate = self->_goldRestoreDelegate;
     if (objc_opt_respondsToSelector())
     {
       delegateQueue = self->_delegateQueue;
@@ -1318,7 +1365,7 @@ LABEL_18:
       block[2] = sub_100005EB8;
       block[3] = &unk_1000244C8;
       block[4] = self;
-      v15 = v11;
+      v14 = v11;
       statusCopy2 = status;
       dispatch_async(delegateQueue, block);
     }
@@ -1338,22 +1385,21 @@ LABEL_18:
   v11 = [(UARPDFUUpdater *)self getDfuAccessoryForUarpAccessory:accessoryCopy];
   if (v11)
   {
-    goldRestoreDelegate = self->_goldRestoreDelegate;
     if (objc_opt_respondsToSelector())
     {
       delegateQueue = self->_delegateQueue;
-      v14 = _NSConcreteStackBlock;
-      v15 = 3221225472;
-      v16 = sub_100006084;
-      v17 = &unk_1000244F0;
+      v13 = _NSConcreteStackBlock;
+      v14 = 3221225472;
+      v15 = sub_100006084;
+      v16 = &unk_1000244F0;
       selfCopy = self;
-      v19 = v11;
-      v20 = manufacturerCopy;
-      v21 = errorCopy;
-      dispatch_async(delegateQueue, &v14);
+      v18 = v11;
+      v19 = manufacturerCopy;
+      v20 = errorCopy;
+      dispatch_async(delegateQueue, &v13);
     }
 
-    [v11 updateQueriesCompleted:{&off_100024DB8, v14, v15, v16, v17, selfCopy}];
+    [v11 updateQueriesCompleted:{&off_100024DB8, v13, v14, v15, v16, selfCopy}];
   }
 
   else if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
@@ -1370,22 +1416,21 @@ LABEL_18:
   v11 = [(UARPDFUUpdater *)self getDfuAccessoryForUarpAccessory:accessoryCopy];
   if (v11)
   {
-    goldRestoreDelegate = self->_goldRestoreDelegate;
     if (objc_opt_respondsToSelector())
     {
       delegateQueue = self->_delegateQueue;
-      v14 = _NSConcreteStackBlock;
-      v15 = 3221225472;
-      v16 = sub_100006250;
-      v17 = &unk_1000244F0;
+      v13 = _NSConcreteStackBlock;
+      v14 = 3221225472;
+      v15 = sub_100006250;
+      v16 = &unk_1000244F0;
       selfCopy = self;
-      v19 = v11;
-      v20 = nameCopy;
-      v21 = errorCopy;
-      dispatch_async(delegateQueue, &v14);
+      v18 = v11;
+      v19 = nameCopy;
+      v20 = errorCopy;
+      dispatch_async(delegateQueue, &v13);
     }
 
-    [v11 updateQueriesCompleted:{&off_100024DD0, v14, v15, v16, v17, selfCopy}];
+    [v11 updateQueriesCompleted:{&off_100024DD0, v13, v14, v15, v16, selfCopy}];
   }
 
   else if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
@@ -1402,22 +1447,21 @@ LABEL_18:
   v11 = [(UARPDFUUpdater *)self getDfuAccessoryForUarpAccessory:accessoryCopy];
   if (v11)
   {
-    goldRestoreDelegate = self->_goldRestoreDelegate;
     if (objc_opt_respondsToSelector())
     {
       delegateQueue = self->_delegateQueue;
-      v14 = _NSConcreteStackBlock;
-      v15 = 3221225472;
-      v16 = sub_10000641C;
-      v17 = &unk_1000244F0;
+      v13 = _NSConcreteStackBlock;
+      v14 = 3221225472;
+      v15 = sub_10000641C;
+      v16 = &unk_1000244F0;
       selfCopy = self;
-      v19 = v11;
-      v20 = versionCopy;
-      v21 = errorCopy;
-      dispatch_async(delegateQueue, &v14);
+      v18 = v11;
+      v19 = versionCopy;
+      v20 = errorCopy;
+      dispatch_async(delegateQueue, &v13);
     }
 
-    [v11 updateQueriesCompleted:{&off_100024D88, v14, v15, v16, v17, selfCopy}];
+    [v11 updateQueriesCompleted:{&off_100024D88, v13, v14, v15, v16, selfCopy}];
   }
 
   else if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
@@ -1434,22 +1478,21 @@ LABEL_18:
   v11 = [(UARPDFUUpdater *)self getDfuAccessoryForUarpAccessory:accessoryCopy];
   if (v11)
   {
-    goldRestoreDelegate = self->_goldRestoreDelegate;
     if (objc_opt_respondsToSelector())
     {
       delegateQueue = self->_delegateQueue;
-      v14 = _NSConcreteStackBlock;
-      v15 = 3221225472;
-      v16 = sub_1000065E8;
-      v17 = &unk_1000244F0;
+      v13 = _NSConcreteStackBlock;
+      v14 = 3221225472;
+      v15 = sub_1000065E8;
+      v16 = &unk_1000244F0;
       selfCopy = self;
-      v19 = v11;
-      v20 = versionCopy;
-      v21 = errorCopy;
-      dispatch_async(delegateQueue, &v14);
+      v18 = v11;
+      v19 = versionCopy;
+      v20 = errorCopy;
+      dispatch_async(delegateQueue, &v13);
     }
 
-    [v11 updateQueriesCompleted:{&off_100024DE8, v14, v15, v16, v17, selfCopy}];
+    [v11 updateQueriesCompleted:{&off_100024DE8, v13, v14, v15, v16, selfCopy}];
   }
 
   else if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
@@ -1466,22 +1509,21 @@ LABEL_18:
   v11 = [(UARPDFUUpdater *)self getDfuAccessoryForUarpAccessory:accessoryCopy];
   if (v11)
   {
-    goldRestoreDelegate = self->_goldRestoreDelegate;
     if (objc_opt_respondsToSelector())
     {
       delegateQueue = self->_delegateQueue;
-      v14 = _NSConcreteStackBlock;
-      v15 = 3221225472;
-      v16 = sub_1000067B4;
-      v17 = &unk_1000244F0;
+      v13 = _NSConcreteStackBlock;
+      v14 = 3221225472;
+      v15 = sub_1000067B4;
+      v16 = &unk_1000244F0;
       selfCopy = self;
-      v19 = v11;
-      v20 = typeCopy;
-      v21 = errorCopy;
-      dispatch_async(delegateQueue, &v14);
+      v18 = v11;
+      v19 = typeCopy;
+      v20 = errorCopy;
+      dispatch_async(delegateQueue, &v13);
     }
 
-    [v11 updateQueriesCompleted:{&off_100024DA0, v14, v15, v16, v17, selfCopy}];
+    [v11 updateQueriesCompleted:{&off_100024DA0, v13, v14, v15, v16, selfCopy}];
   }
 
   else if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
@@ -1498,22 +1540,21 @@ LABEL_18:
   v11 = [(UARPDFUUpdater *)self getDfuAccessoryForUarpAccessory:accessoryCopy];
   if (v11)
   {
-    goldRestoreDelegate = self->_goldRestoreDelegate;
     if (objc_opt_respondsToSelector())
     {
       delegateQueue = self->_delegateQueue;
-      v14 = _NSConcreteStackBlock;
-      v15 = 3221225472;
-      v16 = sub_100006980;
-      v17 = &unk_1000244F0;
+      v13 = _NSConcreteStackBlock;
+      v14 = 3221225472;
+      v15 = sub_100006980;
+      v16 = &unk_1000244F0;
       selfCopy = self;
-      v19 = v11;
-      v20 = numberCopy;
-      v21 = errorCopy;
-      dispatch_async(delegateQueue, &v14);
+      v18 = v11;
+      v19 = numberCopy;
+      v20 = errorCopy;
+      dispatch_async(delegateQueue, &v13);
     }
 
-    [v11 updateQueriesCompleted:{&off_100024E00, v14, v15, v16, v17, selfCopy}];
+    [v11 updateQueriesCompleted:{&off_100024E00, v13, v14, v15, v16, selfCopy}];
   }
 
   else if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
@@ -1530,22 +1571,21 @@ LABEL_18:
   v11 = [(UARPDFUUpdater *)self getDfuAccessoryForUarpAccessory:accessoryCopy];
   if (v11)
   {
-    goldRestoreDelegate = self->_goldRestoreDelegate;
     if (objc_opt_respondsToSelector())
     {
       delegateQueue = self->_delegateQueue;
-      v14 = _NSConcreteStackBlock;
-      v15 = 3221225472;
-      v16 = sub_100006B4C;
-      v17 = &unk_1000244F0;
+      v13 = _NSConcreteStackBlock;
+      v14 = 3221225472;
+      v15 = sub_100006B4C;
+      v16 = &unk_1000244F0;
       selfCopy = self;
-      v19 = v11;
-      v20 = numberCopy;
-      v21 = errorCopy;
-      dispatch_async(delegateQueue, &v14);
+      v18 = v11;
+      v19 = numberCopy;
+      v20 = errorCopy;
+      dispatch_async(delegateQueue, &v13);
     }
 
-    [v11 updateQueriesCompleted:{&off_100024D58, v14, v15, v16, v17, selfCopy}];
+    [v11 updateQueriesCompleted:{&off_100024D58, v13, v14, v15, v16, selfCopy}];
   }
 
   else if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
@@ -1562,22 +1602,21 @@ LABEL_18:
   v11 = [(UARPDFUUpdater *)self getDfuAccessoryForUarpAccessory:accessoryCopy];
   if (v11)
   {
-    goldRestoreDelegate = self->_goldRestoreDelegate;
     if (objc_opt_respondsToSelector())
     {
       delegateQueue = self->_delegateQueue;
-      v14 = _NSConcreteStackBlock;
-      v15 = 3221225472;
-      v16 = sub_100006D18;
-      v17 = &unk_1000244F0;
+      v13 = _NSConcreteStackBlock;
+      v14 = 3221225472;
+      v15 = sub_100006D18;
+      v16 = &unk_1000244F0;
       selfCopy = self;
-      v19 = v11;
-      v20 = versionCopy;
-      v21 = errorCopy;
-      dispatch_async(delegateQueue, &v14);
+      v18 = v11;
+      v19 = versionCopy;
+      v20 = errorCopy;
+      dispatch_async(delegateQueue, &v13);
     }
 
-    [v11 updateQueriesCompleted:{&off_100024D70, v14, v15, v16, v17, selfCopy}];
+    [v11 updateQueriesCompleted:{&off_100024D70, v13, v14, v15, v16, selfCopy}];
   }
 
   else if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
@@ -1594,22 +1633,21 @@ LABEL_18:
   v11 = [(UARPDFUUpdater *)self getDfuAccessoryForUarpAccessory:accessoryCopy];
   if (v11)
   {
-    goldRestoreDelegate = self->_goldRestoreDelegate;
     if (objc_opt_respondsToSelector())
     {
       delegateQueue = self->_delegateQueue;
-      v14 = _NSConcreteStackBlock;
-      v15 = 3221225472;
-      v16 = sub_100006EE4;
-      v17 = &unk_1000244F0;
+      v13 = _NSConcreteStackBlock;
+      v14 = 3221225472;
+      v15 = sub_100006EE4;
+      v16 = &unk_1000244F0;
       selfCopy = self;
-      v19 = v11;
-      v20 = nameCopy;
-      v21 = errorCopy;
-      dispatch_async(delegateQueue, &v14);
+      v18 = v11;
+      v19 = nameCopy;
+      v20 = errorCopy;
+      dispatch_async(delegateQueue, &v13);
     }
 
-    [v11 updateQueriesCompleted:{&off_100024E18, v14, v15, v16, v17, selfCopy}];
+    [v11 updateQueriesCompleted:{&off_100024E18, v13, v14, v15, v16, selfCopy}];
   }
 
   else if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
@@ -1630,10 +1668,10 @@ LABEL_18:
   if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v15 = "[UARPDFUUpdater stagedFirmwareApplicationComplete:withStatus:]";
-    v16 = 2112;
-    v17 = completeCopy;
-    v18 = 2048;
+    v14 = "[UARPDFUUpdater stagedFirmwareApplicationComplete:withStatus:]";
+    v15 = 2112;
+    v16 = completeCopy;
+    v17 = 2048;
     statusCopy = status;
     _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: accessory=%@, status=%lu", buf, 0x20u);
   }
@@ -1641,7 +1679,6 @@ LABEL_18:
   v8 = [(UARPDFUUpdater *)self getDfuAccessoryForUarpAccessory:completeCopy];
   if (v8)
   {
-    goldRestoreDelegate = self->_goldRestoreDelegate;
     if (objc_opt_respondsToSelector())
     {
       delegateQueue = self->_delegateQueue;
@@ -1650,7 +1687,7 @@ LABEL_18:
       block[2] = sub_100007124;
       block[3] = &unk_1000244C8;
       block[4] = self;
-      v12 = v8;
+      v11 = v8;
       statusCopy2 = status;
       dispatch_async(delegateQueue, block);
     }

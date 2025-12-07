@@ -141,10 +141,10 @@ id __30__TKSmartCardSlotManager_init__block_invoke()
 void __41__TKSmartCardSlotManager_setupConnection__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TK_LOG_smartcard();
+  v4 = TK_LOG_smartcard(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __41__TKSmartCardSlotManager_setupConnection__block_invoke_cold_1(a1);
+    __41__TKSmartCardSlotManager_setupConnection__block_invoke_cold_1();
   }
 
   [*(a1 + 32) invalidate];
@@ -186,14 +186,14 @@ void __41__TKSmartCardSlotManager_setupConnection__block_invoke_2(uint64_t a1)
     handler[3] = &unk_1E86B7010;
     v13 = v4;
     v14 = *(a1 + 32);
-    v19 = v13;
-    v20 = v14;
+    v20 = v13;
+    v21 = v14;
     v15 = notify_register_dispatch(v10, (v11 + 56), v12, handler);
 
     if (v15)
     {
-      v16 = TK_LOG_smartcard();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = TK_LOG_smartcard(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         __41__TKSmartCardSlotManager_setupConnection__block_invoke_2_cold_1();
       }
@@ -202,8 +202,8 @@ void __41__TKSmartCardSlotManager_setupConnection__block_invoke_2(uint64_t a1)
     objc_sync_exit(v13);
   }
 
-  v17 = TK_LOG_smartcard();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  v18 = TK_LOG_smartcard(WeakRetained);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     __41__TKSmartCardSlotManager_setupConnection__block_invoke_2_cold_2();
   }
@@ -259,37 +259,37 @@ uint64_t __41__TKSmartCardSlotManager_setupConnection__block_invoke_4(uint64_t a
 
 void __35__TKSmartCardSlotManager_slotNames__block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(v2 + 24);
   if (!v3)
   {
     v4 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(*(v2 + 16), "count")}];
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v5 = *(*(a1 + 32) + 16);
-    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v15;
+      v8 = *v14;
       do
       {
         v9 = 0;
         do
         {
-          if (*v15 != v8)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          [v4 addObject:{*(*(&v14 + 1) + 8 * v9++), v14}];
+          [v4 addObject:{*(*(&v13 + 1) + 8 * v9++), v13}];
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v7);
@@ -304,7 +304,6 @@ void __35__TKSmartCardSlotManager_slotNames__block_invoke(uint64_t a1)
   }
 
   objc_storeStrong((*(*(a1 + 40) + 8) + 40), v3);
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSlotWithName:(id)name endpoint:(id)endpoint type:(id)type reply:(id)reply
@@ -313,7 +312,7 @@ void __35__TKSmartCardSlotManager_slotNames__block_invoke(uint64_t a1)
   endpointCopy = endpoint;
   typeCopy = type;
   replyCopy = reply;
-  v14 = TK_LOG_smartcard();
+  v14 = TK_LOG_smartcard(replyCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     [TKSmartCardSlotManager setSlotWithName:endpoint:type:reply:];
@@ -474,10 +473,7 @@ uint64_t __48__TKSmartCardSlotManager_getSlotWithName_reply___block_invoke_2(uin
 
 uint64_t __36__TKSmartCardSlotManager_slotNamed___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 16) objectForKey:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 16) objectForKey:a1[5]];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -516,7 +512,7 @@ uint64_t __36__TKSmartCardSlotManager_slotNamed___block_invoke(void *a1)
 void __62__TKSmartCardSlotManager_createNFCSlotWithMessage_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TK_LOG_smartcard();
+  v4 = TK_LOG_smartcard(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __62__TKSmartCardSlotManager_createNFCSlotWithMessage_completion___block_invoke_cold_1();
@@ -532,54 +528,53 @@ void __62__TKSmartCardSlotManager_createNFCSlotWithMessage_completion___block_in
 
 void __62__TKSmartCardSlotManager_createNFCSlotWithMessage_completion___block_invoke_43(uint64_t a1, int a2, int a3, void *a4)
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   v7 = a4;
+  v8 = v7;
   if (a2)
   {
     if (a3)
     {
-      v8 = TK_LOG_smartcard();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v9 = TK_LOG_smartcard(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         __62__TKSmartCardSlotManager_createNFCSlotWithMessage_completion___block_invoke_43_cold_3();
       }
 
-      v9 = [[TKSmartCardSlotNFCSession alloc] initWithSlotName:@"Built-in NFC Slot" nfcSlotManager:*(a1 + 32)];
-      v10 = *(*(a1 + 40) + 16);
+      v10 = [[TKSmartCardSlotNFCSession alloc] initWithSlotName:@"Built-in NFC Slot" nfcSlotManager:*(a1 + 32)];
+      v11 = *(*(a1 + 40) + 16);
     }
 
     else
     {
-      v12 = MEMORY[0x1E696ABC0];
-      v16 = *MEMORY[0x1E696A578];
-      v17[0] = @"Slot already exists and you are not authorized to receive the TKSmartCardSlotNFCSession";
-      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
-      v9 = [v12 errorWithDomain:@"CryptoTokenKit" code:-6 userInfo:v13];
+      v13 = MEMORY[0x1E696ABC0];
+      v17 = *MEMORY[0x1E696A578];
+      v18[0] = @"Slot already exists and you are not authorized to receive the TKSmartCardSlotNFCSession";
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+      v10 = [v13 errorWithDomain:@"CryptoTokenKit" code:-6 userInfo:v14];
 
-      v14 = TK_LOG_smartcard();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = TK_LOG_smartcard(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         __62__TKSmartCardSlotManager_createNFCSlotWithMessage_completion___block_invoke_43_cold_1();
       }
 
-      v10 = *(*(a1 + 40) + 16);
+      v11 = *(*(a1 + 40) + 16);
     }
 
-    v10();
+    v11();
   }
 
   else
   {
-    v11 = TK_LOG_smartcard();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = TK_LOG_smartcard(v7);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       __62__TKSmartCardSlotManager_createNFCSlotWithMessage_completion___block_invoke_43_cold_1();
     }
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)endNFCSlotWithError:(id *)error
@@ -624,7 +619,7 @@ void __62__TKSmartCardSlotManager_createNFCSlotWithMessage_completion___block_in
 void __46__TKSmartCardSlotManager_endNFCSlotWithError___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TK_LOG_smartcard();
+  v4 = TK_LOG_smartcard(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __46__TKSmartCardSlotManager_endNFCSlotWithError___block_invoke_cold_1();
@@ -642,19 +637,20 @@ void __46__TKSmartCardSlotManager_endNFCSlotWithError___block_invoke(uint64_t a1
 void __46__TKSmartCardSlotManager_endNFCSlotWithError___block_invoke_50(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = TK_LOG_smartcard();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = TK_LOG_smartcard(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __46__TKSmartCardSlotManager_endNFCSlotWithError___block_invoke_50_cold_1();
     }
   }
 
-  v7 = *(*(a1 + 32) + 8);
-  v8 = *(v7 + 40);
-  *(v7 + 40) = v5;
-  v9 = v5;
+  v8 = *(*(a1 + 32) + 8);
+  v9 = *(v8 + 40);
+  *(v8 + 40) = v6;
+  v10 = v6;
 
   *(*(*(a1 + 40) + 8) + 24) = a2;
 }
@@ -703,7 +699,7 @@ void __46__TKSmartCardSlotManager_endNFCSlotWithError___block_invoke_50(uint64_t
 void __64__TKSmartCardSlotManager_updateNFCSlotMessageWithMessage_error___block_invoke(void *a1, void *a2)
 {
   v3 = a2;
-  v4 = TK_LOG_smartcard();
+  v4 = TK_LOG_smartcard(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __62__TKSmartCardSlotManager_createNFCSlotWithMessage_completion___block_invoke_cold_1();
@@ -722,19 +718,20 @@ void __64__TKSmartCardSlotManager_updateNFCSlotMessageWithMessage_error___block_
 void __64__TKSmartCardSlotManager_updateNFCSlotMessageWithMessage_error___block_invoke_52(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = TK_LOG_smartcard();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = TK_LOG_smartcard(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __64__TKSmartCardSlotManager_updateNFCSlotMessageWithMessage_error___block_invoke_52_cold_1();
     }
   }
 
   *(*(*(a1 + 32) + 8) + 24) = a2;
-  v7 = *(*(a1 + 40) + 8);
-  v8 = *(v7 + 40);
-  *(v7 + 40) = v5;
+  v8 = *(*(a1 + 40) + 8);
+  v9 = *(v8 + 40);
+  *(v8 + 40) = v6;
 }
 
 - (BOOL)isNFCSupported
@@ -765,7 +762,7 @@ void __64__TKSmartCardSlotManager_updateNFCSlotMessageWithMessage_error___block_
 void __40__TKSmartCardSlotManager_isNFCSupported__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TK_LOG_smartcard();
+  v4 = TK_LOG_smartcard(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __62__TKSmartCardSlotManager_createNFCSlotWithMessage_completion___block_invoke_cold_1();
@@ -780,10 +777,11 @@ void __40__TKSmartCardSlotManager_isNFCSupported__block_invoke(uint64_t a1, void
 void __40__TKSmartCardSlotManager_isNFCSupported__block_invoke_53(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = TK_LOG_smartcard();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = TK_LOG_smartcard(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __40__TKSmartCardSlotManager_isNFCSupported__block_invoke_53_cold_1();
     }
@@ -863,114 +861,77 @@ LABEL_7:
 
 - (id)_createAIDsValidationError
 {
-  v9[2] = *MEMORY[0x1E69E9840];
+  v8[2] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696ABC0];
   v3 = *MEMORY[0x1E696A588];
-  v8[0] = *MEMORY[0x1E696A278];
-  v8[1] = v3;
-  v9[0] = @"Couldn't read com.apple.developer.nfc.readersession.iso7816 .select-identifiers record in Info.plist";
-  v9[1] = @"AIDs must be provided in Info.plist";
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
+  v7[0] = *MEMORY[0x1E696A278];
+  v7[1] = v3;
+  v8[0] = @"Couldn't read com.apple.developer.nfc.readersession.iso7816 .select-identifiers record in Info.plist";
+  v8[1] = @"AIDs must be provided in Info.plist";
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
   v5 = [v2 errorWithDomain:@"CryptoTokenKit" code:-6 userInfo:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
-void __41__TKSmartCardSlotManager_setupConnection__block_invoke_cold_1(uint64_t a1)
+void __41__TKSmartCardSlotManager_setupConnection__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v5 = 138543618;
+  v2 = 138543618;
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_11(&dword_1DF413000, v2, v3, "ctk: connecting to slot registration server (%{public}@) failed, error %{public}@", v5);
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-void __41__TKSmartCardSlotManager_setupConnection__block_invoke_2_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_8();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_11(&dword_1DF413000, v0, v1, "ctk: connecting to slot registration server (%{public}@) failed, error %{public}@", v2);
 }
 
 - (void)setSlotWithName:endpoint:type:reply:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __62__TKSmartCardSlotManager_createNFCSlotWithMessage_completion___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_7();
-  v0 = *MEMORY[0x1E69E9840];
-  v2 = OUTLINED_FUNCTION_9(v1);
+  v1 = OUTLINED_FUNCTION_9(v0);
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void __62__TKSmartCardSlotManager_createNFCSlotWithMessage_completion___block_invoke_43_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __62__TKSmartCardSlotManager_createNFCSlotWithMessage_completion___block_invoke_43_cold_3()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __46__TKSmartCardSlotManager_endNFCSlotWithError___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_7();
-  v0 = *MEMORY[0x1E69E9840];
-  v2 = OUTLINED_FUNCTION_9(v1);
+  v1 = OUTLINED_FUNCTION_9(v0);
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void __46__TKSmartCardSlotManager_endNFCSlotWithError___block_invoke_50_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __64__TKSmartCardSlotManager_updateNFCSlotMessageWithMessage_error___block_invoke_52_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __40__TKSmartCardSlotManager_isNFCSupported__block_invoke_53_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

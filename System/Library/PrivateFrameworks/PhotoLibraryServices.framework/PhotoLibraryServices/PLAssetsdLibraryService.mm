@@ -76,7 +76,7 @@
   v46 = __Block_byref_object_copy__106333;
   v47 = __Block_byref_object_dispose__106334;
   v48 = 0;
-  v12 = [dsCopy count];
+  v12 = objc_msgSend_count(dsCopy);
   if (v12)
   {
     if (v12 == 1)
@@ -1217,9 +1217,9 @@ LABEL_13:
   if ((v17 & 1) == 0 && ![(PLAssetsdConnectionAuthorization *)self->_connectionAuthorization isClientAuthorizedForLibraryUpgrade])
   {
     trustedCallerBundleID = [(PLAssetsdConnectionAuthorization *)self->_connectionAuthorization trustedCallerBundleID];
-    v20 = [trustedCallerBundleID isEqualToString:@"com.apple.migrationpluginwrapper"];
+    isEqualToString = objc_msgSend_isEqualToString_(trustedCallerBundleID);
 
-    if ((v20 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       v21 = PLLibraryServicesGetLog();
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
@@ -1465,9 +1465,9 @@ void __53__PLAssetsdLibraryService_postOpenProgressWithReply___block_invoke(uint
     }
 
     trustedCallerBundleID = [(PLAssetsdConnectionAuthorization *)self->_connectionAuthorization trustedCallerBundleID];
-    v18 = [trustedCallerBundleID isEqualToString:@"com.apple.mediaanalysisd"];
+    isEqualToString = objc_msgSend_isEqualToString_(trustedCallerBundleID);
 
-    if (v18)
+    if (isEqualToString)
     {
       v19 = PLLibraryServicesGetLog();
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))

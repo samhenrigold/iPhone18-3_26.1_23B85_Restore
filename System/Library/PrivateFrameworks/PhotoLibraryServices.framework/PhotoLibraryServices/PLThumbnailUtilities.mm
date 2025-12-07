@@ -202,7 +202,7 @@ LABEL_4:
   }
 
   v14 = *data;
-  v15 = [specificationsCopy count];
+  v15 = objc_msgSend_count(specificationsCopy);
   v16 = v15 << 32;
   v17 = malloc_type_malloc(8 * v15, 0x100004000313F17uLL);
   v18 = malloc_type_malloc(4 * v15, 0x100004052888210uLL);
@@ -277,7 +277,7 @@ LABEL_15:
     goto LABEL_21;
   }
 
-  v8 = [specificationsCopy count];
+  v8 = objc_msgSend_count(specificationsCopy);
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
@@ -357,10 +357,10 @@ LABEL_14:
   if (v23)
   {
     v24 = v23;
-    v25 = [v9 count];
-    if (v25 == [v24 count])
+    v25 = objc_msgSend_count(v9);
+    if (v25 == objc_msgSend_count(v24))
     {
-      if ([v9 count])
+      if (objc_msgSend_count(v9))
       {
         v26 = 0;
         do
@@ -380,7 +380,7 @@ LABEL_14:
           v31 = 1;
         }
 
-        while (v26 < [v9 count]);
+        while (v26 < objc_msgSend_count(v9));
       }
 
       else

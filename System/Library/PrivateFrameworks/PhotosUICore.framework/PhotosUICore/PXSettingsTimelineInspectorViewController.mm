@@ -119,12 +119,12 @@
 
     else
     {
-      startTime = [v16 startTime];
-      [(PXSettingsTimelineInspectorViewController *)self displaySliderTime:startTime];
+      v20 = objc_msgSend_startTime(v16);
+      [(PXSettingsTimelineInspectorViewController *)self displaySliderTime:v20];
 
-      timeSlider = [v16 startTime];
-      currentTime = [(PXSettingsTimelineInspectorViewController *)self currentTime];
-      [timeSlider timeIntervalSinceDate:currentTime];
+      timeSlider = objc_msgSend_startTime(v16);
+      v21 = objc_msgSend_currentTime(self);
+      [timeSlider timeIntervalSinceDate:v21];
       v23 = v22;
       timeSlider2 = [(PXSettingsTimelineInspectorViewController *)self timeSlider];
       *&v25 = v23;
@@ -162,8 +162,8 @@
     timeline = [(PXSettingsTimelineInspectorViewController *)self timeline];
     lastObject = [timeline lastObject];
     endTime = [lastObject endTime];
-    currentTime = [(PXSettingsTimelineInspectorViewController *)self currentTime];
-    [endTime timeIntervalSinceDate:currentTime];
+    v14 = objc_msgSend_currentTime(self);
+    [endTime timeIntervalSinceDate:v14];
     v16 = v15 + -1.0;
     timeSlider4 = [(PXSettingsTimelineInspectorViewController *)self timeSlider];
     *&v18 = v16;
@@ -172,8 +172,8 @@
     timeline2 = [(PXSettingsTimelineInspectorViewController *)self timeline];
     firstObject = [timeline2 firstObject];
 
-    currentTime2 = [(PXSettingsTimelineInspectorViewController *)self currentTime];
-    [(PXSettingsTimelineInspectorViewController *)self displaySliderTime:currentTime2];
+    v20 = objc_msgSend_currentTime(self);
+    [(PXSettingsTimelineInspectorViewController *)self displaySliderTime:v20];
   }
 
   [(PXSettingsTimelineInspectorViewController *)self displayTimelineEntry:firstObject];
@@ -196,10 +196,10 @@
 
   else
   {
-    currentTime = [(PXSettingsTimelineInspectorViewController *)self currentTime];
+    v9 = objc_msgSend_currentTime(self);
     v21 = changedCopy;
     [changedCopy value];
-    v11 = [currentTime dateByAddingTimeInterval:v10];
+    v11 = [v9 dateByAddingTimeInterval:v10];
 
     [(PXSettingsTimelineInspectorViewController *)self displaySliderTime:v11];
     v24 = 0u;
@@ -222,9 +222,9 @@
           }
 
           v17 = *(*(&v22 + 1) + 8 * i);
-          startTime = [v17 startTime];
+          v18 = objc_msgSend_startTime(v17);
           endTime = [v17 endTime];
-          v20 = [v11 px_isBetweenDate:startTime andDate:endTime];
+          v20 = [v11 px_isBetweenDate:v18 andDate:endTime];
 
           if (v20)
           {
@@ -647,8 +647,8 @@ void __66__PXSettingsTimelineInspectorViewController_displayTimelineEntry___bloc
   timeline = [(PXSettingsTimelineInspectorViewController *)self timeline];
   lastObject = [timeline lastObject];
   endTime = [lastObject endTime];
-  currentTime = [(PXSettingsTimelineInspectorViewController *)self currentTime];
-  [endTime timeIntervalSinceDate:currentTime];
+  v52 = objc_msgSend_currentTime(self);
+  [endTime timeIntervalSinceDate:v52];
   v54 = v53 + -1.0;
   timeSlider3 = [(PXSettingsTimelineInspectorViewController *)self timeSlider];
   *&v56 = v54;
@@ -665,8 +665,8 @@ void __66__PXSettingsTimelineInspectorViewController_displayTimelineEntry___bloc
   firstObject = [timeline2 firstObject];
   [(PXSettingsTimelineInspectorViewController *)self displayTimelineEntry:firstObject];
 
-  currentTime2 = [(PXSettingsTimelineInspectorViewController *)self currentTime];
-  [(PXSettingsTimelineInspectorViewController *)self displaySliderTime:currentTime2];
+  v62 = objc_msgSend_currentTime(self);
+  [(PXSettingsTimelineInspectorViewController *)self displaySliderTime:v62];
 }
 
 - (PXSettingsTimelineInspectorViewController)initWithWidgetSizeClass:(unint64_t)class timeline:(id)timeline dataSource:(id)source

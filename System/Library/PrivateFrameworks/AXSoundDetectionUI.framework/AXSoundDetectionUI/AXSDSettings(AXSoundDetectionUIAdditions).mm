@@ -13,6 +13,7 @@
 - (uint64_t)hasCustomHapticForKshotDetector:()AXSoundDetectionUIAdditions;
 - (uint64_t)hasCustomToneForKshotDetector:()AXSoundDetectionUIAdditions;
 - (uint64_t)shouldBeListeningForSoundActions;
+- (void)_shouldActivateVoiceTriggerSupportForSwitchControl;
 - (void)addKShotDetector:()AXSoundDetectionUIAdditions;
 - (void)deleteRecordingLinksForDetector:()AXSoundDetectionUIAdditions;
 - (void)disableDetector:()AXSoundDetectionUIAdditions;
@@ -33,9 +34,80 @@
 
 - (uint64_t)_shouldActivateVoiceTriggerSupportForSwitchControl
 {
-  dlerror();
-  v0 = abort_report_np();
-  return [AXSDSettings(AXSoundDetectionUIAdditions) decodeKShotDetectors:v0];
+  v25 = *MEMORY[0x277D85DE8];
+  if (!_AXSAssistiveTouchScannerEnabled())
+  {
+    return 0;
+  }
+
+  sharedInstance = [getAXSettingsClass() sharedInstance];
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  assistiveTouchSwitches = [sharedInstance assistiveTouchSwitches];
+  v1 = [assistiveTouchSwitches countByEnumeratingWithState:&v11 objects:v24 count:16];
+  if (v1)
+  {
+    v2 = *v12;
+    while (2)
+    {
+      for (i = 0; i != v1; ++i)
+      {
+        if (*v12 != v2)
+        {
+          objc_enumerationMutation(assistiveTouchSwitches);
+        }
+
+        source = [*(*(&v11 + 1) + 8 * i) source];
+        v20 = 0;
+        v21 = &v20;
+        v22 = 0x2020000000;
+        v5 = getSCATSwitchSourceSoundSymbolLoc_ptr;
+        v23 = getSCATSwitchSourceSoundSymbolLoc_ptr;
+        if (!getSCATSwitchSourceSoundSymbolLoc_ptr)
+        {
+          v15 = MEMORY[0x277D85DD0];
+          v16 = 3221225472;
+          v17 = __getSCATSwitchSourceSoundSymbolLoc_block_invoke;
+          v18 = &unk_278BDCFE0;
+          v19 = &v20;
+          v6 = AccessibilityUtilitiesLibrary_0();
+          v7 = dlsym(v6, "SCATSwitchSourceSound");
+          *(v19[1] + 24) = v7;
+          getSCATSwitchSourceSoundSymbolLoc_ptr = *(v19[1] + 24);
+          v5 = v21[3];
+        }
+
+        _Block_object_dispose(&v20, 8);
+        if (!v5)
+        {
+          [AXSDSettings(AXSoundDetectionUIAdditions) _shouldActivateVoiceTriggerSupportForSwitchControl];
+          __break(1u);
+        }
+
+        v8 = [source isEqualToString:*v5];
+
+        if (v8)
+        {
+          v1 = 1;
+          goto LABEL_16;
+        }
+      }
+
+      v1 = [assistiveTouchSwitches countByEnumeratingWithState:&v11 objects:v24 count:16];
+      if (v1)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+LABEL_16:
+
+  return v1;
 }
 
 - (uint64_t)_shouldActiveVoiceTriggerSupportForAssistiveTouch
@@ -262,7 +334,7 @@
 
 - (id)decodeKShotDetectors:()AXSoundDetectionUIAdditions
 {
-  v21[3] = *MEMORY[0x277D85DE8];
+  v20[3] = *MEMORY[0x277D85DE8];
   v3 = a3;
   data = [MEMORY[0x277CBEA90] data];
 
@@ -274,20 +346,20 @@
   else
   {
     v5 = objc_alloc(MEMORY[0x277CBEB98]);
-    v21[0] = objc_opt_class();
-    v21[1] = objc_opt_class();
-    v21[2] = objc_opt_class();
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:3];
+    v20[0] = objc_opt_class();
+    v20[1] = objc_opt_class();
+    v20[2] = objc_opt_class();
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:3];
     v7 = [v5 initWithArray:v6];
 
     v8 = objc_alloc(MEMORY[0x277CBEB98]);
-    v20 = objc_opt_class();
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
+    v19 = objc_opt_class();
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
     v10 = [v8 initWithArray:v9];
 
-    v19 = 0;
-    v11 = [MEMORY[0x277CCAAC8] unarchivedDictionaryWithKeysOfClasses:v7 objectsOfClasses:v10 fromData:v3 error:&v19];
-    v12 = v19;
+    v18 = 0;
+    v11 = [MEMORY[0x277CCAAC8] unarchivedDictionaryWithKeysOfClasses:v7 objectsOfClasses:v10 fromData:v3 error:&v18];
+    v12 = v18;
     v13 = v12;
     if (v11)
     {
@@ -310,8 +382,6 @@
 
     dictionary = dictionary2;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -470,7 +540,7 @@
 
 - (uint64_t)deleteTrainingFilesForDetector:()AXSoundDetectionUIAdditions
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = [MEMORY[0x277CBEBC0] fileURLWithPath:@"/var/mobile/Library/Accessibility/SoundDetectionKShot/TrainingFiles"];
   identifier = [v4 identifier];
@@ -482,9 +552,9 @@
 
   if (v10)
   {
-    v21 = 0;
-    v11 = [defaultManager removeItemAtURL:v7 error:&v21];
-    v12 = v21;
+    v20 = 0;
+    v11 = [defaultManager removeItemAtURL:v7 error:&v20];
+    v12 = v20;
     v13 = v12;
     if (v11)
     {
@@ -494,9 +564,9 @@
       {
         name = [v4 name];
         *buf = 138412546;
-        v23 = v5;
-        v24 = 2112;
-        v25 = name;
+        v22 = v5;
+        v23 = 2112;
+        v24 = name;
         _os_log_impl(&dword_23D62D000, v14, OS_LOG_TYPE_INFO, "Deleted training files at path: %@ for detector: %@", buf, 0x16u);
       }
 
@@ -529,13 +599,12 @@
     {
       name2 = [v4 name];
       *buf = 138412290;
-      v23 = name2;
+      v22 = name2;
       _os_log_impl(&dword_23D62D000, v13, OS_LOG_TYPE_INFO, "No need to delete training files for detector: %@, since the directory does not exist", buf, 0xCu);
     }
   }
 
 LABEL_13:
-  v19 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -551,7 +620,7 @@ LABEL_13:
 
 - (uint64_t)deleteModelForDetector:()AXSoundDetectionUIAdditions
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a3;
   v4 = [MEMORY[0x277CBEBC0] fileURLWithPath:*MEMORY[0x277CE6ED0]];
   identifier = [v3 identifier];
@@ -564,9 +633,9 @@ LABEL_13:
 
   if (v10)
   {
-    v21 = 0;
-    v11 = [defaultManager removeItemAtURL:v7 error:&v21];
-    v12 = v21;
+    v20 = 0;
+    v11 = [defaultManager removeItemAtURL:v7 error:&v20];
+    v12 = v20;
     v13 = v12;
     if (v11)
     {
@@ -575,9 +644,9 @@ LABEL_13:
       {
         name = [v3 name];
         *buf = 138412546;
-        v23 = v4;
-        v24 = 2112;
-        v25 = name;
+        v22 = v4;
+        v23 = 2112;
+        v24 = name;
         _os_log_impl(&dword_23D62D000, v14, OS_LOG_TYPE_INFO, "Deleted model at path: %@ for detector: %@", buf, 0x16u);
       }
 
@@ -610,50 +679,34 @@ LABEL_13:
     {
       name2 = [v3 name];
       *buf = 138412290;
-      v23 = name2;
+      v22 = name2;
       _os_log_impl(&dword_23D62D000, v13, OS_LOG_TYPE_INFO, "No need to delete model for detector: %@, since the model does not exist", buf, 0xCu);
     }
   }
 
 LABEL_13:
-  v19 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
-- (void)decodeKShotDetectors:()AXSoundDetectionUIAdditions .cold.1()
+- (void)_shouldActivateVoiceTriggerSupportForSwitchControl
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)encodeKShotDetectors:()AXSoundDetectionUIAdditions .cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  [AXSDSettings(AXSoundDetectionUIAdditions) decodeKShotDetectors:];
 }
 
 - (void)deleteTrainingFilesForDetector:()AXSoundDetectionUIAdditions .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 name];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_2_3(&dword_23D62D000, v2, v3, "Error deleting training directory for detector: %@ error: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_3(&dword_23D62D000, v2, v3, "Error deleting training directory for detector: %@ error: %@", v4, v5, v6, v7);
 }
 
 - (void)deleteModelForDetector:()AXSoundDetectionUIAdditions .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 name];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_2_3(&dword_23D62D000, v2, v3, "Error deleting model for detector: %@ error: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_3(&dword_23D62D000, v2, v3, "Error deleting model for detector: %@ error: %@", v4, v5, v6, v7);
 }
 
 @end

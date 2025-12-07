@@ -87,10 +87,28 @@ _DWORD *__33__BRCDaemonContainerHelper__init__block_invoke(uint64_t a1, int a2)
 
 - (void)_computeTCCEnabledDisabledBundleIdentifiers
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] About to compute the enabled and disabled bundle IDs via TCC%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = brc_bread_crumbs();
+  v4 = brc_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  {
+    [BRCDaemonContainerHelper _computeTCCEnabledDisabledBundleIdentifiers];
+  }
+
+  v5 = TCCAccessCopyBundleIdentifiersDisabledForService();
+  v6 = TCCAccessCopyBundleIdentifiersForService();
+  v7 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(v6, "count") + objc_msgSend(v5, "count")}];
+  [(NSSet *)v7 addObjectsFromArray:v5];
+  [(NSSet *)v7 addObjectsFromArray:v6];
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  v9 = [MEMORY[0x277CBEB98] setWithArray:v5];
+  disabledBundleIDs = selfCopy->_disabledBundleIDs;
+  selfCopy->_disabledBundleIDs = v9;
+
+  knownBundleIDs = selfCopy->_knownBundleIDs;
+  selfCopy->_knownBundleIDs = v7;
+
+  objc_sync_exit(selfCopy);
 }
 
 - (id)fetchAllContainersByIDWithError:(id *)error
@@ -170,7 +188,7 @@ uint64_t __60__BRCDaemonContainerHelper_fetchAllContainersByIDWithError___block_
 
 - (BOOL)cloudSyncTCCDisabledForContainerMeta:(id)meta
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   metaCopy = meta;
   identifier = [metaCopy identifier];
   v6 = [identifier isEqualToString:*MEMORY[0x277CFAD68]];
@@ -188,26 +206,26 @@ uint64_t __60__BRCDaemonContainerHelper_fetchAllContainersByIDWithError___block_
       v11 = [(NSSet *)selfCopy->_disabledBundleIDs copy];
       objc_sync_exit(selfCopy);
 
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
       v21 = 0u;
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
       bundleIdentifiers2 = [metaCopy bundleIdentifiers];
-      v13 = [bundleIdentifiers2 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v13 = [bundleIdentifiers2 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v13)
       {
         v14 = 0;
-        v15 = *v21;
+        v15 = *v20;
         while (2)
         {
           for (i = 0; i != v13; i = (i + 1))
           {
-            if (*v21 != v15)
+            if (*v20 != v15)
             {
               objc_enumerationMutation(bundleIdentifiers2);
             }
 
-            v17 = *(*(&v20 + 1) + 8 * i);
+            v17 = *(*(&v19 + 1) + 8 * i);
             if ([v10 containsObject:v17])
             {
               if (([v11 containsObject:v17] & 1) == 0)
@@ -220,7 +238,7 @@ uint64_t __60__BRCDaemonContainerHelper_fetchAllContainersByIDWithError___block_
             }
           }
 
-          v13 = [bundleIdentifiers2 countByEnumeratingWithState:&v20 objects:v24 count:16];
+          v13 = [bundleIdentifiers2 countByEnumeratingWithState:&v19 objects:v23 count:16];
           if (v13)
           {
             continue;
@@ -255,13 +273,12 @@ LABEL_20:
   LOBYTE(v13) = 0;
 LABEL_21:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (unsigned)br_capabilityToMoveFromLocalItem:(id)item toNewParent:(id)parent session:(id)session error:(id *)error
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   parentCopy = parent;
   if ([parentCopy isDirectory])
@@ -274,13 +291,13 @@ LABEL_21:
       v13 = brc_default_log();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v58 = 138412546;
-        v59 = itemCopy;
-        v60 = 2112;
-        v61 = v12;
+        v57 = 138412546;
+        v58 = itemCopy;
+        v59 = 2112;
+        v60 = v12;
         v14 = "[WARNING] Can't edit a readonly share for %@%@";
 LABEL_38:
-        _os_log_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEFAULT, v14, &v58, 0x16u);
+        _os_log_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEFAULT, v14, &v57, 0x16u);
         goto LABEL_39;
       }
 
@@ -293,10 +310,10 @@ LABEL_38:
       v13 = brc_default_log();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v58 = 138412546;
-        v59 = parentCopy;
-        v60 = 2112;
-        v61 = v12;
+        v57 = 138412546;
+        v58 = parentCopy;
+        v59 = 2112;
+        v60 = v12;
         v14 = "[WARNING] Can't add a file to a readonly share with parent %@%@";
         goto LABEL_38;
       }
@@ -312,11 +329,11 @@ LABEL_39:
       v13 = brc_default_log();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v58 = 138412546;
-        v59 = itemCopy;
-        v60 = 2112;
-        v61 = v12;
-        _os_log_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEFAULT, "[WARNING] Error trying to move shared top item %@ into trash%@", &v58, 0x16u);
+        v57 = 138412546;
+        v58 = itemCopy;
+        v59 = 2112;
+        v60 = v12;
+        _os_log_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEFAULT, "[WARNING] Error trying to move shared top item %@ into trash%@", &v57, 0x16u);
       }
 
       v18 = 8;
@@ -337,15 +354,15 @@ LABEL_41:
         goto LABEL_42;
       }
 
-      v58 = 138412546;
-      v59 = itemCopy;
-      v60 = 2112;
-      v61 = v12;
+      v57 = 138412546;
+      v58 = itemCopy;
+      v59 = 2112;
+      v60 = v12;
       v19 = "[WARNING] Error trying to move shared top item %@ into a shared item%@";
       v20 = v13;
       v21 = 22;
 LABEL_25:
-      _os_log_impl(&dword_223E7A000, v20, OS_LOG_TYPE_DEFAULT, v19, &v58, v21);
+      _os_log_impl(&dword_223E7A000, v20, OS_LOG_TYPE_DEFAULT, v19, &v57, v21);
       goto LABEL_26;
     }
 
@@ -369,15 +386,15 @@ LABEL_35:
             goto LABEL_40;
           }
 
-          v58 = 138412802;
-          v59 = itemCopy;
-          v60 = 2112;
-          v61 = parentCopy;
-          v62 = 2112;
-          v63 = v12;
+          v57 = 138412802;
+          v58 = itemCopy;
+          v59 = 2112;
+          v60 = parentCopy;
+          v61 = 2112;
+          v62 = v12;
           v22 = "[WARNING] Error trying to move shared top item %@ into another shared item %@%@";
 LABEL_34:
-          _os_log_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEFAULT, v22, &v58, 0x20u);
+          _os_log_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEFAULT, v22, &v57, 0x20u);
           goto LABEL_35;
         }
 
@@ -395,13 +412,13 @@ LABEL_90:
               v13 = brc_default_log();
               if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
               {
-                v58 = 138412802;
-                v59 = itemCopy;
-                v60 = 2112;
-                v61 = parentCopy;
-                v62 = 2112;
-                v63 = v12;
-                _os_log_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEFAULT, "[WARNING] Moving item with a shared child %@ into a share with parent %@%@", &v58, 0x20u);
+                v57 = 138412802;
+                v58 = itemCopy;
+                v59 = 2112;
+                v60 = parentCopy;
+                v61 = 2112;
+                v62 = v12;
+                _os_log_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEFAULT, "[WARNING] Moving item with a shared child %@ into a share with parent %@%@", &v57, 0x20u);
               }
 
               v18 = 1024;
@@ -420,13 +437,13 @@ LABEL_90:
               v13 = brc_default_log();
               if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
               {
-                v58 = 138412802;
-                v59 = itemCopy;
-                v60 = 2112;
-                v61 = parentCopy;
-                v62 = 2112;
-                v63 = v12;
-                _os_log_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEFAULT, "[WARNING] Moving an item with a shared child %@ into trash at parent %@%@", &v58, 0x20u);
+                v57 = 138412802;
+                v58 = itemCopy;
+                v59 = 2112;
+                v60 = parentCopy;
+                v61 = 2112;
+                v62 = v12;
+                _os_log_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEFAULT, "[WARNING] Moving an item with a shared child %@ into trash at parent %@%@", &v57, 0x20u);
               }
 
               v18 = 2048;
@@ -452,12 +469,12 @@ LABEL_90:
               goto LABEL_35;
             }
 
-            v58 = 138412802;
-            v59 = itemCopy;
-            v60 = 2112;
-            v61 = parentCopy;
-            v62 = 2112;
-            v63 = v12;
+            v57 = 138412802;
+            v58 = itemCopy;
+            v59 = 2112;
+            v60 = parentCopy;
+            v61 = 2112;
+            v62 = v12;
             v22 = "[WARNING] Moving item %@ into a share with parent %@%@";
             goto LABEL_34;
           }
@@ -479,31 +496,31 @@ LABEL_90:
             goto LABEL_35;
           }
 
-          v58 = 138412802;
-          v59 = itemCopy;
-          v60 = 2112;
-          v61 = parentCopy;
-          v62 = 2112;
-          v63 = v12;
+          v57 = 138412802;
+          v58 = itemCopy;
+          v59 = 2112;
+          v60 = parentCopy;
+          v61 = 2112;
+          v62 = v12;
           v22 = "[WARNING] Moving item %@ out of the share to new parent %@%@";
           goto LABEL_34;
         }
 
         v12 = [MEMORY[0x277CBC5D0] brc_fetchShareIDWithSharedItem:itemCopy];
         v13 = [MEMORY[0x277CBC5D0] brc_fetchShareIDWithSharedItem:parentCopy];
-        if (!v13 || ([v12 recordName], v25 = objc_claimAutoreleasedReturnValue(), -[NSObject recordName](v13, "recordName"), v26 = objc_claimAutoreleasedReturnValue(), v27 = objc_msgSend(v25, "isEqualToString:", v26), v26, v25, (v27 & 1) == 0))
+        if (!v13 || ([v12 recordName], v24 = objc_claimAutoreleasedReturnValue(), -[NSObject recordName](v13, "recordName"), v25 = objc_claimAutoreleasedReturnValue(), v26 = objc_msgSend(v24, "isEqualToString:", v25), v25, v24, (v26 & 1) == 0))
         {
-          v28 = brc_bread_crumbs();
-          v29 = brc_default_log();
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+          v27 = brc_bread_crumbs();
+          v28 = brc_default_log();
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
           {
-            v58 = 138412802;
-            v59 = itemCopy;
-            v60 = 2112;
-            v61 = parentCopy;
-            v62 = 2112;
-            v63 = v28;
-            _os_log_impl(&dword_223E7A000, v29, OS_LOG_TYPE_DEFAULT, "[WARNING] Moving item %@ into a different share with parent %@%@", &v58, 0x20u);
+            v57 = 138412802;
+            v58 = itemCopy;
+            v59 = 2112;
+            v60 = parentCopy;
+            v61 = 2112;
+            v62 = v27;
+            _os_log_impl(&dword_223E7A000, v28, OS_LOG_TYPE_DEFAULT, "[WARNING] Moving item %@ into a different share with parent %@%@", &v57, 0x20u);
           }
 
           goto LABEL_35;
@@ -519,23 +536,13 @@ LABEL_90:
 
         v12 = [MEMORY[0x277CBC5D0] brc_fetchShareIDWithSharedItem:itemCopy];
         v13 = [MEMORY[0x277CBC5D0] brc_fetchShareIDWithSharedItem:parentCopy];
-        if (!v13 || ([v12 recordName], v37 = objc_claimAutoreleasedReturnValue(), -[NSObject recordName](v13, "recordName"), v38 = objc_claimAutoreleasedReturnValue(), v39 = objc_msgSend(v37, "isEqualToString:", v38), v38, v37, (v39 & 1) == 0))
+        if (!v13 || ([v12 recordName], v36 = objc_claimAutoreleasedReturnValue(), -[NSObject recordName](v13, "recordName"), v37 = objc_claimAutoreleasedReturnValue(), v38 = objc_msgSend(v36, "isEqualToString:", v37), v37, v36, (v38 & 1) == 0))
         {
-          if (![itemCopy isDocument])
+          if ([itemCopy isDocument] && (objc_msgSend(itemCopy, "appLibrary"), v40 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v40, "mangledID"), v41 = objc_claimAutoreleasedReturnValue(), +[BRCUserDefaults defaultsForMangledID:](BRCUserDefaults, "defaultsForMangledID:", v41), v42 = objc_claimAutoreleasedReturnValue(), v43 = objc_msgSend(v42, "supportsServerSideAssetCopies"), v42, v41, v40, v43))
           {
-            goto LABEL_83;
-          }
-
-          appLibrary = [itemCopy appLibrary];
-          mangledID = [appLibrary mangledID];
-          v43 = [BRCUserDefaults defaultsForMangledID:mangledID];
-          supportsServerSideAssetCopies = [v43 supportsServerSideAssetCopies];
-
-          if (supportsServerSideAssetCopies)
-          {
-            v45 = brc_bread_crumbs();
-            v46 = brc_default_log();
-            if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
+            v44 = brc_bread_crumbs();
+            v45 = brc_default_log();
+            if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
             {
               [BRCDaemonContainerHelper br_capabilityToMoveFromLocalItem:toNewParent:session:error:];
             }
@@ -545,18 +552,17 @@ LABEL_90:
 
           else
           {
-LABEL_83:
-            v45 = brc_bread_crumbs();
-            v46 = brc_default_log();
-            if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+            v44 = brc_bread_crumbs();
+            v45 = brc_default_log();
+            if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
             {
-              v58 = 138412802;
-              v59 = itemCopy;
-              v60 = 2112;
-              v61 = parentCopy;
-              v62 = 2112;
-              v63 = v45;
-              _os_log_impl(&dword_223E7A000, v46, OS_LOG_TYPE_DEFAULT, "[WARNING] Moving item %@ into another shared item %@%@", &v58, 0x20u);
+              v57 = 138412802;
+              v58 = itemCopy;
+              v59 = 2112;
+              v60 = parentCopy;
+              v61 = 2112;
+              v62 = v44;
+              _os_log_impl(&dword_223E7A000, v45, OS_LOG_TYPE_DEFAULT, "[WARNING] Moving item %@ into another shared item %@%@", &v57, 0x20u);
             }
 
             v18 = 128;
@@ -580,23 +586,23 @@ LABEL_83:
           goto LABEL_26;
         }
 
-        v58 = 138412802;
-        v59 = itemCopy;
-        v60 = 2112;
-        v61 = parentCopy;
-        v62 = 2112;
-        v63 = v12;
+        v57 = 138412802;
+        v58 = itemCopy;
+        v59 = 2112;
+        v60 = parentCopy;
+        v61 = 2112;
+        v62 = v12;
         v19 = "[WARNING] Error trying to move shared top item %@ into another shared item %@%@";
         v20 = v13;
         v21 = 32;
         goto LABEL_25;
       }
 
-      appLibrary2 = [itemCopy appLibrary];
-      defaultClientZone = [appLibrary2 defaultClientZone];
-      v36 = [defaultClientZone isEqualToClientZone:clientZone2];
+      appLibrary = [itemCopy appLibrary];
+      defaultClientZone = [appLibrary defaultClientZone];
+      v35 = [defaultClientZone isEqualToClientZone:clientZone2];
 
-      if (v36)
+      if (v35)
       {
         v12 = brc_bread_crumbs();
         v13 = brc_default_log();
@@ -614,13 +620,13 @@ LABEL_69:
       v13 = brc_default_log();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v58 = 138412546;
-        v59 = itemCopy;
-        v60 = 2112;
-        v61 = v12;
-        v49 = "[WARNING] Top level shared item %@ moved across zone boundaries.  Allowing it%@";
-        v50 = v13;
-        v51 = 22;
+        v57 = 138412546;
+        v58 = itemCopy;
+        v59 = 2112;
+        v60 = v12;
+        v48 = "[WARNING] Top level shared item %@ moved across zone boundaries.  Allowing it%@";
+        v49 = v13;
+        v50 = 22;
         goto LABEL_105;
       }
     }
@@ -629,30 +635,19 @@ LABEL_69:
     {
       if (([clientZone isSharedZone] & 1) != 0 || objc_msgSend(clientZone2, "isSharedZone"))
       {
-        if (![itemCopy isDocument])
+        if (![itemCopy isDocument] || (objc_msgSend(itemCopy, "appLibrary"), v29 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v29, "mangledID"), v30 = objc_claimAutoreleasedReturnValue(), +[BRCUserDefaults defaultsForMangledID:](BRCUserDefaults, "defaultsForMangledID:", v30), v31 = objc_claimAutoreleasedReturnValue(), v32 = objc_msgSend(v31, "supportsServerSideAssetCopies"), v31, v30, v29, !v32))
         {
-          goto LABEL_63;
-        }
-
-        appLibrary3 = [itemCopy appLibrary];
-        mangledID2 = [appLibrary3 mangledID];
-        v32 = [BRCUserDefaults defaultsForMangledID:mangledID2];
-        supportsServerSideAssetCopies2 = [v32 supportsServerSideAssetCopies];
-
-        if (!supportsServerSideAssetCopies2)
-        {
-LABEL_63:
           v12 = brc_bread_crumbs();
           v13 = brc_default_log();
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
-            v58 = 138412802;
-            v59 = itemCopy;
-            v60 = 2112;
-            v61 = parentCopy;
-            v62 = 2112;
-            v63 = v12;
-            _os_log_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEFAULT, "[WARNING] We need to download item %@ which is moving in or out of a shared zone to parent %@%@", &v58, 0x20u);
+            v57 = 138412802;
+            v58 = itemCopy;
+            v59 = 2112;
+            v60 = parentCopy;
+            v61 = 2112;
+            v62 = v12;
+            _os_log_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEFAULT, "[WARNING] We need to download item %@ which is moving in or out of a shared zone to parent %@%@", &v57, 0x20u);
           }
 
           v18 = 16;
@@ -671,31 +666,20 @@ LABEL_63:
 
       if (![itemCopy hasShareIDAndIsOwnedByMe] || (objc_msgSend(itemCopy, "sharingOptions") & 0x48) == 0)
       {
-        if (![itemCopy isDocument])
+        if (![itemCopy isDocument] || (objc_msgSend(itemCopy, "appLibrary"), v51 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v51, "mangledID"), v52 = objc_claimAutoreleasedReturnValue(), +[BRCUserDefaults defaultsForMangledID:](BRCUserDefaults, "defaultsForMangledID:", v52), v53 = objc_claimAutoreleasedReturnValue(), v54 = objc_msgSend(v53, "supportsServerSideAssetCopies"), v53, v52, v51, !v54))
         {
-          goto LABEL_111;
-        }
-
-        appLibrary4 = [itemCopy appLibrary];
-        mangledID3 = [appLibrary4 mangledID];
-        v54 = [BRCUserDefaults defaultsForMangledID:mangledID3];
-        supportsServerSideAssetCopies3 = [v54 supportsServerSideAssetCopies];
-
-        if (!supportsServerSideAssetCopies3)
-        {
-LABEL_111:
           v12 = brc_bread_crumbs();
           v13 = brc_default_log();
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
-            v58 = 138412802;
-            v59 = itemCopy;
-            v60 = 2112;
-            v61 = parentCopy;
-            v62 = 2112;
-            v63 = v12;
+            v57 = 138412802;
+            v58 = itemCopy;
+            v59 = 2112;
+            v60 = parentCopy;
+            v61 = 2112;
+            v62 = v12;
             v18 = 32;
-            _os_log_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEFAULT, "[WARNING] We need to download item %@ which is crossing zone boundaries to %@%@", &v58, 0x20u);
+            _os_log_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEFAULT, "[WARNING] We need to download item %@ which is crossing zone boundaries to %@%@", &v57, 0x20u);
           }
 
           else
@@ -720,13 +704,13 @@ LABEL_111:
       v13 = brc_default_log();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v58 = 138412290;
-        v59 = v12;
-        v49 = "[WARNING] Warning for move of shared item across zones%@";
-        v50 = v13;
-        v51 = 12;
+        v57 = 138412290;
+        v58 = v12;
+        v48 = "[WARNING] Warning for move of shared item across zones%@";
+        v49 = v13;
+        v50 = 12;
 LABEL_105:
-        _os_log_impl(&dword_223E7A000, v50, OS_LOG_TYPE_DEFAULT, v49, &v58, v51);
+        _os_log_impl(&dword_223E7A000, v49, OS_LOG_TYPE_DEFAULT, v48, &v57, v50);
       }
     }
 
@@ -741,21 +725,21 @@ LABEL_105:
     v16 = brc_default_log();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      v40 = "(passed to caller)";
-      v58 = 136315906;
-      v59 = "[BRCDaemonContainerHelper br_capabilityToMoveFromLocalItem:toNewParent:session:error:]";
-      v60 = 2080;
+      v39 = "(passed to caller)";
+      v57 = 136315906;
+      v58 = "[BRCDaemonContainerHelper br_capabilityToMoveFromLocalItem:toNewParent:session:error:]";
+      v59 = 2080;
       if (!error)
       {
-        v40 = "(ignored by caller)";
+        v39 = "(ignored by caller)";
       }
 
-      v61 = v40;
-      v62 = 2112;
-      v63 = clientZone;
-      v64 = 2112;
-      v65 = v15;
-      _os_log_debug_impl(&dword_223E7A000, v16, OS_LOG_TYPE_DEBUG, "[DEBUG] %s: %s error: %@%@", &v58, 0x2Au);
+      v60 = v39;
+      v61 = 2112;
+      v62 = clientZone;
+      v63 = 2112;
+      v64 = v15;
+      _os_log_debug_impl(&dword_223E7A000, v16, OS_LOG_TYPE_DEBUG, "[DEBUG] %s: %s error: %@%@", &v57, 0x2Au);
     }
   }
 
@@ -768,7 +752,6 @@ LABEL_105:
   v18 = 4;
 LABEL_42:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -820,117 +803,70 @@ LABEL_42:
   [(BRCDaemonContainerHelper *)&v6 dealloc];
 }
 
-void __60__BRCDaemonContainerHelper_fetchAllContainersByIDWithError___block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6(&dword_223E7A000, v0, v1, "[ERROR] no metadata for %@%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 - (void)cloudSyncTCCDisabledForContainerMeta:(NSObject *)a3 .cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = [a1 identifier];
   OUTLINED_FUNCTION_1();
-  v8 = 2112;
-  v9 = a2;
-  _os_log_debug_impl(&dword_223E7A000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ is disabled by TCC%@", v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)br_capabilityToMoveFromLocalItem:toNewParent:session:error:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Allowing server-side asset copy for %@%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)br_capabilityToMoveFromLocalItem:toNewParent:session:error:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Allowing server-side asset copy for shared folder transfer for %@%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)br_capabilityToMoveFromLocalItem:toNewParent:session:error:.cold.3()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Allowing move of top level folder share item %@%@");
-  v2 = *MEMORY[0x277D85DE8];
+  v7 = 2112;
+  v8 = a2;
+  _os_log_debug_impl(&dword_223E7A000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ is disabled by TCC%@", v6, 0x16u);
 }
 
 - (void)br_capabilityToMoveFromLocalItem:toNewParent:session:error:.cold.4()
 {
-  v9 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
   v1 = brc_default_log();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: !parent.isOwnedByMe%@", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v0;
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: !parent.isOwnedByMe%@", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)br_capabilityToMoveFromLocalItem:toNewParent:session:error:.cold.5()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Allowing server-side asset copy for subitem moving %@%@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)br_capabilityToMoveFromLocalItem:toNewParent:session:error:.cold.6()
 {
-  v9 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
   v1 = brc_default_log();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: parent.isOwnedByMe%@", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v0;
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: parent.isOwnedByMe%@", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)br_capabilityToMoveFromLocalItem:toNewParent:session:error:.cold.7()
 {
-  v9 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
   v1 = brc_default_log();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: parent.isOwnedByMe%@", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v0;
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: parent.isOwnedByMe%@", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)br_capabilityToMoveFromURL:toNewParent:error:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_fault_impl(&dword_223E7A000, v0, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: br_capabilityToMoveFromURL is not supported in FPFS%@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_223E7A000, v0, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: br_capabilityToMoveFromURL is not supported in FPFS%@", v1, 0xCu);
 }
 
 - (void)itemIDForURL:error:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_fault_impl(&dword_223E7A000, v0, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: can't get an itemID from a URL inside the daemon%@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_223E7A000, v0, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: can't get an itemID from a URL inside the daemon%@", v1, 0xCu);
 }
 
 @end

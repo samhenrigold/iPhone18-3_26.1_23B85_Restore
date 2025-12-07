@@ -1,7 +1,7 @@
 @interface HDOntologyMercuryZipTSVNodeLineImporter
 + (BOOL)_deleteContentForDeletedNodeWithID:(uint64_t)d version:(void *)version graphDatabase:(uint64_t)database error:;
 + (BOOL)importLineWithScanner:(id)scanner slot:(int64_t)slot graphDatabase:(id)database context:(id *)context error:(id *)error;
-+ (uint64_t)_insertOrUpdateNodeWithID:(uint64_t)d version:(uint64_t)version deleted:(char)deleted slot:(void *)slot graphDatabase:(void *)database error:;
++ (uint64_t)_insertOrUpdateNodeWithID:(uint64_t)d version:(uint64_t)version deleted:(uint64_t)deleted slot:(void *)slot graphDatabase:(void *)database error:;
 + (uint64_t)_lookupExistingNode:(uint64_t)node rowID:(void *)d database:(void *)database error:;
 + (uint64_t)_updateExistingNode:(uint64_t)node version:(unsigned int)version deleted:(char)deleted slot:(void *)slot graphDatabase:(uint64_t)database error:;
 @end
@@ -10,7 +10,6 @@
 
 + (BOOL)importLineWithScanner:(id)scanner slot:(int64_t)slot graphDatabase:(id)database context:(id *)context error:(id *)error
 {
-  slotCopy = slot;
   scannerCopy = scanner;
   databaseCopy = database;
   v19 = -1;
@@ -40,14 +39,15 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v13 = [(HDOntologyMercuryZipTSVNodeLineImporter *)self _insertOrUpdateNodeWithID:v19 version:v18 deleted:v17 != 0 slot:slotCopy graphDatabase:databaseCopy error:error];
+  v13 = [(HDOntologyMercuryZipTSVNodeLineImporter *)self _insertOrUpdateNodeWithID:v19 version:v18 deleted:v17 != 0 slot:slot graphDatabase:databaseCopy error:error];
 LABEL_9:
 
   return v13;
 }
 
-+ (uint64_t)_insertOrUpdateNodeWithID:(uint64_t)d version:(uint64_t)version deleted:(char)deleted slot:(void *)slot graphDatabase:(void *)database error:
++ (uint64_t)_insertOrUpdateNodeWithID:(uint64_t)d version:(uint64_t)version deleted:(uint64_t)deleted slot:(void *)slot graphDatabase:(void *)database error:
 {
+  deletedCopy = deleted;
   slotCopy = slot;
   v13 = objc_opt_self();
   v20 = 0;
@@ -58,12 +58,12 @@ LABEL_9:
   {
     if (v15)
     {
-      v17 = [(HDOntologyMercuryZipTSVNodeLineImporter *)v13 _updateExistingNode:v15 version:d deleted:version slot:deleted graphDatabase:slotCopy error:database];
+      v17 = [(HDOntologyMercuryZipTSVNodeLineImporter *)v13 _updateExistingNode:v15 version:d deleted:version slot:deletedCopy graphDatabase:slotCopy error:database];
     }
 
     else
     {
-      v17 = [slotCopy insertNodeWithID:a2 version:d slots:1 << deleted deleted:version error:database];
+      v17 = [slotCopy insertNodeWithID:a2 version:d slots:1 << deletedCopy deleted:version error:database];
     }
 
     v18 = v17;

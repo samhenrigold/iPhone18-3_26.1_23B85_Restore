@@ -92,7 +92,6 @@
 {
   if ((*&self->_has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -104,14 +103,12 @@
   has = self->_has;
   if (has)
   {
-    errorCode = self->_errorCode;
     PBDataWriterWriteInt64Field();
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    connectionType = self->_connectionType;
 
     PBDataWriterWriteInt32Field();
   }
@@ -179,7 +176,6 @@
   if (v5)
   {
     has = self->_has;
-    v7 = *(equal + 40);
     if ((has & 2) != 0)
     {
       if ((*(equal + 40) & 2) == 0 || self->_timestamp != *(equal + 2))

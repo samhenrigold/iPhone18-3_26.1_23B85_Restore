@@ -3,7 +3,7 @@
 
 @implementation SecKeychainBackupSyncable
 
-BOOL ___SecKeychainBackupSyncable_block_invoke(uint64_t a1, CFTypeRef *a2)
+BOOL ___SecKeychainBackupSyncable_block_invoke(uint64_t a1, CFErrorRef *a2)
 {
   if (gSecurityd && (v3 = *(gSecurityd + 128)) != 0)
   {

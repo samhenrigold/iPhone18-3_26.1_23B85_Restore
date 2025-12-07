@@ -6,6 +6,9 @@
 - (CGRect)_restRect;
 - (id)_meshTransform:(BOOL)transform;
 - (void)_animateCircularReveal;
+- (void)_animateFocusIndicator:(BOOL)indicator duration:(double)duration position:(CGPoint)position;
+- (void)_performCircularMeshTransform:(BOOL)transform completion:(id)completion;
+- (void)_performSquareMeshTransform:(BOOL)transform completion:(id)completion;
 - (void)_performSquareMeshTransformWithoutAnimating;
 - (void)_revealCircularView;
 - (void)_setUpBlurViewIfNeeded;
@@ -208,6 +211,122 @@
   return result;
 }
 
+- (void)_animateFocusIndicator:(BOOL)indicator duration:(double)duration position:(CGPoint)position
+{
+  y = position.y;
+  x = position.x;
+  indicatorCopy = indicator;
+  v52[3] = *MEMORY[0x277D85DE8];
+  v10 = self->_focusIndicator;
+  _bcs_mainScreenScale();
+  v12 = v11;
+  layer = [(UIView *)v10 layer];
+  [layer setRasterizationScale:v12];
+
+  v14 = [MEMORY[0x277CD9E10] animationWithKeyPath:@"meshTransform"];
+  v15 = [(BCSScanningAnimator *)self _meshTransform:indicatorCopy ^ 1];
+  [v14 setFromValue:v15];
+
+  v16 = [(BCSScanningAnimator *)self _meshTransform:indicatorCopy];
+  [v14 setToValue:v16];
+
+  [v14 setDuration:duration];
+  v17 = *MEMORY[0x277CDA230];
+  [v14 setFillMode:*MEMORY[0x277CDA230]];
+  [v14 setRemovedOnCompletion:0];
+  v18 = *MEMORY[0x277CDA7C0];
+  v19 = [MEMORY[0x277CD9EF8] functionWithName:*MEMORY[0x277CDA7C0]];
+  [v14 setTimingFunction:v19];
+
+  layer2 = [(UIView *)v10 layer];
+  [layer2 addAnimation:v14 forKey:@"meshTransform"];
+
+  [(BCSImageQuad *)self->_imageQuad bounds];
+  Width = CGRectGetWidth(v53);
+  [(UIView *)v10 bounds];
+  v22 = CGRectGetWidth(v54);
+  [(BCSImageQuad *)self->_imageQuad bounds];
+  Height = CGRectGetHeight(v55);
+  [(UIView *)v10 bounds];
+  v24 = CGRectGetHeight(v56);
+  if (!indicatorCopy)
+  {
+    v25 = v24;
+    v26 = [MEMORY[0x277CD9EC8] animationWithKeyPath:@"transform.scale.x"];
+    v27 = Width / v22;
+    v52[0] = &unk_2853A10F0;
+    v28 = [MEMORY[0x277CCABB0] numberWithDouble:v27 * 1.05];
+    v52[1] = v28;
+    v29 = [MEMORY[0x277CCABB0] numberWithDouble:v27 * 1.25];
+    v52[2] = v29;
+    v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:3];
+    [v26 setValues:v30];
+
+    [v26 setKeyTimes:&unk_2853A11E8];
+    [v26 setDuration:duration];
+    [v26 setFillMode:v17];
+    [v26 setRemovedOnCompletion:0];
+    v31 = [MEMORY[0x277CD9EF8] functionWithName:v18];
+    [v26 setTimingFunction:v31];
+
+    layer3 = [(UIView *)v10 layer];
+    [layer3 addAnimation:v26 forKey:@"transform.scale.x"];
+
+    v33 = [MEMORY[0x277CD9EC8] animationWithKeyPath:@"transform.scale.y"];
+
+    v34 = Height / v25;
+    v51[0] = &unk_2853A10F0;
+    v35 = [MEMORY[0x277CCABB0] numberWithDouble:v34 * 1.05];
+    v51[1] = v35;
+    v36 = [MEMORY[0x277CCABB0] numberWithDouble:v34 * 1.25];
+    v51[2] = v36;
+    v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:3];
+    [v33 setValues:v37];
+
+    [v33 setKeyTimes:&unk_2853A1200];
+    [v33 setDuration:duration];
+    [v33 setFillMode:v17];
+    [v33 setRemovedOnCompletion:0];
+    v38 = [MEMORY[0x277CD9EF8] functionWithName:v18];
+    [v33 setTimingFunction:v38];
+
+    layer4 = [(UIView *)v10 layer];
+    [layer4 addAnimation:v33 forKey:@"transform.scale.y"];
+  }
+
+  v40 = [MEMORY[0x277CD9E10] animationWithKeyPath:{@"position", v24}];
+  v41 = MEMORY[0x277CCAE60];
+  v42 = y;
+  v43 = x;
+  if (!indicatorCopy)
+  {
+    [(UIView *)v10 position:x];
+  }
+
+  v44 = [v41 valueWithCGPoint:{v43, v42}];
+  [v40 setFromValue:v44];
+
+  v45 = MEMORY[0x277CCAE60];
+  if (indicatorCopy)
+  {
+    [(UIView *)v10 position];
+    x = v46;
+    y = v47;
+  }
+
+  v48 = [v45 valueWithCGPoint:{x, y}];
+  [v40 setToValue:v48];
+
+  [v40 setDuration:duration];
+  [v40 setFillMode:v17];
+  [v40 setRemovedOnCompletion:0];
+  v49 = [MEMORY[0x277CD9EF8] functionWithName:v18];
+  [v40 setTimingFunction:v49];
+
+  layer5 = [(UIView *)v10 layer];
+  [layer5 addAnimation:v40 forKey:@"position"];
+}
+
 - (void)_performSquareMeshTransformWithoutAnimating
 {
   v3 = self->_focusIndicator;
@@ -270,6 +389,328 @@
   v28 = v34;
   v29 = v35;
   [layer4 setTransform:&v28];
+}
+
+- (void)_performSquareMeshTransform:(BOOL)transform completion:(id)completion
+{
+  transformCopy = transform;
+  v91[3] = *MEMORY[0x277D85DE8];
+  completionCopy = completion;
+  if (transformCopy)
+  {
+    v6 = 0.6;
+  }
+
+  else
+  {
+    v6 = 0.4;
+  }
+
+  v7 = self->_focusIndicator;
+  v8 = *(MEMORY[0x277CBF2C0] + 16);
+  v71 = *MEMORY[0x277CBF2C0];
+  v72 = v8;
+  v73 = *(MEMORY[0x277CBF2C0] + 32);
+  v70 = v7;
+  [(UIView *)v7 setTransform:&v71];
+  _bcs_mainScreenScale();
+  v10 = v9;
+  layer = [(UIImageView *)self->_targetQRImage layer];
+  [layer setRasterizationScale:v10];
+
+  [MEMORY[0x277CD9FF0] begin];
+  v12 = MEMORY[0x277CD9FF0];
+  v87[0] = MEMORY[0x277D85DD0];
+  v87[1] = 3221225472;
+  v87[2] = __62__BCSScanningAnimator__performSquareMeshTransform_completion___block_invoke;
+  v87[3] = &unk_278D02000;
+  v68 = completionCopy;
+  v88 = v68;
+  [v12 setCompletionBlock:v87];
+  [(BCSImageQuad *)self->_imageQuad bounds];
+  MidX = CGRectGetMidX(v92);
+  [(BCSImageQuad *)self->_imageQuad bounds];
+  [(BCSScanningAnimator *)self _animateFocusIndicator:transformCopy duration:v6 position:MidX, CGRectGetMidY(v93)];
+  v14 = [MEMORY[0x277CD9EC8] animationWithKeyPath:@"transform.scale"];
+  if (transformCopy)
+  {
+    v15 = [MEMORY[0x277CCABB0] numberWithDouble:1.05];
+    v91[0] = v15;
+    v91[1] = &unk_2853A10F0;
+    v16 = [MEMORY[0x277CCABB0] numberWithDouble:1.0];
+    v91[2] = v16;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v91 count:3];
+  }
+
+  else
+  {
+    v90[0] = &unk_2853A10F0;
+    v90[1] = &unk_2853A1178;
+    v15 = [MEMORY[0x277CCABB0] numberWithDouble:1.05];
+    v90[2] = v15;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v90 count:3];
+    v16 = v17;
+  }
+
+  v18 = v17;
+  [v14 setValues:v17];
+  if (transformCopy)
+  {
+
+    v19 = &unk_2853A1218;
+  }
+
+  else
+  {
+    v19 = &unk_2853A1230;
+  }
+
+  [v14 setKeyTimes:v19];
+  [v14 setDuration:v6];
+  v20 = *MEMORY[0x277CDA230];
+  [v14 setFillMode:*MEMORY[0x277CDA230]];
+  [v14 setRemovedOnCompletion:0];
+  v21 = *MEMORY[0x277CDA7B8];
+  v22 = [MEMORY[0x277CD9EF8] functionWithName:*MEMORY[0x277CDA7B8]];
+  v89 = v22;
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v89 count:1];
+  [v14 setTimingFunctions:v23];
+
+  layer2 = [(UIImageView *)self->_targetQRImage layer];
+  [layer2 addAnimation:v14 forKey:@"transform"];
+
+  v25 = [MEMORY[0x277CD9EC8] animationWithKeyPath:@"opacity"];
+  if (transformCopy)
+  {
+    [v25 setValues:&unk_2853A12A8];
+    [v25 setKeyTimes:&unk_2853A12C0];
+    [v25 setDuration:0.6];
+    [v25 setRemovedOnCompletion:0];
+    [v25 setFillMode:v20];
+    v26 = [MEMORY[0x277CD9EF8] functionWithName:v21];
+    [v25 setTimingFunction:v26];
+
+    layer3 = [(UIView *)v70 layer];
+    [layer3 addAnimation:v25 forKey:@"opacity"];
+
+    v28 = [MEMORY[0x277CD9E10] animationWithKeyPath:@"meshTransform"];
+    v29 = [(BCSScanningAnimator *)self _meshTransform:0];
+    [v28 setFromValue:v29];
+
+    v30 = [(BCSScanningAnimator *)self _meshTransform:1];
+    [v28 setToValue:v30];
+
+    [v28 setDuration:0.6];
+    [v28 setFillMode:v20];
+    [v28 setRemovedOnCompletion:0];
+    v31 = [MEMORY[0x277CD9EF8] functionWithName:v21];
+    [v28 setTimingFunction:v31];
+
+    layer4 = [(UIImageView *)self->_targetQRImage layer];
+    [layer4 addAnimation:v28 forKey:@"meshTransform"];
+
+    v33 = [(BCSScanningAnimator *)self _meshTransform:1];
+    layer5 = [(UIImageView *)self->_targetQRImage layer];
+    [layer5 setMeshTransform:v33];
+
+    layer13 = [MEMORY[0x277CD9E10] animationWithKeyPath:@"position"];
+    v36 = MEMORY[0x277CCAE60];
+    layer6 = [(BCSDissolveEffectView *)self->_platterView layer];
+    [layer6 position];
+    v38 = [v36 valueWithCGPoint:?];
+    [layer13 setFromValue:v38];
+
+    v39 = MEMORY[0x277CCAE60];
+    [(BCSScanningAnimator *)self _restPosition];
+    v40 = [v39 valueWithCGPoint:?];
+    [layer13 setToValue:v40];
+
+    [layer13 setDuration:0.6];
+    [layer13 setFillMode:v20];
+    [layer13 setRemovedOnCompletion:0];
+    v41 = [MEMORY[0x277CD9EF8] functionWithName:v21];
+    [layer13 setTimingFunction:v41];
+
+    layer7 = [(BCSDissolveEffectView *)self->_platterView layer];
+    [layer7 addAnimation:layer13 forKey:@"position"];
+
+    [(BCSScanningAnimator *)self _qrImagePopScaleFactor];
+    v44 = v43;
+    v46 = v45;
+    v47 = [MEMORY[0x277CD9E10] animationWithKeyPath:@"transform.scale.x"];
+    [v47 setFromValue:&unk_2853A10F0];
+    v48 = [MEMORY[0x277CCABB0] numberWithDouble:v44];
+    [v47 setToValue:v48];
+
+    [v47 setDuration:0.6];
+    [v47 setFillMode:v20];
+    [v47 setRemovedOnCompletion:0];
+    v49 = [MEMORY[0x277CD9EF8] functionWithName:v21];
+    [v47 setTimingFunction:v49];
+
+    layer8 = [(UIImageView *)self->_targetQRImage layer];
+    [layer8 addAnimation:v47 forKey:@"transform.scale.x"];
+
+    v51 = [MEMORY[0x277CD9E10] animationWithKeyPath:@"transform.scale.y"];
+    [v51 setFromValue:&unk_2853A10F0];
+    v52 = [MEMORY[0x277CCABB0] numberWithDouble:v46];
+    [v51 setToValue:v52];
+
+    [v51 setDuration:0.6];
+    [v51 setFillMode:v20];
+    [v51 setRemovedOnCompletion:0];
+    v53 = [MEMORY[0x277CD9EF8] functionWithName:v21];
+    [v51 setTimingFunction:v53];
+
+    layer9 = [(UIImageView *)self->_targetQRImage layer];
+    [layer9 addAnimation:v51 forKey:@"transform.scale.y"];
+
+    [(BCSScanningAnimator *)self _restPosition];
+    v56 = v55;
+    v58 = v57;
+    layer10 = [(BCSDissolveEffectView *)self->_platterView layer];
+    [layer10 setPosition:{v56, v58}];
+
+    v60 = *(MEMORY[0x277CD9DE8] + 80);
+    v83 = *(MEMORY[0x277CD9DE8] + 64);
+    v84 = v60;
+    v61 = *(MEMORY[0x277CD9DE8] + 112);
+    v85 = *(MEMORY[0x277CD9DE8] + 96);
+    v86 = v61;
+    v62 = *(MEMORY[0x277CD9DE8] + 16);
+    v79 = *MEMORY[0x277CD9DE8];
+    v80 = v62;
+    v63 = *(MEMORY[0x277CD9DE8] + 48);
+    v81 = *(MEMORY[0x277CD9DE8] + 32);
+    v82 = v63;
+    layer11 = [(BCSDissolveEffectView *)self->_platterView layer];
+    v75 = v83;
+    v76 = v84;
+    v77 = v85;
+    v78 = v86;
+    v71 = v79;
+    v72 = v80;
+    v73 = v81;
+    v74 = v82;
+    [layer11 setTransform:&v71];
+  }
+
+  else
+  {
+    [v25 setValues:&unk_2853A1248];
+    [v25 setKeyTimes:&unk_2853A1260];
+    [v25 setDuration:0.4];
+    [v25 setRemovedOnCompletion:0];
+    [v25 setFillMode:v20];
+    v65 = [MEMORY[0x277CD9EF8] functionWithName:v21];
+    [v25 setTimingFunction:v65];
+
+    layer12 = [(BCSDissolveEffectView *)self->_platterView layer];
+    [layer12 addAnimation:v25 forKey:@"opacity"];
+
+    v28 = [MEMORY[0x277CD9EC8] animationWithKeyPath:@"opacity"];
+    [v28 setValues:&unk_2853A1278];
+    [v28 setKeyTimes:&unk_2853A1290];
+    [v28 setDuration:0.4];
+    [v28 setRemovedOnCompletion:0];
+    [v28 setFillMode:v20];
+    v67 = [MEMORY[0x277CD9EF8] functionWithName:v21];
+    [v28 setTimingFunction:v67];
+
+    layer13 = [(UIVisualEffectView *)self->_blurView layer];
+    [layer13 addAnimation:v28 forKey:@"opacity"];
+  }
+
+  [MEMORY[0x277CD9FF0] commit];
+}
+
+- (void)_performCircularMeshTransform:(BOOL)transform completion:(id)completion
+{
+  transformCopy = transform;
+  completionCopy = completion;
+  v7 = self->_focusIndicator;
+  _bcs_mainScreenScale();
+  v9 = v8;
+  layer = [(UIView *)v7 layer];
+  [layer setRasterizationScale:v9];
+
+  _bcs_mainScreenScale();
+  v12 = v11;
+  layer2 = [(UIImageView *)self->_targetQRImage layer];
+  [layer2 setRasterizationScale:v12];
+
+  _bcs_mainScreenScale();
+  v15 = v14;
+  layer3 = [(UIView *)self->_backgroundView layer];
+  [layer3 setRasterizationScale:v15];
+
+  [MEMORY[0x277CD9FF0] begin];
+  v17 = MEMORY[0x277CD9FF0];
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __64__BCSScanningAnimator__performCircularMeshTransform_completion___block_invoke;
+  v35[3] = &unk_278D02000;
+  v18 = completionCopy;
+  v36 = v18;
+  [v17 setCompletionBlock:v35];
+  [(BCSImageQuad *)self->_imageQuad bounds];
+  MidX = CGRectGetMidX(v37);
+  [(BCSImageQuad *)self->_imageQuad bounds];
+  MidY = CGRectGetMidY(v38);
+  if (!transformCopy)
+  {
+    [(UIView *)v7 position];
+    v22 = v21;
+    [(UIView *)v7 position];
+    MidX = (MidX + v22) * 0.5;
+    MidY = (MidY + v23) * 0.5;
+  }
+
+  [(BCSScanningAnimator *)self _animateFocusIndicator:transformCopy duration:0.4 position:MidX, MidY];
+  if (!transformCopy)
+  {
+    v24 = [MEMORY[0x277CD9EC8] animationWithKeyPath:@"opacity"];
+    [v24 setValues:&unk_2853A12D8];
+    [v24 setKeyTimes:&unk_2853A12F0];
+    [v24 setDuration:0.4];
+    [v24 setRemovedOnCompletion:0];
+    v25 = *MEMORY[0x277CDA230];
+    [v24 setFillMode:*MEMORY[0x277CDA230]];
+    v26 = [MEMORY[0x277CD9EF8] functionWithName:*MEMORY[0x277CDA7C0]];
+    [v24 setTimingFunction:v26];
+
+    layer4 = [(UIView *)self->_circularContainerView layer];
+    [layer4 addAnimation:v24 forKey:@"opacity"];
+
+    v28 = [MEMORY[0x277CD9EC8] animationWithKeyPath:@"opacity"];
+    [v28 setValues:&unk_2853A1308];
+    [v28 setKeyTimes:&unk_2853A1320];
+    [v28 setDuration:0.4];
+    [v28 setRemovedOnCompletion:0];
+    [v28 setFillMode:v25];
+    v29 = *MEMORY[0x277CDA7B8];
+    v30 = [MEMORY[0x277CD9EF8] functionWithName:*MEMORY[0x277CDA7B8]];
+    [v28 setTimingFunction:v30];
+
+    layer5 = [(UIVisualEffectView *)self->_blurView layer];
+    [layer5 addAnimation:v28 forKey:@"opacity"];
+
+    v32 = [MEMORY[0x277CD9FA0] animationWithKeyPath:@"opacity"];
+    [v32 setFromValue:&unk_2853A10F0];
+    [v32 setToValue:&unk_2853A1108];
+    [v32 setDuration:0.4];
+    [v32 setRemovedOnCompletion:0];
+    [v32 setFillMode:v25];
+    v33 = [MEMORY[0x277CD9EF8] functionWithName:v29];
+    [v32 setTimingFunction:v33];
+
+    layer6 = [(UIView *)v7 layer];
+    [layer6 addAnimation:v32 forKey:@"opacity"];
+
+    [(BCSScanningAnimator *)self _animateCircularReveal];
+  }
+
+  [MEMORY[0x277CD9FF0] commit];
 }
 
 - (void)_revealCircularView
@@ -475,7 +916,7 @@ void __45__BCSScanningAnimator__animateCircularReveal__block_invoke_2(uint64_t a
   v5 = MEMORY[0x277CCABB0];
   if (v3)
   {
-    [v3 transform];
+    objc_msgSend_transform(v3);
     v6 = *&v20;
   }
 
@@ -510,7 +951,7 @@ void __45__BCSScanningAnimator__animateCircularReveal__block_invoke_2(uint64_t a
   v14 = MEMORY[0x277CCABB0];
   if (v3)
   {
-    [v3 transform];
+    objc_msgSend_transform(v3);
     v15 = *(&v22 + 1);
   }
 
@@ -540,7 +981,7 @@ void __45__BCSScanningAnimator__animateCircularReveal__block_invoke_2(uint64_t a
 
 - (void)_setUpBlurViewIfNeeded
 {
-  v25[4] = *MEMORY[0x277D85DE8];
+  v24[4] = *MEMORY[0x277D85DE8];
   if (!self->_blurView)
   {
     superview = [(UIView *)self->_focusIndicator superview];
@@ -550,9 +991,9 @@ void __45__BCSScanningAnimator__animateCircularReveal__block_invoke_2(uint64_t a
       platterView = self->_circularContainerView;
     }
 
-    v23 = platterView;
-    v24 = [MEMORY[0x277D75210] _effectWithBlurRadius:10.0 scale:0.25];
-    v5 = [objc_alloc(MEMORY[0x277D75D68]) initWithEffect:v24];
+    v22 = platterView;
+    v23 = [MEMORY[0x277D75210] _effectWithBlurRadius:10.0 scale:0.25];
+    v5 = [objc_alloc(MEMORY[0x277D75D68]) initWithEffect:v23];
     blurView = self->_blurView;
     self->_blurView = v5;
 
@@ -560,31 +1001,29 @@ void __45__BCSScanningAnimator__animateCircularReveal__block_invoke_2(uint64_t a
     v7 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.3];
     [(UIVisualEffectView *)self->_blurView setBackgroundColor:v7];
 
-    [superview insertSubview:self->_blurView below:v23];
+    [superview insertSubview:self->_blurView below:v22];
     v8 = MEMORY[0x277CCAAD0];
     topAnchor = [(UIVisualEffectView *)self->_blurView topAnchor];
     topAnchor2 = [superview topAnchor];
-    v19 = [topAnchor constraintEqualToAnchor:?];
-    v25[0] = v19;
+    v18 = [topAnchor constraintEqualToAnchor:?];
+    v24[0] = v18;
     bottomAnchor = [(UIVisualEffectView *)self->_blurView bottomAnchor];
     bottomAnchor2 = [superview bottomAnchor];
-    v17 = [bottomAnchor constraintEqualToAnchor:?];
-    v25[1] = v17;
+    v16 = [bottomAnchor constraintEqualToAnchor:?];
+    v24[1] = v16;
     leftAnchor = [(UIVisualEffectView *)self->_blurView leftAnchor];
     leftAnchor2 = [superview leftAnchor];
     v11 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
-    v25[2] = v11;
+    v24[2] = v11;
     rightAnchor = [(UIVisualEffectView *)self->_blurView rightAnchor];
     rightAnchor2 = [superview rightAnchor];
     v14 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
-    v25[3] = v14;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:4];
+    v24[3] = v14;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:4];
     [v8 activateConstraints:v15];
 
     [(UIVisualEffectView *)self->_blurView setAlpha:0.0];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)animatePushWithCompletion:(id)completion shouldAnimate:(BOOL)animate
@@ -702,7 +1141,7 @@ void __62__BCSScanningAnimator_animatePopWithAppImageBlock_completion___block_in
   targetQRImage = self->_targetQRImage;
   if (targetQRImage)
   {
-    [(UIImageView *)targetQRImage transform];
+    objc_msgSend_transform(targetQRImage);
   }
 
   else

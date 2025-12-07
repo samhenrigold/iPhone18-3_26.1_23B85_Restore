@@ -368,15 +368,15 @@ uint64_t __95__HRElectrocardiogramWatchAppInstallability_installElectrocardiogra
   return result;
 }
 
-void __95__HRElectrocardiogramWatchAppInstallability_installElectrocardiogramAppAlertController_cancel___block_invoke_2(uint64_t a1)
+void __95__HRElectrocardiogramWatchAppInstallability_installElectrocardiogramAppAlertController_cancel___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = objc_opt_class();
-  v3[0] = MEMORY[0x277D85DD0];
-  v3[1] = 3221225472;
-  v3[2] = __95__HRElectrocardiogramWatchAppInstallability_installElectrocardiogramAppAlertController_cancel___block_invoke_3;
-  v3[3] = &unk_2796FB5D8;
-  v4 = *(a1 + 40);
-  [v2 installElectrocardiogramAppOnActiveWatch:v3];
+  v3 = objc_opt_class();
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = __95__HRElectrocardiogramWatchAppInstallability_installElectrocardiogramAppAlertController_cancel___block_invoke_3;
+  v4[3] = &unk_2796FB5D8;
+  v5 = *(a1 + 40);
+  [v3 installElectrocardiogramAppOnActiveWatch:v4];
 }
 
 void __95__HRElectrocardiogramWatchAppInstallability_installElectrocardiogramAppAlertController_cancel___block_invoke_3(uint64_t a1, char a2, void *a3)

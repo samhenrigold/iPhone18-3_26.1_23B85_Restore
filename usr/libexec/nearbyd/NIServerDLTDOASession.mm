@@ -32,6 +32,7 @@
 - (void)invalidate;
 - (void)processVisionInput:(id)input;
 - (void)roseSession:(shared_ptr<rose:(int)session :objects::RoseBaseSession>)a3 invalidatedWithReason:;
+- (void)serviceRequestDidUpdateStatus:(ServiceRequestStatusUpdate)status;
 - (void)updatesEngine:(id)engine didUpdateDLTDOAMeasurements:(id)measurements;
 - (void)updatesEngine:(id)engine didUpdateNICoordinates:(id)coordinates;
 @end
@@ -68,7 +69,7 @@
 
     if (managerCopy)
     {
-      [managerCopy protobufLogger];
+      objc_msgSend_protobufLogger(managerCopy);
       v21 = v29;
     }
 
@@ -338,7 +339,7 @@ LABEL_11:
     self->_currentBlockIndex.__engaged_ = 0;
   }
 
-  sub_10027CEA4(&self->_expectedAddresses, 0, 0);
+  sub_10027CEA4(&self->_expectedAddresses.__tree_.__begin_node_, 0, 0);
   sub_10027D108(&self->_cachedMeasurements, self->_cachedMeasurements.__begin_);
   p_cachedWifiOOBAnchors = &self->_cachedWifiOOBAnchors;
   sub_10002074C(p_cachedWifiOOBAnchors, p_cachedWifiOOBAnchors->__tree_.__end_node_.__left_);
@@ -505,7 +506,7 @@ LABEL_11:
     self->_currentBlockIndex.__engaged_ = 0;
   }
 
-  sub_10027CEA4(&self->_expectedAddresses, 0, 0);
+  sub_10027CEA4(&self->_expectedAddresses.__tree_.__begin_node_, 0, 0);
   self->_isRunning = 0;
   v22.receiver = self;
   v22.super_class = NIServerDLTDOASession;
@@ -650,10 +651,10 @@ LABEL_11:
     if (p_end_node != &self->_addressToTrackingAnchorState.__tree_.__end_node_ && LOWORD(p_end_node[4].__left_) <= addressCopy)
     {
       *buf = &addressCopy2;
-      if (*(sub_10027DA6C(&self->_addressToTrackingAnchorState, &addressCopy2) + 10))
+      if (*(sub_10027DA6C(&self->_addressToTrackingAnchorState, &addressCopy2, &unk_100548C50, buf) + 10))
       {
         *buf = &addressCopy2;
-        if (*(sub_10027DA6C(&self->_addressToTrackingAnchorState, &addressCopy2) + 10) != 3)
+        if (*(sub_10027DA6C(&self->_addressToTrackingAnchorState, &addressCopy2, &unk_100548C50, buf) + 10) != 3)
         {
           goto LABEL_16;
         }
@@ -709,12 +710,12 @@ LABEL_16:
 - (BOOL)_startTrackClusterWithAddress:(unsigned __int16)address
 {
   addressCopy = address;
-  [(NIServerDLTDOASession *)self _findOOBConfigWithAddress:?];
+  objc_msgSend__findOOBConfigWithAddress_(self, a2);
   if ((v34 & 1) == 0)
   {
     if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
     {
-      sub_1004B56C4(&addressCopy);
+      sub_1004B56C4();
     }
 
     goto LABEL_27;
@@ -724,7 +725,7 @@ LABEL_16:
   {
     if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
     {
-      sub_1004B5734(&addressCopy);
+      sub_1004B5734();
     }
 
     goto LABEL_27;
@@ -752,7 +753,7 @@ LABEL_16:
     {
       if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
       {
-        sub_1004B57A4(&addressCopy);
+        sub_1004B57A4();
       }
 
       goto LABEL_27;
@@ -785,7 +786,7 @@ LABEL_27:
     sub_1000195BC();
   }
 
-  [(NIServerDLTDOASession *)self _buildRoseSession:v47];
+  objc_msgSend__buildRoseSession_(self);
   if (v29 && (*(v29 + 754) & 1) != 0)
   {
     v28.receiver = self;
@@ -805,14 +806,14 @@ LABEL_27:
     sub_100004A08(&v43, [monitoredProcessName UTF8String]);
     v37 = &addressCopy;
     v36 = buf;
-    sub_10027DB40(&self->_clusterToSessionRecord, &addressCopy);
+    sub_10027DB40(&self->_clusterToSessionRecord, &addressCopy, &unk_100548C50, &v37, &v36);
     if (v44 < 0)
     {
       operator delete(v43);
     }
 
     *buf = &addressCopy;
-    v17 = sub_10027DC44(&self->_sessions, &addressCopy);
+    v17 = sub_10027DC44(&self->_sessions, &addressCopy, &unk_100548C50, buf);
     v19 = v29;
     v18 = v30;
     if (v30)
@@ -829,7 +830,7 @@ LABEL_27:
     }
 
     *buf = &addressCopy;
-    v21 = sub_10027DC44(&self->_sessions, &addressCopy);
+    v21 = sub_10027DC44(&self->_sessions, &addressCopy, &unk_100548C50, buf);
     v22 = v21[6];
     v26 = v21[5];
     v27 = v22;
@@ -850,10 +851,10 @@ LABEL_27:
     }
 
     *buf = &addressCopy;
-    *(sub_10027DA6C(&self->_addressToTrackingAnchorState, &addressCopy) + 10) = 1;
+    *(sub_10027DA6C(&self->_addressToTrackingAnchorState, &addressCopy, &unk_100548C50, buf) + 10) = 1;
     v23 = sub_100005288();
     *buf = &addressCopy;
-    *(sub_10027DA6C(&self->_addressToTrackingAnchorState, &addressCopy) + 6) = v23;
+    *(sub_10027DA6C(&self->_addressToTrackingAnchorState, &addressCopy, &unk_100548C50, buf) + 6) = v23;
     v24 = qword_1009F9820;
     if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
     {
@@ -926,7 +927,7 @@ LABEL_28:
   if (p_end_node != &p_sessions->__tree_.__end_node_ && LOWORD(p_end_node[4].__left_) <= addressCopy)
   {
     *buf = &addressCopy2;
-    v15 = sub_10027DC44(p_sessions, &addressCopy2);
+    v15 = sub_10027DC44(p_sessions, &addressCopy2, &unk_100548C50, buf);
     v16 = v15[5];
     v17 = v15[6];
     if (v17)
@@ -1034,7 +1035,7 @@ LABEL_22:
   {
     if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_FAULT))
     {
-      sub_1004B5974(&v61);
+      sub_1004B5974();
     }
 
     goto LABEL_84;
@@ -1064,7 +1065,7 @@ LABEL_22:
       v6 = v82;
       v8 = v83;
       __p[0] = v78;
-      v9 = sub_10027DDC8(&self->_addressToCoordinatesDTM, v78);
+      v9 = sub_10027DDC8(&self->_addressToCoordinatesDTM, v78, &unk_100548C50, __p);
       *(v9 + 10) = 1;
     }
 
@@ -1079,7 +1080,7 @@ LABEL_22:
       v6 = v79;
       v8 = v80;
       __p[0] = v78;
-      v9 = sub_10027DDC8(&self->_addressToCoordinatesDTM, v78);
+      v9 = sub_10027DDC8(&self->_addressToCoordinatesDTM, v78, &unk_100548C50, __p);
       *(v9 + 10) = 0;
     }
 
@@ -1113,7 +1114,7 @@ LABEL_14:
       if (p_end_node != &self->_addressToCoordinatesDTM.__tree_.__end_node_ && v78[0] >= LOWORD(p_end_node[4].__left_))
       {
         __p[0] = v78;
-        v16 = sub_10027DDC8(&self->_addressToCoordinatesDTM, v78);
+        v16 = sub_10027DDC8(&self->_addressToCoordinatesDTM, v78, &unk_100548C50, __p);
         v17 = *(v16 + 10);
         if (v17)
         {
@@ -1173,10 +1174,10 @@ LABEL_29:
     if ([(NIServerDLTDOASession *)self _validMeasurement:v76])
     {
       __p[0] = &v34;
-      if (*(sub_10027DA6C(&self->_addressToTrackingAnchorState, &v34) + 10) != 4)
+      if (*(sub_10027DA6C(&self->_addressToTrackingAnchorState, &v34, &unk_100548C50, __p) + 10) != 4)
       {
         __p[0] = &v34;
-        *(sub_10027DA6C(&self->_addressToTrackingAnchorState, &v34) + 10) = 4;
+        *(sub_10027DA6C(&self->_addressToTrackingAnchorState, &v34, &unk_100548C50, __p) + 10) = 4;
         v19 = qword_1009F9820;
         if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
@@ -1197,7 +1198,7 @@ LABEL_29:
 
       v22 = sub_100005288();
       __p[0] = &v34;
-      *(sub_10027DA6C(&self->_addressToTrackingAnchorState, &v34) + 6) = v22;
+      *(sub_10027DA6C(&self->_addressToTrackingAnchorState, &v34, &unk_100548C50, __p) + 6) = v22;
       self->_sessionLastActiveEventTimestamp.var0.__val_ = v22;
       self->_sessionLastActiveEventTimestamp.__engaged_ = 1;
       for (i = self->_clusterToSessionRecord.__tree_.__end_node_.__left_; i; i = *i)
@@ -1208,7 +1209,7 @@ LABEL_29:
           if (v24 >= v34)
           {
             __p[0] = &v34;
-            v25 = sub_10027DEA4(&self->_clusterToSessionRecord, &v34);
+            v25 = sub_10027DEA4(&self->_clusterToSessionRecord, &v34, &unk_100548C50, __p);
             ++*(v25 + 14);
             break;
           }
@@ -1241,7 +1242,7 @@ LABEL_29:
         {
           if (LODWORD(begin_node[5].__left_) == 4)
           {
-            sub_10027D03C(&self->_expectedAddresses, &begin_node[4]);
+            sub_10027D03C(&self->_expectedAddresses, &begin_node[4], &begin_node[4]);
           }
 
           isa = begin_node[1].__left_;
@@ -1326,7 +1327,7 @@ LABEL_29:
 
   else if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
   {
-    sub_1004B5A64(&v34);
+    sub_1004B5A64();
   }
 
 LABEL_84:
@@ -1363,6 +1364,199 @@ LABEL_84:
   }
 }
 
+- (void)serviceRequestDidUpdateStatus:(ServiceRequestStatusUpdate)status
+{
+  v3 = *&status.var0;
+  v5 = [(NIServerDLTDOASession *)self _findAddressWithTicketId:status.var0, *&status.var2];
+  v26 = v5;
+  v27 = BYTE2(v5);
+  if ((v5 & 0x10000) == 0)
+  {
+    if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
+    {
+      sub_1004B5AD4();
+    }
+
+    return;
+  }
+
+  if ((HIDWORD(v3) - 2) < 2)
+  {
+    p_addressToTrackingAnchorState = &self->_addressToTrackingAnchorState;
+    left = self->_addressToTrackingAnchorState.__tree_.__end_node_.__left_;
+    if (!left)
+    {
+      return;
+    }
+
+    while (1)
+    {
+      v8 = *(left + 16);
+      if (v8 <= v5)
+      {
+        if (v8 >= v5)
+        {
+          *buf = &v26;
+          *(sub_10027DA6C(&self->_addressToTrackingAnchorState, &v26, &unk_100548C50, buf) + 10) = 3;
+          v12 = sub_100005288();
+          if ((v27 & 1) == 0)
+          {
+            sub_1000195BC();
+          }
+
+          *buf = &v26;
+          *(sub_10027DA6C(&self->_addressToTrackingAnchorState, &v26, &unk_100548C50, buf) + 6) = v12;
+          if ((v27 & 1) == 0)
+          {
+            sub_1000195BC();
+          }
+
+          v13 = [(NIServerDLTDOASession *)self _invalidateSessionWithClusterAddress:v26 reason:@"RangingStopped"];
+          v14 = qword_1009F9820;
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          {
+            if ((v27 & 1) == 0)
+            {
+              sub_1000195BC();
+            }
+
+            v15 = v26;
+            v16 = (&off_1009A18B0)[v3 >> 32];
+            v17 = v29;
+            sub_100004A08(v29, v16);
+            if (v32 < 0)
+            {
+              v17 = *v29;
+            }
+
+            if ((v27 & 1) == 0)
+            {
+              sub_1000195BC();
+            }
+
+            v28 = &v26;
+            v18 = sub_10027DA6C(p_addressToTrackingAnchorState, &v26, &unk_100548C50, &v28);
+            sub_100276AC8(*(v18 + 10), __p);
+            if (v25 >= 0)
+            {
+              v19 = __p;
+            }
+
+            else
+            {
+              v19 = __p[0];
+            }
+
+            *buf = 67109890;
+            *&buf[4] = v15;
+            v34 = 2080;
+            v35 = v17;
+            v36 = 2080;
+            v37 = v19;
+            v38 = 1024;
+            v39 = v13;
+            _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "#ses-loc,anchor %hu state changed to %s since sync timeout with %s, invalidate session succeed? :%d", buf, 0x22u);
+            if (v25 < 0)
+            {
+              operator delete(__p[0]);
+            }
+
+            if (v32 < 0)
+            {
+              operator delete(*v29);
+            }
+          }
+
+          return;
+        }
+
+        ++left;
+      }
+
+      left = *left;
+      if (!left)
+      {
+        return;
+      }
+    }
+  }
+
+  if (HIDWORD(v3) != 1)
+  {
+    return;
+  }
+
+  v9 = &self->_addressToTrackingAnchorState;
+  v10 = v9->__tree_.__end_node_.__left_;
+  if (!v10)
+  {
+    return;
+  }
+
+  while (1)
+  {
+    v11 = *(v10 + 16);
+    if (v11 <= v5)
+    {
+      break;
+    }
+
+LABEL_16:
+    v10 = *v10;
+    if (!v10)
+    {
+      return;
+    }
+  }
+
+  if (v11 < v5)
+  {
+    ++v10;
+    goto LABEL_16;
+  }
+
+  *buf = &v26;
+  *(sub_10027DA6C(v9, &v26, &unk_100548C50, buf) + 10) = 2;
+  v20 = sub_100005288();
+  if ((v27 & 1) == 0)
+  {
+    sub_1000195BC();
+  }
+
+  *buf = &v26;
+  *(sub_10027DA6C(v9, &v26, &unk_100548C50, buf) + 6) = v20;
+  v21 = qword_1009F9820;
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  {
+    if ((v27 & 1) == 0)
+    {
+      sub_1000195BC();
+    }
+
+    v22 = v26;
+    sub_100004A08(buf, "RangingStarted");
+    if (SBYTE3(v37) >= 0)
+    {
+      v23 = buf;
+    }
+
+    else
+    {
+      v23 = *buf;
+    }
+
+    *v29 = 67109378;
+    *&v29[4] = v22;
+    v30 = 2080;
+    v31 = v23;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "#ses-loc,anchor %hu state changed to %s", v29, 0x12u);
+    if (SBYTE3(v37) < 0)
+    {
+      operator delete(*buf);
+    }
+  }
+}
+
 - (void)roseSession:(shared_ptr<rose:(int)session :objects::RoseBaseSession>)a3 invalidatedWithReason:
 {
   var1 = a3.var1;
@@ -1370,7 +1564,7 @@ LABEL_84:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     sub_100342FC8(var1, v10);
-    sub_1004B5B48(v10);
+    sub_1004B5B48();
   }
 
   [(NIServerDLTDOASession *)self invalidate];
@@ -1549,7 +1743,7 @@ LABEL_97:
                       beaconCache2 = v76;
                       if (BYTE4(v79) == 1)
                       {
-                        sub_10027D03C(&v88, &buf[2]);
+                        sub_10027D03C(&v88, &buf[2], &buf[2]);
                         if ((v103 & 1) == 0)
                         {
                           sub_1000195BC();
@@ -1844,7 +2038,7 @@ LABEL_9:
             if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
             {
               sub_100277E4C(payload, buf);
-              sub_1004B5D3C(buf);
+              sub_1004B5D3C();
             }
 
             goto LABEL_39;
@@ -1913,10 +2107,10 @@ LABEL_9:
         v23 = v15;
         v24[0] = *(payload + 2);
         *(v24 + 12) = *(payload + 44);
-        [(NIServerDLTDOASession *)self _buildOOBConfigFromOOBMessage:__p];
+        objc_msgSend__buildOOBConfigFromOOBMessage_(self, __p[0], __p[1], v15, v24[0], v24[1]);
         if (v34)
         {
-          [(NIServerDLTDOASession *)self _findOOBConfigWithAddress:v5];
+          objc_msgSend__findOOBConfigWithAddress_(self);
           if (v27 == 1)
           {
             if (v25)
@@ -1940,7 +2134,7 @@ LABEL_9:
           LOWORD(__p[0]) = v5;
           LODWORD(__p[1]) = 0;
           *&v23 = v18;
-          sub_10027CDD0(&self->_addressToTrackingAnchorState, __p);
+          sub_10027CDD0(&self->_addressToTrackingAnchorState, __p, __p);
           if ((v34 & 1) != 0 && v32)
           {
             v33 = v32;
@@ -1989,7 +2183,7 @@ LABEL_9:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_100277E4C(payload, buf);
-      sub_1004B5BE0(buf);
+      sub_1004B5BE0();
     }
   }
 
@@ -1998,22 +2192,14 @@ LABEL_39:
 
 - (BOOL)_validMeasurement:(void *)measurement
 {
-  v20 = *(measurement + 10);
-  v21 = *(measurement + 11);
-  v22 = *(measurement + 192);
-  v16 = *(measurement + 6);
-  v17 = *(measurement + 7);
-  v18 = *(measurement + 8);
-  v19 = *(measurement + 9);
+  v14 = *(measurement + 6);
   v12 = *(measurement + 2);
-  v13 = *(measurement + 3);
-  v14 = *(measurement + 4);
-  v15 = *(measurement + 5);
+  v13 = *(measurement + 4);
   v4 = *(measurement + 25);
   v5 = *(measurement + 26);
   __p = 0;
-  v24 = 0;
-  v25 = 0;
+  v16 = 0;
+  v17 = 0;
   sub_100020A60(&__p, v4, v5, 0xEEEEEEEEEEEEEEEFLL * ((v5 - v4) >> 3));
   if (v12)
   {
@@ -2021,7 +2207,7 @@ LABEL_39:
   }
 
   v6 = 1;
-  if (WORD4(v14) && WORD2(v16))
+  if (WORD4(v13) && WORD2(v14))
   {
     v9 = *(measurement + 25);
     v8 = *(measurement + 26);
@@ -2055,7 +2241,7 @@ LABEL_2:
 LABEL_3:
   if (__p)
   {
-    v24 = __p;
+    v16 = __p;
     operator delete(__p);
   }
 
@@ -2170,13 +2356,13 @@ LABEL_7:
 
 - (vector<OOBConfig,)_parseOOBConfigFromDebugParameters:(NIServerDLTDOASession *)self
 {
-  v93 = a4;
-  v4 = [v93 objectForKey:@"UseConfigParametersOverrides"];
+  v87 = a4;
+  v4 = [v87 objectForKey:@"UseConfigParametersOverrides"];
   bOOLValue = [v4 BOOLValue];
 
-  v130 = 0;
+  v124 = 0;
   __src = 0;
-  v131 = 0;
+  v125 = 0;
   if (!bOOLValue)
   {
     if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
@@ -2190,42 +2376,42 @@ LABEL_7:
     goto LABEL_91;
   }
 
-  v127 = 0u;
-  v128 = 0u;
-  v125 = 0u;
-  v126 = 0u;
-  obj = [v93 valueForKey:@"Configurations"];
-  v6 = [obj countByEnumeratingWithState:&v125 objects:v136 count:16];
+  v121 = 0u;
+  v122 = 0u;
+  v119 = 0u;
+  v120 = 0u;
+  obj = [v87 valueForKey:@"Configurations"];
+  v6 = [obj countByEnumeratingWithState:&v119 objects:v130 count:16];
   if (!v6)
   {
     goto LABEL_31;
   }
 
-  v94 = *v126;
+  v88 = *v120;
   while (2)
   {
-    v104 = 0;
-    v92 = v6;
+    v98 = 0;
+    v86 = v6;
     do
     {
-      if (*v126 != v94)
+      if (*v120 != v88)
       {
         objc_enumerationMutation(obj);
       }
 
-      v7 = *(*(&v125 + 1) + 8 * v104);
-      *v106 = 0;
-      *&v106[8] = v106;
-      *&v106[16] = 0x2020000000;
-      v106[24] = 0;
-      v124[0] = _NSConcreteStackBlock;
-      v124[1] = 3221225472;
-      v124[2] = sub_10027A1A4;
-      v124[3] = &unk_1009A1520;
-      v124[4] = v7;
-      v124[5] = v106;
-      [&off_1009C3C68 enumerateObjectsUsingBlock:v124];
-      if (*(*&v106[8] + 24) == 1)
+      v7 = *(*(&v119 + 1) + 8 * v98);
+      *v100 = 0;
+      *&v100[8] = v100;
+      *&v100[16] = 0x2020000000;
+      v100[24] = 0;
+      v118[0] = _NSConcreteStackBlock;
+      v118[1] = 3221225472;
+      v118[2] = sub_10027A1A4;
+      v118[3] = &unk_1009A1520;
+      v118[4] = v7;
+      v118[5] = v100;
+      [&off_1009C3C68 enumerateObjectsUsingBlock:v118];
+      if (*(*&v100[8] + 24) == 1)
       {
         if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
         {
@@ -2238,31 +2424,31 @@ LABEL_7:
         goto LABEL_84;
       }
 
-      v95 = [v7 objectForKeyedSubscript:@"ClusterID"];
-      v99 = [v7 objectForKeyedSubscript:@"ConfigID"];
-      v98 = [v7 objectForKeyedSubscript:@"Preamble"];
-      v97 = [v7 objectForKeyedSubscript:@"VendorID"];
-      v101 = [v7 objectForKeyedSubscript:@"UWBSessionID"];
-      v102 = [v7 objectForKeyedSubscript:@"Static_STS_IV"];
-      unsignedIntValue = [v95 unsignedIntValue];
-      unsignedIntValue2 = [v99 unsignedIntValue];
-      unsignedIntValue3 = [v98 unsignedIntValue];
-      unsignedIntValue4 = [v97 unsignedIntValue];
-      unsignedIntValue5 = [v101 unsignedIntValue];
-      [v102 getBytes:&v122 length:6];
-      sub_100359A3C(unsignedIntValue2, &v118);
-      if ((v121 & 1) == 0)
+      v89 = [v7 objectForKeyedSubscript:@"ClusterID"];
+      v93 = [v7 objectForKeyedSubscript:@"ConfigID"];
+      v92 = [v7 objectForKeyedSubscript:@"Preamble"];
+      v91 = [v7 objectForKeyedSubscript:@"VendorID"];
+      v95 = [v7 objectForKeyedSubscript:@"UWBSessionID"];
+      v96 = [v7 objectForKeyedSubscript:@"Static_STS_IV"];
+      unsignedIntValue = [v89 unsignedIntValue];
+      unsignedIntValue2 = [v93 unsignedIntValue];
+      unsignedIntValue3 = [v92 unsignedIntValue];
+      unsignedIntValue4 = [v91 unsignedIntValue];
+      unsignedIntValue5 = [v95 unsignedIntValue];
+      [v96 getBytes:&v116 length:6];
+      sub_100359A3C(unsignedIntValue2, &v112);
+      if ((v115 & 1) == 0)
       {
-        v85 = qword_1009F9820;
+        v79 = qword_1009F9820;
         if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109120;
           *&buf[4] = unsignedIntValue2;
-          v82 = "#ses-loc,Unsupported config_id %hu";
-          v83 = v85;
-          v84 = 8;
+          v76 = "#ses-loc,Unsupported config_id %hu";
+          v77 = v79;
+          v78 = 8;
 LABEL_82:
-          _os_log_impl(&_mh_execute_header, v83, OS_LOG_TYPE_DEFAULT, v82, buf, v84);
+          _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_DEFAULT, v76, buf, v78);
         }
 
 LABEL_83:
@@ -2271,7 +2457,7 @@ LABEL_83:
         retstr->__cap_ = 0;
 
 LABEL_84:
-        _Block_object_dispose(v106, 8);
+        _Block_object_dispose(v100, 8);
 
         goto LABEL_91;
       }
@@ -2280,8 +2466,8 @@ LABEL_84:
 
       if (v13)
       {
-        v20 = [v7 objectForKey:@"NumSlotsPerRound"];
-        unsignedIntValue6 = [v20 unsignedIntValue];
+        v14 = [v7 objectForKey:@"NumSlotsPerRound"];
+        unsignedIntValue6 = [v14 unsignedIntValue];
       }
 
       else
@@ -2289,144 +2475,144 @@ LABEL_84:
         unsignedIntValue6 = 0;
       }
 
-      if ((v121 & 1) == 0)
+      if ((v115 & 1) == 0)
       {
         sub_1000195BC();
       }
 
-      LOBYTE(v118) = unsignedIntValue;
-      BYTE6(v118) = unsignedIntValue3;
-      WORD2(v119) = unsignedIntValue4;
-      v120 = unsignedIntValue5;
-      *(&v119 + 6) = v122;
-      WORD5(v119) = v123;
+      LOBYTE(v112) = unsignedIntValue;
+      BYTE6(v112) = unsignedIntValue3;
+      WORD2(v113) = unsignedIntValue4;
+      v114 = unsignedIntValue5;
+      *(&v113 + 6) = v116;
+      WORD5(v113) = v117;
       if (v13)
       {
-        BYTE1(v119) = unsignedIntValue6;
+        BYTE1(v113) = unsignedIntValue6;
       }
 
-      v22 = WORD1(v118);
-      if (!WORD1(v118) || (v23 = BYTE1(v119), !BYTE1(v119)))
+      v16 = WORD1(v112);
+      if (!WORD1(v112) || (v17 = BYTE1(v113), !BYTE1(v113)))
       {
-        v81 = qword_1009F9820;
+        v75 = qword_1009F9820;
         if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109376;
-          *&buf[4] = WORD1(v118);
-          LOWORD(v134) = 1024;
-          *(&v134 + 2) = BYTE1(v119);
-          v82 = "#ses-loc,Unexpected 0 for slot_duration: %d or slots_per_round: %d in config";
-          v83 = v81;
-          v84 = 14;
+          *&buf[4] = WORD1(v112);
+          LOWORD(v128) = 1024;
+          *(&v128 + 2) = BYTE1(v113);
+          v76 = "#ses-loc,Unexpected 0 for slot_duration: %d or slots_per_round: %d in config";
+          v77 = v75;
+          v78 = 14;
           goto LABEL_82;
         }
 
         goto LABEL_83;
       }
 
-      v24 = WORD2(v118);
-      v25 = sub_1004281F8(BYTE1(v118), 2, v14, v15, v16, v17, v18, v19);
-      v26 = sub_1004272E8(BYTE6(v118), 2);
-      v27 = 1200 * v24;
-      v28 = v23 * v22;
-      v29 = v120;
-      v30 = HIBYTE(v118);
-      v31 = WORD1(v118);
-      v32 = BYTE1(v119);
-      v33 = WORD2(v118);
-      v34 = WORD2(v119);
-      *buf = *(&v119 + 6);
-      *&buf[4] = WORD5(v119);
-      v35 = v118;
-      v36 = v27 / v28;
-      v37 = v130;
-      if (v130 >= v131)
+      v18 = WORD2(v112);
+      v19 = sub_1004281F8(BYTE1(v112), 2);
+      v20 = sub_1004272E8(BYTE6(v112), 2);
+      v21 = 1200 * v18;
+      v22 = v17 * v16;
+      v23 = v114;
+      v24 = HIBYTE(v112);
+      v25 = WORD1(v112);
+      v26 = BYTE1(v113);
+      v27 = WORD2(v112);
+      v28 = WORD2(v113);
+      *buf = *(&v113 + 6);
+      *&buf[4] = WORD5(v113);
+      v29 = v112;
+      v30 = v21 / v22;
+      v31 = v124;
+      if (v124 >= v125)
       {
-        v39 = (v130 - __src) >> 5;
-        v40 = v39 + 1;
-        if ((v39 + 1) >> 59)
+        v33 = (v124 - __src) >> 5;
+        v34 = v33 + 1;
+        if ((v33 + 1) >> 59)
         {
           sub_100019B38();
         }
 
-        v41 = v131 - __src;
-        if ((v131 - __src) >> 4 > v40)
+        v35 = v125 - __src;
+        if ((v125 - __src) >> 4 > v34)
         {
-          v40 = v41 >> 4;
+          v34 = v35 >> 4;
         }
 
-        if (v41 >= 0x7FFFFFFFFFFFFFE0)
+        if (v35 >= 0x7FFFFFFFFFFFFFE0)
         {
-          v42 = 0x7FFFFFFFFFFFFFFLL;
+          v36 = 0x7FFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v42 = v40;
+          v36 = v34;
         }
 
-        if (v42)
+        if (v36)
         {
-          sub_10027EA8C(&__src, v42);
+          sub_10027EA8C(&__src, v36);
         }
 
-        v43 = 32 * v39;
-        *v43 = v25;
-        *(v43 + 1) = v26;
-        *(v43 + 4) = v29;
-        *(v43 + 8) = 514;
-        *(v43 + 10) = v30;
-        *(v43 + 12) = v31;
-        *(v43 + 14) = v32;
-        *(v43 + 16) = v36;
-        *(v43 + 18) = v33;
-        *(v43 + 20) = v34;
-        *(v43 + 22) = *buf;
-        *(v43 + 26) = *&buf[4];
-        *(v43 + 28) = 1;
-        *(v43 + 30) = v35;
-        *(v43 + 31) = 1;
-        v38 = 32 * v39 + 32;
-        v44 = (32 * v39 - (v130 - __src));
-        memcpy(v44, __src, v130 - __src);
-        v45 = __src;
-        __src = v44;
-        v130 = v38;
-        v131 = 0;
-        if (v45)
+        v37 = 32 * v33;
+        *v37 = v19;
+        *(v37 + 1) = v20;
+        *(v37 + 4) = v23;
+        *(v37 + 8) = 514;
+        *(v37 + 10) = v24;
+        *(v37 + 12) = v25;
+        *(v37 + 14) = v26;
+        *(v37 + 16) = v30;
+        *(v37 + 18) = v27;
+        *(v37 + 20) = v28;
+        *(v37 + 22) = *buf;
+        *(v37 + 26) = *&buf[4];
+        *(v37 + 28) = 1;
+        *(v37 + 30) = v29;
+        *(v37 + 31) = 1;
+        v32 = 32 * v33 + 32;
+        v38 = (32 * v33 - (v124 - __src));
+        memcpy(v38, __src, v124 - __src);
+        v39 = __src;
+        __src = v38;
+        v124 = v32;
+        v125 = 0;
+        if (v39)
         {
-          operator delete(v45);
+          operator delete(v39);
         }
       }
 
       else
       {
-        *v130 = v25;
-        v37[1] = v26;
-        *(v37 + 1) = v29;
-        *(v37 + 4) = 514;
-        v37[10] = v30;
-        *(v37 + 6) = v31;
-        *(v37 + 7) = v32;
-        *(v37 + 8) = v36;
-        *(v37 + 9) = v33;
-        *(v37 + 10) = v34;
-        *(v37 + 22) = *buf;
-        *(v37 + 13) = *&buf[4];
-        *(v37 + 14) = 1;
-        v37[30] = v35;
-        v38 = (v37 + 32);
-        v37[31] = 1;
+        *v124 = v19;
+        v31[1] = v20;
+        *(v31 + 1) = v23;
+        *(v31 + 4) = 514;
+        v31[10] = v24;
+        *(v31 + 6) = v25;
+        *(v31 + 7) = v26;
+        *(v31 + 8) = v30;
+        *(v31 + 9) = v27;
+        *(v31 + 10) = v28;
+        *(v31 + 22) = *buf;
+        *(v31 + 13) = *&buf[4];
+        *(v31 + 14) = 1;
+        v31[30] = v29;
+        v32 = (v31 + 32);
+        v31[31] = 1;
       }
 
-      v130 = v38;
+      v124 = v32;
 
-      _Block_object_dispose(v106, 8);
-      v104 = v104 + 1;
+      _Block_object_dispose(v100, 8);
+      v98 = v98 + 1;
     }
 
-    while (v92 != v104);
-    v6 = [obj countByEnumeratingWithState:&v125 objects:v136 count:16];
+    while (v86 != v98);
+    v6 = [obj countByEnumeratingWithState:&v119 objects:v130 count:16];
     if (v6)
     {
       continue;
@@ -2437,45 +2623,45 @@ LABEL_84:
 
 LABEL_31:
 
-  v134 = 0;
+  v128 = 0;
   *buf = 0;
-  v135 = 0;
-  v114 = 0u;
-  v115 = 0u;
-  v116 = 0u;
-  v117 = 0u;
-  v100 = [v93 valueForKey:@"Anchors"];
-  v46 = [v100 countByEnumeratingWithState:&v114 objects:v132 count:16];
-  if (v46)
+  v129 = 0;
+  v108 = 0u;
+  v109 = 0u;
+  v110 = 0u;
+  v111 = 0u;
+  v94 = [v87 valueForKey:@"Anchors"];
+  v40 = [v94 countByEnumeratingWithState:&v108 objects:v126 count:16];
+  if (v40)
   {
-    v103 = *v115;
+    v97 = *v109;
     while (2)
     {
-      for (i = 0; i != v46; i = i + 1)
+      for (i = 0; i != v40; i = i + 1)
       {
-        if (*v115 != v103)
+        if (*v109 != v97)
         {
-          objc_enumerationMutation(v100);
+          objc_enumerationMutation(v94);
         }
 
-        v48 = *(*(&v114 + 1) + 8 * i);
-        v118 = 0;
-        *&v119 = &v118;
-        *(&v119 + 1) = 0x2020000000;
-        LOBYTE(v120) = 0;
-        v113[0] = _NSConcreteStackBlock;
-        v113[1] = 3221225472;
-        v113[2] = sub_10027A248;
-        v113[3] = &unk_1009A1520;
-        v113[4] = v48;
-        v113[5] = &v118;
-        [&off_1009C3C80 enumerateObjectsUsingBlock:v113];
-        v49 = *(v119 + 24);
-        if (v49 == 1)
+        v42 = *(*(&v108 + 1) + 8 * i);
+        v112 = 0;
+        *&v113 = &v112;
+        *(&v113 + 1) = 0x2020000000;
+        LOBYTE(v114) = 0;
+        v107[0] = _NSConcreteStackBlock;
+        v107[1] = 3221225472;
+        v107[2] = sub_10027A248;
+        v107[3] = &unk_1009A1520;
+        v107[4] = v42;
+        v107[5] = &v112;
+        [&off_1009C3C80 enumerateObjectsUsingBlock:v107];
+        v43 = *(v113 + 24);
+        if (v43 == 1)
         {
           if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
           {
-            sub_1004B5E10(&v122, &v122 + 1);
+            sub_1004B5E10(&v116, &v116 + 1);
           }
 
           retstr->__begin_ = 0;
@@ -2485,74 +2671,74 @@ LABEL_31:
 
         else
         {
-          v105 = [v48 objectForKeyedSubscript:@"ClusterID"];
-          v50 = [v48 objectForKeyedSubscript:@"Address"];
-          v51 = [v48 objectForKeyedSubscript:@"Role"];
-          unsignedIntValue7 = [v105 unsignedIntValue];
-          unsignedIntValue8 = [v50 unsignedIntValue];
-          unsignedIntValue9 = [v51 unsignedIntValue];
-          *v106 = unsignedIntValue8;
-          v106[2] = unsignedIntValue9;
-          v106[3] = unsignedIntValue7;
-          v106[4] = 1;
-          v106[8] = 0;
-          v107 = 0;
-          v55 = [v48 objectForKey:@"CoordinatesType"];
-          v56 = v55 == 0;
+          v99 = [v42 objectForKeyedSubscript:@"ClusterID"];
+          v44 = [v42 objectForKeyedSubscript:@"Address"];
+          v45 = [v42 objectForKeyedSubscript:@"Role"];
+          unsignedIntValue7 = [v99 unsignedIntValue];
+          unsignedIntValue8 = [v44 unsignedIntValue];
+          unsignedIntValue9 = [v45 unsignedIntValue];
+          *v100 = unsignedIntValue8;
+          v100[2] = unsignedIntValue9;
+          v100[3] = unsignedIntValue7;
+          v100[4] = 1;
+          v100[8] = 0;
+          v101 = 0;
+          v49 = [v42 objectForKey:@"CoordinatesType"];
+          v50 = v49 == 0;
 
-          if (!v56)
+          if (!v50)
           {
-            v57 = [v48 objectForKey:@"Coordinates0"];
-            if (!v57)
+            v51 = [v42 objectForKey:@"Coordinates0"];
+            if (!v51)
             {
               __assert_rtn("[NIServerDLTDOASession _parseOOBConfigFromDebugParameters:]", "NIServerDLTDOASession.mm", 1163, "[anchorFromDebug objectForKey:@Coordinates0] != nil");
             }
 
-            v58 = [v48 objectForKey:@"Coordinates1"];
-            if (!v58)
+            v52 = [v42 objectForKey:@"Coordinates1"];
+            if (!v52)
             {
               __assert_rtn("[NIServerDLTDOASession _parseOOBConfigFromDebugParameters:]", "NIServerDLTDOASession.mm", 1164, "[anchorFromDebug objectForKey:@Coordinates1] != nil");
             }
 
-            v59 = [v48 objectForKey:@"Coordinates2"];
-            if (!v59)
+            v53 = [v42 objectForKey:@"Coordinates2"];
+            if (!v53)
             {
               __assert_rtn("[NIServerDLTDOASession _parseOOBConfigFromDebugParameters:]", "NIServerDLTDOASession.mm", 1165, "[anchorFromDebug objectForKey:@Coordinates2] != nil");
             }
 
-            v60 = [v48 objectForKeyedSubscript:@"CoordinatesType"];
-            v61 = [v48 objectForKeyedSubscript:@"Coordinates0"];
-            v62 = [v48 objectForKeyedSubscript:@"Coordinates1"];
-            v63 = [v48 objectForKeyedSubscript:@"Coordinates2"];
-            unsignedIntValue10 = [v60 unsignedIntValue];
-            [v61 doubleValue];
-            v66 = v65;
-            [v62 doubleValue];
-            v68 = v67;
-            [v63 doubleValue];
-            *&v106[8] = unsignedIntValue10;
-            *&v106[16] = v66;
-            *&v106[24] = v68;
-            *&v106[32] = v69;
-            if ((v107 & 1) == 0)
+            v54 = [v42 objectForKeyedSubscript:@"CoordinatesType"];
+            v55 = [v42 objectForKeyedSubscript:@"Coordinates0"];
+            v56 = [v42 objectForKeyedSubscript:@"Coordinates1"];
+            v57 = [v42 objectForKeyedSubscript:@"Coordinates2"];
+            unsignedIntValue10 = [v54 unsignedIntValue];
+            [v55 doubleValue];
+            v60 = v59;
+            [v56 doubleValue];
+            v62 = v61;
+            [v57 doubleValue];
+            *&v100[8] = unsignedIntValue10;
+            *&v100[16] = v60;
+            *&v100[24] = v62;
+            *&v100[32] = v63;
+            if ((v101 & 1) == 0)
             {
-              v107 = 1;
+              v101 = 1;
             }
           }
 
-          sub_10027A2EC(buf, v106);
+          sub_10027A2EC(buf, v100);
         }
 
-        _Block_object_dispose(&v118, 8);
-        if (v49)
+        _Block_object_dispose(&v112, 8);
+        if (v43)
         {
 
           goto LABEL_89;
         }
       }
 
-      v46 = [v100 countByEnumeratingWithState:&v114 objects:v132 count:16];
-      if (v46)
+      v40 = [v94 countByEnumeratingWithState:&v108 objects:v126 count:16];
+      if (v40)
       {
         continue;
       }
@@ -2564,60 +2750,60 @@ LABEL_31:
   retstr->__begin_ = 0;
   retstr->__end_ = 0;
   retstr->__cap_ = 0;
-  v70 = __src;
-  v71 = v130;
-  if (__src != v130)
+  v64 = __src;
+  v65 = v124;
+  if (__src != v124)
   {
     do
     {
-      v72 = v70[1];
-      *v106 = *v70;
-      *&v106[16] = v72;
-      *&v106[32] = 6619135;
-      v106[36] = 0;
-      v107 = 0;
-      v108 = 0;
-      v110 = 0;
-      v111 = 0;
+      v66 = v64[1];
+      *v100 = *v64;
+      *&v100[16] = v66;
+      *&v100[32] = 6619135;
+      v100[36] = 0;
+      v101 = 0;
+      v102 = 0;
+      v104 = 0;
+      v105 = 0;
       __p = 0;
-      v112 = *(v70 + 15);
+      v106 = *(v64 + 15);
       end = retstr->__end_;
       if (end >= retstr->__cap_)
       {
-        v74 = sub_10027E794(retstr, v106);
+        v68 = sub_10027E794(retstr, v100);
       }
 
       else
       {
-        sub_10027E708(retstr, v106);
-        v74 = end + 1;
+        sub_10027E708(retstr, v100);
+        v68 = end + 1;
       }
 
-      retstr->__end_ = v74;
+      retstr->__end_ = v68;
       if (__p)
       {
-        v110 = __p;
+        v104 = __p;
         operator delete(__p);
       }
 
-      v70 += 2;
+      v64 += 2;
     }
 
-    while (v70 != v71);
+    while (v64 != v65);
     begin = retstr->__begin_;
-    v76 = retstr->__end_;
-    while (begin != v76)
+    v70 = retstr->__end_;
+    while (begin != v70)
     {
       if (!begin->var3.__engaged_)
       {
         __assert_rtn("[NIServerDLTDOASession _parseOOBConfigFromDebugParameters:]", "NIServerDLTDOASession.mm", 1199, "oobConfig.clusterID.has_value()");
       }
 
-      v77 = *buf;
-      v78 = v134;
-      while (v77 != v78)
+      v71 = *buf;
+      v72 = v128;
+      while (v71 != v72)
       {
-        if ((*(v77 + 4) & 1) == 0)
+        if ((*(v71 + 4) & 1) == 0)
         {
           __assert_rtn("[NIServerDLTDOASession _parseOOBConfigFromDebugParameters:]", "NIServerDLTDOASession.mm", 1201, "anchor.clusterID.has_value()");
         }
@@ -2627,54 +2813,54 @@ LABEL_31:
           sub_1000195BC();
         }
 
-        if (*(v77 + 3) == begin->var3.var0.__val_)
+        if (*(v71 + 3) == begin->var3.var0.__val_)
         {
-          if (*(v77 + 2))
+          if (*(v71 + 2))
           {
-            sub_10027A2EC(&begin->var2, v77);
+            sub_10027A2EC(&begin->var2, v71);
           }
 
           else
           {
-            v79 = *v77;
-            v80 = *(v77 + 32);
-            *begin->var1.var3.var0.var1.var1.var0 = *(v77 + 16);
-            *&begin->var1.var3.var0.var1.var1.var0[2] = v80;
-            *&begin->var1.var0 = v79;
+            v73 = *v71;
+            v74 = *(v71 + 32);
+            *begin->var1.var3.var0.var1.var1.var0 = *(v71 + 16);
+            *&begin->var1.var3.var0.var1.var1.var0[2] = v74;
+            *&begin->var1.var0 = v73;
           }
         }
 
-        v77 += 48;
+        v71 += 48;
       }
 
       ++begin;
     }
   }
 
-  v86 = *buf;
-  for (j = v134; v86 != j; v86 += 48)
+  v80 = *buf;
+  for (j = v128; v80 != j; v80 += 48)
   {
-    if (*(v86 + 40) == 1)
+    if (*(v80 + 40) == 1)
     {
-      *v106 = *v86;
-      v88 = *(v86 + 24);
-      *&v106[8] = *(v86 + 8);
-      *&v106[24] = v88;
-      sub_10027EB28(&self->_addressToCoordinatesOOB, v106);
+      *v100 = *v80;
+      v82 = *(v80 + 24);
+      *&v100[8] = *(v80 + 8);
+      *&v100[24] = v82;
+      sub_10027EB28(&self->_addressToCoordinatesOOB, v100, v100);
     }
   }
 
 LABEL_89:
   if (*buf)
   {
-    v134 = *buf;
+    v128 = *buf;
     operator delete(*buf);
   }
 
 LABEL_91:
   if (__src)
   {
-    v130 = __src;
+    v124 = __src;
     operator delete(__src);
   }
 
@@ -2709,9 +2895,9 @@ LABEL_91:
     }
 
     *buf = 67109378;
-    v32 = val;
-    v33 = 2080;
-    v34 = p_p;
+    v26 = val;
+    v27 = 2080;
+    v28 = p_p;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "#ses-loc,_buildOOBConfigFromOOBMessage for anchor mac_address: [0x%02hx], payload %s", buf, 0x12u);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -2720,7 +2906,7 @@ LABEL_91:
   }
 
   sub_100359A3C(a4->var16, &__p);
-  if (v30)
+  if (v24)
   {
     if (a4->var7.__engaged_)
     {
@@ -2764,7 +2950,7 @@ LABEL_91:
 
     if (a4->var15.__engaged_)
     {
-      v29 = a4->var15.var0.__val_;
+      v23 = a4->var15.var0.__val_;
     }
 
     if (a4->var10.__engaged_)
@@ -2789,40 +2975,40 @@ LABEL_91:
 
     *(&__p.__r_.__value_.__r.__words[1] + 6) = *a4->var11;
     WORD1(__p.__r_.__value_.__r.__words[2]) = *&a4->var11[4];
-    v15 = WORD2(__p.__r_.__value_.__r.__words[0]);
-    v16 = *&__p.__r_.__value_.__s.__data_[2];
-    v17 = __p.__r_.__value_.__s.__data_[9];
-    v18 = sub_1004281F8(__p.__r_.__value_.__s.__data_[1], 2, v9, v10, v11, v12, v13, v14);
+    v9 = WORD2(__p.__r_.__value_.__r.__words[0]);
+    v10 = *&__p.__r_.__value_.__s.__data_[2];
+    v11 = __p.__r_.__value_.__s.__data_[9];
+    v12 = sub_1004281F8(__p.__r_.__value_.__s.__data_[1], 2);
     result = sub_1004272E8(__p.__r_.__value_.__s.__data_[6], 2);
     if (!a4->var1.__engaged_)
     {
       sub_1000195BC();
     }
 
-    v20 = __p.__r_.__value_.__s.__data_[0];
-    v21 = WORD2(__p.__r_.__value_.__r.__words[1]);
-    v22 = WORD2(__p.__r_.__value_.__r.__words[0]);
-    v23 = __p.__r_.__value_.__s.__data_[9];
-    v24 = *&__p.__r_.__value_.__s.__data_[2];
-    v25 = __p.__r_.__value_.__s.__data_[7];
-    v26 = v29;
-    v27 = a4->var1.var0.__val_;
+    v14 = __p.__r_.__value_.__s.__data_[0];
+    v15 = WORD2(__p.__r_.__value_.__r.__words[1]);
+    v16 = WORD2(__p.__r_.__value_.__r.__words[0]);
+    v17 = __p.__r_.__value_.__s.__data_[9];
+    v18 = *&__p.__r_.__value_.__s.__data_[2];
+    v19 = __p.__r_.__value_.__s.__data_[7];
+    v20 = v23;
+    v21 = a4->var1.var0.__val_;
     *retstr->var0.var1.var0.var11.__elems_ = *(&__p.__r_.__value_.__r.__words[1] + 6);
     *&retstr->var0.var1.var0.var11.__elems_[4] = WORD1(__p.__r_.__value_.__r.__words[2]);
-    retstr->var0.var0 = v18;
+    retstr->var0.var0 = v12;
     retstr->var0.var1.var0.var1 = result;
-    retstr->var0.var1.var0.var2 = v26;
+    retstr->var0.var1.var0.var2 = v20;
     *&retstr->var0.var1.var0.var3 = 514;
-    retstr->var0.var1.var0.var5 = v25;
-    retstr->var0.var1.var0.var6 = v24;
-    retstr->var0.var1.var0.var7 = v23;
-    retstr->var0.var1.var0.var8 = 1200 * v15 / (v17 * v16);
-    retstr->var0.var1.var0.var9 = v22;
-    retstr->var0.var1.var0.var10 = v21;
+    retstr->var0.var1.var0.var5 = v19;
+    retstr->var0.var1.var0.var6 = v18;
+    retstr->var0.var1.var0.var7 = v17;
+    retstr->var0.var1.var0.var8 = 1200 * v9 / (v11 * v10);
+    retstr->var0.var1.var0.var9 = v16;
+    retstr->var0.var1.var0.var10 = v15;
     *&retstr->var0.var1.var0.var12 = 1;
-    retstr->var0.var1.var0.var14.var0.__null_state_ = v20;
+    retstr->var0.var1.var0.var14.var0.__null_state_ = v14;
     retstr->var0.var1.var0.var14.__engaged_ = 1;
-    *&retstr->var0.var1.var1.var0 = v27;
+    *&retstr->var0.var1.var1.var0 = v21;
     retstr->var0.var1.var1.var2.__engaged_ = 0;
     retstr->var0.var1.var1.var3.var0.var0 = 0;
     retstr->var0.var1.var1.var3.var1 = 0;
@@ -2838,7 +3024,7 @@ LABEL_91:
     result = os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR);
     if (result)
     {
-      sub_1004B5F60(&a4->var16);
+      sub_1004B5F60();
     }
 
     retstr->var0.var0 = 0;
@@ -2947,18 +3133,18 @@ LABEL_54:
   }
 
   v41 = &v40;
-  v14 = *(sub_10027DDC8(&self->_addressToCoordinatesOOB, &v40) + 10);
+  v14 = *(sub_10027DDC8(&self->_addressToCoordinatesOOB, &v40, &unk_100548C50, &v41) + 10);
   switch(v14)
   {
     case 999:
       return 0;
     case 1:
       v41 = &v40;
-      v19 = sub_10027DDC8(p_addressToCoordinatesOOB, &v40)[6];
+      v19 = sub_10027DDC8(p_addressToCoordinatesOOB, &v40, &unk_100548C50, &v41)[6];
       v41 = &v40;
-      v20 = sub_10027DDC8(p_addressToCoordinatesOOB, &v40)[7];
+      v20 = sub_10027DDC8(p_addressToCoordinatesOOB, &v40, &unk_100548C50, &v41)[7];
       v41 = &v40;
-      v21 = sub_10027DDC8(p_addressToCoordinatesOOB, &v40)[8];
+      v21 = sub_10027DDC8(p_addressToCoordinatesOOB, &v40, &unk_100548C50, &v41)[8];
       if (*(coordinates + 1616) == 1)
       {
         *(coordinates + 1616) = 0;
@@ -2976,11 +3162,11 @@ LABEL_54:
       break;
     case 0:
       v41 = &v40;
-      v15 = sub_10027DDC8(p_addressToCoordinatesOOB, &v40)[6];
+      v15 = sub_10027DDC8(p_addressToCoordinatesOOB, &v40, &unk_100548C50, &v41)[6];
       v41 = &v40;
-      v16 = sub_10027DDC8(p_addressToCoordinatesOOB, &v40)[7];
+      v16 = sub_10027DDC8(p_addressToCoordinatesOOB, &v40, &unk_100548C50, &v41)[7];
       v41 = &v40;
-      v17 = sub_10027DDC8(p_addressToCoordinatesOOB, &v40)[8];
+      v17 = sub_10027DDC8(p_addressToCoordinatesOOB, &v40, &unk_100548C50, &v41)[8];
       v18 = *(coordinates + 1616);
       *(coordinates + 199) = v15;
       *(coordinates + 200) = v16;
@@ -3035,24 +3221,24 @@ LABEL_54:
 LABEL_55:
           if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
           {
-            sub_1004B605C(&v39);
+            sub_1004B605C();
           }
 
           return 0;
         }
 
         v41 = &v39;
-        v30 = *(sub_10027DDC8(p_addressToCoordinatesOOB, &v39) + 10);
+        v30 = *(sub_10027DDC8(p_addressToCoordinatesOOB, &v39, &unk_100548C50, &v41) + 10);
         if (v30)
         {
           if (v30 == 1)
           {
             v41 = &v39;
-            v31 = sub_10027DDC8(p_addressToCoordinatesOOB, &v39)[6];
+            v31 = sub_10027DDC8(p_addressToCoordinatesOOB, &v39, &unk_100548C50, &v41)[6];
             v41 = &v39;
-            v32 = sub_10027DDC8(p_addressToCoordinatesOOB, &v39)[7];
+            v32 = sub_10027DDC8(p_addressToCoordinatesOOB, &v39, &unk_100548C50, &v41)[7];
             v41 = &v39;
-            v33 = sub_10027DDC8(p_addressToCoordinatesOOB, &v39)[8];
+            v33 = sub_10027DDC8(p_addressToCoordinatesOOB, &v39, &unk_100548C50, &v41)[8];
             if (*(v23 + 80) == 1)
             {
               *(v23 + 80) = 0;
@@ -3077,11 +3263,11 @@ LABEL_55:
         else
         {
           v41 = &v39;
-          v35 = sub_10027DDC8(p_addressToCoordinatesOOB, &v39)[6];
+          v35 = sub_10027DDC8(p_addressToCoordinatesOOB, &v39, &unk_100548C50, &v41)[6];
           v41 = &v39;
-          v36 = sub_10027DDC8(p_addressToCoordinatesOOB, &v39)[7];
+          v36 = sub_10027DDC8(p_addressToCoordinatesOOB, &v39, &unk_100548C50, &v41)[7];
           v41 = &v39;
-          v37 = sub_10027DDC8(p_addressToCoordinatesOOB, &v39)[8];
+          v37 = sub_10027DDC8(p_addressToCoordinatesOOB, &v39, &unk_100548C50, &v41)[8];
           v38 = *(v23 + 80);
           *(v23 + 56) = v35;
           *(v23 + 64) = v36;
@@ -3215,13 +3401,13 @@ LABEL_8:
               [v16 timeIntervalSince1970];
               v18 = v17;
               *buf = &v33;
-              v19 = sub_10027DEA4(&self->_clusterToSessionRecord, &v33);
+              v19 = sub_10027DEA4(&self->_clusterToSessionRecord, &v33, &unk_100548C50, buf);
               v19[9] = v18;
               *(v19 + 80) = 1;
 
               v20 = +[NIServerDLTDOAService sharedInstance];
               *buf = &v33;
-              v21 = sub_10027DEA4(&self->_clusterToSessionRecord, &v33);
+              v21 = sub_10027DEA4(&self->_clusterToSessionRecord, &v33, &unk_100548C50, buf);
               v22 = *(v21 + 7);
               v29 = *(v21 + 5);
               v30[0] = v22;
@@ -3277,7 +3463,7 @@ LABEL_8:
               *buf = v33;
               LODWORD(v35) = 0;
               *(&v35 + 1) = v27;
-              sub_10027CDD0(&self->_addressToTrackingAnchorState, buf);
+              sub_10027CDD0(&self->_addressToTrackingAnchorState, buf, buf);
               break;
             }
 
@@ -3451,7 +3637,7 @@ LABEL_22:
   debugParameters = [(NIDLTDOAConfiguration *)self->_configuration debugParameters];
   if (debugParameters)
   {
-    [(NIServerDLTDOASession *)self _parseOOBConfigFromDebugParameters:debugParameters];
+    objc_msgSend__parseOOBConfigFromDebugParameters_(self);
     sub_10027C558(&self->_oobConfigs);
     *&self->_oobConfigs.__begin_ = *buf;
     self->_oobConfigs.__cap_ = v18;
@@ -3513,8 +3699,8 @@ LABEL_12:
           *buf = v16;
           *&buf[8] = 0;
           v18 = *&v14;
-          sub_10027CDD0(&self->_addressToTrackingAnchorState, buf);
-          sub_10027D03C(&self->_cachedWifiOOBAnchors, &v16);
+          sub_10027CDD0(&self->_addressToTrackingAnchorState, buf, buf);
+          sub_10027D03C(&self->_cachedWifiOOBAnchors, &v16, &v16);
           begin = self->_oobConfigs.__begin_;
           end = self->_oobConfigs.__end_;
         }
@@ -3616,7 +3802,7 @@ LABEL_12:
   self->_sessions.__tree_.__size_ = 0;
   self->_sessions.__tree_.__end_node_.__left_ = 0;
   self->_sessions.__tree_.__begin_node_ = &self->_sessions.__tree_.__end_node_;
-  sub_1002FE758(&self->_machTimeConverter, a2);
+  sub_1002FE758(&self->_machTimeConverter);
   self->_sessionLastActiveEventTimestamp.var0.__null_state_ = 0;
   self->_sessionLastActiveEventTimestamp.__engaged_ = 0;
   self->_sessionRunTimestamp.var0.__null_state_ = 0;

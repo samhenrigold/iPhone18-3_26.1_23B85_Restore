@@ -10,13 +10,16 @@
   v15 = _Block_copy(completion);
   v16 = sub_1BE052A34();
   v17 = swift_allocObject();
-  *(v17 + 16) = v15;
+  v17[2] = v15;
   accountCopy = account;
   transactionCopy = transaction;
   serviceCopy = service;
   passCopy = pass;
   collectionCopy = collection;
   v23 = sub_1BD672898(accountCopy, transactionCopy, category, serviceCopy, passCopy, v16, collectionCopy, sub_1BD1B6B00, v17);
+
+  v16, v24, v25, v26, v27, v28, v29, v30;
+  v17, v31, v32, v33, v34, v35, v36, v37;
 
   return v23;
 }

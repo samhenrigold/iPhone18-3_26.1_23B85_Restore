@@ -1199,7 +1199,7 @@ LABEL_11:
 {
   p_timestamp = &self->_timestamp;
   self->_timestamp.numberOfSlots = 4;
-  std::vector<tagVCAudioHALPluginTimestampInfo>::vector[abi:ne200100](&self->_timestamp.timestamps.__begin_, 4uLL);
+  std::vector<tagVCAudioHALPluginTimestampInfo>::vector[abi:ne200100](&self->_timestamp.timestamps, 4uLL, &self->_timestamp.initLocklessTimestampInfo);
   *&p_timestamp->timestampIndex.__a_.__a_value = 0u;
   *&p_timestamp->initLocklessTimestampInfo.hostTime = 0u;
   return self;

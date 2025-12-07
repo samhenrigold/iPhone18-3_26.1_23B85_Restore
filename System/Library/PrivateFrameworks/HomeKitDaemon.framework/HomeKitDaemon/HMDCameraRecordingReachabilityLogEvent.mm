@@ -44,7 +44,7 @@
   v10 = [v9 numberWithDouble:?];
   [v3 setObject:v10 forKeyedSubscript:@"offlineDurationSeconds"];
 
-  v11 = [v3 copy];
+  v11 = objc_msgSend_copy(v3);
 
   return v11;
 }

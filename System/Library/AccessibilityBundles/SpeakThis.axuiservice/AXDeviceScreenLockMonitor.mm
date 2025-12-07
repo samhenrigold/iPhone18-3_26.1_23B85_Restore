@@ -1,6 +1,7 @@
 @interface AXDeviceScreenLockMonitor
 + (id)sharedInstance;
 - (AXDeviceScreenLockMonitor)init;
+- (void)_notifyObserver:(id)observer isDeviceLocked:(BOOL)locked timestamp:(double)timestamp;
 - (void)_startMonitoringWithQueue:(id)queue;
 - (void)_stopMonitoring;
 - (void)deviceLockStateChanged:(double)changed;
@@ -73,6 +74,17 @@
   [(AXDeviceEventMonitor *)self enumerateObserversInQueue:v5];
   objc_destroyWeak(v6);
   objc_destroyWeak(&location);
+}
+
+- (void)_notifyObserver:(id)observer isDeviceLocked:(BOOL)locked timestamp:(double)timestamp
+{
+  lockedCopy = locked;
+  observerCopy = observer;
+  [(AXDeviceEventMonitor *)self notifyObserver:observerCopy];
+  if (objc_opt_respondsToSelector())
+  {
+    [observerCopy deviceLockMonitor:self didReceiveDeviceLockStateChanged:lockedCopy timestamp:timestamp];
+  }
 }
 
 @end

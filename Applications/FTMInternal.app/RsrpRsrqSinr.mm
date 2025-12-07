@@ -166,7 +166,6 @@ LABEL_7:
   has = self->_has;
   if (has)
   {
-    phyCellId = self->_phyCellId;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -186,7 +185,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  rsrp = self->_rsrp;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -201,7 +199,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  rsrq = self->_rsrq;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -216,12 +213,10 @@ LABEL_5:
   }
 
 LABEL_13:
-  sinr0 = self->_sinr0;
   PBDataWriterWriteSint32Field();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_6:
-    sinr1 = self->_sinr1;
     PBDataWriterWriteSint32Field();
   }
 

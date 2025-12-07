@@ -94,7 +94,7 @@ void __49__AMSUIAuthenticateCloudTask_performAuthenticate__block_invoke_2(uint64
 
 void __49__AMSUIAuthenticateCloudTask_performAuthenticate__block_invoke_3(id *a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = a1[4];
   v4 = [a1[5] authenticationResults];
   v5 = [a1[4] presentingViewController];
@@ -109,49 +109,46 @@ void __49__AMSUIAuthenticateCloudTask_performAuthenticate__block_invoke_3(id *a1
   v8 = [v7 OSLogObject];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = a1[4];
-    v10 = objc_opt_class();
-    v11 = AMSLogKey();
+    v9 = objc_opt_class();
+    v10 = AMSLogKey();
     *buf = 138543618;
-    *&buf[4] = v10;
+    *&buf[4] = v9;
     *&buf[12] = 2114;
-    *&buf[14] = v11;
+    *&buf[14] = v10;
     _os_log_impl(&dword_1BB036000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Beginning service owners manager sign in", buf, 0x16u);
   }
 
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2050000000;
-  v12 = getAIDAServiceOwnersManagerClass_softClass;
-  v25 = getAIDAServiceOwnersManagerClass_softClass;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2050000000;
+  v11 = getAIDAServiceOwnersManagerClass_softClass;
+  v23 = getAIDAServiceOwnersManagerClass_softClass;
   if (!getAIDAServiceOwnersManagerClass_softClass)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getAIDAServiceOwnersManagerClass_block_invoke;
-    v27 = &unk_1E7F241B0;
-    v28 = &v22;
+    v25 = &unk_1E7F241B0;
+    v26 = &v20;
     __getAIDAServiceOwnersManagerClass_block_invoke(buf);
-    v12 = v23[3];
+    v11 = v21[3];
   }
 
-  v13 = v12;
-  _Block_object_dispose(&v22, 8);
-  v14 = [v12 alloc];
-  v15 = [MEMORY[0x1E6959A48] ams_sharedAccountStore];
-  v16 = [v14 initWithAccountStore:v15];
+  v12 = v11;
+  _Block_object_dispose(&v20, 8);
+  v13 = [v11 alloc];
+  v14 = [MEMORY[0x1E6959A48] ams_sharedAccountStore];
+  v15 = [v13 initWithAccountStore:v14];
 
-  v17 = getAIDAServiceTypeCloud();
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __49__AMSUIAuthenticateCloudTask_performAuthenticate__block_invoke_37;
-  v19[3] = &unk_1E7F24568;
-  v19[4] = a1[4];
-  v20 = a1[6];
-  v21 = a1[5];
-  [v16 signInService:v17 withContext:v6 completion:v19];
-
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = getAIDAServiceTypeCloud();
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __49__AMSUIAuthenticateCloudTask_performAuthenticate__block_invoke_37;
+  v17[3] = &unk_1E7F24568;
+  v17[4] = a1[4];
+  v18 = a1[6];
+  v19 = a1[5];
+  [v15 signInService:v16 withContext:v6 completion:v17];
 }
 
 void __49__AMSUIAuthenticateCloudTask_performAuthenticate__block_invoke_37(uint64_t a1, uint64_t a2, void *a3)

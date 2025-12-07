@@ -3,7 +3,7 @@
 
 @implementation AXSGenericAccessibilityClientEnabled
 
-uint64_t ___AXSGenericAccessibilityClientEnabled_block_invoke()
+void *___AXSGenericAccessibilityClientEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

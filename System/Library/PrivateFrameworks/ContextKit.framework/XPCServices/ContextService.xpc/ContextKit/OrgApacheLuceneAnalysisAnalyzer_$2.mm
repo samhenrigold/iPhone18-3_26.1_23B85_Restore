@@ -8,13 +8,13 @@
 - (id)getReusableComponentsWithOrgApacheLuceneAnalysisAnalyzer:(id)analyzer withNSString:(id)string
 {
   v5 = sub_100010948(analyzer);
-  v6 = JavaUtilMap_class_();
+  v7 = JavaUtilMap_class_(v5, v6);
   if (!v5)
   {
     return 0;
   }
 
-  if (([v6 isInstance:v5] & 1) == 0)
+  if (([v7 isInstance:v5] & 1) == 0)
   {
     JreThrowClassCastException();
   }
@@ -25,10 +25,10 @@
 - (void)setReusableComponentsWithOrgApacheLuceneAnalysisAnalyzer:(id)analyzer withNSString:(id)string withOrgApacheLuceneAnalysisAnalyzer_TokenStreamComponents:(id)components
 {
   v8 = sub_100010948(analyzer);
-  v9 = JavaUtilMap_class_();
+  v10 = JavaUtilMap_class_(v8, v9);
   if (v8)
   {
-    if (([v9 isInstance:v8] & 1) == 0)
+    if (([v10 isInstance:v8] & 1) == 0)
     {
       JreThrowClassCastException();
     }

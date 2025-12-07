@@ -372,20 +372,22 @@ LABEL_11:
   [-[THWInteractiveImageCalloutRep canvas](self "canvas")];
   v4 = v3;
   targetShadow = [(THWInteractiveImageCalloutRep *)self targetShadow];
+  v7 = targetShadow;
   if (!targetShadow)
   {
     targetShadow = +[TSDNoDefaultImplicitActionLayer layer];
+    v7 = targetShadow;
   }
 
-  v6 = [TSUImage imageNamed:@"circle-shadow" inBundle:THBundle()];
+  v8 = [TSUImage imageNamed:@"circle-shadow" inBundle:THBundle(targetShadow, v6)];
   [-[THWInteractiveImageCalloutRep canvas](self "canvas")];
-  v8 = v7;
-  -[CALayer setContents:](targetShadow, "setContents:", [v6 CGImageForContentsScale:?]);
-  [(CALayer *)targetShadow setContentsScale:v8];
-  [v6 size];
   v10 = v9;
-  [v6 size];
-  [(CALayer *)targetShadow setBounds:0.0, 0.0, v10, v11];
+  -[CALayer setContents:](v7, "setContents:", [v8 CGImageForContentsScale:?]);
+  [(CALayer *)v7 setContentsScale:v10];
+  [v8 size];
+  v12 = v11;
+  [v8 size];
+  [(CALayer *)v7 setBounds:0.0, 0.0, v12, v13];
   lineShadow = [(THWInteractiveImageCalloutRep *)self lineShadow];
   if (!lineShadow)
   {
@@ -395,11 +397,11 @@ LABEL_11:
   [(CALayer *)lineShadow setBounds:0.0, 0.0, 10.0, 6.0];
   -[CALayer setShadowColor:](lineShadow, "setShadowColor:", [+[TSUColor blackColor](TSUColor "blackColor")]);
   [(CALayer *)lineShadow setShadowOffset:0.0, 0.0];
-  LODWORD(v13) = 0.5;
-  [(CALayer *)lineShadow setShadowOpacity:v13];
+  LODWORD(v15) = 0.5;
+  [(CALayer *)lineShadow setShadowOpacity:v15];
   [(CALayer *)lineShadow setShadowRadius:v4];
   [(CALayer *)lineShadow bounds];
-  CGRectInset(v16, -2.0, 2.0);
+  CGRectInset(v18, -2.0, 2.0);
   TSDScaleRectAroundPoint();
   -[CALayer setShadowPath:](lineShadow, "setShadowPath:", [+[TSDBezierPath bezierPathWithRect:](TSDBezierPath CGPath]);
   [(CALayer *)lineShadow setMasksToBounds:1];
@@ -414,7 +416,7 @@ LABEL_11:
   [(CAShapeLayer *)line setLineWidth:v4 + v4];
   -[CAShapeLayer setBackgroundColor:](line, "setBackgroundColor:", [objc_msgSend(+[TSUColor redColor](TSUColor "redColor")]);
   [(THWInteractiveImageCalloutRep *)self setLine:line];
-  [(THWInteractiveImageCalloutRep *)self setTargetShadow:targetShadow];
+  [(THWInteractiveImageCalloutRep *)self setTargetShadow:v7];
 
   [(THWInteractiveImageCalloutRep *)self setLineShadow:lineShadow];
 }
@@ -506,7 +508,7 @@ LABEL_11:
     lineShadow = [(THWInteractiveImageCalloutRep *)self lineShadow];
     if (lineShadow)
     {
-      [(CALayer *)lineShadow transform];
+      objc_msgSend_transform(lineShadow);
     }
 
     else

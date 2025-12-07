@@ -103,7 +103,7 @@ uint64_t BRLTRN_CreateA(char *__s, char *a2, uint64_t *a3, char *a4, char *a5)
   return v13;
 }
 
-uint64_t BRLTRN_TranslateString(void *a1, __int32 *a2, unint64_t a3, unsigned int a4, unsigned int a5, _WORD *a6)
+uint64_t BRLTRN_TranslateString(_DWORD *a1, __int32 *a2, int *a3, int a4, uint64_t a5, _WORD *a6)
 {
   v24 = 0;
   v6 = 14;
@@ -112,6 +112,7 @@ uint64_t BRLTRN_TranslateString(void *a1, __int32 *a2, unint64_t a3, unsigned in
     return v6;
   }
 
+  v11 = a5;
   if (a6)
   {
     v13 = malloc_type_malloc(2 * a4, 0x1000040BDFB0063uLL);
@@ -206,10 +207,10 @@ LABEL_21:
   {
     if (a6 && !v6)
     {
-      if (a5 <= v14)
+      if (v11 <= v14)
       {
         v6 = 0;
-        *a6 = BRLTRN_OutputPosFromArray(v13, v24, a5);
+        *a6 = BRLTRN_OutputPosFromArray(v13, v24, v11);
       }
 
       else
@@ -224,10 +225,11 @@ LABEL_21:
   return v6;
 }
 
-void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
 uint64_t ASCIIBrailleToUnicode(unsigned int a1)
@@ -406,7 +408,7 @@ void *allot(size_t a1)
       dxc_allot_fail_hook(0, a1);
     }
 
-    erm("allot", -1, 200, 0);
+    erm("allot", 0xFFFFFFFFLL, 0xC8u, 0);
   }
 
   return v2;
@@ -422,7 +424,7 @@ void *reallot(void *a1, size_t a2)
       dxc_allot_fail_hook(a1, a2);
     }
 
-    erm("allot", -1, 200, 0);
+    erm("allot", 0xFFFFFFFFLL, 0xC8u, 0);
   }
 
   return v4;
@@ -450,14 +452,14 @@ void *dxc_realloc(void *a1, size_t a2)
   return v3;
 }
 
-uint64_t dxbin_engine_destroy(uint64_t a1)
+_DWORD *dxbin_engine_destroy(_DWORD *result)
 {
-  if (*a1)
+  if (*result)
   {
-    return dxbin_engine_deactivate(a1);
+    return dxbin_engine_deactivate(result);
   }
 
-  return a1;
+  return result;
 }
 
 uint64_t dxbin_engine_deactivate(uint64_t a1)
@@ -485,7 +487,7 @@ LABEL_5:
 
   v1 = 4294967293;
 LABEL_6:
-  dxerr_report_activate(*(a1 + 8), "biniq", v1);
+  dxerr_report_activate(*(a1 + 8), "biniq", v1, 0);
   return v1;
 }
 
@@ -795,7 +797,6 @@ uint64_t lev1(uint64_t a1)
     v8 = v7 + 1;
     *(a1 + 176) = v7 + 1;
     v2 = *(a1 + 44 + v7);
-    v9 = *(a1 + 44 + v8);
     result = v2;
     if (*(a1 + 44 + v8))
     {
@@ -817,13 +818,13 @@ LABEL_10:
     return v2;
   }
 
-  v20 = 0;
+  v19 = 0;
   v4 = lev0(a1);
   result = 65281;
   if (v4 != 65281)
   {
     v6 = 0;
-    while (chibdi(v4, v6, &v20))
+    while (chibdi(v4, v6, &v19))
     {
       ++v6;
       v4 = lev0(a1);
@@ -834,11 +835,11 @@ LABEL_10:
       }
     }
 
-    result = v20;
-    if (v20 < 0x21 || v20 == 65407)
+    result = v19;
+    if (v19 < 0x21 || v19 == 65407)
     {
-      *(a1 + 172) = v20;
-      v20 = 65282;
+      *(a1 + 172) = v19;
+      v19 = 65282;
       while (1)
       {
         if (result <= 11)
@@ -858,36 +859,36 @@ LABEL_10:
             goto LABEL_50;
           }
 
-          v12 = *(a1 + 72);
-          if (v12 < 0)
+          v11 = *(a1 + 72);
+          if (v11 < 0)
           {
-            v15 = *(a1 + 116);
-            if (v15 != 0x7FFFFFFF)
+            v14 = *(a1 + 116);
+            if (v14 != 0x7FFFFFFF)
             {
-              *(a1 + 116) = v15 + 1;
+              *(a1 + 116) = v14 + 1;
             }
 
 LABEL_33:
-            v11 = v20;
+            v10 = v19;
             goto LABEL_34;
           }
 
-          v11 = v20 + v12;
+          v10 = v19 + v11;
         }
 
         else
         {
           if (result == 12)
           {
-            v13 = *(a1 + 44);
-            if (v13 > 31)
+            v12 = *(a1 + 44);
+            if (v12 > 31)
             {
               *(a1 + 176) = 0;
-              v19 = v20 + 1;
+              v18 = v19 + 1;
               v2 = 12;
 LABEL_51:
-              result = v19;
-              if (v19 <= 0xFF02)
+              result = v18;
+              if (v18 <= 0xFF02)
               {
                 result = v2;
                 if ((v2 - 65282) <= 0xFFFFFFFD)
@@ -899,12 +900,12 @@ LABEL_51:
               return result;
             }
 
-            if (v13 == 21)
+            if (v12 == 21)
             {
-              v14 = *(a1 + 112);
-              if (v14 != 0x7FFFFFFF)
+              v13 = *(a1 + 112);
+              if (v13 != 0x7FFFFFFF)
               {
-                *(a1 + 112) = v14 + 1;
+                *(a1 + 112) = v13 + 1;
               }
             }
 
@@ -920,37 +921,37 @@ LABEL_51:
             }
 
 LABEL_50:
-            v19 = v20;
+            v18 = v19;
             v2 = result;
             goto LABEL_51;
           }
 
-          v11 = v20 + 1;
+          v10 = v19 + 1;
         }
 
-        v20 = v11;
+        v19 = v10;
 LABEL_34:
-        if (v11 >= 0xFFFC)
+        if (v10 >= 0xFFFC)
         {
-          v20 = v11 - 250;
+          v19 = v10 - 250;
         }
 
-        v16 = lev0(a1);
-        if (v16 != 65281)
+        v15 = lev0(a1);
+        if (v15 != 65281)
         {
-          v17 = 0;
+          v16 = 0;
           do
           {
-            if (!chibdi(v16, v17, v3))
+            if (!chibdi(v15, v16, v3))
             {
               break;
             }
 
-            ++v17;
-            v16 = lev0(a1);
+            ++v16;
+            v15 = lev0(a1);
           }
 
-          while (v16 != 65281);
+          while (v15 != 65281);
         }
 
         result = *v3;
@@ -1205,11 +1206,11 @@ uint64_t lev0(uint64_t a1)
 
       else if (v3 > 31)
       {
-        v10 = *(a1 + 164);
-        if (v10 <= 0x1E)
+        v9 = *(a1 + 164);
+        if (v9 <= 0x1E)
         {
-          *(a1 + 164) = v10 + 1;
-          *(a1 + v10 + 129) = v3;
+          *(a1 + 164) = v9 + 1;
+          *(a1 + v9 + 129) = v3;
           return v1;
         }
       }
@@ -1220,17 +1221,16 @@ uint64_t lev0(uint64_t a1)
         v7 = *(a1 + 80);
         if (v7)
         {
-          v8 = (*(a1 + 168) - 8);
-          v7(v12, *(a1 + 88));
-          v9 = dxbin_code_in_str(a1, v12[3], "lnb", 1);
+          v7(v11, *(a1 + 88));
+          v8 = dxbin_code_in_str(a1, v11[3], "lnb", 1);
         }
 
         else
         {
-          v9 = 0;
+          v8 = 0;
         }
 
-        *(a1 + 128) = v9;
+        *(a1 + 128) = v8;
       }
     }
 
@@ -4405,12 +4405,12 @@ void *LoadEightDotTable(uint64_t a1)
   return LoadEightDotPattern(a1, 12585, "1368");
 }
 
-uint64_t BRLDISP_Translate(uint64_t a1, __int16 a2, __int32 *a3, unint64_t a4, unsigned int a5, unsigned int a6, _WORD *a7)
+uint64_t BRLDISP_Translate(uint64_t a1, __int16 a2, __int32 *a3, int *a4, int a5, uint64_t a6, _WORD *a7)
 {
   v7 = a4;
   if ((a2 & 0x1000) != 0)
   {
-    v13 = a4 + 4 * a5 - 4;
+    v13 = &a4[a5 - 1];
     v14 = *a3;
     if (*a3)
     {
@@ -4465,7 +4465,7 @@ uint64_t BRLDISP_Translate(uint64_t a1, __int16 a2, __int32 *a3, unint64_t a4, u
       v9 = *v7;
       if (v9)
       {
-        v10 = v7 + 1;
+        v10 = (v7 + 1);
         do
         {
           if (v9 > 0xFF)
@@ -4516,7 +4516,7 @@ uint64_t BRLDISP_LocateSource()
             do
             {
               v17[0] = 0;
-              if (BRLDISP_Translate(v4, v9, v6, &v18, 0x1000u, v10, v17))
+              if (BRLDISP_Translate(v4, v9, v6, v18, 4096, v10, v17))
               {
                 v12 = -1;
               }
@@ -4608,7 +4608,7 @@ uint64_t BRLDISP_LocateSourceLinear()
             do
             {
               v17[0] = 0;
-              if (BRLDISP_Translate(v4, v9, v6, &v18, 0x1000u, v10, v17))
+              if (BRLDISP_Translate(v4, v9, v6, v18, 4096, v10, v17))
               {
                 v12 = -1;
               }
@@ -4677,7 +4677,7 @@ uint64_t BRLDISP_LocateSourceLinear()
   return result;
 }
 
-uint64_t BRLDISP_Destroy(_DWORD **a1)
+uint64_t BRLDISP_Destroy(char **a1)
 {
   if (!a1)
   {
@@ -5307,12 +5307,12 @@ uint64_t is_basename_equal(__int32 *a1, __int32 *a2)
   return 0;
 }
 
-uint64_t BRLTRN_Destroy(_DWORD *a1)
+uint64_t BRLTRN_Destroy(char *a1)
 {
   if (a1)
   {
-    v2 = a1 + 0x2000;
-    dxbte_engine_destroy((a1 + 46));
+    v2 = a1 + 0x8000;
+    dxbte_engine_destroy((a1 + 184));
     dxios_stream_destroy(a1 + 2);
     dxios_stream_destroy(a1 + 24);
     dxchi_unimap_destroy(*(v2 + 263));
@@ -5374,7 +5374,7 @@ uint64_t BRLTRN_Map2800(uint64_t a1, int a2, int a3)
   return 0;
 }
 
-uint64_t BRLTRN_AddScrub(uint64_t a1, __int32 *a2, uint64_t a3, int a4)
+size_t BRLTRN_AddScrub(uint64_t a1, __int32 *a2, uint64_t a3, int a4)
 {
   if (!a1)
   {
@@ -5439,7 +5439,7 @@ uint64_t BRLTRN_AddScrubTableBytes(uint64_t a1, uint64_t a2, uint64_t a3, uint64
       v11 = dxios_stream_activate_buf(v14, 1u, a2, a3);
       if (!v11)
       {
-        v11 = dxscb_engine_activate(v10);
+        v11 = dxscb_engine_activate(v10, v14);
       }
 
       dxios_stream_destroy(v14);
@@ -5481,7 +5481,7 @@ uint64_t BRLTRN_AddScrubTableBytes(uint64_t a1, uint64_t a2, uint64_t a3, uint64
   return v11;
 }
 
-uint64_t BRLTRN_AddSecondaryTranslator(uint64_t a1, __int32 *a2, __int32 *a3)
+size_t BRLTRN_AddSecondaryTranslator(uint64_t a1, __int32 *a2, __int32 *a3)
 {
   if (!a1)
   {
@@ -5571,7 +5571,7 @@ uint64_t BRLTRN_AddSecondaryTranslatorTableBytes(uint64_t a1, uint64_t a2, uint6
   return v12;
 }
 
-uint64_t BRLTRN_TranslateAutoString(uint64_t a1, __int128 *a2, __int32 *a3, _WORD *a4)
+uint64_t BRLTRN_TranslateAutoString(uint64_t a1, __int128 *a2, __int32 *a3, unsigned __int16 *a4)
 {
   result = 14;
   if (a1 && a3)
@@ -5580,10 +5580,11 @@ uint64_t BRLTRN_TranslateAutoString(uint64_t a1, __int128 *a2, __int32 *a3, _WOR
     v9 = v8;
     if (a2)
     {
-      v20 = *a2;
+      v19 = *a2;
     }
 
     v10 = 0;
+    v20 = 0;
     v11 = 4 * v8;
     do
     {
@@ -5635,23 +5636,22 @@ uint64_t BRLTRN_TranslateAutoString(uint64_t a1, __int128 *a2, __int32 *a3, _WOR
 
       if (a2)
       {
-        *a2 = v20;
+        *a2 = v19;
       }
 
-      v17 = *(a1 + 34928);
-      v18 = *(a1 + 34936);
-      result = BRLTRN_TranslateStringEx(a1, a2, a3);
+      result = BRLTRN_TranslateStringEx(a1, a2, a3, *(a1 + 34928), *(a1 + 34936), v14, &v20);
+      v17 = v20;
       v10 = v9;
     }
 
-    while (v14 - 100 <= 0);
+    while (v14 - 100 <= v20);
     if (!result)
     {
-      *(a1 + 34920) = 0;
+      *(a1 + 34920) = v20;
       result = 0;
       if (a4)
       {
-        *a4 = 0;
+        *a4 = v17;
       }
     }
   }
@@ -5659,7 +5659,7 @@ uint64_t BRLTRN_TranslateAutoString(uint64_t a1, __int128 *a2, __int32 *a3, _WOR
   return result;
 }
 
-uint64_t BRLTRN_TranslateStringEx(void *a1, __int128 *a2, unsigned int *a3, unint64_t a4, uint64_t a5, int a6, _WORD *a7)
+uint64_t BRLTRN_TranslateStringEx(void *a1, __int128 *a2, unsigned int *a3, int *a4, uint64_t a5, int a6, unsigned __int16 *a7)
 {
   v7 = 14;
   if (!a1)
@@ -6667,7 +6667,7 @@ LABEL_17:
   return v7;
 }
 
-uint64_t BRLTRN_TranslateStringAndGetLocationMap(void *a1, __int32 *a2, unint64_t a3, unsigned int a4, void *a5)
+uint64_t BRLTRN_TranslateStringAndGetLocationMap(void *a1, __int32 *a2, int *a3, int a4, void *a5)
 {
   v22 = 0;
   v5 = 14;
@@ -6891,7 +6891,7 @@ uint64_t dxscb_engine_deactivate(uint64_t a1)
   else
   {
     v5 = 300;
-    dxerr_report_activate(*(a1 + 8), "scrub", 300);
+    dxerr_report_activate(*(a1 + 8), "scrub", 300, 0);
   }
 
   return v5;
@@ -6909,70 +6909,90 @@ uint64_t dxscb_engine_destroy(uint64_t a1)
 
 _BYTE *dxscb_engine_activate_tablename(uint64_t a1, char *a2)
 {
-  v3 = dxios_search_open(a2, 0, 0, 0, 512);
-  if (v3)
+  v4 = dxios_search_open(a2, 0, 0, 0, 512);
+  if (v4)
   {
-    v4 = v3;
-    v5 = dxscb_engine_activate(a1);
-    dxios_close(v4);
-    if (!v5)
+    v5 = v4;
+    v6 = dxscb_engine_activate(a1, v4);
+    dxios_close(v5);
+    if (!v6)
     {
-      return v5;
+      return v6;
     }
   }
 
   else
   {
-    v5 = (&stru_68 + 36);
+    v6 = (&stru_68 + 36);
   }
 
-  dxerr_report_activate(*(a1 + 8), "scrub", v5);
-  return v5;
+  dxerr_report_activate(*(a1 + 8), "scrub", v6, "%s", a2);
+  return v6;
 }
 
-_BYTE *dxscb_engine_activate(uint64_t a1)
+_BYTE *dxscb_engine_activate(uint64_t a1, uint64_t a2)
 {
   if (*a1)
   {
-    v2 = (&stru_108 + 46);
+    v3 = (&stru_108 + 46);
   }
 
   else
   {
-    v4 = malloc_type_calloc(0x102uLL, 8uLL, 0x2004093837F09uLL);
-    if (v4)
+    v5 = malloc_type_calloc(0x102uLL, 8uLL, 0x2004093837F09uLL);
+    if (v5)
     {
       *a1 = 1;
-      *(a1 + 16) = v4;
+      *(a1 + 16) = v5;
       *(a1 + 128) = dxios_stream_getc;
       *(a1 + 136) = dxios_stream_putc;
-      v2 = readtable();
-      if (!v2)
+      v3 = readtable();
+      if (!v3)
       {
         *(a1 + 32) = 1;
-        return v2;
+        return v3;
       }
     }
 
     else
     {
-      v2 = (&stru_108 + 6);
+      v3 = (&stru_108 + 6);
     }
   }
 
-  dxerr_report_activate(*(a1 + 8), "scrub", v2);
+  dxerr_report_activate(*(a1 + 8), "scrub", v3, 0);
   dxscb_engine_deactivate(a1);
-  return v2;
+  return v3;
 }
 
-_BYTE *dxscb_engine_activate_additional_tablename(uint64_t a1, char *a2)
+_BYTE *dxscb_engine_activate_additional_tablename(uint64_t a1, char *a2, uint64_t a3, uint64_t a4)
 {
-  v3 = dxios_search_open(a2, 0, 0, 0, 512);
-  if (v3)
+  v8 = dxios_search_open(a2, 0, 0, 0, 512);
+  if (v8)
   {
-    v4 = v3;
-    v5 = dxscb_engine_activate_additional(a1);
-    dxios_close(v4);
+    v9 = v8;
+    v10 = dxscb_engine_activate_additional(a1, v8, a3, a4);
+    dxios_close(v9);
+    if (!v10)
+    {
+      return v10;
+    }
+  }
+
+  else
+  {
+    v10 = (&stru_68 + 36);
+  }
+
+  dxerr_report_activate(*(a1 + 8), "scrub", v10, "%s", a2);
+  return v10;
+}
+
+_BYTE *dxscb_engine_activate_additional(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if (*a1)
+  {
+    v5 = readtable();
     if (!v5)
     {
       return v5;
@@ -6981,31 +7001,11 @@ _BYTE *dxscb_engine_activate_additional_tablename(uint64_t a1, char *a2)
 
   else
   {
-    v5 = (&stru_68 + 36);
+    v5 = (&stru_108 + 36);
   }
 
-  dxerr_report_activate(*(a1 + 8), "scrub", v5);
+  dxerr_report_activate(*(a1 + 8), "scrub", v5, 0);
   return v5;
-}
-
-_BYTE *dxscb_engine_activate_additional(uint64_t a1)
-{
-  if (*a1)
-  {
-    v2 = readtable();
-    if (!v2)
-    {
-      return v2;
-    }
-  }
-
-  else
-  {
-    v2 = (&stru_108 + 36);
-  }
-
-  dxerr_report_activate(*(a1 + 8), "scrub", v2);
-  return v2;
 }
 
 _BYTE *readtable()
@@ -7535,9 +7535,7 @@ _BYTE *dxscb_engine_deferred_table_load(uint64_t a1, int a2)
     return (&dword_0 + 1);
   }
 
-  v5 = *(v3 + 52);
-  v6 = *(v3 + 56);
-  result = dxscb_engine_activate_additional_tablename(a1, v3);
+  result = dxscb_engine_activate_additional_tablename(a1, v3, *(v3 + 52), *(v3 + 56));
   *v3 = 0u;
   *(v3 + 16) = 0u;
   *(v3 + 32) = 0u;
@@ -8397,7 +8395,7 @@ uint64_t chudi(int a1)
   return result;
 }
 
-uint64_t chuds(uint64_t result, int a2, char *a3, uint64_t a4)
+BOOL chuds(_BOOL8 result, int a2, char *a3, uint64_t a4)
 {
   if (!result)
   {
@@ -8797,7 +8795,7 @@ void dxcfin()
   exit(4);
 }
 
-unsigned __int8 *dxxins()
+char *dxxins()
 {
   v0 = getenv("DUXSPEC");
   if (v0)
@@ -8874,7 +8872,7 @@ uint64_t remove_trailing_spaces(const char *a1)
   return result;
 }
 
-uint64_t dxcini(const char *a1, unsigned __int8 *a2, int a3, int a4, int a5, uint64_t a6)
+uint64_t dxcini(const char *a1, char *a2, int a3, int a4, int a5, uint64_t a6)
 {
   dxxins();
   v9 = &unk_3D000;
@@ -8954,7 +8952,7 @@ uint64_t dxcini(const char *a1, unsigned __int8 *a2, int a3, int a4, int a5, uin
           dxcnpl = malloc_type_malloc(17 * v23, 0x100004075806E5BuLL);
           if (!dxcnpl)
           {
-            erm("dxcini", -7, 200, 0);
+            erm("dxcini", 4294967289, 0xC8u, 0);
           }
 
           v14 = 101;
@@ -8997,7 +8995,7 @@ uint64_t dxcini(const char *a1, unsigned __int8 *a2, int a3, int a4, int a5, uin
 
         else
         {
-          erm("dxcini", -5, 50, __s);
+          erm("dxcini", 4294967291, 0x32u, __s);
           v14 = 2147483646;
         }
       }
@@ -9138,7 +9136,7 @@ LABEL_41:
   }
 
   fclose(v12);
-  erm("dxcini", -4, 50, __s);
+  erm("dxcini", 4294967292, 0x32u, __s);
   v9 = v16;
   a4 = v45;
 LABEL_66:
@@ -9219,7 +9217,7 @@ LABEL_86:
       fwrite("All rights reserved.\n", 0x15uLL, 1uLL, __stderrp);
     }
 
-    erm(&dxcmpn, 1, 10, "");
+    erm(&dxcmpn, 1, 0xAu, "");
     dxcfin();
   }
 
@@ -9248,14 +9246,14 @@ LABEL_86:
   fprintf(__stderrp, "%s %s  Copyright %d Duxbury\n", a1, v49, v41);
   if (a5 == 2)
   {
-    erm("dxcini", -2, 200, "");
+    erm("dxcini", 4294967294, 0xC8u, "");
   }
 
   result = fopes(*(dxcmav + 16), "r", 0);
   dxcrif = result;
   if (!result)
   {
-    result = erm("dxcini", -3, 200, *(dxcmav + 16));
+    result = erm("dxcini", 4294967293, 0xC8u, *(dxcmav + 16));
   }
 
 LABEL_98:
@@ -9274,7 +9272,7 @@ LABEL_98:
     result = fprintf(__stderrp, "%s %s  Copyright %d Duxbury\n", a1, v49, v44);
     if (v9[172] == 2)
     {
-      return erm("dxcini", -6, 10, "");
+      return erm("dxcini", 4294967290, 0xAu, "");
     }
   }
 
@@ -9291,7 +9289,7 @@ const char *getprm(const char *result, unsigned int a2)
     {
       v5 = v4;
       v6 = &result[v4];
-      v7 = *(v6 + 1);
+      v7 = v6[1];
       if (!v6[1] || v7 == 58)
       {
         break;
@@ -9343,7 +9341,7 @@ LABEL_11:
               break;
             }
 
-            v11 = *(v9 + v13++);
+            v11 = v9[v13++];
             if (!v11)
             {
               v12 = &v22[v13];
@@ -9385,7 +9383,7 @@ LABEL_38:
       {
         if (v14 == v15)
         {
-          result = erm("dxcini", -8, 30, v2);
+          result = erm("dxcini", 4294967288, 0x1Eu, v2);
         }
       }
 
@@ -9437,7 +9435,7 @@ LABEL_38:
       {
         if (v21 == a2)
         {
-          return erm("dxcini", -9, 30, v2);
+          return erm("dxcini", 4294967287, 0x1Eu, v2);
         }
       }
 
@@ -9451,7 +9449,7 @@ LABEL_38:
   else
   {
 
-    return erm("dxcini", -10, 30, result);
+    return erm("dxcini", 4294967286, 0x1Eu, result);
   }
 
   return result;
@@ -9471,8 +9469,9 @@ FILE *preder()
   return result;
 }
 
-uint64_t erm(const char *a1, int a2, int a3, const char *a4)
+uint64_t erm(const char *a1, uint64_t a2, unsigned int a3, const char *a4)
 {
+  v6 = a2;
   if (dxcmel < a3)
   {
     dxcmel = a3;
@@ -9518,7 +9517,7 @@ uint64_t erm(const char *a1, int a2, int a3, const char *a4)
   erm_llen = 1;
   if (a3 >= 1 && dxcepl >= 1)
   {
-    if (a2 < 0)
+    if (v6 < 0)
     {
       v10 = "dxc";
     }
@@ -9540,15 +9539,15 @@ uint64_t erm(const char *a1, int a2, int a3, const char *a4)
   }
 
   erm_disp_no = 1;
-  if (a2 < -20000 || (dxcumf & 1) == 0)
+  if (v6 < -20000 || (dxcumf & 1) == 0)
   {
 LABEL_33:
-    fprintf(__stderrp, "%s message #%d\n", a1, a2);
+    fprintf(__stderrp, "%s message #%d\n", a1, v6);
     erm_llen = 0;
     goto LABEL_34;
   }
 
-  ermgmg(a1, a2);
+  ermgmg(a1, v6);
   if (ermloc < -1)
   {
     if (erm_disp_no != 1)

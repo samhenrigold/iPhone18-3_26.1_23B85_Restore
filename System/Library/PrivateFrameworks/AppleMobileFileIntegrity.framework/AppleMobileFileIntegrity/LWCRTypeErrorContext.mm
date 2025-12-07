@@ -24,39 +24,39 @@
 
 - (id)synthesizeError
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   [v3 appendFormat:@"Error: %s, Context: ", LWCRTypeVerificationBackend_errorStringForCode(self->code)];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v4 = self->keyContext;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       v9 = 0;
       v10 = v7;
       do
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
         if (v10 < 1)
         {
-          [v3 appendString:*(*(&v15 + 1) + 8 * v9)];
+          [v3 appendString:*(*(&v14 + 1) + 8 * v9)];
         }
 
         else
         {
-          [v3 appendFormat:@" -> %@", *(*(&v15 + 1) + 8 * v9)];
+          [v3 appendFormat:@" -> %@", *(*(&v14 + 1) + 8 * v9)];
         }
 
         ++v10;
@@ -65,7 +65,7 @@
 
       while (v6 != v9);
       v7 += v6;
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
@@ -74,8 +74,6 @@
   v11 = objc_opt_new();
   [v11 setObject:v3 forKeyedSubscript:*MEMORY[0x277CCA450]];
   v12 = [MEMORY[0x277CCA9B8] errorWithDomain:@"LWCRVerificationError" code:self->code userInfo:v11];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

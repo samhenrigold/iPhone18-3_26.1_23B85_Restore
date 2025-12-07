@@ -150,7 +150,7 @@ void __39__OSADefaults_dictionaryRepresentation__block_invoke(uint64_t a1, xpc_o
 {
   keyCopy = key;
   blockCopy = block;
-  v9 = OSAnalyticsHelperServiceConnection();
+  v9 = OSAnalyticsHelperServiceConnection(blockCopy);
   if (v9)
   {
     empty = xpc_dictionary_create_empty();
@@ -192,21 +192,19 @@ void __39__OSADefaults_dictionaryRepresentation__block_invoke(uint64_t a1, xpc_o
 
 + (void)setObject:(uint64_t)a1 forKey:.cold.1(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 138412290;
-  v3 = a1;
-  _os_log_error_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to convert %@ to an XPC object", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 138412290;
+  v2 = a1;
+  _os_log_error_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to convert %@ to an XPC object", &v1, 0xCu);
 }
 
 + (void)sendOperation:(void *)a1 forKey:withBlock:.cold.1(void *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   string = xpc_dictionary_get_string(a1, *MEMORY[0x1E69E9E28]);
-  v3 = 136315138;
-  v4 = string;
-  _os_log_error_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "osanalyticshelper replied with an XPC error: %s", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v2 = 136315138;
+  v3 = string;
+  _os_log_error_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "osanalyticshelper replied with an XPC error: %s", &v2, 0xCu);
 }
 
 @end

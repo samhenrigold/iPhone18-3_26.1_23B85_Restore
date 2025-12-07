@@ -10,15 +10,13 @@
 - (_TtC14MentalHealthUI25NotificationSettingsModel)init
 {
   ObjectType = swift_getObjectType();
-  v4 = [objc_allocWithZone(MEMORY[0x277D280B8]) init];
+  v3 = [objc_allocWithZone(MEMORY[0x277D280B8]) init];
   initWithBundleIdentifier_ = [objc_allocWithZone(MEMORY[0x277CE2028]) initWithBundleIdentifier_];
-  v6 = objc_allocWithZone(ObjectType);
-  v7 = NotificationSettingsModel.init(settingsManager:userNotificationCenter:)(v4, initWithBundleIdentifier_);
+  v5 = objc_allocWithZone(ObjectType);
+  v6 = NotificationSettingsModel.init(settingsManager:userNotificationCenter:)(v3, initWithBundleIdentifier_);
   swift_getObjectType();
-  v8 = *((*MEMORY[0x277D85000] & self->super.isa) + 0x30);
-  v9 = *((*MEMORY[0x277D85000] & self->super.isa) + 0x34);
   swift_deallocPartialClassInstance();
-  return v7;
+  return v6;
 }
 
 - (void)dealloc

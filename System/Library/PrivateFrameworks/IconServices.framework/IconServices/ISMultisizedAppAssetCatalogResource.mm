@@ -22,21 +22,21 @@
 {
   height = size.height;
   width = size.width;
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v8 = [ISMultisizedAppAssetCatalogResource _lookupForSize:"_lookupForSize:scale:" scale:?];
   if (!v8)
   {
-    v9 = _ISDefaultLog();
+    v9 = _ISDefaultLog(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       imageName = [(ISAssetCatalogResource *)self imageName];
       *buf = 138413058;
-      v19 = imageName;
-      v20 = 2048;
-      v21 = width;
-      v22 = 2048;
-      v23 = width;
-      v24 = 2048;
+      v18 = imageName;
+      v19 = 2048;
+      v20 = width;
+      v21 = 2048;
+      v22 = width;
+      v23 = 2048;
       scaleCopy = scale;
       _os_log_impl(&dword_1A77B8000, v9, OS_LOG_TYPE_DEFAULT, "Failed to find multisized image for with named: %@ for size: (%f,%f) scale:(%lf)", buf, 0x2Au);
     }
@@ -44,12 +44,10 @@
 
   v11 = -[ISIconStackComposer initWithLegacyAsset:assetAppearance:platform:]([ISIconStackComposer alloc], "initWithLegacyAsset:assetAppearance:platform:", [v8 image], objc_msgSend(v8, "_IS_assetAppearance"), -[ISAssetCatalogResource platform](self, "platform"));
   scale = [(ISMultisizedAppAssetCatalogResource *)self _compositingDescriptorWithSize:width scale:height, scale];
-  v17 = 0;
-  v13 = -[ISIconStackComposer iconStackForSize:scale:desiredAssetAppearance:returningGenerationReport:](v11, "iconStackForSize:scale:desiredAssetAppearance:returningGenerationReport:", [scale assetAppearance], &v17, width, height, scale);
-  v14 = v17;
+  v16 = 0;
+  v13 = -[ISIconStackComposer iconStackForSize:scale:desiredAssetAppearance:returningGenerationReport:](v11, "iconStackForSize:scale:desiredAssetAppearance:returningGenerationReport:", [scale assetAppearance], &v16, width, height, scale);
+  v14 = v16;
   [(ISIconStackAssetCatalogResource *)self setGenerationReport:v14];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -69,7 +67,7 @@
 {
   height = size.height;
   width = size.width;
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v8 = [ISMultisizedAppAssetCatalogResource _compositingDescriptorWithSize:"_compositingDescriptorWithSize:scale:" scale:?];
   v9 = +[ISDefaults sharedInstance];
   safeBoot = [v9 safeBoot];
@@ -100,19 +98,19 @@ LABEL_7:
 
   else
   {
-    v18 = _ISDefaultLog();
+    v18 = _ISDefaultLog(0);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       imageName = [(ISAssetCatalogResource *)self imageName];
-      v22 = 138413058;
-      v23 = imageName;
-      v24 = 2048;
-      v25 = width;
-      v26 = 2048;
-      v27 = width;
-      v28 = 2048;
+      v21 = 138413058;
+      v22 = imageName;
+      v23 = 2048;
+      v24 = width;
+      v25 = 2048;
+      v26 = width;
+      v27 = 2048;
       scaleCopy = scale;
-      _os_log_impl(&dword_1A77B8000, v18, OS_LOG_TYPE_DEFAULT, "Failed to generate flatten representation for multisized image with named: %@ for size: (%f,%f) scale:(%lf)", &v22, 0x2Au);
+      _os_log_impl(&dword_1A77B8000, v18, OS_LOG_TYPE_DEFAULT, "Failed to generate flatten representation for multisized image with named: %@ for size: (%f,%f) scale:(%lf)", &v21, 0x2Au);
     }
 
     scale4 = [(ISIconStackAssetCatalogResource *)self _fallbackImageForSize:width scale:height, scale];
@@ -121,7 +119,6 @@ LABEL_7:
   v17 = scale4;
 
 LABEL_12:
-  v20 = *MEMORY[0x1E69E9840];
 
   return v17;
 }

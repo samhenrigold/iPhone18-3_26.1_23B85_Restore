@@ -13,14 +13,14 @@
 - (id)passWithUniqueID:(id)d;
 - (id)passes;
 - (uint64_t)_indexOfGroupID:(uint64_t)d;
-- (unint64_t)_fixIndicesFrom:(void *)from;
 - (unint64_t)groupIndexForPassUniqueID:(id)d;
 - (unint64_t)indexOfGroup:(id)group;
 - (unint64_t)indexOfSeparationGroup;
 - (void)_fixIndex:(uint64_t)index;
+- (void)_fixIndicesFrom:(void *)from;
 - (void)_insertGroup:(unint64_t)group atIndex:(int)index notify:;
 - (void)_moveGroup:(id)group fromIndex:(unint64_t)index toIndex:(unint64_t)toIndex notify:(BOOL)notify;
-- (void)_placeGroup:(unint64_t)group atIndex:(uint64_t)index notify:;
+- (void)_placeGroup:(void *)group atIndex:(uint64_t)index notify:;
 - (void)_removeGroup:(int)group notify:;
 - (void)_updateStateWithCatalog:(void *)catalog passes:(void *)passes states:(void *)states annotations:(unsigned int)annotations notify:;
 - (void)addLocalPasses:(id)passes;
@@ -36,10 +36,10 @@
 - (void)movePass:(id)pass inGroup:(id)group toIndex:(unint64_t)index;
 - (void)objectSettingsDidChangeNotification:(id)notification;
 - (void)passLibrary:(id)library receivedUpdatedCatalog:(id)catalog passes:(id)passes states:(id)states;
-- (void)processFetchedSnapshot:(void *)snapshot withOptions:(int)options synchronously:(unsigned int)synchronously notify:(void *)notify completion:;
+- (void)processFetchedSnapshot:(void *)snapshot withOptions:(int)options synchronously:(uint64_t)synchronously notify:(void *)notify completion:;
 - (void)reloadGroupsWithCompletion:(id)completion;
 - (void)suppressRemoteUpdates:(BOOL)updates;
-- (void)updateStateWithSnapshot:(uint64_t)snapshot options:(void *)options notify:(unsigned int)notify;
+- (void)updateStateWithSnapshot:(uint64_t)snapshot options:(void *)options notify:(uint64_t)notify;
 @end
 
 @implementation PKGroupsController
@@ -298,7 +298,7 @@ void __76__PKGroupsController_initWithPassTypeMask_passFilters_allowedPassUnique
   }
 }
 
-- (void)processFetchedSnapshot:(void *)snapshot withOptions:(int)options synchronously:(unsigned int)synchronously notify:(void *)notify completion:
+- (void)processFetchedSnapshot:(void *)snapshot withOptions:(int)options synchronously:(uint64_t)synchronously notify:(void *)notify completion:
 {
   v11 = a2;
   snapshotCopy = snapshot;
@@ -350,17 +350,18 @@ void __76__PKGroupsController_initWithPassTypeMask_passFilters_allowedPassUnique
   }
 }
 
-- (void)updateStateWithSnapshot:(uint64_t)snapshot options:(void *)options notify:(unsigned int)notify
+- (void)updateStateWithSnapshot:(uint64_t)snapshot options:(void *)options notify:(uint64_t)notify
 {
   if (snapshot)
   {
+    notifyCopy = notify;
     optionsCopy = options;
     catalog = [optionsCopy catalog];
     passes = [optionsCopy passes];
     states = [optionsCopy states];
     annotations = [optionsCopy annotations];
 
-    [(PKGroupsController *)snapshot _updateStateWithCatalog:catalog passes:passes states:states annotations:annotations notify:notify];
+    [(PKGroupsController *)snapshot _updateStateWithCatalog:catalog passes:passes states:states annotations:annotations notify:notifyCopy];
   }
 }
 
@@ -1422,19 +1423,19 @@ uint64_t __54__PKGroupsController_containsExpiredPassWithUniqueID___block_invoke
   v7 = v6;
   if (v5 == v6)
   {
-    v8 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v8 = 0;
+    isEqualToString = 0;
     if (v5 && v6)
     {
-      v8 = [v5 isEqualToString:v6];
+      isEqualToString = objc_msgSend_isEqualToString_(v5);
     }
   }
 
-  return v8;
+  return isEqualToString;
 }
 
 - (id)passWithUniqueID:(id)d
@@ -1619,10 +1620,10 @@ BOOL __45__PKGroupsController_handleUserPassesDelete___block_invoke(uint64_t a1,
 
 uint64_t __43__PKGroupsController_handleUserPassDelete___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 uniqueID];
-  v4 = [v3 isEqualToString:*(a1 + 32)];
+  v2 = [a2 uniqueID];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v4;
+  return isEqualToString;
 }
 
 - (void)handleUserPassRecover:(id)recover
@@ -1673,10 +1674,10 @@ uint64_t __43__PKGroupsController_handleUserPassDelete___block_invoke(uint64_t a
 
 uint64_t __44__PKGroupsController_handleUserPassRecover___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 uniqueID];
-  v4 = [v3 isEqualToString:*(a1 + 32)];
+  v2 = [a2 uniqueID];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v4;
+  return isEqualToString;
 }
 
 - (void)handleUserPassArchive:(id)archive
@@ -2162,7 +2163,7 @@ void __92__PKGroupsController__displayablePassesDictionaryFromPasses_withCatalog
   }
 }
 
-- (unint64_t)_fixIndicesFrom:(void *)from
+- (void)_fixIndicesFrom:(void *)from
 {
   for (result = [from groupCount]; a2 < result; result = objc_msgSend(from, "groupCount"))
   {
@@ -2172,7 +2173,7 @@ void __92__PKGroupsController__displayablePassesDictionaryFromPasses_withCatalog
   return result;
 }
 
-- (void)_placeGroup:(unint64_t)group atIndex:(uint64_t)index notify:
+- (void)_placeGroup:(void *)group atIndex:(uint64_t)index notify:
 {
   v8 = a2;
   if ([self[6] count] <= group)

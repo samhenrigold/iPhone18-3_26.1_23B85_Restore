@@ -12,21 +12,23 @@
 
 - (NSString)subscriptionOwnerUserRecordName
 {
-  v2 = *(self + OBJC_IVAR____TtC7remindd36RDDebounceableCKDatabaseNotification_subscriptionOwnerUserRecordName);
-  v3 = *(self + OBJC_IVAR____TtC7remindd36RDDebounceableCKDatabaseNotification_subscriptionOwnerUserRecordName + 8);
+  v2 = *(self + OBJC_IVAR____TtC7remindd36RDDebounceableCKDatabaseNotification_subscriptionOwnerUserRecordName + 8);
 
-  v4 = String._bridgeToObjectiveC()();
+  v3 = String._bridgeToObjectiveC()();
+  v2, v4, v5, v6, v7, v8, v9, v10;
 
-  return v4;
+  return v3;
 }
 
 - (void)setSubscriptionOwnerUserRecordName:(id)name
 {
   v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v5 = (self + OBJC_IVAR____TtC7remindd36RDDebounceableCKDatabaseNotification_subscriptionOwnerUserRecordName);
-  v6 = *(self + OBJC_IVAR____TtC7remindd36RDDebounceableCKDatabaseNotification_subscriptionOwnerUserRecordName + 8);
-  *v5 = v4;
-  v5[1] = v7;
+  v12 = (self + OBJC_IVAR____TtC7remindd36RDDebounceableCKDatabaseNotification_subscriptionOwnerUserRecordName);
+  v13 = *(self + OBJC_IVAR____TtC7remindd36RDDebounceableCKDatabaseNotification_subscriptionOwnerUserRecordName + 8);
+  *v12 = v4;
+  v12[1] = v5;
+
+  v13, v5, v6, v7, v8, v9, v10, v11;
 }
 
 - (_TtC7remindd36RDDebounceableCKDatabaseNotification)initWithDatabaseScope:(int64_t)scope subscriptionOwnerUserRecordName:(id)name
@@ -65,25 +67,26 @@
 
 - (int64_t)hash
 {
-  v2 = *(self + OBJC_IVAR____TtC7remindd36RDDebounceableCKDatabaseNotification_databaseScope);
   selfCopy = self;
-  v4 = Int.hashValue.getter();
-  v5 = *(selfCopy + OBJC_IVAR____TtC7remindd36RDDebounceableCKDatabaseNotification_subscriptionOwnerUserRecordName);
-  v6 = *(selfCopy + OBJC_IVAR____TtC7remindd36RDDebounceableCKDatabaseNotification_subscriptionOwnerUserRecordName + 8);
+  v3 = Int.hashValue.getter();
+  v4 = *(selfCopy + OBJC_IVAR____TtC7remindd36RDDebounceableCKDatabaseNotification_subscriptionOwnerUserRecordName + 8);
 
-  v7 = String.hashValue.getter();
+  v5 = String.hashValue.getter();
+  v4, v6, v7, v8, v9, v10, v11, v12;
 
-  return v7 ^ v4;
+  return v5 ^ v3;
 }
 
 - (NSString)description
 {
   selfCopy = self;
   sub_10014EBB8();
+  v4 = v3;
 
-  v3 = String._bridgeToObjectiveC()();
+  v5 = String._bridgeToObjectiveC()();
+  v4, v6, v7, v8, v9, v10, v11, v12;
 
-  return v3;
+  return v5;
 }
 
 - (_TtC7remindd36RDDebounceableCKDatabaseNotification)init

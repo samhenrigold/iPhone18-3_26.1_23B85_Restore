@@ -90,13 +90,12 @@
 
 - (id)description
 {
-  v7.receiver = self;
-  v7.super_class = SDSuggestionNode;
-  v3 = [(SDSuggestionNode *)&v7 description];
-  suggestionReason = self->_suggestionReason;
-  v5 = [NSString stringWithFormat:@"%@ bundleID:%@, displayName:%@, handles:%@, contactsIDs:%@, identifier:%@, suggestionreason:%@, iconIndex:%ld", v3, self->_bundleID, self->_displayName, self->_formattedHandles, self->_contactIDs, self->_identifier, suggestionReason, self->_iconIndex];
+  v6.receiver = self;
+  v6.super_class = SDSuggestionNode;
+  v3 = [(SDSuggestionNode *)&v6 description];
+  v4 = [NSString stringWithFormat:@"%@ bundleID:%@, displayName:%@, handles:%@, contactsIDs:%@, identifier:%@, suggestionreason:%@, iconIndex:%ld", v3, self->_bundleID, self->_displayName, self->_formattedHandles, self->_contactIDs, self->_identifier, self->_suggestionReason, self->_iconIndex];
 
-  return v5;
+  return v4;
 }
 
 - (BOOL)isIntentsBased
@@ -167,23 +166,23 @@
   }
 
   loadIconHandler = [(SDSuggestionNode *)self loadIconHandler];
-  [(SDSuggestionNode *)self setLoadIconHandler:0];
+  v7 = [(SDSuggestionNode *)self setLoadIconHandler:0];
   if (loadIconHandler)
   {
-    v9 = 0;
     v10 = 0;
-    (loadIconHandler)[2](loadIconHandler, self, &v10, &v9);
-    v7 = v9;
-    [(SDSuggestionNode *)self setIcon:v10];
-    [(SDSuggestionNode *)self setIconData:v7];
+    v11 = 0;
+    (loadIconHandler)[2](loadIconHandler, self, &v11, &v10);
+    v8 = v10;
+    [(SDSuggestionNode *)self setIcon:v11];
+    [(SDSuggestionNode *)self setIconData:v8];
   }
 
   else
   {
-    v7 = share_sheet_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = share_sheet_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_100271888(self, v7);
+      sub_100271888(self, v8);
     }
   }
 

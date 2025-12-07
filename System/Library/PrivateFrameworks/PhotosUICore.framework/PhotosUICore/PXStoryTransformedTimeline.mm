@@ -46,7 +46,7 @@
   v9 = v8;
   v11 = v10;
   v13 = v12;
-  [(PXStoryTransformedTimeline *)self transform];
+  objc_msgSend_transform(self);
   v23.origin.x = v7;
   v23.origin.y = v9;
   v23.size.width = v11;
@@ -77,7 +77,7 @@
   memset(v48, 0, 512);
   if (v4)
   {
-    [v4 info];
+    objc_msgSend_info(v4);
   }
 
   else
@@ -184,7 +184,7 @@ void __72__PXStoryTransformedTimeline_enumerateClipsInTimeRange_rect_usingBlock_
   [originalTimeline size];
   v9 = v5;
   v10 = v4;
-  [(PXStoryTransformedTimeline *)self transform];
+  objc_msgSend_transform(self);
 
   v8 = vmlaq_n_f64(vmulq_n_f64(v12, v9), v11, v10);
   v7 = v8.f64[1];
@@ -228,12 +228,12 @@ void __76__PXStoryTransformedTimeline__transformRects_clipInfos_count_resultHand
   [v4 accessArrayWithElementsCount:v6 accessBlock:v7];
 }
 
-uint64_t __76__PXStoryTransformedTimeline__transformRects_clipInfos_count_resultHandler___block_invoke_2(uint64_t a1, uint64_t a2)
+uint64_t __76__PXStoryTransformedTimeline__transformRects_clipInfos_count_resultHandler___block_invoke_2(uint64_t a1, const char *a2)
 {
   v4 = *(a1 + 32);
   if (v4)
   {
-    [v4 transform];
+    objc_msgSend_transform(v4);
   }
 
   if (*(a1 + 48) >= 1)
@@ -266,10 +266,10 @@ uint64_t __76__PXStoryTransformedTimeline__transformRects_clipInfos_count_result
       v18[1] = v20;
       v18[2] = v14;
       v18[3] = v16;
-      v21 = a2 + v6;
-      memcpy((a2 + v6), (v8 + v6), 0x300uLL);
-      *(v21 + 16) = v15;
-      *(v21 + 24) = v17;
+      v21 = &a2[v6];
+      memcpy(&a2[v6], (v8 + v6), 0x300uLL);
+      *(v21 + 2) = v15;
+      *(v21 + 3) = v17;
       if (*(v8 + v6 + 8) == 1)
       {
         PXStoryRectOuterBounds();
@@ -292,7 +292,7 @@ uint64_t __76__PXStoryTransformedTimeline__transformRects_clipInfos_count_result
   width = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  [(PXStoryTransformedTimeline *)self transform];
+  objc_msgSend_transform(self, a2, info);
   v9.origin.x = x;
   v9.origin.y = y;
   v9.size.width = width;
@@ -306,7 +306,7 @@ uint64_t __76__PXStoryTransformedTimeline__transformRects_clipInfos_count_result
   width = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  [(PXStoryTransformedTimeline *)self transform];
+  objc_msgSend_transform(self, a2);
   CGAffineTransformInvert(&v8, &v7);
   v9.origin.x = x;
   v9.origin.y = y;
@@ -318,7 +318,7 @@ uint64_t __76__PXStoryTransformedTimeline__transformRects_clipInfos_count_result
 - (id)description
 {
   originalTimeline = [(PXStoryDerivedTimeline *)self originalTimeline];
-  [(PXStoryTransformedTimeline *)self transform];
+  objc_msgSend_transform(self);
   v4 = objc_alloc(MEMORY[0x1E696AEC0]);
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);

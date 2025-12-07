@@ -96,9 +96,9 @@
 - (SOFullProfile)initWithProfileData:(id)data
 {
   dataCopy = data;
-  v52.receiver = self;
-  v52.super_class = SOFullProfile;
-  v5 = [(SOFullProfile *)&v52 init];
+  v59.receiver = self;
+  v59.super_class = SOFullProfile;
+  v5 = [(SOFullProfile *)&v59 init];
   if (v5)
   {
     v6 = objc_opt_class();
@@ -174,8 +174,8 @@
 
     if ((v31 & 1) == 0)
     {
-      v48 = SO_LOG_SOFullProfile();
-      if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+      v53 = SO_LOG_SOFullProfile(v32);
+      if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
       {
         [SOFullProfile initWithProfileData:];
       }
@@ -186,15 +186,15 @@
     extensionData = [(SOFullProfile *)v5 extensionData];
     if (extensionData)
     {
-      v33 = extensionData;
+      v34 = extensionData;
       extensionData2 = [(SOFullProfile *)v5 extensionData];
       objc_opt_class();
-      v35 = objc_opt_isKindOfClass();
+      v36 = objc_opt_isKindOfClass();
 
-      if ((v35 & 1) == 0)
+      if ((v36 & 1) == 0)
       {
-        v48 = SO_LOG_SOFullProfile();
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+        v53 = SO_LOG_SOFullProfile(v37);
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
         {
           [SOFullProfile initWithProfileData:];
         }
@@ -206,15 +206,15 @@
     realm = [(SOProfile *)v5 realm];
     if (realm)
     {
-      v37 = realm;
+      v39 = realm;
       realm2 = [(SOProfile *)v5 realm];
       objc_opt_class();
-      v39 = objc_opt_isKindOfClass();
+      v41 = objc_opt_isKindOfClass();
 
-      if ((v39 & 1) == 0)
+      if ((v41 & 1) == 0)
       {
-        v48 = SO_LOG_SOFullProfile();
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+        v53 = SO_LOG_SOFullProfile(v42);
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
         {
           [SOFullProfile initWithProfileData:];
         }
@@ -226,15 +226,15 @@
     deniedBundleIdentifiers = [(SOProfile *)v5 deniedBundleIdentifiers];
     if (deniedBundleIdentifiers)
     {
-      v41 = deniedBundleIdentifiers;
+      v44 = deniedBundleIdentifiers;
       deniedBundleIdentifiers2 = [(SOProfile *)v5 deniedBundleIdentifiers];
       objc_opt_class();
-      v43 = objc_opt_isKindOfClass();
+      v46 = objc_opt_isKindOfClass();
 
-      if ((v43 & 1) == 0)
+      if ((v46 & 1) == 0)
       {
-        v48 = SO_LOG_SOFullProfile();
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+        v53 = SO_LOG_SOFullProfile(v47);
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
         {
           [SOFullProfile initWithProfileData:];
         }
@@ -248,46 +248,50 @@
       uRLPrefix = [(SOProfile *)v5 URLPrefix];
       if (uRLPrefix)
       {
-        v45 = uRLPrefix;
+        v49 = uRLPrefix;
         uRLPrefix2 = [(SOProfile *)v5 URLPrefix];
         objc_opt_class();
-        v47 = objc_opt_isKindOfClass();
+        v51 = objc_opt_isKindOfClass();
 
-        if ((v47 & 1) == 0)
+        if ((v51 & 1) == 0)
         {
-          v48 = SO_LOG_SOFullProfile();
-          if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+          v53 = SO_LOG_SOFullProfile(v52);
+          if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
           {
             [SOFullProfile initWithProfileData:];
           }
 
 LABEL_36:
 
-          v49 = 0;
+          v55 = 0;
           goto LABEL_37;
         }
       }
     }
 
-    else if ([(SOProfile *)v5 type]!= 2)
+    else
     {
-      v48 = SO_LOG_SOFullProfile();
-      if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+      type = [(SOProfile *)v5 type];
+      if (type != 2)
       {
-        [SOFullProfile initWithProfileData:];
-      }
+        v53 = SO_LOG_SOFullProfile(type);
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+        {
+          [SOFullProfile initWithProfileData:];
+        }
 
-      goto LABEL_36;
+        goto LABEL_36;
+      }
     }
 
     if (![(SOProfile *)v5 screenLockedBehavior])
     {
-      v50 = [dataCopy objectForKeyedSubscript:@"ScreenLockedBehavior"];
+      v56 = [dataCopy objectForKeyedSubscript:@"ScreenLockedBehavior"];
 
-      if (v50)
+      if (v56)
       {
-        v48 = SO_LOG_SOFullProfile();
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+        v53 = SO_LOG_SOFullProfile(v57);
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
         {
           [SOFullProfile initWithProfileData:];
         }
@@ -299,35 +303,33 @@ LABEL_36:
     }
   }
 
-  v49 = v5;
+  v55 = v5;
 LABEL_37:
 
-  return v49;
+  return v55;
 }
 
 - (void)removeURLPrefix:(id)prefix
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   prefixCopy = prefix;
   uRLPrefix = [(SOProfile *)self URLPrefix];
-  v9[0] = prefixCopy;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+  v8[0] = prefixCopy;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
 
   v7 = [uRLPrefix arrayByExcludingObjectsInArray:v6];
   [(SOProfile *)self setURLPrefix:v7];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)description
 {
-  v32[11] = *MEMORY[0x1E69E9840];
-  v31[0] = @"Type";
-  v30 = [objc_opt_class() stringWithProfileType:{-[SOProfile type](self, "type")}];
-  v32[0] = v30;
-  v31[1] = @"URLPrefix";
+  v31[11] = *MEMORY[0x1E69E9840];
+  v30[0] = @"Type";
+  v29 = [objc_opt_class() stringWithProfileType:{-[SOProfile type](self, "type")}];
+  v31[0] = v29;
+  v30[1] = @"URLPrefix";
   uRLPrefix = [(SOProfile *)self URLPrefix];
-  v29 = uRLPrefix;
+  v28 = uRLPrefix;
   if (uRLPrefix)
   {
     v4 = uRLPrefix;
@@ -338,10 +340,10 @@ LABEL_37:
     v4 = @"<null>";
   }
 
-  v32[1] = v4;
-  v31[2] = @"Hosts";
+  v31[1] = v4;
+  v30[2] = @"Hosts";
   hosts = [(SOProfile *)self hosts];
-  v28 = hosts;
+  v27 = hosts;
   if (hosts)
   {
     v6 = hosts;
@@ -352,8 +354,8 @@ LABEL_37:
     v6 = @"<null>";
   }
 
-  v32[2] = v6;
-  v31[3] = @"BundleIdentifier";
+  v31[2] = v6;
+  v30[3] = @"BundleIdentifier";
   extensionBundleIdentifier = [(SOProfile *)self extensionBundleIdentifier];
   v8 = extensionBundleIdentifier;
   if (extensionBundleIdentifier)
@@ -366,8 +368,8 @@ LABEL_37:
     v9 = @"<null>";
   }
 
-  v32[3] = v9;
-  v31[4] = @"TeamIdentifier";
+  v31[3] = v9;
+  v30[4] = @"TeamIdentifier";
   extensionTeamIdentifier = [(SOFullProfile *)self extensionTeamIdentifier];
   v11 = extensionTeamIdentifier;
   if (extensionTeamIdentifier)
@@ -380,8 +382,8 @@ LABEL_37:
     v12 = @"<null>";
   }
 
-  v32[4] = v12;
-  v31[5] = @"Realm";
+  v31[4] = v12;
+  v30[5] = @"Realm";
   realm = [(SOProfile *)self realm];
   v14 = realm;
   if (realm)
@@ -394,8 +396,8 @@ LABEL_37:
     v15 = @"<null>";
   }
 
-  v32[5] = v15;
-  v31[6] = @"DeniedBundleIdentifiers";
+  v31[5] = v15;
+  v30[6] = @"DeniedBundleIdentifiers";
   deniedBundleIdentifiers = [(SOProfile *)self deniedBundleIdentifiers];
   v17 = deniedBundleIdentifiers;
   if (deniedBundleIdentifiers)
@@ -408,14 +410,14 @@ LABEL_37:
     v18 = @"<null>";
   }
 
-  v32[6] = v18;
-  v31[7] = @"ScreenLockedBehavior";
+  v31[6] = v18;
+  v30[7] = @"ScreenLockedBehavior";
   v19 = [objc_opt_class() stringWithScreenLockedBehavior:{-[SOProfile screenLockedBehavior](self, "screenLockedBehavior")}];
-  v32[7] = v19;
-  v31[8] = @"AuthenticationMethod";
+  v31[7] = v19;
+  v30[8] = @"AuthenticationMethod";
   v20 = [objc_opt_class() stringWithAuthenticationMethod:{-[SOProfile pssoAuthenticationMethod](self, "pssoAuthenticationMethod")}];
-  v32[8] = v20;
-  v31[9] = @"RegistrationToken";
+  v31[8] = v20;
+  v30[9] = @"RegistrationToken";
   pssoRegistrationToken = [(SOFullProfile *)self pssoRegistrationToken];
   v22 = @"present";
   if (!pssoRegistrationToken)
@@ -423,14 +425,12 @@ LABEL_37:
     v22 = @"<null>";
   }
 
-  v32[9] = v22;
-  v31[10] = @"PlatformSSO";
+  v31[9] = v22;
+  v30[10] = @"PlatformSSO";
   platformSSO = [(SOFullProfile *)self platformSSO];
-  v32[10] = platformSSO;
-  v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:11];
+  v31[10] = platformSSO;
+  v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:11];
   v25 = [v24 description];
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return v25;
 }
@@ -537,62 +537,6 @@ LABEL_37:
   pssoRegistrationToken = self->_pssoRegistrationToken;
   v12 = NSStringFromSelector(sel_pssoRegistrationToken);
   [coderCopy encodeObject:pssoRegistrationToken forKey:v12];
-}
-
-- (void)initWithProfileData:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1CA238000, v0, v1, "invalid profile (extensionBundleIdentifier): %{private}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)initWithProfileData:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1CA238000, v0, v1, "invalid profile (extensionData): %{private}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)initWithProfileData:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1CA238000, v0, v1, "invalid profile (realm): %@{private}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)initWithProfileData:.cold.4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1CA238000, v0, v1, "invalid profile (deniedBundleIdentifiers): %@{private}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)initWithProfileData:.cold.5()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1CA238000, v0, v1, "invalid profile (type): %{private}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)initWithProfileData:.cold.6()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1CA238000, v0, v1, "invalid profile (URLPrefix): %{private}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)initWithProfileData:.cold.7()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1CA238000, v0, v1, "invalid profile (screenLockedBehavior): %{private}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

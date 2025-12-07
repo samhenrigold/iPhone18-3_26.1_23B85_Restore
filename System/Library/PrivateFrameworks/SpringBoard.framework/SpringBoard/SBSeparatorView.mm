@@ -106,7 +106,7 @@
 
 - (CGRect)nubRect
 {
-  [(SBSeparatorNubView *)self->_nubView frame];
+  objc_msgSend_frame(self->_nubView, a2);
   result.size.height = v5;
   result.size.width = v4;
   result.origin.y = v3;
@@ -132,7 +132,7 @@
   v6 = v5;
   v8 = v7;
   v10 = v9;
-  [(SBSeparatorView *)self frame];
+  objc_msgSend_frame(self);
   v12 = (v11 - self->_keyboardHeight) * 0.5;
   nubView = self->_nubView;
   SBRectWithSize();

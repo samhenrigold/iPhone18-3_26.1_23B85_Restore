@@ -80,17 +80,17 @@ void __46__VUIPreflightManager_defaultPreflightManager__block_invoke()
 
       if (!metadata)
       {
-        v8 = VUIDefaultLogObject();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v9 = VUIDefaultLogObject(v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
-          [(VUIPreflightManager *)playableCopy setVideosPlayable:v8];
+          [(VUIPreflightManager *)playableCopy setVideosPlayable:v9];
         }
       }
 
       if (sFrequencyOfConfirmation == -1)
       {
         frequencyOfAgeConfirmation = [(VUIVideosPlayable *)playableCopy frequencyOfAgeConfirmation];
-        v10 = frequencyOfAgeConfirmation;
+        v11 = frequencyOfAgeConfirmation;
         if (frequencyOfAgeConfirmation)
         {
           sFrequencyOfConfirmation = [frequencyOfAgeConfirmation integerValue];
@@ -158,7 +158,7 @@ void __46__VUIPreflightManager_defaultPreflightManager__block_invoke()
 
 - (void)setRestrictionsState:(int64_t)state
 {
-  v5 = VUIDefaultLogObject();
+  v5 = VUIDefaultLogObject(self);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (state == 2)
   {
@@ -290,29 +290,29 @@ LABEL_10:
   _Block_object_dispose(&v37, 8);
 }
 
-void __65__VUIPreflightManager__preflightWithOptions_userInfo_completion___block_invoke(uint64_t a1)
+void __65__VUIPreflightManager__preflightWithOptions_userInfo_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v3 = [WeakRetained savedRestrictionsCompletion];
+  v4 = [WeakRetained savedRestrictionsCompletion];
 
-  v4 = VUIDefaultLogObject();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-  if (v3)
+  v6 = VUIDefaultLogObject(v5);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  if (v4)
   {
-    if (v5)
+    if (v7)
     {
-      LOWORD(v8) = 0;
-      _os_log_impl(&dword_1E323F000, v4, OS_LOG_TYPE_DEFAULT, "VUIPreflightManager::not resetting params to nil because they will be used for pending restrictions check", &v8, 2u);
+      LOWORD(v11) = 0;
+      _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_DEFAULT, "VUIPreflightManager::not resetting params to nil because they will be used for pending restrictions check", &v11, 2u);
     }
   }
 
   else
   {
-    if (v5)
+    if (v7)
     {
-      LOWORD(v8) = 0;
-      _os_log_impl(&dword_1E323F000, v4, OS_LOG_TYPE_DEFAULT, "VUIPreflightManager::setting params to nil", &v8, 2u);
+      LOWORD(v11) = 0;
+      _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_DEFAULT, "VUIPreflightManager::setting params to nil", &v11, 2u);
     }
 
     [WeakRetained setVideosPlayable:0];
@@ -321,18 +321,18 @@ void __65__VUIPreflightManager__preflightWithOptions_userInfo_completion___block
     [WeakRetained setExtrasInfo:0];
     [WeakRetained setContentRating:0];
     [WeakRetained setIsSubscriptionPurchaseWithoutPlayback:0];
-    [WeakRetained setContentAllowsCellularDownload:1];
+    v8 = [WeakRetained setContentAllowsCellularDownload:1];
   }
 
   if (*(a1 + 40))
   {
-    v6 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v9 = VUIDefaultLogObject(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = VUIBoolLogString();
-      v8 = 138412290;
-      v9 = v7;
-      _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_DEFAULT, "VUIPreflightManager::finished preflighting with result: %@", &v8, 0xCu);
+      v10 = VUIBoolLogString();
+      v11 = 138412290;
+      v12 = v10;
+      _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_DEFAULT, "VUIPreflightManager::finished preflighting with result: %@", &v11, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -370,7 +370,7 @@ LABEL_7:
 uint64_t __65__VUIPreflightManager__preflightWithOptions_userInfo_completion___block_invoke_4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v6 = *(a1 + 32);
-  v7 = [MEMORY[0x1E696AD98] numberWithBool:?];
+  v7 = [MEMORY[0x1E696AD98] numberWithBool:a3];
   [v6 setObject:v7 forKey:VUIPreflightCellularAllowedKey[0]];
 
   v8 = *(a1 + 32);
@@ -384,105 +384,107 @@ uint64_t __65__VUIPreflightManager__preflightWithOptions_userInfo_completion___b
 
 - (void)_logRatingsInfo:(id)info maxAllowedRank:(id)rank ratingValue:(id)value
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   rankCopy = rank;
   valueCopy = value;
   v10 = *MEMORY[0x1E69D5B10];
-  if ([infoCopy isEqualToString:*MEMORY[0x1E69D5B10]])
+  v11 = [infoCopy isEqualToString:*MEMORY[0x1E69D5B10]];
+  if (v11)
   {
-    v11 = VUIDefaultLogObject();
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = VUIDefaultLogObject(v11);
+    if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_10;
     }
 
-    v27 = 138412290;
-    v28 = v10;
+    v31 = 138412290;
+    v32 = v10;
 LABEL_7:
-    _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_DEFAULT, "VUIPreflightManager::restriction validation for domain : %@", &v27, 0xCu);
+    _os_log_impl(&dword_1E323F000, v12, OS_LOG_TYPE_DEFAULT, "VUIPreflightManager::restriction validation for domain : %@", &v31, 0xCu);
     goto LABEL_10;
   }
 
-  v12 = *MEMORY[0x1E69D5B18];
-  v13 = [infoCopy isEqualToString:*MEMORY[0x1E69D5B18]];
-  v14 = VUIDefaultLogObject();
-  v11 = v14;
-  if (v13)
+  v13 = *MEMORY[0x1E69D5B18];
+  v14 = [infoCopy isEqualToString:*MEMORY[0x1E69D5B18]];
+  v15 = v14;
+  v16 = VUIDefaultLogObject(v14);
+  v12 = v16;
+  if (v15)
   {
-    if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_10;
     }
 
-    v27 = 138412290;
-    v28 = v12;
+    v31 = 138412290;
+    v32 = v13;
     goto LABEL_7;
   }
 
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    [VUIPreflightManager _logRatingsInfo:infoCopy maxAllowedRank:v11 ratingValue:?];
+    [VUIPreflightManager _logRatingsInfo:infoCopy maxAllowedRank:v12 ratingValue:?];
   }
 
 LABEL_10:
 
-  v15 = VUIDefaultLogObject();
-  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+  v18 = VUIDefaultLogObject(v17);
+  v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
   if (valueCopy)
   {
-    if (!v16)
+    if (!v19)
     {
       goto LABEL_16;
     }
 
     integerValue = [valueCopy integerValue];
-    v27 = 134217984;
-    v28 = integerValue;
-    v18 = "VUIPreflightManager::restriction validation with value : %ld";
-    v19 = v15;
-    v20 = 12;
+    v31 = 134217984;
+    v32 = integerValue;
+    v21 = "VUIPreflightManager::restriction validation with value : %ld";
+    v22 = v18;
+    v23 = 12;
   }
 
   else
   {
-    if (!v16)
+    if (!v19)
     {
       goto LABEL_16;
     }
 
-    LOWORD(v27) = 0;
-    v18 = "VUIPreflightManager::no ratingValue for content";
-    v19 = v15;
-    v20 = 2;
+    LOWORD(v31) = 0;
+    v21 = "VUIPreflightManager::no ratingValue for content";
+    v22 = v18;
+    v23 = 2;
   }
 
-  _os_log_impl(&dword_1E323F000, v19, OS_LOG_TYPE_DEFAULT, v18, &v27, v20);
+  _os_log_impl(&dword_1E323F000, v22, OS_LOG_TYPE_DEFAULT, v21, &v31, v23);
 LABEL_16:
 
-  v21 = VUIDefaultLogObject();
-  v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
+  v25 = VUIDefaultLogObject(v24);
+  v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
   if (rankCopy)
   {
-    if (v22)
+    if (v26)
     {
       integerValue2 = [rankCopy integerValue];
-      v27 = 134217984;
-      v28 = integerValue2;
-      v24 = "VUIPreflightManager::restriction validation max allowed rank : %ld";
-      v25 = v21;
-      v26 = 12;
+      v31 = 134217984;
+      v32 = integerValue2;
+      v28 = "VUIPreflightManager::restriction validation max allowed rank : %ld";
+      v29 = v25;
+      v30 = 12;
 LABEL_21:
-      _os_log_impl(&dword_1E323F000, v25, OS_LOG_TYPE_DEFAULT, v24, &v27, v26);
+      _os_log_impl(&dword_1E323F000, v29, OS_LOG_TYPE_DEFAULT, v28, &v31, v30);
     }
   }
 
-  else if (v22)
+  else if (v26)
   {
-    LOWORD(v27) = 0;
-    v24 = "VUIPreflightManager::Most permissive restriction";
-    v25 = v21;
-    v26 = 2;
+    LOWORD(v31) = 0;
+    v28 = "VUIPreflightManager::Most permissive restriction";
+    v29 = v25;
+    v30 = 2;
     goto LABEL_21;
   }
 }
@@ -709,7 +711,7 @@ LABEL_7:
 - (void)_performRestrictionsCheckWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = VUIDefaultLogObject();
+  v5 = VUIDefaultLogObject(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -718,13 +720,14 @@ LABEL_7:
 
   if (completionCopy)
   {
-    if ([(VUIPreflightManager *)self _isSportingEvent])
+    _isSportingEvent = [(VUIPreflightManager *)self _isSportingEvent];
+    if (_isSportingEvent)
     {
-      v6 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = VUIDefaultLogObject(_isSportingEvent);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        *v8 = 0;
-        _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_DEFAULT, "VUIPreflightManager::isSportingEvent – skipping validation", v8, 2u);
+        *v9 = 0;
+        _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "VUIPreflightManager::isSportingEvent – skipping validation", v9, 2u);
       }
     }
 
@@ -746,7 +749,7 @@ LABEL_11:
 {
   domainCopy = domain;
   completionCopy = completion;
-  v8 = VUIDefaultLogObject();
+  v8 = VUIDefaultLogObject(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -895,7 +898,7 @@ uint64_t __72__VUIPreflightManager__showRestrictionsAlertForRatingDomain_complet
 
   else
   {
-    v7 = VUIDefaultLogObject();
+    v7 = VUIDefaultLogObject(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [(VUIPreflightManager *)v7 _isAllowedToPlayOrPurchase:v8];
@@ -965,35 +968,35 @@ LABEL_9:
 
   if (isAgeVerificationEnabled)
   {
-    v7 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = VUIDefaultLogObject(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "VUIPreflightManager:: isAgeVerificationEnabled=YES. Calling VUIAgeVerification", buf, 2u);
+      _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "VUIPreflightManager:: isAgeVerificationEnabled=YES. Calling VUIAgeVerification", buf, 2u);
     }
 
     _getAdamId = [(VUIPreflightManager *)self _getAdamId];
     _getMediaApiResourceType = [(VUIPreflightManager *)self _getMediaApiResourceType];
     _getCanonicalMeta = [(VUIPreflightManager *)self _getCanonicalMeta];
-    v11 = +[VUIAgeVerification sharedInstance];
+    v12 = +[VUIAgeVerification sharedInstance];
     _ratingValue = [(VUIPreflightManager *)self _ratingValue];
     _ratingDomain = [(VUIPreflightManager *)self _ratingDomain];
-    [v11 performAgeGateVerificationWithRatingValue:_ratingValue ratingDomain:_ratingDomain adamId:_getAdamId resourceType:_getMediaApiResourceType canonicalMeta:_getCanonicalMeta completion:completionCopy];
+    [v12 performAgeGateVerificationWithRatingValue:_ratingValue ratingDomain:_ratingDomain adamId:_getAdamId resourceType:_getMediaApiResourceType canonicalMeta:_getCanonicalMeta completion:completionCopy];
   }
 
   else if ([(VUIPreflightManager *)self _shouldShowAgeConfirmationAlert])
   {
     objc_initWeak(buf, self);
     presentingController = [(VUIPreflightManager *)self presentingController];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __65__VUIPreflightManager__performAgeGateVerificationWithCompletion___block_invoke;
-    v15[3] = &unk_1E872DE58;
-    objc_copyWeak(&v17, buf);
-    v16 = completionCopy;
-    [(VUIPreflightManager *)self _showAgeConfirmationWithPresentingViewController:presentingController completion:v15];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __65__VUIPreflightManager__performAgeGateVerificationWithCompletion___block_invoke;
+    v16[3] = &unk_1E872DE58;
+    objc_copyWeak(&v18, buf);
+    v17 = completionCopy;
+    [(VUIPreflightManager *)self _showAgeConfirmationWithPresentingViewController:presentingController completion:v16];
 
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(buf);
   }
 
@@ -1370,179 +1373,181 @@ void __56__VUIPreflightManager__preflightDownloadWithCompletion___block_invoke(u
   v3 = [MEMORY[0x1E69E4428] sharedMonitor];
   v4 = [v3 networkType];
 
-  if (ICEnvironmentNetworkTypeIsCellular())
+  IsCellular = ICEnvironmentNetworkTypeIsCellular();
+  if (IsCellular)
   {
-    v5 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = VUIDefaultLogObject(IsCellular);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_DEFAULT, "Network type is cellular", buf, 2u);
+      _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_DEFAULT, "Network type is cellular", buf, 2u);
     }
 
-    if ([WeakRetained contentAllowsCellularDownload])
+    v7 = [WeakRetained contentAllowsCellularDownload];
+    if (v7)
     {
-      v6 = +[VUIPlaybackSettings sharedSettings];
-      v7 = [v6 cellularDataDownloadEnabled];
+      v8 = +[VUIPlaybackSettings sharedSettings];
+      v9 = [v8 cellularDataDownloadEnabled];
 
-      if (v7)
+      if (v9)
       {
-        v8 = *(a1 + 32);
-        v9 = +[VUIPlaybackSettings sharedSettings];
-        (*(v8 + 16))(v8, 1, 1, [v9 preferredCellularDownloadQuality]);
+        v10 = *(a1 + 32);
+        v11 = +[VUIPlaybackSettings sharedSettings];
+        (*(v10 + 16))(v10, 1, 1, [v11 preferredCellularDownloadQuality]);
       }
 
       else
       {
-        v47 = MGGetBoolAnswer();
-        v48 = [MEMORY[0x1E696AAE8] vui_videosUIBundle];
-        v9 = [v48 localizedStringForKey:@"ASK_TO_USE_CELLULAR_DATA_FOR_DOWNLOADS_MESSAGE_TITLE" value:0 table:@"VideosUIEmbedded"];
+        v49 = MGGetBoolAnswer();
+        v50 = [MEMORY[0x1E696AAE8] vui_videosUIBundle];
+        v11 = [v50 localizedStringForKey:@"ASK_TO_USE_CELLULAR_DATA_FOR_DOWNLOADS_MESSAGE_TITLE" value:0 table:@"VideosUIEmbedded"];
 
-        v49 = [MEMORY[0x1E696AAE8] vui_videosUIBundle];
-        v50 = v49;
-        if (v47)
+        v51 = [MEMORY[0x1E696AAE8] vui_videosUIBundle];
+        v52 = v51;
+        if (v49)
         {
-          v51 = @"ASK_TO_USE_CELLULAR_DATA_FOR_DOWNLOADS_MESSAGE_WLAN";
+          v53 = @"ASK_TO_USE_CELLULAR_DATA_FOR_DOWNLOADS_MESSAGE_WLAN";
         }
 
         else
         {
-          v51 = @"ASK_TO_USE_CELLULAR_DATA_FOR_DOWNLOADS_MESSAGE_WIFI";
+          v53 = @"ASK_TO_USE_CELLULAR_DATA_FOR_DOWNLOADS_MESSAGE_WIFI";
         }
 
-        v63 = [v49 localizedStringForKey:v51 value:0 table:@"VideosUIEmbedded"];
+        v65 = [v51 localizedStringForKey:v53 value:0 table:@"VideosUIEmbedded"];
 
-        v52 = [MEMORY[0x1E696AAE8] vui_videosUIBundle];
-        v62 = [v52 localizedStringForKey:@"ALWAYS_USE_CELLULAR_DATA_FOR_DOWNLOADS_BUTTON_TITLE" value:0 table:@"VideosUIEmbedded"];
-
-        v53 = [MEMORY[0x1E696AAE8] vui_videosUIBundle];
-        v54 = [v53 localizedStringForKey:@"USE_CELLULAR_DATA_JUST_FOR_THIS_DOWNLOAD_BUTTON_TITLE" value:0 table:@"VideosUIEmbedded"];
+        v54 = [MEMORY[0x1E696AAE8] vui_videosUIBundle];
+        v64 = [v54 localizedStringForKey:@"ALWAYS_USE_CELLULAR_DATA_FOR_DOWNLOADS_BUTTON_TITLE" value:0 table:@"VideosUIEmbedded"];
 
         v55 = [MEMORY[0x1E696AAE8] vui_videosUIBundle];
-        v56 = [v55 localizedStringForKey:@"DONT_USE_CELLULAR_DATA_FOR_DOWNLOADS_BUTTON_TITLE" value:0 table:@"VideosUIEmbedded"];
+        v56 = [v55 localizedStringForKey:@"USE_CELLULAR_DATA_JUST_FOR_THIS_DOWNLOAD_BUTTON_TITLE" value:0 table:@"VideosUIEmbedded"];
 
+        v57 = [MEMORY[0x1E696AAE8] vui_videosUIBundle];
+        v58 = [v57 localizedStringForKey:@"DONT_USE_CELLULAR_DATA_FOR_DOWNLOADS_BUTTON_TITLE" value:0 table:@"VideosUIEmbedded"];
+
+        v72[0] = MEMORY[0x1E69E9820];
+        v72[1] = 3221225472;
+        v72[2] = __56__VUIPreflightManager__preflightDownloadWithCompletion___block_invoke_116;
+        v72[3] = &unk_1E8732FF8;
+        v73 = *(a1 + 32);
+        v59 = [VUIAlertAction vui_actionWithTitle:v64 style:0 handler:v72];
         v70[0] = MEMORY[0x1E69E9820];
         v70[1] = 3221225472;
-        v70[2] = __56__VUIPreflightManager__preflightDownloadWithCompletion___block_invoke_116;
+        v70[2] = __56__VUIPreflightManager__preflightDownloadWithCompletion___block_invoke_2;
         v70[3] = &unk_1E8732FF8;
         v71 = *(a1 + 32);
-        v57 = [VUIAlertAction vui_actionWithTitle:v62 style:0 handler:v70];
+        v60 = [VUIAlertAction vui_actionWithTitle:v56 style:0 handler:v70];
         v68[0] = MEMORY[0x1E69E9820];
         v68[1] = 3221225472;
-        v68[2] = __56__VUIPreflightManager__preflightDownloadWithCompletion___block_invoke_2;
+        v68[2] = __56__VUIPreflightManager__preflightDownloadWithCompletion___block_invoke_3;
         v68[3] = &unk_1E8732FF8;
         v69 = *(a1 + 32);
-        v58 = [VUIAlertAction vui_actionWithTitle:v54 style:0 handler:v68];
-        v66[0] = MEMORY[0x1E69E9820];
-        v66[1] = 3221225472;
-        v66[2] = __56__VUIPreflightManager__preflightDownloadWithCompletion___block_invoke_3;
-        v66[3] = &unk_1E8732FF8;
-        v67 = *(a1 + 32);
-        v59 = [VUIAlertAction vui_actionWithTitle:v56 style:0 handler:v66];
-        v60 = [VUIAlertController vui_alertControllerWithTitle:v9 message:v63 preferredStyle:1];
-        [v60 vui_addAction:v57 isPreferred:1];
-        [v60 vui_addAction:v58];
-        [v60 vui_addAction:v59];
-        v61 = [WeakRetained presentingController];
-        [v60 vui_presentAlertFromPresentingController:v61 animated:1 completion:0];
+        v61 = [VUIAlertAction vui_actionWithTitle:v58 style:0 handler:v68];
+        v62 = [VUIAlertController vui_alertControllerWithTitle:v11 message:v65 preferredStyle:1];
+        [v62 vui_addAction:v59 isPreferred:1];
+        [v62 vui_addAction:v60];
+        [v62 vui_addAction:v61];
+        v63 = [WeakRetained presentingController];
+        [v62 vui_presentAlertFromPresentingController:v63 animated:1 completion:0];
       }
     }
 
     else
     {
-      v19 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v21 = VUIDefaultLogObject(v7);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        __56__VUIPreflightManager__preflightDownloadWithCompletion___block_invoke_cold_2(v19, v20, v21, v22, v23, v24, v25, v26);
+        __56__VUIPreflightManager__preflightDownloadWithCompletion___block_invoke_cold_2(v21, v22, v23, v24, v25, v26, v27, v28);
       }
 
-      v27 = MGGetBoolAnswer();
-      v28 = +[VUILocalizationManager sharedInstance];
-      v29 = v28;
-      if (v27)
+      v29 = MGGetBoolAnswer();
+      v30 = +[VUILocalizationManager sharedInstance];
+      v31 = v30;
+      if (v29)
       {
-        v30 = @"CANT_DOWNLOAD_NO_NETWORK_CONNECT_TO_WLAN_TITLE";
-      }
-
-      else
-      {
-        v30 = @"CANT_DOWNLOAD_NO_NETWORK_CONNECT_TO_WIFI_TITLE";
-      }
-
-      if (v27)
-      {
-        v31 = @"CANT_DOWNLOAD_NO_NETWORK_CONNECT_TO_WLAN_MESSAGE";
+        v32 = @"CANT_DOWNLOAD_NO_NETWORK_CONNECT_TO_WLAN_TITLE";
       }
 
       else
       {
-        v31 = @"CANT_DOWNLOAD_NO_NETWORK_CONNECT_TO_WIFI_MESSAGE";
+        v32 = @"CANT_DOWNLOAD_NO_NETWORK_CONNECT_TO_WIFI_TITLE";
       }
 
-      v9 = [v28 localizedStringForKey:v30];
+      if (v29)
+      {
+        v33 = @"CANT_DOWNLOAD_NO_NETWORK_CONNECT_TO_WLAN_MESSAGE";
+      }
 
-      v32 = +[VUILocalizationManager sharedInstance];
-      v33 = [v32 localizedStringForKey:v31];
+      else
+      {
+        v33 = @"CANT_DOWNLOAD_NO_NETWORK_CONNECT_TO_WIFI_MESSAGE";
+      }
 
-      v34 = [VUIAlertController vui_alertControllerWithTitle:v9 message:v33 preferredStyle:1];
-      v35 = +[VUILocalizationManager sharedInstance];
-      v36 = [v35 localizedStringForKey:@"OK"];
-      v64[0] = MEMORY[0x1E69E9820];
-      v64[1] = 3221225472;
-      v64[2] = __56__VUIPreflightManager__preflightDownloadWithCompletion___block_invoke_129;
-      v64[3] = &unk_1E8732FF8;
-      v65 = *(a1 + 32);
-      v37 = [VUIAlertAction vui_actionWithTitle:v36 style:0 handler:v64];
+      v11 = [v30 localizedStringForKey:v32];
 
-      [v34 vui_addAction:v37];
-      v38 = [WeakRetained presentingController];
-      [v34 vui_presentAlertFromPresentingController:v38 animated:1 completion:0];
+      v34 = +[VUILocalizationManager sharedInstance];
+      v35 = [v34 localizedStringForKey:v33];
+
+      v36 = [VUIAlertController vui_alertControllerWithTitle:v11 message:v35 preferredStyle:1];
+      v37 = +[VUILocalizationManager sharedInstance];
+      v38 = [v37 localizedStringForKey:@"OK"];
+      v66[0] = MEMORY[0x1E69E9820];
+      v66[1] = 3221225472;
+      v66[2] = __56__VUIPreflightManager__preflightDownloadWithCompletion___block_invoke_129;
+      v66[3] = &unk_1E8732FF8;
+      v67 = *(a1 + 32);
+      v39 = [VUIAlertAction vui_actionWithTitle:v38 style:0 handler:v66];
+
+      [v36 vui_addAction:v39];
+      v40 = [WeakRetained presentingController];
+      [v36 vui_presentAlertFromPresentingController:v40 animated:1 completion:0];
     }
   }
 
   else
   {
-    v10 = VUIDefaultLogObject();
-    v11 = v10;
+    v12 = VUIDefaultLogObject(IsCellular);
+    v13 = v12;
     if (v4)
     {
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_DEFAULT, "Network type is non-cellular", buf, 2u);
+        _os_log_impl(&dword_1E323F000, v13, OS_LOG_TYPE_DEFAULT, "Network type is non-cellular", buf, 2u);
       }
 
-      v12 = +[VUIPlaybackSettings sharedSettings];
-      v13 = [v12 cellularDataDownloadEnabled];
+      v14 = +[VUIPlaybackSettings sharedSettings];
+      v15 = [v14 cellularDataDownloadEnabled];
 
-      if (v13)
+      if (v15)
       {
-        v14 = +[VUIPlaybackSettings sharedSettings];
-        v15 = [v14 preferredWifiDownloadQuality];
-
         v16 = +[VUIPlaybackSettings sharedSettings];
-        v17 = [v16 preferredCellularDownloadQuality];
+        v17 = [v16 preferredWifiDownloadQuality];
 
-        if (v15 == v17 || (v13 = 0, v15 == 1) && !v17)
+        v18 = +[VUIPlaybackSettings sharedSettings];
+        v19 = [v18 preferredCellularDownloadQuality];
+
+        if (v17 == v19 || (v15 = 0, v17 == 1) && !v19)
         {
-          v13 = 1;
+          v15 = 1;
         }
       }
 
-      v18 = *(a1 + 32);
-      v9 = +[VUIPlaybackSettings sharedSettings];
-      (*(v18 + 16))(v18, 1, v13, [v9 preferredWifiDownloadQuality]);
+      v20 = *(a1 + 32);
+      v11 = +[VUIPlaybackSettings sharedSettings];
+      (*(v20 + 16))(v20, 1, v15, [v11 preferredWifiDownloadQuality]);
     }
 
     else
     {
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        __56__VUIPreflightManager__preflightDownloadWithCompletion___block_invoke_cold_1(v11, v39, v40, v41, v42, v43, v44, v45);
+        __56__VUIPreflightManager__preflightDownloadWithCompletion___block_invoke_cold_1(v13, v41, v42, v43, v44, v45, v46, v47);
       }
 
-      v46 = *(a1 + 32);
-      v9 = +[VUIPlaybackSettings sharedSettings];
-      (*(v46 + 16))(v46, 0, 0, [v9 preferredWifiDownloadQuality]);
+      v48 = *(a1 + 32);
+      v11 = +[VUIPlaybackSettings sharedSettings];
+      (*(v48 + 16))(v48, 0, 0, [v11 preferredWifiDownloadQuality]);
     }
   }
 }
@@ -1595,7 +1600,7 @@ void __56__VUIPreflightManager__preflightDownloadWithCompletion___block_invoke_2
 
   else
   {
-    v5 = VUIDefaultLogObject();
+    v5 = VUIDefaultLogObject(a1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *v7 = 0;

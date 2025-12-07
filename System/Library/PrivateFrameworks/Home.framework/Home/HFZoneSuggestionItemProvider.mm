@@ -39,8 +39,8 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  home = [(HFZoneSuggestionItemProvider *)self home];
-  v6 = [v4 initWithHome:home];
+  v5 = objc_msgSend_home(self);
+  v6 = [v4 initWithHome:v5];
 
   return v6;
 }
@@ -57,8 +57,8 @@
   _zoneSuggestions = [(HFZoneSuggestionItemProvider *)self _zoneSuggestions];
   allObjects = [_zoneSuggestions allObjects];
 
-  home = [(HFZoneSuggestionItemProvider *)self home];
-  zones = [home zones];
+  v6 = objc_msgSend_home(self);
+  zones = [v6 zones];
   v8 = [zones count];
 
   v9 = [allObjects count];
@@ -125,7 +125,7 @@ HFZoneBuilderItem *__43__HFZoneSuggestionItemProvider_reloadItems__block_invoke(
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = [HFZoneBuilder alloc];
-  v6 = [WeakRetained home];
+  v6 = objc_msgSend_home(WeakRetained);
   v7 = [(HFItemBuilder *)v5 initWithHome:v6];
 
   [(HFZoneBuilder *)v7 setName:v3];
@@ -171,8 +171,8 @@ id __43__HFZoneSuggestionItemProvider_reloadItems__block_invoke_4(uint64_t a1, v
 
 - (id)_zoneSuggestions
 {
-  home = [(HFZoneSuggestionItemProvider *)self home];
-  zones = [home zones];
+  v2 = objc_msgSend_home(self, a2);
+  zones = [v2 zones];
   v4 = [zones copy];
 
   v5 = MEMORY[0x277CBEB98];

@@ -34,7 +34,7 @@
   coordinatorCopy = coordinator;
   messageCopy = message;
   selfCopy = self;
-  sub_99DDF0(message);
+  sub_99DDF0(message, selfCopy);
 }
 
 @end

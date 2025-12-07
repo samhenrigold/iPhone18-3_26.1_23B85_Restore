@@ -36,16 +36,16 @@
 
 void __60__HMDCameraSnapshotFileManager_backboardServicesRelaunched___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v13 = 138543362;
-    v14 = v5;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Recreating slot for most recent snapshot file after backboard services relaunch", &v13, 0xCu);
+    v12 = 138543362;
+    v13 = v5;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Recreating slot for most recent snapshot file after backboard services relaunch", &v12, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -63,7 +63,6 @@ void __60__HMDCameraSnapshotFileManager_backboardServicesRelaunched___block_invo
   }
 
   [(HMDCameraSnapshotFileManager *)v11 _notifyClientsOfUpdatedMostRecentSnapshot];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clearSlotForSnapshotFile:(void *)file
@@ -138,7 +137,7 @@ void __60__HMDCameraSnapshotFileManager_backboardServicesRelaunched___block_invo
 
 void __57__HMDCameraSnapshotFileManager_handleProcessStateChange___block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 objectForKeyedSubscript:@"processInfo"];
 
@@ -177,11 +176,11 @@ void __57__HMDCameraSnapshotFileManager_handleProcessStateChange___block_invoke(
 
       v13 = v12;
       *buf = 138543874;
-      v35 = v10;
-      v36 = 2112;
-      v37 = v11;
-      v38 = 2112;
-      v39 = v13;
+      v34 = v10;
+      v35 = 2112;
+      v36 = v11;
+      v37 = 2112;
+      v38 = v13;
       _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Received notification that process info state changed for process %@: %@", buf, 0x20u);
     }
 
@@ -206,11 +205,11 @@ void __57__HMDCameraSnapshotFileManager_handleProcessStateChange___block_invoke(
         {
           v20 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v35 = v20;
-          v36 = 2112;
-          v37 = v5;
-          v38 = 2112;
-          v39 = v16;
+          v34 = v20;
+          v35 = 2112;
+          v36 = v5;
+          v37 = 2112;
+          v38 = v16;
           _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Removing snapshot file associated with non-foreground app %@: %@", buf, 0x20u);
         }
 
@@ -238,9 +237,9 @@ void __57__HMDCameraSnapshotFileManager_handleProcessStateChange___block_invoke(
         {
           v26 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v35 = v26;
-          v36 = 2112;
-          v37 = v5;
+          v34 = v26;
+          v35 = 2112;
+          v36 = v5;
           _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_INFO, "%{public}@Clearing any of the filled snapshot slots for terminated process: %@", buf, 0x16u);
         }
 
@@ -269,30 +268,28 @@ void __57__HMDCameraSnapshotFileManager_handleProcessStateChange___block_invoke(
         }
 
         [v31 removeObjectForKey:v5];
-        v33[0] = MEMORY[0x277D85DD0];
-        v33[1] = 3221225472;
-        v33[2] = __57__HMDCameraSnapshotFileManager_handleProcessStateChange___block_invoke_20;
-        v33[3] = &unk_279731240;
-        v33[4] = *(a1 + 40);
-        [v29 na_each:v33];
+        v32[0] = MEMORY[0x277D85DD0];
+        v32[1] = 3221225472;
+        v32[2] = __57__HMDCameraSnapshotFileManager_handleProcessStateChange___block_invoke_20;
+        v32[3] = &unk_279731240;
+        v32[4] = *(a1 + 40);
+        [v29 na_each:v32];
       }
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __57__HMDCameraSnapshotFileManager_handleProcessStateChange___block_invoke_20(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [(HMDCameraSnapshotFileManager *)*(a1 + 32) _snapshotFileWithSlotIdentifier:v3];
   if (v4)
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v5 = *(a1 + 32);
     if (v5)
     {
@@ -300,22 +297,22 @@ void __57__HMDCameraSnapshotFileManager_handleProcessStateChange___block_invoke_
     }
 
     v6 = v5;
-    v7 = [v6 countByEnumeratingWithState:&v25 objects:v35 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v24 objects:v34 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v26;
+      v9 = *v25;
       while (2)
       {
         v10 = 0;
         do
         {
-          if (*v26 != v9)
+          if (*v25 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v25 + 1) + 8 * v10);
+          v11 = *(*(&v24 + 1) + 8 * v10);
           v12 = *(a1 + 32);
           if (v12)
           {
@@ -327,7 +324,7 @@ void __57__HMDCameraSnapshotFileManager_handleProcessStateChange___block_invoke_
             v13 = 0;
           }
 
-          v14 = [v13 objectForKey:{*(*(&v25 + 1) + 8 * v10), v25}];
+          v14 = [v13 objectForKey:{*(*(&v24 + 1) + 8 * v10), v24}];
           if ([v14 containsObject:v3])
           {
             v20 = objc_autoreleasePoolPush();
@@ -337,11 +334,11 @@ void __57__HMDCameraSnapshotFileManager_handleProcessStateChange___block_invoke_
             {
               v23 = HMFGetLogIdentifier();
               *buf = 138543874;
-              v30 = v23;
-              v31 = 2112;
-              v32 = v3;
-              v33 = 2112;
-              v34 = v11;
+              v29 = v23;
+              v30 = 2112;
+              v31 = v3;
+              v32 = 2112;
+              v33 = v11;
               _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Cannot clear snapshot slot identifier %@ because is still in use by %@", buf, 0x20u);
             }
 
@@ -353,7 +350,7 @@ void __57__HMDCameraSnapshotFileManager_handleProcessStateChange___block_invoke_
         }
 
         while (v8 != v10);
-        v15 = [v6 countByEnumeratingWithState:&v25 objects:v35 count:16];
+        v15 = [v6 countByEnumeratingWithState:&v24 objects:v34 count:16];
         v8 = v15;
         if (v15)
         {
@@ -371,9 +368,9 @@ void __57__HMDCameraSnapshotFileManager_handleProcessStateChange___block_invoke_
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v30 = v19;
-      v31 = 2112;
-      v32 = v4;
+      v29 = v19;
+      v30 = 2112;
+      v31 = v4;
       _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Clearing snapshot slot for snapshot %@", buf, 0x16u);
     }
 
@@ -382,13 +379,11 @@ void __57__HMDCameraSnapshotFileManager_handleProcessStateChange___block_invoke_
   }
 
 LABEL_22:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_snapshotFileWithSlotIdentifier:(id *)identifier
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v4 = a2;
   if (identifier)
   {
@@ -403,26 +398,26 @@ LABEL_22:
       goto LABEL_15;
     }
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     objectEnumerator = [identifier[3] objectEnumerator];
-    v12 = [objectEnumerator countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v12 = [objectEnumerator countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v22;
+      v14 = *v21;
       while (2)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v22 != v14)
+          if (*v21 != v14)
           {
             objc_enumerationMutation(objectEnumerator);
           }
 
-          v16 = *(*(&v21 + 1) + 8 * i);
+          v16 = *(*(&v20 + 1) + 8 * i);
           slotIdentifier = [v16 slotIdentifier];
           v18 = [slotIdentifier isEqualToNumber:v4];
 
@@ -434,7 +429,7 @@ LABEL_22:
           }
         }
 
-        v13 = [objectEnumerator countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v13 = [objectEnumerator countByEnumeratingWithState:&v20 objects:v24 count:16];
         if (v13)
         {
           continue;
@@ -447,8 +442,6 @@ LABEL_22:
 
   v10 = 0;
 LABEL_15:
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -477,7 +470,7 @@ LABEL_15:
 
 - (id)encodedMostRecentSnapshotForMessage:(id)message
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   if (self)
   {
@@ -504,13 +497,13 @@ LABEL_15:
     {
       v26 = HMFGetLogIdentifier();
       shortDescription = [messageCopy shortDescription];
-      v31 = 138543874;
-      v32 = v26;
-      v33 = 2112;
-      v34 = shortDescription;
-      v35 = 2112;
-      v36 = v9;
-      _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_INFO, "%{public}@Not encoding invalid most recent snapshot for message %@: %@", &v31, 0x20u);
+      v30 = 138543874;
+      v31 = v26;
+      v32 = 2112;
+      v33 = shortDescription;
+      v34 = 2112;
+      v35 = v9;
+      _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_INFO, "%{public}@Not encoding invalid most recent snapshot for message %@: %@", &v30, 0x20u);
     }
 
     objc_autoreleasePoolPop(v23);
@@ -540,13 +533,13 @@ LABEL_14:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       v20 = HMFGetLogIdentifier();
-      v31 = 138543874;
-      v32 = v20;
-      v33 = 2112;
-      v34 = processInfo;
-      v35 = 2112;
-      v36 = v9;
-      _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Associating process info %@ with most recent snapshot file: %@", &v31, 0x20u);
+      v30 = 138543874;
+      v31 = v20;
+      v32 = 2112;
+      v33 = processInfo;
+      v34 = 2112;
+      v35 = v9;
+      _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Associating process info %@ with most recent snapshot file: %@", &v30, 0x20u);
     }
 
     objc_autoreleasePoolPop(v16);
@@ -569,11 +562,11 @@ LABEL_14:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       v28 = HMFGetLogIdentifier();
-      v31 = 138543618;
-      v32 = v28;
-      v33 = 2112;
-      v34 = messageCopy;
-      _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@Cannot encode most recent snapshot for message without process info: %@", &v31, 0x16u);
+      v30 = 138543618;
+      v31 = v28;
+      v32 = 2112;
+      v33 = messageCopy;
+      _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@Cannot encode most recent snapshot for message without process info: %@", &v30, 0x16u);
     }
 
     objc_autoreleasePoolPop(v16);
@@ -581,7 +574,6 @@ LABEL_14:
   }
 
 LABEL_19:
-  v29 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -589,7 +581,7 @@ LABEL_19:
 - (id)createSlotForSnapshotFile:(id)file requestMessages:(id)messages shouldNotifyClients:(BOOL)clients
 {
   clientsCopy = clients;
-  v90 = *MEMORY[0x277D85DE8];
+  v89 = *MEMORY[0x277D85DE8];
   fileCopy = file;
   messagesCopy = messages;
   if (self)
@@ -617,26 +609,26 @@ LABEL_19:
       goto LABEL_17;
     }
 
-    v81 = 0u;
-    v82 = 0u;
-    v79 = 0u;
     v80 = 0u;
+    v81 = 0u;
+    v78 = 0u;
+    v79 = 0u;
     objectEnumerator = [(NSMapTable *)self->_snapshotFilesByAssociatedProcessInfo objectEnumerator];
-    v19 = [objectEnumerator countByEnumeratingWithState:&v79 objects:buf count:16];
+    v19 = [objectEnumerator countByEnumeratingWithState:&v78 objects:buf count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v80;
+      v21 = *v79;
       while (2)
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v80 != v21)
+          if (*v79 != v21)
           {
             objc_enumerationMutation(objectEnumerator);
           }
 
-          v23 = *(*(&v79 + 1) + 8 * i);
+          v23 = *(*(&v78 + 1) + 8 * i);
           filePath2 = [v23 filePath];
           v25 = [filePath2 isEqualToString:filePath];
 
@@ -648,7 +640,7 @@ LABEL_19:
           }
         }
 
-        v20 = [objectEnumerator countByEnumeratingWithState:&v79 objects:buf count:16];
+        v20 = [objectEnumerator countByEnumeratingWithState:&v78 objects:buf count:16];
         if (v20)
         {
           continue;
@@ -662,7 +654,7 @@ LABEL_19:
   v17 = 0;
 LABEL_17:
 
-  v72 = v17;
+  v71 = v17;
   if (v17)
   {
     v26 = objc_autoreleasePoolPush();
@@ -672,9 +664,9 @@ LABEL_17:
     {
       v29 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v85 = v29;
-      v86 = 2112;
-      v87 = v17;
+      v84 = v29;
+      v85 = 2112;
+      v86 = v17;
       _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_INFO, "%{public}@Skipping slot creation because snapshot file exists with same path: %@", buf, 0x16u);
     }
 
@@ -690,27 +682,27 @@ LABEL_17:
     [(HMDCameraSnapshotFileManager *)self _createSlotForSnapshotFile:fileCopy];
   }
 
-  v77 = 0u;
-  v78 = 0u;
-  v75 = 0u;
   v76 = 0u;
+  v77 = 0u;
+  v74 = 0u;
+  v75 = 0u;
   obj = messagesCopy;
-  v31 = [obj countByEnumeratingWithState:&v75 objects:v83 count:16];
+  v31 = [obj countByEnumeratingWithState:&v74 objects:v82 count:16];
   if (v31)
   {
     v32 = v31;
-    v33 = *v76;
+    v33 = *v75;
     do
     {
       v34 = 0;
       do
       {
-        if (*v76 != v33)
+        if (*v75 != v33)
         {
           objc_enumerationMutation(obj);
         }
 
-        v35 = *(*(&v75 + 1) + 8 * v34);
+        v35 = *(*(&v74 + 1) + 8 * v34);
         proxyConnection = [v35 proxyConnection];
         processInfo = [proxyConnection processInfo];
 
@@ -724,11 +716,11 @@ LABEL_17:
           {
             v42 = HMFGetLogIdentifier();
             *buf = 138543874;
-            v85 = v42;
-            v86 = 2112;
-            v87 = processInfo;
-            v88 = 2112;
-            v89 = fileCopy;
+            v84 = v42;
+            v85 = 2112;
+            v86 = processInfo;
+            v87 = 2112;
+            v88 = fileCopy;
             _os_log_impl(&dword_2531F8000, v41, OS_LOG_TYPE_INFO, "%{public}@Associating process info %@ with snapshot file: %@", buf, 0x20u);
           }
 
@@ -752,9 +744,9 @@ LABEL_17:
           {
             v44 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v85 = v44;
-            v86 = 2112;
-            v87 = v35;
+            v84 = v44;
+            v85 = 2112;
+            v86 = v35;
             _os_log_impl(&dword_2531F8000, v41, OS_LOG_TYPE_DEFAULT, "%{public}@Cannot associate snapshot file for message without process info: %@", buf, 0x16u);
           }
 
@@ -765,7 +757,7 @@ LABEL_17:
       }
 
       while (v32 != v34);
-      v45 = [obj countByEnumeratingWithState:&v75 objects:v83 count:16];
+      v45 = [obj countByEnumeratingWithState:&v74 objects:v82 count:16];
       v32 = v45;
     }
 
@@ -807,9 +799,9 @@ LABEL_17:
       {
         v65 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v85 = v65;
-        v86 = 2112;
-        v87 = v49;
+        v84 = v65;
+        v85 = 2112;
+        v86 = v49;
         _os_log_impl(&dword_2531F8000, v64, OS_LOG_TYPE_INFO, "%{public}@Updating most recent snapshot to %@", buf, 0x16u);
       }
 
@@ -830,9 +822,9 @@ LABEL_17:
       {
         v61 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v85 = v61;
-        v86 = 2112;
-        v87 = v49;
+        v84 = v61;
+        v85 = 2112;
+        v86 = v49;
         _os_log_impl(&dword_2531F8000, v60, OS_LOG_TYPE_INFO, "%{public}@Not updating most recent snapshot with invalid snaphot: %@", buf, 0x16u);
       }
 
@@ -844,14 +836,12 @@ LABEL_53:
 
   v68 = encodedSnapshotFile(v47);
 
-  v69 = *MEMORY[0x277D85DE8];
-
   return v68;
 }
 
 - (void)handleReleaseSnapshot:(id)snapshot
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   snapshotCopy = snapshot;
   if (self)
   {
@@ -869,54 +859,54 @@ LABEL_53:
   selfCopy = self;
   v10 = HMFGetOSLogHandle();
   v11 = v10;
-  v42 = v7;
+  v41 = v7;
   if (v7)
   {
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v49 = v12;
-      v50 = 2112;
-      v51 = v7;
+      v48 = v12;
+      v49 = 2112;
+      v50 = v7;
       _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Releasing snapshot file with slot identifier: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
     v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
     v13 = &OBJC_IVAR___HMDBackingStore__dataSource;
-    v40 = snapshotCopy;
+    v39 = snapshotCopy;
     if (self)
     {
-      snapshotFilesByAssociatedProcessInfo = selfCopy->_snapshotFilesByAssociatedProcessInfo;
+      v14 = objc_msgSend_copy(selfCopy->_snapshotFilesByAssociatedProcessInfo);
     }
 
     else
     {
-      snapshotFilesByAssociatedProcessInfo = 0;
+      v14 = objc_msgSend_copy(0);
     }
 
-    v15 = [(NSMapTable *)snapshotFilesByAssociatedProcessInfo copy];
-    v16 = [v15 countByEnumeratingWithState:&v43 objects:v47 count:16];
+    v15 = v14;
+    v16 = [v14 countByEnumeratingWithState:&v42 objects:v46 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v44;
+      v18 = *v43;
       obj = v15;
       while (2)
       {
         v19 = 0;
         do
         {
-          if (*v44 != v18)
+          if (*v43 != v18)
           {
             objc_enumerationMutation(obj);
           }
 
-          v20 = *(*(&v43 + 1) + 8 * v19);
+          v20 = *(*(&v42 + 1) + 8 * v19);
           v21 = v13;
           if (self)
           {
@@ -932,7 +922,7 @@ LABEL_53:
           v24 = [v23 objectForKey:v20];
 
           slotIdentifier = [v24 slotIdentifier];
-          v26 = [slotIdentifier isEqualToNumber:v42];
+          v26 = [slotIdentifier isEqualToNumber:v41];
 
           if (v26)
           {
@@ -943,14 +933,14 @@ LABEL_53:
             {
               v36 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v49 = v36;
-              v50 = 2112;
-              v51 = v24;
+              v48 = v36;
+              v49 = 2112;
+              v50 = v24;
               _os_log_impl(&dword_2531F8000, v35, OS_LOG_TYPE_INFO, "%{public}@Releasing snapshot file: %@", buf, 0x16u);
             }
 
             objc_autoreleasePoolPop(v33);
-            snapshotCopy = v40;
+            snapshotCopy = v39;
             v32 = obj;
             if (self)
             {
@@ -963,7 +953,7 @@ LABEL_53:
             }
 
             [v37 removeObjectForKey:v20];
-            [v40 respondWithSuccess];
+            [v39 respondWithSuccess];
 
             goto LABEL_32;
           }
@@ -974,7 +964,7 @@ LABEL_53:
 
         while (v17 != v19);
         v15 = obj;
-        v27 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
+        v27 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
         v17 = v27;
         if (v27)
         {
@@ -992,15 +982,15 @@ LABEL_53:
     {
       v31 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v49 = v31;
-      v50 = 2112;
-      v51 = v42;
+      v48 = v31;
+      v49 = 2112;
+      v50 = v41;
       _os_log_impl(&dword_2531F8000, v30, OS_LOG_TYPE_DEFAULT, "%{public}@Could not find snapshot file to release with slot identifier: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v28);
     v32 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
-    snapshotCopy = v40;
+    snapshotCopy = v39;
   }
 
   else
@@ -1009,9 +999,9 @@ LABEL_53:
     {
       v38 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v49 = v38;
-      v50 = 2112;
-      v51 = snapshotCopy;
+      v48 = v38;
+      v49 = 2112;
+      v50 = snapshotCopy;
       _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Cannot find slot identifier in release snapshot message payload: %@", buf, 0x16u);
     }
 
@@ -1021,13 +1011,11 @@ LABEL_53:
 
   [snapshotCopy respondWithError:v32];
 LABEL_32:
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleFillSnapshotSlot:(id)slot
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   slotCopy = slot;
   if (self)
   {
@@ -1048,9 +1036,9 @@ LABEL_32:
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v38 = v11;
-    v39 = 2112;
-    v40 = v7;
+    v37 = v11;
+    v38 = 2112;
+    v39 = v7;
     _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Filling snapshot with slot identifier %@", buf, 0x16u);
   }
 
@@ -1092,7 +1080,7 @@ LABEL_32:
     v18 = v17;
     if (v17)
     {
-      v36 = 0;
+      v35 = 0;
       v20 = v17;
       if (self)
       {
@@ -1104,13 +1092,13 @@ LABEL_32:
           v23 = objc_getProperty(selfCopy, v22, 64, 1);
           slotIdentifier = [v20 slotIdentifier];
           filePath = [v20 filePath];
-          self = [v23 fillSlotWithIdentifier:slotIdentifier filePath:filePath error:&v36];
+          self = [v23 fillSlotWithIdentifier:slotIdentifier filePath:filePath error:&v35];
 
           [v20 setFilled:self];
         }
       }
 
-      v26 = v36;
+      v26 = v35;
       if (self)
       {
         [slotCopy respondWithSuccess];
@@ -1129,9 +1117,9 @@ LABEL_25:
       {
         v34 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v38 = v34;
-        v39 = 2112;
-        v40 = v7;
+        v37 = v34;
+        v38 = 2112;
+        v39 = v7;
         _os_log_impl(&dword_2531F8000, v33, OS_LOG_TYPE_ERROR, "%{public}@Cannot fill snapshot with slot identifier %@ because it no longer exist", buf, 0x16u);
       }
 
@@ -1150,9 +1138,9 @@ LABEL_25:
   {
     v30 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v38 = v30;
-    v39 = 2112;
-    v40 = slotCopy;
+    v37 = v30;
+    v38 = 2112;
+    v39 = slotCopy;
     _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_DEFAULT, "%{public}@Cannot fill snapshot for message without process info: %@", buf, 0x16u);
   }
 
@@ -1160,14 +1148,12 @@ LABEL_25:
   v15 = [MEMORY[0x277CCA9B8] hmErrorWithCode:20];
   [slotCopy respondWithError:v15];
 LABEL_26:
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerForMessages
 {
   selfCopy = self;
-  v103 = *MEMORY[0x277D85DE8];
+  v102 = *MEMORY[0x277D85DE8];
   if (self)
   {
     Property = objc_getProperty(self, a2, 32, 1);
@@ -1198,7 +1184,7 @@ LABEL_26:
 
   if (!selfCopy)
   {
-    goto LABEL_51;
+    return;
   }
 
   v11 = objc_getProperty(selfCopy, v10, 32, 1);
@@ -1208,31 +1194,31 @@ LABEL_26:
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v16 = [defaultManager contentsOfDirectoryAtPath:objc_getProperty(selfCopy error:{v15, 48, 1), 0}];
 
-  v76 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v16, "count")}];
+  v75 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v16, "count")}];
+  v84 = 0u;
   v85 = 0u;
   v86 = 0u;
   v87 = 0u;
-  v88 = 0u;
   obj = v16;
-  v17 = [obj countByEnumeratingWithState:&v85 objects:v99 count:16];
+  v17 = [obj countByEnumeratingWithState:&v84 objects:v98 count:16];
   if (!v17)
   {
     goto LABEL_22;
   }
 
   v18 = v17;
-  v19 = *v86;
-  v77 = selfCopy;
+  v19 = *v85;
+  v76 = selfCopy;
   do
   {
     for (i = 0; i != v18; ++i)
     {
-      if (*v86 != v19)
+      if (*v85 != v19)
       {
         objc_enumerationMutation(obj);
       }
 
-      v21 = *(*(&v85 + 1) + 8 * i);
+      v21 = *(*(&v84 + 1) + 8 * i);
       v22 = [MEMORY[0x277CBEAA8] hmd_dateFromSnapshotFileName:v21];
       v23 = v22;
       if (!v22)
@@ -1244,15 +1230,15 @@ LABEL_26:
         {
           v28 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v96 = v28;
-          v97 = 2112;
-          v98 = v21;
+          v95 = v28;
+          v96 = 2112;
+          v97 = v21;
           v29 = v27;
           v30 = "%{public}@Ignoring snapshot file with malformed date string: %@";
 LABEL_17:
           _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_DEFAULT, v30, buf, 0x16u);
 
-          selfCopy = v77;
+          selfCopy = v76;
         }
 
 LABEL_18:
@@ -1271,9 +1257,9 @@ LABEL_18:
         {
           v28 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v96 = v28;
-          v97 = 2112;
-          v98 = v21;
+          v95 = v28;
+          v96 = 2112;
+          v97 = v21;
           v29 = v27;
           v30 = "%{public}@Ignoring snapshot file with date in the future: %@";
           goto LABEL_17;
@@ -1282,11 +1268,11 @@ LABEL_18:
         goto LABEL_18;
       }
 
-      [v76 setObject:v23 forKeyedSubscript:v21];
+      [v75 setObject:v23 forKeyedSubscript:v21];
 LABEL_20:
     }
 
-    v18 = [obj countByEnumeratingWithState:&v85 objects:v99 count:16];
+    v18 = [obj countByEnumeratingWithState:&v84 objects:v98 count:16];
   }
 
   while (v18);
@@ -1299,43 +1285,43 @@ LABEL_22:
   {
     v34 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v96 = v34;
-    v97 = 2112;
-    v98 = v76;
+    v95 = v34;
+    v96 = 2112;
+    v97 = v75;
     _os_log_impl(&dword_2531F8000, v33, OS_LOG_TYPE_INFO, "%{public}@Built the snapshot file dictionary: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v31);
-  allValues = [v76 allValues];
+  allValues = [v75 allValues];
   v36 = [allValues sortedArrayUsingSelector:sel_compare_];
 
   lastObject = [v36 lastObject];
   hmd_snapshotFileName = [lastObject hmd_snapshotFileName];
 
-  v78 = v32;
+  v77 = v32;
   if (hmd_snapshotFileName)
   {
-    v75 = v36;
-    v83 = 0u;
-    v84 = 0u;
-    v81 = 0u;
+    v74 = v36;
     v82 = 0u;
+    v83 = 0u;
+    v80 = 0u;
+    v81 = 0u;
     v39 = obj;
-    v40 = [v39 countByEnumeratingWithState:&v81 objects:buf count:16];
+    v40 = [v39 countByEnumeratingWithState:&v80 objects:buf count:16];
     if (v40)
     {
       v41 = v40;
-      v42 = *v82;
+      v42 = *v81;
       do
       {
         for (j = 0; j != v41; ++j)
         {
-          if (*v82 != v42)
+          if (*v81 != v42)
           {
             objc_enumerationMutation(v39);
           }
 
-          v44 = *(*(&v81 + 1) + 8 * j);
+          v44 = *(*(&v80 + 1) + 8 * j);
           if (([v44 isEqualToString:hmd_snapshotFileName] & 1) == 0)
           {
             v46 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@/%@", objc_getProperty(v32, v45, 48, 1), v44];
@@ -1345,13 +1331,13 @@ LABEL_22:
             if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
             {
               v50 = HMFGetLogIdentifier();
-              *v89 = 138543618;
-              v90 = v50;
-              v91 = 2112;
-              v92 = v46;
-              _os_log_impl(&dword_2531F8000, v49, OS_LOG_TYPE_INFO, "%{public}@Removing obsolete snapshot at path: %@", v89, 0x16u);
+              *v88 = 138543618;
+              v89 = v50;
+              v90 = 2112;
+              v91 = v46;
+              _os_log_impl(&dword_2531F8000, v49, OS_LOG_TYPE_INFO, "%{public}@Removing obsolete snapshot at path: %@", v88, 0x16u);
 
-              v32 = v78;
+              v32 = v77;
             }
 
             objc_autoreleasePoolPop(v47);
@@ -1360,7 +1346,7 @@ LABEL_22:
           }
         }
 
-        v41 = [v39 countByEnumeratingWithState:&v81 objects:buf count:16];
+        v41 = [v39 countByEnumeratingWithState:&v80 objects:buf count:16];
       }
 
       while (v41);
@@ -1368,15 +1354,15 @@ LABEL_22:
 
     v53 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@/%@", objc_getProperty(v32, v52, 48, 1), hmd_snapshotFileName];
     v54 = [HMDCameraSnapshotFile alloc];
-    v36 = v75;
-    lastObject2 = [v75 lastObject];
-    v80 = 0;
-    v56 = [(HMDCameraSnapshotFile *)v54 initWithFilePath:v53 dateCaptured:lastObject2 error:&v80];
-    v57 = v80;
+    v36 = v74;
+    lastObject2 = [v74 lastObject];
+    v79 = 0;
+    v56 = [(HMDCameraSnapshotFile *)v54 initWithFilePath:v53 dateCaptured:lastObject2 error:&v79];
+    v57 = v79;
 
-    v32 = v78;
+    v32 = v77;
     v58 = objc_autoreleasePoolPush();
-    v59 = v78;
+    v59 = v77;
     v60 = HMFGetOSLogHandle();
     v61 = v60;
     if (v56)
@@ -1384,11 +1370,11 @@ LABEL_22:
       if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
       {
         v62 = HMFGetLogIdentifier();
-        *v89 = 138543618;
-        v90 = v62;
-        v91 = 2112;
-        v92 = v56;
-        _os_log_impl(&dword_2531F8000, v61, OS_LOG_TYPE_INFO, "%{public}@Found and created the most recent snapshot file: %@", v89, 0x16u);
+        *v88 = 138543618;
+        v89 = v62;
+        v90 = 2112;
+        v91 = v56;
+        _os_log_impl(&dword_2531F8000, v61, OS_LOG_TYPE_INFO, "%{public}@Found and created the most recent snapshot file: %@", v88, 0x16u);
       }
 
       objc_autoreleasePoolPop(v58);
@@ -1400,13 +1386,13 @@ LABEL_22:
       if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
       {
         v64 = HMFGetLogIdentifier();
-        *v89 = 138543874;
-        v90 = v64;
-        v91 = 2112;
-        v92 = v53;
-        v93 = 2112;
-        v94 = v57;
-        _os_log_impl(&dword_2531F8000, v61, OS_LOG_TYPE_ERROR, "%{public}@Failed to create most recent snapshot file with path %@: %@", v89, 0x20u);
+        *v88 = 138543874;
+        v89 = v64;
+        v90 = 2112;
+        v91 = v53;
+        v92 = 2112;
+        v93 = v57;
+        _os_log_impl(&dword_2531F8000, v61, OS_LOG_TYPE_ERROR, "%{public}@Failed to create most recent snapshot file with path %@: %@", v88, 0x20u);
       }
 
       objc_autoreleasePoolPop(v58);
@@ -1428,11 +1414,11 @@ LABEL_22:
     {
       v69 = HMFGetLogIdentifier();
       v71 = objc_getProperty(v67, v70, 72, 1);
-      *v99 = 138543618;
-      v100 = v69;
-      v101 = 2112;
-      v102 = v71;
-      _os_log_impl(&dword_2531F8000, v68, OS_LOG_TYPE_INFO, "%{public}@Created the most recent snapshot %@", v99, 0x16u);
+      *v98 = 138543618;
+      v99 = v69;
+      v100 = 2112;
+      v101 = v71;
+      _os_log_impl(&dword_2531F8000, v68, OS_LOG_TYPE_INFO, "%{public}@Created the most recent snapshot %@", v98, 0x16u);
     }
   }
 
@@ -1444,15 +1430,13 @@ LABEL_22:
     if (os_log_type_enabled(v68, OS_LOG_TYPE_INFO))
     {
       v73 = HMFGetLogIdentifier();
-      *v99 = 138543362;
-      v100 = v73;
-      _os_log_impl(&dword_2531F8000, v68, OS_LOG_TYPE_INFO, "%{public}@No recent snapshot found", v99, 0xCu);
+      *v98 = 138543362;
+      v99 = v73;
+      _os_log_impl(&dword_2531F8000, v68, OS_LOG_TYPE_INFO, "%{public}@No recent snapshot found", v98, 0xCu);
     }
   }
 
   objc_autoreleasePoolPop(v66);
-LABEL_51:
-  v74 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDCameraSnapshotFileManager)initWithWorkQueue:(id)queue imageCacheDirectory:(id)directory logIdentifier:(id)identifier uniqueIdentifier:(id)uniqueIdentifier messageDispatcher:(id)dispatcher snapshotSlotManager:(id)manager notificationCenter:(id)center
@@ -1471,15 +1455,15 @@ LABEL_51:
   if (v21)
   {
     objc_storeStrong(&v21->_workQueue, queue);
-    v23 = [identifierCopy copy];
+    v23 = objc_msgSend_copy(identifierCopy, dispatcherCopy, queueCopy);
     logIdentifier = v22->_logIdentifier;
     v22->_logIdentifier = v23;
 
-    v25 = [directoryCopy copy];
+    v25 = objc_msgSend_copy(directoryCopy);
     imageCacheDirectory = v22->_imageCacheDirectory;
     v22->_imageCacheDirectory = v25;
 
-    v27 = [uniqueIdentifierCopy copy];
+    v27 = objc_msgSend_copy(uniqueIdentifierCopy);
     uniqueIdentifier = v22->_uniqueIdentifier;
     v22->_uniqueIdentifier = v27;
 
@@ -1526,12 +1510,11 @@ LABEL_51:
 
 uint64_t __43__HMDCameraSnapshotFileManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v31_167487;
-  logCategory__hmf_once_v31_167487 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v31_167487;
+  logCategory__hmf_once_v31_167487 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

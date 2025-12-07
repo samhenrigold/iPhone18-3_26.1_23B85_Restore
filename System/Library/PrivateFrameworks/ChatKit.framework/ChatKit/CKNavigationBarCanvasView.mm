@@ -260,18 +260,18 @@ void __38__CKNavigationBarCanvasView_setFrame___block_invoke()
       buttonViewFaceTimeAudio2 = [(CKNavigationBarCanvasView *)self buttonViewFaceTimeAudio];
       [buttonViewFaceTimeAudio2 setJoinButtonStyle:0];
 
-      if (CKJoinPillTextMetrics() <= 70.0)
+      if (CKJoinPillTextMetrics(v11) <= 70.0)
       {
-        v11 = 1;
+        v12 = 1;
       }
 
       else
       {
-        v11 = 2;
+        v12 = 2;
       }
 
       buttonViewFaceTimeVideo = [(CKNavigationBarCanvasView *)self buttonViewFaceTimeVideo];
-      [buttonViewFaceTimeVideo setJoinButtonStyle:v11];
+      [buttonViewFaceTimeVideo setJoinButtonStyle:v12];
 
       buttonViewFaceTimeVideo2 = [(CKNavigationBarCanvasView *)self buttonViewFaceTimeVideo];
       [buttonViewFaceTimeVideo2 setWantsVibrancy:1];
@@ -1338,35 +1338,35 @@ uint64_t __53__CKNavigationBarCanvasView_layoutTitleViewIfNeeded___block_invoke_
   return [v2 setIsAnimatingAvatars:0];
 }
 
-void __53__CKNavigationBarCanvasView_layoutTitleViewIfNeeded___block_invoke_4(uint64_t a1)
+void __53__CKNavigationBarCanvasView_layoutTitleViewIfNeeded___block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 40);
-  v3 = *(a1 + 48);
-  v4 = *(a1 + 56);
-  v5 = *(a1 + 64);
+  v3 = *(a1 + 40);
+  v4 = *(a1 + 48);
+  v5 = *(a1 + 56);
+  v6 = *(a1 + 64);
   if (CKMainScreenScale_once_80 != -1)
   {
     __53__CKNavigationBarCanvasView__addLaserEffectToButton___block_invoke_cold_1();
   }
 
-  v6 = *&CKMainScreenScale_sMainScreenScale_80;
+  v7 = *&CKMainScreenScale_sMainScreenScale_80;
   if (*&CKMainScreenScale_sMainScreenScale_80 == 0.0)
   {
-    v6 = 1.0;
+    v7 = 1.0;
   }
 
-  v7 = round(v2 * v6) / v6;
-  v8 = round(v3 * v6) / v6;
-  v9 = round(v4 * v6) / v6;
-  v10 = round(v5 * v6) / v6;
-  v11 = [*(a1 + 32) titleView];
-  [v11 setFrame:{v7, v8, v9, v10}];
-
+  v8 = round(v3 * v7) / v7;
+  v9 = round(v4 * v7) / v7;
+  v10 = round(v5 * v7) / v7;
+  v11 = round(v6 * v7) / v7;
   v12 = [*(a1 + 32) titleView];
-  [v12 setNeedsLayout];
+  [v12 setFrame:{v8, v9, v10, v11}];
 
   v13 = [*(a1 + 32) titleView];
-  [v13 layoutIfNeeded];
+  [v13 setNeedsLayout];
+
+  v14 = [*(a1 + 32) titleView];
+  [v14 layoutIfNeeded];
 }
 
 - (void)layoutSubviews
@@ -1419,7 +1419,7 @@ void __43__CKNavigationBarCanvasView_layoutSubviews__block_invoke(uint64_t a1)
   v5 = v4;
   v7 = v6;
   v9 = v8;
-  v10 = [*(a1 + 32) leftItemView];
+  v10 = objc_msgSend_leftItemView(*(a1 + 32));
   [v10 setFrame:{v3, v5, v7, v9}];
 
   [*(a1 + 40) rightItemFrame];
@@ -1443,9 +1443,9 @@ void __43__CKNavigationBarCanvasView_layoutSubviews__block_invoke(uint64_t a1)
   x = bounds.origin.x;
   _shouldReverseLayoutDirection = [(CKNavigationBarCanvasView *)self _shouldReverseLayoutDirection];
   _canShowAvatarView = [(CKNavigationBarCanvasView *)self _canShowAvatarView];
-  leftItemView = [(CKNavigationBarCanvasView *)self leftItemView];
+  v8 = objc_msgSend_leftItemView(self);
   rightItemView = [(CKNavigationBarCanvasView *)self rightItemView];
-  [leftItemView sizeThatFits:{width, height}];
+  [v8 sizeThatFits:{width, height}];
   v11 = v10;
   v13 = v12;
   rect2 = height;
@@ -1473,7 +1473,7 @@ void __43__CKNavigationBarCanvasView_layoutSubviews__block_invoke(uint64_t a1)
   [(CKNavigationBarCanvasView *)self systemMinimumLayoutMarginsFromDelegate];
   v26 = v25;
   v28 = v27;
-  leftItemView2 = [(CKNavigationBarCanvasView *)self leftItemView];
+  v29 = objc_msgSend_leftItemView(self);
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
 
@@ -1803,7 +1803,7 @@ void __43__CKNavigationBarCanvasView_layoutSubviews__block_invoke(uint64_t a1)
   rightItemView7 = [(CKNavigationBarCanvasView *)self rightItemView];
 
   v116 = v225;
-  if (rightItemView7 || ([(CKNavigationBarCanvasView *)self leftItemView], v117 = objc_claimAutoreleasedReturnValue(), v117, v116 = v227, v118 = rect1_24, v119 = rect2, v117))
+  if (rightItemView7 || (objc_msgSend_leftItemView(self), v117 = objc_claimAutoreleasedReturnValue(), v117, v116 = v227, v118 = rect1_24, v119 = rect2, v117))
   {
     v120 = *v116;
     v118 = *(v120 + 40);
@@ -2068,13 +2068,13 @@ LABEL_86:
     if (_shouldReverseLayoutDirection)
     {
 LABEL_103:
-      leftItemView3 = [(CKNavigationBarCanvasView *)self leftItemView];
+      rightItemView8 = objc_msgSend_leftItemView(self);
       v86 = v227;
       goto LABEL_104;
     }
   }
 
-  leftItemView3 = [(CKNavigationBarCanvasView *)self rightItemView];
+  rightItemView8 = [(CKNavigationBarCanvasView *)self rightItemView];
 LABEL_104:
   v184 = *(*v86 + 32);
   v219 = *(*v86 + 48);
@@ -2091,9 +2091,9 @@ LABEL_104:
       if (v186)
       {
         titleView10 = [(CKNavigationBarCanvasView *)self titleView];
-        titleLabel = [leftItemView3 titleLabel];
-        [leftItemView3 setNeedsLayout];
-        [leftItemView3 layoutIfNeeded];
+        titleLabel = [rightItemView8 titleLabel];
+        [rightItemView8 setNeedsLayout];
+        [rightItemView8 layoutIfNeeded];
         text = [titleLabel text];
         v190 = [text length];
 
@@ -2107,7 +2107,7 @@ LABEL_104:
 
         else
         {
-          [leftItemView3 bounds];
+          [rightItemView8 bounds];
           v194 = rect1_16a * 0.5 + v215;
           v193 = v195 * 0.5;
         }
@@ -2165,51 +2165,51 @@ void __54__CKNavigationBarCanvasView__subviewLayoutWithBounds___block_invoke_2(u
   }
 }
 
-float64x2_t __54__CKNavigationBarCanvasView__subviewLayoutWithBounds___block_invoke_3(uint64_t a1)
+float64x2_t __54__CKNavigationBarCanvasView__subviewLayoutWithBounds___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 48);
-  v3 = *(a1 + 64);
+  v3 = *(a1 + 48);
+  v4 = *(a1 + 64);
   if (*(a1 + 80) == 1)
-  {
-    if (CKMainScreenScale_once_80 != -1)
-    {
-      v11 = *(a1 + 48);
-      v13 = *(a1 + 64);
-      __53__CKNavigationBarCanvasView__addLaserEffectToButton___block_invoke_cold_1();
-      v2 = v11;
-      v3 = v13;
-    }
-
-    v4 = 32;
-  }
-
-  else
   {
     if (CKMainScreenScale_once_80 != -1)
     {
       v12 = *(a1 + 48);
       v14 = *(a1 + 64);
       __53__CKNavigationBarCanvasView__addLaserEffectToButton___block_invoke_cold_1();
-      v2 = v12;
-      v3 = v14;
+      v3 = v12;
+      v4 = v14;
     }
 
-    v4 = 40;
+    v5 = 32;
   }
 
-  v5 = CKMainScreenScale_sMainScreenScale_80;
-  v6 = *(a1 + v4);
+  else
+  {
+    if (CKMainScreenScale_once_80 != -1)
+    {
+      v13 = *(a1 + 48);
+      v15 = *(a1 + 64);
+      __53__CKNavigationBarCanvasView__addLaserEffectToButton___block_invoke_cold_1();
+      v3 = v13;
+      v4 = v15;
+    }
+
+    v5 = 40;
+  }
+
+  v6 = CKMainScreenScale_sMainScreenScale_80;
+  v7 = *(a1 + v5);
   if (*&CKMainScreenScale_sMainScreenScale_80 == 0.0)
   {
-    *&v5 = 1.0;
+    *&v6 = 1.0;
   }
 
-  v7 = *(v6 + 8);
-  v8 = vdupq_lane_s64(v5, 0);
-  v9 = vdivq_f64(vrndaq_f64(vmulq_n_f64(v2, *&v5)), v8);
-  result = vdivq_f64(vrndaq_f64(vmulq_n_f64(v3, *&v5)), v8);
-  v7[2] = v9;
-  v7[3] = result;
+  v8 = *(v7 + 8);
+  v9 = vdupq_lane_s64(v6, 0);
+  v10 = vdivq_f64(vrndaq_f64(vmulq_n_f64(v3, *&v6)), v9);
+  result = vdivq_f64(vrndaq_f64(vmulq_n_f64(v4, *&v6)), v9);
+  v8[2] = v10;
+  v8[3] = result;
   return result;
 }
 

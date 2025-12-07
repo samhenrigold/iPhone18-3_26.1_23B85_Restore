@@ -38,24 +38,22 @@
 {
   v2 = sub_1000506A0();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   __chkstk_darwin(v2);
-  v6 = &v17 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = sub_1000506D0();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  __chkstk_darwin(v7);
-  v11 = &v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v15 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = sub_1000506D0();
+  v7 = *(v6 - 8);
+  __chkstk_darwin(v6);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1000506C0();
   sub_1000506B0();
-  (*(v8 + 8))(v11, v7);
-  v12 = sub_100050680();
-  v14 = v13;
-  (*(v3 + 8))(v6, v2);
-  v15.super.isa = sub_1000502F0().super.isa;
-  sub_100013E20(v12, v14);
+  (*(v7 + 8))(v9, v6);
+  v10 = sub_100050680();
+  v12 = v11;
+  (*(v3 + 8))(v5, v2);
+  v13.super.isa = sub_1000502F0().super.isa;
+  sub_100013E20(v10, v12);
 
-  return v15.super.isa;
+  return v13.super.isa;
 }
 
 - (_DPDediscoHPKEEncryption)init

@@ -35,27 +35,27 @@
 
 - (id)toDaemonMetrics
 {
-  v3 = [_TSF_TSDPortMetrics alloc];
-  [(_TSF_TSDPortMetrics *)v3 setPortNumber:self->_portNumber];
-  [(_TSF_TSDPortMetrics *)v3 setSyncTimeouts:self->_syncTimeouts];
-  [(_TSF_TSDPortMetrics *)v3 setFilterResetsDroppedLimit:self->_filterResetsDroppedLimit];
-  [(_TSF_TSDPortMetrics *)v3 setFilterResetsOutOfBounds:self->_filterResetsOutOfBounds];
-  [(_TSF_TSDPortMetrics *)v3 setMeanDelayTime:self->_meanDelayTime];
-  [(_TSF_TSDPortMetrics *)v3 setDroppedMeasurements:self->_droppedMeasurements];
-  [(_TSF_TSDPortMetrics *)v3 setDiscardedPpmLimitMeasurements:self->_discardedPpmLimitMeasurements];
-  [(_TSF_TSDPortMetrics *)v3 setDiscardedDelayLimitExceededMeasurements:self->_discardedDelayLimitExceededMeasurements];
-  [(_TSF_TSDPortMetrics *)v3 setDiscardedOutOfBoundsMeasurements:self->_discardedOutOfBoundsMeasurements];
-  [(_TSF_TSDPortMetrics *)v3 setDiscardedTimestampsOutOfOrderMeasurements:self->_discardedTimestampsOutOfOrderMeasurements];
-  [(_TSF_TSDPortMetrics *)v3 setSuccessfulMeasurements:self->_successfulMeasurements];
-  [(_TSF_TSDPortMetrics *)v3 setTotalMeasurements:self->_totalMeasurements];
-  [(_TSF_TSDPortMetrics *)v3 setDroppedPercentage:self->_droppedPercentage];
-  [(_TSF_TSDPortMetrics *)v3 setDiscardedPpmLimitPercentage:self->_discardedPpmLimitPercentage];
-  [(_TSF_TSDPortMetrics *)v3 setDiscardedDelayLimitExceededPercentage:self->_discardedDelayLimitExceededPercentage];
-  [(_TSF_TSDPortMetrics *)v3 setDiscardedOutOfBoundsPercentage:self->_discardedOutOfBoundsPercentage];
-  [(_TSF_TSDPortMetrics *)v3 setDiscardedTimestampsOutOfOrderPercentage:self->_discardedTimestampsOutOfOrderPercentage];
-  [(_TSF_TSDPortMetrics *)v3 setSuccessfulPercentage:self->_successfulPercentage];
+  v2 = [_TSF_TSDPortMetrics alloc];
+  [(_TSF_TSDPortMetrics *)v2 setPortNumber:?];
+  [(_TSF_TSDPortMetrics *)v2 setSyncTimeouts:?];
+  [(_TSF_TSDPortMetrics *)v2 setFilterResetsDroppedLimit:?];
+  [(_TSF_TSDPortMetrics *)v2 setFilterResetsOutOfBounds:?];
+  [(_TSF_TSDPortMetrics *)v2 setMeanDelayTime:?];
+  [(_TSF_TSDPortMetrics *)v2 setDroppedMeasurements:?];
+  [(_TSF_TSDPortMetrics *)v2 setDiscardedPpmLimitMeasurements:?];
+  [(_TSF_TSDPortMetrics *)v2 setDiscardedDelayLimitExceededMeasurements:?];
+  [(_TSF_TSDPortMetrics *)v2 setDiscardedOutOfBoundsMeasurements:?];
+  [(_TSF_TSDPortMetrics *)v2 setDiscardedTimestampsOutOfOrderMeasurements:?];
+  [(_TSF_TSDPortMetrics *)v2 setSuccessfulMeasurements:?];
+  [(_TSF_TSDPortMetrics *)v2 setTotalMeasurements:?];
+  [(_TSF_TSDPortMetrics *)v2 setDroppedPercentage:?];
+  [(_TSF_TSDPortMetrics *)v2 setDiscardedPpmLimitPercentage:?];
+  [(_TSF_TSDPortMetrics *)v2 setDiscardedDelayLimitExceededPercentage:?];
+  [(_TSF_TSDPortMetrics *)v2 setDiscardedOutOfBoundsPercentage:?];
+  [(_TSF_TSDPortMetrics *)v2 setDiscardedTimestampsOutOfOrderPercentage:?];
+  [(_TSF_TSDPortMetrics *)v2 setSuccessfulPercentage:?];
 
-  return v3;
+  return v2;
 }
 
 - (TSPortMetrics)initWithInterfaceMetrics:(id *)metrics
@@ -79,152 +79,150 @@
 
 - (void)printMetrics
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     portNumber = self->_portNumber;
-    v22 = 67109120;
-    LODWORD(v23) = portNumber;
-    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Port = %u\n", &v22, 8u);
+    v21 = 67109120;
+    LODWORD(v22) = portNumber;
+    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Port = %u\n", &v21, 8u);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     syncTimeouts = self->_syncTimeouts;
-    v22 = 134217984;
-    v23 = syncTimeouts;
-    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  Sync Timeouts = %zu\n", &v22, 0xCu);
+    v21 = 134217984;
+    v22 = syncTimeouts;
+    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  Sync Timeouts = %zu\n", &v21, 0xCu);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     filterResetsDroppedLimit = self->_filterResetsDroppedLimit;
-    v22 = 134217984;
-    v23 = filterResetsDroppedLimit;
-    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  Filter Resets (Dropped Limit) = %zu\n", &v22, 0xCu);
+    v21 = 134217984;
+    v22 = filterResetsDroppedLimit;
+    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  Filter Resets (Dropped Limit) = %zu\n", &v21, 0xCu);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     filterResetsOutOfBounds = self->_filterResetsOutOfBounds;
-    v22 = 134217984;
-    v23 = filterResetsOutOfBounds;
-    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  Filter Resets (Out Of Bounds) = %zu\n", &v22, 0xCu);
+    v21 = 134217984;
+    v22 = filterResetsOutOfBounds;
+    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  Filter Resets (Out Of Bounds) = %zu\n", &v21, 0xCu);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     meanDelayTime = self->_meanDelayTime;
-    v22 = 134217984;
-    v23 = meanDelayTime;
-    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  Mean Delay Time = %zu\n", &v22, 0xCu);
+    v21 = 134217984;
+    v22 = meanDelayTime;
+    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  Mean Delay Time = %zu\n", &v21, 0xCu);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     droppedMeasurements = self->_droppedMeasurements;
-    v22 = 134217984;
-    v23 = droppedMeasurements;
-    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  Dropped Measurements = %zu\n", &v22, 0xCu);
+    v21 = 134217984;
+    v22 = droppedMeasurements;
+    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  Dropped Measurements = %zu\n", &v21, 0xCu);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     discardedPpmLimitMeasurements = self->_discardedPpmLimitMeasurements;
-    v22 = 134217984;
-    v23 = discardedPpmLimitMeasurements;
-    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  Discarded PPM Limit Measurements = %zu\n", &v22, 0xCu);
+    v21 = 134217984;
+    v22 = discardedPpmLimitMeasurements;
+    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  Discarded PPM Limit Measurements = %zu\n", &v21, 0xCu);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     discardedDelayLimitExceededMeasurements = self->_discardedDelayLimitExceededMeasurements;
-    v22 = 134217984;
-    v23 = discardedDelayLimitExceededMeasurements;
-    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  Discarded Delay Limit Exceeded Measurements = %zu\n", &v22, 0xCu);
+    v21 = 134217984;
+    v22 = discardedDelayLimitExceededMeasurements;
+    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  Discarded Delay Limit Exceeded Measurements = %zu\n", &v21, 0xCu);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     discardedOutOfBoundsMeasurements = self->_discardedOutOfBoundsMeasurements;
-    v22 = 134217984;
-    v23 = discardedOutOfBoundsMeasurements;
-    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  Discarded Out Of Bounds Measurements = %zu\n", &v22, 0xCu);
+    v21 = 134217984;
+    v22 = discardedOutOfBoundsMeasurements;
+    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  Discarded Out Of Bounds Measurements = %zu\n", &v21, 0xCu);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     discardedTimestampsOutOfOrderMeasurements = self->_discardedTimestampsOutOfOrderMeasurements;
-    v22 = 134217984;
-    v23 = discardedTimestampsOutOfOrderMeasurements;
-    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  Discarded Timestamps Out Of Order Measurements = %zu\n", &v22, 0xCu);
+    v21 = 134217984;
+    v22 = discardedTimestampsOutOfOrderMeasurements;
+    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  Discarded Timestamps Out Of Order Measurements = %zu\n", &v21, 0xCu);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     successfulMeasurements = self->_successfulMeasurements;
-    v22 = 134217984;
-    v23 = successfulMeasurements;
-    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  Successful Measurements = %zu\n", &v22, 0xCu);
+    v21 = 134217984;
+    v22 = successfulMeasurements;
+    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  Successful Measurements = %zu\n", &v21, 0xCu);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     totalMeasurements = self->_totalMeasurements;
-    v22 = 134217984;
-    v23 = totalMeasurements;
-    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  Total Measurements = %zu\n", &v22, 0xCu);
+    v21 = 134217984;
+    v22 = totalMeasurements;
+    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  Total Measurements = %zu\n", &v21, 0xCu);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     droppedPercentage = self->_droppedPercentage;
-    v22 = 134217984;
-    v23 = droppedPercentage;
-    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  Dropped Percentage = %zu\n", &v22, 0xCu);
+    v21 = 134217984;
+    v22 = droppedPercentage;
+    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  Dropped Percentage = %zu\n", &v21, 0xCu);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     discardedPpmLimitPercentage = self->_discardedPpmLimitPercentage;
-    v22 = 134217984;
-    v23 = discardedPpmLimitPercentage;
-    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  Discarded PPM Limit Percentage = %zu\n", &v22, 0xCu);
+    v21 = 134217984;
+    v22 = discardedPpmLimitPercentage;
+    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  Discarded PPM Limit Percentage = %zu\n", &v21, 0xCu);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     discardedDelayLimitExceededPercentage = self->_discardedDelayLimitExceededPercentage;
-    v22 = 134217984;
-    v23 = discardedDelayLimitExceededPercentage;
-    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  Discarded Delay Limit Exceeded Percentage = %zu\n", &v22, 0xCu);
+    v21 = 134217984;
+    v22 = discardedDelayLimitExceededPercentage;
+    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  Discarded Delay Limit Exceeded Percentage = %zu\n", &v21, 0xCu);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     discardedOutOfBoundsPercentage = self->_discardedOutOfBoundsPercentage;
-    v22 = 134217984;
-    v23 = discardedOutOfBoundsPercentage;
-    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  Discarded Out Of Bounds Percentage = %zu\n", &v22, 0xCu);
+    v21 = 134217984;
+    v22 = discardedOutOfBoundsPercentage;
+    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  Discarded Out Of Bounds Percentage = %zu\n", &v21, 0xCu);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     discardedTimestampsOutOfOrderPercentage = self->_discardedTimestampsOutOfOrderPercentage;
-    v22 = 134217984;
-    v23 = discardedTimestampsOutOfOrderPercentage;
-    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  Discarded Timestamps Out Of Order Percentage = %zu\n", &v22, 0xCu);
+    v21 = 134217984;
+    v22 = discardedTimestampsOutOfOrderPercentage;
+    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  Discarded Timestamps Out Of Order Percentage = %zu\n", &v21, 0xCu);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     successfulPercentage = self->_successfulPercentage;
-    v22 = 134217984;
-    v23 = successfulPercentage;
-    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  Successful Percentage = %zu\n", &v22, 0xCu);
+    v21 = 134217984;
+    v22 = successfulPercentage;
+    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  Successful Percentage = %zu\n", &v21, 0xCu);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 @end

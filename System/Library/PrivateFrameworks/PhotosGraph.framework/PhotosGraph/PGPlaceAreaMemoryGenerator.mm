@@ -35,7 +35,7 @@
 
 - (id)relevantFeederForTriggeredMemory:(id)memory inGraph:(id)graph allowGuestAsset:(BOOL)asset progressReporter:(id)reporter
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   memoryCopy = memory;
   graphCopy = graph;
   reporterCopy = reporter;
@@ -59,15 +59,13 @@
     loggingConnection = [(PGMemoryGenerator *)self loggingConnection];
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
     {
-      v24[0] = 67109120;
-      v24[1] = [v13 count];
-      _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[PGPlaceAreaMemoryGenerator] One AOI node expected, found %d", v24, 8u);
+      v23[0] = 67109120;
+      v23[1] = [v13 count];
+      _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[PGPlaceAreaMemoryGenerator] One AOI node expected, found %d", v23, 8u);
     }
 
     v20 = 0;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -135,16 +133,16 @@
 
 - (void)enumerateMomentNodesAndFeatureNodesInGraph:(id)graph usingBlock:(id)block
 {
-  v25[2] = *MEMORY[0x277D85DE8];
+  v24[2] = *MEMORY[0x277D85DE8];
   blockCopy = block;
   graphCopy = graph;
   v8 = [(PGPlaceAreaMemoryGenerator *)self _addressNodesByAreaNodeInGraph:graphCopy];
   v9 = MEMORY[0x277D22C90];
   v10 = +[PGGraphAreaNode addressOfArea];
-  v25[0] = v10;
+  v24[0] = v10;
   v11 = +[PGGraphAddressNode momentOfAddress];
-  v25[1] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
+  v24[1] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
   v13 = [v9 chain:v12];
 
   v14 = MEMORY[0x277D22BF8];
@@ -157,15 +155,13 @@
   momentNodes = [addressNodes momentNodes];
   v20 = [v16 subtractingTargetsWith:momentNodes];
 
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __84__PGPlaceAreaMemoryGenerator_enumerateMomentNodesAndFeatureNodesInGraph_usingBlock___block_invoke;
-  v23[3] = &unk_27887FCF0;
-  v24 = blockCopy;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __84__PGPlaceAreaMemoryGenerator_enumerateMomentNodesAndFeatureNodesInGraph_usingBlock___block_invoke;
+  v22[3] = &unk_27887FCF0;
+  v23 = blockCopy;
   v21 = blockCopy;
-  [v20 enumerateTargetsBySourceWithBlock:v23];
-
-  v22 = *MEMORY[0x277D85DE8];
+  [v20 enumerateTargetsBySourceWithBlock:v22];
 }
 
 void __84__PGPlaceAreaMemoryGenerator_enumerateMomentNodesAndFeatureNodesInGraph_usingBlock___block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4)
@@ -178,40 +174,31 @@ void __84__PGPlaceAreaMemoryGenerator_enumerateMomentNodesAndFeatureNodesInGraph
 
 - (unint64_t)memoryCategorySubcategoryForOverTimeType:(unint64_t)type
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (type == 1)
   {
-    result = 9003;
+    return 9003;
   }
 
-  else
+  typeCopy = type;
+  if (type == 3)
   {
-    typeCopy = type;
-    if (type == 3)
-    {
-      result = 9004;
-    }
-
-    else
-    {
-      loggingConnection = [(PGMemoryGenerator *)self loggingConnection];
-      if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
-      {
-        v7 = objc_opt_class();
-        v8 = NSStringFromClass(v7);
-        v9 = 138412546;
-        v10 = v8;
-        v11 = 1024;
-        v12 = typeCopy;
-        _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[%@] Returning PHMemoryCategorySubcategoryNone for PGOverTimeMemoryType %d, this should never happen", &v9, 0x12u);
-      }
-
-      result = 0;
-    }
+    return 9004;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  loggingConnection = [(PGMemoryGenerator *)self loggingConnection];
+  if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
+  {
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
+    v8 = 138412546;
+    v9 = v7;
+    v10 = 1024;
+    v11 = typeCopy;
+    _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[%@] Returning PHMemoryCategorySubcategoryNone for PGOverTimeMemoryType %d, this should never happen", &v8, 0x12u);
+  }
+
+  return 0;
 }
 
 - (PGPlaceAreaMemoryGenerator)initWithMemoryGenerationContext:(id)context

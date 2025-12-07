@@ -66,104 +66,98 @@
 {
   v32 = *MEMORY[0x1E69E9840];
   *headroom = forHeadroom;
-  if ([(CBEDRModulator *)self isConfigured])
+  if (![(CBEDRModulator *)self isConfigured])
   {
-    [-[NSArray objectAtIndexedSubscript:](self->_nitsDataPointsConfig objectAtIndexedSubscript:{0), "floatValue"}];
-    v5 = *&v6;
-    *&v6 = nits;
-    if (nits > v5)
-    {
-      [-[NSArray objectAtIndexedSubscript:](self->_nitsDataPointsConfig objectAtIndexedSubscript:{-[NSArray count](self->_nitsDataPointsConfig, "count") - 1), "floatValue"}];
-      v8 = *&v9;
-      *&v9 = nits;
-      if (nits < v8)
-      {
-        v24 = 0;
-        v23 = [(NSArray *)self->_nitsDataPointsConfig count]- 1;
-        while (v23 - v24 > 1)
-        {
-          [-[NSArray objectAtIndexedSubscript:](self->_nitsDataPointsConfig objectAtIndexedSubscript:{(v23 - v24) / 2 + v24), "floatValue"}];
-          if (nits > v11)
-          {
-            v24 += (v23 - v24) / 2;
-          }
+    return 0;
+  }
 
-          else
-          {
-            v23 = (v23 - v24) / 2 + v24;
-          }
+  [-[NSArray objectAtIndexedSubscript:](self->_nitsDataPointsConfig objectAtIndexedSubscript:{0), "floatValue"}];
+  v5 = *&v6;
+  *&v6 = nits;
+  if (nits > v5)
+  {
+    [-[NSArray objectAtIndexedSubscript:](self->_nitsDataPointsConfig objectAtIndexedSubscript:{-[NSArray count](self->_nitsDataPointsConfig, "count") - 1), "floatValue"}];
+    v8 = *&v9;
+    *&v9 = nits;
+    if (nits < v8)
+    {
+      v24 = 0;
+      v23 = [(NSArray *)self->_nitsDataPointsConfig count]- 1;
+      while (v23 - v24 > 1)
+      {
+        [-[NSArray objectAtIndexedSubscript:](self->_nitsDataPointsConfig objectAtIndexedSubscript:{(v23 - v24) / 2 + v24), "floatValue"}];
+        if (nits > v11)
+        {
+          v24 += (v23 - v24) / 2;
         }
 
-        [-[NSArray objectAtIndexedSubscript:](self->_nitsDataPointsConfig objectAtIndexedSubscript:{v24), "floatValue"}];
-        v20 = v12;
-        [-[NSArray objectAtIndexedSubscript:](self->_headroomDataPointsConfig objectAtIndexedSubscript:{v24), "floatValue"}];
-        v21 = v13;
-        [-[NSArray objectAtIndexedSubscript:](self->_nitsDataPointsConfig objectAtIndexedSubscript:{v23), "floatValue"}];
-        v22 = v14;
-        [-[NSArray objectAtIndexedSubscript:](self->_headroomDataPointsConfig objectAtIndexedSubscript:{v23), "floatValue"}];
-        v25 = linear_interpolation(nits, v20, v21, v22, v15);
+        else
+        {
+          v23 = (v23 - v24) / 2 + v24;
+        }
       }
 
-      else
-      {
-        [-[NSArray objectAtIndexedSubscript:](self->_headroomDataPointsConfig objectAtIndexedSubscript:{-[NSArray count](self->_nitsDataPointsConfig, "count", v9) - 1), "floatValue"}];
-        v25 = v10;
-      }
+      [-[NSArray objectAtIndexedSubscript:](self->_nitsDataPointsConfig objectAtIndexedSubscript:{v24), "floatValue"}];
+      v20 = v12;
+      [-[NSArray objectAtIndexedSubscript:](self->_headroomDataPointsConfig objectAtIndexedSubscript:{v24), "floatValue"}];
+      v21 = v13;
+      [-[NSArray objectAtIndexedSubscript:](self->_nitsDataPointsConfig objectAtIndexedSubscript:{v23), "floatValue"}];
+      v22 = v14;
+      [-[NSArray objectAtIndexedSubscript:](self->_headroomDataPointsConfig objectAtIndexedSubscript:{v23), "floatValue"}];
+      v25 = linear_interpolation(nits, v20, v21, v22, v15);
     }
 
     else
     {
-      [-[NSArray objectAtIndexedSubscript:](self->_headroomDataPointsConfig objectAtIndexedSubscript:{0, v6), "floatValue"}];
-      v25 = v7;
+      [-[NSArray objectAtIndexedSubscript:](self->_headroomDataPointsConfig objectAtIndexedSubscript:{-[NSArray count](self->_nitsDataPointsConfig, "count", v9) - 1), "floatValue"}];
+      v25 = v10;
     }
-
-    if (self->_logHandle)
-    {
-      logHandle = self->_logHandle;
-    }
-
-    else
-    {
-      if (_COREBRIGHTNESS_LOG_DEFAULT)
-      {
-        inited = _COREBRIGHTNESS_LOG_DEFAULT;
-      }
-
-      else
-      {
-        inited = init_default_corebrightness_log();
-      }
-
-      logHandle = inited;
-    }
-
-    if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
-    {
-      __os_log_helper_16_0_3_8_0_8_0_8_0(v31, COERCE__INT64(forHeadroom), COERCE__INT64(nits), COERCE__INT64(v25));
-      _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "headroom = %f | SDR = %f | modulated cap = %f", v31, 0x20u);
-    }
-
-    if (forHeadroom >= v25)
-    {
-      forHeadroomCopy = v25;
-    }
-
-    else
-    {
-      forHeadroomCopy = forHeadroom;
-    }
-
-    *headroom = forHeadroomCopy;
-    v30 = 1;
   }
 
   else
   {
-    v30 = 0;
+    [-[NSArray objectAtIndexedSubscript:](self->_headroomDataPointsConfig objectAtIndexedSubscript:{0, v6), "floatValue"}];
+    v25 = v7;
   }
 
-  *MEMORY[0x1E69E9840];
-  return v30 & 1;
+  if (self->_logHandle)
+  {
+    logHandle = self->_logHandle;
+  }
+
+  else
+  {
+    if (_COREBRIGHTNESS_LOG_DEFAULT)
+    {
+      inited = _COREBRIGHTNESS_LOG_DEFAULT;
+    }
+
+    else
+    {
+      inited = init_default_corebrightness_log();
+    }
+
+    logHandle = inited;
+  }
+
+  if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
+  {
+    __os_log_helper_16_0_3_8_0_8_0_8_0(v31, COERCE__INT64(forHeadroom), COERCE__INT64(nits), COERCE__INT64(v25));
+    _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "headroom = %f | SDR = %f | modulated cap = %f", v31, 0x20u);
+  }
+
+  if (forHeadroom >= v25)
+  {
+    forHeadroomCopy = v25;
+  }
+
+  else
+  {
+    forHeadroomCopy = forHeadroom;
+  }
+
+  *headroom = forHeadroomCopy;
+  return 1;
 }
 
 - (id)description

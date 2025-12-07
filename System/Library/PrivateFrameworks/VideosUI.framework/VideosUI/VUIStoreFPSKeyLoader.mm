@@ -66,7 +66,7 @@ void __34__VUIStoreFPSKeyLoader_initialize__block_invoke()
   [VUIStoreFPSKeyLoader _loadFPSURLsFromStoreBagWithCompletion:&__block_literal_global_14];
 }
 
-uint64_t __46__VUIStoreFPSKeyLoader_preFetchFPSCertificate__block_invoke(uint64_t a1, uint64_t a2)
+void *__46__VUIStoreFPSKeyLoader_preFetchFPSCertificate__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
@@ -457,7 +457,7 @@ void __68__VUIStoreFPSKeyLoader_loadFairPlayStreamingKeyRequests_completion___bl
         v34 = requestsCopy;
         v13 = requestsCopy;
         v14 = [v13 countByEnumeratingWithState:&v38 objects:v45 count:16];
-        v15 = &unk_1EE28A000;
+        v15 = &qword_1EE28A000;
         if (!v14)
         {
           goto LABEL_21;

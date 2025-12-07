@@ -13,7 +13,7 @@
   observersCopy = observers;
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
-  return sub_10032E98C(observersCopy);
+  return sub_10032E98C(observersCopy, source, authorizer);
 }
 
 - (void)handleActivitySessionCreationRequestWithActivity:(TUConversationActivity *)activity options:(unint64_t)options containerID:(NSUUID *)d completionHandler:(id)handler

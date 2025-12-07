@@ -106,110 +106,110 @@
   dCopy = d;
   dataCopy = data;
   contextCopy = context;
+  v13 = contextCopy;
   if (contextCopy && (dCopy || index != 0x7FFFFFFFFFFFFFFFLL || dataCopy))
   {
     [(NSLock *)self->_routeLock lock];
     objc_storeStrong(&self->_companionRouteContext, context);
     [(NSLock *)self->_routeLock unlock];
-    v13 = objc_alloc_init(IPCLoadDirectionsMessage);
-    -[IPCLoadDirectionsMessage setOriginIsWatch:](v13, "setOriginIsWatch:", [contextCopy origin] == 1);
-    data = [contextCopy data];
-    [(IPCLoadDirectionsMessage *)v13 setRouteContextData:data];
+    v14 = objc_alloc_init(IPCLoadDirectionsMessage);
+    -[IPCLoadDirectionsMessage setOriginIsWatch:](v14, "setOriginIsWatch:", [v13 origin] == 1);
+    data = [v13 data];
+    [(IPCLoadDirectionsMessage *)v14 setRouteContextData:data];
 
-    [(IPCLoadDirectionsMessage *)v13 setRoutePersistentData:dataCopy];
-    v23 = [IPCStartNavigationMessage startNavigationMessageWithLoadDirectionsMessage:v13];
-    [v23 setOriginIsWatch:1];
-    [v23 setRouteIndex:index];
-    [v23 setRouteID:dCopy];
-    v24 = sub_100053214();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    [(IPCLoadDirectionsMessage *)v14 setRoutePersistentData:dataCopy];
+    v24 = [IPCStartNavigationMessage startNavigationMessageWithLoadDirectionsMessage:v14];
+    [v24 setOriginIsWatch:1];
+    [v24 setRouteIndex:index];
+    v25 = sub_100053214([v24 setRouteID:dCopy]);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
-      simpleDescription = [contextCopy simpleDescription];
-      v26 = @"NO";
+      simpleDescription = [v13 simpleDescription];
+      v27 = @"NO";
       if (dataCopy)
       {
-        v26 = @"YES";
+        v27 = @"YES";
       }
 
-      v27 = v26;
+      v28 = v27;
       *buf = 134218498;
       indexCopy = index;
-      v32 = 2112;
-      v33 = simpleDescription;
-      v34 = 2114;
-      v35 = v27;
-      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "Will start navigation via IPC to route at index %lu (directions context:%@), with routePersistentData %{public}@", buf, 0x20u);
+      v33 = 2112;
+      v34 = simpleDescription;
+      v35 = 2114;
+      v36 = v28;
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "Will start navigation via IPC to route at index %lu (directions context:%@), with routePersistentData %{public}@", buf, 0x20u);
     }
 
-    [(NMCNavigationProxy *)self _setupForNavigationWithRouteID:dCopy context:contextCopy];
+    [(NMCNavigationProxy *)self _setupForNavigationWithRouteID:dCopy context:v13];
     [(NMCNavigationProxy *)self _openOrCloseNavigationService];
-    v28 = +[MapsCompanionDaemonIPCInterface sharedInterface];
-    v29[0] = _NSConcreteStackBlock;
-    v29[1] = 3221225472;
-    v29[2] = sub_100006AB8;
-    v29[3] = &unk_100084EA8;
-    v29[4] = self;
-    [v28 startPreparedNavigation:v23 completion:v29];
+    v29 = +[MapsCompanionDaemonIPCInterface sharedInterface];
+    v30[0] = _NSConcreteStackBlock;
+    v30[1] = 3221225472;
+    v30[2] = sub_100006AB8;
+    v30[3] = &unk_100084EA8;
+    v30[4] = self;
+    [v29 startPreparedNavigation:v24 completion:v30];
   }
 
   else
   {
-    v13 = sub_100053214();
-    if (os_log_type_enabled(&v13->super.super, OS_LOG_TYPE_ERROR))
+    v14 = sub_100053214(contextCopy);
+    if (os_log_type_enabled(&v14->super.super, OS_LOG_TYPE_ERROR))
     {
-      if (contextCopy)
+      if (v13)
       {
-        v14 = @"YES";
+        v15 = @"YES";
       }
 
       else
       {
-        v14 = @"NO";
+        v15 = @"NO";
       }
 
-      v15 = v14;
+      v16 = v15;
       if (dCopy)
       {
-        v16 = @"YES";
+        v17 = @"YES";
       }
 
       else
       {
-        v16 = @"NO";
+        v17 = @"NO";
       }
 
-      v17 = v16;
+      v18 = v17;
       if (index == 0x7FFFFFFFFFFFFFFFLL)
       {
-        v18 = @"NO";
+        v19 = @"NO";
       }
 
       else
       {
-        v18 = @"YES";
+        v19 = @"YES";
       }
 
-      v19 = v18;
+      v20 = v19;
       if (dataCopy)
       {
-        v20 = @"YES";
+        v21 = @"YES";
       }
 
       else
       {
-        v20 = @"NO";
+        v21 = @"NO";
       }
 
-      v21 = v20;
+      v22 = v21;
       *buf = 138544130;
-      indexCopy = v15;
-      v32 = 2114;
-      v33 = v17;
-      v34 = 2114;
-      v35 = v19;
-      v36 = 2114;
-      v37 = v21;
-      _os_log_impl(&_mh_execute_header, &v13->super.super, OS_LOG_TYPE_ERROR, "Missing vital info for starting navigation, got routeContext:%{public}@ + (routeID:%{public}@ || routeIndex:%{public}@ || routePersistentData: %{public}@)", buf, 0x2Au);
+      indexCopy = v16;
+      v33 = 2114;
+      v34 = v18;
+      v35 = 2114;
+      v36 = v20;
+      v37 = 2114;
+      v38 = v22;
+      _os_log_impl(&_mh_execute_header, &v14->super.super, OS_LOG_TYPE_ERROR, "Missing vital info for starting navigation, got routeContext:%{public}@ + (routeID:%{public}@ || routeIndex:%{public}@ || routePersistentData: %{public}@)", buf, 0x2Au);
     }
   }
 }
@@ -220,9 +220,9 @@
   if ([(NMCNavigationProxy *)self _prepareToStartNavigationWithStartDetails:detailsCopy])
   {
     v5 = +[MNNavigationService sharedService];
-    v9 = 0;
-    v6 = [v5 startNavigationWithDetails:detailsCopy error:&v9];
-    v7 = v9;
+    v10 = 0;
+    v6 = [v5 startNavigationWithDetails:detailsCopy error:&v10];
+    v7 = v10;
 
     if (v6)
     {
@@ -231,12 +231,12 @@
 
     else
     {
-      v8 = sub_100053214();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = sub_100053214(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v11 = v7;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Unable to start navigation: %@", buf, 0xCu);
+        v12 = v7;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Unable to start navigation: %@", buf, 0xCu);
       }
 
       [(NMCNavigationProxy *)self _cleanupNavigation];
@@ -253,41 +253,40 @@
 
   if (v6)
   {
-    v7 = +[GEOCompanionRouteContext context];
-    [(NMCNavigationProxy *)self _setupForNavigationWithRouteID:0 context:v7];
+    v8 = +[GEOCompanionRouteContext context];
+    [(NMCNavigationProxy *)self _setupForNavigationWithRouteID:0 context:v8];
     routes = [detailsCopy routes];
-    v9 = [routes objectAtIndexedSubscript:{objc_msgSend(detailsCopy, "selectedRouteIndex")}];
+    v10 = [routes objectAtIndexedSubscript:{objc_msgSend(detailsCopy, "selectedRouteIndex")}];
 
-    v10 = [v9 transportType] - 1;
-    if (v10 > 5)
+    v11 = [v10 transportType] - 1;
+    if (v11 > 5)
     {
-      v11 = 1;
+      v12 = 1;
     }
 
     else
     {
-      v11 = qword_100065908[v10];
+      v12 = qword_100065908[v11];
     }
 
-    [(NavigationSettingsMonitor *)self->_settingsMonitor setTransportType:v11];
-    [detailsCopy setGuidanceLevelOverride:0];
-    v12 = sub_100053214();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    [(NavigationSettingsMonitor *)self->_settingsMonitor setTransportType:v12];
+    v13 = sub_100053214([detailsCopy setGuidanceLevelOverride:0]);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      simpleDescription = [v7 simpleDescription];
-      v15 = 138412290;
-      v16 = simpleDescription;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Will start navigation (context:%@)", &v15, 0xCu);
+      simpleDescription = [v8 simpleDescription];
+      v16 = 138412290;
+      v17 = simpleDescription;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Will start navigation (context:%@)", &v16, 0xCu);
     }
   }
 
   else
   {
-    v7 = sub_100053214();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = sub_100053214(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v15) = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Will not start navigation, service not open for us", &v15, 2u);
+      LOWORD(v16) = 0;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Will not start navigation, service not open for us", &v16, 2u);
     }
   }
 
@@ -296,7 +295,7 @@
 
 - (void)_launchMapsForNavigation
 {
-  v2 = sub_100053214();
+  v2 = sub_100053214(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -309,7 +308,7 @@
 
 - (void)pauseNavigation
 {
-  v2 = sub_100053214();
+  v2 = sub_100053214(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v5 = 0;
@@ -325,7 +324,7 @@
 
 - (void)resumeNavigation
 {
-  v2 = sub_100053214();
+  v2 = sub_100053214(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v5 = 0;
@@ -384,7 +383,7 @@
 
 - (void)closeNavigationService
 {
-  v3 = sub_100053434();
+  v3 = sub_100053434(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     *v5 = 0;
@@ -398,12 +397,12 @@
 - (void)_registerMessageObservers
 {
   objc_initWeak(&location, self);
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v16[2] = sub_100007738;
-  v16[3] = &unk_100084F38;
-  objc_copyWeak(&v17, &location);
-  v3 = objc_retainBlock(v16);
+  v15[0] = _NSConcreteStackBlock;
+  v15[1] = 3221225472;
+  v15[2] = sub_100007738;
+  v15[3] = &unk_100084F38;
+  objc_copyWeak(&v16, &location);
+  v3 = objc_retainBlock(v15);
   v4 = +[NMCGizmoConnection sharedInstance];
   [v4 addConnectionObserver:self];
 
@@ -425,15 +424,14 @@
   v10 = [v9 addMessageObserverForType:306 callback:v3];
   v11 = [v9 addMessageObserverForType:310 callback:v3];
   v12 = [v9 addMessageObserverForType:1000 callback:v3];
-  v13 = [v9 addMessageObserverForType:315 callback:v3];
-  v14 = sub_100053214();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+  v13 = sub_100053214([v9 addMessageObserverForType:315 callback:v3]);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    *v15 = 0;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Navigation proxy now listening for IDS messages", v15, 2u);
+    *v14 = 0;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Navigation proxy now listening for IDS messages", v14, 2u);
   }
 
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v16);
   objc_destroyWeak(&location);
 }
 
@@ -445,11 +443,11 @@
   {
     if (type == 315)
     {
-      v36 = [messageCopy argumentForTag:418];
-      v6 = v36;
-      if (v36)
+      v38 = [messageCopy argumentForTag:418];
+      v6 = v38;
+      if (v38)
       {
-        intValue = [v36 intValue];
+        intValue = [v38 intValue];
       }
 
       else
@@ -457,17 +455,17 @@
         intValue = 0x7FFFFFFFFFFFFFFFLL;
       }
 
-      v41 = +[MNNavigationService sharedService];
-      displayedStepIndex = [v41 displayedStepIndex];
+      v43 = +[MNNavigationService sharedService];
+      displayedStepIndex = [v43 displayedStepIndex];
 
-      v43 = sub_100053214();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
+      v46 = sub_100053214(v45);
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
       {
         *buf = 134218240;
         *&buf[4] = intValue;
         *&buf[12] = 2048;
         *&buf[14] = displayedStepIndex;
-        _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_INFO, "Gizmo sent displayedStepIndex: %lu, we had %lu", buf, 0x16u);
+        _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_INFO, "Gizmo sent displayedStepIndex: %lu, we had %lu", buf, 0x16u);
       }
 
       if (intValue == displayedStepIndex)
@@ -501,47 +499,46 @@ LABEL_56:
 
       else
       {
-        v87 = NSLocalizedDescriptionKey;
-        v88 = NSLocalizedFailureReasonErrorKey;
+        v92 = NSLocalizedDescriptionKey;
+        v93 = NSLocalizedFailureReasonErrorKey;
         *buf = @"Navigation is not running";
         *&buf[8] = @"Navigation is not running";
-        v44 = [NSDictionary dictionaryWithObjects:buf forKeys:&v87 count:2];
-        v6 = [NSError errorWithDomain:@"com.apple.nanomapscd" code:2 userInfo:v44];
+        v47 = [NSDictionary dictionaryWithObjects:buf forKeys:&v92 count:2];
+        v6 = [NSError errorWithDomain:@"com.apple.nanomapscd" code:2 userInfo:v47];
       }
 
       [(NSLock *)self->_routeLock unlock];
-      v45 = +[MNNavigationService sharedService];
-      isInNavigatingState = [v45 isInNavigatingState];
+      v48 = +[MNNavigationService sharedService];
+      isInNavigatingState = [v48 isInNavigatingState];
 
       if ((isInNavigatingState & 1) == 0)
       {
-        v87 = NSLocalizedDescriptionKey;
-        v88 = NSLocalizedFailureReasonErrorKey;
+        v92 = NSLocalizedDescriptionKey;
+        v93 = NSLocalizedFailureReasonErrorKey;
         *buf = @"Maps is not running";
         *&buf[8] = @"Maps is not running";
-        v47 = [NSDictionary dictionaryWithObjects:buf forKeys:&v87 count:2];
-        v48 = [NSError errorWithDomain:@"com.apple.nanomapscd" code:1 userInfo:v47];
+        v50 = [NSDictionary dictionaryWithObjects:buf forKeys:&v92 count:2];
+        v51 = [NSError errorWithDomain:@"com.apple.nanomapscd" code:1 userInfo:v50];
 
-        v6 = v48;
+        v6 = v51;
       }
 
       v7 = objc_alloc_init(NMReply);
       if (v6)
       {
-        v49 = [[NMArgument alloc] _nm_initWithErrorValue:v6 tag:3];
-        [(NMReply *)v7 addArgument:v49];
-        v50 = sub_100053214();
-        if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+        v52 = [[NMArgument alloc] _nm_initWithErrorValue:v6 tag:3];
+        v53 = sub_100053214([(NMReply *)v7 addArgument:v52]);
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
           *&buf[4] = v6;
-          _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_ERROR, "Gizmo pinged us and we discovered an error: %@", buf, 0xCu);
+          _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_ERROR, "Gizmo pinged us and we discovered an error: %@", buf, 0xCu);
         }
 
 LABEL_50:
 
-        v51 = +[NMCGizmoConnection sharedInstance];
-        [v51 sendReply:v7 forMessage:messageCopy options:0];
+        v54 = +[NMCGizmoConnection sharedInstance];
+        [v54 sendReply:v7 forMessage:messageCopy options:0];
 
         goto LABEL_55;
       }
@@ -552,14 +549,13 @@ LABEL_50:
       v7 = objc_alloc_init(NMReply);
     }
 
-    v49 = objc_alloc_init(NMArgument);
-    [(NMArgument *)v49 setTag:1];
-    [(NMReply *)v7 addArgument:v49];
-    v50 = sub_100053214();
-    if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
+    v52 = objc_alloc_init(NMArgument);
+    [(NMArgument *)v52 setTag:1];
+    v53 = sub_100053214([(NMReply *)v7 addArgument:v52]);
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_INFO, "Gizmo pinged us and nothing is wrong, just ack", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_INFO, "Gizmo pinged us and nothing is wrong, just ack", buf, 2u);
     }
 
     v6 = 0;
@@ -570,9 +566,9 @@ LABEL_50:
   {
     v21 = [messageCopy argumentForTag:5];
     v6 = v21;
-    if (!v21 || ([v21 hasBoolValue] & 1) == 0)
+    if (!v21 || (v21 = [v21 hasBoolValue], (v21 & 1) == 0))
     {
-      v7 = sub_100053214();
+      v7 = sub_100053214(v21);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
@@ -586,82 +582,82 @@ LABEL_50:
     self->_sendAllUpdates = bOOLValue2;
     if (!bOOLValue2)
     {
-      v27 = v6;
+      v28 = v6;
 LABEL_83:
-      v64 = +[MNNavigationService sharedService];
-      v65 = [v64 isOpenForClient:self];
+      v67 = +[MNNavigationService sharedService];
+      v68 = [v67 isOpenForClient:self];
 
-      if (v65)
+      if (v68)
       {
         sendAllUpdates = self->_sendAllUpdates;
-        v67 = sub_100053214();
-        v68 = os_log_type_enabled(v67, OS_LOG_TYPE_INFO);
+        v71 = sub_100053214(v69);
+        v72 = os_log_type_enabled(v71, OS_LOG_TYPE_INFO);
         if (sendAllUpdates)
         {
-          if (v68)
+          if (v72)
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_INFO, "Resuming real-time updates", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_INFO, "Resuming real-time updates", buf, 2u);
           }
 
-          v69 = +[MNNavigationService sharedService];
-          [v69 resumeRealtimeUpdates];
+          v73 = +[MNNavigationService sharedService];
+          [v73 resumeRealtimeUpdates];
         }
 
         else
         {
-          if (v68)
+          if (v72)
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_INFO, "Pausing real-time updates", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_INFO, "Pausing real-time updates", buf, 2u);
           }
 
-          v69 = +[MNNavigationService sharedService];
-          [v69 pauseRealtimeUpdates];
+          v73 = +[MNNavigationService sharedService];
+          [v73 pauseRealtimeUpdates];
         }
       }
 
-      v70 = +[MNNavigationService sharedService];
-      v71 = [v70 isOpenForClient:self];
+      v74 = +[MNNavigationService sharedService];
+      v75 = [v74 isOpenForClient:self];
 
-      if (v71)
+      if (v75)
       {
-        v72 = self->_sendAllUpdates;
-        v73 = sub_100053214();
-        v74 = os_log_type_enabled(v73, OS_LOG_TYPE_INFO);
-        if (v72)
+        v77 = self->_sendAllUpdates;
+        v78 = sub_100053214(v76);
+        v79 = os_log_type_enabled(v78, OS_LOG_TYPE_INFO);
+        if (v77)
         {
-          if (v74)
+          if (v79)
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_INFO, "Resuming real-time updates", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_INFO, "Resuming real-time updates", buf, 2u);
           }
 
-          v75 = +[MNNavigationService sharedService];
-          [v75 resumeRealtimeUpdates];
+          v80 = +[MNNavigationService sharedService];
+          [v80 resumeRealtimeUpdates];
         }
 
         else
         {
-          if (v74)
+          if (v79)
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_INFO, "Pausing real-time updates", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_INFO, "Pausing real-time updates", buf, 2u);
           }
 
-          v75 = +[MNNavigationService sharedService];
-          [v75 pauseRealtimeUpdates];
+          v80 = +[MNNavigationService sharedService];
+          [v80 pauseRealtimeUpdates];
         }
       }
 
       v7 = objc_alloc_init(NMReply);
-      v76 = objc_alloc_init(NMArgument);
-      [(NMArgument *)v76 setTag:1];
-      [(NMReply *)v7 addArgument:v76];
-      v77 = +[NMCGizmoConnection sharedInstance];
-      [v77 sendReply:v7 forMessage:messageCopy options:0];
+      v81 = objc_alloc_init(NMArgument);
+      [(NMArgument *)v81 setTag:1];
+      [(NMReply *)v7 addArgument:v81];
+      v82 = +[NMCGizmoConnection sharedInstance];
+      [v82 sendReply:v7 forMessage:messageCopy options:0];
 
-      v6 = v27;
+      v6 = v28;
       goto LABEL_55;
     }
 
@@ -675,69 +671,69 @@ LABEL_83:
 
     if ((v26 & 1) == 0)
     {
-      v54 = sub_100053214();
-      if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
+      v57 = sub_100053214(v27);
+      if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
       {
         transportType = [(NMReply *)v7 transportType];
         if (transportType >= 7)
         {
-          v56 = [NSString stringWithFormat:@"(unknown: %i)", transportType];
+          v59 = [NSString stringWithFormat:@"(unknown: %i)", transportType];
         }
 
         else
         {
-          v56 = off_100084F80[transportType];
+          v59 = off_100084F80[transportType];
         }
 
         *buf = 138412290;
-        *&buf[4] = v56;
-        _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_INFO, "SET_WANTS_ALL_NAV_STATUS_UPDATES YES, gizmo does not support transport type: %@, bailing", buf, 0xCu);
+        *&buf[4] = v59;
+        _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_INFO, "SET_WANTS_ALL_NAV_STATUS_UPDATES YES, gizmo does not support transport type: %@, bailing", buf, 0xCu);
       }
 
       goto LABEL_55;
     }
 
-    v27 = [messageCopy argumentForTag:401];
+    v28 = [messageCopy argumentForTag:401];
 
-    if (!v27)
+    if (!v28)
     {
       goto LABEL_26;
     }
 
-    dataValue = [v27 dataValue];
-    v29 = dataValue;
+    dataValue = [v28 dataValue];
+    v30 = dataValue;
     if (v7)
     {
       routeID = [(NMReply *)v7 routeID];
-      v31 = [routeID isEqualToData:v29];
+      v32 = [routeID isEqualToData:v30];
 
-      v32 = sub_100053214();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+      v34 = sub_100053214(v33);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
       {
-        v33 = @"YES";
-        if (v31)
+        v35 = @"YES";
+        if (v32)
         {
-          v33 = @"NO";
+          v35 = @"NO";
         }
 
-        v78 = v33;
+        v83 = v35;
         [(NMReply *)v7 routeID];
-        v34 = v80 = v29;
+        v36 = v85 = v30;
         simpleDescription = [v24 simpleDescription];
         *buf = 138413058;
-        *&buf[4] = v80;
+        *&buf[4] = v85;
         *&buf[12] = 2112;
-        *&buf[14] = v78;
-        v83 = 2112;
-        v84 = v34;
-        v85 = 2112;
-        v86 = simpleDescription;
-        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_INFO, "SET_WANTS_ALL_NAV_STATUS_UPDATES YES (routeID:%@), shouldSendRoute:%@ with lastRouteDetails:%@ (context:%@)", buf, 0x2Au);
+        *&buf[14] = v83;
+        v88 = 2112;
+        v89 = v36;
+        v90 = 2112;
+        v91 = simpleDescription;
+        _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_INFO, "SET_WANTS_ALL_NAV_STATUS_UPDATES YES (routeID:%@), shouldSendRoute:%@ with lastRouteDetails:%@ (context:%@)", buf, 0x2Au);
 
-        v29 = v80;
+        v30 = v85;
       }
 
-      if (v31)
+      if (v32)
       {
 LABEL_26:
         if (v23)
@@ -753,56 +749,56 @@ LABEL_82:
 
     else
     {
-      v57 = [dataValue length];
-      v58 = sub_100053214();
-      if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
+      v60 = [dataValue length];
+      v61 = sub_100053214(v60);
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
       {
-        v59 = @"YES";
-        if (!v57)
+        v62 = @"YES";
+        if (!v60)
         {
-          v59 = @"NO";
+          v62 = @"NO";
         }
 
-        v79 = v57;
-        v81 = v59;
+        v84 = v60;
+        v86 = v62;
         if (v23)
         {
           feedbackType = [v23 feedbackType];
           if (feedbackType >= 0xB)
           {
-            v61 = [NSString stringWithFormat:@"(unknown: %i)", feedbackType];
+            v64 = [NSString stringWithFormat:@"(unknown: %i)", feedbackType];
           }
 
           else
           {
-            v61 = off_100084FB8[feedbackType];
+            v64 = off_100084FB8[feedbackType];
           }
         }
 
         else
         {
-          v61 = 0;
+          v64 = 0;
         }
 
         simpleDescription2 = [v24 simpleDescription];
         *buf = 138413058;
-        *&buf[4] = v29;
+        *&buf[4] = v30;
         *&buf[12] = 2112;
-        *&buf[14] = v81;
-        v83 = 2112;
-        v84 = v61;
-        v85 = 2112;
-        v86 = simpleDescription2;
-        _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_INFO, "SET_WANTS_ALL_NAV_STATUS_UPDATES YES (routeID:%@), shouldSendRoute:%@ with lastRouteStatus:%@ (context:%@)", buf, 0x2Au);
+        *&buf[14] = v86;
+        v88 = 2112;
+        v89 = v64;
+        v90 = 2112;
+        v91 = simpleDescription2;
+        _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_INFO, "SET_WANTS_ALL_NAV_STATUS_UPDATES YES (routeID:%@), shouldSendRoute:%@ with lastRouteStatus:%@ (context:%@)", buf, 0x2Au);
 
         if (v23)
         {
         }
 
-        v57 = v79;
+        v60 = v84;
       }
 
-      if (!v57)
+      if (!v60)
       {
         goto LABEL_26;
       }
@@ -811,11 +807,11 @@ LABEL_82:
     if (![v23 feedbackType] && !v24)
     {
       v24 = +[GEOCompanionRouteContext context];
-      v63 = sub_100053214();
-      if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+      v66 = sub_100053214(v24);
+      if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_ERROR, "Created override context to force NanoMaps to stop navigating!", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_ERROR, "Created override context to force NanoMaps to stop navigating!", buf, 2u);
       }
     }
 
@@ -831,7 +827,7 @@ LABEL_82:
     v8 = [(GEOCompanionRouteContext *)self->_companionRouteContext copy];
     [(NSLock *)self->_routeLock unlock];
     v9 = objc_alloc_init(NMReply);
-    v10 = sub_100053214();
+    v10 = sub_100053214(v9);
     v11 = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
     if (v6 && v7 && v8)
     {
@@ -872,26 +868,26 @@ LABEL_82:
       feedbackType2 = [(NMReply *)v7 feedbackType];
       if (feedbackType2 >= 0xB)
       {
-        v40 = [NSString stringWithFormat:@"(unknown: %i)", feedbackType2];
+        v42 = [NSString stringWithFormat:@"(unknown: %i)", feedbackType2];
       }
 
       else
       {
-        v40 = off_100084FB8[feedbackType2];
+        v42 = off_100084FB8[feedbackType2];
       }
 
       simpleDescription4 = [v8 simpleDescription];
       *buf = 138412802;
       *&buf[4] = routeID3;
       *&buf[12] = 2112;
-      *&buf[14] = v40;
-      v83 = 2112;
-      v84 = simpleDescription4;
+      *&buf[14] = v42;
+      v88 = 2112;
+      v89 = simpleDescription4;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Gizmo has asked for a full navigation update, but we don't have anything to send it, just ack (details:%@, status:%@, context:%@)", buf, 0x20u);
     }
 
-    v53 = +[NMCGizmoConnection sharedInstance];
-    [v53 sendReply:v9 forMessage:messageCopy options:0];
+    v56 = +[NMCGizmoConnection sharedInstance];
+    [v56 sendReply:v9 forMessage:messageCopy options:0];
 
     goto LABEL_55;
   }
@@ -910,36 +906,36 @@ LABEL_57:
   v6 = [[NSUUID alloc] initWithUUIDString:@"5C068089-C478-48CE-892A-13DBA45BE33A"];
   self->_activeDeviceNeedsUnpackedPointsRemoved = [getActivePairedDevice supportsCapability:v6] ^ 1;
 
-  v7 = sub_100053214();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v8 = sub_100053214(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     if (self->_activeDeviceSupportsNavigation)
     {
-      v8 = @"YES";
+      v9 = @"YES";
     }
 
     else
     {
-      v8 = @"NO";
+      v9 = @"NO";
     }
 
-    v9 = v8;
+    v10 = v9;
     if (self->_activeDeviceNeedsUnpackedPointsRemoved)
     {
-      v10 = @"YES";
+      v11 = @"YES";
     }
 
     else
     {
-      v10 = @"NO";
+      v11 = @"NO";
     }
 
-    v11 = v10;
-    v12 = 138412546;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v11;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Device supports navigation: %@. Requires unpackedLatLng removal: %@", &v12, 0x16u);
+    v12 = v11;
+    v13 = 138412546;
+    v14 = v10;
+    v15 = 2112;
+    v16 = v12;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Device supports navigation: %@. Requires unpackedLatLng removal: %@", &v13, 0x16u);
   }
 }
 
@@ -958,43 +954,43 @@ LABEL_57:
       return;
     }
 
-    v12 = sub_100053214();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v13 = sub_100053214(v7);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      *v14 = 0;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Closing navigation service; watch not nearby", v14, 2u);
+      *v15 = 0;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Closing navigation service; watch not nearby", v15, 2u);
     }
 
-    v13 = +[MNNavigationService sharedService];
-    [v13 pauseRealtimeUpdates];
+    v14 = +[MNNavigationService sharedService];
+    [v14 pauseRealtimeUpdates];
 
-    v11 = +[MNNavigationService sharedService];
-    [v11 closeForClient:self];
+    v12 = +[MNNavigationService sharedService];
+    [v12 closeForClient:self];
   }
 
   else
   {
-    v7 = sub_100053214();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = sub_100053214(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Opening navigation service; watch nearby", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Opening navigation service; watch nearby", buf, 2u);
     }
 
-    v8 = +[MNNavigationService sharedService];
-    [v8 openForClient:self];
+    v9 = +[MNNavigationService sharedService];
+    [v9 openForClient:self];
 
     sendAllUpdates = self->_sendAllUpdates;
-    v10 = +[MNNavigationService sharedService];
-    v11 = v10;
+    v11 = +[MNNavigationService sharedService];
+    v12 = v11;
     if (sendAllUpdates)
     {
-      [v10 resumeRealtimeUpdates];
+      [v11 resumeRealtimeUpdates];
     }
 
     else
     {
-      [v10 pauseRealtimeUpdates];
+      [v11 pauseRealtimeUpdates];
     }
   }
 }
@@ -1102,7 +1098,7 @@ LABEL_57:
 {
   dCopy = d;
   contextCopy = context;
-  [(NSLock *)self->_routeLock lock];
+  lock = [(NSLock *)self->_routeLock lock];
   if (self->_isNavigating)
   {
     goto LABEL_13;
@@ -1112,58 +1108,58 @@ LABEL_57:
   if (contextCopy)
   {
     objc_storeStrong(&self->_companionRouteContext, context);
-    v8 = sub_100053214();
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v10 = sub_100053214(v9);
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       goto LABEL_11;
     }
 
     simpleDescription = [(GEOCompanionRouteContext *)self->_companionRouteContext simpleDescription];
-    *v15 = 138412290;
-    *&v15[4] = simpleDescription;
-    v10 = "Navigating with provided context %@";
+    *v18 = 138412290;
+    *&v18[4] = simpleDescription;
+    v12 = "Navigating with provided context %@";
   }
 
   else if (self->_companionRouteContext)
   {
-    v8 = sub_100053214();
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v10 = sub_100053214(lock);
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       goto LABEL_11;
     }
 
     simpleDescription = [(GEOCompanionRouteContext *)self->_companionRouteContext simpleDescription];
-    *v15 = 138412290;
-    *&v15[4] = simpleDescription;
-    v10 = "Navigating with context %@";
+    *v18 = 138412290;
+    *&v18[4] = simpleDescription;
+    v12 = "Navigating with context %@";
   }
 
   else
   {
-    v11 = +[GEOCompanionRouteContext context];
+    v13 = +[GEOCompanionRouteContext context];
     companionRouteContext = self->_companionRouteContext;
-    self->_companionRouteContext = v11;
+    self->_companionRouteContext = v13;
 
-    v8 = sub_100053214();
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v10 = sub_100053214(v15);
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       goto LABEL_11;
     }
 
     simpleDescription = [(GEOCompanionRouteContext *)self->_companionRouteContext simpleDescription];
-    *v15 = 138412290;
-    *&v15[4] = simpleDescription;
-    v10 = "Creating context for navigation %@";
+    *v18 = 138412290;
+    *&v18[4] = simpleDescription;
+    v12 = "Creating context for navigation %@";
   }
 
-  _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, v10, v15, 0xCu);
+  _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, v12, v18, 0xCu);
 
 LABEL_11:
   if (!self->_companionRouteStatus)
   {
-    v13 = objc_alloc_init(GEOCompanionRouteStatus);
+    v16 = objc_alloc_init(GEOCompanionRouteStatus);
     companionRouteStatus = self->_companionRouteStatus;
-    self->_companionRouteStatus = v13;
+    self->_companionRouteStatus = v16;
 
     [(GEOCompanionRouteStatus *)self->_companionRouteStatus setFeedbackType:1];
     [(GEOCompanionRouteStatus *)self->_companionRouteStatus setRouteID:dCopy];
@@ -1171,19 +1167,19 @@ LABEL_11:
   }
 
 LABEL_13:
-  [(NSLock *)self->_routeLock unlock];
+  [(NSLock *)self->_routeLock unlock:*v18];
 }
 
 - (void)_cleanupNavigation
 {
-  [(NSLock *)self->_routeLock lock];
+  lock = [(NSLock *)self->_routeLock lock];
   if (self->_isNavigating)
   {
-    v3 = sub_100053214();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v4 = sub_100053214(lock);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      *v8 = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Did stop navigating", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Did stop navigating", v9, 2u);
     }
 
     self->_isNavigating = 0;
@@ -1447,35 +1443,36 @@ LABEL_18:
 {
   detailsCopy = details;
   contextCopy = context;
+  v8 = contextCopy;
   if (detailsCopy)
   {
-    v8 = [GEOCompanionRouteStatus alloc];
+    v9 = [GEOCompanionRouteStatus alloc];
     routeID = [detailsCopy routeID];
-    v10 = [v8 initWithRouteID:routeID];
+    v11 = [v9 initWithRouteID:routeID];
 
-    v11 = +[NSDate date];
-    [v11 timeIntervalSinceReferenceDate];
-    [v10 setTimestamp:?];
+    v12 = +[NSDate date];
+    [v12 timeIntervalSinceReferenceDate];
+    [v11 setTimestamp:?];
 
-    [v10 setFeedbackType:8];
-    [v10 setRemainingTime:{objc_msgSend(detailsCopy, "originalDuration")}];
+    [v11 setFeedbackType:8];
+    contextCopy = [v11 setRemainingTime:{objc_msgSend(detailsCopy, "originalDuration")}];
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  v12 = sub_100053214();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  v13 = sub_100053214(contextCopy);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    simpleDescription = [contextCopy simpleDescription];
-    v14 = 138412290;
-    v15 = simpleDescription;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "(Legacy) Will send preview route details/status to gizmo (context:%@)", &v14, 0xCu);
+    simpleDescription = [v8 simpleDescription];
+    v15 = 138412290;
+    v16 = simpleDescription;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "(Legacy) Will send preview route details/status to gizmo (context:%@)", &v15, 0xCu);
   }
 
-  [(NMCNavigationProxy *)self _sendRouteDetails:detailsCopy routeStatus:v10 routeContext:contextCopy forced:0];
+  [(NMCNavigationProxy *)self _sendRouteDetails:detailsCopy routeStatus:v11 routeContext:v8 forced:0];
 }
 
 - (BOOL)_isCarPlayConnected
@@ -1489,41 +1486,43 @@ LABEL_18:
 - (void)sessionDidConnect:(id)connect
 {
   _isCarPlayConnected = [(NMCNavigationProxy *)self _isCarPlayConnected];
-  v5 = sub_100053214();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v5 = _isCarPlayConnected;
+  v6 = sub_100053214(_isCarPlayConnected);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 67109120;
-    v9 = _isCarPlayConnected;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "CarPlay session did connect (connected:%i)", buf, 8u);
+    v10 = v5;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "CarPlay session did connect (connected:%i)", buf, 8u);
   }
 
-  v6[0] = _NSConcreteStackBlock;
-  v6[1] = 3221225472;
-  v6[2] = sub_100009910;
-  v6[3] = &unk_100084F60;
-  v6[4] = self;
-  v7 = _isCarPlayConnected;
-  dispatch_async(&_dispatch_main_q, v6);
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_100009910;
+  v7[3] = &unk_100084F60;
+  v7[4] = self;
+  v8 = v5;
+  dispatch_async(&_dispatch_main_q, v7);
 }
 
 - (void)sessionDidDisconnect:(id)disconnect
 {
   _isCarPlayConnected = [(NMCNavigationProxy *)self _isCarPlayConnected];
-  v5 = sub_100053214();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v5 = _isCarPlayConnected;
+  v6 = sub_100053214(_isCarPlayConnected);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 67109120;
-    v9 = _isCarPlayConnected;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "CarPlay session did disconnect (connected:%i)", buf, 8u);
+    v10 = v5;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "CarPlay session did disconnect (connected:%i)", buf, 8u);
   }
 
-  v6[0] = _NSConcreteStackBlock;
-  v6[1] = 3221225472;
-  v6[2] = sub_100009A34;
-  v6[3] = &unk_100084F60;
-  v6[4] = self;
-  v7 = _isCarPlayConnected;
-  dispatch_async(&_dispatch_main_q, v6);
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_100009A34;
+  v7[3] = &unk_100084F60;
+  v7[4] = self;
+  v8 = v5;
+  dispatch_async(&_dispatch_main_q, v7);
 }
 
 @end

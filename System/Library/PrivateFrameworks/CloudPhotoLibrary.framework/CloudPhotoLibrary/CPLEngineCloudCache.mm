@@ -1,7 +1,10 @@
 @interface CPLEngineCloudCache
 - (BOOL)ackownledgeRecordWithScopedIdentifier:(id)identifier error:(id *)error;
+- (BOOL)addRecord:(id)record isFinal:(BOOL)final error:(id *)error;
+- (BOOL)applyBatch:(id)batch isFinal:(BOOL)final direction:(unint64_t)direction withError:(id *)error;
 - (BOOL)commitStagedChangesForScopeWithIdentifier:(id)identifier error:(id *)error;
 - (BOOL)confirmAllRecordsWithError:(id *)error;
+- (BOOL)deleteRecordWithScopedIdentifier:(id)identifier isFinal:(BOOL)final error:(id *)error;
 - (BOOL)deleteRecordsForScopeIndex:(int64_t)index maxCount:(int64_t)count deletedCount:(int64_t *)deletedCount error:(id *)error;
 - (BOOL)discardStagedChangesForScopeWithIdentifier:(id)identifier error:(id *)error;
 - (BOOL)discardStagedChangesWithScopeFilter:(id)filter error:(id *)error;
@@ -9,21 +12,49 @@
 - (BOOL)hasRecordAcknowledgedByClientWithScopedIdentifier:(id)identifier;
 - (BOOL)hasRecordWithScopedIdentifier:(id)identifier;
 - (BOOL)remapAllRecordsWithPreviousScopedIdentifier:(id)identifier newScopedIdentifier:(id)scopedIdentifier error:(id *)error;
+- (BOOL)updateFinalRecord:(id)record confirmed:(BOOL)confirmed error:(id *)error;
 - (BOOL)updateStagedRecord:(id)record error:(id *)error;
 - (id)_invalidCloudCacheErrorWithInvalidRecord:(id)record method:(id)method;
 - (id)_otherScopedIdentifierForCloudScopedIdentifier:(id)identifier sharedScoped:(id)scoped;
+- (id)_targetWithRecord:(id)record cloudScopedIdentifier:(id)identifier trustRecordChangeData:(BOOL)data;
 - (id)_targetWithShareableRecord:(id)record cloudScopedIdentifier:(id)identifier otherScopedIdentifier:(id)scopedIdentifier sharedScope:(id)scope trustRecordChangeData:(BOOL)data;
+- (id)allRecordsIsFinal:(BOOL)final;
 - (id)cloudChangeBatchFromBatch:(id)batch usingMapping:(id)mapping isFinal:(BOOL)final withError:(id *)error;
 - (id)recordAcknowledgedByClientWithScopedIdentifier:(id)identifier;
 - (id)recordWithScopedIdentifier:(id)identifier isConfirmed:(BOOL *)confirmed isStaged:(BOOL *)staged;
+- (id)recordWithScopedIdentifier:(id)identifier isFinal:(BOOL)final;
 - (id)recordsAcknowledgedByClientWithRelatedScopedIdentifier:(id)identifier class:(Class)class;
+- (id)recordsOfClass:(Class)class isFinal:(BOOL)final;
+- (id)recordsWithRelatedScopedIdentifier:(id)identifier class:(Class)class isFinal:(BOOL)final;
+- (id)recordsWithRelatedScopedIdentifier:(id)identifier isFinal:(BOOL)final;
+- (id)relatedScopedIdentifierForRecordWithScopedIdentifier:(id)identifier isFinal:(BOOL)final;
 - (id)resourceOfType:(unint64_t)type forRecordWithScopedIdentifier:(id)identifier record:(id *)record target:(id *)target error:(id *)error;
+- (id)targetForRecordWithCloudScopedIdentifier:(id)identifier trustRecordChangeData:(BOOL)data;
+- (id)targetForRecordWithSharedCloudScopedIdentifier:(id)identifier trustRecordChangeData:(BOOL)data;
 - (unint64_t)countOfRecordsAcknowledgedByClientWithRelatedScopedIdentifier:(id)identifier class:(Class)class;
 - (void)getCommittedRecord:(id *)record stagedRecord:(id *)stagedRecord forScopedIdentifier:(id)identifier;
 - (void)updateStoredTargetsFromTargetMapping:(id)mapping;
 @end
 
 @implementation CPLEngineCloudCache
+
+- (id)allRecordsIsFinal:(BOOL)final
+{
+  finalCopy = final;
+  platformObject = [(CPLEngineStorage *)self platformObject];
+  v5 = [platformObject allRecordsIsFinal:finalCopy];
+
+  return v5;
+}
+
+- (id)recordsOfClass:(Class)class isFinal:(BOOL)final
+{
+  finalCopy = final;
+  platformObject = [(CPLEngineStorage *)self platformObject];
+  v7 = [platformObject recordsOfClass:class isFinal:finalCopy];
+
+  return v7;
+}
 
 - (void)getCommittedRecord:(id *)record stagedRecord:(id *)stagedRecord forScopedIdentifier:(id)identifier
 {
@@ -63,7 +94,7 @@ LABEL_6:
 
 - (id)resourceOfType:(unint64_t)type forRecordWithScopedIdentifier:(id)identifier record:(id *)record target:(id *)target error:(id *)error
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v13 = [(CPLEngineCloudCache *)self recordWithScopedIdentifier:identifierCopy isFinal:0];
   *target = [(CPLEngineCloudCache *)self _targetWithRecord:v13 cloudScopedIdentifier:identifierCopy trustRecordChangeData:1];
@@ -102,26 +133,26 @@ LABEL_24:
     goto LABEL_18;
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   resources = [v13 resources];
-  v15 = [resources countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v15 = [resources countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v27;
+    v17 = *v26;
     while (2)
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v27 != v17)
+        if (*v26 != v17)
         {
           objc_enumerationMutation(resources);
         }
 
-        v19 = *(*(&v26 + 1) + 8 * i);
+        v19 = *(*(&v25 + 1) + 8 * i);
         if ([v19 resourceType] == type)
         {
           v20 = v19;
@@ -129,7 +160,7 @@ LABEL_24:
         }
       }
 
-      v16 = [resources countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v16 = [resources countByEnumeratingWithState:&v25 objects:v29 count:16];
       if (v16)
       {
         continue;
@@ -151,14 +182,12 @@ LABEL_20:
 
 LABEL_25:
 
-  v24 = *MEMORY[0x1E69E9840];
-
   return v20;
 }
 
 - (void)updateStoredTargetsFromTargetMapping:(id)mapping
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   mappingCopy = mapping;
   if ([mappingCopy hasUpdatedTargets])
   {
@@ -168,22 +197,272 @@ LABEL_25:
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         updatedTargetsDescription = [mappingCopy updatedTargetsDescription];
-        v7 = 138543362;
-        v8 = updatedTargetsDescription;
-        _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEFAULT, "Updating targets:\n%{public}@", &v7, 0xCu);
+        v6 = 138543362;
+        v7 = updatedTargetsDescription;
+        _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEFAULT, "Updating targets:\n%{public}@", &v6, 0xCu);
       }
     }
 
     [mappingCopy startTrackingUpdates];
   }
+}
 
-  v6 = *MEMORY[0x1E69E9840];
+- (id)targetForRecordWithSharedCloudScopedIdentifier:(id)identifier trustRecordChangeData:(BOOL)data
+{
+  dataCopy = data;
+  v67 = *MEMORY[0x1E69E9840];
+  identifierCopy = identifier;
+  engineStore = [(CPLEngineStorage *)self engineStore];
+  sharingScopeIdentifier = [engineStore sharingScopeIdentifier];
+  if (!sharingScopeIdentifier || (v10 = sharingScopeIdentifier, [identifierCopy scopeIdentifier], v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "isEqualToString:", v10), v11, (v12 & 1) == 0))
+  {
+    if ((_CPLSilentLogging & 1) == 0)
+    {
+      v41 = __CPLStorageOSLogDomain_17824();
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138412290;
+        v66 = identifierCopy;
+        _os_log_impl(&dword_1DC05A000, v41, OS_LOG_TYPE_ERROR, "Trying to find target for %@ but sharing is not enabled", buf, 0xCu);
+      }
+    }
+
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    v43 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineCloudCache.m"];
+    [currentHandler handleFailureInMethod:a2 object:self file:v43 lineNumber:940 description:{@"Trying to find target for %@ but sharing is not enabled", identifierCopy}];
+LABEL_38:
+
+    abort();
+  }
+
+  scopes = [engineStore scopes];
+  v14 = [scopes scopeWithIdentifier:v10];
+  if (!v14)
+  {
+    if ((_CPLSilentLogging & 1) == 0)
+    {
+      v44 = __CPLStorageOSLogDomain_17824();
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_1DC05A000, v44, OS_LOG_TYPE_ERROR, "We should have a shared scope here", buf, 2u);
+      }
+    }
+
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    v43 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineCloudCache.m"];
+    v45 = @"We should have a shared scope here";
+    v46 = currentHandler;
+    v47 = a2;
+    selfCopy2 = self;
+    v49 = v43;
+    v50 = 943;
+    goto LABEL_37;
+  }
+
+  v15 = v14;
+  v16 = [scopes scopeForSharingScope:v14];
+  if (!v16)
+  {
+    if ((_CPLSilentLogging & 1) == 0)
+    {
+      v51 = __CPLStorageOSLogDomain_17824();
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_1DC05A000, v51, OS_LOG_TYPE_ERROR, "We should have a main scope here", buf, 2u);
+      }
+    }
+
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    v43 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineCloudCache.m"];
+    v45 = @"We should have a main scope here";
+    v46 = currentHandler;
+    v47 = a2;
+    selfCopy2 = self;
+    v49 = v43;
+    v50 = 945;
+LABEL_37:
+    [v46 handleFailureInMethod:v47 object:selfCopy2 file:v49 lineNumber:v50 description:{v45, v52}];
+    goto LABEL_38;
+  }
+
+  v17 = v16;
+  v58 = v15;
+  v59 = scopes;
+  v18 = [CPLScopedIdentifier alloc];
+  scopeIdentifier = [v17 scopeIdentifier];
+  identifier = [identifierCopy identifier];
+  scopedIdentifier = [(CPLScopedIdentifier *)v18 initWithScopeIdentifier:scopeIdentifier identifier:identifier];
+
+  v22 = [(CPLEngineCloudCache *)self recordWithScopedIdentifier:scopedIdentifier isFinal:0];
+  if (v22)
+  {
+    v23 = v22;
+  }
+
+  else
+  {
+    v57 = v10;
+    v62 = 0u;
+    v63 = 0u;
+    v60 = 0u;
+    v61 = 0u;
+    engineStore2 = [(CPLEngineStorage *)self engineStore];
+    remappedRecords = [engineStore2 remappedRecords];
+    v26 = [remappedRecords scopedIdentifiersRemappedToScopedIdentifier:identifierCopy];
+
+    v27 = [v26 countByEnumeratingWithState:&v60 objects:v64 count:16];
+    if (v27)
+    {
+      v28 = v27;
+      v53 = scopedIdentifier;
+      v54 = dataCopy;
+      v55 = engineStore;
+      v56 = identifierCopy;
+      v29 = *v61;
+      v30 = off_1E861A000;
+      while (2)
+      {
+        for (i = 0; i != v28; ++i)
+        {
+          selfCopy3 = self;
+          if (*v61 != v29)
+          {
+            objc_enumerationMutation(v26);
+          }
+
+          v33 = *(*(&v60 + 1) + 8 * i);
+          v34 = objc_alloc(v30[101]);
+          scopeIdentifier2 = [v17 scopeIdentifier];
+          identifier2 = [v33 identifier];
+          v37 = [v34 initWithScopeIdentifier:scopeIdentifier2 identifier:identifier2];
+
+          self = selfCopy3;
+          v38 = [(CPLEngineCloudCache *)selfCopy3 recordWithScopedIdentifier:v37 isFinal:0];
+          if (v38)
+          {
+            v23 = v38;
+            scopedIdentifier = [v38 scopedIdentifier];
+
+            engineStore = v55;
+            identifierCopy = v56;
+            dataCopy = v54;
+            goto LABEL_18;
+          }
+
+          v30 = off_1E861A000;
+        }
+
+        v28 = [v26 countByEnumeratingWithState:&v60 objects:v64 count:16];
+        if (v28)
+        {
+          continue;
+        }
+
+        break;
+      }
+
+      v23 = 0;
+      engineStore = v55;
+      identifierCopy = v56;
+      dataCopy = v54;
+      scopedIdentifier = v53;
+    }
+
+    else
+    {
+      v23 = 0;
+    }
+
+LABEL_18:
+
+    v10 = v57;
+  }
+
+  v39 = [(CPLEngineCloudCache *)self _targetWithShareableRecord:v23 cloudScopedIdentifier:scopedIdentifier otherScopedIdentifier:identifierCopy sharedScope:v58 trustRecordChangeData:dataCopy];
+
+  return v39;
+}
+
+- (id)targetForRecordWithCloudScopedIdentifier:(id)identifier trustRecordChangeData:(BOOL)data
+{
+  dataCopy = data;
+  identifierCopy = identifier;
+  scopeIdentifier = [identifierCopy scopeIdentifier];
+  mainScopeIdentifier = [(CPLEngineStorage *)self mainScopeIdentifier];
+  v9 = [scopeIdentifier isEqualToString:mainScopeIdentifier];
+
+  if (v9)
+  {
+    engineStore = [(CPLEngineStorage *)self engineStore];
+    scopes = [engineStore scopes];
+
+    scopeIdentifier2 = [identifierCopy scopeIdentifier];
+    v13 = [scopes scopeWithIdentifier:scopeIdentifier2];
+
+    if (v13)
+    {
+      v14 = [scopes sharingScopeForScope:v13];
+      if (v14)
+      {
+        v15 = v14;
+        v16 = [(CPLEngineCloudCache *)self recordWithScopedIdentifier:identifierCopy isFinal:0];
+        v17 = [(CPLEngineCloudCache *)self _otherScopedIdentifierForCloudScopedIdentifier:identifierCopy sharedScoped:v15];
+        v18 = [(CPLEngineCloudCache *)self _targetWithShareableRecord:v16 cloudScopedIdentifier:identifierCopy otherScopedIdentifier:v17 sharedScope:v15 trustRecordChangeData:dataCopy];
+
+        goto LABEL_7;
+      }
+    }
+  }
+
+  v18 = [[CPLRecordTarget alloc] initWithScopedIdentifier:identifierCopy];
+LABEL_7:
+
+  return v18;
+}
+
+- (id)_targetWithRecord:(id)record cloudScopedIdentifier:(id)identifier trustRecordChangeData:(BOOL)data
+{
+  dataCopy = data;
+  recordCopy = record;
+  identifierCopy = identifier;
+  scopeIdentifier = [identifierCopy scopeIdentifier];
+  mainScopeIdentifier = [(CPLEngineStorage *)self mainScopeIdentifier];
+  v12 = [scopeIdentifier isEqualToString:mainScopeIdentifier];
+
+  if (v12)
+  {
+    engineStore = [(CPLEngineStorage *)self engineStore];
+    scopes = [engineStore scopes];
+
+    scopeIdentifier2 = [identifierCopy scopeIdentifier];
+    v16 = [scopes scopeWithIdentifier:scopeIdentifier2];
+
+    if (v16)
+    {
+      v17 = [scopes sharingScopeForScope:v16];
+      if (v17)
+      {
+        v18 = v17;
+        v19 = [(CPLEngineCloudCache *)self _otherScopedIdentifierForCloudScopedIdentifier:identifierCopy sharedScoped:v17];
+        v20 = [(CPLEngineCloudCache *)self _targetWithShareableRecord:recordCopy cloudScopedIdentifier:identifierCopy otherScopedIdentifier:v19 sharedScope:v18 trustRecordChangeData:dataCopy];
+
+        goto LABEL_7;
+      }
+    }
+  }
+
+  v20 = [[CPLRecordTarget alloc] initWithScopedIdentifier:identifierCopy];
+LABEL_7:
+
+  return v20;
 }
 
 - (id)_targetWithShareableRecord:(id)record cloudScopedIdentifier:(id)identifier otherScopedIdentifier:(id)scopedIdentifier sharedScope:(id)scope trustRecordChangeData:(BOOL)data
 {
   dataCopy = data;
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   identifierCopy = identifier;
   scopedIdentifierCopy = scopedIdentifier;
@@ -195,7 +474,7 @@ LABEL_25:
     {
       recordChangeData = [recordCopy recordChangeData];
       sharingRecordChangeData = [recordCopy sharingRecordChangeData];
-      v44 = recordChangeData;
+      v43 = recordChangeData;
       if (recordChangeData && sharingRecordChangeData)
       {
         v19 = 3;
@@ -203,35 +482,35 @@ LABEL_25:
 
       else
       {
-        v43 = sharingRecordChangeData;
+        v42 = sharingRecordChangeData;
         scopedIdentifier = [recordCopy scopedIdentifier];
         v22 = [(CPLEngineCloudCache *)self recordsWithRelatedScopedIdentifier:scopedIdentifier class:objc_opt_class() isFinal:0];
 
-        v47 = 0u;
-        v48 = 0u;
-        v45 = 0u;
         v46 = 0u;
+        v47 = 0u;
+        v44 = 0u;
+        v45 = 0u;
         v23 = v22;
-        v19 = [v23 countByEnumeratingWithState:&v45 objects:v49 count:16];
+        v19 = [v23 countByEnumeratingWithState:&v44 objects:v48 count:16];
         if (v19)
         {
-          v39 = dataCopy;
-          v40 = scopeCopy;
-          v41 = scopedIdentifierCopy;
-          v42 = identifierCopy;
+          v38 = dataCopy;
+          v39 = scopeCopy;
+          v40 = scopedIdentifierCopy;
+          v41 = identifierCopy;
           v24 = 0;
           v25 = 0;
-          v26 = *v46;
+          v26 = *v45;
           while (2)
           {
             for (i = 0; i != v19; ++i)
             {
-              if (*v46 != v26)
+              if (*v45 != v26)
               {
                 objc_enumerationMutation(v23);
               }
 
-              v28 = *(*(&v45 + 1) + 8 * i);
+              v28 = *(*(&v44 + 1) + 8 * i);
               v29 = objc_autoreleasePoolPush();
               v30 = [v28 isSharedInScopeWithIdentifier:scopeIdentifier];
               v25 |= v30;
@@ -245,7 +524,7 @@ LABEL_25:
               }
             }
 
-            v19 = [v23 countByEnumeratingWithState:&v45 objects:v49 count:16];
+            v19 = [v23 countByEnumeratingWithState:&v44 objects:v48 count:16];
             if (v19)
             {
               continue;
@@ -270,17 +549,17 @@ LABEL_25:
           }
 
 LABEL_27:
-          scopedIdentifierCopy = v41;
-          identifierCopy = v42;
-          scopeCopy = v40;
-          dataCopy = v39;
+          scopedIdentifierCopy = v40;
+          identifierCopy = v41;
+          scopeCopy = v39;
+          dataCopy = v38;
         }
 
         else
         {
         }
 
-        sharingRecordChangeData = v43;
+        sharingRecordChangeData = v42;
       }
 
       goto LABEL_32;
@@ -354,8 +633,6 @@ LABEL_39:
   v31 = [[CPLRecordTarget alloc] initWithScopedIdentifier:identifierCopy otherScopedIdentifier:scopedIdentifierCopy targetState:v19];
 LABEL_40:
   v35 = v31;
-
-  v36 = *MEMORY[0x1E69E9840];
 
   return v35;
 }
@@ -502,7 +779,7 @@ LABEL_40:
 
 - (BOOL)remapAllRecordsWithPreviousScopedIdentifier:(id)identifier newScopedIdentifier:(id)scopedIdentifier error:(id *)error
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   scopedIdentifierCopy = scopedIdentifier;
   if ((_CPLSilentLogging & 1) == 0)
@@ -511,17 +788,17 @@ LABEL_40:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412546;
-      v20 = identifierCopy;
-      v21 = 2112;
-      v22 = scopedIdentifierCopy;
+      v19 = identifierCopy;
+      v20 = 2112;
+      v21 = scopedIdentifierCopy;
       _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_DEBUG, "Remapping %@ -> %@", buf, 0x16u);
     }
   }
 
   platformObject = [(CPLEngineStorage *)self platformObject];
-  v18 = 0;
-  v12 = [platformObject remapAllRecordsWithPreviousScopedIdentifier:identifierCopy newScopedIdentifier:scopedIdentifierCopy error:&v18];
-  v13 = v18;
+  v17 = 0;
+  v12 = [platformObject remapAllRecordsWithPreviousScopedIdentifier:identifierCopy newScopedIdentifier:scopedIdentifierCopy error:&v17];
+  v13 = v17;
 
   if ((v12 & 1) == 0)
   {
@@ -531,7 +808,7 @@ LABEL_40:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v20 = v13;
+        v19 = v13;
         _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_ERROR, "Can't remap: %@", buf, 0xCu);
       }
     }
@@ -543,7 +820,6 @@ LABEL_40:
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -592,6 +868,36 @@ LABEL_40:
   return v6;
 }
 
+- (id)relatedScopedIdentifierForRecordWithScopedIdentifier:(id)identifier isFinal:(BOOL)final
+{
+  finalCopy = final;
+  identifierCopy = identifier;
+  platformObject = [(CPLEngineStorage *)self platformObject];
+  v8 = [platformObject relatedScopedIdentifierForRecordWithScopedIdentifier:identifierCopy isFinal:finalCopy];
+
+  return v8;
+}
+
+- (id)recordsWithRelatedScopedIdentifier:(id)identifier class:(Class)class isFinal:(BOOL)final
+{
+  finalCopy = final;
+  identifierCopy = identifier;
+  platformObject = [(CPLEngineStorage *)self platformObject];
+  v10 = [platformObject recordsWithRelatedScopedIdentifier:identifierCopy class:class isFinal:finalCopy];
+
+  return v10;
+}
+
+- (id)recordsWithRelatedScopedIdentifier:(id)identifier isFinal:(BOOL)final
+{
+  finalCopy = final;
+  identifierCopy = identifier;
+  platformObject = [(CPLEngineStorage *)self platformObject];
+  v8 = [platformObject recordsWithRelatedScopedIdentifier:identifierCopy isFinal:finalCopy];
+
+  return v8;
+}
+
 - (BOOL)hasAnyRecordWithRelatedScopedIdentifier:(id)identifier
 {
   identifierCopy = identifier;
@@ -619,6 +925,38 @@ LABEL_40:
   return v10;
 }
 
+- (id)recordWithScopedIdentifier:(id)identifier isFinal:(BOOL)final
+{
+  finalCopy = final;
+  identifierCopy = identifier;
+  platformObject = [(CPLEngineStorage *)self platformObject];
+  v8 = [platformObject recordWithScopedIdentifier:identifierCopy isFinal:finalCopy isConfirmed:0];
+
+  return v8;
+}
+
+- (BOOL)deleteRecordWithScopedIdentifier:(id)identifier isFinal:(BOOL)final error:(id *)error
+{
+  finalCopy = final;
+  v15 = *MEMORY[0x1E69E9840];
+  identifierCopy = identifier;
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v9 = __CPLStorageOSLogDomain_17824();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    {
+      v13 = 138412290;
+      v14 = identifierCopy;
+      _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEBUG, "Deleting record %@", &v13, 0xCu);
+    }
+  }
+
+  platformObject = [(CPLEngineStorage *)self platformObject];
+  v11 = [platformObject deleteRecordWithScopedIdentifier:identifierCopy isFinal:finalCopy error:error];
+
+  return v11;
+}
+
 - (BOOL)confirmAllRecordsWithError:(id *)error
 {
   platformObject = [(CPLEngineStorage *)self platformObject];
@@ -630,41 +968,41 @@ LABEL_40:
 - (id)cloudChangeBatchFromBatch:(id)batch usingMapping:(id)mapping isFinal:(BOOL)final withError:(id *)error
 {
   finalCopy = final;
-  v246 = *MEMORY[0x1E69E9840];
+  v245 = *MEMORY[0x1E69E9840];
   batchCopy = batch;
   mappingCopy = mapping;
   selfCopy = self;
   engineStore = [(CPLEngineStorage *)self engineStore];
-  v229 = 0;
-  v230 = &v229;
-  v231 = 0x3032000000;
-  v232 = __Block_byref_object_copy__17856;
-  v233 = __Block_byref_object_dispose__17857;
-  v234 = 0;
+  v228 = 0;
+  v229 = &v228;
+  v230 = 0x3032000000;
+  v231 = __Block_byref_object_copy__17856;
+  v232 = __Block_byref_object_dispose__17857;
+  v233 = 0;
   v9 = 1;
   if (!mappingCopy)
   {
     v9 = 2;
   }
 
-  v173 = v9;
+  v172 = v9;
   scopes = [engineStore scopes];
   statusCenter = [engineStore statusCenter];
-  v223 = 0;
-  v224 = &v223;
-  v225 = 0x3032000000;
-  v226 = __Block_byref_object_copy__17856;
-  v227 = __Block_byref_object_dispose__17857;
-  v228 = objc_alloc_init(CPLChangeBatch);
+  v222 = 0;
+  v223 = &v222;
+  v224 = 0x3032000000;
+  v225 = __Block_byref_object_copy__17856;
+  v226 = __Block_byref_object_dispose__17857;
+  v227 = objc_alloc_init(CPLChangeBatch);
   if (mappingCopy)
   {
     transientPullRepository = [engineStore transientPullRepository];
-    v167 = 0;
+    v166 = 0;
     transactionClientCacheView = 0;
     quarantinedRecords = 0;
     remappedRecords = 0;
     pullQueue = 0;
-    v176 = 0;
+    v175 = 0;
   }
 
   else
@@ -676,65 +1014,65 @@ LABEL_40:
     pullQueue = [engineStore pullQueue];
     quarantinedRecords = [engineStore quarantinedRecords];
     v13 = v12;
-    v167 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-    v176 = v13;
+    v166 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    v175 = v13;
 
     transientPullRepository = 0;
   }
 
-  v217 = 0;
-  v218 = &v217;
-  v219 = 0x3032000000;
-  v220 = __Block_byref_object_copy__17856;
-  v221 = __Block_byref_object_dispose__17857;
-  v222 = 0;
-  v215[0] = 0;
-  v215[1] = v215;
-  v215[2] = 0x2020000000;
   v216 = 0;
-  v213[0] = 0;
-  v213[1] = v213;
-  v213[2] = 0x2020000000;
-  v214 = 0;
-  v208[0] = MEMORY[0x1E69E9820];
-  v208[1] = 3221225472;
-  v208[2] = __80__CPLEngineCloudCache_cloudChangeBatchFromBatch_usingMapping_isFinal_withError___block_invoke;
-  v208[3] = &unk_1E861F310;
-  v210 = &v217;
-  v211 = v215;
-  v212 = v213;
-  v178 = scopes;
-  v209 = v178;
-  v181 = MEMORY[0x1E128EBA0](v208);
-  v206 = 0u;
-  v207 = 0u;
-  v204 = 0u;
+  v217 = &v216;
+  v218 = 0x3032000000;
+  v219 = __Block_byref_object_copy__17856;
+  v220 = __Block_byref_object_dispose__17857;
+  v221 = 0;
+  v214[0] = 0;
+  v214[1] = v214;
+  v214[2] = 0x2020000000;
+  v215 = 0;
+  v212[0] = 0;
+  v212[1] = v212;
+  v212[2] = 0x2020000000;
+  v213 = 0;
+  v207[0] = MEMORY[0x1E69E9820];
+  v207[1] = 3221225472;
+  v207[2] = __80__CPLEngineCloudCache_cloudChangeBatchFromBatch_usingMapping_isFinal_withError___block_invoke;
+  v207[3] = &unk_1E861F310;
+  v209 = &v216;
+  v210 = v214;
+  v211 = v212;
+  v177 = scopes;
+  v208 = v177;
+  v180 = MEMORY[0x1E128EBA0](v207);
   v205 = 0u;
+  v206 = 0u;
+  v203 = 0u;
+  v204 = 0u;
   obj = batchCopy;
-  v14 = [obj countByEnumeratingWithState:&v204 objects:v245 count:16];
+  v14 = [obj countByEnumeratingWithState:&v203 objects:v244 count:16];
   v15 = 0;
   if (v14)
   {
-    v183 = *v205;
+    v182 = *v204;
     v16 = "cloud";
     if (mappingCopy)
     {
       v16 = "local";
     }
 
-    v174 = v16;
+    v173 = v16;
     do
     {
       v17 = 0;
-      v184 = v14;
+      v183 = v14;
       do
       {
-        if (*v205 != v183)
+        if (*v204 != v182)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v204 + 1) + 8 * v17);
+        v18 = *(*(&v203 + 1) + 8 * v17);
         context = objc_autoreleasePoolPush();
         scopedIdentifier = [v18 scopedIdentifier];
         scopeIdentifier = [scopedIdentifier scopeIdentifier];
@@ -759,22 +1097,22 @@ LABEL_40:
           {
             v15 = 0;
 LABEL_21:
-            v27 = v181[2];
+            v27 = v180[2];
             if (mappingCopy)
             {
               v28 = 0;
-              v180 = v27(v181) ^ 1;
+              v179 = v27(v180) ^ 1;
             }
 
             else
             {
-              v180 = 0;
-              v28 = v27(v181) ^ 1;
+              v179 = 0;
+              v28 = v27(v180) ^ 1;
             }
 
-            v203 = 0;
-            v29 = [v18 validateChangeWithError:&v203];
-            v186 = v203;
+            v202 = 0;
+            v29 = [v18 validateChangeWithError:&v202];
+            v185 = v202;
             if ((v29 & 1) == 0)
             {
               if (mappingCopy)
@@ -785,20 +1123,20 @@ LABEL_21:
                   if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412546;
-                    v236 = v18;
-                    v237 = 2112;
-                    v238 = v186;
+                    v235 = v18;
+                    v236 = 2112;
+                    v237 = v185;
                     _os_log_impl(&dword_1DC05A000, v35, OS_LOG_TYPE_ERROR, "Incorrect change %@ in push repository: %@", buf, 0x16u);
                   }
                 }
 
-                v36 = [CPLErrors cplErrorWithCode:20 underlyingError:v186 description:@"Incorrect change %@ in push repository", v18];
-                v37 = v224[5];
-                v224[5] = 0;
+                v36 = [CPLErrors cplErrorWithCode:20 underlyingError:v185 description:@"Incorrect change %@ in push repository", v18];
+                v37 = v223[5];
+                v223[5] = 0;
 
                 v38 = 0;
-                v33 = v230[5];
-                v230[5] = v36;
+                v33 = v229[5];
+                v229[5] = v36;
                 v39 = 2;
               }
 
@@ -821,9 +1159,9 @@ LABEL_21:
                 if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412546;
-                  v236 = v18;
-                  v237 = 2112;
-                  v238 = v186;
+                  v235 = v18;
+                  v236 = 2112;
+                  v237 = v185;
                   _os_log_impl(&dword_1DC05A000, v33, OS_LOG_TYPE_ERROR, "Incorrect change coming from the cloud %@: %@", buf, 0x16u);
                 }
 
@@ -851,9 +1189,9 @@ LABEL_25:
                   {
                     _ignoredRecord2 = [v18 _ignoredRecord];
                     *buf = 138412546;
-                    v236 = v18;
-                    v237 = 2112;
-                    v238 = _ignoredRecord2;
+                    v235 = v18;
+                    v236 = 2112;
+                    v237 = _ignoredRecord2;
                     _os_log_impl(&dword_1DC05A000, v33, OS_LOG_TYPE_DEFAULT, "Ignoring already known remapped record %@ (shadowing %@)", buf, 0x16u);
                   }
 
@@ -878,13 +1216,13 @@ LABEL_271:
                 scopedIdentifier2 = [v18 scopedIdentifier];
                 cplFullDescription = [v18 cplFullDescription];
                 *buf = 136315906;
-                v236 = v174;
-                v237 = 2112;
-                v238 = v41;
-                v239 = 2112;
-                v240 = scopedIdentifier2;
-                v241 = 2112;
-                v242 = cplFullDescription;
+                v235 = v173;
+                v236 = 2112;
+                v237 = v41;
+                v238 = 2112;
+                v239 = scopedIdentifier2;
+                v240 = 2112;
+                v241 = cplFullDescription;
                 _os_log_impl(&dword_1DC05A000, v40, OS_LOG_TYPE_DEBUG, "Filtering %s <%@ %@> against cloud cache:\n%@", buf, 0x2Au);
               }
             }
@@ -896,28 +1234,28 @@ LABEL_271:
             {
               if ((_CPLSilentLogging & 1) == 0)
               {
-                v154 = __CPLStorageOSLogDomain_17824();
-                if (os_log_type_enabled(v154, OS_LOG_TYPE_ERROR))
+                v153 = __CPLStorageOSLogDomain_17824();
+                if (os_log_type_enabled(v153, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  v236 = v18;
-                  _os_log_impl(&dword_1DC05A000, v154, OS_LOG_TYPE_ERROR, "Trying to mingle a remapped record %@", buf, 0xCu);
+                  v235 = v18;
+                  _os_log_impl(&dword_1DC05A000, v153, OS_LOG_TYPE_ERROR, "Trying to mingle a remapped record %@", buf, 0xCu);
                 }
               }
 
               currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-              v156 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineCloudCache.m"];
-              [currentHandler handleFailureInMethod:a2 object:selfCopy file:v156 lineNumber:328 description:{@"Trying to mingle a remapped record %@", v18}];
+              v155 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineCloudCache.m"];
+              [currentHandler handleFailureInMethod:a2 object:selfCopy file:v155 lineNumber:328 description:{@"Trying to mingle a remapped record %@", v18}];
 
               abort();
             }
 
             if (mappingCopy)
             {
-              v46 = (v230 + 5);
-              v202 = v230[5];
-              v47 = [v18 translateToCloudChangeUsingIDMapping:mappingCopy error:&v202];
-              objc_storeStrong(v46, v202);
+              v46 = (v229 + 5);
+              v201 = v229[5];
+              v47 = [v18 translateToCloudChangeUsingIDMapping:mappingCopy error:&v201];
+              objc_storeStrong(v46, v201);
               v33 = v47;
             }
 
@@ -927,7 +1265,7 @@ LABEL_271:
             }
 
             scopedIdentifier3 = [v33 scopedIdentifier];
-            v201 = 1;
+            v200 = 1;
             if (!v33)
             {
               v38 = 0;
@@ -935,7 +1273,7 @@ LABEL_271:
             }
 
             platformObject = [(CPLEngineStorage *)selfCopy platformObject];
-            v38 = [platformObject recordWithScopedIdentifier:scopedIdentifier3 isFinal:finalCopy isConfirmed:&v201];
+            v38 = [platformObject recordWithScopedIdentifier:scopedIdentifier3 isFinal:finalCopy isConfirmed:&v200];
 
             if (v38)
             {
@@ -947,19 +1285,19 @@ LABEL_271:
                   v54 = __CPLStorageOSLogDomain_17824();
                   if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
                   {
-                    v55 = [CPLRecordChange descriptionForDirection:v173];
+                    v55 = [CPLRecordChange descriptionForDirection:v172];
                     *buf = 138412802;
-                    v236 = v55;
-                    v237 = 2112;
-                    v238 = v33;
-                    v239 = 2112;
-                    v240 = v38;
+                    v235 = v55;
+                    v236 = 2112;
+                    v237 = v33;
+                    v238 = 2112;
+                    v239 = v38;
                     _os_log_impl(&dword_1DC05A000, v54, OS_LOG_TYPE_ERROR, "Trying to diff %@ %@ against mismatched %@", buf, 0x20u);
                   }
                 }
 
                 v56 = objc_alloc(MEMORY[0x1E696AEC0]);
-                v57 = [CPLRecordChange descriptionForDirection:v173];
+                v57 = [CPLRecordChange descriptionForDirection:v172];
                 v58 = objc_opt_class();
                 v59 = [v56 initWithFormat:@"Mismatch diff %@ %@ against %@", v57, v58, objc_opt_class()];
 
@@ -973,11 +1311,11 @@ LABEL_271:
                   [CPLErrors invalidCloudCacheErrorWithReason:v59];
                 }
                 v60 = ;
-                v79 = v230[5];
-                v230[5] = v60;
+                v79 = v229[5];
+                v229[5] = v60;
 
-                v80 = v224[5];
-                v224[5] = 0;
+                v80 = v223[5];
+                v223[5] = 0;
 
                 goto LABEL_107;
               }
@@ -1006,18 +1344,18 @@ LABEL_209:
 LABEL_210:
                 v122 = 0;
 LABEL_240:
-                v189[0] = MEMORY[0x1E69E9820];
-                v189[1] = 3221225472;
-                v189[2] = __80__CPLEngineCloudCache_cloudChangeBatchFromBatch_usingMapping_isFinal_withError___block_invoke_35;
-                v189[3] = &unk_1E861F338;
-                v138 = v176;
-                v195 = v201;
-                v190 = v138;
-                v191 = v18;
-                v192 = statusCenter;
-                v193 = &v229;
-                v194 = &v223;
-                v139 = MEMORY[0x1E128EBA0](v189);
+                v188[0] = MEMORY[0x1E69E9820];
+                v188[1] = 3221225472;
+                v188[2] = __80__CPLEngineCloudCache_cloudChangeBatchFromBatch_usingMapping_isFinal_withError___block_invoke_35;
+                v188[3] = &unk_1E861F338;
+                v138 = v175;
+                v194 = v200;
+                v189 = v138;
+                v190 = v18;
+                v191 = statusCenter;
+                v192 = &v228;
+                v193 = &v222;
+                v139 = MEMORY[0x1E128EBA0](v188);
                 if (v122)
                 {
                   if (!-[NSObject supportsResources](v18, "supportsResources") || !-[NSObject hasChangeType:](v18, "hasChangeType:", 8) || (-[NSObject resources](v18, "resources"), v140 = objc_claimAutoreleasedReturnValue(), v141 = [v140 count] == 0, v140, v141))
@@ -1055,16 +1393,16 @@ LABEL_240:
                   {
 LABEL_268:
 
-                    v59 = v190;
+                    v59 = v189;
                     v33 = v77;
                     goto LABEL_269;
                   }
 
 LABEL_264:
-                  v147 = (v230 + 5);
-                  v188 = v230[5];
-                  v148 = [(CPLEngineCloudCache *)selfCopy ackownledgeRecordWithScopedIdentifier:scopedIdentifier3 error:&v188];
-                  objc_storeStrong(v147, v188);
+                  v147 = (v229 + 5);
+                  v187 = v229[5];
+                  v148 = [(CPLEngineCloudCache *)selfCopy ackownledgeRecordWithScopedIdentifier:scopedIdentifier3 error:&v187];
+                  objc_storeStrong(v147, v187);
                   if (v148)
                   {
 LABEL_265:
@@ -1072,8 +1410,8 @@ LABEL_265:
                     goto LABEL_268;
                   }
 
-                  _pushContext = v224[5];
-                  v224[5] = 0;
+                  _pushContext = v223[5];
+                  v223[5] = 0;
                   v39 = 2;
                 }
 
@@ -1097,7 +1435,7 @@ LABEL_265:
                     }
                   }
 
-                  if (v180 && [v77 hasChangeType:2])
+                  if (v179 && [v77 hasChangeType:2])
                   {
                     [v77 setShouldFilterDefaultValuesForNewProperties:1];
                   }
@@ -1110,7 +1448,7 @@ LABEL_265:
                     [v77 _setRecordKnownByCloudCache:v38];
                   }
 
-                  [v224[5] addRecord:v77];
+                  [v223[5] addRecord:v77];
                   v39 = 0;
                 }
 
@@ -1119,8 +1457,8 @@ LABEL_265:
 
               if (v28)
               {
-                v200 = 0;
-                v81 = [v176 localScopedIdentifierForCloudScopedIdentifier:scopedIdentifier3 isFinal:&v200];
+                v199 = 0;
+                v81 = [v175 localScopedIdentifierForCloudScopedIdentifier:scopedIdentifier3 isFinal:&v199];
                 if (v81 && [transactionClientCacheView hasRecordWithScopedIdentifier:v81])
                 {
                   if ((_CPLSilentLogging & 1) == 0)
@@ -1129,7 +1467,7 @@ LABEL_265:
                     if (os_log_type_enabled(v82, OS_LOG_TYPE_DEBUG))
                     {
                       *buf = 138412290;
-                      v236 = v18;
+                      v235 = v18;
                       _os_log_impl(&dword_1DC05A000, v82, OS_LOG_TYPE_DEBUG, "%@ is already known to the cloud cache but not from the client cache - keeping", buf, 0xCu);
                     }
                   }
@@ -1145,8 +1483,8 @@ LABEL_265:
 LABEL_185:
                 if (v83 && mappingCopy == 0)
                 {
-                  v200 = 0;
-                  v114 = [v176 localScopedIdentifierForCloudScopedIdentifier:scopedIdentifier3 isFinal:&v200];
+                  v199 = 0;
+                  v114 = [v175 localScopedIdentifierForCloudScopedIdentifier:scopedIdentifier3 isFinal:&v199];
                   if (v114 && [quarantinedRecords isRecordWithScopedIdentifierQuarantined:v114])
                   {
                     if ((_CPLSilentLogging & 1) == 0)
@@ -1155,7 +1493,7 @@ LABEL_185:
                       if (os_log_type_enabled(v115, OS_LOG_TYPE_DEFAULT))
                       {
                         *buf = 138412290;
-                        v236 = v18;
+                        v235 = v18;
                         _os_log_impl(&dword_1DC05A000, v115, OS_LOG_TYPE_DEFAULT, "%@ is already known to the cloud cache but the record is quarantined - keeping", buf, 0xCu);
                       }
                     }
@@ -1183,17 +1521,17 @@ LABEL_185:
 
               if (remappedRecords)
               {
-                v199 = 0;
-                v116 = [remappedRecords removeRemappedRecordWithScopedIdentifier:scopedIdentifier3 error:&v199];
-                v117 = v199;
+                v198 = 0;
+                v116 = [remappedRecords removeRemappedRecordWithScopedIdentifier:scopedIdentifier3 error:&v198];
+                v117 = v198;
                 if (!v116)
                 {
-                  v118 = v224[5];
-                  v224[5] = 0;
+                  v118 = v223[5];
+                  v223[5] = 0;
 
                   v38 = 0;
-                  v59 = v230[5];
-                  v230[5] = v117;
+                  v59 = v229[5];
+                  v229[5] = v117;
                   goto LABEL_107;
                 }
               }
@@ -1211,7 +1549,7 @@ LABEL_185:
                   if (os_log_type_enabled(v119, OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 138412290;
-                    v236 = v18;
+                    v235 = v18;
                     _os_log_impl(&dword_1DC05A000, v119, OS_LOG_TYPE_DEBUG, "%@ is already known to the cache. Ignoring", buf, 0xCu);
                   }
                 }
@@ -1238,17 +1576,17 @@ LABEL_215:
 
 LABEL_63:
               scopedIdentifier4 = [v18 scopedIdentifier];
-              v198 = 0;
-              v62 = [mappingCopy addDeleteEventForRecordWithLocalScopedIdentifier:scopedIdentifier4 direction:1 error:&v198];
-              v63 = v198;
+              v197 = 0;
+              v62 = [mappingCopy addDeleteEventForRecordWithLocalScopedIdentifier:scopedIdentifier4 direction:1 error:&v197];
+              v63 = v197;
 
               if ((v62 & 1) == 0)
               {
-                v89 = v224[5];
-                v224[5] = 0;
+                v89 = v223[5];
+                v223[5] = 0;
 
-                v59 = v230[5];
-                v230[5] = v63;
+                v59 = v229[5];
+                v229[5] = v63;
                 goto LABEL_107;
               }
 
@@ -1273,8 +1611,8 @@ LABEL_181:
 
             if (((v38 != 0) & v28) == 1)
             {
-              v200 = 0;
-              v64 = [v176 localScopedIdentifierForCloudScopedIdentifier:scopedIdentifier3 isFinal:&v200];
+              v199 = 0;
+              v64 = [v175 localScopedIdentifierForCloudScopedIdentifier:scopedIdentifier3 isFinal:&v199];
               if (v64 && ([transactionClientCacheView hasRecordWithScopedIdentifier:v64] & 1) == 0 && (objc_msgSend(pullQueue, "hasSomeChangeWithScopedIdentifier:", scopedIdentifier3) & 1) == 0)
               {
                 if ((_CPLSilentLogging & 1) == 0)
@@ -1283,7 +1621,7 @@ LABEL_181:
                   if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138412290;
-                    v236 = v18;
+                    v235 = v18;
                     _os_log_impl(&dword_1DC05A000, v65, OS_LOG_TYPE_DEFAULT, "%@ is already known to the cloud cache but not from the client cache. Forcing change to client cache", buf, 0xCu);
                   }
                 }
@@ -1305,7 +1643,7 @@ LABEL_181:
                 goto LABEL_88;
               }
 
-              if ([v167 containsObject:relatedScopedIdentifier])
+              if ([v166 containsObject:relatedScopedIdentifier])
               {
                 goto LABEL_88;
               }
@@ -1326,9 +1664,9 @@ LABEL_181:
                   if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138412546;
-                    v236 = v33;
-                    v237 = 2112;
-                    v238 = relatedScopedIdentifier;
+                    v235 = v33;
+                    v236 = 2112;
+                    v237 = relatedScopedIdentifier;
                     _os_log_impl(&dword_1DC05A000, v68, OS_LOG_TYPE_DEFAULT, "%@ is referencing a related record %@ which is unknown to the cache", buf, 0x16u);
                   }
                 }
@@ -1337,7 +1675,7 @@ LABEL_88:
                 secondaryScopedIdentifier = [v33 secondaryScopedIdentifier];
                 if (secondaryScopedIdentifier)
                 {
-                  if (([v167 containsObject:secondaryScopedIdentifier] & 1) == 0)
+                  if (([v166 containsObject:secondaryScopedIdentifier] & 1) == 0)
                   {
                     platformObject3 = [(CPLEngineStorage *)selfCopy platformObject];
                     v71 = [platformObject3 hasRecordWithScopedIdentifier:secondaryScopedIdentifier];
@@ -1352,9 +1690,9 @@ LABEL_88:
                           if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
                           {
                             *buf = 138412546;
-                            v236 = v33;
-                            v237 = 2112;
-                            v238 = secondaryScopedIdentifier;
+                            v235 = v33;
+                            v236 = 2112;
+                            v237 = secondaryScopedIdentifier;
                             _os_log_impl(&dword_1DC05A000, v72, OS_LOG_TYPE_DEFAULT, "%@ is referencing a secondary record %@ which is unknown to the cache", buf, 0x16u);
                           }
                         }
@@ -1368,9 +1706,9 @@ LABEL_88:
                         if (os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
                         {
                           *buf = 138412546;
-                          v236 = v33;
-                          v237 = 2112;
-                          v238 = secondaryScopedIdentifier;
+                          v235 = v33;
+                          v236 = 2112;
+                          v237 = secondaryScopedIdentifier;
                           _os_log_impl(&dword_1DC05A000, v123, OS_LOG_TYPE_ERROR, "%@ is referencing a secondary record %@ which is unknown to the cache", buf, 0x16u);
                         }
                       }
@@ -1405,7 +1743,7 @@ LABEL_97:
                   {
                     if (mappingCopy && [v76 hasChangeType:2])
                     {
-                      v171 = [[CPLRecordChangeDiffTracker alloc] initWithTrackingChangeTypeMask:2];
+                      v170 = [[CPLRecordChangeDiffTracker alloc] initWithTrackingChangeTypeMask:2];
                       v78 = 1;
                       goto LABEL_158;
                     }
@@ -1414,13 +1752,13 @@ LABEL_97:
                   }
 
 LABEL_125:
-                  v171 = 0;
-                  v164 = 0;
+                  v170 = 0;
+                  v163 = 0;
                   goto LABEL_161;
                 }
 
                 buf[0] = 0;
-                v86 = [v176 localScopedIdentifierForCloudScopedIdentifier:scopedIdentifier3 isFinal:buf];
+                v86 = [v175 localScopedIdentifierForCloudScopedIdentifier:scopedIdentifier3 isFinal:buf];
                 if (!v86)
                 {
                   v102 = v33;
@@ -1437,16 +1775,16 @@ LABEL_125:
                 }
 
 LABEL_157:
-                v171 = objc_alloc_init(CPLRecordChangeDiffTracker);
+                v170 = objc_alloc_init(CPLRecordChangeDiffTracker);
                 v78 = 0;
 LABEL_158:
-                v197 = 0;
-                v77 = [(CPLRecordChangeDiffTracker *)v38 realRecordChangeFromRecordChange:v33 direction:v173 newRecord:&v197 diffTracker:v171];
-                v164 = v197;
+                v196 = 0;
+                v77 = [(CPLRecordChangeDiffTracker *)v38 realRecordChangeFromRecordChange:v33 direction:v172 newRecord:&v196 diffTracker:v170];
+                v163 = v196;
 
                 if (v78)
                 {
-                  [v77 attachDiffTracker:v171];
+                  [v77 attachDiffTracker:v170];
                 }
 
                 if (v77)
@@ -1473,25 +1811,25 @@ LABEL_164:
                     v106 = __CPLStorageOSLogDomain_17824();
                     if (os_log_type_enabled(v106, OS_LOG_TYPE_DEBUG))
                     {
-                      v158 = v106;
-                      v159 = objc_opt_class();
+                      v157 = v106;
+                      v158 = objc_opt_class();
                       scopedIdentifier5 = [v33 scopedIdentifier];
                       cplFullDescription2 = [v33 cplFullDescription];
                       cplFullDescription3 = [v38 cplFullDescription];
                       *buf = 138413314;
-                      v236 = v159;
-                      v237 = 2112;
-                      v238 = scopedIdentifier5;
-                      v239 = 2112;
-                      v240 = v171;
-                      v241 = 2112;
-                      v242 = cplFullDescription2;
-                      v243 = 2112;
-                      v244 = cplFullDescription3;
-                      _os_log_impl(&dword_1DC05A000, v158, OS_LOG_TYPE_DEBUG, "<%@ %@> is a real diff for cloud cache (%@): %@\nvs.:\n%@", buf, 0x34u);
+                      v235 = v158;
+                      v236 = 2112;
+                      v237 = scopedIdentifier5;
+                      v238 = 2112;
+                      v239 = v170;
+                      v240 = 2112;
+                      v241 = cplFullDescription2;
+                      v242 = 2112;
+                      v243 = cplFullDescription3;
+                      _os_log_impl(&dword_1DC05A000, v157, OS_LOG_TYPE_DEBUG, "<%@ %@> is a real diff for cloud cache (%@): %@\nvs.:\n%@", buf, 0x34u);
 
                       v109 = 1;
-                      v106 = v158;
+                      v106 = v157;
                     }
 
                     else
@@ -1517,7 +1855,7 @@ LABEL_164:
                   if (os_log_type_enabled(v106, OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 138412290;
-                    v236 = v18;
+                    v235 = v18;
                     _os_log_impl(&dword_1DC05A000, v106, OS_LOG_TYPE_DEBUG, "%@ is already known to the cache. Ignoring", buf, 0xCu);
                   }
 
@@ -1528,7 +1866,7 @@ LABEL_173:
 
                 if (mappingCopy && [v33 supportsResources]&& (v109 & [v33 hasChangeType:8]) == 1 && [v77 hasChangeType:8])
                 {
-                  v110 = v224[5];
+                  v110 = v223[5];
                   resources2 = [v18 resources];
                   [v110 appendLocalResources:resources2 forItemWithCloudScopedIdentifier:scopedIdentifier3];
                 }
@@ -1560,9 +1898,9 @@ LABEL_239:
                   if (os_log_type_enabled(secondaryScopedIdentifier, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412546;
-                    v236 = v33;
-                    v237 = 2112;
-                    v238 = relatedScopedIdentifier;
+                    v235 = v33;
+                    v236 = 2112;
+                    v237 = relatedScopedIdentifier;
                     _os_log_impl(&dword_1DC05A000, secondaryScopedIdentifier, OS_LOG_TYPE_ERROR, "%@ is referencing a related record %@ which is unknown to the cache", buf, 0x16u);
                   }
 
@@ -1612,10 +1950,10 @@ LABEL_232:
                 if (v133)
                 {
 LABEL_238:
-                  v136 = (v230 + 5);
-                  v196 = v230[5];
-                  v137 = [(CPLEngineCloudCache *)selfCopy updateStagedRecord:v38 error:&v196];
-                  objc_storeStrong(v136, v196);
+                  v136 = (v229 + 5);
+                  v195 = v229[5];
+                  v137 = [(CPLEngineCloudCache *)selfCopy updateStagedRecord:v38 error:&v195];
+                  objc_storeStrong(v136, v195);
                   if (v137)
                   {
                     goto LABEL_239;
@@ -1623,8 +1961,8 @@ LABEL_238:
 
                   v33 = 0;
 LABEL_67:
-                  v59 = v224[5];
-                  v224[5] = 0;
+                  v59 = v223[5];
+                  v223[5] = 0;
                   goto LABEL_107;
                 }
               }
@@ -1652,7 +1990,7 @@ LABEL_67:
               {
                 if ([v33 supportsResources])
                 {
-                  v84 = v224[5];
+                  v84 = v223[5];
                   resources3 = [v18 resources];
                   [v84 appendLocalResources:resources3 forItemWithCloudScopedIdentifier:scopedIdentifier3];
                 }
@@ -1667,18 +2005,18 @@ LABEL_67:
                 if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  v236 = v18;
+                  v235 = v18;
                   _os_log_impl(&dword_1DC05A000, v98, OS_LOG_TYPE_ERROR, "Got a partial record %@ from the client which is new to the cache", buf, 0xCu);
                 }
               }
 
               v59 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Partial %@ from client but new to the cache", objc_opt_class()];
               v99 = [CPLErrors invalidClientCacheErrorWithReason:v59];
-              v100 = v230[5];
-              v230[5] = v99;
+              v100 = v229[5];
+              v229[5] = v99;
 
-              v101 = v224[5];
-              v224[5] = 0;
+              v101 = v223[5];
+              v223[5] = 0;
 
               v38 = 0;
 LABEL_107:
@@ -1697,7 +2035,7 @@ LABEL_270:
                 goto LABEL_140;
               }
 
-              if ([v167 containsObject:relatedScopedIdentifier2])
+              if ([v166 containsObject:relatedScopedIdentifier2])
               {
                 goto LABEL_140;
               }
@@ -1718,20 +2056,20 @@ LABEL_270:
                   if (os_log_type_enabled(v93, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138412546;
-                    v236 = v18;
-                    v237 = 2112;
-                    v238 = relatedScopedIdentifier2;
+                    v235 = v18;
+                    v236 = 2112;
+                    v237 = relatedScopedIdentifier2;
                     _os_log_impl(&dword_1DC05A000, v93, OS_LOG_TYPE_DEFAULT, "%@ is referencing a related record %@ which is unknown to the cache", buf, 0x16u);
                   }
                 }
 
 LABEL_140:
                 secondaryScopedIdentifier2 = [v33 secondaryScopedIdentifier];
-                if (!secondaryScopedIdentifier2 || ([v167 containsObject:secondaryScopedIdentifier2] & 1) != 0 || (-[CPLEngineStorage platformObject](selfCopy, "platformObject"), v95 = objc_claimAutoreleasedReturnValue(), v96 = objc_msgSend(v95, "hasRecordWithScopedIdentifier:", secondaryScopedIdentifier2), v95, (v96 & 1) != 0))
+                if (!secondaryScopedIdentifier2 || ([v166 containsObject:secondaryScopedIdentifier2] & 1) != 0 || (-[CPLEngineStorage platformObject](selfCopy, "platformObject"), v95 = objc_claimAutoreleasedReturnValue(), v96 = objc_msgSend(v95, "hasRecordWithScopedIdentifier:", secondaryScopedIdentifier2), v95, (v96 & 1) != 0))
                 {
 LABEL_148:
 
-                  [v167 addObject:scopedIdentifier3];
+                  [v166 addObject:scopedIdentifier3];
                   v38 = 0;
                   goto LABEL_208;
                 }
@@ -1744,9 +2082,9 @@ LABEL_148:
                     if (os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 138412546;
-                      v236 = v33;
-                      v237 = 2112;
-                      v238 = secondaryScopedIdentifier2;
+                      v235 = v33;
+                      v236 = 2112;
+                      v237 = secondaryScopedIdentifier2;
                       _os_log_impl(&dword_1DC05A000, v97, OS_LOG_TYPE_DEFAULT, "%@ is referencing a secondary record %@ which is unknown to the cache", buf, 0x16u);
                     }
                   }
@@ -1760,9 +2098,9 @@ LABEL_148:
                   if (os_log_type_enabled(v149, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412546;
-                    v236 = v33;
-                    v237 = 2112;
-                    v238 = secondaryScopedIdentifier2;
+                    v235 = v33;
+                    v236 = 2112;
+                    v237 = secondaryScopedIdentifier2;
                     _os_log_impl(&dword_1DC05A000, v149, OS_LOG_TYPE_ERROR, "%@ is referencing a secondary record %@ which is unknown to the cache", buf, 0x16u);
                   }
                 }
@@ -1776,9 +2114,9 @@ LABEL_281:
                 if (os_log_type_enabled(secondaryScopedIdentifier2, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412546;
-                  v236 = v18;
-                  v237 = 2112;
-                  v238 = relatedScopedIdentifier2;
+                  v235 = v18;
+                  v236 = 2112;
+                  v237 = relatedScopedIdentifier2;
                   _os_log_impl(&dword_1DC05A000, secondaryScopedIdentifier2, OS_LOG_TYPE_ERROR, "%@ is referencing a related record %@ which is unknown to the cache", buf, 0x16u);
                 }
 
@@ -1797,7 +2135,7 @@ LABEL_281:
               if (os_log_type_enabled(relatedScopedIdentifier2, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v236 = v18;
+                v235 = v18;
                 _os_log_impl(&dword_1DC05A000, relatedScopedIdentifier2, OS_LOG_TYPE_ERROR, "Got a partial record %@ from the cloud which is new to the cache", buf, 0xCu);
               }
             }
@@ -1806,22 +2144,22 @@ LABEL_281:
           }
         }
 
-        v25 = [v178 scopeWithIdentifier:v22];
+        v25 = [v177 scopeWithIdentifier:v22];
         if (v25)
         {
           v26 = v22;
 
-          objc_storeStrong(v218 + 5, v25);
+          objc_storeStrong(v217 + 5, v25);
           v15 = v26;
           goto LABEL_21;
         }
 
         v48 = [CPLErrors invalidScopeErrorWithScopedIdentifier:scopedIdentifier];
-        v49 = v230[5];
-        v230[5] = v48;
+        v49 = v229[5];
+        v229[5] = v48;
 
-        v38 = v224[5];
-        v224[5] = 0;
+        v38 = v223[5];
+        v223[5] = 0;
         v39 = 2;
 LABEL_272:
 
@@ -1834,8 +2172,8 @@ LABEL_272:
         ++v17;
       }
 
-      while (v184 != v17);
-      v14 = [obj countByEnumeratingWithState:&v204 objects:v245 count:16];
+      while (v183 != v17);
+      v14 = [obj countByEnumeratingWithState:&v203 objects:v244 count:16];
     }
 
     while (v14);
@@ -1843,23 +2181,22 @@ LABEL_272:
 
 LABEL_291:
 
-  v150 = v224[5];
+  v150 = v223[5];
   if (error && !v150)
   {
-    *error = v230[5];
-    v150 = v224[5];
+    *error = v229[5];
+    v150 = v223[5];
   }
 
   v151 = v150;
 
-  _Block_object_dispose(v213, 8);
-  _Block_object_dispose(v215, 8);
+  _Block_object_dispose(v212, 8);
+  _Block_object_dispose(v214, 8);
 
-  _Block_object_dispose(&v217, 8);
-  _Block_object_dispose(&v223, 8);
+  _Block_object_dispose(&v216, 8);
+  _Block_object_dispose(&v222, 8);
 
-  _Block_object_dispose(&v229, 8);
-  v152 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v228, 8);
 
   return v151;
 }
@@ -1906,13 +2243,12 @@ LABEL_11:
       goto LABEL_12;
     }
 
-    v15 = 0;
+    v14 = 0;
     v10 = [*(a1 + 40) scopedIdentifier];
-    v11 = [v2 localScopedIdentifierForCloudScopedIdentifier:v10 isFinal:&v15];
+    v11 = [v2 localScopedIdentifierForCloudScopedIdentifier:v10 isFinal:&v14];
 
     if (v11)
     {
-      v12 = *(a1 + 40);
       v3 = [objc_opt_class() newRecordWithScopedIdentifier:v11];
     }
 
@@ -1956,18 +2292,331 @@ LABEL_12:
   return v6;
 }
 
+- (BOOL)applyBatch:(id)batch isFinal:(BOOL)final direction:(unint64_t)direction withError:(id *)error
+{
+  finalCopy = final;
+  v79 = *MEMORY[0x1E69E9840];
+  batchCopy = batch;
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v9 = __CPLStorageOSLogDomain_17824();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 138412290;
+      v78 = batchCopy;
+      _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEBUG, "Applying %@", buf, 0xCu);
+    }
+  }
+
+  engineStore = [(CPLEngineStorage *)self engineStore];
+  quarantinedRecords = [engineStore quarantinedRecords];
+  idMapping = [engineStore idMapping];
+  pushRepository = [engineStore pushRepository];
+  v52 = engineStore;
+  scopes = [engineStore scopes];
+  v54 = pushRepository;
+  isEmpty = [pushRepository isEmpty];
+  v72 = 0u;
+  v73 = 0u;
+  v74 = 0u;
+  v75 = 0u;
+  v14 = batchCopy;
+  v61 = [v14 countByEnumeratingWithState:&v72 objects:v76 count:16];
+  if (v61)
+  {
+    errorCopy = error;
+    v15 = 0;
+    v60 = *v73;
+    v16 = !finalCopy;
+    if (direction != 2)
+    {
+      v16 = 1;
+    }
+
+    v58 = v16 | isEmpty;
+    v55 = idMapping;
+    obj = v14;
+    while (1)
+    {
+      v17 = 0;
+      do
+      {
+        if (*v73 != v60)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v18 = *(*(&v72 + 1) + 8 * v17);
+        scopedIdentifier = [v18 scopedIdentifier];
+        changeType = [v18 changeType];
+        v21 = [(CPLEngineCloudCache *)self recordWithScopedIdentifier:scopedIdentifier isFinal:finalCopy];
+        v22 = v21;
+        if (changeType != 1024)
+        {
+          if (!v21)
+          {
+            if (changeType)
+            {
+              v47 = errorCopy;
+              v14 = obj;
+              if ((_CPLSilentLogging & 1) == 0)
+              {
+                v50 = __CPLStorageOSLogDomain_17824();
+                if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+                {
+                  *buf = 138412290;
+                  v78 = v18;
+                  _os_log_impl(&dword_1DC05A000, v50, OS_LOG_TYPE_ERROR, "%@ is a new record but is not a full record", buf, 0xCu);
+                }
+              }
+
+              [CPLErrors invalidCloudCacheErrorWithReason:@"New record but not full record"];
+              v15 = v22 = v15;
+              goto LABEL_67;
+            }
+
+            v69 = v15;
+            v23 = [(CPLEngineCloudCache *)self addRecord:v18 isFinal:finalCopy error:&v69];
+            v36 = v69;
+
+            v15 = v36;
+LABEL_39:
+            if ((v23 & 1) == 0)
+            {
+              goto LABEL_52;
+            }
+
+            goto LABEL_48;
+          }
+
+          v68 = 0;
+          v25 = [v21 realRecordChangeFromRecordChange:v18 direction:direction newRecord:&v68];
+          v26 = v68;
+          if (v25)
+          {
+            recordChangeData = [v18 recordChangeData];
+            [v26 setRecordChangeData:recordChangeData];
+
+            sharingRecordChangeData = [v18 sharingRecordChangeData];
+            [v26 setSharingRecordChangeData:sharingRecordChangeData];
+
+            [v26 setServerRecordIsCorrupted:{objc_msgSend(v18, "serverRecordIsCorrupted")}];
+            recordModificationDate = [v18 recordModificationDate];
+
+            if (recordModificationDate)
+            {
+              recordModificationDate2 = [v18 recordModificationDate];
+              [v26 setRecordModificationDate:recordModificationDate2];
+            }
+
+            if (finalCopy)
+            {
+              if ([v18 supportsResources] && objc_msgSend(v18, "hasChangeType:", 8))
+              {
+                resources = [v18 resources];
+                v32 = [resources count] == 0;
+              }
+
+              else
+              {
+                v32 = 1;
+              }
+
+              v67 = v15;
+              v37 = &v67;
+              v38 = [(CPLEngineCloudCache *)self updateFinalRecord:v26 confirmed:v32 error:&v67];
+            }
+
+            else
+            {
+              v66 = v15;
+              v37 = &v66;
+              v38 = [(CPLEngineCloudCache *)self updateStagedRecord:v26 error:&v66];
+            }
+
+LABEL_46:
+            v23 = v38;
+            v39 = *v37;
+
+            v15 = v39;
+            idMapping = v55;
+          }
+
+          else
+          {
+            if (finalCopy)
+            {
+              v65 = v15;
+              v37 = &v65;
+              v38 = [(CPLEngineCloudCache *)self ackownledgeRecordWithScopedIdentifier:scopedIdentifier error:&v65];
+              goto LABEL_46;
+            }
+
+            v23 = 1;
+          }
+
+          if ((v23 & 1) == 0)
+          {
+            goto LABEL_52;
+          }
+
+          goto LABEL_48;
+        }
+
+        if (v21)
+        {
+          v71 = v15;
+          v23 = [(CPLEngineCloudCache *)self deleteRecordWithScopedIdentifier:scopedIdentifier isFinal:finalCopy error:&v71];
+          v24 = v15;
+          v15 = v71;
+        }
+
+        else
+        {
+          if (_CPLSilentLogging)
+          {
+            v23 = 1;
+            goto LABEL_28;
+          }
+
+          v24 = __CPLStorageOSLogDomain_17824();
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+          {
+            *buf = 138412290;
+            v78 = v18;
+            _os_log_impl(&dword_1DC05A000, v24, OS_LOG_TYPE_DEBUG, "Ignoring %@ as it is already known", buf, 0xCu);
+          }
+
+          v23 = 1;
+        }
+
+LABEL_28:
+        if (v58)
+        {
+          goto LABEL_39;
+        }
+
+        buf[0] = 0;
+        v33 = [idMapping localScopedIdentifierForCloudScopedIdentifier:scopedIdentifier isFinal:buf];
+        if (!v33)
+        {
+          v33 = [scopedIdentifier copy];
+        }
+
+        if (![v33 scopeIndex])
+        {
+          scopeIdentifier = [v33 scopeIdentifier];
+          [v33 setScopeIndex:{objc_msgSend(scopes, "indexForLocalScopeIdentifier:", scopeIdentifier)}];
+        }
+
+        if ([v33 scopeIndex] != 0x7FFFFFFFFFFFFFFFLL)
+        {
+          v70 = v15;
+          v23 = [v54 discardChangeWithScopedIdentifier:v33 error:&v70];
+          v35 = v70;
+
+          v15 = v35;
+        }
+
+        if ((v23 & 1) == 0)
+        {
+LABEL_52:
+          if ((v23 & 1) == 0)
+          {
+            goto LABEL_66;
+          }
+
+          goto LABEL_58;
+        }
+
+LABEL_48:
+        if (!finalCopy)
+        {
+          goto LABEL_52;
+        }
+
+        v64 = 0;
+        v40 = [idMapping localScopedIdentifierForCloudScopedIdentifier:scopedIdentifier isFinal:&v64];
+        if (v40)
+        {
+          v41 = v40;
+          v63 = v15;
+          v42 = [quarantinedRecords removeQuarantinedRecordWithScopedIdentifier:v40 notify:1 error:&v63];
+          v43 = v63;
+
+          v15 = v43;
+          if ((v42 & 1) == 0)
+          {
+            v15 = v43;
+LABEL_66:
+            v47 = errorCopy;
+            v14 = obj;
+LABEL_67:
+
+            if (v47)
+            {
+              v48 = v15;
+              v46 = 0;
+              *v47 = v15;
+            }
+
+            else
+            {
+              v46 = 0;
+            }
+
+            goto LABEL_70;
+          }
+        }
+
+        else if ((_CPLSilentLogging & 1) == 0)
+        {
+          v44 = __CPLStorageOSLogDomain_17824();
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138412290;
+            v78 = v18;
+            _os_log_impl(&dword_1DC05A000, v44, OS_LOG_TYPE_ERROR, "Failed to find local scoped identifier for %@ in ID mapping to unquarantine", buf, 0xCu);
+          }
+        }
+
+LABEL_58:
+
+        ++v17;
+      }
+
+      while (v61 != v17);
+      v14 = obj;
+      v45 = [obj countByEnumeratingWithState:&v72 objects:v76 count:16];
+      v61 = v45;
+      if (!v45)
+      {
+        goto LABEL_65;
+      }
+    }
+  }
+
+  v15 = 0;
+LABEL_65:
+
+  v46 = 1;
+LABEL_70:
+
+  return v46;
+}
+
 - (BOOL)updateStagedRecord:(id)record error:(id *)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   if ((_CPLSilentLogging & 1) == 0)
   {
     v8 = __CPLStorageOSLogDomain_17824();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v16 = 138412290;
-      v17 = recordCopy;
-      _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEBUG, "Updating %@", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = recordCopy;
+      _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEBUG, "Updating %@", &v15, 0xCu);
     }
   }
 
@@ -1976,9 +2625,9 @@ LABEL_12:
     v9 = __CPLStorageOSLogDomain_17824();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v16 = 138412290;
-      v17 = recordCopy;
-      _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_ERROR, "Updating a non full record: %@", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = recordCopy;
+      _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_ERROR, "Updating a non full record: %@", &v15, 0xCu);
     }
   }
 
@@ -1996,11 +2645,11 @@ LABEL_12:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         v13 = NSStringFromSelector(a2);
-        v16 = 138412546;
-        v17 = v13;
-        v18 = 2112;
-        v19 = recordCopy;
-        _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_ERROR, "%@: invalid record %@", &v16, 0x16u);
+        v15 = 138412546;
+        v16 = v13;
+        v17 = 2112;
+        v18 = recordCopy;
+        _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_ERROR, "%@: invalid record %@", &v15, 0x16u);
       }
     }
 
@@ -2016,8 +2665,135 @@ LABEL_12:
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v11;
+}
+
+- (BOOL)updateFinalRecord:(id)record confirmed:(BOOL)confirmed error:(id *)error
+{
+  confirmedCopy = confirmed;
+  v21 = *MEMORY[0x1E69E9840];
+  recordCopy = record;
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v10 = __CPLStorageOSLogDomain_17824();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    {
+      v17 = 138412290;
+      v18 = recordCopy;
+      _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_DEBUG, "Updating %@", &v17, 0xCu);
+    }
+  }
+
+  if (([recordCopy isFullRecord] & 1) == 0 && (_CPLSilentLogging & 1) == 0)
+  {
+    v11 = __CPLStorageOSLogDomain_17824();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      v17 = 138412290;
+      v18 = recordCopy;
+      _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_ERROR, "Updating a non full record: %@", &v17, 0xCu);
+    }
+  }
+
+  if ([recordCopy validateFullRecord])
+  {
+    platformObject = [(CPLEngineStorage *)self platformObject];
+    v13 = [platformObject updateFinalRecord:recordCopy confirmed:confirmedCopy error:error];
+  }
+
+  else
+  {
+    if ((_CPLSilentLogging & 1) == 0)
+    {
+      v14 = __CPLStorageOSLogDomain_17824();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      {
+        v15 = NSStringFromSelector(a2);
+        v17 = 138412546;
+        v18 = v15;
+        v19 = 2112;
+        v20 = recordCopy;
+        _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_ERROR, "%@: invalid record %@", &v17, 0x16u);
+      }
+    }
+
+    if (error)
+    {
+      [(CPLEngineCloudCache *)self _invalidCloudCacheErrorWithInvalidRecord:recordCopy method:@"update final"];
+      *error = v13 = 0;
+    }
+
+    else
+    {
+      v13 = 0;
+    }
+  }
+
+  return v13;
+}
+
+- (BOOL)addRecord:(id)record isFinal:(BOOL)final error:(id *)error
+{
+  finalCopy = final;
+  v21 = *MEMORY[0x1E69E9840];
+  recordCopy = record;
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v10 = __CPLStorageOSLogDomain_17824();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    {
+      v17 = 138412290;
+      v18 = recordCopy;
+      _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_DEBUG, "Adding %@", &v17, 0xCu);
+    }
+  }
+
+  if (([recordCopy isFullRecord] & 1) == 0 && (_CPLSilentLogging & 1) == 0)
+  {
+    v11 = __CPLStorageOSLogDomain_17824();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      v17 = 138412290;
+      v18 = recordCopy;
+      _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_ERROR, "Storing a non full record: %@", &v17, 0xCu);
+    }
+  }
+
+  if ([recordCopy validateFullRecord])
+  {
+    platformObject = [(CPLEngineStorage *)self platformObject];
+    v13 = [platformObject addRecord:recordCopy isFinal:finalCopy error:error];
+  }
+
+  else
+  {
+    if ((_CPLSilentLogging & 1) == 0)
+    {
+      v14 = __CPLStorageOSLogDomain_17824();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      {
+        v15 = NSStringFromSelector(a2);
+        v17 = 138412546;
+        v18 = v15;
+        v19 = 2112;
+        v20 = recordCopy;
+        _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_ERROR, "%@: invalid record %@", &v17, 0x16u);
+      }
+    }
+
+    if (error)
+    {
+      [(CPLEngineCloudCache *)self _invalidCloudCacheErrorWithInvalidRecord:recordCopy method:@"add"];
+      *error = v13 = 0;
+    }
+
+    else
+    {
+      v13 = 0;
+    }
+  }
+
+  return v13;
 }
 
 - (id)_invalidCloudCacheErrorWithInvalidRecord:(id)record method:(id)method

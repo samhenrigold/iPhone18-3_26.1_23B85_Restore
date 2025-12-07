@@ -188,15 +188,15 @@ void __61__CKSnapshotUtilities__cacheSnapshot_postChangeNotification___block_inv
 
 void __61__CKSnapshotUtilities__cacheSnapshot_postChangeNotification___block_invoke_3(id *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v2 = [a1[4] createEncodedData];
   if (v2)
   {
     v3 = [a1[5] URLByDeletingLastPathComponent];
     v4 = [MEMORY[0x1E696AC08] defaultManager];
-    v12 = 0;
-    v5 = [v4 createDirectoryAtURL:v3 withIntermediateDirectories:1 attributes:0 error:&v12];
-    v6 = v12;
+    v22 = 0;
+    v5 = [v4 createDirectoryAtURL:v3 withIntermediateDirectories:1 attributes:0 error:&v22];
+    v6 = v22;
 
     if ((v5 & 1) == 0)
     {
@@ -207,41 +207,39 @@ void __61__CKSnapshotUtilities__cacheSnapshot_postChangeNotification___block_inv
         if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
         {
           *buf = 138412546;
-          v14 = v3;
-          v15 = 2112;
-          v16 = v6;
+          v24 = v3;
+          v25 = 2112;
+          v26 = v6;
           _os_log_impl(&dword_19020E000, v7, OS_LOG_TYPE_INFO, "Failed to create preview directory URL: %@ with error: %@", buf, 0x16u);
         }
       }
 
       if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
       {
-        v10 = v3;
-        v11 = v6;
-        _CKLogExternal();
+        _CKLogExternal(3u, @"Failed to create preview directory URL: %@ with error: %@", v8, v9, v10, v11, v12, v13, v3);
       }
     }
 
     CKFreeSpaceWriteDataToURL(v2, a1[5], 1);
   }
 
-  [a1[6] stopTimingForKey:{@"CKSnapshotUtilities-CacheSnapshot", v10, v11}];
+  [a1[6] stopTimingForKey:@"CKSnapshotUtilities-CacheSnapshot"];
   if (IMOSLoggingEnabled())
   {
     CKLogCStringForType(3);
-    v8 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v14 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v9 = a1[6];
+      v15 = a1[6];
       *buf = 138412290;
-      v14 = v9;
-      _os_log_impl(&dword_19020E000, v8, OS_LOG_TYPE_INFO, "CKSnapshotUtilities-CacheSnapshot timing: %@", buf, 0xCu);
+      v24 = v15;
+      _os_log_impl(&dword_19020E000, v14, OS_LOG_TYPE_INFO, "CKSnapshotUtilities-CacheSnapshot timing: %@", buf, 0xCu);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
   {
-    _CKLogExternal();
+    _CKLogExternal(3u, @"CKSnapshotUtilities-CacheSnapshot timing: %@", v16, v17, v18, v19, v20, v21, a1[6]);
   }
 }
 

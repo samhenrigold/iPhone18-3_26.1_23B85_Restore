@@ -24,31 +24,31 @@
 
 - (id)hk_croppedImageWithRect:()HKAdditions
 {
-  [self scale];
-  if (v10 > 1.0)
+  objc_msgSend_scale(self, a2);
+  if (v12 > 1.0)
   {
-    [self scale];
-    a2 = a2 * v11;
-    [self scale];
-    a3 = a3 * v12;
-    [self scale];
+    objc_msgSend_scale(self);
     a4 = a4 * v13;
-    [self scale];
+    objc_msgSend_scale(self);
     a5 = a5 * v14;
+    objc_msgSend_scale(self);
+    a6 = a6 * v15;
+    objc_msgSend_scale(self);
+    a7 = a7 * v16;
   }
 
   cGImage = [self CGImage];
-  v22.origin.x = a2;
-  v22.origin.y = a3;
-  v22.size.width = a4;
-  v22.size.height = a5;
-  v16 = CGImageCreateWithImageInRect(cGImage, v22);
-  v17 = MEMORY[0x1E69DCAB8];
-  [self scale];
-  v19 = [v17 imageWithCGImage:v16 scale:objc_msgSend(self orientation:{"imageOrientation"), v18}];
-  CGImageRelease(v16);
+  v24.origin.x = a4;
+  v24.origin.y = a5;
+  v24.size.width = a6;
+  v24.size.height = a7;
+  v18 = CGImageCreateWithImageInRect(cGImage, v24);
+  v19 = MEMORY[0x1E69DCAB8];
+  objc_msgSend_scale(self);
+  v21 = [v19 imageWithCGImage:v18 scale:objc_msgSend(self orientation:{"imageOrientation"), v20}];
+  CGImageRelease(v18);
 
-  return v19;
+  return v21;
 }
 
 - (id)hk_watchIconImage
@@ -69,7 +69,7 @@
   [self size];
   v11 = v10;
   v13 = v12;
-  [self scale];
+  objc_msgSend_scale(self);
   v15 = v14;
   v23.width = v11;
   v23.height = v13;

@@ -75,25 +75,25 @@
     if ((v10 & 1) == 0)
     {
       v11 = [v7 specifierForID:@"RESET_CELLULAR_GROUP_ID"];
-      [v7 removeObject:v11];
+      objc_msgSend_removeObject_(v7);
 
       v12 = [v7 specifierForID:@"RESET_CELLULAR_PLANS_ID"];
-      [v7 removeObject:v12];
+      objc_msgSend_removeObject_(v7);
     }
 
     if (BPSDeviceHasCapabilityForString())
     {
       v13 = [v7 specifierForID:@"RESET_APP_LAYOUT_GROUP_ID"];
-      [v7 removeObject:v13];
+      objc_msgSend_removeObject_(v7);
 
       v14 = [v7 specifierForID:@"RESET_APP_LAYOUT_ID"];
-      [v7 removeObject:v14];
+      objc_msgSend_removeObject_(v7);
 
       v15 = [v7 specifierForID:@"RESET_ALL_SYNC_STATE_GROUP_ID"];
-      [v7 removeObject:v15];
+      objc_msgSend_removeObject_(v7);
 
       v16 = [v7 specifierForID:@"RESET_ALL_SYNC_STATE_ID"];
-      [v7 removeObject:v16];
+      objc_msgSend_removeObject_(v7);
     }
 
     v17 = *&self->BPSListController_opaque[v3];

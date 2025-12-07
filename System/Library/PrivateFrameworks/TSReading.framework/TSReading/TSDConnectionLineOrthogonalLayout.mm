@@ -66,47 +66,47 @@
 - (id)createConnectedPathFrom:(id)from to:(id)to withControlPoints:(CGPoint)points[3]
 {
   v9 = 0;
-  v79 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   do
   {
     v10 = TSDMultiplyPointScalar(points[v9 / 2].x, points[v9 / 2].y, 10.0);
-    v11 = &v76[v9];
+    v11 = &v78[v9];
     *v11 = v10;
     *(v11 + 1) = v12;
     v9 += 2;
   }
 
   while (v9 != 6);
+  v76 = 0u;
+  v77 = 0u;
+  v13 = v78[0];
+  TSDIntRectMake(v78[0], v78[1], 0, 0, &v76);
   v74 = 0u;
   v75 = 0u;
-  v13 = v76[0];
-  TSDIntRectMake(v76[0], v76[1], 0, 0, &v74);
-  v72 = 0u;
-  v73 = 0u;
-  v14 = v77;
-  TSDIntRectMake(v77, v78, 0, 0, &v72);
-  v63 = v74;
-  v64 = v75;
+  v14 = v79;
+  TSDIntRectMake(v79, v80, 0, 0, &v74);
+  v65 = v76;
+  v66 = v77;
   v15 = TSDIntPointFromCGPoint(v13);
   v17 = v16;
-  v65 = v15;
-  v66 = v16;
-  v67 = 0u;
-  v68 = 0u;
+  v67 = v15;
+  v68 = v16;
   v69 = 0u;
   v70 = 0u;
-  v71 = 0;
-  v54 = v72;
-  v55 = v73;
+  v71 = 0u;
+  v72 = 0u;
+  v73 = 0;
+  v56 = v74;
+  v57 = v75;
   v18 = TSDIntPointFromCGPoint(v14);
   v20 = v19;
-  v56 = v18;
-  v57 = v19;
-  v58 = 0u;
-  v59 = 0u;
+  v58 = v18;
+  v59 = v19;
   v60 = 0u;
   v61 = 0u;
-  v62 = 0;
+  v62 = 0u;
+  v63 = 0u;
+  v64 = 0;
   if (from)
   {
     [(TSDConnectionLineAbstractLayout *)self outsetFrom];
@@ -115,14 +115,14 @@
     TSDIntPointFromCGPointWithScale(v25, v26, 10.0);
     v15 = v27;
     v17 = v28;
-    v65 = v27;
-    v66 = v28;
-    v40 = v63;
-    v41 = v64;
-    TSDExpandShapeRectToIncludePoint(&v40, v27, v28, &v63);
-    if (v64 >= 1 && *(&v64 + 1) >= 1)
+    v67 = v27;
+    v68 = v28;
+    v42 = v65;
+    v43 = v66;
+    TSDExpandShapeRectToIncludePoint(&v42, v27, v28, &v65);
+    if (v66 >= 1 && *(&v66 + 1) >= 1)
     {
-      *&v67 = 200;
+      *&v69 = 200;
     }
   }
 
@@ -134,64 +134,64 @@
     TSDIntPointFromCGPointWithScale(v33, v34, 10.0);
     v18 = v35;
     v20 = v36;
-    v56 = v35;
-    v57 = v36;
-    v40 = v54;
-    v41 = v55;
-    TSDExpandShapeRectToIncludePoint(&v40, v35, v36, &v54);
-    if (v55 >= 1 && *(&v55 + 1) >= 1)
+    v58 = v35;
+    v59 = v36;
+    v42 = v56;
+    v43 = v57;
+    TSDExpandShapeRectToIncludePoint(&v42, v35, v36, &v56);
+    if (v57 >= 1 && *(&v57 + 1) >= 1)
     {
-      *&v58 = 200;
+      *&v60 = 200;
     }
   }
 
   self->super.mVisibleLine = 1;
+  v53 = 0;
+  v54 = 0;
+  v55 = 0;
+  v50 = 0;
   v51 = 0;
   v52 = 0;
-  v53 = 0;
-  v48 = 0;
-  v49 = 0;
-  v50 = 0;
-  v40.n128_f64[0] = v15;
-  std::vector<double>::push_back[abi:nn200100](&v51, &v40);
-  v40.n128_f64[0] = v17;
-  std::vector<double>::push_back[abi:nn200100](&v48, &v40);
-  v40.n128_f64[0] = v18;
-  std::vector<double>::push_back[abi:nn200100](&v51, &v40);
-  v40.n128_f64[0] = v20;
-  std::vector<double>::push_back[abi:nn200100](&v48, &v40);
+  v42.n128_f64[0] = v15;
+  std::vector<double>::push_back[abi:nn200100](&v53, &v42);
+  v42.n128_f64[0] = v17;
+  std::vector<double>::push_back[abi:nn200100](&v50, &v42);
+  v42.n128_f64[0] = v18;
+  std::vector<double>::push_back[abi:nn200100](&v53, &v42);
+  v42.n128_f64[0] = v20;
+  std::vector<double>::push_back[abi:nn200100](&v50, &v42);
   __dst = 0;
+  v49 = 0;
   v47 = 0;
-  v45 = 0;
-  if (v52 != v51)
+  if (v54 != v53)
   {
-    std::vector<unsigned long>::__vallocate[abi:nn200100](&v45, (v52 - v51) >> 3);
+    std::vector<unsigned long>::__vallocate[abi:nn200100](&v47, (v54 - v53) >> 3);
   }
 
   __p = 0;
-  v43 = 0;
-  v44 = 0;
-  if (v49 != v48)
+  v45 = 0;
+  v46 = 0;
+  if (v51 != v50)
   {
-    std::vector<unsigned long>::__vallocate[abi:nn200100](&__p, (v49 - v48) >> 3);
+    std::vector<unsigned long>::__vallocate[abi:nn200100](&__p, (v51 - v50) >> 3);
   }
 
-  [(TSDConnectionLineOrthogonalLayout *)self axisSnapPoint:&v45 toXs:&__p toYs:v76[2] withThreshold:v76[3], 20.0];
+  [(TSDConnectionLineOrthogonalLayout *)self axisSnapPoint:&v47 toXs:&__p toYs:v78[2] withThreshold:v78[3], 20.0];
   v38 = v37;
   if (__p)
   {
-    v43 = __p;
+    v45 = __p;
     operator delete(__p);
   }
 
-  if (v45)
+  if (v47)
   {
-    __dst = v45;
-    operator delete(v45);
+    __dst = v47;
+    operator delete(v47);
   }
 
-  TSDIntPointFromCGPoint(v38);
-  routePath();
+  v39 = TSDIntPointFromCGPoint(v38);
+  routePath(&v65, v39, v40, &v56);
 }
 
 - (CGPoint)controlPointForPointA:(CGPoint)a pointB:(CGPoint)b andOriginalA:(CGPoint)originalA originalB:(CGPoint)originalB
@@ -210,7 +210,7 @@
     v17 = 0u;
     v13 = 0u;
 LABEL_6:
-    [(TSDInfoGeometry *)mResizeInfoGeometry transform:v13];
+    objc_msgSend_transform(mResizeInfoGeometry, v13, v15, v17);
     goto LABEL_7;
   }
 
@@ -380,7 +380,7 @@ LABEL_11:
     pureGeometry = [(TSDLayout *)self pureGeometry];
     if (pureGeometry)
     {
-      [pureGeometry transform];
+      objc_msgSend_transform(pureGeometry);
       v22 = v35;
       v23 = v36;
       v24 = v37;
@@ -406,7 +406,7 @@ LABEL_11:
   pureGeometry2 = [(TSDLayout *)self pureGeometry];
   if (pureGeometry2)
   {
-    [pureGeometry2 transform];
+    objc_msgSend_transform(pureGeometry2);
     v28 = v35;
     v29 = v36;
     v30 = v37;
@@ -445,7 +445,7 @@ LABEL_20:
     pureGeometry = [(TSDLayout *)self pureGeometry];
     if (pureGeometry)
     {
-      [pureGeometry transform];
+      objc_msgSend_transform(pureGeometry);
       b = v34.b;
       a = v34.a;
       d = v34.d;

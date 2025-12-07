@@ -21,7 +21,7 @@
     v11 = 1;
     if (v8 != @"issuerInstallments")
     {
-      if (!v8 || (v10 = [(__CFString *)v8 isEqualToString:@"issuerInstallments"], v9, !v10))
+      if (!v8 || (isEqualToString = objc_msgSend_isEqualToString_(v8), v9, !isEqualToString))
       {
         v11 = 0;
       }

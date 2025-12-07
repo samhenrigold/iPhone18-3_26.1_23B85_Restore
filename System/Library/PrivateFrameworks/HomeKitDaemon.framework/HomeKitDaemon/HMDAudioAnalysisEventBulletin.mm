@@ -265,36 +265,36 @@
   if (v25)
   {
     v25->_reason = reason;
-    v27 = [endDateCopy copy];
+    v27 = objc_msgSend_copy(endDateCopy);
     dateOfOccurrence = v26->_dateOfOccurrence;
     v26->_dateOfOccurrence = v27;
 
-    v29 = [dateCopy copy];
+    v29 = objc_msgSend_copy(dateCopy);
     startDate = v26->_startDate;
     v26->_startDate = v29;
 
-    v31 = [dCopy copy];
+    v31 = objc_msgSend_copy(dCopy);
     notificationUUID = v26->_notificationUUID;
     v26->_notificationUUID = v31;
 
     v26->_state = state;
-    v33 = [identifierCopy copy];
+    v33 = objc_msgSend_copy(identifierCopy);
     soundIdentifier = v26->_soundIdentifier;
     v26->_soundIdentifier = v33;
 
-    v35 = [iDCopy copy];
+    v35 = objc_msgSend_copy(iDCopy);
     accessoryUUID = v26->_accessoryUUID;
     v26->_accessoryUUID = v35;
 
-    v37 = [titleCopy copy];
+    v37 = objc_msgSend_copy(titleCopy);
     title = v26->_title;
     v26->_title = v37;
 
-    v39 = [nameCopy copy];
+    v39 = objc_msgSend_copy(nameCopy);
     name = v26->_name;
     v26->_name = v39;
 
-    v41 = [threadIdentifierCopy copy];
+    v41 = objc_msgSend_copy(threadIdentifierCopy);
     threadIdentifier = v26->_threadIdentifier;
     v26->_threadIdentifier = v41;
   }
@@ -363,7 +363,7 @@ LABEL_10:
 - (id)localizedKeyForEventEndWithDropIn:(BOOL)in homeName:(id)name
 {
   inCopy = in;
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v7 = objc_opt_new();
   [v7 setUnitsStyle:3];
@@ -399,9 +399,9 @@ LABEL_8:
   if (inCopy)
   {
     v18 = HMDLocalizedStringForKey(@"AUDIOANALYSIS_ALARM_END_CHECK_IN");
-    v30 = 0;
-    v19 = [v17 localizedStringWithValidatedFormat:v18 validFormatSpecifiers:@"%@ %@ %@" error:&v30, nameCopy, v14, composedString];
-    v20 = v30;
+    v29 = 0;
+    v19 = [v17 localizedStringWithValidatedFormat:v18 validFormatSpecifiers:@"%@ %@ %@" error:&v29, nameCopy, v14, composedString];
+    v20 = v29;
 
     if (!v19)
     {
@@ -412,13 +412,13 @@ LABEL_8:
       {
         v23 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v32 = v23;
-        v33 = 2112;
-        v34 = @"AUDIOANALYSIS_ALARM_END_CHECK_IN";
-        v35 = 2112;
-        v36 = @"%@ %@ %@";
-        v37 = 2112;
-        v38 = v20;
+        v31 = v23;
+        v32 = 2112;
+        v33 = @"AUDIOANALYSIS_ALARM_END_CHECK_IN";
+        v34 = 2112;
+        v35 = @"%@ %@ %@";
+        v36 = 2112;
+        v37 = v20;
 LABEL_16:
         _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
 
@@ -432,9 +432,9 @@ LABEL_16:
   else
   {
     v24 = HMDLocalizedStringForKey(@"AUDIOANALYSIS_ALARM_END_NO_CHECK_IN");
-    v29 = 0;
-    v19 = [v17 localizedStringWithValidatedFormat:v24 validFormatSpecifiers:@"%@ %@" error:&v29, composedString, v14];
-    v20 = v29;
+    v28 = 0;
+    v19 = [v17 localizedStringWithValidatedFormat:v24 validFormatSpecifiers:@"%@ %@" error:&v28, composedString, v14];
+    v20 = v28;
 
     if (!v19)
     {
@@ -445,13 +445,13 @@ LABEL_16:
       {
         v23 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v32 = v23;
-        v33 = 2112;
-        v34 = @"AUDIOANALYSIS_ALARM_END_NO_CHECK_IN";
-        v35 = 2112;
-        v36 = @"%@ %@";
-        v37 = 2112;
-        v38 = v20;
+        v31 = v23;
+        v32 = 2112;
+        v33 = @"AUDIOANALYSIS_ALARM_END_NO_CHECK_IN";
+        v34 = 2112;
+        v35 = @"%@ %@";
+        v36 = 2112;
+        v37 = v20;
         goto LABEL_16;
       }
 
@@ -467,14 +467,13 @@ LABEL_17:
 LABEL_18:
   v26 = v19;
 
-  v27 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 - (id)localizedKeyForEventStartWithDropIn:(BOOL)in homeName:(id)name
 {
   inCopy = in;
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   accessoryNameComposer = [(HMDAudioAnalysisEventBulletin *)self accessoryNameComposer];
   composedString = [accessoryNameComposer composedString];
@@ -483,9 +482,9 @@ LABEL_18:
   if (inCopy)
   {
     v10 = HMDLocalizedStringForKey(@"AUDIOANALYSIS_ALARM_START_CHECK_IN");
-    v22 = 0;
-    v11 = [v9 localizedStringWithValidatedFormat:v10 validFormatSpecifiers:@"%@ %@" error:&v22, nameCopy, composedString];
-    v12 = v22;
+    v21 = 0;
+    v11 = [v9 localizedStringWithValidatedFormat:v10 validFormatSpecifiers:@"%@ %@" error:&v21, nameCopy, composedString];
+    v12 = v21;
 
     if (!v11)
     {
@@ -496,13 +495,13 @@ LABEL_18:
       {
         v15 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v24 = v15;
-        v25 = 2112;
-        v26 = @"AUDIOANALYSIS_ALARM_START_CHECK_IN";
-        v27 = 2112;
-        v28 = @"%@ %@";
-        v29 = 2112;
-        v30 = v12;
+        v23 = v15;
+        v24 = 2112;
+        v25 = @"AUDIOANALYSIS_ALARM_START_CHECK_IN";
+        v26 = 2112;
+        v27 = @"%@ %@";
+        v28 = 2112;
+        v29 = v12;
 LABEL_9:
         _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
 
@@ -516,9 +515,9 @@ LABEL_9:
   else
   {
     v16 = HMDLocalizedStringForKey(@"AUDIOANALYSIS_ALARM_START_NO_CHECK_IN");
-    v21 = 0;
-    v11 = [v9 localizedStringWithValidatedFormat:v16 validFormatSpecifiers:@"%@" error:&v21, composedString];
-    v12 = v21;
+    v20 = 0;
+    v11 = [v9 localizedStringWithValidatedFormat:v16 validFormatSpecifiers:@"%@" error:&v20, composedString];
+    v12 = v20;
 
     if (!v11)
     {
@@ -529,13 +528,13 @@ LABEL_9:
       {
         v15 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v24 = v15;
-        v25 = 2112;
-        v26 = @"AUDIOANALYSIS_ALARM_START_NO_CHECK_IN";
-        v27 = 2112;
-        v28 = @"%@";
-        v29 = 2112;
-        v30 = v12;
+        v23 = v15;
+        v24 = 2112;
+        v25 = @"AUDIOANALYSIS_ALARM_START_NO_CHECK_IN";
+        v26 = 2112;
+        v27 = @"%@";
+        v28 = 2112;
+        v29 = v12;
         goto LABEL_9;
       }
 
@@ -551,7 +550,6 @@ LABEL_10:
 LABEL_11:
   v18 = v11;
 
-  v19 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

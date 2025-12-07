@@ -28,7 +28,7 @@
 
 - (void)_bridgedUpdateConfigurationUsingState:(id)state
 {
-  v4 = sub_1000F24EC(&qword_100AF16C0);
+  v4 = sub_1000F24EC(&qword_100AF16C0, &qword_100942DF0);
   __chkstk_darwin(v4 - 8);
   v6 = &v15 - v5;
   v7 = type metadata accessor for UICellConfigurationState();
@@ -43,7 +43,7 @@
   v15.super_class = v13;
   [(SidebarBrickCollectionViewListCell *)&v15 _bridgedUpdateConfigurationUsingState:isa];
 
-  sub_1001F0244();
+  sub_1001F0244(v10);
   v14 = type metadata accessor for UIBackgroundConfiguration();
   (*(*(v14 - 8) + 56))(v6, 0, 1, v14);
   UICollectionViewCell.backgroundConfiguration.setter();

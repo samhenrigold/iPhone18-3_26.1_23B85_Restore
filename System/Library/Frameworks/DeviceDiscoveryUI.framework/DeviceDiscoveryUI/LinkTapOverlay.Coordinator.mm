@@ -18,13 +18,13 @@
     [touchCopy locationInView_];
 
     v11 = sub_2380768FC();
-    v12 = v11;
+    v13 = v11;
     if (v11)
     {
-      sub_23807A454(v11);
+      sub_23807A454(v11, v12);
     }
 
-    LOBYTE(view) = v12 != 0;
+    LOBYTE(view) = v13 != 0;
   }
 
   else
@@ -48,10 +48,11 @@
     v7 = sub_2380768FC();
     if (v7)
     {
-      v8 = v7;
+      v9 = v8;
+      v10 = v7;
       v7();
 
-      sub_23807A454(v8);
+      sub_23807A454(v10, v9);
     }
 
     else

@@ -3,7 +3,7 @@
 
 @implementation AXSHoverTextTypingEnabled
 
-uint64_t ___AXSHoverTextTypingEnabled_block_invoke()
+void *___AXSHoverTextTypingEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

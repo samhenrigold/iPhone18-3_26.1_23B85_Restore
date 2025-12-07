@@ -165,18 +165,28 @@
   v6 = fromCopy[3];
   if (syncIdentity)
   {
-    if (v6)
+    if (!v6)
     {
-      [(HDCodableSyncIdentity *)syncIdentity mergeFrom:?];
+      goto LABEL_11;
     }
+
+    syncIdentity = [(HDCodableSyncIdentity *)syncIdentity mergeFrom:?];
   }
 
-  else if (v6)
+  else
   {
-    [(HDCloudSyncCodableRegisteredStore *)self setSyncIdentity:?];
+    if (!v6)
+    {
+      goto LABEL_11;
+    }
+
+    syncIdentity = [(HDCloudSyncCodableRegisteredStore *)self setSyncIdentity:?];
   }
 
-  MEMORY[0x2821F96F8]();
+  fromCopy = v7;
+LABEL_11:
+
+  MEMORY[0x2821F96F8](syncIdentity, fromCopy);
 }
 
 @end

@@ -256,7 +256,7 @@ void __82__JFXMovieCompositionItem_segmentWithCharacteristic_sourceRange_destina
   selfCopy = self;
   v44 = *MEMORY[0x277D85DE8];
   memset(&v40, 0, sizeof(v40));
-  [(JFXCompositionItem *)self sourceTimeRange];
+  objc_msgSend_sourceTimeRange(self, a2);
   array = [MEMORY[0x277CBEB18] array];
   if ([(JFXCompositionItem *)selfCopy isFreezeFrame])
   {
@@ -311,7 +311,7 @@ void __82__JFXMovieCompositionItem_segmentWithCharacteristic_sourceRange_destina
         memset(&v39, 0, sizeof(v39));
         if (v15)
         {
-          [v15 CMTimeMappingValue];
+          objc_msgSend_CMTimeMappingValue(v15);
           value = v39.source.start.value;
           v17 = v39.source.duration.value;
           v18 = v39.target.start.value;
@@ -403,23 +403,23 @@ void __82__JFXMovieCompositionItem_segmentWithCharacteristic_sourceRange_destina
   v44 = *MEMORY[0x277D85DE8];
   memset(v42, 0, sizeof(v42));
   v41 = 0u;
-  [(JFXCompositionItem *)self sourceTimeRange];
+  objc_msgSend_sourceTimeRange(self, a2);
   if ([(JFXCompositionItem *)self isFreezeFrame])
   {
-    [(JFXCompositionItem *)self destinationDuration];
+    objc_msgSend_destinationDuration(self);
     *(v42 + 8) = *rhs;
     *(&v42[1] + 1) = *&rhs[16];
   }
 
-  [(JFXCompositionItem *)self audioStartOffset];
+  objc_msgSend_audioStartOffset(self);
   *lhs = *&time->var0;
   *&lhs[16] = time->var3;
   CMTimeAdd(&v39, lhs, rhs);
   memset(&v40[8], 0, 24);
-  [(JFXCompositionItem *)self destinationDuration];
-  [(JFXCompositionItem *)self audioStartOffset];
+  objc_msgSend_destinationDuration(self);
+  objc_msgSend_audioStartOffset(self);
   CMTimeSubtract(lhs, rhs, time2);
-  [(JFXCompositionItem *)self audioEndOffset];
+  objc_msgSend_audioEndOffset(self);
   CMTimeAdd(rhs, lhs, time2);
   *&v40[8] = *rhs;
   *&v40[24] = *&rhs[16];
@@ -564,7 +564,7 @@ void __82__JFXMovieCompositionItem_segmentWithCharacteristic_sourceRange_destina
         memset(rhs, 0, sizeof(rhs));
         if (v19)
         {
-          [v19 CMTimeMappingValue];
+          objc_msgSend_CMTimeMappingValue(v19);
         }
 
         *time2 = *rhs;
@@ -604,14 +604,14 @@ void __82__JFXMovieCompositionItem_segmentWithCharacteristic_sourceRange_destina
 
 - (id)audioTrackSegmentsLoopedWithDestinationTime:(id *)time
 {
-  [(JFXCompositionItem *)self audioStartOffset];
+  objc_msgSend_audioStartOffset(self, a2);
   lhs = *time;
   CMTimeAdd(&v12, &lhs, &v7);
   memset(&v13[8], 0, 24);
-  [(JFXCompositionItem *)self destinationDuration];
-  [(JFXCompositionItem *)self audioStartOffset];
+  objc_msgSend_destinationDuration(self);
+  objc_msgSend_audioStartOffset(self);
   CMTimeSubtract(&lhs, &v7, &rhs);
-  [(JFXCompositionItem *)self audioEndOffset];
+  objc_msgSend_audioEndOffset(self);
   CMTimeAdd(&v7, &lhs, &rhs);
   *&v13[24] = v8;
   *&v13[8] = v7;
@@ -642,7 +642,7 @@ void __82__JFXMovieCompositionItem_segmentWithCharacteristic_sourceRange_destina
   memset(&v31, 0, sizeof(v31));
   if (v7)
   {
-    [v7 duration];
+    objc_msgSend_duration(v7);
   }
 
   else
@@ -654,7 +654,7 @@ void __82__JFXMovieCompositionItem_segmentWithCharacteristic_sourceRange_destina
   CMTimeMultiplyByFloat64(v30, &time.start, 1.0 / v9);
   CMTimeConvertScale(&v31, v30, [(JFXCompositionItem *)self timeScale], kCMTimeRoundingMethod_RoundHalfAwayFromZero);
   memset(v30, 0, sizeof(v30));
-  [(JFXCompositionItem *)self sourceTimeRange];
+  objc_msgSend_sourceTimeRange(self);
   if (audioAssetOverwrite)
   {
     *&time.start.value = v28;
@@ -728,7 +728,7 @@ void __82__JFXMovieCompositionItem_segmentWithCharacteristic_sourceRange_destina
       *&time2[16] = *&v30[0].epoch;
       v21 = *&v30[1].timescale;
       memset(rhs, 0, sizeof(rhs));
-      [(JFXMovieCompositionItem *)self applySpeed:time2];
+      objc_msgSend_applySpeed_(self);
       *time2 = *rhs;
       *&time2[16] = *&rhs[16];
       v21 = v23;

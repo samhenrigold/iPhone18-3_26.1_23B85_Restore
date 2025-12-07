@@ -74,7 +74,7 @@
   v18 = v17;
   if (v17)
   {
-    [v17 debugBadgeInfo];
+    objc_msgSend_debugBadgeInfo(v17);
   }
 
   PXAssetBadgeInfoIsNull();

@@ -39,7 +39,7 @@
 
 - (BOOL)performWithProfile:(id)profile transaction:(id)transaction error:(id *)error
 {
-  v73[1] = *MEMORY[0x277D85DE8];
+  v72[1] = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   profileCopy = profile;
   syncIdentityManager = [profileCopy syncIdentityManager];
@@ -62,7 +62,7 @@
   method = self->_method;
   syncProvenance = self->_syncProvenance;
   syncVersion = self->_syncVersion;
-  v59 = self->_userDomainConcepts;
+  v58 = self->_userDomainConcepts;
   v19 = transactionCopy;
   v20 = userDomainConceptManager;
   if (userDomainConceptManager)
@@ -72,14 +72,14 @@
       v21 = userDomainConceptManager;
       errorCopy = error;
       WeakRetained = objc_loadWeakRetained(v20 + 8);
-      v24 = v59;
+      v24 = v58;
       v25 = WeakRetained;
       v26 = v19;
       v27 = v25;
-      v56 = v26;
+      v55 = v26;
       v28 = v26;
+      v65 = 0u;
       v66 = 0u;
-      v67 = 0u;
       if (method == 2)
       {
         v29 = 3;
@@ -90,32 +90,32 @@
         v29 = 2;
       }
 
+      v67 = 0uLL;
       v68 = 0uLL;
-      v69 = 0uLL;
       obj = v24;
-      v30 = [(NSArray *)obj countByEnumeratingWithState:&v66 objects:v72 count:16];
+      v30 = [(NSArray *)obj countByEnumeratingWithState:&v65 objects:v71 count:16];
       if (v30)
       {
         v31 = v30;
-        v62 = v21;
-        v32 = *v67;
+        v61 = v21;
+        v32 = *v66;
         while (2)
         {
           for (i = 0; i != v31; ++i)
           {
-            if (*v67 != v32)
+            if (*v66 != v32)
             {
               objc_enumerationMutation(obj);
             }
 
-            if (![HDUserDomainConceptEntity storeUserDomainConcept:*(*(&v66 + 1) + 8 * i) method:v29 syncProvenance:syncProvenance syncIdentity:syncIdentity syncVersion:syncVersion profile:v27 transaction:v28 error:errorCopy])
+            if (![HDUserDomainConceptEntity storeUserDomainConcept:*(*(&v65 + 1) + 8 * i) method:v29 syncProvenance:syncProvenance syncIdentity:syncIdentity syncVersion:syncVersion profile:v27 transaction:v28 error:errorCopy])
             {
               v34 = 0;
               goto LABEL_33;
             }
           }
 
-          v31 = [(NSArray *)obj countByEnumeratingWithState:&v66 objects:v72 count:16];
+          v31 = [(NSArray *)obj countByEnumeratingWithState:&v65 objects:v71 count:16];
           if (v31)
           {
             continue;
@@ -126,7 +126,7 @@
 
         v34 = 1;
 LABEL_33:
-        v36 = v62;
+        v36 = v61;
       }
 
       else
@@ -135,38 +135,38 @@ LABEL_33:
         v36 = v21;
       }
 
-      v19 = v56;
+      v19 = v55;
 LABEL_42:
-      v53 = v59;
+      v53 = v58;
       goto LABEL_43;
     }
 
     if (method == 3)
     {
-      v35 = v59;
-      v63 = v19;
+      v35 = v58;
+      v62 = v19;
+      v65 = 0u;
       v66 = 0u;
       v67 = 0u;
       v68 = 0u;
-      v69 = 0u;
-      v58 = v35;
-      v61 = [(NSArray *)v58 countByEnumeratingWithState:&v66 objects:v72 count:16];
+      v57 = v35;
+      v60 = [(NSArray *)v57 countByEnumeratingWithState:&v65 objects:v71 count:16];
       v36 = userDomainConceptManager;
-      if (v61)
+      if (v60)
       {
-        v57 = v19;
-        v60 = *v67;
+        v56 = v19;
+        v59 = *v66;
         while (2)
         {
-          for (j = 0; j != v61; ++j)
+          for (j = 0; j != v60; ++j)
           {
-            if (*v67 != v60)
+            if (*v66 != v59)
             {
-              objc_enumerationMutation(v58);
+              objc_enumerationMutation(v57);
             }
 
-            v38 = *(*(&v66 + 1) + 8 * j);
-            obja = v63;
+            v38 = *(*(&v65 + 1) + 8 * j);
+            obja = v62;
             profile = [userDomainConceptManager profile];
             daemon = [profile daemon];
             userDomainConceptEntityRegistry = [daemon userDomainConceptEntityRegistry];
@@ -177,16 +177,16 @@ LABEL_42:
             {
               v44 = [v43 predicateMatchingSemanticDuplicatesOf:v38];
               v45 = [MEMORY[0x277D10B68] orderingTermWithProperty:@"creation_date" entityClass:objc_opt_class() ascending:0];
-              v73[0] = v45;
-              v46 = [MEMORY[0x277CBEA60] arrayWithObjects:v73 count:1];
-              v70[0] = MEMORY[0x277D85DD0];
-              v70[1] = 3221225472;
-              v70[2] = __129__HDUserDomainConceptManager__enumerateAndDeleteSemanticDuplicatesOfConceptIfSupportsHidingSemanticDuplicates_transaction_error___block_invoke;
-              v70[3] = &unk_27862B040;
-              v70[4] = userDomainConceptManager;
+              v72[0] = v45;
+              v46 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:1];
+              v69[0] = MEMORY[0x277D85DD0];
+              v69[1] = 3221225472;
+              v69[2] = __129__HDUserDomainConceptManager__enumerateAndDeleteSemanticDuplicatesOfConceptIfSupportsHidingSemanticDuplicates_transaction_error___block_invoke;
+              v69[3] = &unk_27862B040;
+              v69[4] = userDomainConceptManager;
               v47 = obja;
-              v71 = v47;
-              v48 = [userDomainConceptManager enumerateUserDomainConceptsWithPredicate:v44 enumerationOptions:2 limit:0 orderingTerms:v46 transaction:v47 error:error enumerationHandler:v70];
+              v70 = v47;
+              v48 = [userDomainConceptManager enumerateUserDomainConceptsWithPredicate:v44 enumerationOptions:2 limit:0 orderingTerms:v46 transaction:v47 error:error enumerationHandler:v69];
 
               if (!v48)
               {
@@ -209,8 +209,8 @@ LABEL_38:
             }
           }
 
-          v61 = [(NSArray *)v58 countByEnumeratingWithState:&v66 objects:v72 count:16];
-          if (v61)
+          v60 = [(NSArray *)v57 countByEnumeratingWithState:&v65 objects:v71 count:16];
+          if (v60)
           {
             continue;
           }
@@ -220,7 +220,7 @@ LABEL_38:
 
         v34 = 1;
 LABEL_39:
-        v19 = v57;
+        v19 = v56;
       }
 
       else
@@ -237,11 +237,10 @@ LABEL_39:
   }
 
   v34 = 0;
-  v53 = v59;
+  v53 = v58;
   v36 = userDomainConceptManager;
 LABEL_43:
 
-  v54 = *MEMORY[0x277D85DE8];
   return v34;
 }
 

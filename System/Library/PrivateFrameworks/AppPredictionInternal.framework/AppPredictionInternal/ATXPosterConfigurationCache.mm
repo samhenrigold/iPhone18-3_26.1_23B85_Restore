@@ -24,13 +24,13 @@
   return v3;
 }
 
-uint64_t __45__ATXPosterConfigurationCache_sharedInstance__block_invoke()
+uint64_t __45__ATXPosterConfigurationCache_sharedInstance__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
-  v1 = sharedInstance_cache_0;
-  sharedInstance_cache_0 = v0;
+  v2 = objc_opt_new();
+  v3 = sharedInstance_cache_0;
+  sharedInstance_cache_0 = v2;
 
-  return MEMORY[0x2821F96F8](v0, v1);
+  return MEMORY[0x2821F96F8](v2, v3);
 }
 
 - (ATXPosterConfigurationCache)init
@@ -52,7 +52,7 @@ uint64_t __45__ATXPosterConfigurationCache_sharedInstance__block_invoke()
     if (pathCopy)
     {
       v6 = objc_alloc(MEMORY[0x277CEBC68]);
-      v7 = __atxlog_handle_lock_screen();
+      v7 = __atxlog_handle_lock_screen(v6);
       v8 = [v6 initWithCacheFilePath:pathCopy loggingHandle:v7 debugName:@"Poster configuration cache"];
       fileCache = v5->_fileCache;
       v5->_fileCache = v8;
@@ -166,44 +166,42 @@ void __63__ATXPosterConfigurationCache_updateConfigurations_completion___block_i
 
 void __63__ATXPosterConfigurationCache_updateConfigurations_completion___block_invoke_2(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 64);
   if (v2)
   {
     (*(v2 + 16))(v2, *(a1 + 32));
   }
 
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
   v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   v3 = *(a1 + 40);
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) configurationCacheDidUpdateWithNewConfigurations:*(a1 + 48) oldConfigurations:{*(a1 + 56), v9}];
+        [*(*(&v8 + 1) + 8 * v7++) configurationCacheDidUpdateWithNewConfigurations:*(a1 + 48) oldConfigurations:{*(a1 + 56), v8}];
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_fetchConfigurationsReadingFromCacheIfNecessaryWithGuardedData:(id)data
@@ -257,17 +255,17 @@ void __63__ATXPosterConfigurationCache_updateConfigurations_completion___block_i
 
 - (void)_updateLastActiveDatesWithConfigurations:(id)configurations
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   configurationsCopy = configurations;
   v4 = objc_alloc(MEMORY[0x277CBEB98]);
-  v35 = configurationsCopy;
+  v34 = configurationsCopy;
   v5 = [configurationsCopy _pas_mappedArrayWithTransform:&__block_literal_global_35_3];
   v6 = [v4 initWithArray:v5];
 
   v7 = objc_alloc(MEMORY[0x277CBEBD0]);
   v8 = [v7 initWithSuiteName:*MEMORY[0x277CEBD00]];
-  v36 = *MEMORY[0x277CEBDD0];
-  v37 = v8;
+  v35 = *MEMORY[0x277CEBDD0];
+  v36 = v8;
   v9 = [v8 dictionaryForKey:?];
   v10 = [v9 mutableCopy];
   v11 = v10;
@@ -287,26 +285,26 @@ void __63__ATXPosterConfigurationCache_updateConfigurations_completion___block_i
   v15 = objc_opt_new();
   v16 = [currentCalendar dateByAddingUnit:16 value:-7 toDate:v15 options:0];
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   allKeys = [v13 allKeys];
-  v18 = [allKeys countByEnumeratingWithState:&v42 objects:v47 count:16];
+  v18 = [allKeys countByEnumeratingWithState:&v41 objects:v46 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v43;
+    v20 = *v42;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v43 != v20)
+        if (*v42 != v20)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v22 = *(*(&v42 + 1) + 8 * i);
+        v22 = *(*(&v41 + 1) + 8 * i);
         v23 = [v13 objectForKeyedSubscript:v22];
         v24 = [v16 compare:v23];
         if ([v6 containsObject:v22])
@@ -325,32 +323,32 @@ void __63__ATXPosterConfigurationCache_updateConfigurations_completion___block_i
         }
       }
 
-      v19 = [allKeys countByEnumeratingWithState:&v42 objects:v47 count:16];
+      v19 = [allKeys countByEnumeratingWithState:&v41 objects:v46 count:16];
     }
 
     while (v19);
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
-  v26 = v35;
-  v27 = [v26 countByEnumeratingWithState:&v38 objects:v46 count:16];
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v26 = v34;
+  v27 = [v26 countByEnumeratingWithState:&v37 objects:v45 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v39;
+    v29 = *v38;
     do
     {
       for (j = 0; j != v28; ++j)
       {
-        if (*v39 != v29)
+        if (*v38 != v29)
         {
           objc_enumerationMutation(v26);
         }
 
-        v31 = *(*(&v38 + 1) + 8 * j);
+        v31 = *(*(&v37 + 1) + 8 * j);
         if ([v31 isActive])
         {
           v32 = objc_opt_new();
@@ -359,14 +357,13 @@ void __63__ATXPosterConfigurationCache_updateConfigurations_completion___block_i
         }
       }
 
-      v28 = [v26 countByEnumeratingWithState:&v38 objects:v46 count:16];
+      v28 = [v26 countByEnumeratingWithState:&v37 objects:v45 count:16];
     }
 
     while (v28);
   }
 
-  [v37 setObject:v13 forKey:v36];
-  v34 = *MEMORY[0x277D85DE8];
+  [v36 setObject:v13 forKey:v35];
 }
 
 @end

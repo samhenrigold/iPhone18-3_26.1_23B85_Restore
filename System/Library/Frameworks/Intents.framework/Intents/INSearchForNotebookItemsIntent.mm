@@ -54,8 +54,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v39[11] = *MEMORY[0x1E69E9840];
-  v38[0] = @"title";
+  v38[11] = *MEMORY[0x1E69E9840];
+  v37[0] = @"title";
   title = [(INSearchForNotebookItemsIntent *)self title];
   v4 = title;
   if (!title)
@@ -63,9 +63,9 @@
     title = [MEMORY[0x1E695DFB0] null];
   }
 
-  v32 = title;
-  v39[0] = title;
-  v38[1] = @"content";
+  v31 = title;
+  v38[0] = title;
+  v37[1] = @"content";
   content = [(INSearchForNotebookItemsIntent *)self content];
   v6 = content;
   if (!content)
@@ -73,9 +73,9 @@
     content = [MEMORY[0x1E695DFB0] null];
   }
 
-  v31 = content;
-  v39[1] = content;
-  v38[2] = @"itemType";
+  v30 = content;
+  v38[1] = content;
+  v37[2] = @"itemType";
   itemType = [(INSearchForNotebookItemsIntent *)self itemType];
   if ((itemType - 1) > 2)
   {
@@ -87,10 +87,10 @@
     v8 = off_1E727DE20[itemType - 1];
   }
 
-  v36 = v6;
-  v35 = v8;
-  v39[2] = v35;
-  v38[3] = @"status";
+  v35 = v6;
+  v34 = v8;
+  v38[2] = v34;
+  v37[3] = @"status";
   status = [(INSearchForNotebookItemsIntent *)self status];
   v10 = @"unknown";
   if (status == INTaskStatusCompleted)
@@ -103,9 +103,9 @@
     v10 = @"notCompleted";
   }
 
-  v34 = v10;
-  v39[3] = v34;
-  v38[4] = @"location";
+  v33 = v10;
+  v38[3] = v33;
+  v37[4] = @"location";
   location = [(INSearchForNotebookItemsIntent *)self location];
   v12 = location;
   if (!location)
@@ -113,8 +113,8 @@
     location = [MEMORY[0x1E695DFB0] null];
   }
 
-  v39[4] = location;
-  v38[5] = @"locationSearchType";
+  v38[4] = location;
+  v37[5] = @"locationSearchType";
   locationSearchType = [(INSearchForNotebookItemsIntent *)self locationSearchType];
   v14 = @"unknown";
   if (locationSearchType == INLocationSearchTypeByLocationTrigger)
@@ -122,9 +122,9 @@
     v14 = @"byLocationTrigger";
   }
 
-  v33 = v14;
-  v39[5] = v33;
-  v38[6] = @"dateTime";
+  v32 = v14;
+  v38[5] = v32;
+  v37[6] = @"dateTime";
   dateTime = [(INSearchForNotebookItemsIntent *)self dateTime];
   null = dateTime;
   if (!dateTime)
@@ -132,8 +132,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v39[6] = null;
-  v38[7] = @"dateSearchType";
+  v38[6] = null;
+  v37[7] = @"dateSearchType";
   dateSearchType = [(INSearchForNotebookItemsIntent *)self dateSearchType];
   if ((dateSearchType - 1) > 2)
   {
@@ -145,10 +145,10 @@
     v18 = off_1E7280730[dateSearchType - 1];
   }
 
-  v37 = v4;
+  v36 = v4;
   v19 = v18;
-  v39[7] = v19;
-  v38[8] = @"temporalEventTriggerTypes";
+  v38[7] = v19;
+  v37[8] = @"temporalEventTriggerTypes";
   v20 = INTemporalEventTriggerTypeOptionsGetNames([(INSearchForNotebookItemsIntent *)self temporalEventTriggerTypes]);
   null2 = v20;
   if (!v20)
@@ -156,8 +156,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v39[8] = null2;
-  v38[9] = @"taskPriority";
+  v38[8] = null2;
+  v37[9] = @"taskPriority";
   taskPriority = [(INSearchForNotebookItemsIntent *)self taskPriority];
   v23 = @"unknown";
   if (taskPriority == INTaskPriorityFlagged)
@@ -171,8 +171,8 @@
   }
 
   v24 = v23;
-  v39[9] = v24;
-  v38[10] = @"notebookItemIdentifier";
+  v38[9] = v24;
+  v37[10] = @"notebookItemIdentifier";
   notebookItemIdentifier = [(INSearchForNotebookItemsIntent *)self notebookItemIdentifier];
   null3 = notebookItemIdentifier;
   if (!notebookItemIdentifier)
@@ -180,8 +180,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v39[10] = null3;
-  v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:v38 count:11];
+  v38[10] = null3;
+  v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:11];
   if (!notebookItemIdentifier)
   {
   }
@@ -198,15 +198,13 @@
   {
   }
 
+  if (!v35)
+  {
+  }
+
   if (!v36)
   {
   }
-
-  if (!v37)
-  {
-  }
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return v27;
 }

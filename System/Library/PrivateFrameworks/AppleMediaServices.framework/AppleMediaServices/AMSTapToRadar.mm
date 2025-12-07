@@ -44,13 +44,13 @@
   titleCopy = title;
   descriptionCopy = description;
   promptDescriptionCopy = promptDescription;
-  v18 = _MergedGlobals_77[0]();
+  v18 = _MergedGlobals_77();
   if (v18)
   {
     shared = [(objc_class *)v18 shared];
     if (shared)
     {
-      v20 = objc_alloc(off_1ED6DF228[0]());
+      v20 = objc_alloc(off_1ED6DF228());
       v21 = [self _componentNameForComponent:component];
       v22 = [self _componentVersionForComponent:component];
       v23 = [v20 initWithName:v21 version:v22 identifier:{objc_msgSend(self, "_componentIDForComponent:", component)}];

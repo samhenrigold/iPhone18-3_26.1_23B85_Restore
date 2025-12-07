@@ -242,7 +242,7 @@ LABEL_47:
 
 - (void)serverProxyNeedsWiFiResourceActivity:(id)activity
 {
-  if (sub_10001FD1C())
+  if (sub_10001FD1C(0))
   {
     sharedScheduler = [sub_10001FF30() sharedScheduler];
     v4 = [sharedScheduler taskRequestForIdentifier:@"com.apple.geod.OpportunisticResourceLoading"];
@@ -253,7 +253,7 @@ LABEL_47:
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v16 = @"com.apple.geod.OpportunisticResourceLoading";
+        v15 = @"com.apple.geod.OpportunisticResourceLoading";
         _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "OpportunisticResourceLoading background task is already scheduled (%{public}@)", buf, 0xCu);
       }
     }
@@ -277,25 +277,24 @@ LABEL_47:
         [v8 setRequiresNetworkConnectivity:1];
         [v8 setRequiresInexpensiveNetworkConnectivity:1];
         [v8 setNetworkDownloadSize:0x100000];
-        v9 = GeoServicesConfig_OpportunisticResourceLoadingActivityDelay[1];
         [v8 setScheduleAfter:GEOConfigGetInteger()];
-        v14 = 0;
-        v10 = [sharedScheduler submitTaskRequest:v8 error:&v14];
-        v11 = v14;
-        if ((v10 & 1) == 0)
+        v13 = 0;
+        v9 = [sharedScheduler submitTaskRequest:v8 error:&v13];
+        v10 = v13;
+        if ((v9 & 1) == 0)
         {
-          v12 = GEOFindOrCreateLog();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+          v11 = GEOFindOrCreateLog();
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
           {
-            v13 = @"Unknown";
-            if (v11)
+            v12 = @"Unknown";
+            if (v10)
             {
-              v13 = v11;
+              v12 = v10;
             }
 
             *buf = 138412290;
-            v16 = v13;
-            _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Failed to submit nonrepeating task with error: %@", buf, 0xCu);
+            v15 = v12;
+            _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Failed to submit nonrepeating task with error: %@", buf, 0xCu);
           }
         }
 
@@ -685,7 +684,7 @@ LABEL_47:
   serverProxy = [v3 serverProxy];
   [serverProxy performOpportunisticResourceLoading];
 
-  if (sub_10000BF18())
+  if (sub_10000BF18(0))
   {
     sharedInstance = [sub_10000C0DC() sharedInstance];
     [sharedInstance getDevicesWithBlock:&stru_100083670];

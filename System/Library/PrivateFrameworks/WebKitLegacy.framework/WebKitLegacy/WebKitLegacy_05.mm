@@ -1,26 +1,89 @@
-void *WTF::Detail::CallableWrapper<WebCore::SocketStreamHandleImpl::SocketStreamHandleImpl(WTF::URL const&,WebCore::SocketStreamHandleClient &,PAL::SessionID,WTF::String const&,WebCore::SourceApplicationAuditToken &&,WebCore::StorageSessionProvider const*,BOOL)::$_0,void>::~CallableWrapper(void *result)
+const void **WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0,unsigned char const>(const void **result, unint64_t a2)
 {
-  *result = &unk_1F472B1A0;
-  v1 = result[2];
-  result[2] = 0;
-  if (v1)
+  v2 = *(result + 2);
+  if (v2 + (v2 >> 1) <= v2 + 1)
   {
-    v2 = (v1 + 8);
-    if (atomic_fetch_add((v1 + 8), 0xFFFFFFFF) == 1)
+    v3 = v2 + 1;
+  }
+
+  else
+  {
+    v3 = v2 + (v2 >> 1);
+  }
+
+  if (v3 <= a2)
+  {
+    v3 = a2;
+  }
+
+  if (HIDWORD(v3))
+  {
+    __break(0xC471u);
+  }
+
+  else
+  {
+    v4 = result;
+    v5 = *result;
+    if (v3 <= 0x10)
     {
-      v3 = result;
-      atomic_store(1u, v2);
-      v4 = WTF::fastMalloc(0x10);
-      *v4 = &unk_1F472B1C8;
-      v4[1] = v2;
-      v5 = v4;
-      WTF::ensureOnMainThread();
-      if (v5)
+      v6 = 16;
+    }
+
+    else
+    {
+      v6 = v3;
+    }
+
+    v7 = *(result + 3);
+    v8 = WTF::fastMalloc(v6);
+    *(v4 + 2) = v6;
+    *v4 = v8;
+    result = memcpy(v8, v5, v7);
+    if (v5)
+    {
+      if (*v4 == v5)
       {
-        (*(*v5 + 8))(v5);
+        *v4 = 0;
+        *(v4 + 2) = 0;
+        v10 = v5;
       }
 
-      return v3;
+      else
+      {
+        v10 = v5;
+      }
+
+      return WTF::fastFree(v10, v9);
+    }
+  }
+
+  return result;
+}
+
+void *WTF::Detail::CallableWrapper<WebCore::SocketStreamHandleImpl::SocketStreamHandleImpl(WTF::URL const&,WebCore::SocketStreamHandleClient &,PAL::SessionID,WTF::String const&,WebCore::SourceApplicationAuditToken &&,WebCore::StorageSessionProvider const*,BOOL)::$_0,void>::~CallableWrapper(void *result, unint64_t a2)
+{
+  *result = &unk_1F472B1A0;
+  v2 = result[2];
+  result[2] = 0;
+  if (v2)
+  {
+    v3 = (v2 + 8);
+    if (atomic_fetch_add((v2 + 8), 0xFFFFFFFF) == 1)
+    {
+      v4 = result;
+      atomic_store(1u, v3);
+      v5 = WTF::fastMalloc(0x10);
+      *v5 = &unk_1F472B1C8;
+      v5[1] = v3;
+      v6 = v5;
+      WTF::ensureOnMainThread();
+      if (v6)
+      {
+        (*(*v6 + 8))(v6);
+      }
+
+      return v4;
     }
   }
 
@@ -117,8 +180,9 @@ void WTF::Detail::CallableWrapper<WebCore::SocketStreamHandleImpl::pacExecutionC
   }
 }
 
-unint64_t WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(unint64_t result, unsigned int a2, int a3, int8x16_t *a4, size_t a5, uint64_t a6)
+unint64_t WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(unint64_t result, unint64_t a2, int a3, int8x16_t *a4, size_t a5, uint64_t a6)
 {
+  v9 = a2;
   v10 = result;
   v11 = a2;
   if (!a3)
@@ -128,22 +192,22 @@ unint64_t WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF:
       goto LABEL_8;
     }
 
-    result = WTF::tryFastCompactMalloc((2 * a2 + 20));
+    result = WTF::tryFastCompactMalloc(&v91, (2 * a2 + 20));
     v12 = v91;
     if (!v91)
     {
       goto LABEL_9;
     }
 
-    v14 = v91 + 20;
+    v14 = v91 + 5;
     *v91 = 2;
-    *(v91 + 4) = a2;
-    *(v91 + 8) = v91 + 20;
-    *(v91 + 16) = 0;
-    v15 = v91 + 20 + 2 * a5;
+    v12[1] = v9;
+    *(v12 + 1) = v12 + 5;
+    v12[4] = 0;
+    v15 = v12 + 2 * a5 + 20;
     if (a5 < 0x40)
     {
-      v16 = v91 + 20;
+      v16 = (v12 + 5);
       if (v14 == v15)
       {
         goto LABEL_27;
@@ -152,9 +216,9 @@ unint64_t WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF:
 
     else
     {
-      v16 = v14 + 2 * (a5 & 0x7FFFFFFFFFFFFFC0);
+      v16 = (v14 + 2 * (a5 & 0x7FFFFFFFFFFFFFC0));
       v17 = 0uLL;
-      v18 = (v91 + 20);
+      v18 = (v12 + 5);
       do
       {
         v92.val[0] = *a4;
@@ -250,7 +314,7 @@ LABEL_9:
           goto LABEL_9;
         }
 
-        v51 = v91 + 2 * (a5 + v33) - result + 18;
+        v51 = v12 + 2 * a5 + 2 * v33 - result + 18;
         if (v51 < 0xE || result < v32 + (v51 >> 1) + 1 && v32 < (v51 & 0xFFFFFFFFFFFFFFFELL) + result + 2)
         {
           v52 = v32;
@@ -328,8 +392,8 @@ LABEL_61:
       }
     }
 
-    v25 = v91 + 2 * a5 - v16 + 18;
-    if (v25 < 0xE || (v16 < a4->u64 + (v25 >> 1) + 1 ? (v26 = a4 >= (v25 & 0xFFFFFFFFFFFFFFFELL) + v16 + 2) : (v26 = 1), !v26))
+    v25 = v12 + 2 * a5 - v16 + 18;
+    if (v25 < 0xE || (v16 < &a4->i8[(v25 >> 1) + 1] ? (v26 = a4 >= (&v16->i16[1] + (v25 & 0xFFFFFFFFFFFFFFFELL))) : (v26 = 1), !v26))
     {
       v29 = a4;
       v30 = v16;
@@ -340,7 +404,7 @@ LABEL_61:
     if (v25 >= 0x3E)
     {
       v28 = v27 & 0xFFFFFFFFFFFFFFE0;
-      v58 = (v16 + 32);
+      v58 = v16 + 2;
       v59 = &a4[1];
       v60 = v27 & 0xFFFFFFFFFFFFFFE0;
       do
@@ -399,7 +463,8 @@ LABEL_61:
 LABEL_26:
       v31 = v29->u8[0];
       v29 = (v29 + 1);
-      *v30++ = v31;
+      v30->i16[0] = v31;
+      v30 = (v30 + 2);
     }
 
     while (v30 != v15);
@@ -413,18 +478,18 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  result = WTF::tryFastCompactMalloc((a2 + 20));
+  result = WTF::tryFastCompactMalloc(&v91, (a2 + 20));
   v12 = v91;
   if (!v91)
   {
     goto LABEL_9;
   }
 
-  v13 = (v91 + 20);
+  v13 = v91 + 5;
   *v91 = 2;
-  *(v91 + 4) = a2;
-  *(v91 + 8) = v91 + 20;
-  *(v91 + 16) = 4;
+  v12[1] = v9;
+  *(v12 + 1) = v12 + 5;
+  v12[4] = 4;
   if (a5)
   {
     if (a5 == 1)
@@ -434,7 +499,7 @@ LABEL_8:
 
     else
     {
-      result = memcpy((v91 + 20), a4, a5);
+      result = memcpy(v12 + 5, a4, a5);
     }
   }
 
@@ -467,9 +532,9 @@ LABEL_8:
           goto LABEL_9;
         }
 
-        v38 = v91 + v34 + a5;
-        v39 = v38 - result + 20;
-        if (v39 < 4 || (result < v32 - 2 * result + 2 * v38 + 40 ? (v40 = v32 >= v38 + 20) : (v40 = 1), !v40))
+        v38 = v12 + v34 + a5;
+        v39 = &v38[-result + 20];
+        if (v39 < 4 || (result < v32 - 2 * result + 2 * v38 + 40 ? (v40 = v32 >= (v38 + 20)) : (v40 = 1), !v40))
         {
           v55 = result;
           v56 = v32;
@@ -945,8 +1010,9 @@ LABEL_55:
   }
 }
 
-uint64_t *WTF::HashTable<WebCore::PartitionedSecurityOrigin,WTF::KeyValuePair<WebCore::PartitionedSecurityOrigin,WTF::HashMap<WTF::String,WTF::Vector<WTF::ObjectIdentifierGeneric<WebCore::BroadcastChannelIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Vector<WTF::ObjectIdentifierGeneric<WebCore::BroadcastChannelIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::PartitionedSecurityOrigin,WTF::HashMap<WTF::String,WTF::Vector<WTF::ObjectIdentifierGeneric<WebCore::BroadcastChannelIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Vector<WTF::ObjectIdentifierGeneric<WebCore::BroadcastChannelIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>>>,WTF::DefaultHash<WebCore::PartitionedSecurityOrigin>,WTF::HashMap<WebCore::PartitionedSecurityOrigin,WTF::HashMap<WTF::String,WTF::Vector<WTF::ObjectIdentifierGeneric<WebCore::BroadcastChannelIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Vector<WTF::ObjectIdentifierGeneric<WebCore::BroadcastChannelIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::DefaultHash<WebCore::PartitionedSecurityOrigin>,WTF::HashTraits<WebCore::PartitionedSecurityOrigin>,WTF::HashTraits<WTF::HashMap<WTF::String,WTF::Vector<WTF::ObjectIdentifierGeneric<WebCore::BroadcastChannelIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Vector<WTF::ObjectIdentifierGeneric<WebCore::BroadcastChannelIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::PartitionedSecurityOrigin>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2, uint64_t *a3)
+uint64_t *WTF::HashTable<WebCore::PartitionedSecurityOrigin,WTF::KeyValuePair<WebCore::PartitionedSecurityOrigin,WTF::HashMap<WTF::String,WTF::Vector<WTF::ObjectIdentifierGeneric<WebCore::BroadcastChannelIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Vector<WTF::ObjectIdentifierGeneric<WebCore::BroadcastChannelIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::PartitionedSecurityOrigin,WTF::HashMap<WTF::String,WTF::Vector<WTF::ObjectIdentifierGeneric<WebCore::BroadcastChannelIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Vector<WTF::ObjectIdentifierGeneric<WebCore::BroadcastChannelIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>>>,WTF::DefaultHash<WebCore::PartitionedSecurityOrigin>,WTF::HashMap<WebCore::PartitionedSecurityOrigin,WTF::HashMap<WTF::String,WTF::Vector<WTF::ObjectIdentifierGeneric<WebCore::BroadcastChannelIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Vector<WTF::ObjectIdentifierGeneric<WebCore::BroadcastChannelIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::DefaultHash<WebCore::PartitionedSecurityOrigin>,WTF::HashTraits<WebCore::PartitionedSecurityOrigin>,WTF::HashTraits<WTF::HashMap<WTF::String,WTF::Vector<WTF::ObjectIdentifierGeneric<WebCore::BroadcastChannelIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Vector<WTF::ObjectIdentifierGeneric<WebCore::BroadcastChannelIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::PartitionedSecurityOrigin>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2, uint64_t *a3)
 {
+  v3 = a2;
   v4 = *a1;
   if (*a1)
   {
@@ -963,14 +1029,14 @@ uint64_t *WTF::HashTable<WebCore::PartitionedSecurityOrigin,WTF::KeyValuePair<We
   v7 = WTF::fastMalloc((24 * a2 + 16));
   v9 = v7;
   v10 = v7 + 16;
-  if (a2)
+  if (v3)
   {
-    bzero((v7 + 16), 24 * a2);
+    bzero((v7 + 16), 24 * v3);
   }
 
   *a1 = v10;
-  v9[2] = a2 - 1;
-  v9[3] = a2;
+  v9[2] = v3 - 1;
+  v9[3] = v3;
   *v9 = 0;
   v9[1] = v6;
   if (v5)
@@ -1274,8 +1340,9 @@ mpark *WebCore::add(mpark *result, uint64_t a2)
   return result;
 }
 
-uint64_t WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WTF::Vector<WTF::ObjectIdentifierGeneric<WebCore::BroadcastChannelIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WTF::Vector<WTF::ObjectIdentifierGeneric<WebCore::BroadcastChannelIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WTF::Vector<WTF::ObjectIdentifierGeneric<WebCore::BroadcastChannelIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Vector<WTF::ObjectIdentifierGeneric<WebCore::BroadcastChannelIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2, uint64_t a3)
+uint64_t WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WTF::Vector<WTF::ObjectIdentifierGeneric<WebCore::BroadcastChannelIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WTF::Vector<WTF::ObjectIdentifierGeneric<WebCore::BroadcastChannelIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WTF::Vector<WTF::ObjectIdentifierGeneric<WebCore::BroadcastChannelIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Vector<WTF::ObjectIdentifierGeneric<WebCore::BroadcastChannelIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2, uint64_t a3)
 {
+  v3 = a2;
   v4 = *a1;
   if (*a1)
   {
@@ -1291,8 +1358,8 @@ uint64_t WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WTF::Vector<WT
 
   v7 = WTF::fastZeroedMalloc((24 * a2 + 16));
   *a1 = (v7 + 4);
-  v7[2] = a2 - 1;
-  v7[3] = a2;
+  v7[2] = v3 - 1;
+  v7[3] = v3;
   *v7 = 0;
   v7[1] = v6;
   if (v5)
@@ -1720,7 +1787,7 @@ void *WTF::Detail::CallableWrapper<WebBroadcastChannelRegistry::postMessage(WebC
     if (v4)
     {
       *(v2 + 8) = 0;
-      (*(*v4 + 16))(v4);
+      (*(*v4 + 16))(v4, a2);
       (*(*v4 + 8))(v4);
       v5 = *(v2 + 8);
       *(v2 + 8) = 0;
@@ -1750,7 +1817,7 @@ uint64_t WTF::Detail::CallableWrapper<WebBroadcastChannelRegistry::postMessage(W
     if (v5)
     {
       *(v2 + 8) = 0;
-      (*(*v5 + 16))(v5);
+      (*(*v5 + 16))(v5, a2);
       (*(*v5 + 8))(v5);
       v6 = *(v2 + 8);
       *(v2 + 8) = 0;
@@ -1767,8 +1834,9 @@ uint64_t WTF::Detail::CallableWrapper<WebBroadcastChannelRegistry::postMessage(W
   return WTF::fastFree(a1, a2);
 }
 
-_DWORD *WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,std::unique_ptr<WebResourceLoadScheduler::HostInformation>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,std::unique_ptr<WebResourceLoadScheduler::HostInformation>>>,WTF::StringHash,WTF::HashMap<WTF::String,std::unique_ptr<WebResourceLoadScheduler::HostInformation>,WTF::StringHash,WTF::HashTraits<WTF::String>,WTF::HashTraits<std::unique_ptr<WebResourceLoadScheduler::HostInformation>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2)
+_DWORD *WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,std::unique_ptr<WebResourceLoadScheduler::HostInformation>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,std::unique_ptr<WebResourceLoadScheduler::HostInformation>>>,WTF::StringHash,WTF::HashMap<WTF::String,std::unique_ptr<WebResourceLoadScheduler::HostInformation>,WTF::StringHash,WTF::HashTraits<WTF::String>,WTF::HashTraits<std::unique_ptr<WebResourceLoadScheduler::HostInformation>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2)
 {
+  v2 = a2;
   v4 = *a1;
   if (*a1)
   {
@@ -1784,8 +1852,8 @@ _DWORD *WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,std::unique_ptr
 
   result = WTF::fastZeroedMalloc((16 * a2 + 16));
   *a1 = (result + 4);
-  result[2] = a2 - 1;
-  result[3] = a2;
+  result[2] = v2 - 1;
+  result[3] = v2;
   *result = 0;
   result[1] = v6;
   if (v5)
@@ -2063,7 +2131,7 @@ uint64_t WTF::Detail::CallableWrapper<WebResourceLoadScheduler::loadResource(Web
   if (v3)
   {
     v4 = a1;
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
     a1 = v4;
     v2 = vars8;
   }
@@ -2172,7 +2240,7 @@ _DWORD *WTF::HashTable<WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<Web
   if (!*a2)
   {
     v7 = a3;
-    result = WTF::HashTable<WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>,WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>,WTF::IdentityExtractor,WTF::DefaultHash<WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>>,WTF::HashTraits<WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>>,WTF::HashTraits<WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>>,WTF::FastMalloc>::rehash(a2, 8u, 0);
+    result = WTF::HashTable<WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>,WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>,WTF::IdentityExtractor,WTF::DefaultHash<WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>>,WTF::HashTraits<WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>>,WTF::HashTraits<WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>>,WTF::FastMalloc>::rehash(a2, 8uLL, 0);
     a3 = v7;
     v6 = *a2;
     v3 = *v7;
@@ -2258,7 +2326,7 @@ _DWORD *WTF::HashTable<WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<Web
   {
     if (!v21)
     {
-      result = WTF::HashTable<WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>,WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>,WTF::IdentityExtractor,WTF::DefaultHash<WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>>,WTF::HashTraits<WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>>,WTF::HashTraits<WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>>,WTF::FastMalloc>::rehash(a2, 8u, v13);
+      result = WTF::HashTable<WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>,WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>,WTF::IdentityExtractor,WTF::DefaultHash<WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>>,WTF::HashTraits<WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>>,WTF::HashTraits<WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>>,WTF::FastMalloc>::rehash(a2, 8uLL, v13);
       v13 = result;
       v6 = *a2;
       if (!*a2)
@@ -2274,7 +2342,7 @@ LABEL_25:
     }
 
 LABEL_24:
-    result = WTF::HashTable<WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>,WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>,WTF::IdentityExtractor,WTF::DefaultHash<WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>>,WTF::HashTraits<WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>>,WTF::HashTraits<WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>>,WTF::FastMalloc>::rehash(a2, v21 << (6 * v19 >= (2 * v21)), v13);
+    result = WTF::HashTable<WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>,WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>,WTF::IdentityExtractor,WTF::DefaultHash<WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>>,WTF::HashTraits<WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>>,WTF::HashTraits<WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>>,WTF::FastMalloc>::rehash(a2, (v21 << (6 * v19 >= (2 * v21))), v13);
     v13 = result;
     v6 = *a2;
     if (!*a2)
@@ -2292,8 +2360,9 @@ LABEL_26:
   return result;
 }
 
-void *WTF::HashTable<WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>,WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>,WTF::IdentityExtractor,WTF::DefaultHash<WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>>,WTF::HashTraits<WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>>,WTF::HashTraits<WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2, void *a3)
+void *WTF::HashTable<WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>,WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>,WTF::IdentityExtractor,WTF::DefaultHash<WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>>,WTF::HashTraits<WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>>,WTF::HashTraits<WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCore::ResourceLoader>,WTF::DefaultRefDerefTraits<WebCore::ResourceLoader>>>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2, void *a3)
 {
+  v4 = a2;
   v6 = *a1;
   if (*a1)
   {
@@ -2309,8 +2378,8 @@ void *WTF::HashTable<WTF::RefPtr<WebCore::ResourceLoader,WTF::RawPtrTraits<WebCo
 
   v9 = WTF::fastZeroedMalloc((8 * a2 + 16));
   *a1 = (v9 + 4);
-  v9[2] = a2 - 1;
-  v9[3] = a2;
+  v9[2] = v4 - 1;
+  v9[3] = v4;
   *v9 = 0;
   v9[1] = v8;
   if (v7)
@@ -2522,7 +2591,7 @@ uint64_t WTF::Detail::CallableWrapper<WebCore::Timer::Timer<WebCore::WebSocketCh
   if (v3)
   {
     result = (*(*v4 + v1))();
-    v6 = *(v2 + 2) - 1;
+    v7 = *(v2 + 2) - 1;
     if (*(v2 + 2) != 1)
     {
       goto LABEL_3;
@@ -2532,21 +2601,21 @@ uint64_t WTF::Detail::CallableWrapper<WebCore::Timer::Timer<WebCore::WebSocketCh
   else
   {
     result = v1(v4);
-    v6 = *(v2 + 2) - 1;
+    v7 = *(v2 + 2) - 1;
     if (*(v2 + 2) != 1)
     {
 LABEL_3:
-      *(v2 + 2) = v6;
+      *(v2 + 2) = v7;
       return result;
     }
   }
 
-  WebCore::WebSocketChannel::~WebSocketChannel(v2);
+  WebCore::WebSocketChannel::~WebSocketChannel(v2, v6);
 
-  return bmalloc::api::tzoneFree(v7, v8);
+  return bmalloc::api::tzoneFree(v8, v9);
 }
 
-uint64_t WTF::VectorDestructor<true,std::unique_ptr<WebCore::WebSocketChannel::QueuedFrame>>::destruct(uint64_t result, uint64_t *a2)
+uint64_t *WTF::VectorDestructor<true,std::unique_ptr<WebCore::WebSocketChannel::QueuedFrame>>::destruct(uint64_t *result, uint64_t *a2)
 {
   if (result != a2)
   {
@@ -2619,32 +2688,32 @@ LABEL_11:
   return result;
 }
 
-atomic_ullong *WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::WebSocketChannelClient,(WTF::DestructionThread)1>::deref(atomic_ullong *result)
+atomic_ullong *WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::WebSocketChannelClient,(WTF::DestructionThread)1>::deref(atomic_ullong *result, unint64_t a2)
 {
   while (1)
   {
-    v1 = *result;
+    v2 = *result;
     if ((*result & 1) == 0)
     {
       break;
     }
 
-    v2 = *result;
-    atomic_compare_exchange_strong_explicit(result, &v2, v1 - 2, memory_order_relaxed, memory_order_relaxed);
-    if (v2 == v1)
+    v3 = *result;
+    atomic_compare_exchange_strong_explicit(result, &v3, v2 - 2, memory_order_relaxed, memory_order_relaxed);
+    if (v3 == v2)
     {
-      if (v1 == 3)
+      if (v2 == 3)
       {
-        v3 = result;
-        v4 = WTF::fastMalloc(0x10);
-        *v4 = &unk_1F472B308;
-        v4[1] = v3;
-        v6 = v4;
+        v4 = result;
+        v5 = WTF::fastMalloc(0x10);
+        *v5 = &unk_1F472B308;
+        v5[1] = v4;
+        v7 = v5;
         WTF::ensureOnMainThread();
-        result = v6;
-        if (v6)
+        result = v7;
+        if (v7)
         {
-          return (*(*v6 + 8))(v6);
+          return (*(*v7 + 8))(v7);
         }
       }
 
@@ -2652,36 +2721,36 @@ atomic_ullong *WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::Web
     }
   }
 
-  v5 = *result;
+  v6 = *result;
 
-  return WTF::ThreadSafeWeakPtrControlBlock::strongDeref<WebCore::WebSocketChannelClient,(WTF::DestructionThread)1>(v5);
+  return WTF::ThreadSafeWeakPtrControlBlock::strongDeref<WebCore::WebSocketChannelClient,(WTF::DestructionThread)1>(v6, a2);
 }
 
-uint64_t WTF::ThreadSafeWeakPtrControlBlock::strongDeref<WebCore::WebSocketChannelClient,(WTF::DestructionThread)1>(uint64_t this)
+uint64_t WTF::ThreadSafeWeakPtrControlBlock::strongDeref<WebCore::WebSocketChannelClient,(WTF::DestructionThread)1>(uint64_t this, unint64_t a2)
 {
-  v1 = this;
-  v2 = 0;
-  atomic_compare_exchange_strong_explicit(this, &v2, 1u, memory_order_acquire, memory_order_acquire);
-  if (v2)
+  v2 = this;
+  v3 = 0;
+  atomic_compare_exchange_strong_explicit(this, &v3, 1u, memory_order_acquire, memory_order_acquire);
+  if (v3)
   {
-    this = MEMORY[0x1CCA63990](this);
-    v7 = *(v1 + 8);
-    v4 = v7 - 1;
-    *(v1 + 8) = v7 - 1;
-    if (v7 != 1)
+    this = MEMORY[0x1CCA63990](this, a2);
+    v8 = *(v2 + 8);
+    v5 = v8 - 1;
+    *(v2 + 8) = v8 - 1;
+    if (v8 != 1)
     {
 LABEL_3:
-      v5 = 0;
-      v6 = 1;
-      atomic_compare_exchange_strong_explicit(v1, &v6, 0, memory_order_release, memory_order_relaxed);
-      if (v6 == 1)
+      v6 = 0;
+      v7 = 1;
+      atomic_compare_exchange_strong_explicit(v2, &v7, 0, memory_order_release, memory_order_relaxed);
+      if (v7 == 1)
       {
         goto LABEL_4;
       }
 
 LABEL_8:
-      this = WTF::Lock::unlockSlow(v1);
-      if (v4)
+      this = WTF::Lock::unlockSlow(v2);
+      if (v5)
       {
         return this;
       }
@@ -2692,42 +2761,42 @@ LABEL_8:
 
   else
   {
-    v3 = *(this + 8);
-    v4 = v3 - 1;
-    *(this + 8) = v3 - 1;
-    if (v3 != 1)
+    v4 = *(this + 8);
+    v5 = v4 - 1;
+    *(this + 8) = v4 - 1;
+    if (v4 != 1)
     {
       goto LABEL_3;
     }
   }
 
-  v5 = *(v1 + 24);
-  ++*(v1 + 16);
-  *(v1 + 24) = 0;
-  v8 = 1;
-  atomic_compare_exchange_strong_explicit(v1, &v8, 0, memory_order_release, memory_order_relaxed);
-  if (v8 != 1)
+  v6 = *(v2 + 24);
+  ++*(v2 + 16);
+  *(v2 + 24) = 0;
+  v9 = 1;
+  atomic_compare_exchange_strong_explicit(v2, &v9, 0, memory_order_release, memory_order_relaxed);
+  if (v9 != 1)
   {
     goto LABEL_8;
   }
 
 LABEL_4:
-  if (v4)
+  if (v5)
   {
     return this;
   }
 
 LABEL_9:
-  v9 = WTF::fastMalloc(0x18);
-  *v9 = &unk_1F472B330;
-  v9[1] = v1;
-  v9[2] = v5;
-  v10 = v9;
+  v10 = WTF::fastMalloc(0x18);
+  *v10 = &unk_1F472B330;
+  v10[1] = v2;
+  v10[2] = v6;
+  v11 = v10;
   WTF::ensureOnMainThread();
-  this = v10;
-  if (v10)
+  this = v11;
+  if (v11)
   {
-    return (*(*v10 + 8))(v10);
+    return (*(*v11 + 8))(v11);
   }
 
   return this;
@@ -2739,7 +2808,7 @@ uint64_t WTF::Detail::CallableWrapper<void WTF::ThreadSafeWeakPtrControlBlock::s
   result = *(a1 + 16);
   if (result)
   {
-    result = (*(*result + 8))(result);
+    result = (*(*result + 8))(result, a2);
   }
 
   v4 = 0;
@@ -2765,7 +2834,7 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  result = MEMORY[0x1CCA63990](v3);
+  result = MEMORY[0x1CCA63990](v3, a2);
   v6 = *(v3 + 16) - 1;
   *(v3 + 16) = v6;
   atomic_compare_exchange_strong_explicit(v3, &v5, 0, memory_order_release, memory_order_relaxed);
@@ -2875,24 +2944,24 @@ uint64_t WTF::Detail::CallableWrapper<WebCore::WebSocketChannel::didOpenSocketSt
   return result;
 }
 
-void *WTF::Detail::CallableWrapper<WebCore::WebSocketChannel::didOpenSocketStream(WebCore::SocketStreamHandle &)::$_1,void,BOOL,BOOL>::~CallableWrapper(void *result)
+void *WTF::Detail::CallableWrapper<WebCore::WebSocketChannel::didOpenSocketStream(WebCore::SocketStreamHandle &)::$_1,void,BOOL,BOOL>::~CallableWrapper(void *result, void *a2)
 {
   *result = &unk_1F472B380;
-  v1 = result[2];
+  v2 = result[2];
   result[2] = 0;
-  if (v1)
+  if (v2)
   {
-    if (*(v1 + 2) == 1)
+    if (*(v2 + 2) == 1)
     {
-      v2 = result;
-      WebCore::WebSocketChannel::~WebSocketChannel(v1);
-      bmalloc::api::tzoneFree(v3, v4);
-      return v2;
+      v3 = result;
+      WebCore::WebSocketChannel::~WebSocketChannel(v2, a2);
+      bmalloc::api::tzoneFree(v4, v5);
+      return v3;
     }
 
     else
     {
-      --*(v1 + 2);
+      --*(v2 + 2);
     }
   }
 
@@ -2918,7 +2987,7 @@ LABEL_4:
   }
 
   v4 = a1;
-  WebCore::WebSocketChannel::~WebSocketChannel(v2);
+  WebCore::WebSocketChannel::~WebSocketChannel(v2, a2);
   bmalloc::api::tzoneFree(v5, v6);
   a1 = v4;
 
@@ -2959,24 +3028,24 @@ WTF::StringImpl *WTF::Detail::CallableWrapper<WebCore::WebSocketChannel::didOpen
   return result;
 }
 
-void *WTF::Detail::CallableWrapper<WebCore::WebSocketChannel::processOutgoingFrameQueue(void)::$_0,void,BOOL>::~CallableWrapper(void *result)
+void *WTF::Detail::CallableWrapper<WebCore::WebSocketChannel::processOutgoingFrameQueue(void)::$_0,void,BOOL>::~CallableWrapper(void *result, void *a2)
 {
   *result = &unk_1F472B3A8;
-  v1 = result[2];
+  v2 = result[2];
   result[2] = 0;
-  if (v1)
+  if (v2)
   {
-    if (*(v1 + 2) == 1)
+    if (*(v2 + 2) == 1)
     {
-      v2 = result;
-      WebCore::WebSocketChannel::~WebSocketChannel(v1);
-      bmalloc::api::tzoneFree(v3, v4);
-      return v2;
+      v3 = result;
+      WebCore::WebSocketChannel::~WebSocketChannel(v2, a2);
+      bmalloc::api::tzoneFree(v4, v5);
+      return v3;
     }
 
     else
     {
-      --*(v1 + 2);
+      --*(v2 + 2);
     }
   }
 
@@ -3002,7 +3071,7 @@ LABEL_4:
   }
 
   v4 = a1;
-  WebCore::WebSocketChannel::~WebSocketChannel(v2);
+  WebCore::WebSocketChannel::~WebSocketChannel(v2, a2);
   bmalloc::api::tzoneFree(v5, v6);
   a1 = v4;
 
@@ -3030,24 +3099,24 @@ WTF::StringImpl *WTF::Detail::CallableWrapper<WebCore::WebSocketChannel::process
   return result;
 }
 
-void *WTF::Detail::CallableWrapper<WebCore::WebSocketChannel::processOutgoingFrameQueue(void)::$_1,void,BOOL>::~CallableWrapper(void *result)
+void *WTF::Detail::CallableWrapper<WebCore::WebSocketChannel::processOutgoingFrameQueue(void)::$_1,void,BOOL>::~CallableWrapper(void *result, void *a2)
 {
   *result = &unk_1F472B3D0;
-  v1 = result[2];
+  v2 = result[2];
   result[2] = 0;
-  if (v1)
+  if (v2)
   {
-    if (*(v1 + 2) == 1)
+    if (*(v2 + 2) == 1)
     {
-      v2 = result;
-      WebCore::WebSocketChannel::~WebSocketChannel(v1);
-      bmalloc::api::tzoneFree(v3, v4);
-      return v2;
+      v3 = result;
+      WebCore::WebSocketChannel::~WebSocketChannel(v2, a2);
+      bmalloc::api::tzoneFree(v4, v5);
+      return v3;
     }
 
     else
     {
-      --*(v1 + 2);
+      --*(v2 + 2);
     }
   }
 
@@ -3073,7 +3142,7 @@ LABEL_4:
   }
 
   v4 = a1;
-  WebCore::WebSocketChannel::~WebSocketChannel(v2);
+  WebCore::WebSocketChannel::~WebSocketChannel(v2, a2);
   bmalloc::api::tzoneFree(v5, v6);
   a1 = v4;
 
@@ -3101,24 +3170,24 @@ WTF::StringImpl *WTF::Detail::CallableWrapper<WebCore::WebSocketChannel::process
   return result;
 }
 
-void *WTF::Detail::CallableWrapper<WebCore::WebSocketChannel::processOutgoingFrameQueue(void)::$_2,void,BOOL>::~CallableWrapper(void *result)
+void *WTF::Detail::CallableWrapper<WebCore::WebSocketChannel::processOutgoingFrameQueue(void)::$_2,void,BOOL>::~CallableWrapper(void *result, void *a2)
 {
   *result = &unk_1F472B3F8;
-  v1 = result[2];
+  v2 = result[2];
   result[2] = 0;
-  if (v1)
+  if (v2)
   {
-    if (*(v1 + 2) == 1)
+    if (*(v2 + 2) == 1)
     {
-      v2 = result;
-      WebCore::WebSocketChannel::~WebSocketChannel(v1);
-      bmalloc::api::tzoneFree(v3, v4);
-      return v2;
+      v3 = result;
+      WebCore::WebSocketChannel::~WebSocketChannel(v2, a2);
+      bmalloc::api::tzoneFree(v4, v5);
+      return v3;
     }
 
     else
     {
-      --*(v1 + 2);
+      --*(v2 + 2);
     }
   }
 
@@ -3144,7 +3213,7 @@ LABEL_4:
   }
 
   v4 = a1;
-  WebCore::WebSocketChannel::~WebSocketChannel(v2);
+  WebCore::WebSocketChannel::~WebSocketChannel(v2, a2);
   bmalloc::api::tzoneFree(v5, v6);
   a1 = v4;
 
@@ -3829,47 +3898,49 @@ void sub_1C79FDE94(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1C79FE020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1C79FE020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   WebCore::SimpleRange::~SimpleRange(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1C79FE034(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1C79FE034(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   WebCore::SimpleRange::~SimpleRange(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1C79FE048(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF *a9, int a10, uint64_t a11, uint64_t a12, char a13)
+void sub_1C79FE048(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF *a9, int a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
   if (a9)
   {
     WTF::fastFree(a9, a2);
   }
 
-  WebCore::SimpleRange::~SimpleRange(&a13);
+  WebCore::SimpleRange::~SimpleRange(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1C79FE1D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, CFTypeRef cf, char a11)
+void sub_1C79FE1D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, CFTypeRef cf, ...)
 {
+  va_start(va, cf);
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if (v11[4] == 1)
+  if (v10[4] == 1)
   {
-    (*(*v11 + 8))(v11);
-    WebCore::SimpleRange::~SimpleRange(&a11);
+    (*(*v10 + 8))(v10, a2, a3, a4, a5, a6, a7, a8);
+    WebCore::SimpleRange::~SimpleRange(va);
     _Unwind_Resume(a1);
   }
 
-  --v11[4];
-  WebCore::SimpleRange::~SimpleRange(&a11);
+  --v10[4];
+  WebCore::SimpleRange::~SimpleRange(va);
   _Unwind_Resume(a1);
 }
 
@@ -3886,7 +3957,7 @@ void sub_1C79FE38C(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int 
   _Unwind_Resume(a1);
 }
 
-void sub_1C79FE8A4(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF *a10)
+void sub_1C79FE8A4(_Unwind_Exception *exception_object, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, WTF *a10)
 {
   if (a10)
   {
@@ -3905,7 +3976,7 @@ void sub_1C79FE8A4(_Unwind_Exception *exception_object, void *a2, int a3, int a4
   {
     if (v11[4] == 1)
     {
-      (*(*v11 + 8))(v11);
+      (*(*v11 + 8))(v11, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -4112,7 +4183,7 @@ void *kit(DOMObjectInternal *a1)
   DOMWrapper = getDOMWrapper(a1);
   if (!DOMWrapper)
   {
-    v6 = [objc_alloc(kitClass()) _init];
+    v6 = [objc_alloc(kitClass(a1)) _init];
     v3 = v6;
     if (v6)
     {
@@ -4452,67 +4523,70 @@ void sub_1C79FFB84(_Unwind_Exception *a1, void *a2, uint64_t a3, ...)
   _Unwind_Resume(a1);
 }
 
-void sub_1C79FFB98(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, char a10)
+void sub_1C79FFB98(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, ...)
 {
+  va_start(va, a9);
   if (a9)
   {
   }
 
-  if ((v11 & 1) == 0 && atomic_fetch_add_explicit(v10, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  if ((v10 & 1) == 0 && atomic_fetch_add_explicit(v9, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v10, a2);
+    WTF::StringImpl::destroy(v9, a2);
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a10, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C79FFD3C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, char a11)
+void sub_1C79FFD3C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   if (a9)
   {
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a9, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v12);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C79FFE78(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14)
+void sub_1C79FFE78(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
+  va_start(va, a13);
   if (a10)
   {
     if (atomic_fetch_add_explicit(a10, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a10, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a14, v15);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v14);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a14, a2);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A001EC(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
   WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A00200(_Unwind_Exception *a1, void *a2, uint64_t a3, void *a4, ...)
+void sub_1C7A001EC(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a4);
-  if (a4)
+  va_start(va, a5);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C7A00200(_Unwind_Exception *a1, void *a2, void *a3, uint64_t a4, void *a5, ...)
+{
+  va_start(va, a5);
+  if (a5)
   {
 
-    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v5);
+    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v6);
     _Unwind_Resume(a1);
   }
 
@@ -4588,6 +4662,10 @@ uint64_t kitClass(uint64_t a1)
   return objc_opt_class();
 }
 
+{
+  return objc_opt_class();
+}
+
 uint64_t kitClass(WebCore::CSSRule *a1)
 {
   if ((*(*a1 + 16))(a1) - 1 > 5)
@@ -4618,7 +4696,7 @@ _OWORD *WTF::HashMap<WebCore::QualifiedName::QualifiedNameImpl const*,objc_class
   if (!*a2)
   {
     v9 = a4;
-    result = WTF::HashTable<WebCore::QualifiedName::QualifiedNameImpl const*,WTF::KeyValuePair<WebCore::QualifiedName::QualifiedNameImpl const*,objc_class *>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::QualifiedName::QualifiedNameImpl const*,objc_class *>>,WTF::DefaultHash<WebCore::QualifiedName::QualifiedNameImpl const*>,WTF::HashMap<WebCore::QualifiedName::QualifiedNameImpl const*,objc_class *,WTF::DefaultHash<WebCore::QualifiedName::QualifiedNameImpl const*>,WTF::HashTraits<WebCore::QualifiedName::QualifiedNameImpl const*>,WTF::HashTraits<objc_class *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::QualifiedName::QualifiedNameImpl const*>,WTF::FastMalloc>::rehash(a2, 8u, 0);
+    result = WTF::HashTable<WebCore::QualifiedName::QualifiedNameImpl const*,WTF::KeyValuePair<WebCore::QualifiedName::QualifiedNameImpl const*,objc_class *>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::QualifiedName::QualifiedNameImpl const*,objc_class *>>,WTF::DefaultHash<WebCore::QualifiedName::QualifiedNameImpl const*>,WTF::HashMap<WebCore::QualifiedName::QualifiedNameImpl const*,objc_class *,WTF::DefaultHash<WebCore::QualifiedName::QualifiedNameImpl const*>,WTF::HashTraits<WebCore::QualifiedName::QualifiedNameImpl const*>,WTF::HashTraits<objc_class *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::QualifiedName::QualifiedNameImpl const*>,WTF::FastMalloc>::rehash(a2, 8uLL, 0);
     a4 = v9;
     v8 = *a2;
     v4 = *a3;
@@ -4641,7 +4719,7 @@ _OWORD *WTF::HashMap<WebCore::QualifiedName::QualifiedNameImpl const*,objc_class
       {
         v24 = v8 + 16 * *(v8 - 4);
         *v7 = v15;
-        *(v7 + 1) = v24;
+        *(v7 + 8) = v24;
         *(v7 + 16) = 0;
         v15[1] = *a4;
         return result;
@@ -4707,7 +4785,7 @@ LABEL_15:
   {
     if (!v23)
     {
-      result = WTF::HashTable<WebCore::QualifiedName::QualifiedNameImpl const*,WTF::KeyValuePair<WebCore::QualifiedName::QualifiedNameImpl const*,objc_class *>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::QualifiedName::QualifiedNameImpl const*,objc_class *>>,WTF::DefaultHash<WebCore::QualifiedName::QualifiedNameImpl const*>,WTF::HashMap<WebCore::QualifiedName::QualifiedNameImpl const*,objc_class *,WTF::DefaultHash<WebCore::QualifiedName::QualifiedNameImpl const*>,WTF::HashTraits<WebCore::QualifiedName::QualifiedNameImpl const*>,WTF::HashTraits<objc_class *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::QualifiedName::QualifiedNameImpl const*>,WTF::FastMalloc>::rehash(a2, 8u, v15);
+      result = WTF::HashTable<WebCore::QualifiedName::QualifiedNameImpl const*,WTF::KeyValuePair<WebCore::QualifiedName::QualifiedNameImpl const*,objc_class *>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::QualifiedName::QualifiedNameImpl const*,objc_class *>>,WTF::DefaultHash<WebCore::QualifiedName::QualifiedNameImpl const*>,WTF::HashMap<WebCore::QualifiedName::QualifiedNameImpl const*,objc_class *,WTF::DefaultHash<WebCore::QualifiedName::QualifiedNameImpl const*>,WTF::HashTraits<WebCore::QualifiedName::QualifiedNameImpl const*>,WTF::HashTraits<objc_class *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::QualifiedName::QualifiedNameImpl const*>,WTF::FastMalloc>::rehash(a2, 8uLL, v15);
       v15 = result;
       v19 = *a2;
       if (!*a2)
@@ -4723,7 +4801,7 @@ LABEL_23:
     }
 
 LABEL_22:
-    result = WTF::HashTable<WebCore::QualifiedName::QualifiedNameImpl const*,WTF::KeyValuePair<WebCore::QualifiedName::QualifiedNameImpl const*,objc_class *>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::QualifiedName::QualifiedNameImpl const*,objc_class *>>,WTF::DefaultHash<WebCore::QualifiedName::QualifiedNameImpl const*>,WTF::HashMap<WebCore::QualifiedName::QualifiedNameImpl const*,objc_class *,WTF::DefaultHash<WebCore::QualifiedName::QualifiedNameImpl const*>,WTF::HashTraits<WebCore::QualifiedName::QualifiedNameImpl const*>,WTF::HashTraits<objc_class *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::QualifiedName::QualifiedNameImpl const*>,WTF::FastMalloc>::rehash(a2, v23 << (6 * v21 >= (2 * v23)), v15);
+    result = WTF::HashTable<WebCore::QualifiedName::QualifiedNameImpl const*,WTF::KeyValuePair<WebCore::QualifiedName::QualifiedNameImpl const*,objc_class *>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::QualifiedName::QualifiedNameImpl const*,objc_class *>>,WTF::DefaultHash<WebCore::QualifiedName::QualifiedNameImpl const*>,WTF::HashMap<WebCore::QualifiedName::QualifiedNameImpl const*,objc_class *,WTF::DefaultHash<WebCore::QualifiedName::QualifiedNameImpl const*>,WTF::HashTraits<WebCore::QualifiedName::QualifiedNameImpl const*>,WTF::HashTraits<objc_class *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::QualifiedName::QualifiedNameImpl const*>,WTF::FastMalloc>::rehash(a2, (v23 << (6 * v21 >= (2 * v23))), v15);
     v15 = result;
     v19 = *a2;
     if (!*a2)
@@ -4736,13 +4814,14 @@ LABEL_22:
 
 LABEL_24:
   *v7 = v15;
-  *(v7 + 1) = v19 + 16 * v23;
+  *(v7 + 8) = v19 + 16 * v23;
   *(v7 + 16) = 1;
   return result;
 }
 
-_OWORD *WTF::HashTable<WebCore::QualifiedName::QualifiedNameImpl const*,WTF::KeyValuePair<WebCore::QualifiedName::QualifiedNameImpl const*,objc_class *>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::QualifiedName::QualifiedNameImpl const*,objc_class *>>,WTF::DefaultHash<WebCore::QualifiedName::QualifiedNameImpl const*>,WTF::HashMap<WebCore::QualifiedName::QualifiedNameImpl const*,objc_class *,WTF::DefaultHash<WebCore::QualifiedName::QualifiedNameImpl const*>,WTF::HashTraits<WebCore::QualifiedName::QualifiedNameImpl const*>,WTF::HashTraits<objc_class *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::QualifiedName::QualifiedNameImpl const*>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2, void *a3)
+_OWORD *WTF::HashTable<WebCore::QualifiedName::QualifiedNameImpl const*,WTF::KeyValuePair<WebCore::QualifiedName::QualifiedNameImpl const*,objc_class *>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::QualifiedName::QualifiedNameImpl const*,objc_class *>>,WTF::DefaultHash<WebCore::QualifiedName::QualifiedNameImpl const*>,WTF::HashMap<WebCore::QualifiedName::QualifiedNameImpl const*,objc_class *,WTF::DefaultHash<WebCore::QualifiedName::QualifiedNameImpl const*>,WTF::HashTraits<WebCore::QualifiedName::QualifiedNameImpl const*>,WTF::HashTraits<objc_class *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::QualifiedName::QualifiedNameImpl const*>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2, void *a3)
 {
+  v4 = a2;
   v6 = *a1;
   if (*a1)
   {
@@ -4758,8 +4837,8 @@ _OWORD *WTF::HashTable<WebCore::QualifiedName::QualifiedNameImpl const*,WTF::Key
 
   v9 = WTF::fastZeroedMalloc((16 * a2 + 16));
   *a1 = (v9 + 4);
-  v9[2] = a2 - 1;
-  v9[3] = a2;
+  v9[2] = v4 - 1;
+  v9[3] = v4;
   *v9 = 0;
   v9[1] = v8;
   if (v7)
@@ -5012,7 +5091,7 @@ WebCore::TextIndicator *WTF::RefCounted<WebCore::TextIndicator>::deref(WebCore::
   return result;
 }
 
-uint64_t *WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::RenderingResource,(WTF::DestructionThread)0>::deref(uint64_t *result, void *a2)
+atomic_ullong *WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::RenderingResource,(WTF::DestructionThread)0>::deref(atomic_ullong *result, void *a2)
 {
   do
   {
@@ -5102,7 +5181,7 @@ LABEL_5:
   if (v5)
   {
     v7 = result;
-    (*(*v5 + 8))(v5);
+    (*(*v5 + 8))(v5, a2);
     result = v7;
   }
 
@@ -5153,19 +5232,20 @@ LABEL_17:
   return WTF::fastFree(result, a2);
 }
 
-void sub_1C7A0201C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, char a11)
+void sub_1C7A0201C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   if (a9)
   {
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a9, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v12);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
@@ -5184,11 +5264,12 @@ void sub_1C7A0238C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A024A4(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, char a10, uint64_t a11, uint64_t a12, char a13)
+void sub_1C7A024A4(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  if (v13 && atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  va_start(va, a12);
+  if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v13, a2);
+    WTF::StringImpl::destroy(v12, a2);
   }
 
   WebCore::ExceptionOr<unsigned int>::~ExceptionOr(&a10, a2);
@@ -5196,13 +5277,13 @@ void sub_1C7A024A4(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   {
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(a9, v15);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v16);
+      WTF::StringImpl::destroy(a9, v14);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v15);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v15);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v14);
   _Unwind_Resume(a1);
 }
 
@@ -5224,35 +5305,37 @@ void sub_1C7A02598(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A026E4(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, char a11)
+void sub_1C7A026E4(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   if (a9)
   {
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a9, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v12);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A027E8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, char a11)
+void sub_1C7A027E8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, ...)
 {
+  va_start(va, a10);
   if (a10)
   {
     if (atomic_fetch_add_explicit(a10, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a10, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v12);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
@@ -5271,30 +5354,32 @@ void sub_1C7A029E4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A02B68(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, char a13)
+void sub_1C7A02B68(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  if (v13)
+  va_start(va, a12);
+  if (v12)
   {
-    if (atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    if (atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v13, a2);
+      WTF::StringImpl::destroy(v12, a2);
     }
   }
 
   WebCore::ExceptionOr<unsigned int>::~ExceptionOr(&a10, a2);
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v15);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v14);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A02BA0(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1C7A02BA0(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
-  va_start(va, a6);
+  va_start(va, a10);
   WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A02BF8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, char a11)
+void sub_1C7A02BF8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, ...)
 {
+  va_start(va, a10);
   if (a10)
   {
     if (atomic_fetch_add_explicit(a10, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -5303,27 +5388,28 @@ void sub_1C7A02BF8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A02C2C(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
   WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A02D90(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13)
+void sub_1C7A02C2C(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
 {
-  WebCore::ExceptionOr<WTF::String>::~ExceptionOr(&a9, a2);
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v14);
+  va_start(va, a6);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A02E0C(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1C7A02D90(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  va_start(va, a6);
+  va_start(va, a12);
+  WebCore::ExceptionOr<WTF::String>::~ExceptionOr(&a9, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v13);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C7A02E0C(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+{
+  va_start(va, a10);
   WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
@@ -5365,7 +5451,7 @@ LABEL_8:
   return result;
 }
 
-void sub_1C7A02FFC(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, unsigned __int8 a11, int a12, __int16 a13, char a14, char a15, int a16, __int16 a17, char a18, char a19)
+void sub_1C7A02FFC(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, int a12, __int16 a13, char a14, char a15, int a16, __int16 a17, char a18, char a19)
 {
   if (v19 && atomic_fetch_add_explicit(v19, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
@@ -5398,9 +5484,9 @@ void sub_1C7A0318C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A031D4(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1C7A031D4(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
-  va_start(va, a6);
+  va_start(va, a10);
   WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
@@ -5420,26 +5506,27 @@ void sub_1C7A03310(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A03358(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1C7A03358(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
-  va_start(va, a6);
+  va_start(va, a10);
   WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A03578(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, char a11)
+void sub_1C7A03578(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   if (a9)
   {
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a9, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v12);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
@@ -5535,19 +5622,20 @@ void sub_1C7A0395C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A03CC8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, char a11)
+void sub_1C7A03CC8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   if (a9)
   {
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a9, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v12);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
@@ -5577,8 +5665,9 @@ void sub_1C7A03E1C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A040F0(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, WTF::StringImpl *a11, uint64_t a12, char a13)
+void sub_1C7A040F0(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, WTF::StringImpl *a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
   if (a11 && atomic_fetch_add_explicit(a11, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
     WTF::StringImpl::destroy(a11, a2);
@@ -5589,17 +5678,18 @@ void sub_1C7A040F0(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
     if (atomic_fetch_add_explicit(a10, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a10, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v14);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v13);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A04280(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, char a11)
+void sub_1C7A04280(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   if (a10)
   {
     if (*(a10 + 8) == 1)
@@ -5618,34 +5708,36 @@ void sub_1C7A04280(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a9, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v12);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A044A4(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_1C7A044A4(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   WebCore::ExceptionOr<WTF::String>::~ExceptionOr(&a11, a2);
   if (a10)
   {
     if (atomic_fetch_add_explicit(a10, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(a10, v16);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a15, v17);
+      WTF::StringImpl::destroy(a10, v15);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v16);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a15, v16);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v15);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A04690(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, WTF::StringImpl *a11, uint64_t a12, char a13)
+void sub_1C7A04690(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, WTF::StringImpl *a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
   if (a11 && atomic_fetch_add_explicit(a11, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
     WTF::StringImpl::destroy(a11, a2);
@@ -5656,12 +5748,12 @@ void sub_1C7A04690(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
     if (atomic_fetch_add_explicit(a10, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a10, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v14);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v13);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
@@ -5701,24 +5793,26 @@ void sub_1C7A0487C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A04A64(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, char a11)
+void sub_1C7A04A64(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   if (a9)
   {
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a9, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v12);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A04C1C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, WTF::StringImpl *a11, uint64_t a12, char a13)
+void sub_1C7A04C1C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, WTF::StringImpl *a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
   if (a11 && atomic_fetch_add_explicit(a11, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
     WTF::StringImpl::destroy(a11, a2);
@@ -5729,60 +5823,63 @@ void sub_1C7A04C1C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
     if (atomic_fetch_add_explicit(a10, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a10, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v14);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v13);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A04D70(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, char a11)
+void sub_1C7A04D70(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, ...)
 {
+  va_start(va, a10);
   if (a10)
   {
     if (atomic_fetch_add_explicit(a10, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a10, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v12);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A04E98(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, char a11)
+void sub_1C7A04E98(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   if (a9)
   {
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a9, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v12);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A04F9C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, char a11)
+void sub_1C7A04F9C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, ...)
 {
+  va_start(va, a10);
   if (a10)
   {
     if (atomic_fetch_add_explicit(a10, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a10, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v12);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
@@ -6086,13 +6183,13 @@ LABEL_19:
   }
 }
 
-void sub_1C7A055B4(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C7A055B4(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
 {
-  va_start(va, a4);
-  if (a4)
+  va_start(va, a6);
+  if (a6)
   {
-    (*(*a4 + 8))(a4);
-    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v5);
+    (*(*a6 + 8))(a6, a2, a3, a4);
+    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v7);
     _Unwind_Resume(a1);
   }
 
@@ -6100,13 +6197,13 @@ void sub_1C7A055B4(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ..
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A05698(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C7A05698(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
 {
-  va_start(va, a4);
-  if (a4)
+  va_start(va, a6);
+  if (a6)
   {
-    (*(*a4 + 8))(a4);
-    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v5);
+    (*(*a6 + 8))(a6, a2, a3, a4);
+    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v7);
     _Unwind_Resume(a1);
   }
 
@@ -6114,11 +6211,12 @@ void sub_1C7A05698(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ..
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A057C8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, char a10, uint64_t a11, uint64_t a12, char a13)
+void sub_1C7A057C8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  if (v13 && atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  va_start(va, a12);
+  if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v13, a2);
+    WTF::StringImpl::destroy(v12, a2);
   }
 
   WebCore::ExceptionOr<unsigned int>::~ExceptionOr(&a10, a2);
@@ -6126,13 +6224,13 @@ void sub_1C7A057C8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   {
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(a9, v15);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v16);
+      WTF::StringImpl::destroy(a9, v14);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v15);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v15);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v14);
   _Unwind_Resume(a1);
 }
 
@@ -6154,30 +6252,31 @@ void sub_1C7A058BC(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A05A38(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, WTF::StringImpl *a11, char a12, uint64_t a13, uint64_t a14, char a15)
+void sub_1C7A05A38(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, WTF::StringImpl *a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
-  if (v15 && atomic_fetch_add_explicit(v15, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  va_start(va, a14);
+  if (v14 && atomic_fetch_add_explicit(v14, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v15, a2);
+    WTF::StringImpl::destroy(v14, a2);
   }
 
   WebCore::ExceptionOr<unsigned int>::~ExceptionOr(&a12, a2);
   if (a10 && atomic_fetch_add_explicit(a10, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(a10, v17);
+    WTF::StringImpl::destroy(a10, v16);
   }
 
   if (a11)
   {
     if (atomic_fetch_add_explicit(a11, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(a11, v17);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a15, v18);
+      WTF::StringImpl::destroy(a11, v16);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v17);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a15, v17);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v16);
   _Unwind_Resume(a1);
 }
 
@@ -6199,25 +6298,26 @@ void sub_1C7A05B54(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A05D24(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, char a11)
+void sub_1C7A05D24(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   if (a9)
   {
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a9, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v12);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A05E0C(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C7A05E0C(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
 {
-  va_start(va, a4);
+  va_start(va, a6);
   WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
@@ -6252,20 +6352,20 @@ NSObject *kit(WebCore::DeprecatedCSSOMValue *a1)
   return v7;
 }
 
-void sub_1C7A060C0(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C7A060C0(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
 {
-  va_start(va, a4);
+  va_start(va, a6);
   WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A060D4(_Unwind_Exception *a1, void *a2, uint64_t a3, void *a4, ...)
+void sub_1C7A060D4(_Unwind_Exception *a1, void *a2, uint64_t a3, void *a4, uint64_t a5, void *a6, ...)
 {
-  va_start(va, a4);
-  if (a4)
+  va_start(va, a6);
+  if (a6)
   {
 
-    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v5);
+    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v7);
     _Unwind_Resume(a1);
   }
 
@@ -6273,49 +6373,52 @@ void sub_1C7A060D4(_Unwind_Exception *a1, void *a2, uint64_t a3, void *a4, ...)
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A061A8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, char a11)
+void sub_1C7A061A8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, ...)
 {
+  va_start(va, a10);
   if (a10)
   {
     if (atomic_fetch_add_explicit(a10, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a10, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v12);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A06484(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13)
-{
-  WebCore::ExceptionOr<WTF::String>::~ExceptionOr(&a9, a2);
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v14);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A06500(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
-{
-  va_start(va, a6);
   WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A06594(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, char a11)
+void sub_1C7A06484(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
+  WebCore::ExceptionOr<WTF::String>::~ExceptionOr(&a9, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v13);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C7A06500(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+{
+  va_start(va, a10);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C7A06594(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, ...)
+{
+  va_start(va, a10);
   if (a10)
   {
     if (atomic_fetch_add_explicit(a10, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a10, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v12);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
@@ -6407,78 +6510,81 @@ void sub_1C7A06A00(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A06C64(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C7A06C64(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
 {
-  va_start(va, a4);
+  va_start(va, a6);
   WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A06C78(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, char a11)
+void sub_1C7A06C78(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, ...)
 {
+  va_start(va, a10);
   if (a10)
   {
   }
 
-  if (v11)
+  if (v10)
   {
-    if (atomic_fetch_add_explicit(v11, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    if (atomic_fetch_add_explicit(v10, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v11, a2);
+      WTF::StringImpl::destroy(v10, a2);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A06DAC(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
   WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A06DC0(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, char a11)
+void sub_1C7A06DAC(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
 {
-  if (a10)
-  {
-  }
-
-  if (v11)
-  {
-    if (atomic_fetch_add_explicit(v11, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      WTF::StringImpl::destroy(v11, a2);
-    }
-  }
-
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A06EF4(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
+  va_start(va, a6);
   WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A06F08(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, char a11)
+void sub_1C7A06DC0(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, ...)
 {
+  va_start(va, a10);
   if (a10)
   {
   }
 
-  if (v11)
+  if (v10)
   {
-    if (atomic_fetch_add_explicit(v11, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    if (atomic_fetch_add_explicit(v10, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v11, a2);
+      WTF::StringImpl::destroy(v10, a2);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C7A06EF4(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+{
+  va_start(va, a6);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C7A06F08(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, ...)
+{
+  va_start(va, a10);
+  if (a10)
+  {
+  }
+
+  if (v10)
+  {
+    if (atomic_fetch_add_explicit(v10, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    {
+      WTF::StringImpl::destroy(v10, a2);
+    }
+  }
+
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
@@ -6561,13 +6667,13 @@ void sub_1C7A070EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1C7A07320(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, ...)
+void sub_1C7A07320(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, ...)
 {
-  va_start(va, a6);
-  if (a6)
+  va_start(va, a10);
+  if (a10)
   {
 
-    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v7);
+    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
     _Unwind_Resume(a1);
   }
 
@@ -6575,53 +6681,55 @@ void sub_1C7A07320(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ui
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0742C(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C7A0742C(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
 {
-  va_start(va, a4);
+  va_start(va, a6);
   WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A07440(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, char a11)
+void sub_1C7A07440(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, ...)
 {
+  va_start(va, a10);
   if (a10)
   {
   }
 
-  if (v11)
+  if (v10)
   {
-    if (atomic_fetch_add_explicit(v11, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    if (atomic_fetch_add_explicit(v10, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v11, a2);
+      WTF::StringImpl::destroy(v10, a2);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A07574(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
   WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A07588(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, char a11)
+void sub_1C7A07574(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
 {
+  va_start(va, a6);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C7A07588(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, ...)
+{
+  va_start(va, a10);
   if (a10)
   {
   }
 
-  if (v11)
+  if (v10)
   {
-    if (atomic_fetch_add_explicit(v11, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    if (atomic_fetch_add_explicit(v10, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v11, a2);
+      WTF::StringImpl::destroy(v10, a2);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
@@ -6651,177 +6759,185 @@ void sub_1C7A07698(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A078C0(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, char a11)
+void sub_1C7A078C0(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   if (a9)
   {
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a9, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v12);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A079C4(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, char a11)
+void sub_1C7A079C4(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, ...)
 {
+  va_start(va, a10);
   if (a10)
   {
     if (atomic_fetch_add_explicit(a10, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a10, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v12);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
       _Unwind_Resume(a1);
     }
-  }
-
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A07BD4(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, char a11)
-{
-  if (a9)
-  {
-    if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      WTF::StringImpl::destroy(a9, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v12);
-      _Unwind_Resume(a1);
-    }
-  }
-
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A07D0C(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A07D20(_Unwind_Exception *a1, void *a2, uint64_t a3, void *a4, ...)
-{
-  va_start(va, a4);
-  if (a4)
-  {
-
-    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v5);
-    _Unwind_Resume(a1);
   }
 
   WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A07DF4(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, char a11)
+void sub_1C7A07BD4(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, ...)
 {
-  if (a10)
+  va_start(va, a10);
+  if (a9)
   {
-    if (atomic_fetch_add_explicit(a10, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(a10, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v12);
+      WTF::StringImpl::destroy(a9, a2);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
       _Unwind_Resume(a1);
     }
-  }
-
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A07EF4(_Unwind_Exception *a1, void *a2, uint64_t a3, void *a4, ...)
-{
-  va_start(va, a4);
-  if (a4)
-  {
-
-    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v5);
-    _Unwind_Resume(a1);
   }
 
   WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A07FE4(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, char a10)
-{
-  if (a9)
-  {
-    if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      WTF::StringImpl::destroy(a9, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a10, v11);
-      _Unwind_Resume(a1);
-    }
-  }
-
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a10, a2);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A08108(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, char a11)
-{
-  if (a9)
-  {
-    if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      WTF::StringImpl::destroy(a9, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v12);
-      _Unwind_Resume(a1);
-    }
-  }
-
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A08268(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, char a11)
-{
-  if (a9)
-  {
-    if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      WTF::StringImpl::destroy(a9, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v12);
-      _Unwind_Resume(a1);
-    }
-  }
-
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A083A4(_Unwind_Exception *a1, void *a2, uint64_t a3, void *a4, ...)
-{
-  va_start(va, a4);
-  if (a4)
-  {
-
-    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v5);
-    _Unwind_Resume(a1);
-  }
-
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A0855C(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13)
-{
-  WebCore::ExceptionOr<WTF::String>::~ExceptionOr(&a9, a2);
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v14);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A085D8(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1C7A07D0C(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
 {
   va_start(va, a6);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C7A07D20(_Unwind_Exception *a1, void *a2, uint64_t a3, void *a4, uint64_t a5, void *a6, ...)
+{
+  va_start(va, a6);
+  if (a6)
+  {
+
+    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v7);
+    _Unwind_Resume(a1);
+  }
+
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C7A07DF4(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, ...)
+{
+  va_start(va, a10);
+  if (a10)
+  {
+    if (atomic_fetch_add_explicit(a10, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    {
+      WTF::StringImpl::destroy(a10, a2);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
+      _Unwind_Resume(a1);
+    }
+  }
+
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C7A07EF4(_Unwind_Exception *a1, void *a2, uint64_t a3, void *a4, uint64_t a5, void *a6, ...)
+{
+  va_start(va, a6);
+  if (a6)
+  {
+
+    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v7);
+    _Unwind_Resume(a1);
+  }
+
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C7A07FE4(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, ...)
+{
+  va_start(va, a9);
+  if (a9)
+  {
+    if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    {
+      WTF::StringImpl::destroy(a9, a2);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v10);
+      _Unwind_Resume(a1);
+    }
+  }
+
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C7A08108(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, ...)
+{
+  va_start(va, a10);
+  if (a9)
+  {
+    if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    {
+      WTF::StringImpl::destroy(a9, a2);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
+      _Unwind_Resume(a1);
+    }
+  }
+
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C7A08268(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, ...)
+{
+  va_start(va, a10);
+  if (a9)
+  {
+    if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    {
+      WTF::StringImpl::destroy(a9, a2);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
+      _Unwind_Resume(a1);
+    }
+  }
+
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C7A083A4(_Unwind_Exception *a1, void *a2, uint64_t a3, void *a4, uint64_t a5, void *a6, ...)
+{
+  va_start(va, a6);
+  if (a6)
+  {
+
+    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v7);
+    _Unwind_Resume(a1);
+  }
+
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C7A0855C(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+{
+  va_start(va, a12);
+  WebCore::ExceptionOr<WTF::String>::~ExceptionOr(&a9, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v13);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C7A085D8(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+{
+  va_start(va, a10);
   WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
@@ -6880,19 +6996,19 @@ void sub_1C7A08874(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A08A0C(_Unwind_Exception *a1, void *a2, uint64_t a3, _DWORD *a4, ...)
+void sub_1C7A08A0C(_Unwind_Exception *a1, void *a2, uint64_t a3, _DWORD *a4, uint64_t a5, _DWORD *a6, ...)
 {
-  va_start(va, a4);
-  if (a4)
+  va_start(va, a6);
+  if (a6)
   {
-    if (a4[4] == 1)
+    if (a6[4] == 1)
     {
-      (*(*a4 + 8))(a4);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v5);
+      (*(*a6 + 8))(a6, a2, a3, a4);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v7);
       _Unwind_Resume(a1);
     }
 
-    --a4[4];
+    --a6[4];
     WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
     _Unwind_Resume(a1);
   }
@@ -6901,19 +7017,19 @@ void sub_1C7A08A0C(_Unwind_Exception *a1, void *a2, uint64_t a3, _DWORD *a4, ...
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A08B24(_Unwind_Exception *a1, void *a2, uint64_t a3, _DWORD *a4, ...)
+void sub_1C7A08B24(_Unwind_Exception *a1, void *a2, uint64_t a3, _DWORD *a4, uint64_t a5, _DWORD *a6, ...)
 {
-  va_start(va, a4);
-  if (a4)
+  va_start(va, a6);
+  if (a6)
   {
-    if (a4[4] == 1)
+    if (a6[4] == 1)
     {
-      (*(*a4 + 8))(a4);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v5);
+      (*(*a6 + 8))(a6, a2, a3, a4);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v7);
       _Unwind_Resume(a1);
     }
 
-    --a4[4];
+    --a6[4];
     WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
     _Unwind_Resume(a1);
   }
@@ -6922,19 +7038,19 @@ void sub_1C7A08B24(_Unwind_Exception *a1, void *a2, uint64_t a3, _DWORD *a4, ...
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A08C3C(_Unwind_Exception *a1, void *a2, uint64_t a3, _DWORD *a4, ...)
+void sub_1C7A08C3C(_Unwind_Exception *a1, void *a2, uint64_t a3, _DWORD *a4, uint64_t a5, _DWORD *a6, ...)
 {
-  va_start(va, a4);
-  if (a4)
+  va_start(va, a6);
+  if (a6)
   {
-    if (a4[4] == 1)
+    if (a6[4] == 1)
     {
-      (*(*a4 + 8))(a4);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v5);
+      (*(*a6 + 8))(a6, a2, a3, a4);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v7);
       _Unwind_Resume(a1);
     }
 
-    --a4[4];
+    --a6[4];
     WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
     _Unwind_Resume(a1);
   }
@@ -6943,19 +7059,19 @@ void sub_1C7A08C3C(_Unwind_Exception *a1, void *a2, uint64_t a3, _DWORD *a4, ...
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A08D54(_Unwind_Exception *a1, void *a2, uint64_t a3, _DWORD *a4, ...)
+void sub_1C7A08D54(_Unwind_Exception *a1, void *a2, uint64_t a3, _DWORD *a4, uint64_t a5, _DWORD *a6, ...)
 {
-  va_start(va, a4);
-  if (a4)
+  va_start(va, a6);
+  if (a6)
   {
-    if (a4[4] == 1)
+    if (a6[4] == 1)
     {
-      (*(*a4 + 8))(a4);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v5);
+      (*(*a6 + 8))(a6, a2, a3, a4);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v7);
       _Unwind_Resume(a1);
     }
 
-    --a4[4];
+    --a6[4];
     WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
     _Unwind_Resume(a1);
   }
@@ -6964,19 +7080,19 @@ void sub_1C7A08D54(_Unwind_Exception *a1, void *a2, uint64_t a3, _DWORD *a4, ...
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A08E6C(_Unwind_Exception *a1, void *a2, uint64_t a3, _DWORD *a4, ...)
+void sub_1C7A08E6C(_Unwind_Exception *a1, void *a2, uint64_t a3, _DWORD *a4, uint64_t a5, _DWORD *a6, ...)
 {
-  va_start(va, a4);
-  if (a4)
+  va_start(va, a6);
+  if (a6)
   {
-    if (a4[4] == 1)
+    if (a6[4] == 1)
     {
-      (*(*a4 + 8))(a4);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v5);
+      (*(*a6 + 8))(a6, a2, a3, a4);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v7);
       _Unwind_Resume(a1);
     }
 
-    --a4[4];
+    --a6[4];
     WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
     _Unwind_Resume(a1);
   }
@@ -6985,29 +7101,30 @@ void sub_1C7A08E6C(_Unwind_Exception *a1, void *a2, uint64_t a3, _DWORD *a4, ...
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A08FC0(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, char a11)
+void sub_1C7A08FC0(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   if (a9)
   {
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a9, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v12);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A09148(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, ...)
+void sub_1C7A09148(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, ...)
 {
-  va_start(va, a6);
-  if (a6)
+  va_start(va, a10);
+  if (a10)
   {
 
-    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v7);
+    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
     _Unwind_Resume(a1);
   }
 
@@ -7015,19 +7132,20 @@ void sub_1C7A09148(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ui
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A09200(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, char a11)
+void sub_1C7A09200(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, ...)
 {
+  va_start(va, a10);
   if (a10)
   {
     if (atomic_fetch_add_explicit(a10, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a10, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v12);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
@@ -7044,13 +7162,13 @@ void sub_1C7A09310(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
   _Unwind_Resume(exception_object);
 }
 
-void sub_1C7A09464(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, ...)
+void sub_1C7A09464(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, ...)
 {
-  va_start(va, a6);
-  if (a6)
+  va_start(va, a10);
+  if (a10)
   {
 
-    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v7);
+    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
     _Unwind_Resume(a1);
   }
 
@@ -7058,48 +7176,49 @@ void sub_1C7A09464(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ui
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A095F4(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, char a11)
+void sub_1C7A095F4(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   if (a9)
   {
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a9, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v12);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A09734(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  WTF::Ref<WebCore::DocumentFullscreen,WTF::RawPtrTraits<WebCore::DocumentFullscreen>,WTF::DefaultRefDerefTraits<WebCore::DocumentFullscreen>>::~Ref(v2 - 24);
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v4);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A09750(_Unwind_Exception *a1, void *a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
   WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0982C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7A09734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  WTF::Ref<WebCore::DocumentFullscreen,WTF::RawPtrTraits<WebCore::DocumentFullscreen>,WTF::DefaultRefDerefTraits<WebCore::DocumentFullscreen>>::~Ref(v2 - 24);
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v4);
+  va_start(va, a3);
+  WTF::Ref<WebCore::DocumentFullscreen,WTF::RawPtrTraits<WebCore::DocumentFullscreen>,WTF::DefaultRefDerefTraits<WebCore::DocumentFullscreen>>::~Ref(v3 - 24);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v5);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A09848(_Unwind_Exception *a1, void *a2, uint64_t a3, ...)
+void sub_1C7A09750(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ...)
+{
+  va_start(va, a4);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C7A0982C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
   va_start(va, a3);
+  WTF::Ref<WebCore::DocumentFullscreen,WTF::RawPtrTraits<WebCore::DocumentFullscreen>,WTF::DefaultRefDerefTraits<WebCore::DocumentFullscreen>>::~Ref(v3 - 24);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v5);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C7A09848(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ...)
+{
+  va_start(va, a4);
   WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
@@ -7168,70 +7287,72 @@ LABEL_9:
   return result;
 }
 
-void sub_1C7A099C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10)
+void sub_1C7A099C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, ...)
 {
-  if (v10)
+  va_start(va, a9);
+  if (v9)
   {
-    if (*(v10 + 7) == 2)
+    if (*(v9 + 7) == 2)
     {
-      WebCore::Node::removedLastRef(v10);
-      WTF::Ref<WebCore::DocumentFullscreen,WTF::RawPtrTraits<WebCore::DocumentFullscreen>,WTF::DefaultRefDerefTraits<WebCore::DocumentFullscreen>>::~Ref(&a10);
+      WebCore::Node::removedLastRef(v9);
+      WTF::Ref<WebCore::DocumentFullscreen,WTF::RawPtrTraits<WebCore::DocumentFullscreen>,WTF::DefaultRefDerefTraits<WebCore::DocumentFullscreen>>::~Ref(va);
       _Unwind_Resume(a1);
     }
 
-    *(v10 + 7) -= 2;
-    WTF::Ref<WebCore::DocumentFullscreen,WTF::RawPtrTraits<WebCore::DocumentFullscreen>,WTF::DefaultRefDerefTraits<WebCore::DocumentFullscreen>>::~Ref(&a10);
+    *(v9 + 7) -= 2;
+    WTF::Ref<WebCore::DocumentFullscreen,WTF::RawPtrTraits<WebCore::DocumentFullscreen>,WTF::DefaultRefDerefTraits<WebCore::DocumentFullscreen>>::~Ref(va);
     _Unwind_Resume(a1);
   }
 
-  WTF::Ref<WebCore::DocumentFullscreen,WTF::RawPtrTraits<WebCore::DocumentFullscreen>,WTF::DefaultRefDerefTraits<WebCore::DocumentFullscreen>>::~Ref(&a10);
+  WTF::Ref<WebCore::DocumentFullscreen,WTF::RawPtrTraits<WebCore::DocumentFullscreen>,WTF::DefaultRefDerefTraits<WebCore::DocumentFullscreen>>::~Ref(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A09AC4(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  WTF::Ref<WebCore::DocumentFullscreen,WTF::RawPtrTraits<WebCore::DocumentFullscreen>,WTF::DefaultRefDerefTraits<WebCore::DocumentFullscreen>>::~Ref(v2 - 24);
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v4);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A09AE0(_Unwind_Exception *a1, void *a2, uint64_t a3, ...)
+void sub_1C7A09AC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
   va_start(va, a3);
+  WTF::Ref<WebCore::DocumentFullscreen,WTF::RawPtrTraits<WebCore::DocumentFullscreen>,WTF::DefaultRefDerefTraits<WebCore::DocumentFullscreen>>::~Ref(v3 - 24);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v5);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C7A09AE0(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ...)
+{
+  va_start(va, a4);
   WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A09DC8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, char a11)
+void sub_1C7A09DC8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   if (a9)
   {
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a9, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v12);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A09F54(_Unwind_Exception *a1, void *a2, uint64_t a3, _DWORD *a4, ...)
+void sub_1C7A09F54(_Unwind_Exception *a1, void *a2, uint64_t a3, _DWORD *a4, uint64_t a5, _DWORD *a6, ...)
 {
-  va_start(va, a4);
-  if (a4)
+  va_start(va, a6);
+  if (a6)
   {
-    if (a4[4] == 1)
+    if (a6[4] == 1)
     {
-      (*(*a4 + 8))(a4);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v5);
+      (*(*a6 + 8))(a6, a2, a3, a4);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v7);
       _Unwind_Resume(a1);
     }
 
-    --a4[4];
+    --a6[4];
     WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
     _Unwind_Resume(a1);
   }
@@ -7240,11 +7361,12 @@ void sub_1C7A09F54(_Unwind_Exception *a1, void *a2, uint64_t a3, _DWORD *a4, ...
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0A264(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, char a10, uint64_t a11, uint64_t a12, char a13)
+void sub_1C7A0A264(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  if (v13 && atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  va_start(va, a12);
+  if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v13, a2);
+    WTF::StringImpl::destroy(v12, a2);
   }
 
   WebCore::ExceptionOr<WTF::Ref<WebCore::Element,WTF::RawPtrTraits<WebCore::Element>,WTF::DefaultRefDerefTraits<WebCore::Element>>>::~ExceptionOr(&a10, a2);
@@ -7252,13 +7374,13 @@ void sub_1C7A0A264(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   {
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(a9, v15);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v16);
+      WTF::StringImpl::destroy(a9, v14);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v15);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v15);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v14);
   _Unwind_Resume(a1);
 }
 
@@ -7310,28 +7432,30 @@ LABEL_6:
   return result;
 }
 
-void sub_1C7A0A434(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WebCore::Node *a10, char a11)
+void sub_1C7A0A434(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WebCore::Node *a10, ...)
 {
+  va_start(va, a10);
   if (a10)
   {
     if (*(a10 + 7) == 2)
     {
       WebCore::Node::removedLastRef(a10);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v12);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
       _Unwind_Resume(a1);
     }
 
     *(a10 + 7) -= 2;
-    WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
+    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
     _Unwind_Resume(a1);
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0A550(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, WebCore::Node *a10, char a11)
+void sub_1C7A0A550(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, WebCore::Node *a10, ...)
 {
+  va_start(va, a10);
   if (a10)
   {
     if (*(a10 + 7) == 2)
@@ -7350,17 +7474,18 @@ void sub_1C7A0A550(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a9, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v12);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0A688(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, WebCore::Node *a10, char a11)
+void sub_1C7A0A688(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, WebCore::Node *a10, ...)
 {
+  va_start(va, a10);
   if (a10)
   {
     if (*(a10 + 7) == 2)
@@ -7379,20 +7504,21 @@ void sub_1C7A0A688(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a9, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v12);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0A858(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, char a10, uint64_t a11, uint64_t a12, char a13)
+void sub_1C7A0A858(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  if (v13 && atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  va_start(va, a12);
+  if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v13, a2);
+    WTF::StringImpl::destroy(v12, a2);
   }
 
   WebCore::ExceptionOr<WTF::Ref<WebCore::Element,WTF::RawPtrTraits<WebCore::Element>,WTF::DefaultRefDerefTraits<WebCore::Element>>>::~ExceptionOr(&a10, a2);
@@ -7400,48 +7526,50 @@ void sub_1C7A0A858(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   {
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(a9, v15);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v16);
+      WTF::StringImpl::destroy(a9, v14);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v15);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v15);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v14);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0AA8C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, WTF::StringImpl *a11, char a12, uint64_t a13, uint64_t a14, char a15)
+void sub_1C7A0AA8C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, WTF::StringImpl *a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
-  if (v15 && atomic_fetch_add_explicit(v15, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  va_start(va, a14);
+  if (v14 && atomic_fetch_add_explicit(v14, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v15, a2);
+    WTF::StringImpl::destroy(v14, a2);
   }
 
   WebCore::ExceptionOr<WTF::Ref<WebCore::Element,WTF::RawPtrTraits<WebCore::Element>,WTF::DefaultRefDerefTraits<WebCore::Element>>>::~ExceptionOr(&a12, a2);
   if (a10 && atomic_fetch_add_explicit(a10, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(a10, v17);
+    WTF::StringImpl::destroy(a10, v16);
   }
 
   if (a11)
   {
     if (atomic_fetch_add_explicit(a11, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(a11, v17);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a15, v18);
+      WTF::StringImpl::destroy(a11, v16);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v17);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a15, v17);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v16);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0ACB4(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, char a10, uint64_t a11, uint64_t a12, char a13)
+void sub_1C7A0ACB4(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  if (v13 && atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  va_start(va, a12);
+  if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v13, a2);
+    WTF::StringImpl::destroy(v12, a2);
   }
 
   WebCore::ExceptionOr<WTF::Ref<WebCore::Element,WTF::RawPtrTraits<WebCore::Element>,WTF::DefaultRefDerefTraits<WebCore::Element>>>::~ExceptionOr(&a10, a2);
@@ -7449,23 +7577,24 @@ void sub_1C7A0ACB4(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   {
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(a9, v15);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v16);
+      WTF::StringImpl::destroy(a9, v14);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v15);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v15);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v14);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0AE68(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, _DWORD *a11, char a12)
+void sub_1C7A0AE68(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, WTF::StringImpl *a10, _DWORD *a11, ...)
 {
+  va_start(va, a11);
   if (a11)
   {
     if (a11[4] == 1)
     {
-      (*(*a11 + 8))(a11);
+      (*(*a11 + 8))(a11, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -7479,99 +7608,103 @@ void sub_1C7A0AE68(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
     if (atomic_fetch_add_explicit(a10, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a10, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a12, v13);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v12);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a12, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0B0D0(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, char a15)
+void sub_1C7A0B0D0(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
-  if (v15)
+  va_start(va, a14);
+  if (v14)
   {
-    if (atomic_fetch_add_explicit(v15, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    if (atomic_fetch_add_explicit(v14, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v15, a2);
+      WTF::StringImpl::destroy(v14, a2);
     }
   }
 
   WebCore::ExceptionOr<WTF::Ref<WebCore::Element,WTF::RawPtrTraits<WebCore::Element>,WTF::DefaultRefDerefTraits<WebCore::Element>>>::~ExceptionOr(&a12, a2);
   mpark::variant<BOOL,WebCore::ImportNodeOptions>::~variant(&a9);
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a15, v17);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v16);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0B140(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1C7A0B140(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
-  va_start(va, a8);
+  va_start(va, a14);
   WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0B2FC(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, WTF::StringImpl *a11, char a12, uint64_t a13, uint64_t a14, char a15)
+void sub_1C7A0B2FC(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, WTF::StringImpl *a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
-  if (v15 && atomic_fetch_add_explicit(v15, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  va_start(va, a14);
+  if (v14 && atomic_fetch_add_explicit(v14, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v15, a2);
+    WTF::StringImpl::destroy(v14, a2);
   }
 
   WebCore::ExceptionOr<WTF::Ref<WebCore::Element,WTF::RawPtrTraits<WebCore::Element>,WTF::DefaultRefDerefTraits<WebCore::Element>>>::~ExceptionOr(&a12, a2);
   if (a10 && atomic_fetch_add_explicit(a10, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(a10, v17);
+    WTF::StringImpl::destroy(a10, v16);
   }
 
   if (a11)
   {
     if (atomic_fetch_add_explicit(a11, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(a11, v17);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a15, v18);
+      WTF::StringImpl::destroy(a11, v16);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v17);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a15, v17);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v16);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0B56C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, WTF::StringImpl *a11, char a12, uint64_t a13, uint64_t a14, char a15)
+void sub_1C7A0B56C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, WTF::StringImpl *a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
-  if (v15 && atomic_fetch_add_explicit(v15, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  va_start(va, a14);
+  if (v14 && atomic_fetch_add_explicit(v14, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v15, a2);
+    WTF::StringImpl::destroy(v14, a2);
   }
 
   WebCore::ExceptionOr<WTF::Ref<WebCore::Element,WTF::RawPtrTraits<WebCore::Element>,WTF::DefaultRefDerefTraits<WebCore::Element>>>::~ExceptionOr(&a12, a2);
   if (a10 && atomic_fetch_add_explicit(a10, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(a10, v17);
+    WTF::StringImpl::destroy(a10, v16);
   }
 
   if (a11)
   {
     if (atomic_fetch_add_explicit(a11, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(a11, v17);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a15, v18);
+      WTF::StringImpl::destroy(a11, v16);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v17);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a15, v17);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v16);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0B780(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, WTF::StringImpl *a10, _DWORD *a11, char a12)
+void sub_1C7A0B780(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, WTF::StringImpl *a9, WTF::StringImpl *a10, _DWORD *a11, ...)
 {
+  va_start(va, a11);
   if (a11)
   {
     if (a11[4] == 1)
     {
-      (*(*a11 + 8))(a11);
+      (*(*a11 + 8))(a11, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -7590,49 +7723,51 @@ void sub_1C7A0B780(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
     if (atomic_fetch_add_explicit(a10, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a10, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a12, v13);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v12);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a12, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0B96C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, char a13)
+void sub_1C7A0B96C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  if (v13)
+  va_start(va, a12);
+  if (v12)
   {
-    if (atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    if (atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v13, a2);
+      WTF::StringImpl::destroy(v12, a2);
     }
   }
 
   WebCore::ExceptionOr<WTF::Ref<WebCore::Element,WTF::RawPtrTraits<WebCore::Element>,WTF::DefaultRefDerefTraits<WebCore::Element>>>::~ExceptionOr(&a10, a2);
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v15);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v14);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0B9CC(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1C7A0B9CC(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
-  va_start(va, a6);
+  va_start(va, a10);
   WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0B9E0(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1C7A0B9E0(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
-  va_start(va, a6);
+  va_start(va, a10);
   WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0BB90(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, char a10, uint64_t a11, uint64_t a12, char a13)
+void sub_1C7A0BB90(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  if (v13 && atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  va_start(va, a12);
+  if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v13, a2);
+    WTF::StringImpl::destroy(v12, a2);
   }
 
   WebCore::ExceptionOr<WTF::Ref<WebCore::Event,WTF::RawPtrTraits<WebCore::Event>,WTF::DefaultRefDerefTraits<WebCore::Event>>>::~ExceptionOr(&a10, a2);
@@ -7640,13 +7775,13 @@ void sub_1C7A0BB90(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   {
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(a9, v15);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v16);
+      WTF::StringImpl::destroy(a9, v14);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v15);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v15);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v14);
   _Unwind_Resume(a1);
 }
 
@@ -7754,19 +7889,19 @@ void sub_1C7A0BE70(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0BF4C(_Unwind_Exception *a1, void *a2, uint64_t a3, _DWORD *a4, ...)
+void sub_1C7A0BF4C(_Unwind_Exception *a1, void *a2, uint64_t a3, _DWORD *a4, uint64_t a5, _DWORD *a6, ...)
 {
-  va_start(va, a4);
-  if (a4)
+  va_start(va, a6);
+  if (a6)
   {
-    if (a4[2] == 1)
+    if (a6[2] == 1)
     {
-      (*(*a4 + 8))(a4);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v5);
+      (*(*a6 + 8))(a6, a2, a3, a4);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v7);
       _Unwind_Resume(a1);
     }
 
-    --a4[2];
+    --a6[2];
     WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
     _Unwind_Resume(a1);
   }
@@ -7775,49 +7910,51 @@ void sub_1C7A0BF4C(_Unwind_Exception *a1, void *a2, uint64_t a3, _DWORD *a4, ...
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0C1E8(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, _DWORD *a10, char a11)
+void sub_1C7A0C1E8(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, _DWORD *a10, ...)
 {
-  WTF::fastFree(v11, a2);
+  va_start(va, a10);
+  WTF::fastFree(v10, a2);
   if (a10)
   {
     if (a10[2] == 1)
     {
       (*(*a10 + 8))(a10);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v14);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v13);
       _Unwind_Resume(a1);
     }
 
     --a10[2];
-    WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v13);
+    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v12);
     _Unwind_Resume(a1);
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v13);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v12);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0C684(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, _DWORD *a10, char a11)
+void sub_1C7A0C684(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, _DWORD *a10, ...)
 {
-  WTF::fastFree(v11, a2);
+  va_start(va, a10);
+  WTF::fastFree(v10, a2);
   if (a10)
   {
     if (a10[2] == 1)
     {
       (*(*a10 + 8))(a10);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v14);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v13);
       _Unwind_Resume(a1);
     }
 
     --a10[2];
-    WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v13);
+    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v12);
     _Unwind_Resume(a1);
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v13);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v12);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0CA60(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, _DWORD *a9, WTF::StringImpl *a10, char a11, uint64_t a12, uint64_t a13, char a14, int a15, __int16 a16, char a17, char a18)
+void sub_1C7A0CA60(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, _DWORD *a9, WTF::StringImpl *a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, int a15, __int16 a16, char a17, char a18)
 {
   if (v18 && atomic_fetch_add_explicit(v18, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
@@ -7850,19 +7987,19 @@ void sub_1C7A0CA60(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0CBE4(_Unwind_Exception *a1, void *a2, uint64_t a3, _DWORD *a4, ...)
+void sub_1C7A0CBE4(_Unwind_Exception *a1, void *a2, uint64_t a3, _DWORD *a4, uint64_t a5, _DWORD *a6, ...)
 {
-  va_start(va, a4);
-  if (a4)
+  va_start(va, a6);
+  if (a6)
   {
-    if (a4[2] == 1)
+    if (a6[2] == 1)
     {
-      (*(*a4 + 8))(a4);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v5);
+      (*(*a6 + 8))(a6, a2, a3, a4);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v7);
       _Unwind_Resume(a1);
     }
 
-    --a4[2];
+    --a6[2];
     WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
     _Unwind_Resume(a1);
   }
@@ -7871,7 +8008,7 @@ void sub_1C7A0CBE4(_Unwind_Exception *a1, void *a2, uint64_t a3, _DWORD *a4, ...
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0CEE8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, _DWORD *a9, WTF::StringImpl *a10, char a11, uint64_t a12, uint64_t a13, char a14, int a15, __int16 a16, char a17, char a18)
+void sub_1C7A0CEE8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, _DWORD *a9, WTF::StringImpl *a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, int a15, __int16 a16, char a17, char a18)
 {
   if (v18 && atomic_fetch_add_explicit(v18, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
@@ -7904,124 +8041,131 @@ void sub_1C7A0CEE8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0D0AC(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, WTF::StringImpl *a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_1C7A0D0AC(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, WTF::StringImpl *a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   mpark::detail::destructor<mpark::detail::traits<WTF::String,WTF::RefPtr<WebCore::TrustedHTML,WTF::RawPtrTraits<WebCore::TrustedHTML>,WTF::DefaultRefDerefTraits<WebCore::TrustedHTML>>>,(mpark::detail::Trait)1>::~destructor(&a9, a2);
-  v17 = a11;
+  v16 = a11;
   a11 = 0;
-  if (v17)
+  if (v16)
   {
-    if (atomic_fetch_add_explicit(v17, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    if (atomic_fetch_add_explicit(v16, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v17, v16);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a15, v18);
+      WTF::StringImpl::destroy(v16, v15);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v17);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a15, v16);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v15);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0D1DC(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13)
+void sub_1C7A0D1DC(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
   if (a9)
   {
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a9, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v14);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v13);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0D2E8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13)
+void sub_1C7A0D2E8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
   if (a9)
   {
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a9, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v14);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v13);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0D3F4(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13)
+void sub_1C7A0D3F4(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
   if (a9)
   {
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a9, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v14);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v13);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0D500(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13)
+void sub_1C7A0D500(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
   if (a9)
   {
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a9, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v14);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v13);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0D684(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, ...)
+void sub_1C7A0D684(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v5 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
+  va_start(va1, a4);
+  va_start(va, a4);
+  v6 = va_arg(va1, void);
   v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
   WebCore::ExceptionOr<WTF::String>::~ExceptionOr(va, a2);
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va1, v4);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va1, v5);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0D6D8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13)
+void sub_1C7A0D6D8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
   if (a9)
   {
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a9, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v14);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v13);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0D80C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, _DWORD *a11, char a12)
+void sub_1C7A0D80C(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, WTF::StringImpl *a10, _DWORD *a11, ...)
 {
+  va_start(va, a11);
   if (a11)
   {
     if (a11[4] == 1)
     {
-      (*(*a11 + 8))(a11);
+      (*(*a11 + 8))(a11, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -8035,48 +8179,28 @@ void sub_1C7A0D80C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
     if (atomic_fetch_add_explicit(a10, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a10, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a12, v13);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v12);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a12, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0D940(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WebCore::Node *a10, char a11)
+void sub_1C7A0D940(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WebCore::Node *a10, ...)
 {
+  va_start(va, a10);
   if (a10)
   {
     if (*(a10 + 7) == 2)
     {
       WebCore::Node::removedLastRef(a10);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v12);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
       _Unwind_Resume(a1);
     }
 
     *(a10 + 7) -= 2;
-    WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
-    _Unwind_Resume(a1);
-  }
-
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A0DA54(_Unwind_Exception *a1, void *a2, uint64_t a3, _DWORD *a4, ...)
-{
-  va_start(va, a4);
-  if (a4)
-  {
-    if (a4[2] == 1)
-    {
-      (*(*a4 + 8))(a4);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v5);
-      _Unwind_Resume(a1);
-    }
-
-    --a4[2];
     WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
     _Unwind_Resume(a1);
   }
@@ -8085,13 +8209,20 @@ void sub_1C7A0DA54(_Unwind_Exception *a1, void *a2, uint64_t a3, _DWORD *a4, ...
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0DB58(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C7A0DA54(_Unwind_Exception *a1, void *a2, uint64_t a3, _DWORD *a4, uint64_t a5, _DWORD *a6, ...)
 {
-  va_start(va, a4);
-  if (a4)
+  va_start(va, a6);
+  if (a6)
   {
-    (*(*a4 + 8))(a4);
-    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v5);
+    if (a6[2] == 1)
+    {
+      (*(*a6 + 8))(a6, a2, a3, a4);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v7);
+      _Unwind_Resume(a1);
+    }
+
+    --a6[2];
+    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
     _Unwind_Resume(a1);
   }
 
@@ -8099,11 +8230,26 @@ void sub_1C7A0DB58(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ..
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0DCC4(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, char a11)
+void sub_1C7A0DB58(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
 {
+  va_start(va, a6);
+  if (a6)
+  {
+    (*(*a6 + 8))(a6, a2, a3, a4);
+    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v7);
+    _Unwind_Resume(a1);
+  }
+
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C7A0DCC4(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, WTF::StringImpl *a9, uint64_t a10, ...)
+{
+  va_start(va, a10);
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a9)
@@ -8111,12 +8257,12 @@ void sub_1C7A0DCC4(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a9, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v12);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
@@ -8149,11 +8295,12 @@ uint64_t core(uint64_t result)
   return result;
 }
 
-void sub_1C7A0DEA8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, char a11)
+void sub_1C7A0DEA8(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, WTF::StringImpl *a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a9)
@@ -8161,22 +8308,23 @@ void sub_1C7A0DEA8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a9, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v12);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0E014(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, _DWORD *a11, char a12)
+void sub_1C7A0E014(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, WTF::StringImpl *a10, _DWORD *a11, ...)
 {
+  va_start(va, a11);
   if (a11)
   {
     if (a11[4] == 1)
     {
-      (*(*a11 + 8))(a11);
+      (*(*a11 + 8))(a11, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -8190,32 +8338,33 @@ void sub_1C7A0E014(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
     if (atomic_fetch_add_explicit(a10, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a10, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a12, v13);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v12);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a12, a2);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A0E1C4(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  WTF::Ref<WebCore::DocumentFullscreen,WTF::RawPtrTraits<WebCore::DocumentFullscreen>,WTF::DefaultRefDerefTraits<WebCore::DocumentFullscreen>>::~Ref(v2 - 24);
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v4);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A0E1E0(_Unwind_Exception *a1, void *a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
   WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0E31C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, WebCore::Node *a11, char a12)
+void sub_1C7A0E1C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
+  va_start(va, a3);
+  WTF::Ref<WebCore::DocumentFullscreen,WTF::RawPtrTraits<WebCore::DocumentFullscreen>,WTF::DefaultRefDerefTraits<WebCore::DocumentFullscreen>>::~Ref(v3 - 24);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v5);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C7A0E1E0(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ...)
+{
+  va_start(va, a4);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C7A0E31C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, WebCore::Node *a11, ...)
+{
+  va_start(va, a11);
   if (a11)
   {
     if (*(a11 + 7) == 2)
@@ -8234,20 +8383,21 @@ void sub_1C7A0E31C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
     if (atomic_fetch_add_explicit(a10, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a10, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a12, v13);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v12);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a12, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0E490(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, char a10, uint64_t a11, uint64_t a12, char a13)
+void sub_1C7A0E490(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  if (v13 && atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  va_start(va, a12);
+  if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v13, a2);
+    WTF::StringImpl::destroy(v12, a2);
   }
 
   WebCore::ExceptionOr<unsigned int>::~ExceptionOr(&a10, a2);
@@ -8255,21 +8405,22 @@ void sub_1C7A0E490(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   {
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(a9, v15);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v16);
+      WTF::StringImpl::destroy(a9, v14);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v15);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v15);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v14);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0E6A8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, char a10, uint64_t a11, uint64_t a12, char a13)
+void sub_1C7A0E6A8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  if (v13 && atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  va_start(va, a12);
+  if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v13, a2);
+    WTF::StringImpl::destroy(v12, a2);
   }
 
   WebCore::ExceptionOr<WTF::Ref<WebCore::NodeList,WTF::RawPtrTraits<WebCore::NodeList>,WTF::DefaultRefDerefTraits<WebCore::NodeList>>>::~ExceptionOr(&a10, a2);
@@ -8277,13 +8428,13 @@ void sub_1C7A0E6A8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   {
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(a9, v15);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v16);
+      WTF::StringImpl::destroy(a9, v14);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v15);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v15);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v14);
   _Unwind_Resume(a1);
 }
 
@@ -8327,7 +8478,7 @@ LABEL_6:
     }
 
     v5 = result;
-    (*(*v2 + 8))(v2);
+    (*(*v2 + 8))(v2, a2);
     result = v5;
     *(v5 + 16) = -1;
   }
@@ -8335,19 +8486,19 @@ LABEL_6:
   return result;
 }
 
-void sub_1C7A0E908(_Unwind_Exception *a1, void *a2, uint64_t a3, _DWORD *a4, ...)
+void sub_1C7A0E908(_Unwind_Exception *a1, void *a2, uint64_t a3, _DWORD *a4, uint64_t a5, _DWORD *a6, ...)
 {
-  va_start(va, a4);
-  if (a4)
+  va_start(va, a6);
+  if (a6)
   {
-    if (a4[4] == 1)
+    if (a6[4] == 1)
     {
-      (*(*a4 + 8))(a4);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v5);
+      (*(*a6 + 8))(a6, a2, a3, a4);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v7);
       _Unwind_Resume(a1);
     }
 
-    --a4[4];
+    --a6[4];
     WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
     _Unwind_Resume(a1);
   }
@@ -8356,15 +8507,16 @@ void sub_1C7A0E908(_Unwind_Exception *a1, void *a2, uint64_t a3, _DWORD *a4, ...
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0EB48(_Unwind_Exception *a1, void *a2, uint64_t a3, ...)
+void sub_1C7A0EB48(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ...)
 {
-  va_start(va, a3);
+  va_start(va, a4);
   WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0EB5C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, char a10)
+void sub_1C7A0EB5C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, ...)
 {
+  va_start(va, a9);
   if (a9)
   {
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -8373,15 +8525,16 @@ void sub_1C7A0EB5C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a10, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0EC90(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, char a10, uint64_t a11, uint64_t a12, char a13)
+void sub_1C7A0EC90(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  if (v13 && atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  va_start(va, a12);
+  if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v13, a2);
+    WTF::StringImpl::destroy(v12, a2);
   }
 
   WebCore::ExceptionOr<unsigned int>::~ExceptionOr(&a10, a2);
@@ -8389,21 +8542,22 @@ void sub_1C7A0EC90(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   {
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(a9, v15);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v16);
+      WTF::StringImpl::destroy(a9, v14);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v15);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v15);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v14);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0EEA8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, char a10, uint64_t a11, uint64_t a12, char a13)
+void sub_1C7A0EEA8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  if (v13 && atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  va_start(va, a12);
+  if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v13, a2);
+    WTF::StringImpl::destroy(v12, a2);
   }
 
   WebCore::ExceptionOr<WTF::Ref<WebCore::NodeList,WTF::RawPtrTraits<WebCore::NodeList>,WTF::DefaultRefDerefTraits<WebCore::NodeList>>>::~ExceptionOr(&a10, a2);
@@ -8411,30 +8565,30 @@ void sub_1C7A0EEA8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   {
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(a9, v15);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v16);
+      WTF::StringImpl::destroy(a9, v14);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v15);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v15);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v14);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0F018(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C7A0F018(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
 {
-  va_start(va, a4);
+  va_start(va, a6);
   WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0F02C(_Unwind_Exception *a1, void *a2, uint64_t a3, void *a4, ...)
+void sub_1C7A0F02C(_Unwind_Exception *a1, void *a2, uint64_t a3, void *a4, uint64_t a5, void *a6, ...)
 {
-  va_start(va, a4);
-  if (a4)
+  va_start(va, a6);
+  if (a6)
   {
 
-    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v5);
+    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v7);
     _Unwind_Resume(a1);
   }
 
@@ -8442,20 +8596,20 @@ void sub_1C7A0F02C(_Unwind_Exception *a1, void *a2, uint64_t a3, void *a4, ...)
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0F144(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C7A0F144(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
 {
-  va_start(va, a4);
+  va_start(va, a6);
   WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0F158(_Unwind_Exception *a1, void *a2, uint64_t a3, void *a4, ...)
+void sub_1C7A0F158(_Unwind_Exception *a1, void *a2, uint64_t a3, void *a4, uint64_t a5, void *a6, ...)
 {
-  va_start(va, a4);
-  if (a4)
+  va_start(va, a6);
+  if (a6)
   {
 
-    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v5);
+    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v7);
     _Unwind_Resume(a1);
   }
 
@@ -8463,20 +8617,20 @@ void sub_1C7A0F158(_Unwind_Exception *a1, void *a2, uint64_t a3, void *a4, ...)
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0F260(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C7A0F260(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
 {
-  va_start(va, a4);
+  va_start(va, a6);
   WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0F274(_Unwind_Exception *a1, void *a2, uint64_t a3, void *a4, ...)
+void sub_1C7A0F274(_Unwind_Exception *a1, void *a2, uint64_t a3, void *a4, uint64_t a5, void *a6, ...)
 {
-  va_start(va, a4);
-  if (a4)
+  va_start(va, a6);
+  if (a6)
   {
 
-    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v5);
+    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v7);
     _Unwind_Resume(a1);
   }
 
@@ -8502,227 +8656,36 @@ void sub_1C7A0F34C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0F4DC(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, char a11)
+void sub_1C7A0F4DC(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   if (a9)
   {
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a9, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v12);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A0FF40(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WebCore::Node *a10, char a11)
+void sub_1C7A0FF40(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WebCore::Node *a10, ...)
 {
+  va_start(va, a10);
   if (a10)
   {
     if (*(a10 + 7) == 2)
     {
       WebCore::Node::removedLastRef(a10);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v12);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
       _Unwind_Resume(a1);
     }
 
     *(a10 + 7) -= 2;
-    WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
-    _Unwind_Resume(a1);
-  }
-
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A1009C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, char a11)
-{
-  if (a9)
-  {
-    if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      WTF::StringImpl::destroy(a9, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v12);
-      _Unwind_Resume(a1);
-    }
-  }
-
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A101E8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, WTF::StringImpl *a13, char a14, int a15, __int16 a16, char a17, char a18)
-{
-  if (v18 && atomic_fetch_add_explicit(v18, 0xFFFFFFFE, memory_order_relaxed) == 2)
-  {
-    WTF::StringImpl::destroy(v18, a2);
-  }
-
-  if (a14)
-  {
-    v20 = a13;
-    a13 = 0;
-    if (v20)
-    {
-      if (atomic_fetch_add_explicit(v20, 0xFFFFFFFE, memory_order_relaxed) == 2)
-      {
-        WTF::StringImpl::destroy(v20, a2);
-      }
-    }
-  }
-
-  mpark::detail::destructor<mpark::detail::traits<WTF::RefPtr<WebCore::TrustedHTML,WTF::RawPtrTraits<WebCore::TrustedHTML>,WTF::DefaultRefDerefTraits<WebCore::TrustedHTML>>,WTF::String>,(mpark::detail::Trait)1>::~destructor(&a10, a2);
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a16, v21);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A10250(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
-{
-  va_start(va, a8);
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A10368(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, char a11)
-{
-  if (a9)
-  {
-    if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      WTF::StringImpl::destroy(a9, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v12);
-      _Unwind_Resume(a1);
-    }
-  }
-
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A104B4(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, WTF::StringImpl *a13, char a14, int a15, __int16 a16, char a17, char a18)
-{
-  if (v18 && atomic_fetch_add_explicit(v18, 0xFFFFFFFE, memory_order_relaxed) == 2)
-  {
-    WTF::StringImpl::destroy(v18, a2);
-  }
-
-  if (a14)
-  {
-    v20 = a13;
-    a13 = 0;
-    if (v20)
-    {
-      if (atomic_fetch_add_explicit(v20, 0xFFFFFFFE, memory_order_relaxed) == 2)
-      {
-        WTF::StringImpl::destroy(v20, a2);
-      }
-    }
-  }
-
-  mpark::detail::destructor<mpark::detail::traits<WTF::RefPtr<WebCore::TrustedHTML,WTF::RawPtrTraits<WebCore::TrustedHTML>,WTF::DefaultRefDerefTraits<WebCore::TrustedHTML>>,WTF::String>,(mpark::detail::Trait)1>::~destructor(&a10, a2);
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a16, v21);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A1051C(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
-{
-  va_start(va, a8);
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A10618(_Unwind_Exception *a1, void *a2, uint64_t a3, void *a4, ...)
-{
-  va_start(va, a4);
-  if (a4)
-  {
-
-    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v5);
-    _Unwind_Resume(a1);
-  }
-
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A10738(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, char a10)
-{
-  if (a9)
-  {
-    if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      WTF::StringImpl::destroy(a9, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a10, v11);
-      _Unwind_Resume(a1);
-    }
-  }
-
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a10, a2);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A10914(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, char a11)
-{
-  if (a9)
-  {
-    if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      WTF::StringImpl::destroy(a9, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, v12);
-      _Unwind_Resume(a1);
-    }
-  }
-
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a11, a2);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A10A80(_Unwind_Exception *a1, void *a2, uint64_t a3, void *a4, ...)
-{
-  va_start(va, a4);
-  if (a4)
-  {
-
-    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v5);
-    _Unwind_Resume(a1);
-  }
-
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A10BA0(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, char a10)
-{
-  if (a9)
-  {
-    if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      WTF::StringImpl::destroy(a9, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a10, v11);
-      _Unwind_Resume(a1);
-    }
-  }
-
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a10, a2);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A10DD0(_Unwind_Exception *a1, void *a2, uint64_t a3, _DWORD *a4, ...)
-{
-  va_start(va, a4);
-  if (a4)
-  {
-    if (a4[4] == 1)
-    {
-      (*(*a4 + 8))(a4);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v5);
-      _Unwind_Resume(a1);
-    }
-
-    --a4[4];
     WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
     _Unwind_Resume(a1);
   }
@@ -8731,8 +8694,207 @@ void sub_1C7A10DD0(_Unwind_Exception *a1, void *a2, uint64_t a3, _DWORD *a4, ...
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A111D0(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, void *a11, char a12)
+void sub_1C7A1009C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
+  if (a9)
+  {
+    if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    {
+      WTF::StringImpl::destroy(a9, a2);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
+      _Unwind_Resume(a1);
+    }
+  }
+
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C7A101E8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, WTF::StringImpl *a13, char a14, int a15, __int16 a16, char a17, char a18)
+{
+  if (v18 && atomic_fetch_add_explicit(v18, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  {
+    WTF::StringImpl::destroy(v18, a2);
+  }
+
+  if (a14)
+  {
+    v20 = a13;
+    a13 = 0;
+    if (v20)
+    {
+      if (atomic_fetch_add_explicit(v20, 0xFFFFFFFE, memory_order_relaxed) == 2)
+      {
+        WTF::StringImpl::destroy(v20, a2);
+      }
+    }
+  }
+
+  mpark::detail::destructor<mpark::detail::traits<WTF::RefPtr<WebCore::TrustedHTML,WTF::RawPtrTraits<WebCore::TrustedHTML>,WTF::DefaultRefDerefTraits<WebCore::TrustedHTML>>,WTF::String>,(mpark::detail::Trait)1>::~destructor(&a10, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a16, v21);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C7A10250(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+{
+  va_start(va, a14);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C7A10368(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, ...)
+{
+  va_start(va, a10);
+  if (a9)
+  {
+    if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    {
+      WTF::StringImpl::destroy(a9, a2);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
+      _Unwind_Resume(a1);
+    }
+  }
+
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C7A104B4(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, WTF::StringImpl *a13, char a14, int a15, __int16 a16, char a17, char a18)
+{
+  if (v18 && atomic_fetch_add_explicit(v18, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  {
+    WTF::StringImpl::destroy(v18, a2);
+  }
+
+  if (a14)
+  {
+    v20 = a13;
+    a13 = 0;
+    if (v20)
+    {
+      if (atomic_fetch_add_explicit(v20, 0xFFFFFFFE, memory_order_relaxed) == 2)
+      {
+        WTF::StringImpl::destroy(v20, a2);
+      }
+    }
+  }
+
+  mpark::detail::destructor<mpark::detail::traits<WTF::RefPtr<WebCore::TrustedHTML,WTF::RawPtrTraits<WebCore::TrustedHTML>,WTF::DefaultRefDerefTraits<WebCore::TrustedHTML>>,WTF::String>,(mpark::detail::Trait)1>::~destructor(&a10, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a16, v21);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C7A1051C(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+{
+  va_start(va, a14);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C7A10618(_Unwind_Exception *a1, void *a2, uint64_t a3, void *a4, uint64_t a5, void *a6, ...)
+{
+  va_start(va, a6);
+  if (a6)
+  {
+
+    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v7);
+    _Unwind_Resume(a1);
+  }
+
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C7A10738(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, ...)
+{
+  va_start(va, a9);
+  if (a9)
+  {
+    if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    {
+      WTF::StringImpl::destroy(a9, a2);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v10);
+      _Unwind_Resume(a1);
+    }
+  }
+
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C7A10914(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, ...)
+{
+  va_start(va, a10);
+  if (a9)
+  {
+    if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    {
+      WTF::StringImpl::destroy(a9, a2);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v11);
+      _Unwind_Resume(a1);
+    }
+  }
+
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C7A10A80(_Unwind_Exception *a1, void *a2, uint64_t a3, void *a4, uint64_t a5, void *a6, ...)
+{
+  va_start(va, a6);
+  if (a6)
+  {
+
+    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v7);
+    _Unwind_Resume(a1);
+  }
+
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C7A10BA0(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, ...)
+{
+  va_start(va, a9);
+  if (a9)
+  {
+    if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    {
+      WTF::StringImpl::destroy(a9, a2);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v10);
+      _Unwind_Resume(a1);
+    }
+  }
+
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C7A10DD0(_Unwind_Exception *a1, void *a2, uint64_t a3, _DWORD *a4, uint64_t a5, _DWORD *a6, ...)
+{
+  va_start(va, a6);
+  if (a6)
+  {
+    if (a6[4] == 1)
+    {
+      (*(*a6 + 8))(a6, a2, a3, a4);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v7);
+      _Unwind_Resume(a1);
+    }
+
+    --a6[4];
+    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
+    _Unwind_Resume(a1);
+  }
+
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C7A111D0(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, void *a11, ...)
+{
+  va_start(va, a11);
   if (a11)
   {
   }
@@ -8745,7 +8907,7 @@ void sub_1C7A111D0(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a12, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
@@ -8780,24 +8942,26 @@ void sub_1C7A11378(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A114E4(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, char a10)
+void sub_1C7A114E4(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, ...)
 {
+  va_start(va, a9);
   if (a9)
   {
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a9, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a10, v11);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v10);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a10, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A11620(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, WebCore::Node *a11, char a12)
+void sub_1C7A11620(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, WebCore::Node *a11, ...)
 {
+  va_start(va, a11);
   if (a11)
   {
     if (*(a11 + 7) == 2)
@@ -8816,98 +8980,102 @@ void sub_1C7A11620(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
     if (atomic_fetch_add_explicit(a10, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a10, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a12, v13);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v12);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a12, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A117EC(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, char a13)
+void sub_1C7A117EC(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  if (v13)
+  va_start(va, a12);
+  if (v12)
   {
-    if (atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    if (atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v13, a2);
+      WTF::StringImpl::destroy(v12, a2);
     }
   }
 
   WebCore::ExceptionOr<WTF::Ref<WebCore::Element,WTF::RawPtrTraits<WebCore::Element>,WTF::DefaultRefDerefTraits<WebCore::Element>>>::~ExceptionOr(&a10, a2);
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v15);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v14);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A1184C(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1C7A1184C(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
-  va_start(va, a6);
+  va_start(va, a10);
   WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A11860(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1C7A11860(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
-  va_start(va, a6);
+  va_start(va, a10);
   WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A119CC(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, char a13)
+void sub_1C7A119CC(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  if (v13)
+  va_start(va, a12);
+  if (v12)
   {
-    if (atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    if (atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v13, a2);
+      WTF::StringImpl::destroy(v12, a2);
     }
   }
 
   WebCore::ExceptionOr<WTF::Ref<WebCore::Element,WTF::RawPtrTraits<WebCore::Element>,WTF::DefaultRefDerefTraits<WebCore::Element>>>::~ExceptionOr(&a10, a2);
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v15);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v14);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A11A2C(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1C7A11A2C(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
-  va_start(va, a6);
+  va_start(va, a10);
   WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A11A40(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1C7A11A40(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
-  va_start(va, a6);
+  va_start(va, a10);
   WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A11B5C(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, uint64_t a11, char a12)
+void sub_1C7A11B5C(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, WTF::StringImpl *a10, uint64_t a11, ...)
 {
-  v13 = v12;
-  if (v13)
+  va_start(va, a11);
+  v12 = v11;
+  if (v12)
   {
-    v15 = v13;
-    v16 = v13[4] - 1;
-    if (!v16)
+    v14 = v12;
+    v15 = v12[4] - 1;
+    if (!v15)
     {
-      (*(*v15 + 8))(v15);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a12, v17);
+      (*(*v14 + 8))(v14, a2, a3, a4, a5, a6, a7, a8);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v16);
       _Unwind_Resume(a1);
     }
 
-    v15[4] = v16;
-    WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a12, a2);
+    v14[4] = v15;
+    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
     _Unwind_Resume(a1);
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a12, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A11D6C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, WTF::StringImpl *a10, void *a11, char a12)
+void sub_1C7A11D6C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, WTF::StringImpl *a10, void *a11, ...)
 {
+  va_start(va, a11);
   if (a11)
   {
   }
@@ -8925,7 +9093,7 @@ void sub_1C7A11D6C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a12, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
@@ -8965,8 +9133,9 @@ void sub_1C7A11F78(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A12150(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, WTF::StringImpl *a11, char a12)
+void sub_1C7A12150(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, WTF::StringImpl *a11, ...)
 {
+  va_start(va, a11);
   if (a10 && atomic_fetch_add_explicit(a10, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
     WTF::StringImpl::destroy(a10, a2);
@@ -8977,40 +9146,42 @@ void sub_1C7A12150(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
     if (atomic_fetch_add_explicit(a11, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a11, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a12, v13);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v12);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a12, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A12314(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, WTF::StringImpl *a10, uint64_t a11, char a12)
+void sub_1C7A12314(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, WTF::StringImpl *a9, WTF::StringImpl *a10, uint64_t a11, ...)
 {
-  v13 = v12;
-  if (v13)
+  va_start(va, a11);
+  v12 = v11;
+  if (v12)
   {
-    v15 = v13;
-    v16 = v13[4] - 1;
-    if (!v16)
+    v14 = v12;
+    v15 = v12[4] - 1;
+    if (!v15)
     {
-      (*(*v15 + 8))(v15);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a12, v17);
+      (*(*v14 + 8))(v14, a2, a3, a4, a5, a6, a7, a8);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v16);
       _Unwind_Resume(a1);
     }
 
-    v15[4] = v16;
-    WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a12, a2);
+    v14[4] = v15;
+    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
     _Unwind_Resume(a1);
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a12, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A12520(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, WTF::StringImpl *a10, WebCore::Node *a11, char a12)
+void sub_1C7A12520(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, WTF::StringImpl *a10, WebCore::Node *a11, ...)
 {
+  va_start(va, a11);
   if (a11)
   {
     if (*(a11 + 7) == 2)
@@ -9034,62 +9205,65 @@ void sub_1C7A12520(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
     if (atomic_fetch_add_explicit(a10, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a10, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a12, v13);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v12);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a12, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A12714(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, char a13)
+void sub_1C7A12714(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  if (v13)
+  va_start(va, a12);
+  if (v12)
   {
-    if (atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    if (atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v13, a2);
+      WTF::StringImpl::destroy(v12, a2);
     }
   }
 
   WebCore::ExceptionOr<WTF::Ref<WebCore::Element,WTF::RawPtrTraits<WebCore::Element>,WTF::DefaultRefDerefTraits<WebCore::Element>>>::~ExceptionOr(&a10, a2);
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v15);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v14);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A12774(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1C7A12774(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
-  va_start(va, a6);
+  va_start(va, a10);
   WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A12788(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1C7A12788(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
-  va_start(va, a6);
+  va_start(va, a10);
   WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A12854(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, char a10)
+void sub_1C7A12854(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, ...)
 {
+  va_start(va, a9);
   if (a9)
   {
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a9, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a10, v11);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v10);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a10, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A12998(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, WTF::StringImpl *a11, char a12)
+void sub_1C7A12998(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, WTF::StringImpl *a11, ...)
 {
+  va_start(va, a11);
   if (a10 && atomic_fetch_add_explicit(a10, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
     WTF::StringImpl::destroy(a10, a2);
@@ -9100,50 +9274,52 @@ void sub_1C7A12998(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
     if (atomic_fetch_add_explicit(a11, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a11, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a12, v13);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v12);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a12, a2);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A12AA8(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
   WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A12D84(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, uint64_t a11, char a12)
+void sub_1C7A12AA8(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
 {
-  v13 = v12;
-  if (v13)
+  va_start(va, a6);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C7A12D84(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, WTF::StringImpl *a10, uint64_t a11, ...)
+{
+  va_start(va, a11);
+  v12 = v11;
+  if (v12)
   {
-    v15 = v13;
-    v16 = v13[4] - 1;
-    if (!v16)
+    v14 = v12;
+    v15 = v12[4] - 1;
+    if (!v15)
     {
-      (*(*v15 + 8))(v15);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a12, v17);
+      (*(*v14 + 8))(v14, a2, a3, a4, a5, a6, a7, a8);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v16);
       _Unwind_Resume(a1);
     }
 
-    v15[4] = v16;
-    WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a12, a2);
+    v14[4] = v15;
+    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
     _Unwind_Resume(a1);
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a12, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A12F20(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, char a10, uint64_t a11, uint64_t a12, char a13)
+void sub_1C7A12F20(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  if (v13 && atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  va_start(va, a12);
+  if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v13, a2);
+    WTF::StringImpl::destroy(v12, a2);
   }
 
   WebCore::ExceptionOr<unsigned int>::~ExceptionOr(&a10, a2);
@@ -9151,21 +9327,22 @@ void sub_1C7A12F20(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   {
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(a9, v15);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v16);
+      WTF::StringImpl::destroy(a9, v14);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v15);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v15);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v14);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A130BC(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, char a10, uint64_t a11, uint64_t a12, char a13)
+void sub_1C7A130BC(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  if (v13 && atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  va_start(va, a12);
+  if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v13, a2);
+    WTF::StringImpl::destroy(v12, a2);
   }
 
   WebCore::ExceptionOr<unsigned int>::~ExceptionOr(&a10, a2);
@@ -9173,21 +9350,22 @@ void sub_1C7A130BC(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   {
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(a9, v15);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v16);
+      WTF::StringImpl::destroy(a9, v14);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v15);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v15);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v14);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A13228(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, char a10, uint64_t a11, uint64_t a12, char a13)
+void sub_1C7A13228(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  if (v13 && atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  va_start(va, a12);
+  if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v13, a2);
+    WTF::StringImpl::destroy(v12, a2);
   }
 
   WebCore::ExceptionOr<unsigned int>::~ExceptionOr(&a10, a2);
@@ -9195,13 +9373,13 @@ void sub_1C7A13228(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   {
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(a9, v15);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v16);
+      WTF::StringImpl::destroy(a9, v14);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v15);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v15);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v14);
   _Unwind_Resume(a1);
 }
 
@@ -9223,11 +9401,12 @@ void sub_1C7A13444(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A135D8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, char a10, uint64_t a11, uint64_t a12, char a13)
+void sub_1C7A135D8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  if (v13 && atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  va_start(va, a12);
+  if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v13, a2);
+    WTF::StringImpl::destroy(v12, a2);
   }
 
   WebCore::ExceptionOr<unsigned int>::~ExceptionOr(&a10, a2);
@@ -9235,21 +9414,22 @@ void sub_1C7A135D8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   {
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(a9, v15);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v16);
+      WTF::StringImpl::destroy(a9, v14);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v15);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v15);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v14);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A13818(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, char a10, uint64_t a11, uint64_t a12, char a13)
+void sub_1C7A13818(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  if (v13 && atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  va_start(va, a12);
+  if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v13, a2);
+    WTF::StringImpl::destroy(v12, a2);
   }
 
   WebCore::ExceptionOr<WTF::Ref<WebCore::NodeList,WTF::RawPtrTraits<WebCore::NodeList>,WTF::DefaultRefDerefTraits<WebCore::NodeList>>>::~ExceptionOr(&a10, a2);
@@ -9257,30 +9437,30 @@ void sub_1C7A13818(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   {
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(a9, v15);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v16);
+      WTF::StringImpl::destroy(a9, v14);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v15);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a13, v15);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v14);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A13A68(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C7A13A68(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
 {
-  va_start(va, a4);
+  va_start(va, a6);
   WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A13A7C(_Unwind_Exception *a1, void *a2, uint64_t a3, void *a4, ...)
+void sub_1C7A13A7C(_Unwind_Exception *a1, void *a2, uint64_t a3, void *a4, uint64_t a5, void *a6, ...)
 {
-  va_start(va, a4);
-  if (a4)
+  va_start(va, a6);
+  if (a6)
   {
 
-    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v5);
+    WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v7);
     _Unwind_Resume(a1);
   }
 
@@ -9288,26 +9468,27 @@ void sub_1C7A13A7C(_Unwind_Exception *a1, void *a2, uint64_t a3, void *a4, ...)
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A13D74(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C7A13D74(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
 {
-  va_start(va, a4);
+  va_start(va, a6);
   WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A1415C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, char a10)
+void sub_1C7A1415C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, ...)
 {
+  va_start(va, a9);
   if (a9)
   {
     if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a9, a2);
-      WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a10, v11);
+      WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, v10);
       _Unwind_Resume(a1);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(&a10, a2);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(va, a2);
   _Unwind_Resume(a1);
 }
 
@@ -9417,7 +9598,7 @@ LABEL_6:
     }
 
     v5 = result;
-    (*(*v2 + 8))(v2);
+    (*(*v2 + 8))(v2, a2);
     result = v5;
     *(v5 + 16) = -1;
   }
@@ -9514,7 +9695,7 @@ LABEL_6:
     }
 
     v5 = result;
-    v6 = MEMORY[0x1CCA64260](v2);
+    v6 = MEMORY[0x1CCA64260](v2, a2);
     WTF::fastFree(v6, v7);
     result = v5;
     *(v5 + 16) = -1;
@@ -9594,167 +9775,4 @@ LABEL_6:
   }
 
   return result;
-}
-
-uint64_t mpark::detail::destructor<mpark::detail::traits<WTF::RefPtr<WebCore::TrustedHTML,WTF::RawPtrTraits<WebCore::TrustedHTML>,WTF::DefaultRefDerefTraits<WebCore::TrustedHTML>>,WTF::String>,(mpark::detail::Trait)1>::~destructor(uint64_t result, WTF::StringImpl *a2)
-{
-  v2 = *(result + 8);
-  if (v2 == 255)
-  {
-    goto LABEL_9;
-  }
-
-  v3 = *result;
-  *result = 0;
-  if (v2)
-  {
-    if (v3 && atomic_fetch_add_explicit(v3, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      v4 = result;
-      WTF::StringImpl::destroy(v3, a2);
-      result = v4;
-      *(v4 + 8) = -1;
-      return result;
-    }
-
-    goto LABEL_9;
-  }
-
-  if (!v3)
-  {
-LABEL_9:
-    *(result + 8) = -1;
-    return result;
-  }
-
-  if (*(v3 + 8) != 1)
-  {
-    --*(v3 + 8);
-    goto LABEL_9;
-  }
-
-  v5 = *(v3 + 16);
-  *(v3 + 16) = 0;
-  if (v5 && atomic_fetch_add_explicit(v5, 0xFFFFFFFE, memory_order_relaxed) == 2)
-  {
-    v6 = result;
-    v7 = v3;
-    WTF::StringImpl::destroy(v5, a2);
-    v3 = v7;
-    result = v6;
-  }
-
-  if (*(v3 + 8) == 1)
-  {
-    v8 = result;
-    if (*v3)
-    {
-      *(*v3 + 8) = 3;
-      *v3 = 0;
-    }
-
-    bmalloc::api::tzoneFree(v3, a2);
-    result = v8;
-    *(v8 + 8) = -1;
-  }
-
-  else
-  {
-    result = 191;
-    __break(0xC471u);
-  }
-
-  return result;
-}
-
-uint64_t WTF::Ref<WebCore::TreeWalker,WTF::RawPtrTraits<WebCore::TreeWalker>,WTF::DefaultRefDerefTraits<WebCore::TreeWalker>>::~Ref(uint64_t result, void *a2)
-{
-  v2 = *result;
-  *result = 0;
-  if (!v2)
-  {
-    return result;
-  }
-
-  if (*(v2 + 2) != 1)
-  {
-    --*(v2 + 2);
-    return result;
-  }
-
-  v3 = *(v2 + 5);
-  *(v2 + 5) = 0;
-  v4 = result;
-  if (v3)
-  {
-    if (*(v3 + 7) == 2)
-    {
-      WebCore::Node::removedLastRef(v3);
-      v5 = *(v2 + 3);
-      *(v2 + 3) = 0;
-      if (!v5)
-      {
-        goto LABEL_12;
-      }
-
-      goto LABEL_9;
-    }
-
-    *(v3 + 7) -= 2;
-  }
-
-  v5 = *(v2 + 3);
-  *(v2 + 3) = 0;
-  if (!v5)
-  {
-    goto LABEL_12;
-  }
-
-LABEL_9:
-  if (v5[4] == 1)
-  {
-    (*(*v5 + 16))(v5);
-  }
-
-  else
-  {
-    --v5[4];
-  }
-
-LABEL_12:
-  v6 = *(v2 + 2);
-  *(v2 + 2) = 0;
-  if (v6)
-  {
-    if (*(v6 + 7) == 2)
-    {
-      WebCore::Node::removedLastRef(v6);
-      if (*(v2 + 2) == 1)
-      {
-        goto LABEL_16;
-      }
-
-LABEL_22:
-      result = 191;
-      __break(0xC471u);
-      return result;
-    }
-
-    *(v6 + 7) -= 2;
-  }
-
-  if (*(v2 + 2) != 1)
-  {
-    goto LABEL_22;
-  }
-
-LABEL_16:
-  if (*v2)
-  {
-    *(*v2 + 8) = 3;
-    *v2 = 0;
-  }
-
-  bmalloc::api::tzoneFree(v2, a2);
-  return v4;
 }

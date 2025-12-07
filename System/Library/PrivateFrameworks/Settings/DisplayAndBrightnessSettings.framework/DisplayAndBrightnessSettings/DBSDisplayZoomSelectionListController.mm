@@ -19,10 +19,10 @@
 
 - (void)viewDidLoad
 {
-  v17.receiver = self;
-  v17.super_class = DBSDisplayZoomSelectionListController;
-  [(DBSDisplayZoomSelectionListController *)&v17 viewDidLoad];
-  if (DBSReverseZoomEnabled())
+  v19.receiver = self;
+  v19.super_class = DBSDisplayZoomSelectionListController;
+  viewDidLoad = [(DBSDisplayZoomSelectionListController *)&v19 viewDidLoad];
+  if (DBSReverseZoomEnabled(viewDidLoad, v4))
   {
     currentDevice = [MEMORY[0x277D75418] currentDevice];
     sf_isiPad = [currentDevice sf_isiPad];
@@ -43,25 +43,25 @@
     }
   }
 
-  v9 = objc_alloc(MEMORY[0x277D751E0]);
-  v10 = [MEMORY[0x277D755B8] systemImageNamed:@"checkmark"];
-  v11 = [v9 initWithImage:v10 style:2 target:self action:sel_userDidTapDone_];
+  v11 = objc_alloc(MEMORY[0x277D751E0]);
+  v12 = [MEMORY[0x277D755B8] systemImageNamed:@"checkmark"];
+  v13 = [v11 initWithImage:v12 style:2 target:self action:sel_userDidTapDone_];
   navigationItem = [(DBSDisplayZoomSelectionListController *)self navigationItem];
-  [navigationItem setRightBarButtonItem:v11];
+  [navigationItem setRightBarButtonItem:v13];
 
   currentDevice2 = [MEMORY[0x277D75418] currentDevice];
-  LODWORD(v10) = [currentDevice2 sf_isiPad];
+  LODWORD(v12) = [currentDevice2 sf_isiPad];
 
-  if (v10)
+  if (v12)
   {
-    v14 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:1 target:self action:sel_userDidTapCancel_];
+    v16 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:1 target:self action:sel_userDidTapCancel_];
     navigationItem2 = [(DBSDisplayZoomSelectionListController *)self navigationItem];
-    [navigationItem2 setLeftBarButtonItem:v14];
+    [navigationItem2 setLeftBarButtonItem:v16];
   }
 
   [(DBSDisplayZoomSelectionListController *)self updateNavigationButtonStateWithCurrentState];
-  v16 = DBS_LocalizedStringForMagnify(@"DISPLAY_ZOOM");
-  [(DBSDisplayZoomSelectionListController *)self setTitle:v16];
+  v18 = DBS_LocalizedStringForMagnify(@"DISPLAY_ZOOM");
+  [(DBSDisplayZoomSelectionListController *)self setTitle:v18];
 }
 
 - (void)viewDidAppear:(BOOL)appear
@@ -75,13 +75,13 @@
   {
     v5 = objc_alloc(MEMORY[0x277CCAEB8]);
     currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
-    v7 = DBS_BundleForDisplayAndBrightnessSettingsFramework();
+    v7 = DBS_BundleForDisplayAndBrightnessSettingsFramework(currentLocale);
     bundleURL = [v7 bundleURL];
     v9 = [v5 initWithKey:@"DISPLAY_AND_BRIGHTNESS" defaultValue:0 table:@"Display" locale:currentLocale bundleURL:bundleURL];
 
     v10 = objc_alloc(MEMORY[0x277CCAEB8]);
     currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
-    v12 = DBS_BundleForDisplayAndBrightnessSettingsFramework();
+    v12 = DBS_BundleForDisplayAndBrightnessSettingsFramework(currentLocale2);
     bundleURL2 = [v12 bundleURL];
     v14 = [v10 initWithKey:@"DISPLAY_ZOOM" defaultValue:0 table:@"Magnify" locale:currentLocale2 bundleURL:bundleURL2];
 
@@ -105,23 +105,23 @@
   if (!v4)
   {
     array = [MEMORY[0x277CBEB18] array];
-    if ((DBSReverseZoomEnabled() & 1) == 0)
+    if ((DBSReverseZoomEnabled(array, v6) & 1) == 0)
     {
       emptyGroupSpecifier = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
       [emptyGroupSpecifier setIdentifier:@"DISPLAY_ZOOM_SECTION"];
-      v7 = DBS_LocalizedStringForMagnify(@"DISPLAY_ZOOM");
-      [emptyGroupSpecifier setName:v7];
+      v8 = DBS_LocalizedStringForMagnify(@"DISPLAY_ZOOM");
+      [emptyGroupSpecifier setName:v8];
 
       [array addObject:emptyGroupSpecifier];
     }
 
-    v8 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:0 target:0 set:0 get:0 detail:0 cell:-1 edit:0];
-    [v8 setIdentifier:@"DISPLAY_ZOOM_SELECTION"];
-    [v8 setObject:objc_opt_class() forKeyedSubscript:*MEMORY[0x277D3FE58]];
-    [array addObject:v8];
-    v9 = [array copy];
-    v10 = *(&self->super.super.super.super.super.isa + v3);
-    *(&self->super.super.super.super.super.isa + v3) = v9;
+    v9 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:0 target:0 set:0 get:0 detail:0 cell:-1 edit:0];
+    [v9 setIdentifier:@"DISPLAY_ZOOM_SELECTION"];
+    [v9 setObject:objc_opt_class() forKeyedSubscript:*MEMORY[0x277D3FE58]];
+    [array addObject:v9];
+    v10 = [array copy];
+    v11 = *(&self->super.super.super.super.super.isa + v3);
+    *(&self->super.super.super.super.super.isa + v3) = v10;
 
     v4 = *(&self->super.super.super.super.super.isa + v3);
   }
@@ -167,7 +167,7 @@
 
 - (CGSize)preferredContentSize
 {
-  if (DBSReverseZoomEnabled() && ([MEMORY[0x277D75418] currentDevice], v2 = objc_claimAutoreleasedReturnValue(), v3 = objc_msgSend(v2, "sf_isiPad"), v2, (v3 & 1) != 0))
+  if (DBSReverseZoomEnabled(self, a2) && ([MEMORY[0x277D75418] currentDevice], v2 = objc_claimAutoreleasedReturnValue(), v3 = objc_msgSend(v2, "sf_isiPad"), v2, (v3 & 1) != 0))
   {
     v4 = 282.0;
     v5 = 600.0;

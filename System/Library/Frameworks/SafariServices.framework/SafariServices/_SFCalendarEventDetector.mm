@@ -70,30 +70,31 @@
   {
     v7 = [WeakRetained URL];
     title = [v6 title];
-    v9 = WBS_LOG_CHANNEL_PREFIXCalendarEventDetection();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = WBS_LOG_CHANNEL_PREFIXCalendarEventDetection(title, v9);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
+    if (v11)
     {
       [_SFCalendarEventDetector _containsCalendarEventForPageWithSchemaOrgMarkup:];
     }
 
-    v10 = WBS_LOG_CHANNEL_PREFIXCalendarEventDetection();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v13 = WBS_LOG_CHANNEL_PREFIXCalendarEventDetection(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       [_SFCalendarEventDetector _containsCalendarEventForPageWithSchemaOrgMarkup:];
     }
 
-    v11 = dispatch_get_global_queue(9, 0);
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __77___SFCalendarEventDetector__containsCalendarEventForPageWithSchemaOrgMarkup___block_invoke;
-    v14[3] = &unk_1E8492B90;
-    v15 = v7;
-    v16 = title;
+    v14 = dispatch_get_global_queue(9, 0);
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __77___SFCalendarEventDetector__containsCalendarEventForPageWithSchemaOrgMarkup___block_invoke;
+    v17[3] = &unk_1E8492B90;
+    v18 = v7;
+    v19 = title;
     markupCopy = markup;
     selfCopy = self;
-    v12 = title;
-    v13 = v7;
-    dispatch_async(v11, v14);
+    v15 = title;
+    v16 = v7;
+    dispatch_async(v14, v17);
   }
 }
 
@@ -127,15 +128,16 @@
 - (void)_foundCalendarEvents:(id)events
 {
   eventsCopy = events;
-  v4 = WBS_LOG_CHANNEL_PREFIXCalendarEventDetection();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = WBS_LOG_CHANNEL_PREFIXCalendarEventDetection(eventsCopy, v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
+  if (v6)
   {
-    *v6 = 0;
-    _os_log_impl(&dword_1D4644000, v4, OS_LOG_TYPE_INFO, "Found calendar events", v6, 2u);
+    *v9 = 0;
+    _os_log_impl(&dword_1D4644000, v5, OS_LOG_TYPE_INFO, "Found calendar events", v9, 2u);
   }
 
-  v5 = WBS_LOG_CHANNEL_PREFIXCalendarEventDetection();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v8 = WBS_LOG_CHANNEL_PREFIXCalendarEventDetection(v6, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [_SFCalendarEventDetector _foundCalendarEvents:];
   }

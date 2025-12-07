@@ -5,7 +5,7 @@
 
 void ___MAsendPMVDownload_block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = MEMORY[0x19A8EC930]();
   int64 = xpc_dictionary_get_int64(v3, "Result");
@@ -32,18 +32,18 @@ void ___MAsendPMVDownload_block_invoke(uint64_t a1, void *a2)
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          v29 = 2;
+          v28 = 2;
           _os_log_impl(&dword_197AD5000, v7, OS_LOG_TYPE_DEFAULT, "Will retry download PMV, after %ld seconds", buf, 0xCu);
         }
 
         v8 = dispatch_time(0, 2000000000);
-        v9 = getRetryXpcDelayQueue();
+        v9 = getRetryXpcDelayQueue(v8);
         block[0] = MEMORY[0x1E69E9820];
         block[1] = 3221225472;
         block[2] = ___MAsendPMVDownload_block_invoke_1208;
         block[3] = &unk_1E74C9928;
-        v26 = *(a1 + 32);
-        v27 = *(a1 + 40);
+        v25 = *(a1 + 32);
+        v26 = *(a1 + 40);
         dispatch_after(v8, v9, block);
 
         v10 = 0;
@@ -91,8 +91,6 @@ LABEL_20:
 
   v10 = 0;
 LABEL_21:
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void ___MAsendPMVDownload_block_invoke_1208(uint64_t a1)

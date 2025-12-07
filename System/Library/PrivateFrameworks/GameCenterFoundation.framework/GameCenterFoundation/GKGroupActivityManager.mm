@@ -32,7 +32,7 @@
 - (void)startGame
 {
   selfCopy = self;
-  sub_2279E5D78();
+  sub_2279E5D78(selfCopy);
 }
 
 - (id)sharingControllerItemProviderWithGame:(id)game error:(id *)error

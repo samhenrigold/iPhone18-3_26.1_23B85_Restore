@@ -57,16 +57,18 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v5 = -[NSString isEqualToString:](-[NSMorphologyPronoun pronoun](self, "pronoun"), "isEqualToString:", [equal pronoun]);
-    if (v5)
+    pronoun = [(NSMorphologyPronoun *)self pronoun];
+    [equal pronoun];
+    isEqualToString = objc_msgSend_isEqualToString_(pronoun);
+    if (isEqualToString)
     {
-      v5 = -[NSMorphology isEqual:](-[NSMorphologyPronoun morphology](self, "morphology"), "isEqual:", [equal morphology]);
-      if (v5)
+      isEqualToString = -[NSMorphology isEqual:](-[NSMorphologyPronoun morphology](self, "morphology"), "isEqual:", [equal morphology]);
+      if (isEqualToString)
       {
         dependentMorphology = [(NSMorphologyPronoun *)self dependentMorphology];
         if (dependentMorphology == [equal dependentMorphology])
         {
-          LOBYTE(v5) = 1;
+          LOBYTE(isEqualToString) = 1;
         }
 
         else
@@ -74,7 +76,7 @@
           dependentMorphology2 = [(NSMorphologyPronoun *)self dependentMorphology];
           dependentMorphology3 = [equal dependentMorphology];
 
-          LOBYTE(v5) = [(NSMorphology *)dependentMorphology2 isEqual:dependentMorphology3];
+          LOBYTE(isEqualToString) = [(NSMorphology *)dependentMorphology2 isEqual:dependentMorphology3];
         }
       }
     }
@@ -82,10 +84,10 @@
 
   else
   {
-    LOBYTE(v5) = 0;
+    LOBYTE(isEqualToString) = 0;
   }
 
-  return v5;
+  return isEqualToString;
 }
 
 - (void)encodeWithCoder:(id)coder

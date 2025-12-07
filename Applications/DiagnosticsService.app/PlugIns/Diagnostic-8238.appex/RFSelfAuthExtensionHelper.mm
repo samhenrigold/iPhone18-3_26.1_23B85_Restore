@@ -12,28 +12,18 @@
 
 - (RFSelfAuthExtensionHelper)init
 {
-  v8.receiver = self;
-  v8.super_class = RFSelfAuthExtensionHelper;
-  v2 = [(RFSelfAuthExtensionHelper *)&v8 init];
-  BasebandRFDiagnostics::create(&v7, v2);
-  v3 = v7;
-  v7 = 0uLL;
-  v4 = *(v2 + 2);
-  *(v2 + 8) = v3;
-  if (v4 && !atomic_fetch_add(&v4->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v6.receiver = self;
+  v6.super_class = RFSelfAuthExtensionHelper;
+  v2 = [(RFSelfAuthExtensionHelper *)&v6 init];
+  BasebandRFDiagnostics::create(v2);
+  v3 = *(v2 + 2);
+  *(v2 + 8) = v5;
+  if (v3 && !atomic_fetch_add(&v3->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v4->__on_zero_shared)(v4);
-    std::__shared_weak_count::__release_weak(v4);
+    (v3->__on_zero_shared)(v3);
+    std::__shared_weak_count::__release_weak(v3);
   }
 
-  v5 = *(&v7 + 1);
-  if (!*(&v7 + 1) || atomic_fetch_add((*(&v7 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
-  {
-    return v2;
-  }
-
-  (v5->__on_zero_shared)(v5);
-  std::__shared_weak_count::__release_weak(v5);
   return v2;
 }
 
@@ -110,44 +100,42 @@
 
 - (BOOL)loadTestConfigFromUserDefaults
 {
-  ptr = self->fBasebandDiagnostics.__ptr_;
   __p = operator new(0x20uLL);
-  v11 = xmmword_100002740;
+  v9 = xmmword_100002740;
   strcpy(__p, "overrideTestConfigEnable");
   self->testConfig.overrideTestConfigEnable = BasebandDiagnostics::readIntegerFromUserDefaults() != 0;
-  if (SHIBYTE(v11) < 0)
+  if (SHIBYTE(v9) < 0)
   {
     operator delete(__p);
   }
 
-  v4 = self->fBasebandDiagnostics.__ptr_;
   __p = operator new(0x20uLL);
-  v11 = xmmword_100002750;
+  v9 = xmmword_100002750;
   strcpy(__p, "override_addAPTagToTicket");
   self->testConfig.override_addAPTagToTicket = BasebandDiagnostics::readIntegerFromUserDefaults() != 0;
-  if (SHIBYTE(v11) < 0)
+  if (SHIBYTE(v9) < 0)
   {
     operator delete(__p);
   }
 
-  v5 = [ABMDiagnosticExtensionLogging getOSLogHandler:__p];
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v3 = [ABMDiagnosticExtensionLogging getOSLogHandler:__p];
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     overrideTestConfigEnable = self->testConfig.overrideTestConfigEnable;
     LODWORD(__p) = 67109120;
     HIDWORD(__p) = overrideTestConfigEnable;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Test config: overrides test config enabled = %d", &__p, 8u);
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Test config: overrides test config enabled = %d", &__p, 8u);
   }
 
   if (self->testConfig.overrideTestConfigEnable)
   {
-    v7 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v5 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       override_addAPTagToTicket = self->testConfig.override_addAPTagToTicket;
       LODWORD(__p) = 67109120;
       HIDWORD(__p) = override_addAPTagToTicket;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "\taddTagToTicket=%d", &__p, 8u);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "\taddTagToTicket=%d", &__p, 8u);
     }
   }
 

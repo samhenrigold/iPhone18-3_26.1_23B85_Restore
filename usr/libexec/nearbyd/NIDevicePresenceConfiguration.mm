@@ -190,32 +190,7 @@ LABEL_10:
   v18.receiver = self;
   v18.super_class = NIDevicePresenceConfiguration;
   v5 = [(NIConfiguration *)&v18 initWithCoder:coderCopy];
-  if (!v5)
-  {
-    goto LABEL_5;
-  }
-
-  v6 = [coderCopy decodeArrayOfObjectsOfClass:objc_opt_class() forKey:@"monitoredRegions"];
-  monitoredRegions = v5->_monitoredRegions;
-  v5->_monitoredRegions = v6;
-
-  v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"innerboundary"];
-  innerBoundary = v5->_innerBoundary;
-  v5->_innerBoundary = v8;
-
-  v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"outerboundary"];
-  outerBoundary = v5->_outerBoundary;
-  v5->_outerBoundary = v10;
-
-  v12 = [coderCopy decodeIntegerForKey:@"allowedDevices"];
-  if (![NIInternalUtils isIntValidRelationshipSpecifier:v12])
-  {
-    goto LABEL_5;
-  }
-
-  v5->_allowedDevices = v12;
-  v13 = [coderCopy decodeIntegerForKey:@"monitoringOption"];
-  if ((v13 - 1) < 3)
+  if (v5 && ([coderCopy decodeArrayOfObjectsOfClass:objc_opt_class() forKey:@"monitoredRegions"], v6 = objc_claimAutoreleasedReturnValue(), monitoredRegions = v5->_monitoredRegions, v5->_monitoredRegions = v6, monitoredRegions, objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"innerboundary"), v8 = objc_claimAutoreleasedReturnValue(), innerBoundary = v5->_innerBoundary, v5->_innerBoundary = v8, innerBoundary, objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"outerboundary"), v10 = objc_claimAutoreleasedReturnValue(), outerBoundary = v5->_outerBoundary, v5->_outerBoundary = v10, outerBoundary, v12 = objc_msgSend(coderCopy, "decodeIntegerForKey:", @"allowedDevices"), +[NIInternalUtils isIntValidRelationshipSpecifier:](NIInternalUtils, "isIntValidRelationshipSpecifier:", v12)) && (v5->_allowedDevices = v12, v13 = objc_msgSend(coderCopy, "decodeIntegerForKey:", @"monitoringOption"), (v13 - 1) < 3))
   {
     v5->_monitoringOption = v13;
     v14 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"token"];
@@ -228,7 +203,6 @@ LABEL_10:
 
   else
   {
-LABEL_5:
     v16 = 0;
   }
 

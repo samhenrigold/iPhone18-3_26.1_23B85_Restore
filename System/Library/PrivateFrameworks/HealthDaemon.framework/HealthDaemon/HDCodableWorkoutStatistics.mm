@@ -167,7 +167,6 @@ LABEL_7:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    quantityType = self->_quantityType;
     PBDataWriterWriteInt64Field();
     has = self->_has;
     if ((has & 0x10) == 0)
@@ -187,7 +186,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  sumQuantity = self->_sumQuantity;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 4) == 0)
@@ -202,7 +200,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  minQuantity = self->_minQuantity;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 2) == 0)
@@ -217,12 +214,10 @@ LABEL_5:
   }
 
 LABEL_13:
-  maxQuantity = self->_maxQuantity;
   PBDataWriterWriteDoubleField();
   if (*&self->_has)
   {
 LABEL_6:
-    avgQuantity = self->_avgQuantity;
     PBDataWriterWriteDoubleField();
   }
 

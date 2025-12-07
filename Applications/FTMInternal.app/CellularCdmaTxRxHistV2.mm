@@ -272,56 +272,52 @@ LABEL_20:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    duration = self->_duration;
     PBDataWriterWriteUint32Field();
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v8 = self->_perBands;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
-  if (v9)
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v6 = self->_perBands;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v7)
   {
-    v10 = v9;
-    v11 = *v21;
+    v8 = v7;
+    v9 = *v13;
     do
     {
-      for (i = 0; i != v10; i = i + 1)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v11)
+        if (*v13 != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v10);
+    while (v8);
   }
 
-  v14 = self->_has;
-  if ((v14 & 0x20) != 0)
+  v11 = self->_has;
+  if ((v11 & 0x20) != 0)
   {
-    sid = self->_sid;
     PBDataWriterWriteUint32Field();
-    v14 = self->_has;
-    if ((v14 & 4) == 0)
+    v11 = self->_has;
+    if ((v11 & 4) == 0)
     {
 LABEL_14:
-      if ((v14 & 8) == 0)
+      if ((v11 & 8) == 0)
       {
         goto LABEL_15;
       }
@@ -335,13 +331,12 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  nid = self->_nid;
   PBDataWriterWriteUint32Field();
-  v14 = self->_has;
-  if ((v14 & 8) == 0)
+  v11 = self->_has;
+  if ((v11 & 8) == 0)
   {
 LABEL_15:
-    if ((v14 & 0x40) == 0)
+    if ((v11 & 0x40) == 0)
     {
       goto LABEL_16;
     }
@@ -350,13 +345,12 @@ LABEL_15:
   }
 
 LABEL_23:
-  numSubs = self->_numSubs;
   PBDataWriterWriteUint32Field();
-  v14 = self->_has;
-  if ((v14 & 0x40) == 0)
+  v11 = self->_has;
+  if ((v11 & 0x40) == 0)
   {
 LABEL_16:
-    if ((v14 & 0x10) == 0)
+    if ((v11 & 0x10) == 0)
     {
       goto LABEL_18;
     }
@@ -365,12 +359,10 @@ LABEL_16:
   }
 
 LABEL_24:
-  subsId = self->_subsId;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_17:
-    psPref = self->_psPref;
     PBDataWriterWriteUint32Field();
   }
 
@@ -611,7 +603,6 @@ LABEL_18:
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 60);
   if (has)
   {
     if ((*(equalCopy + 60) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -644,14 +635,13 @@ LABEL_18:
     if (![(NSMutableArray *)perBands isEqual:?])
     {
 LABEL_42:
-      v10 = 0;
+      v8 = 0;
       goto LABEL_43;
     }
 
     has = self->_has;
   }
 
-  v8 = *(equalCopy + 60);
   if ((has & 0x20) != 0)
   {
     if ((*(equalCopy + 60) & 0x20) == 0 || self->_sid != *(equalCopy + 13))
@@ -720,17 +710,17 @@ LABEL_42:
   plmn = self->_plmn;
   if (plmn | *(equalCopy + 5))
   {
-    v10 = [(NSData *)plmn isEqual:?];
+    v8 = [(NSData *)plmn isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v8 = 1;
   }
 
 LABEL_43:
 
-  return v10;
+  return v8;
 }
 
 - (unint64_t)hash

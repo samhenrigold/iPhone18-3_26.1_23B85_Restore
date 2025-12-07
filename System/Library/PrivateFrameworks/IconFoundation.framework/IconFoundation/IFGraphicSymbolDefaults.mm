@@ -19,9 +19,11 @@
 
 uint64_t __41__IFGraphicSymbolDefaults_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance_0 = objc_alloc_init(IFGraphicSymbolDefaults);
+  v0 = objc_alloc_init(IFGraphicSymbolDefaults);
+  v1 = sharedInstance_sharedInstance_0;
+  sharedInstance_sharedInstance_0 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (IFGraphicSymbolDefaults)init

@@ -21,20 +21,20 @@
   localeIdentifier = [locale localeIdentifier];
   [v2 setObject:localeIdentifier forKeyedSubscript:@"localeIdentifier"];
 
-  [self time];
+  objc_msgSend_time(self);
   if (v43)
   {
     v7 = MEMORY[0x1E696AD98];
-    [self time];
+    objc_msgSend_time(self);
     v8 = [v7 numberWithDouble:CMTimeGetSeconds(&time)];
     [v2 setObject:v8 forKeyedSubscript:@"time"];
   }
 
-  [self duration];
+  objc_msgSend_duration(self);
   if (v42)
   {
     v9 = MEMORY[0x1E696AD98];
-    [self duration];
+    objc_msgSend_duration(self);
     v10 = [v9 numberWithDouble:CMTimeGetSeconds(&time)];
     [v2 setObject:v10 forKeyedSubscript:@"duration"];
   }

@@ -159,7 +159,7 @@
 
 - (id)description
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCAB68] stringWithCapacity:0];
   [v3 appendFormat:@"MAC Address: %@ (hw=%@)\n", self->_macAddress, self->_hardwareMACAddress];
   [v3 appendFormat:@"Interface Name: %@\n", self->_interfaceName];
@@ -220,29 +220,29 @@
   [v3 appendFormat:@"Supports 6e: %s\n", v10];
   [v3 appendFormat:@"Scan Cache Count: %lu\n", -[NSArray count](self->_cachedScanResults, "count")];
   [v3 appendFormat:@"Link Quality Updates: %lu\n", -[NSArray count](self->_linkQualityUpdates, "count")];
-  v86 = 0u;
-  v87 = 0u;
-  v84 = 0u;
   v85 = 0u;
+  v86 = 0u;
+  v83 = 0u;
+  v84 = 0u;
   linkQualityUpdates = self->_linkQualityUpdates;
-  v12 = [(NSArray *)linkQualityUpdates countByEnumeratingWithState:&v84 objects:v91 count:16];
+  v12 = [(NSArray *)linkQualityUpdates countByEnumeratingWithState:&v83 objects:v90 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v85;
+    v14 = *v84;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v85 != v14)
+        if (*v84 != v14)
         {
           objc_enumerationMutation(linkQualityUpdates);
         }
 
-        [v3 appendFormat:@"\t%@\n", *(*(&v84 + 1) + 8 * i)];
+        [v3 appendFormat:@"\t%@\n", *(*(&v83 + 1) + 8 * i)];
       }
 
-      v13 = [(NSArray *)linkQualityUpdates countByEnumeratingWithState:&v84 objects:v91 count:16];
+      v13 = [(NSArray *)linkQualityUpdates countByEnumeratingWithState:&v83 objects:v90 count:16];
     }
 
     while (v13);
@@ -251,29 +251,29 @@
   [v3 appendFormat:@"NetworkServiceID: %@\n", self->_networkServiceID];
   [v3 appendFormat:@"IPv4ConfigMethod: %@\n", W5DescriptionForIPv4ConfigMethod(self->_ipv4ConfigMethod)];
   [v3 appendFormat:@"IPv4 Addresses: %lu\n", -[NSArray count](self->_ipv4Addresses, "count")];
-  v82 = 0u;
-  v83 = 0u;
-  v80 = 0u;
   v81 = 0u;
+  v82 = 0u;
+  v79 = 0u;
+  v80 = 0u;
   ipv4Addresses = self->_ipv4Addresses;
-  v17 = [(NSArray *)ipv4Addresses countByEnumeratingWithState:&v80 objects:v90 count:16];
+  v17 = [(NSArray *)ipv4Addresses countByEnumeratingWithState:&v79 objects:v89 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v81;
+    v19 = *v80;
     do
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v81 != v19)
+        if (*v80 != v19)
         {
           objc_enumerationMutation(ipv4Addresses);
         }
 
-        [v3 appendFormat:@"\t%@\n", *(*(&v80 + 1) + 8 * j)];
+        [v3 appendFormat:@"\t%@\n", *(*(&v79 + 1) + 8 * j)];
       }
 
-      v18 = [(NSArray *)ipv4Addresses countByEnumeratingWithState:&v80 objects:v90 count:16];
+      v18 = [(NSArray *)ipv4Addresses countByEnumeratingWithState:&v79 objects:v89 count:16];
     }
 
     while (v18);
@@ -282,29 +282,29 @@
   [v3 appendFormat:@"IPv4 Router: %@\n", self->_ipv4RouterAddress];
   [v3 appendFormat:@"IPv6ConfigMethod: %@\n", W5DescriptionForIPv6ConfigMethod(self->_ipv6ConfigMethod)];
   [v3 appendFormat:@"IPv6 Addresses: %lu\n", -[NSArray count](self->_ipv6Addresses, "count")];
-  v78 = 0u;
-  v79 = 0u;
-  v76 = 0u;
   v77 = 0u;
+  v78 = 0u;
+  v75 = 0u;
+  v76 = 0u;
   ipv6Addresses = self->_ipv6Addresses;
-  v22 = [(NSArray *)ipv6Addresses countByEnumeratingWithState:&v76 objects:v89 count:16];
+  v22 = [(NSArray *)ipv6Addresses countByEnumeratingWithState:&v75 objects:v88 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v77;
+    v24 = *v76;
     do
     {
       for (k = 0; k != v23; ++k)
       {
-        if (*v77 != v24)
+        if (*v76 != v24)
         {
           objc_enumerationMutation(ipv6Addresses);
         }
 
-        [v3 appendFormat:@"\t%@\n", *(*(&v76 + 1) + 8 * k)];
+        [v3 appendFormat:@"\t%@\n", *(*(&v75 + 1) + 8 * k)];
       }
 
-      v23 = [(NSArray *)ipv6Addresses countByEnumeratingWithState:&v76 objects:v89 count:16];
+      v23 = [(NSArray *)ipv6Addresses countByEnumeratingWithState:&v75 objects:v88 count:16];
     }
 
     while (v23);
@@ -312,29 +312,29 @@
 
   [v3 appendFormat:@"IPv6 Router: %@\n", self->_ipv6RouterAddress];
   [v3 appendFormat:@"DNS Addresses: %lu\n", -[NSArray count](self->_dnsAddresses, "count")];
-  v74 = 0u;
-  v75 = 0u;
-  v72 = 0u;
   v73 = 0u;
+  v74 = 0u;
+  v71 = 0u;
+  v72 = 0u;
   dnsAddresses = self->_dnsAddresses;
-  v27 = [(NSArray *)dnsAddresses countByEnumeratingWithState:&v72 objects:v88 count:16];
+  v27 = [(NSArray *)dnsAddresses countByEnumeratingWithState:&v71 objects:v87 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v73;
+    v29 = *v72;
     do
     {
       for (m = 0; m != v28; ++m)
       {
-        if (*v73 != v29)
+        if (*v72 != v29)
         {
           objc_enumerationMutation(dnsAddresses);
         }
 
-        [v3 appendFormat:@"\t%@\n", *(*(&v72 + 1) + 8 * m)];
+        [v3 appendFormat:@"\t%@\n", *(*(&v71 + 1) + 8 * m)];
       }
 
-      v28 = [(NSArray *)dnsAddresses countByEnumeratingWithState:&v72 objects:v88 count:16];
+      v28 = [(NSArray *)dnsAddresses countByEnumeratingWithState:&v71 objects:v87 count:16];
     }
 
     while (v28);
@@ -367,22 +367,22 @@
 
           [(NSData *)self->_btcConfig length];
           v34 = &bytes2[140 * *([(NSData *)self->_btcConfig bytes]+ 8)];
-          v64 = *(v34 + 12);
+          v63 = *(v34 + 12);
           v35 = *(v34 + 28);
           v36 = *(v34 + 44);
           v37 = *(v34 + 76);
-          v67 = *(v34 + 60);
-          v68 = v37;
-          v65 = v35;
-          v66 = v36;
+          v66 = *(v34 + 60);
+          v67 = v37;
+          v64 = v35;
+          v65 = v36;
           v38 = *(v34 + 92);
           v39 = *(v34 + 108);
           v40 = *(v34 + 124);
-          *&v71[12] = *(v34 + 136);
-          v70 = v39;
-          *v71 = v40;
-          v69 = v38;
-          [v3 appendString:{W5DescriptionForBTCProfile(&v64, @"\t"}];
+          *&v70[12] = *(v34 + 136);
+          v69 = v39;
+          *v70 = v40;
+          v68 = v38;
+          [v3 appendString:{W5DescriptionForBTCProfile(&v63, @"\t"}];
         }
       }
     }
@@ -411,22 +411,22 @@
 
           [(NSData *)self->_btcConfig length];
           v44 = &bytes3[140 * *([(NSData *)self->_btcConfig bytes]+ 16)];
-          v64 = *(v44 + 12);
+          v63 = *(v44 + 12);
           v45 = *(v44 + 28);
           v46 = *(v44 + 44);
           v47 = *(v44 + 76);
-          v67 = *(v44 + 60);
-          v68 = v47;
-          v65 = v45;
-          v66 = v46;
+          v66 = *(v44 + 60);
+          v67 = v47;
+          v64 = v45;
+          v65 = v46;
           v48 = *(v44 + 92);
           v49 = *(v44 + 108);
           v50 = *(v44 + 124);
-          *&v71[12] = *(v44 + 136);
-          v70 = v49;
-          *v71 = v50;
-          v69 = v48;
-          [v3 appendString:{W5DescriptionForBTCProfile(&v64, @"\t"}];
+          *&v70[12] = *(v44 + 136);
+          v69 = v49;
+          *v70 = v50;
+          v68 = v48;
+          [v3 appendString:{W5DescriptionForBTCProfile(&v63, @"\t"}];
         }
       }
     }
@@ -464,9 +464,9 @@
             [(NSData *)self->_txChainPower length];
             bytes5 = [(NSData *)self->_txChainPower bytes];
             v56 = *&bytes5[v54];
-            LODWORD(v65) = *&bytes5[v54 + 16];
-            v64 = v56;
-            [v3 appendString:{W5DescriptionForTxChainPower(&v64, @"\t"}];
+            LODWORD(v64) = *&bytes5[v54 + 16];
+            v63 = v56;
+            [v3 appendString:{W5DescriptionForTxChainPower(&v63, @"\t"}];
           }
 
           ++v53;
@@ -527,9 +527,7 @@
   }
 
   [v3 appendFormat:@"Sniffer: %s\n", v61];
-  result = [v3 copy];
-  v63 = *MEMORY[0x277D85DE8];
-  return result;
+  return [v3 copy];
 }
 
 - (BOOL)conformsToProtocol:(id)protocol
@@ -1183,52 +1181,51 @@ LABEL_130:
 
 - (unint64_t)hash
 {
-  v47 = [(NSString *)self->_macAddress hash];
-  v48 = [(NSString *)self->_hardwareMACAddress hash];
-  v46 = [(NSString *)self->_interfaceName hash];
-  v45 = [(NSArray *)self->_capabilities hash];
+  v46 = [(NSString *)self->_macAddress hash];
+  v47 = [(NSString *)self->_hardwareMACAddress hash];
+  v45 = [(NSString *)self->_interfaceName hash];
+  v44 = [(NSArray *)self->_capabilities hash];
   powerOn = self->_powerOn;
-  v44 = [(NSData *)self->_power hash];
+  v43 = [(NSData *)self->_power hash];
   opMode = self->_opMode;
-  v42 = [(NSString *)self->_ssidString hash];
-  v40 = [(NSData *)self->_ssid hash];
-  v43 = [(NSString *)self->_bssid hash];
-  v39 = [objc_msgSend(MEMORY[0x277CCABB0] numberWithInteger:{self->_rssi), "hash"}];
-  v37 = [objc_msgSend(MEMORY[0x277CCABB0] numberWithUnsignedInteger:{self->_cca), "hash"}];
-  v36 = [objc_msgSend(MEMORY[0x277CCABB0] numberWithUnsignedInteger:{self->_txPacketErrorRate), "hash"}];
-  v35 = [objc_msgSend(MEMORY[0x277CCABB0] numberWithInteger:{self->_noise), "hash"}];
-  v34 = [objc_msgSend(MEMORY[0x277CCABB0] numberWithDouble:{self->_txRate), "hash"}];
+  v41 = [(NSString *)self->_ssidString hash];
+  v39 = [(NSData *)self->_ssid hash];
+  v42 = [(NSString *)self->_bssid hash];
+  v38 = [objc_msgSend(MEMORY[0x277CCABB0] numberWithInteger:{self->_rssi), "hash"}];
+  v36 = [objc_msgSend(MEMORY[0x277CCABB0] numberWithUnsignedInteger:{self->_cca), "hash"}];
+  v35 = [objc_msgSend(MEMORY[0x277CCABB0] numberWithUnsignedInteger:{self->_txPacketErrorRate), "hash"}];
+  v34 = [objc_msgSend(MEMORY[0x277CCABB0] numberWithInteger:{self->_noise), "hash"}];
+  v33 = [objc_msgSend(MEMORY[0x277CCABB0] numberWithDouble:{self->_txRate), "hash"}];
   eapolSupplicantState = self->_eapolSupplicantState;
   eapolControlMode = self->_eapolControlMode;
   phyMode = self->_phyMode;
-  v3 = *&self->_security;
-  v29 = v3;
-  v30 = *&self->_guardInterval;
-  v33 = [(W5WiFiChannel *)self->_channel hash];
-  v32 = [(NSArray *)self->_supportedChannels hash];
-  v31 = [(NSString *)self->_countryCode hash];
-  v28 = [(NSString *)self->_networkServiceID hash];
+  v28 = *&self->_security;
+  v29 = *&self->_guardInterval;
+  v32 = [(W5WiFiChannel *)self->_channel hash];
+  v31 = [(NSArray *)self->_supportedChannels hash];
+  v30 = [(NSString *)self->_countryCode hash];
+  v27 = [(NSString *)self->_networkServiceID hash];
   ipv4ConfigMethod = self->_ipv4ConfigMethod;
   ipv6ConfigMethod = self->_ipv6ConfigMethod;
-  v23 = [(NSArray *)self->_ipv4Addresses hash];
-  v21 = [(NSArray *)self->_ipv6Addresses hash];
-  v20 = [(NSString *)self->_ipv4RouterAddress hash];
-  v19 = [(NSString *)self->_ipv6RouterAddress hash];
-  v18 = [(NSArray *)self->_dnsAddresses hash];
-  v17 = [(NSData *)self->_chainAck hash];
-  v16 = [(NSData *)self->_txChainPower hash];
-  v4 = [(NSData *)self->_desense hash];
-  v5 = [(NSData *)self->_desenseLevel hash];
-  v6 = [(NSData *)self->_btcConfig hash];
+  v22 = [(NSArray *)self->_ipv4Addresses hash];
+  v20 = [(NSArray *)self->_ipv6Addresses hash];
+  v19 = [(NSString *)self->_ipv4RouterAddress hash];
+  v18 = [(NSString *)self->_ipv6RouterAddress hash];
+  v17 = [(NSArray *)self->_dnsAddresses hash];
+  v16 = [(NSData *)self->_chainAck hash];
+  v15 = [(NSData *)self->_txChainPower hash];
+  v3 = [(NSData *)self->_desense hash];
+  v4 = [(NSData *)self->_desenseLevel hash];
+  v5 = [(NSData *)self->_btcConfig hash];
   btcMode = self->_btcMode;
-  v8 = [(NSData *)self->_btcProfiles2GHz hash];
-  v9 = [(NSData *)self->_btcProfiles5GHz hash];
-  v10 = [(NSArray *)self->_linkQualityUpdates hash];
-  v11 = [(W5WiFiScanResult *)self->_lastJoinedScanResult hash];
-  v12 = [(W5WiFiPreferredNetwork *)self->_lastJoinedPreferredNetwork hash];
-  v13 = [(NSArray *)self->_cachedScanResults hash];
-  v14 = veorq_s8(v29, v30);
-  return *&veor_s8(*v14.i8, *&vextq_s8(v14, v14, 8uLL)) ^ ipv4ConfigMethod ^ ipv6ConfigMethod ^ opMode ^ eapolControlMode ^ eapolSupplicantState ^ phyMode ^ btcMode ^ v13 ^ v12 ^ v11 ^ v10 ^ (powerOn ^ self->_smartCCADesenseSupported ^ self->_smartCCADesenseUSBPresence ^ self->_isSnifferSupported) & 1 ^ v9 ^ v8 ^ v6 ^ v5 ^ v4 ^ v16 ^ v17 ^ v18 ^ v19 ^ v20 ^ v21 ^ v23 ^ v28 ^ v31 ^ v32 ^ v33 ^ v34 ^ v35 ^ v36 ^ v37 ^ v39 ^ v43 ^ v40 ^ v42 ^ v44 ^ v45 ^ v46 ^ v47 ^ v48;
+  v7 = [(NSData *)self->_btcProfiles2GHz hash];
+  v8 = [(NSData *)self->_btcProfiles5GHz hash];
+  v9 = [(NSArray *)self->_linkQualityUpdates hash];
+  v10 = [(W5WiFiScanResult *)self->_lastJoinedScanResult hash];
+  v11 = [(W5WiFiPreferredNetwork *)self->_lastJoinedPreferredNetwork hash];
+  v12 = [(NSArray *)self->_cachedScanResults hash];
+  v13 = veorq_s8(v28, v29);
+  return *&veor_s8(*v13.i8, *&vextq_s8(v13, v13, 8uLL)) ^ ipv4ConfigMethod ^ ipv6ConfigMethod ^ opMode ^ eapolControlMode ^ eapolSupplicantState ^ phyMode ^ btcMode ^ v12 ^ v11 ^ v10 ^ v9 ^ (powerOn ^ self->_smartCCADesenseSupported ^ self->_smartCCADesenseUSBPresence ^ self->_isSnifferSupported) & 1 ^ v8 ^ v7 ^ v5 ^ v4 ^ v3 ^ v15 ^ v16 ^ v17 ^ v18 ^ v19 ^ v20 ^ v22 ^ v27 ^ v30 ^ v31 ^ v32 ^ v33 ^ v34 ^ v35 ^ v36 ^ v38 ^ v42 ^ v39 ^ v41 ^ v43 ^ v44 ^ v45 ^ v46 ^ v47;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

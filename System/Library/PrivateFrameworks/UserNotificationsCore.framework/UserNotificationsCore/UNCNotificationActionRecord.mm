@@ -199,151 +199,25 @@
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  if (!equalCopy)
-  {
-    goto LABEL_21;
-  }
-
-  v5 = objc_opt_class();
-  if (v5 != objc_opt_class())
-  {
-    goto LABEL_21;
-  }
-
-  identifier = [(UNCNotificationActionRecord *)self identifier];
-  identifier2 = [equalCopy identifier];
-  v8 = UNEqualObjects();
-
-  if (!v8)
-  {
-    goto LABEL_21;
-  }
-
-  actionType = [(UNCNotificationActionRecord *)self actionType];
-  actionType2 = [equalCopy actionType];
-  v11 = UNEqualObjects();
-
-  if (!v11)
-  {
-    goto LABEL_21;
-  }
-
-  isAuthenticationRequired = [(UNCNotificationActionRecord *)self isAuthenticationRequired];
-  if (isAuthenticationRequired != [equalCopy isAuthenticationRequired])
-  {
-    goto LABEL_21;
-  }
-
-  isDestructive = [(UNCNotificationActionRecord *)self isDestructive];
-  if (isDestructive != [equalCopy isDestructive])
-  {
-    goto LABEL_21;
-  }
-
-  isForeground = [(UNCNotificationActionRecord *)self isForeground];
-  if (isForeground != [equalCopy isForeground])
-  {
-    goto LABEL_21;
-  }
-
-  hasSystemIcon = [(UNCNotificationActionRecord *)self hasSystemIcon];
-  if (hasSystemIcon != [equalCopy hasSystemIcon])
-  {
-    goto LABEL_21;
-  }
-
-  shouldPreventNotificationDismiss = [(UNCNotificationActionRecord *)self shouldPreventNotificationDismiss];
-  if (shouldPreventNotificationDismiss != [equalCopy shouldPreventNotificationDismiss])
-  {
-    goto LABEL_21;
-  }
-
-  iconImageName = [(UNCNotificationActionRecord *)self iconImageName];
-  iconImageName2 = [equalCopy iconImageName];
-  v19 = UNEqualObjects();
-
-  if (!v19)
-  {
-    goto LABEL_21;
-  }
-
-  textInputButtonTitle = [(UNCNotificationActionRecord *)self textInputButtonTitle];
-  textInputButtonTitle2 = [equalCopy textInputButtonTitle];
-  v22 = UNEqualObjects();
-
-  if (!v22)
-  {
-    goto LABEL_21;
-  }
-
-  textInputButtonTitleLocalizationArguments = [(UNCNotificationActionRecord *)self textInputButtonTitleLocalizationArguments];
-  textInputButtonTitleLocalizationArguments2 = [equalCopy textInputButtonTitleLocalizationArguments];
-  v25 = UNEqualObjects();
-
-  if (!v25)
-  {
-    goto LABEL_21;
-  }
-
-  textInputButtonTitleLocalizationKey = [(UNCNotificationActionRecord *)self textInputButtonTitleLocalizationKey];
-  textInputButtonTitleLocalizationKey2 = [equalCopy textInputButtonTitleLocalizationKey];
-  v28 = UNEqualObjects();
-
-  if (!v28)
-  {
-    goto LABEL_21;
-  }
-
-  textInputPlaceholder = [(UNCNotificationActionRecord *)self textInputPlaceholder];
-  textInputPlaceholder2 = [equalCopy textInputPlaceholder];
-  v31 = UNEqualObjects();
-
-  if (!v31)
-  {
-    goto LABEL_21;
-  }
-
-  textInputPlaceholderLocalizationArguments = [(UNCNotificationActionRecord *)self textInputPlaceholderLocalizationArguments];
-  textInputPlaceholderLocalizationArguments2 = [equalCopy textInputPlaceholderLocalizationArguments];
-  v34 = UNEqualObjects();
-
-  if (!v34)
-  {
-    goto LABEL_21;
-  }
-
-  textInputPlaceholderLocalizationKey = [(UNCNotificationActionRecord *)self textInputPlaceholderLocalizationKey];
-  textInputPlaceholderLocalizationKey2 = [equalCopy textInputPlaceholderLocalizationKey];
-  v37 = UNEqualObjects();
-
-  if (!v37)
-  {
-    goto LABEL_21;
-  }
-
-  title = [(UNCNotificationActionRecord *)self title];
-  title2 = [equalCopy title];
-  v40 = UNEqualObjects();
-
-  if (!v40)
-  {
-    goto LABEL_21;
-  }
-
-  titleLocalizationArguments = [(UNCNotificationActionRecord *)self titleLocalizationArguments];
-  titleLocalizationArguments2 = [equalCopy titleLocalizationArguments];
-  v43 = UNEqualObjects();
-
-  if (!v43)
-  {
-    goto LABEL_21;
-  }
-
-  titleLocalizationKey = [(UNCNotificationActionRecord *)self titleLocalizationKey];
-  titleLocalizationKey2 = [equalCopy titleLocalizationKey];
-  v46 = UNEqualObjects();
-
-  if (v46)
+  if (equalCopy
+    && (v5 = objc_opt_class(), v5 == objc_opt_class())
+    && (-[UNCNotificationActionRecord identifier](self, "identifier"), v6 = objc_claimAutoreleasedReturnValue(), [equalCopy identifier], v7 = objc_claimAutoreleasedReturnValue(), v8 = UNEqualObjects(), v7, v6, v8)
+    && (-[UNCNotificationActionRecord actionType](self, "actionType"), v9 = objc_claimAutoreleasedReturnValue(), [equalCopy actionType], v10 = objc_claimAutoreleasedReturnValue(), v11 = UNEqualObjects(), v10, v9, v11)
+    && (v12 = -[UNCNotificationActionRecord isAuthenticationRequired](self, "isAuthenticationRequired"), v12 == [equalCopy isAuthenticationRequired])
+    && (v13 = -[UNCNotificationActionRecord isDestructive](self, "isDestructive"), v13 == [equalCopy isDestructive])
+    && (v14 = -[UNCNotificationActionRecord isForeground](self, "isForeground"), v14 == [equalCopy isForeground])
+    && (v15 = -[UNCNotificationActionRecord hasSystemIcon](self, "hasSystemIcon"), v15 == [equalCopy hasSystemIcon])
+    && (v16 = -[UNCNotificationActionRecord shouldPreventNotificationDismiss](self, "shouldPreventNotificationDismiss"), v16 == [equalCopy shouldPreventNotificationDismiss])
+    && (-[UNCNotificationActionRecord iconImageName](self, "iconImageName"), v17 = objc_claimAutoreleasedReturnValue(), [equalCopy iconImageName], v18 = objc_claimAutoreleasedReturnValue(), v19 = UNEqualObjects(), v18, v17, v19)
+    && (-[UNCNotificationActionRecord textInputButtonTitle](self, "textInputButtonTitle"), v20 = objc_claimAutoreleasedReturnValue(), [equalCopy textInputButtonTitle], v21 = objc_claimAutoreleasedReturnValue(), v22 = UNEqualObjects(), v21, v20, v22)
+    && (-[UNCNotificationActionRecord textInputButtonTitleLocalizationArguments](self, "textInputButtonTitleLocalizationArguments"), v23 = objc_claimAutoreleasedReturnValue(), [equalCopy textInputButtonTitleLocalizationArguments], v24 = objc_claimAutoreleasedReturnValue(), v25 = UNEqualObjects(), v24, v23, v25)
+    && (-[UNCNotificationActionRecord textInputButtonTitleLocalizationKey](self, "textInputButtonTitleLocalizationKey"), v26 = objc_claimAutoreleasedReturnValue(), [equalCopy textInputButtonTitleLocalizationKey], v27 = objc_claimAutoreleasedReturnValue(), v28 = UNEqualObjects(), v27, v26, v28)
+    && (-[UNCNotificationActionRecord textInputPlaceholder](self, "textInputPlaceholder"), v29 = objc_claimAutoreleasedReturnValue(), [equalCopy textInputPlaceholder], v30 = objc_claimAutoreleasedReturnValue(), v31 = UNEqualObjects(), v30, v29, v31)
+    && (-[UNCNotificationActionRecord textInputPlaceholderLocalizationArguments](self, "textInputPlaceholderLocalizationArguments"), v32 = objc_claimAutoreleasedReturnValue(), [equalCopy textInputPlaceholderLocalizationArguments], v33 = objc_claimAutoreleasedReturnValue(), v34 = UNEqualObjects(), v33, v32, v34)
+    && (-[UNCNotificationActionRecord textInputPlaceholderLocalizationKey](self, "textInputPlaceholderLocalizationKey"), v35 = objc_claimAutoreleasedReturnValue(), [equalCopy textInputPlaceholderLocalizationKey], v36 = objc_claimAutoreleasedReturnValue(), v37 = UNEqualObjects(), v36, v35, v37)
+    && (-[UNCNotificationActionRecord title](self, "title"), v38 = objc_claimAutoreleasedReturnValue(), [equalCopy title], v39 = objc_claimAutoreleasedReturnValue(), v40 = UNEqualObjects(), v39, v38, v40)
+    && (-[UNCNotificationActionRecord titleLocalizationArguments](self, "titleLocalizationArguments"), v41 = objc_claimAutoreleasedReturnValue(), [equalCopy titleLocalizationArguments], v42 = objc_claimAutoreleasedReturnValue(), v43 = UNEqualObjects(), v42, v41, v43)
+    && (-[UNCNotificationActionRecord titleLocalizationKey](self, "titleLocalizationKey"), v44 = objc_claimAutoreleasedReturnValue(), [equalCopy titleLocalizationKey], v45 = objc_claimAutoreleasedReturnValue(), v46 = UNEqualObjects(), v45, v44, v46))
   {
     v47 = [(UNCNotificationActionRecord *)self url];
     v48 = [equalCopy url];
@@ -352,7 +226,6 @@
 
   else
   {
-LABEL_21:
     v49 = 0;
   }
 
@@ -419,23 +292,22 @@ LABEL_21:
 
 - (UNCNotificationActionRecord)initWithCoder:(id)coder
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E695DFD8];
   coderCopy = coder;
+  v11 = objc_opt_class();
   v12 = objc_opt_class();
   v13 = objc_opt_class();
   v14 = objc_opt_class();
   v15 = objc_opt_class();
   v16 = objc_opt_class();
   v17 = objc_opt_class();
-  v18 = objc_opt_class();
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:7];
-  v7 = [v4 setWithArray:{v6, v12, v13, v14, v15, v16, v17}];
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v11 count:7];
+  v7 = [v4 setWithArray:{v6, v11, v12, v13, v14, v15, v16}];
 
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"dictionary"];
 
   v9 = [[UNCNotificationActionRecord alloc] initWithDictionaryRepresentation:v8];
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

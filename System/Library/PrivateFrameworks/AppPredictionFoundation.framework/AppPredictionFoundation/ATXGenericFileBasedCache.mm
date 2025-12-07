@@ -34,7 +34,7 @@
 
 - (BOOL)storeData:(id)data error:(id *)error
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v7 = open([(NSString *)self->_cacheFilePath UTF8String], 514, 384);
   if (v7 == -1)
@@ -47,11 +47,11 @@
     {
       debugName = self->_debugName;
       *buf = 138412802;
-      v33 = debugName;
-      v34 = 1024;
-      v35 = v10;
-      v36 = 2080;
-      v37 = v12;
+      v32 = debugName;
+      v33 = 1024;
+      v34 = v10;
+      v35 = 2080;
+      v36 = v12;
       _os_log_error_impl(&dword_226368000, loggingHandle, OS_LOG_TYPE_ERROR, "Couldn't create %@ cache file: [%i] %s", buf, 0x1Cu);
       if (!error)
       {
@@ -68,10 +68,10 @@
     v15 = *MEMORY[0x277CCA5B8];
     if (v12)
     {
-      v30 = *MEMORY[0x277CCA068];
+      v29 = *MEMORY[0x277CCA068];
       v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:v12];
-      v31 = v16;
-      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+      v30 = v16;
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
       *error = [v14 errorWithDomain:v15 code:v10 userInfo:v17];
 
 LABEL_15:
@@ -79,9 +79,9 @@ LABEL_15:
       goto LABEL_16;
     }
 
-    v28 = *MEMORY[0x277CCA068];
-    v29 = @"Unknown error";
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+    v27 = *MEMORY[0x277CCA068];
+    v28 = @"Unknown error";
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
     v20 = v14;
     v21 = v15;
     v22 = 22;
@@ -101,7 +101,7 @@ LABEL_14:
   {
     if (os_log_type_enabled(self->_loggingHandle, OS_LOG_TYPE_ERROR))
     {
-      [ATXGenericFileBasedCache storeData:? error:?];
+      [ATXGenericFileBasedCache storeData:error:];
       if (!error)
       {
         goto LABEL_16;
@@ -115,9 +115,9 @@ LABEL_14:
 
     v18 = MEMORY[0x277CCA9B8];
     v19 = *MEMORY[0x277CCA5B8];
-    v26 = *MEMORY[0x277CCA068];
-    v27 = @"Unable to write data";
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    v25 = *MEMORY[0x277CCA068];
+    v26 = @"Unable to write data";
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
     v20 = v18;
     v21 = v19;
     v22 = 5;
@@ -127,7 +127,6 @@ LABEL_14:
   LOBYTE(error) = 1;
 LABEL_16:
 
-  v23 = *MEMORY[0x277D85DE8];
   return error;
 }
 
@@ -143,7 +142,7 @@ LABEL_16:
   {
     if (os_log_type_enabled(self->_loggingHandle, OS_LOG_TYPE_ERROR))
     {
-      [ATXGenericFileBasedCache storeSecureCodedObject:? error:?];
+      [ATXGenericFileBasedCache storeSecureCodedObject:error:];
       if (error)
       {
         goto LABEL_5;
@@ -171,40 +170,38 @@ LABEL_8:
 
 - (void)evict
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = *(self + 16);
   v3 = a2;
   v4 = *__error();
   v5 = __error();
   v6 = strerror(*v5);
-  v8 = 138412802;
-  v9 = v2;
-  v10 = 1024;
-  v11 = v4;
-  v12 = 2080;
-  v13 = v6;
-  _os_log_error_impl(&dword_226368000, v3, OS_LOG_TYPE_ERROR, "Couldn't unlink %@ cache file: [%i] %s", &v8, 0x1Cu);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412802;
+  v8 = v2;
+  v9 = 1024;
+  v10 = v4;
+  v11 = 2080;
+  v12 = v6;
+  _os_log_error_impl(&dword_226368000, v3, OS_LOG_TYPE_ERROR, "Couldn't unlink %@ cache file: [%i] %s", &v7, 0x1Cu);
 }
 
 - (id)readWithMaxValidAge:(double)age error:(id *)error
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v7 = open([(NSString *)self->_cacheFilePath UTF8String], 0);
   if (v7 != -1)
   {
     v8 = v7;
     *buf = 0;
-    v27 = 0.0;
+    v26 = 0.0;
     v9 = objc_autoreleasePoolPush();
-    ATXCacheFileRead(v8, buf, &v27, age);
+    ATXCacheFileRead(v8, buf, &v26, age);
     objc_autoreleasePoolPop(v9);
-    if (v27 < 0.0)
+    if (v26 < 0.0)
     {
       if (os_log_type_enabled(self->_loggingHandle, OS_LOG_TYPE_ERROR))
       {
-        [ATXGenericFileBasedCache readWithMaxValidAge:? error:?];
+        [ATXGenericFileBasedCache readWithMaxValidAge:error:];
       }
 
       [(ATXGenericFileBasedCache *)self evict];
@@ -226,7 +223,7 @@ LABEL_17:
 
     if (os_log_type_enabled(self->_loggingHandle, OS_LOG_TYPE_ERROR))
     {
-      [ATXGenericFileBasedCache readWithMaxValidAge:? error:?];
+      [ATXGenericFileBasedCache readWithMaxValidAge:error:];
       if (!error)
       {
         goto LABEL_17;
@@ -240,9 +237,9 @@ LABEL_17:
 
     v17 = MEMORY[0x277CCA9B8];
     v18 = *MEMORY[0x277CCA5B8];
-    v28 = *MEMORY[0x277CCA068];
-    v29 = @"Unable to read data";
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+    v27 = *MEMORY[0x277CCA068];
+    v28 = @"Unable to read data";
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
     *error = [v17 errorWithDomain:v18 code:5 userInfo:v19];
 
     goto LABEL_17;
@@ -270,18 +267,18 @@ LABEL_20:
       v21 = *MEMORY[0x277CCA5B8];
       if (v14)
       {
-        v32 = *MEMORY[0x277CCA068];
+        v31 = *MEMORY[0x277CCA068];
         v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:v14];
-        v33 = v22;
-        v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+        v32 = v22;
+        v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
         *error = [v20 errorWithDomain:v21 code:v12 userInfo:v23];
       }
 
       else
       {
-        v30 = *MEMORY[0x277CCA068];
-        v31 = @"Unknown error";
-        v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+        v29 = *MEMORY[0x277CCA068];
+        v30 = @"Unknown error";
+        v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
         *error = [v20 errorWithDomain:v21 code:22 userInfo:v22];
       }
 
@@ -291,13 +288,13 @@ LABEL_20:
 
   else if (os_log_type_enabled(loggingHandle, OS_LOG_TYPE_ERROR))
   {
-    v26 = self->_debugName;
+    v25 = self->_debugName;
     *buf = 138412802;
-    *&buf[4] = v26;
-    v35 = 1024;
-    v36 = v12;
-    v37 = 2080;
-    v38 = v14;
+    *&buf[4] = v25;
+    v34 = 1024;
+    v35 = v12;
+    v36 = 2080;
+    v37 = v14;
     _os_log_error_impl(&dword_226368000, loggingHandle, OS_LOG_TYPE_ERROR, "Couldn't open %@ cache file: [%i] %s", buf, 0x1Cu);
     if (!error)
     {
@@ -315,7 +312,6 @@ LABEL_20:
 LABEL_24:
   v10 = 0;
 LABEL_25:
-  v24 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -337,7 +333,7 @@ LABEL_25:
     {
       if (os_log_type_enabled(self->_loggingHandle, OS_LOG_TYPE_ERROR))
       {
-        [ATXGenericFileBasedCache readSecureCodedObjectWithMaxValidAge:? allowableClasses:? error:?];
+        [ATXGenericFileBasedCache readSecureCodedObjectWithMaxValidAge:allowableClasses:error:];
       }
 
       v12 = 0;
@@ -361,44 +357,39 @@ LABEL_25:
   return v12;
 }
 
-- (void)storeData:(uint64_t)a1 error:.cold.1(uint64_t a1)
+- (void)storeData:error:.cold.1()
 {
-  OUTLINED_FUNCTION_0_3(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_0_2(&dword_226368000, v1, v2, "Couldn't write %@ cache file", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_2(&dword_226368000, v0, v1, "Couldn't write %@ cache file", v2, v3, v4, v5);
 }
 
-- (void)storeSecureCodedObject:(uint64_t)a1 error:.cold.1(uint64_t a1)
+- (void)storeSecureCodedObject:error:.cold.1()
 {
-  OUTLINED_FUNCTION_0_3(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_4(&dword_226368000, v1, v2, "Couldn't archive secure coded data for %@ cache file: %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_226368000, v0, v1, "Couldn't archive secure coded data for %@ cache file: %@");
 }
 
-- (void)readWithMaxValidAge:(uint64_t)a1 error:.cold.1(uint64_t a1)
+- (void)readWithMaxValidAge:error:.cold.1()
 {
-  OUTLINED_FUNCTION_0_3(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_0_2(&dword_226368000, v1, v2, "Detected %@ cache file with last modified date in the future -- will attempt deletion", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_2(&dword_226368000, v0, v1, "Detected %@ cache file with last modified date in the future -- will attempt deletion", v2, v3, v4, v5);
 }
 
-- (void)readWithMaxValidAge:(uint64_t)a1 error:.cold.2(uint64_t a1)
+- (void)readWithMaxValidAge:error:.cold.2()
 {
-  OUTLINED_FUNCTION_0_3(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_0_2(&dword_226368000, v1, v2, "Couldn't read %@ cache file", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_2(&dword_226368000, v0, v1, "Couldn't read %@ cache file", v2, v3, v4, v5);
 }
 
-- (void)readSecureCodedObjectWithMaxValidAge:(uint64_t)a1 allowableClasses:error:.cold.1(uint64_t a1)
+- (void)readSecureCodedObjectWithMaxValidAge:allowableClasses:error:.cold.1()
 {
-  OUTLINED_FUNCTION_0_3(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_4(&dword_226368000, v1, v2, "Couldn't unarchive secure coded data for %@ cache file: %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_226368000, v0, v1, "Couldn't unarchive secure coded data for %@ cache file: %@");
 }
 
 @end

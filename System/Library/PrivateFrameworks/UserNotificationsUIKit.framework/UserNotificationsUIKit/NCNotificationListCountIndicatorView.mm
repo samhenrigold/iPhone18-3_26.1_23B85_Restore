@@ -97,31 +97,31 @@
   }
 }
 
-uint64_t __54__NCNotificationListCountIndicatorView_layoutSubviews__block_invoke(uint64_t a1)
+uint64_t __54__NCNotificationListCountIndicatorView_layoutSubviews__block_invoke(uint64_t a1, const char *a2)
 {
-  v10 = 0u;
   v11 = 0u;
-  v9 = 0u;
-  v2 = *(*(a1 + 32) + 448);
-  if (v2)
+  v12 = 0u;
+  v10 = 0u;
+  v3 = *(*(a1 + 32) + 448);
+  if (v3)
   {
-    [v2 transform];
-    v2 = *(*(a1 + 32) + 448);
+    objc_msgSend_transform(v3, a2);
+    v3 = *(*(a1 + 32) + 448);
   }
 
-  v3 = *(MEMORY[0x277CBF2C0] + 16);
-  v6 = *MEMORY[0x277CBF2C0];
-  v7 = v3;
-  v8 = *(MEMORY[0x277CBF2C0] + 32);
-  [v2 setTransform:&v6];
+  v4 = *(MEMORY[0x277CBF2C0] + 16);
+  v7 = *MEMORY[0x277CBF2C0];
+  v8 = v4;
+  v9 = *(MEMORY[0x277CBF2C0] + 32);
+  [v3 setTransform:&v7];
   [*(a1 + 32) _sizeToFitTitleLabelIfNecessary];
   [*(a1 + 32) _sizeToFitSubtitleLabelIfNecessary];
   [*(a1 + 32) _layoutVerticallyCenter];
-  v4 = *(*(a1 + 32) + 448);
-  v6 = v9;
+  v5 = *(*(a1 + 32) + 448);
   v7 = v10;
   v8 = v11;
-  return [v4 setTransform:&v6];
+  v9 = v12;
+  return [v5 setTransform:&v7];
 }
 
 - (void)_sizeToFitTitleLabelIfNecessary
@@ -299,7 +299,7 @@ uint64_t __54__NCNotificationListCountIndicatorView_layoutSubviews__block_invoke
   if (count)
   {
     v14 = MEMORY[0x277CCACA8];
-    v15 = NCUserNotificationsUIKitFrameworkBundle();
+    v15 = NCUserNotificationsUIKitFrameworkBundle(v13);
     v16 = [v15 localizedStringForKey:@"NOTIFICATION_STRING_STATE_COUNT_TEXT" value:&stru_282FE84F8 table:0];
     count = [v14 localizedStringWithFormat:v16, count, 0];
 

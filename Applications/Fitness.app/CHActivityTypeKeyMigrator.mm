@@ -16,7 +16,7 @@
   standardUserDefaults = [objc_opt_self() standardUserDefaults];
   ActivityTypeKeyMigrator.init(migrationKeys:userDefaults:)();
   (*(v5 + 32))(self + OBJC_IVAR___CHActivityTypeKeyMigrator_activityTypeKeyMigrator, v7, v4);
-  v9 = type metadata accessor for ActivityTypeKeyMigratorBridge();
+  v9 = type metadata accessor for ActivityTypeKeyMigratorBridge(0);
   v11.receiver = self;
   v11.super_class = v9;
   return [(CHActivityTypeKeyMigrator *)&v11 init];

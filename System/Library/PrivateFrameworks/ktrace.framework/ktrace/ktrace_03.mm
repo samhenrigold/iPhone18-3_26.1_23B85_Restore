@@ -1,529 +1,3 @@
-uint64_t append_transformed_events_internal(uint64_t a1, uint64_t *a2, uint64_t a3, unint64_t a4, UInt8 *a5, int a6, void *a7, uint64_t a8, uint64_t a9)
-{
-  if (!a2)
-  {
-    ktrace_postprocess_file_internal_cold_4();
-  }
-
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x2000000000;
-  v32 = 0;
-  v10 = 32;
-  if (a6)
-  {
-    v10 = 64;
-  }
-
-  if (!a4)
-  {
-    ktrace_postprocess_file_internal_cold_4();
-  }
-
-  if (!a5)
-  {
-    ktrace_postprocess_file_internal_cold_4();
-  }
-
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2000000000;
-  v28 = 0;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2000000000;
-  v24 = 0;
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 0x40000000;
-  v18[2] = __append_transformed_events_internal_block_invoke;
-  v18[3] = &unk_27886E278;
-  v19 = a6;
-  v18[4] = a9;
-  v18[5] = &v25;
-  v20 = a8 != 0;
-  v18[8] = 0x400000;
-  v18[9] = a8;
-  v18[10] = a5;
-  v18[11] = a1;
-  v18[12] = a2;
-  v18[13] = v10;
-  v18[6] = &v29;
-  v18[7] = &v21;
-  trace_enumerate(a3, a4, a6, v18);
-  v15 = *(v30 + 6);
-  if (!v15)
-  {
-    v16 = v26[3];
-    if (v16)
-    {
-      v15 = lazy_chunk_write(a1, a2, a8 != 0, a5, v16);
-      *(v30 + 6) = v15;
-    }
-
-    else
-    {
-      v15 = 0;
-    }
-  }
-
-  *a7 = v22[3];
-  _Block_object_dispose(&v21, 8);
-  _Block_object_dispose(&v25, 8);
-  _Block_object_dispose(&v29, 8);
-  return v15;
-}
-
-uint64_t __append_transformed_events_internal_block_invoke(uint64_t a1, unsigned int *__src)
-{
-  v4 = *__src;
-  if (*(a1 + 112) == 1)
-  {
-    v5 = __src[13];
-    v6 = (__src + 12);
-    v7 = *(__src + 2);
-    v8 = *(__src + 6);
-    v9 = *(__src + 5);
-  }
-
-  else
-  {
-    v5 = HIBYTE(v4);
-    v4 &= 0xFFFFFFFFFFFFFFuLL;
-    v6 = (__src + 7);
-    v10 = *(__src + 1);
-    v11 = *(__src + 2);
-    *&v12 = v10;
-    *(&v12 + 1) = HIDWORD(v10);
-    v7 = v12;
-    *&v12 = v11;
-    *(&v12 + 1) = HIDWORD(v11);
-    v8 = v12;
-    v9 = __src[6];
-  }
-
-  v13 = *v6;
-  v14 = *(a1 + 32);
-  if (v14)
-  {
-    v25 = v8;
-    v26 = v7;
-    v15 = (*(v14 + 16))(v14, v4, v13, v7, *(&v7 + 1), v8, *(&v8 + 1), v9, v5);
-    v8 = v25;
-    v7 = v26;
-    if (!v15)
-    {
-      return 0;
-    }
-  }
-
-  v16 = *(*(*(a1 + 40) + 8) + 24);
-  v17 = *(a1 + 64) - v16;
-  if (*(a1 + 113) != 1)
-  {
-    v23 = *(a1 + 104);
-    if (v23 > v17)
-    {
-      *(*(*(a1 + 48) + 8) + 24) = lazy_chunk_write(*(a1 + 88), *(a1 + 96), 0, *(a1 + 80), v16);
-      *(*(*(a1 + 40) + 8) + 24) = 0;
-      v16 = *(*(*(a1 + 40) + 8) + 24);
-      v23 = *(a1 + 104);
-    }
-
-    memcpy((*(a1 + 80) + v16), __src, v23);
-    v21 = *(a1 + 104);
-    goto LABEL_14;
-  }
-
-  v18 = *(a1 + 72);
-  v19 = *(a1 + 80);
-  v20 = &v18[12 * *v18];
-  *(v18 + 2) = v4;
-  *(v20 + 6) = v7;
-  *(v20 + 10) = v8;
-  *(v20 + 7) = v9;
-  *(v20 + 8) = v13 | (v5 << 32);
-  v21 = ktrace_compressor_commit(v18, (v19 + *(*(*(a1 + 40) + 8) + 24)), v17);
-  if (v21)
-  {
-LABEL_14:
-    v22 = 0;
-    ++*(*(*(a1 + 56) + 8) + 24);
-    *(*(*(a1 + 40) + 8) + 24) += v21;
-    return v22;
-  }
-
-  *(*(*(a1 + 48) + 8) + 24) = lazy_chunk_write(*(a1 + 88), *(a1 + 96), *(a1 + 113), *(a1 + 80), *(*(*(a1 + 40) + 8) + 24));
-  v22 = *(*(*(a1 + 48) + 8) + 24);
-  if (!v22)
-  {
-    *(*(*(a1 + 40) + 8) + 24) = 0;
-    v21 = ktrace_compressor_commit(*(a1 + 72), *(a1 + 80), *(a1 + 64));
-    if (!v21)
-    {
-      ktrace_postprocess_file_internal_cold_4();
-    }
-
-    goto LABEL_14;
-  }
-
-  return v22;
-}
-
-uint64_t lazy_chunk_write(uint64_t a1, uint64_t *a2, int a3, UInt8 *bytes, CFIndex length)
-{
-  if (!a2)
-  {
-    ktrace_postprocess_file_internal_cold_4();
-  }
-
-  v9 = *a2;
-  if (!v9)
-  {
-    v10 = setup_events_chunk(a1, a3);
-    if (!v10)
-    {
-      return *__error();
-    }
-
-    v9 = v10;
-    *a2 = v10;
-  }
-
-  result = ktrace_file_append_data(a1, v9, bytes, length);
-  if (result)
-  {
-    *a2 = 0;
-  }
-
-  return result;
-}
-
-BOOL __ktrace_file_passive_interval_block_invoke(uint64_t a1, uint64_t *a2)
-{
-  v4 = ktrace_chunk_tag(a2);
-  if (v4 == 32816)
-  {
-    *(*(*(a1 + 32) + 8) + 24) = 1;
-    v5 = ktrace_chunk_copy_data(a2, 0, *(a1 + 48), 0x30uLL);
-    if (v5)
-    {
-      *(*(*(a1 + 40) + 8) + 24) = v5;
-    }
-  }
-
-  return v4 != 32816;
-}
-
-uint64_t __find_unused_subfile_id_block_invoke(uint64_t result, uint64_t a2)
-{
-  v2 = *(a2 + 216);
-  v3 = *(result + 32);
-  if (v2 >= *v3)
-  {
-    *v3 = v2 + 1;
-  }
-
-  return result;
-}
-
-void OUTLINED_FUNCTION_6(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
-{
-
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
-}
-
-uint64_t *OUTLINED_FUNCTION_9@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
-}
-
-void OUTLINED_FUNCTION_10(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
-{
-
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x12u);
-}
-
-void ktrace_catalog_internal::IterateProcesses(uint64_t a1, unsigned int **a2, unsigned int **a3, uint64_t a4)
-{
-  for (i = *a2; i != *a3; *a2 = i)
-  {
-    if (!(*(a4 + 16))(a4, i + *i))
-    {
-      break;
-    }
-
-    i = *a2 + 1;
-  }
-}
-
-void ktrace_catalog_internal::IterateThreads(uint64_t a1, unsigned int **a2, unsigned int **a3, uint64_t a4)
-{
-  for (i = *a2; i != *a3; *a2 = i)
-  {
-    if (!(*(a4 + 16))(a4, i + *i))
-    {
-      break;
-    }
-
-    i = *a2 + 1;
-  }
-}
-
-void *ktrace_catalog_internal::IterateLostEvents(void *result, uint64_t a2)
-{
-  v2 = *(*result - **result + 10);
-  v3 = (*result + v2);
-  v4 = *v3;
-  v5 = *(v3 + v4);
-  if (v5)
-  {
-    v7 = 4 * v5 - 4;
-    v8 = v4 + v2 + *result + 4;
-    v9 = v8;
-    do
-    {
-      v10 = *v9++;
-      result = (*(a2 + 16))(a2, v8 + v10);
-      if (result)
-      {
-        v11 = v7 == 0;
-      }
-
-      else
-      {
-        v11 = 1;
-      }
-
-      v7 -= 4;
-      v8 = v9;
-    }
-
-    while (!v11);
-  }
-
-  return result;
-}
-
-char **ktrace_catalog_internal::IterateProcesses(char **result, uint64_t a2)
-{
-  v3 = *result;
-  v4 = **result;
-  v5 = *&(*result)[-v4 + 6];
-  if (*&(*result)[-v4 + 6])
-  {
-    v4 = *&v3[v5];
-    v6 = &v3[v5 + v4];
-  }
-
-  else
-  {
-    v5 = 0;
-    v6 = 0;
-    v4 = v4;
-  }
-
-  v7 = &v3[4 * *&v3[v5 + v4] + v5 + v4];
-  if (v6 != v7)
-  {
-    v8 = v6 + 4;
-    v9 = (v7 + 4);
-    v10 = (v6 + 4);
-    do
-    {
-      v11 = *v10++;
-      result = (*(a2 + 16))(a2, &v8[v11]);
-      if (result)
-      {
-        v12 = v10 == v9;
-      }
-
-      else
-      {
-        v12 = 1;
-      }
-
-      v8 = v10;
-    }
-
-    while (!v12);
-  }
-
-  return result;
-}
-
-char **ktrace_catalog_internal::IterateThreads(char **result, uint64_t a2)
-{
-  v3 = *result;
-  v4 = **result;
-  v5 = *&(*result)[-v4 + 8];
-  if (*&(*result)[-v4 + 8])
-  {
-    v4 = *&v3[v5];
-    v6 = &v3[v5 + v4];
-  }
-
-  else
-  {
-    v5 = 0;
-    v6 = 0;
-    v4 = v4;
-  }
-
-  v7 = &v3[4 * *&v3[v5 + v4] + v5 + v4];
-  if (v6 != v7)
-  {
-    v8 = v6 + 4;
-    v9 = (v7 + 4);
-    v10 = (v6 + 4);
-    do
-    {
-      v11 = *v10++;
-      result = (*(a2 + 16))(a2, &v8[v11]);
-      if (result)
-      {
-        v12 = v10 == v9;
-      }
-
-      else
-      {
-        v12 = 1;
-      }
-
-      v8 = v10;
-    }
-
-    while (!v12);
-  }
-
-  return result;
-}
-
-uint64_t ktrace_catalog_internal::GetProcessFromTid(ktrace_catalog_internal *this, unint64_t a2)
-{
-  v20[0] = a2;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2000000000;
-  v20[2] = v20;
-  v19 = std::__hash_table<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 1, v20)[3];
-  v3 = v17[3];
-  if (!v3)
-  {
-    v4 = *(this + 6);
-    v5 = (*this + *(*this - **this + 6));
-    v6 = &v5[*(v5 + *v5) + 1] + *v5;
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 0x40000000;
-    v11 = ___ZN23ktrace_catalog_internal17GetProcessFromTidEy_block_invoke;
-    v12 = &unk_27886E2E8;
-    v14 = this;
-    v15 = v20[0];
-    v13 = &v16;
-    if (v4 == v6)
-    {
-      v3 = 0;
-    }
-
-    else
-    {
-      do
-      {
-        v7 = v11(v10, (v4 + *v4));
-        if (++v4 == v6)
-        {
-          v8 = 0;
-        }
-
-        else
-        {
-          v8 = v7;
-        }
-      }
-
-      while ((v8 & 1) != 0);
-      v3 = v17[3];
-    }
-  }
-
-  _Block_object_dispose(&v16, 8);
-  return v3;
-}
-
-void sub_22EDA69AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
-{
-  va_start(va, a8);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t ___ZN23ktrace_catalog_internal17GetProcessFromTidEy_block_invoke(void *a1, int *a2)
-{
-  v2 = *(a2 - *a2 + 10);
-  v3 = *(a2 + v2);
-  v4 = *(a2 + v2 + v3);
-  if (!v4)
-  {
-    return 1;
-  }
-
-  v7 = a1[5];
-  v8 = 4 * v4;
-  for (i = v2 + v3; ; i += 4)
-  {
-    v10 = *(a2 + i + 4);
-    v11 = a2 + i + v10;
-    v12 = a2 + i + v10 - *(v11 + 1);
-    if (*(v12 + 2) < 5u)
-    {
-      v13 = 0;
-    }
-
-    else
-    {
-      v13 = *(v12 + 4);
-      if (v13)
-      {
-        v13 = *(a2 + i + v10 + v13 + 4);
-      }
-    }
-
-    v17[0] = v13;
-    v17[1] = a2;
-    std::__hash_table<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,KernelTraceCatalog::Process const*>>((v7 + 8), v17);
-    v14 = v10 - *(v11 + 1);
-    if (*(a2 + i + v14 + 4) < 5u)
-    {
-      v15 = 0;
-    }
-
-    else
-    {
-      v15 = *(a2 + i + v14 + 8);
-      if (v15)
-      {
-        v15 = *(a2 + i + v10 + v15 + 4);
-      }
-    }
-
-    if (v15 == a1[6])
-    {
-      break;
-    }
-
-    v8 -= 4;
-    if (!v8)
-    {
-      return 1;
-    }
-  }
-
-  result = 0;
-  *(*(a1[4] + 8) + 24) = a2;
-  return result;
-}
-
 unsigned int *ktrace_catalog_internal::GetThreadFromTid(ktrace_catalog_internal *this, uint64_t a2)
 {
   v2 = (*this + *(*this - **this + 8));
@@ -538,7 +12,7 @@ unsigned int *ktrace_catalog_internal::GetThreadFromTid(ktrace_catalog_internal 
   return result;
 }
 
-char *ktrace_catalog_internal::GetProcessFromUniqueID(ktrace_catalog_internal *this, unint64_t *a2)
+char *ktrace_catalog_internal::GetProcessFromUniqueID(ktrace_catalog_internal *this, uint64_t *a2)
 {
   v3 = (*this + *(*this - **this + 6));
   v4 = (v3 + *v3);
@@ -576,7 +50,7 @@ char *ktrace_catalog_internal::GetProcessFromUniqueID(ktrace_catalog_internal *t
 
       v20 = v18;
       __key = &v20;
-      std::__hash_table<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 1, &v20)[3] = v7;
+      std::__hash_table<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 1, &v20, &std::piecewise_construct, &__key)[3] = v7;
       v12 += 4;
     }
 
@@ -586,66 +60,66 @@ char *ktrace_catalog_internal::GetProcessFromUniqueID(ktrace_catalog_internal *t
   return v7;
 }
 
-uint64_t ktrace_catalog_open(uint64_t a1)
+void *ktrace_catalog_open(uint64_t a1)
 {
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x2000000000;
-  v13 = 0;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 0x40000000;
-  v9[2] = __ktrace_catalog_open_block_invoke;
-  v9[3] = &unk_27886E310;
-  v9[4] = &v10;
-  v1 = ktrace_file_iterate(a1, 0, v9);
-  if (v1)
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2000000000;
+  v14 = 0;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 0x40000000;
+  v10[2] = __ktrace_catalog_open_block_invoke;
+  v10[3] = &unk_27886E310;
+  v10[4] = &v11;
+  v2 = ktrace_file_iterate(a1, 0, v10);
+  if (v2)
   {
-    *__error() = v1;
+    *__error() = v2;
     goto LABEL_10;
   }
 
-  v2 = v11[3];
-  if (!v2)
+  v3 = v12[3];
+  if (!v3)
   {
-    v6 = __error();
-    v7 = 45;
+    v7 = __error();
+    v8 = 45;
 LABEL_9:
-    *v6 = v7;
+    *v7 = v8;
     goto LABEL_10;
   }
 
-  v3 = ktrace_chunk_size_t(v2);
-  v4 = malloc_type_malloc(v3, 0x37B99EFAuLL);
-  if (!v4)
+  v4 = ktrace_chunk_size_t(v3, v1);
+  v5 = malloc_type_malloc(v4, 0x37B99EFAuLL);
+  if (!v5)
   {
-    v6 = __error();
-    v7 = 12;
+    v7 = __error();
+    v8 = 12;
     goto LABEL_9;
   }
 
-  v5 = ktrace_chunk_copy_data(v11[3], 0, v4, v3);
-  if (!v5)
+  v6 = ktrace_chunk_copy_data(v12[3], 0, v5, v4);
+  if (!v6)
   {
     operator new();
   }
 
-  free(v4);
-  *__error() = v5;
+  free(v5);
+  *__error() = v6;
 LABEL_10:
-  _Block_object_dispose(&v10, 8);
+  _Block_object_dispose(&v11, 8);
   return 0;
 }
 
-void sub_22EDA6E90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22EDA6E90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t __ktrace_catalog_open_block_invoke(uint64_t a1, uint64_t a2)
 {
-  if (ktrace_chunk_tag(a2) != 32788 || ktrace_chunk_version_major(a2) > 1)
+  if (ktrace_chunk_tag(a2, a2) != 32788 || ktrace_chunk_version_major(a2) > 1)
   {
     return 1;
   }
@@ -966,7 +440,7 @@ void sub_22EDA7424(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t ktrace_catalog_postprocess_file(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t ktrace_catalog_postprocess_file(_WORD *a1, uint64_t a2, _WORD **a3)
 {
   v10[0] = 0;
   v10[1] = v10;
@@ -1017,7 +491,7 @@ uint64_t ktrace_catalog_postprocess_file(uint64_t a1, uint64_t a2, uint64_t *a3)
   return 0;
 }
 
-void sub_22EDA7684(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28)
+void sub_22EDA7684(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28)
 {
   _Block_object_dispose((v28 - 96), 8);
   _Block_object_dispose(&a22, 8);
@@ -1205,20 +679,20 @@ void ktrace_catalog_iterate_threads(uint64_t a1, uint64_t a2)
   _Block_object_dispose(v6, 8);
 }
 
-void sub_22EDA7A78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_22EDA7A78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va1, a10);
-  va_start(va, a10);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a17);
+  va_start(va, a17);
   v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v10 - 72), 8);
+  _Block_object_dispose((v17 - 72), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1294,7 +768,7 @@ uint64_t __ktrace_catalog_iterate_threads_block_invoke(void *a1, int *a2)
         }
       }
 
-      v14 = v16 + v20 + v18 + 4;
+      v14 = (v16 + v20 + v18 + 4);
     }
 
     else
@@ -1321,7 +795,7 @@ LABEL_15:
 
   if (*(a2 + v11))
   {
-    v14 = *(*v13 + 8) + 40;
+    v14 = (*(*v13 + 8) + 40);
     v23 = 48;
     goto LABEL_21;
   }
@@ -1333,7 +807,6 @@ LABEL_20:
 LABEL_21:
   *(*(*v12 + 8) + v23) = v14;
   v24 = *(a1[4] + 16);
-  v25 = *(a1[6] + 8) + 40;
 
   return v24();
 }
@@ -1365,11 +838,11 @@ void ktrace_catalog_iterate_processes(uint64_t a1, uint64_t a2)
   _Block_object_dispose(v6, 8);
 }
 
-void sub_22EDA7DA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22EDA7DA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 72), 8);
+  _Block_object_dispose((v16 - 72), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1497,9 +970,9 @@ void ktrace_catalog_iterate_lostevents(uint64_t a1, uint64_t a2)
   _Block_object_dispose(v16, 8);
 }
 
-void sub_22EDA804C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22EDA804C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1608,7 +1081,6 @@ void flatbuffers::vector_downward::~vector_downward(flatbuffers::vector_downward
     v3 = *this;
     if (*this)
     {
-      v4 = *(this + 4);
       (*(*v3 + 24))(v3);
     }
 
@@ -1675,11 +1147,11 @@ void *__Block_byref_object_copy__24(void *result, void *a2)
   return result;
 }
 
-void ___ZL30ktrace_catalog_read_thread_mapP6kthmapRN11flatbuffers17FlatBufferBuilderERNSt3__16vectorINS1_6OffsetIN18KernelTraceCatalog7ProcessEEENS4_9allocatorIS9_EEEERNS5_INS6_INS7_6ThreadEEENSA_ISF_EEEE_block_invoke(uint64_t a1, unsigned int a2, uint64_t a3, const void *a4)
+void ___ZL30ktrace_catalog_read_thread_mapP6kthmapRN11flatbuffers17FlatBufferBuilderERNSt3__16vectorINS1_6OffsetIN18KernelTraceCatalog7ProcessEEENS4_9allocatorIS9_EEEERNS5_INS6_INS7_6ThreadEEENSA_ISF_EEEE_block_invoke(void *a1, unsigned int a2, uint64_t a3, const void *a4)
 {
-  v8 = kthmap_thread_name_for_tid(*(a1 + 40), a4);
-  is_main_thread = kthmap_tid_is_main_thread(*(a1 + 40), a4);
-  v10 = *(a1 + 48);
+  v8 = kthmap_thread_name_for_tid(a1[5], a4);
+  is_main_thread = kthmap_tid_is_main_thread(a1[5], a4);
+  v10 = a1[6];
   if (v8)
   {
     v11 = strlen(v8);
@@ -1694,16 +1166,16 @@ void ___ZL30ktrace_catalog_read_thread_mapP6kthmapRN11flatbuffers17FlatBufferBui
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::String>(v10, 6, v8);
   flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(v10, 8, is_main_thread, 0);
   v17 = flatbuffers::FlatBufferBuilder::EndTable(v10, v13 + v12);
-  std::vector<flatbuffers::Offset<KernelTraceCatalog::Thread>>::push_back[abi:ne200100](*(a1 + 56), &v17);
-  v14 = *(*(a1 + 32) + 8);
+  std::vector<flatbuffers::Offset<KernelTraceCatalog::Thread>>::push_back[abi:ne200100](a1[7], &v17);
+  v14 = *(a1[4] + 8);
   v16[0] = a2;
   v16[1] = a3;
   v18 = v16;
-  v15 = std::__tree<std::__value_type<std::pair<int,unsigned long long>,std::vector<flatbuffers::Offset<KernelTraceCatalog::Thread>>>,std::__map_value_compare<std::pair<int,unsigned long long>,std::__value_type<std::pair<int,unsigned long long>,std::vector<flatbuffers::Offset<KernelTraceCatalog::Thread>>>,std::less<std::pair<int,unsigned long long>>,true>,std::allocator<std::__value_type<std::pair<int,unsigned long long>,std::vector<flatbuffers::Offset<KernelTraceCatalog::Thread>>>>>::__emplace_unique_key_args<std::pair<int,unsigned long long>,std::piecewise_construct_t const&,std::tuple<std::pair<int,unsigned long long>&&>,std::tuple<>>(v14 + 40, v16);
+  v15 = std::__tree<std::__value_type<std::pair<int,unsigned long long>,std::vector<flatbuffers::Offset<KernelTraceCatalog::Thread>>>,std::__map_value_compare<std::pair<int,unsigned long long>,std::__value_type<std::pair<int,unsigned long long>,std::vector<flatbuffers::Offset<KernelTraceCatalog::Thread>>>,std::less<std::pair<int,unsigned long long>>,true>,std::allocator<std::__value_type<std::pair<int,unsigned long long>,std::vector<flatbuffers::Offset<KernelTraceCatalog::Thread>>>>>::__emplace_unique_key_args<std::pair<int,unsigned long long>,std::piecewise_construct_t const&,std::tuple<std::pair<int,unsigned long long>&&>,std::tuple<>>(v14 + 40, v16, &std::piecewise_construct, &v18);
   std::vector<flatbuffers::Offset<KernelTraceCatalog::Thread>>::push_back[abi:ne200100]((v15 + 48), &v17);
 }
 
-void std::vector<flatbuffers::Offset<KernelTraceCatalog::Thread>>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<flatbuffers::Offset<KernelTraceCatalog::Thread>>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -2009,10 +1481,10 @@ uint64_t flatbuffers::FlatBufferBuilder::ReferTo(flatbuffers::FlatBufferBuilder 
     flatbuffers::FlatBufferBuilder::ReferTo();
   }
 
-  return v6 + 4;
+  return (v6 + 4);
 }
 
-unint64_t flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(unint64_t result, uint64_t a2, int a3, int a4)
+unint64_t flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(unint64_t result, uint64_t a2, uint64_t a3, int a4)
 {
   v5 = result;
   if (a3 != a4 || *(result + 80) == 1)
@@ -2192,15 +1664,15 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   __cxa_throw(v1, MEMORY[0x277D82778], MEMORY[0x277D82620]);
 }
 
-uint64_t std::__tree<std::__value_type<std::pair<int,unsigned long long>,std::vector<flatbuffers::Offset<KernelTraceCatalog::Thread>>>,std::__map_value_compare<std::pair<int,unsigned long long>,std::__value_type<std::pair<int,unsigned long long>,std::vector<flatbuffers::Offset<KernelTraceCatalog::Thread>>>,std::less<std::pair<int,unsigned long long>>,true>,std::allocator<std::__value_type<std::pair<int,unsigned long long>,std::vector<flatbuffers::Offset<KernelTraceCatalog::Thread>>>>>::__emplace_unique_key_args<std::pair<int,unsigned long long>,std::piecewise_construct_t const&,std::tuple<std::pair<int,unsigned long long>&&>,std::tuple<>>(uint64_t a1, int *a2)
+uint64_t std::__tree<std::__value_type<std::pair<int,unsigned long long>,std::vector<flatbuffers::Offset<KernelTraceCatalog::Thread>>>,std::__map_value_compare<std::pair<int,unsigned long long>,std::__value_type<std::pair<int,unsigned long long>,std::vector<flatbuffers::Offset<KernelTraceCatalog::Thread>>>,std::less<std::pair<int,unsigned long long>>,true>,std::allocator<std::__value_type<std::pair<int,unsigned long long>,std::vector<flatbuffers::Offset<KernelTraceCatalog::Thread>>>>>::__emplace_unique_key_args<std::pair<int,unsigned long long>,std::piecewise_construct_t const&,std::tuple<std::pair<int,unsigned long long>&&>,std::tuple<>>(uint64_t a1, int *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::pair<int,unsigned long long>,std::vector<flatbuffers::Offset<KernelTraceCatalog::Thread>>>,std::__map_value_compare<std::pair<int,unsigned long long>,std::__value_type<std::pair<int,unsigned long long>,std::vector<flatbuffers::Offset<KernelTraceCatalog::Thread>>>,std::less<std::pair<int,unsigned long long>>,true>,std::allocator<std::__value_type<std::pair<int,unsigned long long>,std::vector<flatbuffers::Offset<KernelTraceCatalog::Thread>>>>>::__find_equal<std::pair<int,unsigned long long>>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::pair<int,unsigned long long>,std::vector<flatbuffers::Offset<KernelTraceCatalog::Thread>>>,std::__map_value_compare<std::pair<int,unsigned long long>,std::__value_type<std::pair<int,unsigned long long>,std::vector<flatbuffers::Offset<KernelTraceCatalog::Thread>>>,std::less<std::pair<int,unsigned long long>>,true>,std::allocator<std::__value_type<std::pair<int,unsigned long long>,std::vector<flatbuffers::Offset<KernelTraceCatalog::Thread>>>>>::__find_equal<std::pair<int,unsigned long long>>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 void *std::__tree<std::__value_type<std::pair<int,unsigned long long>,std::vector<flatbuffers::Offset<KernelTraceCatalog::Thread>>>,std::__map_value_compare<std::pair<int,unsigned long long>,std::__value_type<std::pair<int,unsigned long long>,std::vector<flatbuffers::Offset<KernelTraceCatalog::Thread>>>,std::less<std::pair<int,unsigned long long>>,true>,std::allocator<std::__value_type<std::pair<int,unsigned long long>,std::vector<flatbuffers::Offset<KernelTraceCatalog::Thread>>>>>::__find_equal<std::pair<int,unsigned long long>>(uint64_t a1, void *a2, int *a3)
@@ -2261,7 +1733,7 @@ LABEL_12:
   return result;
 }
 
-uint64_t *std::__tree<std::__value_type<std::pair<int,unsigned long long>,std::vector<flatbuffers::Offset<KernelTraceCatalog::Thread>>>,std::__map_value_compare<std::pair<int,unsigned long long>,std::__value_type<std::pair<int,unsigned long long>,std::vector<flatbuffers::Offset<KernelTraceCatalog::Thread>>>,std::less<std::pair<int,unsigned long long>>,true>,std::allocator<std::__value_type<std::pair<int,unsigned long long>,std::vector<flatbuffers::Offset<KernelTraceCatalog::Thread>>>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<std::pair<int,unsigned long long>,std::vector<flatbuffers::Offset<KernelTraceCatalog::Thread>>>,std::__map_value_compare<std::pair<int,unsigned long long>,std::__value_type<std::pair<int,unsigned long long>,std::vector<flatbuffers::Offset<KernelTraceCatalog::Thread>>>,std::less<std::pair<int,unsigned long long>>,true>,std::allocator<std::__value_type<std::pair<int,unsigned long long>,std::vector<flatbuffers::Offset<KernelTraceCatalog::Thread>>>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -2287,12 +1759,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -2306,22 +1778,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -2355,13 +1827,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -2403,7 +1875,7 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
   return result;
 }
 
-uint64_t flatbuffers::FlatBufferBuilder::CreateVectorOfSortedTables<KernelTraceCatalog::Thread>(flatbuffers::FlatBufferBuilder *a1, int32x2_t *a2, unint64_t a3)
+uint64_t flatbuffers::FlatBufferBuilder::CreateVectorOfSortedTables<KernelTraceCatalog::Thread>(flatbuffers::FlatBufferBuilder *a1, uint64_t a2, unint64_t a3)
 {
   v6 = (a2 + 4 * a3);
   v10 = a1;
@@ -2443,7 +1915,7 @@ uint64_t flatbuffers::FlatBufferBuilder::CreateVector<KernelTraceCatalog::Thread
   return flatbuffers::FlatBufferBuilder::EndVector(a1, a3);
 }
 
-int32x2_t *std::__introsort<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilder::TableKeyComparator<KernelTraceCatalog::Thread> &,flatbuffers::Offset<KernelTraceCatalog::Thread> *,false>(int32x2_t *result, int32x2_t *a2, uint64_t a3, uint64_t a4, char a5)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilder::TableKeyComparator<KernelTraceCatalog::Thread> &,flatbuffers::Offset<KernelTraceCatalog::Thread> *,false>(uint64_t result, int32x2_t *a2, uint64_t a3, uint64_t a4, char a5)
 {
   v8 = result;
 LABEL_2:
@@ -2620,7 +2092,7 @@ LABEL_23:
   return std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilder::TableKeyComparator<KernelTraceCatalog::Thread> &,flatbuffers::Offset<KernelTraceCatalog::Thread> *,0>(v9, v9 + 1, &a2[-1] + 1, a3);
 }
 
-BOOL std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilder::TableKeyComparator<KernelTraceCatalog::Thread> &,flatbuffers::Offset<KernelTraceCatalog::Thread> *,0>(int *a1, int *a2, int *a3, uint64_t a4)
+BOOL std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilder::TableKeyComparator<KernelTraceCatalog::Thread> &,flatbuffers::Offset<KernelTraceCatalog::Thread> *,0>(unsigned int *a1, unsigned int *a2, unsigned int *a3, uint64_t a4)
 {
   v8 = *(*a4 + 40) + *(*a4 + 32);
   v9 = KernelTraceCatalog::Thread::KeyCompareLessThan((v8 - *a2), (v8 - *a1));
@@ -2671,7 +2143,7 @@ BOOL std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBu
   return 1;
 }
 
-BOOL std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilder::TableKeyComparator<KernelTraceCatalog::Thread> &,flatbuffers::Offset<KernelTraceCatalog::Thread> *,0>(int *a1, int *a2, int *a3, int *a4, int *a5, uint64_t a6)
+BOOL std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilder::TableKeyComparator<KernelTraceCatalog::Thread> &,flatbuffers::Offset<KernelTraceCatalog::Thread> *,0>(unsigned int *a1, unsigned int *a2, unsigned int *a3, unsigned int *a4, unsigned int *a5, uint64_t a6)
 {
   std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilder::TableKeyComparator<KernelTraceCatalog::Thread> &,flatbuffers::Offset<KernelTraceCatalog::Thread> *,0>(a1, a2, a3, a6);
   v12 = *(*a6 + 40) + *(*a6 + 32);
@@ -2732,13 +2204,13 @@ BOOL std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBu
   return result;
 }
 
-unsigned int *std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilder::TableKeyComparator<KernelTraceCatalog::Thread> &,flatbuffers::Offset<KernelTraceCatalog::Thread> *>(unsigned int *result, unsigned int *a2, uint64_t a3)
+BOOL std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilder::TableKeyComparator<KernelTraceCatalog::Thread> &,flatbuffers::Offset<KernelTraceCatalog::Thread> *>(_BOOL8 result, unsigned int *a2, uint64_t a3)
 {
   if (result != a2)
   {
     v4 = result;
-    v5 = result + 1;
-    if (result + 1 != a2)
+    v5 = (result + 4);
+    if ((result + 4) != a2)
     {
       v7 = 0;
       v8 = result;
@@ -2764,7 +2236,7 @@ unsigned int *std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,flatbuf
             v14 = *(*a3 + 40) + *(*a3 + 32);
             result = KernelTraceCatalog::Thread::KeyCompareLessThan((v14 - v12), (v14 - *(v4 + v13 - 4)));
             v13 -= 4;
-            if ((result & 1) == 0)
+            if (!result)
             {
               v15 = (v4 + v13 + 4);
               goto LABEL_10;
@@ -2787,12 +2259,12 @@ LABEL_10:
   return result;
 }
 
-unsigned int *std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilder::TableKeyComparator<KernelTraceCatalog::Thread> &,flatbuffers::Offset<KernelTraceCatalog::Thread> *>(unsigned int *result, unsigned int *a2, uint64_t a3)
+BOOL std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilder::TableKeyComparator<KernelTraceCatalog::Thread> &,flatbuffers::Offset<KernelTraceCatalog::Thread> *>(_BOOL8 result, unsigned int *a2, uint64_t a3)
 {
   if (result != a2)
   {
     v4 = result;
-    for (i = result + 1; v4 + 1 != a2; i = v4 + 1)
+    for (i = (result + 4); v4 + 1 != a2; i = v4 + 1)
     {
       v8 = *v4;
       v7 = v4[1];
@@ -2812,7 +2284,7 @@ unsigned int *std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPoli
           result = KernelTraceCatalog::Thread::KeyCompareLessThan((v14 - v10), (v14 - *(v12 - 2)));
         }
 
-        while ((result & 1) != 0);
+        while (result);
         *v11 = v10;
       }
     }
@@ -2899,7 +2371,7 @@ unsigned int *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAl
   return v8;
 }
 
-int *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::Offset<KernelTraceCatalog::Thread> *,flatbuffers::FlatBufferBuilder::TableKeyComparator<KernelTraceCatalog::Thread> &>(int *a1, int *a2, uint64_t a3)
+int *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::Offset<KernelTraceCatalog::Thread> *,flatbuffers::FlatBufferBuilder::TableKeyComparator<KernelTraceCatalog::Thread> &>(unsigned int *a1, int *a2, uint64_t a3)
 {
   v6 = 0;
   v7 = *a1;
@@ -3355,7 +2827,7 @@ unint64_t flatbuffers::FlatBufferBuilder::StartVector(flatbuffers::FlatBufferBui
   return flatbuffers::FlatBufferBuilder::PreAlign(this, v6, a3);
 }
 
-uint64_t flatbuffers::FlatBufferBuilder::EndVector(flatbuffers::FlatBufferBuilder *this, int a2)
+uint64_t flatbuffers::FlatBufferBuilder::EndVector(flatbuffers::FlatBufferBuilder *this, uint64_t a2)
 {
   if ((*(this + 70) & 1) == 0)
   {
@@ -3441,7 +2913,7 @@ void std::__tree<flatbuffers::Offset<flatbuffers::String>,flatbuffers::FlatBuffe
 
 BOOL ___ZL36ktrace_catalog_file_contains_catalogP11ktrace_file_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = ktrace_chunk_tag(a2);
+  v3 = ktrace_chunk_tag(a2, a2);
   if (v3 == 32788)
   {
     *(*(*(a1 + 32) + 8) + 24) = 1;
@@ -3450,33 +2922,33 @@ BOOL ___ZL36ktrace_catalog_file_contains_catalogP11ktrace_file_block_invoke(uint
   return v3 != 32788;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -3484,73 +2956,73 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,KernelTraceCatalog::Process const*>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,KernelTraceCatalog::Process const*>>(void *a1, unint64_t *a2, void *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v6 = *a2;
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -3558,44 +3030,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v8[2] != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
 uint64_t flatbuffers::Vector<flatbuffers::Offset<KernelTraceCatalog::Thread>>::KeyCompare<unsigned long long>(unint64_t *a1, unsigned int *a2)
@@ -3780,14 +3252,14 @@ uint64_t ktrace_set_ktrace_file(uint64_t a1, uint64_t a2, int a3)
   return 0;
 }
 
-uint64_t ktrace_chunks_range(uint64_t a1, int a2, int a3, const void *a4)
+uint64_t ktrace_chunks_range(_WORD *a1, int a2, int a3, const void *a4)
 {
   if (!a1)
   {
     ktrace_postprocess_file_internal_cold_4();
   }
 
-  v7 = ktrace_callback_list_add(a1, a1 + 112);
+  v7 = ktrace_callback_list_add(a1, (a1 + 56));
   if (!v7)
   {
     return 12;
@@ -3804,7 +3276,7 @@ uint64_t ktrace_chunks_range(uint64_t a1, int a2, int a3, const void *a4)
   return result;
 }
 
-uint64_t _session_start_file(uint64_t a1, int a2)
+uint64_t _session_start_file(uint64_t a1, uint64_t a2)
 {
   v35 = 0;
   v36 = &v35;
@@ -3837,6 +3309,7 @@ uint64_t _session_start_file(uint64_t a1, int a2)
     ktrace_postprocess_file_internal_cold_4();
   }
 
+  v4 = a2;
   v19 = 0;
   v20 = &v19;
   v21 = 0x2000000000;
@@ -3916,7 +3389,7 @@ uint64_t _session_start_file(uint64_t a1, int a2)
       {
         v13 = 1;
 LABEL_26:
-        started = ktrace_start_file_internal(a1, v13, a2);
+        started = ktrace_start_file_internal(a1, v13, v4);
 LABEL_27:
         v5 = started;
         goto LABEL_6;
@@ -3943,25 +3416,25 @@ LABEL_6:
 
 uint64_t ___session_start_file_block_invoke(void *a1, uint64_t *a2)
 {
-  v4 = ktrace_config_create(a2);
+  v4 = ktrace_config_create(a2, a2);
   if (v4)
   {
-    v5 = v4;
+    v6 = v4;
     *(*(a1[4] + 8) + 24) = ktrace_config_kdebug_using_mach_continuous_time(v4);
-    *(*(a1[5] + 8) + 24) = ktrace_config_get_context_kind(v5) == 2;
-    ktrace_config_destroy(v5);
+    *(*(a1[5] + 8) + 24) = ktrace_config_get_context_kind(v6) == 2;
+    ktrace_config_destroy(v6);
   }
 
-  v6 = ktrace_chunk_tag(a2);
-  if (v6 <= 7935)
+  v7 = ktrace_chunk_tag(a2, v5);
+  if (v7 <= 7935)
   {
-    if (v6 == 7424)
+    if (v7 == 7424)
     {
-      v7 = a1[7];
+      v8 = a1[7];
       goto LABEL_19;
     }
 
-    if (v6 != 7680)
+    if (v7 != 7680)
     {
       return 1;
     }
@@ -3972,27 +3445,27 @@ LABEL_12:
       *(*(a1[9] + 8) + 24) = 1;
     }
 
-    v7 = a1[8];
+    v8 = a1[8];
     goto LABEL_19;
   }
 
-  switch(v6)
+  switch(v7)
   {
     case 7936:
       *(a1[11] + 224) |= 0x40u;
       goto LABEL_12;
     case 32782:
-      v8 = a1[11];
-      if (*(v8 + 288))
+      v9 = a1[11];
+      if (*(v9 + 288))
       {
-        *(*(a1[10] + 8) + 24) = ktrace_chunk_copy_data(a2, 0, (v8 + 528), 0x18uLL);
+        *(*(a1[10] + 8) + 24) = ktrace_chunk_copy_data(a2, 0, (v9 + 528), 0x18uLL);
       }
 
       break;
     case 20982:
-      v7 = a1[6];
+      v8 = a1[6];
 LABEL_19:
-      *(*(v7 + 8) + 24) = 1;
+      *(*(v8 + 8) + 24) = 1;
       break;
   }
 
@@ -4040,9 +3513,10 @@ void ktrace_start_file_prepass(uint64_t a1)
   dispatch_async(v4, v5);
 }
 
-uint64_t ktrace_start_file_internal(uint64_t a1, char a2, int a3)
+uint64_t ktrace_start_file_internal(uint64_t a1, uint64_t a2, int a3)
 {
-  is_64_bit = ktrace_file_is_64_bit(*(a1 + 608));
+  v4 = a2;
+  is_64_bit = ktrace_file_is_64_bit(*(a1 + 608), a2);
   v7 = *(a1 + 24);
   if (v7)
   {
@@ -4051,7 +3525,7 @@ uint64_t ktrace_start_file_internal(uint64_t a1, char a2, int a3)
 
   else
   {
-    a2 = 0;
+    v4 = 0;
     v8 = 1;
   }
 
@@ -4083,7 +3557,7 @@ uint64_t ktrace_start_file_internal(uint64_t a1, char a2, int a3)
   v13[2] = __ktrace_start_file_internal_block_invoke_9;
   v13[3] = &__block_descriptor_tmp_35;
   v13[4] = a1;
-  v14 = a2;
+  v14 = v4;
   v15 = is_64_bit;
   dispatch_async(v11, v13);
   return 0;
@@ -4133,7 +3607,7 @@ void __ktrace_start_file_prepass_block_invoke_2(uint64_t a1)
 
 uint64_t __ktrace_start_file_prepass_block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  v4 = ktrace_chunk_tag(a2);
+  v4 = ktrace_chunk_tag(a2, a2);
   if (v4 == 20990)
   {
     goto LABEL_7;
@@ -4195,7 +3669,7 @@ BOOL __ktrace_start_file_internal_block_invoke_2(uint64_t a1, uint64_t a2)
     return (v2 & 1) == 0;
   }
 
-  v5 = ktrace_chunk_tag(a2);
+  v5 = ktrace_chunk_tag(a2, a2);
   if (v5 > 32772)
   {
     if (v5 <= 32799)
@@ -4319,7 +3793,7 @@ LABEL_15:
   return (v2 & 1) == 0;
 }
 
-uint64_t __ktrace_start_file_internal_block_invoke_3(uint64_t a1)
+ktrace_uuid_map *__ktrace_start_file_internal_block_invoke_3(uint64_t a1)
 {
   _session_ensure_uuidmap(*(a1 + 32));
   v2 = *(a1 + 40);
@@ -4364,13 +3838,11 @@ void __ktrace_start_file_internal_block_invoke_7(uint64_t a1)
   ktrace_uuid_map_learn_process_info_with_chunk(v3, v2);
 }
 
-uint64_t __ktrace_start_file_internal_block_invoke_8(uint64_t a1)
+void __ktrace_start_file_internal_block_invoke_8(uint64_t a1)
 {
   _session_ensure_uuidmap(*(a1 + 32));
-  v2 = *(a1 + 40);
-  v3 = *(*(a1 + 32) + 304);
 
-  return ktrace_uuid_map_learn_aot_translations_with_chunk(v3, v2);
+  ktrace_uuid_map_learn_aot_translations_with_chunk();
 }
 
 void __ktrace_start_file_internal_block_invoke_13(uint64_t a1)
@@ -4418,7 +3890,7 @@ void *trace_set_thread_exit_handler(void *aBlock)
   return ktrace_set_thread_exit_handler(v2, aBlock);
 }
 
-uint64_t trace_set_walltime_enabled(int a1)
+uint64_t trace_set_walltime_enabled(uint64_t a1)
 {
   if (allocated_once != -1)
   {
@@ -4442,16 +3914,16 @@ uint64_t trace_set_raw_file(const char *a1)
   return ktrace_set_file(v2, a1);
 }
 
-uint64_t trace_set_use_existing()
+uint64_t trace_set_use_existing(uint64_t a1)
 {
   if (allocated_once != -1)
   {
     trace_set_dropped_events_handler_cold_1();
   }
 
-  v1 = global_session;
+  v2 = global_session;
 
-  return ktrace_set_use_existing(v1);
+  return ktrace_set_use_existing(v2);
 }
 
 uint64_t trace_filter(const char *a1, const void *a2)
@@ -4478,8 +3950,9 @@ uint64_t trace_exclude_process(const char *a1)
   return ktrace_exclude_process(v2, a1);
 }
 
-uint64_t trace_exclude_pid(int a1)
+uint64_t trace_exclude_pid(uint64_t a1)
 {
+  v1 = a1;
   if (allocated_once != -1)
   {
     trace_set_dropped_events_handler_cold_1();
@@ -4487,11 +3960,12 @@ uint64_t trace_exclude_pid(int a1)
 
   v2 = global_session;
 
-  return ktrace_exclude_pid(v2, a1);
+  return ktrace_exclude_pid(v2, v1);
 }
 
-uint64_t trace_filter_pid(int a1)
+uint64_t trace_filter_pid(uint64_t a1)
 {
+  v1 = a1;
   if (allocated_once != -1)
   {
     trace_set_dropped_events_handler_cold_1();
@@ -4499,11 +3973,12 @@ uint64_t trace_filter_pid(int a1)
 
   v2 = global_session;
 
-  return ktrace_filter_pid(v2, a1);
+  return ktrace_filter_pid(v2, v1);
 }
 
-uint64_t trace_set_command_map_enabled(int a1)
+uint64_t trace_set_command_map_enabled(uint64_t a1)
 {
+  v1 = a1;
   if (allocated_once != -1)
   {
     trace_set_dropped_events_handler_cold_1();
@@ -4511,7 +3986,7 @@ uint64_t trace_set_command_map_enabled(int a1)
 
   v2 = global_session;
 
-  return ktrace_set_execnames_enabled(v2, a1);
+  return ktrace_set_execnames_enabled(v2, v1);
 }
 
 void *trace_set_completion_handler(void *aBlock)
@@ -4538,8 +4013,9 @@ uint64_t trace_all(const void *a1)
   return ktrace_events_all(v2, a1);
 }
 
-uint64_t trace_single(int a1, const void *a2)
+uint64_t trace_single(uint64_t a1, const void *a2)
 {
+  v3 = a1;
   if (allocated_once != -1)
   {
     trace_set_dropped_events_handler_cold_1();
@@ -4547,11 +4023,12 @@ uint64_t trace_single(int a1, const void *a2)
 
   v4 = global_session;
 
-  return ktrace_events_single(v4, a1, a2);
+  return ktrace_events_single(v4, v3, a2);
 }
 
-uint64_t trace_single_paired(int a1, const void *a2)
+uint64_t trace_single_paired(uint64_t a1, const void *a2)
 {
+  v3 = a1;
   if (allocated_once != -1)
   {
     trace_set_dropped_events_handler_cold_1();
@@ -4559,11 +4036,12 @@ uint64_t trace_single_paired(int a1, const void *a2)
 
   v4 = global_session;
 
-  return ktrace_events_single_paired(v4, a1, a2);
+  return ktrace_events_single_paired(v4, v3, a2);
 }
 
-uint64_t trace_range(int a1, int a2, const void *a3)
+uint64_t trace_range(uint64_t a1, int a2, const void *a3)
 {
+  v5 = a1;
   if (allocated_once != -1)
   {
     trace_set_dropped_events_handler_cold_1();
@@ -4571,11 +4049,12 @@ uint64_t trace_range(int a1, int a2, const void *a3)
 
   v6 = global_session;
 
-  return ktrace_events_range(v6, a1, a2, a3);
+  return ktrace_events_range(v6, v5, a2, a3);
 }
 
-uint64_t trace_range_paired(int a1, unsigned int a2, const void *a3)
+uint64_t trace_range_paired(uint64_t a1, unsigned int a2, const void *a3)
 {
+  v5 = a1;
   if (allocated_once != -1)
   {
     trace_set_dropped_events_handler_cold_1();
@@ -4583,7 +4062,7 @@ uint64_t trace_range_paired(int a1, unsigned int a2, const void *a3)
 
   v6 = global_session;
 
-  return ktrace_events_range_paired(v6, a1, a2, a3);
+  return ktrace_events_range_paired(v6, v5, a2, a3);
 }
 
 uint64_t trace_start(NSObject *a1)
@@ -4627,7 +4106,7 @@ uint64_t trace_set_buffer_size(uint64_t a1)
   return ktrace_set_buffer_size(v2, a1);
 }
 
-uint64_t trace_set_mode(unsigned int a1)
+uint64_t trace_set_mode(uint64_t a1)
 {
   if (allocated_once != -1)
   {
@@ -4639,20 +4118,22 @@ uint64_t trace_set_mode(unsigned int a1)
   return ktrace_set_mode(v2, a1);
 }
 
-void trace_set_signal_handler()
+void trace_set_signal_handler(uint64_t a1, uint64_t a2)
 {
   if (allocated_once != -1)
   {
     trace_set_dropped_events_handler_cold_1();
   }
 
-  v1 = global_session;
+  v3 = global_session;
 
-  ktrace_set_signal_handler(v1);
+  ktrace_set_signal_handler(v3, a2);
 }
 
-uint64_t trace_parse_arg(int a1, uint64_t a2, int a3)
+uint64_t trace_parse_arg(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
+  v5 = a1;
   if (allocated_once != -1)
   {
     trace_set_dropped_events_handler_cold_1();
@@ -4660,11 +4141,12 @@ uint64_t trace_parse_arg(int a1, uint64_t a2, int a3)
 
   v6 = global_session;
 
-  return ktrace_parse_arg(v6, a1, a2, a3);
+  return ktrace_parse_arg(v6, v5, a2, v3);
 }
 
-uint64_t trace_parse_args(int a1, char **a2)
+uint64_t trace_parse_args(uint64_t a1, char **a2)
 {
+  v3 = a1;
   if (allocated_once != -1)
   {
     trace_set_dropped_events_handler_cold_1();
@@ -4672,7 +4154,7 @@ uint64_t trace_parse_args(int a1, char **a2)
 
   v4 = global_session;
 
-  return ktrace_parse_args(v4, a1, a2);
+  return ktrace_parse_args(v4, v3, a2);
 }
 
 void *__initialize_global_session_block_invoke()
@@ -4713,54 +4195,55 @@ void populate_threadmap(uint64_t a1, int a2)
     ktrace_postprocess_file_internal_cold_4();
   }
 
-  if ((*a1 | 2) != 2)
+  v3 = *a1;
+  if ((v3 | 2) != 2)
   {
-    _session_start_live_cold_13();
+    _session_start_live_cold_13(v3);
   }
 
   if (*(a1 + 232) && *(a1 + 260))
   {
-    v6 = 0;
     v7 = 0;
+    v8 = 0;
     if (a2)
     {
-      kdebug_alloc_current_thread_map(&v7, &v6);
+      kdebug_alloc_current_thread_map(&v8, &v7);
     }
 
     else
     {
-      kdebug_alloc_thread_map(&v7, &v6);
+      kdebug_alloc_thread_map(&v8, &v7);
     }
 
-    if (v7)
+    if (v8)
     {
-      v3 = *(a1 + 232);
-      v4[0] = MEMORY[0x277D85DD0];
-      v4[1] = 3221225472;
-      v4[2] = __populate_threadmap_block_invoke;
-      v4[3] = &__block_descriptor_57_e5_v8__0l;
-      v4[4] = a1;
-      v4[5] = v7;
-      v4[6] = v6;
-      v5 = 1;
-      dispatch_async(v3, v4);
+      v4 = *(a1 + 232);
+      v5[0] = MEMORY[0x277D85DD0];
+      v5[1] = 3221225472;
+      v5[2] = __populate_threadmap_block_invoke;
+      v5[3] = &__block_descriptor_57_e5_v8__0l;
+      v5[4] = a1;
+      v5[5] = v8;
+      v5[6] = v7;
+      v6 = 1;
+      dispatch_async(v4, v5);
     }
   }
 }
 
-uint64_t ktrace_reset_existing()
+uint64_t ktrace_reset_existing(uint64_t a1, uint64_t a2)
 {
-  v1 = atomic_load(&live_session);
-  if (v1)
+  v3 = atomic_load(&live_session);
+  if (v3)
   {
-    if ((*(v1 + 224) & 2) == 0)
+    if ((*(v3 + 224) & 2) == 0)
     {
       ktrace_reset_existing_cold_1();
     }
 
-    v2 = v1;
-    atomic_compare_exchange_strong(&live_session, &v2, 0);
-    if (v2 != v1)
+    v4 = v3;
+    atomic_compare_exchange_strong(&live_session, &v4, 0);
+    if (v4 != v3)
     {
       return 22;
     }
@@ -4810,13 +4293,13 @@ void __populate_threadmap_block_invoke(uint64_t a1)
   free(v2);
 }
 
-void __drain_callbacks_block_invoke(uint64_t a1)
+void __drain_callbacks_block_invoke(void *a1)
 {
-  v2 = atomic_load((*(a1 + 32) + 157));
+  v2 = atomic_load((a1[4] + 157));
   if ((v2 & 1) == 0)
   {
-    v4 = *(a1 + 32);
-    v3 = *(a1 + 40);
+    v4 = a1[4];
+    v3 = a1[5];
     v5 = *(v4 + 720);
     if (v5)
     {
@@ -4834,13 +4317,13 @@ void __drain_callbacks_block_invoke(uint64_t a1)
       }
     }
 
-    v9 = *(a1 + 48);
+    v9 = a1[6];
     is_64_bit = current_system_is_64_bit();
     _session_process_events(v4, v9, v3, is_64_bit);
   }
 
-  trace_free(*(a1 + 48));
-  v11 = *(a1 + 32);
+  trace_free(a1[6]);
+  v11 = a1[4];
   v12 = *(v11 + 720);
   if (v12 && *(v11 + 160) == v12)
   {
@@ -4863,7 +4346,7 @@ uint64_t __drain_trailing_duration_block_invoke(void *a1)
       do
       {
         ktrace_time_ringbuffer_handle_tracepoint(*(v6 + 640), v5);
-        v5 += 64;
+        v5 += 8;
         --v4;
       }
 
@@ -4903,7 +4386,7 @@ uint64_t ktrace_exclude_process(uint64_t a1, const char *a2)
   return result;
 }
 
-uint64_t validate_filter(uint64_t a1, int a2)
+uint64_t validate_filter(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 224))
   {
@@ -5010,63 +4493,57 @@ uint64_t ktrace_ignore_process_filter_for_event(uint64_t a1, void *value)
 
 uint64_t kdebug_wait(unsigned int a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v6 = 23;
-  *v5 = 0x1800000001;
-  v4 = a1;
-  if (sysctl(v5, 3u, 0, &v4, 0, 0) < 0)
+  v6 = *MEMORY[0x277D85DE8];
+  v5 = 23;
+  *v4 = 0x1800000001;
+  v3 = a1;
+  if ((sysctl(v4, 3u, 0, &v3, 0, 0) & 0x80000000) == 0)
   {
-    v2 = *__error();
-    ktrace_log_init();
-    if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
-    {
-      kdebug_wait_cold_1();
-    }
+    return 0;
+  }
 
-    *__error() = v2;
-    if (*__error())
-    {
-      result = *__error();
-    }
+  v2 = *__error();
+  ktrace_log_init();
+  if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
+  {
+    kdebug_wait_cold_1();
+  }
 
-    else
-    {
-      result = 22;
-    }
+  *__error() = v2;
+  if (*__error())
+  {
+    return *__error();
   }
 
   else
   {
-    result = 0;
+    return 22;
   }
-
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t kdebug_read_events(void *a1, size_t *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = 10;
-  *v6 = 0x1800000001;
-  if (sysctl(v6, 3u, a1, a2, 0, 0) < 0)
+  v7 = *MEMORY[0x277D85DE8];
+  v6 = 10;
+  *v5 = 0x1800000001;
+  if (sysctl(v5, 3u, a1, a2, 0, 0) < 0)
   {
     v4 = *__error();
     ktrace_log_init();
     if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
     {
-      kdebug_read_events_cold_1(a2);
+      kdebug_read_events_cold_1();
     }
 
     *__error() = v4;
     if (*__error())
     {
-      result = *__error();
+      return *__error();
     }
 
     else
     {
-      result = 22;
+      return 22;
     }
   }
 
@@ -5076,7 +4553,6 @@ uint64_t kdebug_read_events(void *a1, size_t *a2)
     *a2 <<= 6;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5110,7 +4586,7 @@ uint64_t kdebug_get_flags()
 
 uint64_t kdebug_alloc_current_cpu_map(void *a1, size_t *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
     ktrace_postprocess_file_internal_cold_4();
@@ -5121,28 +4597,28 @@ uint64_t kdebug_alloc_current_cpu_map(void *a1, size_t *a2)
     ktrace_postprocess_file_internal_cold_4();
   }
 
-  v14 = 25;
+  v13 = 25;
   size = 0;
-  *v13 = 0x1800000001;
-  if (sysctl(v13, 3u, 0, &size, 0, 0))
+  *v12 = 0x1800000001;
+  if (sysctl(v12, 3u, 0, &size, 0, 0))
   {
     v4 = *__error();
     ktrace_log_init();
     if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
     {
-      kdebug_alloc_current_cpu_map_cold_1(&size);
+      kdebug_alloc_current_cpu_map_cold_1();
     }
 
     *__error() = v4;
     v5 = *__error();
     if (v5)
     {
-      result = v5;
+      return v5;
     }
 
     else
     {
-      result = 22;
+      return 22;
     }
   }
 
@@ -5155,7 +4631,7 @@ uint64_t kdebug_alloc_current_cpu_map(void *a1, size_t *a2)
     }
 
     v8 = v7;
-    result = sysctl(v13, 3u, v7, &size, 0, 0);
+    result = sysctl(v12, 3u, v7, &size, 0, 0);
     if (result)
     {
       v9 = *__error();
@@ -5170,12 +4646,12 @@ uint64_t kdebug_alloc_current_cpu_map(void *a1, size_t *a2)
       *__error() = v10;
       if (v9)
       {
-        result = v9;
+        return v9;
       }
 
       else
       {
-        result = 22;
+        return 22;
       }
     }
 
@@ -5186,13 +4662,12 @@ uint64_t kdebug_alloc_current_cpu_map(void *a1, size_t *a2)
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t kdebug_alloc_current_thread_map(uint64_t a1, size_t *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (!a2)
   {
     ktrace_postprocess_file_internal_cold_4();
@@ -5206,43 +4681,37 @@ uint64_t kdebug_alloc_current_thread_map(uint64_t a1, size_t *a2)
   }
 
   v4 = v3;
-  v10 = 21;
-  *v9 = 0x1800000001;
-  if (sysctl(v9, 3u, v3, a2, 0, 0) < 0)
+  v9 = 21;
+  *v8 = 0x1800000001;
+  if ((sysctl(v8, 3u, v3, a2, 0, 0) & 0x80000000) == 0)
   {
-    v6 = *__error();
-    ktrace_log_init();
-    if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
-    {
-      kdebug_alloc_current_thread_map_cold_1();
-    }
+    return 0;
+  }
 
-    *__error() = v6;
-    v7 = *__error();
-    free(v4);
-    if (v7)
-    {
-      result = v7;
-    }
+  v6 = *__error();
+  ktrace_log_init();
+  if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
+  {
+    kdebug_alloc_current_thread_map_cold_1();
+  }
 
-    else
-    {
-      result = 22;
-    }
+  *__error() = v6;
+  v7 = *__error();
+  free(v4);
+  if (v7)
+  {
+    return v7;
   }
 
   else
   {
-    result = 0;
+    return 22;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t kdebug_alloc_thread_map(void *a1, size_t *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
     ktrace_postprocess_file_internal_cold_4();
@@ -5253,52 +4722,52 @@ uint64_t kdebug_alloc_thread_map(void *a1, size_t *a2)
     ktrace_postprocess_file_internal_cold_4();
   }
 
+  v11 = 0;
   v12 = 0;
   v13 = 0;
-  v14 = 0;
-  result = kdebug_get_bufinfo(&v12);
+  result = kdebug_get_bufinfo(&v11);
   if (!result)
   {
-    if (HIDWORD(v13))
+    if (HIDWORD(v12))
     {
-      v6 = 32 * SHIDWORD(v13);
-      *a2 = v6;
-      v7 = malloc_type_malloc(v6, 0x35954BEuLL);
-      if (!v7)
+      v5 = 32 * SHIDWORD(v12);
+      *a2 = v5;
+      v6 = malloc_type_malloc(v5, 0x35954BEuLL);
+      if (!v6)
       {
         ktrace_postprocess_file_internal_cold_4();
       }
 
-      v8 = v7;
-      v16 = 12;
-      *v15 = 0x1800000001;
-      if (sysctl(v15, 3u, v7, a2, 0, 0) < 0)
+      v7 = v6;
+      v15 = 12;
+      *v14 = 0x1800000001;
+      if (sysctl(v14, 3u, v6, a2, 0, 0) < 0)
       {
-        v9 = *__error();
-        free(v8);
-        if (v9 == 22)
+        v8 = *__error();
+        free(v7);
+        if (v8 == 22)
         {
-          result = kdebug_alloc_current_thread_map(v10, a2);
+          return kdebug_alloc_current_thread_map(v9, a2);
         }
 
         else
         {
-          v11 = *__error();
+          v10 = *__error();
           ktrace_log_init();
           if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
           {
             kdebug_alloc_thread_map_cold_1();
           }
 
-          *__error() = v11;
-          if (v9)
+          *__error() = v10;
+          if (v8)
           {
-            result = v9;
+            return v8;
           }
 
           else
           {
-            result = 22;
+            return 22;
           }
         }
       }
@@ -5306,17 +4775,16 @@ uint64_t kdebug_alloc_thread_map(void *a1, size_t *a2)
       else
       {
         result = 0;
-        *a1 = v8;
+        *a1 = v7;
       }
     }
 
     else
     {
-      result = 2;
+      return 2;
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5395,7 +4863,7 @@ uint64_t ktrace_get_execnames_enabled(uint64_t a1)
   return *(a1 + 260);
 }
 
-uint64_t ktrace_get_execname_for_pid(uint64_t a1, int a2)
+uint64_t ktrace_get_execname_for_pid(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
@@ -5521,7 +4989,7 @@ uint64_t ktrace_get_thread_group_flags(uint64_t a1, const void *a2, uint64_t *a3
   return kthmap_flags_for_thread_group(v4, a2, a3);
 }
 
-uint64_t ktrace_set_dsc_unslid_base_addresses(unint64_t *a1, uint64_t a2)
+uint64_t ktrace_set_dsc_unslid_base_addresses(void *a1, uint64_t a2)
 {
   _session_ensure_uuidmap(a1);
   v4 = a1[38];
@@ -5529,13 +4997,13 @@ uint64_t ktrace_set_dsc_unslid_base_addresses(unint64_t *a1, uint64_t a2)
   return ktrace_uuid_map_set_dsc_unslid_base_addresses(v4, a2);
 }
 
-uint64_t ktrace_enable_symbolication(unint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t ktrace_enable_symbolication(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   _session_ensure_uuidmap(a1);
-  ktrace_uuid_map_learn_live_kernelmap(a1[38]);
+  ktrace_uuid_map_learn_live_kernelmap(*(a1 + 304));
   symbolicator = ktrace_get_symbolicator(a1);
-  v7 = a1[38];
-  v8 = a1[76];
+  v7 = *(a1 + 304);
+  v8 = *(a1 + 608);
 
   return ktrace_symbolicator_enable_symbolication(symbolicator, a2, a3, v7, v8);
 }
@@ -5654,92 +5122,92 @@ double ktrace_get_uuid_offset_for_thread_address@<D0>(uint64_t a1@<X0>, uint64_t
   return ktrace_get_uuid_offset_for (a1, v5, a4);
 }
 
-uint64_t ktrace_create_cssymbolicator_for_pid(uint64_t a1)
+uint64_t ktrace_create_cssymbolicator_for_pid(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
   if (!a1)
   {
     ktrace_postprocess_file_internal_cold_4();
   }
 
-  v2 = *(a1 + 304);
+  v5 = *(a1 + 304);
 
-  return ktrace_uuid_map_create_cssymbolicator_for_pid(v2);
+  return ktrace_uuid_map_create_cssymbolicator_for_pid(v5, a2, a3, a4);
 }
 
-uint64_t ktrace_create_cssymbolicator_for_task(uint64_t a1)
+uint64_t ktrace_create_cssymbolicator_for_task(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (!a1)
   {
     ktrace_postprocess_file_internal_cold_4();
   }
 
-  v2 = *(a1 + 304);
+  v5 = *(a1 + 304);
 
-  return ktrace_uuid_map_create_cssymbolicator_for_task(v2);
+  return ktrace_uuid_map_create_cssymbolicator_for_task(v5, a2, a3, a4);
 }
 
 uint64_t ktrace_create_cssymbolicator_for_thread(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4)
 {
-  if (ktrace_get_task_uniqueid_for_thread(a1, a4) != -1)
+  task_uniqueid_for_thread = ktrace_get_task_uniqueid_for_thread(a1, a4);
+  if (task_uniqueid_for_thread != -1)
   {
-    return ktrace_uuid_map_create_cssymbolicator_for_task(*(a1 + 304));
+    return ktrace_uuid_map_create_cssymbolicator_for_task(*(a1 + 304), a2, a3, task_uniqueid_for_thread);
   }
 
-  if ((ktrace_get_pid_for_thread(a1, a4) & 0x80000000) != 0)
+  pid_for_thread = ktrace_get_pid_for_thread(a1, a4);
+  if (pid_for_thread < 0)
   {
     return 0;
   }
 
-  return ktrace_uuid_map_create_cssymbolicator_for_pid(*(a1 + 304));
+  else
+  {
+    return ktrace_uuid_map_create_cssymbolicator_for_pid(*(a1 + 304), a2, a3, pid_for_thread);
+  }
 }
 
 UInt8 *ktrace_describe_uuid_offset(uint64_t a1, __int128 *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     v3 = *(a1 + 304);
     symbolicator = ktrace_get_symbolicator(a1);
     v5 = a2[3];
-    v13 = a2[2];
-    v14 = v5;
-    v15 = a2[4];
+    v12 = a2[2];
+    v13 = v5;
+    v14 = a2[4];
     v6 = a2[1];
-    v11 = *a2;
-    v12 = v6;
-    result = ktrace_symbolicator_get_description(v3, symbolicator, &v11);
+    v10 = *a2;
+    v11 = v6;
+    return ktrace_symbolicator_get_description(v3, symbolicator, &v10);
   }
 
   else
   {
     v8 = a2[3];
-    v13 = a2[2];
-    v14 = v8;
-    v15 = a2[4];
+    v12 = a2[2];
+    v13 = v8;
+    v14 = a2[4];
     v9 = a2[1];
-    v11 = *a2;
-    v12 = v9;
-    result = ktrace_uuid_offset_get_description(0, &v11);
+    v10 = *a2;
+    v11 = v9;
+    return ktrace_uuid_offset_get_description(0, &v10);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-uint64_t ktrace_symbolicate_uuid_offset(uint64_t a1, _OWORD *a2, _BYTE *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6)
+uint64_t ktrace_symbolicate_uuid_offset(uint64_t a1, __int128 *a2, _BYTE *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   symbolicator = ktrace_get_symbolicator(a1);
   v12 = a2[3];
-  v16[2] = a2[2];
-  v16[3] = v12;
-  v16[4] = a2[4];
+  v15[2] = a2[2];
+  v15[3] = v12;
+  v15[4] = a2[4];
   v13 = a2[1];
-  v16[0] = *a2;
-  v16[1] = v13;
-  result = ktrace_symbolicator_symbolicate(symbolicator, v16, a3, a4, a5, a6);
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  v15[0] = *a2;
+  v15[1] = v13;
+  return ktrace_symbolicator_symbolicate(symbolicator, v15, a3, a4, a5, a6);
 }
 
 uint64_t ktrace_set_jetsam_coalitions_enabled(uint64_t result, int a2)
@@ -5834,51 +5302,51 @@ char *ktrace_get_thread_group_name(uint64_t a1, const void *a2)
   return kthmap_name_for_thread_group(v3, a2);
 }
 
-uint64_t ktrace::RingBufferImpl::handleTracepoint(uint64_t result, uint64_t a2)
+int *ktrace::RingBufferImpl::handleTracepoint(int *result, uint64_t *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  if (*a2 >= *(result + 72))
+  v21 = *MEMORY[0x277D85DE8];
+  if (*a2 >= *(result + 9))
   {
     v3 = result;
     ktrace::RingBufferImpl::handlerSupportCheckTimeTruncation(result, a2);
     result = ktrace::RingBufferImpl::handlerSupportCheckTimeBackwards(v3, a2);
-    v4 = *(v3 + 56);
-    v5 = *(v3 + 48) + 48 * v4;
+    v4 = v3[14];
+    v5 = *(v3 + 6) + 48 * v4;
     v6 = *a2;
-    v7 = *(a2 + 48);
-    *v5 = *a2 & 0xFFFFFFFFFFFFFFLL | (*(a2 + 52) << 56);
-    v8 = *(a2 + 40);
+    v7 = *(a2 + 12);
+    *v5 = *a2 & 0xFFFFFFFFFFFFFFLL | (*(a2 + 13) << 56);
+    v8 = a2[5];
     *(v5 + 8) = v7;
     *(v5 + 12) = v8;
-    *(v5 + 16) = *(a2 + 8);
-    *(v5 + 32) = *(a2 + 24);
-    *(v3 + 56) = v4 + 1;
-    *(v3 + 80) = v6;
+    *(v5 + 16) = *(a2 + 1);
+    *(v5 + 32) = *(a2 + 3);
+    v3[14] = v4 + 1;
+    *(v3 + 10) = v6;
     if (v7 == 117571592)
     {
-      *(*(v3 + 32) + 16) = 1;
+      *(*(v3 + 4) + 16) = 1;
     }
 
-    if (v4 + 1 == *(v3 + 40))
+    if (v4 + 1 == v3[10])
     {
-      v9 = *(v3 + 24);
-      if (v9 != *(v3 + 32))
+      v9 = *(v3 + 3);
+      if (v9 != *(v3 + 4))
       {
         v10 = 0;
         v11 = MEMORY[0x277D85DF8];
-        while (*(v3 + 80) - *(v9 + 8) >= *v3)
+        while (*(v3 + 10) - *(v9 + 1) >= *v3)
         {
-          *(v3 + 24) = *v9;
+          *(v3 + 3) = *v9;
           if (v10)
           {
-            result = ktrace::MemoryPool<ktrace::RingBufferHeader>::freeToMemoryPool(*(v3 + 112), v9);
+            result = ktrace::MemoryPool<ktrace::RingBufferHeader>::freeToMemoryPool(*(v3 + 14), v9);
             v9 = v10;
           }
 
           else
           {
             *(v9 + 16) = 0;
-            if ((*(v3 + 16) & 1) == 0)
+            if ((v3[4] & 1) == 0)
             {
               fwrite("WARNING: The ring buffer size now covers the full requested ring buffer time.\n", 0x4EuLL, 1uLL, *v11);
               v12 = *__error();
@@ -5887,7 +5355,7 @@ uint64_t ktrace::RingBufferImpl::handleTracepoint(uint64_t result, uint64_t a2)
               if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
               {
                 *buf = 67109120;
-                v21 = v12;
+                v20 = v12;
                 _os_log_error_impl(&dword_22ED7A000, v13, OS_LOG_TYPE_ERROR, "WARNING: The ring buffer size now covers the full requested ring buffer time. (%{errno}d)", buf, 8u);
               }
 
@@ -5898,8 +5366,8 @@ uint64_t ktrace::RingBufferImpl::handleTracepoint(uint64_t result, uint64_t a2)
           }
 
           v10 = v9;
-          v9 = *(v3 + 24);
-          if (v9 == *(v3 + 32))
+          v9 = *(v3 + 3);
+          if (v9 == *(v3 + 4))
           {
             goto LABEL_25;
           }
@@ -5911,24 +5379,24 @@ uint64_t ktrace::RingBufferImpl::handleTracepoint(uint64_t result, uint64_t a2)
         }
       }
 
-      result = ktrace::MemoryPool<ktrace::RingBufferHeader>::allocateFromMemoryPool(*(v3 + 112));
+      result = ktrace::MemoryPool<ktrace::RingBufferHeader>::allocateFromMemoryPool(*(v3 + 14));
       if (result)
       {
         v10 = result;
-        v14 = (result + 16);
+        v14 = result + 4;
       }
 
       else
       {
-        v10 = *(v3 + 24);
-        if (v10 == *(v3 + 32))
+        v10 = *(v3 + 3);
+        if (v10 == *(v3 + 4))
         {
           ktrace::RingBufferImpl::handleTracepoint();
         }
 
-        v14 = (v3 + 16);
+        v14 = v3 + 4;
         v15 = *(v3 + 16);
-        *(v3 + 24) = *v10;
+        *(v3 + 3) = *v10;
         *(v10 + 16) = 0;
         if (v15 != 1)
         {
@@ -5949,24 +5417,23 @@ uint64_t ktrace::RingBufferImpl::handleTracepoint(uint64_t result, uint64_t a2)
 
       *v14 = 0;
 LABEL_25:
-      v17 = *(v3 + 32);
-      v18 = *(v3 + 80);
+      v17 = *(v3 + 4);
+      v18 = *(v3 + 10);
       *v17 = v10;
       v17[1] = v18;
       *v10 = 0;
-      *(v3 + 32) = v10;
-      *(v3 + 48) = v10 + 24;
-      *(v3 + 56) = 0;
+      *(v3 + 4) = v10;
+      *(v3 + 6) = v10 + 6;
+      v3[14] = 0;
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 int *ktrace::RingBufferImpl::handlerSupportCheckTimeTruncation(int *result, uint64_t a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (*(a2 + 7))
   {
     v3 = result;
@@ -5999,17 +5466,17 @@ int *ktrace::RingBufferImpl::handlerSupportCheckTimeTruncation(int *result, uint
     v8 = ktrace_log;
     if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a2 + 48);
-      v11 = *(a2 + 52);
-      v12 = *(a2 + 40);
+      v9 = *(a2 + 48);
+      v10 = *(a2 + 52);
+      v11 = *(a2 + 40);
       *buf = 67109888;
-      v14 = v10;
-      v15 = 1024;
-      v16 = v11;
-      v17 = 2048;
-      v18 = v12;
-      v19 = 1024;
-      v20 = v7;
+      v13 = v9;
+      v14 = 1024;
+      v15 = v10;
+      v16 = 2048;
+      v17 = v11;
+      v18 = 1024;
+      v19 = v7;
       _os_log_error_impl(&dword_22ED7A000, v8, OS_LOG_TYPE_ERROR, "WARNING: Thread id size exceeded for debugid: 0x%08x cpuid: %-2u tid: 0x%llx (%{errno}d)", buf, 0x1Eu);
     }
 
@@ -6017,7 +5484,6 @@ int *ktrace::RingBufferImpl::handlerSupportCheckTimeTruncation(int *result, uint
     *result = v7;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6030,15 +5496,15 @@ int *ktrace::RingBufferImpl::handlerSupportCheckTimeBackwards(int *result, uint6
     if (!v3)
     {
       fprintf(*MEMORY[0x277D85DF8], "ERROR: Timestamps out of order for class 0x%x. Trace file will probably be corrupted and unreadable. Please file a bug against Purple Ariadne with this trace.\n", *(a2 + 51));
-      v5 = *__error();
+      v4 = *__error();
       ktrace_log_init();
       if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
       {
-        ktrace::RingBufferImpl::handlerSupportCheckTimeBackwards(a2 + 48);
+        ktrace::RingBufferImpl::handlerSupportCheckTimeBackwards();
       }
 
       result = __error();
-      *result = v5;
+      *result = v4;
       *(v2 + 96) = 1;
       v3 = v2[22];
     }
@@ -6075,9 +5541,9 @@ void *ktrace::MemoryPool<ktrace::RingBufferHeader>::allocateFromMemoryPool(uint6
   return v2;
 }
 
-_DWORD *ktrace::RingBufferImpl::handleCompletion(ktrace::RingBufferImpl *this, ktrace_file *a2)
+int *ktrace::RingBufferImpl::handleCompletion(ktrace::RingBufferImpl *this, ktrace_file *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = *(this + 3);
   appended = ktrace_file_append_start(a2, 20982, 0, 0);
   if (appended)
@@ -6101,7 +5567,7 @@ _DWORD *ktrace::RingBufferImpl::handleCompletion(ktrace::RingBufferImpl *this, k
             if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
             {
               *buf = 67109120;
-              LODWORD(v24) = v10;
+              LODWORD(v23) = v10;
               _os_log_error_impl(&dword_22ED7A000, v11, OS_LOG_TYPE_ERROR, "ERROR: The trace buffer has lost samples. This is currently not supported by the UI. Run with --help-dropped-events for additional help. (%{errno}d)", buf, 8u);
             }
 
@@ -6124,9 +5590,9 @@ _DWORD *ktrace::RingBufferImpl::handleCompletion(ktrace::RingBufferImpl *this, k
           if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
           {
             *buf = 134218240;
-            v24 = v13;
-            v25 = 1024;
-            v26 = v14;
+            v23 = v13;
+            v24 = 1024;
+            v25 = v14;
             _os_log_error_impl(&dword_22ED7A000, v15, OS_LOG_TYPE_ERROR, "ERROR: Failed to write %ld kdebug events into chunk in output file (%{errno}d)", buf, 0x12u);
           }
 
@@ -6176,7 +5642,7 @@ _DWORD *ktrace::RingBufferImpl::handleCompletion(ktrace::RingBufferImpl *this, k
       *__error() = v19;
     }
 
-    result = ktrace_file_append_finish(a2, v6);
+    return ktrace_file_append_finish(a2, v6);
   }
 
   else
@@ -6193,7 +5659,6 @@ _DWORD *ktrace::RingBufferImpl::handleCompletion(ktrace::RingBufferImpl *this, k
     *result = v21;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6211,11 +5676,11 @@ void ktrace::RingBufferImpl::RingBufferImpl(ktrace::RingBufferImpl *this, uint64
   *(this + 4) = 0u;
   *(this + 5) = 0u;
   *(this + 96) = 0;
-  v11 = 0;
-  v12 = 8;
-  if (!sysctlbyname("hw.memsize", &v11, &v12, 0, 0))
+  v9 = 0;
+  v10 = 8;
+  if (!sysctlbyname("hw.memsize", &v9, &v10, 0, 0))
   {
-    v4 = v11 >> 20;
+    v4 = v9 >> 20;
     v5 = *(this + 3);
     if (!v5)
     {
@@ -6242,20 +5707,19 @@ void ktrace::RingBufferImpl::RingBufferImpl(ktrace::RingBufferImpl *this, uint64
     *(this + 2) = v5;
     mach_timebase_info(&info);
     *this = info.denom * a2 / info.numer;
-    v7 = *(this + 2);
     ktrace::MemoryPool<ktrace::RingBufferHeader>::create();
   }
 
-  v8 = *__error();
+  __error();
   perror("ERROR: Couldn't get total memory size");
-  v9 = *__error();
+  v7 = *__error();
   ktrace_log_init();
   if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
   {
     ktrace::RingBufferImpl::RingBufferImpl();
   }
 
-  *__error() = v9;
+  *__error() = v7;
   exit(1);
 }
 
@@ -6307,7 +5771,7 @@ uint64_t ktrace_time_ringbuffer_tracing_started(uint64_t result)
   return result;
 }
 
-uint64_t *ktrace_time_ringbuffer_handle_tracepoint(uint64_t *result, uint64_t a2)
+int *ktrace_time_ringbuffer_handle_tracepoint(int *result, uint64_t *a2)
 {
   if (result)
   {
@@ -6320,7 +5784,7 @@ uint64_t *ktrace_time_ringbuffer_handle_tracepoint(uint64_t *result, uint64_t a2
   return result;
 }
 
-ktrace::RingBufferImpl **ktrace_time_ringbuffer_tracing_stopped(ktrace::RingBufferImpl **result, ktrace_file *a2)
+int *ktrace_time_ringbuffer_tracing_stopped(int *result, ktrace_file *a2)
 {
   if (result)
   {
@@ -6536,7 +6000,7 @@ void print_filter(uint64_t a1)
 
 BOOL __ktrace_start_block_invoke(uint64_t a1, void *a2)
 {
-  v3 = ktrace_config_create(a2);
+  v3 = ktrace_config_create(a2, a2);
   v4 = v3;
   if (v3)
   {
@@ -6627,7 +6091,7 @@ uint64_t ktrace_convert_continuous_to_walltime(uint64_t a1, unint64_t a2, unint6
   return result;
 }
 
-unint64_t ktrace_get_current_timestamp(uint64_t a1)
+uint64_t ktrace_get_current_timestamp(uint64_t a1)
 {
   v1 = *(a1 + 224);
   v2 = *(a1 + 496);
@@ -6643,7 +6107,7 @@ unint64_t ktrace_get_current_timestamp(uint64_t a1)
   }
 }
 
-uint64_t ktrace_set_walltimes_enabled(uint64_t result, int a2)
+uint64_t ktrace_set_walltimes_enabled(uint64_t result, uint64_t a2)
 {
   v2 = *(result + 224);
   if (v2 & 2) != 0 || (v2)
@@ -6655,7 +6119,7 @@ uint64_t ktrace_set_walltimes_enabled(uint64_t result, int a2)
   return result;
 }
 
-unint64_t ktrace_get_absolute_from_timestamp(uint64_t a1, unint64_t a2)
+uint64_t ktrace_get_absolute_from_timestamp(uint64_t a1, unint64_t a2)
 {
   if ((*(a1 + 224) & 0x80) != 0)
   {
@@ -6668,7 +6132,7 @@ unint64_t ktrace_get_absolute_from_timestamp(uint64_t a1, unint64_t a2)
   }
 }
 
-unint64_t ktrace_get_earliest_timestamp(uint64_t a1)
+uint64_t ktrace_get_earliest_timestamp(uint64_t a1)
 {
   v1 = *(a1 + 224);
   v2 = *(a1 + 504);
@@ -6684,7 +6148,7 @@ unint64_t ktrace_get_earliest_timestamp(uint64_t a1)
   }
 }
 
-uint64_t ktrace_set_continuous_timestamps(uint64_t result, int a2)
+uint64_t ktrace_set_continuous_timestamps(uint64_t result, uint64_t a2)
 {
   if (!result)
   {
@@ -6838,7 +6302,7 @@ const char *ktrace_machine_sw_platform_string(unsigned int a1)
   }
 }
 
-uint64_t ktrace_machine_create(uint64_t *a1)
+uint64_t ktrace_machine_create(uint64_t *a1, uint64_t a2)
 {
   if (!a1)
   {
@@ -6850,36 +6314,36 @@ uint64_t ktrace_machine_create(uint64_t *a1)
     ktrace_postprocess_file_internal_cold_4();
   }
 
-  v2 = ktrace_chunk_tag(a1);
-  if (v2 != 20995)
+  v3 = ktrace_chunk_tag(a1, a2);
+  if (v3 != 20995)
   {
-    v12 = v2;
-    v3 = 0;
+    v15 = v3;
     v5 = 0;
     v7 = 0;
-    v13 = a1;
+    v9 = 0;
+    v16 = a1;
 LABEL_9:
-    if (v12 != 35840)
+    if (v15 != 35840)
     {
       goto LABEL_36;
     }
 
-    if (ktrace_chunk_version_major(v13) > 1)
+    if (ktrace_chunk_version_major(v16) > 1)
     {
-      v11 = 0;
+      v14 = 0;
       dict = 0;
-      v9 = 45;
-      if (v7)
+      v12 = 45;
+      if (v9)
       {
         goto LABEL_37;
       }
 
 LABEL_38:
-      if (!v5)
+      if (!v7)
       {
-        if (!v9)
+        if (!v12)
         {
-          return v11;
+          return v14;
         }
 
         goto LABEL_43;
@@ -6888,16 +6352,16 @@ LABEL_38:
       goto LABEL_42;
     }
 
-    v14 = ktrace_chunk_version_minor(v13);
-    v15 = ktrace_chunk_size(v13);
-    v16 = ktrace_chunk_map_data(v13, 0, v15);
-    if (!v16)
+    v17 = ktrace_chunk_version_minor(v16);
+    v19 = ktrace_chunk_size(v16, v18);
+    v20 = ktrace_chunk_map_data(v16, 0, v19);
+    if (!v20)
     {
 LABEL_36:
-      v11 = 0;
+      v14 = 0;
       dict = 0;
-      v9 = 0;
-      if (!v7)
+      v12 = 0;
+      if (!v9)
       {
         goto LABEL_38;
       }
@@ -6905,39 +6369,39 @@ LABEL_36:
       goto LABEL_37;
     }
 
-    v17 = v16;
-    dict = create_dict(v16, v15);
+    v21 = v20;
+    dict = create_dict(v20, v19);
     if (!dict)
     {
-      v9 = 0;
-      v11 = 0;
+      v12 = 0;
+      v14 = 0;
       goto LABEL_81;
     }
 
-    v18 = malloc_type_calloc(1uLL, 0xE0uLL, 0x10700402D9E20E3uLL);
-    v11 = v18;
-    if (!v18)
+    v22 = malloc_type_calloc(1uLL, 0xE0uLL, 0x10700402D9E20E3uLL);
+    v14 = v22;
+    if (!v22)
     {
-      v9 = 12;
+      v12 = 12;
       goto LABEL_81;
     }
 
-    v26 = v14;
-    v18[2] = -1;
-    *(v18 + 204) = ktrace_file_is_64_bit(*v13);
-    *(v11 + 216) = dict;
-    if (!dict_string(dict, @"kern_version", 0, 0, (v11 + 40)) && !dict_string(dict, @"boot_args", 0, 0, (v11 + 48)) && !dict_uint64(dict, @"hw_memsize", (v11 + 8)) && !dict_uint32(dict, @"hw_pagesize", (v11 + 168)) && !dict_uint32(dict, @"vm_pagesize", (v11 + 172)) && !dict_string(dict, @"os_name", 0, 0, (v11 + 56)) && !dict_string(dict, @"os_version", 0, 0, (v11 + 64)) && !dict_string(dict, @"os_build", 0, 0, (v11 + 80)) && !dict_string(dict, @"hw_model", 0, 0, (v11 + 88)) && !dict_int(dict, @"cpu_type", (v11 + 192)) && !dict_int(dict, @"cpu_subtype", (v11 + 196)) && !dict_int(dict, @"cpu_family", (v11 + 200)) && !dict_uint32(dict, @"active_cpus", (v11 + 176)) && !dict_uint32(dict, @"max_cpus", (v11 + 180)))
+    v31 = v17;
+    v22[2] = -1;
+    *(v22 + 204) = ktrace_file_is_64_bit(*v16, v23);
+    *(v14 + 216) = dict;
+    if (!dict_string(dict, @"kern_version", 0, 0, (v14 + 40)) && !dict_string(dict, @"boot_args", 0, 0, (v14 + 48)) && !dict_uint64(dict, @"hw_memsize", (v14 + 8)) && !dict_uint32(dict, @"hw_pagesize", (v14 + 168)) && !dict_uint32(dict, @"vm_pagesize", (v14 + 172)) && !dict_string(dict, @"os_name", 0, 0, (v14 + 56)) && !dict_string(dict, @"os_version", 0, 0, (v14 + 64)) && !dict_string(dict, @"os_build", 0, 0, (v14 + 80)) && !dict_string(dict, @"hw_model", 0, 0, (v14 + 88)) && !dict_int(dict, @"cpu_type", (v14 + 192)) && !dict_int(dict, @"cpu_subtype", (v14 + 196)) && !dict_int(dict, @"cpu_family", (v14 + 200)) && !dict_uint32(dict, @"active_cpus", (v14 + 176)) && !dict_uint32(dict, @"max_cpus", (v14 + 180)))
     {
-      dict_BOOL(dict, @"apple_internal", (v11 + 205));
+      dict_BOOL(dict, @"apple_internal", (v14 + 205));
     }
 
-    if (!v14)
+    if (!v17)
     {
 LABEL_80:
-      v9 = 0;
+      v12 = 0;
 LABEL_81:
-      ktrace_chunk_unmap_data(v13, v17, v15);
-      if (v7)
+      ktrace_chunk_unmap_data(v16, v21, v19);
+      if (v9)
       {
         goto LABEL_37;
       }
@@ -6945,79 +6409,79 @@ LABEL_81:
       goto LABEL_38;
     }
 
-    v19 = *(v11 + 216);
-    dict_string(v19, @"name", 0, 0, (v11 + 104));
-    dict_string(v19, @"hostname", 0, 0, (v11 + 112));
-    v25 = v15;
-    if (dict_string(v19, @"device_uuid", 0, 0, (v11 + 128)))
+    v24 = *(v14 + 216);
+    dict_string(v24, @"name", 0, 0, (v14 + 104));
+    dict_string(v24, @"hostname", 0, 0, (v14 + 112));
+    v30 = v19;
+    if (dict_string(v24, @"device_uuid", 0, 0, (v14 + 128)))
     {
-      v20 = "device UUID";
+      v25 = "device UUID";
     }
 
-    else if (dict_string(v19, @"boot_uuid", 0, 0, (v11 + 120)))
+    else if (dict_string(v24, @"boot_uuid", 0, 0, (v14 + 120)))
     {
-      v20 = "boot UUID";
+      v25 = "boot UUID";
     }
 
-    else if (dict_uint32(v19, @"vm_pages", (v11 + 184)))
+    else if (dict_uint32(v24, @"vm_pages", (v14 + 184)))
     {
-      v20 = "VM pages";
+      v25 = "VM pages";
     }
 
-    else if (dict_uint64(v19, @"min_kern_vaddr", (v11 + 16)))
+    else if (dict_uint64(v24, @"min_kern_vaddr", (v14 + 16)))
     {
-      v20 = "minimum kernel address";
+      v25 = "minimum kernel address";
     }
 
-    else if (dict_uint64(v19, @"root_vol_size", (v11 + 32)))
+    else if (dict_uint64(v24, @"root_vol_size", (v14 + 32)))
     {
-      v20 = "root volume size";
+      v25 = "root volume size";
     }
 
-    else if (dict_uint32(v19, @"physical_cpus", (v11 + 188)))
+    else if (dict_uint32(v24, @"physical_cpus", (v14 + 188)))
     {
-      v20 = "physical CPUs";
+      v25 = "physical CPUs";
     }
 
-    else if (dict_BOOL(v19, @"internal_content", (v11 + 206)))
+    else if (dict_BOOL(v24, @"internal_content", (v14 + 206)))
     {
-      v20 = "internal content";
+      v25 = "internal content";
     }
 
     else
     {
-      *v11 |= 1uLL;
-      if (dict_BOOL(v19, @"hyperthreading", (v11 + 207)))
+      *v14 |= 1uLL;
+      if (dict_BOOL(v24, @"hyperthreading", (v14 + 207)))
       {
-        v20 = "hyperthreading";
+        v25 = "hyperthreading";
       }
 
       else
       {
-        *v11 |= 2uLL;
-        if (!dict_BOOL(v19, @"thread_groups", (v11 + 208)))
+        *v14 |= 2uLL;
+        if (!dict_BOOL(v24, @"thread_groups", (v14 + 208)))
         {
-          *v11 |= 4uLL;
+          *v14 |= 4uLL;
 LABEL_73:
-          v15 = v25;
-          if (v26 != 1)
+          v19 = v30;
+          if (v31 != 1)
           {
-            ktrace_machine_v1_2(v11);
-            if (v26 >= 3)
+            ktrace_machine_v1_2(v14);
+            if (v31 >= 3)
             {
-              ktrace_machine_v1_3(v11);
-              if (v26 != 3)
+              ktrace_machine_v1_3(v14);
+              if (v31 != 3)
               {
-                ktrace_machine_v1_4(v11);
-                if (v26 >= 5)
+                ktrace_machine_v1_4(v14);
+                if (v31 >= 5)
                 {
-                  dict_string(*(v11 + 216), @"os_version_extra", 0, 0, (v11 + 72));
-                  if (v26 != 5)
+                  dict_string(*(v14 + 216), @"os_version_extra", 0, 0, (v14 + 72));
+                  if (v31 != 5)
                   {
-                    dict_string(*(v11 + 216), @"hw_product", 0, 0, (v11 + 96));
-                    if (v26 >= 7)
+                    dict_string(*(v14 + 216), @"hw_product", 0, 0, (v14 + 96));
+                    if (v31 >= 7)
                     {
-                      ktrace_machine_v1_7(v11);
+                      ktrace_machine_v1_7(v14);
                     }
                   }
                 }
@@ -7028,82 +6492,82 @@ LABEL_73:
           goto LABEL_80;
         }
 
-        v20 = "thread groups";
+        v25 = "thread groups";
       }
     }
 
-    v24 = v20;
-    v22 = *__error();
+    v29 = v25;
+    v27 = *__error();
     ktrace_log_init();
-    v23 = ktrace_log;
+    v28 = ktrace_log;
     if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
     {
-      ktrace_machine_create_cold_1(v24, v22, v23);
+      ktrace_machine_create_cold_1(v29, v27, v28);
     }
 
-    *__error() = v22;
+    *__error() = v27;
     goto LABEL_73;
   }
 
-  v3 = ktrace_chunk_size_t(a1);
-  v4 = ktrace_chunk_map_data(a1, 0, v3);
-  if (!v4)
+  v5 = ktrace_chunk_size_t(a1, v4);
+  v6 = ktrace_chunk_map_data(a1, 0, v5);
+  if (!v6)
   {
-    v9 = *__error();
-    if (v9)
+    v12 = *__error();
+    if (v12)
     {
 LABEL_47:
-      v11 = 0;
-      *__error() = v9;
-      return v11;
+      v14 = 0;
+      *__error() = v12;
+      return v14;
     }
 
     return 0;
   }
 
-  v5 = v4;
-  v6 = ktrace_file_open_memory(v4, v3, 0, 0);
-  if (v6)
+  v7 = v6;
+  v8 = ktrace_file_open_memory(v6, v5, 0, 0);
+  if (v8)
   {
-    v7 = v6;
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x2000000000;
-    v31 = 0;
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 0x40000000;
-    v27[2] = __ktrace_machine_create_block_invoke;
-    v27[3] = &unk_27886E9D0;
-    v27[4] = &v28;
-    v8 = ktrace_file_header_iterate(v6, 0, v27);
-    if (v8)
+    v9 = v8;
+    v33 = 0;
+    v34 = &v33;
+    v35 = 0x2000000000;
+    v36 = 0;
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 0x40000000;
+    v32[2] = __ktrace_machine_create_block_invoke;
+    v32[3] = &unk_27886E9D0;
+    v32[4] = &v33;
+    v10 = ktrace_file_header_iterate(v8, 0, v32);
+    if (v10)
     {
-      v9 = v8;
-      _Block_object_dispose(&v28, 8);
+      v12 = v10;
+      _Block_object_dispose(&v33, 8);
       dict = 0;
-      v11 = 0;
+      v14 = 0;
 LABEL_37:
-      ktrace_file_close(v7);
+      ktrace_file_close(v9);
       goto LABEL_38;
     }
 
-    v13 = v29[3];
-    v12 = ktrace_chunk_tag(v13);
-    _Block_object_dispose(&v28, 8);
+    v16 = v34[3];
+    v15 = ktrace_chunk_tag(v16, v11);
+    _Block_object_dispose(&v33, 8);
     goto LABEL_9;
   }
 
-  v11 = 0;
+  v14 = 0;
   dict = 0;
-  v9 = *__error();
+  v12 = *__error();
 LABEL_42:
-  ktrace_chunk_unmap_data(a1, v5, v3);
-  if (v9)
+  ktrace_chunk_unmap_data(a1, v7, v5);
+  if (v12)
   {
 LABEL_43:
-    if (v11)
+    if (v14)
     {
-      ktrace_machine_destroy(v11);
+      ktrace_machine_destroy(v14);
     }
 
     if (dict)
@@ -7114,12 +6578,12 @@ LABEL_43:
     goto LABEL_47;
   }
 
-  return v11;
+  return v14;
 }
 
 BOOL __ktrace_machine_create_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4 = ktrace_chunk_tag(a2);
+  v4 = ktrace_chunk_tag(a2, a2);
   if (v4 == 35840)
   {
     *(*(*(a1 + 32) + 8) + 24) = a2;
@@ -7149,7 +6613,7 @@ _DWORD *ktrace_machine_v1_2(uint64_t a1)
 
 _DWORD *ktrace_machine_v1_3(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 216);
   v3 = dict_uint32(v2, @"max_clusters", (a1 + 160));
   if (v3)
@@ -7165,8 +6629,8 @@ _DWORD *ktrace_machine_v1_3(uint64_t a1)
     goto LABEL_12;
   }
 
-  v13 = 0;
-  v5 = dict_uint32_arr(v2, @"cluster_by_cpu", (a1 + 136), &v13);
+  v12 = 0;
+  v5 = dict_uint32_arr(v2, @"cluster_by_cpu", (a1 + 136), &v12);
   if (v5)
   {
     *__error() = v5;
@@ -7180,35 +6644,15 @@ _DWORD *ktrace_machine_v1_3(uint64_t a1)
     goto LABEL_12;
   }
 
-  if (v13 != *(a1 + 180))
+  if (v12 == *(a1 + 180))
   {
-    *__error() = 22;
-    v4 = *__error();
-    ktrace_log_init();
-    v7 = ktrace_log;
-    if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
+    v11 = 0;
+    result = dict_uint64_arr(v2, @"cluster_flags", (a1 + 144), &v11);
+    if (v11 == *(a1 + 160))
     {
-      v11 = *(a1 + 180);
-      *buf = 67109632;
-      v15 = v11;
-      v16 = 1024;
-      v17 = v13;
-      v18 = 1024;
-      v19 = v4;
-      v9 = "mismatched number of CPUs for clusters, %u in machine and %u in array (%{errno}d)";
-      goto LABEL_15;
+      return result;
     }
 
-LABEL_12:
-    result = __error();
-    *result = v4;
-    goto LABEL_13;
-  }
-
-  v12 = 0;
-  result = dict_uint64_arr(v2, @"cluster_flags", (a1 + 144), &v12);
-  if (v12 != *(a1 + 160))
-  {
     *__error() = 22;
     v4 = *__error();
     ktrace_log_init();
@@ -7217,28 +6661,46 @@ LABEL_12:
     {
       v8 = *(a1 + 160);
       *buf = 67109632;
-      v15 = v8;
-      v16 = 1024;
-      v17 = v12;
-      v18 = 1024;
-      v19 = v4;
+      v14 = v8;
+      v15 = 1024;
+      v16 = v11;
+      v17 = 1024;
+      v18 = v4;
       v9 = "mismatched number of clusters, %u in machine and %u inarray (%{errno}d)";
 LABEL_15:
       _os_log_error_impl(&dword_22ED7A000, v7, OS_LOG_TYPE_ERROR, v9, buf, 0x14u);
-      goto LABEL_12;
     }
-
-    goto LABEL_12;
   }
 
-LABEL_13:
-  v10 = *MEMORY[0x277D85DE8];
+  else
+  {
+    *__error() = 22;
+    v4 = *__error();
+    ktrace_log_init();
+    v7 = ktrace_log;
+    if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
+    {
+      v10 = *(a1 + 180);
+      *buf = 67109632;
+      v14 = v10;
+      v15 = 1024;
+      v16 = v12;
+      v17 = 1024;
+      v18 = v4;
+      v9 = "mismatched number of CPUs for clusters, %u in machine and %u in array (%{errno}d)";
+      goto LABEL_15;
+    }
+  }
+
+LABEL_12:
+  result = __error();
+  *result = v4;
   return result;
 }
 
 _DWORD *ktrace_machine_v1_4(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 216);
   v3 = dict_uint32(v2, @"max_dies", (a1 + 164));
   if (v3)
@@ -7250,51 +6712,50 @@ _DWORD *ktrace_machine_v1_4(uint64_t a1)
     {
       ktrace_machine_v1_4_cold_1();
     }
-
-LABEL_10:
-    result = __error();
-    *result = v4;
-    goto LABEL_11;
   }
 
-  v9 = 0;
-  result = dict_uint32_arr(v2, @"die_by_cpu", (a1 + 152), &v9);
-  if (result)
+  else
   {
-    *__error() = result;
-    v4 = *__error();
-    ktrace_log_init();
-    if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
+    v8 = 0;
+    result = dict_uint32_arr(v2, @"die_by_cpu", (a1 + 152), &v8);
+    if (result)
     {
-      ktrace_machine_v1_4_cold_2();
+      *__error() = result;
+      v4 = *__error();
+      ktrace_log_init();
+      if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
+      {
+        ktrace_machine_v1_4_cold_2();
+      }
     }
 
-    goto LABEL_10;
-  }
-
-  if (v9 != *(a1 + 180))
-  {
-    *__error() = 22;
-    v4 = *__error();
-    ktrace_log_init();
-    v6 = ktrace_log;
-    if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
+    else
     {
-      v8 = *(a1 + 180);
-      *buf = 67109632;
-      v11 = v8;
-      v12 = 1024;
-      v13 = v9;
-      v14 = 1024;
-      v15 = v4;
-      _os_log_error_impl(&dword_22ED7A000, v6, OS_LOG_TYPE_ERROR, "mismatched number of CPUs for dies, %u in machine and %u in array (%{errno}d)", buf, 0x14u);
-    }
+      if (v8 == *(a1 + 180))
+      {
+        return result;
+      }
 
-    goto LABEL_10;
+      *__error() = 22;
+      v4 = *__error();
+      ktrace_log_init();
+      v6 = ktrace_log;
+      if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
+      {
+        v7 = *(a1 + 180);
+        *buf = 67109632;
+        v10 = v7;
+        v11 = 1024;
+        v12 = v8;
+        v13 = 1024;
+        v14 = v4;
+        _os_log_error_impl(&dword_22ED7A000, v6, OS_LOG_TYPE_ERROR, "mismatched number of CPUs for dies, %u in machine and %u in array (%{errno}d)", buf, 0x14u);
+      }
+    }
   }
 
-LABEL_11:
-  v7 = *MEMORY[0x277D85DE8];
+  result = __error();
+  *result = v4;
   return result;
 }
 
@@ -8049,16 +7510,16 @@ uint64_t ktrace_file_create_machine(uint64_t a1)
 
 BOOL __ktrace_file_create_machine_block_invoke(uint64_t a1, uint64_t *a2)
 {
-  v4 = ktrace_chunk_tag(a2);
-  if (v4 == 35840)
+  v5 = ktrace_chunk_tag(a2, a2);
+  if (v5 == 35840)
   {
-    *(*(*(a1 + 32) + 8) + 24) = ktrace_machine_create(a2);
+    *(*(*(a1 + 32) + 8) + 24) = ktrace_machine_create(a2, v4);
   }
 
-  return v4 != 35840;
+  return v5 != 35840;
 }
 
-uint64_t ktrace_start_writing_ktrace_file(unint64_t a1, uint64_t a2, int a3, void *aBlock, void *a5)
+uint64_t ktrace_start_writing_ktrace_file(uint64_t a1, uint64_t a2, int a3, void *aBlock, void *a5)
 {
   if (!a1)
   {
@@ -8070,9 +7531,10 @@ uint64_t ktrace_start_writing_ktrace_file(unint64_t a1, uint64_t a2, int a3, voi
     ktrace_postprocess_file_internal_cold_4();
   }
 
-  if ((*a1 | 2) != 2)
+  v7 = *a1;
+  if ((v7 | 2) != 2)
   {
-    ktrace_start_writing_fd_cold_3();
+    ktrace_start_writing_fd_cold_3(v7);
   }
 
   *(a1 + 648) = a2;
@@ -8094,13 +7556,13 @@ uint64_t ktrace_start_writing_ktrace_file(unint64_t a1, uint64_t a2, int a3, voi
 
   if (*(a2 + 16) == 4)
   {
-    ktrace_file_write_header_system_default(a2);
+    ktrace_file_write_header_system_default(a2, a2);
   }
 
   return ktrace_start(a1, 0);
 }
 
-uint64_t ktrace_start_writing_path(_DWORD *a1, char *a2, uint64_t a3)
+uint64_t ktrace_start_writing_path(int *a1, char *a2, uint64_t a3)
 {
   if (!a1)
   {
@@ -8112,21 +7574,22 @@ uint64_t ktrace_start_writing_path(_DWORD *a1, char *a2, uint64_t a3)
     ktrace_postprocess_file_internal_cold_4();
   }
 
-  if ((*a1 | 2) != 2)
+  v4 = *a1;
+  if ((v4 | 2) != 2)
   {
-    ktrace_start_writing_fd_cold_3();
+    ktrace_start_writing_fd_cold_3(v4);
   }
 
-  v4 = open(a2, 1538, a3);
-  if (v4 == -1)
+  v5 = open(a2, 1538, a3);
+  if (v5 == -1)
   {
     return *__error();
   }
 
-  return ktrace_start_writing_fd(a1, v4, 0, 0, 0);
+  return ktrace_start_writing_fd(a1, v5, 0, 0, 0);
 }
 
-uint64_t ktrace_start_writing_file(_DWORD *a1, char *a2, int a3, const void *a4, const void *a5)
+uint64_t ktrace_start_writing_file(int *a1, char *a2, int a3, const void *a4, const void *a5)
 {
   if (!a1)
   {
@@ -8138,23 +7601,24 @@ uint64_t ktrace_start_writing_file(_DWORD *a1, char *a2, int a3, const void *a4,
     ktrace_postprocess_file_internal_cold_4();
   }
 
-  if ((*a1 | 2) != 2)
+  v6 = *a1;
+  if ((v6 | 2) != 2)
   {
-    ktrace_start_writing_fd_cold_3();
+    ktrace_start_writing_fd_cold_3(v6);
   }
 
-  v9 = open(a2, 1538, 438);
-  if (v9 == -1)
+  v10 = open(a2, 1538, 438);
+  if (v10 == -1)
   {
-    v11 = *__error();
+    v12 = *__error();
     ktrace_log_init();
-    v12 = ktrace_log;
+    v13 = ktrace_log;
     if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
     {
-      ktrace_start_writing_file_cold_1(v11, v12);
+      ktrace_start_writing_file_cold_1(v12, v13);
     }
 
-    *__error() = v11;
+    *__error() = v12;
     if (*__error())
     {
       return *__error();
@@ -8169,31 +7633,31 @@ uint64_t ktrace_start_writing_file(_DWORD *a1, char *a2, int a3, const void *a4,
   else
   {
 
-    return ktrace_start_writing_fd(a1, v9, a3, a4, a5);
+    return ktrace_start_writing_fd(a1, v10, a3, a4, a5);
   }
 }
 
-uint64_t ktrace_stackshot(uint64_t a1, const void *a2)
+uint64_t ktrace_stackshot(_WORD *a1, const void *a2)
 {
   if (!a1)
   {
     ktrace_postprocess_file_internal_cold_4();
   }
 
-  v2 = *(a1 + 224);
+  v2 = a1[112];
   if (v2 & 2) != 0 || (v2)
   {
     ktrace_postprocessing_set_completed_handler_cold_1();
   }
 
-  v4 = ktrace_callback_list_add(a1, a1 + 96);
+  v4 = ktrace_callback_list_add(a1, (a1 + 48));
   if (!v4)
   {
     return 12;
   }
 
   v5 = v4;
-  v4[4] = 4;
+  *(v4 + 4) = 4;
   v6 = _Block_copy(a2);
   result = 0;
   *(v5 + 3) = v6;
@@ -8217,7 +7681,7 @@ uint64_t ktrace_kpdecode(uint64_t a1, char a2, void *a3)
   v7 = v6;
   if ((a2 & 2) != 0)
   {
-    v6[1] = 0xFFFFFFFF00000000;
+    *(v6 + 1) = 0xFFFFFFFF00000000;
     *(a1 + 16) = 1;
     v8 = 2;
   }
@@ -8225,7 +7689,7 @@ uint64_t ktrace_kpdecode(uint64_t a1, char a2, void *a3)
   else
   {
     v8 = 0;
-    v6[1] = 0x2600000025000000;
+    *(v6 + 1) = 0x2600000025000000;
   }
 
   *v6 = v8;
@@ -8247,11 +7711,11 @@ uint64_t ktrace_kpdecode(uint64_t a1, char a2, void *a3)
 
   v11 = _Block_copy(v10);
   result = 0;
-  v7[3] = v11;
+  *(v7 + 3) = v11;
   return result;
 }
 
-unint64_t *_session_ensure_uuidmap(unint64_t *result)
+void *_session_ensure_uuidmap(void *result)
 {
   if (!result[38])
   {
@@ -8348,11 +7812,12 @@ _TtC6ktrace12ProviderList *_session_ensure_providers(_TtC6ktrace12ProviderList *
 void ___session_handle_stackshot_block_invoke_2(uint64_t a1, kcdata_item *a2, void *a3)
 {
   _session_ensure_uuidmap(*(a1 + 32));
-  v6 = *(*(a1 + 32) + 304);
-  v7.item = a2;
-  v7.end = a3;
+  v6 = *(a1 + 32);
+  v7 = *(v6 + 304);
+  v8.item = a2;
+  v8.end = a3;
 
-  ktrace_uuid_map_update_with_stackshot(v6, v7);
+  ktrace_uuid_map_update_with_stackshot(v7, v8, v6);
 }
 
 char *ktrace_set_reason(uint64_t a1, char *__s1)
@@ -8372,7 +7837,7 @@ char *ktrace_set_reason(uint64_t a1, char *__s1)
   return result;
 }
 
-uint64_t ktrace_set_trigger_kind(uint64_t result, int a2)
+uint64_t ktrace_set_trigger_kind(uint64_t result, uint64_t a2)
 {
   if (!result)
   {
@@ -8398,7 +7863,7 @@ uint64_t ktrace_get_buffer_size(uint64_t a1)
   return *(a1 + 336);
 }
 
-uint64_t ktrace_set_collection_interval(uint64_t result, int a2)
+uint64_t ktrace_set_collection_interval(uint64_t result, uint64_t a2)
 {
   if (!result)
   {
@@ -8424,7 +7889,7 @@ uint64_t ktrace_get_collection_interval(uint64_t a1)
   return *(a1 + 152);
 }
 
-uint64_t ktrace_set_collection_qos(uint64_t result, int a2)
+uint64_t ktrace_set_collection_qos(uint64_t result, uint64_t a2)
 {
   if (!result)
   {
@@ -8440,7 +7905,7 @@ uint64_t ktrace_set_collection_qos(uint64_t result, int a2)
   return result;
 }
 
-uint64_t ktrace_set_collection_priority(uint64_t result, int a2)
+uint64_t ktrace_set_collection_priority(uint64_t result, uint64_t a2)
 {
   if (!result)
   {
@@ -8518,7 +7983,7 @@ uint64_t ktrace_add_stackshot_flags(uint64_t result, uint64_t a2)
 
 BOOL ___session_machine_init_block_invoke(uint64_t a1, uint64_t *a2)
 {
-  v3 = ktrace_machine_create(a2);
+  v3 = ktrace_machine_create(a2, a2);
   if (v3)
   {
     *(*(a1 + 32) + 344) = v3;
@@ -8529,7 +7994,7 @@ BOOL ___session_machine_init_block_invoke(uint64_t a1, uint64_t *a2)
 
 BOOL ___session_machine_init_block_invoke_2(uint64_t a1, uint64_t *a2)
 {
-  v3 = ktrace_machine_create(a2);
+  v3 = ktrace_machine_create(a2, a2);
   if (v3)
   {
     *(*(a1 + 32) + 344) = v3;
@@ -8776,7 +8241,7 @@ uint64_t ktrace_parse_arg(uint64_t a1, int a2, uint64_t a3, int a4)
     {
       if (a4 == 70)
       {
-        ktrace_set_mode(a1, 3u);
+        ktrace_set_mode(a1, 3);
         return 0;
       }
 
@@ -8879,7 +8344,7 @@ LABEL_30:
   }
 }
 
-uint64_t ktrace_set_mode(uint64_t a1, unsigned int a2)
+uint64_t ktrace_set_mode(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
@@ -8901,12 +8366,12 @@ uint64_t ktrace_set_mode(uint64_t a1, unsigned int a2)
   {
     if (*a1 == 1)
     {
-      a2 = 4;
+      LODWORD(a2) = 4;
     }
 
     else
     {
-      a2 = 3;
+      LODWORD(a2) = 3;
     }
   }
 
@@ -8939,7 +8404,7 @@ uint64_t ktrace_parse_args(uint64_t a1, int a2, char **a3)
   return 0;
 }
 
-void ktrace_set_signal_handler(uint64_t a1)
+void ktrace_set_signal_handler(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
@@ -8952,62 +8417,62 @@ void ktrace_set_signal_handler(uint64_t a1)
     ktrace_set_signal_handler_cold_1();
   }
 
-  v2 = *(a1 + 224);
-  if (v2 & 2) != 0 || (v2)
+  v3 = *(a1 + 224);
+  if (v3 & 2) != 0 || (v3)
   {
     ktrace_set_remotetime_conversion_enabled_cold_1();
   }
 
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __ktrace_set_signal_handler_block_invoke_2;
-  v13[3] = &__block_descriptor_40_e5_v8__0l;
-  v13[4] = a1;
-  v3 = dispatch_source_create(MEMORY[0x277D85D30], 2uLL, 0, ktrace_set_signal_handler_signal_queue);
-  *(a1 + 176) = v3;
-  v11[0] = 0;
-  v11[1] = v11;
-  v11[2] = 0x2020000000;
-  v12 = 0;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __ktrace_set_signal_handler_block_invoke_2;
+  v14[3] = &__block_descriptor_40_e5_v8__0l;
+  v14[4] = a1;
+  v4 = dispatch_source_create(MEMORY[0x277D85D30], 2uLL, 0, ktrace_set_signal_handler_signal_queue);
+  *(a1 + 176) = v4;
+  v12[0] = 0;
+  v12[1] = v12;
+  v12[2] = 0x2020000000;
+  v13 = 0;
   handler[0] = MEMORY[0x277D85DD0];
   handler[1] = 3221225472;
   handler[2] = __ktrace_set_signal_handler_block_invoke_3;
   handler[3] = &unk_27886E8C0;
-  handler[4] = v11;
+  handler[4] = v12;
   handler[5] = a1;
-  dispatch_source_set_event_handler(v3, handler);
+  dispatch_source_set_event_handler(v4, handler);
   signal(2, 1);
-  v4 = dispatch_source_create(MEMORY[0x277D85D30], 1uLL, 0, ktrace_set_signal_handler_signal_queue);
-  *(a1 + 184) = v4;
-  dispatch_source_set_event_handler(v4, v13);
+  v5 = dispatch_source_create(MEMORY[0x277D85D30], 1uLL, 0, ktrace_set_signal_handler_signal_queue);
+  *(a1 + 184) = v5;
+  dispatch_source_set_event_handler(v5, v14);
   signal(1, 1);
-  v5 = dispatch_source_create(MEMORY[0x277D85D30], 0xDuLL, 0, ktrace_set_signal_handler_signal_queue);
-  *(a1 + 200) = v5;
-  dispatch_source_set_event_handler(v5, v13);
+  v6 = dispatch_source_create(MEMORY[0x277D85D30], 0xDuLL, 0, ktrace_set_signal_handler_signal_queue);
+  *(a1 + 200) = v6;
+  dispatch_source_set_event_handler(v6, v14);
   signal(13, 1);
-  v6 = dispatch_source_create(MEMORY[0x277D85D30], 0xFuLL, 0, ktrace_set_signal_handler_signal_queue);
-  *(a1 + 192) = v6;
-  dispatch_source_set_event_handler(v6, v13);
+  v7 = dispatch_source_create(MEMORY[0x277D85D30], 0xFuLL, 0, ktrace_set_signal_handler_signal_queue);
+  *(a1 + 192) = v7;
+  dispatch_source_set_event_handler(v7, v14);
   signal(15, 1);
-  v7 = dispatch_source_create(MEMORY[0x277D85D30], 3uLL, 0, ktrace_set_signal_handler_signal_queue);
-  *(a1 + 208) = v7;
-  dispatch_source_set_event_handler(v7, v13);
+  v8 = dispatch_source_create(MEMORY[0x277D85D30], 3uLL, 0, ktrace_set_signal_handler_signal_queue);
+  *(a1 + 208) = v8;
+  dispatch_source_set_event_handler(v8, v14);
   signal(3, 1);
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __ktrace_set_signal_handler_block_invoke_4;
-  v9[3] = &__block_descriptor_40_e5_v8__0l;
-  v9[4] = a1;
-  v8 = dispatch_source_create(MEMORY[0x277D85D30], 0x1DuLL, 0, ktrace_set_signal_handler_signal_queue);
-  *(a1 + 216) = v8;
-  dispatch_source_set_event_handler(v8, v9);
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __ktrace_set_signal_handler_block_invoke_4;
+  v10[3] = &__block_descriptor_40_e5_v8__0l;
+  v10[4] = a1;
+  v9 = dispatch_source_create(MEMORY[0x277D85D30], 0x1DuLL, 0, ktrace_set_signal_handler_signal_queue);
+  *(a1 + 216) = v9;
+  dispatch_source_set_event_handler(v9, v10);
   signal(29, 1);
-  _Block_object_dispose(v11, 8);
+  _Block_object_dispose(v12, 8);
 }
 
-void sub_22EDB2398(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_22EDB2398(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9060,11 +8525,11 @@ uint64_t ktrace_set_coprocessor_tracing_enabled(uint64_t result, int a2)
   return result;
 }
 
-void ktrace_set_trailing_duration(uint64_t a1)
+void ktrace_set_trailing_duration(uint64_t a1, unint64_t a2)
 {
   if (*(a1 + 4) != 2)
   {
-    ktrace_time_ringbuffer_create();
+    ktrace_time_ringbuffer_create(a2);
   }
 
   ktrace_postprocess_file_internal_cold_4();
@@ -9155,16 +8620,14 @@ uint64_t __ktrace_stream_create_block_invoke()
 
 intptr_t __ktrace_stream_iterate_group_block_invoke(void *a1)
 {
-  v2 = a1[5];
-  v3 = a1[6];
   (*(a1[4] + 16))();
   ktrace_chunk_unmap_data(a1[7], a1[5], a1[6]);
-  v4 = *(a1[8] + 960);
+  v2 = *(a1[8] + 960);
 
-  return dispatch_semaphore_signal(v4);
+  return dispatch_semaphore_signal(v2);
 }
 
-uint64_t convert_artrace_events_64(uint64_t a1, uint64_t *a2, uint64_t a3, unint64_t *a4)
+uint64_t convert_artrace_events_64(uint64_t a1, unint64_t *a2, uint64_t a3, unint64_t *a4)
 {
   if (!a1)
   {
@@ -9185,7 +8648,7 @@ uint64_t convert_artrace_events_64(uint64_t a1, uint64_t *a2, uint64_t a3, unint
   {
     v6 = 0;
     v4 = 0;
-    v7 = *a2 / 0x30uLL;
+    v7 = *a2 / 0x30;
     v8 = *a4;
     v9 = (a1 + 16);
     while (1)
@@ -9230,7 +8693,7 @@ uint64_t convert_artrace_events_64(uint64_t a1, uint64_t *a2, uint64_t a3, unint
   return 0;
 }
 
-uint64_t convert_artrace_events_32(int32x4_t *a1, uint64_t *a2, uint64_t a3, uint64_t *a4)
+uint64_t convert_artrace_events_32(int32x4_t *a1, unint64_t *a2, uint64_t a3, uint64_t *a4)
 {
   if (!a1)
   {
@@ -9251,7 +8714,7 @@ uint64_t convert_artrace_events_32(int32x4_t *a1, uint64_t *a2, uint64_t a3, uin
   {
     v6 = 0;
     v4 = 0;
-    v7 = *a2 / 0x30uLL;
+    v7 = *a2 / 0x30;
     v8 = *a4;
     v9 = a1 + 1;
     while (1)
@@ -9321,46 +8784,46 @@ uint64_t ktrace_stream_out_compressed(uint64_t a1, unsigned int a2, uint64_t a3,
   return 22;
 }
 
-unint64_t ktrace_stream_estimate_events(uint64_t *a1)
+unint64_t ktrace_stream_estimate_events(uint64_t *a1, uint64_t a2)
 {
   if (!a1)
   {
     ktrace_postprocess_file_internal_cold_4();
   }
 
-  v2 = ktrace_chunk_tag(a1);
-  v3 = ktrace_chunk_size(a1);
+  v3 = ktrace_chunk_tag(a1, a2);
+  v5 = ktrace_chunk_size(a1, v4);
   is_64_bit = ktrace_chunk_is_64_bit(a1);
-  if (v2 == 20982)
+  if (v3 == 20982)
   {
-    return v3 / 0x30;
+    return v5 / 0x30;
   }
 
-  if (v2 == 7936)
+  if (v3 == 7936)
   {
-    v7 = 0;
-    if (ktrace_chunk_copy_data(a1, 8, &v7, 4uLL))
+    v9 = 0;
+    if (ktrace_chunk_copy_data(a1, 8, &v9, 4uLL))
     {
       return 0;
     }
 
     else
     {
-      return v7;
+      return v9;
     }
   }
 
   else
   {
-    v5 = (v3 - 8) >> 6;
+    v7 = (v5 - 8) >> 6;
     if (!is_64_bit)
     {
-      v5 = (v3 - 8) >> 5;
+      v7 = (v5 - 8) >> 5;
     }
 
-    if (v2 == 7680)
+    if (v3 == 7680)
     {
-      return v5;
+      return v7;
     }
 
     else
@@ -9406,197 +8869,194 @@ void *ktrace_stream_create_iterator(void *a1)
 
   CFRetain(a1);
   v2 = malloc_type_malloc(0x40uLL, 0x10700401C01FCAEuLL);
-  v7 = v2;
+  v8 = v2;
   if (!v2)
   {
     ktrace_postprocess_file_internal_cold_4();
   }
 
-  v3 = v2;
+  v4 = v2;
   *v2 = a1[4];
   v2[1] = a1;
   *(v2 + 1) = 0u;
   *(v2 + 2) = 0u;
   *(v2 + 3) = 0u;
-  inited = ktrace_iter_init_chunk(v2);
+  inited = ktrace_iter_init_chunk(v2, v3);
   if (inited)
   {
-    v5 = inited;
-    ktrace_iter_destroy(&v7);
-    *__error() = v5;
-    return v7;
+    v6 = inited;
+    ktrace_iter_destroy(&v8);
+    *__error() = v6;
+    return v8;
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t ktrace_iter_init_chunk(uint64_t a1)
+uint64_t ktrace_iter_init_chunk(uint64_t a1, uint64_t a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
-  if (!*(a1 + 56))
+  v44 = *MEMORY[0x277D85DE8];
+  if (*(a1 + 56))
   {
-    v3 = **a1;
-    v4 = ktrace_chunk_tag(v3);
-    switch(v4)
-    {
-      case 20982:
-        if (ktrace_chunk_size(v3) >= 0x30)
-        {
-          v28 = ktrace_chunk_size_t(v3);
-          v29 = ktrace_chunk_copy_cfdata(v3, 0, v28);
-          *(a1 + 48) = v29;
-          if (v29)
-          {
-            *(a1 + 24) = CFDataGetBytePtr(v29);
-            Length = CFDataGetLength(*(a1 + 48));
-            *(a1 + 16) = 0;
-            v10 = 48;
-LABEL_34:
-            *(a1 + 32) = Length;
-            *(a1 + 40) = v10;
-LABEL_35:
-            v30 = ktrace_chunk_tag(v3);
-            result = 0;
-            *(a1 + 56) = v30;
-            goto LABEL_39;
-          }
-
-LABEL_38:
-          result = 12;
-          goto LABEL_39;
-        }
-
-        break;
-      case 7936:
-        v11 = ktrace_stream_estimate_events(v3);
-        if (v11)
-        {
-          v12 = v11;
-          if (ktrace_chunk_size(v3) >= 0xD)
-          {
-            v13 = ktrace_chunk_size_t(v3);
-            v14 = ktrace_chunk_map_data(v3, 0, v13);
-            if (!v14)
-            {
-              result = *__error();
-              goto LABEL_39;
-            }
-
-            v15 = v14;
-            v16 = *(*(a1 + 8) + 972) == 0;
-            v17 = 32;
-            if (*(*(a1 + 8) + 972))
-            {
-              v17 = 64;
-            }
-
-            *(a1 + 40) = v17;
-            v18 = 5;
-            if (!v16)
-            {
-              v18 = 6;
-            }
-
-            Mutable = CFDataCreateMutable(0, v12 << v18);
-            if (Mutable)
-            {
-              v20 = Mutable;
-              CFDataSetLength(Mutable, *(a1 + 40) * v12);
-              bzero(v34, 0x388uLL);
-              ktrace_compressor_reset(v34);
-              v33 = ktrace_chunk_size_t(v3) - 12;
-              if (*(*(a1 + 8) + 972))
-              {
-                v21 = decompress_64;
-              }
-
-              else
-              {
-                v21 = decompress_32;
-              }
-
-              MutableBytePtr = CFDataGetMutableBytePtr(v20);
-              v23 = CFDataGetLength(v20);
-              *(a1 + 32) = v21(v34, v15 + 12, &v33, MutableBytePtr, v23);
-              v24 = ktrace_chunk_size_t(v3);
-              ktrace_chunk_unmap_data(v3, v15, v24);
-              if (!*(a1 + 32))
-              {
-                CFRelease(v20);
-                result = 9;
-                goto LABEL_39;
-              }
-
-              v25 = *(a1 + 32);
-              if (v25 != CFDataGetLength(v20))
-              {
-                ktrace_log_init();
-                v26 = ktrace_file_log;
-                if (os_log_type_enabled(ktrace_file_log, OS_LOG_TYPE_DEBUG))
-                {
-                  ktrace_iter_init_chunk_cold_1(v20, (a1 + 32), v26);
-                }
-
-                *(a1 + 32) = CFDataGetLength(v20);
-              }
-
-              BytePtr = CFDataGetBytePtr(v20);
-              *(a1 + 48) = v20;
-              *(a1 + 16) = 0;
-              *(a1 + 24) = BytePtr;
-              goto LABEL_35;
-            }
-
-            v31 = ktrace_chunk_size_t(v3);
-            ktrace_chunk_unmap_data(v3, v15, v31);
-            goto LABEL_38;
-          }
-        }
-
-        break;
-      case 7680:
-        v5 = ktrace_chunk_size(v3);
-        v6 = 40;
-        if (*(*(a1 + 8) + 972))
-        {
-          v6 = 72;
-        }
-
-        if (v5 >= v6)
-        {
-          v7 = ktrace_chunk_size_t(v3);
-          v8 = ktrace_chunk_copy_cfdata(v3, 0, v7);
-          *(a1 + 48) = v8;
-          if (v8)
-          {
-            *(a1 + 24) = CFDataGetBytePtr(v8);
-            Length = CFDataGetLength(*(a1 + 48));
-            *(a1 + 16) = 8;
-            v10 = 32;
-            if (*(*(a1 + 8) + 972))
-            {
-              v10 = 64;
-            }
-
-            goto LABEL_34;
-          }
-
-          goto LABEL_38;
-        }
-
-        break;
-      default:
-        ktrace_stream_iterate_group_cold_1();
-    }
-
-    result = 108;
-    goto LABEL_39;
+    return 0;
   }
 
-  result = 0;
-LABEL_39:
-  v32 = *MEMORY[0x277D85DE8];
-  return result;
+  v4 = **a1;
+  v5 = ktrace_chunk_tag(v4, a2);
+  if (v5 == 20982)
+  {
+    if (ktrace_chunk_size(v4, v6) >= 0x30)
+    {
+      v38 = ktrace_chunk_size_t(v4, v37);
+      v39 = ktrace_chunk_copy_cfdata(v4, 0, v38);
+      *(a1 + 48) = v39;
+      if (v39)
+      {
+        *(a1 + 24) = CFDataGetBytePtr(v39);
+        Length = CFDataGetLength(*(a1 + 48));
+        *(a1 + 16) = 0;
+        v14 = 48;
+LABEL_34:
+        *(a1 + 32) = Length;
+        *(a1 + 40) = v14;
+LABEL_35:
+        v40 = ktrace_chunk_tag(v4, v13);
+        result = 0;
+        *(a1 + 56) = v40;
+        return result;
+      }
+
+      return 12;
+    }
+
+    return 108;
+  }
+
+  if (v5 != 7936)
+  {
+    if (v5 != 7680)
+    {
+      ktrace_stream_iterate_group_cold_1();
+    }
+
+    v7 = ktrace_chunk_size(v4, v6);
+    v9 = 40;
+    if (*(*(a1 + 8) + 972))
+    {
+      v9 = 72;
+    }
+
+    if (v7 >= v9)
+    {
+      v10 = ktrace_chunk_size_t(v4, v8);
+      v11 = ktrace_chunk_copy_cfdata(v4, 0, v10);
+      *(a1 + 48) = v11;
+      if (v11)
+      {
+        *(a1 + 24) = CFDataGetBytePtr(v11);
+        Length = CFDataGetLength(*(a1 + 48));
+        *(a1 + 16) = 8;
+        v14 = 32;
+        if (*(*(a1 + 8) + 972))
+        {
+          v14 = 64;
+        }
+
+        goto LABEL_34;
+      }
+
+      return 12;
+    }
+
+    return 108;
+  }
+
+  v15 = ktrace_stream_estimate_events(v4, v6);
+  if (!v15)
+  {
+    return 108;
+  }
+
+  v17 = v15;
+  if (ktrace_chunk_size(v4, v16) < 0xD)
+  {
+    return 108;
+  }
+
+  v19 = ktrace_chunk_size_t(v4, v18);
+  v20 = ktrace_chunk_map_data(v4, 0, v19);
+  if (!v20)
+  {
+    return *__error();
+  }
+
+  v21 = v20;
+  v22 = *(*(a1 + 8) + 972) == 0;
+  v23 = 32;
+  if (*(*(a1 + 8) + 972))
+  {
+    v23 = 64;
+  }
+
+  *(a1 + 40) = v23;
+  v24 = 5;
+  if (!v22)
+  {
+    v24 = 6;
+  }
+
+  Mutable = CFDataCreateMutable(0, v17 << v24);
+  if (!Mutable)
+  {
+    v41 = ktrace_chunk_size_t(v4, v26);
+    ktrace_chunk_unmap_data(v4, v21, v41);
+    return 12;
+  }
+
+  v27 = Mutable;
+  CFDataSetLength(Mutable, *(a1 + 40) * v17);
+  bzero(v43, 0x388uLL);
+  ktrace_compressor_reset(v43);
+  v42 = ktrace_chunk_size_t(v4, v28) - 12;
+  if (*(*(a1 + 8) + 972))
+  {
+    v29 = decompress_64;
+  }
+
+  else
+  {
+    v29 = decompress_32;
+  }
+
+  MutableBytePtr = CFDataGetMutableBytePtr(v27);
+  v31 = CFDataGetLength(v27);
+  *(a1 + 32) = v29(v43, v21 + 12, &v42, MutableBytePtr, v31);
+  v33 = ktrace_chunk_size_t(v4, v32);
+  ktrace_chunk_unmap_data(v4, v21, v33);
+  if (*(a1 + 32))
+  {
+    v34 = *(a1 + 32);
+    if (v34 != CFDataGetLength(v27))
+    {
+      ktrace_log_init();
+      v35 = ktrace_file_log;
+      if (os_log_type_enabled(ktrace_file_log, OS_LOG_TYPE_DEBUG))
+      {
+        ktrace_iter_init_chunk_cold_1(v27, (a1 + 32), v35);
+      }
+
+      *(a1 + 32) = CFDataGetLength(v27);
+    }
+
+    BytePtr = CFDataGetBytePtr(v27);
+    *(a1 + 48) = v27;
+    *(a1 + 16) = 0;
+    *(a1 + 24) = BytePtr;
+    goto LABEL_35;
+  }
+
+  CFRelease(v27);
+  return 9;
 }
 
 void *ktrace_stream_create_end_iterator(void *a1)
@@ -9608,42 +9068,42 @@ void *ktrace_stream_create_end_iterator(void *a1)
 
   CFRetain(a1);
   v2 = malloc_type_malloc(0x40uLL, 0x10700401C01FCAEuLL);
-  v11 = v2;
+  v12 = v2;
   if (!v2)
   {
     ktrace_postprocess_file_internal_cold_4();
   }
 
-  v3 = v2;
+  v4 = v2;
   *v2 = a1[5];
   v2[1] = a1;
   *(v2 + 1) = 0u;
-  v4 = v2 + 2;
+  v5 = v2 + 2;
   *(v2 + 2) = 0u;
   *(v2 + 3) = 0u;
-  inited = ktrace_iter_init_chunk(v2);
+  inited = ktrace_iter_init_chunk(v2, v3);
   if (inited)
   {
-    v6 = inited;
-    ktrace_iter_destroy(&v11);
-    v3 = 0;
-    *__error() = v6;
+    v7 = inited;
+    ktrace_iter_destroy(&v12);
+    v4 = 0;
+    *__error() = v7;
   }
 
   else
   {
-    v7 = v3[2];
-    v8 = v3[5];
-    v9 = (v3[4] - v7) / v8;
-    if ((v9 & 0x8000000000000000) != 0)
+    v8 = v4[2];
+    v9 = v4[5];
+    v10 = (v4[4] - v8) / v9;
+    if ((v10 & 0x8000000000000000) != 0)
     {
       ktrace_postprocess_file_internal_cold_4();
     }
 
-    *v4 = v7 + (v9 - 1) * v8;
+    *v5 = v8 + (v10 - 1) * v9;
   }
 
-  return v3;
+  return v4;
 }
 
 __n128 ktrace_iter_copy(uint64_t a1)
@@ -9676,40 +9136,40 @@ __n128 ktrace_iter_copy(uint64_t a1)
   return result;
 }
 
-uint64_t ktrace_iter_prev(uint64_t *a1)
+uint64_t ktrace_iter_prev(uint64_t *a1, uint64_t a2)
 {
-  v2 = *a1;
-  inited = ktrace_iter_init_chunk(*a1);
+  v3 = *a1;
+  inited = ktrace_iter_init_chunk(*a1, a2);
   if (inited)
   {
     goto LABEL_2;
   }
 
-  v5 = *(v2 + 56);
-  if (v5 != 7680 && v5 != 20982 && v5 != 7936)
+  v6 = *(v3 + 56);
+  if (v6 != 7680 && v6 != 20982 && v6 != 7936)
   {
     ktrace_stream_iterate_group_cold_1();
   }
 
-  if (!*(v2 + 48))
+  if (!*(v3 + 48))
   {
     ktrace_postprocess_file_internal_cold_4();
   }
 
-  v8 = *(v2 + 16);
-  v9 = *(v2 + 40);
-  v10 = v8 >= v9;
-  v11 = v8 - v9;
-  if (v10)
+  v9 = *(v3 + 16);
+  v10 = *(v3 + 40);
+  v11 = v9 >= v10;
+  v12 = v9 - v10;
+  if (v11)
   {
     inited = 0;
-    *(v2 + 16) = v11;
+    *(v3 + 16) = v12;
     return inited;
   }
 
-  ktrace_iter_fini_chunk(v2);
-  v12 = *v2;
-  if (!*(*v2 + 24))
+  ktrace_iter_fini_chunk(v3);
+  v14 = *v3;
+  if (!*(*v3 + 24))
   {
 LABEL_17:
     inited = 0;
@@ -9720,22 +9180,22 @@ LABEL_2:
 
   while (1)
   {
-    *v2 = *(v12 + 24);
-    v13 = ktrace_iter_init_chunk(v2);
-    if (v13 != 108)
+    *v3 = *(v14 + 24);
+    v15 = ktrace_iter_init_chunk(v3, v13);
+    if (v15 != 108)
     {
       break;
     }
 
-    v12 = *v2;
-    if (!*v2)
+    v14 = *v3;
+    if (!*v3)
     {
       goto LABEL_17;
     }
   }
 
-  inited = v13;
-  if (v13 || !*v2)
+  inited = v15;
+  if (v15 || !*v3)
   {
     goto LABEL_2;
   }
@@ -9757,38 +9217,38 @@ void ktrace_iter_fini_chunk(uint64_t a1)
   *(a1 + 56) = 0;
 }
 
-uint64_t ktrace_iter_next(uint64_t *a1)
+uint64_t ktrace_iter_next(uint64_t *a1, uint64_t a2)
 {
-  v2 = *a1;
-  inited = ktrace_iter_init_chunk(*a1);
+  v3 = *a1;
+  inited = ktrace_iter_init_chunk(*a1, a2);
   if (inited)
   {
     goto LABEL_2;
   }
 
-  v5 = *(v2 + 56);
-  if (v5 != 7680 && v5 != 20982 && v5 != 7936)
+  v6 = *(v3 + 56);
+  if (v6 != 7680 && v6 != 20982 && v6 != 7936)
   {
     ktrace_stream_iterate_group_cold_1();
   }
 
-  if (!*(v2 + 48))
+  if (!*(v3 + 48))
   {
     ktrace_postprocess_file_internal_cold_4();
   }
 
-  v8 = *(v2 + 40);
-  v9 = v8 + *(v2 + 16);
-  if ((v9 + v8) <= *(v2 + 32))
+  v9 = *(v3 + 40);
+  v10 = v9 + *(v3 + 16);
+  if ((v10 + v9) <= *(v3 + 32))
   {
     inited = 0;
-    *(v2 + 16) = v9;
+    *(v3 + 16) = v10;
     return inited;
   }
 
-  ktrace_iter_fini_chunk(v2);
-  v10 = *v2;
-  if (!*(*v2 + 16))
+  ktrace_iter_fini_chunk(v3);
+  v12 = *v3;
+  if (!*(*v3 + 16))
   {
 LABEL_17:
     inited = 0;
@@ -9799,22 +9259,22 @@ LABEL_2:
 
   while (1)
   {
-    *v2 = *(v10 + 16);
-    v11 = ktrace_iter_init_chunk(v2);
-    if (v11 != 108)
+    *v3 = *(v12 + 16);
+    v13 = ktrace_iter_init_chunk(v3, v11);
+    if (v13 != 108)
     {
       break;
     }
 
-    v10 = *v2;
-    if (!*v2)
+    v12 = *v3;
+    if (!*v3)
     {
       goto LABEL_17;
     }
   }
 
-  inited = v11;
-  if (v11 || !*v2)
+  inited = v13;
+  if (v13 || !*v3)
   {
     goto LABEL_2;
   }
@@ -9825,7 +9285,7 @@ LABEL_2:
 uint64_t ktrace_iter_next_until(uint64_t *a1, uint64_t a2)
 {
   v4 = *a1;
-  result = ktrace_iter_init_chunk(*a1);
+  result = ktrace_iter_init_chunk(*a1, a2);
   if (!result)
   {
     if (!*(v4 + 48))
@@ -9833,70 +9293,678 @@ uint64_t ktrace_iter_next_until(uint64_t *a1, uint64_t a2)
       ktrace_postprocess_file_internal_cold_4();
     }
 
-    v8 = *(*(v4 + 8) + 972) == 0;
+    v9 = *(*(v4 + 8) + 972) == 0;
     *(v4 + 16) += *(v4 + 40);
-    if (v8)
+    if (v9)
     {
-      v6 = 28;
+      v7 = 28;
     }
 
     else
     {
-      v6 = 48;
+      v7 = 48;
     }
 
     do
     {
-      v7 = *(v4 + 56);
-      v8 = v7 == 7680 || v7 == 7936;
-      if (v8)
+      v8 = *(v4 + 56);
+      v9 = v8 == 7680 || v8 == 7936;
+      if (v9)
       {
-        v9 = *(v4 + 16);
-        v11 = *(v4 + 32);
-        v10 = *(v4 + 40);
-        while (v10 + v9 <= v11)
+        v10 = *(v4 + 16);
+        v12 = *(v4 + 32);
+        v11 = *(v4 + 40);
+        while (v11 + v10 <= v12)
         {
-          if ((*(a2 + 16))(a2, *(*(v4 + 24) + v9 + v6)))
+          if ((*(a2 + 16))(a2, *(*(v4 + 24) + v10 + v7)))
           {
             return 0;
           }
 
-          v11 = *(v4 + 32);
-          v10 = *(v4 + 40);
-          v9 = *(v4 + 16) + v10;
-          *(v4 + 16) = v9;
+          v12 = *(v4 + 32);
+          v11 = *(v4 + 40);
+          v10 = *(v4 + 16) + v11;
+          *(v4 + 16) = v10;
         }
       }
 
       else
       {
-        if (v7 != 20982)
+        if (v8 != 20982)
         {
           ktrace_stream_iterate_group_cold_1();
         }
 
-        v12 = *(v4 + 16);
-        v14 = *(v4 + 32);
-        v13 = *(v4 + 40);
-        while (v13 + v12 <= v14)
+        v13 = *(v4 + 16);
+        v15 = *(v4 + 32);
+        v14 = *(v4 + 40);
+        while (v14 + v13 <= v15)
         {
-          if ((*(a2 + 16))(a2, *(*(v4 + 24) + v12 + 8)))
+          if ((*(a2 + 16))(a2, *(*(v4 + 24) + v13 + 8)))
           {
             return 0;
           }
 
-          v14 = *(v4 + 32);
-          v13 = *(v4 + 40);
-          v12 = *(v4 + 16) + v13;
-          *(v4 + 16) = v12;
+          v15 = *(v4 + 32);
+          v14 = *(v4 + 40);
+          v13 = *(v4 + 16) + v14;
+          *(v4 + 16) = v13;
         }
       }
 
-      result = ktrace_iter_next(a1);
+      result = ktrace_iter_next(a1, v6);
     }
 
     while (*a1);
   }
 
   return result;
+}
+
+uint64_t ktrace_iter_get_event(uint64_t result, uint64_t a2)
+{
+  v2 = *(result + 56);
+  if (v2 != 7680)
+  {
+    if (v2 == 20982)
+    {
+      v5 = (*(result + 24) + *(result + 16));
+      v6 = *v5;
+      *a2 = *v5 & 0xFFFFFFFFFFFFFFLL;
+      v7 = *(v5 + 3);
+      *(a2 + 48) = *(v5 + 2);
+      *(a2 + 52) = HIBYTE(v6);
+      *(a2 + 8) = *(v5 + 1);
+      *(a2 + 24) = *(v5 + 2);
+      *(a2 + 40) = v7;
+      return result;
+    }
+
+    if (v2 != 7936)
+    {
+      ktrace_stream_iterate_group_cold_1();
+    }
+  }
+
+  if (!*(result + 48))
+  {
+    ktrace_postprocess_file_internal_cold_4();
+  }
+
+  v3 = (*(result + 24) + *(result + 16));
+  v4 = *v3;
+  if (*(*(result + 8) + 972) == 1)
+  {
+    *a2 = v4;
+    *(a2 + 48) = *(v3 + 12);
+    *(a2 + 8) = v3[1];
+    *(a2 + 16) = v3[2];
+    *(a2 + 24) = v3[3];
+    *(a2 + 32) = v3[4];
+    *(a2 + 40) = v3[5];
+    *(a2 + 52) = *(v3 + 13);
+  }
+
+  else
+  {
+    *a2 = v4 & 0xFFFFFFFFFFFFFFLL;
+    *(a2 + 48) = *(v3 + 7);
+    *(a2 + 8) = *(v3 + 2);
+    *(a2 + 16) = *(v3 + 3);
+    *(a2 + 24) = *(v3 + 4);
+    *(a2 + 32) = *(v3 + 5);
+    *(a2 + 40) = *(v3 + 6);
+    *(a2 + 52) = *(v3 + 7);
+  }
+
+  return result;
+}
+
+BOOL ktrace_iter_equal(unint64_t a1, unint64_t a2)
+{
+  if (!(a1 | a2))
+  {
+    return 1;
+  }
+
+  result = 0;
+  if (a1 && a2)
+  {
+    return *a1 == *a2 && *(a1 + 16) == *(a2 + 16);
+  }
+
+  return result;
+}
+
+void jetsam_coalition_release(int a1, void *a2)
+{
+  if (a2)
+  {
+    free(a2);
+  }
+}
+
+void thread_group_release(int a1, void *a2)
+{
+  if (a2)
+  {
+    free(a2);
+  }
+}
+
+uint64_t kthmap_read_kdebug_map(uint64_t a1, uint64_t a2, unint64_t a3, int a4, int a5)
+{
+  if (!a1)
+  {
+    ktrace_postprocess_file_internal_cold_4();
+  }
+
+  if (!a2)
+  {
+    ktrace_postprocess_file_internal_cold_4();
+  }
+
+  if ((*(a1 + 96) & 2) == 0)
+  {
+    return 0;
+  }
+
+  if (!a4)
+  {
+    if (a5)
+    {
+      v24 = 32;
+    }
+
+    else
+    {
+      v24 = 28;
+    }
+
+    if (!a3)
+    {
+      return 0;
+    }
+
+    v25 = 0;
+    while (1)
+    {
+      if (a5)
+      {
+        v26 = *(a2 + v25);
+        if (v26)
+        {
+          v27 = *(a2 + v25 + 8);
+          v28 = (a2 + v25 + 12);
+          goto LABEL_30;
+        }
+      }
+
+      else
+      {
+        v26 = *(a2 + v25);
+        if (v26)
+        {
+          v27 = *(a2 + v25 + 4);
+          v28 = (a2 + v25 + 8);
+LABEL_30:
+          result = insert_legacy_entry_internal(a1, v26, v27, v28);
+          if (result)
+          {
+            return result;
+          }
+        }
+      }
+
+      v25 += v24;
+      if (v25 >= a3)
+      {
+        return 0;
+      }
+    }
+  }
+
+  if (a3 >= 33)
+  {
+    v9 = a2 + a3;
+    v10 = a2 + 32;
+    *a1 = *a2;
+    if (*(a2 + 16))
+    {
+      v11 = 0;
+      do
+      {
+        v12 = (v10 + *(a2 + 20));
+        if (v12 >= v9)
+        {
+          return 1;
+        }
+
+        v13 = malloc_type_malloc(0x28uLL, 0x1010040139C5EC2uLL);
+        if (!v13)
+        {
+          return 1;
+        }
+
+        v14 = v13;
+        *(v13 + 3) = strdup(v12);
+        v15 = *(v10 + 8);
+        v14[2] = v15;
+        v14[4] = *(v10 + 12);
+        v16 = *v10;
+        *v14 = *v10;
+        v17 = strdup(v12);
+        *(v14 + 3) = v17;
+        v10 = &v12[strlen(v17) + 1];
+        if (v10 >= v9)
+        {
+          free(v14);
+          return 1;
+        }
+
+        CFDictionarySetValue(*(a1 + 16), v15, v14);
+        CFDictionarySetValue(*(a1 + 24), v16, v14);
+      }
+
+      while (++v11 < *(a2 + 16));
+    }
+
+    if (*(a2 + 24))
+    {
+      v18 = 0;
+      while (1)
+      {
+        v19 = (v10 + *(a2 + 28));
+        if (v19 >= v9)
+        {
+          break;
+        }
+
+        v20 = *v10;
+        Value = CFDictionaryGetValue(*(a1 + 16), *(v10 + 8));
+        if (Value)
+        {
+          CFDictionarySetValue(*(a1 + 32), v20, Value);
+          v22 = strdup(v19);
+          CFDictionarySetValue(*(a1 + 40), v20, v22);
+          v19 += strlen(v22) + 1;
+          if (v19 >= v9)
+          {
+            break;
+          }
+        }
+
+        result = 0;
+        ++v18;
+        v10 = v19;
+        if (v18 >= *(a2 + 24))
+        {
+          return result;
+        }
+      }
+
+      return 1;
+    }
+
+    return 0;
+  }
+
+  return 1;
+}
+
+uint64_t kthmap_prepass_stackshot(uint64_t result, void *a2)
+{
+  if (result)
+  {
+    v3 = result;
+    result = ktrace_chunk_tag(a2, a2);
+    switch(result)
+    {
+      case 0x51FE:
+        goto LABEL_8;
+      case 0x8002:
+        result = ktrace_chunk_version_major(a2);
+        if (result > 1)
+        {
+          return result;
+        }
+
+        goto LABEL_8;
+      case 0x9000:
+        result = ktrace_chunk_version_major(a2);
+        if (!result)
+        {
+LABEL_8:
+          v4[0] = MEMORY[0x277D85DD0];
+          v4[1] = 0x40000000;
+          v4[2] = __kthmap_prepass_stackshot_block_invoke;
+          v4[3] = &__block_descriptor_tmp_11;
+          v4[4] = v3;
+          return ktrace_stackshot_chunk_unwrap(a2, v4);
+        }
+
+        break;
+    }
+  }
+
+  return result;
+}
+
+void kthmap_update_stackshot(uint64_t a1, uint64_t a2, unint64_t a3)
+{
+  if (!a1)
+  {
+    ktrace_postprocess_file_internal_cold_4();
+  }
+
+  if ((*(a1 + 96) & 2) != 0)
+  {
+    CFDictionaryRemoveAllValues(*(a1 + 32));
+  }
+
+  v6 = a2 + 16;
+  if (a2 + 16 <= a3)
+  {
+    v7 = 0;
+    v38 = 0;
+    v8 = -1;
+    v9 = &ktrace_log;
+    v10 = -1;
+    while (1)
+    {
+      v11 = *(a2 + 4);
+      if (v6 + v11 > a3)
+      {
+        return;
+      }
+
+      v12 = *a2;
+      if ((*a2 & 0xFFFFFFF0) == 0x20)
+      {
+        v13 = 17;
+      }
+
+      else
+      {
+        v13 = *a2;
+      }
+
+      if (v13 > 2309)
+      {
+        if (v13 > 2334)
+        {
+          if (v13 == 2335)
+          {
+            set_thread_thread_group(a1, v10, *(a2 + 16));
+          }
+
+          else if (v13 == 2337 && v7)
+          {
+            v7[4] = *(a2 + 16);
+          }
+        }
+
+        else if (v13 == 2310)
+        {
+          if ((*(a2 + 81) & 0x20) != 0 && v7)
+          {
+            CFSetAddValue(*(a1 + 88), *(a2 + 16));
+          }
+        }
+
+        else if (v13 == 2313)
+        {
+          v15 = a2 + 16;
+          v16 = v11 >= (*(a2 + 8) & 0xFu);
+          v17 = v11 - (*(a2 + 8) & 0xF);
+          if (!v16)
+          {
+            v17 = 0;
+          }
+
+          v18 = (v17 - 1);
+          if (*(v15 + v18))
+          {
+            ktrace_log_init();
+            if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEBUG))
+            {
+              kthmap_update_stackshot_cold_1(&v41, v42);
+            }
+          }
+
+          else if (v10 != -1 && (*(a1 + 96) & 2) != 0)
+          {
+            rename_thread(a1, v10, v15, v18);
+          }
+        }
+
+        goto LABEL_92;
+      }
+
+      if (v13 <= 19)
+      {
+        break;
+      }
+
+      if (v13 == 20)
+      {
+        v25 = v38;
+        if (v38 == 2)
+        {
+          v10 = -1;
+        }
+
+        --v38;
+        if (v25 == 1)
+        {
+          v8 = -1;
+          v7 = 0;
+        }
+
+        goto LABEL_92;
+      }
+
+      if (v13 == 2309 && v8 != -1)
+      {
+        v16 = v11 >= (*(a2 + 8) & 0xFu);
+        v19 = v11 - (*(a2 + 8) & 0xF);
+        if (!v16)
+        {
+          v19 = 0;
+        }
+
+        if (v19 <= 0x77)
+        {
+          ktrace_log_init();
+          if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEBUG))
+          {
+            kthmap_update_stackshot_cold_1(&v45, v46);
+          }
+
+          goto LABEL_92;
+        }
+
+        if (*(a2 + 16) != v8)
+        {
+          ktrace_log_init();
+          if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEBUG))
+          {
+            kthmap_update_stackshot_cold_1(&v43, v44);
+          }
+
+          goto LABEL_92;
+        }
+
+        Value = CFDictionaryGetValue(*(a1 + 16), *(a2 + 100));
+        v7 = Value;
+        if ((*(a1 + 96) & 2) != 0)
+        {
+          if (!Value)
+          {
+            v31 = task_alloc(*(a2 + 16), *(a2 + 100), (a2 + 104), 0x20uLL);
+            if (!v31)
+            {
+              ktrace_postprocess_file_internal_cold_4();
+            }
+
+            v7 = v31;
+            CFDictionarySetValue(*(a1 + 16), *(a2 + 100), v31);
+          }
+
+          v37 = v10;
+          v32 = *v7;
+          if (*v7 == -1)
+          {
+            *v7 = v8;
+            CFDictionarySetValue(*(a1 + 24), v8, v7);
+            v32 = *v7;
+          }
+
+          v33 = v7[3];
+          if (v32 == v8)
+          {
+            *(v7 + 2) = *(a2 + 100);
+            if (!v33)
+            {
+              goto LABEL_90;
+            }
+
+            v34 = strlen(v33);
+            if (v34 < strnlen((a2 + 104), 0x20uLL))
+            {
+              free(v33);
+              v7[3] = 0;
+              goto LABEL_90;
+            }
+          }
+
+          else
+          {
+            if (v33)
+            {
+              free(v7[3]);
+              v7[3] = 0;
+            }
+
+            *(v7 + 12) = -1;
+            *(v7 + 2) = *(a2 + 100);
+LABEL_90:
+            v7[3] = strndup((a2 + 104), 0x20uLL);
+          }
+
+LABEL_91:
+          v10 = v37;
+        }
+      }
+
+LABEL_92:
+      a2 = v6 + *(a2 + 4);
+      v6 = a2 + 16;
+      if (a2 + 16 > a3)
+      {
+        return;
+      }
+    }
+
+    if (v13 != 17)
+    {
+      if (v13 == 19)
+      {
+        if (v11 >= 4 && v12 == 19)
+        {
+          v14 = *(a2 + 16);
+          ++v38;
+          if (v14 == 2308)
+          {
+            v10 = *(a2 + 8);
+            if (v7 && (*(a1 + 96) & 2) != 0)
+            {
+              CFDictionarySetValue(*(a1 + 32), *(a2 + 8), v7);
+            }
+          }
+
+          else if (v14 == 2307)
+          {
+            v8 = *(a2 + 8);
+          }
+        }
+
+        else
+        {
+          ktrace_log_init();
+          if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEBUG))
+          {
+            kthmap_update_stackshot_cold_1(&v39, v40);
+          }
+        }
+      }
+
+      goto LABEL_92;
+    }
+
+    v20 = *(a2 + 8);
+    if (HIDWORD(v20) != 2334)
+    {
+      if (HIDWORD(v20) == 2336 && v20)
+      {
+        v21 = v8;
+        v22 = v9;
+        v23 = 0;
+        v24 = (a2 + 40);
+        do
+        {
+          new_jetsam_coalition(a1, *(v24 - 3), *(v24 - 2), *(v24 - 1), *v24);
+          ++v23;
+          v24 += 4;
+        }
+
+        while (v23 < *(a2 + 8));
+        v9 = v22;
+        v8 = v21;
+      }
+
+      goto LABEL_92;
+    }
+
+    if (v12 == 17 || !v20 || (v11 - (*a2 & 0xF)) / v20 < 0x20)
+    {
+      if (v20)
+      {
+        v35 = 0;
+        v36 = (a2 + 24);
+        do
+        {
+          new_thread_group(a1, *(v36 - 1), v36);
+          ++v35;
+          v36 += 3;
+        }
+
+        while (v35 < *(a2 + 8));
+      }
+
+      v9 = &ktrace_log;
+      goto LABEL_92;
+    }
+
+    v37 = v10;
+    v26 = 0;
+    v27 = a2 + 24;
+    do
+    {
+      new_thread_group(a1, *(v27 - 8), v27);
+      v28 = *(v27 + 16);
+      v29 = CFDictionaryGetValue(*(a1 + 64), *(v27 - 8));
+      if (v29)
+      {
+        v29[3] = v28 | 0x8000000000000000;
+      }
+
+      v27 += 32;
+      ++v26;
+    }
+
+    while (v26 < *(a2 + 8));
+    v9 = &ktrace_log;
+    goto LABEL_91;
+  }
 }

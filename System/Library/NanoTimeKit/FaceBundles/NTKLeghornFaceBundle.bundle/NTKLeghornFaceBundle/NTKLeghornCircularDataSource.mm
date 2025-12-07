@@ -30,9 +30,9 @@
 - (NTKLeghornCircularDataSource)initWithDevice:(id)device
 {
   deviceCopy = device;
-  v27.receiver = self;
-  v27.super_class = NTKLeghornCircularDataSource;
-  v5 = [(NTKLeghornCircularDataSource *)&v27 init];
+  v25.receiver = self;
+  v25.super_class = NTKLeghornCircularDataSource;
+  v5 = [(NTKLeghornCircularDataSource *)&v25 init];
   if (v5)
   {
     v6 = objc_opt_new();
@@ -55,10 +55,10 @@
     clockTimerToken = v5->_clockTimerToken;
     v5->_clockTimerToken = 0;
 
-    objc_msgSend_setUpdateMode_(v5, v20, v21, 2);
-    v22 = objc_opt_class();
-    objc_msgSend__visibleHeadingChangeForDevice_(v22, v23, v24, deviceCopy);
-    v5->_visibleHeadingChange = v25;
+    objc_msgSend_setUpdateMode_(v5, v20, 2);
+    v21 = objc_opt_class();
+    objc_msgSend__visibleHeadingChangeForDevice_(v21, v22, deviceCopy);
+    v5->_visibleHeadingChange = v23;
   }
 
   return v5;
@@ -67,9 +67,9 @@
 - (NTKLeghornCircularDataSource)init
 {
   v4 = objc_msgSend_currentDevice(MEMORY[0x277CBBAE8], a2, v2);
-  v7 = objc_msgSend_initWithDevice_(self, v5, v6, v4);
+  v6 = objc_msgSend_initWithDevice_(self, v5, v4);
 
-  return v7;
+  return v6;
 }
 
 - (void)_stopClockTimer
@@ -77,7 +77,7 @@
   if (self->_clockTimerToken)
   {
     v4 = objc_msgSend_sharedInstance(MEMORY[0x277CBB700], a2, v2);
-    objc_msgSend_stopUpdatesForToken_(v4, v5, v6, self->_clockTimerToken);
+    objc_msgSend_stopUpdatesForToken_(v4, v5, self->_clockTimerToken);
 
     clockTimerToken = self->_clockTimerToken;
     self->_clockTimerToken = 0;
@@ -102,37 +102,37 @@
   }
 
   objc_initWeak(&location, self);
-  v25[0] = 0;
-  v25[1] = v25;
-  v25[2] = 0x2020000000;
+  v24[0] = 0;
+  v24[1] = v24;
+  v24[2] = 0x2020000000;
   v10 = objc_msgSend_compass(self, v8, v9);
   objc_msgSend_heading(v10, v11, v12);
   v14 = v13;
 
-  v25[3] = v14;
-  v24[0] = 0;
-  v24[1] = v24;
-  v24[2] = 0x2020000000;
-  v24[3] = 0;
+  v24[3] = v14;
+  v23[0] = 0;
+  v23[1] = v23;
+  v23[2] = 0x2020000000;
+  v23[3] = 0;
   v17 = objc_msgSend_sharedInstance(MEMORY[0x277CBB700], v15, v16);
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = sub_23BEDF204;
-  v22[3] = &unk_278BA1B70;
-  objc_copyWeak(v23, &location);
-  v22[5] = v25;
-  v22[6] = v24;
-  v23[1] = 2;
-  v23[2] = v5;
-  v22[4] = self;
-  v23[3] = v7;
-  v20 = objc_msgSend_startUpdatesWithUpdateFrequency_withHandler_identificationLog_(v17, v18, v19, v6, v22, &unk_284EA8C28);
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = sub_23BEDF204;
+  v21[3] = &unk_278BA1B70;
+  objc_copyWeak(v22, &location);
+  v21[5] = v24;
+  v21[6] = v23;
+  v22[1] = 2;
+  v22[2] = v5;
+  v21[4] = self;
+  v22[3] = v7;
+  v19 = objc_msgSend_startUpdatesWithUpdateFrequency_withHandler_identificationLog_(v17, v18, v6, v21, &unk_284EA8C28);
   clockTimerToken = self->_clockTimerToken;
-  self->_clockTimerToken = v20;
+  self->_clockTimerToken = v19;
 
-  objc_destroyWeak(v23);
+  objc_destroyWeak(v22);
+  _Block_object_dispose(v23, 8);
   _Block_object_dispose(v24, 8);
-  _Block_object_dispose(v25, 8);
   objc_destroyWeak(&location);
 }
 
@@ -157,15 +157,15 @@
   if (objc_msgSend_isRunningInStoreDemoMode(MEMORY[0x277D75128], a2, v2))
   {
     v5 = [NTKLeghornDemoPOIDataSource alloc];
-    v8 = objc_msgSend_initWithDataSet_(v5, v6, v7, NTKLeghornPOIDataSetInStoreDemo);
+    v7 = objc_msgSend_initWithDataSet_(v5, v6, NTKLeghornPOIDataSetInStoreDemo);
   }
 
   else
   {
-    v8 = objc_msgSend_sharedInstance(NTKLeghornWaypointDataSource, v3, v4);
+    v7 = objc_msgSend_sharedInstance(NTKLeghornWaypointDataSource, v3, v4);
   }
 
-  return v8;
+  return v7;
 }
 
 + (id)sharedWaypointsDataSource
@@ -175,7 +175,7 @@
   WeakRetained = objc_loadWeakRetained(&qword_27E1DF640);
   if (!WeakRetained)
   {
-    WeakRetained = objc_msgSend__waypointsDataSource(selfCopy, v3, v5);
+    WeakRetained = objc_msgSend__waypointsDataSource(selfCopy, v3, v4);
     objc_storeWeak(&qword_27E1DF640, WeakRetained);
   }
 
@@ -228,26 +228,26 @@
 
 - (void)setUpdateMode:(unint64_t)mode
 {
-  updated = objc_msgSend_updateMode(self, a2, v3);
-  v16.receiver = self;
-  v16.super_class = NTKLeghornCircularDataSource;
-  [(NTKFoghornDataSource *)&v16 setUpdateMode:mode];
-  objc_msgSend_setUpdateMode_(self->_seconds, v7, v8, 0);
-  objc_msgSend_setUpdateMode_(self->_compass, v9, v10, 0);
+  updated = objc_msgSend_updateMode(self, a2, mode);
+  v13.receiver = self;
+  v13.super_class = NTKLeghornCircularDataSource;
+  [(NTKFoghornDataSource *)&v13 setUpdateMode:mode];
+  objc_msgSend_setUpdateMode_(self->_seconds, v6, 0);
+  objc_msgSend_setUpdateMode_(self->_compass, v7, 0);
   if (self->_clockTimerToken)
   {
-    v13 = updated == mode;
+    v10 = updated == mode;
   }
 
   else
   {
-    v13 = 1;
+    v10 = 1;
   }
 
-  if (!v13)
+  if (!v10)
   {
-    objc_msgSend__stopClockTimer(self, v11, v12);
-    objc_msgSend__startClockTimer(self, v14, v15);
+    objc_msgSend__stopClockTimer(self, v8, v9);
+    objc_msgSend__startClockTimer(self, v11, v12);
   }
 }
 

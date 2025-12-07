@@ -281,7 +281,7 @@ void __118__PKPeerPaymentSession_authorizePeerPaymentQuote_forPaymentApplication
     {
       v18 = [v7 domain];
       v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"nfcd"];
-      if ([v18 isEqualToString:v19])
+      if (objc_msgSend_isEqualToString_(v18))
       {
         v20 = [v7 code] == 42;
       }

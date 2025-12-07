@@ -2,6 +2,8 @@
 + (id)lockupContextWithSize:(int64_t)size;
 + (id)roomContext;
 + (id)wishlistContext;
++ (void)roomContext;
++ (void)wishlistContext;
 - (CGSize)imageSizeForItem:(id)item;
 - (CGSize)largestImageSizeForItems:(id)items;
 - (CGSize)largestImageSizeForLockups:(id)lockups;
@@ -761,6 +763,108 @@ LABEL_24:
   v19 = [artworksProvider bestArtworkForScaledSize:{v15, v17}];
 
   return v19;
+}
+
++ (void)lockupContextWithSize:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIItemArtworkContext lockupContextWithSize:]";
+}
+
++ (void)roomContext
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIItemArtworkContext roomContext]";
+}
+
++ (void)wishlistContext
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIItemArtworkContext wishlistContext]";
+}
+
+- (void)setColorScheme:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemArtworkContext setColorScheme:]";
+}
+
+- (void)setBackgroundColor:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemArtworkContext setBackgroundColor:]";
+}
+
+- (void)setGeneralConsumer:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemArtworkContext setGeneralConsumer:]";
+}
+
+- (void)setIconConsumer:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemArtworkContext setIconConsumer:]";
+}
+
+- (void)setLetterboxConsumer:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemArtworkContext setLetterboxConsumer:]";
+}
+
+- (void)setNewsstandConsumer:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemArtworkContext setNewsstandConsumer:]";
+}
+
+- (void)setPosterConsumer:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemArtworkContext setPosterConsumer:]";
+}
+
+- (void)dataConsumerForItem:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemArtworkContext dataConsumerForItem:]";
+}
+
+- (void)imageSizeForItem:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemArtworkContext imageSizeForItem:]";
+}
+
+- (void)largestImageSizeForItems:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemArtworkContext largestImageSizeForItems:]";
+}
+
+- (void)largestImageSizeForLockups:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemArtworkContext largestImageSizeForLockups:]";
+}
+
+- (void)placeholderImageForItem:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemArtworkContext placeholderImageForItem:]";
+}
+
+- (void)URLForItem:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemArtworkContext URLForItem:]";
+}
+
+- (void)artworkForItem:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemArtworkContext artworkForItem:]";
 }
 
 @end

@@ -23,7 +23,6 @@
   [(TKMessagesExtensionViewController *)v3 emitTMLSignal:@"willBecomeActive" withArguments:?];
   MEMORY[0x277D82BD8](v4);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)didResignActiveWithConversation:(id)conversation
@@ -39,7 +38,6 @@
   [(TKMessagesExtensionViewController *)v3 emitTMLSignal:@"didResignActive" withArguments:?];
   MEMORY[0x277D82BD8](v4);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)didReceiveMessage:(id)message conversation:(id)conversation
@@ -59,7 +57,6 @@
   MEMORY[0x277D82BD8](v6);
   objc_storeStrong(&v7, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)didStartSendingMessage:(id)message conversation:(id)conversation
@@ -79,7 +76,6 @@
   MEMORY[0x277D82BD8](v6);
   objc_storeStrong(&v7, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)didCancelSendingMessage:(id)message conversation:(id)conversation
@@ -99,7 +95,6 @@
   MEMORY[0x277D82BD8](v6);
   objc_storeStrong(&v7, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)willTransitionToPresentationStyle:(unint64_t)style
@@ -111,7 +106,6 @@
   [(TKMessagesExtensionViewController *)self emitTMLSignal:@"willTransitionToPresentationStyle" withArguments:?];
   MEMORY[0x277D82BD8](v4);
   MEMORY[0x277D82BD8](v5);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)didTransitionToPresentationStyle:(unint64_t)style
@@ -123,7 +117,6 @@
   [(TKMessagesExtensionViewController *)self emitTMLSignal:@"didTransitionToPresentationStyle" withArguments:?];
   MEMORY[0x277D82BD8](v4);
   MEMORY[0x277D82BD8](v5);
-  *MEMORY[0x277D85DE8];
 }
 
 @end

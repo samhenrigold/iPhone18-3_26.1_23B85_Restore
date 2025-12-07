@@ -7,12 +7,12 @@
 
 - (id)shortOperationDescription
 {
-  v2 = MEMORY[0x1E696AEC0];
-  v3 = objc_opt_class();
+  v3 = MEMORY[0x1E696AEC0];
+  v4 = objc_opt_class();
   operationID = [self operationID];
-  v5 = [v2 stringWithFormat:@"<%@ %@>", v3, operationID];
+  v6 = [v3 stringWithFormat:@"<%@ %@>", v4, operationID];
 
-  return v5;
+  return v6;
 }
 
 - (id)longOperationDescription

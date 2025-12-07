@@ -11,6 +11,7 @@
 - (void)kvsStoreDidChange:(id)change;
 - (void)readTagsFromCloud:(BOOL)cloud;
 - (void)syncTagsWithCloud:(BOOL)cloud;
+- (void)syncTagsWithCloud:(BOOL)cloud isICloudAvailable:(BOOL)available;
 - (void)ubiquityIdentityDidChange;
 - (void)writeTagsToCloud;
 @end
@@ -249,10 +250,31 @@ LABEL_10:
   [(DOCTagCloudSource *)self isICloudAvailableWithCompletionBlock:v3];
 }
 
+- (void)syncTagsWithCloud:(BOOL)cloud isICloudAvailable:(BOOL)available
+{
+  if (available)
+  {
+    cloudCopy = cloud;
+    iCloudTagsDictionary = [(DOCTagCloudSource *)self iCloudTagsDictionary];
+
+    if (iCloudTagsDictionary)
+    {
+
+      [(DOCTagCloudSource *)self readTagsFromCloud:cloudCopy];
+    }
+
+    else
+    {
+
+      [(DOCTagCloudSource *)self writeTagsToCloud];
+    }
+  }
+}
+
 - (void)readTagsFromCloud:(BOOL)cloud
 {
   cloudCopy = cloud;
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   iCloudTagsDictionary = [(DOCTagCloudSource *)self iCloudTagsDictionary];
   if (iCloudTagsDictionary)
   {
@@ -271,60 +293,58 @@ LABEL_10:
         if (iCloudTags)
         {
           v12 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(iCloudTags, "count")}];
+          v26 = 0u;
           v27 = 0u;
           v28 = 0u;
           v29 = 0u;
-          v30 = 0u;
-          v23 = iCloudTags;
+          v22 = iCloudTags;
           v13 = iCloudTags;
-          v14 = [v13 countByEnumeratingWithState:&v27 objects:v31 count:16];
+          v14 = [v13 countByEnumeratingWithState:&v26 objects:v30 count:16];
           if (v14)
           {
             v15 = v14;
-            v16 = *v28;
+            v16 = *v27;
             do
             {
               v17 = 0;
               do
               {
-                if (*v28 != v16)
+                if (*v27 != v16)
                 {
                   objc_enumerationMutation(v13);
                 }
 
-                v18 = [[DOCTag alloc] initWithICloudTagAttributes:*(*(&v27 + 1) + 8 * v17)];
+                v18 = [[DOCTag alloc] initWithICloudTagAttributes:*(*(&v26 + 1) + 8 * v17)];
                 [v12 addObject:v18];
 
                 ++v17;
               }
 
               while (v15 != v17);
-              v15 = [v13 countByEnumeratingWithState:&v27 objects:v31 count:16];
+              v15 = [v13 countByEnumeratingWithState:&v26 objects:v30 count:16];
             }
 
             while (v15);
           }
 
           v19 = objc_loadWeakRetained(&self->_tagRegistry);
-          v24[0] = MEMORY[0x277D85DD0];
-          v24[1] = 3221225472;
-          v24[2] = __39__DOCTagCloudSource_readTagsFromCloud___block_invoke;
-          v24[3] = &unk_278F9B4A8;
-          v26 = cloudCopy;
-          v25 = v12;
+          v23[0] = MEMORY[0x277D85DD0];
+          v23[1] = 3221225472;
+          v23[2] = __39__DOCTagCloudSource_readTagsFromCloud___block_invoke;
+          v23[3] = &unk_278F9B4A8;
+          v25 = cloudCopy;
+          v24 = v12;
           v20 = v12;
-          [v19 performBatchUpdate:v24];
+          [v19 performBatchUpdate:v23];
 
           v21 = objc_loadWeakRetained(&self->_tagRegistry);
           [v21 setTagSerialNumber:iCloudTagSerialNumber];
 
-          iCloudTags = v23;
+          iCloudTags = v22;
         }
       }
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __39__DOCTagCloudSource_readTagsFromCloud___block_invoke(uint64_t a1, void *a2)
@@ -342,7 +362,7 @@ void __39__DOCTagCloudSource_readTagsFromCloud___block_invoke(uint64_t a1, void 
 
 - (void)writeTagsToCloud
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   iCloudTagsDictionary = [(DOCTagCloudSource *)self iCloudTagsDictionary];
   if (iCloudTagsDictionary)
   {
@@ -357,7 +377,7 @@ void __39__DOCTagCloudSource_readTagsFromCloud___block_invoke(uint64_t a1, void 
 
     if (v7)
     {
-      goto LABEL_26;
+      return;
     }
   }
 
@@ -375,34 +395,34 @@ void __39__DOCTagCloudSource_readTagsFromCloud___block_invoke(uint64_t a1, void 
   v13 = v12;
 
   v14 = [objc_alloc(MEMORY[0x277CBEB40]) initWithCapacity:{objc_msgSend(v13, "count")}];
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   v15 = v13;
-  v16 = [v15 countByEnumeratingWithState:&v46 objects:v51 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v45 objects:v50 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v47;
+    v18 = *v46;
     do
     {
       v19 = 0;
       do
       {
-        if (*v47 != v18)
+        if (*v46 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = [[DOCTag alloc] initWithICloudTagAttributes:*(*(&v46 + 1) + 8 * v19)];
+        v20 = [[DOCTag alloc] initWithICloudTagAttributes:*(*(&v45 + 1) + 8 * v19)];
         [v14 addObject:v20];
 
         ++v19;
       }
 
       while (v17 != v19);
-      v17 = [v15 countByEnumeratingWithState:&v46 objects:v51 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v45 objects:v50 count:16];
     }
 
     while (v17);
@@ -425,37 +445,37 @@ void __39__DOCTagCloudSource_readTagsFromCloud___block_invoke(uint64_t a1, void 
       v25 = iCloudTagSerialNumber;
     }
 
-    v38 = v25;
+    v37 = v25;
     v26 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(userTags2, "count")}];
+    v41 = 0u;
     v42 = 0u;
     v43 = 0u;
     v44 = 0u;
-    v45 = 0u;
-    v39 = userTags2;
+    v38 = userTags2;
     v27 = userTags2;
-    v28 = [v27 countByEnumeratingWithState:&v42 objects:v50 count:16];
+    v28 = [v27 countByEnumeratingWithState:&v41 objects:v49 count:16];
     if (v28)
     {
       v29 = v28;
-      v30 = *v43;
+      v30 = *v42;
       do
       {
         v31 = 0;
         do
         {
-          if (*v43 != v30)
+          if (*v42 != v30)
           {
             objc_enumerationMutation(v27);
           }
 
-          iCloudTagAttributes = [*(*(&v42 + 1) + 8 * v31) iCloudTagAttributes];
+          iCloudTagAttributes = [*(*(&v41 + 1) + 8 * v31) iCloudTagAttributes];
           [v26 addObject:iCloudTagAttributes];
 
           ++v31;
         }
 
         while (v29 != v31);
-        v29 = [v27 countByEnumeratingWithState:&v42 objects:v50 count:16];
+        v29 = [v27 countByEnumeratingWithState:&v41 objects:v49 count:16];
       }
 
       while (v29);
@@ -463,27 +483,24 @@ void __39__DOCTagCloudSource_readTagsFromCloud___block_invoke(uint64_t a1, void 
 
     [v21 setObject:v26 forKeyedSubscript:@"FinderTags"];
     [v21 setObject:&unk_285C77EC8 forKeyedSubscript:@"FinderTagDictVersion"];
-    v33 = [MEMORY[0x277CCABB0] numberWithInteger:v38 + 1];
+    v33 = [MEMORY[0x277CCABB0] numberWithInteger:v37 + 1];
     [v21 setObject:v33 forKeyedSubscript:@"FinderTagSerialNumber"];
 
     v34 = objc_loadWeakRetained(&self->_tagRegistry);
-    [v34 setTagSerialNumber:v38 + 1];
+    [v34 setTagSerialNumber:v37 + 1];
 
     v35 = +[DOCManagedPermission defaultPermission];
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = __37__DOCTagCloudSource_writeTagsToCloud__block_invoke;
-    v40[3] = &unk_278F9B430;
-    v40[4] = self;
-    v41 = v21;
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __37__DOCTagCloudSource_writeTagsToCloud__block_invoke;
+    v39[3] = &unk_278F9B430;
+    v39[4] = self;
+    v40 = v21;
     v36 = v21;
-    [v35 adoptPersonaliCloudPersonaAndPerformBlock:v40];
+    [v35 adoptPersonaliCloudPersonaAndPerformBlock:v39];
 
-    userTags2 = v39;
+    userTags2 = v38;
   }
-
-LABEL_26:
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 void __37__DOCTagCloudSource_writeTagsToCloud__block_invoke(uint64_t a1)

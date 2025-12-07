@@ -9,7 +9,7 @@
 
 + (id)dhcpServerInfoWithv4Signature:(id)signature v6Signature:(id)v6Signature
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   signatureCopy = signature;
   v6SignatureCopy = v6Signature;
   if (signatureCopy | v6SignatureCopy)
@@ -21,20 +21,18 @@
 
   else
   {
-    v10 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136446466;
-      v12 = "+[WADeviceAnalytics_DHCPServerInfo dhcpServerInfoWithv4Signature:v6Signature:]";
-      v13 = 1024;
-      v14 = 20;
-      _os_log_impl(&dword_1C8460000, v10, OS_LOG_TYPE_ERROR, "%{public}s::%d:both signatures are nil - bailing", &v11, 0x12u);
+      v10 = 136446466;
+      v11 = "+[WADeviceAnalytics_DHCPServerInfo dhcpServerInfoWithv4Signature:v6Signature:]";
+      v12 = 1024;
+      v13 = 20;
+      _os_log_impl(&dword_1C8460000, v9, OS_LOG_TYPE_ERROR, "%{public}s::%d:both signatures are nil - bailing", &v10, 0x12u);
     }
 
     v7 = 0;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

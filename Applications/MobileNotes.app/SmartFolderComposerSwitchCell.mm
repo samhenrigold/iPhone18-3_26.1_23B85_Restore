@@ -22,11 +22,11 @@
 - (void)onDidChangeWithSender:(id)sender
 {
   selfCopy = self;
-  v7 = selfCopy;
+  v8 = selfCopy;
   if (sender)
   {
     isOn = [sender isOn];
-    selfCopy = v7;
+    selfCopy = v8;
   }
 
   else
@@ -37,10 +37,11 @@
   v6 = *(&selfCopy->super.super.super.super.super.super.isa + OBJC_IVAR____TtC11MobileNotes29SmartFolderComposerSwitchCell_onDidChange);
   if (v6)
   {
+    v7 = *&selfCopy->onDidChange[OBJC_IVAR____TtC11MobileNotes29SmartFolderComposerSwitchCell_onDidChange];
 
     v6(isOn);
 
-    sub_1002B5F48(v6);
+    sub_1002B5F48(v6, v7);
   }
 
   else

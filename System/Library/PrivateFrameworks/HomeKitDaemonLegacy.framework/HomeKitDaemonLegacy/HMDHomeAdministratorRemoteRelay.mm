@@ -3,11 +3,11 @@
 
 @implementation HMDHomeAdministratorRemoteRelay
 
-uint64_t __56____HMDHomeAdministratorRemoteRelay___handleXPCMessage___block_invoke(uint64_t result, uint64_t a2)
+id *__56____HMDHomeAdministratorRemoteRelay___handleXPCMessage___block_invoke(id *result, uint64_t a2)
 {
   if (!a2)
   {
-    return [*(result + 32) dispatchMessage:*(result + 40)];
+    return [result[4] dispatchMessage:result[5]];
   }
 
   return result;
@@ -39,12 +39,11 @@ void __56____HMDHomeAdministratorRemoteRelay___handleXPCMessage___block_invoke_2
 
 uint64_t __48____HMDHomeAdministratorRemoteRelay_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v20_169728;
-  logCategory__hmf_once_v20_169728 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v20_169728;
+  logCategory__hmf_once_v20_169728 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

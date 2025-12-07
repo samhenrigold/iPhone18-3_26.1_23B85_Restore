@@ -680,9 +680,9 @@
 - (BOOL)hasLoadingPlaceholderTitle
 {
   title = [(MRContentItemMetadata *)self title];
-  v3 = [title isEqualToString:@"LOADING_AUDIO_LABEL"];
+  isEqualToString = objc_msgSend_isEqualToString_(title);
 
-  return v3;
+  return isEqualToString;
 }
 
 - (MRContentItemMetadata)initWithProtobuf:(id)protobuf
@@ -2942,9 +2942,9 @@ MRContentItemMetadataAudioFormat *__42__MRContentItemMetadata_initWithProtobuf__
   {
     title3 = [(MRContentItemMetadata *)equalCopy title];
     title4 = [(MRContentItemMetadata *)self title];
-    v194 = [title3 isEqualToString:title4];
+    isEqualToString = objc_msgSend_isEqualToString_(title3);
 
-    if (!v194)
+    if (!isEqualToString)
     {
       goto LABEL_428;
     }
@@ -2961,7 +2961,7 @@ MRContentItemMetadataAudioFormat *__42__MRContentItemMetadata_initWithProtobuf__
   {
     subtitle3 = [(MRContentItemMetadata *)equalCopy subtitle];
     subtitle4 = [(MRContentItemMetadata *)self subtitle];
-    v200 = [subtitle3 isEqualToString:subtitle4];
+    v200 = objc_msgSend_isEqualToString_(subtitle3);
 
     if (!v200)
     {
@@ -2980,7 +2980,7 @@ MRContentItemMetadataAudioFormat *__42__MRContentItemMetadata_initWithProtobuf__
   {
     subtitleShort3 = [(MRContentItemMetadata *)equalCopy subtitleShort];
     subtitleShort4 = [(MRContentItemMetadata *)self subtitleShort];
-    v206 = [subtitleShort3 isEqualToString:subtitleShort4];
+    v206 = objc_msgSend_isEqualToString_(subtitleShort3);
 
     if (!v206)
     {
@@ -2999,7 +2999,7 @@ MRContentItemMetadataAudioFormat *__42__MRContentItemMetadata_initWithProtobuf__
   {
     classicalWork3 = [(MRContentItemMetadata *)equalCopy classicalWork];
     classicalWork4 = [(MRContentItemMetadata *)self classicalWork];
-    v212 = [classicalWork3 isEqualToString:classicalWork4];
+    v212 = objc_msgSend_isEqualToString_(classicalWork3);
 
     if (!v212)
     {
@@ -3018,7 +3018,7 @@ MRContentItemMetadataAudioFormat *__42__MRContentItemMetadata_initWithProtobuf__
   {
     albumName3 = [(MRContentItemMetadata *)equalCopy albumName];
     albumName4 = [(MRContentItemMetadata *)self albumName];
-    v218 = [albumName3 isEqualToString:albumName4];
+    v218 = objc_msgSend_isEqualToString_(albumName3);
 
     if (!v218)
     {
@@ -3037,7 +3037,7 @@ MRContentItemMetadataAudioFormat *__42__MRContentItemMetadata_initWithProtobuf__
   {
     trackArtistName3 = [(MRContentItemMetadata *)equalCopy trackArtistName];
     trackArtistName4 = [(MRContentItemMetadata *)self trackArtistName];
-    v224 = [trackArtistName3 isEqualToString:trackArtistName4];
+    v224 = objc_msgSend_isEqualToString_(trackArtistName3);
 
     if (!v224)
     {
@@ -3056,7 +3056,7 @@ MRContentItemMetadataAudioFormat *__42__MRContentItemMetadata_initWithProtobuf__
   {
     albumArtistName3 = [(MRContentItemMetadata *)equalCopy albumArtistName];
     albumArtistName4 = [(MRContentItemMetadata *)self albumArtistName];
-    v230 = [albumArtistName3 isEqualToString:albumArtistName4];
+    v230 = objc_msgSend_isEqualToString_(albumArtistName3);
 
     if (!v230)
     {
@@ -3075,7 +3075,7 @@ MRContentItemMetadataAudioFormat *__42__MRContentItemMetadata_initWithProtobuf__
   {
     directorName3 = [(MRContentItemMetadata *)equalCopy directorName];
     directorName4 = [(MRContentItemMetadata *)self directorName];
-    v236 = [directorName3 isEqualToString:directorName4];
+    v236 = objc_msgSend_isEqualToString_(directorName3);
 
     if (!v236)
     {
@@ -3094,7 +3094,7 @@ MRContentItemMetadataAudioFormat *__42__MRContentItemMetadata_initWithProtobuf__
   {
     localizedContentRating3 = [(MRContentItemMetadata *)equalCopy localizedContentRating];
     localizedContentRating4 = [(MRContentItemMetadata *)self localizedContentRating];
-    v242 = [localizedContentRating3 isEqualToString:localizedContentRating4];
+    v242 = objc_msgSend_isEqualToString_(localizedContentRating3);
 
     if (!v242)
     {
@@ -3113,7 +3113,7 @@ MRContentItemMetadataAudioFormat *__42__MRContentItemMetadata_initWithProtobuf__
   {
     collectionIdentifier3 = [(MRContentItemMetadata *)equalCopy collectionIdentifier];
     collectionIdentifier4 = [(MRContentItemMetadata *)self collectionIdentifier];
-    v248 = [collectionIdentifier3 isEqualToString:collectionIdentifier4];
+    v248 = objc_msgSend_isEqualToString_(collectionIdentifier3);
 
     if (!v248)
     {
@@ -3132,7 +3132,7 @@ MRContentItemMetadataAudioFormat *__42__MRContentItemMetadata_initWithProtobuf__
   {
     profileIdentifier3 = [(MRContentItemMetadata *)equalCopy profileIdentifier];
     profileIdentifier4 = [(MRContentItemMetadata *)self profileIdentifier];
-    v254 = [profileIdentifier3 isEqualToString:profileIdentifier4];
+    v254 = objc_msgSend_isEqualToString_(profileIdentifier3);
 
     if (!v254)
     {
@@ -3170,7 +3170,7 @@ MRContentItemMetadataAudioFormat *__42__MRContentItemMetadata_initWithProtobuf__
   {
     composer3 = [(MRContentItemMetadata *)equalCopy composer];
     composer4 = [(MRContentItemMetadata *)self composer];
-    v266 = [composer3 isEqualToString:composer4];
+    v266 = objc_msgSend_isEqualToString_(composer3);
 
     if (!v266)
     {
@@ -3189,7 +3189,7 @@ MRContentItemMetadataAudioFormat *__42__MRContentItemMetadata_initWithProtobuf__
   {
     genre3 = [(MRContentItemMetadata *)equalCopy genre];
     genre4 = [(MRContentItemMetadata *)self genre];
-    v272 = [genre3 isEqualToString:genre4];
+    v272 = objc_msgSend_isEqualToString_(genre3);
 
     if (!v272)
     {
@@ -3208,7 +3208,7 @@ MRContentItemMetadataAudioFormat *__42__MRContentItemMetadata_initWithProtobuf__
   {
     contentIdentifier3 = [(MRContentItemMetadata *)equalCopy contentIdentifier];
     contentIdentifier4 = [(MRContentItemMetadata *)self contentIdentifier];
-    v278 = [contentIdentifier3 isEqualToString:contentIdentifier4];
+    v278 = objc_msgSend_isEqualToString_(contentIdentifier3);
 
     if (!v278)
     {
@@ -3227,7 +3227,7 @@ MRContentItemMetadataAudioFormat *__42__MRContentItemMetadata_initWithProtobuf__
   {
     internationalStandardRecordingCode3 = [(MRContentItemMetadata *)equalCopy internationalStandardRecordingCode];
     internationalStandardRecordingCode4 = [(MRContentItemMetadata *)self internationalStandardRecordingCode];
-    v284 = [internationalStandardRecordingCode3 isEqualToString:internationalStandardRecordingCode4];
+    v284 = objc_msgSend_isEqualToString_(internationalStandardRecordingCode3);
 
     if (!v284)
     {
@@ -3246,7 +3246,7 @@ MRContentItemMetadataAudioFormat *__42__MRContentItemMetadata_initWithProtobuf__
   {
     radioStationName3 = [(MRContentItemMetadata *)equalCopy radioStationName];
     radioStationName4 = [(MRContentItemMetadata *)self radioStationName];
-    v290 = [radioStationName3 isEqualToString:radioStationName4];
+    v290 = objc_msgSend_isEqualToString_(radioStationName3);
 
     if (!v290)
     {
@@ -3265,7 +3265,7 @@ MRContentItemMetadataAudioFormat *__42__MRContentItemMetadata_initWithProtobuf__
   {
     radioStationString3 = [(MRContentItemMetadata *)equalCopy radioStationString];
     radioStationString4 = [(MRContentItemMetadata *)self radioStationString];
-    v296 = [radioStationString3 isEqualToString:radioStationString4];
+    v296 = objc_msgSend_isEqualToString_(radioStationString3);
 
     if (!v296)
     {
@@ -3284,7 +3284,7 @@ MRContentItemMetadataAudioFormat *__42__MRContentItemMetadata_initWithProtobuf__
   {
     seriesName3 = [(MRContentItemMetadata *)equalCopy seriesName];
     seriesName4 = [(MRContentItemMetadata *)self seriesName];
-    v302 = [seriesName3 isEqualToString:seriesName4];
+    v302 = objc_msgSend_isEqualToString_(seriesName3);
 
     if (!v302)
     {
@@ -3322,7 +3322,7 @@ MRContentItemMetadataAudioFormat *__42__MRContentItemMetadata_initWithProtobuf__
   {
     serviceIdentifier3 = [(MRContentItemMetadata *)equalCopy serviceIdentifier];
     serviceIdentifier4 = [(MRContentItemMetadata *)self serviceIdentifier];
-    v314 = [serviceIdentifier3 isEqualToString:serviceIdentifier4];
+    v314 = objc_msgSend_isEqualToString_(serviceIdentifier3);
 
     if (!v314)
     {
@@ -3341,7 +3341,7 @@ MRContentItemMetadataAudioFormat *__42__MRContentItemMetadata_initWithProtobuf__
   {
     brandIdentifier3 = [(MRContentItemMetadata *)equalCopy brandIdentifier];
     brandIdentifier4 = [(MRContentItemMetadata *)self brandIdentifier];
-    v320 = [brandIdentifier3 isEqualToString:brandIdentifier4];
+    v320 = objc_msgSend_isEqualToString_(brandIdentifier3);
 
     if (!v320)
     {
@@ -3360,7 +3360,7 @@ MRContentItemMetadataAudioFormat *__42__MRContentItemMetadata_initWithProtobuf__
   {
     durationStringLocalizationKey3 = [(MRContentItemMetadata *)equalCopy durationStringLocalizationKey];
     durationStringLocalizationKey4 = [(MRContentItemMetadata *)self durationStringLocalizationKey];
-    v326 = [durationStringLocalizationKey3 isEqualToString:durationStringLocalizationKey4];
+    v326 = objc_msgSend_isEqualToString_(durationStringLocalizationKey3);
 
     if (!v326)
     {
@@ -3379,7 +3379,7 @@ MRContentItemMetadataAudioFormat *__42__MRContentItemMetadata_initWithProtobuf__
   {
     localizedDurationString3 = [(MRContentItemMetadata *)equalCopy localizedDurationString];
     localizedDurationString4 = [(MRContentItemMetadata *)self localizedDurationString];
-    v332 = [localizedDurationString3 isEqualToString:localizedDurationString4];
+    v332 = objc_msgSend_isEqualToString_(localizedDurationString3);
 
     if (!v332)
     {
@@ -3398,7 +3398,7 @@ MRContentItemMetadataAudioFormat *__42__MRContentItemMetadata_initWithProtobuf__
   {
     artworkIdentifier3 = [(MRContentItemMetadata *)equalCopy artworkIdentifier];
     artworkIdentifier4 = [(MRContentItemMetadata *)self artworkIdentifier];
-    v338 = [artworkIdentifier3 isEqualToString:artworkIdentifier4];
+    v338 = objc_msgSend_isEqualToString_(artworkIdentifier3);
 
     if (!v338)
     {
@@ -3417,7 +3417,7 @@ MRContentItemMetadataAudioFormat *__42__MRContentItemMetadata_initWithProtobuf__
   {
     artworkMIMEType3 = [(MRContentItemMetadata *)equalCopy artworkMIMEType];
     artworkMIMEType4 = [(MRContentItemMetadata *)self artworkMIMEType];
-    v344 = [artworkMIMEType3 isEqualToString:artworkMIMEType4];
+    v344 = objc_msgSend_isEqualToString_(artworkMIMEType3);
 
     if (!v344)
     {
@@ -3493,7 +3493,7 @@ MRContentItemMetadataAudioFormat *__42__MRContentItemMetadata_initWithProtobuf__
   {
     albumYear3 = [(MRContentItemMetadata *)equalCopy albumYear];
     albumYear4 = [(MRContentItemMetadata *)self albumYear];
-    v368 = [albumYear3 isEqualToString:albumYear4];
+    v368 = objc_msgSend_isEqualToString_(albumYear3);
 
     if (!v368)
     {
@@ -3512,7 +3512,7 @@ MRContentItemMetadataAudioFormat *__42__MRContentItemMetadata_initWithProtobuf__
   {
     participantName3 = [(MRContentItemMetadata *)equalCopy participantName];
     participantName4 = [(MRContentItemMetadata *)self participantName];
-    v374 = [participantName3 isEqualToString:participantName4];
+    v374 = objc_msgSend_isEqualToString_(participantName3);
 
     if (!v374)
     {
@@ -3531,7 +3531,7 @@ MRContentItemMetadataAudioFormat *__42__MRContentItemMetadata_initWithProtobuf__
   {
     participantIdentifier3 = [(MRContentItemMetadata *)equalCopy participantIdentifier];
     participantIdentifier4 = [(MRContentItemMetadata *)self participantIdentifier];
-    v380 = [participantIdentifier3 isEqualToString:participantIdentifier4];
+    v380 = objc_msgSend_isEqualToString_(participantIdentifier3);
 
     if (!v380)
     {

@@ -1,6 +1,7 @@
 @interface BBSound
 - (BBSound)initWithCoder:(id)coder;
 - (BBSound)initWithToneAlert:(int64_t)alert;
+- (BBSound)initWithToneAlert:(int64_t)alert accountIdentifier:(id)identifier toneIdentifier:(id)toneIdentifier vibrationIdentifier:(id)vibrationIdentifier ignoreRingerSwitch:(BOOL)switch;
 - (BBSound)initWithToneAlertConfiguration:(id)configuration;
 - (BOOL)ignoreRingerSwitch;
 - (BOOL)isEqual:(id)equal;
@@ -108,6 +109,35 @@ LABEL_14:
   v5 = [(BBSound *)self initWithToneAlertConfiguration:v4];
 
   return v5;
+}
+
+- (BBSound)initWithToneAlert:(int64_t)alert accountIdentifier:(id)identifier toneIdentifier:(id)toneIdentifier vibrationIdentifier:(id)vibrationIdentifier ignoreRingerSwitch:(BOOL)switch
+{
+  switchCopy = switch;
+  identifierCopy = identifier;
+  toneIdentifierCopy = toneIdentifier;
+  vibrationIdentifierCopy = vibrationIdentifier;
+  v15 = [objc_alloc(MEMORY[0x277D71F58]) initWithType:alert];
+  v16 = v15;
+  if (identifierCopy)
+  {
+    [v15 setTopic:identifierCopy];
+  }
+
+  if (toneIdentifierCopy)
+  {
+    [v16 setToneIdentifier:toneIdentifierCopy];
+  }
+
+  if (vibrationIdentifierCopy)
+  {
+    [v16 setVibrationIdentifier:vibrationIdentifierCopy];
+  }
+
+  [v16 setShouldIgnoreRingerSwitch:switchCopy];
+  v17 = [(BBSound *)self initWithToneAlertConfiguration:v16];
+
+  return v17;
 }
 
 - (BBSound)initWithToneAlertConfiguration:(id)configuration

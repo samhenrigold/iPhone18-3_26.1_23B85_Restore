@@ -1000,10 +1000,10 @@ HKInteractiveChartSinglePointEventIdentifierData *__107__HKInteractiveChartOverl
   v51 = 0;
   if (sourceCopy)
   {
-    [sourceCopy blockPathForX:dateCopy zoom:scope resolution:resolution];
+    objc_msgSend_blockPathForX_zoom_resolution_(sourceCopy);
     v48 = 0uLL;
     v49 = 0;
-    [sourceCopy blockPathForX:endDateCopy zoom:scope resolution:resolution];
+    objc_msgSend_blockPathForX_zoom_resolution_(sourceCopy);
   }
 
   else

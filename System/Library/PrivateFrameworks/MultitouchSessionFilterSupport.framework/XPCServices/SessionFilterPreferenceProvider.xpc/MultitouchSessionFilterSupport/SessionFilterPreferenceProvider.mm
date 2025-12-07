@@ -3,6 +3,8 @@
 - (SessionFilterPreferenceProvider)init;
 - (void)continuousRecordingDeleteForAllServicesWithReply:(id)reply;
 - (void)continuousRecordingEnabledWithReply:(id)reply;
+- (void)continuousRecordingSetDeleteForAllServices:(BOOL)services;
+- (void)continuousRecordingUpdateInternalToggleStateWithReply:(BOOL)reply reply:(id)a4;
 - (void)siriRemoteTouchDisabledWithReply:(id)reply;
 - (void)touchDisabled;
 @end
@@ -11,25 +13,26 @@
 
 - (SessionFilterPreferenceProvider)init
 {
-  v10.receiver = self;
-  v10.super_class = SessionFilterPreferenceProvider;
-  v2 = [(SessionFilterPreferenceProvider *)&v10 init];
+  v11.receiver = self;
+  v11.super_class = SessionFilterPreferenceProvider;
+  v2 = [(SessionFilterPreferenceProvider *)&v11 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = MTLoggingPreferenceProvider();
-    logHandle = v2->_logHandle;
-    v2->_logHandle = v3;
+    v4 = MTLoggingPreferenceProvider(v2);
+    logHandle = v3->_logHandle;
+    v3->_logHandle = v4;
 
-    v5 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.TVPeripheralServices"];
-    tvDefaults = v2->_tvDefaults;
-    v2->_tvDefaults = v5;
+    v6 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.TVPeripheralServices"];
+    tvDefaults = v3->_tvDefaults;
+    v3->_tvDefaults = v6;
 
-    v7 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.ContinuousRecording"];
-    continuousRecordingDefaults = v2->_continuousRecordingDefaults;
-    v2->_continuousRecordingDefaults = v7;
+    v8 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.ContinuousRecording"];
+    continuousRecordingDefaults = v3->_continuousRecordingDefaults;
+    v3->_continuousRecordingDefaults = v8;
   }
 
-  return v2;
+  return v3;
 }
 
 - (BOOL)touchDisabled
@@ -133,6 +136,25 @@
   }
 
   replyCopy[2](replyCopy, bOOLValue);
+}
+
+- (void)continuousRecordingSetDeleteForAllServices:(BOOL)services
+{
+  servicesCopy = services;
+  continuousRecordingDefaults = [(SessionFilterPreferenceProvider *)self continuousRecordingDefaults];
+  v4 = [NSNumber numberWithBool:servicesCopy];
+  [continuousRecordingDefaults setObject:v4 forKey:@"deleteForAllServices"];
+}
+
+- (void)continuousRecordingUpdateInternalToggleStateWithReply:(BOOL)reply reply:(id)a4
+{
+  replyCopy = reply;
+  v8 = a4;
+  continuousRecordingDefaults = [(SessionFilterPreferenceProvider *)self continuousRecordingDefaults];
+  v7 = [NSNumber numberWithBool:replyCopy];
+  [continuousRecordingDefaults setObject:v7 forKey:@"ContinuousRecordingV3"];
+
+  v8[2]();
 }
 
 - (void)touchDisabled

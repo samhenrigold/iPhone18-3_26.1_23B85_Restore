@@ -55,10 +55,7 @@
 
 uint64_t __48__FUScrollWheelAccessibility_accessibilityValue__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) scrollWheel:*(a1 + 40) titleForItemAtIndex:{objc_msgSend(*(a1 + 40), "safeUnsignedIntegerForKey:", @"currentIndex"}];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) scrollWheel:*(a1 + 40) titleForItemAtIndex:{objc_msgSend(*(a1 + 40), "safeUnsignedIntegerForKey:", @"currentIndex"}];
 
   return _objc_release_x1();
 }

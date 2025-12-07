@@ -9,8 +9,10 @@
 - (id)_ghostCandidateGenerationViaKeypointBuffer:(__CVBuffer *)buffer opticalCenterFromMetaData:(_simParamsStruct *)data mappingInfo:(id *)info GGList:(id *)list LSList:(int)sList kpCntHardGatingTh:(int)th kpCntSoftGatingTh:;
 - (id)deepCopyROIList:(id)list copyReferencedROI:(BOOL)i;
 - (id)extractLightSourceBBoxFromBuffer:(VideoDeghostingDetectionV2 *)self BoxCount:(SEL)count;
+- (id)predictPastROIsInCurrentFrame:(id)frame currentGGList:(id)list;
 - (id)predictPastReflectedLSInCurrentFrame:(id)frame currentFrameLSList:(id)list;
 - (id)process:(__CVBuffer *)process metaData:(id)data ispTimeStamp:(id *)stamp keypoints:(__CVBuffer *)keypoints lightSourceMask:(__CVBuffer *)mask futureFrames:(id *)frames;
+- (id)temporalDetectionPixelFeatureMatchROI:(id)i againstROIList:(id)list ggList:(id)ggList avoidList:(id)avoidList searchRadius:(float)radius colorContrastDiffThreshold:(float)threshold lumaDiffThreshold:(float)diffThreshold localMotionDiffThreshold:(float)self0 costThreshold:(float)self1 bestCostTolerance:(float)self2;
 - (int64_t)_allocateMetalBuffers;
 - (int64_t)_detectionInit:(__CVBuffer *)init metaData:(id)data futureFrames:(id *)frames;
 - (void)_allocateLightSourceBuffers:(int64_t)buffers;
@@ -160,9 +162,7 @@
   *&self->_anon_124[28] = v5;
   *&self->_anon_124[44] = 0;
   *&self->_anon_124[52] = 0;
-  v6 = +[NSMutableArray array];
-  inputTexture = self->_inputTexture;
-  self->_inputTexture = v6;
+  self->_inputTexture = +[NSMutableArray array];
 
   _objc_release_x1();
 }
@@ -185,9 +185,7 @@
   v10 = *&self->_configuration.internalCfg.antiFlareSize;
   *&self->_configuration.internalCfg.antiFlareSize = v9;
 
-  v11 = +[NSMutableArray array];
-  v12 = *&self->_configuration.internalCfg.clipThreshold;
-  *&self->_configuration.internalCfg.clipThreshold = v11;
+  *&self->_configuration.internalCfg.clipThreshold = +[NSMutableArray array];
 
   _objc_release_x1();
 }
@@ -543,8 +541,8 @@ LABEL_20:
   kdebug_trace();
   v15 = sub_129BC(self->_configuration.externalCfg.frameDelay, dataCopy);
   [(VDGDetectionUtilsV2 *)self->_detectionUtils calcOpticalCenterFromMetaData:dataCopy];
-  v42 = v16.f64[0];
-  v43 = v17;
+  v41 = v16.f64[0];
+  v42 = v17;
   v16.f64[1] = v17;
   [(VideoDeghostingDetectionV2 *)self _ghostDetectionWithInputPixelBuffer:process reflectedLSMaskOri:0 lowLight:v15 opticalCenterFromMetaData:keypoints simKeyPoint:mask simLightSourceMask:dataCopy metaData:COERCE_DOUBLE(vcvt_f32_f64(v16)) futureFrames:frames];
   if (sub_13280(self->_reflectedLSROIs, *&self[1]._detectionUtils, *&self[1].super.isa))
@@ -577,12 +575,12 @@ LABEL_20:
   v30 = BYTE1(self->_trackID);
   v31 = LOBYTE(self->_params.lightSourceSelectionCntLimitNew) != 0;
   v32 = BYTE2(self->_trackID);
-  v44 = *stamp;
-  BYTE3(v41) = v32;
-  BYTE2(v41) = v31;
-  BYTE1(v41) = v30;
-  LOBYTE(v41) = v29;
-  v33 = sub_12A8C(v23, v20, v42, v43, v25, rawLSList, v27, v28, dataCopy, &v44);
+  v43 = *stamp;
+  BYTE3(v40) = v32;
+  BYTE2(v40) = v31;
+  BYTE1(v40) = v30;
+  LOBYTE(v40) = v29;
+  v33 = sub_12A8C(v23, v20, v41, v42, v25, rawLSList, v27, v28, dataCopy, &v43);
   v34 = *self->_estOpticalCenter + [*&self->_configuration.internalCfg.antiFlareSize count];
   *self->_estOpticalCenter = v34;
   LSTrackID = self->_LSTrackID;
@@ -597,7 +595,6 @@ LABEL_20:
 
   [*&self->_configuration.internalCfg.antiFlareSize count];
   [(NSMutableArray *)self->_reflectedLSROIs count];
-  LSROIs = self->_LSROIs;
   kdebug_trace();
 
   return v33;
@@ -768,7 +765,7 @@ LABEL_20:
     v35 = vdiv_f32(prevFrameAllLSCnt, vdup_lane_s32(v34, 0));
     v36 = vsub_f32(v35, v6);
     v37 = sqrtf(vaddv_f32(vmul_f32(v36, v36)));
-    [(VideoDeghostingDetectionV2 *)self params];
+    objc_msgSend_params(self);
     if (v37 <= v41)
     {
       self->_prevFrameMergedGhosts = vmla_f32(vmul_f32(vsub_f32(v35, self->_prevFrameAllLSCnt), vdup_n_s32(0x3E4CCCCDu)), vdup_n_s32(0x3F4CCCCDu), self->_prevFrameMergedGhosts);
@@ -1041,7 +1038,7 @@ LABEL_65:
       v84 = 0u;
       if (v24)
       {
-        [v24 descriptor];
+        objc_msgSend_descriptor(v24);
       }
 
       [v25 bbox];
@@ -1300,7 +1297,7 @@ LABEL_66:
   frameTMinus1Texture = self->_frameTMinus1Texture;
   localMotionReferenceTexture = self->_localMotionReferenceTexture;
   imageDimensions = self->_imageDimensions;
-  [(VideoDeghostingDetectionV2 *)self params];
+  objc_msgSend_params(self);
   v31 = v55;
   v32 = v56;
   HIDWORD(v29) = HIDWORD(self->_metalBuffers.reflectedLsBboxListBuf);
@@ -1336,7 +1333,7 @@ LABEL_66:
         [v27 generateLocationFromBBox];
         if (v27)
         {
-          [v27 descriptor];
+          objc_msgSend_descriptor(v27);
         }
 
         else
@@ -1401,7 +1398,7 @@ LABEL_66:
         [v8 generateLocationFromBBox];
         if (v8)
         {
-          [v8 descriptor];
+          objc_msgSend_descriptor(v8);
           v9 = *&v29[0];
           v10 = 0uLL;
         }
@@ -1446,7 +1443,7 @@ LABEL_66:
               v18 = *(*(&v25 + 1) + 8 * j);
               if (v18)
               {
-                [v18 descriptor];
+                objc_msgSend_descriptor(v18);
                 v19 = v23;
               }
 
@@ -1528,7 +1525,7 @@ LABEL_66:
         if (v12)
         {
           v20 = v14;
-          [v12 descriptor];
+          objc_msgSend_descriptor(v12);
           v14 = v20;
         }
 
@@ -1557,7 +1554,7 @@ LABEL_66:
         [(ROI *)v15 setDefaultOpticalCenter:?];
         if (v12)
         {
-          [v12 descriptor];
+          objc_msgSend_descriptor(v12);
         }
 
         else
@@ -1668,7 +1665,7 @@ LABEL_66:
       calcTransform = self->_calcTransform;
       if (calcTransform)
       {
-        [(CalcHomography *)calcTransform ispHomographyFromMetaInfo:v19];
+        objc_msgSend_ispHomographyFromMetaInfo_(calcTransform);
       }
 
       else
@@ -1709,7 +1706,7 @@ LABEL_66:
       v26 = self->_calcTransform;
       if (v26)
       {
-        [(CalcHomography *)v26 ispHomographyFromMetaInfo:dataCopy];
+        objc_msgSend_ispHomographyFromMetaInfo_(v26);
       }
 
       else
@@ -1787,7 +1784,7 @@ LABEL_66:
       v49 = self->_calcTransform;
       if (v49)
       {
-        [(CalcHomography *)v49 ispHomographyFromMetaInfo:v42, *v58.i64, *v60.i64, *v61.i64];
+        objc_msgSend_ispHomographyFromMetaInfo_(v49, *v58.i64, *v60.i64, *v61.i64);
         v60 = v62.columns[1];
         v61 = v62.columns[0];
         v58 = v62.columns[2];
@@ -1795,7 +1792,7 @@ LABEL_66:
         v50 = self->_calcTransform;
         if (v50)
         {
-          [(CalcHomography *)v50 ispHomographyFromMetaInfo:v43];
+          objc_msgSend_ispHomographyFromMetaInfo_(v50);
           v48 = v62.columns[0];
           v47 = v62.columns[1];
           v46 = v62.columns[2];
@@ -2014,10 +2011,10 @@ LABEL_3:
     v64 = 0u;
     if (v16)
     {
-      [(ROI *)v16 descriptor];
+      objc_msgSend_descriptor(v16);
     }
 
-    [v17 lumaFeatureVectorReflection];
+    objc_msgSend_lumaFeatureVectorReflection(v17);
     v69 = v61;
     v70 = v62;
     v67 = v59;
@@ -2084,12 +2081,12 @@ LABEL_3:
         v50 = 0u;
         if (frameCopy)
         {
-          [frameCopy descriptor];
+          objc_msgSend_descriptor(frameCopy);
         }
 
         if (v16)
         {
-          [(ROI *)v16 descriptor];
+          objc_msgSend_descriptor(v16);
         }
 
         else
@@ -2148,7 +2145,7 @@ LABEL_35:
     }
 
 LABEL_32:
-    [(ROI *)v16 descriptor];
+    objc_msgSend_descriptor(v16);
 LABEL_36:
     v69 = v55;
     v70 = v56;
@@ -2245,25 +2242,25 @@ LABEL_38:
 - (void)getDilationCoefsAndReflectedDilatedLsList:(id)list
 {
   listCopy = list;
-  [(VideoDeghostingDetectionV2 *)self params];
+  objc_msgSend_params(self);
   v5 = v26 * *&self->_estimatedOpticalCenter.x;
   estOpticalCenterIsAvailable = [(VideoDeghostingDetectionV2 *)self estOpticalCenterIsAvailable];
   v7 = 1.0;
   LODWORD(v8) = 1.0;
   if (estOpticalCenterIsAvailable)
   {
-    [(VideoDeghostingDetectionV2 *)self params];
+    objc_msgSend_params(self, v8);
     LODWORD(v8) = v25;
   }
 
   v9 = v5 * *&v8;
   self->_lsDilation = v9;
   *self->_reflectedDilatedLsForPreprocessing = v9 * 3.0;
-  [(VideoDeghostingDetectionV2 *)self params];
+  objc_msgSend_params(self);
   v10 = v24 * *&self->_estimatedOpticalCenter.x;
   if ([(VideoDeghostingDetectionV2 *)self estOpticalCenterIsAvailable])
   {
-    [(VideoDeghostingDetectionV2 *)self params];
+    objc_msgSend_params(self);
     v7 = v23;
   }
 
@@ -2362,12 +2359,12 @@ LABEL_5:
 
     if (v8)
     {
-      [v8 descriptor];
+      objc_msgSend_descriptor(v8);
       repairTargetGhostCntLo = self->_params.repairParams.repairTargetGhostCntLo;
-      [v8 descriptor];
+      objc_msgSend_descriptor(v8);
       *&v15 = v25;
       v17 = v25 >= self->_params.repairParams.repairTargetGhostCntHi && *(&v26 + 3) >= repairTargetGhostCntLo;
-      [v8 descriptor];
+      objc_msgSend_descriptor(v8, v15);
       LODWORD(v18) = v24;
       if (!v17)
       {
@@ -2499,13 +2496,13 @@ LABEL_19:
     v82 = 0u;
     if (v48)
     {
-      [(ROI *)v48 descriptor];
+      objc_msgSend_descriptor(v48);
       v49 = 0uLL;
     }
 
     if (radiusCopy)
     {
-      [radiusCopy lumaFeatureVectorPredictedLocation];
+      objc_msgSend_lumaFeatureVectorPredictedLocation(radiusCopy);
       v51 = v79;
       v50 = v80;
       v49 = v77;
@@ -2540,7 +2537,7 @@ LABEL_19:
     {
       if (v48)
       {
-        [(ROI *)v48 descriptor];
+        objc_msgSend_descriptor(v48);
       }
 
       else
@@ -2618,7 +2615,7 @@ LABEL_19:
       {
         if (v31)
         {
-          [v31 descriptor];
+          objc_msgSend_descriptor(v31);
           v32 = v91;
         }
 
@@ -2773,7 +2770,7 @@ LABEL_31:
     {
       v21 = [*list objectAtIndexedSubscript:v20];
       lSTrackingVote = [v21 LSTrackingVote];
-      [(VideoDeghostingDetectionV2 *)self params];
+      objc_msgSend_params(self);
       if (lSTrackingVote < v119)
       {
         [v21 bbox];
@@ -2809,7 +2806,7 @@ LABEL_31:
 
               v34 = *(*(&v115 + 1) + 8 * i);
               lSTrackingVote2 = [v34 LSTrackingVote];
-              [(VideoDeghostingDetectionV2 *)self params];
+              objc_msgSend_params(self);
               if (lSTrackingVote2 >= v113)
               {
                 [v34 bbox];
@@ -2886,7 +2883,7 @@ LABEL_31:
 
         v52 = *(*(&v109 + 1) + 8 * j);
         lSTrackingVote3 = [v52 LSTrackingVote];
-        [(VideoDeghostingDetectionV2 *)self params];
+        objc_msgSend_params(self);
         if (lSTrackingVote3 >= v107)
         {
           [v46 addObject:v52];
@@ -2907,7 +2904,7 @@ LABEL_31:
     {
       v55 = [*list objectAtIndexedSubscript:v54];
       lSTrackingVote4 = [v55 LSTrackingVote];
-      [(VideoDeghostingDetectionV2 *)self params];
+      objc_msgSend_params(self);
       if (lSTrackingVote4 >= v106 && ([v46 containsObject:v55] & 1) == 0)
       {
         [v81 addObject:v55];
@@ -2947,7 +2944,7 @@ LABEL_31:
 
         v69 = *(*(&v102 + 1) + 8 * k);
         lSTrackingVote5 = [v69 LSTrackingVote];
-        [(VideoDeghostingDetectionV2 *)self params];
+        objc_msgSend_params(self);
         if (lSTrackingVote5 >= v100)
         {
           [v57 addObject:v69];
@@ -3077,9 +3074,9 @@ LABEL_31:
       LODWORD(v9) = [(MTLTexture *)self->_inputTexture count]- v9;
       v11 = pow(1.1, v9);
       detectionUtils = self->_detectionUtils;
-      [(VideoDeghostingDetectionV2 *)self params];
+      objc_msgSend_params(self);
       v13 = v144;
-      [(VideoDeghostingDetectionV2 *)self params];
+      objc_msgSend_params(self);
       LODWORD(v14) = v143;
       *&v15 = v9;
       LODWORD(v16) = v13;
@@ -3114,10 +3111,10 @@ LABEL_31:
           {
             v28 = *candidates;
             v29 = *list;
-            [(VideoDeghostingDetectionV2 *)self params];
-            [(VideoDeghostingDetectionV2 *)self params];
-            [(VideoDeghostingDetectionV2 *)self params];
-            [(VideoDeghostingDetectionV2 *)self params];
+            objc_msgSend_params(self);
+            objc_msgSend_params(self);
+            objc_msgSend_params(self);
+            objc_msgSend_params(self);
             LODWORD(v30) = v134;
             LODWORD(v31) = v18;
             LODWORD(v32) = v137;
@@ -3211,7 +3208,7 @@ LABEL_26:
 
         v47 = *(*(&v129 + 1) + 8 * j);
         temporalDetectionVote = [v47 temporalDetectionVote];
-        [(VideoDeghostingDetectionV2 *)self params];
+        objc_msgSend_params(self);
         if (temporalDetectionVote >= v127)
         {
           [v41 addObject:v47];
@@ -3367,7 +3364,7 @@ LABEL_60:
 
         v76 = *(*(&v113 + 1) + 8 * n);
         temporalDetectionVote2 = [v76 temporalDetectionVote];
-        [(VideoDeghostingDetectionV2 *)self params];
+        objc_msgSend_params(self);
         if (temporalDetectionVote2 < v111)
         {
           [v76 bbox];
@@ -3453,6 +3450,891 @@ LABEL_83:
   [(VDGDetectionUtilsV2 *)self->_detectionUtils removeDuplicateRois:v50];
   v94 = *list;
   *list = v50;
+}
+
+- (id)temporalDetectionPixelFeatureMatchROI:(id)i againstROIList:(id)list ggList:(id)ggList avoidList:(id)avoidList searchRadius:(float)radius colorContrastDiffThreshold:(float)threshold lumaDiffThreshold:(float)diffThreshold localMotionDiffThreshold:(float)self0 costThreshold:(float)self1 bestCostTolerance:(float)self2
+{
+  iCopy = i;
+  listCopy = list;
+  ggListCopy = ggList;
+  avoidListCopy = avoidList;
+  v119 = +[NSMutableArray array];
+  [(VDGDetectionUtilsV2 *)self->_detectionUtils getSearchLocation:iCopy];
+  v127 = v21;
+  v116 = iCopy;
+  v113 = avoidListCopy;
+  if (v21.f32[0] != INFINITY)
+  {
+    selfCopy = self;
+    [iCopy bbox];
+    v120 = v22;
+    v169 = 0u;
+    v170 = 0u;
+    v122 = COERCE_DOUBLE(vadd_f32(v127, vmul_f32(*&vextq_s8(v22, v22, 8uLL), 0xBF000000BF000000)));
+    v171 = 0u;
+    v172 = 0u;
+    v23 = ggListCopy;
+    v24 = [v23 countByEnumeratingWithState:&v169 objects:v168 count:16];
+    if (v24)
+    {
+      v25 = v24;
+      toleranceCopy = tolerance;
+      v26 = 0;
+      v27 = vmuls_lane_f32(v120.f32[2], v120, 3);
+      v28 = *v170;
+      v29 = 0.6;
+      __asm { FMOV            V9.2S, #3.0 }
+
+      do
+      {
+        for (i = 0; i != v25; i = i + 1)
+        {
+          if (*v170 != v28)
+          {
+            objc_enumerationMutation(v23);
+          }
+
+          v36 = *(*(&v169 + 1) + 8 * i);
+          if (v36)
+          {
+            objc_msgSend_descriptor(v36);
+            v37 = v158;
+          }
+
+          else
+          {
+            v166 = 0u;
+            v167 = 0u;
+            v164 = 0u;
+            v165 = 0u;
+            v162 = 0u;
+            v163 = 0u;
+            v160 = 0u;
+            v161 = 0u;
+            v37 = 0;
+            v158 = 0u;
+            v159 = 0u;
+          }
+
+          v38 = vcgt_f32(vabd_f32(v127, v37), _D9);
+          if ((vpmax_u32(v38, v38).u32[0] & 0x80000000) == 0)
+          {
+            [v36 bbox];
+            v175.origin.x = v39.f32[0];
+            v175.origin.y = v39.f32[1];
+            v175.size.width = v39.f32[2];
+            v175.size.height = v39.f32[3];
+            v40 = vmuls_lane_f32(v39.f32[2], v39, 3);
+            *v39.i64 = *&v122;
+            v41 = *(&v122 + 1);
+            v42 = v120.f32[2];
+            v43 = v120.f32[3];
+            v174 = CGRectIntersection(*v39.f32, v175);
+            *&v174.origin.x = v174.size.width * v174.size.height;
+            v44 = *&v174.origin.x / v27;
+            v45 = *&v174.origin.x / v40;
+            v46 = v44 >= v45 ? v45 : v44;
+            if (v46 > v29)
+            {
+              v47 = v36;
+
+              v29 = v46;
+              v26 = v47;
+            }
+          }
+        }
+
+        v25 = [v23 countByEnumeratingWithState:&v169 objects:v168 count:16];
+      }
+
+      while (v25);
+
+      tolerance = toleranceCopy;
+      if (v26)
+      {
+        temporalDetectionMatched = [(ROI *)v26 temporalDetectionMatched];
+        v49 = v119;
+        if (temporalDetectionMatched)
+        {
+          v50 = temporalDetectionMatched;
+          temporalDetectionMatched2 = [(ROI *)v26 temporalDetectionMatched];
+          trackID = [temporalDetectionMatched2 trackID];
+          trackID2 = [v116 trackID];
+
+          if (trackID <= trackID2)
+          {
+            v107 = [NSMutableArray arrayWithObject:v26];
+
+            iCopy = v116;
+            avoidListCopy = v113;
+            goto LABEL_78;
+          }
+
+          v54 = v116;
+        }
+
+        else
+        {
+          v54 = v116;
+        }
+
+        goto LABEL_29;
+      }
+    }
+
+    else
+    {
+    }
+
+    v26 = [[ROI alloc] initWithBbox:v122];
+    [(ROI *)v26 setDoneKPToBBoxViaGraphTraversal:1];
+    v55 = 0uLL;
+    v156 = 0u;
+    v157 = 0u;
+    v154 = 0u;
+    v155 = 0u;
+    v152 = 0u;
+    v153 = 0u;
+    v150 = 0u;
+    v151 = 0u;
+    v148 = 0u;
+    v149 = 0u;
+    v49 = v119;
+    if (v26)
+    {
+      objc_msgSend_descriptor(v26);
+      v55 = 0uLL;
+    }
+
+    v54 = v116;
+    if (v116)
+    {
+      objc_msgSend_lumaFeatureVectorPredictedLocation(v116);
+      v57 = v146;
+      v56 = v147;
+      v55 = v144;
+      v58 = v145;
+    }
+
+    else
+    {
+      v58 = 0uLL;
+      v57 = 0uLL;
+      v56 = 0uLL;
+    }
+
+    v152 = v55;
+    v153 = v58;
+    v154 = v57;
+    v155 = v56;
+    LODWORD(v156) = 32;
+    v140 = v57;
+    v141 = v56;
+    v142 = v156;
+    v143 = v157;
+    v136 = v150;
+    v137 = v151;
+    v138 = v55;
+    v139 = v58;
+    v134 = v148;
+    v135 = v149;
+    [(ROI *)v26 setDescriptor:&v134];
+    [v116 differenceOfGaussianAndLumaFeaturePredictedLocation];
+    [(ROI *)v26 setDifferenceOfGaussianAndLumaFeature:?];
+LABEL_29:
+    [v54 getPixelFeatureMatchCostWith:v26];
+    v60 = v59;
+    [(ROI *)v26 differenceOfGaussianAndLumaFeature];
+    v62 = 0;
+    toleranceCopy2 = tolerance;
+    if (v60 < 0.04 && *&v61 >= 0.02)
+    {
+      v62 = *(&v61 + 1) >= 0.3;
+    }
+
+    v123 = v61;
+    [v116 bbox];
+    v65 = v64;
+    [v116 bbox];
+    v67 = v66;
+    [v116 bbox];
+    v69 = 0;
+    v70 = 3;
+    if (v65 < v67)
+    {
+      v70 = 2;
+    }
+
+    v128 = v68;
+    if (v60 >= ((1.0 - fminf(fmaxf(((*(&v128 | (4 * v70)) + -10.0) + -2.0) / 3.0, 0.0), 1.0)) * 0.1))
+    {
+      tolerance = toleranceCopy2;
+    }
+
+    else
+    {
+      tolerance = toleranceCopy2;
+      if (*&v123 >= 0.04)
+      {
+        v69 = *(&v123 + 1) >= 0.5;
+      }
+    }
+
+    if (v62 || v69)
+    {
+      v156 = 0u;
+      v157 = 0u;
+      v154 = 0u;
+      v155 = 0u;
+      v152 = 0u;
+      v153 = 0u;
+      v150 = 0u;
+      v151 = 0u;
+      v148 = 0u;
+      v149 = 0u;
+      if (v26)
+      {
+        objc_msgSend_descriptor(v26);
+      }
+
+      [(ROI *)v26 bbox];
+      v124 = v71;
+      [(ROI *)v26 bbox];
+      *&v148 = vadd_f32(v124, vmul_f32(*&vextq_s8(v72, v72, 8uLL), 0x3F0000003F000000));
+      if (v60 < 0.04)
+      {
+        v142 = 0u;
+        v143 = 0u;
+        v140 = 0u;
+        v141 = 0u;
+        v138 = 0u;
+        v139 = 0u;
+        v136 = 0u;
+        v137 = 0u;
+        v134 = 0u;
+        v135 = 0u;
+        if (v116)
+        {
+          objc_msgSend_descriptor(v116);
+        }
+
+        [(VDGDetectionUtilsV2 *)selfCopy->_detectionUtils updateNewRoiPixFea:&v152 withRefPixFea:&v138];
+      }
+
+      v140 = v154;
+      v141 = v155;
+      v142 = v156;
+      v143 = v157;
+      v136 = v150;
+      v137 = v151;
+      v138 = v152;
+      v139 = v153;
+      v134 = v148;
+      v135 = v149;
+      [(ROI *)v26 setDescriptor:&v134];
+      [(ROI *)v26 setIsTracked:1];
+      -[ROI setTrackedCnt:](v26, "setTrackedCnt:", [v116 trackedCnt] + 1);
+      -[ROI setTrackID:](v26, "setTrackID:", [v116 trackID]);
+      [(ROI *)v26 setTemporalDetectionMatched:v116];
+      [(ROI *)v26 setIsPredictedFromPast:1];
+      -[ROI setIsTrajectoryPruningPassed:](v26, "setIsTrajectoryPruningPassed:", [v116 isTrajectoryPruningPassed]);
+      [v49 addObject:v26];
+    }
+
+    iCopy = v116;
+    avoidListCopy = v113;
+  }
+
+  v49 = v119;
+  if ([v119 count])
+  {
+    goto LABEL_77;
+  }
+
+  v110 = ggListCopy;
+  v121 = +[NSMutableArray array];
+  v73 = iCopy;
+  [iCopy bbox];
+  v109 = v74;
+  v130 = 0u;
+  v131 = 0u;
+  v132 = 0u;
+  v133 = 0u;
+  v112 = listCopy;
+  v75 = listCopy;
+  v76 = [v75 countByEnumeratingWithState:&v130 objects:v129 count:16];
+  if (!v76)
+  {
+    v78 = 0;
+    v117 = 0;
+    goto LABEL_76;
+  }
+
+  v77 = v76;
+  v78 = 0;
+  v117 = 0;
+  v125 = vextq_s8(v109, v109, 8uLL).u64[0];
+  v79 = vadd_f32(*v109.i8, vmul_f32(v125, 0x3F0000003F000000));
+  v80 = *v131;
+  __asm { FMOV            V15.2S, #13.0 }
+
+  v82 = INFINITY;
+  v115 = v75;
+  do
+  {
+    for (j = 0; j != v77; j = j + 1)
+    {
+      if (*v131 != v80)
+      {
+        objc_enumerationMutation(v75);
+      }
+
+      v84 = *(*(&v130 + 1) + 8 * j);
+      [v84 bbox];
+      v86 = vextq_s8(v85, v85, 8uLL).u64[0];
+      v87 = vadd_f32(*v85.i8, vmul_f32(v86, 0x3F0000003F000000));
+      if (v127.f32[0] == INFINITY)
+      {
+        v88 = vsub_f32(v79, v87);
+        if (sqrtf(vaddv_f32(vmul_f32(v88, v88))) > radius)
+        {
+          continue;
+        }
+      }
+
+      else
+      {
+        v89 = vsub_f32(v127, v87);
+        if (sqrtf(vaddv_f32(vmul_f32(v89, v89))) > 10.0)
+        {
+          continue;
+        }
+      }
+
+      v90 = vabd_f32(v125, v86);
+      v91 = vmul_f32(vminnm_f32(v125, v86), 0x3F0000003F000000);
+      v92 = vcge_f32(vbsl_s8(vcgt_f32(_D15, v91), _D15, v91), v90);
+      if ((vpmin_u32(v92, v92).u32[0] & 0x80000000) != 0 && ([avoidListCopy containsObject:v84] & 1) == 0)
+      {
+        [v73 getPixelFeatureMatchCostWith:v84];
+        v94 = *&v93;
+        if (*&v93 <= costThreshold)
+        {
+          if (*&v93 < v82)
+          {
+            v95 = v119;
+            if ([v119 count])
+            {
+              v96 = +[NSMutableArray array];
+
+              v97 = +[NSMutableArray array];
+
+              if ([v119 count])
+              {
+                v98 = 0;
+                v99 = 1;
+                do
+                {
+                  v100 = [v121 objectAtIndexedSubscript:v98];
+                  [v100 floatValue];
+                  if ((v101 - v94) > tolerance)
+                  {
+                    v102 = [v95 objectAtIndexedSubscript:v98];
+                    [v96 addObject:v102];
+
+                    v95 = v119;
+                    v103 = [v121 objectAtIndexedSubscript:v98];
+                    [v97 addObject:v103];
+                  }
+
+                  v98 = v99;
+                }
+
+                while ([v95 count] > v99++);
+              }
+
+              [v95 removeObjectsInArray:v96];
+              [v121 removeObjectsInArray:v97];
+              v82 = v94;
+              v75 = v115;
+              v73 = v116;
+              avoidListCopy = v113;
+            }
+
+            else
+            {
+              v96 = v78;
+              v97 = v117;
+              v82 = v94;
+              v75 = v115;
+            }
+
+LABEL_71:
+            [v119 addObject:{v84, v93}];
+            *&v105 = v94;
+            v106 = [NSNumber numberWithFloat:v105];
+            [v121 addObject:v106];
+
+            v78 = v96;
+            v117 = v97;
+            continue;
+          }
+
+          *&v93 = *&v93 - v82;
+          v96 = v78;
+          v97 = v117;
+          if ((v94 - v82) <= tolerance)
+          {
+            goto LABEL_71;
+          }
+        }
+      }
+    }
+
+    v77 = [v75 countByEnumeratingWithState:&v130 objects:v129 count:16];
+  }
+
+  while (v77);
+LABEL_76:
+
+  ggListCopy = v110;
+  listCopy = v112;
+  v49 = v119;
+  iCopy = v73;
+LABEL_77:
+  v107 = v49;
+LABEL_78:
+
+  return v107;
+}
+
+- (id)predictPastROIsInCurrentFrame:(id)frame currentGGList:(id)list
+{
+  frameCopy = frame;
+  listCopy = list;
+  v97 = +[NSMutableArray array];
+  v6 = +[NSMutableArray array];
+  v154 = 0u;
+  v155 = 0u;
+  v156 = 0u;
+  v157 = 0u;
+  obj = frameCopy;
+  v93 = [obj countByEnumeratingWithState:&v154 objects:v153 count:16];
+  if (v93)
+  {
+    v92 = *v155;
+    v88 = 0x3F19999A3D23D70ALL;
+    __asm { FMOV            V0.2S, #3.0 }
+
+    v99 = _D0;
+    do
+    {
+      v12 = 0;
+      do
+      {
+        if (*v155 != v92)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v13 = *(*(&v154 + 1) + 8 * v12);
+        if ([v13 lowSaliencyCnt] > 4)
+        {
+          goto LABEL_45;
+        }
+
+        [(VDGDetectionUtilsV2 *)self->_detectionUtils getSearchLocation:v13];
+        if (v14.f32[0] == INFINITY)
+        {
+          goto LABEL_45;
+        }
+
+        v100 = v14;
+        [v13 bbox];
+        v95 = v15;
+        v149 = 0u;
+        v150 = 0u;
+        v91 = COERCE_DOUBLE(vadd_f32(v100, vmul_f32(*&vextq_s8(v15, v15, 8uLL), 0xBF000000BF000000)));
+        v151 = 0u;
+        v152 = 0u;
+        v16 = listCopy;
+        v17 = [v16 countByEnumeratingWithState:&v149 objects:v148 count:16];
+        if (!v17)
+        {
+
+LABEL_27:
+          matchedLS = [[ROI alloc] initWithBbox:v91];
+          [(ROI *)matchedLS setDoneKPToBBoxViaGraphTraversal:1];
+          [v13 differenceOfGaussianAndLumaFeaturePredictedLocation];
+          [(ROI *)matchedLS setDifferenceOfGaussianAndLumaFeature:?];
+          v136 = 0u;
+          v137 = 0u;
+          v134 = 0u;
+          v135 = 0u;
+          v132 = 0u;
+          v133 = 0u;
+          v130 = 0u;
+          v131 = 0u;
+          v128 = 0u;
+          v129 = 0u;
+          if (matchedLS)
+          {
+            objc_msgSend_descriptor(matchedLS);
+          }
+
+          if (v13)
+          {
+            objc_msgSend_lumaFeatureVectorPredictedLocation(v13);
+            v44 = v126;
+            v43 = v127;
+            v45 = v124;
+            v46 = v125;
+          }
+
+          else
+          {
+            v45 = 0uLL;
+            v46 = 0uLL;
+            v44 = 0uLL;
+            v43 = 0uLL;
+          }
+
+          v132 = v45;
+          v133 = v46;
+          v134 = v44;
+          v135 = v43;
+          LODWORD(v136) = 32;
+          v120 = v44;
+          v121 = v43;
+          v122 = v136;
+          v123 = v137;
+          v116 = v130;
+          v117 = v131;
+          v118 = v45;
+          v119 = v46;
+          v114 = v128;
+          v115 = v129;
+          [(ROI *)matchedLS setDescriptor:&v114];
+          goto LABEL_33;
+        }
+
+        v18 = v17;
+        v19 = v12;
+        matchedLS = 0;
+        v95.i32[0] = vmuls_lane_f32(v95.f32[2], v95, 3);
+        v21 = *v150;
+        v22 = *(&v88 + 1);
+        do
+        {
+          for (i = 0; i != v18; i = i + 1)
+          {
+            if (*v150 != v21)
+            {
+              objc_enumerationMutation(v16);
+            }
+
+            v24 = *(*(&v149 + 1) + 8 * i);
+            if (v24)
+            {
+              objc_msgSend_descriptor(*(*(&v149 + 1) + 8 * i));
+              v25 = v138;
+            }
+
+            else
+            {
+              v147 = 0u;
+              v146 = 0u;
+              v145 = 0u;
+              v144 = 0u;
+              v143 = 0u;
+              v141 = 0u;
+              v142 = 0u;
+              v139 = 0u;
+              v140 = 0u;
+              v25 = 0;
+              v138 = 0u;
+            }
+
+            v26 = vcgt_f32(vabd_f32(v100, v25), v99);
+            if ((vpmax_u32(v26, v26).u32[0] & 0x80000000) == 0)
+            {
+              [v24 bbox];
+              v28 = v27;
+              [v24 bbox];
+              v30 = v29;
+              [v24 bbox];
+              v32 = v31;
+              v33 = v31;
+              [v24 bbox];
+              v160.size.height = v34.f32[3];
+              v35 = vmuls_lane_f32(v32, v34, 3);
+              *v34.i64 = *&v91;
+              v36 = *(&v91 + 1);
+              v37 = v95.f32[2];
+              v38 = v95.f32[3];
+              v160.origin.x = v28;
+              v160.origin.y = v30;
+              v160.size.width = v33;
+              v159 = CGRectIntersection(*v34.f32, v160);
+              *&v159.origin.x = v159.size.width * v159.size.height;
+              v39 = *&v159.origin.x / v95.f32[0];
+              v40 = *&v159.origin.x / v35;
+              v41 = v39 >= v40 ? v40 : v39;
+              if (v41 > v22)
+              {
+                v42 = v24;
+
+                v22 = v41;
+                matchedLS = v42;
+              }
+            }
+          }
+
+          v18 = [v16 countByEnumeratingWithState:&v149 objects:v148 count:16];
+        }
+
+        while (v18);
+
+        v12 = v19;
+        if (!matchedLS)
+        {
+          goto LABEL_27;
+        }
+
+LABEL_33:
+        [v13 getPixelFeatureMatchCostWith:matchedLS];
+        v48 = v47;
+        v49 = [(VDGDetectionUtilsV2 *)self->_detectionUtils ghostIsHighConfidence:v13];
+        v50 = INFINITY;
+        if (!v49)
+        {
+          v50 = 0.5;
+        }
+
+        if (v50 > v48)
+        {
+          temporalDetectionMatched = [(ROI *)matchedLS temporalDetectionMatched];
+          if (!temporalDetectionMatched || (v52 = temporalDetectionMatched, -[ROI temporalDetectionMatched](matchedLS, "temporalDetectionMatched"), v53 = objc_claimAutoreleasedReturnValue(), v54 = [v53 trackID], v55 = objc_msgSend(v13, "trackID"), v53, v52, v54 > v55))
+          {
+            [(ROI *)matchedLS differenceOfGaussianAndLumaFeature];
+            if (*&v56 < *&v88 || (LODWORD(v56) = HIDWORD(v56), *(&v56 + 1) < 0.5))
+            {
+              v57 = [v13 lowSaliencyCnt] + 1;
+            }
+
+            else
+            {
+              v57 = 0;
+            }
+
+            [(ROI *)matchedLS setLowSaliencyCnt:v57, v56];
+            v136 = 0u;
+            v137 = 0u;
+            v134 = 0u;
+            v135 = 0u;
+            v132 = 0u;
+            v133 = 0u;
+            v130 = 0u;
+            v131 = 0u;
+            v128 = 0u;
+            v129 = 0u;
+            if (matchedLS)
+            {
+              objc_msgSend_descriptor(matchedLS);
+            }
+
+            [(ROI *)matchedLS bbox];
+            v102 = v84;
+            [(ROI *)matchedLS bbox];
+            *&v128 = vadd_f32(v102, vmul_f32(*&vextq_s8(v85, v85, 8uLL), 0x3F0000003F000000));
+            v122 = 0u;
+            v123 = 0u;
+            v120 = 0u;
+            v121 = 0u;
+            v118 = 0u;
+            v119 = 0u;
+            v116 = 0u;
+            v117 = 0u;
+            v114 = 0u;
+            v115 = 0u;
+            if (v13)
+            {
+              objc_msgSend_descriptor(v13);
+            }
+
+            [(VDGDetectionUtilsV2 *)self->_detectionUtils updateNewRoiPixFea:&v132 withRefPixFea:&v118];
+            v113[6] = v134;
+            v113[7] = v135;
+            v113[8] = v136;
+            v113[9] = v137;
+            v113[2] = v130;
+            v113[3] = v131;
+            v113[4] = v132;
+            v113[5] = v133;
+            v113[0] = v128;
+            v113[1] = v129;
+            [(ROI *)matchedLS setDescriptor:v113];
+            [(ROI *)matchedLS setIsTracked:1];
+            -[ROI setTrackedCnt:](matchedLS, "setTrackedCnt:", [v13 trackedCnt] + 1);
+            -[ROI setTrackID:](matchedLS, "setTrackID:", [v13 trackID]);
+            [(ROI *)matchedLS setTemporalDetectionMatched:v13];
+            [(ROI *)matchedLS setIsPredictedFromPast:1];
+            -[ROI setPredictedFromPastCnt:](matchedLS, "setPredictedFromPastCnt:", [v13 predictedFromPastCnt] + 1);
+            -[ROI setIsTrajectoryPruningPassed:](matchedLS, "setIsTrajectoryPruningPassed:", [v13 isTrajectoryPruningPassed]);
+            [v97 addObject:matchedLS];
+            goto LABEL_61;
+          }
+        }
+
+        temporalDetectionMatched2 = [(ROI *)matchedLS temporalDetectionMatched];
+        if (!temporalDetectionMatched2)
+        {
+
+LABEL_45:
+          [v13 bbox];
+          v103 = v63;
+          [v13 bbox];
+          v96 = v64;
+          v109 = 0u;
+          v110 = 0u;
+          v111 = 0u;
+          v112 = 0u;
+          matchedLS = [v13 matchedLS];
+          v65 = [(ROI *)matchedLS countByEnumeratingWithState:&v109 objects:v108 count:16];
+          if (v65)
+          {
+            v66 = v65;
+            r1 = v12;
+            v67 = *v110;
+            v68 = vmuls_lane_f32(v103, v96, 3);
+            do
+            {
+              for (j = 0; j != v66; j = j + 1)
+              {
+                if (*v110 != v67)
+                {
+                  objc_enumerationMutation(matchedLS);
+                }
+
+                v70 = *(*(&v109 + 1) + 8 * j);
+                if (([v70 lsHasBeenUsedForTrackingGhost] & 1) == 0)
+                {
+                  [v70 bbox];
+                  v72 = v71;
+                  [v70 bbox];
+                  if (vmuls_lane_f32(v72, v73, 3) * 0.1 <= v68)
+                  {
+                    [v70 setLsHasBeenUsedForTrackingGhost:1];
+                    v74 = [ROI alloc];
+                    [v70 getReflectedBboxAroundCenter:*&self->_prevDefaultOpticalCenter[4]];
+                    v75 = [(ROI *)v74 initWithBbox:?];
+                    v76 = v75;
+                    v136 = 0u;
+                    v137 = 0u;
+                    v134 = 0u;
+                    v135 = 0u;
+                    v132 = 0u;
+                    v133 = 0u;
+                    v130 = 0u;
+                    v131 = 0u;
+                    v128 = 0u;
+                    v129 = 0u;
+                    if (v75)
+                    {
+                      objc_msgSend_descriptor(v75);
+                    }
+
+                    if (v70)
+                    {
+                      objc_msgSend_lumaFeatureVectorReflection(v70);
+                      v78 = v106;
+                      v77 = v107;
+                      v79 = v104;
+                      v80 = v105;
+                    }
+
+                    else
+                    {
+                      v79 = 0uLL;
+                      v80 = 0uLL;
+                      v78 = 0uLL;
+                      v77 = 0uLL;
+                    }
+
+                    v132 = v79;
+                    v133 = v80;
+                    v134 = v78;
+                    v135 = v77;
+                    LODWORD(v136) = 32;
+                    [(ROI *)v76 bbox];
+                    v101 = v81;
+                    [(ROI *)v76 bbox];
+                    *&v128 = vadd_f32(v101, vmul_f32(*&vextq_s8(v82, v82, 8uLL), 0x3F0000003F000000));
+                    v120 = v134;
+                    v121 = v135;
+                    v122 = v136;
+                    v123 = v137;
+                    v116 = v130;
+                    v117 = v131;
+                    v118 = v132;
+                    v119 = v133;
+                    v114 = v128;
+                    v115 = v129;
+                    [(ROI *)v76 setDescriptor:&v114];
+                    [(ROI *)v76 setIsReflectedLS:1];
+                    [(ROI *)v76 setIsTracked:1];
+                    -[ROI setTrackedCnt:](v76, "setTrackedCnt:", [v13 trackedCnt] + 1);
+                    -[ROI setTrackID:](v76, "setTrackID:", [v13 trackID]);
+                    [(ROI *)v76 setTemporalDetectionMatched:v13];
+                    [(ROI *)v76 setIsPredictedFromPast:1];
+                    -[ROI setPredictedFromPastCnt:](v76, "setPredictedFromPastCnt:", [v13 predictedFromPastCnt] + 1);
+                    -[ROI setIsTrajectoryPruningPassed:](v76, "setIsTrajectoryPruningPassed:", [v13 isTrajectoryPruningPassed]);
+                    lSTrackID = [v70 LSTrackID];
+                    [(ROI *)v76 setLSTrackID:lSTrackID];
+
+                    [(ROI *)v76 setLowSaliencyCnt:0];
+                    [(ROI *)v76 setDoneKPToBBoxViaGraphTraversal:1];
+                    [v6 addObject:v76];
+                    [v97 addObject:v76];
+                  }
+                }
+              }
+
+              v66 = [(ROI *)matchedLS countByEnumeratingWithState:&v109 objects:v108 count:16];
+            }
+
+            while (v66);
+            v12 = r1;
+          }
+
+LABEL_61:
+
+          goto LABEL_62;
+        }
+
+        v59 = temporalDetectionMatched2;
+        temporalDetectionMatched3 = [(ROI *)matchedLS temporalDetectionMatched];
+        trackID = [temporalDetectionMatched3 trackID];
+        trackID2 = [v13 trackID];
+
+        if (trackID > trackID2)
+        {
+          goto LABEL_45;
+        }
+
+LABEL_62:
+        v12 = v12 + 1;
+      }
+
+      while (v12 != v93);
+      v86 = [obj countByEnumeratingWithState:&v154 objects:v153 count:16];
+      v93 = v86;
+    }
+
+    while (v86);
+  }
+
+  return v97;
 }
 
 - (id)extractLightSourceBBoxFromBuffer:(VideoDeghostingDetectionV2 *)self BoxCount:(SEL)count
@@ -3643,7 +4525,7 @@ LABEL_83:
 
   fig_log_get_emitter();
   sub_B550();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
 LABEL_24:
   v40 = 0;
 LABEL_22:
@@ -3653,15 +4535,15 @@ LABEL_22:
 
 - (void)_ghostDetectionWithInputPixelBuffer:(__CVBuffer *)buffer reflectedLSMaskOri:(__CVBuffer *)ori lowLight:(BOOL)light opticalCenterFromMetaData:(__CVBuffer *)data simKeyPoint:(__CVBuffer *)point simLightSourceMask:(id)mask metaData:(id *)metaData futureFrames:
 {
-  v11 = v9;
+  v12 = v10;
   maskCopy = mask;
-  v177 = 0;
-  v178[0] = 0;
-  v15 = +[NSMutableArray array];
-  v176 = +[NSMutableArray array];
+  v166 = 0;
+  v167[0] = 0;
+  v16 = +[NSMutableArray array];
+  v165 = +[NSMutableArray array];
   +[NSMutableArray array];
-  v175 = v174 = 0;
-  bzero(v172, 0x200uLL);
+  v164 = v163 = 0;
+  bzero(v161, 0x200uLL);
   if ([(VideoDeghostingDetectionV2 *)self _detectionInit:buffer metaData:maskCopy futureFrames:metaData])
   {
     goto LABEL_105;
@@ -3671,515 +4553,506 @@ LABEL_22:
   commandQueue = [metalContext commandQueue];
   commandBuffer = [commandQueue commandBuffer];
 
-  v127 = commandBuffer;
+  v128 = commandBuffer;
   if (!commandBuffer)
   {
     fig_log_get_emitter();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v9, v115, v117, v119, v121, v123, v125);
     fig_log_get_emitter();
     sub_B598();
-    FigSignalErrorAtGM();
+    FigSignalErrorAtGM(v114);
 LABEL_105:
-    v119 = 0;
+    v113 = 0;
     goto LABEL_102;
   }
 
-  v19 = BYTE1(self->_trackID);
+  v20 = BYTE1(self->_trackID);
   trackID_high = HIBYTE(self->_trackID);
-  v21 = [maskCopy objectForKeyedSubscript:kFigCaptureStreamMetadata_LuxLevel];
-  intValue = [v21 intValue];
+  v22 = [maskCopy objectForKeyedSubscript:kFigCaptureStreamMetadata_LuxLevel];
+  intValue = [v22 intValue];
 
-  v23 = [(VideoDeghostingDetectionV2 *)self _shouldRunGGDetectionLuxLevelBased:intValue];
-  v24 = v23;
-  v25 = 0;
+  v24 = [(VideoDeghostingDetectionV2 *)self _shouldRunGGDetectionLuxLevelBased:intValue];
+  v25 = v24;
+  v26 = 0;
   if (data && point)
   {
     dataCopy = data;
-    v26 = 0;
     v27 = 0;
+    v28 = 0;
     obj = 0;
-    if (v23)
+    if (v24)
     {
-      v28 = [maskCopy objectForKeyedSubscript:@"IspScalerInfo"];
-      v25 = v28;
-      if (v28 && [v28 length] == &stru_1F8.reserved2)
+      v29 = [maskCopy objectForKeyedSubscript:@"IspScalerInfo"];
+      v26 = v29;
+      if (v29)
       {
-        [v25 getBytes:v172 length:576];
-        v171 = 0u;
-        v170 = 0u;
-        v169 = 0u;
-        [(VDGDetectionUtilsV2 *)self->_detectionUtils setSimParams:&v169 withMetaData:maskCopy];
-        *&v29 = (*&v169 * v173) * *(&v169 + 1);
-        if ([(VideoDeghostingDetectionV2 *)self _shouldRunGGDetectionClippedPixelBased:v29])
+        if ([v29 length] == &stru_1F8.reserved2)
         {
-          v125 = v24;
-          v124 = v25;
-          if (BYTE1(self->_trackID) == 1 && (self->_trackID & 0x1000000) != 0 && self->_isPrevLSFeaturesAvailable && (self->_trackID & 0x10000) != 0 || ![(NSMutableArray *)self->_prevLSLists count])
+          [v26 getBytes:v161 length:576];
+          v160 = 0u;
+          v159 = 0u;
+          v158 = 0u;
+          [(VDGDetectionUtilsV2 *)self->_detectionUtils setSimParams:&v158 withMetaData:maskCopy];
+          *&v30 = (*&v158 * v162) * *(&v158 + 1);
+          if ([(VideoDeghostingDetectionV2 *)self _shouldRunGGDetectionClippedPixelBased:v30])
           {
-            goto LABEL_21;
-          }
-
-          detectionUtils = self->_detectionUtils;
-          v31 = [(NSMutableArray *)self->_prevLSLists count];
-          if (v31)
-          {
-            lastObject = [(NSMutableArray *)self->_prevLSLists lastObject];
-          }
-
-          else
-          {
-            lastObject = &__NSArray0__struct;
-          }
-
-          v179 = __invert_f3(*&self->_hmgrphyTMinus1ToT.confidence);
-          [(VDGDetectionUtilsV2 *)detectionUtils generateBoxesForDoGAndLumaAndForPrevLSROIs:lastObject homography:&self->_metalBuffers.desGenGhostIdxBuf metalBuffers:LODWORD(self->_metalBuffers.reflectedLsBboxListBuf) maxBufferLength:*v179.columns[0].i64, *v179.columns[1].i64, *v179.columns[2].i64];
-          if (v31)
-          {
-          }
-
-          if (!*[*&self->_metalBuffers.tinyGhostInputLocationsBufLen contents])
-          {
-LABEL_21:
-            v33 = 0;
-          }
-
-          else
-          {
-            -[GGMMetalToolBox computeDoGAndLumaForBoxesViaInput:inputLocationsSize:metalBuffers:commandBuffer:](self->_metalToolBox, "computeDoGAndLumaForBoxesViaInput:inputLocationsSize:metalBuffers:commandBuffer:", self->_frameTMinus1Texture, *[*&self->_metalBuffers.tinyGhostInputLocationsBufLen contents], &self->_metalBuffers.desGenGhostIdxBuf, v127);
-            v33 = 1;
-          }
-
-          LODWORD(self->_estimatedOpticalCenter.x) = 1058642330;
-          [(MTLTexture *)self->_inputTexture lastObject];
-          v165 = 0u;
-          v166 = 0u;
-          v167 = 0u;
-          v34 = v168 = 0u;
-          v35 = [v34 countByEnumeratingWithState:&v165 objects:v164 count:16];
-          if (v35)
-          {
-            v36 = v35;
-            v37 = *v166;
-            do
+            v126 = v25;
+            v124 = v26;
+            if (BYTE1(self->_trackID) == 1 && (self->_trackID & 0x1000000) != 0 && self->_isPrevLSFeaturesAvailable && (self->_trackID & 0x10000) != 0 || ![(NSMutableArray *)self->_prevLSLists count])
             {
-              for (i = 0; i != v36; i = i + 1)
-              {
-                sub_B5E4(v166);
-                if (!v39)
-                {
-                  objc_enumerationMutation(v34);
-                }
-
-                v40 = *(*(&v165 + 1) + 8 * i);
-                if ([(VDGDetectionUtilsV2 *)self->_detectionUtils ghostIsHighConfidence:v40])
-                {
-                  [v15 addObject:v40];
-                }
-              }
-
-              v36 = [v34 countByEnumeratingWithState:&v165 objects:v164 count:16];
+              goto LABEL_21;
             }
 
-            while (v36);
-          }
-
-          [(VideoDeghostingDetectionV2 *)self _updateEstOpticalCenterUsingPrevDetectedGhosts:v15 currentDefaultOpticalCenter:v11];
-          if ([(VideoDeghostingDetectionV2 *)self estOpticalCenterConsecutiveValidFrameCnt]>= 3)
-          {
-            [(VideoDeghostingDetectionV2 *)self setEstOpticalCenterIsAvailable:1];
-          }
-
-          [(VideoDeghostingDetectionV2 *)self setPrevDefaultOpticalCenter:v11];
-          sub_B578();
-          LODWORD(v41) = self->_params.maxAllowedOpticalCenterOffset;
-          v42 = [(MaskToRoi *)self->_maskToRoi extractRoiByGraphTraversalInput:point bboxSizeThreshold:&v169 scaleFactorInv:DWORD2(v171) validWidth:HIDWORD(v171) validHeight:*&self->_tinyKeypointLocationCountMax lightSourceBBox:v41];
-          self->_LSROIs = v42;
-          sub_B578();
-          v43 = [(VideoDeghostingDetectionV2 *)self _shouldRunGGDetectionLSBased:v42];
-          if ((v43 & 1) == 0 && ((v33 ^ 1) & 1) == 0)
-          {
-            [v127 waitUntilCompleted];
-          }
-
-          v123 = v34;
-          if (v43)
-          {
-            v120 = v33;
-            v121 = v15;
-            v122 = maskCopy;
-            v44 = [(VideoDeghostingDetectionV2 *)self extractLightSourceBBoxFromBuffer:*&self->_tinyKeypointLocationCountMax BoxCount:v42];
-            v45 = v175;
-            v175 = v44;
-
-            bzero(__dst, 0x90uLL);
-            v162 = 0u;
-            v161 = 0u;
-            v160 = 0u;
-            v159 = 0u;
-            v46 = v175;
-            v47 = [v46 countByEnumeratingWithState:&v159 objects:v158 count:16];
-            if (v47)
+            detectionUtils = self->_detectionUtils;
+            v32 = [(NSMutableArray *)self->_prevLSLists count];
+            if (v32)
             {
-              v48 = v47;
-              v49 = *v160;
-              v50 = vneg_f32(0x7F0000007FLL);
-              do
-              {
-                for (j = 0; j != v48; j = j + 1)
-                {
-                  if (*v160 != v49)
-                  {
-                    objc_enumerationMutation(v46);
-                  }
-
-                  v52 = *(*(&v159 + 1) + 8 * j);
-                  [v52 setDoneKPToBBoxViaGraphTraversal:1];
-                  [v52 bbox];
-                  v130 = vaddq_f32(v53, xmmword_2DDC0);
-                  [v52 setBbox:?];
-                  *&v54 = vmuls_lane_f32(v130.f32[2], v130, 3);
-                  [v52 setArea:v54];
-                  [v52 generateLocationFromBBox];
-                  if (v52)
-                  {
-                    [v52 descriptor];
-                  }
-
-                  else
-                  {
-                    bzero(__src, 0xA0uLL);
-                  }
-
-                  memcpy(__dst, __src, sizeof(__dst));
-                  memcpy(__src, __dst, sizeof(__src));
-                  v156 = v50;
-                  v157 = v50;
-                  [v52 setDescriptor:__src];
-                  [v52 setTrackFail:0];
-                  [v52 setDefaultOpticalCenter:v11];
-                  [v52 bbox];
-                  v131 = v55;
-                  [v52 bbox];
-                  v132 = vmla_f32(v131, 0x3F0000003F000000, *&vextq_s8(v56, v56, 8uLL));
-                  *&v57 = sub_B5B0(vsub_f32(*&self->_prevDefaultOpticalCenter[4], v132));
-                  [v52 setDist2opticalCenter:v57];
-                  LODWORD(v58) = 2139095040;
-                  [v52 setDist2ghost:v58];
-                  v153 = 0u;
-                  v154 = 0u;
-                  v151 = 0u;
-                  v152 = 0u;
-                  lastObject2 = [(MTLTexture *)self->_inputTexture lastObject];
-                  v60 = [lastObject2 countByEnumeratingWithState:&v151 objects:v150 count:16];
-                  if (v60)
-                  {
-                    v61 = v60;
-                    v62 = *v152;
-                    do
-                    {
-                      for (k = 0; k != v61; k = k + 1)
-                      {
-                        sub_B5E4(v152);
-                        if (!v39)
-                        {
-                          objc_enumerationMutation(lastObject2);
-                        }
-
-                        [*(*(&v151 + 1) + 8 * k) getReflectedBboxCenterAroundCenter:*&self->_prevDefaultOpticalCenter[4]];
-                        v65 = v64;
-                        [v52 dist2ghost];
-                        v66 = sub_B5B0(vsub_f32(v132, v65));
-                        if (v67 < v66)
-                        {
-                          [v52 dist2ghost];
-                        }
-
-                        [v52 setDist2ghost:?];
-                      }
-
-                      v61 = [lastObject2 countByEnumeratingWithState:&v151 objects:v150 count:16];
-                    }
-
-                    while (v61);
-                  }
-                }
-
-                v48 = [v46 countByEnumeratingWithState:&v159 objects:v158 count:16];
-              }
-
-              while (v48);
-            }
-
-            v68 = sub_B5D8();
-            lightSourceBoxSizeThreshold_low = SLOWORD(self->_params.lightSourceBoxSizeThreshold);
-            [v68 getTopLSInList:5.62950094e14 k:? dist2ghostTol:?];
-            if (v120)
-            {
-              [v127 waitUntilCompleted];
-            }
-
-            self->_isPrevLSFeaturesAvailable = [(VDGDetectionUtilsV2 *)self->_detectionUtils updatePrevLSDoGAndLumaFeaturesWithMetalBuffers:&self->_metalBuffers.desGenGhostIdxBuf];
-            sub_B578();
-            [(VideoDeghostingDetectionV2 *)self _trackLightSources:&v175];
-            v70 = [(VideoDeghostingDetectionV2 *)self deepCopyROIList:v175 copyReferencedROI:0];
-            v71 = *&self->_configuration.internalCfg.antiFlareSize;
-            *&self->_configuration.internalCfg.antiFlareSize = v70;
-
-            -[VideoDeghostingDetectionV2 setPrevFrameAllLSCnt:](self, "setPrevFrameAllLSCnt:", [v175 count]);
-            [(VideoDeghostingDetectionV2 *)self getDilationCoefsAndReflectedDilatedLsList:v175];
-            sub_B578();
-            if (self->_localMotionReferenceTexture)
-            {
-              v72 = self->_detectionUtils;
-              v73 = [(NSMutableArray *)self->_prevLSLists count];
-              if (v73)
-              {
-                lastObject3 = [(NSMutableArray *)self->_prevLSLists lastObject];
-              }
-
-              else
-              {
-                lastObject3 = &__NSArray0__struct;
-              }
-
-              v180 = __invert_f3(*&self->_hmgrphyTToTPlus1.confidence);
-              [(VDGDetectionUtilsV2 *)v72 generateBoxesForDoGAndLumaAndForPrevLSROIs:lastObject3 homography:&self->_metalBuffers.desGenGhostIdxBuf metalBuffers:LODWORD(self->_metalBuffers.desGenMappingInfoBuf) maxBufferLength:*v180.columns[0].i64, *v180.columns[1].i64, *v180.columns[2].i64];
-              if (v73)
-              {
-              }
-            }
-
-            v75 = self->_detectionUtils;
-            v76 = v175;
-            v77 = [(MTLTexture *)self->_inputTexture count];
-            if (v77)
-            {
-              lastObject4 = [(MTLTexture *)self->_inputTexture lastObject];
+              lastObject = [(NSMutableArray *)self->_prevLSLists lastObject];
             }
 
             else
             {
-              lastObject4 = &__NSArray0__struct;
+              lastObject = &__NSArray0__struct;
             }
 
-            [(VDGDetectionUtilsV2 *)v75 generateBoxesForDoGAndLumaAndForLSROIs:v76 prevGGROIs:lastObject4 inputTexture:self->_frameTMinus1Texture opticalCenter:&self->_metalBuffers.desGenGhostIdxBuf metalBuffers:LODWORD(self->_metalBuffers.reflectedLsBboxListBuf) maxBufferLength:*&self->_prevDefaultOpticalCenter[4]];
-            if (v77)
+            v168 = __invert_f3(*&self->_hmgrphyTMinus1ToT.confidence);
+            [(VDGDetectionUtilsV2 *)detectionUtils generateBoxesForDoGAndLumaAndForPrevLSROIs:lastObject homography:&self->_metalBuffers.desGenGhostIdxBuf metalBuffers:LODWORD(self->_metalBuffers.reflectedLsBboxListBuf) maxBufferLength:*v168.columns[0].i64, *v168.columns[1].i64, *v168.columns[2].i64];
+            if (v32)
             {
             }
 
-            saturationLowerThreshold_low = LODWORD(self->_params.colorScore.saturationLowerThreshold);
-            hueThreshold_low = LODWORD(self->_params.colorScore.hueThreshold);
-            __src[0] = v169;
-            __src[1] = v170;
-            __src[2] = v171;
-            v81 = [(VideoDeghostingDetectionV2 *)self _ghostCandidateGenerationViaKeypointBuffer:dataCopy opticalCenterFromMetaData:__src mappingInfo:&v176 GGList:&v175 LSList:saturationLowerThreshold_low kpCntHardGatingTh:hueThreshold_low kpCntSoftGatingTh:v11];
-            v82 = v174;
-            v174 = v81;
-
-            [(VDGDetectionUtilsV2 *)self->_detectionUtils updateDoGAndLumaFeaturesWithMetalBuffers:&self->_metalBuffers.desGenGhostIdxBuf];
-            [(VideoDeghostingDetectionV2 *)self _trackGhosts:&v176 ghostCandidates:&v174 LSList:v175];
-            [(VDGDetectionUtilsV2 *)self->_detectionUtils getTopGhostsInList:v176 k:SLOWORD(self->_params.colorScore.hueLowerRange) opticalCenter:LODWORD(self->_params.colorScore.hueUpperRange) ghostCntGatingTh:*&self->_prevDefaultOpticalCenter[4]];
-            [v176 count];
-            [sub_B5D8() clearReferencedROIsForROIList:?];
-            [(VDGDetectionUtilsV2 *)self->_detectionUtils clearReferencedROIsForROIList:v176];
-            sub_B578();
-            v83 = [(VideoDeghostingDetectionV2 *)self deepCopyROIList:v176 copyReferencedROI:0];
-            prevFrameMergedGhosts = [(VideoDeghostingDetectionV2 *)self prevFrameMergedGhosts];
-            v85 = [(VideoDeghostingDetectionV2 *)self _mergeBboxesWithTrackingForMitigation:v83 prevFrameGhostList:prevFrameMergedGhosts];
-
-            if ((v85 & 1) == 0)
+            if (!*[*&self->_metalBuffers.tinyGhostInputLocationsBufLen contents])
             {
-              [v83 removeAllObjects];
-              [v176 removeAllObjects];
-              prevFrameMergedGhosts2 = [(VideoDeghostingDetectionV2 *)self prevFrameMergedGhosts];
-              [prevFrameMergedGhosts2 removeAllObjects];
+LABEL_21:
+              v34 = 0;
             }
 
-            if (self->_isLocalMotionCueEnabled)
+            else
             {
-              [(VideoDeghostingDetectionV2 *)self setPrevFrameMergedGhosts:v83];
-              if (*self->_estOpticalCenterOffset == 1)
-              {
-                *self->_estOpticalCenterOffset = *&self->_estOpticalCenter[4];
-              }
+              -[GGMMetalToolBox computeDoGAndLumaForBoxesViaInput:inputLocationsSize:metalBuffers:commandBuffer:](self->_metalToolBox, "computeDoGAndLumaForBoxesViaInput:inputLocationsSize:metalBuffers:commandBuffer:", self->_frameTMinus1Texture, *[*&self->_metalBuffers.tinyGhostInputLocationsBufLen contents], &self->_metalBuffers.desGenGhostIdxBuf, v128);
+              v34 = 1;
             }
 
-            obj = v83;
-            v148 = 0u;
-            v149 = 0u;
-            v146 = 0u;
-            v147 = 0u;
-            v87 = v175;
-            v88 = [v87 countByEnumeratingWithState:&v146 objects:v145 count:16];
-            if (v88)
+            LODWORD(self->_estimatedOpticalCenter.x) = 1058642330;
+            [(MTLTexture *)self->_inputTexture lastObject];
+            v35 = memset(v157, 0, sizeof(v157));
+            v36 = [v35 countByEnumeratingWithState:v157 objects:v156 count:16];
+            if (v36)
             {
-              v89 = v88;
-              v90 = *v147;
+              v37 = v36;
               do
               {
-                for (m = 0; m != v89; m = m + 1)
+                for (i = 0; i != v37; i = i + 1)
                 {
-                  if (*v147 != v90)
-                  {
-                    objc_enumerationMutation(v87);
-                  }
-
-                  v92 = *(*(&v146 + 1) + 8 * m);
-                  [v92 bbox];
-                  v133 = v93;
-                  [v92 bbox];
-                  v134 = vmla_f32(v133, 0x3F0000003F000000, *&vextq_s8(v94, v94, 8uLL));
-                  *&v95 = sub_B5B0(vsub_f32(*&self->_prevDefaultOpticalCenter[4], v134));
-                  [v92 setDist2opticalCenter:v95];
-                  LODWORD(v96) = 2139095040;
-                  [v92 setDist2ghost:v96];
-                  v143 = 0u;
-                  v144 = 0u;
-                  v141 = 0u;
-                  v142 = 0u;
-                  v97 = v176;
-                  v98 = [v97 countByEnumeratingWithState:&v141 objects:v140 count:16];
-                  if (v98)
-                  {
-                    v99 = v98;
-                    v100 = *v142;
-                    do
-                    {
-                      for (n = 0; n != v99; n = n + 1)
-                      {
-                        sub_B5E4(v142);
-                        if (!v39)
-                        {
-                          objc_enumerationMutation(v97);
-                        }
-
-                        [*(*(&v141 + 1) + 8 * n) getReflectedBboxCenterAroundCenter:*&self->_prevDefaultOpticalCenter[4]];
-                        v103 = v102;
-                        [v92 dist2ghost];
-                        v104 = sub_B5B0(vsub_f32(v134, v103));
-                        if (v105 < v104)
-                        {
-                          [v92 dist2ghost];
-                        }
-
-                        [v92 setDist2ghost:?];
-                      }
-
-                      v99 = [v97 countByEnumeratingWithState:&v141 objects:v140 count:16];
-                    }
-
-                    while (v99);
-                  }
-                }
-
-                v89 = [v87 countByEnumeratingWithState:&v146 objects:v145 count:16];
-              }
-
-              while (v89);
-            }
-
-            v106 = sub_B5D8();
-            searchRangeBase_low = SLOWORD(self->_params.searchRangeBase);
-            LODWORD(v108) = 16.0;
-            [v106 getTopLSInList:v108 k:? dist2ghostTol:?];
-            objc_storeStrong(&self->_reflectedLSROIs, obj);
-            objc_storeStrong(&self->_rawDesGenKeyPoints, v175);
-            v109 = [v175 mutableCopy];
-            v110 = v178[0];
-            v178[0] = v109;
-
-            v111 = [v176 mutableCopy];
-            v112 = v177;
-            v177 = v111;
-
-            v27 = +[NSMutableArray array];
-            v136 = 0u;
-            v137 = 0u;
-            v138 = 0u;
-            v139 = 0u;
-            v113 = v111;
-            v114 = [v113 countByEnumeratingWithState:&v136 objects:v135 count:16];
-            v15 = v121;
-            maskCopy = v122;
-            if (v114)
-            {
-              v115 = v114;
-              v116 = *v137;
-              do
-              {
-                for (ii = 0; ii != v115; ii = ii + 1)
-                {
-                  sub_B5E4(v137);
+                  sub_B5E4();
                   if (!v39)
                   {
-                    objc_enumerationMutation(v113);
+                    objc_enumerationMutation(v35);
                   }
 
-                  v118 = *(*(&v136 + 1) + 8 * ii);
-                  if ([v118 isReflectedLS])
+                  v40 = *(*(&v157[0] + 1) + 8 * i);
+                  if ([(VDGDetectionUtilsV2 *)self->_detectionUtils ghostIsHighConfidence:v40])
                   {
-                    [v27 addObject:v118];
+                    [v16 addObject:v40];
                   }
                 }
 
-                v115 = [v113 countByEnumeratingWithState:&v136 objects:v135 count:16];
+                v37 = [v35 countByEnumeratingWithState:v157 objects:v156 count:16];
               }
 
-              while (v115);
+              while (v37);
             }
 
-            [v113 removeObjectsInArray:v27];
-            trackID_high = 1;
-            [(VDGDetectionUtilsV2 *)self->_detectionUtils pruneGGList:&v177 LSBBoxList:v178 reflectedLSBBoxList:*&self->_reflectedDilatedLsForTracking[4] getMatchedLS:0 pruneLS:1 pruneGG:0];
-            -[VideoDeghostingDetectionV2 setPrevFrameMatchedLSCnt:](self, "setPrevFrameMatchedLSCnt:", [v178[0] count]);
-            [sub_B5D8() pruneLSBasedOnDist2Ghost:?];
-            v19 = 1;
+            [(VideoDeghostingDetectionV2 *)self _updateEstOpticalCenterUsingPrevDetectedGhosts:v16 currentDefaultOpticalCenter:v12];
+            if ([(VideoDeghostingDetectionV2 *)self estOpticalCenterConsecutiveValidFrameCnt]>= 3)
+            {
+              [(VideoDeghostingDetectionV2 *)self setEstOpticalCenterIsAvailable:1];
+            }
+
+            [(VideoDeghostingDetectionV2 *)self setPrevDefaultOpticalCenter:v12];
+            sub_B578(732307780);
+            LODWORD(v41) = self->_params.maxAllowedOpticalCenterOffset;
+            v42 = [(MaskToRoi *)self->_maskToRoi extractRoiByGraphTraversalInput:point bboxSizeThreshold:&v158 scaleFactorInv:DWORD2(v160) validWidth:HIDWORD(v160) validHeight:*&self->_tinyKeypointLocationCountMax lightSourceBBox:v41];
+            self->_LSROIs = v42;
+            sub_B578(732307784);
+            v43 = [(VideoDeghostingDetectionV2 *)self _shouldRunGGDetectionLSBased:v42];
+            if ((v43 & 1) == 0 && ((v34 ^ 1) & 1) == 0)
+            {
+              [v128 waitUntilCompleted];
+            }
+
+            v122 = v35;
+            if (v43)
+            {
+              v116 = v34;
+              v118 = v16;
+              v120 = maskCopy;
+              v44 = [(VideoDeghostingDetectionV2 *)self extractLightSourceBBoxFromBuffer:*&self->_tinyKeypointLocationCountMax BoxCount:v42];
+              v45 = v164;
+              v164 = v44;
+
+              bzero(__dst, 0x90uLL);
+              v154 = 0u;
+              v153 = 0u;
+              v152 = 0u;
+              v151 = 0u;
+              v46 = v164;
+              v47 = [v46 countByEnumeratingWithState:&v151 objects:v150 count:16];
+              if (v47)
+              {
+                v48 = v47;
+                v49 = *v152;
+                v50 = vneg_f32(0x7F0000007FLL);
+                do
+                {
+                  for (j = 0; j != v48; j = j + 1)
+                  {
+                    if (*v152 != v49)
+                    {
+                      objc_enumerationMutation(v46);
+                    }
+
+                    v52 = *(*(&v151 + 1) + 8 * j);
+                    [v52 setDoneKPToBBoxViaGraphTraversal:1];
+                    [v52 bbox];
+                    v131 = vaddq_f32(v53, xmmword_2DDC0);
+                    [v52 setBbox:?];
+                    *&v54 = vmuls_lane_f32(v131.f32[2], v131, 3);
+                    [v52 setArea:v54];
+                    [v52 generateLocationFromBBox];
+                    if (v52)
+                    {
+                      objc_msgSend_descriptor(v52);
+                    }
+
+                    else
+                    {
+                      bzero(__src, 0xA0uLL);
+                    }
+
+                    memcpy(__dst, __src, sizeof(__dst));
+                    memcpy(__src, __dst, sizeof(__src));
+                    v148 = v50;
+                    v149 = v50;
+                    [v52 setDescriptor:__src];
+                    [v52 setTrackFail:0];
+                    [v52 setDefaultOpticalCenter:v12];
+                    [v52 bbox];
+                    v132 = v55;
+                    [v52 bbox];
+                    v133 = vmla_f32(v132, 0x3F0000003F000000, *&vextq_s8(v56, v56, 8uLL));
+                    *&v57 = sub_B5B0(vsub_f32(*&self->_prevDefaultOpticalCenter[4], v133));
+                    [v52 setDist2opticalCenter:v57];
+                    LODWORD(v58) = 2139095040;
+                    [v52 setDist2ghost:v58];
+                    memset(v146, 0, sizeof(v146));
+                    lastObject2 = [(MTLTexture *)self->_inputTexture lastObject];
+                    v60 = [lastObject2 countByEnumeratingWithState:v146 objects:v145 count:16];
+                    if (v60)
+                    {
+                      v61 = v60;
+                      do
+                      {
+                        for (k = 0; k != v61; k = k + 1)
+                        {
+                          sub_B5E4();
+                          if (!v39)
+                          {
+                            objc_enumerationMutation(lastObject2);
+                          }
+
+                          [*(*(&v146[0] + 1) + 8 * k) getReflectedBboxCenterAroundCenter:*&self->_prevDefaultOpticalCenter[4]];
+                          v64 = v63;
+                          [v52 dist2ghost];
+                          v65 = sub_B5B0(vsub_f32(v133, v64));
+                          if (v66 < v65)
+                          {
+                            [v52 dist2ghost];
+                          }
+
+                          [v52 setDist2ghost:?];
+                        }
+
+                        v61 = [lastObject2 countByEnumeratingWithState:v146 objects:v145 count:16];
+                      }
+
+                      while (v61);
+                    }
+                  }
+
+                  v48 = [v46 countByEnumeratingWithState:&v151 objects:v150 count:16];
+                }
+
+                while (v48);
+              }
+
+              [sub_B5D8() getTopLSInList:5.62950094e14 k:? dist2ghostTol:?];
+              if (v116)
+              {
+                [v128 waitUntilCompleted];
+              }
+
+              self->_isPrevLSFeaturesAvailable = [(VDGDetectionUtilsV2 *)self->_detectionUtils updatePrevLSDoGAndLumaFeaturesWithMetalBuffers:&self->_metalBuffers.desGenGhostIdxBuf];
+              sub_B578(732307788);
+              [(VideoDeghostingDetectionV2 *)self _trackLightSources:&v164];
+              v67 = [(VideoDeghostingDetectionV2 *)self deepCopyROIList:v164 copyReferencedROI:0];
+              v68 = *&self->_configuration.internalCfg.antiFlareSize;
+              *&self->_configuration.internalCfg.antiFlareSize = v67;
+
+              -[VideoDeghostingDetectionV2 setPrevFrameAllLSCnt:](self, "setPrevFrameAllLSCnt:", [v164 count]);
+              [(VideoDeghostingDetectionV2 *)self getDilationCoefsAndReflectedDilatedLsList:v164];
+              sub_B578(732307792);
+              if (self->_localMotionReferenceTexture)
+              {
+                v69 = self->_detectionUtils;
+                v70 = [(NSMutableArray *)self->_prevLSLists count];
+                if (v70)
+                {
+                  lastObject3 = [(NSMutableArray *)self->_prevLSLists lastObject];
+                }
+
+                else
+                {
+                  lastObject3 = &__NSArray0__struct;
+                }
+
+                v169 = __invert_f3(*&self->_hmgrphyTToTPlus1.confidence);
+                [(VDGDetectionUtilsV2 *)v69 generateBoxesForDoGAndLumaAndForPrevLSROIs:lastObject3 homography:&self->_metalBuffers.desGenGhostIdxBuf metalBuffers:LODWORD(self->_metalBuffers.desGenMappingInfoBuf) maxBufferLength:*v169.columns[0].i64, *v169.columns[1].i64, *v169.columns[2].i64];
+                if (v70)
+                {
+                }
+              }
+
+              v72 = self->_detectionUtils;
+              v73 = v164;
+              v74 = [(MTLTexture *)self->_inputTexture count];
+              if (v74)
+              {
+                lastObject4 = [(MTLTexture *)self->_inputTexture lastObject];
+              }
+
+              else
+              {
+                lastObject4 = &__NSArray0__struct;
+              }
+
+              [(VDGDetectionUtilsV2 *)v72 generateBoxesForDoGAndLumaAndForLSROIs:v73 prevGGROIs:lastObject4 inputTexture:self->_frameTMinus1Texture opticalCenter:&self->_metalBuffers.desGenGhostIdxBuf metalBuffers:LODWORD(self->_metalBuffers.reflectedLsBboxListBuf) maxBufferLength:*&self->_prevDefaultOpticalCenter[4]];
+              if (v74)
+              {
+              }
+
+              saturationLowerThreshold_low = LODWORD(self->_params.colorScore.saturationLowerThreshold);
+              hueThreshold_low = LODWORD(self->_params.colorScore.hueThreshold);
+              __src[0] = v158;
+              __src[1] = v159;
+              __src[2] = v160;
+              v78 = [(VideoDeghostingDetectionV2 *)self _ghostCandidateGenerationViaKeypointBuffer:dataCopy opticalCenterFromMetaData:__src mappingInfo:&v165 GGList:&v164 LSList:saturationLowerThreshold_low kpCntHardGatingTh:hueThreshold_low kpCntSoftGatingTh:v12];
+              v79 = v163;
+              v163 = v78;
+
+              [(VDGDetectionUtilsV2 *)self->_detectionUtils updateDoGAndLumaFeaturesWithMetalBuffers:&self->_metalBuffers.desGenGhostIdxBuf];
+              [(VideoDeghostingDetectionV2 *)self _trackGhosts:&v165 ghostCandidates:&v163 LSList:v164];
+              [(VDGDetectionUtilsV2 *)self->_detectionUtils getTopGhostsInList:v165 k:SLOWORD(self->_params.colorScore.hueLowerRange) opticalCenter:LODWORD(self->_params.colorScore.hueUpperRange) ghostCntGatingTh:*&self->_prevDefaultOpticalCenter[4]];
+              [v165 count];
+              [sub_B5D8() clearReferencedROIsForROIList:?];
+              [(VDGDetectionUtilsV2 *)self->_detectionUtils clearReferencedROIsForROIList:v165];
+              sub_B578(732307820);
+              v80 = [(VideoDeghostingDetectionV2 *)self deepCopyROIList:v165 copyReferencedROI:0];
+              prevFrameMergedGhosts = [(VideoDeghostingDetectionV2 *)self prevFrameMergedGhosts];
+              v82 = [(VideoDeghostingDetectionV2 *)self _mergeBboxesWithTrackingForMitigation:v80 prevFrameGhostList:prevFrameMergedGhosts];
+
+              if ((v82 & 1) == 0)
+              {
+                [v80 removeAllObjects];
+                [v165 removeAllObjects];
+                prevFrameMergedGhosts2 = [(VideoDeghostingDetectionV2 *)self prevFrameMergedGhosts];
+                [prevFrameMergedGhosts2 removeAllObjects];
+              }
+
+              if (self->_isLocalMotionCueEnabled)
+              {
+                [(VideoDeghostingDetectionV2 *)self setPrevFrameMergedGhosts:v80];
+                if (*self->_estOpticalCenterOffset == 1)
+                {
+                  *self->_estOpticalCenterOffset = *&self->_estOpticalCenter[4];
+                }
+              }
+
+              obj = v80;
+              v143 = 0u;
+              v144 = 0u;
+              v141 = 0u;
+              v142 = 0u;
+              v84 = v164;
+              v85 = [v84 countByEnumeratingWithState:&v141 objects:v140 count:16];
+              if (v85)
+              {
+                v86 = v85;
+                v87 = *v142;
+                do
+                {
+                  for (m = 0; m != v86; m = m + 1)
+                  {
+                    if (*v142 != v87)
+                    {
+                      objc_enumerationMutation(v84);
+                    }
+
+                    v89 = *(*(&v141 + 1) + 8 * m);
+                    [v89 bbox];
+                    v134 = v90;
+                    [v89 bbox];
+                    v135 = vmla_f32(v134, 0x3F0000003F000000, *&vextq_s8(v91, v91, 8uLL));
+                    *&v92 = sub_B5B0(vsub_f32(*&self->_prevDefaultOpticalCenter[4], v135));
+                    [v89 setDist2opticalCenter:v92];
+                    LODWORD(v93) = 2139095040;
+                    [v89 setDist2ghost:v93];
+                    memset(v139, 0, sizeof(v139));
+                    v94 = v165;
+                    v95 = [v94 countByEnumeratingWithState:v139 objects:v138 count:16];
+                    if (v95)
+                    {
+                      v96 = v95;
+                      do
+                      {
+                        for (n = 0; n != v96; n = n + 1)
+                        {
+                          sub_B5E4();
+                          if (!v39)
+                          {
+                            objc_enumerationMutation(v94);
+                          }
+
+                          [*(*(&v139[0] + 1) + 8 * n) getReflectedBboxCenterAroundCenter:*&self->_prevDefaultOpticalCenter[4]];
+                          v99 = v98;
+                          [v89 dist2ghost];
+                          v100 = sub_B5B0(vsub_f32(v135, v99));
+                          if (v101 < v100)
+                          {
+                            [v89 dist2ghost];
+                          }
+
+                          [v89 setDist2ghost:?];
+                        }
+
+                        v96 = [v94 countByEnumeratingWithState:v139 objects:v138 count:16];
+                      }
+
+                      while (v96);
+                    }
+                  }
+
+                  v86 = [v84 countByEnumeratingWithState:&v141 objects:v140 count:16];
+                }
+
+                while (v86);
+              }
+
+              v102 = sub_B5D8();
+              LODWORD(v103) = 16.0;
+              [v102 getTopLSInList:v103 k:? dist2ghostTol:?];
+              objc_storeStrong(&self->_reflectedLSROIs, v80);
+              objc_storeStrong(&self->_rawDesGenKeyPoints, v164);
+              v104 = [v164 mutableCopy];
+              v105 = v167[0];
+              v167[0] = v104;
+
+              v106 = [v165 mutableCopy];
+              v107 = v166;
+              v166 = v106;
+
+              v28 = +[NSMutableArray array];
+              memset(v137, 0, sizeof(v137));
+              v108 = v106;
+              v109 = [v108 countByEnumeratingWithState:v137 objects:v136 count:16];
+              v16 = v118;
+              maskCopy = v120;
+              if (v109)
+              {
+                v110 = v109;
+                do
+                {
+                  for (ii = 0; ii != v110; ii = ii + 1)
+                  {
+                    sub_B5E4();
+                    if (!v39)
+                    {
+                      objc_enumerationMutation(v108);
+                    }
+
+                    v112 = *(*(&v137[0] + 1) + 8 * ii);
+                    if ([v112 isReflectedLS])
+                    {
+                      [v28 addObject:v112];
+                    }
+                  }
+
+                  v110 = [v108 countByEnumeratingWithState:v137 objects:v136 count:16];
+                }
+
+                while (v110);
+              }
+
+              [v108 removeObjectsInArray:v28];
+              trackID_high = 1;
+              [(VDGDetectionUtilsV2 *)self->_detectionUtils pruneGGList:&v166 LSBBoxList:v167 reflectedLSBBoxList:*&self->_reflectedDilatedLsForTracking[4] getMatchedLS:0 pruneLS:1 pruneGG:0];
+              -[VideoDeghostingDetectionV2 setPrevFrameMatchedLSCnt:](self, "setPrevFrameMatchedLSCnt:", [v167[0] count]);
+              [sub_B5D8() pruneLSBasedOnDist2Ghost:?];
+              v20 = 1;
+            }
+
+            else
+            {
+              v20 = 0;
+              v28 = 0;
+              obj = 0;
+              trackID_high = 1;
+            }
+
+            v25 = v126;
+            v27 = v122;
+            v26 = v124;
+            goto LABEL_101;
           }
 
-          else
-          {
-            v19 = 0;
-            v27 = 0;
-            obj = 0;
-            trackID_high = 1;
-          }
-
-          v24 = v125;
-          v26 = v123;
-          v25 = v124;
-          goto LABEL_101;
+          trackID_high = 0;
         }
 
-        trackID_high = 0;
+        else
+        {
+          fig_log_get_emitter();
+          sub_B568();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+        }
       }
 
       else
       {
         fig_log_get_emitter();
         sub_B568();
-        FigDebugAssert3();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
       }
 
-      v26 = 0;
       v27 = 0;
+      v28 = 0;
       obj = 0;
     }
   }
 
   else
   {
-    v26 = 0;
     v27 = 0;
+    v28 = 0;
     obj = 0;
   }
 
 LABEL_101:
-  BYTE1(self->_trackID) = v19;
-  BYTE2(self->_trackID) = v24;
+  BYTE1(self->_trackID) = v20;
+  BYTE2(self->_trackID) = v25;
   HIBYTE(self->_trackID) = trackID_high;
-  sub_B578();
+  sub_B578(732307824);
 
-  v119 = obj;
+  v113 = obj;
 LABEL_102:
 }
 

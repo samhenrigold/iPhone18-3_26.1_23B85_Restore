@@ -26,28 +26,29 @@
 
 - (id)_sbUIUserAgent
 {
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x2020000000;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
   v2 = getSBUIGetUserAgentSymbolLoc_ptr;
-  v10 = getSBUIGetUserAgentSymbolLoc_ptr;
+  v11 = getSBUIGetUserAgentSymbolLoc_ptr;
   if (!getSBUIGetUserAgentSymbolLoc_ptr)
   {
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = __getSBUIGetUserAgentSymbolLoc_block_invoke;
-    v6[3] = &unk_1E8590188;
-    v6[4] = &v7;
-    __getSBUIGetUserAgentSymbolLoc_block_invoke(v6);
-    v2 = v8[3];
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __getSBUIGetUserAgentSymbolLoc_block_invoke;
+    v7[3] = &unk_1E8590188;
+    v7[4] = &v8;
+    __getSBUIGetUserAgentSymbolLoc_block_invoke(v7);
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v7, 8);
+  _Block_object_dispose(&v8, 8);
   if (!v2)
   {
-    v5 = [SSScreenshotAssetManagerPhotoLibraryBackend saveImageDataToTemporaryLocation:withName:imageDescription:completionHandler:];
-    _Block_object_dispose(&v7, 8);
-    _Unwind_Resume(v5);
+    [SSScreenshotAssetManagerPhotoLibraryBackend saveImageDataToTemporaryLocation:withName:imageDescription:completionHandler:];
+    v6 = v5;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v6);
   }
 
   v3 = v2();

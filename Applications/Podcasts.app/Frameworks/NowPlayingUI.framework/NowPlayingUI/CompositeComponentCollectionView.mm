@@ -39,7 +39,7 @@
 - (CGRect)frame
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for CompositeComponentCollectionView();
+  v6.super_class = type metadata accessor for CompositeComponentCollectionView(0);
   [(CompositeComponentCollectionView *)&v6 frame];
   result.size.height = v5;
   result.size.width = v4;
@@ -62,7 +62,7 @@
   else
   {
     v9.receiver = self;
-    v9.super_class = type metadata accessor for CompositeComponentCollectionView();
+    v9.super_class = type metadata accessor for CompositeComponentCollectionView(0);
     [(CompositeComponentCollectionView *)&v9 setFrame:x, y, width, height];
   }
 }
@@ -84,7 +84,7 @@
   else
   {
     v4.receiver = self;
-    v4.super_class = type metadata accessor for CompositeComponentCollectionView();
+    v4.super_class = type metadata accessor for CompositeComponentCollectionView(0);
     [(CompositeComponentCollectionView *)&v4 layoutSubviews];
   }
 }
@@ -186,7 +186,7 @@
   selfCopy = self;
   sub_12DCE8();
 
-  sub_2B860(0, &qword_1CA670);
+  sub_2B860(0, &qword_1CA670, UICollectionViewCell_ptr);
   v3.super.isa = sub_1449CC().super.isa;
 
   return v3.super.isa;
@@ -212,13 +212,14 @@
 
 - (void)deselectItemAtIndexPath:(id)path animated:(BOOL)animated
 {
+  animatedCopy = animated;
   v6 = sub_140C2C();
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
   v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_140BAC();
   selfCopy = self;
-  sub_12F2C8(v9, animated);
+  sub_12F2C8(v9, animatedCopy);
 
   (*(v7 + 8))(v9, v6);
 }
@@ -226,7 +227,7 @@
 - (void)selectItemAtIndexPath:(id)path animated:(BOOL)animated scrollPosition:(unint64_t)position
 {
   animatedCopy = animated;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1C4A80);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1C4A80, qword_14F300);
   __chkstk_darwin(v9 - 8);
   v11 = &v15 - v10;
   if (path)
@@ -245,7 +246,7 @@
   selfCopy = self;
   sub_12F6F8(v11, animatedCopy, position);
 
-  sub_15340(v11, &unk_1C4A80);
+  sub_15340(v11, &unk_1C4A80, qword_14F300);
 }
 
 - (void)scrollToItemAtIndexPath:(id)path atScrollPosition:(unint64_t)position animated:(BOOL)animated
@@ -265,7 +266,7 @@
 {
   y = point.y;
   x = point.x;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1C4A80);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1C4A80, qword_14F300);
   __chkstk_darwin(v6 - 8);
   v8 = &v16 - v7;
   selfCopy = self;
@@ -287,7 +288,7 @@
 
 - (id)indexPathForCell:(id)cell
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1C4A80);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1C4A80, qword_14F300);
   __chkstk_darwin(v5 - 8);
   v7 = &v16 - v6;
   cellCopy = cell;
@@ -318,7 +319,7 @@
 {
   contextCopy = context;
   selfCopy = self;
-  sub_131E8C(context);
+  sub_131E8C(context, selfCopy);
 }
 
 - (BOOL)beginInteractiveMovementForItemAtIndexPath:(id)path
@@ -383,14 +384,14 @@ LABEL_3:
 LABEL_6:
   selfCopy = self;
   sub_132B30(v6, v9, v11, v10);
-  sub_2173C(v11);
-  sub_2173C(v6);
+  sub_2173C(v11, v10);
+  sub_2173C(v6, v9);
 }
 
 - (UIEdgeInsets)contentInset
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for CompositeComponentCollectionView();
+  v6.super_class = type metadata accessor for CompositeComponentCollectionView(0);
   [(CompositeComponentCollectionView *)&v6 contentInset];
   result.right = v5;
   result.bottom = v4;
@@ -412,7 +413,7 @@ LABEL_6:
 - (BOOL)isEditing
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for CompositeComponentCollectionView();
+  v3.super_class = type metadata accessor for CompositeComponentCollectionView(0);
   return [(CompositeComponentCollectionView *)&v3 isEditing];
 }
 
@@ -427,7 +428,7 @@ LABEL_6:
   else
   {
     v6.receiver = self;
-    v6.super_class = type metadata accessor for CompositeComponentCollectionView();
+    v6.super_class = type metadata accessor for CompositeComponentCollectionView(0);
     [(CompositeComponentCollectionView *)&v6 setEditing:editingCopy];
   }
 }
@@ -446,7 +447,7 @@ LABEL_6:
   else
   {
     v7.receiver = self;
-    v7.super_class = type metadata accessor for CompositeComponentCollectionView();
+    v7.super_class = type metadata accessor for CompositeComponentCollectionView(0);
     return [(CompositeComponentCollectionView *)&v7 _isEditing];
   }
 }
@@ -454,7 +455,7 @@ LABEL_6:
 - (void)reloadData
 {
   selfCopy = self;
-  sub_133390();
+  sub_133390(selfCopy, v2);
 }
 
 - (CGPoint)convertPoint:(CGPoint)point toView:(id)view
@@ -489,7 +490,7 @@ LABEL_6:
   else
   {
     v13.receiver = self;
-    v13.super_class = type metadata accessor for CompositeComponentCollectionView();
+    v13.super_class = type metadata accessor for CompositeComponentCollectionView(0);
     v11 = [(CompositeComponentCollectionView *)&v13 hitTest:event withEvent:x, y];
   }
 
@@ -515,7 +516,7 @@ LABEL_6:
   *v14 = *&UIEdgeInsetsZero.top;
   v14[1] = v15;
   v16 = (&self->super.super.super.super.super.isa + OBJC_IVAR____TtC12NowPlayingUI32CompositeComponentCollectionView_componentReuseIdentifierAddition);
-  v17 = type metadata accessor for CompositeComponentCollectionView();
+  v17 = type metadata accessor for CompositeComponentCollectionView(0);
   *v16 = 0;
   v16[1] = 0;
   v20.receiver = self;

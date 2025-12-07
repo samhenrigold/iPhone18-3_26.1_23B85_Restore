@@ -1,3 +1,437 @@
+void sub_100A70294(uint64_t a1)
+{
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  [WeakRetained rebuildSections];
+}
+
+void sub_100A702D4(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  v4 = *(a1 + 32);
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_100A704DC;
+  v14[3] = &unk_1016334B8;
+  objc_copyWeak(&v15, (a1 + 48));
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_100A7052C;
+  v12[3] = &unk_1016619A8;
+  objc_copyWeak(&v13, (a1 + 48));
+  v5 = [v3 addSwitchRowWithTitle:v4 get:v14 set:v12];
+  v6 = *(a1 + 40);
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_100A706B0;
+  v10[3] = &unk_1016334B8;
+  objc_copyWeak(&v11, (a1 + 48));
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_100A70700;
+  v8[3] = &unk_1016619A8;
+  objc_copyWeak(&v9, (a1 + 48));
+  v7 = [v3 addSwitchRowWithTitle:v6 get:v10 set:v8];
+  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v11);
+  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v15);
+}
+
+void sub_100A704A8(_Unwind_Exception *a1)
+{
+  objc_destroyWeak((v4 + 32));
+  objc_destroyWeak((v3 + 32));
+  objc_destroyWeak((v2 + 32));
+  objc_destroyWeak((v1 + 32));
+  _Unwind_Resume(a1);
+}
+
+id sub_100A704DC(uint64_t a1)
+{
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = [WeakRetained cyclePreferences];
+  v3 = [v2 avoidHills];
+
+  return v3;
+}
+
+void sub_100A7052C(uint64_t a1, uint64_t a2)
+{
+  v4 = [CyclePreferences alloc];
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v6 = [WeakRetained cyclePreferences];
+  v7 = [v6 avoidBusyRoads];
+  v8 = objc_loadWeakRetained((a1 + 32));
+  v9 = [v8 cyclePreferences];
+  v10 = [v9 ebike];
+  v11 = +[NSUserDefaults standardUserDefaults];
+  v12 = [(CyclePreferences *)v4 initWithAvoidHills:a2 avoidBusyRoads:v7 ebike:v10 defaults:v11];
+  v13 = objc_loadWeakRetained((a1 + 32));
+  [v13 setCyclePreferences:v12];
+
+  v14 = objc_loadWeakRetained((a1 + 32));
+  [v14 _updateHasUnsavedChanges];
+
+  if (a2)
+  {
+    v15 = 5035;
+  }
+
+  else
+  {
+    v15 = 5036;
+  }
+
+  v16 = +[MKMapService sharedService];
+  v17 = objc_loadWeakRetained((a1 + 32));
+  [v16 captureUserAction:v15 onTarget:objc_msgSend(v17 eventValue:{"analyticsTarget"), @"BICYCLE"}];
+
+  v18 = objc_loadWeakRetained((a1 + 32));
+  [v18 _sendBiomeDiscoverabilitySignals];
+}
+
+id sub_100A706B0(uint64_t a1)
+{
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = [WeakRetained cyclePreferences];
+  v3 = [v2 avoidBusyRoads];
+
+  return v3;
+}
+
+void sub_100A70700(uint64_t a1, uint64_t a2)
+{
+  v4 = [CyclePreferences alloc];
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v6 = [WeakRetained cyclePreferences];
+  v7 = [v6 avoidHills];
+  v8 = objc_loadWeakRetained((a1 + 32));
+  v9 = [v8 cyclePreferences];
+  v10 = [v9 ebike];
+  v11 = +[NSUserDefaults standardUserDefaults];
+  v12 = [(CyclePreferences *)v4 initWithAvoidHills:v7 avoidBusyRoads:a2 ebike:v10 defaults:v11];
+  v13 = objc_loadWeakRetained((a1 + 32));
+  [v13 setCyclePreferences:v12];
+
+  v14 = objc_loadWeakRetained((a1 + 32));
+  [v14 _updateHasUnsavedChanges];
+
+  if (a2)
+  {
+    v15 = 5033;
+  }
+
+  else
+  {
+    v15 = 5034;
+  }
+
+  v16 = +[MKMapService sharedService];
+  v17 = objc_loadWeakRetained((a1 + 32));
+  [v16 captureUserAction:v15 onTarget:objc_msgSend(v17 eventValue:{"analyticsTarget"), @"BICYCLE"}];
+
+  v18 = objc_loadWeakRetained((a1 + 32));
+  [v18 _sendBiomeDiscoverabilitySignals];
+}
+
+void sub_100A709F4(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  v4 = [*(a1 + 32) titleForFooterInSection:*(a1 + 48)];
+  [v3 setFooter:v4];
+
+  if (!*(a1 + 56))
+  {
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_100A70BA4;
+    v12[3] = &unk_101632CE8;
+    v14 = *(a1 + 64);
+    v5 = *(a1 + 32);
+    v6 = *(a1 + 48);
+    v13 = v5;
+    v15 = v6;
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_100A70CA8;
+    v10[3] = &unk_101653F10;
+    objc_copyWeak(&v11, (a1 + 40));
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_100A70E64;
+    v8[3] = &unk_10165D828;
+    objc_copyWeak(&v9, (a1 + 40));
+    v7 = [v3 addCheckmarkRowsGroupWithContent:v12 get:v10 set:v8];
+    objc_destroyWeak(&v9);
+    objc_destroyWeak(&v11);
+  }
+}
+
+void sub_100A70B88(_Unwind_Exception *a1)
+{
+  objc_destroyWeak((v2 + 32));
+  objc_destroyWeak((v1 + 32));
+  _Unwind_Resume(a1);
+}
+
+void sub_100A70BA4(void *a1, void *a2)
+{
+  v10 = a2;
+  [v10 setAllowMultipleSelection:1];
+  [v10 setMinimumSelectionCount:1];
+  if (a1[5] >= 1)
+  {
+    v3 = 0;
+    do
+    {
+      v4 = a1[4];
+      v5 = [NSIndexPath indexPathForRow:v3 inSection:a1[6]];
+      v6 = [v4 _modeForIndexPath:v5];
+
+      v7 = sub_100DF72F8(v6);
+      v8 = [NSNumber numberWithUnsignedInteger:v6];
+      v9 = [v10 addRowWithTitle:v7 value:v8];
+
+      ++v3;
+    }
+
+    while (v3 < a1[5]);
+  }
+}
+
+id sub_100A70CA8(uint64_t a1)
+{
+  if (qword_10195E370 != -1)
+  {
+    dispatch_once(&qword_10195E370, &stru_101632D30);
+  }
+
+  v2 = qword_10195E368;
+  v15 = [v2 mutableCopy];
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v3 = v2;
+  v4 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v17;
+    do
+    {
+      for (i = 0; i != v5; i = i + 1)
+      {
+        if (*v17 != v6)
+        {
+          objc_enumerationMutation(v3);
+        }
+
+        v8 = *(*(&v16 + 1) + 8 * i);
+        v9 = [v8 integerValue];
+        WeakRetained = objc_loadWeakRetained((a1 + 32));
+        v11 = [WeakRetained transitDataSource];
+        v12 = [v11 preferences];
+        LODWORD(v9) = [v12 isModeDisabled:v9];
+
+        if (v9)
+        {
+          [v15 removeObject:v8];
+        }
+      }
+
+      v5 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    }
+
+    while (v5);
+  }
+
+  v13 = [v15 copy];
+
+  return v13;
+}
+
+void sub_100A70E64(uint64_t a1, void *a2)
+{
+  v3 = [a2 integerValue];
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v5 = [WeakRetained transitDataSource];
+  v6 = [v5 preferences];
+  [v6 toggleModeEnabled:v3];
+
+  v7 = objc_loadWeakRetained((a1 + 32));
+  [v7 _updateHasUnsavedChanges];
+
+  v8 = objc_loadWeakRetained((a1 + 32));
+  [v8 _sendBiomeDiscoverabilitySignals];
+}
+
+void sub_100A70F18(id a1)
+{
+  v1 = qword_10195E368;
+  qword_10195E368 = &off_1016ED340;
+}
+
+void sub_100A710CC(_Unwind_Exception *a1)
+{
+  objc_destroyWeak((v1 + 56));
+  objc_destroyWeak((v2 - 56));
+  _Unwind_Resume(a1);
+}
+
+void sub_100A710F8(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  if (sub_100F2C748())
+  {
+    v4 = *(a1 + 32);
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_100A713F0;
+    v20[3] = &unk_1016334B8;
+    objc_copyWeak(&v21, (a1 + 56));
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_100A71440;
+    v18[3] = &unk_1016619A8;
+    objc_copyWeak(&v19, (a1 + 56));
+    v5 = [v3 addSwitchRowWithTitle:v4 get:v20 set:v18];
+    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v21);
+  }
+
+  if (sub_100F2C748())
+  {
+    v6 = *(a1 + 40);
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_100A715C4;
+    v16[3] = &unk_1016334B8;
+    objc_copyWeak(&v17, (a1 + 56));
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_100A71614;
+    v14[3] = &unk_1016619A8;
+    objc_copyWeak(&v15, (a1 + 56));
+    v7 = [v3 addSwitchRowWithTitle:v6 get:v16 set:v14];
+    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v17);
+  }
+
+  if (sub_100F2C7A8())
+  {
+    v8 = *(a1 + 48);
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_100A71798;
+    v12[3] = &unk_1016334B8;
+    objc_copyWeak(&v13, (a1 + 56));
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_100A717E8;
+    v10[3] = &unk_1016619A8;
+    objc_copyWeak(&v11, (a1 + 56));
+    v9 = [v3 addSwitchRowWithTitle:v8 get:v12 set:v10];
+    objc_destroyWeak(&v11);
+    objc_destroyWeak(&v13);
+  }
+}
+
+void sub_100A713CC(_Unwind_Exception *a1)
+{
+  objc_destroyWeak(v2);
+  objc_destroyWeak(v1);
+  _Unwind_Resume(a1);
+}
+
+id sub_100A713F0(uint64_t a1)
+{
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = [WeakRetained walkPreferences];
+  v3 = [v2 avoidHills];
+
+  return v3;
+}
+
+void sub_100A71440(uint64_t a1, uint64_t a2)
+{
+  v4 = [WalkPreferences alloc];
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v6 = [WeakRetained walkPreferences];
+  v7 = [v6 avoidBusyRoads];
+  v8 = objc_loadWeakRetained((a1 + 32));
+  v9 = [v8 walkPreferences];
+  v10 = [v9 avoidStairs];
+  v11 = +[NSUserDefaults standardUserDefaults];
+  v12 = [(WalkPreferences *)v4 initWithAvoidHills:a2 avoidBusyRoads:v7 avoidStairs:v10 defaults:v11];
+  v13 = objc_loadWeakRetained((a1 + 32));
+  [v13 setWalkPreferences:v12];
+
+  v14 = objc_loadWeakRetained((a1 + 32));
+  [v14 _updateHasUnsavedChanges];
+
+  if (a2)
+  {
+    v15 = 5035;
+  }
+
+  else
+  {
+    v15 = 5036;
+  }
+
+  v16 = +[MKMapService sharedService];
+  v17 = objc_loadWeakRetained((a1 + 32));
+  [v16 captureUserAction:v15 onTarget:objc_msgSend(v17 eventValue:{"analyticsTarget"), @"WALKING"}];
+
+  v18 = objc_loadWeakRetained((a1 + 32));
+  [v18 _sendBiomeDiscoverabilitySignals];
+}
+
+id sub_100A715C4(uint64_t a1)
+{
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = [WeakRetained walkPreferences];
+  v3 = [v2 avoidBusyRoads];
+
+  return v3;
+}
+
+void sub_100A71614(uint64_t a1, uint64_t a2)
+{
+  v4 = [WalkPreferences alloc];
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v6 = [WeakRetained walkPreferences];
+  v7 = [v6 avoidHills];
+  v8 = objc_loadWeakRetained((a1 + 32));
+  v9 = [v8 walkPreferences];
+  v10 = [v9 avoidStairs];
+  v11 = +[NSUserDefaults standardUserDefaults];
+  v12 = [(WalkPreferences *)v4 initWithAvoidHills:v7 avoidBusyRoads:a2 avoidStairs:v10 defaults:v11];
+  v13 = objc_loadWeakRetained((a1 + 32));
+  [v13 setWalkPreferences:v12];
+
+  v14 = objc_loadWeakRetained((a1 + 32));
+  [v14 _updateHasUnsavedChanges];
+
+  if (a2)
+  {
+    v15 = 5033;
+  }
+
+  else
+  {
+    v15 = 5034;
+  }
+
+  v16 = +[MKMapService sharedService];
+  v17 = objc_loadWeakRetained((a1 + 32));
+  [v16 captureUserAction:v15 onTarget:objc_msgSend(v17 eventValue:{"analyticsTarget"), @"WALKING"}];
+
+  v18 = objc_loadWeakRetained((a1 + 32));
+  [v18 _sendBiomeDiscoverabilitySignals];
+}
+
 id sub_100A71798(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -471,9 +905,9 @@ BOOL sub_100A78898(uint64_t a1, uint64_t a2)
   return v3;
 }
 
-void sub_100A78A18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100A78A18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1331,15 +1765,15 @@ void sub_100A89D6C(uint64_t a1, void *a2)
 
 void sub_100A8A988(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, id a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, id a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, id a63)
 {
+  objc_destroyWeak((v65 + 32));
+  objc_destroyWeak((v67 + 32));
+  objc_destroyWeak((v66 + 32));
   objc_destroyWeak((v68 + 32));
-  objc_destroyWeak((v70 + 32));
   objc_destroyWeak((v69 + 32));
-  objc_destroyWeak((v71 + 32));
-  objc_destroyWeak((v72 + 32));
   objc_destroyWeak(&a51);
   objc_destroyWeak(&a57);
   objc_destroyWeak(&a63);
-  objc_destroyWeak(&a68);
+  objc_destroyWeak(&a65);
   objc_destroyWeak(&STACK[0x208]);
   objc_destroyWeak(&STACK[0x230]);
   objc_destroyWeak(&STACK[0x258]);
@@ -1351,8 +1785,8 @@ void sub_100A8A988(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   objc_destroyWeak(&STACK[0x350]);
   objc_destroyWeak(&STACK[0x378]);
   objc_destroyWeak(&STACK[0x3A0]);
-  objc_destroyWeak((v73 - 200));
-  objc_destroyWeak((v73 - 112));
+  objc_destroyWeak((v70 - 200));
+  objc_destroyWeak((v70 - 112));
   _Unwind_Resume(a1);
 }
 
@@ -2241,10 +2675,10 @@ void sub_100A8CEFC(uint64_t a1, void *a2)
 void sub_100A8DC64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, id a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, id a62, uint64_t a63)
 {
   objc_destroyWeak(&a51);
-  objc_destroyWeak((v68 + 40));
-  objc_destroyWeak((v68 + 32));
+  objc_destroyWeak((v65 + 40));
+  objc_destroyWeak((v65 + 32));
   objc_destroyWeak(&a62);
-  objc_destroyWeak(&a68);
+  objc_destroyWeak(&a65);
   objc_destroyWeak(&STACK[0x208]);
   objc_destroyWeak(&STACK[0x230]);
   objc_destroyWeak(&STACK[0x258]);
@@ -4075,48 +4509,48 @@ float sub_100A93B08(id a1)
   return v3;
 }
 
-void sub_100A93B50(uint64_t a1)
+void sub_100A93B50(uint64_t a1, uint64_t a2)
 {
-  v2 = MapsFeature_SetEnabled();
-  v15 = 0u;
+  v3 = MapsFeature_SetEnabled();
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v4 = [WeakRetained delegate];
-  v5 = objc_loadWeakRetained((a1 + 32));
-  v6 = [v4 allVisibleMapViewsForDebugController:v5];
+  v5 = [WeakRetained delegate];
+  v6 = objc_loadWeakRetained((a1 + 32));
+  v7 = [v5 allVisibleMapViewsForDebugController:v6];
 
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v7)
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v8)
   {
-    v8 = v7;
-    v9 = *v16;
+    v9 = v8;
+    v10 = *v17;
     do
     {
-      for (i = 0; i != v8; i = i + 1)
+      for (i = 0; i != v9; i = i + 1)
       {
-        if (*v16 != v9)
+        if (*v17 != v10)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
-        v12 = [v11 _mapLayer];
-        [v12 setTerrainMode:v2];
+        v12 = *(*(&v16 + 1) + 8 * i);
+        v13 = [v12 _mapLayer];
+        [v13 setTerrainMode:v3];
 
-        v13 = [v11 _mapLayer];
-        [v13 setNeedsLayout];
+        v14 = [v12 _mapLayer];
+        [v14 setNeedsLayout];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
-    while (v8);
+    while (v9);
   }
 
-  v14 = objc_loadWeakRetained((a1 + 40));
-  [v14 rebuildSections];
+  v15 = objc_loadWeakRetained((a1 + 40));
+  [v15 rebuildSections];
 }
 
 BOOL sub_100A93CEC(uint64_t a1)
@@ -4448,7 +4882,7 @@ void sub_100A9503C(uint64_t a1)
   v3 = v2;
   if (v2)
   {
-    [v2 muninTapState];
+    objc_msgSend_muninTapState(v2);
   }
 
   else
@@ -4565,14 +4999,14 @@ void sub_100A9546C(uint64_t a1)
   v5 = v4;
   if (v4)
   {
-    [v4 muninTapState];
+    objc_msgSend_muninTapState(v4);
   }
 
   v6 = +[VKDebugSettings sharedSettingsExt];
   v7 = v6;
   if (v6)
   {
-    [v6 muninTapState];
+    objc_msgSend_muninTapState(v6);
   }
 
   v8 = objc_loadWeakRetained((a1 + 32));
@@ -5312,34 +5746,34 @@ void sub_100A97784(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_100A977A8(uint64_t a1)
+void sub_100A977A8(uint64_t a1, uint64_t a2)
 {
   GEOConfigSetBOOL();
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v3 = [WeakRetained delegate];
-  v4 = objc_loadWeakRetained((a1 + 32));
-  v5 = [v3 allVisibleMapViewsForDebugController:v4];
-  v6 = [v5 firstObject];
-  v7 = [v6 _mapLayer];
-  [v7 clearScene];
+  v4 = [WeakRetained delegate];
+  v5 = objc_loadWeakRetained((a1 + 32));
+  v6 = [v4 allVisibleMapViewsForDebugController:v5];
+  v7 = [v6 firstObject];
+  v8 = [v7 _mapLayer];
+  [v8 clearScene];
 
-  v8 = objc_loadWeakRetained((a1 + 32));
-  [v8 _setAllMapLayersNeedLayout];
+  v9 = objc_loadWeakRetained((a1 + 32));
+  [v9 _setAllMapLayersNeedLayout];
 }
 
-void sub_100A9788C(uint64_t a1)
+void sub_100A9788C(uint64_t a1, float a2)
 {
   GEOConfigSetDouble();
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v3 = [WeakRetained delegate];
-  v4 = objc_loadWeakRetained((a1 + 32));
-  v5 = [v3 allVisibleMapViewsForDebugController:v4];
-  v6 = [v5 firstObject];
-  v7 = [v6 _mapLayer];
-  [v7 clearScene];
+  v4 = [WeakRetained delegate];
+  v5 = objc_loadWeakRetained((a1 + 32));
+  v6 = [v4 allVisibleMapViewsForDebugController:v5];
+  v7 = [v6 firstObject];
+  v8 = [v7 _mapLayer];
+  [v8 clearScene];
 
-  v8 = objc_loadWeakRetained((a1 + 32));
-  [v8 _setAllMapLayersNeedLayout];
+  v9 = objc_loadWeakRetained((a1 + 32));
+  [v9 _setAllMapLayersNeedLayout];
 }
 
 void sub_100A979A8(id a1, BOOL a2)
@@ -5625,44 +6059,44 @@ void sub_100A9833C(uint64_t a1, void *a2)
   v15 = [v3 addSliderRowWithTitle:@"Altitude" subtitleStringFormat:@"Altitude Degrees:  %1.2f" min:&stru_101635130 max:v16 get:0.0 set:v14];
 }
 
-id sub_100A98658(uint64_t a1)
+id sub_100A98658(uint64_t a1, float a2)
 {
   GEOConfigSetInteger();
-  v2 = *(a1 + 32);
+  v3 = *(a1 + 32);
 
-  return [v2 setNeedsLayout];
+  return [v3 setNeedsLayout];
 }
 
-id sub_100A986A4(uint64_t a1)
+id sub_100A986A4(uint64_t a1, float a2)
 {
   GEOConfigSetInteger();
-  v2 = *(a1 + 32);
+  v3 = *(a1 + 32);
 
-  return [v2 setNeedsLayout];
+  return [v3 setNeedsLayout];
 }
 
-id sub_100A986F0(uint64_t a1)
+id sub_100A986F0(uint64_t a1, float a2)
 {
   GEOConfigSetInteger();
-  v2 = *(a1 + 32);
+  v3 = *(a1 + 32);
 
-  return [v2 setNeedsLayout];
+  return [v3 setNeedsLayout];
 }
 
-id sub_100A9873C(uint64_t a1)
+id sub_100A9873C(uint64_t a1, float a2)
 {
   GEOConfigSetDouble();
-  v2 = *(a1 + 32);
+  v3 = *(a1 + 32);
 
-  return [v2 setNeedsLayout];
+  return [v3 setNeedsLayout];
 }
 
-id sub_100A98784(uint64_t a1)
+id sub_100A98784(uint64_t a1, float a2)
 {
   GEOConfigSetDouble();
-  v2 = *(a1 + 32);
+  v3 = *(a1 + 32);
 
-  return [v2 setNeedsLayout];
+  return [v3 setNeedsLayout];
 }
 
 void sub_100A988DC(uint64_t a1, void *a2)
@@ -5692,28 +6126,28 @@ void sub_100A988DC(uint64_t a1, void *a2)
   v10 = [v3 addSliderRowWithTitle:@"Blue" subtitleStringFormat:@"Blue Component:  %1.2f" min:&stru_101635010 max:v11 get:0.0 set:v9];
 }
 
-id sub_100A98AD0(uint64_t a1)
+id sub_100A98AD0(uint64_t a1, float a2)
 {
   GEOConfigSetInteger();
-  v2 = *(a1 + 32);
+  v3 = *(a1 + 32);
 
-  return [v2 setNeedsLayout];
+  return [v3 setNeedsLayout];
 }
 
-id sub_100A98B1C(uint64_t a1)
+id sub_100A98B1C(uint64_t a1, float a2)
 {
   GEOConfigSetInteger();
-  v2 = *(a1 + 32);
+  v3 = *(a1 + 32);
 
-  return [v2 setNeedsLayout];
+  return [v3 setNeedsLayout];
 }
 
-id sub_100A98B68(uint64_t a1)
+id sub_100A98B68(uint64_t a1, float a2)
 {
   GEOConfigSetInteger();
-  v2 = *(a1 + 32);
+  v3 = *(a1 + 32);
 
-  return [v2 setNeedsLayout];
+  return [v3 setNeedsLayout];
 }
 
 void sub_100A98C50(uint64_t a1, void *a2)
@@ -8539,448 +8973,4 @@ BOOL sub_100AA2400(id a1)
   v2 = [v1 isAttached];
 
   return v2;
-}
-
-void sub_100AA2440(id a1, MapsDebugTableSection *a2)
-{
-  v3 = a2;
-  v2 = [(MapsDebugTableSection *)v3 addNavigationRowForViewControllerClass:objc_opt_class()];
-}
-
-void sub_100AA249C(uint64_t a1, void *a2)
-{
-  v5 = a2;
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v4 = [WeakRetained addAllMapsSwitchRowToSection:v5 title:@"Layout Continuously" key:@"debugLayoutContinuously"];
-}
-
-void sub_100AA2510(id a1, MapsDebugTableSection *a2)
-{
-  v3 = a2;
-  v2 = [(MapsDebugTableSection *)v3 addNavigationRowForViewControllerClass:objc_opt_class()];
-}
-
-void sub_100AA2568(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v9[0] = _NSConcreteStackBlock;
-  v9[1] = 3221225472;
-  v9[2] = sub_100AA26DC;
-  v9[3] = &unk_101661B98;
-  objc_copyWeak(&v10, (a1 + 32));
-  v4 = [v3 addButtonRowWithTitle:@"Perform Day/Night Cycle" action:v9];
-  v5 = [v3 addReadOnlyRowWithTitle:@"DO NOT USE these options for testing" value:@"They do not completely configure the style"];
-  v7[0] = _NSConcreteStackBlock;
-  v7[1] = 3221225472;
-  v7[2] = sub_100AA2868;
-  v7[3] = &unk_101633C28;
-  objc_copyWeak(&v8, (a1 + 32));
-  v6 = [v3 addCheckmarkRowsGroupWithContent:&stru_101633BE0 get:&stru_101633C00 set:v7];
-  objc_destroyWeak(&v8);
-  objc_destroyWeak(&v10);
-}
-
-void sub_100AA26B4(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v2 + 32));
-  objc_destroyWeak((v1 + 32));
-  _Unwind_Resume(a1);
-}
-
-void sub_100AA26DC(uint64_t a1)
-{
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2810000000;
-  v21 = &unk_1014C0133;
-  v22 = 0;
-  v23 = 0;
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x2810000000;
-  v15 = &unk_1014C0133;
-  v16 = 1;
-  v17 = 0;
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v3 = [WeakRetained mapDisplayStyleInAllLayers];
-
-  if (!v3)
-  {
-    v4 = v19;
-    v5 = *(v19 + 18);
-    v6 = *(v19 + 8);
-    v7 = v13;
-    v8 = *(v13 + 18);
-    *(v19 + 8) = *(v13 + 8);
-    *(v4 + 18) = v8;
-    *(v7 + 8) = v6;
-    *(v7 + 18) = v5;
-  }
-
-  v9 = dispatch_time(0, 1500000000);
-  v10[0] = _NSConcreteStackBlock;
-  v10[1] = 3221225472;
-  v10[2] = sub_100AA2A58;
-  v10[3] = &unk_101637678;
-  objc_copyWeak(v11, (a1 + 32));
-  v10[4] = &v18;
-  v10[5] = &v12;
-  dispatch_after(v9, &_dispatch_main_q, v10);
-  objc_destroyWeak(v11);
-  _Block_object_dispose(&v12, 8);
-  _Block_object_dispose(&v18, 8);
-}
-
-void sub_100AA2844(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 72), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_100AA2868(uint64_t a1, void *a2)
-{
-  v3 = [a2 intValue];
-  v4 = +[VKDebugSettings sharedSettingsExt];
-  [v4 setMapDisplayStyleOverride:v3];
-
-  v5 = +[VKDebugSettings sharedSettingsExt];
-  v6 = [v5 displayStyleOverride];
-
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v8 = WeakRetained;
-  if (v6)
-  {
-    [WeakRetained enableMapDisplayStyleOverrideForAllLayers:*v6 | (*(v6 + 2) << 32)];
-  }
-
-  else
-  {
-    [WeakRetained disableMapDisplayStyleOverrideForAllLayers];
-  }
-}
-
-id sub_100AA291C(id a1)
-{
-  v1 = +[VKDebugSettings sharedSettingsExt];
-  v2 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v1 mapDisplayStyleOverride]);
-
-  return v2;
-}
-
-void sub_100AA2984(id a1, MapsDebugCheckmarkRowsGroup *a2)
-{
-  v7 = a2;
-  v2 = [(MapsDebugCheckmarkRowsGroup *)v7 addRowWithTitle:@"None" value:&off_1016E82E8];
-  v3 = [(MapsDebugCheckmarkRowsGroup *)v7 addRowWithTitle:@"Day" value:&off_1016E8300];
-  v4 = [(MapsDebugCheckmarkRowsGroup *)v7 addRowWithTitle:@"Night" value:&off_1016E8318];
-  v5 = [(MapsDebugCheckmarkRowsGroup *)v7 addRowWithTitle:@"Transit" value:&off_1016E8330];
-  v6 = [(MapsDebugCheckmarkRowsGroup *)v7 addRowWithTitle:@"TransitRoute" value:&off_1016E8348];
-}
-
-void sub_100AA2A58(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 48));
-  [WeakRetained setMapDisplayStyleForAllLayers:*(*(*(a1 + 32) + 8) + 32) | (*(*(*(a1 + 32) + 8) + 36) << 32)];
-
-  v3 = dispatch_time(0, 5000000000);
-  v4[0] = _NSConcreteStackBlock;
-  v4[1] = 3221225472;
-  v4[2] = sub_100AA2B3C;
-  v4[3] = &unk_10165DE50;
-  objc_copyWeak(&v5, (a1 + 48));
-  v4[4] = *(a1 + 40);
-  dispatch_after(v3, &_dispatch_main_q, v4);
-  objc_destroyWeak(&v5);
-}
-
-void sub_100AA2B3C(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 40));
-  [WeakRetained setMapDisplayStyleForAllLayers:*(*(*(a1 + 32) + 8) + 32) | (*(*(*(a1 + 32) + 8) + 36) << 32)];
-}
-
-void sub_100AA2B9C(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v7[0] = _NSConcreteStackBlock;
-  v7[1] = 3221225472;
-  v7[2] = sub_100AA34D8;
-  v7[3] = &unk_101653F10;
-  objc_copyWeak(&v8, (a1 + 32));
-  v5[0] = _NSConcreteStackBlock;
-  v5[1] = 3221225472;
-  v5[2] = sub_100AA35AC;
-  v5[3] = &unk_10165D828;
-  objc_copyWeak(&v6, (a1 + 32));
-  v4 = [v3 addCheckmarkRowsGroupWithContent:&stru_101633B80 get:v7 set:v5];
-  objc_destroyWeak(&v6);
-  objc_destroyWeak(&v8);
-}
-
-void sub_100AA2CA8(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v2 + 32));
-  objc_destroyWeak((v1 + 32));
-  _Unwind_Resume(a1);
-}
-
-void sub_100AA2CC4(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v7[0] = _NSConcreteStackBlock;
-  v7[1] = 3221225472;
-  v7[2] = sub_100AA31E4;
-  v7[3] = &unk_101653F10;
-  objc_copyWeak(&v8, (a1 + 32));
-  v5[0] = _NSConcreteStackBlock;
-  v5[1] = 3221225472;
-  v5[2] = sub_100AA32B8;
-  v5[3] = &unk_10165D828;
-  objc_copyWeak(&v6, (a1 + 32));
-  v4 = [v3 addCheckmarkRowsGroupWithContent:&stru_101633BA0 get:v7 set:v5];
-  objc_destroyWeak(&v6);
-  objc_destroyWeak(&v8);
-}
-
-void sub_100AA2DD0(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v2 + 32));
-  objc_destroyWeak((v1 + 32));
-  _Unwind_Resume(a1);
-}
-
-void sub_100AA2DEC(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v7[0] = _NSConcreteStackBlock;
-  v7[1] = 3221225472;
-  v7[2] = sub_100AA2F14;
-  v7[3] = &unk_101653F10;
-  objc_copyWeak(&v8, (a1 + 32));
-  v5[0] = _NSConcreteStackBlock;
-  v5[1] = 3221225472;
-  v5[2] = sub_100AA2FE8;
-  v5[3] = &unk_10165D828;
-  objc_copyWeak(&v6, (a1 + 32));
-  v4 = [v3 addCheckmarkRowsGroupWithContent:&stru_101633BC0 get:v7 set:v5];
-  objc_destroyWeak(&v6);
-  objc_destroyWeak(&v8);
-}
-
-void sub_100AA2EF8(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v2 + 32));
-  objc_destroyWeak((v1 + 32));
-  _Unwind_Resume(a1);
-}
-
-id sub_100AA2F14(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v3 = [WeakRetained delegate];
-  v4 = objc_loadWeakRetained((a1 + 32));
-  v5 = [v3 allVisibleMapViewsForDebugController:v4];
-  v6 = [v5 firstObject];
-  v7 = [v6 _mapLayer];
-  v8 = +[NSNumber numberWithUnsignedChar:](NSNumber, "numberWithUnsignedChar:", [v7 emphasis]);
-
-  return v8;
-}
-
-void sub_100AA2FE8(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = [WeakRetained delegate];
-  v6 = objc_loadWeakRetained((a1 + 32));
-  v7 = [v5 allVisibleMapViewsForDebugController:v6];
-
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v8)
-  {
-    v9 = v8;
-    v10 = *v16;
-    do
-    {
-      v11 = 0;
-      do
-      {
-        if (*v16 != v10)
-        {
-          objc_enumerationMutation(v7);
-        }
-
-        v12 = *(*(&v15 + 1) + 8 * v11);
-        v13 = [v3 integerValue];
-        v14 = [v12 _mapLayer];
-        [v14 setEmphasis:v13 animated:0];
-
-        v11 = v11 + 1;
-      }
-
-      while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
-    }
-
-    while (v9);
-  }
-}
-
-void sub_100AA3150(id a1, MapsDebugCheckmarkRowsGroup *a2)
-{
-  v5 = a2;
-  v2 = [(MapsDebugCheckmarkRowsGroup *)v5 addRowWithTitle:@"Muted" value:&off_1016E8450];
-  v3 = [(MapsDebugCheckmarkRowsGroup *)v5 addRowWithTitle:@"Standard" value:&off_1016E8468];
-  v4 = [(MapsDebugCheckmarkRowsGroup *)v5 addRowWithTitle:@"Explore" value:&off_1016E8480];
-}
-
-id sub_100AA31E4(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v3 = [WeakRetained delegate];
-  v4 = objc_loadWeakRetained((a1 + 32));
-  v5 = [v3 allVisibleMapViewsForDebugController:v4];
-  v6 = [v5 firstObject];
-  v7 = [v6 _mapLayer];
-  v8 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v7 currentMapMode]);
-
-  return v8;
-}
-
-void sub_100AA32B8(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = [WeakRetained delegate];
-  v6 = objc_loadWeakRetained((a1 + 32));
-  v7 = [v5 allVisibleMapViewsForDebugController:v6];
-
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v8)
-  {
-    v9 = v8;
-    v10 = *v14;
-    do
-    {
-      v11 = 0;
-      do
-      {
-        if (*v14 != v10)
-        {
-          objc_enumerationMutation(v7);
-        }
-
-        v12 = [*(*(&v13 + 1) + 8 * v11) _mapLayer];
-        [v12 setDesiredMapMode:{objc_msgSend(v3, "integerValue")}];
-
-        v11 = v11 + 1;
-      }
-
-      while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
-    }
-
-    while (v9);
-  }
-}
-
-void sub_100AA3418(id a1, MapsDebugCheckmarkRowsGroup *a2)
-{
-  v7 = a2;
-  v2 = [(MapsDebugCheckmarkRowsGroup *)v7 addRowWithTitle:@"Standard" value:&off_1016E8390];
-  v3 = [(MapsDebugCheckmarkRowsGroup *)v7 addRowWithTitle:@"Navigation" value:&off_1016E83A8];
-  v4 = +[GEOResourceManifestManager modernManager];
-  v5 = [v4 isMuninEnabled];
-
-  if (v5)
-  {
-    v6 = [(MapsDebugCheckmarkRowsGroup *)v7 addRowWithTitle:@"Munin PIP" value:&off_1016E83D8];
-  }
-}
-
-id sub_100AA34D8(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v3 = [WeakRetained delegate];
-  v4 = objc_loadWeakRetained((a1 + 32));
-  v5 = [v3 allVisibleMapViewsForDebugController:v4];
-  v6 = [v5 firstObject];
-  v7 = [v6 _mapLayer];
-  v8 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [v7 mapType]);
-
-  return v8;
-}
-
-void sub_100AA35AC(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = [WeakRetained delegate];
-  v6 = objc_loadWeakRetained((a1 + 32));
-  v7 = [v5 allVisibleMapViewsForDebugController:v6];
-
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v8)
-  {
-    v9 = v8;
-    v10 = *v16;
-    do
-    {
-      v11 = 0;
-      do
-      {
-        if (*v16 != v10)
-        {
-          objc_enumerationMutation(v7);
-        }
-
-        v12 = *(*(&v15 + 1) + 8 * v11);
-        v13 = [v3 integerValue];
-        v14 = [v12 _mapLayer];
-        [v14 setMapType:v13];
-
-        v11 = v11 + 1;
-      }
-
-      while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
-    }
-
-    while (v9);
-  }
-}
-
-void sub_100AA3710(id a1, MapsDebugCheckmarkRowsGroup *a2)
-{
-  v14 = a2;
-  v2 = [(MapsDebugCheckmarkRowsGroup *)v14 addRowWithTitle:@"Grid" value:&off_1016E8378];
-  v3 = [(MapsDebugCheckmarkRowsGroup *)v14 addRowWithTitle:@"Vector" value:&off_1016E8390];
-  v4 = [(MapsDebugCheckmarkRowsGroup *)v14 addRowWithTitle:@"Satellite" value:&off_1016E83A8];
-  v5 = [(MapsDebugCheckmarkRowsGroup *)v14 addRowWithTitle:@"Hybrid" value:&off_1016E83C0];
-  v6 = [(MapsDebugCheckmarkRowsGroup *)v14 addRowWithTitle:@"Globe" value:&off_1016E83D8];
-  v7 = [(MapsDebugCheckmarkRowsGroup *)v14 addRowWithTitle:@"Globe Hybrid" value:&off_1016E83F0];
-  v8 = [(MapsDebugCheckmarkRowsGroup *)v14 addRowWithTitle:@"Standard Grid" value:&off_1016E8378];
-  v9 = [(MapsDebugCheckmarkRowsGroup *)v14 addRowWithTitle:@"Satellite Grid" value:&off_1016E8408];
-  v10 = [(MapsDebugCheckmarkRowsGroup *)v14 addRowWithTitle:@"Navigation" value:&off_1016E8420];
-  v11 = +[GEOResourceManifestManager modernManager];
-  v12 = [v11 isMuninEnabled];
-
-  if (v12)
-  {
-    v13 = [(MapsDebugCheckmarkRowsGroup *)v14 addRowWithTitle:@"Munin" value:&off_1016E8438];
-  }
 }

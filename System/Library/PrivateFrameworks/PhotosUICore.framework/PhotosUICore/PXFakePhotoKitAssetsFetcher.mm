@@ -23,9 +23,10 @@
 {
   containerCopy = container;
   selfCopy = self;
-  v8 = sub_1A47892B8(containerCopy, kind);
+  sub_1A47892B8(containerCopy, kind);
+  v9 = v8;
 
-  return v8;
+  return v9;
 }
 
 + (void)fillLibraryWithFakeAssets:(id)assets completion:(id)completion

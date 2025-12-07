@@ -93,7 +93,7 @@ LABEL_5:
 {
   literalCopy = literal;
   selfCopy = self;
-  sub_1D44042FC(literal);
+  sub_1D44042FC(literal, compact);
 }
 
 - (void)hideScrubber

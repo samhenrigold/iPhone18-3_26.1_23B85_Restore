@@ -1,9 +1,9 @@
 @interface BWUBProcessorRequest
 - (id)description;
+- (id)receivedAllFrames;
 - (uint64_t)expectedFrameCount;
 - (uint64_t)fusionErrorRecoveryImageType;
 - (uint64_t)imageType;
-- (uint64_t)receivedAllFrames;
 - (uint64_t)useFrameForMultiFrameProcessing:(uint64_t)result;
 - (void)dealloc;
 - (void)initWithInput:(void *)input output:(void *)output deepFusionOutput:(char)fusionOutput processErrorRecoveryFrame:(char)frame processOriginalImage:(char)image processSemanticRendering:(char)rendering provideInferenceInputImageForProcessing:(char)processing inferencesAvailable:(void *)self0 delegate:;
@@ -173,27 +173,27 @@
   return result;
 }
 
-- (uint64_t)receivedAllFrames
+- (id)receivedAllFrames
 {
   if (result)
   {
     v2 = result;
     if (*(result + 32) == 1)
     {
-      errorRecoveryFrame = [*(result + 8) errorRecoveryFrame];
-      return errorRecoveryFrame != 0;
+      errorRecoveryFrame = [result[1] errorRecoveryFrame];
+      return (errorRecoveryFrame != 0);
     }
 
     v4 = *(result + 33);
-    v5 = *(result + 8);
+    v5 = result[1];
     if (v4 == 1)
     {
       errorRecoveryFrame = [v5 originalImage];
-      return errorRecoveryFrame != 0;
+      return (errorRecoveryFrame != 0);
     }
 
     v6 = [objc_msgSend(v5 "captureStreamSettings")];
-    v7 = *(v2 + 8);
+    v7 = v2[1];
     if (v6)
     {
 
@@ -211,7 +211,7 @@
       v8 = OUTLINED_FUNCTION_27_0();
       if ([(BWUBNRFProcessorRequest *)v8 processingType])
       {
-        v9 = [objc_msgSend(*(v2 + 8) "captureStreamSettings")];
+        v9 = [objc_msgSend(v2[1] "captureStreamSettings")];
       }
 
       else
@@ -219,14 +219,14 @@
         v9 = 1;
       }
 
-      return v1 == v9;
+      return (v1 == v9);
     }
   }
 
   return result;
 }
 
-- (uint64_t)useFrameForMultiFrameProcessing:(_BYTE *)a3 .cold.1(uint64_t a1, uint64_t a2, _BYTE *a3)
+- (void)useFrameForMultiFrameProcessing:(_BYTE *)a3 .cold.1(uint64_t a1, void *a2, _BYTE *a3)
 {
   v6 = *(a1 + 8);
   if (v6)

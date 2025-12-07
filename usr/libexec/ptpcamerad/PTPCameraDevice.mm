@@ -5,6 +5,7 @@
 - (PTPCameraDevice)initWithDeviceContext:(id)context;
 - (id)additionalProperties;
 - (id)itemForObjectHandle:(id)handle;
+- (void)addSelectorToInterface:(id)interface selectorString:(id)string origin:(BOOL)origin;
 - (void)closeDevice;
 - (void)dealloc;
 - (void)enumerateContentWithOptions:(id)options;
@@ -147,7 +148,7 @@
   memset(&error[1], 0, 32);
   if (v5)
   {
-    [v5 auditToken];
+    objc_msgSend_auditToken(v5);
   }
 
   token = *&error[1];
@@ -373,7 +374,7 @@ LABEL_5:
   v26 = 0u;
   if (v11)
   {
-    [v11 auditToken];
+    objc_msgSend_auditToken(v11);
   }
 
   v23 = v25;
@@ -489,6 +490,23 @@ LABEL_5:
   v7 = [initiator cameraItemWithObjectID:unsignedIntegerValue];
 
   return v7;
+}
+
+- (void)addSelectorToInterface:(id)interface selectorString:(id)string origin:(BOOL)origin
+{
+  originCopy = origin;
+  v7 = qword_100033888;
+  stringCopy = string;
+  interfaceCopy = interface;
+  if (v7 != -1)
+  {
+    sub_10001D120();
+  }
+
+  v9 = qword_100033880;
+  v10 = NSSelectorFromString(stringCopy);
+
+  [interfaceCopy setClasses:v9 forSelector:v10 argumentIndex:0 ofReply:originCopy];
 }
 
 - (BOOL)acceptConnection:(id)connection

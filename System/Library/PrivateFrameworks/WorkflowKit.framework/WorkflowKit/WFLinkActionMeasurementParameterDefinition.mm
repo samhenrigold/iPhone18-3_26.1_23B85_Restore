@@ -170,12 +170,12 @@ LABEL_11:
 
 - (id)unitFromUnitString:(id)string
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   v4 = [MEMORY[0x1E69E0BE8] unitFromString:stringCopy];
   if (!v4)
   {
-    if ([stringCopy isEqualToString:@"sec"])
+    if (objc_msgSend_isEqualToString_(stringCopy))
     {
       seconds = [MEMORY[0x1E696B008] seconds];
 LABEL_8:
@@ -183,34 +183,32 @@ LABEL_8:
       goto LABEL_9;
     }
 
-    if ([stringCopy isEqualToString:@"min"])
+    if (objc_msgSend_isEqualToString_(stringCopy))
     {
       seconds = [MEMORY[0x1E696B008] minutes];
       goto LABEL_8;
     }
 
-    if ([stringCopy isEqualToString:@"hr"])
+    if (objc_msgSend_isEqualToString_(stringCopy))
     {
       seconds = [MEMORY[0x1E696B008] hours];
       goto LABEL_8;
     }
 
-    v8 = getWFAppIntentsLogObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v7 = getWFAppIntentsLogObject();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      v9 = 136315394;
-      v10 = "[WFLinkActionMeasurementParameterDefinition unitFromUnitString:]";
-      v11 = 2112;
-      v12 = stringCopy;
-      _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_FAULT, "%s Unexpected nil WFMeasurementUnit for unit string: %@", &v9, 0x16u);
+      v8 = 136315394;
+      v9 = "[WFLinkActionMeasurementParameterDefinition unitFromUnitString:]";
+      v10 = 2112;
+      v11 = stringCopy;
+      _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_FAULT, "%s Unexpected nil WFMeasurementUnit for unit string: %@", &v8, 0x16u);
     }
 
     v4 = 0;
   }
 
 LABEL_9:
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -244,7 +242,7 @@ LABEL_9:
 
 - (id)parameterDefinitionDictionary
 {
-  v43[1] = *MEMORY[0x1E69E9840];
+  v42[1] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E69E0BE8];
   valueType = [(WFLinkActionParameterDefinition *)self valueType];
   if (valueType)
@@ -272,9 +270,9 @@ LABEL_9:
   v8 = [v3 unitTypeFromLinkMeasurementUnitType:unitType];
   if (!v8)
   {
-    v42.receiver = self;
-    v42.super_class = WFLinkActionMeasurementParameterDefinition;
-    parameterDefinitionDictionary = [(WFLinkActionParameterDefinition *)&v42 parameterDefinitionDictionary];
+    v41.receiver = self;
+    v41.super_class = WFLinkActionMeasurementParameterDefinition;
+    parameterDefinitionDictionary = [(WFLinkActionParameterDefinition *)&v41 parameterDefinitionDictionary];
     goto LABEL_28;
   }
 
@@ -289,7 +287,7 @@ LABEL_9:
 
   v14 = [typeSpecificMetadata objectForKey:*MEMORY[0x1E69AC5C8]];
   v15 = [typeSpecificMetadata objectForKey:*MEMORY[0x1E69AC5B0]];
-  v40 = v15;
+  v39 = v15;
   if (v14)
   {
     v16 = v14;
@@ -357,21 +355,20 @@ LABEL_25:
   if (v14)
   {
     symbol = [v19 symbol];
-    v43[0] = symbol;
-    v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:1];
+    v42[0] = symbol;
+    v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:1];
     [v31 setValue:v34 forKey:@"PossibleUnits"];
   }
 
   v35 = [MEMORY[0x1E696AD98] numberWithBool:bOOLValue];
   [v31 setValue:v35 forKey:@"AllowsNegativeNumbers"];
 
-  v41.receiver = self;
-  v41.super_class = WFLinkActionMeasurementParameterDefinition;
-  parameterDefinitionDictionary2 = [(WFLinkActionParameterDefinition *)&v41 parameterDefinitionDictionary];
+  v40.receiver = self;
+  v40.super_class = WFLinkActionMeasurementParameterDefinition;
+  parameterDefinitionDictionary2 = [(WFLinkActionParameterDefinition *)&v40 parameterDefinitionDictionary];
   parameterDefinitionDictionary = [parameterDefinitionDictionary2 definitionByAddingEntriesInDictionary:v31];
 
 LABEL_28:
-  v37 = *MEMORY[0x1E69E9840];
 
   return parameterDefinitionDictionary;
 }

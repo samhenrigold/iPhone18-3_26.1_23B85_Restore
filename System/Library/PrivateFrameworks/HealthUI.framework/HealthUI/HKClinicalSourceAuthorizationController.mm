@@ -122,7 +122,7 @@ void __65__HKClinicalSourceAuthorizationController__reloadWithCompletion___block
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __65__HKClinicalSourceAuthorizationController__reloadWithCompletion___block_invoke_cold_1();
+      __65__HKClinicalSourceAuthorizationController__reloadWithCompletion___block_invoke_cold_1(a1, v6);
     }
 
     goto LABEL_7;
@@ -801,10 +801,14 @@ void __105__HKClinicalSourceAuthorizationController__setAuthorizationStatuses_mo
   }
 }
 
-void __65__HKClinicalSourceAuthorizationController__reloadWithCompletion___block_invoke_cold_1()
+void __65__HKClinicalSourceAuthorizationController__reloadWithCompletion___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  OUTLINED_FUNCTION_2_0(&dword_1C3942000, v1, v2, "%{public}@ failed to get authorization records: %@", v3, v4, v5, v6, 2u);
+  *v10 = 138543618;
+  *&v10[4] = objc_opt_class();
+  *&v10[12] = 2112;
+  *&v10[14] = a2;
+  v3 = *&v10[4];
+  OUTLINED_FUNCTION_2_0(&dword_1C3942000, v4, v5, "%{public}@ failed to get authorization records: %@", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 - (void)isTypeEnabled:.cold.1()
@@ -817,8 +821,12 @@ void __65__HKClinicalSourceAuthorizationController__reloadWithCompletion___block
 
 - (void)commitAllTypesAndUpdateAuthorizationAnchorWithMode:(uint64_t)a1 completion:(void *)a2 .cold.1(uint64_t a1, void *a2)
 {
-  v8 = [a2 localizedDescription];
-  OUTLINED_FUNCTION_2_0(&dword_1C3942000, v2, v3, "%{public}@: %{public}@", v4, v5, v6, v7, 2u);
+  v3 = [a2 localizedDescription];
+  *v10 = 138543618;
+  *&v10[4] = a1;
+  *&v10[12] = 2114;
+  *&v10[14] = v3;
+  OUTLINED_FUNCTION_2_0(&dword_1C3942000, v4, v5, "%{public}@: %{public}@", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 - (void)_updateDisplayReadAuthorizationAnchorDateIfNeededForCommittingModes:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3)

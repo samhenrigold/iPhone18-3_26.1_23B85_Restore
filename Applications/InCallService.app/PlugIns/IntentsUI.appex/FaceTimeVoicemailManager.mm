@@ -28,7 +28,7 @@
 
 - (void)voicemailWithIdentifier:(MPMessageID *)identifier completion:(id)completion
 {
-  v7 = sub_100030744(&qword_1000C5110);
+  v7 = sub_100030744(&qword_1000C5110, &unk_1000A19F0);
   __chkstk_darwin(v7 - 8, v8);
   v10 = &v18 - v9;
   v11 = _Block_copy(completion);
@@ -58,13 +58,13 @@
   if (notifications)
   {
     selfCopy = self;
-    sub_100045090(0, 3u);
+    sub_100045090(0, 3);
   }
 }
 
 - (void)deleteVoicemails:(NSArray *)voicemails completion:(id)completion
 {
-  v7 = sub_100030744(&qword_1000C5110);
+  v7 = sub_100030744(&qword_1000C5110, &unk_1000A19F0);
   __chkstk_darwin(v7 - 8, v8);
   v10 = &v18 - v9;
   v11 = _Block_copy(completion);
@@ -91,7 +91,7 @@
 
 - (void)markVoicemailsAsRead:(NSArray *)read completion:(id)completion
 {
-  v7 = sub_100030744(&qword_1000C5110);
+  v7 = sub_100030744(&qword_1000C5110, &unk_1000A19F0);
   __chkstk_darwin(v7 - 8, v8);
   v10 = &v18 - v9;
   v11 = _Block_copy(completion);
@@ -118,7 +118,7 @@
 
 - (void)trashVoicemails:(NSArray *)voicemails completion:(id)completion
 {
-  v7 = sub_100030744(&qword_1000C5110);
+  v7 = sub_100030744(&qword_1000C5110, &unk_1000A19F0);
   __chkstk_darwin(v7 - 8, v8);
   v10 = &v18 - v9;
   v11 = _Block_copy(completion);
@@ -145,7 +145,7 @@
 
 - (void)removeVoicemailsFromTrash:(NSArray *)trash completion:(id)completion
 {
-  v7 = sub_100030744(&qword_1000C5110);
+  v7 = sub_100030744(&qword_1000C5110, &unk_1000A19F0);
   __chkstk_darwin(v7 - 8, v8);
   v10 = &v18 - v9;
   v11 = _Block_copy(completion);
@@ -173,7 +173,7 @@
 - (void)messagesPassingTest:(id)test completion:
 {
   v4 = v3;
-  v7 = sub_100030744(&qword_1000C5110);
+  v7 = sub_100030744(&qword_1000C5110, &unk_1000A19F0);
   __chkstk_darwin(v7 - 8, v8);
   v10 = &v18 - v9;
   v11 = _Block_copy(test);
@@ -202,14 +202,14 @@
 {
   voicemailCopy = voicemail;
   selfCopy = self;
-  sub_100053E5C();
+  sub_100053E5C(selfCopy);
 }
 
 - (void)reportTranscriptionProblemForVoicemail:(id)voicemail
 {
   voicemailCopy = voicemail;
   selfCopy = self;
-  sub_100053E5C();
+  sub_100053E5C(selfCopy);
 }
 
 @end

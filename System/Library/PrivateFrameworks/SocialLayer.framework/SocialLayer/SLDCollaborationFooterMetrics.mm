@@ -80,15 +80,15 @@ LABEL_5:
 
 - (id)attributedStringWithString:(id)string textStyle:(__CFString *)style color:(CGColor *)color
 {
-  v26[1] = *MEMORY[0x277D85DE8];
-  v25 = *MEMORY[0x277CC4950];
-  v23 = *MEMORY[0x277CC4948];
-  v24 = &unk_28469BCD8;
+  v25[1] = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277CC4950];
+  v22 = *MEMORY[0x277CC4948];
+  v23 = &unk_28469BCD8;
   v7 = MEMORY[0x277CBEAC0];
   stringCopy = string;
-  v9 = [v7 dictionaryWithObjects:&v24 forKeys:&v23 count:1];
-  v26[0] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+  v9 = [v7 dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+  v25[0] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
 
   style = [(SLDCollaborationFooterMetrics *)self style];
   CTContentSizeCategoryForSlotStyle(style);
@@ -99,17 +99,16 @@ LABEL_5:
   v14 = objc_alloc_init(MEMORY[0x277D74240]);
   [v14 setLineBreakStrategy:0xFFFFLL];
   v15 = *MEMORY[0x277D740A8];
-  v21[0] = *MEMORY[0x277D740C0];
-  v21[1] = v15;
-  v22[0] = color;
-  v22[1] = v13;
-  v21[2] = *MEMORY[0x277D74118];
+  v20[0] = *MEMORY[0x277D740C0];
+  v20[1] = v15;
+  v21[0] = color;
+  v21[1] = v13;
+  v20[2] = *MEMORY[0x277D74118];
   v16 = [v14 copy];
-  v22[2] = v16;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:3];
+  v21[2] = v16;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:3];
 
   v18 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:stringCopy attributes:v17];
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

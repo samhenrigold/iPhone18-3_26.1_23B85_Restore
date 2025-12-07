@@ -92,23 +92,23 @@ LABEL_10:
   return result;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,Phase::SpatialModeler::EarlyReflectionDetector::FindEarlyReflections(int,BOOL,float)::$_1 &,Phase::SpatialModeler::EarlyReflectionDetector::AERpair *>(uint64_t a1, uint64_t a2)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,Phase::SpatialModeler::EarlyReflectionDetector::FindEarlyReflections(int,BOOL,float)::$_1 &,Phase::SpatialModeler::EarlyReflectionDetector::AERpair *>(float *a1, uint64_t *a2)
 {
   v2 = (a2 - a1) >> 3;
   if (v2 > 2)
   {
     if (v2 == 3)
     {
-      v4 = *(a1 + 8);
-      v5 = *(a2 - 8);
+      v4 = a1[2];
+      v5 = *(a2 - 2);
       if (v4 >= *a1)
       {
         if (v5 < v4)
         {
-          v16 = *(a1 + 8);
-          *(a1 + 8) = *(a2 - 8);
-          *(a2 - 8) = v16;
-          if (*(a1 + 8) < *a1)
+          v16 = *(a1 + 1);
+          *(a1 + 1) = *(a2 - 1);
+          *(a2 - 1) = v16;
+          if (a1[2] < *a1)
           {
             *a1 = vextq_s8(*a1, *a1, 8uLL);
           }
@@ -120,21 +120,21 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,Phase
       v3 = *a1;
       if (v5 >= v4)
       {
-        *a1 = *(a1 + 8);
-        *(a1 + 8) = v3;
-        if (*(a2 - 8) >= *&v3)
+        *a1 = *(a1 + 1);
+        *(a1 + 1) = v3;
+        if (*(a2 - 2) >= *&v3)
         {
           return 1;
         }
 
-        *(a1 + 8) = *(a2 - 8);
+        *(a1 + 1) = *(a2 - 1);
         goto LABEL_13;
       }
 
 LABEL_12:
-      *a1 = *(a2 - 8);
+      *a1 = *(a2 - 1);
 LABEL_13:
-      *(a2 - 8) = v3;
+      *(a2 - 1) = v3;
       return 1;
     }
 
@@ -142,30 +142,30 @@ LABEL_13:
     {
       if (v2 == 5)
       {
-        std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,Phase::SpatialModeler::EarlyReflectionDetector::FindEarlyReflections(int,BOOL,float)::$_1 &,Phase::SpatialModeler::EarlyReflectionDetector::AERpair *,0>(a1, (a1 + 8), (a1 + 16), (a1 + 24), (a2 - 8));
+        std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,Phase::SpatialModeler::EarlyReflectionDetector::FindEarlyReflections(int,BOOL,float)::$_1 &,Phase::SpatialModeler::EarlyReflectionDetector::AERpair *,0>(a1, a1 + 2, a1 + 4, a1 + 3, a2 - 1);
         return 1;
       }
 
       goto LABEL_14;
     }
 
-    v11 = *(a1 + 8);
+    v11 = a1[2];
     v12 = *a1;
-    v13 = *(a1 + 16);
+    v13 = a1[4];
     if (v11 >= *a1)
     {
       if (v13 < v11)
       {
-        v21 = *(a1 + 8);
-        v20 = *(a1 + 16);
-        *(a1 + 8) = v20;
-        *(a1 + 16) = v21;
+        v21 = *(a1 + 1);
+        v20 = *(a1 + 2);
+        *(a1 + 1) = v20;
+        *(a1 + 2) = v21;
         v13 = *&v21;
         if (v12 > *&v20)
         {
           v22 = *a1;
           *a1 = v20;
-          *(a1 + 8) = v22;
+          *(a1 + 1) = v22;
         }
       }
 
@@ -176,27 +176,27 @@ LABEL_13:
     LODWORD(v15) = *a1;
     if (v13 >= v11)
     {
-      *a1 = *(a1 + 8);
-      *(a1 + 8) = v14;
+      *a1 = *(a1 + 1);
+      *(a1 + 1) = v14;
       if (v13 >= v15)
       {
 LABEL_48:
-        if (*(a2 - 8) < v13)
+        if (*(a2 - 2) < v13)
         {
-          v31 = *(a1 + 16);
-          *(a1 + 16) = *(a2 - 8);
-          *(a2 - 8) = v31;
-          if (*(a1 + 16) < *(a1 + 8))
+          v31 = *(a1 + 2);
+          *(a1 + 2) = *(a2 - 1);
+          *(a2 - 1) = v31;
+          if (a1[4] < a1[2])
           {
-            v33 = *(a1 + 8);
-            v32 = *(a1 + 16);
-            *(a1 + 8) = v32;
-            *(a1 + 16) = v33;
+            v33 = *(a1 + 1);
+            v32 = *(a1 + 2);
+            *(a1 + 1) = v32;
+            *(a1 + 2) = v33;
             if (*a1 > *&v32)
             {
               v34 = *a1;
               *a1 = v32;
-              *(a1 + 8) = v34;
+              *(a1 + 1) = v34;
             }
           }
         }
@@ -204,15 +204,15 @@ LABEL_48:
         return 1;
       }
 
-      *(a1 + 8) = *(a1 + 16);
+      *(a1 + 1) = *(a1 + 2);
     }
 
     else
     {
-      *a1 = *(a1 + 16);
+      *a1 = *(a1 + 2);
     }
 
-    *(a1 + 16) = v14;
+    *(a1 + 2) = v14;
     v13 = v15;
     goto LABEL_48;
   }
@@ -224,7 +224,7 @@ LABEL_48:
 
   if (v2 == 2)
   {
-    if (*(a2 - 8) < *a1)
+    if (*(a2 - 2) < *a1)
     {
       v3 = *a1;
       goto LABEL_12;
@@ -234,23 +234,23 @@ LABEL_48:
   }
 
 LABEL_14:
-  v6 = (a1 + 16);
-  v7 = *(a1 + 16);
-  v8 = *(a1 + 8);
+  v6 = a1 + 4;
+  v7 = a1[4];
+  v8 = a1[2];
   v9 = *a1;
   if (v8 >= *a1)
   {
     if (v7 < v8)
     {
-      v18 = *(a1 + 8);
-      v17 = *(a1 + 16);
-      *(a1 + 8) = v17;
-      *(a1 + 16) = v18;
+      v18 = *(a1 + 1);
+      v17 = *(a1 + 2);
+      *(a1 + 1) = v17;
+      *(a1 + 2) = v18;
       if (v9 > *&v17)
       {
         v19 = *a1;
         *a1 = v17;
-        *(a1 + 8) = v19;
+        *(a1 + 1) = v19;
       }
     }
   }
@@ -260,27 +260,27 @@ LABEL_14:
     v10 = *a1;
     if (v7 >= v8)
     {
-      *a1 = *(a1 + 8);
-      *(a1 + 8) = v10;
+      *a1 = *(a1 + 1);
+      *(a1 + 1) = v10;
       if (v7 >= *&v10)
       {
         goto LABEL_34;
       }
 
-      *(a1 + 8) = *(a1 + 16);
+      *(a1 + 1) = *(a1 + 2);
     }
 
     else
     {
-      *a1 = *(a1 + 16);
+      *a1 = *(a1 + 2);
     }
 
-    *(a1 + 16) = v10;
+    *(a1 + 2) = v10;
   }
 
 LABEL_34:
-  v23 = a1 + 24;
-  if (a1 + 24 == a2)
+  v23 = (a1 + 6);
+  if (a1 + 6 == a2)
   {
     return 1;
   }
@@ -292,7 +292,7 @@ LABEL_34:
     v26 = *v23;
     if (*v23 < *v6)
     {
-      v27 = *(v23 + 4);
+      v27 = *(v23 + 1);
       v28 = v24;
       while (1)
       {
@@ -317,14 +317,13 @@ LABEL_42:
       *(v30 + 4) = v27;
       if (++v25 == 8)
       {
-        return v23 + 8 == a2;
+        return v23 + 1 == a2;
       }
     }
 
     v6 = v23;
     v24 += 8;
-    v23 += 8;
-    if (v23 == a2)
+    if (++v23 == a2)
     {
       return 1;
     }
@@ -349,39 +348,39 @@ uint64_t std::unordered_map<unsigned long long,Phase::SpatialModeler::AudibleEar
   std::__hash_table<std::__hash_value_type<unsigned int,Phase::Controller::OptionalProperties::Property>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,Phase::Controller::OptionalProperties::Property>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,Phase::Controller::OptionalProperties::Property>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,Phase::Controller::OptionalProperties::Property>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::AudibleEarlyReflection>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::AudibleEarlyReflection>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::AudibleEarlyReflection>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::AudibleEarlyReflection>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long const,Phase::SpatialModeler::AudibleEarlyReflection> const&>(a1, i + 2);
+    std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::AudibleEarlyReflection>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::AudibleEarlyReflection>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::AudibleEarlyReflection>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::AudibleEarlyReflection>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long const,Phase::SpatialModeler::AudibleEarlyReflection> const&>(a1, i + 2, i + 2);
   }
 
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::AudibleEarlyReflection>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::AudibleEarlyReflection>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::AudibleEarlyReflection>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::AudibleEarlyReflection>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long const,Phase::SpatialModeler::AudibleEarlyReflection> const&>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::AudibleEarlyReflection>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::AudibleEarlyReflection>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::AudibleEarlyReflection>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::AudibleEarlyReflection>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long const,Phase::SpatialModeler::AudibleEarlyReflection> const&>(void *a1, unint64_t *a2, uint64_t *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v6 = *a2;
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -389,73 +388,73 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v8[2] != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::AudibleEarlyReflection>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::AudibleEarlyReflection>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::AudibleEarlyReflection>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::AudibleEarlyReflection>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,Phase::SpatialModeler::AudibleEarlyReflection const&>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::AudibleEarlyReflection>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::AudibleEarlyReflection>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::AudibleEarlyReflection>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::AudibleEarlyReflection>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,Phase::SpatialModeler::AudibleEarlyReflection const&>(void *a1, unint64_t *a2, uint64_t *a3, uint64_t a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -463,47 +462,47 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-uint64_t Phase::SpatialModeler::EarlyReflectionsSimulationImpl::AllocClusterQueryState@<X0>(Phase::SpatialModeler::EarlyReflectionsSimulationImpl *this@<X0>, Phase::SpatialModeler::EarlyReflectionsSimulation *a2@<X1>, uint64_t *a3@<X8>)
+uint64_t Phase::SpatialModeler::EarlyReflectionsSimulationImpl::AllocClusterQueryState@<X0>(Phase::SpatialModeler::EarlyReflectionsSimulationImpl *this@<X0>, Phase::SpatialModeler::EarlyReflectionsSimulation *a2@<X1>, uint64_t *a4@<X8>)
 {
   v13[4] = *MEMORY[0x277D85DE8];
   v6 = 1344;
@@ -521,13 +520,13 @@ uint64_t Phase::SpatialModeler::EarlyReflectionsSimulationImpl::AllocClusterQuer
   *(v12 + 72) = *(this + 3);
   *(v7 + 137808) = Phase::SpatialModeler::EarlyReflectionsSimulationImpl::RoomSimulationBegin;
   v12 = 0;
-  *a3 = v7;
-  std::__function::__value_func<void ()(void *)>::__value_func[abi:ne200100]((a3 + 1), v13);
+  *a4 = v7;
+  std::__function::__value_func<void ()(void *)>::__value_func[abi:ne200100]((a4 + 1), v13);
   std::unique_ptr<Phase::SpatialModeler::RoomSimulationImpl::ClusterQueryState,std::function<void ()(void *)>>::reset[abi:ne200100](&v12, 0);
   return std::__function::__value_func<void ()(void *)>::~__value_func[abi:ne200100](v13);
 }
 
-uint64_t Phase::SpatialModeler::EarlyReflectionsSimulationImpl::RoomSimulationBegin@<X0>(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, Phase::Logger *a4@<X8>)
+uint64_t Phase::SpatialModeler::EarlyReflectionsSimulationImpl::RoomSimulationBegin@<X0>(float32x2_t *a1@<X0>, Phase::SpatialModeler::RoomSimulation *a2@<X1>, float32x2_t *a3@<X2>, Phase::Logger *a4@<X8>)
 {
   v189 = *MEMORY[0x277D85DE8];
   Instance = Phase::Logger::GetInstance(a1);
@@ -557,10 +556,10 @@ LABEL_26:
     return std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,Phase::SpatialModeler::ReturnSuccess,Phase::SpatialModeler::ReturnError,Phase::SpatialModeler::WaitOnSceneQueries,Phase::SpatialModeler::ClaimOrWaitOnToken,Phase::SpatialModeler::ReleaseToken>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v167);
   }
 
-  v14 = (a3 + 112804);
-  v15 = a2[8];
-  v16 = a2[11];
-  Phase::SpatialModeler::RoomSimulationImpl::ParseOptionalProperties(a1, v15, v16, (a3 + 135520), (a3 + 112872), (a3 + 112860), buf);
+  v14 = &a3[14100] + 1;
+  v15 = *(a2 + 8);
+  v16 = *(a2 + 11);
+  Phase::SpatialModeler::RoomSimulationImpl::ParseOptionalProperties(a1, v15, v16, &a3[16940], &a3[14109], &a3[14107] + 1, buf);
   std::__variant_detail::__assignment<std::__variant_detail::__traits<std::monostate,Phase::SpatialModeler::ReturnSuccess,Phase::SpatialModeler::ReturnError,Phase::SpatialModeler::WaitOnSceneQueries,Phase::SpatialModeler::ClaimOrWaitOnToken,Phase::SpatialModeler::ReleaseToken>>::__generic_assign[abi:ne200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<std::monostate,Phase::SpatialModeler::ReturnSuccess,Phase::SpatialModeler::ReturnError,Phase::SpatialModeler::WaitOnSceneQueries,Phase::SpatialModeler::ClaimOrWaitOnToken,Phase::SpatialModeler::ReleaseToken>,(std::__variant_detail::_Trait)1>>(v167, buf);
   std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,Phase::SpatialModeler::ReturnSuccess,Phase::SpatialModeler::ReturnError,Phase::SpatialModeler::WaitOnSceneQueries,Phase::SpatialModeler::ClaimOrWaitOnToken,Phase::SpatialModeler::ReleaseToken>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](buf);
   if (v168 == 2)
@@ -571,24 +570,24 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  v17 = (a3 + 131680);
+  v17 = &a3[16460];
   v18 = *(v16 + 48);
   if (*(v16 + 48))
   {
-    v19 = 26720;
+    v19 = 3340;
   }
 
   else
   {
-    v19 = 1424;
+    v19 = 178;
   }
 
-  v20 = a1 + v19;
+  v20 = &a1[v19];
   if (*v14 <= 0.0)
   {
     v23 = 0;
     v24 = 113248;
-    v25 = v19 + a1 + 516;
+    v25 = &a1[v19 + 64] + 4;
     do
     {
       v26 = v24;
@@ -596,12 +595,12 @@ LABEL_26:
       v28 = 3;
       do
       {
-        *(v27 - 5) = *(a3 + v26);
-        *(v27 - 4) = *(a3 + v26 + 4);
-        *(v27 - 3) = *(a3 + v26 + 8);
-        *(v27 - 2) = *(a3 + v26 + 12);
-        *(v27 - 1) = *(a3 + v26 + 16);
-        *v27 = *(a3 + v26 + 20);
+        *(v27 - 5) = *(a3->i32 + v26);
+        *(v27 - 4) = *(&a3->i32[1] + v26);
+        *(v27 - 3) = *(a3[1].i32 + v26);
+        *(v27 - 2) = *(&a3[1].i32[1] + v26);
+        *(v27 - 1) = *(a3[2].i32 + v26);
+        *v27 = *(&a3[2].i32[1] + v26);
         v27 += 6;
         v26 += 24;
         --v28;
@@ -614,14 +613,14 @@ LABEL_26:
     }
 
     while (v23 != 256);
-    if (v20 + 496 != a3 + 113248)
+    if (&v20[62] != &a3[14156])
     {
-      std::vector<Phase::SpatialModeler::PhaseRoomSimulationSoundSource>::__assign_with_size[abi:ne200100]<Phase::SpatialModeler::PhaseRoomSimulationSoundSource*,Phase::SpatialModeler::PhaseRoomSimulationSoundSource*>(v20 + 18928, *v17, *(a3 + 131688), 0x6DB6DB6DB6DB6DB7 * ((*(a3 + 131688) - *v17) >> 3));
-      std::vector<Phase::SpatialModeler::DirectivityHistogram *>::__assign_with_size[abi:ne200100]<Phase::SpatialModeler::DirectivityHistogram **,Phase::SpatialModeler::DirectivityHistogram **>((v20 + 18952), *(a3 + 131704), *(a3 + 131712), (*(a3 + 131712) - *(a3 + 131704)) >> 3);
-      std::vector<Phase::SpatialModeler::DirectivityHistogram *>::__assign_with_size[abi:ne200100]<Phase::SpatialModeler::DirectivityHistogram **,Phase::SpatialModeler::DirectivityHistogram **>((v20 + 18976), *(a3 + 131728), *(a3 + 131736), (*(a3 + 131736) - *(a3 + 131728)) >> 3);
+      std::vector<Phase::SpatialModeler::PhaseRoomSimulationSoundSource>::__assign_with_size[abi:ne200100]<Phase::SpatialModeler::PhaseRoomSimulationSoundSource*,Phase::SpatialModeler::PhaseRoomSimulationSoundSource*>(&v20[2366], *v17, *&a3[16461], 0x6DB6DB6DB6DB6DB7 * ((*&a3[16461] - *v17) >> 3));
+      std::vector<Phase::SpatialModeler::DirectivityHistogram *>::__assign_with_size[abi:ne200100]<Phase::SpatialModeler::DirectivityHistogram **,Phase::SpatialModeler::DirectivityHistogram **>(&v20[2369], *&a3[16463], *&a3[16464], (*&a3[16464] - *&a3[16463]) >> 3);
+      std::vector<Phase::SpatialModeler::DirectivityHistogram *>::__assign_with_size[abi:ne200100]<Phase::SpatialModeler::DirectivityHistogram **,Phase::SpatialModeler::DirectivityHistogram **>(&v20[2372], *&a3[16466], *&a3[16467], (*&a3[16467] - *&a3[16466]) >> 3);
     }
 
-    memcpy((v20 + 19008), (a3 + 131760), 0x160uLL);
+    memcpy(&v20[2376], &a3[16470], 0x160uLL);
     Phase::SpatialModeler::EarlyReflectionsSimulationImpl::ClusterEarlyReflections(v164, a1, a2, a3);
     Phase::SpatialModeler::EarlyReflectionsSimulationImpl::RoomSimulationBegin(Phase::SpatialModeler::RoomSimulation &,Phase::SpatialModeler::Query &,Phase::SpatialModeler::RoomSimulationImpl::ClusterQueryState &)::$_0::operator()(a4, &v169, v164);
     v13 = v164;
@@ -633,7 +632,7 @@ LABEL_26:
     v21 = (*(*a1 + 104))(a1, *v14);
     if (v21 && *(v21 + 19408))
     {
-      Phase::SpatialModeler::RayTracerState::operator=(a1 + v19, v21);
+      Phase::SpatialModeler::RayTracerState::operator=(&a1[v19], v21);
       v22 = Phase::SpatialModeler::RoomSimulationImpl::CheckClusterQueryInput(a1, a2, v171);
       if (v172 == 2)
       {
@@ -645,11 +644,11 @@ LABEL_162:
         goto LABEL_26;
       }
 
-      if (*(a1 + 46128))
+      if (a1[5766])
       {
-        v154 = a2[8];
-        v46 = a2[11];
-        v45 = a2[12];
+        v154 = *(a2 + 8);
+        v46 = *(a2 + 11);
+        v45 = *(a2 + 12);
         v47 = *(v46 + 40);
         *&v48 = 0x101010101010101;
         *(&v48 + 1) = 0x101010101010101;
@@ -670,7 +669,7 @@ LABEL_162:
         v173[0] = *(v46 + 144);
         v175 = 8;
         v176 = v173;
-        *v177 = &v175;
+        v177[0] = &v175;
         Phase::details::AllocArray<Phase::SpatialModeler::SubmixRoutingOutput,std::unique_ptr<Phase::SpatialModeler::SubmixRoutingOutput [],std::function<void ()(void *)>> Phase::details::AllocArray<Phase::SpatialModeler::SubmixRoutingOutput>(unsigned long,unsigned long)::{lambda(void)#1} const&,std::unique_ptr<Phase::SpatialModeler::SubmixRoutingOutput [],std::function<void ()(void *)>> Phase::details::AllocArray<Phase::SpatialModeler::SubmixRoutingOutput>(unsigned long,unsigned long)::{lambda(Phase::SpatialModeler::SubmixRoutingOutput*)#1} const&>(v49, &v176, __p);
         v52 = ((v51 - (v49 + v50)) & ((v51 - (v49 + v50)) >> 31)) + v49;
         v53 = __p[0];
@@ -704,7 +703,7 @@ LABEL_162:
         v173[0] = v54;
         v175 = 1;
         v176 = v173;
-        *v177 = &v175;
+        v177[0] = &v175;
         Phase::details::AllocArray<BOOL,std::unique_ptr<BOOL [],std::function<void ()(void *)>> Phase::details::AllocArray<BOOL>(unsigned long,unsigned long)::{lambda(void)#1} const&,std::unique_ptr<BOOL [],std::function<void ()(void *)>> Phase::details::AllocArray<BOOL>(unsigned long,unsigned long)::{lambda(BOOL*)#1} const&>(v54, &v176, __p);
         v56 = __p[0];
         __p[0] = 0;
@@ -815,7 +814,7 @@ LABEL_162:
 
         else
         {
-          Phase::SpatialModeler::getRendererIdsInERClusteringResults((a1 + 26720), buf);
+          Phase::SpatialModeler::getRendererIdsInERClusteringResults(buf, &a1[3340]);
           v79 = v45[6];
           v57 = *buf;
           v80 = (*&buf[8] - *buf) >> 4;
@@ -970,7 +969,7 @@ LABEL_153:
         v87 = 0;
         v152 = 0;
         v88 = 16;
-        v89 = (a1 + 46120);
+        v89 = a1 + 5765;
         v90 = v154;
         while (1)
         {
@@ -1036,7 +1035,7 @@ LABEL_153:
           *__p = xmmword_23A555530;
           LODWORD(v175) = 0;
           LODWORD(v174) = 2139095039;
-          Phase::SpatialModeler::getClosestERClusterToSourceInClusteringResults(v57, (a1 + 26720), v173, __p, &v175, &v174);
+          Phase::SpatialModeler::getClosestERClusterToSourceInClusteringResults(v57, &a1[3340], v173, __p, &v175, &v174);
           if (v151 < 1 || *&v174 < 0.005)
           {
             v119 = v45[13];
@@ -1100,7 +1099,7 @@ LABEL_132:
             v152 = v106;
             *&v176 = v101;
             *(&v176 + 1) = v101;
-            v177[0] = v101;
+            *v177 = v101;
             v107 = Phase::Subbands<float>::Subbands(buf, &v176, 3);
             v108 = (v45[1] + 336 * v153);
             v109 = *buf;
@@ -1141,7 +1140,7 @@ LABEL_132:
             ++v153;
             v119 = v45[13];
             v120 = *(v119 + 16 * v87);
-            v89 = (a1 + 46120);
+            v89 = a1 + 5765;
           }
 
           v125 = (fmaxf(v98, 1.0) * -0.5) + -6.0;
@@ -1188,7 +1187,7 @@ LABEL_132:
 
             v119 = v45[13];
             v126 = *(v119 + 16 * v87 + 8);
-            v89 = (a1 + 46120);
+            v89 = a1 + 5765;
           }
 
           v135 = v119 + 16 * v87;
@@ -1218,7 +1217,7 @@ LABEL_132:
           _os_log_impl(&dword_23A302000, v136, OS_LOG_TYPE_ERROR, "%25s:%-5d ClusterCachedEarlyReflections: Query input source not found in Geo Layer", buf, 0x12u);
         }
 
-        v77 = a1 + 72;
+        v77 = a1 + 9;
         v78 = 6;
       }
 
@@ -1235,7 +1234,7 @@ LABEL_132:
           _os_log_impl(&dword_23A302000, v75, OS_LOG_TYPE_ERROR, "%25s:%-5d ER attack graph called ClusterCachedEarlyReflections but mERClusteringResults is empty", buf, 0x12u);
         }
 
-        v77 = a1 + 72;
+        v77 = a1 + 9;
         v78 = 4;
       }
 
@@ -1250,11 +1249,11 @@ LABEL_161:
 
   else
   {
-    Phase::SpatialModeler::RoomSimulationImpl::RoomSimulationBeginHandleSustainQueryCommon(a1, a2, a3, (a1 + v19));
+    Phase::SpatialModeler::RoomSimulationImpl::RoomSimulationBeginHandleSustainQueryCommon(a1, a2, a3, &a1[v19]);
     v31 = 0;
     do
     {
-      v32 = *(v20 + 22808 + v31);
+      v32 = v20[2851].i8[v31];
       if (v32)
       {
         break;
@@ -1269,7 +1268,7 @@ LABEL_161:
       goto LABEL_35;
     }
 
-    if (*(v20 + 195))
+    if (v20[24].i8[3])
     {
       goto LABEL_49;
     }
@@ -1277,7 +1276,7 @@ LABEL_161:
     v36 = 0;
     do
     {
-      v37 = *(v20 + 22827 + v36);
+      v37 = v20[2853].i8[v36 + 3];
       if (v37)
       {
         break;
@@ -1290,12 +1289,12 @@ LABEL_161:
     if (v37)
     {
 LABEL_35:
-      if (*(v20 + 25040) != 1 || *(v20 + 120) != *(a3 + 112872) || *(v20 + 52) != *v14)
+      if (v20[3130].i8[0] != 1 || v20[15].f32[0] != a3[14109].f32[0] || v20[6].f32[1] != *v14)
       {
         v34 = **(Phase::Logger::GetInstance(v30) + 1264);
         if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
         {
-          Phase::SpatialModeler::RoomSimulationLogging::MakeInfoString(*(a1 + 32), __p);
+          Phase::SpatialModeler::RoomSimulationLogging::MakeInfoString(a1[4].i32[0], __p);
           v35 = v180 >= 0 ? __p : __p[0];
           *buf = 136315650;
           *&buf[4] = "EarlyReflectionsSimulationImpl.mm";
@@ -1317,7 +1316,7 @@ LABEL_35:
 LABEL_49:
       v38 = 0;
       v39 = 113248;
-      v40 = v19 + a1 + 516;
+      v40 = &a1[v19 + 64] + 4;
       do
       {
         v41 = v39;
@@ -1325,12 +1324,12 @@ LABEL_49:
         v43 = 3;
         do
         {
-          *(v42 - 5) = *(a3 + v41);
-          *(v42 - 4) = *(a3 + v41 + 4);
-          *(v42 - 3) = *(a3 + v41 + 8);
-          *(v42 - 2) = *(a3 + v41 + 12);
-          *(v42 - 1) = *(a3 + v41 + 16);
-          *v42 = *(a3 + v41 + 20);
+          *(v42 - 5) = *(a3->i32 + v41);
+          *(v42 - 4) = *(&a3->i32[1] + v41);
+          *(v42 - 3) = *(a3[1].i32 + v41);
+          *(v42 - 2) = *(&a3[1].i32[1] + v41);
+          *(v42 - 1) = *(a3[2].i32 + v41);
+          *v42 = *(&a3[2].i32[1] + v41);
           v42 += 6;
           v41 += 24;
           --v43;
@@ -1343,14 +1342,14 @@ LABEL_49:
       }
 
       while (v38 != 256);
-      if (v20 + 496 != a3 + 113248)
+      if (&v20[62] != &a3[14156])
       {
-        std::vector<Phase::SpatialModeler::PhaseRoomSimulationSoundSource>::__assign_with_size[abi:ne200100]<Phase::SpatialModeler::PhaseRoomSimulationSoundSource*,Phase::SpatialModeler::PhaseRoomSimulationSoundSource*>(v20 + 18928, *v17, *(a3 + 131688), 0x6DB6DB6DB6DB6DB7 * ((*(a3 + 131688) - *v17) >> 3));
-        std::vector<Phase::SpatialModeler::DirectivityHistogram *>::__assign_with_size[abi:ne200100]<Phase::SpatialModeler::DirectivityHistogram **,Phase::SpatialModeler::DirectivityHistogram **>((v20 + 18952), *(a3 + 131704), *(a3 + 131712), (*(a3 + 131712) - *(a3 + 131704)) >> 3);
-        std::vector<Phase::SpatialModeler::DirectivityHistogram *>::__assign_with_size[abi:ne200100]<Phase::SpatialModeler::DirectivityHistogram **,Phase::SpatialModeler::DirectivityHistogram **>((v20 + 18976), *(a3 + 131728), *(a3 + 131736), (*(a3 + 131736) - *(a3 + 131728)) >> 3);
+        std::vector<Phase::SpatialModeler::PhaseRoomSimulationSoundSource>::__assign_with_size[abi:ne200100]<Phase::SpatialModeler::PhaseRoomSimulationSoundSource*,Phase::SpatialModeler::PhaseRoomSimulationSoundSource*>(&v20[2366], *v17, *&a3[16461], 0x6DB6DB6DB6DB6DB7 * ((*&a3[16461] - *v17) >> 3));
+        std::vector<Phase::SpatialModeler::DirectivityHistogram *>::__assign_with_size[abi:ne200100]<Phase::SpatialModeler::DirectivityHistogram **,Phase::SpatialModeler::DirectivityHistogram **>(&v20[2369], *&a3[16463], *&a3[16464], (*&a3[16464] - *&a3[16463]) >> 3);
+        std::vector<Phase::SpatialModeler::DirectivityHistogram *>::__assign_with_size[abi:ne200100]<Phase::SpatialModeler::DirectivityHistogram **,Phase::SpatialModeler::DirectivityHistogram **>(&v20[2372], *&a3[16466], *&a3[16467], (*&a3[16467] - *&a3[16466]) >> 3);
       }
 
-      memcpy((v20 + 19008), (a3 + 131760), 0x160uLL);
+      memcpy(&v20[2376], &a3[16470], 0x160uLL);
       Phase::SpatialModeler::EarlyReflectionsSimulationImpl::ClusterEarlyReflections(v160, a1, a2, a3);
       Phase::SpatialModeler::EarlyReflectionsSimulationImpl::RoomSimulationBegin(Phase::SpatialModeler::RoomSimulation &,Phase::SpatialModeler::Query &,Phase::SpatialModeler::RoomSimulationImpl::ClusterQueryState &)::$_0::operator()(v161, &v169, v160);
       std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,Phase::SpatialModeler::ReturnSuccess,Phase::SpatialModeler::ReturnError,Phase::SpatialModeler::WaitOnSceneQueries,Phase::SpatialModeler::ClaimOrWaitOnToken,Phase::SpatialModeler::ReleaseToken>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v161);
@@ -1358,8 +1357,8 @@ LABEL_49:
     }
   }
 
-  v44 = *(v15 + 216) && (*(v15 + 980) & 1) == 0 && *(a1 + 48) <= ((*(v20 + 20936) - *(v20 + 20928)) >> 2);
-  Phase::SpatialModeler::RoomSimulationImpl::PrepareRayTrace(a3, a1 + v19, *(a1 + 60), v44);
+  v44 = *(v15 + 216) && (*(v15 + 980) & 1) == 0 && *&a1[6] <= ((*&v20[2617] - *&v20[2616]) >> 2);
+  Phase::SpatialModeler::RoomSimulationImpl::PrepareRayTrace(a3, &a1[v19], a1[7].i32[1], v44);
   __p[0] = a3;
   v158 = 0;
   v159 = 0;
@@ -1387,7 +1386,7 @@ LABEL_49:
   return std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,Phase::SpatialModeler::ReturnSuccess,Phase::SpatialModeler::ReturnError,Phase::SpatialModeler::WaitOnSceneQueries,Phase::SpatialModeler::ClaimOrWaitOnToken,Phase::SpatialModeler::ReleaseToken>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v167);
 }
 
-void sub_23A3CC4D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, char a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, char a58)
+void sub_23A3CC4D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, char a58)
 {
   std::unique_ptr<Phase::SpatialModeler::RenderGroup [],std::function<void ()(void *)>>::reset[abi:ne200100](&STACK[0x200]);
   std::__function::__value_func<void ()(void *)>::~__value_func[abi:ne200100](v58 + 8);
@@ -1452,7 +1451,7 @@ void Phase::SpatialModeler::EarlyReflectionsSimulationImpl::RunClusterQuery(Phas
   }
 }
 
-void Phase::SpatialModeler::EarlyReflectionsSimulationImpl::RunSpatialQuery(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
+void Phase::SpatialModeler::EarlyReflectionsSimulationImpl::RunSpatialQuery(uint64_t a1@<X0>, Phase::SpatialModeler::RoomSimulation *a2@<X1>, uint64_t a3@<X8>)
 {
   v118 = *MEMORY[0x277D85DE8];
   Instance = Phase::Logger::GetInstance(a1);
@@ -1504,8 +1503,8 @@ void Phase::SpatialModeler::EarlyReflectionsSimulationImpl::RunSpatialQuery(uint
     goto LABEL_82;
   }
 
-  v23 = a2[8];
-  v24 = a2[11];
+  v23 = *(a2 + 8);
+  v24 = *(a2 + 11);
   v25 = *(v24 + 552);
   if (*(v23 + 184) <= v25 || (v26 = *(v23 + 168) + 24 * v25, *(v26 + 20) != HIDWORD(v25)) || (v27 = *v26) == 0 || v27->i32[0] != 2)
   {
@@ -1513,7 +1512,7 @@ void Phase::SpatialModeler::EarlyReflectionsSimulationImpl::RunSpatialQuery(uint
   }
 
   v112 = v27;
-  v28 = a2[12];
+  v28 = *(a2 + 12);
   if (*(v24 + 208))
   {
     v29 = **(Phase::Logger::GetInstance(v21) + 1264);
@@ -1968,9 +1967,9 @@ LABEL_82:
   }
 }
 
-void sub_23A3CD3EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_23A3CD3EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,Phase::SpatialModeler::ReturnSuccess,Phase::SpatialModeler::ReturnError,Phase::SpatialModeler::WaitOnSceneQueries,Phase::SpatialModeler::ClaimOrWaitOnToken,Phase::SpatialModeler::ReleaseToken>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2041,7 +2040,7 @@ uint64_t Phase::SpatialModeler::EarlyReflectionsSimulationImpl::RoomSimulationBe
   return std::__variant_detail::__move_constructor<std::__variant_detail::__traits<std::monostate,Phase::SpatialModeler::ReturnSuccess,Phase::SpatialModeler::ReturnError,Phase::SpatialModeler::WaitOnSceneQueries,Phase::SpatialModeler::ClaimOrWaitOnToken,Phase::SpatialModeler::ReleaseToken>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:ne200100](a1, a3);
 }
 
-uint64_t Phase::SpatialModeler::EarlyReflectionsSimulationImpl::ClusterEarlyReflections(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
+uint64_t Phase::SpatialModeler::EarlyReflectionsSimulationImpl::ClusterEarlyReflections(uint64_t a1, Phase::SpatialModeler::RoomSimulationImpl *a2, Phase::SpatialModeler::RoomSimulation *a3, uint64_t a4)
 {
   v153 = *MEMORY[0x277D85DE8];
   v8 = Phase::SpatialModeler::RoomSimulationImpl::CheckClusterQueryInput(a2, a3, v139);
@@ -2055,10 +2054,10 @@ uint64_t Phase::SpatialModeler::EarlyReflectionsSimulationImpl::ClusterEarlyRefl
     v122 = a4;
     v123 = a3;
     v124 = a1;
-    v125 = a3[8];
+    v125 = *(a3 + 8);
     v126 = a2;
-    v9 = a3[11];
-    v10 = a3[12];
+    v9 = *(a3 + 11);
+    v10 = *(a3 + 12);
     v11 = *(v9 + 144);
     if (v11)
     {
@@ -2113,7 +2112,7 @@ uint64_t Phase::SpatialModeler::EarlyReflectionsSimulationImpl::ClusterEarlyRefl
     if (v22)
     {
       v128 = v21;
-      v23 = fmax(*(*(v123 + 88) + 40), 1.0);
+      v23 = fmax(*(*(v123 + 11) + 40), 1.0);
       v24 = v23;
       v25 = 0x6DB6DB6DB6DB6DB7 * (v22 >> 3);
       if (v25 >= v23)
@@ -2135,12 +2134,12 @@ uint64_t Phase::SpatialModeler::EarlyReflectionsSimulationImpl::ClusterEarlyRefl
       v138 = 0;
       if (*(Phase::Logger::GetInstance(v8) + 1576))
       {
-        Phase::SpatialModeler::ERClustering::AssignSourcesToExistingRenderers(v26, v9, v128, *(v126 + 48), v132, *(v126 + 40));
+        Phase::SpatialModeler::ERClustering::AssignSourcesToExistingRenderers(v26, v9, v128, *(v126 + 6), v132, *(v126 + 5));
       }
 
       else
       {
-        Phase::SpatialModeler::ERClustering::FindEarlyReflectionClusters((v128 + 18928), *(v126 + 40), *(v128 + 22576), v26, v128, *(v126 + 48), v132);
+        Phase::SpatialModeler::ERClustering::FindEarlyReflectionClusters((v128 + 18928), *(v126 + 5), *(v128 + 22576), v26, v128, *(v126 + 6), v132);
       }
 
       if (v26)
@@ -2155,10 +2154,10 @@ uint64_t Phase::SpatialModeler::EarlyReflectionsSimulationImpl::ClusterEarlyRefl
           v29 = 0x4EC4EC4EC4EC4EC5 * ((v136 - *(&v135 + 1)) >> 4);
         }
 
-        v30 = *(v126 + 16);
+        v30 = *(v126 + 2);
         if (*(v30 + 3192) && (v31 = Phase::Geometry::SystemDebugger::GetFromSystem(v30)) != 0 && (*(v31 + 80) & 1) != 0 || *(v128 + 72) == 1)
         {
-          Phase::SpatialModeler::GenerateEarlyScattering(v132, &v135 + 1, v128, *(v126 + 40), v128 + 22568, v9, *(v126 + 48));
+          Phase::SpatialModeler::GenerateEarlyScattering(v132, &v135 + 1, v128, *(v126 + 5), v128 + 22568, v9, *(v126 + 6));
         }
 
         v32 = *(v128 + 22496);
@@ -2503,7 +2502,7 @@ LABEL_64:
                   v91 = *(v89 + 72);
                   v92 = *(v10[13] + 16 * v70 + 8);
                   *buf = &v142;
-                  v93 = std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&v150, &v142);
+                  v93 = std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&v150, &v142, &std::piecewise_construct, buf);
                   v94 = v92;
                   v93[3] = v90;
                   *(v93 + 8) = v91;
@@ -2572,7 +2571,7 @@ LABEL_104:
 
             *(v10[1] + 336 * v67 + 184) = ClusterHash;
             *buf = &v142;
-            v107 = std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((v66 + 19384), &v142);
+            v107 = std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((v66 + 19384), &v142, &std::piecewise_construct, buf);
             if (v107 + 3 != &v150)
             {
               *(v107 + 14) = v152;
@@ -2581,16 +2580,16 @@ LABEL_104:
 
             v108 = *(&v135 + 1);
             *buf = &v142;
-            v109 = std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((v66 + 19384), &v142);
+            v109 = std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((v66 + 19384), &v142, &std::piecewise_construct, buf);
             Phase::SpatialModeler::CopyMetadata<float>(v108 + 208 * v67, (v109 + 8));
             v110 = v10[1];
             *buf = &v142;
-            *(std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((v66 + 19384), &v142) + 17) = *(v110 + 336 * v67);
+            *(std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((v66 + 19384), &v142, &std::piecewise_construct, buf) + 17) = *(v110 + 336 * v67);
             v111 = v134[0];
             if (v67 < (v134[1] - v134[0]) >> 3)
             {
               *buf = &v142;
-              v112 = std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((v66 + 19384), &v142);
+              v112 = std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((v66 + 19384), &v142, &std::piecewise_construct, buf);
               v113 = &v111[8 * v67];
               *(v112 + 72) = *v113;
               *(v112 + 73) = *(v113 + 1);
@@ -2682,14 +2681,15 @@ LABEL_125:
   return std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,Phase::SpatialModeler::ReturnSuccess,Phase::SpatialModeler::ReturnError,Phase::SpatialModeler::WaitOnSceneQueries,Phase::SpatialModeler::ClaimOrWaitOnToken,Phase::SpatialModeler::ReleaseToken>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v139);
 }
 
-void sub_23A3CE5E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41)
+void sub_23A3CE5E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
 {
+  va_start(va, a40);
   Phase::SpatialModeler::ClusteringResult::~ClusteringResult(&a27);
-  std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,Phase::SpatialModeler::ReturnSuccess,Phase::SpatialModeler::ReturnError,Phase::SpatialModeler::WaitOnSceneQueries,Phase::SpatialModeler::ClaimOrWaitOnToken,Phase::SpatialModeler::ReleaseToken>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&a41);
+  std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,Phase::SpatialModeler::ReturnSuccess,Phase::SpatialModeler::ReturnError,Phase::SpatialModeler::WaitOnSceneQueries,Phase::SpatialModeler::ClaimOrWaitOnToken,Phase::SpatialModeler::ReleaseToken>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t Phase::SpatialModeler::EarlyReflectionsSimulationImpl::RoomSimulationFinish@<X0>(float32x2_t *a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, Phase::Logger *a4@<X8>)
+uint64_t Phase::SpatialModeler::EarlyReflectionsSimulationImpl::RoomSimulationFinish@<X0>(float32x2_t *a1@<X0>, Phase::SpatialModeler::RoomSimulation *a2@<X1>, uint64_t a3@<X2>, Phase::Logger *a4@<X8>)
 {
   v59 = *MEMORY[0x277D85DE8];
   Instance = Phase::Logger::GetInstance(a1);
@@ -2718,15 +2718,15 @@ uint64_t Phase::SpatialModeler::EarlyReflectionsSimulationImpl::RoomSimulationFi
   }
 
   v14 = (a3 + 131768);
-  v15 = a2[8];
+  v15 = *(a2 + 8);
   v16 = 178;
-  if (*(a2[11] + 48))
+  if (*(*(a2 + 11) + 48))
   {
     v16 = 3340;
   }
 
   v17 = &a1[v16];
-  if (*(a2[11] + 48))
+  if (*(*(a2 + 11) + 48))
   {
     Phase::SpatialModeler::RayTracerState::operator=(&a1[v16], a3 + 112752);
 LABEL_31:
@@ -2848,18 +2848,18 @@ LABEL_35:
   return std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,Phase::SpatialModeler::ReturnSuccess,Phase::SpatialModeler::ReturnError,Phase::SpatialModeler::WaitOnSceneQueries,Phase::SpatialModeler::ClaimOrWaitOnToken,Phase::SpatialModeler::ReleaseToken>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v46);
 }
 
-void sub_23A3CEAB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_23A3CEAB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a9);
+  va_start(va, a9);
   v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
   v12 = va_arg(va1, void);
   v13 = va_arg(va1, void);
   v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,Phase::SpatialModeler::ReturnSuccess,Phase::SpatialModeler::ReturnError,Phase::SpatialModeler::WaitOnSceneQueries,Phase::SpatialModeler::ClaimOrWaitOnToken,Phase::SpatialModeler::ReleaseToken>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
   std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,Phase::SpatialModeler::ReturnSuccess,Phase::SpatialModeler::ReturnError,Phase::SpatialModeler::WaitOnSceneQueries,Phase::SpatialModeler::ClaimOrWaitOnToken,Phase::SpatialModeler::ReleaseToken>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va1);
   _Unwind_Resume(a1);
@@ -3071,8 +3071,9 @@ float32_t Phase::Subbands<float>::operator+=(float32x4_t *a1, float32x4_t *a2)
       {
         v14 = a2->f32[0];
         a2 = (a2 + 4);
-        v4.f32[0] = v14 + *v13;
-        *v13++ = v4.f32[0];
+        v4.f32[0] = v14 + v13->f32[0];
+        v13->i32[0] = v4.i32[0];
+        v13 = (v13 + 4);
         --v2;
       }
 
@@ -3337,20 +3338,20 @@ void Phase::SpatialModeler::RotateMetadata<float>(uint64_t a1, float *a2)
   }
 }
 
-uint64_t std::vector<Phase::SpatialModeler::PhaseRoomSimulationSoundSource>::__assign_with_size[abi:ne200100]<Phase::SpatialModeler::PhaseRoomSimulationSoundSource*,Phase::SpatialModeler::PhaseRoomSimulationSoundSource*>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t std::vector<Phase::SpatialModeler::PhaseRoomSimulationSoundSource>::__assign_with_size[abi:ne200100]<Phase::SpatialModeler::PhaseRoomSimulationSoundSource*,Phase::SpatialModeler::PhaseRoomSimulationSoundSource*>(uint64_t *a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
-  v8 = *(a1 + 16);
+  v8 = a1[2];
   v9 = *a1;
   if (0x6DB6DB6DB6DB6DB7 * ((v8 - *a1) >> 3) < a4)
   {
     if (v9)
     {
-      *(a1 + 8) = v9;
+      a1[1] = v9;
       operator delete(v9);
       v8 = 0;
       *a1 = 0;
-      *(a1 + 8) = 0;
-      *(a1 + 16) = 0;
+      a1[1] = 0;
+      a1[2] = 0;
     }
 
     if (a4 <= 0x492492492492492)
@@ -3378,24 +3379,24 @@ uint64_t std::vector<Phase::SpatialModeler::PhaseRoomSimulationSoundSource>::__a
     std::vector<Phase::Controller::DVM23::SubmixController *>::__throw_length_error[abi:ne200100]();
   }
 
-  v13 = *(a1 + 8) - v9;
+  v13 = a1[1] - v9;
   if (0x6DB6DB6DB6DB6DB7 * (v13 >> 3) >= a4)
   {
     result = std::__copy_impl::operator()[abi:ne200100]<Phase::SpatialModeler::PhaseRoomSimulationSoundSource *,Phase::SpatialModeler::PhaseRoomSimulationSoundSource *,Phase::SpatialModeler::PhaseRoomSimulationSoundSource *>(&v17, a2, a3, v9);
-    *(a1 + 8) = v15;
+    a1[1] = v15;
   }
 
   else
   {
     std::__copy_impl::operator()[abi:ne200100]<Phase::SpatialModeler::PhaseRoomSimulationSoundSource *,Phase::SpatialModeler::PhaseRoomSimulationSoundSource *,Phase::SpatialModeler::PhaseRoomSimulationSoundSource *>(&v16, a2, a2 + v13, v9);
-    result = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<Phase::SpatialModeler::PhaseRoomSimulationSoundSource>,Phase::SpatialModeler::PhaseRoomSimulationSoundSource*,Phase::SpatialModeler::PhaseRoomSimulationSoundSource*,Phase::SpatialModeler::PhaseRoomSimulationSoundSource*>(a1, a2 + v13, a3, *(a1 + 8));
-    *(a1 + 8) = result;
+    result = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<Phase::SpatialModeler::PhaseRoomSimulationSoundSource>,Phase::SpatialModeler::PhaseRoomSimulationSoundSource*,Phase::SpatialModeler::PhaseRoomSimulationSoundSource*,Phase::SpatialModeler::PhaseRoomSimulationSoundSource*>(a1, a2 + v13, a3, a1[1]);
+    a1[1] = result;
   }
 
   return result;
 }
 
-void std::vector<Phase::SpatialModeler::PhaseRoomSimulationSoundSource>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<Phase::SpatialModeler::PhaseRoomSimulationSoundSource>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x492492492492493)
   {
@@ -3465,7 +3466,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<Phase::SpatialModeler
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::vector<Phase::SpatialModeler::DirectivityHistogram *>::__assign_with_size[abi:ne200100]<Phase::SpatialModeler::DirectivityHistogram **,Phase::SpatialModeler::DirectivityHistogram **>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<Phase::SpatialModeler::DirectivityHistogram *>::__assign_with_size[abi:ne200100]<Phase::SpatialModeler::DirectivityHistogram **,Phase::SpatialModeler::DirectivityHistogram **>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -3550,7 +3551,7 @@ uint64_t Phase::SpatialModeler::RoomChangeDetector::IncrementResultInternal<0ul,
   v10 = &a4[3 * a4[34] + 28];
   v11 = *a5;
   *v10 = *a5;
-  *(v10 + 8) = LODWORD(v9);
+  v10[2] = LODWORD(v9);
 
   return Phase::SpatialModeler::ParameterHistory<Phase::Vector<float,3ul>,2>::Increment((a4 + 28), v9, v11, v8);
 }
@@ -3598,7 +3599,7 @@ uint64_t Phase::SpatialModeler::ParameterHistory<Phase::Vector<float,3ul>,2>::In
   return result;
 }
 
-void *std::vector<Phase::SpatialModeler::RoomSimulationDebugger::DebugIntersection>::__assign_with_size[abi:ne200100]<Phase::SpatialModeler::RoomSimulationDebugger::DebugIntersection*,Phase::SpatialModeler::RoomSimulationDebugger::DebugIntersection*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<Phase::SpatialModeler::RoomSimulationDebugger::DebugIntersection>::__assign_with_size[abi:ne200100]<Phase::SpatialModeler::RoomSimulationDebugger::DebugIntersection*,Phase::SpatialModeler::RoomSimulationDebugger::DebugIntersection*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -3674,7 +3675,7 @@ void *std::vector<Phase::SpatialModeler::RoomSimulationDebugger::DebugIntersecti
   return result;
 }
 
-void std::vector<Phase::SpatialModeler::RoomSimulationDebugger::DebugIntersection>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<Phase::SpatialModeler::RoomSimulationDebugger::DebugIntersection>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x924924924924925)
   {
@@ -3769,7 +3770,7 @@ void std::vector<Phase::SpatialModeler::RoomSimulationDebugger::DebugImageSource
   }
 }
 
-void std::vector<Phase::SpatialModeler::RoomSimulationDebugger::DebugImageSource>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<Phase::SpatialModeler::RoomSimulationDebugger::DebugImageSource>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x666666666666667)
   {
@@ -3797,10 +3798,10 @@ uint64_t std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<P
       *(v4 + 4) = *(v6 + 4);
       v7 = *(v6 + 8);
       *(v4 + 16) = 0;
-      v8 = v4 + 16;
-      *(v8 - 8) = v7;
-      *(v8 + 8) = 0;
-      *(v8 + 16) = 0;
+      v8 = (v4 + 16);
+      *(v8 - 2) = v7;
+      v8[1] = 0;
+      v8[2] = 0;
       std::vector<Phase::Vector<float,3ul>>::__init_with_size[abi:ne200100]<Phase::Vector<float,3ul>*,Phase::Vector<float,3ul>*>(v8, *(v6 + 16), *(v6 + 24), 0xAAAAAAAAAAAAAAABLL * ((*(v6 + 24) - *(v6 + 16)) >> 2));
       v6 += 40;
       v4 = v13 + 40;
@@ -3815,7 +3816,7 @@ uint64_t std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<P
   return v4;
 }
 
-char **std::__copy_impl::operator()[abi:ne200100]<Phase::SpatialModeler::RoomSimulationDebugger::DebugImageSource *,Phase::SpatialModeler::RoomSimulationDebugger::DebugImageSource *,Phase::SpatialModeler::RoomSimulationDebugger::DebugImageSource *>(uint64_t a1, char **a2, char **a3, uint64_t a4)
+char **std::__copy_impl::operator()[abi:ne200100]<Phase::SpatialModeler::RoomSimulationDebugger::DebugImageSource *,Phase::SpatialModeler::RoomSimulationDebugger::DebugImageSource *,Phase::SpatialModeler::RoomSimulationDebugger::DebugImageSource *>(uint64_t a1, char **a2, char **a3, uint64_t *a4)
 {
   result = a2;
   if (a2 != a3)
@@ -3825,14 +3826,14 @@ char **std::__copy_impl::operator()[abi:ne200100]<Phase::SpatialModeler::RoomSim
     {
       v8 = v7 - 2;
       *a4 = *(v7 - 4);
-      *(a4 + 4) = *(v7 - 3);
-      *(a4 + 8) = *(v7 - 2);
-      if (a4 != v7 - 2)
+      *(a4 + 1) = *(v7 - 3);
+      *(a4 + 2) = *(v7 - 2);
+      if (a4 != (v7 - 2))
       {
-        std::vector<Phase::Vector<float,3ul>>::__assign_with_size[abi:ne200100]<Phase::Vector<float,3ul>*,Phase::Vector<float,3ul>*>((a4 + 16), *v7, v7[1], 0xAAAAAAAAAAAAAAABLL * ((v7[1] - *v7) >> 2));
+        std::vector<Phase::Vector<float,3ul>>::__assign_with_size[abi:ne200100]<Phase::Vector<float,3ul>*,Phase::Vector<float,3ul>*>(a4 + 2, *v7, v7[1], 0xAAAAAAAAAAAAAAABLL * ((v7[1] - *v7) >> 2));
       }
 
-      a4 += 40;
+      a4 += 5;
       v7 += 5;
     }
 
@@ -3843,7 +3844,7 @@ char **std::__copy_impl::operator()[abi:ne200100]<Phase::SpatialModeler::RoomSim
   return result;
 }
 
-char *std::vector<Phase::Vector<float,3ul>>::__assign_with_size[abi:ne200100]<Phase::Vector<float,3ul>*,Phase::Vector<float,3ul>*>(char **a1, char *a2, char *a3, unint64_t a4)
+char *std::vector<Phase::Vector<float,3ul>>::__assign_with_size[abi:ne200100]<Phase::Vector<float,3ul>*,Phase::Vector<float,3ul>*>(uint64_t *a1, char *a2, char *a3, unint64_t a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -3930,15 +3931,15 @@ char *std::vector<Phase::Vector<float,3ul>>::__assign_with_size[abi:ne200100]<Ph
       v17 = v12;
       do
       {
-        v18 = &v17[v16];
-        *v12 = *&v17[v16];
-        *(v12 + 1) = *&v17[v16 + 4];
-        *(v12 + 2) = *&v17[v16 + 8];
+        v18 = v16 + v17;
+        *v12 = *(v16 + v17);
+        *(v12 + 4) = *(v16 + v17 + 4);
+        *(v12 + 8) = *(v16 + v17 + 8);
         v12 += 12;
         v17 += 12;
       }
 
-      while (v18 + 12 != a3);
+      while ((v18 + 12) != a3);
     }
 
     a1[1] = v17;
@@ -3947,21 +3948,21 @@ char *std::vector<Phase::Vector<float,3ul>>::__assign_with_size[abi:ne200100]<Ph
   return result;
 }
 
-void std::vector<std::vector<float>>::__assign_with_size[abi:ne200100]<std::vector<float>*,std::vector<float>*>(uint64_t *a1, char **a2, char **a3, unint64_t a4)
+void std::vector<std::vector<float>>::__assign_with_size[abi:ne200100]<std::vector<float>*,std::vector<float>*>(uint64_t **a1, char **a2, char **a3, unint64_t a4)
 {
   v8 = *a1;
-  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) < a4)
+  if (0xAAAAAAAAAAAAAAABLL * (a1[2] - *a1) < a4)
   {
     std::vector<std::vector<float>>::__vdeallocate(a1);
     if (a4 <= 0xAAAAAAAAAAAAAAALL)
     {
-      v9 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
+      v9 = 0x5555555555555556 * (a1[2] - *a1);
       if (v9 <= a4)
       {
         v9 = a4;
       }
 
-      if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
+      if (0xAAAAAAAAAAAAAAABLL * (a1[2] - *a1) >= 0x555555555555555)
       {
         v10 = 0xAAAAAAAAAAAAAAALL;
       }
@@ -4009,11 +4010,11 @@ void std::vector<std::vector<float>>::__assign_with_size[abi:ne200100]<std::vect
   else
   {
     std::__copy_impl::operator()[abi:ne200100]<std::vector<float> *,std::vector<float> *,std::vector<float> *>(&v18, a2, (a2 + v11), v8);
-    a1[1] = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<float>>,std::vector<float>*,std::vector<float>*,std::vector<float>*>(a1, (a2 + v11), a3, a1[1]);
+    a1[1] = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<float>>,std::vector<float>*,std::vector<float>*,std::vector<float>*>(a1, a2 + v11, a3, a1[1]);
   }
 }
 
-void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<float>>,std::vector<float>*,std::vector<float>*,std::vector<float>*>(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+uint64_t *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<float>>,std::vector<float>*,std::vector<float>*,std::vector<float>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v4 = a4;
   v10 = a4;
@@ -4030,8 +4031,8 @@ void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std:
       *v4 = 0;
       v4[1] = 0;
       v4[2] = 0;
-      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v4, *v6, v6[1], (v6[1] - *v6) >> 2);
-      v6 += 3;
+      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v4, *v6, *(v6 + 8), (*(v6 + 8) - *v6) >> 2);
+      v6 += 24;
       v4 = v11 + 3;
       v11 += 3;
     }
@@ -4079,7 +4080,7 @@ void std::_AllocatorDestroyRangeReverse<std::allocator<std::vector<float>>,std::
   }
 }
 
-char **std::__copy_impl::operator()[abi:ne200100]<std::vector<float> *,std::vector<float> *,std::vector<float> *>(int a1, char **a2, char **a3, char **a4)
+char **std::__copy_impl::operator()[abi:ne200100]<std::vector<float> *,std::vector<float> *,std::vector<float> *>(int a1, char **a2, char **a3, uint64_t *a4)
 {
   v5 = a2;
   if (a2 != a3)
@@ -4102,7 +4103,7 @@ char **std::__copy_impl::operator()[abi:ne200100]<std::vector<float> *,std::vect
   return v5;
 }
 
-void *std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -4206,13 +4207,13 @@ __n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10_
   return result;
 }
 
-uint64_t _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm3EEE10__dispatchB8ne200100IOZNS0_6__ctorINS0_8__traitsIJNS_9monostateEN5Phase14SpatialModeler13ReturnSuccessENSA_11ReturnErrorENSA_18WaitOnSceneQueriesENSA_18ClaimOrWaitOnTokenENSA_12ReleaseTokenEEEEE19__generic_constructB8ne200100IRKNS0_18__copy_constructorISG_LNS0_6_TraitE1EEEEEvRSH_OT_EUlSQ_E_JRKNS0_6__baseILSK_1EJS8_SB_SC_SD_SE_SF_EEEEEEDcSP_DpT0_(void **a1, uint64_t *a2)
+uint64_t *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm3EEE10__dispatchB8ne200100IOZNS0_6__ctorINS0_8__traitsIJNS_9monostateEN5Phase14SpatialModeler13ReturnSuccessENSA_11ReturnErrorENSA_18WaitOnSceneQueriesENSA_18ClaimOrWaitOnTokenENSA_12ReleaseTokenEEEEE19__generic_constructB8ne200100IRKNS0_18__copy_constructorISG_LNS0_6_TraitE1EEEEEvRSH_OT_EUlSQ_E_JRKNS0_6__baseILSK_1EJS8_SB_SC_SD_SE_SF_EEEEEEDcSP_DpT0_(uint64_t **a1, uint64_t a2)
 {
   v2 = *a1;
   *v2 = 0;
   v2[1] = 0;
   v2[2] = 0;
-  return std::vector<Phase::Geometry::SceneQueryBatch *>::__init_with_size[abi:ne200100]<Phase::Geometry::SceneQueryBatch **,Phase::Geometry::SceneQueryBatch **>(v2, *a2, a2[1], (a2[1] - *a2) >> 3);
+  return std::vector<Phase::Geometry::SceneQueryBatch *>::__init_with_size[abi:ne200100]<Phase::Geometry::SceneQueryBatch **,Phase::Geometry::SceneQueryBatch **>(v2, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 3);
 }
 
 void Phase::SpatialModeler::ClusteringResult::~ClusteringResult(Phase::SpatialModeler::ClusteringResult *this)
@@ -4344,20 +4345,20 @@ uint64_t Phase::SpatialModeler::SingleBlockAllocator::Alloc(atomic_uchar *this, 
   return *(this + 1);
 }
 
-void std::vector<unsigned __int128>::resize(void *a1, unint64_t a2)
+void std::vector<unsigned __int128>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 4;
+  v2 = (result[1] - *result) >> 4;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 16 * a2;
+      result[1] = *result + 16 * a2;
     }
   }
 
   else
   {
-    std::vector<unsigned __int128>::__append(a1, a2 - v2);
+    std::vector<unsigned __int128>::__append(result, a2 - v2);
   }
 }
 
@@ -4641,9 +4642,9 @@ Phase::SpatialModeler::RayTracerState *Phase::SpatialModeler::RayTracerState::Ra
   return this;
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -4810,7 +4811,7 @@ void Phase::SpatialModeler::RayTracerState::Results::~Results(Phase::SpatialMode
     operator delete(v2);
   }
 
-  std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>>>::~__hash_table(this + 104);
+  std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>>>::~__hash_table(this + 13);
   std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>>>::~__hash_table(this + 64);
   std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>>>::~__hash_table(this + 24);
   std::__tree<std::__value_type<unsigned long long,Phase::SpatialModeler::SourceListenerResult>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,Phase::SpatialModeler::SourceListenerResult>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,Phase::SpatialModeler::SourceListenerResult>>>::destroy(this, *(this + 1));
@@ -5045,33 +5046,33 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialM
   }
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -5079,73 +5080,73 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -5153,44 +5154,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,void *>>>::operator()[abi:ne200100](uint64_t a1, uint64_t *__p)
@@ -5264,7 +5265,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialM
 LABEL_11:
   if (a2 != a3)
   {
-    std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>>>::__emplace_multi<std::pair<unsigned long long const,Phase::SpatialModeler::ClusteredSourceInfo> const&>();
+    std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>>>::__emplace_multi<std::pair<unsigned long long const,Phase::SpatialModeler::ClusteredSourceInfo> const&>(a1, (a2 + 2));
   }
 }
 
@@ -5369,7 +5370,7 @@ void *std::__hash_table<std::__hash_value_type<unsigned long long,Phase::Spatial
   return result;
 }
 
-void std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>>>::__rehash<false>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>>>::__rehash<false>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -5385,7 +5386,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialM
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -5393,7 +5394,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialM
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -5417,7 +5418,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialM
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>>>::__do_rehash<false>(a1, prime);
+      std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>>>::__do_rehash<false>(result, prime);
     }
   }
 }
@@ -5458,17 +5459,17 @@ uint64_t Phase::AllocPackedSubbandArray<float>@<X0>(uint64_t a1@<X0>, uint64_t a
   return result;
 }
 
-void *std::vector<unsigned long>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<unsigned long>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned long>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned long>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_23A3D2B98(_Unwind_Exception *exception_object)
@@ -5544,7 +5545,7 @@ LABEL_3:
         *v68 = v71;
         *v70 = v69;
         v77 = v9;
-        v78 = (v9 + 1);
+        v78 = v9 + 1;
         result = v69;
         if (v76 < v75)
         {
@@ -5555,14 +5556,14 @@ LABEL_3:
       else
       {
         v77 = v9;
-        v78 = (v9 + 2);
+        v78 = v9 + 2;
         result = *v9;
         if (v76 >= v73)
         {
           *v9 = v69;
           v9[1] = v74;
           v77 = v9 + 1;
-          v78 = (v9 + 2);
+          v78 = v9 + 2;
           result = v74;
           if (v76 >= v75)
           {
@@ -6915,74 +6916,74 @@ void Phase::SpatialModeler::ConvertMetadataCartesianToSpherical<float>(uint64_t 
   }
 }
 
-void Phase::SpatialModeler::EarlyReflectionsSimulation::GetSupportedQueryDescs(void *a1@<X8>)
+void Phase::SpatialModeler::EarlyReflectionsSimulation::GetSupportedQueryDescs(uint64_t *a1@<X8>)
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v12[23] = 4;
-  strcpy(v12, "CULL");
-  v13 = 0;
-  v14 = 0x100000001;
-  v15 = 1;
-  memset(v16, 0, sizeof(v16));
-  std::vector<unsigned int>::resize(v16, 7uLL);
-  v3 = 0;
-  v4 = *v16;
+  v26 = *MEMORY[0x277D85DE8];
+  v11[23] = 4;
+  strcpy(v11, "CULL");
+  v12 = 0;
+  v13 = 0x100000001;
+  v14 = 1;
+  memset(v15, 0, sizeof(v15));
+  std::vector<unsigned int>::resize(v15, 7uLL);
+  v2 = 0;
+  v3 = *v15;
   do
   {
-    *(v4 + v3 * 4) = Phase::SpatialModeler::EarlyReflectionsSimulationPrivate::sCullQueryPropertyUIDs[v3];
-    ++v3;
+    *(v3 + v2 * 4) = Phase::SpatialModeler::EarlyReflectionsSimulationPrivate::sCullQueryPropertyUIDs[v2];
+    ++v2;
   }
 
-  while (v3 != 7);
-  v17[23] = 7;
-  strcpy(v17, "CLUSTER");
-  v18 = 1;
-  v19 = 0x200000003;
-  v20 = 1;
-  memset(v21, 0, sizeof(v21));
-  std::vector<unsigned int>::resize(v21, 7uLL);
-  v5 = 0;
-  v6 = *v21;
+  while (v2 != 7);
+  v16[23] = 7;
+  strcpy(v16, "CLUSTER");
+  v17 = 1;
+  v18 = 0x200000003;
+  v19 = 1;
+  memset(v20, 0, sizeof(v20));
+  std::vector<unsigned int>::resize(v20, 7uLL);
+  v4 = 0;
+  v5 = *v20;
   do
   {
-    *(v6 + v5 * 4) = Phase::SpatialModeler::EarlyReflectionsSimulationPrivate::sClusterQueryPropertyUIDs[v5];
-    ++v5;
+    *(v5 + v4 * 4) = Phase::SpatialModeler::EarlyReflectionsSimulationPrivate::sClusterQueryPropertyUIDs[v4];
+    ++v4;
   }
 
-  while (v5 != 7);
-  v22[23] = 7;
-  strcpy(v22, "SPATIAL");
-  v23 = 2;
-  v24 = 0x300000002;
-  v25 = 2;
-  memset(v26, 0, sizeof(v26));
-  std::vector<unsigned int>::resize(v26, 7uLL);
-  v7 = 0;
-  v8 = *v26;
+  while (v4 != 7);
+  v21[23] = 7;
+  strcpy(v21, "SPATIAL");
+  v22 = 2;
+  v23 = 0x300000002;
+  v24 = 2;
+  memset(v25, 0, sizeof(v25));
+  std::vector<unsigned int>::resize(v25, 7uLL);
+  v6 = 0;
+  v7 = *v25;
   do
   {
-    *(v8 + v7 * 4) = Phase::SpatialModeler::EarlyReflectionsSimulationPrivate::sSpatialQueryPropertyUIDs[v7];
-    ++v7;
+    *(v7 + v6 * 4) = Phase::SpatialModeler::EarlyReflectionsSimulationPrivate::sSpatialQueryPropertyUIDs[v6];
+    ++v6;
   }
 
-  while (v7 != 7);
+  while (v6 != 7);
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  std::vector<Phase::SpatialModeler::QueryDesc>::__init_with_size[abi:ne200100]<Phase::SpatialModeler::QueryDesc const*,Phase::SpatialModeler::QueryDesc const*>(a1, v12, &v27, 3uLL);
+  std::vector<Phase::SpatialModeler::QueryDesc>::__init_with_size[abi:ne200100]<Phase::SpatialModeler::QueryDesc const*,Phase::SpatialModeler::QueryDesc const*>(a1, v11, &v26, 3uLL);
   for (i = 0; i != -240; i -= 80)
   {
-    v10 = &v12[i];
-    v11 = *&v26[i];
-    if (v11)
+    v9 = &v11[i];
+    v10 = *&v25[i];
+    if (v10)
     {
-      *(v10 + 27) = v11;
-      operator delete(v11);
+      *(v9 + 27) = v10;
+      operator delete(v10);
     }
 
-    if (v10[183] < 0)
+    if (v9[183] < 0)
     {
-      operator delete(*(v10 + 20));
+      operator delete(*(v9 + 20));
     }
   }
 }
@@ -7027,22 +7028,22 @@ uint64_t Phase::SpatialModeler::EarlyReflectionsSimulation::GetEntityShapeTempla
   return std::__hash_table<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,std::__unordered_map_hasher<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,true>,std::__unordered_map_equal<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,true>,std::allocator<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>>>::~__hash_table(v6);
 }
 
-void sub_23A3D4424(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3D4424(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  std::__hash_table<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,std::__unordered_map_hasher<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,true>,std::__unordered_map_equal<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,true>,std::allocator<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>>>::~__hash_table(v2 + 8);
+  va_start(va, a3);
+  std::__hash_table<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,std::__unordered_map_hasher<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,true>,std::__unordered_map_equal<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,true>,std::allocator<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>>>::~__hash_table(v3 + 8);
   std::vector<Phase::SpatialModeler::EntityShapeTemplate>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 void Phase::SpatialModeler::EarlyReflectionsSimulation::Init(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12[7] = *MEMORY[0x277D85DE8];
   *(a1 + 40) = a2[3];
   *(a1 + 32) = 2;
   *(a1 + 60) = Phase::Geometry::SceneQueryTypeRegistry::DeriveNewType((*(a1 + 16) + 2720), 3u);
   *(a1 + 64) = Phase::Geometry::SceneQueryTypeRegistry::DeriveNewType((*(a1 + 16) + 2720), 3u);
-  Phase::Geometry::System::GetCurrentState(*(a1 + 16), &v12);
+  Phase::Geometry::System::GetCurrentState(v12, *(a1 + 16));
   v4 = a2[1];
   if (v4)
   {
@@ -7111,7 +7112,7 @@ uint64_t Phase::SpatialModeler::EarlyReflectionsSimulation::RunQuery@<X0>(uint64
       v6 = a2[12];
       if (v6 && *(v5 + 5) == *v6)
       {
-        return (*(v5 + 8))();
+        return (*(v5 + 8))(result);
       }
 
       v7 = result + 72;
@@ -7158,16 +7159,16 @@ std::string *Phase::SpatialModeler::EarlyReflectionsSimulation::GetGraphDescript
   {
     std::string::__assign_external(a2, "EarlyReflectionsSimSpatialQueryGraph", 0x24uLL);
     std::vector<Phase::SpatialModeler::GraphDescriptionNode>::resize((a2 + 24), 1uLL);
-    v4 = *(a2 + 24);
-    result = std::string::__assign_external(v4, "FullEarlyReflectionsSimSpatialGraph", 0x23uLL);
+    v3 = *(a2 + 24);
+    result = std::string::__assign_external(v3, "FullEarlyReflectionsSimSpatialGraph", 0x23uLL);
   }
 
   else if (a1 == 1)
   {
     std::string::__assign_external(a2, "EarlyReflectionsSimClusterQueryGraph", 0x24uLL);
     std::vector<Phase::SpatialModeler::GraphDescriptionNode>::resize((a2 + 24), 1uLL);
-    v4 = *(a2 + 24);
-    result = std::string::__assign_external(v4, "FullEarlyReflectionsSimClusterGraph", 0x23uLL);
+    v3 = *(a2 + 24);
+    result = std::string::__assign_external(v3, "FullEarlyReflectionsSimClusterGraph", 0x23uLL);
   }
 
   else
@@ -7179,11 +7180,11 @@ std::string *Phase::SpatialModeler::EarlyReflectionsSimulation::GetGraphDescript
 
     std::string::__assign_external(a2, "EarlyReflectionsSimCullQueryGraph", 0x21uLL);
     std::vector<Phase::SpatialModeler::GraphDescriptionNode>::resize((a2 + 24), 1uLL);
-    v4 = *(a2 + 24);
-    result = std::string::__assign_external(v4, "FullEarlyReflectionsSimCullGraph", 0x20uLL);
+    v3 = *(a2 + 24);
+    result = std::string::__assign_external(v3, "FullEarlyReflectionsSimCullGraph", 0x20uLL);
   }
 
-  v4[1].__r_.__value_.__r.__words[0] = 0xFFFFFFFFLL;
+  v3[1].__r_.__value_.__r.__words[0] = 0xFFFFFFFFLL;
   return result;
 }
 
@@ -7419,31 +7420,31 @@ void Phase::SpatialModeler::HistogramPtrStack::Clear(Phase::SpatialModeler::Hist
   atomic_fetch_add(Phase::SpatialModeler::HistogramPtrStack::sIsClearingPoolFlag, 0xFFFFFFFF);
 }
 
-void Phase::SpatialModeler::HistogramPtrStack::Pop(unint64_t *a1@<X8>)
+void Phase::SpatialModeler::HistogramPtrStack::Pop(uint64_t *__return_ptr a1@<X8>)
 {
   *a1 = 0;
   a1[1] = 0;
-  v3 = caulk::concurrent::stack<caulk::alloc::free_block,caulk::concurrent::intrusive_single_link_node<caulk::alloc::free_block>>::pop();
-  if (v3)
+  v2 = caulk::concurrent::stack<caulk::alloc::free_block,caulk::concurrent::intrusive_single_link_node<caulk::alloc::free_block>>::pop();
+  if (v2)
   {
-    v4 = v3[1];
-    v5 = v3[2];
-    if (v5)
+    v3 = v2[1];
+    v4 = v2[2];
+    if (v4)
     {
-      atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
-      v6 = v3[2];
-      *a1 = v4;
-      a1[1] = v5;
-      if (v6)
+      atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
+      v5 = v2[2];
+      *a1 = v3;
+      a1[1] = v4;
+      if (v5)
       {
 
-        std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v5);
       }
     }
 
     else
     {
-      *a1 = v4;
+      *a1 = v3;
       a1[1] = 0;
     }
   }
@@ -7536,7 +7537,7 @@ void Phase::SpatialModeler::GenerateEarlyScattering(std::__shared_weak_count *a1
       }
 
       v17 = v9->__shared_weak_owners_;
-      Phase::SpatialModeler::RayTracerState::GetSourceListenerResult(this, (v17 + 16), &v118);
+      Phase::SpatialModeler::RayTracerState::GetSourceListenerResult(&v118, this, (v17 + 16));
       if (v120)
       {
         if (!v14)
@@ -7663,7 +7664,7 @@ LABEL_37:
     if (v13 >= 2)
     {
       *&a4 = v13;
-      a1 = Phase::SpatialModeler::DirectivityHistogram::operator/=(v14, a4);
+      a1 = Phase::SpatialModeler::DirectivityHistogram::operator/=(a4, v14);
     }
 
     if (v14)
@@ -8137,29 +8138,31 @@ float Phase::SpatialModeler::EnergyHistogram::addEnergy_TS(uint64_t a1, unsigned
   return result;
 }
 
-float Phase::SpatialModeler::EnergyHistogram::getTemporalEnergyEnvelope_Band@<S0>(Phase::SpatialModeler::EnergyHistogram *this@<X0>, unsigned int a2@<W1>, void *a3@<X8>)
+float Phase::SpatialModeler::EnergyHistogram::getTemporalEnergyEnvelope_Band@<S0>(Phase::SpatialModeler::EnergyHistogram *this@<X0>, unsigned int a2@<W1>, uint64_t *a3@<X8>)
 {
-  v5 = std::vector<float>::vector[abi:ne200100](a3, *(this + 6));
+  v5 = *(this + 6);
+  v13 = 0;
+  v6 = std::vector<float>::vector[abi:ne200100](a3, v5, &v13);
   if ((*(this + 36) & 1) == 0)
   {
-    v7 = *(this + 7);
-    if (v7 > a2)
+    v8 = *(this + 7);
+    if (v8 > a2)
     {
-      v8 = *(this + 6);
-      if (v8)
+      v9 = *(this + 6);
+      if (v9)
       {
-        v9 = (*(this + 1) + 4 * a2);
-        v10 = *v5;
-        v11 = 4 * v7;
+        v10 = (*(this + 1) + 4 * a2);
+        v11 = *v6;
+        v12 = 4 * v8;
         do
         {
-          result = *v9;
-          *v10++ = *v9;
-          v9 = (v9 + v11);
-          --v8;
+          result = *v10;
+          *v11++ = *v10;
+          v10 = (v10 + v12);
+          --v9;
         }
 
-        while (v8);
+        while (v9);
       }
     }
   }
@@ -8361,7 +8364,7 @@ uint64_t Phase::SpatialModeler::EnergyHistogram::MultiplyAdd(uint64_t this, cons
   return this;
 }
 
-uint64_t Phase::EQSphere::eq_point_set_polar(unsigned int a1, unsigned int a2, uint64_t **a3, int32x2_t a4)
+uint64_t Phase::EQSphere::eq_point_set_polar(unsigned int a1, int a2, uint64_t **a3, int32x2_t a4)
 {
   if (a2 != 1)
   {
@@ -8372,16 +8375,16 @@ uint64_t Phase::EQSphere::eq_point_set_polar(unsigned int a1, unsigned int a2, u
     }
 
     __p = 0;
-    v102 = 0;
     v103 = 0;
-    memset(&v100, 0, sizeof(v100));
+    v104 = 0;
+    memset(&v101, 0, sizeof(v101));
     if (a1 == 1)
     {
       std::vector<float>::resize(&__p, a2);
-      std::vector<unsigned int>::resize(&v100, a2);
+      std::vector<unsigned int>::resize(&v101, a2);
       v11 = 0;
       v12 = __p;
-      begin = v100.__begin_;
+      begin = v101.__begin_;
       do
       {
         v12[v11] = (((v11 + 1) + (v11 + 1)) * 3.1416) / a2;
@@ -8397,7 +8400,7 @@ uint64_t Phase::EQSphere::eq_point_set_polar(unsigned int a1, unsigned int a2, u
       {
         v14 = 0;
         a4.i32[0] = 1070141403;
-        v88 = a4;
+        v89 = a4;
       }
 
       else
@@ -8406,7 +8409,7 @@ uint64_t Phase::EQSphere::eq_point_set_polar(unsigned int a1, unsigned int a2, u
         v16 = asinf(sqrtf(v15 / 3.1416) * 0.5);
         *v17.i32 = v16 + v16;
         v18 = sqrtf(v15);
-        v88 = v17;
+        v89 = v17;
         if (v18 <= 0.0)
         {
           v14 = 0;
@@ -8423,48 +8426,48 @@ uint64_t Phase::EQSphere::eq_point_set_polar(unsigned int a1, unsigned int a2, u
         }
       }
 
-      v104 = 0;
       v105 = 0;
       v106 = 0;
-      std::vector<float>::resize(&v104, v14 + 2);
-      v20 = v104;
-      *v104 = 1065353216;
+      v107 = 0;
+      std::vector<float>::resize(&v105, v14 + 2);
+      v20 = v105;
+      *v105 = 1065353216;
       if (v14)
       {
         v21 = 0;
         v22 = 12.566 / a2;
-        *v19.i32 = ((*v88.i32 * -2.0) + 3.1416) / v14;
-        v89 = vdupq_n_s64(v14 - 1);
+        *v19.i32 = ((*v89.i32 * -2.0) + 3.1416) / v14;
+        v90 = vdupq_n_s64(v14 - 1);
         v23 = vdup_lane_s32(v19, 0);
-        v24 = vdup_lane_s32(v88, 0);
+        v24 = vdup_lane_s32(v89, 0);
         v25 = 0x100000000;
         v26 = vdup_n_s32(0x41490FDBu);
-        v27 = (v20 + 2);
+        v27 = (v20 + 1);
         do
         {
-          v95 = vmovn_s64(vcgeq_u64(v89, vorrq_s8(vdupq_n_s64(v21), xmmword_23A554B70)));
+          v96 = vmovn_s64(vcgeq_u64(v90, vorrq_s8(vdupq_n_s64(v21), xmmword_23A554B70)));
           v28 = v21 + 1;
           v21 += 2;
           v29 = vmla_f32(v24, v23, vcvt_f32_u32(__PAIR64__(v21, v28)));
           v30 = vmul_f32(vmla_f32(v24, v23, vcvt_f32_u32(v25)), 0x3F0000003F000000);
-          v91 = v30.f32[0];
-          v93 = sinf(v30.f32[1]);
-          v31.f32[0] = sinf(v91);
-          v31.f32[1] = v93;
-          v94 = v31;
+          v92 = v30.f32[0];
+          v94 = sinf(v30.f32[1]);
+          *v31.i32 = sinf(v92);
+          *&v31.i32[1] = v94;
+          v95 = v31;
           v32 = vmul_f32(v29, 0x3F0000003F000000);
-          v90 = v32.f32[0];
-          v92 = sinf(v32.f32[1]);
-          v33.f32[0] = sinf(v90);
-          v33.f32[1] = v92;
-          if (v95.i8[0])
+          v91 = v32.f32[0];
+          v93 = sinf(v32.f32[1]);
+          *v33.i32 = sinf(v91);
+          *&v33.i32[1] = v93;
+          if (v96.i8[0])
           {
-            *(v27 - 1) = ((12.566 * vmul_f32(v33, v33).f32[0]) - (12.566 * vmul_f32(v94, v94).f32[0])) / v22;
+            *(v27 - 1) = ((12.566 * vmul_f32(v33, v33).f32[0]) - (12.566 * vmul_f32(v95, v95).f32[0])) / v22;
           }
 
-          if (v95.i8[4])
+          if (v96.i8[4])
           {
-            v34 = vzip2_s32(v33, v94);
+            v34 = vzip2_s32(v33, v95);
             v35 = vmul_f32(vmul_f32(v34, v34), v26);
             *v27 = vsub_f32(v35, vdup_lane_s32(v35, 1)).f32[0] / v22;
           }
@@ -8476,18 +8479,18 @@ uint64_t Phase::EQSphere::eq_point_set_polar(unsigned int a1, unsigned int a2, u
         while (v21 != ((v14 + 1) & 0x1FFFFFFFELL));
       }
 
-      v20[v14 + 1] = 1065353216;
-      std::vector<unsigned int>::resize(&v100, (v105 - v20) >> 2);
-      v36 = v104;
-      v37 = v100.__begin_;
-      if (v105 != v104)
+      *(v20 + v14 + 1) = 1065353216;
+      std::vector<unsigned int>::resize(&v101, (v106 - v20) >> 2);
+      v36 = v105;
+      v37 = v101.__begin_;
+      if (v106 != v105)
       {
         v38 = 0;
-        v39 = (v105 - v104) >> 2;
+        v39 = (v106 - v105) >> 2;
         v40 = 0.0;
         do
         {
-          v41 = v40 + *&v36[v38];
+          v41 = v40 + *(v36 + v38);
           v42 = (v41 + 0.5);
           v37[v38] = v42;
           v40 = v41 - v42;
@@ -8497,15 +8500,15 @@ uint64_t Phase::EQSphere::eq_point_set_polar(unsigned int a1, unsigned int a2, u
         while (v39 > v38);
       }
 
-      std::vector<float>::resize(&__p, v100.__end_ - v37);
+      std::vector<float>::resize(&__p, v101.__end_ - v37);
       v43 = __p;
-      *__p = v88.i32[0];
-      v44 = v100.__end_ - v100.__begin_;
+      *__p = v89.i32[0];
+      v44 = v101.__end_ - v101.__begin_;
       v45 = (v44 - 2);
       if (v44 != 2)
       {
         v46 = (v43 + 4);
-        v47 = v100.__begin_ + 1;
+        v47 = v101.__begin_ + 1;
         v48 = 1;
         do
         {
@@ -8520,10 +8523,10 @@ uint64_t Phase::EQSphere::eq_point_set_polar(unsigned int a1, unsigned int a2, u
       }
 
       *&v43[4 * (v44 - 1)] = 1078530011;
-      if (v104)
+      if (v105)
       {
-        v105 = v104;
-        operator delete(v104);
+        v106 = v105;
+        operator delete(v105);
       }
     }
 
@@ -8532,116 +8535,116 @@ uint64_t Phase::EQSphere::eq_point_set_polar(unsigned int a1, unsigned int a2, u
     {
       std::vector<std::vector<float>>::resize(a3, 1uLL);
       v52 = __p;
-      if (((v102 - __p) & 0x3FFFFFFFCLL) != 0)
+      if (((v103 - __p) & 0x3FFFFFFFCLL) != 0)
       {
         v53 = 0;
         do
         {
           v54 = v52[v53] - 3.14159265 / a2;
-          *&v104 = v54;
-          std::vector<float>::push_back[abi:ne200100](*a3, &v104);
+          *&v105 = v54;
+          std::vector<float>::push_back[abi:ne200100](*a3, &v105);
           ++v53;
           v52 = __p;
         }
 
-        while (v53 < ((v102 - __p) >> 2));
+        while (v53 < ((v103 - __p) >> 2));
       }
 
 LABEL_67:
-      if (v100.__begin_)
+      if (v101.__begin_)
       {
-        v100.__end_ = v100.__begin_;
-        operator delete(v100.__begin_);
+        v101.__end_ = v101.__begin_;
+        operator delete(v101.__begin_);
       }
 
       if (__p)
       {
-        v102 = __p;
+        v103 = __p;
         operator delete(__p);
       }
 
       return 0;
     }
 
-    v56 = v100.__begin_;
-    end = v100.__end_;
+    v56 = v101.__begin_;
+    end = v101.__end_;
     std::vector<std::vector<float>>::resize(a3, 2uLL);
     std::vector<float>::resize(*a3, a2);
     std::vector<float>::resize(*a3 + 3, a2);
-    v57 = (end - v56) >> 2;
-    v58 = (v57 - 2);
-    if (v57 == 2)
+    v58 = (end - v56) >> 2;
+    v59 = (v58 - 2);
+    if (v58 == 2)
     {
-      v85 = 1;
+      v86 = 1;
 LABEL_66:
-      v86 = *a3;
-      *(**a3 + 4 * v85) = 0;
-      *(v86[3] + 4 * v85) = 1078530011;
+      v87 = *a3;
+      *(**a3 + 4 * v86) = 0;
+      *(v87[3] + 4 * v86) = 1078530011;
       goto LABEL_67;
     }
 
-    v59 = 0;
-    v60 = 2;
-    v61 = 0.0;
+    v60 = 0;
+    v61 = 2;
+    v62 = 0.0;
     while (1)
     {
-      v62 = *(__p + v59);
-      v63 = v59 + 1;
-      v64 = *(__p + v59 + 1);
-      v65 = v100.__begin_[v59 + 1];
-      v104 = 0;
+      v63 = *(__p + v60);
+      v64 = v60 + 1;
+      v65 = *(__p + v60 + 1);
+      v66 = v101.__begin_[v60 + 1];
       v105 = 0;
       v106 = 0;
-      Phase::EQSphere::eq_point_set_polar(v51, v65, &v104);
-      v98 = 0;
+      v107 = 0;
+      Phase::EQSphere::eq_point_set_polar(v51, v66, &v105, v57);
       v99 = 0;
-      v97 = 0;
-      if (*(v104 + 1) == *v104)
+      v100 = 0;
+      v98 = 0;
+      if (v105[1] == *v105)
       {
         break;
       }
 
-      v66 = 1;
+      v67 = 1;
       do
       {
-        v96 = v66;
-        std::vector<unsigned int>::push_back[abi:ne200100](&v97, &v96);
-        v67 = *v104;
-        v68 = (*(v104 + 1) - *v104) >> 2;
-        v69 = v68 > v66++;
+        v97 = v67;
+        std::vector<unsigned int>::push_back[abi:ne200100](&v98, &v97);
+        v68 = *v105;
+        v69 = (v105[1] - *v105) >> 2;
+        v70 = v69 > v67++;
       }
 
-      while (v69);
-      v70 = v97;
-      v71 = (v98 - v97) >> 2;
-      if (v98 == v97)
+      while (v70);
+      v71 = v98;
+      v72 = (v99 - v98) >> 2;
+      if (v99 == v98)
       {
         goto LABEL_51;
       }
 
-      v72 = 0;
-      v73 = **a3;
+      v73 = 0;
+      v74 = **a3;
       do
       {
-        v74 = *(v67 + 4 * v72) + (v61 * 6.2832);
-        if (v74 >= 6.28318531)
+        v75 = *(v68 + 4 * v73) + (v62 * 6.2832);
+        if (v75 >= 6.28318531)
         {
-          v74 = v74 + -6.2832;
+          v75 = v75 + -6.2832;
         }
 
-        *(v73 + 4 * (v60 - 2 + *(v70 + v72++))) = v74;
+        *(v74 + 4 * (v61 - 2 + *(v71 + v73++))) = v75;
       }
 
-      while (v71 > v72);
-      v75 = 0;
+      while (v72 > v73);
+      v76 = 0;
 LABEL_52:
-      v76 = v100.__begin_[(v59 + 2)];
-      if (v65 >= v76)
+      v77 = v101.__begin_[(v60 + 2)];
+      if (v66 >= v77)
       {
-        v77 = v65;
-        v78 = v76;
-        v79 = v65;
-        if (v65 <= v76)
+        v78 = v66;
+        v79 = v77;
+        v80 = v66;
+        if (v66 <= v77)
         {
           goto LABEL_56;
         }
@@ -8649,23 +8652,23 @@ LABEL_52:
 
       else
       {
-        v77 = v76;
-        v78 = v65;
+        v78 = v77;
+        v79 = v66;
       }
 
       do
       {
-        v79 = v78;
-        v78 = v77 % v78;
-        v77 = v79;
+        v80 = v79;
+        v79 = v78 % v79;
+        v78 = v80;
       }
 
-      while (v78);
+      while (v79);
 LABEL_56:
-      if (v75)
+      if (v76)
       {
-        v60 += v68;
-        if (!v70)
+        v61 += v69;
+        if (!v71)
         {
           goto LABEL_63;
         }
@@ -8673,41 +8676,41 @@ LABEL_56:
 
       else
       {
-        v80 = (*a3)[3];
-        v81 = 1;
-        v82 = v70;
+        v81 = (*a3)[3];
+        v82 = 1;
+        v83 = v71;
         do
         {
-          v83 = *v82;
-          v82 = (v82 + 4);
-          *(v80 + 4 * (v60 - 2 + v83)) = (v62 + v64) * 0.5;
-          v69 = v71 > v81++;
+          v84 = *v83;
+          v83 = (v83 + 4);
+          *(v81 + 4 * (v61 - 2 + v84)) = (v63 + v65) * 0.5;
+          v70 = v72 > v82++;
         }
 
-        while (v69);
-        v60 += v68;
+        while (v70);
+        v61 += v69;
       }
 
-      v98 = v70;
-      operator delete(v70);
+      v99 = v71;
+      operator delete(v71);
 LABEL_63:
-      v84 = v61 + ((((1.0 / v76) - (1.0 / v65)) * 0.5) + (v79 / ((v65 + v65) * v76)));
-      v61 = v84 - v84;
-      v97 = &v104;
-      std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](&v97);
-      v59 = v63;
-      if (v63 == v58)
+      v85 = v62 + ((((1.0 / v77) - (1.0 / v66)) * 0.5) + (v80 / ((v66 + v66) * v77)));
+      v62 = v85 - v85;
+      v98 = &v105;
+      std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](&v98);
+      v60 = v64;
+      if (v64 == v59)
       {
-        v85 = (v60 - 1);
+        v86 = (v61 - 1);
         goto LABEL_66;
       }
     }
 
+    v72 = 0;
     v71 = 0;
-    v70 = 0;
-    LODWORD(v68) = 0;
+    LODWORD(v69) = 0;
 LABEL_51:
-    v75 = 1;
+    v76 = 1;
     goto LABEL_52;
   }
 
@@ -8720,8 +8723,8 @@ LABEL_51:
     do
     {
       v10 = *a3;
-      LODWORD(v104) = 0;
-      std::vector<float>::push_back[abi:ne200100](&v10[v8 / 8], &v104);
+      LODWORD(v105) = 0;
+      std::vector<float>::push_back[abi:ne200100](&v10[v8 / 8], &v105);
       v8 += 24;
     }
 
@@ -8746,20 +8749,20 @@ void sub_23A3D6BA4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<float>::resize(void *a1, unint64_t a2)
+void std::vector<float>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 2;
+  v2 = (result[1] - *result) >> 2;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 4 * a2;
+      result[1] = *result + 4 * a2;
     }
   }
 
   else
   {
-    std::vector<float>::__append(a1, a2 - v2);
+    std::vector<float>::__append(result, a2 - v2);
   }
 }
 
@@ -9016,9 +9019,9 @@ void sub_23A3DEB6C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_23A3DF2F0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3DF2F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,void({block_pointer} {__strong})(NSUUID *,NSUUID *,BOOL)>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,void({block_pointer} {__strong})(NSUUID *,NSUUID *,BOOL)>,void *>>>>::~unique_ptr[abi:ne200100](va);
 
   _Unwind_Resume(a1);
@@ -9066,9 +9069,9 @@ void sub_23A3E030C(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-void sub_23A3E0A0C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3E0A0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::DictionaryRef::~DictionaryRef(va);
   _Unwind_Resume(a1);
 }
@@ -9082,9 +9085,9 @@ Phase::Logger *Phase::Envelope<float>::Envelope(Phase::Logger *a1, float *a2, fl
   return a1;
 }
 
-void sub_23A3E0BAC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3E0BAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<Phase::Envelope<float>::SegmentInternal,std::allocator<Phase::Envelope<float>::SegmentInternal>>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -9138,20 +9141,20 @@ uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long l
 
 Phase::FIRFilterUtils *Phase::FIRFilterUtils::FIRFilterUtils(Phase::FIRFilterUtils *this, Phase::DFTUtils *a2, int a3)
 {
-  *&v14[12] = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   *&v10 = 0x447A000043FA0000;
   DWORD2(v10) = 1167867904;
   *(this + 1) = 0;
   *(this + 2) = 0;
   *this = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(this, &v10, &v10 + 12, 3uLL);
+  std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(this, &v10, &v10 + 3, 3uLL);
   *(this + 3) = 0;
   v10 = xmmword_23A555670;
   v11 = unk_23A555680;
   *&v12[0] = 0x467A000045FA0000;
   *(this + 4) = 0;
   *(this + 5) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(this + 24, &v10, v12 + 8, 0xAuLL);
+  std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(this + 3, &v10, v12 + 2, 0xAuLL);
   v12[2] = xmmword_23A5556D8;
   v12[3] = unk_23A5556E8;
   *v13 = xmmword_23A5556F8;
@@ -9163,7 +9166,7 @@ Phase::FIRFilterUtils *Phase::FIRFilterUtils::FIRFilterUtils(Phase::FIRFilterUti
   *(this + 6) = 0;
   *(this + 7) = 0;
   *(this + 8) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(this + 48, &v10, v14, 0x1FuLL);
+  std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(this + 6, &v10, v14, 0x1FuLL);
   v6 = 0;
   *(this + 9) = a2;
   v7 = *a2;
@@ -9212,11 +9215,11 @@ void sub_23A3E1904(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void Phase::FIRFilterUtils::ConstructFIREqFilter(int *a1, int a2, uint64_t a3, int a4, float *__C, float *a6, DSPComplex *a7)
+void Phase::FIRFilterUtils::ConstructFIREqFilter(Phase::FIRFilterUtils *a1, int a2, uint64_t a3, int a4, float *__C, float *a6, DSPComplex *a7)
 {
   v31 = *MEMORY[0x277D85DE8];
-  vDSP_vclr(__C, 1, a1[20]);
-  vDSP_vclr(a6, 1, a1[20]);
+  vDSP_vclr(__C, 1, *(a1 + 20));
+  vDSP_vclr(a6, 1, *(a1 + 20));
   v14 = (*(a3 + 8) - *a3) >> 2;
   switch(v14)
   {
@@ -9249,14 +9252,14 @@ void Phase::FIRFilterUtils::ConstructFIREqFilter(int *a1, int a2, uint64_t a3, i
 
   *buf = a1;
   *&buf[8] = v15;
-  if (atomic_load_explicit(&a1[2 * v15 + 24], memory_order_acquire) != -1)
+  if (atomic_load_explicit(a1 + v15 + 12, memory_order_acquire) != -1)
   {
     v25 = buf;
     v24 = &v25;
-    std::__call_once(&a1[2 * v15 + 24], &v24, std::__call_once_proxy[abi:ne200100]<std::tuple<Phase::FIRFilterUtils::InterpolateMagnitudeFromThirdOctaveBands(std::vector<float> const&,std::vector<float> const&,float *)::$_0 &&>>);
+    std::__call_once(a1 + v15 + 12, &v24, std::__call_once_proxy[abi:ne200100]<std::tuple<Phase::FIRFilterUtils::InterpolateMagnitudeFromThirdOctaveBands(std::vector<float> const&,std::vector<float> const&,float *)::$_0 &&>>);
   }
 
-  Phase::LookupInterpolator::InterpolateWithFractions(&a1[32 * v15 + 30], *a3, __C);
+  Phase::LookupInterpolator::InterpolateWithFractions((a1 + 128 * v15 + 120), *a3, __C);
   if (a2)
   {
     if (a2 != 1)
@@ -9396,9 +9399,9 @@ void Phase::FIRFilterUtils::GetFrequencyVectorOfDFTBins(int *a1, void *a2)
   }
 }
 
-void std::__call_once_proxy[abi:ne200100]<std::tuple<Phase::FIRFilterUtils::InterpolateMagnitudeFromThirdOctaveBands(std::vector<float> const&,std::vector<float> const&,float *)::$_0 &&>>(uint64_t ***a1)
+void std::__call_once_proxy[abi:ne200100]<std::tuple<Phase::FIRFilterUtils::InterpolateMagnitudeFromThirdOctaveBands(std::vector<float> const&,std::vector<float> const&,float *)::$_0 &&>>(uint64_t ***result)
 {
-  v1 = **a1;
+  v1 = **result;
   v2 = *v1;
   v3 = *(v1 + 2);
   switch(v3)
@@ -9707,8 +9710,9 @@ uint64_t Phase::SpatialModeler::AllocMetadata<float>(uint64_t *a1, uint64_t a2, 
   return std::__function::__value_func<void ()(void *)>::~__value_func[abi:ne200100](v15);
 }
 
-void Phase::SpatialModeler::generateDirectionalMetadataLR(Phase::SpatialModeler::DirectivityHistogram *a1, int a2, uint64_t *a3, uint64_t a4, float a5, float a6, float a7, float a8, float a9, float a10, float a11, float a12)
+void Phase::SpatialModeler::generateDirectionalMetadataLR(Phase::SpatialModeler::DirectivityHistogram *a1, uint64_t a2, uint64_t *a3, uint64_t a4, float a5, float a6, float a7, float a8, float a9, float a10, float a11, float a12)
 {
+  v17 = a2;
   Phase::SpatialModeler::DirectivityHistogram::updateWasHitVector(a1);
   switch(a4)
   {
@@ -9716,7 +9720,7 @@ void Phase::SpatialModeler::generateDirectionalMetadataLR(Phase::SpatialModeler:
       v24 = 0;
       v25 = 0;
       v26 = 0;
-      Phase::SpatialModeler::computePlaneWaveList_RayTracing<Phase::SpatialModeler::PhaseSpatialModelerMetadata_ThirdOctave>(a1, 1, 0xFFD9u, a2, &v24, a5, a6, a7, a8, a9, a10, a11, a12);
+      Phase::SpatialModeler::computePlaneWaveList_RayTracing<Phase::SpatialModeler::PhaseSpatialModelerMetadata_ThirdOctave>(a1, 1, 0xFFD9u, v17, &v24, a5, a6, a7, a8, a9, a10, a11, a12);
       Phase::SpatialModeler::convertRayTracingPlaneWaveListToDirectionalMetadata<Phase::SpatialModeler::PhaseSpatialModelerMetadata_ThirdOctave>(&v24, a3, 1);
       v27 = &v24;
       std::vector<Phase::SpatialModeler::PhaseSpatialModelerMetadata_ThirdOctave>::__destroy_vector::operator()[abi:ne200100](&v27);
@@ -9725,7 +9729,7 @@ void Phase::SpatialModeler::generateDirectionalMetadataLR(Phase::SpatialModeler:
       v24 = 0;
       v25 = 0;
       v26 = 0;
-      Phase::SpatialModeler::computePlaneWaveList_RayTracing<Phase::SpatialModeler::PhaseSpatialModelerMetadata_Octave>(a1, 1, 0xFFD9u, a2, &v24, a5, a6, a7, a8, a9, a10, a11, a12);
+      Phase::SpatialModeler::computePlaneWaveList_RayTracing<Phase::SpatialModeler::PhaseSpatialModelerMetadata_Octave>(a1, 1, 0xFFD9u, v17, &v24, a5, a6, a7, a8, a9, a10, a11, a12);
       Phase::SpatialModeler::convertRayTracingPlaneWaveListToDirectionalMetadata<Phase::SpatialModeler::PhaseSpatialModelerMetadata_Octave>(&v24, a3, 1);
       v27 = &v24;
       std::vector<Phase::SpatialModeler::PhaseSpatialModelerMetadata_Octave>::__destroy_vector::operator()[abi:ne200100](&v27);
@@ -9734,7 +9738,7 @@ void Phase::SpatialModeler::generateDirectionalMetadataLR(Phase::SpatialModeler:
       v24 = 0;
       v25 = 0;
       v26 = 0;
-      Phase::SpatialModeler::computePlaneWaveList_RayTracing<Phase::SpatialModeler::PhaseSpatialModelerMetadata_3Band>(a1, 1, 0xFFD9u, a2, &v24, a5, a6, a7, a8, a9, a10, a11, a12);
+      Phase::SpatialModeler::computePlaneWaveList_RayTracing<Phase::SpatialModeler::PhaseSpatialModelerMetadata_3Band>(a1, 1, 0xFFD9u, v17, &v24, a5, a6, a7, a8, a9, a10, a11, a12);
       Phase::SpatialModeler::convertRayTracingPlaneWaveListToDirectionalMetadata<Phase::SpatialModeler::PhaseSpatialModelerMetadata_3Band>(&v24, a3, 1);
       v27 = &v24;
       std::vector<Phase::SpatialModeler::PhaseSpatialModelerMetadata_3Band>::__destroy_vector::operator()[abi:ne200100](&v27);
@@ -9742,14 +9746,14 @@ void Phase::SpatialModeler::generateDirectionalMetadataLR(Phase::SpatialModeler:
   }
 }
 
-void sub_23A3E2A1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23A3E2A1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::vector<Phase::SpatialModeler::PhaseSpatialModelerMetadata_3Band>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void Phase::SpatialModeler::computePlaneWaveList_RayTracing<Phase::SpatialModeler::PhaseSpatialModelerMetadata_3Band>(uint64_t a1, char a2, unsigned int a3, int a4, void *a5, float a6, float a7, float a8, float a9, float a10, float a11, float a12, float a13)
+void Phase::SpatialModeler::computePlaneWaveList_RayTracing<Phase::SpatialModeler::PhaseSpatialModelerMetadata_3Band>(uint64_t a1, char a2, unsigned int a3, int a4, char **a5, float a6, float a7, float a8, float a9, float a10, float a11, float a12, float a13)
 {
   v125 = *MEMORY[0x277D85DE8];
   v19 = fabsf(a9) / -20.0;
@@ -9844,12 +9848,12 @@ LABEL_22:
   if (v32 != *a5)
   {
     v34 = v32 - 32;
-    v35 = (v32 - 32);
-    v36 = (v32 - 32);
+    v35 = v32 - 32;
+    v36 = v32 - 32;
     do
     {
       v37 = *v36;
-      v36 -= 4;
+      v36 -= 32;
       (*(v37 + 16))(v35);
       v34 -= 32;
       v38 = v35 == v33;
@@ -9859,7 +9863,7 @@ LABEL_22:
     while (!v38);
   }
 
-  *(v111 + 8) = v33;
+  v111[1] = v33;
   if ((a2 & 1) == 0)
   {
     a3 = time(0);
@@ -10209,8 +10213,8 @@ LABEL_79:
               }
 
               v90 = v89 / a8;
-              v92 = *(v111 + 8);
-              v91 = *(v111 + 16);
+              v92 = v111[1];
+              v91 = v111[2];
               if (v92 >= v91)
               {
                 v95 = (v92 - *v111) >> 5;
@@ -10250,19 +10254,19 @@ LABEL_79:
                 *&buf[16] += 32;
                 std::vector<Phase::SpatialModeler::PhaseSpatialModelerMetadata_3Band>::__swap_out_circular_buffer(v111, buf);
                 v94 = v111;
-                v93 = *(v111 + 8);
+                v93 = v111[1];
                 std::__split_buffer<Phase::SpatialModeler::PhaseSpatialModelerMetadata_3Band>::~__split_buffer(buf);
               }
 
               else
               {
-                Phase::SpatialModeler::PhaseSpatialModelerMetadata_3Band::PhaseSpatialModelerMetadata_3Band(*(v111 + 8), __p, *&v118, *(&v118 + 1), v89 / a8);
+                Phase::SpatialModeler::PhaseSpatialModelerMetadata_3Band::PhaseSpatialModelerMetadata_3Band(v111[1], __p, *&v118, *(&v118 + 1), v89 / a8);
                 v93 = v92 + 32;
                 v94 = v111;
-                *(v111 + 8) = v93;
+                v111[1] = v93;
               }
 
-              *(v94 + 8) = v93;
+              v94[1] = v93;
             }
           }
 

@@ -46,7 +46,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_24E1DDCCC();
+  sub_24E1DDCCC(selfCopy);
 }
 
 - (void)traitCollectionDidChange:(id)change

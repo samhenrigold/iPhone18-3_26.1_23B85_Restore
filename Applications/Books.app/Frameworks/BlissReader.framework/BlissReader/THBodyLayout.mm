@@ -512,7 +512,7 @@
   geometry = [(THBodyLayout *)self geometry];
   if (geometry)
   {
-    [geometry transform];
+    objc_msgSend_transform(geometry);
     v3 = v10;
     v4 = v11;
     v5 = v12;
@@ -706,7 +706,7 @@
   {
     y = position.y;
     x = position.x;
-    [(THBodyLayout *)self transform];
+    objc_msgSend_transform(self, a2);
     position.y = y;
     position.x = x;
     v4 = v10;
@@ -734,7 +734,7 @@
   x = position.x;
   if (self)
   {
-    [(THBodyLayout *)self transform];
+    objc_msgSend_transform(self, a2);
   }
 
   else

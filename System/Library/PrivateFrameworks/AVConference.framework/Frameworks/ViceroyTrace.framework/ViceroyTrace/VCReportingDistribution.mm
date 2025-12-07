@@ -1,4 +1,9 @@
 @interface VCReportingDistribution
+- (VCReportingDistribution)initWithHistogramType:(int)type reportingKeys:(id)keys;
+- (VCReportingDistribution)initWithHistogramType:(int)type reportingKeys:(id)keys histogramIncrementFactor:(unsigned int)factor;
+- (VCReportingDistribution)initWithKeys:(id)keys histogramClass:(Class)class histogramType:(int)type;
+- (VCReportingDistribution)initWithSignedHistogramType:(int)type reportingKeys:(id)keys;
+- (VCReportingDistribution)initWithSignedHistogramType:(int)type reportingKeys:(id)keys histogramIncrementFactor:(unsigned int)factor;
 - (void)accumulate:(id)accumulate;
 - (void)dealloc;
 - (void)updateReport:(id)report withStreamGroup:(id)group;
@@ -6,6 +11,91 @@
 @end
 
 @implementation VCReportingDistribution
+
+- (VCReportingDistribution)initWithKeys:(id)keys histogramClass:(Class)class histogramType:(int)type
+{
+  v5 = *&type;
+  v12.receiver = self;
+  v12.super_class = VCReportingDistribution;
+  v8 = [(VCReportingDistribution *)&v12 init];
+  v9 = v8;
+  if (!v8)
+  {
+    [VCReportingDistribution initWithKeys:histogramClass:histogramType:];
+LABEL_9:
+
+    return 0;
+  }
+
+  if (!keys)
+  {
+    [VCReportingDistribution initWithKeys:v8 histogramClass:? histogramType:?];
+    goto LABEL_9;
+  }
+
+  v8->_keys = keys;
+  v10 = [[class alloc] initWithType:v5 bucketValues:0];
+  v9->_histogram = v10;
+  if (!v10)
+  {
+    [VCReportingDistribution initWithKeys:v9 histogramClass:v5 histogramType:?];
+    goto LABEL_9;
+  }
+
+  v9->_min = 1.79769313e308;
+  v9->_histogramIncrementFactor = 1;
+  return v9;
+}
+
+- (VCReportingDistribution)initWithHistogramType:(int)type reportingKeys:(id)keys
+{
+  v5 = *&type;
+  v7 = objc_opt_class();
+
+  return [(VCReportingDistribution *)self initWithKeys:keys histogramClass:v7 histogramType:v5];
+}
+
+- (VCReportingDistribution)initWithSignedHistogramType:(int)type reportingKeys:(id)keys
+{
+  v5 = *&type;
+  v7 = objc_opt_class();
+
+  return [(VCReportingDistribution *)self initWithKeys:keys histogramClass:v7 histogramType:v5];
+}
+
+- (VCReportingDistribution)initWithHistogramType:(int)type reportingKeys:(id)keys histogramIncrementFactor:(unsigned int)factor
+{
+  v6 = [(VCReportingDistribution *)self initWithHistogramType:*&type reportingKeys:keys];
+  v7 = v6;
+  if (v6)
+  {
+    v6->_histogramIncrementFactor = factor;
+  }
+
+  else
+  {
+    [VCReportingDistribution initWithHistogramType:reportingKeys:histogramIncrementFactor:];
+  }
+
+  return v7;
+}
+
+- (VCReportingDistribution)initWithSignedHistogramType:(int)type reportingKeys:(id)keys histogramIncrementFactor:(unsigned int)factor
+{
+  v6 = [(VCReportingDistribution *)self initWithSignedHistogramType:*&type reportingKeys:keys];
+  v7 = v6;
+  if (v6)
+  {
+    v6->_histogramIncrementFactor = factor;
+  }
+
+  else
+  {
+    [VCReportingDistribution initWithSignedHistogramType:reportingKeys:histogramIncrementFactor:];
+  }
+
+  return v7;
+}
 
 - (void)dealloc
 {
@@ -168,33 +258,33 @@
 
 - (void)initWithKeys:(void *)a1 histogramClass:(int)a2 histogramType:.cold.1(void *a1, int a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (objc_opt_class() == a1)
   {
     if (VRTraceGetErrorLogLevelForModule("") < 3)
     {
-      goto LABEL_10;
+      return;
     }
 
     v5 = VRTraceErrorLogLevelToCSTR(3u);
     v6 = gVRTraceOSLog;
     if (!os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_10;
+      return;
     }
 
-    v15 = 136315906;
-    v16 = v5;
-    v17 = 2080;
+    v14 = 136315906;
+    v15 = v5;
+    v16 = 2080;
     OUTLINED_FUNCTION_6_6();
-    v18 = v7;
-    LODWORD(v19) = a2;
+    v17 = v7;
+    LODWORD(v18) = a2;
     v8 = " [%s] %s:%d Failed to initialize histogram for type=%d";
     v9 = v6;
     v10 = 34;
 LABEL_12:
-    _os_log_error_impl(&dword_23D4DF000, v9, OS_LOG_TYPE_ERROR, v8, &v15, v10);
-    goto LABEL_10;
+    _os_log_error_impl(&dword_23D4DF000, v9, OS_LOG_TYPE_ERROR, v8, &v14, v10);
+    return;
   }
 
   if (objc_opt_respondsToSelector())
@@ -213,41 +303,37 @@ LABEL_12:
     v12 = gVRTraceOSLog;
     if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
     {
-      v15 = 136316418;
-      v16 = v11;
-      v17 = 2080;
+      v14 = 136316418;
+      v15 = v11;
+      v16 = 2080;
       OUTLINED_FUNCTION_6_6();
-      v18 = 2112;
-      v19 = v4;
-      v20 = 2048;
-      v21 = a1;
-      v22 = v14;
-      v23 = a2;
+      v17 = 2112;
+      v18 = v4;
+      v19 = 2048;
+      v20 = a1;
+      v21 = v13;
+      v22 = a2;
       v8 = " [%s] %s:%d %@(%p) Failed to initialize histogram for type=%d";
       v9 = v12;
       v10 = 54;
       goto LABEL_12;
     }
   }
-
-LABEL_10:
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithKeys:(uint64_t)a1 histogramClass:histogramType:.cold.2(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (objc_opt_class() == a1)
   {
     if (VRTraceGetErrorLogLevelForModule("") < 3)
     {
-      goto LABEL_9;
+      return;
     }
 
     VRTraceErrorLogLevelToCSTR(3u);
     if (!OUTLINED_FUNCTION_14_0())
     {
-      goto LABEL_9;
+      return;
     }
 
     OUTLINED_FUNCTION_3_3();
@@ -255,7 +341,7 @@ LABEL_10:
     OUTLINED_FUNCTION_1();
 LABEL_11:
     _os_log_error_impl(v1, v2, v3, v4, v5, v6);
-    goto LABEL_9;
+    return;
   }
 
   if (OUTLINED_FUNCTION_63())
@@ -275,14 +361,10 @@ LABEL_11:
       goto LABEL_11;
     }
   }
-
-LABEL_9:
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithKeys:histogramClass:histogramType:.cold.3()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -291,16 +373,13 @@ LABEL_9:
       OUTLINED_FUNCTION_3_3();
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_1();
-      _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+      _os_log_error_impl(v0, v1, v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithHistogramType:reportingKeys:histogramIncrementFactor:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -309,16 +388,13 @@ LABEL_9:
       OUTLINED_FUNCTION_3_3();
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_1();
-      _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+      _os_log_error_impl(v0, v1, v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithSignedHistogramType:reportingKeys:histogramIncrementFactor:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -327,27 +403,24 @@ LABEL_9:
       OUTLINED_FUNCTION_3_3();
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_1();
-      _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+      _os_log_error_impl(v0, v1, v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateWithPayload:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (objc_opt_class() == a1)
   {
     if (VRTraceGetErrorLogLevelForModule("") < 3)
     {
-      goto LABEL_9;
+      return;
     }
 
     VRTraceErrorLogLevelToCSTR(3u);
     if (!OUTLINED_FUNCTION_14_0())
     {
-      goto LABEL_9;
+      return;
     }
 
     OUTLINED_FUNCTION_3_3();
@@ -355,7 +428,7 @@ LABEL_9:
     OUTLINED_FUNCTION_1();
 LABEL_11:
     _os_log_error_impl(v1, v2, v3, v4, v5, v6);
-    goto LABEL_9;
+    return;
   }
 
   if (OUTLINED_FUNCTION_63())
@@ -375,25 +448,21 @@ LABEL_11:
       goto LABEL_11;
     }
   }
-
-LABEL_9:
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accumulate:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (objc_opt_class() == a1)
   {
     if (VRTraceGetErrorLogLevelForModule("") < 3)
     {
-      goto LABEL_9;
+      return;
     }
 
     VRTraceErrorLogLevelToCSTR(3u);
     if (!OUTLINED_FUNCTION_14_0())
     {
-      goto LABEL_9;
+      return;
     }
 
     OUTLINED_FUNCTION_3_3();
@@ -401,7 +470,7 @@ LABEL_9:
     OUTLINED_FUNCTION_1();
 LABEL_11:
     _os_log_error_impl(v1, v2, v3, v4, v5, v6);
-    goto LABEL_9;
+    return;
   }
 
   if (OUTLINED_FUNCTION_63())
@@ -421,25 +490,21 @@ LABEL_11:
       goto LABEL_11;
     }
   }
-
-LABEL_9:
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateReport:(uint64_t)a1 withStreamGroup:.cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (objc_opt_class() == a1)
   {
     if (VRTraceGetErrorLogLevelForModule("") < 3)
     {
-      goto LABEL_9;
+      return;
     }
 
     VRTraceErrorLogLevelToCSTR(3u);
     if (!OUTLINED_FUNCTION_14_0())
     {
-      goto LABEL_9;
+      return;
     }
 
     OUTLINED_FUNCTION_3_3();
@@ -447,7 +512,7 @@ LABEL_9:
     OUTLINED_FUNCTION_1();
 LABEL_11:
     _os_log_error_impl(v1, v2, v3, v4, v5, v6);
-    goto LABEL_9;
+    return;
   }
 
   if (OUTLINED_FUNCTION_63())
@@ -467,9 +532,6 @@ LABEL_11:
       goto LABEL_11;
     }
   }
-
-LABEL_9:
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

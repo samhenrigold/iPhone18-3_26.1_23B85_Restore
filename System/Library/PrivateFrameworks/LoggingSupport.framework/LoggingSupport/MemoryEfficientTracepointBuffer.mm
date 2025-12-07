@@ -171,7 +171,7 @@ void __101___MemoryEfficientTracepointBuffer_insertTracepoints_chunkOffset_chunk
 
 uint64_t __86___MemoryEfficientTracepointBuffer_insertTimesyncPoints_forBoot_oldestContinuousTime___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (*(a2 + 8) >= *(a1 + 40))
   {
     snprintf(__str, 0x1AuLL, "%016llx.timesync", *(*(a1 + 48) + 24));
@@ -181,13 +181,12 @@ uint64_t __86___MemoryEfficientTracepointBuffer_insertTimesyncPoints_forBoot_old
 
     v7 = *(a1 + 32);
     v8 = *(a2 + 16);
-    v11[0] = *a2;
-    v11[1] = v8;
-    *(v6 + 31) = [v7 addTSEntry:v11];
+    v10[0] = *a2;
+    v10[1] = v8;
+    *(v6 + 31) = [v7 addTSEntry:v10];
     *(v6 + 27) = [*(a1 + 32) indexOfUUID:*(a1 + 56)];
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

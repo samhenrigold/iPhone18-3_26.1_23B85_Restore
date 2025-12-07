@@ -74,7 +74,7 @@ void __58__PDCPreflightRequestHandle_alreadyCompletedRequestHandle__block_invoke
 
 - (void)cancel
 {
-  v3 = PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureCore();
+  v3 = PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureCore(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v5 = 0;

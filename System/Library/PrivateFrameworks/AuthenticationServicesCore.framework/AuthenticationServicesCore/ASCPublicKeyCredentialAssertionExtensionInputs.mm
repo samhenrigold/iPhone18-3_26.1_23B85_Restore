@@ -45,11 +45,11 @@
 - (id)descriptionForLoggingWithIndentationCount:(int64_t)count
 {
   selfCopy = self;
-  sub_1C2101184();
+  sub_1C2101184(count);
 
-  v4 = sub_1C21708F4();
+  v5 = sub_1C21708F4();
 
-  return v4;
+  return v5;
 }
 
 - (int64_t)caBLEAuthenticatorMinimumRequirement

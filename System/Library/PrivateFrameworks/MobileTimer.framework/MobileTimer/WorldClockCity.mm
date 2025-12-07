@@ -14,6 +14,7 @@
 - (NSString)unlocalizedCountryName;
 - (NSURL)idUrl;
 - (WorldClockCity)initWithALCity:(id)city;
+- (WorldClockCity)initWithALCityIdentifier:(int)identifier;
 - (WorldClockCity)initWithProperties:(id)properties;
 - (WorldClockCity)initWithTimeZone:(id)zone countryCode:(id)code name:(id)name countryName:(id)countryName unlocalizedName:(id)unlocalizedName unlocalizedCountryName:(id)unlocalizedCountryName;
 - (id)description;
@@ -88,6 +89,29 @@
   }
 
   return v7;
+}
+
+- (WorldClockCity)initWithALCityIdentifier:(int)identifier
+{
+  v3 = *&identifier;
+  v13.receiver = self;
+  v13.super_class = WorldClockCity;
+  v4 = [(WorldClockCity *)&v13 init];
+  if (v4)
+  {
+    v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%d", v3];
+    v6 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{v5, 0}];
+    mEMORY[0x1E698B670] = [MEMORY[0x1E698B670] sharedManager];
+    v8 = [mEMORY[0x1E698B670] citiesWithIdentifiers:v6];
+
+    v9 = [v8 objectAtIndex:0];
+    alCity = v4->_alCity;
+    v4->_alCity = v9;
+
+    v11 = v4;
+  }
+
+  return v4;
 }
 
 - (WorldClockCity)initWithTimeZone:(id)zone countryCode:(id)code name:(id)name countryName:(id)countryName unlocalizedName:(id)unlocalizedName unlocalizedCountryName:(id)unlocalizedCountryName
@@ -183,21 +207,19 @@ LABEL_8:
   v3 = MEMORY[0x1E696AEC0];
   if (self->_alCity)
   {
-    v11.receiver = self;
-    v11.super_class = WorldClockCity;
-    v4 = [(WorldClockCity *)&v11 description];
+    v9.receiver = self;
+    v9.super_class = WorldClockCity;
+    v4 = [(WorldClockCity *)&v9 description];
     v5 = [(ALCity *)self->_alCity description];
     v6 = [v3 stringWithFormat:@"%@ %@", v4, v5];
   }
 
   else
   {
-    v10.receiver = self;
-    v10.super_class = WorldClockCity;
-    v4 = [(WorldClockCity *)&v10 description];
-    timeZone = self->_timeZone;
-    unlocalizedName = self->_unlocalizedName;
-    v6 = [v3 stringWithFormat:@"%@ %@, %@ || %@ %@ || %@, %@", v4, self->_name, self->_countryName, timeZone, self->_countryCode, unlocalizedName, self->_unlocalizedCountryName];
+    v8.receiver = self;
+    v8.super_class = WorldClockCity;
+    v4 = [(WorldClockCity *)&v8 description];
+    v6 = [v3 stringWithFormat:@"%@ %@, %@ || %@ %@ || %@, %@", v4, self->_name, self->_countryName, self->_timeZone, self->_countryCode, self->_unlocalizedName, self->_unlocalizedCountryName];
   }
 
   return v6;

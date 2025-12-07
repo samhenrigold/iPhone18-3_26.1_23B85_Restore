@@ -578,9 +578,9 @@ LABEL_2:
   v85 = *MEMORY[0x1E69E9840];
   viewCopy = view;
   owningView = [(UILayoutGuide *)self owningView];
-  v7 = [viewCopy isEqual:owningView];
+  isEqual = objc_msgSend_isEqual_(viewCopy);
 
-  if (v7)
+  if (isEqual)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"UIKeyboardLayoutGuide.m" lineNumber:367 description:{@"You cannot add a backdrop below a view to that view's keyboardLayoutGuide. Please use a keyboardLayoutGuide from higher up the view hierarchy. For best results, use viewController.view.keyboardLayoutGuide (or something else that's the size of your window)."}];

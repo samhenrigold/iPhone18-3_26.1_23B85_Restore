@@ -403,30 +403,29 @@ LABEL_24:
 
 - (BOOL)_createAndRunSources:(id *)sources
 {
-  v18 = *MEMORY[0x277D85DE8];
-  pthread_attr_init(&v17);
-  pthread_attr_setdetachstate(&v17, 2);
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x3052000000;
-  v14 = __Block_byref_object_copy__1893;
-  v15 = __Block_byref_object_dispose__1894;
-  v16 = 0;
+  v17 = *MEMORY[0x277D85DE8];
+  pthread_attr_init(&v16);
+  pthread_attr_setdetachstate(&v16, 2);
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x3052000000;
+  v13 = __Block_byref_object_copy__1893;
+  v14 = __Block_byref_object_dispose__1894;
+  v15 = 0;
   v4 = [GTContinuation_replayer alloc];
   queue = self->super.super._queue;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __48__GTSharedMemoryTransport__createAndRunSources___block_invoke;
-  v10[3] = &unk_279657ED8;
-  v10[4] = self;
-  v10[5] = &v11;
-  v6 = [(GTContinuation_replayer *)v4 initWithQueue:queue block:v10];
-  v12[5] = v6;
-  v9 = 0;
-  pthread_create(&v9, &v17, smt_poll_thread_entry, v6);
-  pthread_attr_destroy(&v17);
-  _Block_object_dispose(&v11, 8);
-  v7 = *MEMORY[0x277D85DE8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __48__GTSharedMemoryTransport__createAndRunSources___block_invoke;
+  v9[3] = &unk_279657ED8;
+  v9[4] = self;
+  v9[5] = &v10;
+  v6 = [(GTContinuation_replayer *)v4 initWithQueue:queue block:v9];
+  v11[5] = v6;
+  v8 = 0;
+  pthread_create(&v8, &v16, smt_poll_thread_entry, v6);
+  pthread_attr_destroy(&v16);
+  _Block_object_dispose(&v10, 8);
   return 1;
 }
 
@@ -648,7 +647,7 @@ LABEL_17:
 
 - (void)setUrl:(id)url
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (!url)
   {
     __assert_rtn("[GTSharedMemoryTransport setUrl:]", ", 0, "newUrl != nil"");
@@ -658,22 +657,22 @@ LABEL_17:
   {
     if (s_logUsingOsLog == 1)
     {
-      v7 = gt_tagged_log(0x10u);
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+      v6 = gt_tagged_log(0x10u);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
         *buf = 0;
-        v8 = "fail: tried to set URL on connected transport";
-        v9 = v7;
-        v10 = 2;
+        v7 = "fail: tried to set URL on connected transport";
+        v8 = v6;
+        v9 = 2;
         goto LABEL_18;
       }
     }
 
     else
     {
-      v12 = *MEMORY[0x277D85DF8];
+      v11 = *MEMORY[0x277D85DF8];
       [objc_msgSend(MEMORY[0x277CCACA8] stringWithFormat:@"fail: tried to set URL on connected transport", "UTF8String"];
-      fprintf(v12, "%s\n");
+      fprintf(v11, "%s\n");
     }
 
     goto LABEL_23;
@@ -683,12 +682,12 @@ LABEL_17:
   {
     if (s_logUsingOsLog == 1)
     {
-      v11 = gt_tagged_log(0x10u);
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+      v10 = gt_tagged_log(0x10u);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
-        v17 = [objc_msgSend(url "absoluteString")];
-        v8 = "fail: url scheme has to be dysmt: %s";
+        v16 = [objc_msgSend(url "absoluteString")];
+        v7 = "fail: url scheme has to be dysmt: %s";
         goto LABEL_17;
       }
 
@@ -696,11 +695,11 @@ LABEL_23:
       abort();
     }
 
-    v13 = *MEMORY[0x277D85DF8];
-    v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"fail: url scheme has to be dysmt: %s", objc_msgSend(objc_msgSend(url, "absoluteString"), "UTF8String")];
+    v12 = *MEMORY[0x277D85DF8];
+    v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"fail: url scheme has to be dysmt: %s", objc_msgSend(objc_msgSend(url, "absoluteString"), "UTF8String")];
 LABEL_22:
-    [v14 UTF8String];
-    fprintf(v13, "%s\n");
+    [v13 UTF8String];
+    fprintf(v12, "%s\n");
     goto LABEL_23;
   }
 
@@ -708,25 +707,25 @@ LABEL_22:
   {
     if (s_logUsingOsLog == 1)
     {
-      v11 = gt_tagged_log(0x10u);
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+      v10 = gt_tagged_log(0x10u);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
-        v17 = [objc_msgSend(url "absoluteString")];
-        v8 = "fail: url path cannot be nil or empty: %s";
+        v16 = [objc_msgSend(url "absoluteString")];
+        v7 = "fail: url path cannot be nil or empty: %s";
 LABEL_17:
-        v9 = v11;
-        v10 = 12;
+        v8 = v10;
+        v9 = 12;
 LABEL_18:
-        _os_log_fault_impl(&dword_24D764000, v9, OS_LOG_TYPE_FAULT, v8, buf, v10);
+        _os_log_fault_impl(&dword_24D764000, v8, OS_LOG_TYPE_FAULT, v7, buf, v9);
         abort();
       }
 
       goto LABEL_23;
     }
 
-    v13 = *MEMORY[0x277D85DF8];
-    v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"fail: url path cannot be nil or empty: %s", objc_msgSend(objc_msgSend(url, "absoluteString"), "UTF8String")];
+    v12 = *MEMORY[0x277D85DF8];
+    v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"fail: url path cannot be nil or empty: %s", objc_msgSend(objc_msgSend(url, "absoluteString"), "UTF8String")];
     goto LABEL_22;
   }
 
@@ -738,7 +737,6 @@ LABEL_18:
   block[4] = url;
   block[5] = self;
   dispatch_sync(queue, block);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc

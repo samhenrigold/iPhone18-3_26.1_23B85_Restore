@@ -155,32 +155,33 @@
     bookRootURL3 = [v8 bookRootURL];
     v17 = [v15 bc_doesFolderAtURL:bookRootURL3 containFileAtURL:v12];
 
-    if ([stringByStandardizingPath hasSuffix:@"AppleClasses/AppleWidget.js"])
+    v18 = [stringByStandardizingPath hasSuffix:@"AppleClasses/AppleWidget.js"];
+    if (v18)
     {
-      v18 = THBundle();
-      v19 = [v18 pathForResource:@"AppleWidgetController" ofType:@"js"];
+      v20 = THBundle(v18, v19);
+      v21 = [v20 pathForResource:@"AppleWidgetController" ofType:@"js"];
 
       v17 = &dword_0 + 1;
-      stringByStandardizingPath = v19;
+      stringByStandardizingPath = v21;
     }
 
     if ([stringByStandardizingPath length])
     {
       [v8 setAssetIsInsideBookRootPath:v17];
-      v20 = [v3 _mimeTypeForURL:v5];
-      [v8 setMimeType:v20];
+      v22 = [v3 _mimeTypeForURL:v5];
+      [v8 setMimeType:v22];
 
-      if ([stringByStandardizingPath getFileSystemRepresentation:v24 maxLength:4094])
+      if ([stringByStandardizingPath getFileSystemRepresentation:v26 maxLength:4094])
       {
-        memset(&v23, 0, sizeof(v23));
-        if (lstat(v24, &v23))
+        memset(&v25, 0, sizeof(v25));
+        if (lstat(v26, &v25))
         {
           st_size = 0;
         }
 
         else
         {
-          st_size = v23.st_size;
+          st_size = v25.st_size;
         }
       }
 

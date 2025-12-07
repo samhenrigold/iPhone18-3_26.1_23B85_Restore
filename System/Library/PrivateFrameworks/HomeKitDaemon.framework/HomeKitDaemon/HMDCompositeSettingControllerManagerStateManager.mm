@@ -72,7 +72,7 @@
 
 - (void)_handleAccessoryRemovedNotification:(id)notification
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v6 = [userInfo objectForKey:@"HMDAccessoryNotificationKey"];
@@ -124,21 +124,19 @@
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         v17 = HMFGetLogIdentifier();
-        v19 = 138543362;
-        v20 = v17;
-        _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Couldn't find home for removed accessory, will not process language change", &v19, 0xCu);
+        v18 = 138543362;
+        v19 = v17;
+        _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Couldn't find home for removed accessory, will not process language change", &v18, 0xCu);
       }
 
       objc_autoreleasePoolPop(v14);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleAccessoryLanguagesChangedNotification:(id)notification
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -146,11 +144,11 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v20 = 138543618;
-    v21 = v8;
-    v22 = 2112;
-    v23 = notificationCopy;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Received notification for language list change: %@", &v20, 0x16u);
+    v19 = 138543618;
+    v20 = v8;
+    v21 = 2112;
+    v22 = notificationCopy;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Received notification for language list change: %@", &v19, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -187,20 +185,18 @@
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       v18 = HMFGetLogIdentifier();
-      v20 = 138543362;
-      v21 = v18;
-      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Couldn't find home to work with, will not process language change", &v20, 0xCu);
+      v19 = 138543362;
+      v20 = v18;
+      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Couldn't find home to work with, will not process language change", &v19, 0xCu);
     }
 
     objc_autoreleasePoolPop(v15);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_computeResidentStateChangeForHome:(id)home
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   uuid = [homeCopy uuid];
   if ([homeCopy isCurrentDeviceAvailableResident])
@@ -247,13 +243,13 @@
     if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       v21 = HMFGetLogIdentifier();
-      v24 = 138543874;
-      v25 = v21;
-      v26 = 2112;
-      v27 = v11;
-      v28 = 2112;
-      v29 = v17;
-      _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@updated device is a resident and is the current device, state: %@ -> %@", &v24, 0x20u);
+      v23 = 138543874;
+      v24 = v21;
+      v25 = 2112;
+      v26 = v11;
+      v27 = 2112;
+      v28 = v17;
+      _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@updated device is a resident and is the current device, state: %@ -> %@", &v23, 0x20u);
     }
 
     objc_autoreleasePoolPop(v18);
@@ -269,11 +265,11 @@
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       v15 = HMFGetLogIdentifier();
-      v24 = 138543618;
-      v25 = v15;
-      v26 = 2112;
-      v27 = @"HMDCompositeSettingControllerManagerRunStateRegular";
-      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Current device is not a resident, will update current state to %@", &v24, 0x16u);
+      v23 = 138543618;
+      v24 = v15;
+      v25 = 2112;
+      v26 = @"HMDCompositeSettingControllerManagerRunStateRegular";
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Current device is not a resident, will update current state to %@", &v23, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
@@ -282,13 +278,11 @@
     [(NSMutableDictionary *)selfCopy2->_homeUUIDToState setObject:&unk_283E73DC0 forKeyedSubscript:uuid];
     os_unfair_lock_unlock(&selfCopy2->_lock);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleResidentDeviceUpdated:(id)updated
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -297,11 +291,11 @@
   {
     v8 = HMFGetLogIdentifier();
     name = [updatedCopy name];
-    v24 = 138543618;
-    v25 = v8;
-    v26 = 2114;
-    v27 = name;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Received notification for resident update: %{public}@", &v24, 0x16u);
+    v23 = 138543618;
+    v24 = v8;
+    v25 = 2114;
+    v26 = name;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Received notification for resident update: %{public}@", &v23, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -342,11 +336,11 @@
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       v21 = HMFGetLogIdentifier();
-      v24 = 138543362;
-      v25 = v21;
+      v23 = 138543362;
+      v24 = v21;
       v22 = "%{public}@Couldn't find resident, will not process resident update";
 LABEL_16:
-      _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, v22, &v24, 0xCu);
+      _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, v22, &v23, 0xCu);
     }
 
 LABEL_17:
@@ -363,8 +357,8 @@ LABEL_17:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       v21 = HMFGetLogIdentifier();
-      v24 = 138543362;
-      v25 = v21;
+      v23 = 138543362;
+      v24 = v21;
       v22 = "%{public}@Couldn't find home to work with, will not process resident update";
       goto LABEL_16;
     }
@@ -374,13 +368,11 @@ LABEL_17:
 
   [(HMDCompositeSettingControllerManagerStateManager *)selfCopy _computeResidentStateChangeForHome:home];
 LABEL_18:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleSiriEndpointProfileCreation:(id)creation
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   creationCopy = creation;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -388,11 +380,11 @@ LABEL_18:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v22 = 138543618;
-    v23 = v8;
-    v24 = 2112;
-    v25 = creationCopy;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling HMDSiriEndpointProfileAddedNotification:%@", &v22, 0x16u);
+    v21 = 138543618;
+    v22 = v8;
+    v23 = 2112;
+    v24 = creationCopy;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling HMDSiriEndpointProfileAddedNotification:%@", &v21, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -426,9 +418,9 @@ LABEL_18:
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         v20 = HMFGetLogIdentifier();
-        v22 = 138543362;
-        v23 = v20;
-        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@HomeUUID or home are null, will not update state after siri endpoint profile creation", &v22, 0xCu);
+        v21 = 138543362;
+        v22 = v20;
+        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@HomeUUID or home are null, will not update state after siri endpoint profile creation", &v21, 0xCu);
       }
 
       objc_autoreleasePoolPop(v17);
@@ -443,22 +435,20 @@ LABEL_18:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v16 = HMFGetLogIdentifier();
-      v22 = 138543618;
-      v23 = v16;
-      v24 = 2112;
-      v25 = 0;
-      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Accessory %@ is not a HAPAccessory", &v22, 0x16u);
+      v21 = 138543618;
+      v22 = v16;
+      v23 = 2112;
+      v24 = 0;
+      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Accessory %@ is not a HAPAccessory", &v21, 0x16u);
     }
 
     objc_autoreleasePoolPop(v13);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleSiriEndpointProfileSettingsUpdate:(id)update
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -466,11 +456,11 @@ LABEL_18:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v25 = 138543618;
-    v26 = v8;
-    v27 = 2112;
-    v28 = updateCopy;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@received notification:%@", &v25, 0x16u);
+    v24 = 138543618;
+    v25 = v8;
+    v26 = 2112;
+    v27 = updateCopy;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@received notification:%@", &v24, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -499,13 +489,13 @@ LABEL_18:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       v20 = HMFGetLogIdentifier();
-      v25 = 138543874;
-      v26 = v20;
-      v27 = 2112;
-      v28 = accessory;
-      v29 = 2112;
-      v30 = home;
-      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@nil home:%@ or accessory:%@", &v25, 0x20u);
+      v24 = 138543874;
+      v25 = v20;
+      v26 = 2112;
+      v27 = accessory;
+      v28 = 2112;
+      v29 = home;
+      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@nil home:%@ or accessory:%@", &v24, 0x20u);
     }
 
     objc_autoreleasePoolPop(v17);
@@ -518,13 +508,11 @@ LABEL_18:
     uuid3 = [accessory uuid];
     [delegate didUpdateSiriEndpointSettingForHomeUUID:uuid2 accessoryUUID:uuid3];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleHomeAdded:(id)added
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   addedCopy = added;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -533,9 +521,9 @@ LABEL_18:
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v14 = v8;
-    v15 = 2112;
-    v16 = addedCopy;
+    v13 = v8;
+    v14 = 2112;
+    v15 = addedCopy;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@received notification:%@", buf, 0x16u);
   }
 
@@ -544,15 +532,14 @@ LABEL_18:
   dataSource = [(HMDCompositeSettingControllerManagerStateManager *)selfCopy dataSource];
   homes = [dataSource homes];
 
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __69__HMDCompositeSettingControllerManagerStateManager__handleHomeAdded___block_invoke;
-  v12[3] = &unk_278682980;
-  v12[4] = selfCopy;
-  [homes na_each:v12];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __69__HMDCompositeSettingControllerManagerStateManager__handleHomeAdded___block_invoke;
+  v11[3] = &unk_278682980;
+  v11[4] = selfCopy;
+  [homes na_each:v11];
 
   os_unfair_lock_unlock(&selfCopy->_lock);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __69__HMDCompositeSettingControllerManagerStateManager__handleHomeAdded___block_invoke(uint64_t a1, void *a2)
@@ -564,7 +551,7 @@ void __69__HMDCompositeSettingControllerManagerStateManager__handleHomeAdded___b
 
 - (void)_handleCompositeSettingsControllerConfiguredNotification:(id)notification
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -572,9 +559,9 @@ void __69__HMDCompositeSettingControllerManagerStateManager__handleHomeAdded___b
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v21 = 138543362;
-    v22 = v8;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Did handle CompositeSettingsControllerDidConfigure notification", &v21, 0xCu);
+    v20 = 138543362;
+    v21 = v8;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Did handle CompositeSettingsControllerDidConfigure notification", &v20, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -613,24 +600,22 @@ void __69__HMDCompositeSettingControllerManagerStateManager__handleHomeAdded___b
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       v19 = HMFGetLogIdentifier();
-      v21 = 138543874;
-      v22 = v19;
-      v23 = 2112;
-      v24 = v14;
-      v25 = 2112;
-      v26 = v13;
-      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Nil hapAccessoryUUID:%@ or homeUUID:%@", &v21, 0x20u);
+      v20 = 138543874;
+      v21 = v19;
+      v22 = 2112;
+      v23 = v14;
+      v24 = 2112;
+      v25 = v13;
+      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Nil hapAccessoryUUID:%@ or homeUUID:%@", &v20, 0x20u);
     }
 
     objc_autoreleasePoolPop(v16);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createStateForHomeUUIDIfNotExist:(id)exist
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   existCopy = exist;
   os_unfair_lock_assert_owner(&self->_lock);
   v5 = [(NSMutableDictionary *)self->_homeUUIDToState objectForKeyedSubscript:existCopy];
@@ -643,20 +628,18 @@ void __69__HMDCompositeSettingControllerManagerStateManager__handleHomeAdded___b
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v11 = 138543874;
-      v12 = v9;
-      v13 = 2112;
-      v14 = existCopy;
-      v15 = 2112;
-      v16 = @"HMDCompositeSettingControllerManagerRunStateRegular";
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Initializing state for home %@ as %@", &v11, 0x20u);
+      v10 = 138543874;
+      v11 = v9;
+      v12 = 2112;
+      v13 = existCopy;
+      v14 = 2112;
+      v15 = @"HMDCompositeSettingControllerManagerRunStateRegular";
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Initializing state for home %@ as %@", &v10, 0x20u);
     }
 
     objc_autoreleasePoolPop(v6);
     [(NSMutableDictionary *)self->_homeUUIDToState setObject:&unk_283E73DC0 forKeyedSubscript:existCopy];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_unregisterForNotifications
@@ -667,7 +650,7 @@ void __69__HMDCompositeSettingControllerManagerStateManager__handleHomeAdded___b
 
 - (void)_registerForNotifications
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -703,11 +686,11 @@ void __69__HMDCompositeSettingControllerManagerStateManager__handleHomeAdded___b
         case 15:
           v8 = @"HMDCompositeSettingControllerRunStateAllNotification";
 LABEL_14:
-          v10 = 138543618;
-          v11 = v6;
-          v12 = 2112;
-          v13 = v8;
-          _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Register for notification with option: %@", &v10, 0x16u);
+          v9 = 138543618;
+          v10 = v6;
+          v11 = 2112;
+          v12 = v8;
+          _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Register for notification with option: %@", &v9, 0x16u);
 
           goto LABEL_15;
       }
@@ -746,8 +729,6 @@ LABEL_15:
     [(HMDCompositeSettingNotificationRegistrationProviding *)selfCopy->_notificationRegistrationProvider addObserver:selfCopy selector:sel__handleAccessoryLanguagesChangedNotification_ name:@"HMDAppleMediaAccessoryLanguagesChangedNotification" object:0];
     [(HMDCompositeSettingNotificationRegistrationProviding *)selfCopy->_notificationRegistrationProvider addObserver:selfCopy selector:sel__handleAccessoryRemovedNotification_ name:@"HMDHomeAccessoryRemovedNotification" object:0];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDCompositeSettingControllerManagerStateManager)initWithDataSource:(id)source notificationRegistrationProvider:(id)provider subscribeWithOptions:(unint64_t)options delegate:(id)delegate uuid:(id)uuid
@@ -793,10 +774,9 @@ LABEL_15:
 
 void __63__HMDCompositeSettingControllerManagerStateManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v30_203963;
-  logCategory__hmf_once_v30_203963 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v30_203963;
+  logCategory__hmf_once_v30_203963 = v0;
 }
 
 @end

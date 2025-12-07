@@ -1,7 +1,7 @@
 @interface _UISceneOpaqueHitTestingClientComponent
 - (id)_windowScene;
-- (uint64_t)_setupWindowWithWindowScene:(uint64_t)result;
 - (void)_handleSceneWillConnect:(id)connect;
+- (void)_setupWindowWithWindowScene:(void *)result;
 - (void)invalidate;
 - (void)setScene:(id)scene;
 @end
@@ -50,7 +50,7 @@
   return v2;
 }
 
-- (uint64_t)_setupWindowWithWindowScene:(uint64_t)result
+- (void)_setupWindowWithWindowScene:(void *)result
 {
   if (result)
   {
@@ -58,10 +58,10 @@
     v3 = a2;
     v4 = [[_UIBackgroundHitTestWindow alloc] initWithWindowScene:v3];
 
-    v5 = *(v2 + 24);
-    *(v2 + 24) = v4;
+    v5 = v2[3];
+    v2[3] = v4;
 
-    v6 = *(v2 + 24);
+    v6 = v2[3];
 
     return [v6 setHidden:0];
   }

@@ -13,108 +13,105 @@
   v11 = [[SqliteClient alloc] initWithFile:fileCopy error:error];
   if (v11)
   {
-    v31 = fileCopy;
-    v33 = +[NSMutableArray array];
+    v29 = fileCopy;
+    v31 = +[NSMutableArray array];
+    v33 = 0u;
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
-    v38 = 0u;
-    v32 = tokensCopy;
+    v30 = tokensCopy;
     v12 = tokensCopy;
-    v13 = [v12 countByEnumeratingWithState:&v35 objects:v43 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v33 objects:v41 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v36;
+      v15 = *v34;
       v16 = 0xFFFFFFFFLL;
-      v17 = &INSupportedMediaCategories_ptr;
       do
       {
-        v18 = 0;
+        v17 = 0;
         do
         {
-          if (*v36 != v15)
+          if (*v34 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v19 = *(*(&v35 + 1) + 8 * v18);
-          v20 = v17[138];
+          v18 = *(*(&v33 + 1) + 8 * v17);
           objc_opt_class();
-          if ((objc_opt_isKindOfClass() & 1) != 0 && [v19 length])
+          if ((objc_opt_isKindOfClass() & 1) != 0 && [v18 length])
           {
-            v21 = [(SqliteClient *)v11 findWord:v19 error:error];
-            if (v16 == v21)
+            v19 = [(SqliteClient *)v11 findWord:v18 error:error];
+            if (v16 == v19)
             {
               if (unknownTokensCopy)
               {
-                [unknownTokensCopy addObject:v19];
+                [unknownTokensCopy addObject:v18];
               }
             }
 
             else
             {
-              v22 = v21;
-              v23 = v12;
-              v24 = v16;
-              v25 = v11;
+              v20 = v19;
+              v21 = v12;
+              v22 = v16;
+              v23 = v11;
               errorCopy = error;
-              v27 = +[_PFLLog extension];
-              if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+              v25 = +[_PFLLog extension];
+              if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412546;
-                v40 = v19;
-                v41 = 1024;
-                v42 = v22;
-                _os_log_debug_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEBUG, "Index of %@ is %i", buf, 0x12u);
+                v38 = v18;
+                v39 = 1024;
+                v40 = v20;
+                _os_log_debug_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEBUG, "Index of %@ is %i", buf, 0x12u);
               }
 
-              v28 = [NSNumber numberWithInt:v22];
-              [v33 addObject:v28];
+              v26 = [NSNumber numberWithInt:v20];
+              [v31 addObject:v26];
 
               error = errorCopy;
-              v11 = v25;
-              v16 = v24;
-              v12 = v23;
-              v17 = &INSupportedMediaCategories_ptr;
+              v11 = v23;
+              v16 = v22;
+              v12 = v21;
             }
           }
 
-          v18 = v18 + 1;
+          v17 = v17 + 1;
         }
 
-        while (v14 != v18);
-        v14 = [v12 countByEnumeratingWithState:&v35 objects:v43 count:16];
+        while (v14 != v17);
+        v14 = [v12 countByEnumeratingWithState:&v33 objects:v41 count:16];
       }
 
       while (v14);
     }
 
-    fileCopy = v31;
-    tokensCopy = v32;
+    fileCopy = v29;
+    tokensCopy = v30;
   }
 
   else
   {
-    v29 = +[_PFLLog extension];
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v27 = +[_PFLLog extension];
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      sub_10001C788(v29);
+      sub_10001C788(v27);
     }
 
     if (error)
     {
       [_DPMLRuntimeError errorWithCode:300 description:@"Failed to load sqlite DB."];
-      *error = v33 = 0;
+      *error = v31 = 0;
     }
 
     else
     {
-      v33 = 0;
+      v31 = 0;
     }
   }
 
-  return v33;
+  return v31;
 }
 
 + (void)recordData:(id)data baseKey:(id)key metadata:(id)metadata

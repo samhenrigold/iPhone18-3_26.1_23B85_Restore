@@ -144,11 +144,11 @@
 
 - (ASDAppReviewAppMetadata)initWithCoder:(id)coder
 {
-  v58[6] = *MEMORY[0x1E69E9840];
+  v57[6] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v57.receiver = self;
-  v57.super_class = ASDAppReviewAppMetadata;
-  v5 = [(ASDAppReviewAppMetadata *)&v57 init];
+  v56.receiver = self;
+  v56.super_class = ASDAppReviewAppMetadata;
+  v5 = [(ASDAppReviewAppMetadata *)&v56 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"AU"];
@@ -156,13 +156,13 @@
     v5->_artworkURL = v6;
 
     v8 = MEMORY[0x1E695DFD8];
-    v58[0] = objc_opt_class();
-    v58[1] = objc_opt_class();
-    v58[2] = objc_opt_class();
-    v58[3] = objc_opt_class();
-    v58[4] = objc_opt_class();
-    v58[5] = objc_opt_class();
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v58 count:6];
+    v57[0] = objc_opt_class();
+    v57[1] = objc_opt_class();
+    v57[2] = objc_opt_class();
+    v57[3] = objc_opt_class();
+    v57[4] = objc_opt_class();
+    v57[5] = objc_opt_class();
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v57 count:6];
     v10 = [v8 setWithArray:v9];
     v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"BA"];
     backgroundAssetMetadata = v5->_backgroundAssetMetadata;
@@ -253,7 +253,6 @@
     v5->_storeMetadata = v53;
   }
 
-  v55 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

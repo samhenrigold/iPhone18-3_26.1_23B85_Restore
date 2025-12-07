@@ -8,21 +8,21 @@ int main(int argc, const char **argv, const char **envp)
   return 0;
 }
 
-id sub_100000F88()
+id sub_100000F88(uint64_t a1)
 {
   if (qword_100008700 != -1)
   {
     sub_100001B44();
   }
 
-  v1 = qword_1000086F8;
+  v2 = qword_1000086F8;
 
-  return v1;
+  return v2;
 }
 
 void sub_100000FCC(uint64_t a1)
 {
-  v2 = sub_100000F88();
+  v2 = sub_100000F88(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v5 = 0;
@@ -37,7 +37,7 @@ void sub_100000FCC(uint64_t a1)
 void sub_10000114C(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_100000F88();
+  v4 = sub_100000F88(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -46,22 +46,22 @@ void sub_10000114C(uint64_t a1, void *a2)
 
   if (v3)
   {
-    v5 = sub_100000F88();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = sub_100000F88(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_100001B58(v3, v5);
+      sub_100001B58(v3, v6);
     }
   }
 
-  v6 = [*(a1 + 32) isolation];
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_100001278;
-  v8[3] = &unk_100004198;
-  v8[4] = *(a1 + 32);
-  v9 = v3;
-  v7 = v3;
-  dispatch_async(v6, v8);
+  v7 = [*(a1 + 32) isolation];
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_100001278;
+  v9[3] = &unk_100004198;
+  v9[4] = *(a1 + 32);
+  v10 = v3;
+  v8 = v3;
+  dispatch_async(v7, v9);
 }
 
 void sub_100001278(uint64_t a1)
@@ -85,37 +85,37 @@ void sub_100001278(uint64_t a1)
 void sub_100001414(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_100000F88();
+  v4 = sub_100000F88(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    *v10 = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Completed Analytics processing for Maps app removal", v10, 2u);
+    *v11 = 0;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Completed Analytics processing for Maps app removal", v11, 2u);
   }
 
   if (v3)
   {
-    v5 = sub_100000F88();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = sub_100000F88(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_100001BD0(v3, v5);
+      sub_100001BD0(v3, v6);
     }
   }
 
-  v6 = [*(a1 + 32) error];
-  v7 = *(a1 + 32);
-  if (v6)
+  v7 = [*(a1 + 32) error];
+  v8 = *(a1 + 32);
+  if (v7)
   {
-    v8 = [v7 error];
-    [*(a1 + 32) setError:v8];
+    v9 = [v8 error];
+    [*(a1 + 32) setError:v9];
   }
 
   else
   {
-    [v7 setError:v3];
+    [v8 setError:v3];
   }
 
-  v9 = [*(a1 + 32) completionGroup];
-  dispatch_group_leave(v9);
+  v10 = [*(a1 + 32) completionGroup];
+  dispatch_group_leave(v10);
 }
 
 void sub_1000015F0(uint64_t a1, void *a2, void *a3)
@@ -124,81 +124,82 @@ void sub_1000015F0(uint64_t a1, void *a2, void *a3)
   if (a2)
   {
     v6 = [a2 _geo_filtered:&stru_100004200];
-    if ([v6 count])
+    v7 = [v6 count];
+    if (v7)
     {
-      v7 = sub_100000F88();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v8 = sub_100000F88(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         *buf = 134217984;
-        v31 = [v6 count];
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Removing %llu offline subscriptions", buf, 0xCu);
+        v32 = [v6 count];
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Removing %llu offline subscriptions", buf, 0xCu);
       }
 
-      v27 = 0u;
       v28 = 0u;
-      v25 = 0u;
+      v29 = 0u;
       v26 = 0u;
-      v22 = v6;
+      v27 = 0u;
+      v23 = v6;
       obj = v6;
-      v8 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
-      if (v8)
+      v9 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      if (v9)
       {
-        v9 = v8;
-        v10 = *v26;
+        v10 = v9;
+        v11 = *v27;
         do
         {
-          for (i = 0; i != v9; i = i + 1)
+          for (i = 0; i != v10; i = i + 1)
           {
-            if (*v26 != v10)
+            if (*v27 != v11)
             {
               objc_enumerationMutation(obj);
             }
 
-            v12 = *(*(&v25 + 1) + 8 * i);
-            v13 = [*(a1 + 32) completionGroup];
-            dispatch_group_enter(v13);
+            v13 = *(*(&v26 + 1) + 8 * i);
+            v14 = [*(a1 + 32) completionGroup];
+            dispatch_group_enter(v14);
 
-            v14 = *(a1 + 40);
-            v15 = [v12 identifier];
-            v16 = [*(a1 + 32) isolation];
-            v24[0] = _NSConcreteStackBlock;
-            v24[1] = 3221225472;
-            v24[2] = sub_1000018CC;
-            v24[3] = &unk_100004228;
-            v24[4] = *(a1 + 32);
-            [v14 removeSubscriptionWithIdentifier:v15 callbackQueue:v16 completionHandler:v24];
+            v15 = *(a1 + 40);
+            v16 = [v13 identifier];
+            v17 = [*(a1 + 32) isolation];
+            v25[0] = _NSConcreteStackBlock;
+            v25[1] = 3221225472;
+            v25[2] = sub_1000018CC;
+            v25[3] = &unk_100004228;
+            v25[4] = *(a1 + 32);
+            [v15 removeSubscriptionWithIdentifier:v16 callbackQueue:v17 completionHandler:v25];
           }
 
-          v9 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+          v10 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
         }
 
-        while (v9);
+        while (v10);
       }
 
-      v6 = v22;
+      v6 = v23;
     }
 
-    v17 = [*(a1 + 32) completionGroup];
-    dispatch_group_leave(v17);
+    v18 = [*(a1 + 32) completionGroup];
+    dispatch_group_leave(v18);
   }
 
   else
   {
-    v18 = [*(a1 + 32) error];
-    v19 = *(a1 + 32);
-    if (v18)
+    v19 = [*(a1 + 32) error];
+    v20 = *(a1 + 32);
+    if (v19)
     {
-      v20 = [v19 error];
-      [*(a1 + 32) setError:v20];
+      v21 = [v20 error];
+      [*(a1 + 32) setError:v21];
     }
 
     else
     {
-      [v19 setError:v5];
+      [v20 setError:v5];
     }
 
-    v21 = [*(a1 + 32) completionGroup];
-    dispatch_group_leave(v21);
+    v22 = [*(a1 + 32) completionGroup];
+    dispatch_group_leave(v22);
   }
 }
 

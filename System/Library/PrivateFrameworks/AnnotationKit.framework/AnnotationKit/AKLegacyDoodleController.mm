@@ -619,7 +619,7 @@ LABEL_9:
 
     [v17 setRectangle:{v29, v30}];
     [v17 setPathIsPrestroked:prestrokedCopy];
-    [AKGeometryHelper affineTransformForExifOrientation:4 aboutCenter:MidX, v20, 0, 0, 0, 0, 0, 0];
+    objc_msgSend_affineTransformForExifOrientation_aboutCenter_(AKGeometryHelper, MidX, v20, 0, 0, 0, 0, 0, 0);
     v24 = MEMORY[0x245CAE590](path, &v28);
     v25 = [MEMORY[0x277D75208] bezierPathWithCGPath:v24];
     CGPathRelease(v24);

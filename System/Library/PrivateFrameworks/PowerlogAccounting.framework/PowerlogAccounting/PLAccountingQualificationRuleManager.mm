@@ -73,7 +73,6 @@
 
 uint64_t __54__PLAccountingQualificationRuleManager_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedInstance_sharedInstance_1 = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x2821F96F8]();
@@ -291,21 +290,21 @@ uint64_t __54__PLAccountingQualificationRuleManager_sharedInstance__block_invoke
   return v39;
 }
 
-uint64_t __69__PLAccountingQualificationRuleManager_ruleWithString_withEntryDate___block_invoke(uint64_t a1)
+void *__69__PLAccountingQualificationRuleManager_ruleWithString_withEntryDate___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   ruleWithString_withEntryDate__classDebugEnabled_0 = result;
   return result;
 }
 
-uint64_t __69__PLAccountingQualificationRuleManager_ruleWithString_withEntryDate___block_invoke_36(uint64_t a1)
+void *__69__PLAccountingQualificationRuleManager_ruleWithString_withEntryDate___block_invoke_36(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   ruleWithString_withEntryDate__classDebugEnabled_35 = result;
   return result;
 }
 
-uint64_t __69__PLAccountingQualificationRuleManager_ruleWithString_withEntryDate___block_invoke_43(uint64_t a1)
+void *__69__PLAccountingQualificationRuleManager_ruleWithString_withEntryDate___block_invoke_43(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   ruleWithString_withEntryDate__classDebugEnabled_42 = result;
@@ -412,14 +411,14 @@ uint64_t __69__PLAccountingQualificationRuleManager_ruleWithString_withEntryDate
   }
 }
 
-uint64_t __50__PLAccountingQualificationRuleManager_indexRule___block_invoke(uint64_t a1)
+void *__50__PLAccountingQualificationRuleManager_indexRule___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   indexRule__classDebugEnabled_0 = result;
   return result;
 }
 
-uint64_t __50__PLAccountingQualificationRuleManager_indexRule___block_invoke_53(uint64_t a1)
+void *__50__PLAccountingQualificationRuleManager_indexRule___block_invoke_53(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   indexRule__classDebugEnabled_52 = result;

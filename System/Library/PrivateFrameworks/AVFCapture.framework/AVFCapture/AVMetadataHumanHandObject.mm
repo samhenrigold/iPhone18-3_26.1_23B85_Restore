@@ -20,14 +20,14 @@
   {
     if (dict)
     {
-      v12 = [dict objectForKeyedSubscript:*MEMORY[0x1E6990FA0]];
+      v12 = objc_msgSend_objectForKeyedSubscript_(dict);
       if (v12)
       {
         v11->_hasConfidence = 1;
         v11->_confidence = ([v12 intValue] / 1000.0);
       }
 
-      v13 = [dict objectForKeyedSubscript:*MEMORY[0x1E6990E58]];
+      v13 = objc_msgSend_objectForKeyedSubscript_(dict);
       if (v13)
       {
         v11->_hasChirality = 1;
@@ -76,7 +76,7 @@ LABEL_10:
   y = v10[1];
   width = v10[2];
   height = v10[3];
-  v16 = [dictionary objectForKeyedSubscript:{*MEMORY[0x1E69910D8], v18}];
+  v16 = objc_msgSend_objectForKeyedSubscript_(dictionary, a2, *MEMORY[0x1E69910D8], v18);
   if (v16)
   {
     memset(&rect, 0, sizeof(rect));
@@ -131,7 +131,7 @@ LABEL_10:
 
   if (self)
   {
-    [(AVMetadataObject *)self time];
+    objc_msgSend_time(self);
     v15 = v17;
   }
 
@@ -159,8 +159,8 @@ LABEL_10:
   {
     if (object)
     {
-      [object time];
-      [object duration];
+      objc_msgSend_time(object);
+      objc_msgSend_duration(object);
     }
 
     else

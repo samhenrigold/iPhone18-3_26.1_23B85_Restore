@@ -15,42 +15,41 @@
 
 - (NSArray)attributeDescriptions
 {
-  v31[6] = *MEMORY[0x1E69E9840];
-  v26 = MEMORY[0x1E695DF70];
+  v30[6] = *MEMORY[0x1E69E9840];
+  v25 = MEMORY[0x1E695DF70];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   predictionTargetUUID = [(HMUserActionPrediction *)self predictionTargetUUID];
   defaultFormatter = [MEMORY[0x1E69A2A48] defaultFormatter];
-  v28 = [v3 initWithName:@"predictionTargetUUID" value:predictionTargetUUID options:0 formatter:defaultFormatter];
-  v31[0] = v28;
+  v27 = [v3 initWithName:@"predictionTargetUUID" value:predictionTargetUUID options:0 formatter:defaultFormatter];
+  v30[0] = v27;
   v4 = objc_alloc(MEMORY[0x1E69A29C8]);
   targetServiceUUID = [(HMUserActionPrediction *)self targetServiceUUID];
   defaultFormatter2 = [MEMORY[0x1E69A2A48] defaultFormatter];
-  v24 = [v4 initWithName:@"targetServiceUUID" value:targetServiceUUID options:0 formatter:defaultFormatter2];
-  v31[1] = v24;
+  v23 = [v4 initWithName:@"targetServiceUUID" value:targetServiceUUID options:0 formatter:defaultFormatter2];
+  v30[1] = v23;
   v5 = objc_alloc(MEMORY[0x1E69A29C8]);
   targetGroupUUID = [(HMUserActionPrediction *)self targetGroupUUID];
   defaultFormatter3 = [MEMORY[0x1E69A2A48] defaultFormatter];
   v7 = [v5 initWithName:@"targetGroupUUID" value:targetGroupUUID options:0 formatter:defaultFormatter3];
-  v31[2] = v7;
+  v30[2] = v7;
   v8 = objc_alloc(MEMORY[0x1E69A29C8]);
   v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[HMUserActionPrediction predictionType](self, "predictionType")}];
   v10 = [v8 initWithName:@"predictionType" value:v9];
-  v31[3] = v10;
+  v30[3] = v10;
   v11 = objc_alloc(MEMORY[0x1E69A29C8]);
   v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[HMUserActionPrediction targetGroupType](self, "targetGroupType")}];
   v13 = [v11 initWithName:@"predictionGroupType" value:v12];
-  v31[4] = v13;
+  v30[4] = v13;
   v14 = objc_alloc(MEMORY[0x1E69A29C8]);
   v15 = MEMORY[0x1E696AD98];
   [(HMUserActionPrediction *)self predictionScore];
   v16 = [v15 numberWithDouble:?];
   v17 = [v14 initWithName:@"predictionScore" value:v16];
-  v31[5] = v17;
-  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:6];
-  v19 = [v26 arrayWithArray:v18];
+  v30[5] = v17;
+  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:6];
+  v19 = [v25 arrayWithArray:v18];
 
   v20 = [v19 copy];
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
@@ -148,31 +147,7 @@
     }
 
     v10 = v9;
-    if (!v10)
-    {
-      goto LABEL_16;
-    }
-
-    targetGroupUUID = [(HMUserActionPrediction *)self targetGroupUUID];
-    targetGroupUUID2 = [(HMUserActionPrediction *)v10 targetGroupUUID];
-    v13 = HMFEqualObjects();
-
-    if (v13)
-    {
-      targetGroupType = [(HMUserActionPrediction *)self targetGroupType];
-      v15 = targetGroupType == [(HMUserActionPrediction *)v10 targetGroupType];
-    }
-
-    else
-    {
-      v15 = 0;
-    }
-
-    predictionTargetUUID = [(HMUserActionPrediction *)self predictionTargetUUID];
-    predictionTargetUUID2 = [(HMUserActionPrediction *)v10 predictionTargetUUID];
-    v19 = HMFEqualObjects();
-
-    if (v19)
+    if (v10 && (([(HMUserActionPrediction *)self targetGroupUUID], v11 = objc_claimAutoreleasedReturnValue(), [(HMUserActionPrediction *)v10 targetGroupUUID], v12 = objc_claimAutoreleasedReturnValue(), v13 = HMFEqualObjects(), v12, v11, !v13) ? (v15 = 0) : (v14 = [(HMUserActionPrediction *)self targetGroupType], v15 = v14 == [(HMUserActionPrediction *)v10 targetGroupType]), [(HMUserActionPrediction *)self predictionTargetUUID], v17 = objc_claimAutoreleasedReturnValue(), [(HMUserActionPrediction *)v10 predictionTargetUUID], v18 = objc_claimAutoreleasedReturnValue(), v19 = HMFEqualObjects(), v18, v17, v19))
     {
       targetServiceUUID = [(HMUserActionPrediction *)self targetServiceUUID];
       targetServiceUUID2 = [(HMUserActionPrediction *)v10 targetServiceUUID];
@@ -199,7 +174,6 @@
 
     else
     {
-LABEL_16:
       v16 = 0;
     }
   }
@@ -263,12 +237,11 @@ LABEL_16:
 
 uint64_t __37__HMUserActionPrediction_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2;
-  logCategory__hmf_once_v2 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2;
+  logCategory__hmf_once_v2 = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)shortDescription

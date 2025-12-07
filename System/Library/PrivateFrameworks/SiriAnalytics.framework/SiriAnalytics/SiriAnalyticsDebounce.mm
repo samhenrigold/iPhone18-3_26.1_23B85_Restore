@@ -55,7 +55,7 @@ void __31__SiriAnalyticsDebounce__pulse__block_invoke_2(uint64_t a1)
 
 - (void)_timedOut
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (SiriAnalyticsLoggingInit_once != -1)
   {
     dispatch_once(&SiriAnalyticsLoggingInit_once, &__block_literal_global_701);
@@ -64,21 +64,19 @@ void __31__SiriAnalyticsDebounce__pulse__block_invoke_2(uint64_t a1)
   v3 = SiriAnalyticsLogContextTime;
   if (os_log_type_enabled(SiriAnalyticsLogContextTime, OS_LOG_TYPE_DEBUG))
   {
-    v6 = 136315138;
-    v7 = "[SiriAnalyticsDebounce _timedOut]";
-    _os_log_debug_impl(&dword_1D9863000, v3, OS_LOG_TYPE_DEBUG, "%s ", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[SiriAnalyticsDebounce _timedOut]";
+    _os_log_debug_impl(&dword_1D9863000, v3, OS_LOG_TYPE_DEBUG, "%s ", &v5, 0xCu);
   }
 
   [(SiriAnalyticsDebounce *)self _reset];
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained debounceFired:self maximumReached:1];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_reset
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (SiriAnalyticsLoggingInit_once != -1)
   {
     dispatch_once(&SiriAnalyticsLoggingInit_once, &__block_literal_global_701);
@@ -87,9 +85,9 @@ void __31__SiriAnalyticsDebounce__pulse__block_invoke_2(uint64_t a1)
   v3 = SiriAnalyticsLogContextTime;
   if (os_log_type_enabled(SiriAnalyticsLogContextTime, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 136315138;
-    v10 = "[SiriAnalyticsDebounce _reset]";
-    _os_log_debug_impl(&dword_1D9863000, v3, OS_LOG_TYPE_DEBUG, "%s ", &v9, 0xCu);
+    v8 = 136315138;
+    v9 = "[SiriAnalyticsDebounce _reset]";
+    _os_log_debug_impl(&dword_1D9863000, v3, OS_LOG_TYPE_DEBUG, "%s ", &v8, 0xCu);
   }
 
   debounceTimer = self->_debounceTimer;
@@ -107,8 +105,6 @@ void __31__SiriAnalyticsDebounce__pulse__block_invoke_2(uint64_t a1)
     v7 = self->_maximumTimer;
     self->_maximumTimer = 0;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __31__SiriAnalyticsDebounce__pulse__block_invoke(uint64_t a1)
@@ -119,7 +115,7 @@ void __31__SiriAnalyticsDebounce__pulse__block_invoke(uint64_t a1)
 
 - (void)_debounceFired
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (SiriAnalyticsLoggingInit_once != -1)
   {
     dispatch_once(&SiriAnalyticsLoggingInit_once, &__block_literal_global_701);
@@ -128,16 +124,14 @@ void __31__SiriAnalyticsDebounce__pulse__block_invoke(uint64_t a1)
   v3 = SiriAnalyticsLogContextTime;
   if (os_log_type_enabled(SiriAnalyticsLogContextTime, OS_LOG_TYPE_DEBUG))
   {
-    v6 = 136315138;
-    v7 = "[SiriAnalyticsDebounce _debounceFired]";
-    _os_log_debug_impl(&dword_1D9863000, v3, OS_LOG_TYPE_DEBUG, "%s ", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[SiriAnalyticsDebounce _debounceFired]";
+    _os_log_debug_impl(&dword_1D9863000, v3, OS_LOG_TYPE_DEBUG, "%s ", &v5, 0xCu);
   }
 
   [(SiriAnalyticsDebounce *)self _reset];
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained debounceFired:self maximumReached:0];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pulse

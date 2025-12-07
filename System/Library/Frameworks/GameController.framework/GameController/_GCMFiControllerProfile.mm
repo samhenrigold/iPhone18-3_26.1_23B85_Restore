@@ -36,7 +36,7 @@
 
 + (BOOL)match:(id)match
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   matchCopy = match;
   v4 = objc_getAssociatedObject(matchCopy, "MFiControllerCapabilities");
   if (v4)
@@ -46,27 +46,27 @@ LABEL_4:
     isExtendedGamepad = [(_GCMFiControllerCapabilites *)v5 isExtendedGamepad];
     isStandardGamepad = [(_GCMFiControllerCapabilites *)v5 isStandardGamepad];
     v8 = isStandardGamepad;
-    if ((isExtendedGamepad & 1) == 0 && !isStandardGamepad)
+    if (!isExtendedGamepad && !isStandardGamepad)
     {
       goto LABEL_6;
     }
 
     v10 = [matchCopy numberPropertyForKey:@"Authenticated"];
-    if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (-[NSObject BOOLValue](v10, "BOOLValue") & 1) != 0 || (isDeviceParentAuthenticated([matchCopy service]) & 1) != 0)
+    if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (-[NSObject BOOLValue](v10, "BOOLValue") & 1) != 0 || (v11 = isDeviceParentAuthenticated([matchCopy service]), (v11 & 1) != 0))
     {
-      v11 = 1;
+      v13 = 1;
     }
 
     else
     {
-      v12 = GCBypassMFiAuthentication();
-      v13 = [matchCopy stringPropertyForKey:@"Product"];
-      isInternalBuild = gc_isInternalBuild();
-      if (!v12)
+      v14 = GCBypassMFiAuthentication(v11, v12);
+      v15 = [matchCopy stringPropertyForKey:@"Product"];
+      isInternalBuild = gc_isInternalBuild(v15, v16);
+      if (!v14)
       {
         if (isInternalBuild)
         {
-          [(_GCMFiControllerProfile *)v13 match:matchCopy];
+          [(_GCMFiControllerProfile *)v15 match:matchCopy];
         }
 
         v9 = 0;
@@ -75,60 +75,61 @@ LABEL_4:
 
       if (isInternalBuild)
       {
-        [(_GCMFiControllerProfile *)v13 match:matchCopy];
+        [(_GCMFiControllerProfile *)v15 match:matchCopy];
       }
 
-      v11 = 0;
+      v13 = 0;
     }
 
     objc_setAssociatedObject(matchCopy, "MFiControllerCapabilities", v5, 0x301);
-    if (!gc_isInternalBuild())
+    v20 = gc_isInternalBuild(v18, v19);
+    if (!v20)
     {
       v9 = 1;
       goto LABEL_22;
     }
 
-    v10 = getGCLogger();
+    v10 = getGCLogger(v20);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      if (v11)
+      if (v13)
       {
-        v17 = " authenticated";
+        v22 = " authenticated";
       }
 
       else
       {
-        v17 = "";
+        v22 = "";
       }
 
-      v18 = " ?";
+      v23 = " ?";
       if (v8)
       {
-        v18 = " standard";
+        v23 = " standard";
       }
 
       if (isExtendedGamepad)
       {
-        v19 = " extended";
+        v24 = " extended";
       }
 
       else
       {
-        v19 = v18;
+        v24 = v23;
       }
 
       name = [matchCopy name];
-      v21 = 136316162;
-      v22 = v17;
-      v23 = 2080;
-      v24 = v19;
-      v25 = 2112;
-      v26 = matchCopy;
-      v27 = 2112;
-      v28 = name;
-      v29 = 2114;
-      v30 = v5;
-      _os_log_impl(&dword_1D2CD5000, v10, OS_LOG_TYPE_DEFAULT, "Matched%s%s MFi game controller %@ '%@' %{public}@", &v21, 0x34u);
+      v26 = 136316162;
+      v27 = v22;
+      v28 = 2080;
+      v29 = v24;
+      v30 = 2112;
+      v31 = matchCopy;
+      v32 = 2112;
+      v33 = name;
+      v34 = 2114;
+      v35 = v5;
+      _os_log_impl(&dword_1D2CD5000, v10, OS_LOG_TYPE_DEFAULT, "Matched%s%s MFi game controller %@ '%@' %{public}@", &v26, 0x34u);
     }
 
     v9 = 1;
@@ -147,7 +148,6 @@ LABEL_6:
   v9 = 0;
 LABEL_22:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -193,9 +193,9 @@ LABEL_22:
   deviceCopy = device;
   v8 = [[GCMotion alloc] initWithIdentifier:identifierCopy];
 
-  underlyingDevice = [deviceCopy underlyingDevice];
+  v9 = objc_msgSend_underlyingDevice(deviceCopy);
 
-  serviceInfo = [underlyingDevice serviceInfo];
+  serviceInfo = [v9 serviceInfo];
   -[GCMotion _setHasRotationRate:](v8, "_setHasRotationRate:", [self determineGyroSupportWithServiceInfo:serviceInfo]);
 
   [(GCMotion *)v8 _setHasAttitude:0];
@@ -221,39 +221,39 @@ LABEL_22:
   info->var0[20].var1 = 0;
   info->var0[21].var1 = 0;
   info->var0[0].var2 = 1;
-  underlyingDevice = [device underlyingDevice];
-  serviceInfo = [underlyingDevice serviceInfo];
+  v6 = objc_msgSend_underlyingDevice(device, a2);
+  serviceInfo = [v6 serviceInfo];
   [_GCMFiControllerProfile determineCapabilitiesWithServiceInfo:serviceInfo initInfo:info];
 }
 
 + (void)determineCapabilitiesWithServiceInfo:(id)info initInfo:(id *)initInfo
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   service = [info service];
   v5 = IOHIDServiceClientCopyProperty(service, @"GameControllerPointer");
   if (v5)
   {
     obj = service;
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
     v6 = CFDictionaryGetValue(v5, @"Elements");
-    v7 = [v6 countByEnumeratingWithState:&v40 objects:v45 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v39 objects:v44 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v41;
+      v9 = *v40;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v41 != v9)
+          if (*v40 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v40 + 1) + 8 * i);
+          v11 = *(*(&v39 + 1) + 8 * i);
           v12 = [v11 objectForKeyedSubscript:{@"UsagePage", obj}];
           intValue = [v12 intValue];
 
@@ -275,7 +275,7 @@ LABEL_22:
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v40 objects:v45 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v39 objects:v44 count:16];
       }
 
       while (v8);
@@ -287,26 +287,26 @@ LABEL_22:
   v20 = IOHIDServiceClientCopyProperty(service, @"Keyboard");
   if (v20)
   {
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
     obja = CFDictionaryGetValue(v20, @"Elements");
-    v21 = [obja countByEnumeratingWithState:&v36 objects:v44 count:16];
+    v21 = [obja countByEnumeratingWithState:&v35 objects:v43 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v37;
+      v23 = *v36;
       do
       {
         for (j = 0; j != v22; ++j)
         {
-          if (*v37 != v23)
+          if (*v36 != v23)
           {
             objc_enumerationMutation(obja);
           }
 
-          v25 = *(*(&v36 + 1) + 8 * j);
+          v25 = *(*(&v35 + 1) + 8 * j);
           v26 = [v25 objectForKeyedSubscript:@"UsagePage"];
           intValue3 = [v26 intValue];
 
@@ -350,14 +350,12 @@ LABEL_22:
           }
         }
 
-        v22 = [obja countByEnumeratingWithState:&v36 objects:v44 count:16];
+        v22 = [obja countByEnumeratingWithState:&v35 objects:v43 count:16];
       }
 
       while (v22);
     }
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)determineAccelerometerSupportWithServiceInfo:(id)info
@@ -418,8 +416,8 @@ LABEL_22:
 
 + (BOOL)logicalDevice:(id)device getSystemButtonName:(id *)name sfSymbolName:(id *)symbolName needsMFiCompatibility:(BOOL *)compatibility
 {
-  underlyingDevice = [device underlyingDevice];
-  serviceInfo = [underlyingDevice serviceInfo];
+  v8 = objc_msgSend_underlyingDevice(device, a2);
+  serviceInfo = [v8 serviceInfo];
   mfiControllerCapabilities = [(GCHIDServiceInfo *)serviceInfo mfiControllerCapabilities];
 
   home = [(_GCMFiControllerCapabilites *)mfiControllerCapabilities home];
@@ -436,11 +434,11 @@ LABEL_22:
 {
   identifierCopy = identifier;
   bindingsCopy = bindings;
-  underlyingDevice = [device underlyingDevice];
-  serviceInfo = [underlyingDevice serviceInfo];
+  v10 = objc_msgSend_underlyingDevice(device);
+  serviceInfo = [v10 serviceInfo];
   mfiControllerCapabilities = [(GCHIDServiceInfo *)serviceInfo mfiControllerCapabilities];
 
-  if (([(_GCMFiControllerCapabilites *)mfiControllerCapabilities isExtendedGamepad]& 1) != 0)
+  if ([(_GCMFiControllerCapabilites *)mfiControllerCapabilities isExtendedGamepad])
   {
     v13 = 0;
     goto LABEL_53;
@@ -739,11 +737,11 @@ LABEL_53:
 
 + (id)logicalDevice:(id)device makeControllerInputDescriptionWithIdentifier:(id)identifier bindings:(id)bindings
 {
-  v88[1] = *MEMORY[0x1E69E9840];
+  v80[1] = *MEMORY[0x1E69E9840];
   bindingsCopy = bindings;
   identifierCopy = identifier;
-  underlyingDevice = [device underlyingDevice];
-  serviceInfo = [underlyingDevice serviceInfo];
+  v66 = objc_msgSend_underlyingDevice(device);
+  serviceInfo = [v66 serviceInfo];
   mfiControllerCapabilities = [(GCHIDServiceInfo *)serviceInfo mfiControllerCapabilities];
 
   v11 = objc_opt_new();
@@ -1046,8 +1044,8 @@ LABEL_7:
       localizedName = [OUTLINED_FUNCTION_11_4() localizedName];
       symbol = [0x1E69A0000 symbol];
       v37 = [v34 sourceWithElementAliases:0x1E69A0000uLL localizedName:localizedName symbol:symbol direction:10];
-      v88[0] = v37;
-      [MEMORY[0x1E695DEC8] arrayWithObjects:v88 count:1];
+      v80[0] = v37;
+      [MEMORY[0x1E695DEC8] arrayWithObjects:v80 count:1];
       objc_claimAutoreleasedReturnValue();
       [OUTLINED_FUNCTION_15_1() setXSources:?];
 
@@ -1058,8 +1056,8 @@ LABEL_7:
       [OUTLINED_FUNCTION_12_4() symbol];
       objc_claimAutoreleasedReturnValue();
       v38 = [OUTLINED_FUNCTION_0_22() sourceWithElementAliases:? localizedName:? symbol:? direction:?];
-      v87 = v38;
-      [MEMORY[0x1E695DEC8] arrayWithObjects:&v87 count:1];
+      v79 = v38;
+      [MEMORY[0x1E695DEC8] arrayWithObjects:&v79 count:1];
       objc_claimAutoreleasedReturnValue();
       [OUTLINED_FUNCTION_5_7() setYSources:?];
 
@@ -1070,8 +1068,8 @@ LABEL_7:
       [OUTLINED_FUNCTION_12_4() symbol];
       objc_claimAutoreleasedReturnValue();
       v39 = [OUTLINED_FUNCTION_0_22() sourceWithElementAliases:? localizedName:? symbol:? direction:?];
-      v86 = v39;
-      [MEMORY[0x1E695DEC8] arrayWithObjects:&v86 count:1];
+      v78 = v39;
+      [MEMORY[0x1E695DEC8] arrayWithObjects:&v78 count:1];
       objc_claimAutoreleasedReturnValue();
       [OUTLINED_FUNCTION_5_7() setUpSources:?];
 
@@ -1082,8 +1080,8 @@ LABEL_7:
       [OUTLINED_FUNCTION_12_4() symbol];
       objc_claimAutoreleasedReturnValue();
       v40 = [OUTLINED_FUNCTION_0_22() sourceWithElementAliases:? localizedName:? symbol:? direction:?];
-      v85 = v40;
-      [MEMORY[0x1E695DEC8] arrayWithObjects:&v85 count:1];
+      v77 = v40;
+      [MEMORY[0x1E695DEC8] arrayWithObjects:&v77 count:1];
       objc_claimAutoreleasedReturnValue();
       [OUTLINED_FUNCTION_5_7() setRightSources:?];
 
@@ -1094,8 +1092,8 @@ LABEL_7:
       [OUTLINED_FUNCTION_12_4() symbol];
       objc_claimAutoreleasedReturnValue();
       v41 = [OUTLINED_FUNCTION_0_22() sourceWithElementAliases:? localizedName:? symbol:? direction:?];
-      v84 = v41;
-      [MEMORY[0x1E695DEC8] arrayWithObjects:&v84 count:1];
+      v76 = v41;
+      [MEMORY[0x1E695DEC8] arrayWithObjects:&v76 count:1];
       objc_claimAutoreleasedReturnValue();
       [OUTLINED_FUNCTION_5_7() setDownSources:?];
 
@@ -1106,8 +1104,8 @@ LABEL_7:
       [OUTLINED_FUNCTION_12_4() symbol];
       objc_claimAutoreleasedReturnValue();
       v43 = [OUTLINED_FUNCTION_14_1() sourceWithElementAliases:? localizedName:? symbol:? direction:?];
-      v83 = v43;
-      [MEMORY[0x1E695DEC8] arrayWithObjects:&v83 count:1];
+      v75 = v43;
+      [MEMORY[0x1E695DEC8] arrayWithObjects:&v75 count:1];
       objc_claimAutoreleasedReturnValue();
       [OUTLINED_FUNCTION_11_4() setLeftSources:0x1E69A0000uLL];
 
@@ -1117,8 +1115,8 @@ LABEL_7:
       [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"l.joystick.press.down"];
       objc_claimAutoreleasedReturnValue();
       v15 = [OUTLINED_FUNCTION_16_0() sourceWithElementAliases:? localizedName:? symbol:?];
-      v82 = v15;
-      [MEMORY[0x1E695DEC8] arrayWithObjects:&v82 count:1];
+      v74 = v15;
+      [MEMORY[0x1E695DEC8] arrayWithObjects:&v74 count:1];
       objc_claimAutoreleasedReturnValue();
       [OUTLINED_FUNCTION_15_1() setPressedSources:?];
 
@@ -1172,20 +1170,42 @@ LABEL_7:
       [0x1E69A0000 setEventLeftValueField:16];
       [0x1E69A0000 setEventRightValueField:17];
       [0x1E69A0000 setEventPressedValueField:21];
-      v46 = *(v33 + 1720);
       [*(v20 + 4056) setWithObject:@"Right Thumbstick"];
       objc_claimAutoreleasedReturnValue();
       [OUTLINED_FUNCTION_11_4() localizedName];
       objc_claimAutoreleasedReturnValue();
       [OUTLINED_FUNCTION_12_4() symbol];
       objc_claimAutoreleasedReturnValue();
-      v47 = [OUTLINED_FUNCTION_0_22() sourceWithElementAliases:? localizedName:? symbol:? direction:?];
-      v81 = v47;
-      [MEMORY[0x1E695DEC8] arrayWithObjects:&v81 count:1];
+      v46 = [OUTLINED_FUNCTION_0_22() sourceWithElementAliases:? localizedName:? symbol:? direction:?];
+      v73 = v46;
+      [MEMORY[0x1E695DEC8] arrayWithObjects:&v73 count:1];
       objc_claimAutoreleasedReturnValue();
       [OUTLINED_FUNCTION_5_7() setXSources:?];
 
-      v48 = *(v33 + 1720);
+      [MEMORY[0x1E695DFD8] setWithObject:@"Right Thumbstick"];
+      objc_claimAutoreleasedReturnValue();
+      [OUTLINED_FUNCTION_11_4() localizedName];
+      objc_claimAutoreleasedReturnValue();
+      [OUTLINED_FUNCTION_12_4() symbol];
+      objc_claimAutoreleasedReturnValue();
+      v47 = [OUTLINED_FUNCTION_0_22() sourceWithElementAliases:? localizedName:? symbol:? direction:?];
+      v72 = v47;
+      [MEMORY[0x1E695DEC8] arrayWithObjects:&v72 count:1];
+      objc_claimAutoreleasedReturnValue();
+      [OUTLINED_FUNCTION_5_7() setYSources:?];
+
+      [MEMORY[0x1E695DFD8] setWithObject:@"Right Thumbstick"];
+      objc_claimAutoreleasedReturnValue();
+      [OUTLINED_FUNCTION_11_4() localizedName];
+      objc_claimAutoreleasedReturnValue();
+      [OUTLINED_FUNCTION_12_4() symbol];
+      objc_claimAutoreleasedReturnValue();
+      v48 = [OUTLINED_FUNCTION_0_22() sourceWithElementAliases:? localizedName:? symbol:? direction:?];
+      v71 = v48;
+      [MEMORY[0x1E695DEC8] arrayWithObjects:&v71 count:1];
+      objc_claimAutoreleasedReturnValue();
+      [OUTLINED_FUNCTION_5_7() setUpSources:?];
+
       [MEMORY[0x1E695DFD8] setWithObject:@"Right Thumbstick"];
       objc_claimAutoreleasedReturnValue();
       [OUTLINED_FUNCTION_11_4() localizedName];
@@ -1193,72 +1213,43 @@ LABEL_7:
       [OUTLINED_FUNCTION_12_4() symbol];
       objc_claimAutoreleasedReturnValue();
       v49 = [OUTLINED_FUNCTION_0_22() sourceWithElementAliases:? localizedName:? symbol:? direction:?];
-      v80 = v49;
-      [MEMORY[0x1E695DEC8] arrayWithObjects:&v80 count:1];
-      objc_claimAutoreleasedReturnValue();
-      [OUTLINED_FUNCTION_5_7() setYSources:?];
-
-      v50 = *(v33 + 1720);
-      [MEMORY[0x1E695DFD8] setWithObject:@"Right Thumbstick"];
-      objc_claimAutoreleasedReturnValue();
-      [OUTLINED_FUNCTION_11_4() localizedName];
-      objc_claimAutoreleasedReturnValue();
-      [OUTLINED_FUNCTION_12_4() symbol];
-      objc_claimAutoreleasedReturnValue();
-      v51 = [OUTLINED_FUNCTION_0_22() sourceWithElementAliases:? localizedName:? symbol:? direction:?];
-      v79 = v51;
-      [MEMORY[0x1E695DEC8] arrayWithObjects:&v79 count:1];
-      objc_claimAutoreleasedReturnValue();
-      [OUTLINED_FUNCTION_5_7() setUpSources:?];
-
-      v52 = *(v33 + 1720);
-      [MEMORY[0x1E695DFD8] setWithObject:@"Right Thumbstick"];
-      objc_claimAutoreleasedReturnValue();
-      [OUTLINED_FUNCTION_11_4() localizedName];
-      objc_claimAutoreleasedReturnValue();
-      [OUTLINED_FUNCTION_12_4() symbol];
-      objc_claimAutoreleasedReturnValue();
-      v53 = [OUTLINED_FUNCTION_0_22() sourceWithElementAliases:? localizedName:? symbol:? direction:?];
-      v78 = v53;
-      [MEMORY[0x1E695DEC8] arrayWithObjects:&v78 count:1];
+      v70 = v49;
+      [MEMORY[0x1E695DEC8] arrayWithObjects:&v70 count:1];
       objc_claimAutoreleasedReturnValue();
       [OUTLINED_FUNCTION_5_7() setRightSources:?];
 
-      v54 = *(v33 + 1720);
       [MEMORY[0x1E695DFD8] setWithObject:@"Right Thumbstick"];
       objc_claimAutoreleasedReturnValue();
       [OUTLINED_FUNCTION_11_4() localizedName];
       objc_claimAutoreleasedReturnValue();
       [OUTLINED_FUNCTION_12_4() symbol];
       objc_claimAutoreleasedReturnValue();
-      v55 = [OUTLINED_FUNCTION_0_22() sourceWithElementAliases:? localizedName:? symbol:? direction:?];
-      v77 = v55;
-      [MEMORY[0x1E695DEC8] arrayWithObjects:&v77 count:1];
+      v50 = [OUTLINED_FUNCTION_0_22() sourceWithElementAliases:? localizedName:? symbol:? direction:?];
+      v69 = v50;
+      [MEMORY[0x1E695DEC8] arrayWithObjects:&v69 count:1];
       objc_claimAutoreleasedReturnValue();
       [OUTLINED_FUNCTION_5_7() setDownSources:?];
 
       v13 = 0x1E69A0000;
-      v56 = *(v33 + 1720);
-      v57 = [MEMORY[0x1E695DFD8] setWithObject:@"Right Thumbstick"];
+      v51 = [MEMORY[0x1E695DFD8] setWithObject:@"Right Thumbstick"];
       [0x1E69A0000 localizedName];
       objc_claimAutoreleasedReturnValue();
       [OUTLINED_FUNCTION_12_4() symbol];
       objc_claimAutoreleasedReturnValue();
-      v58 = [OUTLINED_FUNCTION_14_1() sourceWithElementAliases:? localizedName:? symbol:? direction:?];
-      v76 = v58;
-      [MEMORY[0x1E695DEC8] arrayWithObjects:&v76 count:1];
+      v52 = [OUTLINED_FUNCTION_14_1() sourceWithElementAliases:? localizedName:? symbol:? direction:?];
+      v68 = v52;
+      [MEMORY[0x1E695DEC8] arrayWithObjects:&v68 count:1];
       objc_claimAutoreleasedReturnValue();
       [OUTLINED_FUNCTION_11_4() setLeftSources:v30];
 
       v14 = 0x1E69A0000uLL;
-      v59 = *(v33 + 1720);
-      v60 = [MEMORY[0x1E695DFD8] setWithObject:@"Right Thumbstick Button"];
-      v61 = *MEMORY[0x1E69A0398];
+      v53 = [MEMORY[0x1E695DFD8] setWithObject:@"Right Thumbstick Button"];
+      v54 = *MEMORY[0x1E69A0398];
       [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"r.joystick.press.down"];
       objc_claimAutoreleasedReturnValue();
       v15 = [OUTLINED_FUNCTION_16_0() sourceWithElementAliases:? localizedName:? symbol:?];
-      v75 = v15;
-      [MEMORY[0x1E695DEC8] arrayWithObjects:&v75 count:1];
+      v67 = v15;
+      [MEMORY[0x1E695DEC8] arrayWithObjects:&v67 count:1];
       objc_claimAutoreleasedReturnValue();
       [OUTLINED_FUNCTION_15_1() setPressedSources:?];
     }
@@ -1299,8 +1290,8 @@ LABEL_7:
     objc_claimAutoreleasedReturnValue();
     [OUTLINED_FUNCTION_4_7() setSymbol:?];
 
-    v62 = [(_GCMFiControllerCapabilites *)mfiControllerCapabilities l4];
-    OUTLINED_FUNCTION_7_4(v62);
+    v55 = [(_GCMFiControllerCapabilites *)mfiControllerCapabilities l4];
+    OUTLINED_FUNCTION_7_4(v55);
     [0x1E69A0000 setEventPressedValueField:41];
     OUTLINED_FUNCTION_13_1();
   }
@@ -1318,8 +1309,8 @@ LABEL_7:
     objc_claimAutoreleasedReturnValue();
     [OUTLINED_FUNCTION_4_7() setSymbol:?];
 
-    v63 = [(_GCMFiControllerCapabilites *)mfiControllerCapabilities r4];
-    OUTLINED_FUNCTION_7_4(v63);
+    v56 = [(_GCMFiControllerCapabilites *)mfiControllerCapabilities r4];
+    OUTLINED_FUNCTION_7_4(v56);
     [0x1E69A0000 setEventPressedValueField:42];
     OUTLINED_FUNCTION_13_1();
   }
@@ -1337,8 +1328,8 @@ LABEL_7:
     objc_claimAutoreleasedReturnValue();
     [OUTLINED_FUNCTION_4_7() setSymbol:?];
 
-    v64 = [(_GCMFiControllerCapabilites *)mfiControllerCapabilities m1];
-    OUTLINED_FUNCTION_7_4(v64);
+    v57 = [(_GCMFiControllerCapabilites *)mfiControllerCapabilities m1];
+    OUTLINED_FUNCTION_7_4(v57);
     [0x1E69A0000 setEventPressedValueField:45];
     OUTLINED_FUNCTION_13_1();
   }
@@ -1356,8 +1347,8 @@ LABEL_7:
     objc_claimAutoreleasedReturnValue();
     [OUTLINED_FUNCTION_4_7() setSymbol:?];
 
-    v65 = [(_GCMFiControllerCapabilites *)mfiControllerCapabilities m2];
-    OUTLINED_FUNCTION_7_4(v65);
+    v58 = [(_GCMFiControllerCapabilites *)mfiControllerCapabilities m2];
+    OUTLINED_FUNCTION_7_4(v58);
     [0x1E69A0000 setEventPressedValueField:43];
     OUTLINED_FUNCTION_13_1();
   }
@@ -1375,8 +1366,8 @@ LABEL_7:
     objc_claimAutoreleasedReturnValue();
     [OUTLINED_FUNCTION_4_7() setSymbol:?];
 
-    v66 = [(_GCMFiControllerCapabilites *)mfiControllerCapabilities m3];
-    OUTLINED_FUNCTION_7_4(v66);
+    v59 = [(_GCMFiControllerCapabilites *)mfiControllerCapabilities m3];
+    OUTLINED_FUNCTION_7_4(v59);
     [0x1E69A0000 setEventPressedValueField:46];
     OUTLINED_FUNCTION_13_1();
   }
@@ -1394,25 +1385,22 @@ LABEL_7:
     objc_claimAutoreleasedReturnValue();
     [OUTLINED_FUNCTION_4_7() setSymbol:?];
 
-    v67 = [(_GCMFiControllerCapabilites *)mfiControllerCapabilities m4];
-    OUTLINED_FUNCTION_7_4(v67);
+    v60 = [(_GCMFiControllerCapabilites *)mfiControllerCapabilities m4];
+    OUTLINED_FUNCTION_7_4(v60);
     [0x1E69A0000 setEventPressedValueField:44];
     OUTLINED_FUNCTION_13_1();
   }
 
-  v68 = objc_opt_new();
-  [v68 setElements:v11];
-  v69 = [[_GCControllerInputComponentDescription alloc] initWithIdentifier:identifierCopy controllerInputs:v68 bindings:bindingsCopy];
+  v61 = objc_opt_new();
+  [v61 setElements:v11];
+  v62 = [[_GCControllerInputComponentDescription alloc] initWithIdentifier:identifierCopy controllerInputs:v61 bindings:bindingsCopy];
 
-  v70 = *MEMORY[0x1E69E9840];
-
-  return v69;
+  return v62;
 }
 
 + (void)match:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v4 = getGCLogger();
+  v4 = getGCLogger(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v11 = a1;
@@ -1421,19 +1409,18 @@ LABEL_7:
       v11 = [a2 registryID];
     }
 
-    OUTLINED_FUNCTION_0_14(&dword_1D2CD5000, v5, v6, "Service is NOT MFi authenticated: %@", v7, v8, v9, v10, 2u);
+    LODWORD(v12) = 138412290;
+    HIDWORD(v12) = v11;
+    OUTLINED_FUNCTION_0_14(&dword_1D2CD5000, v5, v6, "Service is NOT MFi authenticated: %@", v7, v8, v9, v10, v12, HIDWORD(v11));
     if (!a1)
     {
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (void)match:(void *)a1 .cold.2(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v4 = getGCLogger();
+  v4 = getGCLogger(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v11 = a1;
@@ -1442,13 +1429,13 @@ LABEL_7:
       v11 = [a2 registryID];
     }
 
-    OUTLINED_FUNCTION_0_14(&dword_1D2CD5000, v5, v6, "Service MFi authenticated bypassed for: %@", v7, v8, v9, v10, 2u);
+    LODWORD(v12) = 138412290;
+    HIDWORD(v12) = v11;
+    OUTLINED_FUNCTION_0_14(&dword_1D2CD5000, v5, v6, "Service MFi authenticated bypassed for: %@", v7, v8, v9, v10, v12, HIDWORD(v11));
     if (!a1)
     {
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

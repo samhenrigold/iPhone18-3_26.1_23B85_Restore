@@ -47,14 +47,14 @@
 
 - (void)handleRuntimeError:(id)error
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   errorCopy = error;
-  v5 = nph_general_log();
+  v5 = nph_general_log(errorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     userInfo = [errorCopy userInfo];
     *buf = 138412290;
-    v10 = userInfo;
+    v9 = userInfo;
     _os_log_impl(&dword_243333000, v5, OS_LOG_TYPE_DEFAULT, "########### Capture failed because of runtime error (%@)", buf, 0xCu);
   }
 
@@ -64,8 +64,6 @@
   block[3] = &unk_278DAC7B0;
   block[4] = self;
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __58__NPHCellularBridgeBarcodeScannerView_handleRuntimeError___block_invoke(uint64_t a1)
@@ -108,45 +106,46 @@ void __58__NPHCellularBridgeBarcodeScannerView_handleRuntimeError___block_invoke
 
   [(AVCaptureSession *)captureSession beginConfiguration];
   v6 = *MEMORY[0x277CE5988];
-  if ([(AVCaptureSession *)self->_captureSession canSetSessionPreset:*MEMORY[0x277CE5988]])
+  v7 = [(AVCaptureSession *)self->_captureSession canSetSessionPreset:*MEMORY[0x277CE5988]];
+  if (v7)
   {
     [(AVCaptureSession *)self->_captureSession setSessionPreset:v6];
-    v7 = [MEMORY[0x277CE5AC8] defaultDeviceWithMediaType:*MEMORY[0x277CE5EA8]];
-    v8 = v7;
-    if (v7)
+    v8 = [MEMORY[0x277CE5AC8] defaultDeviceWithMediaType:*MEMORY[0x277CE5EA8]];
+    v9 = v8;
+    if (v8)
     {
-      if ([v7 position] != 2)
+      if ([v8 position] != 2)
       {
-        v20 = 0;
-        v12 = [objc_alloc(MEMORY[0x277CE5AD8]) initWithDevice:v8 error:&v20];
-        v9 = v20;
+        v22 = 0;
+        v13 = [objc_alloc(MEMORY[0x277CE5AD8]) initWithDevice:v9 error:&v22];
+        v10 = v22;
         deviceInput = self->_deviceInput;
-        self->_deviceInput = v12;
+        self->_deviceInput = v13;
 
-        if (v9)
+        if (v10)
         {
-          v14 = nph_general_log();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          v16 = nph_general_log(v15);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_243333000, v14, OS_LOG_TYPE_DEFAULT, "failed to get input device", buf, 2u);
+            _os_log_impl(&dword_243333000, v16, OS_LOG_TYPE_DEFAULT, "failed to get input device", buf, 2u);
           }
         }
 
         else
         {
           [(AVCaptureSession *)self->_captureSession addInput:self->_deviceInput];
-          v15 = dispatch_queue_create("com.apple.CellularBridgeUI.captureSession", 0);
+          v17 = dispatch_queue_create("com.apple.CellularBridgeUI.captureSession", 0);
           metadataQueue = self->_metadataQueue;
-          self->_metadataQueue = v15;
+          self->_metadataQueue = v17;
 
-          v9 = objc_alloc_init(MEMORY[0x277CE5B00]);
-          [(AVCaptureSession *)self->_captureSession addOutput:v9];
-          [v9 setMetadataObjectTypes:&unk_285615148];
-          [v9 setMetadataObjectsDelegate:self->_delegate queue:self->_metadataQueue];
-          v17 = [objc_alloc(MEMORY[0x277CE5B68]) initWithSession:self->_captureSession];
+          v10 = objc_alloc_init(MEMORY[0x277CE5B00]);
+          [(AVCaptureSession *)self->_captureSession addOutput:v10];
+          [v10 setMetadataObjectTypes:&unk_285615148];
+          [v10 setMetadataObjectsDelegate:self->_delegate queue:self->_metadataQueue];
+          v19 = [objc_alloc(MEMORY[0x277CE5B68]) initWithSession:self->_captureSession];
           previewLayer = self->_previewLayer;
-          self->_previewLayer = v17;
+          self->_previewLayer = v19;
 
           [(AVCaptureVideoPreviewLayer *)self->_previewLayer setVideoGravity:*MEMORY[0x277CE5DD8]];
           layer = [(NPHCellularBridgeBarcodeScannerView *)self layer];
@@ -160,23 +159,23 @@ void __58__NPHCellularBridgeBarcodeScannerView_handleRuntimeError___block_invoke
         goto LABEL_19;
       }
 
-      v9 = nph_general_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = nph_general_log(2);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v10 = "could only get front camera";
+        v11 = "could only get front camera";
 LABEL_13:
-        _os_log_impl(&dword_243333000, v9, OS_LOG_TYPE_DEFAULT, v10, buf, 2u);
+        _os_log_impl(&dword_243333000, v10, OS_LOG_TYPE_DEFAULT, v11, buf, 2u);
       }
     }
 
     else
     {
-      v9 = nph_general_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = nph_general_log(0);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v10 = "failed to get camera";
+        v11 = "failed to get camera";
         goto LABEL_13;
       }
     }
@@ -186,11 +185,11 @@ LABEL_19:
     return;
   }
 
-  v11 = nph_general_log();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = nph_general_log(v7);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_243333000, v11, OS_LOG_TYPE_DEFAULT, "failed to set session preset", buf, 2u);
+    _os_log_impl(&dword_243333000, v12, OS_LOG_TYPE_DEFAULT, "failed to set session preset", buf, 2u);
   }
 
   [(AVCaptureSession *)self->_captureSession commitConfiguration];
@@ -241,8 +240,9 @@ LABEL_19:
     [(AVCaptureVideoPreviewLayer *)self->_previewLayer captureDevicePointOfInterestForPoint:x, y];
     v8 = v7;
     v10 = v9;
-    v13 = 0;
-    if ([device lockForConfiguration:&v13])
+    v14 = 0;
+    v11 = [device lockForConfiguration:&v14];
+    if (v11)
     {
       [device setFocusPointOfInterest:{v8, v10}];
       [device setFocusMode:1];
@@ -251,11 +251,11 @@ LABEL_19:
 
     else
     {
-      v11 = nph_general_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = nph_general_log(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        *v12 = 0;
-        _os_log_impl(&dword_243333000, v11, OS_LOG_TYPE_DEFAULT, "failed to focus at point", v12, 2u);
+        *v13 = 0;
+        _os_log_impl(&dword_243333000, v12, OS_LOG_TYPE_DEFAULT, "failed to focus at point", v13, 2u);
       }
     }
   }
@@ -271,8 +271,9 @@ LABEL_19:
     [(AVCaptureVideoPreviewLayer *)self->_previewLayer captureDevicePointOfInterestForPoint:x, y];
     v8 = v7;
     v10 = v9;
-    v13 = 0;
-    if ([device lockForConfiguration:&v13])
+    v14 = 0;
+    v11 = [device lockForConfiguration:&v14];
+    if (v11)
     {
       [device setExposurePointOfInterest:{v8, v10}];
       [device setExposureMode:2];
@@ -281,11 +282,11 @@ LABEL_19:
 
     else
     {
-      v11 = nph_general_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = nph_general_log(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        *v12 = 0;
-        _os_log_impl(&dword_243333000, v11, OS_LOG_TYPE_DEFAULT, "failed to expose at point", v12, 2u);
+        *v13 = 0;
+        _os_log_impl(&dword_243333000, v12, OS_LOG_TYPE_DEFAULT, "failed to expose at point", v13, 2u);
       }
     }
   }
@@ -330,23 +331,19 @@ LABEL_19:
   changeCopy = change;
   if (context == @"NPHCaptureSessionRunningContext")
   {
-    if ([path isEqual:@"running"])
+    if ([path isEqual:@"running"] && (objc_opt_respondsToSelector() & 1) != 0)
     {
       delegate = self->_delegate;
-      if (objc_opt_respondsToSelector())
-      {
-        v12 = self->_delegate;
-        v13 = [changeCopy objectForKey:*MEMORY[0x277CCA2F0]];
-        -[NPHCellularBridgeBarcodeScannerCaptureDelegate captureSession:isRunning:](v12, "captureSession:isRunning:", self, [v13 BOOLValue]);
-      }
+      v12 = [changeCopy objectForKey:*MEMORY[0x277CCA2F0]];
+      -[NPHCellularBridgeBarcodeScannerCaptureDelegate captureSession:isRunning:](delegate, "captureSession:isRunning:", self, [v12 BOOLValue]);
     }
   }
 
   else
   {
-    v14.receiver = self;
-    v14.super_class = NPHCellularBridgeBarcodeScannerView;
-    [(NPHCellularBridgeBarcodeScannerView *)&v14 observeValueForKeyPath:path ofObject:object change:changeCopy context:context];
+    v13.receiver = self;
+    v13.super_class = NPHCellularBridgeBarcodeScannerView;
+    [(NPHCellularBridgeBarcodeScannerView *)&v13 observeValueForKeyPath:path ofObject:object change:changeCopy context:context];
   }
 }
 

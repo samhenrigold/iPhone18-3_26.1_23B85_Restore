@@ -11,9 +11,9 @@
 
 - (ABPKOutput)init
 {
-  v9.receiver = self;
-  v9.super_class = ABPKOutput;
-  v2 = [(ABPKOutput *)&v9 init];
+  v10.receiver = self;
+  v10.super_class = ABPKOutput;
+  v2 = [(ABPKOutput *)&v10 init];
   if (v2)
   {
     v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -22,24 +22,24 @@
 
     if (!VTPixelTransferSessionCreate(0, &v2->_vtPixelTransferSession))
     {
-      v6 = v2;
+      v7 = v2;
       goto LABEL_8;
     }
 
     CFRelease(v2->_vtPixelTransferSession);
     v2->_vtPixelTransferSession = 0;
-    v5 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = __ABPKLogSharedInstance(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_23EDDC000, v5, OS_LOG_TYPE_ERROR, " Unable to create pixel transfer session for image downscaling ", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_23EDDC000, v6, OS_LOG_TYPE_ERROR, " Unable to create pixel transfer session for image downscaling ", v9, 2u);
     }
   }
 
-  v6 = 0;
+  v7 = 0;
 LABEL_8:
 
-  return v6;
+  return v7;
 }
 
 - (void)dealloc
@@ -83,12 +83,12 @@ LABEL_8:
 
 - (int)saveOnlyPoseDataToDir:(id)dir withFileNamePrefix:(id)prefix
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   dirCopy = dir;
   prefixCopy = prefix;
   [(ABPKOutput *)self timestamp];
-  v45 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_%f.plist", prefixCopy, v6];
-  v46 = [dirCopy stringByAppendingPathComponent:?];
+  v44 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_%f.plist", prefixCopy, v6];
+  v45 = [dirCopy stringByAppendingPathComponent:?];
   v7 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v8 = MEMORY[0x277CCABB0];
   [(ABPKOutput *)self timestamp];
@@ -116,33 +116,33 @@ LABEL_8:
   if (detection2d)
   {
     v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
     v49 = 0u;
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
     v17 = self->_rawDetection2dSkeletonABPKArray;
-    v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v48 objects:v52 count:16];
+    v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v47 objects:v51 count:16];
     if (v18)
     {
-      v19 = *v49;
+      v19 = *v48;
       do
       {
         v20 = 0;
         do
         {
-          if (*v49 != v19)
+          if (*v48 != v19)
           {
             objc_enumerationMutation(v17);
           }
 
-          toDictionary = [*(*(&v48 + 1) + 8 * v20) toDictionary];
+          toDictionary = [*(*(&v47 + 1) + 8 * v20) toDictionary];
           [v16 addObject:toDictionary];
 
           ++v20;
         }
 
         while (v18 != v20);
-        v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v48 objects:v52 count:16];
+        v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v47 objects:v51 count:16];
       }
 
       while (v18);
@@ -211,61 +211,62 @@ LABEL_21:
   v41 = [v37 numberWithDouble:(v39 - v40) * 1000.0];
   [v7 setObject:v41 forKey:@"algorithm_compute_time"];
 
-  [v7 writeToFile:v46 atomically:0];
-  v42 = *MEMORY[0x277D85DE8];
+  [v7 writeToFile:v45 atomically:0];
   return 0;
 }
 
 - (uint64_t)overlayResultsOnImage:(__n128)image withCameraIntrinsics:(__n128)intrinsics withConfig:(uint64_t)config
 {
-  v69[1] = *MEMORY[0x277D85DE8];
+  v75[1] = *MEMORY[0x277D85DE8];
   v9 = a7;
-  if ([v9 length] != 5)
+  v10 = [v9 length];
+  if (v10 != 5)
   {
-    v21 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = __ABPKLogSharedInstance(v10);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v22 = " Invalid overlay code ";
-      v23 = v21;
-      v24 = OS_LOG_TYPE_ERROR;
+      v23 = " Invalid overlay code ";
+      v24 = v22;
+      v25 = OS_LOG_TYPE_ERROR;
 LABEL_59:
-      _os_log_impl(&dword_23EDDC000, v23, v24, v22, buf, 2u);
+      _os_log_impl(&dword_23EDDC000, v24, v25, v23, buf, 2u);
       goto LABEL_60;
     }
 
     goto LABEL_60;
   }
 
-  v10 = [v9 substringWithRange:{0, 1}];
-  v11 = [v10 isEqual:@"y"];
+  v11 = [v9 substringWithRange:{0, 1}];
+  v12 = [v11 isEqual:@"y"];
 
-  v12 = [v9 substringWithRange:{1, 1}];
-  v13 = [v12 isEqual:@"y"];
+  v13 = [v9 substringWithRange:{1, 1}];
+  v14 = [v13 isEqual:@"y"];
 
-  v14 = [v9 substringWithRange:{2, 1}];
-  v56 = [v14 isEqual:@"y"];
+  v15 = [v9 substringWithRange:{2, 1}];
+  v62 = [v15 isEqual:@"y"];
 
-  v15 = [v9 substringWithRange:{3, 1}];
-  v55 = [v15 isEqual:@"y"];
+  v16 = [v9 substringWithRange:{3, 1}];
+  v61 = [v16 isEqual:@"y"];
 
-  v16 = [v9 substringWithRange:{4, 1}];
-  v17 = [v16 isEqual:@"y"];
+  v17 = [v9 substringWithRange:{4, 1}];
+  v18 = [v17 isEqual:@"y"];
 
   Width = CVPixelBufferGetWidth(a6);
   Height = CVPixelBufferGetHeight(a6);
   if (![self mlOverlayImage])
   {
-    v68 = *MEMORY[0x277CC4DE8];
-    v69[0] = MEMORY[0x277CBEC10];
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v69 forKeys:&v68 count:1];
-    if (CVPixelBufferCreate(*MEMORY[0x277CBECE8], Width, Height, 0x42475241u, v21, (self + 136)))
+    v74 = *MEMORY[0x277CC4DE8];
+    v75[0] = MEMORY[0x277CBEC10];
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v75 forKeys:&v74 count:1];
+    v26 = CVPixelBufferCreate(*MEMORY[0x277CBECE8], Width, Height, 0x42475241u, v22, (self + 136));
+    if (v26)
     {
-      v25 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v27 = __ABPKLogSharedInstance(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_23EDDC000, v25, OS_LOG_TYPE_ERROR, " Could not create pixelbuffer for image overlay ", buf, 2u);
+        _os_log_impl(&dword_23EDDC000, v27, OS_LOG_TYPE_ERROR, " Could not create pixelbuffer for image overlay ", buf, 2u);
       }
 
       goto LABEL_60;
@@ -274,19 +275,20 @@ LABEL_59:
 
   if (!*(self + 16))
   {
-    v66 = *MEMORY[0x277CC4DE8];
-    v67 = MEMORY[0x277CBEC10];
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
-    if (CVPixelBufferCreate(*MEMORY[0x277CBECE8], Width, Height, 0x42475241u, v21, (self + 16)))
+    v72 = *MEMORY[0x277CC4DE8];
+    v73 = MEMORY[0x277CBEC10];
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
+    v28 = CVPixelBufferCreate(*MEMORY[0x277CBECE8], Width, Height, 0x42475241u, v22, (self + 16));
+    if (v28)
     {
-      v26 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v29 = __ABPKLogSharedInstance(v28);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_23EDDC000, v26, OS_LOG_TYPE_ERROR, " Could not create _imageYCbCr buffer ", buf, 2u);
+        _os_log_impl(&dword_23EDDC000, v29, OS_LOG_TYPE_ERROR, " Could not create _imageYCbCr buffer ", buf, 2u);
       }
 
-      v27 = 4294960636;
+      v30 = 4294960636;
       goto LABEL_61;
     }
   }
@@ -311,39 +313,39 @@ LABEL_7:
 
   convertFormatGrayScaleToARGB_BGRA(a6, (self + 16));
 LABEL_19:
-  v28 = VTPixelTransferSessionTransferImage(*(self + 8), *(self + 16), *(self + 136));
-  if (!v17)
+  v31 = VTPixelTransferSessionTransferImage(*(self + 8), *(self + 16), *(self + 136));
+  if (!v18)
   {
     algState = [self algState];
     detection2d = [algState detection2d];
 
-    if ((detection2d & v11) != 0)
+    if ((detection2d & v12) != 0)
     {
-      v33 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+      v38 = __ABPKLogSharedInstance(v37);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_impl(&dword_23EDDC000, v33, OS_LOG_TYPE_DEBUG, " Overlay raw 2d skeleton ", buf, 2u);
+        _os_log_impl(&dword_23EDDC000, v38, OS_LOG_TYPE_DEBUG, " Overlay raw 2d skeleton ", buf, 2u);
       }
 
       rawDetection2dSkeletonABPK = [self rawDetection2dSkeletonABPK];
-      v28 = overlay2dResultOnImage(rawDetection2dSkeletonABPK, *(self + 136), *(self + 136), COERCE_DOUBLE(255));
+      v31 = overlay2dResultOnImage(rawDetection2dSkeletonABPK, *(self + 136), *(self + 136), COERCE_DOUBLE(255));
     }
 
     algState2 = [self algState];
     detection2d2 = [algState2 detection2d];
 
-    if ((detection2d2 & v13) != 0)
+    if ((detection2d2 & v14) != 0)
     {
-      v37 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+      v43 = __ABPKLogSharedInstance(v42);
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_impl(&dword_23EDDC000, v37, OS_LOG_TYPE_DEBUG, " Overlay 2d skeleton ", buf, 2u);
+        _os_log_impl(&dword_23EDDC000, v43, OS_LOG_TYPE_DEBUG, " Overlay 2d skeleton ", buf, 2u);
       }
 
       detection2dSkeletonABPK = [self detection2dSkeletonABPK];
-      v28 = overlay2dResultOnImage(detection2dSkeletonABPK, *(self + 136), *(self + 136), COERCE_DOUBLE(0xFF00000000));
+      v31 = overlay2dResultOnImage(detection2dSkeletonABPK, *(self + 136), *(self + 136), COERCE_DOUBLE(0xFF00000000));
     }
 
     algState3 = [self algState];
@@ -352,7 +354,7 @@ LABEL_19:
       algState4 = [self algState];
       registration = [algState4 registration];
 
-      if ((registration & v56) == 0)
+      if ((registration & v62) == 0)
       {
 LABEL_38:
         algState5 = [self algState];
@@ -366,47 +368,47 @@ LABEL_54:
         algState6 = [self algState];
         registration2 = [algState6 registration];
 
-        if ((registration2 & v55) != 0)
+        if ((registration2 & v61) != 0)
         {
-          v46 = __ABPKLogSharedInstance();
-          if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
+          v53 = __ABPKLogSharedInstance(v34);
+          if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
           {
             *buf = 0;
-            _os_log_impl(&dword_23EDDC000, v46, OS_LOG_TYPE_DEBUG, " Overlay retargeted skeleton ", buf, 2u);
+            _os_log_impl(&dword_23EDDC000, v53, OS_LOG_TYPE_DEBUG, " Overlay retargeted skeleton ", buf, 2u);
           }
 
           algState5 = [self retargetedSkeletonABPK];
-          v28 = overlay3dResultOnImage(algState5, *(self + 136), *(self + 136), a2, image, intrinsics, Width, Height, xmmword_23EE281D0);
+          v31 = overlay3dResultOnImage(algState5, *(self + 136), *(self + 136), a2, image, intrinsics, Width, Height, xmmword_23EE281D0);
           goto LABEL_54;
         }
 
 LABEL_55:
-        if (!v28)
+        if (!v31)
         {
-          v27 = 0;
+          v30 = 0;
           goto LABEL_62;
         }
 
-        v21 = __ABPKLogSharedInstance();
-        if (!os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v22 = __ABPKLogSharedInstance(v34);
+        if (!os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_60;
         }
 
         *buf = 0;
-        v22 = " Could not overlay image ";
+        v23 = " Could not overlay image ";
         goto LABEL_58;
       }
 
-      v42 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+      v49 = __ABPKLogSharedInstance(v48);
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_impl(&dword_23EDDC000, v42, OS_LOG_TYPE_DEBUG, " Overlay 3d skeleton ", buf, 2u);
+        _os_log_impl(&dword_23EDDC000, v49, OS_LOG_TYPE_DEBUG, " Overlay 3d skeleton ", buf, 2u);
       }
 
       algState3 = [self liftingSkeletonABPK];
-      v28 = overlay3dResultOnImage(algState3, *(self + 136), *(self + 136), a2, image, intrinsics, Width, Height, xmmword_23EE281C0);
+      v31 = overlay3dResultOnImage(algState3, *(self + 136), *(self + 136), a2, image, intrinsics, Width, Height, xmmword_23EE281C0);
     }
 
     goto LABEL_38;
@@ -420,75 +422,74 @@ LABEL_55:
     goto LABEL_55;
   }
 
-  if (((v11 | v13 | v56 | v55) & 1) == 0)
+  if (((v12 | v14 | v62 | v61) & 1) == 0)
   {
-    v47 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
+    v54 = __ABPKLogSharedInstance(v34);
+    if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&dword_23EDDC000, v47, OS_LOG_TYPE_DEBUG, " Overlay 2d face ", buf, 2u);
+      _os_log_impl(&dword_23EDDC000, v54, OS_LOG_TYPE_DEBUG, " Overlay 2d face ", buf, 2u);
     }
 
-    v62 = 0u;
-    v63 = 0u;
-    v60 = 0u;
-    v61 = 0u;
+    v68 = 0u;
+    v69 = 0u;
+    v66 = 0u;
+    v67 = 0u;
     algState5 = *(self + 24);
-    v48 = [algState5 countByEnumeratingWithState:&v60 objects:v65 count:16];
-    if (v48)
+    v55 = [algState5 countByEnumeratingWithState:&v66 objects:v71 count:16];
+    if (v55)
     {
-      v49 = *v61;
+      v56 = *v67;
       do
       {
-        for (i = 0; i != v48; ++i)
+        for (i = 0; i != v55; ++i)
         {
-          if (*v61 != v49)
+          if (*v67 != v56)
           {
             objc_enumerationMutation(algState5);
           }
 
-          v51.n128_u64[0] = 255;
-          v51.n128_u64[1] = 255;
-          v52 = drawFullyVisibleFace(*(*(&v60 + 1) + 8 * i), *(self + 136), *(self + 136), v51);
+          v58.n128_u64[0] = 255;
+          v58.n128_u64[1] = 255;
+          v59 = drawFullyVisibleFace(*(*(&v66 + 1) + 8 * i), *(self + 136), *(self + 136), v58);
         }
 
-        v28 = v52;
-        v48 = [algState5 countByEnumeratingWithState:&v60 objects:v65 count:16];
+        v31 = v59;
+        v55 = [algState5 countByEnumeratingWithState:&v66 objects:v71 count:16];
       }
 
-      while (v48);
+      while (v55);
     }
 
     goto LABEL_54;
   }
 
-  v21 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v22 = __ABPKLogSharedInstance(v34);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    v22 = " Face visualization should be drawn cleanly. Please make sure the first four letters in overlay string are all 'n' when the fifth is 'y'. ";
+    v23 = " Face visualization should be drawn cleanly. Please make sure the first four letters in overlay string are all 'n' when the fifth is 'y'. ";
 LABEL_58:
-    v23 = v21;
-    v24 = OS_LOG_TYPE_DEFAULT;
+    v24 = v22;
+    v25 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_59;
   }
 
 LABEL_60:
-  v27 = 4294960630;
+  v30 = 4294960630;
 LABEL_61:
 
 LABEL_62:
-  v53 = *MEMORY[0x277D85DE8];
-  return v27;
+  return v30;
 }
 
 - (BOOL)convertToStreamingDictionary:(id)dictionary withSkeletonType:(id)type referenceFrame:(id)frame includeFingerRotation:(BOOL)rotation yOffset:(float)offset
 {
-  v78[3] = *MEMORY[0x277D85DE8];
+  v77[3] = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   typeCopy = type;
   frameCopy = frame;
-  v70 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v69 = objc_alloc_init(MEMORY[0x277CBEB38]);
   liftingSkeletonABPK = [(ABPKOutput *)self liftingSkeletonABPK];
   if ([typeCopy isEqual:@"Arvino"])
   {
@@ -502,23 +503,23 @@ LABEL_62:
 
   liftingSkeletonABPK = retargetedSkeletonABPK;
   [retargetedSkeletonABPK cameraRootTransform];
-  v65 = v12;
-  v64 = v13;
-  v63 = v14;
-  v62 = v15;
+  v64 = v12;
+  v63 = v13;
+  v62 = v14;
+  v61 = v15;
   [retargetedSkeletonABPK deviceRootTransform];
-  v60 = v16;
-  v59 = v17;
-  v58 = v18;
-  v61 = v19;
+  v59 = v16;
+  v58 = v17;
+  v57 = v18;
+  v60 = v19;
   skeletonDefinition = [retargetedSkeletonABPK skeletonDefinition];
   jointCount = [skeletonDefinition jointCount];
 
-  v57[1] = v57;
-  v22 = v57 - ((4 * jointCount + 15) & 0xFFFFFFFFFFFFFFF0);
-  v73 = &v57[-2 * jointCount];
-  v71 = jointCount;
-  v72 = v73;
+  v56[1] = v56;
+  v22 = v56 - ((4 * jointCount + 15) & 0xFFFFFFFFFFFFFFF0);
+  v72 = &v56[-2 * jointCount];
+  v70 = jointCount;
+  v71 = v72;
   for (i = 0; ; ++i)
   {
     skeletonDefinition2 = [liftingSkeletonABPK skeletonDefinition];
@@ -534,19 +535,19 @@ LABEL_62:
 
   if ([frameCopy isEqual:@"Global"])
   {
-    [liftingSkeletonABPK getGlobalJointDataForSkeletonWithPosition:v73 withOrientation:v72];
+    [liftingSkeletonABPK getGlobalJointDataForSkeletonWithPosition:v72 withOrientation:v71];
   }
 
   else
   {
-    [liftingSkeletonABPK getLocalJointDataForSkeletonWithPosition:v73 withOrientation:v72];
+    [liftingSkeletonABPK getLocalJointDataForSkeletonWithPosition:v72 withOrientation:v71];
   }
 
   selfCopy = self;
-  v74 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  if (v71 >= 1)
+  v73 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  if (v70 >= 1)
   {
-    for (j = 0; j != v71; ++j)
+    for (j = 0; j != v70; ++j)
     {
       v27 = objc_alloc_init(MEMORY[0x277CBEB38]);
       skeletonDefinition3 = [liftingSkeletonABPK skeletonDefinition];
@@ -556,44 +557,44 @@ LABEL_62:
       v31 = [MEMORY[0x277CCABB0] numberWithFloat:v30];
       [v27 setObject:v31 forKey:@"confidence"];
 
-      v76 = *&v73[2 * j];
+      v75 = *&v72[2 * j];
       v32 = [MEMORY[0x277CCABB0] numberWithFloat:?];
-      v78[0] = v32;
-      HIDWORD(v33) = DWORD1(v76);
-      LODWORD(v33) = DWORD1(v76);
+      v77[0] = v32;
+      HIDWORD(v33) = DWORD1(v75);
+      LODWORD(v33) = DWORD1(v75);
       v34 = [MEMORY[0x277CCABB0] numberWithFloat:v33];
-      v78[1] = v34;
-      v35 = [MEMORY[0x277CCABB0] numberWithFloat:{COERCE_DOUBLE(__PAIR64__(DWORD1(v76), DWORD2(v76)))}];
-      v78[2] = v35;
-      v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v78 count:3];
+      v77[1] = v34;
+      v35 = [MEMORY[0x277CCABB0] numberWithFloat:{COERCE_DOUBLE(__PAIR64__(DWORD1(v75), DWORD2(v75)))}];
+      v77[2] = v35;
+      v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v77 count:3];
       [v27 setObject:v36 forKey:@"translation"];
 
-      v76 = *&v72[2 * j];
+      v75 = *&v71[2 * j];
       v37 = [MEMORY[0x277CCABB0] numberWithFloat:?];
-      v77[0] = v37;
-      HIDWORD(v38) = DWORD1(v76);
-      LODWORD(v38) = DWORD1(v76);
+      v76[0] = v37;
+      HIDWORD(v38) = DWORD1(v75);
+      LODWORD(v38) = DWORD1(v75);
       v39 = [MEMORY[0x277CCABB0] numberWithFloat:v38];
-      v77[1] = v39;
-      v40 = [MEMORY[0x277CCABB0] numberWithFloat:{COERCE_DOUBLE(__PAIR64__(DWORD1(v76), HIDWORD(v76)))}];
-      v77[2] = v40;
-      v41 = [MEMORY[0x277CCABB0] numberWithFloat:{COERCE_DOUBLE(__PAIR64__(DWORD1(v76), DWORD2(v76)))}];
-      v77[3] = v41;
-      v42 = [MEMORY[0x277CBEA60] arrayWithObjects:v77 count:4];
+      v76[1] = v39;
+      v40 = [MEMORY[0x277CCABB0] numberWithFloat:{COERCE_DOUBLE(__PAIR64__(DWORD1(v75), HIDWORD(v75)))}];
+      v76[2] = v40;
+      v41 = [MEMORY[0x277CCABB0] numberWithFloat:{COERCE_DOUBLE(__PAIR64__(DWORD1(v75), DWORD2(v75)))}];
+      v76[3] = v41;
+      v42 = [MEMORY[0x277CBEA60] arrayWithObjects:v76 count:4];
       [v27 setObject:v42 forKey:@"orientation"];
 
-      [v74 setObject:v27 forKey:v29];
+      [v73 setObject:v27 forKey:v29];
     }
   }
 
-  [v70 setObject:v74 forKey:@"body_joints"];
+  [v69 setObject:v73 forKey:@"body_joints"];
   v43 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v44 = simdMatrix4x4ToNSArray(v65, v64, v63, v62);
+  v44 = simdMatrix4x4ToNSArray(v64, v63, v62, v61);
   [v43 setObject:v44 forKey:@"camera_root_pose"];
 
-  v45 = v61;
-  v45.n128_f32[1] = v61.n128_f32[1] + offset;
-  v46 = simdMatrix4x4ToNSArray(v60, v59, v58, v45);
+  v45 = v60;
+  v45.n128_f32[1] = v60.n128_f32[1] + offset;
+  v46 = simdMatrix4x4ToNSArray(v59, v58, v57, v45);
   [v43 setObject:v46 forKey:@"device_root_pose"];
 
   [(ABPKOutput *)selfCopy timestamp];
@@ -646,12 +647,11 @@ LABEL_21:
 
 LABEL_23:
   [v43 setObject:v52 forKey:@"pose_validity"];
-  [v70 setObject:v43 forKey:@"result_context"];
-  [v70 setObject:frameCopy forKey:@"joint_transform_type"];
-  [v70 setObject:typeCopy forKey:@"skeleton_type"];
-  [dictionaryCopy setObject:v70 forKey:@"result_abpk"];
+  [v69 setObject:v43 forKey:@"result_context"];
+  [v69 setObject:frameCopy forKey:@"joint_transform_type"];
+  [v69 setObject:typeCopy forKey:@"skeleton_type"];
+  [dictionaryCopy setObject:v69 forKey:@"result_abpk"];
 
-  v55 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

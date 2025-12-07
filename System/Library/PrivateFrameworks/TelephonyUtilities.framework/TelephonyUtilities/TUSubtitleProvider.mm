@@ -31,7 +31,7 @@
   callCopy = call;
   handleCopy = handle;
   contactCopy = contact;
-  v11 = TUDefaultLog();
+  v11 = TUDefaultLog(contactCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -94,28 +94,8 @@ LABEL_18:
 
   if (!handleCopy || (+[TUHandle normalizedHandleWithDestinationID:](TUHandle, "normalizedHandleWithDestinationID:", handleCopy), v18 = objc_claimAutoreleasedReturnValue(), [contactCopy tu_localizedDisplayStringForHandle:v18], v19 = objc_claimAutoreleasedReturnValue(), v18, !v19))
   {
-    if (![callCopy isJunk])
+    if (![callCopy isJunk] || ((objc_msgSend(callCopy, "junkIdentificationCategory"), (v20 = objc_claimAutoreleasedReturnValue()) == 0) ? (v21 = @"MAYBE_JUNK") : (objc_msgSend(callCopy, "junkIdentificationCategory"), v21 = objc_claimAutoreleasedReturnValue()), v20, TUBundle(), v27 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v27, "localizedStringForKey:value:table:", v21, &stru_1F098C218, @"TelephonyUtilities"), v19 = objc_claimAutoreleasedReturnValue(), v27, v21, !v19))
     {
-      goto LABEL_23;
-    }
-
-    junkIdentificationCategory = [callCopy junkIdentificationCategory];
-    if (junkIdentificationCategory)
-    {
-      junkIdentificationCategory2 = [callCopy junkIdentificationCategory];
-    }
-
-    else
-    {
-      junkIdentificationCategory2 = @"MAYBE_JUNK";
-    }
-
-    v27 = TUBundle();
-    v19 = [v27 localizedStringForKey:junkIdentificationCategory2 value:&stru_1F098C218 table:@"TelephonyUtilities"];
-
-    if (!v19)
-    {
-LABEL_23:
       v28 = [TUMetadataDestinationID metadataDestinationIDsForCHRecentCall:callCopy];
       firstObject = [v28 firstObject];
 
@@ -169,7 +149,7 @@ LABEL_36:
 
 - (id)callProviderForRecentCall:(id)call
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   callCopy = call;
   serviceProvider = [callCopy serviceProvider];
   callProviderManager = [(TUSubtitleProvider *)self callProviderManager];
@@ -193,19 +173,17 @@ LABEL_36:
       goto LABEL_9;
     }
 
-    v11 = TUDefaultLog();
+    v11 = TUDefaultLog(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138412290;
-      v15 = callCopy;
-      _os_log_impl(&dword_1956FD000, v11, OS_LOG_TYPE_DEFAULT, "Could not retrieve a call provider for the specified recent call: %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = callCopy;
+      _os_log_impl(&dword_1956FD000, v11, OS_LOG_TYPE_DEFAULT, "Could not retrieve a call provider for the specified recent call: %@", &v13, 0xCu);
     }
   }
 
   v8 = 0;
 LABEL_9:
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

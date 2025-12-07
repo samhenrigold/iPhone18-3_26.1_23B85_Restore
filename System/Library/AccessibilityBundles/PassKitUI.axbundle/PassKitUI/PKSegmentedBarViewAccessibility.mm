@@ -15,7 +15,7 @@
 
 - (id)accessibilityValueLabels
 {
-  v12[4] = *MEMORY[0x29EDCA608];
+  v11[4] = *MEMORY[0x29EDCA608];
   v3 = [(PKSegmentedBarViewAccessibility *)self safeValueForKey:@"_configuration"];
   v4 = __UIAccessibilityCastAsProtocol();
 
@@ -23,14 +23,14 @@
   if (objc_opt_isKindOfClass())
   {
     v5 = AXFormatFloatWithPercentage();
-    v12[0] = v5;
+    v11[0] = v5;
     v6 = AXFormatFloatWithPercentage();
-    v12[1] = v6;
+    v11[1] = v6;
     v7 = AXFormatFloatWithPercentage();
-    v12[2] = v7;
+    v11[2] = v7;
     v8 = accessibilityLocalizedString(@"bonus.category");
-    v12[3] = v8;
-    v9 = [MEMORY[0x29EDB8D80] arrayWithObjects:v12 count:4];
+    v11[3] = v8;
+    v9 = [MEMORY[0x29EDB8D80] arrayWithObjects:v11 count:4];
   }
 
   else
@@ -38,42 +38,40 @@
     v9 = [(PKSegmentedBarViewAccessibility *)self _accessibilityValueForKey:@"accessibilityValueLabels"];
   }
 
-  v10 = *MEMORY[0x29EDCA608];
-
   return v9;
 }
 
 - (id)accessibilityValue
 {
-  v29 = *MEMORY[0x29EDCA608];
-  v27 = 0;
+  v28 = *MEMORY[0x29EDCA608];
+  v26 = 0;
   v3 = [(PKSegmentedBarViewAccessibility *)self safeValueForKey:@"_configuration"];
   v4 = __UIAccessibilityCastAsProtocol();
 
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   accessibilityValueLabels = [(PKSegmentedBarViewAccessibility *)self accessibilityValueLabels];
-  v6 = [accessibilityValueLabels countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v6 = [accessibilityValueLabels countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v6)
   {
     v7 = v6;
     LODWORD(v8) = 0;
     v9 = 0;
-    v10 = *v24;
+    v10 = *v23;
     do
     {
       v11 = 0;
       v8 = v8;
       do
       {
-        if (*v24 != v10)
+        if (*v23 != v10)
         {
           objc_enumerationMutation(accessibilityValueLabels);
         }
 
-        v12 = *(*(&v23 + 1) + 8 * v11);
+        v12 = *(*(&v22 + 1) + 8 * v11);
         if ([v4 numberOfSegments] > v8)
         {
           NSClassFromString(&cfstr_Pkrewardssumma.isa);
@@ -92,9 +90,9 @@
             v16 = AXFormatFloat();
           }
 
-          v21 = v16;
-          v22 = @"__AXStringForVariablesSentinel";
-          v20 = v12;
+          v20 = v16;
+          v21 = @"__AXStringForVariablesSentinel";
+          v19 = v12;
           v17 = __UIAXStringForVariables();
 
           v9 = v17;
@@ -105,7 +103,7 @@
       }
 
       while (v7 != v11);
-      v7 = [accessibilityValueLabels countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v7 = [accessibilityValueLabels countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v7);
@@ -115,8 +113,6 @@
   {
     v9 = 0;
   }
-
-  v18 = *MEMORY[0x29EDCA608];
 
   return v9;
 }

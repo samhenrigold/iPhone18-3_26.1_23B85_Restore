@@ -72,30 +72,28 @@ LABEL_6:
 
 + (id)_labelsForVersion:(int64_t)version
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   if (version == 2)
   {
     v5 = [self _labelProcessingForPetNodeSpecies:0];
-    v10[0] = v5;
+    v9[0] = v5;
     v6 = [self _labelProcessingForPetNodeSpecies:1];
-    v10[1] = v6;
+    v9[1] = v6;
     v7 = [self _labelProcessingForPetNodeSpecies:2];
-    v10[2] = v7;
-    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:3];
+    v9[2] = v7;
+    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:3];
   }
 
   else if (version == 1)
   {
-    v11[0] = @"Pet";
-    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v10[0] = @"Pet";
+    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   }
 
   else
   {
     v3 = MEMORY[0x277CBEBF8];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

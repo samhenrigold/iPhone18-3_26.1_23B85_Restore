@@ -3,6 +3,7 @@
 - (_INPBPaymentRecord)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)statusAsString:(int)string;
 - (int)StringAsStatus:(id)status;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -362,7 +363,6 @@ LABEL_33:
 
   if ([(_INPBPaymentRecord *)self hasStatus])
   {
-    status = self->_status;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -398,6 +398,21 @@ LABEL_33:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)statusAsString:(int)string
+{
+  if ((string - 1) >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E727F448[string - 1];
   }
 
   return v4;

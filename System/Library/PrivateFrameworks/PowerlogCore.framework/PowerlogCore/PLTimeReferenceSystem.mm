@@ -72,17 +72,17 @@
       v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimeReferenceSystem currentTime]"];
       [PLCoreStorage logMessage:v6 fromFile:lastPathComponent fromFunction:v9 fromLineNumber:46];
 
-      v10 = PLLogCommon();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v11 = PLLogCommon(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         [(PLSubmissionFileSP *)v6 copyAndPrepareLog];
       }
     }
   }
 
-  v12.receiver = self;
-  v12.super_class = PLTimeReferenceSystem;
-  [(PLTimeReferenceDynamic *)&v12 checkForTimeChangeWithCurrentTime:date];
+  v13.receiver = self;
+  v13.super_class = PLTimeReferenceSystem;
+  [(PLTimeReferenceDynamic *)&v13 checkForTimeChangeWithCurrentTime:date];
 
   return date;
 }
@@ -96,13 +96,13 @@ BOOL __36__PLTimeReferenceSystem_currentTime__block_invoke(uint64_t a1)
 
 - (void)timeChangedToMidnightLocalTime
 {
+  v15.receiver = self;
+  v15.super_class = PLTimeReferenceSystem;
+  timeChangeBlocks = [(PLTimeReferenceDynamic *)&v15 timeChangeBlocks];
+  objc_sync_enter(timeChangeBlocks);
   v14.receiver = self;
   v14.super_class = PLTimeReferenceSystem;
-  timeChangeBlocks = [(PLTimeReferenceDynamic *)&v14 timeChangeBlocks];
-  objc_sync_enter(timeChangeBlocks);
-  v13.receiver = self;
-  v13.super_class = PLTimeReferenceSystem;
-  timeChangeBlocks2 = [(PLTimeReferenceDynamic *)&v13 timeChangeBlocks];
+  timeChangeBlocks2 = [(PLTimeReferenceDynamic *)&v14 timeChangeBlocks];
   v5 = [timeChangeBlocks2 objectForKeyedSubscript:@"PLCoreStorage"];
 
   if (v5)
@@ -131,8 +131,8 @@ BOOL __36__PLTimeReferenceSystem_currentTime__block_invoke(uint64_t a1)
       v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimeReferenceSystem timeChangedToMidnightLocalTime]"];
       [PLCoreStorage logMessage:v7 fromFile:lastPathComponent fromFunction:v10 fromLineNumber:55];
 
-      v11 = PLLogCommon();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v12 = PLLogCommon(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         [(PLSubmissionFileSP *)v7 copyAndPrepareLog];
       }

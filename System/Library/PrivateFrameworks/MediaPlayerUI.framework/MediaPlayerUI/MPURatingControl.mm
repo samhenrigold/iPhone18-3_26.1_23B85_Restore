@@ -56,14 +56,14 @@ id __34__MPURatingControl_ratingDotImage__block_invoke(uint64_t a1)
   return v6;
 }
 
-void __34__MPURatingControl_ratingDotImage__block_invoke_2()
+void __34__MPURatingControl_ratingDotImage__block_invoke_2(uint64_t a1)
 {
-  v0 = [MEMORY[0x277D75348] colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.0];
-  [v0 setFill];
+  v1 = [MEMORY[0x277D75348] colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.0];
+  [v1 setFill];
 
   UIRectCenteredIntegralRectScale();
-  v1 = [MEMORY[0x277D75208] bezierPathWithRoundedRect:0 cornerRadius:?];
-  [v1 fill];
+  v2 = [MEMORY[0x277D75208] bezierPathWithRoundedRect:0 cornerRadius:?];
+  [v2 fill];
 }
 
 - (MPURatingControl)initWithFrame:(CGRect)frame

@@ -28,19 +28,17 @@
 - (BOOL)isValidCacheKeyForObject:(id)object context:(id)context
 {
   contextCopy = context;
-  object = self->_object;
   if (BSEqualObjects())
   {
-    context = self->_context;
-    v8 = BSEqualObjects();
+    v5 = BSEqualObjects();
   }
 
   else
   {
-    v8 = 0;
+    v5 = 0;
   }
 
-  return v8;
+  return v5;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -49,7 +47,7 @@
   object = [equalCopy object];
   context = [equalCopy context];
 
-  LOBYTE(self) = [(__PLKLRUCacheKeyTuple *)self isValidCacheKeyForObject:object context:context];
+  LOBYTE(self) = [__PLKLRUCacheKeyTuple isValidCacheKeyForObject:"isValidCacheKeyForObject:context:" context:?];
   return self;
 }
 

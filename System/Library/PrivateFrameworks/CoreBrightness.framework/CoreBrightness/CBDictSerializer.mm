@@ -6,38 +6,38 @@
 
 + (id)serialize:(id)serialize
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  v17 = a2;
+  v16 = a2;
   serializeCopy = serialize;
   codingKeys = [serialize codingKeys];
-  v14 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(codingKeys, "count")}];
+  v13 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(codingKeys, "count")}];
   memset(__b, 0, sizeof(__b));
   obj = codingKeys;
-  v11 = [codingKeys countByEnumeratingWithState:__b objects:v19 count:16];
-  if (v11)
+  v10 = [codingKeys countByEnumeratingWithState:__b objects:v18 count:16];
+  if (v10)
   {
-    v7 = *__b[2];
-    v8 = 0;
-    v9 = v11;
+    v6 = *__b[2];
+    v7 = 0;
+    v8 = v10;
     while (1)
     {
-      v6 = v8;
-      if (*__b[2] != v7)
+      v5 = v7;
+      if (*__b[2] != v6)
       {
         objc_enumerationMutation(obj);
       }
 
-      v13 = 0;
-      v13 = *(__b[1] + 8 * v8);
-      v3 = [serializeCopy valueForKey:{objc_msgSend(codingKeys, "objectForKeyedSubscript:", v13)}];
-      [v14 setObject:v3 forKeyedSubscript:v13];
-      ++v8;
-      if (v6 + 1 >= v9)
+      v12 = 0;
+      v12 = *(__b[1] + 8 * v7);
+      v3 = [serializeCopy valueForKey:{objc_msgSend(codingKeys, "objectForKeyedSubscript:", v12)}];
+      [v13 setObject:v3 forKeyedSubscript:v12];
+      ++v7;
+      if (v5 + 1 >= v8)
       {
-        v8 = 0;
-        v9 = [obj countByEnumeratingWithState:__b objects:v19 count:16];
-        if (!v9)
+        v7 = 0;
+        v8 = [obj countByEnumeratingWithState:__b objects:v18 count:16];
+        if (!v8)
         {
           break;
         }
@@ -45,9 +45,7 @@
     }
   }
 
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:v14];
-  *MEMORY[0x1E69E9840];
-  return v5;
+  return [MEMORY[0x1E695DF20] dictionaryWithDictionary:v13];
 }
 
 @end

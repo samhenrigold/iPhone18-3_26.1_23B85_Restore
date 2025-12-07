@@ -63,81 +63,77 @@
 
 - (id)hk_stringByRemovingCharactersInSet:()HealthKit
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = objc_alloc_init(MEMORY[0x1E696AD60]);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v6 = [self componentsSeparatedByCharactersInSet:{v4, 0}];
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [v5 appendString:*(*(&v13 + 1) + 8 * i)];
+        [v5 appendString:*(*(&v12 + 1) + 8 * i)];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (id)hk_stringByReplacingSpacesWithString:()HealthKit
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = a3;
   selfCopy = self;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v6 = [&unk_1F0686B80 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [&unk_1F0686B80 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       v10 = selfCopy;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(&unk_1F0686B80);
         }
 
-        selfCopy = [v10 stringByReplacingOccurrencesOfString:*(*(&v13 + 1) + 8 * v9) withString:v4];
+        selfCopy = [v10 stringByReplacingOccurrencesOfString:*(*(&v12 + 1) + 8 * v9) withString:v4];
 
         ++v9;
         v10 = selfCopy;
       }
 
       while (v7 != v9);
-      v7 = [&unk_1F0686B80 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [&unk_1F0686B80 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return selfCopy;
 }
@@ -224,71 +220,48 @@
 
 - (BOOL)hk_isBase64
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v2 = [self length];
   if ((v2 & 3) != 0)
   {
-    result = 0;
+    return 0;
   }
 
-  else
+  v4 = v2;
+  if (!v2)
   {
-    v5 = v2;
-    if (v2)
+    return 1;
+  }
+
+  MEMORY[0x1EEE9AC00](v2);
+  v6 = v10 - ((v5 + 17) & 0xFFFFFFFFFFFFFFF0);
+  [self getCharacters:v6 range:{0, v4}];
+  for (i = (v6 + 2); ; ++i)
+  {
+    v8 = *(i - 1);
+    v9 = (v8 - 48) >= 0xA && (v8 - 97) >= 0x1A;
+    if (v9 && (v8 - 65) >= 0x1A && (v8 & 0xFFFFFFFB) != 0x2B)
     {
-      MEMORY[0x1EEE9AC00](v2, v3);
-      v7 = v12 - ((v6 + 17) & 0xFFFFFFFFFFFFFFF0);
-      [self getCharacters:v7 range:{0, v5}];
-      v8 = (v7 + 2);
-      while (1)
-      {
-        v9 = *(v8 - 1);
-        v10 = (v9 - 48) >= 0xA && (v9 - 97) >= 0x1A;
-        if (v10 && (v9 - 65) >= 0x1A && (v9 & 0xFFFFFFFB) != 0x2B)
-        {
-          break;
-        }
-
-        ++v8;
-        if (!--v5)
-        {
-          goto LABEL_13;
-        }
-      }
-
-      if (v9 != 61)
-      {
-        goto LABEL_19;
-      }
-
-      if (v5 == 1)
-      {
-LABEL_13:
-        result = 1;
-        goto LABEL_20;
-      }
-
-      if (v5 == 2)
-      {
-        result = *v8 == 61;
-      }
-
-      else
-      {
-LABEL_19:
-        result = 0;
-      }
+      break;
     }
 
-    else
+    if (!--v4)
     {
-      result = 1;
+      return 1;
     }
   }
 
-LABEL_20:
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  if (v8 != 61)
+  {
+    return 0;
+  }
+
+  if (v4 == 1)
+  {
+    return 1;
+  }
+
+  return v4 == 2 && *i == 61;
 }
 
 - (id)hk_stringIndentedBy:()HealthKit prefix:
@@ -311,10 +284,10 @@ LABEL_20:
 {
   selfCopy = self;
   v6 = a3;
-  [self UTF8String];
-  [v6 UTF8String];
+  uTF8String = [self UTF8String];
+  uTF8String2 = [v6 UTF8String];
 
-  HKCompareBuildVersionStrings();
+  HKCompareBuildVersionStrings(uTF8String, uTF8String2);
 }
 
 - (void)hk_isBetweenLowerBuildVersion:()HealthKit upperBuildVersion:
@@ -322,10 +295,10 @@ LABEL_20:
   v6 = a4;
   selfCopy = self;
   v8 = a3;
-  [self UTF8String];
-  [v8 UTF8String];
+  uTF8String = [self UTF8String];
+  uTF8String2 = [v8 UTF8String];
 
-  HKCompareBuildVersionStrings();
+  HKCompareBuildVersionStrings(uTF8String, uTF8String2);
 }
 
 + (id)hk_randomStringOfLength:()HealthKit
@@ -353,7 +326,7 @@ LABEL_20:
 
 - (id)hk_SHA224Hash
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v1 = [self dataUsingEncoding:4];
   CC_SHA224([v1 bytes], objc_msgSend(v1, "length"), md);
   v2 = [MEMORY[0x1E696AD60] stringWithCapacity:56];
@@ -362,14 +335,12 @@ LABEL_20:
     [v2 appendFormat:@"%02x", md[i]];
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-
   return v2;
 }
 
 - (id)hk_SHA256Hash
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v1 = [self dataUsingEncoding:4];
   CC_SHA256([v1 bytes], objc_msgSend(v1, "length"), md);
   v2 = [MEMORY[0x1E696AD60] stringWithCapacity:64];
@@ -378,14 +349,12 @@ LABEL_20:
     [v2 appendFormat:@"%02x", md[i]];
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-
   return v2;
 }
 
 - (id)hk_SHA384Hash
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v1 = [self dataUsingEncoding:4];
   CC_SHA384([v1 bytes], objc_msgSend(v1, "length"), md);
   v2 = [MEMORY[0x1E696AD60] stringWithCapacity:96];
@@ -394,14 +363,12 @@ LABEL_20:
     [v2 appendFormat:@"%02x", md[i]];
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-
   return v2;
 }
 
 - (id)hk_SHA512Hash
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v1 = [self dataUsingEncoding:4];
   CC_SHA512([v1 bytes], objc_msgSend(v1, "length"), md);
   v2 = [MEMORY[0x1E696AD60] stringWithCapacity:128];
@@ -410,14 +377,12 @@ LABEL_20:
     [v2 appendFormat:@"%02x", md[i]];
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-
   return v2;
 }
 
 - (id)hk_MD5Hash
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v1 = [self dataUsingEncoding:4];
   CC_MD5([v1 bytes], objc_msgSend(v1, "length"), md);
   v2 = [MEMORY[0x1E696AD60] stringWithCapacity:32];
@@ -426,20 +391,16 @@ LABEL_20:
     [v2 appendFormat:@"%02x", md[i]];
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-
   return v2;
 }
 
 - (id)hk_MD5HashAsUUID
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = [self cStringUsingEncoding:4];
   v3 = [MEMORY[0x1E695DEF0] dataWithBytes:v2 length:{objc_msgSend(self, "length")}];
   CC_MD5([v3 bytes], objc_msgSend(v3, "length"), md);
   v4 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:md];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

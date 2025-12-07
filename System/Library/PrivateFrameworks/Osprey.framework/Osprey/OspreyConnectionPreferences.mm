@@ -124,7 +124,7 @@
 
   else
   {
-    OspreyLoggingInit();
+    OspreyLoggingInit(self, a2);
     v8 = OspreyLogContextAbsinthe;
     if (os_log_type_enabled(OspreyLogContextAbsinthe, OS_LOG_TYPE_ERROR))
     {
@@ -162,13 +162,13 @@
     self->_deviceAttestationData = v8;
 
     _deviceAttestationDataKey = [(OspreyConnectionPreferences *)self _deviceAttestationDataKey];
-    OspreyLoggingInit();
+    OspreyLoggingInit(_deviceAttestationDataKey, v11);
     if (os_log_type_enabled(OspreyLogContextPreferences, OS_LOG_TYPE_DEBUG))
     {
       [OspreyConnectionPreferences setDeviceAttestationData:withExpiration:];
     }
 
-    v11 = [(OspreyKeychain *)self->_keychain saveData:self->_deviceAttestationData withIdentifier:_deviceAttestationDataKey];
+    v12 = [(OspreyKeychain *)self->_keychain saveData:self->_deviceAttestationData withIdentifier:_deviceAttestationDataKey];
   }
 
   else
@@ -176,20 +176,20 @@
     deviceAttestionExpireOn = self->_deviceAttestionExpireOn;
     self->_deviceAttestionExpireOn = 0;
 
-    v13 = self->_deviceAttestationData;
+    v14 = self->_deviceAttestationData;
     self->_deviceAttestationData = 0;
 
-    OspreyLoggingInit();
-    v14 = OspreyLogContextPreferences;
+    OspreyLoggingInit(v15, v16);
+    v17 = OspreyLogContextPreferences;
     if (os_log_type_enabled(OspreyLogContextPreferences, OS_LOG_TYPE_ERROR))
     {
-      [OspreyConnectionPreferences setDeviceAttestationData:v14 withExpiration:?];
+      [OspreyConnectionPreferences setDeviceAttestationData:v17 withExpiration:?];
     }
 
-    v11 = 0;
+    v12 = 0;
   }
 
-  return v11;
+  return v12;
 }
 
 - (id)deviceAttestationData

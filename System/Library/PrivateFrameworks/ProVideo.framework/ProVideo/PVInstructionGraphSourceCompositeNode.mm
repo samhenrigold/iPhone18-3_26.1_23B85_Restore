@@ -26,9 +26,9 @@
 
 - (PVInstructionGraphSourceCompositeNode)init
 {
-  v22.receiver = self;
-  v22.super_class = PVInstructionGraphSourceCompositeNode;
-  v2 = [(PVInstructionGraphSourceNode *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = PVInstructionGraphSourceCompositeNode;
+  v2 = [(PVInstructionGraphSourceNode *)&v21 init];
   v3 = v2;
   v4 = v2;
   if (v2)
@@ -56,14 +56,14 @@
     imageSeqDelegate = v4->_imageSeqDelegate;
     v4->_imageSeqDelegate = 0;
 
-    PVRenderManager::INSTANCE(v11, &v21);
+    PVRenderManager::INSTANCE(&v20);
     ty = v4->super._transform.ty;
-    v13 = v21;
-    if (*&ty == *&v21)
+    v12 = v20;
+    if (*&ty == v20)
     {
       if (ty != 0.0)
       {
-        (*(**&v21 + 24))();
+        (*(*v20 + 24))();
       }
     }
 
@@ -72,10 +72,10 @@
       if (ty != 0.0)
       {
         (*(**&ty + 24))(*&v4->super._transform.ty);
-        v13 = v21;
+        v12 = v20;
       }
 
-      v4->super._transform.ty = v13;
+      *&v4->super._transform.ty = v12;
     }
 
     renderDelegate = v4->_renderDelegate;
@@ -86,12 +86,12 @@
 
     LOBYTE(v4->_renderManager.m_Obj) = 0;
     BYTE1(v4->_renderManager.m_Obj) = 0;
-    v16 = +[PVContentRegistry sharedInstance];
-    v17 = [v16 createContentInstance:@"F3D8E4D0-686B-44C6-8966-E50856A94959"];
+    v15 = +[PVContentRegistry sharedInstance];
+    v16 = [v15 createContentInstance:@"F3D8E4D0-686B-44C6-8966-E50856A94959"];
     userContext = v4->_userContext;
-    v4->_userContext = v17;
+    v4->_userContext = v16;
 
-    v19 = *&v4->_trackID;
+    v18 = *&v4->_trackID;
     *&v4->_trackID = 0;
   }
 
@@ -347,25 +347,25 @@
   *v12 = v15;
   if ([imageCopy canCreateCVPixelBuffer])
   {
-    v16 = [imageCopy cvPixelBufferWithColorSpace:spaceCopy];
+    v16 = objc_msgSend_cvPixelBufferWithColorSpace_(imageCopy);
     if (v16)
     {
-      v22 = *&time->var0;
+      v21 = *&time->var0;
       var3 = time->var3;
       v17 = *context.m_Obj;
-      v21 = v17;
+      v20 = v17;
       if (v17)
       {
         (*(*v17 + 16))(v17);
       }
 
-      PVCreateInputGraphForPixelBuffer(v16, &v21, &v24);
-      v18 = v24;
-      if (v15 == v24)
+      PVCreateInputGraphForPixelBuffer(v16, &v20, &v23);
+      v18 = v23;
+      if (v15 == v23)
       {
         if (v15)
         {
-          (*(*v24 + 24))();
+          (*(*v23 + 24))();
         }
       }
 
@@ -374,42 +374,38 @@
         if (v15)
         {
           (*(*v15 + 24))(v15);
-          v18 = v24;
+          v18 = v23;
         }
 
         *v12 = v18;
-        v24 = 0;
+        v23 = 0;
         v15 = v18;
       }
 
-      if (v21)
+      if (v20)
       {
-        (*(*v21 + 24))(v21);
+        (*(*v20 + 24))(v20);
       }
     }
   }
 
   if (v15)
   {
-    v20 = v15;
     (*(*v15 + 16))(v15);
-    [(PVInstructionGraphSourceNode *)self applyWrapModeToInput:&v20];
-    if (v15 == v22)
+    objc_msgSend_applyWrapModeToInput_(self);
+    if (v15 == v21)
     {
-      (*(*v22 + 24))(v22);
+      (*(*v21 + 24))(v21);
     }
 
     else
     {
       (*(*v15 + 24))(v15);
-      *v12 = v22;
-      *&v22 = 0;
+      *v12 = v21;
+      *&v21 = 0;
     }
 
-    if (v20)
-    {
-      (*(*v20 + 24))(v20);
-    }
+    (*(*v15 + 24))(v15);
   }
 
   return v19;
@@ -418,27 +414,27 @@
 - (HGRef<HGNode>)internalHGNodeForTime:(id *)time trackInputs:(const void *)inputs renderer:(const void *)renderer igContext:(HGRef<PVInstructionGraphContext>)context
 {
   v125 = v6;
-  v170 = *MEMORY[0x277D85DE8];
+  v169 = *MEMORY[0x277D85DE8];
   v8 = (*(**context.m_Obj + 40))(*context.m_Obj, a2);
   v10 = v9;
   v11 = (*(**context.m_Obj + 48))();
   m_Obj = context.m_Obj;
   v12 = *context.m_Obj;
-  v167 = v12;
+  v166 = v12;
   if (v12)
   {
     (*(*v12 + 16))(v12);
   }
 
-  [(PVInstructionGraphSourceCompositeNode *)self addDotTreeLinks:&v167];
-  if (v167)
+  [(PVInstructionGraphSourceCompositeNode *)self addDotTreeLinks:&v166];
+  if (v166)
   {
-    (*(*v167 + 24))(v167);
+    (*(*v166 + 24))(v166);
   }
 
-  v166[1] = 0;
-  v166[0] = 0;
-  v165 = v166;
+  v165[1] = 0;
+  v165[0] = 0;
+  v164 = v165;
   v13 = *(inputs + 1);
   if (!v13)
   {
@@ -473,10 +469,10 @@
       v112 = 0;
     }
 
-    v132 = v112;
-    if (&v165 != (v112 + 408))
+    v131 = v112;
+    if (&v164 != (v112 + 408))
     {
-      std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<int,__CVBuffer *>,std::__tree_node<std::__value_type<int,__CVBuffer *>,void *> *,long>>(&v165, *(v112 + 51), v112 + 52);
+      std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<int,__CVBuffer *>,std::__tree_node<std::__value_type<int,__CVBuffer *>,void *> *,long>>(&v164, *(v112 + 51), v112 + 52);
     }
 
     if (*&lpsrc.a)
@@ -488,8 +484,8 @@
   else
   {
 LABEL_13:
-    v132 = HGObject::operator new(0x260uLL);
-    HGInternalCompNode::HGInternalCompNode(v132);
+    v131 = HGObject::operator new(0x260uLL);
+    HGInternalCompNode::HGInternalCompNode(v131);
   }
 
   v126 = [[PVCompositeDelegateContext alloc] initWithNode:self];
@@ -499,29 +495,29 @@ LABEL_13:
     colorSpace = PVInstructionGraphContext::WorkingColorSpace(*m_Obj);
   }
 
-  v133 = colorSpace;
+  v132 = colorSpace;
   [(PVCompositeDelegateContext *)v126 setRenderColorSpace:?];
-  v137 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v163 = 0u;
-  v164 = 0u;
-  v161 = 0u;
+  v136 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v162 = 0u;
+  v163 = 0u;
+  v160 = 0u;
+  v161 = 0u;
   inputMap = [(PVInstructionGraphSourceCompositeNode *)self inputMap];
-  v20 = [inputMap countByEnumeratingWithState:&v161 objects:v169 count:16];
+  v20 = [inputMap countByEnumeratingWithState:&v160 objects:v168 count:16];
   if (v20)
   {
-    v21 = *v162;
+    v21 = *v161;
     do
     {
       v22 = 0;
       do
       {
-        if (*v162 != v21)
+        if (*v161 != v21)
         {
           objc_enumerationMutation(inputMap);
         }
 
-        v23 = *(*(&v161 + 1) + 8 * v22);
+        v23 = *(*(&v160 + 1) + 8 * v22);
         inputMap2 = [(PVInstructionGraphSourceCompositeNode *)self inputMap];
         v25 = [inputMap2 objectForKeyedSubscript:v23];
 
@@ -534,7 +530,7 @@ LABEL_13:
           v28 = [imageSeqDelegate imageForURL:imageURL time:&lpsrc];
 
           imageBuffer = [PVImageBuffer imageWithCGImage:v28];
-          [v137 setObject:imageBuffer forKey:v23];
+          [v136 setObject:imageBuffer forKey:v23];
 LABEL_25:
 
           goto LABEL_26;
@@ -543,7 +539,7 @@ LABEL_25:
         if ([v25 nodeType] == 2)
         {
           imageBuffer = [v25 imageBuffer];
-          [v137 setObject:imageBuffer forKey:v23];
+          [v136 setObject:imageBuffer forKey:v23];
           goto LABEL_25;
         }
 
@@ -552,10 +548,10 @@ LABEL_25:
           if ([v25 trackID])
           {
             trackID = [v25 trackID];
-            v31 = v166[0];
-            if (v166[0])
+            v31 = v165[0];
+            if (v165[0])
             {
-              v32 = v166;
+              v32 = v165;
               do
               {
                 if (*(v31 + 8) >= trackID)
@@ -567,10 +563,10 @@ LABEL_25:
               }
 
               while (v31);
-              if (v32 != v166 && trackID >= *(v32 + 8))
+              if (v32 != v165 && trackID >= *(v32 + 8))
               {
                 imageBuffer = [PVImageBuffer imageWithCVPixelBuffer:v32[5]];
-                [v137 setObject:imageBuffer forKey:v23];
+                [v136 setObject:imageBuffer forKey:v23];
                 goto LABEL_25;
               }
             }
@@ -583,7 +579,7 @@ LABEL_26:
       }
 
       while (v22 != v20);
-      v33 = [inputMap countByEnumeratingWithState:&v161 objects:v169 count:16];
+      v33 = [inputMap countByEnumeratingWithState:&v160 objects:v168 count:16];
       v20 = v33;
     }
 
@@ -597,7 +593,7 @@ LABEL_26:
     *&lpsrc.a = *&time->var0;
     *&lpsrc.c = time->var3;
     userContext = [(PVInstructionGraphSourceCompositeNode *)self userContext];
-    v38 = [renderDelegate2 preprocessWithInputs:v137 time:&lpsrc userContext:userContext compositeContext:v126];
+    v38 = [renderDelegate2 preprocessWithInputs:v136 time:&lpsrc userContext:userContext compositeContext:v126];
 
     [(PVCompositeDelegateContext *)v126 setPreprocessData:v38];
   }
@@ -623,54 +619,54 @@ LABEL_26:
   }
 
   renderDelegate4 = [(PVInstructionGraphSourceCompositeNode *)self renderDelegate];
-  objc_storeStrong(v132 + 72, renderDelegate4);
-  *(v132 + 54) = v42;
-  *(v132 + 55) = v44;
+  objc_storeStrong(v131 + 72, renderDelegate4);
+  *(v131 + 54) = v42;
+  *(v131 + 55) = v44;
 
   metadata = [(PVInstructionGraphSourceCompositeNode *)self metadata];
-  objc_storeStrong(v132 + 74, metadata);
+  objc_storeStrong(v131 + 74, metadata);
 
   userContext2 = [(PVInstructionGraphSourceCompositeNode *)self userContext];
-  HGInternalCompNode::SetContexts(v132, userContext2, v126);
+  HGInternalCompNode::SetContexts(v131, userContext2, v126);
 
   v50 = *&time->var0;
-  *(v132 + 58) = time->var3;
-  *(v132 + 28) = v50;
+  *(v131 + 58) = time->var3;
+  *(v131 + 28) = v50;
+  v156 = 0u;
   v157 = 0u;
   v158 = 0u;
   v159 = 0u;
-  v160 = 0u;
   obj = [(PVInstructionGraphSourceCompositeNode *)self inputMap];
-  v51 = [obj countByEnumeratingWithState:&v157 objects:v168 count:16];
+  v51 = [obj countByEnumeratingWithState:&v156 objects:v167 count:16];
   if (!v51)
   {
 
-    v109 = v132;
+    v109 = v131;
 LABEL_170:
     v108 = v109;
     (*(*v109 + 16))();
     goto LABEL_171;
   }
 
-  v129 = 0;
-  v135 = *v158;
+  v128 = 0;
+  v134 = *v157;
   do
   {
     v52 = v51;
     for (i = 0; i != v52; ++i)
     {
-      if (*v158 != v135)
+      if (*v157 != v134)
       {
         objc_enumerationMutation(obj);
       }
 
-      v54 = *(*(&v157 + 1) + 8 * i);
+      v54 = *(*(&v156 + 1) + 8 * i);
       inputMap3 = [(PVInstructionGraphSourceCompositeNode *)self inputMap];
       v56 = [inputMap3 objectForKeyedSubscript:v54];
 
       if ([v56 nodeType] == 1 || objc_msgSend(v56, "nodeType") == 2 || objc_msgSend(v56, "nodeType") == 3)
       {
-        v57 = [v137 objectForKeyedSubscript:v54];
+        v57 = [v136 objectForKeyedSubscript:v54];
         if (v57)
         {
           colorSpace2 = [v56 colorSpace];
@@ -679,7 +675,7 @@ LABEL_170:
             colorSpace2 = PVInstructionGraphContext::WorkingColorSpace(*m_Obj);
           }
 
-          if ([colorSpace2 isEqual:v133])
+          if ([colorSpace2 isEqual:v132])
           {
             goto LABEL_110;
           }
@@ -702,9 +698,9 @@ LABEL_170:
             v68 = HGObject::operator new(0xA8uLL);
             *&lpsrc.a = *&t2.time.value;
             *&lpsrc.c = t2.time.epoch;
-            v174.width = v64;
-            v174.height = v66;
-            PVRendererInstructionGraphContext::PVRendererInstructionGraphContext(v68, v62, v174, v67, &lpsrc);
+            v173.width = v64;
+            v173.height = v66;
+            PVRendererInstructionGraphContext::PVRendererInstructionGraphContext(v68, v62, v173, v67, &lpsrc);
             if (v59 == v68)
             {
               if (v59)
@@ -728,31 +724,31 @@ LABEL_170:
           {
             *&lpsrc.a = *&time->var0;
             *&lpsrc.c = time->var3;
-            v156 = v59;
+            v155 = v59;
             if (v59)
             {
               (*(*v59 + 16))(v59);
             }
 
-            [(PVInstructionGraphSourceCompositeNode *)self conformInputImage:v57 colorSpace:colorSpace2 renderer:renderer currentTime:&lpsrc igContext:&v156];
+            objc_msgSend_conformInputImage_colorSpace_renderer_currentTime_igContext_(self);
             a = *&t2.time.value;
             if (t2.time.value)
             {
               t2.time.value = 0;
             }
 
-            if (v156)
+            if (v155)
             {
-              (*(*v156 + 24))(v156);
+              (*(*v155 + 24))(v155);
             }
 
             if (a != 0.0)
             {
-              v155 = a;
+              v154 = a;
               (*(**&a + 16))(COERCE_CGFLOAT(*&a));
               v81 = PVInstructionGraphContext::WorkingColorSpace(v59);
               v82 = PVInstructionGraphContext::WorkingColorSpaceConformIntent(v59);
-              ColorConformInput(&v155, v81, v133, v82, 0, &lpsrc);
+              ColorConformInput(&v154, v81, v132, v82, 0, &lpsrc);
               if (*&a == *&lpsrc.a)
               {
                 (*(**&lpsrc.a + 24))(*&lpsrc.a);
@@ -765,34 +761,34 @@ LABEL_170:
                 lpsrc.a = 0.0;
               }
 
-              if (v155 != 0.0)
+              if (v154 != 0.0)
               {
-                (*(**&v155 + 24))(COERCE_CGFLOAT(*&v155));
+                (*(**&v154 + 24))(COERCE_CGFLOAT(*&v154));
               }
             }
           }
 
-          else if ([(PVImageBuffer *)v57 canCreateHGBitmap]&& ([(PVImageBuffer *)v57 hgBitmapWithColorSpace:colorSpace2], v83 = lpsrc.a, *&lpsrc.a))
+          else if ([(PVImageBuffer *)v57 canCreateHGBitmap]&& (objc_msgSend_hgBitmapWithColorSpace_(v57), v83 = lpsrc.a, *&lpsrc.a))
           {
             v84 = HGObject::operator new(0x1F0uLL);
             HGBitmapLoader::HGBitmapLoader(v84, *&v83);
-            v154 = v84;
+            v153 = v84;
             if (v84)
             {
               (*(*v84 + 16))(v84);
             }
 
             v85 = PVInstructionGraphContext::WorkingColorSpaceConformIntent(v59);
-            ColorConformInput(&v154, colorSpace2, v133, v85, 0, &t2);
+            ColorConformInput(&v153, colorSpace2, v132, v85, 0, &t2);
             a = *&t2.time.value;
             if (t2.time.value)
             {
               t2.time.value = 0;
             }
 
-            if (v154)
+            if (v153)
             {
-              (*(*v154 + 24))(v154);
+              (*(*v153 + 24))(v153);
             }
 
             if (v84)
@@ -819,7 +815,7 @@ LABEL_170:
           if (a == 0.0)
           {
 LABEL_110:
-            HGInternalCompNode::SetImageInput(v132, [v54 intValue], v57);
+            HGInternalCompNode::SetImageInput(v131, [v54 intValue], v57);
           }
 
           else
@@ -830,9 +826,9 @@ LABEL_110:
             v89 = HGRectMake4i(0, 0, v87, v88);
             v91 = v90;
             intValue = [v54 intValue];
-            *&v172.var0 = v89;
-            *&v172.var2 = v91;
-            HGInternalCompNode::SetGraphInput(v132, intValue, *&a, v172);
+            *&v171.var0 = v89;
+            *&v171.var2 = v91;
+            HGInternalCompNode::SetGraphInput(v131, intValue, *&a, v171);
             (*(**&a + 24))(COERCE_CGFLOAT(*&a));
           }
         }
@@ -842,7 +838,7 @@ LABEL_110:
           intValue2 = [v54 intValue];
           LODWORD(t2.time.value) = [v56 trackID];
           *&lpsrc.a = &t2;
-          *(std::__tree<std::__value_type<int,unsigned int>,std::__map_value_compare<int,std::__value_type<int,unsigned int>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v132 + 528, &t2) + 8) = intValue2;
+          *(std::__tree<std::__value_type<int,unsigned int>,std::__map_value_compare<int,std::__value_type<int,unsigned int>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v131 + 528, &t2, &std::piecewise_construct, &lpsrc) + 8) = intValue2;
         }
       }
 
@@ -866,9 +862,9 @@ LABEL_110:
           v79 = HGObject::operator new(0xA8uLL);
           *&lpsrc.a = *&t2.time.value;
           *&lpsrc.c = t2.time.epoch;
-          v175.width = v75;
-          v175.height = v77;
-          PVRendererInstructionGraphContext::PVRendererInstructionGraphContext(v79, v73, v175, v78, &lpsrc);
+          v174.width = v75;
+          v174.height = v77;
+          PVRendererInstructionGraphContext::PVRendererInstructionGraphContext(v79, v73, v174, v78, &lpsrc);
           if (v70 == v79)
           {
             if (v70)
@@ -889,9 +885,9 @@ LABEL_110:
         }
 
         graphNode = [v56 graphNode];
-        v152 = *&time->var0;
+        v151 = *&time->var0;
         var3 = time->var3;
-        v151 = v70;
+        v150 = v70;
         if (v70)
         {
           (*(*v70 + 16))(v70);
@@ -899,7 +895,7 @@ LABEL_110:
 
         if (graphNode)
         {
-          [graphNode hgNodeForTime:&v152 trackInputs:inputs renderer:renderer igContext:&v151];
+          objc_msgSend_hgNodeForTime_trackInputs_renderer_igContext_(graphNode);
         }
 
         else
@@ -907,9 +903,9 @@ LABEL_110:
           lpsrc.a = 0.0;
         }
 
-        if (v151)
+        if (v150)
         {
-          (*(*v151 + 24))(v151);
+          (*(*v150 + 24))(v150);
         }
 
         [v56 outputSize];
@@ -917,42 +913,42 @@ LABEL_110:
         [v56 outputSize];
         v97 = HGRectMake4i(0, 0, v95, v96);
         v99 = v98;
-        v150 = lpsrc.a;
+        v149 = lpsrc.a;
         if (*&lpsrc.a)
         {
           (*(**&lpsrc.a + 16))(*&lpsrc.a);
         }
 
-        [(PVInstructionGraphSourceCompositeNode *)self conformNode:&v150 toSize:v97, v99];
+        objc_msgSend_conformNode_toSize_(self);
         value = t2.time.value;
-        if (v129 == t2.time.value)
+        if (v128 == t2.time.value)
         {
-          if (v129)
+          if (v128)
           {
             (*(*t2.time.value + 24))();
           }
 
           else
           {
-            v129 = 0;
+            v128 = 0;
           }
         }
 
         else
         {
-          if (v129)
+          if (v128)
           {
-            (*(*v129 + 24))(v129);
+            (*(*v128 + 24))(v128);
             value = t2.time.value;
           }
 
           t2.time.value = 0;
-          v129 = value;
+          v128 = value;
         }
 
-        if (v150 != 0.0)
+        if (v149 != 0.0)
         {
-          (*(**&v150 + 24))(COERCE_CGFLOAT(*&v150));
+          (*(**&v149 + 24))(COERCE_CGFLOAT(*&v149));
         }
 
         v101 = PVInstructionGraphContext::WorkingColorSpace(v70);
@@ -966,52 +962,52 @@ LABEL_110:
           v101 = colorSpace4;
         }
 
-        if (([v101 isEqual:v133] & 1) == 0)
+        if (([v101 isEqual:v132] & 1) == 0)
         {
-          v149 = v129;
-          if (v129)
+          v148 = v128;
+          if (v128)
           {
-            (*(*v129 + 16))(v129);
+            (*(*v128 + 16))(v128);
           }
 
           v105 = PVInstructionGraphContext::WorkingColorSpaceConformIntent(v70);
-          ColorConformInput(&v149, v101, v133, v105, 0, &t2);
+          ColorConformInput(&v148, v101, v132, v105, 0, &t2);
           v106 = t2.time.value;
-          if (v129 == t2.time.value)
+          if (v128 == t2.time.value)
           {
-            if (v129)
+            if (v128)
             {
               (*(*t2.time.value + 24))();
             }
 
             else
             {
-              v129 = 0;
+              v128 = 0;
             }
           }
 
           else
           {
-            if (v129)
+            if (v128)
             {
-              (*(*v129 + 24))(v129);
+              (*(*v128 + 24))(v128);
               v106 = t2.time.value;
             }
 
             t2.time.value = 0;
-            v129 = v106;
+            v128 = v106;
           }
 
-          if (v149)
+          if (v148)
           {
-            (*(*v149 + 24))(v149);
+            (*(*v148 + 24))(v148);
           }
         }
 
         intValue3 = [v54 intValue];
-        *&v173.var0 = v97;
-        *&v173.var2 = v99;
-        HGInternalCompNode::SetGraphInput(v132, intValue3, v129, v173);
+        *&v172.var0 = v97;
+        *&v172.var2 = v99;
+        HGInternalCompNode::SetGraphInput(v131, intValue3, v128, v172);
 
         if (*&lpsrc.a)
         {
@@ -1025,37 +1021,37 @@ LABEL_110:
       }
     }
 
-    v51 = [obj countByEnumeratingWithState:&v157 objects:v168 count:16];
+    v51 = [obj countByEnumeratingWithState:&v156 objects:v167 count:16];
   }
 
   while (v51);
 
-  v108 = v129;
-  if (v129 == v132)
+  v108 = v128;
+  if (v128 == v131)
   {
     goto LABEL_171;
   }
 
-  if (v129)
+  if (v128)
   {
-    (*(*v129 + 24))(v129);
+    (*(*v128 + 24))(v128);
   }
 
-  v109 = v132;
-  if (v132)
+  v109 = v131;
+  if (v131)
   {
     goto LABEL_170;
   }
 
   v108 = 0;
 LABEL_171:
-  v130 = v108;
+  v129 = v108;
   v113 = PVInstructionGraphContext::WorkingColorSpace(*m_Obj);
-  v114 = [v133 isEqual:v113];
+  v114 = [v132 isEqual:v113];
 
   if ((v114 & 1) == 0)
   {
-    v148 = v108;
+    v147 = v108;
     if (v108)
     {
       (*(*v108 + 16))(v108);
@@ -1063,7 +1059,7 @@ LABEL_171:
 
     v115 = PVInstructionGraphContext::WorkingColorSpace(*m_Obj);
     v116 = PVInstructionGraphContext::WorkingColorSpaceConformIntent(*m_Obj);
-    ColorConformInput(&v148, v133, v115, v116, 0, &lpsrc);
+    ColorConformInput(&v147, v132, v115, v116, 0, &lpsrc);
     v117 = lpsrc.a;
     if (v108 == *&lpsrc.a)
     {
@@ -1074,7 +1070,7 @@ LABEL_171:
 
       else
       {
-        v130 = 0;
+        v129 = 0;
       }
     }
 
@@ -1087,57 +1083,57 @@ LABEL_171:
       }
 
       lpsrc.a = 0.0;
-      v130 = *&v117;
+      v129 = *&v117;
     }
 
-    if (v148)
+    if (v147)
     {
-      (*(*v148 + 24))(v148);
+      (*(*v147 + 24))(v147);
     }
   }
 
-  v147 = v130;
-  if (v130)
+  v146 = v129;
+  if (v129)
   {
-    (*(*v130 + 16))(v130);
+    (*(*v129 + 16))(v129);
   }
 
-  [(PVInstructionGraphSourceNode *)self applyWrapModeToInput:&v147];
+  objc_msgSend_applyWrapModeToInput_(self);
   v118 = lpsrc.a;
-  if (v130 == *&lpsrc.a)
+  if (v129 == *&lpsrc.a)
   {
-    if (v130)
+    if (v129)
     {
       (*(**&lpsrc.a + 24))();
     }
 
     else
     {
-      v130 = 0;
+      v129 = 0;
     }
   }
 
   else
   {
-    if (v130)
+    if (v129)
     {
-      (*(*v130 + 24))(v130);
+      (*(*v129 + 24))(v129);
       v118 = lpsrc.a;
     }
 
     lpsrc.a = 0.0;
-    v130 = *&v118;
+    v129 = *&v118;
   }
 
-  if (v147)
+  if (v146)
   {
-    (*(*v147 + 24))(v147);
+    (*(*v146 + 24))(v146);
   }
 
-  memset(&v146, 0, sizeof(v146));
+  memset(&v145, 0, sizeof(v145));
   CGAffineTransformMakeScale(&lpsrc, v11, v11);
-  [(PVInstructionGraphSourceNode *)self transform];
-  CGAffineTransformConcat(&v146, &lpsrc, &t2);
+  objc_msgSend_transform(self);
+  CGAffineTransformConcat(&v145, &lpsrc, &t2);
   transformAnimation = [(PVInstructionGraphSourceNode *)self transformAnimation];
   *&t2.time.value = *&time->var0;
   t2.time.epoch = time->var3;
@@ -1145,72 +1141,72 @@ LABEL_171:
 
   if (v120)
   {
-    v176.x = v8 * 0.5;
-    v176.y = v10 * 0.5;
-    memset(&v143, 0, sizeof(v143));
+    v175.x = v8 * 0.5;
+    v175.y = v10 * 0.5;
+    memset(&v142, 0, sizeof(v142));
     *&t2.time.value = *&lpsrc.a;
     *&t2.time.epoch = *&lpsrc.c;
     *&t2.translation.y = *&lpsrc.tx;
-    t2.rotation = v145;
-    CGAffineTransformFromPointWithPVAnimInfo(&t2, v176, &v143);
-    t1 = v146;
-    v140 = v143;
-    CGAffineTransformConcat(&t2, &t1, &v140);
-    *&v146.a = *&t2.time.value;
-    *&v146.c = *&t2.time.epoch;
-    *&v146.tx = *&t2.translation.y;
+    t2.rotation = v144;
+    CGAffineTransformFromPointWithPVAnimInfo(&v142, &t2, v175);
+    t1 = v145;
+    v139 = v142;
+    CGAffineTransformConcat(&t2, &t1, &v139);
+    *&v145.a = *&t2.time.value;
+    *&v145.c = *&t2.time.epoch;
+    *&v145.tx = *&t2.translation.y;
   }
 
-  v139 = v130;
-  if (v130)
+  v138 = v129;
+  if (v129)
   {
-    (*(*v130 + 16))(v130);
+    (*(*v129 + 16))(v129);
   }
 
-  *&t2.time.value = *&v146.a;
-  *&t2.time.epoch = *&v146.c;
-  *&t2.translation.y = *&v146.tx;
+  *&t2.time.value = *&v145.a;
+  *&t2.time.epoch = *&v145.c;
+  *&t2.translation.y = *&v145.tx;
   v121 = (*(**m_Obj + 64))();
-  HGXFormForCGAffineTransform(&v139, &t2, v121, &v143);
-  v122 = v143.a;
-  if (v130 == *&v143.a)
+  HGXFormForCGAffineTransform(&v138, &t2, v121, &v142);
+  v122 = v142.a;
+  if (v129 == *&v142.a)
   {
-    if (v130)
+    if (v129)
     {
-      (*(**&v143.a + 24))();
+      (*(**&v142.a + 24))();
     }
 
     else
     {
-      v130 = 0;
+      v129 = 0;
     }
   }
 
   else
   {
-    if (v130)
+    if (v129)
     {
-      (*(*v130 + 24))(v130);
-      v122 = v143.a;
+      (*(*v129 + 24))(v129);
+      v122 = v142.a;
     }
 
-    v143.a = 0.0;
-    v130 = *&v122;
+    v142.a = 0.0;
+    v129 = *&v122;
   }
 
-  if (v139)
+  if (v138)
   {
-    (*(*v139 + 24))(v139);
+    (*(*v138 + 24))(v138);
   }
 
-  *v125 = v130;
+  *v125 = v129;
 LABEL_208:
 
-  std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(&v165, v166[0]);
-  v123.var0 = v132;
-  if (v132)
+  std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(&v164, v165[0]);
+  v123.var0 = v131;
+  if (v131)
   {
-    return (*(*v132 + 24))(v132);
+    return (*(*v131 + 24))(v131);
   }
 
   return v123;
@@ -1246,7 +1242,7 @@ LABEL_208:
 
   if (v29 > 0.0 && v28 > 0.0)
   {
-    [(PVInstructionGraphSourceNode *)self transform];
+    objc_msgSend_transform(self, v28);
     v18 = vaddq_f64(vmulq_n_f64(v31, v29), vmulq_n_f64(v32, v28));
     v19 = v18.f64[1];
     v30 = v18;

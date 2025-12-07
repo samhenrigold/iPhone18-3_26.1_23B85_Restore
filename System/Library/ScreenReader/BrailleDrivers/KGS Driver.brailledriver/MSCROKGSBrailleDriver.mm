@@ -1092,30 +1092,29 @@ LABEL_122:
       safeReadBuffer = self->_safeReadBuffer;
       BytePtr = CFDataGetBytePtr(self->_readBuffer);
       CFDataAppendBytes(safeReadBuffer, BytePtr, v5);
-      v17.location = 0;
-      v17.length = v5;
-      CFDataDeleteBytes(self->_readBuffer, v17);
+      v16.location = 0;
+      v16.length = v5;
+      CFDataDeleteBytes(self->_readBuffer, v16);
     }
   }
 
   [(NSLock *)self->_readBufferLock unlock];
-  v8 = self->_safeReadBuffer;
-  v9 = SCRDKGSExtractEventsFromBuffer();
-  v10 = v9;
-  if (v9 && [v9 count])
+  v8 = SCRDKGSExtractEventsFromBuffer();
+  v9 = v8;
+  if (v8 && [v8 count])
   {
-    v11 = [v10 mutableCopy];
-    [v11 removeObjectsInArray:&off_87D0];
-    v12 = _SCROD_LOG();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v10 = [v9 mutableCopy];
+    [v10 removeObjectsInArray:&off_87D0];
+    v11 = _SCROD_LOG();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138412290;
-      v15 = v11;
-      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "KGS Driver: got input events %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = v10;
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "KGS Driver: got input events %@", &v13, 0xCu);
     }
   }
 
-  return v10;
+  return v9;
 }
 
 - (BOOL)setMainCells:(const char *)cells length:(int64_t)length
@@ -1131,37 +1130,36 @@ LABEL_122:
     lengthCopy = self->_mainSize;
   }
 
-  memcpy(&v18 - ((mainSize + 15) & 0xFFFFFFFFFFFFFFF0), cells, lengthCopy);
+  memcpy(&v17 - ((mainSize + 15) & 0xFFFFFFFFFFFFFFF0), cells, lengthCopy);
   if (mainSize > length)
   {
-    bzero(&v18 + length - ((mainSize + 15) & 0xFFFFFFFFFFFFFFF0), mainSize - length);
+    bzero(&v17 + length - ((mainSize + 15) & 0xFFFFFFFFFFFFFFF0), mainSize - length);
   }
 
   SCRDKGSConvertBrailleCellsToKGSOrder();
-  mainSize_low = LOWORD(self->_mainSize);
-  v10 = SCRDKGSCreateCommandPacket();
-  if (!v10)
+  v9 = SCRDKGSCreateCommandPacket();
+  if (!v9)
   {
     return 0;
   }
 
-  v11 = v10;
+  v10 = v9;
   comPort = self->_comPort;
   if (comPort == -1)
   {
-    v16 = 0;
+    v15 = 0;
   }
 
   else
   {
-    BytePtr = CFDataGetBytePtr(v10);
-    Length = CFDataGetLength(v11);
-    v15 = write(comPort, BytePtr, Length);
-    v16 = v15 == CFDataGetLength(v11);
+    BytePtr = CFDataGetBytePtr(v9);
+    Length = CFDataGetLength(v10);
+    v14 = write(comPort, BytePtr, Length);
+    v15 = v14 == CFDataGetLength(v10);
   }
 
-  CFRelease(v11);
-  return v16;
+  CFRelease(v10);
+  return v15;
 }
 
 - (void)fileReader:(id)reader data:(const void *)data length:(unint64_t)length

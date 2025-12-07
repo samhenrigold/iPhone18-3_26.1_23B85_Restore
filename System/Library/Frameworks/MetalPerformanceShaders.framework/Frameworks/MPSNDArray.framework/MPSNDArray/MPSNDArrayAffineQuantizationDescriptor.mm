@@ -1,5 +1,7 @@
 @interface MPSNDArrayAffineQuantizationDescriptor
 - (MPSNDArrayAffineQuantizationDescriptor)init;
+- (MPSNDArrayAffineQuantizationDescriptor)initWithDataType:(unsigned int)type hasZeroPoint:(BOOL)point hasMinValue:(BOOL)value;
+- (MPSNDArrayAffineQuantizationDescriptor)initWithDataType:(unsigned int)type hasZeroPoint:(BOOL)point hasMinValue:(BOOL)value hasDoubleQuantScale:(BOOL)scale hasDoubleQuantMinVal:(BOOL)val;
 - (id)copyWithZone:(_NSZone *)zone;
 - (int64_t)getDQuantMinValIndex;
 - (int64_t)getDQuantScaleIndex;
@@ -38,6 +40,40 @@
     result->_hasMinValue = 0;
     result->_hasDoubleQuantScale = 0;
     result->_hasDoubleQuantMinVal = 0;
+    result->_signedAsUnsigned = 0;
+  }
+
+  return result;
+}
+
+- (MPSNDArrayAffineQuantizationDescriptor)initWithDataType:(unsigned int)type hasZeroPoint:(BOOL)point hasMinValue:(BOOL)value
+{
+  v8.receiver = self;
+  v8.super_class = MPSNDArrayAffineQuantizationDescriptor;
+  result = [(MPSNDArrayQuantizationDescriptor *)&v8 initWithDataType:*&type quantizationScheme:1];
+  if (result)
+  {
+    result->_hasZeroPoint = point;
+    result->_hasMinValue = value;
+    result->_hasDoubleQuantScale = 0;
+    result->_hasDoubleQuantMinVal = 0;
+    result->_signedAsUnsigned = 0;
+  }
+
+  return result;
+}
+
+- (MPSNDArrayAffineQuantizationDescriptor)initWithDataType:(unsigned int)type hasZeroPoint:(BOOL)point hasMinValue:(BOOL)value hasDoubleQuantScale:(BOOL)scale hasDoubleQuantMinVal:(BOOL)val
+{
+  v12.receiver = self;
+  v12.super_class = MPSNDArrayAffineQuantizationDescriptor;
+  result = [(MPSNDArrayQuantizationDescriptor *)&v12 initWithDataType:*&type quantizationScheme:1];
+  if (result)
+  {
+    result->_hasZeroPoint = point;
+    result->_hasMinValue = value;
+    result->_hasDoubleQuantScale = scale;
+    result->_hasDoubleQuantMinVal = val;
     result->_signedAsUnsigned = 0;
   }
 
@@ -111,7 +147,6 @@
     return -1;
   }
 
-  hasMinValue = self->_hasMinValue;
   if (self->_hasZeroPoint)
   {
     if (self->_hasMinValue)
@@ -137,7 +172,6 @@
     return -1;
   }
 
-  hasMinValue = self->_hasMinValue;
   if (self->_hasZeroPoint)
   {
     if (self->_hasMinValue)

@@ -137,7 +137,7 @@ uint64_t __26__MFConnection_initialize__block_invoke()
 
 + (void)logConnection:(id)connection type:(int64_t)type data:(id)data
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   bytes = [data bytes];
   v9 = [data length];
   v10 = v9;
@@ -161,12 +161,12 @@ uint64_t __26__MFConnection_initialize__block_invoke()
     v12 = off_2798B65E0[type - 1];
   }
 
-  v22 = v12;
+  v21 = v12;
   v13 = *(connection + 2);
   securityProtocol = [*(connection + 3) securityProtocol];
   if (securityProtocol)
   {
-    v21 = [MEMORY[0x277CCACA8] stringWithFormat:@":%@", securityProtocol];
+    v20 = [MEMORY[0x277CCACA8] stringWithFormat:@":%@", securityProtocol];
     if (type)
     {
       goto LABEL_13;
@@ -175,7 +175,7 @@ uint64_t __26__MFConnection_initialize__block_invoke()
 
   else
   {
-    v21 = &stru_2869ED3E0;
+    v20 = &stru_2869ED3E0;
     if (type)
     {
       goto LABEL_13;
@@ -186,17 +186,17 @@ uint64_t __26__MFConnection_initialize__block_invoke()
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     *buf = 136447490;
-    v24 = v22;
-    v25 = 2114;
-    v26 = objc_opt_class();
-    v27 = 2048;
+    v23 = v21;
+    v24 = 2114;
+    v25 = objc_opt_class();
+    v26 = 2048;
     connectionCopy2 = connection;
-    v29 = 2112;
+    v28 = 2112;
     hostname = [v13 hostname];
-    v31 = 1024;
+    v30 = 1024;
     portNumber = [v13 portNumber];
-    v33 = 2114;
-    v34 = v21;
+    v32 = 2114;
+    v33 = v20;
     _os_log_impl(&dword_258BDA000, v15, OS_LOG_TYPE_INFO, "%{public}s <%{public}@:%p> [%@:%u%{public}@]", buf, 0x3Au);
   }
 
@@ -210,21 +210,21 @@ LABEL_13:
       hostname2 = [v13 hostname];
       portNumber2 = [v13 portNumber];
       *buf = 136448002;
-      v24 = v22;
-      v25 = 2114;
-      v26 = v17;
-      v27 = 2048;
+      v23 = v21;
+      v24 = 2114;
+      v25 = v17;
+      v26 = 2048;
       connectionCopy2 = connection;
-      v29 = 2112;
+      v28 = 2112;
       hostname = hostname2;
-      v31 = 1024;
+      v30 = 1024;
       portNumber = portNumber2;
-      v33 = 2114;
-      v34 = v21;
-      v35 = 1040;
-      v36 = v11;
-      v37 = 2096;
-      v38 = bytes;
+      v32 = 2114;
+      v33 = v20;
+      v34 = 1040;
+      v35 = v11;
+      v36 = 2096;
+      v37 = bytes;
       _os_log_impl(&dword_258BDA000, v16, OS_LOG_TYPE_INFO, "%{public}s <%{public}@:%p> [%@:%u%{public}@] %{mobilemail:networkData}.*P", buf, 0x4Au);
     }
 
@@ -240,8 +240,6 @@ LABEL_13:
       v11 = v10;
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 + (id)logClasses
@@ -343,19 +341,18 @@ LABEL_13:
 
 - (BOOL)isCellularConnection
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   isCellularConnection = [(_MFSocket *)self->_socket isCellularConnection];
   v4 = MFLogGeneral();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v7[0] = 67109378;
-    v7[1] = isCellularConnection;
-    v8 = 2112;
+    v6[0] = 67109378;
+    v6[1] = isCellularConnection;
+    v7 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_258BDA000, v4, OS_LOG_TYPE_INFO, "#Network %d for %@", v7, 0x12u);
+    _os_log_impl(&dword_258BDA000, v4, OS_LOG_TYPE_INFO, "#Network %d for %@", v6, 0x12u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return isCellularConnection;
 }
 
@@ -699,54 +696,49 @@ LABEL_5:
 
 - (NSArray)authenticationMechanisms
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   capabilities = [(MFConnection *)self capabilities];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v3 = [(NSArray *)capabilities countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v3)
+  v3 = [(NSArray *)capabilities countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (!v3)
   {
-    v4 = v3;
-    array = 0;
-    v6 = *v16;
-    do
+    return 0;
+  }
+
+  v4 = v3;
+  array = 0;
+  v6 = *v15;
+  do
+  {
+    for (i = 0; i != v4; ++i)
     {
-      for (i = 0; i != v4; ++i)
+      if (*v15 != v6)
       {
-        if (*v16 != v6)
-        {
-          objc_enumerationMutation(capabilities);
-        }
-
-        v8 = *(*(&v15 + 1) + 8 * i);
-        v9 = [v8 rangeOfString:@"AUTH=" options:9 range:{0, objc_msgSend(v8, "length")}];
-        if (v9 != 0x7FFFFFFFFFFFFFFFLL)
-        {
-          v11 = v9;
-          v12 = v10;
-          if (!array)
-          {
-            array = [MEMORY[0x277CBEB18] array];
-          }
-
-          -[NSArray addObject:](array, "addObject:", [objc_msgSend(v8 substringFromIndex:{v11 + v12), "uppercaseString"}]);
-        }
+        objc_enumerationMutation(capabilities);
       }
 
-      v4 = [(NSArray *)capabilities countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = *(*(&v14 + 1) + 8 * i);
+      v9 = [v8 rangeOfString:@"AUTH=" options:9 range:{0, objc_msgSend(v8, "length")}];
+      if (v9 != 0x7FFFFFFFFFFFFFFFLL)
+      {
+        v11 = v9;
+        v12 = v10;
+        if (!array)
+        {
+          array = [MEMORY[0x277CBEB18] array];
+        }
+
+        -[NSArray addObject:](array, "addObject:", [objc_msgSend(v8 substringFromIndex:{v11 + v12), "uppercaseString"}]);
+      }
     }
 
-    while (v4);
+    v4 = [(NSArray *)capabilities countByEnumeratingWithState:&v14 objects:v18 count:16];
   }
 
-  else
-  {
-    array = 0;
-  }
-
-  v13 = *MEMORY[0x277D85DE8];
+  while (v4);
   return array;
 }
 
@@ -1313,11 +1305,10 @@ LABEL_9:
 
 - (void)startCompression
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = self;
-  _os_log_error_impl(&dword_258BDA000, a2, OS_LOG_TYPE_ERROR, "inflateInit2 failed with error %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = self;
+  _os_log_error_impl(&dword_258BDA000, a2, OS_LOG_TYPE_ERROR, "inflateInit2 failed with error %d", v2, 8u);
 }
 
 @end

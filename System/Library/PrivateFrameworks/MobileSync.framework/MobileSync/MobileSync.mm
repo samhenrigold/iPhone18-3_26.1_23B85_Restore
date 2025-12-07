@@ -59,7 +59,7 @@ uint64_t DataSourceDeleteDataSource(uint64_t a1, uint64_t a2)
 {
   if (a1)
   {
-    return (*(a1 + 128))();
+    return (*(a1 + 128))(a1, a2);
   }
 
   else
@@ -97,8 +97,6 @@ uint64_t DataSourceCanSyncWithVersion(uint64_t a1, const __CFNumber *a2, void *a
 LABEL_11:
   if (DLShouldLog())
   {
-    *a3;
-    *MEMORY[0x277CBED28];
     _DLLog();
   }
 
@@ -225,7 +223,7 @@ uint64_t DataSourceClearAllRecords(uint64_t a1, uint64_t a2)
 {
   if (a1)
   {
-    return (*(a1 + 64))();
+    return (*(a1 + 64))(a1, a2);
   }
 
   else
@@ -296,7 +294,7 @@ uint64_t DataSourceGetCountOfRecords(uint64_t a1, uint64_t a2, uint64_t a3)
   {
     if (a2)
     {
-      return (*(a1 + 88))();
+      return (*(a1 + 88))(a1, a2, a3);
     }
 
     v4 = @"DataSourceGetCountOfRecords: Out parameter for count is NULL";
@@ -342,7 +340,7 @@ uint64_t DataSourceCommit(uint64_t a1, uint64_t a2)
 {
   if (a1)
   {
-    return (*(a1 + 104))();
+    return (*(a1 + 104))(a1, a2);
   }
 
   else
@@ -355,7 +353,7 @@ uint64_t DataSourceRollback(uint64_t a1, uint64_t a2)
 {
   if (a1)
   {
-    return (*(a1 + 112))();
+    return (*(a1 + 112))(a1, a2);
   }
 
   else
@@ -368,7 +366,7 @@ uint64_t DataSourceGetEntityTypeProcessOrder(uint64_t a1, uint64_t a2, uint64_t 
 {
   if (a1)
   {
-    return (*(a1 + 120))();
+    return (*(a1 + 120))(a1, a2, a3);
   }
 
   else
@@ -486,7 +484,6 @@ uint64_t ContactsDataSourceCreator(void *a1, uint64_t a2, const __CFDictionary *
       v8[440] = CFBooleanGetValue(Value) != 0;
       if (DLShouldLog())
       {
-        v8[440];
         _DLLog();
       }
     }
@@ -497,20 +494,18 @@ uint64_t ContactsDataSourceCreator(void *a1, uint64_t a2, const __CFDictionary *
       v8[441] = CFBooleanGetValue(v14) != 0;
       if (DLShouldLog())
       {
-        v8[441];
         _DLLog();
       }
     }
   }
 
   v8[443] = 0;
-  v52 = 0;
-  v15 = *(v8 + 18);
+  v45 = 0;
   if (!a2)
   {
-    v31 = ABAddressBookCopyLocalSource();
-    *(v8 + 19) = v31;
-    if (v31)
+    v29 = ABAddressBookCopyLocalSource();
+    *(v8 + 19) = v29;
+    if (v29)
     {
       v8[443] = 1;
     }
@@ -523,39 +518,38 @@ uint64_t ContactsDataSourceCreator(void *a1, uint64_t a2, const __CFDictionary *
     goto LABEL_92;
   }
 
-  v16 = ABAddressBookCopyArrayOfAllSourcesWithAccountIdentifier();
-  v17 = v16;
-  if (v16 && CFArrayGetCount(v16) >= 1)
+  v15 = ABAddressBookCopyArrayOfAllSourcesWithAccountIdentifier();
+  v16 = v15;
+  if (v15 && CFArrayGetCount(v15) >= 1)
   {
-    ValueAtIndex = CFArrayGetValueAtIndex(v17, 0);
+    ValueAtIndex = CFArrayGetValueAtIndex(v16, 0);
     CFRetain(ValueAtIndex);
 LABEL_19:
-    CFRelease(v17);
+    CFRelease(v16);
     goto LABEL_20;
   }
 
-  v19 = *(v8 + 18);
-  v20 = ABAddressBookCopySourceWithAccountAndExternalIdentifiers();
-  ValueAtIndex = v20;
-  if (v20)
+  v18 = ABAddressBookCopySourceWithAccountAndExternalIdentifiers();
+  ValueAtIndex = v18;
+  if (v18)
   {
-    v21 = ABRecordCopyValue(v20, *MEMORY[0x277CE9A90]);
-    if (v21)
+    v19 = ABRecordCopyValue(v18, *MEMORY[0x277CE9A90]);
+    if (v19)
     {
-      v22 = v21;
-      _makeAccountForSource(v8, ValueAtIndex);
-      CFRelease(v22);
+      v20 = v19;
+      _makeAccountForSource(v8, ValueAtIndex, v19);
+      CFRelease(v20);
     }
   }
 
-  if (v17)
+  if (v16)
   {
     goto LABEL_19;
   }
 
 LABEL_20:
-  v23 = ValueAtIndex == 0;
-  v24 = ValueAtIndex;
+  v21 = ValueAtIndex == 0;
+  v22 = ValueAtIndex;
   if (ValueAtIndex)
   {
     goto LABEL_102;
@@ -566,8 +560,8 @@ LABEL_20:
     _DLLog();
   }
 
-  v32 = ABSourceCreate();
-  if (!v32)
+  v30 = ABSourceCreate();
+  if (!v30)
   {
     if (DLShouldLog())
     {
@@ -583,13 +577,13 @@ LABEL_20:
     goto LABEL_92;
   }
 
-  v24 = v32;
+  v22 = v30;
   if (DLShouldLog())
   {
     _DLLog();
   }
 
-  if (!_makeAccountForSource(v8, v24))
+  if (!_makeAccountForSource(v8, v22, a2))
   {
     if (DLShouldLog())
     {
@@ -601,12 +595,12 @@ LABEL_20:
       *a4 = CFStringCreateWithFormat(0, 0, @"Could not set external identifier on AB store: %@", 0);
     }
 
-    v35 = v24;
+    v33 = v22;
     goto LABEL_91;
   }
 
-  v33 = ABAddressBookAddRecord(*(v8 + 18), v24, &v52);
-  if (!v33)
+  v31 = ABAddressBookAddRecord(*(v8 + 18), v22, &v45);
+  if (!v31)
   {
     if (DLShouldLog())
     {
@@ -615,26 +609,26 @@ LABEL_20:
 
     if (a4)
     {
-      *a4 = CFStringCreateWithFormat(0, 0, @"Could not add store to AddressBook: %@", v52);
+      *a4 = CFStringCreateWithFormat(0, 0, @"Could not add store to AddressBook: %@", v45);
     }
 
-    CFRelease(v24);
-    v24 = 0;
+    CFRelease(v22);
+    v22 = 0;
   }
 
-  if (v52)
+  if (v45)
   {
-    CFRelease(v52);
-    v52 = 0;
+    CFRelease(v45);
+    v45 = 0;
   }
 
-  v34 = !v33;
-  if (!v24)
+  v32 = !v31;
+  if (!v22)
   {
-    v34 = 1;
+    v32 = 1;
   }
 
-  if ((v34 & 1) == 0)
+  if ((v32 & 1) == 0)
   {
 LABEL_102:
     if (DLShouldLog())
@@ -644,45 +638,45 @@ LABEL_102:
 
     if (a3)
     {
-      v25 = CFDictionaryGetValue(a3, @"StoreDisplayName");
-      if (v25)
+      v23 = CFDictionaryGetValue(a3, @"StoreDisplayName");
+      if (v23)
       {
-        if (!ABRecordSetValue(v24, *MEMORY[0x277CE9AC0], v25, &v52) && DLShouldLog())
+        if (!ABRecordSetValue(v22, *MEMORY[0x277CE9AC0], v23, &v45) && DLShouldLog())
         {
           _DLLog();
         }
 
-        if (v52)
+        if (v45)
         {
-          CFRelease(v52);
-          v52 = 0;
+          CFRelease(v45);
+          v45 = 0;
         }
       }
 
-      v26 = CFDictionaryGetValue(a3, @"StoreType");
-      if (v26)
+      v24 = CFDictionaryGetValue(a3, @"StoreType");
+      if (v24)
       {
-        if (!ABRecordSetValue(v24, *MEMORY[0x277CE9AD0], v26, &v52) && DLShouldLog())
+        if (!ABRecordSetValue(v22, *MEMORY[0x277CE9AD0], v24, &v45) && DLShouldLog())
         {
           _DLLog();
         }
 
-        if (v52)
+        if (v45)
         {
-          CFRelease(v52);
-          v52 = 0;
+          CFRelease(v45);
+          v45 = 0;
         }
       }
 
-      v27 = CFDictionaryGetValue(a3, @"SetAsDefault");
-      if (v27 && CFBooleanGetValue(v27))
+      v25 = CFDictionaryGetValue(a3, @"SetAsDefault");
+      if (v25 && CFBooleanGetValue(v25))
       {
-        v28 = ABAddressBookCopyDefaultSource(*(v8 + 18));
-        if (v28)
+        v26 = ABAddressBookCopyDefaultSource(*(v8 + 18));
+        if (v26)
         {
-          v29 = v28;
-          RecordID = ABRecordGetRecordID(v28);
-          CFRelease(v29);
+          v27 = v26;
+          RecordID = ABRecordGetRecordID(v26);
+          CFRelease(v27);
         }
 
         else
@@ -690,79 +684,77 @@ LABEL_102:
           RecordID = -1;
         }
 
-        v36 = CFDictionaryGetValue(a3, @"SetAsDefaultOnlyIfNotSet");
-        if (v36)
+        v34 = CFDictionaryGetValue(a3, @"SetAsDefaultOnlyIfNotSet");
+        if (v34)
         {
-          CFBooleanGetValue(v36);
+          CFBooleanGetValue(v34);
         }
 
         if (DLShouldLog())
         {
-          ABRecordGetRecordID(v24);
+          ABRecordGetRecordID(v22);
           _DLLog();
         }
 
         if (!ValueAtIndex)
         {
-          v37 = *(v8 + 18);
           ABAddressBookProcessAddedRecords();
         }
 
-        v38 = *(v8 + 18);
         ABAddressBookSetDefaultSource();
-        v39 = ABAddressBookCopyDefaultSource(*(v8 + 18));
-        if (v39)
+        v35 = ABAddressBookCopyDefaultSource(*(v8 + 18));
+        if (v35)
         {
-          v40 = v39;
-          v41 = ABRecordGetRecordID(v39);
-          CFRelease(v40);
+          v36 = v35;
+          v37 = ABRecordGetRecordID(v35);
+          CFRelease(v36);
         }
 
         else
         {
-          v41 = -1;
+          v37 = -1;
         }
 
-        if (v41 != RecordID)
+        if (v37 != RecordID)
         {
           if (DLShouldLog())
           {
             _DLLog();
           }
 
-          v23 = 1;
+          v21 = 1;
         }
       }
     }
 
-    v42 = *(v8 + 19);
-    if (v42)
+    v38 = *(v8 + 19);
+    if (v38)
     {
-      CFRelease(v42);
+      CFRelease(v38);
     }
 
-    *(v8 + 19) = v24;
-    if (!v23)
+    *(v8 + 19) = v22;
+    if (!v21)
     {
       goto LABEL_92;
     }
   }
 
-  else if (!v33)
+  else if (!v31)
   {
     goto LABEL_92;
   }
 
-  v51 = 0;
-  ABAddressBookSave(*(v8 + 18), &v51);
-  if (v51)
+  v44 = 0;
+  ABAddressBookSave(*(v8 + 18), &v44);
+  if (v44)
   {
-    *a4 = CFStringCreateWithFormat(0, 0, @"Could not save new AddressBook store: %@", v51);
-    v35 = v51;
-    if (v51)
+    *a4 = CFStringCreateWithFormat(0, 0, @"Could not save new AddressBook store: %@", v44);
+    v33 = v44;
+    if (v44)
     {
 LABEL_91:
-      CFRelease(v35);
+      CFRelease(v33);
     }
   }
 
@@ -781,26 +773,23 @@ LABEL_98:
   *(v8 + 106) = 0;
   *(v8 + 20) = 0;
   *(v8 + 21) = 0;
-  LOBYTE(v52) = 0;
-  AppIntegerValue = CFPreferencesGetAppIntegerValue(@"MaxCompressedImageSize", @"com.apple.SyncAgent", &v52);
-  if (v52)
+  LOBYTE(v45) = 0;
+  AppIntegerValue = CFPreferencesGetAppIntegerValue(@"MaxCompressedImageSize", @"com.apple.SyncAgent", &v45);
+  if (v45)
   {
-    v44 = AppIntegerValue;
+    v40 = AppIntegerValue;
   }
 
   else
   {
-    v44 = 768000;
+    v40 = 768000;
   }
 
-  *(v8 + 107) = v44;
-  v45 = *(v8 + 18);
+  *(v8 + 107) = v40;
   ABChangeHistorySetAddressBookClientIdentifier();
-  v46 = *(v8 + 18);
-  v47 = *(v8 + 19);
-  v48 = ABChangeHistoryRegisterClientForSource();
+  v41 = ABChangeHistoryRegisterClientForSource();
   result = 0;
-  *(v8 + 109) = v48;
+  *(v8 + 109) = v41;
   v8[442] = 0;
   return result;
 }
@@ -884,9 +873,6 @@ uint64_t ContactsDataSourceMigrateFunction(uint64_t a1, uint64_t a2)
       _DLLog();
     }
 
-    v5 = *(a1 + 152);
-    v6 = *(a2 + 144);
-    v7 = *(a2 + 152);
     if (ABAddressBookMoveAllRecordsInSourceToSource())
     {
       ContactsDataSourceClearSyncAnchors(a1);
@@ -911,8 +897,8 @@ uint64_t ContactsDataSourceMigrateFunction(uint64_t a1, uint64_t a2)
 uint64_t ContactsDataSourceRemoveStoreFunction(uint64_t a1, const __CFDictionary *a2)
 {
   error = 0;
-  _setComputerSyncAnchorForStore(a1);
-  _setDeviceSyncAnchorForStore(a1);
+  _setComputerSyncAnchorForStore(a1, 0);
+  _setDeviceSyncAnchorForStore(a1, 0);
   v4 = ABAddressBookCopyDefaultSource(*(a1 + 144));
   if (v4)
   {
@@ -994,31 +980,30 @@ LABEL_26:
   }
 
 LABEL_28:
-  v20 = *(a1 + 144);
-  v21 = ABAddressBookCopyArrayOfAllSourcesIncludingDisabledSources();
-  if (v21)
+  v20 = ABAddressBookCopyArrayOfAllSourcesIncludingDisabledSources();
+  if (v20)
   {
-    v22 = v21;
-    v23 = CFArrayGetCount(v21);
-    if (v23 >= 1)
+    v21 = v20;
+    v22 = CFArrayGetCount(v20);
+    if (v22 >= 1)
     {
-      v24 = v23;
-      v25 = 0;
-      v26 = *MEMORY[0x277CE9AD0];
+      v23 = v22;
+      v24 = 0;
+      v25 = *MEMORY[0x277CE9AD0];
       do
       {
-        v27 = CFArrayGetValueAtIndex(v22, v25);
+        v26 = CFArrayGetValueAtIndex(v21, v24);
         valuePtr = -1;
-        v28 = ABRecordCopyValue(v27, v26);
-        if (v28)
+        v27 = ABRecordCopyValue(v26, v25);
+        if (v27)
         {
-          v29 = v28;
-          CFNumberGetValue(v28, kCFNumberIntType, &valuePtr);
+          v28 = v27;
+          CFNumberGetValue(v27, kCFNumberIntType, &valuePtr);
           if (valuePtr)
           {
-            CFRetain(v27);
-            CFRelease(v29);
-            if (v27)
+            CFRetain(v26);
+            CFRelease(v28);
+            if (v26)
             {
               goto LABEL_38;
             }
@@ -1026,78 +1011,73 @@ LABEL_28:
 
           else
           {
-            CFRelease(v29);
+            CFRelease(v28);
           }
         }
 
-        ++v25;
+        ++v24;
       }
 
-      while (v24 != v25);
+      while (v23 != v24);
     }
 
-    v27 = 0;
+    v26 = 0;
 LABEL_38:
-    CFRelease(v22);
+    CFRelease(v21);
   }
 
   else
   {
-    v27 = 0;
+    v26 = 0;
   }
 
-  v30 = *(a1 + 152);
-  if (v30)
+  v29 = *(a1 + 152);
+  if (v29)
   {
-    CFRelease(v30);
+    CFRelease(v29);
   }
 
-  *(a1 + 152) = v27;
-  v31 = *(a1 + 144);
+  *(a1 + 152) = v26;
   ABAddressBookSetDefaultSource();
   return (ABAddressBookSave(*(a1 + 144), &error) - 1);
 }
 
-uint64_t ContactsDataSourceGetSyncTypeAndExchangeSyncAnchors(void *a1, CFTypeRef *a2, const __CFString *a3, const __CFString *cf, uint64_t *a5, CFTypeRef *a6)
+uint64_t ContactsDataSourceGetSyncTypeAndExchangeSyncAnchors(void *a1, CFTypeRef *a2, const __CFString *a3, const __CFString *cf, const __CFString **a5, CFTypeRef *a6)
 {
-  v45[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   if (a1)
   {
     v12 = _copyComputerSyncAnchorKey(a1);
-    v13 = a1[18];
-    v14 = ABAddressBookCopyValue();
-    if (!v14)
+    v13 = ABAddressBookCopyValue();
+    if (!v13)
     {
-      v15 = a1[18];
-      v16 = ABAddressBookCopyValue();
-      if (v16)
+      v14 = ABAddressBookCopyValue();
+      if (v14)
       {
-        v17 = v16;
-        if (CFStringCompare(v16, @"__UNUSED__", 0))
+        v15 = v14;
+        if (CFStringCompare(v14, @"__UNUSED__", 0))
         {
           if (DLShouldLog())
           {
             _DLLog();
           }
 
-          v18 = a1[18];
           ABAddressBookSetValue();
-          v19 = a1[18];
           ABAddressBookSetValue();
-          v14 = CFRetain(v17);
+          v13 = CFRetain(v15);
         }
 
         else
         {
-          v14 = 0;
+          v13 = 0;
         }
 
-        CFRelease(v17);
+        CFRelease(v15);
       }
 
       else
       {
-        v14 = 0;
+        v13 = 0;
       }
     }
 
@@ -1109,19 +1089,18 @@ uint64_t ContactsDataSourceGetSyncTypeAndExchangeSyncAnchors(void *a1, CFTypeRef
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
   if (cf && (a1[21] = CFRetain(cf), CFStringCompare(cf, @"---DATACLASS_CLEARED---", 0) == kCFCompareEqualTo))
   {
-    v21 = a1[18];
     ABChangeHistoryUnregisterClientForSource();
-    v20 = 0;
+    v16 = 0;
   }
 
   else
   {
-    v20 = 1;
+    v16 = 1;
   }
 
   if (DLShouldLog())
@@ -1130,48 +1109,44 @@ uint64_t ContactsDataSourceGetSyncTypeAndExchangeSyncAnchors(void *a1, CFTypeRef
   }
 
   *a2 = CFRetain(@"SDSyncTypeFast");
-  *a5 = v14;
-  v22 = _copyDeviceSyncAnchorKey(a1);
-  v23 = a1[18];
-  v24 = ABAddressBookCopyValue();
-  if (!v24)
+  *a5 = v13;
+  v17 = _copyDeviceSyncAnchorKey(a1);
+  v18 = ABAddressBookCopyValue();
+  if (!v18)
   {
-    v25 = a1[18];
-    v26 = ABAddressBookCopyValue();
-    if (v26)
+    v19 = ABAddressBookCopyValue();
+    if (v19)
     {
-      v27 = v26;
-      if (CFStringCompare(v26, @"__UNUSED__", 0))
+      v20 = v19;
+      if (CFStringCompare(v19, @"__UNUSED__", 0))
       {
         if (DLShouldLog())
         {
           _DLLog();
         }
 
-        v28 = a1[18];
         ABAddressBookSetValue();
-        v29 = a1[18];
         ABAddressBookSetValue();
-        v24 = CFRetain(v27);
+        v18 = CFRetain(v20);
       }
 
       else
       {
-        v24 = 0;
+        v18 = 0;
       }
 
-      CFRelease(v27);
+      CFRelease(v20);
     }
 
     else
     {
-      v24 = 0;
+      v18 = 0;
     }
   }
 
-  if (v22)
+  if (v17)
   {
-    CFRelease(v22);
+    CFRelease(v17);
   }
 
   if (DLShouldLog())
@@ -1179,40 +1154,37 @@ uint64_t ContactsDataSourceGetSyncTypeAndExchangeSyncAnchors(void *a1, CFTypeRef
     _DLLog();
   }
 
-  if (v24)
+  if (v18)
   {
-    if (a3 && CFStringCompare(v24, a3, 0) == kCFCompareEqualTo)
+    if (a3 && CFStringCompare(v18, a3, 0) == kCFCompareEqualTo)
     {
-      if (!v20)
+      if (!v16)
       {
         goto LABEL_39;
       }
 
-      v36 = *MEMORY[0x277CE9798];
-      v45[0] = *MEMORY[0x277CE9798];
-      [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:1];
-      v37 = 0;
-      v38 = 0;
+      v26 = *MEMORY[0x277CE9798];
+      v31[0] = *MEMORY[0x277CE9798];
+      [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
+      v27 = 0;
+      v28 = 0;
       do
       {
-        v39 = dword_25A0C8424[v37];
-        v40 = a1[18];
-        v41 = a1[19];
         EntityChangesSinceSequenceNumberForClient = ABChangeHistoryGetEntityChangesSinceSequenceNumberForClient();
         if (EntityChangesSinceSequenceNumberForClient)
         {
-          v43 = EntityChangesSinceSequenceNumberForClient;
+          v30 = EntityChangesSinceSequenceNumberForClient;
           if (CFDictionaryGetCount(EntityChangesSinceSequenceNumberForClient) >= 1)
           {
-            v38 |= [CFDictionaryGetValue(v43 v36)];
+            v28 |= [CFDictionaryGetValue(v30 v26)];
           }
         }
 
-        ++v37;
+        v27 += 4;
       }
 
-      while (v37 != 3);
-      if ((v38 & 1) == 0)
+      while (v27 != 12);
+      if ((v28 & 1) == 0)
       {
         goto LABEL_39;
       }
@@ -1231,7 +1203,7 @@ LABEL_37:
 
     *a2 = CFRetain(@"SDSyncTypeSlow");
 LABEL_39:
-    CFRelease(v24);
+    CFRelease(v18);
     goto LABEL_43;
   }
 
@@ -1242,38 +1214,36 @@ LABEL_39:
 
   *a2 = CFRetain(@"SDSyncTypeReset");
 LABEL_43:
-  v30 = CFLocaleCopyCurrent();
-  v31 = CFDateFormatterCreate(0, v30, kCFDateFormatterLongStyle, kCFDateFormatterLongStyle);
-  CFDateFormatterSetFormat(v31, @"MMM dd yyyy HH:mm:ss ZZZ");
+  v21 = CFLocaleCopyCurrent();
+  v22 = CFDateFormatterCreate(0, v21, kCFDateFormatterLongStyle, kCFDateFormatterLongStyle);
+  CFDateFormatterSetFormat(v22, @"MMM dd yyyy HH:mm:ss ZZZ");
   Current = CFAbsoluteTimeGetCurrent();
-  StringWithAbsoluteTime = CFDateFormatterCreateStringWithAbsoluteTime(0, v31, Current);
+  StringWithAbsoluteTime = CFDateFormatterCreateStringWithAbsoluteTime(0, v22, Current);
   a1[20] = StringWithAbsoluteTime;
   *a6 = CFRetain(StringWithAbsoluteTime);
   if (DLShouldLog())
   {
-    v44 = a1[20];
     _DLLog();
   }
 
-  if (v31)
+  if (v22)
   {
-    CFRelease(v31);
+    CFRelease(v22);
   }
 
-  if (v30)
+  if (v21)
   {
-    CFRelease(v30);
+    CFRelease(v21);
   }
 
-  v34 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 uint64_t ContactsDataSourceClearSyncAnchors(uint64_t a1)
 {
   error = 0;
-  _setComputerSyncAnchorForStore(a1);
-  _setDeviceSyncAnchorForStore(a1);
+  _setComputerSyncAnchorForStore(a1, 0);
+  _setDeviceSyncAnchorForStore(a1, 0);
   v2 = ABAddressBookSave(*(a1 + 144), &error);
   if (error)
   {
@@ -1303,24 +1273,24 @@ uint64_t ContactsDataSourceClearAllRecords(uint64_t a1)
 
   if ((*(a1 + 436) & 0x80000000) == 0)
   {
-    v6 = *(a1 + 144);
-    v7 = *(a1 + 152);
     ABChangeHistoryClearChangesUpToSequenceNumberForClient();
   }
 
-  if (!*(a1 + 160))
+  v6 = *(a1 + 160);
+  if (!v6)
   {
-    *(a1 + 160) = CFRetain(@"---");
+    v6 = CFRetain(@"---");
+    *(a1 + 160) = v6;
   }
 
-  _setDeviceSyncAnchorForStore(a1);
+  _setDeviceSyncAnchorForStore(a1, v6);
   return 0;
 }
 
 uint64_t ContactsDataSourceGetChanges(uint64_t a1, __CFDictionary **a2, const __CFAllocator *a3, void *a4)
 {
   v6 = a1;
-  v97[5] = *MEMORY[0x277D85DE8];
+  v89[5] = *MEMORY[0x277D85DE8];
   v7 = *MEMORY[0x277CBED28];
   *a3 = *MEMORY[0x277CBED28];
   v8 = *(a1 + 140);
@@ -1332,9 +1302,9 @@ uint64_t ContactsDataSourceGetChanges(uint64_t a1, __CFDictionary **a2, const __
     }
 
     allocator = a3;
-    v87 = a2;
+    v79 = a2;
     Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBED60], MEMORY[0x277CBF150]);
-    v94 = Mutable;
+    v86 = Mutable;
     if (*(v6 + 176))
     {
       _AccumulatePropertiesForType(v6, *MEMORY[0x277CE9888], @"com.apple.contacts.Email Address", Mutable);
@@ -1346,59 +1316,57 @@ uint64_t ContactsDataSourceGetChanges(uint64_t a1, __CFDictionary **a2, const __
       _AccumulatePropertiesForType(v6, *MEMORY[0x277CE9870], @"com.apple.contacts.Date", Mutable);
     }
 
-    v21 = *MEMORY[0x277CE97C0];
+    v19 = *MEMORY[0x277CE97C0];
     keya = *MEMORY[0x277CE97D0];
-    v96[0] = *MEMORY[0x277CE97D0];
-    v96[1] = v21;
-    v22 = *MEMORY[0x277CE97B8];
-    v96[2] = *MEMORY[0x277CE97B8];
-    [MEMORY[0x277CBEA60] arrayWithObjects:v96 count:3];
-    v23 = *(v6 + 144);
-    v24 = *(v6 + 152);
+    v88[0] = *MEMORY[0x277CE97D0];
+    v88[1] = v19;
+    v20 = *MEMORY[0x277CE97B8];
+    v88[2] = *MEMORY[0x277CE97B8];
+    [MEMORY[0x277CBEA60] arrayWithObjects:v88 count:3];
     EntityChangesSinceSequenceNumberForClient = ABChangeHistoryGetEntityChangesSinceSequenceNumberForClient();
     if (!EntityChangesSinceSequenceNumberForClient)
     {
       goto LABEL_31;
     }
 
-    v26 = EntityChangesSinceSequenceNumberForClient;
+    v22 = EntityChangesSinceSequenceNumberForClient;
     if (CFDictionaryGetCount(EntityChangesSinceSequenceNumberForClient) < 1)
     {
       goto LABEL_31;
     }
 
-    Value = CFDictionaryGetValue(v26, keya);
-    theArraya = CFDictionaryGetValue(v26, v21);
-    v28 = CFDictionaryGetValue(v26, v22);
+    Value = CFDictionaryGetValue(v22, keya);
+    theArraya = CFDictionaryGetValue(v22, v19);
+    v24 = CFDictionaryGetValue(v22, v20);
     Count = CFArrayGetCount(Value);
     if (Count < 1)
     {
       goto LABEL_31;
     }
 
-    v30 = Count;
-    v31 = 0;
+    v26 = Count;
+    v27 = 0;
     while (1)
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(Value, v31);
-      v33 = CFArrayGetValueAtIndex(theArraya, v31);
-      v34 = CFArrayGetValueAtIndex(v28, v31);
+      ValueAtIndex = CFArrayGetValueAtIndex(Value, v27);
+      v29 = CFArrayGetValueAtIndex(theArraya, v27);
+      v30 = CFArrayGetValueAtIndex(v24, v27);
       PersonWithRecordID = ABAddressBookGetPersonWithRecordID(*(v6 + 144), ValueAtIndex);
       if (PersonWithRecordID)
       {
-        v36 = ABRecordCopyValue(PersonWithRecordID, v33);
-        if (!v36 || (v37 = v36, IndexForIdentifier = ABMultiValueGetIndexForIdentifier(v36, v34), CFRelease(v37), v39 = IndexForIdentifier == -1, v6 = a1, v39))
+        v32 = ABRecordCopyValue(PersonWithRecordID, v29);
+        if (!v32 || (v33 = v32, IndexForIdentifier = ABMultiValueGetIndexForIdentifier(v32, v30), CFRelease(v33), v35 = IndexForIdentifier == -1, v6 = a1, v35))
         {
-          v40 = CFStringCreateWithFormat(0, 0, @"%d/%d/%d", v33, ValueAtIndex, v34);
+          v36 = CFStringCreateWithFormat(0, 0, @"%d/%d/%d", v29, ValueAtIndex, v30);
           if (!Mutable)
           {
             Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBED60], MEMORY[0x277CBF150]);
           }
 
-          CFDictionarySetValue(Mutable, v40, v40);
-          if (v40)
+          CFDictionarySetValue(Mutable, v36, v36);
+          if (v36)
           {
-            CFRelease(v40);
+            CFRelease(v36);
           }
 
           goto LABEL_29;
@@ -1406,9 +1374,9 @@ uint64_t ContactsDataSourceGetChanges(uint64_t a1, __CFDictionary **a2, const __
 
         if (DLShouldLog())
         {
-          v81 = v33;
-          v82 = ValueAtIndex;
-          v79 = v34;
+          v73 = v29;
+          v74 = ValueAtIndex;
+          v72 = v30;
 LABEL_28:
           _DLLog();
         }
@@ -1416,50 +1384,48 @@ LABEL_28:
 
       else if (DLShouldLog())
       {
-        v81 = v33;
-        v82 = ValueAtIndex;
-        v79 = v34;
+        v73 = v29;
+        v74 = ValueAtIndex;
+        v72 = v30;
         goto LABEL_28;
       }
 
 LABEL_29:
-      if (v30 == ++v31)
+      if (v26 == ++v27)
       {
-        v94 = Mutable;
+        v86 = Mutable;
 LABEL_31:
-        v41 = *MEMORY[0x277CE97A0];
-        v95[0] = keya;
-        v95[1] = v41;
-        [MEMORY[0x277CBEA60] arrayWithObjects:v95 count:{2, v79, v81, v82}];
-        v42 = *(v6 + 144);
-        v43 = *(v6 + 152);
-        v44 = ABChangeHistoryGetEntityChangesSinceSequenceNumberForClient();
-        v45 = v87;
-        if (!v44)
+        v37 = *MEMORY[0x277CE97A0];
+        v87[0] = keya;
+        v87[1] = v37;
+        [MEMORY[0x277CBEA60] arrayWithObjects:v87 count:{2, v72, v73, v74}];
+        v38 = ABChangeHistoryGetEntityChangesSinceSequenceNumberForClient();
+        v39 = v79;
+        if (!v38)
         {
           goto LABEL_125;
         }
 
-        v46 = v44;
-        if (CFDictionaryGetCount(v44) < 1)
+        v40 = v38;
+        if (CFDictionaryGetCount(v38) < 1)
         {
           goto LABEL_125;
         }
 
-        v47 = CFDictionaryGetValue(v46, keya);
-        v48 = CFDictionaryGetValue(v46, v41);
-        if (v47)
+        v41 = CFDictionaryGetValue(v40, keya);
+        v42 = CFDictionaryGetValue(v40, v37);
+        if (v41)
         {
-          v49 = CFArrayGetCount(v47);
+          v43 = CFArrayGetCount(v41);
         }
 
         else
         {
-          v49 = 0;
+          v43 = 0;
         }
 
-        v66 = CFArrayGetCount(v47);
-        if (v66 != CFArrayGetCount(v48))
+        v60 = CFArrayGetCount(v41);
+        if (v60 != CFArrayGetCount(v42))
         {
           if (DLShouldLog())
           {
@@ -1469,12 +1435,11 @@ LABEL_31:
           goto LABEL_125;
         }
 
-        if (v49 < 1)
+        if (v43 < 1)
         {
 LABEL_125:
           if (DLShouldLog())
           {
-            v80 = *(v6 + 436);
             _DLLog();
           }
 
@@ -1483,11 +1448,11 @@ LABEL_125:
             _saveDeviceSyncAnchorAndClearChangeHistory(v6);
           }
 
-          v50 = 0;
-          *v45 = v94;
+          v44 = 0;
+          *v39 = v86;
           *allocator = *MEMORY[0x277CBED10];
           *(v6 + 140) = 9;
-          goto LABEL_130;
+          return v44;
         }
 
         if (DLShouldLog())
@@ -1495,30 +1460,30 @@ LABEL_125:
           _DLLog();
         }
 
-        v67 = 0;
-        v68 = 0;
-        v69 = 0;
-        v70 = *MEMORY[0x277CBECE8];
+        v61 = 0;
+        v62 = 0;
+        v63 = 0;
+        v64 = *MEMORY[0x277CBECE8];
         while (2)
         {
-          v71 = CFArrayGetValueAtIndex(v47, v67);
-          v72 = CFArrayGetValueAtIndex(v48, v67);
-          if (v72 > 1)
+          v65 = CFArrayGetValueAtIndex(v41, v61);
+          v66 = CFArrayGetValueAtIndex(v42, v61);
+          if (v66 > 1)
           {
-            if (v72 == 2)
+            if (v66 == 2)
             {
-              v75 = CFStringCreateWithFormat(0, 0, @"Group/%d", v71);
-              v76 = v94;
-              if (!v94)
+              v69 = CFStringCreateWithFormat(0, 0, @"Group/%d", v65);
+              v70 = v86;
+              if (!v86)
               {
-                v76 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBED60], MEMORY[0x277CBF150]);
-                v94 = v76;
+                v70 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBED60], MEMORY[0x277CBF150]);
+                v86 = v70;
               }
 
-              CFDictionarySetValue(v76, v75, v75);
-              if (v75)
+              CFDictionarySetValue(v70, v69, v69);
+              if (v69)
               {
-                CFRelease(v75);
+                CFRelease(v69);
               }
 
               goto LABEL_115;
@@ -1532,56 +1497,56 @@ LABEL_125:
 
           else
           {
-            GroupWithRecordID = ABAddressBookGetGroupWithRecordID(*(a1 + 144), v71);
+            GroupWithRecordID = ABAddressBookGetGroupWithRecordID(*(a1 + 144), v65);
             if (GroupWithRecordID)
             {
-              v74 = GroupWithRecordID;
-              if (v68)
+              v68 = GroupWithRecordID;
+              if (v62)
               {
-                if (v69)
+                if (v63)
                 {
                   goto LABEL_102;
                 }
 
 LABEL_118:
-                v69 = CFSetCreateMutable(0, 0, 0);
+                v63 = CFSetCreateMutable(0, 0, 0);
               }
 
               else
               {
-                v68 = CFArrayCreateMutable(v70, 0, MEMORY[0x277CBF128]);
-                if (!v69)
+                v62 = CFArrayCreateMutable(v64, 0, MEMORY[0x277CBF128]);
+                if (!v63)
                 {
                   goto LABEL_118;
                 }
               }
 
 LABEL_102:
-              if (!v94)
+              if (!v86)
               {
-                v94 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBED60], MEMORY[0x277CBF150]);
+                v86 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBED60], MEMORY[0x277CBF150]);
               }
 
-              if (!CFSetContainsValue(v69, v71))
+              if (!CFSetContainsValue(v63, v65))
               {
-                CFSetAddValue(v69, v71);
-                CFArrayAppendValue(v68, v74);
+                CFSetAddValue(v63, v65);
+                CFArrayAppendValue(v62, v68);
               }
 
 LABEL_115:
-              if (v49 == ++v67)
+              if (v43 == ++v61)
               {
-                v45 = v87;
-                if (v68)
+                v39 = v79;
+                if (v62)
                 {
-                  _AccumulateGroups(&v94, v68);
-                  CFRelease(v68);
+                  _AccumulateGroups(&v86, v62);
+                  CFRelease(v62);
                 }
 
                 v6 = a1;
-                if (v69)
+                if (v63)
                 {
-                  CFRelease(v69);
+                  CFRelease(v63);
                 }
 
                 goto LABEL_125;
@@ -1612,10 +1577,10 @@ LABEL_115:
       _DLLog();
     }
 
-    v50 = 0;
+    v44 = 0;
     *a2 = 0;
     *a3 = *MEMORY[0x277CBED10];
-    goto LABEL_130;
+    return v44;
   }
 
   if (DLShouldLog())
@@ -1625,30 +1590,28 @@ LABEL_115:
 
   v10 = *MEMORY[0x277CE97D0];
   v11 = *MEMORY[0x277CE97A0];
-  v97[0] = *MEMORY[0x277CE97D0];
-  v97[1] = v11;
+  v89[0] = *MEMORY[0x277CE97D0];
+  v89[1] = v11;
   v12 = *MEMORY[0x277CE97A8];
   v13 = *MEMORY[0x277CE97B0];
-  v97[2] = *MEMORY[0x277CE97A8];
-  v97[3] = v13;
-  v97[4] = *MEMORY[0x277CE97C8];
-  [MEMORY[0x277CBEA60] arrayWithObjects:v97 count:5];
-  v14 = *(v6 + 144);
-  v15 = *(v6 + 152);
-  v16 = ABChangeHistoryGetEntityChangesSinceSequenceNumberForClient();
-  if (!v16 || (v17 = v16, CFDictionaryGetCount(v16) < 1))
+  v89[2] = *MEMORY[0x277CE97A8];
+  v89[3] = v13;
+  v89[4] = *MEMORY[0x277CE97C8];
+  [MEMORY[0x277CBEA60] arrayWithObjects:v89 count:5];
+  v14 = ABChangeHistoryGetEntityChangesSinceSequenceNumberForClient();
+  if (!v14 || (v15 = v14, CFDictionaryGetCount(v14) < 1))
   {
-    v50 = 0;
+    v44 = 0;
     goto LABEL_85;
   }
 
-  v18 = CFDictionaryGetValue(v17, v10);
-  v19 = CFDictionaryGetValue(v17, v11);
-  CFDictionaryGetValue(v17, v12);
-  key = CFDictionaryGetValue(v17, v13);
-  if (v18)
+  v16 = CFDictionaryGetValue(v15, v10);
+  v17 = CFDictionaryGetValue(v15, v11);
+  CFDictionaryGetValue(v15, v12);
+  key = CFDictionaryGetValue(v15, v13);
+  if (v16)
   {
-    theArray = CFArrayGetCount(v18);
+    theArray = CFArrayGetCount(v16);
   }
 
   else
@@ -1656,8 +1619,8 @@ LABEL_115:
     theArray = 0;
   }
 
-  v51 = CFArrayGetCount(v18);
-  if (v51 != CFArrayGetCount(v19))
+  v45 = CFArrayGetCount(v16);
+  if (v45 != CFArrayGetCount(v17))
   {
     if (DLShouldLog())
     {
@@ -1678,45 +1641,45 @@ LABEL_115:
 LABEL_82:
     if (*a4)
     {
-      v50 = 0xFFFFFFFFLL;
+      v44 = 0xFFFFFFFFLL;
     }
 
     else
     {
-      v50 = 0;
+      v44 = 0;
     }
 
     goto LABEL_85;
   }
 
-  v83 = a4;
-  v88 = a2;
+  v75 = a4;
+  v80 = a2;
   if (DLShouldLog())
   {
-    v81 = v19;
+    v73 = v17;
     _DLLog();
   }
 
-  v52 = 0;
-  v53 = 0;
-  v54 = 0;
+  v46 = 0;
+  v47 = 0;
+  v48 = 0;
   allocatora = *MEMORY[0x277CBECE8];
-  v84 = *MEMORY[0x277CBED10];
+  v76 = *MEMORY[0x277CBED10];
   do
   {
     while (1)
     {
-      v55 = CFArrayGetValueAtIndex(v18, v52);
-      HasImageData = CFArrayGetValueAtIndex(key, v52);
-      v57 = CFArrayGetValueAtIndex(v19, v52);
-      v58 = v57;
-      if (v57 > 1)
+      v49 = CFArrayGetValueAtIndex(v16, v46);
+      HasImageData = CFArrayGetValueAtIndex(key, v46);
+      v51 = CFArrayGetValueAtIndex(v17, v46);
+      v52 = v51;
+      if (v51 > 1)
       {
         break;
       }
 
-      v59 = ABAddressBookGetPersonWithRecordID(*(a1 + 144), v55);
-      if (!v59)
+      v53 = ABAddressBookGetPersonWithRecordID(*(a1 + 144), v49);
+      if (!v53)
       {
         if (!DLShouldLog())
         {
@@ -1726,15 +1689,15 @@ LABEL_82:
         goto LABEL_71;
       }
 
-      v60 = v59;
+      v54 = v53;
       if (!*(a1 + 176))
       {
         *(a1 + 176) = CFArrayCreateMutable(allocatora, 0, MEMORY[0x277CBF128]);
       }
 
-      if (v54)
+      if (v48)
       {
-        if (v53)
+        if (v47)
         {
           goto LABEL_51;
         }
@@ -1742,11 +1705,11 @@ LABEL_82:
 
       else
       {
-        v54 = CFSetCreateMutable(0, 0, 0);
-        if (v53)
+        v48 = CFSetCreateMutable(0, 0, 0);
+        if (v47)
         {
 LABEL_51:
-          if (v54)
+          if (v48)
           {
             goto LABEL_52;
           }
@@ -1755,51 +1718,51 @@ LABEL_51:
         }
       }
 
-      v53 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBED60], MEMORY[0x277CBF150]);
-      if (v54)
+      v47 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBED60], MEMORY[0x277CBF150]);
+      if (v48)
       {
 LABEL_52:
-        if (!CFSetContainsValue(v54, v55))
+        if (!CFSetContainsValue(v48, v49))
         {
-          CFSetAddValue(v54, v55);
-          CFArrayAppendValue(*(a1 + 176), v60);
-          v61 = *(a1 + 184);
-          if (!v61)
+          CFSetAddValue(v48, v49);
+          CFArrayAppendValue(*(a1 + 176), v54);
+          v55 = *(a1 + 184);
+          if (!v55)
           {
-            v61 = CFDictionaryCreateMutable(0, 0, 0, MEMORY[0x277CBF150]);
-            *(a1 + 184) = v61;
+            v55 = CFDictionaryCreateMutable(0, 0, 0, MEMORY[0x277CBF150]);
+            *(a1 + 184) = v55;
           }
 
-          if (!v58)
+          if (!v52)
           {
-            HasImageData = ABPersonHasImageData(v60);
-            v61 = *(a1 + 184);
+            HasImageData = ABPersonHasImageData(v54);
+            v55 = *(a1 + 184);
           }
 
           if (HasImageData)
           {
-            v62 = v7;
+            v56 = v7;
           }
 
           else
           {
-            v62 = v84;
+            v56 = v76;
           }
 
-          CFDictionarySetValue(v61, v55, v62);
+          CFDictionarySetValue(v55, v49, v56);
         }
 
         goto LABEL_72;
       }
 
 LABEL_76:
-      if (++v52 == theArray)
+      if (++v46 == theArray)
       {
         goto LABEL_133;
       }
     }
 
-    if (v57 != 2)
+    if (v51 != 2)
     {
       if (!DLShouldLog())
       {
@@ -1816,61 +1779,59 @@ LABEL_71:
       _DLLog();
     }
 
-    v63 = CFStringCreateWithFormat(0, 0, @"%d", v55, v81);
-    if (!v53)
+    v57 = CFStringCreateWithFormat(0, 0, @"%d", v49, v73);
+    if (!v47)
     {
-      v53 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBED60], MEMORY[0x277CBF150]);
+      v47 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBED60], MEMORY[0x277CBF150]);
     }
 
-    CFDictionarySetValue(v53, v63, v63);
-    if (v63)
+    CFDictionarySetValue(v47, v57, v57);
+    if (v57)
     {
-      CFRelease(v63);
+      CFRelease(v57);
     }
 
 LABEL_72:
-    ++v52;
+    ++v46;
   }
 
-  while (v52 != theArray);
-  if (v54)
+  while (v46 != theArray);
+  if (v48)
   {
-    CFRelease(v54);
+    CFRelease(v48);
   }
 
 LABEL_133:
-  if (*v83)
+  if (*v75)
   {
-    v50 = 0xFFFFFFFFLL;
+    v44 = 0xFFFFFFFFLL;
   }
 
   else
   {
-    v50 = 0;
+    v44 = 0;
   }
 
-  a2 = v88;
-  if (!v53)
+  a2 = v80;
+  if (!v47)
   {
 LABEL_85:
-    v53 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBED60], MEMORY[0x277CBF150]);
+    v47 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBED60], MEMORY[0x277CBF150]);
   }
 
-  if (*(a1 + 176) && v53)
+  if (*(a1 + 176) && v47)
   {
-    _AccumulateContacts(a1, v53);
+    _AccumulateContacts(a1, v47);
   }
 
-  *a2 = v53;
-  v64 = *(a1 + 176);
-  if (!v64 || (v65 = *(a1 + 432), CFArrayGetCount(v64) == v65))
+  *a2 = v47;
+  v58 = *(a1 + 176);
+  if (!v58 || (v59 = *(a1 + 432), CFArrayGetCount(v58) == v59))
   {
     *(a1 + 140) = 8;
   }
 
-LABEL_130:
-  v77 = *MEMORY[0x277D85DE8];
-  return v50;
+  return v44;
 }
 
 uint64_t ContactsDataSourceGetAllRecords(uint64_t a1, CFMutableDictionaryRef *a2, void *a3)
@@ -1933,7 +1894,6 @@ LABEL_29:
 LABEL_26:
     if (DLShouldLog())
     {
-      v31 = *(a1 + 140);
       _DLLog();
     }
 
@@ -2008,7 +1968,7 @@ LABEL_37:
   {
     if (v20)
     {
-      v32 = CFArrayGetCount(*(a1 + 176)) - *(a1 + 432);
+      CFArrayGetCount(*(a1 + 176));
       _DLLog();
     }
 
@@ -2042,14 +2002,6 @@ LABEL_39:
     goto LABEL_29;
   }
 
-  return 0;
-}
-
-uint64_t ContactsDataSourceGetCountOfRecords(uint64_t a1, _DWORD *a2)
-{
-  v4 = *(a1 + 144);
-  v3 = *(a1 + 152);
-  *a2 = ABAddressBookGetPersonCountInSource();
   return 0;
 }
 
@@ -2092,136 +2044,132 @@ uint64_t ContactsDataSourceProcessChanges(uint64_t a1, CFDictionaryRef theDict, 
         _DLLog();
       }
 
-      v8 = *(v7 + 144);
       ABProcessAddedImages();
     }
 
-    v76 = v7;
+    v72 = v7;
     if ((*(v7 + 136) & 1) == 0)
     {
-      v9 = a5 ? CFDictionaryGetValue(a5, @"SyncDeviceLinkAllRecordsOfPulledEntityTypeSentKey") : *MEMORY[0x277CBED28];
-      if ((*(v7 + 138) & 1) != 0 || v9 && CFBooleanGetValue(v9) == 1)
+      v8 = a5 ? CFDictionaryGetValue(a5, @"SyncDeviceLinkAllRecordsOfPulledEntityTypeSentKey") : *MEMORY[0x277CBED28];
+      if ((*(v7 + 138) & 1) != 0 || v8 && CFBooleanGetValue(v8) == 1)
       {
-        v10 = *(v7 + 144);
         ABAddressBookProcessAddedRecords();
-        v11 = *(v7 + 200);
-        if (v11)
+        v9 = *(v7 + 200);
+        if (v9)
         {
-          CFDictionaryApplyFunction(v11, _UpdateContactRemapping, v7);
-          v12 = *(v7 + 200);
-          if (v12)
+          CFDictionaryApplyFunction(v9, _UpdateContactRemapping, v7);
+          v10 = *(v7 + 200);
+          if (v10)
           {
-            CFRelease(v12);
+            CFRelease(v10);
             *(v7 + 200) = 0;
           }
         }
 
         if (*(v7 + 224))
         {
-          v13 = *(v7 + 208);
-          if (v13)
+          v11 = *(v7 + 208);
+          if (v11)
           {
-            CFDictionaryApplyFunction(v13, _UpdateGroupRemapping, v7);
-            v14 = *(v7 + 208);
-            if (v14)
+            CFDictionaryApplyFunction(v11, _UpdateGroupRemapping, v7);
+            v12 = *(v7 + 208);
+            if (v12)
             {
-              CFRelease(v14);
+              CFRelease(v12);
               *(v7 + 208) = 0;
             }
           }
 
           error = 0;
           Count = CFArrayGetCount(*(v7 + 224));
-          v16 = CFArrayGetCount(*(v7 + 232));
-          if (v16 != Count && DLShouldLog())
+          v14 = CFArrayGetCount(*(v7 + 232));
+          if (v14 != Count && DLShouldLog())
           {
-            v67 = *(v7 + 224);
-            v68 = *(v7 + 232);
             _DLLog();
           }
 
-          if (v16 >= Count)
+          if (v14 >= Count)
           {
-            v17 = Count;
+            v15 = Count;
           }
 
           else
           {
-            v17 = v16;
+            v15 = v14;
           }
 
-          v69 = v17;
-          if (v17 >= 1)
+          v65 = v15;
+          if (v15 >= 1)
           {
-            v18 = 0;
+            v16 = 0;
             do
             {
-              ValueAtIndex = CFArrayGetValueAtIndex(*(v7 + 224), v18);
-              v20 = CFArrayGetValueAtIndex(*(v7 + 232), v18);
-              v21 = v20;
-              v71 = v18;
-              if (v20)
+              ValueAtIndex = CFArrayGetValueAtIndex(*(v7 + 224), v16);
+              v18 = CFArrayGetValueAtIndex(*(v7 + 232), v16);
+              v19 = v18;
+              v67 = v16;
+              if (v18)
               {
-                v22 = CFArrayGetCount(v20);
-                if (v22 >= 1)
+                v20 = CFArrayGetCount(v18);
+                if (v20 >= 1)
                 {
-                  Mutable = CFSetCreateMutable(0, v22, MEMORY[0x277CBF158]);
+                  Mutable = CFSetCreateMutable(0, v20, MEMORY[0x277CBF158]);
                   goto LABEL_44;
                 }
               }
 
               else
               {
-                v22 = 0;
+                v20 = 0;
               }
 
               Mutable = 0;
 LABEL_44:
-              v24 = ABGroupCopyArrayOfAllMembersAndSubgroups();
-              v25 = v24;
-              if (!v24)
+              v22 = ABGroupCopyArrayOfAllMembersAndSubgroups();
+              v23 = v22;
+              if (!v22)
               {
-                v26 = 0;
+                v24 = 0;
 LABEL_50:
                 theSet = 0;
                 goto LABEL_51;
               }
 
-              v26 = CFArrayGetCount(v24);
-              if (v26 < 1)
+              v24 = CFArrayGetCount(v22);
+              if (v24 < 1)
               {
                 goto LABEL_50;
               }
 
-              v27 = CFSetCreateMutable(0, v26, MEMORY[0x277CBF158]);
-              for (i = 0; i != v26; ++i)
+              v25 = CFSetCreateMutable(0, v24, MEMORY[0x277CBF158]);
+              for (i = 0; i != v24; ++i)
               {
-                v29 = CFArrayGetValueAtIndex(v25, i);
-                CFSetAddValue(v27, v29);
+                v27 = CFArrayGetValueAtIndex(v23, i);
+                CFSetAddValue(v25, v27);
               }
 
-              theSet = v27;
+              theSet = v25;
 LABEL_51:
               record = ValueAtIndex;
-              if (v22 >= 1)
+              if (v20 >= 1)
               {
-                v30 = 0;
-                *property = v21;
+                v28 = 0;
+                *property = v19;
                 do
                 {
-                  v31 = CFArrayGetValueAtIndex(v21, v30);
+                  v29 = CFArrayGetValueAtIndex(v19, v28);
                   Value = *(v7 + 248);
                   if (Value)
                   {
-                    Value = CFDictionaryGetValue(Value, v31);
+                    Value = CFDictionaryGetValue(Value, v29);
                   }
 
                   if (Value)
                   {
-                    v31 = Value;
+                    v29 = Value;
                   }
 
-                  if (!recordIdentifierIsLocal(v31))
+                  if (!recordIdentifierIsLocal(v29))
                   {
                     if (DLShouldLog())
                     {
@@ -2231,19 +2179,19 @@ LABEL_51:
                     goto LABEL_81;
                   }
 
-                  ArrayBySeparatingStrings = CFStringCreateArrayBySeparatingStrings(0, v31, @"/");
-                  v34 = ArrayBySeparatingStrings;
+                  ArrayBySeparatingStrings = CFStringCreateArrayBySeparatingStrings(0, v29, @"/");
+                  v32 = ArrayBySeparatingStrings;
                   if (ArrayBySeparatingStrings && CFArrayGetCount(ArrayBySeparatingStrings) == 2)
                   {
-                    v35 = CFArrayGetValueAtIndex(v34, 1);
-                    if (!v35)
+                    v33 = CFArrayGetValueAtIndex(v32, 1);
+                    if (!v33)
                     {
                       goto LABEL_80;
                     }
 
-                    IntValue = CFStringGetIntValue(v35);
+                    IntValue = CFStringGetIntValue(v33);
                     GroupWithRecordID = ABAddressBookGetGroupWithRecordID(*(v7 + 144), IntValue);
-                    v38 = 1;
+                    v36 = 1;
                     if (!GroupWithRecordID)
                     {
                       goto LABEL_62;
@@ -2252,14 +2200,14 @@ LABEL_51:
 
                   else
                   {
-                    if (!v31)
+                    if (!v29)
                     {
                       goto LABEL_79;
                     }
 
-                    v39 = CFStringGetIntValue(v31);
-                    GroupWithRecordID = ABAddressBookGetPersonWithRecordID(*(v7 + 144), v39);
-                    v38 = 0;
+                    v37 = CFStringGetIntValue(v29);
+                    GroupWithRecordID = ABAddressBookGetPersonWithRecordID(*(v7 + 144), v37);
+                    v36 = 0;
                     if (!GroupWithRecordID)
                     {
 LABEL_62:
@@ -2278,11 +2226,11 @@ LABEL_62:
                     if (DLShouldLog())
                     {
                       ABRecordGetRecordID(record);
-                      v7 = v76;
+                      v7 = v72;
                       _DLLog();
                     }
 
-                    if (v38)
+                    if (v36)
                     {
                       ABGroupAddSubgroup();
                     }
@@ -2305,38 +2253,38 @@ LABEL_62:
                   }
 
 LABEL_79:
-                  v21 = *property;
-                  if (v34)
+                  v19 = *property;
+                  if (v32)
                   {
 LABEL_80:
-                    CFRelease(v34);
+                    CFRelease(v32);
                   }
 
 LABEL_81:
-                  ++v30;
+                  ++v28;
                 }
 
-                while (v22 != v30);
+                while (v20 != v28);
               }
 
-              if (v26 >= 1)
+              if (v24 >= 1)
               {
-                for (j = 0; j != v26; ++j)
+                for (j = 0; j != v24; ++j)
                 {
-                  v41 = CFArrayGetValueAtIndex(v25, j);
-                  if (!Mutable || !CFSetContainsValue(Mutable, v41))
+                  v39 = CFArrayGetValueAtIndex(v23, j);
+                  if (!Mutable || !CFSetContainsValue(Mutable, v39))
                   {
                     if (DLShouldLog())
                     {
-                      ABRecordGetRecordID(v41);
+                      ABRecordGetRecordID(v39);
                       ABRecordGetRecordID(record);
-                      v7 = v76;
+                      v7 = v72;
                       _DLLog();
                     }
 
-                    if (!ABGroupRemoveMember(record, v41, &error) && DLShouldLog())
+                    if (!ABGroupRemoveMember(record, v39, &error) && DLShouldLog())
                     {
-                      ABRecordGetRecordID(v41);
+                      ABRecordGetRecordID(v39);
                       ABRecordGetRecordID(record);
                       _DLLog();
                     }
@@ -2350,9 +2298,9 @@ LABEL_81:
                 }
               }
 
-              if (v25)
+              if (v23)
               {
-                CFRelease(v25);
+                CFRelease(v23);
               }
 
               if (Mutable)
@@ -2365,16 +2313,16 @@ LABEL_81:
                 CFRelease(theSet);
               }
 
-              v18 = v71 + 1;
+              v16 = v67 + 1;
             }
 
-            while (v71 + 1 != v69);
+            while (v67 + 1 != v65);
           }
 
-          v42 = *(v7 + 224);
-          if (v42)
+          v40 = *(v7 + 224);
+          if (v40)
           {
-            CFRelease(v42);
+            CFRelease(v40);
             *(v7 + 224) = 0;
           }
         }
@@ -2383,32 +2331,32 @@ LABEL_81:
       }
     }
 
-    v43 = *(v7 + 216);
-    if (v43)
+    v41 = *(v7 + 216);
+    if (v41)
     {
-      v44 = CFArrayGetCount(v43);
-      if (v44 >= 1)
+      v42 = CFArrayGetCount(v41);
+      if (v42 >= 1)
       {
-        v45 = v44;
-        v46 = 0;
-        v47 = "/Library/Caches/com.apple.xbs/Sources/Sync/DataSources/ContactsDataSource.m";
+        v43 = v42;
+        v44 = 0;
+        v45 = "/Library/Caches/com.apple.xbs/Sources/Sync/DataSources/ContactsDataSource.m";
         do
         {
-          v48 = CFArrayGetValueAtIndex(*(v7 + 216), v46);
-          v49 = CFStringCreateArrayBySeparatingStrings(0, v48, @"/");
+          v46 = CFArrayGetValueAtIndex(*(v7 + 216), v44);
+          v47 = CFStringCreateArrayBySeparatingStrings(0, v46, @"/");
           if (DLShouldLog())
           {
             _DLLog();
           }
 
-          if (!v49 || CFArrayGetCount(v49) != 3)
+          if (!v47 || CFArrayGetCount(v47) != 3)
           {
             if (DLShouldLog())
             {
               _DLLog();
             }
 
-            if (!v49)
+            if (!v47)
             {
               goto LABEL_144;
             }
@@ -2416,35 +2364,35 @@ LABEL_81:
             goto LABEL_143;
           }
 
-          v50 = v45;
-          v51 = CFArrayGetValueAtIndex(v49, 0);
-          v52 = CFArrayGetValueAtIndex(v49, 1);
-          v53 = v47;
-          v54 = CFArrayGetValueAtIndex(v49, 2);
-          propertya = CFStringGetIntValue(v51);
-          v55 = CFStringGetIntValue(v52);
-          v56 = v54;
-          v47 = v53;
-          v57 = CFStringGetIntValue(v56);
+          v48 = v43;
+          v49 = CFArrayGetValueAtIndex(v47, 0);
+          v50 = CFArrayGetValueAtIndex(v47, 1);
+          v51 = v45;
+          v52 = CFArrayGetValueAtIndex(v47, 2);
+          propertya = CFStringGetIntValue(v49);
+          v53 = CFStringGetIntValue(v50);
+          v54 = v52;
+          v45 = v51;
+          v55 = CFStringGetIntValue(v54);
           error = 0;
           if (DLShouldLog())
           {
             _DLLog();
           }
 
-          PersonWithRecordID = ABAddressBookGetPersonWithRecordID(*(v76 + 144), v55);
+          PersonWithRecordID = ABAddressBookGetPersonWithRecordID(*(v72 + 144), v53);
           if (PersonWithRecordID)
           {
-            v59 = PersonWithRecordID;
-            v60 = ABRecordCopyValue(PersonWithRecordID, propertya);
-            if (v60)
+            v57 = PersonWithRecordID;
+            v58 = ABRecordCopyValue(PersonWithRecordID, propertya);
+            if (v58)
             {
-              v61 = v60;
-              IndexForIdentifier = ABMultiValueGetIndexForIdentifier(v60, v57);
+              v59 = v58;
+              IndexForIdentifier = ABMultiValueGetIndexForIdentifier(v58, v55);
               if (IndexForIdentifier == -1)
               {
-                v47 = v53;
-                v45 = v50;
+                v45 = v51;
+                v43 = v48;
                 if (DLShouldLog())
                 {
                   _DLLog();
@@ -2453,23 +2401,23 @@ LABEL_81:
 
               else
               {
-                v63 = IndexForIdentifier;
-                if (ABMultiValueGetCount(v61) < 2)
+                v61 = IndexForIdentifier;
+                if (ABMultiValueGetCount(v59) < 2)
                 {
                   MutableCopy = 0;
                 }
 
                 else
                 {
-                  MutableCopy = ABMultiValueCreateMutableCopy(v61);
-                  ABMultiValueRemoveValueAndLabelAtIndex(MutableCopy, v63);
+                  MutableCopy = ABMultiValueCreateMutableCopy(v59);
+                  ABMultiValueRemoveValueAndLabelAtIndex(MutableCopy, v61);
                 }
 
-                v47 = v53;
-                v45 = v50;
-                if (!ABRecordRemoveValue(v59, propertya, &error) && DLShouldLog())
+                v45 = v51;
+                v43 = v48;
+                if (!ABRecordRemoveValue(v57, propertya, &error) && DLShouldLog())
                 {
-                  ABRecordGetRecordID(v59);
+                  ABRecordGetRecordID(v57);
                   _DLLog();
                 }
 
@@ -2482,9 +2430,9 @@ LABEL_81:
                 if (MutableCopy)
                 {
                   ABMultiValueSetImmutable();
-                  if (!ABRecordSetValue(v59, propertya, MutableCopy, &error) && DLShouldLog())
+                  if (!ABRecordSetValue(v57, propertya, MutableCopy, &error) && DLShouldLog())
                   {
-                    ABRecordGetRecordID(v59);
+                    ABRecordGetRecordID(v57);
                     _DLLog();
                   }
 
@@ -2498,11 +2446,11 @@ LABEL_81:
                 }
               }
 
-              CFRelease(v61);
+              CFRelease(v59);
               goto LABEL_142;
             }
 
-            v45 = v50;
+            v43 = v48;
             if (DLShouldLog())
             {
 LABEL_125:
@@ -2512,7 +2460,7 @@ LABEL_125:
 
           else
           {
-            v45 = v50;
+            v43 = v48;
             if (DLShouldLog())
             {
               goto LABEL_125;
@@ -2520,20 +2468,20 @@ LABEL_125:
           }
 
 LABEL_142:
-          v7 = v76;
+          v7 = v72;
 LABEL_143:
-          CFRelease(v49);
+          CFRelease(v47);
 LABEL_144:
-          ++v46;
+          ++v44;
         }
 
-        while (v45 != v46);
+        while (v43 != v44);
       }
 
-      v65 = *(v7 + 216);
-      if (v65)
+      v63 = *(v7 + 216);
+      if (v63)
       {
-        CFRelease(v65);
+        CFRelease(v63);
       }
 
       *(v7 + 216) = 0;
@@ -2562,8 +2510,8 @@ uint64_t ContactsDataSourceCommit(uint64_t a1, void *a2)
       for (i = 0; i != v7; ++i)
       {
         ValueAtIndex = CFArrayGetValueAtIndex(v5, i);
-        _RestoreClearedPersonsSound(*(a1 + 408), ValueAtIndex);
-        _RestoreClearedPersonsSound(*(a1 + 416), ValueAtIndex);
+        _RestoreClearedPersonsSound(*(a1 + 408), ValueAtIndex, 0xFFFFFFFFLL);
+        _RestoreClearedPersonsSound(*(a1 + 416), ValueAtIndex, 4294967294);
       }
     }
 
@@ -2581,14 +2529,16 @@ uint64_t ContactsDataSourceCommit(uint64_t a1, void *a2)
   }
 
   error = 0;
-  if (!*(a1 + 168))
+  v10 = *(a1 + 168);
+  if (!v10)
   {
-    *(a1 + 168) = CFRetain(@"---");
+    v10 = CFRetain(@"---");
+    *(a1 + 168) = v10;
   }
 
-  _setComputerSyncAnchorForStore(a1);
-  v10 = ABAddressBookSave(*(a1 + 144), &error);
-  if (!v10 && DLShouldLog())
+  _setComputerSyncAnchorForStore(a1, v10);
+  v11 = ABAddressBookSave(*(a1 + 144), &error);
+  if (!v11 && DLShouldLog())
   {
     _DLLog();
   }
@@ -2598,7 +2548,7 @@ uint64_t ContactsDataSourceCommit(uint64_t a1, void *a2)
     CFRelease(error);
   }
 
-  if (v10)
+  if (v11)
   {
     return 0;
   }
@@ -2935,7 +2885,7 @@ uint64_t ContactsDataSourceGetEntityTypeProcessOrder(uint64_t a1, __CFArray **a2
   return 0;
 }
 
-uint64_t _makeAccountForSource(uint64_t a1, const void *a2)
+uint64_t _makeAccountForSource(uint64_t a1, const void *a2, uint64_t a3)
 {
   if (DLShouldLog())
   {
@@ -2943,23 +2893,21 @@ uint64_t _makeAccountForSource(uint64_t a1, const void *a2)
   }
 
   error = 0;
-  v4 = ABAccountCreate();
-  if (v4)
+  v5 = ABAccountCreate();
+  if (v5)
   {
-    v5 = v4;
+    v6 = v5;
     if (ABAccountSetIdentifier())
     {
-      if (ABAddressBookAddRecord(*(a1 + 144), v5, &error))
+      if (ABAddressBookAddRecord(*(a1 + 144), v6, &error))
       {
-        v6 = *(a1 + 144);
         ABAddressBookProcessAddedRecords();
-        v7 = *(a1 + 144);
         if (ABAddressBookSetAccountForSource())
         {
-          v8 = 1;
+          v7 = 1;
 LABEL_21:
-          CFRelease(v5);
-          return v8;
+          CFRelease(v6);
+          return v7;
         }
 
         if (!DLShouldLog())
@@ -2968,13 +2916,13 @@ LABEL_18:
           if (error)
           {
             CFRelease(error);
-            v8 = 0;
+            v7 = 0;
             error = 0;
           }
 
           else
           {
-            v8 = 0;
+            v7 = 0;
           }
 
           goto LABEL_21;
@@ -3012,7 +2960,7 @@ LABEL_18:
   return 1;
 }
 
-void _setComputerSyncAnchorForStore(uint64_t a1)
+void _setComputerSyncAnchorForStore(uint64_t a1, uint64_t a2)
 {
   if (a1)
   {
@@ -3022,7 +2970,6 @@ void _setComputerSyncAnchorForStore(uint64_t a1)
       _DLLog();
     }
 
-    v3 = *(a1 + 144);
     ABAddressBookSetValue();
     if (v2)
     {
@@ -3032,7 +2979,7 @@ void _setComputerSyncAnchorForStore(uint64_t a1)
   }
 }
 
-void _setDeviceSyncAnchorForStore(uint64_t a1)
+void _setDeviceSyncAnchorForStore(uint64_t a1, uint64_t a2)
 {
   v2 = _copyDeviceSyncAnchorKey(a1);
   if (DLShouldLog())
@@ -3040,7 +2987,6 @@ void _setDeviceSyncAnchorForStore(uint64_t a1)
     _DLLog();
   }
 
-  v3 = *(a1 + 144);
   ABAddressBookSetValue();
   if (v2)
   {
@@ -3193,24 +3139,24 @@ void _AccumulateContacts(uint64_t a1, __CFDictionary *a2)
   {
     Count = CFArrayGetCount(v3);
     property = *MEMORY[0x277CE98C0];
-    v37 = *MEMORY[0x277CE9980];
-    v36 = *MEMORY[0x277CE99A0];
-    v35 = *MEMORY[0x277CE9A30];
-    v33 = *MEMORY[0x277CE99B0];
-    v34 = *MEMORY[0x277CE9A50];
-    v31 = *MEMORY[0x277CE9978];
-    v32 = *MEMORY[0x277CE98B8];
-    v30 = *MEMORY[0x277CE9998];
-    v29 = *MEMORY[0x277CE99C0];
-    v27 = *MEMORY[0x277CE9878];
-    v28 = *MEMORY[0x277CE9958];
-    v26 = *MEMORY[0x277CE99B8];
+    v35 = *MEMORY[0x277CE9980];
+    v34 = *MEMORY[0x277CE99A0];
+    v33 = *MEMORY[0x277CE9A30];
+    v31 = *MEMORY[0x277CE99B0];
+    v32 = *MEMORY[0x277CE9A50];
+    v29 = *MEMORY[0x277CE9978];
+    v30 = *MEMORY[0x277CE98B8];
+    v28 = *MEMORY[0x277CE9998];
+    v27 = *MEMORY[0x277CE99C0];
+    v25 = *MEMORY[0x277CE9878];
+    v26 = *MEMORY[0x277CE9958];
+    v24 = *MEMORY[0x277CE99B8];
     v4 = *MEMORY[0x277CE9858];
     v5 = *MEMORY[0x277CE9970];
     v6 = *MEMORY[0x277CE9968];
     otherNumber = *MEMORY[0x277CE9960];
     v7 = *MEMORY[0x277CBED28];
-    v24 = *MEMORY[0x277CBED10];
+    v22 = *MEMORY[0x277CBED10];
     v8 = *(a1 + 432);
     do
     {
@@ -3225,18 +3171,18 @@ void _AccumulateContacts(uint64_t a1, __CFDictionary *a2)
       Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBED60], MEMORY[0x277CBF150]);
       CFDictionarySetValue(Mutable, @"com.apple.syncservices.RecordEntityName", @"com.apple.contacts.Contact");
       _SetRecordValueInDictionary(Mutable, ValueAtIndex, property, @"first name");
-      _SetRecordValueInDictionary(Mutable, ValueAtIndex, v37, @"last name");
-      _SetRecordValueInDictionary(Mutable, ValueAtIndex, v36, @"middle name");
-      _SetRecordValueInDictionary(Mutable, ValueAtIndex, v35, @"title");
-      _SetRecordValueInDictionary(Mutable, ValueAtIndex, v34, @"suffix");
-      _SetRecordValueInDictionary(Mutable, ValueAtIndex, v33, @"nickname");
-      _SetRecordValueInDictionary(Mutable, ValueAtIndex, v32, @"first name yomi");
-      _SetRecordValueInDictionary(Mutable, ValueAtIndex, v31, @"last name yomi");
-      _SetRecordValueInDictionary(Mutable, ValueAtIndex, v30, @"middle name yomi");
-      _SetRecordValueInDictionary(Mutable, ValueAtIndex, v29, @"company name");
-      _SetRecordValueInDictionary(Mutable, ValueAtIndex, v28, @"job title");
-      _SetRecordValueInDictionary(Mutable, ValueAtIndex, v27, @"department");
-      _SetRecordValueInDictionary(Mutable, ValueAtIndex, v26, @"notes");
+      _SetRecordValueInDictionary(Mutable, ValueAtIndex, v35, @"last name");
+      _SetRecordValueInDictionary(Mutable, ValueAtIndex, v34, @"middle name");
+      _SetRecordValueInDictionary(Mutable, ValueAtIndex, v33, @"title");
+      _SetRecordValueInDictionary(Mutable, ValueAtIndex, v32, @"suffix");
+      _SetRecordValueInDictionary(Mutable, ValueAtIndex, v31, @"nickname");
+      _SetRecordValueInDictionary(Mutable, ValueAtIndex, v30, @"first name yomi");
+      _SetRecordValueInDictionary(Mutable, ValueAtIndex, v29, @"last name yomi");
+      _SetRecordValueInDictionary(Mutable, ValueAtIndex, v28, @"middle name yomi");
+      _SetRecordValueInDictionary(Mutable, ValueAtIndex, v27, @"company name");
+      _SetRecordValueInDictionary(Mutable, ValueAtIndex, v26, @"job title");
+      _SetRecordValueInDictionary(Mutable, ValueAtIndex, v25, @"department");
+      _SetRecordValueInDictionary(Mutable, ValueAtIndex, v24, @"notes");
       _SetRecordValueInDictionary(Mutable, ValueAtIndex, v4, @"birthday");
       v13 = ABRecordCopyValue(ValueAtIndex, v5);
       if (CFNumberCompare(v13, v6, 0))
@@ -3294,7 +3240,7 @@ LABEL_9:
 
         else
         {
-          Value = v24;
+          Value = v22;
         }
 
         CFDictionarySetValue(Mutable, @"ImageChanged", Value);
@@ -3324,11 +3270,9 @@ LABEL_27:
       {
         if (DLShouldLog())
         {
-          v23 = *(a1 + 424);
           _DLLog();
         }
 
-        v22 = *(a1 + 144);
         ABProcessAddedImages();
         *(a1 + 424) = 0;
       }
@@ -3927,18 +3871,18 @@ void _saveDeviceSyncAnchorAndClearChangeHistory(uint64_t a1)
 {
   if ((*(a1 + 436) & 0x80000000) == 0)
   {
-    v2 = *(a1 + 144);
-    v3 = *(a1 + 152);
     ABChangeHistoryClearChangesUpToSequenceNumberForClient();
   }
 
   error = 0;
-  if (!*(a1 + 160))
+  v2 = *(a1 + 160);
+  if (!v2)
   {
-    *(a1 + 160) = CFRetain(@"---");
+    v2 = CFRetain(@"---");
+    *(a1 + 160) = v2;
   }
 
-  _setDeviceSyncAnchorForStore(a1);
+  _setDeviceSyncAnchorForStore(a1, v2);
   if (!ABAddressBookSave(*(a1 + 144), &error) && DLShouldLog())
   {
     _DLLog();
@@ -3983,33 +3927,8 @@ void _ChangesApplierFunction(const __CFString *a1, const __CFDictionary *a2, uin
         }
 
         v14 = *(a3 + 392);
-        if (v14)
+        if (v14 || (sSyncServicesEntityTypeStrings = @"com.apple.contacts.Email Address", *algn_27F9F2C18 = @"com.apple.contacts.Phone Number", qword_27F9F2C20 = @"com.apple.contacts.Street Address", unk_27F9F2C28 = @"com.apple.contacts.URL", qword_27F9F2C30 = @"com.apple.contacts.Date", unk_27F9F2C38 = @"com.apple.contacts.Related Name", qword_27F9F2C40 = @"com.apple.contacts.IM", v15 = *MEMORY[0x277CE9A18], sABPropertyNames = *MEMORY[0x277CE9888], unk_27F9F2C50 = v15, v16 = *MEMORY[0x277CE9A58], qword_27F9F2C58 = *MEMORY[0x277CE9828], unk_27F9F2C60 = v16, v17 = *MEMORY[0x277CE9A38], qword_27F9F2C68 = *MEMORY[0x277CE9870], unk_27F9F2C70 = v17, qword_27F9F2C78 = *MEMORY[0x277CE98E8], v14 = CFDictionaryCreate(0, &sSyncServicesEntityTypeStrings, &sABPropertyNames, 7, MEMORY[0x277CBF138], 0), (*(a3 + 392) = v14) != 0))
         {
-          goto LABEL_317;
-        }
-
-        sSyncServicesEntityTypeStrings = @"com.apple.contacts.Email Address";
-        *algn_27F9F2C18 = @"com.apple.contacts.Phone Number";
-        qword_27F9F2C20 = @"com.apple.contacts.Street Address";
-        unk_27F9F2C28 = @"com.apple.contacts.URL";
-        qword_27F9F2C30 = @"com.apple.contacts.Date";
-        unk_27F9F2C38 = @"com.apple.contacts.Related Name";
-        qword_27F9F2C40 = @"com.apple.contacts.IM";
-        v15 = *MEMORY[0x277CE9A18];
-        sABPropertyNames = *MEMORY[0x277CE9888];
-        unk_27F9F2C50 = v15;
-        v16 = *MEMORY[0x277CE9A58];
-        qword_27F9F2C58 = *MEMORY[0x277CE9828];
-        unk_27F9F2C60 = v16;
-        v17 = *MEMORY[0x277CE9A38];
-        qword_27F9F2C68 = *MEMORY[0x277CE9870];
-        unk_27F9F2C70 = v17;
-        qword_27F9F2C78 = *MEMORY[0x277CE98E8];
-        v14 = CFDictionaryCreate(0, &sSyncServicesEntityTypeStrings, &sABPropertyNames, 7, MEMORY[0x277CBF138], 0);
-        *(a3 + 392) = v14;
-        if (v14)
-        {
-LABEL_317:
           error = 0;
           if (CFDictionaryGetValueIfPresent(v14, v13, &error))
           {
@@ -5123,21 +5042,21 @@ void _UpdateRecordRemapping(const void *a1, ABRecordRef record, __CFDictionary *
   }
 }
 
-void _RestoreClearedPersonsSound(const __CFDictionary *a1, uint64_t a2)
+void _RestoreClearedPersonsSound(const __CFDictionary *a1, uint64_t a2, uint64_t a3)
 {
   if (a2)
   {
-    v3 = ABPersonCopyCompositeName();
-    if (v3)
+    v4 = ABPersonCopyCompositeName();
+    if (v4)
     {
-      v4 = v3;
-      Value = CFDictionaryGetValue(a1, v3);
+      v5 = v4;
+      Value = CFDictionaryGetValue(a1, v4);
       if (Value)
       {
-        v6 = Value;
+        v7 = Value;
         if (CFStringCompare(Value, @"<null>", 0))
         {
-          if (CFStringCompare(v6, @"<conflict>", 0))
+          if (CFStringCompare(v7, @"<conflict>", 0))
           {
             if (DLShouldLog())
             {
@@ -5154,7 +5073,7 @@ void _RestoreClearedPersonsSound(const __CFDictionary *a1, uint64_t a2)
         }
       }
 
-      CFRelease(v4);
+      CFRelease(v5);
     }
   }
 }
@@ -5192,16 +5111,14 @@ uint64_t CalendarsDataSourceCreator(void *a1, uint64_t a2, const __CFDictionary 
   *(v8 + 17) = 0u;
   *(v8 + 23) = CalDatabaseCreateWithOptions();
   CalDatabaseSetClientIdentifier();
-  v10 = *(v8 + 23);
   *(v8 + 24) = CalDatabaseCopyDefaultLocalCalendar();
-  v11 = *(v8 + 23);
   if (!a2)
   {
-    v30 = CalDatabaseCopyLocalStore();
-    *(v8 + 25) = v30;
-    if (v30)
+    v25 = CalDatabaseCopyLocalStore();
+    *(v8 + 25) = v25;
+    if (v25)
     {
-      v29 = 0;
+      v24 = 0;
       goto LABEL_45;
     }
 
@@ -5213,9 +5130,9 @@ uint64_t CalendarsDataSourceCreator(void *a1, uint64_t a2, const __CFDictionary 
     goto LABEL_41;
   }
 
-  v12 = CalDatabaseCopyStoreWithExternalID();
-  v13 = v12;
-  if (v12)
+  v10 = CalDatabaseCopyStoreWithExternalID();
+  v11 = v10;
+  if (v10)
   {
     goto LABEL_7;
   }
@@ -5225,11 +5142,10 @@ uint64_t CalendarsDataSourceCreator(void *a1, uint64_t a2, const __CFDictionary 
     _DLLog();
   }
 
-  v14 = *(v8 + 23);
   Store = CalDatabaseCreateStore();
   if (Store)
   {
-    v13 = Store;
+    v11 = Store;
     CalStoreSetExternalID();
 LABEL_7:
     if (DLShouldLog())
@@ -5255,18 +5171,17 @@ LABEL_7:
       }
     }
 
-    v17 = *(v8 + 23);
-    v18 = CalDatabaseCopyProperty();
-    if (!v18)
+    v14 = CalDatabaseCopyProperty();
+    if (!v14)
     {
       goto LABEL_27;
     }
 
-    v19 = v18;
-    if (CFStringGetIntValue(v18) <= 106)
+    v15 = v14;
+    if (CFStringGetIntValue(v14) <= 106)
     {
       Type = CalStoreGetType();
-      CFRelease(v19);
+      CFRelease(v15);
       if (Type != 3)
       {
         goto LABEL_27;
@@ -5277,47 +5192,46 @@ LABEL_7:
         _DLLog();
       }
 
-      v21 = CalStoreCopyCalendars();
-      if (!v21)
+      v17 = CalStoreCopyCalendars();
+      if (!v17)
       {
         goto LABEL_27;
       }
 
-      v19 = v21;
-      Count = CFArrayGetCount(v21);
+      v15 = v17;
+      Count = CFArrayGetCount(v17);
       if (Count >= 1)
       {
-        v23 = Count;
-        for (i = 0; i != v23; ++i)
+        v19 = Count;
+        for (i = 0; i != v19; ++i)
         {
-          CFArrayGetValueAtIndex(v19, i);
+          CFArrayGetValueAtIndex(v15, i);
           UID = CalCalendarGetUID();
-          v26 = CFStringCreateWithFormat(0, 0, @"%d", UID);
+          v22 = CFStringCreateWithFormat(0, 0, @"%d", UID);
           CalCalendarSetExternalID();
-          if (v26)
+          if (v22)
           {
-            CFRelease(v26);
+            CFRelease(v22);
           }
         }
       }
     }
 
-    CFRelease(v19);
+    CFRelease(v15);
 LABEL_27:
-    if (!v12)
+    if (!v10)
     {
-      v27 = *(v8 + 23);
       CalDatabaseSave();
     }
 
-    v28 = *(v8 + 25);
-    if (v28)
+    v23 = *(v8 + 25);
+    if (v23)
     {
-      CFRelease(v28);
+      CFRelease(v23);
     }
 
-    v29 = 0;
-    *(v8 + 25) = v13;
+    v24 = 0;
+    *(v8 + 25) = v11;
     goto LABEL_45;
   }
 
@@ -5344,14 +5258,12 @@ LABEL_42:
     _DLLog();
   }
 
-  v29 = 0xFFFFFFFFLL;
+  v24 = 0xFFFFFFFFLL;
 LABEL_45:
-  v31 = *(v8 + 23);
-  v32 = *(v8 + 25);
   *(v8 + 78) = CalDatabaseRegisterClientForPersistentChangeTrackingInStore();
-  *&v33 = 0x100000001;
-  *(&v33 + 1) = 0x100000001;
-  *(v8 + 316) = v33;
+  *&v26 = 0x100000001;
+  *(&v26 + 1) = 0x100000001;
+  *(v8 + 316) = v26;
   *(v8 + 332) = 0xFFFFFFFEFFFFFFFELL;
   *(v8 + 43) = 0;
   v8[340] = 0;
@@ -5359,110 +5271,104 @@ LABEL_45:
   v8[356] = 1;
   if (a3)
   {
-    v34 = CFDictionaryGetValue(a3, @"ShouldSendAllCalendarsOnFastSync");
-    if (v34)
+    v27 = CFDictionaryGetValue(a3, @"ShouldSendAllCalendarsOnFastSync");
+    if (v27)
     {
-      v35 = v34;
+      v28 = v27;
       if (DLShouldLog())
       {
-        *MEMORY[0x277CBED28];
         _DLLog();
       }
 
-      v8[340] = CFBooleanGetValue(v35);
+      v8[340] = CFBooleanGetValue(v28);
     }
 
-    v36 = CFDictionaryGetValue(a3, @"OrganizerAddressSet");
-    if (v36)
+    v29 = CFDictionaryGetValue(a3, @"OrganizerAddressSet");
+    if (v29)
     {
-      v37 = v36;
+      v30 = v29;
       if (DLShouldLog())
       {
         _DLLog();
       }
 
-      *(v8 + 43) = CFRetain(v37);
+      *(v8 + 43) = CFRetain(v30);
     }
 
-    v38 = CFDictionaryGetValue(a3, @"ShouldSyncAttendeesAndOrganizers");
-    if (v38)
+    v31 = CFDictionaryGetValue(a3, @"ShouldSyncAttendeesAndOrganizers");
+    if (v31)
     {
-      v39 = v38;
+      v32 = v31;
       if (DLShouldLog())
       {
-        *MEMORY[0x277CBED28];
         _DLLog();
       }
 
-      v8[352] = CFBooleanGetValue(v39);
+      v8[352] = CFBooleanGetValue(v32);
     }
 
-    v40 = CFDictionaryGetValue(a3, @"ShouldSyncCalendarColors");
-    if (v40)
+    v33 = CFDictionaryGetValue(a3, @"ShouldSyncCalendarColors");
+    if (v33)
     {
-      v41 = v40;
+      v34 = v33;
       if (DLShouldLog())
       {
-        *MEMORY[0x277CBED28];
         _DLLog();
       }
 
-      v8[353] = CFBooleanGetValue(v41);
+      v8[353] = CFBooleanGetValue(v34);
     }
 
-    v42 = CFDictionaryGetValue(a3, @"UpdateAnchorsOnPull");
-    if (v42)
+    v35 = CFDictionaryGetValue(a3, @"UpdateAnchorsOnPull");
+    if (v35)
     {
-      v43 = v42;
+      v36 = v35;
       if (DLShouldLog())
       {
-        *MEMORY[0x277CBED28];
         _DLLog();
       }
 
-      v8[354] = CFBooleanGetValue(v43);
+      v8[354] = CFBooleanGetValue(v36);
     }
 
-    v44 = CFDictionaryGetValue(a3, @"IsEventsOnly");
-    if (v44)
+    v37 = CFDictionaryGetValue(a3, @"IsEventsOnly");
+    if (v37)
     {
-      v45 = v44;
+      v38 = v37;
       if (DLShouldLog())
       {
-        *MEMORY[0x277CBED28];
         _DLLog();
       }
 
-      v8[357] = CFBooleanGetValue(v45);
+      v8[357] = CFBooleanGetValue(v38);
     }
 
-    v46 = CFDictionaryGetValue(a3, @"IsRemindersOnly");
-    if (v46)
+    v39 = CFDictionaryGetValue(a3, @"IsRemindersOnly");
+    if (v39)
     {
-      v47 = v46;
+      v40 = v39;
       if (DLShouldLog())
       {
-        *MEMORY[0x277CBED28];
         _DLLog();
       }
 
-      v8[358] = CFBooleanGetValue(v47);
+      v8[358] = CFBooleanGetValue(v40);
     }
 
-    v48 = CFDictionaryGetValue(a3, @"IsTetheredSync");
-    if (v48)
+    v41 = CFDictionaryGetValue(a3, @"IsTetheredSync");
+    if (v41)
     {
-      v49 = v48;
+      v42 = v41;
       if (DLShouldLog())
       {
         _DLLog();
       }
 
-      v8[359] = CFBooleanGetValue(v49);
+      v8[359] = CFBooleanGetValue(v42);
     }
   }
 
-  return v29;
+  return v24;
 }
 
 uint64_t CalendarsDataSourceGetVersionFunction(uint64_t a1, CFTypeRef *a2)
@@ -5515,158 +5421,143 @@ uint64_t CalendarsDataSourceCanSyncWithVersionFunction(uint64_t a1, CFNumberRef 
 
 uint64_t CalendarsDataSourceMigrateFunction(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v5 = a1;
-  v6 = *(a1 + 200);
   CalStoreGetUID();
-  v7 = *(a2 + 184);
-  v8 = CalDatabaseCopyStoreWithUID();
-  if (!v8)
+  v6 = CalDatabaseCopyStoreWithUID();
+  if (v6)
   {
-    v19 = @"CalendarsDataSourceMigrateFunction: Could not get the destination data source";
-    goto LABEL_38;
-  }
-
-  v9 = v8;
-  v10 = *(a2 + 184);
-  if (DLShouldLog())
-  {
-    _DLLog();
-  }
-
-  v11 = CalStoreCopyCalendars();
-  if (v11)
-  {
-    v12 = v11;
-    Count = CFArrayGetCount(v11);
-    if (Count < 1)
+    v7 = v6;
+    if (DLShouldLog())
     {
-      CFRelease(v12);
+      _DLLog();
+    }
+
+    v8 = CalStoreCopyCalendars();
+    if (v8)
+    {
+      v9 = v8;
+      Count = CFArrayGetCount(v8);
+      if (Count < 1)
+      {
+        CFRelease(v9);
+      }
+
+      else
+      {
+        v11 = Count;
+        v21 = a1;
+        v12 = 0;
+        for (i = 0; i != v11; ++i)
+        {
+          CFArrayGetValueAtIndex(v9, i);
+          v14 = CalCalendarCopyType();
+          if ((CalCalendarIsSubscribed() & 1) != 0 || (CalCalendarIsInbox() & 1) != 0 || (CalCalendarIsNotificationsCollection() & 1) != 0 || CalCalendarGetSharingStatus() == 3 || v14 && (CFStringCompare(v14, @"caldav", 0) == kCFCompareEqualTo || CFStringCompare(v14, @"urlsubscribe", 0) == kCFCompareEqualTo) || CalCalendarGetSharingStatus() == 2 || CalCalendarIsReadOnly())
+          {
+            v15 = CalCalendarCopyTitle();
+            if (DLShouldLog())
+            {
+              CalCalendarGetUID();
+              _DLLog();
+            }
+
+            if (v15)
+            {
+              CFRelease(v15);
+            }
+
+            CalRemoveCalendar();
+            v12 = 1;
+          }
+
+          if (v14)
+          {
+            CFRelease(v14);
+          }
+        }
+
+        CFRelease(v9);
+        a1 = v21;
+        if (v12)
+        {
+          CalDatabaseSave();
+        }
+      }
+    }
+
+    if (*(a1 + 357) || *(a1 + 358) || *(a2 + 357) || *(a2 + 358))
+    {
+      v17 = CalDatabaseMigrateCalendarsWithEntityType();
     }
 
     else
     {
-      v14 = Count;
-      v29 = v5;
-      v15 = 0;
-      for (i = 0; i != v14; ++i)
+      v17 = CalStoreMigrateToStore();
+    }
+
+    v18 = v17;
+    CFRelease(v7);
+    if (v18)
+    {
+      _setComputerSyncAnchorForStore_0(a2, 0);
+      _setDeviceSyncAnchorForStore_0(a2, 0);
+      if (CalDatabaseSave())
       {
-        CFArrayGetValueAtIndex(v12, i);
-        v17 = CalCalendarCopyType();
-        if ((CalCalendarIsSubscribed() & 1) != 0 || (CalCalendarIsInbox() & 1) != 0 || (CalCalendarIsNotificationsCollection() & 1) != 0 || CalCalendarGetSharingStatus() == 3 || v17 && (CFStringCompare(v17, @"caldav", 0) == kCFCompareEqualTo || CFStringCompare(v17, @"urlsubscribe", 0) == kCFCompareEqualTo) || CalCalendarGetSharingStatus() == 2 || CalCalendarIsReadOnly())
+        v19 = 0;
+      }
+
+      else
+      {
+        if (DLShouldLog())
         {
-          v18 = CalCalendarCopyTitle();
-          if (DLShouldLog())
-          {
-            CalCalendarGetUID();
-            _DLLog();
-          }
-
-          if (v18)
-          {
-            CFRelease(v18);
-          }
-
-          CalRemoveCalendar();
-          v15 = 1;
+          _DLLog();
         }
 
-        if (v17)
+        v19 = 0xFFFFFFFFLL;
+      }
+
+      _setComputerSyncAnchorForStore_0(a1, 0);
+      _setDeviceSyncAnchorForStore_0(a1, 0);
+      if ((CalDatabaseSave() & 1) == 0)
+      {
+        if (DLShouldLog())
         {
-          CFRelease(v17);
+          _DLLog();
         }
+
+        return 0xFFFFFFFFLL;
       }
 
-      CFRelease(v12);
-      v5 = v29;
-      if (v15)
-      {
-        CalDatabaseSave();
-      }
+      return v19;
     }
+
+    v16 = @"CalendarsDataSourceMigrateFunction: could not perform cal store migration";
   }
 
-  if (!*(v5 + 357) && !*(v5 + 358))
+  else
   {
-    if (!*(a2 + 357) && !*(a2 + 358))
-    {
-      v27 = *(a2 + 200);
-      v22 = CalStoreMigrateToStore();
-      goto LABEL_34;
-    }
-
-    *(a2 + 357);
+    v16 = @"CalendarsDataSourceMigrateFunction: Could not get the destination data source";
   }
 
-  v20 = *(a2 + 184);
-  v21 = *(a2 + 200);
-  v22 = CalDatabaseMigrateCalendarsWithEntityType();
-LABEL_34:
-  v23 = v22;
-  CFRelease(v9);
-  if (v23)
-  {
-    _setComputerSyncAnchorForStore_0(a2);
-    _setDeviceSyncAnchorForStore_0(a2);
-    v24 = *(a2 + 184);
-    if (CalDatabaseSave())
-    {
-      v25 = 0;
-    }
-
-    else
-    {
-      if (DLShouldLog())
-      {
-        _DLLog();
-      }
-
-      v25 = 0xFFFFFFFFLL;
-    }
-
-    _setComputerSyncAnchorForStore_0(v5);
-    _setDeviceSyncAnchorForStore_0(v5);
-    v26 = *(v5 + 184);
-    if ((CalDatabaseSave() & 1) == 0)
-    {
-      if (DLShouldLog())
-      {
-        _DLLog();
-      }
-
-      return 0xFFFFFFFFLL;
-    }
-
-    return v25;
-  }
-
-  v19 = @"CalendarsDataSourceMigrateFunction: could not perform cal store migration";
-LABEL_38:
-
-  return MEMORY[0x2821867D0](0xFFFFFFFFLL, a3, v19);
+  return MEMORY[0x2821867D0](0xFFFFFFFFLL, a3, v16);
 }
 
 uint64_t CalendarsDataSourceRemoveStoreFunction(uint64_t a1)
 {
   if (DLShouldLog())
   {
-    v2 = *(a1 + 200);
     CalStoreGetUID();
     _DLLog();
   }
 
-  _setComputerSyncAnchorForStore_0(a1);
-  _setDeviceSyncAnchorForStore_0(a1);
-  v3 = *(a1 + 200);
-  v4 = CalStoreCopyExternalID();
-  v5 = *(a1 + 200);
+  _setComputerSyncAnchorForStore_0(a1, 0);
+  _setDeviceSyncAnchorForStore_0(a1, 0);
+  v2 = CalStoreCopyExternalID();
   CalRemoveStore();
-  v6 = *(a1 + 184);
   if (CalDatabaseSave())
   {
-    v7 = 0;
-    if (!v4)
+    v3 = 0;
+    if (!v2)
     {
-      return v7;
+      return v3;
     }
 
     goto LABEL_9;
@@ -5677,14 +5568,14 @@ uint64_t CalendarsDataSourceRemoveStoreFunction(uint64_t a1)
     _DLLog();
   }
 
-  v7 = 0xFFFFFFFFLL;
-  if (v4)
+  v3 = 0xFFFFFFFFLL;
+  if (v2)
   {
 LABEL_9:
-    CFRelease(v4);
+    CFRelease(v2);
   }
 
-  return v7;
+  return v3;
 }
 
 uint64_t CalendarsDataSourceGetSyncTypeAndExchangeSyncAnchors(void *a1, CFTypeRef *a2, const __CFString *a3, const void *a4, uint64_t *a5, CFTypeRef *a6)
@@ -5695,40 +5586,36 @@ uint64_t CalendarsDataSourceGetSyncTypeAndExchangeSyncAnchors(void *a1, CFTypeRe
     _DLLog();
   }
 
-  v13 = a1[23];
-  v14 = CalDatabaseCopyProperty();
-  if (!v14)
+  v13 = CalDatabaseCopyProperty();
+  if (!v13)
   {
-    v15 = a1[23];
-    v16 = CalDatabaseCopyProperty();
-    if (v16)
+    v14 = CalDatabaseCopyProperty();
+    if (v14)
     {
-      v17 = v16;
-      if (CFStringCompare(v16, @"__UNUSED__", 0))
+      v15 = v14;
+      if (CFStringCompare(v14, @"__UNUSED__", 0))
       {
         if (DLShouldLog())
         {
           _DLLog();
         }
 
-        v18 = a1[23];
         CalDatabaseSetProperty();
-        v19 = a1[23];
         CalDatabaseSetProperty();
-        v14 = CFRetain(v17);
+        v13 = CFRetain(v15);
       }
 
       else
       {
-        v14 = 0;
+        v13 = 0;
       }
 
-      CFRelease(v17);
+      CFRelease(v15);
     }
 
     else
     {
-      v14 = 0;
+      v13 = 0;
     }
   }
 
@@ -5740,7 +5627,6 @@ uint64_t CalendarsDataSourceGetSyncTypeAndExchangeSyncAnchors(void *a1, CFTypeRe
   if (a4)
   {
     CFRetain(a4);
-    v20 = a1[17];
     a1[19] = DLMemoryPoolAddObject();
   }
 
@@ -5750,72 +5636,67 @@ uint64_t CalendarsDataSourceGetSyncTypeAndExchangeSyncAnchors(void *a1, CFTypeRe
   }
 
   *a2 = CFRetain(@"SDSyncTypeFast");
-  *a5 = v14;
-  v21 = _copyDeviceSyncAnchorKey_0(a1);
+  *a5 = v13;
+  v16 = _copyDeviceSyncAnchorKey_0(a1);
   if (DLShouldLog())
   {
     _DLLog();
   }
 
-  v22 = a1[23];
-  v23 = CalDatabaseCopyProperty();
-  if (!v23)
+  v17 = CalDatabaseCopyProperty();
+  if (!v17)
   {
-    v24 = a1[23];
-    v25 = CalDatabaseCopyProperty();
-    if (v25)
+    v18 = CalDatabaseCopyProperty();
+    if (v18)
     {
-      v26 = v25;
-      if (CFStringCompare(v25, @"__UNUSED__", 0))
+      v19 = v18;
+      if (CFStringCompare(v18, @"__UNUSED__", 0))
       {
         if (DLShouldLog())
         {
           _DLLog();
         }
 
-        v27 = a1[23];
         CalDatabaseSetProperty();
-        v28 = a1[23];
         CalDatabaseSetProperty();
-        v23 = CFRetain(v26);
+        v17 = CFRetain(v19);
       }
 
       else
       {
-        v23 = 0;
+        v17 = 0;
       }
 
-      CFRelease(v26);
+      CFRelease(v19);
     }
 
     else
     {
-      v23 = 0;
+      v17 = 0;
     }
   }
 
-  if (v21)
+  if (v16)
   {
-    CFRelease(v21);
+    CFRelease(v16);
   }
 
-  v29 = a1[23];
-  v30 = CalDatabaseCopyProperty();
-  v31 = CFStringCreateWithFormat(0, 0, @"%d", kDefaultCalendarsDataSourceVersion);
+  v20 = CalDatabaseCopyProperty();
+  v21 = CFStringCreateWithFormat(0, 0, @"%d", kDefaultCalendarsDataSourceVersion);
   if (DLShouldLog())
   {
     _DLLog();
   }
 
-  if (v23)
+  if (v17)
   {
-    if (v30 && CFStringCompare(v30, v31, 0) == kCFCompareEqualTo)
+    if (v20 && CFStringCompare(v20, v21, 0) == kCFCompareEqualTo)
     {
-      if (a3 && CFStringCompare(v23, a3, 0) == kCFCompareEqualTo)
+      if (a3 && CFStringCompare(v17, a3, 0) == kCFCompareEqualTo)
       {
 LABEL_40:
-        CFRelease(v23);
-        if (!v30)
+        CFRelease(v17);
+        if (!v20)
         {
           goto LABEL_42;
         }
@@ -5828,7 +5709,7 @@ LABEL_40:
         _DLLog();
       }
 
-      v32 = @"SDSyncTypeSlow";
+      v22 = @"SDSyncTypeSlow";
     }
 
     else
@@ -5838,10 +5719,10 @@ LABEL_40:
         _DLLog();
       }
 
-      v32 = @"SDSyncTypeReset";
+      v22 = @"SDSyncTypeReset";
     }
 
-    *a2 = CFRetain(v32);
+    *a2 = CFRetain(v22);
     goto LABEL_40;
   }
 
@@ -5851,43 +5732,40 @@ LABEL_40:
   }
 
   *a2 = CFRetain(@"SDSyncTypeReset");
-  if (v30)
+  if (v20)
   {
 LABEL_41:
-    CFRelease(v30);
+    CFRelease(v20);
   }
 
 LABEL_42:
-  if (v31)
+  if (v21)
   {
-    CFRelease(v31);
+    CFRelease(v21);
   }
 
-  v33 = CFLocaleCopyCurrent();
-  v34 = CFDateFormatterCreate(0, v33, kCFDateFormatterLongStyle, kCFDateFormatterLongStyle);
-  CFDateFormatterSetFormat(v34, @"MMM dd yyyy HH:mm:ss ZZZ");
-  v35 = a1[17];
+  v23 = CFLocaleCopyCurrent();
+  v24 = CFDateFormatterCreate(0, v23, kCFDateFormatterLongStyle, kCFDateFormatterLongStyle);
+  CFDateFormatterSetFormat(v24, @"MMM dd yyyy HH:mm:ss ZZZ");
   Current = CFAbsoluteTimeGetCurrent();
-  CFDateFormatterCreateStringWithAbsoluteTime(0, v34, Current);
-  v37 = DLMemoryPoolAddObject();
-  a1[18] = v37;
-  *a6 = CFRetain(v37);
+  CFDateFormatterCreateStringWithAbsoluteTime(0, v24, Current);
+  v26 = DLMemoryPoolAddObject();
+  a1[18] = v26;
+  *a6 = CFRetain(v26);
   if (DLShouldLog())
   {
-    v39 = a1[18];
     _DLLog();
   }
 
-  CFRelease(v34);
-  CFRelease(v33);
+  CFRelease(v24);
+  CFRelease(v23);
   return 0;
 }
 
 uint64_t CalendarsDataSourceClearSyncAnchors(uint64_t a1)
 {
-  _setComputerSyncAnchorForStore_0(a1);
-  _setDeviceSyncAnchorForStore_0(a1);
-  v2 = *(a1 + 184);
+  _setComputerSyncAnchorForStore_0(a1, 0);
+  _setDeviceSyncAnchorForStore_0(a1, 0);
   return CalDatabaseSave() - 1;
 }
 
@@ -5895,18 +5773,17 @@ uint64_t CalendarsDataSourceClearAllRecords(uint64_t a1)
 {
   if (*(a1 + 357) || *(a1 + 358))
   {
-    v2 = *(a1 + 200);
-    v3 = CalStoreCopyCalendars();
-    if (v3)
+    v2 = CalStoreCopyCalendars();
+    if (v2)
     {
-      v4 = v3;
-      Count = CFArrayGetCount(v3);
+      v3 = v2;
+      Count = CFArrayGetCount(v2);
       if (Count >= 1)
       {
-        v6 = Count;
-        for (i = 0; i != v6; ++i)
+        v5 = Count;
+        for (i = 0; i != v5; ++i)
         {
-          CFArrayGetValueAtIndex(v4, i);
+          CFArrayGetValueAtIndex(v3, i);
           if (CalCalendarCanContainEntityType())
           {
             if (DLShouldLog())
@@ -5917,25 +5794,23 @@ uint64_t CalendarsDataSourceClearAllRecords(uint64_t a1)
 
             if (CalCalendarCanContainEntityType())
             {
-              v8 = *(a1 + 184);
               CalDatabaseRemoveAllCalendarItemsWithCalendarAndEntityType();
               CalCalendarSetCanContainEntityType();
             }
 
             else
             {
-              v9 = CalCalendarCopyTitle();
-              v10 = CFStringCreateWithFormat(0, 0, @"%@-CalDAVInfo", v9);
-              if (v9)
+              v7 = CalCalendarCopyTitle();
+              v8 = CFStringCreateWithFormat(0, 0, @"%@-CalDAVInfo", v7);
+              if (v7)
               {
-                CFRelease(v9);
+                CFRelease(v7);
               }
 
-              v11 = *(a1 + 184);
               CalDatabaseSetProperty();
-              if (v10)
+              if (v8)
               {
-                CFRelease(v10);
+                CFRelease(v8);
               }
 
               CalRemoveCalendar();
@@ -5944,7 +5819,7 @@ uint64_t CalendarsDataSourceClearAllRecords(uint64_t a1)
         }
       }
 
-      CFRelease(v4);
+      CFRelease(v3);
     }
   }
 
@@ -5952,91 +5827,74 @@ uint64_t CalendarsDataSourceClearAllRecords(uint64_t a1)
   {
     if ((*(a1 + 312) & 0x80000000) == 0)
     {
-      v12 = *(a1 + 184);
       CalDatabaseClearChangedObjectIDsUpToSequenceNumberForClient();
     }
 
-    v13 = *(a1 + 184);
-    v14 = *(a1 + 200);
-    v15 = CalDatabaseCopyOfAllCalendarsInStore();
-    if (v15)
+    v9 = CalDatabaseCopyOfAllCalendarsInStore();
+    if (v9)
     {
-      v16 = v15;
-      v17 = CFArrayGetCount(v15);
-      if (v17 >= 1)
+      v10 = v9;
+      v11 = CFArrayGetCount(v9);
+      if (v11 >= 1)
       {
-        v18 = v17;
-        for (j = 0; j != v18; ++j)
+        v12 = v11;
+        for (j = 0; j != v12; ++j)
         {
-          CFArrayGetValueAtIndex(v16, j);
-          v20 = CalCalendarCopyTitle();
+          CFArrayGetValueAtIndex(v10, j);
+          v14 = CalCalendarCopyTitle();
           if (DLShouldLog())
           {
             UID = CalCalendarGetUID();
             _DLLog();
           }
 
-          v21 = CFStringCreateWithFormat(0, 0, @"%@-CalDAVInfo", v20, UID);
-          if (v20)
+          v15 = CFStringCreateWithFormat(0, 0, @"%@-CalDAVInfo", v14, UID);
+          if (v14)
           {
-            CFRelease(v20);
+            CFRelease(v14);
           }
 
-          v22 = *(a1 + 184);
           CalDatabaseSetProperty();
-          if (v21)
+          if (v15)
           {
-            CFRelease(v21);
+            CFRelease(v15);
           }
 
           CalRemoveCalendar();
         }
       }
 
-      CFRelease(v16);
+      CFRelease(v10);
     }
 
     if (!*(a1 + 144))
     {
       CFRetain(@"---");
-      v23 = *(a1 + 136);
       *(a1 + 144) = DLMemoryPoolAddObject();
     }
 
     if (DLShouldLog())
     {
-      v26 = *(a1 + 144);
       _DLLog();
     }
 
-    v24 = *(a1 + 144);
-    _setDeviceSyncAnchorForStore_0(a1);
+    _setDeviceSyncAnchorForStore_0(a1, *(a1 + 144));
   }
 
   return 0;
 }
 
-uint64_t CalendarsDataSourceGetChanges(uint64_t a1, CFMutableDictionaryRef *a2, void *a3)
+uint64_t CalendarsDataSourceGetChanges(uint64_t a1, CFDictionaryRef *a2, void *a3)
 {
   *a2 = 0;
   v6 = *(a1 + 176);
   if (v6 == 2)
   {
 LABEL_4:
-    v9 = *(a1 + 184);
-    v10 = *(a1 + 200);
     *(a1 + 320) = CalDatabaseCopyEventChangesInStore();
-    v12 = *(a1 + 184);
-    v13 = *(a1 + 200);
     *(a1 + 324) = CalDatabaseCopyTaskChangesInStore();
-    v14 = *(a1 + 184);
-    v15 = *(a1 + 200);
     *(a1 + 328) = CalDatabaseCopyAlarmChangesInStore();
-    v16 = *(a1 + 184);
-    v17 = *(a1 + 200);
     *(a1 + 332) = CalDatabaseCopyRecurrenceChangesInStore();
-    v18 = *(a1 + 184);
-    v19 = *(a1 + 200);
     *(a1 + 336) = CalDatabaseCopyAttendeeChangesInStore();
     *a3 = *MEMORY[0x277CBED10];
     _AccumulateChangedRecords(a1, 2, a2, 0, 0);
@@ -6057,37 +5915,32 @@ LABEL_4:
   if (!v6)
   {
     *(a1 + 176) = 2;
-    v7 = *(a1 + 184);
-    v8 = *(a1 + 200);
     *(a1 + 316) = CalDatabaseCopyCalendarChangesInStore();
     *(a1 + 304) = CFSetCreateMutable(0, 0, 0);
     if (CFArrayGetCount(0) >= 1)
     {
-      v20 = 0;
+      v8 = 0;
       do
       {
-        v21 = *(a1 + 304);
-        ValueAtIndex = CFArrayGetValueAtIndex(0, v20);
-        CFSetAddValue(v21, ValueAtIndex);
-        ++v20;
+        v9 = *(a1 + 304);
+        ValueAtIndex = CFArrayGetValueAtIndex(0, v8);
+        CFSetAddValue(v9, ValueAtIndex);
+        ++v8;
       }
 
-      while (v20 < CFArrayGetCount(0));
+      while (v8 < CFArrayGetCount(0));
     }
 
     if (*(a1 + 340) == 1)
     {
-      v23 = *(a1 + 184);
-      v24 = *(a1 + 200);
-      v25 = CalDatabaseCopyOfAllCalendarsInStore();
-      if (v25)
+      v11 = CalDatabaseCopyOfAllCalendarsInStore();
+      if (v11)
       {
-        v26 = v25;
-        _AccumulateCalendars(a1, a2, v25);
-        CFRelease(v26);
+        v12 = v11;
+        _AccumulateCalendars(a1, a2, v11);
+        CFRelease(v12);
         if (DLShouldLog())
         {
-          v28 = *a2;
           _DLLog();
         }
 
@@ -6104,8 +5957,6 @@ LABEL_4:
       _AccumulateChangedRecords(a1, 1, a2, 0, 0);
       if (DLShouldLog())
       {
-        v29 = *(a1 + 316);
-        v30 = *a2;
         _DLLog();
       }
 
@@ -6122,7 +5973,6 @@ LABEL_4:
 
   if (DLShouldLog())
   {
-    v27 = *(a1 + 176);
     _DLLog();
   }
 
@@ -6143,96 +5993,79 @@ uint64_t CalendarsDataSourceGetAllRecords(uint64_t a1, CFMutableDictionaryRef *a
 LABEL_31:
         if (DLShouldLog())
         {
-          v42 = *(a1 + 176);
           _DLLog();
         }
 
         goto LABEL_33;
       }
 
-      v15 = *(a1 + 184);
-      v16 = *(a1 + 200);
       *(a1 + 320) = CalDatabaseCopyEventChangesInStore();
-      v17 = *(a1 + 184);
-      v18 = *(a1 + 200);
-      v19 = CalDatabaseCopyOfAllEventsInStore();
-      if (v19)
+      v11 = CalDatabaseCopyOfAllEventsInStore();
+      if (v11)
       {
-        v20 = v19;
-        _AccumulateEvents(a1, a2, v19);
+        v12 = v11;
+        _AccumulateEvents(a1, a2, v11);
         if (*(a1 + 352) == 1)
         {
-          v21 = *(a1 + 288);
-          if (v21)
+          v13 = *(a1 + 288);
+          if (v13)
           {
-            CFRelease(v21);
+            CFRelease(v13);
             *(a1 + 288) = 0;
           }
 
-          _AccumulateOrganizers(a1, (a1 + 288), v20);
+          _AccumulateOrganizers(a1, (a1 + 288), v12);
         }
 
-        CFRelease(v20);
+        CFRelease(v12);
       }
 
-      v22 = 3;
+      v14 = 3;
     }
 
     else
     {
-      v35 = *(a1 + 184);
-      v36 = *(a1 + 200);
       *(a1 + 316) = CalDatabaseCopyCalendarChangesInStore();
-      v37 = *(a1 + 184);
-      v38 = *(a1 + 200);
-      v39 = CalDatabaseCopyOfAllCalendarsInStore();
-      if (v39)
+      v19 = CalDatabaseCopyOfAllCalendarsInStore();
+      if (v19)
       {
-        v40 = v39;
-        _AccumulateCalendars(a1, a2, v39);
-        CFRelease(v40);
+        v20 = v19;
+        _AccumulateCalendars(a1, a2, v19);
+        CFRelease(v20);
       }
 
-      v22 = 2;
+      v14 = 2;
     }
 
 LABEL_30:
-    *(a1 + 176) = v22;
+    *(a1 + 176) = v14;
     return 0;
   }
 
   if (v6 == 3)
   {
-    v23 = *(a1 + 184);
-    v24 = *(a1 + 200);
     *(a1 + 328) = CalDatabaseCopyAlarmChangesInStore();
-    v25 = *(a1 + 184);
-    v26 = *(a1 + 200);
-    v27 = CalDatabaseCopyOfAllAlarmsInStore();
-    if (v27)
+    v15 = CalDatabaseCopyOfAllAlarmsInStore();
+    if (v15)
     {
-      v28 = v27;
-      _AccumulateAlarms(a2, v27);
-      CFRelease(v28);
+      v16 = v15;
+      _AccumulateAlarms(a2, v15);
+      CFRelease(v16);
     }
 
-    v22 = 4;
+    v14 = 4;
     goto LABEL_30;
   }
 
   if (v6 == 4)
   {
-    v29 = *(a1 + 184);
-    v30 = *(a1 + 200);
     *(a1 + 332) = CalDatabaseCopyRecurrenceChangesInStore();
-    v31 = *(a1 + 184);
-    v32 = *(a1 + 200);
-    v33 = CalDatabaseCopyOfAllRecurrencesInStore();
-    if (v33)
+    v17 = CalDatabaseCopyOfAllRecurrencesInStore();
+    if (v17)
     {
-      v34 = v33;
-      _AccumulateRecurrences(a2, v33);
-      CFRelease(v34);
+      v18 = v17;
+      _AccumulateRecurrences(a2, v17);
+      CFRelease(v18);
     }
 
     if (!*(a1 + 352))
@@ -6240,7 +6073,7 @@ LABEL_30:
       goto LABEL_33;
     }
 
-    v22 = 5;
+    v14 = 5;
     goto LABEL_30;
   }
 
@@ -6249,31 +6082,27 @@ LABEL_30:
     goto LABEL_31;
   }
 
-  v7 = *(a1 + 184);
-  v8 = *(a1 + 200);
   *(a1 + 336) = CalDatabaseCopyAttendeeChangesInStore();
-  v9 = *(a1 + 184);
-  v10 = *(a1 + 200);
-  v11 = CalDatabaseCopyOfAllAttendeesInStore();
-  if (v11)
+  v7 = CalDatabaseCopyOfAllAttendeesInStore();
+  if (v7)
   {
-    v12 = v11;
-    _AccumulateAttendees(a1, a2, v11);
-    CFRelease(v12);
+    v8 = v7;
+    _AccumulateAttendees(a1, a2, v7);
+    CFRelease(v8);
   }
 
-  v13 = *(a1 + 288);
-  if (v13)
+  v9 = *(a1 + 288);
+  if (v9)
   {
     Mutable = *a2;
     if (!*a2)
     {
       Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
       *a2 = Mutable;
-      v13 = *(a1 + 288);
+      v9 = *(a1 + 288);
     }
 
-    CFDictionaryApplyFunction(v13, _addOrganizersToDictionary, Mutable);
+    CFDictionaryApplyFunction(v9, _addOrganizersToDictionary, Mutable);
     CFRelease(*(a1 + 288));
   }
 
@@ -6293,18 +6122,14 @@ uint64_t CalendarsDataSourceGetCountOfRecords(uint64_t a1, _DWORD *a2)
   if (*(a1 + 357))
   {
     *a2 = 0;
-    v3 = *(a1 + 184);
-    v4 = *(a1 + 200);
     CountOfEventsInStore = CalDatabaseGetCountOfEventsInStore();
   }
 
   else
   {
-    v6 = *(a1 + 358);
+    v4 = *(a1 + 358);
     *a2 = 0;
-    v7 = *(a1 + 184);
-    v8 = *(a1 + 200);
-    if (v6)
+    if (v4)
     {
       CountOfEventsInStore = CalDatabaseGetCountOfTasksInStore();
     }
@@ -6319,99 +6144,97 @@ uint64_t CalendarsDataSourceGetCountOfRecords(uint64_t a1, _DWORD *a2)
   return 0;
 }
 
-uint64_t CalendarsDataSourceProcessChanges(uint64_t context, CFDictionaryRef theDict, uint64_t a3, void *a4)
+uint64_t CalendarsDataSourceProcessChanges(const __CFDictionary **context, CFDictionaryRef theDict, uint64_t a3, void *a4)
 {
   if (*(context + 354) && !*(context + 355))
   {
     _saveDeviceSyncAnchorAndClearChangeHistory_0(context);
   }
 
-  if (*(context + 352) == 1 && !*(context + 344))
+  if (*(context + 352) == 1 && !context[43])
   {
-    *(context + 344) = _copySetOfEmailAddressesFromMessageFramework(context);
+    context[43] = _copySetOfEmailAddressesFromMessageFramework(context);
   }
 
-  v7 = *(context + 160);
+  v7 = context[20];
   if (v7)
   {
     CFDictionaryApplyFunction(v7, _addCurrentRemappingsToAllRemappings, context);
-    *(context + 160) = 0;
+    context[20] = 0;
   }
 
   CFDictionaryApplyFunction(theDict, _ChangesApplierFunction_0, context);
-  v8 = *(context + 184);
   CalDatabaseProcessAddedRecords();
-  v9 = *(context + 208);
+  v8 = context[26];
+  if (v8)
+  {
+    CFDictionaryApplyFunction(v8, _UpdateCalendarRemapping, context);
+    context[26] = 0;
+  }
+
+  v9 = context[27];
   if (v9)
   {
-    CFDictionaryApplyFunction(v9, _UpdateCalendarRemapping, context);
-    *(context + 208) = 0;
+    CFDictionaryApplyFunction(v9, _UpdateEventRemapping, context);
+    context[27] = 0;
   }
 
-  v10 = *(context + 216);
-  if (v10)
+  v10 = context[34];
+  if (v10 && CFDictionaryGetCount(v10))
   {
-    CFDictionaryApplyFunction(v10, _UpdateEventRemapping, context);
-    *(context + 216) = 0;
-  }
-
-  v11 = *(context + 272);
-  if (v11 && CFDictionaryGetCount(v11))
-  {
-    if (*(context + 264))
+    if (context[33])
     {
-      CFDictionaryApplyFunction(*(context + 272), _UpdateDetachedEvents, context);
-      v12 = *(context + 280);
-      if (v12)
+      CFDictionaryApplyFunction(context[34], _UpdateDetachedEvents, context);
+      v11 = context[35];
+      if (v11)
       {
-        CFSetApplyFunction(v12, _RemoveProcessedMainRecordIds, context);
-        CFSetRemoveAllValues(*(context + 280));
+        CFSetApplyFunction(v11, _RemoveProcessedMainRecordIds, context);
+        CFSetRemoveAllValues(context[35]);
       }
     }
 
     else if (DLShouldLog())
     {
-      v19 = *(context + 272);
       _DLLog();
     }
   }
 
-  v13 = *(context + 248);
+  v12 = context[31];
+  if (v12)
+  {
+    CFDictionaryApplyFunction(v12, _UpdateOrganizerRemapping, context);
+    context[31] = 0;
+  }
+
+  v13 = context[28];
   if (v13)
   {
-    CFDictionaryApplyFunction(v13, _UpdateOrganizerRemapping, context);
-    *(context + 248) = 0;
+    CFDictionaryApplyFunction(v13, _UpdateTaskRemapping, context);
+    context[28] = 0;
   }
 
-  v14 = *(context + 224);
+  v14 = context[29];
   if (v14)
   {
-    CFDictionaryApplyFunction(v14, _UpdateTaskRemapping, context);
-    *(context + 224) = 0;
+    CFDictionaryApplyFunction(v14, _UpdateAlarmRemapping, context);
+    context[29] = 0;
   }
 
-  v15 = *(context + 232);
+  v15 = context[30];
   if (v15)
   {
-    CFDictionaryApplyFunction(v15, _UpdateAlarmRemapping, context);
-    *(context + 232) = 0;
+    CFDictionaryApplyFunction(v15, _UpdateRecurrenceRemapping, context);
+    context[30] = 0;
   }
 
-  v16 = *(context + 240);
+  v16 = context[32];
   if (v16)
   {
-    CFDictionaryApplyFunction(v16, _UpdateRecurrenceRemapping, context);
-    *(context + 240) = 0;
+    CFDictionaryApplyFunction(v16, _UpdateAttendeeRemapping, context);
+    context[32] = 0;
   }
 
-  v17 = *(context + 256);
-  if (v17)
-  {
-    CFDictionaryApplyFunction(v17, _UpdateAttendeeRemapping, context);
-    *(context + 256) = 0;
-  }
-
-  *a4 = *(context + 160);
+  *a4 = context[20];
   return 0;
 }
 
@@ -6425,36 +6248,29 @@ uint64_t CalendarsDataSourceCommit(uint64_t a1, void *a2)
   if (!*(a1 + 152))
   {
     CFRetain(@"---");
-    v4 = *(a1 + 136);
     *(a1 + 152) = DLMemoryPoolAddObject();
   }
 
   if (DLShouldLog())
   {
-    v12 = *(a1 + 152);
     _DLLog();
   }
 
-  v5 = *(a1 + 152);
-  _setComputerSyncAnchorForStore_0(a1);
-  v6 = CFStringCreateWithFormat(0, 0, @"%d", kDefaultCalendarsDataSourceVersion);
-  v7 = *(a1 + 184);
+  _setComputerSyncAnchorForStore_0(a1, *(a1 + 152));
+  v4 = CFStringCreateWithFormat(0, 0, @"%d", kDefaultCalendarsDataSourceVersion);
   CalDatabaseSetProperty();
-  if (v6)
+  if (v4)
   {
-    CFRelease(v6);
+    CFRelease(v4);
   }
 
   if (*(a1 + 359))
   {
-    v8 = *(a1 + 200);
     CalStoreSetAllowsEvents();
   }
 
-  v9 = *(a1 + 184);
   if (CalDatabaseSaveAndFlushCaches())
   {
-    v10 = *(a1 + 184);
     CalDatabaseWaitForSpotlight();
     return 0;
   }
@@ -6602,41 +6418,41 @@ uint64_t CalendarsDataSourceDeleteDataSource(void *a1)
 
 id _reallyCopySetOfEmailAddressesFromMessageFramework()
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v0 = objc_alloc_init(MEMORY[0x277CBEB58]);
   if (DLShouldLog())
   {
     _DLLog();
   }
 
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
   v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   if (_calendarSyncAccountLoader_onceToken != -1)
   {
     _reallyCopySetOfEmailAddressesFromMessageFramework_cold_1();
   }
 
   v1 = [_calendarSyncAccountLoader_sSyncAccountLoader mailAccounts];
-  v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v10;
+    v4 = *v9;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        [v0 addObjectsFromArray:{objc_msgSend(*(*(&v9 + 1) + 8 * i), "emailAddresses")}];
+        [v0 addObjectsFromArray:{objc_msgSend(*(*(&v8 + 1) + 8 * i), "emailAddresses")}];
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v3);
@@ -6657,7 +6473,6 @@ LABEL_16:
     _DLLog();
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v0;
 }
 
@@ -6683,7 +6498,7 @@ id ___copySetOfEmailAddressesFromMessageFramework_block_invoke()
   return result;
 }
 
-void _setComputerSyncAnchorForStore_0(uint64_t a1)
+void _setComputerSyncAnchorForStore_0(uint64_t a1, uint64_t a2)
 {
   v2 = _copyComputerSyncAnchorKey_0(a1);
   if (DLShouldLog())
@@ -6691,7 +6506,6 @@ void _setComputerSyncAnchorForStore_0(uint64_t a1)
     _DLLog();
   }
 
-  v3 = *(a1 + 184);
   CalDatabaseSetProperty();
   if (v2)
   {
@@ -6700,7 +6514,7 @@ void _setComputerSyncAnchorForStore_0(uint64_t a1)
   }
 }
 
-void _setDeviceSyncAnchorForStore_0(uint64_t a1)
+void _setDeviceSyncAnchorForStore_0(uint64_t a1, uint64_t a2)
 {
   v2 = _copyDeviceSyncAnchorKey_0(a1);
   if (DLShouldLog())
@@ -6708,7 +6522,6 @@ void _setDeviceSyncAnchorForStore_0(uint64_t a1)
     _DLLog();
   }
 
-  v3 = *(a1 + 184);
   CalDatabaseSetProperty();
   if (v2)
   {
@@ -6726,11 +6539,10 @@ CFStringRef _copyComputerSyncAnchorKey_0(uint64_t a1)
       v2 = *(a1 + 200);
       if (v2)
       {
-        v3 = *(a1 + 200);
         UID = CalStoreGetUID();
 LABEL_7:
-        v7 = v2;
-        v8 = UID;
+        v6 = v2;
+        v7 = UID;
         _DLLog();
         goto LABEL_8;
       }
@@ -6748,15 +6560,15 @@ LABEL_7:
 LABEL_8:
   if (a1 && *(a1 + 200))
   {
-    v5 = CalStoreGetUID();
+    v4 = CalStoreGetUID();
   }
 
   else
   {
-    v5 = 0xFFFFFFFFLL;
+    v4 = 0xFFFFFFFFLL;
   }
 
-  return CFStringCreateWithFormat(0, 0, @"ComputerStoreSyncAnchor-%d", v5, v7, v8);
+  return CFStringCreateWithFormat(0, 0, @"ComputerStoreSyncAnchor-%d", v4, v6, v7);
 }
 
 CFStringRef _copyDeviceSyncAnchorKey_0(uint64_t a1)
@@ -6768,11 +6580,10 @@ CFStringRef _copyDeviceSyncAnchorKey_0(uint64_t a1)
       v2 = *(a1 + 200);
       if (v2)
       {
-        v3 = *(a1 + 200);
         UID = CalStoreGetUID();
 LABEL_7:
-        v7 = v2;
-        v8 = UID;
+        v6 = v2;
+        v7 = UID;
         _DLLog();
         goto LABEL_8;
       }
@@ -6790,15 +6601,15 @@ LABEL_7:
 LABEL_8:
   if (a1 && *(a1 + 200))
   {
-    v5 = CalStoreGetUID();
+    v4 = CalStoreGetUID();
   }
 
   else
   {
-    v5 = 0xFFFFFFFFLL;
+    v4 = 0xFFFFFFFFLL;
   }
 
-  return CFStringCreateWithFormat(0, 0, @"DeviceStoreSyncAnchor-%d", v5, v7, v8);
+  return CFStringCreateWithFormat(0, 0, @"DeviceStoreSyncAnchor-%d", v4, v6, v7);
 }
 
 void _AccumulateCalendars(uint64_t a1, CFMutableDictionaryRef *a2, CFArrayRef theArray)
@@ -6842,13 +6653,13 @@ void _AccumulateCalendars(uint64_t a1, CFMutableDictionaryRef *a2, CFArrayRef th
           v12 = CalCalendarCopyTitle();
           if (UID == -1)
           {
-            v19 = v12;
+            v18 = v12;
             if (DLShouldLog())
             {
               _DLLog();
             }
 
-            if (!v19)
+            if (!v18)
             {
               goto LABEL_26;
             }
@@ -6872,12 +6683,11 @@ void _AccumulateCalendars(uint64_t a1, CFMutableDictionaryRef *a2, CFArrayRef th
             CFDictionarySetValue(Mutable, @"title", cf);
             valuePtr = 0;
             v15 = CFStringCreateWithFormat(0, 0, @"%@-CalDAVInfo", cf);
-            v16 = *(a1 + 184);
-            v17 = CalDatabaseCopyProperty();
-            if (v17)
+            v16 = CalDatabaseCopyProperty();
+            if (v16)
             {
-              v18 = v17;
-              if (CFStringGetIntValue(v17))
+              v17 = v16;
+              if (CFStringGetIntValue(v16))
               {
                 valuePtr = 1;
               }
@@ -6888,7 +6698,7 @@ void _AccumulateCalendars(uint64_t a1, CFMutableDictionaryRef *a2, CFArrayRef th
                 _DLLog();
               }
 
-              CFRelease(v18);
+              CFRelease(v17);
             }
 
             else
@@ -6905,12 +6715,12 @@ void _AccumulateCalendars(uint64_t a1, CFMutableDictionaryRef *a2, CFArrayRef th
               CFRelease(v15);
             }
 
-            v20 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
-            if (v20)
+            v19 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
+            if (v19)
             {
-              v21 = v20;
-              CFDictionarySetValue(theDict, @"read only", v20);
-              CFRelease(v21);
+              v20 = v19;
+              CFDictionarySetValue(theDict, @"read only", v19);
+              CFRelease(v20);
             }
 
             else if (DLShouldLog())
@@ -6920,17 +6730,17 @@ void _AccumulateCalendars(uint64_t a1, CFMutableDictionaryRef *a2, CFArrayRef th
 
             if (*(a1 + 353) == 1)
             {
-              v38 = -1;
-              v39 = -1;
-              v36 = 255;
               v37 = -1;
+              v38 = -1;
+              v35 = 255;
+              v36 = -1;
               ColorComponents = CalCalendarGetColorComponents();
               if (DLShouldLog())
               {
                 _DLLog();
               }
 
-              v23 = CFArrayCreateMutable(v10, 0, MEMORY[0x277CBF128]);
+              v22 = CFArrayCreateMutable(v10, 0, MEMORY[0x277CBF128]);
               if ((ColorComponents & 1) == 0)
               {
                 if (DLShouldLog())
@@ -6938,21 +6748,26 @@ void _AccumulateCalendars(uint64_t a1, CFMutableDictionaryRef *a2, CFArrayRef th
                   _DLLog();
                 }
 
+                v36 = -1;
                 v37 = -1;
                 v38 = -1;
-                v39 = -1;
               }
 
-              v30 = v10;
-              v31 = a2;
-              v24 = CFNumberCreate(0, kCFNumberIntType, &v39);
-              v25 = CFNumberCreate(0, kCFNumberIntType, &v38);
-              v26 = CFNumberCreate(0, kCFNumberIntType, &v37);
-              v27 = CFNumberCreate(0, kCFNumberIntType, &v36);
-              CFArrayAppendValue(v23, v24);
-              CFArrayAppendValue(v23, v25);
-              CFArrayAppendValue(v23, v26);
-              CFArrayAppendValue(v23, v27);
+              v29 = v10;
+              v30 = a2;
+              v23 = CFNumberCreate(0, kCFNumberIntType, &v38);
+              v24 = CFNumberCreate(0, kCFNumberIntType, &v37);
+              v25 = CFNumberCreate(0, kCFNumberIntType, &v36);
+              v26 = CFNumberCreate(0, kCFNumberIntType, &v35);
+              CFArrayAppendValue(v22, v23);
+              CFArrayAppendValue(v22, v24);
+              CFArrayAppendValue(v22, v25);
+              CFArrayAppendValue(v22, v26);
+              if (v23)
+              {
+                CFRelease(v23);
+              }
+
               if (v24)
               {
                 CFRelease(v24);
@@ -6963,34 +6778,29 @@ void _AccumulateCalendars(uint64_t a1, CFMutableDictionaryRef *a2, CFArrayRef th
                 CFRelease(v25);
               }
 
+              a2 = v30;
               if (v26)
               {
                 CFRelease(v26);
               }
 
-              a2 = v31;
-              if (v27)
+              CFDictionarySetValue(theDict, @"colorComponents", v22);
+              v10 = v29;
+              if (v22)
               {
-                CFRelease(v27);
-              }
-
-              CFDictionarySetValue(theDict, @"colorComponents", v23);
-              v10 = v30;
-              if (v23)
-              {
-                CFRelease(v23);
+                CFRelease(v22);
               }
             }
 
-            v28 = CalCalendarCopyType();
-            if (v28)
+            v27 = CalCalendarCopyType();
+            if (v27)
             {
-              v29 = v28;
-              CFDictionarySetValue(theDict, @"com.apple.ical.type", v28);
-              CFRelease(v29);
+              v28 = v27;
+              CFDictionarySetValue(theDict, @"com.apple.ical.type", v27);
+              CFRelease(v28);
             }
 
-            v19 = key;
+            v18 = key;
             CFDictionarySetValue(*a2, key, theDict);
             if (DLShouldLog())
             {
@@ -7000,7 +6810,7 @@ void _AccumulateCalendars(uint64_t a1, CFMutableDictionaryRef *a2, CFArrayRef th
             CFRelease(cf);
             CFRelease(theDict);
 LABEL_65:
-            CFRelease(v19);
+            CFRelease(v18);
             goto LABEL_26;
           }
 
@@ -8267,26 +8077,21 @@ uint64_t _saveDeviceSyncAnchorAndClearChangeHistory_0(uint64_t a1)
 {
   if ((*(a1 + 312) & 0x80000000) == 0)
   {
-    v2 = *(a1 + 184);
     CalDatabaseClearChangedObjectIDsUpToSequenceNumberForClient();
   }
 
   if (!*(a1 + 144))
   {
     CFRetain(@"---");
-    v3 = *(a1 + 136);
     *(a1 + 144) = DLMemoryPoolAddObject();
   }
 
   if (DLShouldLog())
   {
-    v7 = *(a1 + 144);
     _DLLog();
   }
 
-  v4 = *(a1 + 144);
-  _setDeviceSyncAnchorForStore_0(a1);
-  v5 = *(a1 + 184);
+  _setDeviceSyncAnchorForStore_0(a1, *(a1 + 144));
   result = CalDatabaseSave();
   if ((result & 1) == 0)
   {
@@ -8325,7 +8130,7 @@ void _AccumulateChangedRecords(uint64_t a1, uint64_t a2, CFMutableDictionaryRef 
     return;
   }
 
-  v27 = a3;
+  v23 = a3;
   v13 = 0;
   Mutable = 0;
   v15 = 0;
@@ -8340,14 +8145,13 @@ void _AccumulateChangedRecords(uint64_t a1, uint64_t a2, CFMutableDictionaryRef 
       {
         if (a2 == 5)
         {
-          v24 = *(a1 + 184);
-          v19 = CalDatabaseCopyRecurrenceWithUID();
+          v18 = CalDatabaseCopyRecurrenceWithUID();
           goto LABEL_31;
         }
 
         if (a2 == 7)
         {
-          v19 = MEMORY[0x25F84A660](*(a1 + 184), ValueAtIndex);
+          v18 = MEMORY[0x25F84A660](*(a1 + 184), ValueAtIndex);
           goto LABEL_31;
         }
 
@@ -8363,8 +8167,7 @@ void _AccumulateChangedRecords(uint64_t a1, uint64_t a2, CFMutableDictionaryRef 
         {
           if (a2 == 4)
           {
-            v18 = *(a1 + 184);
-            v19 = CalDatabaseCopyAlarmWithUID();
+            v18 = CalDatabaseCopyAlarmWithUID();
             goto LABEL_31;
           }
 
@@ -8377,11 +8180,10 @@ LABEL_27:
           goto LABEL_37;
         }
 
-        v25 = *(a1 + 184);
-        v19 = CalDatabaseCopyCalendarWithUID();
+        v18 = CalDatabaseCopyCalendarWithUID();
 LABEL_31:
-        v21 = v19;
-        if (v19)
+        v20 = v18;
+        if (v18)
         {
           if (!Mutable)
           {
@@ -8392,11 +8194,11 @@ LABEL_31:
           if (!CFSetContainsValue(v15, ValueAtIndex))
           {
             CFSetAddValue(v15, ValueAtIndex);
-            CFArrayAppendValue(Mutable, v21);
+            CFArrayAppendValue(Mutable, v20);
           }
 
 LABEL_36:
-          CFRelease(v21);
+          CFRelease(v20);
           goto LABEL_43;
         }
 
@@ -8409,8 +8211,7 @@ LABEL_37:
         goto LABEL_42;
       }
 
-      v23 = *(a1 + 184);
-      v19 = CalDatabaseCopyCalendarItemWithRowID();
+      v18 = CalDatabaseCopyCalendarItemWithRowID();
       goto LABEL_31;
     }
 
@@ -8428,18 +8229,18 @@ LABEL_42:
 
     if (a2 <= 8 && ((1 << a2) & 0x1BE) != 0)
     {
-      v20 = CFStringCreateWithFormat(0, 0, @"%d/%d", a2, ValueAtIndex);
-      if (v20)
+      v19 = CFStringCreateWithFormat(0, 0, @"%d/%d", a2, ValueAtIndex);
+      if (v19)
       {
-        v21 = v20;
-        v22 = *v27;
-        if (!*v27)
+        v20 = v19;
+        v21 = *v23;
+        if (!*v23)
         {
-          v22 = CFDictionaryCreateMutable(allocator, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-          *v27 = v22;
+          v21 = CFDictionaryCreateMutable(allocator, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+          *v23 = v21;
         }
 
-        CFDictionarySetValue(v22, v21, v21);
+        CFDictionarySetValue(v21, v20, v20);
         goto LABEL_36;
       }
     }
@@ -8471,13 +8272,13 @@ LABEL_43:
       switch(a2)
       {
         case 5:
-          _AccumulateRecurrences(v27, Mutable);
+          _AccumulateRecurrences(v23, Mutable);
           break;
         case 7:
-          _AccumulateAttendees(a1, v27, Mutable);
+          _AccumulateAttendees(a1, v23, Mutable);
           break;
         case 8:
-          _AccumulateOrganizers(a1, v27, Mutable);
+          _AccumulateOrganizers(a1, v23, Mutable);
           break;
         default:
           goto LABEL_63;
@@ -8489,13 +8290,13 @@ LABEL_43:
       switch(a2)
       {
         case 1:
-          _AccumulateCalendars(a1, v27, Mutable);
+          _AccumulateCalendars(a1, v23, Mutable);
           break;
         case 2:
-          _AccumulateEvents(a1, v27, Mutable);
+          _AccumulateEvents(a1, v23, Mutable);
           break;
         case 4:
-          _AccumulateAlarms(v27, Mutable);
+          _AccumulateAlarms(v23, Mutable);
           break;
         default:
 LABEL_63:
@@ -8512,7 +8313,7 @@ LABEL_63:
   }
 }
 
-objc_class *___calendarSyncAccountLoader_block_invoke()
+Class ___calendarSyncAccountLoader_block_invoke()
 {
   if (([objc_msgSend(MEMORY[0x277CCA8D8] bundleWithPath:{objc_msgSend(CPSystemRootDirectory(), "stringByAppendingPathComponent:", @"/System/Library/PrivateFrameworks/Message.framework", "load"}] & 1) == 0)
   {
@@ -8529,7 +8330,6 @@ void _addCurrentRemappingsToAllRemappings(void *key, void *value, uint64_t a3)
   v5 = *(a3 + 168);
   if (!v5)
   {
-    v7 = *(a3 + 136);
     CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
     v5 = DLMemoryPoolAddObject();
     *(a3 + 168) = v5;
@@ -8549,9 +8349,9 @@ void _ChangesApplierFunction_0(const __CFString *a1, const void *a2, uint64_t a3
     }
 
     *valuePtr = 0;
-    v148[0] = 0;
-    v146 = 0;
-    if (!_deconstructRecordIdentifier(a1, &v146, valuePtr, v148, &valuePtr[1]))
+    v123[0] = 0;
+    v121 = 0;
+    if (!_deconstructRecordIdentifier(a1, &v121, valuePtr, v123, &valuePtr[1]))
     {
       if (!DLShouldLog())
       {
@@ -8567,17 +8367,16 @@ void _ChangesApplierFunction_0(const __CFString *a1, const void *a2, uint64_t a3
       {
         if (valuePtr[0] == 1)
         {
-          v46 = *(a3 + 184);
-          v47 = CalDatabaseCopyCalendarWithUID();
-          if (v47)
+          v39 = CalDatabaseCopyCalendarWithUID();
+          if (v39)
           {
-            v48 = v47;
-            v49 = CalCalendarCopyTitle();
+            v40 = v39;
+            v41 = CalCalendarCopyTitle();
             CalRemoveCalendar();
-            v50 = CFStringCreateWithFormat(0, 0, @"%@-CalDAVInfo", v49);
-            if (v49)
+            v42 = CFStringCreateWithFormat(0, 0, @"%@-CalDAVInfo", v41);
+            if (v41)
             {
-              CFRelease(v49);
+              CFRelease(v41);
             }
 
             if (DLShouldLog())
@@ -8585,11 +8384,10 @@ void _ChangesApplierFunction_0(const __CFString *a1, const void *a2, uint64_t a3
               _DLLog();
             }
 
-            v51 = *(a3 + 184);
             CalDatabaseSetProperty();
-            if (v50)
+            if (v42)
             {
-              CFRelease(v50);
+              CFRelease(v42);
             }
 
             if (DLShouldLog())
@@ -8597,7 +8395,7 @@ void _ChangesApplierFunction_0(const __CFString *a1, const void *a2, uint64_t a3
               _DLLog();
             }
 
-            v52 = v48;
+            v43 = v40;
             goto LABEL_322;
           }
 
@@ -8614,11 +8412,10 @@ void _ChangesApplierFunction_0(const __CFString *a1, const void *a2, uint64_t a3
             return;
           }
 
-          v7 = *(a3 + 184);
-          v8 = CalDatabaseCopyCalendarItemWithRowID();
-          if (v8)
+          v7 = CalDatabaseCopyCalendarItemWithRowID();
+          if (v7)
           {
-            v9 = v8;
+            v8 = v7;
             CalRemoveEvent();
             if (DLShouldLog())
             {
@@ -8641,11 +8438,10 @@ LABEL_86:
 
       if (valuePtr[0] == 3)
       {
-        v56 = *(a3 + 184);
-        v57 = CalDatabaseCopyCalendarItemWithRowID();
-        if (v57)
+        v46 = CalDatabaseCopyCalendarItemWithRowID();
+        if (v46)
         {
-          v9 = v57;
+          v8 = v46;
           CalRemoveTask();
           if (DLShouldLog())
           {
@@ -8663,9 +8459,8 @@ LABEL_86:
         goto LABEL_86;
       }
 
-      v34 = *(a3 + 184);
-      v35 = CalDatabaseCopyAlarmWithUID();
-      if (!v35)
+      v30 = CalDatabaseCopyAlarmWithUID();
+      if (!v30)
       {
         if (!DLShouldLog())
         {
@@ -8675,9 +8470,9 @@ LABEL_86:
         goto LABEL_86;
       }
 
-      v9 = v35;
-      v36 = CalAlarmCopyOwningEntity();
-      if (!v36)
+      v8 = v30;
+      v31 = CalAlarmCopyOwningEntity();
+      if (!v31)
       {
         if (!DLShouldLog())
         {
@@ -8687,8 +8482,8 @@ LABEL_86:
         goto LABEL_189;
       }
 
-      v37 = v36;
-      v148[0] = CalCalendarItemGetRowID();
+      v32 = v31;
+      v123[0] = CalCalendarItemGetRowID();
       CalCalendarItemRemoveAlarm();
       if (DLShouldLog())
       {
@@ -8696,7 +8491,7 @@ LABEL_86:
       }
 
 LABEL_220:
-      CFRelease(v37);
+      CFRelease(v32);
       goto LABEL_221;
     }
 
@@ -8709,7 +8504,6 @@ LABEL_220:
           return;
         }
 
-        v38 = *(a3 + 184);
         if (CalDatabaseCopyCalendarItemWithRowID())
         {
           CalCalendarItemSetOrganizer();
@@ -8727,8 +8521,8 @@ LABEL_220:
         goto LABEL_86;
       }
 
-      v58 = MEMORY[0x25F84A660](*(a3 + 184), valuePtr[1]);
-      if (!v58)
+      v47 = MEMORY[0x25F84A660](*(a3 + 184), valuePtr[1]);
+      if (!v47)
       {
         if (!DLShouldLog())
         {
@@ -8738,9 +8532,9 @@ LABEL_220:
         goto LABEL_86;
       }
 
-      v9 = v58;
-      v59 = MEMORY[0x25F84A3C0](v58);
-      if (!v59)
+      v8 = v47;
+      v48 = MEMORY[0x25F84A3C0](v47);
+      if (!v48)
       {
         if (!DLShouldLog())
         {
@@ -8750,17 +8544,17 @@ LABEL_220:
         goto LABEL_189;
       }
 
-      v37 = v59;
-      v60 = _entityTypeForRecord();
-      v146 = v60;
-      if (v60 != 3)
+      v32 = v48;
+      v49 = _entityTypeForRecord();
+      v121 = v49;
+      if (v49 != 3)
       {
-        if (v60 != 2)
+        if (v49 != 2)
         {
           goto LABEL_220;
         }
 
-        MEMORY[0x25F84AA00](v37, v9);
+        MEMORY[0x25F84AA00](v32, v8);
         if (!DLShouldLog())
         {
           goto LABEL_220;
@@ -8787,9 +8581,8 @@ LABEL_220:
         goto LABEL_86;
       }
 
-      v53 = *(a3 + 184);
-      v54 = CalDatabaseCopyRecurrenceWithUID();
-      if (!v54)
+      v44 = CalDatabaseCopyRecurrenceWithUID();
+      if (!v44)
       {
         if (!DLShouldLog())
         {
@@ -8799,9 +8592,9 @@ LABEL_220:
         goto LABEL_86;
       }
 
-      v9 = v54;
-      v55 = MEMORY[0x25F84AB70](v54);
-      if (!v55)
+      v8 = v44;
+      v45 = MEMORY[0x25F84AB70](v44);
+      if (!v45)
       {
         if (DLShouldLog())
         {
@@ -8810,13 +8603,13 @@ LABEL_189:
         }
 
 LABEL_221:
-        v52 = v9;
+        v43 = v8;
         goto LABEL_322;
       }
 
-      v37 = v55;
-      v148[0] = CalCalendarItemGetRowID();
-      MEMORY[0x25F84AA10](v37, v9);
+      v32 = v45;
+      v123[0] = CalCalendarItemGetRowID();
+      MEMORY[0x25F84AA10](v32, v8);
       if (!DLShouldLog())
       {
         goto LABEL_220;
@@ -8839,73 +8632,71 @@ LABEL_219:
     goto LABEL_86;
   }
 
-  v11 = Value;
-  v146 = 0;
-  v145 = 0;
-  v144 = 0;
-  v12 = _deconstructRecordIdentifier(a1, &v144, &v145, &v145 + 1, &v146);
-  if (CFStringCompare(v11, @"com.apple.calendars.Calendar", 0) == kCFCompareEqualTo)
+  v10 = Value;
+  v121 = 0;
+  v120 = 0;
+  v119 = 0;
+  v11 = _deconstructRecordIdentifier(a1, &v119, &v120, &v120 + 1, &v121);
+  if (CFStringCompare(v10, @"com.apple.calendars.Calendar", 0) == kCFCompareEqualTo)
   {
-    if (v145 == 1)
+    if (v120 == 1)
     {
-      v13 = 0;
+      v12 = 0;
     }
 
     else
     {
-      v13 = v12;
+      v12 = v11;
     }
 
-    if (v13)
+    if (v12)
     {
       goto LABEL_85;
     }
 
-    v14 = v146;
-    v15 = CFDictionaryGetValue(a2, @"title");
-    if (v14 != -1)
+    v13 = v121;
+    v14 = CFDictionaryGetValue(a2, @"title");
+    if (v13 != -1)
     {
-      v16 = *(a3 + 184);
       CalendarForEntityType = CalDatabaseCopyCalendarWithUID();
-      v18 = DLShouldLog();
+      v16 = DLShouldLog();
       if (CalendarForEntityType)
       {
-        if (v18)
+        if (v16)
         {
           _DLLog();
         }
 
-        v19 = CalCalendarCopyTitle();
-        v20 = CFStringCreateWithFormat(0, 0, @"%@-CalDAVInfo", v15);
-        v21 = *(a3 + 184);
+        v17 = CalCalendarCopyTitle();
+        v18 = CFStringCreateWithFormat(0, 0, @"%@-CalDAVInfo", v14);
         CalDatabaseSetProperty();
-        if (v20)
+        if (v18)
         {
-          CFRelease(v20);
+          CFRelease(v18);
         }
 
-        if (v19)
+        if (v17)
         {
-          CFRelease(v19);
+          CFRelease(v17);
         }
 
 LABEL_125:
-        v73 = CFDictionaryGetValue(a2, @"read only");
-        if (v73)
+        v58 = CFDictionaryGetValue(a2, @"read only");
+        if (v58)
         {
           valuePtr[1] = 0;
-          if (CFNumberGetValue(v73, kCFNumberIntType, &valuePtr[1]))
+          if (CFNumberGetValue(v58, kCFNumberIntType, &valuePtr[1]))
           {
-            v74 = valuePtr[1] == 0;
+            v59 = valuePtr[1] == 0;
           }
 
           else
           {
-            v74 = 1;
+            v59 = 1;
           }
 
-          v75 = !v74;
-          if (!v74 && DLShouldLog())
+          v60 = !v59;
+          if (!v59 && DLShouldLog())
           {
             _DLLog();
           }
@@ -8913,7 +8704,7 @@ LABEL_125:
 
         else
         {
-          v75 = 0;
+          v60 = 0;
         }
 
         CalCalendarSetReadOnly();
@@ -8925,20 +8716,20 @@ LABEL_125:
 
         if (*(a3 + 353) == 1)
         {
-          v76 = CFDictionaryGetValue(a2, @"colorComponents");
-          if (v76)
+          v61 = CFDictionaryGetValue(a2, @"colorComponents");
+          if (v61)
           {
-            v77 = v76;
-            if (CFArrayGetCount(v76) >= 3)
+            v62 = v61;
+            if (CFArrayGetCount(v61) >= 3)
             {
               *valuePtr = 0;
-              v148[0] = 0;
-              ValueAtIndex = CFArrayGetValueAtIndex(v77, 0);
+              v123[0] = 0;
+              ValueAtIndex = CFArrayGetValueAtIndex(v62, 0);
               CFNumberGetValue(ValueAtIndex, kCFNumberIntType, &valuePtr[1]);
-              v79 = CFArrayGetValueAtIndex(v77, 1);
-              CFNumberGetValue(v79, kCFNumberIntType, v148);
-              v80 = CFArrayGetValueAtIndex(v77, 2);
-              CFNumberGetValue(v80, kCFNumberIntType, valuePtr);
+              v64 = CFArrayGetValueAtIndex(v62, 1);
+              CFNumberGetValue(v64, kCFNumberIntType, v123);
+              v65 = CFArrayGetValueAtIndex(v62, 2);
+              CFNumberGetValue(v65, kCFNumberIntType, valuePtr);
               if (DLShouldLog())
               {
                 _DLLog();
@@ -8951,23 +8742,22 @@ LABEL_125:
 
         if (CFDictionaryGetValue(a2, @"com.apple.MobileSync.calDAVInfo"))
         {
-          v81 = CFStringCreateWithFormat(0, 0, @"%d", v75);
-          v82 = CFStringCreateWithFormat(0, 0, @"%@-CalDAVInfo", v15);
+          v66 = CFStringCreateWithFormat(0, 0, @"%d", v60);
+          v67 = CFStringCreateWithFormat(0, 0, @"%@-CalDAVInfo", v14);
           if (DLShouldLog())
           {
             _DLLog();
           }
 
-          v83 = *(a3 + 184);
           CalDatabaseSetProperty();
-          if (v81)
+          if (v66)
           {
-            CFRelease(v81);
+            CFRelease(v66);
           }
 
-          if (v82)
+          if (v67)
           {
-            CFRelease(v82);
+            CFRelease(v67);
           }
 
           CalCalendarSetReadOnly();
@@ -8976,13 +8766,13 @@ LABEL_125:
         goto LABEL_321;
       }
 
-      if (v18)
+      if (v16)
       {
         _DLLog();
       }
     }
 
-    if (!v15)
+    if (!v14)
     {
       if (!DLShouldLog())
       {
@@ -8992,13 +8782,10 @@ LABEL_125:
       goto LABEL_86;
     }
 
-    v70 = *(a3 + 184);
     CalendarForEntityType = CalDatabaseCreateCalendarForEntityType();
-    v71 = *(a3 + 200);
     CalStoreAddCalendar();
     if (!*(a3 + 208))
     {
-      v72 = *(a3 + 136);
       CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
       *(a3 + 208) = DLMemoryPoolAddObject();
     }
@@ -9012,26 +8799,26 @@ LABEL_125:
     goto LABEL_125;
   }
 
-  if (CFStringCompare(v11, @"com.apple.calendars.Event", 0) == kCFCompareEqualTo)
+  if (CFStringCompare(v10, @"com.apple.calendars.Event", 0) == kCFCompareEqualTo)
   {
-    if (v145 == 2)
+    if (v120 == 2)
     {
-      v22 = 0;
+      v19 = 0;
     }
 
     else
     {
-      v22 = v12;
+      v19 = v11;
     }
 
-    if (v22)
+    if (v19)
     {
       goto LABEL_85;
     }
 
-    v23 = v146;
-    v24 = _CopyParentCalendar(a3, a2);
-    if (!v24)
+    v20 = v121;
+    v21 = _CopyParentCalendar(a3, a2);
+    if (!v21)
     {
       if (!DLShouldLog())
       {
@@ -9041,19 +8828,19 @@ LABEL_125:
       goto LABEL_86;
     }
 
-    CalendarForEntityType = v24;
-    v25 = CFDictionaryGetValue(a2, @"summary");
-    v26 = CFDictionaryGetValue(a2, @"description");
-    v27 = CFDictionaryGetValue(a2, @"location");
-    v140 = CFDictionaryGetValue(a2, @"all day");
-    v28 = CFDictionaryGetValue(a2, @"start date");
+    CalendarForEntityType = v21;
+    v22 = CFDictionaryGetValue(a2, @"summary");
+    v23 = CFDictionaryGetValue(a2, @"description");
+    v24 = CFDictionaryGetValue(a2, @"location");
+    v115 = CFDictionaryGetValue(a2, @"all day");
+    v25 = CFDictionaryGetValue(a2, @"start date");
     number = CFDictionaryGetValue(a2, @"floatingOffset");
-    v29 = CFDictionaryGetValue(a2, @"end date");
-    v141 = CFDictionaryGetValue(a2, @"original date");
-    v143 = CFDictionaryGetValue(a2, @"exception dates");
-    v142 = CFDictionaryGetValue(a2, @"main event");
-    v30 = CFDictionaryGetValue(a2, @"url");
-    if (!v28 || !v29)
+    v26 = CFDictionaryGetValue(a2, @"end date");
+    v116 = CFDictionaryGetValue(a2, @"original date");
+    v118 = CFDictionaryGetValue(a2, @"exception dates");
+    v117 = CFDictionaryGetValue(a2, @"main event");
+    v27 = CFDictionaryGetValue(a2, @"url");
+    if (!v25 || !v26)
     {
       if (DLShouldLog())
       {
@@ -9063,37 +8850,33 @@ LABEL_125:
       goto LABEL_321;
     }
 
-    URLString = v30;
-    v138 = CalendarForEntityType;
-    if (v23 != -1)
+    URLString = v27;
+    v113 = CalendarForEntityType;
+    if (v20 != -1)
     {
-      v31 = *(a3 + 184);
       Event = CalDatabaseCopyCalendarItemWithRowID();
-      v33 = DLShouldLog();
+      v29 = DLShouldLog();
       if (Event)
       {
-        if (v33)
+        if (v29)
         {
           _DLLog();
         }
 
-        v136 = 0;
+        v111 = 0;
         goto LABEL_253;
       }
 
-      if (v33)
+      if (v29)
       {
         _DLLog();
       }
     }
 
-    v103 = *(a3 + 184);
     Event = CalDatabaseCreateEvent();
     if (!*(a3 + 216))
     {
-      v104 = *(a3 + 136);
       CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-      CalendarForEntityType = v138;
       *(a3 + 216) = DLMemoryPoolAddObject();
     }
 
@@ -9103,71 +8886,71 @@ LABEL_125:
     }
 
     CFDictionaryAddValue(*(a3 + 216), a1, Event);
-    v136 = 1;
+    v111 = 1;
 LABEL_253:
     MEMORY[0x25F84A460](CalendarForEntityType, Event);
-    if (v25)
+    if (v22)
     {
-      v105 = CFGetTypeID(v25);
-      if (v105 == CFStringGetTypeID())
+      v83 = CFGetTypeID(v22);
+      if (v83 == CFStringGetTypeID())
       {
         CalCalendarItemSetSummary();
       }
     }
 
-    if (v26)
+    if (v23)
     {
       if (DLShouldLog())
       {
         _DLLog();
       }
 
-      v106 = CFGetTypeID(v26);
-      if (v106 == CFStringGetTypeID())
+      v84 = CFGetTypeID(v23);
+      if (v84 == CFStringGetTypeID())
       {
-        v107 = v26;
+        v85 = v23;
       }
 
       else
       {
-        v107 = 0;
+        v85 = 0;
       }
     }
 
     else
     {
-      v107 = 0;
+      v85 = 0;
     }
 
-    MEMORY[0x25F84AA30](Event, v107);
-    if (v27)
+    MEMORY[0x25F84AA30](Event, v85);
+    if (v24)
     {
-      CFGetTypeID(v27);
+      CFGetTypeID(v24);
       CFStringGetTypeID();
     }
 
-    v108 = v29;
+    v86 = v26;
     CalEventSetLocation_Deprecated();
-    if (v140 && (v109 = CFGetTypeID(v140), v109 == CFNumberGetTypeID()))
+    if (v115 && (v87 = CFGetTypeID(v115), v87 == CFNumberGetTypeID()))
     {
       valuePtr[1] = 0;
-      if (CFNumberGetValue(v140, kCFNumberIntType, &valuePtr[1]))
+      if (CFNumberGetValue(v115, kCFNumberIntType, &valuePtr[1]))
       {
-        v110 = valuePtr[1] == 0;
+        v88 = valuePtr[1] == 0;
       }
 
       else
       {
-        v110 = 1;
+        v88 = 1;
       }
 
-      v111 = !v110;
+      v89 = !v88;
       CalEventSetAllDay();
-      v112 = v28;
-      if (v111)
+      v90 = v25;
+      if (v89)
       {
-        v113 = @"_float";
-        CalendarForEntityType = v138;
+        v91 = @"_float";
+        CalendarForEntityType = v113;
         goto LABEL_286;
       }
     }
@@ -9175,89 +8958,89 @@ LABEL_253:
     else
     {
       CalEventSetAllDay();
-      v112 = v28;
+      v90 = v25;
     }
 
-    v114 = CFDictionaryGetValue(a2, @"start date.timezone");
-    CalendarForEntityType = v138;
-    if (!v114)
+    v92 = CFDictionaryGetValue(a2, @"start date.timezone");
+    CalendarForEntityType = v113;
+    if (!v92)
     {
       goto LABEL_325;
     }
 
-    v113 = v114;
-    if (CFStringCompare(v114, @"LOCAL", 1uLL) == kCFCompareEqualTo)
+    v91 = v92;
+    if (CFStringCompare(v92, @"LOCAL", 1uLL) == kCFCompareEqualTo)
     {
       if (DLShouldLog())
       {
         _DLLog();
       }
 
-      v115 = CalCopyDefaultTimeZone();
-      if (v115)
+      v93 = CalCopyDefaultTimeZone();
+      if (v93)
       {
-        v119 = v115;
-        v113 = MEMORY[0x25F84A2A0](v115, v116, v117, v118);
-        CFRelease(v119);
-        if (!v113)
+        v97 = v93;
+        v91 = MEMORY[0x25F84A2A0](v93, v94, v95, v96);
+        CFRelease(v97);
+        if (!v91)
         {
 LABEL_325:
           if (number)
           {
             *&valuePtr[1] = 0;
             CFNumberGetValue(number, kCFNumberSInt64Type, &valuePtr[1]);
-            v120 = MEMORY[0x25F849FA0](v112);
-            v112 = CFDateCreate(0, v120 + *&valuePtr[1]);
-            v121 = MEMORY[0x25F849FA0](v108);
-            v108 = CFDateCreate(0, v121 + *&valuePtr[1]);
+            v98 = MEMORY[0x25F849FA0](v90);
+            v90 = CFDateCreate(0, v98 + *&valuePtr[1]);
+            v99 = MEMORY[0x25F849FA0](v86);
+            v86 = CFDateCreate(0, v99 + *&valuePtr[1]);
             if (DLShouldLog())
             {
               _DLLog();
             }
           }
 
-          v113 = @"_float";
+          v91 = @"_float";
         }
       }
     }
 
 LABEL_286:
-    MEMORY[0x25F849FA0](v112);
+    MEMORY[0x25F849FA0](v90);
     CalEventSetStartDateDirectly();
-    MEMORY[0x25F849FA0](v108);
+    MEMORY[0x25F849FA0](v86);
     CalEventSetEndDate();
-    v122 = CFTimeZoneCreateWithName(0, v113, 1u);
+    v100 = CFTimeZoneCreateWithName(0, v91, 1u);
     CalCalendarItemSetEndTimeZone();
-    if (v122)
+    if (v100)
     {
-      CFRelease(v122);
+      CFRelease(v100);
     }
 
-    if (v141 && (MEMORY[0x25F849FA0](v141), CalEventSetOriginalStartDate(), v142) && CFArrayGetCount(v142) == 1)
+    if (v116 && (MEMORY[0x25F849FA0](v116), CalEventSetOriginalStartDate(), v117) && CFArrayGetCount(v117) == 1)
     {
-      v123 = CFArrayGetValueAtIndex(v142, 0);
+      v101 = CFArrayGetValueAtIndex(v117, 0);
       valuePtr[1] = -1;
-      v148[0] = 0;
+      v123[0] = 0;
       if (DLShouldLog())
       {
         _DLLog();
       }
 
-      if (!_deconstructRecordIdentifier(v123, 0, v148, 0, &valuePtr[1]))
+      if (!_deconstructRecordIdentifier(v101, 0, v123, 0, &valuePtr[1]))
       {
         goto LABEL_300;
       }
 
-      if (v148[0] != 2)
+      if (v123[0] != 2)
       {
-        v127 = v143;
+        v104 = v118;
         if (DLShouldLog())
         {
           _DLLog();
         }
 
         CalEventSetOriginalEvent();
-        if (v143)
+        if (v118)
         {
           goto LABEL_299;
         }
@@ -9265,47 +9048,44 @@ LABEL_286:
         goto LABEL_312;
       }
 
-      v124 = *(a3 + 184);
-      v125 = CalDatabaseCopyCalendarItemWithRowID();
-      if (v125)
+      v102 = CalDatabaseCopyCalendarItemWithRowID();
+      if (v102)
       {
-        v126 = v125;
-        MEMORY[0x25F84A910](v125, v141);
+        v103 = v102;
+        MEMORY[0x25F84A910](v102, v116);
         CalEventSetOriginalEvent();
-        CFRelease(v126);
+        CFRelease(v103);
       }
 
       else
       {
 LABEL_300:
-        v128 = *(a3 + 264);
-        if (!v128)
+        v105 = *(a3 + 264);
+        if (!v105)
         {
-          v129 = *(a3 + 136);
           CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-          v128 = DLMemoryPoolAddObject();
-          *(a3 + 264) = v128;
+          v105 = DLMemoryPoolAddObject();
+          *(a3 + 264) = v105;
         }
 
-        if (!CFDictionaryContainsKey(v128, v123))
+        if (!CFDictionaryContainsKey(v105, v101))
         {
-          CFDictionarySetValue(*(a3 + 264), v123, v123);
+          CFDictionarySetValue(*(a3 + 264), v101, v101);
         }
 
-        v130 = *(a3 + 272);
-        if (!v130)
+        v106 = *(a3 + 272);
+        if (!v106)
         {
-          v131 = *(a3 + 136);
           CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-          v130 = DLMemoryPoolAddObject();
-          *(a3 + 272) = v130;
+          v106 = DLMemoryPoolAddObject();
+          *(a3 + 272) = v106;
         }
 
-        Mutable = CFDictionaryGetValue(v130, v123);
+        Mutable = CFDictionaryGetValue(v106, v101);
         if (!Mutable)
         {
           Mutable = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
-          CFDictionarySetValue(*(a3 + 272), v123, Mutable);
+          CFDictionarySetValue(*(a3 + 272), v101, Mutable);
           CFRelease(Mutable);
         }
 
@@ -9318,19 +9098,19 @@ LABEL_300:
       CalEventSetOriginalEvent();
     }
 
-    v127 = v143;
-    if (v143)
+    v104 = v118;
+    if (v118)
     {
 LABEL_299:
-      MEMORY[0x25F84AA60](Event, v127);
+      MEMORY[0x25F84AA60](Event, v104);
 LABEL_315:
       if (URLString)
       {
-        v135 = CFURLCreateWithString(0, URLString, 0);
-        MEMORY[0x25F84AAC0](Event, v135);
-        if (v135)
+        v110 = CFURLCreateWithString(0, URLString, 0);
+        MEMORY[0x25F84AAC0](Event, v110);
+        if (v110)
         {
-          CFRelease(v135);
+          CFRelease(v110);
         }
       }
 
@@ -9339,45 +9119,45 @@ LABEL_315:
         MEMORY[0x25F84AAC0](Event);
       }
 
-      v101 = Event;
+      v81 = Event;
       goto LABEL_320;
     }
 
 LABEL_312:
-    if ((v136 & 1) == 0)
+    if ((v111 & 1) == 0)
     {
-      v133 = MEMORY[0x25F84A960](Event);
-      if (v133)
+      v108 = MEMORY[0x25F84A960](Event);
+      if (v108)
       {
-        v134 = v133;
+        v109 = v108;
         MEMORY[0x25F84AA60](Event, 0);
-        CFRelease(v134);
+        CFRelease(v109);
       }
     }
 
     goto LABEL_315;
   }
 
-  if (CFStringCompare(v11, @"com.apple.calendars.Task", 0) == kCFCompareEqualTo)
+  if (CFStringCompare(v10, @"com.apple.calendars.Task", 0) == kCFCompareEqualTo)
   {
-    if (v145 == 3)
+    if (v120 == 3)
     {
-      v45 = 0;
+      v38 = 0;
     }
 
     else
     {
-      v45 = v12;
+      v38 = v11;
     }
 
-    if (v45)
+    if (v38)
     {
       goto LABEL_85;
     }
 
-    v61 = v146;
-    v62 = _CopyParentCalendar(a3, a2);
-    if (!v62)
+    v50 = v121;
+    v51 = _CopyParentCalendar(a3, a2);
+    if (!v51)
     {
       if (!DLShouldLog())
       {
@@ -9387,56 +9167,55 @@ LABEL_312:
       goto LABEL_86;
     }
 
-    CalendarForEntityType = v62;
-    v63 = CFDictionaryGetValue(a2, @"summary");
-    v64 = CFDictionaryGetValue(a2, @"priority");
-    v65 = CFDictionaryGetValue(a2, @"due date");
-    v66 = CFDictionaryGetValue(a2, @"completion date");
+    CalendarForEntityType = v51;
+    v52 = CFDictionaryGetValue(a2, @"summary");
+    v53 = CFDictionaryGetValue(a2, @"priority");
+    v54 = CFDictionaryGetValue(a2, @"due date");
+    v55 = CFDictionaryGetValue(a2, @"completion date");
     if (DLShouldLog())
     {
       _DLLog();
     }
 
-    if (v61 != -1)
+    if (v50 != -1)
     {
-      v67 = *(a3 + 184);
       Task = CalDatabaseCopyCalendarItemWithRowID();
-      v69 = DLShouldLog();
+      v57 = DLShouldLog();
       if (Task)
       {
-        if (v69)
+        if (v57)
         {
           _DLLog();
         }
 
 LABEL_229:
         MEMORY[0x25F84A470](CalendarForEntityType, Task);
-        if (v63)
+        if (v52)
         {
-          v97 = CFGetTypeID(v63);
-          if (v97 == CFStringGetTypeID())
+          v77 = CFGetTypeID(v52);
+          if (v77 == CFStringGetTypeID())
           {
             CalCalendarItemSetSummary();
           }
         }
 
-        if (v64)
+        if (v53)
         {
-          v98 = CFGetTypeID(v64);
-          if (v98 == CFNumberGetTypeID())
+          v78 = CFGetTypeID(v53);
+          if (v78 == CFNumberGetTypeID())
           {
             valuePtr[1] = 0;
-            if (CFNumberGetValue(v64, kCFNumberIntType, &valuePtr[1]))
+            if (CFNumberGetValue(v53, kCFNumberIntType, &valuePtr[1]))
             {
               CalCalendarItemSetPriority();
             }
           }
         }
 
-        if (v65)
+        if (v54)
         {
-          v99 = CFGetTypeID(v65);
-          if (v99 == CFDateGetTypeID())
+          v79 = CFGetTypeID(v54);
+          if (v79 == CFDateGetTypeID())
           {
             if (DLShouldLog())
             {
@@ -9446,10 +9225,10 @@ LABEL_229:
         }
 
         CalTaskSetDueDate();
-        if (v66)
+        if (v55)
         {
-          v100 = CFGetTypeID(v66);
-          if (v100 == CFDateGetTypeID())
+          v80 = CFGetTypeID(v55);
+          if (v80 == CFDateGetTypeID())
           {
             if (DLShouldLog())
             {
@@ -9459,25 +9238,23 @@ LABEL_229:
         }
 
         CalTaskSetCompletionDate();
-        v101 = Task;
+        v81 = Task;
 LABEL_320:
-        CFRelease(v101);
+        CFRelease(v81);
 LABEL_321:
-        v52 = CalendarForEntityType;
+        v43 = CalendarForEntityType;
         goto LABEL_322;
       }
 
-      if (v69)
+      if (v57)
       {
         _DLLog();
       }
     }
 
-    v95 = *(a3 + 184);
     Task = CalDatabaseCreateTask();
     if (!*(a3 + 224))
     {
-      v96 = *(a3 + 136);
       CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
       *(a3 + 224) = DLMemoryPoolAddObject();
     }
@@ -9491,18 +9268,18 @@ LABEL_321:
     goto LABEL_229;
   }
 
-  if (CFStringCompare(v11, @"com.apple.calendars.AudioAlarm", 0) && CFStringCompare(v11, @"com.apple.calendars.DisplayAlarm", 0))
+  if (CFStringCompare(v10, @"com.apple.calendars.AudioAlarm", 0) && CFStringCompare(v10, @"com.apple.calendars.DisplayAlarm", 0))
   {
-    if (CFStringCompare(v11, @"com.apple.calendars.Recurrence", 0))
+    if (CFStringCompare(v10, @"com.apple.calendars.Recurrence", 0))
     {
-      if (CFStringCompare(v11, @"com.apple.calendars.Organizer", 0))
+      if (CFStringCompare(v10, @"com.apple.calendars.Organizer", 0))
       {
-        if (CFStringCompare(v11, @"com.apple.calendars.Attendee", 0))
+        if (CFStringCompare(v10, @"com.apple.calendars.Attendee", 0))
         {
-          if (CFStringCompare(v11, @"com.apple.calendars.CalendarOrder", 0) == kCFCompareEqualTo)
+          if (CFStringCompare(v10, @"com.apple.calendars.CalendarOrder", 0) == kCFCompareEqualTo)
           {
-            v102 = CFDictionaryGetValue(a2, @"calendars");
-            _HandleCalendarOrdering(a3, v102);
+            v82 = CFDictionaryGetValue(a2, @"calendars");
+            _HandleCalendarOrdering(a3, v82);
             return;
           }
 
@@ -9514,36 +9291,36 @@ LABEL_321:
           goto LABEL_86;
         }
 
-        if (v145 == 7)
+        if (v120 == 7)
         {
-          v94 = 0;
+          v76 = 0;
         }
 
         else
         {
-          v94 = v12;
+          v76 = v11;
         }
 
-        if ((v94 & 1) == 0)
+        if ((v76 & 1) == 0)
         {
-          _HandleAddOrModifyAttendee(a3, a1, a2, v146);
+          _HandleAddOrModifyAttendee(a3, a1, a2, v121);
           return;
         }
       }
 
       else
       {
-        if (v145 == 8)
+        if (v120 == 8)
         {
-          v85 = 0;
+          v69 = 0;
         }
 
         else
         {
-          v85 = v12;
+          v69 = v11;
         }
 
-        if ((v85 & 1) == 0)
+        if ((v69 & 1) == 0)
         {
           _HandleAddOrModifyOrganizer(a3, a1, a2);
           return;
@@ -9553,19 +9330,19 @@ LABEL_321:
 
     else
     {
-      if (v145 == 5)
+      if (v120 == 5)
       {
-        v84 = 0;
+        v68 = 0;
       }
 
       else
       {
-        v84 = v12;
+        v68 = v11;
       }
 
-      if ((v84 & 1) == 0)
+      if ((v68 & 1) == 0)
       {
-        _HandleAddOrModifyRecurrence(a3, a1, a2, v146);
+        _HandleAddOrModifyRecurrence(a3, a1, a2, v121);
         return;
       }
     }
@@ -9579,30 +9356,29 @@ LABEL_85:
     goto LABEL_86;
   }
 
-  if (v145 == 4)
+  if (v120 == 4)
   {
-    v39 = 0;
+    v33 = 0;
   }
 
   else
   {
-    v39 = v12;
+    v33 = v11;
   }
 
-  if (v39)
+  if (v33)
   {
     goto LABEL_85;
   }
 
-  v40 = v146;
+  v34 = v121;
   if (DLShouldLog())
   {
     _DLLog();
   }
 
-  if (v40 != -1)
+  if (v34 != -1)
   {
-    v41 = *(a3 + 184);
     Alarm = CalDatabaseCopyAlarmWithUID();
     if (Alarm)
     {
@@ -9618,10 +9394,10 @@ LABEL_85:
   Alarm = 0;
 LABEL_77:
   valuePtr[1] = 0;
-  v43 = _CopyCalEntityOwner(a3, a2, &valuePtr[1]);
-  if (v43)
+  v36 = _CopyCalEntityOwner(a3, a2, &valuePtr[1]);
+  if (v36)
   {
-    v44 = v43;
+    v37 = v36;
     if (Alarm)
     {
       if (DLShouldLog())
@@ -9632,7 +9408,6 @@ LABEL_77:
 
     else
     {
-      v86 = *(a3 + 184);
       Alarm = CalDatabaseCreateAlarm();
       if (DLShouldLog())
       {
@@ -9645,34 +9420,33 @@ LABEL_77:
       }
 
       CalCalendarItemAddAlarm();
-      v87 = *(a3 + 232);
-      if (!v87)
+      v70 = *(a3 + 232);
+      if (!v70)
       {
-        v88 = *(a3 + 136);
         CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-        v87 = DLMemoryPoolAddObject();
-        *(a3 + 232) = v87;
+        v70 = DLMemoryPoolAddObject();
+        *(a3 + 232) = v70;
       }
 
-      CFDictionaryAddValue(v87, a1, Alarm);
+      CFDictionaryAddValue(v70, a1, Alarm);
     }
 
-    CFStringCompare(v11, @"com.apple.calendars.AudioAlarm", 0);
+    CFStringCompare(v10, @"com.apple.calendars.AudioAlarm", 0);
     CalAlarmSetType();
-    v89 = CFDictionaryGetValue(a2, @"triggerduration");
-    if (v89 && (v148[0] = 0, CFNumberGetValue(v89, kCFNumberIntType, v148)))
+    v71 = CFDictionaryGetValue(a2, @"triggerduration");
+    if (v71 && (v123[0] = 0, CFNumberGetValue(v71, kCFNumberIntType, v123)))
     {
-      v90 = v148[0];
+      v72 = v123[0];
       CalAlarmSetTriggerInterval();
-      if (v90 != 0x7FFFFFFF)
+      if (v72 != 0x7FFFFFFF)
       {
 LABEL_211:
         CFRelease(Alarm);
-        Alarm = v44;
+        Alarm = v37;
 LABEL_212:
-        v52 = Alarm;
+        v43 = Alarm;
 LABEL_322:
-        CFRelease(v52);
+        CFRelease(v43);
         return;
       }
     }
@@ -9682,14 +9456,14 @@ LABEL_322:
       CalAlarmSetTriggerInterval();
     }
 
-    v91 = CFDictionaryGetValue(a2, @"triggerdate");
-    if (v91)
+    v73 = CFDictionaryGetValue(a2, @"triggerdate");
+    if (v73)
     {
-      v92 = v91;
-      v93 = CFGetTypeID(v91);
-      if (v93 == CFDateGetTypeID())
+      v74 = v73;
+      v75 = CFGetTypeID(v73);
+      if (v75 == CFDateGetTypeID())
       {
-        MEMORY[0x25F849FA0](v92);
+        MEMORY[0x25F849FA0](v74);
         if (DLShouldLog())
         {
           _DLLog();
@@ -9783,7 +9557,6 @@ void _UpdateDetachedEvents(void *key, const __CFArray *a2, uint64_t a3)
     v15 = *(a3 + 280);
     if (!v15)
     {
-      v16 = *(a3 + 136);
       CFSetCreateMutable(0, 0, MEMORY[0x277CBF158]);
       v15 = DLMemoryPoolAddObject();
       *(a3 + 280) = v15;
@@ -9795,5 +9568,560 @@ void _UpdateDetachedEvents(void *key, const __CFArray *a2, uint64_t a3)
   else if (DLShouldLog())
   {
     _DLLog();
+  }
+}
+
+void _RemoveProcessedMainRecordIds(const void *a1, uint64_t a2)
+{
+  if (DLShouldLog())
+  {
+    _DLLog();
+  }
+
+  v4 = *(a2 + 272);
+
+  CFDictionaryRemoveValue(v4, a1);
+}
+
+void _UpdateOrganizerRemapping(const void *a1, uint64_t a2, uint64_t a3)
+{
+  RowID = CalCalendarItemGetRowID();
+  v6 = CFStringCreateWithFormat(0, 0, @"%d/%d", 8, RowID);
+  _addRemapping(a3, a1, v6);
+
+  CFRelease(v6);
+}
+
+void _UpdateTaskRemapping(const void *a1, uint64_t a2, uint64_t a3)
+{
+  RowID = CalCalendarItemGetRowID();
+  v6 = CFStringCreateWithFormat(0, 0, @"%d/%d", 3, RowID);
+  _addRemapping(a3, a1, v6);
+
+  CFRelease(v6);
+}
+
+void _UpdateAlarmRemapping(const void *a1, uint64_t a2, uint64_t a3)
+{
+  UID = CalAlarmGetUID();
+  v6 = CFStringCreateWithFormat(0, 0, @"%d/%d", 4, UID);
+  _addRemapping(a3, a1, v6);
+
+  CFRelease(v6);
+}
+
+void _UpdateRecurrenceRemapping(const void *a1, uint64_t a2, uint64_t a3)
+{
+  UID = CalRecurrenceGetUID();
+  v6 = CFStringCreateWithFormat(0, 0, @"%d/%d", 5, UID);
+  _addRemapping(a3, a1, v6);
+
+  CFRelease(v6);
+}
+
+void _UpdateAttendeeRemapping(const void *a1, uint64_t a2, uint64_t a3)
+{
+  v5 = MEMORY[0x25F84A400](a2);
+  v6 = CFStringCreateWithFormat(0, 0, @"%d/%d", 7, v5);
+  _addRemapping(a3, a1, v6);
+
+  CFRelease(v6);
+}
+
+uint64_t _deconstructRecordIdentifier(const __CFString *a1, SInt32 *a2, SInt32 *a3, SInt32 *a4, SInt32 *a5)
+{
+  if (a5)
+  {
+    *a5 = -1;
+  }
+
+  if (a4)
+  {
+    *a4 = -1;
+  }
+
+  if (a3)
+  {
+    *a3 = 0;
+  }
+
+  if (a2)
+  {
+    *a2 = 0;
+  }
+
+  if (recordIdentifierIsLocal(a1))
+  {
+    ArrayBySeparatingStrings = CFStringCreateArrayBySeparatingStrings(0, a1, @"/");
+    if (ArrayBySeparatingStrings)
+    {
+      v11 = ArrayBySeparatingStrings;
+      Count = CFArrayGetCount(ArrayBySeparatingStrings);
+      if (Count == 4)
+      {
+        ValueAtIndex = CFArrayGetValueAtIndex(v11, 0);
+        if (a2)
+        {
+          *a2 = CFStringGetIntValue(ValueAtIndex);
+        }
+
+        v17 = CFArrayGetValueAtIndex(v11, 1);
+        if (a3)
+        {
+          *a3 = CFStringGetIntValue(v17);
+        }
+
+        v18 = CFArrayGetValueAtIndex(v11, 2);
+        if (a4)
+        {
+          *a4 = CFStringGetIntValue(v18);
+        }
+
+        v15 = CFArrayGetValueAtIndex(v11, 3);
+        if (!a5)
+        {
+          goto LABEL_28;
+        }
+      }
+
+      else
+      {
+        if (Count != 2)
+        {
+          if (DLShouldLog())
+          {
+            _DLLog();
+          }
+
+          v14 = 0;
+          goto LABEL_32;
+        }
+
+        v13 = CFArrayGetValueAtIndex(v11, 0);
+        if (a3)
+        {
+          *a3 = CFStringGetIntValue(v13);
+        }
+
+        v14 = 1;
+        v15 = CFArrayGetValueAtIndex(v11, 1);
+        if (!a5)
+        {
+LABEL_32:
+          CFRelease(v11);
+          return v14;
+        }
+      }
+
+      *a5 = CFStringGetIntValue(v15);
+LABEL_28:
+      v14 = 1;
+      goto LABEL_32;
+    }
+
+    if (DLShouldLog())
+    {
+      _DLLog();
+    }
+  }
+
+  return 0;
+}
+
+void _HandleAddOrModifyRecurrence(void *a1, const void *a2, CFDictionaryRef theDict, uint64_t a4)
+{
+  v4 = a4;
+  Value = CFDictionaryGetValue(theDict, @"owner");
+  if (!Value || (v9 = Value, CFArrayGetCount(Value) < 1))
+  {
+    if (!DLShouldLog())
+    {
+LABEL_12:
+      v13 = 0;
+      goto LABEL_13;
+    }
+
+LABEL_11:
+    _DLLog();
+    goto LABEL_12;
+  }
+
+  LODWORD(valuePtr) = 0;
+  v75 = 0;
+  ValueAtIndex = CFArrayGetValueAtIndex(v9, 0);
+  v11 = a1[21];
+  if (v11)
+  {
+    v12 = CFDictionaryGetValue(v11, ValueAtIndex);
+    if (v12)
+    {
+      ValueAtIndex = v12;
+    }
+  }
+
+  v13 = 0;
+  if (_deconstructRecordIdentifier(ValueAtIndex, 0, &v75, 0, &valuePtr) && valuePtr != -1)
+  {
+    if (v75 == 2)
+    {
+      v13 = CalDatabaseCopyCalendarItemWithRowID();
+      goto LABEL_13;
+    }
+
+    if (!DLShouldLog())
+    {
+      goto LABEL_12;
+    }
+
+    goto LABEL_11;
+  }
+
+LABEL_13:
+  if (DLShouldLog())
+  {
+    _DLLog();
+  }
+
+  if (v4 != -1)
+  {
+    v14 = CalDatabaseCopyRecurrenceWithUID();
+    if (v14)
+    {
+      if (v13)
+      {
+        goto LABEL_18;
+      }
+
+      goto LABEL_25;
+    }
+
+    if (DLShouldLog())
+    {
+      _DLLog();
+    }
+  }
+
+  v14 = 0;
+  if (v13)
+  {
+LABEL_18:
+    v15 = MEMORY[0x25F84A9A0](v13);
+    v16 = DLShouldLog();
+    if (v14)
+    {
+      if (v16)
+      {
+        _DLLog();
+      }
+
+      MEMORY[0x25F84AA10](v13, v14);
+    }
+
+    else if (v16)
+    {
+      _DLLog();
+    }
+
+    if (v15)
+    {
+      CFRelease(v15);
+    }
+
+    if (v14)
+    {
+      CFRelease(v14);
+    }
+
+    Recurrence = CalDatabaseCreateRecurrence();
+    if (DLShouldLog())
+    {
+      _DLLog();
+    }
+
+    v18 = a1[30];
+    if (!v18)
+    {
+      CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+      v18 = DLMemoryPoolAddObject();
+      a1[30] = v18;
+    }
+
+    CFDictionaryAddValue(v18, a2, Recurrence);
+    v19 = CFDictionaryGetValue(theDict, @"weekstartday");
+    _GetDayOfWeekFromString(v19);
+    CalRecurrenceSetWeekStart();
+    v20 = CFDictionaryGetValue(theDict, @"frequency");
+    if (!v20)
+    {
+      goto LABEL_52;
+    }
+
+    CharacterAtIndex = CFStringGetCharacterAtIndex(v20, 0);
+    if (CharacterAtIndex > 118)
+    {
+      if (CharacterAtIndex == 121 || CharacterAtIndex == 119)
+      {
+        goto LABEL_51;
+      }
+    }
+
+    else if (CharacterAtIndex == 100 || CharacterAtIndex == 109)
+    {
+LABEL_51:
+      CalRecurrenceSetFrequency();
+LABEL_52:
+      v22 = CFDictionaryGetValue(theDict, @"interval");
+      if (v22)
+      {
+        LODWORD(valuePtr) = 0;
+        if (CFNumberGetValue(v22, kCFNumberIntType, &valuePtr))
+        {
+          if (valuePtr)
+          {
+            CalRecurrenceSetInterval();
+          }
+        }
+      }
+
+      v23 = CFDictionaryGetValue(theDict, @"count");
+      if (v23 && (LODWORD(valuePtr) = 0, CFNumberGetValue(v23, kCFNumberIntType, &valuePtr)) && valuePtr)
+      {
+        CalRecurrenceSetCount();
+      }
+
+      else
+      {
+        v24 = CFDictionaryGetValue(theDict, @"until");
+        if (v24)
+        {
+          v25 = v24;
+          v26 = CFGetTypeID(v24);
+          if (v26 == CFDateGetTypeID())
+          {
+            MEMORY[0x25F849FA0](v25);
+            if (DLShouldLog())
+            {
+              _DLLog();
+            }
+          }
+        }
+
+        CalRecurrenceSetEndDate();
+      }
+
+      v27 = CFDictionaryGetValue(theDict, @"bymonth");
+      if (v27)
+      {
+        v28 = v27;
+        Count = CFArrayGetCount(v27);
+        if (Count >= 1)
+        {
+          v30 = Count;
+          v31 = 0;
+          v32 = 0;
+          do
+          {
+            LODWORD(valuePtr) = 0;
+            v33 = CFArrayGetValueAtIndex(v28, v31);
+            v34 = CFNumberGetValue(v33, kCFNumberIntType, &valuePtr) != 0;
+            if (v34 && valuePtr != 0)
+            {
+              v35 = 1 << (valuePtr - 1);
+            }
+
+            else
+            {
+              v35 = 0;
+            }
+
+            v32 |= v35;
+            ++v31;
+          }
+
+          while (v30 != v31);
+          if (v32)
+          {
+            CalRecurrenceSetByMonthMonths();
+          }
+        }
+      }
+
+      v36 = CFDictionaryGetValue(theDict, @"byweeknumber");
+      if (v36)
+      {
+        v37 = v36;
+        v38 = CFArrayGetCount(v36);
+        if (v38 >= 1)
+        {
+          v39 = v38;
+          Mutable = CFArrayCreateMutable(0, v38, 0);
+          for (i = 0; i != v39; ++i)
+          {
+            LODWORD(valuePtr) = 0;
+            v42 = CFArrayGetValueAtIndex(v37, i);
+            if (CFNumberGetValue(v42, kCFNumberIntType, &valuePtr))
+            {
+              CFArrayAppendValue(Mutable, valuePtr);
+            }
+          }
+
+          if (CFArrayGetCount(Mutable))
+          {
+            CalRecurrenceSetByWeekWeeks();
+          }
+
+          CFRelease(Mutable);
+        }
+      }
+
+      v43 = CFDictionaryGetValue(theDict, @"byyearday");
+      if (v43)
+      {
+        v44 = v43;
+        v45 = CFArrayGetCount(v43);
+        if (v45 >= 1)
+        {
+          v46 = v45;
+          v47 = CFArrayCreateMutable(0, v45, 0);
+          for (j = 0; j != v46; ++j)
+          {
+            LODWORD(valuePtr) = 0;
+            v49 = CFArrayGetValueAtIndex(v44, j);
+            if (CFNumberGetValue(v49, kCFNumberIntType, &valuePtr))
+            {
+              CFArrayAppendValue(v47, valuePtr);
+            }
+          }
+
+          if (CFArrayGetCount(v47))
+          {
+            CalRecurrenceSetByYearDayDays();
+          }
+
+          CFRelease(v47);
+        }
+      }
+
+      v50 = CFDictionaryGetValue(theDict, @"bymonthday");
+      if (v50)
+      {
+        v51 = v50;
+        v52 = CFArrayGetCount(v50);
+        if (v52 >= 1)
+        {
+          v53 = v52;
+          v54 = CFArrayCreateMutable(0, v52, 0);
+          for (k = 0; k != v53; ++k)
+          {
+            LODWORD(valuePtr) = 0;
+            v56 = CFArrayGetValueAtIndex(v51, k);
+            if (CFNumberGetValue(v56, kCFNumberIntType, &valuePtr))
+            {
+              CFArrayAppendValue(v54, valuePtr);
+            }
+          }
+
+          if (CFArrayGetCount(v54))
+          {
+            CalRecurrenceSetByMonthDayDays();
+          }
+
+          CFRelease(v54);
+        }
+      }
+
+      v57 = CFDictionaryGetValue(theDict, @"bysetpos");
+      if (v57)
+      {
+        v58 = v57;
+        v59 = CFArrayGetCount(v57);
+        if (v59 >= 1)
+        {
+          v60 = v59;
+          v61 = CFArrayCreateMutable(0, v59, 0);
+          for (m = 0; m != v60; ++m)
+          {
+            LODWORD(valuePtr) = 0;
+            v63 = CFArrayGetValueAtIndex(v58, m);
+            if (CFNumberGetValue(v63, kCFNumberIntType, &valuePtr))
+            {
+              CFArrayAppendValue(v61, valuePtr);
+            }
+          }
+
+          if (CFArrayGetCount(v61))
+          {
+            CalRecurrenceSetBySetPos();
+          }
+
+          CFRelease(v61);
+        }
+      }
+
+      v64 = CFDictionaryGetValue(theDict, @"bydayfreq");
+      v65 = CFDictionaryGetValue(theDict, @"bydaydays");
+      if (v64)
+      {
+        v66 = v65;
+        if (v65)
+        {
+          v67 = CFArrayGetCount(v64);
+          if (v67 >= 1)
+          {
+            v68 = v67;
+            if (CFArrayGetCount(v66) == v67)
+            {
+              valuePtr = 0;
+              v69 = CFArrayCreateMutable(0, v68, MEMORY[0x277CF78F8]);
+              for (n = 0; n != v68; ++n)
+              {
+                v75 = 0;
+                v71 = CFArrayGetValueAtIndex(v64, n);
+                v72 = CFArrayGetValueAtIndex(v66, n);
+                LODWORD(v71) = CFNumberGetValue(v71, kCFNumberIntType, &v75);
+                DayOfWeekFromString = _GetDayOfWeekFromString(v72);
+                if (v71 && DayOfWeekFromString != 7)
+                {
+                  valuePtr = __PAIR64__(DayOfWeekFromString, v75);
+                  CFArrayAppendValue(v69, &valuePtr);
+                }
+              }
+
+              if (CFArrayGetCount(v69))
+              {
+                CalRecurrenceSetByDayDays();
+              }
+
+              CFRelease(v69);
+            }
+          }
+        }
+      }
+
+      MEMORY[0x25F84A920](v13, Recurrence);
+      CFRelease(Recurrence);
+LABEL_123:
+      CFRelease(v13);
+      return;
+    }
+
+    if (DLShouldLog())
+    {
+      _DLLog();
+    }
+
+    goto LABEL_52;
+  }
+
+LABEL_25:
+  if (DLShouldLog())
+  {
+    _DLLog();
+  }
+
+  v13 = v14;
+  if (v14)
+  {
+    goto LABEL_123;
   }
 }

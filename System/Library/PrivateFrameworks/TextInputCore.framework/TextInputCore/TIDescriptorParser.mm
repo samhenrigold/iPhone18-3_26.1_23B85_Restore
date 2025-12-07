@@ -7,7 +7,14 @@
 - (id)invalidDataTypeErrorForKey:(id)key withValue:(id)value dataType:(id)type;
 - (id)invalidValueErrorForKey:(id)key withValue:(id)value;
 - (id)missingValueErrorForKey:(id)key;
+- (id)parseArrayForKey:(id)key fromConfig:(id)config required:(BOOL)required errors:(id)errors;
+- (id)parseBooleanForKey:(id)key fromConfig:(id)config required:(BOOL)required errors:(id)errors;
+- (id)parseDictionaryForKey:(id)key fromConfig:(id)config required:(BOOL)required errors:(id)errors;
+- (id)parseFloatForKey:(id)key fromConfig:(id)config required:(BOOL)required errors:(id)errors;
+- (id)parseIntegerForKey:(id)key fromConfig:(id)config required:(BOOL)required errors:(id)errors;
+- (id)parseNumberForKey:(id)key fromConfig:(id)config required:(BOOL)required errors:(id)errors;
 - (id)parseObjectForKey:(id)key fromConfig:(id)config required:(BOOL)required errors:(id)errors validate:(id)validate;
+- (id)parseStringForKey:(id)key fromConfig:(id)config required:(BOOL)required errors:(id)errors;
 @end
 
 @implementation TIDescriptorParser
@@ -46,34 +53,30 @@
 
 - (id)errorWithMessage:(id)message andValue:(id)value
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v7 = [(TIDescriptorParser *)self boxNilForValue:value];
-  v12[0] = @"message";
-  v12[1] = @"value";
-  v13[0] = messageCopy;
-  v13[1] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v11[0] = @"message";
+  v11[1] = @"value";
+  v12[0] = messageCopy;
+  v12[1] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
 
   v9 = [(TIDescriptorParser *)self errorWithDetails:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (id)errorWithMessage:(id)message
 {
-  v11[1] = *MEMORY[0x277D85DE8];
-  v10 = @"message";
-  v11[0] = message;
+  v10[1] = *MEMORY[0x277D85DE8];
+  v9 = @"message";
+  v10[0] = message;
   v4 = MEMORY[0x277CBEAC0];
   messageCopy = message;
-  v6 = [v4 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v6 = [v4 dictionaryWithObjects:v10 forKeys:&v9 count:1];
 
   v7 = [(TIDescriptorParser *)self errorWithDetails:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -148,6 +151,22 @@ LABEL_10:
   return v18;
 }
 
+- (id)parseDictionaryForKey:(id)key fromConfig:(id)config required:(BOOL)required errors:(id)errors
+{
+  requiredCopy = required;
+  keyCopy = key;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __71__TIDescriptorParser_parseDictionaryForKey_fromConfig_required_errors___block_invoke;
+  v14[3] = &unk_27872EBE0;
+  v14[4] = self;
+  v15 = keyCopy;
+  v11 = keyCopy;
+  v12 = [(TIDescriptorParser *)self parseObjectForKey:v11 fromConfig:config required:requiredCopy errors:errors validate:v14];
+
+  return v12;
+}
+
 id __71__TIDescriptorParser_parseDictionaryForKey_fromConfig_required_errors___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -162,6 +181,22 @@ id __71__TIDescriptorParser_parseDictionaryForKey_fromConfig_required_errors___b
   }
 
   return v4;
+}
+
+- (id)parseArrayForKey:(id)key fromConfig:(id)config required:(BOOL)required errors:(id)errors
+{
+  requiredCopy = required;
+  keyCopy = key;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __66__TIDescriptorParser_parseArrayForKey_fromConfig_required_errors___block_invoke;
+  v14[3] = &unk_27872EBE0;
+  v14[4] = self;
+  v15 = keyCopy;
+  v11 = keyCopy;
+  v12 = [(TIDescriptorParser *)self parseObjectForKey:v11 fromConfig:config required:requiredCopy errors:errors validate:v14];
+
+  return v12;
 }
 
 id __66__TIDescriptorParser_parseArrayForKey_fromConfig_required_errors___block_invoke(uint64_t a1, void *a2)
@@ -180,6 +215,22 @@ id __66__TIDescriptorParser_parseArrayForKey_fromConfig_required_errors___block_
   return v4;
 }
 
+- (id)parseBooleanForKey:(id)key fromConfig:(id)config required:(BOOL)required errors:(id)errors
+{
+  requiredCopy = required;
+  keyCopy = key;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __68__TIDescriptorParser_parseBooleanForKey_fromConfig_required_errors___block_invoke;
+  v14[3] = &unk_27872EBE0;
+  v14[4] = self;
+  v15 = keyCopy;
+  v11 = keyCopy;
+  v12 = [(TIDescriptorParser *)self parseObjectForKey:v11 fromConfig:config required:requiredCopy errors:errors validate:v14];
+
+  return v12;
+}
+
 id __68__TIDescriptorParser_parseBooleanForKey_fromConfig_required_errors___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -194,6 +245,22 @@ id __68__TIDescriptorParser_parseBooleanForKey_fromConfig_required_errors___bloc
   }
 
   return v4;
+}
+
+- (id)parseNumberForKey:(id)key fromConfig:(id)config required:(BOOL)required errors:(id)errors
+{
+  requiredCopy = required;
+  keyCopy = key;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __67__TIDescriptorParser_parseNumberForKey_fromConfig_required_errors___block_invoke;
+  v14[3] = &unk_27872EBE0;
+  v14[4] = self;
+  v15 = keyCopy;
+  v11 = keyCopy;
+  v12 = [(TIDescriptorParser *)self parseObjectForKey:v11 fromConfig:config required:requiredCopy errors:errors validate:v14];
+
+  return v12;
 }
 
 id __67__TIDescriptorParser_parseNumberForKey_fromConfig_required_errors___block_invoke(uint64_t a1, void *a2)
@@ -212,6 +279,22 @@ id __67__TIDescriptorParser_parseNumberForKey_fromConfig_required_errors___block
   return v4;
 }
 
+- (id)parseFloatForKey:(id)key fromConfig:(id)config required:(BOOL)required errors:(id)errors
+{
+  requiredCopy = required;
+  keyCopy = key;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __66__TIDescriptorParser_parseFloatForKey_fromConfig_required_errors___block_invoke;
+  v14[3] = &unk_27872EBE0;
+  v14[4] = self;
+  v15 = keyCopy;
+  v11 = keyCopy;
+  v12 = [(TIDescriptorParser *)self parseObjectForKey:v11 fromConfig:config required:requiredCopy errors:errors validate:v14];
+
+  return v12;
+}
+
 id __66__TIDescriptorParser_parseFloatForKey_fromConfig_required_errors___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -228,6 +311,22 @@ id __66__TIDescriptorParser_parseFloatForKey_fromConfig_required_errors___block_
   return v4;
 }
 
+- (id)parseIntegerForKey:(id)key fromConfig:(id)config required:(BOOL)required errors:(id)errors
+{
+  requiredCopy = required;
+  keyCopy = key;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __68__TIDescriptorParser_parseIntegerForKey_fromConfig_required_errors___block_invoke;
+  v14[3] = &unk_27872EBE0;
+  v14[4] = self;
+  v15 = keyCopy;
+  v11 = keyCopy;
+  v12 = [(TIDescriptorParser *)self parseObjectForKey:v11 fromConfig:config required:requiredCopy errors:errors validate:v14];
+
+  return v12;
+}
+
 id __68__TIDescriptorParser_parseIntegerForKey_fromConfig_required_errors___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -242,6 +341,22 @@ id __68__TIDescriptorParser_parseIntegerForKey_fromConfig_required_errors___bloc
   }
 
   return v4;
+}
+
+- (id)parseStringForKey:(id)key fromConfig:(id)config required:(BOOL)required errors:(id)errors
+{
+  requiredCopy = required;
+  keyCopy = key;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __67__TIDescriptorParser_parseStringForKey_fromConfig_required_errors___block_invoke;
+  v14[3] = &unk_27872EBE0;
+  v14[4] = self;
+  v15 = keyCopy;
+  v11 = keyCopy;
+  v12 = [(TIDescriptorParser *)self parseObjectForKey:v11 fromConfig:config required:requiredCopy errors:errors validate:v14];
+
+  return v12;
 }
 
 id __67__TIDescriptorParser_parseStringForKey_fromConfig_required_errors___block_invoke(uint64_t a1, void *a2)

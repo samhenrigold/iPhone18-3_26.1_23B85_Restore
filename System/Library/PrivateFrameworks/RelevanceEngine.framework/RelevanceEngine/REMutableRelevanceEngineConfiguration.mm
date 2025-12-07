@@ -14,11 +14,18 @@
 - (void)removeInteractionAtIndex:(unint64_t)index;
 - (void)removeSectionAtIndex:(unint64_t)index;
 - (void)removeSectionWithName:(id)name;
+- (void)setAllowsDiagnosticExtension:(BOOL)extension;
 - (void)setAllowsRemoteTraining:(BOOL)training;
+- (void)setAllowsUpdatingModelFile:(BOOL)file;
 - (void)setBaseModelFileURL:(id)l;
+- (void)setCreateDefaultRelevanceProviders:(BOOL)providers;
 - (void)setDataSourceLoader:(id)loader;
+- (void)setDisableAutomaticContentManagement:(BOOL)management;
+- (void)setElementsHiddenByDefault:(BOOL)default;
 - (void)setEngineQueue:(id)queue;
 - (void)setFeatureToConditionMap:(id)map;
+- (void)setIgnoreDeviceLockState:(BOOL)state;
+- (void)setIgnoresInstalledApplications:(BOOL)applications;
 - (void)setLocationManager:(id)manager;
 - (void)setMetricsRecorder:(id)recorder;
 - (void)setModelFileURL:(id)l;
@@ -32,6 +39,8 @@
 - (void)setRankingTierFilteringRules:(id)rules;
 - (void)setRelevanceProviderManagerLoader:(id)loader;
 - (void)setTrainingBehavior:(unint64_t)behavior;
+- (void)setWantsBackup:(BOOL)backup;
+- (void)setWantsImmutableContent:(BOOL)content;
 @end
 
 @implementation REMutableRelevanceEngineConfiguration
@@ -78,6 +87,13 @@
 {
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:version];
   v4 = NSStringFromSelector(sel_modelVersion);
+  [(RERelevanceEngineConfiguration *)self setValue:v5 forKey:v4 ofClass:objc_opt_class()];
+}
+
+- (void)setAllowsUpdatingModelFile:(BOOL)file
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:file];
+  v4 = NSStringFromSelector(sel_allowsUpdatingModelFile);
   [(RERelevanceEngineConfiguration *)self setValue:v5 forKey:v4 ofClass:objc_opt_class()];
 }
 
@@ -326,6 +342,13 @@ uint64_t __69__REMutableRelevanceEngineConfiguration__indexOfInteractionWithName
   [(RERelevanceEngineConfiguration *)self setValue:featuresCopy forKey:v5 ofClass:objc_opt_class()];
 }
 
+- (void)setWantsImmutableContent:(BOOL)content
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:content];
+  v4 = NSStringFromSelector(sel_wantsImmutableContent);
+  [(RERelevanceEngineConfiguration *)self setValue:v5 forKey:v4 ofClass:objc_opt_class()];
+}
+
 - (void)setPreferenceDomain:(id)domain
 {
   domainCopy = domain;
@@ -346,11 +369,53 @@ uint64_t __69__REMutableRelevanceEngineConfiguration__indexOfInteractionWithName
   }
 }
 
+- (void)setWantsBackup:(BOOL)backup
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:backup];
+  v4 = NSStringFromSelector(sel_wantsBackup);
+  [(RERelevanceEngineConfiguration *)self setValue:v5 forKey:v4 ofClass:objc_opt_class()];
+}
+
+- (void)setIgnoreDeviceLockState:(BOOL)state
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:state];
+  v4 = NSStringFromSelector(sel_ignoreDeviceLockState);
+  [(RERelevanceEngineConfiguration *)self setValue:v5 forKey:v4 ofClass:objc_opt_class()];
+}
+
+- (void)setAllowsDiagnosticExtension:(BOOL)extension
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:extension];
+  v4 = NSStringFromSelector(sel_allowsDiagnosticExtension);
+  [(RERelevanceEngineConfiguration *)self setValue:v5 forKey:v4 ofClass:objc_opt_class()];
+}
+
 - (void)setMetricsRecorder:(id)recorder
 {
   recorderCopy = recorder;
   v5 = NSStringFromSelector(sel_metricsRecorder);
   [(RERelevanceEngineConfiguration *)self setValue:recorderCopy forKey:v5 ofClass:0];
+}
+
+- (void)setIgnoresInstalledApplications:(BOOL)applications
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:applications];
+  v4 = NSStringFromSelector(sel_ignoresInstalledApplications);
+  [(RERelevanceEngineConfiguration *)self setValue:v5 forKey:v4 ofClass:objc_opt_class()];
+}
+
+- (void)setCreateDefaultRelevanceProviders:(BOOL)providers
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:providers];
+  v4 = NSStringFromSelector(sel_createDefaultRelevanceProviders);
+  [(RERelevanceEngineConfiguration *)self setValue:v5 forKey:v4 ofClass:objc_opt_class()];
+}
+
+- (void)setDisableAutomaticContentManagement:(BOOL)management
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:management];
+  v4 = NSStringFromSelector(sel_disableAutomaticContentManagement);
+  [(RERelevanceEngineConfiguration *)self setValue:v5 forKey:v4 ofClass:objc_opt_class()];
 }
 
 - (void)setRankingPropertiesFileURL:(id)l
@@ -366,6 +431,13 @@ uint64_t __69__REMutableRelevanceEngineConfiguration__indexOfInteractionWithName
   values = self->super._values;
   v5 = NSStringFromSelector(sel_featureToConditionMap);
   [(NSMutableDictionary *)values setObject:v6 forKeyedSubscript:v5];
+}
+
+- (void)setElementsHiddenByDefault:(BOOL)default
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:default];
+  v4 = NSStringFromSelector(sel_elementsHiddenByDefault);
+  [(RERelevanceEngineConfiguration *)self setValue:v5 forKey:v4 ofClass:objc_opt_class()];
 }
 
 - (id)copyWithZone:(_NSZone *)zone

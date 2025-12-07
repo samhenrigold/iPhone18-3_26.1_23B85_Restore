@@ -675,14 +675,14 @@ LABEL_19:
   v2 = [a2 _cachedDays];
   [v2 count];
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_2_0(&dword_1CAB19000, v3, v4, "Asked for cached occurrence at indexPath [%@] but there are only %lu cached days.", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_2_0(&dword_1CAB19000, v3, v4, "Asked for cached occurrence at indexPath [%@] but there are only %lu cached days.", v5, v6, v7, v8);
 }
 
 - (void)_cachedOccurrenceAtIndexPath:(uint64_t)a1 .cold.3(uint64_t a1, void *a2)
 {
   [a2 count];
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_2_0(&dword_1CAB19000, v2, v3, "Asked for cached occurrence at indexPath [%@] but there are only %lu cached events on that day.", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_1CAB19000, v2, v3, "Asked for cached occurrence at indexPath [%@] but there are only %lu cached events on that day.", v4, v5, v6, v7);
 }
 
 @end

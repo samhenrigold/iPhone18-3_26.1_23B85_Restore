@@ -15,22 +15,32 @@
 - (NSString)serverIPAddress;
 - (id)aps_prettyDescription;
 - (id)interfaceMonitor;
+- (id)sendMessage:(id)message topicHash:(id)hash lastRTT:(id)t token:(id)token ultraConstrainedAllowed:(BOOL)allowed withCompletion:(id)completion;
 - (int)linkQuality;
 - (int64_t)connectionType;
 - (int64_t)interfaceConstraint;
 - (void)addDataListener:(id)listener;
 - (void)addStateListener:(id)listener;
 - (void)connectionSetupComplete;
+- (void)disconnectWithReason:(unsigned int)reason;
 - (void)enumerateDataRecipient:(id)recipient;
 - (void)enumerateStateListeners:(id)listeners;
 - (void)noteConnected;
+- (void)noteConnectionFailureWithReason:(unsigned int)reason;
 - (void)noteInvalidPresence;
 - (void)removeDataListener:(id)listener;
 - (void)removeStateListener:(id)listener;
+- (void)sendActivityTrackingRequestWithMessageID:(unint64_t)d pushToken:(id)token salt:(unint64_t)salt trackingFlag:(unsigned int)flag timestamp:(unint64_t)timestamp;
 - (void)sendConnectMessageWithToken:(id)token presenceFlags:(int)flags certificates:(id)certificates nonce:(id)nonce signature:(id)signature hostCertificateInfo:(id)info connectionErrors:(id)errors withCompletion:(id)self0;
 - (void)sendConnectMessageWithToken:(id)token state:(int)state presenceFlags:(int)flags certificates:(id)certificates nonce:(id)nonce signature:(id)signature hostCertificateInfo:(id)info withCompletion:(id)self0;
+- (void)sendConnectMessageWithToken:(id)token state:(int)state presenceFlags:(int)flags hwVersion:(id)version swVersion:(id)swVersion swBuild:(id)build certificates:(id)certificates nonce:(id)self0 signature:(id)self1 withCompletion:(id)self2;
 - (void)sendFilterMessageWithEnabledTopicsByHash:(id)hash ignoredTopicsByHash:(id)byHash opportunisticTopicsByHash:(id)topicsByHash nonWakingTopicsByHash:(id)wakingTopicsByHash pausedTopicsByHash:(id)pausedTopicsByHash saltsByTopic:(id)topic token:(id)token version:(unint64_t)self0 expectsResponse:(BOOL)self1 withCompletion:(id)self2;
+- (void)sendMessageAcknowledgeMessageWithResponse:(int)response messageId:(id)id generation:(int64_t)generation token:(id)token;
+- (void)sendMessageTracingAckWithTopicHash:(id)hash topic:(id)topic tracingUUID:(id)d status:(int)status token:(id)token;
 - (void)sendMessageTransportAcknowledgeMessage;
+- (void)sendPubSubChannelListWithMetadata:(id)metadata baseToken:(id)token messageID:(unsigned int)d;
+- (void)sendSetActiveState:(BOOL)state forInterval:(unsigned int)interval;
+- (void)sendTokenGenerateMessageWithTopicHash:(id)hash baseToken:(id)token appId:(unsigned __int16)id expirationTTL:(unsigned int)l vapidPublicKeyHash:(id)keyHash type:(int64_t)type withCompletion:(id)completion;
 @end
 
 @implementation APSCourierConnectionProtocolConnection
@@ -388,11 +398,78 @@ LABEL_3:
   }
 }
 
+- (void)disconnectWithReason:(unsigned int)reason
+{
+  v3 = *&reason;
+  connectionManager = [(APSCourierConnectionProtocolConnection *)self connectionManager];
+  [connectionManager disconnectStreamForInterface:-[APSCourierConnectionProtocolConnection interface](self withReason:{"interface"), v3}];
+
+  if (v3 == 7)
+  {
+    connectionManager2 = [(APSCourierConnectionProtocolConnection *)self connectionManager];
+    [connectionManager2 stopManagerOnInterface:{-[APSCourierConnectionProtocolConnection interface](self, "interface")}];
+  }
+}
+
+- (void)noteConnectionFailureWithReason:(unsigned int)reason
+{
+  v3 = *&reason;
+  connectionManager = [(APSCourierConnectionProtocolConnection *)self connectionManager];
+  [connectionManager handleConnectionFailureOnInterface:-[APSCourierConnectionProtocolConnection interface](self forceDelayedReconnect:"interface") withReason:{0, v3}];
+}
+
 - (void)noteInvalidPresence
 {
   connectionManager = [(APSCourierConnectionProtocolConnection *)self connectionManager];
   connectionRetryManager = [connectionManager connectionRetryManager];
   [connectionRetryManager notePresenceFailure];
+}
+
+- (void)sendSetActiveState:(BOOL)state forInterval:(unsigned int)interval
+{
+  v4 = *&interval;
+  stateCopy = state;
+  connectionManager = [(APSCourierConnectionProtocolConnection *)self connectionManager];
+  [connectionManager sendSetActiveState:stateCopy forInterval:v4 onInterface:{-[APSCourierConnectionProtocolConnection interface](self, "interface")}];
+}
+
+- (void)sendMessageTracingAckWithTopicHash:(id)hash topic:(id)topic tracingUUID:(id)d status:(int)status token:(id)token
+{
+  v7 = *&status;
+  tokenCopy = token;
+  dCopy = d;
+  hashCopy = hash;
+  connectionManager = [(APSCourierConnectionProtocolConnection *)self connectionManager];
+  [connectionManager sendMessageTracingAckWithTopicHash:hashCopy tracingUUID:dCopy status:v7 token:tokenCopy onInterface:{-[APSCourierConnectionProtocolConnection interface](self, "interface")}];
+}
+
+- (void)sendTokenGenerateMessageWithTopicHash:(id)hash baseToken:(id)token appId:(unsigned __int16)id expirationTTL:(unsigned int)l vapidPublicKeyHash:(id)keyHash type:(int64_t)type withCompletion:(id)completion
+{
+  v11 = *&l;
+  idCopy = id;
+  completionCopy = completion;
+  keyHashCopy = keyHash;
+  tokenCopy = token;
+  hashCopy = hash;
+  connectionManager = [(APSCourierConnectionProtocolConnection *)self connectionManager];
+  [connectionManager sendTokenGenerateMessageWithTopicHash:hashCopy baseToken:tokenCopy appId:idCopy expirationTTL:v11 vapidPublicKeyHash:keyHashCopy type:type withCompletion:completionCopy onInterface:{-[APSCourierConnectionProtocolConnection interface](self, "interface")}];
+}
+
+- (void)sendPubSubChannelListWithMetadata:(id)metadata baseToken:(id)token messageID:(unsigned int)d
+{
+  v5 = *&d;
+  tokenCopy = token;
+  metadataCopy = metadata;
+  connectionManager = [(APSCourierConnectionProtocolConnection *)self connectionManager];
+  [connectionManager sendPubSubChannelListWithMetadata:metadataCopy baseToken:tokenCopy messageID:v5 onInterface:{-[APSCourierConnectionProtocolConnection interface](self, "interface")}];
+}
+
+- (void)sendActivityTrackingRequestWithMessageID:(unint64_t)d pushToken:(id)token salt:(unint64_t)salt trackingFlag:(unsigned int)flag timestamp:(unint64_t)timestamp
+{
+  v8 = *&flag;
+  tokenCopy = token;
+  connectionManager = [(APSCourierConnectionProtocolConnection *)self connectionManager];
+  [connectionManager sendActivityTrackingRequestWithMessageID:d pushToken:tokenCopy salt:salt trackingFlag:v8 timestamp:timestamp onInterface:{-[APSCourierConnectionProtocolConnection interface](self, "interface")}];
 }
 
 - (BOOL)generationMatches:(unint64_t)matches
@@ -401,6 +478,15 @@ LABEL_3:
   LOBYTE(matches) = [connectionManager generationMatches:matches forInterface:{-[APSCourierConnectionProtocolConnection interface](self, "interface")}];
 
   return matches;
+}
+
+- (void)sendMessageAcknowledgeMessageWithResponse:(int)response messageId:(id)id generation:(int64_t)generation token:(id)token
+{
+  v7 = *&response;
+  tokenCopy = token;
+  idCopy = id;
+  connectionManager = [(APSCourierConnectionProtocolConnection *)self connectionManager];
+  [connectionManager sendMessageAcknowledgeMessageWithResponse:v7 messageId:idCopy token:tokenCopy onInterface:{-[APSCourierConnectionProtocolConnection interface](self, "interface")}];
 }
 
 - (void)sendFilterMessageWithEnabledTopicsByHash:(id)hash ignoredTopicsByHash:(id)byHash opportunisticTopicsByHash:(id)topicsByHash nonWakingTopicsByHash:(id)wakingTopicsByHash pausedTopicsByHash:(id)pausedTopicsByHash saltsByTopic:(id)topic token:(id)token version:(unint64_t)self0 expectsResponse:(BOOL)self1 withCompletion:(id)self2
@@ -425,6 +511,74 @@ LABEL_3:
 
   LOBYTE(v29) = response;
   [connectionManager sendFilterMessageWithEnabledHashes:allKeys ignoredHashes:allKeys2 opportunisticHashes:allKeys3 nonWakingHashes:allKeys4 pausedHashes:allKeys5 token:tokenCopy version:version expectsResponse:v29 onInterface:-[APSCourierConnectionProtocolConnection interface](self withCompletion:{"interface"), completionCopy}];
+}
+
+- (void)sendConnectMessageWithToken:(id)token state:(int)state presenceFlags:(int)flags hwVersion:(id)version swVersion:(id)swVersion swBuild:(id)build certificates:(id)certificates nonce:(id)self0 signature:(id)self1 withCompletion:(id)self2
+{
+  v15 = *&state;
+  completionCopy = completion;
+  signatureCopy = signature;
+  nonceCopy = nonce;
+  certificatesCopy = certificates;
+  buildCopy = build;
+  swVersionCopy = swVersion;
+  versionCopy = version;
+  tokenCopy = token;
+  connectionManager = [(APSCourierConnectionProtocolConnection *)self connectionManager];
+  [connectionManager currentKeepAliveIntervalOnInterface:{-[APSCourierConnectionProtocolConnection interface](self, "interface")}];
+  v25 = llround(v24 / 60.0);
+
+  connectionManager2 = [(APSCourierConnectionProtocolConnection *)self connectionManager];
+  v41 = [connectionManager2 currentKeepAliveStateOnInterface:{-[APSCourierConnectionProtocolConnection interface](self, "interface")}];
+
+  v27 = [[APSKeepAliveMetadata alloc] initWithUsingWWAN:[(APSCourierConnectionProtocolConnection *)self interface]== 0 keepAliveInterval:v25 delayedResponseInterval:0 usingServerStats:0 keepAliveState:v41 hwVersion:versionCopy swVersion:swVersionCopy swBuild:buildCopy];
+  connectionManager3 = [(APSCourierConnectionProtocolConnection *)self connectionManager];
+  v35 = v27;
+  if (v15 == 2)
+  {
+    v29 = 0;
+  }
+
+  else
+  {
+    v29 = v27;
+  }
+
+  v38 = certificatesCopy;
+  if (v15 == 2)
+  {
+    certificatesCopy = 0;
+  }
+
+  v30 = nonceCopy;
+  if (v15 == 2)
+  {
+    nonceCopy = 0;
+    v31 = 0;
+  }
+
+  else
+  {
+    v31 = signatureCopy;
+  }
+
+  if (v15 == 2)
+  {
+    redirectCount = 0;
+  }
+
+  else
+  {
+    connectionManager4 = [(APSCourierConnectionProtocolConnection *)self connectionManager];
+    redirectCount = [connectionManager4 redirectCount];
+  }
+
+  LOBYTE(v33) = redirectCount;
+  [connectionManager3 sendConnectMessageWithToken:tokenCopy state:v15 interface:3 activeInterval:0 presenceFlags:flags metadata:v29 certificates:certificatesCopy nonce:nonceCopy signature:v31 redirectCount:v33 withCompletion:completionCopy onInterface:{-[APSCourierConnectionProtocolConnection interface](self, "interface")}];
+
+  if (v15 != 2)
+  {
+  }
 }
 
 - (void)sendConnectMessageWithToken:(id)token presenceFlags:(int)flags certificates:(id)certificates nonce:(id)nonce signature:(id)signature hostCertificateInfo:(id)info connectionErrors:(id)errors withCompletion:(id)self0
@@ -490,6 +644,20 @@ LABEL_3:
   connectionManager4 = [(APSCourierConnectionProtocolConnection *)self connectionManager];
   LOBYTE(v27) = [connectionManager4 redirectCount];
   [connectionManager3 sendConnectMessageWithToken:tokenCopy state:state presenceFlags:flags metadata:v24 certificates:certificatesCopy nonce:nonceCopy signature:signatureCopy hostCertificateInfo:infoCopy redirectCount:v27 withCompletion:completionCopy onInterface:{-[APSCourierConnectionProtocolConnection interface](self, "interface")}];
+}
+
+- (id)sendMessage:(id)message topicHash:(id)hash lastRTT:(id)t token:(id)token ultraConstrainedAllowed:(BOOL)allowed withCompletion:(id)completion
+{
+  allowedCopy = allowed;
+  completionCopy = completion;
+  tokenCopy = token;
+  tCopy = t;
+  hashCopy = hash;
+  messageCopy = message;
+  connectionManager = [(APSCourierConnectionProtocolConnection *)self connectionManager];
+  v20 = [connectionManager _sendOutgoingMessage:messageCopy topicHash:hashCopy lastRTT:tCopy token:tokenCopy onInterface:-[APSCourierConnectionProtocolConnection interface](self ultraConstrainedAllowed:"interface") withCompletion:{allowedCopy, completionCopy}];
+
+  return v20;
 }
 
 @end

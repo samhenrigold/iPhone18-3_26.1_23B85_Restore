@@ -368,10 +368,10 @@ void __74___UNNotificationContentExtensionVendorContext_openURL_completionHandle
 void __76___UNNotificationContentExtensionVendorContext__hostDidReceiveNotification___block_invoke_2_cold_1(void *a1)
 {
   v2 = a1;
-  v3 = OUTLINED_FUNCTION_2();
-  v4 = NSStringFromClass(v3);
+  v4 = OUTLINED_FUNCTION_2(v2, v3);
+  v5 = NSStringFromClass(v4);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_23AB78000, v5, v6, "Extension class %{public}@ does not implement selector didReceiveNotification:", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_0(&dword_23AB78000, v6, v7, "Extension class %{public}@ does not implement selector didReceiveNotification:", v8, v9, v10, v11);
 }
 
 void __84___UNNotificationContentExtensionVendorContext__hostDidReceiveNotificationResponse___block_invoke_2_cold_1(void *a1, uint8_t *buf, os_log_t log)
@@ -384,28 +384,28 @@ void __84___UNNotificationContentExtensionVendorContext__hostDidReceiveNotificat
 void __102___UNNotificationContentExtensionVendorContext__hostDidReceiveNotificationResponse_completionHandler___block_invoke_2_cold_1(void *a1)
 {
   v2 = a1;
-  v3 = OUTLINED_FUNCTION_2();
-  v4 = NSStringFromClass(v3);
+  v4 = OUTLINED_FUNCTION_2(v2, v3);
+  v5 = NSStringFromClass(v4);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_23AB78000, v5, v6, "Extension class %{public}@ does not implement selector didReceiveNotificationResponse:completionHandler:", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_0(&dword_23AB78000, v6, v7, "Extension class %{public}@ does not implement selector didReceiveNotificationResponse:completionHandler:", v8, v9, v10, v11);
 }
 
 void __70___UNNotificationContentExtensionVendorContext__hostWantsMediaToPause__block_invoke_2_cold_1(void *a1)
 {
   v2 = a1;
-  v3 = OUTLINED_FUNCTION_2();
-  v4 = NSStringFromClass(v3);
+  v4 = OUTLINED_FUNCTION_2(v2, v3);
+  v5 = NSStringFromClass(v4);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_23AB78000, v5, v6, "Extension class %{public}@ does not implement selector mediaPause", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_0(&dword_23AB78000, v6, v7, "Extension class %{public}@ does not implement selector mediaPause", v8, v9, v10, v11);
 }
 
 void __69___UNNotificationContentExtensionVendorContext__hostWantsMediaToPlay__block_invoke_2_cold_1(void *a1)
 {
   v2 = a1;
-  v3 = OUTLINED_FUNCTION_2();
-  v4 = NSStringFromClass(v3);
+  v4 = OUTLINED_FUNCTION_2(v2, v3);
+  v5 = NSStringFromClass(v4);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_23AB78000, v5, v6, "Extension class %{public}@ does not implement selector mediaPlay", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_0(&dword_23AB78000, v6, v7, "Extension class %{public}@ does not implement selector mediaPlay", v8, v9, v10, v11);
 }
 
 @end

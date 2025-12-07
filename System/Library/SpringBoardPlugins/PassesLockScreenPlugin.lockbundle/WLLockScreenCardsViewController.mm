@@ -25,6 +25,10 @@
 - (void)pluginDidDeactivateWithContext:(id)context;
 - (void)pluginWillActivateWithContext:(id)context;
 - (void)updateBacklightWithProgress:(double)progress;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)viewWillLayoutSubviews;
 @end
 
@@ -241,9 +245,7 @@
       self->_coverSheetAuthenticator = v3;
     }
 
-    v5 = [[PKAuthorizationCoverSheetViewController alloc] initWithDelegate:self authenticator:self->_coverSheetAuthenticator passUniqueIdentifier:0 source:3];
-    coverSheetViewController = self->_coverSheetViewController;
-    self->_coverSheetViewController = v5;
+    self->_coverSheetViewController = [[PKAuthorizationCoverSheetViewController alloc] initWithDelegate:self authenticator:self->_coverSheetAuthenticator passUniqueIdentifier:0 source:3];
 
     _objc_release_x1();
   }
@@ -275,6 +277,42 @@
     [view2 setFrame:{v5, v7, v9, v11}];
     [view2 layoutIfNeeded];
   }
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = WLLockScreenCardsViewController;
+  [(WLLockScreenCardsViewController *)&v4 viewWillAppear:appear];
+  self->_parentState = 1;
+  [(WLLockScreenCardsViewController *)self _updateViewState];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  self->_parentState = 2;
+  [(WLLockScreenCardsViewController *)self _updateViewState];
+  v5.receiver = self;
+  v5.super_class = WLLockScreenCardsViewController;
+  [(WLLockScreenCardsViewController *)&v5 viewDidAppear:appearCopy];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = WLLockScreenCardsViewController;
+  [(WLLockScreenCardsViewController *)&v4 viewWillDisappear:disappear];
+  self->_parentState = 3;
+  [(WLLockScreenCardsViewController *)self _updateViewState];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = WLLockScreenCardsViewController;
+  [(WLLockScreenCardsViewController *)&v4 viewDidDisappear:disappear];
+  self->_parentState = 0;
 }
 
 - (void)_updateViewState
@@ -693,9 +731,7 @@ LABEL_7:
   [v3 setIdleTimerDisabled:1 forReason:@"PassBookPluginShowPass"];
 
   [(NSTimer *)self->_resetIdleTimerTimer invalidate];
-  v4 = [NSTimer scheduledTimerWithTimeInterval:self target:"enableIdleTimer" selector:0 userInfo:0 repeats:120.0];
-  resetIdleTimerTimer = self->_resetIdleTimerTimer;
-  self->_resetIdleTimerTimer = v4;
+  self->_resetIdleTimerTimer = [NSTimer scheduledTimerWithTimeInterval:self target:"enableIdleTimer" selector:0 userInfo:0 repeats:120.0];
 
   _objc_release_x1();
 }

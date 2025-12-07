@@ -59,21 +59,20 @@
 - (void)flushUnreportedEvents
 {
   v3 = sub_2805C(&qword_CA5E8, &qword_A0850);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v6 = &v11 - v5;
-  v7 = sub_8468C();
-  (*(*(v7 - 8) + 56))(v6, 1, 1, v7);
-  v8 = swift_allocObject();
+  v5 = &v10 - v4;
+  v6 = sub_8468C();
+  (*(*(v6 - 8) + 56))(v5, 1, 1, v6);
+  v7 = swift_allocObject();
   swift_unknownObjectWeakInit();
-  v9 = swift_allocObject();
-  v9[2] = 0;
-  v9[3] = 0;
-  v9[4] = v8;
+  v8 = swift_allocObject();
+  v8[2] = 0;
+  v8[3] = 0;
+  v8[4] = v7;
   selfCopy = self;
-  sub_3BBC8(0, 0, v6, &unk_A1DE0, v9);
+  sub_3BBC8(0, 0, v5, &unk_A1DE0, v8);
 
-  sub_692E0(v6);
+  sub_692E0(v5);
 }
 
 - (void)countingAssertProviderTransitionToNonZero:(id)zero

@@ -47,7 +47,7 @@
 
 - (void)_sendExecuteRequest
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (![(HAP2AsynchronousOperation *)self isCancelled])
   {
     executeRequest = [(HAP2AccessoryServerControllerTimedWriteOperation *)self executeRequest];
@@ -116,20 +116,18 @@
     }
 
     v15 = transport;
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __71__HAP2AccessoryServerControllerTimedWriteOperation__sendExecuteRequest__block_invoke;
-    v17[3] = &unk_2786D3968;
-    v17[4] = self;
-    [(HAP2AccessoryServerTransportCommon *)v15 sendRequest:v11 completion:v17];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __71__HAP2AccessoryServerControllerTimedWriteOperation__sendExecuteRequest__block_invoke;
+    v16[3] = &unk_2786D3968;
+    v16[4] = self;
+    [(HAP2AccessoryServerTransportCommon *)v15 sendRequest:v11 completion:v16];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __71__HAP2AccessoryServerControllerTimedWriteOperation__sendExecuteRequest__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   [(HAP2AccessoryServerControllerOperation *)*(a1 + 32) _cancelTimer];
@@ -143,12 +141,12 @@ void __71__HAP2AccessoryServerControllerTimedWriteOperation__sendExecuteRequest_
     v7 = hap2Log_accessory;
     if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_ERROR))
     {
-      v9 = *(a1 + 32);
-      v10 = 138412546;
-      v11 = v9;
-      v12 = 2112;
-      v13 = v6;
-      _os_log_error_impl(&dword_22AADC000, v7, OS_LOG_TYPE_ERROR, "%@ Executing timed write failed with error: %@", &v10, 0x16u);
+      v8 = *(a1 + 32);
+      v9 = 138412546;
+      v10 = v8;
+      v11 = 2112;
+      v12 = v6;
+      _os_log_error_impl(&dword_22AADC000, v7, OS_LOG_TYPE_ERROR, "%@ Executing timed write failed with error: %@", &v9, 0x16u);
     }
 
     [*(a1 + 32) finishWithError:v6];
@@ -158,8 +156,6 @@ void __71__HAP2AccessoryServerControllerTimedWriteOperation__sendExecuteRequest_
   {
     [*(a1 + 32) _parseExecuteResponseData:v5];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_parsePrepareResponseData:(id)data
@@ -198,7 +194,7 @@ void __71__HAP2AccessoryServerControllerTimedWriteOperation__sendExecuteRequest_
 
 - (void)_sendPrepareRequest
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (![(HAP2AsynchronousOperation *)self isCancelled])
   {
     if (self)
@@ -255,20 +251,18 @@ void __71__HAP2AccessoryServerControllerTimedWriteOperation__sendExecuteRequest_
     }
 
     v13 = transport;
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __71__HAP2AccessoryServerControllerTimedWriteOperation__sendPrepareRequest__block_invoke;
-    v15[3] = &unk_2786D3968;
-    v15[4] = self;
-    [(HAP2AccessoryServerTransportCommon *)v13 sendRequest:v10 completion:v15];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __71__HAP2AccessoryServerControllerTimedWriteOperation__sendPrepareRequest__block_invoke;
+    v14[3] = &unk_2786D3968;
+    v14[4] = self;
+    [(HAP2AccessoryServerTransportCommon *)v13 sendRequest:v10 completion:v14];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __71__HAP2AccessoryServerControllerTimedWriteOperation__sendPrepareRequest__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = *(a1 + 32);
@@ -284,12 +278,12 @@ void __71__HAP2AccessoryServerControllerTimedWriteOperation__sendPrepareRequest_
       v8 = hap2Log_accessory;
       if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_ERROR))
       {
-        v10 = *(a1 + 32);
-        v11 = 138412546;
-        v12 = v10;
-        v13 = 2112;
-        v14 = v6;
-        _os_log_error_impl(&dword_22AADC000, v8, OS_LOG_TYPE_ERROR, "%@ Prepare timed write failed with error: %@", &v11, 0x16u);
+        v9 = *(a1 + 32);
+        v10 = 138412546;
+        v11 = v9;
+        v12 = 2112;
+        v13 = v6;
+        _os_log_error_impl(&dword_22AADC000, v8, OS_LOG_TYPE_ERROR, "%@ Prepare timed write failed with error: %@", &v10, 0x16u);
       }
 
       [(HAP2AccessoryServerControllerOperation *)*(a1 + 32) _handleSendRequestError:v6];
@@ -300,8 +294,6 @@ void __71__HAP2AccessoryServerControllerTimedWriteOperation__sendPrepareRequest_
   {
     [v7 _parsePrepareResponseData:v5];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cleanUp

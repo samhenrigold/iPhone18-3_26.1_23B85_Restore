@@ -68,30 +68,30 @@ LABEL_12:
 
 - (id)jsonDictionary
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   imageData = [(BMImageContent *)self imageData];
   v4 = [imageData base64EncodedStringWithOptions:0];
 
   metadata = [(BMImageContent *)self metadata];
   jsonDictionary = [metadata jsonDictionary];
 
-  v12[0] = @"imageData";
+  v11[0] = @"imageData";
   null = v4;
   if (!v4)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v12[1] = @"metadata";
-  v13[0] = null;
+  v11[1] = @"metadata";
+  v12[0] = null;
   null2 = jsonDictionary;
   if (!jsonDictionary)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[1] = null2;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v12[1] = null2;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
   if (jsonDictionary)
   {
     if (v4)
@@ -110,14 +110,13 @@ LABEL_12:
   }
 
 LABEL_7:
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 - (BMImageContent)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"imageData"];
   if (v7)
@@ -143,34 +142,34 @@ LABEL_7:
 
         if (error)
         {
-          v16 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v17 = *MEMORY[0x1E698F240];
-          v30 = *MEMORY[0x1E696A578];
+          v15 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v16 = *MEMORY[0x1E698F240];
+          v29 = *MEMORY[0x1E696A578];
           v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected format for value of field '%@', expected base64 encoding", @"imageData"];
-          v31[0] = v9;
-          v18 = MEMORY[0x1E695DF20];
-          v19 = v31;
-          v20 = &v30;
+          v30[0] = v9;
+          v17 = MEMORY[0x1E695DF20];
+          v18 = v30;
+          v19 = &v29;
 LABEL_26:
-          v10 = [v18 dictionaryWithObjects:v19 forKeys:v20 count:1];
-          v23 = [v16 initWithDomain:v17 code:2 userInfo:v10];
+          v10 = [v17 dictionaryWithObjects:v18 forKeys:v19 count:1];
+          v22 = [v15 initWithDomain:v16 code:2 userInfo:v10];
           v8 = 0;
           selfCopy = 0;
-          *error = v23;
+          *error = v22;
           goto LABEL_8;
         }
       }
 
       else if (error)
       {
-        v16 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v17 = *MEMORY[0x1E698F240];
-        v28 = *MEMORY[0x1E696A578];
+        v15 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v16 = *MEMORY[0x1E698F240];
+        v27 = *MEMORY[0x1E696A578];
         v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type (%@) for value of field '%@', expected NSData or base64 encoded NSString", objc_opt_class(), @"imageData"];
-        v29 = v9;
-        v18 = MEMORY[0x1E695DF20];
-        v19 = &v29;
-        v20 = &v28;
+        v28 = v9;
+        v17 = MEMORY[0x1E695DF20];
+        v18 = &v28;
+        v19 = &v27;
         goto LABEL_26;
       }
 
@@ -195,20 +194,20 @@ LABEL_7:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v14 = v9;
-    v25 = 0;
-    v10 = [[BMCustomAttributes alloc] initWithJSONDictionary:v14 error:&v25];
-    v15 = v25;
-    if (v15)
+    v13 = v9;
+    v24 = 0;
+    v10 = [[BMCustomAttributes alloc] initWithJSONDictionary:v13 error:&v24];
+    v14 = v24;
+    if (v14)
     {
       if (error)
       {
-        v15 = v15;
-        *error = v15;
+        v14 = v14;
+        *error = v14;
       }
 
       selfCopy = 0;
-      v9 = v14;
+      v9 = v13;
       goto LABEL_8;
     }
 
@@ -221,13 +220,13 @@ LABEL_7:
     goto LABEL_9;
   }
 
-  v24 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v21 = *MEMORY[0x1E698F240];
-  v26 = *MEMORY[0x1E696A578];
+  v23 = objc_alloc(MEMORY[0x1E696ABC0]);
+  v20 = *MEMORY[0x1E698F240];
+  v25 = *MEMORY[0x1E696A578];
   v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"metadata"];
-  v27 = v10;
-  v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
-  *error = [v24 initWithDomain:v21 code:2 userInfo:v22];
+  v26 = v10;
+  v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+  *error = [v23 initWithDomain:v20 code:2 userInfo:v21];
 
   selfCopy = 0;
 LABEL_8:
@@ -235,7 +234,6 @@ LABEL_8:
 LABEL_9:
 LABEL_10:
 
-  v12 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -409,40 +407,36 @@ LABEL_28:
 
 + (id)protoFields
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"imageData" number:1 type:14 subMessageClass:0];
-  v7[0] = v2;
+  v6[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"metadata" number:2 type:14 subMessageClass:objc_opt_class()];
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }
 
 + (id)columns
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"imageData" dataType:4 requestOnly:0 fieldNumber:1 protoDataType:14 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"metadata_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_265];
-  v7[0] = v2;
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }
 
-id __25__BMImageContent_columns__block_invoke(uint64_t a1, void *a2)
+id __25__BMImageContent_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 metadata];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 metadata];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

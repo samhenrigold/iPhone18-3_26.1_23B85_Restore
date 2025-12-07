@@ -8010,7 +8010,7 @@ uint64_t NoiseSuppression::Noise::HendriksSPP::GetNoiseBins(NoiseSuppression::No
 {
   v2 = *(this + 26);
   v7 = 0;
-  std::vector<BOOL>::assign(this + 25, v2, &v7);
+  std::vector<BOOL>::assign(this + 200, v2, &v7);
   v3 = *(this + 26);
   if (v3)
   {
@@ -8093,41 +8093,41 @@ void **NoiseSuppression::Noise::HendriksSPP::Process(void **this, const float *_
   return this;
 }
 
-float32_t NoiseSuppression::Noise::HendriksSPP::Init(float32x2_t *this)
+float NoiseSuppression::Noise::HendriksSPP::Init(NoiseSuppression::Noise::HendriksSPP *this)
 {
   __asm { FMOV            V1.2S, #-1.0 }
 
-  v7 = vdiv_f32(_D1, vmul_n_f32(this[11], this[2].f32[0]));
+  v7 = vdiv_f32(_D1, vmul_n_f32(*(this + 88), *(this + 4)));
   v20 = v7.f32[0];
   v21 = expf(v7.f32[1]);
-  v8.f32[0] = expf(v20);
-  v8.f32[1] = v21;
-  this[12] = v8;
-  std::vector<float>::resize(&this[14], this[1].u32[1]);
-  v9 = this[1].u32[1];
+  *&v8 = expf(v20);
+  *(&v8 + 1) = v21;
+  *(this + 12) = v8;
+  std::vector<float>::resize(this + 14, *(this + 3));
+  v9 = *(this + 3);
   v22 = 0;
-  std::vector<float>::assign(&this[14], v9, &v22, v10);
-  std::vector<float>::resize(&this[17], this[1].u32[1]);
-  v11 = this[1].u32[1];
+  std::vector<float>::assign(this + 14, v9, &v22, v10);
+  std::vector<float>::resize(this + 17, *(this + 3));
+  v11 = *(this + 3);
   v22 = 0;
-  std::vector<float>::assign(&this[17], v11, &v22, v12);
-  std::vector<float>::resize(&this[4], this[1].u32[1]);
-  v13 = this[1].u32[1];
+  std::vector<float>::assign(this + 17, v11, &v22, v12);
+  std::vector<float>::resize(this + 4, *(this + 3));
+  v13 = *(this + 3);
   v22 = 0;
-  std::vector<float>::assign(&this[4], v13, &v22, v14);
-  std::vector<float>::resize(&this[20], this[1].u32[1]);
-  v15 = this[1].u32[1];
+  std::vector<float>::assign(this + 4, v13, &v22, v14);
+  std::vector<float>::resize(this + 20, *(this + 3));
+  v15 = *(this + 3);
   v22 = 0;
-  std::vector<float>::assign(&this[20], v15, &v22, v16);
-  std::vector<BOOL>::resize(&this[25], this[1].u32[1], 0);
-  v17 = this[1].u32[1];
+  std::vector<float>::assign(this + 20, v15, &v22, v16);
+  std::vector<BOOL>::resize(this + 25, *(this + 3), 0);
+  v17 = *(this + 3);
   LOBYTE(v22) = 0;
-  std::vector<BOOL>::assign(&this[25], v17, &v22);
-  result = 1.0 - this[12].f32[0];
-  v19 = -this[23].f32[1];
-  this[24].f32[0] = result;
-  this[24].f32[1] = v19;
-  this[3].i8[0] = 1;
+  std::vector<BOOL>::assign(this + 200, v17, &v22);
+  result = 1.0 - *(this + 24);
+  v19 = -*(this + 47);
+  *(this + 48) = result;
+  *(this + 49) = v19;
+  *(this + 24) = 1;
   return result;
 }
 
@@ -9785,7 +9785,7 @@ void std::vector<float const*>::__vallocate[abi:ne200100](uint64_t a1, unint64_t
   std::vector<std::complex<float>>::__throw_length_error[abi:ne200100]();
 }
 
-void CircArrayKernel::CircArrayKernel(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t *a5, uint64_t *a6, uint64_t *a7)
+void CircArrayKernel::CircArrayKernel(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t *a5, uint64_t a6, uint64_t *a7)
 {
   *a1 = a4;
   *(a1 + 16) = 0;
@@ -9801,11 +9801,11 @@ void CircArrayKernel::CircArrayKernel(uint64_t a1, uint64_t a2, uint64_t a3, int
   *(a1 + 136) = 0;
   *(a1 + 144) = 0;
   *(a1 + 152) = 0;
-  std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(a1 + 136, *a5, a5[1], (a5[1] - *a5) >> 2);
+  std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>((a1 + 136), *a5, a5[1], (a5[1] - *a5) >> 2);
   *(a1 + 160) = 0;
   *(a1 + 168) = 0;
   *(a1 + 176) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 160, *a6, a6[1], (a6[1] - *a6) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 160), *a6, *(a6 + 8), (*(a6 + 8) - *a6) >> 2);
   *(a1 + 184) = 0;
   *(a1 + 192) = 0;
   *(a1 + 200) = 0;

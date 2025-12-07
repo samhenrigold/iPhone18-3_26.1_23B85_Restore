@@ -11,7 +11,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_100522524();
+  sub_100522524(selfCopy);
 }
 
 - (id)tableView:(id)view titleForFooterInSection:(int64_t)section

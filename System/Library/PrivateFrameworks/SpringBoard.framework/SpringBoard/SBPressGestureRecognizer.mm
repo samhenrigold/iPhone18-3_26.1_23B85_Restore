@@ -180,7 +180,7 @@
         v10 = *(*(&v20 + 1) + 8 * i);
         precedencePressTypes = self->_precedencePressTypes;
         v12 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v10, "type")}];
-        LODWORD(precedencePressTypes) = [(NSSet *)precedencePressTypes containsObject:v12];
+        LODWORD(precedencePressTypes) = objc_msgSend_containsObject_(precedencePressTypes);
 
         if (precedencePressTypes)
         {
@@ -196,7 +196,7 @@
         {
           delayablePressTypes = self->_delayablePressTypes;
           v16 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v10, "type")}];
-          LODWORD(delayablePressTypes) = [(NSSet *)delayablePressTypes containsObject:v16];
+          LODWORD(delayablePressTypes) = objc_msgSend_containsObject_(delayablePressTypes);
 
           v14 = v18;
           if (!delayablePressTypes)
@@ -272,75 +272,76 @@ LABEL_13:
 
 - (void)_processDelayablePresses:(id)presses
 {
-  v42[1] = *MEMORY[0x277D85DE8];
+  v44[1] = *MEMORY[0x277D85DE8];
   obj = presses;
   if ([obj count] || -[SBPressGestureRecognizer _didGestureBegin](self, "_didGestureBegin"))
   {
     BSContinuousMachTimeNow();
     v5 = v4;
     precedencePressesTime = self->_precedencePressesTime;
-    v27 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"timestamp" ascending:1];
-    v42[0] = v27;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:1];
+    v29 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"timestamp" ascending:1];
+    v44[0] = v29;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:1];
     v8 = [obj sortedArrayUsingDescriptors:v7];
 
-    v9 = SBLogButtonsCombo();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = SBLogButtonsCombo(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       [(SBPressGestureRecognizer *)self _processDelayablePresses:v8];
     }
 
+    v35 = 0u;
+    v36 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v31 = 0u;
-    v32 = 0u;
     obj = v8;
-    v10 = 0;
-    v11 = [obj countByEnumeratingWithState:&v31 objects:v41 count:16];
-    if (v11)
+    v11 = 0;
+    v12 = [obj countByEnumeratingWithState:&v33 objects:v43 count:16];
+    if (v12)
     {
-      v13 = *v32;
-      *&v12 = 138543874;
-      v26 = v12;
+      v14 = *v34;
+      *&v13 = 138543874;
+      v28 = v13;
       while (2)
       {
-        for (i = 0; i != v11; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v32 != v13)
+          if (*v34 != v14)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v31 + 1) + 8 * i);
-          if ([v15 phase] == 4)
+          v16 = *(*(&v33 + 1) + 8 * i);
+          if ([v16 phase] == 4)
           {
 
             [(SBPressGestureRecognizer *)self _cancelGesture];
             goto LABEL_19;
           }
 
-          v16 = [v15 phase] == 0;
-          v17 = SBLogButtonsCombo();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+          phase = [v16 phase];
+          v18 = phase == 0;
+          v19 = SBLogButtonsCombo(phase);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
           {
             name = [(SBPressGestureRecognizer *)self name];
-            type = [v15 type];
-            phase = [v15 phase];
-            *buf = v26;
-            v36 = name;
-            v37 = 2048;
-            v38 = type;
-            v39 = 1024;
-            v40 = phase;
-            _os_log_debug_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEBUG, "QUEUED %{public}@ pressType: %li phase: %i", buf, 0x1Cu);
+            type = [v16 type];
+            phase2 = [v16 phase];
+            *buf = v28;
+            v38 = name;
+            v39 = 2048;
+            v40 = type;
+            v41 = 1024;
+            v42 = phase2;
+            _os_log_debug_impl(&dword_21ED4E000, v19, OS_LOG_TYPE_DEBUG, "QUEUED %{public}@ pressType: %li phase: %i", buf, 0x1Cu);
           }
 
-          [(SBPressGestureRecognizer *)self _addDelayedPress:v15];
-          v10 |= v16;
+          [(SBPressGestureRecognizer *)self _addDelayedPress:v16];
+          v11 |= v18;
         }
 
-        v11 = [obj countByEnumeratingWithState:&v31 objects:v41 count:16];
-        if (v11)
+        v12 = [obj countByEnumeratingWithState:&v33 objects:v43 count:16];
+        if (v12)
         {
           continue;
         }
@@ -349,28 +350,28 @@ LABEL_13:
       }
     }
 
-    if (self->_precedencePressTypes && ![(SBPressGestureRecognizer *)self _didGestureBegin]&& (v10 & 1) != 0)
+    if (self->_precedencePressTypes && ![(SBPressGestureRecognizer *)self _didGestureBegin]&& (v11 & 1) != 0)
     {
       if (v5 - precedencePressesTime >= self->_waitForPreemptionTimeInterval)
       {
-        if ((v10 & 1) != 0 && !self->_waitingForPreemptionTimer)
+        if ((v11 & 1) != 0 && !self->_waitingForPreemptionTimer)
         {
           objc_initWeak(buf, self);
-          v21 = [objc_alloc(MEMORY[0x277CF0B50]) initWithIdentifier:@"SBPressGestureRecognizer.waitingForPreemptionTimer"];
+          v23 = [objc_alloc(MEMORY[0x277CF0B50]) initWithIdentifier:@"SBPressGestureRecognizer.waitingForPreemptionTimer"];
           waitingForPreemptionTimer = self->_waitingForPreemptionTimer;
-          self->_waitingForPreemptionTimer = v21;
+          self->_waitingForPreemptionTimer = v23;
 
-          v23 = self->_waitingForPreemptionTimer;
+          v25 = self->_waitingForPreemptionTimer;
           waitForPreemptionTimeInterval = self->_waitForPreemptionTimeInterval;
-          v25 = MEMORY[0x277D85CD0];
-          v29[0] = MEMORY[0x277D85DD0];
-          v29[1] = 3221225472;
-          v29[2] = __53__SBPressGestureRecognizer__processDelayablePresses___block_invoke;
-          v29[3] = &unk_2783A9918;
-          objc_copyWeak(&v30, buf);
-          [(BSAbsoluteMachTimer *)v23 scheduleWithFireInterval:MEMORY[0x277D85CD0] leewayInterval:v29 queue:waitForPreemptionTimeInterval handler:0.0];
+          v27 = MEMORY[0x277D85CD0];
+          v31[0] = MEMORY[0x277D85DD0];
+          v31[1] = 3221225472;
+          v31[2] = __53__SBPressGestureRecognizer__processDelayablePresses___block_invoke;
+          v31[3] = &unk_2783A9918;
+          objc_copyWeak(&v32, buf);
+          [(BSAbsoluteMachTimer *)v25 scheduleWithFireInterval:MEMORY[0x277D85CD0] leewayInterval:v31 queue:waitForPreemptionTimeInterval handler:0.0];
 
-          objc_destroyWeak(&v30);
+          objc_destroyWeak(&v32);
           objc_destroyWeak(buf);
         }
       }
@@ -519,7 +520,7 @@ void __53__SBPressGestureRecognizer__processDelayablePresses___block_invoke(uint
   {
     if (v9 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v14 = SBLogButtonsCombo();
+      v14 = SBLogButtonsCombo(0x7FFFFFFFFFFFFFFFLL);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         [SBPressGestureRecognizer _updateUnbalancedPressBeganTypesWithCurrentPressType:andPhase:result:];
@@ -530,8 +531,7 @@ void __53__SBPressGestureRecognizer__processDelayablePresses___block_invoke(uint
 
     else
     {
-      [(NSMutableArray *)self->_unbalancedPressBeganTypes removeObjectAtIndex:v9];
-      v16 = SBLogButtonsCombo();
+      v16 = SBLogButtonsCombo([(NSMutableArray *)self->_unbalancedPressBeganTypes removeObjectAtIndex:v9]);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         [SBPressGestureRecognizer _updateUnbalancedPressBeganTypesWithCurrentPressType:andPhase:result:];
@@ -545,7 +545,7 @@ void __53__SBPressGestureRecognizer__processDelayablePresses___block_invoke(uint
 
   if (!phase)
   {
-    v11 = SBLogButtonsCombo();
+    v11 = SBLogButtonsCombo(v9);
     v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG);
     if (v10 == 0x7FFFFFFFFFFFFFFFLL)
     {
@@ -574,7 +574,7 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  v15 = SBLogButtonsCombo();
+  v15 = SBLogButtonsCombo(v9);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     sb_briefDescription = [(UIGestureRecognizer *)self sb_briefDescription];
@@ -598,17 +598,16 @@ LABEL_21:
   isCoalescing = [infoCopy isCoalescing];
   self->_internalGestureState = state;
   _isGestureFailedOrCancelled = [(SBPressGestureRecognizer *)self _isGestureFailedOrCancelled];
-  if ((isCoalescing & 1) == 0 && !_isGestureFailedOrCancelled)
+  if ((isCoalescing & 1) == 0 && (_isGestureFailedOrCancelled & 1) == 0)
   {
     [(SBPressGestureRecognizer *)self _stopWaitingGestureStateExpiration];
-    [infoCopy expirationTime];
+    _isGestureFailedOrCancelled = [infoCopy expirationTime];
     if (v8 != -1.0)
     {
       [infoCopy expirationTime];
       v10 = v9;
       v11 = objc_alloc_init(SBPressGestureStateInfo);
-      -[SBPressGestureStateInfo setState:](v11, "setState:", [infoCopy stateUponExpiration]);
-      v12 = SBLogButtonsCombo();
+      v12 = SBLogButtonsCombo(-[SBPressGestureStateInfo setState:](v11, "setState:", [infoCopy stateUponExpiration]));
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         [SBPressGestureRecognizer _applyGestureStateInfo:];
@@ -626,7 +625,7 @@ LABEL_21:
     }
   }
 
-  v15 = SBLogButtonsCombo();
+  v15 = SBLogButtonsCombo(_isGestureFailedOrCancelled);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [SBPressGestureRecognizer _applyGestureStateInfo:];
@@ -637,7 +636,7 @@ LABEL_21:
 
 uint64_t __51__SBPressGestureRecognizer__applyGestureStateInfo___block_invoke(uint64_t a1)
 {
-  v2 = SBLogButtonsCombo();
+  v2 = SBLogButtonsCombo(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __51__SBPressGestureRecognizer__applyGestureStateInfo___block_invoke_cold_1(a1);
@@ -667,7 +666,7 @@ uint64_t __51__SBPressGestureRecognizer__applyGestureStateInfo___block_invoke(ui
 - (void)_waitGestureStateExpirationWithFireInterval:(double)interval timerExpiredActionBlock:(id)block
 {
   blockCopy = block;
-  v7 = SBLogButtonsCombo();
+  v7 = SBLogButtonsCombo(blockCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [SBPressGestureRecognizer _waitGestureStateExpirationWithFireInterval:? timerExpiredActionBlock:?];

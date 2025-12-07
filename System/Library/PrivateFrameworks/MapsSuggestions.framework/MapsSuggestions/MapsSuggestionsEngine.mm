@@ -698,14 +698,14 @@ LABEL_10:
   dispatch_sync(optionsSerialQueue, v4);
 }
 
-uint64_t __36__MapsSuggestionsEngine_setMapType___block_invoke(uint64_t result)
+void *__36__MapsSuggestionsEngine_setMapType___block_invoke(void *result)
 {
-  v1 = *(result + 32);
-  v2 = *(result + 40);
+  v1 = result[4];
+  v2 = *(result + 10);
   if (*(v1 + 32) != v2)
   {
     *(v1 + 32) = v2;
-    return [*(*(result + 32) + 16) setMapType:*(*(result + 32) + 32)];
+    return [*(result[4] + 16) setMapType:*(result[4] + 32)];
   }
 
   return result;

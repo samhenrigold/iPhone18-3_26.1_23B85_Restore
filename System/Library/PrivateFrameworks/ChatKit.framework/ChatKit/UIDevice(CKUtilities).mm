@@ -1,6 +1,6 @@
 @interface UIDevice(CKUtilities)
 + (BOOL)__ck_currentDeviceIsMac;
-+ (uint64_t)__ck_currentDeviceIsPadOrMac;
++ (BOOL)__ck_currentDeviceIsPadOrMac;
 @end
 
 @implementation UIDevice(CKUtilities)
@@ -13,7 +13,7 @@
   return v2;
 }
 
-+ (uint64_t)__ck_currentDeviceIsPadOrMac
++ (BOOL)__ck_currentDeviceIsPadOrMac
 {
   if ([self __ck_currentDeviceIsMac])
   {

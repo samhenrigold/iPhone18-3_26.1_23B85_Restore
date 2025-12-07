@@ -40,26 +40,24 @@
   equalCopy = equal;
   if (equalCopy == self)
   {
-    v11 = 1;
+    v5 = 1;
   }
 
   else
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) != 0 && (pointerPortalSource = equalCopy->_pointerPortalSource, v6 = self->_pointerPortalSource, BSEqualObjects()) && (overlayEffectPortalSource = equalCopy->_overlayEffectPortalSource, v8 = self->_overlayEffectPortalSource, BSEqualObjects()))
+    if ((objc_opt_isKindOfClass() & 1) != 0 && BSEqualObjects() && BSEqualObjects())
     {
-      samplingMatchMoveSource = equalCopy->_samplingMatchMoveSource;
-      v10 = self->_samplingMatchMoveSource;
-      v11 = BSEqualObjects();
+      v5 = BSEqualObjects();
     }
 
     else
     {
-      v11 = 0;
+      v5 = 0;
     }
   }
 
-  return v11;
+  return v5;
 }
 
 - (unint64_t)hash

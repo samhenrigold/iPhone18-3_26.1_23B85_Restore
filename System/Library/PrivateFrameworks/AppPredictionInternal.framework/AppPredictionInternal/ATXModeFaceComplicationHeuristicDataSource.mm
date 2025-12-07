@@ -42,7 +42,7 @@
 
     if (![(NSSet *)v2->_allComplicationDescriptors count])
     {
-      v11 = __atxlog_handle_lock_screen();
+      v11 = __atxlog_handle_lock_screen(0);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
         [(ATXModeFaceComplicationHeuristicDataSource *)v11 init];
@@ -56,6 +56,7 @@
 - (id)provideComplicationsForSuggestedFaceType:(int64_t)type environment:(id)environment
 {
   environmentCopy = environment;
+  v7 = environmentCopy;
   if (type > 5)
   {
     if (type > 8)
@@ -73,8 +74,8 @@
           break;
         default:
 LABEL_24:
-          v9 = __atxlog_handle_lock_screen();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+          v10 = __atxlog_handle_lock_screen(environmentCopy);
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
           {
             [ATXModeFaceComplicationHeuristicDataSource provideComplicationsForSuggestedFaceType:environment:];
           }
@@ -83,7 +84,7 @@ LABEL_24:
       }
 
 LABEL_23:
-      v8 = _complicationsForGamingMode;
+      v9 = _complicationsForGamingMode;
       goto LABEL_28;
     }
 
@@ -134,10 +135,10 @@ LABEL_23:
   }
 
 LABEL_27:
-  v8 = 0;
+  v9 = 0;
 LABEL_28:
 
-  return v8;
+  return v9;
 }
 
 - (id)_complicationsForExerciseMode
@@ -202,18 +203,18 @@ LABEL_28:
   containerCopy = container;
   toCopy = to;
   allComplicationDescriptors = self->_allComplicationDescriptors;
-  v26 = MEMORY[0x277D85DD0];
-  v27 = 3221225472;
-  v28 = __107__ATXModeFaceComplicationHeuristicDataSource__addComplicationWithFamily_extension_kind_container_score_to___block_invoke;
-  v29 = &unk_2785A19E0;
+  v27 = MEMORY[0x277D85DD0];
+  v28 = 3221225472;
+  v29 = __107__ATXModeFaceComplicationHeuristicDataSource__addComplicationWithFamily_extension_kind_container_score_to___block_invoke;
+  v30 = &unk_2785A19E0;
   v19 = extensionCopy;
-  v30 = v19;
+  v31 = v19;
   v20 = kindCopy;
-  v31 = v20;
+  v32 = v20;
   familyCopy = family;
   v21 = containerCopy;
-  v32 = v21;
-  v22 = [(NSSet *)allComplicationDescriptors objectsPassingTest:&v26];
+  v33 = v21;
+  v22 = [(NSSet *)allComplicationDescriptors objectsPassingTest:&v27];
   if ([v22 count])
   {
     v23 = objc_alloc(MEMORY[0x277CEB410]);
@@ -225,21 +226,25 @@ LABEL_28:
     [toCopy addObject:v25];
   }
 
-  else if ([v21 length] && objc_msgSend(MEMORY[0x277CEB3B8], "isInstalledAndNotRestrictedForBundle:", v21))
-  {
-    v25 = __atxlog_handle_lock_screen();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
-    {
-      [ATXModeFaceComplicationHeuristicDataSource _addComplicationWithFamily:extension:kind:container:score:to:];
-    }
-  }
-
   else
   {
-    v25 = __atxlog_handle_lock_screen();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v26 = [v21 length];
+    if (v26 && (v26 = [MEMORY[0x277CEB3B8] isInstalledAndNotRestrictedForBundle:v21], v26))
     {
-      [ATXModeFaceComplicationHeuristicDataSource _addComplicationWithFamily:extension:kind:container:score:to:];
+      v25 = __atxlog_handle_lock_screen(v26);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+      {
+        [ATXModeFaceComplicationHeuristicDataSource _addComplicationWithFamily:extension:kind:container:score:to:];
+      }
+    }
+
+    else
+    {
+      v25 = __atxlog_handle_lock_screen(v26);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      {
+        [ATXModeFaceComplicationHeuristicDataSource _addComplicationWithFamily:extension:kind:container:score:to:];
+      }
     }
   }
 }
@@ -250,34 +255,35 @@ uint64_t __107__ATXModeFaceComplicationHeuristicDataSource__addComplicationWithF
   v4 = [v3 extensionBundleIdentifier];
   v5 = [v4 isEqualToString:a1[4]];
 
-  if (v5 && ([v3 kind], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "isEqualToString:", a1[5]), v6, v7) && (objc_msgSend(v3, "supportedFamilies"), v8 = a1[7], CHSWidgetFamilyMaskContainsFamily()))
+  if (v5 && ([v3 kind], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "isEqualToString:", a1[5]), v6, v7) && (objc_msgSend(v3, "supportedFamilies"), CHSWidgetFamilyMaskContainsFamily()))
   {
-    v9 = [v3 extensionIdentity];
-    v10 = [v9 containerBundleIdentifier];
-    if (v10 == a1[6])
+    v8 = [v3 extensionIdentity];
+    v9 = [v8 containerBundleIdentifier];
+    if (v9 == a1[6])
     {
-      v13 = 1;
+      v12 = 1;
     }
 
     else
     {
-      v11 = [v3 extensionIdentity];
-      v12 = [v11 containerBundleIdentifier];
-      v13 = [v12 isEqualToString:a1[6]];
+      v10 = [v3 extensionIdentity];
+      v11 = [v10 containerBundleIdentifier];
+      v12 = [v11 isEqualToString:a1[6]];
     }
   }
 
   else
   {
-    v13 = 0;
+    v12 = 0;
   }
 
-  return v13;
+  return v12;
 }
 
 - (id)provideLandscapeComplicationsForSuggestedFaceType:(int64_t)type environment:(id)environment
 {
   environmentCopy = environment;
+  v7 = environmentCopy;
   if (type > 5)
   {
     if (type > 8)
@@ -295,8 +301,8 @@ uint64_t __107__ATXModeFaceComplicationHeuristicDataSource__addComplicationWithF
           break;
         default:
 LABEL_24:
-          v9 = __atxlog_handle_lock_screen();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+          v10 = __atxlog_handle_lock_screen(environmentCopy);
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
           {
             [ATXModeFaceComplicationHeuristicDataSource provideComplicationsForSuggestedFaceType:environment:];
           }
@@ -305,7 +311,7 @@ LABEL_24:
       }
 
 LABEL_23:
-      v8 = _landscapeComplicationsForGamingMode;
+      v9 = _landscapeComplicationsForGamingMode;
       goto LABEL_28;
     }
 
@@ -356,10 +362,10 @@ LABEL_23:
   }
 
 LABEL_27:
-  v8 = 0;
+  v9 = 0;
 LABEL_28:
 
-  return v8;
+  return v9;
 }
 
 - (id)_landscapeComplicationsForExerciseMode
@@ -421,17 +427,17 @@ LABEL_28:
   containerCopy = container;
   toCopy = to;
   allWidgetDescriptors = self->_allWidgetDescriptors;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __105__ATXModeFaceComplicationHeuristicDataSource__addSystemSmallWidgetWithExtension_kind_container_score_to___block_invoke;
-  v24[3] = &unk_2785A1A08;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __105__ATXModeFaceComplicationHeuristicDataSource__addSystemSmallWidgetWithExtension_kind_container_score_to___block_invoke;
+  v25[3] = &unk_2785A1A08;
   v17 = extensionCopy;
-  v25 = v17;
+  v26 = v17;
   v18 = kindCopy;
-  v26 = v18;
+  v27 = v18;
   v19 = containerCopy;
-  v27 = v19;
-  v20 = [(NSSet *)allWidgetDescriptors objectsPassingTest:v24];
+  v28 = v19;
+  v20 = [(NSSet *)allWidgetDescriptors objectsPassingTest:v25];
   if ([v20 count])
   {
     v21 = objc_alloc(MEMORY[0x277CEB410]);
@@ -443,21 +449,25 @@ LABEL_28:
     [toCopy addObject:v23];
   }
 
-  else if ([v19 length] && objc_msgSend(MEMORY[0x277CEB3B8], "isInstalledAndNotRestrictedForBundle:", v19))
-  {
-    v23 = __atxlog_handle_lock_screen();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
-    {
-      [ATXModeFaceComplicationHeuristicDataSource _addComplicationWithFamily:extension:kind:container:score:to:];
-    }
-  }
-
   else
   {
-    v23 = __atxlog_handle_lock_screen();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v24 = [v19 length];
+    if (v24 && (v24 = [MEMORY[0x277CEB3B8] isInstalledAndNotRestrictedForBundle:v19], v24))
     {
-      [ATXModeFaceComplicationHeuristicDataSource _addComplicationWithFamily:extension:kind:container:score:to:];
+      v23 = __atxlog_handle_lock_screen(v24);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+      {
+        [ATXModeFaceComplicationHeuristicDataSource _addComplicationWithFamily:extension:kind:container:score:to:];
+      }
+    }
+
+    else
+    {
+      v23 = __atxlog_handle_lock_screen(v24);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      {
+        [ATXModeFaceComplicationHeuristicDataSource _addComplicationWithFamily:extension:kind:container:score:to:];
+      }
     }
   }
 }
@@ -495,7 +505,7 @@ uint64_t __105__ATXModeFaceComplicationHeuristicDataSource__addSystemSmallWidget
 
 - (BOOL)_hasTVInterest
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CEB8F0] getUpcomingMediaForBundle:@"com.apple.tv" isInternalApplication:1];
   sortedUpcomingMedia = [v2 sortedUpcomingMedia];
   v4 = [sortedUpcomingMedia count];
@@ -504,12 +514,11 @@ uint64_t __105__ATXModeFaceComplicationHeuristicDataSource__addSystemSmallWidget
   v6 = +[_ATXAppLaunchHistogramManager sharedInstance];
   v7 = [v6 histogramForLaunchType:17];
 
-  v13[0] = v5;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = v5;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   [v7 totalLaunchesForBundleIds:v8];
   v10 = v9;
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10 + v4 > 0.0;
 }
 
@@ -555,8 +564,8 @@ void __80__ATXModeFaceComplicationHeuristicDataSource__hasSignificantHomeAccesso
 
   if (v3)
   {
-    v4 = __atxlog_handle_lock_screen();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_lock_screen(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __80__ATXModeFaceComplicationHeuristicDataSource__hasSignificantHomeAccessoryEvents__block_invoke_cold_1(v2);
     }
@@ -605,8 +614,8 @@ void __73__ATXModeFaceComplicationHeuristicDataSource__hasSignificantStocksEvent
 
   if (v3)
   {
-    v4 = __atxlog_handle_lock_screen();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_lock_screen(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __73__ATXModeFaceComplicationHeuristicDataSource__hasSignificantStocksEvents__block_invoke_cold_1(v2);
     }
@@ -625,48 +634,25 @@ void __73__ATXModeFaceComplicationHeuristicDataSource__hasSignificantStocksEvent
   }
 }
 
-- (void)provideComplicationsForSuggestedFaceType:environment:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_8(&dword_2263AA000, v0, v1, "ATXModeFaceComplicationHeuristicDataSource: unhandled face type: %ld", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_addComplicationWithFamily:extension:kind:container:score:to:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_8(&dword_2263AA000, v0, v1, "ATXModeFaceComplicationHeuristicDataSource: could not find descriptor for: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_addComplicationWithFamily:extension:kind:container:score:to:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_2263AA000, v0, OS_LOG_TYPE_ERROR, "ATXModeFaceComplicationHeuristicDataSource: could not find descriptor for: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2263AA000, v0, OS_LOG_TYPE_ERROR, "ATXModeFaceComplicationHeuristicDataSource: could not find descriptor for: %@", v1, 0xCu);
 }
 
 void __80__ATXModeFaceComplicationHeuristicDataSource__hasSignificantHomeAccessoryEvents__block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v2, v3, "Could not fetch Home accessory events: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v2, v3, "Could not fetch Home accessory events: %@", v4, v5, v6, v7);
 }
 
 void __73__ATXModeFaceComplicationHeuristicDataSource__hasSignificantStocksEvents__block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v2, v3, "Could not fetch Stocks events: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v2, v3, "Could not fetch Stocks events: %@", v4, v5, v6, v7);
 }
 
 @end

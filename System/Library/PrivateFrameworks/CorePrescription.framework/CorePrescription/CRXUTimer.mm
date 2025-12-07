@@ -1,4 +1,5 @@
 @interface CRXUTimer
++ (id)scheduledTimerWithTimeInterval:(double)interval weakTarget:(id)target selector:(SEL)selector repeats:(BOOL)repeats queue:(id)queue;
 - (CRXUTimer)initWithTimeInterval:(double)interval weakTarget:(id)target selector:(SEL)selector repeats:(BOOL)repeats queue:(id)queue;
 - (SEL)selector;
 - (id)target;
@@ -106,6 +107,16 @@ uint64_t __68__CRXUTimer_initWithTimeInterval_weakTarget_selector_repeats_queue_
 
     [(CRXUTimer *)self invalidate];
   }
+}
+
++ (id)scheduledTimerWithTimeInterval:(double)interval weakTarget:(id)target selector:(SEL)selector repeats:(BOOL)repeats queue:(id)queue
+{
+  repeatsCopy = repeats;
+  queueCopy = queue;
+  targetCopy = target;
+  v14 = [[self alloc] initWithTimeInterval:targetCopy weakTarget:selector selector:repeatsCopy repeats:queueCopy queue:interval];
+
+  return v14;
 }
 
 - (id)target

@@ -1,3 +1,179 @@
+void sub_1001CFD8C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, void *a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32, uint64_t a33, uint64_t a34, id location)
+{
+  v38 = v37;
+
+  operator delete(v36);
+  if (a32 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a34)
+  {
+    (*(*a34 + 8))(a34);
+  }
+
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_1001D0298(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, id location, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35)
+{
+  if (a28 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (v38 < 0)
+  {
+    operator delete(v36);
+  }
+
+  if (a21)
+  {
+    (*(*a21 + 8))(a21);
+  }
+
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_1001D0B48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, id location, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35)
+{
+  if (v37 < 0)
+  {
+    operator delete(v36);
+  }
+
+  if (a28)
+  {
+    (*(*a28 + 8))(a28, a2, a3, a4, a5, a6, a7, a8);
+  }
+
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_1001D154C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, int a39, __int16 a40, char a41, char a42, uint64_t a43, void *a44, uint64_t a45, int a46, __int16 a47, char a48, char a49, uint64_t a50, uint64_t a51, uint64_t a52, int a53, __int16 a54, char a55, char a56, uint64_t a57, void *a58, uint64_t a59, int a60, __int16 a61, char a62, char a63)
+{
+  if (a21 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a63 < 0)
+  {
+    operator delete(a58);
+  }
+
+  if (*(v66 - 89) < 0)
+  {
+    operator delete(*(v66 - 112));
+  }
+
+  v68 = *(v66 - 184);
+  if (v68)
+  {
+    (*(*v68 + 8))(v68, a2, a3, a4, a5, a6, a7, a8);
+  }
+
+  v69 = *(v66 - 176);
+  if (v69)
+  {
+    (*(*v69 + 8))(v69, a2, a3, a4, a5, a6, a7, a8);
+  }
+
+  if (v65 < 0)
+  {
+    operator delete(v64);
+  }
+
+  objc_destroyWeak((v66 - 168));
+  _Unwind_Resume(a1);
+}
+
+void sub_1001D2218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, uint64_t a34, uint64_t a35, void *a36, uint64_t a37, int a38, __int16 a39, char a40, char a41)
+{
+  v44 = *(v42 - 96);
+  if (v44)
+  {
+    (*(*v44 + 8))(v44, a2, a3, a4, a5, a6, a7, a8);
+  }
+
+  objc_destroyWeak((v42 - 88));
+  _Unwind_Resume(a1);
+}
+
+void sub_1001D2A58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30, void *a31, uint64_t a32, int a33, __int16 a34, char a35, char a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42, void *a43, uint64_t a44, int a45, __int16 a46, char a47, char a48, void *a49, uint64_t a50, int a51, __int16 a52, char a53, char a54)
+{
+  if (*(v55 - 121) < 0)
+  {
+    operator delete(*(v55 - 144));
+  }
+
+  std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::destroy(v55 - 184, *(v55 - 176));
+
+  objc_destroyWeak((v55 - 160));
+  _Unwind_Resume(a1);
+}
+
+void sub_1001D2E10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a21 < 0)
+  {
+    operator delete(a16);
+  }
+
+  objc_destroyWeak((v22 - 24));
+  _Unwind_Resume(a1);
+}
+
+void sub_1001D354C(_Unwind_Exception *a1, int a2)
+{
+  if (a2)
+  {
+    __clang_call_terminate(a1);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1001D38F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+{
+  if (a17 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_1001D3F30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, id location)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a22)
+  {
+    (*(*a22 + 8))(a22, a2, a3, a4, a5, a6, a7, a8);
+  }
+
+  if (a28 < 0)
+  {
+    operator delete(a23);
+  }
+
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
 void sub_1001D4950(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25, int a26, __int16 a27, char a28, char a29, id location)
 {
   if (a2)
@@ -32,7 +208,7 @@ void sub_1001D6640(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-_BYTE *CtrXPC::Result::toString@<X0>(unsigned int a1@<W0>, _BYTE *a2@<X8>)
+void *CtrXPC::Result::toString@<X0>(unsigned int a1@<W0>, void *a2@<X8>)
 {
   if (a1 > 0xE)
   {
@@ -78,7 +254,7 @@ void sub_1001D736C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1001D79F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15)
+void sub_1001D79F0(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15)
 {
   if (v16 < 0)
   {
@@ -87,7 +263,7 @@ void sub_1001D79F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   if (a15)
   {
-    (*(*a15 + 8))(a15);
+    (*(*a15 + 8))(a15, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -233,9 +409,9 @@ void *boost::any::holder<std::string>::holder(void *a1, __int128 *a2)
   return a1;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__find_equal<std::string>(uint64_t a1, uint64_t *a2, const void **a3)
+uint64_t *std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__find_equal<std::string>(uint64_t a1, const void ***a2, const void **a3)
 {
-  v5 = a1 + 8;
+  v5 = (a1 + 8);
   v4 = *(a1 + 8);
   if (v4)
   {
@@ -244,7 +420,7 @@ uint64_t std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_
       while (1)
       {
         v8 = v4;
-        if (!std::less<std::string>::operator()[abi:ne200100](a1, a3, (v4 + 32)))
+        if (!std::less<std::string>::operator()[abi:ne200100](a1, a3, v4 + 4))
         {
           break;
         }
@@ -257,13 +433,13 @@ uint64_t std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_
         }
       }
 
-      if (!std::less<std::string>::operator()[abi:ne200100](a1, (v8 + 32), a3))
+      if (!std::less<std::string>::operator()[abi:ne200100](a1, v8 + 4, a3))
       {
         break;
       }
 
-      v5 = v8 + 8;
-      v4 = *(v8 + 8);
+      v5 = v8 + 1;
+      v4 = v8[1];
     }
 
     while (v4);
@@ -271,7 +447,7 @@ uint64_t std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_
 
   else
   {
-    v8 = a1 + 8;
+    v8 = (a1 + 8);
   }
 
 LABEL_9:
@@ -279,7 +455,7 @@ LABEL_9:
   return v5;
 }
 
-uint64_t *std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -363,16 +539,16 @@ BOOL std::less<std::string>::operator()[abi:ne200100](uint64_t a1, const void **
   }
 }
 
-void *std::map<std::string,boost::any>::map[abi:ne200100](void *a1, const void ***a2)
+uint64_t *std::map<std::string,boost::any>::map[abi:ne200100](uint64_t *a1, const void ***a2)
 {
   a1[2] = 0;
   a1[1] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   std::map<std::string,boost::any>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,boost::any>,std::__tree_node<std::__value_type<std::string,boost::any>,void *> *,long>>>(a1, *a2, a2 + 1);
   return a1;
 }
 
-uint64_t std::map<std::string,boost::any>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,boost::any>,std::__tree_node<std::__value_type<std::string,boost::any>,void *> *,long>>>(uint64_t result, const void **a2, const void ***a3)
+uint64_t *std::map<std::string,boost::any>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,boost::any>,std::__tree_node<std::__value_type<std::string,boost::any>,void *> *,long>>>(uint64_t *result, const void **a2, const void ***a3)
 {
   if (a2 != a3)
   {
@@ -380,7 +556,7 @@ uint64_t std::map<std::string,boost::any>::insert[abi:ne200100]<std::__map_const
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,boost::any> const&>(v5, (v5 + 8), v4 + 4);
+      result = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,boost::any> const&>(v5, (v5 + 8), v4 + 4, (v4 + 4));
       v6 = v4[1];
       if (v6)
       {
@@ -414,15 +590,15 @@ uint64_t std::map<std::string,boost::any>::insert[abi:ne200100]<std::__map_const
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,boost::any> const&>(uint64_t **a1, uint64_t *a2, const void **a3)
+uint64_t *std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,boost::any> const&>(uint64_t **a1, uint64_t *a2, const void **a3, uint64_t a4)
 {
-  v3 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__construct_node<std::pair<std::string const,boost::any> const&>();
   }
 
-  return v3;
+  return v4;
 }
 
 std::string *std::pair<std::string const,boost::any>::pair[abi:ne200100](std::string *this, __int128 *a2)
@@ -561,9 +737,9 @@ uint64_t *std::__tree<std::__value_type<std::string,trackerInfo>,std::__map_valu
   return v3;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,trackerInfo>,std::__map_value_compare<std::string,std::__value_type<std::string,trackerInfo>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,trackerInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, const void **a2)
+uint64_t *std::__tree<std::__value_type<std::string,trackerInfo>,std::__map_value_compare<std::string,std::__value_type<std::string,trackerInfo>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,trackerInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  result = *std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__find_equal<std::string>(a1, &v3, a2);
+  result = *std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__find_equal<std::string>(a1, &v6, a2);
   if (!result)
   {
     std::__tree<std::__value_type<std::string,trackerInfo>,std::__map_value_compare<std::string,std::__value_type<std::string,trackerInfo>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,trackerInfo>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -595,13 +771,6 @@ void std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_ty
   }
 
   operator delete(__p);
-}
-
-uint64_t *OUTLINED_FUNCTION_2_6(uint64_t *result)
-{
-  v1 = *(result + 23);
-  v2 = *result;
-  return result;
 }
 
 void OUTLINED_FUNCTION_7_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t *a5)
@@ -674,7 +843,7 @@ void saveStringValue(const char *cStr, const char *__s)
 {
   if (__s && strlen(__s) >= 0xFB)
   {
-    v4 = ThreadNetworkLoggingCategory(1u);
+    v4 = ThreadNetworkLoggingCategory(1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v10 = 67109634;
@@ -695,7 +864,7 @@ void saveStringValue(const char *cStr, const char *__s)
     CFPreferencesSetAppValue(v5, v6, @"com.apple.threadradiodData");
     if (!CFPreferencesAppSynchronize(@"com.apple.threadradiodData"))
     {
-      v8 = ThreadNetworkLoggingCategory(1u);
+      v8 = ThreadNetworkLoggingCategory(1);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         v10 = 136315138;
@@ -709,7 +878,7 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  v9 = ThreadNetworkLoggingCategory(1u);
+  v9 = ThreadNetworkLoggingCategory(1);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     LOWORD(v10) = 0;
@@ -734,7 +903,7 @@ void saveStringValueasNULL(const char *cStr)
   CFPreferencesSetAppValue(v2, 0, @"com.apple.threadradiodData");
   if (!CFPreferencesAppSynchronize(@"com.apple.threadradiodData"))
   {
-    v3 = ThreadNetworkLoggingCategory(1u);
+    v3 = ThreadNetworkLoggingCategory(1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v4 = 136315138;
@@ -754,7 +923,7 @@ BOOL saveDoubleValue(const char *cStr, double a2)
   valuePtr = a2;
   v3 = CFStringCreateWithCString(0, cStr, 0x8000100u);
   v4 = CFNumberCreate(0, kCFNumberDoubleType, &valuePtr);
-  v5 = ThreadNetworkLoggingCategory(1u);
+  v5 = ThreadNetworkLoggingCategory(1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315906;
@@ -782,7 +951,7 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v7 = ThreadNetworkLoggingCategory(1u);
+  v7 = ThreadNetworkLoggingCategory(1);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
@@ -814,7 +983,7 @@ void saveIntValue(const char *cStr, int a2)
   valuePtr = a2;
   v3 = CFStringCreateWithCString(0, cStr, 0x8000100u);
   v4 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
-  v5 = ThreadNetworkLoggingCategory(1u);
+  v5 = ThreadNetworkLoggingCategory(1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
@@ -827,7 +996,7 @@ void saveIntValue(const char *cStr, int a2)
   CFPreferencesSetAppValue(v3, v4, @"com.apple.threadradiodData");
   if (!CFPreferencesAppSynchronize(@"com.apple.threadradiodData"))
   {
-    v6 = ThreadNetworkLoggingCategory(1u);
+    v6 = ThreadNetworkLoggingCategory(1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
@@ -852,7 +1021,7 @@ void saveLLIntValueForBundleID(const char *cStr, uint64_t a2, const char *a3)
   valuePtr = a2;
   v5 = CFStringCreateWithCString(0, cStr, 0x8000100u);
   v6 = CFNumberCreate(0, kCFNumberLongLongType, &valuePtr);
-  v7 = ThreadNetworkLoggingCategory(1u);
+  v7 = ThreadNetworkLoggingCategory(1);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
@@ -867,7 +1036,7 @@ void saveLLIntValueForBundleID(const char *cStr, uint64_t a2, const char *a3)
   setValueForBundle(v5, v6, a3);
   if ((synchronize(a3) & 1) == 0)
   {
-    v8 = ThreadNetworkLoggingCategory(1u);
+    v8 = ThreadNetworkLoggingCategory(1);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
@@ -893,7 +1062,7 @@ void saveLLIntValueNULLForBundleID(const char *cStr, const char *a2)
   setValueForBundle(v4, 0, a2);
   if ((synchronize(a2) & 1) == 0)
   {
-    v5 = ThreadNetworkLoggingCategory(1u);
+    v5 = ThreadNetworkLoggingCategory(1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = 136315138;
@@ -914,7 +1083,7 @@ void saveIntValueasNULL(const char *cStr)
   CFPreferencesSetAppValue(v2, 0, @"com.apple.threadradiodData");
   if (!CFPreferencesAppSynchronize(@"com.apple.threadradiodData"))
   {
-    v3 = ThreadNetworkLoggingCategory(1u);
+    v3 = ThreadNetworkLoggingCategory(1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v4 = 136315138;
@@ -934,7 +1103,7 @@ uint64_t getIntValue(const char *cStr)
   v2 = CFStringCreateWithCString(0, cStr, 0x8000100u);
   valuePtr = 0;
   v3 = copyValue(v2);
-  v4 = ThreadNetworkLoggingCategory(1u);
+  v4 = ThreadNetworkLoggingCategory(1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
@@ -981,7 +1150,7 @@ uint64_t getLLIntValueForBundleID(const char *cStr, const char *a2)
     }
   }
 
-  v8 = ThreadNetworkLoggingCategory(1u);
+  v8 = ThreadNetworkLoggingCategory(1);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
@@ -1031,7 +1200,7 @@ double getDoubleValue(const char *cStr)
     CFRelease(v4);
   }
 
-  v6 = ThreadNetworkLoggingCategory(1u);
+  v6 = ThreadNetworkLoggingCategory(1);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 136315906;
@@ -1112,7 +1281,7 @@ void getStringValueLocal(const char *cStr, char *a2, int a3)
     if (v8 == CFStringGetTypeID())
     {
       CFStringGetCString(v7, a2, a3, 0x8000100u);
-      v9 = ThreadNetworkLoggingCategory(1u);
+      v9 = ThreadNetworkLoggingCategory(1);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         v10 = 136315138;
@@ -1133,7 +1302,7 @@ void getStringValueLocal(const char *cStr, char *a2, int a3)
   }
 }
 
-BOOL getBoolValue_isFeatureEnabled(const char *cStr, uint64_t a2)
+uint64_t getBoolValue_isFeatureEnabled(const char *cStr, uint64_t a2)
 {
   keyExistsAndHasValidFormat = 0;
   v4 = CFStringCreateWithCString(0, cStr, 0x8000100u);
@@ -1149,7 +1318,7 @@ LABEL_11:
       return v7 != 0;
     }
 
-    v9 = ThreadNetworkLoggingCategory(1u);
+    v9 = ThreadNetworkLoggingCategory(1);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       getBoolValue_isFeatureEnabled(cStr, v9);
@@ -1157,7 +1326,7 @@ LABEL_11:
 
     keyExistsAndHasValidFormat = 0;
     v7 = CFPreferencesGetAppBooleanValue(v5, @"/System/Library/PrivateFrameworks/CoreThreadRadio.framework/com.apple.threadradiodData.plist", &keyExistsAndHasValidFormat);
-    v10 = ThreadNetworkLoggingCategory(1u);
+    v10 = ThreadNetworkLoggingCategory(1);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v13 = "true";
@@ -1182,7 +1351,7 @@ LABEL_11:
       goto LABEL_11;
     }
 
-    v12 = ThreadNetworkLoggingCategory(1u);
+    v12 = ThreadNetworkLoggingCategory(1);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       getBoolValue_isFeatureEnabled(a2, v12);
@@ -1193,7 +1362,7 @@ LABEL_11:
 
   else
   {
-    v8 = ThreadNetworkLoggingCategory(1u);
+    v8 = ThreadNetworkLoggingCategory(1);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       getBoolValue_isFeatureEnabled(v8);
@@ -1207,7 +1376,7 @@ LABEL_11:
 
 BOOL clearThreadConfiguration(void)
 {
-  v0 = ThreadNetworkLoggingCategory(1u);
+  v0 = ThreadNetworkLoggingCategory(1);
   if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
   {
     v6 = 136315138;
@@ -1221,7 +1390,7 @@ BOOL clearThreadConfiguration(void)
   v3 = CFPreferencesAppSynchronize(@"com.apple.threadradiodData");
   if (!v3)
   {
-    v4 = ThreadNetworkLoggingCategory(1u);
+    v4 = ThreadNetworkLoggingCategory(1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       LOWORD(v6) = 0;
@@ -1248,7 +1417,7 @@ void saveThreadCredentials(int a1, uint64_t a2, const char *a3, unsigned __int8 
   v23 = a2;
   v22 = a6;
   encode_data_into_string(a4, 16, v33, 0x24uLL, 0);
-  v12 = ThreadNetworkLoggingCategory(1u);
+  v12 = ThreadNetworkLoggingCategory(1);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 67110402;
@@ -1276,7 +1445,7 @@ void saveThreadCredentials(int a1, uint64_t a2, const char *a3, unsigned __int8 
   values[4] = CFStringCreateWithCString(0, a5, 0x8000100u);
   values[5] = CFNumberCreate(0, kCFNumberIntType, &v22);
   v13 = CFDictionaryCreate(kCFAllocatorDefault, buf, values, 6, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-  v14 = ThreadNetworkLoggingCategory(1u);
+  v14 = ThreadNetworkLoggingCategory(1);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     *v25 = 138412546;
@@ -1296,7 +1465,7 @@ void saveThreadCredentials(int a1, uint64_t a2, const char *a3, unsigned __int8 
       CFPreferencesSetAppValue(v15, v13, v16);
       if (!CFPreferencesAppSynchronize(@"com.apple.threadradiodData"))
       {
-        v18 = ThreadNetworkLoggingCategory(1u);
+        v18 = ThreadNetworkLoggingCategory(1);
         if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
           *v25 = 0;
@@ -1309,7 +1478,7 @@ void saveThreadCredentials(int a1, uint64_t a2, const char *a3, unsigned __int8 
 
     else
     {
-      v19 = ThreadNetworkLoggingCategory(1u);
+      v19 = ThreadNetworkLoggingCategory(1);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         *v25 = 0;
@@ -1347,7 +1516,7 @@ LABEL_17:
 void saveThreadCredentialsAsString(const char *a1, const char *a2, const char *a3, const char *a4, const char *a5, int a6)
 {
   valuePtr = a6;
-  v12 = ThreadNetworkLoggingCategory(1u);
+  v12 = ThreadNetworkLoggingCategory(1);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 136316418;
@@ -1375,7 +1544,7 @@ void saveThreadCredentialsAsString(const char *a1, const char *a2, const char *a
   values[4] = CFStringCreateWithCString(0, a5, 0x8000100u);
   values[5] = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
   v13 = CFDictionaryCreate(kCFAllocatorDefault, buf, values, 6, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-  v14 = ThreadNetworkLoggingCategory(1u);
+  v14 = ThreadNetworkLoggingCategory(1);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     *v19 = 138412290;
@@ -1388,7 +1557,7 @@ void saveThreadCredentialsAsString(const char *a1, const char *a2, const char *a
     CFPreferencesSetAppValue(@"TC", v13, @"com.apple.threadradiodData");
     if (!CFPreferencesAppSynchronize(@"com.apple.threadradiodData"))
     {
-      v15 = ThreadNetworkLoggingCategory(1u);
+      v15 = ThreadNetworkLoggingCategory(1);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         *v19 = 0;
@@ -1424,7 +1593,7 @@ void getStringValueFromDict(const __CFDictionary *a1, const char *a2, char *a3, 
     if (v8 == CFStringGetTypeID())
     {
       CFStringGetCString(value, a3, a4, 0x8000100u);
-      v9 = ThreadNetworkLoggingCategory(1u);
+      v9 = ThreadNetworkLoggingCategory(1);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
@@ -1452,7 +1621,7 @@ void getIntValueFromDict(const __CFDictionary *a1, const char *a2, unsigned __in
     if (v5 == CFNumberGetTypeID())
     {
       CFNumberGetValue(cf, kCFNumberShortType, &valuePtr);
-      v6 = ThreadNetworkLoggingCategory(1u);
+      v6 = ThreadNetworkLoggingCategory(1);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         *buf = 67109120;
@@ -1480,7 +1649,7 @@ void getLongLongValueFromDict(const __CFDictionary *a1, const char *a2, uint64_t
     if (v5 == CFNumberGetTypeID())
     {
       CFNumberGetValue(cf, kCFNumberLongLongType, &valuePtr);
-      v6 = ThreadNetworkLoggingCategory(1u);
+      v6 = ThreadNetworkLoggingCategory(1);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         *buf = 134217984;
@@ -1513,7 +1682,7 @@ void getDataValueFromDict(const __CFDictionary *a1, const char *a2, unsigned __i
       __chkstk_darwin(v10);
       v12 = &v15 - v11;
       encode_data_into_string(a3, v9, &v15 - v11, v13, 0);
-      v14 = ThreadNetworkLoggingCategory(1u);
+      v14 = ThreadNetworkLoggingCategory(1);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
@@ -1564,7 +1733,7 @@ void readThreadCredentials(uint64_t a1@<X8>)
   *(a1 + 16) = 0u;
   *(a1 + 32) = 0u;
   *a1 = 0u;
-  v5 = ThreadNetworkLoggingCategory(1u);
+  v5 = ThreadNetworkLoggingCategory(1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v7 = 138412290;
@@ -1636,7 +1805,7 @@ BOOL getCommissionerPassPhrase(uint64_t a1, uint64_t a2, std::string *a3)
   }
 
   std::string::append(&v23, v10, v11);
-  v12 = ThreadNetworkLoggingCategory(1u);
+  v12 = ThreadNetworkLoggingCategory(1);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     if (*(a2 + 23) >= 0)
@@ -1689,7 +1858,7 @@ BOOL getCommissionerPassPhrase(uint64_t a1, uint64_t a2, std::string *a3)
   StringValue = getStringValue(v16);
   if (StringValue)
   {
-    v18 = ThreadNetworkLoggingCategory(1u);
+    v18 = ThreadNetworkLoggingCategory(1);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       v19 = &v23;
@@ -1712,7 +1881,7 @@ BOOL getCommissionerPassPhrase(uint64_t a1, uint64_t a2, std::string *a3)
 
   else
   {
-    v20 = ThreadNetworkLoggingCategory(1u);
+    v20 = ThreadNetworkLoggingCategory(1);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       v21 = &v23;
@@ -1752,7 +1921,7 @@ void saveCommissionPassPhrasesAsString(const char *a1, const char *a2, const cha
   memset(&v8, 0, sizeof(v8));
   std::string::append(&v8, a2);
   std::string::append(&v8, a1);
-  v5 = ThreadNetworkLoggingCategory(1u);
+  v5 = ThreadNetworkLoggingCategory(1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = &v8;
@@ -1790,7 +1959,7 @@ void saveCommissionPassPhrasesAsString(const char *a1, const char *a2, const cha
 BOOL removekeyEntryFromPlist(void)
 {
   v14 = CFPreferencesCopyKeyList(@"com.apple.threadradiodData", kCFPreferencesCurrentUser, kCFPreferencesCurrentHost);
-  v0 = ThreadNetworkLoggingCategory(1u);
+  v0 = ThreadNetworkLoggingCategory(1);
   if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
@@ -1824,7 +1993,7 @@ BOOL removekeyEntryFromPlist(void)
           if ([(__CFString *)v7 containsString:@"MyHome"])
           {
             CFPreferencesSetAppValue(v7, 0, @"com.apple.threadradiodData");
-            v8 = ThreadNetworkLoggingCategory(1u);
+            v8 = ThreadNetworkLoggingCategory(1);
             if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
             {
               v9 = v7;
@@ -1856,7 +2025,7 @@ BOOL removekeyEntryFromPlist(void)
       if ((v4 & 1) == 0)
       {
 LABEL_22:
-        v11 = ThreadNetworkLoggingCategory(1u);
+        v11 = ThreadNetworkLoggingCategory(1);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
           *buf = 136315138;
@@ -1871,7 +2040,7 @@ LABEL_26:
       }
 
       CFPreferencesSetAppValue(@"TC", 0, @"com.apple.threadradiodData");
-      v3 = ThreadNetworkLoggingCategory(1u);
+      v3 = ThreadNetworkLoggingCategory(1);
       if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
@@ -1885,7 +2054,7 @@ LABEL_26:
     goto LABEL_22;
   }
 
-  v11 = ThreadNetworkLoggingCategory(1u);
+  v11 = ThreadNetworkLoggingCategory(1);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
@@ -1936,7 +2105,7 @@ void sub_1001DC224(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1001DC52C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_1001DC52C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (v11 < 0)
   {
@@ -1945,13 +2114,13 @@ void sub_1001DC52C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1001DC7F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17)
+void sub_1001DC7F4(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17)
 {
   if (v18 < 0)
   {
@@ -1960,13 +2129,13 @@ void sub_1001DC7F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   if (a17)
   {
-    (*(*a17 + 8))(a17);
+    (*(*a17 + 8))(a17, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1001DCA64(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15)
+void sub_1001DCA64(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15)
 {
   if (v16 < 0)
   {
@@ -1975,7 +2144,7 @@ void sub_1001DCA64(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   if (a15)
   {
-    (*(*a15 + 8))(a15);
+    (*(*a15 + 8))(a15, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -2124,7 +2293,7 @@ id generatreNewPANIDAsString(void)
     }
 
     v3 = 0;
-    v4 = &scannedNetworks;
+    v4 = scannedNetworks;
     do
     {
       v5 = *v4++;
@@ -3152,7 +3321,7 @@ void ThreadNetworkManagerTopologyHandler_Init_Database(void)
   std::__list_imp<std::map<std::string,boost::any>>::clear(&database);
 }
 
-void ThreadNetworkManagerTopologyHandler_Update_ChildTableAddresses(any a1@<0:X0>, void *a2@<X8>)
+void ThreadNetworkManagerTopologyHandler_Update_ChildTableAddresses(any a1@<0:X0>, uint64_t *a2@<X8>)
 {
   v4 = log_get_logging_obg("com.apple.wpantund.tnm", "default");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
@@ -3170,10 +3339,10 @@ void ThreadNetworkManagerTopologyHandler_Update_ChildTableAddresses(any a1@<0:X0
   std::__list_imp<std::map<std::string,boost::any>>::clear(buf);
   for (i = v16; i != &v15; i = i[1])
   {
-    for (j = qword_10052D858; j != &database; j = j[1])
+    for (j = qword_10052D858; j != &database; j = *(j + 8))
     {
       std::string::basic_string[abi:ne200100]<0>(buf, "ExtAddress");
-      v7 = std::map<std::string,boost::any>::at((j + 2), buf);
+      v7 = std::map<std::string,boost::any>::at(j + 16, buf);
       v8 = any_to_uint64(v7, 0);
       if (v21 < 0)
       {
@@ -3193,7 +3362,7 @@ void ThreadNetworkManagerTopologyHandler_Update_ChildTableAddresses(any a1@<0:X0
         std::string::basic_string[abi:ne200100]<0>(__p, "IPv6Addresses");
         v11 = std::map<std::string,boost::any>::at((i + 2), __p);
         std::pair<std::string,boost::any>::pair[abi:ne200100]<char const(&)[14],boost::any&,0>(buf, "IPv6Addresses", v11);
-        std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::pair<std::string,boost::any>>((j + 2), buf);
+        std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::pair<std::string,boost::any>>((j + 16), buf, buf);
         if (v22)
         {
           (*(*v22 + 8))(v22);
@@ -3237,7 +3406,7 @@ uint64_t std::map<std::string,boost::any>::at(uint64_t a1, const void **a2)
   return v2 + 56;
 }
 
-void ThreadNetworkManagerTopologyHandler_Update_ChildTable(any a1@<0:X0>, void *a2@<X8>)
+void ThreadNetworkManagerTopologyHandler_Update_ChildTable(any a1@<0:X0>, uint64_t *a2@<X8>)
 {
   v5 = &v5;
   v6 = &v5;
@@ -3269,14 +3438,14 @@ void ThreadNetworkManagerTopologyHandler_Update_ChildTable(any a1@<0:X0>, void *
   std::__list_imp<std::map<std::string,boost::any>>::clear(&v5);
 }
 
-void sub_1001E27C0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1001E27C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__list_imp<std::map<std::string,boost::any>>::clear(va);
   _Unwind_Resume(a1);
 }
 
-void ThreadNetworkManagerTopologyHandler_Add_Child(any a1@<0:X0>, void *a2@<X8>)
+void ThreadNetworkManagerTopologyHandler_Add_Child(any a1@<0:X0>, uint64_t *a2@<X8>)
 {
   v14 = 0;
   v15 = 0;
@@ -3322,7 +3491,7 @@ LABEL_13:
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "%s added new child to database", buf, 0xCu);
     }
 
-    std::__list_imp<std::map<std::string,boost::any>>::__create_node[abi:ne200100]<std::map<std::string,boost::any> const&>();
+    std::__list_imp<std::map<std::string,boost::any>>::__create_node[abi:ne200100]<std::map<std::string,boost::any> const&>(&database, 0, 0, &v13);
   }
 
   while (1)
@@ -3377,7 +3546,7 @@ LABEL_13:
   std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::destroy(&v13, v14);
 }
 
-void ThreadNetworkManagerTopologyHandler_Delete_Child(any a1@<0:X0>, void *a2@<X8>)
+void ThreadNetworkManagerTopologyHandler_Delete_Child(any a1@<0:X0>, uint64_t *a2@<X8>)
 {
   v13 = 0;
   v14 = 0;
@@ -3468,7 +3637,7 @@ void *std::list<std::map<std::string,boost::any>>::erase(uint64_t a1, uint64_t *
   return v4;
 }
 
-uint64_t std::pair<std::string,boost::any>::pair[abi:ne200100]<char const(&)[14],boost::any&,0>(uint64_t a1, char *a2, uint64_t *a3)
+void *std::pair<std::string,boost::any>::pair[abi:ne200100]<char const(&)[14],boost::any&,0>(void *a1, char *a2, uint64_t *a3)
 {
   std::string::basic_string[abi:ne200100]<0>(a1, a2);
   v5 = *a3;
@@ -3477,7 +3646,7 @@ uint64_t std::pair<std::string,boost::any>::pair[abi:ne200100]<char const(&)[14]
     v5 = (*(*v5 + 24))(v5);
   }
 
-  *(a1 + 24) = v5;
+  a1[3] = v5;
   return a1;
 }
 
@@ -3559,18 +3728,18 @@ void std::list<std::map<std::string,boost::any>>::__move_assign(uint64_t *a1, ui
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::pair<std::string,boost::any>>(uint64_t a1, const void **a2)
+uint64_t std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::pair<std::string,boost::any>>(uint64_t **a1, const void **a2, __int128 *a3)
 {
-  v2 = *std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__find_equal<std::string>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
-void *std::list<std::map<std::string,boost::any>>::__assign_with_sentinel[abi:ne200100]<std::__list_const_iterator<std::map<std::string,boost::any>,void *>,std::__list_const_iterator<std::map<std::string,boost::any>,void *>>(uint64_t **a1, uint64_t a2, uint64_t a3)
+uint64_t *std::list<std::map<std::string,boost::any>>::__assign_with_sentinel[abi:ne200100]<std::__list_const_iterator<std::map<std::string,boost::any>,void *>,std::__list_const_iterator<std::map<std::string,boost::any>,void *>>(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
   v4 = a2;
   v6 = a1[1];
@@ -3603,11 +3772,11 @@ void *std::list<std::map<std::string,boost::any>>::__assign_with_sentinel[abi:ne
   }
 }
 
-uint64_t std::list<std::map<std::string,boost::any>>::__insert_with_sentinel[abi:ne200100]<std::__list_const_iterator<std::map<std::string,boost::any>,void *>,std::__list_const_iterator<std::map<std::string,boost::any>,void *>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::list<std::map<std::string,boost::any>>::__insert_with_sentinel[abi:ne200100]<std::__list_const_iterator<std::map<std::string,boost::any>,void *>,std::__list_const_iterator<std::map<std::string,boost::any>,void *>>(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
   if (a3 != a4)
   {
-    std::__list_imp<std::map<std::string,boost::any>>::__create_node[abi:ne200100]<std::map<std::string,boost::any> const&>();
+    std::__list_imp<std::map<std::string,boost::any>>::__create_node[abi:ne200100]<std::map<std::string,boost::any> const&>(a1, 0, 0, (a3 + 16));
   }
 
   return a2;
@@ -3733,7 +3902,7 @@ uint64_t **std::__tree<std::__value_type<std::string,boost::any>,std::__map_valu
 
   if (a2 != a3)
   {
-    std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_multi<std::pair<std::string const,boost::any> const&>();
+    std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_multi<std::pair<std::string const,boost::any> const&>(v5, (a2 + 4));
   }
 
   return result;
@@ -3872,9 +4041,9 @@ uint64_t std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_
   return a1;
 }
 
-void sub_1001E3844(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1001E3844(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__tree_node<std::__value_type<std::string,boost::any>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,boost::any>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3978,12 +4147,12 @@ void sub_1001E5C64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1001E6B40(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+void sub_1001E6B40(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
   v19 = *(v17 - 40);
   if (v19)
   {
-    (*(*v19 + 8))(v19);
+    (*(*v19 + 8))(v19, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v16 < 0)
@@ -4011,11 +4180,11 @@ void sub_1001E6D60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1001E7048(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t *a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19)
+void sub_1001E7048(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19)
 {
   if (a9)
   {
-    awdmetricsclient_convert_ValMap_to_xpc_object(a9);
+    awdmetricsclient_convert_ValMap_to_xpc_object();
   }
 
   if (a19)
@@ -4083,11 +4252,11 @@ void convert_ValMap_to_xpc_object(any a1@<0:X0>, const char *a2@<X1>, const char
   }
 }
 
-void sub_1001E89F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t *a15)
+void sub_1001E89F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15)
 {
   if (a15)
   {
-    awdmetricsclient_convert_ValMap_to_xpc_object(a15);
+    awdmetricsclient_convert_ValMap_to_xpc_object();
   }
 
   if (a14 < 0)
@@ -4098,17 +4267,17 @@ void sub_1001E89F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1001E8F34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24)
+void sub_1001E8F34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24)
 {
   if (a17)
   {
-    (*(*a17 + 8))(a17);
+    (*(*a17 + 8))(a17, a2, a3, a4, a5, a6, a7, a8);
   }
 
   v31 = *(v29 - 80);
   if (v31)
   {
-    (*(*v31 + 8))(v31);
+    (*(*v31 + 8))(v31, a2, a3, a4, a5, a6, a7, a8);
   }
 
   v32 = *(v29 - 72);
@@ -4176,44 +4345,44 @@ void sub_1001EB518(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a18)
   {
-    (*(*a18 + 8))(a18);
+    (*(*a18 + 8))(a18, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a23)
   {
-    (*(*a23 + 8))(a23);
+    (*(*a23 + 8))(a23, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a28)
   {
-    (*(*a28 + 8))(a28);
+    (*(*a28 + 8))(a28, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a33)
   {
-    (*(*a33 + 8))(a33);
+    (*(*a33 + 8))(a33, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a43)
   {
-    (*(*a43 + 8))(a43);
+    (*(*a43 + 8))(a43, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a48)
   {
-    (*(*a48 + 8))(a48);
+    (*(*a48 + 8))(a48, a2, a3, a4, a5, a6, a7, a8);
   }
 
   v53 = *(v51 - 256);
   if (v53)
   {
-    (*(*v53 + 8))(v53);
+    (*(*v53 + 8))(v53, a2, a3, a4, a5, a6, a7, a8);
   }
 
   v54 = *(v51 - 216);
   if (v54)
   {
-    (*(*v54 + 8))(v54);
+    (*(*v54 + 8))(v54, a2, a3, a4, a5, a6, a7, a8);
   }
 
   v55 = *(v51 - 176);
@@ -4243,21 +4412,21 @@ void sub_1001EC14C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1001ECBEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, uint64_t a31, void *a32, uint64_t a33, int a34, __int16 a35, char a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, void *a43, uint64_t a44)
+void sub_1001ECBEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, uint64_t a31, void *a32, uint64_t a33, int a34, __int16 a35, char a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, void *a43, uint64_t a44)
 {
   if (a22)
   {
-    (*(*a22 + 8))(a22);
+    (*(*a22 + 8))(a22, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a30)
   {
-    (*(*a30 + 8))(a30);
+    (*(*a30 + 8))(a30, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a38)
   {
-    (*(*a38 + 8))(a38);
+    (*(*a38 + 8))(a38, a2, a3, a4, a5, a6, a7, a8);
   }
 
   v49 = *(v47 - 176);
@@ -4363,16 +4532,16 @@ void sub_1001EEAE4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1001EF1B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, uint64_t a35, void *a36)
+void sub_1001EF1B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, uint64_t a35, void *a36)
 {
   if (a22)
   {
-    (*(*a22 + 8))(a22);
+    (*(*a22 + 8))(a22, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a35)
   {
-    (*(*a35 + 8))(a35);
+    (*(*a35 + 8))(a35, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v37 < 0)
@@ -4405,16 +4574,16 @@ void sub_1001EFB88(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1001F0118(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22)
+void sub_1001F0118(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22)
 {
   if (a21)
   {
-    (*(*a21 + 8))(a21);
+    (*(*a21 + 8))(a21, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a22)
   {
-    (*(*a22 + 8))(a22);
+    (*(*a22 + 8))(a22, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v23 < 0)
@@ -4425,7 +4594,7 @@ void sub_1001F0118(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1001F069C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, id a36)
+void sub_1001F069C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, id a36)
 {
   _Block_object_dispose(&a19, 8);
 
@@ -4443,7 +4612,7 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1001F0D38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, id a36)
+void sub_1001F0D38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, id a36)
 {
   _Block_object_dispose(&a19, 8);
 
@@ -4474,7 +4643,7 @@ void tnmDumpRecord(THThreadNetworkCredentialsActiveDataSetRecord *a1)
     v7 = [(THThreadNetworkCredentialsActiveDataSetRecord *)v1 network];
     v8 = [v7 extendedPANID];
     v9 = [v8 length];
-    ctu::hex(__p, v6, v9, v10);
+    ctu::hex(v6, v9, v10);
   }
 
   else
@@ -4518,7 +4687,7 @@ void tnmDumpRecord(THThreadNetworkCredentialsActiveDataSetRecord *a1)
     v25 = [(THThreadNetworkCredentialsActiveDataSetRecord *)v1 borderAgent];
     v26 = [v25 discriminatorId];
     v27 = [v26 length];
-    ctu::hex(buf, v24, v27, v28);
+    ctu::hex(v24, v27, v28);
   }
 
   else
@@ -4587,7 +4756,7 @@ void tnmDumpRecord(THThreadNetworkCredentialsActiveDataSetRecord *a1)
       v46 = [(THThreadNetworkCredentialsActiveDataSetRecord *)v1 credentials];
       v47 = [v46 PANID];
       v48 = [v47 length];
-      ctu::hex(v134, v45, v48, v49);
+      ctu::hex(v45, v48, v49);
       if (v135 >= 0)
       {
         v50 = v134;
@@ -4624,7 +4793,7 @@ void tnmDumpRecord(THThreadNetworkCredentialsActiveDataSetRecord *a1)
       v59 = [(THThreadNetworkCredentialsActiveDataSetRecord *)v1 credentials];
       v60 = [v59 masterKey];
       v61 = [v60 length];
-      ctu::hex(v134, v58, v61, v62);
+      ctu::hex(v58, v61, v62);
       if (v135 >= 0)
       {
         v63 = v134;
@@ -4661,7 +4830,7 @@ void tnmDumpRecord(THThreadNetworkCredentialsActiveDataSetRecord *a1)
       v72 = [(THThreadNetworkCredentialsActiveDataSetRecord *)v1 credentials];
       v73 = [v72 PSKc];
       v74 = [v73 length];
-      ctu::hex(v134, v71, v74, v75);
+      ctu::hex(v71, v74, v75);
       if (v135 >= 0)
       {
         v76 = v134;
@@ -4729,7 +4898,7 @@ void tnmDumpRecord(THThreadNetworkCredentialsActiveDataSetRecord *a1)
     v97 = [(THThreadNetworkCredentialsActiveDataSetRecord *)v1 credentialsDataSet];
     v98 = [v97 dataSetArray];
     v99 = [v98 length];
-    ctu::hex(v134, v96, v99, v100);
+    ctu::hex(v96, v99, v100);
   }
 
   else
@@ -4868,7 +5037,7 @@ void sub_1001F3FCC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1001F42FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_1001F42FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -4907,10 +5076,9 @@ void sub_1001F5614(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_1001F5AC0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, int a31, __int16 a32, char a33, char a34)
 {
-  v36 = *(v34 - 80);
-  if (v36)
+  if (*(v34 - 80))
   {
-    awdmetricsclient_convert_ValMap_to_xpc_object(v36);
+    awdmetricsclient_convert_ValMap_to_xpc_object();
   }
 
   if (*(v34 - 81) < 0)
@@ -4941,14 +5109,14 @@ void sub_1001F6394(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1001F66E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_1001F66E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_1001F6D14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, id a36)
+void sub_1001F6D14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, id a36)
 {
   _Block_object_dispose(&a25, 8);
 
@@ -4956,7 +5124,7 @@ void sub_1001F6D14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1001F77B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31, void *a32, uint64_t a33, int a34, __int16 a35, char a36, char a37, uint64_t a38, void *__p, uint64_t a40, int a41, __int16 a42, char a43, char a44, uint64_t a45, uint64_t a46, int a47, __int16 a48, char a49, char a50)
+void sub_1001F77B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31, void *a32, uint64_t a33, int a34, __int16 a35, char a36, char a37, uint64_t a38, void *__p, uint64_t a40, int a41, __int16 a42, char a43, char a44, uint64_t a45, uint64_t a46, int a47, __int16 a48, char a49, char a50)
 {
   _Block_object_dispose(&a24, 8);
   v59 = a30;
@@ -5012,7 +5180,7 @@ void __Block_byref_object_dispose__308(uint64_t a1)
   v3 = *(a1 + 48);
 }
 
-void sub_1001F806C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_1001F806C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -5020,7 +5188,7 @@ void sub_1001F806C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1001F8428(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_1001F8428(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -5038,7 +5206,7 @@ void sub_1001F8B28(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1001F9170(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, id a36)
+void sub_1001F9170(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, id a36)
 {
   _Block_object_dispose(&a25, 8);
 
@@ -5176,7 +5344,7 @@ void sub_1001FF894(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_10020020C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id a30)
+void sub_10020020C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id a30)
 {
   _Block_object_dispose(&a19, 8);
 
@@ -5216,7 +5384,7 @@ void sub_100200D68(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_10020115C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
+void sub_10020115C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -5285,11 +5453,11 @@ void sub_100204128(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-void sub_100204DAC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30)
+void sub_100204DAC(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30)
 {
   if (a16)
   {
-    (*(*a16 + 8))(a16);
+    (*(*a16 + 8))(a16, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (__p)
@@ -5405,7 +5573,7 @@ void sub_100209108(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_100209AA4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30)
+void sub_100209AA4(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30)
 {
   if (a15 < 0)
   {
@@ -5414,7 +5582,7 @@ void sub_100209AA4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   if (a22)
   {
-    (*(*a22 + 8))(a22);
+    (*(*a22 + 8))(a22, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v31 < 0)
@@ -5452,43 +5620,43 @@ void sub_10020A818(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_10020B2B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42, uint64_t a43, uint64_t a44, uint64_t a45, int a46, __int16 a47, char a48, char a49)
+void sub_10020B2B4(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42, uint64_t a43, uint64_t a44, uint64_t a45, int a46, __int16 a47, char a48, char a49)
 {
   if (a15)
   {
-    (*(*a15 + 8))(a15);
+    (*(*a15 + 8))(a15, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a22)
   {
-    (*(*a22 + 8))(a22);
+    (*(*a22 + 8))(a22, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a29)
   {
-    (*(*a29 + 8))(a29);
+    (*(*a29 + 8))(a29, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a36)
   {
-    (*(*a36 + 8))(a36);
+    (*(*a36 + 8))(a36, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a43)
   {
-    (*(*a43 + 8))(a43);
+    (*(*a43 + 8))(a43, a2, a3, a4, a5, a6, a7, a8);
   }
 
   v52 = *(v50 - 152);
   if (v52)
   {
-    (*(*v52 + 8))(v52);
+    (*(*v52 + 8))(v52, a2, a3, a4, a5, a6, a7, a8);
   }
 
   v53 = *(v50 - 120);
   if (v53)
   {
-    (*(*v53 + 8))(v53);
+    (*(*v53 + 8))(v53, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (*(v49 + 31) < 0)
@@ -5499,11 +5667,11 @@ void sub_10020B2B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_10020B730(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15)
+void sub_10020B730(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15)
 {
   if (a15)
   {
-    (*(*a15 + 8))(a15);
+    (*(*a15 + 8))(a15, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v16 < 0)
@@ -5544,12 +5712,12 @@ void sub_10020BDFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_10020C440(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, int a30, __int16 a31, char a32, char a33)
+void sub_10020C440(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, int a30, __int16 a31, char a32, char a33)
 {
   v37 = *(v35 - 56);
   if (v37)
   {
-    (*(*v37 + 8))(v37);
+    (*(*v37 + 8))(v37, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v34 < 0)
@@ -5560,7 +5728,7 @@ void sub_10020C440(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_10020C880(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
+void sub_10020C880(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -5608,15 +5776,15 @@ xpc::dict *xpc::dict::dict(xpc::dict *this, id *a2)
   return this;
 }
 
-void xpc::dict::to_debug_string(xpc_object_t *this@<X0>, _BYTE *a2@<X8>)
+void xpc::dict::to_debug_string(uint64_t *__return_ptr a1@<X8>, xpc_object_t *this@<X0>)
 {
   v3 = xpc_copy_description(*this);
-  std::string::basic_string[abi:ne200100]<0>(a2, v3);
+  std::string::basic_string[abi:ne200100]<0>(a1, v3);
 
   free(v3);
 }
 
-void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -5626,7 +5794,7 @@ void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t a1, uint64_t
   std::vector<std::string>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(uint64_t *result, char *a2, char *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -5678,7 +5846,7 @@ void *boost::any_cast<unsigned int const>(void *result)
   return result;
 }
 
-uint64_t std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(uint64_t *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -5737,10 +5905,11 @@ uint64_t OUTLINED_FUNCTION_13_1(uint64_t result, uint64_t a2, uint64_t a3)
   return result;
 }
 
-void OUTLINED_FUNCTION_14_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_14_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 void _GLOBAL__sub_I_ThreadNetworkManagerInstance_mm()
@@ -5760,7 +5929,7 @@ void threadSessionInfo::~threadSessionInfo(threadSessionInfo *this)
   std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::destroy(this + 144, *(this + 19));
 }
 
-void sub_10021578C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+void sub_10021578C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
   if (v16 < 0)
   {
@@ -5770,7 +5939,7 @@ void sub_10021578C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   v19 = *(v17 - 40);
   if (v19)
   {
-    (*(*v19 + 8))(v19);
+    (*(*v19 + 8))(v19, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -5808,7 +5977,7 @@ void sub_100216964(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_100216DBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19)
+void sub_100216DBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19)
 {
   if (v21 < 0)
   {
@@ -5817,17 +5986,17 @@ void sub_100216DBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
   if (a19)
   {
-    (*(*a19 + 8))(a19);
+    (*(*a19 + 8))(a19, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(a1);
 }
 
-void sub_100217010(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15)
+void sub_100217010(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15)
 {
   if (a15)
   {
-    (*(*a15 + 8))(a15);
+    (*(*a15 + 8))(a15, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -5853,12 +6022,12 @@ void sub_1002179BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_100217DB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+void sub_100217DB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
 {
   v26 = *(v24 - 80);
   if (v26)
   {
-    (*(*v26 + 8))(v26);
+    (*(*v26 + 8))(v26, a2, a3, a4, a5, a6, a7, a8);
   }
 
   v27 = *(v24 - 72);
@@ -5872,11 +6041,11 @@ void sub_100217DB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1002183D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *a23)
+void sub_1002183D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *a23)
 {
   if (a22)
   {
-    (*(*a22 + 8))(a22);
+    (*(*a22 + 8))(a22, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v25 < 0)
@@ -5914,11 +6083,11 @@ void sub_100218C98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_100219148(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *a23)
+void sub_100219148(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *a23)
 {
   if (a22)
   {
-    (*(*a22 + 8))(a22);
+    (*(*a22 + 8))(a22, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v25 < 0)
@@ -5929,12 +6098,12 @@ void sub_100219148(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1002195EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+void sub_1002195EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
 {
   v26 = *(v24 - 80);
   if (v26)
   {
-    (*(*v26 + 8))(v26);
+    (*(*v26 + 8))(v26, a2, a3, a4, a5, a6, a7, a8);
   }
 
   v27 = *(v24 - 72);
@@ -5984,7 +6153,7 @@ void sub_10021C020(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_10021C324(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17)
+void sub_10021C324(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17)
 {
   if (v18 < 0)
   {
@@ -5993,7 +6162,7 @@ void sub_10021C324(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   if (a17)
   {
-    (*(*a17 + 8))(a17);
+    (*(*a17 + 8))(a17, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -6032,27 +6201,28 @@ void _GLOBAL__sub_I_ThreadNetworkManagerInstance_RCP2CAMetrics_extension_mm()
   objc_autoreleasePoolPop(v0);
 }
 
-void ThreadNetworkLoggingCategory(unsigned int a1)
+void ThreadNetworkLoggingCategory(id result)
 {
+  v1 = result;
   if (ThreadNetworkLoggingCategory_onceToken != -1)
   {
     ThreadNetworkLoggingCategory_cold_1();
   }
 
-  if (a1 >= 3)
+  if (v1 >= 3)
   {
     __break(0x5512u);
     goto LABEL_9;
   }
 
-  if (a1 == 2)
+  if (v1 == 2)
   {
 LABEL_9:
     __break(1u);
     return;
   }
 
-  v2 = ThreadNetworkLoggingCategory_logHandles[a1];
+  v2 = ThreadNetworkLoggingCategory_logHandles[v1];
 
   v3 = v2;
 }
@@ -6253,7 +6423,7 @@ void sub_10021EB9C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void xpc::dict::object_proxy::operator=(uint64_t a1@<X0>, void *a2@<X8>)
+void xpc::dict::object_proxy::operator=(id **a1@<X0>, void *a2@<X8>)
 {
   v5 = xpc_null_create();
   xpc::dict::object_proxy::operator=(a1, &v5, a2);
@@ -6263,15 +6433,21 @@ void xpc::dict::object_proxy::operator=(uint64_t a1@<X0>, void *a2@<X8>)
 
 void startThreadNetworkManagerBridge(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  OUTLINED_FUNCTION_0_3(&_mh_execute_header, a1, a3, "%s: Failed to create tnm queue, unexpected scenario, asserting...", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "startThreadNetworkManagerBridge";
+  OUTLINED_FUNCTION_0_3(&_mh_execute_header, a1, a3, "%s: Failed to create tnm queue, unexpected scenario, asserting...", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_0_3(&_mh_execute_header, a1, a3, "%s: Failed to create periodicStats.TNM.Queue, unexpected scenario, asserting...", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "startThreadNetworkManagerBridge";
+  OUTLINED_FUNCTION_0_3(&_mh_execute_header, a1, a3, "%s: Failed to create periodicStats.TNM.Queue, unexpected scenario, asserting...", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_0_3(&_mh_execute_header, a1, a3, "%s: Failed to create Thread Network Manager Instance, unexpected scenario, asserting...", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "startThreadNetworkManagerBridge";
+  OUTLINED_FUNCTION_0_3(&_mh_execute_header, a1, a3, "%s: Failed to create Thread Network Manager Instance, unexpected scenario, asserting...", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void _GLOBAL__sub_I_ThreadNetworkManagerBridge_mm()
@@ -6768,7 +6944,7 @@ double NetworkDiagnosticsReqTransmitReceive::NetworkDiagnosticsReqTransmitReceiv
   return result;
 }
 
-void NetworkDiagnosticsReqTransmitReceive::cleanup(NetworkDiagnosticsLogger **this, int a2, int a3)
+void NetworkDiagnosticsReqTransmitReceive::cleanup(NetworkDiagnosticsLogger **this, BOOL a2, int a3)
 {
   NetworkDiagnosticsLogger::cleanup(this[26], a2, a3, this + 11, this + 16, this + 21);
   if (a3)
@@ -6785,11 +6961,11 @@ void NetworkDiagnosticsReqTransmitReceive::cleanup(NetworkDiagnosticsLogger **th
   }
 }
 
-BOOL NetworkDiagnosticsReqTransmitReceive::send_networkdiagnostics_get(uint64_t a1, uint64_t *a2, uint64_t a3, char a4)
+BOOL NetworkDiagnosticsReqTransmitReceive::send_networkdiagnostics_get(uint64_t a1, char *a2, uint64_t a3, char a4)
 {
   v6 = a2;
   v8 = a2 + 23;
-  if (*(a2 + 23) < 0)
+  if (a2[23] < 0)
   {
     a2 = *a2;
   }
@@ -6838,7 +7014,7 @@ LABEL_11:
   return v9 > 0;
 }
 
-BOOL NetworkDiagnosticsReqTransmitReceive::send_networkdiagnostics_get_to_self_ncp(uint64_t a1, uint64_t *a2)
+BOOL NetworkDiagnosticsReqTransmitReceive::send_networkdiagnostics_get_to_self_ncp(uint64_t a1, char *a2)
 {
   *(a1 + 264) = *(a1 + 256);
   v4 = NetworkDiagnosticsReqTransmitReceive::send_networkdiagnostics_get(a1, a2, v7, 0);
@@ -6949,7 +7125,7 @@ LABEL_16:
       v11 = 0;
       getDestinationIPv6FromPrefixAndRloc16(*(v2 + 2 * v3), (*this + 6688), __p);
       *&v18[0] = *(this + 28) + 2 * v3;
-      *(std::__hash_table<std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,NetworkDiagDataType>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(this + 1, *&v18[0]) + 12) = 1;
+      *(std::__hash_table<std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,NetworkDiagDataType>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(this + 2, *&v18[0], &std::piecewise_construct, v18) + 12) = 1;
       v5 = NetworkDiagnosticsReqTransmitReceive::send_networkdiagnostics_get(this, __p, v18, 0);
       if (v5)
       {
@@ -7041,7 +7217,7 @@ uint64_t NetworkDiagnosticsReqTransmitReceive::send_networkdiagnostics_get_to_ch
       __p = 0;
       getDestinationIPv6FromPrefixAndRloc16(v3[8], (*this + 6688), &__p);
       *v22 = v3 + 8;
-      *(std::__hash_table<std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,NetworkDiagDataType>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(this + 6, v3 + 8) + 12) = 1;
+      *(std::__hash_table<std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,NetworkDiagDataType>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(this + 12, v3 + 8, &std::piecewise_construct, v22) + 12) = 1;
       v4 = NetworkDiagnosticsReqTransmitReceive::send_networkdiagnostics_get(this, &__p, v22, 0);
       if (v4)
       {
@@ -7098,7 +7274,7 @@ uint64_t NetworkDiagnosticsReqTransmitReceive::send_networkdiagnostics_get_to_ch
         __p = 0;
         getDestinationIPv6FromPrefixAndRloc16(v7[8], (*this + 6688), &__p);
         *v22 = v7 + 8;
-        *(std::__hash_table<std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,NetworkDiagDataType>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(this + 6, v7 + 8) + 12) = 1;
+        *(std::__hash_table<std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,NetworkDiagDataType>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(this + 12, v7 + 8, &std::piecewise_construct, v22) + 12) = 1;
         v8 = NetworkDiagnosticsReqTransmitReceive::send_networkdiagnostics_get(this, &__p, v22, 1);
         if (v8)
         {
@@ -7337,7 +7513,7 @@ BOOL NetworkDiagnosticsReqTransmitReceive::parse_rsp_tlvs(uint64_t a1, unsigned 
   return a2 != 0;
 }
 
-BOOL NetworkDiagnosticsReqTransmitReceive::process_diag_rsp_from_self(uint64_t a1, uint64_t a2, uint64_t a3)
+BOOL NetworkDiagnosticsReqTransmitReceive::process_diag_rsp_from_self(uint64_t a1, __int128 *a2, uint64_t a3)
 {
   v15 = a3;
   v3 = (a1 + 216);
@@ -7346,14 +7522,14 @@ BOOL NetworkDiagnosticsReqTransmitReceive::process_diag_rsp_from_self(uint64_t a
   {
     *(a2 + 1) = 0;
     LOWORD(v11) = a3;
-    v8 = *(a2 + 16);
+    v8 = a2[1];
     v12 = *a2;
     v13 = v8;
-    v14 = *(a2 + 32);
-    std::__hash_table<std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,NetworkDiagDataType>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,NetworkDiagDataType>>((a1 + 8), &v11);
+    v14 = a2[2];
+    std::__hash_table<std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,NetworkDiagDataType>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,NetworkDiagDataType>>((a1 + 8), &v11, &v11);
     NetworkDiagnosticsLogger::output_data_to_file(*(a1 + 208), a3, a2, v3, (a1 + 88), (a1 + 128), (a1 + 168));
     v11 = &v15;
-    *(std::__hash_table<std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,NetworkDiagDataType>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((a1 + 8), &v15) + 25) = 1;
+    *(std::__hash_table<std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,NetworkDiagDataType>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((a1 + 8), &v15, &std::piecewise_construct, &v11) + 25) = 1;
     if (*(a1 + 224) == *(a1 + 232))
     {
       if (*(a1 + 152) || *(a1 + 192))
@@ -7380,14 +7556,14 @@ BOOL NetworkDiagnosticsReqTransmitReceive::process_diag_rsp_from_self(uint64_t a
     logging_obg = log_get_logging_obg("com.apple.wpantund.tdm", "default");
     if (os_log_type_enabled(logging_obg, OS_LOG_TYPE_ERROR))
     {
-      NetworkDiagnosticsReqTransmitReceive::process_diag_rsp_from_self(v3);
+      NetworkDiagnosticsReqTransmitReceive::process_diag_rsp_from_self();
     }
   }
 
   return v4 == 1;
 }
 
-BOOL NetworkDiagnosticsReqTransmitReceive::process_diag_rsp_from_routers(uint64_t a1, uint64_t a2, unsigned __int16 a3)
+BOOL NetworkDiagnosticsReqTransmitReceive::process_diag_rsp_from_routers(uint64_t a1, __int128 *a2, unsigned __int16 a3)
 {
   v14 = a3;
   v3 = (a1 + 216);
@@ -7396,15 +7572,15 @@ BOOL NetworkDiagnosticsReqTransmitReceive::process_diag_rsp_from_routers(uint64_
   {
     *(a2 + 1) = 0;
     v15 = &v14;
-    v7 = std::__hash_table<std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,NetworkDiagDataType>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((a1 + 8), &v14);
+    v7 = std::__hash_table<std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,NetworkDiagDataType>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((a1 + 8), &v14, &std::piecewise_construct, &v15);
     v8 = *a2;
-    v9 = *(a2 + 16);
-    *(v7 + 7) = *(a2 + 32);
+    v9 = a2[1];
+    *(v7 + 7) = a2[2];
     *(v7 + 5) = v9;
     *(v7 + 3) = v8;
     NetworkDiagnosticsLogger::output_data_to_file(*(a1 + 208), v14, a2, v3, (a1 + 88), (a1 + 128), (a1 + 168));
     v15 = &v14;
-    *(std::__hash_table<std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,NetworkDiagDataType>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((a1 + 8), &v14) + 25) = 1;
+    *(std::__hash_table<std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,NetworkDiagDataType>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((a1 + 8), &v14, &std::piecewise_construct, &v15) + 25) = 1;
     v10 = *(a1 + 24);
     if (!v10)
     {
@@ -7432,14 +7608,14 @@ LABEL_6:
     logging_obg = log_get_logging_obg("com.apple.wpantund.tdm", "default");
     if (os_log_type_enabled(logging_obg, OS_LOG_TYPE_ERROR))
     {
-      NetworkDiagnosticsReqTransmitReceive::process_diag_rsp_from_routers(v3);
+      NetworkDiagnosticsReqTransmitReceive::process_diag_rsp_from_routers();
     }
   }
 
   return v4 == 2;
 }
 
-BOOL NetworkDiagnosticsReqTransmitReceive::process_diag_rsp_from_children(uint64_t a1, uint64_t a2, unsigned __int16 a3, _BYTE *a4)
+BOOL NetworkDiagnosticsReqTransmitReceive::process_diag_rsp_from_children(uint64_t a1, __int128 *a2, unsigned __int16 a3, _BYTE *a4)
 {
   v18 = a3;
   v4 = (a1 + 216);
@@ -7448,15 +7624,15 @@ BOOL NetworkDiagnosticsReqTransmitReceive::process_diag_rsp_from_children(uint64
   {
     *(a2 + 1) = 0;
     *buf = &v18;
-    v9 = std::__hash_table<std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,NetworkDiagDataType>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((a1 + 48), &v18);
+    v9 = std::__hash_table<std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,NetworkDiagDataType>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((a1 + 48), &v18, &std::piecewise_construct, buf);
     v10 = *a2;
-    v11 = *(a2 + 16);
-    *(v9 + 7) = *(a2 + 32);
+    v11 = a2[1];
+    *(v9 + 7) = a2[2];
     *(v9 + 5) = v11;
     *(v9 + 3) = v10;
     NetworkDiagnosticsLogger::output_data_to_file(*(a1 + 208), v18, a2, v4, (a1 + 88), (a1 + 128), (a1 + 168));
     *buf = &v18;
-    *(std::__hash_table<std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,NetworkDiagDataType>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((a1 + 48), &v18) + 25) = 1;
+    *(std::__hash_table<std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,NetworkDiagDataType>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((a1 + 48), &v18, &std::piecewise_construct, buf) + 25) = 1;
     *a4 = 1;
     v12 = *(a1 + 64);
     if (!v12)
@@ -7500,7 +7676,7 @@ LABEL_10:
     v16 = log_get_logging_obg("com.apple.wpantund.tdm", "default");
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      NetworkDiagnosticsReqTransmitReceive::process_diag_rsp_from_children(v4);
+      NetworkDiagnosticsReqTransmitReceive::process_diag_rsp_from_children();
     }
   }
 
@@ -7573,7 +7749,7 @@ BOOL NetworkDiagnosticsReqTransmitReceive::handle_network_diagnostics_response(N
             return result;
           }
 
-          NetworkDiagnosticsReqTransmitReceive::handle_network_diagnostics_response(this + 54);
+          NetworkDiagnosticsReqTransmitReceive::handle_network_diagnostics_response();
           return 0;
       }
 
@@ -7638,33 +7814,33 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<Ctr_send_diagnostics_
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,NetworkDiagDataType>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(void *a1, unsigned __int16 *a2)
+uint64_t **std::__hash_table<std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,NetworkDiagDataType>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(float *a1, unsigned __int16 *a2, uint64_t a3, _WORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = *(a1 + 2);
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % a1[1];
+      v7 = v4 % *(a1 + 1);
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -7672,47 +7848,47 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 8) != v2)
+  if (*(v9 + 8) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void std::__hash_table<std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,NetworkDiagDataType>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,NetworkDiagDataType>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -7728,7 +7904,7 @@ void std::__hash_table<std::__hash_value_type<unsigned short,NetworkDiagDataType
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -7736,7 +7912,7 @@ void std::__hash_table<std::__hash_value_type<unsigned short,NetworkDiagDataType
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -7760,7 +7936,7 @@ void std::__hash_table<std::__hash_value_type<unsigned short,NetworkDiagDataType
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,NetworkDiagDataType>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,NetworkDiagDataType>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -7797,33 +7973,33 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned short>>(uint
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,NetworkDiagDataType>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,NetworkDiagDataType>>(void *a1, unsigned __int16 *a2)
+uint64_t **std::__hash_table<std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,NetworkDiagDataType>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,NetworkDiagDataType>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,NetworkDiagDataType>>(void *a1, unsigned __int16 *a2, uint64_t a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % a1[1];
+      v6 = v3 % a1[1];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v6 = (v4.i32[0] - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -7831,51 +8007,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 8) != v2)
+  if (*(v8 + 8) != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
-}
-
-unsigned int *OUTLINED_FUNCTION_2_7@<X0>(unsigned int *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
+  return v8;
 }
 
 void NetworkDiagnosticsReqTransmitReceive::send_networkdiagnostics_get(char *a1, void *a2, os_log_t log)
@@ -7922,28 +8091,28 @@ void NetworkDiagnosticsReqTransmitReceive::send_networkdiagnostics_get_to_self_n
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "TDM: %s ERROR Cannot send network self dest =%s MLPrefix=%s ", &v5, 0x20u);
 }
 
-void NetworkDiagnosticsReqTransmitReceive::process_diag_rsp_from_self(unsigned int *a1)
+void NetworkDiagnosticsReqTransmitReceive::process_diag_rsp_from_self()
 {
-  OUTLINED_FUNCTION_2_7(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_2_7(__stack_chk_guard);
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_2_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void NetworkDiagnosticsReqTransmitReceive::process_diag_rsp_from_routers(unsigned int *a1)
+void NetworkDiagnosticsReqTransmitReceive::process_diag_rsp_from_routers()
 {
-  OUTLINED_FUNCTION_2_7(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_2_7(__stack_chk_guard);
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_2_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void NetworkDiagnosticsReqTransmitReceive::process_diag_rsp_from_children(unsigned int *a1)
+void NetworkDiagnosticsReqTransmitReceive::process_diag_rsp_from_children()
 {
-  OUTLINED_FUNCTION_2_7(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_2_7(__stack_chk_guard);
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_2_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void NetworkDiagnosticsReqTransmitReceive::handle_network_diagnostics_response()
@@ -7965,16 +8134,15 @@ void NetworkDiagnosticsReqTransmitReceive::handle_network_diagnostics_response()
 }
 
 {
-  OUTLINED_FUNCTION_2_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-}
-
-void NetworkDiagnosticsReqTransmitReceive::handle_network_diagnostics_response(unsigned int *a1)
-{
-  OUTLINED_FUNCTION_2_7(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_2_7(__stack_chk_guard);
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_2_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+{
+  OUTLINED_FUNCTION_2_1();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_1002219D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, char a16, int a17, boost::filesystem::detail::dir_itr_imp *a18)
@@ -9471,232 +9639,4 @@ uint64_t NetworkDiagnosticsConfigDb::closeFiles(NetworkDiagnosticsConfigDb *this
   }
 
   return 1;
-}
-
-void NetworkDiagnosticsLogFileDescriptors::NetworkDiagnosticsLogFileDescriptors(NetworkDiagnosticsLogFileDescriptors *this)
-{
-  *(this + 58) = 0;
-  *this = v3;
-  v4 = v2;
-  *(this + *(v3 - 24)) = v2;
-  v5 = (this + *(*this - 24));
-  std::ios_base::init(v5, this + 8);
-  v5[1].__vftable = 0;
-  v5[1].__fmtflags_ = -1;
-  std::filebuf::basic_filebuf();
-  *(this + 129) = 0;
-  *(this + 71) = v3;
-  *(this + *(v3 - 24) + 568) = v4;
-  v6 = (this + *(*(this + 71) - 24) + 568);
-  std::ios_base::init(v6, this + 576);
-  v6[1].__vftable = 0;
-  v6[1].__fmtflags_ = -1;
-  std::filebuf::basic_filebuf();
-  *(this + 200) = 0;
-  *(this + 142) = v3;
-  *(this + *(v3 - 24) + 1136) = v4;
-  v7 = (this + *(*(this + 142) - 24) + 1136);
-  std::ios_base::init(v7, this + 1144);
-  v7[1].__vftable = 0;
-  v7[1].__fmtflags_ = -1;
-  std::filebuf::basic_filebuf();
-  *(this + 271) = 0;
-  *(this + 213) = v3;
-  *(this + *(v3 - 24) + 1704) = v4;
-  v8 = (this + *(*(this + 213) - 24) + 1704);
-  std::ios_base::init(v8, this + 1712);
-  v8[1].__vftable = 0;
-  v8[1].__fmtflags_ = -1;
-  std::filebuf::basic_filebuf();
-  *(this + 342) = 0;
-  *(this + 284) = v3;
-  *(this + *(v3 - 24) + 2272) = v4;
-  v9 = (this + *(*(this + 284) - 24) + 2272);
-  std::ios_base::init(v9, this + 2280);
-  v9[1].__vftable = 0;
-  v9[1].__fmtflags_ = -1;
-  std::filebuf::basic_filebuf();
-  *(this + 413) = 0;
-  *(this + 355) = v3;
-  *(this + *(v3 - 24) + 2840) = v4;
-  v10 = (this + *(*(this + 355) - 24) + 2840);
-  std::ios_base::init(v10, this + 2848);
-  v10[1].__vftable = 0;
-  v10[1].__fmtflags_ = -1;
-  std::filebuf::basic_filebuf();
-  *(this + 484) = 0;
-  *(this + 426) = v3;
-  *(this + *(v3 - 24) + 3408) = v4;
-  v11 = (this + *(*(this + 426) - 24) + 3408);
-  std::ios_base::init(v11, this + 3416);
-  v11[1].__vftable = 0;
-  v11[1].__fmtflags_ = -1;
-  std::filebuf::basic_filebuf();
-  *(this + 555) = 0;
-  *(this + 497) = v3;
-  *(this + *(v3 - 24) + 3976) = v4;
-  v12 = (this + *(*(this + 497) - 24) + 3976);
-  std::ios_base::init(v12, this + 3984);
-  v12[1].__vftable = 0;
-  v12[1].__fmtflags_ = -1;
-  std::filebuf::basic_filebuf();
-  *(this + 626) = 0;
-  *(this + 568) = v3;
-  *(this + *(v3 - 24) + 4544) = v4;
-  v13 = (this + *(*(this + 568) - 24) + 4544);
-  std::ios_base::init(v13, this + 4552);
-  v13[1].__vftable = 0;
-  v13[1].__fmtflags_ = -1;
-  std::filebuf::basic_filebuf();
-  *(this + 697) = 0;
-  *(this + 639) = v3;
-  *(this + *(v3 - 24) + 5112) = v4;
-  v14 = (this + *(*(this + 639) - 24) + 5112);
-  std::ios_base::init(v14, this + 5120);
-  v14[1].__vftable = 0;
-  v14[1].__fmtflags_ = -1;
-  std::filebuf::basic_filebuf();
-  *(this + 768) = 0;
-  *(this + 710) = v3;
-  *(this + *(v3 - 24) + 5680) = v4;
-  v15 = (this + *(*(this + 710) - 24) + 5680);
-  std::ios_base::init(v15, this + 5688);
-  v15[1].__vftable = 0;
-  v15[1].__fmtflags_ = -1;
-  std::filebuf::basic_filebuf();
-}
-
-void sub_100224608(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, void *a11, void *a12, void *a13, void *a14)
-{
-  std::ostream::~ostream();
-  std::ios::~ios();
-  std::ofstream::~ofstream(v16);
-  std::ofstream::~ofstream(v15);
-  std::ofstream::~ofstream(v17);
-  std::ofstream::~ofstream(a9);
-  std::ofstream::~ofstream(a10);
-  std::ofstream::~ofstream(a11);
-  std::ofstream::~ofstream(a12);
-  std::ofstream::~ofstream(a13);
-  std::ofstream::~ofstream(a14);
-  std::ofstream::~ofstream(v14);
-  _Unwind_Resume(a1);
-}
-
-void sub_100224738()
-{
-  std::ostream::~ostream();
-  std::ios::~ios();
-  JUMPOUT(0x100224708);
-}
-
-void sub_100224764()
-{
-  std::ostream::~ostream();
-  std::ios::~ios();
-  JUMPOUT(0x100224710);
-}
-
-void sub_100224790()
-{
-  std::ostream::~ostream();
-  std::ios::~ios();
-  JUMPOUT(0x100224718);
-}
-
-void sub_1002247BC()
-{
-  std::ostream::~ostream();
-  std::ios::~ios();
-  JUMPOUT(0x100224720);
-}
-
-void sub_1002247E0()
-{
-  std::ostream::~ostream();
-  std::ios::~ios();
-  JUMPOUT(0x100224728);
-}
-
-void sub_100224804()
-{
-  std::ostream::~ostream();
-  std::ios::~ios();
-  JUMPOUT(0x100224730);
-}
-
-void *std::ofstream::~ofstream(void *a1)
-{
-  std::filebuf::~filebuf();
-  std::ostream::~ostream();
-  std::ios::~ios();
-  return a1;
-}
-
-void NetworkDiagnosticsLogFileNames::~NetworkDiagnosticsLogFileNames(void **this)
-{
-  if (*(this + 311) < 0)
-  {
-    operator delete(this[36]);
-  }
-
-  if (*(this + 287) < 0)
-  {
-    operator delete(this[33]);
-  }
-
-  if (*(this + 263) < 0)
-  {
-    operator delete(this[30]);
-  }
-
-  if (*(this + 239) < 0)
-  {
-    operator delete(this[27]);
-  }
-
-  if (*(this + 215) < 0)
-  {
-    operator delete(this[24]);
-  }
-
-  if (*(this + 191) < 0)
-  {
-    operator delete(this[21]);
-  }
-
-  if (*(this + 167) < 0)
-  {
-    operator delete(this[18]);
-  }
-
-  if (*(this + 143) < 0)
-  {
-    operator delete(this[15]);
-  }
-
-  if (*(this + 119) < 0)
-  {
-    operator delete(this[12]);
-  }
-
-  if (*(this + 95) < 0)
-  {
-    operator delete(this[9]);
-  }
-
-  if (*(this + 71) < 0)
-  {
-    operator delete(this[6]);
-  }
-
-  if (*(this + 47) < 0)
-  {
-    operator delete(this[3]);
-  }
-
-  if (*(this + 23) < 0)
-  {
-    operator delete(*this);
-  }
 }

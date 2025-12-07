@@ -5,6 +5,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)validationSourceAsString:(int)string;
 - (int)StringAsValidationSource:(id)source;
 - (int)validationSource;
 - (unint64_t)hash;
@@ -181,6 +182,21 @@
   *&self->_has = *&self->_has & 0xFD | v3;
 }
 
+- (id)validationSourceAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_10061CA00 + string);
+  }
+
+  return v4;
+}
+
 - (int)StringAsValidationSource:(id)source
 {
   sourceCopy = source;
@@ -287,64 +303,61 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if ((*&self->_has & 4) != 0)
   {
-    version = self->_version;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_handle)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_nickname)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_lightweightPrimary)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    lightweightPrimaryParticipantID = self->_lightweightPrimaryParticipantID;
     PBDataWriterWriteUint64Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    validationSource = self->_validationSource;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_associationVoucher)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_stableDeviceIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_proposedCluster)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -468,7 +481,6 @@
     goto LABEL_29;
   }
 
-  v5 = *(equalCopy + 72);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 72) & 4) == 0 || self->_version != *(equalCopy + 17))
@@ -480,7 +492,7 @@
   else if ((*(equalCopy + 72) & 4) != 0)
   {
 LABEL_29:
-    v13 = 0;
+    v11 = 0;
     goto LABEL_30;
   }
 
@@ -508,7 +520,6 @@ LABEL_29:
     }
   }
 
-  v9 = *(equalCopy + 72);
   if (*&self->_has)
   {
     if ((*(equalCopy + 72) & 1) == 0 || self->_lightweightPrimaryParticipantID != *(equalCopy + 1))
@@ -553,17 +564,17 @@ LABEL_29:
   proposedCluster = self->_proposedCluster;
   if (proposedCluster | *(equalCopy + 6))
   {
-    v13 = [(CSDMessagingConversationParticipantCluster *)proposedCluster isEqual:?];
+    v11 = [(CSDMessagingConversationParticipantCluster *)proposedCluster isEqual:?];
   }
 
   else
   {
-    v13 = 1;
+    v11 = 1;
   }
 
 LABEL_30:
 
-  return v13;
+  return v11;
 }
 
 - (unint64_t)hash

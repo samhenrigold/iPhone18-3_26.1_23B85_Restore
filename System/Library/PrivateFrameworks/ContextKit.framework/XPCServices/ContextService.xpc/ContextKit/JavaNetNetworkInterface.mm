@@ -23,7 +23,7 @@
 
 + (id)getNetworkInterfaces
 {
-  v2 = +[JavaNetNetworkInterface getNetworkInterfacesList]_0();
+  v2 = +[JavaNetNetworkInterface getNetworkInterfacesList]_0(self, a2);
 
   return JavaUtilCollections_enumerationWithJavaUtilCollection_(v2);
 }
@@ -98,7 +98,7 @@ LABEL_16:
 
 - (id)description
 {
-  v3 = new_JavaLangStringBuilder_initWithInt_(0x19u);
+  v3 = new_JavaLangStringBuilder_initWithInt_(25);
   [(JavaLangStringBuilder *)v3 appendWithNSString:@"["];
   [(JavaLangStringBuilder *)v3 appendWithNSString:self->name_];
   [(JavaLangStringBuilder *)v3 appendWithNSString:@"]["];
@@ -226,224 +226,224 @@ LABEL_11:
 
 + (JavaUtilArrayList)getNetworkInterfacesList
 {
-  v0 = +[JavaNetNetworkInterface getInterfaceNames]_0();
-  if (!v0)
+  v2 = +[JavaNetNetworkInterface getInterfaceNames]_0();
+  if (!v2)
   {
 LABEL_64:
     JreThrowNullPointerException();
   }
 
-  v1 = v0;
-  size = v0->super.size_;
+  v3 = v2;
+  size = v2->super.size_;
   if (qword_100554E40 != -1)
   {
     sub_1001D0F14();
   }
 
-  v3 = [IOSObjectArray arrayWithLength:size type:qword_100554E38];
-  v4 = [IOSBooleanArray arrayWithLength:v3->super.size_];
-  if (v1->super.size_ >= 1)
-  {
-    v5 = 0;
-    do
-    {
-      v6 = JavaNetNetworkInterface_getByNameWithNSString_((&v1->elementType_)[v5]);
-      IOSObjectArray_Set(v3, v5, v6);
-      v7 = v3->super.size_;
-      if (v5 >= v7)
-      {
-        IOSArray_throwOutOfBoundsWithMsg(v7, v5);
-      }
-
-      if (!(&v3->elementType_)[v5])
-      {
-        v8 = v4->super.size_;
-        if (v5 >= v8)
-        {
-          IOSArray_throwOutOfBoundsWithMsg(v8, v5);
-        }
-
-        *(&v4->super.size_ + v5 + 4) = 1;
-      }
-
-      ++v5;
-    }
-
-    while (v5 < v1->super.size_);
-  }
-
-  v9 = new_JavaUtilArrayList_init();
-  v17 = v9;
+  v5 = [IOSObjectArray arrayWithLength:size type:qword_100554E38];
+  v7 = [IOSBooleanArray arrayWithLength:v5->super.size_];
   if (v3->super.size_ >= 1)
   {
-    v18 = 0;
-    v43 = v9;
+    v8 = 0;
     do
     {
-      v19 = v4->super.size_;
-      if (v18 >= v19)
+      v9 = JavaNetNetworkInterface_getByNameWithNSString_((&v3->elementType_)[v8], v6);
+      IOSObjectArray_Set(v5, v8, v9);
+      v10 = v5->super.size_;
+      if (v8 >= v10)
       {
-        IOSArray_throwOutOfBoundsWithMsg(v19, v18);
+        IOSArray_throwOutOfBoundsWithMsg(v10, v8);
       }
 
-      if ((*(&v4->super.size_ + v18 + 4) & 1) == 0)
+      if (!(&v5->elementType_)[v8])
       {
-        v20 = v3->super.size_;
-        if (v18 >= v20)
+        v11 = v7->super.size_;
+        if (v8 >= v11)
         {
-          v40 = v20;
+          IOSArray_throwOutOfBoundsWithMsg(v11, v8);
+        }
+
+        *(&v7->super.size_ + v8 + 4) = 1;
+      }
+
+      ++v8;
+    }
+
+    while (v8 < v3->super.size_);
+  }
+
+  v12 = new_JavaUtilArrayList_init();
+  v20 = v12;
+  if (v5->super.size_ >= 1)
+  {
+    v21 = 0;
+    v46 = v12;
+    do
+    {
+      v22 = v7->super.size_;
+      if (v21 >= v22)
+      {
+        IOSArray_throwOutOfBoundsWithMsg(v22, v21);
+      }
+
+      if ((*(&v7->super.size_ + v21 + 4) & 1) == 0)
+      {
+        v23 = v5->super.size_;
+        if (v21 >= v23)
+        {
+          v43 = v23;
         }
 
         else
         {
-          v21 = &v3->super.super.isa + v18;
-          v22 = v18;
+          v24 = &v5->super.super.isa + v21;
+          v25 = v21;
           do
           {
-            v23 = v4->super.size_;
-            if (v22 >= v23)
+            v26 = v7->super.size_;
+            if (v25 >= v26)
             {
-              IOSArray_throwOutOfBoundsWithMsg(v23, v22);
+              IOSArray_throwOutOfBoundsWithMsg(v26, v25);
             }
 
-            if ((*(&v4->super.size_ + v22 + 4) & 1) == 0)
+            if ((*(&v7->super.size_ + v25 + 4) & 1) == 0)
             {
-              v24 = v3->super.size_;
-              if (v22 >= v24)
+              v27 = v5->super.size_;
+              if (v25 >= v27)
               {
-                IOSArray_throwOutOfBoundsWithMsg(v24, v22);
+                IOSArray_throwOutOfBoundsWithMsg(v27, v25);
               }
 
-              v25 = (&v3->elementType_)[v22];
-              if (!v25)
-              {
-                goto LABEL_64;
-              }
-
-              isa = v25[1].super.isa;
-              if (!isa)
-              {
-                goto LABEL_64;
-              }
-
-              v27 = v3->super.size_;
-              if (v18 >= v27)
-              {
-                IOSArray_throwOutOfBoundsWithMsg(v27, v18);
-              }
-
-              v28 = v21[3];
+              v28 = (&v5->elementType_)[v25];
               if (!v28)
               {
                 goto LABEL_64;
               }
 
-              if ([(objc_class *)isa hasPrefix:JreStrcat("$C", v10, v11, v12, v13, v14, v15, v16, *(v28 + 1))])
+              isa = v28[1].super.isa;
+              if (!isa)
               {
-                v29 = v3->super.size_;
-                if (v18 >= v29)
+                goto LABEL_64;
+              }
+
+              v30 = v5->super.size_;
+              if (v21 >= v30)
+              {
+                IOSArray_throwOutOfBoundsWithMsg(v30, v21);
+              }
+
+              v31 = v24[3];
+              if (!v31)
+              {
+                goto LABEL_64;
+              }
+
+              if ([(objc_class *)isa hasPrefix:JreStrcat("$C", v13, v14, v15, v16, v17, v18, v19, *(v31 + 1))])
+              {
+                v32 = v5->super.size_;
+                if (v21 >= v32)
                 {
-                  IOSArray_throwOutOfBoundsWithMsg(v29, v18);
+                  IOSArray_throwOutOfBoundsWithMsg(v32, v21);
                 }
 
-                v30 = v21[3];
-                if (!v30 || !*(v30 + 5))
-                {
-                  goto LABEL_64;
-                }
-
-                v31 = v3->super.size_;
-                if (v22 >= v31)
-                {
-                  IOSArray_throwOutOfBoundsWithMsg(v31, v22);
-                }
-
-                [*(v30 + 5) addWithId:(&v3->elementType_)[v22]];
-                v32 = v3->super.size_;
-                if (v22 >= v32)
-                {
-                  IOSArray_throwOutOfBoundsWithMsg(v32, v22);
-                }
-
-                v33 = (&v3->elementType_)[v22];
-                if (!v33)
+                v33 = v24[3];
+                if (!v33 || !*(v33 + 5))
                 {
                   goto LABEL_64;
                 }
 
-                v34 = v3->super.size_;
-                if (v18 >= v34)
+                v34 = v5->super.size_;
+                if (v25 >= v34)
                 {
-                  IOSArray_throwOutOfBoundsWithMsg(v34, v18);
+                  IOSArray_throwOutOfBoundsWithMsg(v34, v25);
                 }
 
-                JreStrongAssign(&v33[6].super.isa, v21[3]);
-                v35 = v3->super.size_;
-                if (v18 >= v35)
+                [*(v33 + 5) addWithId:(&v5->elementType_)[v25]];
+                v35 = v5->super.size_;
+                if (v25 >= v35)
                 {
-                  IOSArray_throwOutOfBoundsWithMsg(v35, v18);
+                  IOSArray_throwOutOfBoundsWithMsg(v35, v25);
                 }
 
-                v36 = v21[3];
-                if (!v36 || !*(v36 + 4))
-                {
-                  goto LABEL_64;
-                }
-
-                v37 = v3->super.size_;
-                if (v22 >= v37)
-                {
-                  IOSArray_throwOutOfBoundsWithMsg(v37, v22);
-                }
-
-                v38 = (&v3->elementType_)[v22];
-                if (!v38)
+                v36 = (&v5->elementType_)[v25];
+                if (!v36)
                 {
                   goto LABEL_64;
                 }
 
-                [*(v36 + 4) addAllWithJavaUtilCollection:v38[4].super.isa];
-                v39 = v4->super.size_;
-                if (v22 >= v39)
+                v37 = v5->super.size_;
+                if (v21 >= v37)
                 {
-                  IOSArray_throwOutOfBoundsWithMsg(v39, v22);
+                  IOSArray_throwOutOfBoundsWithMsg(v37, v21);
                 }
 
-                *(&v4->super.size_ + v22 + 4) = 1;
+                JreStrongAssign(&v36[6].super.isa, v24[3]);
+                v38 = v5->super.size_;
+                if (v21 >= v38)
+                {
+                  IOSArray_throwOutOfBoundsWithMsg(v38, v21);
+                }
+
+                v39 = v24[3];
+                if (!v39 || !*(v39 + 4))
+                {
+                  goto LABEL_64;
+                }
+
+                v40 = v5->super.size_;
+                if (v25 >= v40)
+                {
+                  IOSArray_throwOutOfBoundsWithMsg(v40, v25);
+                }
+
+                v41 = (&v5->elementType_)[v25];
+                if (!v41)
+                {
+                  goto LABEL_64;
+                }
+
+                [*(v39 + 4) addAllWithJavaUtilCollection:v41[4].super.isa];
+                v42 = v7->super.size_;
+                if (v25 >= v42)
+                {
+                  IOSArray_throwOutOfBoundsWithMsg(v42, v25);
+                }
+
+                *(&v7->super.size_ + v25 + 4) = 1;
               }
             }
 
-            ++v22;
-            v20 = v3->super.size_;
+            ++v25;
+            v23 = v5->super.size_;
           }
 
-          while (v22 < v20);
-          v40 = v20;
-          v17 = v43;
+          while (v25 < v23);
+          v43 = v23;
+          v20 = v46;
         }
 
-        if (v18 >= v40)
+        if (v21 >= v43)
         {
-          IOSArray_throwOutOfBoundsWithMsg(v20, v18);
+          IOSArray_throwOutOfBoundsWithMsg(v23, v21);
         }
 
-        [(JavaUtilArrayList *)v17 addWithId:(&v3->elementType_)[v18]];
-        v41 = v4->super.size_;
-        if (v18 >= v41)
+        [(JavaUtilArrayList *)v20 addWithId:(&v5->elementType_)[v21]];
+        v44 = v7->super.size_;
+        if (v21 >= v44)
         {
-          IOSArray_throwOutOfBoundsWithMsg(v41, v18);
+          IOSArray_throwOutOfBoundsWithMsg(v44, v21);
         }
 
-        *(&v4->super.size_ + v18 + 4) = 1;
+        *(&v7->super.size_ + v21 + 4) = 1;
       }
 
-      ++v18;
+      ++v21;
     }
 
-    while (v18 < v3->super.size_);
+    while (v21 < v5->super.size_);
   }
 
-  return v17;
+  return v20;
 }
 
 + (IOSObjectArray)getInterfaceNames

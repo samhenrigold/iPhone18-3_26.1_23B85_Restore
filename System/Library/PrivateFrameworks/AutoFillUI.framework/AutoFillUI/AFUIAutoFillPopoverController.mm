@@ -92,60 +92,13 @@
   v46.origin.y = v7;
   v46.size.width = v9;
   v46.size.height = v11;
-  if (!CGRectEqualToRect(v46, v49))
-  {
-    goto LABEL_14;
-  }
-
-  [changedCopy clientFrameInEntitySpace];
-  v17 = v16;
-  v19 = v18;
-  v21 = v20;
-  v23 = v22;
-  [(RTIDocumentState *)self->_documentState clientFrameInEntitySpace];
-  v50.origin.x = v24;
-  v50.origin.y = v25;
-  v50.size.width = v26;
-  v50.size.height = v27;
-  v47.origin.x = v17;
-  v47.origin.y = v19;
-  v47.size.width = v21;
-  v47.size.height = v23;
-  if (!CGRectEqualToRect(v47, v50))
-  {
-LABEL_14:
-    [MEMORY[0x1E69DCD68] visiblePeripheralFrame];
-    v29 = v28;
-    v31 = v30;
-    v33 = v32;
-    v35 = v34;
-    [changedCopy caretRectInWindow];
-    v51.origin.x = v36;
-    v51.origin.y = v37;
-    v51.size.width = v38;
-    v51.size.height = v39;
-    v48.origin.x = v29;
-    v48.origin.y = v31;
-    v48.size.width = v33;
-    v48.size.height = v35;
-    if (!CGRectContainsRect(v48, v51))
-    {
-      goto LABEL_5;
-    }
-  }
-
-  scrolling = [changedCopy scrolling];
-  documentState = [(AFUIAutoFillPopoverController *)self documentState];
-  scrolling2 = [documentState scrolling];
-
-  if (scrolling == scrolling2)
+  if ((CGRectEqualToRect(v46, v49) && ([changedCopy clientFrameInEntitySpace], v17 = v16, v19 = v18, v21 = v20, v23 = v22, -[RTIDocumentState clientFrameInEntitySpace](self->_documentState, "clientFrameInEntitySpace"), v50.origin.x = v24, v50.origin.y = v25, v50.size.width = v26, v50.size.height = v27, v47.origin.x = v17, v47.origin.y = v19, v47.size.width = v21, v47.size.height = v23, CGRectEqualToRect(v47, v50)) || (objc_msgSend(MEMORY[0x1E69DCD68], "visiblePeripheralFrame"), v29 = v28, v31 = v30, v33 = v32, v35 = v34, objc_msgSend(changedCopy, "caretRectInWindow"), v51.origin.x = v36, v51.origin.y = v37, v51.size.width = v38, v51.size.height = v39, v48.origin.x = v29, v48.origin.y = v31, v48.size.width = v33, v48.size.height = v35, CGRectContainsRect(v48, v51))) && (v40 = objc_msgSend(changedCopy, "scrolling"), -[AFUIAutoFillPopoverController documentState](self, "documentState"), v41 = objc_claimAutoreleasedReturnValue(), v42 = objc_msgSend(v41, "scrolling"), v41, v40 == v42))
   {
     [(AFUIAutoFillPopoverController *)self setDocumentState:changedCopy];
   }
 
   else
   {
-LABEL_5:
     willPresentMenu = [(AFUIAutoFillPopoverController *)self willPresentMenu];
     [(AFUIAutoFillPopoverController *)self setDocumentState:changedCopy];
     if (!willPresentMenu)
@@ -478,7 +431,7 @@ LABEL_4:
   width = caretRect.size.width;
   y = caretRect.origin.y;
   x = caretRect.origin.x;
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   view = [(AFUIAutoFillPopoverController *)self view];
   view2 = [(AFUIAutoFillPopoverController *)self view];
   window = [view2 window];
@@ -494,62 +447,65 @@ LABEL_4:
   window2 = [view3 window];
   screen2 = [window2 screen];
   [screen2 bounds];
-  v53.origin.x = v25;
-  v53.origin.y = v26;
-  v53.size.width = v27;
-  v53.size.height = v28;
-  v49.origin.x = v15;
-  v49.origin.y = v17;
-  v49.size.width = v19;
-  v49.size.height = v21;
-  v29 = CGRectIntersectsRect(v49, v53);
+  v52.origin.x = v25;
+  v52.origin.y = v26;
+  v52.size.width = v27;
+  v52.size.height = v28;
+  v48.origin.x = v15;
+  v48.origin.y = v17;
+  v48.size.width = v19;
+  v48.size.height = v21;
+  v29 = CGRectIntersectsRect(v48, v52);
 
-  v30 = width == *MEMORY[0x1E695F060] && height == *(MEMORY[0x1E695F060] + 8);
-  if (v30 || ([MEMORY[0x1E69DCD68] visiblePeripheralFrame], v54.origin.x = x, v54.origin.y = y, v54.size.width = width, v54.size.height = height, CGRectContainsRect(v50, v54)) || !v29)
+  if (width != *MEMORY[0x1E695F060] || height != *(MEMORY[0x1E695F060] + 8))
   {
-LABEL_15:
-    v42 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  v51.origin.x = x;
-  v51.origin.y = y;
-  v51.size.width = width;
-  v51.size.height = height;
-  MidX = CGRectGetMidX(v51);
-  v52.origin.x = x;
-  v52.origin.y = y;
-  v52.size.width = width;
-  v52.size.height = height;
-  MidY = CGRectGetMidY(v52);
-  if (!UIPointIsDiscrete() || (-[AFUIAutoFillPopoverController view](self, "view"), v33 = objc_claimAutoreleasedReturnValue(), [v33 window], v34 = objc_claimAutoreleasedReturnValue(), v34, v33, !v34))
-  {
-    v40 = AFUIAutoFillPopoverControllerOSLogFacility();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+    [MEMORY[0x1E69DCD68] visiblePeripheralFrame];
+    v53.origin.x = x;
+    v53.origin.y = y;
+    v53.size.width = width;
+    v53.size.height = height;
+    if (!CGRectContainsRect(v49, v53) && v29)
     {
-      v41 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s _displayMenuForContentController: with invalid centerOfCaret", "-[AFUIAutoFillPopoverController _displayContextMenuForSourceRect:caretRect:]"];
-      *buf = 138412290;
-      v46 = v41;
-      _os_log_impl(&dword_1D2F0D000, v40, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
+      v50.origin.x = x;
+      v50.origin.y = y;
+      v50.size.width = width;
+      v50.size.height = height;
+      MidX = CGRectGetMidX(v50);
+      v51.origin.x = x;
+      v51.origin.y = y;
+      v51.size.width = width;
+      v51.size.height = height;
+      MidY = CGRectGetMidY(v51);
+      IsDiscrete = UIPointIsDiscrete();
+      if (IsDiscrete && (-[AFUIAutoFillPopoverController view](self, "view"), v34 = objc_claimAutoreleasedReturnValue(), [v34 window], v35 = objc_claimAutoreleasedReturnValue(), v35, v34, v35))
+      {
+        v43 = [objc_alloc(MEMORY[0x1E69DD250]) initWithFrame:{rect.origin.x, rect.origin.y, rect.size.width, rect.size.height}];
+        view4 = [(AFUIAutoFillPopoverController *)self view];
+        [view4 addSubview:v43];
+
+        contextMenuInteraction = [(AFUIAutoFillPopoverController *)self contextMenuInteraction];
+        [v43 addInteraction:contextMenuInteraction];
+
+        contextMenuInteraction2 = [(AFUIAutoFillPopoverController *)self contextMenuInteraction];
+        [contextMenuInteraction2 _presentMenuAtLocation:{MidX, MidY}];
+
+        modalUIDelegate = [(AFUIAutoFillPopoverController *)self modalUIDelegate];
+        [modalUIDelegate setIsMenuPresented:1 forSessionUUID:0];
+      }
+
+      else
+      {
+        v40 = AFUIAutoFillPopoverControllerOSLogFacility(IsDiscrete);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+        {
+          v41 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s _displayMenuForContentController: with invalid centerOfCaret", "-[AFUIAutoFillPopoverController _displayContextMenuForSourceRect:caretRect:]"];
+          *buf = 138412290;
+          v45 = v41;
+          _os_log_impl(&dword_1D2F0D000, v40, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
+        }
+      }
     }
-
-    goto LABEL_15;
   }
-
-  v44 = [objc_alloc(MEMORY[0x1E69DD250]) initWithFrame:{rect.origin.x, rect.origin.y, rect.size.width, rect.size.height}];
-  view4 = [(AFUIAutoFillPopoverController *)self view];
-  [view4 addSubview:v44];
-
-  contextMenuInteraction = [(AFUIAutoFillPopoverController *)self contextMenuInteraction];
-  [v44 addInteraction:contextMenuInteraction];
-
-  contextMenuInteraction2 = [(AFUIAutoFillPopoverController *)self contextMenuInteraction];
-  [contextMenuInteraction2 _presentMenuAtLocation:{MidX, MidY}];
-
-  modalUIDelegate = [(AFUIAutoFillPopoverController *)self modalUIDelegate];
-  [modalUIDelegate setIsMenuPresented:1 forSessionUUID:0];
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 - (CGRect)_translatedRectFromApplication:(CGRect)application

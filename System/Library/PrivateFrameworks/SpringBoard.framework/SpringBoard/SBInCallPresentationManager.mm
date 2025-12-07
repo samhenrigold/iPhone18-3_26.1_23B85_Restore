@@ -530,7 +530,7 @@ void __133__SBInCallPresentationManager_inCallPresentationRequestServer_clientWi
     {
       v9 = *(*(a1 + 32) + 56);
       v10 = [*(a1 + 48) bundleIdentifier];
-      LOBYTE(v9) = [v9 containsObject:v10];
+      LOBYTE(v9) = objc_msgSend_containsObject_(v9);
 
       if ((v9 & 1) == 0)
       {
@@ -582,7 +582,7 @@ void __133__SBInCallPresentationManager_inCallPresentationRequestServer_clientWi
       }
 
 LABEL_28:
-      if (([*(*(a1 + 32) + 64) containsObject:v18] & 1) == 0)
+      if ((objc_msgSend_containsObject_(*(*(a1 + 32) + 64)) & 1) == 0)
       {
         [v18 addObserver:*(a1 + 32)];
         [*(*(a1 + 32) + 64) addObject:v18];
@@ -938,7 +938,7 @@ void __133__SBInCallPresentationManager_inCallPresentationRequestServer_clientWi
   identifier = [scene identifier];
   v8 = [(SBInCallPresentationManager *)self sessionForSceneIdentifier:identifier];
 
-  if (v8 && ([(NSMutableSet *)self->_observedSceneManagers containsObject:sceneManagerCopy]& 1) == 0)
+  if (v8 && (objc_msgSend_containsObject_(self->_observedSceneManagers) & 1) == 0)
   {
     [sceneManagerCopy addObserver:self];
     [(NSMutableSet *)self->_observedSceneManagers addObject:sceneManagerCopy];
@@ -1392,7 +1392,7 @@ LABEL_11:
   }
 }
 
-uint64_t __58__SBInCallPresentationManager_handleDeviceLockFromSource___block_invoke(uint64_t a1, int a2)
+void *__58__SBInCallPresentationManager_handleDeviceLockFromSource___block_invoke(uint64_t a1, int a2)
 {
   v8 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) removeObject:*(a1 + 40)];
@@ -1960,7 +1960,7 @@ void __62__SBInCallPresentationManager__sessionForSceneWithIdentifier___block_in
   sceneHandle = [v16 sceneHandle];
   sceneIdentifier = [sceneHandle sceneIdentifier];
 
-  if (v16 && ([(NSMutableArray *)self->_pendingInvalidationSessions containsObject:v16]& 1) == 0)
+  if (v16 && (objc_msgSend_containsObject_(self->_pendingInvalidationSessions) & 1) == 0)
   {
     pendingInvalidationSessions = self->_pendingInvalidationSessions;
     if (!pendingInvalidationSessions)

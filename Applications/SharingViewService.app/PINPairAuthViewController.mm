@@ -95,7 +95,7 @@
   buttonCopy = button;
   if (dword_1001BEAD8 <= 30 && (dword_1001BEAD8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEAD8, "[PINPairAuthViewController handleDismissButton:]", 30, "Dismiss button\n");
   }
 
   [*(&self->_infoLabel + 1) setDisabled:1];
@@ -107,7 +107,7 @@
   disappearCopy = disappear;
   if (dword_1001BEAD8 <= 30 && (dword_1001BEAD8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEAD8, "[PINPairAuthViewController viewDidDisappear:]", 30, "Auth ViewDidDisappear\n");
   }
 
   v6.receiver = self;
@@ -122,7 +122,7 @@
   appearCopy = appear;
   if (dword_1001BEAD8 <= 30 && (dword_1001BEAD8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEAD8, "[PINPairAuthViewController viewWillAppear:]", 30, "Auth ViewWillAppear\n");
   }
 
   v15.receiver = self;

@@ -15,6 +15,7 @@
 - (void)activeECGAlgorithmVersion;
 - (void)customizeTableView:(id)view;
 - (void)refineSamplesWithCompletion:(id)completion;
+- (void)updateController:(id)controller didReceiveUpdateForType:(id)type samplesAdded:(id)added objectsRemoved:(id)removed recoveringFromError:(BOOL)error;
 @end
 
 @implementation WDElectrocardiogramListDataProvider
@@ -85,6 +86,32 @@
   return v16;
 }
 
+- (void)updateController:(id)controller didReceiveUpdateForType:(id)type samplesAdded:(id)added objectsRemoved:(id)removed recoveringFromError:(BOOL)error
+{
+  errorCopy = error;
+  controllerCopy = controller;
+  typeCopy = type;
+  addedCopy = added;
+  removedCopy = removed;
+  if ([(WDElectrocardiogramListDataProvider *)self recentSampleLimit])
+  {
+    if ([removedCopy count] || errorCopy)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  else if (errorCopy)
+  {
+LABEL_6:
+    [(WDElectrocardiogramListDataProvider *)self setShouldConsiderRequeryDueToDeletedObjects:1];
+  }
+
+  v16.receiver = self;
+  v16.super_class = WDElectrocardiogramListDataProvider;
+  [(WDSampleListDataProvider *)&v16 updateController:controllerCopy didReceiveUpdateForType:typeCopy samplesAdded:addedCopy objectsRemoved:removedCopy recoveringFromError:errorCopy];
+}
+
 - (void)refineSamplesWithCompletion:(id)completion
 {
   completionCopy = completion;
@@ -124,13 +151,11 @@
 
 - (id)sampleTypes
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   displayType = [(WDSampleListDataProvider *)self displayType];
   sampleType = [displayType sampleType];
-  v7[0] = sampleType;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6[0] = sampleType;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
 
   return v4;
 }
@@ -333,13 +358,12 @@ LABEL_9:
 
 - (void)activeECGAlgorithmVersion
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136446466;
-  v4 = "[WDElectrocardiogramListDataProvider activeECGAlgorithmVersion]";
-  v5 = 2114;
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136446466;
+  v3 = "[WDElectrocardiogramListDataProvider activeECGAlgorithmVersion]";
+  v4 = 2114;
   selfCopy = self;
-  _os_log_error_impl(&dword_251E85000, a2, OS_LOG_TYPE_ERROR, "[%{public}s] Failed to fetch algorithm version: %{public}@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_251E85000, a2, OS_LOG_TYPE_ERROR, "[%{public}s] Failed to fetch algorithm version: %{public}@", &v2, 0x16u);
 }
 
 @end

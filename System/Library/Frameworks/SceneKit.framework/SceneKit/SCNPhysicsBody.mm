@@ -321,24 +321,24 @@ void __37__SCNPhysicsBody_setMomentOfInertia___block_invoke(uint64_t a1)
   [SCNTransaction postCommandWithContext:sceneRef object:node applyBlock:v13];
 }
 
-void __40__SCNPhysicsBody_setCenterOfMassOffset___block_invoke(uint64_t a1)
+void __40__SCNPhysicsBody_setCenterOfMassOffset___block_invoke(uint64_t result)
 {
-  v1 = *(*(a1 + 64) + 232);
+  v1 = *(*(result + 64) + 232);
   if (v1)
   {
     v3 = *(v1 + 536);
     if (v3)
     {
-      v3[3] = *(a1 + 32);
-      v4 = *(*(a1 + 64) + 232);
+      v3[3] = *(result + 32);
+      v4 = *(*(result + 64) + 232);
       *(v4 + 536) = v3;
       (*(*v3 + 16))(v3, v4 + 16);
-      v7 = *(*(a1 + 64) + 232);
+      v7 = *(*(result + 64) + 232);
       v8 = *(v7 + 208);
-      v9 = *(a1 + 72);
-      if (*(a1 + 80))
+      v9 = *(result + 72);
+      if (*(result + 80))
       {
-        v10 = (a1 + 48);
+        v10 = (result + 48);
       }
 
       else
@@ -346,10 +346,10 @@ void __40__SCNPhysicsBody_setCenterOfMassOffset___block_invoke(uint64_t a1)
         v10 = 0;
       }
 
-      v11 = *(a1 + 32);
-      *&v12 = *(a1 + 32);
+      v11 = *(result + 32);
+      *&v12 = *(result + 32);
       *(&v12 + 1) = DWORD2(v11);
-      __setCollisionShape(v7, v8, v10, &v12, v9, *&v11, v5, v6);
+      __setCollisionShape(v7, v8, v9, *&v11, v5, v6, v10, &v12);
     }
   }
 }
@@ -738,29 +738,29 @@ void __34__SCNPhysicsBody_setPhysicsShape___block_invoke(uint64_t a1)
   if (v3[29])
   {
     DefaultShapeForNode = [v3 _shapeHandleWithShape:*(a1 + 72) owner:{objc_msgSend(*(a1 + 64), "_owner")}];
-    if (DefaultShapeForNode || (v11 = *(*v2 + 8)) != 0 && (DefaultShapeForNode = C3DPhysicsShapeGetDefaultShapeForNode([v11 nodeRef])) != 0)
+    if (DefaultShapeForNode || (DefaultShapeForNode = *(*v2 + 8)) != 0 && (v12 = [(btCollisionShape *)DefaultShapeForNode nodeRef], (DefaultShapeForNode = C3DPhysicsShapeGetDefaultShapeForNode(v12, v13)) != 0))
     {
-      v7 = DefaultShapeForNode;
-      v8 = *(*(a1 + 64) + 232);
-      v9 = *(a1 + 88);
+      v8 = DefaultShapeForNode;
+      v9 = *(*(a1 + 64) + 232);
+      v10 = *(a1 + 88);
       if (*(a1 + 96))
       {
-        v10 = (a1 + 32);
+        v11 = (a1 + 32);
       }
 
       else
       {
-        v10 = 0;
+        v11 = 0;
       }
 
-      v13 = *(a1 + 48);
-      __setCollisionShape(v8, v7, v10, &v13, v9, *&v13, v5, v6);
+      v15 = *(a1 + 48);
+      __setCollisionShape(v9, v8, v10, *&v15, v6, v7, v11, &v15);
     }
 
     else
     {
-      v12 = scn_default_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v14 = scn_default_log(DefaultShapeForNode, v5);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         __34__SCNPhysicsBody_setPhysicsShape___block_invoke_cold_1();
       }
@@ -1018,22 +1018,22 @@ float __30__SCNPhysicsBody_setVelocity___block_invoke(uint64_t a1)
   [SCNTransaction postCommandWithContext:sceneRef object:v8 applyBlock:v9];
 }
 
-double __39__SCNPhysicsBody_setAffectedByGravity___block_invoke(uint64_t a1)
+double __39__SCNPhysicsBody_setAffectedByGravity___block_invoke(uint64_t result)
 {
-  v1 = *(*(a1 + 32) + 232);
+  v1 = *(*(result + 32) + 232);
   if (v1)
   {
-    v3 = *(a1 + 48);
+    v3 = *(result + 48);
     *(v1 + 576) = v3 ^ 1;
     if (v3 == 1)
     {
-      [*(a1 + 40) gravity];
+      [*(result + 40) gravity];
       v12 = v5;
       v13 = v4;
       v14 = v6;
-      [*(a1 + 40) scale];
+      [*(result + 40) scale];
       *&v7 = v7;
-      v8 = *(*(a1 + 32) + 232);
+      v8 = *(*(result + 32) + 232);
       v9 = v13;
       v9.i32[1] = v12;
       v9.i32[2] = v14;
@@ -1044,14 +1044,14 @@ double __39__SCNPhysicsBody_setAffectedByGravity___block_invoke(uint64_t a1)
 
     else
     {
-      v8 = *(*(a1 + 32) + 232);
+      v8 = *(*(result + 32) + 232);
       v15 = 0;
     }
 
-    *&result = btRigidBody::setGravity(v8, &v15).n128_u64[0];
+    *&v11 = btRigidBody::setGravity(v8, &v15).n128_u64[0];
   }
 
-  return result;
+  return v11;
 }
 
 - (void)setAngularVelocity:(SCNVector4)angularVelocity
@@ -1234,35 +1234,35 @@ float __43__SCNPhysicsBody_setAngularVelocityFactor___block_invoke(uint64_t a1)
   [SCNTransaction postCommandWithContext:sceneRef object:node applyBlock:v11];
 }
 
-float32x4_t __37__SCNPhysicsBody_applyForce_impulse___block_invoke(uint64_t a1)
+float32x4_t __37__SCNPhysicsBody_applyForce_impulse___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(*(a1 + 32) + 232);
-  if (v2)
+  v3 = *(*(a1 + 32) + 232);
+  if (v3)
   {
-    btCollisionObject::activate(v2, 0);
-    v3.i64[0] = *(a1 + 40);
-    v4 = *(*(a1 + 32) + 232);
-    v3.i64[1] = *(a1 + 48);
-    v5 = vmulq_f32(v3, v4[25]);
+    btCollisionObject::activate(v3, 0);
+    v4.i64[0] = *(a1 + 40);
+    v5 = *(*(a1 + 32) + 232);
+    v4.i64[1] = *(a1 + 48);
+    v6 = vmulq_f32(v4, v5[25]);
     if (*(a1 + 52) == 1)
     {
-      v6 = vmulq_n_f32(v5, v4[24].f32[0]);
-      v6.i32[3] = 0;
-      result = vaddq_f32(v4[22], v6);
-      v4[22] = result;
+      v7 = vmulq_n_f32(v6, v5[24].f32[0]);
+      v7.i32[3] = 0;
+      result = vaddq_f32(v5[22], v7);
+      v5[22] = result;
     }
 
     else
     {
-      result = vaddq_f32(v4[29], v5);
-      v4[29] = result;
+      result = vaddq_f32(v5[29], v6);
+      v5[29] = result;
     }
   }
 
   else
   {
-    v8 = scn_default_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __37__SCNPhysicsBody_applyForce_impulse___block_invoke_cold_1();
     }
@@ -1296,44 +1296,44 @@ float32x4_t __37__SCNPhysicsBody_applyForce_impulse___block_invoke(uint64_t a1)
   [SCNTransaction postCommandWithContext:sceneRef object:node applyBlock:v15];
 }
 
-float32x4_t __48__SCNPhysicsBody_applyForce_atPosition_impulse___block_invoke(uint64_t a1)
+float32x4_t __48__SCNPhysicsBody_applyForce_atPosition_impulse___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(*(a1 + 32) + 232);
-  if (v2)
+  v3 = *(*(a1 + 32) + 232);
+  if (v3)
   {
-    btCollisionObject::activate(v2, 0);
-    v4 = *(*(a1 + 32) + 232);
+    btCollisionObject::activate(v3, 0);
+    v5 = *(*(a1 + 32) + 232);
     if (*(a1 + 64) == 1)
     {
-      *v14.var0.var0 = *(a1 + 40);
-      *&v14.var0.var0[2] = *(a1 + 48);
-      v13.i64[0] = *(a1 + 52);
-      v13.i64[1] = *(a1 + 60);
-      result.i64[0] = btRigidBody::applyImpulse(v4, &v14, &v13).u64[0];
+      *v15.var0.var0 = *(a1 + 40);
+      *&v15.var0.var0[2] = *(a1 + 48);
+      v14.i64[0] = *(a1 + 52);
+      v14.i64[1] = *(a1 + 60);
+      result.i64[0] = btRigidBody::applyImpulse(v5, &v15, &v14).u64[0];
     }
 
     else
     {
-      v7.i64[0] = *(a1 + 40);
-      v7.i64[1] = *(a1 + 48);
-      v3.i64[0] = *(a1 + 52);
-      v8.i64[0] = v3.i64[0];
-      v8.i64[1] = *(a1 + 60);
-      v9 = vmulq_f32(v7, *(v4 + 400));
-      v10 = vsubq_f32(vmulq_f32(v8, vextq_s8(vextq_s8(v9, v9, 0xCuLL), v9, 8uLL)), vmulq_f32(v9, vextq_s8(vextq_s8(v8, v8, 0xCuLL), v3, 8uLL)));
-      v11 = vextq_s8(vextq_s8(v10, v10, 0xCuLL), v10, 8uLL);
-      v11.i32[3] = 0;
-      result = vaddq_f32(*(v4 + 464), v9);
-      v12 = vaddq_f32(*(v4 + 480), vmulq_f32(*(v4 + 624), v11));
-      *(v4 + 464) = result;
-      *(v4 + 480) = v12;
+      v8.i64[0] = *(a1 + 40);
+      v8.i64[1] = *(a1 + 48);
+      v4.i64[0] = *(a1 + 52);
+      v9.i64[0] = v4.i64[0];
+      v9.i64[1] = *(a1 + 60);
+      v10 = vmulq_f32(v8, *(v5 + 400));
+      v11 = vsubq_f32(vmulq_f32(v9, vextq_s8(vextq_s8(v10, v10, 0xCuLL), v10, 8uLL)), vmulq_f32(v10, vextq_s8(vextq_s8(v9, v9, 0xCuLL), v4, 8uLL)));
+      v12 = vextq_s8(vextq_s8(v11, v11, 0xCuLL), v11, 8uLL);
+      v12.i32[3] = 0;
+      result = vaddq_f32(*(v5 + 464), v10);
+      v13 = vaddq_f32(*(v5 + 480), vmulq_f32(*(v5 + 624), v12));
+      *(v5 + 464) = result;
+      *(v5 + 480) = v13;
     }
   }
 
   else
   {
-    v6 = scn_default_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __37__SCNPhysicsBody_applyForce_impulse___block_invoke_cold_1();
     }
@@ -1363,40 +1363,40 @@ float32x4_t __48__SCNPhysicsBody_applyForce_atPosition_impulse___block_invoke(ui
   [SCNTransaction postCommandWithContext:sceneRef object:node applyBlock:v12];
 }
 
-float32x4_t __38__SCNPhysicsBody_applyTorque_impulse___block_invoke(uint64_t a1)
+float32x4_t __38__SCNPhysicsBody_applyTorque_impulse___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(*(a1 + 32) + 232);
-  if (v2)
+  v3 = *(*(a1 + 32) + 232);
+  if (v3)
   {
-    btCollisionObject::activate(v2, 0);
-    v3.i64[0] = *(a1 + 40);
-    v3.i32[2] = *(a1 + 48);
-    v4 = vmulq_n_f32(v3, *(a1 + 52));
-    v4.i32[3] = 0;
-    v5 = *(*(a1 + 32) + 232);
+    btCollisionObject::activate(v3, 0);
+    v4.i64[0] = *(a1 + 40);
+    v4.i32[2] = *(a1 + 48);
+    v5 = vmulq_n_f32(v4, *(a1 + 52));
+    v5.i32[3] = 0;
+    v6 = *(*(a1 + 32) + 232);
     if (*(a1 + 56) == 1)
     {
-      v6 = vmulq_f32(v5[19], v4);
-      v7 = vmulq_f32(v5[20], v4);
-      v8 = vmulq_f32(v5[21], v4);
-      v8.i32[3] = 0;
-      *v6.f32 = vadd_f32(vpadd_f32(*v6.f32, *v7.i8), vzip1_s32(*&vextq_s8(v6, v6, 8uLL), *&vextq_s8(v7, v7, 8uLL)));
-      *&v6.u32[2] = vpadd_f32(vpadd_f32(*v8.i8, *&vextq_s8(v8, v8, 8uLL)), 0);
-      result = vaddq_f32(v5[23], vmulq_f32(v6, v5[39]));
-      v5[23] = result;
+      v7 = vmulq_f32(v6[19], v5);
+      v8 = vmulq_f32(v6[20], v5);
+      v9 = vmulq_f32(v6[21], v5);
+      v9.i32[3] = 0;
+      *v7.f32 = vadd_f32(vpadd_f32(*v7.f32, *v8.i8), vzip1_s32(*&vextq_s8(v7, v7, 8uLL), *&vextq_s8(v8, v8, 8uLL)));
+      *&v7.u32[2] = vpadd_f32(vpadd_f32(*v9.i8, *&vextq_s8(v9, v9, 8uLL)), 0);
+      result = vaddq_f32(v6[23], vmulq_f32(v7, v6[39]));
+      v6[23] = result;
     }
 
     else
     {
-      result = vaddq_f32(v5[30], vmulq_f32(v5[39], v4));
-      v5[30] = result;
+      result = vaddq_f32(v6[30], vmulq_f32(v6[39], v5));
+      v6[30] = result;
     }
   }
 
   else
   {
-    v10 = scn_default_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       __37__SCNPhysicsBody_applyForce_impulse___block_invoke_cold_1();
     }
@@ -1426,21 +1426,21 @@ float32x4_t __38__SCNPhysicsBody_applyTorque_impulse___block_invoke(uint64_t a1)
   [SCNTransaction postCommandWithContext:sceneRef object:node applyBlock:v5];
 }
 
-void __32__SCNPhysicsBody_clearAllForces__block_invoke(uint64_t a1)
+void __32__SCNPhysicsBody_clearAllForces__block_invoke(uint64_t result, uint64_t a2)
 {
-  v1 = *(*(a1 + 32) + 232);
-  if (v1)
+  v2 = *(*(result + 32) + 232);
+  if (v2)
   {
-    *(v1 + 464) = 0u;
-    *(v1 + 480) = 0u;
-    *(*(*(a1 + 32) + 232) + 352) = 0u;
-    *(*(*(a1 + 32) + 232) + 368) = 0u;
+    *(v2 + 464) = 0u;
+    *(v2 + 480) = 0u;
+    *(*(*(result + 32) + 232) + 352) = 0u;
+    *(*(*(result + 32) + 232) + 368) = 0u;
   }
 
   else
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = scn_default_log(result, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __32__SCNPhysicsBody_clearAllForces__block_invoke_cold_1();
     }
@@ -1518,7 +1518,7 @@ uint64_t __35__SCNPhysicsBody_resetToTransform___block_invoke(uint64_t a1)
     v14 = 0u;
     v11 = 0u;
     v12 = 0u;
-    [(SCNNode *)node worldTransform];
+    objc_msgSend_worldTransform(node, a2);
     sceneRef = [(SCNNode *)self->_node sceneRef];
     v5 = self->_node;
     v6[0] = MEMORY[0x277D85DD0];
@@ -1558,7 +1558,7 @@ uint64_t __32__SCNPhysicsBody_resetTransform__block_invoke(uint64_t a1)
   presentationNode = [(SCNNode *)self->_node presentationNode];
   if (presentationNode)
   {
-    [(SCNNode *)presentationNode worldTransform];
+    objc_msgSend_worldTransform(presentationNode);
   }
 
   else
@@ -1592,7 +1592,7 @@ uint64_t __32__SCNPhysicsBody_resetTransform__block_invoke(uint64_t a1)
   presentationNode = [(SCNNode *)self->_node presentationNode];
   if (presentationNode)
   {
-    [(SCNNode *)presentationNode worldTransform];
+    objc_msgSend_worldTransform(presentationNode);
   }
 
   else
@@ -1815,7 +1815,7 @@ uint64_t __30__SCNPhysicsBody__removeOwner__block_invoke(uint64_t a1)
   {
     if (self->_body)
     {
-      v5 = scn_default_log();
+      v5 = scn_default_log(self, a2);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
       {
         [SCNPhysicsBody _setOwner:v5];
@@ -1831,44 +1831,44 @@ uint64_t __30__SCNPhysicsBody__removeOwner__block_invoke(uint64_t a1)
   contactTestBitMask = [(SCNPhysicsBody *)self contactTestBitMask];
   if (self->_node)
   {
-    v12 = contactTestBitMask;
+    v13 = contactTestBitMask;
     mass = self->_mass;
     isDefaultShape = self->_isDefaultShape;
-    *&v11 = *&self->_momentOfInertia.x;
-    DWORD2(v11) = LODWORD(self->_momentOfInertia.z);
-    v23 = v11;
-    *&v14 = *&self->_centerOfMassOffset.x;
+    *&v12 = *&self->_momentOfInertia.x;
+    DWORD2(v12) = LODWORD(self->_momentOfInertia.z);
+    v24 = v12;
+    *&v15 = *&self->_centerOfMassOffset.x;
     explicitMomentOfInertia = self->_explicitMomentOfInertia;
-    *(&v14 + 1) = LODWORD(self->_centerOfMassOffset.z);
-    v21 = v14;
-    v16 = categoryBitMask;
+    *(&v15 + 1) = LODWORD(self->_centerOfMassOffset.z);
+    v22 = v15;
+    v17 = categoryBitMask;
     physicsShape = self->_physicsShape;
     sceneRef = [(SCNPhysicsBody *)self sceneRef];
     node = self->_node;
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3321888768;
-    v24[2] = __28__SCNPhysicsBody__setOwner___block_invoke;
-    v24[3] = &unk_282DC5028;
-    v30 = nodeRef;
-    v31 = body;
-    v36 = isDefaultShape;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3321888768;
+    v25[2] = __28__SCNPhysicsBody__setOwner___block_invoke;
+    v25[3] = &unk_282DC5028;
+    v31 = nodeRef;
+    v32 = body;
+    v37 = isDefaultShape;
     ownerCopy = owner;
     selfCopy = self;
-    v29 = physicsShape;
-    v32 = mass;
-    v37 = explicitMomentOfInertia;
-    v25 = v23;
-    v26 = v21;
-    v33 = v16;
-    v34 = collisionBitMask;
-    v35 = v12;
-    [SCNTransaction postCommandWithContext:sceneRef object:node applyBlock:v24];
+    v30 = physicsShape;
+    v33 = mass;
+    v38 = explicitMomentOfInertia;
+    v26 = v24;
+    v27 = v22;
+    v34 = v17;
+    v35 = collisionBitMask;
+    v36 = v13;
+    [SCNTransaction postCommandWithContext:sceneRef object:node applyBlock:v25];
   }
 
   else
   {
-    v20 = scn_default_log();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = scn_default_log(contactTestBitMask, v11);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       [SCNPhysicsBody _setOwner:];
     }
@@ -1879,12 +1879,12 @@ uint64_t __28__SCNPhysicsBody__setOwner___block_invoke(uint64_t a1)
 {
   v2 = [objc_msgSend(*(a1 + 64) "scene")];
   C3DNodeSetHasPhysicsBody(*(a1 + 88), 1);
-  v3 = *(a1 + 96);
-  if (v3 && !*(v3 + 208))
+  v4 = *(a1 + 96);
+  if (v4 && !*(v4 + 208))
   {
     if (*(a1 + 136) == 1)
     {
-      DefaultShapeForNode = C3DPhysicsShapeGetDefaultShapeForNode(*(a1 + 88));
+      DefaultShapeForNode = C3DPhysicsShapeGetDefaultShapeForNode(*(a1 + 88), v3);
     }
 
     else
@@ -1892,30 +1892,30 @@ uint64_t __28__SCNPhysicsBody__setOwner___block_invoke(uint64_t a1)
       DefaultShapeForNode = [*(a1 + 72) _shapeHandleWithShape:*(a1 + 80) owner:*(a1 + 64)];
     }
 
-    v7 = DefaultShapeForNode;
-    v8 = *(a1 + 96);
-    v9 = *(a1 + 104);
+    v8 = DefaultShapeForNode;
+    v9 = *(a1 + 96);
+    v10 = *(a1 + 104);
     if (*(a1 + 137))
     {
-      v10 = (a1 + 32);
+      v11 = (a1 + 32);
     }
 
     else
     {
-      v10 = 0;
+      v11 = 0;
     }
 
-    v17 = *(a1 + 48);
-    __setCollisionShape(v8, v7, v10, &v17, v9, *&v17, v5, v6);
+    v18 = *(a1 + 48);
+    __setCollisionShape(v9, v8, v10, *&v18, v6, v7, v11, &v18);
   }
 
-  v11 = *(a1 + 72);
-  v12 = *(a1 + 88);
-  v13 = *(a1 + 112);
-  v14 = *(a1 + 120);
-  v15 = *(a1 + 128);
+  v12 = *(a1 + 72);
+  v13 = *(a1 + 88);
+  v14 = *(a1 + 112);
+  v15 = *(a1 + 120);
+  v16 = *(a1 + 128);
 
-  return [v2 addPhysicsBody:v11 nodeRef:v12 colGroup:v13 colMask:v14 colTest:v15];
+  return [v2 addPhysicsBody:v12 nodeRef:v13 colGroup:v14 colMask:v15 colTest:v16];
 }
 
 - (void)encodeWithCoder:(id)coder

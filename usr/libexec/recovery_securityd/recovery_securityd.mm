@@ -81,7 +81,7 @@ CFDataRef sub_1000014F4(const void *a1)
   return CFDataCreate(0, 0, 0);
 }
 
-CFStringRef sub_1000015D0(const __CFData *a1)
+const __CFData *sub_1000015D0(const __CFData *a1)
 {
   v1 = a1;
   v2 = CFGetTypeID(a1);
@@ -404,7 +404,7 @@ void sub_100001CA4(uint64_t a1, CFTypeRef cf)
   }
 }
 
-uint64_t sub_100001CF0(uint64_t a1, int a2, __CFString **a3)
+uint64_t sub_100001CF0(uint64_t a1, uint64_t a2, __CFString **a3)
 {
   v3 = *(a1 + 40);
   if (v3 == 6)
@@ -422,6 +422,7 @@ uint64_t sub_100001CF0(uint64_t a1, int a2, __CFString **a3)
     return 1;
   }
 
+  v7 = a2;
   v9 = sub_100001820(*(a1 + 16), 9, a3);
   if (!v9)
   {
@@ -432,8 +433,8 @@ uint64_t sub_100001CF0(uint64_t a1, int a2, __CFString **a3)
   if (v10)
   {
     *(a1 + 40) = 3;
-    result = sub_1000400E8(a1, a2, v10, a3);
-    if (a2)
+    result = sub_1000400E8(a1, v7, v10, a3);
+    if (v7)
     {
       v12 = 2;
     }
@@ -516,7 +517,7 @@ CFDataRef sub_100001EC8(const void *a1, uint64_t a2)
   if (v2)
   {
 
-    return v2();
+    return v2(a1);
   }
 
   v4 = 0;
@@ -911,7 +912,7 @@ void sub_10000257C(void *a1)
   }
 }
 
-uint64_t sub_1000025E4(void **a1, void **a2)
+uint64_t sub_1000025E4(uint64_t *a1, void **a2)
 {
   v3 = a1;
   if (a1)
@@ -1559,7 +1560,7 @@ uint64_t sub_1000032AC(uint64_t a1, uint64_t a2, __CFString **a3)
   return result;
 }
 
-const void *sub_10000336C(uint64_t a1, uint64_t a2, const __CFDictionary *a3, int a4, __CFString **a5)
+const void *sub_10000336C(uint64_t a1, uint64_t a2, const __CFDictionary *a3, uint64_t a4, __CFString **a5)
 {
   v7 = sub_1000033DC(kCFAllocatorDefault, a2, a4, 0);
   v8 = v7;
@@ -1585,7 +1586,7 @@ uint64_t sub_1000033DC(const __CFAllocator *a1, uint64_t a2, int a3, uint64_t a4
   return Instance;
 }
 
-CFDataRef sub_100003478(const __CFAllocator *a1, sqlite3_stmt *a2, uint64_t a3, int iCol)
+CFDateRef sub_100003478(const __CFAllocator *a1, sqlite3_stmt *a2, uint64_t a3, int iCol)
 {
   result = 0;
   v9 = *(a3 + 8);
@@ -1840,12 +1841,12 @@ LABEL_15:
   return 0;
 }
 
-__CFString ***sub_10000396C(__CFString ***result)
+const __CFString *sub_10000396C(const __CFString *result)
 {
   if (result)
   {
     v1 = result;
-    v2 = sub_100009044(result[2], kSecAttrAccessGroup, 0);
+    v2 = sub_100009044(result->data, kSecAttrAccessGroup, 0);
     result = sub_100001BA0(v1, v2, 0);
     if (result)
     {
@@ -2018,7 +2019,7 @@ uint64_t sub_100003E50(void **a1, __CFString **a2)
   return valuePtr;
 }
 
-uint64_t sub_100003EFC(void **a1, uint64_t a2, __CFString **a3)
+uint64_t sub_100003EFC(uint64_t *a1, uint64_t a2, __CFString **a3)
 {
   v6 = sub_100001820(a1[2], 8, a3);
   if (!v6)
@@ -2109,34 +2110,34 @@ uint64_t sub_10000418C(void **a1)
   return v3 & v5;
 }
 
-uint64_t sub_1000041E8(CFStringRef **a1, uint64_t a2, CFTypeRef *a3)
+uint64_t sub_1000041E8(uint64_t a1, uint64_t a2, CFErrorRef *a3)
 {
   if (sub_100001CF0(a1, 1, a3))
   {
     v6 = CFGetAllocator(a1);
     Mutable = CFStringCreateMutable(v6, 0);
     CFStringAppend(Mutable, @"INSERT INTO ");
-    CFStringAppend(Mutable, *a1[2]);
+    CFStringAppend(Mutable, **(a1 + 16));
     CFStringAppend(Mutable, @"(");
-    v8 = a1[2];
-    v9 = v8[2];
+    v8 = *(a1 + 16);
+    v9 = *(v8 + 16);
     if (v9)
     {
       v10 = 0;
       v11 = 0;
-      v12 = v8 + 3;
+      v12 = (v8 + 24);
       do
       {
-        if ((v9->data & 2) != 0)
+        if ((*(v9 + 16) & 2) != 0)
         {
-          isa = v9->isa;
+          v13 = *v9;
           if (v11)
           {
             CFStringAppend(Mutable, @",");
           }
 
           ++v10;
-          CFStringAppend(Mutable, isa);
+          CFStringAppend(Mutable, v13);
           v11 = 1;
         }
 
@@ -2169,24 +2170,7 @@ uint64_t sub_1000041E8(CFStringRef **a1, uint64_t a2, CFTypeRef *a3)
     v24 = &v23;
     v25 = 0x2000000000;
     v26 = Mutable != 0;
-    if (!Mutable)
-    {
-      goto LABEL_30;
-    }
-
-    v22[0] = _NSConcreteStackBlock;
-    v22[1] = 0x40000000;
-    v22[2] = sub_10000451C;
-    v22[3] = &unk_100059350;
-    v22[6] = a1;
-    v22[7] = a3;
-    v22[4] = &stru_100059328;
-    v22[5] = &v23;
-    v22[8] = a2;
-    v17 = SecDbPrepare(a2, Mutable, a3, v22);
-    *(v24 + 24) &= v17;
-    CFRelease(Mutable);
-    if (v24[3])
+    if (Mutable && (v22[0] = _NSConcreteStackBlock, v22[1] = 0x40000000, v22[2] = sub_10000451C, v22[3] = &unk_100059350, v22[6] = a1, v22[7] = a3, v22[4] = &stru_100059328, v22[5] = &v23, v22[8] = a2, v17 = SecDbPrepare(a2, Mutable, a3, v22), *(v24 + 24) &= v17, CFRelease(Mutable), (v24[3] & 1) != 0))
     {
       v18 = secLogObjForScope("item");
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
@@ -2199,30 +2183,26 @@ uint64_t sub_1000041E8(CFStringRef **a1, uint64_t a2, CFTypeRef *a3)
       SecDbRecordChange(a2, 0, a1);
     }
 
-    else
+    else if ((sub_10000396C(a1) & 1) == 0)
     {
-LABEL_30:
-      if ((sub_10000396C(a1) & 1) == 0)
+      v19 = secLogObjForScope("item");
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = secLogObjForScope("item");
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        if (a3)
         {
-          if (a3)
-          {
-            v20 = *a3;
-          }
-
-          else
-          {
-            v20 = 0;
-          }
-
-          *buf = 138478083;
-          v28 = a1;
-          v29 = 2112;
-          v30 = v20;
-          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "insert failed for item %{private}@ with %@", buf, 0x16u);
+          v20 = *a3;
         }
+
+        else
+        {
+          v20 = 0;
+        }
+
+        *buf = 138478083;
+        v28 = a1;
+        v29 = 2112;
+        v30 = v20;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "insert failed for item %{private}@ with %@", buf, 0x16u);
       }
     }
 
@@ -2321,7 +2301,7 @@ __CFError *sub_100004630(__CFError *result)
   return result;
 }
 
-uint64_t sub_100004694(uint64_t a1, uint64_t a2, __CFString **a3, uint64_t a4)
+uint64_t sub_100004694(uint64_t a1, uint64_t a2, CFErrorRef *a3, uint64_t a4)
 {
   v26 = 0;
   v27 = &v26;
@@ -2464,7 +2444,7 @@ void *sub_1000048CC(void *a1, __CFString **a2)
   return v7;
 }
 
-uint64_t sub_100004958(CFDictionaryRef *a1, uint64_t a2, CFTypeRef *a3, Block_layout *a4, Block_layout *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_100004958(CFStringRef **a1, uint64_t a2, CFErrorRef *a3, Block_layout *a4, Block_layout *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v21 = 0;
   v22 = &v21;
@@ -2522,39 +2502,38 @@ uint64_t sub_100004958(CFDictionaryRef *a1, uint64_t a2, CFTypeRef *a3, Block_la
   return v18 & 1;
 }
 
-void sub_100004AB8(uint64_t a1, uint64_t a2)
+void sub_100004AB8(void *a1, uint64_t a2)
 {
-  v19 = 0;
-  *(*(*(a1 + 40) + 8) + 24) = sub_100004D30(a2, &v19, *(a1 + 56));
+  v18 = 0;
+  *(*(a1[5] + 8) + 24) = sub_100004D30(a2, &v18, a1[7]);
   cf = 0;
-  v4 = v19;
-  if (v19 != 1)
+  v4 = v18;
+  if (v18 != 1)
   {
-    if (*(*(*(a1 + 40) + 8) + 24) != 1)
+    if (*(*(a1[5] + 8) + 24) != 1)
     {
       return;
     }
 
-    v15 = *(a1 + 32);
-    if (!v15)
+    v14 = a1[4];
+    if (!v14)
     {
       return;
     }
 
-    (*(v15 + 16))(v15, a2, &cf);
+    (*(v14 + 16))(v14, a2, &cf);
     if (!cf)
     {
       return;
     }
 
 LABEL_8:
-    v10 = sub_100001820(*(a2 + 16), 8, *(a1 + 56));
+    v10 = sub_100001820(*(a2 + 16), 8, a1[7]);
     v11 = sub_100001DC8(a2, v10);
     if (v11)
     {
-      *(*(*(a1 + 40) + 8) + 24) = sub_100002090(cf, v10, v11, (*(*(a1 + 48) + 8) + 24));
-      v12 = *(*(a1 + 40) + 8);
-      v13 = *(v12 + 24);
+      *(*(a1[5] + 8) + 24) = sub_100002090(cf, v10, v11, (*(a1[6] + 8) + 24));
+      v12 = *(a1[5] + 8);
       if ((v4 & 1) != 0 || !*(v12 + 24))
       {
         if (!*(v12 + 24))
@@ -2565,36 +2544,36 @@ LABEL_8:
 
       else
       {
-        *(*(*(a1 + 40) + 8) + 24) = sub_1000053C4(cf, a2, *(a1 + 56));
-        v12 = *(*(a1 + 40) + 8);
+        *(*(a1[5] + 8) + 24) = sub_1000053C4(cf, a2, a1[7]);
+        v12 = *(a1[5] + 8);
         if ((*(v12 + 24) & 1) == 0)
         {
 LABEL_12:
-          v14 = 0;
+          v13 = 0;
           goto LABEL_21;
         }
       }
 
-      v14 = sub_100005434(a2, cf, *(a1 + 72), (*(*(a1 + 48) + 8) + 24), &stru_1000593D0);
+      v13 = sub_100005434(a2, cf, a1[9], (*(a1[6] + 8) + 24), &stru_1000593D0);
     }
 
     else
     {
-      v14 = SecError(-26276, (*(*(a1 + 48) + 8) + 24), @"no rowid for %@", a2);
+      v13 = SecError(-26276, (*(a1[6] + 8) + 24), @"no rowid for %@", a2);
     }
 
-    v12 = *(*(a1 + 40) + 8);
+    v12 = *(a1[5] + 8);
 LABEL_21:
-    *(v12 + 24) = v14;
+    *(v12 + 24) = v13;
     CFRelease(cf);
-    if (*(*(*(a1 + 40) + 8) + 24) == 1)
+    if (*(*(a1[5] + 8) + 24) == 1)
     {
-      v16 = *(*(a1 + 48) + 8);
-      v17 = *(v16 + 24);
-      if (v17)
+      v15 = *(a1[6] + 8);
+      v16 = *(v15 + 24);
+      if (v16)
       {
-        *(v16 + 24) = 0;
-        CFRelease(v17);
+        *(v15 + 24) = 0;
+        CFRelease(v16);
       }
     }
 
@@ -2604,18 +2583,18 @@ LABEL_21:
   v5 = secLogObjForScope("item");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = *(a1 + 64);
+    v6 = a1[8];
     *buf = 138478083;
-    v21 = a2;
-    v22 = 2113;
-    v23 = v6;
+    v20 = a2;
+    v21 = 2113;
+    v22 = v6;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "replacing corrupted item %{private}@ with %{private}@", buf, 0x16u);
   }
 
-  v7 = *(a1 + 64);
+  v7 = a1[8];
   cf = v7;
   CFRetain(v7);
-  v8 = *(a1 + 56);
+  v8 = a1[7];
   if (v8)
   {
     v9 = *v8;
@@ -2632,10 +2611,10 @@ LABEL_21:
   }
 }
 
-uint64_t sub_100004D30(__CFString *a1, _BYTE *a2, CFErrorRef *a3)
+uint64_t sub_100004D30(uint64_t *a1, _BYTE *a2, CFErrorRef *a3)
 {
   cf = 0;
-  v6 = sub_100001820(a1->data, 7, &cf);
+  v6 = sub_100001820(a1[2], 7, &cf);
   v7 = sub_100001BA0(a1, v6, &cf);
   v8 = v7;
   if (v7)
@@ -2649,7 +2628,7 @@ uint64_t sub_100004D30(__CFString *a1, _BYTE *a2, CFErrorRef *a3)
     goto LABEL_23;
   }
 
-  v9 = sub_100001820(a1->data, 15, &cf);
+  v9 = sub_100001820(a1[2], 15, &cf);
   v10 = sub_100001BA0(a1, v9, &cf);
   if (!v10)
   {
@@ -2687,7 +2666,7 @@ LABEL_17:
       _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "error %@ reading item %{private}@ (corrupted)", buf, 0x16u);
     }
 
-    __security_simulatecrash(@"Corrupted item found in keychain", 1405091842);
+    __security_simulatecrash(@"Corrupted item found in keychain", 0x53C00002u);
     v14 = 0;
     goto LABEL_20;
   }
@@ -2791,11 +2770,11 @@ LABEL_23:
 
   if (!cf)
   {
-    data = a1->data;
-    v37 = *(data + 2);
+    v36 = a1[2];
+    v37 = *(v36 + 16);
     if (v37)
     {
-      v38 = (data + 24);
+      v38 = (v36 + 24);
       do
       {
         if ((*(v37 + 16) & 0x2080) != 0)
@@ -2836,7 +2815,7 @@ LABEL_23:
                   _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "error attribute %@: %@ item %{private}@ (corrupted)", buf, 0x20u);
                 }
 
-                __security_simulatecrash(@"Corrupted item found in keychain", 1405091842);
+                __security_simulatecrash(@"Corrupted item found in keychain", 0x53C00002u);
               }
 
               *a2 = 1;
@@ -2864,7 +2843,7 @@ LABEL_23:
               _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "error attribute %@ has NULL value in item %{private}@ (corrupted)", buf, 0x16u);
             }
 
-            __security_simulatecrash(@"Corrupted item (attr NULL) found in keychain", 1405091842);
+            __security_simulatecrash(@"Corrupted item (attr NULL) found in keychain", 0x53C00002u);
             *a2 = 1;
             break;
           }
@@ -2943,7 +2922,7 @@ void *sub_1000053C4(void **a1, const void *a2, __CFString **a3)
   return result;
 }
 
-uint64_t sub_100005434(__CFString ***a1, CFStringRef **a2, uint64_t a3, CFTypeRef *a4, uint64_t a5)
+uint64_t sub_100005434(__CFString *a1, CFStringRef **a2, uint64_t a3, CFErrorRef *a4, uint64_t a5)
 {
   v10 = sub_100002408(a1, kSecAttrPersistentReference);
   if (!v10 || CFDataGetLength(v10) != 16)
@@ -3005,11 +2984,11 @@ uint64_t sub_100005434(__CFString ***a1, CFStringRef **a2, uint64_t a3, CFTypeRe
   }
 
   bytes.byte0 = 1;
-  v22 = a1[2];
-  v23 = v22[2];
+  data = a1->data;
+  v23 = *(data + 2);
   if (v23)
   {
-    v24 = (v22 + 3);
+    v24 = (data + 24);
     do
     {
       if ((*(a5 + 16))(a5, v23))
@@ -3028,25 +3007,7 @@ uint64_t sub_100005434(__CFString ***a1, CFStringRef **a2, uint64_t a3, CFTypeRe
   *&bytes.byte8 = &bytes;
   v33 = 0x2000000000;
   v34 = Mutable != 0;
-  if (!Mutable)
-  {
-    goto LABEL_29;
-  }
-
-  v31[0] = _NSConcreteStackBlock;
-  v31[1] = 0x40000000;
-  v31[2] = sub_100005DB0;
-  v31[3] = &unk_100059440;
-  v31[6] = a1;
-  v31[7] = a2;
-  v31[4] = a5;
-  v31[5] = &bytes;
-  v31[8] = a4;
-  v31[9] = a3;
-  v26 = SecDbPrepare(a3, Mutable, a4, v31);
-  *(*&bytes.byte8 + 24) &= v26;
-  CFRelease(Mutable);
-  if (*(*&bytes.byte8 + 24))
+  if (Mutable && (v31[0] = _NSConcreteStackBlock, v31[1] = 0x40000000, v31[2] = sub_100005DB0, v31[3] = &unk_100059440, v31[6] = a1, v31[7] = a2, v31[4] = a5, v31[5] = &bytes, v31[8] = a4, v31[9] = a3, v26 = SecDbPrepare(a3, Mutable, a4, v31), *(*&bytes.byte8 + 24) &= v26, CFRelease(Mutable), (*(*&bytes.byte8 + 24) & 1) != 0))
   {
     if ((sub_10000396C(a1) & 1) == 0)
     {
@@ -3077,7 +3038,6 @@ uint64_t sub_100005434(__CFString ***a1, CFStringRef **a2, uint64_t a3, CFTypeRe
 
   else
   {
-LABEL_29:
     v29 = 0;
   }
 
@@ -3085,7 +3045,7 @@ LABEL_29:
   return v29 & 1;
 }
 
-uint64_t sub_1000057E0(uint64_t a1, uint64_t a2, char a3, char a4, __CFString **a5)
+uint64_t sub_1000057E0(uint64_t a1, uint64_t a2, char a3, char a4, CFErrorRef *a5)
 {
   v6[0] = _NSConcreteStackBlock;
   v6[1] = 0x40000000;
@@ -3097,7 +3057,7 @@ uint64_t sub_1000057E0(uint64_t a1, uint64_t a2, char a3, char a4, __CFString **
   return sub_100004694(a1, a2, a5, v6);
 }
 
-void sub_100005858(uint64_t a1, void **a2, uint64_t *a3)
+void sub_100005858(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
   if (sub_10000418C(a2))
   {
@@ -3419,12 +3379,12 @@ LABEL_73:
   *a3 = v43;
 }
 
-__CFData *sub_100005DB0(uint64_t a1, sqlite3_stmt *a2)
+__CFData *sub_100005DB0(void *a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 48);
-  v5 = *(a1 + 56);
-  v6 = *(a1 + 64);
-  v7 = *(a1 + 32);
+  v4 = a1[6];
+  v5 = a1[7];
+  v6 = a1[8];
+  v7 = a1[4];
   v8 = *(v5 + 16);
   v9 = *(v8 + 16);
   if (v9)
@@ -3505,7 +3465,7 @@ LABEL_11:
 
   if (v13)
   {
-    result = SecDbStep(*(a1 + 72), a2, *(a1 + 64), 0);
+    result = SecDbStep(a1[9], a2, a1[8], 0);
   }
 
   else
@@ -3515,11 +3475,11 @@ LABEL_21:
   }
 
 LABEL_22:
-  *(*(*(a1 + 40) + 8) + 24) = result;
+  *(*(a1[5] + 8) + 24) = result;
   return result;
 }
 
-uint64_t sub_100005F18(CFStringRef **a1, uint64_t a2, CFTypeRef *a3, uint64_t a4)
+uint64_t sub_100005F18(CFStringRef **a1, uint64_t a2, CFErrorRef *a3, uint64_t a4)
 {
   v8 = CFGetAllocator(a1);
   Mutable = CFStringCreateMutable(v8, 0);
@@ -3575,7 +3535,7 @@ uint64_t sub_100005F18(CFStringRef **a1, uint64_t a2, CFTypeRef *a3, uint64_t a4
   return v15 & 1;
 }
 
-uint64_t sub_100006098(CFStringRef **a1, uint64_t a2, CFTypeRef *a3, uint64_t a4)
+uint64_t sub_100006098(CFStringRef **a1, uint64_t a2, CFErrorRef *a3, uint64_t a4)
 {
   v6 = sub_100005F18(a1, a2, a3, a4);
   if (v6)
@@ -3596,7 +3556,7 @@ uint64_t sub_100006098(CFStringRef **a1, uint64_t a2, CFTypeRef *a3, uint64_t a4
   return v6;
 }
 
-uint64_t sub_100006174(void **a1, void **a2, uint64_t a3, CFBooleanRef a4, int a5, __CFString **a6)
+uint64_t sub_100006174(uint64_t a1, void **a2, uint64_t a3, CFBooleanRef a4, int a5, __CFString **a6)
 {
   v41 = 0;
   v42 = &v41;
@@ -3606,7 +3566,7 @@ uint64_t sub_100006174(void **a1, void **a2, uint64_t a3, CFBooleanRef a4, int a
   v38 = &v37;
   v39 = 0x2000000000;
   v40 = 0;
-  v11 = sub_100001820(a1[2], 10, a6);
+  v11 = sub_100001820(*(a1 + 16), 10, a6);
   v12 = sub_100001BA0(a1, v11, a6);
   v13 = sub_100001820(a2[2], 10, a6);
   v14 = sub_100001BA0(a2, v13, a6);
@@ -3748,7 +3708,7 @@ LABEL_38:
   return v34;
 }
 
-void sub_100006528(uint64_t a1, __CFString *a2)
+void sub_100006528(uint64_t a1, uint64_t *a2)
 {
   v10 = 0;
   *(*(*(a1 + 32) + 8) + 24) = sub_100004D30(a2, &v10, *(a1 + 48));
@@ -3879,7 +3839,7 @@ LABEL_14:
   return v9;
 }
 
-CFStringRef **sub_10000682C(CFStringRef **a1, uint64_t a2, CFBooleanRef cf1, int a4, CFTypeRef *a5)
+CFStringRef **sub_10000682C(CFStringRef **a1, uint64_t a2, CFBooleanRef cf1, int a4, CFErrorRef *a5)
 {
   if (cf1 && kCFBooleanFalse)
   {
@@ -3908,15 +3868,15 @@ LABEL_4:
   return result;
 }
 
-__CFString *sub_100006934(CFDictionaryRef *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+__CFString *sub_100006934(CFStringRef **a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   Mutable = CFStringCreateMutable(kCFAllocatorDefault, 0);
   CFStringAppend(Mutable, @"SELECT ");
-  v8 = *(*a1 + 2);
+  v8 = (*a1)[2];
   if (v8)
   {
     v9 = 0;
-    v10 = (*a1 + 24);
+    v10 = (*a1 + 3);
     do
     {
       if ((*(a2 + 16))(a2, v8))
@@ -3956,10 +3916,10 @@ __CFString *sub_100006934(CFDictionaryRef *a1, uint64_t a2, uint64_t a3, uint64_
   CFStringAppend(Mutable, @" FROM ");
   CFStringAppend(Mutable, **a1);
   v25 = 1;
-  v13 = *(*a1 + 2);
+  v13 = (*a1)[2];
   if (v13)
   {
-    v14 = (*a1 + 24);
+    v14 = (*a1 + 3);
     do
     {
       if ((*(a3 + 16))(a3, v13))
@@ -4109,14 +4069,14 @@ uint64_t sub_100006B7C(CFDictionaryRef *a1, sqlite3_stmt *a2, __CFString **a3, u
   return v21;
 }
 
-uint64_t sub_100006DF4(uint64_t a1, const __CFNull *a2)
+uint64_t sub_100006DF4(void *a1, const __CFNull *a2)
 {
-  v3 = *(a1 + 48);
-  v4 = *(*(a1 + 40) + 8);
+  v3 = a1[6];
+  v4 = *(a1[5] + 8);
   v5 = *(v4 + 24);
   *(v4 + 24) = v5 + 1;
-  result = sub_100006E48(v3, *(a1 + 56), v5, *(a1 + 64), a2, *(a1 + 72));
-  *(*(*(a1 + 32) + 8) + 24) = result;
+  result = sub_100006E48(v3, a1[7], v5, a1[8], a2, a1[9]);
+  *(*(a1[4] + 8) + 24) = result;
   return result;
 }
 
@@ -4729,7 +4689,7 @@ const void *sub_100009130(const void *result)
   return result;
 }
 
-uint64_t sub_100009178(uint64_t a1, uint64_t a2, CFTypeRef *a3, uint64_t a4)
+uint64_t sub_100009178(uint64_t a1, uint64_t a2, CFErrorRef *a3, uint64_t a4)
 {
   v7[0] = 0;
   v7[1] = v7;
@@ -4780,11 +4740,12 @@ uint64_t sub_100009260(uint64_t a1, unsigned int *a2, const __CFArray *a3, int a
     v12 = *(a2 + 1);
     if (v12)
     {
-      v13 = (a2 + 4);
+      v13 = a2 + 4;
       do
       {
         sub_100009428(v11, v12);
-        v14 = *v13++;
+        v14 = *v13;
+        v13 += 2;
         v12 = v14;
       }
 
@@ -4916,9 +4877,9 @@ LABEL_26:
     v15 = 3;
     do
     {
-      if ((~*(v14 + 4) & 6) == 0)
+      if ((~*(v14 + 16) & 6) == 0)
       {
-        v16 = *(v14 + 2);
+        v16 = *(v14 + 8);
         v17 = *a2;
         v18 = *v14;
         if (v16 == 11)
@@ -4939,17 +4900,17 @@ LABEL_26:
   }
 }
 
-BOOL sub_100009670(uint64_t a1, const char *a2)
+BOOL sub_100009670(void *a1, const char *a2)
 {
-  v4 = SecDbHandle(*(a1 + 40));
+  v4 = SecDbHandle(a1[5]);
   v5 = sqlite3_exec(v4, a2, 0, 0, 0);
-  v6 = SecDbHandle(*(a1 + 40));
-  result = SecDbErrorWithDb(v5, v6, *(a1 + 48), @"sqlite3_exec: %s", a2);
-  *(*(*(a1 + 32) + 8) + 24) = result;
+  v6 = SecDbHandle(a1[5]);
+  result = SecDbErrorWithDb(v5, v6, a1[6], @"sqlite3_exec: %s", a2);
+  *(*(a1[4] + 8) + 24) = result;
   return result;
 }
 
-CFDataRef sub_1000096F4(CFTypeRef cf, int a2, __CFString **a3)
+CFDataRef sub_1000096F4(void **cf, int a2, __CFString **a3)
 {
   if (a2 == 8)
   {
@@ -5036,13 +4997,12 @@ CFDataRef sub_1000096F4(CFTypeRef cf, int a2, __CFString **a3)
   }
 }
 
-uint64_t sub_100009930(uint64_t a1, __CFString **a2)
+uint64_t sub_100009930(void **a1, __CFString **a2)
 {
   if (SecKeychainIsStaticPersistentRefsEnabled())
   {
     sub_100003D3C(a1, a2);
-    v4 = *sub_1000024A8(a1);
-    v5 = *(a1 + 48);
+    sub_1000024A8(a1);
 
     return _SecItemCreateUUIDBasedPersistentRef();
   }
@@ -5052,20 +5012,19 @@ uint64_t sub_100009930(uint64_t a1, __CFString **a2)
     result = sub_100003E50(a1, a2);
     if (result)
     {
-      v7 = result;
+      v5 = result;
       if (SecKeychainIsStaticPersistentRefsEnabled())
       {
-        v8 = secLogObjForScope("pref");
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v6 = secLogObjForScope("pref");
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
         {
-          v11 = 134217984;
-          v12 = v7;
-          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "SecPersistentRefCreateWithItem: Creating old persistent ref for %llu", &v11, 0xCu);
+          v7 = 134217984;
+          v8 = v5;
+          _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "SecPersistentRefCreateWithItem: Creating old persistent ref for %llu", &v7, 0xCu);
         }
       }
 
-      v9 = *sub_1000024A8(a1);
-      v10 = *(a1 + 48);
+      sub_1000024A8(a1);
       return _SecItemCreatePersistentRef();
     }
   }
@@ -5073,7 +5032,7 @@ uint64_t sub_100009930(uint64_t a1, __CFString **a2)
   return result;
 }
 
-uint64_t sub_100009A7C(uint64_t a1, uint64_t a2, CFDataRef *a3, __CFString **a4)
+uint64_t sub_100009A7C(uint64_t a1, uint64_t a2, CFDataRef *a3, CFErrorRef *a4)
 {
   if (!sub_1000296F4(a2) && !*(a2 + 88))
   {
@@ -5168,7 +5127,7 @@ LABEL_28:
           {
             if (CFErrorGetCode(*a4) == -26275)
             {
-              v25 = sub_100001820(v11[2], 14, a4);
+              v25 = sub_100001820(*(v11 + 16), 14, a4);
               v26 = sub_100001BA0(v11, v25, a4);
               if (v26)
               {
@@ -5245,7 +5204,7 @@ uint64_t sub_100009D54(uint64_t a1, const __CFArray *a2, uint64_t a3, __CFString
   v19 = 1;
   if (*(a1 + 64))
   {
-    v6 = SecError(-50, a4, @"value ref not supported by queries");
+    v6 = SecError(-50, a4, @"value ref not supported by queries", a4, a5);
   }
 
   else
@@ -5415,7 +5374,7 @@ uint64_t sub_10000A144(uint64_t a1, sqlite3_stmt *a2)
   return result;
 }
 
-uint64_t sub_10000A270(sqlite3_stmt *a1, CFArrayRef theArray, _DWORD *a3, CFTypeRef *a4)
+uint64_t sub_10000A270(sqlite3_stmt *a1, CFArrayRef theArray, unsigned int *a3, CFErrorRef *a4)
 {
   v5 = *a3;
   if (theArray && (Count = CFArrayGetCount(theArray), Count >= 1))
@@ -5466,69 +5425,71 @@ LABEL_11:
   return result;
 }
 
-uint64_t sub_10000A35C(sqlite3_stmt *a1, uint64_t a2, const __CFArray *a3, unsigned int *a4, CFTypeRef *a5)
+uint64_t sub_10000A35C(sqlite3_stmt *a1, uint64_t a2, const __CFArray *a3, unsigned int *a4, CFErrorRef *a5)
 {
   v10 = *a4;
-  v24 = *a4;
+  v28 = *a4;
   v11 = sub_100002E28(a2);
   if (v11 < 1)
   {
 LABEL_6:
-    v25 = -1431655766;
-    if (sub_10002955C(*(a2 + 128), &v25))
+    v29 = -1431655766;
+    v15 = sub_10002955C(*(a2 + 128), &v29);
+    if (v15)
     {
-      v15 = sub_1000291FC();
+      v17 = sub_1000291FC(v15, v16);
       v13 = (v10 + 1);
-      if ((SecDbBindObject(a1, v10, v15, a5) & 1) == 0)
+      if ((SecDbBindObject(a1, v10, v17, a5) & 1) == 0)
       {
         SecKeychainIsStaticPersistentRefsEnabled();
         goto LABEL_14;
       }
 
-      v16 = sub_1000293F4(v25);
+      v18 = sub_1000293F4(v29);
       v10 = (v10 + 2);
-      v17 = SecDbBindObject(a1, v13, v16, a5);
-      if (v16)
+      v19 = SecDbBindObject(a1, v13, v18, a5);
+      if (v18)
       {
-        CFRelease(v16);
+        CFRelease(v18);
       }
     }
 
-    else if (sub_1000293A4(*(a2 + 128)))
+    else if (sub_1000293A4(*(a2 + 128), v16))
     {
-      v17 = 1;
+      v19 = 1;
     }
 
     else
     {
-      v19 = *(a2 + 128);
-      if (v19)
+      v21 = *(a2 + 128);
+      if (v21)
       {
-        v20 = CFGetTypeID(v19);
-        if (v20 == CFNullGetTypeID())
+        v22 = CFGetTypeID(v21);
+        TypeID = CFNullGetTypeID();
+        if (v22 == TypeID)
         {
-          v21 = sub_100029270();
+          v25 = sub_100029270(TypeID, v24);
         }
 
         else
         {
-          v21 = *(a2 + 128);
+          v25 = *(a2 + 128);
         }
       }
 
       else
       {
-        v21 = 0;
+        v25 = 0;
       }
 
-      v17 = SecDbBindObject(a1, v10, v21, a5);
+      v19 = SecDbBindObject(a1, v10, v25, a5);
       v10 = (v10 + 1);
     }
 
-    v24 = v10;
-    if (!SecKeychainIsStaticPersistentRefsEnabled() || !v17 || (v22 = *(a2 + 80)) == 0 || CFDataGetLength(v22) != 16)
+    v28 = v10;
+    if (!SecKeychainIsStaticPersistentRefsEnabled() || !v19 || (v26 = *(a2 + 80)) == 0 || CFDataGetLength(v26) != 16)
     {
-      if (!v17)
+      if (!v19)
       {
         result = 0;
         LODWORD(v13) = v10;
@@ -5539,13 +5500,13 @@ LABEL_6:
     }
 
     LODWORD(v13) = v10 + 1;
-    v23 = SecDbBindObject(a1, v10, *(a2 + 80), a5);
-    v24 = v10 + 1;
-    if (v23)
+    v27 = SecDbBindObject(a1, v10, *(a2 + 80), a5);
+    v28 = v10 + 1;
+    if (v27)
     {
 LABEL_28:
-      result = sub_10000A270(a1, a3, &v24, a5);
-      LODWORD(v13) = v24;
+      result = sub_10000A270(a1, a3, &v28, a5);
+      LODWORD(v13) = v28;
       goto LABEL_30;
     }
 
@@ -5764,7 +5725,7 @@ BOOL sub_10000A868(uint64_t a1, uint64_t a2, __CFString **a3)
     v17 = SecError(-25300, a3, @"no matching items found");
     if (*(v4 + 200) == 1)
     {
-      __security_stackshotreport(@"ItemNotFound", 1405091848);
+      __security_stackshotreport(@"ItemNotFound", 0x53C00008u);
     }
 
     return v17;
@@ -5812,51 +5773,51 @@ void sub_10000AAE8(sqlite3_stmt *a1, uint64_t a2)
       }
     }
 
-    v22 = v4[30];
-    if (v22)
+    v21 = v4[30];
+    if (v21)
     {
       Value = CFDictionaryGetValue(theDict, kSecValueData);
-      if (!sub_10003E190(v22, Value))
+      if (!sub_10003E190(v21, Value))
       {
         goto LABEL_111;
       }
     }
 
-    v23 = *v4;
-    if (v23 == sub_10001725C())
+    v22 = *v4;
+    if (v22 == sub_10001725C())
     {
       *buf = 0;
-      if (SecKeychainIsStaticPersistentRefsEnabled() && (v49 = v4[10]) != 0 && CFDataGetLength(v49) == 16)
+      if (SecKeychainIsStaticPersistentRefsEnabled() && (v44 = v4[10]) != 0 && CFDataGetLength(v44) == 16)
       {
-        v50 = *(a2 + 8);
-        v51 = (v4 + 5);
-        v52 = a1;
-        v53 = v4;
-        v54 = 4;
+        v45 = *(a2 + 8);
+        v46 = (v4 + 5);
+        v47 = a1;
+        v48 = v4;
+        v49 = 4;
       }
 
       else
       {
-        v50 = *(a2 + 8);
-        v51 = (v4 + 5);
-        v52 = a1;
-        v53 = v4;
-        v54 = 3;
+        v45 = *(a2 + 8);
+        v46 = (v4 + 5);
+        v47 = a1;
+        v48 = v4;
+        v49 = 3;
       }
 
-      if (sub_10003E210(v52, v53, v54, v50, buf, 0, 0, v51) && *buf)
+      if (sub_10003E210(v47, v48, v49, v45, buf, 0, 0, v46) && *buf)
       {
-        v55 = CFDictionaryGetValue(theDict, kSecValueData);
-        if (v55)
+        v50 = CFDictionaryGetValue(theDict, kSecValueData);
+        if (v50)
         {
-          CFDictionarySetValue(*buf, @"certdata", v55);
+          CFDictionarySetValue(*buf, @"certdata", v50);
           CFDictionaryRemoveValue(theDict, kSecValueData);
         }
 
-        v56 = CFDictionaryGetValue(theDict, kSecAttrTokenID);
-        if (v56)
+        v51 = CFDictionaryGetValue(theDict, kSecAttrTokenID);
+        if (v51)
         {
-          CFDictionarySetValue(*buf, @"certtkid", v56);
+          CFDictionarySetValue(*buf, @"certtkid", v51);
           CFDictionaryRemoveValue(theDict, kSecAttrTokenID);
         }
 
@@ -5872,14 +5833,14 @@ void sub_10000AAE8(sqlite3_stmt *a1, uint64_t a2)
 LABEL_23:
     if (*(v4 + 116) == 1)
     {
-      v24 = CFDictionaryGetValue(theDict, kSecAttrSharingGroup);
-      if (v24)
+      v23 = CFDictionaryGetValue(theDict, kSecAttrSharingGroup);
+      if (v23)
       {
-        v25 = v24;
-        v26 = CFGetTypeID(v24);
-        if (v26 == CFStringGetTypeID())
+        v24 = v23;
+        v25 = CFGetTypeID(v23);
+        if (v25 == CFStringGetTypeID())
         {
-          if (CFStringCompare(v25, kSecAttrSharingGroupNone, 0))
+          if (CFStringCompare(v24, kSecAttrSharingGroupNone, 0))
           {
             goto LABEL_111;
           }
@@ -5892,16 +5853,15 @@ LABEL_23:
       goto LABEL_111;
     }
 
-    v27 = CFDictionaryGetValue(theDict, kSecAttrPersistentReference);
-    v28 = theDict;
-    v29 = CFDictionaryGetValue(theDict, kSecValueData);
-    v30 = *(v4 + 12);
-    if ((v30 & 8) != 0)
+    v26 = CFDictionaryGetValue(theDict, kSecAttrPersistentReference);
+    v27 = theDict;
+    v28 = CFDictionaryGetValue(theDict, kSecValueData);
+    v29 = *(v4 + 12);
+    if ((v29 & 8) != 0)
     {
       IsStaticPersistentRefsEnabled = SecKeychainIsStaticPersistentRefsEnabled();
-      if (v27 && IsStaticPersistentRefsEnabled && CFDataGetLength(v27) == 16)
+      if (v26 && IsStaticPersistentRefsEnabled && CFDataGetLength(v26) == 16)
       {
-        v39 = **v4;
         UUIDBasedPersistentRef = _SecItemCreateUUIDBasedPersistentRef();
       }
 
@@ -5909,59 +5869,56 @@ LABEL_23:
       {
         if (SecKeychainIsStaticPersistentRefsEnabled())
         {
-          v41 = secLogObjForScope("pref");
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+          v39 = secLogObjForScope("pref");
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134217984;
             *&buf[4] = v6;
-            _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "handle_result: Creating old persistent ref for %llu", buf, 0xCu);
+            _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "handle_result: Creating old persistent ref for %llu", buf, 0xCu);
           }
         }
 
-        v42 = **v4;
         UUIDBasedPersistentRef = _SecItemCreatePersistentRef();
       }
 
-      v31 = UUIDBasedPersistentRef;
-      v30 = *(v4 + 12);
+      v30 = UUIDBasedPersistentRef;
+      v29 = *(v4 + 12);
     }
 
     else
     {
-      v31 = 0;
+      v30 = 0;
     }
 
-    switch(v30)
+    switch(v29)
     {
       case 8:
-        v43 = SecKeychainIsStaticPersistentRefsEnabled();
-        if (v27 && v43 && CFDataGetLength(v27) == 16)
+        v40 = SecKeychainIsStaticPersistentRefsEnabled();
+        if (v26 && v40 && CFDataGetLength(v26) == 16)
         {
-          v44 = **v4;
           PersistentRef = _SecItemCreateUUIDBasedPersistentRef();
         }
 
         else
         {
-          v46 = secLogObjForScope("pref");
-          if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+          v42 = secLogObjForScope("pref");
+          if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134217984;
             *&buf[4] = v6;
-            _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "handle_result: Creating old persistent ref for %llu", buf, 0xCu);
+            _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "handle_result: Creating old persistent ref for %llu", buf, 0xCu);
           }
 
-          v47 = **v4;
           PersistentRef = _SecItemCreatePersistentRef();
         }
 
         break;
       case 1:
-        if (v29)
+        if (v28)
         {
-          CFRetain(v29);
-          v28 = v29;
-          if (v31)
+          CFRetain(v28);
+          v27 = v28;
+          if (v30)
           {
             goto LABEL_100;
           }
@@ -5972,69 +5929,69 @@ LABEL_23:
         PersistentRef = CFDataCreate(kCFAllocatorDefault, 0, 0);
         break;
       case 0:
-        v28 = kCFNull;
-        if (!v31)
+        v27 = kCFNull;
+        if (!v30)
         {
           goto LABEL_101;
         }
 
 LABEL_100:
-        CFRelease(v31);
+        CFRelease(v30);
         goto LABEL_101;
       default:
-        if ((v30 & 4) != 0)
+        if ((v29 & 4) != 0)
         {
-          CFDictionarySetValue(v28, kSecClass, **v4);
+          CFDictionarySetValue(v27, kSecClass, **v4);
           goto LABEL_141;
         }
 
-        if ((v30 & 2) == 0)
+        if ((v29 & 2) == 0)
         {
-          if (v29)
+          if (v28)
           {
-            CFRetain(v29);
+            CFRetain(v28);
           }
 
-          CFDictionaryRemoveAllValues(v28);
-          if (v29 && (v4[6] & 1) != 0)
+          CFDictionaryRemoveAllValues(v27);
+          if (v28 && (v4[6] & 1) != 0)
           {
-            CFDictionarySetValue(v28, kSecValueData, v29);
+            CFDictionarySetValue(v27, kSecValueData, v28);
             goto LABEL_140;
           }
 
-          if (v29)
+          if (v28)
           {
 LABEL_140:
-            CFRelease(v29);
+            CFRelease(v28);
           }
 
 LABEL_141:
-          if ((v4[6] & 8) != 0 && v31)
+          if ((v4[6] & 8) != 0 && v30)
           {
-            CFDictionarySetValue(v28, kSecValuePersistentRef, v31);
+            CFDictionarySetValue(v27, kSecValuePersistentRef, v30);
           }
 
-          CFRetain(v28);
-          if (v31)
+          CFRetain(v27);
+          if (v30)
           {
             goto LABEL_100;
           }
 
 LABEL_101:
-          if (v28)
+          if (v27)
           {
-            if (v28 != kCFNull)
+            if (v27 != kCFNull)
             {
               if (v4[13] == 1)
               {
-                *(a2 + 24) = v28;
+                *(a2 + 24) = v27;
                 goto LABEL_107;
               }
 
-              CFArrayAppendValue(*(a2 + 24), v28);
+              CFArrayAppendValue(*(a2 + 24), v27);
             }
 
-            CFRelease(v28);
+            CFRelease(v27);
 LABEL_107:
             ++*(a2 + 32);
           }
@@ -6045,74 +6002,74 @@ LABEL_107:
           }
 
 LABEL_111:
-          v59 = theDict;
+          v54 = theDict;
           *(v4 + 12) = v5;
-          if (v59)
+          if (v54)
           {
 LABEL_112:
-            CFRelease(v59);
+            CFRelease(v54);
           }
 
           return;
         }
 
-        if ((v30 & 1) == 0)
+        if ((v29 & 1) == 0)
         {
-          CFDictionaryRemoveValue(v28, kSecValueData);
+          CFDictionaryRemoveValue(v27, kSecValueData);
         }
 
-        v60 = (*v4)[2];
-        if (!v60)
+        v55 = (*v4)[2];
+        if (!v55)
         {
 LABEL_138:
-          CFDictionaryRemoveValue(v28, kSecAttrUUID);
+          CFDictionaryRemoveValue(v27, kSecAttrUUID);
           goto LABEL_141;
         }
 
-        v61 = 0;
-        v62 = *v4 + 3;
+        v56 = 0;
+        v57 = *v4 + 3;
         while (1)
         {
-          if ((v60[4] & 0x10) != 0 && !CFDictionaryGetValue(v28, *v60) && *(v60 + 3))
+          if ((v55[4] & 0x10) != 0 && !CFDictionaryGetValue(v27, *v55) && *(v55 + 3))
           {
-            v64 = 0;
+            v59 = 0;
             *buf = 0;
-            if (!v61)
+            if (!v56)
             {
-              v61 = sub_10000336C(0, *v4, v28, dword_1000739E8, buf);
-              v64 = *buf;
+              v56 = sub_10000336C(0, *v4, v27, dword_1000739E8, buf);
+              v59 = *buf;
             }
 
-            if (v64 || !v61)
+            if (v59 || !v56)
             {
               goto LABEL_134;
             }
 
-            if (v60[2] != 7 || (v4[6] & 1) != 0)
+            if (v55[2] != 7 || (v4[6] & 1) != 0)
             {
               break;
             }
           }
 
 LABEL_120:
-          v63 = *v62++;
-          v60 = v63;
-          if (!v63)
+          v58 = *v57++;
+          v55 = v58;
+          if (!v58)
           {
-            if (v61)
+            if (v56)
             {
-              CFRelease(v61);
+              CFRelease(v56);
             }
 
             goto LABEL_138;
           }
         }
 
-        v65 = (*(v60 + 3))(v61, v60, buf);
-        v64 = *buf;
-        if (*buf || !v65)
+        v60 = (*(v55 + 3))(v56, v55, buf);
+        v59 = *buf;
+        if (*buf || !v60)
         {
-          if (!v65)
+          if (!v60)
           {
             goto LABEL_134;
           }
@@ -6120,23 +6077,23 @@ LABEL_120:
 
         else
         {
-          CFDictionarySetValue(v28, *v60, v65);
+          CFDictionarySetValue(v27, *v55, v60);
         }
 
-        CFRelease(v65);
-        v64 = *buf;
+        CFRelease(v60);
+        v59 = *buf;
 LABEL_134:
-        if (v64)
+        if (v59)
         {
           *buf = 0;
-          CFRelease(v64);
+          CFRelease(v59);
         }
 
         goto LABEL_120;
     }
 
-    v28 = PersistentRef;
-    if (!v31)
+    v27 = PersistentRef;
+    if (!v30)
     {
       goto LABEL_101;
     }
@@ -6145,32 +6102,31 @@ LABEL_134:
   }
 
 LABEL_8:
-  v9 = v4[5];
   OSStatus = SecErrorGetOSStatus();
-  v11 = OSStatus;
+  v10 = OSStatus;
   if (OSStatus > -25331)
   {
     if (OSStatus == -25330)
     {
-      v32 = secLogObjForScope("SecWarning");
-      if (!os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+      v31 = secLogObjForScope("SecWarning");
+      if (!os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
         return;
       }
 
-      v36 = **v4;
-      v37 = v4[5];
+      v35 = **v4;
+      v36 = v4[5];
       *buf = 138413058;
-      *&buf[4] = v36;
-      v68 = 2048;
-      v69 = v6;
-      v70 = 1024;
-      LODWORD(v71[0]) = -25330;
-      WORD2(v71[0]) = 2112;
-      *(v71 + 6) = v37;
-      v35 = "Authentication is needed for %@,rowid=%lld (%d): %@";
+      *&buf[4] = v35;
+      v63 = 2048;
+      v64 = v6;
+      v65 = 1024;
+      LODWORD(v66[0]) = -25330;
+      WORD2(v66[0]) = 2112;
+      *(v66 + 6) = v36;
+      v34 = "Authentication is needed for %@,rowid=%lld (%d): %@";
 LABEL_39:
-      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, v35, buf, 0x26u);
+      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, v34, buf, 0x26u);
       return;
     }
 
@@ -6186,23 +6142,23 @@ LABEL_39:
     }
 
 LABEL_35:
-    v32 = secLogObjForScope("SecError");
-    if (!os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v31 = secLogObjForScope("SecError");
+    if (!os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
       return;
     }
 
-    v33 = **v4;
-    v34 = v4[5];
+    v32 = **v4;
+    v33 = v4[5];
     *buf = 138413058;
-    *&buf[4] = v33;
-    v68 = 2048;
-    v69 = v6;
-    v70 = 1024;
-    LODWORD(v71[0]) = v11;
-    WORD2(v71[0]) = 2112;
-    *(v71 + 6) = v34;
-    v35 = "decode %@,rowid=%lld failed (%d): %@";
+    *&buf[4] = v32;
+    v63 = 2048;
+    v64 = v6;
+    v65 = 1024;
+    LODWORD(v66[0]) = v10;
+    WORD2(v66[0]) = 2112;
+    *(v66 + 6) = v33;
+    v34 = "decode %@,rowid=%lld failed (%d): %@";
     goto LABEL_39;
   }
 
@@ -6216,18 +6172,18 @@ LABEL_35:
     goto LABEL_35;
   }
 
-  v12 = secLogObjForScope("SecWarning");
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v11 = secLogObjForScope("SecWarning");
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = **v4;
-    v14 = v4[5];
+    v12 = **v4;
+    v13 = v4[5];
     *buf = 138412802;
-    *&buf[4] = v13;
-    v68 = 2048;
-    v69 = v6;
-    v70 = 2112;
-    v71[0] = v14;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "ignoring corrupt %@,rowid=%lld %@", buf, 0x20u);
+    *&buf[4] = v12;
+    v63 = 2048;
+    v64 = v6;
+    v65 = 2112;
+    v66[0] = v13;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "ignoring corrupt %@,rowid=%lld %@", buf, 0x20u);
   }
 
   Copy = CFStringCreateCopy(kCFAllocatorDefault, **v4);
@@ -6237,17 +6193,17 @@ LABEL_35:
     CFRelease(Copy);
   }
 
-  v16 = sub_1000103D8(a1, 1);
+  v15 = sub_1000103D8(a1, 1);
   Mutable = CFStringCreateMutable(kCFAllocatorDefault, 0);
   if (Mutable)
   {
-    BytePtr = CFDataGetBytePtr(v16);
-    Length = CFDataGetLength(v16);
+    BytePtr = CFDataGetBytePtr(v15);
+    Length = CFDataGetLength(v15);
     if ((Length & 0x8000000000000000) == 0)
     {
-      v20 = Length;
+      v19 = Length;
       CFStringAppendFormat(Mutable, 0, @"%04lx:", Length);
-      if (v20 > 8)
+      if (v19 > 8)
       {
         *buf = 0;
         CNCRC();
@@ -6261,26 +6217,26 @@ LABEL_35:
 
       else
       {
-        for (; v20; --v20)
+        for (; v19; --v19)
         {
-          v21 = *BytePtr++;
-          CFStringAppendFormat(Mutable, 0, @"%02X", v21);
+          v20 = *BytePtr++;
+          CFStringAppendFormat(Mutable, 0, @"%02X", v20);
         }
       }
     }
 
-    v58 = secLogObjForScope("item");
-    if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+    v53 = secLogObjForScope("item");
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       *&buf[4] = Mutable;
-      _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, "corrupted edata=%@", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEFAULT, "corrupted edata=%@", buf, 0xCu);
     }
   }
 
-  if (v16)
+  if (v15)
   {
-    CFRelease(v16);
+    CFRelease(v15);
   }
 
   if (Mutable)
@@ -6289,8 +6245,8 @@ LABEL_35:
   }
 
 LABEL_96:
-  v59 = v4[5];
-  if (v59)
+  v54 = v4[5];
+  if (v54)
   {
     v4[5] = 0;
     goto LABEL_112;
@@ -6335,7 +6291,6 @@ void sub_10000B618(sqlite3_stmt *a1, uint64_t a2)
       v10 = v9;
       if (CFDataGetLength(v9) == 16)
       {
-        v11 = **v4;
         UUIDBasedPersistentRef = _SecItemCreateUUIDBasedPersistentRef();
       }
 
@@ -6361,24 +6316,23 @@ void sub_10000B618(sqlite3_stmt *a1, uint64_t a2)
     }
 
 LABEL_11:
-    v15 = 0;
-    v16 = 0;
-    v17 = UUIDBasedPersistentRef != 0;
+    v13 = 0;
+    v14 = 0;
+    v15 = UUIDBasedPersistentRef != 0;
     goto LABEL_19;
   }
 
   if (SecKeychainIsStaticPersistentRefsEnabled())
   {
-    v13 = secLogObjForScope("pref");
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v12 = secLogObjForScope("pref");
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v30 = v5;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "s3dl_query_row_digest: Creating old persistent ref for %llu", buf, 0xCu);
+      v28 = v5;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "s3dl_query_row_digest: Creating old persistent ref for %llu", buf, 0xCu);
     }
   }
 
-  v14 = **v4;
   UUIDBasedPersistentRef = _SecItemCreatePersistentRef();
   if (!v6)
   {
@@ -6386,29 +6340,29 @@ LABEL_11:
   }
 
 LABEL_14:
-  v16 = CFDataCopySHA256Digest(v6);
-  v15 = v16 != 0;
-  v17 = UUIDBasedPersistentRef != 0;
-  if (v16 && UUIDBasedPersistentRef)
+  v14 = CFDataCopySHA256Digest(v6);
+  v13 = v14 != 0;
+  v15 = UUIDBasedPersistentRef != 0;
+  if (v14 && UUIDBasedPersistentRef)
   {
-    v25 = sub_10000DA5C(0, v18, v19, v20, v21, v22, v23, v24, kSecValuePersistentRef, UUIDBasedPersistentRef);
-    if (v25)
+    v23 = sub_10000DA5C(0, v16, v17, v18, v19, v20, v21, v22, kSecValuePersistentRef, UUIDBasedPersistentRef);
+    if (v23)
     {
-      v26 = v25;
-      CFArrayAppendValue(*(a2 + 24), v25);
-      CFRelease(v26);
+      v24 = v23;
+      CFArrayAppendValue(*(a2 + 24), v23);
+      CFRelease(v24);
     }
 
     ++*(a2 + 32);
-    v17 = 1;
+    v15 = 1;
     goto LABEL_21;
   }
 
 LABEL_19:
-  v27 = secLogObjForScope("item");
-  if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+  v25 = secLogObjForScope("item");
+  if (!os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
   {
-    if (!v15)
+    if (!v13)
     {
       goto LABEL_22;
     }
@@ -6416,23 +6370,23 @@ LABEL_19:
     goto LABEL_21;
   }
 
-  v28 = **v4;
+  v26 = **v4;
   *buf = 134218242;
-  v30 = v5;
-  v31 = 2112;
-  v32 = v28;
-  _os_log_debug_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEBUG, "rowid %lu in %@ failed to create pref/digest", buf, 0x16u);
-  if (v15)
+  v28 = v5;
+  v29 = 2112;
+  v30 = v26;
+  _os_log_debug_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEBUG, "rowid %lu in %@ failed to create pref/digest", buf, 0x16u);
+  if (v13)
   {
 LABEL_21:
-    CFRelease(v16);
+    CFRelease(v14);
   }
 
 LABEL_22:
   if (v6)
   {
     CFRelease(v6);
-    if (!v17)
+    if (!v15)
     {
       return;
     }
@@ -6440,7 +6394,7 @@ LABEL_22:
     goto LABEL_24;
   }
 
-  if (v17)
+  if (v15)
   {
 LABEL_24:
     CFRelease(UUIDBasedPersistentRef);
@@ -6953,7 +6907,7 @@ LABEL_55:
   }
 }
 
-uint64_t sub_10000C3A0(uint64_t a1, uint64_t a2, uint64_t a3, CFTypeRef *a4)
+uint64_t sub_10000C3A0(uint64_t a1, uint64_t a2, uint64_t a3, CFErrorRef *a4)
 {
   v21 = 0;
   v22 = &v21;
@@ -7042,13 +6996,13 @@ void sub_10000C5F4(__CFString *a1, uint64_t a2, const __CFArray *a3)
   }
 }
 
-void sub_10000C740(uint64_t a1, uint64_t a2)
+void sub_10000C740(void *a1, uint64_t a2)
 {
-  if (*(*(a1 + 48) + 240))
+  if (*(a1[6] + 240))
   {
     v4 = sub_100001820(*(a2 + 16), 1, 0);
     v5 = sub_100001BA0(a2, v4, 0);
-    v6 = *(*(a1 + 48) + 240);
+    v6 = *(a1[6] + 240);
     if (v6)
     {
       if (!sub_10003E190(v6, v5))
@@ -7059,7 +7013,7 @@ void sub_10000C740(uint64_t a1, uint64_t a2)
   }
 
   *(a2 + 64) = @"odel";
-  v7 = *(a1 + 56);
+  v7 = a1[7];
   err = 0;
   v8 = sub_100001CF0(a2, 1, &err);
   v9 = err;
@@ -7072,7 +7026,7 @@ void sub_10000C740(uint64_t a1, uint64_t a2)
         *v7 = err;
       }
 
-      *(*(*(a1 + 32) + 8) + 24) = 1;
+      *(*(a1[4] + 8) + 24) = 1;
       return;
     }
 
@@ -7084,7 +7038,7 @@ void sub_10000C740(uint64_t a1, uint64_t a2)
     CFRelease(v9);
   }
 
-  if (*(*(a1 + 48) + 116) == 1 && (v10 = sub_100002404(a2, kSecAttrSharingGroup)) != 0 && (v11 = v10, v12 = CFGetTypeID(v10), v12 == CFStringGetTypeID()) && CFStringCompare(v11, kSecAttrSharingGroupNone, 0))
+  if (*(a1[6] + 116) == 1 && (v10 = sub_100002404(a2, kSecAttrSharingGroup)) != 0 && (v11 = v10, v12 = CFGetTypeID(v10), v12 == CFStringGetTypeID()) && CFStringCompare(v11, kSecAttrSharingGroupNone, 0))
   {
     v13 = secLogObjForScope("SecError");
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
@@ -7112,8 +7066,8 @@ void sub_10000C740(uint64_t a1, uint64_t a2)
       CFRelease(v16);
     }
 
-    v19 = *(a1 + 64);
-    v20 = *(*(a1 + 48) + 96);
+    v19 = a1[8];
+    v20 = *(a1[6] + 96);
     if (!v20)
     {
       if (v17 && !sub_10000418C(a2))
@@ -7127,10 +7081,10 @@ void sub_10000C740(uint64_t a1, uint64_t a2)
       }
     }
 
-    *(*(*(a1 + 40) + 8) + 24) = sub_10000682C(a2, v19, v20, *(*(a1 + 48) + 156), *(a1 + 56));
-    if (*(*(*(a1 + 40) + 8) + 24) == 1)
+    *(*(a1[5] + 8) + 24) = sub_10000682C(a2, v19, v20, *(a1[6] + 156), a1[7]);
+    if (*(*(a1[5] + 8) + 24) == 1)
     {
-      v21 = *(a1 + 48);
+      v21 = a1[6];
       v21[113] = 1;
       if (v17)
       {
@@ -7406,7 +7360,7 @@ uint64_t sub_10000C9CC(const __CFDictionary *a1, CFTypeRef *a2, int a3)
   return !v9;
 }
 
-uint64_t sub_10000CF74(uint64_t a1, uint64_t a2, int a3, CFTypeRef *a4)
+uint64_t sub_10000CF74(uint64_t a1, uint64_t a2, int a3, CFErrorRef *a4)
 {
   v8 = secLogObjForScope("SecWarning");
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
@@ -7444,7 +7398,7 @@ uint64_t sub_10000D0A4(uint64_t a1)
   return sub_10000D14C(v2, @"DELETE FROM keys WHERE musr = ?", v3, v4, v5);
 }
 
-uint64_t sub_10000D14C(uint64_t a1, CFTypeRef cf, const __CFString *a3, int a4, CFTypeRef *a5)
+uint64_t sub_10000D14C(uint64_t a1, CFTypeRef cf, const __CFString *a3, int a4, CFErrorRef *a5)
 {
   if (a4)
   {
@@ -7827,53 +7781,53 @@ uint64_t sub_10000DBE4(uint64_t a1)
       {
         CFDictionarySetValue(*(*(*(a1 + 32) + 8) + 24), kSecClass, *v3);
         v5 = *(*(*(a1 + 32) + 8) + 24);
-        v6 = sub_100029330();
-        v7 = sub_10002A574(v5, v6, -1, 0, (*(*(a1 + 40) + 8) + 24));
-        if (v7)
+        v8 = sub_100029330(v6, v7);
+        v9 = sub_10002A574(v5, v8, -1, 0, (*(*(a1 + 40) + 8) + 24));
+        if (v9)
         {
-          v8 = v7;
-          v19[0] = _NSConcreteStackBlock;
-          v9 = vextq_s8(*(a1 + 40), *(a1 + 40), 8uLL);
-          v10 = *(*(a1 + 40) + 8);
-          v19[1] = 0x40000000;
-          v19[2] = sub_10000DEAC;
-          v19[3] = &unk_100059BF0;
-          v11 = *(a1 + 56);
-          v20 = v9;
-          v21 = vextq_s8(v11, v11, 8uLL);
-          *(*(*(a1 + 48) + 8) + 24) &= sub_100004958(v7, v11.i64[0], (v10 + 24), 0, &stru_100059BA8, 0, 0, v19);
-          sub_100029F58(v8, 0);
+          v10 = v9;
+          v21[0] = _NSConcreteStackBlock;
+          v11 = vextq_s8(*(a1 + 40), *(a1 + 40), 8uLL);
+          v12 = *(*(a1 + 40) + 8);
+          v21[1] = 0x40000000;
+          v21[2] = sub_10000DEAC;
+          v21[3] = &unk_100059BF0;
+          v13 = *(a1 + 56);
+          v22 = v11;
+          v23 = vextq_s8(v13, v13, 8uLL);
+          *(*(*(a1 + 48) + 8) + 24) &= sub_100004958(v9, v13.i64[0], (v12 + 24), 0, &stru_100059BA8, 0, 0, v21);
+          sub_100029F58(v10, 0);
         }
 
         else
         {
-          v12 = secLogObjForScope("SecError");
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+          v14 = secLogObjForScope("SecError");
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
-            v13 = **(v4 - 1);
-            v14 = *(*(*(a1 + 40) + 8) + 24);
+            v15 = **(v4 - 1);
+            v16 = *(*(*(a1 + 40) + 8) + 24);
             *buf = 138412546;
-            v23 = v13;
-            v24 = 2112;
-            v25 = v14;
-            _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "AppcClipPromotion: unable to create query for class %@: %@", buf, 0x16u);
+            v25 = v15;
+            v26 = 2112;
+            v27 = v16;
+            _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "AppcClipPromotion: unable to create query for class %@: %@", buf, 0x16u);
           }
 
-          v15 = *(*(a1 + 40) + 8);
-          v16 = *(v15 + 24);
-          if (v16)
+          v17 = *(*(a1 + 40) + 8);
+          v18 = *(v17 + 24);
+          if (v18)
           {
-            *(v15 + 24) = 0;
-            CFRelease(v16);
+            *(v17 + 24) = 0;
+            CFRelease(v18);
           }
         }
       }
 
-      v17 = *v4++;
-      v3 = v17;
+      v19 = *v4++;
+      v3 = v19;
     }
 
-    while (v17);
+    while (v19);
   }
 
   return *(*(*(a1 + 48) + 8) + 24);
@@ -8030,26 +7984,26 @@ CFTypeRef sub_10000E150(CFTypeRef result, uint64_t a2, void *a3)
   return result;
 }
 
-__CFDictionary *sub_10000E184(uint64_t a1, uint64_t a2, int *a3, int a4, __CFString **a5)
+__CFDictionary *sub_10000E184(uint64_t a1, uint64_t a2, unsigned int *a3, unsigned int a4, CFTypeRef *a5)
 {
   Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-  v58 = 0;
-  v56 = 0u;
+  v59 = 0;
   v57 = 0u;
-  v54 = 0u;
+  v58 = 0u;
   v55 = 0u;
-  v52 = 0u;
+  v56 = 0u;
   v53 = 0u;
+  v54 = 0u;
   cf = 0u;
-  v51 = 0u;
-  v48 = 0u;
+  v52 = 0u;
   v49 = 0u;
-  v46 = 0u;
+  v50 = 0u;
   v47 = 0u;
-  v45 = 0u;
-  memset(v44, 0, sizeof(v44));
-  v10 = &dword_1000739E8;
-  DWORD2(v49) = dword_1000739E8;
+  v48 = 0u;
+  v46 = 0u;
+  memset(v45, 0, sizeof(v45));
+  v11 = &dword_1000739E8;
+  DWORD2(v50) = dword_1000739E8;
   theDict = Mutable;
   if (!Mutable)
   {
@@ -8058,127 +8012,132 @@ __CFDictionary *sub_10000E184(uint64_t a1, uint64_t a2, int *a3, int a4, __CFStr
       SecError(-108, a5, @"Can't create keychain dictionary");
     }
 
-    v14 = 0;
+    v15 = 0;
     goto LABEL_56;
   }
 
-  LODWORD(v45) = 11;
-  *(&v48 + 1) = -1;
-  WORD4(v51) = 257;
-  v41 = a4;
-  if (a4 == 2 && (SOSCCIsSOSTrustAndSyncingEnabled() & 1) == 0)
+  LODWORD(v46) = 11;
+  *(&v49 + 1) = -1;
+  WORD4(v52) = 257;
+  v42 = a4;
+  if (a4 == 2)
   {
-    v11 = secLogObjForScope("item");
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    Mutable = SOSCCIsSOSTrustAndSyncingEnabled();
+    if ((Mutable & 1) == 0)
     {
-      *buf = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "SOS is disabled, Skipping backing up tombstones", buf, 2u);
-    }
+      v12 = secLogObjForScope("item");
+      Mutable = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+      if (Mutable)
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "SOS is disabled, Skipping backing up tombstones", buf, 2u);
+      }
 
-    BYTE10(v51) = 1;
-    a4 = 2;
+      BYTE10(v52) = 1;
+      a4 = 2;
+    }
   }
 
-  v37 = a5;
+  v38 = a5;
   if (!a2 || *(a2 + 36) != 1)
   {
-    *&cf = sub_100029270();
+    *&cf = sub_100029270(Mutable, v10);
     CFRetain(cf);
     if (a3)
     {
-      v13 = sub_10000E80C(*a3, 0);
+      v14 = sub_10000E80C(*a3, 0);
     }
 
     else
     {
-      v15 = dword_1000739E8;
+      v16 = dword_1000739E8;
       memset(uu, 170, 16);
       uuid = aks_kc_backup_get_uuid(dword_1000739E8, uu);
       if (uuid)
       {
-        v17 = uuid;
-        v18 = secLogObjForScope("SecError");
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v18 = uuid;
+        v19 = secLogObjForScope("SecError");
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109376;
-          *&buf[4] = v15;
+          *&buf[4] = v16;
           *&buf[8] = 1024;
-          *&buf[10] = v17;
-          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "keybag-uuid: could not determine backup keybag UUID for %d: %d", buf, 0xEu);
+          *&buf[10] = v18;
+          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "keybag-uuid: could not determine backup keybag UUID for %d: %d", buf, 0xEu);
         }
 
-        a4 = v41;
+        a4 = v42;
         goto LABEL_22;
       }
 
       memset(buf, 0, 37);
       uuid_unparse_lower(uu, buf);
-      v13 = CFStringCreateWithCString(0, buf, 0x8000100u);
+      v14 = CFStringCreateWithCString(0, buf, 0x8000100u);
     }
 
-    if (v13)
+    if (v14)
     {
-      v38 = v13;
-      CFDictionarySetValue(theDict, @"keybag-uuid", v13);
+      v39 = v14;
+      CFDictionarySetValue(theDict, @"keybag-uuid", v14);
 LABEL_23:
-      v12 = 0;
+      v13 = 0;
       goto LABEL_24;
     }
 
 LABEL_22:
-    v38 = 0;
+    v39 = 0;
     goto LABEL_23;
   }
 
-  v38 = 0;
+  v39 = 0;
   *&cf = sub_1000293F4(*(a2 + 20));
-  v12 = 1;
+  v13 = 1;
 LABEL_24:
-  v69[0] = sub_10001712C();
-  v69[1] = sub_100017208();
-  v69[2] = sub_100017224();
-  v19 = 0;
-  v69[3] = sub_100017240();
-  v20 = a3 == 0;
+  v70[0] = sub_10001712C();
+  v70[1] = sub_100017208();
+  v70[2] = sub_100017224();
+  v20 = 0;
+  v70[3] = sub_100017240();
+  v21 = a3 == 0;
   if (a3)
   {
-    v10 = a3;
+    v11 = a3;
   }
 
-  v21 = "non-";
+  v22 = "non-";
   if (a4 == 1)
   {
-    v21 = "";
+    v22 = "";
   }
 
-  v40 = v21;
+  v41 = v22;
   while (1)
   {
-    *&v44[0] = v69[v19];
-    v65 = 0xAAAAAAAAAAAAAAAALL;
+    *&v45[0] = v70[v20];
     v66 = 0xAAAAAAAAAAAAAAAALL;
+    v67 = 0xAAAAAAAAAAAAAAAALL;
     *&buf[32] = 0xAAAAAAAAAAAAAAAALL;
-    *buf = v44;
+    *buf = v45;
     *&buf[8] = 0;
     *&buf[16] = a1;
     *&buf[24] = 0;
-    v22 = *v10;
+    v23 = *v11;
     *&buf[32] = 0;
-    LODWORD(v65) = v22;
-    BYTE4(v65) = v20;
-    LODWORD(v66) = a4;
-    BYTE4(v66) = v12;
-    v67 = 0;
+    LODWORD(v66) = v23;
+    BYTE4(v66) = v21;
+    LODWORD(v67) = a4;
+    BYTE4(v67) = v13;
     v68 = 0;
-    v23 = secLogObjForScope("item");
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v69 = 0;
+    v24 = secLogObjForScope("item");
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = **&v44[0];
+      v25 = **&v45[0];
       *uu = 136315394;
-      *&uu[4] = v40;
+      *&uu[4] = v41;
       *&uu[12] = 2112;
-      *&uu[14] = v24;
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "exporting %ssysbound class '%@'", uu, 0x16u);
+      *&uu[14] = v25;
+      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "exporting %ssysbound class '%@'", uu, 0x16u);
     }
 
     err = 0;
@@ -8187,89 +8146,89 @@ LABEL_24:
       break;
     }
 
-    v25 = secLogObjForScope("item");
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v26 = secLogObjForScope("item");
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = **&v44[0];
+      v27 = **&v45[0];
       Count = CFArrayGetCount(*&buf[24]);
       *uu = 138413058;
-      *&uu[4] = v26;
-      a4 = v41;
+      *&uu[4] = v27;
+      a4 = v42;
       *&uu[12] = 2048;
       *&uu[14] = Count;
-      v60 = 2048;
-      v61 = v67;
-      v62 = 2048;
-      v63 = v68;
-      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "exporting class '%@' complete: %ld items exported (%zu skips, %zu failures)", uu, 0x2Au);
+      v61 = 2048;
+      v62 = v68;
+      v63 = 2048;
+      v64 = v69;
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "exporting class '%@' complete: %ld items exported (%zu skips, %zu failures)", uu, 0x2Au);
     }
 
     if (CFArrayGetCount(*&buf[24]))
     {
-      v28 = **&v44[0];
+      v29 = **&v45[0];
       CFArrayGetCount(*&buf[24]);
-      if (CFStringGetLength(v28) == 4)
+      if (CFStringGetLength(v29) == 4)
       {
         memset(uu, 170, 5);
-        if (CFStringGetCString(v28, uu, 5, 0x8000100u))
+        if (CFStringGetCString(v29, uu, 5, 0x8000100u))
         {
           kdebug_trace();
         }
       }
 
-      CFDictionaryAddValue(theDict, **&v44[0], *&buf[24]);
-      a4 = v41;
+      CFDictionaryAddValue(theDict, **&v45[0], *&buf[24]);
+      a4 = v42;
     }
 
 LABEL_43:
-    v31 = *&buf[24];
+    v32 = *&buf[24];
     if (*&buf[24])
     {
       *&buf[24] = 0;
-      CFRelease(v31);
+      CFRelease(v32);
     }
 
-    if (++v19 == 4)
+    if (++v20 == 4)
     {
-      v14 = v38;
+      v15 = v39;
       goto LABEL_57;
     }
   }
 
   if (CFErrorGetCode(err) == -25300)
   {
-    v29 = secLogObjForScope("item");
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v30 = secLogObjForScope("item");
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
-      v30 = **&v44[0];
+      v31 = **&v45[0];
       *uu = 138412290;
-      *&uu[4] = v30;
-      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "exporting class '%@' complete (no items)", uu, 0xCu);
+      *&uu[4] = v31;
+      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "exporting class '%@' complete (no items)", uu, 0xCu);
     }
 
     CFRelease(err);
     goto LABEL_43;
   }
 
-  v32 = secLogObjForScope("SecError");
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+  v33 = secLogObjForScope("SecError");
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
   {
-    v33 = **&v44[0];
+    v34 = **&v45[0];
     *uu = 138412546;
-    *&uu[4] = v33;
+    *&uu[4] = v34;
     *&uu[12] = 2112;
     *&uu[14] = err;
-    _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "exporting class '%@' failed: %@", uu, 0x16u);
+    _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "exporting class '%@' failed: %@", uu, 0x16u);
   }
 
-  if (v37)
+  if (v38)
   {
-    if (*v37)
+    if (*v38)
     {
-      CFRelease(*v37);
+      CFRelease(*v38);
     }
 
-    *v37 = err;
+    *v38 = err;
   }
 
   else
@@ -8278,27 +8237,27 @@ LABEL_43:
   }
 
   CFRelease(theDict);
-  v34 = *&buf[24];
-  v14 = v38;
+  v35 = *&buf[24];
+  v15 = v39;
   if (*&buf[24])
   {
     *&buf[24] = 0;
-    CFRelease(v34);
+    CFRelease(v35);
   }
 
 LABEL_56:
   theDict = 0;
 LABEL_57:
-  v35 = cf;
+  v36 = cf;
   if (cf)
   {
     *&cf = 0;
-    CFRelease(v35);
+    CFRelease(v36);
   }
 
-  if (v14)
+  if (v15)
   {
-    CFRelease(v14);
+    CFRelease(v15);
   }
 
   return theDict;
@@ -8342,43 +8301,43 @@ void sub_10000E920(sqlite3_stmt *a1, uint64_t a2)
 {
   v4 = *a2;
   cf = 0;
-  v64 = 0;
+  v62 = 0;
   v5 = sqlite3_column_int64(a1, 0);
   theDict = 0;
   Mutable = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-  v61 = 0;
-  v7 = sub_10003E210(a1, v4, 1, *(a2 + 8), &theDict, &v64, &v61, &cf);
+  v59 = 0;
+  v7 = sub_10003E210(a1, v4, 1, *(a2 + 8), &theDict, &v62, &v59, &cf);
   MutableCopy = 0;
   if (v7)
   {
     MutableCopy = CFDictionaryCreateMutableCopy(0, 0, theDict);
-    data = (*v4)->data;
-    if (data)
+    v9 = *(*v4 + 2);
+    if (v9)
     {
-      p_length = &(*v4)->length;
+      v10 = (*v4 + 24);
       do
       {
-        if ((data[16] & 0x20) != 0)
+        if ((*(v9 + 16) & 0x20) != 0)
         {
-          v11 = CFDictionaryGetValue(MutableCopy, *data);
+          v11 = CFDictionaryGetValue(MutableCopy, *v9);
           if (v11)
           {
-            CFDictionarySetValue(Mutable, *data, v11);
-            CFDictionaryRemoveValue(MutableCopy, *data);
+            CFDictionarySetValue(Mutable, *v9, v11);
+            CFDictionaryRemoveValue(MutableCopy, *v9);
           }
         }
 
-        v12 = *p_length++;
-        data = v12;
+        v12 = *v10++;
+        v9 = v12;
       }
 
       while (v12);
     }
   }
 
-  if (!v64)
+  if (!v62)
   {
-    v15 = (v61 & 0x1F) == 12;
+    v15 = (v59 & 0x1F) == 12;
     goto LABEL_14;
   }
 
@@ -8431,32 +8390,32 @@ LABEL_17:
         else
         {
           ++*(a2 + 64);
-          v45 = secLogObjForScope("SecError");
-          if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+          v43 = secLogObjForScope("SecError");
+          if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
           {
-            v46 = *(a2 + 48);
+            v44 = *(a2 + 48);
             *buf = 67109378;
-            *v66 = v46;
-            *&v66[4] = 2112;
-            *&v66[6] = cf;
-            _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "Encountered akpu item we cannot export (filter %d), skipping. %@", buf, 0x12u);
+            *v64 = v44;
+            *&v64[4] = 2112;
+            *&v64[6] = cf;
+            _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "Encountered akpu item we cannot export (filter %d), skipping. %@", buf, 0x12u);
           }
 
           if (sqlite3_column_count(a1) >= 3)
           {
-            v47 = sqlite3_column_text(a1, 2);
-            v48 = CFStringCreateWithCString(kCFAllocatorDefault, v47, 0x8000100u);
-            if (v48)
+            v45 = sqlite3_column_text(a1, 2);
+            v46 = CFStringCreateWithCString(kCFAllocatorDefault, v45, 0x8000100u);
+            if (v46)
             {
-              v56 = v48;
-              v57 = sub_10000DA5C(0, v49, v50, v51, v52, v53, v54, v55, @"agrp", v48);
+              v54 = v46;
+              v55 = sub_10000DA5C(0, v47, v48, v49, v50, v51, v52, v53, @"agrp", v46);
               SecABCTrigger();
-              if (v57)
+              if (v55)
               {
-                CFRelease(v57);
+                CFRelease(v55);
               }
 
-              CFRelease(v56);
+              CFRelease(v54);
             }
           }
         }
@@ -8464,20 +8423,20 @@ LABEL_17:
 
       else
       {
-        v38 = OSStatus;
+        v36 = OSStatus;
         ++*(a2 + 64);
-        v39 = secLogObjForScope("item");
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+        v37 = secLogObjForScope("item");
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
         {
-          sub_10003E3A0(&cf, v5, v39);
+          sub_10003E3A0(&cf, v5, v37);
         }
 
-        if (v38 != -26275)
+        if (v36 != -26275)
         {
-          v40 = v4[5];
-          if (v40)
+          v38 = v4[5];
+          if (v38)
           {
-            CFRelease(v40);
+            CFRelease(v38);
           }
 
           v4[5] = cf;
@@ -8485,7 +8444,7 @@ LABEL_17:
         }
       }
 
-      v44 = cf;
+      v42 = cf;
       if (!cf)
       {
         goto LABEL_84;
@@ -8495,14 +8454,14 @@ LABEL_17:
       goto LABEL_83;
     }
 
-    v25 = secLogObjForScope("item");
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v24 = secLogObjForScope("item");
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
-      *v66 = v5;
-      *&v66[8] = 1024;
-      *&v66[10] = v18;
-      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "export rowid %llu skipped. akpu/token: %i", buf, 0x12u);
+      *v64 = v5;
+      *&v64[8] = 1024;
+      *&v64[10] = v18;
+      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "export rowid %llu skipped. akpu/token: %i", buf, 0x12u);
     }
 
     goto LABEL_41;
@@ -8511,7 +8470,7 @@ LABEL_17:
   v21 = *(a2 + 48);
   if (v21)
   {
-    if ((v21 != 1) != sub_10000C9CC(theDict, &(*v4)->isa, *(a2 + 52)))
+    if ((v21 != 1) != sub_10000C9CC(theDict, *v4, *(a2 + 52)))
     {
       v19 = theDict;
       goto LABEL_34;
@@ -8526,7 +8485,6 @@ LABEL_34:
   v22 = CFDictionaryGetValue(v19, kSecAttrPersistentReference);
   if (SecKeychainIsStaticPersistentRefsEnabled() && v22 && CFDataGetLength(v22) == 16)
   {
-    isa = (*v4)->isa;
     UUIDBasedPersistentRef = _SecItemCreateUUIDBasedPersistentRef();
   }
 
@@ -8534,57 +8492,56 @@ LABEL_34:
   {
     if (SecKeychainIsStaticPersistentRefsEnabled())
     {
-      v26 = secLogObjForScope("pref");
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v25 = secLogObjForScope("pref");
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        *v66 = v5;
-        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "s3dl_export_row: Creating old persistent ref for %llu", buf, 0xCu);
+        *v64 = v5;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "s3dl_export_row: Creating old persistent ref for %llu", buf, 0xCu);
       }
     }
 
-    v27 = (*v4)->isa;
     UUIDBasedPersistentRef = _SecItemCreatePersistentRef();
   }
 
-  v28 = UUIDBasedPersistentRef;
+  v26 = UUIDBasedPersistentRef;
   if (UUIDBasedPersistentRef)
   {
     if (*(a2 + 40) != -1)
     {
-      v29 = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-      v30 = (*v4)->data;
-      if (v30)
+      v27 = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+      v28 = *(*v4 + 2);
+      if (v28)
       {
-        v31 = &(*v4)->length;
+        v29 = (*v4 + 24);
         do
         {
-          if ((v30[17] & 0x20) != 0)
+          if ((*(v28 + 17) & 0x20) != 0)
           {
-            v32 = CFDictionaryGetValue(MutableCopy, *v30);
-            if (v32)
+            v30 = CFDictionaryGetValue(MutableCopy, *v28);
+            if (v30)
             {
-              CFDictionaryAddValue(v29, *v30, v32);
-              CFDictionaryRemoveValue(MutableCopy, *v30);
+              CFDictionaryAddValue(v27, *v28, v30);
+              CFDictionaryRemoveValue(MutableCopy, *v28);
             }
           }
 
-          v33 = *v31++;
-          v30 = v33;
+          v31 = *v29++;
+          v28 = v31;
         }
 
-        while (v33);
+        while (v31);
       }
 
       value = 0;
-      v34 = (v4 + 5);
-      v35 = sub_100021F54(*(a2 + 40), v64, v4[18], Mutable, MutableCopy, v29, &value, 0, *(a2 + 44), v4 + 5);
+      v32 = v4 + 5;
+      v33 = sub_100021F54(*(a2 + 40), v62, v4[18], Mutable, MutableCopy, v27, &value, 0, *(a2 + 44), v4 + 5);
       CFDictionaryRemoveAllValues(theDict);
-      CFRelease(v29);
-      if (v35)
+      CFRelease(v27);
+      if (v33)
       {
         CFDictionarySetValue(theDict, kSecValueData, value);
-        v36 = value;
+        v34 = value;
         if (!value)
         {
           goto LABEL_71;
@@ -8593,58 +8550,58 @@ LABEL_34:
 
       else
       {
-        v41 = secLogObjForScope("SecCritical");
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+        v39 = secLogObjForScope("SecCritical");
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
         {
-          v42 = (*v4)->isa;
-          v43 = v4[5];
+          v40 = **v4;
+          v41 = v4[5];
           *buf = 138412802;
-          *v66 = v42;
-          *&v66[8] = 2048;
-          *&v66[10] = v5;
-          v67 = 2112;
-          v68 = v43;
-          _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "ks_encrypt_data %@,rowid=%lld: failed: %@", buf, 0x20u);
+          *v64 = v40;
+          *&v64[8] = 2048;
+          *&v64[10] = v5;
+          v65 = 2112;
+          v66 = v41;
+          _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "ks_encrypt_data %@,rowid=%lld: failed: %@", buf, 0x20u);
         }
 
-        v36 = *v34;
-        if (!*v34)
+        v34 = *v32;
+        if (!*v32)
         {
           goto LABEL_71;
         }
 
-        *v34 = 0;
+        *v32 = 0;
       }
 
-      CFRelease(v36);
+      CFRelease(v34);
     }
 
 LABEL_71:
     if (CFDictionaryGetCount(theDict))
     {
-      CFDictionarySetValue(theDict, kSecValuePersistentRef, v28);
+      CFDictionarySetValue(theDict, kSecValuePersistentRef, v26);
       CFArrayAppendValue(*(a2 + 24), theDict);
       ++*(a2 + 32);
     }
 
-    v44 = v28;
+    v42 = v26;
 LABEL_83:
-    CFRelease(v44);
+    CFRelease(v42);
   }
 
 LABEL_84:
-  v58 = v64;
-  if (v64)
+  v56 = v62;
+  if (v62)
   {
-    v64 = 0;
-    CFRelease(v58);
+    v62 = 0;
+    CFRelease(v56);
   }
 
-  v59 = theDict;
+  v57 = theDict;
   if (theDict)
   {
     theDict = 0;
-    CFRelease(v59);
+    CFRelease(v57);
   }
 
   if (MutableCopy)
@@ -8658,7 +8615,7 @@ LABEL_84:
   }
 }
 
-uint64_t sub_10000EFFC(int a1, CFStringRef theString)
+uint64_t sub_10000EFFC(__int16 a1, CFStringRef theString, uint64_t a3, unsigned int a4)
 {
   result = CFStringGetLength(theString);
   if (result == 4)
@@ -8674,14 +8631,14 @@ uint64_t sub_10000EFFC(int a1, CFStringRef theString)
   return result;
 }
 
-uint64_t sub_10000F08C(const void *a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, const __CFDictionary *a6, int a7, int a8, __CFString **a9)
+uint64_t sub_10000F08C(__CFError *a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, const __CFDictionary *a6, int a7, int a8, CFTypeRef *a9)
 {
   v16 = a9;
   if (a7 == 2)
   {
     LODWORD(buf) = -1;
     v17 = 1;
-    v18 = sub_10000E184(a1, a2, &buf, 1, a9);
+    v18 = sub_10000E184(a1, a2, &buf, 1u, a9);
     if (!v18)
     {
       return v17;
@@ -8926,7 +8883,7 @@ void sub_10000F670(CFTypeRef cf, const void *a2, uint64_t a3)
     }
 
     *buf = 138412290;
-    v28 = cf;
+    v27 = cf;
     v17 = "Ignoring unknown key class '%@'";
     v18 = v16;
     v19 = 12;
@@ -8949,21 +8906,20 @@ void sub_10000F670(CFTypeRef cf, const void *a2, uint64_t a3)
           Count = CFArrayGetCount(a2);
           v13 = *(a3 + 48);
           *buf = 134218498;
-          v28 = Count;
-          v29 = 2112;
-          v30 = cf;
-          v31 = 1024;
-          v32 = v13;
+          v27 = Count;
+          v28 = 2112;
+          v29 = cf;
+          v30 = 1024;
+          v31 = v13;
           _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Import %ld items of class %@ (filter %d)", buf, 0x1Cu);
         }
 
         v14 = *v9;
-        CFArrayGetCount(a2);
-        v15 = *(a3 + 48);
-        sub_10000EFFC(4098, v14);
-        v34.length = CFArrayGetCount(a2);
-        v34.location = 0;
-        CFArrayApplyFunction(a2, v34, sub_1000105CC, context);
+        v15 = CFArrayGetCount(a2);
+        sub_10000EFFC(4098, v14, v15, *(a3 + 48));
+        v33.length = CFArrayGetCount(a2);
+        v33.location = 0;
+        CFArrayApplyFunction(a2, v33, sub_1000105CC, context);
         return;
       }
     }
@@ -8977,16 +8933,15 @@ void sub_10000F670(CFTypeRef cf, const void *a2, uint64_t a3)
       {
         v23 = *(a3 + 48);
         *buf = 134218498;
-        v28 = 1;
-        v29 = 2112;
-        v30 = cf;
-        v31 = 1024;
-        v32 = v23;
+        v27 = 1;
+        v28 = 2112;
+        v29 = cf;
+        v30 = 1024;
+        v31 = v23;
         _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Import %ld items of class %@ (filter %d)", buf, 0x1Cu);
       }
 
-      v24 = *(a3 + 48);
-      sub_10000EFFC(4098, *v9);
+      sub_10000EFFC(4098, *v9, 1, *(a3 + 48));
       sub_1000105CC(a2, context);
       return;
     }
@@ -8996,11 +8951,11 @@ void sub_10000F670(CFTypeRef cf, const void *a2, uint64_t a3)
       return;
     }
 
-    v25 = *(a3 + 48);
+    v24 = *(a3 + 48);
     *buf = 138412546;
-    v28 = cf;
-    v29 = 1024;
-    LODWORD(v30) = v25;
+    v27 = cf;
+    v28 = 1024;
+    LODWORD(v29) = v24;
     v17 = "Unknown value type for class %@ (filter %d)";
     v18 = v21;
     v19 = 18;
@@ -9024,77 +8979,77 @@ const void *sub_10000F9C0(const __CFDictionary *a1, __CFString **a2)
   return v4;
 }
 
-BOOL sub_10000FA3C(const void *a1, int a2)
+BOOL sub_10000FA3C(const void *a1, uint64_t a2, uint64_t a3)
 {
   err = 0;
   cf[1] = 0;
-  v16 = 0u;
-  v14 = 0u;
+  v17 = 0u;
+  v15 = 0u;
   cf[0] = a1;
-  DWORD2(v16) = a2;
-  v20[0] = sub_10001712C();
-  v20[1] = sub_100017208();
-  v20[2] = sub_100017240();
-  v2 = 0;
+  DWORD2(v17) = a2;
+  v21[0] = sub_10001712C();
+  v21[1] = sub_100017208();
+  v21[2] = sub_100017240();
   v3 = 0;
-  v20[3] = sub_100017224();
+  v4 = 0;
+  v21[3] = sub_100017224();
   do
   {
-    v4 = v20[v3];
-    v5 = sub_10002A0E4(v4, 0, 0, 0, &err);
-    if (!v5)
+    v5 = v21[v4];
+    v6 = sub_10002A0E4(v5, 0, 0, 0, &err);
+    if (!v6)
     {
       break;
     }
 
-    v6 = v5;
-    *&v14 = v5;
-    v5[13] = -1;
-    v7 = sub_10000A868(sub_10000FBF8, &v14, &err);
-    sub_100029F58(v6, 0);
-    v8 = cf[1];
+    v7 = v6;
+    *&v15 = v6;
+    v6[13] = -1;
+    v8 = sub_10000A868(sub_10000FBF8, &v15, &err);
+    sub_100029F58(v7, 0);
+    v9 = cf[1];
     if (cf[1])
     {
       cf[1] = 0;
-      CFRelease(v8);
+      CFRelease(v9);
     }
 
     if (err)
     {
-      v9 = v7;
+      v10 = v8;
     }
 
     else
     {
-      v9 = 1;
+      v10 = 1;
     }
 
-    if ((v9 & 1) != 0 || CFErrorGetCode(err) != -25300)
+    if ((v10 & 1) != 0 || CFErrorGetCode(err) != -25300)
     {
-      v11 = secLogObjForScope("SecError");
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = secLogObjForScope("SecError");
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = *v4;
+        v13 = *v5;
         *buf = 138412290;
-        v19 = v12;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Class %@ not up to date", buf, 0xCu);
+        v20 = v13;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Class %@ not up to date", buf, 0xCu);
       }
 
-      return v2;
+      return v3;
     }
 
-    v10 = err;
+    v11 = err;
     if (err)
     {
       err = 0;
-      CFRelease(v10);
+      CFRelease(v11);
     }
 
-    v2 = v3++ > 2;
+    v3 = v4++ > 2;
   }
 
-  while (v3 != 4);
-  return v2;
+  while (v4 != 4);
+  return v3;
 }
 
 void sub_10000FBF8(sqlite3_stmt *a1, _DWORD *a2)
@@ -9128,7 +9083,7 @@ LABEL_6:
   CFRelease(v5);
 }
 
-uint64_t sub_10000FCC0(uint64_t a1, uint64_t a2, CFTypeRef *a3)
+uint64_t sub_10000FCC0(uint64_t a1, uint64_t a2, CFErrorRef *a3)
 {
   v4[0] = _NSConcreteStackBlock;
   v4[1] = 0x40000000;
@@ -9283,27 +9238,27 @@ void sub_1000101AC(__CFString *a1, uint64_t a2, _BYTE *a3)
   sub_100003A64(a1, a3);
   if (sub_10002955C(*(a2 + 128), 0))
   {
-    v5 = @"(musr = ? OR musr = ?)";
+    v6 = @"(musr = ? OR musr = ?)";
   }
 
   else
   {
-    if (sub_1000293A4(*(a2 + 128)))
+    if (sub_1000293A4(*(a2 + 128), v5))
     {
       return;
     }
 
-    v6 = *(a2 + 128);
-    if (v6)
+    v7 = *(a2 + 128);
+    if (v7)
     {
-      CFGetTypeID(v6);
+      CFGetTypeID(v7);
       CFNullGetTypeID();
     }
 
-    v5 = @"musr = ?";
+    v6 = @"musr = ?";
   }
 
-  CFStringAppend(a1, v5);
+  CFStringAppend(a1, v6);
 }
 
 uint64_t sub_100010238(uint64_t a1, sqlite3_stmt *a2)
@@ -9396,7 +9351,7 @@ void sub_100010484(id a1)
   }
 }
 
-uint64_t sub_100010540(uint64_t a1)
+unint64_t sub_100010540(uint64_t a1)
 {
   if (!SecDbExec(*(a1 + 32), @"DELETE from genp;", *(a1 + 40)) || !SecDbExec(*(a1 + 32), @"DELETE from inet;", *(a1 + 40)) || !SecDbExec(*(a1 + 32), @"DELETE from cert;", *(a1 + 40)))
   {
@@ -9469,47 +9424,49 @@ void sub_1000105CC(CFTypeRef cf, const void ***a2)
   }
 
   v16 = CFDictionaryGetValue(v13, kSecAttrMultiUser);
-  v17 = sub_1000291FC();
+  v18 = sub_1000291FC(v16, v17);
+  v19 = v18;
   if (v16)
   {
-    v18 = v17 == 0;
+    v20 = v18 == 0;
   }
 
   else
   {
-    v18 = 1;
+    v20 = 1;
   }
 
-  if (v18)
+  if (v20)
   {
-    v19 = v16 == v17;
+    v21 = v16 == v18;
   }
 
   else
   {
-    v19 = CFEqual(v16, v17) != 0;
+    v18 = CFEqual(v16, v18);
+    v21 = v18 != 0;
   }
 
-  v20 = a2[1][5];
-  if (v20 && *(v20 + 36) == 1)
+  v22 = a2[1][5];
+  if (v22 && *(v22 + 36) == 1)
   {
-    if (v19)
+    if (v21)
     {
-      v21 = secLogObjForScope("SecWarning");
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v23 = secLogObjForScope("SecWarning");
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138477827;
-        v46 = v12;
-        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "system keychain not allowed in multi user mode for item: %{private}@", buf, 0xCu);
+        v48 = v12;
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "system keychain not allowed in multi user mode for item: %{private}@", buf, 0xCu);
       }
 
       goto LABEL_49;
     }
 
-    v22 = sub_1000293F4(v20[5]);
+    v24 = sub_1000293F4(v22[5]);
 LABEL_44:
-    v24 = v22;
-    if (v22)
+    v26 = v24;
+    if (v24)
     {
       goto LABEL_45;
     }
@@ -9517,101 +9474,101 @@ LABEL_44:
     goto LABEL_49;
   }
 
-  if (v19)
+  if (v21)
   {
-    v22 = sub_1000291DC();
+    v24 = sub_1000291DC();
     goto LABEL_44;
   }
 
-  v23 = sub_100029270();
-  if (v23)
+  v25 = sub_100029270(v18, v19);
+  if (v25)
   {
-    v24 = v23;
-    CFRetain(v23);
+    v26 = v25;
+    CFRetain(v25);
 LABEL_45:
-    sub_100003054(v12, @"musr", v24, a2[1] + 1);
-    CFRelease(v24);
+    sub_100003054(v12, @"musr", v26, a2[1] + 1);
+    CFRelease(v26);
 LABEL_46:
     if (*(a2[1] + 12) != 1)
     {
       IsStaticPersistentRefsEnabled = SecKeychainIsStaticPersistentRefsEnabled();
-      v26 = (a2[1] + 1);
+      v28 = (a2[1] + 1);
       if (IsStaticPersistentRefsEnabled)
       {
-        sub_100023E54(v12, cf, v26);
+        sub_100023E54(v12, cf, v28);
       }
 
       else
       {
-        sub_100023D78(v12, cf, v26);
+        sub_100023D78(v12, cf, v28);
       }
     }
 
     if (SecKeychainIsStaticPersistentRefsEnabled())
     {
       cfa = 0;
-      v34 = sub_100003D3C(v12, &cfa);
+      v36 = sub_100003D3C(v12, &cfa);
       if (cfa)
       {
-        v35 = secLogObjForScope("SecError");
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+        v37 = secLogObjForScope("SecError");
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v46 = cfa;
-          _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "import: failed to get the persistent ref: %@", buf, 0xCu);
+          v48 = cfa;
+          _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "import: failed to get the persistent ref: %@", buf, 0xCu);
         }
 
-        v36 = cfa;
+        v38 = cfa;
         if (cfa)
         {
           cfa = 0;
-          CFRelease(v36);
+          CFRelease(v38);
         }
       }
 
-      if (v34 && CFDataGetLength(v34) == 16)
+      if (v36 && CFDataGetLength(v36) == 16)
       {
-        v37 = secLogObjForScope("import");
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+        v39 = secLogObjForScope("import");
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138477827;
-          v46 = v12;
-          _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "Item already has a UUID persistent ref set: %{private}@", buf, 0xCu);
+          v48 = v12;
+          _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "Item already has a UUID persistent ref set: %{private}@", buf, 0xCu);
         }
       }
 
       else
       {
-        v38 = CFUUIDCreate(kCFAllocatorDefault);
-        bytes = CFUUIDGetUUIDBytes(v38);
-        v39 = CFDataCreate(kCFAllocatorDefault, &bytes.byte0, 16);
-        v42 = 0;
-        sub_100003DD8(v12, v39, &v42);
-        v40 = secLogObjForScope("import");
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+        v40 = CFUUIDCreate(kCFAllocatorDefault);
+        bytes = CFUUIDGetUUIDBytes(v40);
+        v41 = CFDataCreate(kCFAllocatorDefault, &bytes.byte0, 16);
+        v44 = 0;
+        sub_100003DD8(v12, v41, &v44);
+        v42 = secLogObjForScope("import");
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138478083;
-          v46 = v12;
-          v47 = 2112;
-          v48 = v42;
-          _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "SecServerImportItem: generated a new persistentref UUID for item %{private}@: %@", buf, 0x16u);
+          v48 = v12;
+          v49 = 2112;
+          v50 = v44;
+          _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "SecServerImportItem: generated a new persistentref UUID for item %{private}@: %@", buf, 0x16u);
         }
 
-        if (v38)
+        if (v40)
         {
-          CFRelease(v38);
+          CFRelease(v40);
         }
 
-        if (v39)
+        if (v41)
         {
-          CFRelease(v39);
-        }
-
-        v41 = v42;
-        if (v42)
-        {
-          v42 = 0;
           CFRelease(v41);
+        }
+
+        v43 = v44;
+        if (v44)
+        {
+          v44 = 0;
+          CFRelease(v43);
         }
       }
     }
@@ -9623,7 +9580,7 @@ LABEL_46:
       sub_1000057E0(v12, *a2[1], 0, 1, a2[1] + 1);
     }
 
-    v27 = 0;
+    v29 = 0;
     goto LABEL_51;
   }
 
@@ -9631,45 +9588,45 @@ LABEL_49:
   CFRelease(v12);
   v12 = 0;
 LABEL_50:
-  v27 = 1;
+  v29 = 1;
 LABEL_51:
   if (a2[1][1])
   {
-    v28 = secLogObjForScope("SecWarning");
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v30 = secLogObjForScope("SecWarning");
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
-      v29 = **a2;
-      v30 = a2[1][1];
+      v31 = **a2;
+      v32 = a2[1][1];
       *buf = 138478339;
-      v46 = v12;
-      v47 = 2112;
-      v48 = v29;
+      v48 = v12;
       v49 = 2112;
-      v50 = v30;
-      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Failed to import an item (%{private}@) of class '%@': %@ - ignoring error.", buf, 0x20u);
+      v50 = v31;
+      v51 = 2112;
+      v52 = v32;
+      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Failed to import an item (%{private}@) of class '%@': %@ - ignoring error.", buf, 0x20u);
     }
 
-    v31 = a2[1];
-    v32 = v31[1];
-    if (v32)
+    v33 = a2[1];
+    v34 = v33[1];
+    if (v34)
     {
-      v31[1] = 0;
-      CFRelease(v32);
+      v33[1] = 0;
+      CFRelease(v34);
     }
   }
 
   else
   {
-    v33 = secLogObjForScope("import");
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    v35 = secLogObjForScope("import");
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138477827;
-      v46 = v12;
-      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "imported item: %{private}@", buf, 0xCu);
+      v48 = v12;
+      _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "imported item: %{private}@", buf, 0xCu);
     }
   }
 
-  if ((v27 & 1) == 0)
+  if ((v29 & 1) == 0)
   {
     CFRelease(v12);
   }
@@ -9696,7 +9653,7 @@ void sub_100010CF4(id a1)
   objc_autoreleasePoolPop(v1);
 }
 
-uint64_t sub_100010DF8(const void *a1, uint64_t a2, uint64_t a3, unsigned int a4, uint64_t a5, _DWORD *a6, __CFData *a7, uint64_t a8, uint64_t a9, __CFString **a10)
+BOOL sub_100010DF8(const void *a1, uint64_t a2, uint64_t a3, unsigned int a4, const UInt8 *a5, _DWORD *a6, __CFData *a7, uint64_t a8, uint64_t a9, __CFString **a10)
 {
   v17 = aks_params_create();
   v58 = v17;
@@ -9790,7 +9747,7 @@ uint64_t sub_100010DF8(const void *a1, uint64_t a2, uint64_t a3, unsigned int a4
       else
       {
         cf = 0;
-        der_decode_plist(0, &cf, a10, *v52, *v52 + __n, v35, v36, v37);
+        der_decode_plist(0, &cf, a10, *v52, (*v52 + __n), v35, v36, v37);
         v38 = CFGetTypeID(cf);
         if (v38 == CFDataGetTypeID())
         {

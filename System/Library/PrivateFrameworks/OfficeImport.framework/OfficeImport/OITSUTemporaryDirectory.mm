@@ -174,31 +174,31 @@ void __34__OITSUTemporaryDirectory_dealloc__block_invoke()
   return v19;
 }
 
-void __76__OITSUTemporaryDirectory__createDirectoryWithSignature_subdirectory_error___block_invoke()
+void __76__OITSUTemporaryDirectory__createDirectoryWithSignature_subdirectory_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = SFUBundle();
-  v7 = [v0 bundleIdentifier];
+  v2 = SFUBundle(a1, a2);
+  v9 = [v2 bundleIdentifier];
 
-  v1 = objc_alloc(MEMORY[0x277CCACA8]);
-  if (v7)
+  v3 = objc_alloc(MEMORY[0x277CCACA8]);
+  if (v9)
   {
-    v2 = v7;
+    v4 = v9;
   }
 
   else
   {
-    v2 = @"com.apple.Unknown";
+    v4 = @"com.apple.Unknown";
   }
 
-  v3 = [v1 initWithFormat:@"%@_%d", v2, getpid()];
-  v4 = _createDirectoryWithSignature_subdirectory_error__secretSubdirectoryNameBase;
-  _createDirectoryWithSignature_subdirectory_error__secretSubdirectoryNameBase = v3;
+  v5 = [v3 initWithFormat:@"%@_%d", v4, getpid()];
+  v6 = _createDirectoryWithSignature_subdirectory_error__secretSubdirectoryNameBase;
+  _createDirectoryWithSignature_subdirectory_error__secretSubdirectoryNameBase = v5;
 
   if (!_createDirectoryWithSignature_subdirectory_error__secretSubdirectoryNameBase)
   {
-    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[OITSUTemporaryDirectory _createDirectoryWithSignature:subdirectory:error:]_block_invoke"];
-    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/OfficeImport/OfficeParser/shared/utility/TSUTemporaryDirectory.m"];
-    [OITSUAssertionHandler handleFailureInFunction:v5 file:v6 lineNumber:102 isFatal:0 description:"invalid nil value for '%{public}s'", "secretSubdirectoryNameBase"];
+    v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[OITSUTemporaryDirectory _createDirectoryWithSignature:subdirectory:error:]_block_invoke"];
+    v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/OfficeImport/OfficeParser/shared/utility/TSUTemporaryDirectory.m"];
+    [OITSUAssertionHandler handleFailureInFunction:v7 file:v8 lineNumber:102 isFatal:0 description:"invalid nil value for '%{public}s'", "secretSubdirectoryNameBase"];
 
     +[OITSUAssertionHandler logBacktraceThrottled];
   }

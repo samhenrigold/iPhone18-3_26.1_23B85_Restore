@@ -24,9 +24,7 @@
 
   else
   {
-    v5 = [objects mutableCopy];
-    v6 = self->_resourceObjects;
-    self->_resourceObjects = v5;
+    self->_resourceObjects = [objects mutableCopy];
 
     _objc_release_x1();
   }

@@ -6,6 +6,7 @@
 + (id)matchCallWithFingerprint:(id)fingerprint usingDatabase:(id)database;
 + (id)predicateForCall:(id)call;
 + (id)predicateForHandoffCall:(id)call;
++ (id)updateCall:(id)call withFingerprintedCall:(id)fingerprintedCall areBothCallsLocal:(BOOL)local;
 + (unsigned)getCallStatusForExistingCall:(id)call andRemoteCall:(id)remoteCall areBothCallsLocal:(BOOL)local isExistingCallMissedOrAnsweredElsewhere:(BOOL)elsewhere;
 @end
 
@@ -113,6 +114,230 @@
   return v7;
 }
 
++ (id)updateCall:(id)call withFingerprintedCall:(id)fingerprintedCall areBothCallsLocal:(BOOL)local
+{
+  localCopy = local;
+  v59 = *MEMORY[0x1E69E9840];
+  callCopy = call;
+  fingerprintedCallCopy = fingerprintedCall;
+  v9 = +[CHLogServer sharedInstance];
+  v10 = [v9 logHandleForDomain:"Fingerprint"];
+
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    v55 = 138412290;
+    v56 = callCopy;
+    _os_log_impl(&dword_1C3E90000, v10, OS_LOG_TYPE_DEFAULT, "YMM Call: %@", &v55, 0xCu);
+  }
+
+  v11 = +[CHLogServer sharedInstance];
+  v12 = [v11 logHandleForDomain:"Fingerprint"];
+
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    v55 = 138412290;
+    v56 = fingerprintedCallCopy;
+    _os_log_impl(&dword_1C3E90000, v12, OS_LOG_TYPE_DEFAULT, "YMM existingCall: %@", &v55, 0xCu);
+  }
+
+  v13 = [callCopy copy];
+  v14 = +[CHLogServer sharedInstance];
+  v15 = [v14 logHandleForDomain:"Fingerprint"];
+
+  v16 = v15;
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  {
+    v17 = +[CHRecentCall callStatusAsString:](CHRecentCall, "callStatusAsString:", [callCopy callStatus]);
+    v18 = +[CHRecentCall callStatusAsString:](CHRecentCall, "callStatusAsString:", [fingerprintedCallCopy callStatus]);
+    v55 = 138412546;
+    v56 = v17;
+    v57 = 2112;
+    v58 = v18;
+    _os_log_impl(&dword_1C3E90000, v16, OS_LOG_TYPE_DEFAULT, "YMM: call.callStatus = %@, existingCall.callStatus = %@", &v55, 0x16u);
+  }
+
+  callStatus = [callCopy callStatus];
+  if (callStatus != [fingerprintedCallCopy callStatus])
+  {
+    if ([fingerprintedCallCopy callStatus] == 8)
+    {
+      [v13 setCallStatus:{+[CHCallFingerprint getCallStatusForExistingCall:andRemoteCall:areBothCallsLocal:isExistingCallMissedOrAnsweredElsewhere:](CHCallFingerprint, "getCallStatusForExistingCall:andRemoteCall:areBothCallsLocal:isExistingCallMissedOrAnsweredElsewhere:", fingerprintedCallCopy, callCopy, localCopy, 1)}];
+    }
+
+    else
+    {
+      callStatus2 = [fingerprintedCallCopy callStatus];
+      [v13 setCallStatus:{+[CHCallFingerprint getCallStatusForExistingCall:andRemoteCall:areBothCallsLocal:isExistingCallMissedOrAnsweredElsewhere:](CHCallFingerprint, "getCallStatusForExistingCall:andRemoteCall:areBothCallsLocal:isExistingCallMissedOrAnsweredElsewhere:", fingerprintedCallCopy, callCopy, localCopy, callStatus2 == 4)}];
+      if (callStatus2 != 4)
+      {
+        uniqueId = [fingerprintedCallCopy uniqueId];
+        [v13 setUniqueId:uniqueId];
+
+        participantGroupUUID = [fingerprintedCallCopy participantGroupUUID];
+        if (participantGroupUUID)
+        {
+          [v13 setParticipantGroupUUID:participantGroupUUID];
+        }
+
+        else
+        {
+          participantGroupUUID2 = [callCopy participantGroupUUID];
+          [v13 setParticipantGroupUUID:participantGroupUUID2];
+        }
+
+        localParticipantUUID = [fingerprintedCallCopy localParticipantUUID];
+        if (localParticipantUUID)
+        {
+          [v13 setLocalParticipantUUID:localParticipantUUID];
+        }
+
+        else
+        {
+          localParticipantUUID2 = [callCopy localParticipantUUID];
+          [v13 setLocalParticipantUUID:localParticipantUUID2];
+        }
+
+        outgoingLocalParticipantUUID = [fingerprintedCallCopy outgoingLocalParticipantUUID];
+        if (outgoingLocalParticipantUUID)
+        {
+          [v13 setOutgoingLocalParticipantUUID:outgoingLocalParticipantUUID];
+        }
+
+        else
+        {
+          outgoingLocalParticipantUUID2 = [callCopy outgoingLocalParticipantUUID];
+          [v13 setOutgoingLocalParticipantUUID:outgoingLocalParticipantUUID2];
+        }
+
+        if ([fingerprintedCallCopy verificationStatus])
+        {
+          v28 = fingerprintedCallCopy;
+        }
+
+        else
+        {
+          v28 = callCopy;
+        }
+
+        goto LABEL_35;
+      }
+    }
+
+    uniqueId2 = [v13 uniqueId];
+    [v13 setUniqueId:uniqueId2];
+
+    participantGroupUUID3 = [callCopy participantGroupUUID];
+    if (participantGroupUUID3)
+    {
+      [v13 setParticipantGroupUUID:participantGroupUUID3];
+    }
+
+    else
+    {
+      participantGroupUUID4 = [fingerprintedCallCopy participantGroupUUID];
+      [v13 setParticipantGroupUUID:participantGroupUUID4];
+    }
+
+    localParticipantUUID3 = [callCopy localParticipantUUID];
+    if (localParticipantUUID3)
+    {
+      [v13 setLocalParticipantUUID:localParticipantUUID3];
+    }
+
+    else
+    {
+      localParticipantUUID4 = [fingerprintedCallCopy localParticipantUUID];
+      [v13 setLocalParticipantUUID:localParticipantUUID4];
+    }
+
+    outgoingLocalParticipantUUID3 = [callCopy outgoingLocalParticipantUUID];
+    if (outgoingLocalParticipantUUID3)
+    {
+      [v13 setOutgoingLocalParticipantUUID:outgoingLocalParticipantUUID3];
+    }
+
+    else
+    {
+      outgoingLocalParticipantUUID4 = [fingerprintedCallCopy outgoingLocalParticipantUUID];
+      [v13 setOutgoingLocalParticipantUUID:outgoingLocalParticipantUUID4];
+    }
+
+    if ([callCopy verificationStatus])
+    {
+      v28 = callCopy;
+    }
+
+    else
+    {
+      v28 = fingerprintedCallCopy;
+    }
+
+LABEL_35:
+    [v13 setVerificationStatus:{objc_msgSend(v28, "verificationStatus")}];
+  }
+
+  uniqueId3 = [callCopy uniqueId];
+  uniqueId4 = [fingerprintedCallCopy uniqueId];
+  v38 = (uniqueId3 | uniqueId4) == 0;
+  if (uniqueId4)
+  {
+    v38 = [uniqueId3 isEqual:uniqueId4];
+  }
+
+  if ((v38 & 1) == 0)
+  {
+    date = [callCopy date];
+    date2 = [fingerprintedCallCopy date];
+    if ([date compare:date2] == 1)
+    {
+      v41 = fingerprintedCallCopy;
+    }
+
+    else
+    {
+      v41 = callCopy;
+    }
+
+    date3 = [v41 date];
+    [v13 setDate:date3];
+
+    v43 = MEMORY[0x1E696AD98];
+    bytesOfDataUsed = [callCopy bytesOfDataUsed];
+    LODWORD(date3) = [bytesOfDataUsed intValue];
+    bytesOfDataUsed2 = [fingerprintedCallCopy bytesOfDataUsed];
+    v46 = [v43 numberWithInt:{objc_msgSend(bytesOfDataUsed2, "intValue") + date3}];
+    [v13 setBytesOfDataUsed:v46];
+
+    [callCopy duration];
+    v48 = v47;
+    [fingerprintedCallCopy duration];
+    [v13 setDuration:v48 + v49];
+    initiator = [callCopy initiator];
+    if (initiator)
+    {
+      [v13 setInitiator:initiator];
+    }
+
+    else
+    {
+      initiator2 = [fingerprintedCallCopy initiator];
+      [v13 setInitiator:initiator2];
+    }
+  }
+
+  v52 = +[CHLogServer sharedInstance];
+  v53 = [v52 logHandleForDomain:"Fingerprint"];
+
+  if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+  {
+    v55 = 138412290;
+    v56 = v13;
+    _os_log_impl(&dword_1C3E90000, v53, OS_LOG_TYPE_DEFAULT, "YMM updatedCall: %@", &v55, 0xCu);
+  }
+
+  return v13;
+}
+
 + (unsigned)getCallStatusForExistingCall:(id)call andRemoteCall:(id)remoteCall areBothCallsLocal:(BOOL)local isExistingCallMissedOrAnsweredElsewhere:(BOOL)elsewhere
 {
   callCopy = call;
@@ -213,7 +438,7 @@ LABEL_8:
 
 + (id)matchCallWithFingerprint:(id)fingerprint usingDatabase:(id)database
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   fingerprintCopy = fingerprint;
   databaseCopy = database;
   date = [fingerprintCopy date];
@@ -227,11 +452,11 @@ LABEL_8:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       uniqueId = [fingerprintCopy uniqueId];
-      v50 = 138543362;
-      v51 = uniqueId;
+      v49 = 138543362;
+      v50 = uniqueId;
       v22 = "Ignoring fingerprinted call %{public}@ without a date";
 LABEL_13:
-      _os_log_impl(&dword_1C3E90000, v18, OS_LOG_TYPE_DEFAULT, v22, &v50, 0xCu);
+      _os_log_impl(&dword_1C3E90000, v18, OS_LOG_TYPE_DEFAULT, v22, &v49, 0xCu);
     }
 
 LABEL_14:
@@ -252,8 +477,8 @@ LABEL_14:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       uniqueId = [fingerprintCopy uniqueId];
-      v50 = 138543362;
-      v51 = uniqueId;
+      v49 = 138543362;
+      v50 = uniqueId;
       v22 = "Ignoring fingerprinted call %{public}@ without remote participant handles";
       goto LABEL_13;
     }
@@ -267,9 +492,9 @@ LABEL_14:
 
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v50 = 138412290;
-    v51 = v10;
-    _os_log_impl(&dword_1C3E90000, v12, OS_LOG_TYPE_DEFAULT, "Fetching local call records using predicate %@", &v50, 0xCu);
+    v49 = 138412290;
+    v50 = v10;
+    _os_log_impl(&dword_1C3E90000, v12, OS_LOG_TYPE_DEFAULT, "Fetching local call records using predicate %@", &v49, 0xCu);
   }
 
   v13 = [databaseCopy fetchObjectsWithPredicate:v10];
@@ -280,9 +505,9 @@ LABEL_14:
 
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v50 = 138412290;
-      v51 = v13;
-      _os_log_impl(&dword_1C3E90000, v15, OS_LOG_TYPE_DEFAULT, "Got matching calls: %@", &v50, 0xCu);
+      v49 = 138412290;
+      v50 = v13;
+      _os_log_impl(&dword_1C3E90000, v15, OS_LOG_TYPE_DEFAULT, "Got matching calls: %@", &v49, 0xCu);
     }
 
     v16 = [v13 sortedArrayUsingComparator:&__block_literal_global_10];
@@ -299,9 +524,9 @@ LABEL_14:
 
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
-      v50 = 138412290;
-      v51 = v25;
-      _os_log_impl(&dword_1C3E90000, v27, OS_LOG_TYPE_DEFAULT, "Fetching local call records using predicate %@", &v50, 0xCu);
+      v49 = 138412290;
+      v50 = v25;
+      _os_log_impl(&dword_1C3E90000, v27, OS_LOG_TYPE_DEFAULT, "Fetching local call records using predicate %@", &v49, 0xCu);
     }
 
     v18 = [databaseCopy fetchObjectsWithPredicate:v25];
@@ -318,11 +543,11 @@ LABEL_14:
       {
         v32 = [v18 count];
         uniqueId2 = [fingerprintCopy uniqueId];
-        v50 = 134218242;
-        v51 = v32;
-        v52 = 2114;
-        v53 = uniqueId2;
-        _os_log_impl(&dword_1C3E90000, v16, OS_LOG_TYPE_DEFAULT, "Found %lu calls matching %{public}@ in local data store", &v50, 0x16u);
+        v49 = 134218242;
+        v50 = v32;
+        v51 = 2114;
+        v52 = uniqueId2;
+        _os_log_impl(&dword_1C3E90000, v16, OS_LOG_TYPE_DEFAULT, "Found %lu calls matching %{public}@ in local data store", &v49, 0x16u);
       }
 
       if ([v18 count]!= 1)
@@ -343,11 +568,11 @@ LABEL_14:
           {
             uniqueId3 = [firstObject uniqueId];
             uniqueId4 = [fingerprintCopy uniqueId];
-            v50 = 138543618;
-            v51 = uniqueId3;
-            v52 = 2114;
-            v53 = uniqueId4;
-            _os_log_impl(&dword_1C3E90000, v42, OS_LOG_TYPE_DEFAULT, "Fingerprint matched local call %{public}@ with remote call %{public}@", &v50, 0x16u);
+            v49 = 138543618;
+            v50 = uniqueId3;
+            v51 = 2114;
+            v52 = uniqueId4;
+            _os_log_impl(&dword_1C3E90000, v42, OS_LOG_TYPE_DEFAULT, "Fingerprint matched local call %{public}@ with remote call %{public}@", &v49, 0x16u);
           }
         }
 
@@ -360,9 +585,9 @@ LABEL_14:
           if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
           {
             uniqueId5 = [fingerprintCopy uniqueId];
-            v50 = 138543362;
-            v51 = uniqueId5;
-            _os_log_impl(&dword_1C3E90000, v42, OS_LOG_TYPE_DEFAULT, "Did not find filtered caller ID result matching call %{public}@", &v50, 0xCu);
+            v49 = 138543362;
+            v50 = uniqueId5;
+            _os_log_impl(&dword_1C3E90000, v42, OS_LOG_TYPE_DEFAULT, "Did not find filtered caller ID result matching call %{public}@", &v49, 0xCu);
           }
 
           firstObject = 0;
@@ -379,9 +604,9 @@ LABEL_14:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         uniqueId6 = [firstObject uniqueId];
-        v50 = 138543362;
-        v51 = uniqueId6;
-        _os_log_impl(&dword_1C3E90000, v16, OS_LOG_TYPE_DEFAULT, "Returning matching call with uniqueID %{public}@", &v50, 0xCu);
+        v49 = 138543362;
+        v50 = uniqueId6;
+        _os_log_impl(&dword_1C3E90000, v16, OS_LOG_TYPE_DEFAULT, "Returning matching call with uniqueID %{public}@", &v49, 0xCu);
       }
     }
 
@@ -390,9 +615,9 @@ LABEL_14:
       if (v31)
       {
         uniqueId7 = [fingerprintCopy uniqueId];
-        v50 = 138543362;
-        v51 = uniqueId7;
-        _os_log_impl(&dword_1C3E90000, v16, OS_LOG_TYPE_DEFAULT, "Could not find fingerprinted call %{public}@ in local data store", &v50, 0xCu);
+        v49 = 138543362;
+        v50 = uniqueId7;
+        _os_log_impl(&dword_1C3E90000, v16, OS_LOG_TYPE_DEFAULT, "Could not find fingerprinted call %{public}@ in local data store", &v49, 0xCu);
       }
 
       firstObject = 0;
@@ -404,7 +629,6 @@ LABEL_14:
 LABEL_35:
 
 LABEL_36:
-  v48 = *MEMORY[0x1E69E9840];
 
   return firstObject;
 }

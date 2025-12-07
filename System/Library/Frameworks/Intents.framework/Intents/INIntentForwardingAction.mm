@@ -44,7 +44,7 @@
     v8 = v7;
     if (v7)
     {
-      [v7 if_auditToken];
+      objc_msgSend_if_auditToken(v7);
       *v6->_hostProcessAuditToken.val = v11;
       *&v6->_hostProcessAuditToken.val[4] = v12;
     }
@@ -115,7 +115,7 @@
     v9 = processInfo;
     if (processInfo)
     {
-      [processInfo if_auditToken];
+      objc_msgSend_if_auditToken(processInfo);
     }
 
     else

@@ -86,7 +86,7 @@
 - (void)cancelSearch
 {
   selfCopy = self;
-  sub_21918CF58();
+  sub_21918CF58(selfCopy);
 }
 
 - (void)scrollToTopAnimated:(BOOL)animated
@@ -117,13 +117,13 @@
 {
   *(&self->super.super.super.isa + OBJC_IVAR____TtC7NewsUI223RecipeBoxViewController_showCancelButton) = 1;
   selfCopy = self;
-  sub_219189EBC();
+  sub_219189EBC(selfCopy);
 }
 
 - (void)willDismissSearchController:(id)controller
 {
   selfCopy = self;
-  v3 = sub_21918A07C();
+  sub_21918A07C();
   if (v5)
   {
     v6 = v3;
@@ -136,7 +136,7 @@
   else
   {
     *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC7NewsUI223RecipeBoxViewController_showCancelButton) = 0;
-    sub_219189EBC();
+    sub_219189EBC(selfCopy);
   }
 }
 

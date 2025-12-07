@@ -1,4 +1,4 @@
-uint64_t _ResultHandlerAddressBookCallback(void *a1, void *a2, const void *a3, ABMultiValueIdentifier a4, ABPropertyID a5, int a6, void *a7)
+uint64_t _ResultHandlerAddressBookCallback(void *a1, void *a2, const void *a3, ABMultiValueIdentifier a4, ABPropertyID a5, unsigned int a6, void *a7)
 {
   v13 = a1;
   v14 = a2;
@@ -35,49 +35,23 @@ LABEL_60:
         }
 
         v24 = v23;
-        if (CFStringGetLength(v23) < 1)
+        if (CFStringGetLength(v23) < 1 || (v133 = a5, ([v16 allowFirstFT] & 1) == 0) && (IMCleanupPhoneNumber(), v25 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x29EDC5530], "sharedInstance"), v130 = v22, v26 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x29EDC5538], "facetimeService"), v27 = v14, v28 = v24, v29 = objc_claimAutoreleasedReturnValue(), v125 = v20, v30 = objc_msgSend(v26, "statusForID:onService:", v25, v29), v29, v24 = v28, v14 = v27, a5 = v133, v26, v22 = v130, v25, v31 = v30 == 1, v20 = v125, !v31))
         {
-          goto LABEL_21;
-        }
-
-        v133 = a5;
-        if (([v16 allowFirstFT] & 1) == 0)
-        {
-          v25 = IMCleanupPhoneNumber();
-          [MEMORY[0x29EDC5530] sharedInstance];
-          v26 = v130 = v22;
-          [MEMORY[0x29EDC5538] facetimeService];
-          v27 = v14;
-          v29 = v28 = v24;
-          v125 = v20;
-          v30 = [v26 statusForID:v25 onService:v29];
-
-          v24 = v28;
-          v14 = v27;
-          a5 = v133;
-
-          v22 = v130;
-          v31 = v30 == 1;
-          v20 = v125;
-          if (!v31)
-          {
-LABEL_21:
-            v38 = v24;
-            v39 = 0;
-            v40 = 0;
-            v41 = 0;
-            v42 = 0;
-            v137 = 0;
-            v139 = 0;
-            v36 = 0;
-            v34 = 0;
+          v38 = v24;
+          v39 = 0;
+          v40 = 0;
+          v41 = 0;
+          v42 = 0;
+          v137 = 0;
+          v139 = 0;
+          v36 = 0;
+          v34 = 0;
 LABEL_59:
-            CFRelease(v38);
+          CFRelease(v38);
 
-            v37 = v137;
-            v35 = v139;
-            goto LABEL_60;
-          }
+          v37 = v137;
+          v35 = v139;
+          goto LABEL_60;
         }
 
         v32 = [v16 contactInfo];
@@ -675,16 +649,16 @@ id _CommaSeparatedStringFromArray(void *a1)
   return v5;
 }
 
-id PHDefaultLog()
+id PHDefaultLog(uint64_t a1)
 {
   if (PHDefaultLog_onceToken != -1)
   {
     PHDefaultLog_cold_1();
   }
 
-  v1 = PHDefaultLog_PHDefaultLog;
+  v2 = PHDefaultLog_PHDefaultLog;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __PHDefaultLog_block_invoke()
@@ -694,16 +668,16 @@ uint64_t __PHDefaultLog_block_invoke()
   return MEMORY[0x2A1C71028]();
 }
 
-id PHOversizedLog()
+id PHOversizedLog(uint64_t a1)
 {
   if (PHOversizedLog_onceToken != -1)
   {
     PHOversizedLog_cold_1();
   }
 
-  v1 = PHOversizedLog_PHOversizedLog;
+  v2 = PHOversizedLog_PHOversizedLog;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __PHOversizedLog_block_invoke()
@@ -713,16 +687,16 @@ uint64_t __PHOversizedLog_block_invoke()
   return MEMORY[0x2A1C71028]();
 }
 
-id PHOversizedLogQueue()
+id PHOversizedLogQueue(uint64_t a1)
 {
   if (PHOversizedLogQueue_onceToken != -1)
   {
     PHOversizedLogQueue_cold_1();
   }
 
-  v1 = PHOversizedLogQueue_PHOversizedLogQueue;
+  v2 = PHOversizedLogQueue_PHOversizedLogQueue;
 
-  return v1;
+  return v2;
 }
 
 void __PHOversizedLogQueue_block_invoke()
@@ -1077,7 +1051,7 @@ id _SpokenValueFromElementValue(void *a1, void *a2)
   return v4;
 }
 
-void _AppendValueToPhoneNumbersInRange(id *a1, id *a2, void *a3, void *a4, uint64_t a5, uint64_t a6)
+void _AppendValueToPhoneNumbersInRange(id *a1, id *a2, void *a3, void *a4, char *a5, uint64_t a6)
 {
   v20 = a3;
   v11 = a4;
@@ -1112,7 +1086,7 @@ void _AppendValueToPhoneNumbersInRange(id *a1, id *a2, void *a3, void *a4, uint6
       v13 = 0;
     }
 
-    a5 = [*a1 count] - 1;
+    a5 = ([*a1 count] - 1);
     a6 = 1;
   }
 
@@ -1127,7 +1101,7 @@ void _AppendValueToPhoneNumbersInRange(id *a1, id *a2, void *a3, void *a4, uint6
   }
 
   v15 = -a6;
-  v16 = a5 + a6 - 1;
+  v16 = &a5[a6 - 1];
   do
   {
     v17 = v12;
@@ -1163,15 +1137,15 @@ void _CreateNameDataSourceMap()
 
 CFStringRef VoiceDialMaidenNameDataSourceCreateMaidenNameFromLastName(const __CFString *a1)
 {
-  v76 = *MEMORY[0x29EDCA608];
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
+  v75 = *MEMORY[0x29EDCA608];
   v60 = 0u;
-  v57 = 0u;
+  v61 = 0u;
   v58 = 0u;
-  *buffer = 0u;
+  v59 = 0u;
   v56 = 0u;
+  v57 = 0u;
+  *buffer = 0u;
+  v55 = 0u;
   Length = CFStringGetLength(a1);
   if (Length < 1)
   {
@@ -1182,13 +1156,13 @@ CFStringRef VoiceDialMaidenNameDataSourceCreateMaidenNameFromLastName(const __CF
   }
 
   v3 = Length;
-  v53 = Length - 1;
+  v52 = Length - 1;
   theString = a1;
-  v66 = 0;
-  v67 = Length;
+  v65 = 0;
+  v66 = Length;
   CharactersPtr = CFStringGetCharactersPtr(a1);
   CStringPtr = 0;
-  v64 = CharactersPtr;
+  v63 = CharactersPtr;
   if (!CharactersPtr)
   {
     CStringPtr = CFStringGetCStringPtr(a1, 0x600u);
@@ -1199,9 +1173,9 @@ CFStringRef VoiceDialMaidenNameDataSourceCreateMaidenNameFromLastName(const __CF
   v8 = 0;
   v9 = 0;
   v10 = 0;
+  v67 = 0;
   v68 = 0;
-  v69 = 0;
-  v65 = CStringPtr;
+  v64 = CStringPtr;
   v11 = 1;
   v12 = 64;
   do
@@ -1216,53 +1190,53 @@ CFStringRef VoiceDialMaidenNameDataSourceCreateMaidenNameFromLastName(const __CF
       v13 = v9;
     }
 
-    v14 = v67;
-    if (v67 <= v9)
+    v14 = v66;
+    if (v66 <= v9)
     {
       goto LABEL_20;
     }
 
-    if (v64)
+    if (v63)
     {
-      v15 = &v64[v66];
+      v15 = &v63[v65];
 LABEL_11:
       v16 = v15[v9];
       goto LABEL_14;
     }
 
-    if (!v65)
+    if (!v64)
     {
-      v18 = v68;
-      if (v69 <= v9 || v68 > v9)
+      v18 = v67;
+      if (v68 <= v9 || v67 > v9)
       {
         v20 = -v13;
         v21 = v13 + v6;
         v22 = v12 - v13;
         v23 = v9 + v20;
         v24 = v23 + 64;
-        if (v23 + 64 >= v67)
+        if (v23 + 64 >= v66)
         {
-          v24 = v67;
+          v24 = v66;
         }
 
-        v68 = v23;
-        v69 = v24;
-        if (v67 >= v22)
+        v67 = v23;
+        v68 = v24;
+        if (v66 >= v22)
         {
           v14 = v22;
         }
 
-        v77.location = v23 + v66;
-        v77.length = v14 + v21;
-        CFStringGetCharacters(theString, v77, buffer);
-        v18 = v68;
+        v76.location = v23 + v65;
+        v76.length = v14 + v21;
+        CFStringGetCharacters(theString, v76, buffer);
+        v18 = v67;
       }
 
       v15 = &buffer[-v18];
       goto LABEL_11;
     }
 
-    v16 = v65[v66 + v9];
+    v16 = v64[v65 + v9];
 LABEL_14:
     if (v16 == 32)
     {
@@ -1309,7 +1283,7 @@ LABEL_26:
   while (v3 != v9);
   if (v17)
   {
-    [v8 addIndex:v53];
+    [v8 addIndex:v52];
   }
 
   if (v10 < 2)
@@ -1332,9 +1306,9 @@ LABEL_43:
       v46 = [v8 indexGreaterThanOrEqualToIndex:v27];
       v45 = *MEMORY[0x29EDB8ED8];
 LABEL_70:
-      v79.length = v46 - v27 + 1;
-      v79.location = v27;
-      v28 = CFStringCreateWithSubstring(v45, a1, v79);
+      v78.length = v46 - v27 + 1;
+      v78.location = v27;
+      v28 = CFStringCreateWithSubstring(v45, a1, v78);
     }
 
     else
@@ -1346,17 +1320,17 @@ LABEL_70:
       }
 
       alloc = *MEMORY[0x29EDB8ED8];
-      v54 = 0;
+      v53 = 0;
       *&v26 = 138412802;
-      v49 = v26;
+      v48 = v26;
       v30 = v25;
       range = v25;
       range_8 = v8;
       do
       {
-        v31 = [v8 indexGreaterThanOrEqualToIndex:{v30, v49}];
+        v31 = [v8 indexGreaterThanOrEqualToIndex:{v30, v48}];
         IsNamePrefixString = _IsNamePrefixString(a1, v30);
-        ++v54;
+        ++v53;
         if (IsNamePrefixString == -1)
         {
           v28 = 0;
@@ -1374,15 +1348,15 @@ LABEL_70:
           else
           {
             v35 = CFStringGetLength(a1);
-            v36 = PHDefaultLog();
+            v36 = PHDefaultLog(v35);
             if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
             {
-              *buf = v49;
-              v71 = a1;
-              v72 = 2048;
-              v73 = v30;
-              v74 = 2048;
-              v75 = v35;
+              *buf = v48;
+              v70 = a1;
+              v71 = 2048;
+              v72 = v30;
+              v73 = 2048;
+              v74 = v35;
               _os_log_impl(&dword_295FD5000, v36, OS_LOG_TYPE_DEFAULT, "_IsNameJoinerString name: %@ searchIndex: %lld wordLen: %lld", buf, 0x20u);
             }
 
@@ -1395,9 +1369,9 @@ LABEL_70:
               v41 = v40 + v30;
               if (v40 + v30 <= v35)
               {
-                v78.length = v40;
-                v78.location = v30;
-                v43 = CFStringCompareWithOptions(a1, v39, v78, 1uLL);
+                v77.length = v40;
+                v77.location = v30;
+                v43 = CFStringCompareWithOptions(a1, v39, v77, 1uLL);
                 v42 = v43 != kCFCompareEqualTo;
                 if (v43 == kCFCompareEqualTo)
                 {
@@ -1419,7 +1393,7 @@ LABEL_70:
             }
 
             while (v42);
-            if (v38 == -1 || (v10 - v54) < 2)
+            if (v38 == -1 || (v10 - v53) < 2)
             {
               v8 = range_8;
               v31 = [range_8 indexLessThanIndex:v30];
@@ -1465,24 +1439,23 @@ LABEL_68:
 
 LABEL_71:
 
-  v47 = *MEMORY[0x29EDCA608];
   return v28;
 }
 
 uint64_t _IsNamePrefixString(const __CFString *a1, CFIndex a2)
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   Length = CFStringGetLength(a1);
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(Length);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412802;
-    v15 = a1;
-    v16 = 2048;
-    v17 = a2;
-    v18 = 2048;
-    v19 = Length;
-    _os_log_impl(&dword_295FD5000, v5, OS_LOG_TYPE_DEFAULT, "_IsNamePrefixString name: %@ searchIndex: %lld wordLen: %lld", &v14, 0x20u);
+    v13 = 138412802;
+    v14 = a1;
+    v15 = 2048;
+    v16 = a2;
+    v17 = 2048;
+    v18 = Length;
+    _os_log_impl(&dword_295FD5000, v5, OS_LOG_TYPE_DEFAULT, "_IsNamePrefixString name: %@ searchIndex: %lld wordLen: %lld", &v13, 0x20u);
   }
 
   v6 = 0;
@@ -1494,9 +1467,9 @@ uint64_t _IsNamePrefixString(const __CFString *a1, CFIndex a2)
     v10 = v9 + a2;
     if (v9 + a2 <= Length)
     {
-      v21.length = v9;
-      v21.location = a2;
-      if (CFStringCompareWithOptions(a1, v8, v21, 1uLL) == kCFCompareEqualTo)
+      v20.length = v9;
+      v20.location = a2;
+      if (CFStringCompareWithOptions(a1, v8, v20, 1uLL) == kCFCompareEqualTo)
       {
         break;
       }
@@ -1504,14 +1477,11 @@ uint64_t _IsNamePrefixString(const __CFString *a1, CFIndex a2)
 
     if (v6++ >= 4)
     {
-      goto LABEL_9;
+      return v7;
     }
   }
 
-  v7 = v10;
-LABEL_9:
-  v12 = *MEMORY[0x29EDCA608];
-  return v7;
+  return v10;
 }
 
 void VoiceDialCopyNameLabelAndTypeFromRecognitionResult(void *a1, void *a2, void *a3, void *a4, id *a5)
@@ -1632,7 +1602,7 @@ LABEL_34:
 
 void VoiceDialCopyNamesLabelAndTypeFromRecognitionResults(void *a1, void *a2, void *a3, void *a4)
 {
-  v28 = *MEMORY[0x29EDCA608];
+  v27 = *MEMORY[0x29EDCA608];
   v7 = a1;
   v8 = v7;
   if (a3)
@@ -1645,33 +1615,33 @@ void VoiceDialCopyNamesLabelAndTypeFromRecognitionResults(void *a1, void *a2, vo
     *a4 = 0;
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
-  v9 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v9 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v9)
   {
     v10 = v9;
-    v21 = a2;
+    v20 = a2;
     v11 = 0;
     v12 = 0;
     v13 = 0;
-    v14 = *v24;
+    v14 = *v23;
     while (1)
     {
       v15 = 0;
       v16 = v13;
       do
       {
-        if (*v24 != v14)
+        if (*v23 != v14)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v23 + 1) + 8 * v15);
+        v13 = *(*(&v22 + 1) + 8 * v15);
 
-        v22 = 0;
+        v21 = 0;
         if (a3)
         {
           if (*a3)
@@ -1712,8 +1682,8 @@ LABEL_19:
         }
 
 LABEL_20:
-        VoiceDialCopyNameLabelAndTypeFromRecognitionResult(v13, &v22, v17, v18, 0);
-        v12 = v22;
+        VoiceDialCopyNameLabelAndTypeFromRecognitionResult(v13, &v21, v17, v18, 0);
+        v12 = v21;
         if (v12)
         {
           if (!v11)
@@ -1721,7 +1691,7 @@ LABEL_20:
             v11 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
           }
 
-          [v11 addObject:{v12, v21}];
+          [v11 addObject:{v12, v20}];
         }
 
         ++v15;
@@ -1729,12 +1699,12 @@ LABEL_20:
       }
 
       while (v10 != v15);
-      v10 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (!v10)
       {
 
-        a2 = v21;
-        if (v21)
+        a2 = v20;
+        if (v20)
         {
           goto LABEL_27;
         }
@@ -1754,8 +1724,6 @@ LABEL_27:
   }
 
 LABEL_28:
-
-  v20 = *MEMORY[0x29EDCA608];
 }
 
 void VoiceDialSendNameAndExtendedLabelMatches(const void *a1, void *a2, int a3, int a4, void *a5, void *a6, void *a7, uint64_t (*a8)(id, __CFString *, const void *, uint64_t, void, void, uint64_t), uint64_t a9)
@@ -2016,42 +1984,42 @@ void *VoiceDialCopySpokenLocalizedLabel(void *key)
 id VoiceDialCopyMostLikelyNumberWithPersonAndLabel(uint64_t a1, uint64_t a2)
 {
   result = 0;
-  v34 = *MEMORY[0x29EDCA608];
+  v33 = *MEMORY[0x29EDCA608];
   if (a1 && a2)
   {
     v5 = [MEMORY[0x29EDB8B98] contactFromPerson:? keysToFetch:?];
     v6 = [MEMORY[0x29EDB8BB8] sharedInstance];
-    v25 = v5;
+    v24 = v5;
     v7 = [v6 entriesForContact:v5];
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     v8 = v7;
-    v9 = [v8 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (!v9)
     {
-      v26 = 0;
+      v25 = 0;
       goto LABEL_18;
     }
 
     v10 = v9;
-    v26 = 0;
-    v27 = a2;
-    v11 = *v30;
+    v25 = 0;
+    v26 = a2;
+    v11 = *v29;
     v12 = *MEMORY[0x29EDB8B38];
     v13 = *MEMORY[0x29EDB8B30];
     while (1)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v30 != v11)
+        if (*v29 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v15 = *(*(&v29 + 1) + 8 * i);
+        v15 = *(*(&v28 + 1) + 8 * i);
         v16 = [v15 contactProperty];
         v17 = [v15 actionType];
         if (([v17 isEqual:v12] & 1) == 0)
@@ -2072,33 +2040,31 @@ LABEL_13:
         v20 = v11;
         v21 = v13;
         v23 = v22 = v8;
-        v28 = [v23 caseInsensitiveCompare:v27];
+        v27 = [v23 caseInsensitiveCompare:v26];
 
         v8 = v22;
         v13 = v21;
         v11 = v20;
         v12 = v19;
 
-        if (!v28)
+        if (!v27)
         {
-          v26 = stringValueForContactProperty(v16);
+          v25 = stringValueForContactProperty(v16);
         }
 
 LABEL_14:
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v28 objects:v32 count:16];
       if (!v10)
       {
 LABEL_18:
 
-        result = v26;
-        break;
+        return v25;
       }
     }
   }
 
-  v24 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -2129,203 +2095,199 @@ LABEL_7:
 
 void *VoiceDialGetMostLikelyFacetimeContactWithPersonAndLabel(uint64_t a1, uint64_t a2)
 {
-  v53 = *MEMORY[0x29EDCA608];
-  if (a1)
+  v52 = *MEMORY[0x29EDCA608];
+  if (!a1)
   {
-    v3 = [MEMORY[0x29EDB8B98] contactFromPerson:a1 keysToFetch:MEMORY[0x29EDB8E90]];
-    v4 = [MEMORY[0x29EDB8BB8] sharedInstance];
-    v38 = v3;
-    v5 = [v4 entriesForContact:v3];
+    return 0;
+  }
 
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
-    v48 = 0u;
-    obj = v5;
-    v6 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
-    v41 = a2;
-    if (v6)
-    {
-      v7 = v6;
-      v8 = *v48;
-      v9 = *MEMORY[0x29EDB8B70];
-      v10 = *MEMORY[0x29EDB8B28];
+  v3 = [MEMORY[0x29EDB8B98] contactFromPerson:a1 keysToFetch:MEMORY[0x29EDB8E90]];
+  v4 = [MEMORY[0x29EDB8BB8] sharedInstance];
+  v37 = v3;
+  v5 = [v4 entriesForContact:v3];
+
+  v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
+  obj = v5;
+  v6 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
+  v40 = a2;
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v47;
+    v9 = *MEMORY[0x29EDB8B70];
+    v10 = *MEMORY[0x29EDB8B28];
 LABEL_4:
-      v11 = 0;
-      while (1)
+    v11 = 0;
+    while (1)
+    {
+      if (*v47 != v8)
       {
-        if (*v48 != v8)
-        {
-          objc_enumerationMutation(obj);
-        }
+        objc_enumerationMutation(obj);
+      }
 
-        v12 = *(*(&v47 + 1) + 8 * v11);
-        v13 = [v12 contactProperty];
-        v14 = [v12 actionType];
-        if (![v14 isEqual:v9])
-        {
-          goto LABEL_13;
-        }
+      v12 = *(*(&v46 + 1) + 8 * v11);
+      v13 = [v12 contactProperty];
+      v14 = [v12 actionType];
+      if (![v14 isEqual:v9])
+      {
+        goto LABEL_13;
+      }
 
-        v15 = [v12 bundleIdentifier];
-        if (![v15 isEqual:v10])
-        {
-          break;
-        }
+      v15 = [v12 bundleIdentifier];
+      if (![v15 isEqual:v10])
+      {
+        break;
+      }
 
-        if (!a2)
-        {
+      if (!a2)
+      {
 
 LABEL_17:
-          v18 = stringValueForContactProperty(v13);
-          if (v18)
-          {
-            v35 = v18;
-LABEL_39:
-            v34 = v38;
-
-            goto LABEL_40;
-          }
-
-          goto LABEL_14;
-        }
-
-        v16 = [v13 label];
-        v17 = [v16 caseInsensitiveCompare:v41];
-
-        a2 = v41;
-        if (!v17)
+        v18 = stringValueForContactProperty(v13);
+        if (v18)
         {
-          goto LABEL_17;
+          v35 = v18;
+LABEL_39:
+          v34 = v37;
+
+          goto LABEL_40;
         }
+
+        goto LABEL_14;
+      }
+
+      v16 = [v13 label];
+      v17 = [v16 caseInsensitiveCompare:v40];
+
+      a2 = v40;
+      if (!v17)
+      {
+        goto LABEL_17;
+      }
 
 LABEL_14:
 
-        if (v7 == ++v11)
+      if (v7 == ++v11)
+      {
+        v19 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
+        v7 = v19;
+        if (v19)
         {
-          v19 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
-          v7 = v19;
-          if (v19)
-          {
-            goto LABEL_4;
-          }
-
-          goto LABEL_20;
+          goto LABEL_4;
         }
+
+        goto LABEL_20;
       }
+    }
 
 LABEL_13:
-      goto LABEL_14;
-    }
+    goto LABEL_14;
+  }
 
 LABEL_20:
 
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
-    v44 = 0u;
-    v40 = obj;
-    v20 = [v40 countByEnumeratingWithState:&v43 objects:v51 count:16];
-    if (v20)
+  v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  v39 = obj;
+  v20 = [v39 countByEnumeratingWithState:&v42 objects:v50 count:16];
+  if (v20)
+  {
+    v21 = v20;
+    v22 = *v43;
+    v23 = 0x29EDC5000uLL;
+    v24 = 0x29EDC5000uLL;
+    while (2)
     {
-      v21 = v20;
-      v22 = *v44;
-      v23 = 0x29EDC5000uLL;
-      v24 = 0x29EDC5000uLL;
-      while (2)
+      v25 = 0;
+      v38 = v21;
+      do
       {
-        v25 = 0;
-        v39 = v21;
-        do
+        if (*v43 != v22)
         {
-          if (*v44 != v22)
-          {
-            objc_enumerationMutation(v40);
-          }
+          objc_enumerationMutation(v39);
+        }
 
-          v13 = [*(*(&v43 + 1) + 8 * v25) contactProperty];
-          v35 = stringValueForContactProperty(v13);
-          v26 = IMCleanupPhoneNumber();
-          v27 = [*(v23 + 1328) sharedInstance];
-          v28 = [*(v24 + 1336) facetimeService];
-          if ([v27 statusForID:v26 onService:v28] == 1)
+        v13 = [*(*(&v42 + 1) + 8 * v25) contactProperty];
+        v35 = stringValueForContactProperty(v13);
+        v26 = IMCleanupPhoneNumber();
+        v27 = [*(v23 + 1328) sharedInstance];
+        v28 = [*(v24 + 1336) facetimeService];
+        if ([v27 statusForID:v26 onService:v28] == 1)
+        {
+          if (v40)
           {
-            if (v41)
+            [v13 label];
+            v29 = v23;
+            v31 = v30 = v22;
+            v32 = [v31 caseInsensitiveCompare:v40];
+
+            v22 = v30;
+            v23 = v29;
+            v24 = 0x29EDC5000;
+
+            if (v32)
             {
-              [v13 label];
-              v29 = v23;
-              v31 = v30 = v22;
-              v32 = [v31 caseInsensitiveCompare:v41];
-
-              v22 = v30;
-              v23 = v29;
-              v24 = 0x29EDC5000;
-
-              if (v32)
-              {
-                v33 = 1;
-              }
-
-              else
-              {
-                v33 = v35 == 0;
-              }
-
-              v21 = v39;
-              if (!v33)
-              {
-LABEL_38:
-
-                goto LABEL_39;
-              }
+              v33 = 1;
             }
 
             else
             {
+              v33 = v35 == 0;
+            }
 
-              v21 = v39;
-              if (v35)
-              {
-                goto LABEL_38;
-              }
+            v21 = v38;
+            if (!v33)
+            {
+LABEL_38:
+
+              goto LABEL_39;
             }
           }
 
           else
           {
+
+            v21 = v38;
+            if (v35)
+            {
+              goto LABEL_38;
+            }
           }
-
-          ++v25;
         }
 
-        while (v21 != v25);
-        v21 = [v40 countByEnumeratingWithState:&v43 objects:v51 count:16];
-        v35 = 0;
-        v34 = v38;
-        if (v21)
+        else
         {
-          continue;
         }
 
-        break;
+        ++v25;
       }
-    }
 
-    else
-    {
+      while (v21 != v25);
+      v21 = [v39 countByEnumeratingWithState:&v42 objects:v50 count:16];
       v35 = 0;
-      v34 = v38;
-    }
+      v34 = v37;
+      if (v21)
+      {
+        continue;
+      }
 
-LABEL_40:
+      break;
+    }
   }
 
   else
   {
     v35 = 0;
+    v34 = v37;
   }
 
-  v36 = *MEMORY[0x29EDCA608];
+LABEL_40:
+
   return v35;
 }
 
@@ -2432,8 +2394,8 @@ LABEL_22:
 
 CFMutableStringRef VoiceDialPersonCopyCompositeNameWithSubstitution(ABRecordRef record, const __CFString *a2, int a3, char a4)
 {
-  v35 = 0;
-  v34 = 0;
+  v27 = 0;
+  v26 = 0;
   v8 = MEMORY[0x29EDBE228];
   if ((a4 & 8) != 0)
   {
@@ -2455,7 +2417,7 @@ CFMutableStringRef VoiceDialPersonCopyCompositeNameWithSubstitution(ABRecordRef 
   if (VoiceDialPersonIsCompany(record))
   {
     v12 = ABRecordCopyValue(record, *MEMORY[0x29EDBE238]);
-    v35 = v12;
+    v27 = v12;
     if (v12)
     {
       v10 = v12;
@@ -2466,115 +2428,107 @@ CFMutableStringRef VoiceDialPersonCopyCompositeNameWithSubstitution(ABRecordRef 
       }
 
       CFRelease(v10);
-      v35 = 0;
+      v27 = 0;
     }
   }
 
   CompositeNameFormatForRecord = ABPersonGetCompositeNameFormatForRecord(0);
-  v15 = *MEMORY[0x29EDBE200];
-  v16 = *MEMORY[0x29EDBE218];
   if (CompositeNameFormatForRecord)
   {
-    v17 = *MEMORY[0x29EDBE218];
+    v15 = *MEMORY[0x29EDBE218];
   }
 
   else
+  {
+    v15 = *MEMORY[0x29EDBE200];
+  }
+
+  if (CompositeNameFormatForRecord)
+  {
+    v16 = *MEMORY[0x29EDBE1D8];
+  }
+
+  else
+  {
+    v16 = *MEMORY[0x29EDBE218];
+  }
+
+  if (CompositeNameFormatForRecord)
   {
     v17 = *MEMORY[0x29EDBE200];
   }
 
-  v18 = *MEMORY[0x29EDBE1D8];
-  if (CompositeNameFormatForRecord)
-  {
-    v19 = *MEMORY[0x29EDBE1D8];
-  }
-
   else
   {
-    v19 = *MEMORY[0x29EDBE218];
+    v17 = *MEMORY[0x29EDBE1D8];
   }
 
   if (CompositeNameFormatForRecord)
   {
-    v20 = *MEMORY[0x29EDBE200];
+    v18 = *MEMORY[0x29EDBE220];
   }
 
   else
   {
-    v20 = *MEMORY[0x29EDBE1D8];
-  }
-
-  v21 = *MEMORY[0x29EDBE208];
-  v22 = *MEMORY[0x29EDBE220];
-  if (CompositeNameFormatForRecord)
-  {
-    v23 = *MEMORY[0x29EDBE220];
-  }
-
-  else
-  {
-    v23 = *MEMORY[0x29EDBE208];
-  }
-
-  v24 = *MEMORY[0x29EDBE1E0];
-  if (CompositeNameFormatForRecord)
-  {
-    v25 = *MEMORY[0x29EDBE1E0];
-  }
-
-  else
-  {
-    v25 = *MEMORY[0x29EDBE220];
+    v18 = *MEMORY[0x29EDBE208];
   }
 
   if (CompositeNameFormatForRecord)
   {
-    v26 = *MEMORY[0x29EDBE208];
+    v19 = *MEMORY[0x29EDBE1E0];
   }
 
   else
   {
-    v26 = *MEMORY[0x29EDBE1E0];
-  }
-
-  v27 = *MEMORY[0x29EDBE210];
-  v28 = *v8;
-  if (CompositeNameFormatForRecord)
-  {
-    v29 = *v8;
-  }
-
-  else
-  {
-    v29 = *MEMORY[0x29EDBE210];
-  }
-
-  v30 = *MEMORY[0x29EDBE1E8];
-  if (CompositeNameFormatForRecord)
-  {
-    v31 = *MEMORY[0x29EDBE1E8];
-  }
-
-  else
-  {
-    v31 = v28;
+    v19 = *MEMORY[0x29EDBE220];
   }
 
   if (CompositeNameFormatForRecord)
   {
-    v32 = *MEMORY[0x29EDBE210];
+    v20 = *MEMORY[0x29EDBE208];
   }
 
   else
   {
-    v32 = *MEMORY[0x29EDBE1E8];
+    v20 = *MEMORY[0x29EDBE1E0];
   }
 
-  VoiceDialAppendCompositeNamePropertyValue(&v35, record, v32, v26, v20, a4, &v34, a2, a3);
-  VoiceDialAppendCompositeNamePropertyValue(&v35, record, v31, v25, v19, a4, &v34, a2, a3);
-  VoiceDialAppendCompositeNamePropertyValue(&v35, record, v29, v23, v17, a4, &v34, a2, a3);
-  v10 = v35;
-  v13 = v34 == 0;
+  v21 = *v8;
+  if (CompositeNameFormatForRecord)
+  {
+    v22 = *v8;
+  }
+
+  else
+  {
+    v22 = *MEMORY[0x29EDBE210];
+  }
+
+  if (CompositeNameFormatForRecord)
+  {
+    v23 = *MEMORY[0x29EDBE1E8];
+  }
+
+  else
+  {
+    v23 = v21;
+  }
+
+  if (CompositeNameFormatForRecord)
+  {
+    v24 = *MEMORY[0x29EDBE210];
+  }
+
+  else
+  {
+    v24 = *MEMORY[0x29EDBE1E8];
+  }
+
+  VoiceDialAppendCompositeNamePropertyValue(&v27, record, v24, v20, v17, a4, &v26, a2, a3);
+  VoiceDialAppendCompositeNamePropertyValue(&v27, record, v23, v19, v16, a4, &v26, a2, a3);
+  VoiceDialAppendCompositeNamePropertyValue(&v27, record, v22, v18, v15, a4, &v26, a2, a3);
+  v10 = v27;
+  v13 = v26 == 0;
 LABEL_37:
   if ((a4 & 4) != 0 && v13 && v10)
   {
@@ -2852,11 +2806,12 @@ uint64_t VoiceDialTelephonyUtilitiesFrameworkHandle()
   return result;
 }
 
-void sub_295FDE570(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49)
+void sub_295FDE570(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, ...)
 {
+  va_start(va, a48);
   _Block_object_dispose(&a37, 8);
   _Block_object_dispose(&a43, 8);
-  _Block_object_dispose(&a49, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -2867,20 +2822,21 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_295FDF09C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_295FDF09C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_295FDF4C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_295FDF4C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a29, 8);
-  _Block_object_dispose((v29 - 144), 8);
-  _Block_object_dispose((v29 - 112), 8);
-  _Block_object_dispose((v29 - 80), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v28 - 144), 8);
+  _Block_object_dispose((v28 - 112), 8);
+  _Block_object_dispose((v28 - 80), 8);
   _Unwind_Resume(a1);
 }
 

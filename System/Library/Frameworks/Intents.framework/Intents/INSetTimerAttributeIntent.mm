@@ -24,8 +24,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v14[3] = *MEMORY[0x1E69E9840];
-  v13[0] = @"targetTimer";
+  v13[3] = *MEMORY[0x1E69E9840];
+  v12[0] = @"targetTimer";
   targetTimer = [(INSetTimerAttributeIntent *)self targetTimer];
   null = targetTimer;
   if (!targetTimer)
@@ -33,8 +33,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[0] = null;
-  v13[1] = @"toDuration";
+  v13[0] = null;
+  v12[1] = @"toDuration";
   v5 = MEMORY[0x1E696AD98];
   [(INSetTimerAttributeIntent *)self toDuration];
   v6 = [v5 numberWithDouble:?];
@@ -44,8 +44,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[1] = null2;
-  v13[2] = @"toLabel";
+  v13[1] = null2;
+  v12[2] = @"toLabel";
   toLabel = [(INSetTimerAttributeIntent *)self toLabel];
   null3 = toLabel;
   if (!toLabel)
@@ -53,8 +53,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[2] = null3;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:3];
+  v13[2] = null3;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
   if (!toLabel)
   {
   }
@@ -66,8 +66,6 @@
   if (!targetTimer)
   {
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

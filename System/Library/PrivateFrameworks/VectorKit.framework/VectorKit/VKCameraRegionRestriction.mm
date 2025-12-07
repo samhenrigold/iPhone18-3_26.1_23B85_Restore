@@ -304,146 +304,146 @@ LABEL_15:
 
 - (void)clampedPosition:(double)position usingSingleRestriction:(double)restriction westOfDatelineRestriction:(double)datelineRestriction eastOfDatelineRestriction:(double)ofDatelineRestriction wrapRange:(double)range
 {
-  v25 = 0;
-  v26 = 0;
-  v27 = &positionCopy;
+  v27 = 0;
+  v28 = 0;
+  v29 = &positionCopy;
   positionCopy = position;
   restrictionCopy = restriction;
-  *v76 = datelineRestriction;
-  *&v76[1] = ofDatelineRestriction;
-  v71 = a17;
-  v72 = a18;
-  v73[0] = a19;
-  v73[1] = a20;
-  v68 = a21;
-  v69 = a22;
-  v70[0] = a23;
-  v70[1] = a24;
+  *v78 = datelineRestriction;
+  *&v78[1] = ofDatelineRestriction;
+  v73 = a17;
+  v74 = a18;
+  v75[0] = a19;
+  v75[1] = a20;
+  v70 = a21;
+  v71 = a22;
+  v72[0] = a23;
+  v72[1] = a24;
   do
   {
-    v28 = *&v76[v26];
-    v29 = *v27;
-    if (v25)
+    v30 = *&v78[v28];
+    v31 = *v29;
+    if (v27)
     {
       break;
     }
 
-    v25 = 1;
-    v27 = &restrictionCopy;
-    v26 = 1;
+    v27 = 1;
+    v29 = &restrictionCopy;
+    v28 = 1;
   }
 
-  while (v28 >= v29);
-  if (v28 < v29)
+  while (v30 >= v31);
+  if (v30 < v31)
   {
 LABEL_9:
-    v35 = 0;
-    v36 = 0;
-    v37 = &v71;
+    v37 = 0;
+    v38 = 0;
+    v39 = &v73;
     do
     {
-      v38 = *&v73[v36];
-      v39 = *v37;
-      if (v35)
+      v40 = *&v75[v38];
+      v41 = *v39;
+      if (v37)
       {
         break;
       }
 
-      v35 = 1;
-      v37 = &v72;
-      v36 = 1;
+      v37 = 1;
+      v39 = &v74;
+      v38 = 1;
     }
 
-    while (v38 >= v39);
-    if (v38 < v39)
+    while (v40 >= v41);
+    if (v40 < v41)
     {
       return;
     }
 
-    v40 = 0;
-    v41 = 0;
-    v42 = &v68;
+    v42 = 0;
+    v43 = 0;
+    v44 = &v70;
     do
     {
-      v43 = *&v70[v41];
-      v44 = *v42;
-      if (v40)
+      v45 = *&v72[v43];
+      v46 = *v44;
+      if (v42)
       {
         break;
       }
 
-      v40 = 1;
-      v42 = &v69;
-      v41 = 1;
+      v42 = 1;
+      v44 = &v71;
+      v43 = 1;
     }
 
-    while (v43 >= v44);
-    if (v43 < v44)
+    while (v45 >= v46);
+    if (v45 < v46)
     {
       return;
     }
 
-    v45 = 0;
-    v46 = 0.0;
-    v47 = &v71;
-    v48 = 1;
-    selfCopy = self;
+    v47 = 0;
+    v48 = 0.0;
+    v49 = &v73;
     v50 = 1;
+    selfCopy = self;
+    v52 = 1;
     while (1)
     {
-      v51 = v48;
-      v52 = *&v73[v45];
-      if (selfCopy > v52)
+      v53 = v50;
+      v54 = *&v75[v47];
+      if (selfCopy > v54)
       {
         break;
       }
 
-      if (selfCopy < *v47)
+      if (selfCopy < *v49)
       {
-        v50 = 0;
-        v53 = *v47 - selfCopy;
+        v52 = 0;
+        v55 = *v49 - selfCopy;
         goto LABEL_22;
       }
 
 LABEL_23:
-      v48 = 0;
-      v47 = &v72;
+      v50 = 0;
+      v49 = &v74;
       selfCopy = a2;
-      v45 = 1;
-      if ((v51 & 1) == 0)
+      v47 = 1;
+      if ((v53 & 1) == 0)
       {
-        if (v50)
+        if (v52)
         {
           return;
         }
 
-        v54 = 0;
-        v55 = 0.0;
-        v56 = &v68;
-        v57 = 1;
+        v56 = 0;
+        v57 = 0.0;
+        v58 = &v70;
+        v59 = 1;
         selfCopy2 = self;
         while (2)
         {
-          v59 = v57;
-          v60 = *&v70[v54];
-          if (selfCopy2 > v60)
+          v61 = v59;
+          v62 = *&v72[v56];
+          if (selfCopy2 > v62)
           {
-            v61 = selfCopy2 - v60;
+            v63 = selfCopy2 - v62;
             goto LABEL_30;
           }
 
-          if (selfCopy2 < *v56)
+          if (selfCopy2 < *v58)
           {
-            v61 = *v56 - selfCopy2;
+            v63 = *v58 - selfCopy2;
 LABEL_30:
-            v55 = v55 + v61 * v61;
+            v57 = v57 + v63 * v63;
           }
 
-          v57 = 0;
-          v56 = &v69;
+          v59 = 0;
+          v58 = &v71;
           selfCopy2 = a2;
-          v54 = 1;
-          if ((v59 & 1) == 0)
+          v56 = 1;
+          if ((v61 & 1) == 0)
           {
             return;
           }
@@ -453,25 +453,25 @@ LABEL_30:
       }
     }
 
-    v50 = 0;
-    v53 = selfCopy - v52;
+    v52 = 0;
+    v55 = selfCopy - v54;
 LABEL_22:
-    v46 = v46 + v53 * v53;
+    v48 = v48 + v55 * v55;
     goto LABEL_23;
   }
 
-  v30 = 0;
-  v31 = &positionCopy;
-  v32 = 1;
+  v32 = 0;
+  v33 = &positionCopy;
+  v34 = 1;
   selfCopy3 = self;
-  while (selfCopy3 >= *v31 && selfCopy3 < *&v76[v30])
+  while (selfCopy3 >= *v33 && selfCopy3 < *&v78[v32])
   {
-    v34 = v32;
-    v32 = 0;
-    v31 = &restrictionCopy;
+    v36 = v34;
+    v34 = 0;
+    v33 = &restrictionCopy;
     selfCopy3 = a2;
-    v30 = 1;
-    if ((v34 & 1) == 0)
+    v32 = 1;
+    if ((v36 & 1) == 0)
     {
       goto LABEL_9;
     }
@@ -479,13 +479,13 @@ LABEL_22:
 
   if (self < position || self > datelineRestriction)
   {
-    v63 = a25 + (a26 + a25) * -0.5;
-    v64 = v63 + self;
-    v65 = a26 - a25;
-    v66 = fmod(position - (v63 + self), a26 - a25);
-    fabs(fmod(v66 + v65, v65) + v63);
-    v67 = fmod(datelineRestriction - v64, a26 - a25);
-    fmod(v67 + v65, v65);
+    v65 = a25 + (a26 + a25) * -0.5;
+    v66 = v65 + self;
+    v67 = a26 - a25;
+    v68 = fmod(position - (v65 + self), a26 - a25);
+    fabs(fmod(v68 + v67, v67) + v65);
+    v69 = fmod(datelineRestriction - v66, a26 - a25);
+    fmod(v69 + v67, v67);
   }
 }
 

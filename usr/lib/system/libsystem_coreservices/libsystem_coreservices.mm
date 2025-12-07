@@ -68,20 +68,20 @@ uint64_t NSGetNextSearchPathEnumerationStatic(unsigned int a1, char *a2)
   {
     v2 = a2;
     v3 = a1;
-    v51 = *MEMORY[0x1E69E9840];
+    v49 = *MEMORY[0x1E69E9840];
     v4 = HIBYTE(a1);
-    v44 = a1;
+    v42 = a1;
     if ((a1 - 0x1000000) >> 25 > 0xA)
     {
       if (a1 >> 25 != 50)
       {
-        goto LABEL_25;
+        return 0;
       }
 
       v5 = v4 - 78;
       if (((v4 - 78) & 0x80000000) != 0)
       {
-        goto LABEL_25;
+        return 0;
       }
     }
 
@@ -90,14 +90,14 @@ uint64_t NSGetNextSearchPathEnumerationStatic(unsigned int a1, char *a2)
       v5 = v4 - 1;
       if (((v4 - 1) & 0x80000000) != 0)
       {
-        goto LABEL_25;
+        return 0;
       }
     }
 
-    NextDomain = _getNextDomain(&v44);
+    NextDomain = _getNextDomain(&v42);
     if (!NextDomain)
     {
-      goto LABEL_25;
+      return 0;
     }
 
     v7 = NextDomain - 1;
@@ -108,25 +108,25 @@ uint64_t NSGetNextSearchPathEnumerationStatic(unsigned int a1, char *a2)
     {
       while (1)
       {
-        v11 = v44 & ~(1 << v7);
-        v44 = v11;
+        v11 = v42 & ~(1 << v7);
+        v42 = v11;
         v12 = *(v10 + 8 * v7);
         if (v12)
         {
           break;
         }
 
-        v13 = _getNextDomain(&v44);
+        v13 = _getNextDomain(&v42);
         if (!v13)
         {
-          goto LABEL_25;
+          return 0;
         }
 
         v7 = v13 - 1;
       }
 
       v17 = (v8 + 2);
-      SearchPathEnumerationStatic = v11 + (v3 & 0xFF000000);
+      v18 = v11 + (v3 & 0xFF000000);
     }
 
     else
@@ -135,11 +135,11 @@ uint64_t NSGetNextSearchPathEnumerationStatic(unsigned int a1, char *a2)
       v15 = BYTE2(v3);
       if (BYTE2(v3) >= v9)
       {
-        v44 &= ~(1 << v7);
-        v16 = _getNextDomain(&v44);
+        v42 &= ~(1 << v7);
+        v16 = _getNextDomain(&v42);
         if (!v16)
         {
-          goto LABEL_25;
+          return 0;
         }
 
         v15 = 0;
@@ -148,7 +148,7 @@ uint64_t NSGetNextSearchPathEnumerationStatic(unsigned int a1, char *a2)
 
       v12 = *(*(v10 + 8 * v7) + 8 * v15);
       v17 = (v14 + 8 * v15);
-      SearchPathEnumerationStatic = (v3 & 0xFF000000 | (v15 << 16)) + v44 + 0x10000;
+      v18 = (v3 & 0xFF000000 | (v15 << 16)) + v42 + 0x10000;
     }
 
     v19 = *v17;
@@ -162,9 +162,7 @@ uint64_t NSGetNextSearchPathEnumerationStatic(unsigned int a1, char *a2)
 
       if (!qword_1ED448A60)
       {
-LABEL_25:
-        SearchPathEnumerationStatic = 0;
-        goto LABEL_26;
+        return 0;
       }
 
       strlcpy(v2, qword_1ED448A60, 0x400uLL);
@@ -175,99 +173,98 @@ LABEL_25:
       *v2 = 0;
     }
 
-    if (v7 == 4 && SearchPathEnumerationStatic)
+    if (v7 == 4 && v18)
     {
-      memset(&v43, 0, sizeof(v43));
-      v42 = 0;
-      v24 = sysconf(71);
-      if (v24 < 1)
+      memset(&v41, 0, sizeof(v41));
+      v40 = 0;
+      v23 = sysconf(71);
+      if (v23 < 1)
       {
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
         {
-          v38 = *__error();
+          v37 = *__error();
           *buf = 136315394;
-          v46 = "NSGetNextSearchPathEnumerationStatic";
-          v47 = 1024;
-          v48 = v38;
+          v44 = "NSGetNextSearchPathEnumerationStatic";
+          v45 = 1024;
+          v46 = v37;
           _os_log_impl(&dword_19A0AC000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s: sysconf(_SC_GETPW_R_SIZE_MAX) error: %{errno}d", buf, 0x12u);
         }
 
         goto LABEL_50;
       }
 
-      v25 = v24;
-      v26 = &v41 - ((MEMORY[0x1EEE9AC00]() + 15) & 0xFFFFFFFFFFFFFFF0);
-      v27 = getuid();
-      if (getpwuid_r(v27, &v43, v26, v25, &v42))
+      v24 = v23;
+      v25 = &v39 - ((MEMORY[0x1EEE9AC00]() + 15) & 0xFFFFFFFFFFFFFFF0);
+      v26 = getuid();
+      if (getpwuid_r(v26, &v41, v25, v24, &v40))
       {
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
         {
-          v28 = getuid();
-          v29 = *__error();
+          v27 = getuid();
+          v28 = *__error();
           *buf = 136315650;
-          v46 = "NSGetNextSearchPathEnumerationStatic";
+          v44 = "NSGetNextSearchPathEnumerationStatic";
+          v45 = 1024;
+          v46 = v27;
           v47 = 1024;
           v48 = v28;
-          v49 = 1024;
-          v50 = v29;
-          v30 = MEMORY[0x1E69E9C10];
-          v31 = "%s: getpwuid_r(%d) error: %{errno}d";
-          v32 = 24;
+          v29 = MEMORY[0x1E69E9C10];
+          v30 = "%s: getpwuid_r(%d) error: %{errno}d";
+          v31 = 24;
 LABEL_33:
-          _os_log_impl(&dword_19A0AC000, v30, OS_LOG_TYPE_DEFAULT, v31, buf, v32);
+          _os_log_impl(&dword_19A0AC000, v29, OS_LOG_TYPE_DEFAULT, v30, buf, v31);
         }
       }
 
       else
       {
-        if (v42)
+        if (v40)
         {
-          strlcat(v2, v43.pw_dir, 0x400uLL);
+          strlcat(v2, v41.pw_dir, 0x400uLL);
           goto LABEL_54;
         }
 
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
         {
-          v40 = getuid();
+          v38 = getuid();
           *buf = 136315394;
-          v46 = "NSGetNextSearchPathEnumerationStatic";
-          v47 = 1024;
-          v48 = v40;
-          v30 = MEMORY[0x1E69E9C10];
-          v31 = "%s: getpwuid_r returned no results for uid %d";
-          v32 = 18;
+          v44 = "NSGetNextSearchPathEnumerationStatic";
+          v45 = 1024;
+          v46 = v38;
+          v29 = MEMORY[0x1E69E9C10];
+          v30 = "%s: getpwuid_r returned no results for uid %d";
+          v31 = 18;
           goto LABEL_33;
         }
       }
 
 LABEL_50:
       *v2 = 0;
-      SearchPathEnumerationStatic = NSGetNextSearchPathEnumerationStatic(SearchPathEnumerationStatic, v2);
-      goto LABEL_26;
+      return NSGetNextSearchPathEnumerationStatic(v18, v2);
     }
 
-    if (v7 == 5 && SearchPathEnumerationStatic)
+    if (v7 == 5 && v18)
     {
       if (NSGetNextSearchPathEnumerationStatic_containerizedUserPath)
       {
         goto LABEL_40;
       }
 
-      v33 = container_create_or_lookup_path_for_current_user();
-      if (v33)
+      v32 = container_create_or_lookup_path_for_current_user();
+      if (v32)
       {
-        v34 = v33;
+        v33 = v32;
         __strlcpy_chk();
-        free(v34);
+        free(v33);
 LABEL_40:
-        v35 = &NSGetNextSearchPathEnumerationStatic_containerizedUserPath;
+        v34 = &NSGetNextSearchPathEnumerationStatic_containerizedUserPath;
         goto LABEL_47;
       }
 
       goto LABEL_55;
     }
 
-    if (v7 != 7 || !SearchPathEnumerationStatic)
+    if (v7 != 7 || !v18)
     {
       strlcat(v2, v12, 0x400uLL);
       goto LABEL_54;
@@ -278,31 +275,28 @@ LABEL_40:
       goto LABEL_46;
     }
 
-    v36 = container_system_path_for_identifier();
-    if (v36)
+    v35 = container_system_path_for_identifier();
+    if (v35)
     {
       break;
     }
 
 LABEL_55:
     *v2 = 0;
-    v39 = *MEMORY[0x1E69E9840];
-    a1 = SearchPathEnumerationStatic;
+    a1 = v18;
     a2 = v2;
   }
 
-  v37 = v36;
+  v36 = v35;
   __strlcpy_chk();
-  free(v37);
+  free(v36);
 LABEL_46:
-  v35 = &NSGetNextSearchPathEnumerationStatic_systemContainerPath;
+  v34 = &NSGetNextSearchPathEnumerationStatic_systemContainerPath;
 LABEL_47:
-  strlcpy(v2, v35, 0x400uLL);
+  strlcpy(v2, v34, 0x400uLL);
 LABEL_54:
   strlcat(v2, v19, 0x400uLL);
-LABEL_26:
-  v22 = *MEMORY[0x1E69E9840];
-  return SearchPathEnumerationStatic;
+  return v18;
 }
 
 char *_dirhelper(int a1, char *__dst, size_t __size)
@@ -393,7 +387,7 @@ uint64_t _getNextDomain(unsigned int *a1)
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_0()
+uint64_t OUTLINED_FUNCTION_0(uint64_t a1)
 {
 
   return _os_once();
@@ -407,7 +401,7 @@ uint64_t makeDirectory(const char *a1, dev_t a2)
   return makeDirectoryWithUIDAndGID(a1, v4, v5, a2);
 }
 
-char *_dirhelper_relative(int a1)
+char *_dirhelper_relative(int a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a1)
   {
@@ -424,8 +418,7 @@ char *_dirhelper_relative_internal()
   MEMORY[0x1EEE9AC00]();
   v1 = v0;
   v3 = v2;
-  v43 = *MEMORY[0x1E69E9840];
-  v42 = 0u;
+  v42 = *MEMORY[0x1E69E9840];
   v41 = 0u;
   v40 = 0u;
   v39 = 0u;
@@ -457,23 +450,24 @@ char *_dirhelper_relative_internal()
   v13 = 0u;
   v12 = 0u;
   v11 = 0u;
+  v10 = 0u;
   if (!statfs_ext())
   {
-    if (v15)
+    if (v14)
     {
       v5 = 0;
       v6 = 30;
       goto LABEL_38;
     }
 
-    if ((v15 & 0x1000) == 0)
+    if ((v14 & 0x1000) == 0)
     {
       v6 = 19;
       goto LABEL_41;
     }
 
     bzero(__source, 0x400uLL);
-    if (!_dirhelper(1, __source, 0x400uLL) || statfs_ext() || v14)
+    if (!_dirhelper(1, __source, 0x400uLL) || statfs_ext() || v13)
     {
       v5 = 0;
       v6 = 0;
@@ -516,7 +510,7 @@ LABEL_25:
       {
         if (!v6)
         {
-          goto LABEL_39;
+          return v5;
         }
 
         goto LABEL_38;
@@ -560,14 +554,14 @@ LABEL_41:
       _dirhelper_relative_internal_cold_1();
     }
 
-    if (v14 == _dirhelper_relative_internal_userDataDevice_0)
+    if (v13 == _dirhelper_relative_internal_userDataDevice_0)
     {
       v7 = "/var/mobile/tmp/";
     }
 
     else
     {
-      if (v14 != _dirhelper_relative_internal_sysDataDevice_0)
+      if (v13 != _dirhelper_relative_internal_sysDataDevice_0)
       {
         goto LABEL_33;
       }
@@ -597,8 +591,6 @@ LABEL_33:
   v6 = 2;
 LABEL_38:
   *__error() = v6;
-LABEL_39:
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -725,7 +717,7 @@ LABEL_34:
 
 uint64_t makeDirectoryWithUIDAndGID(const char *a1, uid_t a2, gid_t a3, dev_t a4)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (!mkdir(a1, a4))
   {
     if (_log_onceToken != -1)
@@ -736,11 +728,11 @@ uint64_t makeDirectoryWithUIDAndGID(const char *a1, uid_t a2, gid_t a3, dev_t a4
     v13 = _log_log;
     if (os_log_type_enabled(_log_log, OS_LOG_TYPE_DEFAULT))
     {
-      v21.st_dev = 136315394;
-      *&v21.st_mode = "makeDirectory";
-      WORD2(v21.st_ino) = 2080;
-      *(&v21.st_ino + 6) = a1;
-      _os_log_impl(&dword_19A0AC000, v13, OS_LOG_TYPE_DEFAULT, "%s: created %s", &v21, 0x16u);
+      v20.st_dev = 136315394;
+      *&v20.st_mode = "makeDirectory";
+      WORD2(v20.st_ino) = 2080;
+      *(&v20.st_ino + 6) = a1;
+      _os_log_impl(&dword_19A0AC000, v13, OS_LOG_TYPE_DEFAULT, "%s: created %s", &v20, 0x16u);
     }
 
     if (lchown(a1, a2, a3))
@@ -757,17 +749,17 @@ uint64_t makeDirectoryWithUIDAndGID(const char *a1, uid_t a2, gid_t a3, dev_t a4
         goto LABEL_15;
       }
 
-      v20 = strerror(v8);
-      v21.st_dev = 136316162;
-      *&v21.st_mode = "makeDirectory";
-      WORD2(v21.st_ino) = 1024;
-      *(&v21.st_ino + 6) = a2;
-      HIWORD(v21.st_uid) = 1024;
-      v21.st_gid = a3;
-      LOWORD(v21.st_rdev) = 2080;
-      *(&v21.st_rdev + 2) = v20;
-      WORD1(v21.st_atimespec.tv_sec) = 1024;
-      HIDWORD(v21.st_atimespec.tv_sec) = v8;
+      v19 = strerror(v8);
+      v20.st_dev = 136316162;
+      *&v20.st_mode = "makeDirectory";
+      WORD2(v20.st_ino) = 1024;
+      *(&v20.st_ino + 6) = a2;
+      HIWORD(v20.st_uid) = 1024;
+      v20.st_gid = a3;
+      LOWORD(v20.st_rdev) = 2080;
+      *(&v20.st_rdev + 2) = v19;
+      WORD1(v20.st_atimespec.tv_sec) = 1024;
+      HIDWORD(v20.st_atimespec.tv_sec) = v8;
       v10 = "%s: chown error for uid=%d, gid=%d: %s (%d)";
       v11 = v14;
       v12 = 40;
@@ -782,17 +774,17 @@ uint64_t makeDirectoryWithUIDAndGID(const char *a1, uid_t a2, gid_t a3, dev_t a4
     v16 = _log_log;
     if (os_log_type_enabled(_log_log, OS_LOG_TYPE_INFO))
     {
-      v21.st_dev = 136315650;
-      *&v21.st_mode = "makeDirectory";
-      WORD2(v21.st_ino) = 1024;
-      *(&v21.st_ino + 6) = a2;
-      HIWORD(v21.st_uid) = 1024;
-      v21.st_gid = a3;
-      _os_log_impl(&dword_19A0AC000, v16, OS_LOG_TYPE_INFO, "%s: set uid=%d, gid=%d", &v21, 0x18u);
+      v20.st_dev = 136315650;
+      *&v20.st_mode = "makeDirectory";
+      WORD2(v20.st_ino) = 1024;
+      *(&v20.st_ino + 6) = a2;
+      HIWORD(v20.st_uid) = 1024;
+      v20.st_gid = a3;
+      _os_log_impl(&dword_19A0AC000, v16, OS_LOG_TYPE_INFO, "%s: set uid=%d, gid=%d", &v20, 0x18u);
     }
 
-    memset(&v21, 0, sizeof(v21));
-    if (!lstat(a1, &v21) && (v21.st_mode & 0x1FF) != a4 && (v21.st_flags & 0x100000) == 0 && lchmod(a1, a4) < 0)
+    memset(&v20, 0, sizeof(v20));
+    if (!lstat(a1, &v20) && (v20.st_mode & 0x1FF) != a4 && (v20.st_flags & 0x100000) == 0 && lchmod(a1, a4) < 0)
     {
       if (_log_onceToken != -1)
       {
@@ -829,26 +821,25 @@ LABEL_28:
     goto LABEL_15;
   }
 
-  v21.st_dev = 136316162;
-  *&v21.st_mode = "makeDirectory";
-  WORD2(v21.st_ino) = 2080;
-  *(&v21.st_ino + 6) = a1;
-  HIWORD(v21.st_gid) = 1024;
-  v21.st_rdev = a4;
-  *(&v21.st_rdev + 2) = 2080;
-  *(&v21.st_rdev + 6) = strerror(v8);
-  HIWORD(v21.st_atimespec.tv_sec) = 1024;
-  LODWORD(v21.st_atimespec.tv_nsec) = v8;
+  v20.st_dev = 136316162;
+  *&v20.st_mode = "makeDirectory";
+  WORD2(v20.st_ino) = 2080;
+  *(&v20.st_ino + 6) = a1;
+  HIWORD(v20.st_gid) = 1024;
+  v20.st_rdev = a4;
+  *(&v20.st_rdev + 2) = 2080;
+  *(&v20.st_rdev + 6) = strerror(v8);
+  HIWORD(v20.st_atimespec.tv_sec) = 1024;
+  LODWORD(v20.st_atimespec.tv_nsec) = v8;
   v10 = "%s: mkdir: path=%s mode=%o: %s (%d)";
   v11 = v9;
   v12 = 44;
 LABEL_31:
-  _os_log_error_impl(&dword_19A0AC000, v11, OS_LOG_TYPE_ERROR, v10, &v21, v12);
+  _os_log_error_impl(&dword_19A0AC000, v11, OS_LOG_TYPE_ERROR, v10, &v20, v12);
 LABEL_15:
   v15 = 0;
 LABEL_29:
   *__error() = v8;
-  v18 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -1007,7 +998,7 @@ char *nextRoot_init()
 
 void ___dirhelper_relative_internal_block_invoke_15()
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   if (_log_onceToken_0 != -1)
   {
     _set_user_dir_suffix_cold_2();
@@ -1016,12 +1007,10 @@ void ___dirhelper_relative_internal_block_invoke_15()
   v0 = _log_log_0;
   if (os_log_type_enabled(_log_log_0, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 136315138;
-    v3 = "_dirhelper_relative_internal_block_invoke";
-    _os_log_impl(&dword_19A0AC000, v0, OS_LOG_TYPE_DEFAULT, "%s: this process is sandboxed so will never return /var/tmp/ or /var/mobile/tmp. This message is only logged once per process.", &v2, 0xCu);
+    v1 = 136315138;
+    v2 = "_dirhelper_relative_internal_block_invoke";
+    _os_log_impl(&dword_19A0AC000, v0, OS_LOG_TYPE_DEFAULT, "%s: this process is sandboxed so will never return /var/tmp/ or /var/mobile/tmp. This message is only logged once per process.", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 os_log_t ___log_block_invoke()
@@ -1096,7 +1085,7 @@ char *__user_relative_dirname(uint64_t a1, int a2)
 
 uint64_t _dirhelper_update_tmpdir(const char *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = getenv("TMPDIR");
   v3 = v2;
   if (!v2 || (result = strcmp(v2, a1), result))
@@ -1109,25 +1098,23 @@ uint64_t _dirhelper_update_tmpdir(const char *a1)
     v5 = _log_log_0;
     if (os_log_type_enabled(_log_log_0, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315650;
-      v8 = "_dirhelper_update_tmpdir";
-      v9 = 2080;
-      v10 = v3;
-      v11 = 2080;
-      v12 = a1;
-      _os_log_impl(&dword_19A0AC000, v5, OS_LOG_TYPE_DEFAULT, "%s: old=%s, new=%s", &v7, 0x20u);
+      v6 = 136315650;
+      v7 = "_dirhelper_update_tmpdir";
+      v8 = 2080;
+      v9 = v3;
+      v10 = 2080;
+      v11 = a1;
+      _os_log_impl(&dword_19A0AC000, v5, OS_LOG_TYPE_DEFAULT, "%s: old=%s, new=%s", &v6, 0x20u);
     }
 
-    result = setenv("TMPDIR", a1, 1);
+    return setenv("TMPDIR", a1, 1);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t ___dirhelper_relative_internal_block_invoke()
 {
-  v2 = *MEMORY[0x1E69E9840];
   if (!statfs_ext())
   {
     _dirhelper_relative_internal_sysDataDevice_0 = 0;
@@ -1139,40 +1126,36 @@ uint64_t ___dirhelper_relative_internal_block_invoke()
     _dirhelper_relative_internal_userDataDevice_0 = 0;
   }
 
-  v1 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void makeDirectoryWithUIDAndGID_cold_6(NSObject *a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = __error();
   v3 = strerror(*v2);
   v4 = *__error();
-  v6 = 136315650;
-  v7 = "makeDirectory";
-  v8 = 2080;
-  v9 = v3;
-  v10 = 1024;
-  v11 = v4;
-  _os_log_error_impl(&dword_19A0AC000, a1, OS_LOG_TYPE_ERROR, "%s: chmod error: %s (%d)", &v6, 0x1Cu);
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 136315650;
+  v6 = "makeDirectory";
+  v7 = 2080;
+  v8 = v3;
+  v9 = 1024;
+  v10 = v4;
+  _os_log_error_impl(&dword_19A0AC000, a1, OS_LOG_TYPE_ERROR, "%s: chmod error: %s (%d)", &v5, 0x1Cu);
 }
 
 void _dirhelper_relative_internal_cold_4()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v2[0] = 136315650;
+  v2 = *MEMORY[0x1E69E9840];
+  v1[0] = 136315650;
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_19A0AC000, v0, OS_LOG_TYPE_DEBUG, "%s: no result for relativepath %s, err=%{errno}d", v2, 0x1Cu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_19A0AC000, v0, OS_LOG_TYPE_DEBUG, "%s: no result for relativepath %s, err=%{errno}d", v1, 0x1Cu);
 }
 
 void _dirhelper_relative_internal_cold_6()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v2[0] = 136315650;
+  v2 = *MEMORY[0x1E69E9840];
+  v1[0] = 136315650;
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_19A0AC000, v0, OS_LOG_TYPE_ERROR, "%s: error for relativepath %s: %{errno}d", v2, 0x1Cu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_19A0AC000, v0, OS_LOG_TYPE_ERROR, "%s: error for relativepath %s: %{errno}d", v1, 0x1Cu);
 }

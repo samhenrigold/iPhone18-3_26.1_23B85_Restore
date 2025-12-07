@@ -112,21 +112,21 @@ uint64_t __37__AXPhoenixEventMonitor_addObserver___block_invoke(uint64_t result)
   objc_storeStrong(location, 0);
 }
 
-uint64_t __40__AXPhoenixEventMonitor_removeObserver___block_invoke(uint64_t result)
+id *__40__AXPhoenixEventMonitor_removeObserver___block_invoke(id *result)
 {
   v4 = result;
-  if (*(result + 32))
+  if (result[4])
   {
-    v1 = [*(result + 40) observers];
-    [v1 removeObject:*(v4 + 32)];
+    v1 = [result[5] observers];
+    [v1 removeObject:v4[4]];
     MEMORY[0x277D82BD8](v1);
-    v2 = [*(v4 + 40) observers];
+    v2 = [v4[5] observers];
     v3 = [v2 count];
     MEMORY[0x277D82BD8](v2);
     result = v3;
     if (!v3)
     {
-      return [*(v4 + 40) _stopMonitoring];
+      return [v4[5] _stopMonitoring];
     }
   }
 
@@ -215,7 +215,6 @@ uint64_t __40__AXPhoenixEventMonitor_removeObserver___block_invoke(uint64_t resu
 
   MEMORY[0x277D82BD8](obj);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_startMonitoringWithQueue:(id)queue

@@ -25,6 +25,7 @@
 - (id)presentationAnchorForWebAuthenticationSession:(id)session;
 - (void)OAuthAccount:(id)account authorizationURI:(id)i error:(id)error;
 - (void)_autodiscoverOAuthAccountAfterInitialRedirect;
+- (void)_bringUpOAuthEndPointWithURL:(id)l isOnPrem:(BOOL)prem;
 - (void)_fallBackToAutoDiscoverV1;
 - (void)_reallyStartAutoDiscoverAccount;
 - (void)_setViewsEnabled;
@@ -39,6 +40,8 @@
 - (void)doneButtonTapped:(id)tapped;
 - (void)handleRedirectURL:(id)l;
 - (void)setAccountProperty:(id)property withSpecifier:(id)specifier;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation ASSettingsAccountsUIController
@@ -1436,6 +1439,122 @@ LABEL_29:
   [v45 unRegisterOAuthClientForRedirectURL:v46];
 }
 
+- (void)_bringUpOAuthEndPointWithURL:(id)l isOnPrem:(BOOL)prem
+{
+  premCopy = prem;
+  lCopy = l;
+  v41 = lCopy;
+  if (!premCopy)
+  {
+    v41 = [DAEASOAuthFlowController upgradeAuthorizationEndpoint:lCopy];
+  }
+
+  account = [(ASSettingsAccountsUIController *)self account];
+  emailAddress = [account emailAddress];
+  account2 = [(ASSettingsAccountsUIController *)self account];
+  [account2 setUsername:emailAddress];
+
+  account3 = [(ASSettingsAccountsUIController *)self account];
+  v40 = [account3 objectForKeyedSubscript:kESEASEndPointFQDN];
+
+  v10 = [DAExchangeOAuthFlowController alloc];
+  account4 = [(ASSettingsAccountsUIController *)self account];
+  emailAddress2 = [account4 emailAddress];
+  account5 = [(ASSettingsAccountsUIController *)self account];
+  backingAccountInfo = [account5 backingAccountInfo];
+  identifier = [backingAccountInfo identifier];
+  if (premCopy)
+  {
+    v16 = @"{access_token:{xms_cc:{values:[cp1]}}}";
+  }
+
+  else
+  {
+    account6 = [(ASSettingsAccountsUIController *)self account];
+    emailAddress = [account6 backingAccountInfo];
+    v16 = [emailAddress objectForKeyedSubscript:kESExchangePendingClaimsChallenge];
+  }
+
+  v17 = [v10 initWithAuthURI:v41 easEndPoint:v40 username:emailAddress2 accountId:identifier claims:v16 isOnPrem:premCopy];
+  [(ASSettingsAccountsUIController *)self setOauthFlowController:v17];
+
+  if (!premCopy)
+  {
+  }
+
+  oauthFlowController = [(ASSettingsAccountsUIController *)self oauthFlowController];
+  oauthType = [oauthFlowController oauthType];
+
+  oauthFlowController2 = [(ASSettingsAccountsUIController *)self oauthFlowController];
+  v21 = [DAEASOAuthClient clientRedirectForOAuthType:oauthType];
+  [oauthFlowController2 setRedirectURI:v21];
+
+  oauthFlowController3 = [(ASSettingsAccountsUIController *)self oauthFlowController];
+  account7 = [(ASSettingsAccountsUIController *)self account];
+  emailAddress3 = [account7 emailAddress];
+  if (premCopy)
+  {
+    [oauthFlowController3 onPremAuthURLForUsername:emailAddress3 originalAuthURL:v41 resource:v40];
+  }
+
+  else
+  {
+    [oauthFlowController3 authURLForUsername:emailAddress3 originalAuthURL:v41];
+  }
+  v25 = ;
+
+  objc_initWeak(&location, self);
+  v26 = +[UIApplication sharedApplication];
+  v45[0] = _NSConcreteStackBlock;
+  v45[1] = 3221225472;
+  v45[2] = sub_12678;
+  v45[3] = &unk_30A10;
+  objc_copyWeak(&v46, &location);
+  -[ASSettingsAccountsUIController setBackgroundTaskID:](self, "setBackgroundTaskID:", [v26 beginBackgroundTaskWithName:@"ASSettingsAccountsUIController" expirationHandler:v45]);
+
+  v27 = DALoggingwithCategory();
+  v28 = _CPLog_to_os_log_type[7];
+  if (os_log_type_enabled(v27, v28))
+  {
+    backgroundTaskID = [(ASSettingsAccountsUIController *)self backgroundTaskID];
+    *buf = 134217984;
+    v49 = backgroundTaskID;
+    _os_log_impl(&dword_0, v27, v28, "Begin background task %lu", buf, 0xCu);
+  }
+
+  v43[0] = _NSConcreteStackBlock;
+  v43[1] = 3221225472;
+  v43[2] = sub_12788;
+  v43[3] = &unk_30A38;
+  objc_copyWeak(&v44, &location);
+  [(ASSettingsAccountsUIController *)self setRedirectHandlerBlock:v43];
+  v42[0] = _NSConcreteStackBlock;
+  v42[1] = 3221225472;
+  v42[2] = sub_128B4;
+  v42[3] = &unk_30A60;
+  v42[4] = self;
+  v42[5] = oauthType;
+  v30 = objc_retainBlock(v42);
+  v31 = [DAEASOAuthClient clientRedirectURLSchemeForOAuthType:oauthType];
+  v32 = [DAOAuthSafariViewController authenticationSessionWithURL:v25 callbackURLScheme:v31 handler:v30];
+  [(ASSettingsAccountsUIController *)self setWebAuthenticationSession:v32];
+
+  webAuthenticationSession = [(ASSettingsAccountsUIController *)self webAuthenticationSession];
+  [webAuthenticationSession setPresentationContextProvider:self];
+
+  v34 = +[PSOAuthAccountRedirectURLController sharedInstance];
+  v35 = [DAEASOAuthClient clientRedirectForOAuthType:oauthType];
+  redirectHandlerBlock = [(ASSettingsAccountsUIController *)self redirectHandlerBlock];
+  [v34 registerOAuthClientForRedirectURL:v35 redirectHandler:redirectHandlerBlock];
+
+  webAuthenticationSession2 = [(ASSettingsAccountsUIController *)self webAuthenticationSession];
+  [webAuthenticationSession2 start];
+
+  objc_destroyWeak(&v44);
+  objc_destroyWeak(&v46);
+  objc_destroyWeak(&location);
+}
+
 + (id)usernameFromAccessToken:(id)token
 {
   v3 = [token componentsSeparatedByString:@"."];
@@ -2199,6 +2318,26 @@ LABEL_7:
   v9 = [v5 localizedStringForKey:v8 value:&stru_30C98 table:@"ASAccountSetup"];
 
   return v9;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  account = [(ASSettingsAccountsUIController *)self account];
+  v6.receiver = self;
+  v6.super_class = ASSettingsAccountsUIController;
+  [(ESSettingsAccountsUIController *)&v6 viewWillAppear:appearCopy];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  autoDV2RedirectSession = [(ASSettingsAccountsUIController *)self autoDV2RedirectSession];
+  [autoDV2RedirectSession invalidateAndCancel];
+
+  v6.receiver = self;
+  v6.super_class = ASSettingsAccountsUIController;
+  [(ESSettingsAccountsUIController *)&v6 viewWillDisappear:disappearCopy];
 }
 
 - (void)dealloc

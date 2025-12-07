@@ -774,16 +774,16 @@ LABEL_7:
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __99__PKAccessoryDeviceExpressAlertViewController__paymentDidReceiveSuccessfulTransactionNotification___block_invoke(uint64_t a1)
+void __99__PKAccessoryDeviceExpressAlertViewController__paymentDidReceiveSuccessfulTransactionNotification___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = 138412290;
-    v5 = v3;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "_paymentDidReceiveSuccessfulTransactionNotification USERINFO %@", &v4, 0xCu);
+    v4 = *(a1 + 32);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "_paymentDidReceiveSuccessfulTransactionNotification USERINFO %@", &v5, 0xCu);
   }
 }
 
@@ -799,16 +799,16 @@ void __99__PKAccessoryDeviceExpressAlertViewController__paymentDidReceiveSuccess
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __88__PKAccessoryDeviceExpressAlertViewController__contactlessInterfaceSessionDidAuthorize___block_invoke(uint64_t a1)
+void __88__PKAccessoryDeviceExpressAlertViewController__contactlessInterfaceSessionDidAuthorize___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = 138412290;
-    v5 = v3;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "_contactlessInterfaceSessionDidAuthorize USERINFO %@", &v4, 0xCu);
+    v4 = *(a1 + 32);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "_contactlessInterfaceSessionDidAuthorize USERINFO %@", &v5, 0xCu);
   }
 }
 
@@ -824,16 +824,16 @@ void __88__PKAccessoryDeviceExpressAlertViewController__contactlessInterfaceSess
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __93__PKAccessoryDeviceExpressAlertViewController__contactlessInterfaceSessionFinishTransaction___block_invoke(uint64_t a1)
+void __93__PKAccessoryDeviceExpressAlertViewController__contactlessInterfaceSessionFinishTransaction___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = 138412290;
-    v5 = v3;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "_contactlessInterfaceSessionFinishTransaction USERINFO %@", &v4, 0xCu);
+    v4 = *(a1 + 32);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "_contactlessInterfaceSessionFinishTransaction USERINFO %@", &v5, 0xCu);
   }
 }
 

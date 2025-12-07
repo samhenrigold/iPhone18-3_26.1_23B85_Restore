@@ -1,10 +1,10 @@
 @interface PKMetalView
-+ (void)installLuminanceColorFilterOnLayer:(uint64_t)layer lightLuma:(void *)luma darkLuma:;
++ (void)installLuminanceColorFilterOnLayer:(CGFloat)layer lightLuma:(CGFloat)luma darkLuma:;
+- (id)flushDrawables;
 - (id)metalLayer;
 - (id)metalMultiplyLayer;
-- (uint64_t)flushDrawables;
+- (id)setPresentsWithTransaction:(id *)result;
 - (uint64_t)isDrawableAvailable;
-- (uint64_t)setPresentsWithTransaction:(uint64_t)result;
 - (void)accessibilityInvertColorsStatusDidChange:(id)change;
 - (void)initWithFrame:(char)frame andPixelSize:(double)size pixelFormat:(double)format wantsExtendedDynamicRangeContent:(double)content;
 - (void)resizeDrawableIfNecessary;
@@ -61,7 +61,7 @@
     [v11 setPreferredDynamicRange:v7];
     if (*(self + 436) == 1)
     {
-      [v11 setColorspace:+[PKMetalResourceHandler colorSpaceForExtendedDynamicRange]()];
+      [v11 setColorspace:+[PKMetalResourceHandler colorSpaceForExtendedDynamicRange](PKMetalResourceHandler)];
       v8 = MEMORY[0x1E69792D8];
       if (!layer)
       {
@@ -286,7 +286,7 @@ LABEL_37:
 
   v21.receiver = self;
   v21.super_class = PKMetalView;
-  v13 = objc_msgSendSuper2(&v21, sel_initWithFrame_);
+  v13 = objc_msgSendSuper2(&v21, sel_initWithFrame_, size, format, content, a7);
   v14 = v13;
   if (v13)
   {
@@ -330,15 +330,15 @@ LABEL_37:
   }
 }
 
-- (uint64_t)flushDrawables
+- (id)flushDrawables
 {
   if (result)
   {
     v1 = result;
-    [*(result + 416) discardContents];
-    [*(v1 + 416) removeBackBuffers];
-    [*(v1 + 424) discardContents];
-    v2 = *(v1 + 424);
+    [result[52] discardContents];
+    [v1[52] removeBackBuffers];
+    [v1[53] discardContents];
+    v2 = v1[53];
 
     return [v2 removeBackBuffers];
   }
@@ -460,7 +460,7 @@ LABEL_37:
         [*(filter + 408) setFrame:{0.0, 0.0, v12}];
         v13 = *(filter + 408);
 
-        [(PKMetalView *)0.0 installLuminanceColorFilterOnLayer:PKMetalView lightLuma:v13 darkLuma:?];
+        [PKMetalView installLuminanceColorFilterOnLayer:v13 lightLuma:0.0 darkLuma:1.0];
       }
 
       else
@@ -474,10 +474,10 @@ LABEL_37:
   }
 }
 
-+ (void)installLuminanceColorFilterOnLayer:(uint64_t)layer lightLuma:(void *)luma darkLuma:
++ (void)installLuminanceColorFilterOnLayer:(CGFloat)layer lightLuma:(CGFloat)luma darkLuma:
 {
   v15[2] = *MEMORY[0x1E69E9840];
-  lumaCopy = luma;
+  v6 = a2;
   objc_opt_self();
   v7 = [MEMORY[0x1E6979378] filterWithType:*MEMORY[0x1E6979928]];
   [v7 setName:@"gaussianBlur"];
@@ -492,26 +492,26 @@ LABEL_37:
     IsInvertColorsEnabled = UIAccessibilityIsInvertColorsEnabled();
     if (IsInvertColorsEnabled)
     {
-      selfCopy = self;
+      lumaCopy = layer;
     }
 
     else
     {
-      selfCopy = a2;
+      lumaCopy = luma;
     }
 
     if (!IsInvertColorsEnabled)
     {
-      a2 = self;
+      luma = layer;
     }
 
-    CGContextSetRGBFillColor(v10, selfCopy, selfCopy, selfCopy, 1.0);
+    CGContextSetRGBFillColor(v10, lumaCopy, lumaCopy, lumaCopy, 1.0);
     v16.origin.x = 0.0;
     v16.origin.y = 0.0;
     v16.size.height = 1.0;
     v16.size.width = 128.0;
     CGContextFillRect(v10, v16);
-    CGContextSetRGBFillColor(v10, a2, a2, a2, 1.0);
+    CGContextSetRGBFillColor(v10, luma, luma, luma, 1.0);
     v17.origin.y = 0.0;
     v17.size.height = 1.0;
     v17.origin.x = 128.0;
@@ -531,16 +531,16 @@ LABEL_37:
   v15[0] = v7;
   v15[1] = v8;
   v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
-  [lumaCopy setFilters:v14];
+  [v6 setFilters:v14];
 }
 
-- (uint64_t)setPresentsWithTransaction:(uint64_t)result
+- (id)setPresentsWithTransaction:(id *)result
 {
   if (result)
   {
     v3 = result;
-    [*(result + 416) setPresentsWithTransaction:a2];
-    v4 = *(v3 + 424);
+    [result[52] setPresentsWithTransaction:a2];
+    v4 = v3[53];
 
     return [v4 setPresentsWithTransaction:a2];
   }
@@ -626,7 +626,7 @@ LABEL_37:
   if (self && self->_useLuminanceColorFilter)
   {
     v5 = changeCopy;
-    [(PKMetalView *)0.0 installLuminanceColorFilterOnLayer:PKMetalView lightLuma:self->_backdropLayer darkLuma:?];
+    [PKMetalView installLuminanceColorFilterOnLayer:0.0 lightLuma:1.0 darkLuma:?];
     changeCopy = v5;
   }
 }

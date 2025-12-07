@@ -19,10 +19,10 @@
   v5 = v4;
   if (v4)
   {
-    contentView = [(EKUIInviteesViewInviteesCell *)v4 contentView];
+    v6 = objc_msgSend_contentView(v4);
     v7 = objc_opt_new();
     [v7 setTranslatesAutoresizingMaskIntoConstraints:0];
-    [contentView addSubview:v7];
+    [v6 addSubview:v7];
     [(EKUIInviteesViewInviteesCell *)v5 setTextContainerView:v7];
     v8 = objc_opt_new();
     [v8 setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -105,7 +105,7 @@
     v33 = [[EKUILabeledAvatarView alloc] initWithPlacement:0 options:0];
     [(EKUILabeledAvatarView *)v33 setTranslatesAutoresizingMaskIntoConstraints:0];
     [(EKUILabeledAvatarView *)v33 setLoadContactsAsynchronously:1];
-    [contentView addSubview:v33];
+    [v6 addSubview:v33];
     [(EKUIInviteesViewInviteesCell *)v5 setContactAvatarView:v33];
     v34 = objc_alloc_init(MEMORY[0x1E69DCC10]);
     [v34 setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -124,7 +124,7 @@
 
     [(EKUIInviteesViewInviteesCell *)v5 setNameLabel:v34];
     v40 = objc_alloc_init(MEMORY[0x1E69DCC10]);
-    v61 = contentView;
+    v61 = v6;
     if (CalSolariumEnabled())
     {
       [v40 setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -206,16 +206,16 @@
     v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
     contactAvatarView = [(EKUIInviteesViewInviteesCell *)self contactAvatarView];
     leadingAnchor = [contactAvatarView leadingAnchor];
-    contentView = [(EKUIInviteesViewInviteesCell *)self contentView];
-    layoutMarginsGuide = [contentView layoutMarginsGuide];
+    v7 = objc_msgSend_contentView(self);
+    layoutMarginsGuide = [v7 layoutMarginsGuide];
     leadingAnchor2 = [layoutMarginsGuide leadingAnchor];
     v10 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
     [v4 addObject:v10];
 
     contactAvatarView2 = [(EKUIInviteesViewInviteesCell *)self contactAvatarView];
     centerYAnchor = [contactAvatarView2 centerYAnchor];
-    contentView2 = [(EKUIInviteesViewInviteesCell *)self contentView];
-    centerYAnchor2 = [contentView2 centerYAnchor];
+    v13 = objc_msgSend_contentView(self);
+    centerYAnchor2 = [v13 centerYAnchor];
     v15 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
     [v4 addObject:v15];
 
@@ -233,16 +233,16 @@
 
     textContainerView2 = [(EKUIInviteesViewInviteesCell *)self textContainerView];
     trailingAnchor2 = [textContainerView2 trailingAnchor];
-    contentView3 = [(EKUIInviteesViewInviteesCell *)self contentView];
-    layoutMarginsGuide2 = [contentView3 layoutMarginsGuide];
+    v26 = objc_msgSend_contentView(self);
+    layoutMarginsGuide2 = [v26 layoutMarginsGuide];
     trailingAnchor3 = [layoutMarginsGuide2 trailingAnchor];
     v29 = [trailingAnchor2 constraintEqualToAnchor:trailingAnchor3];
     [v4 addObject:v29];
 
     textContainerView3 = [(EKUIInviteesViewInviteesCell *)self textContainerView];
     centerYAnchor3 = [textContainerView3 centerYAnchor];
-    contentView4 = [(EKUIInviteesViewInviteesCell *)self contentView];
-    centerYAnchor4 = [contentView4 centerYAnchor];
+    v32 = objc_msgSend_contentView(self);
+    centerYAnchor4 = [v32 centerYAnchor];
     v34 = [centerYAnchor3 constraintEqualToAnchor:centerYAnchor4];
     [v4 addObject:v34];
 
@@ -398,13 +398,13 @@
     v134 = [trailingAnchor12 constraintEqualToAnchor:trailingAnchor13];
     [v4 addObject:v134];
 
-    contentView5 = [(EKUIInviteesViewInviteesCell *)self contentView];
-    heightAnchor = [contentView5 heightAnchor];
+    v135 = objc_msgSend_contentView(self);
+    heightAnchor = [v135 heightAnchor];
     v137 = [heightAnchor constraintGreaterThanOrEqualToConstant:60.0];
     [v4 addObject:v137];
 
-    contentView6 = [(EKUIInviteesViewInviteesCell *)self contentView];
-    heightAnchor2 = [contentView6 heightAnchor];
+    v138 = objc_msgSend_contentView(self);
+    heightAnchor2 = [v138 heightAnchor];
     textContainerView14 = [(EKUIInviteesViewInviteesCell *)self textContainerView];
     heightAnchor3 = [textContainerView14 heightAnchor];
     v142 = [heightAnchor2 constraintGreaterThanOrEqualToAnchor:heightAnchor3 constant:12.0];

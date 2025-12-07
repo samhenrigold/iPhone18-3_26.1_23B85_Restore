@@ -25,31 +25,13 @@
   v14.super_class = MSPMutableHistoryEntryPlaceDisplay;
   v6 = [(MSPMutableHistoryEntry *)&v14 initWithStorage:storageCopy];
   v7 = v6;
-  if (!v6)
+  if (!v6 || (-[MSPMutableHistoryEntry storage](v6, "storage"), v8 = objc_claimAutoreleasedReturnValue(), v9 = [v8 searchType], v8, v9 == 3) && (-[MSPMutableHistoryEntry storage](v7, "storage"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "placeDisplay"), v11 = objc_claimAutoreleasedReturnValue(), v11, v10, v11))
   {
-    goto LABEL_6;
-  }
-
-  storage = [(MSPMutableHistoryEntry *)v6 storage];
-  searchType = [storage searchType];
-
-  if (searchType != 3)
-  {
-    goto LABEL_7;
-  }
-
-  storage2 = [(MSPMutableHistoryEntry *)v7 storage];
-  placeDisplay = [storage2 placeDisplay];
-
-  if (placeDisplay)
-  {
-LABEL_6:
     v12 = v7;
   }
 
   else
   {
-LABEL_7:
     v12 = 0;
   }
 
@@ -58,7 +40,7 @@ LABEL_7:
 
 - (id)transferToImmutableIfValidWithError:(id *)error
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   geoMapItem = [(MSPMutableHistoryEntryPlaceDisplay *)self geoMapItem];
 
@@ -80,11 +62,11 @@ LABEL_7:
     if (error)
     {
       v9 = MEMORY[0x277CCA9B8];
-      v13[0] = @"MSPContainerUntransferableObject";
-      v13[1] = @"MSPContainerUnavailableKeys";
-      v14[0] = self;
-      v14[1] = v5;
-      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+      v12[0] = @"MSPContainerUntransferableObject";
+      v12[1] = @"MSPContainerUnavailableKeys";
+      v13[0] = self;
+      v13[1] = v5;
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
       *error = [v9 errorWithDomain:@"com.apple.MapsSupport.MSPContainer" code:1 userInfo:v10];
 
       error = 0;
@@ -96,8 +78,6 @@ LABEL_7:
     [(MSPMutableHistoryEntry *)self _markImmutable];
     error = self;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return error;
 }

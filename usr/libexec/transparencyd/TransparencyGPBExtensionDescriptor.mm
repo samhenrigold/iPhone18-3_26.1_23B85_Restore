@@ -134,7 +134,7 @@
           return valueData;
         }
 
-        result = sub_10019DD30();
+        result = sub_10019DD30(self, a2);
         break;
       case 0xEu:
         valueData = self->defaultValue_.valueData;

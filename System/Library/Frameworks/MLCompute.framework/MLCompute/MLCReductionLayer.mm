@@ -1,4 +1,6 @@
 @interface MLCReductionLayer
++ (MLCReductionLayer)layerWithReductionType:(MLCReductionType)reductionType dimension:(NSUInteger)dimension;
++ (MLCReductionLayer)layerWithReductionType:(MLCReductionType)reductionType dimensions:(NSArray *)dimensions;
 - (BOOL)compileForDevice:(id)device sourceTensors:(id)tensors resultTensor:(id)tensor;
 - (MLCReductionLayer)initWithReduceType:(int)type dimensions:(id)dimensions;
 - (NSUInteger)dimension;
@@ -10,9 +12,31 @@
 
 @implementation MLCReductionLayer
 
++ (MLCReductionLayer)layerWithReductionType:(MLCReductionType)reductionType dimension:(NSUInteger)dimension
+{
+  v5 = *&reductionType;
+  v11[1] = *MEMORY[0x277D85DE8];
+  v6 = [self alloc];
+  v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:dimension];
+  v11[0] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v9 = [v6 initWithReduceType:v5 dimensions:v8];
+
+  return v9;
+}
+
++ (MLCReductionLayer)layerWithReductionType:(MLCReductionType)reductionType dimensions:(NSArray *)dimensions
+{
+  v4 = *&reductionType;
+  v6 = dimensions;
+  v7 = [[self alloc] initWithReduceType:v4 dimensions:v6];
+
+  return v7;
+}
+
 - (MLCReductionLayer)initWithReduceType:(int)type dimensions:(id)dimensions
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dimensionsCopy = dimensions;
   v8 = dimensionsCopy;
   if ((type - 5) >= 2)
@@ -29,13 +53,13 @@ LABEL_3:
     v9 = +[MLCLog framework];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v17 = NSStringFromSelector(a2);
+      v16 = NSStringFromSelector(a2);
       *buf = 138412802;
-      v20 = v17;
-      v21 = 1024;
+      v19 = v16;
+      v20 = 1024;
       typeCopy = type;
-      v23 = 2112;
-      v24 = v8;
+      v22 = 2112;
+      v23 = v8;
       _os_log_error_impl(&dword_238C1D000, v9, OS_LOG_TYPE_ERROR, "%@: failure to create reduction layer with reduceType = %d, dimensions = %@", buf, 0x1Cu);
     }
 
@@ -43,9 +67,9 @@ LABEL_3:
     goto LABEL_10;
   }
 
-  v18.receiver = self;
-  v18.super_class = MLCReductionLayer;
-  v11 = [(MLCLayer *)&v18 initWithLabel:@"Reduction"];
+  v17.receiver = self;
+  v17.super_class = MLCReductionLayer;
+  v11 = [(MLCLayer *)&v17 initWithLabel:@"Reduction"];
   v12 = v11;
   if (v11)
   {
@@ -59,7 +83,6 @@ LABEL_3:
   selfCopy = self;
 LABEL_10:
 
-  v15 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -253,13 +276,11 @@ LABEL_20:
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:(NSObject *)a2 resultTensor:.cold.2(const char *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = NSStringFromSelector(a1);
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_238C1D000, a2, OS_LOG_TYPE_ERROR, "%@: Data type for reduction type must be BOOLean", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_238C1D000, a2, OS_LOG_TYPE_ERROR, "%@: Data type for reduction type must be BOOLean", &v4, 0xCu);
 }
 
 @end

@@ -143,9 +143,9 @@ LABEL_10:
   if ([self isSourceTypeAvailable:source])
   {
     identifier = [*MEMORY[0x1E6982E30] identifier];
-    v8 = [availableCopy isEqualToString:identifier];
+    isEqualToString = objc_msgSend_isEqualToString_(availableCopy);
 
-    if (v8)
+    if (isEqualToString)
     {
       v9 = 1;
     }
@@ -153,7 +153,7 @@ LABEL_10:
     else
     {
       identifier2 = [*MEMORY[0x1E6982EE8] identifier];
-      v12 = [availableCopy isEqualToString:identifier2];
+      v12 = objc_msgSend_isEqualToString_(availableCopy);
 
       if (v12)
       {
@@ -171,7 +171,7 @@ LABEL_10:
       else
       {
         identifier3 = [*MEMORY[0x1E6982E80] identifier];
-        v14 = [availableCopy isEqualToString:identifier3];
+        v14 = objc_msgSend_isEqualToString_(availableCopy);
 
         if (source == 1)
         {
@@ -495,9 +495,9 @@ LABEL_12:
   {
     v5 = [(NSArray *)self->_mediaTypes objectAtIndex:0];
     identifier = [*MEMORY[0x1E6982EE8] identifier];
-    v4 = [v5 isEqual:identifier];
+    isEqual = objc_msgSend_isEqual_(v5);
 
-    [(UIImagePickerController *)self setCameraCaptureMode:v4];
+    [(UIImagePickerController *)self setCameraCaptureMode:isEqual];
   }
 }
 
@@ -1121,7 +1121,7 @@ LABEL_23:
       v9 = _cameraViewController;
       if (_cameraViewController)
       {
-        [_cameraViewController _cameraViewTransform];
+        objc_msgSend__cameraViewTransform(_cameraViewController);
         goto LABEL_8;
       }
     }
@@ -1132,7 +1132,7 @@ LABEL_23:
       v9 = v8;
       if (v8)
       {
-        [v8 CGAffineTransformValue];
+        objc_msgSend_CGAffineTransformValue(v8);
 LABEL_8:
         *&retstr->a = v11;
         *&retstr->c = v12;
@@ -2223,7 +2223,7 @@ void __59__UIImagePickerController_didDisplayPhotoPickerSourceType___block_invok
   return byte_1ED49AC1A != 1 || self->_photoPickerIsReadyForDisplay;
 }
 
-uint64_t __62__UIImagePickerController__stagedPhotoPickerIsReadyForDisplay__block_invoke()
+void *__62__UIImagePickerController__stagedPhotoPickerIsReadyForDisplay__block_invoke()
 {
   result = [NSClassFromString(&cfstr_Puphotopickere.isa) instancesRespondToSelector:sel_photoPickerIsReadyForDisplay];
   byte_1ED49AC1A = result;
@@ -2486,9 +2486,9 @@ void __79__UIImagePickerController__setupControllersForCurrentSourceTypeWithComp
 
     v5 = [infoCopy objectForKey:@"UIImagePickerControllerMediaType"];
     identifier = [*MEMORY[0x1E6982E30] identifier];
-    v7 = [v5 isEqualToString:identifier];
+    isEqualToString = objc_msgSend_isEqualToString_(v5);
 
-    if (!v7)
+    if (!isEqualToString)
     {
       [(UIImagePickerController *)self _imagePickerDidCancel];
 

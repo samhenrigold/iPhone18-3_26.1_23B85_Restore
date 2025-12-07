@@ -21,7 +21,7 @@
   v4 = 0.0;
   if (engagementCount)
   {
-    v5 = __atxlog_handle_metrics();
+    v5 = __atxlog_handle_metrics(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       [(ATXUIFeedbackMetrics *)v5 engagementRate];
@@ -43,7 +43,7 @@
   v4 = 0.0;
   if (rejectionCount)
   {
-    v5 = __atxlog_handle_metrics();
+    v5 = __atxlog_handle_metrics(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       [(ATXUIFeedbackMetrics *)v5 rejectionRate];
@@ -80,20 +80,18 @@
 
 - (void)engagementRate
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136315138;
-  v3 = "[ATXUIFeedbackMetrics engagementRate]";
-  _os_log_fault_impl(&dword_1DEFC4000, log, OS_LOG_TYPE_FAULT, "%s: _engagementCount != 0 while _impressionCount == 0.", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136315138;
+  v2 = "[ATXUIFeedbackMetrics engagementRate]";
+  _os_log_fault_impl(&dword_1DEFC4000, log, OS_LOG_TYPE_FAULT, "%s: _engagementCount != 0 while _impressionCount == 0.", &v1, 0xCu);
 }
 
 - (void)rejectionRate
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136315138;
-  v3 = "[ATXUIFeedbackMetrics rejectionRate]";
-  _os_log_fault_impl(&dword_1DEFC4000, log, OS_LOG_TYPE_FAULT, "%s: _rejectionCount != 0 while _impressionCount == 0.", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136315138;
+  v2 = "[ATXUIFeedbackMetrics rejectionRate]";
+  _os_log_fault_impl(&dword_1DEFC4000, log, OS_LOG_TYPE_FAULT, "%s: _rejectionCount != 0 while _impressionCount == 0.", &v1, 0xCu);
 }
 
 @end

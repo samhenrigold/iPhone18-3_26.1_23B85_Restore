@@ -22,9 +22,9 @@ id getCSSearchableIndexClass()
   return v1;
 }
 
-void sub_18E992BE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18E992BE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -104,14 +104,16 @@ LABEL_9:
 
 uint64_t __INLogInitIfNeeded_block_invoke()
 {
-  INSiriLogContextIntents = os_log_create(INLogSiriSubsystem, INLogCategoryIntents);
+  v0 = os_log_create(INLogSiriSubsystem, INLogCategoryIntents);
+  v1 = INSiriLogContextIntents;
+  INSiriLogContextIntents = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t INThisProcessHasEntitlement(void *a1, int a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = SecTaskCreateFromSelf(0);
   if (v4)
@@ -130,9 +132,9 @@ uint64_t INThisProcessHasEntitlement(void *a1, int a2)
   v7 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
   {
-    v15 = 136315138;
-    v16 = "INThisProcessHasEntitlement";
-    _os_log_error_impl(&dword_18E991000, v7, OS_LOG_TYPE_ERROR, "%s SecTaskCreateFromSelf() failed, assuming this process is NOT entitled.", &v15, 0xCu);
+    v14 = 136315138;
+    v15 = "INThisProcessHasEntitlement";
+    _os_log_error_impl(&dword_18E991000, v7, OS_LOG_TYPE_ERROR, "%s SecTaskCreateFromSelf() failed, assuming this process is NOT entitled.", &v14, 0xCu);
     if (a2)
     {
       goto LABEL_7;
@@ -166,7 +168,6 @@ LABEL_7:
   }
 
 LABEL_13:
-  v13 = *MEMORY[0x1E69E9840];
   return HasEntitlement;
 }
 
@@ -208,7 +209,7 @@ void sub_18E993DEC(_Unwind_Exception *a1)
 
 uint64_t _INProcessHasEntitlement(__SecTask *a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   error = 0;
   v4 = SecTaskCopyValueForEntitlement(a1, v3, &error);
@@ -219,9 +220,9 @@ uint64_t _INProcessHasEntitlement(__SecTask *a1, void *a2)
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v13 = "_INProcessHasEntitlement";
-      v14 = 2114;
-      v15 = v5;
+      v12 = "_INProcessHasEntitlement";
+      v13 = 2114;
+      v14 = v5;
       _os_log_fault_impl(&dword_18E991000, v6, OS_LOG_TYPE_FAULT, "%s SecTaskCopyValueForEntitlement() failed with error %{public}@", buf, 0x16u);
       v5 = error;
     }
@@ -235,9 +236,9 @@ uint64_t _INProcessHasEntitlement(__SecTask *a1, void *a2)
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v13 = "_INProcessHasEntitlement";
-      v14 = 2114;
-      v15 = v3;
+      v12 = "_INProcessHasEntitlement";
+      v13 = 2114;
+      v14 = v3;
       _os_log_error_impl(&dword_18E991000, v7, OS_LOG_TYPE_ERROR, "%s Expected a Boolean value for the %{public}@ entitlement, but found something else.", buf, 0x16u);
     }
 
@@ -246,13 +247,12 @@ uint64_t _INProcessHasEntitlement(__SecTask *a1, void *a2)
 
   v8 = [v4 BOOLValue];
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
-void sub_18E9940A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18E9940A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -335,9 +335,11 @@ BOOL INDescriptorContainsBundleIdentifiers(void *a1)
 
 uint64_t __INThisProcessCanMapLSDatabase_block_invoke()
 {
-  INThisProcessCanMapLSDatabase_cache = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:2];
+  v0 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:2];
+  v1 = INThisProcessCanMapLSDatabase_cache;
+  INThisProcessCanMapLSDatabase_cache = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 void *INContainingAppProxyForCurrentProcess()
@@ -580,33 +582,33 @@ id INContainingBundleURLForCurrentProcess()
 
 id INSchemaURLsWithBundle(void *a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [MEMORY[0x1E695DF70] array];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v3 = INSchemaFileExtensions();
-  v4 = [v3 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v22;
+    v6 = *v21;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v22 != v6)
+        if (*v21 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [v1 URLsForResourcesWithExtension:*(*(&v21 + 1) + 8 * i) subdirectory:0];
+        v8 = [v1 URLsForResourcesWithExtension:*(*(&v20 + 1) + 8 * i) subdirectory:0];
         [v2 addObjectsFromArray:v8];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v5);
@@ -614,37 +616,35 @@ id INSchemaURLsWithBundle(void *a1)
 
   if (![v2 count])
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v9 = INSchemaFileExtensions();
-    v10 = [v9 countByEnumeratingWithState:&v17 objects:v25 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v16 objects:v24 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v18;
+      v12 = *v17;
       do
       {
         for (j = 0; j != v11; ++j)
         {
-          if (*v18 != v12)
+          if (*v17 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = [v1 URLsForResourcesWithExtension:*(*(&v17 + 1) + 8 * j) subdirectory:0 localization:{@"en", v17}];
+          v14 = [v1 URLsForResourcesWithExtension:*(*(&v16 + 1) + 8 * j) subdirectory:0 localization:{@"en", v16}];
           [v2 addObjectsFromArray:v14];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v17 objects:v25 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v16 objects:v24 count:16];
       }
 
       while (v11);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -800,7 +800,7 @@ id INSchemaFileExtensions()
 
 id _INImageFilePersistenceDirectoryPathWithStoreTypeCreateIfNeeded(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = CPSharedResourcesDirectory();
   v3 = [v2 stringByAppendingPathComponent:@"Library/Intents/Images"];
 
@@ -813,9 +813,9 @@ id _INImageFilePersistenceDirectoryPathWithStoreTypeCreateIfNeeded(uint64_t a1)
 
   v5 = v3;
   v6 = [MEMORY[0x1E696AC08] defaultManager];
-  v12 = 0;
-  v7 = [v6 createDirectoryAtPath:v5 withIntermediateDirectories:1 attributes:0 error:&v12];
-  v8 = v12;
+  v11 = 0;
+  v7 = [v6 createDirectoryAtPath:v5 withIntermediateDirectories:1 attributes:0 error:&v11];
+  v8 = v11;
 
   if ((v7 & 1) == 0)
   {
@@ -823,28 +823,26 @@ id _INImageFilePersistenceDirectoryPathWithStoreTypeCreateIfNeeded(uint64_t a1)
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v14 = "_INImageFilePersistenceCreateDirectoryIfNeeded";
-      v15 = 2114;
-      v16 = v5;
-      v17 = 2114;
-      v18 = v8;
+      v13 = "_INImageFilePersistenceCreateDirectoryIfNeeded";
+      v14 = 2114;
+      v15 = v5;
+      v16 = 2114;
+      v17 = v8;
       _os_log_error_impl(&dword_18E991000, v9, OS_LOG_TYPE_ERROR, "%s Couldn't create image file directory at path %{public}@ %{public}@", buf, 0x20u);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 id _INImageFilePersistenceUpdateModifiedDateAtFilePath(void *a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [MEMORY[0x1E696AC08] defaultManager];
-  v16 = 0;
-  v3 = [v2 attributesOfItemAtPath:v1 error:&v16];
-  v4 = v16;
+  v15 = 0;
+  v3 = [v2 attributesOfItemAtPath:v1 error:&v15];
+  v4 = v15;
   v5 = [v3 mutableCopy];
 
   if (v4)
@@ -853,11 +851,11 @@ id _INImageFilePersistenceUpdateModifiedDateAtFilePath(void *a1)
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v18 = "_INImageFilePersistenceUpdateModifiedDateAtFilePath";
-      v19 = 2112;
-      v20 = v1;
-      v21 = 2112;
-      v22 = v4;
+      v17 = "_INImageFilePersistenceUpdateModifiedDateAtFilePath";
+      v18 = 2112;
+      v19 = v1;
+      v20 = 2112;
+      v21 = v4;
       _os_log_error_impl(&dword_18E991000, v6, OS_LOG_TYPE_ERROR, "%s Failed to get attributes for item currently at path %@: %@", buf, 0x20u);
     }
 
@@ -870,9 +868,9 @@ id _INImageFilePersistenceUpdateModifiedDateAtFilePath(void *a1)
     [v5 setObject:v8 forKey:*MEMORY[0x1E696A350]];
 
     v9 = [MEMORY[0x1E696AC08] defaultManager];
-    v15 = 0;
-    [v9 setAttributes:v5 ofItemAtPath:v1 error:&v15];
-    v7 = v15;
+    v14 = 0;
+    [v9 setAttributes:v5 ofItemAtPath:v1 error:&v14];
+    v7 = v14;
 
     if (v7)
     {
@@ -880,11 +878,11 @@ id _INImageFilePersistenceUpdateModifiedDateAtFilePath(void *a1)
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v18 = "_INImageFilePersistenceUpdateModifiedDateAtFilePath";
-        v19 = 2112;
-        v20 = v1;
-        v21 = 2112;
-        v22 = v7;
+        v17 = "_INImageFilePersistenceUpdateModifiedDateAtFilePath";
+        v18 = 2112;
+        v19 = v1;
+        v20 = 2112;
+        v21 = v7;
         _os_log_error_impl(&dword_18E991000, v10, OS_LOG_TYPE_ERROR, "%s Failed to set attributes for item currently at path %@: %@", buf, 0x20u);
       }
 
@@ -894,22 +892,21 @@ id _INImageFilePersistenceUpdateModifiedDateAtFilePath(void *a1)
 
   v12 = v7;
 
-  v13 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 void INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHandler(void *a1, unsigned int a2, char a3, char a4, void *a5, void *a6, double a7, double a8)
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   v15 = a1;
   v16 = a5;
   v17 = a6;
-  v59[0] = 0;
-  v59[1] = v59;
-  v59[2] = 0x3032000000;
-  v59[3] = __Block_byref_object_copy_;
-  v59[4] = __Block_byref_object_dispose_;
-  v60 = 0;
+  v58[0] = 0;
+  v58[1] = v58;
+  v58[2] = 0x3032000000;
+  v58[3] = __Block_byref_object_copy_;
+  v58[4] = __Block_byref_object_dispose_;
+  v59 = 0;
   v18 = INSiriLogContextIntents;
   if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
@@ -932,55 +929,54 @@ void INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHandle
   v23 = _os_activity_create(&dword_18E991000, "Inject Image Proxy", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   *buf = 0;
   *&buf[8] = 0;
-  v34 = v23;
+  v33 = v23;
   os_activity_scope_enter(v23, buf);
   v24 = [INWatchdogTimer alloc];
-  v54[0] = MEMORY[0x1E69E9820];
-  v54[1] = 3221225472;
-  v54[2] = __INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHandler_block_invoke;
-  v54[3] = &unk_1E727D820;
-  v57 = v21;
+  v53[0] = MEMORY[0x1E69E9820];
+  v53[1] = 3221225472;
+  v53[2] = __INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHandler_block_invoke;
+  v53[3] = &unk_1E727D820;
+  v56 = v21;
   v25 = v15;
-  v55 = v25;
+  v54 = v25;
   v26 = v17;
-  v56 = v26;
-  v58 = *buf;
-  v27 = [(INWatchdogTimer *)v24 initWithTimeoutInterval:v22 onQueue:v54 timeoutHandler:v21];
-  v43[0] = MEMORY[0x1E69E9820];
-  v43[1] = 3221225472;
-  v43[2] = __INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHandler_block_invoke_13;
-  v43[3] = &unk_1E727D898;
-  v44 = v22;
-  v51 = a2;
-  v52 = a3;
-  v45 = v25;
-  v46 = v27;
+  v55 = v26;
+  v57 = *buf;
+  v27 = [(INWatchdogTimer *)v24 initWithTimeoutInterval:v22 onQueue:v53 timeoutHandler:v21];
+  v42[0] = MEMORY[0x1E69E9820];
+  v42[1] = 3221225472;
+  v42[2] = __INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHandler_block_invoke_13;
+  v42[3] = &unk_1E727D898;
+  v43 = v22;
+  v50 = a2;
+  v51 = a3;
+  v44 = v25;
+  v45 = v27;
   v28 = v16;
-  v49 = a7;
-  v50 = a8;
-  v53 = a4;
-  v47 = v28;
-  v48 = v59;
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3221225472;
-  v35[2] = __INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHandler_block_invoke_21;
-  v35[3] = &unk_1E727D8E8;
-  v29 = v44;
-  v36 = v29;
-  v42 = a2;
-  v30 = v46;
-  v37 = v30;
-  v31 = v45;
-  v38 = v31;
+  v48 = a7;
+  v49 = a8;
+  v52 = a4;
+  v46 = v28;
+  v47 = v58;
+  v34[0] = MEMORY[0x1E69E9820];
+  v34[1] = 3221225472;
+  v34[2] = __INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHandler_block_invoke_21;
+  v34[3] = &unk_1E727D8E8;
+  v29 = v43;
+  v35 = v29;
+  v41 = a2;
+  v30 = v45;
+  v36 = v30;
+  v31 = v44;
+  v37 = v31;
   v32 = v26;
-  v39 = v32;
-  v40 = v59;
-  v41 = *buf;
-  [v31 _injectProxiesForImages:v43 completion:v35];
+  v38 = v32;
+  v39 = v58;
+  v40 = *buf;
+  [v31 _injectProxiesForImages:v42 completion:v34];
   [(INWatchdogTimer *)v30 start];
 
-  _Block_object_dispose(v59, 8);
-  v33 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v58, 8);
 }
 
 void __INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHandler_block_invoke_13(uint64_t a1, void *a2, void *a3)
@@ -1013,24 +1009,24 @@ void __INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHand
 
 void __INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHandler_block_invoke_2(uint64_t a1)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   if ((*(a1 + 100) & 1) == 0 && ([*(a1 + 32) _isSupportedForDonation] & 1) == 0)
   {
-    v19 = INSiriLogContextIntents;
+    v18 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
     {
-      v20 = *(a1 + 32);
-      v21 = *(a1 + 40);
+      v19 = *(a1 + 32);
+      v20 = *(a1 + 40);
       *buf = 136315650;
-      v33 = "INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHandler_block_invoke_2";
-      v34 = 2112;
-      v35 = v20;
-      v36 = 2112;
-      v37 = v21;
-      _os_log_impl(&dword_18E991000, v19, OS_LOG_TYPE_INFO, "%s Image %@ is being provided outside of SiriKit and is not supported for donation. Removing from the injection target %@", buf, 0x20u);
+      v30 = "INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHandler_block_invoke_2";
+      v31 = 2112;
+      v32 = v19;
+      v33 = 2112;
+      v34 = v20;
+      _os_log_impl(&dword_18E991000, v18, OS_LOG_TYPE_INFO, "%s Image %@ is being provided outside of SiriKit and is not supported for donation. Removing from the injection target %@", buf, 0x20u);
     }
 
-    v22 = *(*(a1 + 56) + 16);
+    v21 = *(*(a1 + 56) + 16);
     goto LABEL_19;
   }
 
@@ -1039,25 +1035,24 @@ void __INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHand
     v4 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
     {
-      v16 = *(a1 + 32);
-      v17 = *(a1 + 40);
+      v15 = *(a1 + 32);
+      v16 = *(a1 + 40);
       *buf = 136315650;
-      v33 = "INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHandler_block_invoke";
-      v34 = 2112;
-      v35 = v16;
-      v36 = 2112;
-      v37 = v17;
-      v18 = "%s Proxy injection rejected for image %@ into %@, skipping";
+      v30 = "INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHandler_block_invoke";
+      v31 = 2112;
+      v32 = v15;
+      v33 = 2112;
+      v34 = v16;
+      v17 = "%s Proxy injection rejected for image %@ into %@, skipping";
 LABEL_17:
-      _os_log_impl(&dword_18E991000, v4, OS_LOG_TYPE_INFO, v18, buf, 0x20u);
+      _os_log_impl(&dword_18E991000, v4, OS_LOG_TYPE_INFO, v17, buf, 0x20u);
     }
 
 LABEL_18:
-    v25 = *(a1 + 32);
-    v22 = *(*(a1 + 56) + 16);
+    v21 = *(*(a1 + 56) + 16);
 LABEL_19:
-    v22();
-    goto LABEL_20;
+    v21();
+    return;
   }
 
   v3 = [*(a1 + 32) _isEligibleForProxying];
@@ -1067,15 +1062,15 @@ LABEL_19:
   {
     if (v5)
     {
-      v23 = *(a1 + 32);
-      v24 = *(a1 + 40);
+      v22 = *(a1 + 32);
+      v23 = *(a1 + 40);
       *buf = 136315650;
-      v33 = "INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHandler_block_invoke";
-      v34 = 2112;
-      v35 = v23;
-      v36 = 2112;
-      v37 = v24;
-      v18 = "%s Image %@ is not eligible for proxying into %@, returning original image";
+      v30 = "INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHandler_block_invoke";
+      v31 = 2112;
+      v32 = v22;
+      v33 = 2112;
+      v34 = v23;
+      v17 = "%s Image %@ is not eligible for proxying into %@, returning original image";
       goto LABEL_17;
     }
 
@@ -1084,38 +1079,34 @@ LABEL_19:
 
   if (v5)
   {
-    v7 = *(a1 + 32);
-    v6 = *(a1 + 40);
-    v8 = v4;
-    v9 = objc_opt_class();
-    v10 = NSStringFromClass(v9);
+    v6 = *(a1 + 32);
+    v7 = v4;
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
     *buf = 136315650;
-    v33 = "INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHandler_block_invoke";
-    v34 = 2112;
-    v35 = v7;
-    v36 = 2112;
-    v37 = v10;
-    _os_log_impl(&dword_18E991000, v8, OS_LOG_TYPE_INFO, "%s Proxying image %@ for injection into %@", buf, 0x20u);
+    v30 = "INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHandler_block_invoke";
+    v31 = 2112;
+    v32 = v6;
+    v33 = 2112;
+    v34 = v9;
+    _os_log_impl(&dword_18E991000, v7, OS_LOG_TYPE_INFO, "%s Proxying image %@ for injection into %@", buf, 0x20u);
   }
 
   [*(a1 + 32) _setPreferredScaledSize:{*(a1 + 80), *(a1 + 88)}];
-  v11 = *(a1 + 96);
-  v12 = *(a1 + 101);
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHandler_block_invoke_15;
-  v27[3] = &unk_1E727D848;
-  v13 = *(a1 + 32);
-  v28 = *(a1 + 40);
-  v29 = *(a1 + 32);
-  v14 = *(a1 + 56);
-  v15 = *(a1 + 72);
-  v30 = v14;
-  v31 = v15;
-  [INRemoteImageProxy requestProxyByStoringImage:v13 qualityOfService:v11 scaled:v12 storeType:0 completion:v27];
-
-LABEL_20:
-  v26 = *MEMORY[0x1E69E9840];
+  v10 = *(a1 + 96);
+  v11 = *(a1 + 101);
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHandler_block_invoke_15;
+  v24[3] = &unk_1E727D848;
+  v12 = *(a1 + 32);
+  v25 = *(a1 + 40);
+  v26 = *(a1 + 32);
+  v13 = *(a1 + 56);
+  v14 = *(a1 + 72);
+  v27 = v13;
+  v28 = v14;
+  [INRemoteImageProxy requestProxyByStoringImage:v12 qualityOfService:v10 scaled:v11 storeType:0 completion:v24];
 }
 
 id INImageProxyInjectionQueue()
@@ -1132,7 +1123,7 @@ id INImageProxyInjectionQueue()
 
 void __INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHandler_block_invoke_15(void *a1, void *a2, void *a3)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -1140,16 +1131,16 @@ void __INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHand
     v7 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
-      v21 = a1[4];
-      v22 = a1[5];
+      v18 = a1[4];
+      v19 = a1[5];
       *buf = 136315906;
-      v28 = "INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHandler_block_invoke";
-      v29 = 2114;
-      v30 = v21;
-      v31 = 2114;
-      v32 = v22;
-      v33 = 2114;
-      v34 = v6;
+      v25 = "INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHandler_block_invoke";
+      v26 = 2114;
+      v27 = v18;
+      v28 = 2114;
+      v29 = v19;
+      v30 = 2114;
+      v31 = v6;
       _os_log_error_impl(&dword_18E991000, v7, OS_LOG_TYPE_ERROR, "%s Error requesting image proxy during injection to object: %{public}@ image: %{public}@ error: %{public}@", buf, 0x2Au);
     }
 
@@ -1165,51 +1156,47 @@ void __INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHand
     {
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
       {
-        v24 = a1[4];
-        v23 = a1[5];
+        v21 = a1[4];
+        v20 = a1[5];
         *buf = 136315650;
-        v28 = "INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHandler_block_invoke";
-        v29 = 2112;
-        v30 = v23;
-        v31 = 2112;
-        v32 = v24;
+        v25 = "INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHandler_block_invoke";
+        v26 = 2112;
+        v27 = v20;
+        v28 = 2112;
+        v29 = v21;
         _os_log_error_impl(&dword_18E991000, v9, OS_LOG_TYPE_ERROR, "%s Failed to proxy image %@ for injection to %@ due to proxy loop, skipping", buf, 0x20u);
       }
 
       [v5 purgeStoredImageWithCompletion:0];
-      v10 = a1[5];
       (*(a1[6] + 16))();
-      v11 = MEMORY[0x1E696ABC0];
-      v12 = a1[4];
-      v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Attempted to proxy-loop the image %@ in %@", a1[5], v12, *MEMORY[0x1E696A278]];
-      v26 = v13;
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-      v15 = [v11 errorWithDomain:@"IntentsErrorDomain" code:6005 userInfo:v14];
-      v16 = *(a1[7] + 8);
-      v17 = *(v16 + 40);
-      *(v16 + 40) = v15;
+      v10 = MEMORY[0x1E696ABC0];
+      v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Attempted to proxy-loop the image %@ in %@", a1[5], a1[4], *MEMORY[0x1E696A278]];
+      v23 = v11;
+      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+      v13 = [v10 errorWithDomain:@"IntentsErrorDomain" code:6005 userInfo:v12];
+      v14 = *(a1[7] + 8);
+      v15 = *(v14 + 40);
+      *(v14 + 40) = v13;
     }
 
     else
     {
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
       {
-        v19 = a1[4];
-        v18 = a1[5];
+        v17 = a1[4];
+        v16 = a1[5];
         *buf = 136315650;
-        v28 = "INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHandler_block_invoke";
-        v29 = 2112;
-        v30 = v18;
-        v31 = 2112;
-        v32 = v19;
+        v25 = "INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHandler_block_invoke";
+        v26 = 2112;
+        v27 = v16;
+        v28 = 2112;
+        v29 = v17;
         _os_log_impl(&dword_18E991000, v9, OS_LOG_TYPE_INFO, "%s Successfully proxied image %@, injecting into %@", buf, 0x20u);
       }
 
       (*(a1[6] + 16))();
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHandler_block_invoke_21(uint64_t a1, void *a2)
@@ -1235,30 +1222,25 @@ void __INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHand
 
 void __INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHandler_block_invoke_2_22(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) cancelIfNotAlreadyCanceled])
   {
     v2 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
     {
-      v3 = *(a1 + 40);
-      v4 = v2;
-      v5 = objc_opt_class();
-      v6 = NSStringFromClass(v5);
-      v10 = 136315394;
-      v11 = "INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHandler_block_invoke_2";
-      v12 = 2112;
-      v13 = v6;
-      _os_log_impl(&dword_18E991000, v4, OS_LOG_TYPE_INFO, "%s Finished image proxy injection into %@", &v10, 0x16u);
+      v3 = v2;
+      v4 = objc_opt_class();
+      v5 = NSStringFromClass(v4);
+      v6 = 136315394;
+      v7 = "INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHandler_block_invoke_2";
+      v8 = 2112;
+      v9 = v5;
+      _os_log_impl(&dword_18E991000, v3, OS_LOG_TYPE_INFO, "%s Finished image proxy injection into %@", &v6, 0x16u);
     }
 
-    v7 = *(a1 + 48);
-    v8 = *(*(*(a1 + 64) + 8) + 40);
     (*(*(a1 + 56) + 16))();
     os_activity_scope_leave((a1 + 72));
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
@@ -1310,36 +1292,36 @@ uint64_t INResolveInstanceMethod(const char *a1, objc_class *a2)
       v11 = v10;
       v12 = sel_getName(a1);
       v13 = strlen(v12 + 3);
-      v14 = MEMORY[0x1EEE9AC00]();
-      v15 = &types[-((v14 + 16) & 0xFFFFFFFFFFFFFFF0) - 8];
-      strlcpy(v15, v12 + 3, v14 + 1);
+      v15 = MEMORY[0x1EEE9AC00](v13, v14);
+      v16 = &types[-((v15 + 16) & 0xFFFFFFFFFFFFFFF0) - 8];
+      strlcpy(v16, v12 + 3, v15 + 1);
       if (v11)
       {
-        *v15 = __tolower(*v15);
+        *v16 = __tolower(*v16);
       }
 
-      v15[v13 - 1] = 0;
-      v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v15];
+      v16[v13 - 1] = 0;
+      v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v16];
 
-      if (_INGetPropertyInfo(a2, v16, 1, &v32, &v31))
+      if (_INGetPropertyInfo(a2, v17, 1, &v32, &v31))
       {
         break;
       }
 
       v10 = 0;
-      v9 = v16;
+      v9 = v17;
       if ((v11 & 1) == 0)
       {
-        v17 = v31;
+        v18 = v31;
         goto LABEL_26;
       }
     }
 
     strcpy(types, "v@: ");
-    v17 = v31;
+    v18 = v31;
     types[3] = *v31;
-    v20 = types[3];
-    v21 = _INSetIntProperty;
+    v21 = types[3];
+    v22 = _INSetIntProperty;
     if (types[3] <= 0x62u)
     {
       if (types[3] > 0x48u)
@@ -1348,13 +1330,13 @@ uint64_t INResolveInstanceMethod(const char *a1, objc_class *a2)
         {
           if (types[3] == 73)
           {
-            v21 = _INSetUnsignedIntProperty;
+            v22 = _INSetUnsignedIntProperty;
             goto LABEL_84;
           }
 
           if (types[3] == 76)
           {
-            v21 = _INSetUnsignedLongProperty;
+            v22 = _INSetUnsignedLongProperty;
             goto LABEL_84;
           }
 
@@ -1363,7 +1345,7 @@ uint64_t INResolveInstanceMethod(const char *a1, objc_class *a2)
 
         if (types[3] == 81)
         {
-          v21 = _INSetUnsignedLongLongProperty;
+          v22 = _INSetUnsignedLongLongProperty;
           goto LABEL_84;
         }
 
@@ -1374,24 +1356,24 @@ uint64_t INResolveInstanceMethod(const char *a1, objc_class *a2)
       {
         if (types[3] == 66)
         {
-          v21 = _INSetBoolProperty;
+          v22 = _INSetBoolProperty;
           goto LABEL_84;
         }
 
         goto LABEL_55;
       }
 
-      v23 = _INClassFromType(v31, a2);
-      v21 = _INSetIdProperty;
-      if (v23)
+      v24 = _INClassFromType(v31, a2);
+      v22 = _INSetIdProperty;
+      if (v24)
       {
         goto LABEL_84;
       }
 
-      v24 = _INProtocolFromType(v17, a2);
+      v25 = _INProtocolFromType(v18, a2);
 
-      v21 = _INSetIdProperty;
-      if (v24)
+      v22 = _INSetIdProperty;
+      if (v25)
       {
         goto LABEL_84;
       }
@@ -1406,10 +1388,10 @@ uint64_t INResolveInstanceMethod(const char *a1, objc_class *a2)
         case 'c':
           goto LABEL_84;
         case 'd':
-          v21 = _INSetDoubleProperty;
+          v22 = _INSetDoubleProperty;
           goto LABEL_84;
         case 'f':
-          v21 = _INSetFloatProperty;
+          v22 = _INSetFloatProperty;
           goto LABEL_84;
       }
 
@@ -1425,7 +1407,7 @@ uint64_t INResolveInstanceMethod(const char *a1, objc_class *a2)
 
       if (types[3] == 108)
       {
-        v21 = _INSetLongProperty;
+        v22 = _INSetLongProperty;
         goto LABEL_84;
       }
 
@@ -1434,7 +1416,7 @@ uint64_t INResolveInstanceMethod(const char *a1, objc_class *a2)
 
     if (types[3] == 113)
     {
-      v21 = _INSetLongLongProperty;
+      v22 = _INSetLongLongProperty;
       goto LABEL_84;
     }
 
@@ -1442,22 +1424,22 @@ uint64_t INResolveInstanceMethod(const char *a1, objc_class *a2)
   }
 
 LABEL_15:
-  v16 = 0;
-  v18 = 0;
+  v17 = 0;
+  v19 = 0;
   if (v6 && v6 != 95)
   {
     if (v5[strlen(v5) - 1] != 58)
     {
-      v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:sel_getName(a1)];
-      v19 = _INGetPropertyInfo(a2, v16, 0, &v32, &v31);
-      v17 = v31;
-      if (!v19)
+      v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:sel_getName(a1)];
+      v20 = _INGetPropertyInfo(a2, v17, 0, &v32, &v31);
+      v18 = v31;
+      if (!v20)
       {
 LABEL_26:
-        if (!v17)
+        if (!v18)
         {
 LABEL_29:
-          v18 = 0;
+          v19 = 0;
           goto LABEL_85;
         }
 
@@ -1466,8 +1448,8 @@ LABEL_29:
 
       strcpy(types, " @:");
       types[0] = *v31;
-      v20 = types[0];
-      v21 = _INGetIntProperty;
+      v21 = types[0];
+      v22 = _INGetIntProperty;
       if (types[0] <= 0x62u)
       {
         if (types[0] > 0x48u)
@@ -1476,16 +1458,16 @@ LABEL_29:
           {
             if (types[0] == 73)
             {
-              v21 = _INGetUnsignedIntProperty;
+              v22 = _INGetUnsignedIntProperty;
               goto LABEL_84;
             }
 
             if (types[0] == 76)
             {
-              v21 = _INGetUnsignedLongProperty;
+              v22 = _INGetUnsignedLongProperty;
 LABEL_84:
-              class_addMethod(v32, a1, v21, types);
-              v18 = 1;
+              class_addMethod(v32, a1, v22, types);
+              v19 = 1;
               goto LABEL_85;
             }
 
@@ -1494,12 +1476,12 @@ LABEL_84:
 
           if (types[0] == 81)
           {
-            v21 = _INGetUnsignedLongLongProperty;
+            v22 = _INGetUnsignedLongLongProperty;
             goto LABEL_84;
           }
 
 LABEL_66:
-          if (v20 == 83)
+          if (v21 == 83)
           {
             goto LABEL_84;
           }
@@ -1511,12 +1493,12 @@ LABEL_66:
         {
           if (types[0] == 66)
           {
-            v21 = _INGetBoolProperty;
+            v22 = _INGetBoolProperty;
             goto LABEL_84;
           }
 
 LABEL_55:
-          if (v20 == 67)
+          if (v21 == 67)
           {
             goto LABEL_84;
           }
@@ -1524,23 +1506,23 @@ LABEL_55:
           goto LABEL_27;
         }
 
-        v25 = _INClassFromType(v31, a2);
-        v21 = _INGetIdProperty;
-        if (v25)
-        {
-          goto LABEL_84;
-        }
-
-        v26 = _INProtocolFromType(v17, a2);
-
-        v21 = _INGetIdProperty;
+        v26 = _INClassFromType(v31, a2);
+        v22 = _INGetIdProperty;
         if (v26)
         {
           goto LABEL_84;
         }
 
+        v27 = _INProtocolFromType(v18, a2);
+
+        v22 = _INGetIdProperty;
+        if (v27)
+        {
+          goto LABEL_84;
+        }
+
 LABEL_27:
-        v22 = INSiriLogContextIntents;
+        v23 = INSiriLogContextIntents;
         if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
         {
           *buf = 136316162;
@@ -1548,12 +1530,12 @@ LABEL_27:
           v35 = 2112;
           v36 = a2;
           v37 = 2112;
-          v38 = v16;
+          v38 = v17;
           v39 = 2080;
-          v40 = v17;
+          v40 = v18;
           v41 = 2112;
           v42 = a2;
-          _os_log_error_impl(&dword_18E991000, v22, OS_LOG_TYPE_ERROR, "%s Dynamic property %@.%@ has type '%s' unsupported by %@", buf, 0x34u);
+          _os_log_error_impl(&dword_18E991000, v23, OS_LOG_TYPE_ERROR, "%s Dynamic property %@.%@ has type '%s' unsupported by %@", buf, 0x34u);
         }
 
         goto LABEL_29;
@@ -1566,10 +1548,10 @@ LABEL_27:
           case 'c':
             goto LABEL_84;
           case 'd':
-            v21 = _INGetDoubleProperty;
+            v22 = _INGetDoubleProperty;
             goto LABEL_84;
           case 'f':
-            v21 = _INGetFloatProperty;
+            v22 = _INGetFloatProperty;
             goto LABEL_84;
         }
 
@@ -1585,7 +1567,7 @@ LABEL_27:
 
         if (types[0] == 108)
         {
-          v21 = _INGetLongProperty;
+          v22 = _INGetLongProperty;
           goto LABEL_84;
         }
 
@@ -1594,12 +1576,12 @@ LABEL_27:
 
       if (types[0] == 113)
       {
-        v21 = _INGetLongLongProperty;
+        v22 = _INGetLongLongProperty;
         goto LABEL_84;
       }
 
 LABEL_69:
-      if (v20 == 115)
+      if (v21 == 115)
       {
         goto LABEL_84;
       }
@@ -1607,17 +1589,16 @@ LABEL_69:
       goto LABEL_27;
     }
 
-    v18 = 0;
-    v16 = 0;
+    v19 = 0;
+    v17 = 0;
   }
 
 LABEL_85:
 
-  v27 = *MEMORY[0x1E69E9840];
-  return v18;
+  return v19;
 }
 
-objc_property *_INGetPropertyInfo(objc_class *Superclass, id a2, int a3, objc_class **a4, const char **a5)
+objc_property_t _INGetPropertyInfo(objc_class *Superclass, id a2, int a3, objc_class **a4, const char **a5)
 {
   v10 = a2;
   v11 = [a2 UTF8String];
@@ -1650,38 +1631,37 @@ LABEL_7:
 
 const char *_INGetPropertyType(objc_property *a1, _BYTE *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   *a2 = 0;
   Attributes = property_getAttributes(a1);
-  strlen(Attributes);
-  v4 = MEMORY[0x1EEE9AC00]();
-  v5 = &__stringp - ((v4 + 16) & 0xFFFFFFFFFFFFFFF0);
-  strlcpy(v5, Attributes, v4 + 1);
-  __stringp = v5;
-  v6 = "@";
+  v4 = strlen(Attributes);
+  v6 = MEMORY[0x1EEE9AC00](v4, v5);
+  v7 = &__stringp - ((v6 + 16) & 0xFFFFFFFFFFFFFFF0);
+  strlcpy(v7, Attributes, v6 + 1);
+  __stringp = v7;
+  v8 = "@";
   while (1)
   {
-    v7 = strsep(&__stringp, ",");
-    if (!v7)
+    v9 = strsep(&__stringp, ",");
+    if (!v9)
     {
       break;
     }
 
-    v8 = *v7;
-    if (v8 == 82)
+    v10 = *v9;
+    if (v10 == 82)
     {
       *a2 = 1;
     }
 
-    else if (v8 == 84)
+    else if (v10 == 84)
     {
-      v9 = [MEMORY[0x1E695DEF0] dataWithBytes:v7 + 1 length:{strlen(v7), __stringp, v13}];
-      v6 = [v9 bytes];
+      v11 = [MEMORY[0x1E695DEF0] dataWithBytes:v9 + 1 length:{strlen(v9), __stringp, v14}];
+      v8 = [v11 bytes];
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-  return v6;
+  return v8;
 }
 
 id _INClassFromType(uint64_t a1, objc_class *a2)
@@ -1695,66 +1675,50 @@ id _INClassFromType(uint64_t a1, objc_class *a2)
 
   if (v4 == 1)
   {
-    v5 = objc_opt_class();
+    v6 = objc_opt_class();
     goto LABEL_12;
   }
 
   if (v4 >= 4 && *(a1 + 1) == 34 && *(a1 + v4 - 1) == 34)
   {
-    v6 = v11 - ((MEMORY[0x1EEE9AC00]() + 13) & 0xFFFFFFFFFFFFFFF0);
-    strlcpy(v6, (a1 + 2), v7);
-    v8 = strchr(v6, 60);
-    if (!v8)
+    v7 = v11 - ((MEMORY[0x1EEE9AC00](v4, v5) + 13) & 0xFFFFFFFFFFFFFFF0);
+    strlcpy(v7, (a1 + 2), v8);
+    v9 = strchr(v7, 60);
+    if (!v9)
     {
 LABEL_10:
-      v5 = _INLookupNameInModule(v6, a2, &__block_literal_global_91429);
+      v6 = _INLookupNameInModule(v7, a2, &__block_literal_global_91429);
       goto LABEL_12;
     }
 
-    if (v8 != v6)
+    if (v9 != v7)
     {
-      *v8 = 0;
+      *v9 = 0;
       goto LABEL_10;
     }
 
-    v5 = 0;
+    v6 = 0;
   }
 
   else
   {
 LABEL_11:
-    v5 = 0;
+    v6 = 0;
   }
 
 LABEL_12:
-  v9 = *MEMORY[0x1E69E9840];
 
-  return v5;
+  return v6;
 }
 
 id _INLookupNameInModule(char *a1, objc_class *a2, void *a3)
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   v5 = a3;
-  if (!a2)
+  if (!a2 || strchr(a1, 46) || (Name = class_getName(a2), (v9 = strchr(Name, 46)) == 0) || (v10 = v9 - Name, v11 = strlen(a1), MEMORY[0x1EEE9AC00](v11, v12), v14 = v15 - v13, sprintf(v15 - v13, "%.*s.%s", v10, Name, a1), v5[2](v5, v14), (v6 = objc_claimAutoreleasedReturnValue()) == 0))
   {
-    goto LABEL_3;
-  }
-
-  if (strchr(a1, 46))
-  {
-    goto LABEL_3;
-  }
-
-  Name = class_getName(a2);
-  v10 = strchr(Name, 46);
-  if (!v10 || (v11 = v10 - Name, strlen(a1), MEMORY[0x1EEE9AC00](), v13 = v14 - v12, sprintf(v14 - v12, "%.*s.%s", v11, Name, a1), v5[2](v5, v13), (v6 = objc_claimAutoreleasedReturnValue()) == 0))
-  {
-LABEL_3:
     v6 = v5[2](v5, a1);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -1766,15 +1730,13 @@ void _INSetIdProperty(void *a1, const char *a2, void *a3)
   v6 = a1;
   Name = sel_getName(a2);
   v8 = strlen(Name + 3);
-  v9 = MEMORY[0x1EEE9AC00]();
-  v10 = v13 - ((v9 + 16) & 0xFFFFFFFFFFFFFFF0);
-  strlcpy(v10, Name + 3, v9 + 1);
-  *v10 = __tolower(*v10);
-  v10[v8 - 1] = 0;
-  v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v10];
-  [v6 setValue:v5 forProperty:v11];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v10 = MEMORY[0x1EEE9AC00](v8, v9);
+  v11 = v13 - ((v10 + 16) & 0xFFFFFFFFFFFFFFF0);
+  strlcpy(v11, Name + 3, v10 + 1);
+  *v11 = __tolower(*v11);
+  v11[v8 - 1] = 0;
+  v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v11];
+  [v6 setValue:v5 forProperty:v12];
 }
 
 id _INGetIdProperty(void *a1, const char *a2)
@@ -1787,7 +1749,7 @@ id _INGetIdProperty(void *a1, const char *a2)
   return v6;
 }
 
-uint64_t _INPBIntentMetadataReadFrom(void *a1, void *a2)
+uint64_t _INPBIntentMetadataReadFrom(char *a1, void *a2)
 {
   v4 = [a2 position];
   if (v4 >= [a2 length])
@@ -2796,7 +2758,7 @@ LABEL_267:
 
 uint64_t INObjectIsConsideredNil(void *a1, uint64_t a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a1;
   if (!v3)
   {
@@ -2813,7 +2775,7 @@ uint64_t INObjectIsConsideredNil(void *a1, uint64_t a2)
   if (objc_opt_isKindOfClass())
   {
     [v3 doubleValue];
-    if (v7 == 0.0 && (a2 & 1) != 0)
+    if (v6 == 0.0 && (a2 & 1) != 0)
     {
       goto LABEL_3;
     }
@@ -2828,17 +2790,17 @@ uint64_t INObjectIsConsideredNil(void *a1, uint64_t a2)
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v8 = [v3 spokenPhrase];
-    if ([v8 length])
+    v7 = [v3 spokenPhrase];
+    if ([v7 length])
     {
     }
 
     else
     {
-      v9 = [v3 vocabularyIdentifier];
-      v10 = [v9 length];
+      v8 = [v3 vocabularyIdentifier];
+      v9 = [v8 length];
 
-      if (!v10)
+      if (!v9)
       {
         goto LABEL_3;
       }
@@ -2851,17 +2813,17 @@ uint64_t INObjectIsConsideredNil(void *a1, uint64_t a2)
     goto LABEL_18;
   }
 
-  v11 = [v3 displayString];
-  if ([v11 length])
+  v10 = [v3 displayString];
+  if ([v10 length])
   {
 
     goto LABEL_18;
   }
 
-  v12 = [v3 identifier];
-  v13 = [v12 length];
+  v11 = [v3 identifier];
+  v12 = [v11 length];
 
-  if (!v13)
+  if (!v12)
   {
 LABEL_3:
     v4 = 1;
@@ -2881,38 +2843,38 @@ LABEL_18:
     goto LABEL_3;
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
-  v14 = v3;
-  v15 = [v14 countByEnumeratingWithState:&v19 objects:v23 count:16];
-  if (v15)
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v13 = v3;
+  v14 = [v13 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  if (v14)
   {
-    v16 = v15;
-    v17 = *v20;
+    v15 = v14;
+    v16 = *v19;
     while (2)
     {
-      v18 = 0;
+      v17 = 0;
       do
       {
-        if (*v20 != v17)
+        if (*v19 != v16)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v13);
         }
 
-        if (!INObjectIsConsideredNil(*(*(&v19 + 1) + 8 * v18), a2))
+        if (!INObjectIsConsideredNil(*(*(&v18 + 1) + 8 * v17), a2))
         {
           v4 = 0;
           goto LABEL_31;
         }
 
-        ++v18;
+        ++v17;
       }
 
-      while (v16 != v18);
-      v16 = [v14 countByEnumeratingWithState:&v19 objects:v23 count:16];
-      if (v16)
+      while (v15 != v17);
+      v15 = [v13 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      if (v15)
       {
         continue;
       }
@@ -2925,7 +2887,6 @@ LABEL_18:
 LABEL_31:
 
 LABEL_4:
-  v5 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -3003,33 +2964,33 @@ LABEL_5:
 
 id INIntentSlotDescriptionsWithCodable(void *a1)
 {
-  v67[4] = *MEMORY[0x1E69E9840];
+  v66[4] = *MEMORY[0x1E69E9840];
   v1 = a1;
-  v56 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v44 = v1;
+  v55 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v43 = v1;
   v2 = [v1 _objectDescription];
+  v60 = 0u;
   v61 = 0u;
   v62 = 0u;
   v63 = 0u;
-  v64 = 0u;
   obj = [v2 attributes];
-  v3 = [obj countByEnumeratingWithState:&v61 objects:v65 count:16];
+  v3 = [obj countByEnumeratingWithState:&v60 objects:v64 count:16];
   if (v3)
   {
     v4 = v3;
-    v57 = *v62;
+    v56 = *v61;
     do
     {
       v5 = 0;
-      v45 = v4;
+      v44 = v4;
       do
       {
-        if (*v62 != v57)
+        if (*v61 != v56)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v61 + 1) + 8 * v5);
+        v6 = *(*(&v60 + 1) + 8 * v5);
         v7 = [v2 attributes];
         v8 = [v7 objectForKey:v6];
 
@@ -3040,20 +3001,20 @@ id INIntentSlotDescriptionsWithCodable(void *a1)
         v13 = [v11 propertyName];
         if ([v13 length])
         {
-          v59 = [v11 valueType];
-          v60 = v12;
+          v58 = [v11 valueType];
+          v59 = v12;
           if ([v11 supportsResolution])
           {
             v14 = MEMORY[0x1E696AEC0];
             v15 = [v11 propertyName];
             v16 = [v15 if_ASCIIStringByUppercasingFirstCharacter];
             v17 = [v14 stringWithFormat:@"resolve%@For%@:withCompletion:", v16, v12];
-            v58 = NSSelectorFromString(v17);
+            v57 = NSSelectorFromString(v17);
           }
 
           else
           {
-            v58 = 0;
+            v57 = 0;
           }
 
           v19 = [v11 supportsDynamicEnumeration];
@@ -3062,40 +3023,40 @@ id INIntentSlotDescriptionsWithCodable(void *a1)
           if (v19)
           {
             v22 = MEMORY[0x1E696AEC0];
-            v54 = [v11 propertyName];
-            v53 = [v54 if_ASCIIStringByUppercasingFirstCharacter];
-            v55 = v9;
-            v52 = [v22 stringWithFormat:@"provide%@OptionsCollectionFor%@:searchTerm:withCompletion:", v53, v60];
-            v67[0] = v52;
+            v53 = [v11 propertyName];
+            v52 = [v53 if_ASCIIStringByUppercasingFirstCharacter];
+            v54 = v9;
+            v51 = [v22 stringWithFormat:@"provide%@OptionsCollectionFor%@:searchTerm:withCompletion:", v52, v59];
+            v66[0] = v51;
             v23 = MEMORY[0x1E696AEC0];
-            v51 = [v11 propertyName];
-            v50 = [v51 if_ASCIIStringByUppercasingFirstCharacter];
-            v49 = [v23 stringWithFormat:@"provide%@OptionsCollectionFor%@:withCompletion:", v50, v60];
-            v67[1] = v49;
+            v50 = [v11 propertyName];
+            v49 = [v50 if_ASCIIStringByUppercasingFirstCharacter];
+            v48 = [v23 stringWithFormat:@"provide%@OptionsCollectionFor%@:withCompletion:", v49, v59];
+            v66[1] = v48;
             v24 = MEMORY[0x1E696AEC0];
-            v48 = [v11 propertyName];
-            v47 = [v48 if_ASCIIStringByUppercasingFirstCharacter];
-            v25 = [v24 stringWithFormat:@"provide%@OptionsFor%@:searchTerm:withCompletion:", v47, v60];
-            v67[2] = v25;
+            v47 = [v11 propertyName];
+            v46 = [v47 if_ASCIIStringByUppercasingFirstCharacter];
+            v25 = [v24 stringWithFormat:@"provide%@OptionsFor%@:searchTerm:withCompletion:", v46, v59];
+            v66[2] = v25;
             v26 = MEMORY[0x1E696AEC0];
             v27 = [v11 propertyName];
             v28 = [v27 if_ASCIIStringByUppercasingFirstCharacter];
-            [v26 stringWithFormat:@"provide%@OptionsFor%@:withCompletion:", v28, v60];
+            [v26 stringWithFormat:@"provide%@OptionsFor%@:withCompletion:", v28, v59];
             v30 = v29 = v2;
-            v67[3] = v30;
-            v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v67 count:4];
+            v66[3] = v30;
+            v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v66 count:4];
 
             v2 = v29;
-            v4 = v45;
+            v4 = v44;
 
             v31 = MEMORY[0x1E696AEC0];
             v32 = [v11 propertyName];
             v33 = [v32 if_ASCIIStringByUppercasingFirstCharacter];
-            v34 = [v31 stringWithFormat:@"default%@For%@:", v33, v60];
-            v66 = v34;
-            v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v66 count:1];
+            v34 = [v31 stringWithFormat:@"default%@For%@:", v33, v59];
+            v65 = v34;
+            v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v65 count:1];
 
-            v9 = v55;
+            v9 = v54;
           }
 
           v35 = [INIntentSlotDescription alloc];
@@ -3110,9 +3071,9 @@ id INIntentSlotDescriptionsWithCodable(void *a1)
             v37 = qword_18EE5F2A8[v36];
           }
 
-          v18 = -[INIntentSlotDescription initWithName:tag:facadePropertyName:dataPropertyName:isExtended:isPrivate:valueType:valueStyle:codableAttribute:defaultValueSelectorStrings:provideOptionsSelectorStrings:resolutionResultClass:resolveSelectors:](v35, "initWithName:tag:facadePropertyName:dataPropertyName:isExtended:isPrivate:valueType:valueStyle:codableAttribute:defaultValueSelectorStrings:provideOptionsSelectorStrings:resolutionResultClass:resolveSelectors:", v13, v9, v13, v13, 0, 0, v59, v37, v11, v21, v20, [v11 resolutionResultClass], v58, 0);
+          v18 = -[INIntentSlotDescription initWithName:tag:facadePropertyName:dataPropertyName:isExtended:isPrivate:valueType:valueStyle:codableAttribute:defaultValueSelectorStrings:provideOptionsSelectorStrings:resolutionResultClass:resolveSelectors:](v35, "initWithName:tag:facadePropertyName:dataPropertyName:isExtended:isPrivate:valueType:valueStyle:codableAttribute:defaultValueSelectorStrings:provideOptionsSelectorStrings:resolutionResultClass:resolveSelectors:", v13, v9, v13, v13, 0, 0, v58, v37, v11, v21, v20, [v11 resolutionResultClass], v57, 0);
 
-          v12 = v60;
+          v12 = v59;
         }
 
         else
@@ -3128,21 +3089,20 @@ id INIntentSlotDescriptionsWithCodable(void *a1)
         if (v39)
         {
           v40 = [(INIntentSlotDescription *)v18 name];
-          [v56 setObject:v18 forKeyedSubscript:v40];
+          [v55 setObject:v18 forKeyedSubscript:v40];
         }
 
         ++v5;
       }
 
       while (v4 != v5);
-      v4 = [obj countByEnumeratingWithState:&v61 objects:v65 count:16];
+      v4 = [obj countByEnumeratingWithState:&v60 objects:v64 count:16];
     }
 
     while (v4);
   }
 
-  v41 = [v56 copy];
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = [v55 copy];
 
   return v41;
 }
@@ -3430,27 +3390,27 @@ LABEL_34:
 
 id INIntentSlotValueTransformFromBool(void *a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v1 = [a1 values];
-  v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v11;
+    v4 = *v10;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v11 != v4)
+        if (*v10 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = INIntentSlotValueTransformFromBoolValue(*(*(&v10 + 1) + 8 * i));
+        v6 = INIntentSlotValueTransformFromBoolValue(*(*(&v9 + 1) + 8 * i));
         if (v6)
         {
           v7 = v6;
@@ -3458,7 +3418,7 @@ id INIntentSlotValueTransformFromBool(void *a1)
         }
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v3)
       {
         continue;
@@ -3470,8 +3430,6 @@ id INIntentSlotValueTransformFromBool(void *a1)
 
   v7 = 0;
 LABEL_11:
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -3511,136 +3469,130 @@ uint64_t INPrivacyEntitlementValidateValueMetadata(void *a1)
 
 void _INUntypePropertiesWithCodableDescription(void *a1, void *a2)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v3 = a1;
+  v35 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
-  v40 = 0u;
-  v41 = 0u;
   v4 = [a2 attributes];
   v5 = [v4 allValues];
 
-  v6 = [v5 countByEnumeratingWithState:&v38 objects:v43 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v35 objects:v40 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v39;
-    v9 = 0x1E727A000uLL;
-    v29 = v5;
-    v30 = v3;
-    v28 = *v39;
+    v8 = *v36;
+    v26 = v5;
+    v27 = v3;
+    v25 = *v36;
     do
     {
-      v10 = 0;
-      v31 = v7;
+      v9 = 0;
+      v28 = v7;
       do
       {
-        if (*v39 != v8)
+        if (*v36 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v38 + 1) + 8 * v10);
-        if (v11)
+        v10 = *(*(&v35 + 1) + 8 * v9);
+        if (v10)
         {
-          v12 = *(v9 + 3032);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v13 = [v11 propertyName];
-            v14 = [v11 codableDescription];
-            v32 = v11;
-            v15 = [v11 modifier];
-            v33 = v13;
-            v16 = [v3 valueForKey:v13];
-            v17 = v16;
-            if (v15)
+            v11 = [v10 propertyName];
+            v12 = [v10 codableDescription];
+            v29 = v10;
+            v13 = [v10 modifier];
+            v30 = v11;
+            v14 = [v3 valueForKey:v11];
+            v15 = v14;
+            if (v13)
             {
-              if (v16)
+              if (v14)
               {
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v18 = _INObjectWithTypedObject(v17, v14);
+                  v16 = _INObjectWithTypedObject(v15, v12);
 
-                  [v3 setValue:v18 forKey:v13];
-                  v17 = v18;
+                  [v3 setValue:v16 forKey:v11];
+                  v15 = v16;
                 }
               }
             }
 
-            else if (v16)
+            else if (v14)
             {
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v19 = objc_alloc_init(MEMORY[0x1E695DF70]);
+                v17 = objc_alloc_init(MEMORY[0x1E695DF70]);
+                v31 = 0u;
+                v32 = 0u;
+                v33 = 0u;
                 v34 = 0u;
-                v35 = 0u;
-                v36 = 0u;
-                v37 = 0u;
-                v17 = v17;
-                v20 = [v17 countByEnumeratingWithState:&v34 objects:v42 count:16];
-                if (v20)
+                v15 = v15;
+                v18 = [v15 countByEnumeratingWithState:&v31 objects:v39 count:16];
+                if (v18)
                 {
-                  v21 = v20;
-                  v22 = *v35;
+                  v19 = v18;
+                  v20 = *v32;
                   do
                   {
-                    for (i = 0; i != v21; ++i)
+                    for (i = 0; i != v19; ++i)
                     {
-                      if (*v35 != v22)
+                      if (*v32 != v20)
                       {
-                        objc_enumerationMutation(v17);
+                        objc_enumerationMutation(v15);
                       }
 
-                      v24 = *(*(&v34 + 1) + 8 * i);
-                      if (v24 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+                      v22 = *(*(&v31 + 1) + 8 * i);
+                      if (v22 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                       {
-                        v25 = _INObjectWithTypedObject(v24, v14);
-                        [v19 addObject:v25];
+                        v23 = _INObjectWithTypedObject(v22, v12);
+                        [v17 addObject:v23];
                       }
 
                       else
                       {
 
-                        [v19 addObject:v24];
+                        [v17 addObject:v22];
                       }
                     }
 
-                    v21 = [v17 countByEnumeratingWithState:&v34 objects:v42 count:16];
+                    v19 = [v15 countByEnumeratingWithState:&v31 objects:v39 count:16];
                   }
 
-                  while (v21);
+                  while (v19);
                 }
 
-                v26 = [v19 copy];
-                v3 = v30;
-                [v30 setValue:v26 forKey:v33];
+                v24 = [v17 copy];
+                v3 = v27;
+                [v27 setValue:v24 forKey:v30];
 
-                v8 = v28;
-                v5 = v29;
-                v7 = v31;
+                v8 = v25;
+                v5 = v26;
+                v7 = v28;
               }
             }
 
-            v9 = 0x1E727A000;
-
-            v11 = v32;
+            v10 = v29;
           }
         }
 
-        ++v10;
+        ++v9;
       }
 
-      while (v10 != v7);
-      v7 = [v5 countByEnumeratingWithState:&v38 objects:v43 count:16];
+      while (v9 != v7);
+      v7 = [v5 countByEnumeratingWithState:&v35 objects:v40 count:16];
     }
 
     while (v7);
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 id INIntentSlotValueTransformFromImageValue(void *a1)
@@ -3713,68 +3665,50 @@ LABEL_16:
 
 id INCodableDescriptionClassFromType(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if ((a1 - 1) >= 5)
   {
-    v3 = INSiriLogContextIntents;
+    v2 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_FAULT))
     {
-      v8 = MEMORY[0x1E696AD98];
-      v9 = v3;
-      v10 = [v8 numberWithInteger:a1];
-      v11 = 136315394;
-      v12 = "INCodableDescriptionClassFromType";
-      v13 = 2112;
-      v14 = v10;
-      _os_log_fault_impl(&dword_18E991000, v9, OS_LOG_TYPE_FAULT, "%s Unknown type for codable description of type: %@", &v11, 0x16u);
+      v5 = MEMORY[0x1E696AD98];
+      v6 = v2;
+      v7 = [v5 numberWithInteger:a1];
+      v8 = 136315394;
+      v9 = "INCodableDescriptionClassFromType";
+      v10 = 2112;
+      v11 = v7;
+      _os_log_fault_impl(&dword_18E991000, v6, OS_LOG_TYPE_FAULT, "%s Unknown type for codable description of type: %@", &v8, 0x16u);
     }
-
-    v1 = off_1E727ABE8;
   }
 
-  else
-  {
-    v1 = off_1E7288A18[a1 - 1];
-  }
+  v3 = objc_opt_class();
 
-  v4 = *v1;
-  v5 = objc_opt_class();
-  v6 = *MEMORY[0x1E69E9840];
-
-  return v5;
+  return v3;
 }
 
 id INCodableAttributeClassFromType(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if ((a1 - 1) >= 5)
   {
-    v3 = INSiriLogContextIntents;
+    v2 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_FAULT))
     {
-      v8 = MEMORY[0x1E696AD98];
-      v9 = v3;
-      v10 = [v8 numberWithInteger:a1];
-      v11 = 136315394;
-      v12 = "INCodableAttributeClassFromType";
-      v13 = 2112;
-      v14 = v10;
-      _os_log_fault_impl(&dword_18E991000, v9, OS_LOG_TYPE_FAULT, "%s Unknown type for codable attribute of type: %@", &v11, 0x16u);
+      v5 = MEMORY[0x1E696AD98];
+      v6 = v2;
+      v7 = [v5 numberWithInteger:a1];
+      v8 = 136315394;
+      v9 = "INCodableAttributeClassFromType";
+      v10 = 2112;
+      v11 = v7;
+      _os_log_fault_impl(&dword_18E991000, v6, OS_LOG_TYPE_FAULT, "%s Unknown type for codable attribute of type: %@", &v8, 0x16u);
     }
-
-    v1 = off_1E727ABA8;
   }
 
-  else
-  {
-    v1 = off_1E7288A40[a1 - 1];
-  }
+  v3 = objc_opt_class();
 
-  v4 = *v1;
-  v5 = objc_opt_class();
-  v6 = *MEMORY[0x1E69E9840];
-
-  return v5;
+  return v3;
 }
 
 id INCodableAttributeMetadataTypeNameWithTypeName(void *a1)
@@ -3858,34 +3792,34 @@ _INPBDoubleValue *INIntentSlotValueTransformToDoubleValue(void *a1)
 
 INCustomObject *_INObjectWithTypedObject(void *a1, void *a2)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   v5 = [[INCustomObject alloc] initWithObject:v3 codableDescription:v4];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v25 = v4;
+  v24 = v4;
   v6 = [v4 attributes];
   v7 = [v6 allValues];
 
   obj = v7;
-  v8 = [v7 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v30;
+    v10 = *v29;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v30 != v10)
+        if (*v29 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v29 + 1) + 8 * i);
+        v12 = *(*(&v28 + 1) + 8 * i);
         v13 = [v12 propertyName];
         v14 = [v3 valueForKey:v13];
         v15 = v12;
@@ -3927,14 +3861,14 @@ INCustomObject *_INObjectWithTypedObject(void *a1, void *a2)
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v27[0] = MEMORY[0x1E69E9820];
-            v27[1] = 3221225472;
-            v27[2] = ___INObjectWithTypedObject_block_invoke;
-            v27[3] = &unk_1E7286E18;
-            v28 = v19;
-            v21 = [v14 if_flatMap:v27];
+            v26[0] = MEMORY[0x1E69E9820];
+            v26[1] = 3221225472;
+            v26[2] = ___INObjectWithTypedObject_block_invoke;
+            v26[3] = &unk_1E7286E18;
+            v27 = v19;
+            v21 = [v14 if_flatMap:v26];
 
-            v14 = v28;
+            v14 = v27;
           }
 
           else
@@ -3958,20 +3892,18 @@ LABEL_20:
         [(INCustomObject *)v5 setValue:v14 forKey:v13];
       }
 
-      v9 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v9 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v9);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 void __INCodableAttributeMetadataTypeNameWithTypeName_block_invoke()
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v0 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v1 = INCodableAttributeMetadataTypeNameWithTypeName_metadataTypeToAttributeNameMapping;
   INCodableAttributeMetadataTypeNameWithTypeName_metadataTypeToAttributeNameMapping = v0;
@@ -3979,27 +3911,27 @@ void __INCodableAttributeMetadataTypeNameWithTypeName_block_invoke()
   v2 = +[INSchema _supportedTypesDictionary];
   v3 = [v2 allValues];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
-        v10 = [v9 objectForKeyedSubscript:{@"MetadataTypeName", v14}];
+        v9 = *(*(&v13 + 1) + 8 * i);
+        v10 = [v9 objectForKeyedSubscript:{@"MetadataTypeName", v13}];
         if (v10)
         {
           v11 = INCodableAttributeMetadataTypeNameWithTypeName_metadataTypeToAttributeNameMapping;
@@ -4008,13 +3940,11 @@ void __INCodableAttributeMetadataTypeNameWithTypeName_block_invoke()
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __INCodableAttributeMetadataClassWithMetadataTypeName_block_invoke()
@@ -4068,27 +3998,27 @@ void __INCodableAttributeMetadataClassWithMetadataTypeName_block_invoke_2(uint64
 
 id INIntentSlotValueTransformFromString(void *a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v1 = [a1 values];
-  v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v11;
+    v4 = *v10;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v11 != v4)
+        if (*v10 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = INIntentSlotValueTransformFromStringValue(*(*(&v10 + 1) + 8 * i));
+        v6 = INIntentSlotValueTransformFromStringValue(*(*(&v9 + 1) + 8 * i));
         if (v6)
         {
           v7 = v6;
@@ -4096,7 +4026,7 @@ id INIntentSlotValueTransformFromString(void *a1)
         }
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v3)
       {
         continue;
@@ -4108,8 +4038,6 @@ id INIntentSlotValueTransformFromString(void *a1)
 
   v7 = 0;
 LABEL_11:
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -4410,27 +4338,27 @@ LABEL_15:
 
 id INIntentSlotValueTransformFromDouble(void *a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v1 = [a1 values];
-  v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v11;
+    v4 = *v10;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v11 != v4)
+        if (*v10 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = INIntentSlotValueTransformFromDoubleValue(*(*(&v10 + 1) + 8 * i));
+        v6 = INIntentSlotValueTransformFromDoubleValue(*(*(&v9 + 1) + 8 * i));
         if (v6)
         {
           v7 = v6;
@@ -4438,7 +4366,7 @@ id INIntentSlotValueTransformFromDouble(void *a1)
         }
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v3)
       {
         continue;
@@ -4450,8 +4378,6 @@ id INIntentSlotValueTransformFromDouble(void *a1)
 
   v7 = 0;
 LABEL_11:
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -4858,34 +4784,34 @@ uint64_t INCodablePlacemarkAttributeMetadataTypeWithString(void *a1)
 
 id _INParameterCombinationsWithDictionary(void *a1, void *a2, void *a3)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v5 = a1;
-  v28 = a2;
-  v27 = a3;
+  v27 = a2;
+  v26 = a3;
   v6 = [MEMORY[0x1E695DF90] dictionary];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  v29 = v5;
+  v28 = v5;
   obj = [v5 allKeys];
-  v7 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v7 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v31;
+    v9 = *v30;
     do
     {
       v10 = 0;
       do
       {
-        if (*v31 != v9)
+        if (*v30 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v30 + 1) + 8 * v10);
-        v12 = [v29 objectForKeyedSubscript:v11];
+        v11 = *(*(&v29 + 1) + 8 * v10);
+        v12 = [v28 objectForKeyedSubscript:v11];
         v13 = MEMORY[0x1E695DFD8];
         v14 = [v11 stringByReplacingOccurrencesOfString:@" " withString:&stru_1F01E0850];
         v15 = [v14 componentsSeparatedByString:{@", "}];
@@ -4902,8 +4828,8 @@ id _INParameterCombinationsWithDictionary(void *a1, void *a2, void *a3)
         v19 = [v12 objectForKeyedSubscript:@"INIntentParameterCombinationUnsupportedPlatforms"];
         [(INParameterCombination *)v18 updateWithDictionary:v12];
         v20 = [INCodableLocalizationTable alloc];
-        v21 = [v28 stringByDeletingPathExtension];
-        v22 = [(INCodableLocalizationTable *)v20 initWithBundleIdentifier:v27 tableName:v21];
+        v21 = [v27 stringByDeletingPathExtension];
+        v22 = [(INCodableLocalizationTable *)v20 initWithBundleIdentifier:v26 tableName:v21];
         [(INParameterCombination *)v18 _setLocalizationTable:v22];
 
         [v6 setObject:v18 forKeyedSubscript:v17];
@@ -4911,14 +4837,13 @@ id _INParameterCombinationsWithDictionary(void *a1, void *a2, void *a3)
       }
 
       while (v8 != v10);
-      v8 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v8 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v8);
   }
 
   v23 = [v6 copy];
-  v24 = *MEMORY[0x1E69E9840];
 
   return v23;
 }
@@ -5085,7 +5010,7 @@ LABEL_6:
 
 _INPBProperty *INIntentSlotValueTransformToProperty(void *a1, void *a2)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   v5 = objc_alloc_init(_INPBProperty);
@@ -5103,30 +5028,30 @@ _INPBProperty *INIntentSlotValueTransformToProperty(void *a1, void *a2)
       [(_INPBIntentSlotValue *)v7 setType:53];
       v10 = v6;
       v11 = objc_alloc_init(_INPBContactList);
+      v37 = 0u;
       v38 = 0u;
       v39 = 0u;
       v40 = 0u;
-      v41 = 0u;
       v12 = v10;
-      v13 = [v12 countByEnumeratingWithState:&v38 objects:v42 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v37 objects:v41 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v39;
+        v15 = *v38;
         do
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v39 != v15)
+            if (*v38 != v15)
             {
               objc_enumerationMutation(v12);
             }
 
-            v17 = INIntentSlotValueTransformToContact(*(*(&v38 + 1) + 8 * i));
+            v17 = INIntentSlotValueTransformToContact(*(*(&v37 + 1) + 8 * i));
             [(_INPBContactList *)v11 addContact:v17];
           }
 
-          v14 = [v12 countByEnumeratingWithState:&v38 objects:v42 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v37 objects:v41 count:16];
         }
 
         while (v14);
@@ -5171,30 +5096,30 @@ LABEL_11:
           [(_INPBIntentSlotValue *)v7 setType:50];
           v21 = v6;
           v11 = objc_alloc_init(_INPBStringList);
+          v37 = 0u;
           v38 = 0u;
           v39 = 0u;
           v40 = 0u;
-          v41 = 0u;
           v12 = v21;
-          v22 = [v12 countByEnumeratingWithState:&v38 objects:v42 count:16];
+          v22 = [v12 countByEnumeratingWithState:&v37 objects:v41 count:16];
           if (v22)
           {
             v23 = v22;
-            v24 = *v39;
+            v24 = *v38;
             do
             {
               for (j = 0; j != v23; ++j)
               {
-                if (*v39 != v24)
+                if (*v38 != v24)
                 {
                   objc_enumerationMutation(v12);
                 }
 
-                v26 = INIntentSlotValueTransformToString(*(*(&v38 + 1) + 8 * j));
+                v26 = INIntentSlotValueTransformToString(*(*(&v37 + 1) + 8 * j));
                 [(_INPBContactList *)v11 addDataString:v26];
               }
 
-              v23 = [v12 countByEnumeratingWithState:&v38 objects:v42 count:16];
+              v23 = [v12 countByEnumeratingWithState:&v37 objects:v41 count:16];
             }
 
             while (v23);
@@ -5227,30 +5152,30 @@ LABEL_11:
             [(_INPBIntentSlotValue *)v7 setType:51];
             v29 = v6;
             v11 = objc_alloc_init(_INPBDoubleList);
+            v37 = 0u;
             v38 = 0u;
             v39 = 0u;
             v40 = 0u;
-            v41 = 0u;
             v12 = v29;
-            v30 = [v12 countByEnumeratingWithState:&v38 objects:v42 count:16];
+            v30 = [v12 countByEnumeratingWithState:&v37 objects:v41 count:16];
             if (v30)
             {
               v31 = v30;
-              v32 = *v39;
+              v32 = *v38;
               do
               {
                 for (k = 0; k != v31; ++k)
                 {
-                  if (*v39 != v32)
+                  if (*v38 != v32)
                   {
                     objc_enumerationMutation(v12);
                   }
 
-                  v34 = INIntentSlotValueTransformToDouble(*(*(&v38 + 1) + 8 * k));
+                  v34 = INIntentSlotValueTransformToDouble(*(*(&v37 + 1) + 8 * k));
                   [(_INPBContactList *)v11 addDataString:v34];
                 }
 
-                v31 = [v12 countByEnumeratingWithState:&v38 objects:v42 count:16];
+                v31 = [v12 countByEnumeratingWithState:&v37 objects:v41 count:16];
               }
 
               while (v31);
@@ -5275,8 +5200,8 @@ LABEL_11:
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             [MEMORY[0x1E696AEC0] stringWithFormat:@"Property of the type of object %@ is not yet supported.", v6];
-            v37 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:objc_claimAutoreleasedReturnValue() userInfo:0];
-            objc_exception_throw(v37);
+            v36 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:objc_claimAutoreleasedReturnValue() userInfo:0];
+            objc_exception_throw(v36);
           }
 
           [(_INPBIntentSlotValue *)v7 setType:6];
@@ -5290,8 +5215,6 @@ LABEL_11:
 LABEL_43:
   [(_INPBProperty *)v5 setPayload:v7];
   [(_INPBProperty *)v5 setRole:v4];
-
-  v35 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -5364,14 +5287,14 @@ void *INInteractionWithTypedInteraction(void *a1)
 
 id INIntentCreate(void *a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   if (v4)
   {
-    v20 = 0;
-    v5 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v4 options:0 error:&v20];
-    v6 = v20;
+    v19 = 0;
+    v5 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v4 options:0 error:&v19];
+    v6 = v19;
     if (v5)
     {
       v7 = INIntentCreateFromDictionary(v3, v5);
@@ -5421,11 +5344,11 @@ id INIntentCreate(void *a1, void *a2)
 
   else
   {
+    v17 = 0;
     v18 = 0;
-    v19 = 0;
-    v12 = INSchemaWithTypeName(v3, &v19, &v18);
-    v11 = v19;
-    v13 = v18;
+    v12 = INSchemaWithTypeName(v3, &v18, &v17);
+    v11 = v18;
+    v13 = v17;
     if (v12)
     {
       v7 = [[INIntent alloc] _initWithIdentifier:0 schema:v12 name:v11 data:v4];
@@ -5441,8 +5364,6 @@ id INIntentCreate(void *a1, void *a2)
 
 LABEL_21:
 LABEL_22:
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -5470,38 +5391,38 @@ id INMessagesDomainGetIntentDescriptionWithName(void *a1)
 
 id INIntentSlotValueTransformToContacts(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (v1)
   {
     v2 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v1, "count")}];
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
     v3 = v1;
-    v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v13;
+      v6 = *v12;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v13 != v6)
+          if (*v12 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = INIntentSlotValueTransformToContact(*(*(&v12 + 1) + 8 * i));
+          v8 = INIntentSlotValueTransformToContact(*(*(&v11 + 1) + 8 * i));
           if (v8)
           {
-            [v2 addObject:{v8, v12}];
+            [v2 addObject:{v8, v11}];
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v5);
@@ -5514,46 +5435,44 @@ id INIntentSlotValueTransformToContacts(void *a1)
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 id INIntentSlotValueTransformFromContacts(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (v1)
   {
     v2 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v1, "count")}];
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
     v3 = v1;
-    v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v13;
+      v6 = *v12;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v13 != v6)
+          if (*v12 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = INIntentSlotValueTransformFromContact(*(*(&v12 + 1) + 8 * i));
+          v8 = INIntentSlotValueTransformFromContact(*(*(&v11 + 1) + 8 * i));
           if (v8)
           {
-            [v2 addObject:{v8, v12}];
+            [v2 addObject:{v8, v11}];
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v5);
@@ -5567,50 +5486,47 @@ id INIntentSlotValueTransformFromContacts(void *a1)
     v9 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 id INIntentSlotValueTransformToDataStrings(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v1, "count")}];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = INIntentSlotValueTransformToDataString(*(*(&v12 + 1) + 8 * i));
+        v8 = INIntentSlotValueTransformToDataString(*(*(&v11 + 1) + 8 * i));
         if (v8)
         {
-          [v2 addObject:{v8, v12}];
+          [v2 addObject:{v8, v11}];
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
 
   v9 = [v2 copy];
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -5687,42 +5603,40 @@ LABEL_9:
 
 id INIntentSlotValueTransformToStrings(void *a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v1, "count")}];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = INIntentSlotValueTransformToString(*(*(&v11 + 1) + 8 * i));
+        v8 = INIntentSlotValueTransformToString(*(*(&v10 + 1) + 8 * i));
         if (v8)
         {
-          [v2 addObject:{v8, v11}];
+          [v2 addObject:{v8, v10}];
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -5840,43 +5754,42 @@ _INPBDateTimeRangeValue *INIntentSlotValueTransformToDateTimeRangeValue(void *a1
 
 id INIntentSlotValueTransformFromDataStrings(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v1, "count")}];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = INIntentSlotValueTransformFromDataString(*(*(&v12 + 1) + 8 * i));
+        v8 = INIntentSlotValueTransformFromDataString(*(*(&v11 + 1) + 8 * i));
         if (v8)
         {
-          [v2 addObject:{v8, v12}];
+          [v2 addObject:{v8, v11}];
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
 
   v9 = [v2 copy];
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -5895,16 +5808,16 @@ id INIntentSlotValueTransformFromStringValue(void *a1)
 
 id INLocalAppBundleIdentifierForIntentBundleIdentifier(void *a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
   {
-    *v24 = 136315394;
-    *&v24[4] = "INLocalAppBundleIdentifierForIntentBundleIdentifier";
-    *&v24[12] = 2112;
-    *&v24[14] = v1;
-    _os_log_impl(&dword_18E991000, v2, OS_LOG_TYPE_INFO, "%s Looking for local app bundle identifier for intent bundle identifier: %@", v24, 0x16u);
+    *v23 = 136315394;
+    *&v23[4] = "INLocalAppBundleIdentifierForIntentBundleIdentifier";
+    *&v23[12] = 2112;
+    *&v23[14] = v1;
+    _os_log_impl(&dword_18E991000, v2, OS_LOG_TYPE_INFO, "%s Looking for local app bundle identifier for intent bundle identifier: %@", v23, 0x16u);
   }
 
   if (!v1 || ![v1 length])
@@ -5921,11 +5834,11 @@ id INLocalAppBundleIdentifierForIntentBundleIdentifier(void *a1)
     v5 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
     {
-      *v24 = 136315394;
-      *&v24[4] = "INLocalAppBundleIdentifierForIntentBundleIdentifier";
-      *&v24[12] = 2112;
-      *&v24[14] = v4;
-      _os_log_impl(&dword_18E991000, v5, OS_LOG_TYPE_INFO, "%s originalBundleProxy is a LSApplicationProxy: %@", v24, 0x16u);
+      *v23 = 136315394;
+      *&v23[4] = "INLocalAppBundleIdentifierForIntentBundleIdentifier";
+      *&v23[12] = 2112;
+      *&v23[14] = v4;
+      _os_log_impl(&dword_18E991000, v5, OS_LOG_TYPE_INFO, "%s originalBundleProxy is a LSApplicationProxy: %@", v23, 0x16u);
     }
 
     goto LABEL_19;
@@ -5945,23 +5858,23 @@ LABEL_19:
     {
       if (v13)
       {
-        *v24 = 136315394;
-        *&v24[4] = "INLocalAppBundleIdentifierForIntentBundleIdentifier";
-        *&v24[12] = 2112;
-        *&v24[14] = v4;
-        _os_log_impl(&dword_18E991000, v12, OS_LOG_TYPE_INFO, "%s Has app proxy but it is not installed: %@", v24, 0x16u);
+        *v23 = 136315394;
+        *&v23[4] = "INLocalAppBundleIdentifierForIntentBundleIdentifier";
+        *&v23[12] = 2112;
+        *&v23[14] = v4;
+        _os_log_impl(&dword_18E991000, v12, OS_LOG_TYPE_INFO, "%s Has app proxy but it is not installed: %@", v23, 0x16u);
         v12 = INSiriLogContextIntents;
       }
 
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        *v24 = 136315650;
-        *&v24[4] = "INLocalAppBundleIdentifierForIntentBundleIdentifier";
-        *&v24[12] = 2112;
-        *&v24[14] = v3;
-        *&v24[22] = 2112;
-        v25 = v4;
-        _os_log_error_impl(&dword_18E991000, v12, OS_LOG_TYPE_ERROR, "%s Didn't find any installed apps for originalBundleProxy: %@, appProxy: %@; returning nil", v24, 0x20u);
+        *v23 = 136315650;
+        *&v23[4] = "INLocalAppBundleIdentifierForIntentBundleIdentifier";
+        *&v23[12] = 2112;
+        *&v23[14] = v3;
+        *&v23[22] = 2112;
+        v24 = v4;
+        _os_log_error_impl(&dword_18E991000, v12, OS_LOG_TYPE_ERROR, "%s Didn't find any installed apps for originalBundleProxy: %@, appProxy: %@; returning nil", v23, 0x20u);
       }
 
       v6 = 0;
@@ -5975,10 +5888,10 @@ LABEL_19:
 
     v14 = v12;
     v15 = [v4 bundleIdentifier];
-    *v24 = 136315394;
-    *&v24[4] = "INLocalAppBundleIdentifierForIntentBundleIdentifier";
-    *&v24[12] = 2114;
-    *&v24[14] = v15;
+    *v23 = 136315394;
+    *&v23[4] = "INLocalAppBundleIdentifierForIntentBundleIdentifier";
+    *&v23[12] = 2114;
+    *&v23[14] = v15;
     v16 = "%s Original app (with bundleID=%{public}@) is installed; choosing that";
     goto LABEL_22;
   }
@@ -5986,20 +5899,20 @@ LABEL_19:
   v7 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
   {
-    *v24 = 136315138;
-    *&v24[4] = "INLocalAppBundleIdentifierForIntentBundleIdentifier";
-    _os_log_impl(&dword_18E991000, v7, OS_LOG_TYPE_INFO, "%s originalBundleProxy is a LSPlugInKitProxy", v24, 0xCu);
+    *v23 = 136315138;
+    *&v23[4] = "INLocalAppBundleIdentifierForIntentBundleIdentifier";
+    _os_log_impl(&dword_18E991000, v7, OS_LOG_TYPE_INFO, "%s originalBundleProxy is a LSPlugInKitProxy", v23, 0xCu);
   }
 
   v4 = _INContainingBundleProxyWithBundleProxy(v3);
   v8 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
   {
-    *v24 = 136315394;
-    *&v24[4] = "INLocalAppBundleIdentifierForIntentBundleIdentifier";
-    *&v24[12] = 2112;
-    *&v24[14] = v4;
-    _os_log_impl(&dword_18E991000, v8, OS_LOG_TYPE_INFO, "%s Containing bundle proxy: %@", v24, 0x16u);
+    *v23 = 136315394;
+    *&v23[4] = "INLocalAppBundleIdentifierForIntentBundleIdentifier";
+    *&v23[12] = 2112;
+    *&v23[14] = v4;
+    _os_log_impl(&dword_18E991000, v8, OS_LOG_TYPE_INFO, "%s Containing bundle proxy: %@", v23, 0x16u);
   }
 
   objc_opt_class();
@@ -6009,46 +5922,46 @@ LABEL_19:
     v9 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
     {
-      *v24 = 136315394;
-      *&v24[4] = "INLocalAppBundleIdentifierForIntentBundleIdentifier";
-      *&v24[12] = 2112;
-      *&v24[14] = v4;
-      _os_log_impl(&dword_18E991000, v9, OS_LOG_TYPE_INFO, "%s containing bundle proxy is a LSApplicationProxy: %@", v24, 0x16u);
+      *v23 = 136315394;
+      *&v23[4] = "INLocalAppBundleIdentifierForIntentBundleIdentifier";
+      *&v23[12] = 2112;
+      *&v23[14] = v4;
+      _os_log_impl(&dword_18E991000, v9, OS_LOG_TYPE_INFO, "%s containing bundle proxy is a LSApplicationProxy: %@", v23, 0x16u);
     }
 
     goto LABEL_19;
   }
 
-  v20 = INSiriLogContextIntents;
-  v21 = os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO);
+  v19 = INSiriLogContextIntents;
+  v20 = os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO);
   if (!v4)
   {
-    if (v21)
+    if (v20)
     {
-      v22 = v20;
-      v23 = [0 bundleIdentifier];
-      *v24 = 136315394;
-      *&v24[4] = "INLocalAppBundleIdentifierForIntentBundleIdentifier";
-      *&v24[12] = 2114;
-      *&v24[14] = v23;
-      _os_log_impl(&dword_18E991000, v22, OS_LOG_TYPE_INFO, "%s Original bundle proxy (with bundleID=%{public}@) is not app and containingBundleProxy is nil but it still exists; choosing that", v24, 0x16u);
+      v21 = v19;
+      v22 = [0 bundleIdentifier];
+      *v23 = 136315394;
+      *&v23[4] = "INLocalAppBundleIdentifierForIntentBundleIdentifier";
+      *&v23[12] = 2114;
+      *&v23[14] = v22;
+      _os_log_impl(&dword_18E991000, v21, OS_LOG_TYPE_INFO, "%s Original bundle proxy (with bundleID=%{public}@) is not app and containingBundleProxy is nil but it still exists; choosing that", v23, 0x16u);
     }
 
     v17 = v3;
     goto LABEL_24;
   }
 
-  if (v21)
+  if (v20)
   {
-    v14 = v20;
+    v14 = v19;
     v15 = [v4 bundleIdentifier];
-    *v24 = 136315394;
-    *&v24[4] = "INLocalAppBundleIdentifierForIntentBundleIdentifier";
-    *&v24[12] = 2114;
-    *&v24[14] = v15;
+    *v23 = 136315394;
+    *&v23[4] = "INLocalAppBundleIdentifierForIntentBundleIdentifier";
+    *&v23[12] = 2114;
+    *&v23[14] = v15;
     v16 = "%s Containing bundle proxy is not app (with bundleID=%{public}@) but it still exists; choosing that";
 LABEL_22:
-    _os_log_impl(&dword_18E991000, v14, OS_LOG_TYPE_INFO, v16, v24, 0x16u);
+    _os_log_impl(&dword_18E991000, v14, OS_LOG_TYPE_INFO, v16, v23, 0x16u);
   }
 
 LABEL_23:
@@ -6058,12 +5971,11 @@ LABEL_24:
 LABEL_30:
 
 LABEL_31:
-  v18 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
-uint64_t _INPBSearchForMessagesIntentReadFrom(void *a1, void *a2)
+uint64_t _INPBSearchForMessagesIntentReadFrom(char *a1, void *a2)
 {
   v4 = [a2 position];
   if (v4 < [a2 length])
@@ -6892,81 +6804,81 @@ uint64_t __INEnumerateObjectsInIntentSlotComposing_block_invoke(uint64_t a1)
 
 uint64_t INEnumerateObjectsInIntentSlotComposing(void *a1, void *a2)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   obj = [v3 intentSlotDescriptions];
-  v5 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+  v5 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (v5)
   {
-    v21 = 0;
-    v6 = *v36;
-    v19 = *v36;
-    v20 = v3;
+    v20 = 0;
+    v6 = *v35;
+    v18 = *v35;
+    v19 = v3;
     do
     {
       v7 = 0;
-      v22 = v5;
+      v21 = v5;
       do
       {
-        if (*v36 != v6)
+        if (*v35 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = [*(*(&v35 + 1) + 8 * v7) facadePropertyName];
-        v31 = 0;
-        v32 = &v31;
-        v33 = 0x2020000000;
-        v34 = 0;
-        v28[0] = MEMORY[0x1E69E9820];
-        v28[1] = 3221225472;
-        v28[2] = __INEnumerateObjectsInIntentSlotComposing_block_invoke;
-        v28[3] = &unk_1E727FE38;
-        v30 = &v31;
-        v29 = v4;
-        v9 = MEMORY[0x193AD7780](v28);
+        v8 = [*(*(&v34 + 1) + 8 * v7) facadePropertyName];
+        v30 = 0;
+        v31 = &v30;
+        v32 = 0x2020000000;
+        v33 = 0;
+        v27[0] = MEMORY[0x1E69E9820];
+        v27[1] = 3221225472;
+        v27[2] = __INEnumerateObjectsInIntentSlotComposing_block_invoke;
+        v27[3] = &unk_1E727FE38;
+        v29 = &v30;
+        v28 = v4;
+        v9 = MEMORY[0x193AD7780](v27);
         v10 = [v3 valueForKey:v8];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
           v11 = v10;
+          v23 = 0u;
           v24 = 0u;
           v25 = 0u;
           v26 = 0u;
-          v27 = 0u;
           v12 = v11;
-          v13 = [v12 countByEnumeratingWithState:&v24 objects:v39 count:16];
+          v13 = [v12 countByEnumeratingWithState:&v23 objects:v38 count:16];
           v14 = v4;
           if (v13)
           {
-            v15 = *v25;
+            v15 = *v24;
             do
             {
               for (i = 0; i != v13; ++i)
               {
-                if (*v25 != v15)
+                if (*v24 != v15)
                 {
                   objc_enumerationMutation(v12);
                 }
 
-                v9[2](v9, *(*(&v24 + 1) + 8 * i));
+                v9[2](v9, *(*(&v23 + 1) + 8 * i));
               }
 
-              v13 = [v12 countByEnumeratingWithState:&v24 objects:v39 count:16];
+              v13 = [v12 countByEnumeratingWithState:&v23 objects:v38 count:16];
             }
 
             while (v13);
           }
 
           v4 = v14;
-          v6 = v19;
-          v3 = v20;
-          v5 = v22;
+          v6 = v18;
+          v3 = v19;
+          v5 = v21;
         }
 
         else
@@ -6974,18 +6886,18 @@ uint64_t INEnumerateObjectsInIntentSlotComposing(void *a1, void *a2)
           (v9)[2](v9, v10);
         }
 
-        if (*(v32 + 24) == 1)
+        if (*(v31 + 24) == 1)
         {
           [v3 setValue:v10 forKey:v8];
-          v21 = 1;
+          v20 = 1;
         }
 
-        _Block_object_dispose(&v31, 8);
+        _Block_object_dispose(&v30, 8);
         ++v7;
       }
 
       while (v7 != v5);
-      v5 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v5 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
     while (v5);
@@ -6993,11 +6905,17 @@ uint64_t INEnumerateObjectsInIntentSlotComposing(void *a1, void *a2)
 
   else
   {
-    v21 = 0;
+    v20 = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-  return v21 & 1;
+  return v20 & 1;
+}
+
+void sub_18E9AA6E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 id _INEnumerableValueProcessingBlock(uint64_t a1, void *a2)
@@ -7090,43 +7008,42 @@ LABEL_10:
 
 id INIntentSlotValueTransformFromStrings(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v1, "count")}];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = INIntentSlotValueTransformFromString(*(*(&v12 + 1) + 8 * i));
+        v8 = INIntentSlotValueTransformFromString(*(*(&v11 + 1) + 8 * i));
         if (v8)
         {
-          [v2 addObject:{v8, v12}];
+          [v2 addObject:{v8, v11}];
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
 
   v9 = [v2 copy];
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -7178,27 +7095,27 @@ uint64_t *INMessageAttributeOptionsAddBackingType(uint64_t *result, int a2)
 
 id INIntentSlotValueTransformFromDateTimeRange(void *a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v1 = [a1 values];
-  v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v11;
+    v4 = *v10;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v11 != v4)
+        if (*v10 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = INIntentSlotValueTransformFromDateTimeRangeValue(*(*(&v10 + 1) + 8 * i));
+        v6 = INIntentSlotValueTransformFromDateTimeRangeValue(*(*(&v9 + 1) + 8 * i));
         if (v6)
         {
           v7 = v6;
@@ -7206,7 +7123,7 @@ id INIntentSlotValueTransformFromDateTimeRange(void *a1)
         }
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v3)
       {
         continue;
@@ -7219,21 +7136,19 @@ id INIntentSlotValueTransformFromDateTimeRange(void *a1)
   v7 = 0;
 LABEL_11:
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
-void sub_18E9AB768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18E9AB768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18E9ABA7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18E9ABA7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7361,7 +7276,7 @@ id INIntentSlotValueTransformFromDataString(void *a1)
     v7 = [v1 pronunciationHint];
     v8 = [v7 _intents_decodeFromProto];
     v9 = [v1 alternatives];
-    v10 = INIntentSlotValueTransformFromDataStrings();
+    v10 = INIntentSlotValueTransformFromDataStrings(v9);
     v11 = [(INSpeakableString *)v3 _initWithVocabularyIdentifier:v4 spokenPhrase:v6 pronunciationHint:v8 alternativeMatches:v10];
 
     if (v2)
@@ -7542,7 +7457,7 @@ id INMessagesDomainGetIntentResponseDescriptionWithName(void *a1)
   return v2;
 }
 
-uint64_t _INPBMessageReadFrom(void *a1, void *a2)
+uint64_t _INPBMessageReadFrom(char *a1, void *a2)
 {
   v4 = a2;
   while (2)

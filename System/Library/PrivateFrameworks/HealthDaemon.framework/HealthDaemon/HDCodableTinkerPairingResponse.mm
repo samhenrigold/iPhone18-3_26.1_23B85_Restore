@@ -184,18 +184,28 @@ LABEL_9:
   v8 = fromCopy[1];
   if (error)
   {
-    if (v8)
+    if (!v8)
     {
-      [(HDCodableError *)error mergeFrom:?];
+      goto LABEL_15;
     }
+
+    error = [(HDCodableError *)error mergeFrom:?];
   }
 
-  else if (v8)
+  else
   {
-    [(HDCodableTinkerPairingResponse *)self setError:?];
+    if (!v8)
+    {
+      goto LABEL_15;
+    }
+
+    error = [(HDCodableTinkerPairingResponse *)self setError:?];
   }
 
-  MEMORY[0x2821F96F8]();
+  fromCopy = v9;
+LABEL_15:
+
+  MEMORY[0x2821F96F8](error, fromCopy);
 }
 
 @end

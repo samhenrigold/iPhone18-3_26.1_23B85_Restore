@@ -54,7 +54,7 @@
 
 - (void)recordFetchedBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -90,7 +90,7 @@
 
 - (void)recordMatchedBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -126,7 +126,7 @@
 
 - (void)ckSignpostBegin
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   if (self)
   {
     signpost = self->super.super._signpost;
@@ -179,28 +179,26 @@
       v36 = CKStringForDiscretionaryNetworkBehavior(v35);
       v39 = objc_msgSend_qualityOfService(self, v37, v38);
       v41 = CKStringForQOS(v39, v40);
-      v43 = 138413570;
-      v44 = v17;
-      v45 = 2112;
-      v46 = v20;
-      v47 = 2112;
-      v48 = v26;
-      v49 = 2114;
-      v50 = v29;
-      v51 = 2114;
-      v52 = v36;
-      v53 = 2114;
-      v54 = v41;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKQueryOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v43, 0x3Eu);
+      v42 = 138413570;
+      v43 = v17;
+      v44 = 2112;
+      v45 = v20;
+      v46 = 2112;
+      v47 = v26;
+      v48 = 2114;
+      v49 = v29;
+      v50 = 2114;
+      v51 = v36;
+      v52 = 2114;
+      v53 = v41;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKQueryOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v42, 0x3Eu);
     }
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (void)queryCompletionBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -265,7 +263,7 @@
 - (void)setRecordFetchedBlock:(void *)recordFetchedBlock
 {
   v6 = recordFetchedBlock;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -297,7 +295,7 @@ LABEL_9:
 - (void)setRecordMatchedBlock:(void *)recordMatchedBlock
 {
   v6 = recordMatchedBlock;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -329,7 +327,7 @@ LABEL_9:
 - (void)setQueryCompletionBlockIVar:(id)var
 {
   varCopy = var;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -361,7 +359,7 @@ LABEL_9:
 - (void)setQueryCursorFetchedBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -392,7 +390,7 @@ LABEL_9:
 
 - (id)queryCursorFetchedBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -428,7 +426,7 @@ LABEL_9:
 
 - (void)ckSignpostEndWithError:(id)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self)
   {
@@ -472,13 +470,11 @@ LABEL_9:
 
     if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
     {
-      v18 = 138412290;
-      v19 = errorCopy;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKQueryOperation", "Error=%{signpost.description:attribute}@ ", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = errorCopy;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKQueryOperation", "Error=%{signpost.description:attribute}@ ", &v17, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)hasCKOperationCallbacksSet
@@ -603,7 +599,7 @@ LABEL_16:
 
 - (void)handleQueryDidFetchForRecordID:(id)d record:(id)record error:(id)error
 {
-  v91 = *MEMORY[0x1E69E9840];
+  v90 = *MEMORY[0x1E69E9840];
   dCopy = d;
   recordCopy = record;
   v12 = objc_msgSend_CKClientSuitableError(error, v10, v11);
@@ -658,9 +654,9 @@ LABEL_16:
     }
 
     *buf = 138412546;
-    v84 = dCopy;
-    v85 = 2112;
-    v86 = v12;
+    v83 = dCopy;
+    v84 = 2112;
+    v85 = v12;
     v26 = "Record %@ fetched with error: %@";
     v27 = v20;
     v28 = v25;
@@ -702,7 +698,7 @@ LABEL_16:
   if ((v38 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
   {
     *buf = 138412290;
-    v84 = dCopy;
+    v83 = dCopy;
     v26 = "Record %@ fetched";
     v27 = v20;
     v28 = v38;
@@ -714,12 +710,12 @@ LABEL_20:
 LABEL_21:
 
 LABEL_22:
-  v82[0] = MEMORY[0x1E69E9820];
-  v82[1] = 3221225472;
-  v82[2] = sub_1885BA8C8;
-  v82[3] = &unk_1E70BEBB0;
-  v82[4] = self;
-  objc_msgSend_countMergeableValueMetrics_(recordCopy, v15, v82);
+  v81[0] = MEMORY[0x1E69E9820];
+  v81[1] = 3221225472;
+  v81[2] = sub_1885BA8C8;
+  v81[3] = &unk_1E70BEBB0;
+  v81[4] = self;
+  objc_msgSend_countMergeableValueMetrics_(recordCopy, v15, v81);
   v41 = objc_msgSend_recordMatchedBlock_wrapper(self, v39, v40);
   v44 = v41;
   if (v41)
@@ -743,19 +739,19 @@ LABEL_22:
     v49 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
     {
-      v62 = v49;
-      v65 = objc_msgSend_operationID(self, v63, v64);
-      v68 = objc_msgSend_recordID(recordCopy, v66, v67);
-      v71 = objc_msgSend_recordChangeTag(recordCopy, v69, v70);
+      v61 = v49;
+      v64 = objc_msgSend_operationID(self, v62, v63);
+      v67 = objc_msgSend_recordID(recordCopy, v65, v66);
+      v70 = objc_msgSend_recordChangeTag(recordCopy, v68, v69);
       *buf = 138544130;
-      v84 = v65;
-      v85 = 2112;
-      v86 = v68;
-      v87 = 2112;
-      v88 = v71;
-      v89 = 2112;
-      v90 = v12;
-      _os_log_debug_impl(&dword_1883EA000, v62, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about matched record with ID %@ etag=%@: %@", buf, 0x2Au);
+      v83 = v64;
+      v84 = 2112;
+      v85 = v67;
+      v86 = 2112;
+      v87 = v70;
+      v88 = 2112;
+      v89 = v12;
+      _os_log_debug_impl(&dword_1883EA000, v61, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about matched record with ID %@ etag=%@: %@", buf, 0x2Au);
     }
 
     v45[2](v45, dCopy, recordCopy, v12);
@@ -775,19 +771,19 @@ LABEL_22:
       v53 = ck_log_facility_ck;
       if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
       {
-        v72 = v53;
-        v75 = objc_msgSend_operationID(self, v73, v74);
-        v78 = objc_msgSend_recordID(recordCopy, v76, v77);
-        v81 = objc_msgSend_recordChangeTag(recordCopy, v79, v80);
+        v71 = v53;
+        v74 = objc_msgSend_operationID(self, v72, v73);
+        v77 = objc_msgSend_recordID(recordCopy, v75, v76);
+        v80 = objc_msgSend_recordChangeTag(recordCopy, v78, v79);
         *buf = 138544130;
-        v84 = v75;
-        v85 = 2112;
-        v86 = v78;
-        v87 = 2112;
-        v88 = v81;
-        v89 = 2112;
-        v90 = v12;
-        _os_log_debug_impl(&dword_1883EA000, v72, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about matched record with ID %@ etag=%@: %@", buf, 0x2Au);
+        v83 = v74;
+        v84 = 2112;
+        v85 = v77;
+        v86 = 2112;
+        v87 = v80;
+        v88 = 2112;
+        v89 = v12;
+        _os_log_debug_impl(&dword_1883EA000, v71, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about matched record with ID %@ etag=%@: %@", buf, 0x2Au);
       }
 
       v56 = objc_msgSend_recordFetchedBlock(self, v54, v55);
@@ -800,13 +796,11 @@ LABEL_22:
     v59 = objc_msgSend_recordErrors(self, v57, v58);
     objc_msgSend_setObject_forKeyedSubscript_(v59, v60, v12, dCopy);
   }
-
-  v61 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleQueryDidFetchCursor:(id)cursor reply:(id)reply
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   cursorCopy = cursor;
   replyCopy = reply;
   if (self)
@@ -851,9 +845,9 @@ LABEL_22:
 
     if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
     {
-      v32 = 138412290;
-      v33 = cursorCopy;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v16, OS_SIGNPOST_EVENT, v21, "CKQueryOperation", "Cursor %@ fetched", &v32, 0xCu);
+      v31 = 138412290;
+      v32 = cursorCopy;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v16, OS_SIGNPOST_EVENT, v21, "CKQueryOperation", "Cursor %@ fetched", &v31, 0xCu);
     }
   }
 
@@ -869,13 +863,13 @@ LABEL_22:
     v23 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
     {
-      v28 = v23;
-      v31 = objc_msgSend_operationID(self, v29, v30);
-      v32 = 138543618;
-      v33 = v31;
-      v34 = 2112;
-      v35 = cursorCopy;
-      _os_log_debug_impl(&dword_1883EA000, v28, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about a query cursor %@", &v32, 0x16u);
+      v27 = v23;
+      v30 = objc_msgSend_operationID(self, v28, v29);
+      v31 = 138543618;
+      v32 = v30;
+      v33 = 2112;
+      v34 = cursorCopy;
+      _os_log_debug_impl(&dword_1883EA000, v27, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about a query cursor %@", &v31, 0x16u);
     }
 
     v26 = objc_msgSend_queryCursorFetchedBlock(self, v24, v25);
@@ -883,13 +877,11 @@ LABEL_22:
   }
 
   replyCopy[2](replyCopy, 0);
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleOperationDidCompleteWithCursor:(id)cursor metrics:(id)metrics error:(id)error
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   cursorCopy = cursor;
   errorCopy = error;
   metricsCopy = metrics;
@@ -906,25 +898,23 @@ LABEL_22:
   v14 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
   {
-    v16 = v14;
-    v19 = objc_msgSend_operationID(self, v17, v18);
+    v15 = v14;
+    v18 = objc_msgSend_operationID(self, v16, v17);
     *buf = 138543618;
-    v22 = v19;
-    v23 = 2112;
-    v24 = cursorCopy;
-    _os_log_debug_impl(&dword_1883EA000, v16, OS_LOG_TYPE_DEBUG, "Received completion callback for operation %{public}@ with cursor %@", buf, 0x16u);
+    v21 = v18;
+    v22 = 2112;
+    v23 = cursorCopy;
+    _os_log_debug_impl(&dword_1883EA000, v15, OS_LOG_TYPE_DEBUG, "Received completion callback for operation %{public}@ with cursor %@", buf, 0x16u);
   }
 
-  v20.receiver = self;
-  v20.super_class = CKQueryOperation;
-  [(CKOperation *)&v20 handleOperationDidCompleteWithMetrics:metricsCopy error:errorCopy];
-
-  v15 = *MEMORY[0x1E69E9840];
+  v19.receiver = self;
+  v19.super_class = CKQueryOperation;
+  [(CKOperation *)&v19 handleOperationDidCompleteWithMetrics:metricsCopy error:errorCopy];
 }
 
 - (void)_finishOnCallbackQueueWithError:(id)error
 {
-  v108 = *MEMORY[0x1E69E9840];
+  v107 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self)
   {
@@ -1017,31 +1007,31 @@ LABEL_22:
     v38 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
     {
-      v83 = v38;
-      v86 = objc_msgSend_operationID(self, v84, v85);
-      v89 = objc_msgSend_resultsCursor(self, v87, v88);
-      v90 = v89;
-      v91 = @" Error was: ";
+      v82 = v38;
+      v85 = objc_msgSend_operationID(self, v83, v84);
+      v88 = objc_msgSend_resultsCursor(self, v86, v87);
+      v89 = v88;
+      v90 = @" Error was: ";
       *buf = 138544130;
-      v92 = &stru_1EFA32970;
-      v101 = v86;
-      v102 = 2112;
+      v91 = &stru_1EFA32970;
+      v100 = v85;
+      v101 = 2112;
       if (!v29)
       {
-        v91 = &stru_1EFA32970;
+        v90 = &stru_1EFA32970;
       }
 
-      v103 = v89;
+      v102 = v88;
       if (v29)
       {
-        v92 = v29;
+        v91 = v29;
       }
 
-      v104 = 2114;
-      v105 = v91;
-      v106 = 2112;
-      v107 = v92;
-      _os_log_debug_impl(&dword_1883EA000, v83, OS_LOG_TYPE_DEBUG, "Operation %{public}@ has completed. Query cursor is %@.%{public}@%@", buf, 0x2Au);
+      v103 = 2114;
+      v104 = v90;
+      v105 = 2112;
+      v106 = v91;
+      _os_log_debug_impl(&dword_1883EA000, v82, OS_LOG_TYPE_DEBUG, "Operation %{public}@ has completed. Query cursor is %@.%{public}@%@", buf, 0x2Au);
     }
 
     v41 = objc_msgSend_resultsCursor(self, v39, v40);
@@ -1060,27 +1050,27 @@ LABEL_22:
     v44 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
     {
-      v93 = v44;
-      v96 = objc_msgSend_operationID(self, v94, v95);
-      v97 = @" Error was: ";
-      v98 = &stru_1EFA32970;
+      v92 = v44;
+      v95 = objc_msgSend_operationID(self, v93, v94);
+      v96 = @" Error was: ";
+      v97 = &stru_1EFA32970;
       *buf = 138543874;
-      v101 = v96;
+      v100 = v95;
       if (v29)
       {
-        v98 = v29;
+        v97 = v29;
       }
 
       else
       {
-        v97 = &stru_1EFA32970;
+        v96 = &stru_1EFA32970;
       }
 
-      v102 = 2114;
-      v103 = v97;
-      v104 = 2112;
-      v105 = v98;
-      _os_log_debug_impl(&dword_1883EA000, v93, OS_LOG_TYPE_DEBUG, "Operation %{public}@ finished but no queryCompletionBlock was set.%{public}@%@", buf, 0x20u);
+      v101 = 2114;
+      v102 = v96;
+      v103 = 2112;
+      v104 = v97;
+      _os_log_debug_impl(&dword_1883EA000, v92, OS_LOG_TYPE_DEBUG, "Operation %{public}@ finished but no queryCompletionBlock was set.%{public}@%@", buf, 0x20u);
     }
   }
 
@@ -1129,11 +1119,9 @@ LABEL_22:
     objc_msgSend_setObject_forKeyedSubscript_(v80, v81, v77, @"zoneNames");
   }
 
-  v99.receiver = self;
-  v99.super_class = CKQueryOperation;
-  [(CKOperation *)&v99 _finishOnCallbackQueueWithError:errorCopy];
-
-  v82 = *MEMORY[0x1E69E9840];
+  v98.receiver = self;
+  v98.super_class = CKQueryOperation;
+  [(CKOperation *)&v98 _finishOnCallbackQueueWithError:errorCopy];
 }
 
 - (void)fillOutOperationInfo:(id)info

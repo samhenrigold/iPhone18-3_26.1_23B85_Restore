@@ -229,9 +229,9 @@ LABEL_14:
 
       if (handleCopy && appleID)
       {
-        v18 = [appleID isEqualToString:v16];
+        isEqualToString = objc_msgSend_isEqualToString_(appleID);
 
-        if (!v18)
+        if (!isEqualToString)
         {
           if (v8)
           {

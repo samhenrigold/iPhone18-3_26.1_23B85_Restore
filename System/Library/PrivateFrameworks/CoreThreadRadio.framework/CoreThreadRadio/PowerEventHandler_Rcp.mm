@@ -80,4 +80,11 @@
   findWakeReason_Rcp();
 }
 
+- (void)init:.cold.1()
+{
+  v5 = 136315394;
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_1(&_mh_execute_header, &_os_log_default, v0, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v1, v2, v3, v4, v5);
+}
+
 @end

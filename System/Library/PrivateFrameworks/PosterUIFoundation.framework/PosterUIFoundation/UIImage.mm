@@ -34,9 +34,11 @@ void __56__UIImage_PosterUIFoundation__pui_fallbackSnapshotImage__block_invoke_2
 
 uint64_t __73__UIImage_PosterUIFoundation__pui_determineProminentColorWithCompletion___block_invoke()
 {
-  pui_determineProminentColorWithCompletion__service = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = pui_determineProminentColorWithCompletion__service;
+  pui_determineProminentColorWithCompletion__service = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 void __73__UIImage_PosterUIFoundation__pui_determineProminentColorWithCompletion___block_invoke_2(uint64_t a1, void *a2, void *a3)

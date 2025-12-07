@@ -169,10 +169,10 @@
 - (void)addChangeScopes:(id)scopes
 {
   scopesCopy = scopes;
-  if ([scopesCopy count])
+  if (objc_msgSend_count(scopesCopy))
   {
     changeScopes = [(_PLClientTransaction *)self changeScopes];
-    if (![changeScopes count] || (objc_msgSend(scopesCopy, "isSubsetOfSet:", changeScopes) & 1) == 0)
+    if (!objc_msgSend_count(changeScopes) || ([scopesCopy isSubsetOfSet:changeScopes] & 1) == 0)
     {
       if (changeScopes)
       {

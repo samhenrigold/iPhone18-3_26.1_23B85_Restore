@@ -2,6 +2,7 @@
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToPPUniversalSearchSpotlightFeedback:(id)feedback;
 - (PPUniversalSearchSpotlightFeedback)initWithCoder:(id)coder;
+- (PPUniversalSearchSpotlightFeedback)initWithOfferedCSSICount:(unsigned int)count engagedCSSICount:(unsigned int)iCount;
 - (PPUniversalSearchSpotlightFeedback)initWithOfferedCSSICount:(unsigned int)count engagedCSSICount:(unsigned int)iCount timestamp:(id)timestamp clientIdentifier:(id)identifier clientBundleId:(id)id;
 - (id)description;
 - (unint64_t)hash;
@@ -105,7 +106,7 @@ LABEL_11:
 
 - (PPUniversalSearchSpotlightFeedback)initWithCoder:(id)coder
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeInt32ForKey:@"offeredCSSICount"];
   v6 = [coderCopy decodeInt32ForKey:@"engagedCSSICount"];
@@ -146,7 +147,7 @@ LABEL_17:
         {
           error2 = [coderCopy error];
           *buf = 138412290;
-          v30 = error2;
+          v29 = error2;
           _os_log_error_impl(&dword_1A7FD3000, v24, OS_LOG_TYPE_ERROR, "PPUniversalSearchSpotlightFeedback: failed to decode bundle ID: %@", buf, 0xCu);
         }
 
@@ -160,7 +161,7 @@ LABEL_17:
         {
           error3 = [coderCopy error];
           *buf = 138412290;
-          v30 = error3;
+          v29 = error3;
           _os_log_error_impl(&dword_1A7FD3000, v20, OS_LOG_TYPE_ERROR, "PPUniversalSearchSpotlightFeedback: failed to decode client identifier: %@", buf, 0xCu);
         }
       }
@@ -175,14 +176,13 @@ LABEL_17:
   {
     error4 = [coderCopy error];
     *buf = 138412290;
-    v30 = error4;
+    v29 = error4;
     _os_log_error_impl(&dword_1A7FD3000, v12, OS_LOG_TYPE_ERROR, "PPUniversalSearchSpotlightFeedback: failed to decode timestamp: %@", buf, 0xCu);
   }
 
   selfCopy = 0;
 LABEL_18:
 
-  v25 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -224,6 +224,18 @@ LABEL_18:
   }
 
   return v17;
+}
+
+- (PPUniversalSearchSpotlightFeedback)initWithOfferedCSSICount:(unsigned int)count engagedCSSICount:(unsigned int)iCount
+{
+  v4 = *&iCount;
+  v5 = *&count;
+  v7 = objc_opt_new();
+  mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
+  bundleIdentifier = [mainBundle bundleIdentifier];
+  v10 = [(PPUniversalSearchSpotlightFeedback *)self initWithOfferedCSSICount:v5 engagedCSSICount:v4 timestamp:v7 clientIdentifier:0 clientBundleId:bundleIdentifier];
+
+  return v10;
 }
 
 @end

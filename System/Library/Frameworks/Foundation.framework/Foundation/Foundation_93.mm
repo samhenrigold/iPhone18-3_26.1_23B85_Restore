@@ -1,1405 +1,3 @@
-uint64_t NSDecimalSubtract(_:_:_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v122 = *MEMORY[0x1E69E9840];
-  v120 = *a3;
-  v121 = *(a3 + 16);
-  v118 = *a3;
-  v119 = *(a3 + 16);
-  if (_So9NSDecimala__length_getter(&v118))
-  {
-    v118 = *a3;
-    v119 = *(a3 + 16);
-    isNegative_getter = _So9NSDecimala__isNegative_getter(&v118);
-    _So9NSDecimala__isNegative_setter(isNegative_getter ^ 1u, &v120);
-  }
-
-  v118 = *a2;
-  v119 = *(a2 + 16);
-  if (!_So9NSDecimala__length_getter(&v118) && (v118 = *a2, v119 = *(a2 + 16), _So9NSDecimala__isNegative_getter(&v118)) || (v118 = v120, v119 = v121, !_So9NSDecimala__length_getter(&v118)) && (v118 = v120, v119 = v121, _So9NSDecimala__isNegative_getter(&v118)))
-  {
-LABEL_54:
-    lazy protocol witness table accessor for type NSDecimal._CalculationError and conformance NSDecimal._CalculationError();
-    v28 = swift_allocError();
-    *v29 = 0;
-    swift_willThrow();
-LABEL_55:
-    *&v118 = v28;
-    v30 = v28;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
-    if (swift_dynamicCast())
-    {
-      v31 = qword_181234EC8[v116];
-    }
-
-    else
-    {
-      v31 = 0;
-    }
-
-    *&v113[4] = 0uLL;
-    _So9NSDecimala__exponent_setter(0, v113);
-    _So9NSDecimala__length_setter(0, v113);
-    _So9NSDecimala__isNegative_setter(1, v113);
-    _So9NSDecimala__isCompact_setter(v113);
-    _So9NSDecimala__reserved_setter(v113);
-    *a1 = *v113;
-    *(a1 + 16) = *&v113[16];
-
-    return v31;
-  }
-
-  v116 = *a2;
-  v117 = *(a2 + 16);
-  if (!_So9NSDecimala__length_getter(&v116))
-  {
-    v118 = v120;
-    v32 = v121;
-LABEL_61:
-    v119 = v32;
-LABEL_62:
-    v31 = 0;
-    *a1 = v118;
-    *(a1 + 16) = v119;
-    return v31;
-  }
-
-  v116 = v120;
-  v117 = v121;
-  if (!_So9NSDecimala__length_getter(&v116))
-  {
-    v118 = *a2;
-    v32 = *(a2 + 16);
-    goto LABEL_61;
-  }
-
-  v116 = *a2;
-  v117 = *(a2 + 16);
-  v114 = v120;
-  v115 = v121;
-  specialized static NSDecimal._normalize(a:b:roundingMode:)(&v116, &v114);
-  v111 = v116;
-  v112 = v117;
-  if (!_So9NSDecimala__length_getter(&v111))
-  {
-    v118 = v114;
-    v32 = v115;
-    goto LABEL_61;
-  }
-
-  v111 = v114;
-  v112 = v115;
-  if (!_So9NSDecimala__length_getter(&v111))
-  {
-    v118 = v116;
-    v32 = v117;
-    goto LABEL_61;
-  }
-
-  v111 = v116;
-  v112 = v117;
-  v109 = v116;
-  v110 = v117;
-  v9 = _So9NSDecimala__isNegative_getter(&v109);
-  v109 = v114;
-  v110 = v115;
-  if (v9 != _So9NSDecimala__isNegative_getter(&v109))
-  {
-    v34 = v117;
-    v105 = *(&v116 + 1);
-    v107 = v116;
-    NSDecimal.asVariableLengthInteger()(v116, *(&v116 + 1), v117);
-    v36 = v35;
-    v37 = v114;
-    v38 = v115;
-    NSDecimal.asVariableLengthInteger()(v114, *(&v114 + 1), v115);
-    v17 = specialized static NSDecimal._integerCompare(lhs:rhs:)(v36, v39);
-
-    switch(v17)
-    {
-      case 0xFFFFFFFFFFFFFFFFLL:
-        NSDecimal.asVariableLengthInteger()(v37, *(&v37 + 1), v38);
-        v17 = v41;
-        NSDecimal.asVariableLengthInteger()(v107, v105, v34);
-        v43 = v42;
-        v44 = static Array._allocateBufferUninitialized(minimumCapacity:)();
-        v12 = v44;
-        *(v44 + 32) = 0;
-        v45 = (v44 + 32);
-        *(v44 + 16) = 8;
-        *(v44 + 40) = 0;
-        v21 = *(v17 + 16);
-        v20 = *(v43 + 16);
-        if (v20 >= v21)
-        {
-          v46 = *(v17 + 16);
-        }
-
-        else
-        {
-          v46 = *(v43 + 16);
-        }
-
-        if (v46)
-        {
-          if (!v21)
-          {
-            goto LABEL_305;
-          }
-
-          if (!v20)
-          {
-            goto LABEL_306;
-          }
-
-          v47 = ((*(v17 + 32) | 0x10000) - *(v43 + 32)) >> 16;
-          *v45 = *(v17 + 32) - *(v43 + 32);
-          if (v46 != 1)
-          {
-            if (v21 == 1)
-            {
-              goto LABEL_305;
-            }
-
-            if (v20 == 1)
-            {
-              goto LABEL_306;
-            }
-
-            v48 = v47 + *(v17 + 34) - *(v43 + 34) + 0xFFFF;
-            v47 = HIWORD(v48);
-            *(v44 + 34) = v48;
-            if (v46 != 2)
-            {
-              if (v21 == 2)
-              {
-                goto LABEL_305;
-              }
-
-              if (v20 == 2)
-              {
-                goto LABEL_306;
-              }
-
-              v49 = v47 + *(v17 + 36) - *(v43 + 36) + 0xFFFF;
-              v47 = HIWORD(v49);
-              *(v44 + 36) = v49;
-              if (v46 != 3)
-              {
-                if (v21 == 3)
-                {
-                  goto LABEL_305;
-                }
-
-                if (v20 == 3)
-                {
-                  goto LABEL_306;
-                }
-
-                v50 = v47 + *(v17 + 38) - *(v43 + 38) + 0xFFFF;
-                v47 = HIWORD(v50);
-                *(v44 + 38) = v50;
-                if (v46 != 4)
-                {
-                  if (v21 == 4)
-                  {
-                    goto LABEL_305;
-                  }
-
-                  if (v20 == 4)
-                  {
-                    goto LABEL_306;
-                  }
-
-                  v51 = v47 + *(v17 + 40) - *(v43 + 40) + 0xFFFF;
-                  v47 = HIWORD(v51);
-                  *(v44 + 40) = v51;
-                  if (v46 != 5)
-                  {
-                    if (v21 == 5)
-                    {
-                      goto LABEL_305;
-                    }
-
-                    if (v20 == 5)
-                    {
-                      goto LABEL_306;
-                    }
-
-                    v52 = v47 + *(v17 + 42) - *(v43 + 42) + 0xFFFF;
-                    v47 = HIWORD(v52);
-                    *(v44 + 42) = v52;
-                    if (v46 != 6)
-                    {
-                      if (v21 == 6)
-                      {
-                        goto LABEL_305;
-                      }
-
-                      if (v20 == 6)
-                      {
-                        goto LABEL_306;
-                      }
-
-                      v53 = v47 + *(v17 + 44) - *(v43 + 44) + 0xFFFF;
-                      v47 = HIWORD(v53);
-                      *(v44 + 44) = v53;
-                      if (v46 != 7)
-                      {
-                        if (v21 == 7)
-                        {
-                          goto LABEL_305;
-                        }
-
-                        if (v20 == 7)
-                        {
-                          goto LABEL_306;
-                        }
-
-                        v54 = v47 + *(v17 + 46) - *(v43 + 46) + 0xFFFF;
-                        *(v44 + 46) = v54;
-                        if (v46 != 8)
-                        {
-                          goto LABEL_302;
-                        }
-
-                        v47 = HIWORD(v54);
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-
-        else
-        {
-          v47 = 1;
-        }
-
-        if (v20 < v21)
-        {
-          v81 = v17 + 32;
-          while (!v47)
-          {
-            if (v46 >= *(v44 + 16))
-            {
-              goto LABEL_283;
-            }
-
-            v47 = (*(v81 + 2 * v46) + 0xFFFF) >> 16;
-            v45[v46] = *(v81 + 2 * v46) - 1;
-            if (v21 == ++v46)
-            {
-              v46 = v21;
-              goto LABEL_192;
-            }
-          }
-
-          do
-          {
-            if (v46 >= v21)
-            {
-              goto LABEL_279;
-            }
-
-            if (v46 >= *(v44 + 16))
-            {
-              goto LABEL_281;
-            }
-
-            v45[v46] = *(v81 + 2 * v46);
-            ++v46;
-          }
-
-          while (v46 < v21);
-        }
-
-LABEL_192:
-        if (v46 < v20)
-        {
-          if (v46 <= v20)
-          {
-            v82 = v20;
-          }
-
-          else
-          {
-            v82 = v46;
-          }
-
-          do
-          {
-            if (v82 == v46)
-            {
-              goto LABEL_273;
-            }
-
-            if (v46 >= *(v44 + 16))
-            {
-              goto LABEL_275;
-            }
-
-            v83 = v47 + (*(v43 + 32 + 2 * v46) ^ 0xFFFF);
-            v47 = HIWORD(v83);
-            v45[v46++] = v83;
-          }
-
-          while (v20 != v46);
-        }
-
-        if (!v47)
-        {
-          goto LABEL_252;
-        }
-
-        for (i = *(v44 + 16); i; *(v44 + 16) = --i)
-        {
-          if (*(v44 + 30 + 2 * i))
-          {
-            break;
-          }
-        }
-
-        v85 = *(v12 + 16);
-        if (HIDWORD(v85))
-        {
-          goto LABEL_289;
-        }
-
-        _So9NSDecimala__length_setter(v85, &v111);
-        v109 = v114;
-        v86 = v115;
-        break;
-      case 0uLL:
-        v118 = 0uLL;
-        v119 = 0;
-        goto LABEL_62;
-      case 1uLL:
-        NSDecimal.asVariableLengthInteger()(v107, v105, v34);
-        v17 = v55;
-        NSDecimal.asVariableLengthInteger()(v37, *(&v37 + 1), v38);
-        v57 = v56;
-        v58 = static Array._allocateBufferUninitialized(minimumCapacity:)();
-        v12 = v58;
-        *(v58 + 32) = 0;
-        v59 = (v58 + 32);
-        *(v58 + 16) = 8;
-        *(v58 + 40) = 0;
-        v21 = *(v17 + 16);
-        v20 = *(v57 + 16);
-        if (v20 >= v21)
-        {
-          v60 = *(v17 + 16);
-        }
-
-        else
-        {
-          v60 = *(v57 + 16);
-        }
-
-        if (v60)
-        {
-          if (!v21)
-          {
-            goto LABEL_310;
-          }
-
-          if (!v20)
-          {
-            goto LABEL_311;
-          }
-
-          v61 = ((*(v17 + 32) | 0x10000) - *(v57 + 32)) >> 16;
-          *v59 = *(v17 + 32) - *(v57 + 32);
-          if (v60 != 1)
-          {
-            if (v21 == 1)
-            {
-              goto LABEL_310;
-            }
-
-            if (v20 == 1)
-            {
-              goto LABEL_311;
-            }
-
-            v62 = v61 + *(v17 + 34) - *(v57 + 34) + 0xFFFF;
-            v61 = HIWORD(v62);
-            *(v58 + 34) = v62;
-            if (v60 != 2)
-            {
-              if (v21 == 2)
-              {
-                goto LABEL_310;
-              }
-
-              if (v20 == 2)
-              {
-                goto LABEL_311;
-              }
-
-              v63 = v61 + *(v17 + 36) - *(v57 + 36) + 0xFFFF;
-              v61 = HIWORD(v63);
-              *(v58 + 36) = v63;
-              if (v60 != 3)
-              {
-                if (v21 == 3)
-                {
-                  goto LABEL_310;
-                }
-
-                if (v20 == 3)
-                {
-                  goto LABEL_311;
-                }
-
-                v64 = v61 + *(v17 + 38) - *(v57 + 38) + 0xFFFF;
-                v61 = HIWORD(v64);
-                *(v58 + 38) = v64;
-                if (v60 != 4)
-                {
-                  if (v21 == 4)
-                  {
-                    goto LABEL_310;
-                  }
-
-                  if (v20 == 4)
-                  {
-                    goto LABEL_311;
-                  }
-
-                  v65 = v61 + *(v17 + 40) - *(v57 + 40) + 0xFFFF;
-                  v61 = HIWORD(v65);
-                  *(v58 + 40) = v65;
-                  if (v60 != 5)
-                  {
-                    if (v21 == 5)
-                    {
-                      goto LABEL_310;
-                    }
-
-                    if (v20 == 5)
-                    {
-                      goto LABEL_311;
-                    }
-
-                    v66 = v61 + *(v17 + 42) - *(v57 + 42) + 0xFFFF;
-                    v61 = HIWORD(v66);
-                    *(v58 + 42) = v66;
-                    if (v60 != 6)
-                    {
-                      if (v21 == 6)
-                      {
-                        goto LABEL_310;
-                      }
-
-                      if (v20 == 6)
-                      {
-                        goto LABEL_311;
-                      }
-
-                      v67 = v61 + *(v17 + 44) - *(v57 + 44) + 0xFFFF;
-                      v61 = HIWORD(v67);
-                      *(v58 + 44) = v67;
-                      if (v60 != 7)
-                      {
-                        if (v21 == 7)
-                        {
-                          goto LABEL_310;
-                        }
-
-                        if (v20 == 7)
-                        {
-                          goto LABEL_311;
-                        }
-
-                        v68 = v61 + *(v17 + 46) - *(v57 + 46) + 0xFFFF;
-                        *(v58 + 46) = v68;
-                        if (v60 != 8)
-                        {
-                          goto LABEL_307;
-                        }
-
-                        v61 = HIWORD(v68);
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-
-        else
-        {
-          v61 = 1;
-        }
-
-        if (v20 < v21)
-        {
-          v87 = v17 + 32;
-          while (!v61)
-          {
-            if (v60 >= *(v58 + 16))
-            {
-              goto LABEL_284;
-            }
-
-            v61 = (*(v87 + 2 * v60) + 0xFFFF) >> 16;
-            v59[v60] = *(v87 + 2 * v60) - 1;
-            if (v21 == ++v60)
-            {
-              v60 = v21;
-              goto LABEL_215;
-            }
-          }
-
-          do
-          {
-            if (v60 >= v21)
-            {
-              goto LABEL_280;
-            }
-
-            if (v60 >= *(v58 + 16))
-            {
-              goto LABEL_282;
-            }
-
-            v59[v60] = *(v87 + 2 * v60);
-            ++v60;
-          }
-
-          while (v60 < v21);
-        }
-
-LABEL_215:
-        if (v60 < v20)
-        {
-          if (v60 <= v20)
-          {
-            v88 = v20;
-          }
-
-          else
-          {
-            v88 = v60;
-          }
-
-          do
-          {
-            if (v88 == v60)
-            {
-              goto LABEL_274;
-            }
-
-            if (v60 >= *(v58 + 16))
-            {
-              goto LABEL_276;
-            }
-
-            v89 = v61 + (*(v57 + 32 + 2 * v60) ^ 0xFFFF);
-            v61 = HIWORD(v89);
-            v59[v60++] = v89;
-          }
-
-          while (v20 != v60);
-        }
-
-        if (!v61)
-        {
-          goto LABEL_252;
-        }
-
-        for (j = *(v58 + 16); j; *(v58 + 16) = --j)
-        {
-          if (*(v58 + 30 + 2 * j))
-          {
-            break;
-          }
-        }
-
-        v91 = *(v12 + 16);
-        if (HIDWORD(v91))
-        {
-          goto LABEL_290;
-        }
-
-        _So9NSDecimala__length_setter(v91, &v111);
-        v109 = v116;
-        v86 = v117;
-        break;
-      default:
-LABEL_312:
-        type metadata accessor for NSComparisonResult(0);
-        *&v109 = v17;
-        _diagnoseUnexpectedEnumCaseValue<A, B>(type:rawValue:)();
-        __break(1u);
-        goto LABEL_313;
-    }
-
-    v110 = v86;
-    v92 = _So9NSDecimala__isNegative_getter(&v109);
-    _So9NSDecimala__isNegative_setter(v92, &v111);
-    goto LABEL_229;
-  }
-
-  v109 = v116;
-  v110 = v117;
-  v10 = _So9NSDecimala__isNegative_getter(&v109);
-  _So9NSDecimala__isNegative_setter(v10, &v111);
-  NSDecimal.asVariableLengthInteger()(v116, *(&v116 + 1), v117);
-  v12 = v11;
-  NSDecimal.asVariableLengthInteger()(v114, *(&v114 + 1), v115);
-  v14 = v13;
-  v15 = *(v12 + 16);
-  v16 = *(v13 + 16);
-  if (v16 >= v15)
-  {
-    v17 = *(v12 + 16);
-  }
-
-  else
-  {
-    v17 = *(v13 + 16);
-  }
-
-  v18 = 9;
-  v19 = static Array._allocateBufferUninitialized(minimumCapacity:)();
-  *(v19 + 16) = 9;
-  *(v19 + 32) = 0;
-  v22 = (v19 + 32);
-  *(v19 + 40) = 0;
-  *(v19 + 48) = 0;
-  if (v17)
-  {
-    if (!v15)
-    {
-      goto LABEL_300;
-    }
-
-    if (!v16)
-    {
-      goto LABEL_301;
-    }
-
-    v21 = *(v12 + 32) + *(v14 + 32);
-    v20 = WORD1(v21);
-    *v22 = *(v12 + 32) + *(v14 + 32);
-    if (v17 != 1)
-    {
-      if (v15 == 1)
-      {
-        goto LABEL_300;
-      }
-
-      if (v16 == 1)
-      {
-        goto LABEL_301;
-      }
-
-      v21 = v20 + *(v12 + 34) + *(v14 + 34);
-      v20 = WORD1(v21);
-      *(v19 + 34) = v21;
-      if (v17 != 2)
-      {
-        if (v15 == 2)
-        {
-          goto LABEL_300;
-        }
-
-        if (v16 == 2)
-        {
-          goto LABEL_301;
-        }
-
-        v21 = v20 + *(v12 + 36) + *(v14 + 36);
-        v20 = WORD1(v21);
-        *(v19 + 36) = v21;
-        if (v17 != 3)
-        {
-          if (v15 == 3)
-          {
-            goto LABEL_300;
-          }
-
-          if (v16 == 3)
-          {
-            goto LABEL_301;
-          }
-
-          v21 = v20 + *(v12 + 38) + *(v14 + 38);
-          v20 = WORD1(v21);
-          *(v19 + 38) = v21;
-          if (v17 != 4)
-          {
-            if (v15 == 4)
-            {
-              goto LABEL_300;
-            }
-
-            if (v16 == 4)
-            {
-              goto LABEL_301;
-            }
-
-            v21 = v20 + *(v12 + 40) + *(v14 + 40);
-            v20 = WORD1(v21);
-            *(v19 + 40) = v21;
-            if (v17 != 5)
-            {
-              if (v15 == 5)
-              {
-                goto LABEL_300;
-              }
-
-              if (v16 == 5)
-              {
-                goto LABEL_301;
-              }
-
-              v21 = v20 + *(v12 + 42) + *(v14 + 42);
-              v20 = WORD1(v21);
-              *(v19 + 42) = v21;
-              if (v17 != 6)
-              {
-                if (v15 == 6)
-                {
-                  goto LABEL_300;
-                }
-
-                if (v16 == 6)
-                {
-                  goto LABEL_301;
-                }
-
-                v21 = v20 + *(v12 + 44) + *(v14 + 44);
-                v20 = WORD1(v21);
-                *(v19 + 44) = v21;
-                if (v17 != 7)
-                {
-                  if (v15 == 7)
-                  {
-                    goto LABEL_300;
-                  }
-
-                  if (v16 == 7)
-                  {
-                    goto LABEL_301;
-                  }
-
-                  v21 = v20 + *(v12 + 46) + *(v14 + 46);
-                  v20 = WORD1(v21);
-                  *(v19 + 46) = v21;
-                  if (v17 != 8)
-                  {
-                    if (v15 == 8)
-                    {
-                      goto LABEL_300;
-                    }
-
-                    if (v16 == 8)
-                    {
-                      goto LABEL_301;
-                    }
-
-                    v23 = *(v14 + 48);
-                    v21 = v20 + *(v12 + 48) + v23;
-                    *(v19 + 48) = v20 + *(v12 + 48) + v23;
-                    if (v17 != 9)
-                    {
-                      goto LABEL_297;
-                    }
-
-                    LODWORD(v20) = WORD1(v21);
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
-    if (v16 < v15)
-    {
-      if (v21 < 0x10000)
-      {
-        goto LABEL_70;
-      }
-
-      if (v17 > 8)
-      {
-        goto LABEL_286;
-      }
-
-      LODWORD(v20) = (*(v12 + 32 + 2 * v17) + 1) >> 16;
-      v22[v17] = *(v12 + 32 + 2 * v17) + 1;
-      if (v17 + 1 != v15)
-      {
-        v24 = 2 * v17 + 34;
-        v25 = (v19 + v24);
-        v26 = (v12 + v24);
-        ++v17;
-        while (v20)
-        {
-          if (v17 >= *(v19 + 16))
-          {
-            goto LABEL_286;
-          }
-
-          v27 = *v26++;
-          LODWORD(v20) = (v27 + 1) >> 16;
-          *v25++ = v27 + 1;
-          if (v15 == ++v17)
-          {
-            goto LABEL_50;
-          }
-        }
-
-LABEL_70:
-        if (v17 <= v15)
-        {
-          v40 = v15;
-        }
-
-        else
-        {
-          v40 = v17;
-        }
-
-        do
-        {
-          if (v40 == v17)
-          {
-            goto LABEL_266;
-          }
-
-          if (v17 >= *(v19 + 16))
-          {
-            goto LABEL_267;
-          }
-
-          *(v19 + 2 * v17 + 32) = *(v12 + 32 + 2 * v17);
-          ++v17;
-        }
-
-        while (v17 < v15);
-        if (v17 >= v16)
-        {
-          goto LABEL_157;
-        }
-
-        goto LABEL_151;
-      }
-
-LABEL_50:
-      v17 = v15;
-    }
-  }
-
-  else
-  {
-    if (v15)
-    {
-      goto LABEL_70;
-    }
-
-    LODWORD(v20) = 0;
-  }
-
-  if (v17 < v16)
-  {
-    if (!v20)
-    {
-LABEL_151:
-      if (v17 <= v16)
-      {
-        v73 = v16;
-      }
-
-      else
-      {
-        v73 = v17;
-      }
-
-      do
-      {
-        if (v73 == v17)
-        {
-          goto LABEL_268;
-        }
-
-        if (v17 >= *(v19 + 16))
-        {
-          goto LABEL_269;
-        }
-
-        *(v19 + 2 * v17 + 32) = *(v14 + 32 + 2 * v17);
-        ++v17;
-      }
-
-      while (v17 < v16);
-LABEL_157:
-      *&v109 = v19;
-      goto LABEL_158;
-    }
-
-    if (v17 >= *(v19 + 16))
-    {
-      goto LABEL_285;
-    }
-
-    LODWORD(v20) = (*(v14 + 32 + 2 * v17) + 1) >> 16;
-    v22[v17] = *(v14 + 32 + 2 * v17) + 1;
-    if (v17 + 1 != v16)
-    {
-      v69 = 2 * v17 + 34;
-      v70 = (v19 + v69);
-      v71 = (v14 + v69);
-      ++v17;
-      while (v20)
-      {
-        if (v17 >= *(v19 + 16))
-        {
-          goto LABEL_285;
-        }
-
-        v72 = *v71++;
-        LODWORD(v20) = (v72 + 1) >> 16;
-        *v70++ = v72 + 1;
-        if (v16 == ++v17)
-        {
-          goto LABEL_146;
-        }
-      }
-
-      goto LABEL_151;
-    }
-
-LABEL_146:
-    v17 = v16;
-  }
-
-  *&v109 = v19;
-  if (!v20)
-  {
-LABEL_158:
-    v74 = *(v19 + 16);
-    if (__OFSUB__(v74, v17))
-    {
-      goto LABEL_287;
-    }
-
-    specialized RangeReplaceableCollection<>.removeLast(_:)(v74 - v17);
-
-    v108 = v109;
-    v75 = *(v109 + 16);
-    if (v75 > 8)
-    {
-
-      if (v75 == 9)
-      {
-        v18 = 0;
-        LODWORD(v14) = 0;
-        LODWORD(v17) = 0;
-        v12 = v108;
-      }
-
-      else
-      {
-        v106 = a4;
-        v78 = 0;
-        LODWORD(v14) = 0;
-        LODWORD(v17) = 0;
-        v15 = v108;
-        do
-        {
-          if (v14)
-          {
-            v17 = 1;
-          }
-
-          else
-          {
-            v17 = v17;
-          }
-
-          v79 = specialized static NSDecimal._integerDivideByShort(_:_:)(v15, 0x2710u);
-          v14 = v80;
-
-          v18 = v78 + 4;
-          if (__OFADD__(v78, 4))
-          {
-            goto LABEL_278;
-          }
-
-          v16 = *(v79 + 16);
-          v78 += 4;
-          v15 = v79;
-        }
-
-        while (v16 > 9);
-        v12 = v79;
-        a4 = v106;
-        if (v16 != 9)
-        {
-          goto LABEL_178;
-        }
-      }
-
-      v15 = v12;
-      do
-      {
-        if (v14)
-        {
-          v17 = 1;
-        }
-
-        else
-        {
-          v17 = v17;
-        }
-
-        v12 = specialized static NSDecimal._integerDivideByShort(_:_:)(v15, 0xAu);
-        v14 = v76;
-
-        v77 = v18 + 1;
-        if (__OFADD__(v18, 1))
-        {
-          goto LABEL_277;
-        }
-
-        v16 = *(v12 + 16);
-        ++v18;
-        v15 = v12;
-      }
-
-      while (v16 > 8);
-      v18 = v77;
-LABEL_178:
-      if (v17)
-      {
-        if (!v14 || v14 == 5)
-        {
-          v14 = (v14 + 1);
-        }
-      }
-
-      else if (!v14)
-      {
-        goto LABEL_257;
-      }
-
-      if (a4 <= 1)
-      {
-        if (a4)
-        {
-          goto LABEL_257;
-        }
-
-        goto LABEL_243;
-      }
-
-      if (a4 == 2)
-      {
-        goto LABEL_245;
-      }
-
-      if (a4 != 3)
-      {
-        goto LABEL_257;
-      }
-
-      if (v14 != 5)
-      {
-LABEL_243:
-        if (v14 <= 4)
-        {
-LABEL_257:
-
-          while (1)
-          {
-            v109 = v111;
-            v110 = v112;
-            v100 = _So9NSDecimala__exponent_getter(&v109);
-            if (v18 < 0xFFFFFFFF80000000)
-            {
-              goto LABEL_291;
-            }
-
-            if (v18 > 0x7FFFFFFF)
-            {
-              goto LABEL_292;
-            }
-
-            if (__OFADD__(v100, v18))
-            {
-              goto LABEL_293;
-            }
-
-            if (v100 + v18 > 127)
-            {
-              break;
-            }
-
-            v109 = v111;
-            v110 = v112;
-            v101 = _So9NSDecimala__exponent_getter(&v109);
-            v102 = __OFADD__(v101, v18);
-            v103 = (v101 + v18);
-            if (v102)
-            {
-              __break(1u);
-LABEL_295:
-              a4 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v99 > 1), v14, 1, a4);
-LABEL_254:
-              *(a4 + 16) = v14;
-              *(a4 + 2 * v15 + 32) = 1;
-              if (*(a4 + 16) >= v16)
-              {
-                goto LABEL_256;
-              }
-
-              v19 = specialized static NSDecimal._integerDivideByShort(_:_:)(a4, 0xAu);
-            }
-
-            else
-            {
-              v19 = _So9NSDecimala__exponent_setter(v103, &v111);
-              v75 = *(v12 + 16);
-              if (!HIDWORD(v75))
-              {
-                goto LABEL_170;
-              }
-
-              __break(1u);
-LABEL_266:
-              __break(1u);
-LABEL_267:
-              __break(1u);
-LABEL_268:
-              __break(1u);
-LABEL_269:
-              __break(1u);
-            }
-
-            v16 = v19;
-
-            v102 = __OFADD__(v18++, 1);
-            if (v102)
-            {
-              __break(1u);
-LABEL_273:
-              __break(1u);
-LABEL_274:
-              __break(1u);
-LABEL_275:
-              __break(1u);
-LABEL_276:
-              __break(1u);
-LABEL_277:
-              __break(1u);
-LABEL_278:
-              __break(1u);
-LABEL_279:
-              __break(1u);
-LABEL_280:
-              __break(1u);
-LABEL_281:
-              __break(1u);
-LABEL_282:
-              __break(1u);
-LABEL_283:
-              __break(1u);
-LABEL_284:
-              __break(1u);
-LABEL_285:
-              __break(1u);
-LABEL_286:
-              __break(1u);
-LABEL_287:
-              __break(1u);
-LABEL_288:
-              __break(1u);
-LABEL_289:
-              __break(1u);
-LABEL_290:
-              __break(1u);
-LABEL_291:
-              __break(1u);
-LABEL_292:
-              __break(1u);
-LABEL_293:
-              __break(1u);
-            }
-          }
-
-          goto LABEL_54;
-        }
-
-LABEL_245:
-        if (!v16)
-        {
-          a4 = MEMORY[0x1E69E7CC0];
-          v15 = *(MEMORY[0x1E69E7CC0] + 16);
-          v94 = 1;
-LABEL_251:
-          if (v15 != v94)
-          {
-            v99 = *(a4 + 24);
-            v14 = v15 + 1;
-            if (v15 >= v99 >> 1)
-            {
-              goto LABEL_295;
-            }
-
-            goto LABEL_254;
-          }
-
-LABEL_252:
-
-          lazy protocol witness table accessor for type NSDecimal._CalculationError and conformance NSDecimal._CalculationError();
-          v28 = swift_allocError();
-          *v98 = 0;
-          swift_willThrow();
-
-          goto LABEL_55;
-        }
-
-LABEL_246:
-        v94 = v16 + 1;
-        a4 = static Array._allocateBufferUninitialized(minimumCapacity:)();
-        *(a4 + 16) = v16;
-        bzero((a4 + 32), 2 * v16);
-        v95 = 0;
-        v96 = 1;
-        do
-        {
-          v97 = v96 + *(v12 + 32 + 2 * v95);
-          v96 = HIWORD(v97);
-          *(a4 + 2 * v95++ + 32) = v97;
-        }
-
-        while (v16 != v95);
-        v15 = v16;
-        if (v97 < 0x10000)
-        {
-LABEL_256:
-
-          goto LABEL_257;
-        }
-
-        goto LABEL_251;
-      }
-
-      if (v16)
-      {
-        if (*(v12 + 32))
-        {
-          goto LABEL_257;
-        }
-
-        goto LABEL_246;
-      }
-
-      __break(1u);
-LABEL_297:
-      if (v15 != 9)
-      {
-        if (v16 != 9)
-        {
-          __break(1u);
-          goto LABEL_300;
-        }
-
-LABEL_301:
-        __break(1u);
-LABEL_302:
-        if (v21 != 8)
-        {
-          if (v20 != 8)
-          {
-            __break(1u);
-            goto LABEL_305;
-          }
-
-LABEL_306:
-          __break(1u);
-LABEL_307:
-          if (v21 != 8)
-          {
-            if (v20 != 8)
-            {
-              __break(1u);
-              goto LABEL_310;
-            }
-
-LABEL_311:
-            __break(1u);
-            goto LABEL_312;
-          }
-
-LABEL_310:
-          __break(1u);
-          goto LABEL_311;
-        }
-
-LABEL_305:
-        __break(1u);
-        goto LABEL_306;
-      }
-
-LABEL_300:
-      __break(1u);
-      goto LABEL_301;
-    }
-
-    v12 = v109;
-LABEL_170:
-    _So9NSDecimala__length_setter(v75, &v111);
-LABEL_229:
-    NSDecimal.copyVariableLengthInteger(_:)(v12);
-    if (v93)
-    {
-      v28 = v93;
-
-      goto LABEL_55;
-    }
-
-    _So9NSDecimala__isCompact_setter(&v111);
-    NSDecimal.compact()();
-    v118 = v111;
-    v32 = v112;
-    goto LABEL_61;
-  }
-
-  if (v17 <= 9)
-  {
-    if (v17 >= *(v19 + 16))
-    {
-      goto LABEL_288;
-    }
-
-    v22[v17] = 1;
-    *&v109 = v19;
-    ++v17;
-    goto LABEL_158;
-  }
-
-LABEL_313:
-
-  lazy protocol witness table accessor for type NSDecimal._CalculationError and conformance NSDecimal._CalculationError();
-  swift_allocError();
-  *v104 = 0;
-  swift_willThrow();
-
-  result = swift_unexpectedError();
-  __break(1u);
-  return result;
-}
-
 uint64_t NSDecimalMultiply(_:_:_:_:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   NSDecimal._multiply(by:roundingMode:)(*(a3 + 16), *a3, *(a3 + 8));
@@ -1407,7 +5,7 @@ uint64_t NSDecimalMultiply(_:_:_:_:)(uint64_t a1, uint64_t a2, uint64_t a3)
   {
     v13 = v7;
     v8 = v7;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
     if (swift_dynamicCast())
     {
       v9 = qword_181234EC8[v12];
@@ -1418,7 +16,8 @@ uint64_t NSDecimalMultiply(_:_:_:_:)(uint64_t a1, uint64_t a2, uint64_t a3)
       v9 = 0;
     }
 
-    *&v11[4] = 0uLL;
+    *&v11[12] = 0;
+    *&v11[4] = 0;
     _So9NSDecimala__exponent_setter(0, v11);
     _So9NSDecimala__length_setter(0, v11);
     _So9NSDecimala__isNegative_setter(1, v11);
@@ -1439,9 +38,9 @@ uint64_t NSDecimalMultiply(_:_:_:_:)(uint64_t a1, uint64_t a2, uint64_t a3)
   return v9;
 }
 
-uint64_t NSDecimalDivide(_:_:_:_:)(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t NSDecimalDivide(_:_:_:_:)(uint64_t a1, uint64_t a2, void *a3)
 {
-  *a1 = specialized NSDecimal._divide(by:roundingMode:)(*a3, *(a3 + 8), *(a3 + 16), *a2, *(a2 + 8), *(a2 + 16));
+  *a1 = specialized NSDecimal._divide(by:roundingMode:)(*a3, a3[1], *(a3 + 4), *a2, *(a2 + 8), *(a2 + 16));
   *(a1 + 8) = v4;
   *(a1 + 10) = v5;
   *(a1 + 12) = v6;
@@ -1515,7 +114,8 @@ LABEL_65:
 LABEL_40:
               if (v63 <= 0)
               {
-                *&v76[4] = 0uLL;
+                *&v76[12] = 0;
+                *&v76[4] = 0;
                 _So9NSDecimala__exponent_setter(0, v76);
                 _So9NSDecimala__length_setter(0, v76);
                 _So9NSDecimala__isNegative_setter(1, v76);
@@ -1793,7 +393,7 @@ LABEL_37:
 LABEL_58:
   *v76 = v32;
   v53 = v32;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
   if (swift_dynamicCast())
   {
     v54 = qword_181234EC8[v74];
@@ -1804,7 +404,8 @@ LABEL_58:
     v54 = 0;
   }
 
-  *&v71[4] = 0uLL;
+  *&v71[4] = 0;
+  *&v71[12] = 0;
   _So9NSDecimala__exponent_setter(0, v71);
   _So9NSDecimala__length_setter(0, v71);
   _So9NSDecimala__isNegative_setter(1, v71);
@@ -1828,18 +429,18 @@ uint64_t NSDecimalMultiplyByPowerOf10(_:_:_:_:)(uint64_t a1, uint64_t a2, __int1
   return 0;
 }
 
-uint64_t NSDecimalCompare(_:_:)(uint64_t a1, uint64_t a2)
+uint64_t NSDecimalCompare(_:_:)(__int128 *a1, uint64_t a2)
 {
 
   return _NSDecimalCompare(_:_:)(a1, a2);
 }
 
-uint64_t _NSDecimalCompare(_:_:)(uint64_t a1, uint64_t a2)
+uint64_t _NSDecimalCompare(_:_:)(__int128 *a1, uint64_t a2)
 {
   v3 = a1;
   v13 = *MEMORY[0x1E69E9840];
   v11 = *a1;
-  v12 = *(a1 + 16);
+  v12 = *(a1 + 4);
   if (!_So9NSDecimala__length_getter(&v11))
   {
     goto LABEL_12;
@@ -1860,7 +461,7 @@ uint64_t _NSDecimalCompare(_:_:)(uint64_t a1, uint64_t a2)
     }
 
     v11 = *v3;
-    v12 = *(v3 + 16);
+    v12 = *(v3 + 4);
     isNegative_getter = _So9NSDecimala__isNegative_getter(&v11);
     v11 = *a2;
     v12 = *(a2 + 16);
@@ -1870,7 +471,7 @@ uint64_t _NSDecimalCompare(_:_:)(uint64_t a1, uint64_t a2)
     }
 
     v11 = *v3;
-    v12 = *(v3 + 16);
+    v12 = *(v3 + 4);
     v5 = _So9NSDecimala__isNegative_getter(&v11);
     v11 = *a2;
     v12 = *(a2 + 16);
@@ -1880,7 +481,7 @@ uint64_t _NSDecimalCompare(_:_:)(uint64_t a1, uint64_t a2)
     }
 
     v11 = *v3;
-    v12 = *(v3 + 16);
+    v12 = *(v3 + 4);
     if (!_So9NSDecimala__length_getter(&v11))
     {
       v11 = *a2;
@@ -1901,12 +502,12 @@ uint64_t _NSDecimalCompare(_:_:)(uint64_t a1, uint64_t a2)
     if (!_So9NSDecimala__length_getter(&v11))
     {
       v11 = *v3;
-      v12 = *(v3 + 16);
+      v12 = *(v3 + 4);
       return _So9NSDecimala__length_getter(&v11) != 0;
     }
 
     v9 = *v3;
-    v10 = *(v3 + 16);
+    v10 = *(v3 + 4);
     v11 = *a2;
     v12 = *(a2 + 16);
     specialized static NSDecimal._normalize(a:b:roundingMode:)(&v9, &v11);
@@ -1935,7 +536,7 @@ uint64_t _NSDecimalCompare(_:_:)(uint64_t a1, uint64_t a2)
     __break(1u);
 LABEL_12:
     v11 = *v3;
-    v12 = *(v3 + 16);
+    v12 = *(v3 + 4);
   }
 
   while (!_So9NSDecimala__isNegative_getter(&v11));
@@ -1990,9 +591,9 @@ unint64_t lazy protocol witness table accessor for type NSDecimal._CalculationEr
   return result;
 }
 
-uint64_t specialized _NSDecimalDivide(_:_:_:_:)(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t specialized _NSDecimalDivide(_:_:_:_:)(uint64_t a1, uint64_t a2, void *a3)
 {
-  *a1 = specialized NSDecimal._divide(by:roundingMode:)(*a3, *(a3 + 8), *(a3 + 16), *a2, *(a2 + 8), *(a2 + 16));
+  *a1 = specialized NSDecimal._divide(by:roundingMode:)(*a3, a3[1], *(a3 + 4), *a2, *(a2 + 8), *(a2 + 16));
   *(a1 + 8) = v4;
   *(a1 + 10) = v5;
   *(a1 + 12) = v6;
@@ -2002,18 +603,18 @@ uint64_t specialized _NSDecimalDivide(_:_:_:_:)(uint64_t a1, uint64_t a2, uint64
   return 0;
 }
 
-uint64_t specialized __NSDecimalNormalize(_:_:_:)(uint64_t a1, uint64_t a2)
+uint64_t specialized __NSDecimalNormalize(_:_:_:)(__int128 *a1, __int128 *a2)
 {
   v10 = *MEMORY[0x1E69E9840];
   v8 = *a1;
-  v9 = *(a1 + 16);
+  v9 = *(a1 + 4);
   v6 = *a2;
-  v7 = *(a2 + 16);
+  v7 = *(a2 + 4);
   v4 = specialized static NSDecimal._normalize(a:b:roundingMode:)(&v8, &v6);
   *a1 = v8;
-  *(a1 + 16) = v9;
+  *(a1 + 4) = v9;
   *a2 = v6;
-  *(a2 + 16) = v7;
+  *(a2 + 4) = v7;
   return v4 & 1;
 }
 
@@ -2100,7 +701,7 @@ uint64_t NSDecimal.description.getter(uint64_t a1, uint64_t a2, int a3)
       NSDecimal.asVariableLengthInteger()(v40 | (WORD2(v40) << 32) | (WORD3(v40) << 48), WORD4(v40) | (WORD5(v40) << 16) | (WORD6(v40) << 32) | (HIWORD(v40) << 48), v41 | (HIWORD(v41) << 16));
       v13 = v12;
       v14 = *(v12 + 16);
-      v15._rawValue = _sSa9repeating5countSayxGx_SitcfCs6UInt16V_Tt1g5(0, v14);
+      v15 = _sSa9repeating5countSayxGx_SitcfCs6UInt16V_Tt1g5(0, v14);
       *&v37 = v15;
       if (v14)
       {
@@ -2111,8 +712,8 @@ uint64_t NSDecimal.description.getter(uint64_t a1, uint64_t a2, int a3)
 LABEL_20:
       while (1)
       {
-        v22 = *(v15._rawValue + 2);
-        if (!v22 || *(v15._rawValue + v22 + 15))
+        v22 = v15[1].i64[0];
+        if (!v22 || v15[1].i16[v22 + 7])
         {
           break;
         }
@@ -2122,7 +723,7 @@ LABEL_20:
           specialized Array.remove(at:)(*(v37 + 16) - 1);
         }
 
-        v15._rawValue = v37;
+        v15 = v37;
       }
 
       LODWORD(v37) = v8;
@@ -2140,7 +741,7 @@ LABEL_20:
         goto LABEL_41;
       }
 
-      v24 = *(v15._rawValue + 2);
+      v24 = v15[1].u64[0];
 
       if (HIDWORD(v24))
       {
@@ -2172,16 +773,16 @@ LABEL_20:
       v19 = *(v13 + 2 * v18);
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
-        v15._rawValue = specialized _ArrayBuffer._consumeAndCreateNew()(v15._rawValue);
+        v15 = specialized _ArrayBuffer._consumeAndCreateNew()(v15);
       }
 
-      if ((v18 - 15) > *(v15._rawValue + 2))
+      if ((v18 - 15) > v15[1].i64[0])
       {
         goto LABEL_39;
       }
 
       v20 = v19 | (v17 << 16);
-      *(v15._rawValue + v18) = v20 / 0xA;
+      v15->i16[v18] = v20 / 0xA;
       v17 = v20 % 0xA;
       if (--v18 == 15)
       {
@@ -2241,7 +842,7 @@ LABEL_27:
     }
 
     v37 = v39;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18ReversedCollectionVySSGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18ReversedCollectionVySSGMd, &_ss18ReversedCollectionVySSGMR);
     lazy protocol witness table accessor for type ReversedCollection<String> and conformance ReversedCollection<A>();
     return String.init<A>(_:)();
   }
@@ -2254,7 +855,8 @@ void static NSDecimal.*= infix(_:_:)(NSDecimal *by@<X1>, NSRoundingMode rounding
   NSDecimal._multiply(by:roundingMode:)(a4, by, roundingMode);
   if (v8)
   {
-    *&v9[4] = 0uLL;
+    *&v9[4] = 0;
+    *&v9[12] = 0;
     _So9NSDecimala__exponent_setter(0, v9);
     _So9NSDecimala__length_setter(0, v9);
     _So9NSDecimala__isNegative_setter(1, v9);
@@ -2445,7 +1047,7 @@ void __swiftcall NSDecimal.init(_:)(NSDecimal *__return_ptr retstr, Swift::Int8 
   }
 }
 
-unint64_t NSDecimal.init(integerLiteral:)(int64_t a1)
+unint64_t NSDecimal.init(integerLiteral:)(uint64_t a1)
 {
   v1 = a1;
   if (a1 < 0)
@@ -2700,7 +1302,8 @@ uint64_t NSDecimal.ulp.getter(uint64_t a1, uint64_t a2, unsigned int a3)
     *&v30[16] = a3;
     if (_So9NSDecimala__isNegative_getter(v30))
     {
-      *&v30[4] = 0uLL;
+      *&v30[12] = 0;
+      *&v30[4] = 0;
       _So9NSDecimala__exponent_setter(0, v30);
       _So9NSDecimala__length_setter(0, v30);
       _So9NSDecimala__isNegative_setter(1, v30);
@@ -3548,8 +2151,9 @@ LABEL_58:
   return result;
 }
 
-void __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> static NSDecimal.+ infix(_:_:)(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, unsigned int a6)
+void static NSDecimal.+ infix(_:_:)(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
+  v6[0] = a1;
   v6[1] = a2;
   v7 = a3;
   specialized static NSDecimal.+= infix(_:_:)(v6, a4, a5, a6);
@@ -3966,7 +2570,8 @@ LABEL_67:
     goto LABEL_68;
   }
 
-  *(v48 + 4) = 0uLL;
+  *(v48 + 12) = 0;
+  *(v48 + 4) = 0;
   _So9NSDecimala__exponent_setter(0, v48);
   _So9NSDecimala__length_setter(0, v48);
   _So9NSDecimala__isNegative_setter(1, v48);
@@ -4970,10 +3575,10 @@ void protocol witness for ExpressibleByFloatLiteral.init(floatLiteral:) in confo
   *(a2 + 16) = v5;
 }
 
-double protocol witness for ExpressibleByIntegerLiteral.init(integerLiteral:) in conformance NSDecimal@<D0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+double protocol witness for ExpressibleByIntegerLiteral.init(integerLiteral:) in conformance NSDecimal@<D0>(unint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
   v3 = *a1;
-  if (*a1 >= 0)
+  if ((*a1 & 0x8000000000000000) == 0)
   {
     v4 = *a1;
   }
@@ -4986,7 +3591,7 @@ double protocol witness for ExpressibleByIntegerLiteral.init(integerLiteral:) in
   *&v8 = specialized NSDecimal.init(_:)(v4);
   *(&v8 + 1) = v5;
   v9 = v6;
-  if (v3 < 0)
+  if ((v3 & 0x8000000000000000) != 0)
   {
     _So9NSDecimala__isNegative_setter(1, &v8);
   }
@@ -4997,7 +3602,7 @@ double protocol witness for ExpressibleByIntegerLiteral.init(integerLiteral:) in
   return result;
 }
 
-uint64_t NSDecimal.hash(into:)(uint64_t a1, unint64_t a2, unint64_t a3, unsigned int a4)
+uint64_t NSDecimal.hash(into:)(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t a4)
 {
   NSDecimal.doubleValue.getter(a2, a3, a4);
   if (v4 == 0.0)
@@ -5008,10 +3613,11 @@ uint64_t NSDecimal.hash(into:)(uint64_t a1, unint64_t a2, unint64_t a3, unsigned
   return MEMORY[0x1865CD090](*&v4);
 }
 
-Swift::Int NSDecimal.hashValue.getter(unint64_t a1, unint64_t a2, unsigned int a3)
+Swift::Int NSDecimal.hashValue.getter(unint64_t a1, unint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   Hasher.init(_seed:)();
-  NSDecimal.doubleValue.getter(a1, a2, a3);
+  NSDecimal.doubleValue.getter(a1, a2, v3);
   if (v6 == 0.0)
   {
     v6 = 0.0;
@@ -5049,20 +3655,20 @@ uint64_t protocol witness for Hashable.hash(into:) in conformance NSDecimal()
   return MEMORY[0x1865CD090](*&v1);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance NSDecimal()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance NSDecimal(uint64_t a1)
 {
-  v1 = *(v0 + 16);
-  v4 = v0;
-  v2 = *v0;
-  v3 = *(v4 + 8);
+  v2 = *(v1 + 16);
+  v5 = v1;
+  v3 = *v1;
+  v4 = *(v5 + 8);
   Hasher.init(_seed:)();
-  NSDecimal.doubleValue.getter(v2, v3, v1);
-  if (v5 == 0.0)
+  NSDecimal.doubleValue.getter(v3, v4, v2);
+  if (v6 == 0.0)
   {
-    v5 = 0.0;
+    v6 = 0.0;
   }
 
-  MEMORY[0x1865CD090](*&v5);
+  MEMORY[0x1865CD090](*&v6);
   return Hasher._finalize()();
 }
 
@@ -5098,10 +3704,10 @@ uint64_t protocol witness for CodingKey.stringValue.getter in conformance NSDeci
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance NSDecimal.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance NSDecimal.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized NSDecimal.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized NSDecimal.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -5146,7 +3752,7 @@ uint64_t NSDecimal.encode(to:)(void *a1, unint64_t a2, unint64_t a3, unsigned in
   v23 = HIDWORD(a3);
   v21 = HIWORD(a3);
   v8 = HIWORD(a4);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVySo9NSDecimala10FoundationE10CodingKeys33_8BAFFE19353E871E4B5E8D714CF82099LLOGMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVySo9NSDecimala10FoundationE10CodingKeys33_8BAFFE19353E871E4B5E8D714CF82099LLOGMd, &_ss22KeyedEncodingContainerVySo9NSDecimala10FoundationE10CodingKeys33_8BAFFE19353E871E4B5E8D714CF82099LLOGMR);
   v20 = *(v9 - 8);
   MEMORY[0x1EEE9AC00](v9);
   v11 = &v19 - v10;
@@ -5157,16 +3763,16 @@ uint64_t NSDecimal.encode(to:)(void *a1, unint64_t a2, unint64_t a3, unsigned in
   v14 = v22;
   dispatch thunk of Encoder.container<A>(keyedBy:)();
   v15 = v6;
-  v26 = v6;
-  v27 = v25;
-  v28 = v14;
-  v29 = a3;
-  v30 = v24;
-  v31 = v23;
+  LODWORD(v26) = v6;
+  WORD2(v26) = v25;
+  HIWORD(v26) = v14;
+  v27 = a3;
+  v28 = v24;
+  v29 = v23;
   v16 = v21;
-  v32 = v21;
-  v33 = a4;
-  v34 = v13;
+  v30 = v21;
+  v31 = a4;
+  v32 = v13;
   _So9NSDecimala__exponent_getter(&v26);
   LOBYTE(v26) = 0;
   v17 = v19;
@@ -5176,75 +3782,75 @@ uint64_t NSDecimal.encode(to:)(void *a1, unint64_t a2, unint64_t a3, unsigned in
     return (*(v20 + 8))(v11, v12);
   }
 
-  v26 = v15;
-  v27 = v25;
-  v28 = v14;
-  v29 = a3;
-  v30 = v24;
-  v31 = v23;
-  v32 = v16;
-  v33 = a4;
-  v34 = v13;
+  LODWORD(v26) = v15;
+  WORD2(v26) = v25;
+  HIWORD(v26) = v14;
+  v27 = a3;
+  v28 = v24;
+  v29 = v23;
+  v30 = v16;
+  v31 = a4;
+  v32 = v13;
   _So9NSDecimala__length_getter(&v26);
   LOBYTE(v26) = 1;
   KeyedEncodingContainer.encode(_:forKey:)();
-  v26 = v15;
-  v27 = v25;
-  v28 = v14;
-  v29 = a3;
-  v30 = v24;
-  v31 = v23;
-  v32 = v16;
-  v33 = a4;
-  v34 = v13;
+  LODWORD(v26) = v15;
+  WORD2(v26) = v25;
+  HIWORD(v26) = v14;
+  v27 = a3;
+  v28 = v24;
+  v29 = v23;
+  v30 = v16;
+  v31 = a4;
+  v32 = v13;
   _So9NSDecimala__isNegative_getter(&v26);
   LOBYTE(v26) = 2;
   KeyedEncodingContainer.encode(_:forKey:)();
-  v26 = v15;
-  v27 = v25;
-  v28 = v14;
-  v29 = a3;
-  v30 = v24;
-  v31 = v23;
-  v32 = v16;
-  v33 = a4;
-  v34 = v13;
+  LODWORD(v26) = v15;
+  WORD2(v26) = v25;
+  HIWORD(v26) = v14;
+  v27 = a3;
+  v28 = v24;
+  v29 = v23;
+  v30 = v16;
+  v31 = a4;
+  v32 = v13;
   _So9NSDecimala__isCompact_getter(&v26);
   LOBYTE(v26) = 3;
   KeyedEncodingContainer.encode(_:forKey:)();
   v19 = a3;
-  v36 = a4;
-  v37 = 4;
+  v34 = a4;
+  v35 = 4;
   KeyedEncodingContainer.nestedUnkeyedContainer(forKey:)();
-  __swift_mutable_project_boxed_opaque_existential_1(&v26, v35);
+  __swift_mutable_project_boxed_opaque_existential_1(&v26, v33);
   dispatch thunk of UnkeyedEncodingContainer.encode(_:)();
   LODWORD(v25) = v13;
-  __swift_mutable_project_boxed_opaque_existential_1(&v26, v35);
+  __swift_mutable_project_boxed_opaque_existential_1(&v26, v33);
   dispatch thunk of UnkeyedEncodingContainer.encode(_:)();
-  __swift_mutable_project_boxed_opaque_existential_1(&v26, v35);
+  __swift_mutable_project_boxed_opaque_existential_1(&v26, v33);
   dispatch thunk of UnkeyedEncodingContainer.encode(_:)();
-  __swift_mutable_project_boxed_opaque_existential_1(&v26, v35);
+  __swift_mutable_project_boxed_opaque_existential_1(&v26, v33);
   dispatch thunk of UnkeyedEncodingContainer.encode(_:)();
-  __swift_mutable_project_boxed_opaque_existential_1(&v26, v35);
+  __swift_mutable_project_boxed_opaque_existential_1(&v26, v33);
   dispatch thunk of UnkeyedEncodingContainer.encode(_:)();
-  __swift_mutable_project_boxed_opaque_existential_1(&v26, v35);
+  __swift_mutable_project_boxed_opaque_existential_1(&v26, v33);
   dispatch thunk of UnkeyedEncodingContainer.encode(_:)();
-  __swift_mutable_project_boxed_opaque_existential_1(&v26, v35);
+  __swift_mutable_project_boxed_opaque_existential_1(&v26, v33);
   dispatch thunk of UnkeyedEncodingContainer.encode(_:)();
-  __swift_mutable_project_boxed_opaque_existential_1(&v26, v35);
+  __swift_mutable_project_boxed_opaque_existential_1(&v26, v33);
   dispatch thunk of UnkeyedEncodingContainer.encode(_:)();
   (*(v20 + 8))(v11, v12);
   return __swift_destroy_boxed_opaque_existential_1(&v26);
 }
 
-char *protocol witness for Decodable.init(from:) in conformance NSDecimal@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
+char *protocol witness for Decodable.init(from:) in conformance NSDecimal@<X0>(uint64_t a1@<X8>, void *a2@<X0>)
 {
-  result = specialized NSDecimal.init(from:)(a1);
+  result = specialized NSDecimal.init(from:)(a2);
   if (!v2)
   {
-    *a2 = result;
-    *(a2 + 8) = v5;
-    *(a2 + 16) = v6;
+    *a1 = result;
+    *(a1 + 8) = v5;
+    *(a1 + 16) = v6;
   }
 
   return result;
@@ -5750,7 +4356,8 @@ void protocol witness for static Numeric.*= infix(_:_:) in conformance NSDecimal
   NSDecimal._multiply(by:roundingMode:)(a2[1], *a2, a2[1]);
   if (v6)
   {
-    *&v7[4] = 0uLL;
+    *&v7[4] = 0;
+    *&v7[12] = 0;
     _So9NSDecimala__exponent_setter(0, v7);
     _So9NSDecimala__length_setter(0, v7);
     _So9NSDecimala__isNegative_setter(1, v7);
@@ -5818,24 +4425,24 @@ void protocol witness for Strideable.distance(to:) in conformance NSDecimal(NSDe
   *(a2 + 16) = v5;
 }
 
-double protocol witness for Strideable.advanced(by:) in conformance NSDecimal@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+double protocol witness for Strideable.advanced(by:) in conformance NSDecimal@<D0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v4 = *(a1 + 16);
+  v4 = *(a1 + 4);
   v6 = *v2;
   v7 = *(v2 + 4);
-  specialized static NSDecimal.+= infix(_:_:)(&v6, *a1, *(a1 + 8), v4);
+  specialized static NSDecimal.+= infix(_:_:)(&v6, *a1, a1[1], v4);
   result = *&v6;
   *a2 = v6;
   *(a2 + 16) = v7;
   return result;
 }
 
-uint64_t protocol witness for static Strideable._step(after:from:by:) in conformance NSDecimal(uint64_t a1, uint64_t a2, uint64_t a3, __int128 *a4, uint64_t a5, uint64_t a6)
+uint64_t protocol witness for static Strideable._step(after:from:by:) in conformance NSDecimal(uint64_t a1, uint64_t a2, uint64_t a3, __int128 *a4, uint64_t a5, void *a6)
 {
-  v7 = *(a6 + 16);
+  v7 = *(a6 + 4);
   v9 = *a4;
   v10 = *(a4 + 4);
-  specialized static NSDecimal.+= infix(_:_:)(&v9, *a6, *(a6 + 8), v7);
+  specialized static NSDecimal.+= infix(_:_:)(&v9, *a6, a6[1], v7);
   *a1 = v9;
   *(a1 + 16) = v10;
   return 0;
@@ -5843,7 +4450,7 @@ uint64_t protocol witness for static Strideable._step(after:from:by:) in conform
 
 double one-time initialization function for _powersOfTenDividingUInt128Max()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo9NSDecimalaGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo9NSDecimalaGMd, &_ss23_ContiguousArrayStorageCySo9NSDecimalaGMR);
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_181234EF0;
   *&v44[4] = 0x9999999999999999;
@@ -6238,7 +4845,7 @@ LABEL_7:
   return result;
 }
 
-uint64_t specialized static NSDecimal.== infix(_:_:)(unint64_t a1, unint64_t a2, unsigned int a3, unint64_t a4, unint64_t a5, unsigned int a6)
+BOOL specialized static NSDecimal.== infix(_:_:)(unint64_t a1, unint64_t a2, unsigned int a3, unint64_t a4, unint64_t a5, unsigned int a6)
 {
   v6 = a6;
   v50 = a6;
@@ -6629,7 +5236,7 @@ LABEL_32:
   return v45 == 0;
 }
 
-uint64_t specialized static NSDecimal.< infix(_:_:)(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t a5, int a6)
+uint64_t specialized static NSDecimal.< infix(_:_:)(unint64_t a1, unint64_t a2, unsigned int a3, uint64_t a4, uint64_t a5, int a6)
 {
   LODWORD(v6) = a6;
   v21 = *MEMORY[0x1E69E9840];
@@ -6773,7 +5380,8 @@ LABEL_54:
     *v35 = 0;
     swift_willThrow();
 LABEL_55:
-    *&v131[4] = 0uLL;
+    *&v131[4] = 0;
+    *&v131[12] = 0;
     _So9NSDecimala__exponent_setter(0, v131);
     _So9NSDecimala__length_setter(0, v131);
     _So9NSDecimala__isNegative_setter(1, v131);
@@ -7265,7 +5873,7 @@ LABEL_182:
                   goto LABEL_265;
                 }
 
-                v107 = *(v50 + 16);
+                v107 = v50[1].u64[0];
                 ++v101;
                 v104 = v50;
               }
@@ -7300,7 +5908,7 @@ LABEL_198:
                 v118 = 1;
                 do
                 {
-                  v119 = v118 + *(v50 + 32 + 2 * v117);
+                  v119 = v118 + v50[2].u16[v117];
                   v118 = HIWORD(v119);
                   *(v102 + 2 * v117++ + 32) = v119;
                 }
@@ -7311,7 +5919,7 @@ LABEL_198:
                 {
 LABEL_239:
                   v121 = *(v102 + 24);
-                  v104 = v103 + 1;
+                  v104 = (v103 + 1);
                   if (v103 >= v121 >> 1)
                   {
                     goto LABEL_283;
@@ -7383,7 +5991,7 @@ LABEL_240:
                 }
 
                 _So9NSDecimala__exponent_setter(v125, &v129);
-                v100 = *(v50 + 16);
+                v100 = v50[1].u64[0];
                 if (HIDWORD(v100))
                 {
                   __break(1u);
@@ -7434,7 +6042,7 @@ LABEL_238:
                 break;
               }
 
-              v107 = *(v50 + 16);
+              v107 = v50[1].u64[0];
               v108 += 4;
               v104 = v50;
               if (v107 <= 9)
@@ -7657,7 +6265,7 @@ LABEL_149:
           }
         }
 
-        v87 = *(v50 + 16);
+        v87 = v50[1].u64[0];
         if (!HIDWORD(v87))
         {
           _So9NSDecimala__length_setter(v87, &v129);
@@ -8067,7 +6675,7 @@ LABEL_219:
         }
       }
 
-      v114 = *(v50 + 16);
+      v114 = v50[1].u64[0];
       if (HIDWORD(v114))
       {
         goto LABEL_278;
@@ -8469,7 +7077,7 @@ LABEL_193:
                 }
               }
 
-              v93 = *(v47 + 16);
+              v93 = v47[1].u64[0];
               if (!HIDWORD(v93))
               {
                 _So9NSDecimala__length_setter(v93, &v114);
@@ -8502,7 +7110,8 @@ LABEL_235:
             swift_willThrow();
 
 LABEL_55:
-            *&v118[4] = 0uLL;
+            *&v118[12] = 0;
+            *&v118[4] = 0;
             _So9NSDecimala__exponent_setter(0, v118);
             _So9NSDecimala__length_setter(0, v118);
             _So9NSDecimala__isNegative_setter(1, v118);
@@ -8749,7 +7358,7 @@ LABEL_216:
               }
             }
 
-            v99 = *(v47 + 16);
+            v99 = v47[1].u64[0];
             if (!HIDWORD(v99))
             {
               _So9NSDecimala__length_setter(v99, &v114);
@@ -9315,7 +7924,7 @@ LABEL_152:
       goto LABEL_260;
     }
 
-    v86 = *(v47 + 16);
+    v86 = v47[1].u64[0];
     v87 += 4;
     v83 = v47;
   }
@@ -9346,7 +7955,7 @@ LABEL_156:
         goto LABEL_259;
       }
 
-      v86 = *(v47 + 16);
+      v86 = v47[1].u64[0];
       ++v80;
       v83 = v47;
     }
@@ -9382,7 +7991,7 @@ LABEL_227:
       v103 = 1;
       do
       {
-        v104 = v103 + *(v47 + 32 + 2 * v102);
+        v104 = v103 + v47[2].u16[v102];
         v103 = HIWORD(v104);
         *(v81 + 2 * v102++ + 32) = v104;
       }
@@ -9408,7 +8017,7 @@ LABEL_241:
     }
 
     v106 = *(v81 + 24);
-    v83 = v82 + 1;
+    v83 = (v82 + 1);
     if (v82 >= v106 >> 1)
     {
       goto LABEL_277;
@@ -9478,7 +8087,7 @@ LABEL_237:
   }
 
   _So9NSDecimala__exponent_setter(v110, &v114);
-  v79 = *(v47 + 16);
+  v79 = v47[1].u64[0];
   if (HIDWORD(v79))
   {
     __break(1u);
@@ -9533,7 +8142,7 @@ uint64_t specialized NSDecimal.init(string:locale:)(unint64_t a1, unint64_t a2, 
 
 char *specialized NSDecimal.init(from:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVySo9NSDecimala10FoundationE10CodingKeys33_8BAFFE19353E871E4B5E8D714CF82099LLOGMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVySo9NSDecimala10FoundationE10CodingKeys33_8BAFFE19353E871E4B5E8D714CF82099LLOGMd, &_ss22KeyedDecodingContainerVySo9NSDecimala10FoundationE10CodingKeys33_8BAFFE19353E871E4B5E8D714CF82099LLOGMR);
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
   v6 = v11 - v5;
@@ -9542,13 +8151,13 @@ char *specialized NSDecimal.init(from:)(void *a1)
   dispatch thunk of Decoder.container<A>(keyedBy:)();
   if (!v1)
   {
-    v26[0] = 0;
+    LOBYTE(v26[0]) = 0;
     v7 = KeyedDecodingContainer.decode(_:forKey:)();
-    v26[0] = 1;
+    LOBYTE(v26[0]) = 1;
     v8 = KeyedDecodingContainer.decode(_:forKey:)();
-    v26[0] = 2;
+    LOBYTE(v26[0]) = 2;
     v30 = KeyedDecodingContainer.decode(_:forKey:)();
-    v26[0] = 3;
+    LOBYTE(v26[0]) = 3;
     v29 = KeyedDecodingContainer.decode(_:forKey:)();
     LOBYTE(v19) = 4;
     KeyedDecodingContainer.nestedUnkeyedContainer(forKey:)();
@@ -9598,7 +8207,7 @@ char *specialized NSDecimal.init(from:)(void *a1)
   return v6;
 }
 
-void specialized static NSDecimal.-= infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4)
+void specialized static NSDecimal.-= infix(_:_:)(__int128 *a1, uint64_t a2, uint64_t a3, unsigned int a4)
 {
   v120 = *MEMORY[0x1E69E9840];
   *&v118 = a2;
@@ -9615,8 +8224,8 @@ void specialized static NSDecimal.-= infix(_:_:)(uint64_t a1, uint64_t a2, uint6
   }
 
   v116 = *a1;
-  v117 = *(a1 + 16);
-  if (!_So9NSDecimala__length_getter(&v116) && (v116 = *a1, v117 = *(a1 + 16), _So9NSDecimala__isNegative_getter(&v116)) || (v116 = v118, v117 = v119, !_So9NSDecimala__length_getter(&v116)) && (v116 = v118, v117 = v119, _So9NSDecimala__isNegative_getter(&v116)))
+  v117 = *(a1 + 4);
+  if (!_So9NSDecimala__length_getter(&v116) && (v116 = *a1, v117 = *(a1 + 4), _So9NSDecimala__isNegative_getter(&v116)) || (v116 = v118, v117 = v119, !_So9NSDecimala__length_getter(&v116)) && (v116 = v118, v117 = v119, _So9NSDecimala__isNegative_getter(&v116)))
   {
 LABEL_54:
     lazy protocol witness table accessor for type NSDecimal._CalculationError and conformance NSDecimal._CalculationError();
@@ -9627,7 +8236,7 @@ LABEL_54:
   }
 
   v114 = *a1;
-  v115 = *(a1 + 16);
+  v115 = *(a1 + 4);
   if (!_So9NSDecimala__length_getter(&v114))
   {
     v116 = v118;
@@ -9640,12 +8249,12 @@ LABEL_54:
   if (!_So9NSDecimala__length_getter(&v114))
   {
     v116 = *a1;
-    v27 = *(a1 + 16);
+    v27 = *(a1 + 4);
     goto LABEL_58;
   }
 
   v114 = *a1;
-  v115 = *(a1 + 16);
+  v115 = *(a1 + 4);
   v112 = v118;
   v113 = v119;
   specialized static NSDecimal._normalize(a:b:roundingMode:)(&v114, &v112);
@@ -9912,7 +8521,7 @@ LABEL_194:
                 }
               }
 
-              v85 = *(v39 + 16);
+              v85 = v39[1].u64[0];
               if (!HIDWORD(v85))
               {
                 _So9NSDecimala__length_setter(v85, &v109);
@@ -9945,7 +8554,8 @@ LABEL_236:
             swift_willThrow();
 
 LABEL_55:
-            *&v111[4] = 0uLL;
+            *&v111[4] = 0;
+            *&v111[12] = 0;
             _So9NSDecimala__exponent_setter(0, v111);
             _So9NSDecimala__length_setter(0, v111);
             _So9NSDecimala__isNegative_setter(1, v111);
@@ -10196,7 +8806,7 @@ LABEL_217:
               }
             }
 
-            v91 = *(v39 + 16);
+            v91 = v39[1].u64[0];
             if (!HIDWORD(v91))
             {
               _So9NSDecimala__length_setter(v91, &v109);
@@ -10759,7 +9369,7 @@ LABEL_155:
       goto LABEL_261;
     }
 
-    v79 = *(v39 + 16);
+    v79 = v39[1].u64[0];
     v71 += 4;
     v76 = v39;
   }
@@ -10785,7 +9395,7 @@ LABEL_159:
         goto LABEL_260;
       }
 
-      v79 = *(v39 + 16);
+      v79 = v39[1].u64[0];
       ++v73;
       v76 = v39;
     }
@@ -10821,7 +9431,7 @@ LABEL_228:
       v95 = 1;
       do
       {
-        v96 = v95 + *(v39 + 32 + 2 * v94);
+        v96 = v95 + v39[2].u16[v94];
         v95 = HIWORD(v96);
         *(v74 + 2 * v94++ + 32) = v96;
       }
@@ -10847,7 +9457,7 @@ LABEL_242:
     }
 
     v98 = *(v74 + 24);
-    v76 = v71 + 1;
+    v76 = (v71 + 1);
     if (v71 >= v98 >> 1)
     {
       goto LABEL_278;
@@ -10917,7 +9527,7 @@ LABEL_238:
   }
 
   _So9NSDecimala__exponent_setter(v102, &v109);
-  v72 = *(v39 + 16);
+  v72 = v39[1].u64[0];
   if (HIDWORD(v72))
   {
     __break(1u);
@@ -10947,5 +9557,715 @@ LABEL_59:
   *a1 = v116;
   v26 = v117;
 LABEL_60:
-  *(a1 + 16) = v26;
+  *(a1 + 4) = v26;
+}
+
+unint64_t lazy protocol witness table accessor for type NSDecimal.CodingKeys and conformance NSDecimal.CodingKeys()
+{
+  result = lazy protocol witness table cache variable for type NSDecimal.CodingKeys and conformance NSDecimal.CodingKeys;
+  if (!lazy protocol witness table cache variable for type NSDecimal.CodingKeys and conformance NSDecimal.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NSDecimal.CodingKeys and conformance NSDecimal.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type NSDecimal.CodingKeys and conformance NSDecimal.CodingKeys;
+  if (!lazy protocol witness table cache variable for type NSDecimal.CodingKeys and conformance NSDecimal.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NSDecimal.CodingKeys and conformance NSDecimal.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type NSDecimal.CodingKeys and conformance NSDecimal.CodingKeys;
+  if (!lazy protocol witness table cache variable for type NSDecimal.CodingKeys and conformance NSDecimal.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NSDecimal.CodingKeys and conformance NSDecimal.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type NSDecimal.CodingKeys and conformance NSDecimal.CodingKeys;
+  if (!lazy protocol witness table cache variable for type NSDecimal.CodingKeys and conformance NSDecimal.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NSDecimal.CodingKeys and conformance NSDecimal.CodingKeys);
+  }
+
+  return result;
+}
+
+uint64_t lazy protocol witness table accessor for type NSDecimal and conformance NSDecimal(unint64_t *a1, uint64_t a2)
+{
+  result = *a1;
+  if (!result)
+  {
+    type metadata accessor for NSDecimal(255);
+    result = swift_getWitnessTable();
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+uint64_t specialized NSDecimal.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
+{
+  v4 = a1 == 0x746E656E6F707865 && a2 == 0xE800000000000000;
+  if (v4 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 0;
+  }
+
+  else if (a1 == 0x6874676E656CLL && a2 == 0xE600000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 1;
+  }
+
+  else if (a1 == 0x69746167654E7369 && a2 == 0xEA00000000006576 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 2;
+  }
+
+  else if (a1 == 0x6361706D6F437369 && a2 == 0xE900000000000074 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 3;
+  }
+
+  else if (a1 == 0x61737369746E616DLL && a2 == 0xE800000000000000)
+  {
+
+    return 4;
+  }
+
+  else
+  {
+    v6 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+    if (v6)
+    {
+      return 4;
+    }
+
+    else
+    {
+      return 5;
+    }
+  }
+}
+
+void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> NSDecimal._multiply(by:roundingMode:)(NSDecimal *__return_ptr retstr, NSDecimal *by, NSRoundingMode roundingMode)
+{
+  v58 = v4;
+  v8 = v3;
+  v81 = v5;
+  v69 = HIDWORD(v5);
+  v70 = v6;
+  v71 = v5;
+  v68 = HIWORD(v5);
+  v82 = v6;
+  v65 = v6 >> 16;
+  v67 = HIDWORD(v6);
+  v66 = HIWORD(v6);
+  v84 = HIWORD(v7);
+  v85 = v7;
+  v83 = v7;
+  if (!_So9NSDecimala__length_getter(&v81))
+  {
+    LODWORD(v81) = v71;
+    WORD2(v81) = v69;
+    HIWORD(v81) = v68;
+    LOWORD(v82) = v70;
+    WORD1(v82) = v65;
+    WORD2(v82) = v67;
+    HIWORD(v82) = v66;
+    LOWORD(v83) = v85;
+    HIWORD(v83) = v84;
+    if (_So9NSDecimala__isNegative_getter(&v81))
+    {
+      goto LABEL_41;
+    }
+  }
+
+  v81 = by;
+  v11 = WORD1(v8);
+  v82 = roundingMode;
+  v12 = roundingMode >> 16;
+  v83 = v8;
+  if (!_So9NSDecimala__length_getter(&v81))
+  {
+    v81 = by;
+    v82 = roundingMode;
+    v83 = v8;
+    if (_So9NSDecimala__isNegative_getter(&v81))
+    {
+      goto LABEL_41;
+    }
+  }
+
+  v62 = roundingMode >> 48;
+  v63 = by >> 48;
+  v59 = roundingMode >> 32;
+  v60 = roundingMode >> 16;
+  v61 = WORD1(v8);
+  LODWORD(v81) = v71;
+  WORD2(v81) = v69;
+  HIWORD(v81) = v68;
+  LOWORD(v82) = v70;
+  WORD1(v82) = v65;
+  WORD2(v82) = v67;
+  HIWORD(v82) = v66;
+  LOWORD(v83) = v85;
+  HIWORD(v83) = v84;
+  if (!_So9NSDecimala__length_getter(&v81))
+  {
+    return;
+  }
+
+  v81 = by;
+  v57 = by >> 32;
+  v82 = roundingMode;
+  rawValue = v8;
+  v83 = v8;
+  if (!_So9NSDecimala__length_getter(&v81))
+  {
+    return;
+  }
+
+  NSDecimal.asVariableLengthInteger()(v71, v70, v85);
+  v15 = v14;
+  NSDecimal.asVariableLengthInteger()(by, roundingMode, rawValue);
+  v17._rawValue = v16;
+  v18 = *(v15 + 16);
+  v56 = rawValue;
+  v55 = by;
+  if (v18 && (v19 = v16[2]) != 0)
+  {
+    v20 = v18 + v19;
+    if (__OFADD__(v18, v19))
+    {
+      goto LABEL_111;
+    }
+
+    if (v20 >= 16)
+    {
+      rawValue = 16;
+    }
+
+    else
+    {
+      rawValue = v18 + v19;
+    }
+
+    if (v20 < 0)
+    {
+      goto LABEL_112;
+    }
+
+    v11 = roundingMode;
+    by = static Array._allocateBufferUninitialized(minimumCapacity:)();
+    *&by->_mantissa[6] = rawValue;
+    roundingMode = &by[1]._mantissa[4];
+    bzero(&by[1]._mantissa[4], 2 * rawValue);
+    v22 = 0;
+    v20 = v17._rawValue + 32;
+    do
+    {
+      v23 = 0;
+      v24 = 0;
+      v25 = v22++;
+      do
+      {
+        v27 = v24 + v25;
+        if (__OFADD__(v24, v25))
+        {
+          __break(1u);
+LABEL_104:
+          __break(1u);
+LABEL_105:
+          __break(1u);
+          goto LABEL_106;
+        }
+
+        if (v27 >= rawValue)
+        {
+          if (v23)
+          {
+            goto LABEL_53;
+          }
+
+          v23 = *(v20 + 2 * v25);
+          if (*(v20 + 2 * v25))
+          {
+            v23 = *(v15 + 2 * v24 + 32);
+            if (*(v15 + 2 * v24 + 32))
+            {
+              goto LABEL_53;
+            }
+          }
+        }
+
+        else
+        {
+          if (v27 < 0)
+          {
+            goto LABEL_104;
+          }
+
+          if (v27 >= *&by->_mantissa[6])
+          {
+            goto LABEL_105;
+          }
+
+          v26 = v23 + *(roundingMode + 2 * v27) + *(v15 + 2 * v24 + 32) * *(v20 + 2 * v25);
+          v23 = HIWORD(v26);
+          *(roundingMode + 2 * v27) = v26;
+        }
+
+        ++v24;
+      }
+
+      while (v18 != v24);
+      if (v23)
+      {
+        v28 = __OFADD__(v18, v25);
+        v29 = v18 + v25;
+        if (v28)
+        {
+          goto LABEL_113;
+        }
+
+        if (v29 >= rawValue)
+        {
+LABEL_53:
+          lazy protocol witness table accessor for type NSDecimal._CalculationError and conformance NSDecimal._CalculationError();
+          swift_allocError();
+          *v43 = 0;
+          swift_willThrow();
+
+          goto LABEL_99;
+        }
+
+        if (v29 < 0)
+        {
+          goto LABEL_114;
+        }
+
+        if (v29 >= *&by->_mantissa[6])
+        {
+          goto LABEL_115;
+        }
+
+        *(roundingMode + 2 * v29) = v23;
+      }
+    }
+
+    while (v22 != v19);
+    v30 = *&by->_mantissa[6];
+    v31 = v69;
+    v32 = v63;
+    LOWORD(roundingMode) = v11;
+    v53 = by;
+    if (v30)
+    {
+      v33 = v30 + 15;
+      do
+      {
+        if (*(by + v33))
+        {
+          break;
+        }
+
+        *&by->_mantissa[6] = v33 - 16;
+        --v33;
+      }
+
+      while (v33 != 15);
+    }
+  }
+
+  else
+  {
+
+    v53 = MEMORY[0x1E69E7CC0];
+    v31 = v69;
+    v32 = HIWORD(by);
+  }
+
+  v54 = roundingMode;
+
+  v81 = 0;
+  v82 = NSRoundPlain;
+  v83 = 0;
+  v72 = v71;
+  v73 = v31;
+  v74 = v68;
+  v75 = v70;
+  v76 = v65;
+  v77 = v67;
+  v78 = v66;
+  v79 = v85;
+  v80 = v84;
+  isNegative_getter = _So9NSDecimala__isNegative_getter(&v72);
+  v15 = v55;
+  v72 = v55;
+  v73 = v57;
+  v74 = v32;
+  v75 = roundingMode;
+  roundingMode = v59;
+  v76 = v60;
+  v77 = v59;
+  v78 = v62;
+  v79 = v56;
+  v11 = v61;
+  v80 = v61;
+  v36 = isNegative_getter != _So9NSDecimala__isNegative_getter(&v72);
+  _So9NSDecimala__isNegative_setter(v36, &v81);
+  v72 = v71;
+  v73 = v69;
+  v74 = v68;
+  v75 = v70;
+  v76 = v65;
+  v77 = v67;
+  v78 = v66;
+  v79 = v85;
+  v80 = v84;
+  v37 = _So9NSDecimala__exponent_getter(&v72);
+  v72 = v55;
+  v73 = v57;
+  v74 = v63;
+  v75 = v54;
+  v76 = v60;
+  v77 = v59;
+  v78 = v62;
+  v79 = v56;
+  v80 = v61;
+  v12 = _So9NSDecimala__exponent_getter(&v72) + v37;
+  by = v53;
+  v38 = *&v53->_mantissa[6];
+  if (v38 <= 8)
+  {
+    v17._rawValue = v53;
+    goto LABEL_98;
+  }
+
+  v19 = v64;
+  if (v38 == 9)
+  {
+    v11 = 0;
+    LODWORD(by) = 0;
+    v40 = 0;
+    roundingMode = v39;
+    v17._rawValue = v39;
+  }
+
+  else
+  {
+    v85 = v12;
+    v12 = 0;
+    LODWORD(by) = 0;
+    v40 = 0;
+    roundingMode = v39;
+    rawValue = v39;
+    do
+    {
+      if (by)
+      {
+        v40 = 1;
+      }
+
+      v44 = specialized static NSDecimal._integerDivideByShort(_:_:)(rawValue, 0x2710u);
+      if (v64)
+      {
+        goto LABEL_92;
+      }
+
+      v17._rawValue = v44;
+      by = v45;
+
+      v11 = v12 + 4;
+      if (__OFADD__(v12, 4))
+      {
+        goto LABEL_110;
+      }
+
+      v15 = *(v17._rawValue + 2);
+      v12 += 4;
+      rawValue = v17._rawValue;
+    }
+
+    while (v15 > 9);
+    v12 = v85;
+    if (v15 != 9)
+    {
+      goto LABEL_62;
+    }
+  }
+
+  rawValue = v17._rawValue;
+  do
+  {
+    if (by)
+    {
+      v40 = 1;
+    }
+
+    v41 = specialized static NSDecimal._integerDivideByShort(_:_:)(rawValue, 0xAu);
+    if (v64)
+    {
+      goto LABEL_92;
+    }
+
+    v17._rawValue = v41;
+    by = v42;
+
+    v20 = v11 + 1;
+    if (__OFADD__(v11, 1))
+    {
+      goto LABEL_109;
+    }
+
+    v15 = *(v17._rawValue + 2);
+    ++v11;
+    rawValue = v17._rawValue;
+  }
+
+  while (v15 > 8);
+  v11 = v20;
+LABEL_62:
+  if (v40)
+  {
+    if (!by || by == 5)
+    {
+      by = (by + 1);
+    }
+
+    v46 = roundingMode;
+  }
+
+  else
+  {
+    v46 = roundingMode;
+    if (!by)
+    {
+      goto LABEL_79;
+    }
+  }
+
+  if (v58 <= 1)
+  {
+    if (v58)
+    {
+      goto LABEL_79;
+    }
+
+LABEL_78:
+    if (by <= 4)
+    {
+      goto LABEL_79;
+    }
+
+LABEL_80:
+    if (!v15)
+    {
+      roundingMode = v12;
+      by = MEMORY[0x1E69E7CC0];
+      v12 = *(MEMORY[0x1E69E7CC0] + 16);
+      v47 = 1;
+LABEL_86:
+      if (v12 == v47)
+      {
+
+        lazy protocol witness table accessor for type NSDecimal._CalculationError and conformance NSDecimal._CalculationError();
+        swift_allocError();
+        *v51 = 0;
+        swift_willThrow();
+LABEL_92:
+
+LABEL_99:
+
+        return;
+      }
+
+      v20 = *by[1]._mantissa;
+      rawValue = v12 + 1;
+      if (v12 >= v20 >> 1)
+      {
+        goto LABEL_120;
+      }
+
+      while (1)
+      {
+        *&by->_mantissa[6] = rawValue;
+        by[1]._mantissa[v12 + 4] = 1;
+        if (*&by->_mantissa[6] >= v15)
+        {
+LABEL_93:
+        }
+
+        else
+        {
+          v21 = specialized static NSDecimal._integerDivideByShort(_:_:)(by, 0xAu);
+          if (v19)
+          {
+
+            goto LABEL_92;
+          }
+
+LABEL_106:
+          rawValue = v21;
+
+          v28 = __OFADD__(v11++, 1);
+          if (v28)
+          {
+            __break(1u);
+LABEL_109:
+            __break(1u);
+LABEL_110:
+            __break(1u);
+LABEL_111:
+            __break(1u);
+LABEL_112:
+            __break(1u);
+LABEL_113:
+            __break(1u);
+LABEL_114:
+            __break(1u);
+LABEL_115:
+            __break(1u);
+LABEL_116:
+            __break(1u);
+LABEL_117:
+            __break(1u);
+LABEL_118:
+            __break(1u);
+            goto LABEL_119;
+          }
+        }
+
+        v12 = roundingMode;
+LABEL_95:
+        v20 = 0xFFFFFFFF80000000;
+        if (v11 < 0xFFFFFFFF80000000)
+        {
+          goto LABEL_117;
+        }
+
+        v20 = 0x7FFFFFFFLL;
+        if (v11 > 0x7FFFFFFF)
+        {
+          goto LABEL_118;
+        }
+
+        v28 = __OFADD__(v12, v11);
+        v12 = (v12 + v11);
+        if (!v28)
+        {
+LABEL_98:
+          NSDecimal.copyVariableLengthInteger(_:)(v17);
+          v19 = v52;
+          if (v52)
+          {
+            goto LABEL_99;
+          }
+
+          rawValue = *(v17._rawValue + 2);
+
+          v20 = HIDWORD(rawValue);
+          if (!HIDWORD(rawValue))
+          {
+            _So9NSDecimala__length_setter(rawValue, &v81);
+            _So9NSDecimala__isCompact_setter_0(0, &v81);
+            if (v12 < 128)
+            {
+              _So9NSDecimala__exponent_setter(v12, &v81);
+              NSDecimal.compact()();
+              return;
+            }
+
+LABEL_41:
+            lazy protocol witness table accessor for type NSDecimal._CalculationError and conformance NSDecimal._CalculationError();
+            swift_allocError();
+            *v34 = 0;
+            swift_willThrow();
+            return;
+          }
+
+          goto LABEL_116;
+        }
+
+LABEL_119:
+        __break(1u);
+LABEL_120:
+        by = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v20 > 1), rawValue, 1, by);
+      }
+    }
+
+LABEL_81:
+    roundingMode = v12;
+    rawValue = v46;
+    v47 = v15 + 1;
+    by = static Array._allocateBufferUninitialized(minimumCapacity:)();
+    *&by->_mantissa[6] = v15;
+    bzero(&by[1]._mantissa[4], 2 * v15);
+    v48 = 0;
+    v49 = 1;
+    do
+    {
+      v50 = v49 + *(v17._rawValue + v48 + 16);
+      v49 = HIWORD(v50);
+      by[1]._mantissa[v48++ + 4] = v50;
+    }
+
+    while (v15 != v48);
+    v12 = v15;
+    if (v50 < 0x10000)
+    {
+      goto LABEL_93;
+    }
+
+    goto LABEL_86;
+  }
+
+  if (v58 == 2)
+  {
+    goto LABEL_80;
+  }
+
+  if (v58 != 3)
+  {
+LABEL_79:
+
+    goto LABEL_95;
+  }
+
+  if (by != 5)
+  {
+    goto LABEL_78;
+  }
+
+  if (v15)
+  {
+    if ((*(v17._rawValue + 16) & 1) == 0)
+    {
+      goto LABEL_81;
+    }
+
+    goto LABEL_79;
+  }
+
+  __break(1u);
 }

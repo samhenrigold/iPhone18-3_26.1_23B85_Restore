@@ -23,7 +23,7 @@
   v9 = sub_1AE23BFEC();
   (*(*(v9 - 8) + 16))(v8, replica + v7, v9);
   v10 = *(replica + OBJC_IVAR____TtC9Coherence11ObjCReplica_index);
-  *&v8[*(type metadata accessor for Replica() + 20)] = v10;
+  *&v8[*(type metadata accessor for Replica(0) + 20)] = v10;
   *&v8[*(type metadata accessor for Timestamp(0) + 20)] = counter;
   v12.receiver = self;
   v12.super_class = type metadata accessor for ObjCTimestamp(0);
@@ -34,24 +34,23 @@
 {
   v3 = type metadata accessor for Timestamp(0);
   v4 = v3 - 8;
-  v5 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1ADDDE3A0(self + OBJC_IVAR____TtC9Coherence13ObjCTimestamp_timestamp, v7, type metadata accessor for Timestamp);
+  v6 = v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_1ADDDE3A0(self + OBJC_IVAR____TtC9Coherence13ObjCTimestamp_timestamp, v6, type metadata accessor for Timestamp);
   selfCopy = self;
-  v13[2] = sub_1AE1B6A38();
-  v13[3] = v9;
+  v12[2] = sub_1AE1B6A38();
+  v12[3] = v8;
   MEMORY[0x1B26FB670](40, 0xE100000000000000);
-  v13[1] = *&v7[*(v4 + 28)];
-  v10 = sub_1AE23DD9C();
-  MEMORY[0x1B26FB670](v10);
+  v12[1] = *&v6[*(v4 + 28)];
+  v9 = sub_1AE23DD9C();
+  MEMORY[0x1B26FB670](v9);
 
   MEMORY[0x1B26FB670](41, 0xE100000000000000);
-  sub_1ADDE5300(v7, type metadata accessor for Timestamp);
+  sub_1ADDE5300(v6, type metadata accessor for Timestamp);
 
-  v11 = sub_1AE23CCDC();
+  v10 = sub_1AE23CCDC();
 
-  return v11;
+  return v10;
 }
 
 - (_TtC9Coherence13ObjCTimestamp)init

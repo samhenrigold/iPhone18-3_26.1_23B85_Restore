@@ -1,13 +1,13 @@
-id DSBundle()
+id DSBundle(uint64_t a1)
 {
   if (DSBundle_onceToken != -1)
   {
     DSBundle_cold_1();
   }
 
-  v1 = DSBundle__Bundle;
+  v2 = DSBundle__Bundle;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __DSBundle_block_invoke()
@@ -20,7 +20,7 @@ uint64_t __DSBundle_block_invoke()
 id DSLocStringForKey(void *a1)
 {
   v1 = a1;
-  v2 = DSBundle();
+  v2 = DSBundle(v1);
   v3 = [v2 localizedStringForKey:v1 value:v1 table:@"Localizable"];
 
   return v3;
@@ -71,10 +71,11 @@ uint64_t OUTLINED_FUNCTION_0(uint64_t result, uint64_t a2, uint64_t a3, float a4
   return result;
 }
 
-void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void sub_248C446A0(_Unwind_Exception *a1)
@@ -120,27 +121,25 @@ id displayNameForApp(void *a1)
   return v13;
 }
 
-void sub_248C46F14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_248C46F14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t __DuetActivitySchedulerLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   DuetActivitySchedulerLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 __CFString *descriptionForError(uint64_t a1)
@@ -541,16 +540,16 @@ void sub_248C58654(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id DSLogCTDataUsagePolicies()
+id DSLogCTDataUsagePolicies(uint64_t a1)
 {
   if (DSLogCTDataUsagePolicies_onceToken != -1)
   {
     DSLogCTDataUsagePolicies_cold_1();
   }
 
-  v1 = DSLogCTDataUsagePolicies_log;
+  v2 = DSLogCTDataUsagePolicies_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __DSLogCTDataUsagePolicies_block_invoke()
@@ -588,16 +587,18 @@ void sub_248C5FEB8()
   _Unwind_Resume(v0);
 }
 
-void OUTLINED_FUNCTION_0_4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_INFO, a4, &a9, 0x16u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_INFO, a4, va, 0x16u);
 }
 
-void OUTLINED_FUNCTION_3_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, v9, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, v8, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
 void OUTLINED_FUNCTION_4_0(void *a1@<X0>, const char *a2@<X3>, uint8_t *a3@<X4>, NSObject *a4@<X8>)
@@ -619,16 +620,16 @@ uint64_t OUTLINED_FUNCTION_10_0(uint64_t a1)
   return [v2 setObject:v1 forKeyedSubscript:a1];
 }
 
-void sub_248C61C64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_248C61C64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void displayNameForApp_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_248C40000, a2, a3, "TCCAccess error getting display name for app: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_248C40000, a2, a3, "TCCAccess error getting display name for app: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }

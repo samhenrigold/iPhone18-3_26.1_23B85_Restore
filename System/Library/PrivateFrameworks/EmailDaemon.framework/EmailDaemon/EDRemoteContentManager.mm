@@ -9,6 +9,7 @@
 - (id)_requestSchedulerWithInterval:(double)interval;
 - (id)_viewDurationsFromBiome;
 - (unint64_t)_performRequests:(unint64_t)requests unconditionally:(BOOL)unconditionally withDeferBlock:(id)block completedCount:(unint64_t *)count;
+- (unint64_t)_requestRemoteLinksInBackground:(unint64_t)background unconditionally:(BOOL)unconditionally hasMoreLinks:(BOOL *)links deferBlock:(id)block;
 - (void)_addRemoteContentLinks:(id)links andVerify:(BOOL)verify WithParsedLinks:(id)parsedLinks defaultCharsetName:(id)name;
 - (void)_scheduleBackgroundRequests;
 - (void)_scheduleRequestForLinks:(unint64_t)links unconditionally:(BOOL)unconditionally withDelay:(double)delay completionHandler:(id)handler;
@@ -131,11 +132,11 @@ uint64_t __53__EDRemoteContentManager__scheduleBackgroundRequests__block_invoke(
   return [v6 _scheduleBackgroundRequests];
 }
 
-uint64_t __53__EDRemoteContentManager__scheduleBackgroundRequests__block_invoke_2(uint64_t result, int a2)
+id *__53__EDRemoteContentManager__scheduleBackgroundRequests__block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _scheduleBackgroundRequests];
+    return [result[4] _scheduleBackgroundRequests];
   }
 
   return result;
@@ -183,8 +184,8 @@ uint64_t __53__EDRemoteContentManager__scheduleBackgroundRequests__block_invoke_
   v12 = objc_alloc_init(MEMORY[0x1E695DF00]);
   [(EDRemoteContentManager *)self setSchedulingLastUpdate:v12];
 
-  v13 = _ef_log_EDRemoteContentManager();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = _ef_log_EDRemoteContentManager(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     v15 = 134218752;
     v16 = v5;
@@ -194,42 +195,40 @@ uint64_t __53__EDRemoteContentManager__scheduleBackgroundRequests__block_invoke_
     v20 = v11;
     v21 = 2048;
     batchSize = [(EDRemoteContentManager *)self batchSize];
-    _os_log_impl(&dword_1C61EF000, v13, OS_LOG_TYPE_DEFAULT, "Updated scheduling: last day count = %lu, unrequested count = %lu, request interval = %f, batch size = %lu", &v15, 0x2Au);
+    _os_log_impl(&dword_1C61EF000, v14, OS_LOG_TYPE_DEFAULT, "Updated scheduling: last day count = %lu, unrequested count = %lu, request interval = %f, batch size = %lu", &v15, 0x2Au);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_scheduleRequestForLinks:(unint64_t)links unconditionally:(BOOL)unconditionally withDelay:(double)delay completionHandler:(id)handler
 {
   unconditionallyCopy = unconditionally;
-  v31 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   os_unfair_lock_lock(&self->_requestSchedulerLock);
   if (unconditionallyCopy)
   {
     objc_initWeak(&location, self);
     unconditionalRequestScheduler = [(EDRemoteContentManager *)self unconditionalRequestScheduler];
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __95__EDRemoteContentManager__scheduleRequestForLinks_unconditionally_withDelay_completionHandler___block_invoke;
-    v23[3] = &unk_1E82563E0;
-    objc_copyWeak(v25, &location);
-    v24 = handlerCopy;
-    v25[1] = links;
-    v12 = [unconditionalRequestScheduler afterDelay:v23 performBlock:delay];
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __95__EDRemoteContentManager__scheduleRequestForLinks_unconditionally_withDelay_completionHandler___block_invoke;
+    v24[3] = &unk_1E82563E0;
+    objc_copyWeak(v26, &location);
+    v25 = handlerCopy;
+    v26[1] = links;
+    v13 = [unconditionalRequestScheduler afterDelay:v24 performBlock:delay];
 
-    v13 = _ef_log_EDRemoteContentManager();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = _ef_log_EDRemoteContentManager(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
       linksCopy2 = links;
-      v29 = 2048;
+      v30 = 2048;
       delayCopy2 = delay;
-      _os_log_impl(&dword_1C61EF000, v13, OS_LOG_TYPE_DEFAULT, "Scheduled unconditional request batch for %lu links with interval: %f", buf, 0x16u);
+      _os_log_impl(&dword_1C61EF000, v15, OS_LOG_TYPE_DEFAULT, "Scheduled unconditional request batch for %lu links with interval: %f", buf, 0x16u);
     }
 
-    objc_destroyWeak(v25);
+    objc_destroyWeak(v26);
     objc_destroyWeak(&location);
 LABEL_13:
     os_unfair_lock_unlock(&self->_requestSchedulerLock);
@@ -238,39 +237,38 @@ LABEL_13:
 
   if (!self->_requestScheduler)
   {
-    v15 = [(EDRemoteContentManager *)self _requestSchedulerWithInterval:delay];
-    objc_storeStrong(&self->_requestScheduler, v15);
+    v17 = [(EDRemoteContentManager *)self _requestSchedulerWithInterval:delay];
+    objc_storeStrong(&self->_requestScheduler, v17);
     self->_remainingCountToSchedule = links;
     objc_initWeak(&location, self);
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __95__EDRemoteContentManager__scheduleRequestForLinks_unconditionally_withDelay_completionHandler___block_invoke_13;
-    v19[3] = &unk_1E8256408;
-    objc_copyWeak(&v22, &location);
-    v20 = v15;
-    v21 = handlerCopy;
-    v16 = v15;
-    [v16 scheduleWithBlock:v19];
-    v17 = _ef_log_EDRemoteContentManager();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __95__EDRemoteContentManager__scheduleRequestForLinks_unconditionally_withDelay_completionHandler___block_invoke_13;
+    v20[3] = &unk_1E8256408;
+    objc_copyWeak(&v23, &location);
+    v21 = v17;
+    v22 = handlerCopy;
+    v18 = v17;
+    v19 = _ef_log_EDRemoteContentManager([v18 scheduleWithBlock:v20]);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
       linksCopy2 = links;
-      v29 = 2048;
+      v30 = 2048;
       delayCopy2 = delay;
-      _os_log_impl(&dword_1C61EF000, v17, OS_LOG_TYPE_DEFAULT, "Scheduled request batch for %lu links with interval: %f", buf, 0x16u);
+      _os_log_impl(&dword_1C61EF000, v19, OS_LOG_TYPE_DEFAULT, "Scheduled request batch for %lu links with interval: %f", buf, 0x16u);
     }
 
-    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v23);
     objc_destroyWeak(&location);
     goto LABEL_13;
   }
 
-  v14 = _ef_log_EDRemoteContentManager();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v16 = _ef_log_EDRemoteContentManager(v11);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1C61EF000, v14, OS_LOG_TYPE_DEFAULT, "Request batch already scheduled", buf, 2u);
+    _os_log_impl(&dword_1C61EF000, v16, OS_LOG_TYPE_DEFAULT, "Request batch already scheduled", buf, 2u);
   }
 
   os_unfair_lock_unlock(&self->_requestSchedulerLock);
@@ -280,8 +278,6 @@ LABEL_13:
   }
 
 LABEL_14:
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __95__EDRemoteContentManager__scheduleRequestForLinks_unconditionally_withDelay_completionHandler___block_invoke(uint64_t a1)
@@ -290,45 +286,46 @@ void __95__EDRemoteContentManager__scheduleRequestForLinks_unconditionally_withD
   v3 = WeakRetained;
   if (WeakRetained)
   {
-    v9 = 0;
-    if ([WeakRetained[11] tryLock])
+    v10 = 0;
+    v4 = [WeakRetained[11] tryLock];
+    if (v4)
     {
-      v4 = [v3 _requestRemoteLinksInBackground:*(a1 + 48) unconditionally:1 hasMoreLinks:&v9 deferBlock:&__block_literal_global_12_0] == 0;
+      v5 = [v3 _requestRemoteLinksInBackground:*(a1 + 48) unconditionally:1 hasMoreLinks:&v10 deferBlock:&__block_literal_global_12_0] == 0;
       [v3[11] unlock];
     }
 
     else
     {
-      v6 = _ef_log_EDRemoteContentManager();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = _ef_log_EDRemoteContentManager(v4);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        *v8 = 0;
-        _os_log_impl(&dword_1C61EF000, v6, OS_LOG_TYPE_DEFAULT, "Skipped unconditional request batch because request batch is already running", v8, 2u);
+        *v9 = 0;
+        _os_log_impl(&dword_1C61EF000, v7, OS_LOG_TYPE_DEFAULT, "Skipped unconditional request batch because request batch is already running", v9, 2u);
       }
 
-      v4 = 1;
+      v5 = 1;
     }
 
-    v7 = *(a1 + 32);
-    if (v7)
+    v8 = *(a1 + 32);
+    if (v8)
     {
-      (*(v7 + 16))(v7, v4 & v9);
+      (*(v8 + 16))(v8, v5 & v10);
     }
   }
 
   else
   {
-    v5 = *(a1 + 32);
-    if (v5)
+    v6 = *(a1 + 32);
+    if (v6)
     {
-      (*(v5 + 16))(v5, 0);
+      (*(v6 + 16))(v6, 0);
     }
   }
 }
 
 void __95__EDRemoteContentManager__scheduleRequestForLinks_unconditionally_withDelay_completionHandler___block_invoke_13(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
@@ -357,28 +354,30 @@ void __95__EDRemoteContentManager__scheduleRequestForLinks_unconditionally_withD
       }
     }
 
-    v22 = 0;
+    v23 = 0;
     os_unfair_lock_lock(WeakRetained + 8);
     v10 = *(WeakRetained + 3);
     os_unfair_lock_unlock(WeakRetained + 8);
-    v17 = MEMORY[0x1E69E9820];
-    v18 = 3221225472;
-    v19 = __95__EDRemoteContentManager__scheduleRequestForLinks_unconditionally_withDelay_completionHandler___block_invoke_2_14;
-    v20 = &unk_1E8254A38;
-    v21 = *(a1 + 32);
-    v11 = [WeakRetained _requestRemoteLinksInBackground:v10 unconditionally:0 hasMoreLinks:&v22 deferBlock:&v17];
+    v18 = MEMORY[0x1E69E9820];
+    v19 = 3221225472;
+    v20 = __95__EDRemoteContentManager__scheduleRequestForLinks_unconditionally_withDelay_completionHandler___block_invoke_2_14;
+    v21 = &unk_1E8254A38;
+    v22 = *(a1 + 32);
+    v11 = [WeakRetained _requestRemoteLinksInBackground:v10 unconditionally:0 hasMoreLinks:&v23 deferBlock:&v18];
+    v12 = v11;
+    v13 = v11 == 0;
     if (v11)
     {
-      v12 = _ef_log_EDRemoteContentManager();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = _ef_log_EDRemoteContentManager(v11);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v24 = v11;
-        _os_log_impl(&dword_1C61EF000, v12, OS_LOG_TYPE_DEFAULT, "Deferring %lu links", buf, 0xCu);
+        v25 = v12;
+        _os_log_impl(&dword_1C61EF000, v14, OS_LOG_TYPE_DEFAULT, "Deferring %lu links", buf, 0xCu);
       }
 
       os_unfair_lock_lock(WeakRetained + 8);
-      *(WeakRetained + 3) = v11;
+      *(WeakRetained + 3) = v12;
     }
 
     else
@@ -386,30 +385,30 @@ void __95__EDRemoteContentManager__scheduleRequestForLinks_unconditionally_withD
       os_unfair_lock_lock(WeakRetained + 8);
       *(WeakRetained + 3) = 0;
       [*(WeakRetained + 1) invalidate];
-      v13 = *(WeakRetained + 1);
+      v15 = *(WeakRetained + 1);
       *(WeakRetained + 1) = 0;
     }
 
     os_unfair_lock_unlock(WeakRetained + 8);
 
     [*(WeakRetained + 11) unlock];
-    v14 = *(a1 + 40);
-    if (v14)
+    v16 = *(a1 + 40);
+    if (v16)
     {
-      (*(v14 + 16))(v14, (v11 == 0) & v22);
+      (*(v16 + 16))(v16, v13 & v23);
     }
 
-    if (v11)
+    if (v13)
     {
-      v15 = 2;
+      v17 = 1;
     }
 
     else
     {
-      v15 = 1;
+      v17 = 2;
     }
 
-    v3[2](v3, v15);
+    v3[2](v3, v17);
   }
 
   else
@@ -424,18 +423,77 @@ void __95__EDRemoteContentManager__scheduleRequestForLinks_unconditionally_withD
 LABEL_10:
     v3[2](v3, v8);
   }
+}
 
-  v16 = *MEMORY[0x1E69E9840];
+- (unint64_t)_requestRemoteLinksInBackground:(unint64_t)background unconditionally:(BOOL)unconditionally hasMoreLinks:(BOOL *)links deferBlock:(id)block
+{
+  unconditionallyCopy = unconditionally;
+  v29 = *MEMORY[0x1E69E9840];
+  blockCopy = block;
+  testDelegate = [(EDRemoteContentManager *)self testDelegate];
+  [testDelegate remoteContentManagerWillStartRequests:self];
+
+  v24 = 0;
+  v12 = [(EDRemoteContentManager *)self _performRequests:background unconditionally:unconditionallyCopy withDeferBlock:blockCopy completedCount:&v24];
+  [(EDRemoteContentManager *)self setRequestedSinceLastPrune:[(EDRemoteContentManager *)self requestedSinceLastPrune]+ v12];
+  if (v24 == v12)
+  {
+    v13 = v12 >= background;
+    if (v12 >= background && (v14 = -[EDRemoteContentManager requestedSinceLastPrune](self, "requestedSinceLastPrune"), v15 = -[EDRemoteContentManager pruneFrequency](self, "pruneFrequency"), v14 <= v15) || (v15 = blockCopy[2](blockCopy), (v15 & 1) != 0) || (-[EDRemoteContentManager remoteContentPersistence](self, "remoteContentPersistence"), v16 = objc_claimAutoreleasedReturnValue(), v17 = [v16 pruneAllRemoteContentLinksWithMinimumCount:1], v16, !v17))
+    {
+      v18 = &stru_1F45B4608;
+    }
+
+    else
+    {
+      v15 = [(EDRemoteContentManager *)self setRequestedSinceLastPrune:0];
+      v18 = @" and pruning";
+    }
+
+    v21 = _ef_log_EDRemoteContentManager(v15);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 134218242;
+      v26 = v12;
+      v27 = 2114;
+      v28 = v18;
+      _os_log_impl(&dword_1C61EF000, v21, OS_LOG_TYPE_DEFAULT, "Finishing after requesting %lu URLs%{public}@", buf, 0x16u);
+    }
+
+    testDelegate2 = [(EDRemoteContentManager *)self testDelegate];
+    [testDelegate2 remoteContentManager:self didFinishAfterRequesting:v12];
+
+    v20 = 0;
+    if (links)
+    {
+      *links = v13;
+    }
+  }
+
+  else
+  {
+    testDelegate3 = [(EDRemoteContentManager *)self testDelegate];
+    [testDelegate3 remoteContentManager:self didDeferAfterRequesting:v12];
+
+    if (links)
+    {
+      *links = 1;
+    }
+
+    v20 = v12 - v24;
+  }
+
+  return v20;
 }
 
 - (unint64_t)_performRequests:(unint64_t)requests unconditionally:(BOOL)unconditionally withDeferBlock:(id)block completedCount:(unint64_t *)count
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   remoteContentPersistence = [(EDRemoteContentManager *)self remoteContentPersistence];
   v12 = [remoteContentPersistence remoteContentLinksBelowCount:1 limit:requests];
   v13 = [v12 count];
-  v14 = _ef_log_EDRemoteContentManager();
+  v14 = _ef_log_EDRemoteContentManager(v13);
   v15 = v14;
   if (v13)
   {
@@ -451,31 +509,31 @@ LABEL_10:
     }
 
     v19 = objc_alloc_init(MEMORY[0x1E695DF00]);
-    v44 = 0;
-    *buf = 0;
-    v42 = 0;
     v43 = 0;
-    v20 = [(EDRemoteContentManager *)self _issueAndWaitForBatch:v12 deferBlock:blockCopy successful:buf failed:&v44 canceled:&v43 deferred:&v42];
+    *buf = 0;
+    v41 = 0;
+    v42 = 0;
+    v20 = [(EDRemoteContentManager *)self _issueAndWaitForBatch:v12 deferBlock:blockCopy successful:buf failed:&v43 canceled:&v42 deferred:&v41];
     date = [MEMORY[0x1E695DF00] date];
     [date timeIntervalSinceDate:v19];
     v23 = v22;
 
     [remoteContentPersistence updateRequestCountForRemoteContentLinks:v20 updateLastSeen:0];
     v24 = [v12 count];
-    v30 = MEMORY[0x1E69E9820];
-    v31 = 3221225472;
-    v32 = __89__EDRemoteContentManager__performRequests_unconditionally_withDeferBlock_completedCount___block_invoke;
-    v33 = &unk_1E8256430;
-    v36 = v24;
-    LOBYTE(v41) = unconditionally;
+    v29 = MEMORY[0x1E69E9820];
+    v30 = 3221225472;
+    v31 = __89__EDRemoteContentManager__performRequests_unconditionally_withDeferBlock_completedCount___block_invoke;
+    v32 = &unk_1E8256430;
+    v35 = v24;
+    LOBYTE(v40) = unconditionally;
     v25 = v20;
-    v34 = v25;
+    v33 = v25;
     v26 = v12;
-    v35 = v26;
-    v37 = *buf;
-    v38 = v44;
-    v39 = v43;
-    v40 = v42;
+    v34 = v26;
+    v36 = *buf;
+    v37 = v43;
+    v38 = v42;
+    v39 = v41;
     AnalyticsSendEventLazy();
     if (count)
     {
@@ -500,29 +558,28 @@ LABEL_10:
     }
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return v27;
 }
 
 id __89__EDRemoteContentManager__performRequests_unconditionally_withDeferBlock_completedCount___block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x1E69E9840];
-  v21[0] = @"batchSize";
-  v22 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 48)];
-  v21[1] = @"batchDuration";
-  v19 = v22;
-  v23 = [MEMORY[0x1E696AD98] numberWithDouble:*(a1 + 56)];
-  v21[2] = @"isUnconditional";
-  v17 = v23;
-  v18 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 96)];
-  v24 = v18;
-  v21[3] = @"didComplete";
-  v16 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(*(a1 + 32), "count") == objc_msgSend(*(a1 + 40), "count")}];
-  v25 = v16;
-  v21[4] = @"successfulCount";
-  v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 64)];
-  v26 = v15;
-  v21[5] = @"percentSuccessful";
+  v33 = *MEMORY[0x1E69E9840];
+  v20[0] = @"batchSize";
+  v21 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 48)];
+  v20[1] = @"batchDuration";
+  v18 = v21;
+  v22 = [MEMORY[0x1E696AD98] numberWithDouble:*(a1 + 56)];
+  v20[2] = @"isUnconditional";
+  v16 = v22;
+  v17 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 96)];
+  v23 = v17;
+  v20[3] = @"didComplete";
+  v15 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(*(a1 + 32), "count") == objc_msgSend(*(a1 + 40), "count")}];
+  v24 = v15;
+  v20[4] = @"successfulCount";
+  v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 64)];
+  v25 = v14;
+  v20[5] = @"percentSuccessful";
   v2 = *(a1 + 48);
   if (v2)
   {
@@ -533,12 +590,12 @@ id __89__EDRemoteContentManager__performRequests_unconditionally_withDeferBlock_
   {
     [MEMORY[0x1E695DFB0] null];
   }
-  v20 = ;
-  v27 = v20;
-  v21[6] = @"failedCount";
-  v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 72)];
-  v28 = v14;
-  v21[7] = @"percentFailed";
+  v19 = ;
+  v26 = v19;
+  v20[6] = @"failedCount";
+  v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 72)];
+  v27 = v13;
+  v20[7] = @"percentFailed";
   v3 = *(a1 + 48);
   if (v3)
   {
@@ -550,11 +607,11 @@ id __89__EDRemoteContentManager__performRequests_unconditionally_withDeferBlock_
     [MEMORY[0x1E695DFB0] null];
   }
   v4 = ;
-  v29 = v4;
-  v21[8] = @"canceledCount";
+  v28 = v4;
+  v20[8] = @"canceledCount";
   v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 80)];
-  v30 = v5;
-  v21[9] = @"percentCanceled";
+  v29 = v5;
+  v20[9] = @"percentCanceled";
   v6 = *(a1 + 48);
   if (v6)
   {
@@ -566,11 +623,11 @@ id __89__EDRemoteContentManager__performRequests_unconditionally_withDeferBlock_
     [MEMORY[0x1E695DFB0] null];
   }
   v7 = ;
-  v31 = v7;
-  v21[10] = @"deferredCount";
+  v30 = v7;
+  v20[10] = @"deferredCount";
   v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 88)];
-  v32 = v8;
-  v21[11] = @"percentDeferred";
+  v31 = v8;
+  v20[11] = @"percentDeferred";
   v9 = *(a1 + 48);
   if (v9)
   {
@@ -582,88 +639,86 @@ id __89__EDRemoteContentManager__performRequests_unconditionally_withDeferBlock_
     [MEMORY[0x1E695DFB0] null];
   }
   v10 = ;
-  v33 = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:v21 count:12];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v32 = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:v20 count:12];
 
   return v11;
 }
 
 - (id)_issueAndWaitForBatch:(id)batch deferBlock:(id)block successful:(unint64_t *)successful failed:(unint64_t *)failed canceled:(unint64_t *)canceled deferred:(unint64_t *)deferred
 {
-  v109 = *MEMORY[0x1E69E9840];
+  v108 = *MEMORY[0x1E69E9840];
   batchCopy = batch;
   blockCopy = block;
-  v58 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v60 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v61 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v62 = [objc_alloc(MEMORY[0x1E696AB38]) initWithCondition:0];
+  v57 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v59 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v60 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v61 = [objc_alloc(MEMORY[0x1E696AB38]) initWithCondition:0];
   urlSession = [(EDRemoteContentManager *)self urlSession];
   v10 = objc_alloc_init(MEMORY[0x1E699B868]);
-  v99 = MEMORY[0x1E69E9820];
-  v100 = 3221225472;
-  v101 = __95__EDRemoteContentManager__issueAndWaitForBatch_deferBlock_successful_failed_canceled_deferred___block_invoke;
-  v102 = &unk_1E8253F30;
-  v103 = v10;
-  v52 = v103;
+  v98 = MEMORY[0x1E69E9820];
+  v99 = 3221225472;
+  v100 = __95__EDRemoteContentManager__issueAndWaitForBatch_deferBlock_successful_failed_canceled_deferred___block_invoke;
+  v101 = &unk_1E8253F30;
+  v102 = v10;
+  v51 = v102;
   EMPrivacyProxyIsDisabledForNetwork();
-  future = [v103 future];
+  future = [v102 future];
   v12 = [future resultWithTimeout:0 error:5.0];
   successfulCopy = successful;
   bOOLValue = [v12 BOOLValue];
 
-  v95 = 0;
-  v96 = &v95;
-  v97 = 0x2020000000;
-  v98 = 0;
-  v91 = 0;
-  v92 = &v91;
-  v93 = 0x2020000000;
   v94 = 0;
-  v87 = 0;
-  v88 = &v87;
-  v89 = 0x2020000000;
+  v95 = &v94;
+  v96 = 0x2020000000;
+  v97 = 0;
   v90 = 0;
+  v91 = &v90;
+  v92 = 0x2020000000;
+  v93 = 0;
+  v86 = 0;
+  v87 = &v86;
+  v88 = 0x2020000000;
+  v89 = 0;
+  v82 = 0u;
   v83 = 0u;
   v84 = 0u;
   v85 = 0u;
-  v86 = 0u;
   obj = batchCopy;
-  v13 = [obj countByEnumeratingWithState:&v83 objects:v108 count:16];
+  v13 = [obj countByEnumeratingWithState:&v82 objects:v107 count:16];
   if (v13)
   {
-    v14 = *v84;
+    v14 = *v83;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v84 != v14)
+        if (*v83 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v83 + 1) + 8 * i);
+        v16 = *(*(&v82 + 1) + 8 * i);
         v17 = [MEMORY[0x1E696AD68] requestWithURL:v16];
         [(EDRemoteContentManager *)self _getTimeout];
         v19 = v18;
-        v74[0] = MEMORY[0x1E69E9820];
-        v74[1] = 3221225472;
-        v74[2] = __95__EDRemoteContentManager__issueAndWaitForBatch_deferBlock_successful_failed_canceled_deferred___block_invoke_2;
-        v74[3] = &unk_1E8256480;
-        v82 = v18;
-        v74[4] = v16;
-        v79 = &v95;
-        v80 = &v91;
-        v81 = &v87;
-        v20 = v62;
-        v75 = v20;
-        v21 = v58;
-        v76 = v21;
-        v22 = v60;
-        v77 = v22;
-        v78 = v61;
-        v23 = [urlSession syntheticDataTaskWithRequest:v17 failOpen:bOOLValue background:1 completionHandler:v74];
+        v73[0] = MEMORY[0x1E69E9820];
+        v73[1] = 3221225472;
+        v73[2] = __95__EDRemoteContentManager__issueAndWaitForBatch_deferBlock_successful_failed_canceled_deferred___block_invoke_2;
+        v73[3] = &unk_1E8256480;
+        v81 = v18;
+        v73[4] = v16;
+        v78 = &v94;
+        v79 = &v90;
+        v80 = &v86;
+        v20 = v61;
+        v74 = v20;
+        v21 = v57;
+        v75 = v21;
+        v22 = v59;
+        v76 = v22;
+        v77 = v60;
+        v23 = [urlSession syntheticDataTaskWithRequest:v17 failOpen:bOOLValue background:1 completionHandler:v73];
         [v20 lock];
         [v21 setObject:v23 forKeyedSubscript:v16];
         v24 = [MEMORY[0x1E696AD98] numberWithDouble:v19];
@@ -673,48 +728,48 @@ id __89__EDRemoteContentManager__performRequests_unconditionally_withDeferBlock_
         [v23 resume];
       }
 
-      v13 = [obj countByEnumeratingWithState:&v83 objects:v108 count:16];
+      v13 = [obj countByEnumeratingWithState:&v82 objects:v107 count:16];
     }
 
     while (v13);
   }
 
-  v57 = objc_alloc_init(MEMORY[0x1E695DF00]);
+  v56 = objc_alloc_init(MEMORY[0x1E695DF00]);
   v25 = arc4random() / 4294967300.0 * 10.0 + 5.0;
   while (1)
   {
-    [v62 lock];
-    v72[0] = MEMORY[0x1E69E9820];
-    v72[1] = 3221225472;
-    v72[2] = __95__EDRemoteContentManager__issueAndWaitForBatch_deferBlock_successful_failed_canceled_deferred___block_invoke_77;
-    v72[3] = &unk_1E82564A8;
-    v26 = v57;
-    v73 = v26;
-    v27 = [v60 keysOfEntriesPassingTest:v72];
+    [v61 lock];
+    v71[0] = MEMORY[0x1E69E9820];
+    v71[1] = 3221225472;
+    v71[2] = __95__EDRemoteContentManager__issueAndWaitForBatch_deferBlock_successful_failed_canceled_deferred___block_invoke_77;
+    v71[3] = &unk_1E82564A8;
+    v26 = v56;
+    v72 = v26;
+    v27 = [v59 keysOfEntriesPassingTest:v71];
 
-    [v62 unlockWithCondition:{objc_msgSend(v61, "count")}];
-    v70 = 0u;
-    v71 = 0u;
-    v68 = 0u;
+    [v61 unlockWithCondition:{objc_msgSend(v60, "count")}];
     v69 = 0u;
+    v70 = 0u;
+    v67 = 0u;
+    v68 = 0u;
     v28 = v27;
-    v29 = [v28 countByEnumeratingWithState:&v68 objects:v107 count:16];
+    v29 = [v28 countByEnumeratingWithState:&v67 objects:v106 count:16];
     if (v29)
     {
-      v30 = *v69;
+      v30 = *v68;
       do
       {
         for (j = 0; j != v29; ++j)
         {
-          if (*v69 != v30)
+          if (*v68 != v30)
           {
             objc_enumerationMutation(v28);
           }
 
-          [*(*(&v68 + 1) + 8 * j) cancel];
+          [*(*(&v67 + 1) + 8 * j) cancel];
         }
 
-        v29 = [v28 countByEnumeratingWithState:&v68 objects:v107 count:16];
+        v29 = [v28 countByEnumeratingWithState:&v67 objects:v106 count:16];
       }
 
       while (v29);
@@ -722,7 +777,7 @@ id __89__EDRemoteContentManager__performRequests_unconditionally_withDeferBlock_
 
     v32 = [obj count];
     v33 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:v25];
-    LOBYTE(v32) = [v62 lockWhenCondition:v32 beforeDate:v33];
+    LOBYTE(v32) = [v61 lockWhenCondition:v32 beforeDate:v33];
 
     if (v32)
     {
@@ -731,46 +786,46 @@ id __89__EDRemoteContentManager__performRequests_unconditionally_withDeferBlock_
 
     if ((blockCopy[2]() & 1) != 0 || ([(EFManualCancelationToken *)self->_token isCanceled]& 1) != 0)
     {
-      [v62 lock];
-      v34 = [v61 copy];
-      allKeys = [v60 allKeys];
-      [v62 unlockWithCondition:{objc_msgSend(v61, "count")}];
-      v66 = 0u;
-      v67 = 0u;
-      v64 = 0u;
+      [v61 lock];
+      v34 = [v60 copy];
+      allKeys = [v59 allKeys];
+      [v61 unlockWithCondition:{objc_msgSend(v60, "count")}];
       v65 = 0u;
+      v66 = 0u;
+      v63 = 0u;
+      v64 = 0u;
       v36 = allKeys;
-      v37 = [v36 countByEnumeratingWithState:&v64 objects:v104 count:16];
+      v37 = [v36 countByEnumeratingWithState:&v63 objects:v103 count:16];
       if (v37)
       {
-        v38 = *v65;
+        v38 = *v64;
         do
         {
           for (k = 0; k != v37; ++k)
           {
-            if (*v65 != v38)
+            if (*v64 != v38)
             {
               objc_enumerationMutation(v36);
             }
 
-            [urlSession abortTask:*(*(&v64 + 1) + 8 * k)];
+            [urlSession abortTask:*(*(&v63 + 1) + 8 * k)];
           }
 
-          v37 = [v36 countByEnumeratingWithState:&v64 objects:v104 count:16];
+          v37 = [v36 countByEnumeratingWithState:&v63 objects:v103 count:16];
         }
 
         while (v37);
       }
 
       v40 = [v36 count];
-      v41 = _ef_log_EDRemoteContentManager();
+      v41 = _ef_log_EDRemoteContentManager(v40);
       if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
       {
         v42 = [v34 ef_map:&__block_literal_global_293];
         v43 = [v42 componentsJoinedByString:{@", "}];
 
         *buf = 138543362;
-        v106 = v43;
+        v105 = v43;
         _os_log_impl(&dword_1C61EF000, v41, OS_LOG_TYPE_DEFAULT, "Did not finish requesting batch due to deferral, completed: %{public}@", buf, 0xCu);
       }
 
@@ -778,16 +833,15 @@ id __89__EDRemoteContentManager__performRequests_unconditionally_withDeferBlock_
     }
   }
 
-  v34 = [v61 copy];
-  [v62 unlock];
-  v41 = _ef_log_EDRemoteContentManager();
+  v34 = [v60 copy];
+  v41 = _ef_log_EDRemoteContentManager([v61 unlock]);
   if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
   {
     v44 = [v34 ef_map:&__block_literal_global_293];
     v45 = [v44 componentsJoinedByString:{@", "}];
 
     *buf = 138543362;
-    v106 = v45;
+    v105 = v45;
     _os_log_impl(&dword_1C61EF000, v41, OS_LOG_TYPE_DEFAULT, "Finished request batch for URLs: %{public}@", buf, 0xCu);
   }
 
@@ -797,17 +851,17 @@ LABEL_32:
 
   if (successfulCopy)
   {
-    *successfulCopy = v96[3];
+    *successfulCopy = v95[3];
   }
 
   if (failed)
   {
-    *failed = v88[3];
+    *failed = v87[3];
   }
 
   if (canceled)
   {
-    *canceled = v92[3];
+    *canceled = v91[3];
   }
 
   if (deferred)
@@ -815,11 +869,9 @@ LABEL_32:
     *deferred = v40;
   }
 
-  _Block_object_dispose(&v87, 8);
-  _Block_object_dispose(&v91, 8);
-  _Block_object_dispose(&v95, 8);
-
-  v46 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v86, 8);
+  _Block_object_dispose(&v90, 8);
+  _Block_object_dispose(&v94, 8);
 
   return v34;
 }
@@ -833,46 +885,47 @@ void __95__EDRemoteContentManager__issueAndWaitForBatch_deferBlock_successful_fa
 
 void __95__EDRemoteContentManager__issueAndWaitForBatch_deferBlock_successful_failed_canceled_deferred___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  if (![v7 length])
+  v10 = [v7 length];
+  if (!v10)
   {
-    v14 = [v9 domain];
-    if ([v14 isEqualToString:*MEMORY[0x1E696A978]])
+    v15 = [v9 domain];
+    if ([v15 isEqualToString:*MEMORY[0x1E696A978]])
     {
-      v15 = [v9 code];
+      v16 = [v9 code];
 
-      if (v15 == -999)
+      if (v16 == -999)
       {
-        v16 = _ef_log_EDRemoteContentManager();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+        v18 = _ef_log_EDRemoteContentManager(v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
-          v17 = *(a1 + 96);
-          v18 = *(a1 + 32);
+          v19 = *(a1 + 96);
+          v20 = *(a1 + 32);
           if ([MEMORY[0x1E699ACE8] preferenceEnabled:10])
           {
-            v19 = [v18 absoluteString];
+            v21 = [v20 absoluteString];
           }
 
           else
           {
-            v31 = MEMORY[0x1E699B858];
-            v32 = [v18 absoluteString];
-            v19 = [v31 fullyRedactedStringForString:v32];
+            v33 = MEMORY[0x1E699B858];
+            v34 = [v20 absoluteString];
+            v21 = [v33 fullyRedactedStringForString:v34];
           }
 
           *buf = 134218242;
-          v37 = v17;
-          v38 = 2114;
-          v39 = v19;
-          _os_log_impl(&dword_1C61EF000, v16, OS_LOG_TYPE_INFO, "Canceled URL with %.2fs timeout: %{public}@", buf, 0x16u);
+          v38 = v19;
+          v39 = 2114;
+          v40 = v21;
+          _os_log_impl(&dword_1C61EF000, v18, OS_LOG_TYPE_INFO, "Canceled URL with %.2fs timeout: %{public}@", buf, 0x16u);
         }
 
-        v30 = *(a1 + 80);
+        v32 = *(a1 + 80);
 LABEL_23:
-        ++*(*(v30 + 8) + 24);
+        ++*(*(v32 + 8) + 24);
         goto LABEL_24;
       }
     }
@@ -881,85 +934,82 @@ LABEL_23:
     {
     }
 
-    v20 = _ef_log_EDRemoteContentManager();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    v22 = _ef_log_EDRemoteContentManager(v17);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
-      v21 = *(a1 + 96);
-      v22 = *(a1 + 32);
+      v23 = *(a1 + 96);
+      v24 = *(a1 + 32);
       if ([MEMORY[0x1E699ACE8] preferenceEnabled:10])
       {
-        v23 = [v22 absoluteString];
+        v25 = [v24 absoluteString];
       }
 
       else
       {
-        v26 = MEMORY[0x1E699B858];
-        v27 = [v22 absoluteString];
-        v23 = [v26 fullyRedactedStringForString:v27];
+        v28 = MEMORY[0x1E699B858];
+        v29 = [v24 absoluteString];
+        v25 = [v28 fullyRedactedStringForString:v29];
       }
 
-      v28 = v23;
-      v29 = [v9 ef_publicDescription];
+      v30 = v25;
+      v31 = [v9 ef_publicDescription];
       *buf = 134218498;
-      v37 = v21;
-      v38 = 2114;
-      v39 = v28;
-      v40 = 2114;
-      v41 = v29;
-      _os_log_impl(&dword_1C61EF000, v20, OS_LOG_TYPE_INFO, "Failed to request URL with %.2fs timeout: %{public}@ -- due to error: %{public}@", buf, 0x20u);
+      v38 = v23;
+      v39 = 2114;
+      v40 = v30;
+      v41 = 2114;
+      v42 = v31;
+      _os_log_impl(&dword_1C61EF000, v22, OS_LOG_TYPE_INFO, "Failed to request URL with %.2fs timeout: %{public}@ -- due to error: %{public}@", buf, 0x20u);
     }
 
-    v30 = *(a1 + 88);
+    v32 = *(a1 + 88);
     goto LABEL_23;
   }
 
-  v10 = _ef_log_EDRemoteContentManager();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v11 = _ef_log_EDRemoteContentManager(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v11 = *(a1 + 96);
-    v12 = *(a1 + 32);
+    v12 = *(a1 + 96);
+    v13 = *(a1 + 32);
     if ([MEMORY[0x1E699ACE8] preferenceEnabled:10])
     {
-      v13 = [v12 absoluteString];
+      v14 = [v13 absoluteString];
     }
 
     else
     {
-      v24 = MEMORY[0x1E699B858];
-      v25 = [v12 absoluteString];
-      v13 = [v24 fullyRedactedStringForString:v25];
+      v26 = MEMORY[0x1E699B858];
+      v27 = [v13 absoluteString];
+      v14 = [v26 fullyRedactedStringForString:v27];
     }
 
     *buf = 134218242;
-    v37 = v11;
-    v38 = 2114;
-    v39 = v13;
-    _os_log_impl(&dword_1C61EF000, v10, OS_LOG_TYPE_INFO, "Requested URL with %.2fs timeout: %{public}@", buf, 0x16u);
+    v38 = v12;
+    v39 = 2114;
+    v40 = v14;
+    _os_log_impl(&dword_1C61EF000, v11, OS_LOG_TYPE_INFO, "Requested URL with %.2fs timeout: %{public}@", buf, 0x16u);
   }
 
-  v35 = v7;
+  v36 = v7;
   AnalyticsSendEventLazy();
   ++*(*(*(a1 + 72) + 8) + 24);
 
 LABEL_24:
   [*(a1 + 40) lock];
-  v33 = [*(a1 + 48) objectForKeyedSubscript:*(a1 + 32)];
-  [*(a1 + 56) removeObjectForKey:v33];
+  v35 = [*(a1 + 48) objectForKeyedSubscript:*(a1 + 32)];
+  [*(a1 + 56) removeObjectForKey:v35];
   [*(a1 + 64) addObject:*(a1 + 32)];
 
   [*(a1 + 40) unlockWithCondition:{objc_msgSend(*(a1 + 64), "count")}];
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 id __95__EDRemoteContentManager__issueAndWaitForBatch_deferBlock_successful_failed_canceled_deferred___block_invoke_72(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"dataSize";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"dataSize";
   v1 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 32), "length")}];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -1105,22 +1155,22 @@ void __49__EDRemoteContentManager_shouldVerifyRemoteLinks__block_invoke(uint64_t
 
 void __94__EDRemoteContentManager__addRemoteContentLinks_andVerify_WithParsedLinks_defaultCharsetName___block_invoke(uint64_t a1)
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   if (([*(*(a1 + 32) + 48) isCanceled] & 1) == 0)
   {
-    v51 = *(a1 + 40);
-    v50 = [*(a1 + 40) indexesOfObjectsPassingTest:&__block_literal_global_97_0];
-    if ([v50 count])
+    v54 = *(a1 + 40);
+    v53 = [*(a1 + 40) indexesOfObjectsPassingTest:&__block_literal_global_97_0];
+    if ([v53 count])
     {
       v2 = [*(a1 + 40) mutableCopy];
-      v61[0] = MEMORY[0x1E69E9820];
-      v61[1] = 3221225472;
-      v61[2] = __94__EDRemoteContentManager__addRemoteContentLinks_andVerify_WithParsedLinks_defaultCharsetName___block_invoke_3;
-      v61[3] = &unk_1E8255C80;
-      v62 = *(a1 + 40);
+      v64[0] = MEMORY[0x1E69E9820];
+      v64[1] = 3221225472;
+      v64[2] = __94__EDRemoteContentManager__addRemoteContentLinks_andVerify_WithParsedLinks_defaultCharsetName___block_invoke_3;
+      v64[3] = &unk_1E8255C80;
+      v65 = *(a1 + 40);
       v3 = v2;
-      v63 = v3;
-      [v50 enumerateIndexesUsingBlock:v61];
+      v66 = v3;
+      [v53 enumerateIndexesUsingBlock:v64];
       v4 = v3;
 
       v5 = v4;
@@ -1128,20 +1178,19 @@ void __94__EDRemoteContentManager__addRemoteContentLinks_andVerify_WithParsedLin
 
     else
     {
-      v5 = v51;
+      v5 = v54;
     }
 
-    v52 = v5;
-    [*(a1 + 32) addRemoteContentLinks:? requiredParsing:?];
-    v6 = _ef_log_EDRemoteContentManager();
+    v55 = v5;
+    v6 = _ef_log_EDRemoteContentManager([*(a1 + 32) addRemoteContentLinks:? requiredParsing:?]);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = v52;
+      v7 = v55;
       v8 = [v7 ef_map:&__block_literal_global_293];
       v9 = [v8 componentsJoinedByString:{@", "}];
 
       *buf = 138543362;
-      v65 = v9;
+      v68 = v9;
       _os_log_impl(&dword_1C61EF000, v6, OS_LOG_TYPE_DEFAULT, "Added URLs: %{public}@", buf, 0xCu);
     }
 
@@ -1150,38 +1199,39 @@ void __94__EDRemoteContentManager__addRemoteContentLinks_andVerify_WithParsedLin
       goto LABEL_36;
     }
 
-    v49 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v52];
-    v46 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:*(a1 + 48)];
-    if ([v49 isEqualToSet:?])
+    v52 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v55];
+    v49 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:*(a1 + 48)];
+    v10 = [v52 isEqualToSet:?];
+    if (v10)
     {
       goto LABEL_31;
     }
 
-    v10 = [v49 ef_setByRemovingObjectsFromSet:v46];
-    v47 = [v46 ef_setByRemovingObjectsFromSet:v49];
-    if ([v10 count] == 1 && objc_msgSend(v47, "count") == 1)
+    v11 = [v52 ef_setByRemovingObjectsFromSet:v49];
+    v50 = [v49 ef_setByRemovingObjectsFromSet:v52];
+    if ([v11 count] == 1 && objc_msgSend(v50, "count") == 1)
     {
-      v11 = [v10 anyObject];
-      v12 = [v47 anyObject];
-      v13 = [v12 scheme];
-      if ([v11 ef_hasScheme:v13])
+      v12 = [v11 anyObject];
+      v13 = [v50 anyObject];
+      v14 = [v13 scheme];
+      if ([v12 ef_hasScheme:v14])
       {
-        v14 = [v12 host];
-        v15 = [v11 ef_hasHost:v14];
+        v15 = [v13 host];
+        v16 = [v12 ef_hasHost:v15];
 
-        if (v15)
+        if (v16)
         {
 
 LABEL_31:
-          v37 = _ef_log_EDRemoteContentManager();
-          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+          v39 = _ef_log_EDRemoteContentManager(v10);
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_1C61EF000, v37, OS_LOG_TYPE_DEFAULT, "Verification: URLs match parsed URLs", buf, 2u);
+            _os_log_impl(&dword_1C61EF000, v39, OS_LOG_TYPE_DEFAULT, "Verification: URLs match parsed URLs", buf, 2u);
           }
 
-          v35 = 0;
-          v36 = 0;
+          v37 = 0;
+          v38 = 0;
           goto LABEL_34;
         }
       }
@@ -1190,144 +1240,144 @@ LABEL_31:
       {
       }
 
-      v35 = v10;
-      v36 = v47;
+      v37 = v11;
+      v38 = v50;
     }
 
     else
     {
-      v16 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      v59 = 0u;
+      v17 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      v62 = 0u;
+      v63 = 0u;
       v60 = 0u;
-      v57 = 0u;
-      v58 = 0u;
-      v17 = v10;
-      v18 = [v17 countByEnumeratingWithState:&v57 objects:v68 count:16];
-      if (v18)
+      v61 = 0u;
+      v18 = v11;
+      v19 = [v18 countByEnumeratingWithState:&v60 objects:v71 count:16];
+      if (v19)
       {
-        v19 = *v58;
+        v20 = *v61;
         do
         {
-          v20 = 0;
+          v21 = 0;
           do
           {
-            if (*v58 != v19)
+            if (*v61 != v20)
             {
-              objc_enumerationMutation(v17);
+              objc_enumerationMutation(v18);
             }
 
-            v21 = *(*(&v57 + 1) + 8 * v20);
-            v22 = [v21 ef_caseNormalizedURL];
+            v22 = *(*(&v60 + 1) + 8 * v21);
+            v23 = [v22 ef_caseNormalizedURL];
 
-            if (v22)
+            if (v23)
             {
-              v23 = [v21 ef_caseNormalizedURL];
-              [v16 setObject:v21 forKeyedSubscript:v23];
+              v25 = [v22 ef_caseNormalizedURL];
+              [v17 setObject:v22 forKeyedSubscript:v25];
             }
 
             else
             {
-              v23 = _ef_log_EDRemoteContentManager();
-              if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+              v25 = _ef_log_EDRemoteContentManager(v24);
+              if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
               {
-                v24 = v21;
+                v26 = v22;
                 if ([MEMORY[0x1E699ACE8] preferenceEnabled:10])
                 {
-                  v25 = [v24 absoluteString];
+                  v27 = [v26 absoluteString];
                 }
 
                 else
                 {
-                  v26 = MEMORY[0x1E699B858];
-                  v27 = [v24 absoluteString];
-                  v25 = [v26 fullyRedactedStringForString:v27];
+                  v28 = MEMORY[0x1E699B858];
+                  v29 = [v26 absoluteString];
+                  v27 = [v28 fullyRedactedStringForString:v29];
                 }
 
-                v28 = v25;
-                v29 = [v24 scheme];
+                v30 = v27;
+                v31 = [v26 scheme];
                 *buf = 138543618;
-                v65 = v28;
-                v66 = 2114;
-                v67 = v29;
-                _os_log_error_impl(&dword_1C61EF000, v23, OS_LOG_TYPE_ERROR, "Invalid extra URL: %{public}@ with scheme: %{public}@", buf, 0x16u);
+                v68 = v30;
+                v69 = 2114;
+                v70 = v31;
+                _os_log_error_impl(&dword_1C61EF000, v25, OS_LOG_TYPE_ERROR, "Invalid extra URL: %{public}@ with scheme: %{public}@", buf, 0x16u);
               }
             }
 
-            ++v20;
+            ++v21;
           }
 
-          while (v18 != v20);
-          v30 = [v17 countByEnumeratingWithState:&v57 objects:v68 count:16];
-          v18 = v30;
+          while (v19 != v21);
+          v32 = [v18 countByEnumeratingWithState:&v60 objects:v71 count:16];
+          v19 = v32;
         }
 
-        while (v30);
+        while (v32);
       }
 
-      v31 = [v17 mutableCopy];
-      v54[0] = MEMORY[0x1E69E9820];
-      v54[1] = 3221225472;
-      v54[2] = __94__EDRemoteContentManager__addRemoteContentLinks_andVerify_WithParsedLinks_defaultCharsetName___block_invoke_107;
-      v54[3] = &unk_1E8256518;
-      v32 = v16;
-      v55 = v32;
-      v33 = v31;
-      v56 = v33;
-      v34 = [v47 ef_filter:v54];
+      v33 = [v18 mutableCopy];
+      v57[0] = MEMORY[0x1E69E9820];
+      v57[1] = 3221225472;
+      v57[2] = __94__EDRemoteContentManager__addRemoteContentLinks_andVerify_WithParsedLinks_defaultCharsetName___block_invoke_107;
+      v57[3] = &unk_1E8256518;
+      v34 = v17;
+      v58 = v34;
+      v35 = v33;
+      v59 = v35;
+      v36 = [v50 ef_filter:v57];
 
-      v35 = [v33 ef_notEmpty];
+      v37 = [v35 ef_notEmpty];
 
-      v36 = [v34 ef_notEmpty];
+      v38 = [v36 ef_notEmpty];
 
-      if (!(v35 | v36))
+      if (!(v37 | v38))
       {
         goto LABEL_31;
       }
     }
 
-    if ([v35 count])
+    v40 = [v37 count];
+    if (v40)
     {
-      v39 = _ef_log_EDRemoteContentManager();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+      v41 = _ef_log_EDRemoteContentManager(v40);
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
-        v40 = [v35 allObjects];
-        v41 = [v40 ef_map:&__block_literal_global_293];
-        v42 = [v41 componentsJoinedByString:{@", "}];
+        v43 = [v37 allObjects];
+        v44 = [v43 ef_map:&__block_literal_global_293];
+        v45 = [v44 componentsJoinedByString:{@", "}];
 
         *buf = 138543362;
-        v65 = v42;
-        _os_log_error_impl(&dword_1C61EF000, v39, OS_LOG_TYPE_ERROR, "Verification: Extra URLs: %{public}@", buf, 0xCu);
+        v68 = v45;
+        _os_log_error_impl(&dword_1C61EF000, v41, OS_LOG_TYPE_ERROR, "Verification: Extra URLs: %{public}@", buf, 0xCu);
       }
     }
 
-    if (![v36 count])
+    v42 = [v38 count];
+    if (!v42)
     {
       goto LABEL_35;
     }
 
-    v37 = _ef_log_EDRemoteContentManager();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    v39 = _ef_log_EDRemoteContentManager(v42);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
-      v43 = [v36 allObjects];
-      v44 = [v43 ef_map:&__block_literal_global_293];
-      v45 = [v44 componentsJoinedByString:{@", "}];
+      v46 = [v38 allObjects];
+      v47 = [v46 ef_map:&__block_literal_global_293];
+      v48 = [v47 componentsJoinedByString:{@", "}];
 
       *buf = 138543362;
-      v65 = v45;
-      _os_log_error_impl(&dword_1C61EF000, v37, OS_LOG_TYPE_ERROR, "Verification: Missed URLs: %{public}@", buf, 0xCu);
+      v68 = v48;
+      _os_log_error_impl(&dword_1C61EF000, v39, OS_LOG_TYPE_ERROR, "Verification: Missed URLs: %{public}@", buf, 0xCu);
     }
 
 LABEL_34:
 LABEL_35:
-    v53 = v35;
-    v48 = v36;
+    v56 = v37;
+    v51 = v38;
     AnalyticsSendEventLazy();
     [*(*(a1 + 32) + 56) performWhileLocked:&__block_literal_global_124];
 
 LABEL_36:
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __94__EDRemoteContentManager__addRemoteContentLinks_andVerify_WithParsedLinks_defaultCharsetName___block_invoke_2(uint64_t a1, void *a2)
@@ -1358,57 +1408,55 @@ uint64_t __94__EDRemoteContentManager__addRemoteContentLinks_andVerify_WithParse
   v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 ef_caseNormalizedURL];
-  if (v4 && ([*(a1 + 32) objectForKeyedSubscript:v4], v5 = objc_claimAutoreleasedReturnValue(), v5, v5))
+  v5 = v4;
+  if (v4 && ([*(a1 + 32) objectForKeyedSubscript:v4], v6 = objc_claimAutoreleasedReturnValue(), v6, v6))
   {
-    [*(a1 + 40) removeObject:v4];
-    v6 = 0;
+    [*(a1 + 40) removeObject:v5];
+    v7 = 0;
   }
 
   else
   {
-    v7 = _ef_log_EDRemoteContentManager();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _ef_log_EDRemoteContentManager(v4);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v8 = v3;
+      v9 = v3;
       if ([MEMORY[0x1E699ACE8] preferenceEnabled:10])
       {
-        v9 = [v8 absoluteString];
+        v10 = [v9 absoluteString];
       }
 
       else
       {
-        v10 = MEMORY[0x1E699B858];
-        v11 = [v8 absoluteString];
-        v9 = [v10 fullyRedactedStringForString:v11];
+        v11 = MEMORY[0x1E699B858];
+        v12 = [v9 absoluteString];
+        v10 = [v11 fullyRedactedStringForString:v12];
       }
 
-      v12 = v9;
-      v13 = [v8 scheme];
-      __94__EDRemoteContentManager__addRemoteContentLinks_andVerify_WithParsedLinks_defaultCharsetName___block_invoke_107_cold_1(v12, v13, v16, v7);
+      v13 = v10;
+      v14 = [v9 scheme];
+      __94__EDRemoteContentManager__addRemoteContentLinks_andVerify_WithParsedLinks_defaultCharsetName___block_invoke_107_cold_1(v13, v14, v16, v8);
     }
 
-    v6 = 1;
+    v7 = 1;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-  return v6;
+  return v7;
 }
 
 id __94__EDRemoteContentManager__addRemoteContentLinks_andVerify_WithParsedLinks_defaultCharsetName___block_invoke_112(uint64_t a1)
 {
-  v9[3] = *MEMORY[0x1E69E9840];
-  v8[0] = @"hadMismatches";
+  v8[3] = *MEMORY[0x1E69E9840];
+  v7[0] = @"hadMismatches";
   v2 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 48)];
-  v9[0] = v2;
-  v8[1] = @"extraCount";
+  v8[0] = v2;
+  v7[1] = @"extraCount";
   v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 32), "count")}];
-  v9[1] = v3;
-  v8[2] = @"missedCount";
+  v8[1] = v3;
+  v7[2] = @"missedCount";
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 40), "count")}];
-  v9[2] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:3];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v8[2] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
   return v5;
 }
@@ -1424,51 +1472,46 @@ void __94__EDRemoteContentManager__addRemoteContentLinks_andVerify_WithParsedLin
 
 - (void)addRemoteContentLinks:(id)links requiredParsing:(BOOL)parsing
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   linksCopy = links;
   if (([(EFManualCancelationToken *)self->_token isCanceled]& 1) == 0)
   {
     remoteContentPersistence = [(EDRemoteContentManager *)self remoteContentPersistence];
-    v16 = 0;
-    [remoteContentPersistence addRemoteContentLinks:linksCopy newLinks:&v16];
-    v7 = v16;
+    v15 = 0;
+    [remoteContentPersistence addRemoteContentLinks:linksCopy newLinks:&v15];
+    v7 = v15;
 
-    v14 = MEMORY[0x1E69E9820];
+    v13 = MEMORY[0x1E69E9820];
     v8 = linksCopy;
-    v15 = v8;
+    v14 = v8;
     v9 = v7;
     AnalyticsSendEventLazy();
-    [(EDRemoteContentManager *)self _scheduleBackgroundRequests:v14];
-    v10 = _ef_log_EDRemoteContentManager();
+    v10 = _ef_log_EDRemoteContentManager([(EDRemoteContentManager *)self _scheduleBackgroundRequests:v13]);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = [v8 ef_map:&__block_literal_global_293];
       v12 = [v11 componentsJoinedByString:{@", "}];
 
       *buf = 138543362;
-      v18 = v12;
+      v17 = v12;
       _os_log_impl(&dword_1C61EF000, v10, OS_LOG_TYPE_DEFAULT, "Parsed and added URLs: %{public}@", buf, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 id __64__EDRemoteContentManager_addRemoteContentLinks_requiredParsing___block_invoke(uint64_t a1)
 {
-  v9[3] = *MEMORY[0x1E69E9840];
-  v8[0] = @"remoteContentLinks";
+  v8[3] = *MEMORY[0x1E69E9840];
+  v7[0] = @"remoteContentLinks";
   v2 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 32), "count")}];
-  v9[0] = v2;
-  v8[1] = @"newRemoteContentLinks";
+  v8[0] = v2;
+  v7[1] = @"newRemoteContentLinks";
   v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 40), "count")}];
-  v9[1] = v3;
-  v8[2] = @"requiredParsing";
+  v8[1] = v3;
+  v7[2] = @"requiredParsing";
   v4 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 48)];
-  v9[2] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:3];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v8[2] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
   return v5;
 }
@@ -1501,56 +1544,57 @@ id __64__EDRemoteContentManager_addRemoteContentLinks_requiredParsing___block_in
 - (void)_updateTimeoutSettingDefaultIfNeeded:(BOOL)needed
 {
   neededCopy = needed;
-  v32 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v5 = objc_alloc_init(MEMORY[0x1E695DF00]);
   [(EDRemoteContentManager *)self setTimeoutLastUpdate:v5];
 
   _viewDurationsFromBiome = [(EDRemoteContentManager *)self _viewDurationsFromBiome];
   if (!_viewDurationsFromBiome)
   {
-    v7 = _ef_log_EDRemoteContentManager();
+    v7 = _ef_log_EDRemoteContentManager(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [EDRemoteContentManager _updateTimeoutSettingDefaultIfNeeded:v7];
     }
   }
 
-  if ([_viewDurationsFromBiome count] > 9)
+  v8 = [_viewDurationsFromBiome count];
+  if (v8 > 9)
   {
-    v10 = arc4random_uniform(3u);
-    v11 = v10;
-    if (v10 - 1 >= 2)
+    v11 = arc4random_uniform(3u);
+    v12 = v11;
+    if (v11 - 1 >= 2)
     {
+      v21 = 0.0;
       v20 = 0.0;
-      v19 = 0.0;
-      if (v10)
+      if (v11)
       {
 LABEL_23:
-        [(EDRemoteContentManager *)self setMinimumTimeout:fmax(v19, 2.0), *v31, *&v31[16], *&v31[32], v32];
-        [(EDRemoteContentManager *)self setMaximumTimeout:fmax(v20, 2.0)];
+        [(EDRemoteContentManager *)self setMinimumTimeout:fmax(v20, 2.0), *v33, *&v33[16], *&v33[24], v34];
+        [(EDRemoteContentManager *)self setMaximumTimeout:fmax(v21, 2.0)];
         goto LABEL_24;
       }
 
       ef_min = [_viewDurationsFromBiome ef_min];
       [ef_min doubleValue];
-      v19 = v27;
+      v20 = v29;
 
       ef_max = [_viewDurationsFromBiome ef_max];
       [ef_max doubleValue];
-      v20 = v29;
+      v21 = v31;
 
-      v21 = _ef_log_EDRemoteContentManager();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v23 = _ef_log_EDRemoteContentManager(v32);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        *v31 = 134218240;
-        *&v31[4] = v19;
-        *&v31[12] = 2048;
-        *&v31[14] = v20;
-        v23 = "Updating timeout values based on min and max: (%f, %f)";
-        v24 = v21;
-        v25 = 22;
+        *v33 = 134218240;
+        *&v33[4] = v20;
+        *&v33[12] = 2048;
+        *&v33[14] = v21;
+        v25 = "Updating timeout values based on min and max: (%f, %f)";
+        v26 = v23;
+        v27 = 22;
 LABEL_21:
-        _os_log_impl(&dword_1C61EF000, v24, OS_LOG_TYPE_DEFAULT, v23, v31, v25);
+        _os_log_impl(&dword_1C61EF000, v26, OS_LOG_TYPE_DEFAULT, v25, v33, v27);
       }
     }
 
@@ -1558,35 +1602,35 @@ LABEL_21:
     {
       ef_mean = [_viewDurationsFromBiome ef_mean];
       [ef_mean doubleValue];
-      v14 = v13;
+      v15 = v14;
 
       ef_standardDeviation = [_viewDurationsFromBiome ef_standardDeviation];
       [ef_standardDeviation doubleValue];
-      v17 = v16;
+      v18 = v17;
 
-      v18 = v17 * v11;
-      v19 = v14 - v18;
-      v20 = v14 + v18;
-      v21 = _ef_log_EDRemoteContentManager();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v19 = v18 * v12;
+      v20 = v15 - v19;
+      v21 = v15 + v19;
+      v23 = _ef_log_EDRemoteContentManager(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = @"s";
-        *v31 = 67109890;
-        *&v31[4] = v11;
-        *&v31[8] = 2114;
-        if (v11 == 1)
+        v24 = @"s";
+        *v33 = 67109890;
+        *&v33[4] = v12;
+        *&v33[8] = 2114;
+        if (v12 == 1)
         {
-          v22 = &stru_1F45B4608;
+          v24 = &stru_1F45B4608;
         }
 
-        *&v31[10] = v22;
-        *&v31[18] = 2048;
-        *&v31[20] = v19;
-        *&v31[28] = 2048;
-        *&v31[30] = v20;
-        v23 = "Updating timeout values based on mean and %u standard deviation%{public}@: (%f, %f)";
-        v24 = v21;
-        v25 = 38;
+        *&v33[10] = v24;
+        *&v33[18] = 2048;
+        *&v33[20] = v20;
+        *&v33[28] = 2048;
+        *&v33[30] = v21;
+        v25 = "Updating timeout values based on mean and %u standard deviation%{public}@: (%f, %f)";
+        v26 = v23;
+        v27 = 38;
         goto LABEL_21;
       }
     }
@@ -1594,14 +1638,14 @@ LABEL_21:
     goto LABEL_23;
   }
 
-  v8 = _ef_log_EDRemoteContentManager();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  v9 = _ef_log_EDRemoteContentManager(v8);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
   if (neededCopy)
   {
-    if (v9)
+    if (v10)
     {
-      *v31 = 0;
-      _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_DEFAULT, "Using default timeout values", v31, 2u);
+      *v33 = 0;
+      _os_log_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_DEFAULT, "Using default timeout values", v33, 2u);
     }
 
     [(EDRemoteContentManager *)self setMinimumTimeout:2.0];
@@ -1610,16 +1654,14 @@ LABEL_21:
 
   else
   {
-    if (v9)
+    if (v10)
     {
-      *v31 = 0;
-      _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_DEFAULT, "Leaving timeout values unchanged", v31, 2u);
+      *v33 = 0;
+      _os_log_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_DEFAULT, "Leaving timeout values unchanged", v33, 2u);
     }
   }
 
 LABEL_24:
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_viewDurationsFromBiome
@@ -1743,23 +1785,21 @@ LABEL_6:
 
 void __55__EDRemoteContentManager_noteViewOfRemoteContentLinks___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = _ef_log_EDRemoteContentManager();
+  v9 = *MEMORY[0x1E69E9840];
+  v2 = _ef_log_EDRemoteContentManager(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = [v3 ef_map:&__block_literal_global_293];
     v5 = [v4 componentsJoinedByString:{@", "}];
 
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_1C61EF000, v2, OS_LOG_TYPE_DEFAULT, "Viewed URLs: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_1C61EF000, v2, OS_LOG_TYPE_DEFAULT, "Viewed URLs: %{public}@", &v7, 0xCu);
   }
 
   v6 = [*(a1 + 40) remoteContentPersistence];
   [v6 updateRequestCountForRemoteContentLinks:*(a1 + 32) updateLastSeen:1];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)test_tearDown

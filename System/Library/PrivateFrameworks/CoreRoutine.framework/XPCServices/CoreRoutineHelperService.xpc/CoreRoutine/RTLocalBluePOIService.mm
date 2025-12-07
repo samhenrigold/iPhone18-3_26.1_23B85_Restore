@@ -13,6 +13,7 @@
 - (void)downloadBluePOITilesForDownloadKeys:(id)keys tileLoader:(id)loader handler:(id)handler;
 - (void)fetchBluePOIMetadataWithHandler:(id)handler;
 - (void)fetchBluePOITilesForDownloadKeys:(id)keys handler:(id)handler;
+- (void)inferLocalBluePOIWithReferenceLocation:(id)location locations:(id)locations accessPoints:(id)points bluePOITile:(id)tile signalEnv:(int)env refreshAOI:(BOOL)i handler:(id)handler;
 - (void)loadPreinstalledTileAtPath:(id)path handler:(id)handler;
 @end
 
@@ -450,29 +451,8 @@ LABEL_13:
     v53 = 1.0;
   }
 
-  if (v29 > v35)
+  if (v29 > v35 || v41 > v47 || v29 == 0.0 || (+[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", d), v54 = objc_claimAutoreleasedReturnValue(), [confidenceCopy objectForKeyedSubscript:v54], v55 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v55, "doubleValue"), v57 = v56, v55, v54, v57 < 0.525))
   {
-    goto LABEL_34;
-  }
-
-  if (v41 > v47)
-  {
-    goto LABEL_34;
-  }
-
-  if (v29 == 0.0)
-  {
-    goto LABEL_34;
-  }
-
-  v54 = [NSNumber numberWithUnsignedInteger:d];
-  v55 = [confidenceCopy objectForKeyedSubscript:v54];
-  [v55 doubleValue];
-  v57 = v56;
-
-  if (v57 < 0.525)
-  {
-LABEL_34:
     v58 = confidenceCopy;
     goto LABEL_63;
   }
@@ -815,6 +795,829 @@ LABEL_30:
 LABEL_45:
 
   return v47;
+}
+
+- (void)inferLocalBluePOIWithReferenceLocation:(id)location locations:(id)locations accessPoints:(id)points bluePOITile:(id)tile signalEnv:(int)env refreshAOI:(BOOL)i handler:(id)handler
+{
+  iCopy = i;
+  v10 = *&env;
+  locationCopy = location;
+  locationsCopy = locations;
+  pointsCopy = points;
+  v18 = COERCE_DOUBLE(tile);
+  handlerCopy = handler;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+  {
+    v20 = sub_1000011A0(&qword_1000B2970);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138739971;
+      v276 = locationCopy;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "Reference location: %{sensitive}@", buf, 0xCu);
+    }
+  }
+
+  v217 = locationsCopy;
+  selfCopy = self;
+  v21 = +[NSDate now];
+  v221 = objc_opt_new();
+  v22 = objc_opt_new();
+  v23 = objc_opt_new();
+  v24 = v23;
+  v25 = COERCE_DOUBLE(&off_1000AB978);
+  v219 = pointsCopy;
+  v220 = locationCopy;
+  if (iCopy)
+  {
+    v26 = v10;
+    v27 = v18;
+    v28 = handlerCopy;
+    v29 = v23;
+    v264 = &off_1000AB978;
+    v263 = 0;
+    obj = objc_opt_new();
+    v30 = v21;
+    v31 = [obj inferLocalPolygonalBluePOIsWithReferenceLocation:locationCopy queryTime:v21 distanceToNearestAOILowerBound:&v264 error:&v263];
+    v25 = COERCE_DOUBLE(v264);
+    v32 = v263;
+
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+    {
+      v33 = sub_1000011A0(&qword_1000B2970);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+      {
+        *buf = 138412546;
+        v276 = v31;
+        v277 = 2112;
+        v278 = v25;
+        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_INFO, "Polygonal BluePOI Results: %@, distanceToNearestAOILowerBound: %@", buf, 0x16u);
+      }
+    }
+
+    v34 = v30;
+    v24 = v29;
+    handlerCopy = v28;
+    v18 = v27;
+    v10 = v26;
+    if (v32)
+    {
+      v212 = v25;
+      v35 = v34;
+      v36 = handlerCopy;
+      [v24 addObject:v32];
+      v37 = sub_1000011A0(&qword_1000B2970);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138412290;
+        v276 = v32;
+        _os_log_error_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, "AOI inference error: %@", buf, 0xCu);
+      }
+
+      v284 = NSLocalizedDescriptionKey;
+      v285 = @"AOI inference error";
+      v38 = [NSDictionary dictionaryWithObjects:&v285 forKeys:&v284 count:1];
+      v39 = [NSError errorWithDomain:@"RTBluePOIErrorDomain" code:111 userInfo:v38];
+
+      [v24 addObject:v39];
+      handlerCopy = v36;
+      v34 = v35;
+      v25 = v212;
+    }
+  }
+
+  else
+  {
+    v31 = v22;
+    v34 = v21;
+  }
+
+  v228 = v18;
+  if (v18 == 0.0)
+  {
+    v56 = v220;
+    v55 = v221;
+    v57 = v31;
+    v58 = [[RTLocalBluePOIResult alloc] initWithPOIConfidences:v221 aoiConfidences:v31 distanceToNearestAOILowerBound:*&v25 referenceLocation:v220 queryTime:v34];
+    _RTSafeArray();
+    v59 = handlerCopy;
+    v60 = v24;
+    v62 = v61 = v34;
+    _RTMultiErrorCreate();
+    v63 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+    v59[2](v59, v58, *&v63);
+  }
+
+  else
+  {
+    v211 = v24;
+    if ([*&v18 singlePOIMuid])
+    {
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
+      {
+        v40 = sub_1000011A0(&qword_1000B2970);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+        {
+          *buf = 0;
+          _os_log_debug_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEBUG, "Enter single POI Model.", buf, 2u);
+        }
+      }
+
+      v226 = objc_opt_new();
+      v41 = [v226 inferLocalSinglePOIBluePOIsWithReferenceLocation:v220 bluePOITile:*&v18 signalEnv:v10 queryTime:v34];
+
+      allKeys = [v41 allKeys];
+      v43 = [allKeys count];
+
+      if (v43)
+      {
+        v261 = 0u;
+        v262 = 0u;
+        v259 = 0u;
+        v260 = 0u;
+        allKeys2 = [v41 allKeys];
+        v45 = [allKeys2 countByEnumeratingWithState:&v259 objects:v283 count:16];
+        v46 = v41;
+        if (v45)
+        {
+          v47 = v45;
+          v213 = v25;
+          v215 = v31;
+          v208 = v34;
+          v48 = *v260;
+          do
+          {
+            for (i = 0; i != v47; i = i + 1)
+            {
+              if (*v260 != v48)
+              {
+                objc_enumerationMutation(allKeys2);
+              }
+
+              v50 = *(*(&v259 + 1) + 8 * i);
+              integerValue = [v50 integerValue];
+              if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+              {
+                v52 = sub_1000011A0(&qword_1000B2970);
+                if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
+                {
+                  v53 = [v41 objectForKeyedSubscript:v50];
+                  [v53 doubleValue];
+                  *buf = 134218240;
+                  v276 = integerValue;
+                  v277 = 2048;
+                  v278 = v54;
+                  _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_INFO, "Result muid: %lu, Confidence: %.3f, returned from single POI model", buf, 0x16u);
+                }
+              }
+            }
+
+            v47 = [allKeys2 countByEnumeratingWithState:&v259 objects:v283 count:16];
+          }
+
+          while (v47);
+          v34 = v208;
+          v24 = v211;
+          v25 = v213;
+          v31 = v215;
+          v46 = v41;
+        }
+      }
+
+      else
+      {
+        v46 = v41;
+        if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+        {
+LABEL_114:
+          v56 = v220;
+          v57 = v31;
+          v58 = [[RTLocalBluePOIResult alloc] initWithPOIConfidences:v46 aoiConfidences:v31 distanceToNearestAOILowerBound:*&v25 referenceLocation:v220 queryTime:v34];
+          _RTSafeArray();
+          v63 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+          _RTMultiErrorCreate();
+          v142 = v141 = v46;
+          handlerCopy[2](handlerCopy, v58, v142);
+
+          v55 = v141;
+          v59 = handlerCopy;
+          v60 = v24;
+          v61 = v34;
+          v62 = v226;
+          goto LABEL_159;
+        }
+
+        allKeys2 = sub_1000011A0(&qword_1000B2970);
+        if (os_log_type_enabled(allKeys2, OS_LOG_TYPE_INFO))
+        {
+          *buf = 0;
+          _os_log_impl(&_mh_execute_header, allKeys2, OS_LOG_TYPE_INFO, "No result from single POI Model.", buf, 2u);
+        }
+      }
+
+      goto LABEL_114;
+    }
+
+    v214 = v25;
+    v216 = v31;
+    v207 = handlerCopy;
+    v209 = v34;
+    v64 = objc_alloc_init(NSMutableDictionary);
+    v255 = 0u;
+    v256 = 0u;
+    v257 = 0u;
+    v258 = 0u;
+    obja = pointsCopy;
+    v65 = [obja countByEnumeratingWithState:&v255 objects:v282 count:16];
+    if (v65)
+    {
+      v66 = v65;
+      v67 = *v256;
+      do
+      {
+        for (j = 0; j != v66; j = j + 1)
+        {
+          if (*v256 != v67)
+          {
+            objc_enumerationMutation(obja);
+          }
+
+          v69 = *(*(&v255 + 1) + 8 * j);
+          rssi = [v69 rssi];
+          v71 = -100;
+          if (rssi > -100)
+          {
+            v71 = rssi;
+          }
+
+          if (v71 >= -35)
+          {
+            v72 = -35;
+          }
+
+          else
+          {
+            v72 = v71;
+          }
+
+          v73 = [v69 mac];
+          v74 = [v64 objectForKeyedSubscript:v73];
+
+          if (!v74)
+          {
+            v75 = objc_alloc_init(NSMutableArray);
+            v76 = [v69 mac];
+            [v64 setObject:v75 forKeyedSubscript:v76];
+          }
+
+          v77 = [v69 mac];
+          v78 = [v64 objectForKeyedSubscript:v77];
+          v79 = [NSNumber numberWithInteger:v72];
+          [v78 addObject:v79];
+        }
+
+        v66 = [obja countByEnumeratingWithState:&v255 objects:v282 count:16];
+      }
+
+      while (v66);
+    }
+
+    objb = COERCE_DOUBLE(objc_alloc_init(NSMutableDictionary));
+    v251 = 0u;
+    v252 = 0u;
+    v253 = 0u;
+    v254 = 0u;
+    v80 = v64;
+    v81 = [v80 countByEnumeratingWithState:&v251 objects:v281 count:16];
+    v227 = v80;
+    if (v81)
+    {
+      v82 = v81;
+      v224 = *v252;
+      do
+      {
+        for (k = 0; k != v82; k = k + 1)
+        {
+          if (*v252 != v224)
+          {
+            objc_enumerationMutation(v80);
+          }
+
+          v84 = *(*(&v251 + 1) + 8 * k);
+          [RTLocalBluePOIService adaptMacAddress:v84];
+          v85 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+          v86 = [*&v85 dataUsingEncoding:4];
+          hashSalt = [*&v228 hashSalt];
+          v88 = [NSMutableData dataWithData:hashSalt];
+
+          [v88 appendData:v86];
+          sha256Hash = [v88 sha256Hash];
+          if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
+          {
+            v90 = sub_1000011A0(&qword_1000B2970);
+            if (os_log_type_enabled(v90, OS_LOG_TYPE_DEBUG))
+            {
+              *buf = 138412802;
+              v276 = v84;
+              v277 = 2112;
+              v278 = v85;
+              v279 = 2112;
+              v280 = sha256Hash;
+              _os_log_debug_impl(&_mh_execute_header, v90, OS_LOG_TYPE_DEBUG, "mac: %@, adaptedMac, %@, hashedMac: %@", buf, 0x20u);
+            }
+          }
+
+          v91 = [v80 objectForKeyedSubscript:v84];
+          v92 = [RTLocalBluePOIService meanOf:v91];
+          v93 = [RTLocalBluePOIService normalizedRSSI:v92];
+          [*&objb setObject:v93 forKeyedSubscript:sha256Hash];
+
+          v80 = v227;
+        }
+
+        v82 = [v227 countByEnumeratingWithState:&v251 objects:v281 count:16];
+      }
+
+      while (v82);
+    }
+
+    v63 = objb;
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+    {
+      v94 = sub_1000011A0(&qword_1000B2970);
+      if (os_log_type_enabled(v94, OS_LOG_TYPE_INFO))
+      {
+        hashSalt2 = [*&v228 hashSalt];
+        *buf = 138412546;
+        v276 = hashSalt2;
+        v277 = 2112;
+        v278 = objb;
+        _os_log_impl(&_mh_execute_header, v94, OS_LOG_TYPE_INFO, "hashSalt, %@, accessPointsDict: %@", buf, 0x16u);
+      }
+    }
+
+    v225 = [(RTLocalBluePOIService *)selfCopy getCompiledModelForAccessPoints:*&objb fromBluePOITile:*&v228];
+    if (v225)
+    {
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+      {
+        v96 = sub_1000011A0(&qword_1000B2970);
+        if (os_log_type_enabled(v96, OS_LOG_TYPE_INFO))
+        {
+          *buf = 138412290;
+          v276 = v225;
+          _os_log_impl(&_mh_execute_header, v96, OS_LOG_TYPE_INFO, "Local compiled model: %@", buf, 0xCu);
+        }
+      }
+
+      v97 = [v225 url];
+      v98 = [NSURL fileURLWithPath:v97];
+
+      v250 = 0;
+      v204 = v98;
+      v99 = [MLModel modelWithContentsOfURL:v98 error:&v250];
+      v218 = v250;
+      v206 = v99;
+      if (v99)
+      {
+        v100 = +[NSDecimalNumber notANumber];
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+        {
+          v101 = sub_1000011A0(&qword_1000B2970);
+          if (os_log_type_enabled(v101, OS_LOG_TYPE_INFO))
+          {
+            *buf = 0;
+            _os_log_impl(&_mh_execute_header, v101, OS_LOG_TYPE_INFO, "Building inputs", buf, 2u);
+          }
+        }
+
+        v222 = v100;
+        modelDescription = [v206 modelDescription];
+        inputDescriptionsByName = [modelDescription inputDescriptionsByName];
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+        {
+          v103 = sub_1000011A0(&qword_1000B2970);
+          if (os_log_type_enabled(v103, OS_LOG_TYPE_INFO))
+          {
+            v104 = [inputDescriptionsByName count];
+            featureToHashedApMapping = [v225 featureToHashedApMapping];
+            v106 = COERCE_DOUBLE([featureToHashedApMapping count]);
+            *buf = 134218240;
+            v276 = v104;
+            v277 = 2048;
+            v278 = v106;
+            _os_log_impl(&_mh_execute_header, v103, OS_LOG_TYPE_INFO, "Model featureNames count: %lu, featureToHashedApMapping count: %lu", buf, 0x16u);
+          }
+        }
+
+        v248 = 0u;
+        v249 = 0u;
+        v246 = 0u;
+        v247 = 0u;
+        v107 = inputDescriptionsByName;
+        v108 = [v107 countByEnumeratingWithState:&v246 objects:v272 count:16];
+        if (v108)
+        {
+          v109 = v108;
+          v110 = *v247;
+          while (2)
+          {
+            for (m = 0; m != v109; m = m + 1)
+            {
+              if (*v247 != v110)
+              {
+                objc_enumerationMutation(v107);
+              }
+
+              v112 = *(*(&v246 + 1) + 8 * m);
+              featureToHashedApMapping2 = [v225 featureToHashedApMapping];
+              v114 = [featureToHashedApMapping2 objectForKey:v112];
+
+              if (!v114)
+              {
+                v147 = sub_1000011A0(&qword_1000B2970);
+                if (os_log_type_enabled(v147, OS_LOG_TYPE_FAULT))
+                {
+                  *buf = 138412547;
+                  v276 = v112;
+                  v277 = 2117;
+                  v278 = v228;
+                  _os_log_fault_impl(&_mh_execute_header, v147, OS_LOG_TYPE_FAULT, "featureToHashedApMapping doesn't have key, %@, tile, %{sensitive}@", buf, 0x16u);
+                }
+
+                v148 = v107;
+
+                v270 = NSLocalizedDescriptionKey;
+                v271 = @"Invalid feature list";
+                v149 = [NSDictionary dictionaryWithObjects:&v271 forKeys:&v270 count:1];
+                v150 = [NSError errorWithDomain:@"RTBluePOIErrorDomain" code:105 userInfo:v149];
+
+                if (v150)
+                {
+                  [v211 addObject:v150];
+                }
+
+                v205 = v150;
+                v151 = _RTSafeArray();
+                v152 = _RTMultiErrorCreate();
+                v207[2](v207, 0, v152);
+                v59 = v207;
+                v58 = 0;
+                v153 = v148;
+                v25 = v214;
+                v140 = modelDescription;
+                v139 = v204;
+                goto LABEL_154;
+              }
+            }
+
+            v109 = [v107 countByEnumeratingWithState:&v246 objects:v272 count:16];
+            if (v109)
+            {
+              continue;
+            }
+
+            break;
+          }
+        }
+
+        v202 = v107;
+
+        v115 = objc_alloc_init(NSMutableDictionary);
+        v242 = 0u;
+        v243 = 0u;
+        v244 = 0u;
+        v245 = 0u;
+        featureToHashedApMapping3 = [v225 featureToHashedApMapping];
+        v117 = [featureToHashedApMapping3 countByEnumeratingWithState:&v242 objects:v269 count:16];
+        v223 = v115;
+        if (v117)
+        {
+          v118 = v117;
+          v119 = *v243;
+          do
+          {
+            for (n = 0; n != v118; n = n + 1)
+            {
+              if (*v243 != v119)
+              {
+                objc_enumerationMutation(featureToHashedApMapping3);
+              }
+
+              v121 = *(*(&v242 + 1) + 8 * n);
+              featureToHashedApMapping4 = [v225 featureToHashedApMapping];
+              [featureToHashedApMapping4 objectForKeyedSubscript:v121];
+              v123 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+
+              allKeys3 = [*&v63 allKeys];
+              v125 = [allKeys3 containsObject:*&v123];
+
+              if (v125)
+              {
+                v126 = [*&v63 objectForKeyedSubscript:*&v123];
+                v115 = v223;
+                [v223 setValue:v126 forKey:v121];
+
+                if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
+                {
+                  v127 = sub_1000011A0(&qword_1000B2970);
+                  if (os_log_type_enabled(v127, OS_LOG_TYPE_DEBUG))
+                  {
+                    v128 = [v223 objectForKeyedSubscript:v121];
+                    *buf = 138412802;
+                    v276 = v121;
+                    v277 = 2112;
+                    v278 = v123;
+                    v279 = 2112;
+                    v280 = v128;
+                    _os_log_debug_impl(&_mh_execute_header, v127, OS_LOG_TYPE_DEBUG, "feature name: %@, feature: %@, feature value: %@", buf, 0x20u);
+                  }
+
+                  v63 = objb;
+                }
+              }
+
+              else
+              {
+                v115 = v223;
+                [v223 setValue:v222 forKey:v121];
+              }
+            }
+
+            v118 = [featureToHashedApMapping3 countByEnumeratingWithState:&v242 objects:v269 count:16];
+          }
+
+          while (v118);
+        }
+
+        v241 = v218;
+        v129 = [[MLDictionaryFeatureProvider alloc] initWithDictionary:v115 error:&v241];
+        v205 = v241;
+
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+        {
+          v130 = sub_1000011A0(&qword_1000B2970);
+          if (os_log_type_enabled(v130, OS_LOG_TYPE_INFO))
+          {
+            *buf = 0;
+            _os_log_impl(&_mh_execute_header, v130, OS_LOG_TYPE_INFO, "Local Blue POI inferring...", buf, 2u);
+          }
+        }
+
+        v240 = 0;
+        v131 = [v206 predictionFromFeatures:v129 error:&v240];
+        v132 = v240;
+        v200 = v131;
+        v201 = v129;
+        if (v132)
+        {
+          v133 = v132;
+          v134 = sub_1000011A0(&qword_1000B2970);
+          if (os_log_type_enabled(v134, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138412290;
+            v276 = v133;
+            _os_log_error_impl(&_mh_execute_header, v134, OS_LOG_TYPE_ERROR, "POI inference error, %@", buf, 0xCu);
+          }
+
+          v267 = NSLocalizedDescriptionKey;
+          v268 = @"POI inference error";
+          v135 = [NSDictionary dictionaryWithObjects:&v268 forKeys:&v267 count:1];
+          v136 = [NSError errorWithDomain:@"RTBluePOIErrorDomain" code:110 userInfo:v135];
+
+          if (v136)
+          {
+            [v211 addObject:v136];
+          }
+
+          v137 = _RTSafeArray();
+          v138 = _RTMultiErrorCreate();
+          v207[2](v207, 0, v138);
+          v58 = 0;
+          v25 = v214;
+          v140 = modelDescription;
+          v139 = v204;
+        }
+
+        else
+        {
+          v159 = [v131 featureValueForName:@"target"];
+          stringValue = [v159 stringValue];
+          integerValue2 = [stringValue integerValue];
+
+          v162 = [v131 featureValueForName:@"classProbability"];
+          dictionaryValue = [v162 dictionaryValue];
+
+          v164 = objc_opt_new();
+          v236 = 0u;
+          v237 = 0u;
+          v238 = 0u;
+          v239 = 0u;
+          v136 = dictionaryValue;
+          v165 = [v136 countByEnumeratingWithState:&v236 objects:v266 count:16];
+          if (v165)
+          {
+            v166 = v165;
+            v167 = *v237;
+            do
+            {
+              for (ii = 0; ii != v166; ii = ii + 1)
+              {
+                if (*v237 != v167)
+                {
+                  objc_enumerationMutation(v136);
+                }
+
+                v169 = *(*(&v236 + 1) + 8 * ii);
+                integerValue3 = [v169 integerValue];
+                v171 = [v136 objectForKeyedSubscript:v169];
+                [v171 doubleValue];
+                v173 = v172;
+
+                v174 = [NSNumber numberWithDouble:v173];
+                v175 = [NSNumber numberWithUnsignedInteger:integerValue3];
+                [v164 setObject:v174 forKeyedSubscript:v175];
+              }
+
+              v166 = [v136 countByEnumeratingWithState:&v236 objects:v266 count:16];
+            }
+
+            while (v166);
+          }
+
+          v199 = v164;
+          v176 = [(RTLocalBluePOIService *)selfCopy calibrateConfidence:v164 targetMUID:integerValue2 bluePOITile:*&v228];
+          v177 = [NSNumber numberWithUnsignedInteger:integerValue2];
+          v178 = [v176 objectForKeyedSubscript:v177];
+          [v178 doubleValue];
+          v180 = v179;
+
+          if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+          {
+            v181 = sub_1000011A0(&qword_1000B2970);
+            if (os_log_type_enabled(v181, OS_LOG_TYPE_INFO))
+            {
+              v182 = [NSNumber numberWithUnsignedInteger:integerValue2];
+              *buf = 138412546;
+              v276 = v182;
+              v277 = 2048;
+              v278 = v180;
+              _os_log_impl(&_mh_execute_header, v181, OS_LOG_TYPE_INFO, "Target muid with highest confidence: %@, Confidence: %f", buf, 0x16u);
+            }
+          }
+
+          v234 = 0u;
+          v235 = 0u;
+          v232 = 0u;
+          v233 = 0u;
+          v138 = v176;
+          v183 = [v138 countByEnumeratingWithState:&v232 objects:v265 count:16];
+          if (v183)
+          {
+            v184 = v183;
+            v185 = *v233;
+            do
+            {
+              for (jj = 0; jj != v184; jj = jj + 1)
+              {
+                if (*v233 != v185)
+                {
+                  objc_enumerationMutation(v138);
+                }
+
+                v187 = *(*(&v232 + 1) + 8 * jj);
+                unsignedIntegerValue = [v187 unsignedIntegerValue];
+                v189 = [v138 objectForKeyedSubscript:v187];
+                [v189 doubleValue];
+                v191 = v190;
+
+                if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+                {
+                  v192 = sub_1000011A0(&qword_1000B2970);
+                  if (os_log_type_enabled(v192, OS_LOG_TYPE_INFO))
+                  {
+                    *buf = 134218240;
+                    v276 = unsignedIntegerValue;
+                    v277 = 2048;
+                    v278 = v191;
+                    _os_log_impl(&_mh_execute_header, v192, OS_LOG_TYPE_INFO, "Result muid: %lu, Confidence: %f, returned", buf, 0x16u);
+                  }
+                }
+
+                v193 = [NSNumber numberWithDouble:v191];
+                v194 = [NSNumber numberWithUnsignedInteger:unsignedIntegerValue];
+                [v221 setObject:v193 forKeyedSubscript:v194];
+              }
+
+              v184 = [v138 countByEnumeratingWithState:&v232 objects:v265 count:16];
+            }
+
+            while (v184);
+          }
+
+          v25 = v214;
+          v58 = [(RTLocalBluePOIService *)selfCopy categoryFilteredLocalBluePOIResultWithPOIConfidences:v221 aoiConfidences:v216 distanceToNearestAOILowerBound:*&v214 referenceLocation:v220 queryTime:v209 bluePOITile:*&v228];
+          v195 = _RTSafeArray();
+          v196 = _RTMultiErrorCreate();
+          v207[2](v207, v58, v196);
+
+          v63 = objb;
+          v140 = modelDescription;
+          v139 = v204;
+          v137 = v199;
+        }
+
+        v151 = v201;
+        v148 = v202;
+        v153 = v223;
+        v152 = v200;
+        v59 = v207;
+LABEL_154:
+
+        v218 = v205;
+        v197 = v211;
+        v198 = v222;
+      }
+
+      else
+      {
+        allKeys4 = [v216 allKeys];
+        v155 = [allKeys4 count];
+
+        if (!v155)
+        {
+          v156 = sub_1000011A0(&qword_1000B2970);
+          if (os_log_type_enabled(v156, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138412290;
+            v276 = v218;
+            _os_log_error_impl(&_mh_execute_header, v156, OS_LOG_TYPE_ERROR, "Error in loading ML Model: %@", buf, 0xCu);
+          }
+
+          v273 = NSLocalizedDescriptionKey;
+          v274 = @"Model loading error";
+          v157 = [NSDictionary dictionaryWithObjects:&v274 forKeys:&v273 count:1];
+          v158 = [NSError errorWithDomain:@"RTBluePOIErrorDomain" code:110 userInfo:v157];
+
+          if (v158)
+          {
+            [v211 addObject:v158];
+            v218 = v158;
+          }
+
+          else
+          {
+            v218 = 0;
+          }
+        }
+
+        v25 = v214;
+        v58 = [(RTLocalBluePOIService *)selfCopy categoryFilteredLocalBluePOIResultWithPOIConfidences:v221 aoiConfidences:v216 distanceToNearestAOILowerBound:*&v214 referenceLocation:v220 queryTime:v209 bluePOITile:*&v228];
+        v198 = _RTSafeArray();
+        _RTMultiErrorCreate();
+        v140 = v197 = v211;
+        v59 = v207;
+        v207[2](v207, v58, v140);
+        v139 = v204;
+      }
+
+      v60 = v197;
+
+      v55 = v221;
+      v146 = v218;
+    }
+
+    else
+    {
+      v59 = v207;
+      allKeys5 = [v216 allKeys];
+      v144 = [allKeys5 count];
+
+      if (!v144)
+      {
+        v145 = sub_1000011A0(&qword_1000B2970);
+        if (os_log_type_enabled(v145, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 0;
+          _os_log_error_impl(&_mh_execute_header, v145, OS_LOG_TYPE_ERROR, "No local compiled model for access points", buf, 2u);
+        }
+      }
+
+      v55 = v221;
+      v25 = v214;
+      v58 = [(RTLocalBluePOIService *)selfCopy categoryFilteredLocalBluePOIResultWithPOIConfidences:v221 aoiConfidences:v216 distanceToNearestAOILowerBound:*&v214 referenceLocation:v220 queryTime:v209 bluePOITile:*&v228];
+      v60 = v211;
+      v139 = _RTSafeArray();
+      v146 = _RTMultiErrorCreate();
+      v207[2](v207, v58, v146);
+    }
+
+    v57 = v216;
+    v62 = v227;
+    v56 = v220;
+    v61 = v209;
+  }
+
+LABEL_159:
 }
 
 - (void)compileCoreMLModelAtURL:(id)l handler:(id)handler

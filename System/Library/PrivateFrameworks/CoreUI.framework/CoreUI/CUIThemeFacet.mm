@@ -58,7 +58,8 @@
 - (int)blendModeWithKeyAdjustment:(id)adjustment;
 - (int64_t)_sliceIndexForSlice:(int64_t)slice ofRendition:(id)rendition;
 - (int64_t)renditionType;
-- (uint64_t)_drawMaskFromSpecificRenditionKey:(uint64_t)result inFrame:alpha:operation:isFocused:focusRingColor:context:;
+- (void)_drawAsMaskSpecificRenditionKey:inFrame:context:alpha:operation:isFocused:focusRingColor:;
+- (void)_drawMaskFromSpecificRenditionKey:(uint64_t)key inFrame:alpha:operation:isFocused:focusRingColor:context:;
 - (void)_drawSlice:(int64_t)slice inFrame:(CGRect)frame withKeyAdjustment:(id)adjustment context:(CGContext *)context;
 - (void)_drawSpecificRenditionKey:(uint64_t)key inFrame:(uint64_t)frame context:(uint64_t)context alpha:(uint64_t)alpha operation:(uint64_t)operation isFocused:(void *)focused focusRingColor:isFlipped:effects:;
 - (void)_drawSpecificRenditionKey:(void *)key rendition:(double)rendition inFrame:(double)frame context:(double)context alpha:(double)alpha operation:(double)operation isFocused:(uint64_t)focused focusRingColor:(uint64_t)self0 isFlipped:(uint64_t)self1 effects:(uint64_t)self2;
@@ -620,18 +621,19 @@ LABEL_4:
 
 + (id)cursorFacetWithName:(id)name fromTheme:(unint64_t)theme
 {
-  v15 = 0uLL;
-  v7 = [objc_msgSend(self _themeStoreForThemeIndex:{theme), "renditionKeyForName:cursorHotSpot:", name, &v15}];
-  if (*&v15 < 0.0 || *(&v15 + 1) < 0.0)
+  v10 = 0uLL;
+  v7 = [objc_msgSend(self _themeStoreForThemeIndex:{theme), "renditionKeyForName:cursorHotSpot:", name, &v10}];
+  v8 = *&v10;
+  if (*&v10 < 0.0 || (v8 = *(&v10 + 1), *(&v10 + 1) < 0.0))
   {
-    _CUILog(4, "+[CUIThemeFacet cursorFacetWithName:fromTheme:] - Facet named %@ is not a cursor facet.", v8, v9, v10, v11, v12, v13, name);
+    _CUILog(4, "+[CUIThemeFacet cursorFacetWithName:fromTheme:] - Facet named %@ is not a cursor facet.", v8, name);
     return 0;
   }
 
   else
   {
-    result = [self _facetWithKeyList:v7 andRenditionKeyClass:0 orRenditionKey:0 fromTheme:{theme, *(&v15 + 1)}];
-    *(result + 3) = v15;
+    result = [self _facetWithKeyList:v7 andRenditionKeyClass:0 orRenditionKey:0 fromTheme:{theme, *(&v10 + 1)}];
+    *(result + 3) = v10;
   }
 
   return result;
@@ -658,11 +660,10 @@ LABEL_4:
 
 - (CUIThemeFacet)init
 {
-  v3 = [CUIRenditionKey alloc];
-  v5 = -[CUIRenditionKey initWithKeyList:](v3, "initWithKeyList:", [CUIPlaceHolderRendition(v3 v4)]);
-  v6 = [(CUIThemeFacet *)self initWithRenditionKey:v5 fromTheme:0];
+  v3 = -[CUIRenditionKey initWithKeyList:]([CUIRenditionKey alloc], "initWithKeyList:", [CUIPlaceHolderRendition() key]);
+  v4 = [(CUIThemeFacet *)self initWithRenditionKey:v3 fromTheme:0];
 
-  return v6;
+  return v4;
 }
 
 - (CUIThemeFacet)initWithCoder:(id)coder
@@ -805,9 +806,9 @@ LABEL_4:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v73 = 0;
-      v74 = 0.0;
-      v9 = [(CUIThemeFacet *)self gradientWithKeyAdjustment:0 angle:&v74 style:&v73];
+      v67 = 0;
+      v68 = 0.0;
+      v9 = [(CUIThemeFacet *)self gradientWithKeyAdjustment:0 angle:&v68 style:&v67];
       if (!v9)
       {
         return;
@@ -817,43 +818,43 @@ LABEL_4:
       [layer bounds];
       v12 = v11;
       v14 = v13;
-      v71 = 0uLL;
-      v75 = 0.0;
-      v76 = 0.0;
-      FrameIntersectionWithAxis(&v71, &v75, v15, v16, v11, v13, v74);
-      v17 = *&v71 / v12;
-      v18 = 1.0 - *(&v71 + 1) / v14;
-      v19 = 1.0 - v76 / v14;
-      v20 = v75 / v12;
+      v65 = 0uLL;
+      v69 = 0.0;
+      v70 = 0.0;
+      FrameIntersectionWithAxis(&v65, &v69, v15, v16, v11, v13, v68);
+      v17 = *&v65 / v12;
+      v18 = 1.0 - *(&v65 + 1) / v14;
+      v19 = 1.0 - v70 / v14;
+      v20 = v69 / v12;
       [layer setStartPoint:{v17, v18}];
       [layer setEndPoint:{v20, v19}];
-      if (v73 == 1282306592)
+      if (v67 == 1282306592)
       {
         v21 = &kCAGradientLayerAxial;
       }
 
       else
       {
-        if (v73 != 1382312992)
+        if (v67 != 1382312992)
         {
 LABEL_34:
           ARGBBitmapContext = CreateARGBBitmapContext(256.0, 1.0, 1.0);
           if (!ARGBBitmapContext)
           {
-            _CUILog(4, "CoreUI: Couldn't create CreateARGBBitmapContext() in [CUIThemeFacet updateLayer:effects:]", v63, v64, v65, v66, v67, v68, v71);
+            _CUILog(4, "CoreUI: Couldn't create CreateARGBBitmapContext() in [CUIThemeFacet updateLayer:effects:]");
             [layer setColorMap:0];
             return;
           }
 
-          v69 = ARGBBitmapContext;
+          v63 = ARGBBitmapContext;
           if (effects)
           {
             v10 = [v10 gradientByApplyingEffects:effects];
           }
 
-          [v10 drawInRect:v69 angle:0.0 withContext:{0.0, 256.0, 1.0, 0.0}];
-          Image = CGBitmapContextCreateImage(v69);
-          CFRelease(v69);
+          [v10 drawInRect:v63 angle:0.0 withContext:{0.0, 256.0, 1.0, 0.0}];
+          Image = CGBitmapContextCreateImage(v63);
+          CFRelease(v63);
           [layer setColorMap:Image];
           v46 = Image;
 LABEL_22:
@@ -881,9 +882,9 @@ LABEL_22:
       }
     }
 
-    v71 = xmmword_18E021DC8;
-    v72 = unk_18E021DD8;
-    v30 = [(CUIThemeFacet *)self copyLayerImageContentsAndCenter:&v71];
+    v65 = xmmword_18E021DC8;
+    v66 = unk_18E021DD8;
+    v30 = [(CUIThemeFacet *)self copyLayerImageContentsAndCenter:&v65];
     subtype = [_rendition subtype];
     if (effects)
     {
@@ -894,7 +895,7 @@ LABEL_22:
     }
 
     [layer setContents:v30];
-    [layer setContentsCenter:{v71, v72}];
+    [layer setContentsCenter:{v65, v66}];
     [_rendition scale];
     [layer setContentsScale:?];
     if (subtype <= 0x1E && ((1 << subtype) & 0x40900800) != 0)
@@ -986,12 +987,8 @@ LABEL_22:
 
 - (void)drawInFrame:(CGRect)frame isFocused:(int)focused context:(CGContext *)context
 {
-  height = frame.size.height;
-  width = frame.size.width;
-  y = frame.origin.y;
-  x = frame.origin.x;
-  v11 = [[CUIRenditionKey alloc] initWithKeyList:self->_renditionKeyList];
-  [(CUIThemeFacet *)self _drawSpecificRenditionKey:v11 inFrame:context context:0 isFocused:0 focusRingColor:0 isFlipped:0 effects:x, y, width, height];
+  v6 = [[CUIRenditionKey alloc] initWithKeyList:self->_renditionKeyList];
+  [CUIThemeFacet _drawSpecificRenditionKey:? inFrame:? context:? isFocused:? focusRingColor:? isFlipped:? effects:?];
 }
 
 - (void)drawInFrame:(CGRect)frame alpha:(double)alpha isFocused:(int)focused focusRingColor:(CGColor *)color context:(CGContext *)context effects:(id)effects
@@ -1036,6 +1033,7 @@ LABEL_22:
 
 - (void)drawAsOnePartWithSlice:(int)slice inFrame:(CGRect)frame isFocused:(int)focused focusRingColor:(CGColor *)color context:(CGContext *)context effects:(id)effects
 {
+  v11 = *&focused;
   height = frame.size.height;
   width = frame.size.width;
   y = frame.origin.y;
@@ -1050,12 +1048,13 @@ LABEL_22:
     themeIndex = self->_themeIndex;
     [themeRendition scale];
 
-    DrawOnePartElementFromRenditionWithOperation(x, y, width, height, v20, v24, themeIndex, themeRendition, context, focused, color, v22, slice, effects);
+    DrawOnePartElementFromRenditionWithOperation(x, y, width, height, v20, v24, themeIndex, themeRendition, context, v11, color, v22, slice, effects);
   }
 }
 
 - (void)drawAbsoluteAnimationFrame:(double)frame destinationFrame:(CGRect)destinationFrame isFocused:(int)focused focusRingColor:(CGColor *)color context:(CGContext *)context
 {
+  v9 = *&focused;
   height = destinationFrame.size.height;
   width = destinationFrame.size.width;
   y = destinationFrame.origin.y;
@@ -1065,7 +1064,7 @@ LABEL_22:
   v17 = v16;
   blendMode = [themeRendition blendMode];
 
-  DrawAbsoluteAnimationFrameWithOperation(themeRendition, context, blendMode, focused, frame, x, y, width, height, v17, color, v19);
+  DrawAbsoluteAnimationFrameWithOperation(themeRendition, context, blendMode, v9, frame, x, y, width, height, v17, color, v19);
 }
 
 - (void)drawAnimationFrameMappedFrom0_1RangedValue:(double)value destinationFrame:(CGRect)frame isFocused:(int)focused focusRingColor:(CGColor *)color context:(CGContext *)context effects:(id)effects
@@ -1084,6 +1083,7 @@ LABEL_22:
 
 - (void)drawSegmentInFrame:(CGRect)frame isFocused:(int)focused focusRingColor:(CGColor *)color segmentType:(int)type context:(CGContext *)context effects:(id)effects
 {
+  v11 = *&focused;
   height = frame.size.height;
   width = frame.size.width;
   y = frame.origin.y;
@@ -1110,7 +1110,7 @@ LABEL_22:
     v24 = blendMode;
     themeIndex = self->_themeIndex;
     [themeRendition scale];
-    DrawThreePartElementFromRenditionWithOperation(x, y, width, height, v22, v26, themeIndex, themeRendition, context, focused, color, v24, v19, 1, v18, effects);
+    DrawThreePartElementFromRenditionWithOperation(x, y, width, height, v22, v26, themeIndex, themeRendition, context, v11, color, v24, v19, 1, v18, effects);
   }
 }
 
@@ -1286,27 +1286,24 @@ LABEL_22:
 {
   if (frame.size.height != 0.0)
   {
-    v32 = v14;
-    v33 = v13;
-    v34 = v12;
-    v35 = v11;
-    v36 = v10;
-    v37 = v9;
-    v38 = v7;
-    v39 = v8;
+    v26 = v14;
+    v27 = v13;
+    v28 = v12;
+    v29 = v11;
+    v30 = v10;
+    v31 = v9;
+    v32 = v7;
+    v33 = v8;
     width = frame.size.width;
     if (frame.size.width != 0.0)
     {
       height = frame.size.height;
       y = frame.origin.y;
       x = frame.origin.x;
-      v31 = 0;
+      v25 = 0;
       v24 = [[CUIRenditionKey alloc] initWithKeyList:self->_renditionKeyList];
-      [(CUIThemeFacet *)self _updateSpecificRenditionKey:v24 isFocused:&v31 owner:owner userInfo:info];
-      themeIndex = self->_themeIndex;
-      LODWORD(owner) = v31;
-      themeScale = [(CUIRenditionKey *)v24 themeScale];
-      DrawPulsedElementFromRenditionKey(themeIndex, v24, context, owner, x, y, width, height, value, themeScale, 0, v27, v28, v29, v30);
+      [(CUIThemeFacet *)self _updateSpecificRenditionKey:v24 isFocused:&v25 owner:owner userInfo:info];
+      DrawPulsedElementFromRenditionKey(x, y, width, height, value, [(CUIRenditionKey *)v24 themeScale], self->_themeIndex, v24, context, v25);
     }
   }
 }
@@ -1372,9 +1369,9 @@ LABEL_22:
     v24 = objc_alloc_init(CUIRenditionKey);
   }
 
-  v37 = v24;
+  v31 = v24;
   [(CUIThemeFacet *)self _applyFixedAttributesToKey:v24];
-  v25 = [(CUIThemeFacet *)self _renditionForSpecificKey:v37];
+  v25 = [(CUIThemeFacet *)self _renditionForSpecificKey:v31];
   if ([v25 type] == 6)
   {
     CGContextSaveGState(context);
@@ -1436,11 +1433,11 @@ LABEL_23:
       if (v14)
       {
         CUIStartFocusRingInternal();
-        v39.origin.x = x;
-        v39.origin.y = y;
-        v39.size.width = width;
-        v39.size.height = height;
-        CGContextFillRect(context, v39);
+        v33.origin.x = x;
+        v33.origin.y = y;
+        v33.size.width = width;
+        v33.size.height = height;
+        CGContextFillRect(context, v33);
         CUIStartFocusRingInternal();
       }
 
@@ -1455,9 +1452,8 @@ LABEL_22:
   if (v25)
   {
     v30 = NSStringFromSelector(a2);
-    [-[CUIThemeFacet _themeStore](self "_themeStore")];
-    _CUILog(4, "ERROR: %@ called on pixel-type rendition of %@ with key: %@\nIgnoring gradient angle information and applying regular rendition drawing", v31, v32, v33, v34, v35, v36, v30);
-    [CUIThemeFacet _drawSpecificRenditionKey:v37 inFrame:context context:v15 alpha:v14 operation:color isFocused:0 focusRingColor:effects isFlipped:? effects:?];
+    _CUILog(4, "ERROR: %@ called on pixel-type rendition of %@ with key: %@\nIgnoring gradient angle information and applying regular rendition drawing", v30, self, [-[CUIThemeFacet _themeStore](self "_themeStore")]);
+    [CUIThemeFacet _drawSpecificRenditionKey:v31 inFrame:context context:v15 alpha:v14 operation:color isFocused:0 focusRingColor:effects isFlipped:? effects:?];
   }
 
 LABEL_25:
@@ -1594,19 +1590,17 @@ LABEL_25:
       x = frame.origin.x;
       if (adjustment)
       {
-        v17 = -[CUIRenditionKey initWithKeyList:]([CUIRenditionKey alloc], "initWithKeyList:", [adjustment keyList]);
+        v16 = -[CUIRenditionKey initWithKeyList:]([CUIRenditionKey alloc], "initWithKeyList:", [adjustment keyList]);
       }
 
       else
       {
-        v17 = objc_alloc_init(CUIRenditionKey);
+        v16 = objc_alloc_init(CUIRenditionKey);
       }
 
-      v24 = v17;
-      [(CUIThemeFacet *)self _applyFixedAttributesToKey:v17];
-      themeIndex = self->_themeIndex;
-      themeScale = [(CUIRenditionKey *)v24 themeScale];
-      DrawPulsedElementFromRenditionKey(themeIndex, v24, context, focused, x, y, width, height, value, themeScale, color, v20, v21, v22, v23);
+      v17 = v16;
+      [(CUIThemeFacet *)self _applyFixedAttributesToKey:v16];
+      DrawPulsedElementFromRenditionKey(x, y, width, height, value, [(CUIRenditionKey *)v17 themeScale], self->_themeIndex, v17, context, focused);
     }
   }
 }
@@ -1966,7 +1960,7 @@ LABEL_24:
   _rendition = [(CUIThemeFacet *)self _rendition];
   if (!_rendition)
   {
-    _rendition = CUIPlaceHolderRendition(0, v3);
+    _rendition = CUIPlaceHolderRendition();
   }
 
   type = [_rendition type];
@@ -1975,7 +1969,7 @@ LABEL_24:
     if ((type - 1) < 3 || type == 6)
     {
       [(CUIThemeFacet *)self thumbnail];
-      return v7;
+      return v6;
     }
 
     else
@@ -2124,13 +2118,13 @@ LABEL_24:
   [a2 themeScale];
   if (![OUTLINED_FUNCTION_11_1() _themeStore])
   {
-    _CUILog(4, "Warning: [CUIThemeFacet imageForState:value:variant:] unable to find theme store.", v4, v5, v6, v7, v8, v9, v13);
+    _CUILog(4, "Warning: [CUIThemeFacet imageForState:value:variant:] unable to find theme store.");
     return 0;
   }
 
   [OUTLINED_FUNCTION_26() keyList];
-  v10 = [OUTLINED_FUNCTION_28() canGetRenditionWithKey:?];
-  if (v2 >= 2 && (v10 & 1) == 0)
+  v4 = [OUTLINED_FUNCTION_28() canGetRenditionWithKey:?];
+  if (v2 >= 2 && (v4 & 1) == 0)
   {
     [a2 setThemeScale:1];
     [a2 keyList];
@@ -2141,9 +2135,9 @@ LABEL_24:
   }
 
   [a2 keyList];
-  v11 = OUTLINED_FUNCTION_28();
+  v5 = OUTLINED_FUNCTION_28();
 
-  return [v11 renditionWithKey:?];
+  return [v5 renditionWithKey:?];
 }
 
 - (CUIImage)_imageForRenditionFromKey:(int)key withSize:(CGFloat)size isMask:(CGFloat)mask
@@ -2191,11 +2185,11 @@ LABEL_24:
   themeScale2 = [a2 themeScale];
   [v13 scale];
   v23 = v17 * (themeScale2 / v22);
-  v55.width = NSZeroSize.width;
-  v55.height = NSZeroSize.height;
-  v54.width = size;
-  v54.height = mask;
-  v24 = NSEqualSizes(v54, v55);
+  v49.width = NSZeroSize.width;
+  v49.height = NSZeroSize.height;
+  v48.width = size;
+  v48.height = mask;
+  v24 = NSEqualSizes(v48, v49);
   if (v24)
   {
     maskCopy = v23;
@@ -2219,54 +2213,119 @@ LABEL_24:
   v27 = floor(maskCopy);
   if (sizeCopy != floor(sizeCopy) || maskCopy != v27)
   {
-    v29 = [-[CGImage _themeStore](selfCopy "_themeStore")];
-    _CUILog(4, "WARNING: Image size requires rounding, might be off by a pixel. Pass integral sizes and rects to CUIThemeFacet methods. %@", v30, v31, v32, v33, v34, v35, v29);
+    _CUILog(4, "WARNING: Image size requires rounding, might be off by a pixel. Pass integral sizes and rects to CUIThemeFacet methods. %@", [-[CGImage _themeStore](selfCopy "_themeStore")]);
     sizeCopy = round(sizeCopy);
     maskCopy = round(maskCopy);
   }
 
-  v36 = [NSMutableData dataWithLength:(maskCopy * sizeCopy * 32.0 + 32.0)];
-  SRGB = _CUIColorSpaceGetSRGB();
+  v29 = [NSMutableData dataWithLength:(maskCopy * sizeCopy * 32.0 + 32.0)];
+  SRGB = _CUIColorSpaceGetSRGB(v29, v30);
   if (key)
   {
-    v38 = 2;
+    v32 = 2;
   }
 
   else
   {
-    v38 = 8194;
+    v32 = 8194;
   }
 
-  v39 = CGBitmapContextCreate([(NSMutableData *)v36 bytes], sizeCopy, maskCopy, 8uLL, vcvtd_n_u64_f64(sizeCopy, 2uLL), SRGB, v38);
-  v41 = OUTLINED_FUNCTION_14_1();
+  v33 = CGBitmapContextCreate([(NSMutableData *)v29 bytes], sizeCopy, maskCopy, 8uLL, vcvtd_n_u64_f64(sizeCopy, 2uLL), SRGB, v32);
   if (key)
   {
-    [CUIThemeFacet _drawAsMaskSpecificRenditionKey:v41 inFrame:? context:? alpha:? operation:? isFocused:? focusRingColor:?];
-    Image = CGBitmapContextCreateImage(v39);
+    OUTLINED_FUNCTION_14_1();
+    [CUIThemeFacet _drawAsMaskSpecificRenditionKey:inFrame:context:alpha:operation:isFocused:focusRingColor:];
+    Image = CGBitmapContextCreateImage(v33);
     *decode = xmmword_18E021C10;
     CGImageGetWidth(Image);
-    v45 = OUTLINED_FUNCTION_26();
-    Height = CGImageGetHeight(v45);
+    v39 = OUTLINED_FUNCTION_26();
+    Height = CGImageGetHeight(v39);
     BitsPerComponent = CGImageGetBitsPerComponent(Image);
     BitsPerPixel = CGImageGetBitsPerPixel(Image);
     BytesPerRow = CGImageGetBytesPerRow(Image);
     DataProvider = CGImageGetDataProvider(Image);
     ShouldInterpolate = CGImageGetShouldInterpolate(Image);
     CGImageMaskCreate(selfCopy, Height, BitsPerComponent, BitsPerPixel, BytesPerRow, DataProvider, decode, ShouldInterpolate);
-    v52 = OUTLINED_FUNCTION_26();
-    CGImageRelease(v52);
+    v46 = OUTLINED_FUNCTION_26();
+    CGImageRelease(v46);
   }
 
   else
   {
-    [v40 _drawSpecificRenditionKey:v41 inFrame:? context:? alpha:? operation:? isFocused:? isFlipped:? effects:?];
-    selfCopy = CGBitmapContextCreateImage(v39);
+    v34 = OUTLINED_FUNCTION_14_1();
+    [v35 _drawSpecificRenditionKey:v34 inFrame:? context:? alpha:? operation:? isFocused:? isFlipped:? effects:?];
+    selfCopy = CGBitmapContextCreateImage(v33);
   }
 
-  v42 = [CUIImage imageWithCGImage:selfCopy];
-  CGContextRelease(v39);
+  v36 = [CUIImage imageWithCGImage:selfCopy];
+  CGContextRelease(v33);
   CGImageRelease(selfCopy);
-  return v42;
+  return v36;
+}
+
+- (void)_drawAsMaskSpecificRenditionKey:inFrame:context:alpha:operation:isFocused:focusRingColor:
+{
+  OUTLINED_FUNCTION_15_1();
+  if (!v1)
+  {
+    goto LABEL_3;
+  }
+
+  v2 = v0;
+  OUTLINED_FUNCTION_13_1();
+  v4 = v3;
+  v6 = v5;
+  v7 = [v5 renditionForSpecificKeyWrapper:v3];
+  if (v2 < 0.00000011920929)
+  {
+    goto LABEL_3;
+  }
+
+  v8 = v7;
+  type = [v7 type];
+  if ((type - 1) > 1)
+  {
+    if (type)
+    {
+      if (type != 3)
+      {
+        +[CUIThemeRendition displayNameForRenditionType:](CUIThemeRendition, "displayNameForRenditionType:", [v8 type]);
+        [v6 _themeStore];
+        [v4 keyList];
+        [OUTLINED_FUNCTION_28() debugDescriptionForKeyList:?];
+        _CUILog(4, "ERROR: CUIThemeFacet needs code to draw a mask from %@ rendition %@");
+LABEL_3:
+        OUTLINED_FUNCTION_6_0();
+        return;
+      }
+
+      [v4 themeScale];
+      OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_4_1();
+      OUTLINED_FUNCTION_6_0();
+
+      DrawNinePartMaskFromRenditionWithOperation(v29, v30, v31, v32, v33, v34, v23, v24, v25, v26, v27, v28);
+    }
+
+    else
+    {
+      OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_4_1();
+      OUTLINED_FUNCTION_6_0();
+
+      DrawOnePartMaskFromRenditionWithOperation(v43, v44, v45, v46, v47, v36, v37, v38, v39, v40, v41, v42);
+    }
+  }
+
+  else
+  {
+    [v4 themeScale];
+    OUTLINED_FUNCTION_0_2();
+    OUTLINED_FUNCTION_4_1();
+    OUTLINED_FUNCTION_6_0();
+
+    DrawThreePartMaskFromRenditionWithOperation(v16, v17, v18, v19, v20, v21, v10, v11, v12, v13, v14, v15);
+  }
 }
 
 - (__n128)_initWithRenditionKey:(uint64_t)key
@@ -2326,25 +2385,23 @@ LABEL_24:
 
 - (void)drawInFrame:(CGRect)frame isFocused:(int)focused focusRingColor:(CGColor *)color context:(CGContext *)context
 {
-  v8 = *&focused;
   OUTLINED_FUNCTION_2_0();
-  v16 = [[CUIRenditionKey alloc] initWithKeyList:*(v9 + 8)];
-  v10 = OUTLINED_FUNCTION_1_2();
-  [(CUIThemeFacet *)v11 _drawSpecificRenditionKey:v12 inFrame:context context:v8 isFocused:color focusRingColor:0 isFlipped:0 effects:v10, v13, v14, v15];
+  v8 = [[CUIRenditionKey alloc] initWithKeyList:*(v6 + 8)];
+  OUTLINED_FUNCTION_1_2();
+  [CUIThemeFacet _drawSpecificRenditionKey:v7 inFrame:? context:? isFocused:? focusRingColor:? isFlipped:? effects:?];
 }
 
 - (void)drawInFrame:(CGRect)frame isFocused:(int)focused focusRingColor:(CGColor *)color context:(CGContext *)context effects:(id)effects
 {
-  v10 = *&focused;
   OUTLINED_FUNCTION_2_0();
-  v18 = [[CUIRenditionKey alloc] initWithKeyList:*(v11 + 8)];
-  v12 = OUTLINED_FUNCTION_1_2();
-  [(CUIThemeFacet *)v13 _drawSpecificRenditionKey:v14 inFrame:context context:v10 isFocused:color focusRingColor:0 isFlipped:effects effects:v12, v15, v16, v17];
+  v9 = [[CUIRenditionKey alloc] initWithKeyList:*(v7 + 8)];
+  OUTLINED_FUNCTION_1_2();
+  [CUIThemeFacet _drawSpecificRenditionKey:v8 inFrame:? context:? isFocused:? focusRingColor:? isFlipped:? effects:?];
 }
 
 - (void)_drawSpecificRenditionKey:(uint64_t)key inFrame:(uint64_t)frame context:(uint64_t)context alpha:(uint64_t)alpha operation:(uint64_t)operation isFocused:(void *)focused focusRingColor:isFlipped:effects:
 {
-  if (self)
+  if (result)
   {
     OUTLINED_FUNCTION_2_0();
     v15 = [v13 renditionForSpecificKeyWrapper:v14];
@@ -2355,9 +2412,9 @@ LABEL_24:
   }
 }
 
-- (uint64_t)_drawMaskFromSpecificRenditionKey:(uint64_t)result inFrame:alpha:operation:isFocused:focusRingColor:context:
+- (void)_drawMaskFromSpecificRenditionKey:(uint64_t)key inFrame:alpha:operation:isFocused:focusRingColor:context:
 {
-  if (result)
+  if (key)
   {
     OUTLINED_FUNCTION_13_1();
     v2 = v1;
@@ -2366,12 +2423,10 @@ LABEL_24:
       [v2 setThemeLayer:0];
     }
 
-    v4 = OUTLINED_FUNCTION_0_2();
+    OUTLINED_FUNCTION_0_2();
 
-    return [CUIThemeFacet _drawAsMaskSpecificRenditionKey:v4 inFrame:? context:? alpha:? operation:? isFocused:? focusRingColor:?];
+    [CUIThemeFacet _drawAsMaskSpecificRenditionKey:inFrame:context:alpha:operation:isFocused:focusRingColor:];
   }
-
-  return result;
 }
 
 - (void)_drawSpecificRenditionKey:(void *)key rendition:(double)rendition inFrame:(double)frame context:(double)context alpha:(double)alpha operation:(double)operation isFocused:(uint64_t)focused focusRingColor:(uint64_t)self0 isFlipped:(uint64_t)self1 effects:(uint64_t)self2
@@ -2417,8 +2472,8 @@ LABEL_9:
         v63 = +[CUIThemeRendition displayNameForRenditionType:](CUIThemeRendition, "displayNameForRenditionType:", [key type]);
         [self _themeStore];
         [a2 keyList];
-        [OUTLINED_FUNCTION_28() debugDescriptionForKeyList:?];
-        _CUILog(4, "CUIThemeFacet needs code to draw %@ rendition %@", v64, v65, v66, v67, v68, v69, v63);
+        v64 = [OUTLINED_FUNCTION_28() debugDescriptionForKeyList:?];
+        _CUILog(4, "CUIThemeFacet needs code to draw %@ rendition %@", v63, v64);
         goto LABEL_9;
       }
 

@@ -1,13 +1,13 @@
-id sub_100000D18()
+id sub_100000D18(uint64_t a1)
 {
   if (qword_100008600 != -1)
   {
     sub_1000012D4();
   }
 
-  v1 = qword_1000085F8;
+  v2 = qword_1000085F8;
 
-  return v1;
+  return v2;
 }
 
 void sub_100000D5C(id a1)
@@ -30,28 +30,28 @@ id sub_1000010F0(uint64_t a1)
 
   if (WeakRetained)
   {
-    v3 = sub_100000D18();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100000D18(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = objc_loadWeakRetained((a1 + 40));
-      v9 = 138412290;
-      v10 = v4;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Connection from remote invalidated: %@", &v9, 0xCu);
+      v5 = objc_loadWeakRetained((a1 + 40));
+      v10 = 138412290;
+      v11 = v5;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Connection from remote invalidated: %@", &v10, 0xCu);
     }
 
-    v5 = *(*(a1 + 32) + 8);
-    v6 = objc_loadWeakRetained((a1 + 40));
-    [v5 removeObject:v6];
+    v6 = *(*(a1 + 32) + 8);
+    v7 = objc_loadWeakRetained((a1 + 40));
+    [v6 removeObject:v7];
   }
 
   result = [*(*(a1 + 32) + 8) count];
   if (!result)
   {
-    v8 = sub_100000D18();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100000D18(0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v9) = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Last connection invalidated ; exiting", &v9, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Last connection invalidated ; exiting", &v10, 2u);
     }
 
     exit(0);

@@ -14,20 +14,18 @@
 
 - (void)cleanupAfterExtractingBatch
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if ([(CPLRecordTargetMapping *)self->_targetMapping hasUpdatedTargets]&& (_CPLSilentLogging & 1) == 0)
   {
     v3 = __CPLStorageOSLogDomain_505();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       updatedTargetsDescription = [(CPLRecordTargetMapping *)self->_targetMapping updatedTargetsDescription];
-      v6 = 138543362;
-      v7 = updatedTargetsDescription;
-      _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEFAULT, "After extraction, updated targets:\n%{public}@", &v6, 0xCu);
+      v5 = 138543362;
+      v6 = updatedTargetsDescription;
+      _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEFAULT, "After extraction, updated targets:\n%{public}@", &v5, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)beginExtractingBatch

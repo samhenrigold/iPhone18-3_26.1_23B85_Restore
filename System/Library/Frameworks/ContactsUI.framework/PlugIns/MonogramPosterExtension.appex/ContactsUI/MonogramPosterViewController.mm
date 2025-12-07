@@ -1,6 +1,7 @@
 @interface MonogramPosterViewController
 - (_TtC23MonogramPosterExtension28MonogramPosterViewController)initWithNibName:(id)name bundle:(id)bundle;
 - (void)viewDidLoad;
+- (void)viewDidMoveToWindow:(id)window shouldAppearOrDisappear:(BOOL)disappear;
 @end
 
 @implementation MonogramPosterViewController
@@ -9,6 +10,17 @@
 {
   selfCopy = self;
   sub_10000844C();
+}
+
+- (void)viewDidMoveToWindow:(id)window shouldAppearOrDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v8.receiver = self;
+  v8.super_class = type metadata accessor for MonogramPosterViewController(0);
+  windowCopy = window;
+  v7 = v8.receiver;
+  [(MonogramPosterViewController *)&v8 viewDidMoveToWindow:windowCopy shouldAppearOrDisappear:disappearCopy];
+  sub_10000A840();
 }
 
 - (_TtC23MonogramPosterExtension28MonogramPosterViewController)initWithNibName:(id)name bundle:(id)bundle

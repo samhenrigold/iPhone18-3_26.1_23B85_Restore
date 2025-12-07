@@ -9,40 +9,38 @@
 - (NSSet)featureNames
 {
   swift_beginAccess();
-  v3 = *(self + 13);
 
-  v4 = sub_275B7AF1C();
+  v2 = sub_275B7AF1C();
 
-  return v4;
+  return v2;
 }
 
 - (void)setFeatureNames:(id)names
 {
   v4 = sub_275B7AF2C();
   swift_beginAccess();
-  v5 = *(self + 13);
   *(self + 13) = v4;
 }
 
 - (id)featureValueForName:(id)name
 {
-  sub_275B7AD0C();
+  v4 = sub_275B7AD0C();
 
-  v4 = _s33iCloudSubscriptionOptimizerDaemon11FeatureNameO10fromStringyACSgSSFZ_0();
+  v5 = _s33iCloudSubscriptionOptimizerDaemon11FeatureNameO10fromStringyACSgSSFZ_0(v4);
 
-  if (v4 == 55)
+  if (v5 == 55)
   {
-    v5 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v6 = (*(*self + 400))(v4);
+    v7 = (*(*self + 400))(v5);
 
-    v5 = *(v6 + 24);
+    v6 = *(v7 + 24);
   }
 
-  return v5;
+  return v6;
 }
 
 @end

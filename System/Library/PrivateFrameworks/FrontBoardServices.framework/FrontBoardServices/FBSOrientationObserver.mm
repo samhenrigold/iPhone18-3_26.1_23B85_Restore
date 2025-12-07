@@ -28,7 +28,7 @@
 - (void)invalidate
 {
   v8 = *MEMORY[0x1E69E9840];
-  v3 = FBLogInterfaceOrientationObserver();
+  v3 = FBLogInterfaceOrientationObserver(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 134217984;
@@ -49,22 +49,22 @@
 
 - (void)dealloc
 {
-  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@: you must call -invalidate before releasing", objc_opt_class()];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@: you must call -invalidate before releasing", objc_opt_class()];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[FBSOrientationObserver dealloc]"];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[FBSOrientationObserver dealloc]"];
     *buf = 138544130;
-    v3 = v1;
-    v4 = 2114;
-    v5 = @"FBSOrientationObserver.m";
-    v6 = 1024;
-    v7 = 118;
-    v8 = 2114;
-    v9 = v0;
+    v5 = v3;
+    v6 = 2114;
+    v7 = @"FBSOrientationObserver.m";
+    v8 = 1024;
+    v9 = 118;
+    v10 = 2114;
+    v11 = v2;
     _os_log_error_impl(&dword_1A2DBB000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
   }
 
-  [v0 UTF8String];
+  [v2 UTF8String];
   _bs_set_crash_log_message();
 }
 
@@ -186,43 +186,43 @@ uint64_t __67__FBSOrientationObserver_activeInterfaceOrientationWithCompletion__
 
 - (void)_lock_setHandler:(id)handler
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (self->_lock_handler != handler)
   {
     v5 = [handler copy];
     lock_handler = self->_lock_handler;
     self->_lock_handler = v5;
 
-    v7 = FBLogInterfaceOrientationObserver();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    v8 = FBLogInterfaceOrientationObserver(v7);
+    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
     if (handler)
     {
-      if (v8)
+      if (v9)
       {
-        *v10 = 134217984;
-        *&v10[4] = self;
-        v9 = "<%p> Registering interest for orientation updates.";
+        *v11 = 134217984;
+        *&v11[4] = self;
+        v10 = "<%p> Registering interest for orientation updates.";
 LABEL_7:
-        _os_log_impl(&dword_1A2DBB000, v7, OS_LOG_TYPE_DEFAULT, v9, v10, 0xCu);
+        _os_log_impl(&dword_1A2DBB000, v8, OS_LOG_TYPE_DEFAULT, v10, v11, 0xCu);
       }
     }
 
-    else if (v8)
+    else if (v9)
     {
-      *v10 = 134217984;
-      *&v10[4] = self;
-      v9 = "<%p> Unregistering interest for orientation updates.";
+      *v11 = 134217984;
+      *&v11[4] = self;
+      v10 = "<%p> Unregistering interest for orientation updates.";
       goto LABEL_7;
     }
 
-    [(FBSOrientationObserverClient *)self->_client registerOrientationInterest:self->_lock_handler != 0, *v10];
+    [(FBSOrientationObserverClient *)self->_client registerOrientationInterest:self->_lock_handler != 0, *v11, *&v11[8]];
   }
 }
 
 - (id)_lock_getAndSetFreshestUpdateGivenUpdate:(id)update forced:(BOOL)forced
 {
   forcedCopy = forced;
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   updateCopy = update;
   lock_freshestUpdate = self->_lock_freshestUpdate;
   if (!lock_freshestUpdate)
@@ -232,52 +232,53 @@ LABEL_7:
 
   if (forcedCopy)
   {
-    v9 = FBLogInterfaceOrientationObserver();
+    v9 = FBLogInterfaceOrientationObserver(lock_freshestUpdate);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 134218242;
+      v17 = 134218242;
       selfCopy2 = self;
-      v18 = 2114;
-      v19 = updateCopy;
-      _os_log_impl(&dword_1A2DBB000, v9, OS_LOG_TYPE_DEFAULT, "<%p>: Received orientation update: %{public}@ that we're forcefully updating", &v16, 0x16u);
+      v19 = 2114;
+      v20 = updateCopy;
+      _os_log_impl(&dword_1A2DBB000, v9, OS_LOG_TYPE_DEFAULT, "<%p>: Received orientation update: %{public}@ that we're forcefully updating", &v17, 0x16u);
     }
 
     goto LABEL_10;
   }
 
   sequenceNumber = [(FBSOrientationUpdate *)lock_freshestUpdate sequenceNumber];
-  if (sequenceNumber <= [updateCopy sequenceNumber])
+  sequenceNumber2 = [updateCopy sequenceNumber];
+  if (sequenceNumber <= sequenceNumber2)
   {
 LABEL_10:
     objc_storeStrong(&self->_lock_freshestUpdate, update);
     goto LABEL_11;
   }
 
-  v11 = FBLogInterfaceOrientationObserver();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v12 = FBLogInterfaceOrientationObserver(sequenceNumber2);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    v15 = self->_lock_freshestUpdate;
-    v16 = 134218498;
+    v16 = self->_lock_freshestUpdate;
+    v17 = 134218498;
     selfCopy2 = self;
-    v18 = 2114;
-    v19 = updateCopy;
-    v20 = 2114;
-    v21 = v15;
-    _os_log_error_impl(&dword_1A2DBB000, v11, OS_LOG_TYPE_ERROR, "<%p> Received orientation update: %{public}@ with a sequence number less than the last update received %{public}@.", &v16, 0x20u);
+    v19 = 2114;
+    v20 = updateCopy;
+    v21 = 2114;
+    v22 = v16;
+    _os_log_error_impl(&dword_1A2DBB000, v12, OS_LOG_TYPE_ERROR, "<%p> Received orientation update: %{public}@ with a sequence number less than the last update received %{public}@.", &v17, 0x20u);
   }
 
 LABEL_11:
-  v12 = self->_lock_freshestUpdate;
-  v13 = v12;
+  v13 = self->_lock_freshestUpdate;
+  v14 = v13;
 
-  return v12;
+  return v13;
 }
 
 - (void)client:(id)client handleOrientationUpdate:(id)update
 {
   v16 = *MEMORY[0x1E69E9840];
   updateCopy = update;
-  v6 = FBLogInterfaceOrientationObserver();
+  v6 = FBLogInterfaceOrientationObserver(updateCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
@@ -323,7 +324,7 @@ void __57__FBSOrientationObserver_client_handleOrientationUpdate___block_invoke(
 - (void)handleOrientationResetForClient:(id)client
 {
   v10 = *MEMORY[0x1E69E9840];
-  v4 = FBLogInterfaceOrientationObserver();
+  v4 = FBLogInterfaceOrientationObserver(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;

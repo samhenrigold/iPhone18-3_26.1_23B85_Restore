@@ -377,7 +377,9 @@ void __72__MUIBrandIndicatorProvider_brandIndicatorFutureForLocation_size_scale_
     v2 = v5;
   }
 
-  OUTLINED_FUNCTION_0(&dword_214A5E000, v6, v7, "No data fetched for brand indicator url %{public}@", v8, v9, v10, v11, 2u);
+  LODWORD(v12) = 138543362;
+  *(&v12 + 4) = v3;
+  OUTLINED_FUNCTION_0(&dword_214A5E000, v6, v7, "No data fetched for brand indicator url %{public}@", v8, v9, v10, v11, v12, DWORD2(v12));
 }
 
 void __72__MUIBrandIndicatorProvider_brandIndicatorFutureForLocation_size_scale___block_invoke_13_cold_1(uint64_t a1)
@@ -398,7 +400,9 @@ void __72__MUIBrandIndicatorProvider_brandIndicatorFutureForLocation_size_scale_
     v2 = v5;
   }
 
-  OUTLINED_FUNCTION_0(&dword_214A5E000, v6, v7, "Failed to render image for brand indicator url %{public}@", v8, v9, v10, v11, 2u);
+  LODWORD(v12) = 138543362;
+  *(&v12 + 4) = v3;
+  OUTLINED_FUNCTION_0(&dword_214A5E000, v6, v7, "Failed to render image for brand indicator url %{public}@", v8, v9, v10, v11, v12, DWORD2(v12));
 }
 
 @end

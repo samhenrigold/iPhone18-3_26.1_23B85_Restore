@@ -74,9 +74,9 @@
     +[UIImage(Bridge) ts_bookmark];
   }
 
-  v1 = ts_bookmark_image;
+  v2 = ts_bookmark_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_bookmarkFill
@@ -86,9 +86,9 @@
     +[UIImage(Bridge) ts_bookmarkFill];
   }
 
-  v1 = ts_bookmarkFill_image;
+  v2 = ts_bookmarkFill_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_bookmarkFillForHUD
@@ -98,9 +98,9 @@
     +[UIImage(Bridge) ts_bookmarkFillForHUD];
   }
 
-  v1 = ts_bookmarkFillForHUD_image;
+  v2 = ts_bookmarkFillForHUD_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_checkmark
@@ -110,9 +110,9 @@
     +[UIImage(Bridge) ts_checkmark];
   }
 
-  v1 = ts_checkmark_image;
+  v2 = ts_checkmark_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_checkmarkCircleFill
@@ -122,9 +122,9 @@
     +[UIImage(Bridge) ts_checkmarkCircleFill];
   }
 
-  v1 = ts_checkmarkCircleFill_image;
+  v2 = ts_checkmarkCircleFill_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_checkmarkCircleFillWhite
@@ -134,9 +134,9 @@
     +[UIImage(Bridge) ts_checkmarkCircleFillWhite];
   }
 
-  v1 = ts_checkmarkCircleFillWhite_image;
+  v2 = ts_checkmarkCircleFillWhite_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_checkmarkCircleTertiaryFillOnPink
@@ -146,9 +146,9 @@
     +[UIImage(Bridge) ts_checkmarkCircleTertiaryFillOnPink];
   }
 
-  v1 = ts_checkmarkCircleTertiaryFillOnPink_image;
+  v2 = ts_checkmarkCircleTertiaryFillOnPink_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_checkmarkCircleOpaqueFillOnPink
@@ -158,9 +158,9 @@
     +[UIImage(Bridge) ts_checkmarkCircleOpaqueFillOnPink];
   }
 
-  v1 = ts_checkmarkCircleOpaqueFillOnPink_image;
+  v2 = ts_checkmarkCircleOpaqueFillOnPink_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_minusCircleOpaqueFillOnRed
@@ -170,9 +170,9 @@
     +[UIImage(Bridge) ts_minusCircleOpaqueFillOnRed];
   }
 
-  v1 = ts_minusCircleOpaqueFillOnRed_image;
+  v2 = ts_minusCircleOpaqueFillOnRed_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_checkmarkCircleOnGrayFill
@@ -182,9 +182,9 @@
     +[UIImage(Bridge) ts_checkmarkCircleOnGrayFill];
   }
 
-  v1 = ts_checkmarkCircleOnGrayFill_image;
+  v2 = ts_checkmarkCircleOnGrayFill_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_checkmarkForHUD
@@ -194,9 +194,9 @@
     +[UIImage(Bridge) ts_checkmarkForHUD];
   }
 
-  v1 = ts_checkmarkForHUD_image;
+  v2 = ts_checkmarkForHUD_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_chevronRight
@@ -206,9 +206,9 @@
     +[UIImage(Bridge) ts_chevronRight];
   }
 
-  v1 = ts_chevronRight_image;
+  v2 = ts_chevronRight_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_circleFill
@@ -218,9 +218,9 @@
     +[UIImage(Bridge) ts_circleFill];
   }
 
-  v1 = ts_circleFill_image;
+  v2 = ts_circleFill_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_disclosureIndicator
@@ -230,9 +230,9 @@
     +[UIImage(Bridge) ts_disclosureIndicator];
   }
 
-  v1 = ts_disclosureIndicator_disclosureIndicator;
+  v2 = ts_disclosureIndicator_disclosureIndicator;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_ellipsis
@@ -242,9 +242,9 @@
     +[UIImage(Bridge) ts_ellipsis];
   }
 
-  v1 = ts_ellipsis_image;
+  v2 = ts_ellipsis_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_ellipsisCircle
@@ -254,9 +254,9 @@
     +[UIImage(Bridge) ts_ellipsisCircle];
   }
 
-  v1 = ts_ellipsisCircle_image;
+  v2 = ts_ellipsisCircle_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_ellipsisCircleWhite
@@ -266,9 +266,9 @@
     +[UIImage(Bridge) ts_ellipsisCircleWhite];
   }
 
-  v1 = ts_ellipsisCircleWhite_image;
+  v2 = ts_ellipsisCircleWhite_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_ellipsisCirclePinkOnTertiaryFill
@@ -278,9 +278,9 @@
     +[UIImage(Bridge) ts_ellipsisCirclePinkOnTertiaryFill];
   }
 
-  v1 = ts_ellipsisCirclePinkOnTertiaryFill_image;
+  v2 = ts_ellipsisCirclePinkOnTertiaryFill_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_ellipsisCircleFill
@@ -290,9 +290,9 @@
     +[UIImage(Bridge) ts_ellipsisCircleFill];
   }
 
-  v1 = ts_ellipsisCircleFill_image;
+  v2 = ts_ellipsisCircleFill_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_ellipsisCircleFillWhite
@@ -302,9 +302,9 @@
     +[UIImage(Bridge) ts_ellipsisCircleFillWhite];
   }
 
-  v1 = ts_ellipsisCircleFillWhite_image;
+  v2 = ts_ellipsisCircleFillWhite_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_ellipsisCircleTertiaryFillOnPink
@@ -314,9 +314,9 @@
     +[UIImage(Bridge) ts_ellipsisCircleTertiaryFillOnPink];
   }
 
-  v1 = ts_ellipsisCircleTertiaryFillOnPink_image;
+  v2 = ts_ellipsisCircleTertiaryFillOnPink_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_exclamationMarkCircle
@@ -326,9 +326,9 @@
     +[UIImage(Bridge) ts_exclamationMarkCircle];
   }
 
-  v1 = ts_exclamationMarkCircle_image;
+  v2 = ts_exclamationMarkCircle_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_filledSystemImageNamed:()Bridge fillColor:symbolColor:
@@ -371,9 +371,9 @@
     +[UIImage(Bridge) ts_handRaised];
   }
 
-  v1 = ts_handRaised_image;
+  v2 = ts_handRaised_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_handRaisedFill
@@ -383,9 +383,9 @@
     +[UIImage(Bridge) ts_handRaisedFill];
   }
 
-  v1 = ts_handRaisedFill_image;
+  v2 = ts_handRaisedFill_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_handRaisedFillForHUD
@@ -395,9 +395,9 @@
     +[UIImage(Bridge) ts_handRaisedFillForHUD];
   }
 
-  v1 = ts_handRaisedFillForHUD_image;
+  v2 = ts_handRaisedFillForHUD_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_handRaisedSlash
@@ -407,9 +407,9 @@
     +[UIImage(Bridge) ts_handRaisedSlash];
   }
 
-  v1 = ts_handRaisedSlash_image;
+  v2 = ts_handRaisedSlash_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_handRaisedSlashFill
@@ -419,9 +419,9 @@
     +[UIImage(Bridge) ts_handRaisedSlashFill];
   }
 
-  v1 = ts_handRaisedSlashFill_image;
+  v2 = ts_handRaisedSlashFill_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_handThumbsDown
@@ -431,9 +431,9 @@
     +[UIImage(Bridge) ts_handThumbsDown];
   }
 
-  v1 = ts_handThumbsDown_image;
+  v2 = ts_handThumbsDown_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_handThumbsDownFill
@@ -443,9 +443,9 @@
     +[UIImage(Bridge) ts_handThumbsDownFill];
   }
 
-  v1 = ts_handThumbsDownFill_image;
+  v2 = ts_handThumbsDownFill_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_handThumbsDownFillForHUD
@@ -455,9 +455,9 @@
     +[UIImage(Bridge) ts_handThumbsDownFillForHUD];
   }
 
-  v1 = ts_handThumbsDownFillForHUD_image;
+  v2 = ts_handThumbsDownFillForHUD_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_handThumbsUp
@@ -467,9 +467,9 @@
     +[UIImage(Bridge) ts_handThumbsUp];
   }
 
-  v1 = ts_handThumbsUp_image;
+  v2 = ts_handThumbsUp_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_handThumbsUpFill
@@ -479,9 +479,9 @@
     +[UIImage(Bridge) ts_handThumbsUpFill];
   }
 
-  v1 = ts_handThumbsUpFill_image;
+  v2 = ts_handThumbsUpFill_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_handThumbsUpFillForHUD
@@ -491,9 +491,9 @@
     +[UIImage(Bridge) ts_handThumbsUpFillForHUD];
   }
 
-  v1 = ts_handThumbsUpFillForHUD_image;
+  v2 = ts_handThumbsUpFillForHUD_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_heartCircle
@@ -503,9 +503,9 @@
     +[UIImage(Bridge) ts_heartCircle];
   }
 
-  v1 = ts_heartCircle_image;
+  v2 = ts_heartCircle_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_heartCirclePinkOnTertiaryFill
@@ -515,9 +515,9 @@
     +[UIImage(Bridge) ts_heartCirclePinkOnTertiaryFill];
   }
 
-  v1 = ts_heartCirclePinkOnTertiaryFill_image;
+  v2 = ts_heartCirclePinkOnTertiaryFill_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_heartCircleFill
@@ -527,9 +527,9 @@
     +[UIImage(Bridge) ts_heartCircleFill];
   }
 
-  v1 = ts_heartCircleFill_image;
+  v2 = ts_heartCircleFill_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_heartCircleTertiaryFillOnPink
@@ -539,9 +539,9 @@
     +[UIImage(Bridge) ts_heartCircleTertiaryFillOnPink];
   }
 
-  v1 = ts_heartCircleTertiaryFillOnPink_image;
+  v2 = ts_heartCircleTertiaryFillOnPink_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_heartFill
@@ -551,9 +551,9 @@
     +[UIImage(Bridge) ts_heartFill];
   }
 
-  v1 = ts_heartFill_image;
+  v2 = ts_heartFill_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_iCloudAndArrowDown
@@ -563,9 +563,9 @@
     +[UIImage(Bridge) ts_iCloudAndArrowDown];
   }
 
-  v1 = ts_iCloudAndArrowDown_image;
+  v2 = ts_iCloudAndArrowDown_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_link
@@ -575,9 +575,9 @@
     +[UIImage(Bridge) ts_link];
   }
 
-  v1 = ts_link_image;
+  v2 = ts_link_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_minusCircle
@@ -587,9 +587,9 @@
     +[UIImage(Bridge) ts_minusCircle];
   }
 
-  v1 = ts_minusCircle_image;
+  v2 = ts_minusCircle_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_minusCircleFill
@@ -599,9 +599,9 @@
     +[UIImage(Bridge) ts_minusCircleFill];
   }
 
-  v1 = ts_minusCircleFill_image;
+  v2 = ts_minusCircleFill_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_minusCircleFillWhite
@@ -611,9 +611,9 @@
     +[UIImage(Bridge) ts_minusCircleFillWhite];
   }
 
-  v1 = ts_minusCircleFillWhite_image;
+  v2 = ts_minusCircleFillWhite_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_minusCircleTertiaryFillOnPink
@@ -623,9 +623,9 @@
     +[UIImage(Bridge) ts_minusCircleTertiaryFillOnPink];
   }
 
-  v1 = ts_minusCircleTertiaryFillOnPink_image;
+  v2 = ts_minusCircleTertiaryFillOnPink_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_navigationVerticalColumnShadow
@@ -635,9 +635,9 @@
     +[UIImage(Bridge) ts_navigationVerticalColumnShadow];
   }
 
-  v1 = ts_navigationVerticalColumnShadow_navigationVerticalColumnShadow;
+  v2 = ts_navigationVerticalColumnShadow_navigationVerticalColumnShadow;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_noSign
@@ -647,9 +647,9 @@
     +[UIImage(Bridge) ts_noSign];
   }
 
-  v1 = ts_noSign_image;
+  v2 = ts_noSign_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_plus
@@ -659,9 +659,9 @@
     +[UIImage(Bridge) ts_plus];
   }
 
-  v1 = ts_plus_image;
+  v2 = ts_plus_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_plusCircle
@@ -671,9 +671,9 @@
     +[UIImage(Bridge) ts_plusCircle];
   }
 
-  v1 = ts_plusCircle_image;
+  v2 = ts_plusCircle_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_plusCircleWhite
@@ -683,9 +683,9 @@
     +[UIImage(Bridge) ts_plusCircleWhite];
   }
 
-  v1 = ts_plusCircleWhite_image;
+  v2 = ts_plusCircleWhite_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_plusCircleFill
@@ -695,9 +695,9 @@
     +[UIImage(Bridge) ts_plusCircleFill];
   }
 
-  v1 = ts_plusCircleFill_image;
+  v2 = ts_plusCircleFill_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_plusCirclePinkOnTertiaryFill
@@ -707,9 +707,9 @@
     +[UIImage(Bridge) ts_plusCirclePinkOnTertiaryFill];
   }
 
-  v1 = ts_plusCirclePinkOnTertiaryFill_image;
+  v2 = ts_plusCirclePinkOnTertiaryFill_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_plusCirclePinkOnOpaqueFill
@@ -719,9 +719,9 @@
     +[UIImage(Bridge) ts_plusCirclePinkOnOpaqueFill];
   }
 
-  v1 = ts_plusCirclePinkOnOpaqueFill_image;
+  v2 = ts_plusCirclePinkOnOpaqueFill_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_plusCirclePinkOnGrayFill
@@ -731,9 +731,9 @@
     +[UIImage(Bridge) ts_plusCirclePinkOnGrayFill];
   }
 
-  v1 = ts_plusCirclePinkOnGrayFill_image;
+  v2 = ts_plusCirclePinkOnGrayFill_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_rightArrow
@@ -743,9 +743,9 @@
     +[UIImage(Bridge) ts_rightArrow];
   }
 
-  v1 = ts_rightArrow_image;
+  v2 = ts_rightArrow_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_safari
@@ -755,9 +755,9 @@
     +[UIImage(Bridge) ts_safari];
   }
 
-  v1 = ts_safari_image;
+  v2 = ts_safari_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_sidebarLeft
@@ -767,9 +767,9 @@
     +[UIImage(Bridge) ts_sidebarLeft];
   }
 
-  v1 = ts_sidebarLeft_image;
+  v2 = ts_sidebarLeft_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_squareAndArrowUp
@@ -779,9 +779,9 @@
     +[UIImage(Bridge) ts_squareAndArrowUp];
   }
 
-  v1 = ts_squareAndArrowUp_image;
+  v2 = ts_squareAndArrowUp_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_textFormatSize
@@ -791,9 +791,9 @@
     +[UIImage(Bridge) ts_textFormatSize];
   }
 
-  v1 = ts_textFormatSize_image;
+  v2 = ts_textFormatSize_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_trash
@@ -803,9 +803,9 @@
     +[UIImage(Bridge) ts_trash];
   }
 
-  v1 = ts_trash_image;
+  v2 = ts_trash_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_xmark
@@ -815,9 +815,9 @@
     +[UIImage(Bridge) ts_xmark];
   }
 
-  v1 = ts_xmark_image;
+  v2 = ts_xmark_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_xmarkCircle
@@ -827,9 +827,9 @@
     +[UIImage(Bridge) ts_xmarkCircle];
   }
 
-  v1 = ts_xmarkCircle_image;
+  v2 = ts_xmarkCircle_image;
 
-  return v1;
+  return v2;
 }
 
 + (id)ts_xmarkForHUD
@@ -839,9 +839,9 @@
     +[UIImage(Bridge) ts_xmarkForHUD];
   }
 
-  v1 = ts_xmarkForHUD_image;
+  v2 = ts_xmarkForHUD_image;
 
-  return v1;
+  return v2;
 }
 
 @end

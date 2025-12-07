@@ -1,7 +1,7 @@
 @interface PTEffectUtil
 + (BOOL)currentProcessIsCameracaptured;
 + (CGRect)rotateNormalizedRect:(CGRect)rect transform:(CGAffineTransform *)transform inverse:(BOOL)inverse;
-+ (__n64)computeRectInPixelCoordinates:(int8x8_t)coordinates pixelBufferSize:(int8x8_t)size alignment:(uint16x4_t)alignment;
++ (__n64)computeRectInPixelCoordinates:(int8x8_t)coordinates pixelBufferSize:(double)size alignment:(uint16x4_t)alignment;
 + (double)inverseRectTransform:(float32x4_t)transform;
 + (double)screenSpaceToCameraSpace:(float32x4_t)space zValue:(float32x4_t)value inverseProjection:(float32x4_t)projection;
 + (double)transformRect:(float32x4_t)rect intoCropCoordinates:(float32x4_t)coordinates;
@@ -20,9 +20,9 @@
 - (PTEffectUtil)initWithMetalContext:(id)context
 {
   contextCopy = context;
-  v47.receiver = self;
-  v47.super_class = PTEffectUtil;
-  v6 = [(PTEffectUtil *)&v47 init];
+  v51.receiver = self;
+  v51.super_class = PTEffectUtil;
+  v6 = [(PTEffectUtil *)&v51 init];
   v7 = v6;
   if (!v6)
   {
@@ -36,68 +36,68 @@
 
   if (!v7->_updateFocusObject)
   {
-    v17 = _PTLogSystem();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v21 = _PTLogSystem(v10);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      [(PTEffectUtil *)v17 initWithMetalContext:v18, v19, v20, v21, v22, v23, v24];
+      [(PTEffectUtil *)v21 initWithMetalContext:v22, v23, v24, v25, v26, v27, v28];
     }
 
     goto LABEL_15;
   }
 
-  v10 = [contextCopy computePipelineStateFor:@"effectSampleFaceRects" withConstants:0];
+  v11 = [contextCopy computePipelineStateFor:@"effectSampleFaceRects" withConstants:0];
   effectSampleFaceRects = v7->_effectSampleFaceRects;
-  v7->_effectSampleFaceRects = v10;
+  v7->_effectSampleFaceRects = v11;
 
   if (!v7->_effectSampleFaceRects)
   {
-    v17 = _PTLogSystem();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v21 = _PTLogSystem(v13);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      [(PTEffectUtil *)v17 initWithMetalContext:v25, v26, v27, v28, v29, v30, v31];
+      [(PTEffectUtil *)v21 initWithMetalContext:v29, v30, v31, v32, v33, v34, v35];
     }
 
     goto LABEL_15;
   }
 
-  v12 = [contextCopy computePipelineStateFor:@"clear" withConstants:0];
+  v14 = [contextCopy computePipelineStateFor:@"clear" withConstants:0];
   clear = v7->_clear;
-  v7->_clear = v12;
+  v7->_clear = v14;
 
   if (!v7->_clear)
   {
-    v17 = _PTLogSystem();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v21 = _PTLogSystem(v16);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      [(PTEffectUtil *)v17 initWithMetalContext:v32, v33, v34, v35, v36, v37, v38];
+      [(PTEffectUtil *)v21 initWithMetalContext:v36, v37, v38, v39, v40, v41, v42];
     }
 
     goto LABEL_15;
   }
 
-  v14 = [contextCopy computePipelineStateFor:@"updateDisparityWithScreenCaptureRect" withConstants:0];
+  v17 = [contextCopy computePipelineStateFor:@"updateDisparityWithScreenCaptureRect" withConstants:0];
   updateDisparityWithScreenCaptureRect = v7->_updateDisparityWithScreenCaptureRect;
-  v7->_updateDisparityWithScreenCaptureRect = v14;
+  v7->_updateDisparityWithScreenCaptureRect = v17;
 
   if (!v7->_updateDisparityWithScreenCaptureRect)
   {
-    v17 = _PTLogSystem();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v21 = _PTLogSystem(v19);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      [(PTEffectUtil *)v17 initWithMetalContext:v39, v40, v41, v42, v43, v44, v45];
+      [(PTEffectUtil *)v21 initWithMetalContext:v43, v44, v45, v46, v47, v48, v49];
     }
 
 LABEL_15:
 
 LABEL_16:
-    v16 = 0;
+    v20 = 0;
     goto LABEL_17;
   }
 
-  v16 = v7;
+  v20 = v7;
 LABEL_17:
 
-  return v16;
+  return v20;
 }
 
 - (void)updateFocusObject:(id)object faceRectCount:(int)count disparityFocusOffsetSDOF:(PTDisparityFocusOffset)f disparityFocusOffsetReactions:(PTDisparityFocusOffset)reactions disparityFocusOffsetStudioLight:(PTDisparityFocusOffset)light exponentialMovingAverageSDOF:(float)oF exponentialMovingAverageStudioLight:(float)studioLight faceRectsState:(int *)self0 isFirstFrame:(BOOL)self1 emitNewReaction:(BOOL)self2 focusOnAll:(BOOL)self3 lastFocus:(id)self4 inFaceDisparityArray:(id)self5 outDisparityModifiers:(id)self6 outDisparityFocus:(id)self7 outStudioLightEffectModifier:(id)self8 outUseDisparityBufferForReactions:(id)self9
@@ -446,9 +446,9 @@ LABEL_14:
   return result;
 }
 
-+ (__n64)computeRectInPixelCoordinates:(int8x8_t)coordinates pixelBufferSize:(int8x8_t)size alignment:(uint16x4_t)alignment
++ (__n64)computeRectInPixelCoordinates:(int8x8_t)coordinates pixelBufferSize:(double)size alignment:(uint16x4_t)alignment
 {
-  if (*&coordinates == 0.0 || *&size == 0.0)
+  if (*&coordinates == 0.0 || size == 0.0)
   {
     result.n64_u32[0] = 0;
     result.n64_u32[1] = a8;
@@ -466,7 +466,7 @@ LABEL_14:
     v13.f64[1] = a2;
     v14 = vcvt_s32_f32(vrndm_f32(vcvt_f32_f64(vmulq_f64(v13, v12))));
     v15 = (self + *&coordinates) * v12.f64[0];
-    v16 = vmuld_lane_f64(a2 + *&size, v12, 1);
+    v16 = vmuld_lane_f64(a2 + size, v12, 1);
     v17 = __PAIR64__(vcvtps_s32_f32(v16), vcvtps_s32_f32(v15));
     v18 = 1;
     do
@@ -482,11 +482,11 @@ LABEL_14:
       *v20 = v21 + v22 / v23 * v23 - v21;
       v14 = v27;
       v26 = v17;
-      size.i32[0] = *v19 % v23;
-      coordinates = vdup_lane_s32(vceq_s32(vand_s8(size, 0xFFFF0000FFFFLL), vand_s8(coordinates, 0xFFFF0000FFFFLL)), 0);
+      LODWORD(size) = *v19 % v23;
+      coordinates = vdup_lane_s32(vceq_s32(vand_s8(*&size, 0xFFFF0000FFFFLL), vand_s8(coordinates, 0xFFFF0000FFFFLL)), 0);
       LOBYTE(v20) = v18;
-      *v19 = *v19 + v23 - size.i32[0];
-      size.i32[1] = v26.i32[1];
+      *v19 = *v19 + v23 - LODWORD(size);
+      HIDWORD(size) = v26.i32[1];
       v17 = vbsl_s8(coordinates, v17, v26);
       v9 = 1;
       v18 = 0;
@@ -527,6 +527,34 @@ void __46__PTEffectUtil_currentProcessIsCameracaptured__block_invoke()
     currentProcessIsCameracaptured_answer = [(__CFString *)v2 isEqualToString:@"com.apple.cameracaptured"];
     CFRelease(v1);
   }
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_updateDisparityWithScreenCaptureRect";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_clear";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_effectSampleFaceRects";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_updateFocusObject";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

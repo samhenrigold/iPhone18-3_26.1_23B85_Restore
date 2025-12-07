@@ -3,6 +3,10 @@
 - (_INPBTask)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)priorityAsString:(int)string;
+- (id)statusAsString:(int)string;
+- (id)taskReferenceAsString:(int)string;
+- (id)taskTypeAsString:(int)string;
 - (int)StringAsPriority:(id)priority;
 - (int)StringAsStatus:(id)status;
 - (int)StringAsTaskType:(id)type;
@@ -597,7 +601,6 @@ LABEL_59:
 
   if (identifier)
   {
-    identifier = self->_identifier;
     PBDataWriterWriteStringField();
   }
 
@@ -613,13 +616,11 @@ LABEL_59:
 
   if (parentIdentifier)
   {
-    parentIdentifier = self->_parentIdentifier;
     PBDataWriterWriteStringField();
   }
 
   if ([(_INPBTask *)self hasPriority])
   {
-    priority = self->_priority;
     PBDataWriterWriteInt32Field();
   }
 
@@ -633,19 +634,16 @@ LABEL_59:
 
   if ([(_INPBTask *)self hasStatus])
   {
-    status = self->_status;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBTask *)self hasTaskReference])
   {
-    taskReference = self->_taskReference;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBTask *)self hasTaskType])
   {
-    taskType = self->_taskType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -659,13 +657,13 @@ LABEL_59:
 
   title = [(_INPBTask *)self title];
 
-  v23 = toCopy;
+  v17 = toCopy;
   if (title)
   {
     title2 = [(_INPBTask *)self title];
     PBDataWriterWriteSubmessage();
 
-    v23 = toCopy;
+    v17 = toCopy;
   }
 }
 
@@ -690,6 +688,34 @@ LABEL_59:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)taskTypeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 20)
+    {
+      v4 = @"COMPLETABLE";
+    }
+
+    else if (string == 10)
+    {
+      v4 = @"NOT_COMPLETABLE";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"UNKNOWN_TASK_TYPE";
   }
 
   return v4;
@@ -723,6 +749,21 @@ LABEL_59:
     *&self->_has = has | 8;
     self->_taskType = type;
   }
+}
+
+- (id)taskReferenceAsString:(int)string
+{
+  if (string)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = @"CURRENT_ACTIVITY";
+  }
+
+  return v4;
 }
 
 - (void)setHasTaskReference:(BOOL)reference
@@ -781,6 +822,34 @@ LABEL_59:
   return v4;
 }
 
+- (id)statusAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 20)
+    {
+      v4 = @"COMPLETED";
+    }
+
+    else if (string == 10)
+    {
+      v4 = @"NOT_COMPLETED";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"UNKNOWN_STATUS";
+  }
+
+  return v4;
+}
+
 - (void)setHasStatus:(BOOL)status
 {
   if (status)
@@ -832,6 +901,21 @@ LABEL_59:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)priorityAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E7283308 + string);
   }
 
   return v4;

@@ -22,7 +22,7 @@
 
 - (BOOL)addClientConnectionIfAllowedForConnection:(id)connection
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   pid = xpc_connection_get_pid(connectionCopy);
   xpc_connection_get_audit_token();
@@ -72,17 +72,15 @@
     LOBYTE(bOOLValue) = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return bOOLValue;
 }
 
 - (void)addClientConnectionIfAllowedForConnection:(int)a1 .cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_232D5E000, a2, OS_LOG_TYPE_ERROR, "Error pid: %d missing sender entitlement", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_232D5E000, a2, OS_LOG_TYPE_ERROR, "Error pid: %d missing sender entitlement", v2, 8u);
 }
 
 @end

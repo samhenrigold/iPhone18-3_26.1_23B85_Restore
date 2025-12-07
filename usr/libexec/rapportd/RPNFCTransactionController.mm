@@ -55,7 +55,7 @@
   {
     if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
     {
-      sub_10011EC64();
+      sub_10011EC64(type);
     }
 
     v8->_preferredPollingType = type;
@@ -108,7 +108,7 @@
     self->_initiatorState = state;
     if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
     {
-      sub_10011ECE8();
+      sub_10011ECE8(state);
     }
   }
 }
@@ -120,7 +120,7 @@
     self->_receiverState = state;
     if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
     {
-      sub_10011ED50();
+      sub_10011ED50(state);
     }
   }
 }
@@ -129,10 +129,13 @@
 {
   if (![(RPNFCTransactionController *)self isRunning])
   {
-    [(RPNFCTransactionController *)self setIsRunning:1];
-    if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
+    v3 = [(RPNFCTransactionController *)self setIsRunning:1];
+    if (dword_1001D4330 <= 30)
     {
-      sub_10011EDB8();
+      if (dword_1001D4330 != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        sub_10011EDB8(v3, v4, v5);
+      }
     }
 
     [(RPNFCTransactionController *)self _updatePolling];
@@ -143,10 +146,13 @@
 {
   if ([(RPNFCTransactionController *)self isRunning])
   {
-    [(RPNFCTransactionController *)self setIsRunning:0];
-    if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
+    v3 = [(RPNFCTransactionController *)self setIsRunning:0];
+    if (dword_1001D4330 <= 30)
     {
-      sub_10011EDD4();
+      if (dword_1001D4330 != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        sub_10011EDD4(v3, v4, v5);
+      }
     }
 
     [(RPNFCTransactionController *)self _stopInitiator];
@@ -188,61 +194,80 @@
 
 - (void)_startInitiator
 {
-  if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1001D4330 <= 30)
   {
-    sub_10011EEC4();
-  }
-
-  if ([(RPNFCTransactionController *)self initiatorState]== 1)
-  {
-    if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D4330 != -1 || (self = _LogCategory_Initialize(), self))
     {
-      sub_10011EEFC();
+      sub_10011EEC4(self, a2, v2);
     }
   }
 
-  else if ([(RPNFCTransactionController *)self initiatorState]== 2)
+  initiatorState = [(RPNFCTransactionController *)selfCopy initiatorState];
+  if (initiatorState == 1)
   {
-    if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D4330 <= 30)
     {
-      sub_10011EEE0();
+      if (dword_1001D4330 != -1 || (initiatorState = _LogCategory_Initialize(), initiatorState))
+      {
+        sub_10011EEFC(initiatorState, v5, v6);
+      }
     }
-
-    [(RPNFCTransactionController *)self setPendingInitiator:1];
   }
 
   else
   {
-    [(RPNFCTransactionController *)self setInitiatorState:1];
-    [(RPNFCTransactionController *)self setPendingInitiator:0];
-    initiator = self->_initiator;
-    if (!initiator)
+    initiatorState2 = [(RPNFCTransactionController *)selfCopy initiatorState];
+    if (initiatorState2 == 2)
     {
-      v4 = [(objc_class *)off_1001D43A0() initiatorWithDelegate:self callbackQueue:self->_dispatchQueue];
-      v5 = self->_initiator;
-      self->_initiator = v4;
+      if (dword_1001D4330 <= 30)
+      {
+        if (dword_1001D4330 != -1 || (initiatorState2 = _LogCategory_Initialize(), initiatorState2))
+        {
+          sub_10011EEE0(initiatorState2, v8, v9);
+        }
+      }
 
-      initiator = self->_initiator;
+      [(RPNFCTransactionController *)selfCopy setPendingInitiator:1];
     }
 
-    [(NFConnectionHandoverInitiator *)initiator setDelegate:self];
-    [(NFConnectionHandoverInitiator *)self->_initiator start];
-    [(RPNFCTransactionController *)self _startInitiatorLimitTimer];
-    if (![(RPNFCTransactionController *)self preferredPollingType])
+    else
     {
+      [(RPNFCTransactionController *)selfCopy setInitiatorState:1];
+      [(RPNFCTransactionController *)selfCopy setPendingInitiator:0];
+      initiator = selfCopy->_initiator;
+      if (!initiator)
+      {
+        v11 = [(objc_class *)off_1001D43A0() initiatorWithDelegate:selfCopy callbackQueue:selfCopy->_dispatchQueue];
+        v12 = selfCopy->_initiator;
+        selfCopy->_initiator = v11;
 
-      [(RPNFCTransactionController *)self _startConnectToReceiverTimer];
+        initiator = selfCopy->_initiator;
+      }
+
+      [(NFConnectionHandoverInitiator *)initiator setDelegate:selfCopy];
+      [(NFConnectionHandoverInitiator *)selfCopy->_initiator start];
+      [(RPNFCTransactionController *)selfCopy _startInitiatorLimitTimer];
+      if (![(RPNFCTransactionController *)selfCopy preferredPollingType])
+      {
+
+        [(RPNFCTransactionController *)selfCopy _startConnectToReceiverTimer];
+      }
     }
   }
 }
 
 - (void)_stopInitiator
 {
-  if ([(RPNFCTransactionController *)self initiatorState]== 1)
+  initiatorState = [(RPNFCTransactionController *)self initiatorState];
+  if (initiatorState == 1)
   {
-    if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D4330 <= 30)
     {
-      sub_10011EF18();
+      if (dword_1001D4330 != -1 || (initiatorState = _LogCategory_Initialize(), initiatorState))
+      {
+        sub_10011EF18(initiatorState, v4, v5);
+      }
     }
 
     [(NFConnectionHandoverInitiator *)self->_initiator stop];
@@ -255,57 +280,76 @@
 
 - (void)_startReceiver
 {
-  if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1001D4330 <= 30)
   {
-    sub_10011EF34();
-  }
-
-  if ([(RPNFCTransactionController *)self receiverState]== 1)
-  {
-    if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D4330 != -1 || (self = _LogCategory_Initialize(), self))
     {
-      sub_10011EF6C();
+      sub_10011EF34(self, a2, v2);
     }
   }
 
-  else if ([(RPNFCTransactionController *)self receiverState]== 2)
+  receiverState = [(RPNFCTransactionController *)selfCopy receiverState];
+  if (receiverState == 1)
   {
-    if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D4330 <= 30)
     {
-      sub_10011EF50();
+      if (dword_1001D4330 != -1 || (receiverState = _LogCategory_Initialize(), receiverState))
+      {
+        sub_10011EF6C(receiverState, v5, v6);
+      }
     }
-
-    [(RPNFCTransactionController *)self setPendingReceiver:1];
   }
 
   else
   {
-    [(RPNFCTransactionController *)self setReceiverState:1];
-    [(RPNFCTransactionController *)self setPendingReceiver:0];
-    receiver = self->_receiver;
-    if (!receiver)
+    receiverState2 = [(RPNFCTransactionController *)selfCopy receiverState];
+    if (receiverState2 == 2)
     {
-      v4 = [(objc_class *)off_1001D43A8() receiverWithDelegate:self callbackQueue:self->_dispatchQueue];
-      v5 = self->_receiver;
-      self->_receiver = v4;
+      if (dword_1001D4330 <= 30)
+      {
+        if (dword_1001D4330 != -1 || (receiverState2 = _LogCategory_Initialize(), receiverState2))
+        {
+          sub_10011EF50(receiverState2, v8, v9);
+        }
+      }
 
-      receiver = self->_receiver;
+      [(RPNFCTransactionController *)selfCopy setPendingReceiver:1];
     }
 
-    [(NFConnectionHandoverReceiver *)receiver setDelegate:self];
-    v6 = self->_receiver;
+    else
+    {
+      [(RPNFCTransactionController *)selfCopy setReceiverState:1];
+      [(RPNFCTransactionController *)selfCopy setPendingReceiver:0];
+      receiver = selfCopy->_receiver;
+      if (!receiver)
+      {
+        v11 = [(objc_class *)off_1001D43A8() receiverWithDelegate:selfCopy callbackQueue:selfCopy->_dispatchQueue];
+        v12 = selfCopy->_receiver;
+        selfCopy->_receiver = v11;
 
-    [(NFConnectionHandoverReceiver *)v6 start];
+        receiver = selfCopy->_receiver;
+      }
+
+      [(NFConnectionHandoverReceiver *)receiver setDelegate:selfCopy];
+      v13 = selfCopy->_receiver;
+
+      [(NFConnectionHandoverReceiver *)v13 start];
+    }
   }
 }
 
 - (void)_stopReceiver
 {
-  if ([(RPNFCTransactionController *)self receiverState]== 1)
+  receiverState = [(RPNFCTransactionController *)self receiverState];
+  if (receiverState == 1)
   {
-    if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D4330 <= 30)
     {
-      sub_10011EF88();
+      if (dword_1001D4330 != -1 || (receiverState = _LogCategory_Initialize(), receiverState))
+      {
+        sub_10011EF88(receiverState, v4, v5);
+      }
     }
 
     [(NFConnectionHandoverReceiver *)self->_receiver stop];
@@ -356,17 +400,20 @@
 
   if (pollingCoolDownTimer)
   {
-    if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D4330 <= 30)
     {
-      sub_10011EFE8();
+      if (dword_1001D4330 != -1 || (v4 = _LogCategory_Initialize(), v4))
+      {
+        sub_10011EFE8(v4, v5, v6);
+      }
     }
 
     pollingCoolDownTimer = self->_pollingCoolDownTimer;
     if (pollingCoolDownTimer)
     {
-      v5 = pollingCoolDownTimer;
-      dispatch_source_cancel(v5);
-      v6 = self->_pollingCoolDownTimer;
+      v8 = pollingCoolDownTimer;
+      dispatch_source_cancel(v8);
+      v9 = self->_pollingCoolDownTimer;
       self->_pollingCoolDownTimer = 0;
     }
 
@@ -377,17 +424,18 @@
 - (void)_startConnectToReceiverTimer
 {
   [(RPNFCTransactionController *)self _stopConnectToReceiverTimer];
-  v4[0] = _NSConcreteStackBlock;
-  v4[1] = 3221225472;
-  v4[2] = sub_10007C27C;
-  v4[3] = &unk_1001AA970;
-  v4[4] = self;
-  v3 = [(RPNFCTransactionController *)self _createOneShotTimerWithInterval:v4 completionHandler:(arc4random_uniform(3u) + 3)];
-  [(RPNFCTransactionController *)self setConnectToReceiverTimer:v3];
-  dispatch_activate(v3);
+  v3 = (arc4random_uniform(3u) + 3);
+  v5[0] = _NSConcreteStackBlock;
+  v5[1] = 3221225472;
+  v5[2] = sub_10007C27C;
+  v5[3] = &unk_1001AA970;
+  v5[4] = self;
+  v4 = [(RPNFCTransactionController *)self _createOneShotTimerWithInterval:v5 completionHandler:v3];
+  [(RPNFCTransactionController *)self setConnectToReceiverTimer:v4];
+  dispatch_activate(v4);
   if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
   {
-    sub_10011F004();
+    sub_10011F004(v3);
   }
 }
 
@@ -397,17 +445,20 @@
 
   if (connectToReceiverTimer)
   {
-    if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D4330 <= 30)
     {
-      sub_10011F060();
+      if (dword_1001D4330 != -1 || (v4 = _LogCategory_Initialize(), v4))
+      {
+        sub_10011F060(v4, v5, v6);
+      }
     }
 
     connectToReceiverTimer = self->_connectToReceiverTimer;
     if (connectToReceiverTimer)
     {
-      v5 = connectToReceiverTimer;
-      dispatch_source_cancel(v5);
-      v6 = self->_connectToReceiverTimer;
+      v8 = connectToReceiverTimer;
+      dispatch_source_cancel(v8);
+      v9 = self->_connectToReceiverTimer;
       self->_connectToReceiverTimer = 0;
     }
 
@@ -485,7 +536,7 @@
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
   {
-    sub_10011F108();
+    sub_10011F108(role);
   }
 
   currentTransaction = [(RPNFCTransactionController *)self currentTransaction];
@@ -494,7 +545,7 @@
   {
     if (dword_1001D4330 <= 90 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
     {
-      sub_10011F148();
+      sub_10011F148(role);
     }
 
     [(RPNFCTransactionController *)self _finishCurrentTransactionWithError:0];
@@ -519,7 +570,7 @@
     [(RPNFCTransactionController *)self _stopInitiator];
     if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
     {
-      sub_10011F188(self);
+      sub_10011F188(self, errorCopy);
     }
 
     currentTransaction2 = [(RPNFCTransactionController *)self currentTransaction];
@@ -539,7 +590,7 @@
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001D4330, "[RPNFCTransactionController _didReceiveAuthenticationResponseWithResult:error:]", 30, "did receive authentication response with result:%@ error:%@\n", resultCopy, errorCopy);
   }
 
   if (errorCopy)
@@ -551,6 +602,7 @@
   else
   {
     v9 = [RPTransportServiceHandoverMessage messageWithConnectionHandoverSelect:resultCopy];
+    v17 = v9;
     v8 = v9 != 0;
     if (v9)
     {
@@ -559,13 +611,16 @@
 
     else
     {
-      if (dword_1001D4330 <= 90 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
+      if (dword_1001D4330 <= 90)
       {
-        sub_10011F1F4();
+        if (dword_1001D4330 != -1 || (v9 = _LogCategory_Initialize(), v9))
+        {
+          sub_10011F1F4(v9, v10, v11);
+        }
       }
 
-      v10 = RPErrorF();
-      [(RPNFCTransactionController *)self _finishCurrentTransactionWithError:v10];
+      v18 = RPErrorF(4294960579, "Unexpected Connection handover select message", v11, v12, v13, v14, v15, v16, v20);
+      [(RPNFCTransactionController *)self _finishCurrentTransactionWithError:v18];
     }
   }
 
@@ -581,16 +636,14 @@
 
   if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
   {
-    v9 = messageCopy;
-    v10 = v6;
-    LogPrintF();
+    LogPrintF(&dword_1001D4330, "[RPNFCTransactionController _didReceiveAuthenticationMessage:]", 30, "did receive authentication message:%@ with resolved identity:%@\n", messageCopy, v6);
   }
 
-  v7 = [(RPNFCTransactionController *)self currentTransaction:v9];
-  [v7 setRemoteIdentity:v6];
-
   currentTransaction = [(RPNFCTransactionController *)self currentTransaction];
-  [currentTransaction setRemoteAuthenticationMessage:messageCopy];
+  [currentTransaction setRemoteIdentity:v6];
+
+  currentTransaction2 = [(RPNFCTransactionController *)self currentTransaction];
+  [currentTransaction2 setRemoteAuthenticationMessage:messageCopy];
 }
 
 - (BOOL)_didReceiveValidationResponseWithResult:(id)result error:(id)error
@@ -600,9 +653,7 @@
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
   {
-    v13 = resultCopy;
-    v14 = errorCopy;
-    LogPrintF();
+    LogPrintF(&dword_1001D4330, "[RPNFCTransactionController _didReceiveValidationResponseWithResult:error:]", 30, "did receive validation response with result:%@ error:%@\n", resultCopy, errorCopy);
   }
 
   v8 = errorCopy == 0;
@@ -614,21 +665,24 @@
   v9 = [RPTransportServiceHandoverMessage messageWithConnectionHandoverSelect:resultCopy];
   if (v9)
   {
-    v10 = v9;
+    v17 = v9;
     [(RPNFCTransactionController *)self _didReceiveValidationMessage:v9];
 
 LABEL_8:
-    [(RPNFCTransactionController *)self _finishCurrentTransactionWithError:errorCopy, v13, v14];
+    [(RPNFCTransactionController *)self _finishCurrentTransactionWithError:errorCopy];
     goto LABEL_9;
   }
 
-  if (dword_1001D4330 <= 90 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
+  if (dword_1001D4330 <= 90)
   {
-    sub_10011F210();
+    if (dword_1001D4330 != -1 || (v9 = _LogCategory_Initialize(), v9))
+    {
+      sub_10011F210(v9, v10, v11);
+    }
   }
 
-  v12 = RPErrorF();
-  [(RPNFCTransactionController *)self _finishCurrentTransactionWithError:v12];
+  v19 = RPErrorF(4294960579, "Unexpected Connection handover select message", v11, v12, v13, v14, v15, v16, v20);
+  [(RPNFCTransactionController *)self _finishCurrentTransactionWithError:v19];
 
   v8 = 0;
 LABEL_9:
@@ -641,7 +695,7 @@ LABEL_9:
   messageCopy = message;
   if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
   {
-    sub_10011F22C();
+    sub_10011F22C(messageCopy);
   }
 
   currentTransaction = [(RPNFCTransactionController *)self currentTransaction];
@@ -693,16 +747,20 @@ LABEL_9:
   fieldCopy = field;
   if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
   {
-    sub_10011F26C();
+    sub_10011F26C(fieldCopy);
   }
 
   if ([controllerCopy initiator])
   {
-    if ([fieldCopy chFieldType] == 4)
+    chFieldType = [fieldCopy chFieldType];
+    if (chFieldType == 4)
     {
-      if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
+      if (dword_1001D4330 <= 30)
       {
-        sub_10011F358();
+        if (dword_1001D4330 != -1 || (chFieldType = _LogCategory_Initialize(), chFieldType))
+        {
+          sub_10011F358(chFieldType, v8, v9);
+        }
       }
 
       [(RPNFCTransactionController *)self _stopInitiator];
@@ -718,22 +776,26 @@ LABEL_9:
     goto LABEL_19;
   }
 
-  chFieldType = [fieldCopy chFieldType];
-  v9 = chFieldType;
-  v11 = chFieldType == 2 || chFieldType == 4;
-  if ([(RPNFCTransactionController *)self preferredPollingType]== 1)
+  chFieldType2 = [fieldCopy chFieldType];
+  v12 = chFieldType2;
+  v14 = chFieldType2 == 2 || chFieldType2 == 4;
+  preferredPollingType = [(RPNFCTransactionController *)self preferredPollingType];
+  if (preferredPollingType == 1)
   {
     goto LABEL_18;
   }
 
-  if (v9 > 2)
+  if (v12 > 2)
   {
-    switch(v9)
+    switch(v12)
     {
       case 3:
-        if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
+        if (dword_1001D4330 <= 30)
         {
-          sub_10011F320();
+          if (dword_1001D4330 != -1 || (preferredPollingType = _LogCategory_Initialize(), preferredPollingType))
+          {
+            sub_10011F320(preferredPollingType, v16, v17);
+          }
         }
 
         receiver = [(RPNFCTransactionController *)self receiver];
@@ -741,29 +803,44 @@ LABEL_9:
 
         if (!roleBroadcastInBackground)
         {
-          if (dword_1001D4330 > 90 || dword_1001D4330 == -1 && !_LogCategory_Initialize())
+          if (dword_1001D4330 > 90)
           {
             goto LABEL_19;
           }
 
+          if (dword_1001D4330 == -1)
+          {
+            v21 = _LogCategory_Initialize();
+            if (!v21)
+            {
+              goto LABEL_19;
+            }
+          }
+
 LABEL_33:
-          sub_10011F2E8();
+          sub_10011F2E8(v21, v22, v23);
           goto LABEL_19;
         }
 
         break;
       case 4:
-        if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
+        if (dword_1001D4330 <= 30)
         {
-          sub_10011F304();
+          if (dword_1001D4330 != -1 || (preferredPollingType = _LogCategory_Initialize(), preferredPollingType))
+          {
+            sub_10011F304(preferredPollingType, v16, v17);
+          }
         }
 
         [(RPNFCTransactionController *)self _stopInitiator];
         goto LABEL_18;
       case 5:
-        if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
+        if (dword_1001D4330 <= 30)
         {
-          sub_10011F2CC();
+          if (dword_1001D4330 != -1 || (preferredPollingType = _LogCategory_Initialize(), preferredPollingType))
+          {
+            sub_10011F2CC(preferredPollingType, v16, v17);
+          }
         }
 
         receiver2 = [(RPNFCTransactionController *)self receiver];
@@ -771,9 +848,18 @@ LABEL_33:
 
         if (!roleBroadcastInBackground2)
         {
-          if (dword_1001D4330 > 90 || dword_1001D4330 == -1 && !_LogCategory_Initialize())
+          if (dword_1001D4330 > 90)
           {
             goto LABEL_19;
+          }
+
+          if (dword_1001D4330 == -1)
+          {
+            v21 = _LogCategory_Initialize();
+            if (!v21)
+            {
+              goto LABEL_19;
+            }
           }
 
           goto LABEL_33;
@@ -783,7 +869,7 @@ LABEL_33:
       default:
 LABEL_18:
         delegate = [(RPNFCTransactionController *)self delegate];
-        [delegate transactionController:self didDetectDeviceNearbyWithInitiatorRole:v11];
+        [delegate transactionController:self didDetectDeviceNearbyWithInitiatorRole:v14];
 
         goto LABEL_19;
     }
@@ -792,7 +878,7 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  if (v9 == 1)
+  if (v12 == 1)
   {
     if (dword_1001D4330 <= 60 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
     {
@@ -802,14 +888,17 @@ LABEL_18:
 
   else
   {
-    if (v9 != 2)
+    if (v12 != 2)
     {
       goto LABEL_18;
     }
 
-    if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D4330 <= 30)
     {
-      sub_10011F33C();
+      if (dword_1001D4330 != -1 || (preferredPollingType = _LogCategory_Initialize(), preferredPollingType))
+      {
+        sub_10011F33C(preferredPollingType, v16, v17);
+      }
     }
 
     [(RPNFCTransactionController *)self _stopInitiator];
@@ -833,7 +922,7 @@ LABEL_19:
   initiator = [controllerCopy initiator];
   if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
   {
-    sub_10011F374();
+    sub_10011F374(initiator, controllerCopy, invalidateCopy);
   }
 
   if (initiator)
@@ -866,7 +955,7 @@ LABEL_22:
   {
     if (dword_1001D4330 <= 90 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
     {
-      sub_10011F3E8();
+      sub_10011F3E8(controllerCopy);
     }
 
     goto LABEL_30;
@@ -880,43 +969,40 @@ LABEL_22:
   }
 
 LABEL_6:
-  if ([invalidateCopy code] == 57)
+  if ([invalidateCopy code] != 57)
   {
-    goto LABEL_7;
-  }
-
-  if ([invalidateCopy code] != 67 && objc_msgSend(invalidateCopy, "code") != 68)
-  {
-    [(RPNFCTransactionController *)self _finishCurrentTransactionWithError:invalidateCopy];
-    if ([invalidateCopy code] != 50 && objc_msgSend(invalidateCopy, "code") != 47 && objc_msgSend(invalidateCopy, "code") != 44)
+    if ([invalidateCopy code] == 67 || objc_msgSend(invalidateCopy, "code") == 68)
     {
-LABEL_7:
-      if (dword_1001D4330 <= 90 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
-      {
-        LogPrintF();
-        [(RPNFCTransactionController *)self stop:controllerCopy];
-      }
-
-      else
-      {
-        [(RPNFCTransactionController *)self stop:v9];
-      }
-
       goto LABEL_30;
     }
 
-    [(RPNFCTransactionController *)self _startPollingCoolDownTimer];
+    [(RPNFCTransactionController *)self _finishCurrentTransactionWithError:invalidateCopy];
+    if ([invalidateCopy code] == 50 || objc_msgSend(invalidateCopy, "code") == 47 || objc_msgSend(invalidateCopy, "code") == 44)
+    {
+      [(RPNFCTransactionController *)self _startPollingCoolDownTimer];
+      goto LABEL_30;
+    }
   }
 
+  if (dword_1001D4330 <= 90 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF(&dword_1001D4330, "[RPNFCTransactionController controller:didInvalidate:]", 90, "### Failing to start controller:%@ error:%@", controllerCopy, invalidateCopy);
+  }
+
+  [(RPNFCTransactionController *)self stop];
 LABEL_30:
 }
 
 - (void)controllerDidDetectUnsupportedReceiverVersion:(id)version
 {
   versionCopy = version;
-  if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
+  v9 = versionCopy;
+  if (dword_1001D4330 <= 30)
   {
-    sub_10011F4B8();
+    if (dword_1001D4330 != -1 || (versionCopy = _LogCategory_Initialize(), versionCopy))
+    {
+      sub_10011F4B8(versionCopy, v5, v6);
+    }
   }
 
   currentTransaction = [(RPNFCTransactionController *)self currentTransaction];
@@ -934,45 +1020,51 @@ LABEL_30:
   receiverCopy = receiver;
   if ([(RPNFCTransactionController *)self initiatorState]== 1)
   {
-    [(RPNFCTransactionController *)self _stopConnectToReceiverTimer];
-    if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
+    _stopConnectToReceiverTimer = [(RPNFCTransactionController *)self _stopConnectToReceiverTimer];
+    if (dword_1001D4330 <= 30)
     {
-      sub_10011F4D4();
+      if (dword_1001D4330 != -1 || (_stopConnectToReceiverTimer = _LogCategory_Initialize(), _stopConnectToReceiverTimer))
+      {
+        sub_10011F4D4(_stopConnectToReceiverTimer, v6, v7);
+      }
     }
 
     [(RPNFCTransactionController *)self _beginTransactionForRole:1];
     dataSource = [(RPNFCTransactionController *)self dataSource];
-    v6 = [dataSource transactionController:self requestMessageForType:1];
+    v9 = [dataSource transactionController:self requestMessageForType:1];
 
-    if (v6)
+    if (v9)
     {
       currentTransaction = [(RPNFCTransactionController *)self currentTransaction];
-      [currentTransaction setLocalAuthenticationMessage:v6];
+      [currentTransaction setLocalAuthenticationMessage:v9];
 
       if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
       {
-        sub_10011F4F0();
+        sub_10011F4F0(v9);
       }
 
-      connectionHandoverRequest = [v6 connectionHandoverRequest];
-      v10[0] = _NSConcreteStackBlock;
-      v10[1] = 3221225472;
-      v10[2] = sub_10007D81C;
-      v10[3] = &unk_1001AD808;
-      v10[4] = self;
-      v11 = receiverCopy;
-      [v11 sendHandoverRequest:connectionHandoverRequest responseHandler:v10];
+      connectionHandoverRequest = [v9 connectionHandoverRequest];
+      v16[0] = _NSConcreteStackBlock;
+      v16[1] = 3221225472;
+      v16[2] = sub_10007D81C;
+      v16[3] = &unk_1001AD808;
+      v16[4] = self;
+      v17 = receiverCopy;
+      [v17 sendHandoverRequest:connectionHandoverRequest responseHandler:v16];
     }
 
     else
     {
-      if (dword_1001D4330 <= 90 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
+      if (dword_1001D4330 <= 90)
       {
-        sub_10011F530();
+        if (dword_1001D4330 != -1 || (v10 = _LogCategory_Initialize(), v10))
+        {
+          sub_10011F530(v10, v11, v12);
+        }
       }
 
-      v9 = [NSError errorWithDomain:@"RPNFCTransactionControllerErrorDomain" code:2 userInfo:0];
-      [(RPNFCTransactionController *)self _finishCurrentTransactionWithError:v9];
+      v15 = [NSError errorWithDomain:@"RPNFCTransactionControllerErrorDomain" code:2 userInfo:0];
+      [(RPNFCTransactionController *)self _finishCurrentTransactionWithError:v15];
     }
   }
 }
@@ -980,25 +1072,29 @@ LABEL_30:
 - (void)controllerDidDetectUnsupportedInitiatorVersion:(id)version
 {
   versionCopy = version;
-  v4 = versionCopy;
+  v5 = versionCopy;
   if (dword_1001D4330 <= 30)
   {
     v6 = versionCopy;
-    if (dword_1001D4330 != -1 || (v5 = _LogCategory_Initialize(), v4 = v6, v5))
+    if (dword_1001D4330 != -1 || (versionCopy = _LogCategory_Initialize(), v5 = v6, versionCopy))
     {
-      sub_10011F5C4();
-      v4 = v6;
+      sub_10011F5C4(versionCopy, v5, v4);
+      v5 = v6;
     }
   }
 }
 
 - (void)didConnectedToInitiator:(id)initiator
 {
-  if ([(RPNFCTransactionController *)self receiverState]== 1)
+  receiverState = [(RPNFCTransactionController *)self receiverState];
+  if (receiverState == 1)
   {
-    if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D4330 <= 30)
     {
-      sub_10011F5E0();
+      if (dword_1001D4330 != -1 || (receiverState = _LogCategory_Initialize(), receiverState))
+      {
+        sub_10011F5E0(receiverState, v5, v6);
+      }
     }
 
     [(RPNFCTransactionController *)self _stopBecomeInitiatorTimer];
@@ -1011,9 +1107,13 @@ LABEL_30:
 - (void)didDisconnectedFromInitiator:(id)initiator
 {
   initiatorCopy = initiator;
-  if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
+  v12 = initiatorCopy;
+  if (dword_1001D4330 <= 30)
   {
-    sub_10011F5FC();
+    if (dword_1001D4330 != -1 || (initiatorCopy = _LogCategory_Initialize(), initiatorCopy))
+    {
+      sub_10011F5FC(initiatorCopy, v5, v6);
+    }
   }
 
   currentTransaction = [(RPNFCTransactionController *)self currentTransaction];
@@ -1026,15 +1126,15 @@ LABEL_30:
 
     if (state == 2)
     {
-      v8 = 0;
+      v11 = 0;
     }
 
     else
     {
-      v8 = [NSError errorWithDomain:@"RPNFCTransactionControllerErrorDomain" code:0 userInfo:0];
+      v11 = [NSError errorWithDomain:@"RPNFCTransactionControllerErrorDomain" code:0 userInfo:0];
     }
 
-    [(RPNFCTransactionController *)self _finishCurrentTransactionWithError:v8];
+    [(RPNFCTransactionController *)self _finishCurrentTransactionWithError:v11];
   }
 }
 
@@ -1044,20 +1144,21 @@ LABEL_30:
   requestCopy = request;
   if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
   {
-    sub_10011F618();
+    sub_10011F618(requestCopy);
   }
 
   v8 = [RPTransportServiceHandoverMessage messageWithConnectionHandoverRequest:requestCopy];
+  v16 = v8;
   if (v8)
   {
     dataSource = [(RPNFCTransactionController *)self dataSource];
-    v10 = [dataSource transactionController:self responseMessageForRequestMessage:v8];
+    v18 = [dataSource transactionController:self responseMessageForRequestMessage:v16];
 
-    if (!v10)
+    if (!v18)
     {
       if (dword_1001D4330 <= 90 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
       {
-        sub_10011F7D0();
+        sub_10011F7D0(v16);
       }
 
       connectionHandoverSelect = [NSError errorWithDomain:@"RPNFCTransactionControllerErrorDomain" code:2 userInfo:0];
@@ -1065,89 +1166,89 @@ LABEL_30:
       goto LABEL_56;
     }
 
-    connectionHandoverSelect = [v10 connectionHandoverSelect];
-    payload = [v8 payload];
+    connectionHandoverSelect = [v18 connectionHandoverSelect];
+    payload = [v16 payload];
     type = [payload type];
 
     if (type)
     {
-      payload2 = [v8 payload];
+      payload2 = [v16 payload];
       type2 = [payload2 type];
 
       currentTransaction = [(RPNFCTransactionController *)self currentTransaction];
       payload3 = currentTransaction;
-      v18 = type2 == 1;
+      v29 = type2 == 1;
       if (type2 == 1)
       {
-        [currentTransaction setLocalAuthenticationMessage:v10];
-        v19 = 0.0;
+        [currentTransaction setLocalAuthenticationMessage:v18];
+        v30 = 0.0;
         goto LABEL_51;
       }
 
-      [currentTransaction setLocalValidationMessage:v10];
+      [currentTransaction setLocalValidationMessage:v18];
 
       currentTransaction2 = [(RPNFCTransactionController *)self currentTransaction];
       remoteAuthenticationMessage = [currentTransaction2 remoteAuthenticationMessage];
 
       if (remoteAuthenticationMessage)
       {
-        v34 = v18;
-        payload3 = [v8 payload];
-        if ([payload3 isKnownIdentity] && (-[RPNFCTransactionController currentTransaction](self, "currentTransaction"), v23 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v23, "remoteIdentity"), v24 = objc_claimAutoreleasedReturnValue(), v23, v24))
+        v46 = v29;
+        payload3 = [v16 payload];
+        if ([payload3 isKnownIdentity] && (-[RPNFCTransactionController currentTransaction](self, "currentTransaction"), v34 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v34, "remoteIdentity"), v35 = objc_claimAutoreleasedReturnValue(), v34, v35))
         {
-          v19 = 0.0;
+          v30 = 0.0;
         }
 
         else
         {
-          v33 = controllerCopy;
-          v28 = +[NSDate now];
+          v45 = controllerCopy;
+          v39 = +[NSDate now];
           currentTransaction3 = [(RPNFCTransactionController *)self currentTransaction];
           connectionDate = [currentTransaction3 connectionDate];
-          [v28 timeIntervalSinceDate:connectionDate];
-          v32 = v31;
+          [v39 timeIntervalSinceDate:connectionDate];
+          v43 = v42;
 
           if (dword_1001D4330 < 31)
           {
-            controllerCopy = v33;
+            controllerCopy = v45;
             if (dword_1001D4330 != -1 || _LogCategory_Initialize())
             {
-              sub_10011F658();
+              sub_10011F658(v43);
             }
 
-            v19 = fmax(0.8 - v32, 0.0);
-            v18 = v34;
+            v30 = fmax(0.8 - v43, 0.0);
+            v29 = v46;
             if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
             {
-              sub_10011F698();
+              sub_10011F698(v30);
             }
 
-            v24 = 0;
+            v35 = 0;
             goto LABEL_50;
           }
 
-          v24 = 0;
-          v19 = fmax(0.8 - v32, 0.0);
-          controllerCopy = v33;
+          v35 = 0;
+          v30 = fmax(0.8 - v43, 0.0);
+          controllerCopy = v45;
         }
 
-        v18 = v34;
+        v29 = v46;
 LABEL_50:
 
 LABEL_51:
         if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&dword_1001D4330, "[RPNFCTransactionController controller:didReceiveRequest:]", 30, "send handover select to initiator with delay: %fs response: %@", *&v30, v18);
         }
 
-        v35[0] = _NSConcreteStackBlock;
-        v35[1] = 3221225472;
-        v35[2] = sub_10007E2EC;
-        v35[3] = &unk_1001AD830;
-        v35[4] = self;
-        v37 = v18;
-        v36 = v8;
-        [controllerCopy sendHandoverSelect:connectionHandoverSelect delay:v35 completionHandler:v19];
+        v47[0] = _NSConcreteStackBlock;
+        v47[1] = 3221225472;
+        v47[2] = sub_10007E2EC;
+        v47[3] = &unk_1001AD830;
+        v47[4] = self;
+        v49 = v29;
+        v48 = v16;
+        [controllerCopy sendHandoverSelect:connectionHandoverSelect delay:v47 completionHandler:v30];
 
         goto LABEL_56;
       }
@@ -1157,32 +1258,35 @@ LABEL_51:
         sub_10011F6D8(self);
       }
 
-      v20 = [NSError errorWithDomain:@"RPNFCTransactionControllerErrorDomain" code:1 userInfo:0];
+      v31 = [NSError errorWithDomain:@"RPNFCTransactionControllerErrorDomain" code:1 userInfo:0];
     }
 
     else
     {
-      if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
+      if (dword_1001D4330 <= 30)
       {
-        sub_10011F734();
+        if (dword_1001D4330 != -1 || (v22 = _LogCategory_Initialize(), v22))
+        {
+          sub_10011F734(v22, v23, v24);
+        }
       }
 
-      [(RPNFCTransactionController *)self _didReceiveAuthenticationMessage:v8];
+      [(RPNFCTransactionController *)self _didReceiveAuthenticationMessage:v16];
       if (dword_1001D4330 <= 30 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
       {
-        sub_10011F750();
+        sub_10011F750(v18);
       }
 
-      v38 = 0;
-      [controllerCopy sendHandoverSelect:connectionHandoverSelect error:&v38];
-      v20 = v38;
-      if (!v20)
+      v50 = 0;
+      [controllerCopy sendHandoverSelect:connectionHandoverSelect error:&v50];
+      v31 = v50;
+      if (!v31)
       {
         applicationLabel = [requestCopy applicationLabel];
-        v26 = [(RPNFCTransactionController *)self _createTapEventForApplicationLabel:applicationLabel];
+        v37 = [(RPNFCTransactionController *)self _createTapEventForApplicationLabel:applicationLabel];
 
         currentTransaction4 = [(RPNFCTransactionController *)self currentTransaction];
-        [currentTransaction4 setTapEvent:v26];
+        [currentTransaction4 setTapEvent:v37];
 
 LABEL_46:
 LABEL_56:
@@ -1192,21 +1296,24 @@ LABEL_56:
 
       if (dword_1001D4330 <= 90 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
       {
-        sub_10011F790();
+        sub_10011F790(v31);
       }
     }
 
-    [(RPNFCTransactionController *)self _finishCurrentTransactionWithError:v20];
+    [(RPNFCTransactionController *)self _finishCurrentTransactionWithError:v31];
     goto LABEL_46;
   }
 
-  if (dword_1001D4330 <= 90 && (dword_1001D4330 != -1 || _LogCategory_Initialize()))
+  if (dword_1001D4330 <= 90)
   {
-    sub_10011F810();
+    if (dword_1001D4330 != -1 || (v8 = _LogCategory_Initialize(), v8))
+    {
+      sub_10011F810(v8, v9, v10);
+    }
   }
 
-  v10 = RPErrorF();
-  [(RPNFCTransactionController *)self _finishCurrentTransactionWithError:v10];
+  v18 = RPErrorF(4294960579, "Unexpected Connection handover select message", v10, v11, v12, v13, v14, v15, v44);
+  [(RPNFCTransactionController *)self _finishCurrentTransactionWithError:v18];
 LABEL_57:
 }
 

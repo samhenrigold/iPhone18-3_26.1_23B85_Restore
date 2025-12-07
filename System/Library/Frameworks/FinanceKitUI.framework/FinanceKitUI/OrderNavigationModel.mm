@@ -24,11 +24,10 @@
 {
   typeCopy = type;
   v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DF13040, &qword_238773EC8);
-  v12 = *(*(v11 - 8) + 64);
   MEMORY[0x28223BE20](v11 - 8);
-  v14 = &v26 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v15);
-  v17 = &v26 - v16;
+  v13 = &v25 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v14);
+  v16 = &v25 - v15;
   sub_23875ED50();
   sub_23875ED40();
   sub_23875ECE0();
@@ -48,35 +47,35 @@
   {
     sub_23875BE50();
 
-    v22 = sub_23875BE60();
-    (*(*(v22 - 8) + 56))(v17, 0, 1, v22);
+    v21 = sub_23875BE60();
+    (*(*(v21 - 8) + 56))(v16, 0, 1, v21);
   }
 
   else
   {
-    v23 = sub_23875BE60();
-    (*(*(v23 - 8) + 56))(v17, 1, 1, v23);
+    v22 = sub_23875BE60();
+    (*(*(v22 - 8) + 56))(v16, 1, 1, v22);
   }
 
   if (indexPathCopy)
   {
     sub_23875BE50();
 
-    v24 = 0;
+    v23 = 0;
   }
 
   else
   {
-    v24 = 1;
+    v23 = 1;
   }
 
-  v25 = sub_23875BE60();
-  (*(*(v25 - 8) + 56))(v14, v24, 1, v25);
-  sub_238680E54(v28, v17, typeCopy);
+  v24 = sub_23875BE60();
+  (*(*(v24 - 8) + 56))(v13, v23, 1, v24);
+  sub_238680E54(v27, v16, typeCopy);
 
-  sub_238439884(v14, &qword_27DF13040, &qword_238773EC8);
-  sub_238439884(v17, &qword_27DF13040, &qword_238773EC8);
-  __swift_destroy_boxed_opaque_existential_1(v28);
+  sub_238439884(v13, &qword_27DF13040, &qword_238773EC8);
+  sub_238439884(v16, &qword_27DF13040, &qword_238773EC8);
+  __swift_destroy_boxed_opaque_existential_1(v27);
 }
 
 @end

@@ -6,6 +6,7 @@
 - (int)getContextState;
 - (void)handleBrightnessClientNotification:(id)notification value:(id)value;
 - (void)initializeSemanticBrightnessHandling;
+- (void)processPotentialSolarStateChange:(BOOL)change;
 - (void)updateCurrentSemanticAmbientLightLevel:(int)level;
 @end
 
@@ -173,6 +174,61 @@
   v4[4] = self;
   levelCopy = level;
   dispatch_async(update_queue, v4);
+}
+
+- (void)processPotentialSolarStateChange:(BOOL)change
+{
+  if (self->_currentSemanticAmbientLightLevel)
+  {
+    v3 = 0;
+  }
+
+  else
+  {
+    v3 = !change;
+  }
+
+  if (!v3)
+  {
+    isContextTriggered = [(SolarDetectorSemantic *)self isContextTriggered];
+    self->_sunlightState = isContextTriggered;
+    if (self->_sunlightStatePrevious != isContextTriggered)
+    {
+      self->_sunlightStatePrevious = isContextTriggered;
+      v6 = +[TGraphSampler sharedInstance];
+      if (self->_sunlightState)
+      {
+        v7 = 100;
+      }
+
+      else
+      {
+        v7 = 0;
+      }
+
+      [(TGraphSampler *)v6 updatePowerlogMiscState:2 value:v7];
+      if (self->_sunlightState)
+      {
+        v8 = 100;
+      }
+
+      else
+      {
+        v8 = 0;
+      }
+
+      if (notify_set_state(self->_thermalSunlightStateToken, v8))
+      {
+        v9 = qword_1000AB718;
+        if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_ERROR))
+        {
+          sub_1000539E4(v9);
+        }
+      }
+
+      *&dword_1000AB96C = self->_sunlightState;
+    }
+  }
 }
 
 - (__CFString)copyHeaderForIndex:(int)index

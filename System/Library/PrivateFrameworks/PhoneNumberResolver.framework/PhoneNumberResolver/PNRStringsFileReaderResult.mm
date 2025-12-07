@@ -118,35 +118,35 @@
 
 - (id)separatorForLanguage:(id)language
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   languageCopy = language;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v4 = [&unk_28703B938 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [&unk_28703B938 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     v7 = @" ";
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v12 != v6)
+      if (*v11 != v6)
       {
         objc_enumerationMutation(&unk_28703B938);
       }
 
-      if ([*(*(&v11 + 1) + 8 * v8) isEqualToString:languageCopy])
+      if ([*(*(&v10 + 1) + 8 * v8) isEqualToString:languageCopy])
       {
         break;
       }
 
       if (v5 == ++v8)
       {
-        v5 = [&unk_28703B938 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v5 = [&unk_28703B938 countByEnumeratingWithState:&v10 objects:v14 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -163,40 +163,39 @@ LABEL_3:
     v7 = @", ";
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (BOOL)shouldOrderCityFirstForLanguage:(id)language phoneNumberInCC:(id)c
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   languageCopy = language;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v5 = [&unk_28703B950 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [&unk_28703B950 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(&unk_28703B950);
         }
 
-        if ([*(*(&v12 + 1) + 8 * i) isEqualToString:languageCopy])
+        if ([*(*(&v11 + 1) + 8 * i) isEqualToString:languageCopy])
         {
           v9 = 0;
           goto LABEL_11;
         }
       }
 
-      v6 = [&unk_28703B950 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [&unk_28703B950 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -209,7 +208,6 @@ LABEL_3:
   v9 = 1;
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

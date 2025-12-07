@@ -23,17 +23,15 @@
 
 - (id)extensions
 {
-  v3 = OBJC_IVAR___LiveLookupManagerProxy_manager;
   swift_beginAccess();
-  v4 = *(&self->super.isa + v3);
   selfCopy = self;
 
   sub_21B91E42C();
 
   sub_21B91E41C();
-  v6 = sub_21B91E74C();
+  v4 = sub_21B91E74C();
 
-  return v6;
+  return v4;
 }
 
 - (id)extensionName:(id)name
@@ -45,38 +43,36 @@
 
 - (void)setEnabled:(BOOL)enabled forExtension:(_TtC14IdentityLookup21LiveLookupDBExtension *)extension completion:(id)completion
 {
-  v9 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD9AC98, &qword_21B923378) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD9AC98, &qword_21B923378);
   MEMORY[0x28223BE20]();
-  v11 = &v19 - v10;
-  v12 = _Block_copy(completion);
-  v13 = swift_allocObject();
-  *(v13 + 16) = enabled;
-  *(v13 + 24) = extension;
-  *(v13 + 32) = v12;
-  *(v13 + 40) = self;
-  v14 = sub_21B91E78C();
-  (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
+  v10 = &v18 - v9;
+  v11 = _Block_copy(completion);
+  v12 = swift_allocObject();
+  *(v12 + 16) = enabled;
+  *(v12 + 24) = extension;
+  *(v12 + 32) = v11;
+  *(v12 + 40) = self;
+  v13 = sub_21B91E78C();
+  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
+  v14 = swift_allocObject();
+  v14[2] = 0;
+  v14[3] = 0;
+  v14[4] = &unk_21B923388;
+  v14[5] = v12;
   v15 = swift_allocObject();
   v15[2] = 0;
   v15[3] = 0;
-  v15[4] = &unk_21B923388;
-  v15[5] = v13;
-  v16 = swift_allocObject();
-  v16[2] = 0;
-  v16[3] = 0;
-  v16[4] = &unk_21B923398;
-  v16[5] = v15;
+  v15[4] = &unk_21B923398;
+  v15[5] = v14;
   extensionCopy = extension;
   selfCopy = self;
-  sub_21B916854(0, 0, v11, &unk_21B9233A8, v16);
+  sub_21B916854(0, 0, v10, &unk_21B9233A8, v15);
 }
 
 - (void)setWithPrioritizedExtensionIdentifiers:(id)identifiers
 {
   sub_21B91E75C();
-  v4 = OBJC_IVAR___LiveLookupManagerProxy_manager;
   swift_beginAccess();
-  v5 = *(&self->super.isa + v4);
   selfCopy = self;
 
   sub_21B91E43C();

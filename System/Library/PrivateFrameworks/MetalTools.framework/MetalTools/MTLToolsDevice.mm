@@ -40,6 +40,7 @@
 - (BOOL)isRGB10A2GammaSupported;
 - (BOOL)isRTZRoundingSupported;
 - (BOOL)isRemovable;
+- (BOOL)isVendorSliceCompatibleWithDeploymentTarget:(unsigned int)target platform:(unsigned int)platform sdkVersion:(unsigned int)version compilerPluginVersion:(unsigned int)pluginVersion;
 - (BOOL)mapShaderSampleBufferWithBuffer:(id *)buffer capacity:(unint64_t)capacity size:(unint64_t)size;
 - (BOOL)metalAssertionsEnabled;
 - (BOOL)requiresBFloat16Emulation;
@@ -47,6 +48,7 @@
 - (BOOL)requiresRaytracingEmulation;
 - (BOOL)reserveGPUAddressRange:(_NSRange)range;
 - (BOOL)respondsToSelector:(SEL)selector;
+- (BOOL)setCompilerProcessesCount:(int)count;
 - (BOOL)shaderDebugInfoCaching;
 - (BOOL)supportPriorityBand;
 - (BOOL)supports2DLinearTexArraySPI;
@@ -290,10 +292,12 @@
 - (BOOL)supportsYCBCRPackedFormats12;
 - (BOOL)supportsYCBCRPackedFormatsPQ;
 - (BOOL)supportsYCBCRPackedFormatsXR;
+- (BOOL)validateDynamicLibrary:(id)library state:(BOOL)state error:(id *)error;
 - (BOOL)validateDynamicLibraryDescriptor:(id)descriptor error:(id *)error;
 - (BOOL)validateDynamicLibraryURL:(id)l error:(id *)error;
 - (IndirectArgumentBufferCapabilities)indirectArgumentBufferCapabilities;
 - (MTLArchitecture)architecture;
+- (MTLCompilerConnectionManager)getCompilerConnectionManager:(int)manager;
 - (MTLGPUBVHBuilder)GPUBVHBuilder;
 - (MTLTargetDeviceArchitecture)targetDeviceArchitecture;
 - (MTLToolsDevice)initWithBaseObject:(id)object parent:(id)parent;
@@ -419,12 +423,14 @@
 - (id)newSamplerStateWithDescriptor:(id)descriptor;
 - (id)newSharedEvent;
 - (id)newSharedEventWithHandle:(id)handle;
+- (id)newSharedEventWithMachPort:(unsigned int)port;
 - (id)newSharedEventWithOptions:(int64_t)options;
 - (id)newSharedTextureWithDescriptor:(id)descriptor;
 - (id)newSharedTextureWithHandle:(id)handle;
 - (id)newSharedTextureWithHandle:(id)handle withResourceIndex:(unint64_t)index;
 - (id)newStructTypeWithSerializedData:(id)data;
 - (id)newTensorWithDescriptor:(id)descriptor error:(id *)error;
+- (id)newTextureLayoutWithDescriptor:(id)descriptor isHeapOrBufferBacked:(BOOL)backed;
 - (id)newTextureViewPoolWithDescriptor:(id)descriptor error:(id *)error;
 - (id)newTextureWithBytesNoCopy:(void *)copy length:(unint64_t)length descriptor:(id)descriptor deallocator:(id)deallocator;
 - (id)newTextureWithDescriptor:(id)descriptor;
@@ -557,6 +563,7 @@
 - (unsigned)acceleratorPort;
 - (unsigned)maximumComputeSubstreams;
 - (void)allowLibrariesFromOtherPlatforms;
+- (void)compilerPropagatesThreadPriority:(BOOL)priority;
 - (void)convertSparsePixelRegions:(id *)regions toTileRegions:(id *)tileRegions withTileSize:(id *)size alignmentMode:(unint64_t)mode numRegions:(unint64_t)numRegions;
 - (void)convertSparseTileRegions:(id *)regions toPixelRegions:(id *)pixelRegions withTileSize:(id *)size numRegions:(unint64_t)numRegions;
 - (void)dealloc;
@@ -579,7 +586,12 @@
 - (void)reserveResourceIndicesForResourceType:(unint64_t)type indices:(unint64_t *)indices indexCount:(unint64_t)count;
 - (void)sampleTimestamps:(unint64_t *)timestamps gpuTimestamp:(unint64_t *)timestamp;
 - (void)setCommandBufferErrorOptions:(unint64_t)options;
+- (void)setGPUAssertionsEnabled:(BOOL)enabled;
+- (void)setMetalAssertionsEnabled:(BOOL)enabled;
 - (void)setPluginData:(id)data;
+- (void)setRequiresLegacyCompilerProcessesCount:(BOOL)count;
+- (void)setShaderDebugInfoCaching:(BOOL)caching;
+- (void)setWritableHeapsEnabled:(BOOL)enabled;
 - (void)setupMPSFunctionTable:(MPSFunctionTable *)table;
 - (void)startCollectingPipelineDescriptors;
 - (void)unloadShaderCaches;
@@ -714,6 +726,14 @@
   return [baseObject shaderDebugInfoCaching];
 }
 
+- (void)setShaderDebugInfoCaching:(BOOL)caching
+{
+  cachingCopy = caching;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject setShaderDebugInfoCaching:cachingCopy];
+}
+
 - (BOOL)mapShaderSampleBufferWithBuffer:(id *)buffer capacity:(unint64_t)capacity size:(unint64_t)size
 {
   baseObject = [(MTLToolsObject *)self baseObject];
@@ -821,82 +841,78 @@
 
 - (id)loadDynamicLibrariesForComputeDescriptor:(id)descriptor options:(unint64_t)options error:(id *)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v6 = [-[MTLToolsObject baseObject](self "baseObject")];
-  if (v6)
+  if (!v6)
   {
-    v7 = v6;
-    v8 = objc_opt_new();
-    v9 = objc_autoreleasePoolPush();
-    v16 = 0u;
-    v17 = 0u;
-    v18 = 0u;
-    v19 = 0u;
-    v10 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
-    if (v10)
+    return 0;
+  }
+
+  v7 = v6;
+  v8 = objc_opt_new();
+  v9 = objc_autoreleasePoolPush();
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v10 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v10)
+  {
+    v11 = v10;
+    v12 = *v16;
+    do
     {
-      v11 = v10;
-      v12 = *v17;
+      v13 = 0;
       do
       {
-        v13 = 0;
-        do
+        if (*v16 != v12)
         {
-          if (*v17 != v12)
-          {
-            objc_enumerationMutation(v7);
-          }
-
-          [v8 addObject:{-[MTLToolsDevice getDynamicLibraryForBaseObject:](self, "getDynamicLibraryForBaseObject:", *(*(&v16 + 1) + 8 * v13++))}];
+          objc_enumerationMutation(v7);
         }
 
-        while (v11 != v13);
-        v11 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        [v8 addObject:{-[MTLToolsDevice getDynamicLibraryForBaseObject:](self, "getDynamicLibraryForBaseObject:", *(*(&v15 + 1) + 8 * v13++))}];
       }
 
-      while (v11);
+      while (v11 != v13);
+      v11 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
-    objc_autoreleasePoolPop(v9);
+    while (v11);
   }
 
-  else
-  {
-    v8 = 0;
-  }
+  objc_autoreleasePoolPop(v9);
 
-  v14 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (id)loadDynamicLibrariesForFunction:(id)function insertLibraries:(id)libraries options:(unint64_t)options error:(id *)error
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v11 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(libraries, "count")}];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v12 = [libraries countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v12 = [libraries countByEnumeratingWithState:&v28 objects:v33 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v30;
+    v14 = *v29;
     do
     {
       v15 = 0;
       do
       {
-        if (*v30 != v14)
+        if (*v29 != v14)
         {
           objc_enumerationMutation(libraries);
         }
 
-        [v11 addObject:{objc_msgSend(*(*(&v29 + 1) + 8 * v15++), "baseObject")}];
+        [v11 addObject:{objc_msgSend(*(*(&v28 + 1) + 8 * v15++), "baseObject")}];
       }
 
       while (v13 != v15);
-      v13 = [libraries countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v13 = [libraries countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
     while (v13);
@@ -904,48 +920,44 @@
 
   v16 = [-[MTLToolsObject baseObject](self "baseObject")];
 
-  if (v16)
+  if (!v16)
   {
-    v17 = objc_opt_new();
-    v18 = objc_autoreleasePoolPush();
-    v25 = 0u;
-    v26 = 0u;
-    v27 = 0u;
-    v28 = 0u;
-    v19 = [v16 countByEnumeratingWithState:&v25 objects:v33 count:16];
-    if (v19)
+    return 0;
+  }
+
+  v17 = objc_opt_new();
+  v18 = objc_autoreleasePoolPush();
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v19 = [v16 countByEnumeratingWithState:&v24 objects:v32 count:16];
+  if (v19)
+  {
+    v20 = v19;
+    v21 = *v25;
+    do
     {
-      v20 = v19;
-      v21 = *v26;
+      v22 = 0;
       do
       {
-        v22 = 0;
-        do
+        if (*v25 != v21)
         {
-          if (*v26 != v21)
-          {
-            objc_enumerationMutation(v16);
-          }
-
-          [v17 addObject:{-[MTLToolsDevice getDynamicLibraryForBaseObject:](self, "getDynamicLibraryForBaseObject:", *(*(&v25 + 1) + 8 * v22++))}];
+          objc_enumerationMutation(v16);
         }
 
-        while (v20 != v22);
-        v20 = [v16 countByEnumeratingWithState:&v25 objects:v33 count:16];
+        [v17 addObject:{-[MTLToolsDevice getDynamicLibraryForBaseObject:](self, "getDynamicLibraryForBaseObject:", *(*(&v24 + 1) + 8 * v22++))}];
       }
 
-      while (v20);
+      while (v20 != v22);
+      v20 = [v16 countByEnumeratingWithState:&v24 objects:v32 count:16];
     }
 
-    objc_autoreleasePoolPop(v18);
+    while (v20);
   }
 
-  else
-  {
-    v17 = 0;
-  }
+  objc_autoreleasePoolPop(v18);
 
-  v23 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -954,6 +966,14 @@
   v4 = [i copy];
   [v4 setLibrary:{objc_msgSend(objc_msgSend(i, "library"), "baseObject")}];
   return v4;
+}
+
+- (BOOL)validateDynamicLibrary:(id)library state:(BOOL)state error:(id *)error
+{
+  stateCopy = state;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  return [baseObject validateDynamicLibrary:library state:stateCopy error:error];
 }
 
 - (BOOL)validateDynamicLibraryURL:(id)l error:(id *)error
@@ -970,11 +990,27 @@
   return [baseObject areGPUAssertionsEnabled];
 }
 
+- (void)setGPUAssertionsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject setGPUAssertionsEnabled:enabledCopy];
+}
+
 - (BOOL)areWritableHeapsEnabled
 {
   baseObject = [(MTLToolsObject *)self baseObject];
 
   return [baseObject areWritableHeapsEnabled];
+}
+
+- (void)setWritableHeapsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject setWritableHeapsEnabled:enabledCopy];
 }
 
 - (id)newBufferWithLength:(unint64_t)length options:(unint64_t)options gpuAddress:(unint64_t)address
@@ -1110,7 +1146,7 @@
   if (result)
   {
 
-    return [($F99D9A4FB75BC57F3386B8DC8EE08D7A *)result maxThreadsPerThreadgroup];
+    return objc_msgSend_maxThreadsPerThreadgroup(result);
   }
 
   else
@@ -1233,6 +1269,14 @@
   baseObject = [(MTLToolsObject *)self baseObject];
 
   return [baseObject getShaderCacheKeys];
+}
+
+- (void)compilerPropagatesThreadPriority:(BOOL)priority
+{
+  priorityCopy = priority;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject compilerPropagatesThreadPriority:priorityCopy];
 }
 
 - (id)newCommandQueue
@@ -1475,7 +1519,7 @@
   return v9;
 }
 
-uint64_t __53__MTLToolsDevice_newLibraryWithSource_options_error___block_invoke(uint64_t a1)
+MTLToolsLibrary *__53__MTLToolsDevice_newLibraryWithSource_options_error___block_invoke(uint64_t a1)
 {
   v2 = [MTLToolsLibrary alloc];
   v3 = *(a1 + 32);
@@ -1769,37 +1813,37 @@ uint64_t __53__MTLToolsDevice_newLibraryWithSource_options_error___block_invoke(
 
 - (id)unwrapMTLCompileOptions:(id)options
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = [options copy];
   libraries = [v3 libraries];
   if (libraries)
   {
     v5 = libraries;
     v6 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(libraries, "count")}];
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
-    v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v14;
+      v9 = *v13;
       do
       {
         v10 = 0;
         do
         {
-          if (*v14 != v9)
+          if (*v13 != v9)
           {
             objc_enumerationMutation(v5);
           }
 
-          [v6 addObject:{objc_msgSend(*(*(&v13 + 1) + 8 * v10++), "baseObject")}];
+          [v6 addObject:{objc_msgSend(*(*(&v12 + 1) + 8 * v10++), "baseObject")}];
         }
 
         while (v8 != v10);
-        v8 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v8 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v8);
@@ -1808,9 +1852,7 @@ uint64_t __53__MTLToolsDevice_newLibraryWithSource_options_error___block_invoke(
     [v3 setLibraries:v6];
   }
 
-  result = v3;
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return v3;
 }
 
 - (id)unwrapMTLStitchedLibraryDescriptor:(id)descriptor
@@ -1823,59 +1865,55 @@ uint64_t __53__MTLToolsDevice_newLibraryWithSource_options_error___block_invoke(
 
 + (id)newUnwrappedMTLRelocations:(id)relocations
 {
-  v18 = *MEMORY[0x277D85DE8];
-  if (relocations)
+  v17 = *MEMORY[0x277D85DE8];
+  if (!relocations)
   {
-    v4 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(relocations, "count")}];
-    v13 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    v5 = [relocations countByEnumeratingWithState:&v13 objects:v17 count:16];
-    if (v5)
-    {
-      v6 = v5;
-      v7 = *v14;
-      do
-      {
-        for (i = 0; i != v6; ++i)
-        {
-          if (*v14 != v7)
-          {
-            objc_enumerationMutation(relocations);
-          }
+    return 0;
+  }
 
-          v9 = *(*(&v13 + 1) + 8 * i);
+  v4 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(relocations, "count")}];
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v5 = [relocations countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v13;
+    do
+    {
+      for (i = 0; i != v6; ++i)
+      {
+        if (*v13 != v7)
+        {
+          objc_enumerationMutation(relocations);
+        }
+
+        v9 = *(*(&v12 + 1) + 8 * i);
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          v10 = [objc_alloc(MEMORY[0x277CD6CC0]) initWithSymbolName:objc_msgSend(v9 buffer:"symbolName") offset:{objc_msgSend(objc_msgSend(v9, "buffer"), "baseObject"), objc_msgSend(v9, "offset")}];
+          [v4 addObject:v10];
+        }
+
+        else
+        {
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v10 = [objc_alloc(MEMORY[0x277CD6CC0]) initWithSymbolName:objc_msgSend(v9 buffer:"symbolName") offset:{objc_msgSend(objc_msgSend(v9, "buffer"), "baseObject"), objc_msgSend(v9, "offset")}];
-            [v4 addObject:v10];
-          }
-
-          else
-          {
-            objc_opt_class();
-            if (objc_opt_isKindOfClass())
-            {
-              [v4 addObject:v9];
-            }
+            [v4 addObject:v9];
           }
         }
-
-        v6 = [relocations countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
-      while (v6);
+      v6 = [relocations countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
+
+    while (v6);
   }
 
-  else
-  {
-    v4 = 0;
-  }
-
-  v11 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -2260,32 +2298,32 @@ void __77__MTLToolsDevice_newRenderPipelineStateWithMeshDescriptor_completionHan
 
 - (id)newLibraryWithDAG:(id)g functions:(id)functions error:(id *)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v10 = [functions countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [functions countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       v13 = 0;
       do
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(functions);
         }
 
-        [v9 addObject:{objc_msgSend(*(*(&v18 + 1) + 8 * v13++), "baseObject")}];
+        [v9 addObject:{objc_msgSend(*(*(&v17 + 1) + 8 * v13++), "baseObject")}];
       }
 
       while (v11 != v13);
-      v11 = [functions countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [functions countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v11);
@@ -2293,17 +2331,13 @@ void __77__MTLToolsDevice_newRenderPipelineStateWithMeshDescriptor_completionHan
 
   v14 = [-[MTLToolsObject baseObject](self "baseObject")];
 
-  if (v14)
+  if (!v14)
   {
-    v15 = [(MTLToolsObject *)[MTLToolsLibrary alloc] initWithBaseObject:v14 parent:self];
+    return 0;
   }
 
-  else
-  {
-    v15 = 0;
-  }
+  v15 = [(MTLToolsObject *)[MTLToolsLibrary alloc] initWithBaseObject:v14 parent:self];
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -2376,32 +2410,32 @@ void __69__MTLToolsDevice_newLibraryWithStitchedDescriptor_completionHandler___b
 
 - (id)newLibraryWithCIFilters:(id)filters imageFilterFunctionInfo:(id *)info error:(id *)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v10 = [filters countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v10 = [filters countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v20;
+    v12 = *v19;
     do
     {
       v13 = 0;
       do
       {
-        if (*v20 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(filters);
         }
 
-        [v9 addObject:{objc_msgSend(*(*(&v19 + 1) + 8 * v13++), "baseObject")}];
+        [v9 addObject:{objc_msgSend(*(*(&v18 + 1) + 8 * v13++), "baseObject")}];
       }
 
       while (v11 != v13);
-      v11 = [filters countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v11 = [filters countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v11);
@@ -2419,7 +2453,6 @@ void __69__MTLToolsDevice_newLibraryWithStitchedDescriptor_completionHandler___b
     v16 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -2450,7 +2483,7 @@ void __65__MTLToolsDevice_newLibraryWithSource_options_completionHandler___block
   (*(*(a1 + 40) + 16))();
 }
 
-uint64_t __65__MTLToolsDevice_newLibraryWithSource_options_completionHandler___block_invoke_2(uint64_t a1)
+MTLToolsLibrary *__65__MTLToolsDevice_newLibraryWithSource_options_completionHandler___block_invoke_2(uint64_t a1)
 {
   v2 = [MTLToolsLibrary alloc];
   v3 = *(a1 + 32);
@@ -3226,7 +3259,7 @@ uint64_t __65__MTLToolsDevice_newLibraryWithSource_options_completionHandler___b
   if (result)
   {
 
-    return [($F99D9A4FB75BC57F3386B8DC8EE08D7A *)result sparseTileSizeWithTextureType:format pixelFormat:count sampleCount:a6];
+    return objc_msgSend_sparseTileSizeWithTextureType_pixelFormat_sampleCount_(result);
   }
 
   else
@@ -3245,7 +3278,7 @@ uint64_t __65__MTLToolsDevice_newLibraryWithSource_options_completionHandler___b
   if (result)
   {
 
-    return [($F99D9A4FB75BC57F3386B8DC8EE08D7A *)result sparseTileSizeWithTextureType:format pixelFormat:count sampleCount:size sparsePageSize:a7];
+    return objc_msgSend_sparseTileSizeWithTextureType_pixelFormat_sampleCount_sparsePageSize_(result);
   }
 
   else
@@ -3267,13 +3300,13 @@ uint64_t __65__MTLToolsDevice_newLibraryWithSource_options_completionHandler___b
 
 - (id)newResourceGroupFromResources:(const void *)resources count:(unint64_t)count
 {
-  v16[1] = *MEMORY[0x277D85DE8];
-  v6 = v16 - ((8 * count + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15[1] = *MEMORY[0x277D85DE8];
+  v6 = v15 - ((8 * count + 15) & 0xFFFFFFFFFFFFFFF0);
   if (count)
   {
     resourcesCopy = resources;
     countCopy = count;
-    v9 = (v16 - ((8 * count + 15) & 0xFFFFFFFFFFFFFFF0));
+    v9 = (v15 - ((8 * count + 15) & 0xFFFFFFFFFFFFFFF0));
     do
     {
       v10 = *resourcesCopy++;
@@ -3285,18 +3318,14 @@ uint64_t __65__MTLToolsDevice_newLibraryWithSource_options_completionHandler___b
   }
 
   baseObject = [-[MTLToolsObject baseObject](self baseObject];
-  if (baseObject)
+  if (!baseObject)
   {
-    v12 = baseObject;
-    v13 = [(MTLToolsObject *)[MTLToolsResourceGroupSPI alloc] initWithBaseObject:baseObject parent:self];
+    return 0;
   }
 
-  else
-  {
-    v13 = 0;
-  }
+  v12 = baseObject;
+  v13 = [(MTLToolsObject *)[MTLToolsResourceGroupSPI alloc] initWithBaseObject:baseObject parent:self];
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -3305,6 +3334,14 @@ uint64_t __65__MTLToolsDevice_newLibraryWithSource_options_completionHandler___b
   baseObject = [(MTLToolsObject *)self baseObject];
 
   return [baseObject metalAssertionsEnabled];
+}
+
+- (void)setMetalAssertionsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject setMetalAssertionsEnabled:enabledCopy];
 }
 
 - (id)newTextureWithDescriptor:(id)descriptor iosurface:(__IOSurface *)iosurface plane:(unint64_t)plane
@@ -3377,6 +3414,20 @@ uint64_t __65__MTLToolsDevice_newLibraryWithSource_options_completionHandler___b
   return result;
 }
 
+- (id)newSharedEventWithMachPort:(unsigned int)port
+{
+  result = [-[MTLToolsObject baseObject](self "baseObject")];
+  if (result)
+  {
+    v4 = result;
+    v5 = [(MTLToolsObject *)[MTLToolsSharedEvent alloc] initWithBaseObject:result parent:0];
+
+    return v5;
+  }
+
+  return result;
+}
+
 - (id)newSharedEventWithHandle:(id)handle
 {
   result = [-[MTLToolsObject baseObject](self "baseObject")];
@@ -3400,6 +3451,20 @@ uint64_t __65__MTLToolsDevice_newLibraryWithSource_options_completionHandler___b
     v5 = [(MTLToolsObject *)[MTLToolsLateEvalEvent alloc] initWithBaseObject:result parent:self];
 
     return v5;
+  }
+
+  return result;
+}
+
+- (id)newTextureLayoutWithDescriptor:(id)descriptor isHeapOrBufferBacked:(BOOL)backed
+{
+  result = [-[MTLToolsObject baseObject](self "baseObject")];
+  if (result)
+  {
+    v6 = result;
+    v7 = [(MTLToolsObject *)[MTLToolsTextureLayout alloc] initWithBaseObject:result parent:self];
+
+    return v7;
   }
 
   return result;
@@ -3649,7 +3714,7 @@ uint64_t __65__MTLToolsDevice_newLibraryWithSource_options_completionHandler___b
   if (result)
   {
 
-    return [($F99D9A4FB75BC57F3386B8DC8EE08D7A *)result accelerationStructureSizesWithDescriptor:a4];
+    return objc_msgSend_accelerationStructureSizesWithDescriptor_(result);
   }
 
   else
@@ -3883,7 +3948,7 @@ uint64_t __65__MTLToolsDevice_newLibraryWithSource_options_completionHandler___b
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      [MTLToolsDevice unwrapMTLCommandBufferDescriptor:alwaysCopy:];
+      [MTLToolsDevice unwrapMTLCommandBufferDescriptor:deadlineProfile alwaysCopy:v10];
     }
   }
 
@@ -5521,7 +5586,7 @@ uint64_t __65__MTLToolsDevice_newLibraryWithSource_options_completionHandler___b
   return [(MTLToolsObjectCache *)dynamicLibraryObjectCache getCachedObjectForKey:object onMiss:v5];
 }
 
-uint64_t __49__MTLToolsDevice_getDynamicLibraryForBaseObject___block_invoke(uint64_t a1)
+MTLToolsDynamicLibrary *__49__MTLToolsDevice_getDynamicLibraryForBaseObject___block_invoke(uint64_t a1)
 {
   v2 = [MTLToolsDynamicLibrary alloc];
   v3 = *(a1 + 32);
@@ -5542,7 +5607,7 @@ uint64_t __49__MTLToolsDevice_getDynamicLibraryForBaseObject___block_invoke(uint
   return [(MTLToolsObjectCache *)functionObjectCache getCachedObjectForKey:object onMiss:v6];
 }
 
-uint64_t __51__MTLToolsDevice_getFunctionForBaseObject_library___block_invoke(uint64_t a1)
+MTLToolsFunction *__51__MTLToolsDevice_getFunctionForBaseObject_library___block_invoke(uint64_t a1)
 {
   v2 = [MTLToolsFunction alloc];
   v3 = *(a1 + 32);
@@ -5564,7 +5629,7 @@ uint64_t __51__MTLToolsDevice_getFunctionForBaseObject_library___block_invoke(ui
   return [(MTLToolsObjectCache *)depthStencilObjectCache getCachedObjectForKey:object onMiss:v6];
 }
 
-uint64_t __63__MTLToolsDevice_getDepthStencilStateForBaseObject_descriptor___block_invoke(void *a1)
+MTLToolsDepthStencilState *__63__MTLToolsDevice_getDepthStencilStateForBaseObject_descriptor___block_invoke(void *a1)
 {
   v2 = [MTLToolsDepthStencilState alloc];
   v3 = a1[4];
@@ -5587,7 +5652,7 @@ uint64_t __63__MTLToolsDevice_getDepthStencilStateForBaseObject_descriptor___blo
   return [(MTLToolsObjectCache *)samplerObjectCache getCachedObjectForKey:object onMiss:v6];
 }
 
-uint64_t __58__MTLToolsDevice_getSamplerStateForBaseObject_descriptor___block_invoke(void *a1)
+MTLToolsSamplerState *__58__MTLToolsDevice_getSamplerStateForBaseObject_descriptor___block_invoke(void *a1)
 {
   v2 = [MTLToolsSamplerState alloc];
   v3 = a1[4];
@@ -5708,11 +5773,35 @@ uint64_t __58__MTLToolsDevice_getSamplerStateForBaseObject_descriptor___block_in
   return [baseObject maximumConcurrentCompilationTaskCount];
 }
 
+- (MTLCompilerConnectionManager)getCompilerConnectionManager:(int)manager
+{
+  v3 = *&manager;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  return [baseObject getCompilerConnectionManager:v3];
+}
+
+- (BOOL)setCompilerProcessesCount:(int)count
+{
+  v3 = *&count;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  return [baseObject setCompilerProcessesCount:v3];
+}
+
 - (BOOL)requiresLegacyCompilerProcessesCount
 {
   baseObject = [(MTLToolsObject *)self baseObject];
 
   return [baseObject requiresLegacyCompilerProcessesCount];
+}
+
+- (void)setRequiresLegacyCompilerProcessesCount:(BOOL)count
+{
+  countCopy = count;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject setRequiresLegacyCompilerProcessesCount:countCopy];
 }
 
 - (unint64_t)maxAccelerationStructureTraversalDepth
@@ -5741,6 +5830,17 @@ uint64_t __58__MTLToolsDevice_getSamplerStateForBaseObject_descriptor___block_in
   }
 
   return result;
+}
+
+- (BOOL)isVendorSliceCompatibleWithDeploymentTarget:(unsigned int)target platform:(unsigned int)platform sdkVersion:(unsigned int)version compilerPluginVersion:(unsigned int)pluginVersion
+{
+  v6 = *&pluginVersion;
+  v7 = *&version;
+  v8 = *&platform;
+  v9 = *&target;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  return [baseObject isVendorSliceCompatibleWithDeploymentTarget:v9 platform:v8 sdkVersion:v7 compilerPluginVersion:v6];
 }
 
 - (id)functionHandleWithFunction:(id)function
@@ -6079,7 +6179,7 @@ uint64_t __58__MTLToolsDevice_getSamplerStateForBaseObject_descriptor___block_in
 
 - (id)newUnwrappedMTL4FunctionDescriptor:(id)descriptor
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -6094,29 +6194,29 @@ uint64_t __58__MTLToolsDevice_getSamplerStateForBaseObject_descriptor___block_in
     {
       v5 = [descriptor copy];
       v6 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(objc_msgSend(v5, "functionDescriptors"), "count")}];
+      v15 = 0u;
       v16 = 0u;
       v17 = 0u;
       v18 = 0u;
-      v19 = 0u;
       functionDescriptors = [v5 functionDescriptors];
-      v8 = [functionDescriptors countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [functionDescriptors countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v17;
+        v10 = *v16;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v17 != v10)
+            if (*v16 != v10)
             {
               objc_enumerationMutation(functionDescriptors);
             }
 
-            [v6 addObject:{-[MTLToolsDevice newUnwrappedMTL4FunctionDescriptor:](self, "newUnwrappedMTL4FunctionDescriptor:", *(*(&v16 + 1) + 8 * i))}];
+            [v6 addObject:{-[MTLToolsDevice newUnwrappedMTL4FunctionDescriptor:](self, "newUnwrappedMTL4FunctionDescriptor:", *(*(&v15 + 1) + 8 * i))}];
           }
 
-          v9 = [functionDescriptors countByEnumeratingWithState:&v16 objects:v20 count:16];
+          v9 = [functionDescriptors countByEnumeratingWithState:&v15 objects:v19 count:16];
         }
 
         while (v9);
@@ -6138,42 +6238,41 @@ uint64_t __58__MTLToolsDevice_getSamplerStateForBaseObject_descriptor___block_in
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (id)newUnwrappedStaticLinkingDescriptor:(id)descriptor
 {
   descriptorCopy = descriptor;
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   v5 = [descriptor copy];
   v6 = objc_autoreleasePoolPush();
   if ([objc_msgSend(descriptorCopy "functionDescriptors")])
   {
     v7 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(objc_msgSend(descriptorCopy, "functionDescriptors"), "count")}];
+    v45 = 0u;
     v46 = 0u;
     v47 = 0u;
     v48 = 0u;
-    v49 = 0u;
     functionDescriptors = [descriptorCopy functionDescriptors];
-    v9 = [functionDescriptors countByEnumeratingWithState:&v46 objects:v53 count:16];
+    v9 = [functionDescriptors countByEnumeratingWithState:&v45 objects:v52 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v47;
+      v11 = *v46;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v47 != v11)
+          if (*v46 != v11)
           {
             objc_enumerationMutation(functionDescriptors);
           }
 
-          [v7 addObject:{-[MTLToolsDevice newUnwrappedMTL4FunctionDescriptor:](self, "newUnwrappedMTL4FunctionDescriptor:", *(*(&v46 + 1) + 8 * i))}];
+          [v7 addObject:{-[MTLToolsDevice newUnwrappedMTL4FunctionDescriptor:](self, "newUnwrappedMTL4FunctionDescriptor:", *(*(&v45 + 1) + 8 * i))}];
         }
 
-        v10 = [functionDescriptors countByEnumeratingWithState:&v46 objects:v53 count:16];
+        v10 = [functionDescriptors countByEnumeratingWithState:&v45 objects:v52 count:16];
       }
 
       while (v10);
@@ -6185,29 +6284,29 @@ uint64_t __58__MTLToolsDevice_getSamplerStateForBaseObject_descriptor___block_in
   if ([objc_msgSend(descriptorCopy "privateFunctionDescriptors")])
   {
     v13 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(objc_msgSend(descriptorCopy, "privateFunctionDescriptors"), "count")}];
+    v41 = 0u;
     v42 = 0u;
     v43 = 0u;
     v44 = 0u;
-    v45 = 0u;
     privateFunctionDescriptors = [descriptorCopy privateFunctionDescriptors];
-    v15 = [privateFunctionDescriptors countByEnumeratingWithState:&v42 objects:v52 count:16];
+    v15 = [privateFunctionDescriptors countByEnumeratingWithState:&v41 objects:v51 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v43;
+      v17 = *v42;
       do
       {
         for (j = 0; j != v16; ++j)
         {
-          if (*v43 != v17)
+          if (*v42 != v17)
           {
             objc_enumerationMutation(privateFunctionDescriptors);
           }
 
-          [v13 addObject:{-[MTLToolsDevice newUnwrappedMTL4FunctionDescriptor:](self, "newUnwrappedMTL4FunctionDescriptor:", *(*(&v42 + 1) + 8 * j))}];
+          [v13 addObject:{-[MTLToolsDevice newUnwrappedMTL4FunctionDescriptor:](self, "newUnwrappedMTL4FunctionDescriptor:", *(*(&v41 + 1) + 8 * j))}];
         }
 
-        v16 = [privateFunctionDescriptors countByEnumeratingWithState:&v42 objects:v52 count:16];
+        v16 = [privateFunctionDescriptors countByEnumeratingWithState:&v41 objects:v51 count:16];
       }
 
       while (v16);
@@ -6218,108 +6317,107 @@ uint64_t __58__MTLToolsDevice_getSamplerStateForBaseObject_descriptor___block_in
 
   if ([objc_msgSend(descriptorCopy "groups")])
   {
-    v29 = v6;
+    v28 = v6;
     dictionary = [MEMORY[0x277CBEB38] dictionary];
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
     obj = [descriptorCopy groups];
-    v32 = [obj countByEnumeratingWithState:&v38 objects:v51 count:16];
-    if (v32)
+    v31 = [obj countByEnumeratingWithState:&v37 objects:v50 count:16];
+    if (v31)
     {
-      v31 = *v39;
-      v33 = descriptorCopy;
+      v30 = *v38;
+      v32 = descriptorCopy;
       do
       {
-        for (k = 0; k != v32; ++k)
+        for (k = 0; k != v31; ++k)
         {
-          if (*v39 != v31)
+          if (*v38 != v30)
           {
             objc_enumerationMutation(obj);
           }
 
-          v21 = *(*(&v38 + 1) + 8 * k);
+          v21 = *(*(&v37 + 1) + 8 * k);
           if ([objc_msgSend(objc_msgSend(descriptorCopy "groups")])
           {
-            [dictionary setObject:objc_msgSend(MEMORY[0x277CBEB18] forKeyedSubscript:{"arrayWithCapacity:", objc_msgSend(objc_msgSend(objc_msgSend(v33, "groups"), "objectForKeyedSubscript:", v21), "count")), v21}];
-            v36 = 0u;
-            v37 = 0u;
-            v34 = 0u;
+            [dictionary setObject:objc_msgSend(MEMORY[0x277CBEB18] forKeyedSubscript:{"arrayWithCapacity:", objc_msgSend(objc_msgSend(objc_msgSend(v32, "groups"), "objectForKeyedSubscript:", v21), "count")), v21}];
             v35 = 0u;
-            v22 = [objc_msgSend(v33 "groups")];
-            v23 = [v22 countByEnumeratingWithState:&v34 objects:v50 count:16];
+            v36 = 0u;
+            v33 = 0u;
+            v34 = 0u;
+            v22 = [objc_msgSend(v32 "groups")];
+            v23 = [v22 countByEnumeratingWithState:&v33 objects:v49 count:16];
             if (v23)
             {
               v24 = v23;
-              v25 = *v35;
+              v25 = *v34;
               do
               {
                 for (m = 0; m != v24; ++m)
                 {
-                  if (*v35 != v25)
+                  if (*v34 != v25)
                   {
                     objc_enumerationMutation(v22);
                   }
 
-                  [objc_msgSend(dictionary objectForKeyedSubscript:{v21), "addObject:", -[MTLToolsDevice newUnwrappedMTL4FunctionDescriptor:](self, "newUnwrappedMTL4FunctionDescriptor:", *(*(&v34 + 1) + 8 * m))}];
+                  [objc_msgSend(dictionary objectForKeyedSubscript:{v21), "addObject:", -[MTLToolsDevice newUnwrappedMTL4FunctionDescriptor:](self, "newUnwrappedMTL4FunctionDescriptor:", *(*(&v33 + 1) + 8 * m))}];
                 }
 
-                v24 = [v22 countByEnumeratingWithState:&v34 objects:v50 count:16];
+                v24 = [v22 countByEnumeratingWithState:&v33 objects:v49 count:16];
               }
 
               while (v24);
             }
           }
 
-          descriptorCopy = v33;
+          descriptorCopy = v32;
         }
 
-        v32 = [obj countByEnumeratingWithState:&v38 objects:v51 count:16];
+        v31 = [obj countByEnumeratingWithState:&v37 objects:v50 count:16];
       }
 
-      while (v32);
+      while (v31);
     }
 
     [v5 setGroups:dictionary];
-    v6 = v29;
+    v6 = v28;
   }
 
   objc_autoreleasePoolPop(v6);
-  v27 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (id)newUnwrappedMTL4RenderPipelineBinaryFunctionsDescriptor:(id)descriptor
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   v4 = [descriptor copy];
   v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(objc_msgSend(descriptor, "vertexAdditionalBinaryFunctions"), "count")}];
+  v52 = 0u;
   v53 = 0u;
   v54 = 0u;
   v55 = 0u;
-  v56 = 0u;
   vertexAdditionalBinaryFunctions = [descriptor vertexAdditionalBinaryFunctions];
-  v7 = [vertexAdditionalBinaryFunctions countByEnumeratingWithState:&v53 objects:v61 count:16];
+  v7 = [vertexAdditionalBinaryFunctions countByEnumeratingWithState:&v52 objects:v60 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v54;
+    v9 = *v53;
     do
     {
       v10 = 0;
       do
       {
-        if (*v54 != v9)
+        if (*v53 != v9)
         {
           objc_enumerationMutation(vertexAdditionalBinaryFunctions);
         }
 
-        [v5 addObject:{objc_msgSend(*(*(&v53 + 1) + 8 * v10++), "baseObject")}];
+        [v5 addObject:{objc_msgSend(*(*(&v52 + 1) + 8 * v10++), "baseObject")}];
       }
 
       while (v8 != v10);
-      v8 = [vertexAdditionalBinaryFunctions countByEnumeratingWithState:&v53 objects:v61 count:16];
+      v8 = [vertexAdditionalBinaryFunctions countByEnumeratingWithState:&v52 objects:v60 count:16];
     }
 
     while (v8);
@@ -6327,31 +6425,31 @@ uint64_t __58__MTLToolsDevice_getSamplerStateForBaseObject_descriptor___block_in
 
   [v4 setVertexAdditionalBinaryFunctions:v5];
   v11 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(objc_msgSend(descriptor, "fragmentAdditionalBinaryFunctions"), "count")}];
+  v48 = 0u;
   v49 = 0u;
   v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
   fragmentAdditionalBinaryFunctions = [descriptor fragmentAdditionalBinaryFunctions];
-  v13 = [fragmentAdditionalBinaryFunctions countByEnumeratingWithState:&v49 objects:v60 count:16];
+  v13 = [fragmentAdditionalBinaryFunctions countByEnumeratingWithState:&v48 objects:v59 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v50;
+    v15 = *v49;
     do
     {
       v16 = 0;
       do
       {
-        if (*v50 != v15)
+        if (*v49 != v15)
         {
           objc_enumerationMutation(fragmentAdditionalBinaryFunctions);
         }
 
-        [v11 addObject:{objc_msgSend(*(*(&v49 + 1) + 8 * v16++), "baseObject")}];
+        [v11 addObject:{objc_msgSend(*(*(&v48 + 1) + 8 * v16++), "baseObject")}];
       }
 
       while (v14 != v16);
-      v14 = [fragmentAdditionalBinaryFunctions countByEnumeratingWithState:&v49 objects:v60 count:16];
+      v14 = [fragmentAdditionalBinaryFunctions countByEnumeratingWithState:&v48 objects:v59 count:16];
     }
 
     while (v14);
@@ -6359,31 +6457,31 @@ uint64_t __58__MTLToolsDevice_getSamplerStateForBaseObject_descriptor___block_in
 
   [v4 setFragmentAdditionalBinaryFunctions:v11];
   v17 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(objc_msgSend(descriptor, "tileAdditionalBinaryFunctions"), "count")}];
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
   tileAdditionalBinaryFunctions = [descriptor tileAdditionalBinaryFunctions];
-  v19 = [tileAdditionalBinaryFunctions countByEnumeratingWithState:&v45 objects:v59 count:16];
+  v19 = [tileAdditionalBinaryFunctions countByEnumeratingWithState:&v44 objects:v58 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v46;
+    v21 = *v45;
     do
     {
       v22 = 0;
       do
       {
-        if (*v46 != v21)
+        if (*v45 != v21)
         {
           objc_enumerationMutation(tileAdditionalBinaryFunctions);
         }
 
-        [v17 addObject:{objc_msgSend(*(*(&v45 + 1) + 8 * v22++), "baseObject")}];
+        [v17 addObject:{objc_msgSend(*(*(&v44 + 1) + 8 * v22++), "baseObject")}];
       }
 
       while (v20 != v22);
-      v20 = [tileAdditionalBinaryFunctions countByEnumeratingWithState:&v45 objects:v59 count:16];
+      v20 = [tileAdditionalBinaryFunctions countByEnumeratingWithState:&v44 objects:v58 count:16];
     }
 
     while (v20);
@@ -6391,31 +6489,31 @@ uint64_t __58__MTLToolsDevice_getSamplerStateForBaseObject_descriptor___block_in
 
   [v4 setTileAdditionalBinaryFunctions:v17];
   v23 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(objc_msgSend(descriptor, "objectAdditionalBinaryFunctions"), "count")}];
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   objectAdditionalBinaryFunctions = [descriptor objectAdditionalBinaryFunctions];
-  v25 = [objectAdditionalBinaryFunctions countByEnumeratingWithState:&v41 objects:v58 count:16];
+  v25 = [objectAdditionalBinaryFunctions countByEnumeratingWithState:&v40 objects:v57 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v42;
+    v27 = *v41;
     do
     {
       v28 = 0;
       do
       {
-        if (*v42 != v27)
+        if (*v41 != v27)
         {
           objc_enumerationMutation(objectAdditionalBinaryFunctions);
         }
 
-        [v23 addObject:{objc_msgSend(*(*(&v41 + 1) + 8 * v28++), "baseObject")}];
+        [v23 addObject:{objc_msgSend(*(*(&v40 + 1) + 8 * v28++), "baseObject")}];
       }
 
       while (v26 != v28);
-      v26 = [objectAdditionalBinaryFunctions countByEnumeratingWithState:&v41 objects:v58 count:16];
+      v26 = [objectAdditionalBinaryFunctions countByEnumeratingWithState:&v40 objects:v57 count:16];
     }
 
     while (v26);
@@ -6423,38 +6521,37 @@ uint64_t __58__MTLToolsDevice_getSamplerStateForBaseObject_descriptor___block_in
 
   [v4 setObjectAdditionalBinaryFunctions:v23];
   v29 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(objc_msgSend(descriptor, "meshAdditionalBinaryFunctions"), "count")}];
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   meshAdditionalBinaryFunctions = [descriptor meshAdditionalBinaryFunctions];
-  v31 = [meshAdditionalBinaryFunctions countByEnumeratingWithState:&v37 objects:v57 count:16];
+  v31 = [meshAdditionalBinaryFunctions countByEnumeratingWithState:&v36 objects:v56 count:16];
   if (v31)
   {
     v32 = v31;
-    v33 = *v38;
+    v33 = *v37;
     do
     {
       v34 = 0;
       do
       {
-        if (*v38 != v33)
+        if (*v37 != v33)
         {
           objc_enumerationMutation(meshAdditionalBinaryFunctions);
         }
 
-        [v29 addObject:{objc_msgSend(*(*(&v37 + 1) + 8 * v34++), "baseObject")}];
+        [v29 addObject:{objc_msgSend(*(*(&v36 + 1) + 8 * v34++), "baseObject")}];
       }
 
       while (v32 != v34);
-      v32 = [meshAdditionalBinaryFunctions countByEnumeratingWithState:&v37 objects:v57 count:16];
+      v32 = [meshAdditionalBinaryFunctions countByEnumeratingWithState:&v36 objects:v56 count:16];
     }
 
     while (v32);
   }
 
   [v4 setMeshAdditionalBinaryFunctions:v29];
-  v35 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -6550,50 +6647,45 @@ LABEL_5:
 
 - (id)newUnwrappedMTL4CompilerTaskOptions:(id)options
 {
-  v18 = *MEMORY[0x277D85DE8];
-  if (options)
+  v17 = *MEMORY[0x277D85DE8];
+  if (!options)
   {
-    v4 = [options copy];
-    v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(objc_msgSend(options, "lookupArchives"), "count")}];
-    v13 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    lookupArchives = [options lookupArchives];
-    v7 = [lookupArchives countByEnumeratingWithState:&v13 objects:v17 count:16];
-    if (v7)
+    return 0;
+  }
+
+  v4 = [options copy];
+  v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(objc_msgSend(options, "lookupArchives"), "count")}];
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  lookupArchives = [options lookupArchives];
+  v7 = [lookupArchives countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v13;
+    do
     {
-      v8 = v7;
-      v9 = *v14;
+      v10 = 0;
       do
       {
-        v10 = 0;
-        do
+        if (*v13 != v9)
         {
-          if (*v14 != v9)
-          {
-            objc_enumerationMutation(lookupArchives);
-          }
-
-          [v5 addObject:{objc_msgSend(*(*(&v13 + 1) + 8 * v10++), "baseObject")}];
+          objc_enumerationMutation(lookupArchives);
         }
 
-        while (v8 != v10);
-        v8 = [lookupArchives countByEnumeratingWithState:&v13 objects:v17 count:16];
+        [v5 addObject:{objc_msgSend(*(*(&v12 + 1) + 8 * v10++), "baseObject")}];
       }
 
-      while (v8);
+      while (v8 != v10);
+      v8 = [lookupArchives countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    [v4 setLookupArchives:v5];
+    while (v8);
   }
 
-  else
-  {
-    v4 = 0;
-  }
-
-  v11 = *MEMORY[0x277D85DE8];
+  [v4 setLookupArchives:v5];
   return v4;
 }
 
@@ -6632,34 +6724,34 @@ LABEL_5:
 
 - (id)newUnwrappedMTL4PipelineStageDynamicLinkingDescriptor:(id)descriptor
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v4 = [descriptor copy];
   v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(objc_msgSend(descriptor, "preloadedLibraries"), "count")}];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   preloadedLibraries = [descriptor preloadedLibraries];
-  v7 = [preloadedLibraries countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v7 = [preloadedLibraries countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v24;
+    v9 = *v23;
     do
     {
       v10 = 0;
       do
       {
-        if (*v24 != v9)
+        if (*v23 != v9)
         {
           objc_enumerationMutation(preloadedLibraries);
         }
 
-        [v5 addObject:{objc_msgSend(*(*(&v23 + 1) + 8 * v10++), "baseObject")}];
+        [v5 addObject:{objc_msgSend(*(*(&v22 + 1) + 8 * v10++), "baseObject")}];
       }
 
       while (v8 != v10);
-      v8 = [preloadedLibraries countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v8 = [preloadedLibraries countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v8);
@@ -6667,38 +6759,37 @@ LABEL_5:
 
   [v4 setPreloadedLibraries:v5];
   v11 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(objc_msgSend(descriptor, "binaryLinkedFunctions"), "count")}];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   binaryLinkedFunctions = [descriptor binaryLinkedFunctions];
-  v13 = [binaryLinkedFunctions countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v13 = [binaryLinkedFunctions countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v20;
+    v15 = *v19;
     do
     {
       v16 = 0;
       do
       {
-        if (*v20 != v15)
+        if (*v19 != v15)
         {
           objc_enumerationMutation(binaryLinkedFunctions);
         }
 
-        [v11 addObject:{objc_msgSend(*(*(&v19 + 1) + 8 * v16++), "baseObject")}];
+        [v11 addObject:{objc_msgSend(*(*(&v18 + 1) + 8 * v16++), "baseObject")}];
       }
 
       while (v14 != v16);
-      v14 = [binaryLinkedFunctions countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v14 = [binaryLinkedFunctions countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v14);
   }
 
   [v4 setBinaryLinkedFunctions:v11];
-  v17 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -6709,12 +6800,12 @@ LABEL_5:
   return v3;
 }
 
-- (uint64_t)unwrapMTLCommandBufferDescriptor:alwaysCopy:.cold.1()
+- (uint64_t)unwrapMTLCommandBufferDescriptor:(uint64_t)a1 alwaysCopy:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  [NSStringFromClass(v0) UTF8String];
-  v1 = objc_opt_class();
-  [NSStringFromClass(v1) UTF8String];
+  v2 = objc_opt_class();
+  [NSStringFromClass(v2) UTF8String];
+  v3 = objc_opt_class();
+  [NSStringFromClass(v3) UTF8String];
   return MTLReportFailure();
 }
 

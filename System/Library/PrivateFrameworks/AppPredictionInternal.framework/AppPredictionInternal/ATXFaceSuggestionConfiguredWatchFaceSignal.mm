@@ -7,10 +7,10 @@
 
 - (ATXFaceSuggestionConfiguredWatchFaceSignal)init
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v9.receiver = self;
-  v9.super_class = ATXFaceSuggestionConfiguredWatchFaceSignal;
-  v2 = [(ATXFaceSuggestionConfiguredWatchFaceSignal *)&v9 init];
+  v11 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = ATXFaceSuggestionConfiguredWatchFaceSignal;
+  v2 = [(ATXFaceSuggestionConfiguredWatchFaceSignal *)&v8 init];
   if (v2)
   {
     mEMORY[0x277CEB988] = [MEMORY[0x277CEB988] sharedInstance];
@@ -20,17 +20,16 @@
 
     if (![(NSArray *)v2->_watchFaces count])
     {
-      v6 = __atxlog_handle_lock_screen();
+      v6 = __atxlog_handle_lock_screen(0);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v11 = "[ATXFaceSuggestionConfiguredWatchFaceSignal init]";
+        v10 = "[ATXFaceSuggestionConfiguredWatchFaceSignal init]";
         _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "%s: no stored watchfaces", buf, 0xCu);
       }
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -162,9 +161,9 @@ LABEL_20:
           v17 = extensionBundleIdentifier;
           v18 = @"com.apple.GradientPoster.GradientPosterExtension";
 LABEL_26:
-          v23 = [v17 isEqualToString:{v18, v31}];
+          v24 = [v17 isEqualToString:{v18, v31}];
 
-          if ((v23 & 1) == 0)
+          if ((v24 & 1) == 0)
           {
             goto LABEL_44;
           }
@@ -189,17 +188,17 @@ LABEL_25:
 
       else
       {
-        v27 = [extensionBundleIdentifier isEqualToString:@"com.apple.PhotosUIPrivate.PhotosPosterProvider"];
+        v28 = [extensionBundleIdentifier isEqualToString:@"com.apple.PhotosUIPrivate.PhotosPosterProvider"];
 
-        if (!v27)
+        if (!v28)
         {
           goto LABEL_44;
         }
       }
 
 LABEL_34:
-      v24 = __atxlog_handle_lock_screen();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v25 = __atxlog_handle_lock_screen(v23);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         *buf = v31;
         v37 = "[ATXFaceSuggestionConfiguredWatchFaceSignal valueForDescriptor:]";
@@ -207,35 +206,35 @@ LABEL_34:
         v39 = descriptorCopy;
         v40 = 2112;
         v41 = v12;
-        _os_log_impl(&dword_2263AA000, v24, OS_LOG_TYPE_DEFAULT, "%s: descriptor (%@) has matching watch face: %@", buf, 0x20u);
+        _os_log_impl(&dword_2263AA000, v25, OS_LOG_TYPE_DEFAULT, "%s: descriptor (%@) has matching watch face: %@", buf, 0x20u);
       }
 
-      v25 = v12;
-      v26 = 0.1;
-      if ([v25 style] != 1)
+      v26 = v12;
+      v27 = 0.1;
+      if ([v26 style] != 1)
       {
-        v26 = 0.1;
-        if ([v25 style] != 17)
+        v27 = 0.1;
+        if ([v26 style] != 17)
         {
-          v26 = 0.1;
-          if ([v25 style] != 10)
+          v27 = 0.1;
+          if ([v26 style] != 10)
           {
-            if ([v25 style] == 2)
+            if ([v26 style] == 2)
             {
-              v26 = 0.1;
+              v27 = 0.1;
             }
 
             else
             {
-              v26 = 1.0;
+              v27 = 1.0;
             }
           }
         }
       }
 
-      if (v10 < v26)
+      if (v10 < v27)
       {
-        v10 = v26;
+        v10 = v27;
       }
 
 LABEL_44:
@@ -243,14 +242,13 @@ LABEL_44:
     }
 
     while (v8 != v11);
-    v28 = [(NSArray *)v5 countByEnumeratingWithState:&v32 objects:v42 count:16];
-    v8 = v28;
+    v29 = [(NSArray *)v5 countByEnumeratingWithState:&v32 objects:v42 count:16];
+    v8 = v29;
   }
 
-  while (v28);
+  while (v29);
 LABEL_52:
 
-  v29 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

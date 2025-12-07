@@ -61,9 +61,9 @@
 
 + (id)makeIdentifier
 {
-  objc_opt_self();
-  v0 = +[CNLabeledValue identifierProvider];
-  makeIdentifier = [v0 makeIdentifier];
+  v1 = objc_opt_self();
+  v2 = +[(CNLabeledValue *)v1];
+  makeIdentifier = [v2 makeIdentifier];
 
   return makeIdentifier;
 }
@@ -76,9 +76,9 @@
     +[CNLabeledValue identifierProvider];
   }
 
-  v0 = identifierProvider_cn_once_object_0;
+  v1 = identifierProvider_cn_once_object_0;
 
-  return v0;
+  return v1;
 }
 
 uint64_t __36__CNLabeledValue_identifierProvider__block_invoke()
@@ -162,49 +162,49 @@ LABEL_15:
   return v8;
 }
 
-void __50__CNLabeledValue_propertyDescriptionOwnersByLabel__block_invoke()
+void __50__CNLabeledValue_propertyDescriptionOwnersByLabel__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_new();
-  v13 = 0u;
-  v14 = 0u;
+  v20 = *MEMORY[0x1E69E9840];
+  v2 = objc_opt_new();
   v15 = 0u;
   v16 = 0u;
-  v1 = +[CN multiValueContactProperties];
-  v2 = [v1 countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v2)
+  v17 = 0u;
+  v18 = 0u;
+  v3 = +[CN multiValueContactProperties];
+  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v4)
   {
-    v3 = v2;
-    v4 = *v14;
+    v5 = v4;
+    v6 = *v16;
     do
     {
-      for (i = 0; i != v3; ++i)
+      for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v4)
+        if (*v16 != v6)
         {
-          objc_enumerationMutation(v1);
+          objc_enumerationMutation(v3);
         }
 
-        v6 = *(*(&v13 + 1) + 8 * i);
-        v7 = [v6 managedLabels];
-        v10[0] = MEMORY[0x1E69E9820];
-        v10[1] = 3221225472;
-        v10[2] = __50__CNLabeledValue_propertyDescriptionOwnersByLabel__block_invoke_2;
-        v10[3] = &unk_1E7412BC0;
-        v11 = v0;
-        v12 = v6;
-        [v7 _cn_each:v10];
+        v8 = *(*(&v15 + 1) + 8 * i);
+        v9 = [v8 managedLabels];
+        v12[0] = MEMORY[0x1E69E9820];
+        v12[1] = 3221225472;
+        v12[2] = __50__CNLabeledValue_propertyDescriptionOwnersByLabel__block_invoke_2;
+        v12[3] = &unk_1E7412BC0;
+        v13 = v2;
+        v14 = v8;
+        [v9 _cn_each:v12];
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
-    while (v3);
+    while (v5);
   }
 
-  v8 = [v0 copy];
-  v9 = propertyDescriptionOwnersByLabel_result;
-  propertyDescriptionOwnersByLabel_result = v8;
+  v10 = [v2 copy];
+  v11 = propertyDescriptionOwnersByLabel_result;
+  propertyDescriptionOwnersByLabel_result = v10;
 }
 
 + (id)propertyDescriptionOwnersByLabel
@@ -215,9 +215,9 @@ void __50__CNLabeledValue_propertyDescriptionOwnersByLabel__block_invoke()
     +[CNLabeledValue propertyDescriptionOwnersByLabel];
   }
 
-  v0 = propertyDescriptionOwnersByLabel_result;
+  v1 = propertyDescriptionOwnersByLabel_result;
 
-  return v0;
+  return v1;
 }
 
 - (unint64_t)hash
@@ -300,21 +300,21 @@ uint64_t __41__CNLabeledValue_testMatchingIdentifier___block_invoke(uint64_t a1,
 + (id)propertyDescriptionLocalizationForLabel:(uint64_t)label
 {
   v2 = a2;
-  objc_opt_self();
-  v3 = +[CNLabeledValue propertyDescriptionOwnersByLabel];
-  v4 = [v3 objectForKeyedSubscript:v2];
-  v5 = v4;
-  if (v4)
+  v3 = objc_opt_self();
+  v4 = +[(CNLabeledValue *)v3];
+  v5 = [v4 objectForKeyedSubscript:v2];
+  v6 = v5;
+  if (v5)
   {
-    v6 = [v4 localizedStringForLabel:v2];
+    v7 = [v5 localizedStringForLabel:v2];
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  return v6;
+  return v7;
 }
 
 + (id)labelForIdentifier:(id)identifier inArray:(id)array
@@ -348,7 +348,7 @@ uint64_t __41__CNLabeledValue_testMatchingIdentifier___block_invoke(uint64_t a1,
   v6 = value;
   v7 = label;
   v8 = [self alloc];
-  v9 = +[CNLabeledValue makeIdentifier];
+  v9 = +[(CNLabeledValue *)self];
   v10 = [v8 initWithIdentifier:v9 label:v7 value:v6];
 
   return v10;

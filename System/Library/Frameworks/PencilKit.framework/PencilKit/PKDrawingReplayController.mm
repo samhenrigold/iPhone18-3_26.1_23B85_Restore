@@ -494,7 +494,7 @@ LABEL_8:
     v11 = 0u;
     if (pointCopy)
     {
-      [pointCopy pkInputPointWithOffset:?];
+      objc_msgSend_pkInputPointWithOffset_(pointCopy);
     }
 
     drawingGestureRecognizer = [(PKDrawingReplayController *)self drawingGestureRecognizer];
@@ -569,7 +569,7 @@ void __57__PKDrawingReplayController__strokeMovedWithReplayPoint___block_invoke(
     v4 = *(a1 + 32);
     if (v4)
     {
-      [v4 pkInputPointWithOffset:?];
+      objc_msgSend_pkInputPointWithOffset_(v4);
     }
 
     v5 = [v3 drawingGestureRecognizer];
@@ -670,7 +670,7 @@ void __57__PKDrawingReplayController__strokeEndedWithReplayPoint___block_invoke(
   v33 = 0u;
   v34 = 0u;
   v32 = 0u;
-  [(PKDrawingReplayController *)self transform];
+  objc_msgSend_transform(self);
   v30 = 0u;
   v31 = 0u;
   v28 = 0u;

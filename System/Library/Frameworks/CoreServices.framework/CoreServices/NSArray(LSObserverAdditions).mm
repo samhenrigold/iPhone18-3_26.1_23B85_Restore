@@ -42,17 +42,16 @@
   }
 
   v11 = [v4 count];
-  if (v11 != [v5 count])
+  v12 = [v5 count];
+  if (v11 != v12)
   {
-    v12 = _LSInstallLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = _LSInstallLog(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *v15 = 0;
-      _os_log_impl(&dword_18162D000, v12, OS_LOG_TYPE_DEFAULT, "LaunchServices observer: Filtering notification for launch-prohibited apps", v15, 2u);
+      _os_log_impl(&dword_18162D000, v13, OS_LOG_TYPE_DEFAULT, "LaunchServices observer: Filtering notification for launch-prohibited apps", v15, 2u);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

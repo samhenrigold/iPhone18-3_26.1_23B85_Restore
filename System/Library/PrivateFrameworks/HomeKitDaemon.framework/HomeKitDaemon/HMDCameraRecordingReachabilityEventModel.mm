@@ -2,6 +2,7 @@
 + (id)hmbProperties;
 - (BOOL)reachable;
 - (id)createEvent;
+- (void)setReachable:(BOOL)reachable;
 @end
 
 @implementation HMDCameraRecordingReachabilityEventModel
@@ -20,23 +21,21 @@
 
 void __57__HMDCameraRecordingReachabilityEventModel_hmbProperties__block_invoke()
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"dateOfOccurrence";
+  v5[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"dateOfOccurrence";
   v0 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v5[1] = @"reachableField";
-  v6[0] = v0;
+  v4[1] = @"reachableField";
+  v5[0] = v0;
   v1 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v6[1] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
+  v5[1] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
   v3 = hmbProperties__properties_150479;
   hmbProperties__properties_150479 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)createEvent
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dateOfOccurrence = [(HMDCameraRecordingReachabilityEventModel *)self dateOfOccurrence];
   if (dateOfOccurrence)
   {
@@ -55,18 +54,16 @@ void __57__HMDCameraRecordingReachabilityEventModel_hmbProperties__block_invoke(
     {
       v11 = HMFGetLogIdentifier();
       v12 = [(HMBModel *)selfCopy debugDescription];
-      v15 = 138543618;
-      v16 = v11;
-      v17 = 2112;
-      v18 = v12;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Cannot create reachability event from model: %@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v11;
+      v16 = 2112;
+      v17 = v12;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Cannot create reachability event from model: %@", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
     v7 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -77,6 +74,12 @@ void __57__HMDCameraRecordingReachabilityEventModel_hmbProperties__block_invoke(
   bOOLValue = [reachableField BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setReachable:(BOOL)reachable
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:reachable];
+  [(HMDCameraRecordingReachabilityEventModel *)self setReachableField:v4];
 }
 
 @end

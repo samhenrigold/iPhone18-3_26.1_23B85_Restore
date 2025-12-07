@@ -65,7 +65,7 @@
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v8 = 1;
+    v6 = 1;
   }
 
   else
@@ -74,18 +74,16 @@
     if (objc_opt_isKindOfClass())
     {
       v5 = equalCopy;
-      rateLimitIdentifier = self->_rateLimitIdentifier;
-      v7 = v5->_rateLimitIdentifier;
-      v8 = BSEqualObjects() && self->_isDisabledStrategy == v5->_isDisabledStrategy && self->_isDefaultStrategy == v5->_isDefaultStrategy;
+      v6 = BSEqualObjects() && self->_isDisabledStrategy == v5[17] && self->_isDefaultStrategy == v5[16];
     }
 
     else
     {
-      v8 = 0;
+      v6 = 0;
     }
   }
 
-  return v8;
+  return v6;
 }
 
 - (void)appendDescriptionToFormatter:(id)formatter

@@ -170,7 +170,7 @@ uint64_t __50__SUScriptApplication_setStatusBarStyle_animated___block_invoke(uin
   return v4;
 }
 
-uint64_t __38__SUScriptApplication_iconBadgeNumber__block_invoke(uint64_t a1)
+void *__38__SUScriptApplication_iconBadgeNumber__block_invoke(uint64_t a1)
 {
   v2 = [MEMORY[0x1E69DC668] sharedApplication];
   result = [objc_alloc(MEMORY[0x1E696AD98]) initWithInteger:{objc_msgSend(v2, "applicationIconBadgeNumber")}];
@@ -217,7 +217,7 @@ uint64_t __38__SUScriptApplication_iconBadgeNumber__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __35__SUScriptApplication_screenHeight__block_invoke(uint64_t a1)
+void *__35__SUScriptApplication_screenHeight__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(MEMORY[0x1E69DCEB0] "mainScreen")];
   v3 = *(*(a1 + 32) + 8);
@@ -241,7 +241,7 @@ uint64_t __35__SUScriptApplication_screenHeight__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __34__SUScriptApplication_screenWidth__block_invoke(uint64_t a1)
+void *__34__SUScriptApplication_screenWidth__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(MEMORY[0x1E69DCEB0] "mainScreen")];
   v3 = *(*(a1 + 32) + 8);
@@ -354,7 +354,7 @@ uint64_t __42__SUScriptApplication_setIconBadgeNumber___block_invoke(uint64_t a1
   return v3;
 }
 
-uint64_t __38__SUScriptApplication_statusBarHidden__block_invoke(uint64_t a1)
+void *__38__SUScriptApplication_statusBarHidden__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(MEMORY[0x1E69DC668] "sharedApplication")];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -373,7 +373,7 @@ uint64_t __38__SUScriptApplication_statusBarHidden__block_invoke(uint64_t a1)
   return v2;
 }
 
-uint64_t __37__SUScriptApplication_statusBarStyle__block_invoke(uint64_t a1)
+void *__37__SUScriptApplication_statusBarStyle__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(MEMORY[0x1E69DC668] "sharedApplication")];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -414,7 +414,7 @@ uint64_t __37__SUScriptApplication_statusBarStyle__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __45__SUScriptApplication_wasLaunchedFromLibrary__block_invoke(uint64_t a1)
+void *__45__SUScriptApplication_wasLaunchedFromLibrary__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(a1 + 32) "clientInterface")];
   *(*(*(a1 + 40) + 8) + 24) = result;

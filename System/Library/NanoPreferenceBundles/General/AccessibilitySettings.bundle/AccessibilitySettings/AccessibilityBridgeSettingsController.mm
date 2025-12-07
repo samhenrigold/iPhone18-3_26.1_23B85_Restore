@@ -48,6 +48,7 @@
 - (void)setTextSize:(id)size specifier:(id)specifier;
 - (void)tableView:(id)view willDisplayCell:(id)cell forRowAtIndexPath:(id)path;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation AccessibilityBridgeSettingsController
@@ -108,7 +109,7 @@ void __45__AccessibilityBridgeSettingsController_init__block_invoke(uint64_t a1,
 
 void __45__AccessibilityBridgeSettingsController_init__block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = AXLogCommon();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -122,9 +123,9 @@ void __45__AccessibilityBridgeSettingsController_init__block_invoke_2(uint64_t a
       v3 = @"NO";
     }
 
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_23BCCF000, v2, OS_LOG_TYPE_DEFAULT, "[WorkoutVoice] isFeatureSupported=%@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_23BCCF000, v2, OS_LOG_TYPE_DEFAULT, "[WorkoutVoice] isFeatureSupported=%@", &v7, 0xCu);
   }
 
   v4 = *(a1 + 40);
@@ -133,8 +134,6 @@ void __45__AccessibilityBridgeSettingsController_init__block_invoke_2(uint64_t a
 
   v6 = objc_loadWeakRetained((a1 + 32));
   [v6 _handleWorkoutVoiceFeatureAvailabilityChanged];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -158,12 +157,12 @@ void __45__AccessibilityBridgeSettingsController_init__block_invoke_2(uint64_t a
 
 - (id)specifiers
 {
-  v133 = *MEMORY[0x277D85DE8];
+  v128 = *MEMORY[0x277D85DE8];
   v3 = *(&self->super.super.super.super.super.super.isa + *MEMORY[0x277D3FC48]);
   if (!v3)
   {
-    v111 = *MEMORY[0x277D3FC48];
-    v123 = [objc_allocWithZone(MEMORY[0x277CBEB18]) init];
+    v106 = *MEMORY[0x277D3FC48];
+    v118 = [objc_allocWithZone(MEMORY[0x277CBEB18]) init];
     v4 = [(AccessibilityBridgeSettingsController *)self loadSpecifiersFromPlistName:@"AccessibilitySettings" target:self];
     v5 = [v4 specifierForID:@"TEXT_SIZE_SLIDER_ID"];
     v6 = MEMORY[0x277CCABB0];
@@ -173,17 +172,17 @@ void __45__AccessibilityBridgeSettingsController_init__block_invoke_2(uint64_t a
 
     v9 = BPSAccessoryHighlightColor();
     v10 = BPSTintedSymbol();
-    v122 = *MEMORY[0x277D400D0];
+    v117 = *MEMORY[0x277D400D0];
     [v5 setProperty:v10 forKey:?];
 
     v11 = BPSAccessoryHighlightColor();
     v12 = BPSTintedSymbol();
-    v121 = *MEMORY[0x277D400E0];
+    v116 = *MEMORY[0x277D400E0];
     [v5 setProperty:v12 forKey:?];
 
     LODWORD(v13) = *MEMORY[0x277D76F38];
     v14 = [MEMORY[0x277CCABB0] numberWithFloat:v13];
-    v110 = v5;
+    v105 = v5;
     [v5 setProperty:v14 forKey:*MEMORY[0x277D40140]];
 
     _supportsAudioTranscriptions = [(AccessibilityBridgeSettingsController *)self _supportsAudioTranscriptions];
@@ -274,26 +273,19 @@ void __45__AccessibilityBridgeSettingsController_init__block_invoke_2(uint64_t a
         {
           v44 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"AirPodsGroup"];
           [v4 ps_addGroup:v44 afterGroup:v43];
-          v45 = [pairedAirPods count];
-          v46 = off_278B8FEC8;
-          if (v45 <= 1)
-          {
-            v46 = off_278B8FED0;
-          }
-
-          v47 = *v46;
-          v48 = objc_opt_class();
-          v49 = MEMORY[0x277D3FAD8];
+          [pairedAirPods count];
+          v45 = objc_opt_class();
+          v46 = MEMORY[0x277D3FAD8];
           mEMORY[0x277CE7CF8]2 = [MEMORY[0x277CE7CF8] sharedInstance];
           [mEMORY[0x277CE7CF8]2 titleForSettings];
-          v52 = v51 = v16;
-          v53 = [v49 preferenceSpecifierNamed:v52 target:self set:0 get:0 detail:v48 cell:2 edit:0];
+          v49 = v48 = v16;
+          v50 = [v46 preferenceSpecifierNamed:v49 target:self set:0 get:0 detail:v45 cell:2 edit:0];
 
-          v16 = v51;
+          v16 = v48;
           v34 = MEMORY[0x277D3FFB8];
 
-          [v53 setProperty:pairedAirPods forKey:@"AirPods"];
-          [v4 ps_addSpecifier:v53 toGroup:v44];
+          [v50 setProperty:pairedAirPods forKey:@"AirPods"];
+          [v4 ps_addSpecifier:v50 toGroup:v44];
         }
       }
     }
@@ -301,239 +293,238 @@ void __45__AccessibilityBridgeSettingsController_init__block_invoke_2(uint64_t a
     if (_os_feature_enabled_impl() && [(AccessibilityBridgeSettingsController *)self _supportsLiveSpeech])
     {
       emptyGroupSpecifier2 = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
-      v55 = MEMORY[0x277D3FAD8];
-      v56 = settingsLocString(@"LIVE_SPEECH_TITLE", @"AccessibilitySettings");
-      v57 = [v55 preferenceSpecifierNamed:v56 target:self set:0 get:sel_liveSpeechEnabled_ detail:objc_opt_class() cell:2 edit:0];
+      v52 = MEMORY[0x277D3FAD8];
+      v53 = settingsLocString(@"LIVE_SPEECH_TITLE", @"AccessibilitySettings");
+      v54 = [v52 preferenceSpecifierNamed:v53 target:self set:0 get:sel_liveSpeechEnabled_ detail:objc_opt_class() cell:2 edit:0];
 
-      [v57 setProperty:@"LIVE_SPEECH_TITLE" forKey:*v34];
-      v58 = [(AccessibilityBridgeBaseController *)self imageForKey:@"Speech"];
-      [v57 setProperty:v58 forKey:*MEMORY[0x277D3FFC0]];
+      [v54 setProperty:@"LIVE_SPEECH_TITLE" forKey:*v34];
+      v55 = [(AccessibilityBridgeBaseController *)self imageForKey:@"Speech"];
+      [v54 setProperty:v55 forKey:*MEMORY[0x277D3FFC0]];
 
-      [v57 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FFE0]];
-      [v57 setProperty:@"com.apple.Accessibility" forKey:*MEMORY[0x277D3FEF8]];
-      v59 = [v4 specifierForID:@"TapticTimeSpeedAdjustmentSlider"];
-      if (!v59 || (v60 = [v4 indexOfObject:v59], v60 == 0x7FFFFFFFFFFFFFFFLL) || (v61 = v60, v60 >= objc_msgSend(v4, "count") - 1))
+      [v54 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FFE0]];
+      [v54 setProperty:@"com.apple.Accessibility" forKey:*MEMORY[0x277D3FEF8]];
+      v56 = [v4 specifierForID:@"TapticTimeSpeedAdjustmentSlider"];
+      if (!v56 || (v57 = [v4 indexOfObject:v56], v57 == 0x7FFFFFFFFFFFFFFFLL) || (v58 = v57, v57 >= objc_msgSend(v4, "count") - 1))
       {
         [v4 addObject:emptyGroupSpecifier2];
-        [v4 addObject:v57];
+        [v4 addObject:v54];
       }
 
       else
       {
-        [v4 insertObject:emptyGroupSpecifier2 atIndex:v61 + 1];
-        [v4 insertObject:v57 atIndex:v61 + 2];
+        [v4 insertObject:emptyGroupSpecifier2 atIndex:v58 + 1];
+        [v4 insertObject:v54 atIndex:v58 + 2];
       }
     }
 
     if (_os_feature_enabled_impl())
     {
-      v62 = [v4 indexOfSpecifierWithID:@"GrayscaleDisplay"];
-      if (v62 != 0x7FFFFFFFFFFFFFFFLL)
+      v59 = [v4 indexOfSpecifierWithID:@"GrayscaleDisplay"];
+      if (v59 != 0x7FFFFFFFFFFFFFFFLL)
       {
-        [v4 removeObjectAtIndex:v62];
+        [v4 removeObjectAtIndex:v59];
       }
 
-      v63 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"COLOR_FILTERS_GROUP"];
-      v64 = settingsLocString(@"COLOR_FILTERS_SECTION_FOOTER", @"AccessibilitySettings");
-      [v63 setProperty:v64 forKey:*v16];
+      v60 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"COLOR_FILTERS_GROUP"];
+      v61 = settingsLocString(@"COLOR_FILTERS_SECTION_FOOTER", @"AccessibilitySettings");
+      [v60 setProperty:v61 forKey:*v16];
 
-      v65 = [v4 specifierForID:@"INCREASE_CONTRAST_GROUP"];
-      [v4 ps_addGroup:v63 afterGroup:v65];
+      v62 = [v4 specifierForID:@"INCREASE_CONTRAST_GROUP"];
+      [v4 ps_addGroup:v60 afterGroup:v62];
 
-      v66 = MEMORY[0x277D3FAD8];
-      v67 = settingsLocString(@"COLOR_FILTERS_ROW_TITLE", @"AccessibilitySettings");
-      v68 = [v66 preferenceSpecifierNamed:v67 target:self set:0 get:sel_globalColorFilterEnabled detail:objc_opt_class() cell:2 edit:0];
+      v63 = MEMORY[0x277D3FAD8];
+      v64 = settingsLocString(@"COLOR_FILTERS_ROW_TITLE", @"AccessibilitySettings");
+      v65 = [v63 preferenceSpecifierNamed:v64 target:self set:0 get:sel_globalColorFilterEnabled detail:objc_opt_class() cell:2 edit:0];
 
-      [v68 setProperty:@"COLOR_FILTERS_ROW_TITLE" forKey:*v34];
-      [v68 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FFE0]];
-      [v68 setProperty:@"com.apple.Accessibility" forKey:*MEMORY[0x277D3FEF8]];
-      [v4 ps_addSpecifier:v68 toGroup:v63];
+      [v65 setProperty:@"COLOR_FILTERS_ROW_TITLE" forKey:*v34];
+      [v65 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FFE0]];
+      [v65 setProperty:@"com.apple.Accessibility" forKey:*MEMORY[0x277D3FEF8]];
+      [v4 ps_addSpecifier:v65 toGroup:v60];
     }
 
     if (AXRuntimeCheck_SupportsIncreaseBrightnessFloor() && AXActivePairedDeviceIsLighthouseEOrLater())
     {
       emptyGroupSpecifier3 = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
-      v70 = settingsLocString(@"INCREASE_BRIGHTNESS_FLOOR_SECTION_FOOTER", @"AccessibilitySettings");
-      [emptyGroupSpecifier3 setProperty:v70 forKey:*v16];
+      v67 = settingsLocString(@"INCREASE_BRIGHTNESS_FLOOR_SECTION_FOOTER", @"AccessibilitySettings");
+      [emptyGroupSpecifier3 setProperty:v67 forKey:*v16];
 
-      v71 = [v4 specifierForID:@"COLOR_FILTERS_GROUP"];
-      [v4 ps_addGroup:emptyGroupSpecifier3 afterGroup:v71];
+      v68 = [v4 specifierForID:@"COLOR_FILTERS_GROUP"];
+      [v4 ps_addGroup:emptyGroupSpecifier3 afterGroup:v68];
 
-      v72 = MEMORY[0x277D3FAD8];
-      v73 = settingsLocString(@"INCREASE_BRIGHTNESS_FLOOR_ROW_TITLE", @"AccessibilitySettings");
-      v74 = [v72 preferenceSpecifierNamed:v73 target:self set:sel_setIncreaseBrightnessFloorEnabled_specifier_ get:sel_isIncreaseBrightnessFloorEnabled_ detail:0 cell:6 edit:0];
+      v69 = MEMORY[0x277D3FAD8];
+      v70 = settingsLocString(@"INCREASE_BRIGHTNESS_FLOOR_ROW_TITLE", @"AccessibilitySettings");
+      v71 = [v69 preferenceSpecifierNamed:v70 target:self set:sel_setIncreaseBrightnessFloorEnabled_specifier_ get:sel_isIncreaseBrightnessFloorEnabled_ detail:0 cell:6 edit:0];
 
-      [v74 setProperty:@"INCREASE_BRIGHTNESS_FLOOR_SWITCH_ID" forKey:*v34];
-      [v74 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FFE0]];
-      [v74 setProperty:@"com.apple.Accessibility" forKey:*MEMORY[0x277D3FEF8]];
-      [v4 ps_addSpecifier:v74 toGroup:emptyGroupSpecifier3];
+      [v71 setProperty:@"INCREASE_BRIGHTNESS_FLOOR_SWITCH_ID" forKey:*v34];
+      [v71 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FFE0]];
+      [v71 setProperty:@"com.apple.Accessibility" forKey:*MEMORY[0x277D3FEF8]];
+      [v4 ps_addSpecifier:v71 toGroup:emptyGroupSpecifier3];
     }
 
     if (AXActivePairedDeviceSupportsElton() && AXActivePairedDeviceSupportsFlick())
     {
-      v75 = [v4 indexOfSpecifierWithID:@"SideButton"];
-      v76 = MEMORY[0x277D3FAD8];
-      v77 = settingsLocString(@"WRIST_FLICK_SPEED_ROW_TITLE", @"WristFlickSettings-twister");
-      v78 = [v76 preferenceSpecifierNamed:v77 target:self set:0 get:sel_wristFlickSpeed detail:objc_opt_class() cell:2 edit:0];
+      v72 = [v4 indexOfSpecifierWithID:@"SideButton"];
+      v73 = MEMORY[0x277D3FAD8];
+      v74 = settingsLocString(@"WRIST_FLICK_SPEED_ROW_TITLE", @"WristFlickSettings-twister");
+      v75 = [v73 preferenceSpecifierNamed:v74 target:self set:0 get:sel_wristFlickSpeed detail:objc_opt_class() cell:2 edit:0];
 
-      [v78 setProperty:@"WRIST_FLICK_SPEED_ID" forKey:*v34];
-      [v78 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FFE0]];
-      [v4 insertObject:v78 atIndex:v75];
+      [v75 setProperty:@"WRIST_FLICK_SPEED_ID" forKey:*v34];
+      [v75 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FFE0]];
+      [v4 insertObject:v75 atIndex:v72];
     }
 
-    v130 = 0u;
-    v131 = 0u;
-    v128 = 0u;
-    v129 = 0u;
+    v125 = 0u;
+    v126 = 0u;
+    v123 = 0u;
+    v124 = 0u;
     obj = v4;
-    v127 = [obj countByEnumeratingWithState:&v128 objects:v132 count:16];
-    if (v127)
+    v122 = [obj countByEnumeratingWithState:&v123 objects:v127 count:16];
+    if (v122)
     {
-      v79 = @"<A>";
-      v80 = *v34;
-      v125 = *v34;
-      v126 = *v129;
-      v117 = *MEMORY[0x277D3FF48];
-      v116 = *MEMORY[0x277D3FF70];
-      v114 = *MEMORY[0x277D3FF68];
-      v115 = *MEMORY[0x277D3FF58];
-      v112 = *v16;
-      v113 = *MEMORY[0x277D3FF50];
-      v119 = *MEMORY[0x277CEFAF8];
-      v120 = *MEMORY[0x277D3FD80];
-      v118 = *MEMORY[0x277CEFAB8];
+      v76 = @"<A>";
+      v120 = *v34;
+      v121 = *v124;
+      v112 = *MEMORY[0x277D3FF48];
+      v111 = *MEMORY[0x277D3FF70];
+      v109 = *MEMORY[0x277D3FF68];
+      v110 = *MEMORY[0x277D3FF58];
+      v107 = *v16;
+      v108 = *MEMORY[0x277D3FF50];
+      v114 = *MEMORY[0x277CEFAF8];
+      v115 = *MEMORY[0x277D3FD80];
+      v113 = *MEMORY[0x277CEFAB8];
       do
       {
-        for (i = 0; i != v127; ++i)
+        for (i = 0; i != v122; ++i)
         {
-          if (*v129 != v126)
+          if (*v124 != v121)
           {
             objc_enumerationMutation(obj);
           }
 
-          v82 = *(*(&v128 + 1) + 8 * i);
-          v83 = [v82 propertyForKey:v125];
-          if ([v83 isEqualToString:@"MOBILITY"])
+          v78 = *(*(&v123 + 1) + 8 * i);
+          v79 = [v78 propertyForKey:v120];
+          if ([v79 isEqualToString:@"MOBILITY"])
           {
-            v84 = settingsLocString(@"MOBILITY_FOOTER_TEXT", @"AccessibilitySettings");
-            v85 = [v84 rangeOfString:v79];
-            if (v85 != 0x7FFFFFFFFFFFFFFFLL)
+            v80 = settingsLocString(@"MOBILITY_FOOTER_TEXT", @"AccessibilitySettings");
+            v81 = [v80 rangeOfString:v76];
+            if (v81 != 0x7FFFFFFFFFFFFFFFLL)
             {
-              v86 = v85;
-              v87 = objc_opt_class();
-              v88 = NSStringFromClass(v87);
-              [v82 setProperty:v88 forKey:v117];
+              v82 = v81;
+              v83 = objc_opt_class();
+              v84 = NSStringFromClass(v83);
+              [v78 setProperty:v84 forKey:v112];
 
-              v89 = [v84 rangeOfString:@"</A>"];
-              v90 = v89 - ([(__CFString *)v79 length]+ v86);
-              v91 = [v84 stringByReplacingOccurrencesOfString:v79 withString:&stru_284E770C0];
+              v85 = [v80 rangeOfString:@"</A>"];
+              v86 = v85 - ([(__CFString *)v76 length]+ v82);
+              v87 = [v80 stringByReplacingOccurrencesOfString:v76 withString:&stru_284E770C0];
 
-              v84 = [v91 stringByReplacingOccurrencesOfString:@"</A>" withString:&stru_284E770C0];
+              v80 = [v87 stringByReplacingOccurrencesOfString:@"</A>" withString:&stru_284E770C0];
 
-              [v82 setProperty:v84 forKey:v116];
-              v135.location = v86;
-              v135.length = v90;
-              v92 = NSStringFromRange(v135);
-              [v82 setProperty:v92 forKey:v115];
+              [v78 setProperty:v80 forKey:v111];
+              v130.location = v82;
+              v130.length = v86;
+              v88 = NSStringFromRange(v130);
+              [v78 setProperty:v88 forKey:v110];
 
-              v93 = [MEMORY[0x277CCAE60] valueWithNonretainedObject:self];
-              [v82 setProperty:v93 forKey:v114];
+              v89 = [MEMORY[0x277CCAE60] valueWithNonretainedObject:self];
+              [v78 setProperty:v89 forKey:v109];
 
-              [v82 setProperty:@"showHealthPane" forKey:v113];
+              [v78 setProperty:@"showHealthPane" forKey:v108];
             }
           }
 
-          v94 = v79;
-          if ([v83 isEqualToString:@"RTT"])
+          v90 = v76;
+          if ([v79 isEqualToString:@"RTT"])
           {
-            v95 = [MEMORY[0x277D440E0] isRTTSupported] ^ 1;
+            v91 = [MEMORY[0x277D440E0] isRTTSupported] ^ 1;
           }
 
           else
           {
-            v95 = 0;
+            v91 = 0;
           }
 
-          if ([v83 hasPrefix:@"SideButton"])
+          if ([v79 hasPrefix:@"SideButton"])
           {
             _deviceSupportsSideButtonClickSpeed = [(AccessibilityBridgeSettingsController *)self _deviceSupportsSideButtonClickSpeed];
             if (AXActivePairedDeviceIsLighthouseOrLater())
             {
-              v97 = settingsLocString(@"BUTTON_CLICK_SPEED", @"AccessibilitySettings");
-              [v82 setName:v97];
+              v93 = settingsLocString(@"BUTTON_CLICK_SPEED", @"AccessibilitySettings");
+              [v78 setName:v93];
             }
 
-            v95 |= !_deviceSupportsSideButtonClickSpeed;
-            [v82 setProperty:MEMORY[0x277CBEC38] forKey:v120];
+            v91 |= !_deviceSupportsSideButtonClickSpeed;
+            [v78 setProperty:MEMORY[0x277CBEC38] forKey:v115];
           }
 
-          if ([v83 hasPrefix:@"TouchAccommodations"])
+          if ([v79 hasPrefix:@"TouchAccommodations"])
           {
-            v95 |= AXGizmoTouchAccommodationsSupported() ^ 1;
+            v91 |= AXGizmoTouchAccommodationsSupported() ^ 1;
           }
 
-          if ([v83 isEqualToString:@"TapticTimeSpeedAdjustmentSlider"])
+          if ([v79 isEqualToString:@"TapticTimeSpeedAdjustmentSlider"])
           {
-            v98 = AXHareImage();
-            [v82 setProperty:v98 forKey:v121];
+            v94 = AXHareImage();
+            [v78 setProperty:v94 forKey:v116];
 
-            v99 = AXTortoiseImage();
-            [v82 setProperty:v99 forKey:v122];
+            v95 = AXTortoiseImage();
+            [v78 setProperty:v95 forKey:v117];
           }
 
-          if ([v83 hasPrefix:@"TapticTimeSpeedAdjustment"])
+          if ([v79 hasPrefix:@"TapticTimeSpeedAdjustment"])
           {
-            v95 |= ![(AccessibilityBridgeSettingsController *)self _tapticTimeSpeedAdjustmentSupported];
+            v91 |= ![(AccessibilityBridgeSettingsController *)self _tapticTimeSpeedAdjustmentSupported];
           }
 
-          if ([v83 hasPrefix:@"WalkieTalkieTapToTalk"])
+          if ([v79 hasPrefix:@"WalkieTalkieTapToTalk"])
           {
-            v95 |= ![(AccessibilityBridgeSettingsController *)self _walkieTalkieIsSupported];
+            v91 |= ![(AccessibilityBridgeSettingsController *)self _walkieTalkieIsSupported];
           }
 
-          if ([v83 hasPrefix:@"AppSwitcherAutoSelect"])
+          if ([v79 hasPrefix:@"AppSwitcherAutoSelect"])
           {
             if (AXActivePairedDeviceIsLighthouseEOrLater())
             {
-              if ([v83 isEqualToString:@"AppSwitcherAutoSelectGroup"])
+              if ([v79 isEqualToString:@"AppSwitcherAutoSelectGroup"])
               {
-                v100 = settingsLocString(@"APP_SWITCHER_AUTO_SELECT_DETAILS", @"AccessibilitySettings");
-                v101 = AXCFormattedString();
+                v96 = settingsLocString(@"APP_SWITCHER_AUTO_SELECT_DETAILS", @"AccessibilitySettings");
+                v97 = AXCFormattedString();
 
-                [v82 setProperty:v101 forKey:{v112, 1}];
+                [v78 setProperty:v97 forKey:{v107, 1}];
               }
             }
 
             else
             {
-              v95 = 1;
+              v91 = 1;
             }
           }
 
-          if ([v83 hasPrefix:@"TapticChimes"])
+          if ([v79 hasPrefix:@"TapticChimes"])
           {
             if ([(AccessibilityBridgeSettingsController *)self _tapticChimesIsSupported])
             {
-              if ([v83 isEqualToString:@"TapticChimesCell"])
+              if ([v79 isEqualToString:@"TapticChimesCell"])
               {
                 mEMORY[0x277CE6FA8] = [MEMORY[0x277CE6FA8] sharedInstance];
                 tapticChimesLocalizedTitle = [mEMORY[0x277CE6FA8] tapticChimesLocalizedTitle];
-                [v82 setName:tapticChimesLocalizedTitle];
+                [v78 setName:tapticChimesLocalizedTitle];
               }
             }
 
             else
             {
-              v95 = 1;
+              v91 = 1;
             }
           }
 
-          if ([v83 hasPrefix:@"HeadphoneNotificationsID"])
+          if ([v79 hasPrefix:@"HeadphoneNotificationsID"])
           {
-            v104 = [(ADASManager *)self->_headphoneLevelManager getNanoPreferenceFor:v119];
-            if (v104 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+            v100 = [(ADASManager *)self->_headphoneLevelManager getNanoPreferenceFor:v114];
+            if (v100 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
             {
-              bOOLValue = [v104 BOOLValue];
+              bOOLValue = [v100 BOOLValue];
             }
 
             else
@@ -541,76 +532,90 @@ void __45__AccessibilityBridgeSettingsController_init__block_invoke_2(uint64_t a
               bOOLValue = 0;
             }
 
-            v106 = [(ADASManager *)self->_headphoneLevelManager getNanoPreferenceFor:v118];
-            if (v106 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+            v102 = [(ADASManager *)self->_headphoneLevelManager getNanoPreferenceFor:v113];
+            if (v102 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
             {
-              v107 = [v106 BOOLValue] ^ 1;
+              v103 = [v102 BOOLValue] ^ 1;
               if (bOOLValue)
               {
-                goto LABEL_92;
+                goto LABEL_90;
               }
 
-LABEL_91:
-              v95 |= v107;
+LABEL_89:
+              v91 |= v103;
             }
 
             else
             {
-              v107 = 1;
+              v103 = 1;
               if ((bOOLValue & 1) == 0)
               {
-                goto LABEL_91;
+                goto LABEL_89;
               }
             }
 
-LABEL_92:
+LABEL_90:
           }
 
-          if ([v83 hasPrefix:@"SIRI_"] && (!-[AccessibilityBridgeSettingsController _siriIsEnabled](self, "_siriIsEnabled") || !-[AccessibilityBridgeSettingsController _typeToSiriIsSupported](self, "_typeToSiriIsSupported")))
+          if ([v79 hasPrefix:@"SIRI_"] && (!-[AccessibilityBridgeSettingsController _siriIsEnabled](self, "_siriIsEnabled") || !-[AccessibilityBridgeSettingsController _typeToSiriIsSupported](self, "_typeToSiriIsSupported")))
           {
-            v95 = 1;
+            v91 = 1;
           }
 
-          if ([v83 hasPrefix:@"INCREASE_CONTRAST"])
+          if ([v79 hasPrefix:@"INCREASE_CONTRAST"])
           {
-            v95 |= !AXActivePairedDeviceIsLighthouseOrLater();
+            v91 |= !AXActivePairedDeviceIsLighthouseOrLater();
           }
 
-          if (![v83 hasPrefix:@"ButtonShapes"])
+          if (![v79 hasPrefix:@"ButtonShapes"])
           {
-            if (v95)
+            if (v91)
             {
-              goto LABEL_104;
+              goto LABEL_102;
             }
 
-LABEL_103:
-            [v123 addObject:v82];
-            goto LABEL_104;
+LABEL_101:
+            [v118 addObject:v78];
+            goto LABEL_102;
           }
 
-          if (!(v95 & 1 | !AXActivePairedDeviceIsNapiliBOrLater()))
+          if (!(v91 & 1 | !AXActivePairedDeviceIsNapiliBOrLater()))
           {
-            goto LABEL_103;
+            goto LABEL_101;
           }
 
-LABEL_104:
+LABEL_102:
 
-          v79 = v94;
+          v76 = v90;
         }
 
-        v127 = [obj countByEnumeratingWithState:&v128 objects:v132 count:16];
+        v122 = [obj countByEnumeratingWithState:&v123 objects:v127 count:16];
       }
 
-      while (v127);
+      while (v122);
     }
 
-    objc_storeStrong((&self->super.super.super.super.super.super.isa + v111), v123);
-    v3 = *(&self->super.super.super.super.super.super.isa + v111);
+    objc_storeStrong((&self->super.super.super.super.super.super.isa + v106), v118);
+    v3 = *(&self->super.super.super.super.super.super.isa + v106);
   }
 
-  v108 = *MEMORY[0x277D85DE8];
-
   return v3;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v10.receiver = self;
+  v10.super_class = AccessibilityBridgeSettingsController;
+  [(AccessibilityBridgeBaseController *)&v10 viewWillAppear:appear];
+  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v4 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL = [v3 bundleURL];
+  v7 = [v4 initWithKey:@"ACCESSIBILITY_TITLE" table:@"AccessibilitySettings" locale:currentLocale bundleURL:bundleURL];
+
+  v8 = MEMORY[0x277CF3470];
+  v9 = [MEMORY[0x277CBEBC0] URLWithString:@"bridge:root=ACCESSIBILITY_ID"];
+  [v8 emitNavigationEventForSystemSettingWithIconSpecifierIdentifier:@"ACCESSIBILITY_ID" title:v7 localizedNavigationComponents:MEMORY[0x277CBEBF8] deepLink:v9];
 }
 
 - (BOOL)_deviceSupportsSideButtonClickSpeed
@@ -760,18 +765,18 @@ LABEL_104:
 
 void __62__AccessibilityBridgeSettingsController_contentSizeCategories__block_invoke()
 {
-  v14[7] = *MEMORY[0x277D85DE8];
+  v13[7] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277D76858];
-  v14[0] = *MEMORY[0x277D76830];
-  v14[1] = v0;
+  v13[0] = *MEMORY[0x277D76830];
+  v13[1] = v0;
   v1 = *MEMORY[0x277D76828];
-  v14[2] = *MEMORY[0x277D76838];
-  v14[3] = v1;
+  v13[2] = *MEMORY[0x277D76838];
+  v13[3] = v1;
   v2 = *MEMORY[0x277D76818];
-  v14[4] = *MEMORY[0x277D76820];
-  v14[5] = v2;
-  v14[6] = *MEMORY[0x277D76808];
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:7];
+  v13[4] = *MEMORY[0x277D76820];
+  v13[5] = v2;
+  v13[6] = *MEMORY[0x277D76808];
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:7];
   v4 = contentSizeCategories_contentSizeCategories;
   contentSizeCategories_contentSizeCategories = v3;
 
@@ -783,16 +788,14 @@ void __62__AccessibilityBridgeSettingsController_contentSizeCategories__block_in
     {
       v7 = contentSizeCategories_contentSizeCategories;
       v8 = *MEMORY[0x277D767F8];
-      v13[0] = *MEMORY[0x277D76800];
-      v13[1] = v8;
-      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+      v12[0] = *MEMORY[0x277D76800];
+      v12[1] = v8;
+      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
       v10 = [v7 arrayByAddingObjectsFromArray:v9];
       v11 = contentSizeCategories_contentSizeCategories;
       contentSizeCategories_contentSizeCategories = v10;
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setTextSize:(id)size specifier:(id)specifier
@@ -1403,13 +1406,13 @@ LABEL_15:
 
 - (BOOL)_walkieTalkieIsSupported
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277D2BA58]);
   v3 = [v2 initWithDomain:*MEMORY[0x277D71538]];
   synchronize = [v3 synchronize];
-  v14 = 0;
-  v5 = [v3 BOOLForKey:*MEMORY[0x277D71530] keyExistsAndHasValidFormat:&v14];
-  v6 = v14 ^ 1 | v5;
+  v13 = 0;
+  v5 = [v3 BOOLForKey:*MEMORY[0x277D71530] keyExistsAndHasValidFormat:&v13];
+  v6 = v13 ^ 1 | v5;
   _TCSInitializeLogging();
   v7 = *MEMORY[0x277D71520];
   if (os_log_type_enabled(*MEMORY[0x277D71520], OS_LOG_TYPE_DEFAULT))
@@ -1419,17 +1422,16 @@ LABEL_15:
     v10 = NSStringFromBOOL();
     v11 = NSStringFromBOOL();
     *buf = 136315906;
-    v16 = "[AccessibilityBridgeSettingsController _walkieTalkieIsSupported]";
-    v17 = 2112;
-    v18 = v9;
-    v19 = 2112;
-    v20 = v10;
-    v21 = 2112;
-    v22 = v11;
+    v15 = "[AccessibilityBridgeSettingsController _walkieTalkieIsSupported]";
+    v16 = 2112;
+    v17 = v9;
+    v18 = 2112;
+    v19 = v10;
+    v20 = 2112;
+    v21 = v11;
     _os_log_impl(&dword_23BCCF000, v8, OS_LOG_TYPE_DEFAULT, "%s returning %@ (keyExists=%@ isWalkieTalkieInstalled=%@)", buf, 0x2Au);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v6 & 1;
 }
 

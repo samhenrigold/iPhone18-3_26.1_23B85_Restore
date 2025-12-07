@@ -122,54 +122,53 @@ LABEL_15:
 
 + (id)_businessesTableSchema
 {
-  v34[3] = *MEMORY[0x1E69E9840];
-  v28 = [MEMORY[0x1E699B8D0] textColumnWithName:@"domain" collation:2 nullable:1];
-  v27 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"brand_id" nullable:1];
+  v33[3] = *MEMORY[0x1E69E9840];
+  v27 = [MEMORY[0x1E699B8D0] textColumnWithName:@"domain" collation:2 nullable:1];
+  v26 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"brand_id" nullable:1];
   v2 = objc_alloc(MEMORY[0x1E699B958]);
   v3 = [MEMORY[0x1E699B8D0] textColumnWithName:@"address_comment" collation:2 nullable:0];
-  v34[0] = v3;
-  v34[1] = v28;
-  v34[2] = v27;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:3];
+  v33[0] = v3;
+  v33[1] = v27;
+  v33[2] = v26;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:3];
   v5 = [v2 initWithName:@"businesses" rowIDType:2 columns:v4];
 
-  v33[0] = @"address_comment";
-  v33[1] = @"domain";
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:2];
+  v32[0] = @"address_comment";
+  v32[1] = @"domain";
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:2];
   [v5 addUniquenessConstraintForColumns:v6 conflictResolution:1];
 
-  v32 = @"brand_id";
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v32 count:1];
+  v31 = @"brand_id";
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v31 count:1];
   [v5 addUniquenessConstraintForColumns:v7 conflictResolution:1];
 
   v8 = objc_alloc(MEMORY[0x1E699B898]);
-  columnExpression = [v28 columnExpression];
+  columnExpression = [v27 columnExpression];
   isNotNull = [columnExpression isNotNull];
-  v31[0] = isNotNull;
-  columnExpression2 = [v27 columnExpression];
+  v30[0] = isNotNull;
+  columnExpression2 = [v26 columnExpression];
   isNull = [columnExpression2 isNull];
-  v31[1] = isNull;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:2];
+  v30[1] = isNull;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:2];
   v14 = [v8 initWithExpressions:v13];
 
   v15 = objc_alloc(MEMORY[0x1E699B898]);
-  columnExpression3 = [v28 columnExpression];
+  columnExpression3 = [v27 columnExpression];
   isNull2 = [columnExpression3 isNull];
-  v30[0] = isNull2;
-  columnExpression4 = [v27 columnExpression];
+  v29[0] = isNull2;
+  columnExpression4 = [v26 columnExpression];
   isNotNull2 = [columnExpression4 isNotNull];
-  v30[1] = isNotNull2;
-  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:2];
+  v29[1] = isNotNull2;
+  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
   v21 = [v15 initWithExpressions:v20];
 
   v22 = objc_alloc(MEMORY[0x1E699B928]);
-  v29[0] = v14;
-  v29[1] = v21;
-  v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
+  v28[0] = v14;
+  v28[1] = v21;
+  v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
   v24 = [v22 initWithExpressions:v23];
 
   [v5 addCheckConstraintForExpression:v24];
-  v25 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

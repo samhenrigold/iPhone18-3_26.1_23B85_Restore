@@ -159,7 +159,6 @@
   v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:6];
   v7 = MEMORY[0x1E69E5928](v2);
   objc_autoreleasePoolPop(context);
-  *MEMORY[0x1E69E9840];
   return v7;
 }
 

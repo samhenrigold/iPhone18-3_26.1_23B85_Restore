@@ -254,7 +254,8 @@ LABEL_17:
   v4 = [MEMORY[0x1E6979390] animationWithKeyPath:@"filters.colorMatrix.inputColorMatrix"];
   v5 = MEMORY[0x1E695DEC8];
   *v37 = 1065353216;
-  *&v37[4] = 0uLL;
+  *&v37[12] = 0;
+  *&v37[4] = 0;
   *&v37[20] = 0x3F80000000000000;
   *&v37[28] = 0uLL;
   *&v37[44] = 0x3F80000000000000uLL;
@@ -469,7 +470,7 @@ LABEL_14:
 
 - (void)_ensureAudioPlayer
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   if ([(CKFullScreenEffect *)self _supportsSoundEffects]&& !self->_audioController)
   {
     soundEffectFileURL = [(CKFullScreenEffect *)self soundEffectFileURL];
@@ -477,29 +478,30 @@ LABEL_14:
     {
       v4 = [[CKFullScreenEffectMediaObject alloc] initWithFullScreenEffectAudioFileURL:soundEffectFileURL];
       v5 = [CKAudioController alloc];
-      v12[0] = v4;
-      v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+      v14[0] = v4;
+      v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
       v7 = [(CKAudioController *)v5 initWithMediaObjects:v6 conversation:0];
       audioController = self->_audioController;
       self->_audioController = v7;
 
-      if ([(CKFullScreenEffect *)self soundEffectHasHapticTrack])
+      soundEffectHasHapticTrack = [(CKFullScreenEffect *)self soundEffectHasHapticTrack];
+      if (soundEffectHasHapticTrack)
       {
-        v9 = CKSupportsAdvancedHaptics();
+        v11 = CKSupportsAdvancedHaptics(soundEffectHasHapticTrack, v10);
       }
 
       else
       {
-        v9 = 0;
+        v11 = 0;
       }
 
-      [(CKAudioController *)self->_audioController setShouldUseAVPlayer:v9];
+      [(CKAudioController *)self->_audioController setShouldUseAVPlayer:v11];
       [(CKAudioController *)self->_audioController setDelegate:self];
       [(CKAudioController *)self->_audioController setShouldStopPlayingWhenSilent:1];
       [(CKAudioController *)self->_audioController setShouldDuckOthers:1];
       defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-      v11 = +[CKAudioSessionController shareInstance];
-      [defaultCenter addObserver:self selector:sel__audioSessionOptionsWillChange_ name:@"CKAudioSessionControllerSessionOptionsWillChangeNotification" object:v11];
+      v13 = +[CKAudioSessionController shareInstance];
+      [defaultCenter addObserver:self selector:sel__audioSessionOptionsWillChange_ name:@"CKAudioSessionControllerSessionOptionsWillChangeNotification" object:v13];
     }
   }
 }

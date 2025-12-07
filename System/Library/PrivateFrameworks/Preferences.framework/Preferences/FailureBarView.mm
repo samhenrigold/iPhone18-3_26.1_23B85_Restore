@@ -11,9 +11,9 @@
 {
   y = frame.origin.y;
   x = frame.origin.x;
-  v25.receiver = self;
-  v25.super_class = FailureBarView;
-  v5 = [(FailureBarView *)&v25 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v26.receiver = self;
+  v26.super_class = FailureBarView;
+  v5 = [(FailureBarView *)&v26 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v5)
   {
     v6 = MEMORY[0x1E69DCAB8];
@@ -22,32 +22,32 @@
 
     if (!v8)
     {
-      v9 = MEMORY[0x1E69DCAB8];
-      v10 = PSPreferencesFrameworkBundle();
-      v8 = [v9 imageNamed:@"PasscodeFailure" inBundle:v10];
+      v10 = MEMORY[0x1E69DCAB8];
+      v11 = PSPreferencesFrameworkBundle(v9);
+      v8 = [v10 imageNamed:@"PasscodeFailure" inBundle:v11];
     }
 
-    v11 = [v8 stretchableImageWithLeftCapWidth:13 topCapHeight:13];
-    [(FailureBarView *)v5 setImage:v11];
-    [v11 size];
-    v13 = v12;
-    v15 = v14;
-    [(FailureBarView *)v5 setFrame:x, y, v12, v14];
-    v16 = [objc_alloc(MEMORY[0x1E69DCC10]) initWithFrame:{x, y, v13, v15}];
+    v12 = [v8 stretchableImageWithLeftCapWidth:13 topCapHeight:13];
+    [(FailureBarView *)v5 setImage:v12];
+    [v12 size];
+    v14 = v13;
+    v16 = v15;
+    [(FailureBarView *)v5 setFrame:x, y, v13, v15];
+    v17 = [objc_alloc(MEMORY[0x1E69DCC10]) initWithFrame:{x, y, v14, v16}];
     titleLabel = v5->_titleLabel;
-    v5->_titleLabel = v16;
+    v5->_titleLabel = v17;
 
-    v18 = v5->_titleLabel;
-    v19 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:*MEMORY[0x1E69DDCF8]];
-    [(UILabel *)v18 setFont:v19];
+    v19 = v5->_titleLabel;
+    v20 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:*MEMORY[0x1E69DDCF8]];
+    [(UILabel *)v19 setFont:v20];
 
-    v20 = v5->_titleLabel;
+    v21 = v5->_titleLabel;
     whiteColor = [MEMORY[0x1E69DC888] whiteColor];
-    [(UILabel *)v20 setTextColor:whiteColor];
+    [(UILabel *)v21 setTextColor:whiteColor];
 
-    v22 = v5->_titleLabel;
+    v23 = v5->_titleLabel;
     clearColor = [MEMORY[0x1E69DC888] clearColor];
-    [(UILabel *)v22 setBackgroundColor:clearColor];
+    [(UILabel *)v23 setBackgroundColor:clearColor];
 
     [(UILabel *)v5->_titleLabel setTextAlignment:1];
     [(UILabel *)v5->_titleLabel setNumberOfLines:0];

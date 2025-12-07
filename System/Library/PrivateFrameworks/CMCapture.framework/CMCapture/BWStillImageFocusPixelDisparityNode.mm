@@ -178,14 +178,14 @@ LABEL_13:
 
 - (void)didSelectFormat:(id)format forInput:(id)input forAttachedMediaKey:(id)key
 {
-  if ([key isEqualToString:@"PrimaryFormat"])
+  if (objc_msgSend_isEqualToString_(key, a2, @"PrimaryFormat"))
   {
     output = self->super._output;
 
     [(BWNodeOutput *)output setFormat:format];
   }
 
-  else if (([key isEqualToString:0x1F21AAB50] & 1) == 0 && (objc_msgSend(key, "isEqualToString:", 0x1F21AAB10) & 1) == 0 && (objc_msgSend(key, "isEqualToString:", 0x1F21AAAF0) & 1) == 0 && (objc_msgSend(key, "isEqualToString:", 0x1F21AAC70) & 1) == 0 && (objc_msgSend(key, "isEqualToString:", 0x1F21AAC90) & 1) == 0)
+  else if ((objc_msgSend_isEqualToString_(key) & 1) == 0 && (objc_msgSend_isEqualToString_(key) & 1) == 0 && (objc_msgSend_isEqualToString_(key) & 1) == 0 && (objc_msgSend_isEqualToString_(key) & 1) == 0 && (objc_msgSend_isEqualToString_(key) & 1) == 0)
   {
     v10.receiver = self;
     v10.super_class = BWStillImageFocusPixelDisparityNode;
@@ -212,11 +212,11 @@ LABEL_13:
   }
 
   *(factor + 152) = 0;
-  v4 = -[FigCaptureCameraParameters focusPixelDisparityVersionForPortType:sensorIDString:](+[FigCaptureCameraParameters sharedInstance](FigCaptureCameraParameters, "sharedInstance"), "focusPixelDisparityVersionForPortType:sensorIDString:", [*(factor + 144) portType], objc_msgSend(*(factor + 144), "sensorIDString"));
+  v5 = -[FigCaptureCameraParameters focusPixelDisparityVersionForPortType:sensorIDString:](+[FigCaptureCameraParameters sharedInstance](FigCaptureCameraParameters, "sharedInstance"), "focusPixelDisparityVersionForPortType:sensorIDString:", [*(factor + 144) portType], objc_msgSend(*(factor + 144), "sensorIDString"));
   depthDataType = [*(factor + 136) depthDataType];
   if (depthDataType == 9)
   {
-    if (v4 >= 3)
+    if (v5 >= 3)
     {
       goto LABEL_9;
     }
@@ -226,7 +226,7 @@ LABEL_13:
 
   if (depthDataType == 5)
   {
-    if (v4 >= 2)
+    if (v5 >= 2)
     {
       goto LABEL_9;
     }
@@ -234,45 +234,75 @@ LABEL_13:
     return 0;
   }
 
-  if (depthDataType == 4 && v4 != 1)
+  if (depthDataType == 4 && v5 != 1)
   {
     return 0;
   }
 
 LABEL_9:
-  v7 = [(BWStillImageFocusPixelDisparityNode *)factor processorOptionsForProcessorVersion:v4 zoomFactor:a2];
-  if (!v7 || (v8 = v7, (v9 = BWLoadProcessorBundle(@"FPDisparity", v4)) == 0) || (v10 = [objc_alloc(objc_msgSend(v9 "principalClass"))], (*(factor + 152) = v10) == 0))
+  v8 = [(BWStillImageFocusPixelDisparityNode *)factor processorOptionsForProcessorVersion:v5 zoomFactor:a2];
+  if (!v8)
   {
     OUTLINED_FUNCTION_2_7();
     fig_log_get_emitter();
     OUTLINED_FUNCTION_8_2();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v18, v20, v21, v22, v23, v24, v25, v26);
     OUTLINED_FUNCTION_2_7();
-    fig_log_get_emitter();
-    v11 = FigSignalErrorAtGM();
-    if (!v11)
-    {
-      return v11;
-    }
-
+    emitter = fig_log_get_emitter();
+    v17 = 405;
     goto LABEL_22;
   }
 
-  [v10 setOptions:v8];
+  v9 = v8;
+  v10 = BWLoadProcessorBundle(@"FPDisparity", v5);
+  if (!v10)
+  {
+    OUTLINED_FUNCTION_2_7();
+    fig_log_get_emitter();
+    OUTLINED_FUNCTION_8_2();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v18, v20, v21, v22, v23, v24, v25, v26);
+    OUTLINED_FUNCTION_2_7();
+    emitter = fig_log_get_emitter();
+    v17 = 408;
+    goto LABEL_22;
+  }
+
+  v11 = [objc_alloc(objc_msgSend(v10 "principalClass"))];
+  *(factor + 152) = v11;
+  if (!v11)
+  {
+    OUTLINED_FUNCTION_2_7();
+    fig_log_get_emitter();
+    OUTLINED_FUNCTION_8_2();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v18, v20, v21, v22, v23, v24, v25, v26);
+    OUTLINED_FUNCTION_2_7();
+    emitter = fig_log_get_emitter();
+    v17 = 411;
+LABEL_22:
+    v12 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE0ELL, "<<<< BWStillImageFocusPixelDisparityNode >>>>", v17, v2, v15, v16, v19);
+    if (!v12)
+    {
+      return v12;
+    }
+
+    goto LABEL_25;
+  }
+
+  [v11 setOptions:v9];
   [*(factor + 152) setFocusPixelMetadata:0];
   [*(factor + 152) setQualityEstimationEnabled:(*(factor + 244) & 1) == 0];
   if ([*(factor + 152) prepareToProcess:0])
   {
-    v11 = 4294954516;
-LABEL_22:
+    v12 = 4294954516;
+LABEL_25:
 
     *(factor + 152) = 0;
-    return v11;
+    return v12;
   }
 
-  v11 = 0;
+  v12 = 0;
   *(factor + 252) = a2;
-  return v11;
+  return v12;
 }
 
 - (void)renderSampleBuffer:(opaqueCMSampleBuffer *)buffer forInput:(id)input
@@ -280,18 +310,18 @@ LABEL_22:
   if (!buffer)
   {
     FigCaptureGetFrameworkRadarComponent();
-    v25 = OUTLINED_FUNCTION_11_5();
-    if (OUTLINED_FUNCTION_15_1(v25))
+    v30 = OUTLINED_FUNCTION_11_5();
+    if (OUTLINED_FUNCTION_15_1(v30))
     {
-      v26 = v4;
+      v31 = v4;
     }
 
     else
     {
-      v26 = v4 & 0xFFFFFFFE;
+      v31 = v4 & 0xFFFFFFFE;
     }
 
-    if (v26)
+    if (v31)
     {
       OUTLINED_FUNCTION_5_13();
       OUTLINED_FUNCTION_13_6();
@@ -301,29 +331,28 @@ LABEL_22:
     OUTLINED_FUNCTION_7_0();
     fig_log_call_emit_and_clean_up_after_send_and_compose();
     OUTLINED_FUNCTION_12_4();
-    v30 = OUTLINED_FUNCTION_6_0();
-    v38 = 0;
-    v31 = OUTLINED_FUNCTION_2_7();
-    v36 = 311;
-    goto LABEL_37;
+    v42 = OUTLINED_FUNCTION_6_0(v38, v39, v40, v41, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
+    v43 = OUTLINED_FUNCTION_2_7();
+    v48 = 311;
+    goto LABEL_36;
   }
 
-  v8 = OUTLINED_FUNCTION_16_7(self, @"BWStillImageCaptureSettings");
-  if (!v8)
+  v7 = OUTLINED_FUNCTION_16_7(self, @"BWStillImageCaptureSettings");
+  if (!v7)
   {
     FigCaptureGetFrameworkRadarComponent();
-    v27 = OUTLINED_FUNCTION_11_5();
-    if (OUTLINED_FUNCTION_15_1(v27))
+    v32 = OUTLINED_FUNCTION_11_5();
+    if (OUTLINED_FUNCTION_15_1(v32))
     {
-      v28 = v4;
+      v33 = v4;
     }
 
     else
     {
-      v28 = v4 & 0xFFFFFFFE;
+      v33 = v4 & 0xFFFFFFFE;
     }
 
-    if (v28)
+    if (v33)
     {
       OUTLINED_FUNCTION_5_13();
       OUTLINED_FUNCTION_13_6();
@@ -333,85 +362,93 @@ LABEL_22:
     OUTLINED_FUNCTION_7_0();
     fig_log_call_emit_and_clean_up_after_send_and_compose();
     OUTLINED_FUNCTION_12_4();
-    v30 = OUTLINED_FUNCTION_6_0();
-    v38 = 0;
-    v31 = OUTLINED_FUNCTION_2_7();
-    v36 = 314;
-LABEL_37:
-    FigCapturePleaseFileRadar(v31, v32, 0, 0, v33, v36, v34, v35, 0);
-    free(v30);
+    v42 = OUTLINED_FUNCTION_6_0(v49, v50, v51, v52, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
+    v43 = OUTLINED_FUNCTION_2_7();
+    v48 = 314;
+LABEL_36:
+    FigCapturePleaseFileRadar(v43, v44, 0, 0, v45, v48, v46, v47, 0);
+    free(v42);
     goto LABEL_17;
   }
 
-  captureFlags = [v8 captureFlags];
+  captureFlags = [v7 captureFlags];
   if ((captureFlags & 0x800) != 0)
   {
-    v10 = OUTLINED_FUNCTION_16_7(captureFlags, @"StillSettings");
-    if (!v10)
+    v9 = OUTLINED_FUNCTION_16_7(captureFlags, @"StillSettings");
+    if (v9)
     {
-      goto LABEL_31;
-    }
+      v10 = v9;
+      v11 = OUTLINED_FUNCTION_16_7(v9, *off_1E798A3C8);
+      v12 = BWPixelBufferDimensionsFromSampleBuffer(buffer);
+      v53 = *MEMORY[0x1E695F050];
+      v54 = *(MEMORY[0x1E695F050] + 16);
+      if (!FigCFDictionaryGetCGRectIfPresent())
+      {
+        v53 = 0uLL;
+        __asm { FMOV            V0.2D, #1.0 }
 
-    v11 = v10;
-    v12 = OUTLINED_FUNCTION_16_7(v10, *off_1E798A3C8);
-    v13 = BWPixelBufferDimensionsFromSampleBuffer(buffer);
-    v39 = *MEMORY[0x1E695F050];
-    v40 = *(MEMORY[0x1E695F050] + 16);
-    if (!FigCFDictionaryGetCGRectIfPresent())
-    {
-      v39 = 0uLL;
-      __asm { FMOV            V0.2D, #1.0 }
+        v54 = _Q0;
+      }
 
-      v40 = _Q0;
-    }
+      v18 = [objc_msgSend(v10 "requestedSettings")];
+      v19.n128_f64[0] = v18 / [objc_msgSend(v10 "requestedSettings")];
+      v20.n128_u64[0] = v53;
+      v22.n128_u64[0] = *(&v54 + 1);
+      v21.n128_u64[0] = v54;
+      FigCaptureMetadataUtilitiesComputeDenormalizedStillImageCropRect(v12, v12 >> 32, v20, *(&v53 + 1), v21, v22, v19, v23);
+      height = v55.size.height;
+      if (CGRectIsNull(v55))
+      {
+        fig_log_get_emitter();
+        OUTLINED_FUNCTION_0();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v35, "<<<< BWStillImageFocusPixelDisparityNode >>>> Fig", "! CGRectIsNull( denormalizedSourceCropRect)", "bail", "Failed to determine denormalizedSourceCropRect, skipping Focus pixel disparity generation", "BWStillImageFocusPixelDisparityNode.m", 332);
+      }
 
-    FigCaptureMetadataUtilitiesComputeDenormalizedStillImageCropRect(v13, v13 >> 32, *&v39, *(&v39 + 1), *&v40, *(&v40 + 1), [objc_msgSend(v11 "requestedSettings")] / objc_msgSend(objc_msgSend(v11, "requestedSettings"), "outputHeight"));
-    height = v41.size.height;
-    if (CGRectIsNull(v41))
-    {
-LABEL_31:
-      fig_log_get_emitter();
-      OUTLINED_FUNCTION_0();
+      else
+      {
+        v25 = [objc_msgSend(v10 "requestedSettings")] / height;
+        v26 = [objc_msgSend(v11 objectForKeyedSubscript:{*off_1E798B588), "intValue"}];
+        if (v26)
+        {
+          v25 = v25 / vcvts_n_f32_s32(v26, 1uLL);
+        }
+
+        [objc_msgSend(v11 objectForKeyedSubscript:{*off_1E798B240), "floatValue"}];
+        if (v27 == 0.0)
+        {
+          v27 = 1.0;
+        }
+
+        v28 = v25 * v27;
+        if (v28 < 1.0)
+        {
+          v28 = 1.0;
+        }
+
+        if (v28 != self->_currentZoomFactorForFocusPixelDisparityGenerator && (v29 = [(BWStillImageFocusPixelDisparityNode *)self _loadAndConfigureDisparityGeneratorForZoomFactor:v28]) != 0)
+        {
+          v36 = v29;
+          emitter = fig_log_get_emitter();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", emitter, "<<<< BWStillImageFocusPixelDisparityNode >>>> Fig", "err == 0 ", "bail", 0, "BWStillImageFocusPixelDisparityNode.m", 344, v36);
+        }
+
+        else
+        {
+          [(BWStillImageFocusPixelDisparityNode *)self _processDisparityForSampleBuffer:buffer];
+        }
+      }
     }
 
     else
     {
-      v20 = [objc_msgSend(v11 "requestedSettings")] / height;
-      v21 = [objc_msgSend(v12 objectForKeyedSubscript:{*off_1E798B588), "intValue"}];
-      if (v21)
-      {
-        v20 = v20 / vcvts_n_f32_s32(v21, 1uLL);
-      }
-
-      [objc_msgSend(v12 objectForKeyedSubscript:{*off_1E798B240), "floatValue"}];
-      if (v22 == 0.0)
-      {
-        v22 = 1.0;
-      }
-
-      v23 = v20 * v22;
-      if (v23 < 1.0)
-      {
-        v23 = 1.0;
-      }
-
-      if (v23 == self->_currentZoomFactorForFocusPixelDisparityGenerator || (v24 = [(BWStillImageFocusPixelDisparityNode *)self _loadAndConfigureDisparityGeneratorForZoomFactor:v23]) == 0)
-      {
-        [(BWStillImageFocusPixelDisparityNode *)self _processDisparityForSampleBuffer:buffer];
-        goto LABEL_17;
-      }
-
-      v29 = v24;
       fig_log_get_emitter();
-      v38 = v5;
-      LODWORD(v37) = v29;
+      OUTLINED_FUNCTION_0();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v34, "<<<< BWStillImageFocusPixelDisparityNode >>>> Fig", "settings", "bail", "settings are not available", "BWStillImageFocusPixelDisparityNode.m", 321);
     }
-
-    FigDebugAssert3();
   }
 
 LABEL_17:
-  if ([(BWStillImageNodeConfiguration *)self->_nodeConfiguration depthDataType:v37]== 5 || [(BWStillImageNodeConfiguration *)self->_nodeConfiguration depthDataType]== 9)
+  if ([(BWStillImageNodeConfiguration *)self->_nodeConfiguration depthDataType]== 5 || [(BWStillImageNodeConfiguration *)self->_nodeConfiguration depthDataType]== 9)
   {
     [(BWStillImageFocusPixelDisparityNode *)self _removeConsumedAttachedMediaFromSampleBuffer:buffer];
   }
@@ -426,10 +463,10 @@ LABEL_17:
     return;
   }
 
-  v2 = a2;
-  v4 = *(MEMORY[0x1E695F050] + 16);
+  v3 = a2;
+  v5 = *(MEMORY[0x1E695F050] + 16);
   rect.origin = *MEMORY[0x1E695F050];
-  rect.size = v4;
+  rect.size = v5;
   if (!*(buffer + 152))
   {
     FrameworkRadarComponent = FigCaptureGetFrameworkRadarComponent();
@@ -438,121 +475,116 @@ LABEL_17:
     OUTLINED_FUNCTION_7_0();
     fig_log_call_emit_and_clean_up_after_send_and_compose();
     OUTLINED_FUNCTION_12_4();
-    v9 = OUTLINED_FUNCTION_6_0();
-    FigCapturePleaseFileRadar(FrameworkRadarComponent, v9, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Nodes/BWStillImageFocusPixelDisparityNode.m", 495, @"LastShownDate:BWStillImageFocusPixelDisparityNode.m:495", @"LastShownBuild:BWStillImageFocusPixelDisparityNode.m:495", 0);
-    free(v9);
-    LOBYTE(v9) = 0;
+    v10 = OUTLINED_FUNCTION_6_0(v48, v49, v50, v51, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
+    FigCapturePleaseFileRadar(FrameworkRadarComponent, v10, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Nodes/BWStillImageFocusPixelDisparityNode.m", 495, @"LastShownDate:BWStillImageFocusPixelDisparityNode.m:495", @"LastShownBuild:BWStillImageFocusPixelDisparityNode.m:495", 0);
+    free(v10);
+    LOBYTE(v10) = 0;
     ImageBuffer = 0;
-    v2 = a2;
+    v3 = a2;
     goto LABEL_46;
   }
 
   depthDataType = [*(buffer + 136) depthDataType];
-  v45 = v2;
+  v56 = v3;
   switch(depthDataType)
   {
     case 9:
-      v17 = +[FigCaptureCameraParameters sharedInstance];
+      v18 = +[FigCaptureCameraParameters sharedInstance];
       portType = [OUTLINED_FUNCTION_14_1() portType];
-      -[FigCaptureCameraParameters focusPixelDisparityVersionForPortType:sensorIDString:](v17, "focusPixelDisparityVersionForPortType:sensorIDString:", portType, [OUTLINED_FUNCTION_14_1() sensorIDString]);
+      -[FigCaptureCameraParameters focusPixelDisparityVersionForPortType:sensorIDString:](v18, "focusPixelDisparityVersionForPortType:sensorIDString:", portType, [OUTLINED_FUNCTION_14_1() sensorIDString]);
       portType2 = [OUTLINED_FUNCTION_14_1() portType];
       sensorIDString = [OUTLINED_FUNCTION_14_1() sensorIDString];
-      LODWORD(v21) = *(buffer + 252);
-      v22 = [(FigCaptureCameraParameters *)v17 focusPixelDisparityTuningParametersForPortType:portType2 sensorIDString:sensorIDString zoomFactor:v21];
-      if (!v22)
+      LODWORD(v22) = *(buffer + 252);
+      v23 = [(FigCaptureCameraParameters *)v18 focusPixelDisparityTuningParametersForPortType:portType2 sensorIDString:sensorIDString zoomFactor:v22];
+      if (v23)
       {
-        goto LABEL_53;
-      }
+        v24 = [v23 objectForKeyedSubscript:@"sizes"];
+        v3 = v56;
+        if (!v24)
+        {
+          goto LABEL_77;
+        }
 
-      v23 = [v22 objectForKeyedSubscript:@"sizes"];
-      v2 = v45;
-      if (!v23)
-      {
-        goto LABEL_77;
-      }
+        v25 = v24;
+        v26 = BWPixelBufferDimensionsFromSampleBuffer(v56);
+        if (__PAIR64__([objc_msgSend(objc_msgSend(v25 objectForKeyedSubscript:{@"color_size", "objectForKeyedSubscript:", @"height", "intValue"}], objc_msgSend(objc_msgSend(objc_msgSend(v25, "objectForKeyedSubscript:", @"color_size"), "objectForKeyedSubscript:", @"width"), "intValue")) != v26)
+        {
+          goto LABEL_78;
+        }
 
-      v24 = v23;
-      v25 = BWPixelBufferDimensionsFromSampleBuffer(v45);
-      if (__PAIR64__([objc_msgSend(objc_msgSend(v24 objectForKeyedSubscript:{@"color_size", "objectForKeyedSubscript:", @"height", "intValue"}], objc_msgSend(objc_msgSend(objc_msgSend(v24, "objectForKeyedSubscript:", @"color_size"), "objectForKeyedSubscript:", @"width"), "intValue")) != v25)
-      {
-        goto LABEL_79;
-      }
+        AttachedMedia = BWSampleBufferGetAttachedMedia(v56, 0x1F21AAB10);
+        v10 = AttachedMedia;
+        if (!AttachedMedia)
+        {
+          goto LABEL_74;
+        }
 
-      AttachedMedia = BWSampleBufferGetAttachedMedia(v45, 0x1F21AAB10);
-      v9 = AttachedMedia;
-      if (!AttachedMedia)
-      {
-        goto LABEL_74;
-      }
-
-      ImageBuffer = CMSampleBufferGetImageBuffer(AttachedMedia);
-      if (!ImageBuffer)
-      {
+        ImageBuffer = CMSampleBufferGetImageBuffer(AttachedMedia);
+        if (!ImageBuffer)
+        {
 LABEL_76:
-        fig_log_get_emitter();
-        OUTLINED_FUNCTION_0_15();
-        FigDebugAssert3();
-        LOBYTE(v9) = 0;
-        goto LABEL_46;
+          fig_log_get_emitter();
+          OUTLINED_FUNCTION_0_15();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+          LOBYTE(v10) = 0;
+          goto LABEL_46;
+        }
+
+        v28 = BWPixelBufferDimensionsFromSampleBuffer(v10);
+        if ([objc_msgSend(objc_msgSend(v25 objectForKeyedSubscript:{@"green_size", "objectForKeyedSubscript:", @"width", "intValue"}] != v28)
+        {
+LABEL_78:
+          LOBYTE(v10) = 0;
+          goto LABEL_79;
+        }
+
+        if (__PAIR64__([objc_msgSend(objc_msgSend(v25 objectForKeyedSubscript:{@"green_size", "objectForKeyedSubscript:", @"height", "intValue"}], objc_msgSend(objc_msgSend(objc_msgSend(v25, "objectForKeyedSubscript:", @"raw_size"), "objectForKeyedSubscript:", @"width"), "intValue")) == v28 && objc_msgSend(objc_msgSend(objc_msgSend(v25, "objectForKeyedSubscript:", @"raw_size"), "objectForKeyedSubscript:", @"height"), "intValue") == HIDWORD(v28))
+        {
+          v3 = v56;
+          v29 = BWSampleBufferGetAttachedMedia(v56, 0x1F21AAB70);
+          if (v29)
+          {
+            v30 = CMSampleBufferGetImageBuffer(v29);
+            if (v30)
+            {
+              v17 = v30;
+              v31 = BWSampleBufferGetAttachedMedia(v56, 0x1F21AAB90);
+              if (v31)
+              {
+                v32 = CMSampleBufferGetImageBuffer(v31);
+                if (v32)
+                {
+                  v16 = v32;
+                  v14 = 0;
+                  v12 = 0;
+                  goto LABEL_30;
+                }
+              }
+            }
+          }
+
+LABEL_77:
+          fig_log_get_emitter();
+          OUTLINED_FUNCTION_0_15();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+          goto LABEL_78;
+        }
       }
 
-      v27 = BWPixelBufferDimensionsFromSampleBuffer(v9);
-      if ([objc_msgSend(objc_msgSend(v24 objectForKeyedSubscript:{@"green_size", "objectForKeyedSubscript:", @"width", "intValue"}] != v27)
-      {
-LABEL_79:
-        LOBYTE(v9) = 0;
-        goto LABEL_80;
-      }
-
-      if (__PAIR64__([objc_msgSend(objc_msgSend(v24 objectForKeyedSubscript:{@"green_size", "objectForKeyedSubscript:", @"height", "intValue"}], objc_msgSend(objc_msgSend(objc_msgSend(v24, "objectForKeyedSubscript:", @"raw_size"), "objectForKeyedSubscript:", @"width"), "intValue")) != v27 || objc_msgSend(objc_msgSend(objc_msgSend(v24, "objectForKeyedSubscript:", @"raw_size"), "objectForKeyedSubscript:", @"height"), "intValue") != HIDWORD(v27))
-      {
-LABEL_53:
-        LOBYTE(v9) = 0;
-        ImageBuffer = 0;
+      LOBYTE(v10) = 0;
+      ImageBuffer = 0;
 LABEL_61:
-        v2 = v45;
-        goto LABEL_46;
-      }
-
-      v2 = v45;
-      v28 = BWSampleBufferGetAttachedMedia(v45, 0x1F21AAB70);
-      if (!v28)
-      {
-        goto LABEL_77;
-      }
-
-      v29 = CMSampleBufferGetImageBuffer(v28);
-      if (!v29)
-      {
-        goto LABEL_77;
-      }
-
-      v16 = v29;
-      v30 = BWSampleBufferGetAttachedMedia(v45, 0x1F21AAB90);
-      if (!v30)
-      {
-        goto LABEL_77;
-      }
-
-      v31 = CMSampleBufferGetImageBuffer(v30);
-      if (!v31)
-      {
-        goto LABEL_77;
-      }
-
-      v15 = v31;
-      v13 = 0;
-      v11 = 0;
-      break;
+      v3 = v56;
+      goto LABEL_46;
     case 5:
-      v14 = BWSampleBufferGetAttachedMedia(v2, 0x1F21AAAF0);
-      if (v14)
+      v15 = BWSampleBufferGetAttachedMedia(v3, 0x1F21AAAF0);
+      if (v15)
       {
-        ImageBuffer = CMSampleBufferGetImageBuffer(v14);
+        ImageBuffer = CMSampleBufferGetImageBuffer(v15);
         if (ImageBuffer)
         {
-          v13 = 0;
-          v11 = 0;
+          v14 = 0;
+          v12 = 0;
           goto LABEL_15;
         }
 
@@ -561,41 +593,42 @@ LABEL_61:
 
       goto LABEL_77;
     case 4:
-      v6 = BWSampleBufferGetAttachedMedia(v2, 0x1F21AAB10);
-      if (v6)
+      v7 = BWSampleBufferGetAttachedMedia(v3, 0x1F21AAB10);
+      if (v7)
       {
-        ImageBuffer = CMSampleBufferGetImageBuffer(v6);
+        ImageBuffer = CMSampleBufferGetImageBuffer(v7);
         if (ImageBuffer)
         {
-          v8 = BWSampleBufferGetAttachedMedia(v2, 0x1F21AAB50);
-          LOBYTE(v9) = v8;
-          if (v8)
+          v9 = BWSampleBufferGetAttachedMedia(v3, 0x1F21AAB50);
+          LOBYTE(v10) = v9;
+          if (v9)
           {
-            v10 = CMSampleBufferGetImageBuffer(v8);
-            if (v10)
+            v11 = CMSampleBufferGetImageBuffer(v9);
+            if (v11)
             {
-              v11 = v10;
-              v12 = OUTLINED_FUNCTION_16_7(v10, *off_1E798A388);
-              if (v12)
+              v12 = v11;
+              v13 = OUTLINED_FUNCTION_16_7(v11, *off_1E798A388);
+              if (v13)
               {
-                v13 = v12;
+                v14 = v13;
 LABEL_15:
-                v15 = 0;
                 v16 = 0;
-                break;
+                v17 = 0;
+                goto LABEL_30;
               }
             }
 
             fig_log_get_emitter();
             OUTLINED_FUNCTION_1_16();
+            FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
             goto LABEL_78;
           }
 
 LABEL_74:
           fig_log_get_emitter();
           OUTLINED_FUNCTION_0_15();
-          FigDebugAssert3();
-LABEL_80:
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+LABEL_79:
           ImageBuffer = 0;
           goto LABEL_46;
         }
@@ -603,27 +636,21 @@ LABEL_80:
         goto LABEL_76;
       }
 
-LABEL_77:
-      fig_log_get_emitter();
-      OUTLINED_FUNCTION_0_15();
-LABEL_78:
-      FigDebugAssert3();
-      goto LABEL_79;
-    default:
-      v13 = 0;
-      v11 = 0;
-      v15 = 0;
-      v16 = 0;
-      ImageBuffer = 0;
-      break;
+      goto LABEL_77;
   }
 
-  v9 = CMGetAttachment(v2, *off_1E798A3C8, 0);
-  if (!v9)
+  v14 = 0;
+  v12 = 0;
+  v16 = 0;
+  v17 = 0;
+  ImageBuffer = 0;
+LABEL_30:
+  v10 = CMGetAttachment(v3, *off_1E798A3C8, 0);
+  if (!v10)
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_16();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v52, v53, v54, v2, v55, v56, v58, v59);
 LABEL_66:
     ImageBuffer = 0;
     goto LABEL_46;
@@ -631,64 +658,65 @@ LABEL_66:
 
   if ([*(buffer + 136) depthDataType] != 9)
   {
-    v32 = [v9 objectForKeyedSubscript:*off_1E798B798];
-    if (!v32)
+    v33 = [v10 objectForKeyedSubscript:*off_1E798B798];
+    if (!v33)
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_1_16();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
 LABEL_65:
-      FigDebugAssert3();
-      LOBYTE(v9) = 0;
+      LOBYTE(v10) = 0;
       goto LABEL_66;
     }
 
-    if (!CGRectMakeWithDictionaryRepresentation(v32, &rect))
+    if (!CGRectMakeWithDictionaryRepresentation(v33, &rect))
     {
       goto LABEL_64;
     }
   }
 
-  v33 = BWSampleBufferGetAttachedMedia(v2, 0x1F21AAC70);
-  if (!v33)
+  v34 = BWSampleBufferGetAttachedMedia(v3, 0x1F21AAC70);
+  if (!v34)
   {
 LABEL_64:
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_16();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     goto LABEL_65;
   }
 
-  v34 = ImageBuffer;
-  v35 = CMSampleBufferGetImageBuffer(v33);
-  if (!v35)
+  v35 = ImageBuffer;
+  v36 = CMSampleBufferGetImageBuffer(v34);
+  if (!v36)
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_16();
-    FigDebugAssert3();
-    LOBYTE(v9) = 0;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v52, v53, v54, v2, v55, v56, v58, v59);
+    LOBYTE(v10) = 0;
     goto LABEL_56;
   }
 
-  v36 = v35;
-  v37 = BWSampleBufferGetAttachedMedia(v45, 0x1F21AAC90);
-  if (v37)
+  v37 = v36;
+  v38 = BWSampleBufferGetAttachedMedia(v56, 0x1F21AAC90);
+  if (v38)
   {
-    v9 = CMSampleBufferGetImageBuffer(v37);
-    if (!v9)
+    v10 = CMSampleBufferGetImageBuffer(v38);
+    if (!v10)
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_1_16();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v52, v53, v54, v2, v55, v56, v58, v59);
 LABEL_56:
       ImageBuffer = 0;
 LABEL_58:
-      v2 = v45;
+      v3 = v57;
       goto LABEL_46;
     }
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
   ImageBuffer = [objc_msgSend(objc_msgSend(*(buffer + 16) mediaPropertiesForAttachedMediaKey:{@"Depth", "livePixelBufferPool"), "newPixelBuffer"}];
@@ -696,50 +724,52 @@ LABEL_58:
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_16();
-    FigDebugAssert3();
-    LOBYTE(v9) = 0;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v52, v53, v54, v2, v17, v56, v58, v59);
+    LOBYTE(v10) = 0;
     goto LABEL_58;
   }
 
-  [OUTLINED_FUNCTION_4_17() setImageSampleBuffer:v45];
-  [OUTLINED_FUNCTION_4_17() setRawImagePixelBufferBuffer:v34];
-  [OUTLINED_FUNCTION_4_17() setFocusPixelBuffer:v11];
-  [OUTLINED_FUNCTION_4_17() setFocusPixelMetadata:v13];
+  [OUTLINED_FUNCTION_4_17() setImageSampleBuffer:v56];
+  [OUTLINED_FUNCTION_4_17() setRawImagePixelBufferBuffer:v35];
+  [OUTLINED_FUNCTION_4_17() setFocusPixelBuffer:v12];
+  [OUTLINED_FUNCTION_4_17() setFocusPixelMetadata:v14];
   [OUTLINED_FUNCTION_4_17() setFocusPixelValidArea:?];
-  [OUTLINED_FUNCTION_4_17() setPersonSegmentationPixelBuffer:v36];
-  [OUTLINED_FUNCTION_4_17() setPersonSegmentationConfidencePixelBuffer:v9];
+  [OUTLINED_FUNCTION_4_17() setPersonSegmentationPixelBuffer:v37];
+  [OUTLINED_FUNCTION_4_17() setPersonSegmentationConfidencePixelBuffer:v10];
   [OUTLINED_FUNCTION_4_17() setOutDisparity:ImageBuffer];
-  [OUTLINED_FUNCTION_4_17() setH0:v16];
-  [OUTLINED_FUNCTION_4_17() setH1:v15];
+  [OUTLINED_FUNCTION_4_17() setH0:v17];
+  [OUTLINED_FUNCTION_4_17() setH1:v16];
   if ([OUTLINED_FUNCTION_4_17() process])
   {
-    LOBYTE(v9) = 0;
-    v2 = v45;
+    LOBYTE(v10) = 0;
+    v3 = v56;
     goto LABEL_46;
   }
 
   if ([OUTLINED_FUNCTION_4_17() finishProcessing])
   {
-    LOBYTE(v9) = 0;
+    LOBYTE(v10) = 0;
     goto LABEL_61;
   }
 
-  v2 = v45;
-  [(BWStillImageFocusPixelDisparityNode *)buffer _removeConsumedAttachedMediaFromSampleBuffer:v45];
-  v38 = OUTLINED_FUNCTION_2_7();
-  if (BWCMSampleBufferCreateCopyWithNewPixelBuffer(v38, v39, v40, v41))
+  v3 = v56;
+  [(BWStillImageFocusPixelDisparityNode *)buffer _removeConsumedAttachedMediaFromSampleBuffer:v56];
+  v39 = OUTLINED_FUNCTION_2_7();
+  CopyWithNewPixelBuffer = BWCMSampleBufferCreateCopyWithNewPixelBuffer(v39, v40, v41, v42);
+  if (CopyWithNewPixelBuffer)
   {
+    v47 = CopyWithNewPixelBuffer;
     fig_log_get_emitter();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v47, v2, v54, v2, v17, v56, v58, v59);
   }
 
   else
   {
-    [(BWStillImageFocusPixelDisparityNode *)buffer _attachDepthMetadataToSampleBuffer:v45];
-    BWSampleBufferSetAttachedMedia(v45, @"Depth", 0);
+    [(BWStillImageFocusPixelDisparityNode *)buffer _attachDepthMetadataToSampleBuffer:v56];
+    BWSampleBufferSetAttachedMedia(v56, @"Depth", 0);
   }
 
-  LOBYTE(v9) = 1;
+  LOBYTE(v10) = 1;
 LABEL_46:
   [OUTLINED_FUNCTION_3_8() setImageSampleBuffer:?];
   [OUTLINED_FUNCTION_3_8() setRawImagePixelBufferBuffer:?];
@@ -756,9 +786,9 @@ LABEL_46:
     CFRelease(ImageBuffer);
   }
 
-  if ((v9 & 1) == 0)
+  if ((v10 & 1) == 0)
   {
-    [(BWStillImageFocusPixelDisparityNode *)buffer _removeConsumedAttachedMediaFromSampleBuffer:v2];
+    [(BWStillImageFocusPixelDisparityNode *)buffer _removeConsumedAttachedMediaFromSampleBuffer:v3];
   }
 }
 
@@ -807,7 +837,8 @@ LABEL_46:
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0();
-      goto LABEL_15;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+      return 0;
     }
 
     v13 = v12;
@@ -838,8 +869,7 @@ LABEL_46:
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0();
-LABEL_15:
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     return 0;
   }
 
@@ -861,69 +891,36 @@ LABEL_15:
     if (v4 && ((v5 = -[FigCaptureCameraParameters focusPixelDisparityVersionForPortType:sensorIDString:](+[FigCaptureCameraParameters sharedInstance](FigCaptureCameraParameters, "sharedInstance"), "focusPixelDisparityVersionForPortType:sensorIDString:", [*(buffer + 144) portType], objc_msgSend(*(buffer + 144), "sensorIDString")), !-[FigCaptureCameraParameters portraitTapToRefocusPrevented](+[FigCaptureCameraParameters sharedInstance](FigCaptureCameraParameters, "sharedInstance"), "portraitTapToRefocusPrevented")) ? (v6 = -15536) : (v6 = -14536), v5 <= 1 ? (v7 = 30000) : (v7 = v6), (CurrentMajorVersion = FigDepthDataGetCurrentMajorVersion(), (*(buffer + 244) & 1) == 0) ? (v9 = objc_msgSend(*(buffer + 152), "disparityQuality")) : (v9 = 1), CMGetAttachment(a2, *off_1E798A3C8, 0) && (size = *MEMORY[0x1E695F060], (v10 = CMGetAttachment(a2, @"OriginalCameraIntrinsicMatrixReferenceDimensions", 0)) != 0)))
     {
       v11 = v10;
-      if (CGSizeMakeWithDictionaryRepresentation(v10, &size))
+      if (CGSizeMakeWithDictionaryRepresentation(v10, &size) && (v12 = CMGetAttachment(a2, @"OriginalCameraIntrinsicMatrix", 0)) != 0)
       {
-        v12 = CMGetAttachment(a2, @"OriginalCameraIntrinsicMatrix", 0);
-        if (v12)
-        {
-          v13 = v12;
-          [v4 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithInt:", (v7 + v5) | (CurrentMajorVersion << 16)), *off_1E798D010}];
-          [v4 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithInt:", v9), *off_1E798D008}];
-          [v4 setObject:MEMORY[0x1E695E118] forKeyedSubscript:*off_1E798CFD0];
-          [v4 setObject:&unk_1F22426B8 forKeyedSubscript:*off_1E798CFC0];
-          LODWORD(v14) = *(buffer + 240);
-          [v4 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithFloat:", v14), *off_1E798D000}];
-          [v4 setObject:v13 forKeyedSubscript:*off_1E798CFD8];
-          [v4 setObject:v11 forKeyedSubscript:*off_1E798CFE0];
-          [v4 setObject:objc_msgSend(MEMORY[0x1E695DEF0] forKeyedSubscript:{"dataWithBytes:length:", buffer + 176, 64), *off_1E798CFC8}];
-          CMSetAttachment(a2, *off_1E798D2B8, v4, 1u);
-LABEL_17:
-
-          return;
-        }
+        v13 = v12;
+        [v4 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithInt:", (v7 + v5) | (CurrentMajorVersion << 16)), *off_1E798D010}];
+        [v4 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithInt:", v9), *off_1E798D008}];
+        [v4 setObject:MEMORY[0x1E695E118] forKeyedSubscript:*off_1E798CFD0];
+        [v4 setObject:&unk_1F22426B8 forKeyedSubscript:*off_1E798CFC0];
+        LODWORD(v14) = *(buffer + 240);
+        [v4 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithFloat:", v14), *off_1E798D000}];
+        [v4 setObject:v13 forKeyedSubscript:*off_1E798CFD8];
+        [v4 setObject:v11 forKeyedSubscript:*off_1E798CFE0];
+        [v4 setObject:objc_msgSend(MEMORY[0x1E695DEF0] forKeyedSubscript:{"dataWithBytes:length:", buffer + 176, 64), *off_1E798CFC8}];
+        CMSetAttachment(a2, *off_1E798D2B8, v4, 1u);
       }
 
-      fig_log_get_emitter();
-      OUTLINED_FUNCTION_0();
+      else
+      {
+        fig_log_get_emitter();
+        OUTLINED_FUNCTION_0();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+      }
     }
 
     else
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     }
-
-    FigDebugAssert3();
-    goto LABEL_17;
   }
-}
-
-- (uint64_t)initWithNodeConfiguration:sensorConfiguration:disparityMapWidth:disparityMapHeight:depthIsAlwaysHighQuality:defaultZoomFactor:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithNodeConfiguration:sensorConfiguration:disparityMapWidth:disparityMapHeight:depthIsAlwaysHighQuality:defaultZoomFactor:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithNodeConfiguration:sensorConfiguration:disparityMapWidth:disparityMapHeight:depthIsAlwaysHighQuality:defaultZoomFactor:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithNodeConfiguration:sensorConfiguration:disparityMapWidth:disparityMapHeight:depthIsAlwaysHighQuality:defaultZoomFactor:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
 }
 
 @end

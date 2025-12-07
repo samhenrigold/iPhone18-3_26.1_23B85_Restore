@@ -180,7 +180,7 @@ void __39__MPSGraphInternalCommandBuffer_commit__block_invoke(uint64_t a1)
   result = self->_original;
   if (result)
   {
-    return [(MPSCommandBufferDescriptor *)result mpsCommandBufferDescriptor];
+    return objc_msgSend_mpsCommandBufferDescriptor(result, a3);
   }
 
   retstr->encoderCount = 0;

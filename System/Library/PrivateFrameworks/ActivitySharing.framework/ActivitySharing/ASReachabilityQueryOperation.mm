@@ -25,12 +25,11 @@
 
 - (void)start
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   if ([(ASReachabilityQueryOperation *)self isCancelled])
   {
     [(ASReachabilityQueryOperation *)self willChangeValueForKey:@"isFinished"];
     self->_finished = 1;
-    v3 = *MEMORY[0x277D85DE8];
 
     [(ASReachabilityQueryOperation *)self didChangeValueForKey:@"isFinished"];
   }
@@ -39,137 +38,139 @@
   {
     [(ASReachabilityQueryOperation *)self willChangeValueForKey:@"isExecuting"];
     self->_executing = 1;
-    [(ASReachabilityQueryOperation *)self didChangeValueForKey:@"isExecuting"];
-    ASLoggingInitialize();
-    v4 = ASLogDefault;
+    v3 = [(ASReachabilityQueryOperation *)self didChangeValueForKey:@"isExecuting"];
+    ASLoggingInitialize(v3, v4);
+    v5 = ASLogDefault;
     if (os_log_type_enabled(ASLogDefault, OS_LOG_TYPE_DEFAULT))
     {
       destinations = self->_destinations;
-      v6 = v4;
+      v7 = v5;
       *buf = 134217984;
-      v57 = [(NSSet *)destinations count];
-      _os_log_impl(&dword_23E4FA000, v6, OS_LOG_TYPE_DEFAULT, "Reachability: Starting for %lu destinations", buf, 0xCu);
+      v61 = [(NSSet *)destinations count];
+      _os_log_impl(&dword_23E4FA000, v7, OS_LOG_TYPE_DEFAULT, "Reachability: Starting for %lu destinations", buf, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_statusCache);
-    v8 = [WeakRetained statusesForDestinations:self->_destinations];
+    v9 = [WeakRetained statusesForDestinations:self->_destinations];
 
-    v9 = [v8 mutableCopy];
+    v10 = [v9 mutableCopy];
     results = self->_results;
-    self->_results = v9;
+    self->_results = v10;
 
-    if ([v8 count])
+    v12 = [v9 count];
+    if (v12)
     {
-      ASLoggingInitialize();
-      v11 = ASLogDefault;
+      ASLoggingInitialize(v12, v13);
+      v14 = ASLogDefault;
       if (os_log_type_enabled(ASLogDefault, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = v11;
-        v13 = [v8 count];
+        v15 = v14;
+        v16 = [v9 count];
         *buf = 134217984;
-        v57 = v13;
-        _os_log_impl(&dword_23E4FA000, v12, OS_LOG_TYPE_DEFAULT, "Reachability: Hit %lu destinations in cache second pass", buf, 0xCu);
+        v61 = v16;
+        _os_log_impl(&dword_23E4FA000, v15, OS_LOG_TYPE_DEFAULT, "Reachability: Hit %lu destinations in cache second pass", buf, 0xCu);
       }
 
       (*(self->_updateHandler + 2))();
     }
 
-    v14 = self->_destinations;
-    v15 = MEMORY[0x277CCAC30];
-    v53[0] = MEMORY[0x277D85DD0];
-    v53[1] = 3221225472;
-    v53[2] = __37__ASReachabilityQueryOperation_start__block_invoke;
-    v53[3] = &unk_278C462A0;
-    v46 = v8;
-    v54 = v46;
-    v16 = [v15 predicateWithBlock:v53];
-    v17 = [(NSSet *)v14 filteredSetUsingPredicate:v16];
+    v17 = self->_destinations;
+    v18 = MEMORY[0x277CCAC30];
+    v57[0] = MEMORY[0x277D85DD0];
+    v57[1] = 3221225472;
+    v57[2] = __37__ASReachabilityQueryOperation_start__block_invoke;
+    v57[3] = &unk_278C462A0;
+    v50 = v9;
+    v58 = v50;
+    v19 = [v18 predicateWithBlock:v57];
+    v20 = [(NSSet *)v17 filteredSetUsingPredicate:v19];
 
     dictionary = [MEMORY[0x277CBEB38] dictionary];
     rawIDSDestinationToOriginalDestination = self->_rawIDSDestinationToOriginalDestination;
     self->_rawIDSDestinationToOriginalDestination = dictionary;
 
-    v20 = [MEMORY[0x277CBEB58] set];
-    v49 = 0u;
-    v50 = 0u;
-    v51 = 0u;
-    v52 = 0u;
-    v21 = v17;
-    v22 = [v21 countByEnumeratingWithState:&v49 objects:v55 count:16];
-    if (v22)
+    v23 = [MEMORY[0x277CBEB58] set];
+    v53 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    v56 = 0u;
+    v24 = v20;
+    v25 = [v24 countByEnumeratingWithState:&v53 objects:v59 count:16];
+    if (v25)
     {
-      v23 = v22;
-      v24 = *v50;
+      v26 = v25;
+      v27 = *v54;
       do
       {
-        for (i = 0; i != v23; ++i)
+        for (i = 0; i != v26; ++i)
         {
-          if (*v50 != v24)
+          if (*v54 != v27)
           {
-            objc_enumerationMutation(v21);
+            objc_enumerationMutation(v24);
           }
 
-          v26 = *(*(&v49 + 1) + 8 * i);
-          v27 = IDSDestinationForString(v26);
-          if (v27)
+          v29 = *(*(&v53 + 1) + 8 * i);
+          v30 = IDSDestinationForString(v29);
+          if (v30)
           {
-            [v20 addObject:v27];
-            v28 = IDSCopyRawAddressForDestination();
-            [(NSMutableDictionary *)self->_rawIDSDestinationToOriginalDestination setObject:v26 forKeyedSubscript:v28];
+            [v23 addObject:v30];
+            v31 = IDSCopyRawAddressForDestination();
+            [(NSMutableDictionary *)self->_rawIDSDestinationToOriginalDestination setObject:v29 forKeyedSubscript:v31];
           }
         }
 
-        v23 = [v21 countByEnumeratingWithState:&v49 objects:v55 count:16];
+        v26 = [v24 countByEnumeratingWithState:&v53 objects:v59 count:16];
       }
 
-      while (v23);
+      while (v26);
     }
 
-    if ([v21 count])
+    v32 = [v24 count];
+    if (v32)
     {
-      ASLoggingInitialize();
-      v29 = ASLogDefault;
+      ASLoggingInitialize(v32, v33);
+      v34 = ASLogDefault;
       if (os_log_type_enabled(ASLogDefault, OS_LOG_TYPE_DEFAULT))
       {
-        v30 = v29;
-        v31 = [v21 count];
+        v35 = v34;
+        v36 = [v24 count];
         *buf = 134217984;
-        v57 = v31;
-        _os_log_impl(&dword_23E4FA000, v30, OS_LOG_TYPE_DEFAULT, "Reachability: Querying %lu destinations", buf, 0xCu);
+        v61 = v36;
+        _os_log_impl(&dword_23E4FA000, v35, OS_LOG_TYPE_DEFAULT, "Reachability: Querying %lu destinations", buf, 0xCu);
       }
 
       currentQueue = [MEMORY[0x277CCABD8] currentQueue];
       underlyingQueue = [currentQueue underlyingQueue];
 
-      v34 = [objc_alloc(MEMORY[0x277D186D8]) initWithService:self->_serviceIdentifier delegate:self queue:underlyingQueue];
+      v39 = [objc_alloc(MEMORY[0x277D186D8]) initWithService:self->_serviceIdentifier delegate:self queue:underlyingQueue];
       batchQueryController = self->_batchQueryController;
-      self->_batchQueryController = v34;
+      self->_batchQueryController = v39;
 
-      v36 = [v21 mutableCopy];
+      v41 = [v24 mutableCopy];
       remainingDestinations = self->_remainingDestinations;
-      self->_remainingDestinations = v36;
+      self->_remainingDestinations = v41;
 
-      v38 = self->_batchQueryController;
-      allObjects = [v20 allObjects];
-      [(IDSBatchIDQueryController *)v38 setDestinations:allObjects];
+      v43 = self->_batchQueryController;
+      allObjects = [v23 allObjects];
+      [(IDSBatchIDQueryController *)v43 setDestinations:allObjects];
 
-      v40 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, underlyingQueue);
+      v45 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, underlyingQueue);
       timer = self->timer;
-      self->timer = v40;
+      self->timer = v45;
 
-      v42 = self->timer;
-      v43 = dispatch_time(0, 10000000000);
-      dispatch_source_set_timer(v42, v43, 0xFFFFFFFFFFFFFFFFLL, 0x3B9ACA00uLL);
+      v47 = self->timer;
+      v48 = dispatch_time(0, 10000000000);
+      dispatch_source_set_timer(v47, v48, 0xFFFFFFFFFFFFFFFFLL, 0x3B9ACA00uLL);
       objc_initWeak(buf, self);
-      v44 = self->timer;
+      v49 = self->timer;
       handler[0] = MEMORY[0x277D85DD0];
       handler[1] = 3221225472;
       handler[2] = __37__ASReachabilityQueryOperation_start__block_invoke_18;
       handler[3] = &unk_278C46550;
-      objc_copyWeak(&v48, buf);
-      dispatch_source_set_event_handler(v44, handler);
+      objc_copyWeak(&v52, buf);
+      dispatch_source_set_event_handler(v49, handler);
       dispatch_resume(self->timer);
-      objc_destroyWeak(&v48);
+      objc_destroyWeak(&v52);
       objc_destroyWeak(buf);
     }
 
@@ -177,8 +178,6 @@
     {
       [(ASReachabilityQueryOperation *)self finish];
     }
-
-    v45 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -198,18 +197,18 @@ void __37__ASReachabilityQueryOperation_start__block_invoke_18(uint64_t a1)
 
 - (void)finish
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (!self->_finished)
   {
-    ASLoggingInitialize();
+    ASLoggingInitialize(self, a2);
     v3 = ASLogDefault;
     if (os_log_type_enabled(ASLogDefault, OS_LOG_TYPE_DEFAULT))
     {
       destinations = self->_destinations;
       v5 = v3;
-      v10 = 134217984;
-      v11 = [(NSSet *)destinations count];
-      _os_log_impl(&dword_23E4FA000, v5, OS_LOG_TYPE_DEFAULT, "Reachability: Finished %lu destinations", &v10, 0xCu);
+      v8 = 134217984;
+      v9 = [(NSSet *)destinations count];
+      _os_log_impl(&dword_23E4FA000, v5, OS_LOG_TYPE_DEFAULT, "Reachability: Finished %lu destinations", &v8, 0xCu);
     }
 
     timer = self->timer;
@@ -225,18 +224,15 @@ void __37__ASReachabilityQueryOperation_start__block_invoke_18(uint64_t a1)
     self->_executing = 0;
     [(ASReachabilityQueryOperation *)self didChangeValueForKey:@"isExecuting"];
     [(ASReachabilityQueryOperation *)self didChangeValueForKey:@"isFinished"];
-    results = self->_results;
     (*(self->_completionHandler + 2))();
     completionHandler = self->_completionHandler;
     self->_completionHandler = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queryTimedOut
 {
-  ASLoggingInitialize();
+  ASLoggingInitialize(self, a2);
   v3 = ASLogDefault;
   if (os_log_type_enabled(ASLogDefault, OS_LOG_TYPE_ERROR))
   {

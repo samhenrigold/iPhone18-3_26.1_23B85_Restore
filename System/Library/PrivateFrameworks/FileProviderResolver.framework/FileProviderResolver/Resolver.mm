@@ -33,18 +33,17 @@
   locationsCopy = locations;
   v8 = sub_24ABC92F8();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   MEMORY[0x28223BE20](v8);
-  v12 = &v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = _Block_copy(reply);
+  v11 = &v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = _Block_copy(reply);
   sub_24ABC92D8();
-  _Block_copy(v13);
+  _Block_copy(v12);
   selfCopy = self;
-  sub_24ABC843C(v12, locationsCopy, v13);
-  _Block_release(v13);
-  _Block_release(v13);
+  sub_24ABC843C(v11, locationsCopy, v12);
+  _Block_release(v12);
+  _Block_release(v12);
 
-  (*(v9 + 8))(v12, v8);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (_TtC20FileProviderResolver8Resolver)init

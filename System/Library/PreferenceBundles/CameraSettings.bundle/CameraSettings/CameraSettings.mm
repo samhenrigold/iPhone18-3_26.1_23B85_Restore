@@ -24,9 +24,9 @@ id sub_23D0(void *a1)
   return v4;
 }
 
-void sub_2524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -105,9 +105,9 @@ id sub_3A24(void *a1)
   return v4;
 }
 
-void sub_3B78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_3B78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -243,9 +243,9 @@ id sub_57BC(void *a1)
   return v4;
 }
 
-void sub_5910(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_5910(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -299,9 +299,9 @@ id sub_65C0(void *a1)
   return v4;
 }
 
-void sub_6714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_6714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -355,9 +355,9 @@ id sub_747C(void *a1)
   return v4;
 }
 
-void sub_75D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_75D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -516,9 +516,9 @@ id sub_839C(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
   return result;
 }
 
-void sub_856C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_856C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -589,9 +589,9 @@ int64_t sub_8EE0(id a1, PSSpecifier *a2, PSSpecifier *a3)
   return v7;
 }
 
-void sub_91E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_91E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -645,9 +645,9 @@ id sub_98E0(void *a1)
   return v4;
 }
 
-void sub_9A34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_9A34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -701,9 +701,9 @@ id sub_A8E4(void *a1)
   return v4;
 }
 
-void sub_AA38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_AA38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -729,6 +729,13 @@ id sub_AE7C(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
   }
 
   return result;
+}
+
+void sub_BC40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 id sub_BCD8(void *a1)
@@ -757,9 +764,9 @@ id sub_BCD8(void *a1)
   return v4;
 }
 
-void sub_BE2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_BE2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -858,9 +865,9 @@ id sub_DD30(void *a1)
   return v4;
 }
 
-void sub_DE84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_DE84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -914,9 +921,9 @@ id sub_11414(void *a1)
   return v4;
 }
 
-void sub_11568(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_11568(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -981,9 +988,9 @@ id sub_13388(void *a1)
   return v4;
 }
 
-void sub_134DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_134DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1037,9 +1044,9 @@ id sub_13828(void *a1)
   return v4;
 }
 
-void sub_1397C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1397C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1083,9 +1090,9 @@ void sub_14B10(id a1, id a2, unint64_t a3, BOOL *a4)
   _objc_release_x1();
 }
 
-void sub_14D04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_14D04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1113,9 +1120,9 @@ id sub_14F58(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
   return result;
 }
 
-void sub_151DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_151DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1872,27 +1879,25 @@ Swift::Int sub_16B38()
   return sub_1BBF8();
 }
 
-uint64_t sub_16B9C()
+uint64_t sub_16B9C(uint64_t a1)
 {
-  sub_16488(*v0);
+  sub_16488(*v1);
   sub_1BB28();
 }
 
-Swift::Int sub_16BF0()
+Swift::Int sub_16BF0(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_1BBE8();
-  sub_16488(v1);
+  sub_16488(v2);
   sub_1BB28();
 
   return sub_1BBF8();
 }
 
-uint64_t sub_16C50@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
+unint64_t sub_16C50@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v4 = *a1;
-  v3 = a1[1];
-  result = sub_178B0();
+  result = sub_178B0(*a1, a1[1]);
   *a2 = result;
   return result;
 }
@@ -1923,7 +1928,6 @@ uint64_t sub_16D14(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -1931,11 +1935,11 @@ uint64_t sub_16D14(uint64_t *a1, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_16D74@<X0>(_BYTE *a1@<X8>)
+unint64_t sub_16D74@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
 
-  result = sub_178B0();
-  *a1 = result;
+  result = sub_178B0(a1, a2);
+  *a3 = result;
   return result;
 }
 
@@ -2119,44 +2123,40 @@ BOOL sub_16F30()
 uint64_t sub_16FEC()
 {
   v0 = sub_1B9C8();
-  v27 = *(v0 - 8);
-  v28 = v0;
-  v1 = *(v27 + 64);
+  v23 = *(v0 - 8);
+  v24 = v0;
   __chkstk_darwin();
-  v3 = &v27 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = sub_1BA08();
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
+  v2 = &v23 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = sub_1BA08();
+  v4 = *(v3 - 8);
   __chkstk_darwin();
-  v8 = &v27 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = sub_1B9E8();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
+  v6 = &v23 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = sub_1B9E8();
+  v8 = *(v7 - 8);
   __chkstk_darwin();
-  v13 = &v27 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = sub_1BA28();
-  v15 = *(v14 - 8);
-  v16 = *(v15 + 64);
+  v10 = &v23 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = sub_1BA28();
+  v12 = *(v11 - 8);
   __chkstk_darwin();
-  v18 = &v27 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v5 + 104))(v8, enum case for GenerativeModelsAvailability.LanguageOption.any(_:), v4);
+  v14 = &v23 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v4 + 104))(v6, enum case for GenerativeModelsAvailability.LanguageOption.any(_:), v3);
   sub_1B9D8();
   sub_1BA18();
-  v19 = v9;
-  v20 = v27;
-  (*(v10 + 8))(v13, v19);
-  v21 = v28;
+  v15 = v7;
+  v16 = v23;
+  (*(v8 + 8))(v10, v15);
+  v17 = v24;
   sub_1B9F8();
-  (*(v15 + 8))(v18, v14);
-  v22 = (*(v20 + 88))(v3, v21);
-  v24 = v22 != enum case for GenerativeModelsAvailability.Availability.restricted(_:) && v22 != enum case for GenerativeModelsAvailability.Availability.unavailable(_:) && v22 == enum case for GenerativeModelsAvailability.Availability.available(_:);
-  v25 = v24;
-  if (!v24)
+  (*(v12 + 8))(v14, v11);
+  v18 = (*(v16 + 88))(v2, v17);
+  v20 = v18 != enum case for GenerativeModelsAvailability.Availability.restricted(_:) && v18 != enum case for GenerativeModelsAvailability.Availability.unavailable(_:) && v18 == enum case for GenerativeModelsAvailability.Availability.available(_:);
+  v21 = v20;
+  if (!v20)
   {
-    (*(v20 + 8))(v3, v21);
+    (*(v16 + 8))(v2, v17);
   }
 
-  return v25;
+  return v21;
 }
 
 BOOL sub_17304()
@@ -2308,25 +2308,24 @@ LABEL_38:
   return v0;
 }
 
-uint64_t sub_178B0()
+unint64_t sub_178B0(uint64_t a1, uint64_t a2)
 {
-  v0 = sub_1BBC8();
+  v2 = sub_1BBC8();
 
-  if (v0 >= 0x2F)
+  if (v2 >= 0x2F)
   {
     return 47;
   }
 
   else
   {
-    return v0;
+    return v2;
   }
 }
 
 uint64_t sub_17904()
 {
   swift_beginAccess();
-  v1 = *(v0 + 16);
 
   return swift_deallocClassInstance();
 }
@@ -2345,33 +2344,32 @@ unint64_t sub_179A8()
 
 uint64_t sub_17A18(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v5 = *(*(sub_1BA68() - 8) + 64);
+  sub_1BA68();
   __chkstk_darwin();
-  v6 = sub_1BA48();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
+  v5 = sub_1BA48();
+  v6 = *(v5 - 8);
   __chkstk_darwin();
-  v10 = &v19 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v17 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1AFF0(0, &qword_369D8, off_2C4D0);
-  v11 = [objc_allocWithZone(PSSpecifier) init];
-  [v11 setProperty:a4 forKey:PSListControllerCellHighlightingSelectionInvocationRelayKey];
+  v9 = [objc_allocWithZone(PSSpecifier) init];
+  [v9 setProperty:a4 forKey:PSListControllerCellHighlightingSelectionInvocationRelayKey];
   sub_1BA58();
   sub_1BA38();
   sub_1BA98();
   sub_1AFF0(0, &qword_369E0, NSBundle_ptr);
   if (!sub_1BB68())
   {
-    v12 = [objc_opt_self() mainBundle];
+    v10 = [objc_opt_self() mainBundle];
   }
 
-  v13 = sub_1BAA8();
+  v11 = sub_1BAA8();
+  v13 = v12;
   v15 = v14;
-  v17 = v16;
-  sub_1AFA4(&qword_36940, &type metadata accessor for PreferencesControllerView);
+  sub_1AFA4(&qword_36940, &type metadata accessor for PreferencesControllerView, &protocol conformance descriptor for PreferencesControllerView);
   sub_1BAB8();
-  sub_1B038(v13, v15, v17 & 1);
+  sub_1B038(v11, v13, v15 & 1);
 
-  return (*(v7 + 8))(v10, v6);
+  return (*(v6 + 8))(v8, v5);
 }
 
 uint64_t sub_17CF4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
@@ -2384,101 +2382,87 @@ uint64_t sub_17CF4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   v6[90] = a1;
   v7 = sub_1BA68();
   v6[96] = v7;
-  v8 = *(v7 - 8);
-  v6[97] = v8;
-  v9 = *(v8 + 64) + 15;
+  v6[97] = *(v7 - 8);
   v6[98] = swift_task_alloc();
-  v10 = sub_1BA88();
-  v6[99] = v10;
-  v11 = *(v10 - 8);
-  v6[100] = v11;
-  v12 = *(v11 + 64) + 15;
+  v8 = sub_1BA88();
+  v6[99] = v8;
+  v6[100] = *(v8 - 8);
   v6[101] = swift_task_alloc();
   v6[102] = swift_task_alloc();
-  v13 = sub_1B9B8();
-  v6[103] = v13;
-  v14 = *(v13 - 8);
-  v6[104] = v14;
-  v15 = *(v14 + 64) + 15;
+  v9 = sub_1B9B8();
+  v6[103] = v9;
+  v6[104] = *(v9 - 8);
   v6[105] = swift_task_alloc();
-  v16 = *(*(sub_1ABCC(&qword_36950, &qword_20218) - 8) + 64) + 15;
+  sub_1ABCC(&qword_36950, &qword_20218);
   v6[106] = swift_task_alloc();
-  v17 = sub_1B9A8();
-  v6[107] = v17;
-  v18 = *(v17 - 8);
-  v6[108] = v18;
-  v19 = *(v18 + 64) + 15;
+  v10 = sub_1B9A8();
+  v6[107] = v10;
+  v6[108] = *(v10 - 8);
   v6[109] = swift_task_alloc();
   sub_1BB58();
   v6[110] = sub_1BB48();
-  v21 = sub_1BB38();
+  v12 = sub_1BB38();
 
-  return _swift_task_switch(sub_17F54, v21, v20);
+  return _swift_task_switch(sub_17F54, v12, v11);
 }
 
 uint64_t sub_17F54()
 {
-  v1 = v0[110];
-  v2 = v0[108];
-  v3 = v0[107];
-  v4 = v0[106];
-  v5 = v0[105];
-  v6 = v0[104];
-  v7 = v0[103];
-  v8 = v0[91];
+  v1 = v0[108];
+  v2 = v0[107];
+  v3 = v0[106];
+  v4 = v0[105];
+  v5 = v0[104];
+  v6 = v0[103];
 
   sub_1BAE8();
   sub_1B978();
-  (*(v6 + 8))(v5, v7);
-  if ((*(v2 + 48))(v4, 1, v3) == 1)
+  (*(v5 + 8))(v4, v6);
+  if ((*(v1 + 48))(v3, 1, v2) == 1)
   {
-    v9 = v0[102];
-    v10 = v0[100];
-    v11 = v0[99];
-    v12 = v0[91];
-    v13 = v0[90];
+    v7 = v0[102];
+    v8 = v0[100];
+    v9 = v0[99];
     sub_1AE94(v0[106]);
     sub_1BAD8();
     sub_1BAF8();
-    (*(v10 + 8))(v9, v11);
+    (*(v8 + 8))(v7, v9);
     goto LABEL_125;
   }
 
-  v14 = v0[101];
-  v15 = v0[91];
   (*(v0[108] + 32))(v0[109], v0[106], v0[107]);
   sub_1BAD8();
   v0[88] = sub_1B988();
-  v0[89] = v16;
+  v0[89] = v10;
   v0[86] = 47;
   v0[87] = 0xE100000000000000;
   sub_1AEFC();
-  v17 = sub_1BB78();
+  v11 = sub_1BB78();
 
-  v18 = 0;
-  v19 = *(v17 + 16);
-  v20 = _swiftEmptyArrayStorage;
+  v12 = 0;
+  v13 = *(v11 + 16);
+  v14 = _swiftEmptyArrayStorage;
 LABEL_4:
-  v21 = (v17 + 40 + 16 * v18);
-  while (v19 != v18)
+  v15 = (v11 + 40 + 16 * v12);
+  while (v13 != v12)
   {
-    if (v18 >= *(v17 + 16))
+    if (v12 >= *(v11 + 16))
     {
       __break(1u);
       JUMPOUT(0x196CCLL);
     }
 
-    v23 = *(v21 - 1);
-    v22 = *v21;
-    v21 += 2;
-    ++v18;
-    v24 = HIBYTE(v22) & 0xF;
-    if ((v22 & 0x2000000000000000) == 0)
+    v17 = *(v15 - 1);
+    v16 = *v15;
+    v15 += 2;
+    ++v12;
+    v18 = HIBYTE(v16) & 0xF;
+    if ((v16 & 0x2000000000000000) == 0)
     {
-      v24 = v23 & 0xFFFFFFFFFFFFLL;
+      v18 = v17 & 0xFFFFFFFFFFFFLL;
     }
 
-    if (v24)
+    if (v18)
     {
 
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
@@ -2486,248 +2470,274 @@ LABEL_4:
         sub_1A8A0(0, _swiftEmptyArrayStorage[2] + 1, 1);
       }
 
-      v26 = _swiftEmptyArrayStorage[2];
-      v25 = _swiftEmptyArrayStorage[3];
-      if (v26 >= v25 >> 1)
+      v20 = _swiftEmptyArrayStorage[2];
+      v19 = _swiftEmptyArrayStorage[3];
+      if (v20 >= v19 >> 1)
       {
-        sub_1A8A0((v25 > 1), v26 + 1, 1);
+        sub_1A8A0((v19 > 1), v20 + 1, 1);
       }
 
-      _swiftEmptyArrayStorage[2] = v26 + 1;
-      v27 = &_swiftEmptyArrayStorage[2 * v26];
-      *(v27 + 4) = v23;
-      *(v27 + 5) = v22;
+      _swiftEmptyArrayStorage[2] = v20 + 1;
+      v21 = &_swiftEmptyArrayStorage[2 * v20];
+      v21[4] = v17;
+      v21[5] = v16;
       goto LABEL_4;
     }
   }
 
-  v28 = _swiftEmptyArrayStorage[2];
-  if (!v28)
+  v22 = _swiftEmptyArrayStorage[2];
+  if (!v22)
   {
-    v170 = v0[109];
     sub_1B998();
-    if (v171)
+    if (v136)
     {
-      v172 = v0[95];
+      v137 = v0[95];
 
-      v173 = sub_1BB18();
+      v138 = sub_1BB18();
 
-      [v172 setSpecifierIdentifierToScrollAndHighlight:v173];
+      [v137 setSpecifierIdentifierToScrollAndHighlight:v138];
 
       goto LABEL_124;
     }
 
-    v28 = _swiftEmptyArrayStorage[2];
-    if (!v28)
+    v22 = _swiftEmptyArrayStorage[2];
+    if (!v22)
     {
 
       goto LABEL_124;
     }
   }
 
-  v29 = 0;
-  v30 = (v0[97] + 8);
-  v31 = v0[92];
-  v192 = PSListControllerCellHighlightingSelectionInvocationRelayKey;
+  v23 = 0;
+  v24 = (v0[97] + 8);
+  v25 = v0[92];
+  v149 = PSListControllerCellHighlightingSelectionInvocationRelayKey;
   while (2)
   {
-    v43 = *(v20 + 4);
-    v42 = *(v20 + 5);
+    v35 = *(v14 + 4);
+    v34 = *(v14 + 5);
 
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    if (!isUniquelyReferenced_nonNull_native || (v28 - 1) > *(v20 + 3) >> 1)
+    if (!isUniquelyReferenced_nonNull_native || (v22 - 1) > *(v14 + 3) >> 1)
     {
-      v20 = sub_1A9CC(isUniquelyReferenced_nonNull_native, v28, 1, v20);
+      v14 = sub_1A9CC(isUniquelyReferenced_nonNull_native, v22, 1, v14);
     }
 
-    sub_1AF50((v20 + 32));
-    v45 = *(v20 + 2);
-    memmove(v20 + 32, v20 + 48, 16 * v45 - 16);
-    *(v20 + 2) = v45 - 1;
+    sub_1AF50((v14 + 32));
+    v37 = *(v14 + 2);
+    memmove(v14 + 32, v14 + 48, 16 * v37 - 16);
+    *(v14 + 2) = v37 - 1;
 
-    v46 = sub_1B700();
-    v47 = 22;
-    switch(v46)
+    v38 = sub_1B700(v35, v34);
+    v39 = 22;
+    switch(v38)
     {
       case 1:
-        v47 = 23;
+        v39 = 23;
         goto LABEL_41;
       case 2:
-        v47 = 26;
+        v39 = 26;
         goto LABEL_41;
       case 3:
-        v47 = 29;
+        v39 = 29;
         goto LABEL_41;
       case 4:
-        v47 = 19;
+        v39 = 19;
         goto LABEL_41;
       case 5:
-        v47 = 20;
+        v39 = 20;
         goto LABEL_41;
       case 6:
-        v47 = 30;
+        v39 = 30;
         goto LABEL_41;
       case 7:
-        v47 = 35;
+        v39 = 35;
         goto LABEL_41;
       case 8:
-        v47 = 1;
+        v39 = 1;
         goto LABEL_41;
       case 9:
-        v47 = 2;
+        v39 = 2;
         goto LABEL_41;
       case 10:
-        v47 = 38;
+        v39 = 38;
         goto LABEL_41;
       case 11:
-        v47 = 41;
+        v39 = 41;
         goto LABEL_41;
       case 12:
-        v47 = 43;
+        v39 = 43;
         goto LABEL_41;
       case 13:
-        v47 = 45;
+        v39 = 45;
         goto LABEL_41;
       case 14:
-        v47 = 3;
+        v39 = 3;
         goto LABEL_41;
       case 15:
-        v47 = 11;
+        v39 = 11;
         goto LABEL_41;
       case 16:
-        v47 = 12;
+        v39 = 12;
         goto LABEL_41;
       case 17:
         goto LABEL_117;
       default:
 LABEL_41:
-        if (sub_1538C(v47))
+        if (sub_1538C(v39))
         {
-          switch(v46)
+          switch(v38)
           {
             case 1:
 
-              v65 = [objc_allocWithZone(PSSpecifier) init];
+              v55 = [objc_allocWithZone(PSSpecifier) init];
               swift_beginAccess();
-              v100 = *(v31 + 16);
-              if (*(v100 + 16) && (v101 = sub_19A34(1), (v102 & 1) != 0))
+              v90 = *(v25 + 16);
+              if (*(v90 + 16) && (v91 = sub_19A34(1), (v92 & 1) != 0))
               {
-                v103 = *(*(v100 + 56) + 8 * v101);
+                v93 = *(*(v90 + 56) + 8 * v91);
                 swift_endAccess();
-                v33 = v103;
+                v27 = v93;
               }
 
               else
               {
                 swift_endAccess();
-                v146 = [objc_allocWithZone(PSListControllerCellHighlightingSelectionInvocationRelay) init];
+                v124 = [objc_allocWithZone(PSListControllerCellHighlightingSelectionInvocationRelay) init];
                 swift_beginAccess();
-                v33 = v146;
-                v147 = *(v31 + 16);
-                v148 = swift_isUniquelyReferenced_nonNull_native();
-                v201 = *(v31 + 16);
-                *(v31 + 16) = 0x8000000000000000;
-                sub_1A5FC(v33, 1, v148);
-                *(v31 + 16) = v201;
+                v27 = v124;
+                v125 = swift_isUniquelyReferenced_nonNull_native();
+                v158 = *(v25 + 16);
+                *(v25 + 16) = 0x8000000000000000;
+                sub_1A5FC(v27, 1, v125);
+                *(v25 + 16) = v158;
                 swift_endAccess();
               }
 
-              v149 = v0[101];
-              v37 = v0[98];
-              v38 = v0[96];
-              [v65 setProperty:v33 forKey:v192];
+              v29 = v0[98];
+              v30 = v0[96];
+              [v55 setProperty:v27 forKey:v149];
 
-              v39 = &unk_36988;
-              v40 = off_2C4A0;
+              v31 = &unk_36988;
+              v32 = off_2C4A0;
               goto LABEL_19;
             case 2:
 
-              v65 = [objc_allocWithZone(PSSpecifier) init];
+              v55 = [objc_allocWithZone(PSSpecifier) init];
               swift_beginAccess();
-              v82 = *(v31 + 16);
-              if (*(v82 + 16) && (v83 = sub_19A34(2), (v84 & 1) != 0))
+              v72 = *(v25 + 16);
+              if (*(v72 + 16) && (v73 = sub_19A34(2), (v74 & 1) != 0))
               {
-                v85 = *(*(v82 + 56) + 8 * v83);
+                v75 = *(*(v72 + 56) + 8 * v73);
                 swift_endAccess();
-                v33 = v85;
+                v27 = v75;
               }
 
               else
               {
                 swift_endAccess();
-                v134 = [objc_allocWithZone(PSListControllerCellHighlightingSelectionInvocationRelay) init];
+                v118 = [objc_allocWithZone(PSListControllerCellHighlightingSelectionInvocationRelay) init];
                 swift_beginAccess();
-                v33 = v134;
-                v135 = *(v31 + 16);
-                v136 = swift_isUniquelyReferenced_nonNull_native();
-                v198 = *(v31 + 16);
-                *(v31 + 16) = 0x8000000000000000;
-                sub_1A5FC(v33, 2, v136);
-                *(v31 + 16) = v198;
+                v27 = v118;
+                v119 = swift_isUniquelyReferenced_nonNull_native();
+                v155 = *(v25 + 16);
+                *(v25 + 16) = 0x8000000000000000;
+                sub_1A5FC(v27, 2, v119);
+                *(v25 + 16) = v155;
                 swift_endAccess();
               }
 
-              v137 = v0[101];
-              v37 = v0[98];
-              v38 = v0[96];
-              [v65 setProperty:v33 forKey:v192];
+              v29 = v0[98];
+              v30 = v0[96];
+              [v55 setProperty:v27 forKey:v149];
 
-              v39 = &unk_36980;
-              v40 = off_2C490;
+              v31 = &unk_36980;
+              v32 = off_2C490;
               goto LABEL_19;
             case 3:
 
-              v65 = [objc_allocWithZone(PSSpecifier) init];
+              v55 = [objc_allocWithZone(PSSpecifier) init];
               swift_beginAccess();
-              v92 = *(v31 + 16);
-              if (*(v92 + 16) && (v93 = sub_19A34(3), (v94 & 1) != 0))
+              v82 = *(v25 + 16);
+              if (*(v82 + 16) && (v83 = sub_19A34(3), (v84 & 1) != 0))
               {
-                v95 = *(*(v92 + 56) + 8 * v93);
+                v85 = *(*(v82 + 56) + 8 * v83);
                 swift_endAccess();
-                v33 = v95;
+                v27 = v85;
               }
 
               else
               {
                 swift_endAccess();
-                v138 = [objc_allocWithZone(PSListControllerCellHighlightingSelectionInvocationRelay) init];
+                v120 = [objc_allocWithZone(PSListControllerCellHighlightingSelectionInvocationRelay) init];
                 swift_beginAccess();
-                v33 = v138;
-                v139 = *(v31 + 16);
-                v140 = swift_isUniquelyReferenced_nonNull_native();
-                v199 = *(v31 + 16);
-                *(v31 + 16) = 0x8000000000000000;
-                sub_1A5FC(v33, 3, v140);
-                *(v31 + 16) = v199;
+                v27 = v120;
+                v121 = swift_isUniquelyReferenced_nonNull_native();
+                v156 = *(v25 + 16);
+                *(v25 + 16) = 0x8000000000000000;
+                sub_1A5FC(v27, 3, v121);
+                *(v25 + 16) = v156;
                 swift_endAccess();
               }
 
-              v141 = v0[101];
-              v37 = v0[98];
-              v38 = v0[96];
-              [v65 setProperty:v33 forKey:v192];
+              v29 = v0[98];
+              v30 = v0[96];
+              [v55 setProperty:v27 forKey:v149];
 
-              v39 = &unk_36978;
-              v40 = AXUICameraButtonController_ptr;
+              v31 = &unk_36978;
+              v32 = AXUICameraButtonController_ptr;
               goto LABEL_19;
             case 4:
             case 5:
-              v48 = v0[95];
-              v49 = sub_1BB18();
+              v40 = v0[95];
+              v41 = sub_1BB18();
 
-              [v48 setSpecifierIdentifierToScrollAndSelect:v49];
+              [v40 setSpecifierIdentifierToScrollAndSelect:v41];
 
               break;
             case 6:
 
-              v65 = [objc_allocWithZone(PSSpecifier) init];
+              v55 = [objc_allocWithZone(PSSpecifier) init];
               swift_beginAccess();
-              v74 = *(v31 + 16);
-              if (*(v74 + 16) && (v75 = sub_19A34(6), (v76 & 1) != 0))
+              v64 = *(v25 + 16);
+              if (*(v64 + 16) && (v65 = sub_19A34(6), (v66 & 1) != 0))
               {
-                v77 = *(*(v74 + 56) + 8 * v75);
+                v67 = *(*(v64 + 56) + 8 * v65);
                 swift_endAccess();
-                v33 = v77;
+                v27 = v67;
+              }
+
+              else
+              {
+                swift_endAccess();
+                v114 = [objc_allocWithZone(PSListControllerCellHighlightingSelectionInvocationRelay) init];
+                swift_beginAccess();
+                v27 = v114;
+                v115 = swift_isUniquelyReferenced_nonNull_native();
+                v153 = *(v25 + 16);
+                *(v25 + 16) = 0x8000000000000000;
+                sub_1A5FC(v27, 6, v115);
+                *(v25 + 16) = v153;
+                swift_endAccess();
+              }
+
+              v29 = v0[98];
+              v30 = v0[96];
+              [v55 setProperty:v27 forKey:v149];
+
+              v31 = &unk_369C0;
+              v32 = &off_2C4F0;
+              goto LABEL_19;
+            case 7:
+
+              v55 = [objc_allocWithZone(PSSpecifier) init];
+              swift_beginAccess();
+              v94 = *(v25 + 16);
+              if (*(v94 + 16) && (v95 = sub_19A34(7), (v96 & 1) != 0))
+              {
+                v97 = *(*(v94 + 56) + 8 * v95);
+                swift_endAccess();
+                v27 = v97;
               }
 
               else
@@ -2735,201 +2745,125 @@ LABEL_41:
                 swift_endAccess();
                 v126 = [objc_allocWithZone(PSListControllerCellHighlightingSelectionInvocationRelay) init];
                 swift_beginAccess();
-                v33 = v126;
-                v127 = *(v31 + 16);
-                v128 = swift_isUniquelyReferenced_nonNull_native();
-                v196 = *(v31 + 16);
-                *(v31 + 16) = 0x8000000000000000;
-                sub_1A5FC(v33, 6, v128);
-                *(v31 + 16) = v196;
+                v27 = v126;
+                v127 = swift_isUniquelyReferenced_nonNull_native();
+                v159 = *(v25 + 16);
+                *(v25 + 16) = 0x8000000000000000;
+                sub_1A5FC(v27, 7, v127);
+                *(v25 + 16) = v159;
                 swift_endAccess();
               }
 
-              v129 = v0[101];
-              v37 = v0[98];
-              v38 = v0[96];
-              [v65 setProperty:v33 forKey:v192];
+              v29 = v0[98];
+              v30 = v0[96];
+              [v55 setProperty:v27 forKey:v149];
 
-              v39 = &unk_369C0;
-              v40 = &off_2C4F0;
-              goto LABEL_19;
-            case 7:
-
-              v65 = [objc_allocWithZone(PSSpecifier) init];
-              swift_beginAccess();
-              v104 = *(v31 + 16);
-              if (*(v104 + 16) && (v105 = sub_19A34(7), (v106 & 1) != 0))
-              {
-                v107 = *(*(v104 + 56) + 8 * v105);
-                swift_endAccess();
-                v33 = v107;
-              }
-
-              else
-              {
-                swift_endAccess();
-                v150 = [objc_allocWithZone(PSListControllerCellHighlightingSelectionInvocationRelay) init];
-                swift_beginAccess();
-                v33 = v150;
-                v151 = *(v31 + 16);
-                v152 = swift_isUniquelyReferenced_nonNull_native();
-                v202 = *(v31 + 16);
-                *(v31 + 16) = 0x8000000000000000;
-                sub_1A5FC(v33, 7, v152);
-                *(v31 + 16) = v202;
-                swift_endAccess();
-              }
-
-              v153 = v0[101];
-              v37 = v0[98];
-              v38 = v0[96];
-              [v65 setProperty:v33 forKey:v192];
-
-              v39 = &unk_36970;
-              v40 = off_2C4E8;
+              v31 = &unk_36970;
+              v32 = off_2C4E8;
               goto LABEL_19;
             case 8:
-              v116 = v0[93];
-              v117 = sub_1BB18();
+              v106 = v0[93];
+              v107 = sub_1BB18();
 
-              v65 = [v116 specifierForID:v117];
+              v55 = [v106 specifierForID:v107];
 
-              if (!v65)
+              if (!v55)
               {
                 goto LABEL_118;
               }
 
-              [v65 setTarget:v0[93]];
+              [v55 setTarget:v0[93]];
               swift_beginAccess();
-              v118 = *(v31 + 16);
-              if (*(v118 + 16) && (v119 = sub_19A34(8), (v120 & 1) != 0))
+              v108 = *(v25 + 16);
+              if (*(v108 + 16) && (v109 = sub_19A34(8), (v110 & 1) != 0))
               {
-                v121 = *(*(v118 + 56) + 8 * v119);
+                v111 = *(*(v108 + 56) + 8 * v109);
                 swift_endAccess();
-                v33 = v121;
+                v27 = v111;
               }
 
               else
               {
                 swift_endAccess();
-                v166 = [objc_allocWithZone(PSListControllerCellHighlightingSelectionInvocationRelay) init];
+                v134 = [objc_allocWithZone(PSListControllerCellHighlightingSelectionInvocationRelay) init];
                 swift_beginAccess();
-                v33 = v166;
-                v167 = *(v31 + 16);
-                v168 = swift_isUniquelyReferenced_nonNull_native();
-                v206 = *(v31 + 16);
-                *(v31 + 16) = 0x8000000000000000;
-                sub_1A5FC(v33, 8, v168);
-                *(v31 + 16) = v206;
+                v27 = v134;
+                v135 = swift_isUniquelyReferenced_nonNull_native();
+                v163 = *(v25 + 16);
+                *(v25 + 16) = 0x8000000000000000;
+                sub_1A5FC(v27, 8, v135);
+                *(v25 + 16) = v163;
                 swift_endAccess();
               }
 
-              v169 = v0[101];
-              v37 = v0[98];
-              v38 = v0[96];
+              v29 = v0[98];
+              v30 = v0[96];
 
-              [v65 setProperty:v33 forKey:v192];
-              v39 = &unk_369B8;
-              v40 = off_2C4E0;
+              [v55 setProperty:v27 forKey:v149];
+              v31 = &unk_369B8;
+              v32 = off_2C4E0;
               goto LABEL_19;
             case 9:
-              v86 = v0[93];
-              v87 = sub_1BB18();
+              v76 = v0[93];
+              v77 = sub_1BB18();
 
-              v65 = [v86 specifierForID:v87];
+              v55 = [v76 specifierForID:v77];
 
-              if (!v65)
+              if (!v55)
               {
                 goto LABEL_118;
               }
 
-              [v65 setTarget:v0[93]];
+              [v55 setTarget:v0[93]];
               swift_beginAccess();
-              v88 = *(v31 + 16);
-              if (*(v88 + 16) && (v89 = sub_19A34(9), (v90 & 1) != 0))
-              {
-                v91 = *(*(v88 + 56) + 8 * v89);
-                swift_endAccess();
-                v33 = v91;
-              }
-
-              else
-              {
-                swift_endAccess();
-                v162 = [objc_allocWithZone(PSListControllerCellHighlightingSelectionInvocationRelay) init];
-                swift_beginAccess();
-                v33 = v162;
-                v163 = *(v31 + 16);
-                v164 = swift_isUniquelyReferenced_nonNull_native();
-                v205 = *(v31 + 16);
-                *(v31 + 16) = 0x8000000000000000;
-                sub_1A5FC(v33, 9, v164);
-                *(v31 + 16) = v205;
-                swift_endAccess();
-              }
-
-              v165 = v0[101];
-              v37 = v0[98];
-              v38 = v0[96];
-
-              [v65 setProperty:v33 forKey:v192];
-              v39 = &qword_36960;
-              v40 = off_2C4D8;
-LABEL_19:
-              sub_1AFF0(0, v39, v40);
-              v41 = v65;
-              sub_1BA58();
-              sub_1AFA4(&qword_36968, &type metadata accessor for PreferencesControllerRecipe);
-              sub_1BA78();
-
-              (*v30)(v37, v38);
-              v29 = v33;
-              break;
-            case 10:
-
-              v65 = [objc_allocWithZone(PSSpecifier) init];
-              swift_beginAccess();
-              v112 = *(v31 + 16);
-              if (*(v112 + 16) && (v113 = sub_19A34(10), (v114 & 1) != 0))
-              {
-                v115 = *(*(v112 + 56) + 8 * v113);
-                swift_endAccess();
-                v33 = v115;
-              }
-
-              else
-              {
-                swift_endAccess();
-                v158 = [objc_allocWithZone(PSListControllerCellHighlightingSelectionInvocationRelay) init];
-                swift_beginAccess();
-                v33 = v158;
-                v159 = *(v31 + 16);
-                v160 = swift_isUniquelyReferenced_nonNull_native();
-                v204 = *(v31 + 16);
-                *(v31 + 16) = 0x8000000000000000;
-                sub_1A5FC(v33, 10, v160);
-                *(v31 + 16) = v204;
-                swift_endAccess();
-              }
-
-              v161 = v0[101];
-              v37 = v0[98];
-              v38 = v0[96];
-              [v65 setProperty:v33 forKey:v192];
-
-              v39 = &unk_369B0;
-              v40 = off_2C498;
-              goto LABEL_19;
-            case 11:
-
-              v65 = [objc_allocWithZone(PSSpecifier) init];
-              swift_beginAccess();
-              v78 = *(v31 + 16);
-              if (*(v78 + 16) && (v79 = sub_19A34(11), (v80 & 1) != 0))
+              v78 = *(v25 + 16);
+              if (*(v78 + 16) && (v79 = sub_19A34(9), (v80 & 1) != 0))
               {
                 v81 = *(*(v78 + 56) + 8 * v79);
                 swift_endAccess();
-                v33 = v81;
+                v27 = v81;
+              }
+
+              else
+              {
+                swift_endAccess();
+                v132 = [objc_allocWithZone(PSListControllerCellHighlightingSelectionInvocationRelay) init];
+                swift_beginAccess();
+                v27 = v132;
+                v133 = swift_isUniquelyReferenced_nonNull_native();
+                v162 = *(v25 + 16);
+                *(v25 + 16) = 0x8000000000000000;
+                sub_1A5FC(v27, 9, v133);
+                *(v25 + 16) = v162;
+                swift_endAccess();
+              }
+
+              v29 = v0[98];
+              v30 = v0[96];
+
+              [v55 setProperty:v27 forKey:v149];
+              v31 = &qword_36960;
+              v32 = off_2C4D8;
+LABEL_19:
+              sub_1AFF0(0, v31, v32);
+              v33 = v55;
+              sub_1BA58();
+              sub_1AFA4(&qword_36968, &type metadata accessor for PreferencesControllerRecipe, &protocol conformance descriptor for PreferencesControllerRecipe);
+              sub_1BA78();
+
+              (*v24)(v29, v30);
+              v23 = v27;
+              break;
+            case 10:
+
+              v55 = [objc_allocWithZone(PSSpecifier) init];
+              swift_beginAccess();
+              v102 = *(v25 + 16);
+              if (*(v102 + 16) && (v103 = sub_19A34(10), (v104 & 1) != 0))
+              {
+                v105 = *(*(v102 + 56) + 8 * v103);
+                swift_endAccess();
+                v27 = v105;
               }
 
               else
@@ -2937,85 +2871,213 @@ LABEL_19:
                 swift_endAccess();
                 v130 = [objc_allocWithZone(PSListControllerCellHighlightingSelectionInvocationRelay) init];
                 swift_beginAccess();
-                v33 = v130;
-                v131 = *(v31 + 16);
-                v132 = swift_isUniquelyReferenced_nonNull_native();
-                v197 = *(v31 + 16);
-                *(v31 + 16) = 0x8000000000000000;
-                sub_1A5FC(v33, 11, v132);
-                *(v31 + 16) = v197;
+                v27 = v130;
+                v131 = swift_isUniquelyReferenced_nonNull_native();
+                v161 = *(v25 + 16);
+                *(v25 + 16) = 0x8000000000000000;
+                sub_1A5FC(v27, 10, v131);
+                *(v25 + 16) = v161;
                 swift_endAccess();
               }
 
-              v133 = v0[101];
-              v37 = v0[98];
-              v38 = v0[96];
-              [v65 setProperty:v33 forKey:v192];
+              v29 = v0[98];
+              v30 = v0[96];
+              [v55 setProperty:v27 forKey:v149];
 
-              v39 = &unk_369A8;
-              v40 = off_2C4B0;
+              v31 = &unk_369B0;
+              v32 = off_2C498;
               goto LABEL_19;
-            case 12:
-            case 13:
-              v50 = v0[94];
-              v51 = sub_1BB18();
+            case 11:
 
-              v52 = [v50 specifierForID:v51];
-
-              if (!v52)
-              {
-                goto LABEL_118;
-              }
-
-              [v52 setTarget:v0[94]];
+              v55 = [objc_allocWithZone(PSSpecifier) init];
               swift_beginAccess();
-              v53 = *(v31 + 16);
-              if (*(v53 + 16) && (v54 = sub_19A34(v46), (v55 & 1) != 0))
+              v68 = *(v25 + 16);
+              if (*(v68 + 16) && (v69 = sub_19A34(11), (v70 & 1) != 0))
               {
-                v56 = *(*(v53 + 56) + 8 * v54);
+                v71 = *(*(v68 + 56) + 8 * v69);
                 swift_endAccess();
-                v57 = v56;
+                v27 = v71;
               }
 
               else
               {
                 swift_endAccess();
-                v58 = [objc_allocWithZone(PSListControllerCellHighlightingSelectionInvocationRelay) init];
+                v116 = [objc_allocWithZone(PSListControllerCellHighlightingSelectionInvocationRelay) init];
                 swift_beginAccess();
-                v57 = v58;
-                v59 = *(v31 + 16);
-                v60 = swift_isUniquelyReferenced_nonNull_native();
-                v194 = *(v31 + 16);
-                *(v31 + 16) = 0x8000000000000000;
-                sub_1A5FC(v57, v46, v60);
-                *(v31 + 16) = v194;
+                v27 = v116;
+                v117 = swift_isUniquelyReferenced_nonNull_native();
+                v154 = *(v25 + 16);
+                *(v25 + 16) = 0x8000000000000000;
+                sub_1A5FC(v27, 11, v117);
+                *(v25 + 16) = v154;
                 swift_endAccess();
               }
 
-              v61 = v0[101];
-              v62 = v0[98];
-              v63 = v0[96];
+              v29 = v0[98];
+              v30 = v0[96];
+              [v55 setProperty:v27 forKey:v149];
 
-              [v52 setProperty:v57 forKey:v192];
+              v31 = &unk_369A8;
+              v32 = off_2C4B0;
+              goto LABEL_19;
+            case 12:
+            case 13:
+              v42 = v0[94];
+              v43 = sub_1BB18();
+
+              v44 = [v42 specifierForID:v43];
+
+              if (!v44)
+              {
+                goto LABEL_118;
+              }
+
+              [v44 setTarget:v0[94]];
+              swift_beginAccess();
+              v45 = *(v25 + 16);
+              if (*(v45 + 16) && (v46 = sub_19A34(v38), (v47 & 1) != 0))
+              {
+                v48 = *(*(v45 + 56) + 8 * v46);
+                swift_endAccess();
+                v49 = v48;
+              }
+
+              else
+              {
+                swift_endAccess();
+                v50 = [objc_allocWithZone(PSListControllerCellHighlightingSelectionInvocationRelay) init];
+                swift_beginAccess();
+                v49 = v50;
+                v51 = swift_isUniquelyReferenced_nonNull_native();
+                v151 = *(v25 + 16);
+                *(v25 + 16) = 0x8000000000000000;
+                sub_1A5FC(v49, v38, v51);
+                *(v25 + 16) = v151;
+                swift_endAccess();
+              }
+
+              v52 = v0[98];
+              v53 = v0[96];
+
+              [v44 setProperty:v49 forKey:v149];
               sub_1AFF0(0, &qword_36960, off_2C4D8);
-              v64 = v52;
+              v54 = v44;
               sub_1BA58();
-              sub_1AFA4(&qword_36968, &type metadata accessor for PreferencesControllerRecipe);
+              sub_1AFA4(&qword_36968, &type metadata accessor for PreferencesControllerRecipe, &protocol conformance descriptor for PreferencesControllerRecipe);
               sub_1BA78();
 
-              (*v30)(v62, v63);
-              v29 = v57;
+              (*v24)(v52, v53);
+              v23 = v49;
               break;
             case 14:
 
-              v65 = [objc_allocWithZone(PSSpecifier) init];
+              v55 = [objc_allocWithZone(PSSpecifier) init];
               swift_beginAccess();
-              v70 = *(v31 + 16);
-              if (*(v70 + 16) && (v71 = sub_19A34(14), (v72 & 1) != 0))
+              v60 = *(v25 + 16);
+              if (*(v60 + 16) && (v61 = sub_19A34(14), (v62 & 1) != 0))
               {
-                v73 = *(*(v70 + 56) + 8 * v71);
+                v63 = *(*(v60 + 56) + 8 * v61);
                 swift_endAccess();
-                v33 = v73;
+                v27 = v63;
+              }
+
+              else
+              {
+                swift_endAccess();
+                v112 = [objc_allocWithZone(PSListControllerCellHighlightingSelectionInvocationRelay) init];
+                swift_beginAccess();
+                v27 = v112;
+                v113 = swift_isUniquelyReferenced_nonNull_native();
+                v152 = *(v25 + 16);
+                *(v25 + 16) = 0x8000000000000000;
+                sub_1A5FC(v27, 14, v113);
+                *(v25 + 16) = v152;
+                swift_endAccess();
+              }
+
+              v29 = v0[98];
+              v30 = v0[96];
+              [v55 setProperty:v27 forKey:v149];
+
+              v31 = &unk_369A0;
+              v32 = off_2C4C8;
+              goto LABEL_19;
+            case 15:
+
+              v55 = [objc_allocWithZone(PSSpecifier) init];
+              swift_beginAccess();
+              v98 = *(v25 + 16);
+              if (*(v98 + 16) && (v99 = sub_19A34(15), (v100 & 1) != 0))
+              {
+                v101 = *(*(v98 + 56) + 8 * v99);
+                swift_endAccess();
+                v27 = v101;
+              }
+
+              else
+              {
+                swift_endAccess();
+                v128 = [objc_allocWithZone(PSListControllerCellHighlightingSelectionInvocationRelay) init];
+                swift_beginAccess();
+                v27 = v128;
+                v129 = swift_isUniquelyReferenced_nonNull_native();
+                v160 = *(v25 + 16);
+                *(v25 + 16) = 0x8000000000000000;
+                sub_1A5FC(v27, 15, v129);
+                *(v25 + 16) = v160;
+                swift_endAccess();
+              }
+
+              v29 = v0[98];
+              v30 = v0[96];
+              [v55 setProperty:v27 forKey:v149];
+
+              v31 = &unk_36998;
+              v32 = off_2C4C0;
+              goto LABEL_19;
+            case 16:
+
+              v55 = [objc_allocWithZone(PSSpecifier) init];
+              swift_beginAccess();
+              v56 = *(v25 + 16);
+              if (*(v56 + 16) && (v57 = sub_19A34(16), (v58 & 1) != 0))
+              {
+                v59 = *(*(v56 + 56) + 8 * v57);
+                swift_endAccess();
+                v27 = v59;
+              }
+
+              else
+              {
+                swift_endAccess();
+                v26 = [objc_allocWithZone(PSListControllerCellHighlightingSelectionInvocationRelay) init];
+                swift_beginAccess();
+                v27 = v26;
+                v28 = swift_isUniquelyReferenced_nonNull_native();
+                v150 = *(v25 + 16);
+                *(v25 + 16) = 0x8000000000000000;
+                sub_1A5FC(v27, 16, v28);
+                *(v25 + 16) = v150;
+                swift_endAccess();
+              }
+
+              v29 = v0[98];
+              v30 = v0[96];
+              [v55 setProperty:v27 forKey:v149];
+
+              v31 = &unk_36990;
+              v32 = off_2C4B8;
+              goto LABEL_19;
+            default:
+
+              v55 = [objc_allocWithZone(PSSpecifier) init];
+              swift_beginAccess();
+              v86 = *(v25 + 16);
+              if (*(v86 + 16) && (v87 = sub_19A34(0), (v88 & 1) != 0))
+              {
+                v89 = *(*(v86 + 56) + 8 * v87);
+                swift_endAccess();
+                v27 = v89;
               }
 
               else
@@ -3023,133 +3085,26 @@ LABEL_19:
                 swift_endAccess();
                 v122 = [objc_allocWithZone(PSListControllerCellHighlightingSelectionInvocationRelay) init];
                 swift_beginAccess();
-                v33 = v122;
-                v123 = *(v31 + 16);
-                v124 = swift_isUniquelyReferenced_nonNull_native();
-                v195 = *(v31 + 16);
-                *(v31 + 16) = 0x8000000000000000;
-                sub_1A5FC(v33, 14, v124);
-                *(v31 + 16) = v195;
+                v27 = v122;
+                v123 = swift_isUniquelyReferenced_nonNull_native();
+                v157 = *(v25 + 16);
+                *(v25 + 16) = 0x8000000000000000;
+                sub_1A5FC(v27, 0, v123);
+                *(v25 + 16) = v157;
                 swift_endAccess();
               }
 
-              v125 = v0[101];
-              v37 = v0[98];
-              v38 = v0[96];
-              [v65 setProperty:v33 forKey:v192];
+              v29 = v0[98];
+              v30 = v0[96];
+              [v55 setProperty:v27 forKey:v149];
 
-              v39 = &unk_369A0;
-              v40 = off_2C4C8;
-              goto LABEL_19;
-            case 15:
-
-              v65 = [objc_allocWithZone(PSSpecifier) init];
-              swift_beginAccess();
-              v108 = *(v31 + 16);
-              if (*(v108 + 16) && (v109 = sub_19A34(15), (v110 & 1) != 0))
-              {
-                v111 = *(*(v108 + 56) + 8 * v109);
-                swift_endAccess();
-                v33 = v111;
-              }
-
-              else
-              {
-                swift_endAccess();
-                v154 = [objc_allocWithZone(PSListControllerCellHighlightingSelectionInvocationRelay) init];
-                swift_beginAccess();
-                v33 = v154;
-                v155 = *(v31 + 16);
-                v156 = swift_isUniquelyReferenced_nonNull_native();
-                v203 = *(v31 + 16);
-                *(v31 + 16) = 0x8000000000000000;
-                sub_1A5FC(v33, 15, v156);
-                *(v31 + 16) = v203;
-                swift_endAccess();
-              }
-
-              v157 = v0[101];
-              v37 = v0[98];
-              v38 = v0[96];
-              [v65 setProperty:v33 forKey:v192];
-
-              v39 = &unk_36998;
-              v40 = off_2C4C0;
-              goto LABEL_19;
-            case 16:
-
-              v65 = [objc_allocWithZone(PSSpecifier) init];
-              swift_beginAccess();
-              v66 = *(v31 + 16);
-              if (*(v66 + 16) && (v67 = sub_19A34(16), (v68 & 1) != 0))
-              {
-                v69 = *(*(v66 + 56) + 8 * v67);
-                swift_endAccess();
-                v33 = v69;
-              }
-
-              else
-              {
-                swift_endAccess();
-                v32 = [objc_allocWithZone(PSListControllerCellHighlightingSelectionInvocationRelay) init];
-                swift_beginAccess();
-                v33 = v32;
-                v34 = *(v31 + 16);
-                v35 = swift_isUniquelyReferenced_nonNull_native();
-                v193 = *(v31 + 16);
-                *(v31 + 16) = 0x8000000000000000;
-                sub_1A5FC(v33, 16, v35);
-                *(v31 + 16) = v193;
-                swift_endAccess();
-              }
-
-              v36 = v0[101];
-              v37 = v0[98];
-              v38 = v0[96];
-              [v65 setProperty:v33 forKey:v192];
-
-              v39 = &unk_36990;
-              v40 = off_2C4B8;
-              goto LABEL_19;
-            default:
-
-              v65 = [objc_allocWithZone(PSSpecifier) init];
-              swift_beginAccess();
-              v96 = *(v31 + 16);
-              if (*(v96 + 16) && (v97 = sub_19A34(0), (v98 & 1) != 0))
-              {
-                v99 = *(*(v96 + 56) + 8 * v97);
-                swift_endAccess();
-                v33 = v99;
-              }
-
-              else
-              {
-                swift_endAccess();
-                v142 = [objc_allocWithZone(PSListControllerCellHighlightingSelectionInvocationRelay) init];
-                swift_beginAccess();
-                v33 = v142;
-                v143 = *(v31 + 16);
-                v144 = swift_isUniquelyReferenced_nonNull_native();
-                v200 = *(v31 + 16);
-                *(v31 + 16) = 0x8000000000000000;
-                sub_1A5FC(v33, 0, v144);
-                *(v31 + 16) = v200;
-                swift_endAccess();
-              }
-
-              v145 = v0[101];
-              v37 = v0[98];
-              v38 = v0[96];
-              [v65 setProperty:v33 forKey:v192];
-
-              v39 = &unk_369C8;
-              v40 = off_2C4A8;
+              v31 = &unk_369C8;
+              v32 = off_2C4A8;
               goto LABEL_19;
           }
 
-          v28 = *(v20 + 2);
-          if (!v28)
+          v22 = *(v14 + 2);
+          if (!v22)
           {
             goto LABEL_118;
           }
@@ -3161,15 +3116,14 @@ LABEL_117:
 
 LABEL_118:
 
-        if (v29)
+        if (v23)
         {
-          v174 = v0[109];
           sub_1B998();
-          if (v175)
+          if (v139)
           {
-            v176 = sub_1BB18();
+            v140 = sub_1BB18();
 
-            [v29 setSpecifierIdentifierToScrollAndHighlight:v176];
+            [v23 setSpecifierIdentifierToScrollAndHighlight:v140];
           }
 
           else
@@ -3178,78 +3132,70 @@ LABEL_118:
         }
 
 LABEL_124:
-        v177 = v0[109];
-        v178 = v0[108];
-        v179 = v0[107];
-        v180 = v0[101];
-        v181 = v0[100];
-        v182 = v0[99];
-        v183 = v0[90];
+        v141 = v0[109];
+        v142 = v0[108];
+        v143 = v0[107];
+        v144 = v0[101];
+        v145 = v0[100];
+        v146 = v0[99];
         sub_1BAF8();
-        (*(v181 + 8))(v180, v182);
-        (*(v178 + 8))(v177, v179);
+        (*(v145 + 8))(v144, v146);
+        (*(v142 + 8))(v141, v143);
 LABEL_125:
-        v184 = v0[109];
-        v185 = v0[106];
-        v186 = v0[105];
-        v187 = v0[102];
-        v188 = v0[101];
-        v189 = v0[98];
 
-        v190 = v0[1];
+        v147 = v0[1];
 
-        return v190();
+        return v147();
     }
   }
 }
 
 uint64_t sub_19758@<X0>(uint64_t a1@<X8>)
 {
-  v22[1] = a1;
+  v21[1] = a1;
   v2 = sub_1ABCC(&qword_36930, &qword_201F8);
   v3 = *(v2 - 8);
-  v4 = (*(v3 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   __chkstk_darwin();
-  v6 = v22 - v5;
-  v7 = *v1;
-  v8 = v1[1];
-  v10 = v1[2];
-  v9 = v1[3];
-  v11 = swift_allocObject();
-  v11[2] = v7;
-  v11[3] = v8;
-  v11[4] = v10;
-  v11[5] = v9;
+  v5 = v21 - v4;
+  v6 = *v1;
+  v7 = v1[1];
+  v9 = v1[2];
+  v8 = v1[3];
+  v10 = swift_allocObject();
+  v10[2] = v6;
+  v10[3] = v7;
+  v10[4] = v9;
+  v10[5] = v8;
 
-  v12 = v8;
-  v13 = v10;
-  v14 = v9;
+  v11 = v7;
+  v12 = v9;
+  v13 = v8;
   sub_1ABCC(&qword_36938, &qword_20200);
-  v15 = sub_1BA48();
-  v16 = sub_1AFA4(&qword_36940, &type metadata accessor for PreferencesControllerView);
-  v22[2] = v15;
-  v22[3] = v16;
+  v14 = sub_1BA48();
+  v15 = sub_1AFA4(&qword_36940, &type metadata accessor for PreferencesControllerView, &protocol conformance descriptor for PreferencesControllerView);
+  v21[2] = v14;
+  v21[3] = v15;
   swift_getOpaqueTypeConformance2();
   sub_1BB08();
-  v17 = swift_allocObject();
-  v17[2] = v7;
-  v17[3] = v12;
-  v17[4] = v13;
-  v17[5] = v14;
+  v16 = swift_allocObject();
+  v16[2] = v6;
+  v16[3] = v11;
+  v16[4] = v12;
+  v16[5] = v13;
   sub_1AE30();
 
+  v17 = v11;
   v18 = v12;
   v19 = v13;
-  v20 = v14;
   sub_1BAC8();
-  return (*(v3 + 8))(v6, v2);
+  return (*(v3 + 8))(v5, v2);
 }
 
 id sub_1998C@<X0>(uint64_t *a1@<X8>)
 {
   type metadata accessor for ListControllerCellHighlightingSelectionInvocationRelaysManager();
   v2 = swift_allocObject();
-  *(v2 + 16) = sub_1AAD8(&_swiftEmptyArrayStorage);
+  *(v2 + 16) = sub_1AAD8(_swiftEmptyArrayStorage);
   v3 = [objc_allocWithZone(CameraSettingsController) init];
   v4 = [objc_allocWithZone(CameraCodecSettingsController) init];
   result = [objc_allocWithZone(PSListControllerCellHighlightingSelectionInvocationRelay) init];
@@ -3260,16 +3206,16 @@ id sub_1998C@<X0>(uint64_t *a1@<X8>)
   return result;
 }
 
-unint64_t sub_19A34(char a1)
+unint64_t sub_19A34(uint64_t a1)
 {
-  v3 = *(v1 + 40);
+  v1 = a1;
   sub_1BBE8();
-  sub_1B2A4(a1);
+  sub_1B2A4(v1);
   sub_1BB28();
 
-  v4 = sub_1BBF8();
+  v2 = sub_1BBF8();
 
-  return sub_19ABC(a1, v4);
+  return sub_19ABC(v1, v2);
 }
 
 unint64_t sub_19ABC(char a1, uint64_t a2)
@@ -3517,150 +3463,144 @@ LABEL_52:
   return v4;
 }
 
-uint64_t sub_1A09C(uint64_t a1, char a2)
+uint64_t sub_1A09C(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  if (*(*v2 + 24) > a1)
-  {
-    v6 = *(*v2 + 24);
-  }
-
   sub_1ABCC(&qword_36928, &qword_201F0);
-  v36 = a2;
-  v7 = sub_1BB98();
-  v8 = v7;
+  v33 = v4;
+  v6 = sub_1BB98();
+  v7 = v6;
   if (*(v5 + 16))
   {
-    v35 = v3;
-    v9 = 0;
-    v10 = (v5 + 64);
-    v11 = 1 << *(v5 + 32);
-    if (v11 < 64)
+    v8 = 0;
+    v9 = (v5 + 64);
+    v10 = 1 << *(v5 + 32);
+    if (v10 < 64)
     {
-      v12 = ~(-1 << v11);
+      v11 = ~(-1 << v10);
     }
 
     else
     {
-      v12 = -1;
+      v11 = -1;
     }
 
-    v13 = v12 & *(v5 + 64);
-    v14 = (v11 + 63) >> 6;
-    v15 = v7 + 64;
-    while (v13)
+    v12 = v11 & *(v5 + 64);
+    v13 = (v10 + 63) >> 6;
+    v14 = v6 + 64;
+    while (v12)
     {
-      v22 = __clz(__rbit64(v13));
-      v13 &= v13 - 1;
-LABEL_19:
-      v25 = v22 | (v9 << 6);
-      v26 = *(*(v5 + 48) + v25);
-      v27 = *(*(v5 + 56) + 8 * v25);
-      if ((v36 & 1) == 0)
+      v21 = __clz(__rbit64(v12));
+      v12 &= v12 - 1;
+LABEL_17:
+      v24 = v21 | (v8 << 6);
+      v25 = *(*(v5 + 48) + v24);
+      v26 = *(*(v5 + 56) + 8 * v24);
+      if ((v33 & 1) == 0)
       {
-        v28 = v27;
+        v27 = v26;
       }
 
-      v29 = *(v8 + 40);
       sub_1BBE8();
       sub_1BB28();
 
-      v17 = sub_1BBF8();
-      v18 = -1 << *(v8 + 32);
-      v19 = v17 & ~v18;
-      v20 = v19 >> 6;
-      if (((-1 << v19) & ~*(v15 + 8 * (v19 >> 6))) != 0)
+      v16 = sub_1BBF8();
+      v17 = -1 << *(v7 + 32);
+      v18 = v16 & ~v17;
+      v19 = v18 >> 6;
+      if (((-1 << v18) & ~*(v14 + 8 * (v18 >> 6))) != 0)
       {
-        v21 = __clz(__rbit64((-1 << v19) & ~*(v15 + 8 * (v19 >> 6)))) | v19 & 0x7FFFFFFFFFFFFFC0;
+        v20 = __clz(__rbit64((-1 << v18) & ~*(v14 + 8 * (v18 >> 6)))) | v18 & 0x7FFFFFFFFFFFFFC0;
       }
 
       else
       {
-        v30 = 0;
-        v31 = (63 - v18) >> 6;
+        v28 = 0;
+        v29 = (63 - v17) >> 6;
         do
         {
-          if (++v20 == v31 && (v30 & 1) != 0)
+          if (++v19 == v29 && (v28 & 1) != 0)
           {
-            goto LABEL_38;
+            goto LABEL_36;
           }
 
-          v32 = v20 == v31;
-          if (v20 == v31)
+          v30 = v19 == v29;
+          if (v19 == v29)
           {
-            v20 = 0;
+            v19 = 0;
           }
 
-          v30 |= v32;
-          v33 = *(v15 + 8 * v20);
+          v28 |= v30;
+          v31 = *(v14 + 8 * v19);
         }
 
-        while (v33 == -1);
-        v21 = __clz(__rbit64(~v33)) + (v20 << 6);
+        while (v31 == -1);
+        v20 = __clz(__rbit64(~v31)) + (v19 << 6);
       }
 
-      *(v15 + ((v21 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v21;
-      *(*(v8 + 48) + v21) = v26;
-      *(*(v8 + 56) + 8 * v21) = v27;
-      ++*(v8 + 16);
+      *(v14 + ((v20 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v20;
+      *(*(v7 + 48) + v20) = v25;
+      *(*(v7 + 56) + 8 * v20) = v26;
+      ++*(v7 + 16);
     }
 
-    v23 = v9;
+    v22 = v8;
     while (1)
     {
-      v9 = v23 + 1;
-      if (__OFADD__(v23, 1))
+      v8 = v22 + 1;
+      if (__OFADD__(v22, 1))
       {
         __break(1u);
-LABEL_38:
+LABEL_36:
         __break(1u);
         JUMPOUT(0x1A5B8);
       }
 
-      if (v9 >= v14)
+      if (v8 >= v13)
       {
         break;
       }
 
-      v24 = v10[v9];
-      ++v23;
-      if (v24)
+      v23 = v9[v8];
+      ++v22;
+      if (v23)
       {
-        v22 = __clz(__rbit64(v24));
-        v13 = (v24 - 1) & v24;
-        goto LABEL_19;
+        v21 = __clz(__rbit64(v23));
+        v12 = (v23 - 1) & v23;
+        goto LABEL_17;
       }
     }
 
-    if (v36)
+    if (v33)
     {
-      v34 = 1 << *(v5 + 32);
-      if (v34 >= 64)
+      v32 = 1 << *(v5 + 32);
+      if (v32 >= 64)
       {
-        bzero((v5 + 64), ((v34 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+        bzero((v5 + 64), ((v32 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
       }
 
       else
       {
-        *v10 = -1 << v34;
+        *v9 = -1 << v32;
       }
 
       *(v5 + 16) = 0;
     }
 
-    v3 = v35;
+    v3 = v2;
   }
 
   else
   {
   }
 
-  *v3 = v8;
+  *v3 = v7;
   return result;
 }
 
-unint64_t sub_1A5FC(uint64_t a1, char a2, char a3)
+unint64_t sub_1A5FC(uint64_t a1, uint64_t a2, char a3)
 {
   v4 = v3;
   v8 = *v3;
@@ -3682,25 +3622,23 @@ LABEL_15:
   if (v16 >= v14 && (a3 & 1) != 0)
   {
 LABEL_8:
-    v20 = *v4;
+    v19 = *v4;
     if (v15)
     {
-      v21 = v20[7];
-      v22 = *(v21 + 8 * result);
-      *(v21 + 8 * result) = a1;
+      *(v19[7] + 8 * result) = a1;
 
       return _objc_release_x1();
     }
 
-    v20[(result >> 6) + 8] |= 1 << result;
-    *(v20[6] + result) = a2;
-    *(v20[7] + 8 * result) = a1;
-    v23 = v20[2];
-    v13 = __OFADD__(v23, 1);
-    v24 = v23 + 1;
+    v19[(result >> 6) + 8] |= 1 << result;
+    *(v19[6] + result) = a2;
+    *(v19[7] + 8 * result) = a1;
+    v20 = v19[2];
+    v13 = __OFADD__(v20, 1);
+    v21 = v20 + 1;
     if (!v13)
     {
-      v20[2] = v24;
+      v19[2] = v21;
       return result;
     }
 
@@ -3716,9 +3654,8 @@ LABEL_8:
   }
 
   sub_1A09C(v14, a3 & 1);
-  v18 = *v4;
   result = sub_19A34(a2);
-  if ((v15 & 1) == (v19 & 1))
+  if ((v15 & 1) == (v18 & 1))
   {
     goto LABEL_8;
   }
@@ -3811,7 +3748,7 @@ LABEL_19:
   return result;
 }
 
-char *sub_1A8A0(char *a1, int64_t a2, char a3)
+char *sub_1A8A0(char *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_1A8C0(a1, a2, a3, *v3);
   *v3 = result;
@@ -3874,7 +3811,7 @@ char *sub_1A8C0(char *result, int64_t a2, char a3, char *a4)
 
   else
   {
-    v10 = &_swiftEmptyArrayStorage;
+    v10 = _swiftEmptyArrayStorage;
   }
 
   v13 = v10 + 32;
@@ -3953,7 +3890,7 @@ char *sub_1A9CC(char *result, int64_t a2, char a3, char *a4)
 
   else
   {
-    v10 = &_swiftEmptyArrayStorage;
+    v10 = _swiftEmptyArrayStorage;
   }
 
   v13 = v10 + 32;
@@ -4031,7 +3968,6 @@ uint64_t sub_1ABCC(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -4041,7 +3977,6 @@ uint64_t sub_1ABCC(uint64_t *a1, uint64_t *a2)
 
 uint64_t sub_1AC24()
 {
-  v1 = *(v0 + 16);
 
   return _swift_deallocObject(v0, 48, 7);
 }
@@ -4062,12 +3997,11 @@ uint64_t sub_1AC74(uint64_t a1, uint64_t a2)
 
 uint64_t sub_1AD3C()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 unint64_t sub_1AE30()
@@ -4102,7 +4036,7 @@ unint64_t sub_1AEFC()
   return result;
 }
 
-uint64_t sub_1AFA4(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1AFA4(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -4115,12 +4049,11 @@ uint64_t sub_1AFA4(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-uint64_t sub_1AFF0(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_1AFF0(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -4454,27 +4387,25 @@ Swift::Int sub_1B534()
   return sub_1BBF8();
 }
 
-uint64_t sub_1B598()
+uint64_t sub_1B598(uint64_t a1)
 {
-  sub_1B2A4(*v0);
+  sub_1B2A4(*v1);
   sub_1BB28();
 }
 
-Swift::Int sub_1B5EC()
+Swift::Int sub_1B5EC(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_1BBE8();
-  sub_1B2A4(v1);
+  sub_1B2A4(v2);
   sub_1BB28();
 
   return sub_1BBF8();
 }
 
-uint64_t sub_1B64C@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
+unint64_t sub_1B64C@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v4 = *a1;
-  v3 = a1[1];
-  result = sub_1B700();
+  result = sub_1B700(*a1, a1[1]);
   *a2 = result;
   return result;
 }
@@ -4499,18 +4430,18 @@ unint64_t sub_1B6AC()
   return result;
 }
 
-uint64_t sub_1B700()
+unint64_t sub_1B700(uint64_t a1, uint64_t a2)
 {
-  v0 = sub_1BBC8();
+  v2 = sub_1BBC8();
 
-  if (v0 >= 0x11)
+  if (v2 >= 0x11)
   {
     return 17;
   }
 
   else
   {
-    return v0;
+    return v2;
   }
 }
 

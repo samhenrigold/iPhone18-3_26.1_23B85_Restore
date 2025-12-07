@@ -266,16 +266,16 @@
     [canvas viewScale];
     [(CRLWPHighlightArrayController *)self->_pulseArrayController setViewScale:?];
 
-    [(CRLWPHighlightArrayController *)self->_pulseArrayController reset];
-    v7 = sub_1002843F0();
+    reset = [(CRLWPHighlightArrayController *)self->_pulseArrayController reset];
+    v9 = sub_1002843F0(reset, v8);
     pulseArrayController = self->_pulseArrayController;
     primaryFindResultSearchReference = self->_primaryFindResultSearchReference;
-    v9 = [NSArray arrayWithObjects:&primaryFindResultSearchReference count:1];
+    v11 = [NSArray arrayWithObjects:&primaryFindResultSearchReference count:1];
     canvas2 = [WeakRetained canvas];
     [canvas2 contentsScale];
-    v11 = [(CRLWPHighlightArrayController *)pulseArrayController buildHighlightsForSearchReferences:v9 contentsScaleForLayers:1 shouldCreateBackground:v7 backgroundColor:?];
+    v13 = [(CRLWPHighlightArrayController *)pulseArrayController buildHighlightsForSearchReferences:v11 contentsScaleForLayers:1 shouldCreateBackground:v9 backgroundColor:?];
 
-    CGColorRelease(v7);
+    CGColorRelease(v9);
     if (pulseCopy)
     {
       [(CRLWPHighlightArrayController *)self->_pulseArrayController startAnimating];
@@ -301,56 +301,56 @@
     WeakRetained = objc_loadWeakRetained(&self->_interactiveCanvasController);
     v8 = self->_highlightArrayController;
     v9 = *&CGAffineTransformIdentity.c;
-    v26[0] = *&CGAffineTransformIdentity.a;
-    v26[1] = v9;
-    v26[2] = *&CGAffineTransformIdentity.tx;
-    [(CRLWPHighlightArrayController *)v8 setTransform:v26];
+    v28[0] = *&CGAffineTransformIdentity.a;
+    v28[1] = v9;
+    v28[2] = *&CGAffineTransformIdentity.tx;
+    [(CRLWPHighlightArrayController *)v8 setTransform:v28];
     canvas = [WeakRetained canvas];
     [canvas viewScale];
     [(CRLWPHighlightArrayController *)self->_highlightArrayController setViewScale:?];
 
-    [(CRLWPHighlightArrayController *)self->_highlightArrayController reset];
-    v11 = sub_100284410();
-    v22 = 0u;
-    v23 = 0u;
+    reset = [(CRLWPHighlightArrayController *)self->_highlightArrayController reset];
+    v13 = sub_100284410(reset, v12);
     v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     obj = self->_searchReferencesToHighlight;
-    v12 = [(NSArray *)obj countByEnumeratingWithState:&v22 objects:v28 count:16];
-    if (v12)
+    v14 = [(NSArray *)obj countByEnumeratingWithState:&v24 objects:v30 count:16];
+    if (v14)
     {
-      v13 = v12;
-      v14 = *v23;
+      v15 = v14;
+      v16 = *v25;
       do
       {
-        v15 = 0;
+        v17 = 0;
         do
         {
-          if (*v23 != v14)
+          if (*v25 != v16)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = self->_highlightArrayController;
-          v27 = *(*(&v22 + 1) + 8 * v15);
-          v16 = v27;
-          v18 = [NSArray arrayWithObjects:&v27 count:1];
+          v19 = self->_highlightArrayController;
+          v29 = *(*(&v24 + 1) + 8 * v17);
+          v18 = v29;
+          v20 = [NSArray arrayWithObjects:&v29 count:1];
           canvas2 = [WeakRetained canvas];
           [canvas2 contentsScale];
-          v20 = [(CRLWPHighlightArrayController *)v17 buildHighlightsForSearchReferences:v18 contentsScaleForLayers:1 shouldCreateBackground:v11 backgroundColor:?];
+          v22 = [(CRLWPHighlightArrayController *)v19 buildHighlightsForSearchReferences:v20 contentsScaleForLayers:1 shouldCreateBackground:v13 backgroundColor:?];
 
-          [v16 setFindHighlights:v20];
-          v15 = v15 + 1;
+          [v18 setFindHighlights:v22];
+          v17 = v17 + 1;
         }
 
-        while (v13 != v15);
-        v13 = [(NSArray *)obj countByEnumeratingWithState:&v22 objects:v28 count:16];
+        while (v15 != v17);
+        v15 = [(NSArray *)obj countByEnumeratingWithState:&v24 objects:v30 count:16];
       }
 
-      while (v13);
+      while (v15);
     }
 
-    CGColorRelease(v11);
+    CGColorRelease(v13);
   }
 
   else if (highlightArrayController)
@@ -516,7 +516,7 @@
           v26 = geometryInRoot;
           if (geometryInRoot)
           {
-            [geometryInRoot transform];
+            objc_msgSend_transform(geometryInRoot);
           }
 
           else
@@ -634,7 +634,7 @@
                   v25 = parent;
                   if (parent)
                   {
-                    [parent transformInRoot];
+                    objc_msgSend_transformInRoot(parent);
                   }
 
                   else

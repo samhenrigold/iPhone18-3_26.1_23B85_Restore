@@ -7,7 +7,7 @@
 - (id)chapterCollectionProducerForConfiguration:(id)configuration
 {
   configurationCopy = configuration;
-  if (([configurationCopy options] & 2) == 0)
+  if ((objc_msgSend_options(configurationCopy) & 2) == 0)
   {
     storyQueue = [configurationCopy storyQueue];
     v5 = +[PXStoryChapterSettings sharedInstance];

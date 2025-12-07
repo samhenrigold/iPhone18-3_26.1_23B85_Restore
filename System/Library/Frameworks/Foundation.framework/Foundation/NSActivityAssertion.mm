@@ -60,11 +60,11 @@ uint64_t __74___NSActivityAssertion__initWithActivityOptions_reason_expirationHa
   return v1(global_queue, &__block_literal_global_45);
 }
 
-uint64_t __74___NSActivityAssertion__initWithActivityOptions_reason_expirationHandler___block_invoke_3(uint64_t result, char a2)
+id *__74___NSActivityAssertion__initWithActivityOptions_reason_expirationHandler___block_invoke_3(id *result, char a2)
 {
   if ((a2 & 1) == 0)
   {
-    Weak = objc_loadWeak((result + 32));
+    Weak = objc_loadWeak(result + 4);
 
     return [Weak _fireExpirationHandler];
   }

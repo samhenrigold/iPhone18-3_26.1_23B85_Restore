@@ -134,84 +134,80 @@ uint64_t __52__MSPSharedTripCapabilityLevelFetcher_sharedFetcher__block_invoke()
 
 - (void)registerObserver:(id)observer
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
-  v5 = MSPGetSharedTripCapabilityFetchingLog();
+  v5 = MSPGetSharedTripCapabilityFetchingLog(observerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 138412290;
-    v8 = observerCopy;
-    _os_log_impl(&dword_25813A000, v5, OS_LOG_TYPE_DEBUG, "MSPSharedTripCapabilityLevelFetcher registerObserver %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = observerCopy;
+    _os_log_impl(&dword_25813A000, v5, OS_LOG_TYPE_DEBUG, "MSPSharedTripCapabilityLevelFetcher registerObserver %@", &v6, 0xCu);
   }
 
   [(GEOObserverHashTable *)self->_observers registerObserver:observerCopy];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unregisterObserver:(id)observer
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
-  v5 = MSPGetSharedTripCapabilityFetchingLog();
+  v5 = MSPGetSharedTripCapabilityFetchingLog(observerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 138412290;
-    v8 = observerCopy;
-    _os_log_impl(&dword_25813A000, v5, OS_LOG_TYPE_DEBUG, "MSPSharedTripCapabilityLevelFetcher unregisterObserver %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = observerCopy;
+    _os_log_impl(&dword_25813A000, v5, OS_LOG_TYPE_DEBUG, "MSPSharedTripCapabilityLevelFetcher unregisterObserver %@", &v6, 0xCu);
   }
 
   [(GEOObserverHashTable *)self->_observers unregisterObserver:observerCopy];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyObservers:(id)observers
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   observersCopy = observers;
-  v5 = MSPGetSharedTripCapabilityFetchingLog();
+  v5 = MSPGetSharedTripCapabilityFetchingLog(observersCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 134218243;
-    v8 = [observersCopy count];
-    v9 = 2113;
-    v10 = observersCopy;
-    _os_log_impl(&dword_25813A000, v5, OS_LOG_TYPE_DEBUG, "MSPSharedTripCapabilityLevelFetcher notifyObservers for %lu updated handles: %{private}@", &v7, 0x16u);
+    v6 = 134218243;
+    v7 = [observersCopy count];
+    v8 = 2113;
+    v9 = observersCopy;
+    _os_log_impl(&dword_25813A000, v5, OS_LOG_TYPE_DEBUG, "MSPSharedTripCapabilityLevelFetcher notifyObservers for %lu updated handles: %{private}@", &v6, 0x16u);
   }
 
   [(GEOObserverHashTable *)self->_observers capabilityLevelFetcher:self didUpdateCapabilityLevelsForHandles:observersCopy];
   [(GEOObserverHashTable *)self->_observers capabilityLevelsDidUpdate];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)capabilityLevelForContact:(id)contact
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   contactCopy = contact;
   handleForIDS = [contactCopy handleForIDS];
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x3032000000;
-  v42 = __Block_byref_object_copy__3;
-  v43 = __Block_byref_object_dispose__3;
-  v44 = 0;
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x3032000000;
+  v43 = __Block_byref_object_copy__3;
+  v44 = __Block_byref_object_dispose__3;
+  v45 = 0;
   workQueue = self->_workQueue;
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v34 = __65__MSPSharedTripCapabilityLevelFetcher_capabilityLevelForContact___block_invoke;
-  v35 = &unk_279866180;
-  v38 = &v39;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v35 = __65__MSPSharedTripCapabilityLevelFetcher_capabilityLevelForContact___block_invoke;
+  v36 = &unk_279866180;
+  v39 = &v40;
   selfCopy = self;
   v7 = handleForIDS;
-  v37 = v7;
+  v38 = v7;
   v8 = workQueue;
-  v9 = v33;
+  v9 = v34;
   label = dispatch_queue_get_label(v8);
   v11 = dispatch_queue_get_label(0);
   if (label == v11 || label && v11 && !strcmp(label, v11))
   {
     v12 = objc_autoreleasePoolPush();
-    v34(v9);
+    v35(v9);
     objc_autoreleasePoolPop(v12);
   }
 
@@ -228,7 +224,7 @@ uint64_t __52__MSPSharedTripCapabilityLevelFetcher_sharedFetcher__block_invoke()
     if (IsValid)
     {
       CapabilityType = MSPSharedTripVirtualReceiverHandleGetCapabilityType(v7);
-      v16 = MSPGetSharedTripCapabilityFetchingLog();
+      v16 = MSPGetSharedTripCapabilityFetchingLog(CapabilityType);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
         if (CapabilityType > 4)
@@ -242,9 +238,9 @@ uint64_t __52__MSPSharedTripCapabilityLevelFetcher_sharedFetcher__block_invoke()
         }
 
         *buf = 138543618;
-        v46 = v7;
-        v47 = 2114;
-        v48 = v17;
+        v47 = v7;
+        v48 = 2114;
+        v49 = v17;
         _os_log_impl(&dword_25813A000, v16, OS_LOG_TYPE_INFO, "capabilityLevelForContact virtual receiver %{public}@ supports %{public}@", buf, 0x16u);
       }
 
@@ -256,18 +252,18 @@ uint64_t __52__MSPSharedTripCapabilityLevelFetcher_sharedFetcher__block_invoke()
   {
   }
 
-  v18 = v40[5];
-  if (!v18 || [v18 isExpired])
+  v18 = v41[5];
+  if (!v18 || (v18 = [v18 isExpired], v18))
   {
-    v16 = MSPGetSharedTripCapabilityFetchingLog();
+    v16 = MSPGetSharedTripCapabilityFetchingLog(v18);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       stringValue = [contactCopy stringValue];
-      v20 = v40[5];
+      v20 = v41[5];
       *buf = 138412546;
-      v46 = stringValue;
-      v47 = 2114;
-      v48 = v20;
+      v47 = stringValue;
+      v48 = 2114;
+      v49 = v20;
       _os_log_impl(&dword_25813A000, v16, OS_LOG_TYPE_INFO, "capabilityLevelForContact cache miss for handle %@ (%{public}@)", buf, 0x16u);
     }
 
@@ -275,15 +271,16 @@ uint64_t __52__MSPSharedTripCapabilityLevelFetcher_sharedFetcher__block_invoke()
     goto LABEL_18;
   }
 
-  if ([v40[5] isBlocked])
+  isBlocked = [v41[5] isBlocked];
+  if (isBlocked)
   {
-    v16 = MSPGetSharedTripCapabilityFetchingLog();
+    v16 = MSPGetSharedTripCapabilityFetchingLog(isBlocked);
     CapabilityType = 1;
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       stringValue2 = [contactCopy stringValue];
       *buf = 138412290;
-      v46 = stringValue2;
+      v47 = stringValue2;
       _os_log_impl(&dword_25813A000, v16, OS_LOG_TYPE_INFO, "capabilityLevelForContact returning invalid for blocked handle %@", buf, 0xCu);
 
 LABEL_23:
@@ -294,28 +291,29 @@ LABEL_23:
     goto LABEL_18;
   }
 
-  v24 = MSPGetSharedTripCapabilityFetchingLog();
+  v24 = MSPGetSharedTripCapabilityFetchingLog(isBlocked);
   if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
   {
     stringValue3 = [contactCopy stringValue];
-    v26 = v40[5];
+    v26 = v41[5];
     *buf = 138412546;
-    v46 = stringValue3;
-    v47 = 2114;
-    v48 = v26;
+    v47 = stringValue3;
+    v48 = 2114;
+    v49 = v26;
     _os_log_impl(&dword_25813A000, v24, OS_LOG_TYPE_INFO, "capabilityLevelForContact cache hit for handle %@ (%{public}@)", buf, 0x16u);
   }
 
-  if ([v40[5] status] != 1)
+  if ([v41[5] status] != 1)
   {
-    if ([contactCopy isPhoneNumber])
+    isPhoneNumber = [contactCopy isPhoneNumber];
+    if (isPhoneNumber)
     {
-      v16 = MSPGetSharedTripCapabilityFetchingLog();
+      v16 = MSPGetSharedTripCapabilityFetchingLog(isPhoneNumber);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
         stringValue4 = [contactCopy stringValue];
         *buf = 138412290;
-        v46 = stringValue4;
+        v47 = stringValue4;
         _os_log_impl(&dword_25813A000, v16, OS_LOG_TYPE_INFO, "capabilityLevelForContact returning cached SMS capability type for %@", buf, 0xCu);
       }
 
@@ -323,13 +321,13 @@ LABEL_23:
       goto LABEL_18;
     }
 
-    v16 = MSPGetSharedTripCapabilityFetchingLog();
+    v16 = MSPGetSharedTripCapabilityFetchingLog(isPhoneNumber);
     CapabilityType = 1;
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       stringValue5 = [contactCopy stringValue];
       *buf = 138412290;
-      v46 = stringValue5;
+      v47 = stringValue5;
       _os_log_impl(&dword_25813A000, v16, OS_LOG_TYPE_INFO, "capabilityLevelForContact returning cached invalid capability type for %@", buf, 0xCu);
 
       goto LABEL_23;
@@ -340,10 +338,10 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  v27 = MSPGetSharedTripCapabilityFetchingLog();
+  v27 = MSPGetSharedTripCapabilityFetchingLog(1);
   if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
   {
-    capabilityType = [v40[5] capabilityType];
+    capabilityType = [v41[5] capabilityType];
     if (capabilityType > 4)
     {
       v29 = @"Unknown";
@@ -356,26 +354,22 @@ LABEL_18:
 
     stringValue6 = [contactCopy stringValue];
     *buf = 138543618;
-    v46 = v29;
-    v47 = 2112;
-    v48 = stringValue6;
+    v47 = v29;
+    v48 = 2112;
+    v49 = stringValue6;
     _os_log_impl(&dword_25813A000, v27, OS_LOG_TYPE_INFO, "capabilityLevelForContact returning cached %{public}@ capability type for %@", buf, 0x16u);
   }
 
-  CapabilityType = [v40[5] capabilityType];
+  CapabilityType = [v41[5] capabilityType];
 LABEL_19:
 
-  _Block_object_dispose(&v39, 8);
-  v21 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v40, 8);
   return CapabilityType;
 }
 
 uint64_t __65__MSPSharedTripCapabilityLevelFetcher_capabilityLevelForContact___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 16) objectForKeyedSubscript:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 16) objectForKeyedSubscript:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -424,7 +418,7 @@ uint64_t __65__MSPSharedTripCapabilityLevelFetcher_capabilityLevelForContact___b
     if (IsValid)
     {
       serviceName = MSPSharedTripVirtualReceiverHandleGetServiceName(v7);
-      v16 = MSPGetSharedTripCapabilityFetchingLog();
+      v16 = MSPGetSharedTripCapabilityFetchingLog(serviceName);
       if (!os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
         goto LABEL_23;
@@ -446,9 +440,9 @@ uint64_t __65__MSPSharedTripCapabilityLevelFetcher_capabilityLevelForContact___b
   }
 
   v20 = v32[5];
-  if (!v20 || [v20 isExpired])
+  if (!v20 || (v20 = [v20 isExpired], v20))
   {
-    v16 = MSPGetSharedTripCapabilityFetchingLog();
+    v16 = MSPGetSharedTripCapabilityFetchingLog(v20);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       stringValue = [contactCopy stringValue];
@@ -465,9 +459,10 @@ LABEL_16:
     goto LABEL_23;
   }
 
-  if ([v32[5] isBlocked])
+  isBlocked = [v32[5] isBlocked];
+  if (isBlocked)
   {
-    v16 = MSPGetSharedTripCapabilityFetchingLog();
+    v16 = MSPGetSharedTripCapabilityFetchingLog(isBlocked);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       *buf = 138477827;
@@ -479,7 +474,7 @@ LABEL_16:
   }
 
   serviceName = [v32[5] serviceName];
-  v16 = MSPGetSharedTripCapabilityFetchingLog();
+  v16 = MSPGetSharedTripCapabilityFetchingLog(serviceName);
   if (!os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     goto LABEL_23;
@@ -495,17 +490,13 @@ LABEL_22:
 LABEL_23:
 
   _Block_object_dispose(&v31, 8);
-  v23 = *MEMORY[0x277D85DE8];
 
   return serviceName;
 }
 
 uint64_t __61__MSPSharedTripCapabilityLevelFetcher_serviceNameForContact___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 16) objectForKeyedSubscript:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 16) objectForKeyedSubscript:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -581,38 +572,34 @@ void __62__MSPSharedTripCapabilityLevelFetcher__openConnectionIfNeeded__block_in
   _xpcConnection = [invalidatedCopy _xpcConnection];
   v7 = [v5 stringWithUTF8String:xpc_connection_copy_invalidation_reason()];
 
-  v8 = MSPGetSharedTripCapabilityFetchingLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = MSPGetSharedTripCapabilityFetchingLog(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v11 = 138412546;
     v12 = invalidatedCopy;
     v13 = 2114;
     v14 = v7;
-    _os_log_impl(&dword_25813A000, v8, OS_LOG_TYPE_INFO, "[Service] Connection invalidated: %@, reason: %{public}@", &v11, 0x16u);
+    _os_log_impl(&dword_25813A000, v9, OS_LOG_TYPE_INFO, "[Service] Connection invalidated: %@, reason: %{public}@", &v11, 0x16u);
   }
 
   connection = self->_connection;
   self->_connection = 0;
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_connectionInterrupted:(id)interrupted
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   interruptedCopy = interrupted;
-  v5 = MSPGetSharedTripCapabilityFetchingLog();
+  v5 = MSPGetSharedTripCapabilityFetchingLog(interruptedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138412290;
-    v9 = interruptedCopy;
-    _os_log_impl(&dword_25813A000, v5, OS_LOG_TYPE_ERROR, "[Service] Connection invalidated: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = interruptedCopy;
+    _os_log_impl(&dword_25813A000, v5, OS_LOG_TYPE_ERROR, "[Service] Connection invalidated: %@", &v7, 0xCu);
   }
 
   connection = self->_connection;
   self->_connection = 0;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestCapabilityLevelsForContacts:(id)contacts
@@ -635,20 +622,18 @@ void __62__MSPSharedTripCapabilityLevelFetcher__openConnectionIfNeeded__block_in
 
 uint64_t __74__MSPSharedTripCapabilityLevelFetcher_requestCapabilityLevelsForContacts___block_invoke_2(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = MSPGetSharedTripCapabilityFetchingLog();
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = MSPGetSharedTripCapabilityFetchingLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_25813A000, v2, OS_LOG_TYPE_DEBUG, "fetchCapabilityLevelForContacts enqueing destinations %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_25813A000, v2, OS_LOG_TYPE_DEBUG, "fetchCapabilityLevelForContacts enqueing destinations %@", &v5, 0xCu);
   }
 
   [*(*(a1 + 40) + 24) addObjectsFromArray:*(a1 + 32)];
-  result = [*(a1 + 40) _fetchQueuesDidUpdate];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) _fetchQueuesDidUpdate];
 }
 
 - (void)cancelCapabilityLevelRequestForContacts:(id)contacts
@@ -668,37 +653,33 @@ uint64_t __74__MSPSharedTripCapabilityLevelFetcher_requestCapabilityLevelsForCon
 
 void __79__MSPSharedTripCapabilityLevelFetcher_cancelCapabilityLevelRequestForContacts___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = MapsMap(*(a1 + 32), &__block_literal_global_77_0);
   v3 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:v2];
   if ([*(*(a1 + 40) + 24) intersectsSet:v3])
   {
-    [*(*(a1 + 40) + 24) minusSet:v3];
-    v4 = MSPGetSharedTripCapabilityFetchingLog();
+    v4 = MSPGetSharedTripCapabilityFetchingLog([*(*(a1 + 40) + 24) minusSet:v3]);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v6 = 138412290;
-      v7 = v3;
-      _os_log_impl(&dword_25813A000, v4, OS_LOG_TYPE_DEBUG, "capabilityLevelNoLongerNeededForContact did remove %@ across Maps/Messages queues", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v3;
+      _os_log_impl(&dword_25813A000, v4, OS_LOG_TYPE_DEBUG, "capabilityLevelNoLongerNeededForContact did remove %@ across Maps/Messages queues", &v5, 0xCu);
     }
 
     [*(a1 + 40) _fetchQueuesDidUpdate];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelCapabilityLevelRequestForContact:(id)contact
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   workQueue = self->_workQueue;
   contactCopy = contact;
   dispatch_assert_queue_not_V2(workQueue);
-  v8[0] = contactCopy;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = contactCopy;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
 
   [(MSPSharedTripCapabilityLevelFetcher *)self cancelCapabilityLevelRequestForContacts:v6];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchCapabilityLevelForContact:(id)contact timeout:(double)timeout queue:(id)queue completion:(id)completion
@@ -715,59 +696,59 @@ void __79__MSPSharedTripCapabilityLevelFetcher_cancelCapabilityLevelRequestForCo
 
 - (void)verifyBlockedStatuses
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_not_V2(self->_workQueue);
-  v3 = MSPGetSharedTripCapabilityFetchingLog();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v4 = MSPGetSharedTripCapabilityFetchingLog(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_25813A000, v3, OS_LOG_TYPE_INFO, "Will verify existing blocked handles are still blocked", buf, 2u);
+    _os_log_impl(&dword_25813A000, v4, OS_LOG_TYPE_INFO, "Will verify existing blocked handles are still blocked", buf, 2u);
   }
 
-  v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   statusesByIdentifier = self->_statusesByIdentifier;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __60__MSPSharedTripCapabilityLevelFetcher_verifyBlockedStatuses__block_invoke;
-  v10[3] = &unk_279867B30;
-  v6 = v4;
-  v11 = v6;
-  [(NSMutableDictionary *)statusesByIdentifier enumerateKeysAndObjectsUsingBlock:v10];
-  if (v6)
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __60__MSPSharedTripCapabilityLevelFetcher_verifyBlockedStatuses__block_invoke;
+  v11[3] = &unk_279867B30;
+  v7 = v5;
+  v12 = v7;
+  v8 = [(NSMutableDictionary *)statusesByIdentifier enumerateKeysAndObjectsUsingBlock:v11];
+  if (v7)
   {
-    v7 = MSPGetSharedTripCapabilityFetchingLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v9 = MSPGetSharedTripCapabilityFetchingLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v8 = [v6 count];
+      v10 = [v7 count];
       *buf = 134217984;
-      v13 = v8;
-      _os_log_impl(&dword_25813A000, v7, OS_LOG_TYPE_INFO, "- removing %lu blocked handles from statuses", buf, 0xCu);
+      v14 = v10;
+      _os_log_impl(&dword_25813A000, v9, OS_LOG_TYPE_INFO, "- removing %lu blocked handles from statuses", buf, 0xCu);
     }
   }
 
-  [(NSMutableDictionary *)self->_statusesByIdentifier removeObjectsForKeys:v6];
-
-  v9 = *MEMORY[0x277D85DE8];
+  [(NSMutableDictionary *)self->_statusesByIdentifier removeObjectsForKeys:v7];
 }
 
 void __60__MSPSharedTripCapabilityLevelFetcher_verifyBlockedStatuses__block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v10 = *MEMORY[0x277D85DE8];
   v5 = a2;
-  if ([a3 isBlocked] && !+[MSPSharedTripContact isHandleBlocked:](MSPSharedTripContact, "isHandleBlocked:", v5))
+  if ([a3 isBlocked])
   {
-    v6 = MSPGetSharedTripCapabilityFetchingLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v6 = [MSPSharedTripContact isHandleBlocked:v5];
+    if ((v6 & 1) == 0)
     {
-      v8 = 138477827;
-      v9 = v5;
-      _os_log_impl(&dword_25813A000, v6, OS_LOG_TYPE_INFO, "- %{private}@ is no longer blocked", &v8, 0xCu);
+      v7 = MSPGetSharedTripCapabilityFetchingLog(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      {
+        v8 = 138477827;
+        v9 = v5;
+        _os_log_impl(&dword_25813A000, v7, OS_LOG_TYPE_INFO, "- %{private}@ is no longer blocked", &v8, 0xCu);
+      }
+
+      [*(a1 + 32) addObject:v5];
     }
-
-    [*(a1 + 32) addObject:v5];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -104,35 +104,33 @@
 
 void __62__CPChargingStationConnector_CPAccNavUpdate__accNavParameters__block_invoke()
 {
-  v23[3] = *MEMORY[0x277D85DE8];
-  v17 = NSStringFromSelector(sel_type);
-  v19 = [CPAccNavParamKey paramKey:0];
-  v18 = [v19 copySettingEnumType:9];
-  v22 = v18;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
-  v15 = [CPAccNavParam paramWithProperty:v17 keys:v16];
-  v23[0] = v15;
-  v13 = NSStringFromSelector(sel_voltage);
-  v14 = [CPAccNavParamKey paramKey:1];
-  v12 = [MEMORY[0x277CCADE8] volts];
-  v0 = [v14 copySettingDimension:v12];
-  v21 = v0;
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
-  v2 = [CPAccNavParam paramWithProperty:v13 keys:v1];
-  v23[1] = v2;
+  v22[3] = *MEMORY[0x277D85DE8];
+  v16 = NSStringFromSelector(sel_type);
+  v18 = [CPAccNavParamKey paramKey:0];
+  v17 = [v18 copySettingEnumType:9];
+  v21 = v17;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
+  v14 = [CPAccNavParam paramWithProperty:v16 keys:v15];
+  v22[0] = v14;
+  v12 = NSStringFromSelector(sel_voltage);
+  v13 = [CPAccNavParamKey paramKey:1];
+  v11 = [MEMORY[0x277CCADE8] volts];
+  v0 = [v13 copySettingDimension:v11];
+  v20 = v0;
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
+  v2 = [CPAccNavParam paramWithProperty:v12 keys:v1];
+  v22[1] = v2;
   v3 = NSStringFromSelector(sel_power);
   v4 = [CPAccNavParamKey paramKey:2];
   v5 = [MEMORY[0x277CCAE30] watts];
   v6 = [v4 copySettingDimension:v5];
-  v20 = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
+  v19 = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
   v8 = [CPAccNavParam paramWithProperty:v3 keys:v7];
-  v23[2] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:3];
+  v22[2] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:3];
   v10 = accNavParameters__accNavParameters;
   accNavParameters__accNavParameters = v9;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (NSDictionary)accNavParametersIndexed
@@ -154,9 +152,11 @@ void __62__CPChargingStationConnector_CPAccNavUpdate__accNavParameters__block_in
 
 uint64_t __69__CPChargingStationConnector_CPAccNavUpdate__accNavParametersIndexed__block_invoke(uint64_t a1)
 {
-  accNavParametersIndexed__accNavParametersIndexed = [CPAccNavUpdate accNavParametersIndexedForUpdate:*(a1 + 32)];
+  v1 = [CPAccNavUpdate accNavParametersIndexedForUpdate:*(a1 + 32)];
+  v2 = accNavParametersIndexed__accNavParametersIndexed;
+  accNavParametersIndexed__accNavParametersIndexed = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 + (NSDictionary)accNavParameterKeysIndexed
@@ -178,9 +178,11 @@ uint64_t __69__CPChargingStationConnector_CPAccNavUpdate__accNavParametersIndexe
 
 uint64_t __72__CPChargingStationConnector_CPAccNavUpdate__accNavParameterKeysIndexed__block_invoke(uint64_t a1)
 {
-  accNavParameterKeysIndexed__accNavParameterKeysIndexed = [CPAccNavUpdate accNavParameterKeysIndexedForUpdate:*(a1 + 32)];
+  v1 = [CPAccNavUpdate accNavParameterKeysIndexedForUpdate:*(a1 + 32)];
+  v2 = accNavParameterKeysIndexed__accNavParameterKeysIndexed;
+  accNavParameterKeysIndexed__accNavParameterKeysIndexed = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 @end

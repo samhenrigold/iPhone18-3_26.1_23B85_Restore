@@ -1,7 +1,7 @@
 @interface TSCardContainerController
 - (BOOL)accessibilityPerformEscape;
 - (TSCardContainerController)initWithNibName:(id)name bundle:(id)bundle;
-- (id)childViewControllerForStatusBarHidden;
+- (char)childViewControllerForStatusBarHidden;
 - (void)collapseCards:(id)cards;
 - (void)expandCards:(id)cards;
 - (void)popCards;
@@ -19,7 +19,7 @@
 
 @implementation TSCardContainerController
 
-- (id)childViewControllerForStatusBarHidden
+- (char)childViewControllerForStatusBarHidden
 {
   selfCopy = self;
   v2 = sub_1D7F47234();
@@ -97,18 +97,21 @@
   v4 = _Block_copy(cards);
   if (v4)
   {
-    *(swift_allocObject() + 16) = v4;
-    v5 = sub_1D7F53120;
+    v5 = v4;
+    v6 = swift_allocObject();
+    *(v6 + 16) = v5;
+    v7 = sub_1D7F53120;
   }
 
   else
   {
-    v5 = 0;
+    v7 = 0;
+    v6 = 0;
   }
 
   selfCopy = self;
   CardContainerController.collapseCards(completion:)();
-  sub_1D7E0E10C(v5);
+  sub_1D7E0E10C(v7, v6);
 }
 
 - (void)expandCards:(id)cards
@@ -116,18 +119,21 @@
   v4 = _Block_copy(cards);
   if (v4)
   {
-    *(swift_allocObject() + 16) = v4;
-    v5 = sub_1D7F52DBC;
+    v5 = v4;
+    v6 = swift_allocObject();
+    *(v6 + 16) = v5;
+    v7 = sub_1D7F52DBC;
   }
 
   else
   {
-    v5 = 0;
+    v7 = 0;
+    v6 = 0;
   }
 
   selfCopy = self;
   CardContainerController.expandCards(completion:)();
-  sub_1D7E0E10C(v5);
+  sub_1D7E0E10C(v7, v6);
 }
 
 - (void)pushCardWithViewController:(id)controller animated:(BOOL)animated completion:(id)completion
@@ -135,14 +141,20 @@
   v7 = _Block_copy(completion);
   if (v7)
   {
-    *(swift_allocObject() + 16) = v7;
+    v8 = swift_allocObject();
+    *(v8 + 16) = v7;
     v7 = sub_1D7F52DB4;
+  }
+
+  else
+  {
+    v8 = 0;
   }
 
   controllerCopy = controller;
   selfCopy = self;
   CardContainerController.pushCard(_:animated:completion:)();
-  sub_1D7E0E10C(v7);
+  sub_1D7E0E10C(v7, v8);
 }
 
 - (void)popCards

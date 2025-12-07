@@ -41,7 +41,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1007404BC();
+  sub_1007404BC(selfCopy, v2);
 }
 
 - (void)viewWillDisappear:(BOOL)disappear

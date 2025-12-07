@@ -123,12 +123,12 @@ void __82__HMDAppleMediaAccessorySensorManagerDataStore_currentSensorPairingWith
 
 void __74__HMDAppleMediaAccessorySensorManagerDataStore_saveSensorUUID_completion___block_invoke(uint64_t *a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v3 = a1[5];
-  v34 = 0;
-  v4 = [(HMDAppleMediaAccessorySensorManagerDataStore *)v2 currentSensorPairingWithMOC:v3 error:&v34];
-  v5 = v34;
+  v33 = 0;
+  v4 = [(HMDAppleMediaAccessorySensorManagerDataStore *)v2 currentSensorPairingWithMOC:v3 error:&v33];
+  v5 = v33;
   if (v5)
   {
     v6 = v5;
@@ -139,9 +139,9 @@ void __74__HMDAppleMediaAccessorySensorManagerDataStore_saveSensorUUID_completio
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v36 = v10;
-      v37 = 2112;
-      v38 = v6;
+      v35 = v10;
+      v36 = 2112;
+      v37 = v6;
       _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Unable to fetch the current the local sensor pairing with error: %@", buf, 0x16u);
     }
 
@@ -169,9 +169,9 @@ void __74__HMDAppleMediaAccessorySensorManagerDataStore_saveSensorUUID_completio
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v36 = v18;
-      v37 = 2112;
-      v38 = v4;
+      v35 = v18;
+      v36 = 2112;
+      v37 = v4;
       _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Created new sensor pairing local model: %@", buf, 0x16u);
     }
 
@@ -180,9 +180,9 @@ void __74__HMDAppleMediaAccessorySensorManagerDataStore_saveSensorUUID_completio
 
   [v4 setPairedSensorUUID:a1[6]];
   v19 = a1[5];
-  v33 = 0;
-  v20 = [v19 save:&v33];
-  v6 = v33;
+  v32 = 0;
+  v20 = [v19 save:&v32];
+  v6 = v32;
   v21 = objc_autoreleasePoolPush();
   v22 = a1[4];
   v23 = HMFGetOSLogHandle();
@@ -194,9 +194,9 @@ void __74__HMDAppleMediaAccessorySensorManagerDataStore_saveSensorUUID_completio
       v25 = HMFGetLogIdentifier();
       v26 = a1[6];
       *buf = 138543618;
-      v36 = v25;
-      v37 = 2112;
-      v38 = v26;
+      v35 = v25;
+      v36 = 2112;
+      v37 = v26;
       _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@Saved local pairedSensorUUID: %@", buf, 0x16u);
     }
 
@@ -215,9 +215,9 @@ void __74__HMDAppleMediaAccessorySensorManagerDataStore_saveSensorUUID_completio
     v28 = HMFGetLogIdentifier();
     v29 = a1[6];
     *buf = 138543618;
-    v36 = v28;
-    v37 = 2112;
-    v38 = v29;
+    v35 = v28;
+    v36 = 2112;
+    v37 = v29;
     _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Unable to update the local pairedSensorUUID to %@", buf, 0x16u);
   }
 
@@ -239,8 +239,6 @@ LABEL_22:
   }
 
 LABEL_23:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDAppleMediaAccessorySensorManagerDataStore)initWithLocalMOC:(id)c

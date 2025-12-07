@@ -1,5 +1,5 @@
 @interface _CDDataCollectionAnonymizer
-- (id)anonymizeArray:(uint64_t)array;
+- (id)anonymizeArray:(void *)array;
 - (id)anonymizeDictionary:(void *)dictionary;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)initWithSalt:(id *)salt;
@@ -42,9 +42,9 @@
   return [(_CDDataCollectionAnonymizer *)&v4->super.isa initWithSalt:?];
 }
 
-- (id)anonymizeArray:(uint64_t)array
+- (id)anonymizeArray:(void *)array
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (array)
@@ -53,16 +53,16 @@
     [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v3, "count")}];
     objc_claimAutoreleasedReturnValue();
     v6 = OUTLINED_FUNCTION_3_10();
-    v7 = [v6 countByEnumeratingWithState:v14 objects:v16 count:16];
+    v7 = [v6 countByEnumeratingWithState:v13 objects:v15 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
@@ -74,7 +74,7 @@
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:v14 objects:v16 count:16];
+        v8 = [v6 countByEnumeratingWithState:v13 objects:v15 count:16];
       }
 
       while (v8);
@@ -86,8 +86,6 @@
     v5 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
@@ -96,33 +94,33 @@
   v3 = a2;
   if (object)
   {
-    objc_opt_class();
-    if (OUTLINED_FUNCTION_8_5())
+    v4 = objc_opt_class();
+    if (OUTLINED_FUNCTION_8_5(v4))
     {
-      v4 = [_CDHashUtilities sha256Hash:v3 withSalt:object[1]];
+      v5 = [_CDHashUtilities sha256Hash:v3 withSalt:object[1]];
 LABEL_6:
-      object = v4;
+      object = v5;
       goto LABEL_10;
     }
 
-    objc_opt_class();
-    if (OUTLINED_FUNCTION_8_5())
+    v6 = objc_opt_class();
+    if (OUTLINED_FUNCTION_8_5(v6))
     {
-      v4 = v3;
+      v5 = v3;
       goto LABEL_6;
     }
 
-    objc_opt_class();
-    if (OUTLINED_FUNCTION_8_5())
+    v7 = objc_opt_class();
+    if (OUTLINED_FUNCTION_8_5(v7))
     {
-      v4 = [(_CDDataCollectionAnonymizer *)object anonymizeArray:v3];
+      v5 = [(_CDDataCollectionAnonymizer *)object anonymizeArray:v3];
       goto LABEL_6;
     }
 
-    objc_opt_class();
-    if (OUTLINED_FUNCTION_8_5())
+    v8 = objc_opt_class();
+    if (OUTLINED_FUNCTION_8_5(v8))
     {
-      v4 = [(_CDDataCollectionAnonymizer *)object anonymizeDictionary:v3];
+      v5 = [(_CDDataCollectionAnonymizer *)object anonymizeDictionary:v3];
       goto LABEL_6;
     }
 
@@ -136,7 +134,7 @@ LABEL_10:
 
 - (id)anonymizeDictionary:(void *)dictionary
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (dictionary)
@@ -145,21 +143,21 @@ LABEL_10:
     [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v3, "count")}];
     objc_claimAutoreleasedReturnValue();
     v6 = OUTLINED_FUNCTION_3_10();
-    v7 = [v6 countByEnumeratingWithState:v16 objects:v18 count:16];
+    v7 = [v6 countByEnumeratingWithState:v15 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v17;
+      v9 = *v16;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v17 != v9)
+          if (*v16 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(v16[1] + 8 * i);
+          v11 = *(v15[1] + 8 * i);
           v12 = [v6 objectForKeyedSubscript:v11];
           v13 = [(_CDDataCollectionAnonymizer *)dictionary anonymizeObject:v12];
 
@@ -169,7 +167,7 @@ LABEL_10:
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:v16 objects:v18 count:16];
+        v8 = [v6 countByEnumeratingWithState:v15 objects:v17 count:16];
       }
 
       while (v8);
@@ -180,8 +178,6 @@ LABEL_10:
   {
     v5 = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

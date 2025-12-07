@@ -40,7 +40,7 @@
   v13 = v12;
   if (Size == HMICVPixelBufferGetSize(flow) && v13 == v14)
   {
-    v69[2] = [[HMISignpost alloc] initWithName:@"Sparse Optical Flow"];
+    v69[2] = [[HMISignpost alloc] initWithName:?];
     CVPixelBufferLockBaseAddress(with, 1uLL);
     BaseAddressOfPlane = CVPixelBufferGetBaseAddressOfPlane(with, 0);
     BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(with, 0);
@@ -94,7 +94,7 @@
     cv::_InputArray::_InputArray(v32, v59);
     cv::_OutputArray::_OutputArray(v47, v58);
     v36[0] = 0xA0000000ALL;
-    cv::buildOpticalFlowPyramid(v32, v47, v36, 2u, 1, 4, 0, 1);
+    cv::buildOpticalFlowPyramid(v32, v47, v36, 2, 1, 4u, 0, 1);
     CVPixelBufferLockBaseAddress(flow, 1uLL);
     v25 = CVPixelBufferGetBaseAddressOfPlane(flow, 0);
     v26 = CVPixelBufferGetBytesPerRowOfPlane(flow, 0);
@@ -146,7 +146,7 @@
     cv::_InputArray::_InputArray(v32, v47);
     cv::_OutputArray::_OutputArray(v36, v46);
     v38 = 0xA0000000ALL;
-    cv::buildOpticalFlowPyramid(v32, v36, &v38, 2u, 1, 4, 0, 1);
+    cv::buildOpticalFlowPyramid(v32, v36, &v38, 2, 1, 4u, 0, 1);
     memset(v45, 0, sizeof(v45));
     v43 = 0;
     v42 = 0;
@@ -175,24 +175,25 @@
 {
   height = a10.height;
   width = a10.width;
+  v14 = a8;
   v20 = a9;
   cvCopy = cv;
-  v115 = 9999.0;
-  v116 = 9999.0;
-  v113 = 9999.0;
-  v114 = 9999.0;
-  v111 = -9999.0;
-  v112 = -9999.0;
-  v109 = -9999.0;
-  v110 = -9999.0;
-  v104 = malloc_type_malloc(2 * (a5->var1 - a5->var0), 0x1000040451B5BE8uLL);
-  v103 = malloc_type_malloc(2 * (a5->var1 - a5->var0), 0x1000040451B5BE8uLL);
+  v108 = 9999.0;
+  v109 = 9999.0;
+  v106 = 9999.0;
+  v107 = 9999.0;
+  v104 = -9999.0;
+  v105 = -9999.0;
+  v102 = -9999.0;
+  v103 = -9999.0;
+  v99 = malloc_type_malloc(2 * (a5->var1 - a5->var0), 0x1000040451B5BE8uLL);
+  v98 = malloc_type_malloc(2 * (a5->var1 - a5->var0), 0x1000040451B5BE8uLL);
   var0 = a3->var0;
   if (a3->var1 != a3->var0)
   {
     v23 = 0;
     v24 = 0;
-    v25 = flt_22D298570[(a8 & 1) == 0];
+    v25 = flt_22D298570[(v14 & 1) == 0];
     v26 = 0.0;
     v27 = 4;
     while (1)
@@ -204,13 +205,13 @@
 
       v28 = hypotf(*(a5->var0 + v27 - 4) - *(a6->var0 + v27 - 4), *(a5->var0 + v27) - *(a6->var0 + v27));
       v29 = [cvCopy count];
-      height = 1;
-      if ((a8 & 1) != 0 && v29)
+      v30 = 1;
+      if ((v14 & 1) != 0 && v29)
       {
-        height = [(HMIMotionDetector *)self applyActivityZoneFilteringOnSourcePoint:cvCopy destinationPoint:rint(*(a5->var0 + v27 - 4)) frameSize:rint(*(a5->var0 + v27)) activityZones:rint(*(a6->var0 + v27 - 4)), rint(*(a6->var0 + v27)), width, height];
+        v30 = [HMIMotionDetector applyActivityZoneFilteringOnSourcePoint:"applyActivityZoneFilteringOnSourcePoint:destinationPoint:frameSize:activityZones:" destinationPoint:? frameSize:? activityZones:?];
       }
 
-      if (v28 <= 1.0 || !height)
+      if (v28 <= 1.0 || v30 == 0)
       {
         goto LABEL_53;
       }
@@ -242,51 +243,51 @@
         v40 = *v32;
       }
 
-      v41 = v116;
-      if (v116 <= v39)
+      v41 = v109;
+      if (v109 <= v39)
       {
-        if (v114 <= v39)
+        if (v107 <= v39)
         {
           goto LABEL_25;
         }
 
-        v42 = &v114;
+        v42 = &v107;
       }
 
       else
       {
-        if (v116 >= 9998.0)
+        if (v109 >= 9998.0)
         {
           v41 = v39;
         }
 
-        v114 = v41;
-        v42 = &v116;
+        v107 = v41;
+        v42 = &v109;
       }
 
       *v42 = v39;
 LABEL_25:
       v43 = v40;
-      v44 = v115;
-      if (v115 <= v43)
+      v44 = v108;
+      if (v108 <= v43)
       {
-        if (v113 <= v43)
+        if (v106 <= v43)
         {
           goto LABEL_32;
         }
 
-        v45 = &v113;
+        v45 = &v106;
       }
 
       else
       {
-        if (v115 >= 9998.0)
+        if (v108 >= 9998.0)
         {
           v44 = v43;
         }
 
-        v113 = v44;
-        v45 = &v115;
+        v106 = v44;
+        v45 = &v108;
       }
 
       *v45 = v43;
@@ -312,56 +313,56 @@ LABEL_32:
         v48 = v36;
       }
 
-      v49 = v112;
-      if (v112 >= v47)
+      v49 = v105;
+      if (v105 >= v47)
       {
-        if (v110 >= v47)
+        if (v103 >= v47)
         {
           goto LABEL_45;
         }
 
-        v50 = &v110;
+        v50 = &v103;
       }
 
       else
       {
-        if (v112 <= -9998.0)
+        if (v105 <= -9998.0)
         {
           v49 = v47;
         }
 
-        v110 = v49;
-        v50 = &v112;
+        v103 = v49;
+        v50 = &v105;
       }
 
       *v50 = v47;
 LABEL_45:
       v51 = v48;
-      v52 = v111;
-      if (v111 < v51)
+      v52 = v104;
+      if (v104 < v51)
       {
-        if (v111 <= -9998.0)
+        if (v104 <= -9998.0)
         {
           v52 = v51;
         }
 
-        v109 = v52;
-        v53 = &v111;
+        v102 = v52;
+        v53 = &v104;
         goto LABEL_51;
       }
 
-      if (v109 < v51)
+      if (v102 < v51)
       {
-        v53 = &v109;
+        v53 = &v102;
 LABEL_51:
         *v53 = v51;
       }
 
       v26 = v26 + sqrtf(v28);
-      v54 = &v104[2 * v24];
+      v54 = &v99[16 * v24];
       *v54 = rint(v34);
       v54[1] = rint(v35);
-      v55 = &v103[2 * v24];
+      v55 = &v98[16 * v24];
       *v55 = rint(v37);
       v55[1] = rint(v36);
       ++v24;
@@ -371,14 +372,14 @@ LABEL_53:
       v27 += 8;
       if (a3->var1 - a3->var0 <= v23)
       {
-        v56 = v111;
-        v57 = v112;
-        v58 = v113;
-        v59 = v114;
-        v60 = v115;
-        v61 = v116;
-        v62 = v109;
-        v63 = v110;
+        v56 = v104;
+        v57 = v105;
+        v58 = v106;
+        v59 = v107;
+        v60 = v108;
+        v61 = v109;
+        v62 = v102;
+        v63 = v103;
         v20 = a9;
         goto LABEL_56;
       }
@@ -467,71 +468,55 @@ LABEL_56:
   }
 
   v80 = pow((fabsf(a11) + 5.0) / 5.0, 3.0);
-  v118.size.width = v73 - v77;
-  v118.size.height = v75 - v76;
-  v118.origin.x = v77;
-  v118.origin.y = v76;
-  v119 = CGRectStandardize(v118);
-  x = v119.origin.x;
-  y = v119.origin.y;
-  v83 = v119.size.width;
-  v84 = v119.size.height;
-  v101 = height;
-  v102 = v80;
-  memset(&v108, 0, sizeof(v108));
-  v100 = width;
-  *&v119.origin.x = width;
-  *&v119.size.width = height;
-  CGAffineTransformMakeScale(&v108, (1.0 / *&v119.origin.x), (1.0 / *&v119.size.width));
-  v107 = v108;
-  v120.origin.x = x;
-  v120.origin.y = y;
-  v120.size.width = v83;
-  v120.size.height = v84;
-  v121 = CGRectApplyAffineTransform(v120, &v107);
-  v85 = v121.origin.x;
-  v86 = v121.origin.y;
-  v87 = v121.size.width;
-  v99 = v121.size.height;
+  v111.size.width = v73 - v77;
+  v111.size.height = v75 - v76;
+  v111.origin.x = v77;
+  v111.origin.y = v76;
+  v112 = CGRectStandardize(v111);
+  x = v112.origin.x;
+  y = v112.origin.y;
+  v83 = v112.size.width;
+  v84 = v112.size.height;
+  v97 = v80;
+  memset(&v101, 0, sizeof(v101));
+  *&v112.origin.x = width;
+  *&v112.size.width = height;
+  CGAffineTransformMakeScale(&v101, (1.0 / *&v112.origin.x), (1.0 / *&v112.size.width));
+  v100 = v101;
+  v113.origin.x = x;
+  v113.origin.y = y;
+  v113.size.width = v83;
+  v113.size.height = v84;
+  v114 = CGRectApplyAffineTransform(v113, &v100);
+  v85 = v114.origin.x;
+  v86 = v114.origin.y;
+  v87 = v114.size.width;
   array = [MEMORY[0x277CBEB18] array];
-  v98 = v87;
+  v96 = v87;
   if (v24 >= 1)
   {
-    v89 = v103 + 1;
-    v90 = v104 + 1;
+    v89 = v98 + 8;
+    v90 = v99 + 8;
     v91 = v24;
     do
     {
-      v105 = *v90;
-      v106 = *(v90 - 1);
-      v92 = [[HMIMotionVector alloc] initWithOrigin:v108.tx + v105 * v108.c + v108.a * v106 motion:v108.ty + v105 * v108.d + v108.b * v106, v108.tx + *v89 * v108.c + v108.a * *(v89 - 1) - (v108.tx + v105 * v108.c + v108.a * v106), v108.ty + *v89 * v108.d + v108.b * *(v89 - 1) - (v108.ty + v105 * v108.d + v108.b * v106)];
-      [array addObject:v92];
+      v92 = [HMIMotionVector initWithOrigin:"initWithOrigin:motion:" motion:?];
+      [array addObject:?];
 
-      v89 += 2;
-      v90 += 2;
+      v89 += 16;
+      v90 += 16;
       --v91;
     }
 
     while (v91);
   }
 
-  v93 = v26 / v102;
-  free(v104);
-  free(v103);
+  v93 = v26 / v97;
+  free(v99);
+  free(v98);
   if (v93 >= 0.001)
   {
-    v95 = [HMIMotionDetection alloc];
-    if (v93 <= 1000.0)
-    {
-      *&v96 = v26 / v102;
-    }
-
-    else
-    {
-      *&v96 = 1000.0;
-    }
-
-    v94 = [(HMIMotionDetection *)v95 initWithBoundingBox:array size:a8 motionVectors:v85 motionScore:v86 motionMode:v98, v99, v100, v101, v96, *&v98, *&v86, *&v85];
+    v94 = [HMIMotionDetection initWithBoundingBox:"initWithBoundingBox:size:motionVectors:motionScore:motionMode:" size:*&v96 motionVectors:*&v86 motionScore:*&v85 motionMode:?];
   }
 
   else
@@ -550,60 +535,42 @@ LABEL_56:
   x = destinationPoint.x;
   v10 = point.y;
   v11 = point.x;
-  v46 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   zonesCopy = zones;
   firstObject = [zonesCopy firstObject];
   isInclusion = [firstObject isInclusion];
 
-  v15 = HMICGPointClampWithSize(v11, v10, width);
-  v17 = v16;
-  v39 = v15;
-  v18 = HMICGPointClampWithSize(x, y, width);
-  v37 = v19;
-  v38 = v18;
-  *&v18 = width;
-  *&v19 = height;
-  memset(&v44, 0, sizeof(v44));
-  CGAffineTransformMakeScale(&v44, (1.0 / *&v18), (1.0 / *&v19));
-  a = v44.a;
-  b = v44.b;
-  c = v44.c;
-  d = v44.d;
-  tx = v44.tx;
-  ty = v44.ty;
-  v40 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  v43 = 0u;
-  v26 = zonesCopy;
-  v27 = [v26 countByEnumeratingWithState:&v40 objects:v45 count:16];
+  HMICGPointClampWithSize(v11, v10, width);
+  HMICGPointClampWithSize(x, y, width);
+  v15 = width;
+  v16 = height;
+  memset(&v24, 0, sizeof(v24));
+  CGAffineTransformMakeScale(&v24, (1.0 / v15), (1.0 / v16));
+  v17 = zonesCopy;
+  v18 = [v17 countByEnumeratingWithState:? objects:? count:?];
   isInclusion2 = isInclusion ^ 1;
-  if (v27)
+  if (v18)
   {
-    v29 = tx + v17 * c + a * v39;
-    v30 = ty + v17 * d + b * v39;
-    v31 = tx + v37 * c + a * v38;
-    v32 = ty + v37 * d + b * v38;
-    v33 = *v41;
+    v20 = MEMORY[0];
     while (2)
     {
-      for (i = 0; i != v27; ++i)
+      for (i = 0; i != v18; i = (i + 1))
       {
-        if (*v41 != v33)
+        if (MEMORY[0] != v20)
         {
-          objc_enumerationMutation(v26);
+          objc_enumerationMutation(v17);
         }
 
-        v35 = *(*(&v40 + 1) + 8 * i);
-        if ([v35 containsVectorWithSource:v29 destination:{v30, v31, v32}])
+        v22 = *(8 * i);
+        if ([v22 containsVectorWithSource:? destination:?])
         {
-          isInclusion2 = [v35 isInclusion];
+          isInclusion2 = [v22 isInclusion];
           goto LABEL_11;
         }
       }
 
-      v27 = [v26 countByEnumeratingWithState:&v40 objects:v45 count:16];
-      if (v27)
+      v18 = [v17 countByEnumeratingWithState:? objects:? count:?];
+      if (v18)
       {
         continue;
       }
@@ -619,39 +586,27 @@ LABEL_11:
 
 - (id)detectWithGlobalMotionScore:(float *)score referencePixelBuffer:(__CVBuffer *)buffer targetPixelBuffer:(__CVBuffer *)pixelBuffer activityZones:(id)zones detectorMode:(unint64_t)mode
 {
-  v7 = [(HMIMotionDetector *)self _computeOpticalFlow:buffer with:pixelBuffer globalMotionScore:score activityZones:zones operationMode:mode];
+  v7 = [HMIMotionDetector _computeOpticalFlow:"_computeOpticalFlow:with:globalMotionScore:activityZones:operationMode:" with:? globalMotionScore:? activityZones:? operationMode:?];
 
   return v7;
 }
 
 - (id)visualizeMotionDetections:(id)detections frameSize:(CGSize)size timeStamp:(id *)stamp
 {
-  height = size.height;
-  width = size.width;
-  v8 = [HMIMotionDetection firstMotionDetectionInArray:detections withMode:2];
-  height = [HMIVisionUtilities createPixelBufferWithSize:875704422 pixelFormat:0 useIOSurface:width, height];
-  HMICVPixelBufferSetValue(height, 0);
-  CVPixelBufferLockBaseAddress(height, 0);
-  BaseAddressOfPlane = CVPixelBufferGetBaseAddressOfPlane(height, 0);
-  BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(height, 0);
-  motionVectors = [v8 motionVectors];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __67__HMIMotionDetector_visualizeMotionDetections_frameSize_timeStamp___block_invoke;
-  v17[3] = &__block_descriptor_64_e25_v16__0__HMIMotionVector_8l;
-  *&v17[4] = width;
-  *&v17[5] = height;
-  v17[6] = BaseAddressOfPlane;
-  v17[7] = BytesPerRowOfPlane;
-  [motionVectors na_each:v17];
+  v6 = [HMIMotionDetection firstMotionDetectionInArray:"firstMotionDetectionInArray:withMode:" withMode:?];
+  v7 = [HMIVisionUtilities createPixelBufferWithSize:"createPixelBufferWithSize:pixelFormat:useIOSurface:" pixelFormat:? useIOSurface:?];
+  HMICVPixelBufferSetValue(v7, 0);
+  CVPixelBufferLockBaseAddress(v7, 0);
+  CVPixelBufferGetBaseAddressOfPlane(v7, 0);
+  CVPixelBufferGetBytesPerRowOfPlane(v7, 0);
+  motionVectors = [v6 motionVectors];
+  [motionVectors na_each:?];
 
-  CVPixelBufferUnlockBaseAddress(height, 0);
-  v13 = [HMIVideoFrame alloc];
-  v16 = *stamp;
-  v14 = [(HMIVideoFrame *)v13 initWithPixelBuffer:height presentationTimeStamp:&v16];
-  CVPixelBufferRelease(height);
+  CVPixelBufferUnlockBaseAddress(v7, 0);
+  v9 = [[HMIVideoFrame alloc] initWithPixelBuffer:*&stamp->var0 presentationTimeStamp:stamp->var3];
+  CVPixelBufferRelease(v7);
 
-  return v14;
+  return v9;
 }
 
 void __67__HMIMotionDetector_visualizeMotionDetections_frameSize_timeStamp___block_invoke(uint64_t a1, void *a2)

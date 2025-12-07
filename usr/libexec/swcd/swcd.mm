@@ -49,7 +49,7 @@ void sub_1000018C0(uint64_t a1, void *a2)
   (*(*(a1 + 32) + 16))();
 }
 
-void sub_1000019AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id a9)
+void sub_1000019AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   sub_100005DB0(&a9);
 
@@ -70,7 +70,7 @@ void sub_100003094(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_100003E74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_100003E74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -113,19 +113,19 @@ void sub_100004160(uint64_t a1)
     {
       v9 = *(a1 + 40);
       *buf = 138412290;
-      v37 = v9;
+      v36 = v9;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Domain %@ is invalid. Will not attempt a download.", buf, 0xCu);
     }
 
     v10 = [NSError alloc];
-    v42[0] = &off_100036798;
-    v41[0] = @"Line";
-    v41[1] = @"Function";
+    v41[0] = &off_100036798;
+    v40[0] = @"Line";
+    v40[1] = @"Function";
     v11 = [NSString stringWithUTF8String:"[SWCDownloader(Private) _downloadAASAFileForDomain:applicationIdentifier:downloadRoute:discretionary:completionHandlers:]_block_invoke"];
-    v42[1] = v11;
-    v41[2] = @"Domain";
-    v42[2] = *(a1 + 40);
-    v12 = [NSDictionary dictionaryWithObjects:v42 forKeys:v41 count:3];
+    v41[1] = v11;
+    v40[2] = @"Domain";
+    v41[2] = *(a1 + 40);
+    v12 = [NSDictionary dictionaryWithObjects:v41 forKeys:v40 count:3];
     v3 = [v10 initWithDomain:_SWCErrorDomain code:8 userInfo:v12];
 
     v7 = [*(a1 + 32) delegate];
@@ -134,29 +134,28 @@ void sub_100004160(uint64_t a1)
       [v7 downloader:*(a1 + 32) failedToDownloadAASAFileFromDomain:*(a1 + 40) error:v3];
     }
 
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     v13 = *(a1 + 48);
-    v14 = [(SWCDownloadTaskState *)v13 countByEnumeratingWithState:&v32 objects:v40 count:16];
+    v14 = [(SWCDownloadTaskState *)v13 countByEnumeratingWithState:&v31 objects:v39 count:16];
     if (v14)
     {
-      v15 = *v33;
+      v15 = *v32;
       do
       {
         for (i = 0; i != v14; i = i + 1)
         {
-          if (*v33 != v15)
+          if (*v32 != v15)
           {
             objc_enumerationMutation(v13);
           }
 
-          v17 = *(a1 + 80);
-          (*(*(*(&v32 + 1) + 8 * i) + 16))(*(*(&v32 + 1) + 8 * i));
+          (*(*(*(&v31 + 1) + 8 * i) + 16))(*(*(&v31 + 1) + 8 * i));
         }
 
-        v14 = [(SWCDownloadTaskState *)v13 countByEnumeratingWithState:&v32 objects:v40 count:16];
+        v14 = [(SWCDownloadTaskState *)v13 countByEnumeratingWithState:&v31 objects:v39 count:16];
       }
 
       while (v14);
@@ -170,29 +169,29 @@ void sub_100004160(uint64_t a1)
   {
     if (*(a1 + 56) && !*(a1 + 80))
     {
-      v18 = +[_SWCDomain appleDomain];
-      if ([v18 encompassesDomain:*(a1 + 40)])
+      v17 = +[_SWCDomain appleDomain];
+      if ([v17 encompassesDomain:*(a1 + 40)])
       {
-        v19 = +[_SWCPrefs sharedPrefs];
-        v20 = [v19 isAppleInternal];
+        v18 = +[_SWCPrefs sharedPrefs];
+        v19 = [v18 isAppleInternal];
 
-        if (v20 && !arc4random_uniform(0x64u))
+        if (v19 && !arc4random_uniform(0x64u))
         {
           if (qword_10003AC48 != -1)
           {
             dispatch_once(&qword_10003AC48, &stru_100034918);
           }
 
-          v21 = qword_10003AC40;
+          v20 = qword_10003AC40;
           if (os_log_type_enabled(qword_10003AC40, OS_LOG_TYPE_FAULT))
           {
-            v22 = *(a1 + 56);
-            v23 = *(a1 + 40);
+            v21 = *(a1 + 56);
+            v22 = *(a1 + 40);
             *buf = 138412546;
-            v37 = v22;
-            v38 = 2112;
-            v39 = v23;
-            _os_log_fault_impl(&_mh_execute_header, v21, OS_LOG_TYPE_FAULT, "Application %@ is attempting to download AASA data from %@ over the public Internet (via an Apple-controlled CDN.) Doing so may leak information about unannounced apps or features. This application must be updated. Please file a bug report against this application.", buf, 0x16u);
+            v36 = v21;
+            v37 = 2112;
+            v38 = v22;
+            _os_log_fault_impl(&_mh_execute_header, v20, OS_LOG_TYPE_FAULT, "Application %@ is attempting to download AASA data from %@ over the public Internet (via an Apple-controlled CDN.) Doing so may leak information about unannounced apps or features. This application must be updated. Please file a bug report against this application.", buf, 0x16u);
           }
         }
       }
@@ -211,14 +210,14 @@ void sub_100004160(uint64_t a1)
     v13 = [[SWCDownloadTaskState alloc] initWithDownloader:*(a1 + 32) domain:*(a1 + 40) downloadRoute:*(a1 + 80)];
     if (!v13)
     {
-      v31 = +[NSAssertionHandler currentHandler];
-      [v31 handleFailureInMethod:*(a1 + 72) object:*(a1 + 32) file:@"SWCDownloader.mm" lineNumber:571 description:@"Failed to create download state object"];
+      v30 = +[NSAssertionHandler currentHandler];
+      [v30 handleFailureInMethod:*(a1 + 72) object:*(a1 + 32) file:@"SWCDownloader.mm" lineNumber:571 description:@"Failed to create download state object"];
     }
 
     if (*(a1 + 48))
     {
-      v24 = [(SWCDownloadTaskState *)v13 completionHandlers];
-      [v24 addObjectsFromArray:*(a1 + 48)];
+      v23 = [(SWCDownloadTaskState *)v13 completionHandlers];
+      [v23 addObjectsFromArray:*(a1 + 48)];
     }
 
     if (*(a1 + 81) == 1)
@@ -228,31 +227,31 @@ void sub_100004160(uint64_t a1)
         dispatch_once(&qword_10003AC48, &stru_100034918);
       }
 
-      v25 = qword_10003AC40;
+      v24 = qword_10003AC40;
       if (os_log_type_enabled(qword_10003AC40, OS_LOG_TYPE_DEFAULT))
       {
-        v26 = *(a1 + 40);
+        v25 = *(a1 + 40);
         *buf = 138412290;
-        v37 = v26;
-        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Downloading discretionary data for domain %@", buf, 0xCu);
+        v36 = v25;
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Downloading discretionary data for domain %@", buf, 0xCu);
       }
 
-      v27 = *(a1 + 81);
+      v26 = *(a1 + 81);
     }
 
     else
     {
-      v27 = 0;
+      v26 = 0;
     }
 
-    [(SWCDownloadTaskState *)v13 setDiscretionary:v27 & 1];
-    v28 = *(*(a1 + 32) + 48);
-    v29 = [(SWCDownloadTaskState *)v13 taskDescription];
-    [v28 setObject:v13 forKey:v29];
+    [(SWCDownloadTaskState *)v13 setDiscretionary:v26 & 1];
+    v27 = *(*(a1 + 32) + 48);
+    v28 = [(SWCDownloadTaskState *)v13 taskDescription];
+    [v27 setObject:v13 forKey:v28];
 
     [*(a1 + 32) _resumePendingTasks];
-    v30 = +[SWCAnalyticsLogger sharedLogger];
-    [v30 logAASAFileDownloadEventWithDomain:*(a1 + 40) route:*(a1 + 80)];
+    v29 = +[SWCAnalyticsLogger sharedLogger];
+    [v29 logAASAFileDownloadEventWithDomain:*(a1 + 40) route:*(a1 + 80)];
 
     v3 = 0;
 LABEL_51:
@@ -276,9 +275,9 @@ LABEL_51:
     }
 
     *buf = 138412546;
-    v37 = v5;
-    v38 = 2112;
-    v39 = v6;
+    v36 = v5;
+    v37 = 2112;
+    v38 = v6;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Already downloading data for domain %@, so skipping a second download (%@)", buf, 0x16u);
   }
 
@@ -290,10 +289,12 @@ LABEL_52:
   }
 }
 
-void sub_100005048(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_100005048(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  _Block_object_dispose(&a31, 8);
-  sub_100005E30(v33 + 48);
+  va_start(va, a30);
+
+  _Block_object_dispose(va, 8);
+  sub_100005E30(v32 + 48);
   _Unwind_Resume(a1);
 }
 
@@ -347,7 +348,7 @@ void sub_100005120(uint64_t a1, void *a2)
     v7 = [*(a1 + 32) _sessionIDForTaskState:v3];
     v5 = *(*(a1 + 40) + 8);
     v8 = &v7;
-    v6 = sub_100005E7C((v5 + 48), v7);
+    v6 = sub_100005E7C((v5 + 48), v7, &v8);
     v6[3] = (v6[3] + 1);
   }
 }
@@ -362,7 +363,7 @@ void sub_1000051C0(uint64_t a1, void *a2)
     v8 = [*(a1 + 32) _sessionIDForTaskState:v3];
     v5 = *(*(a1 + 48) + 8);
     v9 = &v8;
-    v6 = sub_100005E7C((v5 + 48), v8);
+    v6 = sub_100005E7C((v5 + 48), v8, &v9);
     v7 = v6[3];
     if (v7 < [*(a1 + 32) _maximumActiveTaskCountForSessionID:v8])
     {
@@ -404,32 +405,32 @@ uint64_t sub_100005E30(uint64_t a1)
   return a1;
 }
 
-uint64_t **sub_100005E7C(void *a1, unsigned __int8 a2)
+uint64_t **sub_100005E7C(float *a1, unsigned __int8 a2, _BYTE **a3)
 {
-  v2 = a1[1];
-  if (!v2)
+  v3 = *(a1 + 1);
+  if (!v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v4 = a2 % a1[1];
+      v5 = a2 % *(a1 + 1);
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v5 = (v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -437,44 +438,44 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v8 >= v3)
       {
-        v7 %= v2;
+        v8 %= v3;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v8 &= v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 16) != a2)
+  if (*(v7 + 16) != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
 void sub_10000746C(uint64_t a1, void *a2, void *a3)
@@ -715,9 +716,9 @@ LABEL_9:
   return v8;
 }
 
-void sub_10000B768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, ...)
+void sub_10000B768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -728,15 +729,15 @@ void sub_10000B7C8(uint64_t a1, void *a2, void *a3)
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
-  v17 = 0;
-  v8 = [[NSData alloc] initWithContentsOfURL:v6 options:1 error:&v17];
-  v9 = v17;
+  v16 = 0;
+  v8 = [[NSData alloc] initWithContentsOfURL:v6 options:1 error:&v16];
+  v9 = v16;
   if (v8)
   {
     v10 = +[SWCSecurityGuard sharedSecurityGuard];
-    v16 = v9;
-    v11 = [v10 JSONObjectWithSignedJSONData:v8 error:&v16];
-    v12 = v16;
+    v15 = v9;
+    v11 = [v10 JSONObjectWithSignedJSONData:v8 error:&v15];
+    v12 = v15;
 
     if (!v11)
     {
@@ -749,9 +750,9 @@ void sub_10000B7C8(uint64_t a1, void *a2, void *a3)
       if (os_log_type_enabled(qword_10003AC50, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v19 = v6;
-        v20 = 2112;
-        v21 = v12;
+        v18 = v6;
+        v19 = 2112;
+        v20 = v12;
         _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Failed to decode JSON object from file %@: %@", buf, 0x16u);
       }
 
@@ -770,9 +771,9 @@ void sub_10000B7C8(uint64_t a1, void *a2, void *a3)
     if (os_log_type_enabled(qword_10003AC50, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v19 = v6;
-      v20 = 2112;
-      v21 = v9;
+      v18 = v6;
+      v19 = 2112;
+      v20 = v9;
       _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Failed to read JSON file %@: %@", buf, 0x16u);
     }
 
@@ -783,12 +784,11 @@ void sub_10000B7C8(uint64_t a1, void *a2, void *a3)
   objc_autoreleasePoolPop(v7);
   if (v11)
   {
-    v15 = *(*(*(a1 + 40) + 8) + 24);
     (*(*(a1 + 32) + 16))();
   }
 }
 
-void sub_10000BC88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id a29)
+void sub_10000BC88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id a29)
 {
   _Block_object_dispose(&a24, 8);
 
@@ -910,9 +910,9 @@ uint64_t sub_10000C3D8(uint64_t a1, void *a2)
   return _objc_release_x1();
 }
 
-void sub_10000C850(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10000C850(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, void *a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -1280,7 +1280,7 @@ void sub_10000EF9C(uint64_t a1, void *a2)
 {
   if (*(a1 + 32))
   {
-    v5 = [a2 domain];
+    v4 = [a2 domain];
     if ([*(a1 + 32) isEqual:?])
     {
       (*(*(a1 + 40) + 16))();
@@ -1289,14 +1289,13 @@ void sub_10000EF9C(uint64_t a1, void *a2)
 
   else
   {
-    v3 = *(a1 + 40);
-    v4 = *(*(a1 + 40) + 16);
+    v3 = *(*(a1 + 40) + 16);
 
-    v4();
+    v3();
   }
 }
 
-void sub_10000F224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_10000F224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -1431,7 +1430,6 @@ void sub_10001014C(uint64_t a1, void *a2)
 
 uint64_t sub_100010D78(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  v7 = *(a1 + 40);
   result = objc_opt_isKindOfClass();
   if ((result & 1) == 0 || (result = [NSPropertyListSerialization propertyList:a3 isValidForFormat:200], (result & 1) == 0))
   {
@@ -1766,14 +1764,13 @@ _WORD *sub_100016298(uint64_t a1, id a2)
 
 void sub_100016EEC(uint64_t a1, void *a2)
 {
-  v4 = a2;
+  v3 = a2;
   if (*(*(*(a1 + 32) + 8) + 24) == 1)
   {
-    v3 = *(a1 + 40);
     _SWCLogSeparator();
   }
 
-  [v4 logToFile:*(a1 + 40) verbosity:*(a1 + 48)];
+  [v3 logToFile:*(a1 + 40) verbosity:*(a1 + 48)];
   *(*(*(a1 + 32) + 8) + 24) = 1;
 }
 
@@ -1814,10 +1811,9 @@ void sub_100016F80(uint64_t a1, uint64_t a2)
     v12 = [v5 initWithFormat:@"%@ (%@%@ in future)", v6, v13, v14];
   }
 
-  v17 = v12;
+  v16 = v12;
 
   v15 = [*(a1 + 32) stringFromByteCount:*(a2 + 32)];
-  v16 = *(a1 + 40);
   _SWCLogValueForKey();
 }
 
@@ -1849,16 +1845,14 @@ void sub_10001710C(uint64_t a1, uint64_t a2)
 
 void sub_100017240(uint64_t a1, void *a2, void *a3)
 {
-  v9 = a2;
+  v7 = a2;
   v5 = a3;
   if (*(*(*(a1 + 32) + 8) + 24) == 1)
   {
-    v6 = *(a1 + 40);
     _SWCLogSeparator();
   }
 
-  v7 = *(a1 + 40);
-  v8 = [v9 description];
+  v6 = [v7 description];
   _SWCLogValueForKey();
 
   *(*(*(a1 + 32) + 8) + 24) = 1;
@@ -1895,14 +1889,12 @@ void sub_10001731C(uint64_t a1, void *a2)
 
 __n128 sub_100017480(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -2319,7 +2311,7 @@ void sub_10001AD80(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
   }
 }
 
-void sub_10001B9B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
+void sub_10001B9B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
 {
   _Block_object_dispose(&a17, 8);
   _Block_object_dispose(&a21, 8);
@@ -2338,30 +2330,26 @@ void sub_10001BA18(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
   v7 = a2;
   v8 = a3;
-  if (_NSIsNSData())
+  if (_NSIsNSData() && (objc_opt_isKindOfClass() & 1) != 0 && ([v7 isValid] & 1) != 0)
   {
-    v9 = *(a1 + 56);
-    if (objc_opt_isKindOfClass() & 1) != 0 && ([v7 isValid])
+    v9 = [v7 rawValue];
+    v10 = [v9 stringByAppendingPathExtension:@"json"];
+
+    if (v10)
     {
-      v10 = [v7 rawValue];
-      v11 = [v10 stringByAppendingPathExtension:@"json"];
-
-      if (v11)
+      v11 = [*(a1 + 32) URLByAppendingPathComponent:v10];
+      v12 = *(*(a1 + 40) + 8);
+      obj = *(v12 + 40);
+      v13 = [v8 writeToURL:v11 options:1 error:&obj];
+      objc_storeStrong((v12 + 40), obj);
+      if (v13)
       {
-        v12 = [*(a1 + 32) URLByAppendingPathComponent:v11];
-        v13 = *(*(a1 + 40) + 8);
-        obj = *(v13 + 40);
-        v14 = [v8 writeToURL:v12 options:1 error:&obj];
-        objc_storeStrong((v13 + 40), obj);
-        if (v14)
-        {
-          ++*(*(*(a1 + 48) + 8) + 24);
-        }
+        ++*(*(*(a1 + 48) + 8) + 24);
+      }
 
-        else
-        {
-          *a4 = 1;
-        }
+      else
+      {
+        *a4 = 1;
       }
     }
   }
@@ -2500,7 +2488,7 @@ LABEL_10:
       {
         if (v11 != a2)
         {
-          v69 = (v11 + 16);
+          v69 = v11 + 16;
           if ((v11 + 16) != a2)
           {
             v70 = 0;
@@ -2514,7 +2502,7 @@ LABEL_10:
                 v74 = *v72;
                 *v72 = 0;
                 v134 = v74;
-                v140 = v71[3];
+                v140 = *(v71 + 24);
                 v75 = v70;
                 while (1)
                 {
@@ -2547,7 +2535,7 @@ LABEL_126:
                 a2 = v73;
               }
 
-              v69 = v72 + 2;
+              v69 = (v72 + 2);
               v70 += 16;
               v71 = v72;
             }
@@ -2559,7 +2547,7 @@ LABEL_126:
 
       else if (v11 != a2)
       {
-        v121 = (v11 + 16);
+        v121 = v11 + 16;
         if ((v11 + 16) != a2)
         {
           v122 = (v11 - 16);
@@ -2591,12 +2579,12 @@ LABEL_126:
               v125[5] = v143;
             }
 
-            v121 = v123 + 2;
+            v121 = v123 + 16;
             v122 += 2;
             v11 = v123;
           }
 
-          while (v123 + 2 != a2);
+          while ((v123 + 16) != a2);
         }
       }
 
@@ -3012,7 +3000,7 @@ LABEL_63:
           }
 
           v55 = (*(*a3 + 16))();
-          v54 = a1 + 2;
+          v54 = (a1 + 2);
         }
 
         while (!v55);
@@ -3148,7 +3136,7 @@ LABEL_63:
       goto LABEL_86;
     }
 
-    v51 = sub_10001D118(v11, a1 - 16, a3);
+    v51 = sub_10001D118(v11, a1 - 2, a3);
     if (!sub_10001D118(a1, a2, a3))
     {
       v10 = a1;
@@ -3158,7 +3146,7 @@ LABEL_63:
       }
 
 LABEL_86:
-      sub_10001BF00(v11, a1 - 2, a3, a4, a5 & 1);
+      sub_10001BF00(v11, a1 - 16, a3, a4, a5 & 1);
       a5 = 0;
       goto LABEL_1;
     }
@@ -3297,7 +3285,7 @@ LABEL_10:
   }
 }
 
-uint64_t sub_10001D118(void **a1, char *a2, uint64_t a3)
+BOOL sub_10001D118(void **a1, void **a2, uint64_t a3)
 {
   v6 = (a2 - a1) >> 4;
   if (v6 <= 2)
@@ -3312,7 +3300,7 @@ uint64_t sub_10001D118(void **a1, char *a2, uint64_t a3)
       if ((*(*a3 + 16))())
       {
         v7 = a1;
-        v8 = (a2 - 16);
+        v8 = a2 - 2;
 LABEL_55:
         sub_10001CE80(v7, v8);
         return 1;
@@ -3350,7 +3338,7 @@ LABEL_13:
       if (!v13 || (sub_10001CE80(a1 + 2, a1 + 4), !(*(*a3 + 16))()))
       {
 LABEL_35:
-        v23 = (a1 + 6);
+        v23 = a1 + 6;
         if (a1 + 6 != a2)
         {
           v24 = 0;
@@ -3360,7 +3348,7 @@ LABEL_35:
             if ((*(*a3 + 16))())
             {
               v26 = *v23;
-              v27 = *(v23 + 1);
+              v27 = v23[1];
               *v23 = 0;
               v36 = v26;
               v37 = v27;
@@ -3382,7 +3370,7 @@ LABEL_35:
                 v28 -= 16;
                 if (((*(*a3 + 16))() & 1) == 0)
                 {
-                  v32 = a1 + v28 + 48;
+                  v32 = (a1 + v28 + 48);
                   goto LABEL_43;
                 }
               }
@@ -3392,17 +3380,17 @@ LABEL_43:
               v33 = *v32;
               *v32 = v36;
 
-              *(v32 + 8) = v37;
+              v32[1] = v37;
               if (++v25 == 8)
               {
-                v34 = v23 + 16 == a2;
+                v34 = v23 + 2 == a2;
 
                 return v34;
               }
             }
 
             v24 += 16;
-            v23 += 16;
+            v23 += 2;
             if (v23 == a2)
             {
               return 1;
@@ -3434,7 +3422,7 @@ LABEL_43:
       goto LABEL_13;
     }
 
-    v15 = (a2 - 16);
+    v15 = a2 - 2;
     v16 = (*(*a3 + 16))();
     v17 = (*(*a3 + 16))();
     if (v16)
@@ -3500,7 +3488,7 @@ LABEL_53:
     goto LABEL_49;
   }
 
-  v9 = (a2 - 16);
+  v9 = (a2 - 2);
   v10 = (*(*a3 + 16))();
   v11 = (*(*a3 + 16))();
   if (v10)

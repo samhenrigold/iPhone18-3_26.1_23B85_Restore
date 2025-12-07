@@ -8,46 +8,44 @@
 
 + (id)episodesWithDictionaries:(id)dictionaries context:(id)context
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dictionariesCopy = dictionaries;
   contextCopy = context;
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v9 = dictionariesCopy;
-  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v20;
+    v12 = *v19;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v20 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v19 + 1) + 8 * i);
+        v14 = *(*(&v18 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
           v15 = [self alloc];
-          v16 = [v15 initWithDictionary:v14 context:{contextCopy, v19}];
+          v16 = [v15 initWithDictionary:v14 context:{contextCopy, v18}];
           [v8 addObject:v16];
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v11);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -116,15 +114,15 @@
 
 - (WLKBasicEpisodeMetadata)initWithDictionary:(id)dictionary context:(id)context playablesDict:(id)dict playablesId:(id)id seasonsDict:(id)seasonsDict
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   contextCopy = context;
   dictCopy = dict;
   idCopy = id;
   seasonsDictCopy = seasonsDict;
-  v59.receiver = self;
-  v59.super_class = WLKBasicEpisodeMetadata;
-  v17 = [(WLKBasicContentMetadata *)&v59 initWithDictionary:dictionaryCopy];
+  v58.receiver = self;
+  v58.super_class = WLKBasicEpisodeMetadata;
+  v17 = [(WLKBasicContentMetadata *)&v58 initWithDictionary:dictionaryCopy];
   if (v17)
   {
     v18 = [dictionaryCopy wlk_stringForKey:@"showTitle"];
@@ -166,39 +164,39 @@
     showImages = v17->_showImages;
     v17->_showImages = v37;
 
-    v53 = seasonsDictCopy;
+    v52 = seasonsDictCopy;
     v39 = [seasonsDictCopy wlk_artworkVariantListingForKey:@"images"];
     seasonImages = v17->_seasonImages;
     v17->_seasonImages = v39;
 
-    v57 = 0u;
-    v58 = 0u;
-    v55 = 0u;
     v56 = 0u;
-    v54 = idCopy;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    v53 = idCopy;
     v41 = idCopy;
-    v42 = [v41 countByEnumeratingWithState:&v55 objects:v60 count:16];
+    v42 = [v41 countByEnumeratingWithState:&v54 objects:v59 count:16];
     if (v42)
     {
       v43 = v42;
-      v44 = *v56;
-      v52 = contextCopy;
+      v44 = *v55;
+      v51 = contextCopy;
       while (2)
       {
         for (i = 0; i != v43; ++i)
         {
-          if (*v56 != v44)
+          if (*v55 != v44)
           {
             objc_enumerationMutation(v41);
           }
 
-          v46 = [*(*(&v55 + 1) + 8 * i) wlk_stringForKey:@"playableId"];
+          v46 = [*(*(&v54 + 1) + 8 * i) wlk_stringForKey:@"playableId"];
           v47 = [dictCopy wlk_dictionaryForKey:v46];
 
           if (v47)
           {
-            contextCopy = v52;
-            v48 = [[WLKPlayable alloc] initWithDictionary:v47 context:v52];
+            contextCopy = v51;
+            v48 = [[WLKPlayable alloc] initWithDictionary:v47 context:v51];
             playable = v17->_playable;
             v17->_playable = v48;
 
@@ -206,8 +204,8 @@
           }
         }
 
-        v43 = [v41 countByEnumeratingWithState:&v55 objects:v60 count:16];
-        contextCopy = v52;
+        v43 = [v41 countByEnumeratingWithState:&v54 objects:v59 count:16];
+        contextCopy = v51;
         if (v43)
         {
           continue;
@@ -219,11 +217,10 @@
 
 LABEL_12:
 
-    seasonsDictCopy = v53;
-    idCopy = v54;
+    seasonsDictCopy = v52;
+    idCopy = v53;
   }
 
-  v50 = *MEMORY[0x277D85DE8];
   return v17;
 }
 

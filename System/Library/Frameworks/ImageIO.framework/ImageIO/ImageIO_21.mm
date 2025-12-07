@@ -1,315 +1,3 @@
-uint64_t kdrc_stream::set_buffer_surface(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
-{
-  *(&v13 + 1) = a4;
-  if ((*(a1 + 909) & 1) == 0)
-  {
-    kdrc_stream::set_buffer_surface();
-  }
-
-  v7 = (a1 + 1012);
-  *(a1 + 1040) = a2;
-  v8 = *(a1 + 1008) + HIDWORD(a3);
-  LODWORD(v13) = *(a1 + 1004) + a3;
-  DWORD1(v13) = v8;
-  *(a1 + 1012) = v13;
-  v9 = (a1 + 1020);
-  result = kdu_dims::operator&=(&v13, (a1 + 988));
-  v11 = v13 == __PAIR64__(*(a1 + 1024), *v9) && HIDWORD(v13) == *(a1 + 1032) && DWORD2(v13) == *(a1 + 1028);
-  *v9 = v13;
-  if (a5)
-  {
-    if (*(a1 + 1068) == 1)
-    {
-      result = kdu_region_decompressor::finish((a1 + 120));
-      *(*(a1 + 1136) + 296) = 0;
-      *(a1 + 1068) = 0;
-    }
-
-    v7[5] = v7[1];
-    v7[6] = 0;
-    v12 = *(v7 + 5);
-    *(a1 + 1088) = v12;
-    *(a1 + 1072) = v12;
-    *(a1 + 1124) = 0;
-    *(a1 + 1120) = 256;
-  }
-
-  else if (!v11)
-  {
-    if (*(a1 + 1068) == 1)
-    {
-      kdu_dims::operator&=((a1 + 1072), v9);
-      kdu_dims::operator&=((a1 + 1088), v9);
-      if ((*(a1 + 1100) < 1 || *(a1 + 1096) <= 0) && *(a1 + 1068) == 1)
-      {
-        kdu_region_decompressor::finish((a1 + 120));
-        *(*(a1 + 1136) + 296) = 0;
-        *(a1 + 1068) = 0;
-      }
-    }
-
-    kdu_dims::operator&=((a1 + 1052), v9);
-    return kdrc_stream::update_completion_status(a1);
-  }
-
-  return result;
-}
-
-uint64_t kdrc_stream::update_completion_status(uint64_t this)
-{
-  v1 = *(this + 1032);
-  if (v1 < 1 || (v2 = *(this + 1028), v2 < 1) || *(this + 1024) == *(this + 1056) && *(this + 1020) == *(this + 1052) && v1 == *(this + 1064) && v2 == *(this + 1060))
-  {
-    LODWORD(v3) = 0;
-    *(this + 1124) = 1;
-  }
-
-  else
-  {
-    *(this + 1124) = 0;
-    v4 = v2 * v1;
-    v5 = *(this + 1060) * *(this + 1064);
-    if (*(this + 1068) == 1)
-    {
-      v5 = v5 + *(this + 1080) * *(this + 1084) - *(this + 1096) * *(this + 1100);
-    }
-
-    v3 = ((v4 - v5) << 8) / v4;
-  }
-
-  *(this + 1120) = v3;
-  return this;
-}
-
-uint64_t kdrc_stream::process(kdrc_stream *this, int a2, int32x2_t *a3, int *a4)
-{
-  v44 = *MEMORY[0x1E69E9840];
-  *a4 = 0;
-  if (!*(this + 130))
-  {
-    kdrc_stream::process();
-  }
-
-  v8 = this + 972;
-  if ((*(this + 1068) & 1) == 0 && *(this + 258) >= 1 && *(this + 257) >= 1)
-  {
-    *(this + 1052) = *(this + 1020);
-    *(this + 1060) = 0;
-    v9 = *(this + 1020);
-    *(this + 67) = v9;
-    *(this + 68) = v9;
-    if (*(this + 271) >= 1 && *(this + 270) >= 1)
-    {
-      v10 = *(this + 142);
-      if (*(v10 + 296) == 1)
-      {
-        kdrc_stream::process();
-      }
-
-      *(this + 32) = 8;
-      v11 = *(this + 90);
-      if (v11 >= 0)
-      {
-        v12 = 0;
-      }
-
-      else
-      {
-        v12 = (this + 64);
-      }
-
-      if ((kdu_region_decompressor::start((this + 120), *(v10 + 288), v12, v11, *(this + 242), *(this + 14), *(this + 134), *(this + 135), *v8, *(this + 980), 0, *(this + 93), 1, *(this + 4), *(this + 5)) & 1) == 0)
-      {
-        goto LABEL_72;
-      }
-
-      *(*(this + 142) + 296) = 1;
-      *(this + 1068) = 1;
-    }
-  }
-
-  a3[1] = 0;
-  if (*(this + 1068) == 1)
-  {
-    v13 = *(this + 130);
-    if ((*(v13 + 27) & 1) == 0)
-    {
-      (*(*v13 + 24))(*(this + 130), 0);
-    }
-
-    v14 = *(v13 + 40);
-    v15 = *(v13 + 44);
-    v16 = *(v13 + 32);
-    if (*(this + 9) == 1)
-    {
-      v38 = *(v13 + 32);
-      v17 = kdu_region_decompressor::process(this + 120, &v38, 1u, v14, *(v8 + 5), v15, a2, 0, this + 272, a3, 8, 1);
-    }
-
-    else
-    {
-      if ((*(this + 90) & 0x80000000) == 0 || (v30 = *(this + 139)) == 0 || *(v30 + 232) != 1 || *(this + 17) != *(this + 16))
-      {
-        if (*(this + 17) > 3)
-        {
-          v43 = 0u;
-          v42 = 0u;
-          v38 = v16;
-          v39 = v16 + 1;
-          v40 = v16 + 2;
-          v41 = v16 + 3;
-          if (!kdu_region_decompressor::process(this + 120, &v38, 0, v14, *(v8 + 5), v15, a2, 0, this + 272, a3, 8, 1))
-          {
-            goto LABEL_27;
-          }
-        }
-
-        else if ((kdu_region_decompressor::process((this + 120), v16, *(v8 + 5), v14, v15, a2, 0, this + 272, a3) & 1) == 0)
-        {
-LABEL_27:
-          *(*(this + 142) + 296) = 0;
-          *(this + 1068) = 0;
-          if (kdu_region_decompressor::finish((this + 120)))
-          {
-            min_dwt_levels = kdu_codestream::get_min_dwt_levels((*(this + 142) + 288));
-            *(this + 226) = min_dwt_levels;
-            if (min_dwt_levels < *(this + 242))
-            {
-              *(this + 242) = min_dwt_levels;
-              *(this + 909) = 0;
-              v19 = *a4 | 1;
-LABEL_57:
-              *a4 = v19;
-              kdrc_stream::invalidate_surface(this);
-              return 0;
-            }
-
-            if ((*(this + 912) & 1) != 0 || *(this + 911) == 1)
-            {
-              can_flip = kdu_codestream::can_flip((*(this + 142) + 288));
-              *(this + 908) = can_flip;
-              if ((can_flip & 1) == 0)
-              {
-                *(this + 909) = 0;
-                *(this + 911) = 0;
-                v19 = *a4 | 2;
-                goto LABEL_57;
-              }
-            }
-
-            kdu_dims::operator&=(v8 + 20, this + 255);
-            kdu_dims::operator&=(this + 268, this + 255);
-            v21 = *(this + 266);
-            if (v21 < 1 || (v22 = *(v8 + 22), v22 <= 0))
-            {
-              *(v8 + 5) = *(this + 67);
-            }
-
-            else
-            {
-              v23 = *(v8 + 10);
-              v24 = HIDWORD(v23);
-              v25 = *(this + 134);
-              v26 = v21 + HIDWORD(v23);
-              v27 = v22 + v23;
-              v28 = *(this + 271) + HIDWORD(v25);
-              v29 = *(this + 270) + v25;
-              if (HIDWORD(v23) == HIDWORD(v25) && v26 == v28)
-              {
-                if (v29 >= v23 && v27 >= v25)
-                {
-                  if (v23 >= v25)
-                  {
-                    LODWORD(v23) = *(this + 134);
-                  }
-
-                  if (v27 <= v29)
-                  {
-                    v27 = *(this + 270) + v25;
-                  }
-                }
-              }
-
-              else if (v23 == v25 && v27 == v29 && v28 >= SHIDWORD(v23) && v26 >= SHIDWORD(v25))
-              {
-                v24 = SHIDWORD(v23) >= SHIDWORD(v25) ? HIDWORD(v25) : HIDWORD(v23);
-                if (v26 <= v28)
-                {
-                  v26 = *(this + 271) + HIDWORD(v25);
-                }
-              }
-
-              *(v8 + 10) = v23 | (v24 << 32);
-              *(v8 + 11) = (v27 - v23) | ((v26 - v24) << 32);
-            }
-
-            goto LABEL_68;
-          }
-
-LABEL_72:
-          exception = __cxa_allocate_exception(4uLL);
-          *exception = 0;
-          __cxa_throw(exception, MEMORY[0x1E69E5478], 0);
-        }
-
-LABEL_25:
-        if (*(this + 275) >= 1 && *(this + 274) > 0)
-        {
-LABEL_68:
-          *a3 = vsub_s32(*a3, *(v8 + 32));
-          goto LABEL_69;
-        }
-
-        goto LABEL_27;
-      }
-
-      if (*(this + 1048))
-      {
-        v31 = 2;
-      }
-
-      else
-      {
-        v31 = 1;
-      }
-
-      v32 = v16 + v31;
-      if (*(this + 1048))
-      {
-        v33 = 1;
-      }
-
-      else
-      {
-        v33 = 2;
-      }
-
-      v34 = v16 + v33;
-      v35 = 3;
-      if (*(this + 1048))
-      {
-        v35 = 0;
-      }
-
-      v38 = v32;
-      v39 = v34;
-      v40 = v16 + v35;
-      v17 = kdu_region_decompressor::process(this + 120, &v38, 1u, v14, *(v8 + 5), v15, a2, 0, this + 272, a3, 8, 1);
-    }
-
-    if ((v17 & 1) == 0)
-    {
-      goto LABEL_27;
-    }
-
-    goto LABEL_25;
-  }
-
-LABEL_69:
-  kdrc_stream::update_completion_status(this);
-  return 1;
-}
-
 double kdrc_stream::adjust_refresh(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   *&v20 = a2;
@@ -756,8 +444,8 @@ LABEL_23:
 
 uint64_t kdrc_layer::init(uint64_t a1, jx_layer_source *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, char a7, char a8, char a9)
 {
-  v37 = *MEMORY[0x1E69E9840];
-  v31 = a2;
+  v41 = *MEMORY[0x1E69E9840];
+  v35 = a2;
   if (*(a1 + 72) || *(a1 + 80))
   {
     kdrc_layer::init();
@@ -771,139 +459,139 @@ uint64_t kdrc_layer::init(uint64_t a1, jx_layer_source *a2, uint64_t a3, uint64_
   *(a1 + 44) = a4;
   *(a1 + 52) = a5;
   *(a1 + 60) = a6;
-  *(a1 + 236) = jpx_layer_source::get_layer_id(&v31);
+  *(a1 + 236) = jpx_layer_source::get_layer_id(&v35, a2);
   *(a1 + 33) = a7;
   *(a1 + 34) = a8;
   *(a1 + 35) = a9;
   *(a1 + 120) = 0;
-  result = jpx_layer_source::have_stream_headers(&v31);
+  result = jpx_layer_source::have_stream_headers(&v35, v12);
   if (result)
   {
-    *v29 = 0;
-    v30 = jpx_layer_source::access_channels(&v31);
-    v28 = 0;
-    jp2_channels::get_colour_mapping(&v30, 0, &v29[1], v29, &v28);
-    v13 = kdu_region_compositor::add_active_stream(*a1, v28, *(a1 + 236));
-    *(a1 + 72) = v13;
-    if (!v13)
+    *v33 = 0;
+    v34 = jpx_layer_source::access_channels(&v35, v14);
+    v32 = 0;
+    jp2_channels::get_colour_mapping(&v34, 0, &v33[1], v33, &v32);
+    v15 = kdu_region_compositor::add_active_stream(*a1, v32, *(a1 + 236), 0);
+    *(a1 + 72) = v15;
+    if (!v15)
     {
-      v27 = 0;
-      v25 = 0u;
-      v26 = 0u;
-      kdu_error::kdu_error(&v25, "Error in Kakadu Region Compositor:\n");
-      (*(v25 + 16))(&v25, "Unable to create compositing layer (index, starting from 0, equals ");
-      v35 = 0u;
-      v36 = 0u;
-      v33 = 0u;
-      v34 = 0u;
-      *v32 = 0u;
-      if (BYTE8(v25))
+      v31 = 0;
+      v29 = 0u;
+      v30 = 0u;
+      kdu_error::kdu_error(&v29, "Error in Kakadu Region Compositor:\n");
+      (*(v29 + 16))(&v29, "Unable to create compositing layer (index, starting from 0, equals ");
+      v39 = 0u;
+      v40 = 0u;
+      v37 = 0u;
+      v38 = 0u;
+      *v36 = 0u;
+      if (BYTE8(v29))
       {
-        sprintf(v32, "%x");
+        sprintf(v36, "%x");
       }
 
       else
       {
-        sprintf(v32, "%d");
+        sprintf(v36, "%d");
       }
 
-      (*(v25 + 16))(&v25, v32);
-      (*(v25 + 16))(&v25, "), since its primary codestream cannot be opened.");
-      kdu_error::~kdu_error(&v25);
+      (*(v29 + 16))(&v29, v36);
+      (*(v29 + 16))(&v29, "), since its primary codestream cannot be opened.");
+      kdu_error::~kdu_error(&v29);
     }
 
-    *(v13 + 139) = a1;
-    v14 = v28;
+    *(v15 + 139) = a1;
+    v17 = v32;
     *(a1 + 232) = 0;
-    v15 = *(a1 + 72);
-    if (*(v15 + 64) <= *(v15 + 68))
+    v18 = *(a1 + 72);
+    if (*(v18 + 64) <= *(v18 + 68))
     {
-      if (jp2_channels::get_num_colours(&v30) >= 1)
+      if (jp2_channels::get_num_colours(&v34, v16) >= 1)
       {
-        v16 = 0;
-        v17 = -1;
-        v18 = -1;
-        v19 = -1;
-        while (jp2_channels::get_opacity_mapping(&v30, v16, &v29[1], v29, &v28) && v28 != v14)
+        v19 = 0;
+        v20 = -1;
+        v21 = -1;
+        v22 = -1;
+        while (jp2_channels::get_opacity_mapping(&v34, v19, &v33[1], v33, &v32) && v32 != v17)
         {
-          if (v16)
+          if (v19)
           {
-            if (v28 != v19 || v29[1] != v18 || v29[0] != v17)
+            if (v32 != v22 || v33[1] != v21 || v33[0] != v20)
             {
-              v27 = 0;
-              v25 = 0u;
-              v26 = 0u;
-              kdu_warning::kdu_warning(&v25, "Warning in Kakadu Region Compositor:\n");
-              (*(v25 + 16))(&v25, "Unable to render compositing layer (index, starting from 0, equals ");
-              v35 = 0u;
-              v36 = 0u;
-              v33 = 0u;
-              v34 = 0u;
-              *v32 = 0u;
-              if (BYTE8(v25))
+              v31 = 0;
+              v29 = 0u;
+              v30 = 0u;
+              kdu_warning::kdu_warning(&v29, "Warning in Kakadu Region Compositor:\n");
+              (*(v29 + 16))(&v29, "Unable to render compositing layer (index, starting from 0, equals ");
+              v39 = 0u;
+              v40 = 0u;
+              v37 = 0u;
+              v38 = 0u;
+              *v36 = 0u;
+              if (BYTE8(v29))
               {
-                sprintf(v32, "%x");
+                sprintf(v36, "%x");
               }
 
               else
               {
-                sprintf(v32, "%d");
+                sprintf(v36, "%d");
               }
 
-              (*(v25 + 16))(&v25, v32);
-              (*(v25 + 16))(&v25, ") with alpha blending, since there are multiple distinct alpha channels for a single set of colour channels.");
-              kdu_warning::~kdu_warning(&v25);
+              (*(v29 + 16))(&v29, v36);
+              (*(v29 + 16))(&v29, ") with alpha blending, since there are multiple distinct alpha channels for a single set of colour channels.");
+              kdu_warning::~kdu_warning(&v29);
               break;
             }
           }
 
           else
           {
-            v17 = v29[0];
-            v18 = v29[1];
-            v19 = v28;
+            v20 = v33[0];
+            v21 = v33[1];
+            v22 = v32;
           }
 
-          if (++v16 >= jp2_channels::get_num_colours(&v30))
+          if (++v19 >= jp2_channels::get_num_colours(&v34, v23))
           {
-            if (v19 < 0)
+            if (v22 < 0)
             {
               goto LABEL_34;
             }
 
-            v20 = kdu_region_compositor::add_active_stream(*a1, v19, *(a1 + 236));
-            *(a1 + 80) = v20;
-            if (v20)
+            v24 = kdu_region_compositor::add_active_stream(*a1, v22, *(a1 + 236), 1);
+            *(a1 + 80) = v24;
+            if (v24)
             {
-              *(v20 + 139) = a1;
+              *(v24 + 139) = a1;
               *(a1 + 232) = 1;
               *(a1 + 233) = *(*(a1 + 80) + 10);
               goto LABEL_34;
             }
 
-            v27 = 0;
-            v25 = 0u;
-            v26 = 0u;
-            kdu_warning::kdu_warning(&v25, "Warning in Kakadu Region Compositor:\n");
-            (*(v25 + 16))(&v25, "Unable to render compositing layer (index, starting from 0, equals ");
-            v35 = 0u;
-            v36 = 0u;
-            v33 = 0u;
-            v34 = 0u;
-            *v32 = 0u;
-            if (BYTE8(v25))
+            v31 = 0;
+            v29 = 0u;
+            v30 = 0u;
+            kdu_warning::kdu_warning(&v29, "Warning in Kakadu Region Compositor:\n");
+            (*(v29 + 16))(&v29, "Unable to render compositing layer (index, starting from 0, equals ");
+            v39 = 0u;
+            v40 = 0u;
+            v37 = 0u;
+            v38 = 0u;
+            *v36 = 0u;
+            if (BYTE8(v29))
             {
-              sprintf(v32, "%x");
+              sprintf(v36, "%x");
             }
 
             else
             {
-              sprintf(v32, "%d");
+              sprintf(v36, "%d");
             }
 
-            (*(v25 + 16))(&v25, v32);
-            (*(v25 + 16))(&v25, ") with alpha blending, since the codestream containing the alpha data cannot be opened.");
-            kdu_warning::~kdu_warning(&v25);
+            (*(v29 + 16))(&v29, v36);
+            (*(v29 + 16))(&v29, ") with alpha blending, since the codestream containing the alpha data cannot be opened.");
+            kdu_warning::~kdu_warning(&v29);
             break;
           }
         }
@@ -913,37 +601,38 @@ uint64_t kdrc_layer::init(uint64_t a1, jx_layer_source *a2, uint64_t a3, uint64_
     else
     {
       *(a1 + 232) = 1;
-      *(a1 + 233) = *(v15 + 10);
+      *(a1 + 233) = *(v18 + 10);
     }
 
-    v19 = -1;
+    v22 = -1;
 LABEL_34:
-    *v32 = 0;
-    v24 = 0;
-    *&v25 = 0;
-    result = jpx_layer_source::get_codestream_registration(&v31, 0, v32, &v25, &v24);
-    v28 = result;
+    *v36 = 0;
+    v28 = 0;
+    *&v29 = 0;
+    result = jpx_layer_source::get_codestream_registration(&v35, 0, v36, &v29, &v28);
+    v32 = result;
     if ((result & 0x80000000) == 0)
     {
-      v21 = 1;
+      v25 = 1;
       do
       {
-        if (result == v14)
+        if (result == v17)
         {
-          v22 = v24;
-          *(a1 + 88) = v25;
-          *(a1 + 104) = v22;
+          v26 = v28;
+          *(a1 + 88) = v29;
+          *(a1 + 104) = v26;
         }
 
-        else if (result == v19)
+        else if (result == v22)
         {
-          v23 = v24;
-          *(a1 + 96) = v25;
-          *(a1 + 112) = v23;
+          v27 = v28;
+          *(a1 + 96) = v29;
+          *(a1 + 112) = v27;
         }
 
-        result = jpx_layer_source::get_codestream_registration(&v31, v21++, v32, &v25, &v24);
-        v28 = result;
+        result = jpx_layer_source::get_codestream_registration(&v35, v25, v36, &v29, &v28);
+        v25 = (v25 + 1);
+        v32 = result;
       }
 
       while ((result & 0x80000000) == 0);
@@ -953,138 +642,138 @@ LABEL_34:
   return result;
 }
 
-void sub_185FADF84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_185FADF84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   kdu_warning::~kdu_warning(va);
   _Unwind_Resume(a1);
 }
 
-kdrc_stream *kdu_region_compositor::add_active_stream(kdu_region_compositor *this, int a2, int a3)
+kdrc_stream *kdu_region_compositor::add_active_stream(kdu_region_compositor *this, int a2, int a3, int a4)
 {
   if (*(this + 1))
   {
     a3 = 0;
   }
 
-  v5 = *(this + 62);
-  if (v5)
+  v6 = *(this + 62);
+  if (v6)
   {
-    v6 = *(this + 62);
+    v7 = *(this + 62);
     do
     {
-      if (*(v6 + 1104) == a2 && (*(v6 + 1108) & 0x80000000) == 0)
+      if (*(v7 + 1104) == a2 && (*(v7 + 1108) & 0x80000000) == 0)
       {
         break;
       }
 
-      v6 = *(v6 + 1128);
+      v7 = *(v7 + 1128);
     }
 
-    while (v6);
+    while (v7);
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  v7 = *(this + 63);
-  if (!v7)
+  v8 = *(this + 63);
+  if (!v8)
   {
     goto LABEL_35;
   }
 
-  v8 = 0;
-  v9 = (this + 504);
-  v10 = *(this + 63);
+  v9 = 0;
+  v10 = (this + 504);
+  v11 = *(this + 63);
   while (1)
   {
-    v11 = v10;
-    if (*(v10 + 1104) == a2)
+    v12 = v11;
+    if (*(v11 + 1104) == a2)
     {
-      if (!v6)
+      if (!v7)
       {
-        if (*(v10 + 1108) < 0)
+        if (*(v11 + 1108) < 0)
         {
-          v6 = 0;
+          v7 = 0;
         }
 
         else
         {
-          v6 = v10;
+          v7 = v11;
         }
       }
 
-      if (a3 < 0 || *(v10 + 1108) == a3)
+      if (a3 < 0 || *(v11 + 1108) == a3)
       {
         break;
       }
     }
 
-    v10 = *(v10 + 1128);
-    v8 = v11;
-    if (!v10)
+    v11 = *(v11 + 1128);
+    v9 = v12;
+    if (!v11)
     {
-      v12 = 0;
+      v13 = 0;
       while (1)
       {
-        v13 = v7;
-        if ((*(v7 + 1108) & 0x80000000) != 0 && *(v7 + 1104) == a2)
+        v14 = v8;
+        if ((*(v8 + 1108) & 0x80000000) != 0 && *(v8 + 1104) == a2)
         {
           break;
         }
 
-        v7 = *(v7 + 1128);
-        v12 = v13;
-        if (!v7)
+        v8 = *(v8 + 1128);
+        v13 = v14;
+        if (!v8)
         {
           goto LABEL_35;
         }
       }
 
-      if (v12)
+      if (v13)
       {
-        v15 = (v12 + 1128);
+        v16 = (v13 + 1128);
       }
 
       else
       {
-        v15 = (this + 504);
+        v16 = (this + 504);
       }
 
-      *v15 = *(v7 + 1128);
-      kdrc_stream::~kdrc_stream(v7);
+      *v16 = *(v8 + 1128);
+      kdrc_stream::~kdrc_stream(v8);
       MEMORY[0x186602850]();
 LABEL_35:
       operator new();
     }
   }
 
-  if (v8)
+  if (v9)
   {
-    v9 = (v8 + 1128);
+    v10 = (v9 + 1128);
   }
 
-  *v9 = *(v10 + 1128);
-  *(v10 + 1128) = v5;
-  *(this + 62) = v10;
-  *(v10 + 1125) = 1;
-  v14 = *(v10 + 1136);
-  if (!v14)
+  *v10 = *(v11 + 1128);
+  *(v11 + 1128) = v6;
+  *(this + 62) = v11;
+  *(v11 + 1125) = 1;
+  v15 = *(v11 + 1136);
+  if (!v15)
   {
-    v19 = 0;
-    *v17 = 0u;
-    v18 = 0u;
-    kdu_error::kdu_error(v17, "Error in Kakadu Region Compositor:\n");
-    (*(*v17 + 16))(v17, "Attempting to open a codestream which has already been found to contain an error.");
-    kdu_error::~kdu_error(v17);
+    v20 = 0;
+    *v18 = 0u;
+    v19 = 0u;
+    kdu_error::kdu_error(v18, "Error in Kakadu Region Compositor:\n");
+    (*(*v18 + 16))(v18, "Attempting to open a codestream which has already been found to contain an error.");
+    kdu_error::~kdu_error(v18);
   }
 
-  kdrc_codestream::move_to_head(v14, v10);
-  kdrc_stream::set_error_level(v11, *(this + 78));
-  *(v11 + 14) = *(this + 82);
-  return v11;
+  kdrc_codestream::move_to_head(v15, v11);
+  kdrc_stream::set_error_level(v12, *(this + 78));
+  *(v12 + 14) = *(this + 82);
+  return v12;
 }
 
 void sub_185FAE2F8(void *a1)
@@ -1181,7 +870,7 @@ kdrc_stream *kdrc_layer::init(uint64_t a1, mj2_video_source *a2, uint64_t a3, in
       kdrc_layer::init();
     }
 
-    result = kdu_region_compositor::add_active_stream(*a1, stream_idx, *(a1 + 236));
+    result = kdu_region_compositor::add_active_stream(*a1, stream_idx, *(a1 + 236), 0);
     *(a1 + 72) = result;
     if (!result)
     {
@@ -1409,7 +1098,7 @@ __n128 *kdrc_layer::activate(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a
     }
 
     v16 = 0;
-    v28 = HIDWORD(a2);
+    v29 = HIDWORD(a2);
     v17 = HIDWORD(a4);
     v18 = 1;
     do
@@ -1420,9 +1109,10 @@ __n128 *kdrc_layer::activate(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a
       {
         if ((result[70].n128_u8[5] & 1) == 0)
         {
-          v21 = kdu_region_compositor::add_active_stream(*a1, result[69].n128_i32[0], result[69].n128_i32[1]);
+          v21 = (v18 & 1) == 0 && *(a1 + 8) != 0;
+          v22 = kdu_region_compositor::add_active_stream(*a1, result[69].n128_i32[0], result[69].n128_i32[1], v21);
           result = *(v15 + 8 * v16);
-          if (v21 != result)
+          if (v22 != result)
           {
             kdrc_layer::activate();
           }
@@ -1450,7 +1140,7 @@ __n128 *kdrc_layer::activate(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a
     *(a1 + 35) = a8;
     if (*(a1 + 8))
     {
-      if (*(a1 + 40) != v28 || *(a1 + 36) != a2 || *(a1 + 44) != a3)
+      if (*(a1 + 40) != v29 || *(a1 + 36) != a2 || *(a1 + 44) != a3)
       {
         *(a1 + 120) = 0;
       }
@@ -1461,23 +1151,23 @@ __n128 *kdrc_layer::activate(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a
 
     else if (*(a1 + 28) != a10 || (*(a1 + 24) != a9 || *(a1 + 32) == 1) && (result = kdrc_layer::change_frame(a1, a9, 1), (result & 1) == 0))
     {
-      v23 = 0;
-      v24 = 1;
+      v24 = 0;
+      v25 = 1;
       do
       {
-        v25 = v24;
-        v26 = *(v15 + 8 * v23);
-        if (v26)
+        v26 = v25;
+        v27 = *(v15 + 8 * v24);
+        if (v27)
         {
-          kdu_region_compositor::remove_stream(*a1, v26, 1);
+          kdu_region_compositor::remove_stream(*a1, v27, 1);
         }
 
-        v24 = 0;
-        *(v15 + 8 * v23) = 0;
-        v23 = 1;
+        v25 = 0;
+        *(v15 + 8 * v24) = 0;
+        v24 = 1;
       }
 
-      while ((v25 & 1) != 0);
+      while ((v26 & 1) != 0);
 
       return kdrc_layer::reinit(a1);
     }
@@ -1485,18 +1175,18 @@ __n128 *kdrc_layer::activate(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a
 
   else
   {
-    v22 = *(a1 + 8);
-    if (v22)
+    v23 = *(a1 + 8);
+    if (v23)
     {
 
-      return kdrc_layer::init(a1, v22, a2, a3, a4, a5, a6, a7, a8);
+      return kdrc_layer::init(a1, v23, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
     {
-      v27 = *(a1 + 16);
+      v28 = *(a1 + 16);
 
-      return kdrc_layer::init(a1, v27, a9, a10, a4, a5);
+      return kdrc_layer::init(a1, v28, a9, a10, a4, a5);
     }
   }
 
@@ -2499,7 +2189,7 @@ void *kdu_region_compositor::donate_compositing_buffer(void *result, uint64_t a2
   return result;
 }
 
-uint64_t kdrc_layer::configure_overlay(uint64_t this, char a2, int a3, int a4)
+uint64_t kdrc_layer::configure_overlay(uint64_t this, char a2, unsigned int a3, int a4)
 {
   v4 = *(this + 72);
   if (v4)
@@ -2923,15 +2613,15 @@ uint64_t kdrc_layer::update_composition(uint64_t result, unint64_t a2, uint64_t 
         v13 = *(*&v11 + 40);
         v12 = *(*&v11 + 44);
         v14 = v12 * v13;
-        v16 = v93;
-        v15 = HIDWORD(v93);
-        v17 = (*(*&v11 + 32) + (HIDWORD(v93) - v5[19].i32[1]) * v13 + (v93 - v5[19].i32[0]) * v14);
+        v16 = v93.i32[0];
+        v15 = v93.i32[1];
+        v17 = (*(*&v11 + 32) + (v93.i32[1] - v5[19].i32[1]) * v13 + (v93.i32[0] - v5[19].i32[0]) * v14);
         v18 = v5[26];
         if (*(*&v18 + 27) != 1 || (*(*&v18 + 26) & 1) == 0)
         {
           result = (*(**&v18 + 24))(*&v5[26], 1);
-          v16 = v93;
-          v15 = HIDWORD(v93);
+          v16 = v93.i32[0];
+          v15 = v93.i32[1];
         }
 
         v20 = *(*&v18 + 40);
@@ -3084,8 +2774,8 @@ uint64_t kdrc_layer::update_composition(uint64_t result, unint64_t a2, uint64_t 
           v70 = *(*&v69 + 40);
           v71 = *(*&v69 + 44);
           v72 = *(*&v69 + 32);
-          v74 = v93;
-          v73 = HIDWORD(v93);
+          v74 = v93.i32[0];
+          v73 = v93.i32[1];
           v76 = v5[19].i32[0];
           v75 = v5[19].i32[1];
           v77 = v5[26];
@@ -3151,12 +2841,12 @@ uint64_t kdrc_layer::update_composition(uint64_t result, unint64_t a2, uint64_t 
   return result;
 }
 
-uint64_t kdrc_refresh::adjust(uint64_t result, uint64_t a2, uint64_t a3)
+void *kdrc_refresh::adjust(void *result, uint64_t a2, uint64_t a3)
 {
   v9[0] = a2;
   v9[1] = a3;
-  v4 = (result + 8);
-  v3 = *(result + 8);
+  v4 = result + 1;
+  v3 = result[1];
   if (v3)
   {
     v5 = result;
@@ -3192,10 +2882,10 @@ uint64_t kdrc_refresh::adjust(uint64_t result, uint64_t a2, uint64_t a3)
   return result;
 }
 
-void kdrc_refresh::adjust(kdrc_refresh *this, kdrc_stream *a2)
+void kdrc_refresh::adjust(uint64_t **this, kdrc_stream *a2)
 {
-  v2 = *(this + 1);
-  *(this + 1) = 0;
+  v2 = this[1];
+  this[1] = 0;
   if (v2)
   {
     do
@@ -3211,7 +2901,7 @@ void kdrc_refresh::adjust(kdrc_refresh *this, kdrc_stream *a2)
   }
 }
 
-void kdu_region_compositor::kdu_region_compositor(uint64_t a1)
+void kdu_region_compositor::kdu_region_compositor(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   *a1 = &unk_1EF4D3CC0;
   jpx_input_box::jpx_input_box((a1 + 32));
@@ -3221,10 +2911,10 @@ void kdu_region_compositor::kdu_region_compositor(uint64_t a1)
   *(a1 + 408) = 0;
   *(a1 + 416) = 0;
   *(a1 + 400) = 0;
-  kdu_region_compositor::init(a1);
+  kdu_region_compositor::init(a1, a2, a3);
 }
 
-void kdu_region_compositor::init(uint64_t a1)
+void kdu_region_compositor::init(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
@@ -3284,12 +2974,12 @@ uint64_t kdu_region_compositor::create(uint64_t this, jpx_source *a2, int a3)
   return this;
 }
 
-kdrc_queue *kdu_region_compositor::pre_destroy(kdu_region_compositor *this)
+void (**kdu_region_compositor::pre_destroy(void (***this)(kdrc_stream **)))(kdrc_stream **)
 {
   kdu_region_compositor::remove_compositing_layer(this, -1, 1);
   while (1)
   {
-    v2 = *(this + 62);
+    v2 = this[62];
     if (!v2)
     {
       break;
@@ -3300,7 +2990,7 @@ kdrc_queue *kdu_region_compositor::pre_destroy(kdu_region_compositor *this)
 
   while (1)
   {
-    v3 = *(this + 63);
+    v3 = this[63];
     if (!v3)
     {
       break;
@@ -3309,38 +2999,38 @@ kdrc_queue *kdu_region_compositor::pre_destroy(kdu_region_compositor *this)
     kdu_region_compositor::remove_stream(this, v3, 1);
   }
 
-  v4 = *(this + 49);
+  v4 = this[49];
   if (v4)
   {
-    if (v4[24] == 1)
+    if (*(v4 + 24) == 1)
     {
-      (*(*v4 + 8))(*(this + 49));
+      (*(*v4 + 8))(this[49]);
     }
 
     else
     {
-      (*(*this + 64))(this);
+      (*this)[8](this);
     }
 
-    *(this + 49) = 0;
+    this[49] = 0;
   }
 
-  v5 = *(this + 64);
+  v5 = this[64];
   if (v5)
   {
     kdrc_refresh::~kdrc_refresh(v5);
     MEMORY[0x186602850]();
-    *(this + 64) = 0;
+    this[64] = 0;
   }
 
   kdu_region_compositor::flush_composition_queue(this);
-  result = *(this + 58);
-  for (*(this + 57) = result; result; *(this + 57) = result)
+  result = this[58];
+  for (this[57] = result; result; this[57] = result)
   {
-    *(this + 58) = *(result + 3);
+    this[58] = result[3];
     kdrc_queue::~kdrc_queue(result);
     MEMORY[0x186602850]();
-    result = *(this + 58);
+    result = this[58];
   }
 
   return result;
@@ -3571,7 +3261,7 @@ uint64_t kdu_region_compositor::add_compositing_layer(uint64_t a1, int a2, unint
       }
     }
 
-    kdu_region_compositor::add_active_stream(a1, 0, 0);
+    kdu_region_compositor::add_active_stream(a1, 0, 0, 0);
     kdrc_stream::set_mode(*(a1 + 496), 0xFFFFFFFFLL, 0);
     result = 1;
     *(a1 + 429) = 1;
@@ -3871,7 +3561,7 @@ uint64_t kdu_region_compositor::set_single_component(kdu_region_compositor *this
   }
 
 LABEL_21:
-  if (!kdu_region_compositor::add_active_stream(this, a2, -1))
+  if (!kdu_region_compositor::add_active_stream(this, a2, -1, 0))
   {
     v19 = 0;
     *v17 = 0u;
@@ -3958,10 +3648,10 @@ LABEL_10:
   return this;
 }
 
-void kdu_region_compositor::set_buffer_surface(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+void kdu_region_compositor::set_buffer_surface(uint64_t a1, unint64_t a2, unint64_t a3, int a4)
 {
   v8 = (a1 + 400);
-  if (*(a1 + 400) != a2 || *(a1 + 408) != a3 || *(a1 + 424) != a4)
+  if (*(a1 + 400) != __PAIR128__(a3, a2) || *(a1 + 424) != a4)
   {
     kdu_region_compositor::flush_composition_queue(a1);
   }
@@ -3980,10 +3670,10 @@ void kdu_region_compositor::set_buffer_surface(uint64_t a1, uint64_t a2, uint64_
       kdu_dims::operator&=(&v44, (a1 + 376));
       v11 = 0;
       *(a1 + 400) = v44;
-      goto LABEL_20;
+      goto LABEL_19;
     }
 
-LABEL_13:
+LABEL_12:
     *(a1 + 400) = a2;
     *(a1 + 408) = a3;
     return;
@@ -3994,7 +3684,7 @@ LABEL_13:
   *(a1 + 424) = a4;
   if (*(a1 + 429) == 1)
   {
-    goto LABEL_13;
+    goto LABEL_12;
   }
 
   v12 = *(a1 + 400);
@@ -4040,7 +3730,7 @@ LABEL_13:
     }
   }
 
-LABEL_20:
+LABEL_19:
   if (*(a1 + 472))
   {
     kdu_region_compositor::set_layer_buffer_surfaces(a1);
@@ -4118,7 +3808,7 @@ LABEL_20:
 
     if (v42 < 1 || !v38)
     {
-      goto LABEL_33;
+      goto LABEL_32;
     }
 
     v22 = *(a1 + 512);
@@ -4127,7 +3817,7 @@ LABEL_20:
   }
 
   kdrc_refresh::add_region(v22, v26, v27);
-LABEL_33:
+LABEL_32:
   for (i = *(a1 + 496); i; i = *(i + 141))
   {
     kdrc_refresh::adjust(*(a1 + 512), i);
@@ -4825,245 +4515,245 @@ uint64_t kdu_region_compositor::access_codestream(kdu_region_compositor *this, k
   return *(v3 + 288);
 }
 
-uint64_t kdu_region_compositor::paint_overlay(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9, uint64_t a10, int a11, int a12, char a13, char a14, char a15, uint64_t a16, uint64_t a17, unint64_t a18)
+uint64_t kdu_region_compositor::paint_overlay(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9, uint64_t a10, uint64_t a11, char a13, char a14, char a15, uint64_t a16, uint64_t a17, unint64_t a18)
 {
-  v103[0] = a3;
-  v103[1] = a4;
-  v102 = a8;
-  num_regions = jpx_metanode::get_num_regions(&v102);
-  result = jpx_metanode::get_regions(&v102);
+  v102[0] = a3;
+  v102[1] = a4;
+  v101 = a8;
+  num_regions = jpx_metanode::get_num_regions(&v101, a2);
+  result = jpx_metanode::get_regions(&v101);
   if (num_regions >= 1)
   {
-    v22 = result;
-    v23 = a10;
-    if (a12 <= 1)
+    v21 = result;
+    v22 = a10;
+    if (SHIDWORD(a11) <= 1)
+    {
+      v23 = 1;
+    }
+
+    else
+    {
+      v23 = HIDWORD(a11);
+    }
+
+    if (a11 <= 1)
     {
       v24 = 1;
     }
 
     else
     {
-      v24 = a12;
+      v24 = a11;
     }
 
-    if (a11 <= 1)
+    v25 = a16 >> 32;
+    if (a17 >> 32 <= 1)
     {
-      v25 = 1;
+      v26 = 1;
     }
 
     else
     {
-      v25 = a11;
+      v26 = a17 >> 32;
     }
 
-    v26 = a16 >> 32;
-    if (a17 >> 32 <= 1)
+    LODWORD(result) = a16;
+    if (a17 <= 1)
     {
       v27 = 1;
     }
 
     else
     {
-      v27 = a17 >> 32;
+      v27 = a17;
     }
 
-    LODWORD(result) = a16;
-    if (a17 <= 1)
+    v28 = (a9 >> 7) & 0xFFFFFF00 | a9;
+    if (v28 >= 2)
     {
-      v28 = 1;
+      v28 = 2;
     }
 
-    else
+    if (v28 <= -2)
     {
-      v28 = a17;
+      v28 = -2;
     }
 
-    v29 = (a9 >> 7) & 0xFFFFFF00 | a9;
-    if (v29 >= 2)
-    {
-      v29 = 2;
-    }
-
-    if (v29 <= -2)
-    {
-      v29 = -2;
-    }
-
-    v30 = a6 * SHIDWORD(a6);
+    v29 = a6 * SHIDWORD(a6);
     if ((a9 & 0x100) != 0)
     {
-      v31 = 0;
+      v30 = 0;
     }
 
     else
     {
-      v31 = 0xFFFFFF;
+      v30 = 0xFFFFFF;
     }
 
-    v95 = v31;
-    v99 = ((a9 >> 8) % 6);
-    v94 = v29 << 29;
-    v97 = v25;
-    v98 = v24;
-    v96 = v27;
+    v94 = v30;
+    v98 = ((a9 >> 8) % 6);
+    v93 = v28 << 29;
+    v96 = v24;
+    v97 = v23;
+    v95 = v26;
     do
     {
-      v32 = *v22;
-      v33 = (*v22 & 0xFFFFFFFF00000000) + v23;
-      v34 = HIDWORD(v33);
-      if (v33 <= 0)
+      v31 = *v21;
+      v32 = (*v21 & 0xFFFFFFFF00000000) + v22;
+      v33 = HIDWORD(v32);
+      if (v32 <= 0)
       {
-        v35 = -(-HIDWORD(v33) / v24);
+        v34 = -(-HIDWORD(v32) / v23);
       }
 
       else
       {
-        v35 = (HIDWORD(v33) - 1) / v24 + 1;
+        v34 = (HIDWORD(v32) - 1) / v23 + 1;
       }
 
-      v36 = v32 + v23;
-      if (v32 + v23 <= 0)
+      v35 = v31 + v22;
+      if (v31 + v22 <= 0)
       {
-        v37 = -(-v36 / v25);
+        v36 = -(-v35 / v24);
       }
 
       else
       {
-        v37 = (v36 - 1) / v25 + 1;
+        v36 = (v35 - 1) / v24 + 1;
       }
 
-      v38 = *(v22 + 12);
-      v39 = __OFADD__(v34, v38);
-      v40 = v34 + v38;
-      if ((v40 < 0) ^ v39 | (v40 == 0))
+      v37 = *(v21 + 12);
+      v38 = __OFADD__(v33, v37);
+      v39 = v33 + v37;
+      if ((v39 < 0) ^ v38 | (v39 == 0))
       {
-        v41 = -(-v40 / v24);
+        v40 = -(-v39 / v23);
       }
 
       else
       {
-        v41 = (v40 - 1) / v24 + 1;
+        v40 = (v39 - 1) / v23 + 1;
       }
 
-      v42 = *(v22 + 8) + v36;
-      if (v42 <= 0)
+      v41 = *(v21 + 8) + v35;
+      if (v41 <= 0)
       {
-        v43 = -(-v42 / v25);
+        v42 = -(-v41 / v24);
       }
 
       else
       {
-        v43 = (v42 - 1) / v25 + 1;
+        v42 = (v41 - 1) / v24 + 1;
       }
 
-      v44 = (v43 - v37) | ((v41 - v35) << 32);
-      v45 = __ROR8__(v44, 32);
+      v43 = (v42 - v36) | ((v40 - v34) << 32);
+      v44 = __ROR8__(v43, 32);
       if (a13)
       {
-        v46 = v35;
+        v45 = v34;
       }
 
       else
       {
-        v46 = v37;
+        v45 = v36;
       }
 
       if (a13)
       {
-        v35 = v37;
-        v44 = v45;
+        v34 = v36;
+        v43 = v44;
       }
 
       if (a15)
       {
-        v47 = 1 - v35 - HIDWORD(v44);
+        v46 = 1 - v34 - HIDWORD(v43);
       }
 
       else
       {
-        v47 = v35;
+        v46 = v34;
       }
 
       if (a14)
       {
-        v48 = 1 - v46 - v44;
+        v47 = 1 - v45 - v43;
       }
 
       else
       {
-        v48 = v46;
+        v47 = v45;
       }
 
-      v49 = v26 * v47;
-      if ((v49 & 0x8000000000000000) != 0)
+      v48 = v25 * v46;
+      if ((v48 & 0x8000000000000000) != 0)
       {
-        v51 = ~v49 / v27;
-        if (v51 >> 31)
-        {
-          kdrc_overlay::map_from_compositing_grid();
-        }
-
-        v50 = ~v51;
-      }
-
-      else
-      {
-        v50 = v49 / v27;
+        v50 = ~v48 / v26;
         if (v50 >> 31)
         {
           kdrc_overlay::map_from_compositing_grid();
         }
-      }
 
-      v52 = result * v48;
-      if ((v52 & 0x8000000000000000) != 0)
-      {
-        v53 = ~v52 / v28;
-        if (v53 >> 31)
-        {
-          kdrc_overlay::map_from_compositing_grid();
-        }
-
-        LODWORD(v53) = ~v53;
+        v49 = ~v50;
       }
 
       else
       {
-        v53 = v52 / v28;
-        if (v53 >> 31)
+        v49 = v48 / v26;
+        if (v49 >> 31)
         {
           kdrc_overlay::map_from_compositing_grid();
         }
       }
 
-      v54 = v26 * (v47 + HIDWORD(v44));
-      if (v54 <= 0)
+      v51 = result * v47;
+      if ((v51 & 0x8000000000000000) != 0)
       {
-        v56 = -v54 / v27;
-        if (v56 >= 0x80000001)
+        v52 = ~v51 / v27;
+        if (v52 >> 31)
         {
-          goto LABEL_109;
+          kdrc_overlay::map_from_compositing_grid();
         }
 
-        v55 = -v56;
+        LODWORD(v52) = ~v52;
       }
 
       else
       {
-        v55 = (v54 - 1) / v27;
-        if (v55 >= 0x7FFFFFFF)
+        v52 = v51 / v27;
+        if (v52 >> 31)
+        {
+          kdrc_overlay::map_from_compositing_grid();
+        }
+      }
+
+      v53 = v25 * (v46 + HIDWORD(v43));
+      if (v53 <= 0)
+      {
+        v55 = -v53 / v26;
+        if (v55 >= 0x80000001)
         {
           goto LABEL_109;
         }
 
-        LODWORD(v55) = v55 + 1;
+        v54 = -v55;
       }
 
-      v57 = result * (v48 + v44);
-      if (v57 <= 0)
+      else
       {
-        v59 = -v57 / v28;
-        if (v59 >= 0x80000001)
+        v54 = (v53 - 1) / v26;
+        if (v54 >= 0x7FFFFFFF)
+        {
+          goto LABEL_109;
+        }
+
+        LODWORD(v54) = v54 + 1;
+      }
+
+      v56 = result * (v47 + v43);
+      if (v56 <= 0)
+      {
+        v58 = -v56 / v27;
+        if (v58 >= 0x80000001)
         {
 LABEL_109:
           exception = __cxa_allocate_exception(4uLL);
@@ -5071,168 +4761,168 @@ LABEL_109:
           __cxa_throw(exception, MEMORY[0x1E69E5478], 0);
         }
 
-        v58 = -v59;
+        v57 = -v58;
       }
 
       else
       {
-        v58 = (v57 - 1) / v28;
-        if (v58 >= 0x7FFFFFFF)
+        v57 = (v56 - 1) / v27;
+        if (v57 >= 0x7FFFFFFF)
         {
           goto LABEL_109;
         }
 
-        LODWORD(v58) = v58 + 1;
+        LODWORD(v57) = v57 + 1;
       }
 
-      v60 = v95;
-      if (v30 > 63)
+      v59 = v94;
+      if (v29 > 63)
       {
-        v60 = 0;
+        v59 = 0;
       }
 
-      if (v30 >= 64 && v99 <= 5)
+      if (v29 >= 64 && v98 <= 5)
       {
-        v60 = dword_186208650[v99];
+        v59 = dword_186208650[v98];
       }
 
-      v61 = v55 - v50;
-      v62 = v58 - v53;
-      v63 = v50 - HIDWORD(a18);
-      v64 = v53 - a18;
-      v65 = v60 - v94;
-      v100 = (v53 - a18) | ((v50 - HIDWORD(a18)) << 32);
-      v101 = (v58 - v53) | ((v55 - v50) << 32);
-      kdu_dims::operator&=(&v100, v103);
-      v100 = vsub_s32(v100, v103[0]);
-      v67 = xmmword_186205EC0;
-      v66 = xmmword_186205EB0;
-      if (SHIDWORD(v101) >= 1)
+      v60 = v54 - v49;
+      v61 = v57 - v52;
+      v62 = v49 - HIDWORD(a18);
+      v63 = v52 - a18;
+      v64 = v59 - v93;
+      v99 = (v52 - a18) | ((v49 - HIDWORD(a18)) << 32);
+      v100 = (v57 - v52) | ((v54 - v49) << 32);
+      kdu_dims::operator&=(&v99, v102);
+      v99 = vsub_s32(v99, v102[0]);
+      v66 = xmmword_186205EC0;
+      v65 = xmmword_186205EB0;
+      if (SHIDWORD(v100) >= 1)
       {
-        v68 = v101;
-        if (v101 >= 1)
+        v67 = v100;
+        if (v100 >= 1)
         {
-          if ((*(a2 + 27) & 1) != 0 || ((*(*a2 + 24))(a2, 0), v67 = xmmword_186205EC0, v66 = xmmword_186205EB0, v68 = v101, v101 >= 1))
+          if ((*(a2 + 27) & 1) != 0 || ((*(*a2 + 24))(a2, 0), v66 = xmmword_186205EC0, v65 = xmmword_186205EB0, v67 = v100, v100 >= 1))
           {
-            v69 = v65 - 1090519040;
-            v70 = *(a2 + 44);
-            v71 = *(a2 + 32) + 4 * (HIDWORD(v100) + v100 * v70) + 8;
-            v72 = 4 * v70;
+            v68 = v64 - 1090519040;
+            v69 = *(a2 + 44);
+            v70 = *(a2 + 32) + 4 * (HIDWORD(v99) + v99 * v69) + 8;
+            v71 = 4 * v69;
             do
             {
-              if (SHIDWORD(v101) >= 1)
+              if (SHIDWORD(v100) >= 1)
               {
-                v73 = 0;
-                v74 = (HIDWORD(v101) + 3) & 0xFFFFFFFC;
-                v75 = vdupq_n_s64(HIDWORD(v101) - 1);
-                v76 = v71;
+                v72 = 0;
+                v73 = (HIDWORD(v100) + 3) & 0xFFFFFFFC;
+                v74 = vdupq_n_s64(HIDWORD(v100) - 1);
+                v75 = v70;
                 do
                 {
-                  v77 = vdupq_n_s64(v73);
-                  v78 = vmovn_s64(vcgeq_u64(v75, vorrq_s8(v77, v67)));
-                  if (vuzp1_s16(v78, *v75.i8).u8[0])
+                  v76 = vdupq_n_s64(v72);
+                  v77 = vmovn_s64(vcgeq_u64(v74, vorrq_s8(v76, v66)));
+                  if (vuzp1_s16(v77, *v74.i8).u8[0])
                   {
-                    *(v76 - 2) = v69;
+                    *(v75 - 2) = v68;
                   }
 
-                  if (vuzp1_s16(v78, *&v75).i8[2])
+                  if (vuzp1_s16(v77, *&v74).i8[2])
                   {
-                    *(v76 - 1) = v69;
+                    *(v75 - 1) = v68;
                   }
 
-                  if (vuzp1_s16(*&v75, vmovn_s64(vcgeq_u64(v75, vorrq_s8(v77, v66)))).i32[1])
+                  if (vuzp1_s16(*&v74, vmovn_s64(vcgeq_u64(v74, vorrq_s8(v76, v65)))).i32[1])
                   {
-                    *v76 = v69;
-                    v76[1] = v69;
+                    *v75 = v68;
+                    v75[1] = v68;
                   }
 
-                  v73 += 4;
-                  v76 += 4;
+                  v72 += 4;
+                  v75 += 4;
                 }
 
-                while (v74 != v73);
+                while (v73 != v72);
               }
 
-              v71 += v72;
-              v39 = __OFSUB__(v68--, 1);
+              v70 += v71;
+              v38 = __OFSUB__(v67--, 1);
             }
 
-            while (!((v68 < 0) ^ v39 | (v68 == 0)));
+            while (!((v67 < 0) ^ v38 | (v67 == 0)));
           }
         }
       }
 
-      LODWORD(v100) = v64 + 3;
-      HIDWORD(v100) = v63 + 3;
-      LODWORD(v101) = v62 - 6;
-      HIDWORD(v101) = v61 - 6;
-      kdu_dims::operator&=(&v100, v103);
-      v80 = xmmword_186205EC0;
-      v79 = xmmword_186205EB0;
-      v100 = vsub_s32(v100, v103[0]);
-      v81 = v101;
-      if (SHIDWORD(v101) >= 1 && v101 >= 1)
+      LODWORD(v99) = v63 + 3;
+      HIDWORD(v99) = v62 + 3;
+      LODWORD(v100) = v61 - 6;
+      HIDWORD(v100) = v60 - 6;
+      kdu_dims::operator&=(&v99, v102);
+      v79 = xmmword_186205EC0;
+      v78 = xmmword_186205EB0;
+      v99 = vsub_s32(v99, v102[0]);
+      v80 = v100;
+      if (SHIDWORD(v100) >= 1 && v100 >= 1)
       {
-        if ((*(a2 + 27) & 1) != 0 || ((*(*a2 + 24))(a2, 0), v80 = xmmword_186205EC0, v79 = xmmword_186205EB0, v81 = v101, v101 >= 1))
+        if ((*(a2 + 27) & 1) != 0 || ((*(*a2 + 24))(a2, 0), v79 = xmmword_186205EC0, v78 = xmmword_186205EB0, v80 = v100, v100 >= 1))
         {
-          v83 = v65 + 1610612736;
-          v84 = *(a2 + 44);
-          v85 = *(a2 + 32) + 4 * (HIDWORD(v100) + v100 * v84) + 8;
-          v86 = 4 * v84;
+          v82 = v64 + 1610612736;
+          v83 = *(a2 + 44);
+          v84 = *(a2 + 32) + 4 * (HIDWORD(v99) + v99 * v83) + 8;
+          v85 = 4 * v83;
           do
           {
-            if (SHIDWORD(v101) >= 1)
+            if (SHIDWORD(v100) >= 1)
             {
-              v87 = 0;
-              v88 = (HIDWORD(v101) + 3) & 0xFFFFFFFC;
-              v89 = vdupq_n_s64(HIDWORD(v101) - 1);
-              v90 = v85;
+              v86 = 0;
+              v87 = (HIDWORD(v100) + 3) & 0xFFFFFFFC;
+              v88 = vdupq_n_s64(HIDWORD(v100) - 1);
+              v89 = v84;
               do
               {
-                v91 = vdupq_n_s64(v87);
-                v92 = vmovn_s64(vcgeq_u64(v89, vorrq_s8(v91, v80)));
-                if (vuzp1_s16(v92, *v89.i8).u8[0])
+                v90 = vdupq_n_s64(v86);
+                v91 = vmovn_s64(vcgeq_u64(v88, vorrq_s8(v90, v79)));
+                if (vuzp1_s16(v91, *v88.i8).u8[0])
                 {
-                  *(v90 - 2) = v83;
+                  *(v89 - 2) = v82;
                 }
 
-                if (vuzp1_s16(v92, *&v89).i8[2])
+                if (vuzp1_s16(v91, *&v88).i8[2])
                 {
-                  *(v90 - 1) = v83;
+                  *(v89 - 1) = v82;
                 }
 
-                if (vuzp1_s16(*&v89, vmovn_s64(vcgeq_u64(v89, vorrq_s8(v91, v79)))).i32[1])
+                if (vuzp1_s16(*&v88, vmovn_s64(vcgeq_u64(v88, vorrq_s8(v90, v78)))).i32[1])
                 {
-                  *v90 = v83;
-                  v90[1] = v83;
+                  *v89 = v82;
+                  v89[1] = v82;
                 }
 
-                v87 += 4;
-                v90 += 4;
+                v86 += 4;
+                v89 += 4;
               }
 
-              while (v88 != v87);
+              while (v87 != v86);
             }
 
-            v85 += v86;
-            v39 = __OFSUB__(v81--, 1);
+            v84 += v85;
+            v38 = __OFSUB__(v80--, 1);
           }
 
-          while (!((v81 < 0) ^ v39 | (v81 == 0)));
+          while (!((v80 < 0) ^ v38 | (v80 == 0)));
         }
       }
 
-      v22 += 20;
-      v39 = __OFSUB__(num_regions--, 1);
-      v23 = a10;
-      v25 = v97;
-      v24 = v98;
-      v27 = v96;
-      LODWORD(v26) = HIDWORD(a16);
+      v21 += 20;
+      v38 = __OFSUB__(num_regions--, 1);
+      v22 = a10;
+      v24 = v96;
+      v23 = v97;
+      v26 = v95;
+      LODWORD(v25) = HIDWORD(a16);
       result = a16;
     }
 
-    while (!((num_regions < 0) ^ v39 | (num_regions == 0)));
+    while (!((num_regions < 0) ^ v38 | (num_regions == 0)));
   }
 
   return result;
@@ -5974,8 +5664,8 @@ uint64_t consume_markers(uint64_t *a1)
       if (*(a1 + 13) > 0xFFDCu || *(a1 + 12) >= 0xFFDDu)
       {
         v8 = *a1;
-        *(v8 + 10) = 42;
-        *(v8 + 12) = 65500;
+        *(v8 + 40) = 42;
+        *(v8 + 48) = 65500;
         (**a1)(a1);
       }
 
@@ -5983,8 +5673,8 @@ uint64_t consume_markers(uint64_t *a1)
       if ((v9 - 13) <= 0xFFFFFFFA)
       {
         v10 = *a1;
-        *(v10 + 10) = 16;
-        *(v10 + 12) = v9;
+        *(v10 + 40) = 16;
+        *(v10 + 48) = v9;
         (**a1)(a1);
       }
 
@@ -5992,8 +5682,8 @@ uint64_t consume_markers(uint64_t *a1)
       if (v11 >= 11)
       {
         v12 = *a1;
-        *(v12 + 10) = 27;
-        *(v12 + 12) = v11;
+        *(v12 + 40) = 27;
+        *(v12 + 48) = v11;
         *(*a1 + 52) = 10;
         (**a1)(a1);
         v11 = *(a1 + 14);
@@ -6037,7 +5727,7 @@ LABEL_21:
         v17 = 8;
 LABEL_22:
         *(a1 + 139) = v17;
-        a1[70] = &_cg_jpeg_natural_order;
+        a1[70] = _cg_jpeg_natural_order;
         *(a1 + 142) = 63;
         goto LABEL_23;
       }
@@ -6177,7 +5867,7 @@ LABEL_22:
         {
           v17 = 1;
           *(a1 + 139) = 1;
-          a1[70] = &_cg_jpeg_natural_order;
+          a1[70] = _cg_jpeg_natural_order;
           *(a1 + 142) = 0;
           goto LABEL_23;
         }
@@ -6336,8 +6026,8 @@ LABEL_20:
         if (v23 > 3 || !v21[v23])
         {
           v24 = *a1;
-          *(v24 + 10) = 54;
-          *(v24 + 12) = v23;
+          *(v24 + 40) = 54;
+          *(v24 + 48) = v23;
           (**a1)(a1);
         }
 
@@ -6372,8 +6062,8 @@ LABEL_20:
   if ((v2 - 5) <= 0xFFFFFFFB)
   {
     v8 = *a1;
-    *(v8 + 10) = 27;
-    *(v8 + 12) = v2;
+    *(v8 + 40) = 27;
+    *(v8 + 48) = v2;
     *(*a1 + 52) = 4;
     (**a1)(a1);
   }
@@ -7316,7 +7006,7 @@ LABEL_72:
         v15 = 0;
       }
 
-      if (jx_composition::parse_instruction(this, v12 & 1, (v12 >> 1) & 1, (v12 >> 2) & 1, (v12 >> 5) & 1))
+      if (jx_composition::parse_instruction(this, v12 & 1, (v12 >> 1) & 1, (v12 >> 2) & 1, (v12 >> 5) & 1, v36[1]))
       {
         v16 = 0;
         do
@@ -7325,7 +7015,7 @@ LABEL_72:
           v18 = v16 + 1;
           *(v17 + 16) = *(this + 114);
           *(v17 + 20) = v16;
-          v19 = jx_composition::parse_instruction(this, v12 & 1, (v12 >> 1) & 1, (v12 >> 2) & 1, (v12 >> 5) & 1);
+          v19 = jx_composition::parse_instruction(this, v12 & 1, (v12 >> 1) & 1, (v12 >> 2) & 1, (v12 >> 5) & 1, v36[1]);
           v16 = v18;
         }
 
@@ -7688,7 +7378,7 @@ LABEL_41:
   return result;
 }
 
-BOOL jx_composition::parse_instruction(jx_composition *this, int a2, int a3, int a4, int a5)
+BOOL jx_composition::parse_instruction(jx_composition *this, int a2, int a3, int a4, unsigned int a5, int a6)
 {
   if ((a2 & 1) == 0 && (a3 & 1) == 0 && (a4 & 1) == 0 && !a5)
   {
@@ -7703,102 +7393,111 @@ BOOL jx_composition::parse_instruction(jx_composition *this, int a2, int a3, int
     }
 
 LABEL_14:
-    *v17 = 0;
-    if (!jp2_input_box::read((this + 272), &v17[1]) && !a2)
+    *v20 = 0;
+    if (!jp2_input_box::read((this + 272), &v20[1]) && !a2)
     {
       return 0;
     }
 
-    if (!jp2_input_box::read((this + 272), v17))
+    if (!jp2_input_box::read((this + 272), v20))
     {
-      v16 = 0;
-      v14 = 0u;
-      v15 = 0u;
-      kdu_error::kdu_error(&v14, "Error in Kakadu File Format Support:\n");
-      (*(v14 + 16))(&v14, "Malformed Instruction Set (inst) box found in JPX data source.  Terminated unexpectedly.");
-      kdu_error::~kdu_error(&v14);
+      v19 = 0;
+      v17 = 0u;
+      v18 = 0u;
+      kdu_error::kdu_error(&v17, "Error in Kakadu File Format Support:\n");
+      (*(v17 + 16))(&v17, "Malformed Instruction Set (inst) box found in JPX data source.  Terminated unexpectedly.");
+      kdu_error::~kdu_error(&v17);
     }
 
 LABEL_18:
-    *v17 = 0;
+    *v20 = 0;
     if (a4)
     {
-      if (!jp2_input_box::read((this + 272), &v17[1]) && (a2 & 1) == 0 && !a3)
+      if (!jp2_input_box::read((this + 272), &v20[1]) && (a2 & 1) == 0 && !a3)
       {
         return 0;
       }
 
-      if (!jp2_input_box::read((this + 272), v17))
+      if (!jp2_input_box::read((this + 272), v20))
       {
-        v16 = 0;
-        v14 = 0u;
-        v15 = 0u;
-        kdu_error::kdu_error(&v14, "Error in Kakadu File Format Support:\n");
-        (*(v14 + 16))(&v14, "Malformed Instruction Set (inst) box found in JPX data source.  Terminated unexpectedly.");
-        kdu_error::~kdu_error(&v14);
+        v19 = 0;
+        v17 = 0u;
+        v18 = 0u;
+        kdu_error::kdu_error(&v17, "Error in Kakadu File Format Support:\n");
+        (*(v17 + 16))(&v17, "Malformed Instruction Set (inst) box found in JPX data source.  Terminated unexpectedly.");
+        kdu_error::~kdu_error(&v17);
       }
 
-      if ((v17[1] & 0x80000000) == 0)
+      if ((v20[1] & 0x80000000) == 0)
       {
+        v12 = 0;
         if (!a5)
         {
           goto LABEL_37;
         }
 
-        goto LABEL_29;
+LABEL_29:
+        *v15 = 0;
+        *v16 = 0;
+        if (jp2_input_box::read((this + 272), &v16[1]) || (a2 & 1) != 0 || (a3 & 1) != 0 || a4)
+        {
+          if (!jp2_input_box::read((this + 272), v16) || !jp2_input_box::read((this + 272), &v15[1]) || !jp2_input_box::read((this + 272), v15))
+          {
+            v19 = 0;
+            v17 = 0u;
+            v18 = 0u;
+            kdu_error::kdu_error(&v17, "Error in Kakadu File Format Support:\n");
+            (*(v17 + 16))(&v17, "Malformed Instruction Set (inst) box found in JPX data source.  Terminated unexpectedly.");
+            kdu_error::~kdu_error(&v17);
+          }
+
+LABEL_37:
+          v13 = *(this + 60);
+          if (!v13 || *v13)
+          {
+            jx_composition::add_frame(this);
+          }
+
+          if (v20[1])
+          {
+            v14 = 1;
+          }
+
+          else
+          {
+            v14 = v12;
+          }
+
+          jx_frame::add_instruction(v13, v14);
+        }
+
+        return 0;
       }
 
-      v17[1] &= ~0x80000000;
+      v20[1] &= ~0x80000000;
     }
 
+    v12 = 1;
     if (!a5)
     {
       goto LABEL_37;
     }
 
-LABEL_29:
-    *v12 = 0;
-    *v13 = 0;
-    if (jp2_input_box::read((this + 272), &v13[1]) || (a2 & 1) != 0 || (a3 & 1) != 0 || a4)
-    {
-      if (!jp2_input_box::read((this + 272), v13) || !jp2_input_box::read((this + 272), &v12[1]) || !jp2_input_box::read((this + 272), v12))
-      {
-        v16 = 0;
-        v14 = 0u;
-        v15 = 0u;
-        kdu_error::kdu_error(&v14, "Error in Kakadu File Format Support:\n");
-        (*(v14 + 16))(&v14, "Malformed Instruction Set (inst) box found in JPX data source.  Terminated unexpectedly.");
-        kdu_error::~kdu_error(&v14);
-      }
-
-LABEL_37:
-      v11 = *(this + 60);
-      if (v11)
-      {
-        if (!*v11)
-        {
-          jx_frame::add_instruction(v11);
-        }
-      }
-
-      jx_composition::add_frame(this);
-    }
-
-    return 0;
+    goto LABEL_29;
   }
 
-  *v17 = 0;
-  result = jp2_input_box::read((this + 272), &v17[1]);
+  *v20 = 0;
+  result = jp2_input_box::read((this + 272), &v20[1]);
   if (result)
   {
-    if (!jp2_input_box::read((this + 272), v17))
+    if (!jp2_input_box::read((this + 272), v20))
     {
-      v16 = 0;
-      v14 = 0u;
-      v15 = 0u;
-      kdu_error::kdu_error(&v14, "Error in Kakadu File Format Support:\n");
-      (*(v14 + 16))(&v14, "Malformed Instruction Set (inst) box found in JPX data source.  Terminated unexpectedly.");
-      kdu_error::~kdu_error(&v14);
+      v19 = 0;
+      v17 = 0u;
+      v18 = 0u;
+      kdu_error::kdu_error(&v17, "Error in Kakadu File Format Support:\n");
+      (*(v17 + 16))(&v17, "Malformed Instruction Set (inst) box found in JPX data source.  Terminated unexpectedly.");
+      kdu_error::~kdu_error(&v17);
     }
 
     if (!a3)
@@ -8119,15 +7818,15 @@ uint64_t jpx_source::access_layer(jpx_source *this, int a2, int a3)
   return v5;
 }
 
-uint64_t jpx_layer_source::access_channels(jpx_layer_source *this)
+uint64_t jpx_layer_source::access_channels(jpx_layer_source *this, uint64_t a2)
 {
-  v1 = *this;
-  if (!*this || (*(v1 + 12) & 1) == 0)
+  v2 = *this;
+  if (!*this || (*(v2 + 12) & 1) == 0)
   {
     jpx_layer_source::access_channels();
   }
 
-  return v1 + 608;
+  return v2 + 608;
 }
 
 void jx_numlist::~jx_numlist(jx_numlist *this)
@@ -8289,10 +7988,10 @@ LABEL_9:
   return this;
 }
 
-uint64_t jx_regions::set_num_regions(uint64_t this, int a2)
+int *jx_regions::set_num_regions(int *this, int a2)
 {
   v2 = a2 & ~(a2 >> 31);
-  v3 = *(this + 4);
+  v3 = this[1];
   if (v2 <= v3)
   {
     *this = v2;
@@ -8302,7 +8001,7 @@ uint64_t jx_regions::set_num_regions(uint64_t this, int a2)
   {
     if (a2 != 1)
     {
-      *(this + 4) = v3 + v2;
+      this[1] = v3 + v2;
       is_mul_ok(v3 + v2, 0x14uLL);
       operator new[]();
     }
@@ -8314,7 +8013,7 @@ uint64_t jx_regions::set_num_regions(uint64_t this, int a2)
 
     else
     {
-      v4 = *(this + 32) == 0;
+      v4 = *(this + 4) == 0;
     }
 
     if (!v4)
@@ -8323,7 +8022,7 @@ uint64_t jx_regions::set_num_regions(uint64_t this, int a2)
     }
 
     *this = 0x100000001;
-    *(this + 32) = this + 8;
+    *(this + 4) = this + 2;
   }
 
   return this;
@@ -8578,10 +8277,10 @@ LABEL_8:
   return this;
 }
 
-jx_metanode **jx_meta_manager::link(jx_metanode **this, jx_metanode *a2)
+void jx_meta_manager::link(jx_meta_manager *this, jx_metanode *a2)
 {
   v2 = a2;
-  this[42] = a2;
+  *(this + 42) = a2;
   v3 = *(a2 + 15);
   if (v3 == 2)
   {
@@ -8599,15 +8298,15 @@ jx_metanode **jx_meta_manager::link(jx_metanode **this, jx_metanode *a2)
     }
 
     v10 = -1;
-    v11 = 9;
+    v11 = 72;
     do
     {
       ++v10;
-      ++v11;
+      v11 += 8;
     }
 
     while (v10 <= 0x1E && v9 > 8 << v10);
-    v12 = this[v11];
+    v12 = *(this + v11);
     if (!v12)
     {
       operator new();
@@ -8663,24 +8362,24 @@ LABEL_30:
     }
 
     v4 = &v18[6 * v19 + 6 * v16];
-    v4[2] = v12;
+    *(v4 + 2) = v12;
     v2 = a2;
     *(a2 + 12) = v4;
-    v5 = v4 + 1;
+    v5 = (v4 + 2);
   }
 
   else if (v3 == 1)
   {
-    v4 = this + 7;
-    *(a2 + 12) = this + 7;
-    v5 = this + 8;
+    v4 = (this + 56);
+    *(a2 + 12) = this + 56;
+    v5 = this + 64;
   }
 
   else
   {
     if (*(a2 + 2) == 1718773093)
     {
-      return this;
+      return;
     }
 
     v13 = a2;
@@ -8694,13 +8393,13 @@ LABEL_30:
 
       if (*(v13 + 15) - 1 < 2)
       {
-        return this;
+        return;
       }
     }
 
-    v4 = this + 4;
-    *(a2 + 12) = this + 4;
-    v5 = this + 5;
+    v4 = (this + 32);
+    *(a2 + 12) = this + 32;
+    v5 = this + 40;
   }
 
   v22 = *v5;
@@ -8713,7 +8412,6 @@ LABEL_30:
 
   *v4 = v2;
   *v5 = v2;
-  return this;
 }
 
 uint64_t jx_metanode::update_completed_descendants(jx_metanode *this)
@@ -8804,10 +8502,12 @@ uint64_t jx_metanode::finish_reading(jx_metanode *this)
           {
             if ((*(v3 + 126) & 1) == 0)
             {
-              memset(v16, 0, 40);
-              kdu_error::kdu_error(v16, "Error in Kakadu File Format Support:\n");
-              (*(v16[0] + 16))(v16, "ASOC box not found");
-              kdu_error::~kdu_error(v16);
+              v18 = 0;
+              *&v16[1] = 0u;
+              v17 = 0u;
+              kdu_error::kdu_error(&v16[1], "Error in Kakadu File Format Support:\n");
+              (*(*&v16[1] + 16))(&v16[1], "ASOC box not found");
+              kdu_error::~kdu_error(&v16[1]);
             }
 
             if (*(v3 + 310) == 1)
@@ -9104,7 +8804,7 @@ LABEL_8:
 LABEL_46:
       if (!*(this + 67))
       {
-        jx_metanode::add_numlist(*(v9 + 1864), 1, this + 4, 0, 0);
+        jx_metanode::add_numlist(*(v9 + 1864), 1, this + 4, 0, 0, 0);
       }
 
       operator new();
@@ -9141,7 +8841,7 @@ LABEL_41:
     v16 = *(this + 67);
     if (!v16)
     {
-      jx_metanode::add_numlist(*(*this + 1864), 1, this + 4, 0, 0);
+      jx_metanode::add_numlist(*(*this + 1864), 1, this + 4, 0, 0, 0);
     }
 
     *(*(v16 + 24) + 368) = 0;
@@ -9309,7 +9009,7 @@ LABEL_8:
     v5 = (this + 16);
   }
 
-  v51 = (this + 592);
+  v52 = (this + 592);
   while (1)
   {
     if ((*(this + 510) & 1) == 0 && (jp2_input_box::open((this + 384), v5) & 1) == 0)
@@ -9392,7 +9092,7 @@ LABEL_44:
 LABEL_51:
           if (!*(this + 99))
           {
-            jx_metanode::add_numlist(*(v9 + 1864), 0, 0, 1, this + 2);
+            jx_metanode::add_numlist(*(v9 + 1864), 0, 0, 1, this + 2, 0);
           }
 
           operator new();
@@ -9411,12 +9111,12 @@ LABEL_24:
       v7 = (this + 648);
       if (*(this + 326) != 1)
       {
-        v54 = 0;
-        v52 = 0u;
+        v55 = 0;
         v53 = 0u;
-        kdu_warning::kdu_warning(&v52, "Warning in Kakadu File Format Support:\n");
-        (*(v52 + 16))(&v52, "Colour description (colr) box found inside a compositing layer header (jplh) box, but not wrapped by a colour group (cgrp) box.  This is technically a violation of the JPX standard, but we will parse the box anyway.");
-        kdu_warning::~kdu_warning(&v52);
+        v54 = 0u;
+        kdu_warning::kdu_warning(&v53, "Warning in Kakadu File Format Support:\n");
+        (*(v53 + 16))(&v53, "Colour description (colr) box found inside a compositing layer header (jplh) box, but not wrapped by a colour group (cgrp) box.  This is technically a violation of the JPX standard, but we will parse the box anyway.");
+        kdu_warning::~kdu_warning(&v53);
         v7 = (this + 648);
       }
 
@@ -9469,7 +9169,7 @@ LABEL_40:
         return result;
       }
 
-      j2_resolution::init(v51, (this + 384));
+      j2_resolution::init(v52, (this + 384));
     }
   }
 
@@ -9495,12 +9195,12 @@ LABEL_40:
     }
   }
 
-  else if (*(this + 648) == 1 && (*(this + 326) & 1) == 0 && *(this + 153) && *v51 > 0.0 && *(this + 191) >= 1)
+  else if (*(this + 648) == 1 && (*(this + 326) & 1) == 0 && *(this + 153) && *v52 > 0.0 && *(this + 191) >= 1)
   {
     v16 = *(this + 99);
     if (!v16)
     {
-      jx_metanode::add_numlist(*(*this + 1864), 0, 0, 1, this + 2);
+      jx_metanode::add_numlist(*(*this + 1864), 0, 0, 1, this + 2, 0);
     }
 
     *(*(v16 + 24) + 376) = 0;
@@ -9535,7 +9235,7 @@ LABEL_75:
     goto LABEL_75;
   }
 
-  jx_registration::finalize(this + 95);
+  jx_registration::finalize((this + 760), *(this + 2));
   if (*(this + 191) < 1)
   {
     v22 = 0;
@@ -9551,12 +9251,12 @@ LABEL_75:
     {
       if (*(*this + 216) == 1)
       {
-        v54 = 0;
-        v52 = 0u;
+        v55 = 0;
         v53 = 0u;
-        kdu_error::kdu_error(&v52, "Error in Kakadu File Format Support:\n");
-        (*(v52 + 16))(&v52, "Encountered a JPX compositing layer box which utilizes a non-existent codestream!");
-        kdu_error::~kdu_error(&v52);
+        v54 = 0u;
+        kdu_error::kdu_error(&v53, "Error in Kakadu File Format Support:\n");
+        (*(v53 + 16))(&v53, "Encountered a JPX compositing layer box which utilizes a non-existent codestream!");
+        kdu_error::~kdu_error(&v53);
       }
 
       return 0;
@@ -9583,12 +9283,12 @@ LABEL_84:
   *(this + 98) = 0;
   if (!v22)
   {
-    v30 = 0;
     v31 = 0;
-    v32 = *(this + 195);
-    if (v32 <= 1)
+    v32 = 0;
+    v33 = *(this + 195);
+    if (v33 <= 1)
     {
-      v32 = 1;
+      v33 = 1;
     }
 
     goto LABEL_106;
@@ -9605,30 +9305,30 @@ LABEL_84:
       jx_layer_source::finish();
     }
 
-    *&v52 = v26 + 392;
-    size = jp2_dimensions::get_size(&v52);
+    *&v53 = v26 + 392;
+    size = jp2_dimensions::get_size(&v53, v27);
     v25 = *(this + 96);
-    v28 = *(v25 + v23 + 8) + *(v25 + v23 + 16) * HIDWORD(size);
-    v29 = *(v25 + v23 + 4) + *(v25 + v23 + 12) * size;
+    v29 = *(v25 + v23 + 8) + *(v25 + v23 + 16) * HIDWORD(size);
+    v30 = *(v25 + v23 + 4) + *(v25 + v23 + 12) * size;
     if (!v23)
     {
-      *(this + 197) = v28;
-      v30 = v28;
-LABEL_96:
-      *(this + 196) = v29;
+      *(this + 197) = v29;
       v31 = v29;
+LABEL_96:
+      *(this + 196) = v30;
+      v32 = v30;
       goto LABEL_97;
     }
 
-    v30 = *(this + 197);
-    if (v28 < v30)
+    v31 = *(this + 197);
+    if (v29 < v31)
     {
-      *(this + 197) = v28;
-      v30 = v28;
+      *(this + 197) = v29;
+      v31 = v29;
     }
 
-    v31 = *(this + 196);
-    if (v29 < v31)
+    v32 = *(this + 196);
+    if (v30 < v32)
     {
       goto LABEL_96;
     }
@@ -9644,63 +9344,45 @@ LABEL_97:
     break;
   }
 
-  v32 = *(this + 195);
-  if (v32 <= 1)
+  v33 = *(this + 195);
+  if (v33 <= 1)
   {
-    v32 = 1;
+    v33 = 1;
   }
 
-  if (v30 > 0)
+  if (v31 > 0)
   {
-    v33 = (v30 - 1) / v32 + 1;
+    v34 = (v31 - 1) / v33 + 1;
     goto LABEL_107;
   }
 
 LABEL_106:
-  v33 = -(-v30 / v32);
+  v34 = -(-v31 / v33);
 LABEL_107:
-  *(this + 197) = v33;
-  v34 = *(this + 194);
-  if (v34 <= 1)
+  *(this + 197) = v34;
+  v35 = *(this + 194);
+  if (v35 <= 1)
   {
-    v34 = 1;
+    v35 = 1;
   }
 
-  if (v31 <= 0)
+  if (v32 <= 0)
   {
-    v35 = -(-v31 / v34);
+    v36 = -(-v32 / v35);
   }
 
   else
   {
-    v35 = (v31 - 1) / v34 + 1;
+    v36 = (v32 - 1) / v35 + 1;
   }
 
-  *(this + 196) = v35;
+  *(this + 196) = v36;
 LABEL_113:
-  v36 = (this + 648);
+  v37 = (this + 648);
   if (*(this + 648))
   {
 LABEL_121:
     if (!*(this + 153))
-    {
-      v40 = *this;
-      if ((*(*this + 600) & 1) == 0)
-      {
-        result = jx_source::finish_jp2_header_box(*this);
-        if (!result)
-        {
-          return result;
-        }
-      }
-
-      if (*(v40 + 940))
-      {
-        j2_channels::copy((this + 608), (v40 + 936));
-      }
-    }
-
-    if (*(this + 148) <= 0.0)
     {
       v41 = *this;
       if ((*(*this + 600) & 1) == 0)
@@ -9712,102 +9394,370 @@ LABEL_121:
         }
       }
 
-      v42 = *(v41 + 1088);
-      if (v42 > 0.0)
+      if (*(v41 + 940))
       {
-        *(this + 148) = v42;
-        *(this + 149) = *(v41 + 1092);
-        *(this + 75) = *(v41 + 1096);
+        j2_channels::copy((this + 608), (v41 + 936));
       }
     }
 
-    v43 = this + 648;
+    if (*(this + 148) <= 0.0)
+    {
+      v42 = *this;
+      if ((*(*this + 600) & 1) == 0)
+      {
+        result = jx_source::finish_jp2_header_box(*this);
+        if (!result)
+        {
+          return result;
+        }
+      }
+
+      v43 = *(v42 + 1088);
+      if (v43 > 0.0)
+      {
+        *(this + 148) = v43;
+        *(this + 149) = *(v42 + 1092);
+        *(this + 75) = *(v42 + 1096);
+      }
+    }
+
+    v44 = this + 648;
     do
     {
-      v44 = *(v43 + 2);
-      v43 = *(v43 + 13);
-      if (v43)
+      v45 = *(v44 + 2);
+      v44 = *(v44 + 13);
+      if (v44)
       {
-        v45 = v44 == 0;
+        v46 = v45 == 0;
       }
 
       else
       {
-        v45 = 0;
+        v46 = 0;
       }
     }
 
-    while (v45);
-    j2_channels::finalize(this + 152, v44, 0);
+    while (v46);
+    j2_channels::finalize(this + 152, v45, 0);
     if (*(this + 191) >= 1)
     {
-      v46 = 0;
       v47 = 0;
+      v48 = 0;
       do
       {
-        v48 = *(*(this + 96) + v46);
-        v49 = jx_source::get_codestream(*this, v48);
-        if (!v49)
+        v49 = *(*(this + 96) + v47);
+        v50 = jx_source::get_codestream(*this, v49);
+        if (!v50)
         {
           jx_layer_source::finish();
         }
 
-        j2_channels::find_cmap_channels(this + 152, (v49 + 472), v48);
-        ++v47;
-        v46 += 20;
+        j2_channels::find_cmap_channels(this + 152, (v50 + 472), v49);
+        ++v48;
+        v47 += 20;
       }
 
-      while (v47 < *(this + 191));
+      while (v48 < *(this + 191));
     }
 
     if (!j2_channels::all_cmap_channels_found((this + 608)))
     {
-      v54 = 0;
-      v52 = 0u;
+      v55 = 0;
       v53 = 0u;
-      kdu_error::kdu_error(&v52, "Error in Kakadu File Format Support:\n");
-      (*(v52 + 16))(&v52, "JP2/JPX source is internally inconsistent.  Either an explicit channel mapping box, or the set of channels implicitly identified by a colour space box, cannot all be associated with available code-stream image components.");
-      kdu_error::~kdu_error(&v52);
+      v54 = 0u;
+      kdu_error::kdu_error(&v53, "Error in Kakadu File Format Support:\n");
+      (*(v53 + 16))(&v53, "JP2/JPX source is internally inconsistent.  Either an explicit channel mapping box, or the set of channels implicitly identified by a colour space box, cannot all be associated with available code-stream image components.");
+      kdu_error::~kdu_error(&v53);
     }
 
     do
     {
-      j2_colour::finalize(v36, (this + 608));
-      v36 = *(v36 + 13);
+      j2_colour::finalize(v37, (this + 608));
+      v37 = *(v37 + 13);
     }
 
-    while (v36);
+    while (v37);
     result = 1;
     *(this + 12) = 1;
   }
 
   else
   {
-    v37 = *this;
+    v38 = *this;
     if ((*(*this + 600) & 1) != 0 || (result = jx_source::finish_jp2_header_box(*this), result))
     {
-      v38 = (v37 + 976);
-      v39 = (this + 648);
+      v39 = (v38 + 976);
+      v40 = (this + 648);
       do
       {
-        if (*v38 != 1)
+        if (*v39 != 1)
         {
           break;
         }
 
-        if (*v39 == 1)
+        if (*v40 == 1)
         {
           operator new();
         }
 
-        j2_colour::copy(v39, v38);
-        v38 = *(v38 + 13);
+        j2_colour::copy(v40, v39);
+        v39 = *(v39 + 13);
       }
 
-      while (v38);
+      while (v39);
       goto LABEL_121;
     }
   }
 
   return result;
+}
+
+uint64_t jx_metanode::load_recursive(uint64_t this)
+{
+  v1 = this;
+  if (*(this + 14) == 1 && *(this + 24) && (*(this + 12) != 1 || (*(this + 13) & 1) == 0))
+  {
+    this = jx_metanode::finish_reading(this);
+  }
+
+  for (i = *(v1 + 64); i; i = *(i + 80))
+  {
+    if (*(v1 + 52) == *(v1 + 48))
+    {
+      break;
+    }
+
+    this = jx_metanode::load_recursive(i);
+  }
+
+  return this;
+}
+
+uint64_t jpx_metanode::get_num_regions(jpx_metanode *this, uint64_t a2)
+{
+  v2 = *this;
+  if (!*this || *(v2 + 15) != 2)
+  {
+    return 0;
+  }
+
+  if ((*(v2 + 12) & 1) == 0)
+  {
+    jpx_metanode::get_num_regions();
+  }
+
+  return **(v2 + 16);
+}
+
+uint64_t jpx_metanode::get_regions(jpx_metanode *this)
+{
+  v1 = *this;
+  if (*this && *(v1 + 15) == 2)
+  {
+    return *(*(v1 + 16) + 32);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t jpx_metanode::get_bounding_box(jpx_metanode *this)
+{
+  v1 = *this;
+  if (*this && *(v1 + 15) == 2 && (v2 = *(v1 + 16), *v2 >= 1))
+  {
+    return *(v2 + 8);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t jx_source::get_codestream(jx_source *this, unsigned int a2)
+{
+    ;
+  }
+
+  result = *(this + 138);
+  if (a2 >= 1 && result)
+  {
+    do
+    {
+      result = *(result + 856);
+      if (a2 < 2)
+      {
+        break;
+      }
+
+      --a2;
+    }
+
+    while (result);
+  }
+
+  return result;
+}
+
+uint64_t jx_source::get_compositing_layer(jx_source *this, unsigned int a2)
+{
+    ;
+  }
+
+  result = *(this + 139);
+  if (a2 >= 1 && result)
+  {
+    do
+    {
+      result = *(result + 800);
+      if (a2 < 2)
+      {
+        break;
+      }
+
+      --a2;
+    }
+
+    while (result);
+  }
+
+  return result;
+}
+
+uint64_t jx_roigroup::delete_child(uint64_t result, unint64_t a2)
+{
+  if (a2 > 7 || (a2 & 0x8000000080000000) != 0 || (v2 = HIDWORD(a2), SHIDWORD(a2) > 7))
+  {
+    jx_roigroup::delete_child();
+  }
+
+  v3 = result;
+LABEL_5:
+  v4 = (v2 + 8 * a2);
+  v5 = v3 + 128;
+  if (*(v3 + 16))
+  {
+    v6 = *(v5 + 8 * v4);
+    if (!v6)
+    {
+      jx_roigroup::delete_child();
+    }
+
+    jx_roigroup::~jx_roigroup(v6);
+    result = MEMORY[0x186602850]();
+    v7 = 0;
+    *(v5 + 8 * v4) = 0;
+    while (!*(v5 + v7))
+    {
+      v7 += 8;
+      if (v7 == 512)
+      {
+        goto LABEL_15;
+      }
+    }
+  }
+
+  else
+  {
+    if (*(v5 + 24 * v4))
+    {
+      jx_roigroup::delete_child();
+    }
+
+    v8 = 128;
+    while (!*(v3 + v8))
+    {
+      v8 += 24;
+      if (v8 == 1664)
+      {
+LABEL_15:
+        v9 = *(v3 + 8);
+        if (!v9)
+        {
+          v11 = *v3 + 80;
+          v12 = *(v3 + 20);
+          if (*(v11 + 8 * v12) == v3)
+          {
+            *(v11 + 8 * v12) = 0;
+            jx_roigroup::~jx_roigroup(v3);
+
+            JUMPOUT(0x186602850);
+          }
+
+          jx_roigroup::delete_child();
+        }
+
+        LODWORD(v2) = (*(v3 + 28) - v9[7]) / v9[11];
+        LODWORD(a2) = (*(v3 + 24) - v9[6]) / v9[10];
+        if ((a2 | v2) >= 8)
+        {
+          jx_roigroup::delete_child();
+        }
+
+        v10 = *&v9[2 * (v2 | (8 * a2)) + 32] == v3;
+        v3 = *(v3 + 8);
+        if (!v10)
+        {
+          jx_roigroup::delete_child();
+        }
+
+        goto LABEL_5;
+      }
+    }
+  }
+
+  return result;
+}
+
+void jx_roigroup::~jx_roigroup(jx_roigroup *this)
+{
+  if (*(this + 4))
+  {
+    v2 = (this + 128);
+    for (i = 65; i > 1; --i)
+    {
+      if (*v2)
+      {
+        jx_roigroup::~jx_roigroup(*v2);
+        MEMORY[0x186602850]();
+      }
+
+      ++v2;
+    }
+  }
+
+  jp2_output_box::~jp2_output_box((this + 48));
+}
+
+void jx_meta_manager::jx_meta_manager(jx_meta_manager *this)
+{
+  jp2_output_box::jp2_output_box((this + 344));
+  *(this + 53) = 0;
+  *this = 0u;
+  *(this + 1) = 0u;
+  *(this + 2) = 0u;
+  *(this + 3) = 0u;
+  *(this + 4) = 0u;
+  *(this + 5) = 0u;
+  *(this + 6) = 0u;
+  *(this + 7) = 0u;
+  *(this + 8) = 0u;
+  *(this + 9) = 0u;
+  *(this + 10) = 0u;
+  *(this + 11) = 0u;
+  *(this + 12) = 0u;
+  *(this + 13) = 0u;
+  *(this + 14) = 0u;
+  *(this + 15) = 0u;
+  *(this + 16) = 0u;
+  *(this + 17) = 0u;
+  *(this + 18) = 0u;
+  *(this + 19) = 0u;
+  *(this + 20) = 0u;
+  *(this + 42) = 0;
+  *(this + 54) = 0x600000006;
+  operator new[]();
 }

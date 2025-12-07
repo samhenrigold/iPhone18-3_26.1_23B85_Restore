@@ -78,11 +78,11 @@
 
 - (CWFXPCManager)initWithServiceTypes:(id)types
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   typesCopy = types;
-  v46.receiver = self;
-  v46.super_class = CWFXPCManager;
-  v5 = [(CWFXPCManager *)&v46 init];
+  v45.receiver = self;
+  v45.super_class = CWFXPCManager;
+  v5 = [(CWFXPCManager *)&v45 init];
   if (!v5)
   {
     goto LABEL_26;
@@ -105,7 +105,7 @@
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       LOWORD(location[0]) = 0;
-      _os_log_send_and_compose_impl();
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v19, 16, "[corewifi] CoreWiFi XPC service is DISABLED via ffctl", location, 2);
     }
 
 LABEL_25:
@@ -171,25 +171,25 @@ LABEL_25:
     }
   }
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   v19 = typesCopy;
-  v20 = [v19 countByEnumeratingWithState:&v42 objects:v47 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v41 objects:v46 count:16];
   if (v20)
   {
-    v21 = *v43;
+    v21 = *v42;
 LABEL_12:
     v22 = 0;
     while (1)
     {
-      if (*v43 != v21)
+      if (*v42 != v21)
       {
         objc_enumerationMutation(v19);
       }
 
-      v23 = -[CWFXPCListener initWithServiceType:]([CWFXPCListener alloc], "initWithServiceType:", [*(*(&v42 + 1) + 8 * v22) integerValue]);
+      v23 = -[CWFXPCListener initWithServiceType:]([CWFXPCListener alloc], "initWithServiceType:", [*(*(&v41 + 1) + 8 * v22) integerValue]);
       v24 = v23;
       if (!v23)
       {
@@ -201,7 +201,7 @@ LABEL_12:
 
       if (v20 == ++v22)
       {
-        v20 = [v19 countByEnumeratingWithState:&v42 objects:v47 count:16];
+        v20 = [v19 countByEnumeratingWithState:&v41 objects:v46 count:16];
         if (v20)
         {
           goto LABEL_12;
@@ -227,38 +227,37 @@ LABEL_26:
   }
 
   objc_initWeak(location, v5);
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 3221225472;
-  v39[2] = sub_1E0C578FC;
-  v39[3] = &unk_1E86E70E8;
-  objc_copyWeak(&v40, location);
-  [(CWFXPCRequestProxy *)v5->_XPCRequestProxy setWifiUserAgentConnection:v39];
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = sub_1E0C57980;
-  v37[3] = &unk_1E86E70E8;
-  objc_copyWeak(&v38, location);
-  [(CWFXPCRequestProxy *)v5->_XPCRequestProxy setWifiNetworkSharingUIServiceXPCConnection:v37];
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3221225472;
-  v35[2] = sub_1E0C57A04;
-  v35[3] = &unk_1E86E7110;
-  objc_copyWeak(&v36, location);
-  [(CWFXPCRequestProxy *)v5->_XPCRequestProxy setWifiNetworkSharingAppexXPCConnections:v35];
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = sub_1E0C57A88;
-  v33[3] = &unk_1E86E7138;
-  objc_copyWeak(&v34, location);
-  [(CWFXPCRequestProxy *)v5->_XPCRequestProxy setWifiNetworkSharingAppXPCConnection:v33];
-  objc_destroyWeak(&v34);
-  objc_destroyWeak(&v36);
-  objc_destroyWeak(&v38);
-  objc_destroyWeak(&v40);
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = sub_1E0C578FC;
+  v38[3] = &unk_1E86E70E8;
+  objc_copyWeak(&v39, location);
+  [(CWFXPCRequestProxy *)v5->_XPCRequestProxy setWifiUserAgentConnection:v38];
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = sub_1E0C57980;
+  v36[3] = &unk_1E86E70E8;
+  objc_copyWeak(&v37, location);
+  [(CWFXPCRequestProxy *)v5->_XPCRequestProxy setWifiNetworkSharingUIServiceXPCConnection:v36];
+  v34[0] = MEMORY[0x1E69E9820];
+  v34[1] = 3221225472;
+  v34[2] = sub_1E0C57A04;
+  v34[3] = &unk_1E86E7110;
+  objc_copyWeak(&v35, location);
+  [(CWFXPCRequestProxy *)v5->_XPCRequestProxy setWifiNetworkSharingAppexXPCConnections:v34];
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = sub_1E0C57A88;
+  v32[3] = &unk_1E86E7138;
+  objc_copyWeak(&v33, location);
+  [(CWFXPCRequestProxy *)v5->_XPCRequestProxy setWifiNetworkSharingAppXPCConnection:v32];
+  objc_destroyWeak(&v33);
+  objc_destroyWeak(&v35);
+  objc_destroyWeak(&v37);
+  objc_destroyWeak(&v39);
   objc_destroyWeak(location);
 LABEL_27:
 
-  v31 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -312,7 +311,8 @@ LABEL_27:
 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      _os_log_send_and_compose_impl();
+      v6[0] = 0;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v4, 0, "[corewifi] Device unlocked since boot, activating user agent", v6, 2);
     }
 
     [(CWFWiFiUserAgent *)self->_wifiUserAgent activate];
@@ -343,7 +343,8 @@ LABEL_27:
 
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    _os_log_send_and_compose_impl();
+    v7 = 0;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v5, 0, "[corewifi] Started monitoring keybag lock status", &v7, 2);
   }
 
   [(CWFXPCManager *)self __checkKeybagLockStatus];
@@ -369,7 +370,8 @@ LABEL_27:
 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      _os_log_send_and_compose_impl();
+      v6[0] = 0;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v4, 0, "[corewifi] Stopped monitoring keybag lock status", v6, 2);
     }
   }
 }
@@ -398,21 +400,21 @@ LABEL_27:
 
 - (id)__wifiUserAgentXPCConnection
 {
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x3032000000;
-  v13 = sub_1E0BC2D40;
-  v14 = sub_1E0BC61DC;
-  v15 = 0;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = sub_1E0BC2D40;
+  v15 = sub_1E0BC61DC;
+  v16 = 0;
   mutexQueue = self->_mutexQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = sub_1E0C589BC;
   block[3] = &unk_1E86E6A28;
   block[4] = self;
-  block[5] = &v10;
+  block[5] = &v11;
   dispatch_sync(mutexQueue, block);
-  v3 = v11[5];
+  v3 = v12[5];
   if (!v3)
   {
     v4 = CWFGetOSLog();
@@ -429,35 +431,36 @@ LABEL_27:
 
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      _os_log_send_and_compose_impl();
+      v9[0] = 0;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v5, 16, "[corewifi] Failed to find WiFi user agent XPC connection", v9, 2);
     }
 
-    v3 = v11[5];
+    v3 = v12[5];
   }
 
   v7 = v3;
-  _Block_object_dispose(&v10, 8);
+  _Block_object_dispose(&v11, 8);
 
   return v7;
 }
 
 - (id)__wifiNetworkSharingUIServiceXPCConnection
 {
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x3032000000;
-  v13 = sub_1E0BC2D40;
-  v14 = sub_1E0BC61DC;
-  v15 = 0;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = sub_1E0BC2D40;
+  v15 = sub_1E0BC61DC;
+  v16 = 0;
   mutexQueue = self->_mutexQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = sub_1E0C58D34;
   block[3] = &unk_1E86E6A28;
   block[4] = self;
-  block[5] = &v10;
+  block[5] = &v11;
   dispatch_sync(mutexQueue, block);
-  v3 = v11[5];
+  v3 = v12[5];
   if (!v3)
   {
     v4 = CWFGetOSLog();
@@ -474,35 +477,36 @@ LABEL_27:
 
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      _os_log_send_and_compose_impl();
+      v9[0] = 0;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v5, 16, "[corewifi] Failed to find WiFi network sharing UI service XPC connection", v9, 2);
     }
 
-    v3 = v11[5];
+    v3 = v12[5];
   }
 
   v7 = v3;
-  _Block_object_dispose(&v10, 8);
+  _Block_object_dispose(&v11, 8);
 
   return v7;
 }
 
 - (id)__wifiNetworkSharingAppexXPCConnections
 {
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x3032000000;
-  v13 = sub_1E0BC2D40;
-  v14 = sub_1E0BC61DC;
-  v15 = 0;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = sub_1E0BC2D40;
+  v15 = sub_1E0BC61DC;
+  v16 = 0;
   mutexQueue = self->_mutexQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = sub_1E0C590AC;
   block[3] = &unk_1E86E6A28;
   block[4] = self;
-  block[5] = &v10;
+  block[5] = &v11;
   dispatch_sync(mutexQueue, block);
-  v3 = v11[5];
+  v3 = v12[5];
   if (!v3)
   {
     v4 = CWFGetOSLog();
@@ -519,28 +523,29 @@ LABEL_27:
 
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      _os_log_send_and_compose_impl();
+      v9[0] = 0;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v5, 16, "[corewifi] Failed to find WiFi network sharing appex XPC connections", v9, 2);
     }
 
-    v3 = v11[5];
+    v3 = v12[5];
   }
 
   v7 = v3;
-  _Block_object_dispose(&v10, 8);
+  _Block_object_dispose(&v11, 8);
 
   return v7;
 }
 
 - (id)__wifiNetworkSharingAppXPCConnectionWithBundleID:(id)d
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dCopy = d;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = sub_1E0BC2D40;
-  v22 = sub_1E0BC61DC;
-  v23 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = sub_1E0BC2D40;
+  v21 = sub_1E0BC61DC;
+  v22 = 0;
   mutexQueue = self->_mutexQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
@@ -548,11 +553,11 @@ LABEL_27:
   block[3] = &unk_1E86E7188;
   block[4] = self;
   v6 = dCopy;
-  v16 = v6;
-  v17 = &v18;
+  v15 = v6;
+  v16 = &v17;
   dispatch_sync(mutexQueue, block);
 
-  v7 = v19[5];
+  v7 = v18[5];
   if (!v7)
   {
     v8 = CWFGetOSLog();
@@ -570,18 +575,16 @@ LABEL_27:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       redactedForWiFi = [v6 redactedForWiFi];
-      v24 = 138543362;
-      v25 = redactedForWiFi;
-      _os_log_send_and_compose_impl();
+      v23 = 138543362;
+      v24 = redactedForWiFi;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v9, 16, "[corewifi] Failed to find WiFi network sharing app XPC connection with bundleID (%{public}@)", &v23, 12);
     }
 
-    v7 = v19[5];
+    v7 = v18[5];
   }
 
   v12 = v7;
-  _Block_object_dispose(&v18, 8);
-
-  v13 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v17, 8);
 
   return v12;
 }
@@ -696,7 +699,7 @@ LABEL_27:
 
 - (void)XPCRequestProxy:(id)proxy XPCConnection:(id)connection receivedXPCRequest:(id)request
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   requestCopy = request;
   delegate = [(CWFXPCManager *)self delegate];
@@ -721,8 +724,10 @@ LABEL_27:
 
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v22 = sub_1E0BC2FCC([requestCopy type]);
-      _os_log_send_and_compose_impl();
+      v16 = sub_1E0BC2FCC([requestCopy type]);
+      v22 = 138543362;
+      v23 = v16;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v14, 16, "[corewifi] Unhandled request type (%{public}@)", &v22, 12);
     }
 
     response = [requestCopy response];
@@ -730,14 +735,12 @@ LABEL_27:
     if (response)
     {
       response2 = [requestCopy response];
-      v18 = *MEMORY[0x1E696A798];
-      v19 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x2DuLL);
-      v20 = CWFErrorWithDescription(v18, 45, v19);
-      (response2)[2](response2, v20, 0);
+      v19 = *MEMORY[0x1E696A798];
+      v20 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x2DuLL);
+      v21 = CWFErrorWithDescription(v19, 45, v20);
+      (response2)[2](response2, v21, 0);
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)XPCRequestProxy:(id)proxy XPCConnection:(id)connection canceledXPCRequestsWithUUID:(id)d

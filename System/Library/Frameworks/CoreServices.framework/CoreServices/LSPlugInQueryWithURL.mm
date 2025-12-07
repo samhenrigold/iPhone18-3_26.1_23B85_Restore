@@ -27,29 +27,29 @@
 {
   connectionCopy = connection;
   blockCopy = block;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3812000000;
-  v18 = __Block_byref_object_copy__41;
-  v19 = __Block_byref_object_dispose__41;
-  v20 = 256;
-  v21 = 0;
   v14 = 0;
-  inited = _LSContextInitReturningError(&v21, &v14);
-  v9 = v14;
+  v15 = &v14;
+  v16 = 0x3812000000;
+  v17 = __Block_byref_object_copy__41;
+  v18 = __Block_byref_object_dispose__41;
+  v19 = 256;
+  v20 = 0;
+  v13 = 0;
+  inited = _LSContextInitReturningError(&v20, &v13);
+  v9 = v13;
   if (inited)
   {
     v10 = CFURLCopyFileSystemPath(self->_bundleURL, kCFURLPOSIXPathStyle);
     if (v10)
     {
-      [(_LSDatabase *)v16[6] store];
-      v11 = *([(_LSDatabase *)v16[6] schema]+ 1588);
-      v12 = v10;
-      v13 = blockCopy;
+      [(_LSDatabase *)v15[6] store];
+      [(_LSDatabase *)v15[6] schema];
+      v11 = v10;
+      v12 = blockCopy;
       _CSStoreEnumerateUnits();
     }
 
-    _LSContextDestroy(v16 + 6);
+    _LSContextDestroy(v15 + 6);
   }
 
   else
@@ -57,31 +57,32 @@
     (*(blockCopy + 2))(blockCopy, 0, v9);
   }
 
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v14, 8);
 }
 
-void __58__LSPlugInQueryWithURL__enumerateWithXPCConnection_block___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void __58__LSPlugInQueryWithURL__enumerateWithXPCConnection_block___block_invoke(uint64_t a1, uint64_t a2, unsigned int *a3, uint64_t a4, _BYTE *a5)
 {
-  if (*(a3 + 4))
+  v6 = a3[1];
+  if (v6)
   {
-    v9 = _LSContainerGet(*(*(*(a1 + 48) + 8) + 48));
-    if (v9)
+    v10 = _LSContainerGet(*(*(*(a1 + 48) + 8) + 48), v6);
+    if (v10)
     {
-      v15 = 0;
-      v10 = !_LSContainerCheckState(*(*(*(a1 + 48) + 8) + 48), *(a3 + 4), v9, &v15, 0) && v15 == 1;
-      if (v10 && _LSAliasMatchesPath_NoIO(*(*(*(a1 + 48) + 8) + 48), *a3, *(a1 + 32), 0))
+      v16 = 0;
+      v11 = !_LSContainerCheckState(*(*(*(a1 + 48) + 8) + 48), a3[1], v10, &v16, 0) && v16 == 1;
+      if (v11 && _LSAliasMatchesPath_NoIO(*(*(*(a1 + 48) + 8) + 48), *a3, *(a1 + 32), 0))
       {
-        v11 = [LSPlugInKitProxy plugInKitProxyForPlugin:a2 withContext:*(*(a1 + 48) + 8) + 48];
-        v12 = v11;
-        if (v11)
+        v12 = [LSPlugInKitProxy plugInKitProxyForPlugin:a2 withContext:*(*(a1 + 48) + 8) + 48];
+        v13 = v12;
+        if (v12)
         {
-          v13 = v11;
-          v14 = 0;
+          v14 = v12;
+          v15 = 0;
         }
 
         else
         {
-          v14 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -10814, 0, "[LSPlugInQueryWithURL _enumerateWithXPCConnection:block:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSPlugInQueryWithURL.m", 67);
+          v15 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -10814, 0, "[LSPlugInQueryWithURL _enumerateWithXPCConnection:block:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSPlugInQueryWithURL.m", 67);
         }
 
         (*(*(a1 + 40) + 16))();

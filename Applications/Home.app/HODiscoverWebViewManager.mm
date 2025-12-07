@@ -249,7 +249,7 @@
       v10 = v9;
       if (v9)
       {
-        [v9 operatingSystemVersion];
+        objc_msgSend_operatingSystemVersion(v9);
       }
 
       else
@@ -511,21 +511,8 @@
     webViewCache2 = [(HODiscoverWebViewManager *)self webViewCache];
     v13 = [webViewCache2 objectForKeyedSubscript:v17];
 
-    if ((+[HFUtilities isInternalInstall]& 1) != 0)
+    if ((+[HFUtilities isInternalInstall](HFUtilities, "isInternalInstall") & 1) != 0 || ([v13 webView], v34 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v34, "URL"), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v19, "host"), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(viewCopy, "URL"), v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v21, "host"), v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v20, "isEqualToString:", v22), v22, v21, v20, v19, v34, v23))
     {
-      goto LABEL_9;
-    }
-
-    webView = [v13 webView];
-    v19 = [webView URL];
-    host = [v19 host];
-    v21 = [viewCopy URL];
-    host2 = [v21 host];
-    v23 = [host isEqualToString:host2];
-
-    if (v23)
-    {
-LABEL_9:
       v24 = [@"\\/covers.html" copy];
       v25 = [viewCopy URL];
       absoluteString3 = [v25 absoluteString];

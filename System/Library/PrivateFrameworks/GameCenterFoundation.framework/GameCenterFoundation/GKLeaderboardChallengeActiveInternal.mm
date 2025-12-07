@@ -24,23 +24,21 @@
 
 void __63__GKLeaderboardChallengeActiveInternal_secureCodedPropertyKeys__block_invoke(uint64_t a1)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v1 = MEMORY[0x277CBEB38];
-  v8.receiver = *(a1 + 32);
-  v8.super_class = &OBJC_METACLASS___GKLeaderboardChallengeActiveInternal;
-  v2 = objc_msgSendSuper2(&v8, sel_secureCodedPropertyKeys);
+  v7.receiver = *(a1 + 32);
+  v7.super_class = &OBJC_METACLASS___GKLeaderboardChallengeActiveInternal;
+  v2 = objc_msgSendSuper2(&v7, sel_secureCodedPropertyKeys);
   v3 = [v1 dictionaryWithDictionary:v2];
 
-  v9 = @"localizedText";
-  v10[0] = objc_opt_class();
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = @"localizedText";
+  v9[0] = objc_opt_class();
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   [v3 addEntriesFromDictionary:v4];
 
   v5 = [v3 copy];
   v6 = secureCodedPropertyKeys_sSecureCodedKeys_444;
   secureCodedPropertyKeys_sSecureCodedKeys_444 = v5;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (id)initWithServerFragment:(id)fragment

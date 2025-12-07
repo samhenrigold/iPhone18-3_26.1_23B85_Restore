@@ -106,7 +106,7 @@
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v2, v3, "VCRC [%s] %s:%d Failed to initialize the v-table", v4, v5, v6, v7, v8);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v2, v3, "VCRC [%s] %s:%d Failed to initialize the v-table", v4, v5, v6, v7);
     }
   }
 }
@@ -120,7 +120,7 @@
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v2, v3, "VCRC [%s] %s:%d Invalid v-table. configure is NULL", v4, v5, v6, v7, v8);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v2, v3, "VCRC [%s] %s:%d Invalid v-table. configure is NULL", v4, v5, v6, v7);
     }
   }
 

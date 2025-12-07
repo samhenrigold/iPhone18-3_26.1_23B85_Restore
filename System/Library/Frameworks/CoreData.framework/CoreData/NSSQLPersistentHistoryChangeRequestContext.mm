@@ -50,28 +50,27 @@
 
     if (![objc_msgSend(-[NSSQLCore ancillarySQLModels](sqlCore "ancillarySQLModels")])
     {
-      v5 = MEMORY[0x1E695DF30];
-      v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid entity for NSPersistentHistoryChangeRequest: %@", entityNameToFetch];
-      objc_exception_throw([v5 exceptionWithName:*MEMORY[0x1E695D930] reason:v6 userInfo:0]);
+      v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] userInfo:{entityNameToFetch), 0}];
+      objc_exception_throw(v5);
     }
   }
 }
 
 - (id)fetchRequestDescribingChanges
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   if (result)
   {
     v1 = result;
     if (!result[11])
     {
-      v3 = [objc_msgSend(objc_msgSend(result[1] "ancillarySQLModels")];
-      if (v3)
+      v2 = [objc_msgSend(objc_msgSend(result[1] "ancillarySQLModels")];
+      if (v2)
       {
-        v4 = v3;
-        v5 = objc_alloc_init(NSFetchRequest);
-        v1[11] = v5;
-        -[NSFetchRequest setEntity:](v5, "setEntity:", [v4 entityDescription]);
+        v3 = v2;
+        v4 = objc_alloc_init(NSFetchRequest);
+        v1[11] = v4;
+        -[NSFetchRequest setEntity:](v4, "setEntity:", [v3 entityDescription]);
         [v1[11] setIncludesSubentities:0];
         [v1[11] setPredicate:{objc_msgSend(objc_msgSend(v1, "request"), "predicateForStoreIdentifier:", objc_msgSend(v1[1], "identifier"))}];
         [v1[11] setIncludesPropertyValues:1];
@@ -95,24 +94,23 @@
           [v1[11] setFetchBatchSize:{objc_msgSend(objc_msgSend(v1, "request"), "fetchBatchSize")}];
           if (![objc_msgSend(v1[11] "sortDescriptors")])
           {
-            v6 = v1[11];
-            v7[0] = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"self" ascending:1];
-            [v6 setSortDescriptors:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v7, 1)}];
+            v5 = v1[11];
+            v6[0] = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"self" ascending:1];
+            [v5 setSortDescriptors:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v6, 1)}];
           }
         }
       }
     }
 
-    result = v1[11];
+    return v1[11];
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (id)fetchRequestContextForChanges
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   fetchRequestDescribingChanges = [(NSSQLPersistentHistoryChangeRequestContext *)&self->super.super.isa fetchRequestDescribingChanges];
   fetchBatchSize = [(NSPersistentHistoryChangeRequest *)[(NSSQLPersistentHistoryChangeRequestContext *)self request] fetchBatchSize];
   fetchRequest = self->_fetchRequest;
@@ -129,8 +127,8 @@
 
   if ([(NSPersistentHistoryChangeRequest *)[(NSSQLPersistentHistoryChangeRequestContext *)self request] resultType]== NSPersistentHistoryResultTypeTransactionsAndChanges)
   {
-    v14[0] = @"CHANGES";
-    [fetchRequestDescribingChanges setRelationshipKeyPathsForPrefetching:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v14, 1)}];
+    v13[0] = @"CHANGES";
+    [fetchRequestDescribingChanges setRelationshipKeyPathsForPrefetching:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v13, 1)}];
   }
 
   v6 = [(NSPersistentHistoryChangeRequest *)[(NSSQLPersistentHistoryChangeRequestContext *)self request] resultType]== NSPersistentHistoryResultTypeStatusOnly || [(NSPersistentHistoryChangeRequest *)[(NSSQLPersistentHistoryChangeRequestContext *)self request] resultType]== NSPersistentHistoryResultTypeCount || [(NSPersistentHistoryChangeRequest *)[(NSSQLPersistentHistoryChangeRequestContext *)self request] resultType]== (NSPersistentHistoryResultTypeChangesOnly|NSPersistentHistoryResultTypeCount);
@@ -144,12 +142,12 @@ LABEL_12:
 
   if (!v6)
   {
-    v12 = [MEMORY[0x1E695DF70] arrayWithArray:{-[NSPersistentHistoryChangeRequest propertiesToFetchForEntity:includeTransactionStrings:](-[NSSQLPersistentHistoryChangeRequestContext request](self, "request"), "propertiesToFetchForEntity:includeTransactionStrings:", objc_msgSend(fetchRequestDescribingChanges, "entity"), -[NSSQLiteConnection _hasHistoryTransactionStringTable](self->super._connection))}];
-    propertiesToFetch = v12;
+    v11 = [MEMORY[0x1E695DF70] arrayWithArray:{-[NSPersistentHistoryChangeRequest propertiesToFetchForEntity:includeTransactionStrings:](-[NSSQLPersistentHistoryChangeRequestContext request](self, "request"), "propertiesToFetchForEntity:includeTransactionStrings:", objc_msgSend(fetchRequestDescribingChanges, "entity"), -[NSSQLiteConnection _hasHistoryTransactionStringTable](self->super._connection))}];
+    propertiesToFetch = v11;
     context = self->super._context;
     if (context && (*(&context->_flags + 2) & 0x80) != 0)
     {
-      [v12 removeObject:@"QUERYGEN"];
+      [v11 removeObject:@"QUERYGEN"];
     }
 
     goto LABEL_12;
@@ -169,9 +167,7 @@ LABEL_13:
   }
 
   [(NSSQLFetchRequestContext *)v8 _setAllowAncillaryEntities:1];
-  result = v9;
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return v9;
 }
 
 - (void)dealloc

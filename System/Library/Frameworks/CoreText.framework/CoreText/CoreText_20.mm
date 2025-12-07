@@ -263,7 +263,7 @@ void TTextEncapsulationRun::~TTextEncapsulationRun(id *this)
   JUMPOUT(0x1865F22D0);
 }
 
-uint64_t TTextEncapsulationRun::FindBreak@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, const TCharStream *a3@<X2>, int a4@<W3>, void *a5@<X8>, double a6@<D0>)
+uint64_t TTextEncapsulationRun::FindBreak@<X0>(uint64_t a1@<X0>, char *a2@<X1>, const TCharStream *a3@<X2>, int a4@<W3>, void *a5@<X8>, double a6@<D0>)
 {
   *a5 = 0xAAAAAAAAAAAAAAAALL;
   a5[1] = 0xAAAAAAAAAAAAAAAALL;
@@ -732,7 +732,7 @@ uint64_t vImageCompressionDecode_BGRA8888(uint64_t a1, unint64_t a2, void *a3, c
           v14 = &a5[v12 + 4096];
           v15 = 3 * v9 * v8;
           v16 = a3[1];
-          compression_decode_buffer(a5 + 4096, v12, (a1 + 4), a2 - 4, v14 + 18 * v9, COMPRESSION_LZFSE);
+          compression_decode_buffer(a5 + 4096, v12, (a1 + 4), a2 - 4, &v14[18 * v9], COMPRESSION_LZFSE);
           if (v15 < v10)
           {
             return -21776;
@@ -763,17 +763,17 @@ LABEL_24:
 
               v31 = 3 * v9;
               v32 = 6 * v9;
-              v33 = &v14->i16[3 * v9];
-              v34 = 6 * v9;
+              v33 = &v14[6 * v9];
+              v34 = 12 * v9;
               v35 = *a3;
-              v36 = v14 + 12 * v9;
+              v36 = &v14[12 * v9];
               if (v9 > 7)
               {
                 if (v321)
                 {
                   v37 = 0;
-                  v302 = (v14 + 2 * v31 - 16);
-                  v38 = (v33 - 3);
+                  v302 = &v14[2 * v31 - 16];
+                  v38 = v33 - 6;
                   v39 = 8 - (v9 & 7);
                   v309 = -(4 * v39);
                   v40 = v321 + v321 * v9 + 4096;
@@ -794,22 +794,22 @@ LABEL_24:
                   v53 = xmmword_184778310;
                   v54.i64[0] = 0x1000100010001;
                   v54.i64[1] = 0x1000100010001;
-                  v318 = &a5[v330 + v34 * 2];
+                  v318 = &a5[v330 + v34];
                   v326 = v318 + 4102;
                   v300 = &a5[v330 + 4102];
                   v305 = v42 + 4090;
                   v324 = &a5[v330];
                   v299 = &a5[v330 + 4096];
-                  v308 = v330 + v34 * 2 + 4096;
-                  v298 = &v33[v31 - 8];
+                  v308 = v330 + v34 + 4096;
+                  v298 = &v33[2 * v31 - 16];
                   v55 = v330 + v32 + 4096;
                   v328 = 4096 - v39;
                   v331 = 4096;
                   v310 = -3 * v9;
                   v315 = v55 - 2 * (3 * v39);
                   v317 = v55;
-                  v312 = &v14->i16[3 * v9];
-                  v313 = (v33 - 3);
+                  v312 = &v14[6 * v9];
+                  v313 = v33 - 6;
                   v311 = v14;
                   v314 = v42;
                   while (1)
@@ -844,7 +844,7 @@ LABEL_24:
                       v35 = v57;
                       v38 = v313;
                       v42 = v314;
-                      v34 = 6 * v9;
+                      v34 = 12 * v9;
                       v32 = 6 * v9;
                       v30 = v321;
                       v29 = a3;
@@ -924,9 +924,9 @@ LABEL_24:
                       {
                         if (v82 == 1)
                         {
-                          *v33 = v14->i16[0] + *v36;
-                          v33[1] = v14->i16[1] + *(v36 + 1);
-                          v33[2] = v14->i16[2] + *(v36 + 2);
+                          *v33 = *v14 + *v36;
+                          *(v33 + 1) = *(v14 + 1) + *(v36 + 1);
+                          *(v33 + 2) = *(v14 + 2) + *(v36 + 2);
                           if (v31 >= 9)
                           {
                             v303 = v41;
@@ -976,8 +976,8 @@ LABEL_24:
 
                               v128 = v118 + v126;
                               *(v117 - 4) = v118 + v126;
-                              v129 = &v127->i8[v112];
-                              v130 = v127->i16[v112 / 2 + 4] + *(v125 + 1);
+                              v129 = &v127[v112];
+                              v130 = *&v127[v112 + 8] + *(v125 + 1);
                               *(v117 - 3) = v130;
                               v131 = *(v129 + 5) + *(v125 + 2);
                               *(v117 - 2) = v131;
@@ -1014,10 +1014,10 @@ LABEL_24:
                                 *&v301[v112] = *(v119 + 2055) + *(v125 + 4);
                                 v137 = v113 + 8;
                                 v131 = *(v125 + 5);
-                                v138 = (v319 + v112);
+                                v138 = &v319[v112];
                               }
 
-                              v33[v137] = *v138 + v131;
+                              *&v33[2 * v137] = *v138 + v131;
                               v114 = v116 + 6;
                               v139 = v113 + 6;
                               v140 = v113 + 15;
@@ -1048,8 +1048,8 @@ LABEL_24:
                             {
                               v142 = &v42[v141];
                               v143 = *&v42[v141 + 4090];
-                              v144 = v14->i16[v141 / 2];
-                              v145 = v14->i16[v141 / 2 - 3];
+                              v144 = *&v14[v141];
+                              v145 = *&v14[v141 - 6];
                               v146 = v144 - v145;
                               if (v144 - v145 < 0)
                               {
@@ -1070,12 +1070,12 @@ LABEL_24:
 
                               else
                               {
-                                LOWORD(v143) = v14->i16[v141 / 2];
+                                LOWORD(v143) = *&v14[v141];
                                 v149 = v14;
                               }
 
                               *(v142 + 2048) = v143 + *&v74[v141 + 4096];
-                              v150 = &v149->i8[v141];
+                              v150 = &v149[v141];
                               *(v142 + 2049) = *(v150 + 1) + *(v148 + 2049);
                               *(v142 + 2050) = *(v150 + 2) + *(v148 + 2050);
                               v84 += 3;
@@ -1116,7 +1116,7 @@ LABEL_24:
                         v35 = v88;
                         v38 = v313;
                         v42 = v314;
-                        v34 = 6 * v9;
+                        v34 = 12 * v9;
                         v32 = 6 * v9;
                         v30 = v321;
                         v29 = a3;
@@ -1138,8 +1138,8 @@ LABEL_24:
                             {
                               v95 = *v93;
                               v93 = (v93 + 6);
-                              *(v92 + 3) = vaddq_s16(*v92, v95);
-                              v92 += 3;
+                              *(v92 + 6) = vaddq_s16(*v92, v95);
+                              v92 += 6;
                             }
 
                             v85 = i - 8;
@@ -1169,9 +1169,9 @@ LABEL_24:
 
                           break;
                         case 4:
-                          *v33 = v14->i16[0] + *v36;
-                          v33[1] = v14->i16[1] + *(v36 + 1);
-                          v33[2] = v14->i16[2] + *(v36 + 2);
+                          *v33 = *v14 + *v36;
+                          *(v33 + 1) = *(v14 + 1) + *(v36 + 1);
+                          *(v33 + 2) = *(v14 + 2) + *(v36 + 2);
                           if (v31 >= 0xB)
                           {
                             v100 = v300;
@@ -1179,8 +1179,8 @@ LABEL_24:
                             for (j = 11; j <= v31; j += 3)
                             {
                               v103 = vsubq_s16(*v100, vmvnq_s8(*v101));
-                              *(v101 + 3) = vsraq_n_s16(*(v100 + v34 * 2), vsraq_n_u16(v103, v103, 0xFuLL), 1uLL);
-                              v101 += 3;
+                              *(v101 + 6) = vsraq_n_s16(*(v100 + v34), vsraq_n_u16(v103, v103, 0xFuLL), 1uLL);
+                              v101 += 6;
                               v100 = (v100 + 6);
                             }
 
@@ -1196,12 +1196,12 @@ LABEL_24:
                           {
                             v104 = v310 + v86;
                             v105 = &v305[2 * v86];
-                            v106 = (v299 + 2 * v86);
+                            v106 = &v299[2 * v86];
                             do
                             {
-                              *(v105 + 3) = v106[v34] + (*v105 + *v106 + 1) / 2;
+                              *(v105 + 3) = *&v106[v34] + (*v105 + *v106 + 1) / 2;
                               v105 += 2;
-                              ++v106;
+                              v106 += 2;
                               v81 = __CFADD__(v104++, 1);
                             }
 
@@ -1216,9 +1216,9 @@ LABEL_24:
                             v108 = v14;
                             do
                             {
-                              v109 = vaddq_s16(v108[1], *(&v108[1] + v34 * 2));
+                              v109 = vaddq_s16(v108[1], *(&v108[1] + v34));
                               v110 = (v108 + v32);
-                              *v110 = vaddq_s16(*v108, *(v108 + v34 * 2));
+                              *v110 = vaddq_s16(*v108, *(v108 + v34));
                               v110[1] = v109;
                               v83 = v107 + 16;
                               v111 = v107 + 32;
@@ -1236,7 +1236,7 @@ LABEL_24:
 
                           if ((v83 | 8uLL) <= v31)
                           {
-                            *&v33[v83] = vaddq_s16(*(v14 + 2 * v83), *&v36[2 * v83]);
+                            *&v33[2 * v83] = vaddq_s16(*&v14[2 * v83], *&v36[2 * v83]);
                             v83 |= 8uLL;
                           }
 
@@ -1303,8 +1303,8 @@ LABEL_24:
 
                       v173 = *&a5[v154];
                       v174 = &a5[v152];
-                      v175 = v174[1];
-                      v176 = v174[2];
+                      v175 = *(v174 + 1);
+                      v176 = *(v174 + 2);
                       v177 = vaddq_s16(vaddq_s16(vqtbl1q_s8(v175, v47), vqtbl1q_s8(*v174, v44)), vqtbl1q_s8(v176, v50));
                       v178 = vaddq_s16(vaddq_s16(vqtbl1q_s8(v175, v48), vqtbl1q_s8(*v174, v45)), vqtbl1q_s8(v176, v51));
                       v179 = vsubq_s16(vaddq_s16(vaddq_s16(vqtbl1q_s8(v175, v46), vqtbl1q_s8(*v174, v43)), vqtbl1q_s8(v176, v49)), vshrq_n_s16(vsraq_n_u16(v178, v178, 0xFuLL), 1uLL));
@@ -1369,8 +1369,8 @@ LABEL_24:
 
                       v208 = &a5[v193];
                       v173 = *&a5[v195];
-                      v209 = v208[1];
-                      v210 = v208[2];
+                      v209 = *(v208 + 1);
+                      v210 = *(v208 + 2);
                       v211 = vaddq_s16(vaddq_s16(vqtbl1q_s8(v209, v47), vqtbl1q_s8(*v208, v44)), vqtbl1q_s8(v210, v50));
                       v212 = vaddq_s16(vaddq_s16(vqtbl1q_s8(v209, v48), vqtbl1q_s8(*v208, v45)), vqtbl1q_s8(v210, v51));
                       v213 = vsubq_s16(vaddq_s16(vaddq_s16(vqtbl1q_s8(v209, v46), vqtbl1q_s8(*v208, v43)), vqtbl1q_s8(v210, v49)), vshrq_n_s16(vsraq_n_u16(v212, v212, 0xFuLL), 1uLL));
@@ -1417,9 +1417,9 @@ LABEL_120:
               v329 = &a5[v330];
               v216 = &a5[v330 + v32];
               v316 = v216 + 4110;
-              v217 = &a5[v330 + v34 * 2];
-              v218 = (v33 - 3);
-              v332 = (v217 + 4102);
+              v217 = &a5[v330 + v34];
+              v218 = v33 - 6;
+              v332 = v217 + 4102;
               v320 = v217;
               v325 = v216;
               while (1)
@@ -1427,13 +1427,13 @@ LABEL_120:
                 if (v215)
                 {
                   v219 = v35;
-                  memcpy(v14, v14 + 6 * v9, v32);
+                  memcpy(v14, &v14[6 * v9], v32);
                   v29 = a3;
                   v216 = v325;
                   v35 = v219;
-                  v218 = (v33 - 3);
+                  v218 = v33 - 6;
                   v217 = v320;
-                  v34 = 6 * v9;
+                  v34 = 12 * v9;
                   v32 = 6 * v9;
                   v30 = v321;
                   v28 = a4;
@@ -1488,9 +1488,9 @@ LABEL_120:
                   {
                     if (v231 == 1)
                     {
-                      *v33 = v14->i16[0] + *v36;
-                      v33[1] = v14->i16[1] + *(v36 + 1);
-                      v33[2] = v14->i16[2] + *(v36 + 2);
+                      *v33 = *v14 + *v36;
+                      *(v33 + 1) = *(v14 + 1) + *(v36 + 1);
+                      *(v33 + 2) = *(v14 + 2) + *(v36 + 2);
                       if (v31 >= 9)
                       {
                         v307 = v35;
@@ -1523,8 +1523,8 @@ LABEL_120:
                             v257 = -v256;
                           }
 
-                          v258 = &v332[v245 / 2];
-                          v259 = v332[v245 / 2];
+                          v258 = &v332[v245];
+                          v259 = *&v332[v245];
                           if (v255 <= v257)
                           {
                             v260 = v218;
@@ -1538,10 +1538,10 @@ LABEL_120:
 
                           v261 = v251 + v259;
                           *(v250 - 4) = v251 + v259;
-                          v262 = &v260->i8[v245];
-                          v263 = v260->i16[v245 / 2 + 4] + v258[1];
+                          v262 = &v260[v245];
+                          v263 = *&v260[v245 + 8] + *(v258 + 1);
                           *(v250 - 3) = v263;
-                          v264 = *(v262 + 5) + v258[2];
+                          v264 = *(v262 + 5) + *(v258 + 2);
                           *(v250 - 2) = v264;
                           v265 = *(v252 + 2054);
                           v266 = v265 - v253;
@@ -1561,11 +1561,11 @@ LABEL_120:
                             v268 = -v267;
                           }
 
-                          v269 = v258[3];
+                          v269 = *(v258 + 3);
                           if (v266 <= v268)
                           {
                             *(v250 - 1) = v269 + v261;
-                            *&v316[v245] = v258[4] + v263;
+                            *&v316[v245] = *(v258 + 4) + v263;
                             v270 = v248 + 5;
                             v271 = &v36[2 * v270];
                           }
@@ -1573,13 +1573,13 @@ LABEL_120:
                           else
                           {
                             *(v250 - 1) = v269 + v265;
-                            *&v316[v245] = *(v252 + 2055) + v258[4];
+                            *&v316[v245] = *(v252 + 2055) + *(v258 + 4);
                             v270 = v246 + 8;
-                            v264 = v258[5];
-                            v271 = (v327 + v245);
+                            v264 = *(v258 + 5);
+                            v271 = &v327[v245];
                           }
 
-                          v33[v270] = *v271 + v264;
+                          *&v33[2 * v270] = *v271 + v264;
                           v247 = v249 + 6;
                           v272 = v246 + 6;
                           v273 = v246 + 15;
@@ -1608,8 +1608,8 @@ LABEL_120:
                         {
                           v275 = &v216[v274];
                           v276 = *&v216[v274 + 4090];
-                          v277 = v14->i16[v274 / 2];
-                          v278 = v14->i16[v274 / 2 - 3];
+                          v277 = *&v14[v274];
+                          v278 = *&v14[v274 - 6];
                           v279 = v277 - v278;
                           if (v277 - v278 < 0)
                           {
@@ -1630,12 +1630,12 @@ LABEL_120:
 
                           else
                           {
-                            LOWORD(v276) = v14->i16[v274 / 2];
+                            LOWORD(v276) = *&v14[v274];
                             v282 = v14;
                           }
 
                           *(v275 + 2048) = v276 + *&v217[v274 + 4096];
-                          v283 = &v282->i8[v274];
+                          v283 = &v282[v274];
                           *(v275 + 2049) = *(v283 + 1) + *(v281 + 2049);
                           *(v275 + 2050) = *(v283 + 2) + *(v281 + 2050);
                           v237 += 3;
@@ -1650,13 +1650,13 @@ LABEL_120:
                   else
                   {
                     v244 = v35;
-                    memcpy(v14 + 6 * v9, v14 + 12 * v9, v32);
+                    memcpy(&v14[6 * v9], &v14[12 * v9], v32);
                     v29 = a3;
                     v216 = v325;
                     v35 = v244;
-                    v218 = (v33 - 3);
+                    v218 = v33 - 6;
                     v217 = v320;
-                    v34 = 6 * v9;
+                    v34 = 12 * v9;
                     v32 = 6 * v9;
                     v30 = v321;
                     v28 = a4;
@@ -1668,18 +1668,19 @@ LABEL_120:
                 if (v231 == 2)
                 {
                   *v33 = *v36;
-                  v33[1] = *(v36 + 1);
-                  v33[2] = *(v36 + 2);
+                  *(v33 + 1) = *(v36 + 1);
+                  *(v33 + 2) = *(v36 + 2);
                   if (v31 >= 4)
                   {
                     v238 = v332;
-                    v239 = &v14->i16[3 * v9];
+                    v239 = &v14[6 * v9];
                     v240 = v31 - 3;
                     do
                     {
-                      v241 = *v238++;
-                      v239[3] = v241 + *v239;
-                      ++v239;
+                      v241 = *v238;
+                      v238 += 2;
+                      *(v239 + 3) = v241 + *v239;
+                      v239 += 2;
                       --v240;
                     }
 
@@ -1700,8 +1701,8 @@ LABEL_120:
                 {
                   do
                   {
-                    v242->i16[v32 / 2] = v242->i16[v34] + v242->i16[0];
-                    v242 = (v242 + 2);
+                    *&v242[v32] = *&v242[v34] + *v242;
+                    v242 += 2;
                     --v243;
                   }
 
@@ -1713,21 +1714,21 @@ LABEL_185:
                     {
                       v284 = 0;
                       v285 = v35;
-                      v286 = v14 + 3 * v9;
+                      v286 = &v14[6 * v9];
                       do
                       {
                         v287 = v13[v284];
-                        v288 = *v286 - ((v286[2] + (v286[2] >> 15)) >> 1);
-                        v289 = v288 + v286[2];
-                        v290 = v288 - ((v286[1] + (v286[1] >> 15)) >> 1);
-                        v291 = v290 + v286[1];
+                        v288 = *v286 - ((*(v286 + 2) + (*(v286 + 2) >> 15)) >> 1);
+                        v289 = v288 + *(v286 + 2);
+                        v290 = v288 - ((*(v286 + 1) + (*(v286 + 1) >> 15)) >> 1);
+                        v291 = v290 + *(v286 + 1);
                         *v285 = (v290 * v287 + 128 + (((v290 * v287 + 128) & 0xFF00u) >> 8)) >> 8;
                         v285[1] = (v289 * v287 + 128 + (((v289 * v287 + 128) & 0xFF00u) >> 8)) >> 8;
                         v285[2] = (v291 * v287 + 128 + (((v291 * v287 + 128) & 0xFF00u) >> 8)) >> 8;
                         v285[3] = v287;
                         v285 += 4;
                         ++v284;
-                        v286 += 3;
+                        v286 += 6;
                       }
 
                       while (v9 != v284);
@@ -1738,19 +1739,19 @@ LABEL_185:
                   {
                     v292 = 0;
                     v293 = v35;
-                    v294 = v14 + 3 * v9;
+                    v294 = &v14[6 * v9];
                     do
                     {
                       v295 = v13[v292];
-                      v296 = *v294 - ((v294[2] + (v294[2] >> 15)) >> 1) + v294[2];
-                      v297 = *v294 - v294[2] / 2 - ((v294[1] + (v294[1] >> 15)) >> 1) + v294[1];
-                      *v293 = *v294 - v294[2] / 2 + -((v294[1] + (v294[1] >> 15)) >> 1);
+                      v296 = *v294 - ((*(v294 + 2) + (*(v294 + 2) >> 15)) >> 1) + *(v294 + 2);
+                      v297 = *v294 - *(v294 + 2) / 2 - ((*(v294 + 1) + (*(v294 + 1) >> 15)) >> 1) + *(v294 + 1);
+                      *v293 = *v294 - *(v294 + 2) / 2 + -((*(v294 + 1) + (*(v294 + 1) >> 15)) >> 1);
                       v293[1] = v296;
                       v293[2] = v297;
                       v293[3] = v295;
                       v293 += 4;
                       ++v292;
-                      v294 += 3;
+                      v294 += 6;
                     }
 
                     while (v9 != v292);
@@ -1770,20 +1771,20 @@ LABEL_185:
 
               if (v231 == 4)
               {
-                for (k = 0; k != 3; ++k)
+                for (k = 0; k != 6; k += 2)
                 {
-                  v33[k] = *&v36[k * 2] + v14->i16[k];
+                  *&v33[k] = *&v36[k] + *&v14[k];
                 }
 
                 v234 = (v329 + 4102);
                 v235 = v31 - 3;
-                v236 = &v14->i16[3 * v9];
+                v236 = &v14[6 * v9];
                 if (v31 >= 4)
                 {
                   do
                   {
-                    v236[3] = v234[v34] + (*v236 + *v234 + 1) / 2;
-                    ++v236;
+                    *(v236 + 3) = v234[v34 / 2] + (*v236 + *v234 + 1) / 2;
+                    v236 += 2;
                     ++v234;
                     --v235;
                   }
@@ -2244,36 +2245,36 @@ UText *TCharStreamUniChar::UTextClone(UText *this, UText *a2, const UText *a3, U
   return result;
 }
 
-uint64_t TCharStreamUniChar::UTextAccess(TCharStreamUniChar *this, UText *a2, int a3)
+uint64_t TCharStreamUniChar::UTextAccess(TCharStreamUniChar *this, UText *a2, int a3, signed __int8 a4, uint64_t a5)
 {
-  v5 = *(this + 9);
-  v6 = *(v5 + 2);
-  if (v6 >= a2)
+  v7 = *(this + 9);
+  v8 = *(v7 + 2);
+  if (v8 >= a2)
   {
-    v7 = a2;
+    v9 = a2;
   }
 
   else
   {
-    v7 = *(v5 + 2);
+    v9 = *(v7 + 2);
   }
 
   if (a2 >= 0)
   {
-    v8 = v7;
+    v10 = v9;
   }
 
   else
   {
-    v8 = 0;
+    v10 = 0;
   }
 
-  v9 = *(this + 2);
+  v11 = *(this + 2);
   if (a3)
   {
-    if (v8 >= v9 || (v10 = *(this + 4), v8 < v10))
+    if (v10 >= v11 || (v12 = *(this + 4), v10 < v12))
     {
-      if (v9 == v6 && v8 >= v6)
+      if (v11 == v8 && v10 >= v8)
       {
         result = 0;
         *(this + 10) = *(this + 11);
@@ -2283,23 +2284,23 @@ uint64_t TCharStreamUniChar::UTextAccess(TCharStreamUniChar *this, UText *a2, in
       goto LABEL_20;
     }
 
-    v14 = v8 - v10;
+    v16 = v10 - v12;
 LABEL_26:
-    *(this + 10) = v14;
+    *(this + 10) = v16;
     return 1;
   }
 
-  if (v8 <= v9)
+  if (v10 <= v11)
   {
-    v13 = *(this + 4);
-    if (v8 > v13)
+    v15 = *(this + 4);
+    if (v10 > v15)
     {
-      v14 = v8 - v13;
+      v16 = v10 - v15;
       goto LABEL_26;
     }
   }
 
-  if (!v8 && !*(this + 4))
+  if (!v10 && !*(this + 4))
   {
     result = 0;
     *(this + 10) = 0;
@@ -2313,74 +2314,74 @@ LABEL_20:
     *(this + 6) = result;
     if (a3)
     {
-      *(this + 4) = v8;
-      *(this + 2) = v8 + 32;
-      if (v8 + 32 <= v6)
+      *(this + 4) = v10;
+      *(this + 2) = v10 + 32;
+      if (v10 + 32 <= v8)
       {
-        if (v8 + 32 < v6)
+        if (v10 + 32 < v8)
         {
-          v6 = TCharStreamUniChar::PinUTextIndex(v5, v8 + 32, v6, a3);
-          *(this + 2) = v6;
-          v8 = *(this + 4);
+          v8 = TCharStreamUniChar::PinUTextIndex(v7, v10 + 32, v8, a3);
+          *(this + 2) = v8;
+          v10 = *(this + 4);
         }
 
         else
         {
-          LODWORD(v6) = v8 + 32;
+          LODWORD(v8) = v10 + 32;
         }
       }
 
       else
       {
-        *(this + 2) = v6;
+        *(this + 2) = v8;
       }
 
-      v16 = 0;
-      v17 = v6 - v8;
-      v18 = v6 - v8;
+      v18 = 0;
+      v19 = v8 - v10;
+      v20 = v8 - v10;
     }
 
     else
     {
-      if (v8 >= v6)
+      if (v10 >= v8)
       {
-        v15 = v6;
+        v17 = v8;
       }
 
       else
       {
-        v15 = v8;
+        v17 = v10;
       }
 
-      *(this + 2) = v15;
-      *(this + 4) = v15 - 32;
-      if (v15 - 32 < 0)
+      *(this + 2) = v17;
+      *(this + 4) = v17 - 32;
+      if (v17 - 32 < 0)
       {
-        v8 = 0;
+        v10 = 0;
         *(this + 4) = 0;
       }
 
-      else if (v15 == 32)
+      else if (v17 == 32)
       {
-        v8 = 0;
-        LODWORD(v15) = 32;
+        v10 = 0;
+        LODWORD(v17) = 32;
       }
 
       else
       {
-        v8 = TCharStreamUniChar::PinUTextIndex(v5, v15 - 32, v6, 0);
-        *(this + 4) = v8;
-        v15 = *(this + 2);
+        v10 = TCharStreamUniChar::PinUTextIndex(v7, v17 - 32, v8, 0);
+        *(this + 4) = v10;
+        v17 = *(this + 2);
       }
 
-      v16 = v15 - v8;
-      v17 = v16;
-      v18 = v16;
+      v18 = v17 - v10;
+      v19 = v18;
+      v20 = v18;
     }
 
-    *(this + 10) = v16;
-    *(this + 11) = v17;
-    (*(*v5 + 24))(v5, v8, v18, *(this + 6));
+    *(this + 10) = v18;
+    *(this + 11) = v19;
+    (*(*v7 + 24))(v7, v10, v20, *(this + 6), a5);
     *(this + 7) = *(this + 11);
     return 1;
   }
@@ -2388,7 +2389,7 @@ LABEL_20:
   return result;
 }
 
-uint64_t TCharStreamUniChar::UTextExtract(TCharStreamUniChar *this, uint64_t a2, int64_t a3, uint64_t a4, unsigned __int16 *a5, int *a6, UErrorCode *a7)
+uint64_t TCharStreamUniChar::UTextExtract(TCharStreamUniChar *this, uint64_t a2, uint64_t a3, uint64_t a4, unsigned __int16 *a5, int *a6, UErrorCode *a7)
 {
   if (*a6 > 0)
   {
@@ -2457,9 +2458,9 @@ LABEL_7:
   return v7;
 }
 
-unint64_t TCharStreamUniChar::PinUTextIndex(TCharStreamUniChar *this, unint64_t a2, unint64_t a3, int a4)
+uint64_t TCharStreamUniChar::PinUTextIndex(TCharStreamUniChar *this, uint64_t a2, uint64_t a3, int a4)
 {
-  if ((a2 & 0x8000000000000000) != 0)
+  if (a2 < 0)
   {
     return 0;
   }
@@ -2777,7 +2778,7 @@ LABEL_13:
         v35 = v20.f64[1] + _D5;
       }
 
-      TDecorationRun::DrawLine<TRun const*>(v46, v12, a3, &a3[20], *&v62[0], ((*(&v62[0] + 1) - *&v62[0]) >> 3), tx, ty, _D2, v38, _D4, v35);
+      TDecorationRun::DrawLine<TRun const*>(v46, v12, a3, a3 + 20, *&v62[0], ((*(&v62[0] + 1) - *&v62[0]) >> 3), tx, ty, _D2, v38, _D4, v35);
       _D2 = v50;
       v25 = v51 + width[1];
       _D4 = v26 + v50;
@@ -2810,7 +2811,7 @@ LABEL_13:
         _D4 = v20.f64[0] + v51 * v61.c + v61.a * _D4;
         v25 = v20.f64[1] + _D5;
 LABEL_12:
-        TDecorationRun::DrawLine<TRun const*>(v46, v12, a3, &a3[20], *&v62[0], ((*(&v62[0] + 1) - *&v62[0]) >> 3), tx, ty, _D2, v33, _D4, v25);
+        TDecorationRun::DrawLine<TRun const*>(v46, v12, a3, a3 + 20, *&v62[0], ((*(&v62[0] + 1) - *&v62[0]) >> 3), tx, ty, _D2, v33, _D4, v25);
         std::vector<double,TInlineBufferAllocator<double,6ul>>::__destroy_vector::operator()[abi:fn200100](v62);
         CGContextRestoreGState(v12);
         goto LABEL_13;
@@ -3162,12 +3163,12 @@ LABEL_42:
   return 1;
 }
 
-void *std::vector<double,TInlineBufferAllocator<double,6ul>>::vector[abi:fn200100](void *a1, uint64_t *a2, unint64_t a3)
+uint64_t *std::vector<double,TInlineBufferAllocator<double,6ul>>::vector[abi:fn200100](uint64_t *a1, uint64_t *a2, unint64_t a3)
 {
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  a1[9] = a1 + 3;
+  a1[9] = (a1 + 3);
   if (a3)
   {
     std::vector<double,TInlineBufferAllocator<double,6ul>>::__vallocate[abi:fn200100](a1, a3);
@@ -3187,7 +3188,7 @@ void *std::vector<double,TInlineBufferAllocator<double,6ul>>::vector[abi:fn20010
   return a1;
 }
 
-uint64_t std::vector<double,TInlineBufferAllocator<double,6ul>>::__vallocate[abi:fn200100](void *a1, unint64_t a2)
+uint64_t std::vector<double,TInlineBufferAllocator<double,6ul>>::__vallocate[abi:fn200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 >> 61)
   {
@@ -3209,7 +3210,7 @@ uint64_t std::vector<double,TInlineBufferAllocator<double,6ul>>::__vallocate[abi
   return result;
 }
 
-void *std::vector<double,TInlineBufferAllocator<double,6ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<double const*>,std::__wrap_iter<double const*>>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<double,TInlineBufferAllocator<double,6ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<double const*>,std::__wrap_iter<double const*>>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = __src;
   v7 = result;
@@ -3227,7 +3228,7 @@ void *std::vector<double,TInlineBufferAllocator<double,6ul>>::__assign_with_size
         result = memmove(*result, __src, v19);
       }
 
-      i = &v9[v19];
+      i = (v9 + v19);
     }
 
     else
@@ -3238,9 +3239,9 @@ void *std::vector<double,TInlineBufferAllocator<double,6ul>>::__assign_with_size
         v12 = v7[1];
       }
 
-      v14 = v6 + v13;
+      v14 = &v6[v13];
       v15 = v12;
-      if (v6 + v13 != a3)
+      if (&v6[v13] != a3)
       {
         v15 = v12;
         v16 = v12;
@@ -3248,9 +3249,8 @@ void *std::vector<double,TInlineBufferAllocator<double,6ul>>::__assign_with_size
         {
           v17 = *v14;
           v14 += 8;
-          *v16 = v17;
-          v16 += 8;
-          v15 += 8;
+          *v16++ = v17;
+          ++v15;
         }
 
         while (v14 != a3);
@@ -3307,9 +3307,10 @@ void *std::vector<double,TInlineBufferAllocator<double,6ul>>::__assign_with_size
     }
 
     result = std::vector<double,TInlineBufferAllocator<double,6ul>>::__vallocate[abi:fn200100](v7, v21);
-    for (i = v7[1]; v6 != a3; i += 8)
+    for (i = v7[1]; v6 != a3; ++i)
     {
-      v22 = *v6++;
+      v22 = *v6;
+      v6 += 8;
       *i = v22;
     }
   }
@@ -3384,7 +3385,7 @@ uint64_t ___ZZN14TDecorationRun22EnumerateDecorationRunIN12_GLOBAL__N_111TRunAda
   return result;
 }
 
-void TDecorationRun::DrawLine<TRun const*>(uint64_t a1, CGContextRef c, uint64_t a3, uint64_t a4, const CGFloat *a5, const double *a6, double a7, double a8, double a9, double a10, double a11, double a12)
+void TDecorationRun::DrawLine<TRun const*>(uint64_t a1, CGContextRef c, __n128 *a3, __n128 *a4, const CGFloat *a5, const double *a6, double a7, double a8, double a9, double a10, double a11, double a12)
 {
   v14 = a12;
   v42[6] = *MEMORY[0x1E69E9840];
@@ -3524,11 +3525,11 @@ __n128 std::__function::__func<TDecorator::NextDecorationRun(double,TLine const&
   return result;
 }
 
-void LanguagesWithLangSysTag(unsigned int a1@<W0>, CFArrayRef *a2@<X8>)
+void LanguagesWithLangSysTag(CFArrayRef *__return_ptr a1@<X8>, unsigned int a2@<W0>)
 {
   v4 = -8;
   v5 = 0xFFFFFFFFFFFFE730;
-  while (*&kLanguageToLangSysMappings[v5 + 6356] != a1)
+  while (*&kLanguageToLangSysMappings[v5 + 6356] != a2)
   {
     v4 -= 8;
     v5 += 8;
@@ -3555,7 +3556,7 @@ void LanguagesWithLangSysTag(unsigned int a1@<W0>, CFArrayRef *a2@<X8>)
       v9 = -v4;
       do
       {
-        if (*&kLanguageToLangSysMappings[v9 + 4] == a1)
+        if (*&kLanguageToLangSysMappings[v9 + 4] == a2)
         {
           v10 = *&kLanguageToLangSysMappings[v9];
           cStr = HIBYTE(v10);
@@ -3572,32 +3573,32 @@ void LanguagesWithLangSysTag(unsigned int a1@<W0>, CFArrayRef *a2@<X8>)
       while (v9 != 6352);
     }
 
-    *a2 = atomic_exchange(&values, 0);
+    *a1 = atomic_exchange(&values, 0);
     v12 = values;
     goto LABEL_14;
   }
 
 LABEL_12:
-  if (a1 == 32)
+  if (a2 == 32)
   {
-    cStr = __tolower(HIBYTE(a1));
-    v16 = __tolower(BYTE2(a1));
-    v17 = __tolower(BYTE1(a1));
+    cStr = __tolower(HIBYTE(a2));
+    v16 = __tolower(BYTE2(a2));
+    v17 = __tolower(BYTE1(a2));
     v18 = 0;
     v13 = *MEMORY[0x1E695E480];
     v14 = CFStringCreateWithCString(*MEMORY[0x1E695E480], &cStr, 0x600u);
     values = v14;
-    *a2 = CFArrayCreate(v13, &values, 1, MEMORY[0x1E695E9C0]);
+    *a1 = CFArrayCreate(v13, &values, 1, MEMORY[0x1E695E9C0]);
     v12 = v14;
 LABEL_14:
 
     return;
   }
 
-  *a2 = 0;
+  *a1 = 0;
 }
 
-unint64_t LangSysTagFromPreferredLanguagesForScript(int a1)
+unint64_t LangSysTagFromPreferredLanguagesForScript(unsigned int a1)
 {
   v18 = a1;
   {
@@ -3675,9 +3676,8 @@ LABEL_14:
       v6 = 0;
     }
 
-    v16[0] = v18;
-    v16[1] = v6;
-    std::__hash_table<std::__hash_value_type<UScriptCode,unsigned int>,std::__unordered_map_hasher<UScriptCode,std::__hash_value_type<UScriptCode,unsigned int>,std::hash<UScriptCode>,std::equal_to<UScriptCode>,true>,std::__unordered_map_equal<UScriptCode,std::__hash_value_type<UScriptCode,unsigned int>,std::equal_to<UScriptCode>,std::hash<UScriptCode>,true>,std::allocator<std::__hash_value_type<UScriptCode,unsigned int>>>::__emplace_unique_key_args<UScriptCode,std::pair<UScriptCode const,unsigned int>>(&LangSysTagFromPreferredLanguagesForScript(UScriptCode)::sMap, v16);
+    v16 = __PAIR64__(v6, v18);
+    std::__hash_table<std::__hash_value_type<UScriptCode,unsigned int>,std::__unordered_map_hasher<UScriptCode,std::__hash_value_type<UScriptCode,unsigned int>,std::hash<UScriptCode>,std::equal_to<UScriptCode>,true>,std::__unordered_map_equal<UScriptCode,std::__hash_value_type<UScriptCode,unsigned int>,std::equal_to<UScriptCode>,std::hash<UScriptCode>,true>,std::allocator<std::__hash_value_type<UScriptCode,unsigned int>>>::__emplace_unique_key_args<UScriptCode,std::pair<UScriptCode const,unsigned int>>(&LangSysTagFromPreferredLanguagesForScript(UScriptCode)::sMap, &v16, &v16);
     LangSysTagFromPreferredLanguagesForScript(UScriptCode)::sLocaleChangedCount = v8;
     os_unfair_lock_unlock(&LangSysTagFromPreferredLanguagesForScript(UScriptCode)::sLock);
   }
@@ -3687,7 +3687,7 @@ LABEL_14:
 
 uint64_t ScriptCodeForScriptTag(unsigned int a1)
 {
-  v10 = a1;
+  v12 = a1;
   {
     ScriptCodeForScriptTag::sMap = 0u;
     unk_1EA86BDA0 = 0u;
@@ -3695,7 +3695,7 @@ uint64_t ScriptCodeForScriptTag(unsigned int a1)
   }
 
   os_unfair_lock_lock_with_options();
-  v1 = std::__hash_table<std::__hash_value_type<unsigned int,OTL::Lookup>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,OTL::Lookup>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,OTL::Lookup>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,OTL::Lookup>>>::find<unsigned int>(&ScriptCodeForScriptTag::sMap, &v10);
+  v1 = std::__hash_table<std::__hash_value_type<unsigned int,OTL::Lookup>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,OTL::Lookup>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,OTL::Lookup>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,OTL::Lookup>>>::find<unsigned int>(&ScriptCodeForScriptTag::sMap, &v12);
   if (v1)
   {
     v2 = *(v1 + 5);
@@ -3703,39 +3703,39 @@ uint64_t ScriptCodeForScriptTag(unsigned int a1)
 
   else
   {
-    v3 = v10;
-    if (v10 == 1145457748)
+    v3 = v12;
+    if (v12 == 1145457748)
     {
-      LODWORD(v2) = -1;
+      LODWORD(v4) = -1;
     }
 
     else
     {
-      LODWORD(v2) = 2;
-      while ((v2 & 0x7FFFFFFD) == 0x14 || ScriptTagForScriptCode(v2) != v3)
+      v4 = 2;
+      while ((v4 & 0x7FFFFFFD) == 0x14 || ScriptTagForScriptCode(v4) != v3)
       {
-        LODWORD(v2) = v2 + 1;
-        if (v2 == 208)
+        v4 = (v4 + 1);
+        if (v4 == 208)
         {
-          v4 = 0;
-          v5 = 209;
+          v5 = 0;
+          v6 = 209;
           do
           {
-            LODWORD(v2) = v5;
-            v6 = ScriptTagForScriptCode(v5);
-            if (v4)
+            LODWORD(v4) = v6;
+            v7 = ScriptTagForScriptCode(v6);
+            if (v5)
             {
               break;
             }
 
-            v5 = 210;
-            v4 = 1;
+            v6 = 210;
+            v5 = 1;
           }
 
-          while (v6 != v3);
-          if (v6 != v3)
+          while (v7 != v3);
+          if (v7 != v3)
           {
-            LODWORD(v2) = -1;
+            LODWORD(v4) = -1;
           }
 
           break;
@@ -3743,11 +3743,12 @@ uint64_t ScriptCodeForScriptTag(unsigned int a1)
       }
     }
 
-    v7 = std::__hash_table<std::__hash_value_type<unsigned int,UScriptCode>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,UScriptCode>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,UScriptCode>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,UScriptCode>>>::__emplace_unique_key_args<unsigned int,unsigned int const&,UScriptCode&>(&ScriptCodeForScriptTag::sMap, &v10);
-    v2 = v2;
-    if ((v8 & 1) == 0)
+    v11 = v4;
+    v8 = std::__hash_table<std::__hash_value_type<unsigned int,UScriptCode>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,UScriptCode>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,UScriptCode>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,UScriptCode>>>::__emplace_unique_key_args<unsigned int,unsigned int const&,UScriptCode&>(&ScriptCodeForScriptTag::sMap, &v12, &v12, &v11);
+    v2 = v11;
+    if ((v9 & 1) == 0)
     {
-      *(v7 + 5) = v2;
+      *(v8 + 5) = v11;
     }
   }
 
@@ -3831,20 +3832,20 @@ uint64_t NameIDForCharacterVariant(TBaseFont *a1, int a2, uint64_t a3, uint64_t 
   return v28 | v29 | v30;
 }
 
-void std::vector<int,TInlineBufferAllocator<int,30ul>>::resize(void *a1, unint64_t a2)
+void std::vector<int,TInlineBufferAllocator<int,30ul>>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 2;
+  v2 = (result[1] - *result) >> 2;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 4 * a2;
+      result[1] = *result + 4 * a2;
     }
   }
 
   else
   {
-    std::vector<int,TInlineBufferAllocator<int,30ul>>::__append(a1, a2 - v2);
+    std::vector<int,TInlineBufferAllocator<int,30ul>>::__append(result, a2 - v2);
   }
 }
 
@@ -3872,7 +3873,7 @@ uint64_t GetCharacterVariantOrStylisticSet(__int16 a1)
   return v1 | (v2 << 8);
 }
 
-void CopyStaticOTFeatureName(unsigned int *a1@<X1>, int a2@<W0>, void *a3@<X8>)
+void CopyStaticOTFeatureName(unsigned int *a1@<X1>, int a2@<W0>, uint64_t *a3@<X8>)
 {
   if ((a2 & 0x80000000) == 0)
   {
@@ -3918,7 +3919,7 @@ LABEL_2:
     }
 
     CTCopyLocalizedString(*(v11 + 1), @"OpenType", &v15);
-    CreateLocalizedStringWithFormat(atomic_load_explicit(&v15, memory_order_acquire), a3, v13);
+    CreateLocalizedStringWithFormat(a3, atomic_load_explicit(&v15, memory_order_acquire), v13);
   }
 }
 
@@ -3982,9 +3983,9 @@ LABEL_6:
     do
     {
       v13 = v12 >> 1;
-      v14 = &v11[4 * (v12 >> 1)];
+      v14 = &v11[16 * (v12 >> 1)];
       v16 = *v14;
-      v15 = v14 + 4;
+      v15 = (v14 + 4);
       v12 += ~(v12 >> 1);
       if (v16 < a1)
       {
@@ -4003,11 +4004,11 @@ LABEL_6:
   return result;
 }
 
-void CopyLocalizedOTFeatureName(const __CFString *a1@<X0>, void *a2@<X8>)
+void CopyLocalizedOTFeatureName(uint64_t *__return_ptr a1@<X8>, const __CFString *a2@<X0>)
 {
-  if (a1)
+  if (a2)
   {
-    v3 = FourCharCodeFromString(a1);
+    v3 = FourCharCodeFromString(a2);
     v4 = &off_1E6E3E338;
     v5 = 128;
     while (*(v4 - 2) != v3)
@@ -4022,13 +4023,13 @@ void CopyLocalizedOTFeatureName(const __CFString *a1@<X0>, void *a2@<X8>)
 
     v6 = *v4;
 
-    CTCopyLocalizedString(v6, @"OpenType", a2);
+    CTCopyLocalizedString(v6, @"OpenType", a1);
   }
 
   else
   {
 LABEL_9:
-    *a2 = 0;
+    *a1 = 0;
   }
 }
 
@@ -4255,9 +4256,9 @@ LABEL_6:
     do
     {
       v13 = v12 >> 1;
-      v14 = &v11[2 * (v12 >> 1)];
+      v14 = &v11[8 * (v12 >> 1)];
       v16 = *v14;
-      v15 = v14 + 2;
+      v15 = (v14 + 2);
       v12 += ~(v12 >> 1);
       if (v16 > a1)
       {
@@ -4849,11 +4850,84 @@ uint64_t *std::__hash_table<std::__hash_value_type<UScriptCode,unsigned int>,std
   return result;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<UScriptCode,unsigned int>,std::__unordered_map_hasher<UScriptCode,std::__hash_value_type<UScriptCode,unsigned int>,std::hash<UScriptCode>,std::equal_to<UScriptCode>,true>,std::__unordered_map_equal<UScriptCode,std::__hash_value_type<UScriptCode,unsigned int>,std::equal_to<UScriptCode>,std::hash<UScriptCode>,true>,std::allocator<std::__hash_value_type<UScriptCode,unsigned int>>>::__emplace_unique_key_args<UScriptCode,std::pair<UScriptCode const,unsigned int>>(void *a1, int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<UScriptCode,unsigned int>,std::__unordered_map_hasher<UScriptCode,std::__hash_value_type<UScriptCode,unsigned int>,std::hash<UScriptCode>,std::equal_to<UScriptCode>,true>,std::__unordered_map_equal<UScriptCode,std::__hash_value_type<UScriptCode,unsigned int>,std::equal_to<UScriptCode>,std::hash<UScriptCode>,true>,std::allocator<std::__hash_value_type<UScriptCode,unsigned int>>>::__emplace_unique_key_args<UScriptCode,std::pair<UScriptCode const,unsigned int>>(void *a1, int *a2, void *a3)
 {
-  v2 = *a2;
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
+  {
+    goto LABEL_18;
+  }
+
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
+  {
+    v6 = *a2;
+    if (*&v4 <= v3)
+    {
+      v6 = v3 % *&v4;
+    }
+  }
+
+  else
+  {
+    v6 = (*&v4 - 1) & v3;
+  }
+
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
+  {
+LABEL_18:
+    operator new();
+  }
+
+  while (1)
+  {
+    v9 = v8[1];
+    if (v9 == v3)
+    {
+      break;
+    }
+
+    if (v5.u32[0] > 1uLL)
+    {
+      if (v9 >= *&v4)
+      {
+        v9 %= *&v4;
+      }
+    }
+
+    else
+    {
+      v9 &= *&v4 - 1;
+    }
+
+    if (v9 != v6)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v8 = *v8;
+    if (!v8)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  if (*(v8 + 4) != v3)
+  {
+    goto LABEL_17;
+  }
+
+  return v8;
+}
+
+void std::__hash_table<std::__hash_value_type<UScriptCode,unsigned int>,std::__unordered_map_hasher<UScriptCode,std::__hash_value_type<UScriptCode,unsigned int>,std::hash<UScriptCode>,std::equal_to<UScriptCode>,true>,std::__unordered_map_equal<UScriptCode,std::__hash_value_type<UScriptCode,unsigned int>,std::equal_to<UScriptCode>,std::hash<UScriptCode>,true>,std::allocator<std::__hash_value_type<UScriptCode,unsigned int>>>::__emplace_unique_key_args<UScriptCode,std::pair<UScriptCode,unsigned int>>(void *a1, int a2, void *a3)
+{
   v3 = a1[1];
-  if (!*&v3)
+  if (!v3)
   {
     goto LABEL_18;
   }
@@ -4862,16 +4936,16 @@ uint64_t *std::__hash_table<std::__hash_value_type<UScriptCode,unsigned int>,std
   v4.i16[0] = vaddlv_u8(v4);
   if (v4.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v5 = v2 % *&v3;
+      v5 = a2 % v3;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v5 = (v3 - 1) & a2;
   }
 
   v6 = *(*a1 + 8 * v5);
@@ -4884,22 +4958,22 @@ LABEL_18:
   while (1)
   {
     v8 = v7[1];
-    if (v8 == v2)
+    if (v8 == a2)
     {
       break;
     }
 
     if (v4.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v8 >= v3)
       {
-        v8 %= *&v3;
+        v8 %= v3;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v8 &= v3 - 1;
     }
 
     if (v8 != v5)
@@ -4915,40 +4989,39 @@ LABEL_17:
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v7 + 4) != a2)
   {
     goto LABEL_17;
   }
-
-  return v7;
 }
 
-void *std::__hash_table<std::__hash_value_type<UScriptCode,unsigned int>,std::__unordered_map_hasher<UScriptCode,std::__hash_value_type<UScriptCode,unsigned int>,std::hash<UScriptCode>,std::equal_to<UScriptCode>,true>,std::__unordered_map_equal<UScriptCode,std::__hash_value_type<UScriptCode,unsigned int>,std::equal_to<UScriptCode>,std::hash<UScriptCode>,true>,std::allocator<std::__hash_value_type<UScriptCode,unsigned int>>>::__emplace_unique_key_args<UScriptCode,std::pair<UScriptCode,unsigned int>>(void *result, int a2)
+uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,UScriptCode>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,UScriptCode>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,UScriptCode>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,UScriptCode>>>::__emplace_unique_key_args<unsigned int,unsigned int const&,UScriptCode&>(float *a1, unsigned int *a2, _DWORD *a3, int *a4)
 {
-  v2 = result[1];
-  if (!v2)
+  v4 = *a2;
+  v5 = *(a1 + 2);
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v4 = a2 % v2;
+      v7 = v4 % v5.i32[0];
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v5 = *(*result + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -4956,118 +5029,44 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v10 >= *&v5)
       {
-        v7 %= v2;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v7 != v4)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 4) != a2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return result;
-}
-
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,UScriptCode>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,UScriptCode>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,UScriptCode>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,UScriptCode>>>::__emplace_unique_key_args<unsigned int,unsigned int const&,UScriptCode&>(void *a1, unsigned int *a2)
-{
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
-  {
-    goto LABEL_18;
-  }
-
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
-  {
-    v5 = *a2;
-    if (*&v3 <= v2)
-    {
-      v5 = v2 % v3.i32[0];
-    }
-  }
-
-  else
-  {
-    v5 = (v3.i32[0] - 1) & v2;
-  }
-
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
-  {
-LABEL_18:
-    operator new();
-  }
-
-  while (1)
-  {
-    v8 = v7[1];
-    if (v8 == v2)
-    {
-      break;
-    }
-
-    if (v4.u32[0] > 1uLL)
-    {
-      if (v8 >= *&v3)
-      {
-        v8 %= *&v3;
-      }
-    }
-
-    else
-    {
-      v8 &= *&v3 - 1;
-    }
-
-    if (v8 != v5)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v7 = *v7;
-    if (!v7)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (*(v7 + 4) != v2)
-  {
-    goto LABEL_17;
-  }
-
-  return v7;
+  return v9;
 }
 
 char *FeatureParamsForTag<OTL::CharacterVariantFeatureParams>(const __CFData *a1, int a2)
@@ -5221,19 +5220,19 @@ uint64_t std::__function::__func<NumberOfGlyphVariants(TBaseFont const&,unsigned
   return 1;
 }
 
-char *STL::insert_sorted<TInlineVector<unsigned short,30ul>>(void *a1, char *a2)
+char *STL::insert_sorted<TInlineVector<unsigned short,30ul>>(unsigned __int16 **a1, char *a2)
 {
   v4 = *a1;
   v3 = a1[1];
   if (v3 != *a1)
   {
-    v5 = &v3[-*a1] >> 1;
+    v5 = (v3 - *a1) >> 1;
     do
     {
       v6 = v5 >> 1;
-      v7 = &v4[2 * (v5 >> 1)];
+      v7 = &v4[v5 >> 1];
       v9 = *v7;
-      v8 = (v7 + 2);
+      v8 = v7 + 1;
       v5 += ~(v5 >> 1);
       if (v9 < *a2)
       {
@@ -5276,7 +5275,7 @@ char *std::vector<unsigned short,TInlineBufferAllocator<unsigned short,30ul>>::i
     else
     {
       *v6 = *(v6 - 1);
-      v9 = v6 + 2;
+      v9 = (v6 + 2);
     }
 
     a1[1] = v9;
@@ -5361,7 +5360,7 @@ LABEL_27:
   return v17;
 }
 
-uint64_t *std::__split_buffer<unsigned short,TInlineBufferAllocator<unsigned short,30ul> &>::emplace_back<unsigned short const&>(uint64_t *result, _WORD *a2)
+unint64_t *std::__split_buffer<unsigned short,TInlineBufferAllocator<unsigned short,30ul> &>::emplace_back<unsigned short const&>(unint64_t *result, _WORD *a2)
 {
   v3 = result;
   v4 = result[2];
@@ -5834,8 +5833,8 @@ LABEL_18:
         if (v66.length >= 1)
         {
           v36 = v33;
-          v37 = v34[1];
-          v38 = v34[2];
+          v37 = *(v34 + 8);
+          v38 = *(v34 + 16);
           TLine::ClearLine(a4);
           if (v38 > length)
           {
@@ -5871,10 +5870,10 @@ LABEL_18:
       }
 
       v27 += v66.length;
-      v51 = v50[2];
+      v51 = *(v50 + 16);
       if (v51 > v66.length)
       {
-        v61 = v50[1];
+        v61 = *(v50 + 8);
         TTruncator::AppendTruncatedRun(this, a4, v49, v61 + v66.length, v51 - v66.length, 0);
         v39 = v61 + v51;
         TLine::SyncWithRuns(a4);
@@ -6048,9 +6047,9 @@ CTGlyphInfoRef CTGlyphInfoCreateWithGlyphName(CFStringRef glyphName, CTFontRef f
   return v3;
 }
 
-void *TCFBase_NEW<CTGlyphInfo,__CFString const*&,__CTFont const*&,__CFString const*&>@<X0>(void *a1@<X8>)
+void *TCFBase_NEW<CTGlyphInfo,__CFString const*&,__CTFont const*&,__CFString const*&>@<X0>(void *a4@<X8>)
 {
-  result = TCFBase<TNativeGlyphInfo>::Allocate();
+  result = TCFBase<TNativeGlyphInfo>::Allocate(56);
   if (result)
   {
     result[2] = 0;
@@ -6060,7 +6059,7 @@ void *TCFBase_NEW<CTGlyphInfo,__CFString const*&,__CTFont const*&,__CFString con
     operator new();
   }
 
-  *a1 = 0;
+  *a4 = 0;
   return result;
 }
 
@@ -6088,19 +6087,19 @@ CTGlyphInfoRef CTGlyphInfoCreateWithGlyph(CGGlyph glyph, CTFontRef font, CFStrin
   return v3;
 }
 
-void *TCFBase_NEW<CTGlyphInfo,unsigned short &,__CTFont const*&,__CFString const*&>@<X0>(unsigned __int16 *a1@<X0>, const __CTFont **a2@<X1>, const __CFString **a3@<X2>, void *a4@<X8>)
+TNativeGlyphInfo *TCFBase_NEW<CTGlyphInfo,unsigned short &,__CTFont const*&,__CFString const*&>@<X0>(unsigned __int16 *a1@<X0>, const __CTFont **a2@<X1>, __CFString **a3@<X2>, TNativeGlyphInfo **a4@<X8>)
 {
-  result = TCFBase<TNativeGlyphInfo>::Allocate();
+  result = TCFBase<TNativeGlyphInfo>::Allocate(56);
   if (result)
   {
     v9 = *a1;
     v10 = *a2;
     v11 = *a3;
-    result[2] = 0;
-    result[3] = 0;
-    result[4] = 0;
-    result[5] = result + 6;
-    TNativeGlyphInfo::TNativeGlyphInfo((result + 6), v9, v10, v11);
+    *(result + 2) = 0;
+    *(result + 3) = 0;
+    *(result + 4) = 0;
+    *(result + 5) = result + 48;
+    TNativeGlyphInfo::TNativeGlyphInfo((result + 48), v9, v10, v11);
   }
 
   *a4 = 0;
@@ -6123,9 +6122,9 @@ CTGlyphInfoRef CTGlyphInfoCreateWithCharacterIdentifier(CGFontIndex cid, CTChara
   return v3;
 }
 
-void *TCFBase_NEW<CTGlyphInfo,unsigned short &,CTCharacterCollection &,__CFString const*&>@<X0>(void *a1@<X8>)
+void *TCFBase_NEW<CTGlyphInfo,unsigned short &,CTCharacterCollection &,__CFString const*&>@<X0>(void *a4@<X8>)
 {
-  result = TCFBase<TNativeGlyphInfo>::Allocate();
+  result = TCFBase<TNativeGlyphInfo>::Allocate(56);
   if (result)
   {
     result[2] = 0;
@@ -6135,7 +6134,7 @@ void *TCFBase_NEW<CTGlyphInfo,unsigned short &,CTCharacterCollection &,__CFStrin
     operator new();
   }
 
-  *a1 = 0;
+  *a4 = 0;
   return result;
 }
 
@@ -6328,7 +6327,7 @@ void *TCFBase<TNativeGlyphInfo>::ClassHash(void *result)
   return result;
 }
 
-uint64_t TCFBase<TNativeGlyphInfo>::ClassDebug(uint64_t a1)
+CFStringRef TCFBase<TNativeGlyphInfo>::ClassDebug(uint64_t a1)
 {
   result = (*(***(a1 + 40) + 72))(**(a1 + 40));
   if (result)
@@ -6342,7 +6341,7 @@ uint64_t TCFBase<TNativeGlyphInfo>::ClassDebug(uint64_t a1)
   return result;
 }
 
-uint64_t TCFBase<TNativeGlyphInfo>::Allocate()
+uint64_t TCFBase<TNativeGlyphInfo>::Allocate(uint64_t a1)
 {
   if (TCFBase<TNativeGlyphInfo>::GetTypeID(void)::once != -1)
   {
@@ -6789,11 +6788,11 @@ uint64_t TGlyphInfo::GetGlyphForFont(TGlyphInfo *this, const __CTFont *a2, const
   return (*(*v5 + 56))(v5, a2, a3) & 0xFFFFFF;
 }
 
-void CreateSetWithArray(const __CFArray *a1@<X0>, void *a2@<X8>)
+void CreateSetWithArray(uint64_t *__return_ptr a1@<X8>, const __CFArray *a2@<X0>)
 {
-  *a2 = 0xAAAAAAAAAAAAAAAALL;
-  v3 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:a1];
-  *a2 = atomic_exchange(&v3, 0);
+  *a1 = 0xAAAAAAAAAAAAAAAALL;
+  v3 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:a2];
+  *a1 = atomic_exchange(&v3, 0);
 }
 
 void SetValuesToDictionaryFromDictionary(__CFDictionary *context, CFDictionaryRef theDict)
@@ -6804,18 +6803,18 @@ void SetValuesToDictionaryFromDictionary(__CFDictionary *context, CFDictionaryRe
   }
 }
 
-void ArrayComponentsJoinedByString(const __CFArray *a1@<X0>, const __CFString *a2@<X1>, atomic_ullong *a3@<X8>)
+void ArrayComponentsJoinedByString(uint64_t *__return_ptr a1@<X8>, const __CFArray *a2@<X0>, const __CFString *a3@<X1>)
 {
-  *a3 = 0;
+  *a1 = 0;
   v6 = objc_autoreleasePoolPush();
-  v7 = [(__CFArray *)a1 componentsJoinedByString:a2];
+  v7 = [(__CFArray *)a2 componentsJoinedByString:a3];
 
   objc_autoreleasePoolPop(v6);
 }
 
-atomic_ullong *TCFUniqueRemappingArray::TCFUniqueRemappingArray(atomic_ullong *a1, void *a2, uint64_t a3)
+CFMutableArrayRef *TCFUniqueRemappingArray::TCFUniqueRemappingArray(CFMutableArrayRef *a1, void *a2, uint64_t a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v6 = *MEMORY[0x1E695E480];
   *a1 = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
   std::__function::__value_func<objc_object * ()(objc_object *)>::__value_func[abi:fn200100]((a1 + 1), a3);
@@ -6823,37 +6822,38 @@ atomic_ullong *TCFUniqueRemappingArray::TCFUniqueRemappingArray(atomic_ullong *a
   {
     v7 = objc_autoreleasePoolPush();
     Mutable = CFSetCreateMutable(v6, 0, MEMORY[0x1E695E9F8]);
-    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v9 = [a2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v19 = 0u;
+    v9 = [a2 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v16;
+      v11 = *v17;
       do
       {
         v12 = 0;
         do
         {
-          if (*v16 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(a2);
           }
 
-          v13 = std::function<objc_object * ()(objc_object *)>::operator()((a1 + 1), *(*(&v15 + 1) + 8 * v12));
+          std::function<objc_object * ()(objc_object *)>::operator()((a1 + 1), *(*(&v16 + 1) + 8 * v12));
+          v14 = v13;
           if (!CFSetContainsValue(Mutable, v13))
           {
-            CFArrayAppendValue(atomic_load_explicit(a1, memory_order_acquire), v13);
-            CFSetAddValue(Mutable, v13);
+            CFArrayAppendValue(atomic_load_explicit(a1, memory_order_acquire), v14);
+            CFSetAddValue(Mutable, v14);
           }
 
           ++v12;
         }
 
         while (v10 != v12);
-        v10 = [a2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v10 = [a2 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v10);
@@ -6865,17 +6865,20 @@ atomic_ullong *TCFUniqueRemappingArray::TCFUniqueRemappingArray(atomic_ullong *a
   return a1;
 }
 
-uint64_t std::function<objc_object * ()(objc_object *)>::operator()(uint64_t a1, uint64_t a2)
+void std::function<objc_object * ()(objc_object *)>::operator()(uint64_t a1, uint64_t a2)
 {
-  v5 = a2;
+  v7 = a2;
   v2 = *(a1 + 24);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    (*(*v2 + 48))(v2, &v7);
   }
 
-  v4 = std::__throw_bad_function_call[abi:fn200100]();
-  return EnumerateCharactersInRange(v4);
+  else
+  {
+    v3 = std::__throw_bad_function_call[abi:fn200100]();
+    EnumerateCharactersInRange(v3, v4, v5, v6);
+  }
 }
 
 void EnumerateCharactersInRange(const __CFString *a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -7250,7 +7253,7 @@ LABEL_12:
       if (!v16)
       {
         v30 = std::__throw_bad_function_call[abi:fn200100]();
-        CreateLocalizedStringWithFormat(v30, v31);
+        CreateLocalizedStringWithFormat(v31, v30);
         return;
       }
 
@@ -7310,22 +7313,22 @@ LABEL_55:
   *a3 = v29;
 }
 
-void CreateLocalizedStringWithFormat(const __CFString *a1@<X0>, void *a2@<X8>, ...)
+void CreateLocalizedStringWithFormat(uint64_t *__return_ptr a1@<X8>, const __CFString *a2@<X0>, ...)
 {
   va_start(va, a2);
   va_copy(v6, va);
-  *a2 = 0xAAAAAAAAAAAAAAAALL;
+  *a1 = 0xAAAAAAAAAAAAAAAALL;
   v4 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v5 = [v4 initWithFormat:a1 locale:objc_msgSend(MEMORY[0x1E695DF58] arguments:"currentLocale"), v6];
-  *a2 = atomic_exchange(&v5, 0);
+  v5 = [v4 initWithFormat:a2 locale:objc_msgSend(MEMORY[0x1E695DF58] arguments:"currentLocale"), v6];
+  *a1 = atomic_exchange(&v5, 0);
 }
 
-void CreateNumberFromString(const __CFString *a1@<X0>, CFNumberRef *a2@<X8>)
+void CreateNumberFromString(CFNumberRef *__return_ptr a1@<X8>, const __CFString *a2@<X0>)
 {
   v21 = *MEMORY[0x1E69E9840];
-  if (!a1)
+  if (!a2)
   {
-    *a2 = 0;
+    *a1 = 0;
     return;
   }
 
@@ -7337,10 +7340,10 @@ void CreateNumberFromString(const __CFString *a1@<X0>, CFNumberRef *a2@<X8>)
   v18 = 0;
   v16 = 0;
   v20 = v19;
-  CStringPtr = CFStringGetCStringPtr(a1, 0x8000100u);
+  CStringPtr = CFStringGetCStringPtr(a2, 0x8000100u);
   if (!CStringPtr)
   {
-    Length = CFStringGetLength(a1);
+    Length = CFStringGetLength(a2);
     MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
     v8 = MaximumSizeForEncoding + 1;
     v9 = v16;
@@ -7358,7 +7361,7 @@ void CreateNumberFromString(const __CFString *a1@<X0>, CFNumberRef *a2@<X8>)
       v9 = v16;
     }
 
-    if (!CFStringGetCString(a1, v9, v8, 0x8000100u))
+    if (!CFStringGetCString(a2, v9, v8, 0x8000100u))
     {
       goto LABEL_14;
     }
@@ -7378,7 +7381,7 @@ void CreateNumberFromString(const __CFString *a1@<X0>, CFNumberRef *a2@<X8>)
     v12 = *MEMORY[0x1E695E480];
     v13 = kCFNumberLongType;
 LABEL_17:
-    *a2 = CFNumberCreate(v12, v13, &valuePtr);
+    *a1 = CFNumberCreate(v12, v13, &valuePtr);
     goto LABEL_18;
   }
 
@@ -7392,7 +7395,7 @@ LABEL_17:
   }
 
 LABEL_14:
-  *a2 = 0;
+  *a1 = 0;
 LABEL_18:
   valuePtr = COERCE_DOUBLE(&v16);
   std::vector<char,TInlineBufferAllocator<char,30ul>>::__destroy_vector::operator()[abi:fn200100](&valuePtr);
@@ -7442,98 +7445,101 @@ void CreateOrderedArray(void *a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, void *a4
 
 BOOL TCFUniqueRemappingArray::AppendUnique(atomic_ullong *this, objc_object *a2)
 {
-  v3 = std::function<objc_object * ()(objc_object *)>::operator()((this + 1), a2);
+  std::function<objc_object * ()(objc_object *)>::operator()((this + 1), a2);
+  v4 = v3;
   explicit = atomic_load_explicit(this, memory_order_acquire);
-  v7.length = CFArrayGetCount(atomic_load_explicit(this, memory_order_acquire));
-  v7.location = 0;
-  v5 = CFArrayContainsValue(explicit, v7, v3);
-  if (!v5)
+  v8.length = CFArrayGetCount(atomic_load_explicit(this, memory_order_acquire));
+  v8.location = 0;
+  v6 = CFArrayContainsValue(explicit, v8, v4);
+  if (!v6)
   {
-    CFArrayAppendValue(atomic_load_explicit(this, memory_order_acquire), v3);
+    CFArrayAppendValue(atomic_load_explicit(this, memory_order_acquire), v4);
   }
 
-  return v5 == 0;
+  return v6 == 0;
 }
 
 void CreateSortedArrayWithOrdering(void *a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
   context = objc_autoreleasePoolPush();
-  v37 = 0xAAAAAAAAAAAAAAAALL;
+  v39 = 0xAAAAAAAAAAAAAAAALL;
   *&v7 = 0xAAAAAAAAAAAAAAAALL;
   *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v36[0] = v7;
-  v36[1] = v7;
-  std::__function::__value_func<objc_object * ()(objc_object *)>::__value_func[abi:fn200100](v35, a3);
-  TCFUniqueRemappingArray::TCFUniqueRemappingArray(v36, a1, v35);
-  std::__function::__value_func<objc_object * ()(objc_object *)>::~__value_func[abi:fn200100](v35);
+  v38[0] = v7;
+  v38[1] = v7;
+  std::__function::__value_func<objc_object * ()(objc_object *)>::__value_func[abi:fn200100](v37, a3);
+  TCFUniqueRemappingArray::TCFUniqueRemappingArray(v38, a1, v37);
+  std::__function::__value_func<objc_object * ()(objc_object *)>::~__value_func[abi:fn200100](v37);
+  v32 = 0u;
+  v33 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v8 = [a2 countByEnumeratingWithState:&v28 objects:v34 count:16];
+  v8 = [a2 countByEnumeratingWithState:&v30 objects:v36 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v29;
+    v10 = *v31;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v29 != v10)
+        if (*v31 != v10)
         {
           objc_enumerationMutation(a2);
         }
 
-        v12 = std::function<objc_object * ()(objc_object *)>::operator()(a3, *(*(&v28 + 1) + 8 * i));
-        v13 = std::function<objc_object * ()(objc_object *)>::operator()(v36 + 8, v12);
-        explicit = atomic_load_explicit(v36, memory_order_acquire);
-        v39.length = CFArrayGetCount(atomic_load_explicit(v36, memory_order_acquire));
-        v39.location = 0;
-        FirstIndexOfValue = CFArrayGetFirstIndexOfValue(explicit, v39, v13);
+        std::function<objc_object * ()(objc_object *)>::operator()(a3, *(*(&v30 + 1) + 8 * i));
+        v13 = v12;
+        std::function<objc_object * ()(objc_object *)>::operator()(v38 + 8, v12);
+        v15 = v14;
+        explicit = atomic_load_explicit(v38, memory_order_acquire);
+        v41.length = CFArrayGetCount(atomic_load_explicit(v38, memory_order_acquire));
+        v41.location = 0;
+        FirstIndexOfValue = CFArrayGetFirstIndexOfValue(explicit, v41, v15);
         if (FirstIndexOfValue != -1)
         {
-          CFArrayRemoveValueAtIndex(atomic_load_explicit(v36, memory_order_acquire), FirstIndexOfValue);
-          CFArrayAppendValue(atomic_load_explicit(&Mutable, memory_order_acquire), v12);
+          CFArrayRemoveValueAtIndex(atomic_load_explicit(v38, memory_order_acquire), FirstIndexOfValue);
+          CFArrayAppendValue(atomic_load_explicit(&Mutable, memory_order_acquire), v13);
         }
       }
 
-      v9 = [a2 countByEnumeratingWithState:&v28 objects:v34 count:{16, context}];
+      v9 = [a2 countByEnumeratingWithState:&v30 objects:v36 count:{16, context}];
     }
 
     while (v9);
   }
 
+  v28 = 0u;
+  v29 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v16 = atomic_load_explicit(v36, memory_order_acquire);
-  v17 = [v16 countByEnumeratingWithState:&v24 objects:v33 count:{16, context}];
-  if (v17)
+  v18 = atomic_load_explicit(v38, memory_order_acquire);
+  v19 = [v18 countByEnumeratingWithState:&v26 objects:v35 count:{16, context}];
+  if (v19)
   {
-    v18 = v17;
-    v19 = *v25;
+    v20 = v19;
+    v21 = *v27;
     do
     {
-      for (j = 0; j != v18; ++j)
+      for (j = 0; j != v20; ++j)
       {
-        if (*v25 != v19)
+        if (*v27 != v21)
         {
-          objc_enumerationMutation(v16);
+          objc_enumerationMutation(v18);
         }
 
-        CFArrayAppendValue(atomic_load_explicit(&Mutable, memory_order_acquire), *(*(&v24 + 1) + 8 * j));
+        CFArrayAppendValue(atomic_load_explicit(&Mutable, memory_order_acquire), *(*(&v26 + 1) + 8 * j));
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v24 objects:v33 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v26 objects:v35 count:16];
     }
 
-    while (v18);
+    while (v20);
   }
 
-  std::__function::__value_func<objc_object * ()(objc_object *)>::~__value_func[abi:fn200100](v36 + 8);
+  std::__function::__value_func<objc_object * ()(objc_object *)>::~__value_func[abi:fn200100](v38 + 8);
 
   objc_autoreleasePoolPop(contexta);
   *a4 = atomic_exchange(&Mutable, 0);
@@ -7549,11 +7555,11 @@ void CopyPreferredAndSystemLanguages(void *a1@<X8>)
   std::__function::__value_func<objc_object * ()(objc_object *)>::~__value_func[abi:fn200100](v3);
 }
 
-void CopyValueForCurrentUser(const __CFDictionary *a1@<X0>, const __CFString **a2@<X1>, atomic_ullong *a3@<X8>)
+void CopyValueForCurrentUser(uint64_t *__return_ptr a1@<X8>, const __CFDictionary *a2@<X0>, const __CFString **a3@<X1>)
 {
-  if (a1)
+  if (a2)
   {
-    v6 = [(__CFDictionary *)a1 allKeys];
+    v6 = [(__CFDictionary *)a2 allKeys];
     v7 = [MEMORY[0x1E695DF58] preferredLanguages];
     if (([v7 containsObject:@"en"] & 1) == 0)
     {
@@ -7561,7 +7567,7 @@ void CopyValueForCurrentUser(const __CFDictionary *a1@<X0>, const __CFString **a
     }
 
     v8 = CFBundleCopyLocalizationsForPreferences(v6, v7);
-    *a3 = 0;
+    *a1 = 0;
     v9 = v8;
     if (v9)
     {
@@ -7572,13 +7578,13 @@ void CopyValueForCurrentUser(const __CFDictionary *a1@<X0>, const __CFString **a
       {
         ValueAtIndex = CFArrayGetValueAtIndex(v8, 0);
         v13 = ValueAtIndex;
-        if (a2)
+        if (a3)
         {
-          *a2 = ValueAtIndex;
+          *a3 = ValueAtIndex;
         }
 
-        Value = CFDictionaryGetValue(a1, v13);
-        TCFRef<__CTFont const*>::Retain(a3, Value);
+        Value = CFDictionaryGetValue(a2, v13);
+        TCFRef<__CTFont const*>::Retain(a1, Value);
       }
     }
 
@@ -7589,7 +7595,7 @@ void CopyValueForCurrentUser(const __CFDictionary *a1@<X0>, const __CFString **a
 
   else
   {
-    *a3 = 0;
+    *a1 = 0;
   }
 }
 
@@ -7678,7 +7684,8 @@ uint64_t ArabicShapingEngine::ApplyScriptShaping(ArabicShapingEngine *this, cons
   v11 = v22;
   while (v10 != v11)
   {
-    v12 = *v10++;
+    v12 = *v10;
+    v10 += 2;
     v9 = v9 & 0xFFFFFFFF00000000 | v12;
     OTL::GlyphLookups::SetLookupInRange<true>(a3, v9, 0, -1);
   }
@@ -7715,7 +7722,8 @@ uint64_t ArabicShapingEngine::ApplyScriptShaping(ArabicShapingEngine *this, cons
     v15 = v22;
     while (v14 != v15)
     {
-      v16 = *v14++;
+      v16 = *v14;
+      v14 += 2;
       v7 = v7 & 0xFFFFFFFF00000000 | v16;
       OTL::GlyphLookups::SetLookupInRange<true>(a3, v7, 0, -1);
     }
@@ -7808,7 +7816,7 @@ uint64_t PointerToEpsilonDestructor(uint64_t result)
   return result;
 }
 
-uint64_t __CTStringIsSuitableForVerticalLayout_block_invoke(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
+void *__CTStringIsSuitableForVerticalLayout_block_invoke(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
 {
   result = [CTStringIsSuitableForVerticalLayout::nonCJKRegex enumerateMatchesInString:MEMORY[0x1E69E9820] options:3221225472 range:__CTStringIsSuitableForVerticalLayout_block_invoke_2 usingBlock:{&unk_1E6E3E3E0, a1[4], a7}];
   if (*a7 == 1)
@@ -7961,7 +7969,7 @@ const __CFString *CTIsExuberatedLanguage(const __CFString *result)
   return result;
 }
 
-const __CFString *CTEnumerateKnownUrduSequencesInString(const __CFString *result, uint64_t a2, uint64_t a3, uint64_t a4)
+const __CFString *CTEnumerateKnownUrduSequencesInString(const __CFString *result, char *a2, uint64_t a3, uint64_t a4)
 {
   if ((a2 & 0x8000000000000000) == 0 && a3 >= 1)
   {
@@ -8064,7 +8072,7 @@ uint64_t _CTEnumerateScriptRanges(uint64_t result)
   return result;
 }
 
-uint64_t CTStringIsSuitableForVerticalLayout::$_0::__invoke(CTStringIsSuitableForVerticalLayout::$_0 *this, void *a2)
+void *CTStringIsSuitableForVerticalLayout::$_0::__invoke(CTStringIsSuitableForVerticalLayout::$_0 *this, void *a2)
 {
   v3 = 0xAAAAAAAAAAAAAAAALL;
   result = [objc_alloc(MEMORY[0x1E696AE70]) initWithPattern:@"[^  [[\\p{Hani}\\p{Hira}\\p{Kana}\\p{Hang}]--\\p{vo=R}]  \\u3099\\u309A  \\p{Block=Katakana}  [[\\p{Block=Halfwidth_and_Fullwidth_Forms}\\p{Punctuation}]--\\p{vo=R}]  \\uFF0D  [\\p{gc=Zs}--\\u1680]]+" options:2 error:&v3];
@@ -8106,7 +8114,7 @@ uint64_t std::__function::__func<_CTEnumerateScriptRanges::$_0,std::allocator<_C
   return result;
 }
 
-uint64_t TBaseFont::CopyMetadata@<X0>(TBaseFont *this@<X0>, int a2@<W1>, void *a3@<X8>)
+uint64_t *TBaseFont::CopyMetadata@<X0>(uint64_t *__return_ptr a1@<X8>, TBaseFont *this@<X0>, int a3@<W1>)
 {
   result = TBaseFont::GetInitializedGraphicsFont(this);
   if (result)
@@ -8114,7 +8122,7 @@ uint64_t TBaseFont::CopyMetadata@<X0>(TBaseFont *this@<X0>, int a2@<W1>, void *a
     result = CGFontGetParserFont();
     if (result)
     {
-      if (a2)
+      if (a3)
       {
         FPFontGetDefaultInstance();
       }
@@ -8123,7 +8131,7 @@ uint64_t TBaseFont::CopyMetadata@<X0>(TBaseFont *this@<X0>, int a2@<W1>, void *a
     }
   }
 
-  *a3 = result;
+  *a1 = result;
   return result;
 }
 
@@ -8222,7 +8230,7 @@ LABEL_18:
   v23 = atomic_load_explicit(&v34, memory_order_acquire);
   v35 = &v33;
   v36[0] = 0;
-  CopyLocalizedFontNameInternal(v23, v21, 0, v22, v36, 0, &v32);
+  CopyLocalizedFontNameInternal(&v32, v23, v21, 0, v22, v36, 0);
 
   v24 = atomic_load_explicit(a5, memory_order_acquire);
   if (!v9 && v24)
@@ -8286,7 +8294,7 @@ LABEL_18:
 LABEL_42:
 }
 
-void TBaseFont::CopyLocalizedNameID(TBaseFont *this@<X0>, CFArrayRef theArray@<X2>, const __CFString **a3@<X3>, unsigned int a4@<W1>, atomic_ullong *a5@<X8>)
+void TBaseFont::CopyLocalizedNameID(TBaseFont *this@<X0>, CFArrayRef theArray@<X2>, const __CFString **a3@<X3>, unsigned int a4@<W1>, uint64_t *a5@<X8>)
 {
   v15[3] = *MEMORY[0x1E69E9840];
   v13 = 0;
@@ -8304,7 +8312,7 @@ void TBaseFont::CopyLocalizedNameID(TBaseFont *this@<X0>, CFArrayRef theArray@<X
   explicit = atomic_load_explicit(&v13, memory_order_acquire);
   v14 = &v12;
   v15[0] = 0;
-  CopyLocalizedFontNameInternal(explicit, v10, 0, a4, v15, 0, a5);
+  CopyLocalizedFontNameInternal(a5, explicit, v10, 0, a4, v15, 0);
 
   if (a3)
   {
@@ -8312,7 +8320,7 @@ void TBaseFont::CopyLocalizedNameID(TBaseFont *this@<X0>, CFArrayRef theArray@<X
   }
 }
 
-BOOL TBaseFont::HasPostScriptNameAlias(atomic_ullong *this, CFStringRef theString)
+uint64_t TBaseFont::HasPostScriptNameAlias(atomic_ullong *this, CFStringRef theString)
 {
   v29 = *MEMORY[0x1E69E9840];
   if (!theString || !CFStringGetLength(theString))
@@ -8325,7 +8333,7 @@ BOOL TBaseFont::HasPostScriptNameAlias(atomic_ullong *this, CFStringRef theStrin
   {
     v24 = 0xAAAAAAAAAAAAAAAALL;
     TDescriptorSource::TDescriptorSource(&v23);
-    TDescriptorSource::CopyFontDescriptorFromVariationPostScriptName(&v23, theString, 1, 0, &v24);
+    TDescriptorSource::CopyFontDescriptorFromVariationPostScriptName(&v24, &v23, theString, 1uLL, 0);
     if (!atomic_load_explicit(&v24, memory_order_acquire))
     {
       goto LABEL_19;
@@ -8358,7 +8366,7 @@ LABEL_19:
         if (!atomic_load_explicit(&v22, memory_order_acquire))
         {
           v24 = 0xAAAAAAAAAAAAAAAALL;
-          TBaseFont::CopyMetadata(this, 0, &v24);
+          TBaseFont::CopyMetadata(&v24, this, 0);
           v11 = atomic_load_explicit(&v24, memory_order_acquire);
           v12 = v11;
           if (v11)
@@ -8656,13 +8664,13 @@ LABEL_11:
   *a2 = v7;
 }
 
-void TBaseFont::CopyFeaturesLocalized(TBaseFont *this@<X0>, atomic_ullong *a2@<X8>)
+void TBaseFont::CopyFeaturesLocalized(uint64_t *__return_ptr a1@<X8>, TBaseFont *this@<X0>)
 {
-  *a2 = 0xAAAAAAAAAAAAAAAALL;
+  *a1 = 0xAAAAAAAAAAAAAAAALL;
   TBaseFont::CopyAttributeInternal(this, @"NSCTFontFeaturesAttribute", &v6);
-  *a2 = atomic_exchange(&v6, 0);
+  *a1 = atomic_exchange(&v6, 0);
 
-  if (!atomic_load_explicit(a2, memory_order_acquire))
+  if (!atomic_load_explicit(a1, memory_order_acquire))
   {
     v6 = 0xAAAAAAAAAAAAAAAALL;
     (*(*this + 136))(&v6, this);
@@ -8670,9 +8678,9 @@ void TBaseFont::CopyFeaturesLocalized(TBaseFont *this@<X0>, atomic_ullong *a2@<X
     {
       TFontFeatures::Externalize(1, atomic_load_explicit(&v6, memory_order_acquire), this, 0, &v5);
 
-      if (atomic_load_explicit(a2, memory_order_acquire))
+      if (atomic_load_explicit(a1, memory_order_acquire))
       {
-        v4 = atomic_load_explicit(a2, memory_order_acquire);
+        v4 = atomic_load_explicit(a1, memory_order_acquire);
         TBaseFont::SetAttributeInternal<TCFRef<__CFSet const*>>(this, &v4, @"NSCTFontFeaturesAttribute");
       }
     }
@@ -8688,50 +8696,50 @@ BOOL TBaseFont::HasFeature(TBaseFont *this, const __CFArray *a2, int a3)
   return v5;
 }
 
-void CharacterSetByAddingSynthesizedCharacters(id a1@<X0>, unint64_t *a2@<X8>)
+void CharacterSetByAddingSynthesizedCharacters(uint64_t *__return_ptr a1@<X8>, id a2@<X0>)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  if (!a1)
+  v15 = *MEMORY[0x1E69E9840];
+  if (!a2)
   {
     goto LABEL_7;
   }
 
-  *&v5 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v14[2] = v5;
-  v14[3] = v5;
-  v14[0] = v5;
-  v14[1] = v5;
-  v12 = 0;
-  v13 = 0;
+  *&v4 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v13[2] = v4;
+  v13[3] = v4;
+  v13[0] = v4;
+  v13[1] = v4;
   v11 = 0;
-  v15 = v14;
-  AddSynthesizableCharacters(a1, &v11);
-  if (v11 == v12)
+  v12 = 0;
+  v10 = 0;
+  v14 = v13;
+  AddSynthesizableCharacters(a2, &v10);
+  if (v10 == v11)
   {
-    MutableCopy = &v11;
+    MutableCopy = &v10;
     std::vector<unsigned short,TInlineBufferAllocator<unsigned short,30ul>>::__destroy_vector::operator()[abi:fn200100](&MutableCopy);
 LABEL_7:
-    *a2 = a1;
+    *a1 = a2;
     return;
   }
 
-  MutableCopy = CFCharacterSetCreateMutableCopy(*MEMORY[0x1E695E480], a1);
+  MutableCopy = CFCharacterSetCreateMutableCopy(*MEMORY[0x1E695E480], a2);
+  v5 = v10;
   v6 = v11;
-  v7 = v12;
-  while (v6 != v7)
+  while (v5 != v6)
   {
-    v8 = *v6++;
-    v17.location = v8;
-    v17.length = 1;
-    CFCharacterSetAddCharactersInRange(atomic_load_explicit(&MutableCopy, memory_order_acquire), v17);
+    v7 = *v5++;
+    v16.location = v7;
+    v16.length = 1;
+    CFCharacterSetAddCharactersInRange(atomic_load_explicit(&MutableCopy, memory_order_acquire), v16);
   }
 
-  v9 = atomic_exchange(&MutableCopy, 0);
+  v8 = atomic_exchange(&MutableCopy, 0);
   _CFCharacterSetCompact();
-  *a2 = v9;
+  *a1 = v8;
 
-  MutableCopy = &v11;
+  MutableCopy = &v10;
   std::vector<unsigned short,TInlineBufferAllocator<unsigned short,30ul>>::__destroy_vector::operator()[abi:fn200100](&MutableCopy);
 }
 
@@ -9006,11 +9014,11 @@ void AddSynthesizedCharactersToCharacterSet(atomic_ullong *a1, const TBaseFont *
 
 void TBaseFont::CopyRepertoireRange(void *a1@<X8>)
 {
-  v2 = 0;
-  *a1 = atomic_exchange(&v2, 0);
+  v1 = 0;
+  *a1 = atomic_exchange(&v1, 0);
 }
 
-uint64_t TBaseFont::GetOS2UnicodeRanges(TBaseFont *a1, _DWORD *a2, atomic_ullong *a3)
+BOOL TBaseFont::GetOS2UnicodeRanges(TBaseFont *a1, _DWORD *a2, atomic_ullong *a3)
 {
   if (TBaseFont::GetInitializedGraphicsFont(a1) && CGFontGetParserFont())
   {
@@ -9083,7 +9091,7 @@ void TBaseFont::CopySupportedLanguagesFromMetadata(atomic_ullong *this, atomic_u
   }
 
   v6 = 0xAAAAAAAAAAAAAAAALL;
-  TBaseFont::CopyMetadata(a2, 0, &v5);
+  TBaseFont::CopyMetadata(&v5, a2, 0);
   if (atomic_load_explicit(&v5, memory_order_acquire))
   {
     Value = CFDictionaryGetValue(atomic_load_explicit(&v5, memory_order_acquire), @"MTD_Typeface_Repertoire_SupportedLanguages");
@@ -9530,7 +9538,7 @@ void TBaseFont::CopyMacintoshEncodings(TBaseFont *this@<X0>, atomic_ullong *a2@<
 void TBaseFont::CopyDesignLanguagesFromMetadata(TBaseFont *this, TBaseFont *a2)
 {
   v5 = 0xAAAAAAAAAAAAAAAALL;
-  TBaseFont::CopyMetadata(a2, 0, &v4);
+  TBaseFont::CopyMetadata(&v4, a2, 0);
   if (atomic_load_explicit(&v4, memory_order_acquire))
   {
     Value = CFDictionaryGetValue(atomic_load_explicit(&v4, memory_order_acquire), @"MTD_Typeface_Repertoire_PrimaryScriptLanguages");

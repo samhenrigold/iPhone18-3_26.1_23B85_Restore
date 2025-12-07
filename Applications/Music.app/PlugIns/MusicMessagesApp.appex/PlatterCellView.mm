@@ -10,7 +10,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_100011D3C();
+  sub_100011D3C(selfCopy);
 }
 
 - (BOOL)isHighlighted
@@ -22,14 +22,15 @@
 
 - (void)setHighlighted:(BOOL)highlighted
 {
+  highlightedCopy = highlighted;
   selfCopy = self;
-  sub_100011F38(highlighted);
+  sub_100011F38(highlightedCopy);
 }
 
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_100012070();
+  sub_100012070(selfCopy);
 }
 
 @end

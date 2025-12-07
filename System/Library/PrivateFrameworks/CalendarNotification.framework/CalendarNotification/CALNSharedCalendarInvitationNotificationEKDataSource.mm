@@ -38,36 +38,36 @@
 
 - (id)fetchSharedCalendarInvitationNotifications
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = [(CALNSharedCalendarInvitationNotificationEKDataSource *)self fetchSharedCalendarInvitationNotificationSourceClientIdentifiers:0];
   v4 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v3, "count")}];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v22 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [(CALNSharedCalendarInvitationNotificationEKDataSource *)self fetchSharedCalendarInvitationNotificationWithSourceClientIdentifier:*(*(&v16 + 1) + 8 * i), v16];
+        v10 = [(CALNSharedCalendarInvitationNotificationEKDataSource *)self fetchSharedCalendarInvitationNotificationWithSourceClientIdentifier:*(*(&v15 + 1) + 8 * i), v15];
         if (v10)
         {
           [v4 addObject:v10];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v22 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v21 count:16];
     }
 
     while (v7);
@@ -78,19 +78,18 @@
   {
     v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v4, "count")}];
     *buf = 138543362;
-    v21 = v12;
+    v20 = v12;
     _os_log_impl(&dword_242909000, v11, OS_LOG_TYPE_DEFAULT, "Fetched shared calendar invitation notification infos. Found %{public}@ notifications", buf, 0xCu);
   }
 
   v13 = [v4 copy];
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 - (id)fetchSharedCalendarInvitationNotificationSourceClientIdentifiers:(id)identifiers
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   preferences = [(CALNSharedCalendarInvitationNotificationEKDataSource *)self preferences];
   sharedCalendarNotificationsDisabled = [preferences sharedCalendarNotificationsDisabled];
@@ -106,26 +105,26 @@
     eventNotificationReferences = [inboxNotificationProvider eventNotificationReferences];
 
     v7 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(eventNotificationReferences, "count")}];
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
     v10 = eventNotificationReferences;
-    v11 = [v10 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v27;
+      v13 = *v26;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v27 != v13)
+          if (*v26 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v26 + 1) + 8 * i);
+          v15 = *(*(&v25 + 1) + 8 * i);
           if ([v15 type] == 2)
           {
             if (!identifiersCopy || ([v15 objectID], v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "stringRepresentation"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(identifiersCopy, "containsObject:", v17), v17, v16, v18))
@@ -147,21 +146,19 @@
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
       while (v12);
     }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)fetchSharedCalendarInvitationNotificationWithSourceClientIdentifier:(id)identifier
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if (identifierCopy)
   {
@@ -177,11 +174,11 @@
       v10 = +[CALNLogSubsystem calendar];
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = 138543618;
-        v14 = identifierCopy;
-        v15 = 2112;
-        v16 = v9;
-        _os_log_impl(&dword_242909000, v10, OS_LOG_TYPE_DEFAULT, "Fetched shared calendar invitation notification with sourceClientIdentifier = %{public}@. Info = %@", &v13, 0x16u);
+        v12 = 138543618;
+        v13 = identifierCopy;
+        v14 = 2112;
+        v15 = v9;
+        _os_log_impl(&dword_242909000, v10, OS_LOG_TYPE_DEFAULT, "Fetched shared calendar invitation notification with sourceClientIdentifier = %{public}@. Info = %@", &v12, 0x16u);
       }
     }
 
@@ -201,8 +198,6 @@
 
     v9 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

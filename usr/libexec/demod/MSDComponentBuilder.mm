@@ -165,25 +165,26 @@
   v9 = [MSDiOSApp appWithPath:v8];
   uniqueIdentifier = [v9 uniqueIdentifier];
   v11 = [v6 objectForKey:@"Identifier"];
-  if ([uniqueIdentifier isEqualToString:v11])
+  v12 = [uniqueIdentifier isEqualToString:v11];
+  if (v12)
   {
 LABEL_7:
-    v13 = 0;
+    v14 = 0;
     goto LABEL_8;
   }
 
-  v12 = sub_100063A54();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = sub_100063A54(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138543362;
-    v16 = appCopy;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "The app %{public}@ has a different version installed.  Will need to remove currently installed version in preparation for newer version.", &v15, 0xCu);
+    v16 = 138543362;
+    v17 = appCopy;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "The app %{public}@ has a different version installed.  Will need to remove currently installed version in preparation for newer version.", &v16, 0xCu);
   }
 
-  v13 = 1;
+  v14 = 1;
 LABEL_8:
 
-  return v13;
+  return v14;
 }
 
 - (id)_buildAppComponentsNotInManifest:(id)manifest
@@ -196,63 +197,63 @@ LABEL_8:
   v8 = +[MSDAppHelper sharedInstance];
   installedApps = [v8 installedApps];
 
-  v10 = sub_100063A54();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_100063A54(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Building components for removing app not in manifest...", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Building components for removing app not in manifest...", buf, 2u);
   }
 
+  v30 = 0u;
+  v31 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v11 = installedApps;
-  v12 = [v11 countByEnumeratingWithState:&v26 objects:v32 count:16];
-  if (v12)
+  v12 = installedApps;
+  v13 = [v12 countByEnumeratingWithState:&v28 objects:v34 count:16];
+  if (v13)
   {
-    v14 = v12;
-    v15 = *v27;
-    *&v13 = 138543362;
-    v25 = v13;
+    v15 = v13;
+    v16 = *v29;
+    *&v14 = 138543362;
+    v27 = v14;
     while (2)
     {
-      for (i = 0; i != v14; i = i + 1)
+      for (i = 0; i != v15; i = i + 1)
       {
-        if (*v27 != v15)
+        if (*v29 != v16)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v26 + 1) + 8 * i);
-        v18 = [getAppList objectForKey:{v17, v25, v26}];
+        v18 = *(*(&v28 + 1) + 8 * i);
+        v19 = [getAppList objectForKey:{v18, v27, v28}];
 
-        if (!v18)
+        if (!v19)
         {
-          v19 = sub_100063A54();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+          v21 = sub_100063A54(v20);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v25;
-            v31 = v17;
-            _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Building component for removing app: %{public}@", buf, 0xCu);
+            *buf = v27;
+            v33 = v18;
+            _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Building component for removing app: %{public}@", buf, 0xCu);
           }
 
-          v20 = [manifestCopy buildAppRemovalOperationsWithIdentifier:v17];
-          if (!v20 || (v21 = [[MSDComponent alloc] initWithName:v17 andOperations:v20]) == 0)
+          v22 = [manifestCopy buildAppRemovalOperationsWithIdentifier:v18];
+          if (!v22 || (v23 = [[MSDComponent alloc] initWithName:v18 andOperations:v22]) == 0)
           {
-            sub_1000CD394(v20, v11);
-            v23 = 0;
+            sub_1000CD394(v22, v12);
+            v25 = 0;
             goto LABEL_17;
           }
 
-          v22 = v21;
-          [(MSDComponent *)v21 setForRemoval:1];
-          [v5 addObject:v22];
+          v24 = v23;
+          [(MSDComponent *)v23 setForRemoval:1];
+          [v5 addObject:v24];
         }
       }
 
-      v14 = [v11 countByEnumeratingWithState:&v26 objects:v32 count:16];
-      if (v14)
+      v15 = [v12 countByEnumeratingWithState:&v28 objects:v34 count:16];
+      if (v15)
       {
         continue;
       }
@@ -261,10 +262,10 @@ LABEL_8:
     }
   }
 
-  v23 = v5;
+  v25 = v5;
 LABEL_17:
 
-  return v23;
+  return v25;
 }
 
 - (id)buildComponentsNotInManifest

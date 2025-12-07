@@ -61,38 +61,38 @@
 
 id __92__SFStartPageSectionHeaderTitleViewAccessibility__accessibilityLoadAccessibilityInformation__block_invoke(uint64_t a1)
 {
-  v37 = *MEMORY[0x29EDCA608];
-  v35 = 0;
+  v36 = *MEMORY[0x29EDCA608];
+  v34 = 0;
   v1 = [*MEMORY[0x29EDC8008] safeValueForKey:@"_browserWindowController"];
   v2 = __UIAccessibilitySafeClass();
 
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   v3 = [v2 safeArrayForKey:@"browserControllers"];
-  v4 = [v3 countByEnumeratingWithState:&v31 objects:v36 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (v4)
   {
     v5 = v4;
-    v29 = v2;
-    v6 = *v32;
+    v28 = v2;
+    v6 = *v31;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v32 != v6)
+        if (*v31 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v31 + 1) + 8 * i);
-        v35 = 0;
+        v8 = *(*(&v30 + 1) + 8 * i);
+        v34 = 0;
         objc_opt_class();
         v9 = [v8 safeValueForKey:@"rootViewController"];
         v10 = __UIAccessibilityCastAsClass();
 
-        if (v35 == 1)
+        if (v34 == 1)
         {
           abort();
         }
@@ -109,7 +109,7 @@ id __92__SFStartPageSectionHeaderTitleViewAccessibility__accessibilityLoadAccess
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v30 objects:v35 count:16];
       if (v5)
       {
         continue;
@@ -120,7 +120,7 @@ id __92__SFStartPageSectionHeaderTitleViewAccessibility__accessibilityLoadAccess
 
     v15 = 0;
 LABEL_13:
-    v2 = v29;
+    v2 = v28;
   }
 
   else
@@ -159,7 +159,7 @@ LABEL_13:
   if (v23)
   {
     v24 = objc_loadWeakRetained((a1 + 32));
-    v28 = [v24 safeStringForKey:@"_title"];
+    v27 = [v24 safeStringForKey:@"_title"];
     v25 = __UIAXStringForVariables();
 
     goto LABEL_22;
@@ -169,8 +169,6 @@ LABEL_21:
   v24 = objc_loadWeakRetained((a1 + 32));
   v25 = [v24 safeStringForKey:@"_title"];
 LABEL_22:
-
-  v26 = *MEMORY[0x29EDCA608];
 
   return v25;
 }

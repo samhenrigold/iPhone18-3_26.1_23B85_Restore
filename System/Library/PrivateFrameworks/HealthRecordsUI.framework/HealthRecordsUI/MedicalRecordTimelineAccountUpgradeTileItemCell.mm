@@ -54,7 +54,7 @@
   MEMORY[0x1EEE9AC00](v3);
   v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
-  sub_1D118CD58();
+  sub_1D118CD58(selfCopy);
 
   v8 = sub_1D138F1EC();
   (*(v4 + 8))(v6, v3);

@@ -84,9 +84,11 @@ LABEL_15:
 
 uint64_t __48__IKAppDataStorage_initWithFilePath_identifier___block_invoke()
 {
-  sStorageWriteQueue = dispatch_queue_create("Storage Write Queue", 0);
+  v0 = dispatch_queue_create("Storage Write Queue", 0);
+  v1 = sStorageWriteQueue;
+  sStorageWriteQueue = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (unint64_t)count

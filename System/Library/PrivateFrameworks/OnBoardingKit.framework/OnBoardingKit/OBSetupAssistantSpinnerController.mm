@@ -13,6 +13,8 @@
 - (void)traitCollectionDidChange:(id)change;
 - (void)updateDirectionalLayoutMargins;
 - (void)viewDidLayoutSubviews;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation OBSetupAssistantSpinnerController
@@ -92,10 +94,10 @@
 
 - (void)viewDidLayoutSubviews
 {
-  v62[9] = *MEMORY[0x1E69E9840];
-  v61.receiver = self;
-  v61.super_class = OBSetupAssistantSpinnerController;
-  [(OBBaseWelcomeController *)&v61 viewDidLayoutSubviews];
+  v61[9] = *MEMORY[0x1E69E9840];
+  v60.receiver = self;
+  v60.super_class = OBSetupAssistantSpinnerController;
+  [(OBBaseWelcomeController *)&v60 viewDidLayoutSubviews];
   scrollView = [(OBSetupAssistantSpinnerController *)self scrollView];
   if (scrollView)
   {
@@ -124,68 +126,87 @@
     scrollContentView2 = [(OBSetupAssistantSpinnerController *)self scrollContentView];
     [scrollView4 addSubview:scrollContentView2];
 
-    v40 = MEMORY[0x1E696ACD8];
+    v39 = MEMORY[0x1E696ACD8];
     view2 = [(OBSetupAssistantSpinnerController *)self view];
     topAnchor = [view2 topAnchor];
     scrollView5 = [(OBSetupAssistantSpinnerController *)self scrollView];
     topAnchor2 = [scrollView5 topAnchor];
-    v56 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v62[0] = v56;
+    v55 = [topAnchor constraintEqualToAnchor:topAnchor2];
+    v61[0] = v55;
     view3 = [(OBSetupAssistantSpinnerController *)self view];
     rightAnchor = [view3 rightAnchor];
     scrollView6 = [(OBSetupAssistantSpinnerController *)self scrollView];
     rightAnchor2 = [scrollView6 rightAnchor];
-    v51 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
-    v62[1] = v51;
+    v50 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
+    v61[1] = v50;
     view4 = [(OBSetupAssistantSpinnerController *)self view];
     bottomAnchor = [view4 bottomAnchor];
     scrollView7 = [(OBSetupAssistantSpinnerController *)self scrollView];
     bottomAnchor2 = [scrollView7 bottomAnchor];
-    v46 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v62[2] = v46;
+    v45 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+    v61[2] = v45;
     view5 = [(OBSetupAssistantSpinnerController *)self view];
     leftAnchor = [view5 leftAnchor];
     scrollView8 = [(OBSetupAssistantSpinnerController *)self scrollView];
     leftAnchor2 = [scrollView8 leftAnchor];
-    v41 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
-    v62[3] = v41;
+    v40 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
+    v61[3] = v40;
     scrollContentView3 = [(OBSetupAssistantSpinnerController *)self scrollContentView];
     topAnchor3 = [scrollContentView3 topAnchor];
     scrollView9 = [(OBSetupAssistantSpinnerController *)self scrollView];
     topAnchor4 = [scrollView9 topAnchor];
-    v35 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
-    v62[4] = v35;
+    v34 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
+    v61[4] = v34;
     scrollContentView4 = [(OBSetupAssistantSpinnerController *)self scrollContentView];
     rightAnchor3 = [scrollContentView4 rightAnchor];
     scrollView10 = [(OBSetupAssistantSpinnerController *)self scrollView];
     rightAnchor4 = [scrollView10 rightAnchor];
-    v30 = [rightAnchor3 constraintEqualToAnchor:rightAnchor4];
-    v62[5] = v30;
+    v29 = [rightAnchor3 constraintEqualToAnchor:rightAnchor4];
+    v61[5] = v29;
     scrollContentView5 = [(OBSetupAssistantSpinnerController *)self scrollContentView];
     bottomAnchor3 = [scrollContentView5 bottomAnchor];
     scrollView11 = [(OBSetupAssistantSpinnerController *)self scrollView];
     bottomAnchor4 = [scrollView11 bottomAnchor];
-    v25 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
-    v62[6] = v25;
+    v24 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
+    v61[6] = v24;
     scrollContentView6 = [(OBSetupAssistantSpinnerController *)self scrollContentView];
     leftAnchor3 = [scrollContentView6 leftAnchor];
     scrollView12 = [(OBSetupAssistantSpinnerController *)self scrollView];
     leftAnchor4 = [scrollView12 leftAnchor];
     v15 = [leftAnchor3 constraintEqualToAnchor:leftAnchor4];
-    v62[7] = v15;
+    v61[7] = v15;
     scrollContentView7 = [(OBSetupAssistantSpinnerController *)self scrollContentView];
     widthAnchor = [scrollContentView7 widthAnchor];
     scrollView13 = [(OBSetupAssistantSpinnerController *)self scrollView];
     widthAnchor2 = [scrollView13 widthAnchor];
     v20 = [widthAnchor constraintEqualToAnchor:widthAnchor2];
-    v62[8] = v20;
-    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v62 count:9];
-    [v40 activateConstraints:v21];
+    v61[8] = v20;
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v61 count:9];
+    [v39 activateConstraints:v21];
 
     [(OBSetupAssistantSpinnerController *)self _updateLayout];
   }
+}
 
-  v22 = *MEMORY[0x1E69E9840];
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = OBSetupAssistantSpinnerController;
+  [(OBSetupAssistantSpinnerController *)&v5 viewWillAppear:appear];
+  if (![(OBSetupAssistantSpinnerController *)self isActivityIndicatorHidden])
+  {
+    activityIndicator = [(OBSetupAssistantSpinnerController *)self activityIndicator];
+    [activityIndicator startAnimating];
+  }
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = OBSetupAssistantSpinnerController;
+  [(OBBaseWelcomeController *)&v5 viewWillDisappear:disappear];
+  activityIndicator = [(OBSetupAssistantSpinnerController *)self activityIndicator];
+  [activityIndicator stopAnimating];
 }
 
 - (void)setSpinnerText:(id)text
@@ -302,7 +323,7 @@
 
 - (void)_updateLayout
 {
-  v182[5] = *MEMORY[0x1E69E9840];
+  v181[5] = *MEMORY[0x1E69E9840];
   activityIndicator = [(OBSetupAssistantSpinnerController *)self activityIndicator];
   [activityIndicator removeFromSuperview];
 
@@ -345,49 +366,49 @@
   LODWORD(activityIndicator3) = +[OBViewUtilities shouldUseAccessibilityLayout];
   textLabel3 = [(OBSetupAssistantSpinnerController *)self textLabel];
   v19 = textLabel3;
-  v173 = view2;
+  v172 = view2;
   if (activityIndicator3)
   {
-    v100 = _shouldUseScrollView;
+    v99 = _shouldUseScrollView;
     [textLabel3 setTextAlignment:4];
 
     v20 = +[OBUtilities mainScreen];
     [v20 bounds];
     v22 = v21 * 0.09;
 
-    v111 = MEMORY[0x1E696ACD8];
+    v110 = MEMORY[0x1E696ACD8];
     activityIndicator4 = [(OBSetupAssistantSpinnerController *)self activityIndicator];
     topAnchor = [activityIndicator4 topAnchor];
     layoutMarginsGuide = [view2 layoutMarginsGuide];
     topAnchor2 = [layoutMarginsGuide topAnchor];
-    v142 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:v22];
-    v182[0] = v142;
+    v141 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:v22];
+    v181[0] = v141;
     activityIndicator5 = [(OBSetupAssistantSpinnerController *)self activityIndicator];
     leadingAnchor = [activityIndicator5 leadingAnchor];
     layoutMarginsGuide2 = [view2 layoutMarginsGuide];
     leadingAnchor2 = [layoutMarginsGuide2 leadingAnchor];
-    v117 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v182[1] = v117;
+    v116 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v181[1] = v116;
     textLabel4 = [(OBSetupAssistantSpinnerController *)self textLabel];
     topAnchor3 = [textLabel4 topAnchor];
     activityIndicator6 = [(OBSetupAssistantSpinnerController *)self activityIndicator];
     bottomAnchor = [activityIndicator6 bottomAnchor];
-    v103 = [topAnchor3 constraintEqualToAnchor:bottomAnchor constant:37.0];
-    v182[2] = v103;
+    v102 = [topAnchor3 constraintEqualToAnchor:bottomAnchor constant:37.0];
+    v181[2] = v102;
     textLabel5 = [(OBSetupAssistantSpinnerController *)self textLabel];
     leftAnchor = [textLabel5 leftAnchor];
     layoutMarginsGuide3 = [view2 layoutMarginsGuide];
     leftAnchor2 = [layoutMarginsGuide3 leftAnchor];
     v25 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
-    v182[3] = v25;
+    v181[3] = v25;
     textLabel6 = [(OBSetupAssistantSpinnerController *)self textLabel];
     rightAnchor = [textLabel6 rightAnchor];
     layoutMarginsGuide4 = [view2 layoutMarginsGuide];
     rightAnchor2 = [layoutMarginsGuide4 rightAnchor];
     v30 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
-    v182[4] = v30;
-    v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v182 count:5];
-    [v111 activateConstraints:v31];
+    v181[4] = v30;
+    v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v181 count:5];
+    [v110 activateConstraints:v31];
 
     titleLabel3 = [(OBSetupAssistantSpinnerController *)self titleLabel];
 
@@ -396,73 +417,73 @@
       titleLabel4 = [(OBSetupAssistantSpinnerController *)self titleLabel];
       [titleLabel4 setTextAlignment:4];
 
-      v132 = MEMORY[0x1E696ACD8];
+      v131 = MEMORY[0x1E696ACD8];
       titleLabel5 = [(OBSetupAssistantSpinnerController *)self titleLabel];
       topAnchor4 = [titleLabel5 topAnchor];
-      layoutMarginsGuide5 = [v173 layoutMarginsGuide];
+      layoutMarginsGuide5 = [v172 layoutMarginsGuide];
       topAnchor5 = [layoutMarginsGuide5 topAnchor];
-      v143 = [topAnchor4 constraintEqualToAnchor:topAnchor5];
-      v181[0] = v143;
+      v142 = [topAnchor4 constraintEqualToAnchor:topAnchor5];
+      v180[0] = v142;
       titleLabel6 = [(OBSetupAssistantSpinnerController *)self titleLabel];
       leftAnchor3 = [titleLabel6 leftAnchor];
-      layoutMarginsGuide6 = [v173 layoutMarginsGuide];
+      layoutMarginsGuide6 = [v172 layoutMarginsGuide];
       leftAnchor4 = [layoutMarginsGuide6 leftAnchor];
       v36 = [leftAnchor3 constraintEqualToAnchor:leftAnchor4];
-      v181[1] = v36;
+      v180[1] = v36;
       titleLabel7 = [(OBSetupAssistantSpinnerController *)self titleLabel];
       rightAnchor3 = [titleLabel7 rightAnchor];
-      layoutMarginsGuide7 = [v173 layoutMarginsGuide];
+      layoutMarginsGuide7 = [v172 layoutMarginsGuide];
       rightAnchor4 = [layoutMarginsGuide7 rightAnchor];
       v41 = [rightAnchor3 constraintEqualToAnchor:rightAnchor4];
-      v181[2] = v41;
-      v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:v181 count:3];
-      [v132 activateConstraints:v42];
+      v180[2] = v41;
+      v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:v180 count:3];
+      [v131 activateConstraints:v42];
     }
 
     privacyLinkController3 = [(OBSetupAssistantSpinnerController *)self privacyLinkController];
 
     if (privacyLinkController3)
     {
-      if (v100)
+      if (v99)
       {
-        v168 = MEMORY[0x1E696ACD8];
+        v167 = MEMORY[0x1E696ACD8];
         privacyLinkController4 = [(OBSetupAssistantSpinnerController *)self privacyLinkController];
         view4 = [privacyLinkController4 view];
         topAnchor6 = [view4 topAnchor];
         textLabel7 = [(OBSetupAssistantSpinnerController *)self textLabel];
         bottomAnchor2 = [textLabel7 bottomAnchor];
         v49 = [topAnchor6 constraintEqualToAnchor:bottomAnchor2 constant:20.0];
-        v180 = v49;
-        v50 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v180 count:1];
-        [v168 activateConstraints:v50];
+        v179 = v49;
+        v50 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v179 count:1];
+        [v167 activateConstraints:v50];
       }
 
-      v133 = MEMORY[0x1E696ACD8];
+      v132 = MEMORY[0x1E696ACD8];
       privacyLinkController5 = [(OBSetupAssistantSpinnerController *)self privacyLinkController];
       view5 = [privacyLinkController5 view];
       leftAnchor5 = [view5 leftAnchor];
-      layoutMarginsGuide8 = [v173 layoutMarginsGuide];
+      layoutMarginsGuide8 = [v172 layoutMarginsGuide];
       leftAnchor6 = [layoutMarginsGuide8 leftAnchor];
       v51 = [leftAnchor5 constraintEqualToAnchor:leftAnchor6];
-      v179[0] = v51;
+      v178[0] = v51;
       privacyLinkController6 = [(OBSetupAssistantSpinnerController *)self privacyLinkController];
       view6 = [privacyLinkController6 view];
       rightAnchor5 = [view6 rightAnchor];
-      layoutMarginsGuide9 = [v173 layoutMarginsGuide];
+      layoutMarginsGuide9 = [v172 layoutMarginsGuide];
       rightAnchor6 = [layoutMarginsGuide9 rightAnchor];
       v52 = [rightAnchor5 constraintEqualToAnchor:rightAnchor6];
-      v179[1] = v52;
+      v178[1] = v52;
       privacyLinkController7 = [(OBSetupAssistantSpinnerController *)self privacyLinkController];
       view7 = [privacyLinkController7 view];
       bottomAnchor3 = [view7 bottomAnchor];
-      layoutMarginsGuide10 = [v173 layoutMarginsGuide];
+      layoutMarginsGuide10 = [v172 layoutMarginsGuide];
       bottomAnchor4 = [layoutMarginsGuide10 bottomAnchor];
       v58 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
-      v179[2] = v58;
-      v59 = [MEMORY[0x1E695DEC8] arrayWithObjects:v179 count:3];
-      [v133 activateConstraints:v59];
+      v178[2] = v58;
+      v59 = [MEMORY[0x1E695DEC8] arrayWithObjects:v178 count:3];
+      [v132 activateConstraints:v59];
 
-      v60 = v173;
+      v60 = v172;
       layoutMarginsGuide11 = leftAnchor5;
 
       v62 = leftAnchor6;
@@ -478,12 +499,12 @@
     v97 = MEMORY[0x1E696ACD8];
     textLabel8 = [(OBSetupAssistantSpinnerController *)self textLabel];
     bottomAnchor5 = [textLabel8 bottomAnchor];
-    v60 = v173;
-    layoutMarginsGuide11 = [v173 layoutMarginsGuide];
+    v60 = v172;
+    layoutMarginsGuide11 = [v172 layoutMarginsGuide];
     bottomAnchor6 = [layoutMarginsGuide11 bottomAnchor];
     v62 = [bottomAnchor5 constraintLessThanOrEqualToAnchor:bottomAnchor6];
-    v178 = v62;
-    v51 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v178 count:1];
+    v177 = v62;
+    v51 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v177 count:1];
     v98 = v97;
 LABEL_17:
     [v98 activateConstraints:v51];
@@ -492,37 +513,37 @@ LABEL_17:
 
   [textLabel3 setTextAlignment:1];
 
-  v115 = MEMORY[0x1E696ACD8];
+  v114 = MEMORY[0x1E696ACD8];
   activityIndicator7 = [(OBSetupAssistantSpinnerController *)self activityIndicator];
   bottomAnchor7 = [activityIndicator7 bottomAnchor];
   textLabel9 = [(OBSetupAssistantSpinnerController *)self textLabel];
   topAnchor7 = [textLabel9 topAnchor];
-  v145 = [bottomAnchor7 constraintEqualToAnchor:topAnchor7 constant:-16.0];
-  v177[0] = v145;
+  v144 = [bottomAnchor7 constraintEqualToAnchor:topAnchor7 constant:-16.0];
+  v176[0] = v144;
   activityIndicator8 = [(OBSetupAssistantSpinnerController *)self activityIndicator];
   centerXAnchor = [activityIndicator8 centerXAnchor];
   centerXAnchor2 = [view2 centerXAnchor];
-  v123 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v177[1] = v123;
+  v122 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+  v176[1] = v122;
   textLabel10 = [(OBSetupAssistantSpinnerController *)self textLabel];
   leftAnchor7 = [textLabel10 leftAnchor];
   layoutMarginsGuide12 = [view2 layoutMarginsGuide];
   leftAnchor8 = [layoutMarginsGuide12 leftAnchor];
-  v106 = [leftAnchor7 constraintEqualToAnchor:leftAnchor8];
-  v177[2] = v106;
+  v105 = [leftAnchor7 constraintEqualToAnchor:leftAnchor8];
+  v176[2] = v105;
   textLabel11 = [(OBSetupAssistantSpinnerController *)self textLabel];
   rightAnchor7 = [textLabel11 rightAnchor];
   layoutMarginsGuide13 = [view2 layoutMarginsGuide];
   rightAnchor8 = [layoutMarginsGuide13 rightAnchor];
   v70 = [rightAnchor7 constraintEqualToAnchor:rightAnchor8];
-  v177[3] = v70;
+  v176[3] = v70;
   textLabel12 = [(OBSetupAssistantSpinnerController *)self textLabel];
   centerYAnchor = [textLabel12 centerYAnchor];
   centerYAnchor2 = [view2 centerYAnchor];
   v74 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v177[4] = v74;
-  v75 = [MEMORY[0x1E695DEC8] arrayWithObjects:v177 count:5];
-  [v115 activateConstraints:v75];
+  v176[4] = v74;
+  v75 = [MEMORY[0x1E695DEC8] arrayWithObjects:v176 count:5];
+  [v114 activateConstraints:v75];
 
   titleLabel8 = [(OBSetupAssistantSpinnerController *)self titleLabel];
 
@@ -531,27 +552,27 @@ LABEL_17:
     titleLabel9 = [(OBSetupAssistantSpinnerController *)self titleLabel];
     [titleLabel9 setTextAlignment:1];
 
-    v135 = MEMORY[0x1E696ACD8];
+    v134 = MEMORY[0x1E696ACD8];
     titleLabel10 = [(OBSetupAssistantSpinnerController *)self titleLabel];
     topAnchor8 = [titleLabel10 topAnchor];
-    layoutMarginsGuide14 = [v173 layoutMarginsGuide];
+    layoutMarginsGuide14 = [v172 layoutMarginsGuide];
     topAnchor9 = [layoutMarginsGuide14 topAnchor];
-    v146 = [topAnchor8 constraintEqualToAnchor:topAnchor9];
-    v176[0] = v146;
+    v145 = [topAnchor8 constraintEqualToAnchor:topAnchor9];
+    v175[0] = v145;
     titleLabel11 = [(OBSetupAssistantSpinnerController *)self titleLabel];
     leftAnchor9 = [titleLabel11 leftAnchor];
-    layoutMarginsGuide15 = [v173 layoutMarginsGuide];
+    layoutMarginsGuide15 = [v172 layoutMarginsGuide];
     leftAnchor10 = [layoutMarginsGuide15 leftAnchor];
     v80 = [leftAnchor9 constraintEqualToAnchor:leftAnchor10];
-    v176[1] = v80;
+    v175[1] = v80;
     titleLabel12 = [(OBSetupAssistantSpinnerController *)self titleLabel];
     rightAnchor9 = [titleLabel12 rightAnchor];
-    layoutMarginsGuide16 = [v173 layoutMarginsGuide];
+    layoutMarginsGuide16 = [v172 layoutMarginsGuide];
     rightAnchor10 = [layoutMarginsGuide16 rightAnchor];
     v85 = [rightAnchor9 constraintEqualToAnchor:rightAnchor10];
-    v176[2] = v85;
-    v86 = [MEMORY[0x1E695DEC8] arrayWithObjects:v176 count:3];
-    [v135 activateConstraints:v86];
+    v175[2] = v85;
+    v86 = [MEMORY[0x1E695DEC8] arrayWithObjects:v175 count:3];
+    [v134 activateConstraints:v86];
   }
 
   privacyLinkController8 = [(OBSetupAssistantSpinnerController *)self privacyLinkController];
@@ -561,12 +582,12 @@ LABEL_17:
   {
     textLabel8 = [(OBSetupAssistantSpinnerController *)self textLabel];
     bottomAnchor5 = [textLabel8 bottomAnchor];
-    v60 = v173;
-    layoutMarginsGuide11 = [v173 layoutMarginsGuide];
+    v60 = v172;
+    layoutMarginsGuide11 = [v172 layoutMarginsGuide];
     bottomAnchor6 = [layoutMarginsGuide11 bottomAnchor];
     v62 = [bottomAnchor5 constraintLessThanOrEqualToAnchor:bottomAnchor6];
-    v174 = v62;
-    v51 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v174 count:1];
+    v173 = v62;
+    v51 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v173 count:1];
     v98 = v88;
     goto LABEL_17;
   }
@@ -574,27 +595,27 @@ LABEL_17:
   privacyLinkController9 = [(OBSetupAssistantSpinnerController *)self privacyLinkController];
   view8 = [privacyLinkController9 view];
   leftAnchor11 = [view8 leftAnchor];
-  layoutMarginsGuide17 = [v173 layoutMarginsGuide];
+  layoutMarginsGuide17 = [v172 layoutMarginsGuide];
   leftAnchor12 = [layoutMarginsGuide17 leftAnchor];
   v51 = [leftAnchor11 constraintEqualToAnchor:leftAnchor12];
-  v175[0] = v51;
+  v174[0] = v51;
   privacyLinkController6 = [(OBSetupAssistantSpinnerController *)self privacyLinkController];
   view9 = [privacyLinkController6 view];
   rightAnchor11 = [view9 rightAnchor];
-  layoutMarginsGuide18 = [v173 layoutMarginsGuide];
+  layoutMarginsGuide18 = [v172 layoutMarginsGuide];
   rightAnchor12 = [layoutMarginsGuide18 rightAnchor];
   [rightAnchor11 constraintEqualToAnchor:rightAnchor12];
-  v89 = v116 = v88;
-  v175[1] = v89;
+  v89 = v115 = v88;
+  v174[1] = v89;
   privacyLinkController10 = [(OBSetupAssistantSpinnerController *)self privacyLinkController];
   view10 = [privacyLinkController10 view];
   bottomAnchor8 = [view10 bottomAnchor];
-  layoutMarginsGuide19 = [v173 layoutMarginsGuide];
+  layoutMarginsGuide19 = [v172 layoutMarginsGuide];
   bottomAnchor9 = [layoutMarginsGuide19 bottomAnchor];
   v95 = [bottomAnchor8 constraintEqualToAnchor:bottomAnchor9];
-  v175[2] = v95;
-  v96 = [MEMORY[0x1E695DEC8] arrayWithObjects:v175 count:3];
-  [v116 activateConstraints:v96];
+  v174[2] = v95;
+  v96 = [MEMORY[0x1E695DEC8] arrayWithObjects:v174 count:3];
+  [v115 activateConstraints:v96];
 
   bottomAnchor5 = view8;
   v62 = leftAnchor12;
@@ -602,14 +623,13 @@ LABEL_17:
   bottomAnchor6 = layoutMarginsGuide17;
   textLabel8 = privacyLinkController9;
 
-  v60 = v173;
+  v60 = v172;
   layoutMarginsGuide11 = leftAnchor11;
 
   v66 = view9;
 LABEL_14:
 
 LABEL_18:
-  v99 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)_activityIndicatorViewStyle

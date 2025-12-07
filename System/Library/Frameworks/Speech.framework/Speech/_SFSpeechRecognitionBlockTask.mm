@@ -1,6 +1,6 @@
 @interface _SFSpeechRecognitionBlockTask
+- (dispatch_queue_t)_finalizeResultHandler;
 - (id)_initWithRequest:(id)request queue:(id)queue languageCode:(id)code taskHint:(int64_t)hint resultHandler:(id)handler;
-- (uint64_t)_finalizeResultHandler;
 - (void)_fireResultHandlerWithResult:(void *)result error:;
 - (void)dictationConnection:(id)connection didRecognizePackage:(id)package;
 - (void)dictationConnection:(id)connection didRecognizeTokens:(id)tokens languageModel:(id)model;
@@ -32,23 +32,23 @@
   dispatch_async(internalQueue, block);
 }
 
-- (uint64_t)_finalizeResultHandler
+- (dispatch_queue_t)_finalizeResultHandler
 {
   if (result)
   {
     v1 = result;
-    dispatch_assert_queue_V2(*(result + 48));
-    if ((*(v1 + 96) & 1) == 0)
+    dispatch_assert_queue_V2(result[6]);
+    if ((v1[12] & 1) == 0)
     {
       v2 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E698D280] code:203 userInfo:0];
       [(_SFSpeechRecognitionBlockTask *)v1 _fireResultHandlerWithResult:v2 error:?];
     }
 
-    v3 = *(v1 + 88);
-    *(v1 + 88) = 0;
+    v3 = v1[11];
+    v1[11] = 0;
 
-    [*(v1 + 8) stopSpeechWithOptions:0];
-    v4 = *(v1 + 16);
+    [v1[1] stopSpeechWithOptions:0];
+    v4 = v1[2];
 
     return [v4 stopSpeech];
   }

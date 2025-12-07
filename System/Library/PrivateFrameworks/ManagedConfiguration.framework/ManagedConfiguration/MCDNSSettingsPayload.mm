@@ -12,45 +12,44 @@
 
 + (id)typeStrings
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = @"com.apple.dnsSettings.managed";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = @"com.apple.dnsSettings.managed";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
 
   return v2;
 }
 
 - (MCDNSSettingsPayload)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v36.receiver = self;
-  v36.super_class = MCDNSSettingsPayload;
-  v9 = [(MCPayload *)&v36 initWithDictionary:dictionaryCopy profile:profile outError:error];
+  v35.receiver = self;
+  v35.super_class = MCDNSSettingsPayload;
+  v9 = [(MCPayload *)&v35 initWithDictionary:dictionaryCopy profile:profile outError:error];
   if (!v9)
   {
     goto LABEL_21;
   }
 
-  v35 = 0;
-  v10 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"DNSSettings" isRequired:1 outError:&v35];
-  v11 = v35;
+  v34 = 0;
+  v10 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"DNSSettings" isRequired:1 outError:&v34];
+  v11 = v34;
   dnsSettings = v9->_dnsSettings;
   v9->_dnsSettings = v10;
 
   if (!v11)
   {
-    v34 = 0;
-    v13 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"OnDemandRules" isRequired:0 outError:&v34];
-    v11 = v34;
+    v33 = 0;
+    v13 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"OnDemandRules" isRequired:0 outError:&v33];
+    v11 = v33;
     onDemandRules = v9->_onDemandRules;
     v9->_onDemandRules = v13;
 
     if (!v11)
     {
-      v33 = 0;
-      v15 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"ProhibitDisablement" isRequired:0 outError:&v33];
-      v11 = v33;
+      v32 = 0;
+      v15 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"ProhibitDisablement" isRequired:0 outError:&v32];
+      v11 = v32;
       prohibitDisablement = v9->_prohibitDisablement;
       v9->_prohibitDisablement = v15;
 
@@ -87,9 +86,9 @@ LABEL_11:
       v21 = v20;
       friendlyName = [(MCPayload *)v9 friendlyName];
       *buf = 138543618;
-      v38 = friendlyName;
-      v39 = 2114;
-      v40 = dictionaryCopy;
+      v37 = friendlyName;
+      v38 = 2114;
+      v39 = dictionaryCopy;
       _os_log_impl(&dword_1A795B000, v21, OS_LOG_TYPE_INFO, "Payload “%{public}@” contains ignored fields. They are: %{public}@", buf, 0x16u);
     }
   }
@@ -112,9 +111,9 @@ LABEL_11:
       v29 = v28;
       mCVerboseDescription = [v24 MCVerboseDescription];
       *buf = 138543618;
-      v38 = v28;
-      v39 = 2114;
-      v40 = mCVerboseDescription;
+      v37 = v28;
+      v38 = 2114;
+      v39 = mCVerboseDescription;
       _os_log_impl(&dword_1A795B000, v27, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse payload: %{public}@", buf, 0x16u);
     }
 
@@ -122,7 +121,6 @@ LABEL_11:
   }
 
 LABEL_21:
-  v31 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -192,7 +190,7 @@ LABEL_21:
 
 - (id)payloadDescriptionKeyValueSections
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   dnsSettings = [(MCDNSSettingsPayload *)self dnsSettings];
   v5 = [dnsSettings objectForKeyedSubscript:@"ServerName"];
@@ -227,24 +225,20 @@ LABEL_21:
   [array addObject:v19];
 
   v20 = [MCKeyValueSection sectionWithKeyValues:array];
-  v24[0] = v20;
-  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
-
-  v22 = *MEMORY[0x1E69E9840];
+  v23[0] = v20;
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
 
   return v21;
 }
 
 - (id)installationWarnings
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = MCLocalizedString(@"INSTALL_WARNING_DNS_SETTINGS_TITLE");
   v3 = MCLocalizedStringByDevice(@"INSTALL_WARNING_DNS_SETTINGS");
   v4 = [MCProfileWarning warningWithLocalizedTitle:v2 localizedBody:v3 isLongForm:1];
-  v8[0] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7[0] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
 
   return v5;
 }

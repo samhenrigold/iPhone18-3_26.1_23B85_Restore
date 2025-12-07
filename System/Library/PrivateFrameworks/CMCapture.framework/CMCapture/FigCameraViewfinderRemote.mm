@@ -3,10 +3,10 @@
 + (id)remoteObjectCallbacksInterface;
 + (void)initialize;
 - (FigCameraViewfinderRemote)init;
-- (uint64_t)_setupStateMachine;
-- (uint64_t)_teardownRemoteViewfinderAndInvalidateXPCConnection;
+- (id)_teardownRemoteViewfinderAndInvalidateXPCConnection;
 - (void)_bringupXPCConnectionAndStartRemoteViewfinderWithOptions:(uint64_t)options;
 - (void)_handleServerDeathWithOptions:(int)options reconnect:;
+- (void)_setupStateMachine;
 - (void)dealloc;
 - (void)startWithOptions:(id)options;
 - (void)stop;
@@ -55,16 +55,16 @@
   return v2;
 }
 
-- (uint64_t)_setupStateMachine
+- (void)_setupStateMachine
 {
   if (result)
   {
     v1 = result;
     v2 = [[FigStateMachine alloc] initWithLabel:@"FigCameraViewfinderRemoteStateMachine" stateCount:2 initialState:1 owner:result];
-    *(v1 + 32) = v2;
+    *(v1 + 4) = v2;
     [(FigStateMachine *)v2 setLabel:@"Idle" forState:1];
-    [*(v1 + 32) setLabel:@"Running" forState:2];
-    v3 = *(v1 + 32);
+    [*(v1 + 4) setLabel:@"Running" forState:2];
+    v3 = *(v1 + 4);
 
     return [v3 setPerformsAtomicStateTransitions:0];
   }
@@ -155,7 +155,7 @@ void __46__FigCameraViewfinderRemote_startWithOptions___block_invoke(uint64_t a1
   fig_dispatch_async_autoreleasepool(connectionManagementQueue, v3);
 }
 
-uint64_t __33__FigCameraViewfinderRemote_stop__block_invoke(uint64_t a1)
+void *__33__FigCameraViewfinderRemote_stop__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 32) transitionToState:1 fromState:2];
   if (result)
@@ -300,10 +300,10 @@ uint64_t __128__FigCameraViewfinderRemote_viewfinderSessionWillBegin_withIdentif
 
   if (dword_1ED8446F0)
   {
-    v30 = 0;
+    v30[0] = 0;
     v29 = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v17 = v30;
+    v17 = v30[0];
     if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v29))
     {
       v18 = v17;
@@ -535,15 +535,15 @@ void __86__FigCameraViewfinderRemote__bringupXPCConnectionAndStartRemoteViewfind
   }
 }
 
-- (uint64_t)_teardownRemoteViewfinderAndInvalidateXPCConnection
+- (id)_teardownRemoteViewfinderAndInvalidateXPCConnection
 {
   if (result)
   {
     v1 = result;
-    [*(result + 56) stop];
+    [result[7] stop];
 
-    *(v1 + 56) = 0;
-    v2 = *(v1 + 40);
+    v1[7] = 0;
+    v2 = v1[5];
 
     return [v2 invalidate];
   }
@@ -557,38 +557,36 @@ void __86__FigCameraViewfinderRemote__bringupXPCConnectionAndStartRemoteViewfind
   {
     if (!_FigIsCurrentDispatchQueue())
     {
-      v14 = v3;
-      LODWORD(v13) = 0;
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v3, v13[0], v13[1], v14, v15, v16, v17);
     }
 
     if ([self[4] currentState] == 2)
     {
+      v20 = 0u;
+      v21 = 0u;
       v18 = 0u;
       v19 = 0u;
-      v16 = 0u;
-      v17 = 0u;
       objectEnumerator = [self[3] objectEnumerator];
-      v8 = [objectEnumerator countByEnumeratingWithState:&v16 objects:v15 count:16];
+      v8 = [objectEnumerator countByEnumeratingWithState:&v18 objects:v13 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v17;
+        v10 = *v19;
         do
         {
           v11 = 0;
           do
           {
-            if (*v17 != v10)
+            if (*v19 != v10)
             {
               objc_enumerationMutation(objectEnumerator);
             }
 
-            [*(*(&v16 + 1) + 8 * v11++) _serverDied];
+            [*(*(&v18 + 1) + 8 * v11++) _serverDied];
           }
 
           while (v9 != v11);
-          v9 = [objectEnumerator countByEnumeratingWithState:&v16 objects:v15 count:16];
+          v9 = [objectEnumerator countByEnumeratingWithState:&v18 objects:v13 count:16];
         }
 
         while (v9);

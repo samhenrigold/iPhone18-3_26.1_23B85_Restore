@@ -570,7 +570,7 @@ LABEL_10:
     v16 = **(v12 + 8);
     v28 = 0;
     v27 = 1;
-    v17 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v16, 32, &v28, &v27);
+    v17 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v16, 0x20uLL, &v28, &v27);
     if (!v17)
     {
       Instance = Phase::Logger::GetInstance(0);
@@ -1138,62 +1138,62 @@ LABEL_68:
 - (BOOL)validateTransform:(__n128)transform outAffine:(__n128)affine
 {
   v7 = a2.n128_f32[0];
-  v139 = *MEMORY[0x277D85DE8];
+  v140 = *MEMORY[0x277D85DE8];
   v8 = a2.n128_f32[1];
   v9 = a2.n128_f32[2];
   v10 = transform.n128_f32[1];
   v11 = transform.n128_f32[2];
-  v90 = transform.n128_f32[3];
-  v91 = a2.n128_f32[3];
+  v91 = transform.n128_f32[3];
+  v92 = a2.n128_f32[3];
   v12 = affine.n128_f32[1];
   v13 = affine.n128_f32[2];
-  v89 = affine.n128_f32[3];
-  v87 = a5.n128_f32[1];
+  v90 = affine.n128_f32[3];
+  v88 = a5.n128_f32[1];
   v14 = a5.n128_f32[2];
   v15 = a5.n128_f32[3];
-  v94 = xmmword_23A554920;
-  v92 = 0.0;
-  v93 = 0;
+  v95 = xmmword_23A554920;
+  v93 = 0.0;
+  v94 = 0;
   v16 = -a5.n128_f32[3];
   if (a5.n128_f32[3] >= 0.0)
   {
     v16 = a5.n128_f32[3];
   }
 
-  v88 = a5.n128_u64[0];
-  v85 = transform.n128_f32[0];
-  v86 = affine.n128_f32[0];
-  v84 = v7;
+  v89 = a5.n128_u64[0];
+  v86 = transform.n128_f32[0];
+  v87 = affine.n128_f32[0];
+  v85 = v7;
   if (v16 <= 0.00000011921)
   {
     goto LABEL_37;
   }
 
-  v99[0] = v7 / a5.n128_f32[3];
-  v99[1] = a2.n128_f32[1] / a5.n128_f32[3];
-  v99[2] = a2.n128_f32[2] / a5.n128_f32[3];
-  v99[4] = transform.n128_f32[0] / a5.n128_f32[3];
-  v99[5] = transform.n128_f32[1] / a5.n128_f32[3];
-  v99[6] = transform.n128_f32[2] / a5.n128_f32[3];
-  v99[8] = affine.n128_f32[0] / a5.n128_f32[3];
-  v99[9] = affine.n128_f32[1] / a5.n128_f32[3];
-  v99[10] = affine.n128_f32[2] / a5.n128_f32[3];
-  v95[0] = v7 / a5.n128_f32[3];
-  v95[1] = a2.n128_f32[1] / a5.n128_f32[3];
-  v95[2] = a2.n128_f32[2] / a5.n128_f32[3];
-  v95[4] = transform.n128_f32[0] / a5.n128_f32[3];
-  v95[5] = transform.n128_f32[1] / a5.n128_f32[3];
-  v95[6] = transform.n128_f32[2] / a5.n128_f32[3];
-  v95[8] = affine.n128_f32[0] / a5.n128_f32[3];
-  v95[9] = affine.n128_f32[1] / a5.n128_f32[3];
-  v95[10] = affine.n128_f32[2] / a5.n128_f32[3];
-  v96 = a5.n128_u64[0];
-  v97 = a5.n128_u32[2];
-  v95[3] = 0.0;
-  v95[7] = 0.0;
-  v95[11] = 0.0;
-  v98 = 1065353216;
-  v18 = Phase::Determinant<float>(v95);
+  v100[0] = v7 / a5.n128_f32[3];
+  v100[1] = a2.n128_f32[1] / a5.n128_f32[3];
+  v100[2] = a2.n128_f32[2] / a5.n128_f32[3];
+  v100[4] = transform.n128_f32[0] / a5.n128_f32[3];
+  v100[5] = transform.n128_f32[1] / a5.n128_f32[3];
+  v100[6] = transform.n128_f32[2] / a5.n128_f32[3];
+  v100[8] = affine.n128_f32[0] / a5.n128_f32[3];
+  v100[9] = affine.n128_f32[1] / a5.n128_f32[3];
+  v100[10] = affine.n128_f32[2] / a5.n128_f32[3];
+  v96[0] = v7 / a5.n128_f32[3];
+  v96[1] = a2.n128_f32[1] / a5.n128_f32[3];
+  v96[2] = a2.n128_f32[2] / a5.n128_f32[3];
+  v96[4] = transform.n128_f32[0] / a5.n128_f32[3];
+  v96[5] = transform.n128_f32[1] / a5.n128_f32[3];
+  v96[6] = transform.n128_f32[2] / a5.n128_f32[3];
+  v96[8] = affine.n128_f32[0] / a5.n128_f32[3];
+  v96[9] = affine.n128_f32[1] / a5.n128_f32[3];
+  v96[10] = affine.n128_f32[2] / a5.n128_f32[3];
+  v97 = a5.n128_u64[0];
+  v98 = a5.n128_u32[2];
+  v96[3] = 0.0;
+  v96[7] = 0.0;
+  v96[11] = 0.0;
+  v99 = 1065353216;
+  v18 = Phase::Determinant<float>(v96);
   if (v18 < 0.0)
   {
     v18 = -v18;
@@ -1203,411 +1203,412 @@ LABEL_68:
   {
 LABEL_37:
     v61 = **(Phase::Logger::GetInstance(self) + 448);
-    result = os_log_type_enabled(v61, OS_LOG_TYPE_ERROR);
-    if (!result)
-    {
-      return result;
-    }
-
-    *buf = 136319490;
-    *&buf[4] = "PHASEObject.mm";
-    *&buf[12] = 1024;
-    *&buf[14] = 552;
-    *&buf[18] = 2048;
-    *&buf[20] = v84;
-    *&buf[28] = 2048;
-    *&buf[30] = v8;
-    v111 = 2048;
-    v112 = v9;
-    v113 = 2048;
-    v114 = v91;
-    v115 = 2048;
-    v116 = v85;
-    v117 = 2048;
-    v118 = v10;
-    v119 = 2048;
-    v120 = v11;
-    v121 = 2048;
-    v122 = v90;
-    v123 = 2048;
-    v124 = v86;
-    v125 = 2048;
-    v126 = v12;
-    v127 = 2048;
-    v128 = v13;
-    v129 = 2048;
-    v130 = v89;
-    v131 = 2048;
-    v132 = *&v88;
-    v133 = 2048;
-    v134 = v87;
-    v135 = 2048;
-    v136 = v14;
-    v137 = 2048;
-    v138 = v15;
-    v63 = "%25s:%-5d [PHASEObject setTransform]: transform either has a zero in the last row diagonal (and thus can't be normalized), or it's singular (i.e., non-invertible, non-orthogonal): [%f, %f, %f, %f], [%f, %f, %f, %f], [%f, %f, %f, %f], [%f, %f, %f, %f]";
-    goto LABEL_53;
-  }
-
-  v19 = v91 / v15;
-  if ((v91 / v15) < 0.0)
-  {
-    v19 = -(v91 / v15);
-  }
-
-  if (v19 <= 0.00000011921)
-  {
-    goto LABEL_16;
-  }
-
-  v20 = v90 / v15;
-  if ((v90 / v15) < 0.0)
-  {
-    v20 = -(v90 / v15);
-  }
-
-  if (v20 <= 0.00000011921)
-  {
-    goto LABEL_16;
-  }
-
-  v21 = v89 / v15;
-  if ((v89 / v15) < 0.0)
-  {
-    v21 = -(v89 / v15);
-  }
-
-  if (v21 <= 0.00000011921)
-  {
-LABEL_16:
-    v22 = 0;
-    v23 = buf;
-    do
-    {
-      for (i = 0; i != 4; ++i)
-      {
-        v25 = 0;
-        v26 = &v101;
-        v27 = v95;
-        do
-        {
-          if (v25 != i)
-          {
-            for (j = 0; j != 4; ++j)
-            {
-              if (v22 != j)
-              {
-                *v26++ = v27[j];
-              }
-            }
-          }
-
-          ++v25;
-          v27 += 4;
-        }
-
-        while (v25 != 4);
-        v29 = (((((v102 * v106) * v107) + ((v101 * v105) * v109)) + ((v103 * v104) * v108)) + (-(v103 * v105) * v107)) + (-(v102 * v104) * v109);
-        v30 = -(v29 + (-(v101 * v106) * v108));
-        if (((i ^ v22) & 1) == 0)
-        {
-          v30 = v29 + (-(v101 * v106) * v108);
-        }
-
-        *v23++ = v30;
-      }
-
-      ++v22;
-    }
-
-    while (v22 != 4);
-  }
-
-  v31 = 0;
-  v100 = 0;
-  v99[12] = 0.0;
-  memset(buf, 0, 36);
-  v32 = v99;
-  do
-  {
-    v33 = &buf[v31];
-    *v33 = *v32;
-    v33[2] = v32[2];
-    v31 += 12;
-    v32 += 4;
-  }
-
-  while (v31 != 36);
-  v34 = sqrtf(((*buf * *buf) + (*&buf[4] * *&buf[4])) + (*&buf[8] * *&buf[8]));
-  v35 = *buf / v34;
-  *buf = v35;
-  *&buf[4] = *&buf[4] / v34;
-  v36 = ((v35 * *&buf[12]) + (*&buf[4] * *&buf[16])) + ((*&buf[8] / v34) * *&buf[20]);
-  v37 = *&buf[12] - (v35 * v36);
-  v38 = *&buf[16] - (*&buf[4] * v36);
-  v39 = *&buf[20] - ((*&buf[8] / v34) * v36);
-  v40 = sqrtf((v39 * v39) + ((v37 * v37) + (v38 * v38)));
-  v92 = v34;
-  *&v93 = v40;
-  v41 = v38 / v40;
-  *&buf[8] = *&buf[8] / v34;
-  *&buf[12] = v37 / v40;
-  *&buf[16] = v41;
-  *&buf[20] = v39 / v40;
-  v42 = ((v35 * *&buf[24]) + (*&buf[4] * *&buf[28])) + (*&buf[8] * *&buf[32]);
-  v43 = *&buf[24] - (v35 * v42);
-  v44 = *&buf[28] - (*&buf[4] * v42);
-  v45 = *&buf[32] - (*&buf[8] * v42);
-  v46 = (*&buf[20] * v45) + (((v37 / v40) * v43) + (v41 * v44));
-  v47 = v43 - (*&buf[12] * v46);
-  v48 = v44 - (v41 * v46);
-  v49 = v45 - (*&buf[20] * v46);
-  v50 = sqrtf((v49 * v49) + ((v47 * v47) + (v48 * v48)));
-  *(&v93 + 1) = v50;
-  v51 = v48 / v50;
-  v52 = v49 / v50;
-  *&buf[24] = v47 / v50;
-  *&buf[28] = v51;
-  *&buf[32] = v49 / v50;
-  if (((*&buf[8] * ((*&buf[12] * v51) - (v41 * (v47 / v50)))) + ((v35 * ((v41 * (v49 / v50)) - (*&buf[20] * v51))) + (*&buf[4] * ((*&buf[20] * (v47 / v50)) - (*&buf[12] * (v49 / v50)))))) < 0.0)
-  {
-    v53 = 0;
-    v54 = &v92;
-    do
-    {
-      *v54 = -*v54;
-      ++v54;
-      v55 = &buf[v53];
-      *v55 = vneg_f32(*&buf[v53]);
-      v55[1].f32[0] = -*&buf[v53 + 8];
-      v53 += 12;
-    }
-
-    while (v53 != 36);
-    v52 = *&buf[32];
-    v41 = *&buf[16];
-    v35 = *buf;
-  }
-
-  v83 = v14;
-  v56 = v46 / v50;
-  v57 = v52 + (v41 + v35);
-  if (v57 <= 0.0)
-  {
-    v64 = v41 > v35;
-    if (v52 > *((buf | (4 * v64) | (8 * v64)) + 4 * v64))
-    {
-      v64 = 2;
-    }
-
-    v65 = Phase::Decompose<float>(Phase::Matrix<float,4ul,4ul> const&,Phase::Quaternion<float> &,Phase::Vector<float,3ul> &,Phase::Vector<float,3ul> &,Phase::Vector<float,3ul> &,Phase::Vector<float,4ul> &,float)::sNext[v64];
-    v66 = Phase::Decompose<float>(Phase::Matrix<float,4ul,4ul> const&,Phase::Quaternion<float> &,Phase::Vector<float,3ul> &,Phase::Vector<float,3ul> &,Phase::Vector<float,3ul> &,Phase::Vector<float,4ul> &,float)::sNext[v65];
-    v67 = &buf[12 * v64];
-    v68 = &buf[12 * v65];
-    v69 = &buf[12 * v66];
-    v70 = sqrtf(((*&v67[4 * v64] - *&v68[4 * v65]) - *&v69[4 * v66]) + 1.0);
-    *(&v94 | (4 * v64)) = v70 * 0.5;
-    v71 = 0.5 / v70;
-    v95[v65 - 1] = v71 * (*&v67[4 * v65] + *&v68[4 * v64]);
-    v95[v66 - 1] = v71 * (*&v67[4 * v66] + *&v69[4 * v64]);
-    v59 = v71 * (*&v68[4 * v66] - *&v69[4 * v65]);
-  }
-
-  else
-  {
-    v58 = sqrtf(v57 + 1.0);
-    v59 = v58 * 0.5;
-    v60 = 0.5 / v58;
-    *&v94 = vmul_n_f32(vsub_f32(*&buf[20], __PAIR64__(*&buf[8], *&buf[28])), v60);
-    *(&v94 + 2) = v60 * (*&buf[4] - *&buf[12]);
-  }
-
-  *(&v94 + 3) = v59;
-  if (v56 < 0.0)
-  {
-    v56 = -v56;
-  }
-
-  if (v56 > 0.0001)
-  {
-    goto LABEL_51;
-  }
-
-  v72 = v42 / v50;
-  if (v72 < 0.0)
-  {
-    v72 = -v72;
-  }
-
-  if (v72 > 0.0001)
-  {
-    goto LABEL_51;
-  }
-
-  v73 = v36 / v40;
-  if (v73 < 0.0)
-  {
-    v73 = -v73;
-  }
-
-  if (v73 > 0.0001)
-  {
-LABEL_51:
-    v61 = **(Phase::Logger::GetInstance(self) + 448);
-    result = os_log_type_enabled(v61, OS_LOG_TYPE_ERROR);
-    if (!result)
-    {
-      return result;
-    }
-
-    *buf = 136319490;
-    *&buf[4] = "PHASEObject.mm";
-    *&buf[12] = 1024;
-    *&buf[14] = 566;
-    *&buf[18] = 2048;
-    *&buf[20] = v84;
-    *&buf[28] = 2048;
-    *&buf[30] = v8;
-    v111 = 2048;
-    v112 = v9;
-    v113 = 2048;
-    v114 = v91;
-    v115 = 2048;
-    v116 = v85;
-    v117 = 2048;
-    v118 = v10;
-    v119 = 2048;
-    v120 = v11;
-    v121 = 2048;
-    v122 = v90;
-    v123 = 2048;
-    v124 = v86;
-    v125 = 2048;
-    v126 = v12;
-    v127 = 2048;
-    v128 = v13;
-    v129 = 2048;
-    v130 = v89;
-    v131 = 2048;
-    v132 = *&v88;
-    v133 = 2048;
-    v134 = v87;
-    v135 = 2048;
-    v136 = v83;
-    v137 = 2048;
-    v138 = v15;
-    v63 = "%25s:%-5d [PHASEObject setTransform]: transform is skewed (i.e., has non axis-aligned scale): [%f, %f, %f, %f], [%f, %f, %f, %f], [%f, %f, %f, %f], [%f, %f, %f, %f]";
-    goto LABEL_53;
-  }
-
-  v74 = fmaxf(fmaxf(v92, *&v93), *(&v93 + 1));
-  v75 = v74 * 0.001;
-  v76 = v92 - *&v93;
-  if ((v92 - *&v93) < 0.0)
-  {
-    v76 = -(v92 - *&v93);
-  }
-
-  if (v76 > v75)
-  {
-    goto LABEL_61;
-  }
-
-  v77 = v92 - *(&v93 + 1);
-  if ((v92 - *(&v93 + 1)) < 0.0)
-  {
-    v77 = -v77;
-  }
-
-  if (v77 <= v75)
-  {
-    v78 = v88;
-    if (fabsf(*&v88) >= 1000000000.0 || fabsf(v87) >= 1000000000.0 || fabsf(v83) >= 1000000000.0)
-    {
-      v79 = v74;
-      v80 = **(Phase::Logger::GetInstance(self) + 448);
-      v81 = os_log_type_enabled(v80, OS_LOG_TYPE_ERROR);
-      v74 = v79;
-      v78 = v88;
-      if (v81)
-      {
-        *buf = 136316162;
-        *&buf[4] = "PHASEObject.mm";
-        *&buf[12] = 1024;
-        *&buf[14] = 596;
-        *&buf[18] = 2048;
-        *&buf[20] = *&v88;
-        *&buf[28] = 2048;
-        *&buf[30] = v87;
-        v111 = 2048;
-        v112 = v83;
-        _os_log_impl(&dword_23A302000, v80, OS_LOG_TYPE_ERROR, "%25s:%-5d [PHASEObject setTransform]: WARNING: transform has extremely large translation values [%f, %f, %f]. Expect numerical errors.", buf, 0x30u);
-        v74 = v79;
-        v78 = v88;
-      }
-    }
-
-    v82 = DWORD2(v94);
-    *a7 = v94;
-    *(a7 + 8) = v82;
-    *(a7 + 12) = v59;
-    *(a7 + 16) = v78;
-    *(a7 + 24) = v83;
-    *(a7 + 28) = v74;
-    return 1;
-  }
-
-  else
-  {
-LABEL_61:
-    v61 = **(Phase::Logger::GetInstance(self) + 448);
-    result = os_log_type_enabled(v61, OS_LOG_TYPE_ERROR);
-    if (result)
+    v62 = os_log_type_enabled(v61, OS_LOG_TYPE_ERROR);
+    if (v62)
     {
       *buf = 136319490;
       *&buf[4] = "PHASEObject.mm";
       *&buf[12] = 1024;
-      *&buf[14] = 584;
+      *&buf[14] = 552;
       *&buf[18] = 2048;
-      *&buf[20] = v84;
+      *&buf[20] = v85;
       *&buf[28] = 2048;
       *&buf[30] = v8;
-      v111 = 2048;
-      v112 = v9;
-      v113 = 2048;
-      v114 = v91;
-      v115 = 2048;
-      v116 = v85;
-      v117 = 2048;
-      v118 = v10;
-      v119 = 2048;
-      v120 = v11;
-      v121 = 2048;
-      v122 = v90;
-      v123 = 2048;
-      v124 = v86;
-      v125 = 2048;
-      v126 = v12;
-      v127 = 2048;
-      v128 = v13;
-      v129 = 2048;
-      v130 = v89;
-      v131 = 2048;
-      v132 = *&v88;
-      v133 = 2048;
-      v134 = v87;
-      v135 = 2048;
-      v136 = v83;
-      v137 = 2048;
-      v138 = v15;
-      v63 = "%25s:%-5d [PHASEObject setTransform]: transform has non-uniform scale: [%f, %f, %f, %f], [%f, %f, %f, %f], [%f, %f, %f, %f], [%f, %f, %f, %f]";
+      v112 = 2048;
+      v113 = v9;
+      v114 = 2048;
+      v115 = v92;
+      v116 = 2048;
+      v117 = v86;
+      v118 = 2048;
+      v119 = v10;
+      v120 = 2048;
+      v121 = v11;
+      v122 = 2048;
+      v123 = v91;
+      v124 = 2048;
+      v125 = v87;
+      v126 = 2048;
+      v127 = v12;
+      v128 = 2048;
+      v129 = v13;
+      v130 = 2048;
+      v131 = v90;
+      v132 = 2048;
+      v133 = *&v89;
+      v134 = 2048;
+      v135 = v88;
+      v136 = 2048;
+      v137 = v14;
+      v138 = 2048;
+      v139 = v15;
+      v63 = "%25s:%-5d [PHASEObject setTransform]: transform either has a zero in the last row diagonal (and thus can't be normalized), or it's singular (i.e., non-invertible, non-orthogonal): [%f, %f, %f, %f], [%f, %f, %f, %f], [%f, %f, %f, %f], [%f, %f, %f, %f]";
 LABEL_53:
       _os_log_impl(&dword_23A302000, v61, OS_LOG_TYPE_ERROR, v63, buf, 0xB2u);
-      return 0;
+      LOBYTE(v62) = 0;
     }
   }
 
-  return result;
+  else
+  {
+    v19 = v92 / v15;
+    if ((v92 / v15) < 0.0)
+    {
+      v19 = -(v92 / v15);
+    }
+
+    if (v19 <= 0.00000011921)
+    {
+      goto LABEL_16;
+    }
+
+    v20 = v91 / v15;
+    if ((v91 / v15) < 0.0)
+    {
+      v20 = -(v91 / v15);
+    }
+
+    if (v20 <= 0.00000011921)
+    {
+      goto LABEL_16;
+    }
+
+    v21 = v90 / v15;
+    if ((v90 / v15) < 0.0)
+    {
+      v21 = -(v90 / v15);
+    }
+
+    if (v21 <= 0.00000011921)
+    {
+LABEL_16:
+      v22 = 0;
+      v23 = buf;
+      do
+      {
+        for (i = 0; i != 4; ++i)
+        {
+          v25 = 0;
+          v26 = &v102;
+          v27 = v96;
+          do
+          {
+            if (v25 != i)
+            {
+              for (j = 0; j != 4; ++j)
+              {
+                if (v22 != j)
+                {
+                  *v26++ = v27[j];
+                }
+              }
+            }
+
+            ++v25;
+            v27 += 4;
+          }
+
+          while (v25 != 4);
+          v29 = (((((v103 * v107) * v108) + ((v102 * v106) * v110)) + ((v104 * v105) * v109)) + (-(v104 * v106) * v108)) + (-(v103 * v105) * v110);
+          v30 = -(v29 + (-(v102 * v107) * v109));
+          if (((i ^ v22) & 1) == 0)
+          {
+            v30 = v29 + (-(v102 * v107) * v109);
+          }
+
+          *v23++ = v30;
+        }
+
+        ++v22;
+      }
+
+      while (v22 != 4);
+    }
+
+    v31 = 0;
+    v101 = 0;
+    v100[12] = 0.0;
+    memset(buf, 0, 36);
+    v32 = v100;
+    do
+    {
+      v33 = &buf[v31];
+      *v33 = *v32;
+      v33[2] = v32[2];
+      v31 += 12;
+      v32 += 4;
+    }
+
+    while (v31 != 36);
+    v34 = sqrtf(((*buf * *buf) + (*&buf[4] * *&buf[4])) + (*&buf[8] * *&buf[8]));
+    v35 = *buf / v34;
+    *buf = v35;
+    *&buf[4] = *&buf[4] / v34;
+    v36 = ((v35 * *&buf[12]) + (*&buf[4] * *&buf[16])) + ((*&buf[8] / v34) * *&buf[20]);
+    v37 = *&buf[12] - (v35 * v36);
+    v38 = *&buf[16] - (*&buf[4] * v36);
+    v39 = *&buf[20] - ((*&buf[8] / v34) * v36);
+    v40 = sqrtf((v39 * v39) + ((v37 * v37) + (v38 * v38)));
+    v93 = v34;
+    *&v94 = v40;
+    v41 = v38 / v40;
+    *&buf[8] = *&buf[8] / v34;
+    *&buf[12] = v37 / v40;
+    *&buf[16] = v41;
+    *&buf[20] = v39 / v40;
+    v42 = ((v35 * *&buf[24]) + (*&buf[4] * *&buf[28])) + (*&buf[8] * *&buf[32]);
+    v43 = *&buf[24] - (v35 * v42);
+    v44 = *&buf[28] - (*&buf[4] * v42);
+    v45 = *&buf[32] - (*&buf[8] * v42);
+    v46 = (*&buf[20] * v45) + (((v37 / v40) * v43) + (v41 * v44));
+    v47 = v43 - (*&buf[12] * v46);
+    v48 = v44 - (v41 * v46);
+    v49 = v45 - (*&buf[20] * v46);
+    v50 = sqrtf((v49 * v49) + ((v47 * v47) + (v48 * v48)));
+    *(&v94 + 1) = v50;
+    v51 = v48 / v50;
+    v52 = v49 / v50;
+    *&buf[24] = v47 / v50;
+    *&buf[28] = v51;
+    *&buf[32] = v49 / v50;
+    if (((*&buf[8] * ((*&buf[12] * v51) - (v41 * (v47 / v50)))) + ((v35 * ((v41 * (v49 / v50)) - (*&buf[20] * v51))) + (*&buf[4] * ((*&buf[20] * (v47 / v50)) - (*&buf[12] * (v49 / v50)))))) < 0.0)
+    {
+      v53 = 0;
+      v54 = &v93;
+      do
+      {
+        *v54 = -*v54;
+        ++v54;
+        v55 = &buf[v53];
+        *v55 = vneg_f32(*&buf[v53]);
+        v55[1].f32[0] = -*&buf[v53 + 8];
+        v53 += 12;
+      }
+
+      while (v53 != 36);
+      v52 = *&buf[32];
+      v41 = *&buf[16];
+      v35 = *buf;
+    }
+
+    v84 = v14;
+    v56 = v46 / v50;
+    v57 = v52 + (v41 + v35);
+    if (v57 <= 0.0)
+    {
+      v64 = v41 > v35;
+      if (v52 > *((buf | (4 * v64) | (8 * v64)) + 4 * v64))
+      {
+        v64 = 2;
+      }
+
+      v65 = Phase::Decompose<float>(Phase::Matrix<float,4ul,4ul> const&,Phase::Quaternion<float> &,Phase::Vector<float,3ul> &,Phase::Vector<float,3ul> &,Phase::Vector<float,3ul> &,Phase::Vector<float,4ul> &,float)::sNext[v64];
+      v66 = Phase::Decompose<float>(Phase::Matrix<float,4ul,4ul> const&,Phase::Quaternion<float> &,Phase::Vector<float,3ul> &,Phase::Vector<float,3ul> &,Phase::Vector<float,3ul> &,Phase::Vector<float,4ul> &,float)::sNext[v65];
+      v67 = &buf[12 * v64];
+      v68 = &buf[12 * v65];
+      v69 = &buf[12 * v66];
+      v70 = sqrtf(((*&v67[4 * v64] - *&v68[4 * v65]) - *&v69[4 * v66]) + 1.0);
+      *(&v95 | (4 * v64)) = v70 * 0.5;
+      v71 = 0.5 / v70;
+      v96[v65 - 1] = v71 * (*&v67[4 * v65] + *&v68[4 * v64]);
+      v96[v66 - 1] = v71 * (*&v67[4 * v66] + *&v69[4 * v64]);
+      v59 = v71 * (*&v68[4 * v66] - *&v69[4 * v65]);
+    }
+
+    else
+    {
+      v58 = sqrtf(v57 + 1.0);
+      v59 = v58 * 0.5;
+      v60 = 0.5 / v58;
+      *&v95 = vmul_n_f32(vsub_f32(*&buf[20], __PAIR64__(*&buf[8], *&buf[28])), v60);
+      *(&v95 + 2) = v60 * (*&buf[4] - *&buf[12]);
+    }
+
+    *(&v95 + 3) = v59;
+    if (v56 < 0.0)
+    {
+      v56 = -v56;
+    }
+
+    if (v56 > 0.0001)
+    {
+      goto LABEL_51;
+    }
+
+    v72 = v42 / v50;
+    if (v72 < 0.0)
+    {
+      v72 = -v72;
+    }
+
+    if (v72 > 0.0001)
+    {
+      goto LABEL_51;
+    }
+
+    v73 = v36 / v40;
+    if (v73 < 0.0)
+    {
+      v73 = -v73;
+    }
+
+    if (v73 <= 0.0001)
+    {
+      v74 = fmaxf(fmaxf(v93, *&v94), *(&v94 + 1));
+      v75 = v74 * 0.001;
+      v76 = v93 - *&v94;
+      if ((v93 - *&v94) < 0.0)
+      {
+        v76 = -(v93 - *&v94);
+      }
+
+      if (v76 > v75)
+      {
+        goto LABEL_61;
+      }
+
+      v77 = v93 - *(&v94 + 1);
+      if ((v93 - *(&v94 + 1)) < 0.0)
+      {
+        v77 = -v77;
+      }
+
+      if (v77 > v75)
+      {
+LABEL_61:
+        v61 = **(Phase::Logger::GetInstance(self) + 448);
+        v62 = os_log_type_enabled(v61, OS_LOG_TYPE_ERROR);
+        if (!v62)
+        {
+          return v62;
+        }
+
+        *buf = 136319490;
+        *&buf[4] = "PHASEObject.mm";
+        *&buf[12] = 1024;
+        *&buf[14] = 584;
+        *&buf[18] = 2048;
+        *&buf[20] = v85;
+        *&buf[28] = 2048;
+        *&buf[30] = v8;
+        v112 = 2048;
+        v113 = v9;
+        v114 = 2048;
+        v115 = v92;
+        v116 = 2048;
+        v117 = v86;
+        v118 = 2048;
+        v119 = v10;
+        v120 = 2048;
+        v121 = v11;
+        v122 = 2048;
+        v123 = v91;
+        v124 = 2048;
+        v125 = v87;
+        v126 = 2048;
+        v127 = v12;
+        v128 = 2048;
+        v129 = v13;
+        v130 = 2048;
+        v131 = v90;
+        v132 = 2048;
+        v133 = *&v89;
+        v134 = 2048;
+        v135 = v88;
+        v136 = 2048;
+        v137 = v84;
+        v138 = 2048;
+        v139 = v15;
+        v63 = "%25s:%-5d [PHASEObject setTransform]: transform has non-uniform scale: [%f, %f, %f, %f], [%f, %f, %f, %f], [%f, %f, %f, %f], [%f, %f, %f, %f]";
+        goto LABEL_53;
+      }
+
+      v78 = v89;
+      if (fabsf(*&v89) >= 1000000000.0 || fabsf(v88) >= 1000000000.0 || fabsf(v84) >= 1000000000.0)
+      {
+        v79 = v74;
+        v80 = **(Phase::Logger::GetInstance(self) + 448);
+        v81 = os_log_type_enabled(v80, OS_LOG_TYPE_ERROR);
+        v74 = v79;
+        v78 = v89;
+        if (v81)
+        {
+          *buf = 136316162;
+          *&buf[4] = "PHASEObject.mm";
+          *&buf[12] = 1024;
+          *&buf[14] = 596;
+          *&buf[18] = 2048;
+          *&buf[20] = *&v89;
+          *&buf[28] = 2048;
+          *&buf[30] = v88;
+          v112 = 2048;
+          v113 = v84;
+          _os_log_impl(&dword_23A302000, v80, OS_LOG_TYPE_ERROR, "%25s:%-5d [PHASEObject setTransform]: WARNING: transform has extremely large translation values [%f, %f, %f]. Expect numerical errors.", buf, 0x30u);
+          v74 = v79;
+          v78 = v89;
+        }
+      }
+
+      v82 = DWORD2(v95);
+      *a7 = v95;
+      *(a7 + 8) = v82;
+      *(a7 + 12) = v59;
+      *(a7 + 16) = v78;
+      *(a7 + 24) = v84;
+      *(a7 + 28) = v74;
+      LOBYTE(v62) = 1;
+    }
+
+    else
+    {
+LABEL_51:
+      v61 = **(Phase::Logger::GetInstance(self) + 448);
+      v62 = os_log_type_enabled(v61, OS_LOG_TYPE_ERROR);
+      if (v62)
+      {
+        *buf = 136319490;
+        *&buf[4] = "PHASEObject.mm";
+        *&buf[12] = 1024;
+        *&buf[14] = 566;
+        *&buf[18] = 2048;
+        *&buf[20] = v85;
+        *&buf[28] = 2048;
+        *&buf[30] = v8;
+        v112 = 2048;
+        v113 = v9;
+        v114 = 2048;
+        v115 = v92;
+        v116 = 2048;
+        v117 = v86;
+        v118 = 2048;
+        v119 = v10;
+        v120 = 2048;
+        v121 = v11;
+        v122 = 2048;
+        v123 = v91;
+        v124 = 2048;
+        v125 = v87;
+        v126 = 2048;
+        v127 = v12;
+        v128 = 2048;
+        v129 = v13;
+        v130 = 2048;
+        v131 = v90;
+        v132 = 2048;
+        v133 = *&v89;
+        v134 = 2048;
+        v135 = v88;
+        v136 = 2048;
+        v137 = v84;
+        v138 = 2048;
+        v139 = v15;
+        v63 = "%25s:%-5d [PHASEObject setTransform]: transform is skewed (i.e., has non axis-aligned scale): [%f, %f, %f, %f], [%f, %f, %f, %f], [%f, %f, %f, %f], [%f, %f, %f, %f]";
+        goto LABEL_53;
+      }
+    }
+  }
+
+  return v62;
 }
 
 - (__n128)_storeTransform:(__n128)transform

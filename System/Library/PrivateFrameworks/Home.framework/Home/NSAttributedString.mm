@@ -43,7 +43,7 @@ void __69__NSAttributedString_HFAdditions__hf_loadFromHTMLWithString_options___b
 
 void __69__NSAttributedString_HFAdditions__hf_loadFromHTMLWithString_options___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a4;
   if (v7)
@@ -51,20 +51,18 @@ void __69__NSAttributedString_HFAdditions__hf_loadFromHTMLWithString_options___b
     v8 = HFLogForCategory(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138412290;
-      v11 = v7;
-      _os_log_error_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_ERROR, "[NSAttributedString loadFromHTMLWithString:options:completionHandler:]: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v7;
+      _os_log_error_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_ERROR, "[NSAttributedString loadFromHTMLWithString:options:completionHandler:]: %@", &v9, 0xCu);
     }
   }
 
   [*(a1 + 32) finishWithResult:v6 error:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 id __78__NSAttributedString_HFAdditions__hf_safeAttributedStringWithHTML_attributes___block_invoke(uint64_t a1, void *a2)
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   v3 = [a2 mutableCopy];
   v4 = [v3 length];
   v5 = [v3 string];
@@ -86,57 +84,55 @@ id __78__NSAttributedString_HFAdditions__hf_safeAttributedStringWithHTML_attribu
   }
 
   v12 = objc_alloc(MEMORY[0x277CBEB58]);
-  v28[0] = *MEMORY[0x277D74118];
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
+  v27[0] = *MEMORY[0x277D74118];
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
   v14 = [v12 initWithArray:v13];
 
   v15 = [v3 length];
-  v22 = MEMORY[0x277D85DD0];
-  v23 = 3221225472;
-  v24 = __78__NSAttributedString_HFAdditions__hf_safeAttributedStringWithHTML_attributes___block_invoke_2;
-  v25 = &unk_277DFC440;
+  v21 = MEMORY[0x277D85DD0];
+  v22 = 3221225472;
+  v23 = __78__NSAttributedString_HFAdditions__hf_safeAttributedStringWithHTML_attributes___block_invoke_2;
+  v24 = &unk_277DFC440;
   v16 = v3;
-  v26 = v16;
+  v25 = v16;
   v17 = v14;
-  v27 = v17;
-  [v16 enumerateAttributesInRange:0 options:v15 usingBlock:{0, &v22}];
+  v26 = v17;
+  [v16 enumerateAttributesInRange:0 options:v15 usingBlock:{0, &v21}];
   v18 = *(a1 + 32);
   if (v18)
   {
-    [v16 addAttributes:v18 range:{0, objc_msgSend(v16, "length", v22, v23, v24, v25, v26)}];
+    [v16 addAttributes:v18 range:{0, objc_msgSend(v16, "length", v21, v22, v23, v24, v25)}];
   }
 
-  v19 = [MEMORY[0x277D2C900] futureWithResult:{v16, v22, v23, v24, v25}];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = [MEMORY[0x277D2C900] futureWithResult:{v16, v21, v22, v23, v24}];
 
   return v19;
 }
 
 void __78__NSAttributedString_HFAdditions__hf_safeAttributedStringWithHTML_attributes___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v6 = a2;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     v10 = *MEMORY[0x277D740E8];
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
+        v12 = *(*(&v16 + 1) + 8 * i);
         if ([v12 isEqualToString:v10])
         {
           v13 = [v6 objectForKeyedSubscript:v12];
@@ -154,13 +150,11 @@ void __78__NSAttributedString_HFAdditions__hf_safeAttributedStringWithHTML_attri
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

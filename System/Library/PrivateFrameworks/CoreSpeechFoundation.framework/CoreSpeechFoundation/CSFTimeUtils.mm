@@ -12,22 +12,21 @@
 
 + (unint64_t)macHostTimeFromBridgeHostTime:(unint64_t)time
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
   {
-    v7 = 136315138;
-    v8 = "+[CSFTimeUtils macHostTimeFromBridgeHostTime:]";
-    _os_log_error_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_ERROR, "%s Not supported on this platform", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "+[CSFTimeUtils macHostTimeFromBridgeHostTime:]";
+    _os_log_error_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_ERROR, "%s Not supported on this platform", &v6, 0xCu);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return time;
 }
 
 + (unint64_t)sampleCountFromHostTime:(unint64_t)time anchorHostTime:(unint64_t)hostTime anchorSampleCount:(unint64_t)count sampleRate:(float)rate
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   rateCopy = rate;
   [self getHostClockFrequency];
   v11 = llround(rateCopy / v10 * (hostTime - time));
@@ -37,21 +36,20 @@
     v13 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v15 = 136315138;
-      v16 = "+[CSFTimeUtils sampleCountFromHostTime:anchorHostTime:anchorSampleCount:sampleRate:]";
-      _os_log_error_impl(&dword_1DDA4B000, v13, OS_LOG_TYPE_ERROR, "%s Delta is larger than anchorSampleCount", &v15, 0xCu);
+      v14 = 136315138;
+      v15 = "+[CSFTimeUtils sampleCountFromHostTime:anchorHostTime:anchorSampleCount:sampleRate:]";
+      _os_log_error_impl(&dword_1DDA4B000, v13, OS_LOG_TYPE_ERROR, "%s Delta is larger than anchorSampleCount", &v14, 0xCu);
     }
 
-    result = 0;
+    return 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 + (unint64_t)hostTimeFromSampleCount:(unint64_t)count anchorHostTime:(unint64_t)time anchorSampleCount:(unint64_t)sampleCount sampleRate:(float)rate
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   [self getHostClockFrequency];
   v11 = llround(v10 / rate * (sampleCount - count));
   result = time - v11;
@@ -60,21 +58,20 @@
     v13 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v15 = 136315906;
-      v16 = "+[CSFTimeUtils hostTimeFromSampleCount:anchorHostTime:anchorSampleCount:sampleRate:]";
-      v17 = 2050;
+      v14 = 136315906;
+      v15 = "+[CSFTimeUtils hostTimeFromSampleCount:anchorHostTime:anchorSampleCount:sampleRate:]";
+      v16 = 2050;
       sampleCountCopy = sampleCount;
-      v19 = 2050;
+      v18 = 2050;
       countCopy = count;
-      v21 = 2050;
+      v20 = 2050;
       timeCopy = time;
-      _os_log_error_impl(&dword_1DDA4B000, v13, OS_LOG_TYPE_ERROR, "%s Delta is larger than anchorHostTime: anchorSampleCount = %{public}lld, sampleTime = %{public}lld, anchorHostTime = %{public}lld", &v15, 0x2Au);
+      _os_log_error_impl(&dword_1DDA4B000, v13, OS_LOG_TYPE_ERROR, "%s Delta is larger than anchorHostTime: anchorSampleCount = %{public}lld, sampleTime = %{public}lld, anchorHostTime = %{public}lld", &v14, 0x2Au);
     }
 
-    result = 0;
+    return 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return result;
 }
 

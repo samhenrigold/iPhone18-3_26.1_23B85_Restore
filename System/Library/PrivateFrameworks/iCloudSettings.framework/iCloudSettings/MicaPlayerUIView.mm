@@ -16,7 +16,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_275862730();
+  sub_275862730(selfCopy);
 }
 
 - (_TtC14iCloudSettings16MicaPlayerUIView)initWithFrame:(CGRect)frame

@@ -28,15 +28,13 @@
 
 void __38__SKDTestProcessor_requiredAttributes__block_invoke()
 {
-  v4[2] = *MEMORY[0x277D85DE8];
+  v3[2] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CC31F0];
-  v4[0] = *MEMORY[0x277CC31A0];
-  v4[1] = v0;
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
+  v3[0] = *MEMORY[0x277CC31A0];
+  v3[1] = v0;
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:2];
   v2 = requiredAttributes_sTestRequired;
   requiredAttributes_sTestRequired = v1;
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)willProcessRecord:(id)record bundleID:(id)d
@@ -48,7 +46,7 @@ void __38__SKDTestProcessor_requiredAttributes__block_invoke()
 
 - (id)processRecord:(id)record bundleID:(id)d
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   dCopy = d;
   v6 = [SKDRecordUpdate alloc];
   v7 = [objc_opt_class() description];
@@ -63,12 +61,12 @@ void __38__SKDTestProcessor_requiredAttributes__block_invoke()
   if (v7)
   {
     [(SKDEvent *)v8 updateStatus:2];
-    v17[0] = @"_kMDItemTestAttribute";
-    v18[0] = &unk_2846E7A58;
+    v16[0] = @"_kMDItemTestAttribute";
+    v17[0] = &unk_2846E7A58;
     marker = [(SKDRecordProcessor *)self marker];
-    v17[1] = marker;
-    v18[1] = MEMORY[0x277CBEC38];
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+    v16[1] = marker;
+    v17[1] = MEMORY[0x277CBEC38];
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
     [(SKDItemUpdate *)v8 addAttributesFromDictionary:v12];
   }
 
@@ -82,8 +80,6 @@ void __38__SKDTestProcessor_requiredAttributes__block_invoke()
 
   logger = [(SKDRecordProcessor *)self logger];
   [logger logEvent:v8];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

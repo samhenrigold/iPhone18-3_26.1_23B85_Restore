@@ -114,7 +114,7 @@
     return 0;
   }
 
-  [(CIAreaHoughTransform *)self _netExtent];
+  objc_msgSend__netExtent(self, a2);
   return 1;
 }
 
@@ -134,7 +134,7 @@
     return [+[CIImage imageWithColor:](CIImage imageByCroppingToRect:+[CIColor clearColor]), "imageByCroppingToRect:", 0.0, 0.0, 256.0, 180.0];
   }
 
-  [(CIAreaHoughTransform *)self _netExtent];
+  objc_msgSend__netExtent(self);
   v3 = v34;
   if (!v34)
   {

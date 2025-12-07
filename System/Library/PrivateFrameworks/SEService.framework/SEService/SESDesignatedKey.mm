@@ -37,7 +37,7 @@
 
 + (id)fromDictionary:(id)dictionary
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v4 = objc_opt_new();
   v5 = [dictionaryCopy objectForKeyedSubscript:@"AID"];
@@ -51,11 +51,11 @@
       v7 = SESDefaultLogObject();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
       {
-        v16 = 138412546;
-        v17 = objc_opt_class();
-        v18 = 2112;
-        v19 = @"slotNumber";
-        _os_log_impl(&dword_1C7B9A000, v7, OS_LOG_TYPE_FAULT, "Wrong type (%@) for key (%@)", &v16, 0x16u);
+        v15 = 138412546;
+        v16 = objc_opt_class();
+        v17 = 2112;
+        v18 = @"slotNumber";
+        _os_log_impl(&dword_1C7B9A000, v7, OS_LOG_TYPE_FAULT, "Wrong type (%@) for key (%@)", &v15, 0x16u);
       }
 
       v12 = 0;
@@ -69,11 +69,11 @@
       v8 = SESDefaultLogObject();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
-        v16 = 138412546;
-        v17 = objc_opt_class();
-        v18 = 2112;
-        v19 = @"keyIdentifier";
-        _os_log_impl(&dword_1C7B9A000, v8, OS_LOG_TYPE_FAULT, "Wrong type (%@) for key (%@)", &v16, 0x16u);
+        v15 = 138412546;
+        v16 = objc_opt_class();
+        v17 = 2112;
+        v18 = @"keyIdentifier";
+        _os_log_impl(&dword_1C7B9A000, v8, OS_LOG_TYPE_FAULT, "Wrong type (%@) for key (%@)", &v15, 0x16u);
       }
 
       v12 = 0;
@@ -87,11 +87,11 @@
       v9 = SESDefaultLogObject();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
       {
-        v16 = 138412546;
-        v17 = objc_opt_class();
-        v18 = 2112;
-        v19 = @"assetACL";
-        _os_log_impl(&dword_1C7B9A000, v9, OS_LOG_TYPE_FAULT, "Wrong type (%@) for key (%@)", &v16, 0x16u);
+        v15 = 138412546;
+        v16 = objc_opt_class();
+        v17 = 2112;
+        v18 = @"assetACL";
+        _os_log_impl(&dword_1C7B9A000, v9, OS_LOG_TYPE_FAULT, "Wrong type (%@) for key (%@)", &v15, 0x16u);
       }
 
       v12 = 0;
@@ -105,11 +105,11 @@
       v10 = SESDefaultLogObject();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
-        v16 = 138412546;
-        v17 = objc_opt_class();
-        v18 = 2112;
-        v19 = @"assetACLAttestation";
-        _os_log_impl(&dword_1C7B9A000, v10, OS_LOG_TYPE_FAULT, "Wrong type (%@) for key (%@)", &v16, 0x16u);
+        v15 = 138412546;
+        v16 = objc_opt_class();
+        v17 = 2112;
+        v18 = @"assetACLAttestation";
+        _os_log_impl(&dword_1C7B9A000, v10, OS_LOG_TYPE_FAULT, "Wrong type (%@) for key (%@)", &v15, 0x16u);
       }
 
       v12 = 0;
@@ -146,11 +146,11 @@ LABEL_34:
       v13 = SESDefaultLogObject();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
       {
-        v16 = 138412546;
-        v17 = objc_opt_class();
-        v18 = 2112;
-        v19 = @"designation";
-        _os_log_impl(&dword_1C7B9A000, v13, OS_LOG_TYPE_FAULT, "Wrong type (%@) for key (%@)", &v16, 0x16u);
+        v15 = 138412546;
+        v16 = objc_opt_class();
+        v17 = 2112;
+        v18 = @"designation";
+        _os_log_impl(&dword_1C7B9A000, v13, OS_LOG_TYPE_FAULT, "Wrong type (%@) for key (%@)", &v15, 0x16u);
       }
     }
 
@@ -159,11 +159,11 @@ LABEL_34:
       v11 = SESDefaultLogObject();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
-        v16 = 138412546;
-        v17 = objc_opt_class();
-        v18 = 2112;
-        v19 = @"oaVersion";
-        _os_log_impl(&dword_1C7B9A000, v11, OS_LOG_TYPE_FAULT, "Wrong type (%@) for key (%@)", &v16, 0x16u);
+        v15 = 138412546;
+        v16 = objc_opt_class();
+        v17 = 2112;
+        v18 = @"oaVersion";
+        _os_log_impl(&dword_1C7B9A000, v11, OS_LOG_TYPE_FAULT, "Wrong type (%@) for key (%@)", &v15, 0x16u);
       }
     }
 
@@ -174,47 +174,43 @@ LABEL_34:
   v6 = SESDefaultLogObject();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
   {
-    v16 = 138412546;
-    v17 = objc_opt_class();
-    v18 = 2112;
-    v19 = @"AID";
-    _os_log_impl(&dword_1C7B9A000, v6, OS_LOG_TYPE_FAULT, "Wrong type (%@) for key (%@)", &v16, 0x16u);
+    v15 = 138412546;
+    v16 = objc_opt_class();
+    v17 = 2112;
+    v18 = @"AID";
+    _os_log_impl(&dword_1C7B9A000, v6, OS_LOG_TYPE_FAULT, "Wrong type (%@) for key (%@)", &v15, 0x16u);
   }
 
   v12 = 0;
 LABEL_35:
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 - (id)asDictionary
 {
-  v13[7] = *MEMORY[0x1E69E9840];
+  v12[7] = *MEMORY[0x1E69E9840];
   slotNumber = self->_slotNumber;
-  v13[0] = self->_aid;
-  v12[0] = @"AID";
-  v12[1] = @"slotNumber";
+  v12[0] = self->_aid;
+  v11[0] = @"AID";
+  v11[1] = @"slotNumber";
   v4 = [MEMORY[0x1E696AD98] numberWithInteger:slotNumber];
   keyIdentifier = self->_keyIdentifier;
-  v13[1] = v4;
-  v13[2] = keyIdentifier;
-  v12[2] = @"keyIdentifier";
-  v12[3] = @"assetACL";
+  v12[1] = v4;
+  v12[2] = keyIdentifier;
+  v11[2] = @"keyIdentifier";
+  v11[3] = @"assetACL";
   assetACLAttestation = self->_assetACLAttestation;
-  v13[3] = self->_assetACL;
-  v13[4] = assetACLAttestation;
-  v12[4] = @"assetACLAttestation";
-  v12[5] = @"oaVersion";
+  v12[3] = self->_assetACL;
+  v12[4] = assetACLAttestation;
+  v11[4] = @"assetACLAttestation";
+  v11[5] = @"oaVersion";
   v7 = [MEMORY[0x1E696AD98] numberWithInteger:self->_operationApprovalVersion];
-  v13[5] = v7;
-  v12[6] = @"designation";
+  v12[5] = v7;
+  v11[6] = @"designation";
   v8 = [MEMORY[0x1E696AD98] numberWithInteger:self->_designation];
-  v13[6] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:7];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v12[6] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:7];
 
   return v9;
 }

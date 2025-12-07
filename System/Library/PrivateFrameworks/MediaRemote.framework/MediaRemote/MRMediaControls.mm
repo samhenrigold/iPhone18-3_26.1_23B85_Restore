@@ -64,11 +64,11 @@
 
 - (MRMediaControls)initWithConfiguration:(id)configuration shouldObserveRoutingContextUIDChanges:(BOOL)changes
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
-  v21.receiver = self;
-  v21.super_class = MRMediaControls;
-  v7 = [(MRMediaControls *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = MRMediaControls;
+  v7 = [(MRMediaControls *)&v20 init];
   if (v7)
   {
     v8 = [configurationCopy copy];
@@ -77,7 +77,7 @@
 
     mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
     bundleIdentifier = [mainBundle bundleIdentifier];
-    if ([bundleIdentifier isEqualToString:@"com.apple.springboard"])
+    if (objc_msgSend_isEqualToString_(bundleIdentifier))
     {
     }
 
@@ -85,9 +85,9 @@
     {
       mainBundle2 = [MEMORY[0x1E696AAE8] mainBundle];
       bundleIdentifier2 = [mainBundle2 bundleIdentifier];
-      v14 = [bundleIdentifier2 isEqualToString:@"com.apple.MediaRemoteUI"];
+      isEqualToString = objc_msgSend_isEqualToString_(bundleIdentifier2);
 
-      if ((v14 & 1) == 0)
+      if ((isEqualToString & 1) == 0)
       {
         v7->_shouldObserveRoutingContextUIDChanges = changes;
       }
@@ -101,7 +101,7 @@
         configuration = [(MRMediaControls *)v7 configuration];
         presentingAppBundleID = [configuration presentingAppBundleID];
         *buf = 138543362;
-        v23 = presentingAppBundleID;
+        v22 = presentingAppBundleID;
         _os_log_impl(&dword_1A2860000, v15, OS_LOG_TYPE_INFO, "Started observing routing context UID changes for app bundle: %{public}@", buf, 0xCu);
       }
 
@@ -110,7 +110,6 @@
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -154,20 +153,20 @@
 
 - (void)addCustomRowWithType:(id)type titleOverride:(id)override identifier:(id)identifier
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   overrideCopy = override;
   identifierCopy = identifier;
   v11 = _MRLogForCategory(0);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = 138412802;
-    v21 = typeCopy;
-    v22 = 2112;
-    v23 = overrideCopy;
-    v24 = 2112;
-    v25 = identifierCopy;
-    _os_log_impl(&dword_1A2860000, v11, OS_LOG_TYPE_DEFAULT, "MediaControls - Adding Custom Row with type:%@, titleOverride: %@, identifier: %@", &v20, 0x20u);
+    v19 = 138412802;
+    v20 = typeCopy;
+    v21 = 2112;
+    v22 = overrideCopy;
+    v23 = 2112;
+    v24 = identifierCopy;
+    _os_log_impl(&dword_1A2860000, v11, OS_LOG_TYPE_DEFAULT, "MediaControls - Adding Custom Row with type:%@, titleOverride: %@, identifier: %@", &v19, 0x20u);
   }
 
   selfCopy = self;
@@ -187,12 +186,11 @@
   [customRows2 addObject:v17];
 
   objc_sync_exit(selfCopy);
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startPrewarming
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (self->_shouldObserveRoutingContextUIDChanges)
   {
     [(MRMediaControls *)self _updateAudioSessionRoutingContext];
@@ -204,17 +202,15 @@
   v6 = _MRLogForCategory(2uLL);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v11 = 138543362;
-    v12 = configuration;
-    _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_INFO, "Start prewarming remote view controller. Configuration : %{public}@", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = configuration;
+    _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_INFO, "Start prewarming remote view controller. Configuration : %{public}@", &v10, 0xCu);
   }
 
   listener = [(MRMediaControls *)self listener];
   endpoint = [listener endpoint];
   _endpoint = [endpoint _endpoint];
   MRMediaRemotePrewarmMediaControlsCommand(v4, style, _endpoint);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopPrewarming
@@ -247,7 +243,7 @@
   MRMediaRemotePresentMediaControlsCommand(MEMORY[0x1E69E96A0], v4);
 }
 
-uint64_t __26__MRMediaControls_present__block_invoke(uint64_t result, uint64_t a2)
+id *__26__MRMediaControls_present__block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
@@ -258,7 +254,7 @@ uint64_t __26__MRMediaControls_present__block_invoke(uint64_t result, uint64_t a
       __26__MRMediaControls_present__block_invoke_cold_1(a2, v4);
     }
 
-    return [*(v3 + 32) _reset];
+    return [v3[4] _reset];
   }
 
   return result;
@@ -351,41 +347,38 @@ void __54__MRMediaControls_listener_shouldAcceptNewConnection___block_invoke(uin
 
 - (void)setDismissalReason:(unint64_t)reason
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v5 = _MRLogForCategory(2uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = [(MRMediaControls *)self _dismissalReasonString:reason];
-    v8 = 138412290;
-    v9 = v6;
-    _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_INFO, "MediaControls dismissed with reason : %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_INFO, "MediaControls dismissed with reason : %@", &v7, 0xCu);
   }
 
   self->_dismissalReason = reason;
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setTappedCustomRowIdentifier:(id)identifier
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v5 = _MRLogForCategory(2uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v8 = 138412290;
-    v9 = identifierCopy;
-    _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_INFO, "MediaControls dismissed with tapped custom row identifier : %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = identifierCopy;
+    _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_INFO, "MediaControls dismissed with tapped custom row identifier : %@", &v7, 0xCu);
   }
 
   tappedCustomRowIdentifier = self->_tappedCustomRowIdentifier;
   self->_tappedCustomRowIdentifier = identifierCopy;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_reset
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   [defaultCenter removeObserver:self name:*MEMORY[0x1E6958240] object:0];
 
@@ -411,33 +404,17 @@ void __54__MRMediaControls_listener_shouldAcceptNewConnection___block_invoke(uin
     {
       tappedCustomRowIdentifier = self->_tappedCustomRowIdentifier;
       *buf = 138412290;
-      v10 = tappedCustomRowIdentifier;
+      v9 = tappedCustomRowIdentifier;
       _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_DEFAULT, "MediaControls custom row did tap, rowIdentifier: %@", buf, 0xCu);
     }
 
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __25__MRMediaControls__reset__block_invoke_70;
-    v7[3] = &unk_1E769A228;
-    v7[4] = self;
-    dispatch_async(MEMORY[0x1E69E96A0], v7);
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __25__MRMediaControls__reset__block_invoke_70;
+    v6[3] = &unk_1E769A228;
+    v6[4] = self;
+    dispatch_async(MEMORY[0x1E69E96A0], v6);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-uint64_t __25__MRMediaControls__reset__block_invoke(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  v2 = *(v1 + 16);
-  return (*(*(v1 + 40) + 16))();
-}
-
-uint64_t __25__MRMediaControls__reset__block_invoke_70(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  v2 = *(v1 + 24);
-  return (*(*(v1 + 56) + 16))();
 }
 
 - (void)_updateAudioSessionRoutingContext
@@ -454,21 +431,19 @@ uint64_t __25__MRMediaControls__reset__block_invoke_70(uint64_t a1)
 
 - (void)_audioSessionRoutingContextDidChangeNotification
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   [(MRMediaControls *)self _updateAudioSessionRoutingContext];
   v3 = _MRLogForCategory(2uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     routingContextUID = [(MRMediaControlsConfiguration *)self->_configuration routingContextUID];
-    v7 = 138543362;
-    v8 = routingContextUID;
-    _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_INFO, "Updating remote view controller routing context UID : %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = routingContextUID;
+    _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_INFO, "Updating remote view controller routing context UID : %{public}@", &v6, 0xCu);
   }
 
   remoteObjectProxy = [(NSXPCConnection *)self->_connection remoteObjectProxy];
   [remoteObjectProxy updateMediaControlsWithConfiguration:self->_configuration];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)_mediaControlsStyleForRouteSharingPolicy:(unint64_t)policy
@@ -533,11 +508,10 @@ uint64_t __25__MRMediaControls__reset__block_invoke_70(uint64_t a1)
 
 void __26__MRMediaControls_present__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1A2860000, a2, OS_LOG_TYPE_ERROR, "Error occurred while attempting to present remote view controller. %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1A2860000, a2, OS_LOG_TYPE_ERROR, "Error occurred while attempting to present remote view controller. %@", &v2, 0xCu);
 }
 
 @end

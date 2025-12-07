@@ -6,8 +6,8 @@
 - (id)makeImageForDrawing:(uint64_t)drawing;
 - (id)saveDrawing:(void *)drawing toBaseURL:(void *)l withName:(void *)name;
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path;
+- (id)updateTableViewHeight;
 - (int64_t)tableView:(id)view numberOfRowsInSection:(int64_t)section;
-- (uint64_t)updateTableViewHeight;
 - (void)submitFeedback;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
@@ -991,7 +991,7 @@
   return v21;
 }
 
-- (uint64_t)updateTableViewHeight
+- (id)updateTableViewHeight
 {
   v17 = *MEMORY[0x1E69E9840];
   if (result)
@@ -1001,7 +1001,7 @@
     v15 = 0u;
     v12 = 0u;
     v13 = 0u;
-    v2 = *(result + 1000);
+    v2 = result[125];
     v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v3)
     {
@@ -1047,7 +1047,7 @@
       v6 = 0.0;
     }
 
-    return [*(v1 + 1032) setConstant:v6];
+    return [v1[129] setConstant:v6];
   }
 
   return result;
@@ -1288,7 +1288,7 @@ void __74__PKHandwritingSynthesisDataCollectionViewController_makeImageForDrawin
   v3.receiver = self;
   v3.super_class = PKHandwritingSynthesisDataCollectionViewController;
   [(PKHandwritingSynthesisDataCollectionViewController *)&v3 viewDidLayoutSubviews];
-  [(PKHandwritingSynthesisDataCollectionViewController *)self updateTableViewHeight];
+  [(PKHandwritingSynthesisDataCollectionViewController *)&self->super.super.super.isa updateTableViewHeight];
 }
 
 - (void)submitFeedback

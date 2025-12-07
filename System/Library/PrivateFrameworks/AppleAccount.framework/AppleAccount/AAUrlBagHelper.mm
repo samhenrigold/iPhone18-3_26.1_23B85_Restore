@@ -10,94 +10,95 @@
 
 + (BOOL)canRepairCustodian
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E698DDF8] = [MEMORY[0x1E698DDF8] sharedBag];
   v3 = [mEMORY[0x1E698DDF8] configurationAtKey:@"custodianCfgsV2"];
 
-  v4 = _AALogSystem();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = _AALogSystem(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412290;
-    v14 = v3;
-    _os_log_impl(&dword_1B6F6A000, v4, OS_LOG_TYPE_DEFAULT, "custodianCfgsV2 from urlbag: %@", &v13, 0xCu);
+    v15 = 138412290;
+    v16 = v3;
+    _os_log_impl(&dword_1B6F6A000, v5, OS_LOG_TYPE_DEFAULT, "custodianCfgsV2 from urlbag: %@", &v15, 0xCu);
   }
 
-  v5 = [v3 objectForKeyedSubscript:@"canRepairCustodianV2"];
-  if (v5)
+  v6 = [v3 objectForKeyedSubscript:@"canRepairCustodianV2"];
+  v7 = v6;
+  if (v6)
   {
-    v6 = _AALogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = _AALogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412290;
-      v14 = v5;
-      _os_log_impl(&dword_1B6F6A000, v6, OS_LOG_TYPE_DEFAULT, "Returning canRepairCustodianV2 from urlbag: %@", &v13, 0xCu);
+      v15 = 138412290;
+      v16 = v7;
+      _os_log_impl(&dword_1B6F6A000, v8, OS_LOG_TYPE_DEFAULT, "Returning canRepairCustodianV2 from urlbag: %@", &v15, 0xCu);
     }
 
-    bOOLValue = [v5 BOOLValue];
+    bOOLValue = [v7 BOOLValue];
   }
 
   else
   {
-    v8 = _os_feature_enabled_impl();
-    v9 = _AALogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _os_feature_enabled_impl();
+    v11 = v10;
+    v12 = _AALogSystem(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 67109120;
-      LODWORD(v14) = v8;
-      _os_log_impl(&dword_1B6F6A000, v9, OS_LOG_TYPE_DEFAULT, "Returning canRepairCustodian based on feature flag: %d", &v13, 8u);
+      v15 = 67109120;
+      LODWORD(v16) = v11;
+      _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, "Returning canRepairCustodian based on feature flag: %d", &v15, 8u);
     }
 
     bOOLValue = _os_feature_enabled_impl();
   }
 
-  v10 = bOOLValue;
+  v13 = bOOLValue;
 
-  v11 = *MEMORY[0x1E69E9840];
-  return v10;
+  return v13;
 }
 
 + (BOOL)canRepairBeneficiary
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E698DDF8] = [MEMORY[0x1E698DDF8] sharedBag];
   v3 = [mEMORY[0x1E698DDF8] configurationAtKey:@"inheritanceCfgs"];
 
-  v4 = _AALogSystem();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = _AALogSystem(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = v3;
-    _os_log_impl(&dword_1B6F6A000, v4, OS_LOG_TYPE_DEFAULT, "inheritanceCfgs from urlbag: %@", &v10, 0xCu);
+    v11 = 138412290;
+    v12 = v3;
+    _os_log_impl(&dword_1B6F6A000, v5, OS_LOG_TYPE_DEFAULT, "inheritanceCfgs from urlbag: %@", &v11, 0xCu);
   }
 
-  v5 = [v3 objectForKeyedSubscript:@"canRepairBeneficiaries"];
-  if (v5)
+  v6 = [v3 objectForKeyedSubscript:@"canRepairBeneficiaries"];
+  v7 = v6;
+  if (v6)
   {
-    v6 = _AALogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = _AALogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = v5;
-      _os_log_impl(&dword_1B6F6A000, v6, OS_LOG_TYPE_DEFAULT, "Returning canRepairBeneficiary from urlbag: %@", &v10, 0xCu);
+      v11 = 138412290;
+      v12 = v7;
+      _os_log_impl(&dword_1B6F6A000, v8, OS_LOG_TYPE_DEFAULT, "Returning canRepairBeneficiary from urlbag: %@", &v11, 0xCu);
     }
 
-    LOBYTE(v6) = [v5 BOOLValue];
+    LOBYTE(v8) = [v7 BOOLValue];
   }
 
   else
   {
-    LODWORD(v6) = _os_feature_enabled_impl();
-    v7 = _AALogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _os_feature_enabled_impl();
+    v9 = _AALogSystem(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 67109120;
-      LODWORD(v11) = v6;
-      _os_log_impl(&dword_1B6F6A000, v7, OS_LOG_TYPE_DEFAULT, "Returning canRepairCustodian based on feature flag: %d", &v10, 8u);
+      v11 = 67109120;
+      LODWORD(v12) = v8;
+      _os_log_impl(&dword_1B6F6A000, v9, OS_LOG_TYPE_DEFAULT, "Returning canRepairCustodian based on feature flag: %d", &v11, 8u);
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-  return v6;
+  return v8;
 }
 
 + (int64_t)maxRepairCount
@@ -106,41 +107,40 @@
   mEMORY[0x1E698DDF8] = [MEMORY[0x1E698DDF8] sharedBag];
   v3 = [mEMORY[0x1E698DDF8] configurationAtKey:@"custodianCfgsV2"];
 
-  v4 = _AALogSystem();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = _AALogSystem(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 138412290;
     v12 = v3;
-    _os_log_impl(&dword_1B6F6A000, v4, OS_LOG_TYPE_DEFAULT, "custodianCfgsV2 from urlbag: %@", &v11, 0xCu);
+    _os_log_impl(&dword_1B6F6A000, v5, OS_LOG_TYPE_DEFAULT, "custodianCfgsV2 from urlbag: %@", &v11, 0xCu);
   }
 
-  v5 = [v3 objectForKeyedSubscript:@"maxRepairCountV2"];
-  v6 = _AALogSystem();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-  if (v5)
+  v6 = [v3 objectForKeyedSubscript:@"maxRepairCountV2"];
+  v7 = _AALogSystem(v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  if (v6)
   {
-    if (v7)
+    if (v8)
     {
       v11 = 138412290;
-      v12 = v5;
-      _os_log_impl(&dword_1B6F6A000, v6, OS_LOG_TYPE_DEFAULT, "Returning maxRepairCountV2 from urlbag: %@", &v11, 0xCu);
+      v12 = v6;
+      _os_log_impl(&dword_1B6F6A000, v7, OS_LOG_TYPE_DEFAULT, "Returning maxRepairCountV2 from urlbag: %@", &v11, 0xCu);
     }
 
-    integerValue = [v5 integerValue];
+    integerValue = [v6 integerValue];
   }
 
   else
   {
-    if (v7)
+    if (v8)
     {
       LOWORD(v11) = 0;
-      _os_log_impl(&dword_1B6F6A000, v6, OS_LOG_TYPE_DEFAULT, "Returning maxRepairCount default value: 1", &v11, 2u);
+      _os_log_impl(&dword_1B6F6A000, v7, OS_LOG_TYPE_DEFAULT, "Returning maxRepairCount default value: 1", &v11, 2u);
     }
 
     integerValue = 1;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return integerValue;
 }
 
@@ -150,100 +150,99 @@
   mEMORY[0x1E698DDF8] = [MEMORY[0x1E698DDF8] sharedBag];
   v3 = [mEMORY[0x1E698DDF8] configurationAtKey:@"inheritanceCfgs"];
 
-  v4 = _AALogSystem();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = _AALogSystem(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 138412290;
     v12 = v3;
-    _os_log_impl(&dword_1B6F6A000, v4, OS_LOG_TYPE_DEFAULT, "beneficiaryCfgs from urlbag: %@", &v11, 0xCu);
+    _os_log_impl(&dword_1B6F6A000, v5, OS_LOG_TYPE_DEFAULT, "beneficiaryCfgs from urlbag: %@", &v11, 0xCu);
   }
 
-  v5 = [v3 objectForKeyedSubscript:@"maxRepairCount"];
-  v6 = _AALogSystem();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-  if (v5)
+  v6 = [v3 objectForKeyedSubscript:@"maxRepairCount"];
+  v7 = _AALogSystem(v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  if (v6)
   {
-    if (v7)
+    if (v8)
     {
       v11 = 138412290;
-      v12 = v5;
-      _os_log_impl(&dword_1B6F6A000, v6, OS_LOG_TYPE_DEFAULT, "Returning maxRepairCount from urlbag: %@", &v11, 0xCu);
+      v12 = v6;
+      _os_log_impl(&dword_1B6F6A000, v7, OS_LOG_TYPE_DEFAULT, "Returning maxRepairCount from urlbag: %@", &v11, 0xCu);
     }
 
-    integerValue = [v5 integerValue];
+    integerValue = [v6 integerValue];
   }
 
   else
   {
-    if (v7)
+    if (v8)
     {
       LOWORD(v11) = 0;
-      _os_log_impl(&dword_1B6F6A000, v6, OS_LOG_TYPE_DEFAULT, "Returning maxRepairCount default value: 1", &v11, 2u);
+      _os_log_impl(&dword_1B6F6A000, v7, OS_LOG_TYPE_DEFAULT, "Returning maxRepairCount default value: 1", &v11, 2u);
     }
 
     integerValue = 1;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return integerValue;
 }
 
 + (BOOL)isLCInviteAcceptanceEnabled
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E698DDF8] = [MEMORY[0x1E698DDF8] sharedBag];
   v3 = [mEMORY[0x1E698DDF8] configurationAtKey:@"inheritanceCfgs"];
 
-  v4 = _AALogSystem();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = _AALogSystem(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412290;
-    v13 = v3;
-    _os_log_impl(&dword_1B6F6A000, v4, OS_LOG_TYPE_DEFAULT, "LCInvite: inheritanceCfgs from urlbag: %@", &v12, 0xCu);
+    v14 = 138412290;
+    v15 = v3;
+    _os_log_impl(&dword_1B6F6A000, v5, OS_LOG_TYPE_DEFAULT, "LCInvite: inheritanceCfgs from urlbag: %@", &v14, 0xCu);
   }
 
-  v5 = [v3 objectForKeyedSubscript:@"inviteAcceptanceV2"];
-  v6 = +[AAPreferences isLCInviteAcceptanceEnabled];
-  v7 = _AALogSystem();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v6 = [v3 objectForKeyedSubscript:@"inviteAcceptanceV2"];
+  v7 = +[AAPreferences isLCInviteAcceptanceEnabled];
+  v8 = v7;
+  v9 = _AALogSystem(v7);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 67109120;
-    LODWORD(v13) = v6;
-    _os_log_impl(&dword_1B6F6A000, v7, OS_LOG_TYPE_DEFAULT, "LCInvite: isEnabled in Defaults: %{BOOL}d", &v12, 8u);
+    v14 = 67109120;
+    LODWORD(v15) = v8;
+    _os_log_impl(&dword_1B6F6A000, v9, OS_LOG_TYPE_DEFAULT, "LCInvite: isEnabled in Defaults: %{BOOL}d", &v14, 8u);
   }
 
-  if (v6)
+  if (v8)
   {
-    LOBYTE(v8) = 1;
+    LOBYTE(v11) = 1;
   }
 
-  else if (v5)
+  else if (v6)
   {
-    v8 = _AALogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v11 = _AALogSystem(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412290;
-      v13 = v5;
-      _os_log_impl(&dword_1B6F6A000, v8, OS_LOG_TYPE_DEFAULT, "LCInvite: Returning LCInviteAcceptance from urlbag: %@", &v12, 0xCu);
+      v14 = 138412290;
+      v15 = v6;
+      _os_log_impl(&dword_1B6F6A000, v11, OS_LOG_TYPE_DEFAULT, "LCInvite: Returning LCInviteAcceptance from urlbag: %@", &v14, 0xCu);
     }
 
-    LOBYTE(v8) = [v5 BOOLValue];
+    LOBYTE(v11) = [v6 BOOLValue];
   }
 
   else
   {
-    LODWORD(v8) = _os_feature_enabled_impl();
-    v9 = _AALogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = _os_feature_enabled_impl();
+    v12 = _AALogSystem(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 67109120;
-      LODWORD(v13) = v8;
-      _os_log_impl(&dword_1B6F6A000, v9, OS_LOG_TYPE_DEFAULT, "LCInvite: No IdMS feature flag found. is OS FeatureFlag Enabled %d", &v12, 8u);
+      v14 = 67109120;
+      LODWORD(v15) = v11;
+      _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, "LCInvite: No IdMS feature flag found. is OS FeatureFlag Enabled %d", &v14, 8u);
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-  return v8;
+  return v11;
 }
 
 @end

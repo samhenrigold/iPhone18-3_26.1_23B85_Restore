@@ -8,19 +8,17 @@
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v9[2] = *MEMORY[0x29EDCA608];
-  v8.receiver = self;
-  v8.super_class = SummaryBurnBarViewAccessibility;
-  [(SummaryBurnBarViewAccessibility *)&v8 _accessibilityLoadAccessibilityInformation];
+  v8[2] = *MEMORY[0x29EDCA608];
+  v7.receiver = self;
+  v7.super_class = SummaryBurnBarViewAccessibility;
+  [(SummaryBurnBarViewAccessibility *)&v7 _accessibilityLoadAccessibilityInformation];
   v3 = accessibilityLocalizedString(@"burn.bar.title");
   v4 = accessibilityLocalizedString(@"no.data");
-  v9[0] = v3;
-  v9[1] = v4;
-  v5 = [MEMORY[0x29EDB8D80] arrayWithObjects:v9 count:2];
+  v8[0] = v3;
+  v8[1] = v4;
+  v5 = [MEMORY[0x29EDB8D80] arrayWithObjects:v8 count:2];
   v6 = AXLabelForElements();
   [(SummaryBurnBarViewAccessibility *)self setAccessibilityLabel:v6];
-
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 - (void)updateBurnBarAccessibility:(id)accessibility personalScore:(float)score low:(float)low lowMiddle:(float)middle highMiddle:(float)highMiddle high:(float)high

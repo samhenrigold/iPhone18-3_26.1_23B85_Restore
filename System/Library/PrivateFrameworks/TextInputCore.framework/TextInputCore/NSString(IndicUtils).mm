@@ -7,7 +7,7 @@
 
 - (__CFString)_stringByRemovingOffensiveOrVulgarWords
 {
-  if ([self isEqualToString:@"মাং"])
+  if (objc_msgSend_isEqualToString_(self, a2, @"মাং"))
   {
     selfCopy = @" ং";
   }

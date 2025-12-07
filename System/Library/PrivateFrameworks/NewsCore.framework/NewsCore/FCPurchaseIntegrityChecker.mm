@@ -22,7 +22,7 @@
 
 void __83__FCPurchaseIntegrityChecker_isUserEntitledToSubscriptionForPurchaseID_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a4;
   v8 = FCPurchaseLog;
@@ -53,17 +53,17 @@ void __83__FCPurchaseIntegrityChecker_isUserEntitledToSubscriptionForPurchaseID_
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v16 = 0x3032000000;
-    v17 = __Block_byref_object_copy__75;
-    v18 = __Block_byref_object_dispose__75;
-    v19 = 0;
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __83__FCPurchaseIntegrityChecker_isUserEntitledToSubscriptionForPurchaseID_completion___block_invoke_1;
-    v12[3] = &unk_1E7C459C8;
-    v13 = *(a1 + 32);
+    v15 = 0x3032000000;
+    v16 = __Block_byref_object_copy__75;
+    v17 = __Block_byref_object_dispose__75;
+    v18 = 0;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __83__FCPurchaseIntegrityChecker_isUserEntitledToSubscriptionForPurchaseID_completion___block_invoke_1;
+    v11[3] = &unk_1E7C459C8;
+    v12 = *(a1 + 32);
     p_buf = &buf;
-    [v6 enumerateObjectsUsingBlock:v12];
+    [v6 enumerateObjectsUsingBlock:v11];
     v10 = *(a1 + 40);
     if (v10)
     {
@@ -72,13 +72,11 @@ void __83__FCPurchaseIntegrityChecker_isUserEntitledToSubscriptionForPurchaseID_
 
     _Block_object_dispose(&buf, 8);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __83__FCPurchaseIntegrityChecker_isUserEntitledToSubscriptionForPurchaseID_completion___block_invoke_1(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = [v6 inAppAdamID];
   v8 = [v7 stringValue];
@@ -93,11 +91,11 @@ void __83__FCPurchaseIntegrityChecker_isUserEntitledToSubscriptionForPurchaseID_
       v12 = [v6 inAppAdamID];
       v13 = [v12 stringValue];
       v14 = *(a1 + 32);
-      v19 = 138543618;
-      v20 = v13;
-      v21 = 2114;
-      v22 = v14;
-      _os_log_impl(&dword_1B63EF000, v11, OS_LOG_TYPE_DEFAULT, "isUserEntitledToSubscriptionForPurchaseID: subscriptionEntitlement: %{public}@ matched with purchaseID: %{public}@", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = v13;
+      v20 = 2114;
+      v21 = v14;
+      _os_log_impl(&dword_1B63EF000, v11, OS_LOG_TYPE_DEFAULT, "isUserEntitledToSubscriptionForPurchaseID: subscriptionEntitlement: %{public}@ matched with purchaseID: %{public}@", &v18, 0x16u);
     }
 
     v15 = [[FCSubscriptionEntitlement alloc] initWithASDEntitlement:v6];
@@ -107,8 +105,6 @@ void __83__FCPurchaseIntegrityChecker_isUserEntitledToSubscriptionForPurchaseID_
 
     *a4 = 1;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 @end

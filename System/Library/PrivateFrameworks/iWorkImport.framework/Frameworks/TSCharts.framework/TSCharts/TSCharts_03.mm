@@ -400,14 +400,14 @@ void sub_2762ABBC0(uint64_t a1, const char *a2, double a3, double a4, double a5)
   *(*(a1 + 32) + 88) = 1;
 }
 
-double sub_2762AC268()
+double sub_2762AC268(uint64_t a1)
 {
-  v0 = TSWPCreateSubstituteFontForString();
+  v1 = TSWPCreateSubstituteFontForString();
   characters = 78;
   glyphs = 0;
-  if (CTFontGetGlyphsForCharacters(v0, &characters, &glyphs, 1))
+  if (CTFontGetGlyphsForCharacters(v1, &characters, &glyphs, 1))
   {
-    BoundingRectsForGlyphs = CTFontGetBoundingRectsForGlyphs(v0, kCTFontOrientationDefault, &glyphs, 0, 1);
+    BoundingRectsForGlyphs = CTFontGetBoundingRectsForGlyphs(v1, kCTFontOrientationDefault, &glyphs, 0, 1);
     width = BoundingRectsForGlyphs.size.width;
   }
 
@@ -416,7 +416,7 @@ double sub_2762AC268()
     width = *MEMORY[0x277CBF3A8];
   }
 
-  CFRelease(v0);
+  CFRelease(v1);
   return width;
 }
 
@@ -446,29 +446,29 @@ double sub_2762AD980(uint64_t a1, const char *a2, double a3, double a4, double a
   return v14;
 }
 
-uint64_t sub_2762B2800(uint64_t a1, uint64_t a2, double a3, double a4, double a5)
+uint64_t sub_2762B2800(uint64_t a1, const char *a2, double a3, double a4, double a5)
 {
   v5 = *(a1 + 32);
-  v6 = *(a2 + 16);
+  v6 = *(a2 + 1);
   v8[0] = *a2;
   v8[1] = v6;
-  v8[2] = *(a2 + 32);
+  v8[2] = *(a2 + 2);
   return objc_msgSend_addTextSubselectionKnobsToArray_rect_transform_(TSCHRenderUtilities, a2, a3, a4, a5, v5, v8);
 }
 
-uint64_t sub_2762B28F4(uint64_t a1, uint64_t a2, double a3, double a4, double a5)
+uint64_t sub_2762B28F4(uint64_t a1, const char *a2, double a3, double a4, double a5)
 {
   v5 = *(a1 + 32);
-  v6 = *(a2 + 16);
+  v6 = *(a2 + 1);
   v8[0] = *a2;
   v8[1] = v6;
-  v8[2] = *(a2 + 32);
+  v8[2] = *(a2 + 2);
   return objc_msgSend_addTextSubselectionHalosToArray_rect_transform_(TSCHRenderUtilities, a2, a3, a4, a5, v5, v8);
 }
 
-void sub_2762B2A14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2762B2A14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -485,39 +485,39 @@ void sub_2762B2A2C(uint64_t a1, _OWORD *a2, double a3, double a4, double a5, dou
 
 BOOL sub_2762B2E3C(uint64_t a1, uint64_t a2, void *a3)
 {
-  v5 = a3;
-  v6 = *(MEMORY[0x277CBF3A0] + 16);
-  v23[0] = *MEMORY[0x277CBF3A0];
-  v23[1] = v6;
-  v22 = *MEMORY[0x277CBF3A8];
-  memset(&v21, 0, sizeof(v21));
-  v7 = *(a1 + 32);
-  objc_msgSend_layoutSize(v7, v8, 0.0, *&v22, v9);
-  if (v7)
+  v4 = a3;
+  v5 = *(MEMORY[0x277CBF3A0] + 16);
+  v21 = *MEMORY[0x277CBF3A0];
+  v22 = v5;
+  v20 = *MEMORY[0x277CBF3A8];
+  memset(&v19, 0, sizeof(v19));
+  v6 = *(a1 + 32);
+  objc_msgSend_layoutSize(v6, v7, 0.0, *&v20, v8);
+  if (v6)
   {
-    objc_msgSend_i_localTransformForLabel_range_inLayoutSize_outElementSize_outClipRect_usingString_stride_useAngle_(v7, v10, v11, v12, v13, a2, 0, &v22, v23, v5, 0, 1);
+    objc_msgSend_i_localTransformForLabel_range_inLayoutSize_outElementSize_outClipRect_usingString_stride_useAngle_(v6, v9, v10, v11, 1);
   }
 
   else
   {
-    memset(&v21, 0, sizeof(v21));
+    memset(&v19, 0, sizeof(v19));
   }
 
-  memset(&v20, 0, sizeof(v20));
-  v14 = *(a1 + 32);
-  if (v14)
+  memset(&v18, 0, sizeof(v18));
+  v12 = *(a1 + 32);
+  if (v12)
   {
-    v19 = v21;
-    objc_msgSend_p_rootedTransformFromLocalTransform_(v14, v10, v21.tx, v21.c, v13, &v19);
+    v17 = v19;
+    objc_msgSend_p_rootedTransformFromLocalTransform_(v12, v19.tx, v19.c, v11);
   }
 
-  v18 = v20;
-  CGAffineTransformInvert(&v19, &v18);
-  point = vaddq_f64(*&v19.tx, vmlaq_n_f64(vmulq_n_f64(*&v19.c, *(a1 + 48)), *&v19.a, *(a1 + 40)));
+  v16 = v18;
+  CGAffineTransformInvert(&v17, &v16);
+  point = vaddq_f64(*&v17.tx, vmlaq_n_f64(vmulq_n_f64(*&v17.c, *(a1 + 48)), *&v17.a, *(a1 + 40)));
   TSURectWithSize();
-  v15 = CGRectContainsPoint(v24, point);
+  v13 = CGRectContainsPoint(v23, point);
 
-  return v15;
+  return v13;
 }
 
 uint64_t sub_2762B433C(uint64_t a1, const char *a2, double a3, double a4, double a5)
@@ -589,11 +589,11 @@ void sub_2762B4388(uint64_t a1, const char *a2, double a3, double a4, double a5)
   }
 }
 
-uint64_t sub_2762B456C(uint64_t result, const char *a2, double a3, double a4, double a5)
+void *sub_2762B456C(void *result, const char *a2, double a3, double a4, double a5)
 {
-  if ((*(result + 40) & 1) == 0)
+  if ((result[5] & 1) == 0)
   {
-    return objc_msgSend_setIntValue_forProperty_(*(*(result + 32) + *MEMORY[0x277D80AF0]), a2, a3, a4, a5, 0, 1376);
+    return objc_msgSend_setIntValue_forProperty_(*(result[4] + *MEMORY[0x277D80AF0]), a2, a3, a4, a5, 0, 1376);
   }
 
   return result;
@@ -793,30 +793,30 @@ void sub_2762BCBE8(uint64_t a1, uint64_t a2, void *a3)
   }
 }
 
-uint64_t sub_2762BF060(uint64_t result, const char *a2, double a3, double a4, double a5)
+id *sub_2762BF060(id *result, const char *a2, double a3, double a4, double a5)
 {
   v5 = result;
-  if ((*(result + 48) & 1) == 0)
+  if ((result[6] & 1) == 0)
   {
-    if (objc_msgSend_containsProperty_(*(result + 32), a2, a3, a4, a5, 1425))
+    if (objc_msgSend_containsProperty_(result[4], a2, a3, a4, a5, 1425))
     {
-      v10 = objc_msgSend_intValueForProperty_(*(v5 + 32), v6, v7, v8, v9, 1425);
-      objc_msgSend_setIntValue_forProperty_(*(v5 + 40), v11, v12, v13, v14, v10, 1422);
+      v10 = objc_msgSend_intValueForProperty_(v5[4], v6, v7, v8, v9, 1425);
+      objc_msgSend_setIntValue_forProperty_(v5[5], v11, v12, v13, v14, v10, 1422);
     }
 
-    result = objc_msgSend_containsProperty_(*(v5 + 32), v6, v7, v8, v9, 1442);
+    result = objc_msgSend_containsProperty_(v5[4], v6, v7, v8, v9, 1442);
     if (result)
     {
-      v15 = objc_msgSend_intValueForProperty_(*(v5 + 32), a2, a3, a4, a5, 1442);
-      result = objc_msgSend_setIntValue_forProperty_(*(v5 + 40), v16, v17, v18, v19, v15, 1440);
+      v15 = objc_msgSend_intValueForProperty_(v5[4], a2, a3, a4, a5, 1442);
+      result = objc_msgSend_setIntValue_forProperty_(v5[5], v16, v17, v18, v19, v15, 1440);
     }
   }
 
   if ((*(v5 + 49) & 1) == 0)
   {
-    objc_msgSend_willModify(*(v5 + 32), a2, a3, a4, a5);
-    v24 = *(v5 + 32);
-    v25 = *(v5 + 40);
+    objc_msgSend_willModify(v5[4], a2, a3, a4, a5);
+    v24 = v5[4];
+    v25 = v5[5];
 
     return objc_msgSend_p_upgradeRadarChartProperties_(v24, v20, v21, v22, v23, v25);
   }
@@ -4480,7 +4480,7 @@ void sub_2762E50F4()
   qword_280A47A08 = v0;
 }
 
-uint64_t sub_2762E5138(void *a1, void *a2, void *a3, uint64_t a4, _DWORD *a5, char *a6)
+uint64_t sub_2762E5138(void *a1, void *a2, void *a3, uint64_t a4, _DWORD *a5, unsigned __int8 *a6)
 {
   v39 = 0;
   v38 = 0;
@@ -4697,7 +4697,7 @@ LABEL_38:
   return v116;
 }
 
-uint64_t sub_2762E5660(void *a1, void *a2, void *a3, uint64_t a4, _DWORD *a5, char *a6)
+uint64_t sub_2762E5660(void *a1, void *a2, void *a3, uint64_t a4, _DWORD *a5, unsigned __int8 *a6)
 {
   v40 = 0;
   v39 = 0;
@@ -4748,7 +4748,7 @@ uint64_t sub_2762E5660(void *a1, void *a2, void *a3, uint64_t a4, _DWORD *a5, ch
   return v12;
 }
 
-uint64_t sub_2762E57A4(void *a1, void *a2, void *a3, uint64_t a4, void *a5, char *a6)
+uint64_t sub_2762E57A4(void *a1, void *a2, void *a3, uint64_t a4, void *a5, unsigned __int8 *a6)
 {
   v39 = 0;
   v38 = 0;
@@ -4797,7 +4797,7 @@ uint64_t sub_2762E57A4(void *a1, void *a2, void *a3, uint64_t a4, void *a5, char
   return v12;
 }
 
-id sub_2762E58F8(void *a1, void *a2, void *a3, uint64_t a4, char *a5)
+id sub_2762E58F8(void *a1, void *a2, void *a3, uint64_t a4, unsigned __int8 *a5)
 {
   v9 = a1;
   v10 = a2;
@@ -5126,9 +5126,9 @@ void sub_2762EAF70(uint64_t a1, const char *a2, double a3, double a4, double a5)
   objc_msgSend_addObject_(*(a1 + 40), v11, v12, v13, v14, v10);
 }
 
-void sub_2762EB2A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2762EB2A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5144,28 +5144,28 @@ void sub_2762EB2BC(uint64_t a1, const char *a2, double a3, double a4, double a5)
 BOOL sub_2762ED4A8(void *a1)
 {
   v1 = a1;
-  v5 = v1;
+  v4 = v1;
   if (v1)
   {
-    objc_msgSend_transform(v1, v2, 0.0, v3, v4);
+    objc_msgSend_transform(v1, 0.0, v2, v3);
   }
 
-  v6 = fabs(0.0);
-  if (v6 == 1.0 || vabdd_f64(1.0, v6) < 0.00999999978)
+  v5 = fabs(0.0);
+  if (v5 == 1.0 || vabdd_f64(1.0, v5) < 0.00999999978)
   {
-    v8 = fabs(0.0);
-    v7 = vabdd_f64(1.0, v8) < 0.00999999978 || v8 == 1.0;
+    v7 = fabs(0.0);
+    v6 = vabdd_f64(1.0, v7) < 0.00999999978 || v7 == 1.0;
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  return v7;
+  return v6;
 }
 
-void sub_2762EF788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_2762EF788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -5239,9 +5239,9 @@ id sub_2762EFC38(uint64_t a1, void *a2)
   return v3;
 }
 
-id sub_2762EFD50(double a1, double a2, double a3, uint64_t a4, void *a5)
+id sub_2762EFD50(uint64_t a1, void *a2, double a3, double a4, double a5)
 {
-  v5 = objc_msgSend_copy(a5, a5, a1, a2, a3);
+  v5 = objc_msgSend_copy(a2, a2, a3, a4, a5);
 
   return v5;
 }
@@ -5288,7 +5288,7 @@ void sub_2762F34E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_2762F3854(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+void sub_2762F3854(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
 {
   if (a21 < 0)
   {
@@ -5299,7 +5299,7 @@ void sub_2762F3854(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-_BYTE *sub_2762F3BA4(_BYTE *a1, char *__s)
+void *sub_2762F3BA4(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -5313,13 +5313,13 @@ _BYTE *sub_2762F3BA4(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -5474,31 +5474,31 @@ id sub_2762F44DC(void *a1, uint64_t a2, void *a3)
   v4 = a3;
   v5 = a1;
   v10 = objc_msgSend_asCurrencyFormat(v5, v6, v7, v8, v9);
-  v15 = v10;
+  v14 = v10;
   if (v10)
   {
-    objc_msgSend_chartCurrencyFormatProperties(v10, v11, v12, v13, v14);
-    v4[2](&v47, v4, v46);
+    objc_msgSend_chartCurrencyFormatProperties(v10, v11, v12, v13);
+    v4[2](&v46, v4, v45);
+    v42 = v46;
     v43 = v47;
     v44 = v48;
-    v45 = v49;
-    v20 = objc_msgSend_formatByApplyingTSCHCurrencyFormatProperties_(v15, v16, v17, v18, v19, &v43);
-    v25 = v20;
-    if (v20)
+    v19 = objc_msgSend_formatByApplyingTSCHCurrencyFormatProperties_(v14, v15, v16, v17, v18, &v42);
+    v24 = v19;
+    if (v19)
     {
-      v26 = v20;
+      v25 = v19;
 
-      v5 = v26;
+      v5 = v25;
     }
 
     else
     {
-      v27 = MEMORY[0x277D81150];
-      v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, v22, v23, v24, "[TSKFormat(TSCHNumberFormatSupport) formatByUpdatingIfCurrencyFormatWithBlock:]");
-      v33 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v29, v30, v31, v32, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHNumberFormat.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v27, v34, v35, v36, v37, v28, v33, 187, 0, "invalid nil value for '%{public}s'", "updatedFormat");
+      v26 = MEMORY[0x277D81150];
+      v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, v21, v22, v23, "[TSKFormat(TSCHNumberFormatSupport) formatByUpdatingIfCurrencyFormatWithBlock:]");
+      v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, v29, v30, v31, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHNumberFormat.mm");
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v26, v33, v34, v35, v36, v27, v32, 187, 0, "invalid nil value for '%{public}s'", "updatedFormat");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v38, v39, v40, v41);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v37, v38, v39, v40);
     }
   }
 
@@ -5605,7 +5605,7 @@ uint64_t sub_2762F4A80(void *a1, const char *a2, double a3, double a4, double a5
 id sub_2762F4AFC(void *a1, const char *a2, uint64_t a3, __int16 a4, double a5, double a6, double a7)
 {
   v9 = a1;
-  objc_msgSend_chartCurrencyFormatProperties(a1, a2, a5, a6, a7);
+  objc_msgSend_chartCurrencyFormatProperties(a1, a5, a6, a7, a2);
   *&v19 = a3;
   WORD4(v19) = a4;
   v17 = v20;
@@ -5624,15 +5624,15 @@ id sub_2762F4AFC(void *a1, const char *a2, uint64_t a3, __int16 a4, double a5, d
   return v9;
 }
 
-void sub_2762F4BB0(void *a1@<X0>, const char *a2@<X1>, uint64_t a3@<X8>, double a4@<D0>, double a5@<D1>, double a6@<D2>)
+void sub_2762F4BB0(void *a1@<X0>, uint64_t a2@<X8>, const char *a3@<X1>, double a4@<D0>, double a5@<D1>, double a6@<D2>)
 {
-  sub_2762FA498(a3, a2, a4, a5, a6);
-  *a3 = objc_msgSend_chartNumericFormatProperties(a1, v8, v9, v10, v11);
-  *(a3 + 8) = v12;
-  *(a3 + 16) = objc_msgSend_accountingStyle(a1, v12, v13, v14, v15);
+  sub_2762FA498(a2, a3, a4, a5, a6);
+  *a2 = objc_msgSend_chartNumericFormatProperties(a1, v8, v9, v10, v11);
+  *(a2 + 8) = v12;
+  *(a2 + 16) = objc_msgSend_accountingStyle(a1, v12, v13, v14, v15);
   v20 = objc_msgSend_currencyCode(a1, v16, v17, v18, v19);
-  v21 = *(a3 + 24);
-  *(a3 + 24) = v20;
+  v21 = *(a2 + 24);
+  *(a2 + 24) = v20;
 }
 
 id sub_2762F4C34(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -5679,24 +5679,24 @@ id sub_2762F4D9C(uint64_t a1, uint64_t a2, unint64_t a3)
   return v9;
 }
 
-__n128 sub_2762F5720@<Q0>(__n128 *a1@<X1>, __n128 *a2@<X8>)
+__n128 sub_2762F5720@<Q0>(__n128 *a2@<X1>, __n128 *a3@<X8>)
 {
-  v4 = a1[1].n128_u64[1];
-  if (!v4)
+  v5 = a2[1].n128_u64[1];
+  if (!v5)
   {
-    v5 = objc_opt_class();
-    v10 = objc_msgSend_defaultCurrencyCode(v5, v6, v7, v8, v9);
-    v11 = a1[1].n128_u64[1];
-    a1[1].n128_u64[1] = v10;
+    v6 = objc_opt_class();
+    v11 = objc_msgSend_defaultCurrencyCode(v6, v7, v8, v9, v10);
+    v12 = a2[1].n128_u64[1];
+    a2[1].n128_u64[1] = v11;
 
-    v4 = a1[1].n128_u64[1];
+    v5 = a2[1].n128_u64[1];
   }
 
-  result = *a1;
-  *a2 = *a1;
-  a2[1].n128_u8[0] = a1[1].n128_u8[0];
-  a1[1].n128_u64[1] = 0;
-  a2[1].n128_u64[1] = v4;
+  result = *a2;
+  *a3 = *a2;
+  a3[1].n128_u8[0] = a2[1].n128_u8[0];
+  a2[1].n128_u64[1] = 0;
+  a3[1].n128_u64[1] = v5;
   return result;
 }
 
@@ -5724,7 +5724,7 @@ void sub_2762F7A64(double a1, double a2, double a3, uint64_t a4, const char *a5)
   qword_280A47A38 = v5;
 }
 
-uint64_t sub_2762F7F00(uint64_t a1, const char *a2, double a3, double a4, double a5)
+const char *sub_2762F7F00(uint64_t a1, const char *a2, double a3, double a4, double a5)
 {
   v5 = a2;
   v6 = objc_msgSend_asTSCHNumericFormat(*(a1 + 32), a2, a3, a4, a5);
@@ -5850,9 +5850,9 @@ void *sub_2762FA4FC(_BYTE *__dst, void *__src, unint64_t a3)
   return memmove(__dst, __src, v3);
 }
 
-void sub_2762FC7DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2762FC7DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5933,7 +5933,7 @@ void sub_2762FF304(uint64_t a1, const char *a2, double a3, double a4, double a5)
   }
 }
 
-uint64_t sub_2762FF6BC(uint64_t a1, const char *a2, double a3, double a4, double a5)
+void *sub_2762FF6BC(uint64_t a1, const char *a2, double a3, double a4, double a5)
 {
   objc_msgSend_p_conditionLockedWaitForBackgroundThreadsWithTimeout_(*(a1 + 32), a2, 0.0, a4, a5);
   objc_msgSend_makeObjectsPerformSelector_(*(*(a1 + 32) + 32), v6, v7, v8, v9, sel_nonThreadOwnedFlushCache);
@@ -6032,7 +6032,7 @@ uint64_t sub_2762FFF3C(uint64_t a1, const char *a2, double a3, double a4, double
   return objc_msgSend_invalidateCondition(v83, v28, v29, v30, v31);
 }
 
-uint64_t sub_276300324(uint64_t a1, const char *a2, double a3, double a4, double a5)
+void *sub_276300324(uint64_t a1, const char *a2, double a3, double a4, double a5)
 {
   if (objc_msgSend_count(*(*(a1 + 32) + 32), a2, a3, a4, a5) > 1)
   {
@@ -6061,16 +6061,16 @@ uint64_t sub_276300324(uint64_t a1, const char *a2, double a3, double a4, double
   return result;
 }
 
-uint64_t sub_2763004CC(uint64_t result, const char *a2, double a3, double a4, double a5)
+void *sub_2763004CC(void *result, const char *a2, double a3, double a4, double a5)
 {
-  v6 = *(result + 32);
+  v6 = *(result + 4);
   v7 = *(v6 + 24);
   *(v6 + 24) = v7 + 1;
   if (!v7)
   {
     v8 = result;
-    objc_msgSend_p_conditionLockedWaitForBackgroundThreadsWithTimeout_(*(result + 32), a2, 2.0, a4, a5);
-    v13 = *(*(v8 + 32) + 32);
+    objc_msgSend_p_conditionLockedWaitForBackgroundThreadsWithTimeout_(*(result + 4), a2, 2.0, a4, a5);
+    v13 = *(v8[4] + 32);
 
     return objc_msgSend_makeObjectsPerformSelector_(v13, v9, v10, v11, v12, sel_nonThreadOwnedFlushCache);
   }
@@ -6078,15 +6078,15 @@ uint64_t sub_2763004CC(uint64_t result, const char *a2, double a3, double a4, do
   return result;
 }
 
-uint64_t sub_276300618(uint64_t result, const char *a2, double a3, double a4, double a5)
+void *sub_276300618(void *result, const char *a2, double a3, double a4, double a5)
 {
-  if ((--*(*(result + 32) + 24) & 0x8000000000000000) != 0)
+  if ((--*(result[4] + 24) & 0x8000000000000000) != 0)
   {
     v5 = result;
     v6 = MEMORY[0x277D81150];
     v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, a3, a4, a5, "[TSCH3DSharegroupPool enable]_block_invoke");
     v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, v9, v10, v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DSharegroup.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v13, v14, v15, v16, v7, v12, 370, 0, "enable/disable mismatch with bad disable level %ld", *(*(v5 + 32) + 24));
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v13, v14, v15, v16, v7, v12, 370, 0, "enable/disable mismatch with bad disable level %ld", *(v5[4] + 24));
 
     v21 = MEMORY[0x277D81150];
 
@@ -6096,14 +6096,14 @@ uint64_t sub_276300618(uint64_t result, const char *a2, double a3, double a4, do
   return result;
 }
 
-void sub_276300908(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_276300908(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_276300920(uint64_t a1, const char *a2, double a3, double a4, double a5)
+void *sub_276300920(uint64_t a1, const char *a2, double a3, double a4, double a5)
 {
   v6 = *(a1 + 32);
   v8[0] = MEMORY[0x277D85DD0];
@@ -6116,14 +6116,14 @@ uint64_t sub_276300920(uint64_t a1, const char *a2, double a3, double a4, double
   return result;
 }
 
-void sub_276300A58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_276300A58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_276300A70(uint64_t a1, const char *a2, double a3, double a4, double a5)
+void *sub_276300A70(uint64_t a1, const char *a2, double a3, double a4, double a5)
 {
   v6 = *(a1 + 32);
   v8[0] = MEMORY[0x277D85DD0];
@@ -6136,14 +6136,14 @@ uint64_t sub_276300A70(uint64_t a1, const char *a2, double a3, double a4, double
   return result;
 }
 
-void sub_276300BA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_276300BA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_276300BC0(uint64_t a1, const char *a2, double a3, double a4, double a5)
+void *sub_276300BC0(uint64_t a1, const char *a2, double a3, double a4, double a5)
 {
   v6 = *(a1 + 32);
   v8[0] = MEMORY[0x277D85DD0];
@@ -6156,14 +6156,14 @@ uint64_t sub_276300BC0(uint64_t a1, const char *a2, double a3, double a4, double
   return result;
 }
 
-void sub_276300CF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_276300CF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_276300D10(uint64_t a1, const char *a2, double a3, double a4, double a5)
+void *sub_276300D10(uint64_t a1, const char *a2, double a3, double a4, double a5)
 {
   v6 = *(a1 + 32);
   v8[0] = MEMORY[0x277D85DD0];
@@ -6442,10 +6442,11 @@ LABEL_8:
   return v9;
 }
 
-void sub_276308A08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_276308A08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
-  _Block_object_dispose(&a26, 8);
+  va_start(va, a25);
 
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -7168,45 +7169,45 @@ uint64_t sub_276313484(void *a1, void *a2)
           {
 
 LABEL_35:
-            v92 = objc_msgSend_index(v7, v81, v83, v84, v85);
-            v97 = objc_msgSend_index(v5, v93, v94, v95, v96);
+            v92 = objc_msgSend_index(v7, v83, v84, v85);
+            v96 = objc_msgSend_index(v5, v93, v94, v95);
 LABEL_38:
-            v107 = v92 < v97;
-            v108 = v92 > v97;
-            if (v92 < v97)
+            v105 = v92 < v96;
+            v106 = v92 > v96;
+            if (v92 < v96)
             {
               v52 = -1;
             }
 
             else
             {
-              v52 = v92 > v97;
+              v52 = v92 > v96;
             }
 
-            if (v3 != v4 && !v107 && !v108)
+            if (v3 != v4 && !v105 && !v106)
             {
-              v109 = MEMORY[0x277D81150];
-              v110 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v98, v99, v100, v101, "NSInteger TSCHTupleSortForApplyComparator(__strong id _Nullable, __strong id _Nullable, void * _Nullable)");
-              v115 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v111, v112, v113, v114, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHStyleSwapUndoTuple.mm");
-              objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v109, v116, v117, v118, v119, v110, v115, 565, 0, "Invalid tuple array: Two tuples for the same type & index.");
+              v107 = MEMORY[0x277D81150];
+              v108 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v97, v98, v99, v100, "NSInteger TSCHTupleSortForApplyComparator(__strong id _Nullable, __strong id _Nullable, void * _Nullable)");
+              v113 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v109, v110, v111, v112, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHStyleSwapUndoTuple.mm");
+              objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v107, v114, v115, v116, v117, v108, v113, 565, 0, "Invalid tuple array: Two tuples for the same type & index.");
 
-              objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v120, v121, v122, v123);
+              objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v118, v119, v120, v121);
               v52 = 0;
             }
 
             goto LABEL_45;
           }
 
-          v102 = objc_msgSend_afterValue(v5, v88, v89, v90, v91);
+          v101 = objc_msgSend_afterValue(v5, v88, v89, v90, v91);
 
-          if (!v102)
+          if (!v101)
           {
             goto LABEL_35;
           }
         }
 
-        v92 = objc_msgSend_index(v5, v81, v83, v84, v85);
-        v97 = objc_msgSend_index(v7, v103, v104, v105, v106);
+        v92 = objc_msgSend_index(v5, v83, v84, v85);
+        v96 = objc_msgSend_index(v7, v102, v103, v104);
         goto LABEL_38;
       }
     }
@@ -7260,20 +7261,20 @@ void sub_27631588C(void *a1, uint64_t a2, uint64_t a3, void *a4)
   }
 }
 
-void sub_276315FFC(void *a1, const char *a2, double a3, double a4, double a5)
+void sub_276315FFC(void *a1, double a2, double a3, double a4, const char *a5)
 {
-  objc_msgSend_removeZoomAnimation(a1, a2, a3, a4, a5);
+  objc_msgSend_removeZoomAnimation(a1, a5, a2, a3, a4);
   objc_msgSend_frame(a1, v9, v10, v11, v12);
   x = v149.origin.x;
   y = v149.origin.y;
   width = v149.size.width;
   height = v149.size.height;
-  v17 = (a3 - CGRectGetMinX(v149)) / v149.size.width;
+  v17 = (a2 - CGRectGetMinX(v149)) / v149.size.width;
   v150.origin.x = x;
   v150.origin.y = y;
   v150.size.width = width;
   v150.size.height = height;
-  v18 = a4 - CGRectGetMinY(v150);
+  v18 = a3 - CGRectGetMinY(v150);
   v19 = v18 / height;
   v147 = objc_msgSend_animationWithKeyPath_(MEMORY[0x277CD9E10], v20, v18, v21, v22, @"anchorPoint");
   v25 = objc_msgSend_valueWithCGPoint_(MEMORY[0x277CCAE60], v23, v17, v19, v24);
@@ -7315,7 +7316,7 @@ void sub_276315FFC(void *a1, const char *a2, double a3, double a4, double a5)
   v134 = objc_msgSend_functionWithName_(MEMORY[0x277CD9EF8], v130, v131, v132, v133, *MEMORY[0x277CDA7C8]);
   objc_msgSend_setTimingFunction_(v117, v135, v136, v137, v138, v134);
 
-  *&v139 = a5;
+  *&v139 = a4;
   objc_msgSend_setSpeed_(v117, v140, v139, v141, v142);
   objc_msgSend_addAnimation_forKey_(a1, v143, v144, v145, v146, v117, @"kTSCHZoomAnimationKey");
 }
@@ -7354,7 +7355,7 @@ uint64_t sub_2763164D8(void *a1, const char *a2, double a3, double a4, double a5
   v14 = 0u;
   v11 = 0u;
   v12 = 0u;
-  objc_msgSend_transform(a1, a2, 0.0, a4, a5);
+  objc_msgSend_transform(a1, 0.0, a4, a5, a2);
   *(&v16 + 1) = -1.0 / a3;
   v10[4] = v15;
   v10[5] = v16;
@@ -7367,42 +7368,42 @@ uint64_t sub_2763164D8(void *a1, const char *a2, double a3, double a4, double a5
   return objc_msgSend_setTransform_(a1, v7, *&v13, *&v14, v8, v10);
 }
 
-void sub_276316560(void *a1, const char *a2, double a3, double a4, double a5)
+void sub_276316560(void *a1, double a2, const char *a3, double a4, double a5)
 {
-  objc_msgSend_removeCDEShieldInAnimation(a1, a2, a3, a4, a5);
+  objc_msgSend_removeCDEShieldInAnimation(a1, a3, a2, a4, a5);
   v38 = objc_msgSend_animationWithKeyPath_(MEMORY[0x277CD9E10], v7, v8, v9, v10, @"opacity");
   objc_msgSend_setFromValue_(v38, v11, v12, v13, v14, &unk_28856ED80);
   v19 = objc_msgSend_functionWithName_(MEMORY[0x277CD9EF8], v15, v16, v17, v18, *MEMORY[0x277CDA7C8]);
   objc_msgSend_setTimingFunction_(v38, v20, v21, v22, v23, v19);
 
-  objc_msgSend_setBeginTime_(v38, v24, a3 + 0.0, v25, v26);
+  objc_msgSend_setBeginTime_(v38, v24, a2 + 0.0, v25, v26);
   objc_msgSend_setDuration_(v38, v27, 0.375, v28, v29);
   objc_msgSend_setFillMode_(v38, v30, v31, v32, v33, *MEMORY[0x277CDA230]);
   objc_msgSend_addAnimation_forKey_(a1, v34, v35, v36, v37, v38, @"kTSCHCDEShieldInAnimationKey");
 }
 
-void sub_276316654(void *a1, const char *a2, double a3, double a4, double a5)
+void sub_276316654(void *a1, double a2, const char *a3, double a4, double a5)
 {
-  objc_msgSend_removeCDEShieldOutAnimation(a1, a2, a3, a4, a5);
+  objc_msgSend_removeCDEShieldOutAnimation(a1, a3, a2, a4, a5);
   v42 = objc_msgSend_animationWithKeyPath_(MEMORY[0x277CD9E10], v7, v8, v9, v10, @"opacity");
   objc_msgSend_setToValue_(v42, v11, v12, v13, v14, &unk_28856ED80);
   v19 = objc_msgSend_functionWithName_(MEMORY[0x277CD9EF8], v15, v16, v17, v18, *MEMORY[0x277CDA7C8]);
   objc_msgSend_setTimingFunction_(v42, v20, v21, v22, v23, v19);
 
-  objc_msgSend_setBeginTime_(v42, v24, a3 + 0.375, v25, v26);
+  objc_msgSend_setBeginTime_(v42, v24, a2 + 0.375, v25, v26);
   objc_msgSend_setDuration_(v42, v27, 0.375, v28, v29);
   objc_msgSend_setFillMode_(v42, v30, v31, v32, v33, *MEMORY[0x277CDA230]);
   objc_msgSend_setRemovedOnCompletion_(v42, v34, v35, v36, v37, 0);
   objc_msgSend_addAnimation_forKey_(a1, v38, v39, v40, v41, v42, @"kTSCHCDEShieldOutAnimationKey");
 }
 
-void sub_276316754(void *a1, const char *a2, int a3, double a4, double a5, double a6, double a7)
+void sub_276316754(void *a1, double a2, double a3, double a4, double a5, const char *a6, int a7)
 {
-  objc_msgSend_removeCDEChartFlipAnimationToFinalPosition(a1, a2, a4, a5, a6);
-  objc_msgSend_addPerspectiveProjectionWithDistance_(a1, v13, a7, v14, v15);
+  objc_msgSend_removeCDEChartFlipAnimationToFinalPosition(a1, a6, a2, a3, a4);
+  objc_msgSend_addPerspectiveProjectionWithDistance_(a1, v13, a5, v14, v15);
   v102 = objc_msgSend_animationWithKeyPath_(MEMORY[0x277CD9E10], v16, v17, v18, v19, @"transform.rotation.y");
   objc_msgSend_setFromValue_(v102, v20, v21, v22, v23, &unk_28856ED80);
-  if (a3)
+  if (a7)
   {
     objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v24, 1.57079633, 1.57079633, v25);
   }
@@ -7421,7 +7422,7 @@ void sub_276316754(void *a1, const char *a2, int a3, double a4, double a5, doubl
   objc_msgSend_setBeginTime_(v102, v41, 0.0, v42, v43);
   objc_msgSend_setDuration_(v102, v44, 0.375, v45, v46);
   v51 = objc_msgSend_animationWithKeyPath_(MEMORY[0x277CD9E10], v47, v48, v49, v50, @"position");
-  v54 = objc_msgSend_valueWithCGPoint_(MEMORY[0x277CCAE60], v52, a4, a5, v53);
+  v54 = objc_msgSend_valueWithCGPoint_(MEMORY[0x277CCAE60], v52, a2, a3, v53);
   objc_msgSend_setToValue_(v51, v55, v56, v57, v58, v54);
 
   v63 = objc_msgSend_functionWithName_(MEMORY[0x277CD9EF8], v59, v60, v61, v62, v31);
@@ -7433,25 +7434,25 @@ void sub_276316754(void *a1, const char *a2, int a3, double a4, double a5, doubl
   v79 = objc_msgSend_arrayWithObjects_(MEMORY[0x277CBEA60], v75, v76, v77, v78, v102, v51, 0);
   objc_msgSend_setAnimations_(v74, v80, v81, v82, v83, v79);
 
-  objc_msgSend_setBeginTime_(v74, v84, a6, v85, v86);
+  objc_msgSend_setBeginTime_(v74, v84, a4, v85, v86);
   objc_msgSend_setDuration_(v74, v87, 0.375, v88, v89);
   objc_msgSend_setFillMode_(v74, v90, v91, v92, v93, *MEMORY[0x277CDA238]);
   objc_msgSend_setRemovedOnCompletion_(v74, v94, v95, v96, v97, 0);
   objc_msgSend_addAnimation_forKey_(a1, v98, v99, v100, v101, v74, @"kTSCHCDEChartFlipInAnimationKey");
 }
 
-void sub_2763169A0(void *a1, const char *a2, int a3, double a4, double a5, double a6, double a7)
+void sub_2763169A0(void *a1, double a2, double a3, double a4, double a5, const char *a6, int a7)
 {
-  objc_msgSend_removeCDEChartFlipAnimationToFinalPosition(a1, a2, a4, a5, a6);
+  objc_msgSend_removeCDEChartFlipAnimationToFinalPosition(a1, a6, a2, a3, a4);
   objc_msgSend_removeCDEChartFlipAnimationFromPosition(a1, v13, v14, v15, v16);
-  objc_msgSend_addPerspectiveProjectionWithDistance_(a1, v17, a7, v18, v19);
+  objc_msgSend_addPerspectiveProjectionWithDistance_(a1, v17, a5, v18, v19);
   v140 = objc_msgSend_animationWithKeyPath_(MEMORY[0x277CD9E10], v20, v21, v22, v23, @"opacity");
   objc_msgSend_setToValue_(v140, v24, v25, v26, v27, &unk_28856ED80);
   objc_msgSend_setFromValue_(v140, v28, v29, v30, v31, &unk_28856ED80);
   v36 = objc_msgSend_functionWithName_(MEMORY[0x277CD9EF8], v32, v33, v34, v35, *MEMORY[0x277CDA7C8]);
   objc_msgSend_setTimingFunction_(v140, v37, v38, v39, v40, v36);
 
-  objc_msgSend_setBeginTime_(v140, v41, a6, v42, v43);
+  objc_msgSend_setBeginTime_(v140, v41, a4, v42, v43);
   objc_msgSend_setDuration_(v140, v44, 0.375, v45, v46);
   objc_msgSend_addAnimation_forKey_(a1, v47, v48, v49, v50, v140, @"pre opacity");
   v55 = objc_msgSend_animationWithKeyPath_(MEMORY[0x277CD9E10], v51, v52, v53, v54, @"opacity");
@@ -7459,7 +7460,7 @@ void sub_2763169A0(void *a1, const char *a2, int a3, double a4, double a5, doubl
   objc_msgSend_setFromValue_(v55, v60, v61, v62, v63, &unk_28856ED90);
   objc_msgSend_setDuration_(v55, v64, 0.375, v65, v66);
   v72 = objc_msgSend_animationWithKeyPath_(MEMORY[0x277CD9E10], v67, v68, v69, v70, @"transform.rotation.y");
-  if (a3)
+  if (a7)
   {
     objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v71, 1.57079633, 1.57079633, v73);
   }
@@ -7478,7 +7479,7 @@ void sub_2763169A0(void *a1, const char *a2, int a3, double a4, double a5, doubl
 
   objc_msgSend_setDuration_(v72, v93, 0.375, v94, v95);
   v100 = objc_msgSend_animationWithKeyPath_(MEMORY[0x277CD9E10], v96, v97, v98, v99, @"position");
-  v103 = objc_msgSend_valueWithCGPoint_(MEMORY[0x277CCAE60], v101, a4, a5, v102);
+  v103 = objc_msgSend_valueWithCGPoint_(MEMORY[0x277CCAE60], v101, a2, a3, v102);
   objc_msgSend_setFromValue_(v100, v104, v105, v106, v107, v103);
 
   v112 = objc_msgSend_functionWithName_(MEMORY[0x277CD9EF8], v108, v109, v110, v111, v83);
@@ -7489,7 +7490,7 @@ void sub_2763169A0(void *a1, const char *a2, int a3, double a4, double a5, doubl
   v125 = objc_msgSend_arrayWithObjects_(MEMORY[0x277CBEA60], v121, v122, v123, v124, v55, v72, v100, 0);
   objc_msgSend_setAnimations_(v120, v126, v127, v128, v129, v125);
 
-  objc_msgSend_setBeginTime_(v120, v130, a6 + 0.375, v131, v132);
+  objc_msgSend_setBeginTime_(v120, v130, a4 + 0.375, v131, v132);
   objc_msgSend_setDuration_(v120, v133, 0.375, v134, v135);
   objc_msgSend_addAnimation_forKey_(a1, v136, v137, v138, v139, v120, @"kTSCHCDEChartFlipOutAnimationKey");
 }
@@ -7501,16 +7502,16 @@ uint64_t sub_276316C94(void *a1, const char *a2, double a3, double a4, double a5
   return objc_msgSend_removeAnimationForKey_(a1, v6, v7, v8, v9, @"kTSCHCDEChartFlipOutAnimationKey");
 }
 
-void sub_276316CDC(void *a1, const char *a2, int a3, double a4, double a5, double a6, double a7)
+void sub_276316CDC(void *a1, double a2, double a3, double a4, double a5, const char *a6, int a7)
 {
-  objc_msgSend_removeCDEEditorFlipInAnimation(a1, a2, a4, a5, a6);
-  objc_msgSend_addPerspectiveProjectionWithDistance_(a1, v13, a7, v14, v15);
+  objc_msgSend_removeCDEEditorFlipInAnimation(a1, a6, a2, a3, a4);
+  objc_msgSend_addPerspectiveProjectionWithDistance_(a1, v13, a5, v14, v15);
   v92 = objc_msgSend_animationWithKeyPath_(MEMORY[0x277CD9E10], v16, v17, v18, v19, @"transform.rotation.y");
   v20 = *MEMORY[0x277CDA7C0];
   v25 = objc_msgSend_functionWithName_(MEMORY[0x277CD9EF8], v21, v22, v23, v24, *MEMORY[0x277CDA7C0]);
   objc_msgSend_setTimingFunction_(v92, v26, v27, v28, v29, v25);
 
-  if (a3)
+  if (a7)
   {
     objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v30, -1.57079633, -1.57079633, v31);
   }
@@ -7525,7 +7526,7 @@ void sub_276316CDC(void *a1, const char *a2, int a3, double a4, double a5, doubl
   objc_msgSend_setToValue_(v92, v37, v38, v39, v40, &unk_28856E7F8);
   objc_msgSend_setDuration_(v92, v41, 0.375, v42, v43);
   v48 = objc_msgSend_animationWithKeyPath_(MEMORY[0x277CD9E10], v44, v45, v46, v47, @"position");
-  v51 = objc_msgSend_valueWithCGPoint_(MEMORY[0x277CCAE60], v49, a4, a5, v50);
+  v51 = objc_msgSend_valueWithCGPoint_(MEMORY[0x277CCAE60], v49, a2, a3, v50);
   objc_msgSend_setFromValue_(v48, v52, v53, v54, v55, v51);
 
   v60 = objc_msgSend_functionWithName_(MEMORY[0x277CD9EF8], v56, v57, v58, v59, v20);
@@ -7536,23 +7537,23 @@ void sub_276316CDC(void *a1, const char *a2, int a3, double a4, double a5, doubl
   v73 = objc_msgSend_arrayWithObjects_(MEMORY[0x277CBEA60], v69, v70, v71, v72, v92, v48, 0);
   objc_msgSend_setAnimations_(v68, v74, v75, v76, v77, v73);
 
-  objc_msgSend_setBeginTime_(v68, v78, a6 + 0.375, v79, v80);
+  objc_msgSend_setBeginTime_(v68, v78, a4 + 0.375, v79, v80);
   objc_msgSend_setDuration_(v68, v81, 0.375, v82, v83);
   objc_msgSend_setFillMode_(v68, v84, v85, v86, v87, *MEMORY[0x277CDA228]);
   objc_msgSend_addAnimation_forKey_(a1, v88, v89, v90, v91, v68, @"kTSCHCDEEditorFlipInAnimationKey");
 }
 
-void sub_276316F0C(void *a1, const char *a2, int a3, double a4, double a5, double a6, double a7)
+void sub_276316F0C(void *a1, double a2, double a3, double a4, double a5, const char *a6, int a7)
 {
-  objc_msgSend_removeCDEEditorFlipOutAnimation(a1, a2, a4, a5, a6);
-  objc_msgSend_addPerspectiveProjectionWithDistance_(a1, v13, a7, v14, v15);
+  objc_msgSend_removeCDEEditorFlipOutAnimation(a1, a6, a2, a3, a4);
+  objc_msgSend_addPerspectiveProjectionWithDistance_(a1, v13, a5, v14, v15);
   v108 = objc_msgSend_animationWithKeyPath_(MEMORY[0x277CD9E10], v16, v17, v18, v19, @"opacity");
   objc_msgSend_setToValue_(v108, v20, v21, v22, v23, &unk_28856ED90);
   objc_msgSend_setFromValue_(v108, v24, v25, v26, v27, &unk_28856ED90);
   objc_msgSend_setDuration_(v108, v28, 0.375, v29, v30);
   v35 = objc_msgSend_animationWithKeyPath_(MEMORY[0x277CD9E10], v31, v32, v33, v34, @"transform.rotation.y");
   objc_msgSend_setFromValue_(v35, v36, v37, v38, v39, &unk_28856ED80);
-  if (a3)
+  if (a7)
   {
     objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v40, -1.57079633, -1.57079633, v41);
   }
@@ -7570,7 +7571,7 @@ void sub_276316F0C(void *a1, const char *a2, int a3, double a4, double a5, doubl
 
   objc_msgSend_setDuration_(v35, v57, 0.375, v58, v59);
   v64 = objc_msgSend_animationWithKeyPath_(MEMORY[0x277CD9E10], v60, v61, v62, v63, @"position");
-  v67 = objc_msgSend_valueWithCGPoint_(MEMORY[0x277CCAE60], v65, a4, a5, v66);
+  v67 = objc_msgSend_valueWithCGPoint_(MEMORY[0x277CCAE60], v65, a2, a3, v66);
   objc_msgSend_setToValue_(v64, v68, v69, v70, v71, v67);
 
   v76 = objc_msgSend_functionWithName_(MEMORY[0x277CD9EF8], v72, v73, v74, v75, v47);
@@ -7581,7 +7582,7 @@ void sub_276316F0C(void *a1, const char *a2, int a3, double a4, double a5, doubl
   v89 = objc_msgSend_arrayWithObjects_(MEMORY[0x277CBEA60], v85, v86, v87, v88, v108, v35, v64, 0);
   objc_msgSend_setAnimations_(v84, v90, v91, v92, v93, v89);
 
-  objc_msgSend_setBeginTime_(v84, v94, a6, v95, v96);
+  objc_msgSend_setBeginTime_(v84, v94, a4, v95, v96);
   objc_msgSend_setDuration_(v84, v97, 0.375, v98, v99);
   objc_msgSend_setFillMode_(v84, v100, v101, v102, v103, *MEMORY[0x277CDA228]);
   objc_msgSend_addAnimation_forKey_(a1, v104, v105, v106, v107, v84, @"kTSCHCDEEditorFlipOutAnimationKey");
@@ -7631,7 +7632,7 @@ void sub_27631AEFC(CGContext *a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5
   v21 = v13;
   MaxY = CGRectGetMaxY(v30);
   CGContextSaveGState(a1);
-  sub_27628CBE8(a1, &points, 4uLL, 2u, 2, 2.0, v14, v15);
+  sub_27628CBE8(a1, &points, 4uLL, 2, 2, 2.0, v14, v15);
   CGContextSetLineCap(a1, kCGLineCapSquare);
   CGContextSetLineJoin(a1, kCGLineJoinMiter);
   CGContextSetLineWidth(a1, 2.0);
@@ -7639,9 +7640,9 @@ void sub_27631AEFC(CGContext *a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5
   CGContextRestoreGState(a1);
 }
 
-void sub_27631BF3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_27631BF3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7833,25 +7834,25 @@ void sub_27632008C(double a1, double a2, double a3, uint64_t a4, const char *a5)
   objc_msgSend_removeObjectForKey_(v14, v10, v11, v12, v13, @"kTSCHContextDictionaryKey");
 }
 
-uint64_t sub_276320100(void *a1)
+uint64_t sub_276320100(void *a1, int a2, double a3, double a4)
 {
-  v2 = a1;
-  if (!v2)
+  v5 = a1;
+  if (!v5)
   {
-    v6 = MEMORY[0x277D81150];
-    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v1, v3, v4, v5, "CGContextRef TSCHBitmapContextCreate(TSDCanvas *__strong, CGSize, BOOL)");
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, v9, v10, v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHCGContextUtilities.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v13, v14, v15, v16, v7, v12, 61, 0, "invalid nil value for '%{public}s'", "canvas");
+    v9 = MEMORY[0x277D81150];
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, v6, v7, v8, "CGContextRef TSCHBitmapContextCreate(TSDCanvas *__strong, CGSize, BOOL)");
+    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, v12, v13, v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHCGContextUtilities.m");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v16, v17, v18, v19, v10, v15, 61, 0, "invalid nil value for '%{public}s'", "canvas");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v17, v18, v19, v20);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22, v23);
   }
 
-  objc_msgSend_canvasIsWideGamut(v2, v1, v3, v4, v5);
-  objc_msgSend_supportsHDR(v2, v21, v22, v23, v24);
-  v25 = TSDBitmapContextCreate();
+  objc_msgSend_canvasIsWideGamut(v5, v4, v6, v7, v8);
+  objc_msgSend_supportsHDR(v5, v24, v25, v26, v27);
+  v28 = TSDBitmapContextCreate();
   TSDCGContextSetShouldRenderHDRContent();
 
-  return v25;
+  return v28;
 }
 
 void sub_276323F18(uint64_t a1, const char *a2, double a3, double a4, double a5)
@@ -7885,103 +7886,103 @@ void sub_2763279C4(void *a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5, uin
     if (v20)
     {
       CGContextSaveGState(a8);
-      v25 = objc_msgSend_color(a1, v21, v22, v23, v24);
-      v30 = objc_msgSend_CGColor(v25, v26, v27, v28, v29);
-      CGContextSetFillColorWithColor(a8, v30);
+      v24 = objc_msgSend_color(a1, v21, v22, v23);
+      v29 = objc_msgSend_CGColor(v24, v25, v26, v27, v28);
+      CGContextSetFillColorWithColor(a8, v29);
 
-      memset(&v86, 0, sizeof(v86));
-      CGAffineTransformMakeTranslation(&v86, a2, a3);
-      v84 = v86;
-      CGAffineTransformScale(&transform, &v84, a5, a5);
-      v86 = transform;
-      v84 = transform;
-      CGAffineTransformRotate(&transform, &v84, a4);
-      v86 = transform;
-      v33 = objc_msgSend_path(v19, v31, transform.tx, transform.c, v32);
-      v34 = v33;
-      v39 = objc_msgSend_CGPath(v34, v35, v36, v37, v38);
-      CGPathGetBoundingBox(v39);
+      memset(&v85, 0, sizeof(v85));
+      CGAffineTransformMakeTranslation(&v85, a2, a3);
+      v83 = v85;
+      CGAffineTransformScale(&transform, &v83, a5, a5);
+      v85 = transform;
+      v83 = transform;
+      CGAffineTransformRotate(&transform, &v83, a4);
+      v85 = transform;
+      v32 = objc_msgSend_path(v19, v30, transform.tx, transform.c, v31);
+      v33 = v32;
+      v38 = objc_msgSend_CGPath(v33, v34, v35, v36, v37);
+      CGPathGetBoundingBox(v38);
 
-      v44 = objc_msgSend_line(MEMORY[0x277D80308], v40, v41, v42, v43);
-      isEqual = objc_msgSend_isEqual_(v19, v45, v46, v47, v48, v44);
+      v43 = objc_msgSend_line(MEMORY[0x277D80308], v39, v40, v41, v42);
+      isEqual = objc_msgSend_isEqual_(v19, v44, v45, v46, v47, v43);
 
       if (isEqual)
       {
-        objc_msgSend_width(a1, v50, v51, v52, v53);
+        objc_msgSend_width(a1, v49, v50, v51, v52);
       }
 
-      transform = v86;
+      transform = v85;
       CGContextConcatCTM(a8, &transform);
       TSURectWithSizeAlignedToRect();
-      v55 = v54;
-      v57 = v56;
-      v59 = v58;
-      v61 = v60;
-      sub_27628CB34(a8, v54, v56, v58, v60, 0.0);
-      v63 = v62;
-      v65 = v64;
-      v67 = v66;
-      v69 = v68;
-      v87.origin.x = v55;
-      v87.origin.y = v57;
-      v87.size.width = v59;
-      v87.size.height = v61;
-      CGRectGetMinX(v87);
-      v88.origin.x = v55;
-      v88.origin.y = v57;
-      v88.size.width = v59;
-      v88.size.height = v61;
+      v54 = v53;
+      v56 = v55;
+      v58 = v57;
+      v60 = v59;
+      sub_27628CB34(a8, v53, v55, v57, v59, 0.0);
+      v62 = v61;
+      v64 = v63;
+      v66 = v65;
+      v68 = v67;
+      v86.origin.x = v54;
+      v86.origin.y = v56;
+      v86.size.width = v58;
+      v86.size.height = v60;
+      CGRectGetMinX(v86);
+      v87.origin.x = v54;
+      v87.origin.y = v56;
+      v87.size.width = v58;
+      v87.size.height = v60;
+      CGRectGetWidth(v87);
+      v88.origin.x = v62;
+      v88.origin.y = v64;
+      v88.size.width = v66;
+      v88.size.height = v68;
       CGRectGetWidth(v88);
-      v89.origin.x = v63;
-      v89.origin.y = v65;
-      v89.size.width = v67;
-      v89.size.height = v69;
-      CGRectGetWidth(v89);
-      v90.origin.x = v55;
-      v90.origin.y = v57;
-      v90.size.width = v59;
-      v90.size.height = v61;
-      CGRectGetHeight(v90);
+      v89.origin.x = v54;
+      v89.origin.y = v56;
+      v89.size.width = v58;
+      v89.size.height = v60;
+      CGRectGetHeight(v89);
       TSURectWithSizeAlignedToRect();
+      v73 = v69;
       v74 = v70;
       v75 = v71;
       v76 = v72;
-      v77 = v73;
       if (isEqual)
       {
-        CGContextFillRect(a8, *&v70);
+        CGContextFillRect(a8, *&v69);
       }
 
       else
       {
-        MinX = CGRectGetMinX(*&v70);
-        v91.origin.x = v74;
-        v91.origin.y = v75;
-        v91.size.width = v76;
-        v91.size.height = v77;
-        MaxY = CGRectGetMaxY(v91);
+        MinX = CGRectGetMinX(*&v69);
+        v90.origin.x = v73;
+        v90.origin.y = v74;
+        v90.size.width = v75;
+        v90.size.height = v76;
+        MaxY = CGRectGetMaxY(v90);
         CGContextMoveToPoint(a8, MinX, MaxY);
-        v92.origin.x = v74;
-        v92.origin.y = v75;
-        v92.size.width = v76;
-        v92.size.height = v77;
-        MaxX = CGRectGetMaxX(v92);
-        v93.origin.x = v74;
-        v93.origin.y = v75;
-        v93.size.width = v76;
-        v93.size.height = v77;
-        v81 = CGRectGetMaxY(v93);
-        CGContextAddLineToPoint(a8, MaxX, v81);
-        v94.origin.x = v74;
-        v94.origin.y = v75;
-        v94.size.width = v76;
-        v94.size.height = v77;
-        MidX = CGRectGetMidX(v94);
-        v95.origin.x = v74;
-        v95.origin.y = v75;
-        v95.size.width = v76;
-        v95.size.height = v77;
-        MinY = CGRectGetMinY(v95);
+        v91.origin.x = v73;
+        v91.origin.y = v74;
+        v91.size.width = v75;
+        v91.size.height = v76;
+        MaxX = CGRectGetMaxX(v91);
+        v92.origin.x = v73;
+        v92.origin.y = v74;
+        v92.size.width = v75;
+        v92.size.height = v76;
+        v80 = CGRectGetMaxY(v92);
+        CGContextAddLineToPoint(a8, MaxX, v80);
+        v93.origin.x = v73;
+        v93.origin.y = v74;
+        v93.size.width = v75;
+        v93.size.height = v76;
+        MidX = CGRectGetMidX(v93);
+        v94.origin.x = v73;
+        v94.origin.y = v74;
+        v94.size.width = v75;
+        v94.size.height = v76;
+        MinY = CGRectGetMinY(v94);
         CGContextAddLineToPoint(a8, MidX, MinY);
         CGContextClosePath(a8);
         CGContextFillPath(a8);
@@ -8249,19 +8250,19 @@ void sub_276328BC8(uint64_t a1, const char *a2, double a3, double a4, double a5)
 
       if (v25)
       {
-        v124 = *(MEMORY[0x277CBF398] + 16);
-        v125 = *MEMORY[0x277CBF398];
-        v133.origin = *MEMORY[0x277CBF398];
-        v133.size = v124;
+        v114 = *(MEMORY[0x277CBF398] + 16);
+        v115 = *MEMORY[0x277CBF398];
+        v122.origin = *MEMORY[0x277CBF398];
+        v122.size = v114;
         v28 = *(a1 + 48);
-        v132 = 0;
-        objc_msgSend_trendlineElementForSeries_forBodyLayout_outElementBounds_outElementClipRect_outElementPath_(v25, v26, v133.origin.x, v124.width, v27, v11, v28, 0, &v133, &v132);
-        v29 = v132;
-        if (v29 && !CGRectIsNull(v133) && (objc_msgSend_isEmpty(v29, v30, v31, v32, v33) & 1) == 0)
+        v121 = 0;
+        objc_msgSend_trendlineElementForSeries_forBodyLayout_outElementBounds_outElementClipRect_outElementPath_(v25, v26, v122.origin.x, v114.width, v27, v11, v28, 0, &v122, &v121);
+        v29 = v121;
+        if (v29 && !CGRectIsNull(v122) && (objc_msgSend_isEmpty(v29, v30, v31, v32, v33) & 1) == 0)
         {
           v38 = objc_msgSend_objectValueForProperty_(v11, v34, v35, v36, v37, 1202);
           objc_msgSend_rootedLayoutRect(*(*(a1 + 56) + 8), v39, v40, v41, v42);
-          CGRectInset(v134, -2.0, -2.0);
+          CGRectInset(v123, -2.0, -2.0);
           CGContextSaveGState(*(a1 + 80));
           CGContextClipToRectSafe();
           if (*(a1 + 88))
@@ -8292,69 +8293,37 @@ void sub_276328BC8(uint64_t a1, const char *a2, double a3, double a4, double a5)
           v79 = objc_msgSend_showEquation(v74, v75, v76, v77, v78);
           v84 = objc_msgSend_showRSquared(v74, v80, v81, v82, v83);
           objc_msgSend_equationTextOpacity(v74, v85, v86, v87, v88);
-          v90 = *&v89;
-          objc_msgSend_rSquaredTextOpacity(v74, v91, v89, v92, v93);
-          v98 = *&v95;
+          objc_msgSend_rSquaredTextOpacity(v74, v89, v90, v91, v92);
+          v97 = *&v94;
           if ((v79 & 1) != 0 || v84)
           {
-            objc_msgSend_viewScale(*(a1 + 56), v94, v95, v96, v97);
-            v100 = v99;
-            v104 = objc_msgSend_sharedText(TSCHText, v101, v99, v102, v103);
-            v131.origin = v125;
-            v131.size = v124;
+            objc_msgSend_viewScale(*(a1 + 56), v93, v94, v95, v96);
+            v99 = v98;
+            v103 = objc_msgSend_sharedText(TSCHText, v100, v98, v101, v102);
+            v120.origin = v115;
+            v120.size = v114;
             aStr = 0;
-            v105 = *(a1 + 64);
-            memset(v129, 0, 56);
-            objc_msgSend_transformForRenderingTrendlineTextForSeries_forAreaLayout_outElementSize_outClipRect_outParagraphStyle_outNewString_(v25, v106, 0.0, v125.x, v107, v11, v105, 0, &v131, v129, &aStr);
-            v108 = v129[0];
-            if (aStr)
-            {
-              Length = CFAttributedStringGetLength(aStr);
-              if (Length)
-              {
-                v110 = Length;
-                if (!CGRectIsNull(v131))
-                {
-                  if (v108)
-                  {
-                    CGContextSaveGState(*(a1 + 80));
-                    CGContextSetAlpha(*(a1 + 80), v90);
-                    v111 = *(a1 + 80);
-                    transform = *&v129[1];
-                    CGContextConcatCTM(v111, &transform);
-                    CGContextClipToRectSafe();
-                    objc_msgSend_drawAttributedString_paragraphStyle_styleProvidingSource_intoContext_atPosition_range_viewScale_(v104, v112, *MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8), v100, aStr, v108, 0, *(a1 + 80), 0, v110);
-                    CGContextRestoreGState(*(a1 + 80));
-                  }
-                }
-              }
+            memset(&v118, 0, sizeof(v118));
+            v117 = 0;
+            objc_msgSend_transformForRenderingTrendlineTextForSeries_forAreaLayout_outElementSize_outClipRect_outParagraphStyle_outNewString_(v25, 0.0, v115.x, v104);
 
-              if (aStr)
-              {
-                CFRelease(aStr);
-              }
-            }
-
-            v131.origin = v125;
-            v131.size = v124;
-            memset(&v129[1], 0, 48);
-            v113 = *(a1 + 64);
-            v126 = 0;
-            v127 = 0;
-            objc_msgSend_transformForRenderingR2TextForSeries_forAreaLayout_outElementSize_outClipRect_outParagraphStyle_outString_(v25, v114, 0.0, v125.x, v115, v11, v113, 0, &v131, &v127, &v126);
-            v116 = v127;
-            v117 = v126;
-            if (objc_msgSend_length(v117, v118, v119, v120, v121) && !CGRectIsNull(v131))
+            v120.origin = v115;
+            v120.size = v114;
+            memset(&v118, 0, sizeof(v118));
+            objc_msgSend_transformForRenderingR2TextForSeries_forAreaLayout_outElementSize_outClipRect_outParagraphStyle_outString_(v25, 0.0, v115.x, v105);
+            v106 = 0;
+            v107 = 0;
+            if (objc_msgSend_length(v107, v108, v109, v110, v111) && !CGRectIsNull(v120))
             {
-              if (v116)
+              if (v106)
               {
                 CGContextSaveGState(*(a1 + 80));
-                CGContextSetAlpha(*(a1 + 80), v98);
-                v122 = *(a1 + 80);
-                transform = *&v129[1];
-                CGContextConcatCTM(v122, &transform);
+                CGContextSetAlpha(*(a1 + 80), v97);
+                v112 = *(a1 + 80);
+                transform = v118;
+                CGContextConcatCTM(v112, &transform);
                 CGContextClipToRectSafe();
-                objc_msgSend_drawText_paragraphStyle_intoContext_atPosition_viewScale_(v104, v123, *MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8), v100, v117, v116, *(a1 + 80));
+                objc_msgSend_drawText_paragraphStyle_intoContext_atPosition_viewScale_(v103, v113, *MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8), v99, v107, v106, *(a1 + 80));
                 CGContextRestoreGState(*(a1 + 80));
               }
             }
@@ -8387,10 +8356,10 @@ double sub_27632D088(unint64_t a1, uint64_t a2, void *a3)
     do
     {
       v37 = objc_msgSend_objectAtIndexedSubscript_(v25, v31, v32, v33, v34, a1);
-      objc_msgSend_size(v37, v38, v39, v40, v41);
-      if (v35 < v42)
+      objc_msgSend_size(v37, v38, v39, v40);
+      if (v35 < v41)
       {
-        v35 = v42;
+        v35 = v41;
       }
 
       a1 += a2;
@@ -8459,7 +8428,7 @@ void sub_27632DE80(double a1, double a2, double a3, uint64_t a4, const char *a5)
   qword_280A47AD8 = v25;
 }
 
-uint64_t sub_27632DF64(uint64_t a1, const char *a2, double a3, double a4, double a5)
+void *sub_27632DF64(uint64_t a1, const char *a2, double a3, double a4, double a5)
 {
   result = objc_msgSend_muxDefaultPropertyForSpecificProperty_(TSCHChartSeriesStyle, a2, a3, a4, a5, a2);
   if (result)
@@ -8767,13 +8736,13 @@ uint64_t sub_276330F84(uint64_t a1, void *a2, void *a3)
 
   if (!v34)
   {
-    v39 = MEMORY[0x277CCABB0];
-    v40 = objc_msgSend_index(v4, v35, v36, v37, v38);
-    v45 = objc_msgSend_numberWithUnsignedInteger_(v39, v41, v42, v43, v44, v40);
-    v46 = MEMORY[0x277CCABB0];
-    v51 = objc_msgSend_index(v5, v47, v48, v49, v50);
-    v56 = objc_msgSend_numberWithUnsignedInteger_(v46, v52, v53, v54, v55, v51);
-    v34 = objc_msgSend_compare_(v45, v57, v58, v59, v60, v56);
+    v38 = MEMORY[0x277CCABB0];
+    v39 = objc_msgSend_index(v4, v35, v36, v37);
+    v44 = objc_msgSend_numberWithUnsignedInteger_(v38, v40, v41, v42, v43, v39);
+    v45 = MEMORY[0x277CCABB0];
+    v49 = objc_msgSend_index(v5, v46, v47, v48);
+    v54 = objc_msgSend_numberWithUnsignedInteger_(v45, v50, v51, v52, v53, v49);
+    v34 = objc_msgSend_compare_(v44, v55, v56, v57, v58, v54);
   }
 
   return v34;
@@ -8851,9 +8820,9 @@ void sub_2763310A8(uint64_t a1, void *a2, void *a3)
   _Block_object_dispose(v105, 8);
 }
 
-void sub_276331344(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_276331344(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8966,9 +8935,9 @@ void sub_276338FE8()
   qword_280A47AF0 = v0;
 }
 
-void sub_276339210(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, ...)
+void sub_276339210(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -9007,12 +8976,14 @@ uint64_t sub_2763392E0(void *a1, const char *a2, double a3, double a4, double a5
   return objc_msgSend_setObject_forKeyedSubscript_(v18, v12, v13, v14, v15, v16, v17);
 }
 
-void sub_27633B34C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, void *a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, void *a21, void *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36)
+void sub_27633B34C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, void *a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, void *a21, void *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, ...)
 {
-  _Block_object_dispose(&a32, 8);
-  _Block_object_dispose(&a36, 8);
+  va_start(va, a35);
 
-  _Block_object_dispose((v37 - 184), 8);
+  _Block_object_dispose(&a32, 8);
+  _Block_object_dispose(va, 8);
+
+  _Block_object_dispose((v36 - 184), 8);
   _Unwind_Resume(a1);
 }
 
@@ -9095,14 +9066,14 @@ LABEL_23:
   return result;
 }
 
-void sub_27633C75C(uint64_t a1, uint64_t a2)
+void sub_27633C75C(uint64_t a1, void *a2)
 {
   if (a1 && a2)
   {
     v26 = *a1;
     if (!*a2)
     {
-      v7 = sub_276343D14(*a2, *(a2 + 8), v4, v5, v6);
+      v7 = sub_276343D14(*a2, a2[1], v4, v5, v6);
       v12 = v7;
       if (v7)
       {
@@ -9119,7 +9090,7 @@ void sub_27633C75C(uint64_t a1, uint64_t a2)
       *(a1 + 16) = v14;
     }
 
-    v16 = sub_276343D14(*a2, *(a2 + 8), v4, v5, v6);
+    v16 = sub_276343D14(*a2, a2[1], v4, v5, v6);
     if (v16)
     {
       objc_msgSend_addObject_(v26, v15, v17, v18, v19, v16);
@@ -9132,14 +9103,12 @@ void sub_27633C75C(uint64_t a1, uint64_t a2)
 
 __n128 sub_27633D9AC(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -9388,10 +9357,10 @@ void sub_27633DA38(uint64_t a1, const char *a2, double a3, double a4, double a5)
           *&v88[8] = v89;
           *&v88[24] = v90;
           *&v88[40] = v91;
-          sub_276343E78((v72 + 48), v88);
+          sub_276343E78((v72 + 48), v88, v88);
         }
 
-        sub_276344308((*(*(a1 + 112) + 8) + 48), &v95);
+        sub_276344308((*(*(a1 + 112) + 8) + 48), &v95, &v95);
         v73 = *(*(*(a1 + 96) + 8) + 40);
         v75 = objc_msgSend_valueWithCGRect_(MEMORY[0x277CCAE60], v74, x, v25, width, height);
         objc_msgSend_addObject_(v73, v76, v77, v78, v79, v75);

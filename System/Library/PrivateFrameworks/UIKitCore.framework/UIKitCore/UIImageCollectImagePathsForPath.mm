@@ -141,9 +141,9 @@ void ___UIImageCollectImagePathsForPath_block_invoke_3(uint64_t a1, int a2)
     if (dyld_program_sdk_at_least())
     {
       v5 = ProductSuffix();
-      v6 = [v5 isEqualToString:@"~iphone"];
+      isEqualToString = objc_msgSend_isEqualToString_(v5);
       v7 = @"~ipad";
-      if (!v6)
+      if (!isEqualToString)
       {
         v7 = @"~iphone";
       }

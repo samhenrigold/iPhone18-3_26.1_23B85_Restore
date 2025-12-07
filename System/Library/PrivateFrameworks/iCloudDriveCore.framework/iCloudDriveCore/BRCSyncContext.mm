@@ -26,9 +26,12 @@
 - (void)_resumeAllDownloadStreams;
 - (void)_setupBGSystemTaskCompletionFor:(id)for;
 - (void)_setupCKOperationConfiguration:(id)configuration allowsCellularAccess:(id)access nonDiscretionary:(id)discretionary;
+- (void)_updateSubmittedBGSystemTasksWithState:(BOOL)state;
+- (void)_updateSubmittedBGSystemTasksWithState:(BOOL)state submittedBGSystemTaskIdentifiers:(id)identifiers;
 - (void)_updateWifiOnlyBGSystemTaskWithCancelledTaskIdentifiers:(id)identifiers inexpensiveNetworkConnectivity:(BOOL)connectivity;
 - (void)addForegroundClient:(id)client;
 - (void)addOperation:(id)operation allowsCellularAccess:(id)access nonDiscretionary:(id)discretionary asCompletionOf:(id)of;
+- (void)addOperation:(id)operation nonDiscretionary:(BOOL)discretionary;
 - (void)cancel;
 - (void)cancelWiFiOnlyOperationsIfNeeded;
 - (void)close;
@@ -207,10 +210,10 @@ LABEL_10:
 
 - (BRCSyncContext)initWithSession:(id)session contextIdentifier:(id)identifier isShared:(BOOL)shared
 {
-  v112[4] = *MEMORY[0x277D85DE8];
+  v111[4] = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   identifierCopy = identifier;
-  v94 = sessionCopy;
+  v93 = sessionCopy;
   fsUploader = [sessionCopy fsUploader];
   uploadsDeadlineScheduler = [fsUploader uploadsDeadlineScheduler];
 
@@ -234,13 +237,13 @@ LABEL_10:
     v18 = brc_default_log();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
     {
-      [BRCSyncContext initWithSession:v94 contextIdentifier:? isShared:?];
+      [BRCSyncContext initWithSession:v93 contextIdentifier:? isShared:?];
     }
   }
 
-  v110.receiver = self;
-  v110.super_class = BRCSyncContext;
-  v19 = [(BRCSyncContext *)&v110 init];
+  v109.receiver = self;
+  v109.super_class = BRCSyncContext;
+  v19 = [(BRCSyncContext *)&v109 init];
   v20 = v19;
   if (v19)
   {
@@ -307,72 +310,72 @@ LABEL_10:
     uploadStream = v20->_uploadStream;
     v20->_uploadStream = v56;
 
-    v105[0] = MEMORY[0x277D85DD0];
-    v105[1] = 3221225472;
-    v105[2] = __61__BRCSyncContext_initWithSession_contextIdentifier_isShared___block_invoke;
-    v105[3] = &unk_278507890;
-    objc_copyWeak(&v108, &location);
+    v104[0] = MEMORY[0x277D85DD0];
+    v104[1] = 3221225472;
+    v104[2] = __61__BRCSyncContext_initWithSession_contextIdentifier_isShared___block_invoke;
+    v104[3] = &unk_278507890;
+    objc_copyWeak(&v107, &location);
     v58 = defaults;
-    v106 = v58;
-    v59 = v94;
-    v107 = v59;
-    [(BRCTransferStream *)v20->_uploadStream setStreamDidBecomeReadyToTransferRecords:v105];
-    v101[0] = MEMORY[0x277D85DD0];
-    v101[1] = 3221225472;
-    v101[2] = __61__BRCSyncContext_initWithSession_contextIdentifier_isShared___block_invoke_49;
-    v101[3] = &unk_2785078B8;
-    objc_copyWeak(&v104, &location);
-    v93 = v58;
-    v102 = v93;
-    v103 = v59;
-    v60 = MEMORY[0x22AA4A310](v101);
+    v105 = v58;
+    v59 = v93;
+    v106 = v59;
+    [(BRCTransferStream *)v20->_uploadStream setStreamDidBecomeReadyToTransferRecords:v104];
+    v100[0] = MEMORY[0x277D85DD0];
+    v100[1] = 3221225472;
+    v100[2] = __61__BRCSyncContext_initWithSession_contextIdentifier_isShared___block_invoke_49;
+    v100[3] = &unk_2785078B8;
+    objc_copyWeak(&v103, &location);
+    v92 = v58;
+    v101 = v92;
+    v102 = v59;
+    v60 = MEMORY[0x22AA4A310](v100);
     v61 = [(NSString *)v20->_contextIdentifier stringByAppendingPathComponent:@"downloader"];
 
     v62 = [BRCTransferStream alloc];
     fsDownloader2 = [(BRCAccountSession *)v20->_session fsDownloader];
     downloadsDeadlineScheduler2 = [fsDownloader2 downloadsDeadlineScheduler];
-    v65 = -[BRCTransferStream initWithSyncContext:name:scheduler:maxCountOfBatchesInFlight:](v62, "initWithSyncContext:name:scheduler:maxCountOfBatchesInFlight:", v20, v61, downloadsDeadlineScheduler2, [v93 downloadBatchCount]);
+    v65 = -[BRCTransferStream initWithSyncContext:name:scheduler:maxCountOfBatchesInFlight:](v62, "initWithSyncContext:name:scheduler:maxCountOfBatchesInFlight:", v20, v61, downloadsDeadlineScheduler2, [v92 downloadBatchCount]);
 
     v66 = objc_opt_new();
     [v66 addIndex:0];
     [v66 addIndex:1];
     [v66 addIndex:2];
-    v98[0] = MEMORY[0x277D85DD0];
-    v98[1] = 3221225472;
-    v98[2] = __61__BRCSyncContext_initWithSession_contextIdentifier_isShared___block_invoke_55;
-    v98[3] = &unk_2785078E0;
+    v97[0] = MEMORY[0x277D85DD0];
+    v97[1] = 3221225472;
+    v97[2] = __61__BRCSyncContext_initWithSession_contextIdentifier_isShared___block_invoke_55;
+    v97[3] = &unk_2785078E0;
     v67 = v60;
-    v100 = v67;
+    v99 = v67;
     v68 = v66;
-    v99 = v68;
-    [(BRCTransferStream *)v65 setStreamDidBecomeReadyToTransferRecords:v98];
+    v98 = v68;
+    [(BRCTransferStream *)v65 setStreamDidBecomeReadyToTransferRecords:v97];
     v69 = [(NSString *)v20->_contextIdentifier stringByAppendingPathComponent:@"speculative-downloader"];
 
     v70 = [BRCTransferStream alloc];
     fsDownloader3 = [(BRCAccountSession *)v20->_session fsDownloader];
     downloadsDeadlineScheduler3 = [fsDownloader3 downloadsDeadlineScheduler];
-    v73 = -[BRCTransferStream initWithSyncContext:name:scheduler:maxCountOfBatchesInFlight:](v70, "initWithSyncContext:name:scheduler:maxCountOfBatchesInFlight:", v20, v69, downloadsDeadlineScheduler3, [v93 downloadBatchCount]);
+    v73 = -[BRCTransferStream initWithSyncContext:name:scheduler:maxCountOfBatchesInFlight:](v70, "initWithSyncContext:name:scheduler:maxCountOfBatchesInFlight:", v20, v69, downloadsDeadlineScheduler3, [v92 downloadBatchCount]);
 
     v74 = objc_opt_new();
     [v74 addIndex:3];
-    v95[0] = MEMORY[0x277D85DD0];
-    v95[1] = 3221225472;
-    v95[2] = __61__BRCSyncContext_initWithSession_contextIdentifier_isShared___block_invoke_2;
-    v95[3] = &unk_2785078E0;
+    v94[0] = MEMORY[0x277D85DD0];
+    v94[1] = 3221225472;
+    v94[2] = __61__BRCSyncContext_initWithSession_contextIdentifier_isShared___block_invoke_2;
+    v94[3] = &unk_2785078E0;
     v75 = v67;
-    v97 = v75;
+    v96 = v75;
     v76 = v74;
-    v96 = v76;
-    [(BRCTransferStream *)v73 setStreamDidBecomeReadyToTransferRecords:v95];
-    v111[0] = &unk_2837B0520;
-    v111[1] = &unk_2837B0538;
-    v112[0] = v65;
-    v112[1] = v65;
-    v111[2] = &unk_2837B0550;
-    v111[3] = &unk_2837B0568;
-    v112[2] = v65;
-    v112[3] = v73;
-    v77 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v112 forKeys:v111 count:4];
+    v95 = v76;
+    [(BRCTransferStream *)v73 setStreamDidBecomeReadyToTransferRecords:v94];
+    v110[0] = &unk_2837B0520;
+    v110[1] = &unk_2837B0538;
+    v111[0] = v65;
+    v111[1] = v65;
+    v110[2] = &unk_2837B0550;
+    v110[3] = &unk_2837B0568;
+    v111[2] = v65;
+    v111[3] = v73;
+    v77 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v111 forKeys:v110 count:4];
     downloadKindToDownloadStream = v20->_downloadKindToDownloadStream;
     v20->_downloadKindToDownloadStream = v77;
 
@@ -397,89 +400,86 @@ LABEL_10:
     discretionaryModifyOperations = v20->_discretionaryModifyOperations;
     v20->_discretionaryModifyOperations = weakObjectsHashTable2;
 
-    objc_destroyWeak(&v104);
-    objc_destroyWeak(&v108);
+    objc_destroyWeak(&v103);
+    objc_destroyWeak(&v107);
 
     objc_destroyWeak(&location);
   }
 
-  v90 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 void __61__BRCSyncContext_initWithSession_contextIdentifier_isShared___block_invoke(id *a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v7 = a4;
   WeakRetained = objc_loadWeakRetained(a1 + 6);
   v9 = [a1[4] uploadBatchRecordsCount];
-  memset(v16, 0, sizeof(v16));
-  __brc_create_section(0, "[BRCSyncContext initWithSession:contextIdentifier:isShared:]_block_invoke", 235, 0, v16);
+  memset(v15, 0, sizeof(v15));
+  __brc_create_section(0, "[BRCSyncContext initWithSession:contextIdentifier:isShared:]_block_invoke", 235, 0, v15);
   v10 = brc_bread_crumbs();
   v11 = brc_default_log();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v14 = v16[0];
-    v15 = [BRCDumpContext stringFromByteCount:a2 context:0];
+    v13 = v15[0];
+    v14 = [BRCDumpContext stringFromByteCount:a2 context:0];
     *buf = 134219266;
-    v18 = v14;
-    v19 = 2112;
-    v20 = WeakRetained;
-    v21 = 2048;
-    v22 = v9;
-    v23 = 2112;
-    v24 = v15;
-    v25 = 2048;
-    v26 = a3;
-    v27 = 2112;
-    v28 = v10;
+    v17 = v13;
+    v18 = 2112;
+    v19 = WeakRetained;
+    v20 = 2048;
+    v21 = v9;
+    v22 = 2112;
+    v23 = v14;
+    v24 = 2048;
+    v25 = a3;
+    v26 = 2112;
+    v27 = v10;
     _os_log_debug_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx Uploader: preparing next batch for %@ (max-count:%ld size:%@ priority:%ld)%@", buf, 0x3Eu);
   }
 
   v12 = [a1[5] fsUploader];
   [v12 transferStreamOfSyncContext:WeakRetained didBecomeReadyWithMaxRecordsCount:v9 sizeHint:a2 priority:a3 completionBlock:v7];
 
-  __brc_leave_section(v16);
-  v13 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(v15);
 }
 
 void __61__BRCSyncContext_initWithSession_contextIdentifier_isShared___block_invoke_49(id *a1, uint64_t a2, uint64_t a3, void *a4, void *a5)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v9 = a4;
   v10 = a5;
   WeakRetained = objc_loadWeakRetained(a1 + 6);
   v12 = [a1[4] downloadBatchRecordsCount];
-  memset(v19, 0, sizeof(v19));
-  __brc_create_section(0, "[BRCSyncContext initWithSession:contextIdentifier:isShared:]_block_invoke", 250, 0, v19);
+  memset(v18, 0, sizeof(v18));
+  __brc_create_section(0, "[BRCSyncContext initWithSession:contextIdentifier:isShared:]_block_invoke", 250, 0, v18);
   v13 = brc_bread_crumbs();
   v14 = brc_default_log();
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    v18 = v19[0];
-    v17 = [BRCDumpContext stringFromByteCount:a2 context:0];
+    v17 = v18[0];
+    v16 = [BRCDumpContext stringFromByteCount:a2 context:0];
     *buf = 134219522;
-    v21 = v18;
-    v22 = 2112;
-    v23 = WeakRetained;
-    v24 = 2048;
-    v25 = v12;
-    v26 = 2112;
-    v27 = v17;
-    v28 = 2048;
-    v29 = a3;
-    v30 = 2112;
-    v31 = v9;
-    v32 = 2112;
-    v33 = v13;
+    v20 = v17;
+    v21 = 2112;
+    v22 = WeakRetained;
+    v23 = 2048;
+    v24 = v12;
+    v25 = 2112;
+    v26 = v16;
+    v27 = 2048;
+    v28 = a3;
+    v29 = 2112;
+    v30 = v9;
+    v31 = 2112;
+    v32 = v13;
     _os_log_debug_impl(&dword_223E7A000, v14, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx Downloader: preparing next batch for %@ (max-count:%ld size:%@ priority:%ld kinds:%@)%@", buf, 0x48u);
   }
 
   v15 = [a1[5] fsDownloader];
   [v15 transferStreamOfSyncContext:WeakRetained didBecomeReadyWithMaxRecordsCount:v12 sizeHint:a2 priority:a3 supportedKinds:v9 completionBlock:v10];
 
-  __brc_leave_section(v19);
-  v16 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(v18);
 }
 
 - (void)dealloc
@@ -518,112 +518,106 @@ void __61__BRCSyncContext_initWithSession_contextIdentifier_isShared___block_inv
 
 - (void)signalAllDownloadStreams
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   brc_uniqueValues = [(NSDictionary *)self->_downloadKindToDownloadStream brc_uniqueValues];
-  v3 = [brc_uniqueValues countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [brc_uniqueValues countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(brc_uniqueValues);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) signal];
+        [*(*(&v7 + 1) + 8 * v6++) signal];
       }
 
       while (v4 != v6);
-      v4 = [brc_uniqueValues countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [brc_uniqueValues countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)allDownloadOperations
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   brc_uniqueValues = [(NSDictionary *)self->_downloadKindToDownloadStream brc_uniqueValues];
-  v5 = [brc_uniqueValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [brc_uniqueValues countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(brc_uniqueValues);
         }
 
-        operations = [*(*(&v12 + 1) + 8 * i) operations];
+        operations = [*(*(&v11 + 1) + 8 * i) operations];
         [v3 addObjectsFromArray:operations];
       }
 
-      v6 = [brc_uniqueValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [brc_uniqueValues countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (void)_resumeAllDownloadStreams
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   brc_uniqueValues = [(NSDictionary *)self->_downloadKindToDownloadStream brc_uniqueValues];
-  v3 = [brc_uniqueValues countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [brc_uniqueValues countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(brc_uniqueValues);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) resume];
+        [*(*(&v7 + 1) + 8 * v6++) resume];
       }
 
       while (v4 != v6);
-      v4 = [brc_uniqueValues countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [brc_uniqueValues countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)numberOfSubmittedBGSystemTasks
@@ -690,7 +684,7 @@ void __61__BRCSyncContext_initWithSession_contextIdentifier_isShared___block_inv
 - (void)_preventConcurrentModifyRecordsOperations:(id)operations nonDiscretionary:(BOOL)discretionary
 {
   discretionaryCopy = discretionary;
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   operationsCopy = operations;
   selfCopy = self;
   defaults = [(BRCSyncContext *)self defaults];
@@ -703,25 +697,25 @@ void __61__BRCSyncContext_initWithSession_contextIdentifier_isShared___block_inv
     objc_sync_enter(obj);
     if (discretionaryCopy)
     {
-      v34 = 0uLL;
-      v35 = 0uLL;
-      v32 = 0uLL;
       v33 = 0uLL;
+      v34 = 0uLL;
+      v31 = 0uLL;
+      v32 = 0uLL;
       v10 = selfCopy->_discretionaryModifyOperations;
-      v11 = [(NSHashTable *)v10 countByEnumeratingWithState:&v32 objects:v43 count:16];
+      v11 = [(NSHashTable *)v10 countByEnumeratingWithState:&v31 objects:v42 count:16];
       if (v11)
       {
-        v12 = *v33;
+        v12 = *v32;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v33 != v12)
+            if (*v32 != v12)
             {
               objc_enumerationMutation(v10);
             }
 
-            v14 = *(*(&v32 + 1) + 8 * i);
+            v14 = *(*(&v31 + 1) + 8 * i);
             if (([v14 isFinished] & 1) == 0)
             {
               v15 = brc_bread_crumbs();
@@ -729,11 +723,11 @@ void __61__BRCSyncContext_initWithSession_contextIdentifier_isShared___block_inv
               if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412802;
-                v38 = v14;
-                v39 = 2112;
-                v40 = operationsCopy;
-                v41 = 2112;
-                v42 = v15;
+                v37 = v14;
+                v38 = 2112;
+                v39 = operationsCopy;
+                v40 = 2112;
+                v41 = v15;
                 _os_log_debug_impl(&dword_223E7A000, v16, OS_LOG_TYPE_DEBUG, "[DEBUG] Cancelling discretionary operation %@ to make room for a non discretionary operation %@%@", buf, 0x20u);
               }
 
@@ -742,7 +736,7 @@ void __61__BRCSyncContext_initWithSession_contextIdentifier_isShared___block_inv
             }
           }
 
-          v11 = [(NSHashTable *)v10 countByEnumeratingWithState:&v32 objects:v43 count:16];
+          v11 = [(NSHashTable *)v10 countByEnumeratingWithState:&v31 objects:v42 count:16];
         }
 
         while (v11);
@@ -751,35 +745,35 @@ void __61__BRCSyncContext_initWithSession_contextIdentifier_isShared___block_inv
 
     else
     {
-      v30 = 0uLL;
-      v31 = 0uLL;
-      v28 = 0uLL;
       v29 = 0uLL;
+      v30 = 0uLL;
+      v27 = 0uLL;
+      v28 = 0uLL;
       v17 = *p_nonDiscretionaryModifyOperations;
-      v18 = [v17 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v27 objects:v35 count:16];
       if (v18)
       {
-        v19 = *v29;
+        v19 = *v28;
         do
         {
           for (j = 0; j != v18; ++j)
           {
-            if (*v29 != v19)
+            if (*v28 != v19)
             {
               objc_enumerationMutation(v17);
             }
 
-            v21 = *(*(&v28 + 1) + 8 * j);
+            v21 = *(*(&v27 + 1) + 8 * j);
             v22 = brc_bread_crumbs();
             v23 = brc_default_log();
             if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412802;
-              v38 = operationsCopy;
-              v39 = 2112;
-              v40 = v21;
-              v41 = 2112;
-              v42 = v22;
+              v37 = operationsCopy;
+              v38 = 2112;
+              v39 = v21;
+              v40 = 2112;
+              v41 = v22;
               _os_log_debug_impl(&dword_223E7A000, v23, OS_LOG_TYPE_DEBUG, "[DEBUG] Blocking discretionary op %@ on %@%@", buf, 0x20u);
             }
 
@@ -789,7 +783,7 @@ void __61__BRCSyncContext_initWithSession_contextIdentifier_isShared___block_inv
             }
           }
 
-          v18 = [v17 countByEnumeratingWithState:&v28 objects:v36 count:16];
+          v18 = [v17 countByEnumeratingWithState:&v27 objects:v35 count:16];
         }
 
         while (v18);
@@ -801,8 +795,15 @@ void __61__BRCSyncContext_initWithSession_contextIdentifier_isShared___block_inv
     [*p_nonDiscretionaryModifyOperations addObject:{operationsCopy, obj}];
     objc_sync_exit(obja);
   }
+}
 
-  v24 = *MEMORY[0x277D85DE8];
+- (void)addOperation:(id)operation nonDiscretionary:(BOOL)discretionary
+{
+  discretionaryCopy = discretionary;
+  v6 = MEMORY[0x277CCABB0];
+  operationCopy = operation;
+  v8 = [v6 numberWithBool:discretionaryCopy];
+  [(BRCSyncContext *)self addOperation:operationCopy allowsCellularAccess:0 nonDiscretionary:v8];
 }
 
 - (void)_setupCKOperationConfiguration:(id)configuration allowsCellularAccess:(id)access nonDiscretionary:(id)discretionary
@@ -931,7 +932,7 @@ LABEL_11:
 
 - (void)_addOperation:(id)operation toDatabase:(id)database
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   databaseCopy = database;
   v8 = brc_bread_crumbs();
@@ -941,15 +942,15 @@ LABEL_11:
     options = [(CKContainer *)self->_ckContainer options];
     accountOverrideInfo = [options accountOverrideInfo];
     accountID = [accountOverrideInfo accountID];
-    v15 = 138413058;
-    v16 = operationCopy;
-    v17 = 2112;
-    v18 = databaseCopy;
-    v19 = 2112;
-    v20 = accountID;
-    v21 = 2112;
-    v22 = v8;
-    _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] scheduling %@ on %@ (account %@)%@", &v15, 0x2Au);
+    v14 = 138413058;
+    v15 = operationCopy;
+    v16 = 2112;
+    v17 = databaseCopy;
+    v18 = 2112;
+    v19 = accountID;
+    v20 = 2112;
+    v21 = v8;
+    _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] scheduling %@ on %@ (account %@)%@", &v14, 0x2Au);
   }
 
   objc_opt_class();
@@ -963,8 +964,6 @@ LABEL_11:
     operationQueue = [databaseCopy operationQueue];
     [operationQueue addOperation:operationCopy];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupBGSystemTaskCompletionFor:(id)for
@@ -1006,7 +1005,7 @@ LABEL_11:
 
 void __50__BRCSyncContext__setupBGSystemTaskCompletionFor___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = objc_loadWeakRetained((a1 + 56));
   (*(*(a1 + 40) + 16))();
@@ -1017,7 +1016,7 @@ LABEL_4:
     v8 = brc_default_log();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      __50__BRCSyncContext__setupBGSystemTaskCompletionFor___block_invoke_cold_1(a1);
+      __50__BRCSyncContext__setupBGSystemTaskCompletionFor___block_invoke_cold_1();
     }
 
     goto LABEL_8;
@@ -1046,24 +1045,22 @@ LABEL_4:
   v8 = brc_default_log();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v12 = *(a1 + 32);
-    v13 = 138412802;
-    v14 = v12;
-    v15 = 1024;
-    v16 = v10;
-    v17 = 2112;
-    v18 = v7;
-    _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] Marked BGSystemTask with task identifier %@ as completed - deregister result %d%@", &v13, 0x1Cu);
+    v11 = *(a1 + 32);
+    v12 = 138412802;
+    v13 = v11;
+    v14 = 1024;
+    v15 = v10;
+    v16 = 2112;
+    v17 = v7;
+    _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] Marked BGSystemTask with task identifier %@ as completed - deregister result %d%@", &v12, 0x1Cu);
   }
 
 LABEL_8:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addCKOperationToCKDatabaseQueue:(id)queue allowsCellularAccess:(id)access ckDatabase:(id)database asCompletionOf:(id)of
 {
-  v79[1] = *MEMORY[0x277D85DE8];
+  v78[1] = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   accessCopy = access;
   databaseCopy = database;
@@ -1095,11 +1092,11 @@ LABEL_8:
       identifier = [systemTask identifier];
       operationID = [queueCopy operationID];
       *buf = 138412802;
-      v72 = identifier;
-      v73 = 2112;
-      v74 = operationID;
-      v75 = 2112;
-      v76 = v17;
+      v71 = identifier;
+      v72 = 2112;
+      v73 = operationID;
+      v74 = 2112;
+      v75 = v17;
       _os_log_debug_impl(&dword_223E7A000, v18, OS_LOG_TYPE_DEBUG, "[DEBUG] Moving ownership of system task %@ to CKOperation with identifier %@%@", buf, 0x20u);
     }
 
@@ -1148,105 +1145,105 @@ LABEL_16:
 
   else
   {
-    v31 = [(BRCSyncContext *)self _buildBGSystemTaskIdentifierForCKOperation:queueCopy];
-    v32 = [objc_alloc(MEMORY[0x277CF07C8]) initWithIdentifier:v31];
+    v30 = [(BRCSyncContext *)self _buildBGSystemTaskIdentifierForCKOperation:queueCopy];
+    v31 = [objc_alloc(MEMORY[0x277CF07C8]) initWithIdentifier:v30];
     isForeground = [(BRCSyncContext *)self isForeground];
     defaults2 = [(BRCSyncContext *)self defaults];
-    v34 = [defaults2 discretionaryOperationBGSystemTaskConfigWithForegroundState:isForeground];
-    [v32 br_applyConfiguration:v34];
+    v33 = [defaults2 discretionaryOperationBGSystemTaskConfigWithForegroundState:isForeground];
+    [v31 br_applyConfiguration:v33];
 
     configuration6 = [queueCopy configuration];
-    [v32 setRequiresInexpensiveNetworkConnectivity:{objc_msgSend(configuration6, "allowsCellularAccess") ^ 1}];
+    [v31 setRequiresInexpensiveNetworkConnectivity:{objc_msgSend(configuration6, "allowsCellularAccess") ^ 1}];
 
-    v79[0] = self->_contextIdentifier;
-    v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v79 count:1];
-    [v32 setRelatedApplications:v36];
+    v78[0] = self->_contextIdentifier;
+    v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v78 count:1];
+    [v31 setRelatedApplications:v35];
 
-    [v32 setRateLimitConfigurationName:@"BirdConfiguration"];
+    [v31 setRateLimitConfigurationName:@"BirdConfiguration"];
     personaIdentifier = [(BRCAccountSession *)self->_session personaIdentifier];
-    v69[0] = 0;
-    v69[1] = v69;
-    v69[2] = 0x2020000000;
-    v70 = 0;
+    v68[0] = 0;
+    v68[1] = v68;
+    v68[2] = 0x2020000000;
+    v69 = 0;
     objc_initWeak(&location, queueCopy);
-    objc_initWeak(&v67, databaseCopy);
+    objc_initWeak(&v66, databaseCopy);
     objc_initWeak(&from, self);
     mEMORY[0x277CF0810] = [MEMORY[0x277CF0810] sharedScheduler];
-    v58[0] = MEMORY[0x277D85DD0];
-    v58[1] = 3221225472;
-    v58[2] = __98__BRCSyncContext__addCKOperationToCKDatabaseQueue_allowsCellularAccess_ckDatabase_asCompletionOf___block_invoke;
-    v58[3] = &unk_278507930;
-    v55 = personaIdentifier;
-    v59 = v55;
-    objc_copyWeak(&v63, &location);
-    objc_copyWeak(&v64, &from);
-    objc_copyWeak(&v65, &v67);
-    v38 = v31;
-    v60 = v38;
-    v62 = v69;
-    v61 = accessCopy;
-    LOBYTE(v36) = [mEMORY[0x277CF0810] registerForTaskWithIdentifier:v38 usingQueue:0 launchHandler:v58];
+    v57[0] = MEMORY[0x277D85DD0];
+    v57[1] = 3221225472;
+    v57[2] = __98__BRCSyncContext__addCKOperationToCKDatabaseQueue_allowsCellularAccess_ckDatabase_asCompletionOf___block_invoke;
+    v57[3] = &unk_278507930;
+    v54 = personaIdentifier;
+    v58 = v54;
+    objc_copyWeak(&v62, &location);
+    objc_copyWeak(&v63, &from);
+    objc_copyWeak(&v64, &v66);
+    v37 = v30;
+    v59 = v37;
+    v61 = v68;
+    v60 = accessCopy;
+    LOBYTE(v35) = [mEMORY[0x277CF0810] registerForTaskWithIdentifier:v37 usingQueue:0 launchHandler:v57];
 
-    if (v36)
+    if (v35)
     {
-      [v32 setGroupName:*MEMORY[0x277CFAC00]];
-      [v32 setGroupConcurrencyLimit:3];
+      [v31 setGroupName:*MEMORY[0x277CFAC00]];
+      [v31 setGroupConcurrencyLimit:3];
       mEMORY[0x277CF0810]2 = [MEMORY[0x277CF0810] sharedScheduler];
-      v57 = 0;
-      v40 = [mEMORY[0x277CF0810]2 submitTaskRequest:v32 error:&v57];
-      v53 = v57;
+      v56 = 0;
+      v39 = [mEMORY[0x277CF0810]2 submitTaskRequest:v31 error:&v56];
+      v52 = v56;
 
-      if (v40)
+      if (v39)
       {
-        v41 = brc_bread_crumbs();
-        v42 = brc_default_log();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+        v40 = brc_bread_crumbs();
+        v41 = brc_default_log();
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
         {
-          v51 = @"background";
+          v50 = @"background";
           contextIdentifier = self->_contextIdentifier;
           *buf = 138413058;
           if (isForeground)
           {
-            v51 = @"foreground";
+            v50 = @"foreground";
           }
 
-          v72 = v38;
-          v73 = 2112;
-          v74 = contextIdentifier;
-          v75 = 2112;
-          v76 = v51;
-          v77 = 2112;
-          v78 = v41;
-          _os_log_debug_impl(&dword_223E7A000, v42, OS_LOG_TYPE_DEBUG, "[DEBUG] Successfully submitted BGSystemTask %@ in %@, with %@ configuration%@", buf, 0x2Au);
+          v71 = v37;
+          v72 = 2112;
+          v73 = contextIdentifier;
+          v74 = 2112;
+          v75 = v50;
+          v76 = 2112;
+          v77 = v40;
+          _os_log_debug_impl(&dword_223E7A000, v41, OS_LOG_TYPE_DEBUG, "[DEBUG] Successfully submitted BGSystemTask %@ in %@, with %@ configuration%@", buf, 0x2Au);
         }
 
         selfCopy2 = self;
         objc_sync_enter(selfCopy2);
-        v44 = -[BRCBGSystemTaskContext initWithOptions:]([BRCBGSystemTaskContext alloc], "initWithOptions:", [v32 requiresInexpensiveNetworkConnectivity]);
-        [(NSMutableDictionary *)selfCopy2->_submittedBGSystemTaskIdentifiers setObject:v44 forKeyedSubscript:v38];
+        v43 = -[BRCBGSystemTaskContext initWithOptions:]([BRCBGSystemTaskContext alloc], "initWithOptions:", [v31 requiresInexpensiveNetworkConnectivity]);
+        [(NSMutableDictionary *)selfCopy2->_submittedBGSystemTaskIdentifiers setObject:v43 forKeyedSubscript:v37];
 
         objc_sync_exit(selfCopy2);
       }
 
       else
       {
-        v48 = brc_bread_crumbs();
-        v49 = brc_default_log();
-        if (os_log_type_enabled(v49, 0x90u))
+        v47 = brc_bread_crumbs();
+        v48 = brc_default_log();
+        if (os_log_type_enabled(v48, 0x90u))
         {
           *buf = 138412802;
-          v72 = v38;
-          v73 = 2112;
-          v74 = v53;
-          v75 = 2112;
-          v76 = v48;
-          _os_log_error_impl(&dword_223E7A000, v49, 0x90u, "[ERROR] Failed to submit BGSystemTask %@ due to %@%@", buf, 0x20u);
+          v71 = v37;
+          v72 = 2112;
+          v73 = v52;
+          v74 = 2112;
+          v75 = v47;
+          _os_log_error_impl(&dword_223E7A000, v48, 0x90u, "[ERROR] Failed to submit BGSystemTask %@ due to %@%@", buf, 0x20u);
         }
 
         mEMORY[0x277CF0810]3 = [MEMORY[0x277CF0810] sharedScheduler];
-        [mEMORY[0x277CF0810]3 deregisterTaskWithIdentifier:v38];
+        [mEMORY[0x277CF0810]3 deregisterTaskWithIdentifier:v37];
 
-        [queueCopy cancelWithUnderlyingError:v53];
+        [queueCopy cancelWithUnderlyingError:v52];
         [queueCopy start];
       }
     }
@@ -1259,24 +1256,22 @@ LABEL_16:
       [queueCopy start];
     }
 
-    objc_destroyWeak(&v65);
     objc_destroyWeak(&v64);
     objc_destroyWeak(&v63);
+    objc_destroyWeak(&v62);
 
     objc_destroyWeak(&from);
-    objc_destroyWeak(&v67);
+    objc_destroyWeak(&v66);
     objc_destroyWeak(&location);
-    _Block_object_dispose(v69, 8);
+    _Block_object_dispose(v68, 8);
   }
 
 LABEL_17:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __98__BRCSyncContext__addCKOperationToCKDatabaseQueue_allowsCellularAccess_ckDatabase_asCompletionOf___block_invoke(uint64_t a1, void *a2)
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (([*(a1 + 32) isEqualToString:@"__defaultPersonaID__"] & 1) != 0 || (v4 = *(a1 + 32)) == 0)
   {
@@ -1296,10 +1291,10 @@ void __98__BRCSyncContext__addCKOperationToCKDatabaseQueue_allowsCellularAccess_
   }
 
   v7 = [MEMORY[0x277D77BF8] sharedManager];
-  v46 = [v7 currentPersona];
+  v45 = [v7 currentPersona];
 
-  v50 = 0;
-  v8 = [v46 userPersonaUniqueString];
+  v49 = 0;
+  v8 = [v45 userPersonaUniqueString];
   v9 = v8;
   if (v8 == v5 || ([v8 isEqualToString:v5] & 1) != 0)
   {
@@ -1309,38 +1304,38 @@ void __98__BRCSyncContext__addCKOperationToCKDatabaseQueue_allowsCellularAccess_
 
   if (voucher_process_can_use_arbitrary_personas())
   {
-    v49 = 0;
-    v21 = [v46 copyCurrentPersonaContextWithError:&v49];
+    v48 = 0;
+    v20 = [v45 copyCurrentPersonaContextWithError:&v48];
+    v21 = v48;
     v22 = v49;
-    v23 = v50;
-    v50 = v21;
+    v49 = v20;
 
-    if (v22)
+    if (v21)
     {
-      v24 = brc_bread_crumbs();
-      v25 = brc_default_log();
-      if (os_log_type_enabled(v25, 0x90u))
+      v23 = brc_bread_crumbs();
+      v24 = brc_default_log();
+      if (os_log_type_enabled(v24, 0x90u))
       {
         [BRCContainerScheduler syncContextDidBecomeForeground:];
       }
     }
 
-    v10 = [v46 br_generateAndRestorePersonaContextWithPersonaUniqueString:v5];
+    v10 = [v45 br_generateAndRestorePersonaContextWithPersonaUniqueString:v5];
 
     if (v10)
     {
-      v26 = brc_bread_crumbs();
-      v27 = brc_default_log();
-      if (os_log_type_enabled(v27, 0x90u))
+      v25 = brc_bread_crumbs();
+      v26 = brc_default_log();
+      if (os_log_type_enabled(v26, 0x90u))
       {
-        v28 = *(a1 + 32);
+        v27 = *(a1 + 32);
         *buf = 138412802;
-        v52 = v28;
-        v53 = 2112;
-        v54 = v10;
-        v55 = 2112;
-        v56 = v26;
-        _os_log_error_impl(&dword_223E7A000, v27, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
+        v51 = v27;
+        v52 = 2112;
+        v53 = v10;
+        v54 = 2112;
+        v55 = v25;
+        _os_log_error_impl(&dword_223E7A000, v26, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
       }
 
 LABEL_50:
@@ -1349,11 +1344,11 @@ LABEL_50:
 
   else
   {
-    if (v6 && ([v46 isDataSeparatedPersona] & 1) == 0)
+    if (v6 && ([v45 isDataSeparatedPersona] & 1) == 0)
     {
-      v26 = brc_bread_crumbs();
-      v27 = brc_default_log();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+      v25 = brc_bread_crumbs();
+      v26 = brc_default_log();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
         [_BRCOperation completedWithResult:error:];
       }
@@ -1362,9 +1357,9 @@ LABEL_50:
       goto LABEL_50;
     }
 
-    v29 = brc_bread_crumbs();
-    v30 = brc_default_log();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+    v28 = brc_bread_crumbs();
+    v29 = brc_default_log();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
     {
       [_BRCOperation completedWithResult:error:];
     }
@@ -1376,29 +1371,39 @@ LABEL_10:
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   v12 = objc_loadWeakRetained((a1 + 72));
   v13 = objc_loadWeakRetained((a1 + 80));
-  v47[0] = MEMORY[0x277D85DD0];
-  v47[1] = 3221225472;
-  v47[2] = __98__BRCSyncContext__addCKOperationToCKDatabaseQueue_allowsCellularAccess_ckDatabase_asCompletionOf___block_invoke_96;
-  v47[3] = &unk_2784FF450;
+  v46[0] = MEMORY[0x277D85DD0];
+  v46[1] = 3221225472;
+  v46[2] = __98__BRCSyncContext__addCKOperationToCKDatabaseQueue_allowsCellularAccess_ckDatabase_asCompletionOf___block_invoke_96;
+  v46[3] = &unk_2784FF450;
   v14 = WeakRetained;
-  v48 = v14;
-  [v3 setExpirationHandler:v47];
+  v47 = v14;
+  [v3 setExpirationHandler:v46];
   v15 = brc_bread_crumbs();
   v16 = brc_default_log();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
-    v45 = *(a1 + 40);
-    v34 = [v14 isFinished];
-    v35 = "NO";
-    if (v34)
+    v44 = *(a1 + 40);
+    v33 = [v14 isFinished];
+    v34 = "NO";
+    if (v33)
     {
-      v35 = "YES";
+      v34 = "YES";
     }
 
-    v44 = v35;
-    v43 = [v14 isExecuting];
-    v36 = [v14 isCancelled];
-    if (v43)
+    v43 = v34;
+    v42 = [v14 isExecuting];
+    v35 = [v14 isCancelled];
+    if (v42)
+    {
+      v36 = "YES";
+    }
+
+    else
+    {
+      v36 = "NO";
+    }
+
+    if (v35)
     {
       v37 = "YES";
     }
@@ -1408,39 +1413,29 @@ LABEL_10:
       v37 = "NO";
     }
 
-    if (v36)
+    v38 = atomic_load((*(*(a1 + 56) + 8) + 24));
+    if (v38)
     {
-      v38 = "YES";
+      v39 = "YES";
     }
 
     else
     {
-      v38 = "NO";
-    }
-
-    v39 = atomic_load((*(*(a1 + 56) + 8) + 24));
-    if (v39)
-    {
-      v40 = "YES";
-    }
-
-    else
-    {
-      v40 = "NO";
+      v39 = "NO";
     }
 
     *buf = 138413570;
-    v52 = v45;
-    v53 = 2080;
-    v54 = v44;
-    v55 = 2080;
-    v56 = v37;
-    v57 = 2080;
-    v58 = v38;
-    v59 = 2080;
-    v60 = v40;
-    v61 = 2112;
-    v62 = v15;
+    v51 = v44;
+    v52 = 2080;
+    v53 = v43;
+    v54 = 2080;
+    v55 = v36;
+    v56 = 2080;
+    v57 = v37;
+    v58 = 2080;
+    v59 = v39;
+    v60 = 2112;
+    v61 = v15;
     _os_log_debug_impl(&dword_223E7A000, v16, OS_LOG_TYPE_DEBUG, "[DEBUG] BGSystemTask with task identifier %@ started to run, operation(finished:%s, executing:%s, cancelled:%s), taskLaunched=%s%@", buf, 0x3Eu);
   }
 
@@ -1452,9 +1447,9 @@ LABEL_10:
     {
       v19 = *(a1 + 40);
       *buf = 138412546;
-      v52 = v19;
-      v53 = 2112;
-      v54 = v17;
+      v51 = v19;
+      v52 = 2112;
+      v53 = v17;
       _os_log_impl(&dword_223E7A000, v18, OS_LOG_TYPE_DEFAULT, "[WARNING] Another task instance for %@ has been launched.. completing right away.%@", buf, 0x16u);
     }
 
@@ -1468,30 +1463,29 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  v31 = [v14 configuration];
-  [v31 setSystemTask:v3];
+  v30 = [v14 configuration];
+  [v30 setSystemTask:v3];
 
-  v32 = *(a1 + 48);
-  if (v32)
+  v31 = *(a1 + 48);
+  if (v31)
   {
-    v33 = [v32 BOOLValue];
+    v32 = [v31 BOOLValue];
   }
 
   else
   {
-    v33 = [v12 allowsCellularAccess];
+    v32 = [v12 allowsCellularAccess];
   }
 
-  v41 = v33;
-  v42 = [v14 configuration];
-  [v42 setAllowsCellularAccess:v41];
+  v40 = v32;
+  v41 = [v14 configuration];
+  [v41 setAllowsCellularAccess:v40];
 
   [v12 _setupBGSystemTaskCompletionFor:v14];
   [v12 _addOperation:v14 toDatabase:v13];
 LABEL_19:
 
   _BRRestorePersona();
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __98__BRCSyncContext__addCKOperationToCKDatabaseQueue_allowsCellularAccess_ckDatabase_asCompletionOf___block_invoke_2()
@@ -1504,7 +1498,7 @@ void __98__BRCSyncContext__addCKOperationToCKDatabaseQueue_allowsCellularAccess_
 
 - (void)addOperation:(id)operation allowsCellularAccess:(id)access nonDiscretionary:(id)discretionary asCompletionOf:(id)of
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   accessCopy = access;
   discretionaryCopy = discretionary;
@@ -1591,13 +1585,13 @@ void __98__BRCSyncContext__addCKOperationToCKDatabaseQueue_allowsCellularAccess_
       accountOverrideInfo = [options accountOverrideInfo];
       accountID = [accountOverrideInfo accountID];
       *buf = 138413058;
-      v38 = operationCopy;
-      v39 = 2112;
-      v40 = _database;
-      v41 = 2112;
-      v42 = accountID;
-      v43 = 2112;
-      v44 = v28;
+      v37 = operationCopy;
+      v38 = 2112;
+      v39 = _database;
+      v40 = 2112;
+      v41 = accountID;
+      v42 = 2112;
+      v43 = v28;
       _os_log_debug_impl(&dword_223E7A000, v29, OS_LOG_TYPE_DEBUG, "[DEBUG] scheduling %@ on %@ (account %@)%@", buf, 0x2Au);
     }
 
@@ -1620,8 +1614,6 @@ void __98__BRCSyncContext__addCKOperationToCKDatabaseQueue_allowsCellularAccess_
       [operationQueue addOperation:operationCopy];
     }
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resume
@@ -1652,7 +1644,7 @@ LABEL_5:
 
 - (void)_cancelBGSystemTasks
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   submittedBGSystemTaskIdentifiers = [(BRCSyncContext *)selfCopy submittedBGSystemTaskIdentifiers];
@@ -1664,26 +1656,26 @@ LABEL_5:
   selfCopy->_submittedBGSystemTaskIdentifiers = v6;
 
   objc_sync_exit(selfCopy);
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       v11 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * v11);
+        v12 = *(*(&v14 + 1) + 8 * v11);
         mEMORY[0x277CF0810] = [MEMORY[0x277CF0810] sharedScheduler];
         [mEMORY[0x277CF0810] cancelTaskRequestWithIdentifier:v12 error:0];
 
@@ -1691,13 +1683,11 @@ LABEL_5:
       }
 
       while (v9 != v11);
-      v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateWifiOnlyBGSystemTaskWithCancelledTaskIdentifiers:(id)identifiers inexpensiveNetworkConnectivity:(BOOL)connectivity
@@ -1721,7 +1711,7 @@ LABEL_5:
 
 void __105__BRCSyncContext__updateWifiOnlyBGSystemTaskWithCancelledTaskIdentifiers_inexpensiveNetworkConnectivity___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (([a3 options] & 1) != 0 && (objc_msgSend(*(a1 + 32), "containsObject:", v5) & 1) == 0)
   {
@@ -1732,9 +1722,9 @@ void __105__BRCSyncContext__updateWifiOnlyBGSystemTaskWithCancelledTaskIdentifie
     {
       [v7 setRequiresInexpensiveNetworkConnectivity:?];
       v8 = [MEMORY[0x277CF0810] sharedScheduler];
-      v14 = 0;
-      v9 = [v8 updateTaskRequest:v7 error:&v14];
-      v10 = v14;
+      v13 = 0;
+      v9 = [v8 updateTaskRequest:v7 error:&v13];
+      v10 = v13;
 
       if ((v9 & 1) == 0)
       {
@@ -1743,18 +1733,16 @@ void __105__BRCSyncContext__updateWifiOnlyBGSystemTaskWithCancelledTaskIdentifie
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412802;
-          v16 = v5;
-          v17 = 2112;
-          v18 = v10;
-          v19 = 2112;
-          v20 = v11;
+          v15 = v5;
+          v16 = 2112;
+          v17 = v10;
+          v18 = 2112;
+          v19 = v11;
           _os_log_debug_impl(&dword_223E7A000, v12, OS_LOG_TYPE_DEBUG, "[DEBUG] Couldn't update the task request %@ - error = %@%@", buf, 0x20u);
         }
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cancelOperation:(id)operation underlyingError:(id)error
@@ -1842,33 +1830,33 @@ LABEL_13:
 
 - (void)cancel
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   self->_isCancelled = 1;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   brc_uniqueValues = [(NSDictionary *)self->_downloadKindToDownloadStream brc_uniqueValues];
-  v4 = [brc_uniqueValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [brc_uniqueValues countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(brc_uniqueValues);
         }
 
-        [*(*(&v11 + 1) + 8 * v7++) cancel];
+        [*(*(&v10 + 1) + 8 * v7++) cancel];
       }
 
       while (v5 != v7);
-      v5 = [brc_uniqueValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [brc_uniqueValues countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -1882,12 +1870,11 @@ LABEL_13:
   [(NSOperationQueue *)self->_nonDiscretionaryRecursiveListOperationQueue cancelAllOperations];
   [(NSOperationQueue *)self->_discretionaryRecursiveListOperationQueue cancelAllOperations];
   [(BRCSyncContext *)self _cancelBGSystemTasks];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)close
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (!self->_isCancelled)
   {
     [BRCSyncContext close];
@@ -1906,30 +1893,30 @@ LABEL_13:
   block[3] = &unk_2784FF450;
   block[4] = selfCopy;
   dispatch_sync(foregroundStateQueue, block);
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   brc_uniqueValues = [(NSDictionary *)selfCopy->_downloadKindToDownloadStream brc_uniqueValues];
-  v6 = [brc_uniqueValues countByEnumeratingWithState:&v14 objects:v19 count:16];
+  v6 = [brc_uniqueValues countByEnumeratingWithState:&v13 objects:v18 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       v8 = 0;
       do
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(brc_uniqueValues);
         }
 
-        [*(*(&v14 + 1) + 8 * v8++) close];
+        [*(*(&v13 + 1) + 8 * v8++) close];
       }
 
       while (v6 != v8);
-      v6 = [brc_uniqueValues countByEnumeratingWithState:&v14 objects:v19 count:16];
+      v6 = [brc_uniqueValues countByEnumeratingWithState:&v13 objects:v18 count:16];
     }
 
     while (v6);
@@ -1943,8 +1930,6 @@ LABEL_13:
   [(BRCTransferStream *)uploadStream close];
   v12 = *p_uploadStream;
   *p_uploadStream = 0;
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __23__BRCSyncContext_close__block_invoke(uint64_t a1)
@@ -1973,7 +1958,7 @@ void __23__BRCSyncContext_close__block_invoke(uint64_t a1)
 
 - (void)dumpToContext:(id)context
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -1981,25 +1966,25 @@ void __23__BRCSyncContext_close__block_invoke(uint64_t a1)
   if ([(NSMutableSet *)selfCopy->_foregroundClients count]|| selfCopy->_dateWhenLastForegroundClientLeft)
   {
     [contextCopy writeLineWithFormat:@"+ foreground clients:"];
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v6 = selfCopy->_foregroundClients;
-    v7 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v7 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v7)
     {
-      v8 = *v22;
+      v8 = *v21;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v22 != v8)
+          if (*v21 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = *(*(&v21 + 1) + 8 * i);
+          v10 = *(*(&v20 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -2027,7 +2012,7 @@ void __23__BRCSyncContext_close__block_invoke(uint64_t a1)
           }
         }
 
-        v7 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v7 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v7);
@@ -2060,7 +2045,6 @@ LABEL_21:
   [contextCopy writeLineWithFormat:@"+ Submitted BGSystemTasks: %@", allKeys];
 
   objc_sync_exit(obj);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)forceContainerForegroundForDuration:(double)duration
@@ -2077,7 +2061,7 @@ LABEL_21:
 
 void __54__BRCSyncContext_forceContainerForegroundForDuration___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   objc_sync_enter(v2);
   v3 = *(a1 + 32);
@@ -2104,52 +2088,49 @@ void __54__BRCSyncContext_forceContainerForegroundForDuration___block_invoke(uin
     v7 = brc_default_log();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v23 = *(a1 + 32);
-      v24 = *(a1 + 40);
+      v21 = *(a1 + 32);
+      v22 = *(a1 + 40);
       *buf = 138412802;
-      v27 = v23;
-      v28 = 2048;
-      v29 = v24;
-      v30 = 2112;
-      v31 = v6;
+      v25 = v21;
+      v26 = 2048;
+      v27 = v22;
+      v28 = 2112;
+      v29 = v6;
       _os_log_debug_impl(&dword_223E7A000, v7, OS_LOG_TYPE_DEBUG, "[DEBUG] beginning forced foreground for %@ for %.1fs%@", buf, 0x20u);
     }
 
     v8 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, *(*(a1 + 32) + 72));
-    v9 = *(a1 + 40);
-    v10 = brc_interval_to_nsec();
-    v11 = dispatch_time(0, v10);
-    dispatch_source_set_timer(v8, v11, 0xFFFFFFFFFFFFFFFFLL, 0);
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __54__BRCSyncContext_forceContainerForegroundForDuration___block_invoke_133;
-    v25[3] = &unk_2784FF450;
-    v25[4] = *(a1 + 32);
-    v12 = v8;
-    v13 = v25;
+    v9 = brc_interval_to_nsec();
+    v10 = dispatch_time(0, v9);
+    dispatch_source_set_timer(v8, v10, 0xFFFFFFFFFFFFFFFFLL, 0);
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __54__BRCSyncContext_forceContainerForegroundForDuration___block_invoke_133;
+    v23[3] = &unk_2784FF450;
+    v23[4] = *(a1 + 32);
+    v11 = v8;
+    v12 = v23;
+    v13 = v11;
     v14 = v12;
-    v15 = v13;
-    v16 = v15;
-    v17 = v15;
+    v15 = v14;
+    v16 = v14;
     if (*MEMORY[0x277CFB010])
     {
-      v17 = (*MEMORY[0x277CFB010])(v15);
+      v16 = (*MEMORY[0x277CFB010])(v14);
     }
 
-    v18 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_UTILITY, 0, v17);
-    dispatch_source_set_event_handler(v14, v18);
+    v17 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_UTILITY, 0, v16);
+    dispatch_source_set_event_handler(v13, v17);
 
-    v19 = *(a1 + 32);
-    v20 = *(v19 + 64);
-    *(v19 + 64) = v14;
-    v21 = v14;
+    v18 = *(a1 + 32);
+    v19 = *(v18 + 64);
+    *(v18 + 64) = v13;
+    v20 = v13;
 
-    dispatch_resume(v21);
+    dispatch_resume(v20);
   }
 
   objc_sync_exit(v2);
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __54__BRCSyncContext_forceContainerForegroundForDuration___block_invoke_133(uint64_t a1)
@@ -2158,7 +2139,7 @@ void __54__BRCSyncContext_forceContainerForegroundForDuration___block_invoke_133
   v3 = brc_default_log();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __54__BRCSyncContext_forceContainerForegroundForDuration___block_invoke_133_cold_1(a1);
+    __54__BRCSyncContext_forceContainerForegroundForDuration___block_invoke_133_cold_1();
   }
 
   v6 = *(a1 + 32);
@@ -2183,7 +2164,7 @@ void __54__BRCSyncContext_forceContainerForegroundForDuration___block_invoke_133
 
 - (void)addForegroundClient:(id)client
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   if (self->_isShared)
   {
@@ -2200,13 +2181,13 @@ void __54__BRCSyncContext_forceContainerForegroundForDuration___block_invoke_133
   v10 = brc_default_log();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 138412802;
-    v13 = selfCopy;
-    v14 = 2112;
-    v15 = clientCopy;
-    v16 = 2112;
-    v17 = v9;
-    _os_log_debug_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ - Added %@ as a foreground client%@", &v12, 0x20u);
+    v11 = 138412802;
+    v12 = selfCopy;
+    v13 = 2112;
+    v14 = clientCopy;
+    v15 = 2112;
+    v16 = v9;
+    _os_log_debug_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ - Added %@ as a foreground client%@", &v11, 0x20u);
   }
 
   if (!v8)
@@ -2215,13 +2196,11 @@ void __54__BRCSyncContext_forceContainerForegroundForDuration___block_invoke_133
   }
 
   objc_sync_exit(selfCopy);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeForegroundClient:(id)client
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   v5 = [clientCopy description];
   if (self->_isShared)
@@ -2240,13 +2219,13 @@ void __54__BRCSyncContext_forceContainerForegroundForDuration___block_invoke_133
     v10 = brc_default_log();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      v12 = 138412802;
-      v13 = selfCopy;
-      v14 = 2112;
-      v15 = clientCopy;
-      v16 = 2112;
-      v17 = v9;
-      _os_log_debug_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ - Removed %@ as a foreground client%@", &v12, 0x20u);
+      v11 = 138412802;
+      v12 = selfCopy;
+      v13 = 2112;
+      v14 = clientCopy;
+      v15 = 2112;
+      v16 = v9;
+      _os_log_debug_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ - Removed %@ as a foreground client%@", &v11, 0x20u);
     }
 
     if (!(selfCopy->_foregroundState | [(NSMutableSet *)selfCopy->_foregroundClients count]))
@@ -2256,8 +2235,6 @@ void __54__BRCSyncContext_forceContainerForegroundForDuration___block_invoke_133
   }
 
   objc_sync_exit(selfCopy);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)foregroundClients
@@ -2308,7 +2285,7 @@ void __54__BRCSyncContext_forceContainerForegroundForDuration___block_invoke_133
 
 void __63__BRCSyncContext__armForegroundGraceTimerForClientDescription___block_invoke(uint64_t a1)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2[7])
   {
@@ -2334,17 +2311,17 @@ void __63__BRCSyncContext__armForegroundGraceTimerForClientDescription___block_i
   v10 = brc_default_log();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v25 = *(a1 + 32);
-    v26 = *(a1 + 40);
-    v27 = v8;
+    v24 = *(a1 + 32);
+    v25 = *(a1 + 40);
+    v26 = v8;
     *location = 138413058;
-    *&location[4] = v25;
-    v31 = 2112;
-    v32 = v26;
-    v33 = 2048;
-    v34 = v27;
-    v35 = 2112;
-    v36 = v9;
+    *&location[4] = v24;
+    v30 = 2112;
+    v31 = v25;
+    v32 = 2048;
+    v33 = v26;
+    v34 = 2112;
+    v35 = v9;
     _os_log_debug_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] beginning foreground grace period for %@ from %@ for %.1fs%@", location, 0x2Au);
   }
 
@@ -2353,13 +2330,13 @@ void __63__BRCSyncContext__armForegroundGraceTimerForClientDescription___block_i
   v13 = dispatch_time(0, v12);
   dispatch_source_set_timer(v11, v13, 0xFFFFFFFFFFFFFFFFLL, 0);
   objc_initWeak(location, *(a1 + 32));
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __63__BRCSyncContext__armForegroundGraceTimerForClientDescription___block_invoke_138;
-  v28[3] = &unk_2784FF400;
-  objc_copyWeak(&v29, location);
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __63__BRCSyncContext__armForegroundGraceTimerForClientDescription___block_invoke_138;
+  v27[3] = &unk_2784FF400;
+  objc_copyWeak(&v28, location);
   v14 = v11;
-  v15 = v28;
+  v15 = v27;
   v16 = v14;
   v17 = v15;
   v18 = v17;
@@ -2378,9 +2355,8 @@ void __63__BRCSyncContext__armForegroundGraceTimerForClientDescription___block_i
   v23 = v16;
 
   dispatch_resume(v23);
-  objc_destroyWeak(&v29);
+  objc_destroyWeak(&v28);
   objc_destroyWeak(location);
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __63__BRCSyncContext__armForegroundGraceTimerForClientDescription___block_invoke_138(uint64_t a1)
@@ -2392,7 +2368,7 @@ void __63__BRCSyncContext__armForegroundGraceTimerForClientDescription___block_i
     v3 = brc_default_log();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      __63__BRCSyncContext__armForegroundGraceTimerForClientDescription___block_invoke_138_cold_1(WeakRetained);
+      __63__BRCSyncContext__armForegroundGraceTimerForClientDescription___block_invoke_138_cold_1();
     }
 
     v4 = WeakRetained;
@@ -2421,22 +2397,91 @@ void __63__BRCSyncContext__armForegroundGraceTimerForClientDescription___block_i
   }
 }
 
+- (void)_updateSubmittedBGSystemTasksWithState:(BOOL)state submittedBGSystemTaskIdentifiers:(id)identifiers
+{
+  stateCopy = state;
+  v34 = *MEMORY[0x277D85DE8];
+  identifiersCopy = identifiers;
+  mEMORY[0x277CF0810] = [MEMORY[0x277CF0810] sharedScheduler];
+  defaults = [(BRCSyncContext *)self defaults];
+  v9 = [defaults discretionaryOperationBGSystemTaskConfigWithForegroundState:stateCopy];
+
+  v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v20 = identifiersCopy;
+  obj = [identifiersCopy allKeys];
+  v10 = [obj countByEnumeratingWithState:&v23 objects:v33 count:16];
+  if (v10)
+  {
+    v11 = v10;
+    v12 = *v24;
+    do
+    {
+      for (i = 0; i != v11; ++i)
+      {
+        if (*v24 != v12)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v14 = *(*(&v23 + 1) + 8 * i);
+        v15 = [mEMORY[0x277CF0810] taskRequestForIdentifier:v14];
+        [v15 br_applyConfiguration:v9];
+        v22 = 0;
+        v16 = [mEMORY[0x277CF0810] updateTaskRequest:v15 error:&v22];
+        v17 = v22;
+        if ((v16 & 1) == 0)
+        {
+          v18 = brc_bread_crumbs();
+          v19 = brc_default_log();
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+          {
+            *buf = 138412802;
+            v28 = v14;
+            v29 = 2112;
+            v30 = v17;
+            v31 = 2112;
+            v32 = v18;
+            _os_log_debug_impl(&dword_223E7A000, v19, OS_LOG_TYPE_DEBUG, "[DEBUG] Couldn't update the task request %@ - error = %@%@", buf, 0x20u);
+          }
+        }
+      }
+
+      v11 = [obj countByEnumeratingWithState:&v23 objects:v33 count:16];
+    }
+
+    while (v11);
+  }
+}
+
+- (void)_updateSubmittedBGSystemTasksWithState:(BOOL)state
+{
+  stateCopy = state;
+  v5 = brc_bread_crumbs();
+  v6 = brc_default_log();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  {
+    [BRCSyncContext _updateSubmittedBGSystemTasksWithState:];
+  }
+
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  v8 = [(NSMutableDictionary *)selfCopy->_submittedBGSystemTaskIdentifiers copy];
+  objc_sync_exit(selfCopy);
+
+  [(BRCSyncContext *)selfCopy _updateSubmittedBGSystemTasksWithState:stateCopy submittedBGSystemTaskIdentifiers:v8];
+}
+
 - (void)_notifyFrameworkContainersMonitorWithState:(BOOL)state
 {
-  v7 = self->_contextIdentifier;
+  v6 = self->_contextIdentifier;
   v4 = BRNotifyNameForForegroundChangeWithContainerID();
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  if (selfCopy->_notifyTokenForFramework != -1)
+  if (selfCopy->_notifyTokenForFramework != -1 || ([v4 UTF8String], !brc_notify_register_check()))
   {
-    goto LABEL_2;
-  }
-
-  [v4 UTF8String];
-  if (!brc_notify_register_check())
-  {
-    notifyTokenForFramework = selfCopy->_notifyTokenForFramework;
-LABEL_2:
     [v4 UTF8String];
     brc_notify_set_state_and_post();
   }
@@ -2465,19 +2510,19 @@ void __52__BRCSyncContext__notifyContainerBeingNowForeground__block_invoke(uint6
     v4 = brc_default_log();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      __52__BRCSyncContext__notifyContainerBeingNowForeground__block_invoke_cold_1(v2);
+      __52__BRCSyncContext__notifyContainerBeingNowForeground__block_invoke_cold_1();
     }
 
-    dispatch_source_cancel(*(*v2 + 56));
-    v5 = *(*v2 + 56);
-    *(*v2 + 56) = 0;
+    dispatch_source_cancel(*(*v2 + 7));
+    v5 = *(*v2 + 7);
+    *(*v2 + 7) = 0;
 
     v1 = *v2;
   }
 
   v6 = v1;
   objc_sync_enter(v6);
-  v7 = *(*v2 + 80);
+  v7 = *(*v2 + 10);
   objc_sync_exit(v6);
 
   if (!v7)
@@ -2485,7 +2530,7 @@ void __52__BRCSyncContext__notifyContainerBeingNowForeground__block_invoke(uint6
     [*v2 _updateSubmittedBGSystemTasksWithState:1];
     [*v2 _notifyFrameworkContainersMonitorWithState:1];
     v8 = [MEMORY[0x277CCAB98] defaultCenter];
-    v9 = [*(*v2 + 136) personaIdentifier];
+    v9 = [*(*v2 + 17) personaIdentifier];
     v10 = BRPersonaSpecificName();
     [v8 postNotificationName:v10 object:*v2 userInfo:0];
   }
@@ -2493,36 +2538,36 @@ void __52__BRCSyncContext__notifyContainerBeingNowForeground__block_invoke(uint6
 
 - (void)cancelWiFiOnlyOperationsIfNeeded
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   _database = [(BRCSyncContext *)self _database];
   if (_database)
   {
-    v18 = _database;
+    v17 = _database;
     operationQueue = [_database operationQueue];
     operations = [operationQueue operations];
 
-    v19 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(operations, "count")}];
+    v18 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(operations, "count")}];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v6 = operations;
-    v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v22;
+      v9 = *v21;
       do
       {
         v10 = 0;
         do
         {
-          if (*v22 != v9)
+          if (*v21 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v21 + 1) + 8 * v10);
+          v11 = *(*(&v20 + 1) + 8 * v10);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -2533,7 +2578,7 @@ void __52__BRCSyncContext__notifyContainerBeingNowForeground__block_invoke(uint6
             if ((allowsCellularAccess & 1) == 0)
             {
               v15 = [(BRCSyncContext *)self _buildBGSystemTaskIdentifierForCKOperation:v12];
-              [v19 addObject:v15];
+              [v18 addObject:v15];
 
               callbackQueue = [v12 callbackQueue];
               block[0] = MEMORY[0x277D85DD0];
@@ -2550,17 +2595,15 @@ void __52__BRCSyncContext__notifyContainerBeingNowForeground__block_invoke(uint6
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v8);
     }
 
-    [(BRCSyncContext *)self _updateWifiOnlyBGSystemTaskWithCancelledTaskIdentifiers:v19 inexpensiveNetworkConnectivity:0];
-    _database = v18;
+    [(BRCSyncContext *)self _updateWifiOnlyBGSystemTaskWithCancelledTaskIdentifiers:v18 inexpensiveNetworkConnectivity:0];
+    _database = v17;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __50__BRCSyncContext_cancelWiFiOnlyOperationsIfNeeded__block_invoke(uint64_t a1)

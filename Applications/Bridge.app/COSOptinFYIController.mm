@@ -9,7 +9,7 @@
 
 + (BOOL)_wantsUnifiedFYIPane
 {
-  sub_100059798();
+  sub_100059798(self);
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
@@ -90,7 +90,7 @@ LABEL_11:
 
 + (void)doWorkForSkippedPanes
 {
-  v2 = sub_100059798();
+  v2 = sub_100059798(self);
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
@@ -130,7 +130,7 @@ LABEL_11:
 + (id)unifiedFYIDescription
 {
   v2 = +[NSMutableString string];
-  sub_100059798();
+  sub_100059798(v2);
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;

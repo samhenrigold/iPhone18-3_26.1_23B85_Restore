@@ -13,15 +13,14 @@
   ObjectType = swift_getObjectType();
   v4 = sub_23B8217EC();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (*(&self->super.isa + OBJC_IVAR____TtC18_QuickLook_SwiftUI22QLPreviewItemContainer_didStartAccessingSecurityScopeResource) == 1)
   {
-    (*(v5 + 16))(v8, self + OBJC_IVAR____TtC18_QuickLook_SwiftUI22QLPreviewItemContainer_url, v4);
+    (*(v5 + 16))(v7, self + OBJC_IVAR____TtC18_QuickLook_SwiftUI22QLPreviewItemContainer_url, v4);
     selfCopy = self;
     sub_23B8217CC();
-    (*(v5 + 8))(v8, v4);
+    (*(v5 + 8))(v7, v4);
   }
 
   else
@@ -29,19 +28,18 @@
     selfCopy2 = self;
   }
 
-  v11.receiver = self;
-  v11.super_class = ObjectType;
-  [(QLPreviewItemContainer *)&v11 dealloc];
+  v10.receiver = self;
+  v10.super_class = ObjectType;
+  [(QLPreviewItemContainer *)&v10 dealloc];
 }
 
 - (NSURL)previewItemURL
 {
   v3 = sub_23B8217EC();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = OBJC_IVAR____TtC18_QuickLook_SwiftUI22QLPreviewItemContainer_didStartAccessingSecurityScopeResource;
+  v6 = &v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = OBJC_IVAR____TtC18_QuickLook_SwiftUI22QLPreviewItemContainer_didStartAccessingSecurityScopeResource;
   if (*(&self->super.isa + OBJC_IVAR____TtC18_QuickLook_SwiftUI22QLPreviewItemContainer_didStartAccessingSecurityScopeResource) == 1)
   {
     selfCopy = self;
@@ -50,15 +48,15 @@
   else
   {
     selfCopy2 = self;
-    *(&self->super.isa + v8) = sub_23B8217DC() & 1;
+    *(&self->super.isa + v7) = sub_23B8217DC() & 1;
   }
 
-  (*(v4 + 16))(v7, self + OBJC_IVAR____TtC18_QuickLook_SwiftUI22QLPreviewItemContainer_url, v3);
+  (*(v4 + 16))(v6, self + OBJC_IVAR____TtC18_QuickLook_SwiftUI22QLPreviewItemContainer_url, v3);
 
-  v11 = sub_23B8217BC();
-  (*(v4 + 8))(v7, v3);
+  v10 = sub_23B8217BC();
+  (*(v4 + 8))(v6, v3);
 
-  return v11;
+  return v10;
 }
 
 - (BOOL)isEqual:(id)equal

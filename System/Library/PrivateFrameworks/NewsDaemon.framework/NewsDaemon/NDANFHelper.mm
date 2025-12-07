@@ -8,58 +8,58 @@
 
 - (id)manifestFromANFDocumentData:(id)data
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x2050000000;
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x2050000000;
   v3 = getSXContextClass_softClass;
-  v45 = getSXContextClass_softClass;
+  v44 = getSXContextClass_softClass;
   if (!getSXContextClass_softClass)
   {
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __getSXContextClass_block_invoke;
-    v41[3] = &unk_27997C078;
-    v41[4] = &v42;
-    __getSXContextClass_block_invoke(v41);
-    v3 = v43[3];
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __getSXContextClass_block_invoke;
+    v40[3] = &unk_27997C078;
+    v40[4] = &v41;
+    __getSXContextClass_block_invoke(v40);
+    v3 = v42[3];
   }
 
   v4 = v3;
-  _Block_object_dispose(&v42, 8);
+  _Block_object_dispose(&v41, 8);
   v5 = [v3 alloc];
   uUID = [MEMORY[0x277CCAD78] UUID];
   uUIDString = [uUID UUIDString];
-  v40 = 0;
-  v8 = [v5 initWithIdentifier:uUIDString shareURL:0 JSONData:dataCopy resourceDataSource:0 host:0 error:&v40];
-  v32 = v40;
+  v39 = 0;
+  v8 = [v5 initWithIdentifier:uUIDString shareURL:0 JSONData:dataCopy resourceDataSource:0 host:0 error:&v39];
+  v31 = v39;
 
   if (v8)
   {
     array = [MEMORY[0x277CBEB18] array];
     array2 = [MEMORY[0x277CBEB18] array];
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     documentController = [v8 documentController];
     obj = [documentController orderedImageIdentifiers];
 
-    v12 = [obj countByEnumeratingWithState:&v36 objects:v46 count:16];
+    v12 = [obj countByEnumeratingWithState:&v35 objects:v45 count:16];
     if (v12)
     {
-      v13 = *v37;
+      v13 = *v36;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v37 != v13)
+          if (*v36 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v36 + 1) + 8 * i);
+          v15 = *(*(&v35 + 1) + 8 * i);
           documentController2 = [v8 documentController];
           v17 = [documentController2 imageResourceForIdentifier:v15];
 
@@ -74,7 +74,7 @@
           [array2 fc_safelyAddObject:v22];
         }
 
-        v12 = [obj countByEnumeratingWithState:&v36 objects:v46 count:16];
+        v12 = [obj countByEnumeratingWithState:&v35 objects:v45 count:16];
       }
 
       while (v12);
@@ -94,8 +94,6 @@
   {
     v29 = 0;
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v29;
 }

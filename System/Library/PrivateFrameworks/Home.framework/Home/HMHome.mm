@@ -140,7 +140,7 @@ uint64_t __43__HMHome_Additions__hf_zoneWithIdentifier___block_invoke(uint64_t a
 
 void __48__HMHome_Additions__hf_updateNetworkProtection___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = HFLogForCategory(0x3EuLL);
@@ -148,36 +148,34 @@ void __48__HMHome_Additions__hf_updateNetworkProtection___block_invoke(uint64_t 
   {
     v6 = *(a1 + 40);
     *buf = 134218242;
-    v13 = v6;
-    v14 = 2112;
-    v15 = WeakRetained;
+    v12 = v6;
+    v13 = 2112;
+    v14 = WeakRetained;
     _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Updating network protection mode to %li for home %@", buf, 0x16u);
   }
 
   v7 = *(a1 + 40);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __48__HMHome_Additions__hf_updateNetworkProtection___block_invoke_122;
-  v10[3] = &unk_277DF2748;
-  v10[4] = WeakRetained;
-  v11 = v3;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __48__HMHome_Additions__hf_updateNetworkProtection___block_invoke_122;
+  v9[3] = &unk_277DF2748;
+  v9[4] = WeakRetained;
+  v10 = v3;
   v8 = v3;
-  [WeakRetained updateNetworkProtection:v7 completionHandler:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  [WeakRetained updateNetworkProtection:v7 completionHandler:v9];
 }
 
 void __48__HMHome_Additions__hf_updateNetworkProtection___block_invoke_122(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = +[HFHomeKitDispatcher sharedDispatcher];
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __48__HMHome_Additions__hf_updateNetworkProtection___block_invoke_2;
-  v7[3] = &unk_277DF2CB8;
-  v7[4] = *(a1 + 32);
-  [v4 dispatchHomeObserverMessage:v7 sender:0];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __48__HMHome_Additions__hf_updateNetworkProtection___block_invoke_2;
+  v6[3] = &unk_277DF2CB8;
+  v6[4] = *(a1 + 32);
+  [v4 dispatchHomeObserverMessage:v6 sender:0];
 
   if (v3)
   {
@@ -185,7 +183,7 @@ void __48__HMHome_Additions__hf_updateNetworkProtection___block_invoke_122(uint6
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v9 = v3;
+      v8 = v3;
       _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "Failed to update network protection mode with error %@", buf, 0xCu);
     }
 
@@ -196,8 +194,6 @@ void __48__HMHome_Additions__hf_updateNetworkProtection___block_invoke_122(uint6
   {
     [*(a1 + 40) finishWithNoResult];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __50__HMHome_Additions__hf_accessoryWithMatterNodeID___block_invoke(uint64_t a1, void *a2)
@@ -548,7 +544,7 @@ uint64_t __57__HMHome_Additions__hf_cameraProfileForSignificantEvent___block_inv
   return v5;
 }
 
-uint64_t __60__HMHome_Additions__hf_allCameraProfilesSupportingRecording__block_invoke(uint64_t a1, void *a2)
+unint64_t __60__HMHome_Additions__hf_allCameraProfilesSupportingRecording__block_invoke(uint64_t a1, void *a2)
 {
   v2 = [a2 userSettings];
   v3 = [v2 supportedFeatures];
@@ -567,7 +563,7 @@ BOOL __60__HMHome_Additions__hf_allCameraProfilesWithDoorbellService__block_invo
 
 BOOL __72__HMHome_Additions__hf_allCameraProfilesWithSmartMotionRecordingEnabled__block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 userSettings];
   v5 = [v4 accessModeForPresenceType:3];
@@ -583,13 +579,13 @@ BOOL __72__HMHome_Additions__hf_allCameraProfilesWithSmartMotionRecordingEnabled
   v13 = HFLogForCategory(0x13uLL);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138412802;
-    v18 = v3;
-    v19 = 1024;
-    v20 = v11;
-    v21 = 1024;
-    v22 = v12 != 0;
-    _os_log_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_DEFAULT, "Camera %@ streamAndRecord %d recordingEvents %d", &v17, 0x18u);
+    v16 = 138412802;
+    v17 = v3;
+    v18 = 1024;
+    v19 = v11;
+    v20 = 1024;
+    v21 = v12 != 0;
+    _os_log_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_DEFAULT, "Camera %@ streamAndRecord %d recordingEvents %d", &v16, 0x18u);
   }
 
   if (v12)
@@ -602,7 +598,6 @@ BOOL __72__HMHome_Additions__hf_allCameraProfilesWithSmartMotionRecordingEnabled
     v14 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -634,7 +629,7 @@ BOOL __75__HMHome_Additions__hf_allUniqueMediaProfileContainersExcludingMediaGro
 {
   v2 = a2;
   v3 = [v2 hf_backingAccessory];
-  v4 = [v3 home];
+  v4 = objc_msgSend_home(v3);
   v5 = [v2 hf_backingAccessory];
 
   v6 = [v4 hf_mediaSystemForAccessory:v5];
@@ -662,7 +657,7 @@ BOOL __55__HMHome_Additions__hf_allUniqueMediaProfileContainers__block_invoke_2(
 {
   v2 = a2;
   v3 = [v2 hf_backingAccessory];
-  v4 = [v3 home];
+  v4 = objc_msgSend_home(v3);
   v5 = [v2 hf_backingAccessory];
 
   v6 = [v4 hf_mediaSystemForAccessory:v5];
@@ -750,24 +745,24 @@ void __50__HMHome_Additions__hf_setFaceRecognitionEnabled___block_invoke(uint64_
 
 void __50__HMHome_Additions__hf_setFaceRecognitionEnabled___block_invoke_2(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = HFLogForCategory(0x13uLL);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 32);
-      v8 = *(a1 + 56);
-      v9 = [v7 personManager];
+      v6 = *(a1 + 32);
+      v7 = *(a1 + 56);
+      v8 = [v6 personManager];
       *buf = 138413058;
-      v17 = v7;
-      v18 = 1024;
-      v19 = v8;
-      v20 = 2112;
-      v21 = v9;
-      v22 = 2112;
-      v23 = v3;
+      v16 = v6;
+      v17 = 1024;
+      v18 = v7;
+      v19 = 2112;
+      v20 = v8;
+      v21 = 2112;
+      v22 = v3;
       _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "%@: Failed to update face recognition enabled(%d) for person manager %@ with error %@", buf, 0x26u);
     }
 
@@ -777,18 +772,16 @@ void __50__HMHome_Additions__hf_setFaceRecognitionEnabled___block_invoke_2(uint6
   else
   {
     v5 = +[HFHomeKitDispatcher sharedDispatcher];
-    v10 = MEMORY[0x277D85DD0];
-    v11 = 3221225472;
-    v12 = __50__HMHome_Additions__hf_setFaceRecognitionEnabled___block_invoke_246;
-    v13 = &unk_277DF3810;
-    v14 = *(a1 + 32);
-    v15 = *(a1 + 48);
-    [v5 dispatchHomeObserverMessage:&v10 sender:0];
+    v9 = MEMORY[0x277D85DD0];
+    v10 = 3221225472;
+    v11 = __50__HMHome_Additions__hf_setFaceRecognitionEnabled___block_invoke_246;
+    v12 = &unk_277DF3810;
+    v13 = *(a1 + 32);
+    v14 = *(a1 + 48);
+    [v5 dispatchHomeObserverMessage:&v9 sender:0];
 
     [*(a1 + 40) finishWithNoResult];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __50__HMHome_Additions__hf_setFaceRecognitionEnabled___block_invoke_246(uint64_t a1, void *a2)
@@ -824,27 +817,27 @@ void __50__HMHome_Additions__hf_setFaceRecognitionEnabled___block_invoke_2_249(u
 
 void __50__HMHome_Additions__hf_setFaceRecognitionEnabled___block_invoke_3(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = HFLogForCategory(0x13uLL);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 64);
-      v9 = *(a1 + 32);
-      v8 = *(a1 + 40);
-      v10 = [v8 name];
+      v6 = *(a1 + 64);
+      v8 = *(a1 + 32);
+      v7 = *(a1 + 40);
+      v9 = [v7 name];
       *buf = 138413314;
-      v18 = v9;
-      v19 = 1024;
-      v20 = v7;
-      v21 = 2112;
-      v22 = v8;
-      v23 = 2112;
-      v24 = v10;
-      v25 = 2112;
-      v26 = v3;
+      v17 = v8;
+      v18 = 1024;
+      v19 = v6;
+      v20 = 2112;
+      v21 = v7;
+      v22 = 2112;
+      v23 = v9;
+      v24 = 2112;
+      v25 = v3;
       _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "%@: Failed to update face recognition enabled(%d) for user %@ (%@) with error %@", buf, 0x30u);
     }
 
@@ -854,18 +847,16 @@ void __50__HMHome_Additions__hf_setFaceRecognitionEnabled___block_invoke_3(uint6
   else
   {
     v5 = +[HFHomeKitDispatcher sharedDispatcher];
-    v11 = MEMORY[0x277D85DD0];
-    v12 = 3221225472;
-    v13 = __50__HMHome_Additions__hf_setFaceRecognitionEnabled___block_invoke_251;
-    v14 = &unk_277DF80C8;
-    v15 = *(a1 + 40);
-    v16 = *(a1 + 56);
-    [v5 dispatchUserObserverMessage:&v11 sender:0];
+    v10 = MEMORY[0x277D85DD0];
+    v11 = 3221225472;
+    v12 = __50__HMHome_Additions__hf_setFaceRecognitionEnabled___block_invoke_251;
+    v13 = &unk_277DF80C8;
+    v14 = *(a1 + 40);
+    v15 = *(a1 + 56);
+    [v5 dispatchUserObserverMessage:&v10 sender:0];
 
     [*(a1 + 48) finishWithNoResult];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __50__HMHome_Additions__hf_setFaceRecognitionEnabled___block_invoke_251(uint64_t a1, void *a2)
@@ -971,24 +962,24 @@ void __101__HMHome_Additions__hf_setPhotosLibrarySettingsForUser_importPhotosLib
 
 void __101__HMHome_Additions__hf_setPhotosLibrarySettingsForUser_importPhotosLibraryEnabled_shareFacesEnabled___block_invoke_2(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = HFLogForCategory(0x13uLL);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 32);
-      v8 = *(a1 + 40);
-      v9 = *(a1 + 48);
+      v6 = *(a1 + 32);
+      v7 = *(a1 + 40);
+      v8 = *(a1 + 48);
       *buf = 138413058;
-      v17 = v7;
-      v18 = 2080;
-      v19 = "[HMHome(Additions) hf_setPhotosLibrarySettingsForUser:importPhotosLibraryEnabled:shareFacesEnabled:]_block_invoke_2";
-      v20 = 2112;
-      v21 = v8;
-      v22 = 2112;
-      v23 = v9;
+      v16 = v6;
+      v17 = 2080;
+      v18 = "[HMHome(Additions) hf_setPhotosLibrarySettingsForUser:importPhotosLibraryEnabled:shareFacesEnabled:]_block_invoke_2";
+      v19 = 2112;
+      v20 = v7;
+      v21 = 2112;
+      v22 = v8;
       _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "%@ %s: Failed to update external person manager settings %@ for user %@", buf, 0x2Au);
     }
 
@@ -998,18 +989,16 @@ void __101__HMHome_Additions__hf_setPhotosLibrarySettingsForUser_importPhotosLib
   else
   {
     v5 = +[HFHomeKitDispatcher sharedDispatcher];
-    v10 = MEMORY[0x277D85DD0];
-    v11 = 3221225472;
-    v12 = __101__HMHome_Additions__hf_setPhotosLibrarySettingsForUser_importPhotosLibraryEnabled_shareFacesEnabled___block_invoke_284;
-    v13 = &unk_277DF80C8;
-    v14 = *(a1 + 48);
-    v15 = *(a1 + 40);
-    [v5 dispatchUserObserverMessage:&v10 sender:0];
+    v9 = MEMORY[0x277D85DD0];
+    v10 = 3221225472;
+    v11 = __101__HMHome_Additions__hf_setPhotosLibrarySettingsForUser_importPhotosLibraryEnabled_shareFacesEnabled___block_invoke_284;
+    v12 = &unk_277DF80C8;
+    v13 = *(a1 + 48);
+    v14 = *(a1 + 40);
+    [v5 dispatchUserObserverMessage:&v9 sender:0];
 
     [*(a1 + 56) finishWithNoResult];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __101__HMHome_Additions__hf_setPhotosLibrarySettingsForUser_importPhotosLibraryEnabled_shareFacesEnabled___block_invoke_284(uint64_t a1, void *a2)
@@ -1237,7 +1226,7 @@ void __71__HMHome_Additions__hf_hasAcceptedTermsAndConditionsForHomePodVersion__
 
 void __71__HMHome_Additions__hf_hasAcceptedTermsAndConditionsForHomePodVersion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = HFLogForCategory(0);
   v4 = v3;
@@ -1245,19 +1234,17 @@ void __71__HMHome_Additions__hf_hasAcceptedTermsAndConditionsForHomePodVersion__
   {
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v6 = 138412290;
-      v7 = v2;
-      _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "[START UPDATE] Unable to remove software update license versions & update application data: %@", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v2;
+      _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "[START UPDATE] Unable to remove software update license versions & update application data: %@", &v5, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v6) = 0;
-    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "[START UPDATE] Successfully removed all software update license agreement versions", &v6, 2u);
+    LOWORD(v5) = 0;
+    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "[START UPDATE] Successfully removed all software update license agreement versions", &v5, 2u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __94__HMHome_Additions__hf_markTermsAndConditionsAsAcceptedForHomePodWithLicenseAgreementVersion___block_invoke(uint64_t a1, void *a2)
@@ -1318,7 +1305,7 @@ uint64_t __52__HMHome_Additions__hf_hasAtLeastOneRestrictedGuest__block_invoke(u
   return v3;
 }
 
-uint64_t __40__HMHome_Additions__hf_numberOfHomePods__block_invoke(uint64_t a1, void *a2)
+void *__40__HMHome_Additions__hf_numberOfHomePods__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 hf_isHomePod];
   if (result)
@@ -1374,20 +1361,18 @@ uint64_t __44__HMHome_Additions__hf_hasRMVCapableAppleTV__block_invoke(uint64_t 
 
 void __53__HMHome_Additions__hf_startReprovisioningAccessory___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0x27uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 138412546;
-    v8 = v5;
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "Reprovision status - accessory: %@ error:%@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v5;
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "Reprovision status - accessory: %@ error:%@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __57__HMHome_Additions__hf_atleastOneHomePodSupportsAnnounce__block_invoke(uint64_t a1, void *a2)
@@ -1562,7 +1547,7 @@ uint64_t __59__HMHome_Additions__hf_hasAtLeastOneCrossfadeEnabledDevice__block_i
 
 uint64_t __78__HMHome_Additions__hf_atLeastOneMediaAccessoryWithSupportingJustSiriLanguage__block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [a2 mediaProfile];
   v3 = [HFMediaHelper siriLanguageOptionFor:v2];
 
@@ -1573,33 +1558,30 @@ uint64_t __78__HMHome_Additions__hf_atLeastOneMediaAccessoryWithSupportingJustSi
   v7 = HFLogForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412546;
-    v11 = v4;
-    v12 = 1024;
-    v13 = v6;
-    _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "siriLanguageCode: %@, isSupportedJSLanguage: %{BOOL}d", &v10, 0x12u);
+    v9 = 138412546;
+    v10 = v4;
+    v11 = 1024;
+    v12 = v6;
+    _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "siriLanguageCode: %@, isSupportedJSLanguage: %{BOOL}d", &v9, 0x12u);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 void __58__HMHome_Additions__hf_setCameraRecordingHasBeenOnboarded__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
     v3 = HFLogForCategory(9uLL);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = 138412290;
-      v6 = v2;
-      _os_log_error_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_ERROR, "Failed to set user has acknowledged camera recording onboarding. Error: %@", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = v2;
+      _os_log_error_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_ERROR, "Failed to set user has acknowledged camera recording onboarding. Error: %@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __48__HMHome_Additions__hf_updateColorPalette_type___block_invoke(uint64_t a1, void *a2)
@@ -1660,7 +1642,7 @@ id __54__HMHome_Additions__hf_updateAccessControlDescriptor___block_invoke_2_427
 
 void __65__HMHome_Additions__hf_fetchWalletKeyDeviceStateForCurrentDevice__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -1672,33 +1654,33 @@ void __65__HMHome_Additions__hf_fetchWalletKeyDeviceStateForCurrentDevice__block
     {
       v10 = *(a1 + 32);
       *buf = 138412546;
-      v18 = v10;
-      v19 = 2112;
-      v20 = v5;
+      v17 = v10;
+      v18 = 2112;
+      v19 = v5;
       _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "(%@) Fetched Wallet Key Device State for current device: %@. Updating cache.", buf, 0x16u);
     }
 
     [*(a1 + 40) finishWithResult:v5];
     objc_setAssociatedObject(WeakRetained, "hf_cachedWalletKeyDeviceStateForCurrentDeviceKey", v5, 1);
     v11 = +[HFHomeKitDispatcher sharedDispatcher];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __65__HMHome_Additions__hf_fetchWalletKeyDeviceStateForCurrentDevice__block_invoke_436;
-    v14[3] = &unk_277DF8368;
-    v15 = v5;
-    v16 = WeakRetained;
-    [v11 dispatchWalletKeyDeviceStateObserverMessage:v14 sender:0];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __65__HMHome_Additions__hf_fetchWalletKeyDeviceStateForCurrentDevice__block_invoke_436;
+    v13[3] = &unk_277DF8368;
+    v14 = v5;
+    v15 = WeakRetained;
+    [v11 dispatchWalletKeyDeviceStateObserverMessage:v13 sender:0];
   }
 
   else
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v13 = *(a1 + 32);
+      v12 = *(a1 + 32);
       *buf = 138412546;
-      v18 = v13;
-      v19 = 2112;
-      v20 = v6;
+      v17 = v12;
+      v18 = 2112;
+      v19 = v6;
       _os_log_error_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_ERROR, "(%@) Could not fetch Wallet Key Device State for current device: %@", buf, 0x16u);
     }
 
@@ -1711,8 +1693,6 @@ void __65__HMHome_Additions__hf_fetchWalletKeyDeviceStateForCurrentDevice__block
   }
 
   objc_setAssociatedObject(WeakRetained, "hf_fetchWalletKeyDeviceStateFuture", 0, 1);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __65__HMHome_Additions__hf_fetchWalletKeyDeviceStateForCurrentDevice__block_invoke_436(uint64_t a1, void *a2)
@@ -1747,7 +1727,7 @@ id __37__HMHome_Additions__hf_walletKeyUUID__block_invoke(uint64_t a1, void *a2)
 
 id __47__HMHome_Additions__hf_walletKeyInWalletAppURL__block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = HFLogForCategory(0x49uLL);
@@ -1755,15 +1735,15 @@ id __47__HMHome_Additions__hf_walletKeyInWalletAppURL__block_invoke(uint64_t a1,
   {
     v6 = [v3 walletKey];
     v7 = [v6 customURL];
-    v14 = 138413058;
-    v15 = WeakRetained;
-    v16 = 2080;
-    v17 = "[HMHome(Additions) hf_walletKeyInWalletAppURL]_block_invoke";
-    v18 = 2112;
-    v19 = v7;
-    v20 = 2112;
-    v21 = v3;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "(%@:%s) returning url %@ for newly fetched %@.", &v14, 0x2Au);
+    v13 = 138413058;
+    v14 = WeakRetained;
+    v15 = 2080;
+    v16 = "[HMHome(Additions) hf_walletKeyInWalletAppURL]_block_invoke";
+    v17 = 2112;
+    v18 = v7;
+    v19 = 2112;
+    v20 = v3;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "(%@:%s) returning url %@ for newly fetched %@.", &v13, 0x2Au);
   }
 
   v8 = MEMORY[0x277D2C900];
@@ -1771,36 +1751,32 @@ id __47__HMHome_Additions__hf_walletKeyInWalletAppURL__block_invoke(uint64_t a1,
   v10 = [v9 customURL];
   v11 = [v8 futureWithResult:v10];
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 id __47__HMHome_Additions__hf_walletKeyInWalletAppURL__block_invoke_449(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = HFLogForCategory(0x49uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = +[HFWalletUtilities walletAppURL];
-    v12 = 138413058;
-    v13 = WeakRetained;
-    v14 = 2080;
-    v15 = "[HMHome(Additions) hf_walletKeyInWalletAppURL]_block_invoke";
-    v16 = 2112;
-    v17 = v6;
-    v18 = 2112;
-    v19 = v3;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "(%@:%s) returning default wallet app url %@ because of error: %@", &v12, 0x2Au);
+    v11 = 138413058;
+    v12 = WeakRetained;
+    v13 = 2080;
+    v14 = "[HMHome(Additions) hf_walletKeyInWalletAppURL]_block_invoke";
+    v15 = 2112;
+    v16 = v6;
+    v17 = 2112;
+    v18 = v3;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "(%@:%s) returning default wallet app url %@ because of error: %@", &v11, 0x2Au);
   }
 
   v7 = MEMORY[0x277D2C900];
   v8 = +[HFWalletUtilities walletAppURL];
   v9 = [v7 futureWithResult:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -1824,33 +1800,33 @@ void __66__HMHome_Additions__hf_enableExpressModeForWalletKeyWithAuthData___bloc
 
 void __66__HMHome_Additions__hf_enableExpressModeForWalletKeyWithAuthData___block_invoke_2(uint64_t a1, void *a2)
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WeakRetained;
   if (v3)
   {
-    v21 = @"HFErrorHandlerOptionFailedItemName";
+    v20 = @"HFErrorHandlerOptionFailedItemName";
     v6 = [WeakRetained name];
-    v22[0] = v6;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v21[0] = v6;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
 
-    v19[0] = @"HFErrorUserInfoOptionsKey";
-    v19[1] = @"HFErrorUserInfoOperationKey";
-    v20[0] = v7;
-    v20[1] = @"HFOperationAddWalletKey";
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+    v18[0] = @"HFErrorUserInfoOptionsKey";
+    v18[1] = @"HFErrorUserInfoOperationKey";
+    v19[0] = v7;
+    v19[1] = @"HFOperationAddWalletKey";
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
     v9 = [v3 hf_errorWithAddedUserInfo:v8];
     v10 = HFLogForCategory(0x49uLL);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v13 = 138412802;
-      v14 = v5;
-      v15 = 2080;
-      v16 = "[HMHome(Additions) hf_enableExpressModeForWalletKeyWithAuthData:]_block_invoke_2";
-      v17 = 2112;
-      v18 = v9;
-      _os_log_error_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_ERROR, "(%@:%s) When trying to enable Express Mode for Wallet Key, error occurred %@", &v13, 0x20u);
+      v12 = 138412802;
+      v13 = v5;
+      v14 = 2080;
+      v15 = "[HMHome(Additions) hf_enableExpressModeForWalletKeyWithAuthData:]_block_invoke_2";
+      v16 = 2112;
+      v17 = v9;
+      _os_log_error_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_ERROR, "(%@:%s) When trying to enable Express Mode for Wallet Key, error occurred %@", &v12, 0x20u);
     }
 
     [*(a1 + 32) finishWithError:v9];
@@ -1861,17 +1837,15 @@ void __66__HMHome_Additions__hf_enableExpressModeForWalletKeyWithAuthData___bloc
     v11 = HFLogForCategory(0x49uLL);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412546;
-      v14 = v5;
-      v15 = 2080;
-      v16 = "[HMHome(Additions) hf_enableExpressModeForWalletKeyWithAuthData:]_block_invoke";
-      _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "(%@:%s) completed enabling express mode for wallet key with auth data", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = v5;
+      v14 = 2080;
+      v15 = "[HMHome(Additions) hf_enableExpressModeForWalletKeyWithAuthData:]_block_invoke";
+      _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "(%@:%s) completed enabling express mode for wallet key with auth data", &v12, 0x16u);
     }
 
     [*(a1 + 32) finishWithNoResult];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __75__HMHome_Additions__hf_enableUWBForWalletKeyWithAuthData_enableNFCExpress___block_invoke(uint64_t a1, void *a2)
@@ -1894,33 +1868,33 @@ void __75__HMHome_Additions__hf_enableUWBForWalletKeyWithAuthData_enableNFCExpre
 
 void __75__HMHome_Additions__hf_enableUWBForWalletKeyWithAuthData_enableNFCExpress___block_invoke_2(uint64_t a1, void *a2)
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WeakRetained;
   if (v3)
   {
-    v21 = @"HFErrorHandlerOptionFailedItemName";
+    v20 = @"HFErrorHandlerOptionFailedItemName";
     v6 = [WeakRetained name];
-    v22[0] = v6;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v21[0] = v6;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
 
-    v19[0] = @"HFErrorUserInfoOptionsKey";
-    v19[1] = @"HFErrorUserInfoOperationKey";
-    v20[0] = v7;
-    v20[1] = @"HFOperationAddWalletKey";
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+    v18[0] = @"HFErrorUserInfoOptionsKey";
+    v18[1] = @"HFErrorUserInfoOperationKey";
+    v19[0] = v7;
+    v19[1] = @"HFOperationAddWalletKey";
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
     v9 = [v3 hf_errorWithAddedUserInfo:v8];
     v10 = HFLogForCategory(0x49uLL);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v13 = 138412802;
-      v14 = v5;
-      v15 = 2080;
-      v16 = "[HMHome(Additions) hf_enableUWBForWalletKeyWithAuthData:enableNFCExpress:]_block_invoke_2";
-      v17 = 2112;
-      v18 = v9;
-      _os_log_error_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_ERROR, "(%@:%s) When trying to enable UWB for wallet key, error occurred %@", &v13, 0x20u);
+      v12 = 138412802;
+      v13 = v5;
+      v14 = 2080;
+      v15 = "[HMHome(Additions) hf_enableUWBForWalletKeyWithAuthData:enableNFCExpress:]_block_invoke_2";
+      v16 = 2112;
+      v17 = v9;
+      _os_log_error_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_ERROR, "(%@:%s) When trying to enable UWB for wallet key, error occurred %@", &v12, 0x20u);
     }
 
     [*(a1 + 32) finishWithError:v9];
@@ -1931,17 +1905,15 @@ void __75__HMHome_Additions__hf_enableUWBForWalletKeyWithAuthData_enableNFCExpre
     v11 = HFLogForCategory(0x49uLL);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412546;
-      v14 = v5;
-      v15 = 2080;
-      v16 = "[HMHome(Additions) hf_enableUWBForWalletKeyWithAuthData:enableNFCExpress:]_block_invoke";
-      _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "(%@:%s) completed enabling UWB for wallet key with auth data", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = v5;
+      v14 = 2080;
+      v15 = "[HMHome(Additions) hf_enableUWBForWalletKeyWithAuthData:enableNFCExpress:]_block_invoke";
+      _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "(%@:%s) completed enabling UWB for wallet key with auth data", &v12, 0x16u);
     }
 
     [*(a1 + 32) finishWithNoResult];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __48__HMHome_Additions__hf_addWalletKeyWithOptions___block_invoke(uint64_t a1, void *a2)
@@ -1964,7 +1936,7 @@ void __48__HMHome_Additions__hf_addWalletKeyWithOptions___block_invoke(uint64_t 
 
 void __48__HMHome_Additions__hf_addWalletKeyWithOptions___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -1977,9 +1949,9 @@ void __48__HMHome_Additions__hf_addWalletKeyWithOptions___block_invoke_2(uint64_
     {
       v11 = @"with";
       *buf = 138413826;
-      v29 = WeakRetained;
-      v30 = 2080;
-      v31 = "[HMHome(Additions) hf_addWalletKeyWithOptions:]_block_invoke_2";
+      v28 = WeakRetained;
+      v29 = 2080;
+      v30 = "[HMHome(Additions) hf_addWalletKeyWithOptions:]_block_invoke_2";
       if (v8)
       {
         v12 = @"with";
@@ -1990,7 +1962,7 @@ void __48__HMHome_Additions__hf_addWalletKeyWithOptions___block_invoke_2(uint64_
         v12 = @"without";
       }
 
-      v33 = v12;
+      v32 = v12;
       if ((v8 & 2) != 0)
       {
         v13 = @"with";
@@ -2001,20 +1973,20 @@ void __48__HMHome_Additions__hf_addWalletKeyWithOptions___block_invoke_2(uint64_
         v13 = @"without";
       }
 
-      v32 = 2112;
+      v31 = 2112;
       if ((v9 & 4) == 0)
       {
         v11 = @"without";
       }
 
-      v34 = 2112;
-      v35 = v13;
-      v36 = 2112;
-      v37 = v11;
-      v38 = 2112;
-      v39 = v5;
-      v40 = 2112;
-      v41 = v6;
+      v33 = 2112;
+      v34 = v13;
+      v35 = 2112;
+      v36 = v11;
+      v37 = 2112;
+      v38 = v5;
+      v39 = 2112;
+      v40 = v6;
       _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "(%@:%s) When adding wallet key %@ notification, %@ enabling express mode, and %@ UWB unlock, uuid is %@. error is %@", buf, 0x48u);
     }
   }
@@ -2024,9 +1996,9 @@ void __48__HMHome_Additions__hf_addWalletKeyWithOptions___block_invoke_2(uint64_
   {
     v15 = @"with";
     *buf = 138413570;
-    v29 = WeakRetained;
-    v30 = 2080;
-    v31 = "[HMHome(Additions) hf_addWalletKeyWithOptions:]_block_invoke";
+    v28 = WeakRetained;
+    v29 = 2080;
+    v30 = "[HMHome(Additions) hf_addWalletKeyWithOptions:]_block_invoke";
     if (v8)
     {
       v16 = @"with";
@@ -2037,34 +2009,34 @@ void __48__HMHome_Additions__hf_addWalletKeyWithOptions___block_invoke_2(uint64_
       v16 = @"without";
     }
 
-    v32 = 2112;
+    v31 = 2112;
     if ((v8 & 2) == 0)
     {
       v15 = @"without";
     }
 
-    v33 = v16;
-    v34 = 2112;
-    v35 = v15;
-    v36 = 2112;
-    v37 = v5;
-    v38 = 2112;
-    v39 = v6;
+    v32 = v16;
+    v33 = 2112;
+    v34 = v15;
+    v35 = 2112;
+    v36 = v5;
+    v37 = 2112;
+    v38 = v6;
     _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "(%@:%s) When adding wallet key %@ notification and %@ enabling express mode, uuid is %@. error is %@", buf, 0x3Eu);
   }
 
   if (v6)
   {
-    v26 = @"HFErrorHandlerOptionFailedItemName";
+    v25 = @"HFErrorHandlerOptionFailedItemName";
     v17 = [WeakRetained name];
-    v27 = v17;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    v26 = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
 
-    v24[0] = @"HFErrorUserInfoOptionsKey";
-    v24[1] = @"HFErrorUserInfoOperationKey";
-    v25[0] = v18;
-    v25[1] = @"HFOperationAddWalletKey";
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
+    v23[0] = @"HFErrorUserInfoOptionsKey";
+    v23[1] = @"HFErrorUserInfoOperationKey";
+    v24[0] = v18;
+    v24[1] = @"HFOperationAddWalletKey";
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
     v20 = [(__CFString *)v6 hf_errorWithAddedUserInfo:v19];
     [*(a1 + 32) finishWithError:v20];
   }
@@ -2072,17 +2044,15 @@ void __48__HMHome_Additions__hf_addWalletKeyWithOptions___block_invoke_2(uint64_
   else
   {
     v21 = +[HFHomeKitDispatcher sharedDispatcher];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __48__HMHome_Additions__hf_addWalletKeyWithOptions___block_invoke_463;
-    v23[3] = &unk_277DF2CB8;
-    v23[4] = WeakRetained;
-    [v21 dispatchHomeObserverMessage:v23 sender:0];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __48__HMHome_Additions__hf_addWalletKeyWithOptions___block_invoke_463;
+    v22[3] = &unk_277DF2CB8;
+    v22[4] = WeakRetained;
+    [v21 dispatchHomeObserverMessage:v22 sender:0];
 
     [*(a1 + 32) finishWithResult:v5];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __48__HMHome_Additions__hf_addWalletKeyWithOptions___block_invoke_463(uint64_t a1, void *a2)
@@ -2114,7 +2084,7 @@ void __63__HMHome_Additions__hf_addWalletKeyToPairedWatchesWithOptions___block_i
 
 void __63__HMHome_Additions__hf_addWalletKeyToPairedWatchesWithOptions___block_invoke_2(uint64_t a1, void *a2)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = *(a1 + 48);
@@ -2126,9 +2096,9 @@ void __63__HMHome_Additions__hf_addWalletKeyToPairedWatchesWithOptions___block_i
     {
       v8 = @"with";
       *buf = 138413826;
-      v27 = WeakRetained;
-      v28 = 2080;
-      v29 = "[HMHome(Additions) hf_addWalletKeyToPairedWatchesWithOptions:]_block_invoke_2";
+      v26 = WeakRetained;
+      v27 = 2080;
+      v28 = "[HMHome(Additions) hf_addWalletKeyToPairedWatchesWithOptions:]_block_invoke_2";
       if (v5)
       {
         v9 = @"with";
@@ -2149,21 +2119,21 @@ void __63__HMHome_Additions__hf_addWalletKeyToPairedWatchesWithOptions___block_i
         v10 = @"without";
       }
 
-      v30 = 2112;
-      v31 = WeakRetained;
+      v29 = 2112;
+      v30 = WeakRetained;
       if ((v6 & 4) == 0)
       {
         v8 = @"without";
       }
 
-      v32 = 2112;
-      v33 = v9;
-      v34 = 2112;
-      v35 = v10;
-      v36 = 2112;
-      v37 = v8;
-      v38 = 2112;
-      v39 = v3;
+      v31 = 2112;
+      v32 = v9;
+      v33 = 2112;
+      v34 = v10;
+      v35 = 2112;
+      v36 = v8;
+      v37 = 2112;
+      v38 = v3;
       _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "(%@:%s) When adding wallet key to paired Apple watches for home %@ %@ notification, %@ enabling express mode, and %@ UWB unlock, error is %@", buf, 0x48u);
     }
   }
@@ -2174,43 +2144,43 @@ void __63__HMHome_Additions__hf_addWalletKeyToPairedWatchesWithOptions___block_i
   {
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v20 = @"with";
+      v19 = @"with";
       *buf = 138413058;
-      v27 = WeakRetained;
+      v26 = WeakRetained;
       if (v5)
       {
-        v21 = @"with";
+        v20 = @"with";
       }
 
       else
       {
-        v21 = @"without";
-      }
-
-      v28 = 2112;
-      v29 = v21;
-      if ((v5 & 2) == 0)
-      {
         v20 = @"without";
       }
 
-      v30 = 2112;
-      v31 = v20;
-      v32 = 2112;
-      v33 = v3;
+      v27 = 2112;
+      v28 = v20;
+      if ((v5 & 2) == 0)
+      {
+        v19 = @"without";
+      }
+
+      v29 = 2112;
+      v30 = v19;
+      v31 = 2112;
+      v32 = v3;
       _os_log_error_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_ERROR, "When adding wallet key to paried Apple Watches for home %@ %@ notification and %@ enabling express mode, error occurred: %@", buf, 0x2Au);
     }
 
-    v24 = @"HFErrorHandlerOptionFailedItemName";
+    v23 = @"HFErrorHandlerOptionFailedItemName";
     v13 = [(__CFString *)WeakRetained name];
-    v25 = v13;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+    v24 = v13;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
 
-    v22[0] = @"HFErrorUserInfoOptionsKey";
-    v22[1] = @"HFErrorUserInfoOperationKey";
-    v23[0] = v14;
-    v23[1] = @"HFOperationAddWalletKey";
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
+    v21[0] = @"HFErrorUserInfoOptionsKey";
+    v21[1] = @"HFErrorUserInfoOperationKey";
+    v22[0] = v14;
+    v22[1] = @"HFOperationAddWalletKey";
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
     v16 = [(__CFString *)v3 hf_errorWithAddedUserInfo:v15];
     [*(a1 + 32) finishWithError:v16];
   }
@@ -2231,23 +2201,21 @@ void __63__HMHome_Additions__hf_addWalletKeyToPairedWatchesWithOptions___block_i
       }
 
       *buf = 138412802;
-      v27 = WeakRetained;
-      v28 = 2112;
-      v29 = v18;
+      v26 = WeakRetained;
+      v27 = 2112;
+      v28 = v18;
       if ((v5 & 2) == 0)
       {
         v17 = @"without";
       }
 
-      v30 = 2112;
-      v31 = v17;
+      v29 = 2112;
+      v30 = v17;
       _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "Successfully added wallet key to paired Apple Watches for home %@ %@ notification and %@ enabling express mode", buf, 0x20u);
     }
 
     [*(a1 + 32) finishWithNoResult];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __51__HMHome_Additions__hf_setHasOnboardedForWalletKey__block_invoke(uint64_t a1, void *a2)
@@ -2268,7 +2236,7 @@ void __51__HMHome_Additions__hf_setHasOnboardedForWalletKey__block_invoke(uint64
 
 void __51__HMHome_Additions__hf_setHasOnboardedForWalletKey__block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = HFLogForCategory(0x49uLL);
@@ -2277,11 +2245,11 @@ void __51__HMHome_Additions__hf_setHasOnboardedForWalletKey__block_invoke_2(uint
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8 = 138412546;
-      v9 = WeakRetained;
-      v10 = 2112;
-      v11 = v3;
-      _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "When turning on has onboarded for wallet key flag for home %@, error occurred: %@", &v8, 0x16u);
+      v7 = 138412546;
+      v8 = WeakRetained;
+      v9 = 2112;
+      v10 = v3;
+      _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "When turning on has onboarded for wallet key flag for home %@, error occurred: %@", &v7, 0x16u);
     }
 
     [*(a1 + 32) finishWithError:v3];
@@ -2291,20 +2259,18 @@ void __51__HMHome_Additions__hf_setHasOnboardedForWalletKey__block_invoke_2(uint
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = WeakRetained;
-      _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "Successfully turned on has onboarded for wallet key flag for home %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = WeakRetained;
+      _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "Successfully turned on has onboarded for wallet key flag for home %@", &v7, 0xCu);
     }
 
     [*(a1 + 32) finishWithNoResult];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 id __77__HMHome_Additions__hf_formattedErrorForWalletKeyDeviceStateForCurrentDevice__block_invoke(uint64_t a1, void *a2)
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 canAddWalletKey] || (objc_msgSend(v3, "walletKey"), v4 = objc_claimAutoreleasedReturnValue(), v4, v4))
   {
@@ -2312,53 +2278,52 @@ id __77__HMHome_Additions__hf_formattedErrorForWalletKeyDeviceStateForCurrentDev
     goto LABEL_4;
   }
 
-  v24 = @"HFErrorHandlerOptionFailedItemName";
-  v8 = [*(a1 + 32) name];
-  v25[0] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
-  v10 = [v9 mutableCopy];
+  v23 = @"HFErrorHandlerOptionFailedItemName";
+  v7 = [*(a1 + 32) name];
+  v24[0] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+  v9 = [v8 mutableCopy];
 
-  v11 = [v3 canAddWalletKeyErrorCode];
-  v12 = v11;
-  switch(v11)
+  v10 = [v3 canAddWalletKeyErrorCode];
+  v11 = v10;
+  switch(v10)
   {
     case 2:
-      v13 = @"HFErrorButtonTitleNotNow";
-      v14 = @"HFErrorButtonTitleiCloudSettings";
+      v12 = @"HFErrorButtonTitleNotNow";
+      v13 = @"HFErrorButtonTitleiCloudSettings";
       break;
     case 8:
-      v13 = @"HFErrorButtonTitleCancel";
-      v14 = @"HFErrorButtonTitleShowInAppStore";
+      v12 = @"HFErrorButtonTitleCancel";
+      v13 = @"HFErrorButtonTitleShowInAppStore";
       break;
     case 5:
-      v13 = @"HFErrorButtonTitleNotNow";
-      v14 = @"HFErrorButtonTitleOpenWallet";
+      v12 = @"HFErrorButtonTitleNotNow";
+      v13 = @"HFErrorButtonTitleOpenWallet";
       break;
     default:
+      v14 = 0;
       v15 = 0;
-      v16 = 0;
       goto LABEL_15;
   }
 
-  v15 = _HFLocalizedStringWithDefaultValue(v14, v14, 1);
-  v16 = _HFLocalizedStringWithDefaultValue(v13, v13, 1);
+  v14 = _HFLocalizedStringWithDefaultValue(v13, v13, 1);
+  v15 = _HFLocalizedStringWithDefaultValue(v12, v12, 1);
 LABEL_15:
-  [v10 na_safeSetObject:v15 forKey:@"HFErrorHandlerOptionRetryButtonText"];
-  [v10 na_safeSetObject:v16 forKey:@"HFErrorHandlerOptionCancelButtonTextKey"];
-  v22[0] = @"HFErrorUserInfoOptionsKey";
-  v17 = [v10 copy];
-  v22[1] = @"HFErrorUserInfoOperationKey";
-  v23[0] = v17;
-  v23[1] = @"HFOperationAddWalletKey";
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
-  v19 = [v18 mutableCopy];
+  [v9 na_safeSetObject:v14 forKey:@"HFErrorHandlerOptionRetryButtonText"];
+  [v9 na_safeSetObject:v15 forKey:@"HFErrorHandlerOptionCancelButtonTextKey"];
+  v21[0] = @"HFErrorUserInfoOptionsKey";
+  v16 = [v9 copy];
+  v21[1] = @"HFErrorUserInfoOperationKey";
+  v22[0] = v16;
+  v22[1] = @"HFOperationAddWalletKey";
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
+  v18 = [v17 mutableCopy];
 
-  v20 = objc_alloc(MEMORY[0x277CCA9B8]);
-  v21 = [v20 initWithDomain:*MEMORY[0x277CD06D8] code:v12 userInfo:v19];
-  v5 = [MEMORY[0x277D2C900] futureWithResult:v21];
+  v19 = objc_alloc(MEMORY[0x277CCA9B8]);
+  v20 = [v19 initWithDomain:*MEMORY[0x277CD06D8] code:v11 userInfo:v18];
+  v5 = [MEMORY[0x277D2C900] futureWithResult:v20];
 
 LABEL_4:
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -2381,7 +2346,7 @@ void __65__HMHome_Additions__hf_fetchWalletKeyDeviceStateForPairedWatches__block
 
 void __65__HMHome_Additions__hf_fetchWalletKeyDeviceStateForPairedWatches__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -2389,20 +2354,20 @@ void __65__HMHome_Additions__hf_fetchWalletKeyDeviceStateForPairedWatches__block
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = &stru_2824B1A78;
-    v12 = 138413058;
+    v11 = 138413058;
     if (v6)
     {
       v9 = v6;
     }
 
-    v13 = WeakRetained;
-    v14 = 2080;
-    v15 = "[HMHome(Additions) hf_fetchWalletKeyDeviceStateForPairedWatches]_block_invoke_2";
-    v16 = 2112;
-    v17 = v5;
-    v18 = 2112;
-    v19 = v9;
-    _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "(%@:%s) Completed wallet key device state for all paired watch devices %@. %@", &v12, 0x2Au);
+    v12 = WeakRetained;
+    v13 = 2080;
+    v14 = "[HMHome(Additions) hf_fetchWalletKeyDeviceStateForPairedWatches]_block_invoke_2";
+    v15 = 2112;
+    v16 = v5;
+    v17 = 2112;
+    v18 = v9;
+    _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "(%@:%s) Completed wallet key device state for all paired watch devices %@. %@", &v11, 0x2Au);
   }
 
   if ([v5 count])
@@ -2423,8 +2388,6 @@ void __65__HMHome_Additions__hf_fetchWalletKeyDeviceStateForPairedWatches__block
       [v10 finishWithNoResult];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __59__HMHome_Additions___hf_fetchWalletKeyColorFromAccessories__block_invoke(uint64_t a1, void *a2)
@@ -2443,26 +2406,24 @@ void __59__HMHome_Additions___hf_fetchWalletKeyColorFromAccessories__block_invok
 
 void __59__HMHome_Additions___hf_fetchWalletKeyColorFromAccessories__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = HFLogForCategory(0x49uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
     v6 = HMHomeWalletKeyColorAsString();
-    v10 = 138412802;
-    v11 = v5;
-    v12 = 2080;
-    v13 = "[HMHome(Additions) _hf_fetchWalletKeyColorFromAccessories]_block_invoke_2";
-    v14 = 2112;
-    v15 = v6;
-    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "(%@:%s) Fetched wallet key color %@", &v10, 0x20u);
+    v9 = 138412802;
+    v10 = v5;
+    v11 = 2080;
+    v12 = "[HMHome(Additions) _hf_fetchWalletKeyColorFromAccessories]_block_invoke_2";
+    v13 = 2112;
+    v14 = v6;
+    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "(%@:%s) Fetched wallet key color %@", &v9, 0x20u);
   }
 
   v7 = *(a1 + 40);
   v8 = [MEMORY[0x277CCABB0] numberWithInteger:a2];
   [v7 finishWithResult:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 id __63__HMHome_Additions___hf_existingWalletKeyColorForCurrentDevice__block_invoke(uint64_t a1, void *a2)
@@ -2534,7 +2495,7 @@ void __52__HMHome_Additions__hf_setHasOnboardedForAccessCode__block_invoke(uint6
 
 void __52__HMHome_Additions__hf_setHasOnboardedForAccessCode__block_invoke_2(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = HFLogForCategory(0x37uLL);
@@ -2543,14 +2504,14 @@ void __52__HMHome_Additions__hf_setHasOnboardedForAccessCode__block_invoke_2(uin
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v9 = [WeakRetained uniqueIdentifier];
-      v10 = 138412802;
-      v11 = WeakRetained;
-      v12 = 2114;
-      v13 = v9;
-      v14 = 2112;
-      v15 = v3;
-      _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "When turning on has onboarded for access code flag for home %@ (%{public}@), error occurred: %@", &v10, 0x20u);
+      v8 = [WeakRetained uniqueIdentifier];
+      v9 = 138412802;
+      v10 = WeakRetained;
+      v11 = 2114;
+      v12 = v8;
+      v13 = 2112;
+      v14 = v3;
+      _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "When turning on has onboarded for access code flag for home %@ (%{public}@), error occurred: %@", &v9, 0x20u);
     }
 
     [*(a1 + 32) finishWithError:v3];
@@ -2561,17 +2522,15 @@ void __52__HMHome_Additions__hf_setHasOnboardedForAccessCode__block_invoke_2(uin
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v7 = [WeakRetained uniqueIdentifier];
-      v10 = 138412546;
-      v11 = WeakRetained;
-      v12 = 2114;
-      v13 = v7;
-      _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "Successfully turned on has onboarded for access code flag for home %@ (%{public}@)", &v10, 0x16u);
+      v9 = 138412546;
+      v10 = WeakRetained;
+      v11 = 2114;
+      v12 = v7;
+      _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "Successfully turned on has onboarded for access code flag for home %@ (%{public}@)", &v9, 0x16u);
     }
 
     [*(a1 + 32) finishWithNoResult];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 id __52__HMHome_Additions__hf_hasWalletKeyCompatibleDevice__block_invoke(uint64_t a1, void *a2)
@@ -2600,7 +2559,7 @@ id __52__HMHome_Additions__hf_hasWalletKeyCompatibleDevice__block_invoke(uint64_
 
 id __52__HMHome_Additions__hf_hasWalletKeyCompatibleDevice__block_invoke_2(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = [v3 count];
@@ -2609,20 +2568,18 @@ id __52__HMHome_Additions__hf_hasWalletKeyCompatibleDevice__block_invoke_2(uint6
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [WeakRetained uniqueIdentifier];
-    v13 = 136315650;
-    v14 = "[HMHome(Additions) hf_hasWalletKeyCompatibleDevice]_block_invoke_2";
-    v15 = 1024;
-    v16 = v5 != 0;
-    v17 = 2114;
-    v18 = v7;
-    _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "(%s) Returning %{BOOL}d because current device and paired watches are not wallet key compatible | uniqueIdentifier = %{public}@", &v13, 0x1Cu);
+    v12 = 136315650;
+    v13 = "[HMHome(Additions) hf_hasWalletKeyCompatibleDevice]_block_invoke_2";
+    v14 = 1024;
+    v15 = v5 != 0;
+    v16 = 2114;
+    v17 = v7;
+    _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "(%s) Returning %{BOOL}d because current device and paired watches are not wallet key compatible | uniqueIdentifier = %{public}@", &v12, 0x1Cu);
   }
 
   v8 = MEMORY[0x277D2C900];
   v9 = [MEMORY[0x277CCABB0] numberWithBool:v5 != 0];
   v10 = [v8 futureWithResult:v9];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -2639,62 +2596,60 @@ id __58__HMHome_Additions__hf_isCurrentDeviceWalletKeyCompatible__block_invoke(u
 
 id __58__HMHome_Additions__hf_isCurrentDeviceWalletKeyCompatible__block_invoke_2(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = HFLogForCategory(0x49uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [WeakRetained uniqueIdentifier];
-    v10 = 136315650;
-    v11 = "[HMHome(Additions) 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]_block_invoke_2";
-    v12 = 2112;
-    v13 = v3;
-    v14 = 2114;
-    v15 = v6;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "(%s) Returning NO for wallet key compatibility for current device because of %@ | uniqueIdentifier = %{public}@", &v10, 0x20u);
+    v9 = 136315650;
+    v10 = "[HMHome(Additions) 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]_block_invoke_2";
+    v11 = 2112;
+    v12 = v3;
+    v13 = 2114;
+    v14 = v6;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "(%s) Returning NO for wallet key compatibility for current device because of %@ | uniqueIdentifier = %{public}@", &v9, 0x20u);
   }
 
   v7 = [MEMORY[0x277D2C900] futureWithResult:MEMORY[0x277CBEC28]];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 id __70__HMHome_Additions__hf_walletKeyDeviceStatesOfCompatiblePairedWatches__block_invoke(uint64_t a1, void *a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = objc_opt_new();
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v6 = v3;
-  v7 = [v6 countByEnumeratingWithState:&v19 objects:v31 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v18 objects:v30 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [v6 objectForKey:{*(*(&v19 + 1) + 8 * i), v19}];
+        v11 = [v6 objectForKey:{*(*(&v18 + 1) + 8 * i), v18}];
         if ([HFWalletUtilities isWalletKeyDeviceStateCompatible:v11])
         {
           [v5 na_safeAddObject:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v19 objects:v31 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v18 objects:v30 count:16];
     }
 
     while (v8);
@@ -2705,13 +2660,13 @@ id __70__HMHome_Additions__hf_walletKeyDeviceStatesOfCompatiblePairedWatches__bl
   {
     v13 = [WeakRetained uniqueIdentifier];
     *buf = 136315906;
-    v24 = "[HMHome(Additions) hf_walletKeyDeviceStatesOfCompatiblePairedWatches]_block_invoke";
-    v25 = 2112;
-    v26 = v6;
-    v27 = 2112;
-    v28 = v5;
-    v29 = 2114;
-    v30 = v13;
+    v23 = "[HMHome(Additions) hf_walletKeyDeviceStatesOfCompatiblePairedWatches]_block_invoke";
+    v24 = 2112;
+    v25 = v6;
+    v26 = 2112;
+    v27 = v5;
+    v28 = 2114;
+    v29 = v13;
     _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "(%s) Among %@, wallet key device states of compatible paired watches are %@ | uniqueIdentifier = %{public}@", buf, 0x2Au);
   }
 
@@ -2719,31 +2674,27 @@ id __70__HMHome_Additions__hf_walletKeyDeviceStatesOfCompatiblePairedWatches__bl
   v15 = [v5 copy];
   v16 = [v14 futureWithResult:v15];
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 id __70__HMHome_Additions__hf_walletKeyDeviceStatesOfCompatiblePairedWatches__block_invoke_504(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = HFLogForCategory(0x49uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412802;
-    v10 = WeakRetained;
-    v11 = 2080;
-    v12 = "[HMHome(Additions) hf_walletKeyDeviceStatesOfCompatiblePairedWatches]_block_invoke";
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "(%@:%s) Returning empty array for wallet key device states of compatible paired watches because of %@", &v9, 0x20u);
+    v8 = 138412802;
+    v9 = WeakRetained;
+    v10 = 2080;
+    v11 = "[HMHome(Additions) hf_walletKeyDeviceStatesOfCompatiblePairedWatches]_block_invoke";
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "(%@:%s) Returning empty array for wallet key device states of compatible paired watches because of %@", &v8, 0x20u);
   }
 
   v6 = [MEMORY[0x277D2C900] futureWithResult:MEMORY[0x277CBEBF8]];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -2766,7 +2717,7 @@ void __60__HMHome_Additions__hf_fetchAvailableWalletKeyEncodedPKPass__block_invo
 
 void __60__HMHome_Additions__hf_fetchAvailableWalletKeyEncodedPKPass__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -2776,13 +2727,13 @@ void __60__HMHome_Additions__hf_fetchAvailableWalletKeyEncodedPKPass__block_invo
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315650;
-      v12 = "[HMHome(Additions) hf_fetchAvailableWalletKeyEncodedPKPass]_block_invoke_2";
-      v13 = 2112;
-      v14 = WeakRetained;
-      v15 = 2112;
-      v16 = v6;
-      _os_log_error_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_ERROR, "(%s) When fetching available wallet key encoded pass for home %@, error occurred: %@", &v11, 0x20u);
+      v10 = 136315650;
+      v11 = "[HMHome(Additions) hf_fetchAvailableWalletKeyEncodedPKPass]_block_invoke_2";
+      v12 = 2112;
+      v13 = WeakRetained;
+      v14 = 2112;
+      v15 = v6;
+      _os_log_error_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_ERROR, "(%s) When fetching available wallet key encoded pass for home %@, error occurred: %@", &v10, 0x20u);
     }
 
     [*(a1 + 32) finishWithError:v6];
@@ -2792,17 +2743,15 @@ void __60__HMHome_Additions__hf_fetchAvailableWalletKeyEncodedPKPass__block_invo
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315394;
-      v12 = "[HMHome(Additions) hf_fetchAvailableWalletKeyEncodedPKPass]_block_invoke";
-      v13 = 2112;
-      v14 = WeakRetained;
-      _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "(%s) Successfully fetched available wallet key's encoded pass for home %@", &v11, 0x16u);
+      v10 = 136315394;
+      v11 = "[HMHome(Additions) hf_fetchAvailableWalletKeyEncodedPKPass]_block_invoke";
+      v12 = 2112;
+      v13 = WeakRetained;
+      _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "(%s) Successfully fetched available wallet key's encoded pass for home %@", &v10, 0x16u);
     }
 
     [*(a1 + 32) finishWithResult:v5];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __59__HMHome_Additions__hf_fetchExistingWalletKeyEncodedPKPass__block_invoke(uint64_t a1, void *a2)
@@ -2823,7 +2772,7 @@ void __59__HMHome_Additions__hf_fetchExistingWalletKeyEncodedPKPass__block_invok
 
 void __59__HMHome_Additions__hf_fetchExistingWalletKeyEncodedPKPass__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -2833,13 +2782,13 @@ void __59__HMHome_Additions__hf_fetchExistingWalletKeyEncodedPKPass__block_invok
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315650;
-      v12 = "[HMHome(Additions) hf_fetchExistingWalletKeyEncodedPKPass]_block_invoke_2";
-      v13 = 2112;
-      v14 = WeakRetained;
-      v15 = 2112;
-      v16 = v6;
-      _os_log_error_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_ERROR, "(%s) When fetching existing wallet key encoded pass for home %@, error occurred: %@", &v11, 0x20u);
+      v10 = 136315650;
+      v11 = "[HMHome(Additions) hf_fetchExistingWalletKeyEncodedPKPass]_block_invoke_2";
+      v12 = 2112;
+      v13 = WeakRetained;
+      v14 = 2112;
+      v15 = v6;
+      _os_log_error_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_ERROR, "(%s) When fetching existing wallet key encoded pass for home %@, error occurred: %@", &v10, 0x20u);
     }
 
     [*(a1 + 32) finishWithError:v6];
@@ -2849,17 +2798,15 @@ void __59__HMHome_Additions__hf_fetchExistingWalletKeyEncodedPKPass__block_invok
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315394;
-      v12 = "[HMHome(Additions) hf_fetchExistingWalletKeyEncodedPKPass]_block_invoke";
-      v13 = 2112;
-      v14 = WeakRetained;
-      _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "(%s) Successfully fetched existing encoded pass for home %@", &v11, 0x16u);
+      v10 = 136315394;
+      v11 = "[HMHome(Additions) hf_fetchExistingWalletKeyEncodedPKPass]_block_invoke";
+      v12 = 2112;
+      v13 = WeakRetained;
+      _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "(%s) Successfully fetched existing encoded pass for home %@", &v10, 0x16u);
     }
 
     [*(a1 + 32) finishWithResult:v5];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 id __55__HMHome_Additions__hf_ecosystemAccessoryUUIDMapFuture__block_invoke_2(uint64_t a1, void *a2)
@@ -2879,51 +2826,49 @@ id __55__HMHome_Additions__hf_ecosystemAccessoryUUIDMapFuture__block_invoke_2(ui
 
 id __55__HMHome_Additions__hf_ecosystemAccessoryUUIDMapFuture__block_invoke_3(uint64_t a1, void *a2)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D2C900];
   v3 = *(a1 + 32);
   v4 = a2;
   v5 = [v3 uniqueIdentifier];
-  v11 = v5;
+  v10 = v5;
   v6 = [v4 allKeys];
 
-  v12[0] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v11[0] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v8 = [v2 futureWithResult:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 id __55__HMHome_Additions__hf_ecosystemAccessoryUUIDMapFuture__block_invoke_4(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [v3 addEntriesFromDictionary:{*(*(&v14 + 1) + 8 * i), v14}];
+        [v3 addEntriesFromDictionary:{*(*(&v13 + 1) + 8 * i), v13}];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
@@ -2932,8 +2877,6 @@ id __55__HMHome_Additions__hf_ecosystemAccessoryUUIDMapFuture__block_invoke_4(ui
   v9 = MEMORY[0x277D2C900];
   v10 = [v3 copy];
   v11 = [v9 futureWithResult:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -2994,7 +2937,7 @@ void __55__HMHome_Additions__hf_ecosystemAccessoryUUIDMapFuture__block_invoke_7(
 
 id __55__HMHome_Additions__hf_ecosystemAccessoryUUIDMapFuture__block_invoke_8(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -3002,17 +2945,15 @@ id __55__HMHome_Additions__hf_ecosystemAccessoryUUIDMapFuture__block_invoke_8(ui
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = NSStringFromSelector(*(a1 + 32));
-      v9 = 138412546;
-      v10 = v5;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "%@ failed due to %@", &v9, 0x16u);
+      v8 = 138412546;
+      v9 = v5;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "%@ failed due to %@", &v8, 0x16u);
     }
   }
 
   v6 = [MEMORY[0x277D2C900] futureWithResult:MEMORY[0x277CBEC10]];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -3069,7 +3010,7 @@ uint64_t __62__HMHome_Additions__hf_atleastOneMediaAccessoryHasSiriEnabled__bloc
 
 void __64__HMHome_HFUserNotificationTopics___hf_groupedServiceTypeTopics__block_invoke_2()
 {
-  v28[4] = *MEMORY[0x277D85DE8];
+  v27[4] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277D755D0] configurationWithPointSize:26.0];
   if (qword_280E03420 != -1)
   {
@@ -3080,9 +3021,9 @@ void __64__HMHome_HFUserNotificationTopics___hf_groupedServiceTypeTopics__block_
   v2 = [HFAccessoryType serviceType:*MEMORY[0x277CD0F58]];
   v3 = [HFUserNotificationServiceTopic alloc];
   v4 = [MEMORY[0x277CBEB98] set];
-  v25 = v2;
-  v26 = v1;
-  v24 = [(HFUserNotificationServiceTopic *)v3 initWithServiceTypes:v1 accessoryCategoryTypes:v4 topicNameLocalizationKey:@"HFUserNotificationServiceTopicName_AllBlindsAndWindowsGroup" accessoryType:v2];
+  v24 = v2;
+  v25 = v1;
+  v23 = [(HFUserNotificationServiceTopic *)v3 initWithServiceTypes:v1 accessoryCategoryTypes:v4 topicNameLocalizationKey:@"HFUserNotificationServiceTopicName_AllBlindsAndWindowsGroup" accessoryType:v2];
 
   if (qword_280E03430 != -1)
   {
@@ -3093,7 +3034,7 @@ void __64__HMHome_HFUserNotificationTopics___hf_groupedServiceTypeTopics__block_
   v6 = [[HFImageIconDescriptor alloc] initWithSystemImageNamed:@"door.right.hand.open" configuration:v0];
   v7 = [HFUserNotificationServiceTopic alloc];
   v8 = [MEMORY[0x277CBEB98] set];
-  v23 = v6;
+  v22 = v6;
   v9 = [(HFUserNotificationServiceTopic *)v7 initWithServiceTypes:v5 accessoryCategoryTypes:v8 topicNameLocalizationKey:@"HFUserNotificationServiceTopicName_AllDoorsGroup" iconDescriptor:v6];
 
   if (qword_280E03440 != -1)
@@ -3102,7 +3043,7 @@ void __64__HMHome_HFUserNotificationTopics___hf_groupedServiceTypeTopics__block_
   }
 
   v10 = qword_280E03448;
-  v27 = v0;
+  v26 = v0;
   v11 = [[HFImageIconDescriptor alloc] initWithSystemImageNamed:@"lock.fill" configuration:v0];
   v12 = [HFUserNotificationServiceTopic alloc];
   v13 = [MEMORY[0x277CBEB98] set];
@@ -3119,84 +3060,75 @@ void __64__HMHome_HFUserNotificationTopics___hf_groupedServiceTypeTopics__block_
   v18 = [MEMORY[0x277CBEB98] set];
   v19 = [(HFUserNotificationServiceTopic *)v17 initWithServiceTypes:v15 accessoryCategoryTypes:v18 topicNameLocalizationKey:@"HFUserNotificationServiceTopicName_AllSensorsGroup" iconDescriptor:v16];
 
-  v28[0] = v24;
-  v28[1] = v9;
-  v28[2] = v19;
-  v28[3] = v14;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:4];
+  v27[0] = v23;
+  v27[1] = v9;
+  v27[2] = v19;
+  v27[3] = v14;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:4];
 
   v21 = qword_280E03418;
   qword_280E03418 = v20;
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __64__HMHome_HFUserNotificationTopics___hf_groupedServiceTypeTopics__block_invoke_5()
 {
-  v6[2] = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
   v1 = *MEMORY[0x277CD0F60];
-  v6[0] = *MEMORY[0x277CD0F58];
-  v6[1] = v1;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
+  v5[0] = *MEMORY[0x277CD0F58];
+  v5[1] = v1;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
   v3 = [v0 setWithArray:v2];
   v4 = qword_280E03428;
   qword_280E03428 = v3;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __64__HMHome_HFUserNotificationTopics___hf_groupedServiceTypeTopics__block_invoke_7()
 {
-  v6[2] = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
   v1 = *MEMORY[0x277CD0E58];
-  v6[0] = *MEMORY[0x277CD0E30];
-  v6[1] = v1;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
+  v5[0] = *MEMORY[0x277CD0E30];
+  v5[1] = v1;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
   v3 = [v0 setWithArray:v2];
   v4 = qword_280E03438;
   qword_280E03438 = v3;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __64__HMHome_HFUserNotificationTopics___hf_groupedServiceTypeTopics__block_invoke_9()
 {
-  v6[2] = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
   v1 = *MEMORY[0x277CD0EB0];
-  v6[0] = *MEMORY[0x277CD0EA8];
-  v6[1] = v1;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
+  v5[0] = *MEMORY[0x277CD0EA8];
+  v5[1] = v1;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
   v3 = [v0 setWithArray:v2];
   v4 = qword_280E03448;
   qword_280E03448 = v3;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __64__HMHome_HFUserNotificationTopics___hf_groupedServiceTypeTopics__block_invoke_11()
 {
-  v9[8] = *MEMORY[0x277D85DE8];
+  v8[8] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
   v1 = *MEMORY[0x277CD0E10];
-  v9[0] = *MEMORY[0x277CD0E18];
-  v9[1] = v1;
+  v8[0] = *MEMORY[0x277CD0E18];
+  v8[1] = v1;
   v2 = *MEMORY[0x277CD0E90];
-  v9[2] = *MEMORY[0x277CD0E20];
-  v9[3] = v2;
+  v8[2] = *MEMORY[0x277CD0E20];
+  v8[3] = v2;
   v3 = *MEMORY[0x277CD0EC8];
-  v9[4] = *MEMORY[0x277CD0EC0];
-  v9[5] = v3;
+  v8[4] = *MEMORY[0x277CD0EC0];
+  v8[5] = v3;
   v4 = *MEMORY[0x277CD0ED8];
-  v9[6] = *MEMORY[0x277CD0EE8];
-  v9[7] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:8];
+  v8[6] = *MEMORY[0x277CD0EE8];
+  v8[7] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:8];
   v6 = [v0 setWithArray:v5];
   v7 = qword_280E03458;
   qword_280E03458 = v6;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __96__HMHome_HFUserNotificationTopics___hf_standaloneTopicNameLocalizationKeyForPrimaryServiceType___block_invoke_2()
@@ -3251,13 +3183,13 @@ HFUserNotificationServiceTopic *__68__HMHome_HFUserNotificationTopics__hf_userNo
 {
   v3 = a2;
   v4 = *(a1 + 32);
-  v14 = MEMORY[0x277D85DD0];
-  v15 = 3221225472;
-  v16 = __68__HMHome_HFUserNotificationTopics__hf_userNotificationServiceTopics__block_invoke_5;
-  v17 = &unk_277DFDAC0;
+  v13 = MEMORY[0x277D85DD0];
+  v14 = 3221225472;
+  v15 = __68__HMHome_HFUserNotificationTopics__hf_userNotificationServiceTopics__block_invoke_5;
+  v16 = &unk_277DFDAC0;
   v5 = v3;
-  v18 = v5;
-  v6 = [v4 na_firstObjectPassingTest:&v14];
+  v17 = v5;
+  v6 = [v4 na_firstObjectPassingTest:&v13];
   v7 = v6;
   if (v6)
   {
@@ -3266,16 +3198,15 @@ HFUserNotificationServiceTopic *__68__HMHome_HFUserNotificationTopics__hf_userNo
 
   else
   {
-    v9 = *(a1 + 40);
-    v10 = [objc_opt_class() _hf_standaloneTopicNameLocalizationKeyForPrimaryServiceType:v5];
-    if (!v10)
+    v9 = [objc_opt_class() _hf_standaloneTopicNameLocalizationKeyForPrimaryServiceType:v5];
+    if (!v9)
     {
-      v11 = MEMORY[0x277CCACA8];
-      v12 = [MEMORY[0x277CD1D90] localizedDescriptionForServiceType:v5];
-      v10 = [v11 stringWithFormat:@"Unknown (%@)", v12, v14, v15, v16, v17];
+      v10 = MEMORY[0x277CCACA8];
+      v11 = [MEMORY[0x277CD1D90] localizedDescriptionForServiceType:v5];
+      v9 = [v10 stringWithFormat:@"Unknown (%@)", v11, v13, v14, v15, v16];
     }
 
-    v8 = [[HFUserNotificationServiceTopic alloc] initWithServiceType:v5 topicNameLocalizationKey:v10];
+    v8 = [[HFUserNotificationServiceTopic alloc] initWithServiceType:v5 topicNameLocalizationKey:v9];
   }
 
   return v8;

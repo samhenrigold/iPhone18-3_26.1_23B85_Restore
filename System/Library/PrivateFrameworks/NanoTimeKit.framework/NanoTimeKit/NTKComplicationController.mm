@@ -71,7 +71,7 @@ LABEL_7:
 
 + (Class)_controllerClassForComplicationType:(unint64_t)type family:(int64_t)family device:(id)device resolvedFamily:(int64_t *)resolvedFamily
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   familyCopy = family;
   deviceCopy = device;
   v9 = 0uLL;
@@ -82,31 +82,31 @@ LABEL_7:
       *resolvedFamily = familyCopy;
     }
 
-    v29 = v9;
     v30 = v9;
-    v27 = v9;
+    v31 = v9;
     v28 = v9;
+    v29 = v9;
     if (_NonLegacyControllerClasses_onceToken != -1)
     {
       +[NTKComplicationController _controllerClassForComplicationType:family:device:resolvedFamily:];
     }
 
     v10 = _NonLegacyControllerClasses___classes;
-    v11 = [v10 countByEnumeratingWithState:&v27 objects:v33 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v28 objects:v34 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v28;
+      v13 = *v29;
 LABEL_8:
       v14 = 0;
       while (1)
       {
-        if (*v28 != v13)
+        if (*v29 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v27 + 1) + 8 * v14);
+        v15 = *(*(&v28 + 1) + 8 * v14);
         if ([v15 _acceptsComplicationType:type family:familyCopy forDevice:deviceCopy])
         {
           goto LABEL_26;
@@ -114,7 +114,7 @@ LABEL_8:
 
         if (v12 == ++v14)
         {
-          v12 = [v10 countByEnumeratingWithState:&v27 objects:v33 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v28 objects:v34 count:16];
           if (v12)
           {
             goto LABEL_8;
@@ -130,46 +130,47 @@ LABEL_8:
   }
 
   while ((v16 & 1) != 0);
-  if (NTKIsRichComplicationFamily(familyCopy))
+  v17 = NTKIsRichComplicationFamily(familyCopy);
+  if (v17)
   {
-    v17 = 0;
+    v18 = 0;
     goto LABEL_28;
   }
 
-  v25 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
-  v10 = _LegacyControllerClasses();
-  v18 = [v10 countByEnumeratingWithState:&v23 objects:v32 count:16];
-  if (!v18)
+  v25 = 0u;
+  v10 = _LegacyControllerClasses(v17);
+  v19 = [v10 countByEnumeratingWithState:&v24 objects:v33 count:16];
+  if (!v19)
   {
 LABEL_25:
-    v17 = 0;
+    v18 = 0;
     goto LABEL_27;
   }
 
-  v19 = v18;
-  v20 = *v24;
+  v20 = v19;
+  v21 = *v25;
 LABEL_19:
-  v21 = 0;
+  v22 = 0;
   while (1)
   {
-    if (*v24 != v20)
+    if (*v25 != v21)
     {
       objc_enumerationMutation(v10);
     }
 
-    v15 = *(*(&v23 + 1) + 8 * v21);
-    if ([v15 _acceptsComplicationType:type forDevice:{deviceCopy, v23}])
+    v15 = *(*(&v24 + 1) + 8 * v22);
+    if ([v15 _acceptsComplicationType:type forDevice:{deviceCopy, v24}])
     {
       break;
     }
 
-    if (v19 == ++v21)
+    if (v20 == ++v22)
     {
-      v19 = [v10 countByEnumeratingWithState:&v23 objects:v32 count:16];
-      if (v19)
+      v20 = [v10 countByEnumeratingWithState:&v24 objects:v33 count:16];
+      if (v20)
       {
         goto LABEL_19;
       }
@@ -179,12 +180,12 @@ LABEL_19:
   }
 
 LABEL_26:
-  v17 = v15;
+  v18 = v15;
 LABEL_27:
 
 LABEL_28:
 
-  return v17;
+  return v18;
 }
 
 + (id)_newOrCachedControllerOfClass:(Class)class complication:(id)complication variant:(id)variant device:(id)device
@@ -243,7 +244,7 @@ id __87__NTKComplicationController__newOrCachedControllerOfClass_complication_va
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v11 = _LegacyControllerClasses();
+  v11 = _LegacyControllerClasses(complicationType);
   v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v12)
   {
@@ -816,7 +817,7 @@ void __47__NTKComplicationController_addDisplayWrapper___block_invoke_3(uint64_t
   v13 = [(NTKComplicationController *)self displayPropertiesForDisplayWrapper:wrapper];
   launchLocation = [v13 launchLocation];
 
-  NTKOpenUserActivity(activityCopy, appCopy, launchLocation, resultCopy);
+  NTKOpenUserActivity();
 }
 
 - (void)_updateActive

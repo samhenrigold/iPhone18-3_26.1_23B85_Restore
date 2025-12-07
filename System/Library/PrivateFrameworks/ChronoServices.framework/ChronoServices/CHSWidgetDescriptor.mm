@@ -220,16 +220,16 @@
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  v36.receiver = self;
-  v36.super_class = CHSWidgetDescriptor;
-  if (![(CHSBaseDescriptor *)&v36 isEqual:equalCopy])
+  v8.receiver = self;
+  v8.super_class = CHSWidgetDescriptor;
+  if (![(CHSBaseDescriptor *)&v8 isEqual:equalCopy])
   {
     goto LABEL_22;
   }
 
   if (self == equalCopy)
   {
-    v34 = 1;
+    v6 = 1;
     goto LABEL_26;
   }
 
@@ -237,111 +237,26 @@
   if (objc_opt_isKindOfClass())
   {
     v5 = equalCopy;
-    if (self->_supportedFamilies != v5->_supportedFamilies)
+    if (self->_supportedFamilies == v5->_supportedFamilies && BSEqualObjects() && BSEqualObjects() && BSEqualObjects() && BSEqualObjects() && BSEqualObjects() && self->_widgetVisibility == v5->_widgetVisibility && BSEqualBools() && BSEqualBools() && BSEqualBools() && BSEqualBools() && BSEqualBools() && BSEqualObjects() && BSEqualBools() && BSEqualObjects() && self->_spatialSurface == v5->_spatialSurface && self->_spatialChromeStyles == v5->_spatialChromeStyles)
     {
-      goto LABEL_24;
-    }
-
-    kind = self->_kind;
-    v7 = v5->_kind;
-    if (!BSEqualObjects())
-    {
-      goto LABEL_24;
-    }
-
-    intentType = self->_intentType;
-    v9 = v5->_intentType;
-    if (!BSEqualObjects())
-    {
-      goto LABEL_24;
-    }
-
-    defaultIntentReference = self->_defaultIntentReference;
-    v11 = v5->_defaultIntentReference;
-    if (!BSEqualObjects())
-    {
-      goto LABEL_24;
-    }
-
-    intentRecommendationsContainer = self->_intentRecommendationsContainer;
-    v13 = v5->_intentRecommendationsContainer;
-    if (!BSEqualObjects())
-    {
-      goto LABEL_24;
-    }
-
-    disfavoredLocations = self->_disfavoredLocations;
-    v15 = v5->_disfavoredLocations;
-    if (!BSEqualObjects())
-    {
-      goto LABEL_24;
-    }
-
-    if (self->_widgetVisibility != v5->_widgetVisibility)
-    {
-      goto LABEL_24;
-    }
-
-    enablesMultipleTapTargets = self->_enablesMultipleTapTargets;
-    v17 = v5->_enablesMultipleTapTargets;
-    if (!BSEqualBools())
-    {
-      goto LABEL_24;
-    }
-
-    backgroundRemovable = self->_backgroundRemovable;
-    v19 = v5->_backgroundRemovable;
-    if (!BSEqualBools())
-    {
-      goto LABEL_24;
-    }
-
-    supportsAccentedContent = self->_supportsAccentedContent;
-    v21 = v5->_supportsAccentedContent;
-    if (!BSEqualBools())
-    {
-      goto LABEL_24;
-    }
-
-    relevanceBacked = self->_relevanceBacked;
-    v23 = v5->_relevanceBacked;
-    if (!BSEqualBools())
-    {
-      goto LABEL_24;
-    }
-
-    supportsPush = self->_supportsPush;
-    v25 = v5->_supportsPush;
-    if (!BSEqualBools())
-    {
-      goto LABEL_24;
-    }
-
-    associatedKind = self->_associatedKind;
-    v27 = v5->_associatedKind;
-    if (BSEqualObjects() && (supportsInteraction = self->_supportsInteraction, v29 = v5->_supportsInteraction, BSEqualBools()) && (targetLiveSceneBundleIdentifier = self->_targetLiveSceneBundleIdentifier, v31 = v5->_targetLiveSceneBundleIdentifier, BSEqualObjects()) && self->_spatialSurface == v5->_spatialSurface && self->_spatialChromeStyles == v5->_spatialChromeStyles)
-    {
-      wantsLiveScene = self->_wantsLiveScene;
-      v33 = v5->_wantsLiveScene;
-      v34 = BSEqualBools();
+      v6 = BSEqualBools();
     }
 
     else
     {
-LABEL_24:
-      v34 = 0;
+      v6 = 0;
     }
   }
 
   else
   {
 LABEL_22:
-    v34 = 0;
+    v6 = 0;
   }
 
 LABEL_26:
 
-  return v34;
+  return v6;
 }
 
 - (id)succinctDescription
@@ -549,11 +464,11 @@ void __61__CHSWidgetDescriptor_descriptionBuilderWithMultilinePrefix___block_inv
 
 - (CHSWidgetDescriptor)initWithCoder:(id)coder
 {
-  v65[1] = *MEMORY[0x1E69E9840];
+  v64[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v61.receiver = self;
-  v61.super_class = CHSWidgetDescriptor;
-  v5 = [(CHSBaseDescriptor *)&v61 initWithCoder:coderCopy];
+  v60.receiver = self;
+  v60.super_class = CHSWidgetDescriptor;
+  v5 = [(CHSBaseDescriptor *)&v60 initWithCoder:coderCopy];
   if (!v5)
   {
 LABEL_58:
@@ -562,8 +477,8 @@ LABEL_58:
     goto LABEL_59;
   }
 
-  v59 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"intentType"];
-  v60 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"kind"];
+  v58 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"intentType"];
+  v59 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"kind"];
   v6 = [coderCopy decodeIntegerForKey:@"supportedSizeClasses"];
   if (v6)
   {
@@ -575,9 +490,9 @@ LABEL_58:
     else
     {
       v14 = MEMORY[0x1E695DFD8];
-      v63[0] = objc_opt_class();
-      v63[1] = objc_opt_class();
-      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v63 count:2];
+      v62[0] = objc_opt_class();
+      v62[1] = objc_opt_class();
+      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v62 count:2];
       v16 = [v14 setWithArray:v15];
       v17 = [coderCopy decodeObjectOfClasses:v16 forKey:@"intentRecommendations"];
 
@@ -599,10 +514,10 @@ LABEL_58:
 
     v21 = [coderCopy decodeIntegerForKey:@"widgetVisibility"];
     v22 = MEMORY[0x1E695DFD8];
-    v62[0] = objc_opt_class();
-    v62[1] = objc_opt_class();
-    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v62 count:2];
-    v56 = v21;
+    v61[0] = objc_opt_class();
+    v61[1] = objc_opt_class();
+    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v61 count:2];
+    v55 = v21;
     v24 = [v22 setWithArray:v23];
     v25 = [coderCopy decodeObjectOfClasses:v24 forKey:@"unsupLoca"];
 
@@ -631,27 +546,17 @@ LABEL_58:
 
     if ([coderCopy containsValueForKey:@"supportsInteraction"])
     {
-      v55 = [coderCopy decodeBoolForKey:@"supportsInteraction"];
+      v54 = [coderCopy decodeBoolForKey:@"supportsInteraction"];
     }
 
     else
     {
-      v55 = 1;
+      v54 = 1;
     }
 
     if ([coderCopy containsValueForKey:@"relevanceBacked"])
     {
-      v54 = [coderCopy decodeBoolForKey:@"relevanceBacked"];
-    }
-
-    else
-    {
-      v54 = 0;
-    }
-
-    if ([coderCopy containsValueForKey:@"supportsPush"])
-    {
-      v53 = [coderCopy decodeBoolForKey:@"supportsPush"];
+      v53 = [coderCopy decodeBoolForKey:@"relevanceBacked"];
     }
 
     else
@@ -659,10 +564,20 @@ LABEL_58:
       v53 = 0;
     }
 
-    v57 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"associatedKind"];
-    v50 = v28;
-    v51 = v29;
-    v52 = v26;
+    if ([coderCopy containsValueForKey:@"supportsPush"])
+    {
+      v52 = [coderCopy decodeBoolForKey:@"supportsPush"];
+    }
+
+    else
+    {
+      v52 = 0;
+    }
+
+    v56 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"associatedKind"];
+    v49 = v28;
+    v50 = v29;
+    v51 = v26;
     if ([coderCopy containsValueForKey:@"defaultIntent2"])
     {
       v30 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"defaultIntent2"];
@@ -699,7 +614,7 @@ LABEL_37:
       if (!v5->super._version)
       {
         extensionBundleIdentifier = [(CHSExtensionIdentity *)v5->super._extensionIdentity extensionBundleIdentifier];
-        if ([extensionBundleIdentifier isEqualToString:@"com.apple.news.widget"] && (objc_msgSend(v60, "isEqualToString:", @"today") & 1) != 0)
+        if ([extensionBundleIdentifier isEqualToString:@"com.apple.news.widget"] && (objc_msgSend(v59, "isEqualToString:", @"today") & 1) != 0)
         {
           v41 = (v5->_supportedFamilies & 0x10) == 0;
 
@@ -714,25 +629,25 @@ LABEL_37:
         }
       }
 
-      if (v5->super._extensionIdentity && v60 && v5->_supportedFamilies)
+      if (v5->super._extensionIdentity && v59 && v5->_supportedFamilies)
       {
-        v42 = [v59 copy];
+        v42 = [v58 copy];
         intentType = v5->_intentType;
         v5->_intentType = v42;
 
-        v44 = [v60 copy];
+        v44 = [v59 copy];
         kind = v5->_kind;
         v5->_kind = v44;
 
-        v5->_widgetVisibility = v56;
+        v5->_widgetVisibility = v55;
         objc_storeStrong(&v5->_disfavoredLocations, v25);
-        v5->_enablesMultipleTapTargets = v52;
+        v5->_enablesMultipleTapTargets = v51;
         v5->_backgroundRemovable = v27;
-        v5->_supportsAccentedContent = v51;
-        v5->_supportsInteraction = v55;
-        v5->_relevanceBacked = v54;
-        v5->_supportsPush = v53;
-        v46 = [v57 copy];
+        v5->_supportsAccentedContent = v50;
+        v5->_supportsInteraction = v54;
+        v5->_relevanceBacked = v53;
+        v5->_supportsPush = v52;
+        v46 = [v56 copy];
         associatedKind = v5->_associatedKind;
         v5->_associatedKind = v46;
 
@@ -740,7 +655,7 @@ LABEL_37:
         objc_storeStrong(&v5->_intentRecommendationsContainer, obj);
         objc_storeStrong(&v5->_targetLiveSceneBundleIdentifier, v39);
         v5->_wantsLiveScene = v37;
-        if ((v50 & 1) == 0)
+        if ((v49 & 1) == 0)
         {
           [(CHSWidgetDescriptor *)v5 _evaluateSupportsAccentedContent];
         }
@@ -793,19 +708,18 @@ LABEL_35:
   }
 
   v7 = MEMORY[0x1E696ABC0];
-  v64 = *MEMORY[0x1E696A578];
+  v63 = *MEMORY[0x1E696A578];
   v8 = MEMORY[0x1E696AEC0];
   extensionIdentity = [(CHSBaseDescriptor *)v5 extensionIdentity];
   v10 = [v8 stringWithFormat:@"Unable to decode widget descriptor: %@", extensionIdentity];
-  v65[0] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v65 forKeys:&v64 count:1];
+  v64[0] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v64 forKeys:&v63 count:1];
   v12 = [v7 errorWithDomain:@"com.apple.chronoservices.descriptor" code:1 userInfo:v11];
   [coderCopy failWithError:v12];
 
   v13 = 0;
 LABEL_59:
 
-  v48 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -835,7 +749,7 @@ LABEL_59:
 
 - (BOOL)isTransparent
 {
-  v3 = CHSLogChronoServices();
+  v3 = CHSLogChronoServices(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [(CHSWidgetDescriptor *)v3 isTransparent];
@@ -858,7 +772,7 @@ LABEL_59:
   return v5;
 }
 
-uint64_t __36__CHSWidgetDescriptor_isTransparent__block_invoke(uint64_t a1, uint64_t a2)
+void *__36__CHSWidgetDescriptor_isTransparent__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) isTransparentForFamily:a2];
   if (result)
@@ -992,48 +906,49 @@ void __53__CHSWidgetDescriptor_disfavoredFamiliesForLocation___block_invoke(uint
   else
   {
     intentType = [(CHSWidgetDescriptor *)self intentType];
+    v7 = intentType;
     if (intentType)
     {
       fetchDefaultIntentCompletions = self->_fetchDefaultIntentCompletions;
       if (fetchDefaultIntentCompletions)
       {
-        v8 = [intentCopy copy];
-        v9 = _Block_copy(v8);
-        [(NSMutableArray *)fetchDefaultIntentCompletions addObject:v9];
+        v9 = [intentCopy copy];
+        v10 = _Block_copy(v9);
+        [(NSMutableArray *)fetchDefaultIntentCompletions addObject:v10];
       }
 
       else
       {
-        v10 = CHSLogChronoServices();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v11 = CHSLogChronoServices(intentType);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
           _intentDescription = [(CHSWidgetDescriptor *)self _intentDescription];
           *buf = 138543362;
           v23 = _intentDescription;
-          _os_log_impl(&dword_195EB2000, v10, OS_LOG_TYPE_DEFAULT, "Begin loading default intent for %{public}@", buf, 0xCu);
+          _os_log_impl(&dword_195EB2000, v11, OS_LOG_TYPE_DEFAULT, "Begin loading default intent for %{public}@", buf, 0xCu);
         }
 
-        v12 = objc_alloc_init(MEMORY[0x1E69AA898]);
+        v13 = objc_alloc_init(MEMORY[0x1E69AA898]);
         extensionBundleIdentifier = [(CHSBaseDescriptor *)self extensionBundleIdentifier];
-        [v12 setExtensionBundleIdentifier:extensionBundleIdentifier];
+        [v13 setExtensionBundleIdentifier:extensionBundleIdentifier];
 
-        [v12 setIntentType:intentType];
-        v14 = objc_alloc_init(MEMORY[0x1E69AA890]);
-        objc_storeStrong(&self->_defaultIntentProvider, v14);
-        v15 = MEMORY[0x1E695DF70];
-        v16 = [intentCopy copy];
-        v17 = [v15 arrayWithObject:v16];
+        [v13 setIntentType:v7];
+        v15 = objc_alloc_init(MEMORY[0x1E69AA890]);
+        objc_storeStrong(&self->_defaultIntentProvider, v15);
+        v16 = MEMORY[0x1E695DF70];
+        v17 = [intentCopy copy];
+        v18 = [v16 arrayWithObject:v17];
 
-        v18 = self->_fetchDefaultIntentCompletions;
-        self->_fetchDefaultIntentCompletions = v17;
-        v19 = v17;
+        v19 = self->_fetchDefaultIntentCompletions;
+        self->_fetchDefaultIntentCompletions = v18;
+        v20 = v18;
 
         v21[0] = MEMORY[0x1E69E9820];
         v21[1] = 3221225472;
         v21[2] = __53__CHSWidgetDescriptor_Deprecated__loadDefaultIntent___block_invoke;
         v21[3] = &unk_1E74532A0;
         v21[4] = self;
-        [v14 provideIntentWithOptions:v12 completionHandler:v21];
+        [v15 provideIntentWithOptions:v13 completionHandler:v21];
       }
     }
 
@@ -1042,8 +957,6 @@ void __53__CHSWidgetDescriptor_disfavoredFamiliesForLocation___block_invoke(uint
       intentCopy[2](intentCopy, 0);
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __53__CHSWidgetDescriptor_Deprecated__loadDefaultIntent___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1064,8 +977,8 @@ void __53__CHSWidgetDescriptor_Deprecated__loadDefaultIntent___block_invoke(uint
 
 void __53__CHSWidgetDescriptor_Deprecated__loadDefaultIntent___block_invoke_2(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v2 = CHSLogChronoServices();
+  v23 = *MEMORY[0x1E69E9840];
+  v2 = CHSLogChronoServices(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) _intentDescription];
@@ -1081,9 +994,9 @@ void __53__CHSWidgetDescriptor_Deprecated__loadDefaultIntent___block_invoke_2(ui
     }
 
     *buf = 138543618;
-    v22 = v3;
-    v23 = 2114;
-    v24 = v5;
+    v20 = v3;
+    v21 = 2114;
+    v22 = v5;
     _os_log_impl(&dword_195EB2000, v2, OS_LOG_TYPE_DEFAULT, "Completed loading default intent for %{public}@: %{public}@", buf, 0x16u);
     if (v4)
     {
@@ -1099,37 +1012,34 @@ void __53__CHSWidgetDescriptor_Deprecated__loadDefaultIntent___block_invoke_2(ui
   v9 = *(*(a1 + 32) + 200);
   *(*(a1 + 32) + 200) = 0;
 
-  v18 = 0u;
-  v19 = 0u;
   v16 = 0u;
   v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v10 = v8;
-  v11 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v11)
   {
-    v12 = *v17;
+    v12 = *v15;
     do
     {
       v13 = 0;
       do
       {
-        if (*v17 != v12)
+        if (*v15 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        v14 = *(a1 + 48);
-        (*(*(*(&v16 + 1) + 8 * v13++) + 16))();
+        (*(*(*(&v14 + 1) + 8 * v13++) + 16))();
       }
 
       while (v11 != v13);
-      v11 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v11);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)matchesPersonality:(id)personality

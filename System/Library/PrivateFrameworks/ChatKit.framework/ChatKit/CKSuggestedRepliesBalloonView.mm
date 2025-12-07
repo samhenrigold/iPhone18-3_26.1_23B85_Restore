@@ -63,7 +63,7 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_19086A01C();
+  sub_19086A01C(selfCopy);
 }
 
 @end

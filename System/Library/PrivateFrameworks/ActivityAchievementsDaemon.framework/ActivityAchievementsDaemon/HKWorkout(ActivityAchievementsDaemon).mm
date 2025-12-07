@@ -65,69 +65,66 @@
 
 - (double)_bestDurationForKilometerCount:()ActivityAchievementsDaemon activityType:
 {
-  v36 = *MEMORY[0x277D85DE8];
-  if ([self workoutActivityType] == a4)
+  v35 = *MEMORY[0x277D85DE8];
+  if ([self workoutActivityType] != a4)
   {
-    v6 = MEMORY[0x277CCD7E8];
-    v7 = [MEMORY[0x277CCDAB0] meterUnitWithMetricPrefix:9];
-    v8 = [v6 quantityWithUnit:v7 doubleValue:1.0];
+    return 1.79769313e308;
+  }
 
-    workoutEvents = [self workoutEvents];
-    v10 = FISplitsForMeasuringSystemIdentifier();
+  v6 = MEMORY[0x277CCD7E8];
+  v7 = [MEMORY[0x277CCDAB0] meterUnitWithMetricPrefix:9];
+  v8 = [v6 quantityWithUnit:v7 doubleValue:1.0];
 
-    v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v31 = 0u;
-    v32 = 0u;
-    v33 = 0u;
-    v34 = 0u;
-    v12 = v10;
-    v13 = [v12 countByEnumeratingWithState:&v31 objects:v35 count:16];
-    if (v13)
+  workoutEvents = [self workoutEvents];
+  v10 = FISplitsForMeasuringSystemIdentifier();
+
+  v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v30 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v12 = v10;
+  v13 = [v12 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  if (v13)
+  {
+    v14 = v13;
+    v15 = *v31;
+    do
     {
-      v14 = v13;
-      v15 = *v32;
-      do
+      for (i = 0; i != v14; ++i)
       {
-        for (i = 0; i != v14; ++i)
+        if (*v31 != v15)
         {
-          if (*v32 != v15)
-          {
-            objc_enumerationMutation(v12);
-          }
-
-          v17 = *(*(&v31 + 1) + 8 * i);
-          fi_splitDistance = [v17 fi_splitDistance];
-          if ([v8 compare:fi_splitDistance] != 1)
-          {
-            [v11 addObject:v17];
-          }
+          objc_enumerationMutation(v12);
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v17 = *(*(&v30 + 1) + 8 * i);
+        fi_splitDistance = [v17 fi_splitDistance];
+        if ([v8 compare:fi_splitDistance] != 1)
+        {
+          [v11 addObject:v17];
+        }
       }
 
-      while (v14);
+      v14 = [v12 countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
-    if ([v11 count] >= a3)
-    {
-      [v11 sortUsingComparator:&__block_literal_global_2];
-      v20 = [v11 objectAtIndexedSubscript:a3 - 1];
-      dateInterval = [v20 dateInterval];
-      endDate = [dateInterval endDate];
-      [endDate timeIntervalSinceReferenceDate];
-      v24 = v23;
-      v25 = [v11 objectAtIndexedSubscript:0];
-      dateInterval2 = [v25 dateInterval];
-      startDate = [dateInterval2 startDate];
-      [startDate timeIntervalSinceReferenceDate];
-      v19 = v24 - v28;
-    }
+    while (v14);
+  }
 
-    else
-    {
-      v19 = 1.79769313e308;
-    }
+  if ([v11 count] >= a3)
+  {
+    [v11 sortUsingComparator:&__block_literal_global_2];
+    v20 = [v11 objectAtIndexedSubscript:a3 - 1];
+    dateInterval = [v20 dateInterval];
+    endDate = [dateInterval endDate];
+    [endDate timeIntervalSinceReferenceDate];
+    v24 = v23;
+    v25 = [v11 objectAtIndexedSubscript:0];
+    dateInterval2 = [v25 dateInterval];
+    startDate = [dateInterval2 startDate];
+    [startDate timeIntervalSinceReferenceDate];
+    v19 = v24 - v28;
   }
 
   else
@@ -135,7 +132,6 @@
     v19 = 1.79769313e308;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -184,7 +180,7 @@
   {
     version = [sourceRevision version];
     productType = [v12 productType];
-    [v12 operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(v12);
     v15 = HKNSOperatingSystemVersionString();
     [v10 appendFormat:@"%@, %@ (%@)", version, productType, v15];
   }

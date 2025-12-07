@@ -100,7 +100,7 @@
   if (interstice)
   {
     interstice2 = [(AVTimeRange *)self interstice];
-    if (([interstice2 isCollapsedInTimeLine] & 1) != 0 || (-[AVTimeRange duration](self, "duration"), v5 != 0.0))
+    if (([interstice2 isCollapsedInTimeLine] & 1) != 0 || (objc_msgSend_duration(self), v5 != 0.0))
     {
       v7 = 0;
     }
@@ -175,10 +175,10 @@
 
   if (playerInterstitialEvent)
   {
-    [playerInterstitialEvent skipControlTimeRange];
-    if (v9 & 1) != 0 && ([playerInterstitialEvent skipControlTimeRange], (v8) && (objc_msgSend(playerInterstitialEvent, "skipControlTimeRange"), !v7))
+    objc_msgSend_skipControlTimeRange(playerInterstitialEvent);
+    if (v9 & 1) != 0 && (objc_msgSend_skipControlTimeRange(playerInterstitialEvent), (v8) && (objc_msgSend_skipControlTimeRange(playerInterstitialEvent), !v7))
     {
-      [playerInterstitialEvent skipControlTimeRange];
+      objc_msgSend_skipControlTimeRange(playerInterstitialEvent);
       v4 = v6 >= 0;
     }
 
@@ -284,7 +284,7 @@
     v12 = objc_alloc_init(MEMORY[0x1E696AB78]);
     [v12 setDateStyle:0];
     [v12 setTimeStyle:2];
-    [(AVTimeRange *)self duration];
+    objc_msgSend_duration(self);
     v13 = [startDate dateByAddingTimeInterval:?];
     v14 = [v12 stringFromDate:startDate];
     v15 = [v12 stringFromDate:v13];
@@ -307,18 +307,18 @@
   [compareCopy startTime];
   if (vabdd_f64(v6, v7) <= 0.0000001)
   {
-    [(AVTimeRange *)self duration];
+    objc_msgSend_duration(self);
     v12 = v11;
-    [compareCopy duration];
+    objc_msgSend_duration(compareCopy);
     if (vabdd_f64(v12, v13) <= 0.0000001)
     {
       v15 = 0;
       goto LABEL_9;
     }
 
-    [(AVTimeRange *)self duration];
+    objc_msgSend_duration(self);
     v9 = v14;
-    [compareCopy duration];
+    objc_msgSend_duration(compareCopy);
   }
 
   else
@@ -387,7 +387,7 @@ LABEL_9:
   [(AVTimeRange *)self startTime];
   v9 = v8;
   [rangeCopy startTime];
-  if (vabdd_f64(v9, v10) < 0.0000001 && (-[AVTimeRange duration](self, "duration"), v12 = v11, [rangeCopy duration], vabdd_f64(v12, v13) < 0.0000001))
+  if (vabdd_f64(v9, v10) < 0.0000001 && (objc_msgSend_duration(self), v12 = v11, objc_msgSend_duration(rangeCopy), vabdd_f64(v12, v13) < 0.0000001))
   {
     [(AVTimeRange *)self insertedDuration];
     v15 = v14;
@@ -415,7 +415,7 @@ LABEL_9:
 {
   [(AVTimeRange *)self startTime];
   v4 = vcvtd_n_u64_f64(v3, 0x10uLL);
-  [(AVTimeRange *)self duration];
+  objc_msgSend_duration(self);
   v6 = vcvtd_n_u64_f64(v5, 2uLL) ^ v4;
   [(AVTimeRange *)self insertedDuration];
   return v6 ^ vcvtd_n_u64_f64(v7, 0x14uLL);
@@ -426,7 +426,7 @@ LABEL_9:
   v4 = [AVTimeRange allocWithZone:zone];
   [(AVTimeRange *)self startTime];
   v6 = v5;
-  [(AVTimeRange *)self duration];
+  objc_msgSend_duration(self);
   v8 = v7;
   [(AVTimeRange *)self insertedDuration];
 
@@ -439,7 +439,7 @@ LABEL_9:
   v7 = [AVTimeRange alloc];
   [(AVTimeRange *)self startTime];
   v9 = v8 + interval;
-  [(AVTimeRange *)self duration];
+  objc_msgSend_duration(self);
   selfCopy = [(AVTimeRange *)v7 initWithStartTime:v9 duration:v10];
   v12 = selfCopy;
   if (datesCopy)
@@ -616,7 +616,7 @@ LABEL_9:
 - (id)endDate
 {
   startDate = [(AVTimeRange *)self startDate];
-  [(AVTimeRange *)self duration];
+  objc_msgSend_duration(self);
   v4 = [startDate dateByAddingTimeInterval:?];
 
   return v4;
@@ -624,15 +624,15 @@ LABEL_9:
 
 - ($DAC8C9F726BD0D1F2E1B8C1A0D399779)cmTimeRange
 {
-  [(AVTimeRange *)self startCMTime];
-  [(AVTimeRange *)self endCMTime];
+  objc_msgSend_startCMTime(self, a3);
+  objc_msgSend_endCMTime(self);
   return CMTimeRangeFromTimeToTime(retstr, &start, &v6);
 }
 
 - ($3CC8671D27C23BF42ADDB32F2B5E48AE)endCMTime
 {
   result = [(AVTimeRange *)self endTime];
-  if (fabs(v6) == INFINITY || (result = [(AVTimeRange *)self duration], fabs(v7) == INFINITY))
+  if (fabs(v6) == INFINITY || (result = objc_msgSend_duration(self), fabs(v7) == INFINITY))
   {
     v9 = MEMORY[0x1E6960C68];
     *&retstr->var0 = *MEMORY[0x1E6960C68];
@@ -641,7 +641,7 @@ LABEL_9:
 
   else
   {
-    [(AVTimeRange *)self duration];
+    objc_msgSend_duration(self);
     [(AVTimeRange *)self endTime];
 
     return CMTimeMakeWithSeconds(retstr, v8, 10000);
@@ -661,7 +661,7 @@ LABEL_9:
 {
   [(AVTimeRange *)self startTime];
   v4 = v3;
-  [(AVTimeRange *)self duration];
+  objc_msgSend_duration(self);
   return v4 + v5;
 }
 
@@ -763,7 +763,7 @@ LABEL_9:
           memset(&buf, 0, sizeof(buf));
           if (v13)
           {
-            [v13 CMTimeRangeValue];
+            objc_msgSend_CMTimeRangeValue(v13);
           }
 
           *(&v14 + 1) = *(&v28 + 1);
@@ -866,7 +866,7 @@ LABEL_9:
 {
   if (group)
   {
-    [group timeRange];
+    objc_msgSend_timeRange(group, a2);
   }
 
   else

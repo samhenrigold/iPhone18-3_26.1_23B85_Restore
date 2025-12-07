@@ -147,7 +147,7 @@
 
   if (v3)
   {
-    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIKeyCommand);
+    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIKeyCommand, 0x277D75650);
     v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 

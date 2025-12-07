@@ -22,25 +22,24 @@
   engineCopy = engine;
   if (depotCopy)
   {
-    v24.receiver = self;
-    v24.super_class = NavdDoomHost;
-    v11 = [(NavdDoomHost *)&v24 init];
+    v23.receiver = self;
+    v23.super_class = NavdDoomHost;
+    v11 = [(NavdDoomHost *)&v23 init];
     if (v11)
     {
       v12 = [MapsSuggestionsDOoMWrapper alloc];
       v13 = +[MapsSuggestionsFirstUnlockTrigger description];
       v14 = [registerCopy objectForKeyedSubscript:v13];
-      v25 = v14;
-      v15 = [NSArray arrayWithObjects:&v25 count:1];
+      v24 = v14;
+      v15 = [NSArray arrayWithObjects:&v24 count:1];
       v16 = [(NavdDoomHost *)v11 _conditionsForDoomUsingRegister:registerCopy];
       v17 = [v12 initWithResourceDepot:depotCopy triggers:v15 conditions:v16 engine:engineCopy];
       doom = v11->_doom;
       v11->_doom = v17;
 
       [(MapsSuggestionsDOoMWrapper *)v11->_doom setNotificationDelegate:v11];
-      v19 = GEOConfigMapsSuggestionsDurationBetweenDOoMWidgetNudges[1];
       GEOConfigGetDouble();
-      v11->_minDurationBetweenWidgetNudges = v20;
+      v11->_minDurationBetweenWidgetNudges = v19;
     }
 
     self = v11;
@@ -49,18 +48,18 @@
 
   else
   {
-    v22 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+    v21 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
     {
       *buf = 136446978;
-      v27 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/DOoM & Location Intelligence/NavdDoomHost.mm";
-      v28 = 1024;
-      v29 = 57;
-      v30 = 2082;
-      v31 = "[NavdDoomHost initFromResourceDepot:sharedRegister:engine:]";
-      v32 = 2082;
-      v33 = "nil == (resourceDepot)";
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_FAULT, "At %{public}s:%d, %{public}s forbids: %{public}s. We need a resource depot to build from!", buf, 0x26u);
+      v26 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/DOoM & Location Intelligence/NavdDoomHost.mm";
+      v27 = 1024;
+      v28 = 57;
+      v29 = 2082;
+      v30 = "[NavdDoomHost initFromResourceDepot:sharedRegister:engine:]";
+      v31 = 2082;
+      v32 = "nil == (resourceDepot)";
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_FAULT, "At %{public}s:%d, %{public}s forbids: %{public}s. We need a resource depot to build from!", buf, 0x26u);
     }
 
     selfCopy = 0;

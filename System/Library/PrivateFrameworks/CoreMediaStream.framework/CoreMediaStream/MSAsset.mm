@@ -38,10 +38,10 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v12 = 0;
-  v3 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v12];
-  v4 = v12;
+  v14 = *MEMORY[0x277D85DE8];
+  v11 = 0;
+  v3 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v11];
+  v4 = v11;
   v5 = v4;
   if (!v3)
   {
@@ -52,14 +52,13 @@
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v14 = v8;
+      v13 = v8;
       _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
     }
   }
 
   v9 = [MEMORY[0x277CCAAC8] MSSafeUnarchiveObjectWithData:v3 outError:0];
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -400,7 +399,7 @@ LABEL_13:
 
 - (unint64_t)_fileSizeOnDisk
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
@@ -408,18 +407,18 @@ LABEL_13:
   if (selfCopy->_path && [defaultManager fileExistsAtPath:?])
   {
     path = selfCopy->_path;
-    v14 = 0;
-    v6 = [v4 attributesOfItemAtPath:path error:&v14];
-    v7 = v14;
+    v13 = 0;
+    v6 = [v4 attributesOfItemAtPath:path error:&v13];
+    v7 = v13;
     if (v7)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v13 = selfCopy->_path;
+        v12 = selfCopy->_path;
         *buf = 138412546;
-        v16 = v13;
-        v17 = 2114;
-        v18 = v7;
+        v15 = v12;
+        v16 = 2114;
+        v17 = v7;
         _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Can't query for file size at path %@. Error: %{public}@", buf, 0x16u);
       }
 
@@ -440,7 +439,6 @@ LABEL_13:
   }
 
   objc_sync_exit(selfCopy);
-  v11 = *MEMORY[0x277D85DE8];
   return unsignedLongLongValue;
 }
 
@@ -520,20 +518,18 @@ LABEL_13:
 
 - (void)setMMCSItemID:(unint64_t)d
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v7 = 134218242;
+    v6 = 134218242;
     dCopy = d;
-    v9 = 2114;
+    v8 = 2114;
     selfCopy = self;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Setting MMCS Item ID to %lld for %{public}@", &v7, 0x16u);
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Setting MMCS Item ID to %lld for %{public}@", &v6, 0x16u);
   }
 
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:d];
   [(MSAsset *)self addMetadataValue:v5 forKey:@"MSAssetMetadataItemID"];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)MMCSItemID
@@ -869,7 +865,7 @@ LABEL_13:
 
 - (id)MSASPProtocolDictionary
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   metadata = [(MSAsset *)self metadata];
   v5 = [metadata mutableCopy];
@@ -946,14 +942,12 @@ LABEL_13:
     [dictionary setObject:v5 forKey:@"metadata"];
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return dictionary;
 }
 
 + (id)MSASPAssetFromProtocolDictionary:(id)dictionary
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v4 = +[MSAsset asset];
   v5 = [dictionaryCopy mutableCopy];
@@ -1051,8 +1045,8 @@ LABEL_13:
           {
             *buf = 138543618;
             selfCopy3 = self;
-            v30 = 2114;
-            v31 = v21;
+            v29 = 2114;
+            v30 = v21;
             _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Found an unsupported photoType %{public}@", buf, 0x16u);
           }
 
@@ -1105,8 +1099,8 @@ LABEL_33:
   {
     *buf = 138543618;
     selfCopy3 = self;
-    v30 = 2114;
-    v31 = v17;
+    v29 = 2114;
+    v30 = v17;
     _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Found an unsupported videoType %{public}@", buf, 0x16u);
   }
 
@@ -1130,8 +1124,6 @@ LABEL_37:
   }
 
   [v4 setMetadata:dictionary];
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

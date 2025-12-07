@@ -728,7 +728,7 @@ void __120__HUAccessorySettingsSiriRecognitionLanguageViewController__changeSiri
   }
 }
 
-uint64_t __120__HUAccessorySettingsSiriRecognitionLanguageViewController__changeSiriLanguageOnlyForThisMediaAccessory_turnOffVoiceID___block_invoke_2(uint64_t a1)
+void *__120__HUAccessorySettingsSiriRecognitionLanguageViewController__changeSiriLanguageOnlyForThisMediaAccessory_turnOffVoiceID___block_invoke_2(uint64_t a1)
 {
   v16 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) _clearSpinner];

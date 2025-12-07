@@ -20,18 +20,16 @@
 
 void __43__BLTPBActionFactory_bltVersionToFactories__block_invoke()
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v5[0] = &unk_28544B580;
+  v5[2] = *MEMORY[0x277D85DE8];
+  v4[0] = &unk_28544B580;
   v0 = objc_alloc_init(BLTPBActionFactoryVersion1);
-  v5[1] = &unk_28544B598;
-  v6[0] = v0;
+  v4[1] = &unk_28544B598;
+  v5[0] = v0;
   v1 = objc_alloc_init(BLTPBActionFactory);
-  v6[1] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
+  v5[1] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
   v3 = bltVersionToFactories___bltVersionToFeatureDictionary;
   bltVersionToFactories___bltVersionToFeatureDictionary = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (id)sharedInstance
@@ -125,8 +123,8 @@ void __43__BLTPBActionFactory_bltVersionToFactories__block_invoke()
 
     if (v22)
     {
-      v23 = blt_ids_log();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v24 = blt_ids_log(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
         v29 = v22;
@@ -134,7 +132,7 @@ void __43__BLTPBActionFactory_bltVersionToFactories__block_invoke()
         v31 = v20;
         v32 = 2112;
         v33 = v4;
-        _os_log_error_impl(&dword_241FB3000, v23, OS_LOG_TYPE_ERROR, "Error serializing action behaviorParameters: %@, %@, %@", buf, 0x20u);
+        _os_log_error_impl(&dword_241FB3000, v24, OS_LOG_TYPE_ERROR, "Error serializing action behaviorParameters: %@, %@, %@", buf, 0x20u);
       }
     }
 
@@ -149,8 +147,6 @@ void __43__BLTPBActionFactory_bltVersionToFactories__block_invoke()
   {
     v12 = 0;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

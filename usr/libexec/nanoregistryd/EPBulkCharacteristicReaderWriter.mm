@@ -15,9 +15,9 @@
 {
   dCopy = d;
   iDCopy = iD;
-  v30.receiver = self;
-  v30.super_class = EPBulkCharacteristicReaderWriter;
-  v11 = [(EPBulkCharacteristicReaderWriter *)&v30 init];
+  v32.receiver = self;
+  v32.super_class = EPBulkCharacteristicReaderWriter;
+  v11 = [(EPBulkCharacteristicReaderWriter *)&v32 init];
   v12 = v11;
   if (v11)
   {
@@ -28,48 +28,48 @@
     forceReadDevices = v12->_forceReadDevices;
     v12->_forceReadDevices = v13;
 
-    v15 = sub_1000034AC();
-    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+    v16 = sub_1000034AC(v15);
+    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
 
-    if (v16)
+    if (v17)
     {
-      v17 = sub_1000034AC();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v19 = sub_1000034AC(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = objc_opt_class();
-        v19 = NSStringFromClass(v18);
+        v20 = objc_opt_class();
+        v21 = NSStringFromClass(v20);
         uUIDString = [dCopy UUIDString];
         uUIDString2 = [iDCopy UUIDString];
         *buf = 134218754;
-        v32 = v12;
-        v33 = 2112;
-        v34 = v19;
+        v34 = v12;
         v35 = 2112;
-        v36 = uUIDString;
+        v36 = v21;
         v37 = 2112;
-        v38 = uUIDString2;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "EPBulkCharacteristicReaderWriter[%p]: (%@) writing to %@ reading from %@", buf, 0x2Au);
+        v38 = uUIDString;
+        v39 = 2112;
+        v40 = uUIDString2;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "EPBulkCharacteristicReaderWriter[%p]: (%@) writing to %@ reading from %@", buf, 0x2Au);
       }
     }
 
-    v22 = +[NSMapTable strongToStrongObjectsMapTable];
+    v24 = +[NSMapTable strongToStrongObjectsMapTable];
     deviceEntries = v12->_deviceEntries;
-    v12->_deviceEntries = v22;
+    v12->_deviceEntries = v24;
 
     if (iDCopy)
     {
-      v24 = +[NSMapTable strongToStrongObjectsMapTable];
+      v26 = +[NSMapTable strongToStrongObjectsMapTable];
       readerDeviceLookup = v12->_readerDeviceLookup;
-      v12->_readerDeviceLookup = v24;
+      v12->_readerDeviceLookup = v26;
     }
 
-    v26 = +[EPFactory queue];
+    v28 = +[EPFactory queue];
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_1000B5B48;
     block[3] = &unk_100175660;
-    v29 = v12;
-    dispatch_async(v26, block);
+    v31 = v12;
+    dispatch_async(v28, block);
   }
 
   return v12;
@@ -279,30 +279,30 @@ LABEL_37:
     {
       name = [proximateCopy name];
       uuid = [proximateCopy uuid];
-      v39 = [(EPBulkCharacteristicReaderWriter *)self shouldAttemptReadFromAdvertisedName:name bluetoothDeviceID:uuid];
+      v41 = [(EPBulkCharacteristicReaderWriter *)self shouldAttemptReadFromAdvertisedName:name bluetoothDeviceID:uuid];
 
-      if (v39)
+      if (v41)
       {
         v9 = 1;
         goto LABEL_5;
       }
 
-      v48 = sub_1000034AC();
-      v49 = os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT);
+      v50 = sub_1000034AC(v6);
+      v51 = os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT);
 
-      if (v49)
+      if (v51)
       {
-        v50 = sub_1000034AC();
-        if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+        v52 = sub_1000034AC(v6);
+        if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
         {
           name2 = [proximateCopy name];
           uuid2 = [proximateCopy uuid];
           uUIDString = [uuid2 UUIDString];
           *buf = 138412546;
-          v59 = name2;
-          v60 = 2112;
-          v61 = uUIDString;
-          _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "EPBulkCharacteristicReaderWriter: subclass read check- ignoring BT device %@ %@", buf, 0x16u);
+          v61 = name2;
+          v62 = 2112;
+          v63 = uUIDString;
+          _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEFAULT, "EPBulkCharacteristicReaderWriter: subclass read check- ignoring BT device %@ %@", buf, 0x16u);
         }
       }
     }
@@ -325,22 +325,22 @@ LABEL_5:
         goto LABEL_8;
       }
 
-      v42 = sub_1000034AC();
-      v43 = os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT);
+      v44 = sub_1000034AC(v6);
+      v45 = os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT);
 
-      if (v43)
+      if (v45)
       {
-        v44 = sub_1000034AC();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+        v46 = sub_1000034AC(v6);
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
         {
           name4 = [proximateCopy name];
           uuid4 = [proximateCopy uuid];
           uUIDString2 = [uuid4 UUIDString];
           *buf = 138412546;
-          v59 = name4;
-          v60 = 2112;
-          v61 = uUIDString2;
-          _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "EPBulkCharacteristicReaderWriter: subclass write check- ignoring BT device %@ %@", buf, 0x16u);
+          v61 = name4;
+          v62 = 2112;
+          v63 = uUIDString2;
+          _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "EPBulkCharacteristicReaderWriter: subclass write check- ignoring BT device %@ %@", buf, 0x16u);
         }
       }
     }
@@ -350,22 +350,22 @@ LABEL_5:
 LABEL_8:
   if (v9)
   {
-    v12 = sub_1000034AC();
+    v12 = sub_1000034AC(v6);
     v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
 
     if (v13)
     {
-      v14 = sub_1000034AC();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = sub_1000034AC(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         name5 = [proximateCopy name];
         uuid5 = [proximateCopy uuid];
         uUIDString3 = [uuid5 UUIDString];
         *buf = 138412546;
-        v59 = name5;
-        v60 = 2112;
-        v61 = uUIDString3;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "EPBulkCharacteristicReaderWriter: Reading characteristic on BT device %@ %@", buf, 0x16u);
+        v61 = name5;
+        v62 = 2112;
+        v63 = uUIDString3;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "EPBulkCharacteristicReaderWriter: Reading characteristic on BT device %@ %@", buf, 0x16u);
       }
     }
 
@@ -375,12 +375,12 @@ LABEL_8:
       [v7 setDevice:proximateCopy];
     }
 
-    v18 = [proximateCopy newObserverWithDelegate:0];
-    v19 = [EPCharacteristicReader alloc];
+    v19 = [proximateCopy newObserverWithDelegate:0];
+    v20 = [EPCharacteristicReader alloc];
     timeout = self->_timeout;
-    v21 = [CBUUID UUIDWithString:@"9AA4730F-B25C-4CC3-B821-C931559FC196"];
-    v22 = [(EPCharacteristicReader *)v19 initWithDelegate:self timeout:v18 peripheral:v21 serviceUUID:self->_readCharacteristicUUID characteristicUUID:timeout];
-    [v7 setReader:v22];
+    v22 = [CBUUID UUIDWithString:@"9AA4730F-B25C-4CC3-B821-C931559FC196"];
+    v23 = [(EPCharacteristicReader *)v20 initWithDelegate:self timeout:v19 peripheral:v22 serviceUUID:self->_readCharacteristicUUID characteristicUUID:timeout];
+    [v7 setReader:v23];
 
     [(NSMapTable *)self->_deviceEntries setObject:v7 forKey:proximateCopy];
     readerDeviceLookup = self->_readerDeviceLookup;
@@ -390,22 +390,22 @@ LABEL_8:
 
   if (v11)
   {
-    v25 = sub_1000034AC();
-    v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
+    v26 = sub_1000034AC(v6);
+    v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
 
-    if (v26)
+    if (v27)
     {
-      v27 = sub_1000034AC();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      v29 = sub_1000034AC(v28);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
         name6 = [proximateCopy name];
         uuid6 = [proximateCopy uuid];
         uUIDString4 = [uuid6 UUIDString];
         *buf = 138412546;
-        v59 = name6;
-        v60 = 2112;
-        v61 = uUIDString4;
-        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "EPBulkCharacteristicReaderWriter: Writing characteristic on BT device %@ %@", buf, 0x16u);
+        v61 = name6;
+        v62 = 2112;
+        v63 = uUIDString4;
+        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "EPBulkCharacteristicReaderWriter: Writing characteristic on BT device %@ %@", buf, 0x16u);
       }
     }
 
@@ -415,24 +415,24 @@ LABEL_8:
       [v7 setDevice:proximateCopy];
     }
 
-    v31 = [proximateCopy newObserverWithDelegate:0];
-    v32 = [EPCharacteristicWriter alloc];
-    v33 = [CBUUID UUIDWithString:@"9AA4730F-B25C-4CC3-B821-C931559FC196"];
-    v34 = [(EPCharacteristicWriter *)v32 initWithPeripheral:v31 serviceUUID:v33 characteristicUUID:self->_writeCharacteristicUUID];
-    [v7 setWriter:v34];
+    v33 = [proximateCopy newObserverWithDelegate:0];
+    v34 = [EPCharacteristicWriter alloc];
+    v35 = [CBUUID UUIDWithString:@"9AA4730F-B25C-4CC3-B821-C931559FC196"];
+    v36 = [(EPCharacteristicWriter *)v34 initWithPeripheral:v33 serviceUUID:v35 characteristicUUID:self->_writeCharacteristicUUID];
+    [v7 setWriter:v36];
 
     [(NSMapTable *)self->_deviceEntries setObject:v7 forKey:proximateCopy];
     writer2 = [v7 writer];
-    v36 = self->_timeout;
-    v54[0] = _NSConcreteStackBlock;
-    v54[1] = 3221225472;
-    v54[2] = sub_1000B6A54;
-    v54[3] = &unk_100177CF0;
+    v38 = self->_timeout;
+    v56[0] = _NSConcreteStackBlock;
+    v56[1] = 3221225472;
+    v56[2] = sub_1000B6A54;
+    v56[3] = &unk_100177CF0;
     v7 = v7;
-    v55 = v7;
+    v57 = v7;
     selfCopy = self;
-    v57 = proximateCopy;
-    [writer2 writeData:v11 timeout:&stru_100179120 begin:v54 completion:v36];
+    v59 = proximateCopy;
+    [writer2 writeData:v11 timeout:&stru_100179120 begin:v56 completion:v38];
   }
 
 LABEL_25:
@@ -443,41 +443,41 @@ LABEL_25:
   readerCopy = reader;
   readCopy = read;
   v8 = [(NSMapTable *)self->_readerDeviceLookup objectForKey:readerCopy];
-  v9 = sub_1000034AC();
+  v9 = sub_1000034AC(v8);
   v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
   if (v10)
   {
-    v11 = sub_1000034AC();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_1000034AC(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       name = [v8 name];
       uuid = [v8 uuid];
       uUIDString = [uuid UUIDString];
-      v25 = 138412802;
-      v26 = name;
-      v27 = 2112;
-      v28 = uUIDString;
-      v29 = 2048;
-      v30 = [readCopy length];
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "EPBulkCharacteristicReaderWriter: Read characteristic from BT device %@ %@ %ld bytes", &v25, 0x20u);
+      v26 = 138412802;
+      v27 = name;
+      v28 = 2112;
+      v29 = uUIDString;
+      v30 = 2048;
+      v31 = [readCopy length];
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "EPBulkCharacteristicReaderWriter: Read characteristic from BT device %@ %@ %ld bytes", &v26, 0x20u);
     }
   }
 
   if (v8)
   {
-    v15 = [(NSMapTable *)self->_deviceEntries objectForKey:v8];
-    v16 = v15;
-    if (v15)
+    v16 = [(NSMapTable *)self->_deviceEntries objectForKey:v8];
+    v17 = v16;
+    if (v16)
     {
-      reader = [v15 reader];
+      reader = [v16 reader];
       if (reader)
       {
       }
 
       else
       {
-        writer = [v16 writer];
+        writer = [v17 writer];
 
         if (!writer)
         {
@@ -485,22 +485,22 @@ LABEL_25:
         }
       }
 
-      reader2 = [v16 reader];
+      reader2 = [v17 reader];
       [reader2 invalidate];
 
-      [v16 setReader:0];
+      [v17 setReader:0];
       [(NSMapTable *)self->_readerDeviceLookup removeObjectForKey:readerCopy];
-      v20 = readCopy;
+      v21 = readCopy;
       if (!readCopy)
       {
-        v20 = objc_opt_new();
+        v21 = objc_opt_new();
       }
 
-      device = [v16 device];
+      device = [v17 device];
       name2 = [device name];
-      device2 = [v16 device];
+      device2 = [v17 device];
       uuid2 = [device2 uuid];
-      [(EPBulkCharacteristicReaderWriter *)self readResult:v20 advertisedName:name2 bluetoothDeviceID:uuid2];
+      [(EPBulkCharacteristicReaderWriter *)self readResult:v21 advertisedName:name2 bluetoothDeviceID:uuid2];
 
       if (!readCopy)
       {
@@ -513,39 +513,39 @@ LABEL_25:
 {
   readerCopy = reader;
   v6 = [(NSMapTable *)self->_readerDeviceLookup objectForKey:readerCopy];
-  v7 = sub_1000034AC();
+  v7 = sub_1000034AC(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
   if (v8)
   {
-    v9 = sub_1000034AC();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_1000034AC(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       name = [v6 name];
       uuid = [v6 uuid];
       uUIDString = [uuid UUIDString];
-      v22 = 138412546;
-      v23 = name;
-      v24 = 2112;
-      v25 = uUIDString;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "EPBulkCharacteristicReaderWriter: Failed to read characteristic from BT device %@ %@", &v22, 0x16u);
+      v23 = 138412546;
+      v24 = name;
+      v25 = 2112;
+      v26 = uUIDString;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "EPBulkCharacteristicReaderWriter: Failed to read characteristic from BT device %@ %@", &v23, 0x16u);
     }
   }
 
   if (v6)
   {
-    v13 = [(NSMapTable *)self->_deviceEntries objectForKey:v6];
-    v14 = v13;
-    if (v13)
+    v14 = [(NSMapTable *)self->_deviceEntries objectForKey:v6];
+    v15 = v14;
+    if (v14)
     {
-      reader = [v13 reader];
+      reader = [v14 reader];
       if (reader)
       {
       }
 
       else
       {
-        writer = [v14 writer];
+        writer = [v15 writer];
 
         if (!writer)
         {
@@ -553,14 +553,14 @@ LABEL_25:
         }
       }
 
-      reader2 = [v14 reader];
+      reader2 = [v15 reader];
       [reader2 invalidate];
 
-      [v14 setReader:0];
+      [v15 setReader:0];
       [(NSMapTable *)self->_readerDeviceLookup removeObjectForKey:readerCopy];
-      device = [v14 device];
+      device = [v15 device];
       name2 = [device name];
-      device2 = [v14 device];
+      device2 = [v15 device];
       uuid2 = [device2 uuid];
       [(EPBulkCharacteristicReaderWriter *)self readResult:0 advertisedName:name2 bluetoothDeviceID:uuid2];
     }
@@ -589,16 +589,16 @@ LABEL_25:
 
 - (void)invalidate
 {
-  v3 = sub_1000034AC();
+  v3 = sub_1000034AC(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = sub_1000034AC();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_1000034AC(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "EPBulkCharacteristicWriter: invalidate call", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "EPBulkCharacteristicWriter: invalidate call", v7, 2u);
     }
   }
 

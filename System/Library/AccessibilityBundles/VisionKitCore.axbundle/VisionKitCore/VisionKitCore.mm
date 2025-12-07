@@ -118,9 +118,9 @@ LABEL_11:
   return v3;
 }
 
-void sub_29C76A2A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_29C76A2A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -134,20 +134,18 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
 
 void accessibilityLookupButtonName_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x29EDCA608];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_29C768000, log, OS_LOG_TYPE_ERROR, "No lookup button name found for symbolName : %@, domainName : %@", &v4, 0x16u);
-  v3 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_29C768000, log, OS_LOG_TYPE_ERROR, "No lookup button name found for symbolName : %@, domainName : %@", &v3, 0x16u);
 }
 
 void AXImageAnalysisLabel_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_29C768000, a2, OS_LOG_TYPE_ERROR, "VKImageAnalysisButtonMode unhandled : %lu", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_29C768000, a2, OS_LOG_TYPE_ERROR, "VKImageAnalysisButtonMode unhandled : %lu", &v2, 0xCu);
 }

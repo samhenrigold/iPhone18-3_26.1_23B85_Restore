@@ -18,7 +18,7 @@
   selfCopy = self;
   SharedCollectionActionViewModel.itemProvidersForActivityItemsConfiguration.getter();
 
-  sub_1A3C52C70(0, &qword_1EB120AD0);
+  sub_1A3C52C70(0, &qword_1EB120AD0, 0x1E696ACA0);
   v3 = sub_1A524CA14();
 
   return v3;

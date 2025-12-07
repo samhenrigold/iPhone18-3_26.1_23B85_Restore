@@ -12,19 +12,19 @@
 
 - (MCPasswordPolicyPayload)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v90 = *MEMORY[0x1E69E9840];
+  v89 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v85.receiver = self;
-  v85.super_class = MCPasswordPolicyPayload;
-  v9 = [(MCPayload *)&v85 initWithDictionary:dictionaryCopy profile:profile outError:error];
+  v84.receiver = self;
+  v84.super_class = MCPasswordPolicyPayload;
+  v9 = [(MCPayload *)&v84 initWithDictionary:dictionaryCopy profile:profile outError:error];
   if (!v9)
   {
     goto LABEL_54;
   }
 
-  v84 = 0;
-  v10 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"allowSimple" isRequired:0 outError:&v84];
-  v11 = v84;
+  v83 = 0;
+  v10 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"allowSimple" isRequired:0 outError:&v83];
+  v11 = v83;
   isSimplePasscodeAllowed = v9->_isSimplePasscodeAllowed;
   v9->_isSimplePasscodeAllowed = v10;
 
@@ -33,9 +33,9 @@
     goto LABEL_49;
   }
 
-  v83 = 0;
-  v13 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"forcePIN" isRequired:0 outError:&v83];
-  v11 = v83;
+  v82 = 0;
+  v13 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"forcePIN" isRequired:0 outError:&v82];
+  v11 = v82;
   isPasscodeRequired = v9->_isPasscodeRequired;
   v9->_isPasscodeRequired = v13;
 
@@ -44,9 +44,9 @@
     goto LABEL_49;
   }
 
-  v82 = 0;
-  v15 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"requireAlphanumeric" isRequired:0 outError:&v82];
-  v11 = v82;
+  v81 = 0;
+  v15 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"requireAlphanumeric" isRequired:0 outError:&v81];
+  v11 = v81;
   isAlphanumericPasscodeRequired = v9->_isAlphanumericPasscodeRequired;
   v9->_isAlphanumericPasscodeRequired = v15;
 
@@ -55,9 +55,9 @@
     goto LABEL_49;
   }
 
-  v81 = 0;
-  v17 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"manualFetchingWhenRoaming" isRequired:0 outError:&v81];
-  v11 = v81;
+  v80 = 0;
+  v17 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"manualFetchingWhenRoaming" isRequired:0 outError:&v80];
+  v11 = v80;
   isManualFetchingWhenRoaming = v9->_isManualFetchingWhenRoaming;
   v9->_isManualFetchingWhenRoaming = v17;
 
@@ -66,9 +66,9 @@
     goto LABEL_49;
   }
 
-  v80 = 0;
-  v19 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"minLength" isRequired:0 outError:&v80];
-  v11 = v80;
+  v79 = 0;
+  v19 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"minLength" isRequired:0 outError:&v79];
+  v11 = v79;
   minLength = v9->_minLength;
   v9->_minLength = v19;
 
@@ -102,9 +102,9 @@
   }
 
 LABEL_13:
-  v79 = 0;
-  v25 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"maxFailedAttempts" isRequired:0 outError:&v79];
-  v11 = v79;
+  v78 = 0;
+  v25 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"maxFailedAttempts" isRequired:0 outError:&v78];
+  v11 = v78;
   maxFailedAttempts = v9->_maxFailedAttempts;
   v9->_maxFailedAttempts = v25;
 
@@ -127,9 +127,9 @@ LABEL_49:
       v63 = v62;
       mCVerboseDescription = [v58 MCVerboseDescription];
       *buf = 138543618;
-      v87 = v62;
-      v88 = 2114;
-      v89 = mCVerboseDescription;
+      v86 = v62;
+      v87 = 2114;
+      v88 = mCVerboseDescription;
       _os_log_impl(&dword_1A795B000, v61, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse payload: %{public}@", buf, 0x16u);
     }
 
@@ -162,9 +162,9 @@ LABEL_49:
   }
 
 LABEL_20:
-  v78 = 0;
-  v31 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"maxGracePeriod" isRequired:0 outError:&v78];
-  v11 = v78;
+  v77 = 0;
+  v31 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"maxGracePeriod" isRequired:0 outError:&v77];
+  v11 = v77;
   maxGracePeriodMinutes = v9->_maxGracePeriodMinutes;
   v9->_maxGracePeriodMinutes = v31;
 
@@ -200,9 +200,9 @@ LABEL_20:
   v9->_maxGracePeriodMinutes = v36;
 
 LABEL_27:
-  v77 = 0;
-  v37 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"maxInactivity" isRequired:0 outError:&v77];
-  v11 = v77;
+  v76 = 0;
+  v37 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"maxInactivity" isRequired:0 outError:&v76];
+  v11 = v76;
   maxInactivityMinutes = v9->_maxInactivityMinutes;
   v9->_maxInactivityMinutes = v37;
 
@@ -238,9 +238,9 @@ LABEL_27:
   v9->_maxInactivityMinutes = v42;
 
 LABEL_34:
-  v76 = 0;
-  v43 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"maxPINAgeInDays" isRequired:0 outError:&v76];
-  v11 = v76;
+  v75 = 0;
+  v43 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"maxPINAgeInDays" isRequired:0 outError:&v75];
+  v11 = v75;
   maxPasscodeAgeDays = v9->_maxPasscodeAgeDays;
   v9->_maxPasscodeAgeDays = v43;
 
@@ -276,9 +276,9 @@ LABEL_34:
   v9->_maxPasscodeAgeDays = v48;
 
 LABEL_41:
-  v75 = 0;
-  v49 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"pinHistory" isRequired:0 outError:&v75];
-  v11 = v75;
+  v74 = 0;
+  v49 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"pinHistory" isRequired:0 outError:&v74];
+  v11 = v74;
   passcodeHistoryCount = v9->_passcodeHistoryCount;
   v9->_passcodeHistoryCount = v49;
 
@@ -314,9 +314,9 @@ LABEL_41:
   v9->_passcodeHistoryCount = v54;
 
 LABEL_48:
-  v74 = 0;
-  v55 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"minComplexChars" isRequired:0 outError:&v74];
-  v11 = v74;
+  v73 = 0;
+  v55 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"minComplexChars" isRequired:0 outError:&v73];
+  v11 = v73;
   minComplexCharacters = v9->_minComplexCharacters;
   v9->_minComplexCharacters = v55;
 
@@ -325,44 +325,43 @@ LABEL_48:
     goto LABEL_49;
   }
 
-  v67 = v9->_minComplexCharacters;
-  if (v67)
+  v66 = v9->_minComplexCharacters;
+  if (v66)
   {
-    intValue7 = [(NSNumber *)v67 intValue];
-    v69 = v9->_minComplexCharacters;
+    intValue7 = [(NSNumber *)v66 intValue];
+    v68 = v9->_minComplexCharacters;
     if (intValue7 < 0)
     {
-      v70 = &unk_1F1AA54D0;
+      v69 = &unk_1F1AA54D0;
       goto LABEL_60;
     }
 
-    if ([(NSNumber *)v69 intValue]>= 5)
+    if ([(NSNumber *)v68 intValue]>= 5)
     {
-      v69 = v9->_minComplexCharacters;
-      v70 = &unk_1F1AA55A8;
+      v68 = v9->_minComplexCharacters;
+      v69 = &unk_1F1AA55A8;
 LABEL_60:
-      v9->_minComplexCharacters = v70;
+      v9->_minComplexCharacters = v69;
     }
   }
 
   if ([dictionaryCopy count])
   {
-    v71 = _MCLogObjects;
+    v70 = _MCLogObjects;
     if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_INFO))
     {
-      v72 = v71;
+      v71 = v70;
       friendlyName = [(MCPayload *)v9 friendlyName];
       *buf = 138543618;
-      v87 = friendlyName;
-      v88 = 2114;
-      v89 = dictionaryCopy;
-      _os_log_impl(&dword_1A795B000, v72, OS_LOG_TYPE_INFO, "Payload “%{public}@” has fields that we are ignoring. They are: %{public}@", buf, 0x16u);
+      v86 = friendlyName;
+      v87 = 2114;
+      v88 = dictionaryCopy;
+      _os_log_impl(&dword_1A795B000, v71, OS_LOG_TYPE_INFO, "Payload “%{public}@” has fields that we are ignoring. They are: %{public}@", buf, 0x16u);
     }
   }
 
 LABEL_54:
 
-  v65 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -469,7 +468,7 @@ LABEL_54:
 
 - (id)payloadDescriptionKeyValueSections
 {
-  v80[1] = *MEMORY[0x1E69E9840];
+  v79[1] = *MEMORY[0x1E69E9840];
   restrictions = [(MCPasswordPolicyPayload *)self restrictions];
   v4 = +[MCRestrictionManager sharedManager];
   defaultRestrictions = [v4 defaultRestrictions];
@@ -492,7 +491,7 @@ LABEL_54:
   v15 = MCLocalizedString(@"SIMPLE_PASSCODES_ALLOWED");
   v16 = [(MCKeyValue *)v13 initWithLocalizedString:v14 localizedKey:v15];
 
-  v79 = v16;
+  v78 = v16;
   [v7 addObject:v16];
   if ([MCRestrictionManager restrictedBoolForFeature:@"requireAlphanumeric" withRestrictionsDictionary:v6]== 1)
   {
@@ -529,7 +528,7 @@ LABEL_54:
     [v7 addObject:v32];
   }
 
-  v78 = v28;
+  v77 = v28;
   v33 = [MCRestrictionManager valueForFeature:@"minComplexChars" withRestrictionsDictionary:v6];
   v34 = v33;
   if (v33 && [v33 intValue] >= 1 && objc_msgSend(v34, "intValue") <= 4)
@@ -542,7 +541,7 @@ LABEL_54:
     [v7 addObject:v38];
   }
 
-  v77 = v34;
+  v76 = v34;
   v39 = [MCRestrictionManager valueForFeature:@"maxFailedAttempts" withRestrictionsDictionary:v6];
   v40 = v39;
   if (v39 && [v39 intValue] >= 2 && objc_msgSend(v40, "intValue") <= 11)
@@ -635,10 +634,8 @@ LABEL_54:
   }
 
   v73 = [MCKeyValueSection sectionWithKeyValues:v7];
-  v80[0] = v73;
-  v74 = [MEMORY[0x1E695DEC8] arrayWithObjects:v80 count:1];
-
-  v75 = *MEMORY[0x1E69E9840];
+  v79[0] = v73;
+  v74 = [MEMORY[0x1E695DEC8] arrayWithObjects:v79 count:1];
 
   return v74;
 }
@@ -860,36 +857,36 @@ LABEL_47:
 
 - (id)filterForUserEnrollmentOutError:(id *)error
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   stubDictionary = [(MCPasswordPolicyPayload *)self stubDictionary];
   array = [MEMORY[0x1E695DF70] array];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   allKeys = [stubDictionary allKeys];
-  v6 = [allKeys countByEnumeratingWithState:&v27 objects:v35 count:16];
+  v6 = [allKeys countByEnumeratingWithState:&v26 objects:v34 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v28;
+    v8 = *v27;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v28 != v8)
+        if (*v27 != v8)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v10 = *(*(&v27 + 1) + 8 * i);
+        v10 = *(*(&v26 + 1) + 8 * i);
         if (([v10 hasPrefix:@"Payload"] & 1) == 0 && (objc_msgSend(v10, "isEqualToString:", @"PersistentResourceID") & 1) == 0 && (objc_msgSend(v10, "isEqualToString:", @"maxInactivity") & 1) == 0)
         {
           [array addObject:v10];
         }
       }
 
-      v7 = [allKeys countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v7 = [allKeys countByEnumeratingWithState:&v26 objects:v34 count:16];
     }
 
     while (v7);
@@ -909,9 +906,9 @@ LABEL_47:
 
   v13 = [MCPasswordPolicyPayload alloc];
   profile = [(MCPayload *)self profile];
-  v26 = 0;
-  v15 = [(MCPasswordPolicyPayload *)v13 initWithDictionary:stubDictionary profile:profile outError:&v26];
-  v16 = v26;
+  v25 = 0;
+  v15 = [(MCPasswordPolicyPayload *)v13 initWithDictionary:stubDictionary profile:profile outError:&v25];
+  v16 = v25;
 
   if (v16)
   {
@@ -939,17 +936,15 @@ LABEL_47:
         v20 = v19;
         friendlyName = [(MCPayload *)self friendlyName];
         *buf = 138543618;
-        v32 = friendlyName;
-        v33 = 2114;
-        v34 = array;
+        v31 = friendlyName;
+        v32 = 2114;
+        v33 = array;
         _os_log_impl(&dword_1A795B000, v20, OS_LOG_TYPE_INFO, "Payload “%{public}@” has keys that we are ignoring. They are: %{public}@", buf, 0x16u);
       }
     }
 
     v18 = v15;
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v18;
 }

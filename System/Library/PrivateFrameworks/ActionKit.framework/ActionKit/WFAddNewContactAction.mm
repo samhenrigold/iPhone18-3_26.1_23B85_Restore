@@ -26,7 +26,7 @@
 
 + (void)contactFromParameters:(id)parameters completionHandler:(id)handler
 {
-  v55[1] = *MEMORY[0x277D85DE8];
+  v54[1] = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   handlerCopy = handler;
   v6 = [parametersCopy objectForKey:@"WFContactFirstName"];
@@ -71,7 +71,7 @@
     v10 = 0;
   }
 
-  v44 = v10;
+  v43 = v10;
 
   v11 = [parametersCopy objectForKey:@"WFContactCompany"];
   if (v11)
@@ -93,7 +93,7 @@
     v12 = 0;
   }
 
-  v43 = v12;
+  v42 = v12;
 
   v13 = [parametersCopy objectForKey:@"WFContactNotes"];
   if (v13)
@@ -115,7 +115,7 @@
     v14 = 0;
   }
 
-  v42 = v14;
+  v41 = v14;
 
   v15 = [parametersCopy objectForKey:@"WFContactPhoneNumbers"];
   if (v15)
@@ -139,7 +139,7 @@
 
   v17 = v16;
 
-  v40 = v17;
+  v39 = v17;
   contentCollection = [v17 contentCollection];
   v19 = [parametersCopy objectForKey:@"WFContactEmails"];
   if (v19)
@@ -186,7 +186,7 @@
 
   v25 = v24;
 
-  if (v8 && ![v8 wf_isEmpty] || v44 && !objc_msgSend(v44, "wf_isEmpty") || v43 && !objc_msgSend(v43, "wf_isEmpty"))
+  if (v8 && ![v8 wf_isEmpty] || v43 && !objc_msgSend(v43, "wf_isEmpty") || v42 && !objc_msgSend(v42, "wf_isEmpty"))
   {
     v29 = 0;
   }
@@ -194,36 +194,36 @@
   else
   {
     v26 = MEMORY[0x277CCA9B8];
-    v54 = *MEMORY[0x277CCA450];
+    v53 = *MEMORY[0x277CCA450];
     v27 = WFLocalizedString(@"No first name, last name, or company was provided. Please provide at least one for this contact.");
-    v55[0] = v27;
-    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:&v54 count:1];
+    v54[0] = v27;
+    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:&v53 count:1];
     v29 = [v26 errorWithDomain:*MEMORY[0x277D7CB30] code:5 userInfo:v28];
   }
 
-  v50 = 0;
-  v51 = &v50;
-  v52 = 0x2050000000;
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x2050000000;
   v30 = getCNMutableContactClass_softClass;
-  v53 = getCNMutableContactClass_softClass;
+  v52 = getCNMutableContactClass_softClass;
   if (!getCNMutableContactClass_softClass)
   {
-    v49[0] = MEMORY[0x277D85DD0];
-    v49[1] = 3221225472;
-    v49[2] = __getCNMutableContactClass_block_invoke;
-    v49[3] = &unk_278C222B8;
-    v49[4] = &v50;
-    __getCNMutableContactClass_block_invoke(v49);
-    v30 = v51[3];
+    v48[0] = MEMORY[0x277D85DD0];
+    v48[1] = 3221225472;
+    v48[2] = __getCNMutableContactClass_block_invoke;
+    v48[3] = &unk_278C222B8;
+    v48[4] = &v49;
+    __getCNMutableContactClass_block_invoke(v48);
+    v30 = v50[3];
   }
 
   v31 = v30;
-  _Block_object_dispose(&v50, 8);
+  _Block_object_dispose(&v49, 8);
   v32 = objc_alloc_init(v30);
   [v32 setGivenName:v8];
-  [v32 setFamilyName:v44];
-  [v32 setOrganizationName:v43];
-  [v32 setNote:v42];
+  [v32 setFamilyName:v43];
+  [v32 setOrganizationName:v42];
+  [v32 setNote:v41];
   if (contentCollection)
   {
     items = [contentCollection items];
@@ -245,14 +245,14 @@
 
     if (firstObject)
     {
-      v45[0] = MEMORY[0x277D85DD0];
-      v45[1] = 3221225472;
-      v45[2] = __65__WFAddNewContactAction_contactFromParameters_completionHandler___block_invoke_3;
-      v45[3] = &unk_278C19FA8;
-      v48 = handlerCopy;
-      v46 = v32;
-      v47 = v29;
-      [firstObject getObjectRepresentation:v45 forClass:objc_opt_class()];
+      v44[0] = MEMORY[0x277D85DD0];
+      v44[1] = 3221225472;
+      v44[2] = __65__WFAddNewContactAction_contactFromParameters_completionHandler___block_invoke_3;
+      v44[3] = &unk_278C19FA8;
+      v47 = handlerCopy;
+      v45 = v32;
+      v46 = v29;
+      [firstObject getObjectRepresentation:v44 forClass:objc_opt_class()];
     }
 
     else
@@ -265,28 +265,22 @@
   {
     (*(handlerCopy + 2))(handlerCopy, v32, v29);
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 void __65__WFAddNewContactAction_contactFromParameters_completionHandler___block_invoke_3(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v14 = a2;
+  v10 = a2;
   v7 = a3;
   v8 = a4;
-  if (v14 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v9 = [v14 PNGRepresentation];
+    v9 = [v10 PNGRepresentation];
     [*(a1 + 32) setImageData:v9];
-    v10 = *(a1 + 40);
-    v11 = *(a1 + 32);
     (*(*(a1 + 48) + 16))();
   }
 
   else
   {
-    v12 = *(a1 + 40);
-    v13 = *(a1 + 32);
     (*(*(a1 + 48) + 16))();
   }
 }

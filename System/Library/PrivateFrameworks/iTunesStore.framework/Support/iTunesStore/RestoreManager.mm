@@ -170,10 +170,9 @@
 
     if (v9)
     {
-      v30 = 67109120;
-      LODWORD(v31) = state;
-      LODWORD(v27) = 8;
-      v10 = _os_log_send_and_compose_impl();
+      v29 = 67109120;
+      LODWORD(v30) = state;
+      v10 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "(RestoreManager) Received restore state change, but reading the state failed: %u", &v29);
 
       if (!v10)
       {
@@ -182,7 +181,7 @@ LABEL_15:
         return;
       }
 
-      oSLogObject = [NSString stringWithCString:v10 encoding:4, &v30, v27];
+      oSLogObject = [NSString stringWithCString:v10 encoding:4];
       free(v10);
       SSFileLog();
     }
@@ -222,15 +221,13 @@ LABEL_15:
     goto LABEL_27;
   }
 
-  v30 = 134217984;
-  v31 = state64;
-  LODWORD(v27) = 12;
-  v26 = &v30;
-  v15 = _os_log_send_and_compose_impl();
+  v29 = 134217984;
+  v30 = state64;
+  v15 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &_mh_execute_header, oSLogObject2, 2, "(RestoreManager) Observed restore state change: %llu", &v29);
 
   if (v15)
   {
-    oSLogObject2 = [NSString stringWithCString:v15 encoding:4, &v30, v27];
+    oSLogObject2 = [NSString stringWithCString:v15 encoding:4];
     free(v15);
     v26 = oSLogObject2;
     SSFileLog();
@@ -269,9 +266,8 @@ LABEL_27:
 
     if (v20)
     {
-      LOWORD(v30) = 0;
-      LODWORD(v27) = 2;
-      v21 = _os_log_send_and_compose_impl();
+      LOWORD(v29) = 0;
+      v21 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "(RestoreManager) Restore is starting, or already running - updating cellular policy", &v29, 2);
 
       if (!v21)
       {
@@ -293,7 +289,7 @@ LABEL_42:
         return;
       }
 
-      oSLogObject3 = [NSString stringWithCString:v21 encoding:4, &v30, v27];
+      oSLogObject3 = [NSString stringWithCString:v21 encoding:4];
       free(v21);
       SSFileLog();
     }

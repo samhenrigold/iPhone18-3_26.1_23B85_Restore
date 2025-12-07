@@ -2,6 +2,7 @@
 - (SKUIEmbeddedMediaView)mediaView;
 - (UIEdgeInsets)contentInset;
 - (void)layoutSubviews;
+- (void)mediaView;
 - (void)setBackgroundColor:(id)color;
 - (void)setContentInset:(UIEdgeInsets)inset;
 @end
@@ -77,25 +78,8 @@
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIMediaCollectionViewCell *)v3 layoutSubviews:v4];
-      }
-    }
-  }
-
-  v17.receiver = self;
-  v17.super_class = SKUIMediaCollectionViewCell;
-  [(SKUICollectionViewCell *)&v17 layoutSubviews];
-  mediaView = self->_mediaView;
-  contentView = [(SKUIMediaCollectionViewCell *)self contentView];
-  [contentView bounds];
-  [(SKUIEmbeddedMediaView *)mediaView setFrame:v13 + self->_contentInset.left, v14 + self->_contentInset.top, v15 - (self->_contentInset.left + self->_contentInset.right), v16 - (self->_contentInset.top + self->_contentInset.bottom)];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIMediaCollectionViewCell layoutSubviews]";
 }
 
 - (void)setBackgroundColor:(id)color
@@ -130,6 +114,24 @@
   result.left = left;
   result.top = top;
   return result;
+}
+
+- (void)mediaView
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIMediaCollectionViewCell mediaView]";
+}
+
+- (void)setContentInset:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIMediaCollectionViewCell setContentInset:]";
+}
+
+- (void)setBackgroundColor:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIMediaCollectionViewCell setBackgroundColor:]";
 }
 
 @end

@@ -216,32 +216,32 @@ LABEL_14:
 
 - (id)_convertFromGaveOptionsDialogAct:(id)act error:(id *)error
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   actCopy = act;
   array = [MEMORY[0x277CBEB18] array];
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
   choices = [actCopy choices];
-  v9 = [choices countByEnumeratingWithState:&v45 objects:v50 count:16];
+  v9 = [choices countByEnumeratingWithState:&v44 objects:v49 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v46;
+    v11 = *v45;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v46 != v11)
+        if (*v45 != v11)
         {
           objc_enumerationMutation(choices);
         }
 
-        v13 = *(*(&v45 + 1) + 8 * i);
-        v44 = 0;
-        v14 = [(UPDialogActConverter *)self _parseUserDialogAct:v13 error:&v44];
-        v15 = v44;
+        v13 = *(*(&v44 + 1) + 8 * i);
+        v43 = 0;
+        v14 = [(UPDialogActConverter *)self _parseUserDialogAct:v13 error:&v43];
+        v15 = v43;
         v16 = v15;
         if (!v14)
         {
@@ -257,7 +257,7 @@ LABEL_14:
         [array addObject:v14];
       }
 
-      v10 = [choices countByEnumeratingWithState:&v45 objects:v50 count:16];
+      v10 = [choices countByEnumeratingWithState:&v44 objects:v49 count:16];
       if (v10)
       {
         continue;
@@ -279,26 +279,26 @@ LABEL_14:
     entityName = [entity2 entityName];
 
     array2 = [MEMORY[0x277CBEB18] array];
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
     v21 = array;
-    v22 = [v21 countByEnumeratingWithState:&v40 objects:v49 count:16];
+    v22 = [v21 countByEnumeratingWithState:&v39 objects:v48 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v41;
+      v24 = *v40;
       while (2)
       {
         for (j = 0; j != v23; ++j)
         {
-          if (*v41 != v24)
+          if (*v40 != v24)
           {
             objc_enumerationMutation(v21);
           }
 
-          v26 = *(*(&v40 + 1) + 8 * j);
+          v26 = *(*(&v39 + 1) + 8 * j);
           if (([v26 isEqualToIntentWithSingleEntity:v17] & 1) == 0)
           {
             if (errorCopy)
@@ -318,7 +318,7 @@ LABEL_14:
           [array2 addObject:entityValue];
         }
 
-        v23 = [v21 countByEnumeratingWithState:&v40 objects:v49 count:16];
+        v23 = [v21 countByEnumeratingWithState:&v39 objects:v48 count:16];
         if (v23)
         {
           continue;
@@ -346,8 +346,6 @@ LABEL_26:
 LABEL_22:
     v32 = 0;
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v32;
 }

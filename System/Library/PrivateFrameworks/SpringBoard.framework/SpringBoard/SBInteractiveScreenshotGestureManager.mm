@@ -249,11 +249,11 @@ void __117__SBInteractiveScreenshotGestureManager_interactiveScreenshotGestureRo
   [v4 cancelInteractionWithStyle:a2 settlingCompletionHandler:v5];
 }
 
-uint64_t __117__SBInteractiveScreenshotGestureManager_interactiveScreenshotGestureRootViewController_gestureDidCompleteWithIntent___block_invoke_2(uint64_t result, uint64_t a2, char a3)
+id *__117__SBInteractiveScreenshotGestureManager_interactiveScreenshotGestureRootViewController_gestureDidCompleteWithIntent___block_invoke_2(id *result, uint64_t a2, char a3)
 {
   if ((a3 & 1) == 0)
   {
-    return [*(result + 32) _invalidateSessionID:*(result + 40)];
+    return [result[4] _invalidateSessionID:result[5]];
   }
 
   return result;
@@ -661,7 +661,7 @@ void __82__SBInteractiveScreenshotGestureManager_acquireDisableGestureAssertionW
     if (state == 1)
     {
       corner = [gestureCopy corner];
-      v10 = SBLogSystemGesture();
+      v10 = SBLogSystemGesture(corner);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         v41 = 134217984;

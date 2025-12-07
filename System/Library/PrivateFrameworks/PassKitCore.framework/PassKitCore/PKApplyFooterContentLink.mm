@@ -49,13 +49,13 @@
     v18 = 0;
     if (v16 != @"default" && v16)
     {
-      v19 = [(__CFString *)v16 isEqualToString:@"default"];
+      isEqualToString = objc_msgSend_isEqualToString_(v16);
 
       v18 = 0;
-      if ((v19 & 1) == 0)
+      if ((isEqualToString & 1) == 0)
       {
         v20 = v17;
-        if (v20 == @"leaveContext" || (v21 = v20, v22 = [(__CFString *)v20 isEqualToString:@"leaveContext"], v21, v22))
+        if (v20 == @"leaveContext" || (v21 = v20, v22 = objc_msgSend_isEqualToString_(v20), v21, v22))
         {
           v18 = 1;
         }
@@ -128,9 +128,9 @@
             goto LABEL_28;
           }
 
-          v11 = [(NSString *)v8 isEqualToString:v9];
+          isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-          if (!v11)
+          if (!isEqualToString)
           {
             goto LABEL_29;
           }
@@ -166,7 +166,7 @@
             goto LABEL_28;
           }
 
-          v17 = [(NSString *)v8 isEqualToString:v16];
+          v17 = objc_msgSend_isEqualToString_(v8);
 
           if (!v17)
           {
@@ -197,7 +197,7 @@ LABEL_30:
 
         if (v8 && v19)
         {
-          v20 = [(NSString *)v8 isEqualToString:v19];
+          v20 = objc_msgSend_isEqualToString_(v8);
 
           if (!v20)
           {

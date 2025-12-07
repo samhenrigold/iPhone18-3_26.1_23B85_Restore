@@ -73,7 +73,7 @@
 
 - (BOOL)successfullyAccumulatedPhubbingEvents
 {
-  v28[2] = *MEMORY[0x277D85DE8];
+  v27[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277CBEB58]);
   v4 = +[_ATXAppIconState sharedInstance];
   allInstalledAppsKnownToSpringBoard = [v4 allInstalledAppsKnownToSpringBoard];
@@ -81,52 +81,52 @@
 
   proximityPublisher = self->_proximityPublisher;
   appLaunchPublisher = self->_appLaunchPublisher;
-  v28[0] = self->_deviceScreenLockedPublisher;
-  v28[1] = appLaunchPublisher;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __68__ATXDailyPhubbingAccumulator_successfullyAccumulatedPhubbingEvents__block_invoke;
-  v25[3] = &unk_278597CB8;
-  v25[4] = self;
-  v10 = [(BPSPublisher *)proximityPublisher orderedMergeWithOthers:v9 comparator:v25];
+  v27[0] = self->_deviceScreenLockedPublisher;
+  v27[1] = appLaunchPublisher;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __68__ATXDailyPhubbingAccumulator_successfullyAccumulatedPhubbingEvents__block_invoke;
+  v24[3] = &unk_278597CB8;
+  v24[4] = self;
+  v10 = [(BPSPublisher *)proximityPublisher orderedMergeWithOthers:v9 comparator:v24];
 
-  v22 = 0;
-  v23[0] = &v22;
-  v23[1] = 0x3032000000;
-  v23[2] = __Block_byref_object_copy__69;
-  v23[3] = __Block_byref_object_dispose__69;
-  v24 = 0;
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __68__ATXDailyPhubbingAccumulator_successfullyAccumulatedPhubbingEvents__block_invoke_18;
-  v21[3] = &unk_278597540;
-  v21[4] = &v22;
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __68__ATXDailyPhubbingAccumulator_successfullyAccumulatedPhubbingEvents__block_invoke_2;
-  v19[3] = &unk_278598CE8;
-  v19[4] = self;
+  v21 = 0;
+  v22[0] = &v21;
+  v22[1] = 0x3032000000;
+  v22[2] = __Block_byref_object_copy__69;
+  v22[3] = __Block_byref_object_dispose__69;
+  v23 = 0;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __68__ATXDailyPhubbingAccumulator_successfullyAccumulatedPhubbingEvents__block_invoke_18;
+  v20[3] = &unk_278597540;
+  v20[4] = &v21;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __68__ATXDailyPhubbingAccumulator_successfullyAccumulatedPhubbingEvents__block_invoke_2;
+  v18[3] = &unk_278598CE8;
+  v18[4] = self;
   v11 = v6;
-  v20 = v11;
-  v12 = [v10 sinkWithCompletion:v21 receiveInput:v19];
-  v13 = *(v23[0] + 40);
+  v19 = v11;
+  v12 = [v10 sinkWithCompletion:v20 receiveInput:v18];
+  v13 = *(v22[0] + 40);
   if (v13)
   {
-    p_super = __atxlog_handle_usage_insights();
+    p_super = __atxlog_handle_usage_insights(v12);
     if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
     {
-      [(ATXDailyPhubbingAccumulator *)v23 successfullyAccumulatedPhubbingEvents];
+      [(ATXDailyPhubbingAccumulator *)v22 successfullyAccumulatedPhubbingEvents];
     }
   }
 
   else
   {
-    v15 = __atxlog_handle_usage_insights();
+    v15 = __atxlog_handle_usage_insights(v12);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v27 = "[ATXDailyPhubbingAccumulator successfullyAccumulatedPhubbingEvents]";
+      v26 = "[ATXDailyPhubbingAccumulator successfullyAccumulatedPhubbingEvents]";
       _os_log_impl(&dword_2263AA000, v15, OS_LOG_TYPE_INFO, "%s: Successfully accumulated phubbing session events", buf, 0xCu);
     }
 
@@ -135,8 +135,7 @@
     self->_phubbingSessions = &v16->super;
   }
 
-  _Block_object_dispose(&v22, 8);
-  v17 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v21, 8);
   return v13 == 0;
 }
 
@@ -202,36 +201,36 @@ uint64_t __68__ATXDailyPhubbingAccumulator_successfullyAccumulatedPhubbingEvents
     goto LABEL_19;
   }
 
-  v19 = __atxlog_handle_usage_insights();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+  v20 = __atxlog_handle_usage_insights(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
-    __68__ATXDailyPhubbingAccumulator_successfullyAccumulatedPhubbingEvents__block_invoke_cold_1(v5, v19);
+    __68__ATXDailyPhubbingAccumulator_successfullyAccumulatedPhubbingEvents__block_invoke_cold_1(v5, v20);
   }
 
   if (!v15)
   {
 LABEL_19:
-    v20 = __atxlog_handle_usage_insights();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = __atxlog_handle_usage_insights(v19);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      __68__ATXDailyPhubbingAccumulator_successfullyAccumulatedPhubbingEvents__block_invoke_cold_1(v6, v20);
+      __68__ATXDailyPhubbingAccumulator_successfullyAccumulatedPhubbingEvents__block_invoke_cold_1(v6, v21);
     }
   }
 
 LABEL_22:
-  v21 = [v9 startDate];
-  [v21 timeIntervalSinceReferenceDate];
-  v23 = v22;
+  v22 = [v9 startDate];
+  [v22 timeIntervalSinceReferenceDate];
+  v24 = v23;
 
-  v24 = [v15 startDate];
-  [v24 timeIntervalSinceReferenceDate];
-  v26 = v25;
+  v25 = [v15 startDate];
+  [v25 timeIntervalSinceReferenceDate];
+  v27 = v26;
 
-  v27 = [MEMORY[0x277CCABB0] numberWithDouble:v23];
-  v28 = [MEMORY[0x277CCABB0] numberWithDouble:v26];
-  v29 = [v27 compare:v28];
+  v28 = [MEMORY[0x277CCABB0] numberWithDouble:v24];
+  v29 = [MEMORY[0x277CCABB0] numberWithDouble:v27];
+  v30 = [v28 compare:v29];
 
-  return v29;
+  return v30;
 }
 
 uint64_t __68__ATXDailyPhubbingAccumulator_successfullyAccumulatedPhubbingEvents__block_invoke_18(uint64_t a1, void *a2)
@@ -473,39 +472,37 @@ void __68__ATXDailyPhubbingAccumulator_successfullyAccumulatedPhubbingEvents__bl
 - (void)recordAppLaunchStartEvent:(id)event
 {
   eventCopy = event;
-  mostRecentProximityPeopleEvent = self->_mostRecentProximityPeopleEvent;
-  v6 = eventCopy;
   if ([ATXDailyPhubbingAccumulator appInFocusEventOccured:"appInFocusEventOccured:whileNearPeople:" whileNearPeople:?]&& self->_phubbingStartTime)
   {
-    [(NSMutableArray *)self->_appInFocusStartingEvents addObject:v6];
+    [(NSMutableArray *)self->_appInFocusStartingEvents addObject:eventCopy];
   }
 }
 
 - (void)recordAppLaunchEndEvent:(id)event
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v5 = [(NSMutableArray *)self->_appInFocusStartingEvents copy];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v25;
+    v9 = *v24;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v25 != v9)
+        if (*v24 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v24 + 1) + 8 * i);
+        v11 = *(*(&v23 + 1) + 8 * i);
         bundleID = [eventCopy bundleID];
         bundleID2 = [v11 bundleID];
         v14 = [bundleID isEqualToString:bundleID2];
@@ -532,7 +529,7 @@ void __68__ATXDailyPhubbingAccumulator_successfullyAccumulatedPhubbingEvents__bl
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v8)
       {
         continue;
@@ -543,8 +540,6 @@ void __68__ATXDailyPhubbingAccumulator_successfullyAccumulatedPhubbingEvents__bl
   }
 
 LABEL_13:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addAppSession:(id)session launchReason:(id)reason startTime:(id)time endTime:(id)endTime duration:(double)duration
@@ -623,23 +618,21 @@ LABEL_13:
 
 - (void)successfullyAccumulatedPhubbingEvents
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *(*self + 40);
-  v4 = 136315394;
-  v5 = "[ATXDailyPhubbingAccumulator successfullyAccumulatedPhubbingEvents]";
-  v6 = 2112;
-  v7 = v2;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "%s: Error from merged publishers: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 136315394;
+  v4 = "[ATXDailyPhubbingAccumulator successfullyAccumulatedPhubbingEvents]";
+  v5 = 2112;
+  v6 = v2;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "%s: Error from merged publishers: %@", &v3, 0x16u);
 }
 
 void __68__ATXDailyPhubbingAccumulator_successfullyAccumulatedPhubbingEvents__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXDailyPhubbingAccumulator: During ordered merge, encountered unknown event: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXDailyPhubbingAccumulator: During ordered merge, encountered unknown event: %@", &v2, 0xCu);
 }
 
 @end

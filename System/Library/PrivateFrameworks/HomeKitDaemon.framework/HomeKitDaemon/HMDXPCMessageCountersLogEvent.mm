@@ -16,15 +16,15 @@
   v14 = [(HMMLogEvent *)&v22 init];
   if (v14)
   {
-    v15 = [typeCopy copy];
+    v15 = objc_msgSend_copy(typeCopy);
     type = v14->_type;
     v14->_type = v15;
 
-    v17 = [informationCopy copy];
+    v17 = objc_msgSend_copy(informationCopy);
     peerInformation = v14->_peerInformation;
     v14->_peerInformation = v17;
 
-    v19 = [nameCopy copy];
+    v19 = objc_msgSend_copy(nameCopy);
     messageName = v14->_messageName;
     v14->_messageName = v19;
 

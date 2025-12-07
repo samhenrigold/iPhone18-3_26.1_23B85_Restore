@@ -12,7 +12,6 @@
 - (CinematicFramingSession)initWithOutputDimensions:(id)dimensions portType:(id)type deviceModelName:(id)name;
 - (NSArray)roiHeatMapCounts;
 - (int)processPixelBuffer:(__CVBuffer *)buffer outputPixelBuffer:(__CVBuffer *)pixelBuffer;
-- (uint64_t)init;
 - (void)_updateROIHeatMapCountersWithCropRect:(CGRect)rect;
 - (void)init;
 - (void)setCameraOrientation:(int)orientation;
@@ -527,35 +526,7 @@ LABEL_12:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
-}
-
-- (uint64_t)init
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithOutputDimensions:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithOutputDimensions:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)processPixelBuffer:outputPixelBuffer:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
 }
 
 @end

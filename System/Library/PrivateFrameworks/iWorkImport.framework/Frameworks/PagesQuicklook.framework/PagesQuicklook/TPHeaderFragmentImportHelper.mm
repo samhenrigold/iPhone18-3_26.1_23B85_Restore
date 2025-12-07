@@ -13,22 +13,22 @@
 {
   contextCopy = context;
   objectsContextCopy = objectsContext;
-  v28.receiver = self;
-  v28.super_class = TPHeaderFragmentImportHelper;
-  v11 = [(TPHeaderFragmentImportHelper *)&v28 init];
+  v36.receiver = self;
+  v36.super_class = TPHeaderFragmentImportHelper;
+  v11 = [(TPHeaderFragmentImportHelper *)&v36 init];
   v12 = v11;
   if (v11)
   {
     v11->_fragments = fragments;
     objc_storeStrong(&v11->_storageContext, context);
     objc_storeStrong(&v12->_objectsContext, objectsContext);
-    v18 = objc_msgSend_whitespaceCharacterSet(MEMORY[0x277CCA900], v13, v14, v15, v16, v17);
+    v22 = objc_msgSend_whitespaceCharacterSet(MEMORY[0x277CCA900], v13, v18, v19, v20, v21, v14, v15, v16, v17);
     whitespaceCharacterSet = v12->_whitespaceCharacterSet;
-    v12->_whitespaceCharacterSet = v18;
+    v12->_whitespaceCharacterSet = v22;
 
-    v25 = objc_msgSend_invertedSet(v12->_whitespaceCharacterSet, v20, v21, v22, v23, v24);
+    v33 = objc_msgSend_invertedSet(v12->_whitespaceCharacterSet, v24, v29, v30, v31, v32, v25, v26, v27, v28);
     nonWhitespaceCharacterSet = v12->_nonWhitespaceCharacterSet;
-    v12->_nonWhitespaceCharacterSet = v25;
+    v12->_nonWhitespaceCharacterSet = v33;
   }
 
   return v12;
@@ -37,23 +37,23 @@
 - (BOOL)p_storageIsEffectivelyEmpty:(id)empty
 {
   emptyCopy = empty;
-  v10 = emptyCopy;
+  v14 = emptyCopy;
   if (emptyCopy)
   {
-    v11 = objc_msgSend_string(emptyCopy, v5, v6, v7, v8, v9);
+    v15 = objc_msgSend_string(emptyCopy, v5, v10, v11, v12, v13, v6, v7, v8, v9);
     nonWhitespaceCharacterSet = self->_nonWhitespaceCharacterSet;
-    v18 = objc_msgSend_range(v10, v13, v14, v15, v16, v17);
-    v24 = objc_msgSend_rangeOfCharacterFromSet_options_range_(v11, v19, v20, v21, v22, v23, nonWhitespaceCharacterSet, 2, v18, v19);
+    v26 = objc_msgSend_range(v14, v17, v22, v23, v24, v25, v18, v19, v20, v21);
+    v32 = objc_msgSend_rangeOfCharacterFromSet_options_range_(v15, v27, v28, v29, v30, v31, nonWhitespaceCharacterSet, 2, v26, v27);
 
-    v25 = v24 == 0x7FFFFFFFFFFFFFFFLL;
+    v33 = v32 == 0x7FFFFFFFFFFFFFFFLL;
   }
 
   else
   {
-    v25 = 1;
+    v33 = 1;
   }
 
-  return v25;
+  return v33;
 }
 
 - (unint64_t)countOfWhitespaceRunsInString:(id)string ranges:(_NSRange)ranges[2]
@@ -62,49 +62,49 @@
   *ranges = xmmword_27605FD20;
   ranges[1] = xmmword_27605FD20;
   v7 = ranges + 1;
-  v12 = objc_msgSend_scannerWithString_(MEMORY[0x277CCAC80], v8, xmmword_27605FD20, v9, v10, v11, stringCopy);
-  objc_msgSend_setCharactersToBeSkipped_(v12, v13, v14, v15, v16, v17, 0);
-  v23 = 0;
-  while ((objc_msgSend_isAtEnd(v12, v18, v19, v20, v21, v22) & 1) == 0)
+  v15 = objc_msgSend_scannerWithString_(MEMORY[0x277CCAC80], v8, xmmword_27605FD20, v12, v13, v14, stringCopy, v9, v10, v11);
+  objc_msgSend_setCharactersToBeSkipped_(v15, v16, v20, v21, v22, v23, 0, v17, v18, v19);
+  v33 = 0;
+  while ((objc_msgSend_isAtEnd(v15, v24, v29, v30, v31, v32, v25, v26, v27, v28) & 1) == 0)
   {
-    objc_msgSend_scanUpToCharactersFromSet_intoString_(v12, v24, v25, v26, v27, v28, self->_whitespaceCharacterSet, 0);
-    if (objc_msgSend_isAtEnd(v12, v29, v30, v31, v32, v33))
+    objc_msgSend_scanUpToCharactersFromSet_intoString_(v15, v34, v37, v38, v39, v40, self->_whitespaceCharacterSet, 0, v35, v36);
+    if (objc_msgSend_isAtEnd(v15, v41, v46, v47, v48, v49, v42, v43, v44, v45))
     {
-      v39 = 0;
+      v59 = 0;
     }
 
     else
     {
-      v40 = objc_msgSend_scanLocation(v12, v34, v35, v36, v37, v38);
+      v60 = objc_msgSend_scanLocation(v15, v50, v55, v56, v57, v58, v51, v52, v53, v54);
       whitespaceCharacterSet = self->_whitespaceCharacterSet;
-      v61[0] = 0;
-      objc_msgSend_scanCharactersFromSet_intoString_(v12, v42, v43, v44, v45, v46, whitespaceCharacterSet, v61);
-      v39 = v61[0];
-      if (objc_msgSend_length(v39, v47, v48, v49, v50, v51) >= 5)
+      v91[0] = 0;
+      objc_msgSend_scanCharactersFromSet_intoString_(v15, v62, v65, v66, v67, v68, whitespaceCharacterSet, v91, v63, v64);
+      v59 = v91[0];
+      if (objc_msgSend_length(v59, v69, v74, v75, v76, v77, v70, v71, v72, v73) >= 5)
       {
-        v57 = objc_msgSend_length(v39, v52, v53, v54, v55, v56);
-        v58 = &ranges[ranges->length > ranges[1].length];
-        if (v57 > v58->length)
+        v87 = objc_msgSend_length(v59, v78, v83, v84, v85, v86, v79, v80, v81, v82);
+        v88 = &ranges[ranges->length > ranges[1].length];
+        if (v87 > v88->length)
         {
-          if (v23 != 2)
+          if (v33 != 2)
           {
-            ++v23;
+            ++v33;
           }
 
-          v58->location = v40;
-          v58->length = v57;
+          v88->location = v60;
+          v88->length = v87;
           if (ranges->location > ranges[1].location)
           {
-            v59 = *ranges;
+            v89 = *ranges;
             *ranges = *v7;
-            *v7 = v59;
+            *v7 = v89;
           }
         }
       }
     }
   }
 
-  return v23;
+  return v33;
 }
 
 - (void)p_splitStorageInTwo:(int64_t)two withRanges:(_NSRange)ranges[2] firstTarget:(int64_t)target secondTarget:(int64_t)secondTarget
@@ -113,18 +113,18 @@
   v11 = &ranges[ranges->length <= ranges[1].length];
   location = v11->location;
   length = v11->length;
-  v37 = v10;
-  v19 = objc_msgSend_length(v10, v14, v15, v16, v17, v18);
-  v25 = objc_msgSend_newSubstorageWithRange_storageContext_objectsContext_flags_(v37, v20, v21, v22, v23, v24, 0, location, self->_storageContext, self->_objectsContext, 1);
-  v31 = objc_msgSend_newSubstorageWithRange_storageContext_objectsContext_flags_(v37, v26, v27, v28, v29, v30, length + location, v19 - (length + location), self->_storageContext, self->_objectsContext, 1);
+  v41 = v10;
+  v23 = objc_msgSend_length(v10, v14, v19, v20, v21, v22, v15, v16, v17, v18);
+  v29 = objc_msgSend_newSubstorageWithRange_storageContext_objectsContext_flags_(v41, v24, v25, v26, v27, v28, 0, location, self->_storageContext, self->_objectsContext, 1);
+  v35 = objc_msgSend_newSubstorageWithRange_storageContext_objectsContext_flags_(v41, v30, v31, v32, v33, v34, length + location, v23 - (length + location), self->_storageContext, self->_objectsContext, 1);
   fragments = self->_fragments;
-  v33 = fragments[target];
-  fragments[target] = v25;
-  v34 = v25;
+  v37 = fragments[target];
+  fragments[target] = v29;
+  v38 = v29;
 
-  v35 = self->_fragments;
-  v36 = v35[secondTarget];
-  v35[secondTarget] = v31;
+  v39 = self->_fragments;
+  v40 = v39[secondTarget];
+  v39[secondTarget] = v35;
 }
 
 - (void)p_splitStorageInThree:(int64_t)three withRanges:(_NSRange)ranges[2]
@@ -134,81 +134,81 @@
   length = ranges->length;
   v9 = ranges[1].location;
   v10 = ranges[1].length;
-  v45 = v6;
-  v16 = objc_msgSend_length(v6, v11, v12, v13, v14, v15);
-  v17 = ranges[1].location;
-  v18 = ranges[1].length;
-  v24 = objc_msgSend_newSubstorageWithRange_storageContext_objectsContext_flags_(v45, v19, v20, v21, v22, v23, 0, location, self->_storageContext, self->_objectsContext, 1);
-  v30 = objc_msgSend_newSubstorageWithRange_storageContext_objectsContext_flags_(v45, v25, v26, v27, v28, v29, length + location, v9 - (length + location), self->_storageContext, self->_objectsContext, 1);
-  v36 = objc_msgSend_newSubstorageWithRange_storageContext_objectsContext_flags_(v45, v31, v32, v33, v34, v35, v10 + v9, v16 - (v17 + v18), self->_storageContext, self->_objectsContext, 1);
+  v49 = v6;
+  v20 = objc_msgSend_length(v6, v11, v16, v17, v18, v19, v12, v13, v14, v15);
+  v21 = ranges[1].location;
+  v22 = ranges[1].length;
+  v28 = objc_msgSend_newSubstorageWithRange_storageContext_objectsContext_flags_(v49, v23, v24, v25, v26, v27, 0, location, self->_storageContext, self->_objectsContext, 1);
+  v34 = objc_msgSend_newSubstorageWithRange_storageContext_objectsContext_flags_(v49, v29, v30, v31, v32, v33, length + location, v9 - (length + location), self->_storageContext, self->_objectsContext, 1);
+  v40 = objc_msgSend_newSubstorageWithRange_storageContext_objectsContext_flags_(v49, v35, v36, v37, v38, v39, v10 + v9, v20 - (v21 + v22), self->_storageContext, self->_objectsContext, 1);
   fragments = self->_fragments;
-  v38 = *fragments;
-  *fragments = v24;
-  v39 = v24;
+  v42 = *fragments;
+  *fragments = v28;
+  v43 = v28;
 
-  v40 = self->_fragments;
-  v41 = v40[1];
-  v40[1] = v30;
-  v42 = v30;
+  v44 = self->_fragments;
+  v45 = v44[1];
+  v44[1] = v34;
+  v46 = v34;
 
-  v43 = self->_fragments;
-  v44 = v43[2];
-  v43[2] = v36;
+  v47 = self->_fragments;
+  v48 = v47[2];
+  v47[2] = v40;
 }
 
 - (void)processFragmentsForSpaceFormatting
 {
-  v69 = *MEMORY[0x277D85DE8];
-  IsEffectivelyEmpty = objc_msgSend_p_storageIsEffectivelyEmpty_(self, a2, v2, v3, v4, v5, *self->_fragments);
-  v13 = objc_msgSend_p_storageIsEffectivelyEmpty_(self, v8, v9, v10, v11, v12, *(self->_fragments + 1));
-  v20 = objc_msgSend_p_storageIsEffectivelyEmpty_(self, v14, v15, v16, v17, v18, *(self->_fragments + 2));
-  if ((IsEffectivelyEmpty & 1) != 0 || (objc_msgSend_string(*self->_fragments, v19, v21, v22, v23, v24), v25 = objc_claimAutoreleasedReturnValue(), v31 = objc_msgSend_countOfWhitespaceRunsInString_ranges_(self, v26, v27, v28, v29, v30, v25, v68), v25, v31 < 1))
+  v97 = *MEMORY[0x277D85DE8];
+  IsEffectivelyEmpty = objc_msgSend_p_storageIsEffectivelyEmpty_(self, a2, v5, v6, v7, v8, *self->_fragments, v2, v3, v4);
+  v19 = objc_msgSend_p_storageIsEffectivelyEmpty_(self, v11, v15, v16, v17, v18, *(self->_fragments + 1), v12, v13, v14);
+  v33 = objc_msgSend_p_storageIsEffectivelyEmpty_(self, v20, v24, v25, v26, v27, *(self->_fragments + 2), v21, v22, v23);
+  if ((IsEffectivelyEmpty & 1) != 0 || (objc_msgSend_string(*self->_fragments, v28, v34, v35, v36, v37, v29, v30, v31, v32), v38 = objc_claimAutoreleasedReturnValue(), v46 = objc_msgSend_countOfWhitespaceRunsInString_ranges_(self, v39, v42, v43, v44, v45, v38, v96, v40, v41), v38, v46 < 1))
   {
-    if ((v13 & 1) == 0)
+    if ((v19 & 1) == 0)
     {
       goto LABEL_13;
     }
 
 LABEL_8:
-    v32 = 1;
+    v47 = 1;
     goto LABEL_19;
   }
 
-  if ((v13 & v20) == 1)
+  if ((v19 & v33) == 1)
   {
-    if (v31 == 1)
+    if (v46 == 1)
     {
-      objc_msgSend_p_splitStorageInTwo_withRanges_firstTarget_secondTarget_(self, v19, v21, v22, v23, v24, 0, v68, 0, 2);
+      objc_msgSend_p_splitStorageInTwo_withRanges_firstTarget_secondTarget_(self, v28, v34, v35, v36, v37, 0, v96, 0, 2);
     }
 
-    else if (v31 == 2)
+    else if (v46 == 2)
     {
-      objc_msgSend_p_splitStorageInThree_withRanges_(self, v19, v21, v22, v23, v24, 0, v68);
+      objc_msgSend_p_splitStorageInThree_withRanges_(self, v28, v34, v35, v36, v37, 0, v96, v31, v32);
     }
   }
 
-  else if (v13)
+  else if (v19)
   {
-    objc_msgSend_p_splitStorageInTwo_withRanges_firstTarget_secondTarget_(self, v19, v21, v22, v23, v24, 0, v68, 0, 1);
+    objc_msgSend_p_splitStorageInTwo_withRanges_firstTarget_secondTarget_(self, v28, v34, v35, v36, v37, 0, v96, 0, 1);
   }
 
-  IsEffectivelyEmpty = objc_msgSend_p_storageIsEffectivelyEmpty_(self, v19, v21, v22, v23, v24, *self->_fragments);
-  v38 = objc_msgSend_p_storageIsEffectivelyEmpty_(self, v33, v34, v35, v36, v37, *(self->_fragments + 1));
-  v20 = objc_msgSend_p_storageIsEffectivelyEmpty_(self, v39, v40, v41, v42, v43, *(self->_fragments + 2));
-  if (v38)
+  IsEffectivelyEmpty = objc_msgSend_p_storageIsEffectivelyEmpty_(self, v28, v34, v35, v36, v37, *self->_fragments, v30, v31, v32);
+  v56 = objc_msgSend_p_storageIsEffectivelyEmpty_(self, v48, v52, v53, v54, v55, *(self->_fragments + 1), v49, v50, v51);
+  v33 = objc_msgSend_p_storageIsEffectivelyEmpty_(self, v57, v61, v62, v63, v64, *(self->_fragments + 2), v58, v59, v60);
+  if (v56)
   {
     goto LABEL_8;
   }
 
 LABEL_13:
-  v44 = objc_msgSend_string(self->_fragments[1], v19, v21, v22, v23, v24);
-  v50 = objc_msgSend_countOfWhitespaceRunsInString_ranges_(self, v45, v46, v47, v48, v49, v44, v68);
+  v65 = objc_msgSend_string(self->_fragments[1], v28, v34, v35, v36, v37, v29, v30, v31, v32);
+  v73 = objc_msgSend_countOfWhitespaceRunsInString_ranges_(self, v66, v69, v70, v71, v72, v65, v96, v67, v68);
 
-  if (v50 < 1)
+  if (v73 < 1)
   {
-    v32 = 0;
+    v47 = 0;
 LABEL_19:
-    if (v20)
+    if (v33)
     {
       return;
     }
@@ -216,39 +216,39 @@ LABEL_19:
     goto LABEL_27;
   }
 
-  if ((IsEffectivelyEmpty & v20) == 1)
+  if ((IsEffectivelyEmpty & v33) == 1)
   {
-    if (v50 == 1)
+    if (v73 == 1)
     {
-      objc_msgSend_p_splitStorageInTwo_withRanges_firstTarget_secondTarget_(self, v19, v21, v22, v23, v24, 1, v68, 0, 2);
+      objc_msgSend_p_splitStorageInTwo_withRanges_firstTarget_secondTarget_(self, v28, v34, v35, v36, v37, 1, v96, 0, 2);
     }
 
-    else if (v50 == 2)
+    else if (v73 == 2)
     {
-      objc_msgSend_p_splitStorageInThree_withRanges_(self, v19, v21, v22, v23, v24, 1, v68);
+      objc_msgSend_p_splitStorageInThree_withRanges_(self, v28, v34, v35, v36, v37, 1, v96, v31, v32);
     }
   }
 
   else if (IsEffectivelyEmpty)
   {
-    objc_msgSend_p_splitStorageInTwo_withRanges_firstTarget_secondTarget_(self, v19, v21, v22, v23, v24, 1, v68, 0, 1);
+    objc_msgSend_p_splitStorageInTwo_withRanges_firstTarget_secondTarget_(self, v28, v34, v35, v36, v37, 1, v96, 0, 1);
   }
 
-  else if (v20)
+  else if (v33)
   {
-    objc_msgSend_p_splitStorageInTwo_withRanges_firstTarget_secondTarget_(self, v19, v21, v22, v23, v24, 1, v68, 1, 2);
+    objc_msgSend_p_splitStorageInTwo_withRanges_firstTarget_secondTarget_(self, v28, v34, v35, v36, v37, 1, v96, 1, 2);
   }
 
-  v32 = objc_msgSend_p_storageIsEffectivelyEmpty_(self, v19, v21, v22, v23, v24, *(self->_fragments + 1));
-  if ((objc_msgSend_p_storageIsEffectivelyEmpty_(self, v51, v52, v53, v54, v55, *(self->_fragments + 2)) & 1) == 0)
+  v47 = objc_msgSend_p_storageIsEffectivelyEmpty_(self, v28, v34, v35, v36, v37, *(self->_fragments + 1), v30, v31, v32);
+  if ((objc_msgSend_p_storageIsEffectivelyEmpty_(self, v74, v78, v79, v80, v81, *(self->_fragments + 2), v75, v76, v77) & 1) == 0)
   {
 LABEL_27:
-    v56 = objc_msgSend_string(self->_fragments[2], v19, v21, v22, v23, v24);
-    v62 = objc_msgSend_countOfWhitespaceRunsInString_ranges_(self, v57, v58, v59, v60, v61, v56, v68);
+    v82 = objc_msgSend_string(self->_fragments[2], v28, v34, v35, v36, v37, v29, v30, v31, v32);
+    v90 = objc_msgSend_countOfWhitespaceRunsInString_ranges_(self, v83, v86, v87, v88, v89, v82, v96, v84, v85);
 
-    if (((v62 > 0) & v32) != 0)
+    if (((v90 > 0) & v47) != 0)
     {
-      objc_msgSend_p_splitStorageInTwo_withRanges_firstTarget_secondTarget_(self, v63, v64, v65, v66, v67, 2, v68, 1, 2);
+      objc_msgSend_p_splitStorageInTwo_withRanges_firstTarget_secondTarget_(self, v91, v92, v93, v94, v95, 2, v96, 1, 2);
     }
   }
 }

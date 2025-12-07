@@ -138,7 +138,7 @@ LABEL_8:
 
 + (id)factorizationFromString:(id)string factorGrammar:(id)grammar
 {
-  v36[3] = *MEMORY[0x1E69E9840];
+  v35[3] = *MEMORY[0x1E69E9840];
   stringCopy = string;
   grammarCopy = grammar;
   os_unfair_lock_lock(&_FactorizationGrammarWithFactorGrammar_lock);
@@ -155,64 +155,64 @@ LABEL_8:
   v10 = [v7 objectForKey:grammarCopy];
   if (!v10)
   {
-    v28 = grammarCopy;
+    v27 = grammarCopy;
     v11 = [_HKCFGNonTerminal nonTerminalWithLabel:@"Q"];
     v12 = [_HKCFGNonTerminal nonTerminalWithLabel:@"P"];
-    rootNonTerminal = [v28 rootNonTerminal];
+    rootNonTerminal = [v27 rootNonTerminal];
 
-    v27 = [_HKCFGTerminal terminalMatchingCharacterInString:@"*.·"];
+    v26 = [_HKCFGTerminal terminalMatchingCharacterInString:@"*.·"];
     v14 = +[_HKCFGTerminal terminalMatchingAnyInteger];
     [v11 addReplacementRuleWithExpressions:&unk_1F0686A78 nodeEvaluator:&__block_literal_global_70];
-    v36[0] = CFSTR("(");
-    v36[1] = v11;
-    v36[2] = @"");
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:3];
+    v35[0] = CFSTR("(");
+    v35[1] = v11;
+    v35[2] = @"");
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:3];
     [v11 addReplacementRuleWithExpressions:v15 nodeEvaluator:&__block_literal_global_122];
 
-    v35 = v12;
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:1];
+    v34 = v12;
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v34 count:1];
     [v11 addReplacementRuleWithExpressions:v16 nodeEvaluator:&__block_literal_global_124];
 
-    v34[0] = v12;
-    v34[1] = @"/";
-    v34[2] = v12;
-    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:3];
+    v33[0] = v12;
+    v33[1] = @"/";
+    v33[2] = v12;
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:3];
     [v11 addReplacementRuleWithExpressions:v17 nodeEvaluator:&__block_literal_global_129_0];
 
     [v12 addReplacementRuleWithExpressions:&unk_1F0686A90 nodeEvaluator:&__block_literal_global_137];
-    v33 = rootNonTerminal;
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v33 count:1];
+    v32 = rootNonTerminal;
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v32 count:1];
     [v12 addReplacementRuleWithExpressions:v18 nodeEvaluator:&__block_literal_global_139];
 
-    v32[0] = rootNonTerminal;
-    v32[1] = @"^";
-    v32[2] = v14;
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:3];
+    v31[0] = rootNonTerminal;
+    v31[1] = @"^";
+    v31[2] = v14;
+    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:3];
     [v12 addReplacementRuleWithExpressions:v19 nodeEvaluator:&__block_literal_global_144];
-
-    v31[0] = CFSTR("(");
-    v31[1] = v12;
-    v31[2] = @"");
-    v31[3] = @"^";
-    v31[4] = v14;
-    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:5];
-    [v12 addReplacementRuleWithExpressions:v20 nodeEvaluator:&__block_literal_global_146];
 
     v30[0] = CFSTR("(");
     v30[1] = v12;
     v30[2] = @"");
-    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:3];
+    v30[3] = @"^";
+    v30[4] = v14;
+    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:5];
+    [v12 addReplacementRuleWithExpressions:v20 nodeEvaluator:&__block_literal_global_146];
+
+    v29[0] = CFSTR("(");
+    v29[1] = v12;
+    v29[2] = @"");
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:3];
     [v12 addReplacementRuleWithExpressions:v21 nodeEvaluator:&__block_literal_global_148_0];
 
-    v29[0] = v12;
-    v29[1] = v27;
-    v29[2] = v12;
-    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:3];
+    v28[0] = v12;
+    v28[1] = v26;
+    v28[2] = v12;
+    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:3];
     [v12 addReplacementRuleWithExpressions:v22 nodeEvaluator:&__block_literal_global_150];
 
     v10 = [_HKContextFreeGrammar grammarWithRootNonTerminal:v11 emptyStringEvaluator:&__block_literal_global_154];
 
-    [_FactorizationGrammarWithFactorGrammar_cache setObject:v10 forKey:v28];
+    [_FactorizationGrammarWithFactorGrammar_cache setObject:v10 forKey:v27];
   }
 
   os_unfair_lock_unlock(&_FactorizationGrammarWithFactorGrammar_lock);
@@ -224,8 +224,6 @@ LABEL_8:
   }
 
   evaluate = [v23 evaluate];
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return evaluate;
 }
@@ -313,40 +311,40 @@ LABEL_8:
 
 - (void)enumerateFactorsWithHandler:(id)handler
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
-  v17 = 0;
+  v16 = 0;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   keyEnumerator = [(NSMapTable *)self->_factors keyEnumerator];
-  v6 = [keyEnumerator countByEnumeratingWithState:&v13 objects:v18 count:16];
+  v6 = [keyEnumerator countByEnumeratingWithState:&v12 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v14 != v8)
+      if (*v13 != v8)
       {
         objc_enumerationMutation(keyEnumerator);
       }
 
-      v10 = *(*(&v13 + 1) + 8 * v9);
+      v10 = *(*(&v12 + 1) + 8 * v9);
       v11 = [(NSMapTable *)self->_factors objectForKey:v10];
-      handlerCopy[2](handlerCopy, v10, [v11 integerValue], &v17);
+      handlerCopy[2](handlerCopy, v10, [v11 integerValue], &v16);
 
-      if (v17)
+      if (v16)
       {
         break;
       }
 
       if (v7 == ++v9)
       {
-        v7 = [keyEnumerator countByEnumeratingWithState:&v13 objects:v18 count:16];
+        v7 = [keyEnumerator countByEnumeratingWithState:&v12 objects:v17 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -356,46 +354,44 @@ LABEL_3:
       }
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_enumerateFactorsWithHandler:(id)handler
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
-  v17 = 0;
+  v16 = 0;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   keyEnumerator = [(NSMapTable *)self->_factors keyEnumerator];
-  v6 = [keyEnumerator countByEnumeratingWithState:&v13 objects:v18 count:16];
+  v6 = [keyEnumerator countByEnumeratingWithState:&v12 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v14 != v8)
+      if (*v13 != v8)
       {
         objc_enumerationMutation(keyEnumerator);
       }
 
-      v10 = *(*(&v13 + 1) + 8 * v9);
+      v10 = *(*(&v12 + 1) + 8 * v9);
       v11 = [(NSMapTable *)self->_factors objectForKey:v10];
-      handlerCopy[2](handlerCopy, v10, v11, &v17);
+      handlerCopy[2](handlerCopy, v10, v11, &v16);
 
-      if (v17)
+      if (v16)
       {
         break;
       }
 
       if (v7 == ++v9)
       {
-        v7 = [keyEnumerator countByEnumeratingWithState:&v13 objects:v18 count:16];
+        v7 = [keyEnumerator countByEnumeratingWithState:&v12 objects:v17 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -405,8 +401,6 @@ LABEL_3:
       }
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)exponentForFactor:(id)factor

@@ -6071,7 +6071,7 @@ unsigned __int8 *GTMTLRenderPipelineReflection_resourceAccess@<X0>(uint64_t a1@<
   return result;
 }
 
-unsigned __int8 *CalculateBindingsAccess(unsigned __int8 *result, int a2, uint64_t a3)
+unsigned __int8 *CalculateBindingsAccess(unsigned __int8 *result, unsigned int a2, uint64_t a3)
 {
   if (a2 >= 1)
   {

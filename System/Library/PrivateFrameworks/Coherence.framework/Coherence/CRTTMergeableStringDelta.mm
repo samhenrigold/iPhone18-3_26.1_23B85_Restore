@@ -19,14 +19,14 @@
 
 - (_TtC9Coherence24CRTTMergeableStringDelta)initWithDeltasTo:(id)to from:(id)from compareElements:(id)elements
 {
-  v89 = *MEMORY[0x1E69E9840];
+  v88 = *MEMORY[0x1E69E9840];
   toCopy = to;
   fromCopy = from;
-  v69 = fromCopy;
+  v68 = fromCopy;
   elementsCopy = elements;
-  v82.receiver = self;
-  v82.super_class = _TtC9Coherence24CRTTMergeableStringDelta;
-  v10 = [(CRTTMergeableStringDelta *)&v82 init];
+  v81.receiver = self;
+  v81.super_class = _TtC9Coherence24CRTTMergeableStringDelta;
+  v10 = [(CRTTMergeableStringDelta *)&v81 init];
   version = [fromCopy version];
   version2 = [toCopy version];
   if ([version hasDeltaTo:version2])
@@ -50,20 +50,20 @@
     }
   }
 
+  v78 = 0u;
   v79 = 0u;
-  v80 = 0u;
-  v81 = 1065353216;
-  v78[0] = 0;
-  v78[1] = 0;
-  v77 = v78;
+  v80 = 1065353216;
+  v77[0] = 0;
+  v77[1] = 0;
+  v76 = v77;
   attributedString = [toCopy attributedString];
-  v66 = v13;
+  v65 = v13;
   coherence_emptyCopy = [attributedString Coherence_emptyCopy];
   attributedString = v10->_attributedString;
   location = &v10->_attributedString;
   v10->_attributedString = coherence_emptyCopy;
 
-  v67 = v14;
+  v66 = v14;
   orderedSubstrings = [fromCopy orderedSubstrings];
   v22 = *orderedSubstrings;
   v21 = *(orderedSubstrings + 8);
@@ -75,13 +75,13 @@
   do
   {
     v23 = *v22;
-    v24 = v78[0];
-    if (!v78[0])
+    v24 = v77[0];
+    if (!v77[0])
     {
       goto LABEL_31;
     }
 
-    v25 = v78;
+    v25 = v77;
     while (1)
     {
       while (1)
@@ -102,16 +102,16 @@
           v33 = 0;
         }
 
-        LODWORD(v84) = v27;
-        DWORD1(v84) = v33 + v28;
+        LODWORD(v83) = v27;
+        DWORD1(v83) = v33 + v28;
         v34 = v32 - 1;
         if (!v32)
         {
           v34 = 0;
         }
 
-        LODWORD(v87) = v30;
-        HIDWORD(v87) = v34 + v31;
+        LODWORD(v86) = v30;
+        HIDWORD(v86) = v34 + v31;
         v35 = v27 >= v30;
         if (v27 != v30)
         {
@@ -121,7 +121,7 @@
         v36 = uuid_compare(uu1, uu2);
         if (!v36)
         {
-          v35 = DWORD1(v84) >= HIDWORD(v87);
+          v35 = DWORD1(v83) >= HIDWORD(v86);
           break;
         }
 
@@ -148,7 +148,7 @@ LABEL_14:
       *uu1 = *(v26 + 2);
       v37 = *(v26 + 12);
       v38 = *(v26 + 13);
-      LODWORD(v84) = v37;
+      LODWORD(v83) = v37;
       v39 = *(v26 + 14);
       v40 = *(v23 + 16);
       v41 = *(v23 + 20);
@@ -161,15 +161,15 @@ LABEL_14:
         v43 = 0;
       }
 
-      DWORD1(v84) = v43 + v38;
+      DWORD1(v83) = v43 + v38;
       v44 = v42 - 1;
       if (!v42)
       {
         v44 = 0;
       }
 
-      LODWORD(v87) = v40;
-      HIDWORD(v87) = v44 + v41;
+      LODWORD(v86) = v40;
+      HIDWORD(v86) = v44 + v41;
       v45 = v37 >= v40;
       if (v37 == v40)
       {
@@ -184,7 +184,7 @@ LABEL_14:
           goto LABEL_28;
         }
 
-        v45 = DWORD1(v84) >= HIDWORD(v87);
+        v45 = DWORD1(v83) >= HIDWORD(v86);
       }
 
       if (v45)
@@ -216,45 +216,45 @@ LABEL_33:
   for (i = *([toCopy orderedSubstrings] + 8); i != *objc_msgSend(toCopy, "orderedSubstrings"); i -= 8)
   {
     v48 = *(i - 8);
-    [(CRTTMergeableStringDelta *)v10 findAndCompareSubstring:v48 from:v69 toString:toCopy charMap:&v77 deltaCharMap:&v79 compareElements:elementsCopy];
+    [(CRTTMergeableStringDelta *)v10 findAndCompareSubstring:v48 from:v68 toString:toCopy charMap:&v76 deltaCharMap:&v78 compareElements:elementsCopy];
   }
 
   *uu2 = 0;
   *&uu2[8] = uu2;
-  v87 = 0x2020000000;
-  v88 = 1;
+  v86 = 0x2020000000;
+  v87 = 1;
   *uu1 = 0u;
-  v84 = 0u;
-  v85 = 1065353216;
+  v83 = 0u;
+  v84 = 1065353216;
   attributedString2 = [toCopy attributedString];
   coherence_emptyCopy2 = [attributedString2 Coherence_emptyCopy];
 
-  std::vector<Coherence_namespace::TopoSubstring *>::reserve(&v10->orderedSubstrings.__begin_, *(&v80 + 1));
-  for (j = v80; j; j = *j)
+  std::vector<Coherence_namespace::TopoSubstring *>::reserve(&v10->orderedSubstrings.__begin_, *(&v79 + 1));
+  for (j = v79; j; j = *j)
   {
     v52 = j[5];
     if (!*(v52 + 80))
     {
-      v71[0] = MEMORY[0x1E69E9820];
-      v71[1] = 3221225472;
-      v71[2] = __66__CRTTMergeableStringDelta_initWithDeltasTo_from_compareElements___block_invoke;
-      v71[3] = &unk_1E7A126F8;
-      v72 = v10;
-      v73 = v69;
-      v74 = toCopy;
-      v76 = uu2;
-      v75 = coherence_emptyCopy2;
-      Coherence_namespace::traverseIterative(v52, uu1, v71);
+      v70[0] = MEMORY[0x1E69E9820];
+      v70[1] = 3221225472;
+      v70[2] = __66__CRTTMergeableStringDelta_initWithDeltasTo_from_compareElements___block_invoke;
+      v70[3] = &unk_1E7A126F8;
+      v71 = v10;
+      v72 = v68;
+      v73 = toCopy;
+      v75 = uu2;
+      v74 = coherence_emptyCopy2;
+      Coherence_namespace::traverseIterative(v52, uu1, v70);
     }
   }
 
   objc_storeStrong(location, coherence_emptyCopy2);
-  if ((*(*&uu2[8] + 24) & 1) == 0 || !((v10->orderedSubstrings.__end_ != v10->orderedSubstrings.__begin_) | v67 & 1))
+  if ((*(*&uu2[8] + 24) & 1) == 0 || !((v10->orderedSubstrings.__end_ != v10->orderedSubstrings.__begin_) | v66 & 1))
   {
     goto LABEL_50;
   }
 
-  if (!v66 || [*location length])
+  if (!v65 || [*location length])
   {
     goto LABEL_44;
   }
@@ -273,11 +273,11 @@ LABEL_33:
     }
 
 LABEL_44:
-    version3 = [v69 version];
+    version3 = [v68 version];
     fromVersion = v10->_fromVersion;
     v10->_fromVersion = version3;
 
-    addedByVersion3 = [v69 addedByVersion];
+    addedByVersion3 = [v68 addedByVersion];
     fromAddedByVersion = v10->_fromAddedByVersion;
     v10->_fromAddedByVersion = addedByVersion3;
 
@@ -303,11 +303,10 @@ LABEL_51:
 
   std::__hash_table<std::__hash_value_type<Coherence_namespace::TopoSubstring const*,unsigned int>,std::__unordered_map_hasher<Coherence_namespace::TopoSubstring const*,std::__hash_value_type<Coherence_namespace::TopoSubstring const*,unsigned int>,std::hash<Coherence_namespace::TopoSubstring const*>,std::equal_to<Coherence_namespace::TopoSubstring const*>,true>,std::__unordered_map_equal<Coherence_namespace::TopoSubstring const*,std::__hash_value_type<Coherence_namespace::TopoSubstring const*,unsigned int>,std::equal_to<Coherence_namespace::TopoSubstring const*>,std::hash<Coherence_namespace::TopoSubstring const*>,true>,std::allocator<std::__hash_value_type<Coherence_namespace::TopoSubstring const*,unsigned int>>>::~__hash_table(uu1);
   _Block_object_dispose(uu2, 8);
-  std::__tree<std::__value_type<Coherence_namespace::TopoIDRange,Coherence_namespace::TopoSubstring *>,std::__map_value_compare<Coherence_namespace::TopoIDRange,std::__value_type<Coherence_namespace::TopoIDRange,Coherence_namespace::TopoSubstring *>,Coherence_namespace::$_0,true>,std::allocator<std::__value_type<Coherence_namespace::TopoIDRange,Coherence_namespace::TopoSubstring *>>>::destroy(v78[0]);
-  std::__hash_table<std::__hash_value_type<Coherence_namespace::TopoSubstring const*,unsigned int>,std::__unordered_map_hasher<Coherence_namespace::TopoSubstring const*,std::__hash_value_type<Coherence_namespace::TopoSubstring const*,unsigned int>,std::hash<Coherence_namespace::TopoSubstring const*>,std::equal_to<Coherence_namespace::TopoSubstring const*>,true>,std::__unordered_map_equal<Coherence_namespace::TopoSubstring const*,std::__hash_value_type<Coherence_namespace::TopoSubstring const*,unsigned int>,std::equal_to<Coherence_namespace::TopoSubstring const*>,std::hash<Coherence_namespace::TopoSubstring const*>,true>,std::allocator<std::__hash_value_type<Coherence_namespace::TopoSubstring const*,unsigned int>>>::~__hash_table(&v79);
+  std::__tree<std::__value_type<Coherence_namespace::TopoIDRange,Coherence_namespace::TopoSubstring *>,std::__map_value_compare<Coherence_namespace::TopoIDRange,std::__value_type<Coherence_namespace::TopoIDRange,Coherence_namespace::TopoSubstring *>,Coherence_namespace::$_0,true>,std::allocator<std::__value_type<Coherence_namespace::TopoIDRange,Coherence_namespace::TopoSubstring *>>>::destroy(v77[0]);
+  std::__hash_table<std::__hash_value_type<Coherence_namespace::TopoSubstring const*,unsigned int>,std::__unordered_map_hasher<Coherence_namespace::TopoSubstring const*,std::__hash_value_type<Coherence_namespace::TopoSubstring const*,unsigned int>,std::hash<Coherence_namespace::TopoSubstring const*>,std::equal_to<Coherence_namespace::TopoSubstring const*>,true>,std::__unordered_map_equal<Coherence_namespace::TopoSubstring const*,std::__hash_value_type<Coherence_namespace::TopoSubstring const*,unsigned int>,std::equal_to<Coherence_namespace::TopoSubstring const*>,std::hash<Coherence_namespace::TopoSubstring const*>,true>,std::allocator<std::__hash_value_type<Coherence_namespace::TopoSubstring const*,unsigned int>>>::~__hash_table(&v78);
 LABEL_52:
 
-  v64 = *MEMORY[0x1E69E9840];
   return v61;
 }
 
@@ -360,16 +359,16 @@ void __66__CRTTMergeableStringDelta_initWithDeltasTo_from_compareElements___bloc
 
 char *__66__CRTTMergeableStringDelta_initWithDeltasTo_from_compareElements___block_invoke_2(uint64_t a1)
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = MEMORY[0x1E696AE40];
-  v11[0] = @"from";
+  v10[0] = @"from";
   v4 = [*(a1 + 32) dotDescription:0];
-  v11[1] = @"to";
-  v12[0] = v4;
+  v10[1] = @"to";
+  v11[0] = v4;
   v5 = [*(a1 + 40) dotDescription:1];
-  v12[1] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v11[1] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
   v7 = [v3 dataWithPropertyList:v6 format:200 options:0 error:0];
 
   v8 = malloc_type_malloc([v7 length] + 200, 0x1000040BEF03554uLL);
@@ -379,7 +378,6 @@ char *__66__CRTTMergeableStringDelta_initWithDeltasTo_from_compareElements___blo
   strlcpy(v8 + 136, [@"CRTTMergeableStringDelta.init" UTF8String], 0x40uLL);
 
   objc_autoreleasePoolPop(v2);
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -490,34 +488,7 @@ char *__66__CRTTMergeableStringDelta_initWithDeltasTo_from_compareElements___blo
   attributedString = v7->_attributedString;
   v7->_attributedString = v8;
 
-  if (!v7->_attributedString)
-  {
-    goto LABEL_12;
-  }
-
-  v7->_renameGeneration = +[_TtC9Coherence19CRGlobalContextObjC renameGeneration];
-  v10 = [decoderCopy versionWithError:error];
-  version = v7->_version;
-  v7->_version = v10;
-
-  v12 = [decoderCopy addedByVersionWithError:error];
-  addedByVersion = v7->_addedByVersion;
-  v7->_addedByVersion = v12;
-
-  v14 = [decoderCopy fromVersionWithError:error];
-  fromVersion = v7->_fromVersion;
-  v7->_fromVersion = v14;
-
-  v16 = [decoderCopy fromAddedByVersionWithError:error];
-  fromAddedByVersion = v7->_fromAddedByVersion;
-  v7->_fromAddedByVersion = v16;
-
-  if (!v7->_version)
-  {
-    goto LABEL_12;
-  }
-
-  if (v7->_addedByVersion && v7->_fromVersion && v7->_fromAddedByVersion)
+  if (v7->_attributedString && (v7->_renameGeneration = +[CRGlobalContextObjC renameGeneration](_TtC9Coherence19CRGlobalContextObjC, "renameGeneration"), [decoderCopy versionWithError:error], v10 = objc_claimAutoreleasedReturnValue(), version = v7->_version, v7->_version = v10, version, objc_msgSend(decoderCopy, "addedByVersionWithError:", error), v12 = objc_claimAutoreleasedReturnValue(), addedByVersion = v7->_addedByVersion, v7->_addedByVersion = v12, addedByVersion, objc_msgSend(decoderCopy, "fromVersionWithError:", error), v14 = objc_claimAutoreleasedReturnValue(), fromVersion = v7->_fromVersion, v7->_fromVersion = v14, fromVersion, objc_msgSend(decoderCopy, "fromAddedByVersionWithError:", error), v16 = objc_claimAutoreleasedReturnValue(), fromAddedByVersion = v7->_fromAddedByVersion, v7->_fromAddedByVersion = v16, fromAddedByVersion, v7->_version) && v7->_addedByVersion && v7->_fromVersion && v7->_fromAddedByVersion)
   {
     substringCount = [decoderCopy substringCount];
     std::vector<Coherence_namespace::TopoSubstring *>::reserve(&v7->orderedSubstrings.__begin_, substringCount);
@@ -544,7 +515,6 @@ char *__66__CRTTMergeableStringDelta_initWithDeltasTo_from_compareElements___blo
 
   else
   {
-LABEL_12:
     v21 = 0;
   }
 
@@ -566,7 +536,7 @@ LABEL_12:
     {
       v31 = *v8;
       v34 = &v31;
-      *(std::__hash_table<std::__hash_value_type<Coherence_namespace::TopoSubstring const*,unsigned int>,std::__unordered_map_hasher<Coherence_namespace::TopoSubstring const*,std::__hash_value_type<Coherence_namespace::TopoSubstring const*,unsigned int>,std::hash<Coherence_namespace::TopoSubstring const*>,std::equal_to<Coherence_namespace::TopoSubstring const*>,true>,std::__unordered_map_equal<Coherence_namespace::TopoSubstring const*,std::__hash_value_type<Coherence_namespace::TopoSubstring const*,unsigned int>,std::equal_to<Coherence_namespace::TopoSubstring const*>,std::hash<Coherence_namespace::TopoSubstring const*>,true>,std::allocator<std::__hash_value_type<Coherence_namespace::TopoSubstring const*,unsigned int>>>::__emplace_unique_key_args<Coherence_namespace::TopoSubstring const*,std::piecewise_construct_t const&,std::tuple<Coherence_namespace::TopoSubstring const* const&>,std::tuple<>>(v32, &v31) + 6) = v10++;
+      *(std::__hash_table<std::__hash_value_type<Coherence_namespace::TopoSubstring const*,unsigned int>,std::__unordered_map_hasher<Coherence_namespace::TopoSubstring const*,std::__hash_value_type<Coherence_namespace::TopoSubstring const*,unsigned int>,std::hash<Coherence_namespace::TopoSubstring const*>,std::equal_to<Coherence_namespace::TopoSubstring const*>,true>,std::__unordered_map_equal<Coherence_namespace::TopoSubstring const*,std::__hash_value_type<Coherence_namespace::TopoSubstring const*,unsigned int>,std::equal_to<Coherence_namespace::TopoSubstring const*>,std::hash<Coherence_namespace::TopoSubstring const*>,true>,std::allocator<std::__hash_value_type<Coherence_namespace::TopoSubstring const*,unsigned int>>>::__emplace_unique_key_args<Coherence_namespace::TopoSubstring const*,std::piecewise_construct_t const&,std::tuple<Coherence_namespace::TopoSubstring const* const&>,std::tuple<>>(v32, &v31, &std::piecewise_construct, &v34) + 6) = v10++;
       ++v8;
     }
 
@@ -686,7 +656,7 @@ LABEL_21:
   v10 = v8[5];
   if (lengthCopy && Coherence_namespace::TopoIDRange::operator!=(v8[5], substring->charID.replica.uuid))
   {
-    if (*(v10 + 5) != *(v10 + 4) || *(v10 + 8) != *(v10 + 7))
+    if (*(v10 + 40) != *(v10 + 32) || *(v10 + 64) != *(v10 + 56))
     {
       [CRTTMergeableStringDelta addSubstring:requiresExactLength:deltaCharMap:];
     }
@@ -695,7 +665,8 @@ LABEL_21:
     v11 = *&substring->charID.replica.uuid[12];
     *v10 = *substring->charID.replica.uuid;
     *(v10 + 12) = v11;
-    std::__hash_table<std::__hash_value_type<Coherence_namespace::TopoID,Coherence_namespace::TopoSubstring *>,std::__unordered_map_hasher<Coherence_namespace::TopoID,std::__hash_value_type<Coherence_namespace::TopoID,Coherence_namespace::TopoSubstring *>,std::hash<Coherence_namespace::TopoID>,std::equal_to<Coherence_namespace::TopoID>,true>,std::__unordered_map_equal<Coherence_namespace::TopoID,std::__hash_value_type<Coherence_namespace::TopoID,Coherence_namespace::TopoSubstring *>,std::equal_to<Coherence_namespace::TopoID>,std::hash<Coherence_namespace::TopoID>,true>,std::allocator<std::__hash_value_type<Coherence_namespace::TopoID,Coherence_namespace::TopoSubstring *>>>::__emplace_unique_key_args<Coherence_namespace::TopoID,std::piecewise_construct_t const&,std::tuple<Coherence_namespace::TopoID const&>,std::tuple<>>(map, v10)[5] = v10;
+    v13 = v10;
+    std::__hash_table<std::__hash_value_type<Coherence_namespace::TopoID,Coherence_namespace::TopoSubstring *>,std::__unordered_map_hasher<Coherence_namespace::TopoID,std::__hash_value_type<Coherence_namespace::TopoID,Coherence_namespace::TopoSubstring *>,std::hash<Coherence_namespace::TopoID>,std::equal_to<Coherence_namespace::TopoID>,true>,std::__unordered_map_equal<Coherence_namespace::TopoID,std::__hash_value_type<Coherence_namespace::TopoID,Coherence_namespace::TopoSubstring *>,std::equal_to<Coherence_namespace::TopoID>,std::hash<Coherence_namespace::TopoID>,true>,std::allocator<std::__hash_value_type<Coherence_namespace::TopoID,Coherence_namespace::TopoSubstring *>>>::__emplace_unique_key_args<Coherence_namespace::TopoID,std::piecewise_construct_t const&,std::tuple<Coherence_namespace::TopoID const&>,std::tuple<>>(map, v10, &std::piecewise_construct, &v13)[5] = v10;
   }
 
   return v10;
@@ -711,12 +682,12 @@ LABEL_21:
 
 - (void)findAndCompareSubstring:(const void *)substring from:(id)from toString:(id)string charMap:(const void *)map deltaCharMap:(void *)charMap compareElements:(id)elements
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   stringCopy = string;
   elementsCopy = elements;
-  v49 = *substring;
-  v50 = *(substring + 4);
+  v48 = *substring;
+  v49 = *(substring + 4);
   v14 = *(map + 1);
   if (!v14)
   {
@@ -732,7 +703,7 @@ LABEL_21:
     v17 = *(v14 + 48);
     v18 = *(v14 + 52);
     v19 = *(v14 + 56);
-    *uu2 = v49;
+    *uu2 = v48;
     v20 = v19 != 0;
     v21 = v19 - 1;
     if (!v20)
@@ -742,11 +713,11 @@ LABEL_21:
 
     *&uu1[16] = v17;
     *&uu1[20] = v21 + v18;
-    v52 = v50;
-    v53 = v15;
-    if (v17 != v50)
+    v51 = v49;
+    v52 = v15;
+    if (v17 != v49)
     {
-      if (v17 < v50)
+      if (v17 < v49)
       {
         v23 = -1;
       }
@@ -768,7 +739,7 @@ LABEL_11:
       goto LABEL_12;
     }
 
-    v24 = *&uu1[20] < v53;
+    v24 = *&uu1[20] < v52;
 LABEL_12:
     v25 = !v24;
     if (v24)
@@ -813,26 +784,26 @@ LABEL_26:
     v33 = **v30;
     *&uu1[12] = *(*v30 + 12);
     *uu1 = v33;
-    v42 = 0;
-    v43 = 0;
     v41 = 0;
-    std::vector<Coherence_namespace::TopoID>::__init_with_size[abi:ne200100]<Coherence_namespace::TopoID*,Coherence_namespace::TopoID*>(&v41, *(v32 + 4), *(v32 + 5), 0xAAAAAAAAAAAAAAABLL * ((*(v32 + 5) - *(v32 + 4)) >> 3));
+    v42 = 0;
+    v40 = 0;
+    std::vector<Coherence_namespace::TopoID>::__init_with_size[abi:ne200100]<Coherence_namespace::TopoID*,Coherence_namespace::TopoID*>(&v40, *(v32 + 4), *(v32 + 5), 0xAAAAAAAAAAAAAAABLL * ((*(v32 + 5) - *(v32 + 4)) >> 3));
     __p = 0;
-    v45 = 0;
-    v47 = 0;
+    v44 = 0;
     v46 = 0;
-    v48 = *(v32 + 21);
+    v45 = 0;
+    v47 = *(v32 + 21);
     [(CRTTMergeableStringDelta *)self addChildTo:substring child:uu1 deltaCharMap:charMap];
     if (__p)
     {
-      v45 = __p;
+      v44 = __p;
       operator delete(__p);
     }
 
-    if (v41)
+    if (v40)
     {
-      v42 = v41;
-      operator delete(v41);
+      v41 = v40;
+      operator delete(v40);
     }
   }
 
@@ -853,8 +824,6 @@ LABEL_26:
   }
 
 LABEL_39:
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addStorageTo:(void *)to fromStorage:(id)storage range:(_NSRange)range
@@ -862,14 +831,14 @@ LABEL_39:
   length = range.length;
   location = range.location;
   storageCopy = storage;
-  v9 = [(CRTTMergeableStringStorage *)self->_attributedString length];
-  *(to + 21) = Coherence_namespace::CRTTBoundedCheckedCastNSUIntegerToUInt32(v9, v10);
+  Coherence_namespace::CRTTBoundedCheckedCastNSUIntegerToUInt32([(CRTTMergeableStringStorage *)self->_attributedString length]);
+  *(to + 21) = v9;
   [(CRTTMergeableStringStorage *)self->_attributedString Coherence_appendStorage:storageCopy fromRange:location, length];
 }
 
 - (void)compareSameSubstring:(const void *)substring toSubstring:(const void *)toSubstring from:(id)from toString:(id)string charMap:(const void *)map deltaCharMap:(void *)charMap compareElements:(id)elements
 {
-  v91 = *MEMORY[0x1E69E9840];
+  v87 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   stringCopy = string;
   elementsCopy = elements;
@@ -877,7 +846,7 @@ LABEL_39:
   {
     v13 = *(toSubstring + 5);
     v14 = *(toSubstring + 4);
-    v64 = v14;
+    v60 = v14;
     for (i = 0; v14 != v13; v14 += 24)
     {
       v16 = *v14;
@@ -896,12 +865,12 @@ LABEL_39:
             i = [(CRTTMergeableStringDelta *)self addSubstring:substring requiresExactLength:1 deltaCharMap:charMap];
           }
 
-          v87 = -1;
+          v83 = -1;
           uuid_copy(dst, src);
-          v88 = *dst;
-          v89 = v87;
-          v90 = *&src[20];
-          std::vector<Coherence_namespace::TopoID>::push_back[abi:ne200100]((i + 4), &v88);
+          v84 = *dst;
+          v85 = v83;
+          v86 = *&src[20];
+          std::vector<Coherence_namespace::TopoID>::push_back[abi:ne200100]((i + 4), &v84);
         }
       }
     }
@@ -1001,34 +970,28 @@ LABEL_39:
       while (v21 != v20);
       if (*(substring + 5) != *(substring + 4))
       {
-        if (v13 == v64)
+        if (v13 == v60)
         {
           if (!i)
           {
             i = [(CRTTMergeableStringDelta *)self addSubstring:substring requiresExactLength:1 deltaCharMap:charMap];
           }
 
-          attributedString = [stringCopy attributedString];
-          v44 = *(substring + 21);
-          if (*(substring + 5) != *(substring + 4))
-          {
-            v45 = *(substring + 6);
-          }
-
-          [(CRTTMergeableStringDelta *)self addStorageTo:i fromStorage:attributedString range:?];
+          [stringCopy attributedString];
+          [(CRTTMergeableStringDelta *)self addStorageTo:i fromStorage:objc_claimAutoreleasedReturnValue() range:?];
         }
 
         else
         {
           if (!elementsCopy)
           {
-            goto LABEL_53;
+            goto LABEL_51;
           }
 
-          v65 = (*(elementsCopy + 2))(elementsCopy, *(substring + 21), *(substring + 6), *(toSubstring + 21), *(toSubstring + 6));
-          if ([v65 count] && i)
+          v61 = (*(elementsCopy + 2))(elementsCopy, *(substring + 21), *(substring + 6), *(toSubstring + 21), *(toSubstring + 6));
+          if ([v61 count] && i)
           {
-            attributedString2 = [stringCopy attributedString];
+            attributedString = [stringCopy attributedString];
             if (*(substring + 5) == *(substring + 4))
             {
               v42 = 0;
@@ -1039,48 +1002,48 @@ LABEL_39:
               v42 = *(substring + 6);
             }
 
-            [(CRTTMergeableStringDelta *)self addStorageTo:i fromStorage:attributedString2 range:*(substring + 21), v42];
+            [(CRTTMergeableStringDelta *)self addStorageTo:i fromStorage:attributedString range:*(substring + 21), v42];
           }
 
           else
           {
-            v74 = 0u;
-            v75 = 0u;
-            v72 = 0u;
-            v73 = 0u;
-            attributedString2 = v65;
-            obja = attributedString2;
-            v46 = [attributedString2 countByEnumeratingWithState:&v72 objects:v85 count:16];
-            if (v46)
+            v70 = 0u;
+            v71 = 0u;
+            v68 = 0u;
+            v69 = 0u;
+            attributedString = v61;
+            obja = attributedString;
+            v43 = [attributedString countByEnumeratingWithState:&v68 objects:v81 count:16];
+            if (v43)
             {
-              v47 = *v73;
+              v44 = *v69;
               do
               {
-                for (j = 0; j != v46; ++j)
+                for (j = 0; j != v43; ++j)
                 {
-                  if (*v73 != v47)
+                  if (*v69 != v44)
                   {
                     objc_enumerationMutation(obja);
                   }
 
-                  rangeValue = [*(*(&v72 + 1) + 8 * j) rangeValue];
-                  v51 = v50;
-                  v52 = *(substring + 4);
-                  v53 = rangeValue - *(substring + 21) + *(substring + 5);
+                  rangeValue = [*(*(&v68 + 1) + 8 * j) rangeValue];
+                  v48 = v47;
+                  v49 = *(substring + 4);
+                  v50 = rangeValue - *(substring + 21) + *(substring + 5);
                   *src = *substring;
-                  *&src[16] = v52;
-                  *&src[20] = v53;
-                  *&src[24] = v50;
-                  v54 = [(CRTTMergeableStringDelta *)self addSubstring:src requiresExactLength:1 deltaCharMap:charMap];
-                  attributedString3 = [stringCopy attributedString];
-                  [(CRTTMergeableStringDelta *)self addStorageTo:v54 fromStorage:attributedString3 range:rangeValue, v51];
+                  *&src[16] = v49;
+                  *&src[20] = v50;
+                  *&src[24] = v47;
+                  v51 = [(CRTTMergeableStringDelta *)self addSubstring:src requiresExactLength:1 deltaCharMap:charMap];
+                  attributedString2 = [stringCopy attributedString];
+                  [(CRTTMergeableStringDelta *)self addStorageTo:v51 fromStorage:attributedString2 range:rangeValue, v48];
                 }
 
-                attributedString2 = obja;
-                v46 = [obja countByEnumeratingWithState:&v72 objects:v85 count:16];
+                attributedString = obja;
+                v43 = [obja countByEnumeratingWithState:&v68 objects:v81 count:16];
               }
 
-              while (v46);
+              while (v43);
             }
           }
         }
@@ -1088,59 +1051,57 @@ LABEL_39:
     }
   }
 
-LABEL_53:
-  v56 = *(substring + 7);
-  for (k = *(substring + 8); v56 != k; ++v56)
+LABEL_51:
+  v53 = *(substring + 7);
+  for (k = *(substring + 8); v53 != k; ++v53)
   {
-    v58 = *v56;
-    v59 = *(toSubstring + 7);
-    v60 = *(toSubstring + 8);
-    while (v59 != v60)
+    v55 = *v53;
+    v56 = *(toSubstring + 7);
+    v57 = *(toSubstring + 8);
+    while (v56 != v57)
     {
-      v61 = *v59;
-      if (*(v58 + 5) == *(*v59 + 20) && *(v58 + 4) == *(v61 + 16) && !uuid_compare(v58, v61))
+      v58 = *v56;
+      if (*(v55 + 5) == *(*v56 + 20) && *(v55 + 4) == *(v58 + 16) && !uuid_compare(v55, v58))
       {
-        goto LABEL_64;
+        goto LABEL_62;
       }
 
-      ++v59;
+      ++v56;
     }
 
-    v62 = *v58;
-    *&src[12] = *(v58 + 12);
-    *src = v62;
-    v78 = 0;
-    v79 = 0;
-    v77 = 0;
-    std::vector<Coherence_namespace::TopoID>::__init_with_size[abi:ne200100]<Coherence_namespace::TopoID*,Coherence_namespace::TopoID*>(&v77, *(v58 + 4), *(v58 + 5), 0xAAAAAAAAAAAAAAABLL * ((*(v58 + 5) - *(v58 + 4)) >> 3));
+    v59 = *v55;
+    *&src[12] = *(v55 + 12);
+    *src = v59;
+    v74 = 0;
+    v75 = 0;
+    v73 = 0;
+    std::vector<Coherence_namespace::TopoID>::__init_with_size[abi:ne200100]<Coherence_namespace::TopoID*,Coherence_namespace::TopoID*>(&v73, *(v55 + 4), *(v55 + 5), 0xAAAAAAAAAAAAAAABLL * ((*(v55 + 5) - *(v55 + 4)) >> 3));
     __p = 0;
-    v81 = 0;
-    v83 = 0;
-    v82 = 0;
-    v84 = *(v58 + 21);
+    v77 = 0;
+    v79 = 0;
+    v78 = 0;
+    v80 = *(v55 + 21);
     [(CRTTMergeableStringDelta *)self addChildTo:substring child:src deltaCharMap:charMap];
     if (__p)
     {
-      v81 = __p;
+      v77 = __p;
       operator delete(__p);
     }
 
-    if (v77)
+    if (v73)
     {
-      v78 = v77;
-      operator delete(v77);
+      v74 = v73;
+      operator delete(v73);
     }
 
-LABEL_64:
+LABEL_62:
     ;
   }
-
-  v63 = *MEMORY[0x1E69E9840];
 }
 
 - (void)compareSubstring:(const void *)substring toSubstring:(const void *)toSubstring fromString:(id)string toString:(id)toString charMap:(const void *)map deltaCharMap:(void *)charMap compareElements:(id)elements
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   toStringCopy = toString;
   elementsCopy = elements;
@@ -1157,134 +1118,132 @@ LABEL_64:
     {
       if (*(toSubstring + 6) <= *(substring + 6))
       {
-        *v28 = *substring;
-        *&v28[12] = *(substring + 12);
-        v30 = 0;
-        v31 = 0;
+        *v27 = *substring;
+        *&v27[12] = *(substring + 12);
         v29 = 0;
-        std::vector<Coherence_namespace::TopoID>::__init_with_size[abi:ne200100]<Coherence_namespace::TopoID*,Coherence_namespace::TopoID*>(&v29, *(substring + 4), *(substring + 5), 0xAAAAAAAAAAAAAAABLL * ((*(substring + 5) - *(substring + 4)) >> 3));
+        v30 = 0;
+        v28 = 0;
+        std::vector<Coherence_namespace::TopoID>::__init_with_size[abi:ne200100]<Coherence_namespace::TopoID*,Coherence_namespace::TopoID*>(&v28, *(substring + 4), *(substring + 5), 0xAAAAAAAAAAAAAAABLL * ((*(substring + 5) - *(substring + 4)) >> 3));
+        v31 = 0;
         v32 = 0;
         v33 = 0;
-        v34 = 0;
-        std::vector<Coherence_namespace::TopoSubstring *>::__init_with_size[abi:ne200100]<Coherence_namespace::TopoSubstring **,Coherence_namespace::TopoSubstring **>(&v32, *(substring + 7), *(substring + 8), (*(substring + 8) - *(substring + 7)) >> 3);
-        v35 = *(substring + 10);
-        v22 = 0;
+        std::vector<Coherence_namespace::TopoSubstring *>::__init_with_size[abi:ne200100]<Coherence_namespace::TopoSubstring **,Coherence_namespace::TopoSubstring **>(&v31, *(substring + 7), *(substring + 8), (*(substring + 8) - *(substring + 7)) >> 3);
+        v34 = *(substring + 10);
+        v21 = 0;
         uuid_clear(uu);
-        v23 = 0;
-        *v24 = 0u;
+        v22 = 0;
+        *v23 = 0u;
         *__p = 0u;
-        v26 = 0u;
-        v27 = 0;
-        Coherence_namespace::TopoSubstring::splitAt(v28, *(toSubstring + 6), uu);
-        [(CRTTMergeableStringDelta *)self compareSubstring:v28 toSubstring:toSubstring fromString:stringCopy toString:toStringCopy charMap:map deltaCharMap:charMap compareElements:elementsCopy];
+        v25 = 0u;
+        v26 = 0;
+        Coherence_namespace::TopoSubstring::splitAt(v27, *(toSubstring + 6), uu);
+        [(CRTTMergeableStringDelta *)self compareSubstring:v27 toSubstring:toSubstring fromString:stringCopy toString:toStringCopy charMap:map deltaCharMap:charMap compareElements:elementsCopy];
         [(CRTTMergeableStringDelta *)self findAndCompareSubstring:uu from:stringCopy toString:toStringCopy charMap:map deltaCharMap:charMap compareElements:elementsCopy];
       }
 
       else
       {
-        *v28 = *toSubstring;
-        *&v28[12] = *(toSubstring + 12);
-        v30 = 0;
-        v31 = 0;
+        *v27 = *toSubstring;
+        *&v27[12] = *(toSubstring + 12);
         v29 = 0;
-        std::vector<Coherence_namespace::TopoID>::__init_with_size[abi:ne200100]<Coherence_namespace::TopoID*,Coherence_namespace::TopoID*>(&v29, *(toSubstring + 4), *(toSubstring + 5), 0xAAAAAAAAAAAAAAABLL * ((*(toSubstring + 5) - *(toSubstring + 4)) >> 3));
+        v30 = 0;
+        v28 = 0;
+        std::vector<Coherence_namespace::TopoID>::__init_with_size[abi:ne200100]<Coherence_namespace::TopoID*,Coherence_namespace::TopoID*>(&v28, *(toSubstring + 4), *(toSubstring + 5), 0xAAAAAAAAAAAAAAABLL * ((*(toSubstring + 5) - *(toSubstring + 4)) >> 3));
+        v31 = 0;
         v32 = 0;
         v33 = 0;
-        v34 = 0;
-        std::vector<Coherence_namespace::TopoSubstring *>::__init_with_size[abi:ne200100]<Coherence_namespace::TopoSubstring **,Coherence_namespace::TopoSubstring **>(&v32, *(toSubstring + 7), *(toSubstring + 8), (*(toSubstring + 8) - *(toSubstring + 7)) >> 3);
-        v35 = *(toSubstring + 10);
-        v22 = 0;
+        std::vector<Coherence_namespace::TopoSubstring *>::__init_with_size[abi:ne200100]<Coherence_namespace::TopoSubstring **,Coherence_namespace::TopoSubstring **>(&v31, *(toSubstring + 7), *(toSubstring + 8), (*(toSubstring + 8) - *(toSubstring + 7)) >> 3);
+        v34 = *(toSubstring + 10);
+        v21 = 0;
         uuid_clear(uu);
-        v23 = 0;
-        *v24 = 0u;
+        v22 = 0;
+        *v23 = 0u;
         *__p = 0u;
-        v26 = 0u;
-        v27 = 0;
-        Coherence_namespace::TopoSubstring::splitAt(v28, *(substring + 6), uu);
-        [(CRTTMergeableStringDelta *)self compareSubstring:substring toSubstring:v28 fromString:stringCopy toString:toStringCopy charMap:map deltaCharMap:charMap compareElements:elementsCopy];
+        v25 = 0u;
+        v26 = 0;
+        Coherence_namespace::TopoSubstring::splitAt(v27, *(substring + 6), uu);
+        [(CRTTMergeableStringDelta *)self compareSubstring:substring toSubstring:v27 fromString:stringCopy toString:toStringCopy charMap:map deltaCharMap:charMap compareElements:elementsCopy];
       }
     }
 
     else if (v18 >= v19)
     {
-      *v28 = *substring;
-      *&v28[12] = *(substring + 12);
-      v30 = 0;
-      v31 = 0;
+      *v27 = *substring;
+      *&v27[12] = *(substring + 12);
       v29 = 0;
-      std::vector<Coherence_namespace::TopoID>::__init_with_size[abi:ne200100]<Coherence_namespace::TopoID*,Coherence_namespace::TopoID*>(&v29, *(substring + 4), *(substring + 5), 0xAAAAAAAAAAAAAAABLL * ((*(substring + 5) - *(substring + 4)) >> 3));
+      v30 = 0;
+      v28 = 0;
+      std::vector<Coherence_namespace::TopoID>::__init_with_size[abi:ne200100]<Coherence_namespace::TopoID*,Coherence_namespace::TopoID*>(&v28, *(substring + 4), *(substring + 5), 0xAAAAAAAAAAAAAAABLL * ((*(substring + 5) - *(substring + 4)) >> 3));
+      v31 = 0;
       v32 = 0;
       v33 = 0;
-      v34 = 0;
-      std::vector<Coherence_namespace::TopoSubstring *>::__init_with_size[abi:ne200100]<Coherence_namespace::TopoSubstring **,Coherence_namespace::TopoSubstring **>(&v32, *(substring + 7), *(substring + 8), (*(substring + 8) - *(substring + 7)) >> 3);
-      v35 = *(substring + 10);
-      v22 = 0;
+      std::vector<Coherence_namespace::TopoSubstring *>::__init_with_size[abi:ne200100]<Coherence_namespace::TopoSubstring **,Coherence_namespace::TopoSubstring **>(&v31, *(substring + 7), *(substring + 8), (*(substring + 8) - *(substring + 7)) >> 3);
+      v34 = *(substring + 10);
+      v21 = 0;
       uuid_clear(uu);
-      v23 = 0;
-      *v24 = 0u;
+      v22 = 0;
+      *v23 = 0u;
       *__p = 0u;
-      v26 = 0u;
-      v27 = 0;
-      Coherence_namespace::TopoSubstring::splitAt(v28, *(toSubstring + 5) - *(substring + 5), uu);
-      [(CRTTMergeableStringDelta *)self findAndCompareSubstring:v28 from:stringCopy toString:toStringCopy charMap:map deltaCharMap:charMap compareElements:elementsCopy];
+      v25 = 0u;
+      v26 = 0;
+      Coherence_namespace::TopoSubstring::splitAt(v27, *(toSubstring + 5) - *(substring + 5), uu);
+      [(CRTTMergeableStringDelta *)self findAndCompareSubstring:v27 from:stringCopy toString:toStringCopy charMap:map deltaCharMap:charMap compareElements:elementsCopy];
       [(CRTTMergeableStringDelta *)self compareSubstring:uu toSubstring:toSubstring fromString:stringCopy toString:toStringCopy charMap:map deltaCharMap:charMap compareElements:elementsCopy];
     }
 
     else
     {
-      *v28 = *toSubstring;
-      *&v28[12] = *(toSubstring + 12);
-      v30 = 0;
-      v31 = 0;
+      *v27 = *toSubstring;
+      *&v27[12] = *(toSubstring + 12);
       v29 = 0;
-      std::vector<Coherence_namespace::TopoID>::__init_with_size[abi:ne200100]<Coherence_namespace::TopoID*,Coherence_namespace::TopoID*>(&v29, *(toSubstring + 4), *(toSubstring + 5), 0xAAAAAAAAAAAAAAABLL * ((*(toSubstring + 5) - *(toSubstring + 4)) >> 3));
+      v30 = 0;
+      v28 = 0;
+      std::vector<Coherence_namespace::TopoID>::__init_with_size[abi:ne200100]<Coherence_namespace::TopoID*,Coherence_namespace::TopoID*>(&v28, *(toSubstring + 4), *(toSubstring + 5), 0xAAAAAAAAAAAAAAABLL * ((*(toSubstring + 5) - *(toSubstring + 4)) >> 3));
+      v31 = 0;
       v32 = 0;
       v33 = 0;
-      v34 = 0;
-      std::vector<Coherence_namespace::TopoSubstring *>::__init_with_size[abi:ne200100]<Coherence_namespace::TopoSubstring **,Coherence_namespace::TopoSubstring **>(&v32, *(toSubstring + 7), *(toSubstring + 8), (*(toSubstring + 8) - *(toSubstring + 7)) >> 3);
-      v35 = *(toSubstring + 10);
-      v22 = 0;
+      std::vector<Coherence_namespace::TopoSubstring *>::__init_with_size[abi:ne200100]<Coherence_namespace::TopoSubstring **,Coherence_namespace::TopoSubstring **>(&v31, *(toSubstring + 7), *(toSubstring + 8), (*(toSubstring + 8) - *(toSubstring + 7)) >> 3);
+      v34 = *(toSubstring + 10);
+      v21 = 0;
       uuid_clear(uu);
-      v23 = 0;
-      *v24 = 0u;
+      v22 = 0;
+      *v23 = 0u;
       *__p = 0u;
-      v26 = 0u;
-      v27 = 0;
-      Coherence_namespace::TopoSubstring::splitAt(v28, *(substring + 5) - *(toSubstring + 5), uu);
+      v25 = 0u;
+      v26 = 0;
+      Coherence_namespace::TopoSubstring::splitAt(v27, *(substring + 5) - *(toSubstring + 5), uu);
       [(CRTTMergeableStringDelta *)self compareSubstring:substring toSubstring:uu fromString:stringCopy toString:toStringCopy charMap:map deltaCharMap:charMap compareElements:elementsCopy];
     }
 
     if (__p[1])
     {
-      *&v26 = __p[1];
+      *&v25 = __p[1];
       operator delete(__p[1]);
     }
 
-    if (v24[0])
+    if (v23[0])
     {
-      v24[1] = v24[0];
-      operator delete(v24[0]);
+      v23[1] = v23[0];
+      operator delete(v23[0]);
     }
 
-    if (v32)
+    if (v31)
     {
-      v33 = v32;
-      operator delete(v32);
+      v32 = v31;
+      operator delete(v31);
     }
 
-    if (v29)
+    if (v28)
     {
-      v30 = v29;
-      operator delete(v29);
+      v29 = v28;
+      operator delete(v28);
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (id)dotDescription:(unint64_t)description
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v5 = objc_alloc_init(MEMORY[0x1E696AD60]);
   fromVersion = [(CRTTMergeableStringDelta *)self fromVersion];
   version = [(CRTTMergeableStringDelta *)self version];
@@ -1297,7 +1256,7 @@ LABEL_64:
 
   [v5 appendFormat:@"  label='%@'\n", v10];
   [v5 appendFormat:@"  color=lightgrey;\n"];
-  v34 = v10;
+  v31 = v10;
   begin = self->orderedSubstrings.__begin_;
   selfCopy = self;
   end = self->orderedSubstrings.__end_;
@@ -1320,11 +1279,11 @@ LABEL_64:
 
       [v5 appendFormat:v14, description, v12];
 LABEL_16:
-      v30 = *(v12 + 7);
-      v31 = *(v12 + 8);
-      while (v30 != v31)
+      v28 = *(v12 + 7);
+      v29 = *(v12 + 8);
+      while (v28 != v29)
       {
-        [v5 appendFormat:@"  N%ld%p -> N%ld%p;\n", description, v12, description, *v30++];
+        [v5 appendFormat:@"  N%ld%p -> N%ld%p;\n", description, v12, description, *v28++];
       }
 
       if (++begin == end)
@@ -1335,61 +1294,57 @@ LABEL_16:
 
     if (*(v12 + 21) == -1)
     {
-      v36 = &stru_1F23CB0F8;
+      v33 = &stru_1F23CB0F8;
       goto LABEL_12;
     }
 
-    attributedString = selfCopy->_attributedString;
     if (objc_opt_respondsToSelector())
     {
-      v17 = MEMORY[0x1E696AEC0];
+      v16 = MEMORY[0x1E696AEC0];
       string = [(CRTTMergeableStringStorage *)selfCopy->_attributedString string];
-      v19 = [string substringWithRange:{*(v12 + 21), *(v12 + 6)}];
-      v36 = [v17 stringWithFormat:@"%@", v19];
+      v18 = [string substringWithRange:{*(v12 + 21), *(v12 + 6)}];
+      v33 = [v16 stringWithFormat:@"%@", v18];
     }
 
     else
     {
-      v20 = selfCopy->_attributedString;
       objc_opt_class();
-      v36 = @"?";
+      v33 = @"?";
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
         goto LABEL_12;
       }
 
-      v21 = MEMORY[0x1E696AEC0];
+      v19 = MEMORY[0x1E696AEC0];
       string = [(CRTTMergeableStringStorage *)selfCopy->_attributedString substringWithRange:*(v12 + 21), *(v12 + 6)];
-      v36 = [v21 stringWithFormat:@"%@", string];
+      v33 = [v19 stringWithFormat:@"%@", string];
     }
 
 LABEL_12:
-    v22 = objc_alloc_init(MEMORY[0x1E696AD60]);
-    v23 = *(v12 + 4);
-    v24 = *(v12 + 5);
-    while (v23 != v24)
+    v20 = objc_alloc_init(MEMORY[0x1E696AD60]);
+    v21 = *(v12 + 4);
+    v22 = *(v12 + 5);
+    while (v21 != v22)
     {
-      v25 = *v23;
-      v39 = *(v23 + 2);
-      v38 = v25;
-      v26 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:&v38];
-      coherence_shortDescription = [v26 Coherence_shortDescription];
-      [v22 appendFormat:@"%@.%d, %d ", coherence_shortDescription, v39, HIDWORD(v39)];
+      v23 = *v21;
+      v36 = *(v21 + 2);
+      v35 = v23;
+      v24 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:&v35];
+      coherence_shortDescription = [v24 Coherence_shortDescription];
+      [v20 appendFormat:@"%@.%d, %d ", coherence_shortDescription, v36, HIDWORD(v36)];
 
-      v23 = (v23 + 24);
+      v21 = (v21 + 24);
     }
 
-    v28 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v12];
-    coherence_shortDescription2 = [v28 Coherence_shortDescription];
-    [v5 appendFormat:@"  N%ld%p [label=%@ %@.%d, %d-%u (%@)];\n", description, v12, v36, coherence_shortDescription2, *(v12 + 4), *(v12 + 5), (*(v12 + 5) + *(v12 + 6) - 1), v22];
+    v26 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v12];
+    coherence_shortDescription2 = [v26 Coherence_shortDescription];
+    [v5 appendFormat:@"  N%ld%p [label=%@ %@.%d, %d-%u (%@)];\n", description, v12, v33, coherence_shortDescription2, *(v12 + 4), *(v12 + 5), (*(v12 + 5) + *(v12 + 6) - 1), v20];
 
     goto LABEL_16;
   }
 
 LABEL_20:
   [v5 appendString:@"}\n"];
-
-  v32 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

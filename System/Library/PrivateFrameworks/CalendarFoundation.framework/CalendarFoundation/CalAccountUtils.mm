@@ -126,7 +126,7 @@ void __32__CalAccountUtils__accountStore__block_invoke_2()
   return v6 & 1;
 }
 
-uint64_t __42__CalAccountUtils_isAccountDataSeparated___block_invoke(uint64_t a1, void *a2)
+void *__42__CalAccountUtils_isAccountDataSeparated___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 isDataSeparatedPersona];
   *(*(*(a1 + 32) + 8) + 24) = result;

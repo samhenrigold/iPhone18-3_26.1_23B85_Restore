@@ -61,7 +61,7 @@
 
 - (id)cacheOfType:(unint64_t)type
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (type >= 2)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
@@ -107,18 +107,18 @@
       v14 = sgLogHandle();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
       {
-        v17 = @"email-to-name.kvcache";
+        v16 = @"email-to-name.kvcache";
         if (!type)
         {
-          v17 = @"phone-to-name.kvcache";
+          v16 = @"phone-to-name.kvcache";
         }
 
-        v18 = v17;
-        v19 = self->_basePath;
+        v17 = v16;
+        v18 = self->_basePath;
         *buf = 138412546;
-        v23 = v18;
-        v24 = 2112;
-        v25 = v19;
+        v22 = v17;
+        v23 = 2112;
+        v24 = v18;
         _os_log_fault_impl(&dword_231E60000, v14, OS_LOG_TYPE_FAULT, "Error opening file %@ at base path: %@", buf, 0x16u);
       }
 
@@ -137,7 +137,6 @@
   }
 
   pthread_mutex_unlock(&self->_lock);
-  v15 = *MEMORY[0x277D85DE8];
 
   return initInMemory;
 }

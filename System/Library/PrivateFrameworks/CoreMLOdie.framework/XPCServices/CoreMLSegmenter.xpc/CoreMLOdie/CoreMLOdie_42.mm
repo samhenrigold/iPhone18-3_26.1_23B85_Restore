@@ -1,14 +1,3 @@
-BOOL mlir::ODIE::Compiler::CoreML::GELUOp::readProperties(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 256);
-  if (!v2)
-  {
-    operator new();
-  }
-
-  return sub_100244454(a1, v2);
-}
-
 BOOL sub_100244454(uint64_t a1, uint64_t *a2)
 {
   v31 = 0;
@@ -240,14 +229,14 @@ BOOL mlir::ODIE::Compiler::CoreML::GELUOp::verifyInvariantsImpl(mlir::Operation 
   v2 = *this;
   v3 = *(*this + 2 * ((*(*this + 11) >> 23) & 1) + 8);
   v29 = v2;
-  if ((sub_10024404C(v3, "approximate", 0xB, sub_10026D214, &v29) & 1) == 0 || !sub_10022B70C(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0))
+  if (!sub_10024404C(v3, "approximate", 0xB, sub_10026D214, &v29) || (sub_10022B70C(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) & 1) == 0)
   {
     return 0;
   }
 
   v4 = *(*this + 9) ? *this - 16 : 0;
   NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v4, 0);
-  if (!sub_10022B70C(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0))
+  if ((sub_10022B70C(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1) == 0)
   {
     return 0;
   }
@@ -273,7 +262,7 @@ BOOL mlir::ODIE::Compiler::CoreML::GELUOp::verifyInvariantsImpl(mlir::Operation 
     {
       v27[0] = "failed to verify that Result 0 and operand 0 must have the same shape.";
       v28 = 259;
-      mlir::OpState::emitOpError(this, v27, &v29);
+      mlir::OpState::emitOpError(&v29, this, v27);
       result = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v29);
       if (v29)
       {
@@ -295,7 +284,7 @@ BOOL mlir::ODIE::Compiler::CoreML::GELUOp::verifyInvariantsImpl(mlir::Operation 
   {
     v27[0] = "failed to verify that Result 0 element type must match element type of operand 0.";
     v28 = 259;
-    mlir::OpState::emitOpError(this, v27, &v29);
+    mlir::OpState::emitOpError(&v29, this, v27);
     result = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v29);
     v17 = result;
     if (v29)
@@ -372,14 +361,14 @@ BOOL mlir::ODIE::Compiler::CoreML::GELUOp::verifyInvariantsImpl(mlir::Operation 
 
 BOOL mlir::ODIE::Compiler::CoreML::GatherAlongAxisOp::verifyInvariantsImpl(mlir::Operation **this)
 {
-  if (!sub_1002241FC(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) || !sub_100227178(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u) || (sub_100226A34(*this, (*(*(*(*this + 9) + 88) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 2u) & 1) == 0)
+  if ((sub_1002241FC(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) & 1) == 0 || (sub_100227178(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u) & 1) == 0 || !sub_100226A34(*this, (*(*(*(*this + 9) + 88) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 2u))
   {
     return 0;
   }
 
   v2 = *(*this + 9) ? *this - 16 : 0;
   NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v2, 0);
-  if (!sub_1002241FC(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0))
+  if ((sub_1002241FC(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1) == 0)
   {
     return 0;
   }
@@ -403,7 +392,7 @@ BOOL mlir::ODIE::Compiler::CoreML::GatherAlongAxisOp::verifyInvariantsImpl(mlir:
 
     v26[0] = "failed to verify that Result 0 element type must match element type of operand 0.";
     v27 = 259;
-    mlir::OpState::emitOpError(this, v26, v30);
+    mlir::OpState::emitOpError(v30, this, v26);
     result = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v30);
     v12 = result;
     if (v30[0])
@@ -473,7 +462,7 @@ BOOL mlir::ODIE::Compiler::CoreML::GatherAlongAxisOp::verifyInvariantsImpl(mlir:
   {
     v26[0] = "failed to verify that Result 0 and operand 1 must have the same shape.";
     v27 = 259;
-    mlir::OpState::emitOpError(this, v26, v30);
+    mlir::OpState::emitOpError(v30, this, v26);
     result = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v30);
     v12 = result;
     if (v30[0])
@@ -555,7 +544,7 @@ LABEL_46:
   return result;
 }
 
-uint64_t mlir::ODIE::Compiler::CoreML::GatherAlongAxisOp::parse(mlir::ODIE::Compiler::CoreML::GatherAlongAxisOp *this, mlir::OpAsmParser *a2, mlir::OperationState *a3)
+BOOL mlir::ODIE::Compiler::CoreML::GatherAlongAxisOp::parse(mlir::ODIE::Compiler::CoreML::GatherAlongAxisOp *this, mlir::OpAsmParser *a2, mlir::OperationState *a3)
 {
   memset(v23, 0, sizeof(v23));
   v24 = 0;
@@ -580,73 +569,9 @@ uint64_t mlir::ODIE::Compiler::CoreML::GatherAlongAxisOp::parse(mlir::ODIE::Comp
   v9 = 0;
   v10[0] = &v11;
   v5 = (*(*this + 40))(this, a2, a3);
-  if (((*(*this + 704))(this, v23, 1) & 1) == 0)
+  if ((*(*this + 704))(this, v23, 1) & 1) != 0 && (v26 = 257, ((*(*this + 400))(this, "at", 2, v25)) && (v6 = (*(*this + 40))(this), ((*(*this + 704))(this, v20, 1)) && (v26 = 257, ((*(*this + 400))(this, "along", 5, v25)) && (v7 = (*(*this + 40))(this), ((*(*this + 704))(this, v17, 1)) && ((*(*this + 104))(this) & 1) != 0 && ((*(*this + 280))(this) & 1) != 0 && (v25[0] = 0, sub_10027204C(this, v25)) && (v15 = v25[0], ((*(*this + 120))(this)) && (v25[0] = 0, sub_10027204C(this, v25)) && (v13 = v25[0], ((*(*this + 120))(this)) && (v25[0] = 0, sub_100272C58(this, v25)) && (v11 = v25[0], ((*(*this + 296))(this)) && (v26 = 257, ((*(*this + 400))(this, "to", 2, v25)) && (v25[0] = 0, sub_10027204C(this, v25)) && (v9 = v25[0], (*(*this + 40))(this), ((*(*this + 488))(this, a2 + 112)) && (sub_1001EFDBC(a2, &v9, 1), sub_10022A240(this, v22, v14, v5, a2 + 16)) && sub_10022A240(this, v19, v12, v6, a2 + 16))
   {
-    return 0;
-  }
-
-  v26 = 257;
-  if (((*(*this + 400))(this, "at", 2, v25) & 1) == 0)
-  {
-    return 0;
-  }
-
-  v6 = (*(*this + 40))(this);
-  if (((*(*this + 704))(this, v20, 1) & 1) == 0)
-  {
-    return 0;
-  }
-
-  v26 = 257;
-  if (((*(*this + 400))(this, "along", 5, v25) & 1) == 0)
-  {
-    return 0;
-  }
-
-  v7 = (*(*this + 40))(this);
-  if (((*(*this + 704))(this, v17, 1) & 1) == 0)
-  {
-    return 0;
-  }
-
-  if (((*(*this + 104))(this) & 1) == 0)
-  {
-    return 0;
-  }
-
-  if (((*(*this + 280))(this) & 1) == 0)
-  {
-    return 0;
-  }
-
-  v25[0] = 0;
-  if (!sub_10027204C(this, v25))
-  {
-    return 0;
-  }
-
-  v15 = v25[0];
-  if (((*(*this + 120))(this) & 1) == 0)
-  {
-    return 0;
-  }
-
-  v25[0] = 0;
-  if (!sub_10027204C(this, v25))
-  {
-    return 0;
-  }
-
-  v13 = v25[0];
-  if (((*(*this + 120))(this) & 1) == 0)
-  {
-    return 0;
-  }
-
-  v25[0] = 0;
-  if (sub_100272C58(this, v25) && (v11 = v25[0], ((*(*this + 296))(this) & 1) != 0) && (v26 = 257, ((*(*this + 400))(this, "to", 2, v25) & 1) != 0) && (v25[0] = 0, sub_10027204C(this, v25)) && (v9 = v25[0], (*(*this + 40))(this), ((*(*this + 488))(this, a2 + 112) & 1) != 0) && (sub_1001EFDBC(a2, &v9, 1), (sub_10022A240(this, v22, v14, v5, a2 + 16) & 1) != 0) && (sub_10022A240(this, v19, v12, v6, a2 + 16) & 1) != 0)
-  {
-    return sub_10022A240(this, v16, v10, v7, a2 + 16) & 1;
+    return sub_10022A240(this, v16, v10, v7, a2 + 16);
   }
 
   else
@@ -936,14 +861,14 @@ void mlir::ODIE::Compiler::CoreML::GatherAlongAxisOp::print(mlir::Operation **th
 
 BOOL mlir::ODIE::Compiler::CoreML::GatherNdOp::verifyInvariantsImpl(mlir::Operation **this)
 {
-  if (!sub_1002241FC(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) || !sub_100227178(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u))
+  if ((sub_1002241FC(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) & 1) == 0 || (sub_100227178(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u) & 1) == 0)
   {
     return 0;
   }
 
   v2 = *(*this + 9) ? *this - 16 : 0;
   NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v2, 0);
-  if (!sub_1002241FC(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0))
+  if ((sub_1002241FC(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1) == 0)
   {
     return 0;
   }
@@ -956,7 +881,7 @@ BOOL mlir::ODIE::Compiler::CoreML::GatherNdOp::verifyInvariantsImpl(mlir::Operat
 
   v14 = "failed to verify that Result 0 element type must match element type of operand 0.";
   v15 = 259;
-  mlir::OpState::emitOpError(this, &v14, v16);
+  mlir::OpState::emitOpError(v16, this, &v14);
   result = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v16);
   v6 = result;
   if (v16[0])
@@ -1030,7 +955,7 @@ BOOL mlir::ODIE::Compiler::CoreML::GatherNdOp::verifyInvariantsImpl(mlir::Operat
   return result;
 }
 
-uint64_t mlir::ODIE::Compiler::CoreML::GatherNdOp::parse(mlir::ODIE::Compiler::CoreML::GatherNdOp *this, mlir::OpAsmParser *a2, mlir::OperationState *a3)
+BOOL mlir::ODIE::Compiler::CoreML::GatherNdOp::parse(mlir::ODIE::Compiler::CoreML::GatherNdOp *this, mlir::OpAsmParser *a2, mlir::OperationState *a3)
 {
   memset(v17, 0, sizeof(v17));
   v18 = 0;
@@ -1047,49 +972,9 @@ uint64_t mlir::ODIE::Compiler::CoreML::GatherNdOp::parse(mlir::ODIE::Compiler::C
   v9[0] = &v10;
   v9[1] = 1;
   v5 = (*(*this + 40))(this, a2, a3);
-  if (((*(*this + 704))(this, v17, 1) & 1) == 0)
+  if ((*(*this + 704))(this, v17, 1) & 1) != 0 && (v20 = 257, ((*(*this + 400))(this, "at", 2, v19)) && (v6 = (*(*this + 40))(this), ((*(*this + 704))(this, v14, 1)) && ((*(*this + 104))(this) & 1) != 0 && ((*(*this + 280))(this) & 1) != 0 && (v19[0] = 0, sub_10027204C(this, v19)) && (v12 = v19[0], ((*(*this + 120))(this)) && (v19[0] = 0, sub_10027204C(this, v19)) && (v10 = v19[0], ((*(*this + 296))(this)) && (v20 = 257, ((*(*this + 400))(this, "to", 2, v19)) && (v8 = 0, sub_10027204C(this, &v8)) && (v19[0] = v8, (*(*this + 40))(this), ((*(*this + 488))(this, a2 + 112)) && (sub_1001EFDBC(a2, v19, 1), sub_10022A240(this, v16, v11, v5, a2 + 16)))
   {
-    return 0;
-  }
-
-  v20 = 257;
-  if (((*(*this + 400))(this, "at", 2, v19) & 1) == 0)
-  {
-    return 0;
-  }
-
-  v6 = (*(*this + 40))(this);
-  if (((*(*this + 704))(this, v14, 1) & 1) == 0)
-  {
-    return 0;
-  }
-
-  if (((*(*this + 104))(this) & 1) == 0)
-  {
-    return 0;
-  }
-
-  if (((*(*this + 280))(this) & 1) == 0)
-  {
-    return 0;
-  }
-
-  v19[0] = 0;
-  if (!sub_10027204C(this, v19))
-  {
-    return 0;
-  }
-
-  v12 = v19[0];
-  if (((*(*this + 120))(this) & 1) == 0)
-  {
-    return 0;
-  }
-
-  v19[0] = 0;
-  if (sub_10027204C(this, v19) && (v10 = v19[0], ((*(*this + 296))(this) & 1) != 0) && (v20 = 257, ((*(*this + 400))(this, "to", 2, v19) & 1) != 0) && (v8 = 0, sub_10027204C(this, &v8)) && (v19[0] = v8, (*(*this + 40))(this), ((*(*this + 488))(this, a2 + 112) & 1) != 0) && (sub_1001EFDBC(a2, v19, 1), (sub_10022A240(this, v16, v11, v5, a2 + 16) & 1) != 0))
-  {
-    return sub_10022A240(this, v13, v9, v6, a2 + 16) & 1;
+    return sub_10022A240(this, v13, v9, v6, a2 + 16);
   }
 
   else
@@ -1677,9 +1562,9 @@ uint64_t mlir::ODIE::Compiler::CoreML::GetMemberOp::populateInherentAttrs(uint64
   return result;
 }
 
-BOOL mlir::ODIE::Compiler::CoreML::GetMemberOp::readProperties(uint64_t a1, uint64_t a2)
+BOOL mlir::ODIE::Compiler::CoreML::GetMemberOp::readProperties(uint64_t a1, void *a2)
 {
-  v2 = *(a2 + 256);
+  v2 = a2[32];
   if (!v2)
   {
     operator new();
@@ -1688,7 +1573,7 @@ BOOL mlir::ODIE::Compiler::CoreML::GetMemberOp::readProperties(uint64_t a1, uint
   return sub_100202150(a1, v2);
 }
 
-BOOL mlir::ODIE::Compiler::CoreML::GetMemberOp::verifyInvariantsImpl(mlir::Operation **this)
+uint64_t mlir::ODIE::Compiler::CoreML::GetMemberOp::verifyInvariantsImpl(mlir::Operation **this)
 {
   v1 = *(*this + 2 * ((*(*this + 11) >> 23) & 1) + 8);
   if (v1)
@@ -1720,7 +1605,7 @@ BOOL mlir::ODIE::Compiler::CoreML::GetMemberOp::verifyInvariantsImpl(mlir::Opera
   {
     v13 = "requires attribute 'member'";
     v14 = 259;
-    mlir::OpState::emitOpError(this, &v13, v15);
+    mlir::OpState::emitOpError(v15, this, &v13);
     v4 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v15);
     if (v15[0])
     {
@@ -1789,7 +1674,7 @@ BOOL mlir::ODIE::Compiler::CoreML::GetMemberOp::verifyInvariantsImpl(mlir::Opera
   return v4;
 }
 
-uint64_t mlir::ODIE::Compiler::CoreML::GetShapeOp::verifyInvariantsImpl(mlir::Operation **this)
+BOOL mlir::ODIE::Compiler::CoreML::GetShapeOp::verifyInvariantsImpl(mlir::Operation **this)
 {
   v2 = sub_1002241FC(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0);
   result = 0;
@@ -1806,7 +1691,7 @@ uint64_t mlir::ODIE::Compiler::CoreML::GetShapeOp::verifyInvariantsImpl(mlir::Op
     }
 
     NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v4, 0);
-    return sub_100224F84(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1;
+    return sub_100224F84(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0);
   }
 
   return result;
@@ -2956,28 +2841,28 @@ BOOL mlir::ODIE::Compiler::CoreML::GraphOp::verifyInherentAttrs(uint64_t a1, uin
 {
   v8 = mlir::NamedAttrList::get(a2, **(a1 + 96));
   result = 0;
-  if (!v8 || (sub_100230B68(v8, "arg_attrs", 9, a3, a4) & 1) != 0)
+  if (!v8 || sub_100230B68(v8, "arg_attrs", 9, a3, a4))
   {
     v9 = mlir::NamedAttrList::get(a2, *(*(a1 + 96) + 8));
-    if (!v9 || (sub_100230F04(v9, "externalize", 0xB, a3, a4) & 1) != 0)
+    if (!v9 || sub_100230F04(v9, "externalize", 0xB, a3, a4))
     {
       v10 = mlir::NamedAttrList::get(a2, *(*(a1 + 96) + 16));
-      if (!v10 || (sub_100241F1C(v10, "function_type", 0xD, a3, a4) & 1) != 0)
+      if (!v10 || sub_100241F1C(v10, "function_type", 0xD, a3, a4))
       {
         v11 = mlir::NamedAttrList::get(a2, *(*(a1 + 96) + 24));
-        if (!v11 || (sub_100230F04(v11, "no_inline", 9, a3, a4) & 1) != 0)
+        if (!v11 || sub_100230F04(v11, "no_inline", 9, a3, a4))
         {
           v12 = mlir::NamedAttrList::get(a2, *(*(a1 + 96) + 32));
-          if (!v12 || (sub_100232E78(v12, "param_decls", 0xB, a3, a4) & 1) != 0)
+          if (!v12 || sub_100232E78(v12, "param_decls", 0xB, a3, a4))
           {
             v13 = mlir::NamedAttrList::get(a2, *(*(a1 + 96) + 40));
-            if (!v13 || (sub_100230F04(v13, "priv", 4, a3, a4) & 1) != 0)
+            if (!v13 || sub_100230F04(v13, "priv", 4, a3, a4))
             {
               v14 = mlir::NamedAttrList::get(a2, *(*(a1 + 96) + 48));
-              if (!v14 || (sub_100230B68(v14, "res_attrs", 9, a3, a4) & 1) != 0)
+              if (!v14 || sub_100230B68(v14, "res_attrs", 9, a3, a4))
               {
                 v15 = mlir::NamedAttrList::get(a2, *(*(a1 + 96) + 56));
-                if (!v15 || (sub_10010DF98(v15, "sym_name", 8, a3, a4) & 1) != 0)
+                if (!v15 || sub_10010DF98(v15, "sym_name", 8, a3, a4))
                 {
                   return 1;
                 }
@@ -3003,8 +2888,8 @@ uint64_t mlir::ODIE::Compiler::CoreML::GraphOp::setParamDecls(uint64_t a1, _DWOR
 BOOL mlir::ODIE::Compiler::CoreML::GraphOp::verifyInvariantsImpl(mlir::Operation **this)
 {
   v1 = *this + 16 * ((*(*this + 11) >> 23) & 1);
-  v4 = *(v1 + 64);
-  v2 = (v1 + 64);
+  v4 = *(v1 + 8);
+  v2 = v1 + 64;
   v3 = v4;
   v5 = v2[2];
   if (v5)
@@ -3020,9 +2905,9 @@ BOOL mlir::ODIE::Compiler::CoreML::GraphOp::verifyInvariantsImpl(mlir::Operation
         v12 = v2[5];
         v11 = v2[6];
         v34[0] = *this;
-        if (sub_10010DF98(v7, "sym_name", 8, sub_10026D0C4, v34) & 1) != 0 && (v34[0] = *this, (sub_100241F1C(v5, "function_type", 0xD, sub_10026D184, v34)) && (v34[0] = *this, (sub_100232E78(v6, "param_decls", 0xB, sub_10026D0F4, v34)) && (v34[0] = *this, (sub_100230F04(v12, "priv", 4, sub_10026D064, v34)) && (v34[0] = *this, (sub_100230F04(v9, "externalize", 0xB, sub_10026D064, v34)) && (v34[0] = *this, (sub_100230F04(v10, "no_inline", 9, sub_10026D064, v34)) && (v34[0] = *this, (sub_100230B68(v3, "arg_attrs", 9, sub_10026D094, v34)) && (v34[0] = *this, (sub_100230B68(v11, "res_attrs", 9, sub_10026D094, v34)))
+        if (sub_10010DF98(v7, "sym_name", 8, sub_10026D0C4, v34) && (v34[0] = *this, sub_100241F1C(v5, "function_type", 0xD, sub_10026D184, v34)) && (v34[0] = *this, sub_100232E78(v6, "param_decls", 0xB, sub_10026D0F4, v34)) && (v34[0] = *this, sub_100230F04(v12, "priv", 4, sub_10026D064, v34)) && (v34[0] = *this, sub_100230F04(v9, "externalize", 0xB, sub_10026D064, v34)) && (v34[0] = *this, sub_100230F04(v10, "no_inline", 9, sub_10026D064, v34)) && (v34[0] = *this, sub_100230B68(v3, "arg_attrs", 9, sub_10026D094, v34)) && (v34[0] = *this, sub_100230B68(v11, "res_attrs", 9, sub_10026D094, v34)))
         {
-          return sub_1002496D0(*this, ((*this + 16 * ((*(*this + 11) >> 23) & 1) + ((*(*this + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(*this + 10), "bodyRegion", 10, 0) & 1;
+          return sub_1002496D0(*this, ((*this + 16 * ((*(*this + 11) >> 23) & 1) + ((*(*this + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(*this + 10), "bodyRegion", 10, 0);
         }
 
         else
@@ -3033,7 +2918,7 @@ BOOL mlir::ODIE::Compiler::CoreML::GraphOp::verifyInvariantsImpl(mlir::Operation
 
       v32[0] = "requires attribute 'sym_name'";
       v33 = 259;
-      mlir::OpState::emitOpError(this, v32, v34);
+      mlir::OpState::emitOpError(v34, this, v32);
       v13 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v34);
       if (v34[0])
       {
@@ -3110,7 +2995,7 @@ LABEL_62:
     {
       v32[0] = "requires attribute 'param_decls'";
       v33 = 259;
-      mlir::OpState::emitOpError(this, v32, v34);
+      mlir::OpState::emitOpError(v34, this, v32);
       v13 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v34);
       if (v34[0])
       {
@@ -3177,7 +3062,7 @@ LABEL_62:
   {
     v32[0] = "requires attribute 'function_type'";
     v33 = 259;
-    mlir::OpState::emitOpError(this, v32, v34);
+    mlir::OpState::emitOpError(v34, this, v32);
     v13 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v34);
     if (v34[0])
     {
@@ -3242,7 +3127,7 @@ LABEL_62:
   return v13;
 }
 
-uint64_t sub_1002496D0(mlir::Operation *a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5)
+BOOL sub_1002496D0(mlir::Operation *a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5)
 {
   v5 = *(a2 + 8);
   if (v5 == a2 || *(v5 + 8) == a2)
@@ -3412,7 +3297,7 @@ LABEL_14:
 
 BOOL mlir::ODIE::Compiler::CoreML::GreaterOp::verifyInvariantsImpl(mlir::Operation **this)
 {
-  if (!sub_1002241FC(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) || !sub_1002241FC(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u))
+  if ((sub_1002241FC(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) & 1) == 0 || (sub_1002241FC(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u) & 1) == 0)
   {
     return 0;
   }
@@ -3431,7 +3316,7 @@ BOOL mlir::ODIE::Compiler::CoreML::GreaterOp::verifyInvariantsImpl(mlir::Operati
   return sub_1002249E8(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0);
 }
 
-uint64_t mlir::ODIE::Compiler::CoreML::IfOp::verifyInvariantsImpl(mlir::Operation **this)
+BOOL mlir::ODIE::Compiler::CoreML::IfOp::verifyInvariantsImpl(mlir::Operation **this)
 {
   if (!sub_1002256D0(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0))
   {
@@ -3451,18 +3336,10 @@ uint64_t mlir::ODIE::Compiler::CoreML::IfOp::verifyInvariantsImpl(mlir::Operatio
     v2 = *this;
   }
 
-  if (sub_10022D920(v2, ((v2 + 16 * ((*(v2 + 11) >> 23) & 1) + ((*(v2 + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v2 + 10), "thenRegion", 10, 0))
-  {
-    return sub_1002496D0(*this, ((*this + 16 * ((*(*this + 11) >> 23) & 1) + ((*(*this + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(*this + 10) + 24, "elseRegion", 10, 1u) & 1;
-  }
-
-  else
-  {
-    return 0;
-  }
+  return sub_10022D920(v2, ((v2 + 16 * ((*(v2 + 11) >> 23) & 1) + ((*(v2 + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v2 + 10), "thenRegion", 10, 0) && sub_1002496D0(*this, ((*this + 16 * ((*(*this + 11) >> 23) & 1) + ((*(*this + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(*this + 10) + 24, "elseRegion", 10, 1u);
 }
 
-BOOL mlir::ODIE::Compiler::CoreML::ImaginaryPartOp::verifyInvariantsImpl(mlir::Operation **this)
+uint64_t mlir::ODIE::Compiler::CoreML::ImaginaryPartOp::verifyInvariantsImpl(mlir::Operation **this)
 {
   v2 = sub_100236FE8(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0);
   result = 0;
@@ -3479,13 +3356,13 @@ BOOL mlir::ODIE::Compiler::CoreML::ImaginaryPartOp::verifyInvariantsImpl(mlir::O
     }
 
     NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v4, 0);
-    return sub_1002263C4(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0);
+    return sub_1002263C4(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1;
   }
 
   return result;
 }
 
-uint64_t mlir::ODIE::Compiler::CoreML::ImaginaryPartOp::parse(mlir::ODIE::Compiler::CoreML::ImaginaryPartOp *this, mlir::OpAsmParser *a2, mlir::OperationState *a3)
+BOOL mlir::ODIE::Compiler::CoreML::ImaginaryPartOp::parse(mlir::ODIE::Compiler::CoreML::ImaginaryPartOp *this, mlir::OpAsmParser *a2, mlir::OperationState *a3)
 {
   memset(v12, 0, sizeof(v12));
   v13 = 0;
@@ -3541,7 +3418,7 @@ uint64_t mlir::ODIE::Compiler::CoreML::ImaginaryPartOp::parse(mlir::ODIE::Compil
   }
 
   sub_1001EFDBC(a2, &v8, 1);
-  return sub_10022A240(this, v11, v9, v5, a2 + 16) & 1;
+  return sub_10022A240(this, v11, v9, v5, a2 + 16);
 }
 
 void mlir::ODIE::Compiler::CoreML::ImaginaryPartOp::print(mlir::Operation **this, mlir::OpAsmPrinter *a2)
@@ -4305,7 +4182,7 @@ unint64_t mlir::ODIE::Compiler::CoreML::ImportOp::getInherentAttr(uint64_t a1, v
   return a2[2];
 }
 
-void *mlir::ODIE::Compiler::CoreML::ImportOp::setInherentAttr(void *result, void *a2, uint64_t a3, uint64_t a4)
+uint64_t *mlir::ODIE::Compiler::CoreML::ImportOp::setInherentAttr(uint64_t *result, void *a2, uint64_t a3, uint64_t a4)
 {
   if (a3 == 8)
   {
@@ -4411,13 +4288,13 @@ BOOL mlir::ODIE::Compiler::CoreML::ImportOp::verifyInherentAttrs(uint64_t a1, ui
 {
   v8 = mlir::NamedAttrList::get(a2, **(a1 + 96));
   result = 0;
-  if (!v8 || (sub_10010DF98(v8, "path", 4, a3, a4) & 1) != 0)
+  if (!v8 || sub_10010DF98(v8, "path", 4, a3, a4))
   {
     v9 = mlir::NamedAttrList::get(a2, *(*(a1 + 96) + 8));
-    if (!v9 || (sub_10010DF98(v9, "sym_name", 8, a3, a4) & 1) != 0)
+    if (!v9 || sub_10010DF98(v9, "sym_name", 8, a3, a4))
     {
       v10 = mlir::NamedAttrList::get(a2, *(*(a1 + 96) + 16));
-      if (!v10 || (sub_10024B3A4(v10, "toImport", 8, a3, a4) & 1) != 0)
+      if (!v10 || sub_10024B3A4(v10, "toImport", 8, a3, a4))
       {
         return 1;
       }
@@ -4427,7 +4304,7 @@ BOOL mlir::ODIE::Compiler::CoreML::ImportOp::verifyInherentAttrs(uint64_t a1, ui
   return result;
 }
 
-uint64_t sub_10024B3A4(uint64_t a1, void **a2, const char *a3, void (*a4)(uint64_t *__return_ptr, uint64_t), uint64_t a5)
+BOOL sub_10024B3A4(uint64_t a1, const char *a2, const char *a3, void (*a4)(uint64_t *__return_ptr, uint64_t), uint64_t a5)
 {
   if (!a1 || *(*a1 + 136) == &mlir::detail::TypeIDResolver<mlir::SymbolRefAttr,void>::id)
   {
@@ -4572,23 +4449,15 @@ uint64_t sub_10024B3A4(uint64_t a1, void **a2, const char *a3, void (*a4)(uint64
   return v15;
 }
 
-uint64_t mlir::ODIE::Compiler::CoreML::ImportOp::readProperties(uint64_t a1, uint64_t a2)
+BOOL mlir::ODIE::Compiler::CoreML::ImportOp::readProperties(uint64_t a1, void *a2)
 {
-  v3 = *(a2 + 256);
+  v3 = a2[32];
   if (!v3)
   {
     operator new();
   }
 
-  if (sub_10010E3C8(a1, *(a2 + 256)) && (v4 = sub_100119594(a1, (v3 + 8)), (v4 & 1) != 0))
-  {
-    return sub_100202F4C(a1, (v3 + 16)) & 1;
-  }
-
-  else
-  {
-    return 0;
-  }
+  return sub_10010E3C8(a1, a2[32]) && sub_100119594(a1, (v3 + 8)) && sub_100202F4C(a1, (v3 + 16));
 }
 
 uint64_t mlir::ODIE::Compiler::CoreML::ImportOp::writeProperties(uint64_t a1, uint64_t a2)
@@ -4605,33 +4474,33 @@ uint64_t mlir::ODIE::Compiler::CoreML::ImportOp::writeProperties(uint64_t a1, ui
 BOOL mlir::ODIE::Compiler::CoreML::ImportOp::verifyInvariantsImpl(mlir::Operation **this)
 {
   v1 = *this + 16 * ((*(*this + 11) >> 23) & 1);
-  v3 = *(v1 + 64);
-  v4 = *(v1 + 72);
+  v3 = *(v1 + 8);
+  v4 = *(v1 + 9);
   v2 = v1 + 64;
   if (v4)
   {
-    v5 = *(v2 + 16);
+    v5 = *(v2 + 2);
     if (v5)
     {
       v23[0] = *this;
-      if ((sub_10024B3A4(v5, "toImport", 8, sub_10026D244, v23) & 1) == 0)
+      if (!sub_10024B3A4(v5, "toImport", 8, sub_10026D244, v23))
       {
         return 0;
       }
 
       v23[0] = *this;
-      if ((sub_10010DF98(v4, "sym_name", 8, sub_10026D0C4, v23) & 1) == 0)
+      if (!sub_10010DF98(v4, "sym_name", 8, sub_10026D0C4, v23))
       {
         return 0;
       }
 
       v23[0] = *this;
-      return sub_10010DF98(v3, "path", 4, sub_10026D0C4, v23) & 1;
+      return sub_10010DF98(v3, "path", 4, sub_10026D0C4, v23);
     }
 
     v21[0] = "requires attribute 'toImport'";
     v22 = 259;
-    mlir::OpState::emitOpError(this, v21, v23);
+    mlir::OpState::emitOpError(v23, this, v21);
     v7 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v23);
     if (v23[0])
     {
@@ -4708,7 +4577,7 @@ LABEL_39:
   {
     v21[0] = "requires attribute 'sym_name'";
     v22 = 259;
-    mlir::OpState::emitOpError(this, v21, v23);
+    mlir::OpState::emitOpError(v23, this, v21);
     v7 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v23);
     if (v23[0])
     {
@@ -5508,13 +5377,13 @@ BOOL mlir::ODIE::Compiler::CoreML::InvokeOp::verifyInherentAttrs(uint64_t a1, ui
 {
   v8 = mlir::NamedAttrList::get(a2, **(a1 + 96));
   result = 0;
-  if (!v8 || (sub_100230B68(v8, "arg_attrs", 9, a3, a4) & 1) != 0)
+  if (!v8 || sub_100230B68(v8, "arg_attrs", 9, a3, a4))
   {
     v9 = mlir::NamedAttrList::get(a2, *(*(a1 + 96) + 8));
-    if (!v9 || (sub_100231240(v9, "callee", 6, a3, a4) & 1) != 0)
+    if (!v9 || sub_100231240(v9, "callee", 6, a3, a4))
     {
       v10 = mlir::NamedAttrList::get(a2, *(*(a1 + 96) + 16));
-      if (!v10 || (sub_100230B68(v10, "res_attrs", 9, a3, a4) & 1) != 0)
+      if (!v10 || sub_100230B68(v10, "res_attrs", 9, a3, a4))
       {
         return 1;
       }
@@ -5524,18 +5393,18 @@ BOOL mlir::ODIE::Compiler::CoreML::InvokeOp::verifyInherentAttrs(uint64_t a1, ui
   return result;
 }
 
-BOOL mlir::ODIE::Compiler::CoreML::InvokeOp::verifyInvariantsImpl(mlir::Operation **this)
+uint64_t mlir::ODIE::Compiler::CoreML::InvokeOp::verifyInvariantsImpl(mlir::Operation **this)
 {
   v2 = *this;
   v3 = *this + 16 * ((*(*this + 11) >> 23) & 1);
-  v6 = *(v3 + 64);
-  v4 = *(v3 + 72);
+  v6 = *(v3 + 8);
+  v4 = *(v3 + 9);
   v5 = v3 + 64;
   if (v4)
   {
-    v7 = *(v5 + 24);
+    v7 = *(v5 + 3);
     v22[0] = v2;
-    if (sub_100231240(v4, "callee", 6, sub_10026D034, v22) & 1) != 0 && (v22[0] = *this, (sub_100230B68(v6, "arg_attrs", 9, sub_10026D094, v22)) && (v22[0] = *this, (sub_100230B68(v7, "res_attrs", 9, sub_10026D094, v22)))
+    if (sub_100231240(v4, "callee", 6, sub_10026D034, v22) && (v22[0] = *this, sub_100230B68(v6, "arg_attrs", 9, sub_10026D094, v22)) && (v22[0] = *this, sub_100230B68(v7, "res_attrs", 9, sub_10026D094, v22)))
     {
       v8 = *(*this + 9);
       if (*(*this + 9))
@@ -5569,7 +5438,7 @@ BOOL mlir::ODIE::Compiler::CoreML::InvokeOp::verifyInvariantsImpl(mlir::Operatio
   {
     v20 = "requires attribute 'callee'";
     v21 = 259;
-    mlir::OpState::emitOpError(this, &v20, v22);
+    mlir::OpState::emitOpError(v22, this, &v20);
     v11 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v22);
     if (v22[0])
     {
@@ -6375,13 +6244,13 @@ BOOL mlir::ODIE::Compiler::CoreML::IsolatedGroupOp::verifyInherentAttrs(uint64_t
 {
   v8 = mlir::NamedAttrList::get(a2, **(a1 + 96));
   result = 0;
-  if (!v8 || (sub_100230B68(v8, "arg_attrs", 9, a3, a4) & 1) != 0)
+  if (!v8 || sub_100230B68(v8, "arg_attrs", 9, a3, a4))
   {
     v9 = mlir::NamedAttrList::get(a2, *(*(a1 + 96) + 8));
-    if (!v9 || (sub_10010DF98(v9, "delegate_id", 0xB, a3, a4) & 1) != 0)
+    if (!v9 || sub_10010DF98(v9, "delegate_id", 0xB, a3, a4))
     {
       v10 = mlir::NamedAttrList::get(a2, *(*(a1 + 96) + 16));
-      if (!v10 || (sub_100230B68(v10, "res_attrs", 9, a3, a4) & 1) != 0)
+      if (!v10 || sub_100230B68(v10, "res_attrs", 9, a3, a4))
       {
         return 1;
       }
@@ -6430,14 +6299,14 @@ BOOL mlir::ODIE::Compiler::CoreML::IsolatedGroupOp::verifyInvariantsImpl(mlir::O
 {
   v2 = *this;
   v3 = *this + 16 * ((*(*this + 11) >> 23) & 1);
-  v6 = *(v3 + 64);
-  v4 = *(v3 + 72);
+  v6 = *(v3 + 8);
+  v4 = *(v3 + 9);
   v5 = v3 + 64;
   if (v4)
   {
-    v7 = *(v5 + 16);
+    v7 = *(v5 + 2);
     v27[0] = v2;
-    if (sub_10010DF98(v4, "delegate_id", 0xB, sub_10026D0C4, v27) & 1) != 0 && (v27[0] = *this, (sub_100230B68(v6, "arg_attrs", 9, sub_10026D094, v27)) && (v27[0] = *this, (sub_100230B68(v7, "res_attrs", 9, sub_10026D094, v27)))
+    if (sub_10010DF98(v4, "delegate_id", 0xB, sub_10026D0C4, v27) && (v27[0] = *this, sub_100230B68(v6, "arg_attrs", 9, sub_10026D094, v27)) && (v27[0] = *this, sub_100230B68(v7, "res_attrs", 9, sub_10026D094, v27)))
     {
       v17 = *this;
       v18 = *(*this + 9);
@@ -6464,7 +6333,7 @@ BOOL mlir::ODIE::Compiler::CoreML::IsolatedGroupOp::verifyInvariantsImpl(mlir::O
       sub_1002A72E8(v17, v27);
       sub_100200840(v23, v27);
       v21 = *(*this + 9);
-      v22 = (*this - 16);
+      v22 = *this - 16;
       if (!v21)
       {
         v22 = 0;
@@ -6472,18 +6341,18 @@ BOOL mlir::ODIE::Compiler::CoreML::IsolatedGroupOp::verifyInvariantsImpl(mlir::O
 
       v24 = v22;
       v25 = v21;
-      mlir::ResultRange::getTypes(&v24, v27);
+      mlir::ResultRange::getTypes(v27, &v24);
       sub_1002008BC(&v24, v27);
       if (sub_1001FC114(v23[0], v23[1], v24, v25))
       {
-        return sub_10022D920(*this, ((*this + 16 * ((*(*this + 11) >> 23) & 1) + ((*(*this + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(*this + 10), "group", 5, 0) & 1;
+        return sub_10022D920(*this, ((*this + 16 * ((*(*this + 11) >> 23) & 1) + ((*(*this + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(*this + 10), "group", 5, 0);
       }
 
       else
       {
         v24 = "failed to verify that number of handle inputs must match number of token outputs";
         v26 = 259;
-        mlir::OpState::emitOpError(this, &v24, v27);
+        mlir::OpState::emitOpError(v27, this, &v24);
         v8 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v27);
         sub_10006296C(v27);
       }
@@ -6499,7 +6368,7 @@ BOOL mlir::ODIE::Compiler::CoreML::IsolatedGroupOp::verifyInvariantsImpl(mlir::O
   {
     v24 = "requires attribute 'delegate_id'";
     v26 = 259;
-    mlir::OpState::emitOpError(this, &v24, v27);
+    mlir::OpState::emitOpError(v27, this, &v24);
     v8 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v27);
     if (v27[0])
     {
@@ -6604,11 +6473,11 @@ LABEL_7:
   return 1;
 }
 
-uint64_t mlir::ODIE::Compiler::CoreML::JoinTokenOp::verifyInvariantsImpl(mlir::Operation **this)
+BOOL mlir::ODIE::Compiler::CoreML::JoinTokenOp::verifyInvariantsImpl(mlir::Operation **this)
 {
   v1 = this;
   v2 = "operand";
-  if ((sub_1002380EC(*this, *(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8, "operand", 7, 0) & 1) == 0)
+  if (!sub_1002380EC(*this, *(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8, "operand", 7, 0))
   {
     return 0;
   }
@@ -6877,19 +6746,19 @@ LABEL_60:
   }
 
   NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v50, 0);
-  return sub_1002380EC(*v1, *(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8, "result", 6, 0) & 1;
+  return sub_1002380EC(*v1, *(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8, "result", 6, 0);
 }
 
 BOOL mlir::ODIE::Compiler::CoreML::L2Norm::verifyInvariantsImpl(mlir::Operation **this)
 {
-  if (!sub_10022B70C(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) || (sub_100224F84(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u) & 1) == 0 || (sub_10022C524(*this, (*(*(*(*this + 9) + 88) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 2u) & 1) == 0)
+  if ((sub_10022B70C(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) & 1) == 0 || !sub_100224F84(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u) || !sub_10022C524(*this, (*(*(*(*this + 9) + 88) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 2u))
   {
     return 0;
   }
 
   v2 = *(*this + 9) ? *this - 16 : 0;
   NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v2, 0);
-  if (!sub_10022B70C(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0))
+  if ((sub_10022B70C(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1) == 0)
   {
     return 0;
   }
@@ -6908,12 +6777,12 @@ BOOL mlir::ODIE::Compiler::CoreML::L2Norm::verifyInvariantsImpl(mlir::Operation 
     v10 = mlir::ShapedType::getShape(v28);
     if (v8 == v11 && !memcmp(Shape, v10, 8 * v8))
     {
-      return sub_10022D920(*this, ((*this + 16 * ((*(*this + 11) >> 23) & 1) + ((*(*this + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(*this + 10), "decomposition", 13, 0) & 1;
+      return sub_10022D920(*this, ((*this + 16 * ((*(*this + 11) >> 23) & 1) + ((*(*this + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(*this + 10), "decomposition", 13, 0);
     }
 
     v28[0] = "failed to verify that Result 0 and operand 0 must have the same shape.";
     v29 = 259;
-    mlir::OpState::emitOpError(this, v28, v30);
+    mlir::OpState::emitOpError(v30, this, v28);
     result = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v30);
     v13 = result;
     if (v30[0])
@@ -6996,7 +6865,7 @@ LABEL_45:
   {
     v28[0] = "failed to verify that Result 0 element type must match element type of operand 0.";
     v29 = 259;
-    mlir::OpState::emitOpError(this, v28, v30);
+    mlir::OpState::emitOpError(v30, this, v28);
     result = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v30);
     v13 = result;
     if (v30[0])
@@ -7072,7 +6941,7 @@ void mlir::ODIE::Compiler::CoreML::L2Norm::parse(mlir::ODIE::Compiler::CoreML::L
   operator new();
 }
 
-BOOL mlir::ODIE::Compiler::CoreML::L2Norm::verifyRegions(unsigned int **this)
+uint64_t mlir::ODIE::Compiler::CoreML::L2Norm::verifyRegions(unsigned int **this)
 {
   v1 = *this;
   v2 = *(((&v1[4 * ((v1[11] >> 23) & 1) + 17] + ((v1[11] >> 21) & 0x7F8) + 3) & 0xFFFFFFFFFFFFFFF8) + 32 * v1[10] + 8);
@@ -7091,14 +6960,14 @@ BOOL mlir::ODIE::Compiler::CoreML::L2Norm::verifyRegions(unsigned int **this)
 
 BOOL mlir::ODIE::Compiler::CoreML::LogOp::verifyInvariantsImpl(mlir::Operation **this)
 {
-  if (!sub_100223550(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0))
+  if ((sub_100223550(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) & 1) == 0)
   {
     return 0;
   }
 
   v2 = *(*this + 9) ? *this - 16 : 0;
   NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v2, 0);
-  if (!sub_100223550(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0))
+  if ((sub_100223550(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1) == 0)
   {
     return 0;
   }
@@ -7111,7 +6980,7 @@ BOOL mlir::ODIE::Compiler::CoreML::LogOp::verifyInvariantsImpl(mlir::Operation *
 
   v14 = "failed to verify that Result 0 element type must match element type of operand 0.";
   v15 = 259;
-  mlir::OpState::emitOpError(this, &v14, v16);
+  mlir::OpState::emitOpError(v16, this, &v14);
   result = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v16);
   v6 = result;
   if (v16[0])
@@ -7187,14 +7056,14 @@ BOOL mlir::ODIE::Compiler::CoreML::LogOp::verifyInvariantsImpl(mlir::Operation *
 
 BOOL mlir::ODIE::Compiler::CoreML::MaxPool2dOp::verifyInvariantsImpl(mlir::Operation **this)
 {
-  if ((sub_10022844C(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) & 1) == 0 || (sub_100224F84(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u) & 1) == 0 || (sub_100224F84(*this, (*(*(*(*this + 9) + 88) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 2u) & 1) == 0 || (sub_100224F84(*this, (*(*(*(*this + 9) + 120) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 3u) & 1) == 0 || (sub_100224F84(*this, (*(*(*(*this + 9) + 152) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 4u) & 1) == 0 || !sub_1002256D0(*this, (*(*(*(*this + 9) + 184) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 5u))
+  if (!sub_10022844C(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) || !sub_100224F84(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u) || !sub_100224F84(*this, (*(*(*(*this + 9) + 88) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 2u) || !sub_100224F84(*this, (*(*(*(*this + 9) + 120) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 3u) || !sub_100224F84(*this, (*(*(*(*this + 9) + 152) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 4u) || !sub_1002256D0(*this, (*(*(*(*this + 9) + 184) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 5u))
   {
     return 0;
   }
 
   v2 = *(*this + 9) ? *this - 16 : 0;
   NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v2, 0);
-  if ((sub_10022844C(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1) == 0)
+  if (!sub_10022844C(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0))
   {
     return 0;
   }
@@ -7207,7 +7076,7 @@ BOOL mlir::ODIE::Compiler::CoreML::MaxPool2dOp::verifyInvariantsImpl(mlir::Opera
 
   v14 = "failed to verify that Result 0 element type must match element type of operand 0.";
   v15 = 259;
-  mlir::OpState::emitOpError(this, &v14, v16);
+  mlir::OpState::emitOpError(v16, this, &v14);
   result = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v16);
   v6 = result;
   if (v16[0])
@@ -7283,14 +7152,14 @@ BOOL mlir::ODIE::Compiler::CoreML::MaxPool2dOp::verifyInvariantsImpl(mlir::Opera
 
 BOOL mlir::ODIE::Compiler::CoreML::MaxPool3dOp::verifyInvariantsImpl(mlir::Operation **this)
 {
-  if ((sub_10022900C(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) & 1) == 0 || (sub_100224F84(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u) & 1) == 0 || (sub_100224F84(*this, (*(*(*(*this + 9) + 88) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 2u) & 1) == 0 || (sub_100224F84(*this, (*(*(*(*this + 9) + 120) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 3u) & 1) == 0 || (sub_100224F84(*this, (*(*(*(*this + 9) + 152) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 4u) & 1) == 0 || !sub_1002256D0(*this, (*(*(*(*this + 9) + 184) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 5u))
+  if (!sub_10022900C(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) || !sub_100224F84(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u) || !sub_100224F84(*this, (*(*(*(*this + 9) + 88) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 2u) || !sub_100224F84(*this, (*(*(*(*this + 9) + 120) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 3u) || !sub_100224F84(*this, (*(*(*(*this + 9) + 152) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 4u) || !sub_1002256D0(*this, (*(*(*(*this + 9) + 184) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 5u))
   {
     return 0;
   }
 
   v2 = *(*this + 9) ? *this - 16 : 0;
   NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v2, 0);
-  if ((sub_10022900C(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1) == 0)
+  if (!sub_10022900C(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0))
   {
     return 0;
   }
@@ -7303,7 +7172,7 @@ BOOL mlir::ODIE::Compiler::CoreML::MaxPool3dOp::verifyInvariantsImpl(mlir::Opera
 
   v14 = "failed to verify that Result 0 element type must match element type of operand 0.";
   v15 = 259;
-  mlir::OpState::emitOpError(this, &v14, v16);
+  mlir::OpState::emitOpError(v16, this, &v14);
   result = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v16);
   v6 = result;
   if (v16[0])
@@ -7379,14 +7248,14 @@ BOOL mlir::ODIE::Compiler::CoreML::MaxPool3dOp::verifyInvariantsImpl(mlir::Opera
 
 BOOL mlir::ODIE::Compiler::CoreML::MaximumOp::verifyInvariantsImpl(mlir::Operation **this)
 {
-  if (!sub_1002241FC(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) || !sub_1002241FC(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u))
+  if ((sub_1002241FC(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) & 1) == 0 || (sub_1002241FC(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u) & 1) == 0)
   {
     return 0;
   }
 
   v2 = *(*this + 9) ? *this - 16 : 0;
   NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v2, 0);
-  if (!sub_1002241FC(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0))
+  if ((sub_1002241FC(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1) == 0)
   {
     return 0;
   }
@@ -7402,7 +7271,7 @@ BOOL mlir::ODIE::Compiler::CoreML::MaximumOp::verifyInvariantsImpl(mlir::Operati
 
     v20[0] = "failed to verify that Result 0 element type must match element type of operand 1.";
     v21 = 259;
-    mlir::OpState::emitOpError(this, v20, v22);
+    mlir::OpState::emitOpError(v22, this, v20);
     result = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v22);
     v7 = result;
     if (v22[0])
@@ -7485,7 +7354,7 @@ LABEL_44:
   {
     v20[0] = "failed to verify that Result 0 element type must match element type of operand 0.";
     v21 = 259;
-    mlir::OpState::emitOpError(this, v20, v22);
+    mlir::OpState::emitOpError(v22, this, v20);
     result = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v22);
     v7 = result;
     if (v22[0])
@@ -8372,16 +8241,16 @@ BOOL mlir::ODIE::Compiler::CoreML::MemberOp::verifyInherentAttrs(uint64_t a1, ui
 {
   v8 = mlir::NamedAttrList::get(a2, **(a1 + 96));
   result = 0;
-  if (!v8 || (sub_100251070(v8, "alignInBits", 0xB, a3, a4) & 1) != 0)
+  if (!v8 || sub_100251070(v8, "alignInBits", 0xB, a3, a4))
   {
     v9 = mlir::NamedAttrList::get(a2, *(*(a1 + 96) + 8));
-    if (!v9 || (sub_10010DF98(v9, "sym_name", 8, a3, a4) & 1) != 0)
+    if (!v9 || sub_10010DF98(v9, "sym_name", 8, a3, a4))
     {
       v10 = mlir::NamedAttrList::get(a2, *(*(a1 + 96) + 16));
-      if (!v10 || (sub_1002513DC(v10, "type", 4, a3, a4) & 1) != 0)
+      if (!v10 || sub_1002513DC(v10, "type", 4, a3, a4))
       {
         v11 = mlir::NamedAttrList::get(a2, *(*(a1 + 96) + 24));
-        if (!v11 || (sub_100231240(v11, "value", 5, a3, a4) & 1) != 0)
+        if (!v11 || sub_100231240(v11, "value", 5, a3, a4))
         {
           return 1;
         }
@@ -8392,14 +8261,14 @@ BOOL mlir::ODIE::Compiler::CoreML::MemberOp::verifyInherentAttrs(uint64_t a1, ui
   return result;
 }
 
-uint64_t sub_100251070(void **a1, void **a2, const char *a3, void (*a4)(void *__return_ptr, void), uint64_t a5)
+BOOL sub_100251070(const char *a1, const char *a2, const char *a3, void (*a4)(void *__return_ptr, void), uint64_t a5)
 {
   if (!a1)
   {
     return 1;
   }
 
-  if (*(*a1 + 17) == &mlir::detail::TypeIDResolver<mlir::IntegerAttr,void>::id)
+  if (*(*a1 + 136) == &mlir::detail::TypeIDResolver<mlir::IntegerAttr,void>::id)
   {
     v29 = a1;
     v7 = a4;
@@ -8552,7 +8421,7 @@ uint64_t sub_100251070(void **a1, void **a2, const char *a3, void (*a4)(void *__
   return v10;
 }
 
-uint64_t sub_1002513DC(uint64_t a1, void **a2, const char *a3, void (*a4)(uint64_t *__return_ptr, uint64_t), uint64_t a5)
+BOOL sub_1002513DC(uint64_t a1, const char *a2, const char *a3, void (*a4)(uint64_t *__return_ptr, uint64_t), uint64_t a5)
 {
   if (!a1)
   {
@@ -8704,23 +8573,15 @@ uint64_t sub_1002513DC(uint64_t a1, void **a2, const char *a3, void (*a4)(uint64
   return v15;
 }
 
-BOOL mlir::ODIE::Compiler::CoreML::MemberOp::readProperties(uint64_t a1, uint64_t a2)
+BOOL mlir::ODIE::Compiler::CoreML::MemberOp::readProperties(uint64_t a1, void *a2)
 {
-  v3 = *(a2 + 256);
+  v3 = a2[32];
   if (!v3)
   {
     operator new();
   }
 
-  if (sub_100251848(a1, *(a2 + 256)) && (v4 = sub_100119594(a1, v3 + 1), (v4 & 1) != 0 && (sub_1001FD2D0(a1, v3 + 2) & 1) != 0))
-  {
-    return sub_100251CF4(a1, v3 + 3);
-  }
-
-  else
-  {
-    return 0;
-  }
+  return sub_100251848(a1, a2[32]) && sub_100119594(a1, v3 + 1) && sub_1001FD2D0(a1, v3 + 2) && sub_100251CF4(a1, v3 + 3);
 }
 
 BOOL sub_100251848(uint64_t a1, uint64_t *a2)
@@ -9159,40 +9020,40 @@ uint64_t mlir::ODIE::Compiler::CoreML::MemberOp::writeProperties(uint64_t a1, ui
 BOOL mlir::ODIE::Compiler::CoreML::MemberOp::verifyInvariantsImpl(mlir::Operation **this)
 {
   v1 = *this + 16 * ((*(*this + 11) >> 23) & 1);
-  v4 = *(v1 + 64);
-  v2 = *(v1 + 72);
+  v4 = *(v1 + 8);
+  v2 = *(v1 + 9);
   v3 = v1 + 64;
   if (v2)
   {
-    v5 = *(v3 + 16);
+    v5 = *(v3 + 2);
     if (v5)
     {
-      v7 = *(v3 + 24);
+      v7 = *(v3 + 3);
       v24[0] = *this;
-      if ((sub_10010DF98(v2, "sym_name", 8, sub_10026D0C4, v24) & 1) == 0)
+      if (!sub_10010DF98(v2, "sym_name", 8, sub_10026D0C4, v24))
       {
         return 0;
       }
 
       v24[0] = *this;
-      if ((sub_1002513DC(v5, "type", 4, sub_10026D374, v24) & 1) == 0)
+      if (!sub_1002513DC(v5, "type", 4, sub_10026D374, v24))
       {
         return 0;
       }
 
       v24[0] = *this;
-      if ((sub_100231240(v7, "value", 5, sub_10026D034, v24) & 1) == 0)
+      if (!sub_100231240(v7, "value", 5, sub_10026D034, v24))
       {
         return 0;
       }
 
       v24[0] = *this;
-      return sub_100251070(v4, "alignInBits", 0xB, sub_10026D3A4, v24) & 1;
+      return sub_100251070(v4, "alignInBits", 0xB, sub_10026D3A4, v24);
     }
 
     v22[0] = "requires attribute 'type'";
     v23 = 259;
-    mlir::OpState::emitOpError(this, v22, v24);
+    mlir::OpState::emitOpError(v24, this, v22);
     v8 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v24);
     if (v24[0])
     {
@@ -9269,7 +9130,7 @@ LABEL_40:
   {
     v22[0] = "requires attribute 'sym_name'";
     v23 = 259;
-    mlir::OpState::emitOpError(this, v22, v24);
+    mlir::OpState::emitOpError(v24, this, v22);
     v8 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v24);
     if (v24[0])
     {
@@ -9336,14 +9197,14 @@ LABEL_40:
 
 BOOL mlir::ODIE::Compiler::CoreML::MinimumOp::verifyInvariantsImpl(mlir::Operation **this)
 {
-  if (!sub_1002241FC(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) || !sub_1002241FC(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u))
+  if ((sub_1002241FC(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) & 1) == 0 || (sub_1002241FC(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u) & 1) == 0)
   {
     return 0;
   }
 
   v2 = *(*this + 9) ? *this - 16 : 0;
   NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v2, 0);
-  if (!sub_1002241FC(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0))
+  if ((sub_1002241FC(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1) == 0)
   {
     return 0;
   }
@@ -9359,7 +9220,7 @@ BOOL mlir::ODIE::Compiler::CoreML::MinimumOp::verifyInvariantsImpl(mlir::Operati
 
     v20[0] = "failed to verify that Result 0 element type must match element type of operand 1.";
     v21 = 259;
-    mlir::OpState::emitOpError(this, v20, v22);
+    mlir::OpState::emitOpError(v22, this, v20);
     result = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v22);
     v7 = result;
     if (v22[0])
@@ -9442,7 +9303,7 @@ LABEL_44:
   {
     v20[0] = "failed to verify that Result 0 element type must match element type of operand 0.";
     v21 = 259;
-    mlir::OpState::emitOpError(this, v20, v22);
+    mlir::OpState::emitOpError(v22, this, v20);
     result = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v22);
     v7 = result;
     if (v22[0])

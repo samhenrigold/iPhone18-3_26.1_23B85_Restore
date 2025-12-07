@@ -31,6 +31,7 @@
 - (id)getLocaleUnits:(id)units;
 - (id)getValueOfType:(id)type action:(id)action;
 - (id)handleReadWriteResponses:(id)responses error:(id)error forAction:(id)action inServiceType:(id)type results:(id)results forObjects:(id)objects;
+- (id)handleSetNaturalLightingActionOnHAPLightProfiles:(id)profiles home:(id)home value:(BOOL)value;
 - (id)mediaProfileFromObject:(id)object;
 - (id)objectsWithIdentifierList:(id)list error:(id *)error;
 - (id)objectsWithSearchFilter:(id)filter inHome:(id)home serviceTypeIsATV:(BOOL)v overrideServiceTypeIfNeeded:(id *)needed;
@@ -72,7 +73,7 @@
 
 + (void)initialize
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   if (!+[HMDDeviceCapabilities supportsDeviceLock])
   {
     unlockErrorCode = 1;
@@ -91,14 +92,12 @@
   v9 = [(HMDAssistantColorCharacteristic *)v8 initWithReadCharacteristicType:*MEMORY[0x277CCF788] writeCharacteristicType:*MEMORY[0x277CCF788] format:*MEMORY[0x277CCF6C0] mandatory:1];
 
   [array addObject:v9];
-  v14 = @"HSB";
-  v10 = [array copy];
-  v15[0] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v13 = @"HSB";
+  v10 = objc_msgSend_copy(array);
+  v14[0] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
   v12 = supportedColorSpaces;
   supportedColorSpaces = v11;
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 + (id)logCategory
@@ -115,10 +114,9 @@
 
 void __34__HMDAssistantCommand_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v3_19352;
-  logCategory__hmf_once_v3_19352 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v3_19352;
+  logCategory__hmf_once_v3_19352 = v0;
 }
 
 - (HMDHomeManager)homeManager
@@ -136,7 +134,7 @@ void __34__HMDAssistantCommand_logCategory__block_invoke()
 
 - (void)performWithGather:(id)gather queue:(id)queue msgDispatcher:(id)dispatcher completion:(id)completion
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   gatherCopy = gather;
   queueCopy = queue;
   dispatcherCopy = dispatcher;
@@ -145,7 +143,7 @@ void __34__HMDAssistantCommand_logCategory__block_invoke()
   v15 = MEMORY[0x277CCACA8];
   v16 = MEMORY[0x22AAD2510](self, a2);
   3731 = [v15 stringWithFormat:@"%@, %s:%ld", v16, "/Library/Caches/com.apple.xbs/Sources/HomeKit_executables/Sources/homed/Assistant/HMDAssistantCommand.m", 3731];
-  v53 = [v14 initWithName:3731];
+  v52 = [v14 initWithName:3731];
 
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
   v19 = v18;
@@ -163,11 +161,11 @@ void __34__HMDAssistantCommand_logCategory__block_invoke()
   aBlock[1] = 3221225472;
   aBlock[2] = __72__HMDAssistantCommand_performWithGather_queue_msgDispatcher_completion___block_invoke;
   aBlock[3] = &unk_278671010;
-  objc_copyWeak(v59, &location);
-  v59[1] = v19;
-  v52 = completionCopy;
-  v58 = v52;
-  v55 = _Block_copy(aBlock);
+  objc_copyWeak(v58, &location);
+  v58[1] = v19;
+  v51 = completionCopy;
+  v57 = v51;
+  v54 = _Block_copy(aBlock);
   homeCount = [gatherCopy homeCount];
   if (!homeCount)
   {
@@ -178,7 +176,7 @@ void __34__HMDAssistantCommand_logCategory__block_invoke()
     {
       v46 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v62 = v46;
+      v61 = v46;
       _os_log_impl(&dword_229538000, v45, OS_LOG_TYPE_INFO, "%{public}@There are no homes, reporting the result right away", buf, 0xCu);
     }
 
@@ -207,8 +205,8 @@ void __34__HMDAssistantCommand_logCategory__block_invoke()
   v32 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
   {
-    v50 = queueCopy;
-    v51 = gatherCopy;
+    v49 = queueCopy;
+    v50 = gatherCopy;
     v33 = HMFGetLogIdentifier();
     numberOfHomes = [(HMDAssistantCommand *)selfCopy2 numberOfHomes];
     primaryHomeName2 = [(HMDAssistantCommand *)selfCopy2 primaryHomeName];
@@ -216,21 +214,21 @@ void __34__HMDAssistantCommand_logCategory__block_invoke()
     currentHomeName2 = [(HMDAssistantCommand *)selfCopy2 currentHomeName];
     currentHomeAssistantIdentifier2 = [(HMDAssistantCommand *)selfCopy2 currentHomeAssistantIdentifier];
     *buf = 138544642;
-    v62 = v33;
-    v63 = 2048;
-    v64 = numberOfHomes;
-    v65 = 2112;
-    v66 = primaryHomeName2;
-    v67 = 2112;
-    v68 = primaryHomeAssistantIdentifier2;
-    v69 = 2112;
-    v70 = currentHomeName2;
-    v71 = 2112;
-    v72 = currentHomeAssistantIdentifier2;
+    v61 = v33;
+    v62 = 2048;
+    v63 = numberOfHomes;
+    v64 = 2112;
+    v65 = primaryHomeName2;
+    v66 = 2112;
+    v67 = primaryHomeAssistantIdentifier2;
+    v68 = 2112;
+    v69 = currentHomeName2;
+    v70 = 2112;
+    v71 = currentHomeAssistantIdentifier2;
     _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_INFO, "%{public}@Number of homes: %tu, Primary home: %@, Primary home ID: %@, Current home: %@, Current home ID: %@", buf, 0x3Eu);
 
-    queueCopy = v50;
-    gatherCopy = v51;
+    queueCopy = v49;
+    gatherCopy = v50;
   }
 
   objc_autoreleasePoolPop(v30);
@@ -250,32 +248,30 @@ void __34__HMDAssistantCommand_logCategory__block_invoke()
     {
       v48 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v62 = v48;
+      v61 = v48;
       _os_log_impl(&dword_229538000, v45, OS_LOG_TYPE_INFO, "%{public}@There are no homekit objects, calling completion", buf, 0xCu);
     }
 
 LABEL_10:
 
     objc_autoreleasePoolPop(v43);
-    [(HMDAssistantCommand *)self reportResults:0 handler:v55];
+    [(HMDAssistantCommand *)self reportResults:0 handler:v54];
     goto LABEL_11;
   }
 
   v42 = [[HMDAssistantCommandHelper alloc] initWithQueue:queueCopy msgDispatcher:dispatcherCopy];
   [(HMDAssistantCommand *)selfCopy2 setAssistantCommandHelper:v42];
 
-  [(HMDAssistantCommand *)selfCopy2 handleCommandWithCompletionHandler:v55];
+  [(HMDAssistantCommand *)selfCopy2 handleCommandWithCompletionHandler:v54];
 LABEL_11:
 
-  objc_destroyWeak(v59);
+  objc_destroyWeak(v58);
   objc_destroyWeak(&location);
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 void __72__HMDAssistantCommand_performWithGather_queue_msgDispatcher_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
@@ -290,9 +286,9 @@ void __72__HMDAssistantCommand_performWithGather_queue_msgDispatcher_completion_
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v22 = v11;
-      v23 = 2048;
-      v24 = v6 - v7;
+      v21 = v11;
+      v22 = 2048;
+      v23 = v6 - v7;
       _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Siri command took %.4f seconds", buf, 0x16u);
     }
 
@@ -306,7 +302,7 @@ void __72__HMDAssistantCommand_performWithGather_queue_msgDispatcher_completion_
       {
         v15 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v22 = v15;
+        v21 = v15;
         _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Completion handler already called, not calling again", buf, 0xCu);
       }
 
@@ -317,22 +313,20 @@ void __72__HMDAssistantCommand_performWithGather_queue_msgDispatcher_completion_
     {
       [v9 setCompletionHandlerCalled:1];
       v16 = [v9 queue];
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = __72__HMDAssistantCommand_performWithGather_queue_msgDispatcher_completion___block_invoke_155;
-      v18[3] = &unk_27868A7A0;
-      v20 = *(a1 + 32);
-      v19 = v3;
-      dispatch_async(v16, v18);
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __72__HMDAssistantCommand_performWithGather_queue_msgDispatcher_completion___block_invoke_155;
+      v17[3] = &unk_27868A7A0;
+      v19 = *(a1 + 32);
+      v18 = v3;
+      dispatch_async(v16, v17);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleGetColor:(id)color forObjects:(id)objects serviceType:(id)type completionHandler:(id)handler
 {
-  v122 = *MEMORY[0x277D85DE8];
+  v121 = *MEMORY[0x277D85DE8];
   colorCopy = color;
   objectsCopy = objects;
   typeCopy = type;
@@ -341,50 +335,50 @@ void __72__HMDAssistantCommand_performWithGather_queue_msgDispatcher_completion_
   v13 = MEMORY[0x277CCACA8];
   v14 = MEMORY[0x22AAD2510](self, a2);
   3631 = [v13 stringWithFormat:@"%@, %s:%ld", v14, "/Library/Caches/com.apple.xbs/Sources/HomeKit_executables/Sources/homed/Assistant/HMDAssistantCommand.m", 3631];
-  v63 = [v12 initWithName:3631];
+  v62 = [v12 initWithName:3631];
 
-  v56 = objectsCopy;
+  v55 = objectsCopy;
+  v105 = 0u;
   v106 = 0u;
   v107 = 0u;
   v108 = 0u;
-  v109 = 0u;
   obj = [supportedColorSpaces allKeys];
-  v16 = [obj countByEnumeratingWithState:&v106 objects:v121 count:16];
-  v17 = v56;
+  v16 = [obj countByEnumeratingWithState:&v105 objects:v120 count:16];
+  v17 = v55;
   if (v16)
   {
-    v69 = *v107;
-    v17 = v56;
+    v68 = *v106;
+    v17 = v55;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v107 != v69)
+        if (*v106 != v68)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = [supportedColorSpaces objectForKeyedSubscript:*(*(&v106 + 1) + 8 * i)];
-        v104 = 0u;
-        v105 = 0u;
-        v102 = 0u;
+        v19 = [supportedColorSpaces objectForKeyedSubscript:*(*(&v105 + 1) + 8 * i)];
         v103 = 0u;
-        v20 = [v19 countByEnumeratingWithState:&v102 objects:v120 count:16];
+        v104 = 0u;
+        v101 = 0u;
+        v102 = 0u;
+        v20 = [v19 countByEnumeratingWithState:&v101 objects:v119 count:16];
         if (v20)
         {
-          v21 = *v103;
+          v21 = *v102;
           do
           {
             v22 = 0;
             v23 = v17;
             do
             {
-              if (*v103 != v21)
+              if (*v102 != v21)
               {
                 objc_enumerationMutation(v19);
               }
 
-              readCharacteristicType = [*(*(&v102 + 1) + 8 * v22) readCharacteristicType];
+              readCharacteristicType = [*(*(&v101 + 1) + 8 * v22) readCharacteristicType];
               v17 = [(HMDAssistantCommand *)self filteredObjectsFromObjects:v23 byCharacteristicType:readCharacteristicType];
 
               ++v22;
@@ -392,35 +386,35 @@ void __72__HMDAssistantCommand_performWithGather_queue_msgDispatcher_completion_
             }
 
             while (v20 != v22);
-            v20 = [v19 countByEnumeratingWithState:&v102 objects:v120 count:16];
+            v20 = [v19 countByEnumeratingWithState:&v101 objects:v119 count:16];
           }
 
           while (v20);
         }
       }
 
-      v16 = [obj countByEnumeratingWithState:&v106 objects:v121 count:16];
+      v16 = [obj countByEnumeratingWithState:&v105 objects:v120 count:16];
     }
 
     while (v16);
   }
 
   array = [MEMORY[0x277CBEB18] array];
-  v100 = 0u;
-  v101 = 0u;
-  v98 = 0u;
   v99 = 0u;
+  v100 = 0u;
+  v97 = 0u;
+  v98 = 0u;
   allKeys = [supportedColorSpaces allKeys];
-  v59 = [allKeys countByEnumeratingWithState:&v98 objects:v119 count:16];
-  if (v59)
+  v58 = [allKeys countByEnumeratingWithState:&v97 objects:v118 count:16];
+  if (v58)
   {
-    v58 = *v99;
+    v57 = *v98;
     do
     {
       v25 = 0;
       do
       {
-        if (*v99 != v58)
+        if (*v98 != v57)
         {
           v26 = v25;
           objc_enumerationMutation(allKeys);
@@ -428,33 +422,33 @@ void __72__HMDAssistantCommand_performWithGather_queue_msgDispatcher_completion_
         }
 
         obja = v25;
-        v27 = [supportedColorSpaces objectForKeyedSubscript:*(*(&v98 + 1) + 8 * v25)];
-        v96 = 0u;
-        v97 = 0u;
-        v94 = 0u;
+        v27 = [supportedColorSpaces objectForKeyedSubscript:*(*(&v97 + 1) + 8 * v25)];
         v95 = 0u;
-        v28 = [v27 countByEnumeratingWithState:&v94 objects:v118 count:16];
+        v96 = 0u;
+        v93 = 0u;
+        v94 = 0u;
+        v28 = [v27 countByEnumeratingWithState:&v93 objects:v117 count:16];
         if (v28)
         {
-          v29 = *v95;
+          v29 = *v94;
           do
           {
             for (j = 0; j != v28; ++j)
             {
-              if (*v95 != v29)
+              if (*v94 != v29)
               {
                 objc_enumerationMutation(v27);
               }
 
-              readCharacteristicType2 = [*(*(&v94 + 1) + 8 * j) readCharacteristicType];
-              v117 = readCharacteristicType2;
-              v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v117 count:1];
+              readCharacteristicType2 = [*(*(&v93 + 1) + 8 * j) readCharacteristicType];
+              v116 = readCharacteristicType2;
+              v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v116 count:1];
               v33 = [(HMDAssistantCommand *)self filterObjects:v17 forCharacteristicTypes:v32];
 
               [array addObjectsFromArray:v33];
             }
 
-            v28 = [v27 countByEnumeratingWithState:&v94 objects:v118 count:16];
+            v28 = [v27 countByEnumeratingWithState:&v93 objects:v117 count:16];
           }
 
           while (v28);
@@ -463,11 +457,11 @@ void __72__HMDAssistantCommand_performWithGather_queue_msgDispatcher_completion_
         v25 = obja + 1;
       }
 
-      while (obja + 1 != v59);
-      v59 = [allKeys countByEnumeratingWithState:&v98 objects:v119 count:16];
+      while (obja + 1 != v58);
+      v58 = [allKeys countByEnumeratingWithState:&v97 objects:v118 count:16];
     }
 
-    while (v59);
+    while (v58);
   }
 
   if ([array count])
@@ -475,30 +469,30 @@ void __72__HMDAssistantCommand_performWithGather_queue_msgDispatcher_completion_
     v34 = dispatch_group_create();
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v113 = 0x3032000000;
-    v114 = __Block_byref_object_copy__19541;
-    v115 = __Block_byref_object_dispose__19542;
+    v112 = 0x3032000000;
+    v113 = __Block_byref_object_copy__19541;
+    v114 = __Block_byref_object_dispose__19542;
     array2 = [MEMORY[0x277CBEB18] array];
     weakToStrongObjectsMapTable = [MEMORY[0x277CCAB00] weakToStrongObjectsMapTable];
-    v92 = 0u;
-    v93 = 0u;
-    v90 = 0u;
     v91 = 0u;
-    v60 = array;
-    v36 = [v60 countByEnumeratingWithState:&v90 objects:v111 count:16];
+    v92 = 0u;
+    v89 = 0u;
+    v90 = 0u;
+    v59 = array;
+    v36 = [v59 countByEnumeratingWithState:&v89 objects:v110 count:16];
     if (v36)
     {
-      objb = *v91;
+      objb = *v90;
       do
       {
         for (k = 0; k != v36; ++k)
         {
-          if (*v91 != objb)
+          if (*v90 != objb)
           {
-            objc_enumerationMutation(v60);
+            objc_enumerationMutation(v59);
           }
 
-          v38 = *(*(&v90 + 1) + 8 * k);
+          v38 = *(*(&v89 + 1) + 8 * k);
           service = [v38 service];
           accessory = [service accessory];
           home = [accessory home];
@@ -514,54 +508,54 @@ void __72__HMDAssistantCommand_performWithGather_queue_msgDispatcher_completion_
           [array3 addObject:v43];
         }
 
-        v36 = [v60 countByEnumeratingWithState:&v90 objects:v111 count:16];
+        v36 = [v59 countByEnumeratingWithState:&v89 objects:v110 count:16];
       }
 
       while (v36);
     }
 
-    v88 = 0u;
-    v89 = 0u;
-    v86 = 0u;
     v87 = 0u;
+    v88 = 0u;
+    v85 = 0u;
+    v86 = 0u;
     v44 = weakToStrongObjectsMapTable;
-    v45 = [v44 countByEnumeratingWithState:&v86 objects:v110 count:16];
+    v45 = [v44 countByEnumeratingWithState:&v85 objects:v109 count:16];
     if (v45)
     {
-      objc = *v87;
+      objc = *v86;
       do
       {
         for (m = 0; m != v45; ++m)
         {
-          if (*v87 != objc)
+          if (*v86 != objc)
           {
             objc_enumerationMutation(v44);
           }
 
-          v47 = *(*(&v86 + 1) + 8 * m);
+          v47 = *(*(&v85 + 1) + 8 * m);
           dispatch_group_enter(v34);
           v48 = [v44 objectForKey:v47];
           objc_initWeak(&location, self);
           assistantCommandHelper = [(HMDAssistantCommand *)self assistantCommandHelper];
-          v76[0] = MEMORY[0x277D85DD0];
-          v76[1] = 3221225472;
-          v76[2] = __79__HMDAssistantCommand_handleGetColor_forObjects_serviceType_completionHandler___block_invoke;
-          v76[3] = &unk_278670F20;
-          objc_copyWeak(&v84, &location);
-          v77 = v34;
-          v82 = handlerCopy;
-          v78 = colorCopy;
-          v79 = typeCopy;
+          v75[0] = MEMORY[0x277D85DD0];
+          v75[1] = 3221225472;
+          v75[2] = __79__HMDAssistantCommand_handleGetColor_forObjects_serviceType_completionHandler___block_invoke;
+          v75[3] = &unk_278670F20;
+          objc_copyWeak(&v83, &location);
+          v76 = v34;
+          v81 = handlerCopy;
+          v77 = colorCopy;
+          v78 = typeCopy;
           p_buf = &buf;
-          v80 = v17;
-          v81 = v63;
-          [assistantCommandHelper addReadRequests:v48 home:v47 completion:v76];
+          v79 = v17;
+          v80 = v62;
+          [assistantCommandHelper addReadRequests:v48 home:v47 completion:v75];
 
-          objc_destroyWeak(&v84);
+          objc_destroyWeak(&v83);
           objc_destroyWeak(&location);
         }
 
-        v45 = [v44 countByEnumeratingWithState:&v86 objects:v110 count:16];
+        v45 = [v44 countByEnumeratingWithState:&v85 objects:v109 count:16];
       }
 
       while (v45);
@@ -572,10 +566,10 @@ void __72__HMDAssistantCommand_performWithGather_queue_msgDispatcher_completion_
     block[1] = 3221225472;
     block[2] = __79__HMDAssistantCommand_handleGetColor_forObjects_serviceType_completionHandler___block_invoke_149;
     block[3] = &unk_278686E40;
-    v72 = v63;
+    v71 = v62;
     selfCopy = self;
-    v75 = &buf;
-    v74 = handlerCopy;
+    v74 = &buf;
+    v73 = handlerCopy;
     dispatch_group_notify(v34, queue, block);
 
     _Block_object_dispose(&buf, 8);
@@ -597,13 +591,11 @@ void __72__HMDAssistantCommand_performWithGather_queue_msgDispatcher_completion_
     objc_autoreleasePoolPop(v51);
     [(HMDAssistantCommand *)selfCopy2 returnResults:0 serviceType:typeCopy forAction:colorCopy completionHandler:handlerCopy];
   }
-
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 void __79__HMDAssistantCommand_handleGetColor_forObjects_serviceType_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 88));
@@ -615,13 +607,13 @@ void __79__HMDAssistantCommand_handleGetColor_forObjects_serviceType_completionH
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v18 = 138543874;
-      v19 = v11;
-      v20 = 2112;
-      v21 = v5;
-      v22 = 2112;
-      v23 = v6;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Received error %@ for read request with response tuples: %@", &v18, 0x20u);
+      v17 = 138543874;
+      v18 = v11;
+      v19 = 2112;
+      v20 = v5;
+      v21 = 2112;
+      v22 = v6;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Received error %@ for read request with response tuples: %@", &v17, 0x20u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -665,13 +657,11 @@ LABEL_10:
     dispatch_group_leave(*(a1 + 32));
     (*(*(a1 + 72) + 16))();
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __79__HMDAssistantCommand_handleGetColor_forObjects_serviceType_completionHandler___block_invoke_149(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) begin];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 40);
@@ -679,21 +669,19 @@ uint64_t __79__HMDAssistantCommand_handleGetColor_forObjects_serviceType_complet
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@All results have been received for set-action-types, calling result handler", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@All results have been received for set-action-types, calling result handler", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
   [*(a1 + 40) reportResults:*(*(*(a1 + 56) + 8) + 40) handler:*(a1 + 48)];
-  result = [*(a1 + 32) end];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) end];
 }
 
 - (void)handleSetColor:(id)color forObjects:(id)objects service:(id)service completionHandler:(id)handler
 {
-  v110 = *MEMORY[0x277D85DE8];
+  v109 = *MEMORY[0x277D85DE8];
   colorCopy = color;
   objectsCopy = objects;
   serviceCopy = service;
@@ -703,68 +691,68 @@ uint64_t __79__HMDAssistantCommand_handleGetColor_forObjects_serviceType_complet
   val = self;
   v13 = MEMORY[0x22AAD2510](self, a2);
   3509 = [v12 stringWithFormat:@"%@, %s:%ld", v13, "/Library/Caches/com.apple.xbs/Sources/HomeKit_executables/Sources/homed/Assistant/HMDAssistantCommand.m", 3509];
-  v55 = [v11 initWithName:3509];
+  v54 = [v11 initWithName:3509];
 
-  v63 = [(HMDAssistantCommand *)self parseColorEncoding:colorCopy];
-  if ([v63 count])
+  v62 = [(HMDAssistantCommand *)self parseColorEncoding:colorCopy];
+  if ([v62 count])
   {
-    allKeys = [v63 allKeys];
+    allKeys = [v62 allKeys];
     v15 = [(HMDAssistantCommand *)self filterObjects:objectsCopy forCharacteristics:allKeys];
     weakToStrongObjectsMapTable = [MEMORY[0x277CCAB00] weakToStrongObjectsMapTable];
-    v100 = 0;
-    v101 = &v100;
-    v102 = 0x3032000000;
-    v103 = __Block_byref_object_copy__19541;
-    v104 = __Block_byref_object_dispose__19542;
+    v99 = 0;
+    v100 = &v99;
+    v101 = 0x3032000000;
+    v102 = __Block_byref_object_copy__19541;
+    v103 = __Block_byref_object_dispose__19542;
     array = [MEMORY[0x277CBEB18] array];
     includeCompleteInformation = [colorCopy includeCompleteInformation];
-    v98 = 0u;
-    v99 = 0u;
-    v96 = 0u;
     v97 = 0u;
+    v98 = 0u;
+    v95 = 0u;
+    v96 = 0u;
     obj = v15;
-    v53 = [obj countByEnumeratingWithState:&v96 objects:v109 count:16];
-    if (v53)
+    v52 = [obj countByEnumeratingWithState:&v95 objects:v108 count:16];
+    if (v52)
     {
-      v52 = *v97;
-      v58 = *MEMORY[0x277CCF6B8];
-      v57 = *MEMORY[0x277D47E10];
+      v51 = *v96;
+      v57 = *MEMORY[0x277CCF6B8];
+      v56 = *MEMORY[0x277D47E10];
       do
       {
-        for (i = 0; i != v53; ++i)
+        for (i = 0; i != v52; ++i)
         {
-          if (*v97 != v52)
+          if (*v96 != v51)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v96 + 1) + 8 * i);
+          v16 = *(*(&v95 + 1) + 8 * i);
+          v91 = 0u;
           v92 = 0u;
           v93 = 0u;
           v94 = 0u;
-          v95 = 0u;
           allKeys2 = [v16 allKeys];
-          v18 = [allKeys2 countByEnumeratingWithState:&v92 objects:v108 count:16];
+          v18 = [allKeys2 countByEnumeratingWithState:&v91 objects:v107 count:16];
           if (v18)
           {
-            v19 = *v93;
-            v61 = allKeys2;
+            v19 = *v92;
+            v60 = allKeys2;
             do
             {
               for (j = 0; j != v18; ++j)
               {
-                if (*v93 != v19)
+                if (*v92 != v19)
                 {
-                  objc_enumerationMutation(v61);
+                  objc_enumerationMutation(v60);
                 }
 
-                v21 = *(*(&v92 + 1) + 8 * j);
+                v21 = *(*(&v91 + 1) + 8 * j);
                 v22 = [v16 objectForKey:v21];
-                v23 = [v63 hmf_numberForKey:v21];
+                v23 = [v62 hmf_numberForKey:v21];
                 metadata = [v22 metadata];
                 if (([v22 properties] & 4) != 0)
                 {
-                  v28 = [(HMDAssistantCommand *)val updateValueToBoundary:v23 valueType:v58 fudgeMinimum:0 metadata:metadata];
+                  v28 = [(HMDAssistantCommand *)val updateValueToBoundary:v23 valueType:v57 fudgeMinimum:0 metadata:metadata];
 
                   [weakToStrongObjectsMapTable setObject:v28 forKey:v22];
                   v23 = v28;
@@ -774,57 +762,57 @@ uint64_t __79__HMDAssistantCommand_handleGetColor_forObjects_serviceType_complet
                 {
                   v25 = actionResultForAction(colorCopy);
                   service = [v22 service];
-                  [v25 setOutcome:v57];
+                  [v25 setOutcome:v56];
                   v27 = entityForService(service, serviceCopy, objectsCopy, includeCompleteInformation);
                   [v25 setEntity:v27];
 
                   [(HMDAssistantCommand *)val populateResult:v25 withService:service serviceType:serviceCopy characteristic:v22 resultAttribute:0 action:colorCopy];
-                  [v101[5] addObject:v25];
+                  [v100[5] addObject:v25];
                 }
 
                 [(HMDAssistantCommand *)val addActivationCharacteristicsIfNeeded:weakToStrongObjectsMapTable forCharacteristic:v22];
               }
 
-              allKeys2 = v61;
-              v18 = [v61 countByEnumeratingWithState:&v92 objects:v108 count:16];
+              allKeys2 = v60;
+              v18 = [v60 countByEnumeratingWithState:&v91 objects:v107 count:16];
             }
 
             while (v18);
           }
         }
 
-        v53 = [obj countByEnumeratingWithState:&v96 objects:v109 count:16];
+        v52 = [obj countByEnumeratingWithState:&v95 objects:v108 count:16];
       }
 
-      while (v53);
+      while (v52);
     }
 
-    v62 = dispatch_group_create();
+    v61 = dispatch_group_create();
     weakToStrongObjectsMapTable2 = [MEMORY[0x277CCAB00] weakToStrongObjectsMapTable];
-    v90 = 0u;
-    v91 = 0u;
-    v88 = 0u;
     v89 = 0u;
-    v67 = weakToStrongObjectsMapTable;
-    v30 = [v67 countByEnumeratingWithState:&v88 objects:v107 count:16];
+    v90 = 0u;
+    v87 = 0u;
+    v88 = 0u;
+    v66 = weakToStrongObjectsMapTable;
+    v30 = [v66 countByEnumeratingWithState:&v87 objects:v106 count:16];
     if (v30)
     {
-      v31 = *v89;
+      v31 = *v88;
       do
       {
         for (k = 0; k != v30; ++k)
         {
-          if (*v89 != v31)
+          if (*v88 != v31)
           {
-            objc_enumerationMutation(v67);
+            objc_enumerationMutation(v66);
           }
 
-          v33 = *(*(&v88 + 1) + 8 * k);
+          v33 = *(*(&v87 + 1) + 8 * k);
           service2 = [v33 service];
           accessory = [service2 accessory];
           home = [accessory home];
 
-          v37 = [v67 objectForKey:v33];
+          v37 = [v66 objectForKey:v33];
           array2 = [weakToStrongObjectsMapTable2 objectForKey:home];
           if (!array2)
           {
@@ -838,53 +826,53 @@ uint64_t __79__HMDAssistantCommand_handleGetColor_forObjects_serviceType_complet
           [array2 addObject:v40];
         }
 
-        v30 = [v67 countByEnumeratingWithState:&v88 objects:v107 count:16];
+        v30 = [v66 countByEnumeratingWithState:&v87 objects:v106 count:16];
       }
 
       while (v30);
     }
 
     objc_initWeak(&location, val);
-    v85 = 0u;
-    v86 = 0u;
-    v83 = 0u;
     v84 = 0u;
+    v85 = 0u;
+    v82 = 0u;
+    v83 = 0u;
     v41 = weakToStrongObjectsMapTable2;
-    v42 = [v41 countByEnumeratingWithState:&v83 objects:v106 count:16];
+    v42 = [v41 countByEnumeratingWithState:&v82 objects:v105 count:16];
     if (v42)
     {
-      v43 = *v84;
+      v43 = *v83;
       do
       {
         for (m = 0; m != v42; ++m)
         {
-          if (*v84 != v43)
+          if (*v83 != v43)
           {
             objc_enumerationMutation(v41);
           }
 
-          v45 = *(*(&v83 + 1) + 8 * m);
-          dispatch_group_enter(v62);
+          v45 = *(*(&v82 + 1) + 8 * m);
+          dispatch_group_enter(v61);
           v46 = [v41 objectForKey:v45];
           assistantCommandHelper = [(HMDAssistantCommand *)val assistantCommandHelper];
-          v74[0] = MEMORY[0x277D85DD0];
-          v74[1] = 3221225472;
-          v74[2] = __75__HMDAssistantCommand_handleSetColor_forObjects_service_completionHandler___block_invoke;
-          v74[3] = &unk_278670F20;
-          objc_copyWeak(&v82, &location);
-          v75 = v62;
-          v80 = handlerCopy;
-          v76 = colorCopy;
-          v77 = serviceCopy;
-          v81 = &v100;
-          v78 = objectsCopy;
-          v79 = v55;
-          [assistantCommandHelper addWriteRequests:v46 home:v45 completion:v74];
+          v73[0] = MEMORY[0x277D85DD0];
+          v73[1] = 3221225472;
+          v73[2] = __75__HMDAssistantCommand_handleSetColor_forObjects_service_completionHandler___block_invoke;
+          v73[3] = &unk_278670F20;
+          objc_copyWeak(&v81, &location);
+          v74 = v61;
+          v79 = handlerCopy;
+          v75 = colorCopy;
+          v76 = serviceCopy;
+          v80 = &v99;
+          v77 = objectsCopy;
+          v78 = v54;
+          [assistantCommandHelper addWriteRequests:v46 home:v45 completion:v73];
 
-          objc_destroyWeak(&v82);
+          objc_destroyWeak(&v81);
         }
 
-        v42 = [v41 countByEnumeratingWithState:&v83 objects:v106 count:16];
+        v42 = [v41 countByEnumeratingWithState:&v82 objects:v105 count:16];
       }
 
       while (v42);
@@ -895,27 +883,25 @@ uint64_t __79__HMDAssistantCommand_handleGetColor_forObjects_serviceType_complet
     block[1] = 3221225472;
     block[2] = __75__HMDAssistantCommand_handleSetColor_forObjects_service_completionHandler___block_invoke_148;
     block[3] = &unk_278686E40;
-    v70 = v55;
-    v71 = val;
-    v73 = &v100;
-    v72 = handlerCopy;
-    dispatch_group_notify(v62, queue, block);
+    v69 = v54;
+    v70 = val;
+    v72 = &v99;
+    v71 = handlerCopy;
+    dispatch_group_notify(v61, queue, block);
 
     objc_destroyWeak(&location);
-    _Block_object_dispose(&v100, 8);
+    _Block_object_dispose(&v99, 8);
   }
 
   else
   {
     [(HMDAssistantCommand *)self reportOutcome:*MEMORY[0x277D480C8] results:0 handler:handlerCopy];
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 void __75__HMDAssistantCommand_handleSetColor_forObjects_service_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 88));
@@ -927,13 +913,13 @@ void __75__HMDAssistantCommand_handleSetColor_forObjects_service_completionHandl
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v18 = 138543874;
-      v19 = v11;
-      v20 = 2112;
-      v21 = v6;
-      v22 = 2112;
-      v23 = v5;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Received response %@ for write request with %@", &v18, 0x20u);
+      v17 = 138543874;
+      v18 = v11;
+      v19 = 2112;
+      v20 = v6;
+      v21 = 2112;
+      v22 = v5;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Received response %@ for write request with %@", &v17, 0x20u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -977,13 +963,11 @@ LABEL_10:
     dispatch_group_leave(*(a1 + 32));
     (*(*(a1 + 72) + 16))();
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __75__HMDAssistantCommand_handleSetColor_forObjects_service_completionHandler___block_invoke_148(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) begin];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 40);
@@ -991,21 +975,19 @@ uint64_t __75__HMDAssistantCommand_handleSetColor_forObjects_service_completionH
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@All results have been received for set-action-types, calling result handler", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@All results have been received for set-action-types, calling result handler", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
   [*(a1 + 40) reportResults:*(*(*(a1 + 56) + 8) + 40) handler:*(a1 + 48)];
-  result = [*(a1 + 32) end];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) end];
 }
 
 - (id)readRequestsForCharacteristic:(id)characteristic
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   type = [characteristicCopy type];
   service = [characteristicCopy service];
@@ -1013,31 +995,31 @@ uint64_t __75__HMDAssistantCommand_handleSetColor_forObjects_service_completionH
   v7 = [MEMORY[0x277CBEB18] arrayWithObject:v6];
   if ([type isEqual:@"00000064-0000-1000-8000-0026BB765291"])
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     characteristics = [service characteristics];
-    v9 = [characteristics copy];
+    v9 = objc_msgSend_copy(characteristics);
 
-    v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v10)
     {
       v11 = v10;
-      v20 = v7;
-      v21 = service;
-      v22 = type;
-      v12 = *v24;
+      v19 = v7;
+      v20 = service;
+      v21 = type;
+      v12 = *v23;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v24 != v12)
+          if (*v23 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v23 + 1) + 8 * i);
+          v14 = *(*(&v22 + 1) + 8 * i);
           type2 = [v14 type];
           v16 = [type2 isEqual:@"00000065-0000-1000-8000-0026BB765291"];
 
@@ -1045,16 +1027,16 @@ uint64_t __75__HMDAssistantCommand_handleSetColor_forObjects_service_completionH
           {
             v17 = [HMDCharacteristicRequest requestWithCharacteristic:v14];
 
-            v7 = v20;
-            [v20 addObject:v17];
+            v7 = v19;
+            [v19 addObject:v17];
             v6 = v17;
-            service = v21;
-            type = v22;
+            service = v20;
+            type = v21;
             goto LABEL_12;
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
         if (v11)
         {
           continue;
@@ -1063,114 +1045,112 @@ uint64_t __75__HMDAssistantCommand_handleSetColor_forObjects_service_completionH
         break;
       }
 
-      service = v21;
-      type = v22;
-      v7 = v20;
+      service = v20;
+      type = v21;
+      v7 = v19;
     }
 
 LABEL_12:
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (id)addStatusCharacteristicsIfNeeded:(id)needed
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   neededCopy = needed;
-  v36 = [neededCopy mutableCopy];
-  v30 = +[HMDHAPMetadata getSharedInstance];
+  v35 = [neededCopy mutableCopy];
+  v29 = +[HMDHAPMetadata getSharedInstance];
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   obj = neededCopy;
-  v31 = [obj countByEnumeratingWithState:&v46 objects:v52 count:16];
-  if (v31)
+  v30 = [obj countByEnumeratingWithState:&v45 objects:v51 count:16];
+  if (v30)
   {
-    v29 = *v47;
+    v28 = *v46;
     do
     {
-      for (i = 0; i != v31; ++i)
+      for (i = 0; i != v30; ++i)
       {
-        if (*v47 != v29)
+        if (*v46 != v28)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v46 + 1) + 8 * i);
+        v5 = *(*(&v45 + 1) + 8 * i);
         type = [v5 type];
         service = [v5 service];
         type2 = [service type];
-        v9 = [v30 getStatusCharacteristicTypes:type forServiceType:type2];
+        v9 = [v29 getStatusCharacteristicTypes:type forServiceType:type2];
 
-        v37 = v9;
+        v36 = v9;
         if ([v9 count])
         {
-          v33 = type;
-          v34 = i;
+          v32 = type;
+          v33 = i;
           service2 = [v5 service];
+          v41 = 0u;
           v42 = 0u;
           v43 = 0u;
           v44 = 0u;
-          v45 = 0u;
-          v32 = service2;
+          v31 = service2;
           characteristics = [service2 characteristics];
-          v12 = [characteristics copy];
+          v12 = objc_msgSend_copy(characteristics);
 
-          v35 = v12;
-          v13 = [v12 countByEnumeratingWithState:&v42 objects:v51 count:16];
+          v34 = v12;
+          v13 = [v12 countByEnumeratingWithState:&v41 objects:v50 count:16];
           if (v13)
           {
             v14 = v13;
-            v15 = *v43;
+            v15 = *v42;
             do
             {
               for (j = 0; j != v14; ++j)
               {
-                if (*v43 != v15)
+                if (*v42 != v15)
                 {
-                  objc_enumerationMutation(v35);
+                  objc_enumerationMutation(v34);
                 }
 
-                v17 = *(*(&v42 + 1) + 8 * j);
+                v17 = *(*(&v41 + 1) + 8 * j);
+                v37 = 0u;
                 v38 = 0u;
                 v39 = 0u;
                 v40 = 0u;
-                v41 = 0u;
-                v18 = v37;
-                v19 = [v18 countByEnumeratingWithState:&v38 objects:v50 count:16];
+                v18 = v36;
+                v19 = [v18 countByEnumeratingWithState:&v37 objects:v49 count:16];
                 if (v19)
                 {
                   v20 = v19;
-                  v21 = *v39;
+                  v21 = *v38;
                   while (2)
                   {
                     for (k = 0; k != v20; ++k)
                     {
-                      if (*v39 != v21)
+                      if (*v38 != v21)
                       {
                         objc_enumerationMutation(v18);
                       }
 
-                      v23 = *(*(&v38 + 1) + 8 * k);
+                      v23 = *(*(&v37 + 1) + 8 * k);
                       type3 = [v17 type];
                       LODWORD(v23) = [type3 isEqual:v23];
 
                       if (v23)
                       {
-                        if (([v36 containsObject:v17] & 1) == 0)
+                        if (([v35 containsObject:v17] & 1) == 0)
                         {
-                          [v36 addObject:v17];
+                          [v35 addObject:v17];
                         }
 
                         goto LABEL_23;
                       }
                     }
 
-                    v20 = [v18 countByEnumeratingWithState:&v38 objects:v50 count:16];
+                    v20 = [v18 countByEnumeratingWithState:&v37 objects:v49 count:16];
                     if (v20)
                     {
                       continue;
@@ -1183,32 +1163,31 @@ LABEL_12:
 LABEL_23:
               }
 
-              v14 = [v35 countByEnumeratingWithState:&v42 objects:v51 count:16];
+              v14 = [v34 countByEnumeratingWithState:&v41 objects:v50 count:16];
             }
 
             while (v14);
           }
 
-          type = v33;
-          i = v34;
+          type = v32;
+          i = v33;
         }
       }
 
-      v31 = [obj countByEnumeratingWithState:&v46 objects:v52 count:16];
+      v30 = [obj countByEnumeratingWithState:&v45 objects:v51 count:16];
     }
 
-    while (v31);
+    while (v30);
   }
 
-  v25 = [v36 copy];
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = objc_msgSend_copy(v35);
 
   return v25;
 }
 
 - (void)addLinkedServiceCharacteristicsFor:(id)for toCollection:(id)collection assistantObjects:(id)objects
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   forCopy = for;
   collectionCopy = collection;
   objectsCopy = objects;
@@ -1225,34 +1204,34 @@ LABEL_23:
 
     if (v15)
     {
-      v27 = v11;
-      v28 = v9;
-      v30 = forCopy;
+      v26 = v11;
+      v27 = v9;
+      v29 = forCopy;
       accessory = [forCopy accessory];
+      v33 = 0u;
       v34 = 0u;
       v35 = 0u;
       v36 = 0u;
-      v37 = 0u;
-      v29 = service;
+      v28 = service;
       linkedServices = [service linkedServices];
-      v18 = [linkedServices copy];
+      v18 = objc_msgSend_copy(linkedServices);
 
-      v19 = [v18 countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v33 objects:v37 count:16];
       if (v19)
       {
         v20 = v19;
-        v21 = *v35;
+        v21 = *v34;
         do
         {
           v22 = 0;
           do
           {
-            if (*v35 != v21)
+            if (*v34 != v21)
             {
               objc_enumerationMutation(v18);
             }
 
-            v23 = [accessory findService:*(*(&v34 + 1) + 8 * v22)];
+            v23 = [accessory findService:*(*(&v33 + 1) + 8 * v22)];
             type3 = [v23 type];
             v25 = [type3 isEqual:v12];
 
@@ -1265,29 +1244,27 @@ LABEL_23:
           }
 
           while (v20 != v22);
-          v20 = [v18 countByEnumeratingWithState:&v34 objects:v38 count:16];
+          v20 = [v18 countByEnumeratingWithState:&v33 objects:v37 count:16];
         }
 
         while (v20);
       }
 
-      service = v29;
-      forCopy = v30;
-      v11 = v27;
-      v9 = v28;
+      service = v28;
+      forCopy = v29;
+      v11 = v26;
+      v9 = v27;
     }
   }
 
   else
   {
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addBridgedAccessoryCharacteristicsFor:(id)for toCollection:(id)collection assistantObjects:(id)objects
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   forCopy = for;
   collectionCopy = collection;
   objectsCopy = objects;
@@ -1304,33 +1281,33 @@ LABEL_23:
 
     if (v16)
     {
-      v32 = v13;
-      v33 = v10;
-      v34 = service;
-      v35 = forCopy;
+      v31 = v13;
+      v32 = v10;
+      v33 = service;
+      v34 = forCopy;
       [forCopy accessory];
+      v47 = 0u;
       v48 = 0u;
       v49 = 0u;
-      v50 = 0u;
-      v38 = v51 = 0u;
-      obj = [v38 identifiersForBridgedAccessories];
-      v39 = [obj countByEnumeratingWithState:&v48 objects:v53 count:16];
-      if (v39)
+      v37 = v50 = 0u;
+      obj = [v37 identifiersForBridgedAccessories];
+      v38 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
+      if (v38)
       {
-        v37 = *v49;
+        v36 = *v48;
         do
         {
           v17 = 0;
           do
           {
-            if (*v49 != v37)
+            if (*v48 != v36)
             {
               objc_enumerationMutation(obj);
             }
 
-            v41 = v17;
-            v18 = *(*(&v48 + 1) + 8 * v17);
-            home = [v38 home];
+            v40 = v17;
+            v18 = *(*(&v47 + 1) + 8 * v17);
+            home = [v37 home];
             v20 = [home accessoryWithUUID:v18];
 
             objc_opt_class();
@@ -1346,27 +1323,27 @@ LABEL_23:
 
             v22 = v21;
 
-            v46 = 0u;
-            v47 = 0u;
-            v44 = 0u;
             v45 = 0u;
-            v40 = v22;
+            v46 = 0u;
+            v43 = 0u;
+            v44 = 0u;
+            v39 = v22;
             services = [v22 services];
-            v24 = [services countByEnumeratingWithState:&v44 objects:v52 count:16];
+            v24 = [services countByEnumeratingWithState:&v43 objects:v51 count:16];
             if (v24)
             {
               v25 = v24;
-              v26 = *v45;
+              v26 = *v44;
               do
               {
                 for (i = 0; i != v25; ++i)
                 {
-                  if (*v45 != v26)
+                  if (*v44 != v26)
                   {
                     objc_enumerationMutation(services);
                   }
 
-                  v28 = *(*(&v44 + 1) + 8 * i);
+                  v28 = *(*(&v43 + 1) + 8 * i);
                   type3 = [v28 type];
                   v30 = [type3 isEqual:v12];
 
@@ -1376,74 +1353,71 @@ LABEL_23:
                   }
                 }
 
-                v25 = [services countByEnumeratingWithState:&v44 objects:v52 count:16];
+                v25 = [services countByEnumeratingWithState:&v43 objects:v51 count:16];
               }
 
               while (v25);
             }
 
-            v17 = v41 + 1;
+            v17 = v40 + 1;
           }
 
-          while (v41 + 1 != v39);
-          v39 = [obj countByEnumeratingWithState:&v48 objects:v53 count:16];
+          while (v40 + 1 != v38);
+          v38 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
         }
 
-        while (v39);
+        while (v38);
       }
 
-      service = v34;
-      forCopy = v35;
-      v13 = v32;
-      v10 = v33;
+      service = v33;
+      forCopy = v34;
+      v13 = v31;
+      v10 = v32;
     }
   }
 
   else
   {
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (id)addCharacteristicsFromRelatedServicesFor:(id)for assistantObjects:(id)objects
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   forCopy = for;
   objectsCopy = objects;
   v8 = [forCopy mutableCopy];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v9 = forCopy;
-  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v18 + 1) + 8 * i);
-        [(HMDAssistantCommand *)self addBridgedAccessoryCharacteristicsFor:v14 toCollection:v8 assistantObjects:objectsCopy, v18];
+        v14 = *(*(&v17 + 1) + 8 * i);
+        [(HMDAssistantCommand *)self addBridgedAccessoryCharacteristicsFor:v14 toCollection:v8 assistantObjects:objectsCopy, v17];
         [(HMDAssistantCommand *)self addLinkedServiceCharacteristicsFor:v14 toCollection:v8 assistantObjects:objectsCopy];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v11);
   }
 
-  v15 = [v8 copy];
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = objc_msgSend_copy(v8);
 
   return v15;
 }
@@ -1549,31 +1523,31 @@ LABEL_19:
 
 - (void)addIfNeededActivationCharacteristic:(id)characteristic fromService:(id)service toCollection:(id)collection
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   collectionCopy = collection;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   characteristics = [service characteristics];
-  v10 = [characteristics copy];
+  v10 = objc_msgSend_copy(characteristics);
 
-  v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v21;
+    v13 = *v20;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v21 != v13)
+        if (*v20 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v20 + 1) + 8 * i);
+        v15 = *(*(&v19 + 1) + 8 * i);
         type = [v15 type];
         v17 = [type isEqual:characteristicCopy];
 
@@ -1590,7 +1564,7 @@ LABEL_19:
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v12)
       {
         continue;
@@ -1601,13 +1575,11 @@ LABEL_19:
   }
 
 LABEL_12:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleMediaReadWriteResponse:(id)response forAction:(id)action inServiceType:(id)type inHome:(id)home requestProperty:(id)property results:(id)results forObjects:(id)objects
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   actionCopy = action;
   typeCopy = type;
@@ -1621,50 +1593,50 @@ LABEL_12:
     v18 = @"HMDMediaProfileSetValueUnsupportedAttributeKey";
   }
 
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
   v61 = 0u;
-  v43 = [responseCopy countByEnumeratingWithState:&v60 objects:v65 count:16];
+  v62 = 0u;
+  v59 = 0u;
+  v60 = 0u;
+  v42 = [responseCopy countByEnumeratingWithState:&v59 objects:v64 count:16];
   v19 = 0;
-  if (v43)
+  if (v42)
   {
-    v41 = *v61;
-    v45 = *MEMORY[0x277D47E50];
-    v46 = resultsCopy;
-    v42 = responseCopy;
+    v40 = *v60;
+    v44 = *MEMORY[0x277D47E50];
+    v45 = resultsCopy;
+    v41 = responseCopy;
     do
     {
       v20 = 0;
       do
       {
-        if (*v61 != v41)
+        if (*v60 != v40)
         {
           objc_enumerationMutation(responseCopy);
         }
 
-        v44 = v20;
-        v21 = *(*(&v60 + 1) + 8 * v20);
+        v43 = v20;
+        v21 = *(*(&v59 + 1) + 8 * v20);
+        v55 = 0u;
         v56 = 0u;
         v57 = 0u;
         v58 = 0u;
-        v59 = 0u;
         v22 = v21;
-        v55 = [v22 countByEnumeratingWithState:&v56 objects:v64 count:16];
-        if (v55)
+        v54 = [v22 countByEnumeratingWithState:&v55 objects:v63 count:16];
+        if (v54)
         {
-          v54 = *v57;
-          v50 = v22;
+          v53 = *v56;
+          v49 = v22;
           do
           {
-            for (i = 0; i != v55; ++i)
+            for (i = 0; i != v54; ++i)
             {
-              if (*v57 != v54)
+              if (*v56 != v53)
               {
                 objc_enumerationMutation(v22);
               }
 
-              v24 = *(*(&v56 + 1) + 8 * i);
+              v24 = *(*(&v55 + 1) + 8 * i);
               v25 = [v22 objectForKeyedSubscript:v24];
               objc_opt_class();
               if (objc_opt_isKindOfClass())
@@ -1685,7 +1657,7 @@ LABEL_12:
                 v29 = [v27 objectForKeyedSubscript:propertyCopy];
                 if (v29)
                 {
-                  v52 = v19;
+                  v51 = v19;
                   objc_opt_class();
                   isKindOfClass = objc_opt_isKindOfClass();
                   if (isKindOfClass)
@@ -1698,14 +1670,14 @@ LABEL_12:
                     v31 = 0;
                   }
 
-                  v51 = v31;
+                  v50 = v31;
                   if (isKindOfClass)
                   {
                     v32 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v29 error:0];
                     v33 = [(HMDAssistantCommand *)self actionOutcomeFromError:v32];
                     [v28 setOutcome:v33];
 
-                    resultsCopy = v46;
+                    resultsCopy = v45;
                     v19 = [(HMDAssistantCommand *)self getValueOfType:0 action:actionCopy];
                   }
 
@@ -1725,7 +1697,7 @@ LABEL_12:
 
                     v36 = v35;
 
-                    [v28 setOutcome:v45];
+                    [v28 setOutcome:v44];
                     v19 = v36;
                   }
                 }
@@ -1738,33 +1710,31 @@ LABEL_12:
                 [v28 setEntity:v39];
 
                 [resultsCopy addObject:v28];
-                v22 = v50;
+                v22 = v49;
               }
             }
 
-            v55 = [v22 countByEnumeratingWithState:&v56 objects:v64 count:16];
+            v54 = [v22 countByEnumeratingWithState:&v55 objects:v63 count:16];
           }
 
-          while (v55);
+          while (v54);
         }
 
-        v20 = v44 + 1;
-        responseCopy = v42;
+        v20 = v43 + 1;
+        responseCopy = v41;
       }
 
-      while (v44 + 1 != v43);
-      v43 = [v42 countByEnumeratingWithState:&v60 objects:v65 count:16];
+      while (v43 + 1 != v42);
+      v42 = [v41 countByEnumeratingWithState:&v59 objects:v64 count:16];
     }
 
-    while (v43);
+    while (v42);
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (id)handleReadWriteResponses:(id)responses error:(id)error forAction:(id)action inServiceType:(id)type results:(id)results forObjects:(id)objects
 {
-  v119 = *MEMORY[0x277D85DE8];
+  v118 = *MEMORY[0x277D85DE8];
   responsesCopy = responses;
   errorCopy = error;
   actionCopy = action;
@@ -1785,29 +1755,29 @@ LABEL_12:
 
   else
   {
-    v63 = errorCopy;
+    v62 = errorCopy;
     strongToStrongObjectsMapTable = [MEMORY[0x277CCAB00] strongToStrongObjectsMapTable];
+    v98 = 0u;
     v99 = 0u;
     v100 = 0u;
     v101 = 0u;
-    v102 = 0u;
-    v64 = responsesCopy;
+    v63 = responsesCopy;
     obj = responsesCopy;
-    v22 = [obj countByEnumeratingWithState:&v99 objects:v118 count:16];
+    v22 = [obj countByEnumeratingWithState:&v98 objects:v117 count:16];
     if (v22)
     {
       v23 = v22;
-      v82 = *v100;
+      v81 = *v99;
       do
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v100 != v82)
+          if (*v99 != v81)
           {
             objc_enumerationMutation(obj);
           }
 
-          v25 = *(*(&v99 + 1) + 8 * i);
+          v25 = *(*(&v98 + 1) + 8 * i);
           request = [v25 request];
           characteristic = [request characteristic];
           service = [characteristic service];
@@ -1822,62 +1792,62 @@ LABEL_12:
           [array addObject:v25];
         }
 
-        v23 = [obj countByEnumeratingWithState:&v99 objects:v118 count:16];
+        v23 = [obj countByEnumeratingWithState:&v98 objects:v117 count:16];
       }
 
       while (v23);
     }
 
-    v97 = 0u;
-    v98 = 0u;
-    v95 = 0u;
     v96 = 0u;
-    v76 = strongToStrongObjectsMapTable;
-    v75 = [v76 countByEnumeratingWithState:&v95 objects:v117 count:16];
-    if (v75)
+    v97 = 0u;
+    v94 = 0u;
+    v95 = 0u;
+    v75 = strongToStrongObjectsMapTable;
+    v74 = [v75 countByEnumeratingWithState:&v94 objects:v116 count:16];
+    if (v74)
     {
-      v79 = 0;
-      v74 = *v96;
-      v83 = *MEMORY[0x277D47E50];
-      v73 = *MEMORY[0x277D47F48];
+      v78 = 0;
+      v73 = *v95;
+      v82 = *MEMORY[0x277D47E50];
+      v72 = *MEMORY[0x277D47F48];
       do
       {
         v30 = 0;
         do
         {
-          if (*v96 != v74)
+          if (*v95 != v73)
           {
-            objc_enumerationMutation(v76);
+            objc_enumerationMutation(v75);
           }
 
-          v77 = *(*(&v95 + 1) + 8 * v30);
-          v78 = v30;
-          v31 = [v76 objectForKey:?];
+          v76 = *(*(&v94 + 1) + 8 * v30);
+          v77 = v30;
+          v31 = [v75 objectForKey:?];
           v32 = [v31 mutableCopy];
 
-          v85 = actionResultForAction(actionCopy);
+          v84 = actionResultForAction(actionCopy);
+          v90 = 0u;
           v91 = 0u;
           v92 = 0u;
           v93 = 0u;
-          v94 = 0u;
           v33 = v32;
-          v34 = [v33 countByEnumeratingWithState:&v91 objects:v116 count:16];
+          v34 = [v33 countByEnumeratingWithState:&v90 objects:v115 count:16];
           if (v34)
           {
             v35 = v34;
-            v36 = *v92;
-            v37 = v79;
+            v36 = *v91;
+            v37 = v78;
             obja = v33;
             while (2)
             {
               for (j = 0; j != v35; ++j)
               {
-                if (*v92 != v36)
+                if (*v91 != v36)
                 {
                   objc_enumerationMutation(obja);
                 }
 
-                v39 = *(*(&v91 + 1) + 8 * j);
+                v39 = *(*(&v90 + 1) + 8 * j);
                 error = [v39 error];
 
                 if (error)
@@ -1885,40 +1855,40 @@ LABEL_12:
                   v41 = objc_autoreleasePoolPush();
                   selfCopy = self;
                   v43 = HMFGetOSLogHandle();
-                  v79 = error;
+                  v78 = error;
                   if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
                   {
                     HMFGetLogIdentifier();
-                    v72 = v71 = v41;
+                    v71 = v70 = v41;
                     code2 = [error code];
-                    accessory = [v77 accessory];
+                    accessory = [v76 accessory];
                     [accessory name];
-                    v44 = v69 = selfCopy;
-                    accessory2 = [v77 accessory];
+                    v44 = v68 = selfCopy;
+                    accessory2 = [v76 accessory];
                     uuid = [accessory2 uuid];
                     uUIDString = [uuid UUIDString];
-                    instanceID = [v77 instanceID];
+                    instanceID = [v76 instanceID];
                     request2 = [v39 request];
                     characteristic2 = [request2 characteristic];
                     instanceID2 = [characteristic2 instanceID];
                     *buf = 138544642;
-                    v105 = v72;
-                    v106 = 2048;
-                    v107 = code2;
-                    v108 = 2112;
-                    v109 = v44;
-                    v110 = 2112;
-                    v111 = uUIDString;
-                    v112 = 2112;
-                    v113 = instanceID;
-                    v114 = 2112;
-                    v115 = instanceID2;
+                    v104 = v71;
+                    v105 = 2048;
+                    v106 = code2;
+                    v107 = 2112;
+                    v108 = v44;
+                    v109 = 2112;
+                    v110 = uUIDString;
+                    v111 = 2112;
+                    v112 = instanceID;
+                    v113 = 2112;
+                    v114 = instanceID2;
                     _os_log_impl(&dword_229538000, v43, OS_LOG_TYPE_INFO, "%{public}@Error %tu for %@/%@/%@/%@", buf, 0x3Eu);
 
-                    selfCopy = v69;
-                    error = v79;
+                    selfCopy = v68;
+                    error = v78;
 
-                    v41 = v71;
+                    v41 = v70;
                   }
 
                   objc_autoreleasePoolPop(v41);
@@ -1933,20 +1903,20 @@ LABEL_12:
                   if (code3 != v50)
                   {
                     v51 = [(HMDAssistantCommand *)selfCopy actionOutcomeFromError:error];
-                    [v85 setOutcome:v51];
+                    [v84 setOutcome:v51];
                   }
 
                   goto LABEL_34;
                 }
 
-                [v85 setOutcome:v83];
+                [v84 setOutcome:v82];
                 v37 = 0;
               }
 
               v33 = obja;
-              v35 = [obja countByEnumeratingWithState:&v91 objects:v116 count:16];
+              v35 = [obja countByEnumeratingWithState:&v90 objects:v115 count:16];
               v37 = 0;
-              v79 = 0;
+              v78 = 0;
               if (v35)
               {
                 continue;
@@ -1959,73 +1929,71 @@ LABEL_12:
 LABEL_34:
 
           attribute = [actionCopy attribute];
-          v53 = [attribute isEqual:v73];
+          v53 = [attribute isEqual:v72];
 
           if (v53)
           {
-            [(HMDAssistantCommand *)self populateColorResult:v85 serviceType:typeCopy service:v77 action:actionCopy responses:v33 forObjects:objectsCopy];
-            [resultsCopy addObject:v85];
+            [(HMDAssistantCommand *)self populateColorResult:v84 serviceType:typeCopy service:v76 action:actionCopy responses:v33 forObjects:objectsCopy];
+            [resultsCopy addObject:v84];
           }
 
-          v89 = 0u;
-          v90 = 0u;
-          v87 = 0u;
           v88 = 0u;
+          v89 = 0u;
+          v86 = 0u;
+          v87 = 0u;
           v54 = v33;
-          v55 = [v54 countByEnumeratingWithState:&v87 objects:v103 count:16];
+          v55 = [v54 countByEnumeratingWithState:&v86 objects:v102 count:16];
           if (v55)
           {
             v56 = v55;
-            v57 = *v88;
+            v57 = *v87;
             do
             {
               for (k = 0; k != v56; ++k)
               {
-                if (*v88 != v57)
+                if (*v87 != v57)
                 {
                   objc_enumerationMutation(v54);
                 }
 
-                v59 = *(*(&v87 + 1) + 8 * k);
+                v59 = *(*(&v86 + 1) + 8 * k);
                 v60 = actionResultForAction(actionCopy);
                 [(HMDAssistantCommand *)self populateResult:v60 fromResponse:v59 responses:v54 forAction:actionCopy serviceType:typeCopy forObjects:objectsCopy];
                 [resultsCopy addObject:v60];
               }
 
-              v56 = [v54 countByEnumeratingWithState:&v87 objects:v103 count:16];
+              v56 = [v54 countByEnumeratingWithState:&v86 objects:v102 count:16];
             }
 
             while (v56);
           }
 
-          v30 = v78 + 1;
+          v30 = v77 + 1;
         }
 
-        while (v78 + 1 != v75);
-        v75 = [v76 countByEnumeratingWithState:&v95 objects:v117 count:16];
+        while (v77 + 1 != v74);
+        v74 = [v75 countByEnumeratingWithState:&v94 objects:v116 count:16];
       }
 
-      while (v75);
+      while (v74);
     }
 
     else
     {
-      v79 = 0;
+      v78 = 0;
     }
 
-    errorCopy = v63;
-    responsesCopy = v64;
-    v21 = v79;
+    errorCopy = v62;
+    responsesCopy = v63;
+    v21 = v78;
   }
-
-  v61 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
 
 - (BOOL)populateColorResult:(id)result serviceType:(id)type service:(id)service action:(id)action responses:(id)responses forObjects:(id)objects
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   typeCopy = type;
   serviceCopy = service;
@@ -2034,56 +2002,56 @@ LABEL_34:
   objectsCopy = objects;
   string = [MEMORY[0x277CCAB68] string];
   attribute = [actionCopy attribute];
-  v63 = resultCopy;
+  v62 = resultCopy;
   [resultCopy setResultAttribute:attribute];
 
-  v81 = 0u;
-  v82 = 0u;
-  v79 = 0u;
   v80 = 0u;
+  v81 = 0u;
+  v78 = 0u;
+  v79 = 0u;
   obj = [supportedColorSpaces allKeys];
-  v62 = string;
-  v59 = [obj countByEnumeratingWithState:&v79 objects:v85 count:16];
-  if (v59)
+  v61 = string;
+  v58 = [obj countByEnumeratingWithState:&v78 objects:v84 count:16];
+  if (v58)
   {
-    v58 = *v80;
-    v66 = *MEMORY[0x277D47E78];
-    v64 = actionCopy;
+    v57 = *v79;
+    v65 = *MEMORY[0x277D47E78];
+    v63 = actionCopy;
     while (2)
     {
       v17 = 0;
       do
       {
-        if (*v80 != v58)
+        if (*v79 != v57)
         {
           objc_enumerationMutation(obj);
         }
 
-        v60 = v17;
-        v61 = *(*(&v79 + 1) + 8 * v17);
+        v59 = v17;
+        v60 = *(*(&v78 + 1) + 8 * v17);
         v18 = [supportedColorSpaces objectForKeyedSubscript:?];
+        v74 = 0u;
         v75 = 0u;
         v76 = 0u;
         v77 = 0u;
-        v78 = 0u;
         v19 = v18;
-        v69 = [v19 countByEnumeratingWithState:&v75 objects:v84 count:16];
-        if (v69)
+        v68 = [v19 countByEnumeratingWithState:&v74 objects:v83 count:16];
+        if (v68)
         {
-          v68 = *v76;
-          v65 = v19;
+          v67 = *v75;
+          v64 = v19;
           do
           {
-            for (i = 0; i != v69; ++i)
+            for (i = 0; i != v68; ++i)
             {
-              if (*v76 != v68)
+              if (*v75 != v67)
               {
                 objc_enumerationMutation(v19);
               }
 
-              v21 = *(*(&v75 + 1) + 8 * i);
+              v21 = *(*(&v74 + 1) + 8 * i);
               actionType = [actionCopy actionType];
-              v23 = [actionType isEqualToString:v66];
+              v23 = [actionType isEqualToString:v65];
 
               if (v23)
               {
@@ -2095,26 +2063,26 @@ LABEL_34:
                 [v21 writeCharacteristicType];
               }
               v24 = ;
-              v73 = 0u;
-              v74 = 0u;
-              v71 = 0u;
               v72 = 0u;
+              v73 = 0u;
+              v70 = 0u;
+              v71 = 0u;
               value = responsesCopy;
-              characteristic2 = [value countByEnumeratingWithState:&v71 objects:v83 count:16];
+              characteristic2 = [value countByEnumeratingWithState:&v70 objects:v82 count:16];
               if (characteristic2)
               {
-                v70 = i;
-                v27 = *v72;
+                v69 = i;
+                v27 = *v71;
                 while (2)
                 {
                   for (j = 0; j != characteristic2; j = j + 1)
                   {
-                    if (*v72 != v27)
+                    if (*v71 != v27)
                     {
                       objc_enumerationMutation(value);
                     }
 
-                    v29 = *(*(&v71 + 1) + 8 * j);
+                    v29 = *(*(&v70 + 1) + 8 * j);
                     request = [v29 request];
                     characteristic = [request characteristic];
                     characteristicType = [characteristic characteristicType];
@@ -2128,42 +2096,42 @@ LABEL_34:
 
                       if (characteristic2)
                       {
-                        outcome = [v63 outcome];
+                        outcome = [v62 outcome];
                         v37 = isOutcomeSuccess(outcome);
 
-                        actionCopy = v64;
+                        actionCopy = v63;
                         if (v37)
                         {
                           [value removeObject:v34];
-                          v19 = v65;
-                          if ([v62 length])
+                          v19 = v64;
+                          if ([v61 length])
                           {
-                            [v62 appendString:{@", "}];
+                            [v61 appendString:{@", "}];
                           }
 
                           else
                           {
-                            [v62 appendFormat:@"%@%@", v61, @":"];
+                            [v61 appendFormat:@"%@%@", v60, @":"];
                           }
 
                           value = [characteristic2 value];
-                          [v62 appendFormat:@"%@", value];
+                          [v61 appendFormat:@"%@", value];
                           goto LABEL_32;
                         }
                       }
 
                       else
                       {
-                        actionCopy = v64;
+                        actionCopy = v63;
                       }
 
-                      v19 = v65;
-                      i = v70;
+                      v19 = v64;
+                      i = v69;
                       goto LABEL_34;
                     }
                   }
 
-                  characteristic2 = [value countByEnumeratingWithState:&v71 objects:v83 count:16];
+                  characteristic2 = [value countByEnumeratingWithState:&v70 objects:v82 count:16];
                   if (characteristic2)
                   {
                     continue;
@@ -2173,10 +2141,10 @@ LABEL_34:
                 }
 
                 v34 = 0;
-                actionCopy = v64;
-                v19 = v65;
+                actionCopy = v63;
+                v19 = v64;
 LABEL_32:
-                i = v70;
+                i = v69;
               }
 
               else
@@ -2187,26 +2155,26 @@ LABEL_32:
 LABEL_34:
             }
 
-            v69 = [v19 countByEnumeratingWithState:&v75 objects:v84 count:16];
+            v68 = [v19 countByEnumeratingWithState:&v74 objects:v83 count:16];
           }
 
-          while (v69);
+          while (v68);
         }
 
-        string = v62;
-        if ([v62 length])
+        string = v61;
+        if ([v61 length])
         {
-          [v62 appendString:@";"];
+          [v61 appendString:@";"];
 
           goto LABEL_41;
         }
 
-        v17 = v60 + 1;
+        v17 = v59 + 1;
       }
 
-      while (v60 + 1 != v59);
-      v59 = [obj countByEnumeratingWithState:&v79 objects:v85 count:16];
-      if (v59)
+      while (v59 + 1 != v58);
+      v58 = [obj countByEnumeratingWithState:&v78 objects:v84 count:16];
+      if (v58)
       {
         continue;
       }
@@ -2221,7 +2189,7 @@ LABEL_41:
   {
     v38 = objc_alloc_init(MEMORY[0x277D47388]);
     [v38 setValue:string];
-    [v63 setResultValue:v38];
+    [v62 setResultValue:v38];
     value2 = [actionCopy value];
     if (!value2)
     {
@@ -2258,7 +2226,7 @@ LABEL_50:
     }
 
     value3 = [actionCopy value];
-    resultValue = [v63 resultValue];
+    resultValue = [v62 resultValue];
     v46 = [(HMDAssistantCommand *)self isAttributeValue:value3 equalTo:resultValue];
 
     goto LABEL_50;
@@ -2269,20 +2237,19 @@ LABEL_50:
   v47 = typeCopy;
 LABEL_52:
   v50 = entityForService(v45, v47, objectsCopy, [actionCopy includeCompleteInformation]);
-  [v63 setEntity:v50];
+  [v62 setEntity:v50];
 
-  v51 = *MEMORY[0x277D85DE8];
   return v46;
 }
 
 - (id)parseColorEncoding:(id)encoding
 {
-  v113 = *MEMORY[0x277D85DE8];
+  v112 = *MEMORY[0x277D85DE8];
   encodingCopy = encoding;
   v4 = *MEMORY[0x277D47E78];
-  v98 = encodingCopy;
+  v97 = encodingCopy;
   actionType = [encodingCopy actionType];
-  v96 = v4;
+  v95 = v4;
   if ([v4 isEqualToString:actionType])
   {
   }
@@ -2290,7 +2257,7 @@ LABEL_52:
   else
   {
     v6 = *MEMORY[0x277D47EA8];
-    actionType2 = [v98 actionType];
+    actionType2 = [v97 actionType];
     LOBYTE(v6) = [v6 isEqualToString:actionType2];
 
     if ((v6 & 1) == 0)
@@ -2301,11 +2268,11 @@ LABEL_52:
       if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
       {
         v67 = HMFGetLogIdentifier();
-        actionType3 = [v98 actionType];
+        actionType3 = [v97 actionType];
         *buf = 138543618;
-        v105 = v67;
-        v106 = 2112;
-        v107 = actionType3;
+        v104 = v67;
+        v105 = 2112;
+        v106 = actionType3;
         _os_log_impl(&dword_229538000, v66, OS_LOG_TYPE_DEFAULT, "%{public}@Action type for COLOR attribute is not GET/SET - %@", buf, 0x16u);
 
         goto LABEL_68;
@@ -2319,7 +2286,7 @@ LABEL_69:
     }
   }
 
-  value = [v98 value];
+  value = [v97 value];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
 
@@ -2331,15 +2298,15 @@ LABEL_69:
     if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
     {
       v67 = HMFGetLogIdentifier();
-      value2 = [v98 value];
-      value3 = [v98 value];
+      value2 = [v97 value];
+      value3 = [v97 value];
       *buf = 138543874;
-      v105 = v67;
-      v106 = 2112;
-      v107 = value2;
-      v108 = 2112;
-      v109 = objc_opt_class();
-      v70 = v109;
+      v104 = v67;
+      v105 = 2112;
+      v106 = value2;
+      v107 = 2112;
+      v108 = objc_opt_class();
+      v70 = v108;
       _os_log_impl(&dword_229538000, v66, OS_LOG_TYPE_DEFAULT, "%{public}@Value %@ for COLOR attribute is not string but %@", buf, 0x20u);
 
 LABEL_68:
@@ -2349,17 +2316,17 @@ LABEL_68:
     goto LABEL_69;
   }
 
-  value4 = [v98 value];
+  value4 = [v97 value];
   v10Value = [value4 value];
 
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v99 = 0u;
   v100 = 0u;
   v101 = 0u;
   v102 = 0u;
-  v103 = 0u;
-  v80 = v10Value;
+  v79 = v10Value;
   obj = [v10Value componentsSeparatedByString:@""];;
-  v12 = [obj countByEnumeratingWithState:&v100 objects:v112 count:16];
+  v12 = [obj countByEnumeratingWithState:&v99 objects:v111 count:16];
   if (!v12)
   {
     goto LABEL_74;
@@ -2367,20 +2334,20 @@ LABEL_68:
 
   v13 = v12;
   v14 = &unk_27D8A7000;
-  v94 = *MEMORY[0x277CCF6B8];
-  v89 = *MEMORY[0x277CCF6C0];
-  v90 = *v101;
-  v84 = *MEMORY[0x277CCF6B0];
+  v93 = *MEMORY[0x277CCF6B8];
+  v88 = *MEMORY[0x277CCF6C0];
+  v89 = *v100;
+  v83 = *MEMORY[0x277CCF6B0];
 LABEL_7:
   v15 = 0;
-  v81 = v13;
+  v80 = v13;
 LABEL_8:
-  if (*v101 != v90)
+  if (*v100 != v89)
   {
     objc_enumerationMutation(obj);
   }
 
-  v16 = *(*(&v100 + 1) + 8 * v15);
+  v16 = *(*(&v99 + 1) + 8 * v15);
   if (![v16 length])
   {
     goto LABEL_61;
@@ -2402,11 +2369,11 @@ LABEL_8:
       {
         v55 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v105 = v55;
-        v106 = 2112;
-        v107 = v50;
-        v108 = 2112;
-        v109 = allKeys;
+        v104 = v55;
+        v105 = 2112;
+        v106 = v50;
+        v107 = 2112;
+        v108 = allKeys;
         _os_log_impl(&dword_229538000, v54, OS_LOG_TYPE_INFO, "%{public}@Unsupported color space: %@; only support %@. Ignoring...", buf, 0x20u);
       }
 
@@ -2420,9 +2387,9 @@ LABEL_8:
     v20 = [v17 objectAtIndex:1];
     v21 = [v20 componentsSeparatedByString:{@", "}];
     v22 = [v21 count];
-    v95 = v21;
-    v86 = v20;
-    v87 = v15;
+    v94 = v21;
+    v85 = v20;
+    v86 = v15;
     if (v22 != [v19 count])
     {
       v56 = v19;
@@ -2434,22 +2401,22 @@ LABEL_8:
       {
         v61 = HMFGetLogIdentifier();
         v62 = [v56 count];
-        v63 = [v95 count];
+        v63 = [v94 count];
         *buf = 138544130;
-        v105 = v61;
-        v106 = 2112;
-        v107 = v57;
-        v108 = 2048;
-        v109 = v62;
+        v104 = v61;
+        v105 = 2112;
+        v106 = v57;
+        v107 = 2048;
+        v108 = v62;
         v14 = &unk_27D8A7000;
-        v110 = 2048;
-        v111 = v63;
+        v109 = 2048;
+        v110 = v63;
         _os_log_impl(&dword_229538000, v60, OS_LOG_TYPE_INFO, "%{public}@Color space %@ requires %tu values - %tu provided. Ignoring...", buf, 0x2Au);
       }
 
       objc_autoreleasePoolPop(v58);
-      v20 = v86;
-      v15 = v87;
+      v20 = v85;
+      v15 = v86;
       firstObject = v57;
       v19 = v56;
       goto LABEL_59;
@@ -2460,9 +2427,9 @@ LABEL_8:
       goto LABEL_73;
     }
 
-    v93 = firstObject;
-    v82 = v17;
-    v83 = v19;
+    v92 = firstObject;
+    v81 = v17;
+    v82 = v19;
     v23 = 0;
     v24 = 0;
     v25 = v21;
@@ -2474,8 +2441,8 @@ LABEL_8:
 
       v29 = [v19 objectAtIndex:v24];
       format = [v29 format];
-      actionType4 = [v98 actionType];
-      LODWORD(v27) = [v96 isEqualToString:actionType4];
+      actionType4 = [v97 actionType];
+      LODWORD(v27) = [v95 isEqualToString:actionType4];
 
       if (v27)
       {
@@ -2489,13 +2456,13 @@ LABEL_8:
       v32 = ;
       if (v32)
       {
-        if ([format isEqualToString:v94])
+        if ([format isEqualToString:v93])
         {
-          v99 = 0.0;
-          if ([v28 scanDouble:&v99])
+          v98 = 0.0;
+          if ([v28 scanDouble:&v98])
           {
-            v91 = v23;
-            v33 = [MEMORY[0x277CCABB0] numberWithDouble:v99];
+            v90 = v23;
+            v33 = [MEMORY[0x277CCABB0] numberWithDouble:v98];
             goto LABEL_33;
           }
 
@@ -2506,26 +2473,26 @@ LABEL_8:
           {
             v37 = HMFGetLogIdentifier();
             *buf = 138544130;
-            v105 = v37;
-            v106 = 2112;
-            v107 = v93;
-            v108 = 2112;
-            v109 = v32;
-            v110 = 2112;
-            v111 = v94;
+            v104 = v37;
+            v105 = 2112;
+            v106 = v92;
+            v107 = 2112;
+            v108 = v32;
+            v109 = 2112;
+            v110 = v93;
             v38 = v36;
             v39 = "%{public}@Color space %@ value for attribute %@ is not of format '%@'. Ignoring...";
             goto LABEL_46;
           }
         }
 
-        else if ([format isEqualToString:v89])
+        else if ([format isEqualToString:v88])
         {
-          v99 = 0.0;
-          if ([v28 scanLongLong:&v99])
+          v98 = 0.0;
+          if ([v28 scanLongLong:&v98])
           {
-            v91 = v23;
-            v33 = [MEMORY[0x277CCABB0] numberWithLongLong:*&v99];
+            v90 = v23;
+            v33 = [MEMORY[0x277CCABB0] numberWithLongLong:*&v98];
             goto LABEL_33;
           }
 
@@ -2536,26 +2503,26 @@ LABEL_8:
           {
             v37 = HMFGetLogIdentifier();
             *buf = 138544130;
-            v105 = v37;
-            v106 = 2112;
-            v107 = v93;
-            v108 = 2112;
-            v109 = v32;
-            v110 = 2112;
-            v111 = v89;
+            v104 = v37;
+            v105 = 2112;
+            v106 = v92;
+            v107 = 2112;
+            v108 = v32;
+            v109 = 2112;
+            v110 = v88;
             v38 = v36;
             v39 = "%{public}@Color space %@ value for attribute %@ is not of format '%@'. Ignoring...";
             goto LABEL_46;
           }
         }
 
-        else if ([format isEqualToString:v84])
+        else if ([format isEqualToString:v83])
         {
-          LODWORD(v99) = 0;
-          if ([v28 scanInt:&v99])
+          LODWORD(v98) = 0;
+          if ([v28 scanInt:&v98])
           {
-            v91 = v23;
-            v33 = [MEMORY[0x277CCABB0] numberWithBool:LODWORD(v99) != 0];
+            v90 = v23;
+            v33 = [MEMORY[0x277CCABB0] numberWithBool:LODWORD(v98) != 0];
 LABEL_33:
             v41 = v33;
             v42 = objc_autoreleasePoolPush();
@@ -2568,24 +2535,24 @@ LABEL_33:
               {
                 v46 = HMFGetLogIdentifier();
                 *buf = 138544130;
-                v105 = v46;
-                v106 = 2112;
-                v107 = v93;
-                v108 = 2112;
-                v109 = v32;
-                v110 = 2112;
-                v111 = v41;
+                v104 = v46;
+                v105 = 2112;
+                v106 = v92;
+                v107 = 2112;
+                v108 = v32;
+                v109 = 2112;
+                v110 = v41;
                 _os_log_impl(&dword_229538000, v44, OS_LOG_TYPE_INFO, "%{public}@Color space %@:  %@=%@", buf, 0x2Au);
 
-                v19 = v83;
+                v19 = v82;
               }
 
               objc_autoreleasePoolPop(v42);
               [dictionary setObject:v41 forKey:v32];
 
               v47 = 1;
-              v25 = v95;
-              v23 = v91;
+              v25 = v94;
+              v23 = v90;
             }
 
             else
@@ -2594,18 +2561,18 @@ LABEL_33:
               {
                 v48 = HMFGetLogIdentifier();
                 *buf = 138543874;
-                v105 = v48;
-                v106 = 2112;
-                v107 = v93;
-                v108 = 2112;
-                v109 = v32;
+                v104 = v48;
+                v105 = 2112;
+                v106 = v92;
+                v107 = 2112;
+                v108 = v32;
                 _os_log_impl(&dword_229538000, v44, OS_LOG_TYPE_INFO, "%{public}@Color space %@ characteristicType %@ value is nil", buf, 0x20u);
               }
 
               objc_autoreleasePoolPop(v42);
               v47 = 0;
               v23 = 1;
-              v25 = v95;
+              v25 = v94;
             }
 
             goto LABEL_49;
@@ -2618,13 +2585,13 @@ LABEL_33:
           {
             v37 = HMFGetLogIdentifier();
             *buf = 138544130;
-            v105 = v37;
-            v106 = 2112;
-            v107 = v93;
-            v108 = 2112;
-            v109 = v32;
-            v110 = 2112;
-            v111 = v84;
+            v104 = v37;
+            v105 = 2112;
+            v106 = v92;
+            v107 = 2112;
+            v108 = v32;
+            v109 = 2112;
+            v110 = v83;
             v38 = v36;
             v39 = "%{public}@Color space %@ value for attribute %@ is not of format '%@'. Ignoring...";
 LABEL_46:
@@ -2632,7 +2599,7 @@ LABEL_46:
 LABEL_47:
             _os_log_impl(&dword_229538000, v38, OS_LOG_TYPE_INFO, v39, buf, v40);
 
-            v25 = v95;
+            v25 = v94;
           }
         }
 
@@ -2645,13 +2612,13 @@ LABEL_47:
           {
             v37 = HMFGetLogIdentifier();
             *buf = 138544130;
-            v105 = v37;
-            v106 = 2112;
-            v107 = v93;
-            v108 = 2112;
-            v109 = v32;
-            v110 = 2112;
-            v111 = format;
+            v104 = v37;
+            v105 = 2112;
+            v106 = v92;
+            v107 = 2112;
+            v108 = v32;
+            v109 = 2112;
+            v110 = format;
             v38 = v36;
             v39 = "%{public}@Color space %@ value for attribute %@ is not of a recognized format: %@. Ignoring...";
             goto LABEL_46;
@@ -2668,11 +2635,11 @@ LABEL_47:
         {
           v37 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v105 = v37;
-          v106 = 2112;
-          v107 = v93;
-          v108 = 2112;
-          v109 = v98;
+          v104 = v37;
+          v105 = 2112;
+          v106 = v92;
+          v107 = 2112;
+          v108 = v97;
           v38 = v36;
           v39 = "%{public}@Color space %@ characteristicType is nil for action %@.";
           v40 = 32;
@@ -2690,13 +2657,13 @@ LABEL_49:
         continue;
       }
 
-      v13 = v81;
-      v17 = v82;
+      v13 = v80;
+      v17 = v81;
       v14 = &unk_27D8A7000;
-      v20 = v86;
-      v15 = v87;
+      v20 = v85;
+      v15 = v86;
       v49 = v23;
-      firstObject = v93;
+      firstObject = v92;
       if ((v49 & 1) == 0)
       {
 LABEL_73:
@@ -2710,7 +2677,7 @@ LABEL_60:
 LABEL_61:
       if (++v15 == v13)
       {
-        v13 = [obj countByEnumeratingWithState:&v100 objects:v112 count:16];
+        v13 = [obj countByEnumeratingWithState:&v99 objects:v111 count:16];
         if (!v13)
         {
 LABEL_74:
@@ -2734,9 +2701,9 @@ LABEL_74:
   {
     v76 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v105 = v76;
-    v106 = 2112;
-    v107 = v17;
+    v104 = v76;
+    v105 = 2112;
+    v106 = v17;
     _os_log_impl(&dword_229538000, v75, OS_LOG_TYPE_ERROR, "%{public}@Color space encoding does not have two components: %@", buf, 0x16u);
   }
 
@@ -2746,14 +2713,13 @@ LABEL_74:
 LABEL_75:
 
 LABEL_76:
-  v78 = *MEMORY[0x277D85DE8];
 
   return v72;
 }
 
 - (void)handleCommandWithCompletionHandler:(id)handler
 {
-  v154 = *MEMORY[0x277D85DE8];
+  v153 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   actions = [(HMDAssistantCommand *)self actions];
   firstObject = [actions firstObject];
@@ -2770,13 +2736,13 @@ LABEL_76:
     serverValidity = [(HMDAssistantCommand *)selfCopy serverValidity];
     hm_shortDescription = [(HMDAssistantCommand *)selfCopy hm_shortDescription];
     *buf = 138544130;
-    v147 = v10;
-    v148 = 2114;
-    v149 = aceId;
-    v150 = 2114;
-    v151 = serverValidity;
-    v152 = 2112;
-    v153 = hm_shortDescription;
+    v146 = v10;
+    v147 = 2114;
+    v148 = aceId;
+    v149 = 2114;
+    v150 = serverValidity;
+    v151 = 2112;
+    v152 = hm_shortDescription;
     _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Executing Siri command(%{public}@) serverValidity %{public}@:\n%@", buf, 0x2Au);
   }
 
@@ -2803,8 +2769,8 @@ LABEL_76:
     if (v18)
     {
       v19 = homeManager;
-      serviceType = [v18 serviceType];
-      v21 = [serviceType isEqualToString:*MEMORY[0x277D48270]];
+      v20 = objc_msgSend_serviceType(v18);
+      v21 = [v20 isEqualToString:*MEMORY[0x277D48270]];
 
       attribute = [firstObject attribute];
       v23 = [attribute isEqualToString:*MEMORY[0x277D47F80]];
@@ -2836,26 +2802,26 @@ LABEL_76:
           if (os_log_type_enabled(v77, OS_LOG_TYPE_INFO))
           {
             HMFGetLogIdentifier();
-            v78 = v129 = v75;
+            v78 = v128 = v75;
             actionType3 = [firstObject actionType];
             sceneName2 = [v26 sceneName];
             [v26 sceneType];
             v82 = v81 = firstObject;
             *buf = 138544130;
-            v147 = v78;
-            v148 = 2112;
-            v149 = actionType3;
-            v150 = 2112;
-            v151 = sceneName2;
-            v152 = 2112;
-            v153 = v82;
+            v146 = v78;
+            v147 = 2112;
+            v148 = actionType3;
+            v149 = 2112;
+            v150 = sceneName2;
+            v151 = 2112;
+            v152 = v82;
             _os_log_impl(&dword_229538000, v77, OS_LOG_TYPE_INFO, "%{public}@entityType is SCENE with ENABLED action attribute but either action(%@) is not SET action/empty sceneName(%@)/Type(%@)", buf, 0x2Au);
 
             firstObject = v81;
             handlerCopy = v31;
 
             v18 = v26;
-            v75 = v129;
+            v75 = v128;
           }
 
           objc_autoreleasePoolPop(v75);
@@ -2889,7 +2855,7 @@ LABEL_76:
           {
             v109 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v147 = v109;
+            v146 = v109;
             _os_log_impl(&dword_229538000, v108, OS_LOG_TYPE_FAULT, "%{public}@Search filter must specify homeName or homeIdentifier for actions not of type GET", buf, 0xCu);
           }
 
@@ -2903,45 +2869,45 @@ LABEL_76:
       if (v36)
       {
         filter3 = v36;
-        v140 = 0;
-        v38 = [(HMDAssistantCommand *)selfCopy objectsWithSearchFilter:v18 inHome:v36 serviceTypeIsATV:v21 overrideServiceTypeIfNeeded:&v140];
-        v39 = v140;
+        v139 = 0;
+        v38 = [(HMDAssistantCommand *)selfCopy objectsWithSearchFilter:v18 inHome:v36 serviceTypeIsATV:v21 overrideServiceTypeIfNeeded:&v139];
+        v39 = v139;
 LABEL_20:
 
         if ([v38 count])
         {
           v40 = handlerCopy;
-          v133 = firstObject;
+          v132 = firstObject;
           home = [(HMDAssistantCommand *)selfCopy home];
 
           if (!home)
           {
-            v124 = v39;
+            v123 = v39;
             firstObject2 = [v38 firstObject];
             v42 = [firstObject2 hmf_stringForKey:@"objectHomeIdentifier"];
+            v140 = 0u;
             v141 = 0u;
             v142 = 0u;
             v143 = 0u;
-            v144 = 0u;
             homes = [homeManager homes];
-            v44 = [homes countByEnumeratingWithState:&v141 objects:buf count:16];
+            v44 = [homes countByEnumeratingWithState:&v140 objects:buf count:16];
             if (v44)
             {
-              v123 = v38;
-              v128 = v18;
-              v131 = homeManager;
-              v126 = v40;
-              v45 = *v142;
+              v122 = v38;
+              v127 = v18;
+              v130 = homeManager;
+              v125 = v40;
+              v45 = *v141;
               while (2)
               {
                 for (i = 0; i != v44; i = i + 1)
                 {
-                  if (*v142 != v45)
+                  if (*v141 != v45)
                   {
                     objc_enumerationMutation(homes);
                   }
 
-                  v47 = *(*(&v141 + 1) + 8 * i);
+                  v47 = *(*(&v140 + 1) + 8 * i);
                   urlString = [v47 urlString];
                   v49 = [v42 isEqualToString:urlString];
 
@@ -2952,7 +2918,7 @@ LABEL_20:
                   }
                 }
 
-                v44 = [homes countByEnumeratingWithState:&v141 objects:buf count:16];
+                v44 = [homes countByEnumeratingWithState:&v140 objects:buf count:16];
                 if (v44)
                 {
                   continue;
@@ -2962,10 +2928,10 @@ LABEL_20:
               }
 
 LABEL_70:
-              v40 = v126;
-              v18 = v128;
-              homeManager = v131;
-              v38 = v123;
+              v40 = v125;
+              v18 = v127;
+              homeManager = v130;
+              v38 = v122;
             }
 
             [(HMDAssistantCommand *)selfCopy setHome:v44];
@@ -2979,20 +2945,20 @@ LABEL_70:
               if (os_log_type_enabled(v113, OS_LOG_TYPE_ERROR))
               {
                 HMFGetLogIdentifier();
-                v114 = v130 = v111;
+                v114 = v129 = v111;
                 *buf = 138543618;
-                v147 = v114;
-                v148 = 2112;
-                v149 = firstObject2;
+                v146 = v114;
+                v147 = 2112;
+                v148 = firstObject2;
                 _os_log_impl(&dword_229538000, v113, OS_LOG_TYPE_ERROR, "%{public}@Cannot evaluate home for Siri command with filtered result: %@", buf, 0x16u);
 
-                v111 = v130;
+                v111 = v129;
               }
 
               objc_autoreleasePoolPop(v111);
             }
 
-            v39 = v124;
+            v39 = v123;
           }
 
           v115 = objc_autoreleasePoolPush();
@@ -3005,14 +2971,14 @@ LABEL_70:
             {
               v119 = HMFGetLogIdentifier();
               *buf = 138543362;
-              v147 = v119;
+              v146 = v119;
               _os_log_impl(&dword_229538000, v117, OS_LOG_TYPE_INFO, "%{public}@Start handling command for Apple Media Accessory", buf, 0xCu);
             }
 
             objc_autoreleasePoolPop(v115);
-            serviceType2 = [v18 serviceType];
-            firstObject = v133;
-            [(HMDAssistantCommand *)v116 _handleCommandForMediaAccessoryAction:v133 objects:v38 serviceType:serviceType2 completionHandler:v40];
+            v120 = objc_msgSend_serviceType(v18);
+            firstObject = v132;
+            [(HMDAssistantCommand *)v116 _handleCommandForMediaAccessoryAction:v132 objects:v38 serviceType:v120 completionHandler:v40];
 
             handlerCopy = v40;
           }
@@ -3023,14 +2989,14 @@ LABEL_70:
             {
               v121 = HMFGetLogIdentifier();
               *buf = 138543362;
-              v147 = v121;
+              v146 = v121;
               _os_log_impl(&dword_229538000, v117, OS_LOG_TYPE_INFO, "%{public}@Start handling command for HAP Characteristic", buf, 0xCu);
             }
 
             objc_autoreleasePoolPop(v115);
-            firstObject = v133;
+            firstObject = v132;
             handlerCopy = v40;
-            [(HMDAssistantCommand *)v116 _handleCommandForHAPAction:v133 serviceType:v39 objects:v38 completionHandler:v40];
+            [(HMDAssistantCommand *)v116 _handleCommandForHAPAction:v132 serviceType:v39 objects:v38 completionHandler:v40];
           }
         }
 
@@ -3045,7 +3011,7 @@ LABEL_70:
             HMFGetLogIdentifier();
             v88 = v87 = handlerCopy;
             *buf = 138543362;
-            v147 = v88;
+            v146 = v88;
             _os_log_impl(&dword_229538000, v86, OS_LOG_TYPE_INFO, "%{public}@No matches found after filtering, bailing out", buf, 0xCu);
 
             handlerCopy = v87;
@@ -3065,7 +3031,7 @@ LABEL_70:
       {
         v74 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v147 = v74;
+        v146 = v74;
         _os_log_impl(&dword_229538000, v73, OS_LOG_TYPE_INFO, "%{public}@Could not figure out the home to apply the command to", buf, 0xCu);
       }
     }
@@ -3080,11 +3046,11 @@ LABEL_70:
       {
         filter3 = [(HMDAssistantCommand *)selfCopy filter];
         identifiers = [filter3 identifiers];
-        v139 = 0;
-        v57 = [(HMDAssistantCommand *)selfCopy objectsWithIdentifierList:identifiers error:&v139];
-        v58 = v139;
+        v138 = 0;
+        v57 = [(HMDAssistantCommand *)selfCopy objectsWithIdentifierList:identifiers error:&v138];
+        v58 = v138;
 
-        v132 = homeManager;
+        v131 = homeManager;
         if (!v58)
         {
           if (![v57 count])
@@ -3098,7 +3064,7 @@ LABEL_70:
               v92 = handlerCopy;
               v94 = v93 = firstObject;
               *buf = 138543362;
-              v147 = v94;
+              v146 = v94;
               _os_log_impl(&dword_229538000, v91, OS_LOG_TYPE_INFO, "%{public}@Identifier list filter results in no matches - re-generating sync data and requesting re-sync", buf, 0xCu);
 
               firstObject = v93;
@@ -3109,30 +3075,30 @@ LABEL_70:
             [homeManager assistantSyncDataChanged:@"HMDIdentifierListFilterNoMatches"];
           }
 
-          v134 = firstObject;
-          v137 = 0u;
-          v138 = 0u;
-          v135 = 0u;
+          v133 = firstObject;
           v136 = 0u;
+          v137 = 0u;
+          v134 = 0u;
+          v135 = 0u;
           v38 = v57;
-          v95 = [v38 countByEnumeratingWithState:&v135 objects:v145 count:16];
+          v95 = [v38 countByEnumeratingWithState:&v134 objects:v144 count:16];
           if (v95)
           {
             v96 = v95;
             v97 = v38;
-            v127 = handlerCopy;
-            v98 = *v136;
+            v126 = handlerCopy;
+            v98 = *v135;
             v99 = *MEMORY[0x277D48270];
 LABEL_58:
             v100 = 0;
             while (1)
             {
-              if (*v136 != v98)
+              if (*v135 != v98)
               {
                 objc_enumerationMutation(v97);
               }
 
-              v101 = [*(*(&v135 + 1) + 8 * v100) objectForKeyedSubscript:@"objectServiceType"];
+              v101 = [*(*(&v134 + 1) + 8 * v100) objectForKeyedSubscript:@"objectServiceType"];
               LODWORD(v21) = [v101 isEqualToString:v99];
 
               if (v21)
@@ -3142,7 +3108,7 @@ LABEL_58:
 
               if (v96 == ++v100)
               {
-                v96 = [v97 countByEnumeratingWithState:&v135 objects:v145 count:16];
+                v96 = [v97 countByEnumeratingWithState:&v134 objects:v144 count:16];
                 if (v96)
                 {
                   goto LABEL_58;
@@ -3155,7 +3121,7 @@ LABEL_58:
             v38 = v97;
 
             v39 = 0;
-            handlerCopy = v127;
+            handlerCopy = v126;
           }
 
           else
@@ -3165,8 +3131,8 @@ LABEL_58:
             v39 = 0;
           }
 
-          homeManager = v132;
-          firstObject = v134;
+          homeManager = v131;
+          firstObject = v133;
           v18 = 0;
           goto LABEL_20;
         }
@@ -3180,9 +3146,9 @@ LABEL_58:
           v62 = handlerCopy;
           v64 = v63 = firstObject;
           *buf = 138543618;
-          v147 = v64;
-          v148 = 2114;
-          v149 = v58;
+          v146 = v64;
+          v147 = 2114;
+          v148 = v58;
           _os_log_impl(&dword_229538000, v61, OS_LOG_TYPE_INFO, "%{public}@Identifier list filter resolution failed with error %{public}@", buf, 0x16u);
 
           firstObject = v63;
@@ -3208,9 +3174,9 @@ LABEL_85:
         filter4 = [(HMDAssistantCommand *)v66 filter];
         v71 = objc_opt_class();
         *buf = 138543618;
-        v147 = v69;
-        v148 = 2112;
-        v149 = v71;
+        v146 = v69;
+        v147 = 2112;
+        v148 = v71;
         v72 = v71;
         _os_log_impl(&dword_229538000, v67, OS_LOG_TYPE_INFO, "%{public}@Unsupported filter type - %@", buf, 0x16u);
 
@@ -3231,20 +3197,18 @@ LABEL_85:
   {
     v53 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v147 = v53;
+    v146 = v53;
     _os_log_impl(&dword_229538000, v52, OS_LOG_TYPE_INFO, "%{public}@There is no actionType, reporting malformed command", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v50);
   [(HMDAssistantCommand *)v51 reportOutcome:*MEMORY[0x277D480C8] results:0 handler:handlerCopy];
 LABEL_86:
-
-  v122 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleCommandForHAPAction:(id)action serviceType:(id)type objects:(id)objects completionHandler:(id)handler
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   typeCopy = type;
   objectsCopy = objects;
@@ -3283,9 +3247,9 @@ LABEL_9:
   }
 
   actionType5 = [actionCopy actionType];
-  v21 = [actionType5 isEqualToString:*MEMORY[0x277D47E90]];
+  v20 = [actionType5 isEqualToString:*MEMORY[0x277D47E90]];
 
-  if (v21)
+  if (v20)
   {
     goto LABEL_9;
   }
@@ -3307,9 +3271,9 @@ LABEL_16:
   }
 
   actionType8 = [actionCopy actionType];
-  v25 = [actionType8 isEqualToString:*MEMORY[0x277D47EB0]];
+  v24 = [actionType8 isEqualToString:*MEMORY[0x277D47EB0]];
 
-  if (v25)
+  if (v24)
   {
     goto LABEL_16;
   }
@@ -3331,39 +3295,37 @@ LABEL_22:
   }
 
   actionType11 = [actionCopy actionType];
-  v29 = [actionType11 isEqualToString:*MEMORY[0x277D47EC0]];
+  v28 = [actionType11 isEqualToString:*MEMORY[0x277D47EC0]];
 
-  if (v29)
+  if (v28)
   {
     goto LABEL_22;
   }
 
-  v30 = objc_autoreleasePoolPush();
+  v29 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v32 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+  v31 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
   {
-    v33 = HMFGetLogIdentifier();
+    v32 = HMFGetLogIdentifier();
     actionType12 = [actionCopy actionType];
-    v35 = 138543874;
-    v36 = v33;
-    v37 = 2080;
-    v38 = "[HMDAssistantCommand _handleCommandForHAPAction:serviceType:objects:completionHandler:]";
-    v39 = 2112;
-    v40 = actionType12;
-    _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_ERROR, "%{public}@%s ### Siri sent an unsupported action type: %@", &v35, 0x20u);
+    v34 = 138543874;
+    v35 = v32;
+    v36 = 2080;
+    v37 = "[HMDAssistantCommand _handleCommandForHAPAction:serviceType:objects:completionHandler:]";
+    v38 = 2112;
+    v39 = actionType12;
+    _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_ERROR, "%{public}@%s ### Siri sent an unsupported action type: %@", &v34, 0x20u);
   }
 
-  objc_autoreleasePoolPop(v30);
+  objc_autoreleasePoolPop(v29);
   [(HMDAssistantCommand *)selfCopy reportOutcome:*MEMORY[0x277D480C8] results:0 handler:handlerCopy];
 LABEL_10:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleCommandForMediaAccessoryAction:(id)action objects:(id)objects serviceType:(id)type completionHandler:(id)handler
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   objectsCopy = objects;
   typeCopy = type;
@@ -3397,13 +3359,13 @@ LABEL_10:
 LABEL_7:
       v21 = HMFGetLogIdentifier();
       actionType3 = [actionCopy actionType];
-      v24 = 138543874;
-      v25 = v21;
-      v26 = 2080;
-      v27 = "[HMDAssistantCommand _handleCommandForMediaAccessoryAction:objects:serviceType:completionHandler:]";
-      v28 = 2112;
-      v29 = actionType3;
-      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@%s ### Siri sent an unsupported action type: %@", &v24, 0x20u);
+      v23 = 138543874;
+      v24 = v21;
+      v25 = 2080;
+      v26 = "[HMDAssistantCommand _handleCommandForMediaAccessoryAction:objects:serviceType:completionHandler:]";
+      v27 = 2112;
+      v28 = actionType3;
+      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@%s ### Siri sent an unsupported action type: %@", &v23, 0x20u);
     }
 
 LABEL_8:
@@ -3415,13 +3377,11 @@ LABEL_8:
 
   [(HMDAssistantCommand *)self handleMediaAccessorySetActionType:actionCopy forObjects:objectsCopy withServiceType:typeCopy completionHandler:handlerCopy];
 LABEL_9:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleUpdateActionTypes:(id)types serviceType:(id)type forObjects:(id)objects completionHandler:(id)handler
 {
-  v153[1] = *MEMORY[0x277D85DE8];
+  v152[1] = *MEMORY[0x277D85DE8];
   typesCopy = types;
   typeCopy = type;
   objectsCopy = objects;
@@ -3431,7 +3391,7 @@ LABEL_9:
   val = self;
   v14 = MEMORY[0x22AAD2510](self, a2);
   2520 = [v13 stringWithFormat:@"%@, %s:%ld", v14, "/Library/Caches/com.apple.xbs/Sources/HomeKit_executables/Sources/homed/Assistant/HMDAssistantCommand.m", 2520];
-  v88 = [v12 initWithName:2520];
+  v87 = [v12 initWithName:2520];
 
   attribute = [typesCopy attribute];
 
@@ -3439,16 +3399,16 @@ LABEL_9:
   {
     attribute2 = [typesCopy attribute];
     actionType = [typesCopy actionType];
-    v98 = [(HMDAssistantCommand *)self filteredObjectsFromObjects:objectsCopy byAttribute:attribute2 forActionType:actionType];
+    v97 = [(HMDAssistantCommand *)self filteredObjectsFromObjects:objectsCopy byAttribute:attribute2 forActionType:actionType];
 
-    objectsCopy = v98;
-    if ([v98 count])
+    objectsCopy = v97;
+    if ([v97 count])
     {
-      v87 = +[HMDHAPMetadata getSharedInstance];
+      v86 = +[HMDHAPMetadata getSharedInstance];
       attribute3 = [typesCopy attribute];
-      v86 = [v87 mapReadCharacteristicFromAssistantName:attribute3];
+      v85 = [v86 mapReadCharacteristicFromAssistantName:attribute3];
 
-      if (!v86)
+      if (!v85)
       {
         v25 = objc_autoreleasePoolPush();
         selfCopy = self;
@@ -3469,37 +3429,37 @@ LABEL_9:
         goto LABEL_82;
       }
 
-      v20 = [v87 getAliasedCharacteristicTypes:?];
+      v20 = [v86 getAliasedCharacteristicTypes:?];
       if ([v20 count])
       {
-        v84 = [v20 arrayByAddingObject:v86];
-        [(HMDAssistantCommand *)self filterObjects:v98 forCharacteristicTypes:v84];
+        v83 = [v20 arrayByAddingObject:v85];
+        [(HMDAssistantCommand *)self filterObjects:v97 forCharacteristicTypes:v83];
       }
 
       else
       {
-        v153[0] = v86;
-        v84 = [MEMORY[0x277CBEA60] arrayWithObjects:v153 count:1];
-        [(HMDAssistantCommand *)self filterObjects:v98 forCharacteristicTypes:v84];
+        v152[0] = v85;
+        v83 = [MEMORY[0x277CBEA60] arrayWithObjects:v152 count:1];
+        [(HMDAssistantCommand *)self filterObjects:v97 forCharacteristicTypes:v83];
       }
-      v85 = ;
-      if (![v85 count])
+      v84 = ;
+      if (![v84 count])
       {
         [(HMDAssistantCommand *)self returnResults:0 serviceType:typeCopy forAction:typesCopy completionHandler:handlerCopy];
 LABEL_81:
 
 LABEL_82:
-        objectsCopy = v98;
+        objectsCopy = v97;
         goto LABEL_83;
       }
 
       attribute5 = [typesCopy attribute];
-      v83 = [v87 mapCharacteristicValueType:attribute5];
+      v82 = [v86 mapCharacteristicValueType:attribute5];
 
       actionType2 = [typesCopy actionType];
       if ([actionType2 isEqualToString:*MEMORY[0x277D47EC0]])
       {
-        v32 = [v83 isEqualToString:*MEMORY[0x277CCF6B0]];
+        v32 = [v82 isEqualToString:*MEMORY[0x277CCF6B0]];
 
         if ((v32 & 1) == 0)
         {
@@ -3515,9 +3475,9 @@ LABEL_82:
             *&buf[12] = 2080;
             *&buf[14] = "[HMDAssistantCommand handleUpdateActionTypes:serviceType:forObjects:completionHandler:]";
             *&buf[22] = 2112;
-            v151 = actionType3;
-            LOWORD(v152) = 2112;
-            *(&v152 + 2) = v83;
+            v150 = actionType3;
+            LOWORD(v151) = 2112;
+            *(&v151 + 2) = v82;
             _os_log_impl(&dword_229538000, v35, OS_LOG_TYPE_ERROR, "%{public}@%s ### Siri passed an incorrect action (%@) to a %@ value type.", buf, 0x2Au);
           }
 
@@ -3539,9 +3499,9 @@ LABEL_80:
       v39 = *MEMORY[0x277D47E70];
       if ([actionType4 isEqualToString:*MEMORY[0x277D47E70]])
       {
-        if (([v83 isEqualToString:*MEMORY[0x277CCF6C0]] & 1) == 0)
+        if (([v82 isEqualToString:*MEMORY[0x277CCF6C0]] & 1) == 0)
         {
-          v40 = [v83 isEqualToString:*MEMORY[0x277CCF6B8]];
+          v40 = [v82 isEqualToString:*MEMORY[0x277CCF6B8]];
 
           if ((v40 & 1) == 0)
           {
@@ -3558,9 +3518,9 @@ LABEL_77:
               *&buf[12] = 2080;
               *&buf[14] = "[HMDAssistantCommand handleUpdateActionTypes:serviceType:forObjects:completionHandler:]";
               *&buf[22] = 2112;
-              v151 = actionType5;
-              LOWORD(v152) = 2112;
-              *(&v152 + 2) = v83;
+              v150 = actionType5;
+              LOWORD(v151) = 2112;
+              *(&v151 + 2) = v82;
               _os_log_impl(&dword_229538000, v35, OS_LOG_TYPE_ERROR, "%{public}@%s ### Siri passed an incorrect action (%@) to a %@ value type.", buf, 0x2Au);
             }
 
@@ -3572,60 +3532,60 @@ LABEL_30:
           *buf = 0;
           *&buf[8] = buf;
           *&buf[16] = 0x3032000000;
-          v151 = __Block_byref_object_copy__19541;
-          *&v152 = __Block_byref_object_dispose__19542;
-          *(&v152 + 1) = [MEMORY[0x277CBEB18] array];
+          v150 = __Block_byref_object_copy__19541;
+          *&v151 = __Block_byref_object_dispose__19542;
+          *(&v151 + 1) = [MEMORY[0x277CBEB18] array];
           attribute6 = [typesCopy attribute];
-          v105 = [v87 mapWriteCharacteristicFromAssistantName:attribute6];
+          v104 = [v86 mapWriteCharacteristicFromAssistantName:attribute6];
 
           actionType6 = [typesCopy actionType];
-          v91 = [actionType6 isEqualToString:v39];
+          v90 = [actionType6 isEqualToString:v39];
 
-          if (v105)
+          if (v104)
           {
-            v104 = [v87 getAliasedCharacteristicTypes:?];
+            v103 = [v86 getAliasedCharacteristicTypes:?];
 
             weakToStrongObjectsMapTable = [MEMORY[0x277CCAB00] weakToStrongObjectsMapTable];
             includeCompleteInformation = [typesCopy includeCompleteInformation];
-            v141 = 0u;
-            v142 = 0u;
-            v139 = 0u;
             v140 = 0u;
-            obj = v85;
-            v44 = [obj countByEnumeratingWithState:&v139 objects:v146 count:16];
+            v141 = 0u;
+            v138 = 0u;
+            v139 = 0u;
+            obj = v84;
+            v44 = [obj countByEnumeratingWithState:&v138 objects:v145 count:16];
             if (v44)
             {
-              v100 = *v140;
-              v90 = *MEMORY[0x277D47E10];
+              v99 = *v139;
+              v89 = *MEMORY[0x277D47E10];
               do
               {
-                v102 = v44;
-                for (i = 0; i != v102; ++i)
+                v101 = v44;
+                for (i = 0; i != v101; ++i)
                 {
-                  if (*v140 != v100)
+                  if (*v139 != v99)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v46 = *(*(&v139 + 1) + 8 * i);
+                  v46 = *(*(&v138 + 1) + 8 * i);
                   service = [v46 service];
                   characteristics = [service characteristics];
-                  v49 = [characteristics hmf_firstObjectWithCharacteristicType:v105];
+                  v49 = [characteristics hmf_firstObjectWithCharacteristicType:v104];
 
-                  v137 = 0u;
-                  v138 = 0u;
-                  v135 = 0u;
                   v136 = 0u;
-                  v50 = v104;
-                  v51 = [v50 countByEnumeratingWithState:&v135 objects:v145 count:16];
+                  v137 = 0u;
+                  v134 = 0u;
+                  v135 = 0u;
+                  v50 = v103;
+                  v51 = [v50 countByEnumeratingWithState:&v134 objects:v144 count:16];
                   if (v51)
                   {
-                    v52 = *v136;
+                    v52 = *v135;
 LABEL_38:
                     v53 = 0;
                     while (1)
                     {
-                      if (*v136 != v52)
+                      if (*v135 != v52)
                       {
                         objc_enumerationMutation(v50);
                       }
@@ -3635,13 +3595,13 @@ LABEL_38:
                         break;
                       }
 
-                      v54 = *(*(&v135 + 1) + 8 * v53);
+                      v54 = *(*(&v134 + 1) + 8 * v53);
                       characteristics2 = [service characteristics];
                       v49 = [characteristics2 hmf_firstObjectWithCharacteristicType:v54];
 
                       if (v51 == ++v53)
                       {
-                        v51 = [v50 countByEnumeratingWithState:&v135 objects:v145 count:16];
+                        v51 = [v50 countByEnumeratingWithState:&v134 objects:v144 count:16];
                         if (v51)
                         {
                           goto LABEL_38;
@@ -3671,8 +3631,8 @@ LABEL_38:
                   else
                   {
                     home = actionResultForAction(typesCopy);
-                    [home setOutcome:v90];
-                    v57 = entityForService(service, typeCopy, v98, includeCompleteInformation);
+                    [home setOutcome:v89];
+                    v57 = entityForService(service, typeCopy, v97, includeCompleteInformation);
                     [home setEntity:v57];
 
                     [(HMDAssistantCommand *)val populateResult:home withService:service serviceType:typeCopy characteristic:v46 resultAttribute:0 action:typesCopy];
@@ -3680,56 +3640,56 @@ LABEL_38:
                   }
                 }
 
-                v44 = [obj countByEnumeratingWithState:&v139 objects:v146 count:16];
+                v44 = [obj countByEnumeratingWithState:&v138 objects:v145 count:16];
               }
 
               while (v44);
             }
 
             objc_initWeak(location, val);
-            v133 = 0u;
-            v134 = 0u;
-            v131 = 0u;
             v132 = 0u;
-            v101 = weakToStrongObjectsMapTable;
-            v96 = [v101 countByEnumeratingWithState:&v131 objects:v144 count:16];
-            if (v96)
+            v133 = 0u;
+            v130 = 0u;
+            v131 = 0u;
+            v100 = weakToStrongObjectsMapTable;
+            v95 = [v100 countByEnumeratingWithState:&v130 objects:v143 count:16];
+            if (v95)
             {
-              obja = *v132;
+              obja = *v131;
               do
               {
-                for (j = 0; j != v96; ++j)
+                for (j = 0; j != v95; ++j)
                 {
-                  if (*v132 != obja)
+                  if (*v131 != obja)
                   {
-                    objc_enumerationMutation(v101);
+                    objc_enumerationMutation(v100);
                   }
 
-                  v61 = *(*(&v131 + 1) + 8 * j);
+                  v61 = *(*(&v130 + 1) + 8 * j);
                   dispatch_group_enter(group);
-                  v62 = [v101 objectForKey:v61];
-                  if (v91)
+                  v62 = [v100 objectForKey:v61];
+                  if (v90)
                   {
                     v63 = [objc_alloc(MEMORY[0x277CBEB18]) initWithArray:v62];
-                    v129 = 0u;
-                    v130 = 0u;
-                    v127 = 0u;
                     v128 = 0u;
+                    v129 = 0u;
+                    v126 = 0u;
+                    v127 = 0u;
                     v64 = v62;
-                    v65 = [v64 countByEnumeratingWithState:&v127 objects:v143 count:16];
+                    v65 = [v64 countByEnumeratingWithState:&v126 objects:v142 count:16];
                     if (v65)
                     {
-                      v66 = *v128;
+                      v66 = *v127;
                       do
                       {
                         for (k = 0; k != v65; ++k)
                         {
-                          if (*v128 != v66)
+                          if (*v127 != v66)
                           {
                             objc_enumerationMutation(v64);
                           }
 
-                          characteristic = [*(*(&v127 + 1) + 8 * k) characteristic];
+                          characteristic = [*(*(&v126 + 1) + 8 * k) characteristic];
                           service2 = [characteristic service];
                           v70 = getActivationCharacteristicFromServiceIfAny(service2);
 
@@ -3740,13 +3700,13 @@ LABEL_38:
                           }
                         }
 
-                        v65 = [v64 countByEnumeratingWithState:&v127 objects:v143 count:16];
+                        v65 = [v64 countByEnumeratingWithState:&v126 objects:v142 count:16];
                       }
 
                       while (v65);
                     }
 
-                    v62 = [v63 copy];
+                    v62 = objc_msgSend_copy(v63);
                   }
 
                   else
@@ -3755,32 +3715,32 @@ LABEL_38:
                   }
 
                   assistantCommandHelper = [(HMDAssistantCommand *)val assistantCommandHelper];
-                  v113[0] = MEMORY[0x277D85DD0];
-                  v113[1] = 3221225472;
-                  v113[2] = __88__HMDAssistantCommand_handleUpdateActionTypes_serviceType_forObjects_completionHandler___block_invoke;
-                  v113[3] = &unk_278670FE8;
-                  objc_copyWeak(&v124, location);
-                  v114 = v88;
-                  v125 = v91;
-                  v115 = typesCopy;
-                  v116 = typeCopy;
-                  v117 = v98;
-                  v123 = buf;
-                  v126 = includeCompleteInformation;
-                  v118 = v105;
-                  v119 = v104;
-                  v122 = handlerCopy;
-                  v120 = group;
-                  v121 = v61;
-                  [assistantCommandHelper addReadRequests:v62 home:v61 completion:v113];
+                  v112[0] = MEMORY[0x277D85DD0];
+                  v112[1] = 3221225472;
+                  v112[2] = __88__HMDAssistantCommand_handleUpdateActionTypes_serviceType_forObjects_completionHandler___block_invoke;
+                  v112[3] = &unk_278670FE8;
+                  objc_copyWeak(&v123, location);
+                  v113 = v87;
+                  v124 = v90;
+                  v114 = typesCopy;
+                  v115 = typeCopy;
+                  v116 = v97;
+                  v122 = buf;
+                  v125 = includeCompleteInformation;
+                  v117 = v104;
+                  v118 = v103;
+                  v121 = handlerCopy;
+                  v119 = group;
+                  v120 = v61;
+                  [assistantCommandHelper addReadRequests:v62 home:v61 completion:v112];
 
-                  objc_destroyWeak(&v124);
+                  objc_destroyWeak(&v123);
                 }
 
-                v96 = [v101 countByEnumeratingWithState:&v131 objects:v144 count:16];
+                v95 = [v100 countByEnumeratingWithState:&v130 objects:v143 count:16];
               }
 
-              while (v96);
+              while (v95);
             }
 
             queue = [(HMDAssistantCommand *)val queue];
@@ -3788,14 +3748,14 @@ LABEL_38:
             block[1] = 3221225472;
             block[2] = __88__HMDAssistantCommand_handleUpdateActionTypes_serviceType_forObjects_completionHandler___block_invoke_132;
             block[3] = &unk_278686E40;
-            v109 = v88;
-            v110 = val;
-            v112 = buf;
-            v111 = handlerCopy;
+            v108 = v87;
+            v109 = val;
+            v111 = buf;
+            v110 = handlerCopy;
             dispatch_group_notify(group, queue, block);
 
             objc_destroyWeak(location);
-            v20 = v104;
+            v20 = v103;
           }
 
           else
@@ -3809,8 +3769,8 @@ LABEL_38:
               attribute7 = [typesCopy attribute];
               *location = 138543618;
               *&location[4] = v77;
-              v148 = 2112;
-              v149 = attribute7;
+              v147 = 2112;
+              v148 = attribute7;
               _os_log_impl(&dword_229538000, v76, OS_LOG_TYPE_DEFAULT, "%{public}@Cannot map actionAttribute(%@) to a characteristicType", location, 0x16u);
             }
 
@@ -3826,9 +3786,9 @@ LABEL_38:
       else
       {
         actionType7 = [typesCopy actionType];
-        if (([actionType7 isEqualToString:*MEMORY[0x277D47EA0]] & 1) != 0 && !objc_msgSend(v83, "isEqualToString:", *MEMORY[0x277CCF6C0]))
+        if (([actionType7 isEqualToString:*MEMORY[0x277D47EA0]] & 1) != 0 && !objc_msgSend(v82, "isEqualToString:", *MEMORY[0x277CCF6C0]))
         {
-          v79 = [v83 isEqualToString:*MEMORY[0x277CCF6B8]];
+          v79 = [v82 isEqualToString:*MEMORY[0x277CCF6B8]];
 
           if ((v79 & 1) == 0)
           {
@@ -3863,42 +3823,40 @@ LABEL_38:
   }
 
 LABEL_83:
-
-  v82 = *MEMORY[0x277D85DE8];
 }
 
 void __88__HMDAssistantCommand_handleUpdateActionTypes_serviceType_forObjects_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v137 = *MEMORY[0x277D85DE8];
-  v93 = a2;
-  v92 = a3;
+  v136 = *MEMORY[0x277D85DE8];
+  v92 = a2;
+  v91 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 112));
   if (!WeakRetained)
   {
     goto LABEL_82;
   }
 
-  v103 = a1;
+  v102 = a1;
   [*(a1 + 32) begin];
   v6 = objc_autoreleasePoolPush();
-  v91 = WeakRetained;
-  v100 = WeakRetained;
+  v90 = WeakRetained;
+  v99 = WeakRetained;
   v7 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v132 = v8;
-    v133 = 2112;
-    v134 = v92;
-    v135 = 2112;
-    v136 = v93;
+    v131 = v8;
+    v132 = 2112;
+    v133 = v91;
+    v134 = 2112;
+    v135 = v92;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Received response %@ for read request with error %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v6);
-  v94 = [MEMORY[0x277CCAB00] weakToStrongObjectsMapTable];
-  v9 = [v93 code];
+  v93 = [MEMORY[0x277CCAB00] weakToStrongObjectsMapTable];
+  v9 = [v92 code];
   v10 = 82;
   if (unlockErrorCode)
   {
@@ -3911,37 +3869,37 @@ void __88__HMDAssistantCommand_handleUpdateActionTypes_serviceType_forObjects_co
     goto LABEL_63;
   }
 
-  v122 = 0u;
-  v123 = 0u;
-  v120 = 0u;
   v121 = 0u;
-  obj = v92;
-  v99 = [obj countByEnumeratingWithState:&v120 objects:v130 count:16];
-  if (!v99)
+  v122 = 0u;
+  v119 = 0u;
+  v120 = 0u;
+  obj = v91;
+  v98 = [obj countByEnumeratingWithState:&v119 objects:v129 count:16];
+  if (!v98)
   {
     v12 = 0;
     goto LABEL_62;
   }
 
   v12 = 0;
-  v97 = *v121;
-  v90 = *MEMORY[0x277D47E50];
-  v89 = *MEMORY[0x277D48048];
+  v96 = *v120;
+  v89 = *MEMORY[0x277D47E50];
+  v88 = *MEMORY[0x277D48048];
   do
   {
     v13 = 0;
     do
     {
-      if (*v121 != v97)
+      if (*v120 != v96)
       {
         objc_enumerationMutation(obj);
       }
 
-      v14 = *(*(&v120 + 1) + 8 * v13);
+      v14 = *(*(&v119 + 1) + 8 * v13);
       v15 = [v14 request];
-      v101 = [v15 characteristic];
+      v100 = [v15 characteristic];
 
-      if (*(v103 + 120) != 1 || ([v101 type], v16 = objc_claimAutoreleasedReturnValue(), v17 = isActivationCharacteristicType(v16), v16, (v17 & 1) == 0))
+      if (*(v102 + 120) != 1 || ([v100 type], v16 = objc_claimAutoreleasedReturnValue(), v17 = isActivationCharacteristicType(v16), v16, (v17 & 1) == 0))
       {
         v18 = [v14 error];
 
@@ -3961,15 +3919,15 @@ void __88__HMDAssistantCommand_handleUpdateActionTypes_serviceType_forObjects_co
             goto LABEL_62;
           }
 
-          v21 = actionResultForAction(*(v103 + 40));
-          [v100 populateResult:v21 fromResponse:v14 responses:obj forAction:*(v103 + 40) serviceType:*(v103 + 48) forObjects:*(v103 + 56)];
-          [*(*(*(v103 + 104) + 8) + 40) addObject:v21];
+          v21 = actionResultForAction(*(v102 + 40));
+          [v99 populateResult:v21 fromResponse:v14 responses:obj forAction:*(v102 + 40) serviceType:*(v102 + 48) forObjects:*(v102 + 56)];
+          [*(*(*(v102 + 104) + 8) + 40) addObject:v21];
           goto LABEL_53;
         }
 
-        v22 = [v101 service];
+        v22 = [v100 service];
         v21 = v22;
-        if (*(v103 + 120))
+        if (*(v102 + 120))
         {
           v23 = getActivationCharacteristicFromServiceIfAny(v22);
           v24 = v23;
@@ -3995,47 +3953,47 @@ void __88__HMDAssistantCommand_handleUpdateActionTypes_serviceType_forObjects_co
 
               if (v28)
               {
-                v29 = *(v103 + 48);
-                v30 = *(v103 + 121);
+                v29 = *(v102 + 48);
+                v30 = *(v102 + 121);
                 v31 = MEMORY[0x277D47338];
-                v32 = *(v103 + 56);
+                v32 = *(v102 + 56);
                 v33 = v29;
                 v21 = v21;
                 v34 = objc_alloc_init(v31);
-                [v34 setOutcome:v90];
+                [v34 setOutcome:v89];
                 v35 = entityForService(v21, v33, v32, v30 & 1);
 
                 [v34 setEntity:v35];
-                [v34 setResultAttribute:v89];
+                [v34 setResultAttribute:v88];
                 v36 = objc_alloc_init(MEMORY[0x277D47340]);
                 [v36 setValue:{objc_msgSend(&unk_283E71BA0, "BOOLValue")}];
                 [v34 setResultValue:v36];
 
-                v37 = [*(v103 + 40) identifier];
+                v37 = [*(v102 + 40) identifier];
                 v38 = [v37 absoluteString];
                 [v34 setRequestActionId:v38];
 
-                v39 = *(*(*(v103 + 104) + 8) + 40);
+                v39 = *(*(*(v102 + 104) + 8) + 40);
                 v40 = v34;
+                v123 = 0u;
                 v124 = 0u;
                 v125 = 0u;
                 v126 = 0u;
-                v127 = 0u;
-                v95 = v39;
-                v41 = [v95 countByEnumeratingWithState:&v124 objects:buf count:16];
+                v94 = v39;
+                v41 = [v94 countByEnumeratingWithState:&v123 objects:buf count:16];
                 if (v41)
                 {
-                  v96 = *v125;
+                  v95 = *v124;
                   do
                   {
                     for (i = 0; i != v41; ++i)
                     {
-                      if (*v125 != v96)
+                      if (*v124 != v95)
                       {
-                        objc_enumerationMutation(v95);
+                        objc_enumerationMutation(v94);
                       }
 
-                      v43 = *(*(&v124 + 1) + 8 * i);
+                      v43 = *(*(&v123 + 1) + 8 * i);
                       v44 = [v40 entity];
                       v45 = [v43 entity];
                       if ([v44 isEqual:v45])
@@ -4056,13 +4014,13 @@ void __88__HMDAssistantCommand_handleUpdateActionTypes_serviceType_forObjects_co
                       }
                     }
 
-                    v41 = [v95 countByEnumeratingWithState:&v124 objects:buf count:16];
+                    v41 = [v94 countByEnumeratingWithState:&v123 objects:buf count:16];
                   }
 
                   while (v41);
                 }
 
-                [*(*(*(v103 + 104) + 8) + 40) addObject:v40];
+                [*(*(*(v102 + 104) + 8) + 40) addObject:v40];
 LABEL_57:
 
 LABEL_52:
@@ -4082,12 +4040,12 @@ LABEL_53:
 
         else
         {
-          [v100 addActivationCharacteristicsIfNeeded:v94 forCharacteristic:v101];
+          [v99 addActivationCharacteristicsIfNeeded:v93 forCharacteristic:v100];
         }
 
         v49 = [v14 request];
         v50 = [v49 characteristic];
-        v51 = [v100 updateValue:v50 forAction:*(v103 + 40)];
+        v51 = [v99 updateValue:v50 forAction:*(v102 + 40)];
 
         v52 = [v14 request];
         v53 = [v52 characteristic];
@@ -4095,38 +4053,38 @@ LABEL_53:
         v55 = [v14 request];
         v56 = [v55 characteristic];
         v57 = [v56 metadata];
-        v58 = [v100 compareCurrentValue:v54 newValue:v51 withMetadata:v57];
+        v58 = [v99 compareCurrentValue:v54 newValue:v51 withMetadata:v57];
 
         if (v58)
         {
-          v59 = actionResultForAction(*(v103 + 40));
+          v59 = actionResultForAction(*(v102 + 40));
           [v59 setOutcome:v58];
-          v60 = entityForService(v21, *(v103 + 48), *(v103 + 56), *(v103 + 121));
+          v60 = entityForService(v21, *(v102 + 48), *(v102 + 56), *(v102 + 121));
           [v59 setEntity:v60];
 
-          [v100 populateResult:v59 withService:v21 serviceType:*(v103 + 48) characteristic:v101 resultAttribute:0 action:*(v103 + 40)];
-          [*(*(*(v103 + 104) + 8) + 40) addObject:v59];
+          [v99 populateResult:v59 withService:v21 serviceType:*(v102 + 48) characteristic:v100 resultAttribute:0 action:*(v102 + 40)];
+          [*(*(*(v102 + 104) + 8) + 40) addObject:v59];
         }
 
         else
         {
           v61 = [v21 characteristics];
-          v59 = [v61 hmf_firstObjectWithCharacteristicType:*(v103 + 64)];
+          v59 = [v61 hmf_firstObjectWithCharacteristicType:*(v102 + 64)];
 
-          v118 = 0u;
-          v119 = 0u;
-          v116 = 0u;
           v117 = 0u;
-          v62 = *(v103 + 72);
-          v63 = [v62 countByEnumeratingWithState:&v116 objects:v129 count:16];
+          v118 = 0u;
+          v115 = 0u;
+          v116 = 0u;
+          v62 = *(v102 + 72);
+          v63 = [v62 countByEnumeratingWithState:&v115 objects:v128 count:16];
           if (v63)
           {
-            v64 = *v117;
+            v64 = *v116;
 LABEL_44:
             v65 = 0;
             while (1)
             {
-              if (*v117 != v64)
+              if (*v116 != v64)
               {
                 objc_enumerationMutation(v62);
               }
@@ -4136,13 +4094,13 @@ LABEL_44:
                 break;
               }
 
-              v66 = *(*(&v116 + 1) + 8 * v65);
+              v66 = *(*(&v115 + 1) + 8 * v65);
               v67 = [v21 characteristics];
               v59 = [v67 hmf_firstObjectWithCharacteristicType:v66];
 
               if (v63 == ++v65)
               {
-                v63 = [v62 countByEnumeratingWithState:&v116 objects:v129 count:16];
+                v63 = [v62 countByEnumeratingWithState:&v115 objects:v128 count:16];
                 if (v63)
                 {
                   goto LABEL_44;
@@ -4153,7 +4111,7 @@ LABEL_44:
             }
           }
 
-          [v94 setObject:v51 forKey:v59];
+          [v93 setObject:v51 forKey:v59];
         }
 
         goto LABEL_52;
@@ -4164,20 +4122,20 @@ LABEL_54:
       ++v13;
     }
 
-    while (v13 != v99);
-    v68 = [obj countByEnumeratingWithState:&v120 objects:v130 count:16];
-    v99 = v68;
+    while (v13 != v98);
+    v68 = [obj countByEnumeratingWithState:&v119 objects:v129 count:16];
+    v98 = v68;
   }
 
   while (v68);
 LABEL_62:
 
-  v69 = [v100 assistantCommandHelper];
+  v69 = [v99 assistantCommandHelper];
   [v69 removeResponses:obj];
 
   v11 = v12;
 LABEL_63:
-  v102 = v11;
+  v101 = v11;
   v70 = [v11 code];
   v71 = 82;
   if (unlockErrorCode)
@@ -4190,7 +4148,7 @@ LABEL_63:
     goto LABEL_69;
   }
 
-  v72 = [v93 code];
+  v72 = [v92 code];
   v73 = 82;
   if (unlockErrorCode)
   {
@@ -4200,33 +4158,33 @@ LABEL_63:
   if (v72 == v73)
   {
 LABEL_69:
-    [v100 reportUnlockRequired:*(v103 + 96)];
+    [v99 reportUnlockRequired:*(v102 + 96)];
   }
 
   else
   {
-    if ([v94 count])
+    if ([v93 count])
     {
       v74 = [MEMORY[0x277CBEB18] array];
-      v115 = 0u;
-      v113 = 0u;
       v114 = 0u;
       v112 = 0u;
-      v75 = v94;
-      v76 = [v75 countByEnumeratingWithState:&v112 objects:v128 count:16];
+      v113 = 0u;
+      v111 = 0u;
+      v75 = v93;
+      v76 = [v75 countByEnumeratingWithState:&v111 objects:v127 count:16];
       if (v76)
       {
-        v77 = *v113;
+        v77 = *v112;
         do
         {
           for (j = 0; j != v76; ++j)
           {
-            if (*v113 != v77)
+            if (*v112 != v77)
             {
               objc_enumerationMutation(v75);
             }
 
-            v79 = *(*(&v112 + 1) + 8 * j);
+            v79 = *(*(&v111 + 1) + 8 * j);
             v80 = [v75 objectForKey:v79];
             v81 = [v79 authorizationData];
             v82 = [HMDCharacteristicWriteRequest writeRequestWithCharacteristic:v79 value:v80 authorizationData:v81 type:0];
@@ -4234,51 +4192,49 @@ LABEL_69:
             [v74 addObject:v82];
           }
 
-          v76 = [v75 countByEnumeratingWithState:&v112 objects:v128 count:16];
+          v76 = [v75 countByEnumeratingWithState:&v111 objects:v127 count:16];
         }
 
         while (v76);
       }
 
-      v83 = [v100 assistantCommandHelper];
-      v84 = *(v103 + 88);
-      v104[0] = MEMORY[0x277D85DD0];
-      v104[1] = 3221225472;
-      v104[2] = __88__HMDAssistantCommand_handleUpdateActionTypes_serviceType_forObjects_completionHandler___block_invoke_131;
-      v104[3] = &unk_278670FC0;
-      objc_copyWeak(&v111, (v103 + 112));
-      v105 = *(v103 + 80);
-      v109 = *(v103 + 96);
-      v106 = *(v103 + 40);
-      v85 = *(v103 + 48);
-      v86 = *(v103 + 104);
-      v107 = v85;
-      v110 = v86;
-      v108 = *(v103 + 56);
-      [v83 addWriteRequests:v74 home:v84 completion:v104];
+      v83 = [v99 assistantCommandHelper];
+      v84 = *(v102 + 88);
+      v103[0] = MEMORY[0x277D85DD0];
+      v103[1] = 3221225472;
+      v103[2] = __88__HMDAssistantCommand_handleUpdateActionTypes_serviceType_forObjects_completionHandler___block_invoke_131;
+      v103[3] = &unk_278670FC0;
+      objc_copyWeak(&v110, (v102 + 112));
+      v104 = *(v102 + 80);
+      v108 = *(v102 + 96);
+      v105 = *(v102 + 40);
+      v85 = *(v102 + 48);
+      v86 = *(v102 + 104);
+      v106 = v85;
+      v109 = v86;
+      v107 = *(v102 + 56);
+      [v83 addWriteRequests:v74 home:v84 completion:v103];
 
-      objc_destroyWeak(&v111);
-      v87 = v103;
+      objc_destroyWeak(&v110);
+      v87 = v102;
     }
 
     else
     {
-      v87 = v103;
-      dispatch_group_leave(*(v103 + 80));
+      v87 = v102;
+      dispatch_group_leave(*(v102 + 80));
     }
 
     [*(v87 + 32) end];
   }
 
-  WeakRetained = v91;
+  WeakRetained = v90;
 LABEL_82:
-
-  v88 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __88__HMDAssistantCommand_handleUpdateActionTypes_serviceType_forObjects_completionHandler___block_invoke_132(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) begin];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 40);
@@ -4286,21 +4242,19 @@ uint64_t __88__HMDAssistantCommand_handleUpdateActionTypes_serviceType_forObject
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@All results have been received for update-action-types, calling result handler", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@All results have been received for update-action-types, calling result handler", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
   [*(a1 + 40) reportResults:*(*(*(a1 + 56) + 8) + 40) handler:*(a1 + 48)];
-  result = [*(a1 + 32) end];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) end];
 }
 
 void __88__HMDAssistantCommand_handleUpdateActionTypes_serviceType_forObjects_completionHandler___block_invoke_131(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 80));
@@ -4312,13 +4266,13 @@ void __88__HMDAssistantCommand_handleUpdateActionTypes_serviceType_forObjects_co
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v18 = 138543874;
-      v19 = v11;
-      v20 = 2112;
-      v21 = v6;
-      v22 = 2112;
-      v23 = v5;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Received response %@ for write request with %@", &v18, 0x20u);
+      v17 = 138543874;
+      v18 = v11;
+      v19 = 2112;
+      v20 = v6;
+      v21 = 2112;
+      v22 = v5;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Received response %@ for write request with %@", &v17, 0x20u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -4356,8 +4310,6 @@ LABEL_10:
     dispatch_group_leave(*(a1 + 32));
     (*(*(a1 + 64) + 16))();
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)updateValue:(id)value forAction:(id)action
@@ -4574,7 +4526,7 @@ LABEL_20:
 
 - (void)handleSetActionTypes:(id)types serviceType:(id)type forObjects:(id)objects completionHandler:(id)handler
 {
-  v161[1] = *MEMORY[0x277D85DE8];
+  v160[1] = *MEMORY[0x277D85DE8];
   typesCopy = types;
   typeCopy = type;
   objectsCopy = objects;
@@ -4584,7 +4536,7 @@ LABEL_20:
   val = self;
   v13 = MEMORY[0x22AAD2510](self, a2);
   2200 = [v12 stringWithFormat:@"%@, %s:%ld", v13, "/Library/Caches/com.apple.xbs/Sources/HomeKit_executables/Sources/homed/Assistant/HMDAssistantCommand.m", 2200];
-  v116 = [v11 initWithName:2200];
+  v115 = [v11 initWithName:2200];
 
   attribute = [typesCopy attribute];
 
@@ -4605,7 +4557,7 @@ LABEL_20:
   }
 
   actionType = [typesCopy actionType];
-  v114 = *MEMORY[0x277D47EA8];
+  v113 = *MEMORY[0x277D47EA8];
   if ([actionType isEqualToString:?])
   {
     value = [typesCopy value];
@@ -4635,9 +4587,9 @@ LABEL_6:
   {
   }
 
-  v107 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K =[d] %@", @"objectType", *MEMORY[0x277D48168]];
-  v108 = [objectsCopy filteredArrayUsingPredicate:v107];
-  if ([v108 count])
+  v106 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K =[d] %@", @"objectType", *MEMORY[0x277D48168]];
+  v107 = [objectsCopy filteredArrayUsingPredicate:v106];
+  if ([v107 count])
   {
     v23 = objc_autoreleasePoolPush();
     selfCopy3 = self;
@@ -4651,7 +4603,7 @@ LABEL_6:
     }
 
     objc_autoreleasePoolPop(v23);
-    firstObject = [v108 firstObject];
+    firstObject = [v107 firstObject];
     v28 = actionSetFromObject(firstObject);
 
     [(HMDAssistantCommand *)selfCopy3 executeActionSet:v28 action:typesCopy withCompletionHandler:handlerCopy];
@@ -4676,11 +4628,11 @@ LABEL_6:
     goto LABEL_84;
   }
 
-  v103 = +[HMDHAPMetadata getSharedInstance];
+  v102 = +[HMDHAPMetadata getSharedInstance];
   attribute4 = [typesCopy attribute];
-  v102 = [v103 mapWriteCharacteristicFromAssistantName:attribute4];
+  v101 = [v102 mapWriteCharacteristicFromAssistantName:attribute4];
 
-  if (!v102)
+  if (!v101)
   {
     v35 = objc_autoreleasePoolPush();
     selfCopy4 = self;
@@ -4703,77 +4655,77 @@ LABEL_6:
   }
 
   attribute6 = [typesCopy attribute];
-  v111 = [v103 mapCharacteristicValueType:attribute6];
+  v110 = [v102 mapCharacteristicValueType:attribute6];
 
-  v100 = [v103 getAliasedCharacteristicTypes:v102];
-  if ([v100 count])
+  v99 = [v102 getAliasedCharacteristicTypes:v101];
+  if ([v99 count])
   {
-    v99 = [v100 arrayByAddingObject:v102];
-    [(HMDAssistantCommand *)self filterObjects:objectsCopy forCharacteristicTypes:v99];
+    v98 = [v99 arrayByAddingObject:v101];
+    [(HMDAssistantCommand *)self filterObjects:objectsCopy forCharacteristicTypes:v98];
   }
 
   else
   {
-    v161[0] = v102;
-    v99 = [MEMORY[0x277CBEA60] arrayWithObjects:v161 count:1];
-    [(HMDAssistantCommand *)self filterObjects:objectsCopy forCharacteristicTypes:v99];
+    v160[0] = v101;
+    v98 = [MEMORY[0x277CBEA60] arrayWithObjects:v160 count:1];
+    [(HMDAssistantCommand *)self filterObjects:objectsCopy forCharacteristicTypes:v98];
   }
-  v101 = ;
-  if (![v101 count])
+  v100 = ;
+  if (![v100 count])
   {
     [(HMDAssistantCommand *)self returnResults:0 serviceType:typeCopy forAction:typesCopy completionHandler:handlerCopy];
     goto LABEL_83;
   }
 
-  v98 = [(HMDAssistantCommand *)self getValueOfType:v111 action:typesCopy];
+  v97 = [(HMDAssistantCommand *)self getValueOfType:v110 action:typesCopy];
   value2 = [typesCopy value];
   units = [value2 units];
   attribute7 = [typesCopy attribute];
-  v120 = [(HMDAssistantCommand *)self adjustSetValue:v98 type:v111 units:units attribute:attribute7];
+  v119 = [(HMDAssistantCommand *)self adjustSetValue:v97 type:v110 units:units attribute:attribute7];
 
   weakToStrongObjectsMapTable = [MEMORY[0x277CCAB00] weakToStrongObjectsMapTable];
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v158 = __Block_byref_object_copy__19541;
-  v159 = __Block_byref_object_dispose__19542;
+  v157 = __Block_byref_object_copy__19541;
+  v158 = __Block_byref_object_dispose__19542;
   array = [MEMORY[0x277CBEB18] array];
   includeCompleteInformation = [typesCopy includeCompleteInformation];
-  v149 = 0u;
-  v150 = 0u;
-  v147 = 0u;
   v148 = 0u;
-  obj = v101;
-  v44 = [obj countByEnumeratingWithState:&v147 objects:v156 count:16];
+  v149 = 0u;
+  v146 = 0u;
+  v147 = 0u;
+  obj = v100;
+  v44 = [obj countByEnumeratingWithState:&v146 objects:v155 count:16];
   if (!v44)
   {
     goto LABEL_54;
   }
 
-  v45 = *v148;
-  v110 = *MEMORY[0x277D47EB0];
-  v106 = *MEMORY[0x277D47EB8];
-  v109 = *MEMORY[0x277CCFB18];
-  v105 = *MEMORY[0x277D47E48];
-  v104 = *MEMORY[0x277D47DF8];
-  v112 = *MEMORY[0x277D47E10];
+  v45 = *v147;
+  v109 = *MEMORY[0x277D47EB0];
+  v105 = *MEMORY[0x277D47EB8];
+  v108 = *MEMORY[0x277CCFB18];
+  v104 = *MEMORY[0x277D47E48];
+  v103 = *MEMORY[0x277D47DF8];
+  v111 = *MEMORY[0x277D47E10];
   do
   {
     v46 = 0;
     do
     {
-      if (*v148 != v45)
+      if (*v147 != v45)
       {
         objc_enumerationMutation(obj);
       }
 
-      v47 = *(*(&v147 + 1) + 8 * v46);
+      v47 = *(*(&v146 + 1) + 8 * v46);
       metadata = [v47 metadata];
       if (([v47 properties] & 4) == 0)
       {
         maximumValue2 = actionResultForAction(typesCopy);
         service = [v47 service];
-        [maximumValue2 setOutcome:v112];
+        [maximumValue2 setOutcome:v111];
         v51 = entityForService(service, typeCopy, objectsCopy, includeCompleteInformation);
         [maximumValue2 setEntity:v51];
 
@@ -4783,30 +4735,30 @@ LABEL_6:
       }
 
       actionType2 = [typesCopy actionType];
-      v53 = [actionType2 isEqualToString:v114];
+      v53 = [actionType2 isEqualToString:v113];
 
       if (v53)
       {
-        maximumValue2 = v120;
-        v120 = [(HMDAssistantCommand *)val updateValueToBoundary:maximumValue2 valueType:v111 fudgeMinimum:0 metadata:metadata];
+        maximumValue2 = v119;
+        v119 = [(HMDAssistantCommand *)val updateValueToBoundary:maximumValue2 valueType:v110 fudgeMinimum:0 metadata:metadata];
 
-        if (maximumValue2 == v120 || ([v47 characteristicType], v54 = objc_claimAutoreleasedReturnValue(), v55 = objc_msgSend(v54, "isEqual:", v109), v54, !v55))
+        if (maximumValue2 == v119 || ([v47 characteristicType], v54 = objc_claimAutoreleasedReturnValue(), v55 = objc_msgSend(v54, "isEqual:", v108), v54, !v55))
         {
-          [weakToStrongObjectsMapTable setObject:v120 forKey:v47];
+          [weakToStrongObjectsMapTable setObject:v119 forKey:v47];
         }
 
         else
         {
           service = actionResultForAction(typesCopy);
           service2 = [v47 service];
-          if (maximumValue2 >= v120)
+          if (maximumValue2 >= v119)
           {
-            v57 = v105;
+            v57 = v104;
           }
 
           else
           {
-            v57 = v104;
+            v57 = v103;
           }
 
           [service setOutcome:v57];
@@ -4825,7 +4777,7 @@ LABEL_46:
       }
 
       actionType3 = [typesCopy actionType];
-      v60 = [actionType3 isEqualToString:v110];
+      v60 = [actionType3 isEqualToString:v109];
 
       if (v60)
       {
@@ -4842,14 +4794,14 @@ LABEL_46:
       }
 
       actionType4 = [typesCopy actionType];
-      v63 = [actionType4 isEqualToString:v106];
+      v63 = [actionType4 isEqualToString:v105];
 
       if (v63)
       {
         minimumValue = [metadata minimumValue];
         if (minimumValue)
         {
-          maximumValue2 = [(HMDAssistantCommand *)val updateValueToBoundary:minimumValue valueType:v111 fudgeMinimum:1 metadata:metadata];
+          maximumValue2 = [(HMDAssistantCommand *)val updateValueToBoundary:minimumValue valueType:v110 fudgeMinimum:1 metadata:metadata];
 
           [weakToStrongObjectsMapTable setObject:maximumValue2 forKey:v47];
         }
@@ -4869,7 +4821,7 @@ LABEL_47:
     }
 
     while (v44 != v46);
-    v65 = [obj countByEnumeratingWithState:&v147 objects:v156 count:16];
+    v65 = [obj countByEnumeratingWithState:&v146 objects:v155 count:16];
     v44 = v65;
   }
 
@@ -4878,30 +4830,30 @@ LABEL_54:
 
   v66 = dispatch_group_create();
   weakToStrongObjectsMapTable2 = [MEMORY[0x277CCAB00] weakToStrongObjectsMapTable];
-  v145 = 0u;
-  v146 = 0u;
-  v143 = 0u;
   v144 = 0u;
-  v118 = weakToStrongObjectsMapTable;
-  v67 = [v118 countByEnumeratingWithState:&v143 objects:v155 count:16];
+  v145 = 0u;
+  v142 = 0u;
+  v143 = 0u;
+  v117 = weakToStrongObjectsMapTable;
+  v67 = [v117 countByEnumeratingWithState:&v142 objects:v154 count:16];
   if (v67)
   {
-    v68 = *v144;
+    v68 = *v143;
     while (2)
     {
       for (i = 0; i != v67; ++i)
       {
-        if (*v144 != v68)
+        if (*v143 != v68)
         {
-          objc_enumerationMutation(v118);
+          objc_enumerationMutation(v117);
         }
 
-        v70 = *(*(&v143 + 1) + 8 * i);
+        v70 = *(*(&v142 + 1) + 8 * i);
         service3 = [v70 service];
         accessory = [service3 accessory];
         home = [accessory home];
 
-        v74 = [v118 objectForKey:v70];
+        v74 = [v117 objectForKey:v70];
 
         type = [v70 type];
         LODWORD(accessory) = [type isEqual:@"000000B0-0000-1000-8000-0026BB765291"];
@@ -4933,8 +4885,8 @@ LABEL_54:
               v95 = objc_opt_class();
               *location = 138543618;
               *&location[4] = v94;
-              v153 = 2112;
-              v154 = v95;
+              v152 = 2112;
+              v153 = v95;
               v96 = v95;
               _os_log_impl(&dword_229538000, v93, OS_LOG_TYPE_ERROR, "%{public}@Unknown value type found. Expected integer but got %@", location, 0x16u);
             }
@@ -4942,16 +4894,16 @@ LABEL_54:
             objc_autoreleasePoolPop(v91);
             [(HMDAssistantCommand *)v92 reportOutcome:*MEMORY[0x277D480C8] results:0 handler:handlerCopy];
 
-            v90 = v118;
+            v90 = v117;
             goto LABEL_82;
           }
 
-          v120 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v76, "unsignedIntegerValue")}];
+          v119 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v76, "unsignedIntegerValue")}];
         }
 
         else
         {
-          v120 = v74;
+          v119 = v74;
         }
 
         array2 = [weakToStrongObjectsMapTable2 objectForKey:home];
@@ -4962,12 +4914,12 @@ LABEL_54:
         }
 
         authorizationData = [v70 authorizationData];
-        v81 = [HMDCharacteristicWriteRequest writeRequestWithCharacteristic:v70 value:v120 authorizationData:authorizationData type:1];
+        v81 = [HMDCharacteristicWriteRequest writeRequestWithCharacteristic:v70 value:v119 authorizationData:authorizationData type:1];
 
         [array2 addObject:v81];
       }
 
-      v67 = [v118 countByEnumeratingWithState:&v143 objects:v155 count:16];
+      v67 = [v117 countByEnumeratingWithState:&v142 objects:v154 count:16];
       if (v67)
       {
         continue;
@@ -4977,48 +4929,48 @@ LABEL_54:
     }
   }
 
-  v141 = 0u;
-  v142 = 0u;
-  v139 = 0u;
   v140 = 0u;
+  v141 = 0u;
+  v138 = 0u;
+  v139 = 0u;
   v82 = weakToStrongObjectsMapTable2;
-  v83 = [v82 countByEnumeratingWithState:&v139 objects:v151 count:16];
+  v83 = [v82 countByEnumeratingWithState:&v138 objects:v150 count:16];
   if (v83)
   {
-    v84 = *v140;
+    v84 = *v139;
     do
     {
       for (j = 0; j != v83; ++j)
       {
-        if (*v140 != v84)
+        if (*v139 != v84)
         {
           objc_enumerationMutation(v82);
         }
 
-        v86 = *(*(&v139 + 1) + 8 * j);
+        v86 = *(*(&v138 + 1) + 8 * j);
         dispatch_group_enter(v66);
         v87 = [v82 objectForKey:v86];
         objc_initWeak(location, val);
         assistantCommandHelper = [(HMDAssistantCommand *)val assistantCommandHelper];
-        v130[0] = MEMORY[0x277D85DD0];
-        v130[1] = 3221225472;
-        v130[2] = __85__HMDAssistantCommand_handleSetActionTypes_serviceType_forObjects_completionHandler___block_invoke;
-        v130[3] = &unk_278670F20;
-        objc_copyWeak(&v138, location);
-        v131 = v66;
-        v136 = handlerCopy;
-        v132 = typesCopy;
-        v133 = typeCopy;
-        v137 = buf;
-        v134 = objectsCopy;
-        v135 = v116;
-        [assistantCommandHelper addWriteRequests:v87 home:v86 completion:v130];
+        v129[0] = MEMORY[0x277D85DD0];
+        v129[1] = 3221225472;
+        v129[2] = __85__HMDAssistantCommand_handleSetActionTypes_serviceType_forObjects_completionHandler___block_invoke;
+        v129[3] = &unk_278670F20;
+        objc_copyWeak(&v137, location);
+        v130 = v66;
+        v135 = handlerCopy;
+        v131 = typesCopy;
+        v132 = typeCopy;
+        v136 = buf;
+        v133 = objectsCopy;
+        v134 = v115;
+        [assistantCommandHelper addWriteRequests:v87 home:v86 completion:v129];
 
-        objc_destroyWeak(&v138);
+        objc_destroyWeak(&v137);
         objc_destroyWeak(location);
       }
 
-      v83 = [v82 countByEnumeratingWithState:&v139 objects:v151 count:16];
+      v83 = [v82 countByEnumeratingWithState:&v138 objects:v150 count:16];
     }
 
     while (v83);
@@ -5029,14 +4981,14 @@ LABEL_54:
   block[1] = 3221225472;
   block[2] = __85__HMDAssistantCommand_handleSetActionTypes_serviceType_forObjects_completionHandler___block_invoke_129;
   block[3] = &unk_278686E40;
-  v126 = v116;
-  v127 = val;
-  v129 = buf;
-  v128 = handlerCopy;
+  v125 = v115;
+  v126 = val;
+  v128 = buf;
+  v127 = handlerCopy;
   dispatch_group_notify(v66, queue, block);
 
-  v90 = v126;
-  v76 = v120;
+  v90 = v125;
+  v76 = v119;
 LABEL_82:
 
   _Block_object_dispose(buf, 8);
@@ -5044,13 +4996,11 @@ LABEL_83:
 
 LABEL_84:
 LABEL_85:
-
-  v97 = *MEMORY[0x277D85DE8];
 }
 
 void __85__HMDAssistantCommand_handleSetActionTypes_serviceType_forObjects_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 88));
@@ -5062,13 +5012,13 @@ void __85__HMDAssistantCommand_handleSetActionTypes_serviceType_forObjects_compl
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v18 = 138543874;
-      v19 = v11;
-      v20 = 2112;
-      v21 = v6;
-      v22 = 2112;
-      v23 = v5;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Received response %@ for write request with %@", &v18, 0x20u);
+      v17 = 138543874;
+      v18 = v11;
+      v19 = 2112;
+      v20 = v6;
+      v21 = 2112;
+      v22 = v5;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Received response %@ for write request with %@", &v17, 0x20u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -5112,13 +5062,11 @@ LABEL_10:
     dispatch_group_leave(*(a1 + 32));
     (*(*(a1 + 72) + 16))();
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __85__HMDAssistantCommand_handleSetActionTypes_serviceType_forObjects_completionHandler___block_invoke_129(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) begin];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 40);
@@ -5126,16 +5074,45 @@ uint64_t __85__HMDAssistantCommand_handleSetActionTypes_serviceType_forObjects_c
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@All results have been received for set-action-types, calling result handler", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@All results have been received for set-action-types, calling result handler", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
   [*(a1 + 40) reportResults:*(*(*(a1 + 56) + 8) + 40) handler:*(a1 + 48)];
-  result = [*(a1 + 32) end];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) end];
+}
+
+- (id)handleSetNaturalLightingActionOnHAPLightProfiles:(id)profiles home:(id)home value:(BOOL)value
+{
+  valueCopy = value;
+  profilesCopy = profiles;
+  homeCopy = home;
+  v17 = 0;
+  v10 = [MEMORY[0x277D0F7C0] futureWithPromise:&v17];
+  if ([profilesCopy hmf_isEmpty])
+  {
+    [v17 fulfillWithNoValue];
+  }
+
+  else
+  {
+    objc_initWeak(&location, self);
+    naturalLightingCurveWriter = [homeCopy naturalLightingCurveWriter];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __83__HMDAssistantCommand_handleSetNaturalLightingActionOnHAPLightProfiles_home_value___block_invoke;
+    v13[3] = &unk_278670F98;
+    objc_copyWeak(&v15, &location);
+    v14 = v17;
+    [naturalLightingCurveWriter setNaturalLightingEnabled:valueCopy forLightProfiles:profilesCopy completion:v13];
+
+    objc_destroyWeak(&v15);
+    objc_destroyWeak(&location);
+  }
+
+  return v10;
 }
 
 void __83__HMDAssistantCommand_handleSetNaturalLightingActionOnHAPLightProfiles_home_value___block_invoke(uint64_t a1, void *a2)
@@ -5157,7 +5134,7 @@ void __83__HMDAssistantCommand_handleSetNaturalLightingActionOnHAPLightProfiles_
 
 - (void)handleSetNaturalLightingAction:(id)action serviceType:(id)type forObjects:(id)objects hapLightProfiles:(id)profiles matterLightProfiles:(id)lightProfiles home:(id)home completionHandler:(id)handler
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   typeCopy = type;
   v17 = actionCopy;
@@ -5188,8 +5165,8 @@ void __83__HMDAssistantCommand_handleSetNaturalLightingActionOnHAPLightProfiles_
   v28 = v23;
   if (v23)
   {
-    v60 = objectsCopy;
-    v62 = v18;
+    v59 = objectsCopy;
+    v61 = v18;
     if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
     {
       v29 = HMFGetLogIdentifier();
@@ -5197,99 +5174,99 @@ void __83__HMDAssistantCommand_handleSetNaturalLightingActionOnHAPLightProfiles_
       HMFBooleanToString();
       v31 = v30 = profilesCopy;
       *buf = 138544130;
-      v89 = v29;
-      v90 = 2112;
-      v91 = v31;
-      v92 = 2112;
-      v93 = v30;
-      v94 = 2112;
-      v95 = lightProfilesCopy;
+      v88 = v29;
+      v89 = 2112;
+      v90 = v31;
+      v91 = 2112;
+      v92 = v30;
+      v93 = 2112;
+      v94 = lightProfilesCopy;
       _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_INFO, "%{public}@Setting natural lighting %@ for HAP light profiles: %@ and matter light profiles: %@", buf, 0x2Au);
 
       profilesCopy = v30;
     }
 
-    v59 = profilesCopy;
+    v58 = profilesCopy;
 
     objc_autoreleasePoolPop(v24);
     v32 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(lightProfilesCopy, "count") + objc_msgSend(profilesCopy, "count")}];
     v33 = objc_alloc(MEMORY[0x277D0F7A8]);
     queue = [(HMDAssistantCommand *)selfCopy queue];
-    v57 = [v33 initWithQueue:queue];
+    v56 = [v33 initWithQueue:queue];
 
     [v28 value];
     v35 = [HMDAssistantCommand handleSetNaturalLightingActionOnHAPLightProfiles:selfCopy home:"handleSetNaturalLightingActionOnHAPLightProfiles:home:value:" value:profilesCopy];
-    v80[0] = MEMORY[0x277D85DD0];
-    v80[1] = 3221225472;
-    v80[2] = __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_forObjects_hapLightProfiles_matterLightProfiles_home_completionHandler___block_invoke;
-    v80[3] = &unk_278670F70;
-    v81 = profilesCopy;
-    v36 = v17;
-    v82 = v36;
-    v61 = v17;
-    v37 = v62;
-    v83 = v37;
-    objectsCopy = v60;
-    v38 = v60;
-    v84 = v38;
-    v85 = selfCopy;
-    v58 = v35;
-    v39 = v32;
-    v86 = v39;
     v79[0] = MEMORY[0x277D85DD0];
     v79[1] = 3221225472;
-    v79[2] = __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_forObjects_hapLightProfiles_matterLightProfiles_home_completionHandler___block_invoke_117;
-    v79[3] = &unk_278689CD8;
-    v79[4] = selfCopy;
-    v40 = [v35 inContext:v57 then:v80 orRecover:v79];
+    v79[2] = __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_forObjects_hapLightProfiles_matterLightProfiles_home_completionHandler___block_invoke;
+    v79[3] = &unk_278670F70;
+    v80 = profilesCopy;
+    v36 = v17;
+    v81 = v36;
+    v60 = v17;
+    v37 = v61;
+    v82 = v37;
+    objectsCopy = v59;
+    v38 = v59;
+    v83 = v38;
+    v84 = selfCopy;
+    v57 = v35;
+    v39 = v32;
+    v85 = v39;
+    v78[0] = MEMORY[0x277D85DD0];
+    v78[1] = 3221225472;
+    v78[2] = __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_forObjects_hapLightProfiles_matterLightProfiles_home_completionHandler___block_invoke_117;
+    v78[3] = &unk_278689CD8;
+    v78[4] = selfCopy;
+    v40 = [v35 inContext:v56 then:v79 orRecover:v78];
     v41 = [homeCopy handleSetNaturalLightingEnabled:objc_msgSend(v28 forMatterLightProfiles:{"value"), lightProfilesCopy}];
-    v73[0] = MEMORY[0x277D85DD0];
-    v73[1] = 3221225472;
-    v73[2] = __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_forObjects_hapLightProfiles_matterLightProfiles_home_completionHandler___block_invoke_119;
-    v73[3] = &unk_278670F70;
-    v73[4] = selfCopy;
-    v74 = lightProfilesCopy;
-    v75 = v36;
-    v76 = v37;
-    v77 = v38;
-    v42 = v39;
-    v78 = v42;
     v72[0] = MEMORY[0x277D85DD0];
     v72[1] = 3221225472;
-    v72[2] = __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_forObjects_hapLightProfiles_matterLightProfiles_home_completionHandler___block_invoke_120;
-    v72[3] = &unk_278689CD8;
+    v72[2] = __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_forObjects_hapLightProfiles_matterLightProfiles_home_completionHandler___block_invoke_119;
+    v72[3] = &unk_278670F70;
     v72[4] = selfCopy;
-    v43 = [v41 inContext:v57 then:v73 orRecover:v72];
+    v73 = lightProfilesCopy;
+    v74 = v36;
+    v75 = v37;
+    v76 = v38;
+    v42 = v39;
+    v77 = v42;
+    v71[0] = MEMORY[0x277D85DD0];
+    v71[1] = 3221225472;
+    v71[2] = __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_forObjects_hapLightProfiles_matterLightProfiles_home_completionHandler___block_invoke_120;
+    v71[3] = &unk_278689CD8;
+    v71[4] = selfCopy;
+    v43 = [v41 inContext:v56 then:v72 orRecover:v71];
     v44 = MEMORY[0x277D0F7C0];
-    v87[0] = v35;
-    v87[1] = v41;
-    v45 = [MEMORY[0x277CBEA60] arrayWithObjects:v87 count:2];
+    v86[0] = v35;
+    v86[1] = v41;
+    v45 = [MEMORY[0x277CBEA60] arrayWithObjects:v86 count:2];
     v46 = v44;
-    profilesCopy = v59;
+    profilesCopy = v58;
     v47 = [v46 allSettled:v45];
 
-    v17 = v61;
-    v69[0] = MEMORY[0x277D85DD0];
-    v69[1] = 3221225472;
-    v69[2] = __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_forObjects_hapLightProfiles_matterLightProfiles_home_completionHandler___block_invoke_122;
-    v69[3] = &unk_278681880;
-    v69[4] = selfCopy;
-    v70 = v42;
+    v17 = v60;
+    v68[0] = MEMORY[0x277D85DD0];
+    v68[1] = 3221225472;
+    v68[2] = __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_forObjects_hapLightProfiles_matterLightProfiles_home_completionHandler___block_invoke_122;
+    v68[3] = &unk_278681880;
+    v68[4] = selfCopy;
+    v69 = v42;
     v48 = handlerCopy;
-    v71 = handlerCopy;
-    v66[0] = MEMORY[0x277D85DD0];
-    v66[1] = 3221225472;
-    v66[2] = __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_forObjects_hapLightProfiles_matterLightProfiles_home_completionHandler___block_invoke_124;
-    v66[3] = &unk_278683720;
-    v66[4] = selfCopy;
+    v70 = handlerCopy;
+    v65[0] = MEMORY[0x277D85DD0];
+    v65[1] = 3221225472;
+    v65[2] = __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_forObjects_hapLightProfiles_matterLightProfiles_home_completionHandler___block_invoke_124;
+    v65[3] = &unk_278683720;
+    v65[4] = selfCopy;
+    v66 = v69;
     v67 = v70;
-    v68 = v71;
     v49 = homeCopy;
-    v50 = v70;
-    v51 = [v47 inContext:v57 then:v69 orRecover:v66];
+    v50 = v69;
+    v51 = [v47 inContext:v56 then:v68 orRecover:v65];
 
     v52 = lightProfilesCopy;
-    v18 = v62;
+    v18 = v61;
   }
 
   else
@@ -5300,9 +5277,9 @@ void __83__HMDAssistantCommand_handleSetNaturalLightingActionOnHAPLightProfiles_
       [v17 value];
       v55 = v54 = profilesCopy;
       *buf = 138543618;
-      v89 = v53;
-      v90 = 2112;
-      v91 = v55;
+      v88 = v53;
+      v89 = 2112;
+      v90 = v55;
       _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Specified value is not of BOOLean type %@", buf, 0x16u);
 
       profilesCopy = v54;
@@ -5314,39 +5291,37 @@ void __83__HMDAssistantCommand_handleSetNaturalLightingActionOnHAPLightProfiles_
     v49 = homeCopy;
     v52 = lightProfilesCopy;
   }
-
-  v56 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_forObjects_hapLightProfiles_matterLightProfiles_home_completionHandler___block_invoke(id *a1, void *a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
-  v24 = a2;
+  v36 = *MEMORY[0x277D85DE8];
+  v23 = a2;
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = a1[4];
-  v25 = [obj countByEnumeratingWithState:&v26 objects:v36 count:16];
-  if (v25)
+  v24 = [obj countByEnumeratingWithState:&v25 objects:v35 count:16];
+  if (v24)
   {
-    v23 = *v27;
-    v22 = *MEMORY[0x277D47DE0];
-    v21 = *MEMORY[0x277D47E50];
+    v22 = *v26;
+    v21 = *MEMORY[0x277D47DE0];
+    v20 = *MEMORY[0x277D47E50];
     *&v3 = 138543874;
-    v19 = v3;
+    v18 = v3;
     do
     {
-      for (i = 0; i != v25; ++i)
+      for (i = 0; i != v24; ++i)
       {
-        if (*v27 != v23)
+        if (*v26 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v26 + 1) + 8 * i);
+        v5 = *(*(&v25 + 1) + 8 * i);
         v6 = [v5 service];
-        v7 = [v24 objectForKey:v5];
+        v7 = [v23 objectForKey:v5];
         v8 = actionResultForAction(a1[5]);
         v9 = entityForService(v6, a1[6], a1[7], [a1[5] includeCompleteInformation]);
         [v8 setEntity:v9];
@@ -5357,37 +5332,37 @@ uint64_t __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_f
         v13 = v12;
         if (v7)
         {
-          v14 = v22;
+          v14 = v21;
           if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
             v15 = HMFGetLogIdentifier();
-            *buf = v19;
-            v31 = v15;
-            v32 = 2112;
-            v33 = v5;
-            v34 = 2112;
-            v35 = v7;
+            *buf = v18;
+            v30 = v15;
+            v31 = 2112;
+            v32 = v5;
+            v33 = 2112;
+            v34 = v7;
             _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to set natural lighting for hap light profile %@:%@", buf, 0x20u);
 
-            v14 = v22;
+            v14 = v21;
           }
         }
 
         else
         {
-          v14 = v21;
+          v14 = v20;
           if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
           {
             v16 = HMFGetLogIdentifier();
-            *buf = v19;
-            v31 = v16;
-            v32 = 2112;
-            v33 = v5;
-            v34 = 2112;
-            v35 = 0;
+            *buf = v18;
+            v30 = v16;
+            v31 = 2112;
+            v32 = v5;
+            v33 = 2112;
+            v34 = 0;
             _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Successfully set natural lighting for hap light profile %@:%@", buf, 0x20u);
 
-            v14 = v21;
+            v14 = v20;
           }
         }
 
@@ -5396,19 +5371,18 @@ uint64_t __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_f
         [a1[9] addObject:v8];
       }
 
-      v25 = [obj countByEnumeratingWithState:&v26 objects:v36 count:16];
+      v24 = [obj countByEnumeratingWithState:&v25 objects:v35 count:16];
     }
 
-    while (v25);
+    while (v24);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 uint64_t __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_forObjects_hapLightProfiles_matterLightProfiles_home_completionHandler___block_invoke_117(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -5416,22 +5390,21 @@ uint64_t __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_f
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v10 = 138543618;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to set natural lighting for all hap light profiles with error: %@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to set natural lighting for all hap light profiles with error: %@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 uint64_t __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_forObjects_hapLightProfiles_matterLightProfiles_home_completionHandler___block_invoke_119(id *a1, void *a2)
 {
-  v39 = *MEMORY[0x277D85DE8];
-  v28 = a2;
+  v38 = *MEMORY[0x277D85DE8];
+  v27 = a2;
   v3 = objc_autoreleasePoolPush();
   v4 = a1[4];
   v5 = HMFGetOSLogHandle();
@@ -5439,38 +5412,38 @@ uint64_t __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_f
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v36 = v6;
-    v37 = 2112;
-    v38 = v28;
+    v35 = v6;
+    v36 = 2112;
+    v37 = v27;
     _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_DEBUG, "%{public}@handleSetNaturalLightingEnabled returned resultByLightProfile: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   obj = a1[5];
-  v29 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
-  if (v29)
+  v28 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  if (v28)
   {
-    v27 = *v31;
-    v26 = *MEMORY[0x277D47DE0];
-    v25 = *MEMORY[0x277D47E50];
+    v26 = *v30;
+    v25 = *MEMORY[0x277D47DE0];
+    v24 = *MEMORY[0x277D47E50];
     *&v7 = 138543618;
-    v23 = v7;
+    v22 = v7;
     do
     {
-      for (i = 0; i != v29; ++i)
+      for (i = 0; i != v28; ++i)
       {
-        if (*v31 != v27)
+        if (*v30 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v30 + 1) + 8 * i);
+        v9 = *(*(&v29 + 1) + 8 * i);
         v10 = [v9 service];
-        v11 = [v28 objectForKey:v9];
+        v11 = [v27 objectForKey:v9];
         v12 = actionResultForAction(a1[6]);
         v13 = entityForService(v10, a1[7], a1[8], [a1[6] includeCompleteInformation]);
         [v12 setEntity:v13];
@@ -5482,33 +5455,33 @@ uint64_t __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_f
         v17 = v16;
         if (v13)
         {
-          v18 = v25;
+          v18 = v24;
           if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
           {
             v19 = HMFGetLogIdentifier();
-            *buf = v23;
-            v36 = v19;
-            v37 = 2112;
-            v38 = v9;
+            *buf = v22;
+            v35 = v19;
+            v36 = 2112;
+            v37 = v9;
             _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Successfully set natural lighting for matter light profile %@", buf, 0x16u);
 
-            v18 = v25;
+            v18 = v24;
           }
         }
 
         else
         {
-          v18 = v26;
+          v18 = v25;
           if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
             v20 = HMFGetLogIdentifier();
-            *buf = v23;
-            v36 = v20;
-            v37 = 2112;
-            v38 = v9;
+            *buf = v22;
+            v35 = v20;
+            v36 = 2112;
+            v37 = v9;
             _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to set natural lighting for matter light profile %@", buf, 0x16u);
 
-            v18 = v26;
+            v18 = v25;
           }
         }
 
@@ -5517,19 +5490,18 @@ uint64_t __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_f
         [a1[9] addObject:v12];
       }
 
-      v29 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v28 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
-    while (v29);
+    while (v28);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 uint64_t __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_forObjects_hapLightProfiles_matterLightProfiles_home_completionHandler___block_invoke_120(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -5537,21 +5509,20 @@ uint64_t __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_f
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v10 = 138543618;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to set natural lighting for all matter light profiles with error: %@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to set natural lighting for all matter light profiles with error: %@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 uint64_t __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_forObjects_hapLightProfiles_matterLightProfiles_home_completionHandler___block_invoke_122(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -5560,11 +5531,11 @@ uint64_t __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_f
   {
     v7 = HMFGetLogIdentifier();
     v8 = *(a1 + 40);
-    v13 = 138543618;
-    v14 = v7;
-    v15 = 2112;
-    v16 = v8;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEBUG, "%{public}@handleSetNaturalLightingAction success reporting actionResults: %@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v7;
+    v14 = 2112;
+    v15 = v8;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEBUG, "%{public}@handleSetNaturalLightingAction success reporting actionResults: %@", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -5572,13 +5543,12 @@ uint64_t __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_f
   v10 = [*(a1 + 40) allObjects];
   [v9 reportResults:v10 handler:*(a1 + 48)];
 
-  v11 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 uint64_t __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_forObjects_hapLightProfiles_matterLightProfiles_home_completionHandler___block_invoke_124(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -5587,11 +5557,11 @@ uint64_t __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_f
   {
     v7 = HMFGetLogIdentifier();
     v8 = *(a1 + 40);
-    v13 = 138543618;
-    v14 = v7;
-    v15 = 2112;
-    v16 = v8;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEBUG, "%{public}@handleSetNaturalLightingAction failed reporting actionResults: %@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v7;
+    v14 = 2112;
+    v15 = v8;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEBUG, "%{public}@handleSetNaturalLightingAction failed reporting actionResults: %@", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -5599,13 +5569,12 @@ uint64_t __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_f
   v10 = [*(a1 + 40) allObjects];
   [v9 reportResults:v10 handler:*(a1 + 48)];
 
-  v11 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (void)handleSetNaturalLightingAction:(id)action serviceType:(id)type forObjects:(id)objects completionHandler:(id)handler
 {
-  v91 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   typeCopy = type;
   objectsCopy = objects;
@@ -5614,7 +5583,7 @@ uint64_t __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_f
   v12 = MEMORY[0x277CCACA8];
   v13 = MEMORY[0x22AAD2510](self, a2);
   1985 = [v12 stringWithFormat:@"%@, %s:%ld", v13, "/Library/Caches/com.apple.xbs/Sources/HomeKit_executables/Sources/homed/Assistant/HMDAssistantCommand.m", 1985];
-  v60 = [v11 initWithName:1985];
+  v59 = [v11 initWithName:1985];
 
   v15 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -5623,9 +5592,9 @@ uint64_t __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_f
   {
     v17 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v85 = v17;
-    v86 = 2112;
-    v87 = objectsCopy;
+    v84 = v17;
+    v85 = 2112;
+    v86 = objectsCopy;
     _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Setting natural lighting enabled for objects: %@", buf, 0x16u);
   }
 
@@ -5642,32 +5611,32 @@ uint64_t __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_f
     v19 = 0;
   }
 
-  v64 = v19;
+  v63 = v19;
 
-  if (v64)
+  if (v63)
   {
-    v67 = [MEMORY[0x277CBEB58] set];
     v66 = [MEMORY[0x277CBEB58] set];
-    v82 = 0u;
-    v83 = 0u;
-    v80 = 0u;
+    v65 = [MEMORY[0x277CBEB58] set];
     v81 = 0u;
+    v82 = 0u;
+    v79 = 0u;
+    v80 = 0u;
     obj = objectsCopy;
     v20 = 0;
-    v21 = [obj countByEnumeratingWithState:&v80 objects:v90 count:16];
+    v21 = [obj countByEnumeratingWithState:&v79 objects:v89 count:16];
     if (v21)
     {
-      v22 = *v81;
+      v22 = *v80;
       do
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v81 != v22)
+          if (*v80 != v22)
           {
             objc_enumerationMutation(obj);
           }
 
-          v24 = *(*(&v80 + 1) + 8 * i);
+          v24 = *(*(&v79 + 1) + 8 * i);
           v25 = [(HMDAssistantCommand *)selfCopy serviceFromObject:v24];
           v26 = v25;
           if (v25)
@@ -5694,21 +5663,21 @@ uint64_t __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_f
               home2 = [v29 home];
 
               lightProfiles = [v29 lightProfiles];
-              v78[0] = MEMORY[0x277D85DD0];
-              v78[1] = 3221225472;
-              v78[2] = __95__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_forObjects_completionHandler___block_invoke;
-              v78[3] = &unk_2786782C8;
-              v79 = v26;
-              v34 = [lightProfiles na_firstObjectPassingTest:v78];
+              v77[0] = MEMORY[0x277D85DD0];
+              v77[1] = 3221225472;
+              v77[2] = __95__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_forObjects_completionHandler___block_invoke;
+              v77[3] = &unk_2786782C8;
+              v78 = v26;
+              v34 = [lightProfiles na_firstObjectPassingTest:v77];
 
               settings = [v34 settings];
               supportedFeatures = [settings supportedFeatures];
 
               if (supportedFeatures)
               {
-                if (!_os_feature_enabled_impl() || (v37 = [v34 supportsCHIP], v38 = v66, (v37 & 1) == 0))
+                if (!_os_feature_enabled_impl() || (v37 = [v34 supportsCHIP], v38 = v65, (v37 & 1) == 0))
                 {
-                  v38 = v67;
+                  v38 = v66;
                 }
 
                 [v38 addObject:v34];
@@ -5727,9 +5696,9 @@ uint64_t __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_f
             {
               v42 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v85 = v42;
-              v86 = 2112;
-              v87 = v24;
+              v84 = v42;
+              v85 = 2112;
+              v86 = v24;
               _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_ERROR, "%{public}@Did not find service for filtered object: %@", buf, 0x16u);
             }
 
@@ -5737,13 +5706,13 @@ uint64_t __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_f
           }
         }
 
-        v21 = [obj countByEnumeratingWithState:&v80 objects:v90 count:16];
+        v21 = [obj countByEnumeratingWithState:&v79 objects:v89 count:16];
       }
 
       while (v21);
     }
 
-    if ([v67 hmf_isEmpty] && objc_msgSend(v66, "hmf_isEmpty"))
+    if ([v66 hmf_isEmpty] && objc_msgSend(v65, "hmf_isEmpty"))
     {
       v43 = objc_autoreleasePoolPush();
       v44 = selfCopy;
@@ -5752,7 +5721,7 @@ uint64_t __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_f
       {
         v46 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v85 = v46;
+        v84 = v46;
         _os_log_impl(&dword_229538000, v45, OS_LOG_TYPE_INFO, "%{public}@Did not find any light profiles to set natural lighting on", buf, 0xCu);
       }
 
@@ -5760,7 +5729,7 @@ uint64_t __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_f
       [(HMDAssistantCommand *)v44 reportResults:0 handler:handlerCopy];
     }
 
-    else if ([v66 hmf_isEmpty])
+    else if ([v65 hmf_isEmpty])
     {
       v47 = objc_autoreleasePoolPush();
       v48 = selfCopy;
@@ -5768,41 +5737,41 @@ uint64_t __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_f
       if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
       {
         v50 = HMFGetLogIdentifier();
-        [v64 value];
+        [v63 value];
         v51 = HMFBooleanToString();
         *buf = 138543874;
-        v85 = v50;
-        v86 = 2112;
-        v87 = v51;
-        v88 = 2112;
-        v89 = v67;
+        v84 = v50;
+        v85 = 2112;
+        v86 = v51;
+        v87 = 2112;
+        v88 = v66;
         _os_log_impl(&dword_229538000, v49, OS_LOG_TYPE_INFO, "%{public}@Setting natural lighting for light profiles %@:%@", buf, 0x20u);
       }
 
       objc_autoreleasePoolPop(v47);
       objc_initWeak(buf, v48);
       naturalLightingCurveWriter = [v20 naturalLightingCurveWriter];
-      value2 = [v64 value];
-      v70[0] = MEMORY[0x277D85DD0];
-      v70[1] = 3221225472;
-      v70[2] = __95__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_forObjects_completionHandler___block_invoke_113;
-      v70[3] = &unk_278670F48;
-      objc_copyWeak(&v77, buf);
-      v71 = v60;
-      v72 = v67;
-      v73 = actionCopy;
-      v74 = typeCopy;
-      v75 = obj;
-      v76 = handlerCopy;
-      [naturalLightingCurveWriter setNaturalLightingEnabled:value2 forLightProfiles:v72 completion:v70];
+      value2 = [v63 value];
+      v69[0] = MEMORY[0x277D85DD0];
+      v69[1] = 3221225472;
+      v69[2] = __95__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_forObjects_completionHandler___block_invoke_113;
+      v69[3] = &unk_278670F48;
+      objc_copyWeak(&v76, buf);
+      v70 = v59;
+      v71 = v66;
+      v72 = actionCopy;
+      v73 = typeCopy;
+      v74 = obj;
+      v75 = handlerCopy;
+      [naturalLightingCurveWriter setNaturalLightingEnabled:value2 forLightProfiles:v71 completion:v69];
 
-      objc_destroyWeak(&v77);
+      objc_destroyWeak(&v76);
       objc_destroyWeak(buf);
     }
 
     else
     {
-      [(HMDAssistantCommand *)selfCopy handleSetNaturalLightingAction:actionCopy serviceType:typeCopy forObjects:obj hapLightProfiles:v67 matterLightProfiles:v66 home:v20 completionHandler:handlerCopy];
+      [(HMDAssistantCommand *)selfCopy handleSetNaturalLightingAction:actionCopy serviceType:typeCopy forObjects:obj hapLightProfiles:v66 matterLightProfiles:v65 home:v20 completionHandler:handlerCopy];
     }
   }
 
@@ -5816,17 +5785,15 @@ uint64_t __137__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_f
       v57 = HMFGetLogIdentifier();
       value3 = [actionCopy value];
       *buf = 138543618;
-      v85 = v57;
-      v86 = 2112;
-      v87 = value3;
+      v84 = v57;
+      v85 = 2112;
+      v86 = value3;
       _os_log_impl(&dword_229538000, v56, OS_LOG_TYPE_ERROR, "%{public}@Specified value is not of BOOLean type %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v54);
     [(HMDAssistantCommand *)v55 reportOutcome:*MEMORY[0x277D480C8] results:MEMORY[0x277CBEBF8] handler:handlerCopy];
   }
-
-  v59 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __95__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_forObjects_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -5839,39 +5806,39 @@ uint64_t __95__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_fo
 
 void __95__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_forObjects_completionHandler___block_invoke_113(uint64_t a1, void *a2)
 {
-  v41 = *MEMORY[0x277D85DE8];
-  v28 = a2;
+  v40 = *MEMORY[0x277D85DE8];
+  v27 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 80));
   if (WeakRetained)
   {
     [*(a1 + 32) begin];
-    v27 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(*(a1 + 40), "count")}];
+    v26 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(*(a1 + 40), "count")}];
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     obj = *(a1 + 40);
-    v29 = [obj countByEnumeratingWithState:&v30 objects:v40 count:16];
-    if (v29)
+    v28 = [obj countByEnumeratingWithState:&v29 objects:v39 count:16];
+    if (v28)
     {
-      v25 = *v31;
-      v24 = *MEMORY[0x277D47DE0];
-      v23 = *MEMORY[0x277D47E50];
+      v24 = *v30;
+      v23 = *MEMORY[0x277D47DE0];
+      v22 = *MEMORY[0x277D47E50];
       *&v4 = 138543874;
-      v21 = v4;
-      v26 = a1;
+      v20 = v4;
+      v25 = a1;
       do
       {
-        for (i = 0; i != v29; ++i)
+        for (i = 0; i != v28; ++i)
         {
-          if (*v31 != v25)
+          if (*v30 != v24)
           {
             objc_enumerationMutation(obj);
           }
 
-          v6 = *(*(&v30 + 1) + 8 * i);
+          v6 = *(*(&v29 + 1) + 8 * i);
           v7 = [v6 service];
-          v8 = [v28 objectForKey:v6];
+          v8 = [v27 objectForKey:v6];
           v9 = actionResultForAction(*(a1 + 48));
           v10 = entityForService(v7, *(a1 + 56), *(a1 + 64), [*(a1 + 48) includeCompleteInformation]);
           [v9 setEntity:v10];
@@ -5883,66 +5850,64 @@ void __95__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_forObj
           v15 = v14;
           if (v8)
           {
-            v16 = v24;
+            v16 = v23;
             if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
             {
               v17 = HMFGetLogIdentifier();
-              *buf = v21;
-              v35 = v17;
-              v36 = 2112;
-              v37 = v6;
-              v38 = 2112;
-              v39 = v8;
+              *buf = v20;
+              v34 = v17;
+              v35 = 2112;
+              v36 = v6;
+              v37 = 2112;
+              v38 = v8;
               _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to set natural lighting for light profile %@:%@", buf, 0x20u);
-
-              v16 = v24;
-            }
-          }
-
-          else
-          {
-            v16 = v23;
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
-            {
-              v18 = HMFGetLogIdentifier();
-              *buf = v21;
-              v35 = v18;
-              v36 = 2112;
-              v37 = v6;
-              v38 = 2112;
-              v39 = 0;
-              _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Successfully set natural lighting for light profile %@:%@", buf, 0x20u);
 
               v16 = v23;
             }
           }
 
+          else
+          {
+            v16 = v22;
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+            {
+              v18 = HMFGetLogIdentifier();
+              *buf = v20;
+              v34 = v18;
+              v35 = 2112;
+              v36 = v6;
+              v37 = 2112;
+              v38 = 0;
+              _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Successfully set natural lighting for light profile %@:%@", buf, 0x20u);
+
+              v16 = v22;
+            }
+          }
+
           objc_autoreleasePoolPop(v11);
           [v9 setOutcome:v16];
-          [v27 addObject:v9];
+          [v26 addObject:v9];
 
           WeakRetained = v12;
-          a1 = v26;
+          a1 = v25;
         }
 
-        v29 = [obj countByEnumeratingWithState:&v30 objects:v40 count:16];
+        v28 = [obj countByEnumeratingWithState:&v29 objects:v39 count:16];
       }
 
-      while (v29);
+      while (v28);
     }
 
-    v19 = [v27 allObjects];
+    v19 = [v26 allObjects];
     [WeakRetained reportResults:v19 handler:*(a1 + 72)];
 
     [*(a1 + 32) end];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleGetNaturalLightingAction:(id)action forObjects:(id)objects serviceType:(id)type completionHandler:(id)handler
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   objectsCopy = objects;
   typeCopy = type;
@@ -5954,35 +5919,35 @@ void __95__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_forObj
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v57 = v14;
-    v58 = 2112;
-    v59 = objectsCopy;
+    v56 = v14;
+    v57 = 2112;
+    v58 = objectsCopy;
     _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Getting natural lighting enabled for objects: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v11);
-  v45 = [MEMORY[0x277CBEB58] set];
+  v44 = [MEMORY[0x277CBEB58] set];
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
   v15 = objectsCopy;
-  v48 = [v15 countByEnumeratingWithState:&v51 objects:v55 count:16];
-  if (v48)
+  v47 = [v15 countByEnumeratingWithState:&v50 objects:v54 count:16];
+  if (v47)
   {
-    v16 = *v52;
-    v44 = *MEMORY[0x277D47E50];
-    v43 = *MEMORY[0x277D47EC8];
+    v16 = *v51;
+    v43 = *MEMORY[0x277D47E50];
+    v42 = *MEMORY[0x277D47EC8];
     do
     {
-      for (i = 0; i != v48; ++i)
+      for (i = 0; i != v47; ++i)
       {
-        if (*v52 != v16)
+        if (*v51 != v16)
         {
           objc_enumerationMutation(v15);
         }
 
-        v18 = *(*(&v51 + 1) + 8 * i);
+        v18 = *(*(&v50 + 1) + 8 * i);
         v19 = [(HMDAssistantCommand *)selfCopy serviceFromObject:v18];
         v20 = v19;
         if (v19)
@@ -6003,13 +5968,13 @@ void __95__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_forObj
 
           lightProfiles = [v23 lightProfiles];
 
-          v49[0] = MEMORY[0x277D85DD0];
-          v49[1] = 3221225472;
-          v49[2] = __95__HMDAssistantCommand_handleGetNaturalLightingAction_forObjects_serviceType_completionHandler___block_invoke;
-          v49[3] = &unk_2786782C8;
+          v48[0] = MEMORY[0x277D85DD0];
+          v48[1] = 3221225472;
+          v48[2] = __95__HMDAssistantCommand_handleGetNaturalLightingAction_forObjects_serviceType_completionHandler___block_invoke;
+          v48[3] = &unk_2786782C8;
           v25 = v20;
-          v50 = v25;
-          v26 = [lightProfiles na_firstObjectPassingTest:v49];
+          v49 = v25;
+          v26 = [lightProfiles na_firstObjectPassingTest:v48];
 
           if (v26)
           {
@@ -6022,14 +5987,14 @@ void __95__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_forObj
               v30 = entityForService(v25, typeCopy, v15, [actionCopy includeCompleteInformation]);
               [v29 setEntity:v30];
 
-              [v29 setOutcome:v44];
-              [v29 setResultAttribute:v43];
+              [v29 setOutcome:v43];
+              [v29 setResultAttribute:v42];
               v31 = objc_alloc_init(MEMORY[0x277D47340]);
               settings2 = [v26 settings];
               [v31 setValue:{objc_msgSend(settings2, "isNaturalLightingEnabled")}];
 
               [v29 setResultValue:v31];
-              [v45 addObject:v29];
+              [v44 addObject:v29];
             }
           }
         }
@@ -6046,9 +6011,9 @@ void __95__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_forObj
             v37 = v16;
             v39 = v38 = v15;
             *buf = 138543618;
-            v57 = v39;
-            v58 = 2112;
-            v59 = v18;
+            v56 = v39;
+            v57 = 2112;
+            v58 = v18;
             _os_log_impl(&dword_229538000, v35, OS_LOG_TYPE_ERROR, "%{public}@Did not find service for filtered object: %@", buf, 0x16u);
 
             v15 = v38;
@@ -6060,16 +6025,14 @@ void __95__HMDAssistantCommand_handleSetNaturalLightingAction_serviceType_forObj
         }
       }
 
-      v48 = [v15 countByEnumeratingWithState:&v51 objects:v55 count:16];
+      v47 = [v15 countByEnumeratingWithState:&v50 objects:v54 count:16];
     }
 
-    while (v48);
+    while (v47);
   }
 
-  allObjects = [v45 allObjects];
+  allObjects = [v44 allObjects];
   [(HMDAssistantCommand *)selfCopy reportResults:allObjects handler:handlerCopy];
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __95__HMDAssistantCommand_handleGetNaturalLightingAction_forObjects_serviceType_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -6179,7 +6142,7 @@ uint64_t __95__HMDAssistantCommand_handleGetNaturalLightingAction_forObjects_ser
 
 - (void)handleGetActionTypes:(id)types serviceType:(id)type forObjects:(id)objects completionHandler:(id)handler
 {
-  v105[1] = *MEMORY[0x277D85DE8];
+  v104[1] = *MEMORY[0x277D85DE8];
   typesCopy = types;
   typeCopy = type;
   objectsCopy = objects;
@@ -6189,7 +6152,7 @@ uint64_t __95__HMDAssistantCommand_handleGetNaturalLightingAction_forObjects_ser
   val = self;
   v14 = MEMORY[0x22AAD2510](self, a2);
   1757 = [v13 stringWithFormat:@"%@, %s:%ld", v14, "/Library/Caches/com.apple.xbs/Sources/HomeKit_executables/Sources/homed/Assistant/HMDAssistantCommand.m", 1757];
-  v71 = [v12 initWithName:1757];
+  v70 = [v12 initWithName:1757];
 
   attribute = [typesCopy attribute];
 
@@ -6221,69 +6184,69 @@ uint64_t __95__HMDAssistantCommand_handleGetNaturalLightingAction_forObjects_ser
 
         if ([v27 count])
         {
-          v68 = +[HMDHAPMetadata getSharedInstance];
+          v67 = +[HMDHAPMetadata getSharedInstance];
           actionType2 = [typesCopy actionType];
           v29 = [actionType2 isEqualToString:*MEMORY[0x277D47E98]];
 
           attribute5 = [typesCopy attribute];
           if (v29)
           {
-            [v68 mapWriteCharacteristicFromAssistantName:attribute5];
+            [v67 mapWriteCharacteristicFromAssistantName:attribute5];
           }
 
           else
           {
-            [v68 mapReadCharacteristicFromAssistantName:attribute5];
+            [v67 mapReadCharacteristicFromAssistantName:attribute5];
           }
-          v67 = ;
+          v66 = ;
 
-          if (v67)
+          if (v66)
           {
-            v66 = [v68 getAliasedCharacteristicTypes:?];
-            if ([v66 count])
+            v65 = [v67 getAliasedCharacteristicTypes:?];
+            if ([v65 count])
             {
-              v65 = [v66 arrayByAddingObject:v67];
-              [(HMDAssistantCommand *)self filterObjects:v27 forCharacteristicTypes:v65];
+              v64 = [v65 arrayByAddingObject:v66];
+              [(HMDAssistantCommand *)self filterObjects:v27 forCharacteristicTypes:v64];
             }
 
             else
             {
-              v105[0] = v67;
-              v65 = [MEMORY[0x277CBEA60] arrayWithObjects:v105 count:1];
-              [(HMDAssistantCommand *)self filterObjects:v27 forCharacteristicTypes:v65];
+              v104[0] = v66;
+              v64 = [MEMORY[0x277CBEA60] arrayWithObjects:v104 count:1];
+              [(HMDAssistantCommand *)self filterObjects:v27 forCharacteristicTypes:v64];
             }
             obj = ;
             if ([obj count])
             {
-              v64 = [MEMORY[0x277CBEB58] setWithArray:v27];
+              v63 = [MEMORY[0x277CBEB58] setWithArray:v27];
               v36 = [MEMORY[0x277CBEB98] setWithArray:obj];
-              v37 = [(HMDAssistantCommand *)self addCharacteristicsFromRelatedServicesFor:v36 assistantObjects:v64];
+              v37 = [(HMDAssistantCommand *)self addCharacteristicsFromRelatedServicesFor:v36 assistantObjects:v63];
               allObjects = [v37 allObjects];
 
-              allObjects2 = [v64 allObjects];
+              allObjects2 = [v63 allObjects];
 
               v39 = [(HMDAssistantCommand *)self addStatusCharacteristicsIfNeeded:allObjects];
 
               weakToStrongObjectsMapTable = [MEMORY[0x277CCAB00] weakToStrongObjectsMapTable];
-              v97 = 0u;
-              v98 = 0u;
-              v95 = 0u;
               v96 = 0u;
+              v97 = 0u;
+              v94 = 0u;
+              v95 = 0u;
               obj = v39;
-              v41 = [obj countByEnumeratingWithState:&v95 objects:v104 count:16];
+              v41 = [obj countByEnumeratingWithState:&v94 objects:v103 count:16];
               if (v41)
               {
-                v42 = *v96;
+                v42 = *v95;
                 do
                 {
                   for (i = 0; i != v41; ++i)
                   {
-                    if (*v96 != v42)
+                    if (*v95 != v42)
                     {
                       objc_enumerationMutation(obj);
                     }
 
-                    v44 = *(*(&v95 + 1) + 8 * i);
+                    v44 = *(*(&v94 + 1) + 8 * i);
                     service = [v44 service];
                     accessory = [service accessory];
                     home = [accessory home];
@@ -6299,7 +6262,7 @@ uint64_t __95__HMDAssistantCommand_handleGetNaturalLightingAction_forObjects_ser
                     [array addObjectsFromArray:v49];
                   }
 
-                  v41 = [obj countByEnumeratingWithState:&v95 objects:v104 count:16];
+                  v41 = [obj countByEnumeratingWithState:&v94 objects:v103 count:16];
                 }
 
                 while (v41);
@@ -6309,50 +6272,50 @@ uint64_t __95__HMDAssistantCommand_handleGetNaturalLightingAction_forObjects_ser
               *buf = 0;
               *&buf[8] = buf;
               *&buf[16] = 0x3032000000;
-              v101 = __Block_byref_object_copy__19541;
-              v102 = __Block_byref_object_dispose__19542;
+              v100 = __Block_byref_object_copy__19541;
+              v101 = __Block_byref_object_dispose__19542;
               array2 = [MEMORY[0x277CBEB18] array];
               objc_initWeak(&location, self);
-              v92 = 0u;
-              v93 = 0u;
-              v90 = 0u;
               v91 = 0u;
+              v92 = 0u;
+              v89 = 0u;
+              v90 = 0u;
               v51 = weakToStrongObjectsMapTable;
-              v52 = [v51 countByEnumeratingWithState:&v90 objects:v99 count:16];
+              v52 = [v51 countByEnumeratingWithState:&v89 objects:v98 count:16];
               if (v52)
               {
-                v53 = *v91;
+                v53 = *v90;
                 do
                 {
                   for (j = 0; j != v52; ++j)
                   {
-                    if (*v91 != v53)
+                    if (*v90 != v53)
                     {
                       objc_enumerationMutation(v51);
                     }
 
-                    v55 = *(*(&v90 + 1) + 8 * j);
+                    v55 = *(*(&v89 + 1) + 8 * j);
                     dispatch_group_enter(v50);
                     v56 = [v51 objectForKey:v55];
                     assistantCommandHelper = [(HMDAssistantCommand *)val assistantCommandHelper];
-                    v81[0] = MEMORY[0x277D85DD0];
-                    v81[1] = 3221225472;
-                    v81[2] = __85__HMDAssistantCommand_handleGetActionTypes_serviceType_forObjects_completionHandler___block_invoke;
-                    v81[3] = &unk_278670F20;
-                    objc_copyWeak(&v89, &location);
-                    v82 = v50;
-                    v87 = handlerCopy;
-                    v83 = typesCopy;
-                    v84 = typeCopy;
-                    v88 = buf;
-                    v85 = allObjects2;
-                    v86 = v71;
-                    [assistantCommandHelper addReadRequests:v56 home:v55 completion:v81];
+                    v80[0] = MEMORY[0x277D85DD0];
+                    v80[1] = 3221225472;
+                    v80[2] = __85__HMDAssistantCommand_handleGetActionTypes_serviceType_forObjects_completionHandler___block_invoke;
+                    v80[3] = &unk_278670F20;
+                    objc_copyWeak(&v88, &location);
+                    v81 = v50;
+                    v86 = handlerCopy;
+                    v82 = typesCopy;
+                    v83 = typeCopy;
+                    v87 = buf;
+                    v84 = allObjects2;
+                    v85 = v70;
+                    [assistantCommandHelper addReadRequests:v56 home:v55 completion:v80];
 
-                    objc_destroyWeak(&v89);
+                    objc_destroyWeak(&v88);
                   }
 
-                  v52 = [v51 countByEnumeratingWithState:&v90 objects:v99 count:16];
+                  v52 = [v51 countByEnumeratingWithState:&v89 objects:v98 count:16];
                 }
 
                 while (v52);
@@ -6363,10 +6326,10 @@ uint64_t __95__HMDAssistantCommand_handleGetNaturalLightingAction_forObjects_ser
               block[1] = 3221225472;
               block[2] = __85__HMDAssistantCommand_handleGetActionTypes_serviceType_forObjects_completionHandler___block_invoke_109;
               block[3] = &unk_278686E40;
-              v77 = v71;
-              v78 = val;
-              v80 = buf;
-              v79 = handlerCopy;
+              v76 = v70;
+              v77 = val;
+              v79 = buf;
+              v78 = handlerCopy;
               dispatch_group_notify(v50, queue, block);
 
               objc_destroyWeak(&location);
@@ -6440,13 +6403,11 @@ uint64_t __95__HMDAssistantCommand_handleGetNaturalLightingAction_forObjects_ser
     objc_autoreleasePoolPop(v19);
     [(HMDAssistantCommand *)selfCopy3 returnResults:objectsCopy serviceType:typeCopy forAction:typesCopy completionHandler:handlerCopy];
   }
-
-  v63 = *MEMORY[0x277D85DE8];
 }
 
 void __85__HMDAssistantCommand_handleGetActionTypes_serviceType_forObjects_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 88));
@@ -6458,13 +6419,13 @@ void __85__HMDAssistantCommand_handleGetActionTypes_serviceType_forObjects_compl
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v18 = 138543874;
-      v19 = v11;
-      v20 = 2112;
-      v21 = v5;
-      v22 = 2112;
-      v23 = v6;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Received error %@ for read request with response tuples: %@", &v18, 0x20u);
+      v17 = 138543874;
+      v18 = v11;
+      v19 = 2112;
+      v20 = v5;
+      v21 = 2112;
+      v22 = v6;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Received error %@ for read request with response tuples: %@", &v17, 0x20u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -6508,13 +6469,11 @@ LABEL_10:
     dispatch_group_leave(*(a1 + 32));
     (*(*(a1 + 72) + 16))();
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __85__HMDAssistantCommand_handleGetActionTypes_serviceType_forObjects_completionHandler___block_invoke_109(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) begin];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 40);
@@ -6522,21 +6481,19 @@ uint64_t __85__HMDAssistantCommand_handleGetActionTypes_serviceType_forObjects_c
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@All results have been received for get-action-types, calling result handler", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@All results have been received for get-action-types, calling result handler", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
   [*(a1 + 40) reportResults:*(*(*(a1 + 56) + 8) + 40) handler:*(a1 + 48)];
-  result = [*(a1 + 32) end];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) end];
 }
 
 - (void)handleMediaAccessorySetActionType:(id)type forObjects:(id)objects withServiceType:(id)serviceType completionHandler:(id)handler
 {
-  v85 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   objectsCopy = objects;
   serviceTypeCopy = serviceType;
@@ -6545,13 +6502,13 @@ uint64_t __85__HMDAssistantCommand_handleGetActionTypes_serviceType_forObjects_c
   v12 = MEMORY[0x277CCACA8];
   v13 = MEMORY[0x22AAD2510](self, a2);
   1678 = [v12 stringWithFormat:@"%@, %s:%ld", v13, "/Library/Caches/com.apple.xbs/Sources/HomeKit_executables/Sources/homed/Assistant/HMDAssistantCommand.m", 1678];
-  v46 = [v11 initWithName:1678];
+  v45 = [v11 initWithName:1678];
 
   attribute = [typeCopy attribute];
 
   if (attribute)
   {
-    v48 = [(HMDAssistantCommand *)self getValueOfType:0 action:typeCopy];
+    v47 = [(HMDAssistantCommand *)self getValueOfType:0 action:typeCopy];
     attribute2 = [typeCopy attribute];
     v17 = [attribute2 isEqualToString:*MEMORY[0x277D48048]];
 
@@ -6559,29 +6516,29 @@ uint64_t __85__HMDAssistantCommand_handleGetActionTypes_serviceType_forObjects_c
     {
       v18 = @"HMDMediaProfileSetPowerKey";
       weakToStrongObjectsMapTable = [MEMORY[0x277CCAB00] weakToStrongObjectsMapTable];
-      v76 = 0u;
-      v77 = 0u;
-      v74 = 0u;
       v75 = 0u;
+      v76 = 0u;
+      v73 = 0u;
+      v74 = 0u;
       obj = objectsCopy;
-      v20 = [obj countByEnumeratingWithState:&v74 objects:v84 count:16];
+      v20 = [obj countByEnumeratingWithState:&v73 objects:v83 count:16];
       if (v20)
       {
-        v21 = *v75;
+        v21 = *v74;
         do
         {
           v22 = 0;
           do
           {
-            if (*v75 != v21)
+            if (*v74 != v21)
             {
               objc_enumerationMutation(obj);
             }
 
-            v23 = [(HMDAssistantCommand *)self mediaProfileFromObject:*(*(&v74 + 1) + 8 * v22)];
+            v23 = [(HMDAssistantCommand *)self mediaProfileFromObject:*(*(&v73 + 1) + 8 * v22)];
             if (v23)
             {
-              v24 = [HMDMediaPropertyWriteRequest writeRequestWithProperty:@"HMDMediaProfileSetPowerKey" value:v48 mediaProfile:v23];
+              v24 = [HMDMediaPropertyWriteRequest writeRequestWithProperty:@"HMDMediaProfileSetPowerKey" value:v47 mediaProfile:v23];
               accessory = [v23 accessory];
               home = [accessory home];
 
@@ -6602,7 +6559,7 @@ uint64_t __85__HMDAssistantCommand_handleGetActionTypes_serviceType_forObjects_c
           }
 
           while (v20 != v22);
-          v20 = [obj countByEnumeratingWithState:&v74 objects:v84 count:16];
+          v20 = [obj countByEnumeratingWithState:&v73 objects:v83 count:16];
         }
 
         while (v20);
@@ -6611,58 +6568,58 @@ uint64_t __85__HMDAssistantCommand_handleGetActionTypes_serviceType_forObjects_c
       v28 = dispatch_group_create();
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v80 = 0x3032000000;
-      v81 = __Block_byref_object_copy__19541;
-      v82 = __Block_byref_object_dispose__19542;
+      v79 = 0x3032000000;
+      v80 = __Block_byref_object_copy__19541;
+      v81 = __Block_byref_object_dispose__19542;
       array2 = [MEMORY[0x277CBEB18] array];
+      v69 = 0u;
       v70 = 0u;
       v71 = 0u;
       v72 = 0u;
-      v73 = 0u;
       v29 = weakToStrongObjectsMapTable;
-      v30 = [v29 countByEnumeratingWithState:&v70 objects:v78 count:16];
+      v30 = [v29 countByEnumeratingWithState:&v69 objects:v77 count:16];
       if (v30)
       {
-        v49 = *v71;
+        v48 = *v70;
         do
         {
           v31 = 0;
           do
           {
-            if (*v71 != v49)
+            if (*v70 != v48)
             {
               objc_enumerationMutation(v29);
             }
 
-            v32 = *(*(&v70 + 1) + 8 * v31);
+            v32 = *(*(&v69 + 1) + 8 * v31);
             dispatch_group_enter(v28);
             v33 = [v29 objectForKey:v32];
             objc_initWeak(&location, self);
             assistantCommandHelper = [(HMDAssistantCommand *)self assistantCommandHelper];
-            v59[0] = MEMORY[0x277D85DD0];
-            v59[1] = 3221225472;
-            v59[2] = __102__HMDAssistantCommand_handleMediaAccessorySetActionType_forObjects_withServiceType_completionHandler___block_invoke;
-            v59[3] = &unk_278670EF8;
-            objc_copyWeak(&v68, &location);
-            v60 = v28;
-            v66 = handlerCopy;
-            v61 = typeCopy;
-            v62 = serviceTypeCopy;
-            v63 = v32;
+            v58[0] = MEMORY[0x277D85DD0];
+            v58[1] = 3221225472;
+            v58[2] = __102__HMDAssistantCommand_handleMediaAccessorySetActionType_forObjects_withServiceType_completionHandler___block_invoke;
+            v58[3] = &unk_278670EF8;
+            objc_copyWeak(&v67, &location);
+            v59 = v28;
+            v65 = handlerCopy;
+            v60 = typeCopy;
+            v61 = serviceTypeCopy;
+            v62 = v32;
             v35 = @"HMDMediaProfileSetPowerKey";
-            v64 = @"HMDMediaProfileSetPowerKey";
+            v63 = @"HMDMediaProfileSetPowerKey";
             p_buf = &buf;
-            v65 = obj;
-            [assistantCommandHelper addMediaWriteRequests:v33 withRequestProperty:@"HMDMediaProfileSetPowerKey" completion:v59];
+            v64 = obj;
+            [assistantCommandHelper addMediaWriteRequests:v33 withRequestProperty:@"HMDMediaProfileSetPowerKey" completion:v58];
 
-            objc_destroyWeak(&v68);
+            objc_destroyWeak(&v67);
             objc_destroyWeak(&location);
 
             ++v31;
           }
 
           while (v30 != v31);
-          v30 = [v29 countByEnumeratingWithState:&v70 objects:v78 count:16];
+          v30 = [v29 countByEnumeratingWithState:&v69 objects:v77 count:16];
         }
 
         while (v30);
@@ -6673,10 +6630,10 @@ uint64_t __85__HMDAssistantCommand_handleGetActionTypes_serviceType_forObjects_c
       block[1] = 3221225472;
       block[2] = __102__HMDAssistantCommand_handleMediaAccessorySetActionType_forObjects_withServiceType_completionHandler___block_invoke_106;
       block[3] = &unk_278686E40;
-      v55 = v46;
+      v54 = v45;
       selfCopy = self;
-      v58 = &buf;
-      v57 = handlerCopy;
+      v57 = &buf;
+      v56 = handlerCopy;
       dispatch_group_notify(v28, queue, block);
 
       _Block_object_dispose(&buf, 8);
@@ -6716,13 +6673,11 @@ uint64_t __85__HMDAssistantCommand_handleGetActionTypes_serviceType_forObjects_c
     objc_autoreleasePoolPop(v37);
     [(HMDAssistantCommand *)selfCopy3 reportOutcome:*MEMORY[0x277D480C8] results:0 handler:handlerCopy];
   }
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 void __102__HMDAssistantCommand_handleMediaAccessorySetActionType_forObjects_withServiceType_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 96));
@@ -6735,11 +6690,11 @@ void __102__HMDAssistantCommand_handleMediaAccessorySetActionType_forObjects_wit
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v14 = v11;
-      v15 = 2112;
-      v16 = v5;
-      v17 = 2112;
-      v18 = v6;
+      v13 = v11;
+      v14 = 2112;
+      v15 = v5;
+      v16 = 2112;
+      v17 = v6;
       _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Received error %@ for read/write request with responses %@", buf, 0x20u);
     }
 
@@ -6753,13 +6708,11 @@ void __102__HMDAssistantCommand_handleMediaAccessorySetActionType_forObjects_wit
     dispatch_group_leave(*(a1 + 32));
     (*(*(a1 + 80) + 16))();
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __102__HMDAssistantCommand_handleMediaAccessorySetActionType_forObjects_withServiceType_completionHandler___block_invoke_106(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) begin];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 40);
@@ -6767,21 +6720,19 @@ uint64_t __102__HMDAssistantCommand_handleMediaAccessorySetActionType_forObjects
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@All results have been received for Apple Media Accessory get-action-types, calling result handler", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@All results have been received for Apple Media Accessory get-action-types, calling result handler", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
   [*(a1 + 40) reportResults:*(*(*(a1 + 56) + 8) + 40) handler:*(a1 + 48)];
-  result = [*(a1 + 32) end];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) end];
 }
 
 - (BOOL)populateResult:(id)result fromResponse:(id)response responses:(id)responses forAction:(id)action serviceType:(id)type forObjects:(id)objects
 {
-  v91 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   responseCopy = response;
   responsesCopy = responses;
@@ -6803,8 +6754,8 @@ uint64_t __102__HMDAssistantCommand_handleMediaAccessorySetActionType_forObjects
 
   error = [responseCopy error];
   service = [characteristic service];
-  v80 = service;
-  v75 = error;
+  v79 = service;
+  v74 = error;
   if (error)
   {
     v23 = service;
@@ -6816,7 +6767,7 @@ uint64_t __102__HMDAssistantCommand_handleMediaAccessorySetActionType_forObjects
   {
     request2 = [responseCopy request];
     [request2 characteristic];
-    v26 = v73 = characteristic;
+    v26 = v72 = characteristic;
     [v26 value];
     v28 = v27 = actionCopy;
     request3 = [responseCopy request];
@@ -6830,10 +6781,10 @@ uint64_t __102__HMDAssistantCommand_handleMediaAccessorySetActionType_forObjects
     resultCopy = v32;
     responseCopy = v30;
 
-    v23 = v80;
+    v23 = v79;
     actionCopy = v27;
 
-    characteristic = v73;
+    characteristic = v72;
     outcome = [v32 outcome];
 
     if (!outcome)
@@ -6877,44 +6828,44 @@ uint64_t __102__HMDAssistantCommand_handleMediaAccessorySetActionType_forObjects
       v58 = typeCopy;
     }
 
-    v42 = v80;
+    v42 = v79;
     goto LABEL_44;
   }
 
-  v74 = characteristic;
-  v88 = 0u;
-  v89 = 0u;
-  v86 = 0u;
+  v73 = characteristic;
   v87 = 0u;
+  v88 = 0u;
+  v85 = 0u;
+  v86 = 0u;
   obj = responsesCopy;
-  v39 = [obj countByEnumeratingWithState:&v86 objects:v90 count:16];
+  v39 = [obj countByEnumeratingWithState:&v85 objects:v89 count:16];
   if (!v39)
   {
     v55 = 0;
-    v42 = v80;
+    v42 = v79;
     goto LABEL_43;
   }
 
   v40 = v39;
-  v70 = actionCopy;
-  v71 = responseCopy;
-  v72 = resultCopy;
-  v41 = *v87;
-  v42 = v80;
-  v82 = *v87;
+  v69 = actionCopy;
+  v70 = responseCopy;
+  v71 = resultCopy;
+  v41 = *v86;
+  v42 = v79;
+  v81 = *v86;
   while (2)
   {
     v43 = 0;
-    v83 = v40;
+    v82 = v40;
     do
     {
-      if (*v87 != v41)
+      if (*v86 != v41)
       {
         objc_enumerationMutation(obj);
       }
 
-      v85 = *(*(&v86 + 1) + 8 * v43);
-      request4 = [v85 request];
+      v84 = *(*(&v85 + 1) + 8 * v43);
+      request4 = [v84 request];
       characteristic2 = [request4 characteristic];
 
       service2 = [characteristic2 service];
@@ -6934,24 +6885,24 @@ uint64_t __102__HMDAssistantCommand_handleMediaAccessorySetActionType_forObjects
       {
 
         characteristic2 = v51;
-        v41 = v82;
-        v40 = v83;
+        v41 = v81;
+        v40 = v82;
 LABEL_18:
 
         goto LABEL_19;
       }
 
       type5 = [v51 type];
-      v81 = [type5 isEqualToString:@"00000065-0000-1000-8000-0026BB765291"];
+      v80 = [type5 isEqualToString:@"00000065-0000-1000-8000-0026BB765291"];
 
-      v42 = v80;
+      v42 = v79;
       characteristic2 = v51;
 
-      v41 = v82;
-      v40 = v83;
-      if (v81)
+      v41 = v81;
+      v40 = v82;
+      if (v80)
       {
-        value = [v85 value];
+        value = [v84 value];
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
         if (isKindOfClass)
@@ -6968,8 +6919,8 @@ LABEL_18:
 
         if (v62)
         {
-          responseCopy = v71;
-          resultCopy = v72;
+          responseCopy = v70;
+          resultCopy = v71;
           if ([v62 unsignedIntegerValue])
           {
             if ([v62 unsignedIntegerValue] != 1)
@@ -6992,8 +6943,8 @@ LABEL_18:
         else
         {
           v55 = 0;
-          responseCopy = v71;
-          resultCopy = v72;
+          responseCopy = v70;
+          resultCopy = v71;
         }
 
 LABEL_41:
@@ -7007,7 +6958,7 @@ LABEL_19:
     }
 
     while (v40 != v43);
-    v40 = [obj countByEnumeratingWithState:&v86 objects:v90 count:16];
+    v40 = [obj countByEnumeratingWithState:&v85 objects:v89 count:16];
     if (v40)
     {
       continue;
@@ -7017,14 +6968,14 @@ LABEL_19:
   }
 
   v55 = 0;
-  responseCopy = v71;
-  resultCopy = v72;
+  responseCopy = v70;
+  resultCopy = v71;
 LABEL_42:
-  actionCopy = v70;
+  actionCopy = v69;
 LABEL_43:
 
   v58 = typeCopy;
-  characteristic = v74;
+  characteristic = v73;
 LABEL_44:
   v66 = v42;
   v67 = v42;
@@ -7032,13 +6983,12 @@ LABEL_44:
   v19 = [HMDAssistantCommand populateResult:"populateResult:withService:serviceType:characteristic:resultAttribute:action:" withService:resultCopy serviceType:v66 characteristic:? resultAttribute:? action:?];
 
 LABEL_45:
-  v68 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 - (void)handleGetMetadataActionTypes:(id)types serviceType:(id)type forObjects:(id)objects completionHandler:(id)handler
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   typesCopy = types;
   typeCopy = type;
   objectsCopy = objects;
@@ -7067,45 +7017,45 @@ LABEL_45:
 
         else
         {
-          v71 = v19;
-          v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v71 count:1];
+          v70 = v19;
+          v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v70 count:1];
         }
 
         v33 = v21;
         v34 = [(HMDAssistantCommand *)self filterObjects:v16 forCharacteristicTypes:v21];
         if ([v34 count])
         {
-          v53 = v33;
-          v54 = v20;
-          v56 = handlerCopy;
-          v57 = v19;
-          v55 = v17;
+          v52 = v33;
+          v53 = v20;
+          v55 = handlerCopy;
+          v56 = v19;
+          v54 = v17;
           array = [MEMORY[0x277CBEB18] array];
           includeCompleteInformation = [typesCopy includeCompleteInformation];
+          v65 = 0u;
           v66 = 0u;
           v67 = 0u;
           v68 = 0u;
-          v69 = 0u;
           obj = v34;
-          v65 = [obj countByEnumeratingWithState:&v66 objects:v70 count:16];
-          if (v65)
+          v64 = [obj countByEnumeratingWithState:&v65 objects:v69 count:16];
+          if (v64)
           {
-            v62 = *v67;
-            v61 = *MEMORY[0x277D47E50];
+            v61 = *v66;
+            v60 = *MEMORY[0x277D47E50];
             selfCopy = self;
             do
             {
-              for (i = 0; i != v65; ++i)
+              for (i = 0; i != v64; ++i)
               {
-                if (*v67 != v62)
+                if (*v66 != v61)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v36 = *(*(&v66 + 1) + 8 * i);
+                v36 = *(*(&v65 + 1) + 8 * i);
                 service = [v36 service];
                 v38 = actionResultForAction(typesCopy);
-                [v38 setOutcome:v61];
+                [v38 setOutcome:v60];
                 v39 = entityForService(service, typeCopy, v16, includeCompleteInformation);
                 [v38 setEntity:v39];
 
@@ -7125,9 +7075,9 @@ LABEL_45:
                     HMFGetLogIdentifier();
                     v45 = v44 = typesCopy;
                     *buf = 138543618;
-                    v73 = v45;
-                    v74 = 2112;
-                    v75 = v38;
+                    v72 = v45;
+                    v73 = 2112;
+                    v74 = v38;
                     _os_log_impl(&dword_229538000, v43, OS_LOG_TYPE_INFO, "%{public}@Not including the result: %@ to the action results", buf, 0x16u);
 
                     typesCopy = v44;
@@ -7139,10 +7089,10 @@ LABEL_45:
                 }
               }
 
-              v65 = [obj countByEnumeratingWithState:&v66 objects:v70 count:16];
+              v64 = [obj countByEnumeratingWithState:&v65 objects:v69 count:16];
             }
 
-            while (v65);
+            while (v64);
           }
 
           v46 = v16;
@@ -7155,21 +7105,21 @@ LABEL_45:
             HMFGetLogIdentifier();
             v51 = v50 = typesCopy;
             *buf = 138543362;
-            v73 = v51;
+            v72 = v51;
             _os_log_impl(&dword_229538000, v49, OS_LOG_TYPE_INFO, "%{public}@All results have been received for get-metadata-action-types, calling result handler", buf, 0xCu);
 
             typesCopy = v50;
           }
 
           objc_autoreleasePoolPop(v47);
-          handlerCopy = v56;
-          [(HMDAssistantCommand *)selfCopy3 reportResults:array handler:v56];
+          handlerCopy = v55;
+          [(HMDAssistantCommand *)selfCopy3 reportResults:array handler:v55];
 
           v16 = v46;
-          v20 = v54;
-          v17 = v55;
-          v19 = v57;
-          v33 = v53;
+          v20 = v53;
+          v17 = v54;
+          v19 = v56;
+          v33 = v52;
         }
 
         else
@@ -7190,9 +7140,9 @@ LABEL_45:
           v31 = HMFGetLogIdentifier();
           attribute4 = [typesCopy attribute];
           *buf = 138543618;
-          v73 = v31;
-          v74 = 2112;
-          v75 = attribute4;
+          v72 = v31;
+          v73 = 2112;
+          v74 = attribute4;
           _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_DEFAULT, "%{public}@Cannot map actionAttribute(%@) to a characteristicType", buf, 0x16u);
         }
 
@@ -7221,20 +7171,18 @@ LABEL_45:
     {
       v25 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v73 = v25;
+      v72 = v25;
       _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@In Get metadata action types, There is no attribute in action, reporting results", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v22);
     [(HMDAssistantCommand *)selfCopy5 returnResults:objectsCopy serviceType:typeCopy forAction:typesCopy completionHandler:handlerCopy];
   }
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 - (void)executeActionSet:(id)set action:(id)action withCompletionHandler:(id)handler
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   setCopy = set;
   actionCopy = action;
   handlerCopy = handler;
@@ -7242,7 +7190,7 @@ LABEL_45:
   v12 = MEMORY[0x277CCACA8];
   v13 = MEMORY[0x22AAD2510](self, a2);
   1452 = [v12 stringWithFormat:@"%@, %s:%ld", v13, "/Library/Caches/com.apple.xbs/Sources/HomeKit_executables/Sources/homed/Assistant/HMDAssistantCommand.m", 1452];
-  v33 = [v11 initWithName:1452];
+  v32 = [v11 initWithName:1452];
 
   attribute = [actionCopy attribute];
   LOBYTE(v13) = [*MEMORY[0x277D47F80] isEqualToString:attribute];
@@ -7261,18 +7209,18 @@ LABEL_45:
     {
       objc_initWeak(location, self);
       assistantCommandHelper = [(HMDAssistantCommand *)self assistantCommandHelper];
-      v35[0] = MEMORY[0x277D85DD0];
-      v35[1] = 3221225472;
-      v35[2] = __69__HMDAssistantCommand_executeActionSet_action_withCompletionHandler___block_invoke;
-      v35[3] = &unk_278670ED0;
-      objc_copyWeak(&v40, location);
-      v36 = v33;
-      v39 = handlerCopy;
-      v37 = actionCopy;
-      v38 = setCopy;
-      [assistantCommandHelper addActionSetRequest:home actionSet:v38 completionHandler:v35];
+      v34[0] = MEMORY[0x277D85DD0];
+      v34[1] = 3221225472;
+      v34[2] = __69__HMDAssistantCommand_executeActionSet_action_withCompletionHandler___block_invoke;
+      v34[3] = &unk_278670ED0;
+      objc_copyWeak(&v39, location);
+      v35 = v32;
+      v38 = handlerCopy;
+      v36 = actionCopy;
+      v37 = setCopy;
+      [assistantCommandHelper addActionSetRequest:home actionSet:v37 completionHandler:v34];
 
-      objc_destroyWeak(&v40);
+      objc_destroyWeak(&v39);
       objc_destroyWeak(location);
     }
 
@@ -7286,8 +7234,8 @@ LABEL_45:
         v31 = HMFGetLogIdentifier();
         *location = 138543618;
         *&location[4] = v31;
-        v42 = 2112;
-        v43 = v21;
+        v41 = 2112;
+        v42 = v21;
         _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_DEFAULT, "%{public}@ActionSet action value %@ not true", location, 0x16u);
       }
 
@@ -7307,21 +7255,19 @@ LABEL_45:
       attribute3 = [actionCopy attribute];
       *location = 138543618;
       *&location[4] = v26;
-      v42 = 2112;
-      v43 = attribute3;
+      v41 = 2112;
+      v42 = attribute3;
       _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@Invalid action.attribute %@ for actionSet", location, 0x16u);
     }
 
     objc_autoreleasePoolPop(v23);
     [(HMDAssistantCommand *)selfCopy2 reportOutcome:*MEMORY[0x277D480C8] results:0 handler:handlerCopy];
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __69__HMDAssistantCommand_executeActionSet_action_withCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 64));
@@ -7346,13 +7292,13 @@ void __69__HMDAssistantCommand_executeActionSet_action_withCompletionHandler___b
 
   v10 = actionResultForAction(*(a1 + 40));
   v11 = objc_alloc_init(MEMORY[0x277D47340]);
-  v26 = [WeakRetained entityFromActionSet:*(a1 + 48)];
+  v25 = [WeakRetained entityFromActionSet:*(a1 + 48)];
   [WeakRetained populateResultWithEntity:v10 action:*(a1 + 40) entity:?];
   v12 = *MEMORY[0x277D480D0];
   [v11 setValue:1];
   if (!v5)
   {
-    v25 = v12;
+    v24 = v12;
     [v10 setOutcome:*MEMORY[0x277D47E50]];
 LABEL_16:
     v15 = 0;
@@ -7401,7 +7347,7 @@ LABEL_13:
   }
 
 LABEL_14:
-  v25 = v12;
+  v24 = v12;
   if (!v6)
   {
     goto LABEL_16;
@@ -7416,16 +7362,16 @@ LABEL_17:
   if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
     HMFGetLogIdentifier();
-    v24 = v6;
+    v23 = v6;
     v20 = v19 = v11;
     *buf = 138543618;
-    v28 = v20;
-    v29 = 2112;
-    v30 = v10;
+    v27 = v20;
+    v28 = 2112;
+    v29 = v10;
     _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Result received for execute action set: %@, calling result handler", buf, 0x16u);
 
     v11 = v19;
-    v6 = v24;
+    v6 = v23;
   }
 
   objc_autoreleasePoolPop(v16);
@@ -7435,13 +7381,11 @@ LABEL_17:
     [v21 addObjectsFromArray:v15];
   }
 
-  v22 = [v21 copy];
-  [v17 reportOutcome:v25 results:v22 handler:*(a1 + 56)];
+  v22 = objc_msgSend_copy(v21);
+  [v17 reportOutcome:v24 results:v22 handler:*(a1 + 56)];
 
   [*(a1 + 32) end];
 LABEL_22:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (id)actionOutcomeFromError:(id)error
@@ -7546,34 +7490,34 @@ LABEL_25:
 
 - (void)returnResults:(id)results serviceType:(id)type forAction:(id)action completionHandler:(id)handler
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
   typeCopy = type;
   actionCopy = action;
   handlerCopy = handler;
   array = [MEMORY[0x277CBEB18] array];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = resultsCopy;
-  v14 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v14 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v25;
+    v16 = *v24;
     v17 = *MEMORY[0x277D47E50];
     do
     {
       v18 = 0;
       do
       {
-        if (*v25 != v16)
+        if (*v24 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v24 + 1) + 8 * v18);
+        v19 = *(*(&v23 + 1) + 8 * v18);
         v20 = actionResultForAction(actionCopy);
         [v20 setOutcome:v17];
         [(HMDAssistantCommand *)self populateResult:v20 withObject:v19 serviceType:typeCopy action:actionCopy];
@@ -7583,14 +7527,13 @@ LABEL_25:
       }
 
       while (v15 != v18);
-      v15 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v15 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v15);
   }
 
   [(HMDAssistantCommand *)self reportResults:array handler:handlerCopy];
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportUnlockRequired:(id)required
@@ -7629,7 +7572,7 @@ LABEL_25:
 
 - (void)reportOutcome:(id)outcome results:(id)results handler:(id)handler
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   outcomeCopy = outcome;
   resultsCopy = results;
   handlerCopy = handler;
@@ -7659,9 +7602,9 @@ LABEL_25:
       [v11 setHomeIdentifier:v17];
     }
 
-    v41 = handlerCopy;
-    v43 = resultsCopy;
-    v44 = outcomeCopy;
+    v40 = handlerCopy;
+    v42 = resultsCopy;
+    v43 = outcomeCopy;
     serverValidity = [(HMDAssistantCommand *)self serverValidity];
     [v11 setServerValidity:serverValidity];
 
@@ -7682,110 +7625,108 @@ LABEL_25:
       aceId = [(HMDAssistantCommand *)self aceId];
       hm_headerDescription = [v11 hm_headerDescription];
       *buf = 138543874;
-      v51 = v26;
-      v52 = 2112;
-      v53 = aceId;
-      v54 = 2112;
-      v55 = hm_headerDescription;
+      v50 = v26;
+      v51 = 2112;
+      v52 = aceId;
+      v53 = 2112;
+      v54 = hm_headerDescription;
       _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_INFO, "%{public}@Response for Siri command(%@): %@", buf, 0x20u);
     }
 
     selfCopy = self;
 
     objc_autoreleasePoolPop(v24);
-    v40 = v11;
+    v39 = v11;
     [v11 hm_contentDescription];
+    v44 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v47 = 0u;
-    v29 = v48 = 0u;
-    v30 = [v29 countByEnumeratingWithState:&v45 objects:v49 count:16];
+    v29 = v47 = 0u;
+    v30 = [v29 countByEnumeratingWithState:&v44 objects:v48 count:16];
     if (v30)
     {
       v31 = v30;
-      v32 = *v46;
+      v32 = *v45;
       do
       {
         for (i = 0; i != v31; ++i)
         {
-          if (*v46 != v32)
+          if (*v45 != v32)
           {
             objc_enumerationMutation(v29);
           }
 
-          v34 = *(*(&v45 + 1) + 8 * i);
+          v34 = *(*(&v44 + 1) + 8 * i);
           v35 = objc_autoreleasePoolPush();
           v36 = HMFGetOSLogHandle();
           if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
           {
             v37 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v51 = v37;
-            v52 = 2112;
-            v53 = v34;
+            v50 = v37;
+            v51 = 2112;
+            v52 = v34;
             _os_log_impl(&dword_229538000, v36, OS_LOG_TYPE_INFO, "%{public}@%@", buf, 0x16u);
           }
 
           objc_autoreleasePoolPop(v35);
         }
 
-        v31 = [v29 countByEnumeratingWithState:&v45 objects:v49 count:16];
+        v31 = [v29 countByEnumeratingWithState:&v44 objects:v48 count:16];
       }
 
       while (v31);
     }
 
-    dictionary = [v40 dictionary];
-    handlerCopy = v41;
-    v41[2](v41, dictionary);
+    dictionary = [v39 dictionary];
+    handlerCopy = v40;
+    v40[2](v40, dictionary);
 
-    [(HMDAssistantCommand *)selfCopy _logEvent:v40];
-    resultsCopy = v43;
-    outcomeCopy = v44;
+    [(HMDAssistantCommand *)selfCopy _logEvent:v39];
+    resultsCopy = v42;
+    outcomeCopy = v43;
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_logEvent:(id)event
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v6 = objc_alloc(MEMORY[0x277D0F770]);
   v7 = MEMORY[0x277CCACA8];
   v8 = MEMORY[0x22AAD2510](self, a2);
   1267 = [v7 stringWithFormat:@"%@, %s:%ld", v8, "/Library/Caches/com.apple.xbs/Sources/HomeKit_executables/Sources/homed/Assistant/HMDAssistantCommand.m", 1267];
-  v43 = [v6 initWithName:1267];
+  v42 = [v6 initWithName:1267];
 
   selfCopy = self;
   actions = [(HMDAssistantCommand *)self actions];
   firstObject = [actions firstObject];
 
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
-  v44 = eventCopy;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  v43 = eventCopy;
   actionResults = [eventCopy actionResults];
-  v12 = [actionResults countByEnumeratingWithState:&v46 objects:v50 count:16];
+  v12 = [actionResults countByEnumeratingWithState:&v45 objects:v49 count:16];
   if (v12)
   {
     v13 = v12;
-    v45 = 0;
+    v44 = 0;
     v14 = 0;
     v15 = 0;
-    v16 = *v47;
+    v16 = *v46;
     v17 = *MEMORY[0x277D47DF0];
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v47 != v16)
+        if (*v46 != v16)
         {
           objc_enumerationMutation(actionResults);
         }
 
-        v19 = *(*(&v46 + 1) + 8 * i);
+        v19 = *(*(&v45 + 1) + 8 * i);
         outcome = [v19 outcome];
         v21 = isOutcomeSuccess(outcome);
 
@@ -7806,8 +7747,8 @@ LABEL_25:
         }
       }
 
-      v45 += v13;
-      v13 = [actionResults countByEnumeratingWithState:&v46 objects:v50 count:16];
+      v44 += v13;
+      v13 = [actionResults countByEnumeratingWithState:&v45 objects:v49 count:16];
     }
 
     while (v13);
@@ -7815,7 +7756,7 @@ LABEL_25:
 
   else
   {
-    v45 = 0;
+    v44 = 0;
     v14 = 0;
     v15 = 0;
   }
@@ -7834,12 +7775,12 @@ LABEL_25:
       firstObject2 = atoll([firstObject2 cStringUsingEncoding:4]);
     }
 
-    v40 = firstObject2;
+    v39 = firstObject2;
   }
 
   else
   {
-    v40 = 0;
+    v39 = 0;
   }
 
   homeManager = [(HMDAssistantCommand *)selfCopy homeManager];
@@ -7852,8 +7793,8 @@ LABEL_25:
   v33 = UpTicksToMilliseconds();
   v34 = v33 - [(HMDAssistantCommand *)selfCopy startTime];
   actionType = [firstObject actionType];
-  commandOutcome = [v44 commandOutcome];
-  v37 = [HMDSiriCommandEvent commandEventWithDuration:v34 actionType:actionType outcome:commandOutcome numberOfEntities:v45 numberOfFailures:v15 numberOfIncompletions:v14 serverConfigurationVersion:v40 configurationVersion:assistantGenerationCounter lastSyncedConfigurationVersion:unsignedIntegerValue];
+  commandOutcome = [v43 commandOutcome];
+  v37 = [HMDSiriCommandEvent commandEventWithDuration:v34 actionType:actionType outcome:commandOutcome numberOfEntities:v44 numberOfFailures:v15 numberOfIncompletions:v14 serverConfigurationVersion:v39 configurationVersion:assistantGenerationCounter lastSyncedConfigurationVersion:unsignedIntegerValue];
 
   v38 = +[HMDMetricsManager sharedLogEventSubmitter];
   [v38 submitLogEvent:v37];
@@ -7861,60 +7802,59 @@ LABEL_25:
   [firstObject aceId];
   [firstObject actionType];
 
-  [v44 commandOutcome];
-  v39 = *MEMORY[0x277D85DE8];
+  [v43 commandOutcome];
 }
 
 - (id)filterObjects:(id)objects forCharacteristics:(id)characteristics
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   characteristicsCopy = characteristics;
-  v25 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(objectsCopy, "count")}];
+  v24 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(objectsCopy, "count")}];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   obj = objectsCopy;
-  v30 = [obj countByEnumeratingWithState:&v35 objects:v44 count:16];
-  if (v30)
+  v29 = [obj countByEnumeratingWithState:&v34 objects:v43 count:16];
+  if (v29)
   {
-    v29 = *v36;
+    v28 = *v35;
     selfCopy = self;
     do
     {
-      for (i = 0; i != v30; ++i)
+      for (i = 0; i != v29; ++i)
       {
-        if (*v36 != v29)
+        if (*v35 != v28)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v35 + 1) + 8 * i);
+        v8 = *(*(&v34 + 1) + 8 * i);
         v9 = [(HMDAssistantCommand *)self serviceFromObject:v8];
         if (v9)
         {
           v10 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(characteristicsCopy, "count")}];
+          v30 = 0u;
           v31 = 0u;
           v32 = 0u;
           v33 = 0u;
-          v34 = 0u;
           v11 = characteristicsCopy;
-          v12 = [v11 countByEnumeratingWithState:&v31 objects:v39 count:16];
+          v12 = [v11 countByEnumeratingWithState:&v30 objects:v38 count:16];
           if (v12)
           {
             v13 = v12;
-            v14 = *v32;
+            v14 = *v31;
             while (2)
             {
               for (j = 0; j != v13; ++j)
               {
-                if (*v32 != v14)
+                if (*v31 != v14)
                 {
                   objc_enumerationMutation(v11);
                 }
 
-                v16 = *(*(&v31 + 1) + 8 * j);
+                v16 = *(*(&v30 + 1) + 8 * j);
                 characteristics = [v9 characteristics];
                 v18 = [characteristics hmf_firstObjectWithCharacteristicType:v16];
 
@@ -7928,7 +7868,7 @@ LABEL_25:
                 [v10 setObject:v18 forKey:v16];
               }
 
-              v13 = [v11 countByEnumeratingWithState:&v31 objects:v39 count:16];
+              v13 = [v11 countByEnumeratingWithState:&v30 objects:v38 count:16];
               if (v13)
               {
                 continue;
@@ -7941,7 +7881,7 @@ LABEL_25:
           self = selfCopy;
           if (v10)
           {
-            [v25 addObject:v10];
+            [v24 addObject:v10];
             v11 = v10;
 LABEL_18:
           }
@@ -7956,9 +7896,9 @@ LABEL_18:
           {
             v22 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v41 = v22;
-            v42 = 2112;
-            v43 = v8;
+            v40 = v22;
+            v41 = 2112;
+            v42 = v8;
             _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@Filtered object %@ not a service", buf, 0x16u);
           }
 
@@ -7966,70 +7906,68 @@ LABEL_18:
         }
       }
 
-      v30 = [obj countByEnumeratingWithState:&v35 objects:v44 count:16];
+      v29 = [obj countByEnumeratingWithState:&v34 objects:v43 count:16];
     }
 
-    while (v30);
+    while (v29);
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
-  return v25;
+  return v24;
 }
 
 - (id)filterObjects:(id)objects forCharacteristicTypes:(id)types
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   typesCopy = types;
   array = [MEMORY[0x277CBEB18] array];
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
   obj = objectsCopy;
-  v38 = [obj countByEnumeratingWithState:&v48 objects:v59 count:16];
-  if (v38)
+  v37 = [obj countByEnumeratingWithState:&v47 objects:v58 count:16];
+  if (v37)
   {
-    v37 = *v49;
+    v36 = *v48;
     *&v7 = 138543618;
-    v34 = v7;
+    v33 = v7;
     p_superclass = HMDIDSActivityRegistrationModel.superclass;
     do
     {
-      for (i = 0; i != v38; ++i)
+      for (i = 0; i != v37; ++i)
       {
-        if (*v49 != v37)
+        if (*v48 != v36)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v48 + 1) + 8 * i);
-        v41 = [(HMDAssistantCommand *)self serviceFromObject:v10, v34];
-        if (v41)
+        v10 = *(*(&v47 + 1) + 8 * i);
+        v40 = [(HMDAssistantCommand *)self serviceFromObject:v10, v33];
+        if (v40)
         {
-          v39 = i;
-          v46 = 0u;
-          v47 = 0u;
-          v44 = 0u;
+          v38 = i;
           v45 = 0u;
+          v46 = 0u;
+          v43 = 0u;
+          v44 = 0u;
           v11 = typesCopy;
-          v12 = v41;
-          v43 = [v11 countByEnumeratingWithState:&v44 objects:v58 count:16];
-          if (v43)
+          v12 = v40;
+          v42 = [v11 countByEnumeratingWithState:&v43 objects:v57 count:16];
+          if (v42)
           {
-            v13 = *v45;
-            v40 = *v45;
+            v13 = *v44;
+            v39 = *v44;
             do
             {
-              for (j = 0; j != v43; ++j)
+              for (j = 0; j != v42; ++j)
               {
-                if (*v45 != v13)
+                if (*v44 != v13)
                 {
                   objc_enumerationMutation(v11);
                 }
 
-                v15 = *(*(&v44 + 1) + 8 * j);
+                v15 = *(*(&v43 + 1) + 8 * j);
                 getSharedInstance = [p_superclass + 199 getSharedInstance];
                 type = [v12 type];
                 v18 = [getSharedInstance disallowsAssistantServiceType:type characteristicType:v15];
@@ -8047,18 +7985,18 @@ LABEL_18:
                     v25 = v24 = self;
                     type2 = [v12 type];
                     *buf = 138543874;
-                    v53 = v25;
-                    v54 = 2112;
-                    v55 = type2;
-                    v56 = 2112;
-                    v57 = v15;
+                    v52 = v25;
+                    v53 = 2112;
+                    v54 = type2;
+                    v55 = 2112;
+                    v56 = v15;
                     _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Filtering out request for disallowed service type: %@ characteristic type: %@", buf, 0x20u);
 
-                    v12 = v41;
+                    v12 = v40;
                     self = v24;
                     p_superclass = v23;
                     v11 = v22;
-                    v13 = v40;
+                    v13 = v39;
                   }
 
                   objc_autoreleasePoolPop(v19);
@@ -8074,13 +8012,13 @@ LABEL_18:
                 }
               }
 
-              v43 = [v11 countByEnumeratingWithState:&v44 objects:v58 count:16];
+              v42 = [v11 countByEnumeratingWithState:&v43 objects:v57 count:16];
             }
 
-            while (v43);
+            while (v42);
           }
 
-          i = v39;
+          i = v38;
         }
 
         else
@@ -8091,10 +8029,10 @@ LABEL_18:
           if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
           {
             v31 = HMFGetLogIdentifier();
-            *buf = v34;
-            v53 = v31;
-            v54 = 2112;
-            v55 = v10;
+            *buf = v33;
+            v52 = v31;
+            v53 = 2112;
+            v54 = v10;
             _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_DEFAULT, "%{public}@Filtered object is not a service: %@", buf, 0x16u);
           }
 
@@ -8102,13 +8040,11 @@ LABEL_18:
         }
       }
 
-      v38 = [obj countByEnumeratingWithState:&v48 objects:v59 count:16];
+      v37 = [obj countByEnumeratingWithState:&v47 objects:v58 count:16];
     }
 
-    while (v38);
+    while (v37);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -8116,7 +8052,7 @@ LABEL_18:
 - (id)objectsWithSearchFilter:(id)filter inHome:(id)home serviceTypeIsATV:(BOOL)v overrideServiceTypeIfNeeded:(id *)needed
 {
   vCopy = v;
-  v135 = *MEMORY[0x277D85DE8];
+  v134 = *MEMORY[0x277D85DE8];
   filterCopy = filter;
   homeCopy = home;
   homeKitObjects = [(HMDAssistantCommand *)self homeKitObjects];
@@ -8135,23 +8071,23 @@ LABEL_18:
       {
         v31 = HMFGetLogIdentifier();
         [homeCopy name];
-        v32 = v115 = urlString;
+        v32 = v114 = urlString;
         [homeCopy uuid];
-        v119 = filterCopy;
+        v118 = filterCopy;
         v34 = v33 = homeCopy;
         uUIDString = [v34 UUIDString];
         *buf = 138543874;
-        v130 = v31;
-        v131 = 2112;
-        v132 = v32;
-        v133 = 2112;
-        v134 = uUIDString;
+        v129 = v31;
+        v130 = 2112;
+        v131 = v32;
+        v132 = 2112;
+        v133 = uUIDString;
         _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_INFO, "%{public}@After filtering for home %@/%@, no objects to apply the command to", buf, 0x20u);
 
         homeCopy = v33;
-        filterCopy = v119;
+        filterCopy = v118;
 
-        urlString = v115;
+        urlString = v114;
       }
 
       objc_autoreleasePoolPop(v28);
@@ -8159,7 +8095,7 @@ LABEL_18:
       goto LABEL_80;
     }
 
-    v117 = vCopy;
+    v116 = vCopy;
     entityType = [filterCopy entityType];
     attribute = [filterCopy attribute];
 
@@ -8177,14 +8113,14 @@ LABEL_18:
           if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
           {
             HMFGetLogIdentifier();
-            v22 = v110 = entityType;
+            v22 = v109 = entityType;
             *buf = 138543618;
-            v130 = v22;
-            v131 = 2112;
-            v132 = filterCopy;
+            v129 = v22;
+            v130 = 2112;
+            v131 = filterCopy;
             _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Attribute specified in search filter with entityType not SERVICE/SCENE(%@)", buf, 0x16u);
 
-            entityType = v110;
+            entityType = v109;
           }
 
           objc_autoreleasePoolPop(v18);
@@ -8199,7 +8135,7 @@ LABEL_18:
 
     if (!entityType)
     {
-      v118 = v13;
+      v117 = v13;
       goto LABEL_25;
     }
 
@@ -8218,7 +8154,7 @@ LABEL_18:
       {
         v42 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v130 = v42;
+        v129 = v42;
         v43 = "%{public}@After filtering for entityType, no objects to apply the command to";
 LABEL_22:
         _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_INFO, v43, buf, 0xCu);
@@ -8239,27 +8175,27 @@ LABEL_80:
       goto LABEL_81;
     }
 
-    v118 = v36;
+    v117 = v36;
     v14 = v37;
 LABEL_25:
-    serviceType = [filterCopy serviceType];
+    v45 = objc_msgSend_serviceType(filterCopy);
 
-    if (!serviceType)
+    if (!v45)
     {
       goto LABEL_45;
     }
 
-    v109 = homeCopy;
-    v111 = entityType;
+    v108 = homeCopy;
+    v110 = entityType;
     v46 = +[HMDHAPMetadata getSharedInstance];
-    serviceType2 = [filterCopy serviceType];
-    v48 = [v46 mapFromAssistantServiceName:serviceType2];
+    v47 = objc_msgSend_serviceType(filterCopy);
+    v48 = [v46 mapFromAssistantServiceName:v47];
 
-    if (v117)
+    if (v116)
     {
-      serviceType3 = [filterCopy serviceType];
+      v49 = objc_msgSend_serviceType(filterCopy);
 
-      v48 = serviceType3;
+      v48 = v49;
     }
 
     else if (!v48)
@@ -8271,31 +8207,31 @@ LABEL_25:
     }
 
     selfCopy5 = self;
-    v116 = urlString;
-    v120 = filterCopy;
-    v108 = v46;
-    v122 = [v46 getAliasedServiceType:v48];
+    v115 = urlString;
+    v119 = filterCopy;
+    v107 = v46;
+    v121 = [v46 getAliasedServiceType:v48];
     v50 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v14, "count")}];
+    v123 = 0u;
     v124 = 0u;
     v125 = 0u;
     v126 = 0u;
-    v127 = 0u;
     obj = v14;
-    v51 = [obj countByEnumeratingWithState:&v124 objects:v128 count:16];
+    v51 = [obj countByEnumeratingWithState:&v123 objects:v127 count:16];
     if (v51)
     {
       v52 = v51;
-      v53 = *v125;
+      v53 = *v124;
       do
       {
         for (i = 0; i != v52; ++i)
         {
-          if (*v125 != v53)
+          if (*v124 != v53)
           {
             objc_enumerationMutation(obj);
           }
 
-          v55 = *(*(&v124 + 1) + 8 * i);
+          v55 = *(*(&v123 + 1) + 8 * i);
           v56 = [v55 hmf_stringForKey:@"objectServiceType"];
           v57 = [v55 hmf_stringForKey:@"objectAssociatedServiceType"];
           if ([v56 isEqual:v48])
@@ -8303,32 +8239,32 @@ LABEL_25:
             [v50 addObject:v55];
           }
 
-          else if (([v56 isEqual:v122] & 1) != 0 || (objc_msgSend(v57, "isEqual:", v48) & 1) != 0 || objc_msgSend(v57, "isEqual:", v122))
+          else if (([v56 isEqual:v121] & 1) != 0 || (objc_msgSend(v57, "isEqual:", v48) & 1) != 0 || objc_msgSend(v57, "isEqual:", v121))
           {
             [v50 addObject:v55];
             if (needed)
             {
-              *needed = [v120 serviceType];
+              *needed = objc_msgSend_serviceType(v119);
             }
           }
         }
 
-        v52 = [obj countByEnumeratingWithState:&v124 objects:v128 count:16];
+        v52 = [obj countByEnumeratingWithState:&v123 objects:v127 count:16];
       }
 
       while (v52);
     }
 
-    v37 = [v50 copy];
+    v37 = objc_msgSend_copy(v50);
     if ([v37 count])
     {
 
       v14 = v37;
-      filterCopy = v120;
-      homeCopy = v109;
-      entityType = v111;
+      filterCopy = v119;
+      homeCopy = v108;
+      entityType = v110;
       self = selfCopy5;
-      urlString = v116;
+      urlString = v115;
 LABEL_45:
       roomName = [filterCopy roomName];
       if (roomName)
@@ -8359,7 +8295,7 @@ LABEL_45:
         {
           v72 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v130 = v72;
+          v129 = v72;
           v73 = "%{public}@After filtering for room/zone, no objects to apply the command to";
 LABEL_75:
           _os_log_impl(&dword_229538000, v71, OS_LOG_TYPE_INFO, v73, buf, 0xCu);
@@ -8401,21 +8337,21 @@ LABEL_53:
 
           if (![v37 count])
           {
-            v91 = objc_autoreleasePoolPush();
+            v90 = objc_autoreleasePoolPush();
             selfCopy7 = self;
-            v93 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v93, OS_LOG_TYPE_INFO))
+            v92 = HMFGetOSLogHandle();
+            if (os_log_type_enabled(v92, OS_LOG_TYPE_INFO))
             {
               HMFGetLogIdentifier();
-              v95 = v94 = entityType;
+              v94 = v93 = entityType;
               *buf = 138543362;
-              v130 = v95;
-              _os_log_impl(&dword_229538000, v93, OS_LOG_TYPE_INFO, "%{public}@After filtering for accessoryName, no objects to apply the command to", buf, 0xCu);
+              v129 = v94;
+              _os_log_impl(&dword_229538000, v92, OS_LOG_TYPE_INFO, "%{public}@After filtering for accessoryName, no objects to apply the command to", buf, 0xCu);
 
-              entityType = v94;
+              entityType = v93;
             }
 
-            objc_autoreleasePoolPop(v91);
+            objc_autoreleasePoolPop(v90);
             v27 = 0;
             v44 = v68;
             goto LABEL_79;
@@ -8428,7 +8364,7 @@ LABEL_53:
         else
         {
           selfCopy9 = self;
-          v68 = v118;
+          v68 = v117;
         }
 
         serviceName = [filterCopy serviceName];
@@ -8454,7 +8390,7 @@ LABEL_53:
 
             v42 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v130 = v42;
+            v129 = v42;
             v43 = "%{public}@After filtering for serviceName, no objects to apply the command to";
             goto LABEL_22;
           }
@@ -8488,18 +8424,18 @@ LABEL_68:
             v44 = v68;
 LABEL_104:
             attribute2 = [filterCopy attribute];
-            if (!attribute2 || v117)
+            if (!attribute2 || v116)
             {
               goto LABEL_110;
             }
 
-            v118 = v44;
+            v117 = v44;
             attribute3 = [filterCopy attribute];
             if ([attribute3 isEqual:*MEMORY[0x277D47F48]])
             {
 LABEL_109:
 
-              v44 = v118;
+              v44 = v117;
 LABEL_110:
 
 LABEL_111:
@@ -8515,15 +8451,15 @@ LABEL_111:
               goto LABEL_109;
             }
 
-            v112 = entityType;
+            v111 = entityType;
             entityType2 = [filterCopy entityType];
-            v106 = [entityType2 isEqual:*MEMORY[0x277D48168]];
+            v105 = [entityType2 isEqual:*MEMORY[0x277D48168]];
 
-            if (v106)
+            if (v105)
             {
 LABEL_118:
-              entityType = v112;
-              v44 = v118;
+              entityType = v111;
+              v44 = v117;
               goto LABEL_111;
             }
 
@@ -8539,7 +8475,7 @@ LABEL_118:
             v69 = objc_autoreleasePoolPush();
             selfCopy10 = selfCopy9;
             v71 = HMFGetOSLogHandle();
-            entityType = v112;
+            entityType = v111;
             if (!os_log_type_enabled(v71, OS_LOG_TYPE_INFO))
             {
               goto LABEL_76;
@@ -8547,7 +8483,7 @@ LABEL_118:
 
             v72 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v130 = v72;
+            v129 = v72;
             v73 = "%{public}@After filtering for attribute, no objects to apply the command to";
             goto LABEL_75;
           }
@@ -8572,40 +8508,40 @@ LABEL_118:
           {
             if (![sceneType2 isEqualToString:*MEMORY[0x277D481B0]])
             {
-              v96 = 0;
+              v95 = 0;
               goto LABEL_99;
             }
 
             v88 = MEMORY[0x277CCF188];
           }
 
-          v96 = *v88;
+          v95 = *v88;
 LABEL_99:
 
-          if (v96)
+          if (v95)
           {
-            v44 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K =[d] %@", @"objectSceneType", v96];
+            v44 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K =[d] %@", @"objectSceneType", v95];
 
             v37 = [v14 filteredArrayUsingPredicate:v44];
 
             if (![v37 count])
             {
-              v118 = v44;
-              v100 = objc_autoreleasePoolPush();
-              v101 = selfCopy9;
-              v102 = HMFGetOSLogHandle();
-              if (os_log_type_enabled(v102, OS_LOG_TYPE_INFO))
+              v117 = v44;
+              v99 = objc_autoreleasePoolPush();
+              v100 = selfCopy9;
+              v101 = HMFGetOSLogHandle();
+              if (os_log_type_enabled(v101, OS_LOG_TYPE_INFO))
               {
                 HMFGetLogIdentifier();
-                v104 = v103 = entityType;
+                v103 = v102 = entityType;
                 *buf = 138543362;
-                v130 = v104;
-                _os_log_impl(&dword_229538000, v102, OS_LOG_TYPE_INFO, "%{public}@After filtering for actionSetType, no objects to apply the command to", buf, 0xCu);
+                v129 = v103;
+                _os_log_impl(&dword_229538000, v101, OS_LOG_TYPE_INFO, "%{public}@After filtering for actionSetType, no objects to apply the command to", buf, 0xCu);
 
-                entityType = v103;
+                entityType = v102;
               }
 
-              objc_autoreleasePoolPop(v100);
+              objc_autoreleasePoolPop(v99);
               goto LABEL_77;
             }
 
@@ -8628,7 +8564,7 @@ LABEL_99:
         {
           v42 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v130 = v42;
+          v129 = v42;
           v43 = "%{public}@After filtering for actionSetName, no objects to apply the command to";
           goto LABEL_22;
         }
@@ -8643,7 +8579,7 @@ LABEL_99:
       {
         v72 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v130 = v72;
+        v129 = v72;
         v73 = "%{public}@After filtering for serviceGroup, no objects to apply the command to";
         goto LABEL_75;
       }
@@ -8654,23 +8590,23 @@ LABEL_99:
     v74 = objc_autoreleasePoolPush();
     v75 = selfCopy5;
     v76 = HMFGetOSLogHandle();
-    filterCopy = v120;
+    filterCopy = v119;
     if (os_log_type_enabled(v76, OS_LOG_TYPE_INFO))
     {
       v77 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v130 = v77;
+      v129 = v77;
       _os_log_impl(&dword_229538000, v76, OS_LOG_TYPE_INFO, "%{public}@After filtering for serviceType, no objects to apply the command to", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v74);
     v27 = 0;
-    homeCopy = v109;
-    urlString = v116;
+    homeCopy = v108;
+    urlString = v115;
 LABEL_72:
-    entityType = v111;
+    entityType = v110;
 LABEL_78:
-    v44 = v118;
+    v44 = v117;
     goto LABEL_79;
   }
 
@@ -8681,7 +8617,7 @@ LABEL_78:
   {
     v26 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v130 = v26;
+    v129 = v26;
     _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_INFO, "%{public}@No objects to apply the command to", buf, 0xCu);
   }
 
@@ -8689,14 +8625,12 @@ LABEL_78:
   v27 = 0;
 LABEL_81:
 
-  v89 = *MEMORY[0x277D85DE8];
-
   return v27;
 }
 
 - (id)_homeWithSearchFilter:(id)filter
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   filterCopy = filter;
   homeManager = [(HMDAssistantCommand *)self homeManager];
   homeIdentifier = [filterCopy homeIdentifier];
@@ -8717,13 +8651,13 @@ LABEL_81:
       {
         v14 = HMFGetLogIdentifier();
         homeIdentifier3 = [filterCopy homeIdentifier];
-        v46 = 138543874;
-        v47 = v14;
-        v48 = 2112;
-        v49 = v9;
-        v50 = 2112;
-        v51 = homeIdentifier3;
-        _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Matched home %@ with the homeIdentifier %@ from SCF", &v46, 0x20u);
+        v45 = 138543874;
+        v46 = v14;
+        v47 = 2112;
+        v48 = v9;
+        v49 = 2112;
+        v50 = homeIdentifier3;
+        _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Matched home %@ with the homeIdentifier %@ from SCF", &v45, 0x20u);
       }
 
       objc_autoreleasePoolPop(v10);
@@ -8734,11 +8668,11 @@ LABEL_81:
     {
       v16 = HMFGetLogIdentifier();
       homeIdentifier4 = [filterCopy homeIdentifier];
-      v46 = 138543618;
-      v47 = v16;
-      v48 = 2112;
-      v49 = homeIdentifier4;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_FAULT, "%{public}@No home found with identifier %@", &v46, 0x16u);
+      v45 = 138543618;
+      v46 = v16;
+      v47 = 2112;
+      v48 = homeIdentifier4;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_FAULT, "%{public}@No home found with identifier %@", &v45, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -8760,11 +8694,11 @@ LABEL_81:
       {
         v24 = HMFGetLogIdentifier();
         homeName3 = [filterCopy homeName];
-        v46 = 138543618;
-        v47 = v24;
-        v48 = 2112;
-        v49 = homeName3;
-        _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_FAULT, "%{public}@Multiple homes found with name %@, homeIdentifier should be used instead", &v46, 0x16u);
+        v45 = 138543618;
+        v46 = v24;
+        v47 = 2112;
+        v48 = homeName3;
+        _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_FAULT, "%{public}@Multiple homes found with name %@, homeIdentifier should be used instead", &v45, 0x16u);
       }
 
       objc_autoreleasePoolPop(v21);
@@ -8789,13 +8723,13 @@ LABEL_81:
       {
         v32 = HMFGetLogIdentifier();
         homeName5 = [filterCopy homeName];
-        v46 = 138543874;
-        v47 = v32;
-        v48 = 2112;
-        v49 = v27;
-        v50 = 2112;
-        v51 = homeName5;
-        _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_INFO, "%{public}@Matched home %@ with the homeName %@ from SCF after a homeIdentifier mismatch", &v46, 0x20u);
+        v45 = 138543874;
+        v46 = v32;
+        v47 = 2112;
+        v48 = v27;
+        v49 = 2112;
+        v50 = homeName5;
+        _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_INFO, "%{public}@Matched home %@ with the homeName %@ from SCF after a homeIdentifier mismatch", &v45, 0x20u);
       }
 
       objc_autoreleasePoolPop(v29);
@@ -8817,9 +8751,9 @@ LABEL_24:
     if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
     {
       v39 = HMFGetLogIdentifier();
-      v46 = 138543362;
-      v47 = v39;
-      _os_log_impl(&dword_229538000, v38, OS_LOG_TYPE_INFO, "%{public}@No matches for the home name/identifier specified in Siri command - bailing out....", &v46, 0xCu);
+      v45 = 138543362;
+      v46 = v39;
+      _os_log_impl(&dword_229538000, v38, OS_LOG_TYPE_INFO, "%{public}@No matches for the home name/identifier specified in Siri command - bailing out....", &v45, 0xCu);
     }
 
     objc_autoreleasePoolPop(v36);
@@ -8842,23 +8776,22 @@ LABEL_24:
     if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
     {
       v43 = HMFGetLogIdentifier();
-      v46 = 138543362;
-      v47 = v43;
-      _os_log_impl(&dword_229538000, v42, OS_LOG_TYPE_INFO, "%{public}@Cannot evaluate the home to apply the Siri command to - bailing out....", &v46, 0xCu);
+      v45 = 138543362;
+      v46 = v43;
+      _os_log_impl(&dword_229538000, v42, OS_LOG_TYPE_INFO, "%{public}@Cannot evaluate the home to apply the Siri command to - bailing out....", &v45, 0xCu);
     }
 
     objc_autoreleasePoolPop(v40);
   }
 
 LABEL_31:
-  v44 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (id)_evaluateHomeOptionallyMatchingHomeName:(id)name
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   homeManager = [(HMDAssistantCommand *)self homeManager];
   _accessoryOfCurrentDevice = [homeManager _accessoryOfCurrentDevice];
@@ -8877,11 +8810,11 @@ LABEL_31:
       if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         v23 = HMFGetLogIdentifier();
-        v31 = 138543618;
-        v32 = v23;
-        v33 = 2112;
-        v34 = v17;
-        _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@Defaulting to current home %@ of the device", &v31, 0x16u);
+        v30 = 138543618;
+        v31 = v23;
+        v32 = 2112;
+        v33 = v17;
+        _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@Defaulting to current home %@ of the device", &v30, 0x16u);
       }
     }
 
@@ -8903,11 +8836,11 @@ LABEL_31:
       if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         v28 = HMFGetLogIdentifier();
-        v31 = 138543618;
-        v32 = v28;
-        v33 = 2112;
-        v34 = v14;
-        _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@Defaulting to primary home %@ of the device", &v31, 0x16u);
+        v30 = 138543618;
+        v31 = v28;
+        v32 = 2112;
+        v33 = v14;
+        _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@Defaulting to primary home %@ of the device", &v30, 0x16u);
       }
 
       v17 = v14;
@@ -8929,11 +8862,11 @@ LABEL_20:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     v13 = HMFGetLogIdentifier();
-    v31 = 138543618;
-    v32 = v13;
-    v33 = 2112;
-    v34 = home;
-    _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Defaulting to home %@ that this device belongs to", &v31, 0x16u);
+    v30 = 138543618;
+    v31 = v13;
+    v32 = 2112;
+    v33 = home;
+    _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Defaulting to home %@ that this device belongs to", &v30, 0x16u);
   }
 
   objc_autoreleasePoolPop(v10);
@@ -8941,38 +8874,36 @@ LABEL_20:
   v15 = v14;
 LABEL_21:
 
-  v29 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 - (id)filteredObjectsFromObjects:(id)objects byCharacteristicType:(id)type
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   typeCopy = type;
   array = [MEMORY[0x277CBEB18] array];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v6 = objectsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v21;
+    v9 = *v20;
     v10 = *MEMORY[0x277D48170];
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * i);
+        v12 = *(*(&v19 + 1) + 8 * i);
         v13 = [v12 objectForKeyedSubscript:{@"objectType", array}];
         if ([v13 isEqualToString:v10])
         {
@@ -8990,105 +8921,103 @@ LABEL_21:
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v8);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (id)filteredObjectsFromObjects:(id)objects byAttribute:(id)attribute forActionType:(id)type
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   attributeCopy = attribute;
   typeCopy = type;
   v10 = +[HMDHAPMetadata getSharedInstance];
   if (!typeCopy || ([typeCopy isEqualToString:*MEMORY[0x277D47E78]] & 1) != 0 || (objc_msgSend(typeCopy, "isEqualToString:", *MEMORY[0x277D47EC0]) & 1) != 0 || (objc_msgSend(typeCopy, "isEqualToString:", *MEMORY[0x277D47EA0]) & 1) != 0)
   {
-    v48 = 1;
+    v47 = 1;
   }
 
   else
   {
-    v48 = [typeCopy isEqualToString:*MEMORY[0x277D47E70]];
+    v47 = [typeCopy isEqualToString:*MEMORY[0x277D47E70]];
   }
 
-  v51 = [v10 mapReadCharacteristicFromAssistantName:attributeCopy];
-  v47 = [v10 getAliasedCharacteristicTypes:?];
-  v44 = typeCopy;
+  v50 = [v10 mapReadCharacteristicFromAssistantName:attributeCopy];
+  v46 = [v10 getAliasedCharacteristicTypes:?];
+  v43 = typeCopy;
   if ([typeCopy isEqualToString:*MEMORY[0x277D47EA8]] & 1) != 0 || (objc_msgSend(typeCopy, "isEqualToString:", *MEMORY[0x277D47E98]) & 1) != 0 || (objc_msgSend(typeCopy, "isEqualToString:", *MEMORY[0x277D47EB8]) & 1) != 0 || (objc_msgSend(typeCopy, "isEqualToString:", *MEMORY[0x277D47EB0]) & 1) != 0 || (objc_msgSend(typeCopy, "isEqualToString:", *MEMORY[0x277D47E88]) & 1) != 0 || (objc_msgSend(typeCopy, "isEqualToString:", *MEMORY[0x277D47E80]) & 1) != 0 || (objc_msgSend(typeCopy, "isEqualToString:", *MEMORY[0x277D47E90]) & 1) != 0 || (objc_msgSend(typeCopy, "isEqualToString:", *MEMORY[0x277D47EC0]) & 1) != 0 || (objc_msgSend(typeCopy, "isEqualToString:", *MEMORY[0x277D47EA0]))
   {
-    v54 = 1;
+    v53 = 1;
   }
 
   else
   {
-    v54 = [typeCopy isEqualToString:*MEMORY[0x277D47E70]];
+    v53 = [typeCopy isEqualToString:*MEMORY[0x277D47E70]];
   }
 
-  v45 = attributeCopy;
+  v44 = attributeCopy;
   [v10 mapWriteCharacteristicFromAssistantName:attributeCopy];
-  v49 = v43 = v10;
-  v46 = [v10 getAliasedCharacteristicTypes:?];
+  v48 = v42 = v10;
+  v45 = [v10 getAliasedCharacteristicTypes:?];
   array = [MEMORY[0x277CBEB18] array];
+  v64 = 0u;
   v65 = 0u;
   v66 = 0u;
   v67 = 0u;
-  v68 = 0u;
   obj = objectsCopy;
-  v11 = [obj countByEnumeratingWithState:&v65 objects:v71 count:16];
-  v12 = v48;
+  v11 = [obj countByEnumeratingWithState:&v64 objects:v70 count:16];
+  v12 = v47;
   if (v11)
   {
     v13 = v11;
-    v14 = *v66;
+    v14 = *v65;
     v15 = *MEMORY[0x277D48170];
-    v52 = *v66;
-    v53 = *MEMORY[0x277D48170];
+    v51 = *v65;
+    v52 = *MEMORY[0x277D48170];
     do
     {
       v16 = 0;
-      v55 = v13;
+      v54 = v13;
       do
       {
-        if (*v66 != v14)
+        if (*v65 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v65 + 1) + 8 * v16);
+        v17 = *(*(&v64 + 1) + 8 * v16);
         v18 = [v17 objectForKeyedSubscript:@"objectType"];
         v19 = [v18 isEqualToString:v15];
 
         if (v19)
         {
-          if (v12 && ([v17 objectForKeyedSubscript:@"objectCharacteristics"], v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v20, "containsObject:", v51), v20, (v21 & 1) == 0))
+          if (v12 && ([v17 objectForKeyedSubscript:@"objectCharacteristics"], v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v20, "containsObject:", v50), v20, (v21 & 1) == 0))
           {
-            v63 = 0u;
-            v64 = 0u;
-            v61 = 0u;
             v62 = 0u;
-            v23 = v47;
-            v24 = [v23 countByEnumeratingWithState:&v61 objects:v70 count:16];
+            v63 = 0u;
+            v60 = 0u;
+            v61 = 0u;
+            v23 = v46;
+            v24 = [v23 countByEnumeratingWithState:&v60 objects:v69 count:16];
             if (v24)
             {
               v25 = v24;
-              v26 = *v62;
+              v26 = *v61;
               while (2)
               {
                 for (i = 0; i != v25; ++i)
                 {
-                  if (*v62 != v26)
+                  if (*v61 != v26)
                   {
                     objc_enumerationMutation(v23);
                   }
 
-                  v28 = *(*(&v61 + 1) + 8 * i);
+                  v28 = *(*(&v60 + 1) + 8 * i);
                   v29 = [v17 objectForKeyedSubscript:@"objectCharacteristics"];
                   LOBYTE(v28) = [v29 containsObject:v28];
 
@@ -9099,7 +9028,7 @@ LABEL_21:
                   }
                 }
 
-                v25 = [v23 countByEnumeratingWithState:&v61 objects:v70 count:16];
+                v25 = [v23 countByEnumeratingWithState:&v60 objects:v69 count:16];
                 if (v25)
                 {
                   continue;
@@ -9110,8 +9039,8 @@ LABEL_21:
 
               v22 = 1;
 LABEL_35:
-              v12 = v48;
-              v14 = v52;
+              v12 = v47;
+              v14 = v51;
             }
 
             else
@@ -9125,10 +9054,10 @@ LABEL_35:
             v22 = 0;
           }
 
-          if (v54)
+          if (v53)
           {
             v30 = [v17 objectForKeyedSubscript:@"objectCharacteristics"];
-            v31 = [v30 containsObject:v49];
+            v31 = [v30 containsObject:v48];
 
             if (v31)
             {
@@ -9137,26 +9066,26 @@ LABEL_35:
 
             else
             {
-              v59 = 0u;
-              v60 = 0u;
-              v57 = 0u;
               v58 = 0u;
-              v33 = v46;
-              v34 = [v33 countByEnumeratingWithState:&v57 objects:v69 count:16];
+              v59 = 0u;
+              v56 = 0u;
+              v57 = 0u;
+              v33 = v45;
+              v34 = [v33 countByEnumeratingWithState:&v56 objects:v68 count:16];
               if (v34)
               {
                 v35 = v34;
-                v36 = *v58;
+                v36 = *v57;
                 while (2)
                 {
                   for (j = 0; j != v35; ++j)
                   {
-                    if (*v58 != v36)
+                    if (*v57 != v36)
                     {
                       objc_enumerationMutation(v33);
                     }
 
-                    v38 = *(*(&v57 + 1) + 8 * j);
+                    v38 = *(*(&v56 + 1) + 8 * j);
                     v39 = [v17 objectForKeyedSubscript:@"objectCharacteristics"];
                     LOBYTE(v38) = [v39 containsObject:v38];
 
@@ -9167,7 +9096,7 @@ LABEL_35:
                     }
                   }
 
-                  v35 = [v33 countByEnumeratingWithState:&v57 objects:v69 count:16];
+                  v35 = [v33 countByEnumeratingWithState:&v56 objects:v68 count:16];
                   if (v35)
                   {
                     continue;
@@ -9178,7 +9107,7 @@ LABEL_35:
 
                 v32 = 1;
 LABEL_52:
-                v12 = v48;
+                v12 = v47;
               }
 
               else
@@ -9187,7 +9116,7 @@ LABEL_52:
               }
             }
 
-            v14 = v52;
+            v14 = v51;
           }
 
           else
@@ -9196,8 +9125,8 @@ LABEL_52:
           }
 
           v40 = v22 | v32;
-          v15 = v53;
-          v13 = v55;
+          v15 = v52;
+          v13 = v54;
           if ((v40 & 1) == 0)
           {
             [array addObject:v17];
@@ -9208,44 +9137,42 @@ LABEL_52:
       }
 
       while (v16 != v13);
-      v13 = [obj countByEnumeratingWithState:&v65 objects:v71 count:16];
+      v13 = [obj countByEnumeratingWithState:&v64 objects:v70 count:16];
     }
 
     while (v13);
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (id)filteredObjectsFromObjects:(id)objects forGroup:(id)group
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   groupCopy = group;
   array = [MEMORY[0x277CBEB18] array];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v8 = objectsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v18;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
-        v14 = [v13 objectForKeyedSubscript:{@"objectGroups", v18}];
+        v13 = *(*(&v17 + 1) + 8 * i);
+        v14 = [v13 objectForKeyedSubscript:{@"objectGroups", v17}];
         v15 = v14;
         if (v14 && [v14 containsObject:groupCopy])
         {
@@ -9253,20 +9180,18 @@ LABEL_52:
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v10);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (id)filteredObjectsFromObjects:(id)objects forHomeName:(id)name roomName:(id)roomName zoneName:(id)zoneName
 {
-  v66[1] = *MEMORY[0x277D85DE8];
+  v65[1] = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   nameCopy = name;
   roomNameCopy = roomName;
@@ -9274,42 +9199,42 @@ LABEL_52:
   if (roomNameCopy | zoneNameCopy)
   {
     v13 = 0x277CBE000uLL;
-    v45 = nameCopy;
+    v44 = nameCopy;
     if (roomNameCopy)
     {
-      v66[0] = roomNameCopy;
-      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:1];
+      v65[0] = roomNameCopy;
+      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v65 count:1];
     }
 
     else if (zoneNameCopy)
     {
-      v44 = objectsCopy;
-      v46 = objc_opt_new();
+      v43 = objectsCopy;
+      v45 = objc_opt_new();
+      v58 = 0u;
       v59 = 0u;
       v60 = 0u;
       v61 = 0u;
-      v62 = 0u;
       obj = [(HMDAssistantCommand *)self homeKitObjects];
-      v16 = [obj countByEnumeratingWithState:&v59 objects:v65 count:16];
+      v16 = [obj countByEnumeratingWithState:&v58 objects:v64 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v60;
+        v18 = *v59;
         v19 = *MEMORY[0x277D48160];
         v20 = @"objectType";
         do
         {
           v21 = 0;
-          v47 = v17;
+          v46 = v17;
           do
           {
-            if (*v60 != v18)
+            if (*v59 != v18)
             {
               objc_enumerationMutation(obj);
             }
 
-            v22 = *(*(&v59 + 1) + 8 * v21);
-            if (!nameCopy || ([*(*(&v59 + 1) + 8 * v21) objectForKeyedSubscript:@"objectHome"], v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v23, "isEqualToString:", nameCopy), v23, v24))
+            v22 = *(*(&v58 + 1) + 8 * v21);
+            if (!nameCopy || ([*(*(&v58 + 1) + 8 * v21) objectForKeyedSubscript:@"objectHome"], v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v23, "isEqualToString:", nameCopy), v23, v24))
             {
               v25 = [v22 objectForKeyedSubscript:v20];
               v26 = [v25 isEqualToString:v19];
@@ -9318,35 +9243,35 @@ LABEL_52:
               {
                 v27 = v20;
                 v28 = nameCopy;
-                v57 = 0u;
-                v58 = 0u;
-                v55 = 0u;
                 v56 = 0u;
+                v57 = 0u;
+                v54 = 0u;
+                v55 = 0u;
                 v29 = [v22 objectForKeyedSubscript:@"objectZones"];
-                v30 = [v29 countByEnumeratingWithState:&v55 objects:v64 count:16];
+                v30 = [v29 countByEnumeratingWithState:&v54 objects:v63 count:16];
                 if (v30)
                 {
                   v31 = v30;
-                  v32 = *v56;
+                  v32 = *v55;
                   while (2)
                   {
                     for (i = 0; i != v31; ++i)
                     {
-                      if (*v56 != v32)
+                      if (*v55 != v32)
                       {
                         objc_enumerationMutation(v29);
                       }
 
-                      if ([zoneNameCopy isEqualToString:*(*(&v55 + 1) + 8 * i)])
+                      if ([zoneNameCopy isEqualToString:*(*(&v54 + 1) + 8 * i)])
                       {
                         v34 = [v22 objectForKeyedSubscript:@"objectName"];
-                        [v46 addObject:v34];
+                        [v45 addObject:v34];
 
                         goto LABEL_24;
                       }
                     }
 
-                    v31 = [v29 countByEnumeratingWithState:&v55 objects:v64 count:16];
+                    v31 = [v29 countByEnumeratingWithState:&v54 objects:v63 count:16];
                     if (v31)
                     {
                       continue;
@@ -9360,7 +9285,7 @@ LABEL_24:
 
                 nameCopy = v28;
                 v20 = v27;
-                v17 = v47;
+                v17 = v46;
               }
             }
 
@@ -9368,16 +9293,16 @@ LABEL_24:
           }
 
           while (v21 != v17);
-          v17 = [obj countByEnumeratingWithState:&v59 objects:v65 count:16];
+          v17 = [obj countByEnumeratingWithState:&v58 objects:v64 count:16];
         }
 
         while (v17);
       }
 
-      objectsCopy = v44;
+      objectsCopy = v43;
       roomNameCopy = 0;
       v13 = 0x277CBE000;
-      v14 = v46;
+      v14 = v45;
     }
 
     else
@@ -9386,29 +9311,29 @@ LABEL_24:
     }
 
     array = [*(v13 + 2840) array];
+    v50 = 0u;
     v51 = 0u;
     v52 = 0u;
     v53 = 0u;
-    v54 = 0u;
     obja = v14;
-    v35 = [obja countByEnumeratingWithState:&v51 objects:v63 count:16];
+    v35 = [obja countByEnumeratingWithState:&v50 objects:v62 count:16];
     if (v35)
     {
       v36 = v35;
       v37 = 0;
-      v38 = *v52;
+      v38 = *v51;
       do
       {
         v39 = 0;
         v40 = v37;
         do
         {
-          if (*v52 != v38)
+          if (*v51 != v38)
           {
             objc_enumerationMutation(obja);
           }
 
-          v37 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K =[d] %@", @"objectRoom", *(*(&v51 + 1) + 8 * v39)];
+          v37 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K =[d] %@", @"objectRoom", *(*(&v50 + 1) + 8 * v39)];
 
           v41 = [objectsCopy filteredArrayUsingPredicate:v37];
           [array addObjectsFromArray:v41];
@@ -9418,13 +9343,13 @@ LABEL_24:
         }
 
         while (v36 != v39);
-        v36 = [obja countByEnumeratingWithState:&v51 objects:v63 count:16];
+        v36 = [obja countByEnumeratingWithState:&v50 objects:v62 count:16];
       }
 
       while (v36);
     }
 
-    nameCopy = v45;
+    nameCopy = v44;
   }
 
   else
@@ -9432,38 +9357,36 @@ LABEL_24:
     array = objectsCopy;
   }
 
-  v42 = *MEMORY[0x277D85DE8];
-
   return array;
 }
 
 - (id)objectsWithIdentifierList:(id)list error:(id *)error
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   listCopy = list;
   array = [MEMORY[0x277CBEB18] array];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   homeKitObjects = [(HMDAssistantCommand *)self homeKitObjects];
-  v8 = [homeKitObjects countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v8 = [homeKitObjects countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v8)
   {
     v9 = v8;
     errorCopy = error;
     v10 = 0;
-    v11 = *v25;
+    v11 = *v24;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v25 != v11)
+        if (*v24 != v11)
         {
           objc_enumerationMutation(homeKitObjects);
         }
 
-        v13 = *(*(&v24 + 1) + 8 * i);
+        v13 = *(*(&v23 + 1) + 8 * i);
         v14 = [v13 objectForKeyedSubscript:{@"objectIdentifier", errorCopy}];
         v15 = [listCopy containsObject:v14];
 
@@ -9495,7 +9418,7 @@ LABEL_24:
         }
       }
 
-      v9 = [homeKitObjects countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v9 = [homeKitObjects countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v9)
       {
         continue;
@@ -9511,17 +9434,15 @@ LABEL_24:
   }
 
   v19 = array;
-  v18 = [array copy];
+  v18 = objc_msgSend_copy(array);
 LABEL_20:
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
 
 - (id)adjustGetValue:(id)value type:(id)type units:(id)units attribute:(id)attribute
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   typeCopy = type;
   unitsCopy = units;
@@ -9547,15 +9468,15 @@ LABEL_20:
         if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
         {
           v23 = HMFGetLogIdentifier();
-          v26 = 138544130;
-          v27 = v23;
-          v28 = 2112;
-          v29 = attributeCopy;
-          v30 = 2112;
-          v31 = v14;
-          v32 = 2112;
-          v33 = v16;
-          _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@adjustGet: Attribute %@ value %@  adjusted to Fahrenheit %@", &v26, 0x2Au);
+          v25 = 138544130;
+          v26 = v23;
+          v27 = 2112;
+          v28 = attributeCopy;
+          v29 = 2112;
+          v30 = v14;
+          v31 = 2112;
+          v32 = v16;
+          _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@adjustGet: Attribute %@ value %@  adjusted to Fahrenheit %@", &v25, 0x2Au);
         }
 
         objc_autoreleasePoolPop(v20);
@@ -9568,14 +9489,12 @@ LABEL_20:
     v16 = [v15 mapToAssistantCharacteristicValue:v14 name:attributeCopy getActionType:1];
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 - (id)adjustSetValue:(id)value type:(id)type units:(id)units attribute:(id)attribute
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   typeCopy = type;
   unitsCopy = units;
@@ -9601,15 +9520,15 @@ LABEL_20:
         if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
         {
           v23 = HMFGetLogIdentifier();
-          v26 = 138544130;
-          v27 = v23;
-          v28 = 2112;
-          v29 = attributeCopy;
-          v30 = 2112;
-          v31 = v14;
-          v32 = 2112;
-          v33 = v16;
-          _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@adjustSet: Attribute %@ value %@  converted to Celsius as %@", &v26, 0x2Au);
+          v25 = 138544130;
+          v26 = v23;
+          v27 = 2112;
+          v28 = attributeCopy;
+          v29 = 2112;
+          v30 = v14;
+          v31 = 2112;
+          v32 = v16;
+          _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@adjustSet: Attribute %@ value %@  converted to Celsius as %@", &v25, 0x2Au);
         }
 
         objc_autoreleasePoolPop(v20);
@@ -9621,8 +9540,6 @@ LABEL_20:
   {
     v16 = [v15 mapFromAssistantCharacteristicValue:v14 name:attributeCopy];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -9781,7 +9698,7 @@ LABEL_10:
 
 - (id)actionResultForCharacteristic:(id)characteristic actionSet:(id)set action:(id)action objects:(id)objects error:(id)error
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   setCopy = set;
   actionCopy = action;
@@ -9789,30 +9706,30 @@ LABEL_10:
   errorCopy = error;
   service = [characteristicCopy service];
   v16 = characteristicCopy;
+  v53 = 0u;
   v54 = 0u;
   v55 = 0u;
   v56 = 0u;
-  v57 = 0u;
   actions = [setCopy actions];
-  v18 = [actions countByEnumeratingWithState:&v54 objects:buf count:16];
-  v51 = objectsCopy;
+  v18 = [actions countByEnumeratingWithState:&v53 objects:buf count:16];
+  v50 = objectsCopy;
   if (v18)
   {
     v19 = v18;
-    v49 = errorCopy;
+    v48 = errorCopy;
     v20 = actionCopy;
     v21 = setCopy;
-    v22 = *v55;
+    v22 = *v54;
     while (2)
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v55 != v22)
+        if (*v54 != v22)
         {
           objc_enumerationMutation(actions);
         }
 
-        v24 = *(*(&v54 + 1) + 8 * i);
+        v24 = *(*(&v53 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -9834,7 +9751,7 @@ LABEL_10:
         }
       }
 
-      v19 = [actions countByEnumeratingWithState:&v54 objects:buf count:16];
+      v19 = [actions countByEnumeratingWithState:&v53 objects:buf count:16];
       if (v19)
       {
         continue;
@@ -9847,8 +9764,8 @@ LABEL_10:
 LABEL_15:
     setCopy = v21;
     actionCopy = v20;
-    errorCopy = v49;
-    objectsCopy = v51;
+    errorCopy = v48;
+    objectsCopy = v50;
   }
 
   else
@@ -9882,7 +9799,7 @@ LABEL_15:
 
     else
     {
-      v50 = errorCopy;
+      v49 = errorCopy;
       context = objc_autoreleasePoolPush();
       selfCopy = self;
       v42 = HMFGetOSLogHandle();
@@ -9890,16 +9807,16 @@ LABEL_15:
       {
         v43 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v59 = v43;
-        v60 = 2112;
-        v61 = v16;
+        v58 = v43;
+        v59 = 2112;
+        v60 = v16;
         _os_log_impl(&dword_229538000, v42, OS_LOG_TYPE_INFO, "%{public}@There is no Siri mapping attribute and/or format for characteristic : %@", buf, 0x16u);
 
-        objectsCopy = v51;
+        objectsCopy = v50;
       }
 
       objc_autoreleasePoolPop(context);
-      errorCopy = v50;
+      errorCopy = v49;
     }
 
     if (v29)
@@ -9934,12 +9851,12 @@ LABEL_15:
     {
       v39 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v59 = v39;
-      v60 = 2112;
-      v61 = service;
+      v58 = v39;
+      v59 = 2112;
+      v60 = service;
       _os_log_impl(&dword_229538000, v38, OS_LOG_TYPE_INFO, "%{public}@Unable to get the entity for service : %@", buf, 0x16u);
 
-      objectsCopy = v51;
+      objectsCopy = v50;
     }
 
     objc_autoreleasePoolPop(v36);
@@ -9947,14 +9864,12 @@ LABEL_15:
     errorCopy = v35;
   }
 
-  v46 = *MEMORY[0x277D85DE8];
-
   return v40;
 }
 
 - (id)actionResultForMediaProfile:(id)profile action:(id)action objects:(id)objects error:(id)error
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   actionCopy = action;
   objectsCopy = objects;
@@ -9972,7 +9887,7 @@ LABEL_15:
     actionType = [v17 actionType];
     if ([actionType isEqualToString:*MEMORY[0x277D47EA8]])
     {
-      v32 = errorCopy;
+      v31 = errorCopy;
       attribute = [v17 attribute];
       v21 = [attribute isEqualToString:*MEMORY[0x277D47F80]];
 
@@ -9997,7 +9912,7 @@ LABEL_15:
         v24 = 0;
       }
 
-      errorCopy = v32;
+      errorCopy = v31;
     }
 
     else
@@ -10021,9 +9936,9 @@ LABEL_15:
     {
       v28 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v34 = v28;
-      v35 = 2112;
-      v36 = profileCopy;
+      v33 = v28;
+      v34 = 2112;
+      v35 = profileCopy;
       _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Unable to get the entity for service : %@", buf, 0x16u);
     }
 
@@ -10031,58 +9946,56 @@ LABEL_15:
     v15 = 0;
   }
 
-  v30 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 - (id)failedActionResultsFromResponse:(id)response inActionSet:(id)set withAction:(id)action
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   setCopy = set;
   actionCopy = action;
   array = [MEMORY[0x277CBEB18] array];
   v9 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K =[d] %@", @"objectType", *MEMORY[0x277D48170]];
   homeKitObjects = [(HMDAssistantCommand *)self homeKitObjects];
-  v49 = v9;
-  v62 = [homeKitObjects filteredArrayUsingPredicate:v9];
+  v48 = v9;
+  v61 = [homeKitObjects filteredArrayUsingPredicate:v9];
 
-  v78 = 0u;
-  v79 = 0u;
-  v76 = 0u;
   v77 = 0u;
+  v78 = 0u;
+  v75 = 0u;
+  v76 = 0u;
   v11 = responseCopy;
-  v12 = [v11 countByEnumeratingWithState:&v76 objects:v86 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v75 objects:v85 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v77;
-    v60 = *MEMORY[0x277CD2128];
+    v14 = *v76;
+    v59 = *MEMORY[0x277CD2128];
     v15 = 0x277CCA000uLL;
-    v50 = *v77;
-    v51 = v11;
+    v49 = *v76;
+    v50 = v11;
     do
     {
       v16 = 0;
-      v52 = v13;
+      v51 = v13;
       do
       {
-        if (*v77 != v14)
+        if (*v76 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v17 = *(*(&v76 + 1) + 8 * v16);
+        v17 = *(*(&v75 + 1) + 8 * v16);
         home = [(HMDAssistantCommand *)self home];
         v19 = [objc_alloc(*(v15 + 3448)) initWithUUIDString:v17];
         v20 = [home mediaProfileWithUUID:v19];
 
-        v54 = v20;
+        v53 = v20;
         if (v20)
         {
-          v64 = [v11 hmf_dictionaryForKey:v17];
-          v21 = [v64 hmf_dataForKey:@"HM.mediaPlaybackErrorDataKey"];
+          v63 = [v11 hmf_dictionaryForKey:v17];
+          v21 = [v63 hmf_dataForKey:@"HM.mediaPlaybackErrorDataKey"];
           if (!v21)
           {
             goto LABEL_41;
@@ -10091,7 +10004,7 @@ LABEL_15:
           v22 = [MEMORY[0x277CCA9B8] hmf_unarchiveFromData:v21 error:0];
           if (v22)
           {
-            v23 = [(HMDAssistantCommand *)self actionResultForMediaProfile:v20 action:actionCopy objects:v62 error:v22];
+            v23 = [(HMDAssistantCommand *)self actionResultForMediaProfile:v20 action:actionCopy objects:v61 error:v22];
             if (v23)
             {
               [array addObject:v23];
@@ -10101,7 +10014,7 @@ LABEL_15:
 
         else
         {
-          v53 = v16;
+          v52 = v16;
           home2 = [(HMDAssistantCommand *)self home];
           v25 = [objc_alloc(*(v15 + 3448)) initWithUUIDString:v17];
           v26 = [home2 accessoryWithUUID:v25];
@@ -10117,52 +10030,52 @@ LABEL_15:
             v27 = 0;
           }
 
-          v64 = v27;
+          v63 = v27;
 
           v28 = [v11 hmf_dictionaryForKey:v17];
+          v71 = 0u;
           v72 = 0u;
           v73 = 0u;
           v74 = 0u;
-          v75 = 0u;
           v22 = v28;
-          v57 = [v22 countByEnumeratingWithState:&v72 objects:v85 count:16];
-          if (v57)
+          v56 = [v22 countByEnumeratingWithState:&v71 objects:v84 count:16];
+          if (v56)
           {
-            v55 = *v73;
-            v56 = v22;
-            v29 = v60;
+            v54 = *v72;
+            v55 = v22;
+            v29 = v59;
             do
             {
               v30 = 0;
               do
               {
-                if (*v73 != v55)
+                if (*v72 != v54)
                 {
                   objc_enumerationMutation(v22);
                 }
 
-                v58 = v30;
-                v65 = *(*(&v72 + 1) + 8 * v30);
+                v57 = v30;
+                v64 = *(*(&v71 + 1) + 8 * v30);
                 v31 = [v22 hmf_dictionaryForKey:?];
+                v67 = 0u;
                 v68 = 0u;
                 v69 = 0u;
                 v70 = 0u;
-                v71 = 0u;
                 v32 = v31;
-                v67 = [v32 countByEnumeratingWithState:&v68 objects:v84 count:16];
-                if (v67)
+                v66 = [v32 countByEnumeratingWithState:&v67 objects:v83 count:16];
+                if (v66)
                 {
-                  v66 = *v69;
+                  v65 = *v68;
                   do
                   {
-                    for (i = 0; i != v67; ++i)
+                    for (i = 0; i != v66; ++i)
                     {
-                      if (*v69 != v66)
+                      if (*v68 != v65)
                       {
                         objc_enumerationMutation(v32);
                       }
 
-                      v34 = *(*(&v68 + 1) + 8 * i);
+                      v34 = *(*(&v67 + 1) + 8 * i);
                       v35 = [v32 hmf_dictionaryForKey:v34];
                       v36 = [v35 errorFromDataForKey:v29];
                       if (v36)
@@ -10175,22 +10088,22 @@ LABEL_15:
                           HMFGetLogIdentifier();
                           v41 = v40 = self;
                           *buf = 138543618;
-                          v81 = v41;
-                          v82 = 2112;
-                          v83 = v36;
+                          v80 = v41;
+                          v81 = 2112;
+                          v82 = v36;
                           _os_log_impl(&dword_229538000, v39, OS_LOG_TYPE_INFO, "%{public}@Parsing error for Siri : %@", buf, 0x16u);
 
                           self = v40;
-                          v29 = v60;
+                          v29 = v59;
                         }
 
                         objc_autoreleasePoolPop(v37);
                         v42 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v34, "integerValue")}];
-                        v43 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v65, "integerValue")}];
-                        v44 = [v64 findCharacteristic:v42 forService:v43];
+                        v43 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v64, "integerValue")}];
+                        v44 = [v63 findCharacteristic:v42 forService:v43];
                         if (v44)
                         {
-                          v45 = [(HMDAssistantCommand *)selfCopy actionResultForCharacteristic:v44 actionSet:setCopy action:actionCopy objects:v62 error:v36];
+                          v45 = [(HMDAssistantCommand *)selfCopy actionResultForCharacteristic:v44 actionSet:setCopy action:actionCopy objects:v61 error:v36];
                           if (v45)
                           {
                             [array addObject:v45];
@@ -10199,27 +10112,27 @@ LABEL_15:
                       }
                     }
 
-                    v67 = [v32 countByEnumeratingWithState:&v68 objects:v84 count:16];
+                    v66 = [v32 countByEnumeratingWithState:&v67 objects:v83 count:16];
                   }
 
-                  while (v67);
+                  while (v66);
                 }
 
-                v30 = v58 + 1;
-                v22 = v56;
+                v30 = v57 + 1;
+                v22 = v55;
               }
 
-              while (v58 + 1 != v57);
-              v57 = [v56 countByEnumeratingWithState:&v72 objects:v85 count:16];
+              while (v57 + 1 != v56);
+              v56 = [v55 countByEnumeratingWithState:&v71 objects:v84 count:16];
             }
 
-            while (v57);
-            v21 = v56;
-            v14 = v50;
-            v11 = v51;
-            v13 = v52;
+            while (v56);
+            v21 = v55;
+            v14 = v49;
+            v11 = v50;
+            v13 = v51;
             v15 = 0x277CCA000;
-            v22 = v56;
+            v22 = v55;
           }
 
           else
@@ -10227,7 +10140,7 @@ LABEL_15:
             v21 = v22;
           }
 
-          v16 = v53;
+          v16 = v52;
         }
 
 LABEL_41:
@@ -10235,14 +10148,13 @@ LABEL_41:
       }
 
       while (v16 != v13);
-      v13 = [v11 countByEnumeratingWithState:&v76 objects:v86 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v75 objects:v85 count:16];
     }
 
     while (v13);
   }
 
-  v46 = [array copy];
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = objc_msgSend_copy(array);
 
   return v46;
 }
@@ -10380,13 +10292,7 @@ LABEL_41:
 
       else
       {
-        if (!actionCopy)
-        {
-          goto LABEL_16;
-        }
-
-        actionType = [actionCopy actionType];
-        if (!actionType || (v28 = actionType, [actionCopy actionType], v29 = objc_claimAutoreleasedReturnValue(), v30 = objc_msgSend(v29, "isEqualToString:", *MEMORY[0x277D47E78]), v29, v28, v30))
+        if (actionCopy && (([actionCopy actionType], (v27 = objc_claimAutoreleasedReturnValue()) == 0) || (v28 = v27, objc_msgSend(actionCopy, "actionType"), v29 = objc_claimAutoreleasedReturnValue(), v30 = objc_msgSend(v29, "isEqualToString:", *MEMORY[0x277D47E78]), v29, v28, v30)))
         {
           attribute2 = [actionCopy attribute];
           v32 = [v18 mapReadCharacteristicFromAssistantName:attribute2];
@@ -10394,7 +10300,6 @@ LABEL_41:
 
         else
         {
-LABEL_16:
           attribute2 = [actionCopy attribute];
           v32 = [v18 mapWriteCharacteristicFromAssistantName:attribute2];
         }
@@ -10424,59 +10329,59 @@ LABEL_46:
 
       v91 = units;
       v97 = characteristicType2;
-      actionType2 = [actionCopy actionType];
+      actionType = [actionCopy actionType];
       v39 = MEMORY[0x277D47E78];
       v92 = metadata;
-      if (!actionType2)
+      if (!actionType)
       {
         v42 = *MEMORY[0x277D47E78];
         goto LABEL_35;
       }
 
-      v40 = actionType2;
-      actionType3 = [actionCopy actionType];
+      v40 = actionType;
+      actionType2 = [actionCopy actionType];
       v42 = *v39;
-      if ([actionType3 isEqualToString:v42])
+      if ([actionType2 isEqualToString:v42])
       {
         goto LABEL_34;
       }
 
-      actionType4 = [actionCopy actionType];
-      if ([actionType4 isEqualToString:*MEMORY[0x277D47E98]])
+      actionType3 = [actionCopy actionType];
+      if ([actionType3 isEqualToString:*MEMORY[0x277D47E98]])
       {
 
 LABEL_34:
         goto LABEL_35;
       }
 
-      v94 = actionType4;
-      actionType5 = [actionCopy actionType];
-      if ([actionType5 isEqualToString:*MEMORY[0x277D47EA8]])
+      v94 = actionType3;
+      actionType4 = [actionCopy actionType];
+      if ([actionType4 isEqualToString:*MEMORY[0x277D47EA8]])
       {
 
 LABEL_33:
         goto LABEL_34;
       }
 
-      v90 = actionType5;
-      actionType6 = [actionCopy actionType];
-      if ([actionType6 isEqualToString:*MEMORY[0x277D47EA0]])
+      v90 = actionType4;
+      actionType5 = [actionCopy actionType];
+      if ([actionType5 isEqualToString:*MEMORY[0x277D47EA0]])
       {
 
 LABEL_32:
         goto LABEL_33;
       }
 
-      v89 = actionType6;
-      actionType7 = [actionCopy actionType];
-      if ([actionType7 isEqualToString:*MEMORY[0x277D47E70]])
+      v89 = actionType5;
+      actionType6 = [actionCopy actionType];
+      if ([actionType6 isEqualToString:*MEMORY[0x277D47E70]])
       {
 
         goto LABEL_32;
       }
 
-      actionType8 = [actionCopy actionType];
-      v88 = [actionType8 isEqualToString:*MEMORY[0x277D47EC0]];
+      actionType7 = [actionCopy actionType];
+      v88 = [actionType7 isEqualToString:*MEMORY[0x277D47EC0]];
 
       if (v88)
       {
@@ -10485,8 +10390,8 @@ LABEL_35:
         units2 = [value units];
         stepValue = [v18 mapFromAssistantUnitName:units2];
 
-        actionType9 = [actionCopy actionType];
-        v50 = [actionType9 isEqualToString:v42];
+        actionType8 = [actionCopy actionType];
+        v50 = [actionType8 isEqualToString:v42];
 
         resultAttribute = [resultCopy resultAttribute];
         value2 = [characteristicCopy value];
@@ -10507,12 +10412,12 @@ LABEL_35:
         }
 
         v55 = value3;
-        actionType10 = [actionCopy actionType];
-        if (actionType10)
+        actionType9 = [actionCopy actionType];
+        if (actionType9)
         {
-          v57 = actionType10;
-          actionType11 = [actionCopy actionType];
-          v59 = [actionType11 isEqualToString:v42];
+          v57 = actionType9;
+          actionType10 = [actionCopy actionType];
+          v59 = [actionType10 isEqualToString:v42];
 
           characteristicType2 = v97;
           if (!v59)
@@ -10541,16 +10446,16 @@ LABEL_45:
         goto LABEL_44;
       }
 
-      actionType12 = [actionCopy actionType];
-      if ([actionType12 isEqualToString:*MEMORY[0x277D47EB8]])
+      actionType11 = [actionCopy actionType];
+      if ([actionType11 isEqualToString:*MEMORY[0x277D47EB8]])
       {
 
         characteristicType2 = v97;
         goto LABEL_52;
       }
 
-      actionType13 = [actionCopy actionType];
-      v65 = [actionType13 isEqualToString:*MEMORY[0x277D47EB0]];
+      actionType12 = [actionCopy actionType];
+      v65 = [actionType12 isEqualToString:*MEMORY[0x277D47EB0]];
 
       characteristicType2 = v97;
       if (v65)
@@ -10581,15 +10486,15 @@ LABEL_64:
         goto LABEL_45;
       }
 
-      actionType14 = [actionCopy actionType];
+      actionType13 = [actionCopy actionType];
       v72 = *MEMORY[0x277D47E88];
-      if (([actionType14 isEqualToString:*MEMORY[0x277D47E88]] & 1) == 0)
+      if (([actionType13 isEqualToString:*MEMORY[0x277D47E88]] & 1) == 0)
       {
-        actionType15 = [actionCopy actionType];
-        if (![actionType15 isEqualToString:*MEMORY[0x277D47E80]])
+        actionType14 = [actionCopy actionType];
+        if (![actionType14 isEqualToString:*MEMORY[0x277D47E80]])
         {
-          actionType16 = [actionCopy actionType];
-          v96 = [actionType16 isEqualToString:*MEMORY[0x277D47E90]];
+          actionType15 = [actionCopy actionType];
+          v96 = [actionType15 isEqualToString:*MEMORY[0x277D47E90]];
 
           characteristicType2 = v97;
           if ((v96 & 1) == 0)
@@ -10604,8 +10509,8 @@ LABEL_60:
             goto LABEL_64;
           }
 
-          actionType17 = [actionCopy actionType];
-          v75 = [actionType17 isEqualToString:v72];
+          actionType16 = [actionCopy actionType];
+          v75 = [actionType16 isEqualToString:v72];
 
           if (v75)
           {
@@ -10643,8 +10548,8 @@ LABEL_78:
             goto LABEL_71;
           }
 
-          actionType18 = [actionCopy actionType];
-          v78 = [actionType18 isEqualToString:*MEMORY[0x277D47E80]];
+          actionType17 = [actionCopy actionType];
+          v78 = [actionType17 isEqualToString:*MEMORY[0x277D47E80]];
 
           if (v78)
           {
@@ -10661,8 +10566,8 @@ LABEL_71:
             goto LABEL_78;
           }
 
-          actionType19 = [actionCopy actionType];
-          v81 = [actionType19 isEqualToString:*MEMORY[0x277D47E90]];
+          actionType18 = [actionCopy actionType];
+          v81 = [actionType18 isEqualToString:*MEMORY[0x277D47E90]];
 
           if (v81)
           {

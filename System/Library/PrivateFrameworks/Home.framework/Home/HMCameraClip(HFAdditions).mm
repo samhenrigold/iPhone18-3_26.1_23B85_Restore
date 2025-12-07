@@ -9,8 +9,8 @@
 - (id)hf_familiarFaceEventAtOffset:()HFAdditions;
 - (id)hf_sortedSignificantEvents;
 - (id)hf_stateDumpBuilderWithContext:()HFAdditions;
-- (uint64_t)hf_duration;
 - (uint64_t)hf_hasInsufficientAnalysis;
+- (void)hf_duration;
 - (void)hf_sortSignificantEvents;
 @end
 
@@ -19,7 +19,7 @@
 - (id)hf_endDate
 {
   dateOfOccurrence = [self dateOfOccurrence];
-  [self duration];
+  objc_msgSend_duration(self);
   v3 = [dateOfOccurrence dateByAddingTimeInterval:?];
 
   return v3;
@@ -29,19 +29,19 @@
 {
   v2 = objc_alloc(MEMORY[0x277CCA970]);
   dateOfOccurrence = [self dateOfOccurrence];
-  [self duration];
+  objc_msgSend_duration(self);
   v4 = [v2 initWithStartDate:dateOfOccurrence duration:?];
 
   return v4;
 }
 
-- (uint64_t)hf_duration
+- (void)hf_duration
 {
-  result = [self duration];
-  if (v3 >= 0.00000011920929)
+  result = objc_msgSend_duration(self, a2);
+  if (v5 >= 0.00000011920929)
   {
 
-    return [self duration];
+    return objc_msgSend_duration(self);
   }
 
   return result;
@@ -52,7 +52,7 @@
   result = 1;
   if ([self isComplete])
   {
-    [self duration];
+    objc_msgSend_duration(self);
     if (v2 < 0.00000011920929)
     {
       return 0;
@@ -94,7 +94,7 @@
 
 - (void)hf_sortSignificantEvents
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   if (+[HFCameraUtilities treatAllClipsAsUnanalyzed])
   {
     v2 = objc_alloc(MEMORY[0x277CD18F8]);
@@ -103,21 +103,20 @@
     uUID2 = [MEMORY[0x277CCAD78] UUID];
     uniqueIdentifier = [self uniqueIdentifier];
     v7 = [v2 initWithUniqueIdentifier:uUID reason:6 dateOfOccurrence:dateOfOccurrence confidenceLevel:100 cameraProfileUUID:uUID2 faceClassification:0 timeOffsetWithinClip:0.0 clipUUID:uniqueIdentifier];
-    v11[0] = v7;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v10[0] = v7;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   }
 
   else
   {
     uUID = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"dateOfOccurrence" ascending:1];
     dateOfOccurrence = [self significantEvents];
-    v10 = uUID;
-    uUID2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
+    v9 = uUID;
+    uUID2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
     v8 = [dateOfOccurrence sortedArrayUsingDescriptors:uUID2];
   }
 
   objc_setAssociatedObject(self, "SortedSignificantEvents", v8, 0x301);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)hf_allEventsContainingPeopleInClip
@@ -229,14 +228,14 @@
   if ([v4 detailLevel] == 2)
   {
     v10 = MEMORY[0x277CCABB0];
-    [self duration];
+    objc_msgSend_duration(self);
     [v10 numberWithDouble:?];
   }
 
   else
   {
     v11 = MEMORY[0x277CCACA8];
-    [self duration];
+    objc_msgSend_duration(self);
     [v11 stringWithFormat:@"%.2f", v12];
   }
   v13 = ;

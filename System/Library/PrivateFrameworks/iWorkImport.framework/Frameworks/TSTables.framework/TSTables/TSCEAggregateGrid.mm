@@ -14,9 +14,9 @@
 
 - (TSCEAggregateGrid)initWithGrids:(const void *)grids
 {
-  v36.receiver = self;
-  v36.super_class = TSCEAggregateGrid;
-  v4 = [(TSCEAbstractGrid *)&v36 init];
+  v32.receiver = self;
+  v32.super_class = TSCEAggregateGrid;
+  v4 = [(TSCEAbstractGrid *)&v32 init];
   v5 = v4;
   if (v4)
   {
@@ -37,53 +37,53 @@
     v5->_argumentCounts = v10;
     if (var0 != begin && v10 == 0)
     {
-      v24 = MEMORY[0x277D81150];
-      v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "[TSCEAggregateGrid initWithGrids:]", v12, v13);
-      v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v26, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEAggregateGrid.mm", v27, v28);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v24, v30, v25, v29, 44, 0, "failed to allocate memory");
+      v22 = MEMORY[0x277D81150];
+      v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "[TSCEAggregateGrid initWithGrids:]", v12);
+      v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEAggregateGrid.mm", v25);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v22, v27, v23, v26, 44, 0, "failed to allocate memory");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v31, v32, v33, v34);
-      v23 = 0;
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v28, v29, v30);
+      v21 = 0;
       goto LABEL_15;
     }
 
     if (var0 != begin)
     {
-      v15 = 0;
+      v14 = 0;
       if ((v9 >> 3) <= 1)
       {
-        v16 = 1;
+        v15 = 1;
       }
 
       else
       {
-        v16 = v9 >> 3;
+        v15 = v9 >> 3;
       }
 
       do
       {
-        v17 = p_grids->__begin_[v15];
-        v22 = objc_msgSend_count(v17, v18, v19, v20, v21);
-        v5->_argumentCounts[v15] = v22;
-        v5->_count += v22;
+        v16 = p_grids->__begin_[v14];
+        v20 = objc_msgSend_count(v16, v17, v18, v19);
+        v5->_argumentCounts[v14] = v20;
+        v5->_count += v20;
 
-        ++v15;
+        ++v14;
       }
 
-      while (v16 != v15);
+      while (v15 != v14);
     }
   }
 
-  v23 = v5;
+  v21 = v5;
 LABEL_15:
 
-  return v23;
+  return v21;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = [TSCEAggregateGrid alloc];
-  result = objc_msgSend_initWithGrids_(v4, v5, &self->_grids, v6, v7);
+  result = objc_msgSend_initWithGrids_(v4, v5, &self->_grids, v6);
   *(result + 6) = self->_lastReturnedIndex;
   *(result + 7) = self->_lastReturnedArgIndex;
   *(result + 8) = self->_lastReturnedSubindex;
@@ -103,23 +103,23 @@ LABEL_15:
   gridCopy = grid;
   v5 = objc_opt_new();
   v6 = gridCopy;
-  v20[0] = v6;
-  v20[1] = 0;
+  v17[0] = v6;
+  v17[1] = 0;
+  v18 = 0;
+  v19[0] = 0xFFFFFFFFLL;
+  *(v19 + 7) = 0;
+  v20 = vdupq_n_s64(0x7FFF7FFFFFFFuLL);
   v21 = 0;
-  v22[0] = 0xFFFFFFFFLL;
-  *(v22 + 7) = 0;
-  v23 = vdupq_n_s64(0x7FFF7FFFFFFFuLL);
-  v24 = 0;
-  v25 = 0;
-  v13 = objc_msgSend_count(self, v7, v8, v9, v10);
-  if (v13)
+  v22 = 0;
+  v11 = objc_msgSend_count(self, v7, v8, v9);
+  if (v11)
   {
-    for (i = 0; i != v13; ++i)
+    for (i = 0; i != v11; ++i)
     {
-      v15 = objc_msgSend_valueAtIndex_accessContext_(self, v11, i, v20, v12);
-      v19[0] = 0;
-      v19[1] = i;
-      objc_msgSend_setValue_atCoord_(v5, v16, v15, v19, v17);
+      v13 = objc_msgSend_valueAtIndex_accessContext_(self, v10, i, v17);
+      v16[0] = 0;
+      v16[1] = i;
+      objc_msgSend_setValue_atCoord_(v5, v14, v13, v16);
     }
   }
 
@@ -134,7 +134,7 @@ LABEL_15:
   while (begin != var0)
   {
     v7 = *begin;
-    v11 = objc_msgSend_deepResolveInPlace_(v7, v8, placeCopy, v9, v10);
+    v10 = objc_msgSend_deepResolveInPlace_(v7, v8, placeCopy, v9);
 
     ++begin;
   }
@@ -144,15 +144,15 @@ LABEL_15:
 
 - (id)valueAtGridCoord:(const TSCEGridCoord *)coord accessContext:(TSCEGridAccessContext *)context
 {
-  v5 = MEMORY[0x277D81150];
-  v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCEAggregateGrid valueAtGridCoord:accessContext:]", context, v4);
-  v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEAggregateGrid.mm", v8, v9);
-  v11 = objc_opt_class();
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v12, v6, v10, 106, 0, "2D array access not implemented for class %@", v11);
+  v4 = MEMORY[0x277D81150];
+  v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCEAggregateGrid valueAtGridCoord:accessContext:]", context);
+  v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEAggregateGrid.mm", v7);
+  v9 = objc_opt_class();
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v10, v5, v8, 106, 0, "2D array access not implemented for class %@", v9);
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v13, v14, v15, v16);
+  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v11, v12, v13);
 
-  return objc_msgSend_nilValue(TSCENilValue, v17, v18, v19, v20);
+  return objc_msgSend_nilValue(TSCENilValue, v14, v15, v16);
 }
 
 - (id)valueAtIndex:(unint64_t)index accessContext:(TSCEGridAccessContext *)context
@@ -171,121 +171,121 @@ LABEL_23:
       goto LABEL_24;
     }
 
-    v16 = self->_grids.var0 - begin;
+    v15 = self->_grids.var0 - begin;
     self->_lastReturnedSubindex = 0;
-    v17 = self->_lastReturnedArgIndex + 1;
+    v16 = self->_lastReturnedArgIndex + 1;
     do
     {
-      v18 = v17;
-      self->_lastReturnedArgIndex = v17;
-      if (v17 >= v16)
+      v17 = v16;
+      self->_lastReturnedArgIndex = v16;
+      if (v16 >= v15)
       {
         break;
       }
     }
 
-    while (!argumentCounts[v17++]);
-    if (v16 != v18)
+    while (!argumentCounts[v16++]);
+    if (v15 != v17)
     {
       goto LABEL_24;
     }
 
-    v20 = MEMORY[0x277D81150];
-    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCEAggregateGrid valueAtIndex:accessContext:]", context, v4);
-    v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEAggregateGrid.mm", v23, v24);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v20, v26, v21, v25, 125, 0, "ArgumentAccessor consistency violation");
+    v19 = MEMORY[0x277D81150];
+    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCEAggregateGrid valueAtIndex:accessContext:]", context);
+    v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEAggregateGrid.mm", v22);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v24, v20, v23, 125, 0, "ArgumentAccessor consistency violation");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v28, v29, v30);
-    v35 = objc_msgSend_functionName(context->var1, v31, v32, v33, v34);
-    v39 = objc_msgSend_argumentErrorForFunctionName_(TSCEError, v36, v35, v37, v38);
-    v43 = objc_msgSend_errorValue_(TSCEErrorValue, v40, v39, v41, v42);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v25, v26, v27);
+    v31 = objc_msgSend_functionName(context->var1, v28, v29, v30);
+    v34 = objc_msgSend_argumentErrorForFunctionName_(TSCEError, v32, v31, v33);
+    v37 = objc_msgSend_errorValue_(TSCEErrorValue, v35, v34, v36);
   }
 
   else
   {
     if (lastReturnedIndex == 0x7FFFFFFFFFFFFFFFLL || lastReturnedIndex - 1 != index)
     {
-      v10 = self->_argumentCounts;
-      v11 = *v10;
-      if (*v10 <= index)
+      v9 = self->_argumentCounts;
+      v10 = *v9;
+      if (*v9 <= index)
       {
-        v45 = 0;
-        v46 = v10 + 1;
+        v39 = 0;
+        v40 = v9 + 1;
         indexCopy2 = index;
         do
         {
-          indexCopy2 -= v11;
-          v12 = v45 + 1;
-          v11 = v46[v45++];
+          indexCopy2 -= v10;
+          v11 = v39 + 1;
+          v10 = v40[v39++];
         }
 
-        while (indexCopy2 >= v11);
+        while (indexCopy2 >= v10);
       }
 
       else
       {
-        v12 = 0;
+        v11 = 0;
         indexCopy2 = index;
       }
 
-      self->_lastReturnedArgIndex = v12;
+      self->_lastReturnedArgIndex = v11;
       goto LABEL_23;
     }
 
-    v44 = self->_lastReturnedSubindex;
-    if (v44)
+    v38 = self->_lastReturnedSubindex;
+    if (v38)
     {
-      self->_lastReturnedSubindex = v44 - 1;
+      self->_lastReturnedSubindex = v38 - 1;
 LABEL_24:
       self->_lastReturnedIndex = index;
-      v47 = objc_msgSend_valueAtIndex_accessContext_(begin[self->_lastReturnedArgIndex], a2, self->_lastReturnedSubindex, context, v4);
+      v41 = objc_msgSend_valueAtIndex_accessContext_(begin[self->_lastReturnedArgIndex], a2, self->_lastReturnedSubindex, context);
       goto LABEL_25;
     }
 
-    v49 = self->_lastReturnedArgIndex - 1;
+    v43 = self->_lastReturnedArgIndex - 1;
     while (1)
     {
-      self->_lastReturnedArgIndex = v49;
-      if (v49 + 1 < 1)
+      self->_lastReturnedArgIndex = v43;
+      if (v43 + 1 < 1)
       {
         break;
       }
 
-      v50 = self->_argumentCounts[v49--];
-      if (v50)
+      v44 = self->_argumentCounts[v43--];
+      if (v44)
       {
-        indexCopy2 = v50 - 1;
+        indexCopy2 = v44 - 1;
         goto LABEL_23;
       }
     }
 
-    v51 = MEMORY[0x277D81150];
-    v52 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCEAggregateGrid valueAtIndex:accessContext:]", context, v4);
-    v56 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v53, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEAggregateGrid.mm", v54, v55);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v51, v57, v52, v56, 140, 0, "ArgumentAccessor consistency violation");
+    v45 = MEMORY[0x277D81150];
+    v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCEAggregateGrid valueAtIndex:accessContext:]", context);
+    v49 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v47, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEAggregateGrid.mm", v48);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v45, v50, v46, v49, 140, 0, "ArgumentAccessor consistency violation");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v58, v59, v60, v61);
-    v35 = objc_msgSend_functionName(context->var1, v62, v63, v64, v65);
-    v39 = objc_msgSend_argumentErrorForFunctionName_(TSCEError, v66, v35, v67, v68);
-    v43 = objc_msgSend_errorValue_(TSCEErrorValue, v69, v39, v70, v71);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v51, v52, v53);
+    v31 = objc_msgSend_functionName(context->var1, v54, v55, v56);
+    v34 = objc_msgSend_argumentErrorForFunctionName_(TSCEError, v57, v31, v58);
+    v37 = objc_msgSend_errorValue_(TSCEErrorValue, v59, v34, v60);
   }
 
-  v47 = v43;
+  v41 = v37;
 
 LABEL_25:
 
-  return v47;
+  return v41;
 }
 
 - (char)deepType:(id)type outError:(id *)error
 {
-  v5 = MEMORY[0x277D81150];
-  v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCEAggregateGrid deepType:outError:]", error, v4);
-  v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEAggregateGrid.mm", v8, v9);
-  v11 = objc_opt_class();
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v12, v6, v10, 176, 0, "Shouldn't call deepType on an %@ class", v11);
+  v4 = MEMORY[0x277D81150];
+  v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCEAggregateGrid deepType:outError:]", error);
+  v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEAggregateGrid.mm", v7);
+  v9 = objc_opt_class();
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v10, v5, v8, 176, 0, "Shouldn't call deepType on an %@ class", v9);
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v13, v14, v15, v16);
+  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v11, v12, v13);
   return 9;
 }
 

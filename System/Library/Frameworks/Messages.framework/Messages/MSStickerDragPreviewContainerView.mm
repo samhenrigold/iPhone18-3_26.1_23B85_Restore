@@ -245,7 +245,7 @@ uint64_t __91___MSStickerDragPreviewContainerView__animateLiftCancellationAlongs
 uint64_t __79___MSStickerDragPreviewContainerView__animateDropAlongsideAnimator_completion___block_invoke(uint64_t a1)
 {
   v9 = *MEMORY[0x1E69E9840];
-  v2 = ms_defaultLog();
+  v2 = ms_defaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -267,7 +267,7 @@ uint64_t __79___MSStickerDragPreviewContainerView__animateDropAlongsideAnimator_
 uint64_t __79___MSStickerDragPreviewContainerView__animateDropAlongsideAnimator_completion___block_invoke_83(uint64_t a1)
 {
   v7 = *MEMORY[0x1E69E9840];
-  v2 = ms_defaultLog();
+  v2 = ms_defaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);

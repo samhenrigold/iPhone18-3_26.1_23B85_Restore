@@ -117,31 +117,31 @@
   dispatch_async(queue, v7);
 }
 
-void __79__RTDaemonClientRegistrarScenarioTrigger_onScenarioTriggerManagerNotification___block_invoke(uint64_t a1)
+void __79__RTDaemonClientRegistrarScenarioTrigger_onScenarioTriggerManagerNotification___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v3 = *(a1 + 32);
-    v2 = *(a1 + 40);
+    v4 = *(a1 + 32);
+    v3 = *(a1 + 40);
 
-    [v2 _onScenarioTriggerManagerNotification:v3];
+    [v3 _onScenarioTriggerManagerNotification:v4];
   }
 
   else
   {
-    v4 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v5 = [*(a1 + 32) name];
-      v6 = 138412802;
-      v7 = v5;
-      v8 = 2080;
-      v9 = "[RTDaemonClientRegistrarScenarioTrigger onScenarioTriggerManagerNotification:]_block_invoke";
-      v10 = 1024;
-      v11 = 113;
-      _os_log_error_impl(&dword_2304B3000, v4, OS_LOG_TYPE_ERROR, "unknown notification with name received, %@ (in %s:%d)", &v6, 0x1Cu);
+      v6 = [*(a1 + 32) name];
+      v7 = 138412802;
+      v8 = v6;
+      v9 = 2080;
+      v10 = "[RTDaemonClientRegistrarScenarioTrigger onScenarioTriggerManagerNotification:]_block_invoke";
+      v11 = 1024;
+      v12 = 113;
+      _os_log_error_impl(&dword_2304B3000, v5, OS_LOG_TYPE_ERROR, "unknown notification with name received, %@ (in %s:%d)", &v7, 0x1Cu);
     }
   }
 }

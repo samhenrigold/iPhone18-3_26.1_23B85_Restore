@@ -115,7 +115,7 @@
 
 - (void)setLoadingData:(os_log_t)log .cold.1(char a1, int *a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = @"NO";
   v4 = *a2;
   if (a1)
@@ -123,12 +123,11 @@
     v3 = @"YES";
   }
 
-  v6 = 138412546;
-  v7 = v3;
-  v8 = 1024;
-  v9 = v4;
-  _os_log_debug_impl(&dword_272ACF000, log, OS_LOG_TYPE_DEBUG, "loading %@, count = %d", &v6, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
+  v6 = v3;
+  v7 = 1024;
+  v8 = v4;
+  _os_log_debug_impl(&dword_272ACF000, log, OS_LOG_TYPE_DEBUG, "loading %@, count = %d", &v5, 0x12u);
 }
 
 @end

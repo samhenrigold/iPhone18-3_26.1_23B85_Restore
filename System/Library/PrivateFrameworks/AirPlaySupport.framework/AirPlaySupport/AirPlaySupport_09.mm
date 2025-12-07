@@ -1,792 +1,3 @@
-uint64_t APSAudioFormatDescriptionGetFormatID(uint64_t a1)
-{
-  if (a1)
-  {
-    return *(a1 + 24);
-  }
-
-  APSLogErrorAt(a1);
-  return 0;
-}
-
-uint64_t APSAudioFormatDescriptionGetFramesPerPacket(uint64_t a1)
-{
-  if (a1)
-  {
-    return *(a1 + 36);
-  }
-
-  APSLogErrorAt(a1);
-  return 0;
-}
-
-uint64_t APSAudioFormatDescriptionGetChannelCount(uint64_t a1)
-{
-  if (a1)
-  {
-    return *(a1 + 44);
-  }
-
-  APSLogErrorAt(a1);
-  return 0;
-}
-
-uint64_t APSAudioFormatDescriptionGetBitsPerChannel(uint64_t a1)
-{
-  if (a1)
-  {
-    return *(a1 + 48);
-  }
-
-  APSLogErrorAt(a1);
-  return 0;
-}
-
-uint64_t APSAudioFormatDescriptionCopyFigEndpointStreamAudioFormatDescription(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  if (a2 && a3)
-  {
-    v3 = *(a2 + 56);
-    v4 = FigEndpointStreamAudioFormatDescriptionCreate();
-    v5 = v4;
-    if (v4)
-    {
-      APSLogErrorAt(v4);
-    }
-  }
-
-  else
-  {
-    APSLogErrorAt(0);
-    return 4294954516;
-  }
-
-  return v5;
-}
-
-uint64_t APSAPACApplyIndependentDecodableDependancy(opaqueCMSampleBuffer *a1)
-{
-  cf = 0;
-  if (!a1)
-  {
-    APSLogErrorAt(0);
-    return 0;
-  }
-
-  FormatDescription = CMSampleBufferGetFormatDescription(a1);
-  if (!FormatDescription)
-  {
-    return 0;
-  }
-
-  v3 = APSAudioFormatDescriptionCreateWithCMFormatDescription(*MEMORY[0x277CBECE8], FormatDescription, &cf);
-  if (v3)
-  {
-    v10 = v3;
-    APSLogErrorAt(v3);
-    SInt16 = 0;
-    goto LABEL_19;
-  }
-
-  v4 = cf;
-  if (cf)
-  {
-    v5 = *(cf + 6);
-    if (v5 != 1634754915 && v5 != 1902211171 && v5 != 1667330147)
-    {
-      SInt16 = 0;
-      v10 = 0;
-LABEL_20:
-      CFRelease(v4);
-LABEL_21:
-      if (SInt16)
-      {
-        CFRelease(SInt16);
-      }
-
-      return v10;
-    }
-
-    SInt16 = FigCFNumberCreateSInt16();
-    if (SInt16)
-    {
-      v8 = *MEMORY[0x277CBED10];
-      CMSetAttachment(a1, *MEMORY[0x277CC0620], SInt16, 1u);
-      CMSetAttachment(a1, *MEMORY[0x277CC06A0], v8, 1u);
-      if (gLogCategory_APSAPACSupport <= 10 && (gLogCategory_APSAPACSupport != -1 || _LogCategory_Initialize()))
-      {
-        LogPrintF();
-      }
-
-      v10 = 0;
-    }
-
-    else
-    {
-      APSLogErrorAt(0);
-      v10 = 4294954510;
-    }
-
-LABEL_19:
-    v4 = cf;
-    if (!cf)
-    {
-      goto LABEL_21;
-    }
-
-    goto LABEL_20;
-  }
-
-  result = APSLogErrorAt(0);
-  __break(1u);
-  return result;
-}
-
-uint64_t APSAudioFormatDescriptionListGetTypeID()
-{
-  if (APSAudioFormatDescriptionListGetTypeID_sInitOnce != -1)
-  {
-    dispatch_once_f(&APSAudioFormatDescriptionListGetTypeID_sInitOnce, &APSAudioFormatDescriptionListGetTypeID_sTypeID, audioFormatList_getTypeID);
-  }
-
-  return APSAudioFormatDescriptionListGetTypeID_sTypeID;
-}
-
-uint64_t audioFormatList_getTypeID(uint64_t *a1)
-{
-  result = _CFRuntimeRegisterClass();
-  *a1 = result;
-  return result;
-}
-
-__CFString *audioFormatList_CopyDebugDescription(uint64_t a1)
-{
-  Mutable = CFStringCreateMutable(*MEMORY[0x277CBECE8], 0);
-  v3 = Mutable;
-  if (Mutable)
-  {
-    CFStringAppendFormat(Mutable, 0, @"<APSAudioFormatDescriptionList %p> %@", a1, *(a1 + 16));
-  }
-
-  else
-  {
-    APSLogErrorAt(0);
-  }
-
-  return v3;
-}
-
-BOOL audioFormatList_Equal(const void *a1, const void *a2)
-{
-  v15 = 0;
-  theArray = 0;
-  if (!a1)
-  {
-    goto LABEL_20;
-  }
-
-  v4 = CFGetTypeID(a1);
-  if (APSAudioFormatDescriptionListGetTypeID_sInitOnce != -1)
-  {
-    dispatch_once_f(&APSAudioFormatDescriptionListGetTypeID_sInitOnce, &APSAudioFormatDescriptionListGetTypeID_sTypeID, audioFormatList_getTypeID);
-  }
-
-  if (v4 != APSAudioFormatDescriptionListGetTypeID_sTypeID)
-  {
-LABEL_20:
-    v6 = 0;
-LABEL_22:
-    APSLogErrorAt(v6);
-    goto LABEL_23;
-  }
-
-  if (!a2)
-  {
-    goto LABEL_21;
-  }
-
-  v5 = CFGetTypeID(a2);
-  if (APSAudioFormatDescriptionListGetTypeID_sInitOnce != -1)
-  {
-    dispatch_once_f(&APSAudioFormatDescriptionListGetTypeID_sInitOnce, &APSAudioFormatDescriptionListGetTypeID_sTypeID, audioFormatList_getTypeID);
-  }
-
-  if (v5 != APSAudioFormatDescriptionListGetTypeID_sTypeID)
-  {
-LABEL_21:
-    v6 = 0;
-    goto LABEL_22;
-  }
-
-  v6 = APSAudioFormatDescriptionListCopyAudioFormatDescriptionsArray(a1, &theArray);
-  if (v6)
-  {
-    goto LABEL_22;
-  }
-
-  v6 = APSAudioFormatDescriptionListCopyAudioFormatDescriptionsArray(a2, &v15);
-  if (v6)
-  {
-    goto LABEL_22;
-  }
-
-  Count = CFArrayGetCount(theArray);
-  if (Count == CFArrayGetCount(v15))
-  {
-    v8 = *MEMORY[0x277CBECE8];
-    MutableCopy = CFArrayCreateMutableCopy(*MEMORY[0x277CBECE8], 0, theArray);
-    if (MutableCopy)
-    {
-      v10 = MutableCopy;
-      v11 = CFArrayCreateMutableCopy(v8, 0, v15);
-      if (v11)
-      {
-        v12 = v11;
-        v17.length = CFArrayGetCount(v10);
-        v17.location = 0;
-        CFArraySortValues(v10, v17, audioFormatList_objComparatorX, 0);
-        v18.length = CFArrayGetCount(v12);
-        v18.location = 0;
-        CFArraySortValues(v12, v18, audioFormatList_objComparatorX, 0);
-        v13 = CFEqual(v10, v12) != 0;
-        CFRelease(v10);
-        CFRelease(v12);
-        goto LABEL_15;
-      }
-
-      CFRelease(v10);
-    }
-  }
-
-LABEL_23:
-  v13 = 0;
-LABEL_15:
-  if (theArray)
-  {
-    CFRelease(theArray);
-  }
-
-  if (v15)
-  {
-    CFRelease(v15);
-  }
-
-  return v13;
-}
-
-uint64_t APSAudioFormatDescriptionListCopyAudioFormatDescriptionsArray(uint64_t a1, void *a2)
-{
-  if (a1 && a2)
-  {
-    v3 = *(a1 + 16);
-    v4 = FigCFSetCopyValuesAsCFArray();
-    v5 = v4;
-    if (v4)
-    {
-      APSLogErrorAt(v4);
-    }
-
-    else
-    {
-      *a2 = 0;
-    }
-  }
-
-  else
-  {
-    APSLogErrorAt(0);
-    return 4294954516;
-  }
-
-  return v5;
-}
-
-uint64_t audioFormatList_objComparatorX(uint64_t a1, uint64_t a2)
-{
-  if (a1)
-  {
-    v2 = *(a1 + 64);
-    if (a2)
-    {
-LABEL_3:
-      v3 = *(a2 + 64);
-      goto LABEL_4;
-    }
-  }
-
-  else
-  {
-    v2 = 0;
-    if (a2)
-    {
-      goto LABEL_3;
-    }
-  }
-
-  v3 = 0;
-LABEL_4:
-  v4 = v2 > v3;
-  if (v2 >= v3)
-  {
-    v5 = 0;
-  }
-
-  else
-  {
-    v5 = -1;
-  }
-
-  if (v4)
-  {
-    return 1;
-  }
-
-  else
-  {
-    return v5;
-  }
-}
-
-void audioFormatList_Finalize(void *a1)
-{
-  if (gLogCategory_APSAudioFormatDescriptionList <= 30 && (gLogCategory_APSAudioFormatDescriptionList != -1 || _LogCategory_Initialize()))
-  {
-    LogPrintF();
-  }
-
-  v2 = a1[2];
-  if (v2)
-  {
-    CFRelease(v2);
-    a1[2] = 0;
-  }
-
-  v3 = a1[3];
-  if (v3)
-  {
-    CFRelease(v3);
-    a1[3] = 0;
-  }
-
-  v4 = a1[4];
-  if (v4)
-  {
-    CFRelease(v4);
-    a1[4] = 0;
-  }
-
-  v5 = a1[6];
-  if (v5)
-  {
-    CFRelease(v5);
-    a1[6] = 0;
-  }
-
-  v6 = a1[5];
-  if (v6)
-  {
-    CFRelease(v6);
-    a1[5] = 0;
-  }
-}
-
-uint64_t APSAudioFormatDescriptionListCreate(const __CFAllocator *a1, void *a2)
-{
-  if (a2)
-  {
-    if (APSAudioFormatDescriptionListGetTypeID_sInitOnce != -1)
-    {
-      dispatch_once_f(&APSAudioFormatDescriptionListGetTypeID_sInitOnce, &APSAudioFormatDescriptionListGetTypeID_sTypeID, audioFormatList_getTypeID);
-    }
-
-    Instance = _CFRuntimeCreateInstance();
-    if (Instance)
-    {
-      v5 = Instance;
-      Instance[2] = 0u;
-      Instance[3] = 0u;
-      Instance[1] = 0u;
-      Mutable = CFSetCreateMutable(a1, 0, MEMORY[0x277CBF158]);
-      *(v5 + 2) = Mutable;
-      if (Mutable && (v7 = CFSetCreateMutable(a1, 0, MEMORY[0x277CBF158]), (*(v5 + 6) = v7) != 0) && (v8 = CFSetCreateMutable(a1, 0, MEMORY[0x277CBF158]), (*(v5 + 5) = v8) != 0))
-      {
-        result = 0;
-        *(v5 + 14) = 0;
-        *(v5 + 30) = 0;
-        *(v5 + 3) = 0;
-        *(v5 + 4) = 0;
-        *a2 = v5;
-      }
-
-      else
-      {
-        APSLogErrorAt(0);
-        CFRelease(v5);
-        return 4294954510;
-      }
-    }
-
-    else
-    {
-      APSLogErrorAt(0);
-
-      return FigSignalErrorAtGM();
-    }
-  }
-
-  else
-  {
-    APSLogErrorAt(0);
-    return 4294954516;
-  }
-
-  return result;
-}
-
-void APSAudioFormatDescriptionListCopyDebugString(uint64_t a1, void *a2)
-{
-  cf = 0;
-  theArray = 0;
-  if (!a1 || !a2)
-  {
-    APSLogErrorAt(0);
-    goto LABEL_12;
-  }
-
-  Mutable = CFStringCreateMutable(*MEMORY[0x277CBECE8], 0);
-  v5 = Mutable;
-  if (Mutable)
-  {
-    Mutable = APSAudioFormatDescriptionListCopyAudioFormatDescriptionsArray(a1, &theArray);
-    if (!Mutable)
-    {
-      Count = CFArrayGetCount(theArray);
-      if (Count >= 1)
-      {
-        v7 = Count;
-        v8 = 0;
-        do
-        {
-          ValueAtIndex = CFArrayGetValueAtIndex(theArray, v8);
-          APSAudioFormatDescriptionCopyDebugString(ValueAtIndex, &cf);
-          Mutable = CFStringAppendF();
-          if (Mutable)
-          {
-            goto LABEL_20;
-          }
-
-          if (cf)
-          {
-            CFRelease(cf);
-            cf = 0;
-          }
-        }
-
-        while (v7 != ++v8);
-      }
-
-      *a2 = v5;
-LABEL_12:
-      v5 = 0;
-      goto LABEL_13;
-    }
-  }
-
-LABEL_20:
-  APSLogErrorAt(Mutable);
-LABEL_13:
-  if (theArray)
-  {
-    CFRelease(theArray);
-  }
-
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  if (v5)
-  {
-    CFRelease(v5);
-  }
-}
-
-uint64_t APSAudioFormatDescriptionListCreateWithAudioFormatDescriptionArray(const __CFAllocator *a1, const __CFArray *a2, CFTypeRef *a3)
-{
-  cf = 0;
-  if (a3)
-  {
-    v5 = APSAudioFormatDescriptionListCreate(a1, &cf);
-    if (v5)
-    {
-      v12 = v5;
-LABEL_17:
-      APSLogErrorAt(v5);
-    }
-
-    else
-    {
-      v6 = 0;
-      while (1)
-      {
-        if (a2)
-        {
-          Count = CFArrayGetCount(a2);
-        }
-
-        else
-        {
-          Count = 0;
-        }
-
-        if (v6 >= Count)
-        {
-          v12 = 0;
-          *a3 = cf;
-          return v12;
-        }
-
-        ValueAtIndex = CFArrayGetValueAtIndex(a2, v6);
-        if (!ValueAtIndex)
-        {
-          break;
-        }
-
-        v9 = ValueAtIndex;
-        v10 = CFGetTypeID(ValueAtIndex);
-        if (APSAudioFormatDescriptionGetTypeID_sInitOnce != -1)
-        {
-          dispatch_once_f(&APSAudioFormatDescriptionGetTypeID_sInitOnce, &APSAudioFormatDescriptionGetTypeID_sTypeID, audioFormat_getTypeID);
-        }
-
-        if (v10 != APSAudioFormatDescriptionGetTypeID_sTypeID)
-        {
-          break;
-        }
-
-        v5 = APSAudioFormatDescriptionListAddFormat(cf, v9);
-        ++v6;
-        if (v5)
-        {
-          v12 = v5;
-          goto LABEL_17;
-        }
-      }
-
-      APSLogErrorAt(0);
-      v12 = 4294954516;
-    }
-
-    if (cf)
-    {
-      CFRelease(cf);
-    }
-  }
-
-  else
-  {
-    APSLogErrorAt(0);
-    return 4294954516;
-  }
-
-  return v12;
-}
-
-uint64_t APSAudioFormatDescriptionListAddFormat(uint64_t a1, uint64_t a2)
-{
-  if (!a1 || !a2)
-  {
-    APSLogErrorAt(0);
-    return 4294954516;
-  }
-
-  v4 = *(a2 + 44);
-  if (*(a1 + 56) > v4)
-  {
-    v4 = *(a1 + 56);
-  }
-
-  *(a1 + 56) = v4;
-  v5 = *(a2 + 16);
-  if (v5 == 44100.0)
-  {
-    *(a1 + 61) = 1;
-  }
-
-  else if (v5 == 48000.0)
-  {
-    *(a1 + 60) = 1;
-  }
-
-  v6 = *(a2 + 56);
-  v7 = *MEMORY[0x277CBECE8];
-  UInt32 = FigCFNumberCreateUInt32();
-  if (!UInt32)
-  {
-    APSLogErrorAt(0);
-    return 4294954510;
-  }
-
-  v9 = UInt32;
-  CFSetAddValue(*(a1 + 48), UInt32);
-  v10 = *(a2 + 24);
-  v11 = FigCFNumberCreateUInt32();
-  if (!v11)
-  {
-    APSLogErrorAt(0);
-    v18 = 4294954510;
-    goto LABEL_22;
-  }
-
-  v12 = v11;
-  CFSetAddValue(*(a1 + 40), v11);
-  v13 = *(a1 + 32);
-  if (!v13)
-  {
-    *(a1 + 32) = CFRetain(a2);
-    goto LABEL_21;
-  }
-
-  v14 = *(a2 + 44);
-  v15 = *(v13 + 44);
-  if (v14 <= v15)
-  {
-    if (v14 != v15)
-    {
-      goto LABEL_21;
-    }
-
-    if (v14 > 2)
-    {
-      v16 = *(v13 + 56);
-      FullRangeChannelCountFromChannelLayoutTag = APSAudioFormatGetFullRangeChannelCountFromChannelLayoutTag(*(a2 + 56));
-      if (FullRangeChannelCountFromChannelLayoutTag <= APSAudioFormatGetFullRangeChannelCountFromChannelLayoutTag(v16))
-      {
-        goto LABEL_21;
-      }
-
-      v13 = *(a1 + 32);
-      *(a1 + 32) = a2;
-      CFRetain(a2);
-      if (!v13)
-      {
-        goto LABEL_21;
-      }
-
-      goto LABEL_14;
-    }
-
-    if (*(a2 + 16) <= *(v13 + 16))
-    {
-      goto LABEL_21;
-    }
-  }
-
-  *(a1 + 32) = a2;
-  CFRetain(a2);
-LABEL_14:
-  CFRelease(v13);
-LABEL_21:
-  CFSetAddValue(*(a1 + 16), a2);
-  CFRelease(v12);
-  v18 = 0;
-LABEL_22:
-  CFRelease(v9);
-  return v18;
-}
-
-uint64_t APSAudioFormatDescriptionListContainsFormat(uint64_t a1, const void *a2)
-{
-  if (a1 && a2)
-  {
-    v2 = *(a1 + 16);
-
-    return CFSetContainsValue(v2, a2);
-  }
-
-  else
-  {
-    APSLogErrorAt(0);
-    return 0;
-  }
-}
-
-uint64_t APSAudioFormatDescriptionListAddListToSource(uint64_t a1, uint64_t a2)
-{
-  if (!a1 || !a2)
-  {
-    APSLogErrorAt(0);
-    return 4294954516;
-  }
-
-  v4 = *MEMORY[0x277CBECE8];
-  MutableCopy = CFSetCreateMutableCopy(*MEMORY[0x277CBECE8], 0, *(a1 + 16));
-  if (!MutableCopy)
-  {
-    APSLogErrorAt(0);
-    return 4294954510;
-  }
-
-  v6 = MutableCopy;
-  v7 = *(a2 + 16);
-  if (v7)
-  {
-    CFSetApplyFunction(v7, apsCFUtils_setAddSetApplier, v6);
-  }
-
-  v8 = *(a1 + 16);
-  *(a1 + 16) = v6;
-  CFRetain(v6);
-  if (v8)
-  {
-    CFRelease(v8);
-  }
-
-  v9 = CFSetCreateMutableCopy(v4, 0, *(a1 + 40));
-  if (!v9)
-  {
-    APSLogErrorAt(0);
-    CFRelease(v6);
-    return 4294954510;
-  }
-
-  v10 = v9;
-  v11 = *(a2 + 40);
-  if (v11)
-  {
-    CFSetApplyFunction(v11, apsCFUtils_setAddSetApplier, v10);
-  }
-
-  v12 = *(a1 + 40);
-  *(a1 + 40) = v10;
-  CFRetain(v10);
-  if (v12)
-  {
-    CFRelease(v12);
-  }
-
-  v13 = *(a1 + 56);
-  if (v13 <= *(a2 + 56))
-  {
-    v13 = *(a2 + 56);
-  }
-
-  *(a1 + 56) = v13;
-  if (*(a1 + 61) || *(a2 + 61))
-  {
-    *(a1 + 61) = 1;
-  }
-
-  if (*(a1 + 60) || *(a2 + 60))
-  {
-    *(a1 + 60) = 1;
-  }
-
-  CFRelease(v6);
-  CFRelease(v10);
-  return 0;
-}
-
 uint64_t APSAudioFormatDescriptionListSupports44kHz(uint64_t a1)
 {
   if (a1)
@@ -1114,13 +325,12 @@ uint64_t APSAudioFormatDescriptionListCopyChannelLayoutTagsDataArray(uint64_t a1
   return result;
 }
 
-void audioFormatList_copyChannelLayoutTagsDataArrayApplier(uint64_t a1, uint64_t *a2)
+void audioFormatList_copyChannelLayoutTagsDataArrayApplier(uint64_t result, uint64_t a2)
 {
-  v3 = *a2[1];
+  v3 = **(a2 + 8);
   if (!v3)
   {
     FigCFNumberGetUInt32();
-    v4 = *a2;
     appended = CFArrayAppendBytes();
     v3 = appended;
     if (appended)
@@ -1129,7 +339,7 @@ void audioFormatList_copyChannelLayoutTagsDataArrayApplier(uint64_t a1, uint64_t
     }
   }
 
-  *a2[1] = v3;
+  **(a2 + 8) = v3;
 }
 
 uint64_t APSAudioFormatDescriptionListGetDefaultFormat(uint64_t a1)
@@ -1278,9 +488,9 @@ uint64_t APSAudioFormatDescriptionListGetMaxChannelCount(uint64_t a1)
   return 0;
 }
 
-uint64_t APSAudioFormatDescriptionListSupportsFormatID(uint64_t a1)
+uint64_t APSAudioFormatDescriptionListSupportsFormatID(uint64_t a1, uint64_t a2)
 {
-  if (a1 && (v2 = *MEMORY[0x277CBECE8], (UInt32 = FigCFNumberCreateUInt32()) != 0))
+  if (a1 && (UInt32 = FigCFNumberCreateUInt32()) != 0)
   {
     v4 = UInt32;
     v5 = CFSetContainsValue(*(a1 + 40), UInt32);
@@ -1316,7 +526,7 @@ uint64_t APSAudioFormatDescriptionListFindCompatibleTransportFromPCMAndSetDefaul
 
     if (gLogCategory_APSAudioFormatDescriptionList <= 30 && (gLogCategory_APSAudioFormatDescriptionList != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSAudioFormatDescriptionList, "OSStatus APSAudioFormatDescriptionListFindCompatibleTransportFromPCMAndSetDefault(APSAudioFormatDescriptionListRef, AudioStreamBasicDescription *, APSAudioFormatDescriptionRef *)", 33554462, "index = %d; \t comparing currentFormat=%{asbd} =? inPCMASBD=%{asbd}", i, v9, a2);
     }
 
     if (*v9 == *a2)
@@ -1345,7 +555,7 @@ uint64_t APSAudioFormatDescriptionListFindCompatibleTransportFromPCMAndSetDefaul
 
 uint64_t APSTXTRecordUtilsCopyCFStringFromTXTRecord(const __CFString *a1, CFDataRef theData, CFStringRef *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (a1 && theData)
   {
     valueLen = 0;
@@ -1369,23 +579,22 @@ uint64_t APSTXTRecordUtilsCopyCFStringFromTXTRecord(const __CFString *a1, CFData
       else
       {
         APSLogErrorAt(0);
-        result = 4294960554;
+        return 4294960554;
       }
     }
 
     else
     {
-      result = 4294960569;
+      return 4294960569;
     }
   }
 
   else
   {
     APSLogErrorAt(0);
-    result = 4294960591;
+    return 4294960591;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1818,96 +1027,89 @@ uint64_t APSAPAPExtensionConvertLoudnessInfoDictMediaKindToBBuf(const __CFDictio
     return 4294960591;
   }
 
-  if (!CFDictionaryGetValue(a1, *MEMORY[0x277CEFE10]))
+  Value = CFDictionaryGetValue(a1, *MEMORY[0x277CEFE10]);
+  if (!Value)
   {
     goto LABEL_30;
   }
 
-  v3 = *MEMORY[0x277CEFE38];
+  v4 = Value;
   if (!FigCFEqual())
   {
-    v5 = *MEMORY[0x277CEFE48];
     if (FigCFEqual())
     {
-      v4 = 2;
-      goto LABEL_31;
-    }
-
-    v6 = *MEMORY[0x277CEFE60];
-    if (FigCFEqual())
-    {
-      v4 = 3;
-      goto LABEL_31;
-    }
-
-    v7 = *MEMORY[0x277CEFE20];
-    if (FigCFEqual())
-    {
-      v4 = 4;
-      goto LABEL_31;
-    }
-
-    v8 = *MEMORY[0x277CEFE58];
-    if (FigCFEqual())
-    {
-      v4 = 5;
-      goto LABEL_31;
-    }
-
-    v9 = *MEMORY[0x277CEFE30];
-    if (FigCFEqual())
-    {
-      v4 = 6;
-      goto LABEL_31;
-    }
-
-    v10 = *MEMORY[0x277CEFE50];
-    if (FigCFEqual())
-    {
-      v4 = 7;
-      goto LABEL_31;
-    }
-
-    v11 = *MEMORY[0x277CEFE40];
-    if (FigCFEqual())
-    {
-      v4 = 8;
-      goto LABEL_31;
-    }
-
-    v13 = *MEMORY[0x277CEFE28];
-    if (FigCFEqual())
-    {
-      v4 = 9;
+      v5 = 2;
       goto LABEL_31;
     }
 
     if (FigCFEqual())
     {
-      v4 = 10;
+      v5 = 3;
       goto LABEL_31;
     }
 
     if (FigCFEqual())
     {
-      v4 = 11;
+      v5 = 4;
+      goto LABEL_31;
+    }
+
+    if (FigCFEqual())
+    {
+      v5 = 5;
+      goto LABEL_31;
+    }
+
+    if (FigCFEqual())
+    {
+      v5 = 6;
+      goto LABEL_31;
+    }
+
+    if (FigCFEqual())
+    {
+      v5 = 7;
+      goto LABEL_31;
+    }
+
+    if (FigCFEqual())
+    {
+      v5 = 8;
+      goto LABEL_31;
+    }
+
+    if (FigCFEqual())
+    {
+      v5 = 9;
+      goto LABEL_31;
+    }
+
+    if (FigCFEqual())
+    {
+      v5 = 10;
+      goto LABEL_31;
+    }
+
+    if (FigCFEqual())
+    {
+      v5 = 11;
       goto LABEL_31;
     }
 
     if (gLogCategory_APSAPAPExtensionLoudnessInfoUtils <= 50 && (gLogCategory_APSAPAPExtensionLoudnessInfoUtils != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSAPAPExtensionLoudnessInfoUtils, "APSAPAPExtensionSoundCheckMediaKind apsapapExtension_getMediaKindEnumFromMediaKindString(CFStringRef)", 33554482, "APSAPAPExtensionLoudnessInfo unknown media kind %s!", v4);
     }
 
 LABEL_30:
-    v4 = 0;
+    v5 = 0;
     goto LABEL_31;
   }
 
-  v4 = 1;
+  v5 = 1;
 LABEL_31:
-  BigUIntWithUInt64 = APSCMBlockBufferCreateBigUIntWithUInt64(*MEMORY[0x277CBECE8], v4, &cf);
-  v12 = BigUIntWithUInt64;
+  BigUIntWithUInt64 = APSCMBlockBufferCreateBigUIntWithUInt64(*MEMORY[0x277CBECE8], v5, &cf);
+  v6 = BigUIntWithUInt64;
   if (BigUIntWithUInt64)
   {
     APSLogErrorAt(BigUIntWithUInt64);
@@ -1915,13 +1117,13 @@ LABEL_31:
 
   else
   {
-    v15 = cf;
+    v8 = cf;
     if (cf)
     {
-      v15 = CFRetain(cf);
+      v8 = CFRetain(cf);
     }
 
-    *a2 = v15;
+    *a2 = v8;
   }
 
   if (cf)
@@ -1929,176 +1131,142 @@ LABEL_31:
     CFRelease(cf);
   }
 
-  return v12;
+  return v6;
 }
 
 uint64_t APSAPAPExtensionConvertLoudnessInfoDictLoudnessParametersToBBuf(const __CFDictionary *a1, void *a2)
 {
   blockBufferOut = 0;
-  if (a2)
+  if (!a2)
   {
-    v4 = malloc_type_calloc(1uLL, 0xCuLL, 0x10000403E1C8BA9uLL);
-    if (v4)
+    APSLogErrorAt(0);
+    v5 = 0;
+    v9 = 4294960591;
+    goto LABEL_12;
+  }
+
+  v5 = malloc_type_calloc(1uLL, 0xCuLL, 0x10000403E1C8BA9uLL);
+  if (!v5)
+  {
+    APSLogErrorAt(0);
+    v9 = 4294960568;
+    goto LABEL_12;
+  }
+
+  if (!CFDictionaryGetValue(a1, *MEMORY[0x277CEFE08]))
+  {
+    v9 = 4294960569;
+    goto LABEL_12;
+  }
+
+  Float32IfPresent = FigCFDictionaryGetFloat32IfPresent();
+  if (!Float32IfPresent)
+  {
+    APSLogErrorAt(Float32IfPresent);
+    v13 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 4294960591, "(Fig)", 78, v2);
+LABEL_19:
+    v9 = v13;
+    goto LABEL_12;
+  }
+
+  *v5 = bswap32(0);
+  v7 = FigCFDictionaryGetFloat32IfPresent();
+  if (!v7)
+  {
+    APSLogErrorAt(v7);
+    v13 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 4294960591, "(Fig)", 81, v2);
+    goto LABEL_19;
+  }
+
+  v5[1] = bswap32(0);
+  v8 = FigCFDictionaryGetFloat32IfPresent();
+  if (!v8)
+  {
+    APSLogErrorAt(v8);
+    v13 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 4294960591, "(Fig)", 84, v2);
+    goto LABEL_19;
+  }
+
+  v5[2] = bswap32(0);
+  v9 = CMBlockBufferCreateWithMemoryBlock(*MEMORY[0x277CBECE8], v5, 0xCuLL, *MEMORY[0x277CBECF0], 0, 0, 0xCuLL, 0, &blockBufferOut);
+  if (blockBufferOut)
+  {
+    v10 = CFRetain(blockBufferOut);
+    v11 = blockBufferOut;
+    *a2 = v10;
+    if (v11)
     {
-      if (CFDictionaryGetValue(a1, *MEMORY[0x277CEFE08]))
-      {
-        v5 = *MEMORY[0x277CEFDA0];
-        Float32IfPresent = FigCFDictionaryGetFloat32IfPresent();
-        if (Float32IfPresent && (*v4 = bswap32(0), v7 = *MEMORY[0x277CEFDA8], Float32IfPresent = FigCFDictionaryGetFloat32IfPresent(), Float32IfPresent) && (v4[1] = bswap32(0), v8 = *MEMORY[0x277CEFDB0], Float32IfPresent = FigCFDictionaryGetFloat32IfPresent(), Float32IfPresent))
-        {
-          v4[2] = bswap32(0);
-          v9 = CMBlockBufferCreateWithMemoryBlock(*MEMORY[0x277CBECE8], v4, 0xCuLL, *MEMORY[0x277CBECF0], 0, 0, 0xCuLL, 0, &blockBufferOut);
-          if (blockBufferOut)
-          {
-            v10 = CFRetain(blockBufferOut);
-            v11 = blockBufferOut;
-            *a2 = v10;
-            if (v11)
-            {
-              CFRelease(v11);
-            }
-
-            v4 = 0;
-          }
-
-          else
-          {
-            v4 = 0;
-            *a2 = 0;
-          }
-        }
-
-        else
-        {
-          APSLogErrorAt(Float32IfPresent);
-          v9 = FigSignalErrorAtGM();
-        }
-      }
-
-      else
-      {
-        v9 = 4294960569;
-      }
+      CFRelease(v11);
     }
 
-    else
-    {
-      APSLogErrorAt(0);
-      v9 = 4294960568;
-    }
+    v5 = 0;
   }
 
   else
   {
-    APSLogErrorAt(0);
-    v4 = 0;
-    v9 = 4294960591;
+    v5 = 0;
+    *a2 = 0;
   }
 
-  free(v4);
+LABEL_12:
+  free(v5);
   return v9;
 }
 
 uint64_t APSAPAPExtensionConvertMediaKindBBufAndMergeIntoLoudnessInfoDict(OpaqueCMBlockBuffer *a1, uint64_t a2, CFTypeRef *a3)
 {
-  v13 = 0;
+  v11 = 0;
   if (!a3)
   {
     APSLogErrorAt(0);
     return 4294960591;
   }
 
-  BigUIntAsUInt64 = APSCMBlockBufferGetBigUIntAsUInt64(a1, &v13);
+  BigUIntAsUInt64 = APSCMBlockBufferGetBigUIntAsUInt64(a1, &v11);
   if (BigUIntAsUInt64)
   {
-    v11 = BigUIntAsUInt64;
+    v9 = BigUIntAsUInt64;
     APSLogErrorAt(BigUIntAsUInt64);
-    return v11;
+    return v9;
   }
 
-  if (v13 > 5u)
+  v6 = v11;
+  if (v11 > 5u)
   {
-    if (v13 > 8u)
+    if (v11 > 8u)
     {
-      if (v13 == 9)
+      if (v11 == 9 || v11 == 10 || v11 == 11)
       {
-        v6 = MEMORY[0x277CEFE28];
-        goto LABEL_27;
-      }
-
-      if (v13 == 10 || v13 == 11)
-      {
-        goto LABEL_28;
+        goto LABEL_16;
       }
     }
 
-    else
+    else if (v11 == 6 || v11 == 7 || v11 == 8)
     {
-      switch(v13)
-      {
-        case 6u:
-          v6 = MEMORY[0x277CEFE30];
-          goto LABEL_27;
-        case 7u:
-          v6 = MEMORY[0x277CEFE50];
-          goto LABEL_27;
-        case 8u:
-          v6 = MEMORY[0x277CEFE40];
-          goto LABEL_27;
-      }
+      goto LABEL_16;
     }
 
-LABEL_35:
+LABEL_23:
     if (gLogCategory_APSAPAPExtensionLoudnessInfoUtils <= 50 && (gLogCategory_APSAPAPExtensionLoudnessInfoUtils != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSAPAPExtensionLoudnessInfoUtils, "CFStringRef apsapapExtension_getMediaKindStringFromMediaKindEnum(APSAPAPExtensionSoundCheckMediaKind)", 33554482, "APSAPAPExtensionLoudnessInfo unknown media kind enum %d!", v6);
     }
 
-    goto LABEL_28;
+    goto LABEL_16;
   }
 
-  if (v13 > 2u)
+  if (v11 > 4u && v11 != 5)
   {
-    switch(v13)
-    {
-      case 3u:
-        v6 = MEMORY[0x277CEFE60];
-        goto LABEL_27;
-      case 4u:
-        v6 = MEMORY[0x277CEFE20];
-        goto LABEL_27;
-      case 5u:
-        v6 = MEMORY[0x277CEFE58];
-        goto LABEL_27;
-    }
-
-    goto LABEL_35;
+    goto LABEL_23;
   }
 
-  if (!v13)
-  {
-    goto LABEL_28;
-  }
-
-  if (v13 == 1)
-  {
-    v6 = MEMORY[0x277CEFE38];
-  }
-
-  else
-  {
-    v6 = MEMORY[0x277CEFE48];
-  }
-
-LABEL_27:
-  v7 = *v6;
-LABEL_28:
+LABEL_16:
   if (a2)
   {
     MutableCopy = FigCFDictionaryCreateMutableCopy();
     if (!MutableCopy)
     {
-      goto LABEL_42;
+      goto LABEL_30;
     }
   }
 
@@ -2107,17 +1275,16 @@ LABEL_28:
     MutableCopy = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
     if (!MutableCopy)
     {
-LABEL_42:
+LABEL_30:
       APSLogErrorAt(0);
       return 4294960568;
     }
   }
 
-  v9 = MutableCopy;
-  v10 = *MEMORY[0x277CEFE10];
+  v8 = MutableCopy;
   FigCFDictionarySetValue();
-  *a3 = CFRetain(v9);
-  CFRelease(v9);
+  *a3 = CFRetain(v8);
+  CFRelease(v8);
   return 0;
 }
 
@@ -2133,12 +1300,10 @@ uint64_t APSAPAPExtensionConvertLoudnessParametersBBufAndMergeIntoLoudnessInfoDi
   v6 = *MEMORY[0x277CBECE8];
   if (a2)
   {
-    v7 = *MEMORY[0x277CBECE8];
     MutableCopy = FigCFDictionaryCreateMutableCopy();
     if (MutableCopy)
     {
-      v9 = MutableCopy;
-      v10 = *MEMORY[0x277CEFE08];
+      v8 = MutableCopy;
       if (FigCFDictionaryGetValue())
       {
         Mutable = FigCFDictionaryCreateMutableCopy();
@@ -2154,42 +1319,35 @@ uint64_t APSAPAPExtensionConvertLoudnessParametersBBufAndMergeIntoLoudnessInfoDi
       if (Mutable)
       {
 LABEL_12:
-        v14 = Mutable;
+        v12 = Mutable;
         goto LABEL_13;
       }
 
 LABEL_16:
       APSLogErrorAt(0);
-      CFRelease(v9);
+      CFRelease(v8);
       return 4294960568;
     }
   }
 
   else
   {
-    v12 = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-    if (v12)
+    v10 = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+    if (v10)
     {
-      v9 = v12;
-      v13 = CFDictionaryCreateMutable(v6, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-      if (v13)
+      v8 = v10;
+      v11 = CFDictionaryCreateMutable(v6, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+      if (v11)
       {
-        v14 = v13;
-        v15 = *MEMORY[0x277CEFE08];
+        v12 = v11;
 LABEL_13:
-        v16 = bswap32(*dataPointerOut);
-        v17 = *MEMORY[0x277CEFDA0];
         FigCFDictionarySetFloat32();
-        v18 = bswap32(*(dataPointerOut + 1));
-        v19 = *MEMORY[0x277CEFDA8];
         FigCFDictionarySetFloat32();
-        v20 = bswap32(*(dataPointerOut + 2));
-        v21 = *MEMORY[0x277CEFDB0];
         FigCFDictionarySetFloat32();
         FigCFDictionarySetValue();
-        *a3 = CFRetain(v9);
-        CFRelease(v9);
-        CFRelease(v14);
+        *a3 = CFRetain(v8);
+        CFRelease(v8);
+        CFRelease(v12);
         return 0;
       }
 
@@ -2204,36 +1362,35 @@ LABEL_13:
 uint64_t APSAPAPExtensionConvertLoudnessInfoDictSoundCheckInfoToBBuf(uint64_t a1, void *a2)
 {
   *count = 0u;
-  v24 = 0u;
+  v23 = 0u;
   blockBufferOut = 0;
   if (!a2)
   {
     APSLogErrorAt(0);
-    v19 = 4294960591;
+    v18 = 4294960591;
     goto LABEL_27;
   }
 
-  v3 = *MEMORY[0x277CEFE18];
   Value = FigCFDictionaryGetValue();
   if (!Value)
   {
-    v19 = 4294960569;
+    v18 = 4294960569;
     goto LABEL_27;
   }
 
-  v5 = Value;
-  v6 = *MEMORY[0x277CEFE68];
-  if (!CFDictionaryContainsKey(Value, *MEMORY[0x277CEFE68]) || (v7 = *MEMORY[0x277CEFE70], !CFDictionaryContainsKey(v5, *MEMORY[0x277CEFE70])) || (v8 = *MEMORY[0x277CEFE78], !CFDictionaryContainsKey(v5, *MEMORY[0x277CEFE78])) || (v9 = *MEMORY[0x277CEFE80], !CFDictionaryContainsKey(v5, *MEMORY[0x277CEFE80])) || (v10 = *MEMORY[0x277CEFE88], !CFDictionaryContainsKey(v5, *MEMORY[0x277CEFE88])))
+  v4 = Value;
+  v5 = *MEMORY[0x277CEFE68];
+  if (!CFDictionaryContainsKey(Value, *MEMORY[0x277CEFE68]) || (v6 = *MEMORY[0x277CEFE70], !CFDictionaryContainsKey(v4, *MEMORY[0x277CEFE70])) || (v7 = *MEMORY[0x277CEFE78], !CFDictionaryContainsKey(v4, *MEMORY[0x277CEFE78])) || (v8 = *MEMORY[0x277CEFE80], !CFDictionaryContainsKey(v4, *MEMORY[0x277CEFE80])) || (v9 = *MEMORY[0x277CEFE88], !CFDictionaryContainsKey(v4, *MEMORY[0x277CEFE88])))
   {
-    v19 = 4294960579;
+    v18 = 4294960579;
     goto LABEL_27;
   }
 
-  v11 = CFDictionaryGetValue(v5, v6);
-  v12 = APSCFStringCountUInt32s(v11, &count[1]);
-  if (v12)
+  v10 = CFDictionaryGetValue(v4, v5);
+  v11 = APSCFStringCountUInt32s(v10, &count[1]);
+  if (v11)
   {
-    v19 = v12;
+    v18 = v11;
     goto LABEL_48;
   }
 
@@ -2241,115 +1398,115 @@ uint64_t APSAPAPExtensionConvertLoudnessInfoDictSoundCheckInfoToBBuf(uint64_t a1
   if (!count[0])
   {
     APSLogErrorAt(0);
-    v19 = 4294960568;
+    v18 = 4294960568;
     goto LABEL_27;
   }
 
-  v24 = 0uLL;
-  v13 = CFDictionaryGetValue(v5, v6);
-  v12 = APSCFStringParseUInt32s(v13, apsapapExtensionSoundCheckInfo_parseUInt32, count);
-  if (v12)
+  v23 = 0uLL;
+  v12 = CFDictionaryGetValue(v4, v5);
+  v11 = APSCFStringParseUInt32s(v12, apsapapExtensionSoundCheckInfo_parseUInt32, count);
+  if (v11)
   {
-    v19 = v12;
+    v18 = v11;
     goto LABEL_48;
   }
 
-  if (*(&v24 + 1) != count[1])
+  if (*(&v23 + 1) != count[1])
   {
     goto LABEL_46;
   }
 
-  v24 = xmmword_22234D460;
-  v14 = CFDictionaryGetValue(v5, v7);
-  v12 = APSCFStringParseUInt32s(v14, apsapapExtensionSoundCheckInfo_parseUInt32, count);
-  if (v12)
+  v23 = xmmword_22234D460;
+  v13 = CFDictionaryGetValue(v4, v6);
+  v11 = APSCFStringParseUInt32s(v13, apsapapExtensionSoundCheckInfo_parseUInt32, count);
+  if (v11)
   {
-    v19 = v12;
+    v18 = v11;
     goto LABEL_48;
   }
 
-  if (*(&v24 + 1) != count[1])
+  if (*(&v23 + 1) != count[1])
   {
     goto LABEL_46;
   }
 
-  v24 = xmmword_22234D470;
-  v15 = CFDictionaryGetValue(v5, v8);
-  v12 = APSCFStringParseUInt32s(v15, apsapapExtensionSoundCheckInfo_parseUInt32, count);
-  if (v12)
+  v23 = xmmword_22234D470;
+  v14 = CFDictionaryGetValue(v4, v7);
+  v11 = APSCFStringParseUInt32s(v14, apsapapExtensionSoundCheckInfo_parseUInt32, count);
+  if (v11)
   {
-    v19 = v12;
+    v18 = v11;
     goto LABEL_48;
   }
 
-  if (*(&v24 + 1) != count[1])
+  if (*(&v23 + 1) != count[1])
   {
     goto LABEL_46;
   }
 
-  v24 = xmmword_22234D480;
-  v16 = CFDictionaryGetValue(v5, v9);
-  v12 = APSCFStringParseUInt32s(v16, apsapapExtensionSoundCheckInfo_parseUInt32, count);
-  if (v12)
+  v23 = xmmword_22234D480;
+  v15 = CFDictionaryGetValue(v4, v8);
+  v11 = APSCFStringParseUInt32s(v15, apsapapExtensionSoundCheckInfo_parseUInt32, count);
+  if (v11)
   {
-    v19 = v12;
+    v18 = v11;
     goto LABEL_48;
   }
 
-  if (*(&v24 + 1) != count[1])
+  if (*(&v23 + 1) != count[1])
   {
     goto LABEL_46;
   }
 
-  v24 = xmmword_22234D490;
-  v17 = CFDictionaryGetValue(v5, v10);
-  v12 = APSCFStringParseUInt32s(v17, apsapapExtensionSoundCheckInfo_parseUInt32, count);
-  if (v12)
+  v23 = xmmword_22234D490;
+  v16 = CFDictionaryGetValue(v4, v9);
+  v11 = APSCFStringParseUInt32s(v16, apsapapExtensionSoundCheckInfo_parseUInt32, count);
+  if (v11)
   {
-    v19 = v12;
+    v18 = v11;
     goto LABEL_48;
   }
 
-  if (*(&v24 + 1) != count[1])
+  if (*(&v23 + 1) != count[1])
   {
 LABEL_46:
     APSLogErrorAt(0);
-    v19 = 4294960546;
+    v18 = 4294960546;
     goto LABEL_27;
   }
 
-  v18 = *MEMORY[0x277CBECE8];
-  if (*(&v24 + 1))
+  v17 = *MEMORY[0x277CBECE8];
+  if (*(&v23 + 1))
   {
-    v12 = CMBlockBufferCreateWithMemoryBlock(v18, count[0], 20 * *(&v24 + 1), *MEMORY[0x277CBECF0], 0, 0, 20 * *(&v24 + 1), 0, &blockBufferOut);
-    if (v12)
+    v11 = CMBlockBufferCreateWithMemoryBlock(v17, count[0], 20 * *(&v23 + 1), *MEMORY[0x277CBECF0], 0, 0, 20 * *(&v23 + 1), 0, &blockBufferOut);
+    if (v11)
     {
-      v19 = v12;
+      v18 = v11;
 LABEL_48:
-      APSLogErrorAt(v12);
+      APSLogErrorAt(v11);
       goto LABEL_27;
     }
   }
 
   else
   {
-    v12 = CMBlockBufferCreateEmpty(v18, 0, 0, &blockBufferOut);
-    if (v12)
+    v11 = CMBlockBufferCreateEmpty(v17, 0, 0, &blockBufferOut);
+    if (v11)
     {
-      v19 = v12;
+      v18 = v11;
       goto LABEL_48;
     }
   }
 
   count[0] = 0;
-  v20 = blockBufferOut;
+  v19 = blockBufferOut;
   if (blockBufferOut)
   {
-    v20 = CFRetain(blockBufferOut);
+    v19 = CFRetain(blockBufferOut);
   }
 
-  v19 = 0;
-  *a2 = v20;
+  v18 = 0;
+  *a2 = v19;
 LABEL_27:
   if (count[0])
   {
@@ -2361,7 +1518,7 @@ LABEL_27:
     CFRelease(blockBufferOut);
   }
 
-  return v19;
+  return v18;
 }
 
 uint64_t apsapapExtensionSoundCheckInfo_parseUInt32(unsigned int a1, void *a2)
@@ -2403,25 +1560,23 @@ uint64_t APSAPAPExtensionConvertSoundCheckInfoBBufAndMergeIntoLoudnessInfoDict(O
   DataPointer = CMBlockBufferGetDataPointer(a1, 0, &lengthAtOffsetOut, &totalLengthOut, &dataPointerOut);
   if (DataPointer)
   {
-    v24 = DataPointer;
+    v23 = DataPointer;
     APSLogErrorAt(DataPointer);
-    goto LABEL_42;
+    return v23;
   }
 
   if (totalLengthOut != lengthAtOffsetOut)
   {
 LABEL_67:
     APSLogErrorAt(0);
-    v24 = 4294960591;
-    goto LABEL_42;
+    return 4294960591;
   }
 
   v6 = totalLengthOut / 0x14;
   if (totalLengthOut % 0x14)
   {
     APSLogErrorAt(0);
-    v24 = 4294960553;
-    goto LABEL_42;
+    return 4294960553;
   }
 
 LABEL_7:
@@ -2430,9 +1585,7 @@ LABEL_7:
   if (!Mutable)
   {
     APSLogErrorAt(0);
-LABEL_52:
-    v24 = 4294960568;
-    goto LABEL_42;
+    return 4294960568;
   }
 
   v10 = Mutable;
@@ -2441,7 +1594,7 @@ LABEL_52:
   {
     APSLogErrorAt(0);
     CFRelease(v10);
-    goto LABEL_52;
+    return 4294960568;
   }
 
   v12 = v11;
@@ -2457,7 +1610,7 @@ LABEL_57:
 LABEL_59:
     MutableCopy = 0;
 LABEL_60:
-    v24 = 4294960568;
+    v23 = 4294960568;
     goto LABEL_32;
   }
 
@@ -2475,18 +1628,17 @@ LABEL_60:
     goto LABEL_57;
   }
 
-  v37 = a3;
+  v25 = a3;
   capacity = a2;
   if (!v6)
   {
     goto LABEL_26;
   }
 
-  v27 = bswap32(*dataPointerOut);
-  v16 = CFStringAppendF();
+  v16 = CFStringAppendF(v10, "%u", bswap32(*dataPointerOut));
   if (v16)
   {
-    v24 = v16;
+    v23 = v16;
 LABEL_48:
     APSLogErrorAt(v16);
     v21 = 0;
@@ -2494,35 +1646,31 @@ LABEL_48:
     goto LABEL_32;
   }
 
-  v28 = bswap32(*(dataPointerOut + 1));
-  v16 = CFStringAppendF();
+  v16 = CFStringAppendF(v12, "%u", bswap32(*(dataPointerOut + 1)));
   if (v16)
   {
-    v24 = v16;
+    v23 = v16;
     goto LABEL_48;
   }
 
-  v29 = bswap32(*(dataPointerOut + 2));
-  v16 = CFStringAppendF();
+  v16 = CFStringAppendF(v13, "%u", bswap32(*(dataPointerOut + 2)));
   if (v16)
   {
-    v24 = v16;
+    v23 = v16;
     goto LABEL_48;
   }
 
-  v30 = bswap32(*(dataPointerOut + 3));
-  v16 = CFStringAppendF();
+  v16 = CFStringAppendF(v14, "%u", bswap32(*(dataPointerOut + 3)));
   if (v16)
   {
-    v24 = v16;
+    v23 = v16;
     goto LABEL_48;
   }
 
-  v31 = bswap32(*(dataPointerOut + 4));
-  v16 = CFStringAppendF();
+  v16 = CFStringAppendF(v15, "%u", bswap32(*(dataPointerOut + 4)));
   if (v16)
   {
-    v24 = v16;
+    v23 = v16;
     goto LABEL_48;
   }
 
@@ -2532,40 +1680,35 @@ LABEL_48:
     v18 = 39;
     while (1)
     {
-      v32 = bswap32(*&dataPointerOut[v18 - 19]);
-      v16 = CFStringAppendF();
+      v16 = CFStringAppendF(v10, " %u", bswap32(*&dataPointerOut[v18 - 19]));
       if (v16)
       {
-        v24 = v16;
+        v23 = v16;
         goto LABEL_48;
       }
 
-      v33 = bswap32(*&dataPointerOut[v18 - 15]);
-      v16 = CFStringAppendF();
+      v16 = CFStringAppendF(v12, " %u", bswap32(*&dataPointerOut[v18 - 15]));
       if (v16)
       {
-        v24 = v16;
+        v23 = v16;
         goto LABEL_48;
       }
 
-      v34 = bswap32(*&dataPointerOut[v18 - 11]);
-      v16 = CFStringAppendF();
+      v16 = CFStringAppendF(v13, " %u", bswap32(*&dataPointerOut[v18 - 11]));
       if (v16)
       {
-        v24 = v16;
+        v23 = v16;
         goto LABEL_48;
       }
 
-      v35 = bswap32(*&dataPointerOut[v18 - 7]);
-      v16 = CFStringAppendF();
+      v16 = CFStringAppendF(v14, " %u", bswap32(*&dataPointerOut[v18 - 7]));
       if (v16)
       {
-        v24 = v16;
+        v23 = v16;
         goto LABEL_48;
       }
 
-      v36 = bswap32(*&dataPointerOut[v18 - 3]);
-      v16 = CFStringAppendF();
+      v16 = CFStringAppendF(v15, " %u", bswap32(*&dataPointerOut[v18 - 3]));
       if (v16)
       {
         break;
@@ -2578,7 +1721,7 @@ LABEL_48:
       }
     }
 
-    v24 = v16;
+    v23 = v16;
     goto LABEL_48;
   }
 
@@ -2622,10 +1765,9 @@ LABEL_69:
     }
   }
 
-  v23 = *MEMORY[0x277CEFE18];
   FigCFDictionarySetValue();
-  v24 = 0;
-  *v37 = CFRetain(MutableCopy);
+  v23 = 0;
+  *v25 = CFRetain(MutableCopy);
 LABEL_32:
   CFRelease(v10);
   CFRelease(v12);
@@ -2654,9 +1796,7 @@ LABEL_32:
     CFRelease(MutableCopy);
   }
 
-LABEL_42:
-  v25 = *MEMORY[0x277D85DE8];
-  return v24;
+  return v23;
 }
 
 uint64_t APSAudioTransportTimeMakeWithRTPTime@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
@@ -2707,24 +1847,23 @@ BOOL APSAudioTransportTimeIsValid(uint64_t a1)
 
 CFTypeRef APSAudioTransportTimeCopyDebugDesc(uint64_t a1)
 {
-  v1 = (a1 + 4);
   if (*a1 == 1)
   {
-    v5 = *v1;
-    return CFStringCreateF();
+    return CFStringCreateF(0, "RTP( %u)");
   }
 
-  if (*a1 == 2 && (*(a1 + 16) & 0x1D) == 1 && *(a1 + 20) == 0)
+  if (*a1 == 2 && ((*(a1 + 16) & 0x1D) == 1 ? (v1 = *(a1 + 20) == 0) : (v1 = 0), v1))
   {
-    *&time.value = *v1;
-    time.epoch = *(a1 + 20);
+    time = *(a1 + 4);
     CMTimeGetSeconds(&time);
-    v6 = *(a1 + 4);
-    v7 = *(a1 + 12);
-    return CFStringCreateF();
+    return CFStringCreateF(0, "Media( %1.6f (%lld/%ld))");
   }
 
-  return CFRetain(@"Invalid");
+  else
+  {
+
+    return CFRetain(@"Invalid");
+  }
 }
 
 double APSAudioTransportTimeAdd@<D0>(int *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
@@ -3008,8 +2147,7 @@ uint64_t APSAudioTransportTimeUtilsEncodeToRequestResponseDictionary(uint64_t a1
     {
       if (a2)
       {
-        v9 = *(a5 + 4);
-        goto LABEL_14;
+        goto LABEL_13;
       }
     }
 
@@ -3027,10 +2165,8 @@ uint64_t APSAudioTransportTimeUtilsEncodeToRequestResponseDictionary(uint64_t a1
 
       if (a3)
       {
-        v7 = *(a5 + 4);
         CFDictionarySetInt64();
-        v8 = *(a5 + 12);
-LABEL_14:
+LABEL_13:
         CFDictionarySetInt64();
         return 0;
       }
@@ -3078,19 +2214,18 @@ uint64_t _APSAudioHoseMetricCollectorFinalize(void *a1)
     CFRelease(v3);
   }
 
-  v4 = a1[4];
   result = FigSimpleMutexDestroy();
   if (gLogCategory_APSAudioHoseMetricCollector <= 50)
   {
     if (gLogCategory_APSAudioHoseMetricCollector != -1)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_APSAudioHoseMetricCollector, "void _APSAudioHoseMetricCollectorFinalize(CFTypeRef)", 33554482, "[%{ptr}] finalized", a1);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_APSAudioHoseMetricCollector, "void _APSAudioHoseMetricCollectorFinalize(CFTypeRef)", 33554482, "[%{ptr}] finalized", a1);
     }
   }
 
@@ -3135,7 +2270,7 @@ uint64_t APSAudioHoseMetricCollectorCreate(const void *a1, uint64_t a2, void *a3
   v7[5] = a2;
   if (gLogCategory_APSAudioHoseMetricCollector <= 50 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSAudioHoseMetricCollector, "OSStatus APSAudioHoseMetricCollectorCreate(APSRTCReportingAgentRef, uint64_t, APSAudioHoseMetricCollectorRef *)", 33554482, "[%{ptr}] Created MetricCollector", v7);
   }
 
   result = 0;
@@ -3228,66 +2363,64 @@ void *metricCollector_hoseDescriptorDictionaryRetain(uint64_t a1, CFTypeRef *a2)
 uint64_t APSAudioHoseMetricCollectorRegisterHose(uint64_t a1, const void *a2, int a3, int a4)
 {
   bzero(value, 0x250uLL);
-  v16 = 0;
+  v14 = 0;
   cf = 0;
   if (a2)
   {
     if (!a1 || CFDictionaryContainsKey(*(a1 + 24), a2))
     {
       APSLogErrorAt(0);
-      v14 = 4294960591;
+      v12 = 4294960591;
     }
 
     else
     {
-      v8 = *(a1 + 32);
       FigSimpleMutexLock();
       if (gLogCategory_APSAudioHoseMetricCollector <= 50 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_APSAudioHoseMetricCollector, "OSStatus APSAudioHoseMetricCollectorRegisterHose(APSAudioHoseMetricCollectorRef, APSAudioProtocolDriverHoseRef, Boolean, APSAudioHoseMetricCollectorMetricType)", 33554482, "[%{ptr}] APSAudioHoseMetricCollectorRegisterHose hose: [%{ptr}]", a1, a2);
       }
 
-      v9 = *MEMORY[0x277CBECE8];
+      v8 = *MEMORY[0x277CBECE8];
+      v9 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+      if (v9)
+      {
+        v9(a2, @"Model", v8, &cf);
+      }
+
       v10 = *(*(CMBaseObjectGetVTable() + 8) + 48);
       if (v10)
       {
-        v10(a2, @"Model", v9, &cf);
-      }
-
-      v11 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-      if (v11)
-      {
-        v11(a2, @"OSBuildVersion", v9, &v16);
-        v11 = v16;
+        v10(a2, @"OSBuildVersion", v8, &v14);
+        v10 = v14;
       }
 
       value[0] = a2;
       value[1] = cf;
-      value[2] = v11;
-      v19 = a3;
-      v12 = 120.0;
+      value[2] = v10;
+      v17 = a3;
+      v11 = 120.0;
       if (a3)
       {
-        v12 = 15.0;
+        v11 = 15.0;
       }
 
-      v21 = v12;
-      v20 = a4;
+      v19 = v11;
+      v18 = a4;
       metricCollector_resetMetricsAndDataForHoseInternal(a1, value);
       CFDictionaryAddValue(*(a1 + 24), a2, value);
-      v13 = *(a1 + 32);
       FigSimpleMutexUnlock();
       if (cf)
       {
         CFRelease(cf);
       }
 
-      v14 = 0;
+      v12 = 0;
     }
 
-    if (v16)
+    if (v14)
     {
-      CFRelease(v16);
+      CFRelease(v14);
     }
   }
 
@@ -3297,34 +2430,33 @@ uint64_t APSAudioHoseMetricCollectorRegisterHose(uint64_t a1, const void *a2, in
     return 4294960591;
   }
 
-  return v14;
+  return v12;
 }
 
 uint64_t metricCollector_resetMetricsAndDataForHoseInternal(void *a1, uint64_t a2)
 {
-  v4 = a1[4];
   FigSimpleMutexCheckIsLockedOnThisThread();
-  v5 = *(a2 + 152);
-  if (v5)
+  v4 = *(a2 + 152);
+  if (v4)
   {
-    CFRelease(v5);
+    CFRelease(v4);
   }
 
   *(a2 + 224) = 0;
-  v6 = MEMORY[0x277CC0898];
-  v7 = *MEMORY[0x277CC0898];
+  v5 = MEMORY[0x277CC0898];
+  v6 = *MEMORY[0x277CC0898];
   *(a2 + 200) = *MEMORY[0x277CC0898];
-  v8 = *(v6 + 16);
-  *(a2 + 216) = v8;
-  v9 = MEMORY[0x277CC08F0];
-  v10 = *MEMORY[0x277CC08F0];
+  v7 = *(v5 + 16);
+  *(a2 + 216) = v7;
+  v8 = MEMORY[0x277CC08F0];
+  v9 = *MEMORY[0x277CC08F0];
   *(a2 + 228) = *MEMORY[0x277CC08F0];
-  v11 = *(v9 + 16);
-  *(a2 + 244) = v11;
-  *(a2 + 252) = v7;
-  *(a2 + 268) = v8;
-  *(a2 + 276) = v10;
-  *(a2 + 292) = v11;
+  v10 = *(v8 + 16);
+  *(a2 + 244) = v10;
+  *(a2 + 252) = v6;
+  *(a2 + 268) = v7;
+  *(a2 + 276) = v9;
+  *(a2 + 292) = v10;
   *(a2 + 152) = 0;
   *(a2 + 160) = 0x7FF0000000000000;
   *(a2 + 88) = 0u;
@@ -3361,8 +2493,8 @@ uint64_t metricCollector_resetMetricsAndDataForHoseInternal(void *a1, uint64_t a
   a1[8] = 0;
   *(a2 + 136) = 0u;
   *(a2 + 120) = 0u;
-  *(a2 + 32) = v7;
-  *(a2 + 48) = v8;
+  *(a2 + 32) = v6;
+  *(a2 + 48) = v7;
   *(a2 + 56) = 0;
   *(a2 + 72) = 0;
   result = mach_absolute_time();
@@ -3374,15 +2506,13 @@ uint64_t APSAudioHoseMetricCollectorDeregisterHose(uint64_t a1, const void *a2)
 {
   if (a1 && (v3 = a1, a1 = CFDictionaryContainsKey(*(a1 + 24), a2), a1))
   {
-    v4 = *(v3 + 32);
     FigSimpleMutexLock();
     if (gLogCategory_APSAudioHoseMetricCollector <= 50 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSAudioHoseMetricCollector, "OSStatus APSAudioHoseMetricCollectorDeregisterHose(APSAudioHoseMetricCollectorRef, APSAudioProtocolDriverHoseRef)", 33554482, "[%{ptr}] APSAudioHoseMetricCollectorDeregisterHose", v3);
     }
 
     CFDictionaryRemoveValue(*(v3 + 24), a2);
-    v5 = *(v3 + 32);
     FigSimpleMutexUnlock();
     return 0;
   }
@@ -3396,28 +2526,25 @@ uint64_t APSAudioHoseMetricCollectorDeregisterHose(uint64_t a1, const void *a2)
 
 uint64_t APSAudioHoseMetricCollectorUpdateMediaTimeStatsForHose(uint64_t a1, const void *a2, __int128 *a3, uint64_t a4, uint64_t a5)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   if (!a1 || !a2)
   {
     APSLogErrorAt(0);
-    v37 = 4294960591;
-    goto LABEL_53;
+    return 4294960591;
   }
 
   if ((*(a4 + 12) & 1) == 0 || (*(a5 + 12) & 1) == 0)
   {
     APSLogErrorAt(0);
-    v37 = 0;
-    goto LABEL_53;
+    return 0;
   }
 
-  v10 = *(a1 + 32);
   FigSimpleMutexLock();
   if (gLogCategory_APSAudioHoseMetricCollector <= 30 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
   {
     time = *a3;
-    CMTimeGetSeconds(&time);
-    LogPrintF();
+    Seconds = CMTimeGetSeconds(&time);
+    LogPrintF(&gLogCategory_APSAudioHoseMetricCollector, "OSStatus APSAudioHoseMetricCollectorUpdateMediaTimeStatsForHose(APSAudioHoseMetricCollectorRef, APSAudioProtocolDriverHoseRef, CMTime, CMTime, CMTime)", 33554462, "[%{ptr}] APSAudioHoseMetricCollectorUpdateMediaTimeStatsForHose: hose: [%{ptr}] inLastDeliveredMediaTime %1.3f", a1, a2, *&Seconds);
   }
 
   Value = CFDictionaryGetValue(*(a1 + 24), a2);
@@ -3431,103 +2558,105 @@ uint64_t APSAudioHoseMetricCollectorUpdateMediaTimeStatsForHose(uint64_t a1, con
       *(Value + 2) = v13;
     }
 
-    v49 = *a4;
+    v48 = *a4;
     v14 = *(a4 + 12);
-    v50 = *(a4 + 8);
+    v49 = *(a4 + 8);
     v15 = *(a4 + 16);
-    v47 = *a5;
+    v46 = *a5;
     v16 = *(a5 + 12);
-    v48 = *(a5 + 8);
+    v47 = *(a5 + 8);
     v17 = *(a5 + 16);
-    v43 = *MEMORY[0x277CC08F0];
+    v42 = *MEMORY[0x277CC08F0];
     *&time.value = *MEMORY[0x277CC08F0];
     v18 = *(MEMORY[0x277CC08F0] + 16);
     time.epoch = v18;
-    v19 = *(a1 + 32);
     FigSimpleMutexCheckIsLockedOnThisThread();
     if (*(v12 + 18) != 1 || (v14 & 1) == 0 || (v16 & 1) == 0)
     {
-      goto LABEL_36;
+      goto LABEL_38;
     }
 
     if (v12[19])
     {
 LABEL_27:
-      v25 = mach_absolute_time();
-      v26 = v12[7];
+      v23 = mach_absolute_time();
       if (UpTicksToMilliseconds() >= 0x3E8)
       {
-        v12[7] = v25;
+        v12[7] = v23;
         lhs = *(v12 + 4);
-        rhs.value = v49;
-        rhs.timescale = v50;
+        rhs.value = v48;
+        rhs.timescale = v49;
         rhs.flags = v14;
         rhs.epoch = v15;
         CMTimeSubtract(&time, &lhs, &rhs);
         lhs = time;
-        *&rhs.value = v43;
+        *&rhs.value = v42;
         rhs.epoch = v18;
         if ((CMTimeCompare(&lhs, &rhs) & 0x80000000) == 0)
         {
-          rhs.value = v47;
-          rhs.timescale = v48;
+          rhs.value = v46;
+          rhs.timescale = v47;
           rhs.flags = v16;
           rhs.epoch = v17;
-          v44.value = v49;
-          v44.timescale = v50;
-          v44.flags = v14;
-          v44.epoch = v15;
-          CMTimeSubtract(&lhs, &rhs, &v44);
-          Seconds = CMTimeGetSeconds(&lhs);
+          v43.value = v48;
+          v43.timescale = v49;
+          v43.flags = v14;
+          v43.epoch = v15;
+          CMTimeSubtract(&lhs, &rhs, &v43);
+          v24 = CMTimeGetSeconds(&lhs);
           lhs = time;
-          v28 = CMTimeGetSeconds(&lhs);
-          v29 = *(v12 + 8);
-          if (v29 >= Seconds)
+          v25 = CMTimeGetSeconds(&lhs);
+          v26 = *(v12 + 8);
+          if (v26 >= v24)
           {
-            v29 = Seconds;
+            v26 = v24;
           }
 
-          v30 = v28 / v29 * 100.0;
+          v27 = v25 / v26 * 100.0;
           if (gLogCategory_APSAudioHoseMetricCollector <= 50 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
           {
-            v31 = *v12;
+            v28 = *v12;
             lhs = time;
-            CMTimeGetSeconds(&lhs);
-            lhs.value = v49;
-            lhs.timescale = v50;
+            v29 = CMTimeGetSeconds(&lhs);
+            lhs.value = v48;
+            lhs.timescale = v49;
             lhs.flags = v14;
             lhs.epoch = v15;
-            CMTimeGetSeconds(&lhs);
-            *(v12 + 8);
-            LogPrintF();
+            v30 = CMTimeGetSeconds(&lhs);
+            v31 = *(v12 + 8);
+            if (v31 >= v24)
+            {
+              v31 = v24;
+            }
+
+            LogPrintF(&gLogCategory_APSAudioHoseMetricCollector, "OSStatus metricCollector_updateBufferLevelHistogramForHoseInternal(APSAudioHoseMetricCollectorRef, APSAudioHoseMetricCollectorHoseDescriptorPtr, CMTime, CMTime)", 33554482, "[%{ptr}] bufferLevelPercentage %1.4f hose [%{ptr}], bufferLevelTime: %1.4f currentRemoteMediaTime: %1.4f, maxDurationAvailableSecs: %1.4f, maxBufferLevelTime: %1.4f", a1, *&v27, v28, *&v29, *&v30, *&v24, *&v31);
           }
 
-          APSStatsHistogramAddValue(v12[19], v30);
+          APSStatsHistogramAddValue(v12[19], v27);
         }
       }
 
-LABEL_36:
+LABEL_38:
       rhs.value = *a4;
       v32 = *(a4 + 12);
       rhs.timescale = *(a4 + 8);
       if (v32)
       {
         v33 = *(a4 + 16);
-        v34 = *(a1 + 32);
         FigSimpleMutexCheckIsLockedOnThisThread();
         if (gLogCategory_APSAudioHoseMetricCollector <= 30 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
         {
-          v35 = *v12;
+          v34 = *v12;
           time = *(v12 + 4);
-          CMTimeGetSeconds(&time);
+          v35 = CMTimeGetSeconds(&time);
           time = *(v12 + 25);
-          CMTimeGetSeconds(&time);
+          v36 = CMTimeGetSeconds(&time);
           time.value = rhs.value;
           time.timescale = rhs.timescale;
           time.flags = v32;
           time.epoch = v33;
-          CMTimeGetSeconds(&time);
-          LogPrintF();
+          v37 = CMTimeGetSeconds(&time);
+          LogPrintF(&gLogCategory_APSAudioHoseMetricCollector, "OSStatus metricCollector_updateUnderrunStateForHoseInternal(APSAudioHoseMetricCollectorRef, APSAudioHoseMetricCollectorHoseDescriptorPtr, CMTime)", 33554462, "[%{ptr}] Hose [%{ptr}] lastDeliveredRemoteMediaTime: %1.6f, inHoseDescriptor->rtcStats.underrun.start: %1.6f, currentRemoteMediaTime: %1.6f", a1, v34, *&v35, *&v36, *&v37);
         }
 
         time = *(v12 + 4);
@@ -3544,10 +2673,10 @@ LABEL_36:
           ++*(v12 + 56);
           if (gLogCategory_APSAudioHoseMetricCollector <= 50 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
           {
-            v36 = *v12;
+            v38 = *v12;
             time = *(v12 + 25);
-            CMTimeGetSeconds(&time);
-            LogPrintF();
+            v39 = CMTimeGetSeconds(&time);
+            LogPrintF(&gLogCategory_APSAudioHoseMetricCollector, "OSStatus metricCollector_updateUnderrunStateForHoseInternal(APSAudioHoseMetricCollectorRef, APSAudioHoseMetricCollectorHoseDescriptorPtr, CMTime)", 33554482, "[%{ptr}] Hose [%{ptr}] started underrunning at: %1.6f", a1, v38, *&v39);
           }
         }
 
@@ -3569,45 +2698,42 @@ LABEL_36:
         }
       }
 
-      v37 = 0;
-      goto LABEL_52;
+      v40 = 0;
+      goto LABEL_54;
     }
 
     if (gLogCategory_APSAudioHoseMetricCollector <= 30 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
     {
-      v41 = *v12;
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSAudioHoseMetricCollector, "OSStatus metricCollector_updateBufferLevelHistogramForHoseInternal(APSAudioHoseMetricCollectorRef, APSAudioHoseMetricCollectorHoseDescriptorPtr, CMTime, CMTime)", 33554462, "[%{ptr}] creating BufferLevelHistogram for hose [%{ptr}]", a1, *v12);
     }
 
-    v20 = *(a1 + 32);
     FigSimpleMutexCheckIsLockedOnThisThread();
     Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
     if (Mutable)
     {
-      v22 = Mutable;
+      v20 = Mutable;
       CFDictionarySetValue(Mutable, @"Name", @"Histogram_ReceiverBufferLevel");
-      CFDictionarySetValue(v22, @"UnitName", @"ms");
+      CFDictionarySetValue(v20, @"UnitName", @"ms");
       FigCFDictionarySetDouble();
       FigCFDictionarySetDouble();
       FigCFDictionarySetInt32();
-      v23 = APSStatsHistogramCreate(v22);
-      if (v23)
+      v21 = APSStatsHistogramCreate(v20);
+      if (v21)
       {
-        v24 = v23;
-        v12[19] = CFRetain(v23);
+        v22 = v21;
+        v12[19] = CFRetain(v21);
         if (gLogCategory_APSAudioHoseMetricCollector <= 50 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
         {
-          v42 = *v12;
-          LogPrintF();
+          LogPrintF(&gLogCategory_APSAudioHoseMetricCollector, "OSStatus metricCollector_addBufferLevelHistogramForHoseInternal(APSAudioHoseMetricCollectorRef, APSAudioHoseMetricCollectorHoseDescriptorPtr)", 33554482, "[%{ptr}] Created bufferLevelHistogram for Hose: [%{ptr}]", a1, *v12);
         }
 
+        CFRelease(v20);
         CFRelease(v22);
-        CFRelease(v24);
         goto LABEL_27;
       }
 
       APSLogErrorAt(0);
-      CFRelease(v22);
+      CFRelease(v20);
     }
 
     else
@@ -3615,7 +2741,7 @@ LABEL_36:
       APSLogErrorAt(0);
     }
 
-    v37 = 4294960568;
+    v40 = 4294960568;
     APSLogErrorAt(4294960568);
     APSLogErrorAt(4294960568);
   }
@@ -3623,62 +2749,56 @@ LABEL_36:
   else
   {
     APSLogErrorAt(0);
-    v37 = 4294960569;
+    v40 = 4294960569;
   }
 
-LABEL_52:
-  v38 = *(a1 + 32);
+LABEL_54:
   FigSimpleMutexUnlock();
-LABEL_53:
-  v39 = *MEMORY[0x277D85DE8];
-  return v37;
+  return v40;
 }
 
 void metricCollector_cancelUnderrunForHoseInternal(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
-  v18 = **&MEMORY[0x277CC08F0];
+  v17 = **&MEMORY[0x277CC08F0];
   if (*(a3 + 12))
   {
-    v6 = *(a1 + 32);
     FigSimpleMutexCheckIsLockedOnThisThread();
     if (*(a2 + 212))
     {
       lhs = *a3;
       rhs = *(a2 + 25);
-      CMTimeSubtract(&v18, &lhs, &rhs);
+      CMTimeSubtract(&v17, &lhs, &rhs);
       if (gLogCategory_APSAudioHoseMetricCollector <= 50 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
       {
-        v7 = *a2;
+        v6 = *a2;
         lhs = *a3;
-        CMTimeGetSeconds(&lhs);
-        lhs = v18;
-        CMTimeGetSeconds(&lhs);
-        v16 = *(a2 + 56);
-        LogPrintF();
+        Seconds = CMTimeGetSeconds(&lhs);
+        lhs = v17;
+        v8 = CMTimeGetSeconds(&lhs);
+        LogPrintF(&gLogCategory_APSAudioHoseMetricCollector, "OSStatus metricCollector_cancelUnderrunForHoseInternal(APSAudioHoseMetricCollectorRef, APSAudioHoseMetricCollectorHoseDescriptorPtr, CMTime)", 33554482, "[%{ptr}] Hose [%{ptr}] stopped underrunning at: %1.6f underrun duration: %1.6f, count: %lu", a1, *&v6, *&Seconds, *&v8, *(a2 + 56));
       }
 
-      v17 = v18;
-      v8 = *(a1 + 32);
+      v16 = v17;
       FigSimpleMutexCheckIsLockedOnThisThread();
       rhs = *(a2 + 228);
-      time2 = v17;
+      time2 = v16;
       CMTimeAdd(&lhs, &rhs, &time2);
       *(a2 + 228) = lhs;
       rhs = *(a2 + 252);
-      time2 = v17;
+      time2 = v16;
       CMTimeMinimum(&lhs, &rhs, &time2);
       *(a2 + 252) = lhs;
       rhs = *(a2 + 276);
-      time2 = v17;
+      time2 = v16;
       CMTimeMaximum(&lhs, &rhs, &time2);
       *(a2 + 276) = lhs;
       v9 = *(a2 + 39);
       v10 = (*(a2 + 56) - 1);
-      lhs = v17;
-      Seconds = CMTimeGetSeconds(&lhs);
+      lhs = v16;
+      v11 = CMTimeGetSeconds(&lhs);
       LODWORD(v12) = *(a2 + 56);
-      *(a2 + 39) = (Seconds + v9 * v10) / v12;
-      lhs = v17;
+      *(a2 + 39) = (v11 + v9 * v10) / v12;
+      lhs = v16;
       v13 = CMTimeGetSeconds(&lhs);
       LODWORD(v14) = *(a2 + 56);
       *(a2 + 38) = *(a2 + 38) + (v13 - *(a2 + 38)) / v14;
@@ -3689,39 +2809,37 @@ void metricCollector_cancelUnderrunForHoseInternal(uint64_t a1, uint64_t *a2, ui
   }
 }
 
-uint64_t APSAudioHoseMetricCollectorSetPlaybackStateForHose(uint64_t a1, const void *a2, int a3, __int128 *a4)
+uint64_t APSAudioHoseMetricCollectorSetPlaybackStateForHose(uint64_t a1, const void *a2, uint64_t a3, __int128 *a4)
 {
   if (a1 && a2 && (*(a4 + 12) & 1) != 0)
   {
-    v8 = *(a1 + 32);
     FigSimpleMutexLock();
     if (gLogCategory_APSAudioHoseMetricCollector <= 30 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSAudioHoseMetricCollector, "OSStatus APSAudioHoseMetricCollectorSetPlaybackStateForHose(APSAudioHoseMetricCollectorRef, APSAudioProtocolDriverHoseRef, APSAudioHoseMetricCollectorMetricPlaybackState, CMTime)", 33554462, "[%{ptr}] APSAudioHoseMetricCollectorSetPlaybackStateForHose state: %u", a1, a3);
     }
 
     Value = CFDictionaryGetValue(*(a1 + 24), a2);
     if (Value)
     {
-      v10 = Value;
+      v9 = Value;
       if (!a3 && *(Value + 18) == 1)
       {
-        v14 = *a4;
-        v15 = *(a4 + 2);
-        metricCollector_cancelUnderrunForHoseInternal(a1, Value, &v14);
+        v12 = *a4;
+        v13 = *(a4 + 2);
+        metricCollector_cancelUnderrunForHoseInternal(a1, Value, &v12);
       }
 
-      v11 = 0;
-      *(v10 + 18) = a3;
+      v10 = 0;
+      *(v9 + 18) = a3;
     }
 
     else
     {
       APSLogErrorAt(0);
-      v11 = 4294960569;
+      v10 = 4294960569;
     }
 
-    v12 = *(a1 + 32);
     FigSimpleMutexUnlock();
   }
 
@@ -3731,18 +2849,17 @@ uint64_t APSAudioHoseMetricCollectorSetPlaybackStateForHose(uint64_t a1, const v
     return 4294960591;
   }
 
-  return v11;
+  return v10;
 }
 
 uint64_t APSAudioHoseMetricCollectorUpdateSendRateForHose(uint64_t a1, const void *a2, double a3)
 {
   if (a1 && a2)
   {
-    v6 = *(a1 + 32);
     FigSimpleMutexLock();
     if (gLogCategory_APSAudioHoseMetricCollector <= 30 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSAudioHoseMetricCollector, "OSStatus APSAudioHoseMetricCollectorUpdateSendRateForHose(APSAudioHoseMetricCollectorRef, APSAudioProtocolDriverHoseRef, Float64)", 33554462, "[%{ptr}] APSAudioHoseMetricCollectorUpdateSendRateForHose inSendRate: %1.3f", a1, *&a3);
     }
 
     Value = CFDictionaryGetValue(*(a1 + 24), a2);
@@ -3751,15 +2868,15 @@ uint64_t APSAudioHoseMetricCollectorUpdateSendRateForHose(uint64_t a1, const voi
       if (*(Value + 7) == 2)
       {
         APSLogErrorAt(0);
-        v10 = 4294960591;
+        v9 = 4294960591;
       }
 
       else
       {
-        v8 = *(Value + 24);
-        *(Value + 24) = v8 + 1;
-        v9 = (v8 + 1);
-        Value[22] = (a3 + Value[22] * v8) / v9;
+        v7 = *(Value + 24);
+        *(Value + 24) = v7 + 1;
+        v8 = (v7 + 1);
+        Value[22] = (a3 + Value[22] * v7) / v8;
         if (Value[20] > a3)
         {
           Value[20] = a3;
@@ -3770,456 +2887,9 @@ uint64_t APSAudioHoseMetricCollectorUpdateSendRateForHose(uint64_t a1, const voi
           Value[21] = a3;
         }
 
-        v10 = 0;
-        Value[23] = Value[23] + (a3 - Value[23]) / v9;
+        v9 = 0;
+        Value[23] = Value[23] + (a3 - Value[23]) / v8;
       }
-    }
-
-    else
-    {
-      APSLogErrorAt(0);
-      v10 = 4294960569;
-    }
-
-    v11 = *(a1 + 32);
-    FigSimpleMutexUnlock();
-  }
-
-  else
-  {
-    APSLogErrorAt(0);
-    return 4294960591;
-  }
-
-  return v10;
-}
-
-uint64_t APSAudioHoseMetricCollectorUpdateSendWindowDataForHose(uint64_t a1, const void *a2, unsigned int a3, unsigned int a4)
-{
-  if (a1 && a2)
-  {
-    v8 = *(a1 + 32);
-    FigSimpleMutexLock();
-    if (gLogCategory_APSAudioHoseMetricCollector <= 30 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
-    {
-      LogPrintF();
-    }
-
-    Value = CFDictionaryGetValue(*(a1 + 24), a2);
-    if (Value)
-    {
-      v10 = 0;
-      v11 = *(Value + 14) + 1;
-      *(Value + 14) = v11;
-      v12 = v11;
-      Value[45] = Value[45] + (a3 - Value[45]) / v11;
-      v13 = *(Value + 46);
-      if (v13 <= a3)
-      {
-        v13 = a3;
-      }
-
-      *(Value + 46) = v13;
-      Value[47] = Value[47] + (a4 - Value[47]) / v12;
-      v14 = *(Value + 48);
-      if (v14 <= a4)
-      {
-        v14 = a4;
-      }
-
-      *(Value + 48) = v14;
-    }
-
-    else
-    {
-      APSLogErrorAt(0);
-      v10 = 4294960569;
-    }
-
-    v15 = *(a1 + 32);
-    FigSimpleMutexUnlock();
-  }
-
-  else
-  {
-    APSLogErrorAt(0);
-    return 4294960591;
-  }
-
-  return v10;
-}
-
-uint64_t APSAudioHoseMetricCollectorUpdateSlotsAvailableCountForHose(uint64_t a1, const void *a2, unsigned int a3)
-{
-  if (!a1 || !a2)
-  {
-    APSLogErrorAt(0);
-    return 4294960591;
-  }
-
-  v6 = *(a1 + 32);
-  FigSimpleMutexLock();
-  Value = CFDictionaryGetValue(*(a1 + 24), a2);
-  if (!Value)
-  {
-    APSLogErrorAt(0);
-    v13 = 4294960569;
-    goto LABEL_16;
-  }
-
-  v8 = Value;
-  if (gLogCategory_APSAudioHoseMetricCollector <= 30 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
-  {
-    LogPrintF();
-  }
-
-  v9 = *(v8 + 15) + 1;
-  *(v8 + 15) = v9;
-  v8[49] = v8[49] + (a3 - v8[49]) / v9;
-  v10 = *(v8 + 18);
-  if (a3)
-  {
-    if (v10)
-    {
-      mach_absolute_time();
-      v11 = *(v8 + 18);
-      v12 = UpTicksToMilliseconds();
-      v13 = 0;
-      v14 = *(v8 + 52);
-      if (v14 <= v12)
-      {
-        v14 = v12;
-      }
-
-      v8[18] = 0.0;
-      v8[51] = v8[51] + (v12 - v8[51]) / *(v8 + 50);
-      *(v8 + 52) = v14;
-      goto LABEL_16;
-    }
-  }
-
-  else if (!v10)
-  {
-    v13 = 0;
-    *(v8 + 18) = mach_absolute_time();
-    ++*(v8 + 50);
-    goto LABEL_16;
-  }
-
-  v13 = 0;
-LABEL_16:
-  v15 = *(a1 + 32);
-  FigSimpleMutexUnlock();
-  return v13;
-}
-
-uint64_t APSAudioHoseMetricCollectorUpdatePacketSize(uint64_t a1, unint64_t a2, CMTime *a3)
-{
-  if (a1)
-  {
-    v6 = *(a1 + 32);
-    FigSimpleMutexLock();
-    if (gLogCategory_APSAudioHoseMetricCollector <= 30 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
-    {
-      LogPrintF();
-    }
-
-    time = *a3;
-    v7 = CMTimeGetSeconds(&time) + *(a1 + 56);
-    *(a1 + 56) = v7;
-    if (v7 > 5.0)
-    {
-      v8 = *(a1 + 64) + 1;
-      *(a1 + 56) = 0;
-      *(a1 + 64) = v8;
-      v9 = *(a1 + 48);
-      v10 = a2;
-      if (v9 != -1.0)
-      {
-        v10 = v9 + (v10 - v9) / v8;
-      }
-
-      *(a1 + 48) = v10;
-    }
-
-    v11 = *(a1 + 32);
-    FigSimpleMutexUnlock();
-    return 0;
-  }
-
-  else
-  {
-    APSLogErrorAt(0);
-    return 4294960591;
-  }
-}
-
-uint64_t APSAudioHoseMetricCollectorUpdateRateControllerDataForHose(uint64_t a1, const void *a2, unint64_t a3, unint64_t a4, uint64_t a5, unsigned int a6, unsigned int a7)
-{
-  if (!a1 || !a2)
-  {
-    APSLogErrorAt(0);
-    return 4294960591;
-  }
-
-  v14 = *(a1 + 32);
-  FigSimpleMutexLock();
-  Value = CFDictionaryGetValue(*(a1 + 24), a2);
-  if (Value)
-  {
-    v16 = Value;
-    if (gLogCategory_APSAudioHoseMetricCollector <= 30 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
-    {
-      LogPrintF();
-    }
-
-    v17 = *(v16 + 16) + 1;
-    *(v16 + 16) = v17;
-    v18 = v17;
-    *(v16 + 55) = *(v16 + 55) + (a3 - *(v16 + 55)) / v17;
-    v20 = *(v16 + 53);
-    v19 = *(v16 + 54);
-    if (v19 <= a3)
-    {
-      v19 = a3;
-    }
-
-    if (v20 >= a3)
-    {
-      v20 = a3;
-    }
-
-    *(v16 + 53) = v20;
-    *(v16 + 54) = v19;
-    v21 = *(v16 + 58);
-    if (a6 && v21 == -1.0)
-    {
-      *(v16 + 58) = a6;
-      v22 = a6;
-      *(v16 + 57) = a6;
-    }
-
-    else
-    {
-      if (v21 <= -1.0)
-      {
-LABEL_21:
-        v25 = *(v16 + 61);
-        if (a7 && v25 == -1.0)
-        {
-          *(v16 + 61) = a7;
-          v26 = a7;
-          *(v16 + 60) = a7;
-        }
-
-        else
-        {
-          if (v25 <= -1.0)
-          {
-            goto LABEL_30;
-          }
-
-          *(v16 + 61) = v25 + (a7 - v25) / v18;
-          v26 = a7;
-          v28 = *(v16 + 59);
-          v27 = *(v16 + 60);
-          if (v27 <= a7)
-          {
-            v27 = a7;
-          }
-
-          *(v16 + 60) = v27;
-          if (v28 < a7)
-          {
-            v26 = v28;
-          }
-        }
-
-        *(v16 + 59) = v26;
-LABEL_30:
-        v29 = a5 - a3;
-        *(v16 + 64) = *(v16 + 64) + (v29 - *(v16 + 64)) / v18;
-        v30 = *(v16 + 62);
-        v31 = *(v16 + 63);
-        if (v30 <= v29)
-        {
-          v30 = v29;
-        }
-
-        if (v31 >= v29)
-        {
-          v31 = v29;
-        }
-
-        *(v16 + 62) = v30;
-        *(v16 + 63) = v31;
-        if (gLogCategory_APSAudioHoseMetricCollector > 30)
-        {
-          goto LABEL_38;
-        }
-
-        if (gLogCategory_APSAudioHoseMetricCollector == -1)
-        {
-          if (!_LogCategory_Initialize())
-          {
-            goto LABEL_38;
-          }
-
-          v40 = *(v16 + 64);
-          v41 = *(v16 + 62);
-          v42 = *(v16 + 63);
-        }
-
-        LogPrintF();
-LABEL_38:
-        v32 = 0;
-        v33 = *(v16 + 65);
-        if (v33 <= a4)
-        {
-          v33 = a4;
-        }
-
-        *(v16 + 65) = v33;
-        v34 = *(v16 + 66);
-        if (v34 >= a4)
-        {
-          v34 = a4;
-        }
-
-        *(v16 + 66) = v34;
-        v35 = *(v16 + 16);
-        *(v16 + 67) = *(v16 + 67) + (a4 - *(v16 + 67)) / v35;
-        v36 = a3 - a4;
-        *(v16 + 70) = *(v16 + 70) + ((a3 - a4) - *(v16 + 70)) / v35;
-        v37 = *(v16 + 68);
-        if (v37 <= a3 - a4)
-        {
-          v37 = a3 - a4;
-        }
-
-        *(v16 + 68) = v37;
-        if (*(v16 + 69) < v36)
-        {
-          v36 = *(v16 + 69);
-        }
-
-        *(v16 + 69) = v36;
-        goto LABEL_47;
-      }
-
-      *(v16 + 58) = v21 + (a6 - v21) / v18;
-      v22 = a6;
-      v24 = *(v16 + 56);
-      v23 = *(v16 + 57);
-      if (v23 <= a6)
-      {
-        v23 = a6;
-      }
-
-      *(v16 + 57) = v23;
-      if (v24 < a6)
-      {
-        v22 = v24;
-      }
-    }
-
-    *(v16 + 56) = v22;
-    goto LABEL_21;
-  }
-
-  APSLogErrorAt(0);
-  v32 = 4294960569;
-LABEL_47:
-  v38 = *(a1 + 32);
-  FigSimpleMutexUnlock();
-  return v32;
-}
-
-uint64_t APSAudioHoseMetricCollectorUpdateAPATTransmissionDataForHose(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  if (a1 && a2)
-  {
-    v12 = *(a1 + 32);
-    FigSimpleMutexLock();
-    Value = CFDictionaryGetValue(*(a1 + 24), a2);
-    if (Value)
-    {
-      v14 = Value;
-      if (gLogCategory_APSAudioHoseMetricCollector <= 30 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
-      {
-        LogPrintF();
-      }
-
-      v15 = *(v14 + 11) + a3;
-      *(v14 + 11) = v15;
-      v16 = *(v14 + 40) + a4;
-      *(v14 + 40) = v16;
-      v14[41] = v16 / v15;
-      mach_absolute_time();
-      v17 = *(v14 + 10);
-      v18 = UpTicksToSeconds();
-      v19 = 0;
-      v20 = *(v14 + 12) + a5;
-      v21 = *(v14 + 13) + a6;
-      *(v14 + 12) = v20;
-      *(v14 + 13) = v21;
-      v14[42] = (v21 + v20) / v18;
-      v14[43] = v20 / v18;
-    }
-
-    else
-    {
-      APSLogErrorAt(0);
-      v19 = 4294960569;
-    }
-
-    v22 = *(a1 + 32);
-    FigSimpleMutexUnlock();
-  }
-
-  else
-  {
-    APSLogErrorAt(0);
-    return 4294960591;
-  }
-
-  return v19;
-}
-
-uint64_t APSAudioHoseMetricCollectorUpdateRoundTripTimeDataForHose(uint64_t a1, const void *a2, unint64_t a3)
-{
-  if (a1 && a2)
-  {
-    v6 = *(a1 + 32);
-    FigSimpleMutexLock();
-    Value = CFDictionaryGetValue(*(a1 + 24), a2);
-    if (Value)
-    {
-      v8 = Value;
-      if (gLogCategory_APSAudioHoseMetricCollector <= 30 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
-      {
-        LogPrintF();
-      }
-
-      v9 = 0;
-      v10 = *(v8 + 17) + 1;
-      *(v8 + 17) = v10;
-      v11 = v10;
-      v12 = *(v8 + 72);
-      if (v12 <= a3)
-      {
-        v12 = a3;
-      }
-
-      *(v8 + 72) = v12;
-      v13 = *(v8 + 73);
-      if (v13 >= a3)
-      {
-        v13 = a3;
-      }
-
-      v8[71] = v8[71] + (a3 - v8[71]) / v11;
-      *(v8 + 73) = v13;
     }
 
     else
@@ -4228,7 +2898,6 @@ uint64_t APSAudioHoseMetricCollectorUpdateRoundTripTimeDataForHose(uint64_t a1, 
       v9 = 4294960569;
     }
 
-    v14 = *(a1 + 32);
     FigSimpleMutexUnlock();
   }
 
@@ -4241,32 +2910,47 @@ uint64_t APSAudioHoseMetricCollectorUpdateRoundTripTimeDataForHose(uint64_t a1, 
   return v9;
 }
 
-uint64_t APSAudioHoseMetricCollectorIncrementRTCPSignatureFailureCountForHose(uint64_t a1, const void *a2)
+uint64_t APSAudioHoseMetricCollectorUpdateSendWindowDataForHose(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a1 && a2)
   {
-    v4 = *(a1 + 32);
     FigSimpleMutexLock();
+    if (gLogCategory_APSAudioHoseMetricCollector <= 30 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&gLogCategory_APSAudioHoseMetricCollector, "OSStatus APSAudioHoseMetricCollectorUpdateSendWindowDataForHose(APSAudioHoseMetricCollectorRef, APSAudioProtocolDriverHoseRef, uint16_t, uint16_t)", 33554462, "[%{ptr}] APSAudioHoseMetricCollectorUpdateSendWindowDataForHose hose: [%{ptr}] inSpanLen: %u inCount: %u", a1, a2, a3, a4);
+    }
+
     Value = CFDictionaryGetValue(*(a1 + 24), a2);
     if (Value)
     {
-      v6 = Value;
-      if (gLogCategory_APSAudioHoseMetricCollector <= 30 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
+      v9 = 0;
+      v10 = *(Value + 14) + 1;
+      *(Value + 14) = v10;
+      v11 = v10;
+      Value[45] = Value[45] + (a3 - Value[45]) / v10;
+      v12 = *(Value + 46);
+      if (v12 <= a3)
       {
-        LogPrintF();
+        v12 = a3;
       }
 
-      v7 = 0;
-      ++v6[44];
+      *(Value + 46) = v12;
+      Value[47] = Value[47] + (a4 - Value[47]) / v11;
+      v13 = *(Value + 48);
+      if (v13 <= a4)
+      {
+        v13 = a4;
+      }
+
+      *(Value + 48) = v13;
     }
 
     else
     {
       APSLogErrorAt(0);
-      v7 = 4294960569;
+      v9 = 4294960569;
     }
 
-    v8 = *(a1 + 32);
     FigSimpleMutexUnlock();
   }
 
@@ -4276,25 +2960,98 @@ uint64_t APSAudioHoseMetricCollectorIncrementRTCPSignatureFailureCountForHose(ui
     return 4294960591;
   }
 
-  return v7;
+  return v9;
 }
 
-uint64_t APSAudioHoseMetricCollectorReportMetrics(uint64_t a1, __int128 *a2)
+uint64_t APSAudioHoseMetricCollectorUpdateSlotsAvailableCountForHose(uint64_t a1, const void *a2, uint64_t a3)
 {
-  if (a1 && (*(a2 + 12) & 1) != 0)
+  if (!a1 || !a2)
   {
-    v4 = *(a1 + 32);
-    FigSimpleMutexLock();
-    if (gLogCategory_APSAudioHoseMetricCollector <= 50 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
+    APSLogErrorAt(0);
+    return 4294960591;
+  }
+
+  FigSimpleMutexLock();
+  Value = CFDictionaryGetValue(*(a1 + 24), a2);
+  if (!Value)
+  {
+    APSLogErrorAt(0);
+    v11 = 4294960569;
+    goto LABEL_16;
+  }
+
+  v7 = Value;
+  if (gLogCategory_APSAudioHoseMetricCollector <= 30 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF(&gLogCategory_APSAudioHoseMetricCollector, "OSStatus APSAudioHoseMetricCollectorUpdateSlotsAvailableCountForHose(APSAudioHoseMetricCollectorRef, APSAudioProtocolDriverHoseRef, uint16_t)", 33554462, "[%{ptr}] APSAudioHoseMetricCollectorUpdateSlotsAvailableCountForHose hose: [%{ptr}] inSlotsAvailableCount: %u", a1, a2, a3);
+  }
+
+  v8 = *(v7 + 15) + 1;
+  *(v7 + 15) = v8;
+  v7[49] = v7[49] + (a3 - v7[49]) / v8;
+  v9 = *(v7 + 18);
+  if (a3)
+  {
+    if (v9)
     {
-      LogPrintF();
+      mach_absolute_time();
+      v10 = UpTicksToMilliseconds();
+      v11 = 0;
+      v12 = *(v7 + 52);
+      if (v12 <= v10)
+      {
+        v12 = v10;
+      }
+
+      v7[18] = 0.0;
+      v7[51] = v7[51] + (v10 - v7[51]) / *(v7 + 50);
+      *(v7 + 52) = v12;
+      goto LABEL_16;
+    }
+  }
+
+  else if (!v9)
+  {
+    v11 = 0;
+    *(v7 + 18) = mach_absolute_time();
+    ++*(v7 + 50);
+    goto LABEL_16;
+  }
+
+  v11 = 0;
+LABEL_16:
+  FigSimpleMutexUnlock();
+  return v11;
+}
+
+uint64_t APSAudioHoseMetricCollectorUpdatePacketSize(uint64_t a1, unint64_t a2, CMTime *a3)
+{
+  if (a1)
+  {
+    FigSimpleMutexLock();
+    if (gLogCategory_APSAudioHoseMetricCollector <= 30 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&gLogCategory_APSAudioHoseMetricCollector, "OSStatus APSAudioHoseMetricCollectorUpdatePacketSize(APSAudioHoseMetricCollectorRef, uint64_t, CMTime)", 33554462, "[%{ptr}] APSAudioHoseMetricCollectorUpdatePacketSize inPacketSize: %llu", a1, a2);
     }
 
-    v5 = *(a1 + 24);
-    v8 = *a2;
-    v9 = *(a2 + 2);
-    CFDictionaryApplyBlock();
-    v6 = *(a1 + 32);
+    time = *a3;
+    v6 = CMTimeGetSeconds(&time) + *(a1 + 56);
+    *(a1 + 56) = v6;
+    if (v6 > 5.0)
+    {
+      v7 = *(a1 + 64) + 1;
+      *(a1 + 56) = 0;
+      *(a1 + 64) = v7;
+      v8 = *(a1 + 48);
+      v9 = a2;
+      if (v8 != -1.0)
+      {
+        v9 = v8 + (v9 - v8) / v7;
+      }
+
+      *(a1 + 48) = v9;
+    }
+
     FigSimpleMutexUnlock();
     return 0;
   }
@@ -4306,19 +3063,356 @@ uint64_t APSAudioHoseMetricCollectorReportMetrics(uint64_t a1, __int128 *a2)
   }
 }
 
-uint64_t __APSAudioHoseMetricCollectorReportMetrics_block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+uint64_t APSAudioHoseMetricCollectorUpdateRateControllerDataForHose(uint64_t a1, const void *a2, unint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  if (*(a3 + 152))
+  if (!a1 || !a2)
+  {
+    APSLogErrorAt(0);
+    return 4294960591;
+  }
+
+  FigSimpleMutexLock();
+  Value = CFDictionaryGetValue(*(a1 + 24), a2);
+  if (Value)
+  {
+    v15 = Value;
+    if (gLogCategory_APSAudioHoseMetricCollector <= 30 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&gLogCategory_APSAudioHoseMetricCollector, "OSStatus APSAudioHoseMetricCollectorUpdateRateControllerDataForHose(APSAudioHoseMetricCollectorRef, APSAudioProtocolDriverHoseRef, uint64_t, uint64_t, uint64_t, uint32_t, uint32_t)", 33554462, "[%{ptr}] APSAudioHoseMetricCollectorUpdateRateControllerDataForHose hose: [%{ptr}] inTargetBitrate: %llu, inMinBitrate: %llu, inMaxBitrate: %llu, inBandwidthEstimation: %zu, inOWRD: %zu", a1, a2, a3, a4, a5, a6, a7);
+    }
+
+    v16 = *(v15 + 16) + 1;
+    *(v15 + 16) = v16;
+    v17 = v16;
+    *(v15 + 55) = *(v15 + 55) + (a3 - *(v15 + 55)) / v16;
+    v19 = *(v15 + 53);
+    v18 = *(v15 + 54);
+    if (v18 <= a3)
+    {
+      v18 = a3;
+    }
+
+    if (v19 >= a3)
+    {
+      v19 = a3;
+    }
+
+    *(v15 + 53) = v19;
+    *(v15 + 54) = v18;
+    v20 = *(v15 + 58);
+    if (a6 && v20 == -1.0)
+    {
+      *(v15 + 58) = a6;
+      v21 = a6;
+      *(v15 + 57) = a6;
+    }
+
+    else
+    {
+      if (v20 <= -1.0)
+      {
+LABEL_21:
+        v24 = *(v15 + 61);
+        if (a7 && v24 == -1.0)
+        {
+          *(v15 + 61) = a7;
+          v25 = a7;
+          *(v15 + 60) = a7;
+        }
+
+        else
+        {
+          if (v24 <= -1.0)
+          {
+            goto LABEL_30;
+          }
+
+          *(v15 + 61) = v24 + (a7 - v24) / v17;
+          v25 = a7;
+          v27 = *(v15 + 59);
+          v26 = *(v15 + 60);
+          if (v26 <= a7)
+          {
+            v26 = a7;
+          }
+
+          *(v15 + 60) = v26;
+          if (v27 < a7)
+          {
+            v25 = v27;
+          }
+        }
+
+        *(v15 + 59) = v25;
+LABEL_30:
+        v28 = a5 - a3;
+        v29 = *(v15 + 64) + (v28 - *(v15 + 64)) / v17;
+        *(v15 + 64) = v29;
+        v30 = *(v15 + 62);
+        v31 = *(v15 + 63);
+        if (v30 <= v28)
+        {
+          v30 = v28;
+        }
+
+        if (v31 >= v28)
+        {
+          v31 = v28;
+        }
+
+        *(v15 + 62) = v30;
+        *(v15 + 63) = v31;
+        if (gLogCategory_APSAudioHoseMetricCollector > 30)
+        {
+          goto LABEL_38;
+        }
+
+        if (gLogCategory_APSAudioHoseMetricCollector == -1)
+        {
+          if (!_LogCategory_Initialize())
+          {
+            goto LABEL_38;
+          }
+
+          v29 = *(v15 + 64);
+          v30 = *(v15 + 62);
+          v31 = *(v15 + 63);
+        }
+
+        LogPrintF(&gLogCategory_APSAudioHoseMetricCollector, "OSStatus APSAudioHoseMetricCollectorUpdateRateControllerDataForHose(APSAudioHoseMetricCollectorRef, APSAudioProtocolDriverHoseRef, uint64_t, uint64_t, uint64_t, uint32_t, uint32_t)", 33554462, "[%{ptr}] APSAudioHoseMetricCollectorUpdateRateControllerDataForHose hose: [%{ptr}] avgMaxBitrateDiff: %f, maxMaxBitrateDiff: %llu, minMaxBitrateDiff: %llu, currentMaxBitrateDiff: %llu", a1, a2, *&v29, v30, v31, v28);
+LABEL_38:
+        v32 = 0;
+        v33 = *(v15 + 65);
+        if (v33 <= a4)
+        {
+          v33 = a4;
+        }
+
+        *(v15 + 65) = v33;
+        v34 = *(v15 + 66);
+        if (v34 >= a4)
+        {
+          v34 = a4;
+        }
+
+        *(v15 + 66) = v34;
+        v35 = *(v15 + 16);
+        *(v15 + 67) = *(v15 + 67) + (a4 - *(v15 + 67)) / v35;
+        v36 = a3 - a4;
+        *(v15 + 70) = *(v15 + 70) + ((a3 - a4) - *(v15 + 70)) / v35;
+        v37 = *(v15 + 68);
+        if (v37 <= a3 - a4)
+        {
+          v37 = a3 - a4;
+        }
+
+        *(v15 + 68) = v37;
+        if (*(v15 + 69) < v36)
+        {
+          v36 = *(v15 + 69);
+        }
+
+        *(v15 + 69) = v36;
+        goto LABEL_47;
+      }
+
+      *(v15 + 58) = v20 + (a6 - v20) / v17;
+      v21 = a6;
+      v23 = *(v15 + 56);
+      v22 = *(v15 + 57);
+      if (v22 <= a6)
+      {
+        v22 = a6;
+      }
+
+      *(v15 + 57) = v22;
+      if (v23 < a6)
+      {
+        v21 = v23;
+      }
+    }
+
+    *(v15 + 56) = v21;
+    goto LABEL_21;
+  }
+
+  APSLogErrorAt(0);
+  v32 = 4294960569;
+LABEL_47:
+  FigSimpleMutexUnlock();
+  return v32;
+}
+
+uint64_t APSAudioHoseMetricCollectorUpdateAPATTransmissionDataForHose(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  if (a1 && a2)
+  {
+    FigSimpleMutexLock();
+    Value = CFDictionaryGetValue(*(a1 + 24), a2);
+    if (Value)
+    {
+      v13 = Value;
+      if (gLogCategory_APSAudioHoseMetricCollector <= 30 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
+      {
+        LogPrintF(&gLogCategory_APSAudioHoseMetricCollector, "OSStatus APSAudioHoseMetricCollectorUpdateAPATTransmissionDataForHose(APSAudioHoseMetricCollectorRef, APSAudioProtocolDriverHoseRef, uint64_t, uint64_t, uint64_t, uint64_t)", 33554462, "[%{ptr}] APSAudioHoseMetricCollectorUpdateAPATTransmissionDataForHose hose: [%{ptr}] inTxCount: %llu, inReTxCount: %llu, inRTPTxByteCount: %llu, inRTCPTxByteCount: %llu", a1, a2, a3, a4, a5, a6);
+      }
+
+      v14 = *(v13 + 11) + a3;
+      *(v13 + 11) = v14;
+      v15 = *(v13 + 40) + a4;
+      *(v13 + 40) = v15;
+      v13[41] = v15 / v14;
+      mach_absolute_time();
+      v16 = UpTicksToSeconds();
+      v17 = 0;
+      v18 = *(v13 + 12) + a5;
+      v19 = *(v13 + 13) + a6;
+      *(v13 + 12) = v18;
+      *(v13 + 13) = v19;
+      v13[42] = (v19 + v18) / v16;
+      v13[43] = v18 / v16;
+    }
+
+    else
+    {
+      APSLogErrorAt(0);
+      v17 = 4294960569;
+    }
+
+    FigSimpleMutexUnlock();
+  }
+
+  else
+  {
+    APSLogErrorAt(0);
+    return 4294960591;
+  }
+
+  return v17;
+}
+
+uint64_t APSAudioHoseMetricCollectorUpdateRoundTripTimeDataForHose(uint64_t a1, const void *a2, unint64_t a3)
+{
+  if (a1 && a2)
+  {
+    FigSimpleMutexLock();
+    Value = CFDictionaryGetValue(*(a1 + 24), a2);
+    if (Value)
+    {
+      v7 = Value;
+      if (gLogCategory_APSAudioHoseMetricCollector <= 30 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
+      {
+        LogPrintF(&gLogCategory_APSAudioHoseMetricCollector, "OSStatus APSAudioHoseMetricCollectorUpdateRoundTripTimeDataForHose(APSAudioHoseMetricCollectorRef, APSAudioProtocolDriverHoseRef, uint64_t)", 33554462, "[%{ptr}] APSAudioHoseMetricCollectorUpdateRoundTripTimeDataForHose hose: [%{ptr}] inRoundTripTime: %llu", a1, a2, a3);
+      }
+
+      v8 = 0;
+      v9 = *(v7 + 17) + 1;
+      *(v7 + 17) = v9;
+      v10 = v9;
+      v11 = *(v7 + 72);
+      if (v11 <= a3)
+      {
+        v11 = a3;
+      }
+
+      *(v7 + 72) = v11;
+      v12 = *(v7 + 73);
+      if (v12 >= a3)
+      {
+        v12 = a3;
+      }
+
+      v7[71] = v7[71] + (a3 - v7[71]) / v10;
+      *(v7 + 73) = v12;
+    }
+
+    else
+    {
+      APSLogErrorAt(0);
+      v8 = 4294960569;
+    }
+
+    FigSimpleMutexUnlock();
+  }
+
+  else
+  {
+    APSLogErrorAt(0);
+    return 4294960591;
+  }
+
+  return v8;
+}
+
+uint64_t APSAudioHoseMetricCollectorIncrementRTCPSignatureFailureCountForHose(uint64_t a1, const void *a2)
+{
+  if (a1 && a2)
+  {
+    FigSimpleMutexLock();
+    Value = CFDictionaryGetValue(*(a1 + 24), a2);
+    if (Value)
+    {
+      v5 = Value;
+      if (gLogCategory_APSAudioHoseMetricCollector <= 30 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
+      {
+        LogPrintF(&gLogCategory_APSAudioHoseMetricCollector, "OSStatus APSAudioHoseMetricCollectorIncrementRTCPSignatureFailureCountForHose(APSAudioHoseMetricCollectorRef, APSAudioProtocolDriverHoseRef)", 33554462, "[%{ptr}] APSAudioHoseMetricCollectorIncrementRTCPSignatureFailureCountForHose hose: [%{ptr}]", a1, a2);
+      }
+
+      v6 = 0;
+      ++v5[44];
+    }
+
+    else
+    {
+      APSLogErrorAt(0);
+      v6 = 4294960569;
+    }
+
+    FigSimpleMutexUnlock();
+  }
+
+  else
+  {
+    APSLogErrorAt(0);
+    return 4294960591;
+  }
+
+  return v6;
+}
+
+uint64_t APSAudioHoseMetricCollectorReportMetrics(uint64_t a1, __int128 *a2)
+{
+  if (a1 && (*(a2 + 12) & 1) != 0)
+  {
+    FigSimpleMutexLock();
+    if (gLogCategory_APSAudioHoseMetricCollector <= 50 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&gLogCategory_APSAudioHoseMetricCollector, "OSStatus APSAudioHoseMetricCollectorReportMetrics(APSAudioHoseMetricCollectorRef, CMTime)", 33554482, "[%{ptr}] APSAudioHoseMetricCollectorReportMetrics", a1);
+    }
+
+    CFDictionaryApplyBlock();
+    FigSimpleMutexUnlock();
+    return 0;
+  }
+
+  else
+  {
+    APSLogErrorAt(0);
+    return 4294960591;
+  }
+}
+
+uint64_t __APSAudioHoseMetricCollectorReportMetrics_block_invoke(uint64_t result, uint64_t a2, void *a3)
+{
+  if (a3[19])
   {
     v4 = result;
     v5 = *(result + 32);
     time = *(v4 + 40);
     metricCollector_cancelUnderrunForHoseInternal(v5, a3, &time);
     v6 = *(v4 + 32);
-    v7 = mach_absolute_time();
-    v8 = *(v6 + 32);
+    mach_absolute_time();
     FigSimpleMutexCheckIsLockedOnThisThread();
-    v9 = v7 - *(a3 + 80);
     if (UpTicksToSeconds() <= *(v6 + 40))
     {
       return metricCollector_resetMetricsAndDataForHoseInternal(*(v4 + 32), a3);
@@ -4331,71 +3425,60 @@ uint64_t __APSAudioHoseMetricCollectorReportMetrics_block_invoke(uint64_t result
       return metricCollector_resetMetricsAndDataForHoseInternal(*(v4 + 32), a3);
     }
 
-    v11 = Mutable;
-    v12 = *(a3 + 28);
-    v13 = @"RTP";
-    if (v12 == 2)
+    v8 = Mutable;
+    v9 = *(a3 + 7);
+    v10 = @"RTP";
+    if (v9 == 2)
     {
-      v13 = @"APAT";
+      v10 = @"APAT";
     }
 
-    if (v12 == 1)
+    if (v9 == 1)
     {
-      v14 = @"APAP";
+      v11 = @"APAP";
     }
 
     else
     {
-      v14 = v13;
+      v11 = v10;
     }
 
-    v15 = *(a3 + 152);
-    if (!v15 || (v16 = APSStatsHistogramCopyValuesAsRTCString(v15)) == 0)
+    v12 = a3[19];
+    if (!v12 || (v13 = APSStatsHistogramCopyValuesAsRTCString(v12)) == 0)
     {
       APSLogErrorAt(0);
-      v87 = v11;
-LABEL_140:
-      CFRelease(v87);
-LABEL_141:
-      CFRelease(v14);
+      v32 = v8;
+LABEL_138:
+      CFRelease(v32);
+LABEL_139:
+      CFRelease(v11);
       return metricCollector_resetMetricsAndDataForHoseInternal(*(v4 + 32), a3);
     }
 
-    v17 = v16;
+    v14 = v13;
     UpTicksToMilliseconds();
     UInt64 = FigCFNumberCreateUInt64();
-    cf = v17;
-    v139 = v14;
+    cf = v14;
+    v36 = v11;
     if (!UInt64)
     {
-      goto LABEL_148;
+      goto LABEL_146;
     }
 
-    v19 = *(v6 + 24);
     FigCFDictionaryGetCount();
     FigCFDictionarySetUInt32();
     FigCFDictionarySetValue();
-    v20 = *(a3 + 8);
     FigCFDictionarySetValue();
-    v21 = *(a3 + 16);
     FigCFDictionarySetValue();
-    v22 = MEMORY[0x277CBED28];
-    if (!*(a3 + 24))
-    {
-      v22 = MEMORY[0x277CBED10];
-    }
-
-    v23 = *v22;
     FigCFDictionarySetValue();
     FigCFDictionarySetValue();
     FigCFDictionarySetValue();
     if (gLogCategory_APSAudioHoseMetricCollector <= 50 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
     {
-      *v143 = *a3;
-      v24 = *(a3 + 16);
-      v25 = *(v6 + 24);
-      FigCFDictionaryGetCount();
-      LogPrintF();
+      *v40 = *a3;
+      v16 = a3[2];
+      Count = FigCFDictionaryGetCount();
+      LogPrintF(&gLogCategory_APSAudioHoseMetricCollector, "void metricCollector_reportMetricsForHoseInternal(APSAudioHoseMetricCollectorRef, APSAudioHoseMetricCollectorHoseDescriptorPtr)", 33554482, "[%{ptr}] Hose: [%{ptr}] BufferLevel RTC Metrics Summary: Model: %@, Build: %@, HoseCount: %lu, hist: %@, Topology Duration (ms): %@, Protocol Type: %@", v6, *v40, v16, Count, v14, UInt64, v11);
     }
 
     time = *(a3 + 228);
@@ -4403,56 +3486,53 @@ LABEL_141:
     Float64 = FigCFNumberCreateFloat64();
     if (!Float64)
     {
-LABEL_148:
+LABEL_146:
       APSLogErrorAt(0);
-      v86 = 0;
-      v144 = 0;
-      v29 = 0;
       v31 = 0;
-      v33 = 0;
-      v36 = 0;
-      v140 = 0;
-      v141 = 0;
-      v35 = 0;
-      goto LABEL_121;
+      v41 = 0;
+      v21 = 0;
+      v22 = 0;
+      v23 = 0;
+      v27 = 0;
+      v37 = 0;
+      v38 = 0;
+      v26 = 0;
+      goto LABEL_119;
     }
 
-    if (*(a3 + 264))
+    if (a3[33])
     {
-      v26 = a3 + 252;
-      v27 = *(a3 + 252);
+      v18 = a3 + 252;
+      v19 = *(a3 + 252);
     }
 
     else
     {
-      v26 = MEMORY[0x277CC08F0];
-      v27 = *MEMORY[0x277CC08F0];
+      v18 = MEMORY[0x277CC08F0];
+      v19 = *MEMORY[0x277CC08F0];
     }
 
-    *&time.value = v27;
-    time.epoch = *(v26 + 16);
+    *&time.value = v19;
+    time.epoch = *(v18 + 2);
     CMTimeGetSeconds(&time);
-    v28 = FigCFNumberCreateFloat64();
-    if (v28)
+    v20 = FigCFNumberCreateFloat64();
+    if (v20)
     {
-      v144 = v28;
+      v41 = v20;
       time = *(a3 + 276);
       CMTimeGetSeconds(&time);
-      v29 = FigCFNumberCreateFloat64();
-      if (v29)
+      v21 = FigCFNumberCreateFloat64();
+      if (v21)
       {
-        v30 = *(a3 + 304);
-        v31 = FigCFNumberCreateFloat64();
-        if (v31)
+        v22 = FigCFNumberCreateFloat64();
+        if (v22)
         {
-          v32 = *(a3 + 312);
-          v33 = FigCFNumberCreateFloat64();
-          if (v33)
+          v23 = FigCFNumberCreateFloat64();
+          if (v23)
           {
             time = *(a3 + 228);
-            CMTimeGetSeconds(&time);
-            UpTicksToSeconds();
-            v34 = *(a3 + 224);
+            Seconds = CMTimeGetSeconds(&time);
+            v25 = UpTicksToSeconds();
             FigCFDictionarySetUInt32();
             FigCFDictionarySetValue();
             FigCFDictionarySetValue();
@@ -4461,40 +3541,34 @@ LABEL_148:
             FigCFDictionarySetValue();
             if (gLogCategory_APSAudioHoseMetricCollector <= 50 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
             {
-              v101 = *(a3 + 224);
-              v89 = *a3;
-              LogPrintF();
+              LogPrintF(&gLogCategory_APSAudioHoseMetricCollector, "void metricCollector_reportMetricsForHoseInternal(APSAudioHoseMetricCollectorRef, APSAudioHoseMetricCollectorHoseDescriptorPtr)", 33554482, "[%{ptr}] Hose: [%{ptr}] BufferLevel RTC Metrics Underruns: Underrun Count: %lu, Total Underrun Duration: %@, Min Underrun Duration: %@, Max Underrun Duration: %@, Mean Underrun Duration: %@, Median Underrun Duration: %@,(Total Underrun Duration / Topology Duration): %1.4f", v6, *a3, *(a3 + 56), Float64, v41, v21, v23, v22, Seconds / v25);
             }
 
-            if (*(a3 + 28) == 2)
+            if (*(a3 + 7) == 2)
             {
-              v140 = 0;
-              v141 = 0;
-              v35 = 0;
-              v36 = 0;
-              goto LABEL_41;
+              v37 = 0;
+              v38 = 0;
+              v26 = 0;
+              v27 = 0;
+              goto LABEL_39;
             }
 
-            v37 = *(a3 + 160);
-            v36 = FigCFNumberCreateFloat64();
-            if (v36)
+            v27 = FigCFNumberCreateFloat64();
+            if (v27)
             {
-              v38 = *(a3 + 168);
-              v39 = FigCFNumberCreateFloat64();
-              if (v39)
+              v28 = FigCFNumberCreateFloat64();
+              if (v28)
               {
-                v141 = v39;
-                v40 = *(a3 + 184);
-                v41 = FigCFNumberCreateFloat64();
-                if (v41)
+                v38 = v28;
+                v29 = FigCFNumberCreateFloat64();
+                if (v29)
                 {
-                  v140 = v41;
-                  v42 = *(a3 + 176);
-                  v35 = FigCFNumberCreateFloat64();
-                  if (!v35)
+                  v37 = v29;
+                  v26 = FigCFNumberCreateFloat64();
+                  if (!v26)
                   {
                     APSLogErrorAt(0);
-                    goto LABEL_120;
+                    goto LABEL_118;
                   }
 
                   FigCFDictionarySetValue();
@@ -4503,457 +3577,369 @@ LABEL_148:
                   FigCFDictionarySetValue();
                   if (gLogCategory_APSAudioHoseMetricCollector <= 50 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
                   {
-                    v90 = *a3;
-                    LogPrintF();
+                    LogPrintF(&gLogCategory_APSAudioHoseMetricCollector, "void metricCollector_reportMetricsForHoseInternal(APSAudioHoseMetricCollectorRef, APSAudioHoseMetricCollectorHoseDescriptorPtr)", 33554482, "[%{ptr}] Hose: [%{ptr}] BufferLevel RTC Metrics Send Rate Statistics: Min: %@, Max: %@, Mean: %@, Median: %@", v6, *a3, v27, v38, v26, v37);
                   }
 
-                  if (*(a3 + 28) != 2)
+                  if (*(a3 + 7) != 2)
                   {
-                    goto LABEL_42;
+                    goto LABEL_40;
                   }
 
-LABEL_41:
+LABEL_39:
                   if (*(a3 + 24))
                   {
-                    goto LABEL_42;
+                    goto LABEL_40;
                   }
 
-                  v137 = v36;
-                  v43 = *(a3 + 320);
-                  v44 = FigCFDictionarySetUInt64();
-                  if (v44)
+                  v34 = v27;
+                  v30 = FigCFDictionarySetUInt64();
+                  if (v30)
                   {
-                    v88 = v44;
+                    v33 = v30;
                   }
 
                   else
                   {
-                    v45 = *(a3 + 328);
-                    v44 = FigCFDictionarySetDouble();
-                    if (v44)
+                    v30 = FigCFDictionarySetDouble();
+                    if (v30)
                     {
-                      v88 = v44;
+                      v33 = v30;
                     }
 
                     else
                     {
-                      v46 = *(a3 + 336);
-                      v44 = FigCFDictionarySetUInt64();
-                      if (v44)
+                      v30 = FigCFDictionarySetUInt64();
+                      if (v30)
                       {
-                        v88 = v44;
+                        v33 = v30;
                       }
 
                       else
                       {
-                        v47 = *(a3 + 344);
-                        v44 = FigCFDictionarySetUInt64();
-                        if (v44)
+                        v30 = FigCFDictionarySetUInt64();
+                        if (v30)
                         {
-                          v88 = v44;
+                          v33 = v30;
                         }
 
                         else
                         {
-                          v48 = *(a3 + 352);
-                          v44 = FigCFDictionarySetUInt64();
-                          if (v44)
+                          v30 = FigCFDictionarySetUInt64();
+                          if (v30)
                           {
-                            v88 = v44;
+                            v33 = v30;
                           }
 
                           else
                           {
                             if (*(v6 + 48) == -1.0)
                             {
-                              goto LABEL_59;
+                              goto LABEL_57;
                             }
 
-                            v44 = FigCFDictionarySetUInt64();
-                            if (!v44)
+                            v30 = FigCFDictionarySetUInt64();
+                            if (!v30)
                             {
                               if (gLogCategory_APSAudioHoseMetricCollector <= 50 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
                               {
-                                v133 = *(a3 + 352);
-                                v135 = *(v6 + 48);
-                                v120 = *(a3 + 336);
-                                v129 = *(a3 + 344);
-                                v111 = *(a3 + 328);
-                                v92 = *a3;
-                                v102 = *(a3 + 320);
-                                LogPrintF();
+                                LogPrintF(&gLogCategory_APSAudioHoseMetricCollector, "OSStatus metricCollector_reportTransmissionStatsForHoseInternal(APSAudioHoseMetricCollectorRef, APSAudioHoseMetricCollectorHoseDescriptorPtr, CFMutableDictionaryRef)", 33554482, "[%{ptr}] Hose: [%{ptr}] APAT RTC Metrics: Network Performance Stats: RTP Retransmit Count: %llu, Packet Loss Rate: %f, Throughput: %llu, Goodput: %llu, RTCP Signature Failure Count: %llu, RTP Avg PacketSize: %llu", v6, *a3, a3[40], a3[41], *(a3 + 42), *(a3 + 43), a3[44], *(v6 + 48));
                               }
 
-LABEL_59:
-                              v49 = *(v6 + 32);
+LABEL_57:
                               FigSimpleMutexCheckIsLockedOnThisThread();
-                              v50 = *(a3 + 376);
-                              v44 = FigCFDictionarySetUInt64();
-                              if (v44)
+                              v30 = FigCFDictionarySetUInt64();
+                              if (v30)
                               {
-                                v88 = v44;
+                                v33 = v30;
                               }
 
                               else
                               {
-                                v51 = *(a3 + 384);
-                                v44 = FigCFDictionarySetUInt64();
-                                if (v44)
+                                v30 = FigCFDictionarySetUInt64();
+                                if (v30)
                                 {
-                                  v88 = v44;
+                                  v33 = v30;
                                 }
 
                                 else
                                 {
-                                  v52 = *(a3 + 360);
-                                  v44 = FigCFDictionarySetUInt64();
-                                  if (v44)
+                                  v30 = FigCFDictionarySetUInt64();
+                                  if (v30)
                                   {
-                                    v88 = v44;
+                                    v33 = v30;
                                   }
 
                                   else
                                   {
-                                    v53 = *(a3 + 368);
-                                    v44 = FigCFDictionarySetUInt64();
-                                    if (v44)
+                                    v30 = FigCFDictionarySetUInt64();
+                                    if (v30)
                                     {
-                                      v88 = v44;
+                                      v33 = v30;
                                     }
 
                                     else
                                     {
                                       if (gLogCategory_APSAudioHoseMetricCollector <= 50 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
                                       {
-                                        v121 = *(a3 + 360);
-                                        v130 = *(a3 + 368);
-                                        v103 = *(a3 + 376);
-                                        v112 = *(a3 + 384);
-                                        v93 = *a3;
-                                        LogPrintF();
+                                        LogPrintF(&gLogCategory_APSAudioHoseMetricCollector, "OSStatus metricCollector_reportSendWindowStatsForHoseInternal(APSAudioHoseMetricCollectorRef, APSAudioHoseMetricCollectorHoseDescriptorPtr, CFMutableDictionaryRef)", 33554482, "[%{ptr}] Hose: [%{ptr}] APAT RTC Metrics: SendWindow Stats: sendWindowAvgCount: %llu, sendWindowMaxCount: %llu, sendWindowSpanAvgLen: %llu, sendWindowSpanMaxLen: %llu ", v6, *a3, *(a3 + 47), a3[48], *(a3 + 45), a3[46]);
                                       }
 
-                                      v54 = *(v6 + 32);
                                       FigSimpleMutexCheckIsLockedOnThisThread();
-                                      v55 = *(a3 + 392);
-                                      v44 = FigCFDictionarySetUInt64();
-                                      if (v44)
+                                      v30 = FigCFDictionarySetUInt64();
+                                      if (v30)
                                       {
-                                        v88 = v44;
+                                        v33 = v30;
                                       }
 
                                       else
                                       {
-                                        v56 = *(a3 + 400);
-                                        v44 = FigCFDictionarySetUInt64();
-                                        if (v44)
+                                        v30 = FigCFDictionarySetUInt64();
+                                        if (v30)
                                         {
-                                          v88 = v44;
+                                          v33 = v30;
                                         }
 
                                         else
                                         {
-                                          v57 = *(a3 + 408);
-                                          v44 = FigCFDictionarySetUInt64();
-                                          if (v44)
+                                          v30 = FigCFDictionarySetUInt64();
+                                          if (v30)
                                           {
-                                            v88 = v44;
+                                            v33 = v30;
                                           }
 
                                           else
                                           {
-                                            v58 = *(a3 + 416);
-                                            v44 = FigCFDictionarySetUInt64();
-                                            if (v44)
+                                            v30 = FigCFDictionarySetUInt64();
+                                            if (v30)
                                             {
-                                              v88 = v44;
+                                              v33 = v30;
                                             }
 
                                             else
                                             {
                                               if (gLogCategory_APSAudioHoseMetricCollector <= 50 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
                                               {
-                                                v122 = *(a3 + 408);
-                                                v131 = *(a3 + 416);
-                                                v104 = *(a3 + 392);
-                                                v113 = *(a3 + 400);
-                                                v94 = *a3;
-                                                LogPrintF();
+                                                LogPrintF(&gLogCategory_APSAudioHoseMetricCollector, "OSStatus metricCollector_reportPacketSlotCountStatsForHoseInternal(APSAudioHoseMetricCollectorRef, APSAudioHoseMetricCollectorHoseDescriptorPtr, CFMutableDictionaryRef)", 33554482, "[%{ptr}] Hose: [%{ptr}] APAT RTC Metrics: Packet Slot Count Stats: avgPacketSlotCount: %llu, zeroAvailablePacketSlotEventCount: %llu, avgZeroAvailablePacketSlotDurationMS: %llu, maxZeroAvailablePacketSlotDurationMS: %llu ", v6, *a3, *(a3 + 49), a3[50], *(a3 + 51), a3[52]);
                                               }
 
-                                              v59 = *(v6 + 32);
                                               FigSimpleMutexCheckIsLockedOnThisThread();
-                                              v60 = *(a3 + 440);
-                                              v44 = FigCFDictionarySetUInt64();
-                                              if (v44)
+                                              v30 = FigCFDictionarySetUInt64();
+                                              if (v30)
                                               {
-                                                v88 = v44;
+                                                v33 = v30;
                                               }
 
                                               else
                                               {
-                                                v61 = *(a3 + 432);
-                                                v44 = FigCFDictionarySetInt64();
-                                                if (v44)
+                                                v30 = FigCFDictionarySetInt64();
+                                                if (v30)
                                                 {
-                                                  v88 = v44;
+                                                  v33 = v30;
                                                 }
 
                                                 else
                                                 {
-                                                  v62 = *(a3 + 424);
-                                                  v44 = FigCFDictionarySetInt64();
-                                                  if (v44)
+                                                  v30 = FigCFDictionarySetInt64();
+                                                  if (v30)
                                                   {
-                                                    v88 = v44;
+                                                    v33 = v30;
                                                   }
 
                                                   else
                                                   {
                                                     if (gLogCategory_APSAudioHoseMetricCollector <= 50 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
                                                     {
-                                                      v114 = *(a3 + 432);
-                                                      v123 = *(a3 + 424);
-                                                      v95 = *a3;
-                                                      v105 = *(a3 + 440);
-                                                      LogPrintF();
+                                                      LogPrintF(&gLogCategory_APSAudioHoseMetricCollector, "OSStatus metricCollector_reportTargetBitrateStatsForHoseInternal(APSAudioHoseMetricCollectorRef, APSAudioHoseMetricCollectorHoseDescriptorPtr, CFMutableDictionaryRef)", 33554482, "[%{ptr}] Hose: [%{ptr}] APAT RTC Metrics: Target Bitrate Stats: avgTargetBitRate: %llu, maxTargetBitRate: %llu, minTargetBitRate: %llu", v6, *a3, *(a3 + 55), a3[54], a3[53]);
                                                     }
 
-                                                    v63 = *(v6 + 32);
                                                     FigSimpleMutexCheckIsLockedOnThisThread();
-                                                    v64 = *(a3 + 464);
-                                                    v44 = FigCFDictionarySetUInt64();
-                                                    if (v44)
+                                                    v30 = FigCFDictionarySetUInt64();
+                                                    if (v30)
                                                     {
-                                                      v88 = v44;
+                                                      v33 = v30;
                                                     }
 
                                                     else
                                                     {
-                                                      v65 = *(a3 + 456);
-                                                      v44 = FigCFDictionarySetInt64();
-                                                      if (v44)
+                                                      v30 = FigCFDictionarySetInt64();
+                                                      if (v30)
                                                       {
-                                                        v88 = v44;
+                                                        v33 = v30;
                                                       }
 
                                                       else
                                                       {
-                                                        v66 = *(a3 + 448);
-                                                        v44 = FigCFDictionarySetInt64();
-                                                        if (v44)
+                                                        v30 = FigCFDictionarySetInt64();
+                                                        if (v30)
                                                         {
-                                                          v88 = v44;
+                                                          v33 = v30;
                                                         }
 
                                                         else
                                                         {
                                                           if (gLogCategory_APSAudioHoseMetricCollector <= 50 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
                                                           {
-                                                            v115 = *(a3 + 456);
-                                                            v124 = *(a3 + 448);
-                                                            v96 = *a3;
-                                                            v106 = *(a3 + 464);
-                                                            LogPrintF();
+                                                            LogPrintF(&gLogCategory_APSAudioHoseMetricCollector, "OSStatus metricCollector_reportbandwidthEstimationStatsForHoseInternal(APSAudioHoseMetricCollectorRef, APSAudioHoseMetricCollectorHoseDescriptorPtr, CFMutableDictionaryRef)", 33554482, "[%{ptr}] Hose: [%{ptr}] APAT RTC Metrics: bandwidthEstimation Stats: avgBandwidthEstimation: %llu, maxBandwidthEstimation: %llu, minBandwidthEstimation: %llu", v6, *a3, *(a3 + 58), a3[57], a3[56]);
                                                           }
 
-                                                          v67 = *(v6 + 32);
                                                           FigSimpleMutexCheckIsLockedOnThisThread();
-                                                          v68 = *(a3 + 488);
-                                                          v44 = FigCFDictionarySetUInt64();
-                                                          if (v44)
+                                                          v30 = FigCFDictionarySetUInt64();
+                                                          if (v30)
                                                           {
-                                                            v88 = v44;
+                                                            v33 = v30;
                                                           }
 
                                                           else
                                                           {
-                                                            v69 = *(a3 + 480);
-                                                            v44 = FigCFDictionarySetInt64();
-                                                            if (v44)
+                                                            v30 = FigCFDictionarySetInt64();
+                                                            if (v30)
                                                             {
-                                                              v88 = v44;
+                                                              v33 = v30;
                                                             }
 
                                                             else
                                                             {
-                                                              v70 = *(a3 + 472);
-                                                              v44 = FigCFDictionarySetInt64();
-                                                              if (v44)
+                                                              v30 = FigCFDictionarySetInt64();
+                                                              if (v30)
                                                               {
-                                                                v88 = v44;
+                                                                v33 = v30;
                                                               }
 
                                                               else
                                                               {
                                                                 if (gLogCategory_APSAudioHoseMetricCollector <= 50 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
                                                                 {
-                                                                  v116 = *(a3 + 480);
-                                                                  v125 = *(a3 + 472);
-                                                                  v97 = *a3;
-                                                                  v107 = *(a3 + 488);
-                                                                  LogPrintF();
+                                                                  LogPrintF(&gLogCategory_APSAudioHoseMetricCollector, "OSStatus metricCollector_reportOWRDStatsForHoseInternal(APSAudioHoseMetricCollectorRef, APSAudioHoseMetricCollectorHoseDescriptorPtr, CFMutableDictionaryRef)", 33554482, "[%{ptr}] Hose: [%{ptr}] APAT RTC Metrics: One Way Relative Delay Stats: avgOWRD: %llu, maxOWRD: %llu, minOWRD: %llu", v6, *a3, *(a3 + 61), a3[60], a3[59]);
                                                                 }
 
-                                                                v71 = *(v6 + 32);
                                                                 FigSimpleMutexCheckIsLockedOnThisThread();
-                                                                v72 = *(a3 + 512);
-                                                                v44 = FigCFDictionarySetUInt64();
-                                                                if (v44)
+                                                                v30 = FigCFDictionarySetUInt64();
+                                                                if (v30)
                                                                 {
-                                                                  v88 = v44;
+                                                                  v33 = v30;
                                                                 }
 
                                                                 else
                                                                 {
-                                                                  v73 = *(a3 + 496);
-                                                                  v44 = FigCFDictionarySetInt64();
-                                                                  if (v44)
+                                                                  v30 = FigCFDictionarySetInt64();
+                                                                  if (v30)
                                                                   {
-                                                                    v88 = v44;
+                                                                    v33 = v30;
                                                                   }
 
                                                                   else
                                                                   {
-                                                                    v74 = *(a3 + 504);
-                                                                    v44 = FigCFDictionarySetInt64();
-                                                                    if (v44)
+                                                                    v30 = FigCFDictionarySetInt64();
+                                                                    if (v30)
                                                                     {
-                                                                      v88 = v44;
+                                                                      v33 = v30;
                                                                     }
 
                                                                     else
                                                                     {
                                                                       if (gLogCategory_APSAudioHoseMetricCollector <= 50 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
                                                                       {
-                                                                        v117 = *(a3 + 496);
-                                                                        v126 = *(a3 + 504);
-                                                                        v98 = *a3;
-                                                                        v108 = *(a3 + 512);
-                                                                        LogPrintF();
+                                                                        LogPrintF(&gLogCategory_APSAudioHoseMetricCollector, "OSStatus metricCollector_reportMaxBitrateDiffStatsForHoseInternal(APSAudioHoseMetricCollectorRef, APSAudioHoseMetricCollectorHoseDescriptorPtr, CFMutableDictionaryRef)", 33554482, "[%{ptr}] Hose: [%{ptr}] APAT RTC Metrics: Max BitrateDiff Stats: avgMaxBitrateDiff: %llu, maxMaxBitrateDiff: %llu, minMaxBitrateDiff: %llu", v6, *a3, *(a3 + 64), a3[62], a3[63]);
                                                                       }
 
-                                                                      v75 = *(v6 + 32);
                                                                       FigSimpleMutexCheckIsLockedOnThisThread();
-                                                                      v76 = *(a3 + 536);
-                                                                      v44 = FigCFDictionarySetUInt64();
-                                                                      if (v44)
+                                                                      v30 = FigCFDictionarySetUInt64();
+                                                                      if (v30)
                                                                       {
-                                                                        v88 = v44;
+                                                                        v33 = v30;
                                                                       }
 
                                                                       else
                                                                       {
-                                                                        v77 = *(a3 + 520);
-                                                                        v44 = FigCFDictionarySetInt64();
-                                                                        if (v44)
+                                                                        v30 = FigCFDictionarySetInt64();
+                                                                        if (v30)
                                                                         {
-                                                                          v88 = v44;
+                                                                          v33 = v30;
                                                                         }
 
                                                                         else
                                                                         {
-                                                                          v78 = *(a3 + 528);
-                                                                          v44 = FigCFDictionarySetInt64();
-                                                                          if (v44)
+                                                                          v30 = FigCFDictionarySetInt64();
+                                                                          if (v30)
                                                                           {
-                                                                            v88 = v44;
+                                                                            v33 = v30;
                                                                           }
 
                                                                           else
                                                                           {
-                                                                            v79 = *(a3 + 560);
-                                                                            v44 = FigCFDictionarySetUInt64();
-                                                                            if (v44)
+                                                                            v30 = FigCFDictionarySetUInt64();
+                                                                            if (v30)
                                                                             {
-                                                                              v88 = v44;
+                                                                              v33 = v30;
                                                                             }
 
                                                                             else
                                                                             {
-                                                                              v80 = *(a3 + 544);
-                                                                              v44 = FigCFDictionarySetInt64();
-                                                                              if (v44)
+                                                                              v30 = FigCFDictionarySetInt64();
+                                                                              if (v30)
                                                                               {
-                                                                                v88 = v44;
+                                                                                v33 = v30;
                                                                               }
 
                                                                               else
                                                                               {
-                                                                                v81 = *(a3 + 552);
-                                                                                v44 = FigCFDictionarySetInt64();
-                                                                                if (v44)
+                                                                                v30 = FigCFDictionarySetInt64();
+                                                                                if (v30)
                                                                                 {
-                                                                                  v88 = v44;
+                                                                                  v33 = v30;
                                                                                 }
 
                                                                                 else
                                                                                 {
                                                                                   if (gLogCategory_APSAudioHoseMetricCollector <= 50 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
                                                                                   {
-                                                                                    v134 = *(a3 + 544);
-                                                                                    v136 = *(a3 + 552);
-                                                                                    v127 = *(a3 + 528);
-                                                                                    v132 = *(a3 + 560);
-                                                                                    v109 = *(a3 + 536);
-                                                                                    v118 = *(a3 + 520);
-                                                                                    v99 = *a3;
-                                                                                    LogPrintF();
+                                                                                    LogPrintF(&gLogCategory_APSAudioHoseMetricCollector, "OSStatus metricCollector_reportMinBitrateStatsForHoseInternal(APSAudioHoseMetricCollectorRef, APSAudioHoseMetricCollectorHoseDescriptorPtr, CFMutableDictionaryRef)", 33554482, "[%{ptr}] Hose: [%{ptr}] APAT RTC Metrics: Min Bitrate Stats: avgMinBitrate: %llu, maxMinBitrate: %llu, minMinBitrate: %llu, avgMinBitrateDiff: %llu, maxMinBitrateDiff: %llu, minMinBitrateDiff: %llu ", v6, *a3, *(a3 + 67), a3[65], a3[66], *(a3 + 70), a3[68], a3[69]);
                                                                                   }
 
-                                                                                  v82 = *(v6 + 32);
                                                                                   FigSimpleMutexCheckIsLockedOnThisThread();
-                                                                                  v83 = *(a3 + 568);
-                                                                                  v44 = FigCFDictionarySetUInt64();
-                                                                                  if (v44)
+                                                                                  v30 = FigCFDictionarySetUInt64();
+                                                                                  if (v30)
                                                                                   {
-                                                                                    v88 = v44;
+                                                                                    v33 = v30;
                                                                                   }
 
                                                                                   else
                                                                                   {
-                                                                                    v84 = *(a3 + 576);
-                                                                                    v44 = FigCFDictionarySetInt64();
-                                                                                    if (v44)
+                                                                                    v30 = FigCFDictionarySetInt64();
+                                                                                    if (v30)
                                                                                     {
-                                                                                      v88 = v44;
+                                                                                      v33 = v30;
                                                                                     }
 
                                                                                     else
                                                                                     {
-                                                                                      v85 = *(a3 + 584);
-                                                                                      v44 = FigCFDictionarySetInt64();
-                                                                                      if (!v44)
+                                                                                      v30 = FigCFDictionarySetInt64();
+                                                                                      if (!v30)
                                                                                       {
                                                                                         if (gLogCategory_APSAudioHoseMetricCollector > 50)
                                                                                         {
-LABEL_119:
-                                                                                          APSRTCReportingAgentSendEventWithCompletionHandler(*(v6 + 16), 10, v11, 0);
-LABEL_120:
-                                                                                          v86 = Float64;
-                                                                                          goto LABEL_121;
+LABEL_117:
+                                                                                          APSRTCReportingAgentSendEventWithCompletionHandler(*(v6 + 16), 10, v8, 0);
+LABEL_118:
+                                                                                          v31 = Float64;
+                                                                                          goto LABEL_119;
                                                                                         }
 
                                                                                         if (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize())
                                                                                         {
-                                                                                          v119 = *(a3 + 576);
-                                                                                          v128 = *(a3 + 584);
-                                                                                          v100 = *a3;
-                                                                                          v110 = *(a3 + 568);
-                                                                                          LogPrintF();
+                                                                                          LogPrintF(&gLogCategory_APSAudioHoseMetricCollector, "OSStatus metricCollector_reportRTTStatsForHoseInternal(APSAudioHoseMetricCollectorRef, APSAudioHoseMetricCollectorHoseDescriptorPtr, CFMutableDictionaryRef)", 33554482, "[%{ptr}] Hose: [%{ptr}] APAT RTC Metrics: Round Trip Time Stats: avgRTT: %llu, maxRTT: %llu, minRTT: %llu", v6, *a3, *(a3 + 71), a3[72], a3[73]);
                                                                                         }
 
-LABEL_42:
+LABEL_40:
                                                                                         if (gLogCategory_APSAudioHoseMetricCollector <= 30 && (gLogCategory_APSAudioHoseMetricCollector != -1 || _LogCategory_Initialize()))
                                                                                         {
-                                                                                          v91 = *a3;
-                                                                                          LogPrintF();
+                                                                                          LogPrintF(&gLogCategory_APSAudioHoseMetricCollector, "void metricCollector_reportMetricsForHoseInternal(APSAudioHoseMetricCollectorRef, APSAudioHoseMetricCollectorHoseDescriptorPtr)", 33554462, "[%{ptr}] Hose: [%{ptr}] RTC Metrics Payload Dict: %@", v6, *a3, v8);
                                                                                         }
 
-                                                                                        goto LABEL_119;
+                                                                                        goto LABEL_117;
                                                                                       }
 
-                                                                                      v88 = v44;
+                                                                                      v33 = v30;
                                                                                     }
                                                                                   }
                                                                                 }
@@ -4983,42 +3969,27 @@ LABEL_42:
                                 }
                               }
 
-                              goto LABEL_197;
+                              goto LABEL_195;
                             }
 
-                            v88 = v44;
+                            v33 = v30;
                           }
                         }
                       }
                     }
                   }
 
-LABEL_197:
-                  APSLogErrorAt(v44);
-                  v86 = Float64;
-                  APSLogErrorAt(v88);
-                  v36 = v137;
-LABEL_121:
-                  CFRelease(v11);
+LABEL_195:
+                  APSLogErrorAt(v30);
+                  v31 = Float64;
+                  APSLogErrorAt(v33);
+                  v27 = v34;
+LABEL_119:
+                  CFRelease(v8);
                   CFRelease(cf);
                   if (UInt64)
                   {
                     CFRelease(UInt64);
-                  }
-
-                  if (v86)
-                  {
-                    CFRelease(v86);
-                  }
-
-                  if (v144)
-                  {
-                    CFRelease(v144);
-                  }
-
-                  if (v29)
-                  {
-                    CFRelease(v29);
                   }
 
                   if (v31)
@@ -5026,60 +3997,75 @@ LABEL_121:
                     CFRelease(v31);
                   }
 
-                  v14 = v139;
-                  if (v33)
+                  if (v41)
                   {
-                    CFRelease(v33);
+                    CFRelease(v41);
                   }
 
-                  if (v36)
+                  if (v21)
                   {
-                    CFRelease(v36);
+                    CFRelease(v21);
                   }
 
-                  if (v141)
+                  if (v22)
                   {
-                    CFRelease(v141);
+                    CFRelease(v22);
                   }
 
-                  if (v35)
+                  v11 = v36;
+                  if (v23)
                   {
-                    CFRelease(v35);
+                    CFRelease(v23);
                   }
 
-                  v87 = v140;
-                  if (!v140)
+                  if (v27)
                   {
-                    goto LABEL_141;
+                    CFRelease(v27);
                   }
 
-                  goto LABEL_140;
+                  if (v38)
+                  {
+                    CFRelease(v38);
+                  }
+
+                  if (v26)
+                  {
+                    CFRelease(v26);
+                  }
+
+                  v32 = v37;
+                  if (!v37)
+                  {
+                    goto LABEL_139;
+                  }
+
+                  goto LABEL_138;
                 }
 
                 APSLogErrorAt(0);
-LABEL_158:
-                v35 = 0;
-                v140 = 0;
-                goto LABEL_120;
+LABEL_156:
+                v26 = 0;
+                v37 = 0;
+                goto LABEL_118;
               }
             }
 
             APSLogErrorAt(0);
-LABEL_157:
-            v141 = 0;
-            goto LABEL_158;
+LABEL_155:
+            v38 = 0;
+            goto LABEL_156;
           }
 
           APSLogErrorAt(0);
-LABEL_156:
-          v36 = 0;
-          goto LABEL_157;
+LABEL_154:
+          v27 = 0;
+          goto LABEL_155;
         }
 
         APSLogErrorAt(0);
-LABEL_154:
-        v33 = 0;
-        goto LABEL_156;
+LABEL_152:
+        v23 = 0;
+        goto LABEL_154;
       }
 
       APSLogErrorAt(0);
@@ -5088,12 +4074,12 @@ LABEL_154:
     else
     {
       APSLogErrorAt(0);
-      v144 = 0;
-      v29 = 0;
+      v41 = 0;
+      v21 = 0;
     }
 
-    v31 = 0;
-    goto LABEL_154;
+    v22 = 0;
+    goto LABEL_152;
   }
 
   return result;
@@ -5118,7 +4104,7 @@ __CFString *APSNANServiceTypeGetTXTString(int a1)
   }
 }
 
-uint64_t APSNANServiceTypeMakeWithTXTString(uint64_t result)
+const __CFString *APSNANServiceTypeMakeWithTXTString(const __CFString *result)
 {
   v3 = *MEMORY[0x277D85DE8];
   memset(v2, 0, sizeof(v2));
@@ -5127,16 +4113,15 @@ uint64_t APSNANServiceTypeMakeWithTXTString(uint64_t result)
     result = CFStringGetCString(result, v2, 256, 0x600u);
     if (result)
     {
-      strlen(v2);
-      result = APSNANServiceTypeMakeWithString(v2);
+      v1 = strlen(v2);
+      return APSNANServiceTypeMakeWithString(v2, v1);
     }
   }
 
-  v1 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t APSNANServiceTypeMakeWithString(uint64_t result)
+uint64_t APSNANServiceTypeMakeWithString(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -5173,7 +4158,7 @@ BOOL APSNANServiceTypeIsKindOfType(int a1, int a2)
   }
 }
 
-uint64_t APSCaulkMemoryResourceAllocatorCreate(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t APSCaulkMemoryResourceAllocatorCreate(uint64_t a1, char a2, CFAllocatorRef *a3)
 {
   if (a1 && a3)
   {
@@ -5221,16 +4206,17 @@ void cmrAllocator_deallocate(char *a1, void **a2)
     v6 = __cxa_begin_catch(v3);
     if (v5 == 2)
     {
-      (*(*v6 + 16))(v6);
-      v7 = 4294960534;
+      v7 = (*(*v6 + 16))(v6);
+      v8 = 4294960534;
     }
 
     else
     {
-      v7 = 4294960596;
+      v7 = "unknown error";
+      v8 = 4294960596;
     }
 
-    APSSignalErrorAt(v7);
+    APSSignalErrorAt(v8, v7, "cmrAllocator_deallocate");
 
     __cxa_end_catch();
   }
@@ -5256,7 +4242,7 @@ void sub_22234939C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
     __cxa_get_exception_ptr(a1);
     a10.__vftable = (MEMORY[0x277D82918] + 16);
     __cxa_begin_catch(a1);
-    APSSignalErrorAt(4294960568);
+    APSSignalErrorAt(0xFFFFE5B8, "allocation failed", "cmrAllocator_allocate");
     std::bad_alloc::~bad_alloc(&a10);
   }
 
@@ -5265,16 +4251,17 @@ void sub_22234939C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
     v12 = __cxa_begin_catch(a1);
     if (a2 == 2)
     {
-      (*(*v12 + 16))(v12);
-      v13 = 4294960534;
+      v13 = (*(*v12 + 16))(v12);
+      v14 = 4294960534;
     }
 
     else
     {
-      v13 = 4294960596;
+      v13 = "unknown error";
+      v14 = 4294960596;
     }
 
-    APSSignalErrorAt(v13);
+    APSSignalErrorAt(v14, v13, "cmrAllocator_allocate");
   }
 
   __cxa_end_catch();
@@ -5301,13 +4288,12 @@ uint64_t _APSPriorityDispatchQueuePoolGetTypeID()
 void _APSPriorityDispatchQueuePoolFinalize(uint64_t a1)
 {
   free(*(a1 + 16));
-  v2 = *(a1 + 32);
   FigSimpleMutexDestroy();
-  v3 = *(a1 + 40);
-  if (v3)
+  v2 = *(a1 + 40);
+  if (v2)
   {
 
-    CFRelease(v3);
+    CFRelease(v2);
   }
 }
 
@@ -5337,20 +4323,7 @@ uint64_t APSPriorityDispatchQueuePoolCreate(uint64_t a1, int a2, CFTypeRef *a3)
     *(v7 + 24) = a2;
     v9 = FigSimpleMutexCreate();
     *(v7 + 32) = v9;
-    if (!v9)
-    {
-      goto LABEL_12;
-    }
-
-    v10 = *MEMORY[0x277CBECE8];
-    valueCallBacks.version = 0;
-    valueCallBacks.retain = queuePool_dictionaryDispatchQueueRetain;
-    valueCallBacks.copyDescription = 0;
-    valueCallBacks.equal = 0;
-    valueCallBacks.release = queuePool_dictionaryDispatchQueueRelease;
-    v11 = CFDictionaryCreateMutable(v10, 0, 0, &valueCallBacks);
-    *(v7 + 40) = v11;
-    if (v11)
+    if (v9 && (v10 = *MEMORY[0x277CBECE8], valueCallBacks.version = 0, valueCallBacks.retain = queuePool_dictionaryDispatchQueueRetain, valueCallBacks.copyDescription = 0, valueCallBacks.equal = 0, valueCallBacks.release = queuePool_dictionaryDispatchQueueRelease, v11 = CFDictionaryCreateMutable(v10, 0, 0, &valueCallBacks), (*(v7 + 40) = v11) != 0))
     {
       v8 = 0;
       *a3 = CFRetain(v7);
@@ -5358,7 +4331,6 @@ uint64_t APSPriorityDispatchQueuePoolCreate(uint64_t a1, int a2, CFTypeRef *a3)
 
     else
     {
-LABEL_12:
       v8 = 4294960568;
     }
   }
@@ -5374,7 +4346,6 @@ NSObject *APSPriorityDispatchQueuePoolGetQueue(uint64_t a1, unsigned int a2)
     return 0;
   }
 
-  v4 = *(a1 + 32);
   FigSimpleMutexLock();
   if (a2 == 5)
   {
@@ -5386,23 +4357,22 @@ NSObject *APSPriorityDispatchQueuePoolGetQueue(uint64_t a1, unsigned int a2)
   {
     if (a2 == 5)
     {
-      v8 = dispatch_queue_create(*(a1 + 16), 0);
+      v6 = dispatch_queue_create(*(a1 + 16), 0);
     }
 
     else
     {
-      v8 = FigDispatchQueueCreateWithPriority();
+      v6 = FigDispatchQueueCreateWithPriority();
     }
 
-    Value = v8;
-    if (v8)
+    Value = v6;
+    if (v6)
     {
-      CFDictionarySetValue(*(a1 + 40), a2, v8);
+      CFDictionarySetValue(*(a1 + 40), a2, v6);
       dispatch_release(Value);
     }
   }
 
-  v6 = *(a1 + 32);
   FigSimpleMutexUnlock();
   return Value;
 }
@@ -5414,10 +4384,8 @@ uint64_t APSPriorityDispatchQueuePoolSyncFlush(uint64_t a1)
     return 4294960591;
   }
 
-  v2 = *(a1 + 32);
   FigSimpleMutexLock();
   Copy = CFDictionaryCreateCopy(*MEMORY[0x277CBECE8], *(a1 + 40));
-  v4 = *(a1 + 32);
   FigSimpleMutexUnlock();
   if (!Copy)
   {
@@ -5429,7 +4397,7 @@ uint64_t APSPriorityDispatchQueuePoolSyncFlush(uint64_t a1)
   return 0;
 }
 
-uint64_t APSCryptorChaCha20Poly1305Create(int a1, CFDataRef theData, char a3, void *a4)
+uint64_t APSCryptorChaCha20Poly1305Create(uint64_t a1, CFDataRef theData, char a3, CFTypeRef *a4)
 {
   if (!theData)
   {
@@ -5464,7 +4432,7 @@ LABEL_14:
     *DerivedStorage = a3;
     if (gLogCategory_APSCryptorChaCha20Poly1305 <= 30 && (gLogCategory_APSCryptorChaCha20Poly1305 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSCryptorChaCha20Poly1305, "OSStatus APSCryptorChaCha20Poly1305Create(CFAllocatorRef, CFDataRef, Boolean, APSCryptorRef *)", 33554462, "APSCryptorChaCha20Poly1305 %p created.\n", 0);
     }
 
     v9 = 0;

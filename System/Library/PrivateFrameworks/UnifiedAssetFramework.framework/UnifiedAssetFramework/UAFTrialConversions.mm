@@ -7,27 +7,27 @@
 
 + (id)generateEntitledTrialNamespaces
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v2 = 0x1E7FFC000uLL;
   if (!+[UAFCommonUtilities isTrialAvailable])
   {
-    v22 = UAFGetLogCategory(&UAFLogContextClient);
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v20 = UAFGetLogCategory(&UAFLogContextClient);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v37 = "+[UAFTrialConversions generateEntitledTrialNamespaces]";
-      _os_log_error_impl(&dword_1BCF2C000, v22, OS_LOG_TYPE_ERROR, "%s This system doesn't support Trial. Returning nil.", buf, 0xCu);
+      v34 = "+[UAFTrialConversions generateEntitledTrialNamespaces]";
+      _os_log_error_impl(&dword_1BCF2C000, v20, OS_LOG_TYPE_ERROR, "%s This system doesn't support Trial. Returning nil.", buf, 0xCu);
     }
 
     goto LABEL_31;
   }
 
-  v34 = 0u;
-  v35 = 0u;
+  v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  v27 = [&unk_1F3B73248 countByEnumeratingWithState:&v32 objects:v43 count:16];
-  if (!v27)
+  v29 = 0u;
+  v30 = 0u;
+  v24 = [&unk_1F3B73248 countByEnumeratingWithState:&v29 objects:v40 count:16];
+  if (!v24)
   {
 LABEL_31:
     v4 = 0;
@@ -35,23 +35,21 @@ LABEL_31:
   }
 
   v4 = 0;
-  v5 = *v33;
-  v6 = 0x1E695D000uLL;
+  v5 = *v30;
   *&v3 = 136315650;
-  v25 = v3;
-  v26 = *v33;
+  v22 = v3;
+  v23 = *v30;
   do
   {
-    for (i = 0; i != v27; ++i)
+    for (i = 0; i != v24; ++i)
     {
-      if (*v33 != v5)
+      if (*v30 != v5)
       {
         objc_enumerationMutation(&unk_1F3B73248);
       }
 
-      v8 = *(*(&v32 + 1) + 8 * i);
-      v9 = [*(v2 + 2584) valueForEntitlement:{v8, v25}];
-      v10 = *(v6 + 3784);
+      v7 = *(*(&v29 + 1) + 8 * i);
+      v8 = [*(v2 + 2584) valueForEntitlement:{v7, v22}];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -60,81 +58,79 @@ LABEL_31:
           v4 = objc_opt_new();
         }
 
-        v30 = 0u;
-        v31 = 0u;
+        v27 = 0u;
         v28 = 0u;
-        v29 = 0u;
-        v11 = v9;
-        v12 = [v11 countByEnumeratingWithState:&v28 objects:v42 count:16];
-        if (v12)
+        v25 = 0u;
+        v26 = 0u;
+        v9 = v8;
+        v10 = [v9 countByEnumeratingWithState:&v25 objects:v39 count:16];
+        if (v10)
         {
-          v13 = v12;
-          v14 = v2;
-          v15 = *v29;
+          v11 = v10;
+          v12 = v2;
+          v13 = *v26;
           do
           {
-            for (j = 0; j != v13; ++j)
+            for (j = 0; j != v11; ++j)
             {
-              if (*v29 != v15)
+              if (*v26 != v13)
               {
-                objc_enumerationMutation(v11);
+                objc_enumerationMutation(v9);
               }
 
-              v17 = *(*(&v28 + 1) + 8 * j);
-              intValue = [v17 intValue];
+              v15 = *(*(&v25 + 1) + 8 * j);
+              intValue = [v15 intValue];
               if (intValue)
               {
-                v19 = [MEMORY[0x1E69DB550] namespaceNameFromId:intValue];
-                [v4 addObject:v19];
+                v17 = [MEMORY[0x1E69DB550] namespaceNameFromId:intValue];
+                [v4 addObject:v17];
               }
 
               else
               {
-                [v4 addObject:v17];
+                [v4 addObject:v15];
               }
             }
 
-            v13 = [v11 countByEnumeratingWithState:&v28 objects:v42 count:16];
+            v11 = [v9 countByEnumeratingWithState:&v25 objects:v39 count:16];
           }
 
-          while (v13);
-          v2 = v14;
-          v5 = v26;
-          v6 = 0x1E695D000;
+          while (v11);
+          v2 = v12;
+          v5 = v23;
         }
       }
 
       else
       {
-        if (!v9)
+        if (!v8)
         {
           goto LABEL_25;
         }
 
-        v11 = UAFGetLogCategory(&UAFLogContextClient);
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v9 = UAFGetLogCategory(&UAFLogContextClient);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
-          v20 = objc_opt_class();
-          *buf = v25;
-          v37 = "+[UAFTrialConversions generateEntitledTrialNamespaces]";
-          v38 = 2114;
-          v39 = v8;
-          v40 = 2112;
-          v41 = v20;
-          v21 = v20;
-          _os_log_error_impl(&dword_1BCF2C000, v11, OS_LOG_TYPE_ERROR, "%s %{public}@ is unexpected type: %@", buf, 0x20u);
+          v18 = objc_opt_class();
+          *buf = v22;
+          v34 = "+[UAFTrialConversions generateEntitledTrialNamespaces]";
+          v35 = 2114;
+          v36 = v7;
+          v37 = 2112;
+          v38 = v18;
+          v19 = v18;
+          _os_log_error_impl(&dword_1BCF2C000, v9, OS_LOG_TYPE_ERROR, "%s %{public}@ is unexpected type: %@", buf, 0x20u);
         }
       }
 
 LABEL_25:
     }
 
-    v27 = [&unk_1F3B73248 countByEnumeratingWithState:&v32 objects:v43 count:16];
+    v24 = [&unk_1F3B73248 countByEnumeratingWithState:&v29 objects:v40 count:16];
   }
 
-  while (v27);
+  while (v24);
 LABEL_32:
-  v23 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

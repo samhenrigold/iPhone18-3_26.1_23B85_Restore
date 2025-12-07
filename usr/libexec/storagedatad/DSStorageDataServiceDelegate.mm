@@ -24,7 +24,7 @@
 {
   listenerCopy = listener;
   connectionCopy = connection;
-  v8 = sub_100000D18();
+  v8 = sub_100000D18(connectionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 67109120;
@@ -36,31 +36,31 @@
 
   if (v9)
   {
-    v10 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___STStorageDataServiceProtocol];
-    [connectionCopy setExportedInterface:v10];
+    v11 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___STStorageDataServiceProtocol];
+    [connectionCopy setExportedInterface:v11];
 
-    v11 = objc_opt_new();
-    [connectionCopy setExportedObject:v11];
+    v12 = objc_opt_new();
+    [connectionCopy setExportedObject:v12];
     [connectionCopy resume];
     [(NSMutableSet *)self->_connections addObject:connectionCopy];
     objc_initWeak(&buf, connectionCopy);
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_1000010F0;
-    v13[3] = &unk_100004178;
-    objc_copyWeak(&v14, &buf);
-    v13[4] = self;
-    [connectionCopy setInvalidationHandler:v13];
-    objc_destroyWeak(&v14);
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_1000010F0;
+    v14[3] = &unk_100004178;
+    objc_copyWeak(&v15, &buf);
+    v14[4] = self;
+    [connectionCopy setInvalidationHandler:v14];
+    objc_destroyWeak(&v15);
     objc_destroyWeak(&buf);
   }
 
   else
   {
-    v11 = sub_100000D18();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = sub_100000D18(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      sub_1000012E8(connectionCopy, v11);
+      sub_1000012E8(connectionCopy, v12);
     }
   }
 

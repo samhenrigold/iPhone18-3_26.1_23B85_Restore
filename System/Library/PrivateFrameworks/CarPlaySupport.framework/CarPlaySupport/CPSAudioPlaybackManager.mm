@@ -817,7 +817,7 @@ LABEL_9:
     lastSnapshot = [(CPSAudioPlaybackManager *)selfCopy lastSnapshot];
     if (lastSnapshot)
     {
-      [(CPUINowPlayingSnapshot *)lastSnapshot durationSnapshot];
+      objc_msgSend_durationSnapshot(lastSnapshot);
     }
 
     else
@@ -834,7 +834,7 @@ LABEL_9:
     lastSnapshot2 = [(CPSAudioPlaybackManager *)selfCopy lastSnapshot];
     if (lastSnapshot2)
     {
-      [(CPUINowPlayingSnapshot *)lastSnapshot2 durationSnapshot];
+      objc_msgSend_durationSnapshot(lastSnapshot2);
     }
 
     else
@@ -916,7 +916,7 @@ LABEL_9:
   lastSnapshot = [(CPSAudioPlaybackManager *)selfCopy lastSnapshot];
   if (lastSnapshot)
   {
-    [(CPUINowPlayingSnapshot *)lastSnapshot durationSnapshot];
+    objc_msgSend_durationSnapshot(lastSnapshot);
   }
 
   else

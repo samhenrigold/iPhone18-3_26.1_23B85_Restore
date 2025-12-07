@@ -121,92 +121,95 @@
 - (BOOL)screentimeAllowedToShowChat:(id)chat error:(id *)error
 {
   chatCopy = chat;
-  v6 = _IMAssistantCoreGeneralSignpostLogHandle();
+  v6 = _IMAssistantCoreGeneralSignpostLogHandle(chatCopy);
   v7 = os_signpost_id_generate(v6);
 
-  v8 = _IMAssistantCoreGeneralSignpostLogHandle();
-  v9 = v8;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+  v9 = _IMAssistantCoreGeneralSignpostLogHandle(v8);
+  v10 = v9;
+  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_25479E000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "screentimeAllowedToShowChat", &unk_2547CAD0B, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_25479E000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v7, "screentimeAllowedToShowChat", &unk_2547CAD0B, buf, 2u);
   }
 
   allowedByScreenTime = [chatCopy allowedByScreenTime];
-  v11 = allowedByScreenTime;
+  v12 = allowedByScreenTime;
   if (error && (allowedByScreenTime & 1) == 0)
   {
     allowedToShowConversationSync = [chatCopy allowedToShowConversationSync];
-    v13 = MEMORY[0x277CD4588];
+    v14 = MEMORY[0x277CD4588];
     if (!allowedToShowConversationSync)
     {
-      v13 = MEMORY[0x277CD4578];
+      v14 = MEMORY[0x277CD4578];
     }
 
-    *error = [MEMORY[0x277CCA9B8] errorWithDomain:@"__kIMAssistantMessageHandlerErrorDomain" code:*v13 userInfo:0];
+    allowedByScreenTime = [MEMORY[0x277CCA9B8] errorWithDomain:@"__kIMAssistantMessageHandlerErrorDomain" code:*v14 userInfo:0];
+    *error = allowedByScreenTime;
   }
 
-  v14 = _IMAssistantCoreGeneralSignpostLogHandle();
-  v15 = v14;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
+  v15 = _IMAssistantCoreGeneralSignpostLogHandle(allowedByScreenTime);
+  v16 = v15;
+  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
   {
-    *v17 = 0;
-    _os_signpost_emit_with_name_impl(&dword_25479E000, v15, OS_SIGNPOST_INTERVAL_END, v7, "screentimeAllowedToShowChat", &unk_2547CAD0B, v17, 2u);
+    *v18 = 0;
+    _os_signpost_emit_with_name_impl(&dword_25479E000, v16, OS_SIGNPOST_INTERVAL_END, v7, "screentimeAllowedToShowChat", &unk_2547CAD0B, v18, 2u);
   }
 
-  return v11;
+  return v12;
 }
 
 - (BOOL)screentimeAllowedToShowConversationWithHandleIDs:(id)ds error:(id *)error
 {
   dsCopy = ds;
-  v6 = _IMAssistantCoreGeneralSignpostLogHandle();
+  v6 = _IMAssistantCoreGeneralSignpostLogHandle(dsCopy);
   v7 = os_signpost_id_generate(v6);
 
-  v8 = _IMAssistantCoreGeneralSignpostLogHandle();
-  v9 = v8;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+  v9 = _IMAssistantCoreGeneralSignpostLogHandle(v8);
+  v10 = v9;
+  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_25479E000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "screentimeAllowedToShowConversationWithHandleIDs", &unk_2547CAD0B, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_25479E000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v7, "screentimeAllowedToShowConversationWithHandleIDs", &unk_2547CAD0B, buf, 2u);
   }
 
-  if ([MEMORY[0x277D18D70] isContactLimitsFeatureEnabled])
+  isContactLimitsFeatureEnabled = [MEMORY[0x277D18D70] isContactLimitsFeatureEnabled];
+  if (isContactLimitsFeatureEnabled)
   {
     mEMORY[0x277D18D70] = [MEMORY[0x277D18D70] sharedInstance];
-    v19 = 0;
-    v11 = [mEMORY[0x277D18D70] allowedToShowConversationWithHandleIDs:dsCopy sync:1 context:&v19];
-    v12 = v19;
+    v21 = 0;
+    v13 = [mEMORY[0x277D18D70] allowedToShowConversationWithHandleIDs:dsCopy sync:1 context:&v21];
+    v14 = v21;
 
-    if (error && (v11 & 1) == 0)
+    if (error && (v13 & 1) == 0)
     {
-      applicationCurrentlyLimited = [v12 applicationCurrentlyLimited];
-      v14 = MEMORY[0x277CD4578];
+      applicationCurrentlyLimited = [v14 applicationCurrentlyLimited];
+      v16 = MEMORY[0x277CD4578];
       if (!applicationCurrentlyLimited)
       {
-        v14 = MEMORY[0x277CD4588];
+        v16 = MEMORY[0x277CD4588];
       }
 
-      [MEMORY[0x277CCA9B8] errorWithDomain:@"__kIMAssistantMessageHandlerErrorDomain" code:*v14 userInfo:0];
-      *error = v11 = 0;
+      isContactLimitsFeatureEnabled = [MEMORY[0x277CCA9B8] errorWithDomain:@"__kIMAssistantMessageHandlerErrorDomain" code:*v16 userInfo:0];
+      v13 = 0;
+      *error = isContactLimitsFeatureEnabled;
     }
   }
 
   else
   {
-    v12 = 0;
-    v11 = 1;
+    v14 = 0;
+    v13 = 1;
   }
 
-  v15 = _IMAssistantCoreGeneralSignpostLogHandle();
-  v16 = v15;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+  v17 = _IMAssistantCoreGeneralSignpostLogHandle(isContactLimitsFeatureEnabled);
+  v18 = v17;
+  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
   {
-    *v18 = 0;
-    _os_signpost_emit_with_name_impl(&dword_25479E000, v16, OS_SIGNPOST_INTERVAL_END, v7, "screentimeAllowedToShowConversationWithHandleIDs", &unk_2547CAD0B, v18, 2u);
+    *v20 = 0;
+    _os_signpost_emit_with_name_impl(&dword_25479E000, v18, OS_SIGNPOST_INTERVAL_END, v7, "screentimeAllowedToShowConversationWithHandleIDs", &unk_2547CAD0B, v20, 2u);
   }
 
-  return v11;
+  return v13;
 }
 
 + (id)sharedInstance

@@ -141,16 +141,16 @@ LABEL_20:
         uuid = [(ATXProactiveSuggestion *)self->_mainSuggestionInLayout uuid];
         [(ATXSuggestionLayout *)self->_suggestionLayout setUuidOfHighestConfidenceSuggestion:uuid];
 
-        v34 = __atxlog_handle_blending();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+        v35 = __atxlog_handle_blending(v34);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
           widgetUniqueId = [(ATXHomeScreenWidgetIdentifiable *)self->_widget widgetUniqueId];
-          v36 = self->_suggestionLayout;
+          v37 = self->_suggestionLayout;
           *buf = 138412546;
           v59 = widgetUniqueId;
           v60 = 2112;
-          v61 = v36;
-          _os_log_impl(&dword_2263AA000, v34, OS_LOG_TYPE_DEFAULT, "Layout for widget %@ is complete: %@", buf, 0x16u);
+          v61 = v37;
+          _os_log_impl(&dword_2263AA000, v35, OS_LOG_TYPE_DEFAULT, "Layout for widget %@ is complete: %@", buf, 0x16u);
         }
       }
 
@@ -167,7 +167,6 @@ LABEL_28:
     }
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

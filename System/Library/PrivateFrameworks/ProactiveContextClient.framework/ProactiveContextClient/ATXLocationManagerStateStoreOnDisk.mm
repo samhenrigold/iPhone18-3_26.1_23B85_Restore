@@ -119,7 +119,6 @@ LABEL_3:
   {
     v6 = objc_autoreleasePoolPush();
     location = 0;
-    fd = selfCopy->_fd;
     [(ATXLocationManagerStateStoreOnDisk *)selfCopy cacheExpirationInterval];
     ATXCacheFileRead();
 
@@ -128,32 +127,32 @@ LABEL_3:
 
   else
   {
-    v8 = ![(ATXLocationManagerStateStoreOnDiskEnv *)selfCopy->_env isLocked];
+    v7 = ![(ATXLocationManagerStateStoreOnDiskEnv *)selfCopy->_env isLocked];
     if (!laterCopy)
     {
-      LOBYTE(v8) = 1;
+      LOBYTE(v7) = 1;
     }
 
-    if ((v8 & 1) == 0 && !selfCopy->_deferredLoadCallback)
+    if ((v7 & 1) == 0 && !selfCopy->_deferredLoadCallback)
     {
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-      v10 = [defaultManager fileExistsAtPath:selfCopy->_path];
+      v9 = [defaultManager fileExistsAtPath:selfCopy->_path];
 
-      if (v10)
+      if (v9)
       {
         objc_initWeak(&location, selfCopy);
-        v11 = MEMORY[0x2666EC640](laterCopy);
+        v10 = MEMORY[0x2666EC640](laterCopy);
         deferredLoadCallback = selfCopy->_deferredLoadCallback;
-        selfCopy->_deferredLoadCallback = v11;
+        selfCopy->_deferredLoadCallback = v10;
 
         env = selfCopy->_env;
-        v15[0] = MEMORY[0x277D85DD0];
-        v15[1] = 3221225472;
-        v15[2] = __57__ATXLocationManagerStateStoreOnDisk_loadNowOrCallLater___block_invoke;
-        v15[3] = &unk_279AB7B90;
-        objc_copyWeak(&v16, &location);
-        [(ATXLocationManagerStateStoreOnDiskEnv *)env callOnNextUnlock:v15];
-        objc_destroyWeak(&v16);
+        v14[0] = MEMORY[0x277D85DD0];
+        v14[1] = 3221225472;
+        v14[2] = __57__ATXLocationManagerStateStoreOnDisk_loadNowOrCallLater___block_invoke;
+        v14[3] = &unk_279AB7B90;
+        objc_copyWeak(&v15, &location);
+        [(ATXLocationManagerStateStoreOnDiskEnv *)env callOnNextUnlock:v14];
+        objc_destroyWeak(&v15);
         objc_destroyWeak(&location);
       }
     }
@@ -188,24 +187,24 @@ void __57__ATXLocationManagerStateStoreOnDisk_loadNowOrCallLater___block_invoke(
 
 - (void)write:(id)write
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   writeCopy = write;
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if ([(ATXLocationManagerStateStoreOnDisk *)selfCopy _tryToOpen])
   {
     v6 = objc_autoreleasePoolPush();
-    v13 = 0;
-    v7 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:writeCopy requiringSecureCoding:1 error:&v13];
-    v8 = v13;
+    v14 = 0;
+    v7 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:writeCopy requiringSecureCoding:1 error:&v14];
+    v8 = v14;
+    v9 = v8;
     if (v7)
     {
-      fd = selfCopy->_fd;
-      v14[0] = v7;
-      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
-      LOBYTE(fd) = ATXCacheFileWriteChunks();
+      v15[0] = v7;
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+      v11 = ATXCacheFileWriteChunks();
 
-      if (fd)
+      if (v11)
       {
 LABEL_9:
 
@@ -213,19 +212,19 @@ LABEL_9:
         goto LABEL_10;
       }
 
-      v11 = __atxlog_handle_default();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = __atxlog_handle_default(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        [ATXLocationManagerStateStoreOnDisk write:v11];
+        [ATXLocationManagerStateStoreOnDisk write:v13];
       }
     }
 
     else
     {
-      v11 = __atxlog_handle_default();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+      v13 = __atxlog_handle_default(v8);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
       {
-        [(ATXLocationManagerStateStoreOnDisk *)v8 write:v11];
+        [(ATXLocationManagerStateStoreOnDisk *)v9 write:v13];
       }
     }
 
@@ -234,8 +233,6 @@ LABEL_9:
 
 LABEL_10:
   objc_sync_exit(selfCopy);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clear
@@ -271,20 +268,18 @@ LABEL_10:
 
 - (void)loadNowOrCallLater:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_260C9F000, a2, OS_LOG_TYPE_FAULT, "Error deserializing: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_260C9F000, a2, OS_LOG_TYPE_FAULT, "Error deserializing: %@", &v2, 0xCu);
 }
 
 - (void)write:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_260C9F000, a2, OS_LOG_TYPE_FAULT, "Error serializing: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_260C9F000, a2, OS_LOG_TYPE_FAULT, "Error serializing: %@", &v2, 0xCu);
 }
 
 @end

@@ -264,32 +264,30 @@ LABEL_15:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v14 = toCopy;
+  v6 = toCopy;
   if (self->_sample)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v14;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    goalType = self->_goalType;
     PBDataWriterWriteInt64Field();
-    toCopy = v14;
+    toCopy = v6;
   }
 
   if (self->_unitString)
   {
     PBDataWriterWriteStringField();
-    toCopy = v14;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    mondayGoal = self->_mondayGoal;
     PBDataWriterWriteDoubleField();
-    toCopy = v14;
+    toCopy = v6;
     has = self->_has;
     if ((has & 0x40) == 0)
     {
@@ -308,9 +306,8 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  tuesdayGoal = self->_tuesdayGoal;
   PBDataWriterWriteDoubleField();
-  toCopy = v14;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x80) == 0)
   {
@@ -324,9 +321,8 @@ LABEL_10:
   }
 
 LABEL_20:
-  wednesdayGoal = self->_wednesdayGoal;
   PBDataWriterWriteDoubleField();
-  toCopy = v14;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x20) == 0)
   {
@@ -340,9 +336,8 @@ LABEL_11:
   }
 
 LABEL_21:
-  thursdayGoal = self->_thursdayGoal;
   PBDataWriterWriteDoubleField();
-  toCopy = v14;
+  toCopy = v6;
   has = self->_has;
   if ((has & 1) == 0)
   {
@@ -356,9 +351,8 @@ LABEL_12:
   }
 
 LABEL_22:
-  fridayGoal = self->_fridayGoal;
   PBDataWriterWriteDoubleField();
-  toCopy = v14;
+  toCopy = v6;
   has = self->_has;
   if ((has & 8) == 0)
   {
@@ -372,15 +366,13 @@ LABEL_13:
   }
 
 LABEL_23:
-  saturdayGoal = self->_saturdayGoal;
   PBDataWriterWriteDoubleField();
-  toCopy = v14;
+  toCopy = v6;
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_14:
-    sundayGoal = self->_sundayGoal;
     PBDataWriterWriteDoubleField();
-    toCopy = v14;
+    toCopy = v6;
   }
 
 LABEL_15:
@@ -1025,7 +1017,7 @@ LABEL_47:
       goto LABEL_7;
     }
 
-    [(HDCodableSample *)sample mergeFrom:?];
+    sample = [(HDCodableSample *)sample mergeFrom:?];
   }
 
   else
@@ -1035,7 +1027,7 @@ LABEL_47:
       goto LABEL_7;
     }
 
-    [(HDCodableActivityGoalSchedule *)self setSample:?];
+    sample = [(HDCodableActivityGoalSchedule *)self setSample:?];
   }
 
   fromCopy = v8;
@@ -1048,7 +1040,7 @@ LABEL_7:
 
   if (*(fromCopy + 10))
   {
-    [(HDCodableActivityGoalSchedule *)self setUnitString:?];
+    sample = [(HDCodableActivityGoalSchedule *)self setUnitString:?];
     fromCopy = v8;
   }
 
@@ -1146,13 +1138,13 @@ LABEL_18:
 
 LABEL_19:
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](sample, fromCopy);
 }
 
 - (BOOL)applyToObject:(id)object
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v31 = 0;
+  v33 = *MEMORY[0x277D85DE8];
+  v30 = 0;
   objectCopy = object;
   if (self)
   {
@@ -1207,7 +1199,7 @@ LABEL_19:
         goto LABEL_10;
       }
 
-      [MEMORY[0x277CCA9B8] hk_assignError:&v31 code:3 format:@"Failed to decode superclass message"];
+      [MEMORY[0x277CCA9B8] hk_assignError:&v30 code:3 format:@"Failed to decode superclass message"];
     }
 
     else
@@ -1215,24 +1207,23 @@ LABEL_19:
       v25 = MEMORY[0x277CCA9B8];
       v26 = objc_opt_class();
       v27 = NSStringFromClass(v26);
-      [v25 hk_assignError:&v31 code:3 format:{@"Unexpected class %@", v27}];
+      [v25 hk_assignError:&v30 code:3 format:{@"Unexpected class %@", v27}];
     }
   }
 
-  v23 = v31;
+  v23 = v30;
   _HKInitializeLogging();
   v28 = *MEMORY[0x277CCC2A0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v33 = v23;
+    v32 = v23;
     _os_log_error_impl(&dword_228986000, v28, OS_LOG_TYPE_ERROR, "Failed to decode object of type HKActivityGoalSchedule with error %@", buf, 0xCu);
   }
 
   v24 = 0;
 LABEL_10:
 
-  v29 = *MEMORY[0x277D85DE8];
   return v24;
 }
 

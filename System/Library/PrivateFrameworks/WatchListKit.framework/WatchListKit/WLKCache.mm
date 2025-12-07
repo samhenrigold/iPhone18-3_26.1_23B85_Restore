@@ -116,7 +116,7 @@ uint64_t __25__WLKCache_objectForKey___block_invoke(void *a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)setObject:(id)object forKey:(id)key

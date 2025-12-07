@@ -4,9 +4,40 @@
 - (void)listItemSelected:(id)selected;
 - (void)shouldSelectAtmosAlwaysOn:(id)on completion:(id)completion;
 - (void)shouldSelectAtmosAutomatic:(id)automatic completion:(id)completion;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation MusicSettingsAtmosAudioController
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v21.receiver = self;
+  v21.super_class = MusicSettingsAtmosAudioController;
+  [(MusicSettingsAtmosAudioController *)&v21 viewDidAppear:appear];
+  v20 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.Apps/com.apple.Music/com.apple.Music:Atmos"];
+  v4 = [_NSLocalizedStringResource alloc];
+  v5 = +[NSLocale currentLocale];
+  v6 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL = [v6 bundleURL];
+  v8 = [v4 initWithKey:@"APPS" table:@"MusicSettings" locale:v5 bundleURL:bundleURL];
+
+  v9 = [_NSLocalizedStringResource alloc];
+  v10 = +[NSLocale currentLocale];
+  v11 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL2 = [v11 bundleURL];
+  v13 = [v9 initWithKey:@"MUSIC" table:@"MusicSettings" locale:v10 bundleURL:bundleURL2];
+
+  v14 = [_NSLocalizedStringResource alloc];
+  v15 = +[NSLocale currentLocale];
+  v16 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL3 = [v16 bundleURL];
+  v18 = [v14 initWithKey:@"DOLBY_ATMOS" table:@"MusicSettings" locale:v15 bundleURL:bundleURL3];
+
+  v22[0] = v8;
+  v22[1] = v13;
+  v19 = [NSArray arrayWithObjects:v22 count:2];
+  [(MusicSettingsAtmosAudioController *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:@"com.apple.Music" title:v18 localizedNavigationComponents:v19 deepLink:v20];
+}
 
 - (void)shouldSelectAtmosAlwaysOn:(id)on completion:(id)completion
 {

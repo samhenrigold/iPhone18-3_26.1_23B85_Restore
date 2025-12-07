@@ -129,7 +129,7 @@ LABEL_10:
 
 - (CGRect)captureBounds
 {
-  [(SBLockElementTrailingContentView *)self->_contentView frame];
+  objc_msgSend_frame(self->_contentView, a2);
   result.size.height = v5;
   result.size.width = v4;
   result.origin.y = v3;
@@ -200,7 +200,7 @@ LABEL_19:
 
 - (void)resetToState:(id)state completion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   completionCopy = completion;
   WeakRetained = objc_loadWeakRetained(&self->_viewProvider);
@@ -235,36 +235,36 @@ LABEL_19:
     v10 = 6;
   }
 
-  v11 = SBLogSystemApertureLockElement();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = SBLogSystemApertureLockElement(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v24 = v9;
-    _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "Resetting trailing view: %@", buf, 0xCu);
+    v25 = v9;
+    _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "Resetting trailing view: %@", buf, 0xCu);
   }
 
-  v12 = MEMORY[0x277D65DA0];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __65__SBLockElementPearlFlipBookDescription_resetToState_completion___block_invoke;
-  v19[3] = &unk_2783BD4D8;
-  v20 = WeakRetained;
-  v22 = v10;
-  v21 = v9;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __65__SBLockElementPearlFlipBookDescription_resetToState_completion___block_invoke_2_163;
-  v16[3] = &unk_2783B9188;
-  v16[4] = self;
-  v17 = v21;
-  v18 = completionCopy;
-  v13 = completionCopy;
-  v14 = v21;
-  v15 = WeakRetained;
-  [v12 perform:v19 finalCompletion:v16];
+  v13 = MEMORY[0x277D65DA0];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __65__SBLockElementPearlFlipBookDescription_resetToState_completion___block_invoke;
+  v20[3] = &unk_2783BD4D8;
+  v21 = WeakRetained;
+  v23 = v10;
+  v22 = v9;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __65__SBLockElementPearlFlipBookDescription_resetToState_completion___block_invoke_2_163;
+  v17[3] = &unk_2783B9188;
+  v17[4] = self;
+  v18 = v22;
+  v19 = completionCopy;
+  v14 = completionCopy;
+  v15 = v22;
+  v16 = WeakRetained;
+  [v13 perform:v20 finalCompletion:v17];
 }
 
-void __65__SBLockElementPearlFlipBookDescription_resetToState_completion___block_invoke(uint64_t a1, void (**a2)(id, __CFString *))
+void __65__SBLockElementPearlFlipBookDescription_resetToState_completion___block_invoke(uint64_t a1, uint64_t (**a2)(id, __CFString *))
 {
   v4 = a2 + 2;
   v3 = a2[2];
@@ -310,7 +310,7 @@ void __65__SBLockElementPearlFlipBookDescription_resetToState_completion___block
 uint64_t __65__SBLockElementPearlFlipBookDescription_resetToState_completion___block_invoke_3(uint64_t a1)
 {
   v7 = *MEMORY[0x277D85DE8];
-  v2 = SBLogSystemApertureLockElement();
+  v2 = SBLogSystemApertureLockElement(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -336,7 +336,7 @@ void __65__SBLockElementPearlFlipBookDescription_resetToState_completion___block
 
 - (void)transitionToState:(id)state completion:(id)completion
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   completionCopy = completion;
   WeakRetained = objc_loadWeakRetained(&self->_viewProvider);
@@ -371,13 +371,14 @@ void __65__SBLockElementPearlFlipBookDescription_resetToState_completion___block
     v10 = 6;
   }
 
-  if (-[NSString isEqualToString:](self->_currentState, "isEqualToString:", SBPearlElementFlipBookStateSearching) && [v9 isEqualToString:SBPearlElementFlipBookStateSearching])
+  v11 = [(NSString *)self->_currentState isEqualToString:SBPearlElementFlipBookStateSearching];
+  if (v11 && (v11 = [v9 isEqualToString:SBPearlElementFlipBookStateSearching], v11))
   {
-    v11 = SBLogSystemApertureLockElement();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = SBLogSystemApertureLockElement(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "Resetting Searching time offset", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "Resetting Searching time offset", buf, 2u);
     }
 
     referenceView = [(SBLockElementPearlFlipBookDescription *)self referenceView];
@@ -388,49 +389,49 @@ void __65__SBLockElementPearlFlipBookDescription_resetToState_completion___block
     layer2 = [referenceView2 layer];
     [layer2 setBeginTime:0.0];
 
-    v16 = dispatch_time(0, 1600000000);
+    v17 = dispatch_time(0, 1600000000);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __70__SBLockElementPearlFlipBookDescription_transitionToState_completion___block_invoke;
     block[3] = &unk_2783AA1E8;
     block[4] = self;
-    v30 = v9;
-    v31 = completionCopy;
-    v17 = completionCopy;
-    dispatch_after(v16, MEMORY[0x277D85CD0], block);
+    v31 = v9;
+    v32 = completionCopy;
+    v18 = completionCopy;
+    dispatch_after(v17, MEMORY[0x277D85CD0], block);
 
-    v18 = v30;
+    v19 = v31;
   }
 
   else
   {
-    v19 = SBLogSystemApertureLockElement();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = SBLogSystemApertureLockElement(v11);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v33 = v9;
-      _os_log_impl(&dword_21ED4E000, v19, OS_LOG_TYPE_DEFAULT, "Transitioning trailing view: %@", buf, 0xCu);
+      v34 = v9;
+      _os_log_impl(&dword_21ED4E000, v20, OS_LOG_TYPE_DEFAULT, "Transitioning trailing view: %@", buf, 0xCu);
     }
 
-    v20 = MEMORY[0x277D65DA0];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __70__SBLockElementPearlFlipBookDescription_transitionToState_completion___block_invoke_165;
-    v25[3] = &unk_2783BD4D8;
-    v26 = WeakRetained;
-    v28 = v10;
-    v27 = v9;
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __70__SBLockElementPearlFlipBookDescription_transitionToState_completion___block_invoke_2_167;
-    v22[3] = &unk_2783B9188;
-    v22[4] = self;
-    v23 = v27;
-    v24 = completionCopy;
-    v21 = completionCopy;
-    [v20 perform:v25 finalCompletion:v22];
+    v21 = MEMORY[0x277D65DA0];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __70__SBLockElementPearlFlipBookDescription_transitionToState_completion___block_invoke_165;
+    v26[3] = &unk_2783BD4D8;
+    v27 = WeakRetained;
+    v29 = v10;
+    v28 = v9;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __70__SBLockElementPearlFlipBookDescription_transitionToState_completion___block_invoke_2_167;
+    v23[3] = &unk_2783B9188;
+    v23[4] = self;
+    v24 = v28;
+    v25 = completionCopy;
+    v22 = completionCopy;
+    [v21 perform:v26 finalCompletion:v23];
 
-    v18 = v26;
+    v19 = v27;
   }
 }
 
@@ -442,7 +443,7 @@ uint64_t __70__SBLockElementPearlFlipBookDescription_transitionToState_completio
   return v2();
 }
 
-void __70__SBLockElementPearlFlipBookDescription_transitionToState_completion___block_invoke_165(uint64_t a1, void (**a2)(id, __CFString *))
+void __70__SBLockElementPearlFlipBookDescription_transitionToState_completion___block_invoke_165(uint64_t a1, uint64_t (**a2)(id, __CFString *))
 {
   v4 = a2 + 2;
   v3 = a2[2];
@@ -488,7 +489,7 @@ void __70__SBLockElementPearlFlipBookDescription_transitionToState_completion___
 uint64_t __70__SBLockElementPearlFlipBookDescription_transitionToState_completion___block_invoke_3(uint64_t a1)
 {
   v7 = *MEMORY[0x277D85DE8];
-  v2 = SBLogSystemApertureLockElement();
+  v2 = SBLogSystemApertureLockElement(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);

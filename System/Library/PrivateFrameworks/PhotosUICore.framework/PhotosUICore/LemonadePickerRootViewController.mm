@@ -56,7 +56,7 @@
 
 - (void)navigateToDestination:(PXProgrammaticNavigationDestination *)destination options:(unint64_t)options completionHandler:(id)handler
 {
-  sub_1A3DB4F20();
+  sub_1A3DB4F20(0);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = _Block_copy(handler);
@@ -97,9 +97,10 @@
 
 - (void)splitViewController:(id)controller didChangeSidebarVisibility:(BOOL)visibility
 {
+  visibilityCopy = visibility;
   selfCopy = self;
 
-  sub_1A4655DC0(visibility);
+  sub_1A4655DC0(visibilityCopy);
 }
 
 - (_TtC12PhotosUICoreP33_9C0F47138E7F57ED0AFD3108BF1ECEE532LemonadePickerRootViewController)initWithNibName:(id)name bundle:(id)bundle

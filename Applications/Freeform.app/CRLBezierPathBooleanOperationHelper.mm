@@ -22,20 +22,20 @@
   {
     if ([pathCopy containsElementsOtherThanMoveAndClose])
     {
-      v13 = 0u;
+      v15 = 0u;
+      v16 = 0u;
       v14 = 0u;
-      v12 = 0u;
       [v4 controlPointBounds];
-      sub_100411A38(&v12, v5);
-      memset(v11, 0, sizeof(v11));
-      v15 = v12;
-      v16 = v13;
+      sub_100411A38(&v14, v5);
+      memset(v13, 0, sizeof(v13));
       v17 = v14;
-      sub_100411BA0(v11, v4, &v15, 1, 0);
-      v15 = v12;
-      v16 = v13;
+      v18 = v15;
+      *v19 = v16;
+      v6 = sub_100411BA0(v13, v4, &v17, 1, 0);
       v17 = v14;
-      sub_100412640();
+      v18 = v15;
+      *v19 = v16;
+      sub_100412640(v13, v6, v7, &v17, 1);
     }
   }
 
@@ -57,23 +57,23 @@
       sub_10136ECBC();
     }
 
-    v6 = off_1019EDA68;
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = off_1019EDA68;
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       +[CRLAssertionHandler packedBacktraceString];
       objc_claimAutoreleasedReturnValue();
       sub_10130E89C();
     }
 
-    v7 = +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", "+[CRLBezierPathBooleanOperationHelper pathByNormalizingPath:]");
-    v8 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPathBooleanOperationHelper.mm"];
-    [CRLAssertionHandler handleFailureInFunction:v7 file:v8 lineNumber:817 isFatal:0 description:"invalid nil value for '%{public}s'", "inputPath"];
+    v9 = +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", "+[CRLBezierPathBooleanOperationHelper pathByNormalizingPath:]");
+    v10 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPathBooleanOperationHelper.mm"];
+    [CRLAssertionHandler handleFailureInFunction:v9 file:v10 lineNumber:817 isFatal:0 description:"invalid nil value for '%{public}s'", "inputPath"];
   }
 
-  v9 = +[CRLBezierPath bezierPath];
-  [v4 copyPathAttributesTo:v9];
+  v11 = +[CRLBezierPath bezierPath];
+  [v4 copyPathAttributesTo:v11];
 
-  return v9;
+  return v11;
 }
 
 + (id)pathByPerformingBooleanOperation:(unint64_t)operation onPaths:(id)paths
@@ -327,7 +327,7 @@ LABEL_18:
       v49[0] = v54;
       v49[1] = v55;
       v49[2] = v56;
-      sub_100413A20(v12, 1, v47, v41, v49, v11);
+      sub_100413A20(v12, 1u, v47, v41, v49, v11);
     }
   }
 
@@ -684,7 +684,7 @@ LABEL_29:
   y = point.y;
   x = point.x;
   pathsCopy = paths;
-  v30 = pathsCopy;
+  v32 = pathsCopy;
   if (!pathsCopy)
   {
     +[CRLAssertionHandler _atomicIncrementAssertCount];
@@ -711,9 +711,9 @@ LABEL_29:
       sub_10130E89C();
     }
 
-    v32 = +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", "+[CRLBezierPathBooleanOperationHelper pathByFloodFillingPaths:atFillPoint:]");
+    v34 = +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", "+[CRLBezierPathBooleanOperationHelper pathByFloodFillingPaths:atFillPoint:]");
     v6 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPathBooleanOperationHelper.mm"];
-    [CRLAssertionHandler handleFailureInFunction:v32 file:v6 lineNumber:1035 isFatal:0 description:"invalid nil value for '%{public}s'", "inputPaths"];
+    [CRLAssertionHandler handleFailureInFunction:v34 file:v6 lineNumber:1035 isFatal:0 description:"invalid nil value for '%{public}s'", "inputPaths"];
     goto LABEL_22;
   }
 
@@ -721,77 +721,75 @@ LABEL_29:
   {
     if (!sub_1001208AC(x, y))
     {
-      v10 = v30;
+      v10 = v32;
       v11 = CGRectNull.origin.x;
       v12 = CGRectNull.origin.y;
       width = CGRectNull.size.width;
       height = CGRectNull.size.height;
-      v37 = 0u;
-      v38 = 0u;
       v39 = 0u;
       v40 = 0u;
+      v41 = 0u;
+      v42 = 0u;
       v15 = v10;
-      v16 = [v15 countByEnumeratingWithState:&v37 objects:v64 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v39 objects:v66 count:16];
       if (v16)
       {
-        v17 = *v38;
+        v17 = *v40;
         do
         {
           for (i = 0; i != v16; i = i + 1)
           {
-            if (*v38 != v17)
+            if (*v40 != v17)
             {
               objc_enumerationMutation(v15);
             }
 
-            v19 = *(*(&v37 + 1) + 8 * i);
+            v19 = *(*(&v39 + 1) + 8 * i);
             if (([v19 isEmpty] & 1) == 0)
             {
               [v19 controlPointBounds];
-              v70.origin.x = v20;
-              v70.origin.y = v21;
-              v70.size.width = v22;
-              v70.size.height = v23;
-              v66.origin.x = v11;
-              v66.origin.y = v12;
-              v66.size.width = width;
-              v66.size.height = height;
-              v67 = CGRectUnion(v66, v70);
-              v11 = v67.origin.x;
-              v12 = v67.origin.y;
-              width = v67.size.width;
-              height = v67.size.height;
+              v72.origin.x = v20;
+              v72.origin.y = v21;
+              v72.size.width = v22;
+              v72.size.height = v23;
+              v68.origin.x = v11;
+              v68.origin.y = v12;
+              v68.size.width = width;
+              v68.size.height = height;
+              v69 = CGRectUnion(v68, v72);
+              v11 = v69.origin.x;
+              v12 = v69.origin.y;
+              width = v69.size.width;
+              height = v69.size.height;
             }
           }
 
-          v16 = [v15 countByEnumeratingWithState:&v37 objects:v64 count:16];
+          v16 = [v15 countByEnumeratingWithState:&v39 objects:v66 count:16];
         }
 
         while (v16);
       }
 
-      v68.origin.x = v11;
-      v68.origin.y = v12;
-      v68.size.width = width;
-      v68.size.height = height;
-      if (!CGRectIsNull(v68))
+      v70.origin.x = v11;
+      v70.origin.y = v12;
+      v70.size.width = width;
+      v70.size.height = height;
+      if (!CGRectIsNull(v70))
       {
-        v69.origin.x = v11;
-        v69.origin.y = v12;
-        v69.size.width = width;
-        v69.size.height = height;
-        *&v24 = CGRectInset(v69, -3.0, -3.0);
+        v71.origin.x = v11;
+        v71.origin.y = v12;
+        v71.size.width = width;
+        v71.size.height = height;
+        *&v24 = CGRectInset(v71, -3.0, -3.0);
         [CRLBezierPath bezierPathWithRect:?];
-        v35 = 0u;
-        v36 = 0u;
-        v28 = v34 = 0u;
-        sub_100411A38(&v34, v24);
-        v44[5] = 0;
-        v45 = 2;
-        v46 = 0;
-        v47 = 0;
-        v48 = 0u;
-        v49 = 0u;
+        v37 = 0u;
+        v38 = 0u;
+        v30 = v36 = 0u;
+        sub_100411A38(&v36, v24);
+        v46[5] = 0;
+        v47 = 2;
+        v48 = 0;
+        v49 = 0;
         v50 = 0u;
         v51 = 0u;
         v52 = 0u;
@@ -799,32 +797,34 @@ LABEL_29:
         v54 = 0u;
         v55 = 0u;
         v56 = 0u;
-        memset(v57, 0, 29);
-        v57[29] = 1;
-        v58 = 0;
-        v59 = 0;
+        v57 = 0u;
+        v58 = 0u;
+        memset(v59, 0, 29);
+        v59[29] = 1;
         v60 = 0;
-        v61[3] = 0;
-        v63 = 0;
-        v44[4] = &off_1018610B8;
-        v62 = 1;
-        v44[0] = off_101861508;
-        v44[1] = sub_1004127F4;
-        v44[3] = v44;
-        sub_100418B10(v61, v44);
-        sub_10041F170(v44);
-        memset(v33, 0, sizeof(v33));
-        v41 = v34;
-        v42 = v35;
+        v61 = 0;
+        v62 = 0;
+        v63[3] = 0;
+        v65 = 0;
+        v46[4] = &off_1018610B8;
+        v64 = 1;
+        v46[0] = off_101861508;
+        v46[1] = sub_1004127F4;
+        v46[3] = v46;
+        sub_100418B10(v63, v46);
+        sub_10041F170(v46);
+        memset(v35, 0, sizeof(v35));
         v43 = v36;
-        sub_100411BA0(v33, v28, &v41, 1, 0);
-        v41 = v34;
-        v42 = v35;
+        v44 = v37;
+        v45 = v38;
+        v25 = sub_100411BA0(v35, v30, &v43, 1, 0);
         v43 = v36;
-        sub_100412640();
+        v44 = v37;
+        v45 = v38;
+        sub_100412640(v35, v25, v26, &v43, 1);
       }
 
-      v32 = &__NSArray0__struct;
+      v34 = &__NSArray0__struct;
 
       if ([&__NSArray0__struct count] >= 2)
       {
@@ -844,17 +844,17 @@ LABEL_29:
           sub_10136F8A4();
         }
 
-        v25 = off_1019EDA68;
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        v27 = off_1019EDA68;
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
           +[CRLAssertionHandler packedBacktraceString];
           objc_claimAutoreleasedReturnValue();
           sub_10130E89C();
         }
 
-        v26 = +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", "+[CRLBezierPathBooleanOperationHelper pathByFloodFillingPaths:atFillPoint:]");
-        v27 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPathBooleanOperationHelper.mm"];
-        [CRLAssertionHandler handleFailureInFunction:v26 file:v27 lineNumber:1049 isFatal:0 description:"Should never get more than one path back with a non-null fill point."];
+        v28 = +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", "+[CRLBezierPathBooleanOperationHelper pathByFloodFillingPaths:atFillPoint:]");
+        v29 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPathBooleanOperationHelper.mm"];
+        [CRLAssertionHandler handleFailureInFunction:v28 file:v29 lineNumber:1049 isFatal:0 description:"Should never get more than one path back with a non-null fill point."];
       }
 
       if ([&__NSArray0__struct count])
@@ -894,9 +894,9 @@ LABEL_24:
       sub_10130E89C();
     }
 
-    v32 = +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", "+[CRLBezierPathBooleanOperationHelper pathByFloodFillingPaths:atFillPoint:]");
+    v34 = +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", "+[CRLBezierPathBooleanOperationHelper pathByFloodFillingPaths:atFillPoint:]");
     v6 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPathBooleanOperationHelper.mm"];
-    [CRLAssertionHandler handleFailureInFunction:v32 file:v6 lineNumber:1044 isFatal:0 description:"Unable to fill path at null point."];
+    [CRLAssertionHandler handleFailureInFunction:v34 file:v6 lineNumber:1044 isFatal:0 description:"Unable to fill path at null point."];
 LABEL_22:
 
     goto LABEL_23;

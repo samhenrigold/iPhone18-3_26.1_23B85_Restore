@@ -1,12 +1,12 @@
 @interface UIImage(PLKUtilities)
 + (id)plk_imageFromContextWithSize:()PLKUtilities scale:type:pool:drawing:;
+- (CGImage)plk_isAlphaMask;
 - (id)plk_alphaMaskImage;
-- (uint64_t)plk_isAlphaMask;
 @end
 
 @implementation UIImage(PLKUtilities)
 
-- (uint64_t)plk_isAlphaMask
+- (CGImage)plk_isAlphaMask
 {
   result = [self CGImage];
   if (result)
@@ -23,7 +23,7 @@
       AlphaInfo = CGImageGetAlphaInfo(v2);
       BitsPerComponent = CGImageGetBitsPerComponent(v2);
       v6 = CGImageGetBitsPerPixel(v2);
-      return AlphaInfo == kCGImageAlphaOnly && v6 == 8 && BitsPerComponent == 8;
+      return (AlphaInfo == kCGImageAlphaOnly && v6 == 8 && BitsPerComponent == 8);
     }
   }
 
@@ -32,25 +32,21 @@
 
 + (id)plk_imageFromContextWithSize:()PLKUtilities scale:type:pool:drawing:
 {
-  v13 = a8;
-  if (v13)
+  v8 = a8;
+  if (v8)
   {
-    v14 = [PLKImageRendererFormat formatForContextType:a6 scale:a7 memoryPool:a3];
-    v15 = [(UIGraphicsImageRenderer *)[PLKImageRenderer alloc] initWithSize:v14 format:self, a2];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __78__UIImage_PLKUtilities__plk_imageFromContextWithSize_scale_type_pool_drawing___block_invoke;
-    v18[3] = &unk_27835B200;
-    v19 = v13;
-    v16 = [(PLKImageRenderer *)v15 imageWithActions:v18];
+    v9 = [PLKImageRendererFormat formatForContextType:"formatForContextType:scale:memoryPool:" scale:? memoryPool:?];
+    v10 = [UIGraphicsImageRenderer initWithSize:"initWithSize:format:" format:?];
+    v13 = v8;
+    v11 = [(PLKImageRenderer *)v10 imageWithActions:?];
   }
 
   else
   {
-    v16 = objc_opt_new();
+    v11 = objc_opt_new();
   }
 
-  return v16;
+  return v11;
 }
 
 - (id)plk_alphaMaskImage
@@ -63,19 +59,10 @@
   else
   {
     [self size];
-    v4 = v3;
-    v6 = v5;
     [self scale];
-    v7 = [PLKImageRendererFormat formatForContextType:4 scale:?];
-    v8 = [(UIGraphicsImageRenderer *)[PLKImageRenderer alloc] initWithSize:v7 format:v4, v6];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __43__UIImage_PLKUtilities__plk_alphaMaskImage__block_invoke;
-    v10[3] = &unk_27835B228;
-    *&v10[5] = v4;
-    *&v10[6] = v6;
-    v10[4] = self;
-    selfCopy = [(PLKImageRenderer *)v8 imageWithActions:v10];
+    v3 = [PLKImageRendererFormat formatForContextType:"formatForContextType:scale:" scale:?];
+    v4 = [UIGraphicsImageRenderer initWithSize:"initWithSize:format:" format:?];
+    selfCopy = [(PLKImageRenderer *)v4 imageWithActions:?];
   }
 
   return selfCopy;

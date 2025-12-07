@@ -21,7 +21,7 @@
   v5 = v7.receiver;
   [(WindowSceneResolver.View *)&v7 willMoveToWindow:windowCopy];
   windowScene = [windowCopy windowScene];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_E18A28);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_E18A28, &qword_B2C970);
   sub_AB7800();
 }
 

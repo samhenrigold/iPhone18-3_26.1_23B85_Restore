@@ -1,15 +1,15 @@
 @interface NSArray(PreferencesUsageAdditions)
-- (uint64_t)sortedInsertionIndexWithRange:()PreferencesUsageAdditions block:;
+- (char)sortedInsertionIndexWithRange:()PreferencesUsageAdditions block:;
 @end
 
 @implementation NSArray(PreferencesUsageAdditions)
 
-- (uint64_t)sortedInsertionIndexWithRange:()PreferencesUsageAdditions block:
+- (char)sortedInsertionIndexWithRange:()PreferencesUsageAdditions block:
 {
   v8 = a5;
   if (a4)
   {
-    v9 = a3 + (a4 >> 1);
+    v9 = &a3[a4 >> 1];
     v10 = [self objectAtIndex:v9];
     v11 = v8[2](v8, v10, v9);
     if (v11)

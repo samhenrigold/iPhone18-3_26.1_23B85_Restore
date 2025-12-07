@@ -8,10 +8,10 @@
 
 - (_BlastDoorRichLinkAttachmentSubstituter)init
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v8.receiver = self;
-  v8.super_class = _BlastDoorRichLinkAttachmentSubstituter;
-  v2 = [(_BlastDoorRichLinkAttachmentSubstituter *)&v8 init];
+  v8 = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = _BlastDoorRichLinkAttachmentSubstituter;
+  v2 = [(_BlastDoorRichLinkAttachmentSubstituter *)&v7 init];
   if (v2)
   {
     v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -22,7 +22,6 @@
     v5 = v2;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v2;
 }
 

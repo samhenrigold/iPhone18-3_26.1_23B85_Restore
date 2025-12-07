@@ -1,552 +1,3 @@
-void llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::CallImpl<llvm::orc::MachOPlatform::MachOPlatformPlugin::modifyPassConfig(llvm::orc::MaterializationResponsibility &,llvm::jitlink::LinkGraph &,llvm::jitlink::PassConfiguration &)::$_5>(uint64_t *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
-{
-  v58 = *MEMORY[0x277D85DE8];
-  v5 = *a1;
-  v6 = a1[1];
-  v7 = *(a2 + 120);
-  std::mutex::lock(v7);
-  LODWORD(v47) = 0;
-  v8 = *llvm::StringMap<std::atomic<unsigned long>,llvm::MallocAllocator>::try_emplace<int>(&v7[1], "__tlv_bootstrap", 0xFuLL, &v47);
-  if (v8 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
-  {
-    atomic_fetch_add(v8 + 1, 1uLL);
-  }
-
-  std::mutex::unlock(v7);
-  v9 = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin(a2 + 224);
-  v12 = *(a2 + 224) + 8 * *(a2 + 240);
-  if (v12 != v9)
-  {
-    while (1)
-    {
-      v13 = *v9;
-      if (**v9 == v8)
-      {
-        break;
-      }
-
-      do
-      {
-        ++v9;
-      }
-
-      while (v9 != v10 && (*v9 | 0x1000) == 0xFFFFFFFFFFFFF000);
-      if (v9 == v12)
-      {
-        goto LABEL_15;
-      }
-    }
-
-    llvm::orc::ExecutionSession::intern(*(*(v5 + 72) + 8), "___orc_rt_macho_tlv_get_addr", 0x1CuLL, &v47);
-    v14 = v47;
-    *&v47 = 0;
-    if (*v13 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
-    {
-      atomic_fetch_add(*v13 + 1, 0xFFFFFFFFFFFFFFFFLL);
-    }
-
-    *v13 = v14;
-    if ((v14 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
-    {
-      atomic_fetch_add((v14 + 8), 1uLL);
-      atomic_fetch_add((v14 + 8), 0xFFFFFFFFFFFFFFFFLL);
-    }
-
-    if ((v47 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
-    {
-      atomic_fetch_add((v47 + 8), 0xFFFFFFFFFFFFFFFFLL);
-    }
-  }
-
-LABEL_15:
-  SectionByName = llvm::jitlink::LinkGraph::findSectionByName(a2, llvm::orc::MachOThreadVarsSectionName, unk_2809A2ED0, v11);
-  if (SectionByName)
-  {
-    v16 = SectionByName;
-    v17 = *(v5 + 72);
-    std::mutex::lock(v17 + 5);
-    v18 = *(v5 + 72);
-    *&v54 = v6;
-    *&v47 = 0;
-    v19 = llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *>>::LookupBucketFor<llvm::jitlink::Symbol *>((v18 + 440), &v54, &v47);
-    v20 = v47;
-    if (!v19)
-    {
-      v20 = *(v18 + 440) + 16 * *(v18 + 456);
-    }
-
-    if (v20 == *(*(v5 + 72) + 440) + 16 * *(*(v5 + 72) + 456))
-    {
-      std::mutex::unlock(v17 + 5);
-      v41 = *(v5 + 72);
-      v42 = *(v41 + 256);
-      if (v42)
-      {
-        BYTE8(v54) = 0;
-        *&v54 = 0;
-        *&v47 = *(*(v41 + 8) + 72);
-        *(&v47 + 1) = v42;
-        llvm::orc::shared::WrapperFunction<llvm::orc::shared::SPSExpected<unsigned long long> ()(void)>::call<llvm::Error llvm::orc::ExecutorProcessControl::callSPSWrapper<llvm::orc::shared::SPSExpected<unsigned long long> ()(void),llvm::Expected<unsigned long long> &>(llvm::orc::ExecutorAddr,llvm::Expected<unsigned long long> &)::{lambda(char const*,unsigned long)#1},llvm::Expected<unsigned long long>>(&v47, &v54);
-      }
-
-      getErrorErrorCat();
-      *&v47 = 3;
-      *(&v47 + 1) = &getErrorErrorCat(void)::ErrorErrorCat;
-      llvm::make_error<llvm::StringError,char const(&)[51],std::error_code>();
-    }
-
-    v21 = *(v20 + 8);
-    std::mutex::unlock(v17 + 5);
-    v22 = bswap64(v21);
-    if ((*(a2 + 188) - 1) >= 2)
-    {
-      v23 = v22;
-    }
-
-    else
-    {
-      v23 = v21;
-    }
-
-    __src = v23;
-    v24 = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin(v16 + 32);
-    v26 = *(v16 + 32) + 8 * *(v16 + 48);
-    if (v26 != v24)
-    {
-      v27 = v24;
-      v28 = v25;
-      do
-      {
-        v29 = *v27;
-        v30 = *(*v27 + 32);
-        if (v30 != 3 * *(a2 + 184))
-        {
-          v43 = *v29;
-          *&v47 = "{0:x}";
-          *(&v47 + 1) = 5;
-          *&v48 = &v50;
-          *(&v48 + 1) = 1;
-          *&v49 = &unk_2883EC4C0;
-          *(&v49 + 1) = v43;
-          *&v50 = &v49;
-          v45[0] = "__thread_vars block at ";
-          v45[2] = &v47;
-          v46 = 1539;
-          *&v54 = v45;
-          *&v55 = " has unexpected size";
-          LOWORD(v56) = 770;
-          getErrorErrorCat();
-          operator new();
-        }
-
-        v31 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(a2, *(*v27 + 32), 0);
-        v32 = v31;
-        v33 = v29[4];
-        if (v33)
-        {
-          memmove(v31, v29[3], v33);
-        }
-
-        memcpy(&v32[*(a2 + 184)], &__src, *(a2 + 184));
-        v29[3] = v32;
-        v29[4] = v30;
-        v29[1] &= ~4uLL;
-        do
-        {
-          ++v27;
-        }
-
-        while (v27 != v28 && (*v27 | 0x1000) == 0xFFFFFFFFFFFFF000);
-      }
-
-      while (v27 != v26);
-    }
-  }
-
-  llvm::jitlink::LinkGraph::blocks(a2, &v47);
-  v54 = v47;
-  v55 = v48;
-  v56 = v49;
-  v57 = v50;
-  v34 = v51;
-  v35 = v52;
-  v36 = v50;
-  if (v47 != v51 || v50 != v52)
-  {
-    do
-    {
-      v37 = *v36;
-      v38 = *(*v36 + 40);
-      v39 = *(v37 + 48);
-      while (v38 != v39)
-      {
-        if (*(v38 + 24) == 24)
-        {
-          *(v38 + 24) = 20;
-        }
-
-        v38 += 32;
-      }
-
-      llvm::jitlink::LinkGraph::nested_collection_iterator<llvm::mapped_iterator<llvm::DenseMapIterator<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>,false>,llvm::jitlink::LinkGraph::GetSectionMapEntryValue,llvm::jitlink::Section&>,llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::Iterator,llvm::jitlink::Block *,&llvm::jitlink::LinkGraph::getSectionBlocks>::operator++(&v54, v45);
-      v36 = v57;
-    }
-
-    while (v54 != v34 || v57 != v35);
-  }
-
-  *a3 = 0;
-  if (v8 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
-  {
-    atomic_fetch_add(v8 + 1, 0xFFFFFFFFFFFFFFFFLL);
-  }
-
-  v44 = *MEMORY[0x277D85DE8];
-}
-
-void std::__shared_ptr_emplace<llvm::SmallVector<llvm::orc::MachOPlatform::MachOPlatformPlugin::SymbolTablePair,3u>>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
-{
-  a1->__vftable = &unk_2883EC648;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x277C69E40);
-}
-
-void std::__shared_ptr_emplace<llvm::SmallVector<llvm::orc::MachOPlatform::MachOPlatformPlugin::SymbolTablePair,3u>>::__on_zero_shared(uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 != (a1 + 40))
-  {
-    free(v2);
-  }
-}
-
-uint64_t llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::CallImpl<llvm::orc::MachOPlatform::MachOPlatformPlugin::modifyPassConfig(llvm::orc::MaterializationResponsibility &,llvm::jitlink::LinkGraph &,llvm::jitlink::PassConfiguration &)::$_6>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, unint64_t *a3@<X3>, void *a4@<X8>)
-{
-  v61[6] = *MEMORY[0x277D85DE8];
-  v6 = *(a1 + 8);
-  SectionByName = llvm::jitlink::LinkGraph::findSectionByName(a2, llvm::orc::MachOCStringSectionName, unk_2809A2D40, a3);
-  if (!SectionByName)
-  {
-    llvm::jitlink::LinkGraph::createSection();
-  }
-
-  v56[0] = 0;
-  v56[1] = 0;
-  v57 = 0;
-  v8 = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin(SectionByName + 56);
-  v11 = *(SectionByName + 56) + 8 * *(SectionByName + 72);
-  if (v11 != v8)
-  {
-    v12 = v8;
-    v13 = v9;
-    do
-    {
-      v14 = *v12;
-      v15 = *(*v12 + 8);
-      v17 = *(v15 + 24);
-      v16 = *(v15 + 32);
-      *&v50 = v17;
-      *(&v50 + 1) = v16;
-      *&v51 = v14;
-      v59 = 0;
-      if ((llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>>,llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>>::LookupBucketFor<llvm::StringRef>(v56, &v50, &v59, v10) & 1) == 0)
-      {
-        v18 = llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::jitlink::Symbol *>>,llvm::StringRef,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::jitlink::Symbol *>>::InsertIntoBucketImpl<llvm::StringRef>(v56, &v50, &v50, v59);
-        *v18 = v50;
-        v18[2] = v51;
-      }
-
-      do
-      {
-        ++v12;
-      }
-
-      while (v12 != v13 && (*v12 | 0x1000) == 0xFFFFFFFFFFFFF000);
-    }
-
-    while (v12 != v11);
-  }
-
-  v59 = v61;
-  v60 = 0x600000000;
-  llvm::jitlink::LinkGraph::defined_symbols(a2, &v50);
-  v48[0] = v50;
-  v48[1] = v51;
-  v48[2] = v52;
-  v49 = v53;
-  v19 = v54;
-  v20 = v55;
-  v21 = v53;
-  if (v50 != v54 || v53 != v55)
-  {
-    do
-    {
-      llvm::SmallVectorTemplateBase<void *,true>::push_back(&v59, *v21);
-      llvm::jitlink::LinkGraph::nested_collection_iterator<llvm::mapped_iterator<llvm::DenseMapIterator<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>,false>,llvm::jitlink::LinkGraph::GetSectionMapEntryValue,llvm::jitlink::Section&>,llvm::detail::DenseSetImpl<llvm::jitlink::Symbol *,llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>>::Iterator,llvm::jitlink::Symbol *,&llvm::jitlink::LinkGraph::getSectionSymbols>::operator++(v48, v47);
-      v21 = v49;
-    }
-
-    while (*&v48[0] != v19 || v49 != v20);
-  }
-
-  v23 = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin(a2 + 248);
-  v26 = *(a2 + 248) + 8 * *(a2 + 264);
-  if (v26 != v23)
-  {
-    v27 = v23;
-    v28 = v24;
-    do
-    {
-      v29 = *v27++;
-      llvm::SmallVectorTemplateBase<void *,true>::push_back(&v59, v29);
-      while (v27 != v28 && (*v27 | 0x1000) == 0xFFFFFFFFFFFFF000)
-      {
-        ++v27;
-      }
-    }
-
-    while (v27 != v26);
-  }
-
-  v30 = v59;
-  if (v60)
-  {
-    v46 = a4;
-    v31 = 8 * v60;
-    do
-    {
-      v32 = *v30;
-      v33 = **v30;
-      if (v33)
-      {
-        v34 = *v33;
-        *&v50 = v33 + 2;
-        *(&v50 + 1) = v34;
-        *&v48[0] = 0;
-        if (!llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>>,llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>>::LookupBucketFor<llvm::StringRef>(v56, &v50, v48, v25) || *&v48[0] == v56[0] + 24 * v57)
-        {
-          v36 = SectionByName;
-          v37 = *v32;
-          v38 = **v32;
-          v39 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(a2, v38 + 1, 0);
-          v40 = v39;
-          if (v38)
-          {
-            memmove(v39, v37 + 2, v38);
-          }
-
-          v40[v38] = 0;
-          *&v50 = v40;
-          *(&v50 + 1) = v38 + 1;
-          *&v48[0] = 0;
-          v47[0] = 1;
-          v58 = 0;
-          SectionByName = v36;
-          v41 = llvm::jitlink::LinkGraph::createBlock<llvm::jitlink::Section &,llvm::MutableArrayRef<char> &,llvm::orc::ExecutorAddr &,unsigned long long &,unsigned long long &>(a2, v36, &v50, v48, v47, &v58);
-          v35 = llvm::jitlink::LinkGraph::addAnonymousSymbol(a2, v41, 0, v41[4], 0, 1);
-        }
-
-        else
-        {
-          v35 = *(*&v48[0] + 16);
-        }
-
-        v42 = *(v6 + 8);
-        if (v42 >= *(v6 + 12))
-        {
-          llvm::SmallVectorBase<unsigned int>::grow_pod(v6, (v6 + 16), v42 + 1, 16);
-          v42 = *(v6 + 8);
-        }
-
-        v43 = (*v6 + 16 * v42);
-        *v43 = v32;
-        v43[1] = v35;
-        ++*(v6 + 8);
-      }
-
-      ++v30;
-      v31 -= 8;
-    }
-
-    while (v31);
-    v30 = v59;
-    a4 = v46;
-  }
-
-  if (v30 != v61)
-  {
-    free(v30);
-  }
-
-  *a4 = 0;
-  result = MEMORY[0x277C69E30](v56[0], 8);
-  v45 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-__n128 llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::MoveImpl<llvm::orc::MachOPlatform::MachOPlatformPlugin::modifyPassConfig(llvm::orc::MaterializationResponsibility &,llvm::jitlink::LinkGraph &,llvm::jitlink::PassConfiguration &)::$_6>(__n128 *a1, __n128 *a2)
-{
-  result = *a2;
-  *a1 = *a2;
-  a1[1].n128_u64[0] = a2[1].n128_u64[0];
-  a2->n128_u64[1] = 0;
-  a2[1].n128_u64[0] = 0;
-  return result;
-}
-
-void llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::DestroyImpl<llvm::orc::MachOPlatform::MachOPlatformPlugin::modifyPassConfig(llvm::orc::MaterializationResponsibility &,llvm::jitlink::LinkGraph &,llvm::jitlink::PassConfiguration &)::$_6>(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v1);
-  }
-}
-
-void llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::CallImpl<llvm::orc::MachOPlatform::MachOPlatformPlugin::modifyPassConfig(llvm::orc::MaterializationResponsibility &,llvm::jitlink::LinkGraph &,llvm::jitlink::PassConfiguration &)::$_7>(uint64_t *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
-{
-  v54[6] = *MEMORY[0x277D85DE8];
-  v5 = *a1;
-  v6 = a1[1];
-  v7 = a1[2];
-  v8 = *(a1 + 32);
-  v9 = *(*a1 + 72);
-  std::mutex::lock(v9 + 5);
-  v10 = *(v5 + 72);
-  v52 = *v6;
-  v45 = 0;
-  v11 = llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *>>::LookupBucketFor<llvm::jitlink::Symbol *>((v10 + 392), &v52, &v45);
-  v12 = v45;
-  if (!v11)
-  {
-    v12 = *(v10 + 392) + 16 * *(v10 + 408);
-  }
-
-  v40 = *(v12 + 8);
-  std::mutex::unlock(v9 + 5);
-  if (v8 == 1)
-  {
-    v28 = *(v5 + 72);
-    std::mutex::lock(v28 + 5);
-    v29 = *(v7 + 2);
-    if (v29)
-    {
-      v30 = *(*(v5 + 72) + 384);
-      v31 = 16 * v29;
-      v32 = *v7 + 8;
-      do
-      {
-        v33 = *(v32 - 8);
-        v35 = *(v33 + 8);
-        v34 = *(v33 + 16);
-        v36 = ((v34 & 0x1FFFFFFFFFFFFFFLL) + *v35);
-        v45 = (*(*v32 + 16) & 0x1FFFFFFFFFFFFFFLL) + **(*v32 + 8);
-        v46 = v36;
-        LOBYTE(v47) = ((v34 & 0x200000000000000) != 0) | (v34 >> 60) & 2;
-        v37 = llvm::SmallVectorTemplateCommon<std::pair<llvm::orc::AllocGroup,llvm::orc::ExecutorAddrRange>,void>::reserveForParamAndGetAddressImpl<llvm::SmallVectorTemplateBase<std::pair<llvm::orc::AllocGroup,llvm::orc::ExecutorAddrRange>,true>>(v30 + 88, &v45);
-        v38 = *(v30 + 88) + 24 * *(v30 + 96);
-        v39 = *v37;
-        *(v38 + 16) = *(v37 + 16);
-        *v38 = v39;
-        ++*(v30 + 96);
-        v32 += 16;
-        v31 -= 16;
-      }
-
-      while (v31);
-    }
-
-    *a3 = 0;
-    std::mutex::unlock(v28 + 5);
-  }
-
-  else
-  {
-    v52 = v54;
-    v53 = 0x200000000;
-    v13 = *(v7 + 2);
-    if (v13)
-    {
-      v14 = *v7;
-      v15 = 16 * v13;
-      v16 = v14 + 8;
-      do
-      {
-        v17 = *(v16 - 8);
-        v19 = *(v17 + 8);
-        v18 = *(v17 + 16);
-        v20 = ((v18 & 0x1FFFFFFFFFFFFFFLL) + *v19);
-        v45 = (*(*v16 + 16) & 0x1FFFFFFFFFFFFFFLL) + **(*v16 + 8);
-        v46 = v20;
-        LOBYTE(v47) = ((v18 & 0x200000000000000) != 0) | (v18 >> 60) & 2;
-        v21 = llvm::SmallVectorTemplateCommon<std::pair<llvm::orc::AllocGroup,llvm::orc::ExecutorAddrRange>,void>::reserveForParamAndGetAddressImpl<llvm::SmallVectorTemplateBase<std::pair<llvm::orc::AllocGroup,llvm::orc::ExecutorAddrRange>,true>>(&v52, &v45);
-        v22 = &v52[24 * v53];
-        v23 = *v21;
-        *(v22 + 2) = *(v21 + 16);
-        *v22 = v23;
-        LODWORD(v53) = v53 + 1;
-        v16 += 16;
-        v15 -= 16;
-      }
-
-      while (v15);
-    }
-
-    llvm::orc::shared::WrapperFunctionCall::Create<llvm::orc::shared::SPSArgList<llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSSequence<llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSMachOExecutorSymbolFlags>>>,llvm::orc::ExecutorAddr,llvm::SmallVector<std::tuple<llvm::orc::ExecutorAddr,llvm::orc::ExecutorAddr,llvm::orc::MachOPlatform::MachOExecutorSymbolFlags>,2u>>(&v43, *(*(v5 + 72) + 176), &v40, &v52);
-    v45 = v43;
-    v46 = v48;
-    v47 = xmmword_2750C12E0;
-    if (v44[1])
-    {
-      llvm::SmallVectorImpl<char>::operator=(&v46, v44);
-    }
-
-    llvm::orc::shared::WrapperFunctionCall::Create<llvm::orc::shared::SPSArgList<llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSSequence<llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSMachOExecutorSymbolFlags>>>,llvm::orc::ExecutorAddr,llvm::SmallVector<std::tuple<llvm::orc::ExecutorAddr,llvm::orc::ExecutorAddr,llvm::orc::MachOPlatform::MachOExecutorSymbolFlags>,2u>>(&v41, *(*(v5 + 72) + 192), &v40, &v52);
-    v48[3] = v41;
-    v49 = v51;
-    v50 = xmmword_2750C12E0;
-    if (v42[1])
-    {
-      llvm::SmallVectorImpl<char>::operator=(&v49, v42);
-    }
-
-    v24 = *(a2 + 280);
-    v25 = a2 + 272;
-    if (v24 >= *(a2 + 288))
-    {
-      v26 = std::vector<llvm::orc::shared::AllocActionCallPair>::__emplace_back_slow_path<llvm::orc::shared::AllocActionCallPair>(v25, &v45);
-    }
-
-    else
-    {
-      std::allocator_traits<std::allocator<llvm::orc::shared::AllocActionCallPair>>::construct[abi:nn200100]<llvm::orc::shared::AllocActionCallPair,llvm::orc::shared::AllocActionCallPair,0>(v25, *(a2 + 280), &v45);
-      v26 = v24 + 112;
-    }
-
-    *(a2 + 280) = v26;
-    if (v49 != v51)
-    {
-      free(v49);
-    }
-
-    if (v46 != v48)
-    {
-      free(v46);
-    }
-
-    llvm::Expected<llvm::orc::shared::WrapperFunctionCall>::~Expected(&v41);
-    llvm::Expected<llvm::orc::shared::WrapperFunctionCall>::~Expected(&v43);
-    *a3 = 0;
-    if (v52 != v54)
-    {
-      free(v52);
-    }
-  }
-
-  v27 = *MEMORY[0x277D85DE8];
-}
-
 __n128 llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::MoveImpl<llvm::orc::MachOPlatform::MachOPlatformPlugin::modifyPassConfig(llvm::orc::MaterializationResponsibility &,llvm::jitlink::LinkGraph &,llvm::jitlink::PassConfiguration &)::$_7>(uint64_t a1, uint64_t a2)
 {
   *a1 = *a2;
@@ -567,13 +18,13 @@ void llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::D
   }
 }
 
-void llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::CallImpl<llvm::orc::MachOPlatform::MachOPlatformPlugin::modifyPassConfig(llvm::orc::MaterializationResponsibility &,llvm::jitlink::LinkGraph &,llvm::jitlink::PassConfiguration &)::$_8>(uint64_t *a1@<X0>, uint64_t a2@<X1>, unint64_t *a3@<X3>, void *a4@<X8>)
+void llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::CallImpl<llvm::orc::MachOPlatform::MachOPlatformPlugin::modifyPassConfig(llvm::orc::MaterializationResponsibility &,llvm::jitlink::LinkGraph &,llvm::jitlink::PassConfiguration &)::$_8>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>, unint64_t *a4@<X3>)
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   v5 = *a1;
-  v51 = a1[1];
-  v52 = *(a1 + 16);
-  SectionByName = llvm::jitlink::LinkGraph::findSectionByName(a2, llvm::orc::MachOThreadDataSectionName, *(&llvm::orc::MachOThreadDataSectionName + 1), a3);
+  v50 = a1[1];
+  v51 = *(a1 + 16);
+  SectionByName = llvm::jitlink::LinkGraph::findSectionByName(a2, llvm::orc::MachOThreadDataSectionName, *(&llvm::orc::MachOThreadDataSectionName + 1), a4);
   v8 = llvm::jitlink::LinkGraph::findSectionByName(a2, llvm::orc::MachOThreadBSSSectionName, unk_2809A2EB0, v7);
   if (v8)
   {
@@ -589,35 +40,35 @@ void llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::C
   }
 
   v10 = 0;
-  v68 = v70;
-  v69 = 0x800000000;
-  v67[0] = llvm::orc::MachODataDataSectionName;
-  v67[1] = llvm::orc::MachODataCommonSectionName;
-  v67[2] = llvm::orc::MachOEHFrameSectionName;
+  v67 = v69;
+  v68 = 0x800000000;
+  v66[0] = llvm::orc::MachODataDataSectionName;
+  v66[1] = llvm::orc::MachODataCommonSectionName;
+  v66[2] = llvm::orc::MachOEHFrameSectionName;
   do
   {
-    v11 = llvm::jitlink::LinkGraph::findSectionByName(a2, *&v67[v10], *(&v67[v10] + 1), v9);
+    v11 = llvm::jitlink::LinkGraph::findSectionByName(a2, *&v66[v10], *(&v66[v10] + 1), v9);
     if (v11)
     {
-      llvm::jitlink::SectionRange::SectionRange(&v60, v11);
-      if (v60)
+      llvm::jitlink::SectionRange::SectionRange(&v59, v11);
+      if (v59)
       {
-        v12 = v61;
-        if (v61)
+        v12 = v60;
+        if (v60)
         {
-          v12 = *(v61 + 32) + *v61;
+          v12 = *(v60 + 32) + *v60;
         }
 
-        v13 = *v60;
-        *v55 = v67[v10];
-        *&v56 = v13;
-        *(&v56 + 1) = v12;
-        v14 = llvm::SmallVectorTemplateCommon<std::pair<llvm::StringRef,llvm::orc::ExecutorAddrRange>,void>::reserveForParamAndGetAddressImpl<llvm::SmallVectorTemplateBase<std::pair<llvm::StringRef,llvm::orc::ExecutorAddrRange>,true>>(&v68, v55);
-        v15 = v68 + 32 * v69;
+        v13 = *v59;
+        *v54 = v66[v10];
+        *&v55 = v13;
+        *(&v55 + 1) = v12;
+        v14 = llvm::SmallVectorTemplateCommon<std::pair<llvm::StringRef,llvm::orc::ExecutorAddrRange>,void>::reserveForParamAndGetAddressImpl<llvm::SmallVectorTemplateBase<std::pair<llvm::StringRef,llvm::orc::ExecutorAddrRange>,true>>(&v67, v54);
+        v15 = v67 + 32 * v68;
         v16 = v14[1];
         *v15 = *v14;
         v15[1] = v16;
-        LODWORD(v69) = v69 + 1;
+        LODWORD(v68) = v68 + 1;
       }
     }
 
@@ -627,54 +78,54 @@ void llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::C
   while (v10 != 3);
   if (SectionByName)
   {
-    llvm::jitlink::SectionRange::SectionRange(&v60, SectionByName);
-    if (v60)
+    llvm::jitlink::SectionRange::SectionRange(&v59, SectionByName);
+    if (v59)
     {
-      v17 = *v60;
-      v18 = v61;
-      if (v61)
+      v17 = *v59;
+      v18 = v60;
+      if (v60)
       {
-        v18 = *(v61 + 32) + *v61;
+        v18 = *(v60 + 32) + *v60;
       }
 
-      *v55 = llvm::orc::MachOThreadDataSectionName;
-      *&v56 = v17;
-      *(&v56 + 1) = v18;
-      v19 = llvm::SmallVectorTemplateCommon<std::pair<llvm::StringRef,llvm::orc::ExecutorAddrRange>,void>::reserveForParamAndGetAddressImpl<llvm::SmallVectorTemplateBase<std::pair<llvm::StringRef,llvm::orc::ExecutorAddrRange>,true>>(&v68, v55);
-      v20 = v68 + 32 * v69;
+      *v54 = llvm::orc::MachOThreadDataSectionName;
+      *&v55 = v17;
+      *(&v55 + 1) = v18;
+      v19 = llvm::SmallVectorTemplateCommon<std::pair<llvm::StringRef,llvm::orc::ExecutorAddrRange>,void>::reserveForParamAndGetAddressImpl<llvm::SmallVectorTemplateBase<std::pair<llvm::StringRef,llvm::orc::ExecutorAddrRange>,true>>(&v67, v54);
+      v20 = v67 + 32 * v68;
       v21 = v19[1];
       *v20 = *v19;
       v20[1] = v21;
-      LODWORD(v69) = v69 + 1;
+      LODWORD(v68) = v68 + 1;
     }
   }
 
   v22 = 0;
-  v66[0] = llvm::orc::MachOModInitFuncSectionName;
+  v65[0] = llvm::orc::MachOModInitFuncSectionName;
   do
   {
-    v23 = llvm::jitlink::LinkGraph::findSectionByName(a2, *&v66[v22], *(&v66[v22] + 1), v9);
+    v23 = llvm::jitlink::LinkGraph::findSectionByName(a2, *&v65[v22], *(&v65[v22] + 1), v9);
     if (v23)
     {
-      llvm::jitlink::SectionRange::SectionRange(&v60, v23);
-      if (v60)
+      llvm::jitlink::SectionRange::SectionRange(&v59, v23);
+      if (v59)
       {
-        v24 = v61;
-        if (v61)
+        v24 = v60;
+        if (v60)
         {
-          v24 = *(v61 + 32) + *v61;
+          v24 = *(v60 + 32) + *v60;
         }
 
-        v25 = *v60;
-        *v55 = v66[v22];
-        *&v56 = v25;
-        *(&v56 + 1) = v24;
-        v26 = llvm::SmallVectorTemplateCommon<std::pair<llvm::StringRef,llvm::orc::ExecutorAddrRange>,void>::reserveForParamAndGetAddressImpl<llvm::SmallVectorTemplateBase<std::pair<llvm::StringRef,llvm::orc::ExecutorAddrRange>,true>>(&v68, v55);
-        v27 = v68 + 32 * v69;
+        v25 = *v59;
+        *v54 = v65[v22];
+        *&v55 = v25;
+        *(&v55 + 1) = v24;
+        v26 = llvm::SmallVectorTemplateCommon<std::pair<llvm::StringRef,llvm::orc::ExecutorAddrRange>,void>::reserveForParamAndGetAddressImpl<llvm::SmallVectorTemplateBase<std::pair<llvm::StringRef,llvm::orc::ExecutorAddrRange>,true>>(&v67, v54);
+        v27 = v67 + 32 * v68;
         v28 = v26[1];
         *v27 = *v26;
         v27[1] = v28;
-        LODWORD(v69) = v69 + 1;
+        LODWORD(v68) = v68 + 1;
       }
     }
 
@@ -682,41 +133,41 @@ void llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::C
   }
 
   while (v22 != 2);
-  LOBYTE(v60) = 0;
-  v65 = 0;
-  v74 = v76;
-  v75 = 0x300000000;
+  LOBYTE(v59) = 0;
+  v64 = 0;
+  v73 = v75;
+  v74 = 0x300000000;
+  v76 = 0u;
   v77 = 0u;
-  v78 = 0u;
-  v71 = v73;
-  v72 = 0x600000000;
-  v54 = &v71;
+  v70 = v72;
+  v71 = 0x600000000;
+  v53 = &v70;
   v29 = llvm::jitlink::LinkGraph::findSectionByName(a2, llvm::orc::MachOEHFrameSectionName, *(&llvm::orc::MachOEHFrameSectionName + 1), v9);
   if (v29)
   {
-    llvm::orc::MachOPlatform::MachOPlatformPlugin::findUnwindSectionInfo(llvm::jitlink::LinkGraph &)::$_0::operator()(&v54, v29, &v77);
+    llvm::orc::MachOPlatform::MachOPlatformPlugin::findUnwindSectionInfo(llvm::jitlink::LinkGraph &)::$_0::operator()(&v53, v29, &v76);
   }
 
   v31 = llvm::jitlink::LinkGraph::findSectionByName(a2, llvm::orc::MachOCompactUnwindInfoSectionName, unk_2809A2D30, v30);
   if (v31)
   {
-    llvm::orc::MachOPlatform::MachOPlatformPlugin::findUnwindSectionInfo(llvm::jitlink::LinkGraph &)::$_0::operator()(&v54, v31, &v78);
+    llvm::orc::MachOPlatform::MachOPlatformPlugin::findUnwindSectionInfo(llvm::jitlink::LinkGraph &)::$_0::operator()(&v53, v31, &v77);
   }
 
-  v32 = v72;
-  if (v72)
+  v32 = v71;
+  if (v71)
   {
-    std::__introsort<std::_ClassicAlgPolicy,llvm::orc::MachOPlatform::MachOPlatformPlugin::findUnwindSectionInfo(llvm::jitlink::LinkGraph &)::$_1 &,llvm::jitlink::Block **,false>(v71, v71 + v72, 126 - 2 * __clz(v72), 1);
-    v33 = v75;
-    if (v72)
+    std::__introsort<std::_ClassicAlgPolicy,llvm::orc::MachOPlatform::MachOPlatformPlugin::findUnwindSectionInfo(llvm::jitlink::LinkGraph &)::$_1 &,llvm::jitlink::Block **,false>(v70, v70 + v71, 126 - 2 * __clz(v71), 1);
+    v33 = v74;
+    if (v71)
     {
-      v34 = v71;
-      v35 = 8 * v72;
+      v34 = v70;
+      v35 = 8 * v71;
       do
       {
         v36 = *v34;
         v37 = **v34;
-        if (v33 && (v38 = &v74[16 * v33], *(v38 - 1) == v37))
+        if (v33 && (v38 = &v73[16 * v33], *(v38 - 1) == v37))
         {
           *(v38 - 1) = v36[4] + v37;
         }
@@ -724,17 +175,17 @@ void llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::C
         else
         {
           v39 = v36[4];
-          if (v33 >= HIDWORD(v75))
+          if (v33 >= HIDWORD(v74))
           {
-            llvm::SmallVectorBase<unsigned int>::grow_pod(&v74, v76, v33 + 1, 16);
-            v33 = v75;
+            llvm::SmallVectorBase<unsigned int>::grow_pod(&v73, v75, v33 + 1, 16);
+            v33 = v74;
           }
 
-          v40 = &v74[16 * v33];
+          v40 = &v73[16 * v33];
           *v40 = v37;
           *(v40 + 1) = v39 + v37;
-          v33 = v75 + 1;
-          LODWORD(v75) = v75 + 1;
+          v33 = v74 + 1;
+          LODWORD(v74) = v74 + 1;
         }
 
         ++v34;
@@ -744,180 +195,178 @@ void llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::C
       while (v35);
     }
 
-    v55[0] = &v56;
-    v55[1] = 0x300000000;
+    v54[0] = &v55;
+    v54[1] = 0x300000000;
     if (v33)
     {
-      llvm::SmallVectorImpl<llvm::orc::ExecutorAddrRange>::operator=(v55, &v74);
+      llvm::SmallVectorImpl<llvm::orc::ExecutorAddrRange>::operator=(v54, &v73);
     }
 
-    *v58 = v77;
-    *&v58[16] = v78;
+    *v57 = v76;
+    *&v57[16] = v77;
     v32 = 1;
   }
 
   else
   {
-    LOBYTE(v55[0]) = 0;
+    LOBYTE(v54[0]) = 0;
   }
 
-  v59 = v32;
-  if (v71 != v73)
+  v58 = v32;
+  if (v70 != v72)
   {
-    free(v71);
+    free(v70);
   }
 
-  if (v74 != v76)
+  if (v73 != v75)
   {
-    free(v74);
+    free(v73);
   }
 
-  if (v59)
+  if (v58)
   {
-    v74 = v76;
-    v75 = 0x300000000;
-    if (LODWORD(v55[1]))
+    v73 = v75;
+    v74 = 0x300000000;
+    if (LODWORD(v54[1]))
     {
-      llvm::SmallVectorImpl<llvm::orc::ExecutorAddrRange>::operator=(&v74, v55);
+      llvm::SmallVectorImpl<llvm::orc::ExecutorAddrRange>::operator=(&v73, v54);
     }
 
-    v77 = *v58;
-    v78 = *&v58[16];
-    if (v65 == 1)
+    v76 = *v57;
+    v77 = *&v57[16];
+    if (v64 == 1)
     {
-      llvm::SmallVectorImpl<llvm::orc::ExecutorAddrRange>::operator=(&v60, &v74);
+      llvm::SmallVectorImpl<llvm::orc::ExecutorAddrRange>::operator=(&v59, &v73);
+      v62 = v76;
       v63 = v77;
-      v64 = v78;
     }
 
     else
     {
-      v60 = v62;
-      v61 = 0x300000000;
-      if (v75)
+      v59 = v61;
+      v60 = 0x300000000;
+      if (v74)
       {
-        llvm::SmallVectorImpl<llvm::orc::ExecutorAddrRange>::operator=(&v60, &v74);
+        llvm::SmallVectorImpl<llvm::orc::ExecutorAddrRange>::operator=(&v59, &v73);
       }
 
+      v62 = v76;
       v63 = v77;
-      v64 = v78;
-      v65 = 1;
+      v64 = 1;
     }
 
-    if (v74 != v76)
+    if (v73 != v75)
     {
-      free(v74);
+      free(v73);
     }
 
-    if ((v59 & 1) != 0 && v55[0] != &v56)
+    if ((v58 & 1) != 0 && v54[0] != &v55)
     {
-      free(v55[0]);
+      free(v54[0]);
     }
   }
 
-  if (v69 || v65 == 1)
+  if (v68 || v64 == 1)
   {
     v41 = *(v5 + 72);
     std::mutex::lock(v41 + 5);
     v42 = *(v5 + 72);
-    v74 = v51;
-    v55[0] = 0;
-    v43 = llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *>>::LookupBucketFor<llvm::jitlink::Symbol *>((v42 + 392), &v74, v55);
-    v44 = v55[0];
+    v73 = v50;
+    v54[0] = 0;
+    v43 = llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *>>::LookupBucketFor<llvm::jitlink::Symbol *>((v42 + 392), &v73, v54);
+    v44 = v54[0];
     if (!v43)
     {
       v44 = (*(v42 + 392) + 16 * *(v42 + 408));
     }
 
-    v54 = *(v44 + 1);
+    v53 = *(v44 + 1);
     std::mutex::unlock(v41 + 5);
-    llvm::orc::shared::WrapperFunctionCall::Create<llvm::orc::shared::SPSArgList<llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSOptional<llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSSequence<llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSExecutorAddr>>,llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSExecutorAddr>,llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSExecutorAddr>>>,llvm::orc::shared::SPSSequence<llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSSequence<char>,llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSExecutorAddr>>>>,llvm::orc::ExecutorAddr,std::optional<std::tuple<llvm::SmallVector<llvm::orc::ExecutorAddrRange,3u>,llvm::orc::ExecutorAddrRange,llvm::orc::ExecutorAddrRange>>,llvm::SmallVector<std::pair<llvm::StringRef,llvm::orc::ExecutorAddrRange>,8u>>(&v74, *(*(v5 + 72) + 208), &v54, &v60, &v68);
-    v55[0] = v74;
-    v55[1] = v57;
-    v56 = xmmword_2750C12E0;
-    if (v76[0])
+    llvm::orc::shared::WrapperFunctionCall::Create<llvm::orc::shared::SPSArgList<llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSOptional<llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSSequence<llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSExecutorAddr>>,llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSExecutorAddr>,llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSExecutorAddr>>>,llvm::orc::shared::SPSSequence<llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSSequence<char>,llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSExecutorAddr>>>>,llvm::orc::ExecutorAddr,std::optional<std::tuple<llvm::SmallVector<llvm::orc::ExecutorAddrRange,3u>,llvm::orc::ExecutorAddrRange,llvm::orc::ExecutorAddrRange>>,llvm::SmallVector<std::pair<llvm::StringRef,llvm::orc::ExecutorAddrRange>,8u>>(&v73, *(*(v5 + 72) + 208), &v53, &v59, &v67);
+    v54[0] = v73;
+    v54[1] = v56;
+    v55 = xmmword_2750C12E0;
+    if (v75[0])
     {
-      llvm::SmallVectorImpl<char>::operator=(&v55[1], &v75);
+      llvm::SmallVectorImpl<char>::operator=(&v54[1], &v74);
     }
 
-    llvm::orc::shared::WrapperFunctionCall::Create<llvm::orc::shared::SPSArgList<llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSOptional<llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSSequence<llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSExecutorAddr>>,llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSExecutorAddr>,llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSExecutorAddr>>>,llvm::orc::shared::SPSSequence<llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSSequence<char>,llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSExecutorAddr>>>>,llvm::orc::ExecutorAddr,std::optional<std::tuple<llvm::SmallVector<llvm::orc::ExecutorAddrRange,3u>,llvm::orc::ExecutorAddrRange,llvm::orc::ExecutorAddrRange>>,llvm::SmallVector<std::pair<llvm::StringRef,llvm::orc::ExecutorAddrRange>,8u>>(&v71, *(*(v5 + 72) + 224), &v54, &v60, &v68);
-    v57[3] = v71;
-    *v58 = &v58[24];
-    *&v58[8] = xmmword_2750C12E0;
-    if (v73[0])
+    llvm::orc::shared::WrapperFunctionCall::Create<llvm::orc::shared::SPSArgList<llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSOptional<llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSSequence<llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSExecutorAddr>>,llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSExecutorAddr>,llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSExecutorAddr>>>,llvm::orc::shared::SPSSequence<llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSSequence<char>,llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSExecutorAddr>>>>,llvm::orc::ExecutorAddr,std::optional<std::tuple<llvm::SmallVector<llvm::orc::ExecutorAddrRange,3u>,llvm::orc::ExecutorAddrRange,llvm::orc::ExecutorAddrRange>>,llvm::SmallVector<std::pair<llvm::StringRef,llvm::orc::ExecutorAddrRange>,8u>>(&v70, *(*(v5 + 72) + 224), &v53, &v59, &v67);
+    v56[3] = v70;
+    *v57 = &v57[24];
+    *&v57[8] = xmmword_2750C12E0;
+    if (v72[0])
     {
-      llvm::SmallVectorImpl<char>::operator=(v58, &v72);
+      llvm::SmallVectorImpl<char>::operator=(v57, &v71);
     }
 
-    llvm::Expected<llvm::orc::shared::WrapperFunctionCall>::~Expected(&v71);
-    llvm::Expected<llvm::orc::shared::WrapperFunctionCall>::~Expected(&v74);
-    if (v52)
+    llvm::Expected<llvm::orc::shared::WrapperFunctionCall>::~Expected(&v70);
+    llvm::Expected<llvm::orc::shared::WrapperFunctionCall>::~Expected(&v73);
+    if (v51)
     {
-      v50 = *(v5 + 72);
-      std::mutex::lock(v50 + 5);
-      std::vector<llvm::orc::shared::AllocActionCallPair>::emplace_back<llvm::orc::shared::AllocActionCallPair>(*(*(v5 + 72) + 384) + 56, v55);
-      std::mutex::unlock(v50 + 5);
+      v49 = *(v5 + 72);
+      std::mutex::lock(v49 + 5);
+      std::vector<llvm::orc::shared::AllocActionCallPair>::emplace_back<llvm::orc::shared::AllocActionCallPair>((*(*(v5 + 72) + 384) + 56), v54);
+      std::mutex::unlock(v49 + 5);
     }
 
     else
     {
-      v45 = *(a2 + 280);
-      v46 = a2 + 272;
-      if (v45 >= *(a2 + 288))
+      v45 = a2[35];
+      v46 = (a2 + 34);
+      if (v45 >= a2[36])
       {
-        v47 = std::vector<llvm::orc::shared::AllocActionCallPair>::__emplace_back_slow_path<llvm::orc::shared::AllocActionCallPair>(v46, v55);
+        v47 = std::vector<llvm::orc::shared::AllocActionCallPair>::__emplace_back_slow_path<llvm::orc::shared::AllocActionCallPair>(v46, v54);
       }
 
       else
       {
-        std::allocator_traits<std::allocator<llvm::orc::shared::AllocActionCallPair>>::construct[abi:nn200100]<llvm::orc::shared::AllocActionCallPair,llvm::orc::shared::AllocActionCallPair,0>(v46, *(a2 + 280), v55);
+        std::allocator_traits<std::allocator<llvm::orc::shared::AllocActionCallPair>>::construct[abi:nn200100]<llvm::orc::shared::AllocActionCallPair,llvm::orc::shared::AllocActionCallPair,0>(v46, a2[35], v54);
         v47 = v45 + 112;
       }
 
-      *(a2 + 280) = v47;
+      a2[35] = v47;
     }
 
-    if (*v58 != &v58[24])
+    if (*v57 != &v57[24])
     {
-      free(*v58);
+      free(*v57);
     }
 
-    if (v55[1] != v57)
+    if (v54[1] != v56)
     {
-      free(v55[1]);
+      free(v54[1]);
     }
 
-    v48 = v65;
-    *a4 = 0;
-    if ((v48 & 1) != 0 && v60 != v62)
+    v48 = v64;
+    *a3 = 0;
+    if ((v48 & 1) != 0 && v59 != v61)
     {
-      free(v60);
+      free(v59);
     }
   }
 
   else
   {
-    *a4 = 0;
+    *a3 = 0;
   }
 
-  if (v68 != v70)
+  if (v67 != v69)
   {
-    free(v68);
+    free(v67);
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 void llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::CallImpl<llvm::orc::MachOPlatform::MachOPlatformPlugin::modifyPassConfig(llvm::orc::MaterializationResponsibility &,llvm::jitlink::LinkGraph &,llvm::jitlink::PassConfiguration &)::$_9>(llvm::jitlink::LinkGraph *this@<X1>, void *a2@<X8>)
 {
-  v22[6] = *MEMORY[0x277D85DE8];
-  v20 = v22;
-  v21 = 0x600000000;
-  llvm::jitlink::LinkGraph::defined_symbols(this, v16);
-  if (*&v16[0] != v18 || v17 != v19)
+  v21[6] = *MEMORY[0x277D85DE8];
+  v19 = v21;
+  v20 = 0x600000000;
+  llvm::jitlink::LinkGraph::defined_symbols(v15, this);
+  if (v15[0] != v17 || v16 != v18)
   {
-    v5 = *v17;
-    if (*v17)
+    v5 = *v16;
+    if (*v16)
     {
       v6 = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin(this + 224);
       v8 = *(this + 28) + 8 * *(this + 60);
@@ -930,7 +379,7 @@ void llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::C
           v11 = **v9;
           if (v11 && *v11 >= 8uLL && v11[2] == 0x246E6F6974636573)
           {
-            llvm::SmallVectorTemplateBase<void *,true>::push_back(&v20, *v9);
+            llvm::SmallVectorTemplateBase<void *,true>::push_back(&v19, *v9);
           }
 
           do
@@ -944,10 +393,10 @@ void llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::C
         while (v9 != v8);
       }
 
-      if (v21)
+      if (v20)
       {
-        v12 = v20;
-        v13 = 8 * v21;
+        v12 = v19;
+        v13 = 8 * v20;
         do
         {
           v14 = *v12++;
@@ -960,13 +409,12 @@ void llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::C
     }
   }
 
-  if (v20 != v22)
+  if (v19 != v21)
   {
-    free(v20);
+    free(v19);
   }
 
   *a2 = 0;
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t llvm::jitlink::LinkGraph::makeDefined(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6, char a7, int a8)
@@ -1311,7 +759,7 @@ void *llvm::DenseMap<llvm::orc::JITDylib *,llvm::orc::MachOPlatform::MachOPlatfo
   return result;
 }
 
-unint64_t std::__introsort<std::_ClassicAlgPolicy,llvm::orc::MachOPlatform::MachOPlatformPlugin::findUnwindSectionInfo(llvm::jitlink::LinkGraph &)::$_1 &,llvm::jitlink::Block **,false>(unint64_t result, unint64_t **a2, uint64_t a3, char a4)
+unint64_t **std::__introsort<std::_ClassicAlgPolicy,llvm::orc::MachOPlatform::MachOPlatformPlugin::findUnwindSectionInfo(llvm::jitlink::LinkGraph &)::$_1 &,llvm::jitlink::Block **,false>(unint64_t **result, unint64_t **a2, uint64_t a3, char a4)
 {
   v7 = result;
 LABEL_2:
@@ -1352,7 +800,7 @@ LABEL_2:
     {
       v84 = v8 + 1;
       v85 = v8[1];
-      v86 = v8 + 2;
+      v86 = (v8 + 2);
       v87 = v8[2];
       v88 = *v8;
       v89 = *v85;
@@ -1368,7 +816,7 @@ LABEL_2:
         *v84 = v87;
         *v86 = v85;
         v92 = v8;
-        v93 = v8 + 1;
+        v93 = (v8 + 1);
         result = v85;
         if (v91 < v90)
         {
@@ -1379,14 +827,14 @@ LABEL_2:
       else
       {
         v92 = v8;
-        v93 = v8 + 2;
+        v93 = (v8 + 2);
         result = *v8;
         if (v91 >= v89)
         {
           *v8 = v85;
           v8[1] = v88;
           v92 = v8 + 1;
-          v93 = v8 + 2;
+          v93 = (v8 + 2);
           result = v88;
           if (v91 >= v90)
           {
@@ -1623,7 +1071,7 @@ LABEL_129:
           do
           {
             v124 = &v123[v121];
-            v125 = v124 + 1;
+            v125 = (v124 + 1);
             v126 = v124[1];
             v127 = (2 * v121) | 1;
             v121 = 2 * v121 + 2;
@@ -1635,7 +1083,7 @@ LABEL_129:
             else
             {
               v130 = v124[2];
-              v128 = v124 + 2;
+              v128 = (v124 + 2);
               v129 = v130;
               result = *v126;
               if (*v126 >= *v130)
@@ -2033,7 +1481,7 @@ LABEL_80:
     {
       if (v53 >= **(a2 - 1))
       {
-        v68 = v8 + 1;
+        v68 = (v8 + 1);
         do
         {
           v8 = v68;
@@ -2042,7 +1490,7 @@ LABEL_80:
             break;
           }
 
-          ++v68;
+          v68 += 8;
         }
 
         while (v53 >= **v8);
@@ -2541,10 +1989,10 @@ uint64_t llvm::orc::shared::SPSArgList<llvm::orc::shared::SPSTuple<llvm::orc::sh
   return result;
 }
 
-void llvm::detail::UniqueFunctionBase<void,unsigned long>::CallImpl<llvm::orc::MachOPlatform::MachOPlatformPlugin::populateObjCRuntimeObject(llvm::jitlink::LinkGraph &,llvm::orc::MaterializationResponsibility &)::$_2>(uint64_t a1, int a2)
+void llvm::detail::UniqueFunctionBase<void,unsigned long>::CallImpl<llvm::orc::MachOPlatform::MachOPlatformPlugin::populateObjCRuntimeObject(llvm::jitlink::LinkGraph &,llvm::orc::MaterializationResponsibility &)::$_2>(llvm::jitlink::LinkGraph **a1, int a2)
 {
   v4 = *a1;
-  v5 = *(a1 + 8);
+  v5 = a1[1];
   v6 = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin(*a1 + 224);
   v8 = *(v4 + 28) + 8 * *(v4 + 60);
   if (v8 == v6)
@@ -2556,7 +2004,7 @@ LABEL_9:
     if (v16 == v14)
     {
 LABEL_17:
-      llvm::jitlink::LinkGraph::defined_symbols(*a1, v40);
+      llvm::jitlink::LinkGraph::defined_symbols(v40, *a1);
       v38[0] = v40[0];
       v38[1] = v40[1];
       v38[2] = v40[2];
@@ -2593,13 +2041,13 @@ LABEL_27:
         }
 
         std::mutex::lock((v5 + 8));
-        v25 = **(a1 + 16);
+        v25 = *a1[2];
         v37[0] = 0;
-        v26 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::orc::MachOPlatform::MachOPlatformPlugin::ObjCImageInfo,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::orc::MachOPlatform::MachOPlatformPlugin::ObjCImageInfo>>,llvm::orc::JITDylib *,llvm::orc::MachOPlatform::MachOPlatformPlugin::ObjCImageInfo,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::orc::MachOPlatform::MachOPlatformPlugin::ObjCImageInfo>>::LookupBucketFor<llvm::orc::JITDylib const*>(*(v5 + 80), *(v5 + 96), v25, v37);
+        v26 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::orc::MachOPlatform::MachOPlatformPlugin::ObjCImageInfo,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::orc::MachOPlatform::MachOPlatformPlugin::ObjCImageInfo>>,llvm::orc::JITDylib *,llvm::orc::MachOPlatform::MachOPlatformPlugin::ObjCImageInfo,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::orc::MachOPlatform::MachOPlatformPlugin::ObjCImageInfo>>::LookupBucketFor<llvm::orc::JITDylib const*>(*(v5 + 10), *(v5 + 24), v25, v37);
         v27 = v37[0];
         if (v26)
         {
-          v28 = v37[0] == *(v5 + 80) + 24 * *(v5 + 96);
+          v28 = v37[0] == *(v5 + 10) + 24 * *(v5 + 24);
         }
 
         else
@@ -2640,7 +2088,7 @@ LABEL_27:
           }
 
           v35 = bswap32(v29);
-          if ((*(*a1 + 188) - 1) >= 2)
+          if ((*(*a1 + 47) - 1) >= 2)
           {
             v36 = v35;
           }
@@ -2714,11 +2162,12 @@ LABEL_27:
     }
   }
 
-  llvm::jitlink::Block::addEdge(*(a1 + 24), 2, a2 + 32, v11, -**(a1 + 24));
+  llvm::jitlink::Block::addEdge(a1[3], 2, a2 + 32, v11, -*a1[3]);
 }
 
-void *llvm::jitlink::LinkGraph::addExternalSymbol(uint64_t a1, uint64_t *a2, unint64_t a3, uint64_t a4, int a5)
+void *llvm::jitlink::LinkGraph::addExternalSymbol(uint64_t a1, uint64_t *a2, size_t a3, uint64_t a4, uint64_t a5)
 {
+  v5 = a5;
   v10 = *(a1 + 120);
   std::mutex::lock(v10);
   v14 = 0;
@@ -2730,7 +2179,7 @@ void *llvm::jitlink::LinkGraph::addExternalSymbol(uint64_t a1, uint64_t *a2, uni
   }
 
   std::mutex::unlock(v10);
-  result = llvm::jitlink::LinkGraph::addExternalSymbol(a1, &v13, a4, a5);
+  result = llvm::jitlink::LinkGraph::addExternalSymbol(a1, &v13, a4, v5);
   if (v13 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
   {
     atomic_fetch_add(v13 + 1, 0xFFFFFFFFFFFFFFFFLL);
@@ -2739,7 +2188,7 @@ void *llvm::jitlink::LinkGraph::addExternalSymbol(uint64_t a1, uint64_t *a2, uni
   return result;
 }
 
-void *llvm::jitlink::LinkGraph::addExternalSymbol(uint64_t a1, void *a2, uint64_t a3, int a4)
+void *llvm::jitlink::LinkGraph::addExternalSymbol(unsigned int *a1, void *a2, uint64_t a3, int a4)
 {
   v8 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(a1, 16, 3);
   v9 = v8[1] & 0xFFFFFFFFFFFFFFFCLL;
@@ -2760,7 +2209,7 @@ void *llvm::jitlink::LinkGraph::addExternalSymbol(uint64_t a1, void *a2, uint64_
   v10[2] = v12;
   v10[3] = a3;
   v14 = v10;
-  llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>::try_emplace<llvm::detail::DenseSetEmpty&>(a1 + 224, &v14, v15);
+  llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>::try_emplace<llvm::detail::DenseSetEmpty&>((a1 + 56), &v14, v15);
   return v11;
 }
 
@@ -2792,9 +2241,9 @@ LABEL_3:
   return a4;
 }
 
-_OWORD *llvm::DenseMap<llvm::StringRef,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::jitlink::Symbol *>>::grow(uint64_t a1, int a2)
+_OWORD *llvm::DenseMap<llvm::StringRef,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::jitlink::Symbol *>>::grow(uint64_t *a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 4);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
   v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
@@ -2809,7 +2258,7 @@ _OWORD *llvm::DenseMap<llvm::StringRef,llvm::jitlink::Symbol *,llvm::DenseMapInf
     v8 = 64;
   }
 
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   result = operator new(24 * v8, 8uLL);
   *a1 = result;
   if (v4)
@@ -2819,8 +2268,8 @@ _OWORD *llvm::DenseMap<llvm::StringRef,llvm::jitlink::Symbol *,llvm::DenseMapInf
     JUMPOUT(0x277C69E30);
   }
 
-  *(a1 + 8) = 0;
-  v11 = *(a1 + 16);
+  a1[1] = 0;
+  v11 = *(a1 + 4);
   if (v11)
   {
     v12 = 24 * v11;
@@ -2874,7 +2323,7 @@ uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::jitlink::Symbol
   return result;
 }
 
-uint64_t *std::vector<std::unique_ptr<llvm::orc::MachOBuilderLoadCommandBase>>::push_back[abi:nn200100](uint64_t *result, uint64_t *a2)
+const void **std::vector<std::unique_ptr<llvm::orc::MachOBuilderLoadCommandBase>>::push_back[abi:nn200100](const void **result, uint64_t *a2)
 {
   v3 = result;
   v5 = result[1];
@@ -2931,7 +2380,7 @@ uint64_t *std::vector<std::unique_ptr<llvm::orc::MachOBuilderLoadCommandBase>>::
     v6 = *a2;
     *a2 = 0;
     *v5 = v6;
-    v7 = v5 + 1;
+    v7 = v5 + 8;
   }
 
   v3[1] = v7;
@@ -3301,7 +2750,7 @@ double _GLOBAL__sub_I_MachOPlatform_cpp()
   return result;
 }
 
-void llvm::jitlink::LinkGraph::intern(uint64_t a1@<X0>, uint64_t *a2@<X1>, unint64_t a3@<X2>, unint64_t **a4@<X8>)
+void llvm::jitlink::LinkGraph::intern(uint64_t a1@<X0>, uint64_t *a2@<X1>, size_t a3@<X2>, size_t **a4@<X8>)
 {
   v7 = *(a1 + 120);
   std::mutex::lock(v7);
@@ -3378,16 +2827,16 @@ void non-virtual thunk tollvm::orc::ObjectLinkingLayer::~ObjectLinkingLayer(llvm
   JUMPOUT(0x277C69E40);
 }
 
-void llvm::orc::ObjectLinkingLayer::add(uint64_t a1, uint64_t a2, uint64_t *a3)
+void llvm::orc::ObjectLinkingLayer::add(uint64_t a1, atomic_uint **a2, llvm::jitlink::LinkGraph **a3)
 {
-  v3 = atomic_load((*a2 + 8));
+  atomic_load(*a2 + 1);
   v4 = *a3;
   *a3 = 0;
   v42 = *(a1 + 8);
   v43 = 0uLL;
   v44 = 0;
   v45 = 0;
-  llvm::jitlink::LinkGraph::defined_symbols(v4, &v51);
+  llvm::jitlink::LinkGraph::defined_symbols(&v51, v4);
   *__p = v51;
   v48 = v52;
   v49 = v53;
@@ -3642,11 +3091,14 @@ LABEL_37:
   operator new();
 }
 
-void llvm::orc::ObjectLinkingLayer::emit(uint64_t a1, uint64_t a2, uint64_t a3)
+void llvm::orc::ObjectLinkingLayer::emit(uint64_t a1, void **a2, uint64_t *a3)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = *(*a3 + 16) - *(*a3 + 8);
+  v3 = *MEMORY[0x277D85DE8];
   (*(**a3 + 16))();
+  operator new();
+}
+
+{
   operator new();
 }
 
@@ -3690,7 +3142,7 @@ uint64_t llvm::orc::ObjectLinkingLayerJITLinkContext::notifyMaterializing(uint64
   return result;
 }
 
-void llvm::orc::ObjectLinkingLayerJITLinkContext::notifyFailed(uint64_t a1, uint64_t **a2)
+void llvm::orc::ObjectLinkingLayerJITLinkContext::notifyFailed(uint64_t a1, const void ***a2)
 {
   v4 = *(a1 + 16);
   v5 = v4[21];
@@ -3701,28 +3153,27 @@ void llvm::orc::ObjectLinkingLayerJITLinkContext::notifyFailed(uint64_t a1, uint
     {
       v7 = *a2;
       *a2 = 0;
-      v8 = *(a1 + 24);
-      (*(**v5 + 48))(&v12);
-      v14 = v12;
-      v15 = v7;
-      v12 = 0;
-      llvm::ErrorList::join(&v15, &v14, &v13);
+      (*(**v5 + 48))(&v11);
+      v13 = v11;
+      v14 = v7;
+      v11 = 0;
+      llvm::ErrorList::join(&v14, &v13, &v12);
+      if (v13)
+      {
+        (*(*v13 + 8))(v13);
+      }
+
       if (v14)
       {
-        (*(*v14 + 8))(v14);
+        (*(*v14 + 1))(v14);
       }
 
-      if (v15)
+      v8 = v11;
+      *a2 = v12;
+      v12 = 0;
+      if (v8)
       {
-        (*(*v15 + 8))(v15);
-      }
-
-      v9 = v12;
-      *a2 = v13;
-      v13 = 0;
-      if (v9)
-      {
-        (*(*v9 + 8))(v9);
+        (*(*v8 + 8))(v8);
       }
 
       v5 += 8;
@@ -3732,13 +3183,13 @@ void llvm::orc::ObjectLinkingLayerJITLinkContext::notifyFailed(uint64_t a1, uint
     v4 = *(a1 + 16);
   }
 
-  v10 = v4[1];
-  v11 = *a2;
+  v9 = v4[1];
+  v10 = *a2;
   *a2 = 0;
-  llvm::orc::ExecutionSession::reportError(v10, &v11);
-  if (v11)
+  llvm::orc::ExecutionSession::reportError(v9, &v10);
+  if (v10)
   {
-    (*(*v11 + 8))(v11);
+    (*(*v10 + 1))(v10);
   }
 
   llvm::orc::ExecutionSession::OL_notifyFailed(*(**(a1 + 24) + 32), *(a1 + 24));
@@ -3757,24 +3208,26 @@ llvm::orc::ObjectLinkingLayerJITLinkContext **std::unique_ptr<llvm::orc::ObjectL
   return a1;
 }
 
-void llvm::jitlink::JITLinkMemoryManager::deallocate(uint64_t a1, uint64_t a2, void *a3)
+void llvm::jitlink::JITLinkMemoryManager::deallocate(void *a1, uint64_t a2, void *a3)
 {
-  v3[0] = 0;
-  v3[1] = 0;
-  v4 = 0;
-  std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>::push_back[abi:nn200100](v3, a3);
-  v3[1] = 0;
-  v4 = 0;
-  v3[0] = 0;
-  llvm::jitlink::JITLinkMemoryManager::deallocate();
+  v7[0] = 0;
+  v7[1] = 0;
+  v8 = 0;
+  std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>::push_back[abi:nn200100](v7, a3);
+  *__p = *v7;
+  v6 = v8;
+  v7[1] = 0;
+  v8 = 0;
+  v7[0] = 0;
+  llvm::jitlink::JITLinkMemoryManager::deallocate(a1, a2, __p);
 }
 
-void llvm::orc::ObjectLinkingLayer::handleRemoveResources(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t **a3@<X8>)
+void llvm::orc::ObjectLinkingLayer::handleRemoveResources(int32x2_t *a1@<X0>, uint64_t a2@<X2>, const void ***a3@<X8>)
 {
   *a3 = 0;
-  v6 = *(a1 + 168);
-  v7 = *(a1 + 176);
-  if (v6 == v7)
+  v6 = a1[21];
+  v7 = a1[22];
+  if (*&v6 == *&v7)
   {
     goto LABEL_11;
   }
@@ -3782,44 +3235,44 @@ void llvm::orc::ObjectLinkingLayer::handleRemoveResources(uint64_t a1@<X0>, uint
   v8 = 0;
   do
   {
-    (*(**v6 + 56))(&v16);
-    v18 = v16;
-    v19 = v8;
-    v16 = 0;
-    llvm::ErrorList::join(&v19, &v18, &v17);
+    (*(***&v6 + 56))(&v18);
+    v20 = v18;
+    v21 = v8;
+    v18 = 0;
+    llvm::ErrorList::join(&v21, &v20, &v19);
+    if (v20)
+    {
+      (*(*v20 + 8))(v20);
+    }
+
+    if (v21)
+    {
+      (*(*v21 + 1))(v21);
+    }
+
+    v8 = v19;
+    v19 = 0;
     if (v18)
     {
       (*(*v18 + 8))(v18);
     }
 
-    if (v19)
-    {
-      (*(*v19 + 8))(v19);
-    }
-
-    v8 = v17;
-    v17 = 0;
-    if (v16)
-    {
-      (*(*v16 + 8))(v16);
-    }
-
-    v6 += 8;
+    *&v6 += 8;
   }
 
-  while (v6 != v7);
+  while (*&v6 != *&v7);
   *a3 = v8;
   if (!v8)
   {
 LABEL_11:
-    v9 = *(a1 + 8);
+    v9 = a1[1];
     std::recursive_mutex::lock(v9);
-    v19 = 0;
-    v10 = llvm::DenseMapBase<llvm::DenseMap<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>,llvm::DenseMapInfo<unsigned long,void>,llvm::detail::DenseMapPair<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>>>,unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>,llvm::DenseMapInfo<unsigned long,void>,llvm::detail::DenseMapPair<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>>>::LookupBucketFor<unsigned long>(*(a1 + 144), *(a1 + 160), a2, &v19);
-    v11 = v19;
+    v21 = 0;
+    v10 = llvm::DenseMapBase<llvm::DenseMap<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>,llvm::DenseMapInfo<unsigned long,void>,llvm::detail::DenseMapPair<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>>>,unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>,llvm::DenseMapInfo<unsigned long,void>,llvm::detail::DenseMapPair<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>>>::LookupBucketFor<unsigned long>(*&a1[18], a1[20].i32[0], a2, &v21);
+    v11 = v21;
     if (v10)
     {
-      v12 = v19 == (*(a1 + 144) + 32 * *(a1 + 160));
+      v12 = v21 == (*&a1[18] + 32 * a1[20].u32[0]);
     }
 
     else
@@ -3835,18 +3288,20 @@ LABEL_11:
 
     else
     {
-      v13 = v19[1];
-      v15 = *(v19 + 1);
-      v19[2] = 0;
+      v13 = v21[1];
+      v15 = *(v21 + 1);
+      v21[2] = 0;
       v11[3] = 0;
       *v11 = -2;
       v11[1] = 0;
-      *(a1 + 152) = vadd_s32(*(a1 + 152), 0x1FFFFFFFFLL);
+      a1[19] = vadd_s32(a1[19], 0x1FFFFFFFFLL);
       std::recursive_mutex::unlock(v9);
       if (v13 != v15)
       {
-        v14 = *(a1 + 88);
-        llvm::jitlink::JITLinkMemoryManager::deallocate();
+        v14 = a1[11];
+        v16 = v13;
+        v17 = v15;
+        llvm::jitlink::JITLinkMemoryManager::deallocate(a3, v14, &v16);
       }
 
       *a3 = 0;
@@ -3858,16 +3313,16 @@ LABEL_11:
   }
 }
 
-void llvm::orc::ObjectLinkingLayer::handleTransferResources(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void llvm::orc::ObjectLinkingLayer::handleTransferResources(int32x2_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v24 = a3;
   __p[0] = 0;
-  v8 = a1 + 144;
-  v9 = llvm::DenseMapBase<llvm::DenseMap<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>,llvm::DenseMapInfo<unsigned long,void>,llvm::detail::DenseMapPair<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>>>,unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>,llvm::DenseMapInfo<unsigned long,void>,llvm::detail::DenseMapPair<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>>>::LookupBucketFor<unsigned long>(*(a1 + 144), *(a1 + 160), a4, __p);
+  v8 = a1 + 18;
+  v9 = llvm::DenseMapBase<llvm::DenseMap<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>,llvm::DenseMapInfo<unsigned long,void>,llvm::detail::DenseMapPair<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>>>,unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>,llvm::DenseMapInfo<unsigned long,void>,llvm::detail::DenseMapPair<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>>>::LookupBucketFor<unsigned long>(*&a1[18], a1[20].i32[0], a4, __p);
   v10 = __p[0];
   if (v9)
   {
-    v11 = __p[0] == (*v8 + 32 * *(v8 + 16));
+    v11 = __p[0] == (*v8 + 32 * v8[2].u32[0]);
   }
 
   else
@@ -3901,7 +3356,7 @@ void llvm::orc::ObjectLinkingLayer::handleTransferResources(uint64_t a1, uint64_
     }
 
     __p[0] = 0;
-    if (llvm::DenseMapBase<llvm::DenseMap<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>,llvm::DenseMapInfo<unsigned long,void>,llvm::detail::DenseMapPair<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>>>,unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>,llvm::DenseMapInfo<unsigned long,void>,llvm::detail::DenseMapPair<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>>>::LookupBucketFor<unsigned long>(*(a1 + 144), *(a1 + 160), a4, __p))
+    if (llvm::DenseMapBase<llvm::DenseMap<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>,llvm::DenseMapInfo<unsigned long,void>,llvm::detail::DenseMapPair<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>>>,unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>,llvm::DenseMapInfo<unsigned long,void>,llvm::detail::DenseMapPair<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>>>::LookupBucketFor<unsigned long>(*&a1[18], a1[20].i32[0], a4, __p))
     {
       v19 = __p[0];
       v20 = *(__p[0] + 1);
@@ -3912,12 +3367,12 @@ void llvm::orc::ObjectLinkingLayer::handleTransferResources(uint64_t a1, uint64_
       }
 
       *v19 = -2;
-      *(a1 + 152) = vadd_s32(*(a1 + 152), 0x1FFFFFFFFLL);
+      a1[19] = vadd_s32(a1[19], 0x1FFFFFFFFLL);
     }
   }
 
-  v22 = *(a1 + 168);
-  v21 = *(a1 + 176);
+  v22 = a1[21];
+  v21 = a1[22];
   while (v22 != v21)
   {
     v23 = *v22++;
@@ -4021,19 +3476,16 @@ uint64_t anonymous namespace::LinkGraphMaterializationUnit::getName(_anonymous_n
   v3 = v4;
   if (*(v2 + 23) >= 0)
   {
-    result = v2;
+    return v2;
   }
 
   else
   {
-    result = v3;
+    return v3;
   }
-
-  v6 = *(v2 + 8);
-  return result;
 }
 
-void anonymous namespace::LinkGraphMaterializationUnit::materialize(uint64_t a1, uint64_t *a2)
+void anonymous namespace::LinkGraphMaterializationUnit::materialize(uint64_t a1, uint64_t **a2)
 {
   v2 = *a2;
   *a2 = 0;
@@ -4042,12 +3494,12 @@ void anonymous namespace::LinkGraphMaterializationUnit::materialize(uint64_t a1,
   *(a1 + 48) = 0;
   v5 = v4;
   v6 = v2;
-  llvm::orc::ObjectLinkingLayer::emit();
+  llvm::orc::ObjectLinkingLayer::emit(v3, &v6, &v5);
 }
 
 void anonymous namespace::LinkGraphMaterializationUnit::discard(uint64_t a1, uint64_t a2, void *a3)
 {
-  llvm::jitlink::LinkGraph::defined_symbols(*(a1 + 48), v12);
+  llvm::jitlink::LinkGraph::defined_symbols(v12, *(a1 + 48));
   v10[0] = v12[0];
   v10[1] = v12[1];
   v10[2] = v12[2];
@@ -4246,7 +3698,7 @@ void llvm::orc::ObjectLinkingLayerJITLinkContext::~ObjectLinkingLayerJITLinkCont
 
 void llvm::orc::ObjectLinkingLayerJITLinkContext::lookup(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v26[8] = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   memset(__p, 0, sizeof(__p));
   v6 = *(a1 + 24);
   v7 = *v6;
@@ -4338,32 +3790,32 @@ LABEL_18:
   v21 = v18;
   v24 = 0;
   v23 = 0uLL;
-  v26[4] = v19;
-  v26[7] = llvm::detail::UniqueFunctionBase<void,llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>>::CallbacksHolder<llvm::orc::ObjectLinkingLayerJITLinkContext::lookup(llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::jitlink::SymbolLookupFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::jitlink::SymbolLookupFlags>> const&,std::unique_ptr<llvm::jitlink::JITLinkAsyncLookupContinuation>)::{lambda(llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>)#1},llvm::orc::ObjectLinkingLayerJITLinkContext::lookup(llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::jitlink::SymbolLookupFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::jitlink::SymbolLookupFlags>> const&,std::unique_ptr<llvm::jitlink::JITLinkAsyncLookupContinuation>)::{lambda(llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>)#1},void>::Callbacks + 6;
+  *&v27 = v19;
+  v28 = llvm::detail::UniqueFunctionBase<void,llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>>::CallbacksHolder<llvm::orc::ObjectLinkingLayerJITLinkContext::lookup(llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::jitlink::SymbolLookupFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::jitlink::SymbolLookupFlags>> const&,std::unique_ptr<llvm::jitlink::JITLinkAsyncLookupContinuation>)::{lambda(llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>)#1},llvm::orc::ObjectLinkingLayerJITLinkContext::lookup(llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::jitlink::SymbolLookupFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::jitlink::SymbolLookupFlags>> const&,std::unique_ptr<llvm::jitlink::JITLinkAsyncLookupContinuation>)::{lambda(llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>)#1},void>::Callbacks + 6;
   v26[0] = &unk_2883EC928;
   v26[1] = a1;
   v26[3] = v26;
-  llvm::orc::ExecutionSession::lookup(v9, 0, __p, &v20);
+  llvm::orc::ExecutionSession::lookup(v9, 0, __p, &v20, 3, &v27, v26);
 }
 
-uint64_t *llvm::orc::ObjectLinkingLayerJITLinkContext::notifyResolved@<X0>(llvm::orc::ObjectLinkingLayerJITLinkContext *this@<X0>, llvm::jitlink::LinkGraph *a2@<X1>, void *a3@<X8>)
+uint64_t *llvm::orc::ObjectLinkingLayerJITLinkContext::notifyResolved@<X0>(llvm::orc::ObjectLinkingLayerJITLinkContext *this@<X0>, llvm::jitlink::LinkGraph *a2@<X1>, uint64_t *a3@<X8>)
 {
-  v86 = 0;
-  v87 = 0;
-  v88 = 0;
-  v5 = *(*(this + 2) + 105);
+  v81 = 0;
+  v82 = 0;
   v83 = 0;
-  v84 = 0;
-  v85 = 0;
-  llvm::jitlink::LinkGraph::defined_symbols(a2, v79);
-  v77[0] = v79[0];
-  v77[1] = v79[1];
-  v77[2] = v79[2];
-  v78 = v80;
-  v6 = v81;
-  v7 = v82;
-  v8 = v80;
-  if (*&v79[0] != v81 || v80 != v82)
+  v5 = *(*(this + 2) + 105);
+  v78 = 0;
+  v79 = 0;
+  v80 = 0;
+  llvm::jitlink::LinkGraph::defined_symbols(v74, a2);
+  v72[0] = v74[0];
+  v72[1] = v74[1];
+  v72[2] = v74[2];
+  v73 = v75;
+  v6 = v76;
+  v7 = v77;
+  v8 = v75;
+  if (*&v74[0] != v76 || v75 != v77)
   {
     do
     {
@@ -4381,25 +3833,25 @@ uint64_t *llvm::orc::ObjectLinkingLayerJITLinkContext::notifyResolved@<X0>(llvm:
         v18 = HIBYTE(v11);
         v19 = v12 ? v18 & 2 : v18 & 2 | 0x10;
         v20 = (v19 | v18 & 0x20) << 8;
-        v21 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>,llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>::FindAndConstruct(&v83, v10);
+        v21 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>,llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>::FindAndConstruct(&v78, v10);
         v21[1] = v9;
         *(v21 + 8) = v20;
         if (v5)
         {
           v22 = *(this + 3);
-          *&v75 = 0;
-          if ((llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::LookupBucketFor<llvm::orc::SymbolStringPtr>((v22 + 16), v10, &v75) & 1) == 0)
+          *&v70 = 0;
+          if ((llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::LookupBucketFor<llvm::orc::SymbolStringPtr>((v22 + 16), v10, &v70) & 1) == 0)
           {
-            llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::FindAndConstruct(&v86, v10)[4] = v20;
+            llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::FindAndConstruct(&v81, v10)[4] = v20;
           }
         }
       }
 
-      llvm::jitlink::LinkGraph::nested_collection_iterator<llvm::mapped_iterator<llvm::DenseMapIterator<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>,false>,llvm::jitlink::LinkGraph::GetSectionMapEntryValue,llvm::jitlink::Section&>,llvm::detail::DenseSetImpl<llvm::jitlink::Symbol *,llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>>::Iterator,llvm::jitlink::Symbol *,&llvm::jitlink::LinkGraph::getSectionSymbols>::operator++(v77, &v75);
-      v8 = v78;
+      llvm::jitlink::LinkGraph::nested_collection_iterator<llvm::mapped_iterator<llvm::DenseMapIterator<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>,false>,llvm::jitlink::LinkGraph::GetSectionMapEntryValue,llvm::jitlink::Section&>,llvm::detail::DenseSetImpl<llvm::jitlink::Symbol *,llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>>::Iterator,llvm::jitlink::Symbol *,&llvm::jitlink::LinkGraph::getSectionSymbols>::operator++(v72, &v70);
+      v8 = v73;
     }
 
-    while (*&v77[0] != v6 || v78 != v7);
+    while (*&v72[0] != v6 || v73 != v7);
   }
 
   v24 = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin(a2 + 248);
@@ -4424,16 +3876,16 @@ uint64_t *llvm::orc::ObjectLinkingLayerJITLinkContext::notifyResolved@<X0>(llvm:
         v37 = HIBYTE(v30);
         v38 = v31 ? v37 & 2 : v37 & 2 | 0x10;
         v39 = (v38 | v37 & 0x20) << 8;
-        v40 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>,llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>::FindAndConstruct(&v83, *v27);
+        v40 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>,llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>::FindAndConstruct(&v78, *v27);
         v40[1] = v36;
         *(v40 + 8) = v39;
         if (v5)
         {
           v41 = *(this + 3);
-          *&v79[0] = 0;
-          if ((llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::LookupBucketFor<llvm::orc::SymbolStringPtr>((v41 + 16), v29, v79) & 1) == 0)
+          *&v74[0] = 0;
+          if ((llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::LookupBucketFor<llvm::orc::SymbolStringPtr>((v41 + 16), v29, v74) & 1) == 0)
           {
-            llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::FindAndConstruct(&v86, v29)[4] = v39;
+            llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::FindAndConstruct(&v81, v29)[4] = v39;
           }
         }
       }
@@ -4449,46 +3901,28 @@ uint64_t *llvm::orc::ObjectLinkingLayerJITLinkContext::notifyResolved@<X0>(llvm:
     while (v27 != v26);
   }
 
-  if (!v87)
+  if (!v82 || (v42 = *(this + 3), v68 = 0uLL, v69 = 0, llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::copyFrom(&v68, &v81), v74[0] = v68, v68 = 0uLL, LODWORD(v74[1]) = v69, v69 = 0, llvm::orc::ExecutionSession::OL_defineMaterializing(v42, v74, a3), llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::~DenseMap(v74), llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::~DenseMap(&v68), !*a3))
   {
-    goto LABEL_43;
-  }
-
-  v42 = *(this + 3);
-  v73 = 0uLL;
-  v74 = 0;
-  llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::copyFrom(&v73, &v86);
-  v43 = *(*v42 + 32);
-  v79[0] = v73;
-  v73 = 0uLL;
-  LODWORD(v79[1]) = v74;
-  v74 = 0;
-  llvm::orc::ExecutionSession::OL_defineMaterializing(v42, v79, a3);
-  llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::~DenseMap(v79);
-  llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::~DenseMap(&v73);
-  if (!*a3)
-  {
-LABEL_43:
-    v76 = 0;
-    v75 = 0uLL;
-    v44 = *(this + 3);
-    v45 = *(v44 + 24);
-    if (!v45)
+    v71 = 0;
+    v70 = 0uLL;
+    v43 = *(this + 3);
+    v44 = *(v43 + 24);
+    if (!v44)
     {
       goto LABEL_67;
     }
 
-    v46 = *(v44 + 16);
-    v47 = *(v44 + 32);
-    if (v47)
+    v45 = *(v43 + 16);
+    v46 = *(v43 + 32);
+    if (v46)
     {
-      v48 = 16 * v47;
-      v49 = v46;
-      while ((*v49 | 8) == 0xFFFFFFFFFFFFFFF8)
+      v47 = 16 * v46;
+      v48 = v45;
+      while ((*v48 | 8) == 0xFFFFFFFFFFFFFFF8)
       {
-        v49 += 16;
-        v48 -= 16;
-        if (!v48)
+        v48 += 16;
+        v47 -= 16;
+        if (!v47)
         {
           goto LABEL_67;
         }
@@ -4497,54 +3931,54 @@ LABEL_43:
 
     else
     {
-      v49 = v46;
+      v48 = v45;
     }
 
-    v50 = v46 + 16 * v47;
-    if (v49 == v50)
+    v49 = v45 + 16 * v46;
+    if (v48 == v49)
     {
 LABEL_67:
-      v51 = 0;
+      v50 = 0;
     }
 
     else
     {
-      v51 = 0;
+      v50 = 0;
 LABEL_52:
-      *&v79[0] = 0;
-      v52 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>,llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(&v83, v49, v79);
-      v53 = *&v79[0];
-      if (!v52)
+      *&v74[0] = 0;
+      v51 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>,llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(&v78, v48, v74);
+      v52 = *&v74[0];
+      if (!v51)
       {
-        v53 = &v83[3 * v85];
+        v52 = &v78[3 * v80];
       }
 
-      if ((*(v49 + 9) & 0x40) != 0)
+      if ((*(v48 + 9) & 0x40) != 0)
       {
-        ++v51;
+        ++v50;
       }
 
-      else if (v53 == &v83[3 * v85])
+      else if (v52 == &v78[3 * v80])
       {
-        std::vector<llvm::orc::SymbolStringPtr>::push_back[abi:nn200100](&v75, v49);
+        std::vector<llvm::orc::SymbolStringPtr>::push_back[abi:nn200100](&v70, v48);
       }
 
       else if (*(*(this + 2) + 104) == 1)
       {
-        *(v53 + 8) = *(v49 + 8);
+        *(v52 + 8) = *(v48 + 8);
       }
 
       while (1)
       {
-        v49 += 16;
-        if (v49 == v50)
+        v48 += 16;
+        if (v48 == v49)
         {
           break;
         }
 
-        if ((*v49 | 8) != 0xFFFFFFFFFFFFFFF8)
+        if ((*v48 | 8) != 0xFFFFFFFFFFFFFFF8)
         {
-          if (v49 != v50)
+          if (v48 != v49)
           {
             goto LABEL_52;
           }
@@ -4553,35 +3987,33 @@ LABEL_52:
         }
       }
 
-      if (v75 != *(&v75 + 1))
+      if (v70 != *(&v70 + 1))
       {
-        v54 = *(*(*(this + 2) + 8) + 72);
-        v56 = *(v54 + 8);
-        v55 = *(v54 + 16);
-        if (v55)
+        v53 = *(*(*(*(this + 2) + 8) + 72) + 16);
+        if (v53)
         {
-          atomic_fetch_add_explicit((v55 + 8), 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit((v53 + 8), 1uLL, memory_order_relaxed);
         }
 
         operator new();
       }
 
-      v45 = *(*(this + 3) + 24);
+      v44 = *(*(this + 3) + 24);
     }
 
-    v71 = 0uLL;
-    v72 = 0;
-    if (v45 - v51 < v84)
+    v66 = 0uLL;
+    v67 = 0;
+    if (v44 - v50 < v79)
     {
-      if (v85)
+      if (v80)
       {
-        v57 = 24 * v85;
-        v58 = v83;
-        while ((*v58 | 8) == 0xFFFFFFFFFFFFFFF8)
+        v54 = 24 * v80;
+        v55 = v78;
+        while ((*v55 | 8) == 0xFFFFFFFFFFFFFFF8)
         {
-          v58 += 3;
-          v57 -= 24;
-          if (!v57)
+          v55 += 3;
+          v54 -= 24;
+          if (!v54)
           {
             goto LABEL_85;
           }
@@ -4590,31 +4022,31 @@ LABEL_52:
 
       else
       {
-        v58 = v83;
+        v55 = v78;
       }
 
-      v59 = &v83[3 * v85];
-      if (v58 != v59)
+      v56 = &v78[3 * v80];
+      if (v55 != v56)
       {
 LABEL_76:
-        v60 = *(this + 3);
-        *&v79[0] = 0;
-        if ((llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::LookupBucketFor<llvm::orc::SymbolStringPtr>((v60 + 16), v58, v79) & 1) == 0)
+        v57 = *(this + 3);
+        *&v74[0] = 0;
+        if ((llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::LookupBucketFor<llvm::orc::SymbolStringPtr>((v57 + 16), v55, v74) & 1) == 0)
         {
-          std::vector<llvm::orc::SymbolStringPtr>::push_back[abi:nn200100](&v71, v58);
+          std::vector<llvm::orc::SymbolStringPtr>::push_back[abi:nn200100](&v66, v55);
         }
 
         while (1)
         {
-          v58 += 3;
-          if (v58 == v59)
+          v55 += 3;
+          if (v55 == v56)
           {
             break;
           }
 
-          if ((*v58 | 8) != 0xFFFFFFFFFFFFFFF8)
+          if ((*v55 | 8) != 0xFFFFFFFFFFFFFFF8)
           {
-            if (v58 != v59)
+            if (v55 != v56)
             {
               goto LABEL_76;
             }
@@ -4623,14 +4055,12 @@ LABEL_76:
           }
         }
 
-        if (v71 != *(&v71 + 1))
+        if (v66 != *(&v66 + 1))
         {
-          v61 = *(*(*(this + 2) + 8) + 72);
-          v63 = *(v61 + 8);
-          v62 = *(v61 + 16);
-          if (v62)
+          v58 = *(*(*(*(this + 2) + 8) + 72) + 16);
+          if (v58)
           {
-            atomic_fetch_add_explicit((v62 + 8), 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit((v58 + 8), 1uLL, memory_order_relaxed);
           }
 
           operator new();
@@ -4639,40 +4069,40 @@ LABEL_76:
     }
 
 LABEL_85:
-    *&v79[0] = &v71;
-    std::vector<llvm::orc::SymbolStringPtr>::__destroy_vector::operator()[abi:nn200100](v79);
-    *&v79[0] = &v75;
-    std::vector<llvm::orc::SymbolStringPtr>::__destroy_vector::operator()[abi:nn200100](v79);
-    llvm::orc::JITDylib::resolve(**(this + 3), *(this + 3), &v83, a3);
+    *&v74[0] = &v66;
+    std::vector<llvm::orc::SymbolStringPtr>::__destroy_vector::operator()[abi:nn200100](v74);
+    *&v74[0] = &v70;
+    std::vector<llvm::orc::SymbolStringPtr>::__destroy_vector::operator()[abi:nn200100](v74);
+    llvm::orc::JITDylib::resolve(**(this + 3), *(this + 3), &v78, a3);
     if (!*a3)
     {
-      v64 = *(this + 2);
-      v65 = *(v64 + 168);
-      v66 = *(v64 + 176);
-      if (v65 != v66)
+      v59 = *(this + 2);
+      v60 = *(v59 + 168);
+      v61 = *(v59 + 176);
+      if (v60 != v61)
       {
-        v67 = *(this + 3);
+        v62 = *(this + 3);
         do
         {
-          v68 = *v65++;
-          (*(*v68 + 32))(v68, v67);
+          v63 = *v60++;
+          (*(*v63 + 32))(v63, v62);
         }
 
-        while (v65 != v66);
+        while (v60 != v61);
       }
 
       *a3 = 0;
     }
   }
 
-  llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>::~DenseMap(&v83);
-  return llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::~DenseMap(&v86);
+  llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>::~DenseMap(&v78);
+  return llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::~DenseMap(&v81);
 }
 
-void llvm::orc::ObjectLinkingLayerJITLinkContext::notifyFinalized(uint64_t a1, uint64_t *a2)
+void llvm::orc::ObjectLinkingLayerJITLinkContext::notifyFinalized(void *a1, uint64_t *a2)
 {
-  v4 = *(a1 + 16);
-  v3 = *(a1 + 24);
+  v4 = a1[2];
+  v3 = a1[3];
   v5 = *a2;
   v20 = *a2;
   *a2 = -1;
@@ -4695,7 +4125,7 @@ void llvm::orc::ObjectLinkingLayerJITLinkContext::notifyFinalized(uint64_t a1, u
 
       if (v25)
       {
-        (*(*v25 + 8))(v25);
+        (*(*v25 + 1))(v25);
       }
 
       v8 = v23;
@@ -4718,7 +4148,7 @@ void llvm::orc::ObjectLinkingLayerJITLinkContext::notifyFinalized(uint64_t a1, u
         llvm::jitlink::JITLinkMemoryManager::deallocate(&v24, v9, &v21);
       }
 
-      v15 = *(*(a1 + 16) + 8);
+      v15 = *(a1[2] + 8);
       v19 = v8;
       llvm::orc::ExecutionSession::reportError(v15, &v19);
       v16 = v19;
@@ -4730,7 +4160,7 @@ void llvm::orc::ObjectLinkingLayerJITLinkContext::notifyFinalized(uint64_t a1, u
 LABEL_18:
       (*(*v16 + 8))(v16);
 LABEL_19:
-      llvm::orc::ExecutionSession::OL_notifyFailed(*(**(a1 + 24) + 32), *(a1 + 24));
+      llvm::orc::ExecutionSession::OL_notifyFailed(*(*a1[3] + 32), a1[3]);
       return;
     }
   }
@@ -4748,15 +4178,15 @@ LABEL_19:
     }
 
     v25 = v10;
-    v14 = llvm::DenseMapBase<llvm::DenseMap<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>,llvm::DenseMapInfo<unsigned long,void>,llvm::detail::DenseMapPair<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>>>,unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>,llvm::DenseMapInfo<unsigned long,void>,llvm::detail::DenseMapPair<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>>>::FindAndConstruct((v4 + 18), &v25);
+    v14 = llvm::DenseMapBase<llvm::DenseMap<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>,llvm::DenseMapInfo<unsigned long,void>,llvm::detail::DenseMapPair<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>>>,unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>,llvm::DenseMapInfo<unsigned long,void>,llvm::detail::DenseMapPair<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>>>::FindAndConstruct(v4 + 18, &v25);
     std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>::push_back[abi:nn200100](v14 + 1, &v20);
     std::recursive_mutex::unlock(v12);
   }
 
-  llvm::orc::ExecutionSession::OL_notifyEmitted(*(**(a1 + 24) + 32), *(a1 + 24), *(a1 + 64), 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 72) - *(a1 + 64)) >> 4), &v25);
+  llvm::orc::ExecutionSession::OL_notifyEmitted(*(*a1[3] + 32), a1[3], a1[8], 0xAAAAAAAAAAAAAAABLL * ((a1[9] - a1[8]) >> 4), &v25);
   if (v25)
   {
-    v17 = *(*(a1 + 16) + 8);
+    v17 = *(a1[2] + 8);
     v18 = v25;
     llvm::orc::ExecutionSession::reportError(v17, &v18);
     v16 = v18;
@@ -4776,13 +4206,13 @@ uint64_t llvm::orc::ObjectLinkingLayerJITLinkContext::getMarkLivePass@<X0>(uint6
   return result;
 }
 
-void *llvm::orc::ObjectLinkingLayerJITLinkContext::modifyPassConfig@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+void *llvm::orc::ObjectLinkingLayerJITLinkContext::modifyPassConfig@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, __int128 **a3@<X2>, void *a4@<X8>)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  *&v15 = a1;
-  v16 = _MergedGlobals_5 + 2;
-  std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::push_back[abi:nn200100](a3, &v15);
-  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v15);
+  v16 = *MEMORY[0x277D85DE8];
+  *&v14 = a1;
+  v15 = _MergedGlobals_5 + 2;
+  std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::push_back[abi:nn200100](a3, &v14);
+  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v14);
   v8 = *(a1 + 16);
   v9 = *(v8 + 168);
   v10 = *(v8 + 176);
@@ -4798,34 +4228,33 @@ void *llvm::orc::ObjectLinkingLayerJITLinkContext::modifyPassConfig@<X0>(uint64_
     while (v9 != v10);
   }
 
-  *&v15 = a1;
-  v16 = &off_2815A4328 + 2;
-  std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::push_back[abi:nn200100](a3 + 72, &v15);
-  result = llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v15);
+  *&v14 = a1;
+  v15 = &off_2815A4328 + 2;
+  std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::push_back[abi:nn200100](a3 + 9, &v14);
+  result = llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v14);
   *a4 = 0;
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t llvm::detail::UniqueFunctionBase<void,llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>>::CallImpl<llvm::orc::ObjectLinkingLayerJITLinkContext::lookup(llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::jitlink::SymbolLookupFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::jitlink::SymbolLookupFlags>> const&,std::unique_ptr<llvm::jitlink::JITLinkAsyncLookupContinuation>)::{lambda(llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>)#1}>(uint64_t *a1, uint64_t *a2, __n128 a3)
+uint64_t *llvm::detail::UniqueFunctionBase<void,llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>>::CallImpl<llvm::orc::ObjectLinkingLayerJITLinkContext::lookup(llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::jitlink::SymbolLookupFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::jitlink::SymbolLookupFlags>> const&,std::unique_ptr<llvm::jitlink::JITLinkAsyncLookupContinuation>)::{lambda(llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>)#1}>(uint64_t *a1, uint64_t a2, __n128 a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v25 = a2[3] & 1;
+  v30 = *MEMORY[0x277D85DE8];
+  v24 = *(a2 + 24) & 1;
   v4 = *a2;
-  if (!v25)
+  if (!v24)
   {
     a3.n128_u64[0] = 0;
-    v23 = a2[1];
-    v6 = v23;
-    v7 = *(a2 + 4);
-    v24 = *(a2 + 4);
-    *(a2 + 4) = 0;
+    v22 = *(a2 + 8);
+    v6 = v22;
+    v7 = *(a2 + 16);
+    v23 = *(a2 + 16);
+    *(a2 + 16) = 0;
     LOBYTE(v8) = v6;
     *a2 = a3;
-    v22 = v4;
+    v21 = v4;
+    v18 = 0;
     v19 = 0;
     v20 = 0;
-    v21 = 0;
     if (v6)
     {
       if (v7)
@@ -4852,7 +4281,7 @@ uint64_t llvm::detail::UniqueFunctionBase<void,llvm::Expected<llvm::DenseMap<llv
       if (v9 != v13)
       {
 LABEL_12:
-        v14 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>,llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>::FindAndConstruct(&v19, v9);
+        v14 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>,llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>::FindAndConstruct(&v18, v9);
         v15 = *(v9 + 16);
         v14[1] = *(v9 + 8);
         *(v14 + 8) = v15;
@@ -4875,10 +4304,10 @@ LABEL_12:
           }
         }
 
-        v11 = v19;
-        v12 = v20;
-        v10 = v21;
-        LOBYTE(v8) = v28 & 0xFE;
+        v11 = v18;
+        v12 = v19;
+        v10 = v20;
+        LOBYTE(v8) = v27 & 0xFE;
         goto LABEL_17;
       }
 
@@ -4897,30 +4326,27 @@ LABEL_8:
     v12 = 0;
 LABEL_17:
     v16 = *a1;
-    v28 = v8;
-    v26[0] = v11;
+    v27 = v8;
+    v25[0] = v11;
+    v18 = 0;
     v19 = 0;
+    v25[1] = v12;
+    v26 = v10;
     v20 = 0;
-    v26[1] = v12;
-    v27 = v10;
-    v21 = 0;
-    (*(*v16 + 16))(v16, v26);
-    llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>::~Expected(v26);
-    llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>::~DenseMap(&v19);
-    goto LABEL_18;
+    (*(*v16 + 16))(v16, v25);
+    llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>::~Expected(v25);
+    llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>::~DenseMap(&v18);
+    return llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>::~Expected(&v21);
   }
 
   *a2 = 0;
   v5 = *a1;
-  v22 = 0;
-  v30 = -1;
-  v29[0] = v4;
-  (*(*v5 + 16))(v5, v29);
-  llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>::~Expected(v29);
-LABEL_18:
-  result = llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>::~Expected(&v22);
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
+  v21 = 0;
+  v29 = -1;
+  v28[0] = v4;
+  (*(*v5 + 16))(v5, v28, a3);
+  llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>::~Expected(v28);
+  return llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>::~Expected(&v21);
 }
 
 void *llvm::detail::UniqueFunctionBase<void,llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>>::MoveImpl<llvm::orc::ObjectLinkingLayerJITLinkContext::lookup(llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::jitlink::SymbolLookupFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::jitlink::SymbolLookupFlags>> const&,std::unique_ptr<llvm::jitlink::JITLinkAsyncLookupContinuation>)::{lambda(llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>)#1}>(void *result, uint64_t *a2)
@@ -5062,7 +4488,7 @@ LABEL_15:
 void llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::CallImpl<llvm::orc::ObjectLinkingLayerJITLinkContext::getMarkLivePass(llvm::Triple const&)::{lambda(llvm::jitlink::LinkGraph &)#1}>(llvm::jitlink::LinkGraph *this@<X1>, uint64_t *a2@<X0>, void *a3@<X8>)
 {
   v4 = *a2;
-  llvm::jitlink::LinkGraph::defined_symbols(this, v14);
+  llvm::jitlink::LinkGraph::defined_symbols(v14, this);
   v12[0] = v14[0];
   v12[1] = v14[1];
   v12[2] = v14[2];
@@ -5098,32 +4524,32 @@ void llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::C
 uint64_t *llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::CallImpl<llvm::orc::ObjectLinkingLayerJITLinkContext::modifyPassConfig(llvm::jitlink::LinkGraph &,llvm::jitlink::PassConfiguration &)::{lambda(llvm::jitlink::LinkGraph &)#1}>@<X0>(llvm::jitlink::LinkGraph *this@<X1>, uint64_t *a2@<X0>, void *a3@<X8>)
 {
   v5 = *a2;
-  v45 = 0uLL;
-  v46 = 0;
+  v44 = 0uLL;
+  v45 = 0;
+  v41 = 0;
   v42 = 0;
   v43 = 0;
-  v44 = 0;
-  v41[0] = v5;
-  v41[1] = &v45;
-  v41[2] = &v42;
-  llvm::jitlink::LinkGraph::defined_symbols(this, &v35);
+  v40[0] = v5;
+  v40[1] = &v44;
+  v40[2] = &v41;
+  llvm::jitlink::LinkGraph::defined_symbols(&v34, this);
+  v30 = v34;
   v31 = v35;
   v32 = v36;
   v33 = v37;
-  v34 = v38;
-  v6 = v39;
-  v7 = v40;
-  v8 = v38;
-  if (v35 != v39 || v38 != v40)
+  v6 = v38;
+  v7 = v39;
+  v8 = v37;
+  if (v34 != v38 || v37 != v39)
   {
     do
     {
-      llvm::orc::ObjectLinkingLayerJITLinkContext::claimOrExternalizeWeakAndCommonSymbols(llvm::jitlink::LinkGraph &)::{lambda(llvm::jitlink::Symbol *)#1}::operator()(v41, *v8);
-      llvm::jitlink::LinkGraph::nested_collection_iterator<llvm::mapped_iterator<llvm::DenseMapIterator<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>,false>,llvm::jitlink::LinkGraph::GetSectionMapEntryValue,llvm::jitlink::Section&>,llvm::detail::DenseSetImpl<llvm::jitlink::Symbol *,llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>>::Iterator,llvm::jitlink::Symbol *,&llvm::jitlink::LinkGraph::getSectionSymbols>::operator++(&v31, &v30);
-      v8 = v34;
+      llvm::orc::ObjectLinkingLayerJITLinkContext::claimOrExternalizeWeakAndCommonSymbols(llvm::jitlink::LinkGraph &)::{lambda(llvm::jitlink::Symbol *)#1}::operator()(v40, *v8);
+      llvm::jitlink::LinkGraph::nested_collection_iterator<llvm::mapped_iterator<llvm::DenseMapIterator<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>,false>,llvm::jitlink::LinkGraph::GetSectionMapEntryValue,llvm::jitlink::Section&>,llvm::detail::DenseSetImpl<llvm::jitlink::Symbol *,llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>>::Iterator,llvm::jitlink::Symbol *,&llvm::jitlink::LinkGraph::getSectionSymbols>::operator++(&v30, &v29);
+      v8 = v33;
     }
 
-    while (v31 != v6 || v34 != v7);
+    while (v30 != v6 || v33 != v7);
   }
 
   v10 = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin(this + 248);
@@ -5135,7 +4561,7 @@ uint64_t *llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph 
     do
     {
       v15 = *v13++;
-      llvm::orc::ObjectLinkingLayerJITLinkContext::claimOrExternalizeWeakAndCommonSymbols(llvm::jitlink::LinkGraph &)::{lambda(llvm::jitlink::Symbol *)#1}::operator()(v41, v15);
+      llvm::orc::ObjectLinkingLayerJITLinkContext::claimOrExternalizeWeakAndCommonSymbols(llvm::jitlink::LinkGraph &)::{lambda(llvm::jitlink::Symbol *)#1}::operator()(v40, v15);
       while (v13 != v14 && (*v13 | 0x1000) == 0xFFFFFFFFFFFFF000)
       {
         ++v13;
@@ -5146,76 +4572,75 @@ uint64_t *llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph 
   }
 
   v16 = *(v5 + 24);
-  v17 = v45;
-  v45 = 0u;
-  v18 = v46;
-  v46 = 0;
-  v19 = *(*v16 + 32);
-  v35 = v17;
-  v31 = 0uLL;
-  LODWORD(v36) = v18;
-  LODWORD(v32) = 0;
-  llvm::orc::ExecutionSession::OL_defineMaterializing(v16, &v35, a3);
-  llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::~DenseMap(&v35);
-  llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::~DenseMap(&v31);
-  v20 = v42;
+  v17 = v44;
+  v44 = 0u;
+  v18 = v45;
+  v45 = 0;
+  v34 = v17;
+  v30 = 0uLL;
+  LODWORD(v35) = v18;
+  LODWORD(v31) = 0;
+  llvm::orc::ExecutionSession::OL_defineMaterializing(v16, &v34, a3);
+  llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::~DenseMap(&v34);
+  llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::~DenseMap(&v30);
+  v19 = v41;
   if (!*a3)
   {
-    v21 = v43;
-    if (v42 != v43)
+    v20 = v42;
+    if (v41 != v42)
     {
       do
       {
-        v22 = *(v5 + 24);
-        *&v35 = 0;
-        v23 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::LookupBucketFor<llvm::orc::SymbolStringPtr>((v22 + 16), v20, &v35);
-        v24 = v20[1];
-        if (v23)
+        v21 = *(v5 + 24);
+        *&v34 = 0;
+        v22 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::LookupBucketFor<llvm::orc::SymbolStringPtr>((v21 + 16), v19, &v34);
+        v23 = v19[1];
+        if (v22)
         {
-          *(v24 + 16) |= 0x1000000000000000uLL;
+          *(v23 + 16) |= 0x1000000000000000uLL;
         }
 
         else
         {
-          llvm::jitlink::LinkGraph::makeExternal(this, v24);
+          llvm::jitlink::LinkGraph::makeExternal(this, v23);
         }
 
-        v20 += 2;
+        v19 += 2;
       }
 
-      while (v20 != v21);
-      v20 = v42;
+      while (v19 != v20);
+      v19 = v41;
     }
 
     *a3 = 0;
   }
 
-  if (v20)
+  if (v19)
   {
-    v25 = v43;
-    v26 = v20;
-    if (v43 != v20)
+    v24 = v42;
+    v25 = v19;
+    if (v42 != v19)
     {
       do
       {
-        v28 = *(v25 - 2);
-        v25 -= 2;
-        v27 = v28;
-        if ((v28 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+        v27 = *(v24 - 2);
+        v24 -= 2;
+        v26 = v27;
+        if ((v27 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
         {
-          atomic_fetch_add((v27 + 8), 0xFFFFFFFFFFFFFFFFLL);
+          atomic_fetch_add((v26 + 8), 0xFFFFFFFFFFFFFFFFLL);
         }
       }
 
-      while (v25 != v20);
-      v26 = v42;
+      while (v24 != v19);
+      v25 = v41;
     }
 
-    v43 = v20;
-    operator delete(v26);
+    v42 = v19;
+    operator delete(v25);
   }
 
-  return llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::~DenseMap(&v45);
+  return llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::~DenseMap(&v44);
 }
 
 void llvm::orc::ObjectLinkingLayerJITLinkContext::claimOrExternalizeWeakAndCommonSymbols(llvm::jitlink::LinkGraph &)::{lambda(llvm::jitlink::Symbol *)#1}::operator()(uint64_t a1, uint64_t *a2)
@@ -5419,7 +4844,7 @@ LABEL_10:
   }
 
 LABEL_16:
-  llvm::jitlink::LinkGraph::defined_symbols(this, v146);
+  llvm::jitlink::LinkGraph::defined_symbols(v146, this);
   *__p = *v146;
   v143 = v147;
   v144 = v148;
@@ -5955,7 +5380,7 @@ LABEL_154:
           v143 = 0u;
           v144 = 0u;
           *__p = 0u;
-          std::vector<llvm::orc::SymbolDependenceGroup>::push_back[abi:nn200100]((v5 + 64), __p);
+          std::vector<llvm::orc::SymbolDependenceGroup>::push_back[abi:nn200100](v5 + 64, __p);
           llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>>::destroyAll(&v143 + 1);
           MEMORY[0x277C69E30](*(&v143 + 1), 8);
           llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::~DenseMap(__p);
@@ -6103,11 +5528,10 @@ LABEL_184:
   return MEMORY[0x277C69E30](v134, 8);
 }
 
-void *std::deque<llvm::jitlink::Block *>::push_back(void *result, void *a2)
+void std::deque<llvm::jitlink::Block *>::push_back(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  v5 = result[2];
+  v4 = a1[1];
+  v5 = a1[2];
   if (v5 == v4)
   {
     v6 = 0;
@@ -6118,22 +5542,22 @@ void *std::deque<llvm::jitlink::Block *>::push_back(void *result, void *a2)
     v6 = ((v5 - v4) << 6) - 1;
   }
 
-  v8 = result[4];
-  v7 = result[5];
+  v8 = a1[4];
+  v7 = a1[5];
   v9 = v7 + v8;
   if (v6 == v7 + v8)
   {
     if (v8 < 0x200)
     {
-      v10 = result[3];
-      v11 = v10 - *result;
+      v10 = a1[3];
+      v11 = v10 - *a1;
       if (v5 - v4 < v11)
       {
         operator new();
       }
 
       v12 = v11 >> 2;
-      if (v10 == *result)
+      if (v10 == *a1)
       {
         v13 = 1;
       }
@@ -6146,23 +5570,22 @@ void *std::deque<llvm::jitlink::Block *>::push_back(void *result, void *a2)
       std::__allocate_at_least[abi:nn200100]<std::allocator<llvm::orc::JITDylib::EmissionDepUnit **>>(v13);
     }
 
-    result[4] = v8 - 512;
+    a1[4] = v8 - 512;
     v14 = *v4;
-    result[1] = v4 + 8;
-    result = std::__split_buffer<llvm::orc::JITDylib::EmissionDepUnit **>::emplace_back<llvm::orc::JITDylib::EmissionDepUnit **&>(result, &v14);
-    v4 = v3[1];
-    v7 = v3[5];
-    v9 = v3[4] + v7;
+    a1[1] = (v4 + 1);
+    std::__split_buffer<llvm::orc::JITDylib::EmissionDepUnit **>::emplace_back<llvm::orc::JITDylib::EmissionDepUnit **&>(a1, &v14);
+    v4 = a1[1];
+    v7 = a1[5];
+    v9 = a1[4] + v7;
   }
 
-  *(*&v4[(v9 >> 6) & 0x3FFFFFFFFFFFFF8] + 8 * (v9 & 0x1FF)) = *a2;
-  v3[5] = v7 + 1;
-  return result;
+  *(*(v4 + ((v9 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v9 & 0x1FF)) = *a2;
+  a1[5] = v7 + 1;
 }
 
-void *llvm::DenseMap<llvm::jitlink::Block *,llvm::orc::ObjectLinkingLayerJITLinkContext::registerDependencies(llvm::jitlink::LinkGraph &)::BlockInfo,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,llvm::orc::ObjectLinkingLayerJITLinkContext::registerDependencies(llvm::jitlink::LinkGraph &)::BlockInfo>>::grow(uint64_t a1, int a2)
+void *llvm::DenseMap<llvm::jitlink::Block *,llvm::orc::ObjectLinkingLayerJITLinkContext::registerDependencies(llvm::jitlink::LinkGraph &)::BlockInfo,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,llvm::orc::ObjectLinkingLayerJITLinkContext::registerDependencies(llvm::jitlink::LinkGraph &)::BlockInfo>>::grow(uint64_t *a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 4);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
   v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
@@ -6177,13 +5600,13 @@ void *llvm::DenseMap<llvm::jitlink::Block *,llvm::orc::ObjectLinkingLayerJITLink
     v8 = 64;
   }
 
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   result = operator new(112 * v8, 8uLL);
   *a1 = result;
   if (v4)
   {
-    *(a1 + 8) = 0;
-    v10 = *(a1 + 16);
+    a1[1] = 0;
+    v10 = *(a1 + 4);
     if (v10)
     {
       v11 = 0;
@@ -6219,7 +5642,7 @@ void *llvm::DenseMap<llvm::jitlink::Block *,llvm::orc::ObjectLinkingLayerJITLink
         if ((v17 | 0x1000) != 0xFFFFFFFFFFFFF000)
         {
           v32 = 0;
-          llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Block *,llvm::orc::ObjectLinkingLayerJITLinkContext::registerDependencies(llvm::jitlink::LinkGraph &)::BlockInfo,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,llvm::orc::ObjectLinkingLayerJITLinkContext::registerDependencies(llvm::jitlink::LinkGraph &)::BlockInfo>>,llvm::jitlink::Block *,llvm::orc::ObjectLinkingLayerJITLinkContext::registerDependencies(llvm::jitlink::LinkGraph &)::BlockInfo,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,llvm::orc::ObjectLinkingLayerJITLinkContext::registerDependencies(llvm::jitlink::LinkGraph &)::BlockInfo>>::LookupBucketFor<llvm::jitlink::Block *>(*a1, *(a1 + 16), v17, &v32);
+          llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Block *,llvm::orc::ObjectLinkingLayerJITLinkContext::registerDependencies(llvm::jitlink::LinkGraph &)::BlockInfo,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,llvm::orc::ObjectLinkingLayerJITLinkContext::registerDependencies(llvm::jitlink::LinkGraph &)::BlockInfo>>,llvm::jitlink::Block *,llvm::orc::ObjectLinkingLayerJITLinkContext::registerDependencies(llvm::jitlink::LinkGraph &)::BlockInfo,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,llvm::orc::ObjectLinkingLayerJITLinkContext::registerDependencies(llvm::jitlink::LinkGraph &)::BlockInfo>>::LookupBucketFor<llvm::jitlink::Block *>(*a1, *(a1 + 4), v17, &v32);
           v18 = v32;
           *v32 = *(v16 - 52);
           *(v18 + 8) = *(v16 - 44);
@@ -6275,7 +5698,7 @@ void *llvm::DenseMap<llvm::jitlink::Block *,llvm::orc::ObjectLinkingLayerJITLink
           v26 = *(v18 + 26);
           *(v18 + 26) = *(v16 + 52);
           *(v16 + 52) = v26;
-          ++*(a1 + 8);
+          ++*(a1 + 2);
           MEMORY[0x277C69E30](0, 8);
           MEMORY[0x277C69E30](*(v16 + 12), 8);
           MEMORY[0x277C69E30](*(v16 - 12), 8);
@@ -6292,8 +5715,8 @@ void *llvm::DenseMap<llvm::jitlink::Block *,llvm::orc::ObjectLinkingLayerJITLink
     JUMPOUT(0x277C69E30);
   }
 
-  *(a1 + 8) = 0;
-  v27 = *(a1 + 16);
+  a1[1] = 0;
+  v27 = *(a1 + 4);
   if (v27)
   {
     v28 = 0;
@@ -6435,37 +5858,37 @@ LABEL_3:
   return a3;
 }
 
-uint64_t *llvm::DenseMapBase<llvm::DenseMap<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>,llvm::DenseMapInfo<unsigned long,void>,llvm::detail::DenseMapPair<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>>>,unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>,llvm::DenseMapInfo<unsigned long,void>,llvm::detail::DenseMapPair<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>>>::FindAndConstruct(uint64_t a1, uint64_t *a2)
+uint64_t *llvm::DenseMapBase<llvm::DenseMap<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>,llvm::DenseMapInfo<unsigned long,void>,llvm::detail::DenseMapPair<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>>>,unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>,llvm::DenseMapInfo<unsigned long,void>,llvm::detail::DenseMapPair<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>>>::FindAndConstruct(void *a1, uint64_t *a2)
 {
   v8 = 0;
-  v4 = llvm::DenseMapBase<llvm::DenseMap<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>,llvm::DenseMapInfo<unsigned long,void>,llvm::detail::DenseMapPair<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>>>,unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>,llvm::DenseMapInfo<unsigned long,void>,llvm::detail::DenseMapPair<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>>>::LookupBucketFor<unsigned long>(*a1, *(a1 + 16), *a2, &v8);
+  v4 = llvm::DenseMapBase<llvm::DenseMap<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>,llvm::DenseMapInfo<unsigned long,void>,llvm::detail::DenseMapPair<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>>>,unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>,llvm::DenseMapInfo<unsigned long,void>,llvm::detail::DenseMapPair<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>>>::LookupBucketFor<unsigned long>(*a1, *(a1 + 4), *a2, &v8);
   result = v8;
   if (v4)
   {
     return result;
   }
 
-  v6 = *(a1 + 8);
-  v7 = *(a1 + 16);
+  v6 = *(a1 + 2);
+  v7 = *(a1 + 4);
   if (4 * v6 + 4 >= 3 * v7)
   {
     v7 *= 2;
     goto LABEL_9;
   }
 
-  if (v7 + ~v6 - *(a1 + 12) <= v7 >> 3)
+  if (v7 + ~v6 - *(a1 + 3) <= v7 >> 3)
   {
 LABEL_9:
     llvm::DenseMap<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>,llvm::DenseMapInfo<unsigned long,void>,llvm::detail::DenseMapPair<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>>>::grow(a1, v7);
     v8 = 0;
-    llvm::DenseMapBase<llvm::DenseMap<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>,llvm::DenseMapInfo<unsigned long,void>,llvm::detail::DenseMapPair<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>>>,unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>,llvm::DenseMapInfo<unsigned long,void>,llvm::detail::DenseMapPair<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>>>::LookupBucketFor<unsigned long>(*a1, *(a1 + 16), *a2, &v8);
+    llvm::DenseMapBase<llvm::DenseMap<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>,llvm::DenseMapInfo<unsigned long,void>,llvm::detail::DenseMapPair<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>>>,unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>,llvm::DenseMapInfo<unsigned long,void>,llvm::detail::DenseMapPair<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>>>::LookupBucketFor<unsigned long>(*a1, *(a1 + 4), *a2, &v8);
     result = v8;
   }
 
-  ++*(a1 + 8);
+  ++*(a1 + 2);
   if (*result != -1)
   {
-    --*(a1 + 12);
+    --*(a1 + 3);
   }
 
   *result = *a2;
@@ -6584,7 +6007,7 @@ char *llvm::DenseMap<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManag
         }
 
         v11 += 2;
-        v16 += 8;
+        v16 += 64;
       }
 
       while (v14 != v11);
@@ -6648,7 +6071,7 @@ char *llvm::DenseMap<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManag
       }
 
       v23 += 2;
-      v28 += 8;
+      v28 += 64;
     }
 
     while (v26 != v23);
@@ -6657,14 +6080,14 @@ char *llvm::DenseMap<unsigned long,std::vector<llvm::jitlink::JITLinkMemoryManag
   return result;
 }
 
-void LLVMOrcExecutionSessionCreateJITDylib(std::recursive_mutex *a1, int a2, char *__s)
+void LLVMOrcExecutionSessionCreateJITDylib(std::recursive_mutex *a1, uint64_t *a2, char *__s)
 {
   __p[5] = *MEMORY[0x277D85DE8];
   std::string::basic_string[abi:nn200100]<0>(__p, __s);
   llvm::orc::ExecutionSession::createJITDylib(a1, __p);
 }
 
-uint64_t LLVMOrcObjectLayerAddObjectFile(uint64_t a1, llvm::orc::JITDylib *a2, uint64_t a3)
+llvm::object::COFFObjectFile *LLVMOrcObjectLayerAddObjectFile(uint64_t a1, llvm::orc::JITDylib *a2, uint64_t a3)
 {
   v5 = a3;
   llvm::orc::ObjectLayer::add(a1, a2, &v5, &v6);
@@ -6735,11 +6158,11 @@ uint64_t llvm::MCTargetOptions::MCTargetOptions(uint64_t a1, uint64_t a2)
   *(a1 + 144) = 0;
   *(a1 + 152) = 0;
   *(a1 + 136) = 0;
-  std::vector<std::string>::__init_with_size[abi:nn200100]<std::string*,std::string*>(a1 + 136, *(a2 + 136), *(a2 + 144), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 144) - *(a2 + 136)) >> 3));
+  std::vector<std::string>::__init_with_size[abi:nn200100]<std::string*,std::string*>((a1 + 136), *(a2 + 136), *(a2 + 144), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 144) - *(a2 + 136)) >> 3));
   return a1;
 }
 
-uint64_t std::vector<std::string>::__init_with_size[abi:nn200100]<std::string*,std::string*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+std::string *std::vector<std::string>::__init_with_size[abi:nn200100]<std::string*,std::string*>(std::string *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6751,14 +6174,12 @@ uint64_t std::vector<std::string>::__init_with_size[abi:nn200100]<std::string*,s
 
 void xojit_log_debug_slow(const char *a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   {
-    v4 = 136315138;
-    v5 = a1;
-    _os_log_debug_impl(&dword_274E5C000, v2, OS_LOG_TYPE_DEBUG, "%s", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = a1;
+    _os_log_debug_impl(&dword_274E5C000, v2, OS_LOG_TYPE_DEBUG, "%s", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t _GLOBAL__sub_I_OsLogSlow_cpp()
@@ -6816,15 +6237,15 @@ LABEL_11:
   return this;
 }
 
-uint64_t std::__tree<llvm::StringRef>::__emplace_unique_key_args<llvm::StringRef,llvm::StringRef const&>(uint64_t a1, __int128 *a2)
+uint64_t std::__tree<llvm::StringRef>::__emplace_unique_key_args<llvm::StringRef,llvm::StringRef const&>(uint64_t **a1, __int128 *a2, _OWORD *a3)
 {
-  v2 = *std::__tree<std::__value_type<llvm::StringRef,llvm::StringRef>,std::__map_value_compare<llvm::StringRef,std::__value_type<llvm::StringRef,llvm::StringRef>,std::less<llvm::StringRef>,true>,std::allocator<std::__value_type<llvm::StringRef,llvm::StringRef>>>::__find_equal<llvm::StringRef>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::__value_type<llvm::StringRef,llvm::StringRef>,std::__map_value_compare<llvm::StringRef,std::__value_type<llvm::StringRef,llvm::StringRef>,std::less<llvm::StringRef>,true>,std::allocator<std::__value_type<llvm::StringRef,llvm::StringRef>>>::__find_equal<llvm::StringRef>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
 void llvm::orc::SimpleRemoteEPC::~SimpleRemoteEPC(llvm::orc::SimpleRemoteEPC *this)
@@ -6903,85 +6324,83 @@ void non-virtual thunk tollvm::orc::SimpleRemoteEPC::~SimpleRemoteEPC(llvm::orc:
 
 void llvm::orc::SimpleRemoteEPC::loadDylib(llvm::orc::SimpleRemoteEPC *this, const char *__s)
 {
-  v3 = *(this + 44);
+  v4 = *(this + 44);
   if (__s)
   {
-    v4 = strlen(__s);
+    v5 = strlen(__s);
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  llvm::orc::EPCGenericDylibManager::open(v3, __s, v4, 0);
+  llvm::orc::EPCGenericDylibManager::open(v4, __s, v5, 0);
 }
 
 void llvm::orc::SimpleRemoteEPC::lookupSymbolsAsync(uint64_t a1, size_t *a2, uint64_t a3, __int128 *a4)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v6 = *(a1 + 352);
-  v9 = 0;
-  v8 = 0uLL;
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v11, a4);
-  llvm::orc::lookupSymbolsAsyncHelper(v6, a2, a3, &v8, v11);
-  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v11);
-  v10 = &v8;
-  std::vector<std::vector<llvm::orc::ExecutorSymbolDef>>::__destroy_vector::operator()[abi:nn200100](&v10);
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = 0;
+  v7 = 0uLL;
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v10, a4);
+  llvm::orc::lookupSymbolsAsyncHelper(v6, a2, a3, &v7, v10);
+  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v10);
+  v9 = &v7;
+  std::vector<std::vector<llvm::orc::ExecutorSymbolDef>>::__destroy_vector::operator()[abi:nn200100](&v9);
 }
 
-uint64_t llvm::orc::lookupSymbolsAsyncHelper(uint64_t a1, size_t *a2, uint64_t a3, __int128 *a4, __int128 *a5)
+void **llvm::orc::lookupSymbolsAsyncHelper(uint64_t a1, size_t *a2, uint64_t a3, __int128 *a4, __int128 *a5)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     v7 = *a2;
     v8 = a2[1];
-    *&v14 = a1;
-    *(&v14 + 1) = a2;
-    v15 = a3;
-    llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v16, a5);
-    v17 = *a4;
-    v18 = *(a4 + 2);
+    *&v13 = a1;
+    *(&v13 + 1) = a2;
+    v14 = a3;
+    llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v15, a5);
+    v16 = *a4;
+    v17 = *(a4 + 2);
     *(a4 + 1) = 0;
     *(a4 + 2) = 0;
     *a4 = 0;
+    v24 = v13;
     v25 = v14;
-    v26 = v15;
-    llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v27, v16);
+    llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v26, v15);
+    v27 = v16;
     v28 = v17;
-    v29 = v18;
-    v18 = 0;
-    v17 = 0uLL;
+    v17 = 0;
+    v16 = 0uLL;
     v9 = operator new(0x50uLL, 8uLL);
-    v19 = v9;
-    v20 = xmmword_2750C4050;
-    *v9 = v25;
-    *(v9 + 2) = v26;
-    llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase((v9 + 24), v27);
-    *(v9 + 56) = v28;
-    *(v9 + 9) = v29;
-    v29 = 0;
-    v28 = 0uLL;
-    v21 = llvm::detail::UniqueFunctionBase<void,llvm::Expected<std::vector<llvm::orc::ExecutorSymbolDef>>>::CallbacksHolder<llvm::orc::lookupSymbolsAsyncHelper(llvm::orc::EPCGenericDylibManager &,llvm::ArrayRef<llvm::orc::DylibManager::LookupRequest>,std::vector<std::vector<llvm::orc::ExecutorSymbolDef>>,llvm::unique_function<void ()(llvm::Expected<std::vector<std::vector<llvm::orc::ExecutorSymbolDef>>>)>)::$_0,llvm::orc::lookupSymbolsAsyncHelper(llvm::orc::EPCGenericDylibManager &,llvm::ArrayRef<llvm::orc::DylibManager::LookupRequest>,std::vector<std::vector<llvm::orc::ExecutorSymbolDef>>,llvm::unique_function<void ()(llvm::Expected<std::vector<std::vector<llvm::orc::ExecutorSymbolDef>>>)>)::$_0,void>::Callbacks + 4;
-    v13 = &v28;
-    std::vector<std::vector<llvm::orc::ExecutorSymbolDef>>::__destroy_vector::operator()[abi:nn200100](&v13);
-    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v27);
-    llvm::orc::EPCGenericDylibManager::lookupAsync(a1, v7, v8, &v19);
-    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v19);
-    *&v25 = &v17;
-    std::vector<std::vector<llvm::orc::ExecutorSymbolDef>>::__destroy_vector::operator()[abi:nn200100](&v25);
-    result = llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v16);
+    v18 = v9;
+    v19 = xmmword_2750C4050;
+    *v9 = v24;
+    *(v9 + 2) = v25;
+    llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase((v9 + 24), v26);
+    *(v9 + 56) = v27;
+    *(v9 + 9) = v28;
+    v28 = 0;
+    v27 = 0uLL;
+    v20 = llvm::detail::UniqueFunctionBase<void,llvm::Expected<std::vector<llvm::orc::ExecutorSymbolDef>>>::CallbacksHolder<llvm::orc::lookupSymbolsAsyncHelper(llvm::orc::EPCGenericDylibManager &,llvm::ArrayRef<llvm::orc::DylibManager::LookupRequest>,std::vector<std::vector<llvm::orc::ExecutorSymbolDef>>,llvm::unique_function<void ()(llvm::Expected<std::vector<std::vector<llvm::orc::ExecutorSymbolDef>>>)>)::$_0,llvm::orc::lookupSymbolsAsyncHelper(llvm::orc::EPCGenericDylibManager &,llvm::ArrayRef<llvm::orc::DylibManager::LookupRequest>,std::vector<std::vector<llvm::orc::ExecutorSymbolDef>>,llvm::unique_function<void ()(llvm::Expected<std::vector<std::vector<llvm::orc::ExecutorSymbolDef>>>)>)::$_0,void>::Callbacks + 4;
+    v12 = &v27;
+    std::vector<std::vector<llvm::orc::ExecutorSymbolDef>>::__destroy_vector::operator()[abi:nn200100](&v12);
+    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v26);
+    llvm::orc::EPCGenericDylibManager::lookupAsync(a1, v7, v8, &v18);
+    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v18);
+    *&v24 = &v16;
+    std::vector<std::vector<llvm::orc::ExecutorSymbolDef>>::__destroy_vector::operator()[abi:nn200100](&v24);
+    return llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v15);
   }
 
   else
   {
-    v24 = 0;
-    v22 = *a4;
-    v23 = *(a4 + 2);
-    *a4 = 0;
-    *(a4 + 1) = 0;
+    v23 = 0;
+    v21 = *a4;
+    v22 = *(a4 + 2);
+    *a4 = 0uLL;
     *(a4 + 2) = 0;
     v11 = *(a5 + 3);
     if ((v11 & 2) == 0)
@@ -6989,87 +6408,83 @@ uint64_t llvm::orc::lookupSymbolsAsyncHelper(uint64_t a1, size_t *a2, uint64_t a
       a5 = *a5;
     }
 
-    (*(v11 & 0xFFFFFFFFFFFFFFF8))(a5, &v22);
-    result = llvm::Expected<std::vector<std::vector<llvm::orc::ExecutorSymbolDef>>>::~Expected(&v22);
+    (*(v11 & 0xFFFFFFFFFFFFFFF8))(a5, &v21);
+    return llvm::Expected<std::vector<std::vector<llvm::orc::ExecutorSymbolDef>>>::~Expected(&v21);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 void llvm::orc::SimpleRemoteEPC::runAsMain(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v5 = a3;
-  v17 = 0;
-  v7 = *(a1 + 360);
+  v6 = a3;
+  v9 = *(a1 + 360);
   if (a4)
   {
-    v8 = 24 * a4;
-    v9 = (a3 + 23);
-    v10 = 8;
+    v10 = 24 * a4;
+    v11 = (a3 + 23);
+    v12 = 8;
     do
     {
-      v11 = *v9;
-      if ((v11 & 0x80u) != 0)
+      v13 = *v11;
+      if ((v13 & 0x80u) != 0)
       {
-        v11 = *(v9 - 15);
+        v13 = *(v11 - 15);
       }
 
-      v10 += v11 + 8;
-      v9 += 24;
-      v8 -= 24;
+      v12 += v13 + 8;
+      v11 += 24;
+      v10 -= 24;
     }
 
-    while (v8);
-    v12 = v10 + 8;
-    v21[0] = 0;
-    v21[1] = (v10 + 8);
-    if ((v10 + 8) < 9)
+    while (v10);
+    v14 = v12 + 8;
+    v23[0] = 0;
+    v23[1] = (v12 + 8);
+    if ((v12 + 8) < 9)
     {
 LABEL_10:
-      if (v12 <= 8)
+      if (v14 <= 8)
       {
-        v13 = v21;
+        v15 = v23;
       }
 
       else
       {
-        v13 = v8;
+        v15 = v10;
       }
 
-      v19 = v13;
-      v20 = v12;
-      if (v12 >= 8)
+      v21 = v15;
+      v22 = v14;
+      if (v14 >= 8)
       {
-        *v13 = a2;
-        v14 = &v21[1];
-        if (v12 > 8)
+        *v15 = a2;
+        v16 = &v23[1];
+        if (v14 > 8)
         {
-          v14 = (v8 + 8);
+          v16 = (v10 + 8);
         }
 
-        v19 = v14;
-        v20 = v12 - 8;
-        if (v12 - 8 >= 8)
+        v21 = v16;
+        v22 = v14 - 8;
+        if (v14 - 8 >= 8)
         {
-          *(v8 + 8) = a4;
-          v19 = (v8 + 16);
-          v20 = v12 - 16;
+          *(v10 + 8) = a4;
+          v21 = (v10 + 16);
+          v22 = v14 - 16;
           if (!a4)
           {
 LABEL_21:
-            *v18 = *v21;
-            v21[0] = 0;
-            v21[1] = 0;
+            *v20 = *v23;
+            v23[0] = 0;
+            v23[1] = 0;
             goto LABEL_23;
           }
 
-          v15 = 24 * a4;
-          while (llvm::orc::shared::SPSSerializationTraits<llvm::orc::shared::SPSSequence<char>,std::string,void>::serialize(&v19, v5))
+          v17 = 24 * a4;
+          while (llvm::orc::shared::SPSSerializationTraits<llvm::orc::shared::SPSSequence<char>,std::string,void>::serialize(&v21, v6))
           {
-            v5 += 24;
-            v15 -= 24;
-            if (!v15)
+            v6 += 24;
+            v17 -= 24;
+            if (!v17)
             {
               goto LABEL_21;
             }
@@ -7077,84 +6492,99 @@ LABEL_21:
         }
       }
 
-      llvm::orc::shared::WrapperFunctionResult::createOutOfBandError("Error serializing arguments to blob in call", v18);
+      llvm::orc::shared::WrapperFunctionResult::createOutOfBandError(v20, "Error serializing arguments to blob in call");
 LABEL_23:
-      if (v21[1] < 9)
+      if (v23[1] < 9)
       {
-        if (v21[1] || (v16 = v21[0]) == 0)
+        if (v23[1] || (v18 = v23[0]) == 0)
         {
 LABEL_28:
-          if (!v18[1])
+          if (v20[1])
           {
-            v19 = v18[0];
-            if (v18[0])
+            if (v20[1] <= 8)
             {
-              getErrorErrorCat();
-              v21[0] = 3;
-              v21[1] = &getErrorErrorCat(void)::ErrorErrorCat;
-              llvm::make_error<llvm::StringError,char const*&,std::error_code>();
+              v19 = v20;
+            }
+
+            else
+            {
+              v19 = v20[0];
             }
           }
 
-          llvm::orc::ExecutorProcessControl::callWrapper();
+          else
+          {
+            v21 = v20[0];
+            if (v20[0])
+            {
+              getErrorErrorCat();
+              v23[0] = 3;
+              v23[1] = &getErrorErrorCat(void)::ErrorErrorCat;
+              llvm::make_error<llvm::StringError,char const*&,std::error_code>();
+            }
+
+            v19 = v20;
+          }
+
+          llvm::orc::ExecutorProcessControl::callWrapper(a1, v9, v19, v20[1]);
         }
       }
 
       else
       {
-        v16 = v21[0];
+        v18 = v23[0];
       }
 
-      free(v16);
+      free(v18);
       goto LABEL_28;
     }
   }
 
   else
   {
-    v12 = 16;
-    v21[1] = 16;
+    v14 = 16;
+    v23[1] = 16;
   }
 
-  v8 = malloc_type_malloc(v12, 0x100004077774924uLL);
-  v21[0] = v8;
-  v12 = v21[1];
+  v10 = malloc_type_malloc(v14, 0x100004077774924uLL);
+  v23[0] = v10;
+  v14 = v23[1];
   goto LABEL_10;
 }
 
 void llvm::orc::SimpleRemoteEPC::runAsVoidFunction(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4[0] = a1;
-  v2 = 0;
-  v4[1] = *(a1 + 368);
-  llvm::orc::shared::WrapperFunction<int ()(llvm::orc::shared::SPSExecutorAddr)>::call<llvm::Error llvm::orc::ExecutorProcessControl::callSPSWrapper<int ()(llvm::orc::shared::SPSExecutorAddr),int &,llvm::orc::ExecutorAddr &>(llvm::orc::ExecutorAddr,int &,llvm::orc::ExecutorAddr &)::{lambda(char const*,unsigned long)#1},int,llvm::orc::ExecutorAddr>(v4, &v2, &v3);
+  v4 = a2;
+  v5[0] = a1;
+  v3 = 0;
+  v5[1] = *(a1 + 368);
+  llvm::orc::shared::WrapperFunction<int ()(llvm::orc::shared::SPSExecutorAddr)>::call<llvm::Error llvm::orc::ExecutorProcessControl::callSPSWrapper<int ()(llvm::orc::shared::SPSExecutorAddr),int &,llvm::orc::ExecutorAddr &>(llvm::orc::ExecutorAddr,int &,llvm::orc::ExecutorAddr &)::{lambda(char const*,unsigned long)#1},int,llvm::orc::ExecutorAddr>(v5, &v3, &v4);
 }
 
 void llvm::orc::SimpleRemoteEPC::runAsIntFunction(uint64_t a1, uint64_t a2, int a3)
 {
-  v7 = 0;
-  v5 = *(a1 + 376);
-  v6 = malloc_type_malloc(0xCuLL, 0x100004077774924uLL);
-  *v6 = a2;
-  v6[2] = a3;
-  llvm::orc::ExecutorProcessControl::callWrapper();
+  v9 = 0;
+  v7 = *(a1 + 376);
+  v8 = malloc_type_malloc(0xCuLL, 0x100004077774924uLL);
+  *v8 = a2;
+  v8[2] = a3;
+  llvm::orc::ExecutorProcessControl::callWrapper(a1, v7, v8, 12);
 }
 
 void *llvm::orc::SimpleRemoteEPC::callWrapperAsync(uint64_t a1, uint64_t a2, __int128 *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   std::mutex::lock((a1 + 200));
   v6 = *(a1 + 384);
   v5 = *(a1 + 392);
   *(a1 + 384) = v6 + 1;
-  v19 = v6;
-  v21[0] = 0;
-  v7 = llvm::DenseMapBase<llvm::DenseMap<unsigned long long,llvm::unique_function<void ()(llvm::Expected<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>)>,llvm::DenseMapInfo<unsigned long long,void>,llvm::detail::DenseMapPair<unsigned long long,llvm::unique_function<void ()(llvm::Expected<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>)>>>,unsigned long long,llvm::unique_function<void ()(llvm::Expected<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>)>,llvm::DenseMapInfo<unsigned long long,void>,llvm::detail::DenseMapPair<unsigned long long,llvm::unique_function<void ()(llvm::Expected<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>)>>>::LookupBucketFor<unsigned long long>(v5, *(a1 + 408), v6, v21);
-  inserted = v21[0];
+  v18 = v6;
+  v20[0] = 0;
+  v7 = llvm::DenseMapBase<llvm::DenseMap<unsigned long long,llvm::unique_function<void ()(llvm::Expected<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>)>,llvm::DenseMapInfo<unsigned long long,void>,llvm::detail::DenseMapPair<unsigned long long,llvm::unique_function<void ()(llvm::Expected<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>)>>>,unsigned long long,llvm::unique_function<void ()(llvm::Expected<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>)>,llvm::DenseMapInfo<unsigned long long,void>,llvm::detail::DenseMapPair<unsigned long long,llvm::unique_function<void ()(llvm::Expected<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>)>>>::LookupBucketFor<unsigned long long>(v5, *(a1 + 408), v6, v20);
+  inserted = v20[0];
   if ((v7 & 1) == 0)
   {
-    inserted = llvm::DenseMapBase<llvm::DenseMap<unsigned long long,llvm::orc::ExecutorProcessControl::IncomingWFRHandler,llvm::DenseMapInfo<unsigned long long,void>,llvm::detail::DenseMapPair<unsigned long long,llvm::orc::ExecutorProcessControl::IncomingWFRHandler>>,unsigned long long,llvm::orc::ExecutorProcessControl::IncomingWFRHandler,llvm::DenseMapInfo<unsigned long long,void>,llvm::detail::DenseMapPair<unsigned long long,llvm::orc::ExecutorProcessControl::IncomingWFRHandler>>::InsertIntoBucketImpl<unsigned long long>(a1 + 392, &v19, v21[0]);
+    inserted = llvm::DenseMapBase<llvm::DenseMap<unsigned long long,llvm::orc::ExecutorProcessControl::IncomingWFRHandler,llvm::DenseMapInfo<unsigned long long,void>,llvm::detail::DenseMapPair<unsigned long long,llvm::orc::ExecutorProcessControl::IncomingWFRHandler>>,unsigned long long,llvm::orc::ExecutorProcessControl::IncomingWFRHandler,llvm::DenseMapInfo<unsigned long long,void>,llvm::detail::DenseMapPair<unsigned long long,llvm::orc::ExecutorProcessControl::IncomingWFRHandler>>::InsertIntoBucketImpl<unsigned long long>(a1 + 392, &v18, v20[0]);
     *inserted = v6;
     *(inserted + 1) = 0u;
     *(inserted + 3) = 0u;
@@ -7167,21 +6597,21 @@ void *llvm::orc::SimpleRemoteEPC::callWrapperAsync(uint64_t a1, uint64_t a2, __i
   }
 
   std::mutex::unlock((a1 + 200));
-  result = (*(**(a1 + 328) + 24))(&v18);
-  if (v18)
+  result = (*(**(a1 + 328) + 24))(&v17);
+  if (v17)
   {
-    v22 = 0;
+    v21 = 0;
     std::mutex::lock((a1 + 200));
-    v20 = 0;
-    if (llvm::DenseMapBase<llvm::DenseMap<unsigned long long,llvm::unique_function<void ()(llvm::Expected<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>)>,llvm::DenseMapInfo<unsigned long long,void>,llvm::detail::DenseMapPair<unsigned long long,llvm::unique_function<void ()(llvm::Expected<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>)>>>,unsigned long long,llvm::unique_function<void ()(llvm::Expected<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>)>,llvm::DenseMapInfo<unsigned long long,void>,llvm::detail::DenseMapPair<unsigned long long,llvm::unique_function<void ()(llvm::Expected<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>)>>>::LookupBucketFor<unsigned long long>(*(a1 + 392), *(a1 + 408), v6, &v20))
+    v19 = 0;
+    if (llvm::DenseMapBase<llvm::DenseMap<unsigned long long,llvm::unique_function<void ()(llvm::Expected<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>)>,llvm::DenseMapInfo<unsigned long long,void>,llvm::detail::DenseMapPair<unsigned long long,llvm::unique_function<void ()(llvm::Expected<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>)>>>,unsigned long long,llvm::unique_function<void ()(llvm::Expected<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>)>,llvm::DenseMapInfo<unsigned long long,void>,llvm::detail::DenseMapPair<unsigned long long,llvm::unique_function<void ()(llvm::Expected<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>)>>>::LookupBucketFor<unsigned long long>(*(a1 + 392), *(a1 + 408), v6, &v19))
     {
-      v11 = v20;
-      if (v20 != *(a1 + 392) + 40 * *(a1 + 408))
+      v11 = v19;
+      if (v19 != *(a1 + 392) + 40 * *(a1 + 408))
       {
-        if (v21 != (v20 + 8))
+        if (v20 != (v19 + 8))
         {
-          llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v21);
-          llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v21, (v11 + 8));
+          llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v20);
+          llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v20, (v11 + 8));
         }
 
         llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase((v11 + 8));
@@ -7191,22 +6621,22 @@ void *llvm::orc::SimpleRemoteEPC::callWrapperAsync(uint64_t a1, uint64_t a2, __i
     }
 
     std::mutex::unlock((a1 + 200));
-    if (v22 < 8)
+    if (v21 < 8)
     {
       goto LABEL_17;
     }
 
-    llvm::orc::shared::WrapperFunctionResult::createOutOfBandError("disconnecting", &v16);
-    llvm::orc::ExecutorProcessControl::IncomingWFRHandler::operator()(v21, &v16);
-    if (v17 < 9)
+    llvm::orc::shared::WrapperFunctionResult::createOutOfBandError(&v15, "disconnecting");
+    llvm::orc::ExecutorProcessControl::IncomingWFRHandler::operator()(v20, &v15);
+    if (v16 < 9)
     {
-      if (v17)
+      if (v16)
       {
         goto LABEL_17;
       }
 
-      v12 = v16;
-      if (!v16)
+      v12 = v15;
+      if (!v15)
       {
         goto LABEL_17;
       }
@@ -7214,29 +6644,28 @@ void *llvm::orc::SimpleRemoteEPC::callWrapperAsync(uint64_t a1, uint64_t a2, __i
 
     else
     {
-      v12 = v16;
+      v12 = v15;
     }
 
     free(v12);
 LABEL_17:
     v13 = *(a1 + 32);
-    v15 = v18;
-    v18 = 0;
-    llvm::orc::ExecutionSession::reportError(v13, &v15);
-    if (v15)
+    v14 = v17;
+    v17 = 0;
+    llvm::orc::ExecutionSession::reportError(v13, &v14);
+    if (v14)
     {
-      (*(*v15 + 8))(v15);
+      (*(*v14 + 8))(v14);
     }
 
-    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v21);
-    result = v18;
-    if (v18)
+    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v20);
+    result = v17;
+    if (v17)
     {
-      result = (*(*v18 + 8))(v18);
+      return (*(*v17 + 8))(v17);
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7310,14 +6739,14 @@ LABEL_6:
   }
 }
 
-void llvm::orc::SimpleRemoteEPC::handleMessage(uint64_t a1@<X0>, int a2@<W1>, void **a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+void llvm::orc::SimpleRemoteEPC::handleMessage(uint64_t a1@<X0>, unsigned int a2@<W1>, void **a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
-  v49[16] = *MEMORY[0x277D85DE8];
+  v47[16] = *MEMORY[0x277D85DE8];
   if (a2 >= 4)
   {
     getErrorErrorCat();
-    *v46 = 3;
-    *&v46[8] = &getErrorErrorCat(void)::ErrorErrorCat;
+    *v44 = 3;
+    *&v44[8] = &getErrorErrorCat(void)::ErrorErrorCat;
     llvm::make_error<llvm::StringError,char const(&)[51],std::error_code>();
   }
 
@@ -7325,12 +6754,12 @@ void llvm::orc::SimpleRemoteEPC::handleMessage(uint64_t a1@<X0>, int a2@<W1>, vo
   {
     if (a2 != 2)
     {
-      v32 = &v34;
-      v33 = xmmword_2750C1290;
+      v30 = &v32;
+      v31 = xmmword_2750C1290;
       if (*(a5 + 8))
       {
-        llvm::SmallVectorImpl<char>::operator=(&v32, a5);
-        v14 = v33 == 0;
+        llvm::SmallVectorImpl<char>::operator=(&v30, a5);
+        v14 = v31 == 0;
       }
 
       else
@@ -7338,86 +6767,85 @@ void llvm::orc::SimpleRemoteEPC::handleMessage(uint64_t a1@<X0>, int a2@<W1>, vo
         v14 = 1;
       }
 
-      v19 = *(a1 + 24);
-      *v46 = a1;
-      *&v46[8] = a3;
-      *&v46[16] = a4;
-      v47 = v49;
-      v48 = xmmword_2750C1290;
+      *v44 = a1;
+      *&v44[8] = a3;
+      *&v44[16] = a4;
+      v45 = v47;
+      v46 = xmmword_2750C1290;
       if (!v14)
       {
-        llvm::SmallVectorImpl<char>::operator=(&v47, &v32);
+        llvm::SmallVectorImpl<char>::operator=(&v45, &v30);
       }
 
       operator new();
     }
 
-    v35 = v37;
-    v36 = xmmword_2750C1290;
+    v33 = v35;
+    v34 = xmmword_2750C1290;
     if (*(a5 + 8))
     {
-      llvm::SmallVectorImpl<char>::operator=(&v35, a5);
+      llvm::SmallVectorImpl<char>::operator=(&v33, a5);
     }
 
     __dst = a3;
-    v45 = 0;
+    v43 = 0;
     if (a4)
     {
       getErrorErrorCat();
-      *v46 = 3;
-      *&v46[8] = &getErrorErrorCat(void)::ErrorErrorCat;
+      *v44 = 3;
+      *&v44[8] = &getErrorErrorCat(void)::ErrorErrorCat;
       llvm::make_error<llvm::StringError,char const(&)[51],std::error_code>();
     }
 
     std::mutex::lock((a1 + 200));
-    *v46 = 0;
-    if (!llvm::DenseMapBase<llvm::DenseMap<unsigned long long,llvm::unique_function<void ()(llvm::Expected<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>)>,llvm::DenseMapInfo<unsigned long long,void>,llvm::detail::DenseMapPair<unsigned long long,llvm::unique_function<void ()(llvm::Expected<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>)>>>,unsigned long long,llvm::unique_function<void ()(llvm::Expected<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>)>,llvm::DenseMapInfo<unsigned long long,void>,llvm::detail::DenseMapPair<unsigned long long,llvm::unique_function<void ()(llvm::Expected<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>)>>>::LookupBucketFor<unsigned long long>(*(a1 + 392), *(a1 + 408), a3, v46) || (v15 = *v46, *v46 == *(a1 + 392) + 40 * *(a1 + 408)))
+    *v44 = 0;
+    if (!llvm::DenseMapBase<llvm::DenseMap<unsigned long long,llvm::unique_function<void ()(llvm::Expected<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>)>,llvm::DenseMapInfo<unsigned long long,void>,llvm::detail::DenseMapPair<unsigned long long,llvm::unique_function<void ()(llvm::Expected<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>)>>>,unsigned long long,llvm::unique_function<void ()(llvm::Expected<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>)>,llvm::DenseMapInfo<unsigned long long,void>,llvm::detail::DenseMapPair<unsigned long long,llvm::unique_function<void ()(llvm::Expected<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>)>>>::LookupBucketFor<unsigned long long>(*(a1 + 392), *(a1 + 408), a3, v44) || (v15 = *v44, *v44 == *(a1 + 392) + 40 * *(a1 + 408)))
     {
-      *v46 = "No call for sequence number ";
-      *&v46[16] = &__dst;
-      LOWORD(v48) = 3075;
+      *v44 = "No call for sequence number ";
+      *&v44[16] = &__dst;
+      LOWORD(v46) = 3075;
       getErrorErrorCat();
       operator new();
     }
 
-    if (v44 != (*v46 + 8))
+    if (v42 != (*v44 + 8))
     {
-      llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v44);
-      llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v44, (v15 + 8));
+      llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v42);
+      llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v42, (v15 + 8));
     }
 
     llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase((v15 + 8));
     *v15 = -2;
     *(a1 + 400) = vadd_s32(*(a1 + 400), 0x1FFFFFFFFLL);
     std::mutex::unlock((a1 + 200));
-    v16 = v35;
-    v17 = v36;
-    *v46 = 0;
-    *&v46[8] = v36;
-    if (v36 < 9)
+    v16 = v33;
+    v17 = v34;
+    *v44 = 0;
+    *&v44[8] = v34;
+    if (v34 < 9)
     {
-      v18 = v46;
+      v18 = v44;
     }
 
     else
     {
-      v18 = malloc_type_malloc(v36, 0x100004077774924uLL);
-      *v46 = v18;
+      v18 = malloc_type_malloc(v34, 0x100004077774924uLL);
+      *v44 = v18;
     }
 
     memcpy(v18, v16, v17);
-    *v31 = *v46;
-    llvm::orc::ExecutorProcessControl::IncomingWFRHandler::operator()(v44, v31);
-    if (v31[1] < 9)
+    *v29 = *v44;
+    llvm::orc::ExecutorProcessControl::IncomingWFRHandler::operator()(v42, v29);
+    if (v29[1] < 9)
     {
-      if (v31[1] || (v25 = v31[0]) == 0)
+      if (v29[1] || (v24 = v29[0]) == 0)
       {
 LABEL_66:
-        v28[0] = 0;
-        llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v44);
-        if (v35 != v37)
+        v26[0] = 0;
+        llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v42);
+        if (v33 != v35)
         {
-          free(v35);
+          free(v33);
         }
 
         goto LABEL_77;
@@ -7426,20 +6854,20 @@ LABEL_66:
 
     else
     {
-      v25 = v31[0];
+      v24 = v29[0];
     }
 
-    free(v25);
+    free(v24);
     goto LABEL_66;
   }
 
   if (!a2)
   {
-    v41 = v43;
+    v39 = v41;
     size = xmmword_2750C1290;
     if (*(a5 + 8))
     {
-      llvm::SmallVectorImpl<char>::operator=(&v41, a5);
+      llvm::SmallVectorImpl<char>::operator=(&v39, a5);
     }
 
     if (a3)
@@ -7451,92 +6879,98 @@ LABEL_66:
     if (a4)
     {
       getErrorErrorCat();
-      *v46 = 3;
-      *&v46[8] = &getErrorErrorCat(void)::ErrorErrorCat;
+      *v44 = 3;
+      *&v44[8] = &getErrorErrorCat(void)::ErrorErrorCat;
       llvm::make_error<llvm::StringError,char const(&)[51],std::error_code>();
     }
 
     std::mutex::lock((a1 + 200));
-    *v46 = 0;
-    if (llvm::DenseMapBase<llvm::DenseMap<unsigned long long,llvm::unique_function<void ()(llvm::Expected<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>)>,llvm::DenseMapInfo<unsigned long long,void>,llvm::detail::DenseMapPair<unsigned long long,llvm::unique_function<void ()(llvm::Expected<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>)>>>,unsigned long long,llvm::unique_function<void ()(llvm::Expected<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>)>,llvm::DenseMapInfo<unsigned long long,void>,llvm::detail::DenseMapPair<unsigned long long,llvm::unique_function<void ()(llvm::Expected<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>)>>>::LookupBucketFor<unsigned long long>(*(a1 + 392), *(a1 + 408), 0, v46))
+    *v44 = 0;
+    if (llvm::DenseMapBase<llvm::DenseMap<unsigned long long,llvm::unique_function<void ()(llvm::Expected<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>)>,llvm::DenseMapInfo<unsigned long long,void>,llvm::detail::DenseMapPair<unsigned long long,llvm::unique_function<void ()(llvm::Expected<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>)>>>,unsigned long long,llvm::unique_function<void ()(llvm::Expected<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>)>,llvm::DenseMapInfo<unsigned long long,void>,llvm::detail::DenseMapPair<unsigned long long,llvm::unique_function<void ()(llvm::Expected<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>)>>>::LookupBucketFor<unsigned long long>(*(a1 + 392), *(a1 + 408), 0, v44))
     {
-      v21 = *v46;
+      v20 = *v44;
     }
 
     else
     {
-      v21 = *(a1 + 392) + 40 * *(a1 + 408);
+      v20 = *(a1 + 392) + 40 * *(a1 + 408);
     }
 
-    llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v46, (v21 + 8));
-    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase((v21 + 8));
-    *v21 = -2;
+    llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v44, (v20 + 8));
+    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase((v20 + 8));
+    *v20 = -2;
     *(a1 + 400) = vadd_s32(*(a1 + 400), 0x1FFFFFFFFLL);
-    v22 = v41;
-    v23 = size;
-    *v44 = 0;
-    *&v44[8] = size;
+    v21 = v39;
+    v22 = size;
+    *v42 = 0;
+    *&v42[8] = size;
     if (size < 9)
     {
-      v24 = v44;
+      v23 = v42;
     }
 
     else
     {
-      v24 = malloc_type_malloc(size, 0x100004077774924uLL);
-      *v44 = v24;
+      v23 = malloc_type_malloc(size, 0x100004077774924uLL);
+      *v42 = v23;
     }
 
-    memcpy(v24, v22, v23);
-    *v31 = *v44;
-    llvm::orc::ExecutorProcessControl::IncomingWFRHandler::operator()(v46, v31);
-    if (v31[1] < 9)
+    memcpy(v23, v21, v22);
+    *v29 = *v42;
+    llvm::orc::ExecutorProcessControl::IncomingWFRHandler::operator()(v44, v29);
+    if (v29[1] < 9)
     {
-      if (v31[1] || (v26 = v31[0]) == 0)
+      if (v29[1])
       {
-LABEL_75:
-        __dst = 0;
-        llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v46);
-        std::mutex::unlock((a1 + 200));
-        if (v41 != v43)
-        {
-          free(v41);
-        }
+        goto LABEL_75;
+      }
 
-LABEL_77:
-        *(a6 + 8) &= ~1u;
-        *a6 = 0;
-        goto LABEL_78;
+      v25 = v29[0];
+      if (!v29[0])
+      {
+        goto LABEL_75;
       }
     }
 
     else
     {
-      v26 = v31[0];
+      v25 = v29[0];
     }
 
-    free(v26);
-    goto LABEL_75;
+    free(v25);
+LABEL_75:
+    __dst = 0;
+    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v44);
+    std::mutex::unlock((a1 + 200));
+    if (v39 != v41)
+    {
+      free(v39);
+    }
+
+LABEL_77:
+    *(a6 + 8) &= ~1u;
+    *a6 = 0;
+    return;
   }
 
   (*(**(a1 + 328) + 32))(*(a1 + 328));
-  v38 = v40;
-  v39 = xmmword_2750C1290;
+  v36 = v38;
+  v37 = xmmword_2750C1290;
   if (*(a5 + 8))
   {
-    llvm::SmallVectorImpl<char>::operator=(&v38, a5);
-    v12 = v38;
-    v11 = v39;
+    llvm::SmallVectorImpl<char>::operator=(&v36, a5);
+    v12 = v36;
+    v11 = v37;
     __dst = 0;
-    v30 = v39;
-    if (v39 < 9)
+    v28 = v37;
+    if (v37 < 9)
     {
       p_dst = &__dst;
     }
 
     else
     {
-      p_dst = malloc_type_malloc(v39, 0x100004077774924uLL);
+      p_dst = malloc_type_malloc(v37, 0x100004077774924uLL);
       __dst = p_dst;
     }
   }
@@ -7545,65 +6979,70 @@ LABEL_77:
   {
     v11 = 0;
     __dst = 0;
-    v30 = 0;
+    v28 = 0;
     p_dst = &__dst;
-    v12 = v40;
+    v12 = v38;
   }
 
   memcpy(p_dst, v12, v11);
-  if (v30)
+  if (v28)
   {
-    v46[0] = 0;
-    v47 = 0;
-    *&v46[8] = 0;
-    *&v46[16] = 0;
-    v20 = __dst;
-    if (v30 <= 8)
+    v44[0] = 0;
+    v45 = 0;
+    *&v44[8] = 0;
+    *&v44[16] = 0;
+    v19 = __dst;
+    if (v28 <= 8)
     {
-      v20 = &__dst;
+      v19 = &__dst;
     }
   }
 
   else
   {
-    v31[0] = __dst;
+    v29[0] = __dst;
     if (__dst)
     {
       getErrorErrorCat();
-      *v46 = 3;
-      *&v46[8] = &getErrorErrorCat(void)::ErrorErrorCat;
+      *v44 = 3;
+      *&v44[8] = &getErrorErrorCat(void)::ErrorErrorCat;
       llvm::make_error<llvm::StringError,char const*&,std::error_code>();
     }
 
-    v46[0] = 0;
-    v47 = 0;
-    *&v46[8] = 0;
-    *&v46[16] = 0;
-    v20 = &__dst;
+    v44[0] = 0;
+    v45 = 0;
+    *&v44[8] = 0;
+    *&v44[16] = 0;
+    v19 = &__dst;
   }
 
-  v28[0] = v20;
-  v28[1] = v30;
-  if (!llvm::orc::shared::SPSSerializationTraits<llvm::orc::shared::SPSError,llvm::orc::shared::detail::SPSSerializableError,void>::deserialize(v28, v46))
+  v26[0] = v19;
+  v26[1] = v28;
+  if ((llvm::orc::shared::SPSSerializationTraits<llvm::orc::shared::SPSError,llvm::orc::shared::detail::SPSSerializableError,void>::deserialize(v26, v44) & 1) == 0)
   {
     getErrorErrorCat();
-    v31[0] = 3;
-    v31[1] = &getErrorErrorCat(void)::ErrorErrorCat;
+    v29[0] = 3;
+    v29[1] = &getErrorErrorCat(void)::ErrorErrorCat;
     llvm::make_error<llvm::StringError,char const(&)[51],std::error_code>();
   }
 
-  v44[0] = v46[0];
-  *&v44[8] = *&v46[8];
-  v45 = v47;
-  *&v46[8] = 0;
-  *&v46[16] = 0;
-  v47 = 0;
-  if (v46[0] == 1)
+  v42[0] = v44[0];
+  *&v42[8] = *&v44[8];
+  v43 = v45;
+  *&v44[8] = 0;
+  *&v44[16] = 0;
+  v45 = 0;
+  if (v44[0] == 1)
   {
     getErrorErrorCat();
-    v31[0] = 3;
-    v31[1] = &getErrorErrorCat(void)::ErrorErrorCat;
+    v29[0] = 3;
+    v29[1] = &getErrorErrorCat(void)::ErrorErrorCat;
     llvm::make_error<llvm::StringError,std::string,std::error_code>();
+  }
+
+  if (SHIBYTE(v43) < 0)
+  {
+    operator delete(*&v42[8]);
   }
 
   if (SHIBYTE(v45) < 0)
@@ -7611,28 +7050,21 @@ LABEL_77:
     operator delete(*&v44[8]);
   }
 
-  if (SHIBYTE(v47) < 0)
-  {
-    operator delete(*&v46[8]);
-  }
-
-  if (v30 > 8 || !v30 && __dst)
+  if (v28 > 8 || !v28 && __dst)
   {
     free(__dst);
   }
 
-  if (v38 != v40)
+  if (v36 != v38)
   {
-    free(v38);
+    free(v36);
   }
 
   *(a6 + 8) &= ~1u;
   *a6 = 1;
-LABEL_78:
-  v27 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t llvm::orc::SimpleRemoteEPC::handleDisconnect(uint64_t a1, uint64_t **a2)
+uint64_t llvm::orc::SimpleRemoteEPC::handleDisconnect(uint64_t a1, uint64_t *a2)
 {
   std::mutex::lock((a1 + 200));
   *&v4 = 0;
@@ -7689,7 +7121,7 @@ uint64_t llvm::orc::SimpleRemoteEPC::handleDisconnect(uint64_t a1, uint64_t **a2
     v10 = (v22 + 40 * v23);
     while (v9 != v10)
     {
-      llvm::orc::shared::WrapperFunctionResult::createOutOfBandError("disconnecting", &v20);
+      llvm::orc::shared::WrapperFunctionResult::createOutOfBandError(&v20, "disconnecting");
       llvm::orc::ExecutorProcessControl::IncomingWFRHandler::operator()(v9 + 1, &v20);
       if (v21 >= 9)
       {
@@ -7777,46 +7209,118 @@ LABEL_25:
 
 uint64_t llvm::orc::SimpleRemoteEPC::createDefaultMemoryManager@<X0>(llvm::orc::SimpleRemoteEPC *this@<X0>, uint64_t a2@<X8>)
 {
-  v14[12] = *MEMORY[0x277D85DE8];
-  v12 = 0u;
-  v13 = 0u;
-  v5 = llvm::orc::rt::SimpleExecutorMemoryManagerInstanceName;
-  v14[0] = &v12;
-  v14[1] = llvm::orc::rt::SimpleExecutorMemoryManagerInstanceName;
+  v12[12] = *MEMORY[0x277D85DE8];
+  v10 = 0u;
+  v11 = 0u;
+  v4 = llvm::orc::rt::SimpleExecutorMemoryManagerInstanceName;
+  v12[0] = &v10;
+  v12[1] = llvm::orc::rt::SimpleExecutorMemoryManagerInstanceName;
   if (llvm::orc::rt::SimpleExecutorMemoryManagerInstanceName)
   {
-    v5 = strlen(llvm::orc::rt::SimpleExecutorMemoryManagerInstanceName);
+    v4 = strlen(llvm::orc::rt::SimpleExecutorMemoryManagerInstanceName);
   }
 
-  v14[2] = v5;
-  v14[3] = &v12 + 8;
-  v6 = llvm::orc::rt::SimpleExecutorMemoryManagerReserveWrapperName;
-  v14[4] = llvm::orc::rt::SimpleExecutorMemoryManagerReserveWrapperName;
+  v12[2] = v4;
+  v12[3] = &v10 + 8;
+  v5 = llvm::orc::rt::SimpleExecutorMemoryManagerReserveWrapperName;
+  v12[4] = llvm::orc::rt::SimpleExecutorMemoryManagerReserveWrapperName;
   if (llvm::orc::rt::SimpleExecutorMemoryManagerReserveWrapperName)
   {
-    v6 = strlen(llvm::orc::rt::SimpleExecutorMemoryManagerReserveWrapperName);
+    v5 = strlen(llvm::orc::rt::SimpleExecutorMemoryManagerReserveWrapperName);
   }
 
-  v14[5] = v6;
-  v14[6] = &v13;
-  v7 = llvm::orc::rt::SimpleExecutorMemoryManagerFinalizeWrapperName;
-  v14[7] = llvm::orc::rt::SimpleExecutorMemoryManagerFinalizeWrapperName;
+  v12[5] = v5;
+  v12[6] = &v11;
+  v6 = llvm::orc::rt::SimpleExecutorMemoryManagerFinalizeWrapperName;
+  v12[7] = llvm::orc::rt::SimpleExecutorMemoryManagerFinalizeWrapperName;
   if (llvm::orc::rt::SimpleExecutorMemoryManagerFinalizeWrapperName)
   {
-    v7 = strlen(llvm::orc::rt::SimpleExecutorMemoryManagerFinalizeWrapperName);
+    v6 = strlen(llvm::orc::rt::SimpleExecutorMemoryManagerFinalizeWrapperName);
   }
 
-  v14[8] = v7;
-  v14[9] = &v13 + 8;
-  v8 = llvm::orc::rt::SimpleExecutorMemoryManagerDeallocateWrapperName;
-  v14[10] = llvm::orc::rt::SimpleExecutorMemoryManagerDeallocateWrapperName;
+  v12[8] = v6;
+  v12[9] = &v11 + 8;
+  v7 = llvm::orc::rt::SimpleExecutorMemoryManagerDeallocateWrapperName;
+  v12[10] = llvm::orc::rt::SimpleExecutorMemoryManagerDeallocateWrapperName;
   if (llvm::orc::rt::SimpleExecutorMemoryManagerDeallocateWrapperName)
   {
-    v8 = strlen(llvm::orc::rt::SimpleExecutorMemoryManagerDeallocateWrapperName);
+    v7 = strlen(llvm::orc::rt::SimpleExecutorMemoryManagerDeallocateWrapperName);
   }
 
-  v14[11] = v8;
-  llvm::orc::ExecutorProcessControl::getBootstrapSymbols(this, v14, 4, &v11);
+  v12[11] = v7;
+  llvm::orc::ExecutorProcessControl::getBootstrapSymbols(this, v12, 4, &v9);
+  result = v9;
+  if (!v9)
+  {
+    operator new();
+  }
+
+  *(a2 + 8) |= 1u;
+  *a2 = result;
+  return result;
+}
+
+uint64_t llvm::orc::SimpleRemoteEPC::createDefaultMemoryAccess@<X0>(llvm::orc::SimpleRemoteEPC *this@<X0>, uint64_t a2@<X8>)
+{
+  v15[18] = *MEMORY[0x277D85DE8];
+  v13 = 0u;
+  v14 = 0u;
+  v12 = 0u;
+  v4 = llvm::orc::rt::MemoryWriteUInt8sWrapperName;
+  v15[0] = &v12;
+  v15[1] = llvm::orc::rt::MemoryWriteUInt8sWrapperName;
+  if (llvm::orc::rt::MemoryWriteUInt8sWrapperName)
+  {
+    v4 = strlen(llvm::orc::rt::MemoryWriteUInt8sWrapperName);
+  }
+
+  v15[2] = v4;
+  v15[3] = &v12 + 8;
+  v5 = llvm::orc::rt::MemoryWriteUInt16sWrapperName;
+  v15[4] = llvm::orc::rt::MemoryWriteUInt16sWrapperName;
+  if (llvm::orc::rt::MemoryWriteUInt16sWrapperName)
+  {
+    v5 = strlen(llvm::orc::rt::MemoryWriteUInt16sWrapperName);
+  }
+
+  v15[5] = v5;
+  v15[6] = &v13;
+  v6 = llvm::orc::rt::MemoryWriteUInt32sWrapperName;
+  v15[7] = llvm::orc::rt::MemoryWriteUInt32sWrapperName;
+  if (llvm::orc::rt::MemoryWriteUInt32sWrapperName)
+  {
+    v6 = strlen(llvm::orc::rt::MemoryWriteUInt32sWrapperName);
+  }
+
+  v15[8] = v6;
+  v15[9] = &v13 + 8;
+  v7 = llvm::orc::rt::MemoryWriteUInt64sWrapperName;
+  v15[10] = llvm::orc::rt::MemoryWriteUInt64sWrapperName;
+  if (llvm::orc::rt::MemoryWriteUInt64sWrapperName)
+  {
+    v7 = strlen(llvm::orc::rt::MemoryWriteUInt64sWrapperName);
+  }
+
+  v15[11] = v7;
+  v15[12] = &v14;
+  v8 = llvm::orc::rt::MemoryWriteBuffersWrapperName;
+  v15[13] = llvm::orc::rt::MemoryWriteBuffersWrapperName;
+  if (llvm::orc::rt::MemoryWriteBuffersWrapperName)
+  {
+    v8 = strlen(llvm::orc::rt::MemoryWriteBuffersWrapperName);
+  }
+
+  v15[14] = v8;
+  v15[15] = &v14 + 8;
+  v9 = llvm::orc::rt::MemoryWritePointersWrapperName;
+  v15[16] = llvm::orc::rt::MemoryWritePointersWrapperName;
+  if (llvm::orc::rt::MemoryWritePointersWrapperName)
+  {
+    v9 = strlen(llvm::orc::rt::MemoryWritePointersWrapperName);
+  }
+
+  v15[17] = v9;
+  llvm::orc::ExecutorProcessControl::getBootstrapSymbols(this, v15, 6, &v11);
   result = v11;
   if (!v11)
   {
@@ -7825,80 +7329,6 @@ uint64_t llvm::orc::SimpleRemoteEPC::createDefaultMemoryManager@<X0>(llvm::orc::
 
   *(a2 + 8) |= 1u;
   *a2 = result;
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t llvm::orc::SimpleRemoteEPC::createDefaultMemoryAccess@<X0>(llvm::orc::SimpleRemoteEPC *this@<X0>, uint64_t a2@<X8>)
-{
-  v17[18] = *MEMORY[0x277D85DE8];
-  v15 = 0u;
-  v16 = 0u;
-  v14 = 0u;
-  v5 = llvm::orc::rt::MemoryWriteUInt8sWrapperName;
-  v17[0] = &v14;
-  v17[1] = llvm::orc::rt::MemoryWriteUInt8sWrapperName;
-  if (llvm::orc::rt::MemoryWriteUInt8sWrapperName)
-  {
-    v5 = strlen(llvm::orc::rt::MemoryWriteUInt8sWrapperName);
-  }
-
-  v17[2] = v5;
-  v17[3] = &v14 + 8;
-  v6 = llvm::orc::rt::MemoryWriteUInt16sWrapperName;
-  v17[4] = llvm::orc::rt::MemoryWriteUInt16sWrapperName;
-  if (llvm::orc::rt::MemoryWriteUInt16sWrapperName)
-  {
-    v6 = strlen(llvm::orc::rt::MemoryWriteUInt16sWrapperName);
-  }
-
-  v17[5] = v6;
-  v17[6] = &v15;
-  v7 = llvm::orc::rt::MemoryWriteUInt32sWrapperName;
-  v17[7] = llvm::orc::rt::MemoryWriteUInt32sWrapperName;
-  if (llvm::orc::rt::MemoryWriteUInt32sWrapperName)
-  {
-    v7 = strlen(llvm::orc::rt::MemoryWriteUInt32sWrapperName);
-  }
-
-  v17[8] = v7;
-  v17[9] = &v15 + 8;
-  v8 = llvm::orc::rt::MemoryWriteUInt64sWrapperName;
-  v17[10] = llvm::orc::rt::MemoryWriteUInt64sWrapperName;
-  if (llvm::orc::rt::MemoryWriteUInt64sWrapperName)
-  {
-    v8 = strlen(llvm::orc::rt::MemoryWriteUInt64sWrapperName);
-  }
-
-  v17[11] = v8;
-  v17[12] = &v16;
-  v9 = llvm::orc::rt::MemoryWriteBuffersWrapperName;
-  v17[13] = llvm::orc::rt::MemoryWriteBuffersWrapperName;
-  if (llvm::orc::rt::MemoryWriteBuffersWrapperName)
-  {
-    v9 = strlen(llvm::orc::rt::MemoryWriteBuffersWrapperName);
-  }
-
-  v17[14] = v9;
-  v17[15] = &v16 + 8;
-  v10 = llvm::orc::rt::MemoryWritePointersWrapperName;
-  v17[16] = llvm::orc::rt::MemoryWritePointersWrapperName;
-  if (llvm::orc::rt::MemoryWritePointersWrapperName)
-  {
-    v10 = strlen(llvm::orc::rt::MemoryWritePointersWrapperName);
-  }
-
-  v17[17] = v10;
-  llvm::orc::ExecutorProcessControl::getBootstrapSymbols(this, v17, 6, &v13);
-  result = v13;
-  if (!v13)
-  {
-    operator new();
-  }
-
-  *(a2 + 8) |= 1u;
-  *a2 = result;
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7915,46 +7345,46 @@ __int128 *llvm::unique_function<llvm::Expected<std::unique_ptr<llvm::orc::Execut
 
 uint64_t llvm::detail::UniqueFunctionBase<void,llvm::Expected<std::vector<llvm::orc::ExecutorSymbolDef>>>::CallImpl<llvm::orc::lookupSymbolsAsyncHelper(llvm::orc::EPCGenericDylibManager &,llvm::ArrayRef<llvm::orc::DylibManager::LookupRequest>,std::vector<std::vector<llvm::orc::ExecutorSymbolDef>>,llvm::unique_function<void ()(llvm::Expected<std::vector<std::vector<llvm::orc::ExecutorSymbolDef>>>)>)::$_0>(uint64_t a1, uint64_t a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   if (*(a2 + 24) & 1)
   {
     v3 = *a2;
     *a2 = 0;
     v4 = (a1 + 24);
-    v31 = 0;
-    v36 = -1;
-    v35[0] = v3;
+    v30 = 0;
+    v35 = -1;
+    v34[0] = v3;
     v5 = *(a1 + 48);
     if ((v5 & 2) == 0)
     {
       v4 = *v4;
     }
 
-    (*(v5 & 0xFFFFFFFFFFFFFFF8))(v4, v35);
-    llvm::Expected<std::vector<std::vector<llvm::orc::ExecutorSymbolDef>>>::~Expected(v35);
+    (*(v5 & 0xFFFFFFFFFFFFFFF8))(v4, v34);
+    llvm::Expected<std::vector<std::vector<llvm::orc::ExecutorSymbolDef>>>::~Expected(v34);
   }
 
   else
   {
     v6 = *a2;
-    v26 = *(a2 + 8);
-    v32 = v26;
+    v25 = *(a2 + 8);
+    v31 = v25;
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
     *a2 = 0;
-    v30 = 0;
-    v31 = v6;
+    v29 = 0;
+    v30 = v6;
     __p[0] = 0;
     __p[1] = 0;
-    std::vector<std::vector<llvm::orc::ExecutorSymbolDef>>::push_back[abi:nn200100](a1 + 56, __p);
+    std::vector<std::vector<llvm::orc::ExecutorSymbolDef>>::push_back[abi:nn200100]((a1 + 56), __p);
     if (__p[0])
     {
       __p[1] = __p[0];
       operator delete(__p[0]);
     }
 
-    std::vector<llvm::orc::ExecutorSymbolDef>::reserve((*(a1 + 64) - 24), (v26 - v6) >> 4);
-    for (; v6 != v26; ++v6)
+    std::vector<llvm::orc::ExecutorSymbolDef>::reserve((*(a1 + 64) - 24), (v25 - v6) >> 4);
+    for (; v6 != v25; ++v6)
     {
       *__p = *v6;
       v7 = *(a1 + 64);
@@ -8020,21 +7450,19 @@ uint64_t llvm::detail::UniqueFunctionBase<void,llvm::Expected<std::vector<llvm::
     v21 = *(a1 + 8);
     v22 = *(a1 + 16) - 1;
     v23 = *a1;
-    v27 = *(a1 + 56);
-    v28 = *(a1 + 72);
+    v26 = *(a1 + 56);
+    v27 = *(a1 + 72);
     *(a1 + 64) = 0;
     *(a1 + 72) = 0;
     *(a1 + 56) = 0;
-    llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v34, (a1 + 24));
-    llvm::orc::lookupSymbolsAsyncHelper(v23, (v21 + 16), v22, &v27, v34);
-    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v34);
-    __p[0] = &v27;
+    llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v33, (a1 + 24));
+    llvm::orc::lookupSymbolsAsyncHelper(v23, (v21 + 16), v22, &v26, v33);
+    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v33);
+    __p[0] = &v26;
     std::vector<std::vector<llvm::orc::ExecutorSymbolDef>>::__destroy_vector::operator()[abi:nn200100](__p);
   }
 
-  result = llvm::Expected<std::vector<llvm::orc::ExecutorSymbolDef>>::~Expected(&v31);
-  v25 = *MEMORY[0x277D85DE8];
-  return result;
+  return llvm::Expected<std::vector<llvm::orc::ExecutorSymbolDef>>::~Expected(&v30);
 }
 
 __n128 llvm::detail::UniqueFunctionBase<void,llvm::Expected<std::vector<llvm::orc::ExecutorSymbolDef>>>::MoveImpl<llvm::orc::lookupSymbolsAsyncHelper(llvm::orc::EPCGenericDylibManager &,llvm::ArrayRef<llvm::orc::DylibManager::LookupRequest>,std::vector<std::vector<llvm::orc::ExecutorSymbolDef>>,llvm::unique_function<void ()(llvm::Expected<std::vector<std::vector<llvm::orc::ExecutorSymbolDef>>>)>)::$_0>(uint64_t a1, __int128 *a2)
@@ -8062,11 +7490,11 @@ void *llvm::detail::UniqueFunctionBase<void,llvm::Expected<std::vector<llvm::orc
   return llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase((a1 + 24));
 }
 
-uint64_t std::vector<std::vector<llvm::orc::ExecutorSymbolDef>>::push_back[abi:nn200100](uint64_t result, uint64_t a2)
+const void **std::vector<std::vector<llvm::orc::ExecutorSymbolDef>>::push_back[abi:nn200100](const void **result, uint64_t a2)
 {
   v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
+  v4 = result[1];
+  v5 = result[2];
   if (v4 >= v5)
   {
     v7 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *result) >> 3);
@@ -8108,8 +7536,8 @@ uint64_t std::vector<std::vector<llvm::orc::ExecutorSymbolDef>>::push_back[abi:n
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
     v6 = 24 * v7 + 24;
-    v12 = *(result + 8) - *result;
-    v13 = v11 - v12;
+    v12 = result[1] - *result;
+    v13 = (v11 - v12);
     memcpy((v11 - v12), *result, v12);
     v14 = *v3;
     *v3 = v13;
@@ -8126,14 +7554,14 @@ uint64_t std::vector<std::vector<llvm::orc::ExecutorSymbolDef>>::push_back[abi:n
   else
   {
     *v4 = 0;
-    v4[1] = 0;
-    v4[2] = 0;
+    *(v4 + 1) = 0;
+    *(v4 + 2) = 0;
     *v4 = *a2;
-    v4[2] = *(a2 + 16);
+    *(v4 + 2) = *(a2 + 16);
     *a2 = 0;
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
-    v6 = (v4 + 3);
+    v6 = (v4 + 24);
   }
 
   v3[1] = v6;
@@ -8355,61 +7783,60 @@ uint64_t std::__assoc_state<llvm::MSVCPExpected<llvm::orc::SimpleRemoteEPCExecut
 
 void llvm::detail::UniqueFunctionBase<void,llvm::orc::shared::WrapperFunctionResult>::CallImpl<llvm::orc::SimpleRemoteEPC::setup(llvm::orc::SimpleRemoteEPC::Setup)::$_0>(uint64_t **a1, uint64_t a2)
 {
-  v62 = *MEMORY[0x277D85DE8];
-  *v45 = *a2;
+  v61 = *MEMORY[0x277D85DE8];
+  *v44 = *a2;
   *a2 = 0;
   *(a2 + 8) = 0;
-  if (v45[1])
+  if (v44[1])
   {
-    v3 = v45[0];
-    if (v45[1] <= 8)
+    v3 = v44[0];
+    if (v44[1] <= 8)
     {
-      v3 = v45;
+      v3 = v44;
     }
   }
 
   else
   {
-    v54 = v45[0];
-    if (v45[0])
+    v53 = v44[0];
+    if (v44[0])
     {
-      v39 = *a1;
       getErrorErrorCat();
       __p[0] = 3;
       __p[1] = &getErrorErrorCat(void)::ErrorErrorCat;
       llvm::make_error<llvm::StringError,char const*&,std::error_code>();
     }
 
-    v3 = v45;
+    v3 = v44;
   }
 
-  v54 = v3;
-  v55 = v45[1];
+  v53 = v3;
+  v54 = v44[1];
   __p[0] = 0;
   __p[1] = 0;
-  *&v49 = 0;
-  v50 = 0;
-  *&v51 = 0;
-  *(&v51 + 1) = 0x2000000000;
-  v52 = 0;
-  *&v53 = 0;
-  *(&v53 + 1) = 0x1000000000;
-  if (!llvm::orc::shared::SPSSerializationTraits<llvm::orc::shared::SPSSequence<char>,std::string,void>::deserialize(&v54, __p))
+  *&v48 = 0;
+  v49 = 0;
+  *&v50 = 0;
+  *(&v50 + 1) = 0x2000000000;
+  v51 = 0;
+  *&v52 = 0;
+  *(&v52 + 1) = 0x1000000000;
+  if (!llvm::orc::shared::SPSSerializationTraits<llvm::orc::shared::SPSSequence<char>,std::string,void>::deserialize(&v53, __p))
   {
     goto LABEL_45;
   }
 
-  v4 = v55;
-  v5 = (v55 - 8);
-  if (v55 < 8)
+  v4 = v54;
+  v5 = (v54 - 8);
+  if (v54 < 8)
   {
     goto LABEL_45;
   }
 
-  v6 = v54;
-  v7 = *v54++;
-  v55 -= 8;
-  *(&v49 + 1) = v7;
+  v6 = v53;
+  v7 = *v53++;
+  v54 -= 8;
+  *(&v48 + 1) = v7;
   if (v5 < 8)
   {
     goto LABEL_45;
@@ -8417,8 +7844,8 @@ void llvm::detail::UniqueFunctionBase<void,llvm::orc::shared::WrapperFunctionRes
 
   v8 = v6[1];
   v9 = (v4 - 16);
-  v54 = v6 + 2;
-  v55 = v9;
+  v53 = v6 + 2;
+  v54 = v9;
   v10 = v9 > 7;
   if (v8)
   {
@@ -8429,9 +7856,9 @@ void llvm::detail::UniqueFunctionBase<void,llvm::orc::shared::WrapperFunctionRes
         goto LABEL_45;
       }
 
-      v12 = (v54 + 1);
-      v11 = *v54++;
-      v55 = (v9 - 8);
+      v12 = (v53 + 1);
+      v11 = *v53++;
+      v54 = (v9 - 8);
       v13 = v9 - 8 - v11;
       if (v9 - 8 < v11)
       {
@@ -8439,8 +7866,8 @@ void llvm::detail::UniqueFunctionBase<void,llvm::orc::shared::WrapperFunctionRes
       }
 
       v14 = (v12 + v11);
-      v54 = (v12 + v11);
-      v55 = v13;
+      v53 = (v12 + v11);
+      v54 = v13;
       v15 = v13 >= 8;
       v16 = (v13 - 8);
       if (!v15)
@@ -8449,9 +7876,9 @@ void llvm::detail::UniqueFunctionBase<void,llvm::orc::shared::WrapperFunctionRes
       }
 
       v17 = *v14;
-      v54 = v14 + 1;
-      v55 = v16;
-      v44 = v8;
+      v53 = v14 + 1;
+      v54 = v16;
+      v43 = v8;
       if (v17)
       {
         if ((v17 & 0x8000000000000000) == 0)
@@ -8467,9 +7894,9 @@ void llvm::detail::UniqueFunctionBase<void,llvm::orc::shared::WrapperFunctionRes
         v12 = 0;
       }
 
-      v18 = llvm::StringMapImpl::LookupBucketFor(&v50, v12, v11);
-      v19 = v50;
-      v20 = *(v50 + 8 * v18);
+      v18 = llvm::StringMapImpl::LookupBucketFor(&v49, v12, v11);
+      v19 = v49;
+      v20 = *(v49 + 8 * v18);
       if (v20 == -8)
       {
         break;
@@ -8487,33 +7914,33 @@ LABEL_24:
         goto LABEL_45;
       }
 
-      v9 = v55;
-      v10 = v55 > 7;
+      v9 = v54;
+      v10 = v54 > 7;
       --v8;
-      if (v44 == 1)
+      if (v43 == 1)
       {
         goto LABEL_26;
       }
     }
 
-    --DWORD2(v51);
+    --DWORD2(v50);
 LABEL_21:
     v22 = operator new(v11 + 33, 8uLL);
-    v23 = v22;
-    v24 = (v22 + 4);
+    v24 = v22;
+    v25 = (v22 + 4);
     if (v11)
     {
       memcpy(v22 + 4, v12, v11);
     }
 
-    v24[v11] = 0;
-    *v23 = v11;
-    v23[1] = 0;
-    v23[2] = 0;
-    v23[3] = 0;
-    *(v19 + 8 * v18) = v23;
-    ++DWORD1(v51);
-    llvm::StringMapImpl::RehashTable(&v50, v18);
+    v25[v11] = 0;
+    *v24 = v11;
+    v24[1] = 0;
+    v24[2] = 0;
+    v24[3] = 0;
+    *(v19 + 8 * v18) = v24;
+    ++DWORD1(v50);
+    llvm::StringMapImpl::RehashTable(&v49, v18, v23);
     v21 = 1;
     goto LABEL_24;
   }
@@ -8522,165 +7949,160 @@ LABEL_26:
   if (!v10)
   {
 LABEL_45:
-    v40 = *a1;
     getErrorErrorCat();
-    v46 = 3;
-    v47 = &getErrorErrorCat(void)::ErrorErrorCat;
+    v45 = 3;
+    v46 = &getErrorErrorCat(void)::ErrorErrorCat;
     llvm::make_error<llvm::StringError,char const(&)[51],std::error_code>();
   }
 
-  v25 = *v54;
-  v26 = v9 - 8;
-  ++v54;
-  v55 = v26;
-  if (v25)
+  v26 = *v53;
+  v27 = v9 - 8;
+  ++v53;
+  v54 = v27;
+  if (v26)
   {
-    while (v26 >= 8)
+    while (v27 >= 8)
     {
-      v28 = (v54 + 1);
-      v27 = *v54++;
-      v55 = (v26 - 8);
-      v29 = v26 - 8 - v27;
-      if (v26 - 8 < v27)
+      v29 = (v53 + 1);
+      v28 = *v53++;
+      v54 = (v27 - 8);
+      v30 = v27 - 8 - v28;
+      if (v27 - 8 < v28)
       {
         break;
       }
 
-      v54 = (v28 + v27);
-      v55 = (v26 - 8 - v27);
-      v15 = v29 >= 8;
-      v30 = (v29 - 8);
+      v53 = (v29 + v28);
+      v54 = (v27 - 8 - v28);
+      v15 = v30 >= 8;
+      v31 = (v30 - 8);
       if (!v15)
       {
         break;
       }
 
-      v31 = *(v28 + v27);
-      v54 = (v28 + v27 + 8);
-      v55 = v30;
-      if (v27)
+      v32 = *(v29 + v28);
+      v53 = (v29 + v28 + 8);
+      v54 = v31;
+      if (v28)
       {
-        v32 = v28;
+        v33 = v29;
       }
 
       else
       {
-        v32 = 0;
+        v33 = 0;
       }
 
-      v33 = llvm::StringMapImpl::LookupBucketFor(&v52, v32, v27);
-      v34 = v52;
-      v35 = *(v52 + 8 * v33);
-      if (v35)
+      v34 = llvm::StringMapImpl::LookupBucketFor(&v51, v33, v28);
+      v35 = v51;
+      v36 = *(v51 + 8 * v34);
+      if (v36)
       {
-        if (v35 != -8)
+        if (v36 != -8)
         {
           goto LABEL_45;
         }
 
-        --DWORD2(v53);
+        --DWORD2(v52);
       }
 
-      v36 = operator new(v27 + 17, 8uLL);
-      v37 = v36;
-      v38 = (v36 + 2);
-      if (v27)
+      v37 = operator new(v28 + 17, 8uLL);
+      v39 = v37;
+      v40 = (v37 + 2);
+      if (v28)
       {
-        memcpy(v36 + 2, v28, v27);
+        memcpy(v37 + 2, v29, v28);
       }
 
-      --v25;
-      v38[v27] = 0;
-      *v37 = v27;
-      v37[1] = v31;
-      *(v34 + 8 * v33) = v37;
-      ++DWORD1(v53);
-      llvm::StringMapImpl::RehashTable(&v52, v33);
-      if (!v25)
+      --v26;
+      v40[v28] = 0;
+      *v39 = v28;
+      v39[1] = v32;
+      *(v35 + 8 * v34) = v39;
+      ++DWORD1(v52);
+      llvm::StringMapImpl::RehashTable(&v51, v34, v38);
+      if (!v26)
       {
         goto LABEL_54;
       }
 
-      v26 = v55;
+      v27 = v54;
     }
 
     goto LABEL_45;
   }
 
 LABEL_54:
-  v43 = *a1;
-  v61 = 0;
-  v56[0] = *__p;
-  v56[1] = v49;
+  v42 = *a1;
+  v60 = 0;
+  v55[0] = *__p;
+  v55[1] = v48;
   __p[0] = 0;
   __p[1] = 0;
-  *&v49 = 0;
+  *&v48 = 0;
+  v56 = v49;
   v57 = v50;
+  DWORD2(v50) = 0;
+  v49 = 0;
+  *&v50 = 0;
   v58 = v51;
-  DWORD2(v51) = 0;
-  v50 = 0;
-  *&v51 = 0;
   v59 = v52;
-  v60 = v53;
-  v52 = 0;
-  *&v53 = 0;
-  DWORD2(v53) = 0;
-  std::promise<llvm::MSVCPExpected<llvm::orc::SimpleRemoteEPCExecutorInfo>>::set_value(*v43, v56);
-  llvm::Expected<llvm::orc::SimpleRemoteEPCExecutorInfo>::~Expected(v56);
-  llvm::StringMap<std::atomic<unsigned long>,llvm::MallocAllocator>::~StringMap(&v52);
-  llvm::StringMap<std::vector<char>,llvm::MallocAllocator>::~StringMap(&v50);
-  if (SBYTE7(v49) < 0)
+  v51 = 0;
+  *&v52 = 0;
+  DWORD2(v52) = 0;
+  std::promise<llvm::MSVCPExpected<llvm::orc::SimpleRemoteEPCExecutorInfo>>::set_value(*v42, v55);
+  llvm::Expected<llvm::orc::SimpleRemoteEPCExecutorInfo>::~Expected(v55);
+  llvm::StringMap<std::atomic<unsigned long>,llvm::MallocAllocator>::~StringMap(&v51);
+  llvm::StringMap<std::vector<char>,llvm::MallocAllocator>::~StringMap(&v49);
+  if (SBYTE7(v48) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v45[1] >= 9)
+  if (v44[1] >= 9)
   {
-    v41 = v45[0];
+    v41 = v44[0];
 LABEL_52:
     free(v41);
-    goto LABEL_53;
+    return;
   }
 
-  if (!v45[1])
+  if (!v44[1])
   {
-    v41 = v45[0];
-    if (v45[0])
+    v41 = v44[0];
+    if (v44[0])
     {
       goto LABEL_52;
     }
   }
-
-LABEL_53:
-  v42 = *MEMORY[0x277D85DE8];
 }
 
-double std::promise<llvm::MSVCPExpected<llvm::orc::SimpleRemoteEPCExecutorInfo>>::set_value(uint64_t a1, uint64_t *a2)
+void std::promise<llvm::MSVCPExpected<llvm::orc::SimpleRemoteEPCExecutorInfo>>::set_value(uint64_t a1, uint64_t *a2)
 {
   if (a1)
   {
     std::mutex::lock((a1 + 24));
     if ((*(a1 + 136) & 1) == 0)
     {
-      v8.__ptr_ = 0;
+      v7.__ptr_ = 0;
       v4 = *(a1 + 16);
-      std::exception_ptr::~exception_ptr(&v8);
+      std::exception_ptr::~exception_ptr(&v7);
       if (!v4)
       {
         llvm::Expected<llvm::orc::SimpleRemoteEPCExecutorInfo>::moveConstruct<llvm::orc::SimpleRemoteEPCExecutorInfo>(a1 + 144, a2);
         *(a1 + 136) |= 5u;
         std::condition_variable::notify_all((a1 + 88));
         std::mutex::unlock((a1 + 24));
-        return result;
+        return;
       }
     }
 
     std::__throw_future_error[abi:nn200100]();
   }
 
-  v6 = std::__throw_future_error[abi:nn200100]();
-  *&result = llvm::Expected<llvm::orc::SimpleRemoteEPCExecutorInfo>::moveConstruct<llvm::orc::SimpleRemoteEPCExecutorInfo>(v6, v7).n128_u64[0];
-  return result;
+  std::__throw_future_error[abi:nn200100]();
+  llvm::Expected<llvm::orc::SimpleRemoteEPCExecutorInfo>::moveConstruct<llvm::orc::SimpleRemoteEPCExecutorInfo>(v5, v6);
 }
 
 __n128 llvm::Expected<llvm::orc::SimpleRemoteEPCExecutorInfo>::moveConstruct<llvm::orc::SimpleRemoteEPCExecutorInfo>(uint64_t a1, uint64_t *a2)
@@ -8800,63 +8222,61 @@ void llvm::orc::GenericNamedTaskImpl<llvm::orc::SimpleRemoteEPC::handleCallWrapp
 
 void *llvm::orc::GenericNamedTaskImpl<llvm::orc::SimpleRemoteEPC::handleCallWrapper(unsigned long long,llvm::orc::ExecutorAddr,llvm::SmallVector<char,128u>)::$_0>::run(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v1 = a1[2];
   v2 = *(a1[1] + 32);
-  *&v5 = a1[1];
-  *(&v5 + 1) = v1;
-  v6 = llvm::detail::UniqueFunctionBase<void,llvm::orc::shared::WrapperFunctionResult>::CallbacksHolder<llvm::orc::SimpleRemoteEPC::handleCallWrapper(unsigned long long,llvm::orc::ExecutorAddr,llvm::SmallVector<char,128u>)::$_0::operator() const(void)::{lambda(llvm::orc::shared::WrapperFunctionResult)#1},llvm::orc::SimpleRemoteEPC::handleCallWrapper(unsigned long long,llvm::orc::ExecutorAddr,llvm::SmallVector<char,128u>)::$_0::operator() const(void)::{lambda(llvm::orc::shared::WrapperFunctionResult)#1},void>::Callbacks + 2;
-  llvm::orc::ExecutionSession::runJITDispatchHandler(v2, &v5, a1[3], a1[4], a1[5]);
-  result = llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v5);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  *&v4 = a1[1];
+  *(&v4 + 1) = v1;
+  v5 = llvm::detail::UniqueFunctionBase<void,llvm::orc::shared::WrapperFunctionResult>::CallbacksHolder<llvm::orc::SimpleRemoteEPC::handleCallWrapper(unsigned long long,llvm::orc::ExecutorAddr,llvm::SmallVector<char,128u>)::$_0::operator() const(void)::{lambda(llvm::orc::shared::WrapperFunctionResult)#1},llvm::orc::SimpleRemoteEPC::handleCallWrapper(unsigned long long,llvm::orc::ExecutorAddr,llvm::SmallVector<char,128u>)::$_0::operator() const(void)::{lambda(llvm::orc::shared::WrapperFunctionResult)#1},void>::Callbacks + 2;
+  llvm::orc::ExecutionSession::runJITDispatchHandler(v2, &v4, a1[3], a1[4], a1[5]);
+  return llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v4);
 }
 
-void llvm::detail::UniqueFunctionBase<void,llvm::orc::shared::WrapperFunctionResult>::CallImpl<llvm::orc::SimpleRemoteEPC::handleCallWrapper(unsigned long long,llvm::orc::ExecutorAddr,llvm::SmallVector<char,128u>)::$_0::operator() const(void)::{lambda(llvm::orc::shared::WrapperFunctionResult)#1}>(void *a1, uint64_t a2)
+void llvm::detail::UniqueFunctionBase<void,llvm::orc::shared::WrapperFunctionResult>::CallImpl<llvm::orc::SimpleRemoteEPC::handleCallWrapper(unsigned long long,llvm::orc::ExecutorAddr,llvm::SmallVector<char,128u>)::$_0::operator() const(void)::{lambda(llvm::orc::shared::WrapperFunctionResult)#1}>(uint64_t *a1, uint64_t a2)
 {
-  *v6 = *a2;
+  *v5 = *a2;
   *a2 = 0;
   *(a2 + 8) = 0;
-  v3 = *a1;
-  v2 = a1[1];
-  (*(**(*a1 + 328) + 24))(&v8);
-  if (v8)
+  v2 = *a1;
+  (*(**(*a1 + 328) + 24))(&v7);
+  if (v7)
   {
-    v4 = *(v3 + 32);
-    v7 = v8;
-    v8 = 0;
-    llvm::orc::ExecutionSession::reportError(v4, &v7);
+    v3 = *(v2 + 32);
+    v6 = v7;
+    v7 = 0;
+    llvm::orc::ExecutionSession::reportError(v3, &v6);
+    if (v6)
+    {
+      (*(*v6 + 8))(v6);
+    }
+
     if (v7)
     {
       (*(*v7 + 8))(v7);
     }
-
-    if (v8)
-    {
-      (*(*v8 + 8))(v8);
-    }
   }
 
-  if (v6[1] >= 9)
+  if (v5[1] >= 9)
   {
-    v5 = v6[0];
+    v4 = v5[0];
 LABEL_10:
-    free(v5);
+    free(v4);
     return;
   }
 
-  if (!v6[1])
+  if (!v5[1])
   {
-    v5 = v6[0];
-    if (v6[0])
+    v4 = v5[0];
+    if (v5[0])
     {
       goto LABEL_10;
     }
   }
 }
 
-uint64_t *llvm::IRBuilderBase::CreateICmp(uint64_t a1, __int16 a2, llvm::CmpInst **a3, uint64_t a4, uint64_t a5)
+llvm::Instruction *llvm::IRBuilderBase::CreateICmp(uint64_t a1, uint64_t a2, llvm::CmpInst **a3, uint64_t a4, uint64_t a5)
 {
+  v8 = a2;
   result = (*(**(a1 + 72) + 56))(*(a1 + 72));
   if (!result)
   {
@@ -8871,44 +8291,44 @@ uint64_t *llvm::IRBuilderBase::CreateICmp(uint64_t a1, __int16 a2, llvm::CmpInst
     *(v11 + 5) = 0;
     *(v11 + 6) = 0;
     *(v11 + 7) = v11 + 64;
-    v16 = 257;
-    llvm::CmpInst::makeCmpResultType(*a3, v13);
-    llvm::CmpInst::CmpInst(v12, v14, 53, a2, a3, a4, v15, 0, 0);
+    v17 = 257;
+    llvm::CmpInst::makeCmpResultType(*a3, v13, v14);
+    llvm::CmpInst::CmpInst(v12, v15, 53, v8, a3, a4, v16, 0, 0);
     return llvm::IRBuilderBase::Insert<llvm::LoadInst>(a1, v12, a5);
   }
 
   return result;
 }
 
-void llvm::CmpInst::makeCmpResultType(llvm::CmpInst *this, llvm::Type *a2)
+void llvm::CmpInst::makeCmpResultType(llvm::CmpInst *this, llvm::Type *a2, unsigned int a3)
 {
   if (this)
   {
     if ((*(this + 2) & 0xFE) == 0x12)
     {
-      llvm::VectorType::get((**this + 1920), (*(this + 8) | (((~*(this + 2) & 0x13) == 0) << 32)));
+      llvm::VectorType::get((**this + 1920), (*(this + 8) | (((~*(this + 2) & 0x13) == 0) << 32)), a3);
     }
   }
 }
 
-uint64_t *llvm::IRBuilderBase::CreateCast(uint64_t a1, char a2, unsigned __int8 *a3, llvm::Type *a4, uint64_t a5)
+llvm::Instruction *llvm::IRBuilderBase::CreateCast(uint64_t a1, uint64_t a2, llvm::Value *a3, llvm::Type *a4, uint64_t a5)
 {
   if (*a3 == a4)
   {
     return a3;
   }
 
-  if (a3[16] > 0x14u)
+  if (*(a3 + 16) > 0x14u)
   {
     v11 = 257;
     v9 = llvm::CastInst::Create(a2, a3, a4, v10, 0);
     return llvm::IRBuilderBase::Insert<llvm::LoadInst>(a1, v9, a5);
   }
 
-  a3 = (*(**(a1 + 72) + 120))(*(a1 + 72));
+  a3 = (*(**(a1 + 72) + 120))(*(a1 + 72), a2);
   if (a3)
   {
-    v7 = a3[16] >= 0x1Cu;
+    v7 = *(a3 + 16) >= 0x1Cu;
   }
 
   else
@@ -8924,8 +8344,9 @@ uint64_t *llvm::IRBuilderBase::CreateCast(uint64_t a1, char a2, unsigned __int8 
   return llvm::IRBuilderBase::Insert<llvm::LoadInst>(a1, a3, a5);
 }
 
-uint64_t *llvm::IRBuilderBase::CreateAlignedStore(uint64_t *a1, llvm::Type **a2, uint64_t a3, __int16 a4, __int16 a5)
+llvm::Instruction *llvm::IRBuilderBase::CreateAlignedStore(uint64_t *a1, llvm::Type **a2, uint64_t a3, __int16 a4, uint64_t a5)
 {
+  v5 = a5;
   Alignment = a4;
   if ((a4 & 0x100) == 0)
   {
@@ -8933,17 +8354,17 @@ uint64_t *llvm::IRBuilderBase::CreateAlignedStore(uint64_t *a1, llvm::Type **a2,
   }
 
   v10 = operator new(0x80uLL);
-  *(v10 + 21) = *(v10 + 21) & 0x38000000 | 2;
-  v11 = (v10 + 64);
+  v10[21] = v10[21] & 0x38000000 | 2;
+  v11 = (v10 + 16);
   *v10 = 0;
   *(v10 + 1) = 0;
   *(v10 + 2) = 0;
-  *(v10 + 3) = v10 + 64;
+  *(v10 + 3) = v10 + 16;
   *(v10 + 4) = 0;
   *(v10 + 5) = 0;
   *(v10 + 6) = 0;
-  *(v10 + 7) = v10 + 64;
-  llvm::StoreInst::StoreInst((v10 + 64), a2, a3, a5, Alignment, 0, 1, 0);
+  *(v10 + 7) = v10 + 16;
+  llvm::StoreInst::StoreInst((v10 + 16), a2, a3, v5, Alignment, 0, 1, 0);
   v14 = 257;
   return llvm::IRBuilderBase::Insert<llvm::LoadInst>(a1, v11, v13);
 }
@@ -8972,7 +8393,7 @@ void llvm::orc::ExecutorProcessControl::~ExecutorProcessControl(void **this)
   }
 }
 
-void llvm::orc::SelfExecutorProcessControl::Create(void *a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
+void llvm::orc::SelfExecutorProcessControl::Create(void *a1@<X0>, uint64_t *a2@<X1>, uint64_t a4@<X8>)
 {
   v12 = *MEMORY[0x277D85DE8];
   if (!*a1)
@@ -9000,17 +8421,16 @@ void llvm::orc::SelfExecutorProcessControl::Create(void *a1@<X0>, void *a2@<X1>,
     operator new();
   }
 
-  v4 = v10;
-  *(a3 + 8) |= 1u;
-  *a3 = v4;
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = v10;
+  *(a4 + 8) |= 1u;
+  *a4 = v5;
 }
 
 void llvm::orc::SelfExecutorProcessControl::loadDylib(_anonymous_namespace_ *a1@<X1>, uint64_t a2@<X8>)
 {
   __p[0] = 0;
   __p[1] = 0;
-  v6 = 0;
+  v5 = 0;
   PermanentLibrary = llvm::sys::DynamicLibrary::getPermanentLibrary(a1, __p);
   if (PermanentLibrary == &llvm::sys::DynamicLibrary::Invalid)
   {
@@ -9020,7 +8440,7 @@ void llvm::orc::SelfExecutorProcessControl::loadDylib(_anonymous_namespace_ *a1@
 
   *(a2 + 8) &= ~1u;
   *a2 = PermanentLibrary;
-  if (SHIBYTE(v6) < 0)
+  if (SHIBYTE(v5) < 0)
   {
     operator delete(__p[0]);
   }
@@ -9028,28 +8448,28 @@ void llvm::orc::SelfExecutorProcessControl::loadDylib(_anonymous_namespace_ *a1@
 
 void llvm::orc::SelfExecutorProcessControl::lookupSymbolsAsync(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v53 = *MEMORY[0x277D85DE8];
-  v45 = 0;
+  v52 = *MEMORY[0x277D85DE8];
+  v44 = 0;
   v5 = 0uLL;
-  v44 = 0u;
+  v43 = 0u;
   if (a3)
   {
     v6 = a2;
-    v38 = a2 + 16 * a3;
+    v37 = a2 + 16 * a3;
     while (1)
     {
       v8 = *v6;
       __p = 0;
+      v46 = 0;
       v47 = 0;
-      v48 = 0;
-      std::vector<std::vector<llvm::orc::ExecutorSymbolDef>>::push_back[abi:nn200100](&v44, &__p);
+      std::vector<std::vector<llvm::orc::ExecutorSymbolDef>>::push_back[abi:nn200100](&v43, &__p);
       if (__p)
       {
-        v47 = __p;
+        v46 = __p;
         operator delete(__p);
       }
 
-      v39 = v6;
+      v38 = v6;
       v9 = *(v6 + 8);
       v10 = *v9;
       v11 = v9[1];
@@ -9060,11 +8480,11 @@ void llvm::orc::SelfExecutorProcessControl::lookupSymbolsAsync(uint64_t a1, uint
 
 LABEL_45:
       v6 += 16;
-      if (v39 + 16 == v38)
+      if (v38 + 16 == v37)
       {
-        v5 = v44;
-        v34 = v45;
-        v35 = v52 & 0xFE;
+        v5 = v43;
+        v34 = v44;
+        v35 = v51 & 0xFE;
         goto LABEL_48;
       }
     }
@@ -9094,7 +8514,7 @@ LABEL_45:
         operator new();
       }
 
-      v43 = v12 - v14;
+      v42 = v12 - v14;
       if (v15)
       {
         memmove(&__dst, v13 + 2, v15);
@@ -9108,7 +8528,7 @@ LABEL_45:
 
       else
       {
-        if (v43 >= 0)
+        if (v42 >= 0)
         {
           p_dst = &__dst;
         }
@@ -9134,18 +8554,18 @@ LABEL_45:
       v19 = !v18;
       if (v18)
       {
-        v40 = 0uLL;
-        v41 = 0;
-        v49 = &v40;
+        v39 = 0uLL;
+        v40 = 0;
+        v48 = &v39;
         operator new();
       }
 
-      v20 = *(&v44 + 1);
-      v22 = *(*(&v44 + 1) - 16);
-      v21 = *(*(&v44 + 1) - 8);
+      v20 = *(&v43 + 1);
+      v22 = *(*(&v43 + 1) - 16);
+      v21 = *(*(&v43 + 1) - 8);
       if (v22 >= v21)
       {
-        v24 = *(*(&v44 + 1) - 24);
+        v24 = *(*(&v43 + 1) - 24);
         v25 = (v22 - v24) >> 4;
         v26 = v25 + 1;
         if ((v25 + 1) >> 60)
@@ -9171,7 +8591,7 @@ LABEL_45:
 
         if (v28)
         {
-          std::__allocate_at_least[abi:nn200100]<std::allocator<llvm::orc::ExecutorSymbolDef>>(*(&v44 + 1) - 24, v28);
+          std::__allocate_at_least[abi:nn200100]<std::allocator<llvm::orc::ExecutorSymbolDef>>(*(&v43 + 1) - 24, v28);
         }
 
         v29 = 16 * v25;
@@ -9200,7 +8620,7 @@ LABEL_45:
       }
 
       *(v20 - 16) = v23;
-      if (v43 < 0)
+      if (v42 < 0)
       {
         operator delete(__dst);
       }
@@ -9223,27 +8643,26 @@ LABEL_45:
     v34 = 0;
     v35 = 0;
 LABEL_48:
-    v52 = v35;
-    v50 = v5;
-    v51 = v34;
-    v45 = 0;
-    v44 = 0uLL;
+    v51 = v35;
+    v49 = v5;
+    v50 = v34;
+    v44 = 0;
+    v43 = 0uLL;
     v36 = a4[3];
     if ((v36 & 2) == 0)
     {
       a4 = *a4;
     }
 
-    (*(v36 & 0xFFFFFFFFFFFFFFF8))(a4, &v50);
-    llvm::Expected<std::vector<std::vector<llvm::orc::ExecutorSymbolDef>>>::~Expected(&v50);
+    (*(v36 & 0xFFFFFFFFFFFFFFF8))(a4, &v49);
+    llvm::Expected<std::vector<std::vector<llvm::orc::ExecutorSymbolDef>>>::~Expected(&v49);
   }
 
-  __p = &v44;
+  __p = &v43;
   std::vector<std::vector<llvm::orc::ExecutorSymbolDef>>::__destroy_vector::operator()[abi:nn200100](&__p);
-  v37 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t llvm::orc::SelfExecutorProcessControl::runAsMain@<X0>(uint64_t (*a1)(void, void)@<X1>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X8>)
+uint64_t llvm::orc::SelfExecutorProcessControl::runAsMain@<X0>(uint64_t (*a1)(void, uint64_t)@<X1>, const void **a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X8>)
 {
   v6[0] = 0;
   v6[16] = 0;
@@ -9667,7 +9086,6 @@ void llvm::orc::DynamicThreadPoolTaskDispatcher::dispatch(uint64_t a1, uint64_t 
 LABEL_9:
     ++*(a1 + 80);
     std::mutex::unlock((a1 + 8));
-    v6 = *a2;
     *a2 = 0;
     operator new();
   }
@@ -9781,4 +9199,632 @@ uint64_t std::__thread_proxy[abi:nn200100]<std::tuple<std::unique_ptr<std::__thr
   std::mutex::unlock((v4 + 8));
   std::unique_ptr<std::tuple<std::unique_ptr<std::__thread_struct>,llvm::orc::DynamicThreadPoolTaskDispatcher::dispatch(std::unique_ptr<llvm::orc::Task>)::$_0>>::~unique_ptr[abi:nn200100](&v10);
   return 0;
+}
+
+uint64_t **std::unique_ptr<std::tuple<std::unique_ptr<std::__thread_struct>,llvm::orc::DynamicThreadPoolTaskDispatcher::dispatch(std::unique_ptr<llvm::orc::Task>)::$_0>>::~unique_ptr[abi:nn200100](uint64_t **a1)
+{
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    v3 = v2[2];
+    v2[2] = 0;
+    if (v3)
+    {
+      (*(*v3 + 8))(v3);
+    }
+
+    v4 = std::unique_ptr<std::__thread_struct>::~unique_ptr[abi:nn200100](v2);
+    MEMORY[0x277C69E40](v4, 0x1020C4034AC6F07);
+  }
+
+  return a1;
+}
+
+uint64_t *std::unique_ptr<std::__thread_struct>::~unique_ptr[abi:nn200100](uint64_t *a1)
+{
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    v3 = MEMORY[0x277C69BF0]();
+    MEMORY[0x277C69E40](v3, 0x20C4093837F09);
+  }
+
+  return a1;
+}
+
+llvm::Module **std::unique_ptr<llvm::Module>::~unique_ptr[abi:nn200100](llvm::Module **a1)
+{
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    llvm::Module::~Module(v2);
+    MEMORY[0x277C69E40]();
+  }
+
+  return a1;
+}
+
+uint64_t llvm::Expected<std::unique_ptr<llvm::Module>>::~Expected(uint64_t a1)
+{
+  if (*(a1 + 8))
+  {
+    v2 = *a1;
+    *a1 = 0;
+    if (v2)
+    {
+      (*(*v2 + 8))(v2);
+    }
+  }
+
+  else
+  {
+    std::unique_ptr<llvm::Module>::~unique_ptr[abi:nn200100](a1);
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__value_func<void ()(llvm::Metadata **,unsigned int,std::function<llvm::Type * ()(unsigned int)>,std::function<unsigned int ()(unsigned int,unsigned int)>)>::~__value_func[abi:nn200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__value_func<void ()(llvm::Value *,unsigned int,std::function<llvm::Type * ()(unsigned int)>,std::function<unsigned int ()(unsigned int,unsigned int)>)>::~__value_func[abi:nn200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__value_func<std::optional<std::string> ()(llvm::StringRef,llvm::StringRef)>::~__value_func[abi:nn200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+uint64_t llvm::jitlink::DWARFRecordSectionSplitter::operator()@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>, unint64_t *a4@<X3>)
+{
+  v58[8] = *MEMORY[0x277D85DE8];
+  result = llvm::jitlink::LinkGraph::findSectionByName(a2, *a1, a1[1], a4);
+  if (result)
+  {
+    v8 = result;
+    v49 = 0;
+    v50 = 0;
+    v51 = 0;
+    v9 = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin(result + 32);
+    v11 = *(v8 + 32) + 8 * *(v8 + 48);
+    if (v11 != v9)
+    {
+      v12 = v9;
+      v13 = v10;
+      do
+      {
+        v52[0] = *v12;
+        v56 = v58;
+        v57 = 0x800000000;
+        v14 = llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>,llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>::FindAndConstruct(&v49, v52);
+        std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>::operator=[abi:nn200100]<llvm::SmallVector<llvm::jitlink::Symbol *,8u>,void>((v14 + 1), &v56);
+        if (v56 != v58)
+        {
+          free(v56);
+        }
+
+        do
+        {
+          ++v12;
+        }
+
+        while (v12 != v13 && (*v12 | 0x1000) == 0xFFFFFFFFFFFFF000);
+      }
+
+      while (v12 != v11);
+    }
+
+    v15 = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin(v8 + 56);
+    v17 = *(v8 + 56) + 8 * *(v8 + 72);
+    if (v17 != v15)
+    {
+      v18 = v15;
+      v19 = v16;
+      do
+      {
+        v20 = *v18;
+        v52[0] = *(*v18 + 8);
+        v21 = v52[0];
+        v56 = 0;
+        v22 = llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>,llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>::LookupBucketFor<llvm::jitlink::Block *>(v49, v51, v52[0], &v56);
+        v23 = v56;
+        if ((v22 & 1) == 0)
+        {
+          v23 = llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>,llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>::InsertIntoBucketImpl<llvm::jitlink::Block *>(&v49, v52, v56);
+          *v23 = v21;
+          *(v23 + 8) = 0;
+          *(v23 + 88) = 0;
+        }
+
+        llvm::SmallVectorTemplateBase<void *,true>::push_back(v23 + 2, v20);
+        do
+        {
+          ++v18;
+        }
+
+        while (v18 != v19 && (*v18 | 0x1000) == 0xFFFFFFFFFFFFF000);
+      }
+
+      while (v18 != v17);
+    }
+
+    v24 = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin(v8 + 32);
+    v26 = *(v8 + 32) + 8 * *(v8 + 48);
+    if (v26 != v24)
+    {
+      v27 = v24;
+      v28 = v25;
+      do
+      {
+        v29 = *v27++;
+        v56 = v29;
+        v30 = llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>,llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>::FindAndConstruct(&v49, &v56);
+        v31 = *(v30 + 4);
+        v32 = 126 - 2 * __clz(v31);
+        if (v31)
+        {
+          v33 = v32;
+        }
+
+        else
+        {
+          v33 = 0;
+        }
+
+        std::__introsort<std::_ClassicAlgPolicy,llvm::jitlink::DWARFRecordSectionSplitter::operator()(llvm::jitlink::LinkGraph &)::$_0 &,llvm::jitlink::Symbol **,false>(v30[1], (v30[1] + 8 * v31), v33, 1);
+        while (v27 != v28 && (*v27 | 0x1000) == 0xFFFFFFFFFFFFF000)
+        {
+          ++v27;
+        }
+      }
+
+      while (v27 != v26);
+    }
+
+    v34 = v49;
+    v35 = v51;
+    v36 = 3 * v51;
+    if (v50)
+    {
+      v37 = v49;
+      if (v51)
+      {
+        v38 = 96 * v51;
+        v37 = v49;
+        while ((*v37 | 0x1000) == 0xFFFFFFFFFFFFF000)
+        {
+          v37 += 96;
+          v38 -= 96;
+          if (!v38)
+          {
+            goto LABEL_43;
+          }
+        }
+      }
+
+      v39 = v49 + 96 * v51;
+      if (v37 != v39)
+      {
+        v48 = v49;
+LABEL_36:
+        v40 = *(*v37 + 24);
+        if (!v40)
+        {
+          v55 = 1283;
+          v46 = *a1;
+          v47 = a1[1];
+          v52[0] = "Unexpected zero-fill block in ";
+          v53 = v46;
+          v54 = v47;
+          operator new();
+        }
+
+        v41 = *(*v37 + 32);
+        if (v41)
+        {
+          v42 = *(a2 + 188);
+          v56 = &unk_2883EA5B0;
+          llvm::BinaryStreamRef::BinaryStreamRef(&v57, v40, v41, v42);
+        }
+
+        *a3 = 0;
+        v34 = v48;
+        while (1)
+        {
+          v37 += 96;
+          if (v37 == v39)
+          {
+            break;
+          }
+
+          if ((*v37 | 0x1000) != 0xFFFFFFFFFFFFF000)
+          {
+            if (v37 != v39)
+            {
+              goto LABEL_36;
+            }
+
+            break;
+          }
+        }
+      }
+    }
+
+LABEL_43:
+    *a3 = 0;
+    if (v35)
+    {
+      v43 = 32 * v36;
+      v44 = v34;
+      do
+      {
+        if ((*v44 | 0x1000) != 0xFFFFFFFFFFFFF000 && *(v44 + 88) == 1)
+        {
+          v45 = *(v44 + 8);
+          if ((v44 + 24) != v45)
+          {
+            free(v45);
+          }
+        }
+
+        v44 += 96;
+        v43 -= 96;
+      }
+
+      while (v43);
+    }
+
+    return MEMORY[0x277C69E30](v34, 8);
+  }
+
+  else
+  {
+    *a3 = 0;
+  }
+
+  return result;
+}
+
+uint64_t std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>::operator=[abi:nn200100]<llvm::SmallVector<llvm::jitlink::Symbol *,8u>,void>(uint64_t a1, uint64_t a2)
+{
+  if (*(a1 + 80) == 1)
+  {
+    llvm::SmallVectorImpl<llvm::orc::JITDylib *>::operator=(a1, a2);
+  }
+
+  else
+  {
+    *a1 = a1 + 16;
+    *(a1 + 8) = 0x800000000;
+    if (*(a2 + 8))
+    {
+      llvm::SmallVectorImpl<llvm::orc::JITDylib *>::operator=(a1, a2);
+    }
+
+    *(a1 + 80) = 1;
+  }
+
+  return a1;
+}
+
+uint64_t llvm::BinaryStreamReader::readInteger<unsigned int>@<X0>(uint64_t a1@<X0>, unsigned int *a2@<X1>, uint64_t *a3@<X8>)
+{
+  result = llvm::BinaryStreamRef::readBytes(a1 + 8, a3, *(a1 + 56), 4);
+  if (!*a3)
+  {
+    *(a1 + 56) += 4;
+    result = (*(**(a1 + 24) + 16))(*(a1 + 24));
+    v7 = MEMORY[0];
+    v8 = bswap32(MEMORY[0]);
+    if ((result - 1) >= 2)
+    {
+      v7 = v8;
+    }
+
+    *a2 = v7;
+    *a3 = 0;
+  }
+
+  return result;
+}
+
+uint64_t llvm::BinaryStreamReader::readInteger<unsigned long long>@<X0>(uint64_t a1@<X0>, unint64_t *a2@<X1>, uint64_t *a3@<X8>)
+{
+  result = llvm::BinaryStreamRef::readBytes(a1 + 8, a3, *(a1 + 56), 8);
+  if (!*a3)
+  {
+    *(a1 + 56) += 8;
+    result = (*(**(a1 + 24) + 16))(*(a1 + 24));
+    v7 = MEMORY[0];
+    v8 = bswap64(MEMORY[0]);
+    if ((result - 1) >= 2)
+    {
+      v7 = v8;
+    }
+
+    *a2 = v7;
+    *a3 = 0;
+  }
+
+  return result;
+}
+
+void *llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>,llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>::FindAndConstruct(uint64_t a1, uint64_t *a2)
+{
+  v7 = 0;
+  v4 = llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>,llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>::LookupBucketFor<llvm::jitlink::Block *>(*a1, *(a1 + 16), *a2, &v7);
+  v5 = v7;
+  if ((v4 & 1) == 0)
+  {
+    v5 = llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>,llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>::InsertIntoBucketImpl<llvm::jitlink::Block *>(a1, a2, v7);
+    *v5 = *a2;
+    *(v5 + 8) = 0;
+    *(v5 + 88) = 0;
+  }
+
+  return v5;
+}
+
+uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>,llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>::LookupBucketFor<llvm::jitlink::Block *>(uint64_t a1, int a2, uint64_t a3, void *a4)
+{
+  if (a2)
+  {
+    v4 = a2 - 1;
+    v5 = ((a3 >> 4) ^ (a3 >> 9)) & (a2 - 1);
+    v6 = (a1 + 96 * v5);
+    v7 = *v6;
+    if (*v6 == a3)
+    {
+      v8 = 1;
+    }
+
+    else
+    {
+      v10 = 0;
+      v11 = 1;
+      while (v7 != -4096)
+      {
+        if (v10)
+        {
+          v12 = 0;
+        }
+
+        else
+        {
+          v12 = v7 == -8192;
+        }
+
+        if (v12)
+        {
+          v10 = v6;
+        }
+
+        v13 = v5 + v11++;
+        v5 = v13 & v4;
+        v6 = (a1 + 96 * (v13 & v4));
+        v7 = *v6;
+        v8 = 1;
+        if (*v6 == a3)
+        {
+          goto LABEL_5;
+        }
+      }
+
+      v8 = 0;
+      if (v10)
+      {
+        v6 = v10;
+      }
+    }
+  }
+
+  else
+  {
+    v6 = 0;
+    v8 = 0;
+  }
+
+LABEL_5:
+  *a4 = v6;
+  return v8;
+}
+
+void *llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>,llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>::InsertIntoBucketImpl<llvm::jitlink::Block *>(uint64_t a1, uint64_t *a2, void *a3)
+{
+  v5 = *(a1 + 8);
+  v6 = *(a1 + 16);
+  if (4 * v5 + 4 >= 3 * v6)
+  {
+    v6 *= 2;
+  }
+
+  else if (v6 + ~v5 - *(a1 + 12) > v6 >> 3)
+  {
+    goto LABEL_3;
+  }
+
+  llvm::DenseMap<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>::grow(a1, v6);
+  v8 = 0;
+  llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>,llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>::LookupBucketFor<llvm::jitlink::Block *>(*a1, *(a1 + 16), *a2, &v8);
+  a3 = v8;
+LABEL_3:
+  ++*(a1 + 8);
+  if (*a3 != -4096)
+  {
+    --*(a1 + 12);
+  }
+
+  return a3;
+}
+
+void *llvm::DenseMap<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>::grow(uint64_t a1, int a2)
+{
+  v3 = *(a1 + 16);
+  v4 = *a1;
+  v5 = (a2 - 1) | ((a2 - 1) >> 1);
+  v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
+  v7 = ((v6 | (v6 >> 8)) >> 16) | v6 | (v6 >> 8);
+  if ((v7 + 1) > 0x40)
+  {
+    v8 = v7 + 1;
+  }
+
+  else
+  {
+    v8 = 64;
+  }
+
+  *(a1 + 16) = v8;
+  result = operator new(96 * v8, 8uLL);
+  *a1 = result;
+  if (v4)
+  {
+    *(a1 + 8) = 0;
+    v10 = *(a1 + 16);
+    if (v10)
+    {
+      v11 = 0;
+      v12 = 96 * v10 - 96;
+      v13 = vdupq_n_s64(v12 / 0x60);
+      do
+      {
+        v14 = vmovn_s64(vcgeq_u64(v13, vorrq_s8(vdupq_n_s64(v11), xmmword_2750C1210)));
+        if (v14.i8[0])
+        {
+          *result = -4096;
+        }
+
+        if (v14.i8[4])
+        {
+          result[12] = -4096;
+        }
+
+        v11 += 2;
+        result += 24;
+      }
+
+      while (((v12 / 0x60 + 2) & 0x7FFFFFFFFFFFFFELL) != v11);
+    }
+
+    if (v3)
+    {
+      v15 = 96 * v3;
+      v16 = v4;
+      do
+      {
+        v17 = *v16;
+        if ((*v16 | 0x1000) != 0xFFFFFFFFFFFFF000)
+        {
+          v26 = 0;
+          llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>,llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>::LookupBucketFor<llvm::jitlink::Block *>(*a1, *(a1 + 16), v17, &v26);
+          v18 = v26;
+          *v26 = *v16;
+          *(v18 + 8) = 0;
+          *(v18 + 88) = 0;
+          if (*(v16 + 88) == 1)
+          {
+            v18[1] = v18 + 3;
+            v18[2] = 0x800000000;
+            if (*(v16 + 16))
+            {
+              llvm::SmallVectorImpl<llvm::orc::JITDylib *>::operator=((v18 + 1), v16 + 8);
+            }
+
+            *(v18 + 88) = 1;
+            v19 = *(v16 + 88);
+            ++*(a1 + 8);
+            if (v19)
+            {
+              v20 = *(v16 + 8);
+              if ((v16 + 24) != v20)
+              {
+                free(v20);
+              }
+            }
+          }
+
+          else
+          {
+            ++*(a1 + 8);
+          }
+        }
+
+        v16 += 96;
+        v15 -= 96;
+      }
+
+      while (v15);
+    }
+
+    JUMPOUT(0x277C69E30);
+  }
+
+  *(a1 + 8) = 0;
+  v21 = *(a1 + 16);
+  if (v21)
+  {
+    v22 = 0;
+    v23 = 96 * v21 - 96;
+    v24 = vdupq_n_s64(v23 / 0x60);
+    do
+    {
+      v25 = vmovn_s64(vcgeq_u64(v24, vorrq_s8(vdupq_n_s64(v22), xmmword_2750C1210)));
+      if (v25.i8[0])
+      {
+        *result = -4096;
+      }
+
+      if (v25.i8[4])
+      {
+        result[12] = -4096;
+      }
+
+      v22 += 2;
+      result += 24;
+    }
+
+    while (((v23 / 0x60 + 2) & 0x7FFFFFFFFFFFFFELL) != v22);
+  }
+
+  return result;
 }

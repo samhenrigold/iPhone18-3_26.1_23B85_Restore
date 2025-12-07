@@ -414,7 +414,7 @@
 
 - (int)_startCapture
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   pthread_mutex_lock(&self->_screenCaptureLock);
   blackFrame = self->_blackFrame;
   if (blackFrame)
@@ -433,9 +433,9 @@
   [(VCScreenCapture *)self startClearScreenProc];
   v10[0] = self;
   v10[1] = _VCScreenCapture_handleFrame;
-  v10[2] = [(VCVideoCapture *)self cannedScreenCaptureSource];
+  cannedScreenCaptureSource = [(VCVideoCapture *)self cannedScreenCaptureSource];
   v5 = off_1E85F1F88;
-  if ((VCFeatureFlagManager_UseAvconferencedOniOSSpecficFeatures() & 1) == 0 && ![VCDefaults BOOLeanValueForKey:@"useScreenCaptureController" defaultValue:0])
+  if ((VCFeatureFlagManager_UseAvconferencedOniOSSpecficFeatures(cannedScreenCaptureSource) & 1) == 0 && ![VCDefaults BOOLeanValueForKey:@"useScreenCaptureController" defaultValue:0])
   {
     v5 = off_1E85F1F90;
   }
@@ -444,8 +444,8 @@
   self->_screenCapture = v6;
   if (!v6)
   {
-    [(VCScreenCapture *)&v11 _startCapture];
-    v8 = v11;
+    [(VCScreenCapture *)&v12 _startCapture];
+    v8 = v12;
     goto LABEL_14;
   }
 
@@ -1213,7 +1213,7 @@ LABEL_11:
 
 LABEL_12:
   self->_captureFramerate = v3;
-  v19 = [MEMORY[0x1E696AD98] numberWithInt:{v3, *v26}];
+  v19 = [MEMORY[0x1E696AD98] numberWithInt:{v3, *v26, *&v26[8]}];
   [(NSMutableDictionary *)self->_options setObject:v19 forKeyedSubscript:*MEMORY[0x1E6973E20]];
   v20 = [MEMORY[0x1E696AD98] numberWithInt:v3];
   [(NSMutableDictionary *)self->_options setObject:v20 forKeyedSubscript:*MEMORY[0x1E6973ED0]];

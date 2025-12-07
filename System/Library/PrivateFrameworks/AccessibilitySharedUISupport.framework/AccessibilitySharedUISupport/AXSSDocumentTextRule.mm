@@ -29,43 +29,41 @@
 
 + (id)matchReplacementArrayCapitalization:(id)capitalization withSource:(id)source
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   capitalizationCopy = capitalization;
   sourceCopy = source;
   v8 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v9 = capitalizationCopy;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [self matchReplacementCapitalization:*(*(&v17 + 1) + 8 * i) withSource:{sourceCopy, v17}];
+        v14 = [self matchReplacementCapitalization:*(*(&v16 + 1) + 8 * i) withSource:{sourceCopy, v16}];
         if (v14)
         {
           [v8 addObject:v14];
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -106,7 +104,7 @@ LABEL_6:
 
 void __66__AXSSDocumentTextRule_matchReplacementCapitalization_withSource___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
 {
-  v13 = [*(a1 + 32) substringWithRange:?];
+  v13 = [*(a1 + 32) substringWithRange:{a3, a4, a5, a6}];
   v11 = *(a1 + 32);
   v12 = [v13 capitalizedString];
   [v11 replaceCharactersInRange:a3 withString:{a4, v12}];

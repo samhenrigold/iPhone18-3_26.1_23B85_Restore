@@ -54,9 +54,11 @@
   swift_getKeyPath();
   swift_getKeyPath();
   selfCopy = self;
-  sub_1BBC40ABC();
+  sub_1BBC40ABC(&v6);
 
-  return v5;
+  v4 = v6;
+
+  return v4;
 }
 
 - (void)setHighlight:(id)highlight
@@ -73,9 +75,9 @@
   swift_getKeyPath();
   swift_getKeyPath();
   selfCopy = self;
-  sub_1BBC40ABC();
+  sub_1BBC40ABC(v6);
 
-  if (v6)
+  if (v6[1])
   {
     v4 = sub_1BBC410BC();
   }
@@ -106,7 +108,7 @@
   swift_getKeyPath();
   swift_getKeyPath();
   selfCopy = self;
-  sub_1BBC40ABC();
+  sub_1BBC40ABC(&v6);
 
   if (v6)
   {
@@ -141,7 +143,7 @@
   swift_getKeyPath();
   swift_getKeyPath();
   selfCopy = self;
-  sub_1BBC40ABC();
+  sub_1BBC40ABC(&v6);
 
   v4 = sub_1BBC410BC();
 
@@ -162,7 +164,7 @@
   swift_getKeyPath();
   swift_getKeyPath();
   selfCopy = self;
-  sub_1BBC40ABC();
+  sub_1BBC40ABC(&v5);
 
   return v5;
 }
@@ -193,17 +195,16 @@
 - (void)highlightCenterHighlightsDidChange:(id)change
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBCA5228, &unk_1BBC446E0);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v4 - 8, v6);
-  v8 = &v10 - v7;
+  MEMORY[0x1EEE9AC00](v4 - 8);
+  v6 = (&v8 - v5);
   swift_getKeyPath();
   swift_getKeyPath();
   selfCopy = self;
-  sub_1BBC40ABC();
+  sub_1BBC40ABC(v6);
 
-  sub_1BBC22424(v8);
+  sub_1BBC22424(v6);
 
-  sub_1BBC27FF0(v8, &qword_1EBCA5228, &unk_1BBC446E0);
+  sub_1BBC27FF0(v6, &qword_1EBCA5228, &unk_1BBC446E0);
 }
 
 @end

@@ -79,37 +79,33 @@ void __41__SPAssetCacheClientCache_cacheDirectory__block_invoke(uint64_t a1)
 
   if (v7)
   {
-    v8 = wk_default_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = wk_default_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __41__SPAssetCacheClientCache_cacheDirectory__block_invoke_cold_1(v7, v8);
+      __41__SPAssetCacheClientCache_cacheDirectory__block_invoke_cold_1(v7, v9);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)pathForAssetDataWithName:(id)name
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   cacheDirectory = [(SPAssetCacheClientCache *)self cacheDirectory];
-  v11[0] = cacheDirectory;
+  v10[0] = cacheDirectory;
   _sp_stringByEncodingIllegalFilenameCharacters = [nameCopy _sp_stringByEncodingIllegalFilenameCharacters];
 
-  v11[1] = _sp_stringByEncodingIllegalFilenameCharacters;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+  v10[1] = _sp_stringByEncodingIllegalFilenameCharacters;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
 
   v8 = [MEMORY[0x277CCACA8] pathWithComponents:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (void)syncAssets:(id)assets
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
   [(SPAssetCacheClientCache *)self clearedCache];
   cacheType = self->_cacheType;
@@ -124,26 +120,26 @@ void __41__SPAssetCacheClientCache_cacheDirectory__block_invoke(uint64_t a1)
       assets2 = [transientCache2 assets];
       v23 = [assets2 sortedArrayUsingComparator:&__block_literal_global_9];
 
-      v36 = 0u;
-      v37 = 0u;
-      v34 = 0u;
       v35 = 0u;
+      v36 = 0u;
+      v33 = 0u;
+      v34 = 0u;
       assets4 = v23;
-      v24 = [assets4 countByEnumeratingWithState:&v34 objects:v42 count:16];
+      v24 = [assets4 countByEnumeratingWithState:&v33 objects:v41 count:16];
       if (v24)
       {
         v25 = v24;
-        v26 = *v35;
+        v26 = *v34;
         do
         {
           for (i = 0; i != v25; ++i)
           {
-            if (*v35 != v26)
+            if (*v34 != v26)
             {
               objc_enumerationMutation(assets4);
             }
 
-            v28 = *(*(&v34 + 1) + 8 * i);
+            v28 = *(*(&v33 + 1) + 8 * i);
             assets = self->_assets;
             v30 = [v28 key];
             [(NSMutableDictionary *)assets setObject:v28 forKey:v30];
@@ -155,7 +151,7 @@ void __41__SPAssetCacheClientCache_cacheDirectory__block_invoke(uint64_t a1)
             self->_size += [v28 size];
           }
 
-          v25 = [assets4 countByEnumeratingWithState:&v34 objects:v42 count:16];
+          v25 = [assets4 countByEnumeratingWithState:&v33 objects:v41 count:16];
         }
 
         while (v25);
@@ -172,28 +168,28 @@ void __41__SPAssetCacheClientCache_cacheDirectory__block_invoke(uint64_t a1)
 
     if (assets3)
     {
-      v40 = 0u;
-      v41 = 0u;
-      v38 = 0u;
       v39 = 0u;
+      v40 = 0u;
+      v37 = 0u;
+      v38 = 0u;
       permanentCache2 = [assetsCopy permanentCache];
       assets4 = [permanentCache2 assets];
 
-      v10 = [assets4 countByEnumeratingWithState:&v38 objects:v43 count:16];
+      v10 = [assets4 countByEnumeratingWithState:&v37 objects:v42 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v39;
+        v12 = *v38;
         do
         {
           for (j = 0; j != v11; ++j)
           {
-            if (*v39 != v12)
+            if (*v38 != v12)
             {
               objc_enumerationMutation(assets4);
             }
 
-            v14 = *(*(&v38 + 1) + 8 * j);
+            v14 = *(*(&v37 + 1) + 8 * j);
             v15 = self->_assets;
             v16 = [v14 key];
             [(NSMutableDictionary *)v15 setObject:v14 forKey:v16];
@@ -205,7 +201,7 @@ void __41__SPAssetCacheClientCache_cacheDirectory__block_invoke(uint64_t a1)
             self->_size += [v14 size];
           }
 
-          v11 = [assets4 countByEnumeratingWithState:&v38 objects:v43 count:16];
+          v11 = [assets4 countByEnumeratingWithState:&v37 objects:v42 count:16];
         }
 
         while (v11);
@@ -214,8 +210,6 @@ void __41__SPAssetCacheClientCache_cacheDirectory__block_invoke(uint64_t a1)
 LABEL_21:
     }
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __38__SPAssetCacheClientCache_syncAssets___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -235,10 +229,11 @@ BOOL __38__SPAssetCacheClientCache_syncAssets___block_invoke(uint64_t a1, void *
   v30[5] = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   nameCopy = name;
+  v10 = nameCopy;
   if (!assetCopy)
   {
-    v21 = wk_default_log();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = wk_default_log(nameCopy);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       [SPAssetCacheClientCache addAsset:withName:sendImage:];
     }
@@ -248,23 +243,23 @@ BOOL __38__SPAssetCacheClientCache_syncAssets___block_invoke(uint64_t a1, void *
 
   if (self->_cacheType != 1)
   {
-    v22 = [(NSMutableDictionary *)self->_assets objectForKeyedSubscript:nameCopy];
+    v23 = [(NSMutableDictionary *)self->_assets objectForKeyedSubscript:nameCopy];
 
-    if (v22)
+    if (v23)
     {
-      v20 = 1;
+      v21 = 1;
     }
 
     else
     {
       -[SPAssetCacheClientCache clearSpaceForAsset:](self, "clearSpaceForAsset:", [assetCopy length]);
-      [(NSMutableArray *)self->_keys addObject:nameCopy];
-      v23 = [SPCacheAsset alloc];
-      v24 = [assetCopy length];
+      [(NSMutableArray *)self->_keys addObject:v10];
+      v24 = [SPCacheAsset alloc];
+      v25 = [assetCopy length];
       date = [MEMORY[0x277CBEAA8] date];
-      v20 = 1;
-      v26 = [(SPCacheAsset *)v23 initWithName:nameCopy size:v24 state:1 accessDate:date];
-      [(NSMutableDictionary *)self->_assets setObject:v26 forKeyedSubscript:nameCopy];
+      v21 = 1;
+      v27 = [(SPCacheAsset *)v24 initWithName:v10 size:v25 state:1 accessDate:date];
+      [(NSMutableDictionary *)self->_assets setObject:v27 forKeyedSubscript:v10];
     }
 
     goto LABEL_20;
@@ -273,57 +268,56 @@ BOOL __38__SPAssetCacheClientCache_syncAssets___block_invoke(uint64_t a1, void *
   if (!-[SPAssetCacheClientCache checkAvailableSpaceForAssetWithName:length:](self, "checkAvailableSpaceForAssetWithName:length:", nameCopy, [assetCopy length]))
   {
 LABEL_14:
-    v20 = 0;
+    v21 = 0;
     goto LABEL_20;
   }
 
-  v10 = [SPCacheAsset alloc];
-  v11 = [assetCopy length];
+  v11 = [SPCacheAsset alloc];
+  v12 = [assetCopy length];
   date2 = [MEMORY[0x277CBEAA8] date];
-  v13 = [(SPCacheAsset *)v10 initWithName:nameCopy size:v11 state:1 accessDate:date2];
+  v14 = [(SPCacheAsset *)v11 initWithName:v10 size:v12 state:1 accessDate:date2];
 
-  if (imageCopy && ![(SPAssetCacheClientCache *)self saveAssetData:assetCopy forAsset:v13])
+  if (imageCopy && ![(SPAssetCacheClientCache *)self saveAssetData:assetCopy forAsset:v14])
   {
-    v20 = 0;
+    v21 = 0;
   }
 
   else
   {
-    v14 = [(NSMutableDictionary *)self->_assets objectForKeyedSubscript:nameCopy];
+    v15 = [(NSMutableDictionary *)self->_assets objectForKeyedSubscript:v10];
 
-    if (!v14)
+    if (!v15)
     {
-      [(NSMutableArray *)self->_keys addObject:nameCopy];
+      [(NSMutableArray *)self->_keys addObject:v10];
     }
 
-    [(NSMutableDictionary *)self->_assets setObject:v13 forKeyedSubscript:nameCopy];
+    [(NSMutableDictionary *)self->_assets setObject:v14 forKeyedSubscript:v10];
     if (imageCopy)
     {
       v30[0] = &unk_284E0A1C0;
       v29[0] = @"cmsg";
       v29[1] = @"a";
-      v15 = [(SPCacheAsset *)v13 key];
-      v30[1] = v15;
+      v16 = [(SPCacheAsset *)v14 key];
+      v30[1] = v16;
       v30[2] = assetCopy;
       v29[2] = @"d";
       v29[3] = @"t";
-      v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_cacheType];
+      v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_cacheType];
       v29[4] = @"i";
       gizmoCacheIdentifier = self->_gizmoCacheIdentifier;
-      v30[3] = v16;
+      v30[3] = v17;
       v30[4] = gizmoCacheIdentifier;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:5];
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:5];
 
-      v19 = [[SPCacheMessage alloc] initWithDictionary:v18];
-      [SPRemoteInterface sendCacheRequestMessage:v19];
+      v20 = [[SPCacheMessage alloc] initWithDictionary:v19];
+      [SPRemoteInterface sendCacheRequestMessage:v20];
     }
 
-    v20 = 1;
+    v21 = 1;
   }
 
 LABEL_20:
-  v27 = *MEMORY[0x277D85DE8];
-  return v20;
+  return v21;
 }
 
 - (void)addedAssetWithName:(id)name
@@ -340,31 +334,31 @@ LABEL_20:
 
 - (void)clearSpaceForAsset:(unint64_t)asset
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = self->_size + asset;
   if (v4 >= 0x500000)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v6 = self->_keys;
-    v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
       v9 = 0;
-      v10 = *v15;
+      v10 = *v14;
 LABEL_4:
       v11 = 0;
       while (1)
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = [(NSMutableDictionary *)self->_assets objectForKeyedSubscript:*(*(&v14 + 1) + 8 * v11), v14];
+        v12 = [(NSMutableDictionary *)self->_assets objectForKeyedSubscript:*(*(&v13 + 1) + 8 * v11), v13];
         [(SPAssetCacheClientCache *)self deleteAsset:v12];
         v9 += [v12 size];
 
@@ -375,7 +369,7 @@ LABEL_4:
 
         if (v8 == ++v11)
         {
-          v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
           if (v8)
           {
             goto LABEL_4;
@@ -390,7 +384,6 @@ LABEL_4:
   }
 
   self->_size = v4;
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)checkAvailableSpaceForAssetWithName:(id)name length:(unint64_t)length
@@ -415,30 +408,28 @@ LABEL_4:
 
 - (void)deleteAsset:(id)asset
 {
-  v13[4] = *MEMORY[0x277D85DE8];
+  v12[4] = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   v5 = [assetCopy size];
   self->_size = (self->_size - v5) & ~((self->_size - v5) >> 63);
   [(SPAssetCacheClientCache *)self deleteDataForAsset:assetCopy];
   [assetCopy setState:2];
-  v13[0] = &unk_284E0A1D8;
-  v12[0] = @"cmsg";
-  v12[1] = @"a";
+  v12[0] = &unk_284E0A1D8;
+  v11[0] = @"cmsg";
+  v11[1] = @"a";
   v6 = [assetCopy key];
 
-  v13[1] = v6;
-  v12[2] = @"t";
+  v12[1] = v6;
+  v11[2] = @"t";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_cacheType];
-  v12[3] = @"i";
+  v11[3] = @"i";
   gizmoCacheIdentifier = self->_gizmoCacheIdentifier;
-  v13[2] = v7;
-  v13[3] = gizmoCacheIdentifier;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:4];
+  v12[2] = v7;
+  v12[3] = gizmoCacheIdentifier;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:4];
 
   v10 = [[SPCacheMessage alloc] initWithDictionary:v9];
   [SPRemoteInterface sendCacheRequestMessage:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteAssetWithName:(id)name
@@ -465,38 +456,38 @@ LABEL_4:
 
 - (void)deleteAllAssets
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   self->_size = 0;
   if (self->_cacheType == 1)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v3 = self->_assets;
-    v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v14 objects:v20 count:16];
+    v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v13 objects:v19 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v15;
+      v6 = *v14;
       do
       {
         v7 = 0;
         do
         {
-          if (*v15 != v6)
+          if (*v14 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = [(NSMutableDictionary *)self->_assets objectForKeyedSubscript:*(*(&v14 + 1) + 8 * v7), v14];
+          v8 = [(NSMutableDictionary *)self->_assets objectForKeyedSubscript:*(*(&v13 + 1) + 8 * v7), v13];
           [(SPAssetCacheClientCache *)self deleteDataForAsset:v8];
 
           ++v7;
         }
 
         while (v5 != v7);
-        v5 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v14 objects:v20 count:16];
+        v5 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v13 objects:v19 count:16];
       }
 
       while (v5);
@@ -505,47 +496,45 @@ LABEL_4:
 
   [(NSMutableDictionary *)self->_assets removeAllObjects];
   [(NSMutableArray *)self->_keys removeAllObjects];
-  v19[0] = &unk_284E0A1F0;
-  v18[0] = @"cmsg";
-  v18[1] = @"t";
+  v18[0] = &unk_284E0A1F0;
+  v17[0] = @"cmsg";
+  v17[1] = @"t";
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_cacheType];
-  v18[2] = @"i";
+  v17[2] = @"i";
   gizmoCacheIdentifier = self->_gizmoCacheIdentifier;
-  v19[1] = v9;
-  v19[2] = gizmoCacheIdentifier;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
+  v18[1] = v9;
+  v18[2] = gizmoCacheIdentifier;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
 
   v12 = [[SPCacheMessage alloc] initWithDictionary:v11];
   [SPRemoteInterface sendCacheRequestMessage:v12];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)cachedImages
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = self->_assets;
-  v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
-        v10 = [(NSMutableDictionary *)self->_assets objectForKeyedSubscript:v9, v14];
+        v9 = *(*(&v13 + 1) + 8 * i);
+        v10 = [(NSMutableDictionary *)self->_assets objectForKeyedSubscript:v9, v13];
         if ([v10 state] == 1 || !objc_msgSend(v10, "state"))
         {
           v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v10, "size")}];
@@ -553,13 +542,11 @@ LABEL_4:
         }
       }
 
-      v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -576,21 +563,21 @@ LABEL_4:
   if (v7)
   {
     defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-    v18 = 0;
-    v11 = [defaultManager2 removeItemAtPath:v8 error:&v18];
-    v12 = v18;
+    v20 = 0;
+    v11 = [defaultManager2 removeItemAtPath:v8 error:&v20];
+    v12 = v20;
 
     if ((v11 & 1) == 0)
     {
-      v13 = wk_default_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = wk_default_log(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         [SPAssetCacheClientCache saveAssetData:forAsset:];
       }
 
 LABEL_9:
 
-      v15 = 0;
+      v16 = 0;
       goto LABEL_10;
     }
   }
@@ -600,16 +587,16 @@ LABEL_9:
     v12 = 0;
   }
 
-  v14 = v12;
-  v17 = v12;
-  v15 = 1;
-  [dataCopy writeToFile:v8 options:1 error:&v17];
-  v12 = v17;
+  v15 = v12;
+  v19 = v12;
+  v16 = 1;
+  [dataCopy writeToFile:v8 options:1 error:&v19];
+  v12 = v19;
 
   if (v12)
   {
-    v13 = wk_default_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = wk_default_log(v17);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [SPAssetCacheClientCache saveAssetData:forAsset:];
     }
@@ -619,7 +606,7 @@ LABEL_9:
 
 LABEL_10:
 
-  return v15;
+  return v16;
 }
 
 - (void)deleteDataForAsset:(id)asset
@@ -635,14 +622,14 @@ LABEL_10:
     if (v7)
     {
       defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-      v12 = 0;
-      v9 = [defaultManager2 removeItemAtPath:v5 error:&v12];
-      v10 = v12;
+      v13 = 0;
+      v9 = [defaultManager2 removeItemAtPath:v5 error:&v13];
+      v10 = v13;
 
       if ((v9 & 1) == 0)
       {
-        v11 = wk_default_log();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v12 = wk_default_log(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
           [SPAssetCacheClientCache deleteDataForAsset:];
         }
@@ -678,55 +665,47 @@ LABEL_10:
 
 void __41__SPAssetCacheClientCache_cacheDirectory__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = 136446978;
-  v4 = "[SPAssetCacheClientCache cacheDirectory]_block_invoke";
-  v5 = 1024;
-  v6 = 60;
-  v7 = 2114;
-  v8 = cacheDirectory___cacheDirectory;
-  v9 = 2114;
-  v10 = a1;
-  _os_log_error_impl(&dword_23B338000, a2, OS_LOG_TYPE_ERROR, "%{public}s:%d: failed to create directory at %{public}@, error: %{public}@", &v3, 0x26u);
-  v2 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
+  v2 = 136446978;
+  v3 = "[SPAssetCacheClientCache cacheDirectory]_block_invoke";
+  v4 = 1024;
+  v5 = 60;
+  v6 = 2114;
+  v7 = cacheDirectory___cacheDirectory;
+  v8 = 2114;
+  v9 = a1;
+  _os_log_error_impl(&dword_23B338000, a2, OS_LOG_TYPE_ERROR, "%{public}s:%d: failed to create directory at %{public}@, error: %{public}@", &v2, 0x26u);
 }
 
 - (void)addAsset:withName:sendImage:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136446722;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136446722;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(&dword_23B338000, v0, OS_LOG_TYPE_ERROR, "%{public}s:%d: Failed to cache image with name: %{public}@", v2, 0x1Cu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_23B338000, v0, OS_LOG_TYPE_ERROR, "%{public}s:%d: Failed to cache image with name: %{public}@", v1, 0x1Cu);
 }
 
 - (void)saveAssetData:forAsset:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: failed to delete asset at: %{public}@, error: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)saveAssetData:forAsset:.cold.2()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136446978;
+  v2 = 136446978;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: failed to save asset at: %{public}@, error: %{public}@", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: failed to save asset at: %{public}@, error: %{public}@", v2);
 }
 
 - (void)deleteDataForAsset:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: failed to delete asset at: %{public}@, error: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

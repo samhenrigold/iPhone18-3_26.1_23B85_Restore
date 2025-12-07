@@ -24,7 +24,7 @@
 
 - (id)fetchMoreResultsWithLimit:(unint64_t)limit qualityOfService:(int64_t)service callbackQueue:(id)queue completionHandler:(id)handler
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   handlerCopy = handler;
   if ([(FCArticleSearchStream *)self isFinished])
@@ -36,7 +36,7 @@
       block[1] = 3221225472;
       block[2] = __100__FCArticleSearchStream_fetchMoreResultsWithLimit_qualityOfService_callbackQueue_completionHandler___block_invoke;
       block[3] = &unk_1E7C379C8;
-      v29 = handlerCopy;
+      v28 = handlerCopy;
       dispatch_async(queueCopy, block);
 
       v11 = 0;
@@ -47,15 +47,15 @@
   {
     if ([(FCArticleSearchStream *)self fetching]&& os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"shouldn't ask a stream for more results while it's fetching"];
+      v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"shouldn't ask a stream for more results while it's fetching"];
       *buf = 136315906;
-      v31 = "[FCArticleSearchStream fetchMoreResultsWithLimit:qualityOfService:callbackQueue:completionHandler:]";
-      v32 = 2080;
-      v33 = "FCArticleSearchOperation.m";
-      v34 = 1024;
-      v35 = 172;
-      v36 = 2114;
-      v37 = v20;
+      v30 = "[FCArticleSearchStream fetchMoreResultsWithLimit:qualityOfService:callbackQueue:completionHandler:]";
+      v31 = 2080;
+      v32 = "FCArticleSearchOperation.m";
+      v33 = 1024;
+      v34 = 172;
+      v35 = 2114;
+      v36 = v19;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
@@ -80,18 +80,16 @@
 
     [(FCOperation *)v11 setRelativePriority:1];
     [(FCOperation *)v11 setQualityOfService:service];
-    v21 = MEMORY[0x1E69E9820];
-    v22 = 3221225472;
-    v23 = __100__FCArticleSearchStream_fetchMoreResultsWithLimit_qualityOfService_callbackQueue_completionHandler___block_invoke_108;
-    v24 = &unk_1E7C43EB8;
+    v20 = MEMORY[0x1E69E9820];
+    v21 = 3221225472;
+    v22 = __100__FCArticleSearchStream_fetchMoreResultsWithLimit_qualityOfService_callbackQueue_completionHandler___block_invoke_108;
+    v23 = &unk_1E7C43EB8;
     selfCopy = self;
-    v27 = handlerCopy;
-    v26 = queueCopy;
-    [(FCParsecArticleSearchOperation *)v11 setArticleSearchCompletionHandler:&v21];
-    [(FCOperation *)v11 start:v21];
+    v26 = handlerCopy;
+    v25 = queueCopy;
+    [(FCParsecArticleSearchOperation *)v11 setArticleSearchCompletionHandler:&v20];
+    [(FCOperation *)v11 start:v20];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

@@ -29,24 +29,27 @@
 
 + (void)primaryAccountSignedIn
 {
-  if (gLogCategory_RPClient <= 30 && (gLogCategory_RPClient != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_RPClient <= 30)
   {
-    +[RPClient primaryAccountSignedIn];
+    if (gLogCategory_RPClient != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      +[(RPClient *)self];
+    }
   }
 
-  v2 = objc_alloc_init(RPClient);
-  v3[0] = MEMORY[0x1E69E9820];
-  v3[1] = 3221225472;
-  v3[2] = __34__RPClient_primaryAccountSignedIn__block_invoke;
-  v3[3] = &unk_1E7C92D58;
-  v3[4] = v2;
-  [(RPClient *)v2 primaryAccountSignedInWithCompletion:v3];
+  v3 = objc_alloc_init(RPClient);
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = __34__RPClient_primaryAccountSignedIn__block_invoke;
+  v4[3] = &unk_1E7C92D58;
+  v4[4] = v3;
+  [(RPClient *)v3 primaryAccountSignedInWithCompletion:v4];
 }
 
 void __34__RPClient_primaryAccountSignedIn__block_invoke(uint64_t a1, void *a2)
 {
-  v5 = a2;
-  if (v5)
+  v4 = a2;
+  if (v4)
   {
     v3 = 90;
   }
@@ -58,8 +61,7 @@ void __34__RPClient_primaryAccountSignedIn__block_invoke(uint64_t a1, void *a2)
 
   if (v3 >= gLogCategory_RPClient && (gLogCategory_RPClient != -1 || _LogCategory_Initialize()))
   {
-    v4 = v5;
-    LogPrintF();
+    LogPrintF(&gLogCategory_RPClient, "+[RPClient primaryAccountSignedIn]_block_invoke", v3, "Primary account signed in completed: %{error}\n", v4);
   }
 
   [*(a1 + 32) invalidate];
@@ -67,24 +69,27 @@ void __34__RPClient_primaryAccountSignedIn__block_invoke(uint64_t a1, void *a2)
 
 + (void)primaryAccountSignedOut
 {
-  if (gLogCategory_RPClient <= 30 && (gLogCategory_RPClient != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_RPClient <= 30)
   {
-    +[RPClient primaryAccountSignedOut];
+    if (gLogCategory_RPClient != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      +[(RPClient *)self];
+    }
   }
 
-  v2 = objc_alloc_init(RPClient);
-  v3[0] = MEMORY[0x1E69E9820];
-  v3[1] = 3221225472;
-  v3[2] = __35__RPClient_primaryAccountSignedOut__block_invoke;
-  v3[3] = &unk_1E7C92D58;
-  v3[4] = v2;
-  [(RPClient *)v2 primaryAccountSignedOutWithCompletion:v3];
+  v3 = objc_alloc_init(RPClient);
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = __35__RPClient_primaryAccountSignedOut__block_invoke;
+  v4[3] = &unk_1E7C92D58;
+  v4[4] = v3;
+  [(RPClient *)v3 primaryAccountSignedOutWithCompletion:v4];
 }
 
 void __35__RPClient_primaryAccountSignedOut__block_invoke(uint64_t a1, void *a2)
 {
-  v5 = a2;
-  if (v5)
+  v4 = a2;
+  if (v4)
   {
     v3 = 90;
   }
@@ -96,8 +101,7 @@ void __35__RPClient_primaryAccountSignedOut__block_invoke(uint64_t a1, void *a2)
 
   if (v3 >= gLogCategory_RPClient && (gLogCategory_RPClient != -1 || _LogCategory_Initialize()))
   {
-    v4 = v5;
-    LogPrintF();
+    LogPrintF(&gLogCategory_RPClient, "+[RPClient primaryAccountSignedOut]_block_invoke", v3, "Primary account signed out completed: %{error}\n", v4);
   }
 
   [*(a1 + 32) invalidate];
@@ -144,58 +148,65 @@ void __35__RPClient_primaryAccountSignedOut__block_invoke(uint64_t a1, void *a2)
   {
     if ([(RPSignedInUserProvider *)self->_userProvider supportsMultipleUsers]&& self->_targetUserSession)
     {
-      if (![(RPSignedInUserProvider *)self->_userProvider signedInUserID])
+      signedInUserID = [(RPSignedInUserProvider *)self->_userProvider signedInUserID];
+      if (!signedInUserID)
       {
-        if (gLogCategory_RPClient <= 50 && (gLogCategory_RPClient != -1 || _LogCategory_Initialize()))
+        if (gLogCategory_RPClient <= 50)
         {
-          [RPClient _ensureXPCStarted];
+          if (gLogCategory_RPClient != -1 || (signedInUserID = _LogCategory_Initialize(), signedInUserID))
+          {
+            [(RPClient *)signedInUserID _ensureXPCStarted];
+          }
         }
 
-        v10 = RPErrorF();
+        v19 = RPErrorF(4294960590, "No user logged in", v5, v6, v7, v8, v9, v10, v22);
         goto LABEL_17;
       }
 
-      if (gLogCategory_RPClient <= 30 && (gLogCategory_RPClient != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_RPClient <= 30)
       {
-        [RPClient _ensureXPCStarted];
+        v11 = signedInUserID;
+        if (gLogCategory_RPClient != -1 || _LogCategory_Initialize())
+        {
+          [(RPClient *)v11 _ensureXPCStarted];
+        }
       }
     }
 
     if (self->_type != 1)
     {
-      type = self->_type;
-      v12 = FatalErrorF();
-      return __29__RPClient__ensureXPCStarted__block_invoke(v12);
+      v21 = FatalErrorF("Bad RPClient type %u", self->_type);
+      return __29__RPClient__ensureXPCStarted__block_invoke(v21);
     }
 
-    v3 = [(RPClient *)self _XPCConnectionWithMachServiceName:@"com.apple.rapport" options:0];
+    v12 = [(RPClient *)self _XPCConnectionWithMachServiceName:@"com.apple.rapport" options:0];
     xpcCnx = self->_xpcCnx;
-    self->_xpcCnx = v3;
+    self->_xpcCnx = v12;
 
-    v5 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F2EFEB98];
-    [(NSXPCConnection *)self->_xpcCnx setExportedInterface:v5];
+    v14 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F2EFEB98];
+    [(NSXPCConnection *)self->_xpcCnx setExportedInterface:v14];
 
-    v6 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F2EFEBF8];
-    v7 = objc_alloc(MEMORY[0x1E695DFD8]);
-    v8 = objc_opt_class();
-    v9 = [v7 initWithObjects:{v8, objc_opt_class(), 0}];
-    [v6 setClasses:v9 forSelector:sel_getIdentitiesWithFlags_completion_ argumentIndex:0 ofReply:1];
-    [(NSXPCConnection *)self->_xpcCnx setRemoteObjectInterface:v6];
+    v15 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F2EFEBF8];
+    v16 = objc_alloc(MEMORY[0x1E695DFD8]);
+    v17 = objc_opt_class();
+    v18 = [v16 initWithObjects:{v17, objc_opt_class(), 0}];
+    [v15 setClasses:v18 forSelector:sel_getIdentitiesWithFlags_completion_ argumentIndex:0 ofReply:1];
+    [(NSXPCConnection *)self->_xpcCnx setRemoteObjectInterface:v15];
 
     [(NSXPCConnection *)self->_xpcCnx _setQueue:self->_dispatchQueue];
     [(NSXPCConnection *)self->_xpcCnx setExportedObject:self];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __29__RPClient__ensureXPCStarted__block_invoke;
-    v15[3] = &unk_1E7C92CE8;
-    v15[4] = self;
-    [(NSXPCConnection *)self->_xpcCnx setInterruptionHandler:v15];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __29__RPClient__ensureXPCStarted__block_invoke_2;
-    v14[3] = &unk_1E7C92CE8;
-    v14[4] = self;
-    [(NSXPCConnection *)self->_xpcCnx setInvalidationHandler:v14];
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __29__RPClient__ensureXPCStarted__block_invoke;
+    v24[3] = &unk_1E7C92CE8;
+    v24[4] = self;
+    [(NSXPCConnection *)self->_xpcCnx setInterruptionHandler:v24];
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __29__RPClient__ensureXPCStarted__block_invoke_2;
+    v23[3] = &unk_1E7C92CE8;
+    v23[4] = self;
+    [(NSXPCConnection *)self->_xpcCnx setInvalidationHandler:v23];
     if (self->_targetUserSession && [(RPSignedInUserProvider *)self->_userProvider supportsMultipleUsers]&& [(RPSignedInUserProvider *)self->_userProvider signedInUserID])
     {
       [(NSXPCConnection *)self->_xpcCnx _setTargetUserIdentifier:[(RPSignedInUserProvider *)self->_userProvider signedInUserID]];
@@ -208,62 +219,65 @@ void __35__RPClient_primaryAccountSignedOut__block_invoke(uint64_t a1, void *a2)
     }
   }
 
-  v10 = 0;
+  v19 = 0;
 LABEL_17:
 
-  return v10;
+  return v19;
 }
 
 - (void)_interrupted
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (gLogCategory_RPClient <= 50 && (gLogCategory_RPClient != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_RPClient <= 50)
   {
-    [RPClient _interrupted];
+    if (gLogCategory_RPClient != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      [(RPClient *)v3 _interrupted];
+    }
   }
 
   if ([(NSMutableSet *)self->_assertions count])
   {
     _ensureXPCStarted = [(RPClient *)self _ensureXPCStarted];
-    v14 = 0u;
-    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v4 = self->_assertions;
-    v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
-    if (v5)
+    v18 = 0u;
+    v19 = 0u;
+    v7 = self->_assertions;
+    v8 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    if (v8)
     {
-      v6 = v5;
-      v7 = *v15;
+      v9 = v8;
+      v10 = *v17;
       do
       {
-        v8 = 0;
+        v11 = 0;
         do
         {
-          if (*v15 != v7)
+          if (*v17 != v10)
           {
-            objc_enumerationMutation(v4);
+            objc_enumerationMutation(v7);
           }
 
-          v9 = *(*(&v14 + 1) + 8 * v8);
+          v12 = *(*(&v16 + 1) + 8 * v11);
           if (gLogCategory_RPClient <= 50 && (gLogCategory_RPClient != -1 || _LogCategory_Initialize()))
           {
-            [RPClient _interrupted];
+            [(RPClient *)v12 _interrupted];
           }
 
           remoteObjectProxy = [(NSXPCConnection *)self->_xpcCnx remoteObjectProxy];
-          [remoteObjectProxy activateAssertionWithIdentifier:v9];
+          [remoteObjectProxy activateAssertionWithIdentifier:v12];
 
-          ++v8;
+          ++v11;
         }
 
-        while (v6 != v8);
-        v11 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
-        v6 = v11;
+        while (v9 != v11);
+        v14 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = v14;
       }
 
-      while (v11);
+      while (v14);
     }
   }
 
@@ -272,8 +286,6 @@ LABEL_17:
   {
     interruptionHandler[2]();
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidate
@@ -287,31 +299,35 @@ LABEL_17:
   dispatch_async(dispatchQueue, block);
 }
 
-void __22__RPClient_invalidate__block_invoke(uint64_t a1)
+void __22__RPClient_invalidate__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v1 = *(a1 + 32);
-  if ((*(v1 + 24) & 1) == 0)
+  v3 = *(a1 + 32);
+  if ((*(v3 + 24) & 1) == 0)
   {
-    *(v1 + 24) = 1;
-    if ((*(*(a1 + 32) + 25) & 1) == 0 && gLogCategory_RPClient <= 30 && (gLogCategory_RPClient != -1 || _LogCategory_Initialize()))
+    v4 = a1;
+    *(v3 + 24) = 1;
+    if ((*(*(a1 + 32) + 25) & 1) == 0 && gLogCategory_RPClient <= 30)
     {
-      __22__RPClient_invalidate__block_invoke_cold_1();
+      if (gLogCategory_RPClient != -1 || (a1 = _LogCategory_Initialize(), a1))
+      {
+        __22__RPClient_invalidate__block_invoke_cold_1(a1, a2, a3);
+      }
     }
 
-    v3 = *(*(a1 + 32) + 40);
-    if (v3)
+    v5 = *(*(v4 + 32) + 40);
+    if (v5)
     {
-      [v3 invalidate];
-      v4 = *(a1 + 32);
-      v5 = *(v4 + 40);
-      *(v4 + 40) = 0;
+      [v5 invalidate];
+      v6 = *(v4 + 32);
+      v7 = *(v6 + 40);
+      *(v6 + 40) = 0;
     }
 
     else
     {
-      v6 = *(a1 + 32);
+      v8 = *(v4 + 32);
 
-      [v6 _invalidated];
+      [v8 _invalidated];
     }
   }
 }
@@ -321,9 +337,12 @@ void __22__RPClient_invalidate__block_invoke(uint64_t a1)
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (!self->_invalidateDone)
   {
-    if (!self->_invalidateCalled && gLogCategory_RPClient <= 50 && (gLogCategory_RPClient != -1 || _LogCategory_Initialize()))
+    if (!self->_invalidateCalled && gLogCategory_RPClient <= 50)
     {
-      [RPClient _invalidated];
+      if (gLogCategory_RPClient != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        [(RPClient *)v3 _invalidated];
+      }
     }
 
     invalidationHandler = self->_invalidationHandler;
@@ -335,7 +354,7 @@ void __22__RPClient_invalidate__block_invoke(uint64_t a1)
     interruptionHandler = self->_interruptionHandler;
     self->_interruptionHandler = 0;
 
-    v5 = self->_invalidationHandler;
+    v8 = self->_invalidationHandler;
     self->_invalidationHandler = 0;
 
     xpcCnx = self->_xpcCnx;
@@ -695,13 +714,13 @@ void __44__RPClient_diagnosticLogControl_completion___block_invoke(uint64_t a1)
   }
 }
 
-void __44__RPClient_diagnosticLogControl_completion___block_invoke_2(uint64_t a1)
+void __44__RPClient_diagnosticLogControl_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  if (v1)
+  v2 = *(a1 + 32);
+  if (v2)
   {
-    v2 = NSPrintF();
-    (*(v1 + 16))(v1, v2);
+    v3 = NSPrintF("### XPC error: %@\n", a2);
+    (*(v2 + 16))(v2, v3);
   }
 }
 
@@ -720,7 +739,7 @@ void __44__RPClient_diagnosticLogControl_completion___block_invoke_3(uint64_t a1
 
     else
     {
-      v6 = NSPrintF();
+      v6 = NSPrintF("### Null output\n");
       (*(v5 + 16))(v5, v6);
     }
 
@@ -777,13 +796,13 @@ void __44__RPClient_diagnosticShow_level_completion___block_invoke(uint64_t a1)
   }
 }
 
-void __44__RPClient_diagnosticShow_level_completion___block_invoke_2(uint64_t a1)
+void __44__RPClient_diagnosticShow_level_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  if (v1)
+  v2 = *(a1 + 32);
+  if (v2)
   {
-    v2 = NSPrintF();
-    (*(v1 + 16))(v1, v2);
+    v3 = NSPrintF("### XPC error: %@\n", a2);
+    (*(v2 + 16))(v2, v3);
   }
 }
 
@@ -802,7 +821,7 @@ void __44__RPClient_diagnosticShow_level_completion___block_invoke_3(uint64_t a1
 
     else
     {
-      v6 = NSPrintF();
+      v6 = NSPrintF("### Null output\n");
       (*(v5 + 16))(v5, v6);
     }
 
@@ -1287,18 +1306,19 @@ uint64_t __49__RPClient_removeAdHocPairedIdentity_completion___block_invoke_2(ui
   return result;
 }
 
-uint64_t __96__RPClient_clientCreateDeviceMappingInternal_applicationService_deviceID_endpointID_completion___block_invoke_cold_1(uint64_t a1)
+uint64_t __38__RPClient_setAutoMapping_completion___block_invoke_cold_1(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  return LogPrintF();
-}
+  if (*(a1 + 48))
+  {
+    v1 = "yes";
+  }
 
-uint64_t __64__RPClient_clientExchangeQUICPublicKeyFor_publicKey_completion___block_invoke_cold_1(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  return LogPrintF();
+  else
+  {
+    v1 = "no";
+  }
+
+  return LogPrintF(&gLogCategory_RPClient, "[RPClient setAutoMapping:completion:]_block_invoke", 40, "Setting auto-mapping=%s\n", v1);
 }
 
 @end

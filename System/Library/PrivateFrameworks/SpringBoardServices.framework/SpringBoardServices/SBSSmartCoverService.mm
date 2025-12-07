@@ -23,9 +23,10 @@
 
 uint64_t __38__SBSSmartCoverService_sharedInstance__block_invoke()
 {
-  sharedInstance_service_0 = objc_alloc_init(SBSSmartCoverService);
+  v0 = objc_alloc_init(SBSSmartCoverService);
+  sharedInstance_service_0 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 - (SBSSmartCoverService)init
@@ -121,7 +122,7 @@ void __28__SBSSmartCoverService_init__block_invoke_2(uint64_t a1, void *a2)
 void __28__SBSSmartCoverService_init__block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = SBLogCommon();
+  v4 = SBLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v9[0] = 0;
@@ -145,7 +146,7 @@ void __28__SBSSmartCoverService_init__block_invoke_3(uint64_t a1, void *a2)
 void __28__SBSSmartCoverService_init__block_invoke_26(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = SBLogCommon();
+  v2 = SBLogCommon(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;

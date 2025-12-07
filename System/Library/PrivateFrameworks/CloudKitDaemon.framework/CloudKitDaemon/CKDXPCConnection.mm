@@ -169,45 +169,45 @@
 
 - (id)containerProxyFromSetupInfo:(id)info containerScopedClientProxy:(id)proxy outError:(id *)error
 {
-  v304 = *MEMORY[0x277D85DE8];
+  v300 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   proxyCopy = proxy;
-  v295 = 0;
-  v296 = &v295;
-  v297 = 0x2020000000;
-  v298 = 0;
-  v289 = 0;
-  v290 = &v289;
-  v291 = 0x3032000000;
-  v292 = sub_225073FA0;
-  v293 = sub_22507355C;
+  v291 = 0;
+  v292 = &v291;
+  v293 = 0x2020000000;
   v294 = 0;
-  v283 = 0;
-  v284 = &v283;
-  v285 = 0x3032000000;
-  v286 = sub_225073FA0;
-  v287 = sub_22507355C;
-  v288 = 0;
-  v265 = infoCopy;
-  v262 = objc_msgSend_containerID(infoCopy, v7, v8);
-  v260 = objc_msgSend_currentPersona(MEMORY[0x277CBC558], v9, v10);
+  v285 = 0;
+  v286 = &v285;
+  v287 = 0x3032000000;
+  v288 = sub_225073FA0;
+  v289 = sub_22507355C;
+  v290 = 0;
+  v279 = 0;
+  v280 = &v279;
+  v281 = 0x3032000000;
+  v282 = sub_225073FA0;
+  v283 = sub_22507355C;
+  v284 = 0;
+  v261 = infoCopy;
+  v258 = objc_msgSend_containerID(infoCopy, v7, v8);
+  v256 = objc_msgSend_currentPersona(MEMORY[0x277CBC558], v9, v10);
   v13 = objc_msgSend_processScopedClientProxy(self, v11, v12);
   v16 = objc_msgSend_containerOptions(infoCopy, v14, v15);
-  v266 = objc_msgSend_clientEntitlementsWithContainerOptions_(v13, v17, v16);
+  v262 = objc_msgSend_clientEntitlementsWithContainerOptions_(v13, v17, v16);
 
-  v20 = objc_msgSend_containerOptions(v265, v18, v19);
+  v20 = objc_msgSend_containerOptions(v261, v18, v19);
   v23 = objc_msgSend_fakeEntitlements(v20, v21, v22);
   v26 = objc_msgSend_count(v23, v24, v25);
 
   if (v26)
   {
-    if (objc_msgSend_hasAllowFakeEntitlementsEntitlement(v266, v27, v28))
+    if (objc_msgSend_hasAllowFakeEntitlementsEntitlement(v262, v27, v28))
     {
-      v31 = objc_msgSend_containerOptions(v265, v29, v30);
+      v31 = objc_msgSend_containerOptions(v261, v29, v30);
       v34 = objc_msgSend_fakeEntitlements(v31, v32, v33);
-      v36 = objc_msgSend_entitlementsByAddingOverlay_(v266, v35, v34);
+      v36 = objc_msgSend_entitlementsByAddingOverlay_(v262, v35, v34);
 
-      v266 = v36;
+      v262 = v36;
     }
 
     else
@@ -233,43 +233,43 @@
     aBlock[1] = 3221225472;
     aBlock[2] = sub_225193560;
     aBlock[3] = &unk_278548320;
-    v280 = &v295;
+    v276 = &v291;
     aBlock[4] = self;
-    v276 = v262;
-    v277 = v260;
-    v281 = &v283;
-    v278 = v265;
-    v282 = &v289;
-    v279 = v266;
+    v272 = v258;
+    v273 = v256;
+    v277 = &v279;
+    v274 = v261;
+    v278 = &v285;
+    v275 = v262;
     v40 = _Block_copy(aBlock);
     v40[2]();
   }
 
-  v41 = objc_msgSend_applicationBundleID(v266, v38, v39);
+  v41 = objc_msgSend_applicationBundleID(v262, v38, v39);
 
   if (v41)
   {
     v44 = [CKDApplicationID alloc];
-    v47 = objc_msgSend_applicationBundleID(v266, v45, v46);
-    v50 = objc_msgSend_containerOptions(v265, v48, v49);
+    v47 = objc_msgSend_applicationBundleID(v262, v45, v46);
+    v50 = objc_msgSend_containerOptions(v261, v48, v49);
     v53 = objc_msgSend_applicationBundleIdentifierOverrideForContainerAccess(v50, v51, v52);
-    v56 = objc_msgSend_containerOptions(v265, v54, v55);
+    v56 = objc_msgSend_containerOptions(v261, v54, v55);
     v59 = objc_msgSend_applicationBundleIdentifierOverrideForNetworkAttribution(v56, v57, v58);
-    v62 = objc_msgSend_containerOptions(v265, v60, v61);
+    v62 = objc_msgSend_containerOptions(v261, v60, v61);
     v65 = objc_msgSend_applicationBundleIdentifierOverrideForPushTopicGeneration(v62, v63, v64);
-    v68 = objc_msgSend_containerOptions(v265, v66, v67);
+    v68 = objc_msgSend_containerOptions(v261, v66, v67);
     v71 = objc_msgSend_applicationBundleIdentifierOverrideForTCC(v68, v69, v70);
-    v263 = objc_msgSend_initWithApplicationBundleIdentifier_applicationBundleIdentifierOverrideForContainerAccess_applicationBundleIdentifierOverrideForNetworkAttribution_applicationBundleIdentifierOverrideForPushTopicGeneration_applicationBundleIdentifierOverrideForTCC_(v44, v72, v47, v53, v59, v65, v71);
+    v259 = objc_msgSend_initWithApplicationBundleIdentifier_applicationBundleIdentifierOverrideForContainerAccess_applicationBundleIdentifierOverrideForNetworkAttribution_applicationBundleIdentifierOverrideForPushTopicGeneration_applicationBundleIdentifierOverrideForTCC_(v44, v72, v47, v53, v59, v65, v71);
   }
 
   else
   {
-    v263 = 0;
+    v259 = 0;
   }
 
   v73 = objc_msgSend_processScopedClientProxy(self, v42, v43);
   v76 = objc_msgSend_clientSDKVersion(v73, v74, v75);
-  v78 = objc_msgSend_validateEntitlementsWithSDKVersion_error_(v266, v77, v76, error);
+  v78 = objc_msgSend_validateEntitlementsWithSDKVersion_error_(v262, v77, v76, error);
 
   if ((v78 & 1) == 0)
   {
@@ -294,7 +294,7 @@ LABEL_26:
   v81 = objc_msgSend_currentProcess(CKDDaemonProcess, v79, v80);
   if (objc_msgSend_processType(v81, v82, v83) == 1)
   {
-    hasSystemLaunchDaemonEntitlement = objc_msgSend_hasSystemLaunchDaemonEntitlement(v266, v84, v85);
+    hasSystemLaunchDaemonEntitlement = objc_msgSend_hasSystemLaunchDaemonEntitlement(v262, v84, v85);
 
     if ((hasSystemLaunchDaemonEntitlement & 1) == 0)
     {
@@ -326,28 +326,28 @@ LABEL_26:
   {
   }
 
-  v257 = objc_msgSend_accountOverrideInfo(v265, v87, v88);
-  if ((*MEMORY[0x277CBC810] & 1) == 0 && v257 && (objc_msgSend_hasCustomAccountsEntitlement(v266, v93, v94) & 1) == 0)
+  v253 = objc_msgSend_accountOverrideInfo(v261, v87, v88);
+  if ((*MEMORY[0x277CBC810] & 1) == 0 && v253 && (objc_msgSend_hasCustomAccountsEntitlement(v262, v93, v94) & 1) == 0)
   {
     if (*MEMORY[0x277CBC880] != -1)
     {
       dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
     }
 
-    v200 = *MEMORY[0x277CBC830];
+    v197 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
       selfCopy10 = self;
-      _os_log_error_impl(&dword_22506F000, v200, OS_LOG_TYPE_ERROR, "The application on the other end of %@ is trying to use a custom account but it doesn't have the right entitlement. Denying connection.", buf, 0xCu);
+      _os_log_error_impl(&dword_22506F000, v197, OS_LOG_TYPE_ERROR, "The application on the other end of %@ is trying to use a custom account but it doesn't have the right entitlement. Denying connection.", buf, 0xCu);
     }
 
     if (error)
     {
-      v202 = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v201, *MEMORY[0x277CBBF50], 8, @"Connection %@ is not allowed to set custom account info", self);
+      v199 = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v198, *MEMORY[0x277CBBF50], 8, @"Connection %@ is not allowed to set custom account info", self);
 LABEL_96:
       v91 = 0;
-      *error = v202;
+      *error = v199;
       goto LABEL_152;
     }
 
@@ -356,7 +356,7 @@ LABEL_107:
     goto LABEL_152;
   }
 
-  if (objc_msgSend_hasMasqueradingEntitlement(v266, v93, v94))
+  if (objc_msgSend_hasMasqueradingEntitlement(v262, v93, v94))
   {
     if (*MEMORY[0x277CBC880] != -1)
     {
@@ -375,51 +375,51 @@ LABEL_107:
   }
 
   v100 = objc_msgSend_array(MEMORY[0x277CBEB18], v95, v96);
-  v103 = objc_msgSend_applicationBundleIdentifierOverrideForContainerAccess(v263, v101, v102);
+  v103 = objc_msgSend_applicationBundleIdentifierOverrideForContainerAccess(v259, v101, v102);
 
   if (v103)
   {
-    v106 = objc_msgSend_applicationBundleIdentifierOverrideForContainerAccess(v263, v104, v105);
+    v106 = objc_msgSend_applicationBundleIdentifierOverrideForContainerAccess(v259, v104, v105);
     objc_msgSend_addObject_(v100, v107, v106);
   }
 
-  v108 = objc_msgSend_applicationBundleIdentifierOverrideForNetworkAttribution(v263, v104, v105);
+  v108 = objc_msgSend_applicationBundleIdentifierOverrideForNetworkAttribution(v259, v104, v105);
 
   if (v108)
   {
-    v111 = objc_msgSend_applicationBundleIdentifierOverrideForNetworkAttribution(v263, v109, v110);
+    v111 = objc_msgSend_applicationBundleIdentifierOverrideForNetworkAttribution(v259, v109, v110);
     objc_msgSend_addObject_(v100, v112, v111);
   }
 
-  v113 = objc_msgSend_applicationBundleIdentifierOverrideForPushTopicGeneration(v263, v109, v110);
+  v113 = objc_msgSend_applicationBundleIdentifierOverrideForPushTopicGeneration(v259, v109, v110);
 
   if (v113)
   {
-    v116 = objc_msgSend_applicationBundleIdentifierOverrideForPushTopicGeneration(v263, v114, v115);
+    v116 = objc_msgSend_applicationBundleIdentifierOverrideForPushTopicGeneration(v259, v114, v115);
     objc_msgSend_addObject_(v100, v117, v116);
   }
 
-  v118 = objc_msgSend_applicationBundleIdentifierOverrideForTCC(v263, v114, v115);
+  v118 = objc_msgSend_applicationBundleIdentifierOverrideForTCC(v259, v114, v115);
 
   if (v118)
   {
-    v121 = objc_msgSend_applicationBundleIdentifierOverrideForTCC(v263, v119, v120);
+    v121 = objc_msgSend_applicationBundleIdentifierOverrideForTCC(v259, v119, v120);
     objc_msgSend_addObject_(v100, v122, v121);
   }
 
-  v123 = objc_msgSend_clientPrefixEntitlement(v266, v119, v120);
-  v273 = 0u;
-  v274 = 0u;
-  v271 = 0u;
-  v272 = 0u;
+  v123 = objc_msgSend_clientPrefixEntitlement(v262, v119, v120);
+  v269 = 0u;
+  v270 = 0u;
+  v267 = 0u;
+  v268 = 0u;
   obj = v100;
-  v127 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v124, &v271, v303, 16);
+  v127 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v124, &v267, v299, 16);
   if (!v127)
   {
     goto LABEL_63;
   }
 
-  v128 = *v272;
+  v128 = *v268;
   v129 = *MEMORY[0x277CBBF10];
   v130 = MEMORY[0x277CBC880];
   while (2)
@@ -427,14 +427,14 @@ LABEL_107:
     v131 = 0;
     do
     {
-      if (*v272 != v128)
+      if (*v268 != v128)
       {
         objc_enumerationMutation(obj);
       }
 
-      v132 = *(*(&v271 + 1) + 8 * v131);
+      v132 = *(*(&v267 + 1) + 8 * v131);
       v133 = MEMORY[0x277CCACA8];
-      v134 = objc_msgSend_applicationBundleID(v266, v125, v126);
+      v134 = objc_msgSend_applicationBundleID(v262, v125, v126);
       v136 = objc_msgSend_stringWithValidatedFormat_validFormatSpecifiers_error_(v133, v135, v129, @"%@", 0, v134);
 
       if (objc_msgSend_isEqualToString_(v136, v137, v132))
@@ -467,7 +467,7 @@ LABEL_60:
           dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
         }
 
-        v205 = *MEMORY[0x277CBC830];
+        v202 = *MEMORY[0x277CBC830];
         if (!os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_FAULT))
         {
           goto LABEL_104;
@@ -475,22 +475,20 @@ LABEL_60:
 
         *buf = 138412546;
         selfCopy10 = self;
-        v301 = 2114;
-        v302 = v132;
-        v206 = "Connection %@ specified bundle identifier override '%{public}@', but it has no prefix entitlement";
+        v297 = 2114;
+        v298 = v132;
+        v203 = "Connection %@ specified bundle identifier override '%{public}@', but it has no prefix entitlement";
         goto LABEL_125;
       }
 
-      hasPrefix = objc_msgSend_hasPrefix_(v132, v144, v123);
-      v146 = *v130;
-      if (!hasPrefix)
+      if (!objc_msgSend_hasPrefix_(v132, v144, v123))
       {
         if (*v130 != -1)
         {
           dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
         }
 
-        v205 = *MEMORY[0x277CBC830];
+        v202 = *MEMORY[0x277CBC830];
         if (!os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_FAULT))
         {
           goto LABEL_104;
@@ -498,16 +496,16 @@ LABEL_60:
 
         *buf = 138412546;
         selfCopy10 = self;
-        v301 = 2114;
-        v302 = v132;
-        v206 = "Connection %@ specified bundle identifier override '%{public}@', but it didn't match the prefix";
+        v297 = 2114;
+        v298 = v132;
+        v203 = "Connection %@ specified bundle identifier override '%{public}@', but it didn't match the prefix";
 LABEL_125:
-        _os_log_fault_impl(&dword_22506F000, v205, OS_LOG_TYPE_FAULT, v206, buf, 0x16u);
+        _os_log_fault_impl(&dword_22506F000, v202, OS_LOG_TYPE_FAULT, v203, buf, 0x16u);
 LABEL_104:
 
         if (error)
         {
-          *error = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v207, *MEMORY[0x277CBBF50], 8, @"Connection %@ is not allowed to set its application bundle identifier without the %@ entitlement", self, *MEMORY[0x277CBC898]);
+          *error = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v204, *MEMORY[0x277CBBF50], 8, @"Connection %@ is not allowed to set its application bundle identifier without the %@ entitlement", self, *MEMORY[0x277CBC898]);
         }
 
         goto LABEL_107;
@@ -518,14 +516,14 @@ LABEL_104:
         dispatch_once(v130, *MEMORY[0x277CBC878]);
       }
 
-      v147 = *MEMORY[0x277CBC830];
+      v145 = *MEMORY[0x277CBC830];
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
         selfCopy10 = self;
-        v301 = 2114;
-        v302 = v132;
-        v141 = v147;
+        v297 = 2114;
+        v298 = v132;
+        v141 = v145;
         v142 = "Allowing %@ to override bundle identifier '%{public}@' due to matching prefix";
         v143 = 22;
         goto LABEL_60;
@@ -537,7 +535,7 @@ LABEL_61:
     }
 
     while (v127 != v131);
-    v127 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v125, &v271, v303, 16);
+    v127 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v125, &v267, v299, 16);
     if (v127)
     {
       continue;
@@ -549,34 +547,34 @@ LABEL_61:
 LABEL_63:
 
 LABEL_64:
-  v148 = objc_msgSend_cloudServices(v266, v98, v99);
-  if (objc_msgSend_containsObject_(v148, v149, *MEMORY[0x277CBC8C8]))
+  v146 = objc_msgSend_cloudServices(v262, v98, v99);
+  if (objc_msgSend_containsObject_(v146, v147, *MEMORY[0x277CBC8C8]))
   {
 
     goto LABEL_67;
   }
 
-  v153 = objc_msgSend_cloudServices(v266, v150, v151);
-  v155 = objc_msgSend_containsObject_(v153, v154, *MEMORY[0x277CBC8C0]);
+  v151 = objc_msgSend_cloudServices(v262, v148, v149);
+  v153 = objc_msgSend_containsObject_(v151, v152, *MEMORY[0x277CBC8C0]);
 
-  if ((v155 & 1) == 0)
+  if ((v153 & 1) == 0)
   {
     if (*MEMORY[0x277CBC880] != -1)
     {
       dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
     }
 
-    v203 = *MEMORY[0x277CBC830];
+    v200 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
       selfCopy10 = self;
-      _os_log_error_impl(&dword_22506F000, v203, OS_LOG_TYPE_ERROR, "Connection %@ is not entitled to use CloudKit", buf, 0xCu);
+      _os_log_error_impl(&dword_22506F000, v200, OS_LOG_TYPE_ERROR, "Connection %@ is not entitled to use CloudKit", buf, 0xCu);
     }
 
     if (error)
     {
-      v202 = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v204, *MEMORY[0x277CBBF50], 8, @"Connection %@ is not entitled to use CloudKit", self);
+      v199 = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v201, *MEMORY[0x277CBBF50], 8, @"Connection %@ is not entitled to use CloudKit", self);
       goto LABEL_96;
     }
 
@@ -584,150 +582,149 @@ LABEL_64:
   }
 
 LABEL_67:
-  v156 = objc_msgSend_containerEnvironmentForContainerID_entitlements_(MEMORY[0x277CBC218], v152, v262, v266);
-  v157 = objc_alloc(MEMORY[0x277CBC220]);
-  v160 = objc_msgSend_containerIdentifier(v262, v158, v159);
-  v162 = objc_msgSend_initWithContainerIdentifier_environment_(v157, v161, v160, v156);
+  v154 = objc_msgSend_containerEnvironmentForContainerID_entitlements_(MEMORY[0x277CBC218], v150, v258, v262);
+  v155 = objc_alloc(MEMORY[0x277CBC220]);
+  v158 = objc_msgSend_containerIdentifier(v258, v156, v157);
+  v160 = objc_msgSend_initWithContainerIdentifier_environment_(v155, v159, v158, v154);
 
-  if (v263)
+  if (v259)
   {
-    if (objc_msgSend_isSupported(MEMORY[0x277CBC558], v163, v164))
+    if (objc_msgSend_isSupported(MEMORY[0x277CBC558], v161, v162))
     {
-      v165 = MEMORY[0x277CBC880];
+      v163 = MEMORY[0x277CBC880];
       if (*MEMORY[0x277CBC880] != -1)
       {
         dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
       }
 
-      v166 = MEMORY[0x277CBC830];
-      v167 = *MEMORY[0x277CBC830];
-      if (os_log_type_enabled(v167, OS_LOG_TYPE_DEBUG))
+      v164 = MEMORY[0x277CBC830];
+      v165 = *MEMORY[0x277CBC830];
+      if (os_log_type_enabled(v165, OS_LOG_TYPE_DEBUG))
       {
-        v231 = objc_msgSend_ckShortDescription(v260, v168, v169);
+        v228 = objc_msgSend_ckShortDescription(v256, v166, v167);
         *buf = 138412290;
-        selfCopy10 = v231;
-        _os_log_debug_impl(&dword_22506F000, v167, OS_LOG_TYPE_DEBUG, "Verifying current persona %@ can access container", buf, 0xCu);
+        selfCopy10 = v228;
+        _os_log_debug_impl(&dword_22506F000, v165, OS_LOG_TYPE_DEBUG, "Verifying current persona %@ can access container", buf, 0xCu);
       }
 
-      v171 = (v290 + 5);
-      v170 = v290[5];
-      v269 = 0;
-      v270 = v170;
-      ProximatePersona_error = objc_msgSend_getProximatePersona_error_(MEMORY[0x277CBC558], v172, &v270, &v269);
-      objc_storeStrong(v171, v270);
-      v176 = v269;
+      v169 = (v286 + 5);
+      v168 = v286[5];
+      v265 = 0;
+      v266 = v168;
+      ProximatePersona_error = objc_msgSend_getProximatePersona_error_(MEMORY[0x277CBC558], v170, &v266, &v265);
+      objc_storeStrong(v169, v266);
+      v174 = v265;
       if ((ProximatePersona_error & 1) == 0)
       {
-        if (*v165 != -1)
+        if (*v163 != -1)
         {
           dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
         }
 
-        v208 = *v166;
-        if (os_log_type_enabled(*v166, OS_LOG_TYPE_ERROR))
+        v205 = *v164;
+        if (os_log_type_enabled(*v164, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          selfCopy10 = v176;
-          _os_log_error_impl(&dword_22506F000, v208, OS_LOG_TYPE_ERROR, "Failed to resolve the proximate persona with error: %@", buf, 0xCu);
+          selfCopy10 = v174;
+          _os_log_error_impl(&dword_22506F000, v205, OS_LOG_TYPE_ERROR, "Failed to resolve the proximate persona with error: %@", buf, 0xCu);
         }
 
         if (error)
         {
-          *error = objc_msgSend_errorWithDomain_code_error_format_(MEMORY[0x277CBC560], v209, *MEMORY[0x277CBBF50], 5, v176, @"Invalid persona for container");
+          *error = objc_msgSend_errorWithDomain_code_error_format_(MEMORY[0x277CBC560], v206, *MEMORY[0x277CBBF50], 5, v174, @"Invalid persona for container");
         }
 
         goto LABEL_149;
       }
 
-      v177 = objc_msgSend_containerOptions(v265, v174, v175);
-      v180 = objc_msgSend_persona(v177, v178, v179);
-      v181 = v180;
-      if (!v180)
+      v175 = objc_msgSend_containerOptions(v261, v172, v173);
+      v178 = objc_msgSend_persona(v175, v176, v177);
+      v179 = v178;
+      if (!v178)
       {
-        v181 = v290[5];
+        v179 = v286[5];
       }
 
-      objc_storeStrong(v284 + 5, v181);
+      objc_storeStrong(v280 + 5, v179);
 
-      v182 = v284[5];
       if ((CKPersonasAreEquivalent() & 1) == 0)
       {
-        if (*v165 != -1)
+        if (*v163 != -1)
         {
           dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
         }
 
-        v210 = *v166;
-        if (os_log_type_enabled(v210, OS_LOG_TYPE_ERROR))
+        v207 = *v164;
+        if (os_log_type_enabled(v207, OS_LOG_TYPE_ERROR))
         {
-          v234 = objc_msgSend_ckShortDescription(v284[5], v211, v212);
+          v231 = objc_msgSend_ckShortDescription(v280[5], v208, v209);
           *buf = 138412290;
-          selfCopy10 = v234;
-          _os_log_error_impl(&dword_22506F000, v210, OS_LOG_TYPE_ERROR, "Detected that the client did not adopt or propagate the persona %@", buf, 0xCu);
+          selfCopy10 = v231;
+          _os_log_error_impl(&dword_22506F000, v207, OS_LOG_TYPE_ERROR, "Detected that the client did not adopt or propagate the persona %@", buf, 0xCu);
         }
 
         if (error)
         {
-          *error = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v213, *MEMORY[0x277CBBF50], 5, @"Invalid persona for container");
+          *error = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v210, *MEMORY[0x277CBBF50], 5, @"Invalid persona for container");
         }
 
-        v214 = objc_alloc(MEMORY[0x277CBC6B0]);
-        v215 = objc_alloc(MEMORY[0x277CBC6C8]);
-        v217 = objc_msgSend_initWithFilePath_lineNumber_(v215, v216, @"/Library/Caches/com.apple.xbs/Sources/CloudKitTools/Sources/CloudKitDaemon/IPCMessaging/CKDXPCConnection.m", 335);
-        v220 = objc_msgSend_ckShortDescription(v162, v218, v219);
-        v222 = objc_msgSend_initWithSourceCodeLocation_format_(v214, v221, v217, @"Persona failed to propagate for container %@: %@", v220, v284[5]);
+        v211 = objc_alloc(MEMORY[0x277CBC6B0]);
+        v212 = objc_alloc(MEMORY[0x277CBC6C8]);
+        v214 = objc_msgSend_initWithFilePath_lineNumber_(v212, v213, @"/Library/Caches/com.apple.xbs/Sources/CloudKitTools/Sources/CloudKitDaemon/IPCMessaging/CKDXPCConnection.m", 335);
+        v217 = objc_msgSend_ckShortDescription(v160, v215, v216);
+        v219 = objc_msgSend_initWithSourceCodeLocation_format_(v211, v218, v214, @"Persona failed to propagate for container %@: %@", v217, v280[5]);
 
-        v225 = objc_msgSend_processScopedClientProxy(self, v223, v224);
-        objc_msgSend_handleSignificantIssue_actions_(v225, v226, v222, 3);
+        v222 = objc_msgSend_processScopedClientProxy(self, v220, v221);
+        objc_msgSend_handleSignificantIssue_actions_(v222, v223, v219, 3);
 
         goto LABEL_149;
       }
 
-      v185 = v284[5];
-      if (!v185 || (v186 = objc_msgSend_type(v185, v183, v184), (v186 - 3) < 2))
+      v182 = v280[5];
+      if (!v182 || (v183 = objc_msgSend_type(v182, v180, v181), (v183 - 3) < 2))
       {
-        v187 = objc_msgSend_containerOptions(v265, v183, v184);
-        v190 = objc_msgSend_testDeviceReferenceProtocol(v187, v188, v189);
-        v192 = objc_msgSend_deviceContextForTestDeviceReference_(CKDLogicalDeviceContext, v191, v190);
+        v184 = objc_msgSend_containerOptions(v261, v180, v181);
+        v187 = objc_msgSend_testDeviceReferenceProtocol(v184, v185, v186);
+        v189 = objc_msgSend_deviceContextForTestDeviceReference_(CKDLogicalDeviceContext, v188, v187);
 
-        objc_msgSend_BOOLOptionForKey_(v192, v193, *MEMORY[0x277CBC110]);
+        objc_msgSend_BOOLOptionForKey_(v189, v190, *MEMORY[0x277CBC110]);
         if ((CKBoolFromCKTernaryWithDefault() & 1) == 0)
         {
-          v268 = v176;
-          v195 = objc_msgSend_personasWithType_error_(MEMORY[0x277CBC558], v194, 1, &v268);
-          v196 = v268;
+          v264 = v174;
+          v192 = objc_msgSend_personasWithType_error_(MEMORY[0x277CBC558], v191, 1, &v264);
+          v193 = v264;
 
-          v199 = objc_msgSend_firstObject(v195, v197, v198);
-
-          if (v199)
-          {
-            objc_storeStrong(v284 + 5, v199);
-            v176 = v196;
-            goto LABEL_135;
-          }
+          v196 = objc_msgSend_firstObject(v192, v194, v195);
 
           if (v196)
           {
-            if (*v165 != -1)
+            objc_storeStrong(v280 + 5, v196);
+            v174 = v193;
+            goto LABEL_135;
+          }
+
+          if (v193)
+          {
+            if (*v163 != -1)
             {
               dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
             }
 
-            v232 = *v166;
-            if (os_log_type_enabled(*v166, OS_LOG_TYPE_ERROR))
+            v229 = *v164;
+            if (os_log_type_enabled(*v164, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              selfCopy10 = v196;
-              _os_log_error_impl(&dword_22506F000, v232, OS_LOG_TYPE_ERROR, "Failed to fetch personal persona with error: %@", buf, 0xCu);
+              selfCopy10 = v193;
+              _os_log_error_impl(&dword_22506F000, v229, OS_LOG_TYPE_ERROR, "Failed to fetch personal persona with error: %@", buf, 0xCu);
             }
 
             if (error)
             {
-              *error = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v233, *MEMORY[0x277CBBF50], 5, @"Invalid persona for container");
+              *error = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v230, *MEMORY[0x277CBBF50], 5, @"Invalid persona for container");
             }
 
 LABEL_148:
-            v176 = v196;
+            v174 = v193;
 LABEL_149:
 
 LABEL_150:
@@ -735,82 +732,82 @@ LABEL_150:
             goto LABEL_151;
           }
 
-          v199 = 0;
-          v176 = 0;
+          v196 = 0;
+          v174 = 0;
 LABEL_135:
         }
 
         goto LABEL_136;
       }
 
-      if (!v186)
+      if (!v183)
       {
-        v227 = MEMORY[0x277CBC558];
-        v228 = objc_msgSend_identifier(v284[5], v183, v184);
-        v192 = objc_msgSend_personaWithIdentifier_error_(v227, v229, v228, 0);
+        v224 = MEMORY[0x277CBC558];
+        v225 = objc_msgSend_identifier(v280[5], v180, v181);
+        v189 = objc_msgSend_personaWithIdentifier_error_(v224, v226, v225, 0);
 
-        if (v192)
+        if (v189)
         {
-          v230 = v284;
-          v192 = v192;
-          v199 = v230[5];
-          v230[5] = v192;
+          v227 = v280;
+          v189 = v189;
+          v196 = v227[5];
+          v227[5] = v189;
           goto LABEL_135;
         }
 
 LABEL_136:
       }
 
-      v235 = v284[5];
-      if (v235)
+      v232 = v280[5];
+      if (v232)
       {
-        v267 = v176;
-        v236 = objc_msgSend_adopt_(v235, v183, &v267);
-        v196 = v267;
+        v263 = v174;
+        v233 = objc_msgSend_adopt_(v232, v180, &v263);
+        v193 = v263;
 
-        if (!v236)
+        if (!v233)
         {
-          if (*v165 != -1)
+          if (*v163 != -1)
           {
             dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
           }
 
-          v252 = *v166;
-          if (os_log_type_enabled(*v166, OS_LOG_TYPE_ERROR))
+          v249 = *v164;
+          if (os_log_type_enabled(*v164, OS_LOG_TYPE_ERROR))
           {
-            v256 = v284[5];
+            v252 = v280[5];
             *buf = 138412546;
-            selfCopy10 = v256;
-            v301 = 2112;
-            v302 = v196;
-            _os_log_error_impl(&dword_22506F000, v252, OS_LOG_TYPE_ERROR, "Failed to adopt persona %@ with error: %@", buf, 0x16u);
+            selfCopy10 = v252;
+            v297 = 2112;
+            v298 = v193;
+            _os_log_error_impl(&dword_22506F000, v249, OS_LOG_TYPE_ERROR, "Failed to adopt persona %@ with error: %@", buf, 0x16u);
           }
 
           if (error)
           {
-            *error = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v253, *MEMORY[0x277CBBF50], 5, @"Invalid persona for container");
+            *error = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v250, *MEMORY[0x277CBBF50], 5, @"Invalid persona for container");
           }
 
           goto LABEL_148;
         }
 
-        v176 = v196;
+        v174 = v193;
       }
     }
 
-    v237 = [CKDAppContainerTuple alloc];
-    v239 = objc_msgSend_initWithApplicationID_containerID_persona_(v237, v238, v263, v162, v284[5]);
-    v240 = [CKDContainerProxy alloc];
-    v243 = objc_msgSend_containerOptions(v265, v241, v242);
-    v91 = objc_msgSend_initWithAppContainerTuple_entitlements_options_distantContainer_connection_(v240, v244, v239, v266, v243, proxyCopy, self);
+    v234 = [CKDAppContainerTuple alloc];
+    v236 = objc_msgSend_initWithApplicationID_containerID_persona_(v234, v235, v259, v160, v280[5]);
+    v237 = [CKDContainerProxy alloc];
+    v240 = objc_msgSend_containerOptions(v261, v238, v239);
+    v91 = objc_msgSend_initWithAppContainerTuple_entitlements_options_distantContainer_connection_(v237, v241, v236, v262, v240, proxyCopy, self);
 
+    v244 = objc_msgSend_containerProxies(self, v242, v243);
+    objc_sync_enter(v244);
     v247 = objc_msgSend_containerProxies(self, v245, v246);
-    objc_sync_enter(v247);
-    v250 = objc_msgSend_containerProxies(self, v248, v249);
-    objc_msgSend_addObject_(v250, v251, v91);
+    objc_msgSend_addObject_(v247, v248, v91);
 
-    objc_sync_exit(v247);
-    *(v296 + 24) = 1;
+    objc_sync_exit(v244);
+    *(v292 + 24) = 1;
 
     goto LABEL_151;
   }
@@ -820,18 +817,17 @@ LABEL_136:
     goto LABEL_150;
   }
 
-  objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v163, *MEMORY[0x277CBBF50], 8, @"Trying to initialize a container without an application ID");
+  objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v161, *MEMORY[0x277CBBF50], 8, @"Trying to initialize a container without an application ID");
   *error = v91 = 0;
 LABEL_151:
 
 LABEL_152:
 LABEL_153:
 
-  _Block_object_dispose(&v283, 8);
-  _Block_object_dispose(&v289, 8);
+  _Block_object_dispose(&v279, 8);
+  _Block_object_dispose(&v285, 8);
 
-  _Block_object_dispose(&v295, 8);
-  v254 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v291, 8);
 
   return v91;
 }
@@ -839,7 +835,7 @@ LABEL_153:
 - (BOOL)systemAvailabilityChanged:(unint64_t)changed
 {
   changedCopy = changed;
-  v91 = *MEMORY[0x277D85DE8];
+  v89 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v7 = objc_msgSend_processScopedClientProxy(selfCopy, v5, v6);
@@ -878,12 +874,12 @@ LABEL_153:
     }
 
     *buf = 138543362;
-    v84 = v25;
+    v82 = v25;
     v33 = "Connection from %{public}@ not active yet because device hasn't been unlocked since boot.";
 LABEL_40:
     _os_log_impl(&dword_22506F000, v32, OS_LOG_TYPE_DEFAULT, v33, buf, 0xCu);
 LABEL_41:
-    v72 = 1;
+    v71 = 1;
     goto LABEL_42;
   }
 
@@ -903,7 +899,7 @@ LABEL_41:
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v84 = v25;
+      v82 = v25;
       _os_log_impl(&dword_22506F000, v40, OS_LOG_TYPE_INFO, "Connection from client %{public}@ is past unlock check", buf, 0xCu);
     }
 
@@ -912,7 +908,6 @@ LABEL_41:
   }
 
   v45 = *v39;
-  v46 = *v38;
   if ((v26 & 1) == 0)
   {
     if (*v38 != -1)
@@ -927,7 +922,7 @@ LABEL_41:
     }
 
     *buf = 138543362;
-    v84 = v25;
+    v82 = v25;
     v33 = "Connection from %{public}@ not active. Device is not past buddy and it lacks the entitlement to bypass.";
     goto LABEL_40;
   }
@@ -937,89 +932,88 @@ LABEL_41:
     dispatch_once(MEMORY[0x277CBC880], v45);
   }
 
-  v47 = MEMORY[0x277CBC830];
-  v48 = *MEMORY[0x277CBC830];
+  v46 = MEMORY[0x277CBC830];
+  v47 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v84 = v25;
-    _os_log_impl(&dword_22506F000, v48, OS_LOG_TYPE_INFO, "Connection from client %{public}@ is past buddy check", buf, 0xCu);
+    v82 = v25;
+    _os_log_impl(&dword_22506F000, v47, OS_LOG_TYPE_INFO, "Connection from client %{public}@ is past buddy check", buf, 0xCu);
   }
 
-  v49 = MEMORY[0x277CCA8C8];
-  v79[0] = MEMORY[0x277D85DD0];
-  v79[1] = 3221225472;
-  v79[2] = sub_225193F14;
-  v79[3] = &unk_278545898;
-  v80 = v25;
-  v81 = selfCopy;
-  v51 = objc_msgSend_blockOperationWithBlock_(v49, v50, v79);
-  if (objc_msgSend_count(v31, v52, v53))
+  v48 = MEMORY[0x277CCA8C8];
+  v77[0] = MEMORY[0x277D85DD0];
+  v77[1] = 3221225472;
+  v77[2] = sub_225193F14;
+  v77[3] = &unk_278545898;
+  v78 = v25;
+  v79 = selfCopy;
+  v50 = objc_msgSend_blockOperationWithBlock_(v48, v49, v77);
+  if (objc_msgSend_count(v31, v51, v52))
   {
     if (*v38 != -1)
     {
       dispatch_once(MEMORY[0x277CBC880], *v39);
     }
 
-    v56 = *v47;
-    if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
+    v55 = *v46;
+    if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
     {
-      v59 = objc_msgSend_count(v31, v57, v58);
-      v62 = objc_msgSend_count(v31, v60, v61);
-      v63 = @"s";
+      v58 = objc_msgSend_count(v31, v56, v57);
+      v61 = objc_msgSend_count(v31, v59, v60);
+      v62 = @"s";
       *buf = 138413058;
-      v84 = selfCopy;
-      v85 = 2112;
-      if (v62 == 1)
+      v82 = selfCopy;
+      v83 = 2112;
+      if (v61 == 1)
       {
-        v63 = &stru_28385ED00;
+        v62 = &stru_28385ED00;
       }
 
-      v86 = v19;
-      v87 = 2048;
-      v88 = v59;
-      v89 = 2112;
-      v90 = v63;
-      _os_log_impl(&dword_22506F000, v56, OS_LOG_TYPE_INFO, "Incoming client %@ connection with processBinaryName %@ is waiting resume its container available queue. We have %ld existing connection%@ tearing down", buf, 0x2Au);
+      v84 = v19;
+      v85 = 2048;
+      v86 = v58;
+      v87 = 2112;
+      v88 = v62;
+      _os_log_impl(&dword_22506F000, v55, OS_LOG_TYPE_INFO, "Incoming client %@ connection with processBinaryName %@ is waiting resume its container available queue. We have %ld existing connection%@ tearing down", buf, 0x2Au);
     }
 
-    v77 = 0u;
-    v78 = 0u;
     v75 = 0u;
     v76 = 0u;
-    v64 = v31;
-    v67 = objc_msgSend_countByEnumeratingWithState_objects_count_(v64, v65, &v75, v82, 16);
-    if (v67)
+    v73 = 0u;
+    v74 = 0u;
+    v63 = v31;
+    v66 = objc_msgSend_countByEnumeratingWithState_objects_count_(v63, v64, &v73, v80, 16);
+    if (v66)
     {
-      v68 = *v76;
+      v67 = *v74;
       do
       {
-        for (i = 0; i != v67; ++i)
+        for (i = 0; i != v66; ++i)
         {
-          if (*v76 != v68)
+          if (*v74 != v67)
           {
-            objc_enumerationMutation(v64);
+            objc_enumerationMutation(v63);
           }
 
-          objc_msgSend_addDependency_(v51, v66, *(*(&v75 + 1) + 8 * i), v75);
+          objc_msgSend_addDependency_(v50, v65, *(*(&v73 + 1) + 8 * i), v73);
         }
 
-        v67 = objc_msgSend_countByEnumeratingWithState_objects_count_(v64, v66, &v75, v82, 16);
+        v66 = objc_msgSend_countByEnumeratingWithState_objects_count_(v63, v65, &v73, v80, 16);
       }
 
-      while (v67);
+      while (v66);
     }
   }
 
-  v70 = objc_msgSend_unlockedSinceBootQueue(selfCopy, v54, v55, v75);
-  objc_msgSend_addOperation_(v70, v71, v51);
+  v69 = objc_msgSend_unlockedSinceBootQueue(selfCopy, v53, v54, v73);
+  objc_msgSend_addOperation_(v69, v70, v50);
 
-  v72 = 0;
+  v71 = 0;
 LABEL_42:
 
   objc_sync_exit(selfCopy);
-  v73 = *MEMORY[0x277D85DE8];
-  return v72;
+  return v71;
 }
 
 - (void)noteClientProcessScopedMetadata:(id)metadata
@@ -1158,7 +1152,7 @@ LABEL_42:
 
 - (id)logicalDeviceScopedClientProxyForDeviceContext:(id)context
 {
-  v39[2] = *MEMORY[0x277D85DE8];
+  v38[2] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v7 = objc_msgSend_testDeviceReference(contextCopy, v5, v6);
   v10 = objc_msgSend_deviceID(v7, v8, v9);
@@ -1169,7 +1163,7 @@ LABEL_42:
     v14 = v10;
   }
 
-  v39[0] = v14;
+  v38[0] = v14;
   v15 = objc_msgSend_testDeviceReference(contextCopy, v11, v12);
   v18 = objc_msgSend_serverReferenceProtocol(v15, v16, v17);
   v22 = objc_msgSend_dataDirectory(v18, v19, v20);
@@ -1179,8 +1173,8 @@ LABEL_42:
     v23 = objc_msgSend_fileURLWithPath_(MEMORY[0x277CBEBC0], v21, @"/dev/null");
   }
 
-  v39[1] = v23;
-  v24 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v21, v39, 2);
+  v38[1] = v23;
+  v24 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v21, v38, 2);
   if (!v22)
   {
   }
@@ -1199,8 +1193,6 @@ LABEL_42:
   }
 
   objc_sync_exit(selfCopy);
-
-  v37 = *MEMORY[0x277D85DE8];
 
   return v30;
 }
@@ -1263,7 +1255,7 @@ LABEL_42:
 
 - (id)CKStatusReportArray
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v4 = MEMORY[0x277CCACA8];
   v7 = objc_msgSend_connectionDate(self, v5, v6);
@@ -1273,36 +1265,35 @@ LABEL_42:
   objc_msgSend_addObject_(v3, v11, @"------ Containers -------");
   v14 = objc_msgSend_containerProxies(self, v12, v13);
   objc_sync_enter(v14);
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v17 = objc_msgSend_containerProxies(self, v15, v16);
-  v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v18, &v28, v32, 16);
+  v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v18, &v27, v31, 16);
   if (v21)
   {
-    v22 = *v29;
+    v22 = *v28;
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v29 != v22)
+        if (*v28 != v22)
         {
           objc_enumerationMutation(v17);
         }
 
-        v24 = objc_msgSend_CKStatusReportArray(*(*(&v28 + 1) + 8 * i), v19, v20);
+        v24 = objc_msgSend_CKStatusReportArray(*(*(&v27 + 1) + 8 * i), v19, v20);
         objc_msgSend_addObject_(v3, v25, v24);
       }
 
-      v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v19, &v28, v32, 16);
+      v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v19, &v27, v31, 16);
     }
 
     while (v21);
   }
 
   objc_sync_exit(v14);
-  v26 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

@@ -10,7 +10,7 @@
 
 - (id)_determineVoiceNameWithContext:(id)context languageCode:(id)code outputVoiceInfo:(id)info gender:(int64_t)gender
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   codeCopy = code;
   infoCopy = info;
@@ -36,15 +36,15 @@
   {
     v17 = v16;
     v18 = [infoCopy description];
-    v32 = 136315906;
-    v33 = "[SVXSynthesisVoiceConfigurer _determineVoiceNameWithContext:languageCode:outputVoiceInfo:gender:]";
-    v34 = 2112;
-    v35 = codeCopy;
-    v36 = 2048;
+    v31 = 136315906;
+    v32 = "[SVXSynthesisVoiceConfigurer _determineVoiceNameWithContext:languageCode:outputVoiceInfo:gender:]";
+    v33 = 2112;
+    v34 = codeCopy;
+    v35 = 2048;
     genderCopy = gender;
-    v38 = 2112;
+    v37 = 2112;
     genderCopy2 = v18;
-    _os_log_impl(&dword_2695B9000, v17, OS_LOG_TYPE_DEFAULT, "%s languageCode: %@, gender: %ld, outputVoiceInfo: %@", &v32, 0x2Au);
+    _os_log_impl(&dword_2695B9000, v17, OS_LOG_TYPE_DEFAULT, "%s languageCode: %@, gender: %ld, outputVoiceInfo: %@", &v31, 0x2Au);
   }
 
   languageCode = [infoCopy languageCode];
@@ -59,15 +59,15 @@
       v21 = *v15;
       if (os_log_type_enabled(*v15, OS_LOG_TYPE_DEFAULT))
       {
-        v32 = 136315906;
-        v33 = "[SVXSynthesisVoiceConfigurer _determineVoiceNameWithContext:languageCode:outputVoiceInfo:gender:]";
-        v34 = 2112;
-        v35 = name;
-        v36 = 2112;
+        v31 = 136315906;
+        v32 = "[SVXSynthesisVoiceConfigurer _determineVoiceNameWithContext:languageCode:outputVoiceInfo:gender:]";
+        v33 = 2112;
+        v34 = name;
+        v35 = 2112;
         genderCopy = codeCopy;
-        v38 = 2048;
+        v37 = 2048;
         genderCopy2 = gender;
-        _os_log_impl(&dword_2695B9000, v21, OS_LOG_TYPE_DEFAULT, "%s Using voice name %@ for %@, %ld", &v32, 0x2Au);
+        _os_log_impl(&dword_2695B9000, v21, OS_LOG_TYPE_DEFAULT, "%s Using voice name %@ for %@, %ld", &v31, 0x2Au);
       }
 
       goto LABEL_16;
@@ -87,17 +87,17 @@
   v26 = *v15;
   if (os_log_type_enabled(*v15, OS_LOG_TYPE_DEFAULT))
   {
-    v32 = 136316162;
-    v33 = "[SVXSynthesisVoiceConfigurer _determineVoiceNameWithContext:languageCode:outputVoiceInfo:gender:]";
-    v34 = 2112;
-    v35 = name;
-    v36 = 2112;
+    v31 = 136316162;
+    v32 = "[SVXSynthesisVoiceConfigurer _determineVoiceNameWithContext:languageCode:outputVoiceInfo:gender:]";
+    v33 = 2112;
+    v34 = name;
+    v35 = 2112;
     genderCopy = codeCopy;
-    v38 = 2112;
+    v37 = 2112;
     genderCopy2 = v22;
-    v40 = 2048;
+    v39 = 2048;
     genderCopy3 = gender;
-    _os_log_impl(&dword_2695B9000, v26, OS_LOG_TYPE_DEFAULT, "%s Using fallback voice name %@ for language code: %@ outputLanguageCode: %@, %ld", &v32, 0x34u);
+    _os_log_impl(&dword_2695B9000, v26, OS_LOG_TYPE_DEFAULT, "%s Using fallback voice name %@ for language code: %@ outputLanguageCode: %@, %ld", &v31, 0x34u);
   }
 
 LABEL_16:
@@ -107,11 +107,11 @@ LABEL_16:
     v28 = @"hiro";
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
-      v32 = 136315394;
-      v33 = "[SVXSynthesisVoiceConfigurer _determineVoiceNameWithContext:languageCode:outputVoiceInfo:gender:]";
-      v34 = 2112;
-      v35 = @"hiro";
-      _os_log_impl(&dword_2695B9000, v27, OS_LOG_TYPE_DEFAULT, "%s Old male voice name in ja-JP was used. Updating to %@", &v32, 0x16u);
+      v31 = 136315394;
+      v32 = "[SVXSynthesisVoiceConfigurer _determineVoiceNameWithContext:languageCode:outputVoiceInfo:gender:]";
+      v33 = 2112;
+      v34 = @"hiro";
+      _os_log_impl(&dword_2695B9000, v27, OS_LOG_TYPE_DEFAULT, "%s Old male voice name in ja-JP was used. Updating to %@", &v31, 0x16u);
     }
   }
 
@@ -125,11 +125,11 @@ LABEL_16:
     v29 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
-      v32 = 136315394;
-      v33 = "[SVXSynthesisVoiceConfigurer _determineVoiceNameWithContext:languageCode:outputVoiceInfo:gender:]";
-      v34 = 2112;
-      v35 = @"hiro";
-      _os_log_impl(&dword_2695B9000, v29, OS_LOG_TYPE_DEFAULT, "%s Old female voice name in ja-JP was used. Updating to %@", &v32, 0x16u);
+      v31 = 136315394;
+      v32 = "[SVXSynthesisVoiceConfigurer _determineVoiceNameWithContext:languageCode:outputVoiceInfo:gender:]";
+      v33 = 2112;
+      v34 = @"hiro";
+      _os_log_impl(&dword_2695B9000, v29, OS_LOG_TYPE_DEFAULT, "%s Old female voice name in ja-JP was used. Updating to %@", &v31, 0x16u);
     }
 
     v28 = @"sakura";
@@ -137,8 +137,6 @@ LABEL_16:
 
   name = v28;
 LABEL_24:
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return name;
 }
@@ -200,7 +198,7 @@ LABEL_24:
 
 - (id)voiceForContext:(id)context preferences:(id)preferences
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   preferencesCopy = preferences;
   configurationManager = self->_configurationManager;
   contextCopy = context;
@@ -226,20 +224,18 @@ LABEL_24:
   v17 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 136315906;
-    v22 = "[SVXSynthesisVoiceConfigurer voiceForContext:preferences:]";
-    v23 = 2112;
-    v24 = v16;
-    v25 = 2112;
-    v26 = v14;
-    v27 = 2048;
-    v28 = v15;
-    _os_log_impl(&dword_2695B9000, v17, OS_LOG_TYPE_DEFAULT, "%s Voice name %@ for %@, %ld", &v21, 0x2Au);
+    v20 = 136315906;
+    v21 = "[SVXSynthesisVoiceConfigurer voiceForContext:preferences:]";
+    v22 = 2112;
+    v23 = v16;
+    v24 = 2112;
+    v25 = v14;
+    v26 = 2048;
+    v27 = v15;
+    _os_log_impl(&dword_2695B9000, v17, OS_LOG_TYPE_DEFAULT, "%s Voice name %@ for %@, %ld", &v20, 0x2Au);
   }
 
   v18 = [objc_alloc(MEMORY[0x277D61478]) initWithLanguage:v14 name:v16];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

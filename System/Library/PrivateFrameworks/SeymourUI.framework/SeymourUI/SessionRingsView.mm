@@ -35,12 +35,12 @@
 
 - (void)safeAreaInsetsDidChange
 {
-  v3.receiver = self;
-  v3.super_class = type metadata accessor for SessionRingsView();
-  v2 = v3.receiver;
-  [(SessionRingsView *)&v3 safeAreaInsetsDidChange];
-  sub_20B814BD8();
-  sub_20B812538();
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for SessionRingsView();
+  v2 = v5.receiver;
+  safeAreaInsetsDidChange = [(SessionRingsView *)&v5 safeAreaInsetsDidChange];
+  v4 = sub_20B814BD8(safeAreaInsetsDidChange);
+  sub_20B812538(v4);
 }
 
 @end

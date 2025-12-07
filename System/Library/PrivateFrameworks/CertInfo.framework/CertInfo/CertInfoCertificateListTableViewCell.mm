@@ -43,11 +43,10 @@
 
 void __70__CertInfoCertificateListTableViewCell_initWithStyle_reuseIdentifier___block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v2 = [MEMORY[0x277D755B8] imageNamed:@"profiles-list-icon" inBundle:v4];
-  v3 = initWithStyle_reuseIdentifier__sBlobImage;
-  initWithStyle_reuseIdentifier__sBlobImage = v2;
+  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v1 = [MEMORY[0x277D755B8] imageNamed:@"profiles-list-icon" inBundle:v3];
+  v2 = initWithStyle_reuseIdentifier__sBlobImage;
+  initWithStyle_reuseIdentifier__sBlobImage = v1;
 }
 
 - (void)updateWithTrustDescription:(id)description certificateIndex:(unint64_t)index

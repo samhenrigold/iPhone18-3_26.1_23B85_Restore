@@ -29,7 +29,7 @@
 
 - (uint64_t)run
 {
-  v0 = sub_100085D40(&qword_10059C3E0);
+  v0 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v0 - 8);
   v2 = &v18 - v1;
   v3 = type metadata accessor for Logger();

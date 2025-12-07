@@ -6,6 +6,7 @@
 - (void)_fileQueue_handleFileHeaderMessage:(id)message;
 - (void)_fileQueue_handleFilePayloadMessage:(id)message;
 - (void)_fileQueue_handleStreamPayloadMessage:(id)message;
+- (void)_fileQueue_sendFileAcceptMessageWithStatus:(int)status;
 - (void)_fileQueue_setupLogArchiveWriterForSessionID:(id)d chunkCount:(id)count message:(id)message;
 - (void)_fileQueue_setupThemeWriterForSessionID:(id)d chunkCount:(id)count message:(id)message;
 - (void)channel:(id)channel didReceiveMessage:(id)message;
@@ -651,6 +652,65 @@ LABEL_45:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_10008A8B0();
+    }
+  }
+}
+
+- (void)_fileQueue_sendFileAcceptMessageWithStatus:(int)status
+{
+  v3 = *&status;
+  fileQueue = [(CRFileReceiver *)self fileQueue];
+  dispatch_assert_queue_V2(fileQueue);
+
+  v15[0] = @"messageType";
+  v15[1] = @"accepted";
+  v16[0] = &off_1000E82D8;
+  v6 = [NSNumber numberWithInt:v3];
+  v16[1] = v6;
+  v7 = [NSDictionary dictionaryWithObjects:v16 forKeys:v15 count:2];
+
+  Data = OPACKEncoderCreateData();
+  if (Data)
+  {
+    if ([(CRFileReceiver *)self channelIsOpen])
+    {
+      channel = [(CRFileReceiver *)self channel];
+      v10 = [channel sendChannelMessage:Data];
+
+      v11 = sub_100002A68(4uLL);
+      v12 = v11;
+      if (v10)
+      {
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 67109120;
+          v14 = v3;
+          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "sent file accept message with status: %i", buf, 8u);
+        }
+      }
+
+      else if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      {
+        sub_10008A264();
+      }
+    }
+
+    else
+    {
+      v12 = sub_100002A68(4uLL);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      {
+        sub_10008A928();
+      }
+    }
+  }
+
+  else
+  {
+    v12 = sub_100002A68(4uLL);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      sub_10008A964();
     }
   }
 }

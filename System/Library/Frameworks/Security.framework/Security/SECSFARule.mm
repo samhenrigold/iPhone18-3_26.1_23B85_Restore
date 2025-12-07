@@ -4,6 +4,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)eventClassAsString:(int)string;
 - (int)StringAsEventClass:(id)class;
 - (int)eventClass;
 - (unint64_t)hash;
@@ -263,43 +264,41 @@ LABEL_21:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (self->_eventType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_match)
   {
     PBDataWriterWriteDataField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_action)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    repeatAfterSeconds = self->_repeatAfterSeconds;
     PBDataWriterWriteInt64Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_process)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    eventClass = self->_eventClass;
     PBDataWriterWriteInt32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -633,6 +632,21 @@ LABEL_46:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)eventClassAsString:(int)string
+{
+  if (string < 0xF && ((0x7C03u >> string) & 1) != 0)
+  {
+    v4 = off_1E70D69A8[string];
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
   }
 
   return v4;

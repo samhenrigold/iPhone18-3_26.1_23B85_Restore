@@ -39,63 +39,64 @@
 
 - (SBHWidgetConfigurationInteraction)initWithDescriptor:(id)descriptor gridSizeClass:(id)class gridSizeClassDomain:(id)domain intent:(id)intent configuredDataSource:(id)source
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   descriptorCopy = descriptor;
   classCopy = class;
   domainCopy = domain;
   intentCopy = intent;
   sourceCopy = source;
-  v33.receiver = self;
-  v33.super_class = SBHWidgetConfigurationInteraction;
-  v17 = [(SBHWidgetConfigurationInteraction *)&v33 init];
+  v34.receiver = self;
+  v34.super_class = SBHWidgetConfigurationInteraction;
+  v17 = [(SBHWidgetConfigurationInteraction *)&v34 init];
+  v18 = v17;
   if (v17)
   {
-    v18 = SBLogIcon();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = SBLogIcon(v17);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543874;
-      v35 = v17;
-      v36 = 2114;
-      v37 = descriptorCopy;
-      v38 = 2112;
-      v39 = intentCopy;
-      _os_log_impl(&dword_1BEB18000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Initializing configuration interaction for descriptor: %{public}@ -- intent: %@", buf, 0x20u);
+      v36 = v18;
+      v37 = 2114;
+      v38 = descriptorCopy;
+      v39 = 2112;
+      v40 = intentCopy;
+      _os_log_impl(&dword_1BEB18000, v19, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Initializing configuration interaction for descriptor: %{public}@ -- intent: %@", buf, 0x20u);
     }
 
-    v19 = +[SBHHomeScreenDomain rootSettings];
-    widgetSettings = [v19 widgetSettings];
-    widgetSettings = v17->_widgetSettings;
-    v17->_widgetSettings = widgetSettings;
+    v20 = +[SBHHomeScreenDomain rootSettings];
+    widgetSettings = [v20 widgetSettings];
+    widgetSettings = v18->_widgetSettings;
+    v18->_widgetSettings = widgetSettings;
 
-    objc_storeStrong(&v17->_configuration, intent);
-    objc_storeStrong(&v17->_configuredDataSource, source);
-    v22 = objc_alloc_init(MEMORY[0x1E69E3100]);
-    configurationOptions = v17->_configurationOptions;
-    v17->_configurationOptions = v22;
+    objc_storeStrong(&v18->_configuration, intent);
+    objc_storeStrong(&v18->_configuredDataSource, source);
+    v23 = objc_alloc_init(MEMORY[0x1E69E3100]);
+    configurationOptions = v18->_configurationOptions;
+    v18->_configurationOptions = v23;
 
-    [(WFWidgetConfigurationOptions *)v17->_configurationOptions setIntent:intentCopy];
-    v24 = v17->_configurationOptions;
+    [(WFWidgetConfigurationOptions *)v18->_configurationOptions setIntent:intentCopy];
+    v25 = v18->_configurationOptions;
     displayName = [descriptorCopy displayName];
-    [(WFWidgetConfigurationOptions *)v24 setWidgetDisplayName:displayName];
+    [(WFWidgetConfigurationOptions *)v25 setWidgetDisplayName:displayName];
 
-    v26 = v17->_configurationOptions;
+    v27 = v18->_configurationOptions;
     widgetDescription = [descriptorCopy widgetDescription];
-    [(WFWidgetConfigurationOptions *)v26 setWidgetDescription:widgetDescription];
+    [(WFWidgetConfigurationOptions *)v27 setWidgetDescription:widgetDescription];
 
-    -[WFWidgetConfigurationOptions setWidgetConfigurationType:](v17->_configurationOptions, "setWidgetConfigurationType:", [descriptorCopy sbh_configurationType]);
-    -[WFWidgetConfigurationOptions setFamily:](v17->_configurationOptions, "setFamily:", [domainCopy chsWidgetFamilyForIconGridSizeClass:classCopy]);
-    v28 = [descriptorCopy copy];
-    descriptor = v17->_descriptor;
-    v17->_descriptor = v28;
+    -[WFWidgetConfigurationOptions setWidgetConfigurationType:](v18->_configurationOptions, "setWidgetConfigurationType:", [descriptorCopy sbh_configurationType]);
+    -[WFWidgetConfigurationOptions setFamily:](v18->_configurationOptions, "setFamily:", [domainCopy chsWidgetFamilyForIconGridSizeClass:classCopy]);
+    v29 = [descriptorCopy copy];
+    descriptor = v18->_descriptor;
+    v18->_descriptor = v29;
 
-    v30 = objc_alloc_init(SBHViewControllerTransition);
-    transition = v17->_transition;
-    v17->_transition = v30;
+    v31 = objc_alloc_init(SBHViewControllerTransition);
+    transition = v18->_transition;
+    v18->_transition = v31;
 
-    [(SBHViewControllerTransition *)v17->_transition setDelegate:v17];
+    [(SBHViewControllerTransition *)v18->_transition setDelegate:v18];
   }
 
-  return v17;
+  return v18;
 }
 
 - (UIView)targetView
@@ -114,19 +115,20 @@
 
 - (void)endConfiguration
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   transition = [(SBHWidgetConfigurationInteraction *)self transition];
-  if (([transition isTransitioning] & 1) == 0)
+  isTransitioning = [transition isTransitioning];
+  if ((isTransitioning & 1) == 0)
   {
-    v5 = SBLogIcon();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = SBLogIcon(isTransitioning);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = NSStringFromSelector(a2);
-      v8 = 138543618;
+      v7 = NSStringFromSelector(a2);
+      v9 = 138543618;
       selfCopy = self;
-      v10 = 2114;
-      v11 = v6;
-      _os_log_impl(&dword_1BEB18000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@]: %{public}@ calling finishWithCurrentConfiguration", &v8, 0x16u);
+      v11 = 2114;
+      v12 = v7;
+      _os_log_impl(&dword_1BEB18000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@]: %{public}@ calling finishWithCurrentConfiguration", &v9, 0x16u);
     }
 
     configurationViewController = [(SBHWidgetConfigurationInteraction *)self configurationViewController];
@@ -145,7 +147,7 @@
 
 - (void)prepareTransition:(id)transition
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   transitionCopy = transition;
   [transitionCopy setUserInfo:self];
   v6 = objc_alloc(MEMORY[0x1E69E3108]);
@@ -172,151 +174,151 @@
 
   [(SBHWidgetConfigurationInteraction *)self setContainerView:view];
   v13 = [delegate sourceIconViewForConfigurationInteraction:self];
-  [(SBHWidgetConfigurationInteraction *)self setSourceView:v13];
+  v14 = [(SBHWidgetConfigurationInteraction *)self setSourceView:v13];
   if (v10 && view && v13)
   {
     if (objc_opt_respondsToSelector())
     {
-      v14 = [delegate referenceIconViewForConfigurationInteraction:self];
-      [(SBHWidgetConfigurationInteraction *)self setReferenceView:v14];
-      [v14 setHighlighted:0];
+      v15 = [delegate referenceIconViewForConfigurationInteraction:self];
+      [(SBHWidgetConfigurationInteraction *)self setReferenceView:v15];
+      [v15 setHighlighted:0];
     }
 
     if (objc_opt_respondsToSelector())
     {
-      v15 = [delegate homeScreenContentViewForConfigurationInteraction:self];
-      [(SBHWidgetConfigurationInteraction *)self setHomeScreenContentView:v15];
+      v16 = [delegate homeScreenContentViewForConfigurationInteraction:self];
+      [(SBHWidgetConfigurationInteraction *)self setHomeScreenContentView:v16];
     }
 
     [v13 setUserInteractionEnabled:1];
-    v16 = [objc_alloc(MEMORY[0x1E69DD060]) initWithTarget:self action:sel__handleTapToPresent_];
-    [(SBHWidgetConfigurationInteraction *)self setTapToPresentGesture:v16];
-    [v13 addGestureRecognizer:v16];
-    [view bounds];
-    v18 = v17;
-    v20 = v19;
-    v22 = v21;
-    v24 = v23;
-    v25 = objc_opt_respondsToSelector();
-    v26 = v24;
-    v27 = v22;
-    v28 = v20;
-    v29 = v18;
-    if (v25)
+    v17 = [objc_alloc(MEMORY[0x1E69DD060]) initWithTarget:self action:sel__handleTapToPresent_];
+    [(SBHWidgetConfigurationInteraction *)self setTapToPresentGesture:v17];
+    [v13 addGestureRecognizer:v17];
+    objc_msgSend_bounds(view);
+    v19 = v18;
+    v21 = v20;
+    v23 = v22;
+    v25 = v24;
+    v26 = objc_opt_respondsToSelector();
+    v27 = v25;
+    v28 = v23;
+    v29 = v21;
+    v30 = v19;
+    if (v26)
     {
-      [delegate contentBoundingRectForConfigurationInteraction:{self, v18, v20, v22, v24}];
+      [delegate contentBoundingRectForConfigurationInteraction:{self, v19, v21, v23, v25}];
     }
 
-    [(SBHWidgetConfigurationInteraction *)self setContentBoundingRect:v29, v28, v27, v26];
+    [(SBHWidgetConfigurationInteraction *)self setContentBoundingRect:v30, v29, v28, v27];
     widgetSettings = [(SBHWidgetConfigurationInteraction *)self widgetSettings];
-    v63 = v16;
-    v64 = transitionCopy;
+    v64 = v17;
+    v65 = transitionCopy;
     if ([widgetSettings configurationBlursBackground])
     {
-      v31 = MEMORY[0x1E69AE158];
-      v32 = widgetSettings;
-      v33 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-      v34 = [v31 materialViewWithRecipeNamed:@"widgetConfigurationBackground" inBundle:v33 options:0 initialWeighting:0 scaleAdjustment:0.0];
+      v32 = MEMORY[0x1E69AE158];
+      v33 = widgetSettings;
+      v34 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+      v35 = [v32 materialViewWithRecipeNamed:@"widgetConfigurationBackground" inBundle:v34 options:0 initialWeighting:0 scaleAdjustment:0.0];
 
-      widgetSettings = v32;
-      [v34 setFrame:{v18, v20, v22, v24}];
-      [v34 setAutoresizingMask:18];
-      [v34 setGroupNameBase:@"Widget-Configuration"];
-      [view addSubview:v34];
-      [(SBHWidgetConfigurationInteraction *)self setBackgroundView:v34];
-      [(SBHWidgetConfigurationInteraction *)self _setUpMatchMoveAnimationForBackgroundView:v34];
+      widgetSettings = v33;
+      [v35 setFrame:{v19, v21, v23, v25}];
+      [v35 setAutoresizingMask:18];
+      [v35 setGroupNameBase:@"Widget-Configuration"];
+      [view addSubview:v35];
+      [(SBHWidgetConfigurationInteraction *)self setBackgroundView:v35];
+      [(SBHWidgetConfigurationInteraction *)self _setUpMatchMoveAnimationForBackgroundView:v35];
     }
 
-    v35 = [objc_alloc(MEMORY[0x1E69DD250]) initWithFrame:{v18, v20, v22, v24}];
-    [v35 setAutoresizingMask:18];
-    [v35 bs_setHitTestingDisabled:1];
+    v36 = [objc_alloc(MEMORY[0x1E69DD250]) initWithFrame:{v19, v21, v23, v25}];
+    [v36 setAutoresizingMask:18];
+    [v36 bs_setHitTestingDisabled:1];
     [widgetSettings configurationDarkeningTintAlpha];
-    v61 = [MEMORY[0x1E69DC888] colorWithWhite:0.0 alpha:v36];
-    [v35 setBackgroundColor:?];
-    [v35 setAlpha:0.0];
-    v62 = widgetSettings;
+    v62 = [MEMORY[0x1E69DC888] colorWithWhite:0.0 alpha:v37];
+    [v36 setBackgroundColor:?];
+    [v36 setAlpha:0.0];
+    v63 = widgetSettings;
     [widgetSettings configurationWidgetTintColorAlpha];
-    v38 = v37;
+    v39 = v38;
     if (BSFloatGreaterThanFloat())
     {
       descriptor = [(SBHWidgetConfigurationInteraction *)self descriptor];
-      v40 = objc_opt_class();
-      v41 = descriptor;
-      if (v40)
+      v41 = objc_opt_class();
+      v42 = descriptor;
+      if (v41)
       {
         if (objc_opt_isKindOfClass())
         {
-          v42 = v41;
+          v43 = v42;
         }
 
         else
         {
-          v42 = 0;
+          v43 = 0;
         }
       }
 
       else
       {
-        v42 = 0;
+        v43 = 0;
       }
 
-      v44 = v42;
+      v45 = v43;
 
-      backgroundColor = [v44 backgroundColor];
+      backgroundColor = [v45 backgroundColor];
 
       if (backgroundColor)
       {
-        v46 = [objc_alloc(MEMORY[0x1E69DD250]) initWithFrame:{v18, v20, v22, v24}];
-        [v46 setAutoresizingMask:18];
-        v47 = [backgroundColor colorWithAlphaComponent:v38];
-        [v46 setBackgroundColor:v47];
+        v47 = [objc_alloc(MEMORY[0x1E69DD250]) initWithFrame:{v19, v21, v23, v25}];
+        [v47 setAutoresizingMask:18];
+        v48 = [backgroundColor colorWithAlphaComponent:v39];
+        [v47 setBackgroundColor:v48];
 
-        [v35 addSubview:v46];
+        [v36 addSubview:v47];
       }
     }
 
-    [view addSubview:v35];
-    [(SBHWidgetConfigurationInteraction *)self setBackgroundTintView:v35];
-    [(SBHWidgetConfigurationInteraction *)self _setUpMatchMoveAnimationForBackgroundView:v35];
-    v48 = [objc_alloc(MEMORY[0x1E69DD060]) initWithTarget:self action:sel__handleTapToDismiss_];
-    v49 = [objc_alloc(MEMORY[0x1E69DD250]) initWithFrame:{v18, v20, v22, v24}];
-    [v49 addGestureRecognizer:v48];
-    [(SBHWidgetConfigurationInteraction *)self setTouchBlockingView:v49];
-    [view addSubview:v49];
+    [view addSubview:v36];
+    [(SBHWidgetConfigurationInteraction *)self setBackgroundTintView:v36];
+    [(SBHWidgetConfigurationInteraction *)self _setUpMatchMoveAnimationForBackgroundView:v36];
+    v49 = [objc_alloc(MEMORY[0x1E69DD060]) initWithTarget:self action:sel__handleTapToDismiss_];
+    v50 = [objc_alloc(MEMORY[0x1E69DD250]) initWithFrame:{v19, v21, v23, v25}];
+    [v50 addGestureRecognizer:v49];
+    [(SBHWidgetConfigurationInteraction *)self setTouchBlockingView:v50];
+    [view addSubview:v50];
     [v10 bs_addChildViewController:v8 withSuperview:view];
     view2 = [v8 view];
-    [view2 setFrame:{v18, v20, v22, v24}];
+    [view2 setFrame:{v19, v21, v23, v25}];
     [(SBHWidgetConfigurationInteraction *)self _sourceContentFrame];
     [(SBHWidgetConfigurationInteraction *)self setSourceContentFrame:?];
     [(SBHWidgetConfigurationInteraction *)self _targetContentFrame];
-    v52 = v51;
-    v54 = v53;
-    v56 = v55;
-    v58 = v57;
+    v53 = v52;
+    v55 = v54;
+    v57 = v56;
+    v59 = v58;
     [(SBHWidgetConfigurationInteraction *)self setTargetContentFrame:?];
     configurationView = [v8 configurationView];
-    [configurationView setOverridingCardViewFrame:{v52, v54, v56, v58}];
+    [configurationView setOverridingCardViewFrame:{v53, v55, v57, v59}];
 
-    transitionCopy = v64;
+    transitionCopy = v65;
   }
 
   else
   {
-    v43 = SBLogIcon();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+    v44 = SBLogIcon(v14);
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
     {
-      v60 = NSStringFromSelector(a2);
+      v61 = NSStringFromSelector(a2);
       *buf = 138544386;
       selfCopy = self;
-      v67 = 2114;
-      v68 = v60;
-      v69 = 2114;
-      v70 = v10;
-      v71 = 2114;
-      v72 = view;
-      v73 = 2114;
-      v74 = v13;
-      _os_log_error_impl(&dword_1BEB18000, v43, OS_LOG_TYPE_ERROR, "[%{public}@]: %{public}@ failed to create a new presentation for container view controller: %{public}@ -- container view: %{public}@ -- source view: %{public}@", buf, 0x34u);
+      v68 = 2114;
+      v69 = v61;
+      v70 = 2114;
+      v71 = v10;
+      v72 = 2114;
+      v73 = view;
+      v74 = 2114;
+      v75 = v13;
+      _os_log_error_impl(&dword_1BEB18000, v44, OS_LOG_TYPE_ERROR, "[%{public}@]: %{public}@ failed to create a new presentation for container view controller: %{public}@ -- container view: %{public}@ -- source view: %{public}@", buf, 0x34u);
     }
 
     [transitionCopy returnToBeginningStateWithAnimation:0];
@@ -339,29 +341,30 @@
 
 - (void)transitionWillProgressToEndState:(id)state
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v4 = SBLogIcon();
+  v12 = *MEMORY[0x1E69E9840];
+  v4 = SBLogIcon(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
+    v10 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1BEB18000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@]: presenting", &v9, 0xCu);
+    _os_log_impl(&dword_1BEB18000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@]: presenting", &v10, 0xCu);
   }
 
   touchBlockingView = [(SBHWidgetConfigurationInteraction *)self touchBlockingView];
   [touchBlockingView setHidden:0];
 
   delegate = [(SBHWidgetConfigurationInteraction *)self delegate];
-  if (objc_opt_respondsToSelector())
+  v7 = objc_opt_respondsToSelector();
+  if (v7)
   {
-    [delegate configurationInteractionWillBegin:self];
+    v7 = [delegate configurationInteractionWillBegin:self];
   }
 
-  v7 = SBLogTelemetrySignposts();
-  if (os_signpost_enabled(v7))
+  v8 = SBLogTelemetrySignposts(v7);
+  if (os_signpost_enabled(v8))
   {
-    LOWORD(v9) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1BEB18000, v7, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_WIDGET_CONFIG_PRESENT", " enableTelemetry=YES ", &v9, 2u);
+    LOWORD(v10) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1BEB18000, v8, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_WIDGET_CONFIG_PRESENT", " enableTelemetry=YES ", &v10, 2u);
   }
 
   sbh_defaultPPTNotificationCenter = [MEMORY[0x1E696AD88] sbh_defaultPPTNotificationCenter];
@@ -370,20 +373,20 @@
 
 - (void)transitionDidProgressToEndState:(id)state
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v4 = SBLogIcon();
+  v11 = *MEMORY[0x1E69E9840];
+  v4 = SBLogIcon(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
+    v9 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1BEB18000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@]: presentation finished", &v8, 0xCu);
+    _os_log_impl(&dword_1BEB18000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@]: presentation finished", &v9, 0xCu);
   }
 
-  v5 = SBLogTelemetrySignposts();
-  if (os_signpost_enabled(v5))
+  v6 = SBLogTelemetrySignposts(v5);
+  if (os_signpost_enabled(v6))
   {
-    LOWORD(v8) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1BEB18000, v5, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_WIDGET_CONFIG_PRESENT", " enableTelemetry=YES ", &v8, 2u);
+    LOWORD(v9) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1BEB18000, v6, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_WIDGET_CONFIG_PRESENT", " enableTelemetry=YES ", &v9, 2u);
   }
 
   sbh_defaultPPTNotificationCenter = [MEMORY[0x1E696AD88] sbh_defaultPPTNotificationCenter];
@@ -398,29 +401,30 @@
 
 - (void)transitionWillReturnToBeginningState:(id)state
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v4 = SBLogIcon();
+  v12 = *MEMORY[0x1E69E9840];
+  v4 = SBLogIcon(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
+    v10 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1BEB18000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@]: dismissing", &v9, 0xCu);
+    _os_log_impl(&dword_1BEB18000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@]: dismissing", &v10, 0xCu);
   }
 
   touchBlockingView = [(SBHWidgetConfigurationInteraction *)self touchBlockingView];
   [touchBlockingView setHidden:1];
 
   delegate = [(SBHWidgetConfigurationInteraction *)self delegate];
-  if (objc_opt_respondsToSelector())
+  v7 = objc_opt_respondsToSelector();
+  if (v7)
   {
-    [delegate configurationInteractionWillEnd:self];
+    v7 = [delegate configurationInteractionWillEnd:self];
   }
 
-  v7 = SBLogTelemetrySignposts();
-  if (os_signpost_enabled(v7))
+  v8 = SBLogTelemetrySignposts(v7);
+  if (os_signpost_enabled(v8))
   {
-    LOWORD(v9) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1BEB18000, v7, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_WIDGET_CONFIG_DISMISS", " enableTelemetry=YES ", &v9, 2u);
+    LOWORD(v10) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1BEB18000, v8, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_WIDGET_CONFIG_DISMISS", " enableTelemetry=YES ", &v10, 2u);
   }
 
   sbh_defaultPPTNotificationCenter = [MEMORY[0x1E696AD88] sbh_defaultPPTNotificationCenter];
@@ -429,21 +433,21 @@
 
 - (void)transitionDidReturnToBeginningState:(id)state
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   stateCopy = state;
-  v5 = SBLogIcon();
+  v5 = SBLogIcon(stateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = 138543362;
+    v24 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1BEB18000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@]: dismissal finished", &v23, 0xCu);
+    _os_log_impl(&dword_1BEB18000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@]: dismissal finished", &v24, 0xCu);
   }
 
-  v6 = SBLogTelemetrySignposts();
-  if (os_signpost_enabled(v6))
+  v7 = SBLogTelemetrySignposts(v6);
+  if (os_signpost_enabled(v7))
   {
-    LOWORD(v23) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1BEB18000, v6, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_WIDGET_CONFIG_DISMISS", " enableTelemetry=YES ", &v23, 2u);
+    LOWORD(v24) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1BEB18000, v7, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_WIDGET_CONFIG_DISMISS", " enableTelemetry=YES ", &v24, 2u);
   }
 
   sbh_defaultPPTNotificationCenter = [MEMORY[0x1E696AD88] sbh_defaultPPTNotificationCenter];
@@ -486,13 +490,13 @@
   [touchBlockingView removeFromSuperview];
 
   [(SBHWidgetConfigurationInteraction *)self setTouchBlockingView:0];
-  v18 = *MEMORY[0x1E695F058];
-  v19 = *(MEMORY[0x1E695F058] + 8);
-  v20 = *(MEMORY[0x1E695F058] + 16);
-  v21 = *(MEMORY[0x1E695F058] + 24);
-  [(SBHWidgetConfigurationInteraction *)self setSourceContentFrame:*MEMORY[0x1E695F058], v19, v20, v21];
-  [(SBHWidgetConfigurationInteraction *)self setTargetContentFrame:v18, v19, v20, v21];
-  [(SBHWidgetConfigurationInteraction *)self setContentBoundingRect:v18, v19, v20, v21];
+  v19 = *MEMORY[0x1E695F058];
+  v20 = *(MEMORY[0x1E695F058] + 8);
+  v21 = *(MEMORY[0x1E695F058] + 16);
+  v22 = *(MEMORY[0x1E695F058] + 24);
+  [(SBHWidgetConfigurationInteraction *)self setSourceContentFrame:*MEMORY[0x1E695F058], v20, v21, v22];
+  [(SBHWidgetConfigurationInteraction *)self setTargetContentFrame:v19, v20, v21, v22];
+  [(SBHWidgetConfigurationInteraction *)self setContentBoundingRect:v19, v20, v21, v22];
   delegate = [(SBHWidgetConfigurationInteraction *)self delegate];
   if (objc_opt_respondsToSelector())
   {
@@ -512,7 +516,7 @@
   {
     _indexingHash = [configuration _indexingHash];
     _indexingHash2 = [intentCopy _indexingHash];
-    delegate = SBLogIcon();
+    delegate = SBLogIcon(_indexingHash2);
     v17 = os_log_type_enabled(delegate, OS_LOG_TYPE_DEFAULT);
     if (_indexingHash == _indexingHash2)
     {
@@ -557,7 +561,7 @@
 
   else
   {
-    delegate = SBLogIcon();
+    delegate = SBLogIcon(configuration);
     if (os_log_type_enabled(delegate, OS_LOG_TYPE_DEFAULT))
     {
       v13 = NSStringFromSelector(a2);
@@ -581,7 +585,7 @@ LABEL_7:
 - (void)_handleTapToPresent:(id)present
 {
   v7 = *MEMORY[0x1E69E9840];
-  v4 = SBLogIcon();
+  v4 = SBLogIcon(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138543362;
@@ -595,7 +599,7 @@ LABEL_7:
 - (void)_handleTapToDismiss:(id)dismiss
 {
   v7 = *MEMORY[0x1E69E9840];
-  v4 = SBLogIcon();
+  v4 = SBLogIcon(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138543362;
@@ -713,7 +717,7 @@ LABEL_11:
   v21 = v18;
   v22 = v19;
   containerView2 = [(SBHWidgetConfigurationInteraction *)self containerView];
-  [containerView2 bounds];
+  objc_msgSend_bounds(containerView2);
   v25 = v24;
   v27 = v26;
   v55 = v28;

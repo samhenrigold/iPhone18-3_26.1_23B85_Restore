@@ -1,6 +1,6 @@
 @interface SBControlCenterPresentationObservationToken
-- (BOOL)_controlCenterIsOnTheSameWindowScene:(_BOOL8)scene;
 - (SBControlCenterPresentationObservationToken)initWithControlCenterController:(id)controller scene:(id)scene;
+- (id)_controlCenterIsOnTheSameWindowScene:(_BOOL8)scene;
 - (int64_t)state;
 - (void)dealloc;
 - (void)didDismiss:(id)dismiss;
@@ -70,7 +70,7 @@
   }
 }
 
-- (BOOL)_controlCenterIsOnTheSameWindowScene:(_BOOL8)scene
+- (id)_controlCenterIsOnTheSameWindowScene:(_BOOL8)scene
 {
   v3 = a2;
   if (scene)

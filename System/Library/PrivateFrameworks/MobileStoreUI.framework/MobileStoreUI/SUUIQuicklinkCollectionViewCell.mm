@@ -44,7 +44,7 @@
   secondaryTextColor = [schemeCopy secondaryTextColor];
   if (!secondaryTextColor)
   {
-    secondaryTextColor = [schemeCopy primaryTextColor];
+    secondaryTextColor = objc_msgSend_primaryTextColor(schemeCopy);
   }
 
   _linkButton = [(SUUIQuicklinkCollectionViewCell *)self _linkButton];

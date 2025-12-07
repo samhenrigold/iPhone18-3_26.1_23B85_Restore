@@ -10,14 +10,14 @@ void __72___UISceneMainMenuHostComponent_performBaseMenuRequest_responseHandler_
   if (WeakRetained)
   {
     v4 = v10;
-    v5 = [v4 menu];
+    v5 = objc_msgSend_menu(v4);
 
     if (v5)
     {
       v6 = [(_UISceneMainMenuHostComponent *)WeakRetained _currentOverrideClientName];
       if (v6)
       {
-        v7 = [v4 menu];
+        v7 = objc_msgSend_menu(v4);
         v11[0] = MEMORY[0x1E69E9820];
         v11[1] = 3221225472;
         v11[2] = __79___UISceneMainMenuHostComponent__performHostSideProcessingForBaseMenuResponse___block_invoke;
@@ -41,7 +41,7 @@ void __72___UISceneMainMenuHostComponent_performBaseMenuRequest_responseHandler_
 void __49___UISceneMainMenuHostComponent_getBaseMainMenu___block_invoke(uint64_t a1, void *a2)
 {
   v2 = *(a1 + 32);
-  v3 = [a2 menu];
+  v3 = objc_msgSend_menu(a2);
   (*(v2 + 16))(v2, v3);
 }
 

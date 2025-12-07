@@ -6,6 +6,7 @@
 - (id)initUser;
 - (void)_handleIOKitEvent:(id)event;
 - (void)beginRealTimeTaskWithReply:(id)reply;
+- (void)compileModel:(id)model sandboxExtension:(id)extension options:(id)options qos:(unsigned int)qos withReply:(id)reply;
 - (void)compiledModelExistsFor:(id)for withReply:(id)reply;
 - (void)compiledModelExistsMatchingHash:(id)hash withReply:(id)reply;
 - (void)doCompileModel:(id)model csIdentity:(id)identity sandboxExtension:(id)extension options:(id)options qos:(unsigned int)qos withReply:(id)reply;
@@ -15,6 +16,7 @@
 - (void)handleLaunchServicesEvent:(id)event userInfo:(id)info;
 - (void)loadModel:(id)model sandboxExtension:(id)extension options:(id)options qos:(unsigned int)qos withReply:(id)reply;
 - (void)loadModelNewInstance:(id)instance options:(id)options modelInstParams:(id)params qos:(unsigned int)qos withReply:(id)reply;
+- (void)prepareChainingWithModel:(id)model options:(id)options chainingReq:(id)req qos:(unsigned int)qos withReply:(id)reply;
 - (void)purgeCompiledModel:(id)model withReply:(id)reply;
 - (void)purgeCompiledModelMatchingHash:(id)hash withReply:(id)reply;
 - (void)reportTelemetryToPPS:(id)s playload:(id)playload;
@@ -898,7 +900,7 @@ LABEL_16:
   if (v9)
   {
     v10 = [playloadCopy mutableCopy];
-    [v9 auditToken];
+    objc_msgSend_auditToken(v9);
     v11 = +[_ANEModelToken codeSigningIDFor:processIdentifier:](_ANEModelToken, "codeSigningIDFor:processIdentifier:", &v14, [v9 processIdentifier]);
     v12 = v11;
     if (v11)
@@ -941,9 +943,9 @@ LABEL_16:
   v11 = v10;
   if (v10)
   {
-    [v10 auditToken];
+    objc_msgSend_auditToken(v10);
     v12 = +[_ANEModelToken codeSigningIDFor:processIdentifier:](_ANEModelToken, "codeSigningIDFor:processIdentifier:", buf, [v11 processIdentifier]);
-    v42 = v9;
+    v41 = v9;
     if (v12)
     {
       v13 = [forCopy key];
@@ -952,7 +954,7 @@ LABEL_16:
       if (v14)
       {
         modelAssetCacheManager = [(_ANEServer *)self modelAssetCacheManager];
-        v43 = [modelAssetCacheManager cachedModelAllSegmentsPathFor:forCopy csIdentity:v12];
+        v42 = [modelAssetCacheManager cachedModelAllSegmentsPathFor:forCopy csIdentity:v12];
 
         if (os_log_type_enabled(qword_100036518, OS_LOG_TYPE_DEBUG))
         {
@@ -978,17 +980,17 @@ LABEL_16:
       else
       {
         modelAssetCacheManager3 = [(_ANEServer *)self modelAssetCacheManager];
-        v43 = [modelAssetCacheManager3 cachedModelPathFor:forCopy csIdentity:v12];
+        v42 = [modelAssetCacheManager3 cachedModelPathFor:forCopy csIdentity:v12];
 
         if (os_log_type_enabled(qword_100036518, OS_LOG_TYPE_DEBUG))
         {
           sub_10001E9A4();
         }
 
-        v46 = &__NSDictionary0__struct;
-        v31 = [_ANEStorageHelper memoryMapModelAtPath:v43 modelAttributes:&v46];
+        v45 = &__NSDictionary0__struct;
+        v31 = [_ANEStorageHelper memoryMapModelAtPath:v42 modelAttributes:&v45];
         v20 = v31;
-        getCacheURLIdentifier = v46;
+        getCacheURLIdentifier = v45;
         if (v31)
         {
           getCacheURLIdentifier2 = [forCopy getCacheURLIdentifier];
@@ -999,29 +1001,28 @@ LABEL_16:
             *buf = 0;
             *&buf[8] = buf;
             *&buf[16] = 0x3032000000;
-            v52 = sub_100013134;
-            v53 = sub_100013144;
-            v54 = 0;
-            *v47 = 0;
-            *&v47[8] = v47;
-            *&v47[16] = 0x3032000000;
-            v48 = sub_100013134;
-            v49 = sub_100013144;
-            v50 = 0;
+            v51 = sub_100013134;
+            v52 = sub_100013144;
+            v53 = 0;
+            *v46 = 0;
+            *&v46[8] = v46;
+            *&v46[16] = 0x3032000000;
+            v47 = sub_100013134;
+            v48 = sub_100013144;
+            v49 = 0;
             modelAssetCacheManager4 = [(_ANEServer *)self modelAssetCacheManager];
-            v45[0] = _NSConcreteStackBlock;
-            v45[1] = 3221225472;
-            v45[2] = sub_10001314C;
-            v45[3] = &unk_100030A30;
-            v45[4] = buf;
-            v45[5] = v47;
-            [modelAssetCacheManager4 cacheURLIdentifierForModel:forCopy useSourceURL:0 withReply:v45];
+            v44[0] = _NSConcreteStackBlock;
+            v44[1] = 3221225472;
+            v44[2] = sub_10001314C;
+            v44[3] = &unk_100030A30;
+            v44[4] = buf;
+            v44[5] = v46;
+            [modelAssetCacheManager4 cacheURLIdentifierForModel:forCopy useSourceURL:0 withReply:v44];
 
-            v35 = *(*&buf[8] + 40);
-            v36 = [NSString stringWithFormat:@"%@_%@", v35, *(*&v47[8] + 40)];
-            [forCopy setCacheURLIdentifier:v36];
+            v35 = [NSString stringWithFormat:@"%@_%@", *(*&buf[8] + 40), *(*&v46[8] + 40)];
+            [forCopy setCacheURLIdentifier:v35];
 
-            _Block_object_dispose(v47, 8);
+            _Block_object_dispose(v46, 8);
             _Block_object_dispose(buf, 8);
           }
         }
@@ -1032,32 +1033,32 @@ LABEL_16:
 
       [forCopy string_id];
       kdebug_trace();
-      v38 = qword_100036518;
-      v39 = v38;
+      v37 = qword_100036518;
+      v38 = v37;
       if (spid - 1 > 0xFFFFFFFFFFFFFFFDLL)
       {
 
-        v41 = qword_100036518;
+        v40 = qword_100036518;
       }
 
       else
       {
-        if (os_signpost_enabled(v38))
+        if (os_signpost_enabled(v37))
         {
           string_id = [forCopy string_id];
-          *v47 = 134218240;
-          *&v47[4] = string_id;
-          *&v47[12] = 1024;
-          *&v47[14] = 1;
-          _os_signpost_emit_with_name_impl(&_mh_execute_header, v39, OS_SIGNPOST_EVENT, spid, "_ANED_COMPILED_MODEL_EXISTS", "model.string_id:%llu status:%u", v47, 0x12u);
+          *v46 = 134218240;
+          *&v46[4] = string_id;
+          *&v46[12] = 1024;
+          *&v46[14] = 1;
+          _os_signpost_emit_with_name_impl(&_mh_execute_header, v38, OS_SIGNPOST_EVENT, spid, "_ANED_COMPILED_MODEL_EXISTS", "model.string_id:%llu status:%u", v46, 0x12u);
         }
 
-        v41 = qword_100036518;
-        if (os_signpost_enabled(v41))
+        v40 = qword_100036518;
+        if (os_signpost_enabled(v40))
         {
-          *v47 = 134349056;
-          *&v47[4] = v42;
-          _os_signpost_emit_with_name_impl(&_mh_execute_header, v41, OS_SIGNPOST_EVENT, spid, "_ANED_COMPILED_MODEL_EXISTS", "%{public, signpost.description:begin_time}llu ", v47, 0xCu);
+          *v46 = 134349056;
+          *&v46[4] = v41;
+          _os_signpost_emit_with_name_impl(&_mh_execute_header, v40, OS_SIGNPOST_EVENT, spid, "_ANED_COMPILED_MODEL_EXISTS", "%{public, signpost.description:begin_time}llu ", v46, 0xCu);
         }
       }
     }
@@ -1165,7 +1166,7 @@ LABEL_16:
   v65 = v9;
   if (v10)
   {
-    [v10 auditToken];
+    objc_msgSend_auditToken(v10);
     v12 = +[_ANEModelToken codeSigningIDFor:processIdentifier:](_ANEModelToken, "codeSigningIDFor:processIdentifier:", v67, [v11 processIdentifier]);
     if (v12)
     {
@@ -1488,6 +1489,236 @@ LABEL_63:
 LABEL_64:
 }
 
+- (void)compileModel:(id)model sandboxExtension:(id)extension options:(id)options qos:(unsigned int)qos withReply:(id)reply
+{
+  v8 = *&qos;
+  modelCopy = model;
+  extensionCopy = extension;
+  optionsCopy = options;
+  replyCopy = reply;
+  v44 = mach_continuous_time();
+  spid = os_signpost_id_generate(qword_100036518);
+  [modelCopy string_id];
+  kdebug_trace();
+  v15 = +[NSXPCConnection currentConnection];
+  v16 = v15;
+  if (v15)
+  {
+    objc_msgSend_auditToken(v15);
+    v17 = +[_ANEModelToken codeSigningIDFor:processIdentifier:](_ANEModelToken, "codeSigningIDFor:processIdentifier:", buf, [v16 processIdentifier]);
+    if (v17)
+    {
+      v18 = [modelCopy key];
+      v19 = [v18 isEqualToString:kANEModelKeyAllSegmentsValue];
+
+      v20 = qword_100036518;
+      v21 = v20;
+      if (!v19)
+      {
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+        {
+          v36 = NSStringFromSelector(a2);
+          *buf = 138412802;
+          *v49 = v36;
+          *&v49[8] = 2112;
+          *&v49[10] = v17;
+          *&v49[18] = 2112;
+          v50 = modelCopy;
+          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "START: %@: %@ : %@", buf, 0x20u);
+        }
+
+        [(_ANEServer *)self doCompileModel:modelCopy csIdentity:v17 sandboxExtension:extensionCopy options:optionsCopy qos:v8 withReply:replyCopy];
+        v37 = [optionsCopy objectForKeyedSubscript:kANEFPerformanceStatsMaskKey];
+        v27 = v37;
+        if (v37)
+        {
+          [modelCopy setPerfStatsMask:{+[_ANEPerformanceStats driverMaskForANEFMask:](_ANEPerformanceStats, "driverMaskForANEFMask:", -[NSObject unsignedIntValue](v37, "unsignedIntValue"))}];
+        }
+
+        v38 = qword_100036518;
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+        {
+          v39 = NSStringFromSelector(a2);
+          *buf = 138412546;
+          *v49 = v39;
+          *&v49[8] = 2112;
+          *&v49[10] = modelCopy;
+          _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_INFO, "END: %@: %@", buf, 0x16u);
+        }
+
+        [modelCopy string_id];
+        kdebug_trace();
+        v40 = qword_100036518;
+        v41 = v40;
+        if (spid - 1 > 0xFFFFFFFFFFFFFFFDLL)
+        {
+
+          v43 = qword_100036518;
+        }
+
+        else
+        {
+          if (os_signpost_enabled(v40))
+          {
+            string_id = [modelCopy string_id];
+            *buf = 67109632;
+            *v49 = v8;
+            *&v49[4] = 2048;
+            *&v49[6] = string_id;
+            *&v49[14] = 1024;
+            *&v49[16] = 1;
+            _os_signpost_emit_with_name_impl(&_mh_execute_header, v41, OS_SIGNPOST_EVENT, spid, "_ANED_MODEL_COMPILE", "qos:%u model.string_id:%llu status:%u", buf, 0x18u);
+          }
+
+          v43 = qword_100036518;
+          if (os_signpost_enabled(v43))
+          {
+            *buf = 134349056;
+            *v49 = v44;
+            _os_signpost_emit_with_name_impl(&_mh_execute_header, v43, OS_SIGNPOST_EVENT, spid, "_ANED_MODEL_COMPILE", "%{public, signpost.description:begin_time}llu ", buf, 0xCu);
+          }
+        }
+
+        goto LABEL_40;
+      }
+
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      {
+        NSStringFromSelector(a2);
+        objc_claimAutoreleasedReturnValue();
+        [modelCopy key];
+        objc_claimAutoreleasedReturnValue();
+        sub_10001EC44();
+      }
+
+      v22 = NSStringFromSelector(a2);
+      v23 = [_ANEErrors invalidModelKeyErrorForMethod:v22];
+      (*(replyCopy + 2))(replyCopy, 0, &__NSDictionary0__struct, 0, v23);
+
+      [modelCopy string_id];
+      kdebug_trace();
+      v24 = qword_100036518;
+      v25 = v24;
+      if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+      {
+        if (os_signpost_enabled(v24))
+        {
+          string_id2 = [modelCopy string_id];
+          *buf = 67109632;
+          *v49 = v8;
+          *&v49[4] = 2048;
+          *&v49[6] = string_id2;
+          *&v49[14] = 1024;
+          *&v49[16] = 0;
+          _os_signpost_emit_with_name_impl(&_mh_execute_header, v25, OS_SIGNPOST_EVENT, spid, "_ANED_MODEL_COMPILE", "qos:%u model.string_id:%llu status:%u", buf, 0x18u);
+        }
+
+        v27 = qword_100036518;
+        if (!os_signpost_enabled(v27))
+        {
+          goto LABEL_40;
+        }
+
+        goto LABEL_24;
+      }
+    }
+
+    else
+    {
+      v31 = qword_100036518;
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      {
+        NSStringFromSelector(a2);
+        objc_claimAutoreleasedReturnValue();
+        sub_10001EACC();
+      }
+
+      v32 = NSStringFromSelector(a2);
+      v33 = [_ANEErrors missingCodeSigningErrorForMethod:v32];
+      (*(replyCopy + 2))(replyCopy, 0, &__NSDictionary0__struct, 0, v33);
+
+      [modelCopy string_id];
+      kdebug_trace();
+      v24 = qword_100036518;
+      v34 = v24;
+      if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+      {
+        if (os_signpost_enabled(v24))
+        {
+          string_id3 = [modelCopy string_id];
+          *buf = 67109632;
+          *v49 = v8;
+          *&v49[4] = 2048;
+          *&v49[6] = string_id3;
+          *&v49[14] = 1024;
+          *&v49[16] = 0;
+          _os_signpost_emit_with_name_impl(&_mh_execute_header, v34, OS_SIGNPOST_EVENT, spid, "_ANED_MODEL_COMPILE", "qos:%u model.string_id:%llu status:%u", buf, 0x18u);
+        }
+
+        v27 = qword_100036518;
+        if (!os_signpost_enabled(v27))
+        {
+          goto LABEL_40;
+        }
+
+LABEL_24:
+        *buf = 134349056;
+        *v49 = v44;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v27, OS_SIGNPOST_EVENT, spid, "_ANED_MODEL_COMPILE", "%{public, signpost.description:begin_time}llu ", buf, 0xCu);
+LABEL_40:
+
+        goto LABEL_41;
+      }
+    }
+
+    v27 = qword_100036518;
+    goto LABEL_40;
+  }
+
+  v28 = qword_100036518;
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+  {
+    NSStringFromSelector(a2);
+    objc_claimAutoreleasedReturnValue();
+    sub_10001E960();
+  }
+
+  (*(replyCopy + 2))(replyCopy, 0, &__NSDictionary0__struct, 0, 0);
+  [modelCopy string_id];
+  kdebug_trace();
+  v29 = qword_100036518;
+  v30 = v29;
+  if (spid - 1 > 0xFFFFFFFFFFFFFFFDLL)
+  {
+
+    v17 = qword_100036518;
+  }
+
+  else
+  {
+    if (os_signpost_enabled(v29))
+    {
+      *buf = 67109632;
+      *v49 = v8;
+      *&v49[4] = 2048;
+      *&v49[6] = [modelCopy string_id];
+      *&v49[14] = 1024;
+      *&v49[16] = 0;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v30, OS_SIGNPOST_EVENT, spid, "_ANED_MODEL_COMPILE", "qos:%u model.string_id:%llu status:%u", buf, 0x18u);
+    }
+
+    v17 = qword_100036518;
+    if (os_signpost_enabled(v17))
+    {
+      *buf = 134349056;
+      *v49 = v44;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v17, OS_SIGNPOST_EVENT, spid, "_ANED_MODEL_COMPILE", "%{public, signpost.description:begin_time}llu ", buf, 0xCu);
+    }
+  }
+
+LABEL_41:
+}
+
 - (void)loadModel:(id)model sandboxExtension:(id)extension options:(id)options qos:(unsigned int)qos withReply:(id)reply
 {
   modelCopy = model;
@@ -1642,7 +1873,7 @@ LABEL_25:
   }
 
   processIdentifier = [v199 processIdentifier];
-  [v199 auditToken];
+  objc_msgSend_auditToken(v199);
   v192 = [_ANEModelToken tokenWithAuditToken:buf modelIdentifier:path processIdentifier:processIdentifier];
   teamIdentity = [v192 teamIdentity];
   v34 = teamIdentity == 0;
@@ -2622,7 +2853,7 @@ LABEL_11:
   }
 
   processIdentifier = [v14 processIdentifier];
-  [v14 auditToken];
+  objc_msgSend_auditToken(v14);
   v95 = [_ANEModelToken tokenWithAuditToken:buf modelIdentifier:v17 processIdentifier:processIdentifier];
   teamIdentity = [v95 teamIdentity];
   v22 = teamIdentity == 0;
@@ -2933,7 +3164,7 @@ LABEL_90:
   v15 = v14;
   if (v14)
   {
-    [v14 auditToken];
+    objc_msgSend_auditToken(v14);
     v64 = +[_ANEModelToken codeSigningIDFor:processIdentifier:](_ANEModelToken, "codeSigningIDFor:processIdentifier:", buf, [v15 processIdentifier]);
     if (v64)
     {
@@ -3266,6 +3497,160 @@ LABEL_48:
   }
 }
 
+- (void)prepareChainingWithModel:(id)model options:(id)options chainingReq:(id)req qos:(unsigned int)qos withReply:(id)reply
+{
+  v8 = *&qos;
+  modelCopy = model;
+  optionsCopy = options;
+  reqCopy = req;
+  replyCopy = reply;
+  kdebug_trace();
+  v41 = mach_continuous_time();
+  spid = os_signpost_id_generate(qword_100036518);
+  v14 = objc_autoreleasePoolPush();
+  v15 = +[NSXPCConnection currentConnection];
+  v16 = v15;
+  context = v14;
+  if (v15)
+  {
+    objc_msgSend_auditToken(v15);
+    v42 = +[_ANEModelToken codeSigningIDFor:processIdentifier:](_ANEModelToken, "codeSigningIDFor:processIdentifier:", buf, [v16 processIdentifier]);
+    v17 = [_ANEQoSMapper queueIndexForQoS:v8];
+    semaArray = [(_ANEServer *)self semaArray];
+    dsema = [semaArray objectAtIndexedSubscript:v17];
+
+    v19 = dispatch_time(0, 30000000000);
+    v20 = dispatch_semaphore_wait(dsema, v19);
+    v21 = v20 == 0;
+    if (v20)
+    {
+      v22 = NSStringFromSelector(a2);
+      v23 = [_ANEErrors timeoutErrorForMethod:v22];
+      replyCopy[2](replyCopy, 0, v23);
+
+      [modelCopy string_id];
+      kdebug_trace();
+      v24 = qword_100036518;
+      v25 = v24;
+      if (spid - 1 > 0xFFFFFFFFFFFFFFFDLL)
+      {
+
+        v27 = qword_100036518;
+      }
+
+      else
+      {
+        if (os_signpost_enabled(v24))
+        {
+          string_id = [modelCopy string_id];
+          *buf = 67109632;
+          *v53 = v8;
+          *&v53[4] = 2048;
+          *&v53[6] = string_id;
+          *&v53[14] = 1024;
+          *&v53[16] = 0;
+          _os_signpost_emit_with_name_impl(&_mh_execute_header, v25, OS_SIGNPOST_EVENT, spid, "_ANED_PREPARE_CHAINING", "qos:%u model.string_id:%llu status:%u", buf, 0x18u);
+        }
+
+        v27 = qword_100036518;
+        if (os_signpost_enabled(v27))
+        {
+          *buf = 134349056;
+          *v53 = v41;
+          _os_signpost_emit_with_name_impl(&_mh_execute_header, v27, OS_SIGNPOST_EVENT, spid, "_ANED_PREPARE_CHAINING", "%{public, signpost.description:begin_time}llu ", buf, 0xCu);
+        }
+      }
+    }
+
+    else
+    {
+      v27 = [_ANEProgramCache programForConnection:v16 model:modelCopy bundleID:v42];
+      v29 = [optionsCopy objectForKeyedSubscript:kANEFPerformanceStatsMaskKey];
+      v39 = v29;
+      if (v29)
+      {
+        v30 = +[_ANEPerformanceStats driverMaskForANEFMask:](_ANEPerformanceStats, "driverMaskForANEFMask:", [v29 unsignedIntValue]);
+      }
+
+      else
+      {
+        v30 = 0;
+      }
+
+      v49 = 0;
+      v31 = [v27 prepareChainingRequest:reqCopy qos:v8 qIndex:v17 statsMask:v30 error:&v49, v39];
+      v32 = v49;
+      if ((v31 & 1) == 0)
+      {
+        [_ANEProgramCache removeProgramForConnection:v16 model:modelCopy bundleID:v42];
+      }
+
+      (replyCopy)[2](replyCopy, v31, v32);
+      dispatch_semaphore_signal(dsema);
+      v33 = +[_ANELog daemon];
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+      {
+        v34 = NSStringFromSelector(a2);
+        modelURL = [modelCopy modelURL];
+        *buf = 138413058;
+        *v53 = v34;
+        *&v53[8] = 2112;
+        *&v53[10] = v42;
+        *&v53[18] = 2112;
+        v54 = modelURL;
+        v55 = 2048;
+        v56 = v8;
+        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_INFO, "%@: %@ : %@ : %lu", buf, 0x2Au);
+      }
+    }
+  }
+
+  else
+  {
+    v28 = +[_ANELog daemon];
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    {
+      NSStringFromSelector(a2);
+      objc_claimAutoreleasedReturnValue();
+      sub_10001E960();
+    }
+
+    replyCopy[2](replyCopy, 0, 0);
+    v21 = 0;
+  }
+
+  objc_autoreleasePoolPop(context);
+  if (v21)
+  {
+    kdebug_trace();
+    v36 = qword_100036518;
+    v37 = v36;
+    if (spid - 1 > 0xFFFFFFFFFFFFFFFDLL)
+    {
+
+      v38 = qword_100036518;
+    }
+
+    else
+    {
+      if (os_signpost_enabled(v36))
+      {
+        *v50 = 67109120;
+        LODWORD(v51) = v8;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v37, OS_SIGNPOST_EVENT, spid, "_ANED_PREPARE_CHAINING", "qos:%u", v50, 8u);
+      }
+
+      v38 = qword_100036518;
+      if (os_signpost_enabled(v38))
+      {
+        *v50 = 134349056;
+        v51 = v41;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v38, OS_SIGNPOST_EVENT, spid, "_ANED_PREPARE_CHAINING", "%{public, signpost.description:begin_time}llu ", v50, 0xCu);
+      }
+    }
+  }
+}
+
 - (void)compiledModelExistsMatchingHash:(id)hash withReply:(id)reply
 {
   hashCopy = hash;
@@ -3278,7 +3663,7 @@ LABEL_48:
   v30 = v9;
   if (v11)
   {
-    [v11 auditToken];
+    objc_msgSend_auditToken(v11);
     v13 = +[_ANEModelToken codeSigningIDFor:processIdentifier:](_ANEModelToken, "codeSigningIDFor:processIdentifier:", v34, [v12 processIdentifier]);
     if (v13)
     {
@@ -3425,7 +3810,7 @@ LABEL_48:
   v12 = v11;
   if (v11)
   {
-    [v11 auditToken];
+    objc_msgSend_auditToken(v11);
     v13 = +[_ANEModelToken codeSigningIDFor:processIdentifier:](_ANEModelToken, "codeSigningIDFor:processIdentifier:", buf, [v12 processIdentifier]);
     if (v13)
     {

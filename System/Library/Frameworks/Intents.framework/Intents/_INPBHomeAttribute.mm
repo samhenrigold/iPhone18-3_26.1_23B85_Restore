@@ -1,6 +1,7 @@
 @interface _INPBHomeAttribute
 - (BOOL)isEqual:(id)equal;
 - (_INPBHomeAttribute)initWithCoder:(id)coder;
+- (id)attributeTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
 - (int)StringAsAttributeType:(id)type;
@@ -144,19 +145,18 @@ LABEL_12:
   toCopy = to;
   if ([(_INPBHomeAttribute *)self hasAttributeType])
   {
-    attributeType = self->_attributeType;
     PBDataWriterWriteInt32Field();
   }
 
   attributeValue = [(_INPBHomeAttribute *)self attributeValue];
 
-  v6 = toCopy;
+  v5 = toCopy;
   if (attributeValue)
   {
     attributeValue2 = [(_INPBHomeAttribute *)self attributeValue];
     PBDataWriterWriteSubmessage();
 
-    v6 = toCopy;
+    v5 = toCopy;
   }
 }
 
@@ -496,6 +496,21 @@ LABEL_12:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)attributeTypeAsString:(int)string
+{
+  if (string >= 0x42)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7281FE8[string];
   }
 
   return v4;

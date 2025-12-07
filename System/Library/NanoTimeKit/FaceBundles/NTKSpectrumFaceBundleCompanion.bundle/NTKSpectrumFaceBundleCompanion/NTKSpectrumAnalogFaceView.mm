@@ -44,6 +44,7 @@
 - (void)_loadLayoutRules;
 - (void)_loadSnapshotContentViews;
 - (void)_prepareForEditing;
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group;
 - (void)_reorderSwitcherSnapshotView;
 - (void)_setInlayColorForMinuteHand:(id)hand hourHandColor:(id)color;
 - (void)_setMasking:(BOOL)masking;
@@ -133,6 +134,16 @@
   [(NTKSpectrumAnalogFaceView *)&v3 _unloadSnapshotContentViews];
   [(NTKSpectrumAnalogFaceView *)self _unloadActiveViews];
   [(NTKSpectrumAnalogFaceView *)self _unloadCommonViews];
+}
+
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group
+{
+  discardCopy = discard;
+  v7.receiver = self;
+  v7.super_class = NTKSpectrumAnalogFaceView;
+  groupCopy = group;
+  [(NTKSpectrumAnalogFaceView *)&v7 _renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy];
+  [(CLKUIQuadView *)self->_conicQuadView renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy, v7.receiver, v7.super_class];
 }
 
 - (id)createFaceColorPalette

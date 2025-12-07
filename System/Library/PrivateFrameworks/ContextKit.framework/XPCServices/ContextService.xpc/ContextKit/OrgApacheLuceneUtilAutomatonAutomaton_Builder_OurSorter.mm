@@ -141,7 +141,7 @@
 - (OrgApacheLuceneUtilAutomatonAutomaton_Builder_OurSorter)initWithOrgApacheLuceneUtilAutomatonAutomaton_Builder:(id)builder
 {
   objc_storeWeak(&self->this$0_, builder);
-  OrgApacheLuceneUtilInPlaceMergeSorter_init(self);
+  OrgApacheLuceneUtilInPlaceMergeSorter_init(self, v4);
   return self;
 }
 

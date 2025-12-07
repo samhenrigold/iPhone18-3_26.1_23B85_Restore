@@ -173,36 +173,36 @@ BOOL sub_100000D40()
   return v1;
 }
 
-void sub_100000E2C()
+void sub_100000E2C(uint64_t a1)
 {
   while (1)
   {
     Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, 0, 0);
     *cf = 0;
-    v1 = lockdown_receive_message();
-    v2 = *cf;
-    if (!v1 && *cf)
+    v2 = lockdown_receive_message();
+    v3 = *cf;
+    if (!v2 && *cf)
     {
-      v3 = CFGetTypeID(*cf);
-      if (v3 == CFDictionaryGetTypeID())
+      v4 = CFGetTypeID(*cf);
+      if (v4 == CFDictionaryGetTypeID())
       {
-        v4 = qword_100008000;
+        v5 = qword_100008000;
         if (os_log_type_enabled(qword_100008000, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "lockdown_receive_message received a plist mesage.\n", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "lockdown_receive_message received a plist mesage.\n", buf, 2u);
         }
 
         Copy = CFDictionaryCreateCopy(kCFAllocatorDefault, *cf);
 LABEL_11:
-        v2 = *cf;
+        v3 = *cf;
         if (!*cf)
         {
           goto LABEL_13;
         }
 
 LABEL_12:
-        CFRelease(v2);
+        CFRelease(v3);
         goto LABEL_13;
       }
 
@@ -211,14 +211,14 @@ LABEL_10:
       goto LABEL_11;
     }
 
-    if (v1)
+    if (v2)
     {
-      v6 = qword_100008000;
+      v7 = qword_100008000;
       if (os_log_type_enabled(qword_100008000, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        v25 = v1;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "lockdown_receive_message returned error %x\n", buf, 8u);
+        v26 = v2;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "lockdown_receive_message returned error %x\n", buf, 8u);
       }
 
       goto LABEL_10;
@@ -236,89 +236,89 @@ LABEL_13:
       break;
     }
 
-    v7 = CFDictionaryContainsKey(Copy, @"Configuration Inquiry");
-    if (v7)
+    v8 = CFDictionaryContainsKey(Copy, @"Configuration Inquiry");
+    if (v8)
     {
-      v8 = sub_100000D40();
-      v9 = qword_100008000;
+      v9 = sub_100000D40();
+      v10 = qword_100008000;
       if (os_log_type_enabled(qword_100008000, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = "Default";
-        if (v8)
+        v11 = "Default";
+        if (v9)
         {
-          v10 = "IDAM";
+          v11 = "IDAM";
         }
 
         *cf = 136315138;
-        *&cf[4] = v10;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Configuration Inquiry -> %s configuration\n", cf, 0xCu);
+        *&cf[4] = v11;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Configuration Inquiry -> %s configuration\n", cf, 0xCu);
       }
 
-      if (v8)
+      if (v9)
       {
-        v11 = kCFBooleanTrue;
+        v12 = kCFBooleanTrue;
       }
 
       else
       {
-        v11 = kCFBooleanFalse;
+        v12 = kCFBooleanFalse;
       }
 
-      CFDictionaryAddValue(Mutable, @"IDAM Configuration Active", v11);
-      v12 = MGGetSInt32Answer();
-      if ((MGGetBoolAnswer() & 1) != 0 || (v15 = kCFBooleanFalse, (v12 - 1) >= 4) && (v15 = kCFBooleanFalse, v12 != 7))
+      CFDictionaryAddValue(Mutable, @"IDAM Configuration Active", v12);
+      v13 = MGGetSInt32Answer();
+      if ((MGGetBoolAnswer() & 1) != 0 || (v16 = kCFBooleanFalse, (v13 - 1) >= 4) && (v16 = kCFBooleanFalse, v13 != 7))
       {
-        v13 = qword_100008000;
-        v14 = os_log_type_enabled(qword_100008000, OS_LOG_TYPE_DEFAULT);
-        v15 = kCFBooleanTrue;
-        if (v14)
+        v14 = qword_100008000;
+        v15 = os_log_type_enabled(qword_100008000, OS_LOG_TYPE_DEFAULT);
+        v16 = kCFBooleanTrue;
+        if (v15)
         {
           *cf = 0;
-          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Configuration Inquiry -> Low End Hardware", cf, 2u);
-          v15 = kCFBooleanTrue;
+          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Configuration Inquiry -> Low End Hardware", cf, 2u);
+          v16 = kCFBooleanTrue;
         }
       }
 
-      CFDictionaryAddValue(Mutable, @"Low End Hardware", v15);
+      CFDictionaryAddValue(Mutable, @"Low End Hardware", v16);
     }
 
     if (!CFDictionaryContainsKey(Copy, @"Set IDAM Configuration") || (Value = CFDictionaryGetValue(Copy, @"Set IDAM Configuration")) == 0)
     {
 LABEL_38:
-      if (!v7)
+      if (!v8)
       {
         goto LABEL_42;
       }
 
 LABEL_39:
-      v19 = lockdown_send_message();
-      if (v19)
+      v20 = lockdown_send_message();
+      if (v20)
       {
-        v20 = v19;
-        v21 = qword_100008000;
+        v21 = v20;
+        v22 = qword_100008000;
         if (os_log_type_enabled(qword_100008000, OS_LOG_TYPE_DEFAULT))
         {
           *cf = 67109120;
-          *&cf[4] = v20;
-          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Got error %x from lockdown_send_message\n", cf, 8u);
+          *&cf[4] = v21;
+          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Got error %x from lockdown_send_message\n", cf, 8u);
         }
       }
 
       goto LABEL_42;
     }
 
-    v17 = Value;
+    v18 = Value;
     if (CFBooleanGetValue(Value))
     {
-      v18 = qword_100008000;
+      v19 = qword_100008000;
       if (os_log_type_enabled(qword_100008000, OS_LOG_TYPE_DEFAULT))
       {
         *cf = 0;
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Set IDAM Configuration -> TRUE\n", cf, 2u);
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Set IDAM Configuration -> TRUE\n", cf, 2u);
       }
 
       sub_100000888();
-      if (v7)
+      if (v8)
       {
         goto LABEL_39;
       }
@@ -326,20 +326,20 @@ LABEL_39:
 
     else
     {
-      if (CFBooleanGetValue(v17))
+      if (CFBooleanGetValue(v18))
       {
         goto LABEL_38;
       }
 
-      v22 = qword_100008000;
+      v23 = qword_100008000;
       if (os_log_type_enabled(qword_100008000, OS_LOG_TYPE_DEFAULT))
       {
         *cf = 0;
-        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Set IDAM Configuration -> FALSE\n", cf, 2u);
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Set IDAM Configuration -> FALSE\n", cf, 2u);
       }
 
       sub_100000C3C();
-      if (v7)
+      if (v8)
       {
         goto LABEL_39;
       }
@@ -368,7 +368,7 @@ void start()
 
 void sub_1000012D0(id a1, _lockdown_connection *a2, __CFDictionary *a3)
 {
-  sub_100000E2C();
+  sub_100000E2C(a2);
 
   _lockdown_disconnect(a2);
 }

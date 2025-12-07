@@ -197,41 +197,41 @@
 
 + (id)representativeLocationForLocations:(id)locations
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   locationsCopy = locations;
   v4 = [locationsCopy count];
   if (v4 > 1)
   {
     v6 = v4;
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     v7 = locationsCopy;
-    v8 = [v7 countByEnumeratingWithState:&v30 objects:v35 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v29 objects:v34 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v31;
+      v10 = *v30;
       v11 = 0.0;
       v12 = 0.0;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v31 != v10)
+          if (*v30 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v14 = *(*(&v30 + 1) + 8 * i);
+          v14 = *(*(&v29 + 1) + 8 * i);
           [v14 coordinate];
           v12 = v12 + v15;
           [v14 coordinate];
           v11 = v11 + v16;
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v30 objects:v35 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v29 objects:v34 count:16];
       }
 
       while (v9);
@@ -244,26 +244,26 @@
     }
 
     v17 = [objc_alloc(MEMORY[0x277CE41F8]) initWithLatitude:v12 / v6 longitude:v11 / v6];
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
     v18 = v7;
-    v19 = [v18 countByEnumeratingWithState:&v26 objects:v34 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v25 objects:v33 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v27;
+      v21 = *v26;
       while (2)
       {
         for (j = 0; j != v20; ++j)
         {
-          if (*v27 != v21)
+          if (*v26 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          [*(*(&v26 + 1) + 8 * j) distanceFromLocation:{v17, v26}];
+          [*(*(&v25 + 1) + 8 * j) distanceFromLocation:{v17, v25}];
           if (v23 > 50000.0)
           {
 
@@ -272,7 +272,7 @@
           }
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v26 objects:v34 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v25 objects:v33 count:16];
         if (v20)
         {
           continue;
@@ -290,8 +290,6 @@ LABEL_22:
   {
     firstObject = [locationsCopy firstObject];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }

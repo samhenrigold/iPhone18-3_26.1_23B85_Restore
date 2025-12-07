@@ -132,29 +132,28 @@
   set = self->_set;
   p_set = &self->_set;
   v7 = set;
-  v8 = *p_set;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v9 = [CCSet alloc];
-    itemType = [*p_set itemType];
-    personaIdentifier = [*p_set personaIdentifier];
-    descriptors = [*p_set descriptors];
-    options = [*p_set options];
-    v17 = 0;
-    v14 = [(CCSet *)v9 initWithItemType:itemType personaIdentifier:personaIdentifier descriptors:descriptors options:options error:&v17];
-    v15 = v17;
+    v8 = [CCSet alloc];
+    itemType = [(CCSet *)*p_set itemType];
+    personaIdentifier = [(CCSet *)*p_set personaIdentifier];
+    descriptors = [(CCSet *)*p_set descriptors];
+    options = [(CCSet *)*p_set options];
+    v16 = 0;
+    v13 = [(CCSet *)v8 initWithItemType:itemType personaIdentifier:personaIdentifier descriptors:descriptors options:options error:&v16];
+    v14 = v16;
 
-    if (!v14)
+    if (!v13)
     {
-      v16 = __biome_log_for_category();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v15 = __biome_log_for_category();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        [(CCSetChangeBookmark *)p_set encodeWithCoder:v15, v16];
+        [(CCSetChangeBookmark *)p_set encodeWithCoder:v14, v15];
       }
     }
 
-    v7 = v14;
+    v7 = v13;
   }
 
   [coderCopy encodeObject:v7 forKey:@"s"];
@@ -162,7 +161,7 @@
 
 - (CCSetChangeBookmark)initWithCoder:(id)coder
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeInt64ForKey:@"r"];
   v6 = [coderCopy decodeInt32ForKey:@"b"];
@@ -186,11 +185,11 @@ LABEL_14:
       v13 = __biome_log_for_category();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"versions: {resource: %lld bookmark: %d}", v5, v6];
+        v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"versions: {resource: %lld bookmark: %d}", v5, v6];
         *buf = 138412546;
-        v18 = v8;
-        v19 = 2112;
-        v20 = v16;
+        v17 = v8;
+        v18 = 2112;
+        v19 = v15;
         _os_log_error_impl(&dword_1B6DB2000, v13, OS_LOG_TYPE_ERROR, "Bookmark for set: %@ missing metacontent vector. %@", buf, 0x16u);
       }
     }
@@ -202,9 +201,9 @@ LABEL_14:
       {
         v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"versions: {resource: %lld bookmark: %d}", v5, v6];
         *buf = 138412546;
-        v18 = v8;
-        v19 = 2112;
-        v20 = v12;
+        v17 = v8;
+        v18 = 2112;
+        v19 = v12;
         _os_log_error_impl(&dword_1B6DB2000, v10, OS_LOG_TYPE_ERROR, "Bookmark for set: %@ missing content vector. %@", buf, 0x16u);
       }
     }
@@ -222,31 +221,27 @@ LABEL_14:
   selfCopy = 0;
 LABEL_15:
 
-  v14 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (void)encodeWithCoder:(os_log_t)log .cold.1(uint64_t *a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *a1;
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_1B6DB2000, log, OS_LOG_TYPE_ERROR, "Failed to copy serialized set: %@ error: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_1B6DB2000, log, OS_LOG_TYPE_ERROR, "Failed to copy serialized set: %@ error: %@", &v4, 0x16u);
 }
 
 - (void)initWithCoder:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"versions: {resource: %lld bookmark: %d}", a1, a2];
   *buf = 138412290;
-  v7 = v4;
+  v6 = v4;
   _os_log_error_impl(&dword_1B6DB2000, a3, OS_LOG_TYPE_ERROR, "Bookmark missing set %@", buf, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

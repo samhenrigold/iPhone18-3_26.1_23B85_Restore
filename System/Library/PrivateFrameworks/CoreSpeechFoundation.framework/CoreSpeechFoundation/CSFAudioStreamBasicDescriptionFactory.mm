@@ -132,34 +132,34 @@
 {
   +[CSConfig inputRecordingSampleRate];
 
-  return [CSFAudioStreamBasicDescriptionFactory lpcmNonInterleavedASBDWithSampleRate:2 numberOfChannels:?];
+  return objc_msgSend_lpcmNonInterleavedASBDWithSampleRate_numberOfChannels_(CSFAudioStreamBasicDescriptionFactory);
 }
 
 + (AudioStreamBasicDescription)lpcmNonInterleavedWithRemoteVADASBD
 {
   +[CSConfig inputRecordingSampleRate];
   v4 = v3;
-  v5 = +[CSConfig inputRecordingNumberOfChannels]+ 1;
-  LODWORD(v6) = v4;
+  +[CSConfig inputRecordingNumberOfChannels];
+  LODWORD(v5) = v4;
 
-  return [CSFAudioStreamBasicDescriptionFactory lpcmNonInterleavedASBDWithSampleRate:v5 numberOfChannels:v6];
+  return objc_msgSend_lpcmNonInterleavedASBDWithSampleRate_numberOfChannels_(CSFAudioStreamBasicDescriptionFactory, v5);
 }
 
 + (AudioStreamBasicDescription)lpcmMonoNonInterleavedASBD
 {
   +[CSConfig inputRecordingSampleRate];
 
-  return [CSFAudioStreamBasicDescriptionFactory lpcmNonInterleavedASBDWithSampleRate:1 numberOfChannels:?];
+  return objc_msgSend_lpcmNonInterleavedASBDWithSampleRate_numberOfChannels_(CSFAudioStreamBasicDescriptionFactory);
 }
 
 + (AudioStreamBasicDescription)lpcmNonInterleavedASBD
 {
   +[CSConfig inputRecordingSampleRate];
   v4 = v3;
-  v5 = +[CSConfig inputRecordingNumberOfChannels];
-  LODWORD(v6) = v4;
+  +[CSConfig inputRecordingNumberOfChannels];
+  LODWORD(v5) = v4;
 
-  return [CSFAudioStreamBasicDescriptionFactory lpcmNonInterleavedASBDWithSampleRate:v5 numberOfChannels:v6];
+  return objc_msgSend_lpcmNonInterleavedASBDWithSampleRate_numberOfChannels_(CSFAudioStreamBasicDescriptionFactory, v5);
 }
 
 + (AudioStreamBasicDescription)lpcmInterleavedASBDWithSampleRate:(SEL)rate numberOfChannels:(float)channels
@@ -195,34 +195,34 @@
 {
   +[CSConfig inputRecordingSampleRate];
 
-  return [CSFAudioStreamBasicDescriptionFactory lpcmInterleavedASBDWithSampleRate:2 numberOfChannels:?];
+  return objc_msgSend_lpcmInterleavedASBDWithSampleRate_numberOfChannels_(CSFAudioStreamBasicDescriptionFactory);
 }
 
 + (AudioStreamBasicDescription)lpcmInterleavedWithRemoteVADASBD
 {
   +[CSConfig inputRecordingSampleRate];
   v4 = v3;
-  v5 = +[CSConfig inputRecordingNumberOfChannels]+ 1;
-  LODWORD(v6) = v4;
+  +[CSConfig inputRecordingNumberOfChannels];
+  LODWORD(v5) = v4;
 
-  return [CSFAudioStreamBasicDescriptionFactory lpcmInterleavedASBDWithSampleRate:v5 numberOfChannels:v6];
+  return objc_msgSend_lpcmInterleavedASBDWithSampleRate_numberOfChannels_(CSFAudioStreamBasicDescriptionFactory, v5);
 }
 
 + (AudioStreamBasicDescription)lpcmMonoInterleavedASBD
 {
   +[CSConfig inputRecordingSampleRate];
 
-  return [CSFAudioStreamBasicDescriptionFactory lpcmInterleavedASBDWithSampleRate:1 numberOfChannels:?];
+  return objc_msgSend_lpcmInterleavedASBDWithSampleRate_numberOfChannels_(CSFAudioStreamBasicDescriptionFactory);
 }
 
 + (AudioStreamBasicDescription)lpcmInterleavedASBD
 {
   +[CSConfig inputRecordingSampleRate];
   v4 = v3;
-  v5 = +[CSConfig inputRecordingNumberOfChannels];
-  LODWORD(v6) = v4;
+  +[CSConfig inputRecordingNumberOfChannels];
+  LODWORD(v5) = v4;
 
-  return [CSFAudioStreamBasicDescriptionFactory lpcmInterleavedASBDWithSampleRate:v5 numberOfChannels:v6];
+  return objc_msgSend_lpcmInterleavedASBDWithSampleRate_numberOfChannels_(CSFAudioStreamBasicDescriptionFactory, v5);
 }
 
 + (AudioStreamBasicDescription)speexASBD

@@ -61,7 +61,7 @@
   }
 
   v8.receiver = v5;
-  v8.super_class = type metadata accessor for CanvasElementPDFAnnotation();
+  v8.super_class = type metadata accessor for CanvasElementPDFAnnotation(0);
   [(PDFAnnotation *)&v8 setIsFullyConstructed:constructedCopy];
 }
 
@@ -81,7 +81,7 @@
 
 - (Class)annotationSubclassForPopup
 {
-  type metadata accessor for CanvasElementPDFAnnotation();
+  type metadata accessor for CanvasElementPDFAnnotation(0);
 
   return swift_getObjCClassFromMetadata();
 }

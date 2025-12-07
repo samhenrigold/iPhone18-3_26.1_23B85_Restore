@@ -78,39 +78,39 @@
 
 - (void)_setState:(id)state clearDirtyFlags:(unint64_t)flags
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   state = self->_state;
   if (state != stateCopy && ![(AFAccessibilityState *)state isEqual:stateCopy])
   {
     v9 = self->_state;
-    v18 = stateCopy;
+    v17 = stateCopy;
     v10 = stateCopy;
     os_unfair_lock_lock(&self->_stateLock);
     objc_storeStrong(&self->_state, state);
     self->_stateDirtyFlags &= ~flags;
     os_unfair_lock_unlock(&self->_stateLock);
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     setRepresentation = [(NSHashTable *)self->_listeners setRepresentation];
-    v12 = [setRepresentation countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v12 = [setRepresentation countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v20;
+      v14 = *v19;
       do
       {
         v15 = 0;
         do
         {
-          if (*v20 != v14)
+          if (*v19 != v14)
           {
             objc_enumerationMutation(setRepresentation);
           }
 
-          v16 = *(*(&v19 + 1) + 8 * v15);
+          v16 = *(*(&v18 + 1) + 8 * v15);
           if (objc_opt_respondsToSelector())
           {
             [v16 accessibilityObserver:self stateDidChangeFrom:v9 to:v10];
@@ -120,16 +120,14 @@
         }
 
         while (v13 != v15);
-        v13 = [setRepresentation countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v13 = [setRepresentation countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v13);
     }
 
-    stateCopy = v18;
+    stateCopy = v17;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateVibrationDisabledPreference

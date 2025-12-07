@@ -61,8 +61,8 @@
     v10 = &stru_264550;
   }
 
-  children = [(TUIAXModel *)self children];
-  v12 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [children count]);
+  v11 = objc_msgSend_children(self);
+  v12 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v11 count]);
   selfCopy = self;
   v13 = v5;
   v14 = [NSString stringWithFormat:@"<%@: %p %@;%@%@ #children=%@>", v5, selfCopy, boxType, v8, v10, v12];;
@@ -100,8 +100,8 @@ LABEL_4:
   v13 = 0u;
   v10 = 0u;
   v11 = 0u;
-  children = [(TUIAXModel *)self children];
-  v5 = [children countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v6 = objc_msgSend_children(self, 0);
+  v5 = [v6 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v7 = *v11;
@@ -111,7 +111,7 @@ LABEL_4:
       {
         if (*v11 != v7)
         {
-          objc_enumerationMutation(children);
+          objc_enumerationMutation(v6);
         }
 
         if ([*(*(&v10 + 1) + 8 * i) hasAccessibleDescendants])
@@ -121,7 +121,7 @@ LABEL_4:
         }
       }
 
-      v5 = [children countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v6 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v5)
       {
         continue;

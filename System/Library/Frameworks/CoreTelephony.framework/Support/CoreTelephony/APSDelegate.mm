@@ -94,17 +94,17 @@
   cntrl = self->fController.__cntrl_;
   if (cntrl)
   {
-    v6 = std::__shared_weak_count::lock(cntrl);
-    if (v6)
+    v7 = std::__shared_weak_count::lock(cntrl);
+    if (v7)
     {
-      v7 = v6;
+      v8 = v7;
       ptr = self->fController.__ptr_;
       if (ptr)
       {
-        WebPushControllerImpl::handleWebPushConnected(ptr);
+        WebPushControllerImpl::handleWebPushConnected(ptr, status);
       }
 
-      sub_100004A34(v7);
+      sub_100004A34(v8);
     }
   }
 }

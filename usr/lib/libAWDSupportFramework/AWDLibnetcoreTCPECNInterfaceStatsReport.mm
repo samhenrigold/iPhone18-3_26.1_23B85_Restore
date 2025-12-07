@@ -1278,7 +1278,6 @@ LABEL_50:
   has = self->_has;
   if (*&has)
   {
-    interfaceType = self->_interfaceType;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 2) == 0)
@@ -1298,7 +1297,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  ipProtocol = self->_ipProtocol;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -1313,7 +1311,6 @@ LABEL_4:
   }
 
 LABEL_53:
-  tcpECNIntClientSetup = self->_tcpECNIntClientSetup;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x80000000000) == 0)
@@ -1328,7 +1325,6 @@ LABEL_5:
   }
 
 LABEL_54:
-  tcpECNIntServerSetup = self->_tcpECNIntServerSetup;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -1343,7 +1339,6 @@ LABEL_6:
   }
 
 LABEL_55:
-  tcpECNIntClientSuccess = self->_tcpECNIntClientSuccess;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x100000000000) == 0)
@@ -1358,7 +1353,6 @@ LABEL_7:
   }
 
 LABEL_56:
-  tcpECNIntServerSuccess = self->_tcpECNIntServerSuccess;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -1373,7 +1367,6 @@ LABEL_8:
   }
 
 LABEL_57:
-  tcpECNIntNotSupportedPeer = self->_tcpECNIntNotSupportedPeer;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x400000000000) == 0)
@@ -1388,7 +1381,6 @@ LABEL_9:
   }
 
 LABEL_58:
-  tcpECNIntSynLost = self->_tcpECNIntSynLost;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x200000000000) == 0)
@@ -1403,7 +1395,6 @@ LABEL_10:
   }
 
 LABEL_59:
-  tcpECNIntSynAckLost = self->_tcpECNIntSynAckLost;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x8000000000) == 0)
@@ -1418,7 +1409,6 @@ LABEL_11:
   }
 
 LABEL_60:
-  tcpECNIntRecvCE = self->_tcpECNIntRecvCE;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x10000000000) == 0)
@@ -1433,7 +1423,6 @@ LABEL_12:
   }
 
 LABEL_61:
-  tcpECNIntRecvECE = self->_tcpECNIntRecvECE;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x40000000000) == 0)
@@ -1448,7 +1437,6 @@ LABEL_13:
   }
 
 LABEL_62:
-  tcpECNIntSentECE = self->_tcpECNIntSentECE;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -1463,7 +1451,6 @@ LABEL_14:
   }
 
 LABEL_63:
-  tcpECNIntConnRecvCE = self->_tcpECNIntConnRecvCE;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -1478,7 +1465,6 @@ LABEL_15:
   }
 
 LABEL_64:
-  tcpECNIntConnRecvECE = self->_tcpECNIntConnRecvECE;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -1493,7 +1479,6 @@ LABEL_16:
   }
 
 LABEL_65:
-  tcpECNIntConnPLNoCE = self->_tcpECNIntConnPLNoCE;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -1508,7 +1493,6 @@ LABEL_17:
   }
 
 LABEL_66:
-  tcpECNIntConnPLCE = self->_tcpECNIntConnPLCE;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -1523,7 +1507,6 @@ LABEL_18:
   }
 
 LABEL_67:
-  tcpECNIntConnNoPLCE = self->_tcpECNIntConnNoPLCE;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -1538,7 +1521,6 @@ LABEL_19:
   }
 
 LABEL_68:
-  tcpECNIntFallbackSynLoss = self->_tcpECNIntFallbackSynLoss;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -1553,7 +1535,6 @@ LABEL_20:
   }
 
 LABEL_69:
-  tcpECNIntFallbackReorder = self->_tcpECNIntFallbackReorder;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -1568,7 +1549,6 @@ LABEL_21:
   }
 
 LABEL_70:
-  tcpECNIntFallbackCE = self->_tcpECNIntFallbackCE;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x10000000) == 0)
@@ -1583,7 +1563,6 @@ LABEL_22:
   }
 
 LABEL_71:
-  tcpECNIntOnAvgRTT = self->_tcpECNIntOnAvgRTT;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x100000000) == 0)
@@ -1598,7 +1577,6 @@ LABEL_23:
   }
 
 LABEL_72:
-  tcpECNIntOnRTTVar = self->_tcpECNIntOnRTTVar;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x80000000) == 0)
@@ -1613,7 +1591,6 @@ LABEL_24:
   }
 
 LABEL_73:
-  tcpECNIntOnOOBPer = self->_tcpECNIntOnOOBPer;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x400000000) == 0)
@@ -1628,7 +1605,6 @@ LABEL_25:
   }
 
 LABEL_74:
-  tcpECNIntOnSACKE = self->_tcpECNIntOnSACKE;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x200000000) == 0)
@@ -1643,7 +1619,6 @@ LABEL_26:
   }
 
 LABEL_75:
-  tcpECNIntOnReorderPer = self->_tcpECNIntOnReorderPer;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x20000000000) == 0)
@@ -1658,7 +1633,6 @@ LABEL_27:
   }
 
 LABEL_76:
-  tcpECNIntRxmtPer = self->_tcpECNIntRxmtPer;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -1673,7 +1647,6 @@ LABEL_28:
   }
 
 LABEL_77:
-  tcpECNIntOffAvgRTT = self->_tcpECNIntOffAvgRTT;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x100000) == 0)
@@ -1688,7 +1661,6 @@ LABEL_29:
   }
 
 LABEL_78:
-  tcpECNIntOffRTTVar = self->_tcpECNIntOffRTTVar;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x80000) == 0)
@@ -1703,7 +1675,6 @@ LABEL_30:
   }
 
 LABEL_79:
-  tcpECNIntOffOOBPer = self->_tcpECNIntOffOOBPer;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x800000) == 0)
@@ -1718,7 +1689,6 @@ LABEL_31:
   }
 
 LABEL_80:
-  tcpECNIntOffSACKE = self->_tcpECNIntOffSACKE;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x200000) == 0)
@@ -1733,7 +1703,6 @@ LABEL_32:
   }
 
 LABEL_81:
-  tcpECNIntOffReorderPer = self->_tcpECNIntOffReorderPer;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x400000) == 0)
@@ -1748,7 +1717,6 @@ LABEL_33:
   }
 
 LABEL_82:
-  tcpECNIntOffRxmtPer = self->_tcpECNIntOffRxmtPer;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x4000000000) == 0)
@@ -1763,7 +1731,6 @@ LABEL_34:
   }
 
 LABEL_83:
-  tcpECNIntOnTotalTxPkts = self->_tcpECNIntOnTotalTxPkts;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x2000000000) == 0)
@@ -1778,7 +1745,6 @@ LABEL_35:
   }
 
 LABEL_84:
-  tcpECNIntOnTotalRxmtPkts = self->_tcpECNIntOnTotalRxmtPkts;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x1000000000) == 0)
@@ -1793,7 +1759,6 @@ LABEL_36:
   }
 
 LABEL_85:
-  tcpECNIntOnTotalRxPkts = self->_tcpECNIntOnTotalRxPkts;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x800000000) == 0)
@@ -1808,7 +1773,6 @@ LABEL_37:
   }
 
 LABEL_86:
-  tcpECNIntOnTotalOOPkts = self->_tcpECNIntOnTotalOOPkts;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x20000000) == 0)
@@ -1823,7 +1787,6 @@ LABEL_38:
   }
 
 LABEL_87:
-  tcpECNIntOnDropRst = self->_tcpECNIntOnDropRst;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x40000000) == 0)
@@ -1838,7 +1801,6 @@ LABEL_39:
   }
 
 LABEL_88:
-  tcpECNIntOnDropRxmt = self->_tcpECNIntOnDropRxmt;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x8000000) == 0)
@@ -1853,7 +1815,6 @@ LABEL_40:
   }
 
 LABEL_89:
-  tcpECNIntOffTotalTxPkts = self->_tcpECNIntOffTotalTxPkts;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x4000000) == 0)
@@ -1868,7 +1829,6 @@ LABEL_41:
   }
 
 LABEL_90:
-  tcpECNIntOffTotalRxmtPkts = self->_tcpECNIntOffTotalRxmtPkts;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x2000000) == 0)
@@ -1883,7 +1843,6 @@ LABEL_42:
   }
 
 LABEL_91:
-  tcpECNIntOffTotalRxPkts = self->_tcpECNIntOffTotalRxPkts;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x1000000) == 0)
@@ -1898,7 +1857,6 @@ LABEL_43:
   }
 
 LABEL_92:
-  tcpECNIntOffTotalOOPkts = self->_tcpECNIntOffTotalOOPkts;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -1913,7 +1871,6 @@ LABEL_44:
   }
 
 LABEL_93:
-  tcpECNIntOffDropRst = self->_tcpECNIntOffDropRst;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x40000) == 0)
@@ -1928,7 +1885,6 @@ LABEL_45:
   }
 
 LABEL_94:
-  tcpECNIntOffDropRxmt = self->_tcpECNIntOffDropRxmt;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x800000000000) == 0)
@@ -1943,7 +1899,6 @@ LABEL_46:
   }
 
 LABEL_95:
-  tcpECNIntTotalConnections = self->_tcpECNIntTotalConnections;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x1000000000000) == 0)
@@ -1958,7 +1913,6 @@ LABEL_47:
   }
 
 LABEL_96:
-  tcpUnsentDataAtSleepCnt = self->_tcpUnsentDataAtSleepCnt;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -1970,7 +1924,6 @@ LABEL_48:
     }
 
 LABEL_98:
-    tcpECNIntFallbackDropRxmt = self->_tcpECNIntFallbackDropRxmt;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 0x2000) == 0)
     {
@@ -1981,7 +1934,6 @@ LABEL_98:
   }
 
 LABEL_97:
-  tcpECNIntFallbackDropRst = self->_tcpECNIntFallbackDropRst;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x800) != 0)
@@ -1996,7 +1948,6 @@ LABEL_49:
   }
 
 LABEL_99:
-  tcpECNIntFallbackSYNRst = self->_tcpECNIntFallbackSYNRst;
 
   PBDataWriterWriteUint64Field();
 }

@@ -126,7 +126,6 @@
 
   objc_storeStrong(&v28, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   return v31 & 1;
 }
 
@@ -323,7 +322,6 @@
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   return v49;
 }
 
@@ -405,7 +403,6 @@ void __66__AKFollowUpSynchronizer_updateSynchronizeTimeForAccount_inStore___bloc
 
   dispatch_semaphore_signal(*(a1 + 32));
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 + (void)updateSynchronizeTimeNoSaveForAccount:(id)account
@@ -428,7 +425,6 @@ void __66__AKFollowUpSynchronizer_updateSynchronizeTimeForAccount_inStore___bloc
   [v3 setAccountProperty:? forKey:?];
   MEMORY[0x1E69E5920](date);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 @end

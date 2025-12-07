@@ -267,7 +267,7 @@ LABEL_26:
             [v56 floatValue];
             v58 = v57;
 
-            [v89 extent];
+            objc_msgSend_extent(v89);
             v60 = v59;
             v62 = v61;
             v64 = v63;
@@ -332,46 +332,46 @@ LABEL_28:
 
 - (id)_evaluateImageGeometry:(id *)geometry
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   if (!geometry)
   {
-    v18 = NUAssertLogger_12588();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v21 = NUAssertLogger_12588();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid parameter not satisfying: %s", "error != nil"];
+      v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid parameter not satisfying: %s", "error != nil"];
       *buf = 138543362;
-      *&buf[4] = v19;
-      _os_log_error_impl(&dword_1C7694000, v18, OS_LOG_TYPE_ERROR, "Fail: %{public}@", buf, 0xCu);
+      *&buf[4] = v22;
+      _os_log_error_impl(&dword_1C7694000, v21, OS_LOG_TYPE_ERROR, "Fail: %{public}@", buf, 0xCu);
     }
 
-    v20 = MEMORY[0x1E69B38E8];
+    v23 = MEMORY[0x1E69B38E8];
     specific = dispatch_get_specific(*MEMORY[0x1E69B38E8]);
-    v22 = NUAssertLogger_12588();
-    v23 = os_log_type_enabled(v22, OS_LOG_TYPE_ERROR);
+    v25 = NUAssertLogger_12588();
+    v26 = os_log_type_enabled(v25, OS_LOG_TYPE_ERROR);
     if (specific)
     {
-      if (v23)
+      if (v26)
       {
-        v26 = dispatch_get_specific(*v20);
-        v27 = MEMORY[0x1E696AF00];
-        v28 = v26;
-        callStackSymbols = [v27 callStackSymbols];
-        v30 = [callStackSymbols componentsJoinedByString:@"\n"];
+        v29 = dispatch_get_specific(*v23);
+        v30 = MEMORY[0x1E696AF00];
+        v31 = v29;
+        callStackSymbols = [v30 callStackSymbols];
+        v33 = [callStackSymbols componentsJoinedByString:@"\n"];
         *buf = 138543618;
-        *&buf[4] = v26;
+        *&buf[4] = v29;
         *&buf[12] = 2114;
-        *&buf[14] = v30;
-        _os_log_error_impl(&dword_1C7694000, v22, OS_LOG_TYPE_ERROR, "job: %{public}@\nTrace:\n%{public}@", buf, 0x16u);
+        *&buf[14] = v33;
+        _os_log_error_impl(&dword_1C7694000, v25, OS_LOG_TYPE_ERROR, "job: %{public}@\nTrace:\n%{public}@", buf, 0x16u);
       }
     }
 
-    else if (v23)
+    else if (v26)
     {
       callStackSymbols2 = [MEMORY[0x1E696AF00] callStackSymbols];
-      v25 = [callStackSymbols2 componentsJoinedByString:@"\n"];
+      v28 = [callStackSymbols2 componentsJoinedByString:@"\n"];
       *buf = 138543362;
-      *&buf[4] = v25;
-      _os_log_error_impl(&dword_1C7694000, v22, OS_LOG_TYPE_ERROR, "Trace:\n%{public}@", buf, 0xCu);
+      *&buf[4] = v28;
+      _os_log_error_impl(&dword_1C7694000, v25, OS_LOG_TYPE_ERROR, "Trace:\n%{public}@", buf, 0xCu);
     }
 
     _NUAssertFailHandler();
@@ -380,22 +380,23 @@ LABEL_28:
   inputs = [(NURenderNode *)self inputs];
   v6 = [inputs objectForKeyedSubscript:@"primary"];
 
-  v31 = 0;
-  v7 = [v6 outputImageGeometry:&v31];
-  v8 = v31;
+  v34 = 0;
+  v7 = [v6 outputImageGeometry:&v34];
+  v8 = v34;
   if (v7)
   {
     orientation = [v7 orientation];
     renderScale = [v7 renderScale];
     v12 = v11;
-    [(PIAutoLoopFrameNode *)self videoScale];
+    videoScale = [(PIAutoLoopFrameNode *)self videoScale];
+    v15 = v14;
     settings = [(NURenderNode *)self settings];
-    v14 = PIAutoLoopRecipeComputeOutputGeometry(settings);
+    v17 = PIAutoLoopRecipeComputeOutputGeometry(settings, videoScale, v15);
 
-    v15 = objc_alloc(MEMORY[0x1E69B3B18]);
-    if (v14)
+    v18 = objc_alloc(MEMORY[0x1E69B3B18]);
+    if (v17)
     {
-      [v14 extent];
+      objc_msgSend_extent(v17);
     }
 
     else
@@ -403,16 +404,16 @@ LABEL_28:
       memset(buf, 0, 32);
     }
 
-    v16 = [v15 initWithExtent:buf renderScale:renderScale orientation:{v12, orientation}];
+    v19 = [v18 initWithExtent:buf renderScale:renderScale orientation:{v12, orientation}];
   }
 
   else
   {
     [MEMORY[0x1E69B3A48] errorWithCode:1 reason:@"Failed to get input geometry" object:self underlyingError:v8];
-    *geometry = v16 = 0;
+    *geometry = v19 = 0;
   }
 
-  return v16;
+  return v19;
 }
 
 - (id)_evaluateImageProperties:(id *)properties

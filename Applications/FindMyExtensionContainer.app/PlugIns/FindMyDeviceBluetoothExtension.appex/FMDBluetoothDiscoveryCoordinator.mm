@@ -58,8 +58,7 @@
 - (id)newDiscovery
 {
   v3 = objc_alloc_init(FMDBluetoothDiscoveryToken);
-  [(FMDBluetoothDiscoveryToken *)v3 setDelegate:self];
-  v4 = sub_100003BEC();
+  v4 = sub_100003BEC([(FMDBluetoothDiscoveryToken *)v3 setDelegate:self]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -73,7 +72,7 @@
 - (void)discoveryRequestedStop:(id)stop
 {
   stopCopy = stop;
-  v5 = sub_100003BEC();
+  v5 = sub_100003BEC(stopCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -99,7 +98,7 @@
 - (void)discoveryRequestedStart:(id)start
 {
   startCopy = start;
-  v5 = sub_100003BEC();
+  v5 = sub_100003BEC(startCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -125,7 +124,7 @@
 - (void)didEndDiscoveryWithError:(id)error
 {
   errorCopy = error;
-  v5 = sub_100003BEC();
+  v5 = sub_100003BEC(errorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -182,7 +181,7 @@
 
 - (void)scanningTimerFired
 {
-  v3 = sub_100003BEC();
+  v3 = sub_100003BEC(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_10000DE34(v3);
@@ -209,59 +208,60 @@
   if (v4)
   {
     activeTokens2 = [(FMDBluetoothDiscoveryCoordinator *)self activeTokens];
-    v6 = [activeTokens2 sortedArrayUsingComparator:&stru_10001D558];
+    v7 = [activeTokens2 sortedArrayUsingComparator:&stru_10001D558];
 
-    v7 = sub_100003BEC();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100003BEC(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = 138412290;
-      v25 = *&v6;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "FMDBluetoothDiscoveryCoordinator active tokens %@", &v24, 0xCu);
+      v29 = 138412290;
+      v30 = *&v7;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "FMDBluetoothDiscoveryCoordinator active tokens %@", &v29, 0xCu);
     }
 
-    firstObject = [v6 firstObject];
+    firstObject = [v7 firstObject];
     discoveryEndDate = [(FMDBluetoothDiscoveryCoordinator *)self discoveryEndDate];
     [discoveryEndDate timeIntervalSinceNow];
-    v11 = v10;
+    v13 = v12;
     endDate = [firstObject endDate];
     [endDate timeIntervalSinceNow];
-    v14 = v13;
+    v16 = v15;
 
-    v15 = sub_100003BEC();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v18 = sub_100003BEC(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = 138412290;
-      v25 = *&firstObject;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "FMDBluetoothDiscoveryCoordinator updating discovery with token %@", &v24, 0xCu);
+      v29 = 138412290;
+      v30 = *&firstObject;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "FMDBluetoothDiscoveryCoordinator updating discovery with token %@", &v29, 0xCu);
     }
 
-    if (v14 < 0.0 || v14 > 600.0)
+    if (v16 < 0.0 || v16 > 600.0)
     {
-      v22 = sub_100003BEC();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v27 = sub_100003BEC(v19);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
-        v24 = 138412290;
-        v25 = *&firstObject;
-        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "FMDBluetoothDiscoveryCoordinator discovery expired, stopping discovery %@", &v24, 0xCu);
+        v29 = 138412290;
+        v30 = *&firstObject;
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "FMDBluetoothDiscoveryCoordinator discovery expired, stopping discovery %@", &v29, 0xCu);
       }
 
       [(FMDBluetoothDiscoveryCoordinator *)self discoveryRequestedStop:firstObject];
     }
 
-    else if (v14 <= v11)
+    else if (v16 <= v13)
     {
-      v23 = sub_100003BEC();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v28 = sub_100003BEC(v19);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
-        v24 = 134217984;
-        v25 = v11;
-        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "FMDBluetoothDiscoveryCoordinator discovery already running %f", &v24, 0xCu);
+        v29 = 134217984;
+        v30 = v13;
+        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "FMDBluetoothDiscoveryCoordinator discovery already running %f", &v29, 0xCu);
       }
     }
 
     else
     {
-      if (![(FMDBluetoothDiscoveryCoordinator *)self isDiscoveryActive])
+      isDiscoveryActive = [(FMDBluetoothDiscoveryCoordinator *)self isDiscoveryActive];
+      if ((isDiscoveryActive & 1) == 0)
       {
         didStartDiscovery = [(FMDBluetoothDiscoveryCoordinator *)self didStartDiscovery];
 
@@ -272,15 +272,15 @@
         }
       }
 
-      v18 = sub_100003BEC();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v23 = sub_100003BEC(isDiscoveryActive);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        v24 = 134217984;
-        v25 = v14;
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "FMDBluetoothDiscoveryCoordinator discovery will run %f", &v24, 0xCu);
+        v29 = 134217984;
+        v30 = v16;
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "FMDBluetoothDiscoveryCoordinator discovery will run %f", &v29, 0xCu);
       }
 
-      [(FMDBluetoothDiscoveryCoordinator *)self startDiscoveryTimerWithDuration:v14];
+      [(FMDBluetoothDiscoveryCoordinator *)self startDiscoveryTimerWithDuration:v16];
       discovery = [(FMDBluetoothDiscoveryCoordinator *)self discovery];
       [discovery startDiscovery];
 
@@ -290,10 +290,10 @@
 
   else
   {
-    v20 = sub_100003BEC();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+    v25 = sub_100003BEC(v5);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
-      sub_10000DE78(v20);
+      sub_10000DE78(v25);
     }
 
     discovery2 = [(FMDBluetoothDiscoveryCoordinator *)self discovery];

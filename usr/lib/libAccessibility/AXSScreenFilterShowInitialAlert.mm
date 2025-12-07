@@ -3,7 +3,7 @@
 
 @implementation AXSScreenFilterShowInitialAlert
 
-uint64_t ___AXSScreenFilterShowInitialAlert_block_invoke()
+void *___AXSScreenFilterShowInitialAlert_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

@@ -7,7 +7,7 @@
 
 - (id)renderersWithRep:(id)rep
 {
-  sub_2764A0458(&qword_280A46378);
+  sub_2764A0458(&qword_280A46378, &qword_2764FC500);
   v5 = swift_allocObject();
   *(v5 + 16) = xmmword_2764FC4F0;
   v6 = objc_allocWithZone(TSCHChartGridRenderer);

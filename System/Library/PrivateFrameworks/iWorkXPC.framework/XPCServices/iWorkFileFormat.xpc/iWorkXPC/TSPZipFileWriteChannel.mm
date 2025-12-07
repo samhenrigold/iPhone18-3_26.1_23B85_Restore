@@ -86,10 +86,10 @@
       sub_100153C70();
     }
 
-    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Channel is closed", v13, v14, v15, v16, v17, v18, v19, "[TSPZipFileWriteChannel writeData:handler:]");
-    v20 = [NSString stringWithUTF8String:"[TSPZipFileWriteChannel writeData:handler:]"];
-    v21 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPZipFileWriteChannel.mm"];
-    [TSUAssertionHandler handleFailureInFunction:v20 file:v21 lineNumber:40 isFatal:1 description:"Channel is closed"];
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Channel is closed", "[TSPZipFileWriteChannel writeData:handler:]", "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPZipFileWriteChannel.mm", 40);
+    v13 = [NSString stringWithUTF8String:"[TSPZipFileWriteChannel writeData:handler:]"];
+    v14 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPZipFileWriteChannel.mm"];
+    [TSUAssertionHandler handleFailureInFunction:v13 file:v14 lineNumber:40 isFatal:1 description:"Channel is closed"];
 
     TSUCrashBreakpoint();
     abort();
@@ -107,14 +107,14 @@
 
   archiveWriter = self->_archiveWriter;
   writerQueue = self->_writerQueue;
-  v22[0] = _NSConcreteStackBlock;
-  v22[1] = 3221225472;
-  v22[2] = sub_100023F80;
-  v22[3] = &unk_1001C6D28;
+  v15[0] = _NSConcreteStackBlock;
+  v15[1] = 3221225472;
+  v15[2] = sub_100023F80;
+  v15[3] = &unk_1001C6D28;
   v12 = handlerCopy;
-  v23 = v12;
-  v24 = size;
-  [(TSUZipWriter *)archiveWriter addData:dataCopy queue:writerQueue completion:v22];
+  v16 = v12;
+  v17 = size;
+  [(TSUZipWriter *)archiveWriter addData:dataCopy queue:writerQueue completion:v15];
 }
 
 - (void)flushWithCompletion:(id)completion

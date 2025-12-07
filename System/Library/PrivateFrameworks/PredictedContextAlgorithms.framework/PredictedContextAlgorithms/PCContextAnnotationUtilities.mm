@@ -10,33 +10,33 @@
 
 + (id)groupedEventsFromEvents:(id)events propertyPath:(id)path
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   eventsCopy = events;
   pathCopy = path;
   if ([eventsCopy count])
   {
     v7 = objc_opt_new();
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    v19 = eventsCopy;
+    v18 = eventsCopy;
     v8 = eventsCopy;
-    v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v21;
+      v11 = *v20;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v21 != v11)
+          if (*v20 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v20 + 1) + 8 * i);
+          v13 = *(*(&v19 + 1) + 8 * i);
           v14 = [v13 valueForKey:pathCopy];
           if (v14)
           {
@@ -51,14 +51,14 @@
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v10);
     }
 
     v16 = [v7 copy];
-    eventsCopy = v19;
+    eventsCopy = v18;
   }
 
   else
@@ -66,44 +66,42 @@
     v16 = MEMORY[0x1E695E0F8];
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v16;
 }
 
 + (id)groupedEventsFromEvents:(id)events nestedPropertyPath:(id)path
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   eventsCopy = events;
   pathCopy = path;
   if ([eventsCopy count] && objc_msgSend(pathCopy, "count"))
   {
-    v31 = eventsCopy;
+    v30 = eventsCopy;
     v7 = objc_opt_new();
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
-    v30 = pathCopy;
+    v29 = pathCopy;
     v8 = pathCopy;
-    v9 = [v8 countByEnumeratingWithState:&v36 objects:v41 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v35 objects:v40 count:16];
     if (v9)
     {
       v10 = v9;
       v11 = 0;
-      v12 = *v37;
+      v12 = *v36;
       do
       {
         v13 = 0;
         v14 = v11;
         do
         {
-          if (*v37 != v12)
+          if (*v36 != v12)
           {
             objc_enumerationMutation(v8);
           }
 
-          v15 = *(*(&v36 + 1) + 8 * v13);
+          v15 = *(*(&v35 + 1) + 8 * v13);
           firstObject = [v8 firstObject];
           v17 = [v15 isEqual:firstObject];
 
@@ -124,7 +122,7 @@
         }
 
         while (v10 != v13);
-        v10 = [v8 countByEnumeratingWithState:&v36 objects:v41 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v35 objects:v40 count:16];
       }
 
       while (v10);
@@ -135,26 +133,26 @@
       v11 = 0;
     }
 
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
-    v20 = v31;
-    v21 = [v20 countByEnumeratingWithState:&v32 objects:v40 count:16];
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    v20 = v30;
+    v21 = [v20 countByEnumeratingWithState:&v31 objects:v39 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v33;
+      v23 = *v32;
       do
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v33 != v23)
+          if (*v32 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          v25 = *(*(&v32 + 1) + 8 * i);
+          v25 = *(*(&v31 + 1) + 8 * i);
           v26 = [v25 valueForKeyPath:v11];
           if (v26)
           {
@@ -169,15 +167,15 @@
           }
         }
 
-        v22 = [v20 countByEnumeratingWithState:&v32 objects:v40 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v31 objects:v39 count:16];
       }
 
       while (v22);
     }
 
     v19 = [v7 copy];
-    pathCopy = v30;
-    eventsCopy = v31;
+    pathCopy = v29;
+    eventsCopy = v30;
   }
 
   else
@@ -185,39 +183,37 @@
     v19 = MEMORY[0x1E695E0F8];
   }
 
-  v28 = *MEMORY[0x1E69E9840];
-
   return v19;
 }
 
 + (id)annotateEventBundle:(id)bundle visitEvents:(id)events
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   bundleCopy = bundle;
   eventsCopy = events;
   if ([eventsCopy count])
   {
     v7 = objc_opt_new();
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
     v8 = eventsCopy;
-    v9 = [v8 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v28;
+      v11 = *v27;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v28 != v11)
+          if (*v27 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v27 + 1) + 8 * i);
+          v13 = *(*(&v26 + 1) + 8 * i);
           if ([v13 category] == 1)
           {
             routineEvent = [v13 routineEvent];
@@ -247,7 +243,7 @@
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v10);
@@ -260,8 +256,6 @@
   {
     v24 = MEMORY[0x1E695E0F0];
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v24;
 }

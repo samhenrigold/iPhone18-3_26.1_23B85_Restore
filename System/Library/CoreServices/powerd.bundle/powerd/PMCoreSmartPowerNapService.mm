@@ -13,6 +13,7 @@
 - (void)setState:(unsigned __int8)state;
 - (void)syncStateWithHandler:(id)handler;
 - (void)unregisterWithIdentifier:(id)identifier;
+- (void)updateClientsWithState:(unsigned __int8)state;
 - (void)updateLockState:(unint64_t)state;
 @end
 
@@ -152,6 +153,74 @@
   selfCopy = self;
   v6 = identifierCopy;
   dispatch_async(mainQueue, v7);
+}
+
+- (void)updateClientsWithState:(unsigned __int8)state
+{
+  stateCopy = state;
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  clients = [(PMCoreSmartPowerNapService *)self clients];
+  v6 = [clients countByEnumeratingWithState:&v20 objects:v28 count:16];
+  if (v6)
+  {
+    v8 = v6;
+    v9 = *v21;
+    *&v7 = 138412290;
+    v19 = v7;
+    do
+    {
+      v10 = 0;
+      do
+      {
+        if (*v21 != v9)
+        {
+          objc_enumerationMutation(clients);
+        }
+
+        v11 = *(*(&v20 + 1) + 8 * v10);
+        clients2 = [(PMCoreSmartPowerNapService *)self clients];
+        v13 = [clients2 objectForKeyedSubscript:v11];
+
+        if (v13 && ([v13 connection], v14 = objc_claimAutoreleasedReturnValue(), v14, v14))
+        {
+          v15 = qword_1000AB9A8;
+          if (os_log_type_enabled(qword_1000AB9A8, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412546;
+            v25 = v11;
+            v26 = 1024;
+            v27 = stateCopy;
+            _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "CSPN: Update state for client %@ to %d", buf, 0x12u);
+          }
+
+          connection = [v13 connection];
+          v17 = [connection remoteObjectProxyWithErrorHandler:&stru_10009A578];
+          [v17 updateState:stateCopy];
+        }
+
+        else
+        {
+          v18 = qword_1000AB9A8;
+          if (os_log_type_enabled(qword_1000AB9A8, OS_LOG_TYPE_ERROR))
+          {
+            *buf = v19;
+            v25 = v11;
+            _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Connection not present for client %@", buf, 0xCu);
+          }
+        }
+
+        v10 = v10 + 1;
+      }
+
+      while (v8 != v10);
+      v8 = [clients countByEnumeratingWithState:&v20 objects:v28 count:16];
+    }
+
+    while (v8);
+  }
 }
 
 - (void)setState:(unsigned __int8)state

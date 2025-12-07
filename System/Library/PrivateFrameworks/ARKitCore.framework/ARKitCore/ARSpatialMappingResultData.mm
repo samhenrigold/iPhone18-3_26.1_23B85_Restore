@@ -4,7 +4,7 @@
 - (ARSpatialMappingResultData)initWithMeshList:(CV3DReconMeshList *)list sceneReconstruction:(unint64_t)reconstruction timestamp:(double)timestamp;
 - (id)anchorsForCameraWithTransform:(double)transform referenceOriginTransform:(double)originTransform existingAnchors:(double)anchors anchorsToRemove:(double)remove;
 - (id)anchorsFromMeshChunksForCameraWithTransform:(double)transform referenceOriginTransform:(double)originTransform existingAnchors:(double)anchors anchorsToRemove:(double)remove;
-- (id)anchorsFromMeshListForCameraWithTransform:(double)transform referenceOriginTransform:(double)originTransform existingAnchors:(double)anchors anchorsToRemove:(float32x4_t)remove;
+- (id)anchorsFromMeshListForCameraWithTransform:(double)transform referenceOriginTransform:(double)originTransform existingAnchors:(double)anchors anchorsToRemove:(__n128)remove;
 - (void)dealloc;
 - (void)updateSemanticsFromSamplingData:(__CFData *)data;
 @end
@@ -211,7 +211,7 @@
   return v18;
 }
 
-- (id)anchorsFromMeshListForCameraWithTransform:(double)transform referenceOriginTransform:(double)originTransform existingAnchors:(double)anchors anchorsToRemove:(float32x4_t)remove
+- (id)anchorsFromMeshListForCameraWithTransform:(double)transform referenceOriginTransform:(double)originTransform existingAnchors:(double)anchors anchorsToRemove:(__n128)remove
 {
   v65 = *MEMORY[0x1E69E9840];
   v50 = a11;
@@ -236,7 +236,7 @@
         }
 
         v18 = ARShouldUseLogTypeError(void)::internalOSVersion;
-        v19 = _ARLogGeneral();
+        v19 = _ARLogGeneral(MeshUUIDAtIndex);
         v20 = v19;
         if (v18 == 1)
         {
@@ -314,7 +314,7 @@
         }
 
         v26 = ARShouldUseLogTypeError(void)::internalOSVersion;
-        v27 = _ARLogGeneral();
+        v27 = _ARLogGeneral(v25);
         v20 = v27;
         if (v26 == 1)
         {

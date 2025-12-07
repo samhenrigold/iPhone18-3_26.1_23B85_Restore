@@ -1400,7 +1400,7 @@ LABEL_112:
     std::vector<unsigned int>::assign((v20 + 1832), v7, __u);
     v22 = *(v20 + 471);
     LOBYTE(__u[0]) = 1;
-    std::vector<BOOL>::assign(v20 + 232, v22, __u);
+    std::vector<BOOL>::assign(v20 + 1856, v22, __u);
     std::vector<std::unique_ptr<IR::IRProcessor>>::resize(v20 + 243, *(v20 + 471));
     v24 = *(v20 + 471);
     v25 = *(v20 + 241);

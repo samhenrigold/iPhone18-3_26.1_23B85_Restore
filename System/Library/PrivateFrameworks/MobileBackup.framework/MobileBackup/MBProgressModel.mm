@@ -85,10 +85,9 @@
       {
         v7 = remaining - obj->_bytesRemaining;
         *buf = 134217984;
-        v18 = v7;
+        v17 = v7;
         _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "Progress model bytes remaining underflow (%{bytes}llu)", buf, 0xCu);
-        v15 = remaining - obj->_bytesRemaining;
-        _MBLog();
+        _MBLog(@"Db", "Progress model bytes remaining underflow (%{bytes}llu)", remaining - obj->_bytesRemaining);
       }
 
       v4 = obj;
@@ -159,7 +158,7 @@ LABEL_17:
     v10 = 2048;
     countCopy = count;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "willTransfer: size:%llu, count:%ld", buf, 0x16u);
-    _MBLog();
+    _MBLog(@"Db", "willTransfer: size:%llu, count:%ld", v5, count);
   }
 
   objc_sync_exit(selfCopy);
@@ -180,7 +179,7 @@ LABEL_17:
     v9 = 2048;
     domainsCopy = domains;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "willScanDomains: size:%llu domainsToScan:%llu", buf, 0x16u);
-    _MBLog();
+    _MBLog(@"Db", "willScanDomains: size:%llu domainsToScan:%llu", v4, domains);
   }
 
   objc_sync_exit(selfCopy);
@@ -198,18 +197,15 @@ LABEL_17:
     itemsCompleted = selfCopy->_itemsCompleted;
     itemCount = selfCopy->_itemCount;
     *buf = 134218752;
-    v11 = 0x2000;
-    v12 = 2048;
-    v13 = bytesRemaining;
-    v14 = 2048;
-    v15 = itemsCompleted;
-    v16 = 2048;
-    v17 = itemCount;
+    v8 = 0x2000;
+    v9 = 2048;
+    v10 = bytesRemaining;
+    v11 = 2048;
+    v12 = itemsCompleted;
+    v13 = 2048;
+    v14 = itemCount;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "finishedScanningDomain, size:%llu, remaining:%lld, completed:%lld/%lld", buf, 0x2Au);
-    v8 = selfCopy->_itemsCompleted;
-    v9 = selfCopy->_itemCount;
-    v7 = selfCopy->_bytesRemaining;
-    _MBLog();
+    _MBLog(@"Db", "finishedScanningDomain, size:%llu, remaining:%lld, completed:%lld/%lld", 0x2000, selfCopy->_bytesRemaining, selfCopy->_itemsCompleted, selfCopy->_itemCount);
   }
 
   [(MBProgressModel *)selfCopy _subBytesRemaining:0x2000];
@@ -232,23 +228,20 @@ LABEL_17:
       itemsCompleted = selfCopy->_itemsCompleted;
       itemCount = selfCopy->_itemCount;
       *buf = 138413314;
-      v19 = itemID;
-      v20 = 2048;
+      v16 = itemID;
+      v17 = 2048;
       sizeCopy = size;
-      v22 = 2048;
-      v23 = bytesRemaining;
-      v24 = 2048;
-      v25 = itemsCompleted;
-      v26 = 2048;
-      v27 = itemCount;
+      v19 = 2048;
+      v20 = bytesRemaining;
+      v21 = 2048;
+      v22 = itemsCompleted;
+      v23 = 2048;
+      v24 = itemCount;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "finishedTransferringItem, fileID:%@, size:%llu, remaining:%lld, completed:%lld/%lld", buf, 0x34u);
     }
 
     itemID2 = [itemCopy itemID];
-    v16 = selfCopy->_itemsCompleted;
-    v17 = selfCopy->_itemCount;
-    v15 = selfCopy->_bytesRemaining;
-    _MBLog();
+    _MBLog(@"Db", "finishedTransferringItem, fileID:%@, size:%llu, remaining:%lld, completed:%lld/%lld", itemID2, size, selfCopy->_bytesRemaining, selfCopy->_itemsCompleted, selfCopy->_itemCount);
   }
 
   [(MBProgressModel *)selfCopy _subBytesRemaining:size];
@@ -272,23 +265,20 @@ LABEL_17:
       itemsCompleted = selfCopy->_itemsCompleted;
       itemCount = selfCopy->_itemCount;
       *buf = 138413314;
-      v17 = itemID;
-      v18 = 2048;
-      v19 = 0x2000;
-      v20 = 2048;
-      v21 = bytesRemaining;
-      v22 = 2048;
-      v23 = itemsCompleted;
-      v24 = 2048;
-      v25 = itemCount;
+      v14 = itemID;
+      v15 = 2048;
+      v16 = 0x2000;
+      v17 = 2048;
+      v18 = bytesRemaining;
+      v19 = 2048;
+      v20 = itemsCompleted;
+      v21 = 2048;
+      v22 = itemCount;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "finishedItem, itemID:%@, size:%llu, remaining:%lld, completed:%lld/%lld", buf, 0x34u);
     }
 
     itemID2 = [itemCopy itemID];
-    v14 = selfCopy->_itemsCompleted;
-    v15 = selfCopy->_itemCount;
-    v13 = selfCopy->_bytesRemaining;
-    _MBLog();
+    _MBLog(@"Db", "finishedItem, itemID:%@, size:%llu, remaining:%lld, completed:%lld/%lld", itemID2, 0x2000, selfCopy->_bytesRemaining, selfCopy->_itemsCompleted, selfCopy->_itemCount);
   }
 
   [(MBProgressModel *)selfCopy _subBytesRemaining:0x2000];
@@ -313,23 +303,20 @@ LABEL_17:
       itemsCompleted = selfCopy->_itemsCompleted;
       itemCount = selfCopy->_itemCount;
       *buf = 138413314;
-      v20 = itemID;
-      v21 = 2048;
-      v22 = v9;
-      v23 = 2048;
-      v24 = bytesRemaining;
-      v25 = 2048;
-      v26 = itemsCompleted;
-      v27 = 2048;
-      v28 = itemCount;
+      v17 = itemID;
+      v18 = 2048;
+      v19 = v9;
+      v20 = 2048;
+      v21 = bytesRemaining;
+      v22 = 2048;
+      v23 = itemsCompleted;
+      v24 = 2048;
+      v25 = itemCount;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "finishedItem, itemID:%@, size:%llu, remaining:%lld, completed:%lld/%lld", buf, 0x34u);
     }
 
     itemID2 = [itemCopy itemID];
-    v17 = selfCopy->_itemsCompleted;
-    v18 = selfCopy->_itemCount;
-    v16 = selfCopy->_bytesRemaining;
-    _MBLog();
+    _MBLog(@"Db", "finishedItem, itemID:%@, size:%llu, remaining:%lld, completed:%lld/%lld", itemID2, v9, selfCopy->_bytesRemaining, selfCopy->_itemsCompleted, selfCopy->_itemCount);
   }
 
   [(MBProgressModel *)selfCopy _subBytesRemaining:v9];
@@ -370,12 +357,11 @@ LABEL_17:
         *buf = 134217984;
         progressCopy = progress;
         _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Negative progress update (%0.3f)", buf, 0xCu);
-        progressCopy2 = progress;
-        _MBLog();
+        _MBLog(@"Df", "Negative progress update (%0.3f)", progress);
       }
     }
 
-    [itemCopy setProgress:{progress, *&progressCopy2}];
+    [itemCopy setProgress:progress];
   }
 
   objc_sync_exit(selfCopy);
@@ -410,7 +396,7 @@ LABEL_17:
         *buf = 134217984;
         progressCopy = progress;
         _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Negative progress update (%0.3f)", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"Df", "Negative progress update (%0.3f)", progress);
       }
     }
   }
@@ -457,13 +443,11 @@ LABEL_17:
     bytesProgress = selfCopy->_bytesProgress;
     maxBytesProgress = selfCopy->_maxBytesProgress;
     *buf = 134218240;
-    v9 = bytesProgress;
-    v10 = 2048;
-    v11 = maxBytesProgress;
+    v7 = bytesProgress;
+    v8 = 2048;
+    v9 = maxBytesProgress;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Bytes Progress is %lf. Max Bytes Progress is now %lf", buf, 0x16u);
-    v6 = selfCopy->_bytesProgress;
-    v7 = selfCopy->_maxBytesProgress;
-    _MBLog();
+    _MBLog(@"I ", "Bytes Progress is %lf. Max Bytes Progress is now %lf", selfCopy->_bytesProgress, selfCopy->_maxBytesProgress);
   }
 
   sub_1000EEF54(selfCopy);
@@ -489,10 +473,9 @@ LABEL_17:
       {
         v6 = selfCopy->_bytesRemaining;
         *buf = 134217984;
-        v12 = v6;
+        v11 = v6;
         _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Progress model ended with %{bytes}llu remaining", buf, 0xCu);
-        v10 = selfCopy->_bytesRemaining;
-        _MBLog();
+        _MBLog(@"I ", "Progress model ended with %{bytes}llu remaining", selfCopy->_bytesRemaining);
       }
     }
 
@@ -503,10 +486,9 @@ LABEL_17:
       {
         v5 = selfCopy->_bytesRemaining;
         *buf = 134217984;
-        v12 = v5;
+        v11 = v5;
         _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Progress model ended with %{bytes}llu remaining", buf, 0xCu);
-        v10 = selfCopy->_bytesRemaining;
-        _MBLog();
+        _MBLog(@"Df", "Progress model ended with %{bytes}llu remaining", selfCopy->_bytesRemaining);
       }
     }
   }
@@ -574,12 +556,9 @@ LABEL_17:
 
 - (NSString)description
 {
-  v3 = [NSString alloc];
-  v4 = objc_opt_class();
-  bytesProgress = self->_bytesProgress;
-  v6 = [v3 initWithFormat:@"<%@: combinedProgress=%0.3f, byteProgress=%0.3f, itemProgress=%0.2f, bytesRemaining=%llu, completed:%lld/%lld>", v4, *&self->_combinedProgress, *&bytesProgress, *&self->_itemProgress, self->_bytesRemaining, self->_itemsCompleted, self->_itemCount];
+  v2 = [[NSString alloc] initWithFormat:@"<%@: combinedProgress=%0.3f, byteProgress=%0.3f, itemProgress=%0.2f, bytesRemaining=%llu, completed:%lld/%lld>", objc_opt_class(), *&self->_combinedProgress, *&self->_bytesProgress, *&self->_itemProgress, self->_bytesRemaining, self->_itemsCompleted, self->_itemCount];
 
-  return v6;
+  return v2;
 }
 
 - (void)record:(id)record madeProgress:(double)progress previousProgress:(double)previousProgress assetSize:(int64_t)size recordSize:(int64_t)recordSize
@@ -595,27 +574,23 @@ LABEL_17:
       recordName = [recordID recordName];
       *buf = 134219010;
       previousProgressCopy = previousProgress;
-      v25 = 2048;
+      v21 = 2048;
       progressCopy = progress;
-      v27 = 2112;
-      v28 = recordName;
-      v29 = 2112;
-      v30 = v13;
-      v31 = 2048;
+      v23 = 2112;
+      v24 = recordName;
+      v25 = 2112;
+      v26 = v13;
+      v27 = 2048;
       recordSizeCopy = recordSize;
       _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "=upload assets= Received progress update from %.2f to %.2f for %@ with assetSize %@ recordSize %llu", buf, 0x34u);
 
       recordID2 = [recordCopy recordID];
-      [recordID2 recordName];
-      v21 = v13;
-      v20 = v22 = recordSize;
-      previousProgressCopy2 = previousProgress;
-      progressCopy2 = progress;
-      _MBLog();
+      recordName2 = [recordID2 recordName];
+      _MBLog(@"I ", "=upload assets= Received progress update from %.2f to %.2f for %@ with assetSize %@ recordSize %llu", *&previousProgress, *&progress, recordName2, v13, recordSize);
     }
   }
 
-  [(MBProgressModel *)self updatingProgress:size previousProgress:progress size:previousProgress, *&previousProgressCopy2, *&progressCopy2, v20, v21, v22];
+  [(MBProgressModel *)self updatingProgress:size previousProgress:progress size:previousProgress];
 }
 
 @end

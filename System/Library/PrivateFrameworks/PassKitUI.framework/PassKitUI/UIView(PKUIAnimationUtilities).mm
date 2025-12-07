@@ -292,84 +292,56 @@
   if (a4)
   {
     mEMORY[0x1E69B92B0] = [MEMORY[0x1E69B92B0] sharedDefaultFactory];
-    v7 = a3[5];
-    v19 = a3[4];
-    v20 = v7;
-    v8 = a3[7];
-    v21 = a3[6];
-    v22 = v8;
-    v9 = a3[1];
-    v15 = *a3;
-    v16 = v9;
-    v10 = a3[3];
-    v17 = a3[2];
-    v18 = v10;
-    [self pkui_setTransform:&v15 withAdditiveAnimationFactory:mEMORY[0x1E69B92B0] completion:0];
+    objc_msgSend_pkui_setTransform_withAdditiveAnimationFactory_completion_(self, *a3, *(a3 + 1), *(a3 + 2), *(a3 + 3), *(a3 + 4), *(a3 + 5), *(a3 + 6), *(a3 + 7), *(a3 + 8), *(a3 + 9), *(a3 + 10), *(a3 + 11), *(a3 + 12), *(a3 + 13), *(a3 + 14), *(a3 + 15));
   }
 
   else
   {
-    v11 = a3[5];
-    v19 = a3[4];
-    v20 = v11;
-    v12 = a3[7];
-    v21 = a3[6];
-    v22 = v12;
-    v13 = a3[1];
-    v15 = *a3;
-    v16 = v13;
-    v14 = a3[3];
-    v17 = a3[2];
-    v18 = v14;
-    [self pkui_setTransform:&v15 withAdditiveAnimationFactory:0 completion:0];
+    v8 = a3[5];
+    v12[4] = a3[4];
+    v12[5] = v8;
+    v9 = a3[7];
+    v12[6] = a3[6];
+    v12[7] = v9;
+    v10 = a3[1];
+    v12[0] = *a3;
+    v12[1] = v10;
+    v11 = a3[3];
+    v12[2] = a3[2];
+    v12[3] = v11;
+    objc_msgSend_pkui_setTransform_withAdditiveAnimationFactory_completion_(self, a2, v12, 0, 0);
   }
 }
 
 - (void)pkui_setTransform:()PKUIAnimationUtilities animated:withCompletion:
 {
-  if (a4)
+  if (a3)
   {
     v7 = MEMORY[0x1E69B92B0];
-    v8 = a5;
+    v8 = a4;
     sharedDefaultFactory = [v7 sharedDefaultFactory];
-    v10 = a3[5];
-    v23 = a3[4];
-    v24 = v10;
-    v11 = a3[7];
-    v25 = a3[6];
-    v26 = v11;
-    v12 = a3[1];
-    v19 = *a3;
-    v20 = v12;
-    v13 = a3[3];
-    v21 = a3[2];
-    v22 = v13;
-    [self pkui_setTransform:&v19 withAdditiveAnimationFactory:sharedDefaultFactory completion:v8];
+    objc_msgSend_pkui_setTransform_withAdditiveAnimationFactory_completion_(self, *a2, *(a2 + 1), *(a2 + 2), *(a2 + 3), *(a2 + 4), *(a2 + 5), *(a2 + 6), *(a2 + 7), *(a2 + 8), *(a2 + 9), *(a2 + 10), *(a2 + 11), *(a2 + 12), *(a2 + 13), *(a2 + 14), *(a2 + 15));
   }
 
   else
   {
-    v14 = a3[5];
-    v23 = a3[4];
-    v24 = v14;
-    v15 = a3[7];
-    v25 = a3[6];
-    v26 = v15;
-    v16 = a3[1];
-    v19 = *a3;
-    v20 = v16;
-    v17 = a3[3];
-    v21 = a3[2];
-    v22 = v17;
-    v18 = a5;
-    [self pkui_setTransform:&v19 withAdditiveAnimationFactory:0 completion:v18];
+    v15 = a2[4];
+    v16 = a2[5];
+    v17 = a2[6];
+    v18 = a2[7];
+    v11 = *a2;
+    v12 = a2[1];
+    v13 = a2[2];
+    v14 = a2[3];
+    v10 = a4;
+    objc_msgSend_pkui_setTransform_withAdditiveAnimationFactory_completion_(self, v11, v12, v13, v14, v15, v16, v17, v18);
   }
 }
 
 - (void)pkui_setTransform:()PKUIAnimationUtilities withAdditiveAnimationFactory:completion:
 {
-  v9 = a4;
-  v21 = 0;
+  v8 = a4;
+  v26 = 0;
   *a5 = 0u;
   a5[1] = 0u;
   a5[2] = 0u;
@@ -378,49 +350,39 @@
   a5[5] = 0u;
   a5[6] = 0u;
   a5[7] = 0u;
-  if (a3)
+  v9 = a2[5];
+  v22 = a2[4];
+  v23 = v9;
+  v10 = a2[7];
+  v24 = a2[6];
+  v25 = v10;
+  v11 = a2[1];
+  v18 = *a2;
+  v19 = v11;
+  v12 = a2[3];
+  v20 = a2[2];
+  v21 = v12;
+  objc_msgSend_pkui_setTransform_withAdditiveAnimationFactory_animation_(self);
+  v13 = v26;
+  if (v26)
   {
-    v10 = &v21;
-  }
-
-  else
-  {
-    v10 = 0;
-  }
-
-  v11 = a2[5];
-  v20[4] = a2[4];
-  v20[5] = v11;
-  v12 = a2[7];
-  v20[6] = a2[6];
-  v20[7] = v12;
-  v13 = a2[1];
-  v20[0] = *a2;
-  v20[1] = v13;
-  v14 = a2[3];
-  v20[2] = a2[2];
-  v20[3] = v14;
-  [self pkui_setTransform:v20 withAdditiveAnimationFactory:a3 animation:v10];
-  v15 = v21;
-  if (v21)
-  {
-    if (v9)
+    if (v8)
     {
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = __92__UIView_PKUIAnimationUtilities__pkui_setTransform_withAdditiveAnimationFactory_completion___block_invoke;
-      v18[3] = &unk_1E8010AD8;
-      v19 = v9;
-      [v15 pkui_setCompletionHandler:v18];
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = __92__UIView_PKUIAnimationUtilities__pkui_setTransform_withAdditiveAnimationFactory_completion___block_invoke;
+      v16[3] = &unk_1E8010AD8;
+      v17 = v8;
+      [v13 pkui_setCompletionHandler:v16];
     }
 
     layer = [self layer];
-    v17 = [layer pkui_addAdditiveAnimation:v21];
+    v15 = [layer pkui_addAdditiveAnimation:v26];
   }
 
-  else if (v9)
+  else if (v8)
   {
-    (*(v9 + 2))(v9, 1);
+    (*(v8 + 2))(v8, 1);
   }
 }
 
@@ -1111,7 +1073,7 @@ LABEL_10:
   a5[5] = 0u;
   a5[6] = 0u;
   a5[7] = 0u;
-  [self transform3D];
+  objc_msgSend_transform3D(self);
   v10 = a5[5];
   *&a.m31 = a5[4];
   *&a.m33 = v10;
@@ -1205,8 +1167,7 @@ LABEL_7:
 
 - (void)pkui_setTransform:()PKUIAnimationUtilities withAdditiveAnimationFactory:accumulator:
 {
-  v9 = a4;
-  v16 = 0;
+  v8 = a4;
   *a5 = 0u;
   a5[1] = 0u;
   a5[2] = 0u;
@@ -1215,33 +1176,7 @@ LABEL_7:
   a5[5] = 0u;
   a5[6] = 0u;
   a5[7] = 0u;
-  if (a3)
-  {
-    v10 = &v16;
-  }
-
-  else
-  {
-    v10 = 0;
-  }
-
-  v11 = a2[5];
-  v15[4] = a2[4];
-  v15[5] = v11;
-  v12 = a2[7];
-  v15[6] = a2[6];
-  v15[7] = v12;
-  v13 = a2[1];
-  v15[0] = *a2;
-  v15[1] = v13;
-  v14 = a2[3];
-  v15[2] = a2[2];
-  v15[3] = v14;
-  [self pkui_setTransform:v15 withAdditiveAnimationFactory:a3 animation:v10];
-  if (v16)
-  {
-    [v9 addObject:?];
-  }
+  objc_msgSend_pkui_setTransform_withAdditiveAnimationFactory_animation_(self, *a2, *(a2 + 1), *(a2 + 2), *(a2 + 3), *(a2 + 4), *(a2 + 5), *(a2 + 6), *(a2 + 7), *(a2 + 8), *(a2 + 9), *(a2 + 10), *(a2 + 11), *(a2 + 12), *(a2 + 13), *(a2 + 14), *(a2 + 15));
 }
 
 - (double)pkui_setAlpha:()PKUIAnimationUtilities withAnimationFactory:animation:removePriorAnimation:

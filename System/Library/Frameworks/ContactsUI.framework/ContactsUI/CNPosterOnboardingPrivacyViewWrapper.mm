@@ -44,9 +44,9 @@
 - (_TtC10ContactsUI36CNPosterOnboardingPrivacyViewWrapper)initWithDelegate:(id)delegate
 {
   swift_unknownObjectRetain();
-  v3 = sub_199A9D0F8();
+  v4 = sub_199A9D0F8(delegate);
   swift_unknownObjectRelease();
-  return v3;
+  return v4;
 }
 
 - (_TtC10ContactsUI36CNPosterOnboardingPrivacyViewWrapper)init

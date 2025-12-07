@@ -33,15 +33,15 @@
 {
   dCopy = d;
   self->_baseTableUID = d;
-  self->_ownerUID._lower = sub_2212C4930(&dCopy, 0xC, d._lower, d._upper, v3);
-  self->_ownerUID._upper = v5;
+  self->_ownerUID._lower = sub_2212C4930(&dCopy, 0xC, d._lower, d._upper);
+  self->_ownerUID._upper = v4;
 }
 
 - (TSCESpillOwner)initWithBaseTableUID:(const TSKUIDStruct *)d
 {
-  v10[0] = sub_2212C4930(d, 0xC, d, v3, v4);
-  v10[1] = v7;
-  return objc_msgSend_initWithBaseTableUID_ownerUID_(self, v7, d, v10, v8);
+  v8[0] = sub_2212C4930(d, 0xC, d, v3);
+  v8[1] = v6;
+  return objc_msgSend_initWithBaseTableUID_ownerUID_(self, v6, d, v8);
 }
 
 - (void)setCalcEngine:(id)engine
@@ -50,7 +50,7 @@
   if (!self->_calcEngine)
   {
     objc_storeStrong(&self->_calcEngine, engine);
-    objc_msgSend_registerWithCalcEngine_(self, v5, self->_calcEngine, v6, v7);
+    objc_msgSend_registerWithCalcEngine_(self, v5, self->_calcEngine, v6);
   }
 }
 
@@ -65,10 +65,10 @@
 
 + (TSCECellRef)spillChangedPrecedentForTableUID:(SEL)d spillOrigin:(const TSKUIDStruct *)origin
 {
-  result = sub_2212C4930(origin, 0xC, origin, a5, v5);
+  result = sub_2212C4930(origin, 0xC, origin, a5);
   retstr->coordinate = *a5;
   retstr->_tableUID._lower = result;
-  retstr->_tableUID._upper = v9;
+  retstr->_tableUID._upper = v8;
   return result;
 }
 
@@ -84,9 +84,9 @@
     v7 = MEMORY[0x277D809E0];
   }
 
-  v11[0] = TSKUIDStruct::loadFromMessage(v7, a2);
-  v11[1] = v8;
-  return objc_msgSend_initWithBaseTableUID_ownerUID_(self, v8, d, v11, v9);
+  v10[0] = TSKUIDStruct::loadFromMessage(v7, a2);
+  v10[1] = v8;
+  return objc_msgSend_initWithBaseTableUID_ownerUID_(self, v8, d, v10);
 }
 
 - (void)saveToArchive:(void *)archive archiver:(id)archiver
@@ -122,7 +122,7 @@
 
 - (void)unregisterFromCalcEngine
 {
-  objc_msgSend_unregisterOwner_(self->_calcEngine, a2, self->_ownerUID._lower, self->_ownerUID._upper, v2);
+  objc_msgSend_unregisterOwner_(self->_calcEngine, a2, self->_ownerUID._lower, self->_ownerUID._upper);
   calcEngine = self->_calcEngine;
   self->_calcEngine = 0;
 }

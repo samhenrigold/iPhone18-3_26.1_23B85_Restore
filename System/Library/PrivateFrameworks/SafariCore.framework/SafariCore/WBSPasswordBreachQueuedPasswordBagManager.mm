@@ -2,6 +2,7 @@
 - (NSDictionary)allNonbreachedPasswords;
 - (WBSPasswordBreachQueuedPasswordBagManager)initWithContext:(id)context results:(id)results passwordSource:(id)source;
 - (id)_constructBagOnInternalQueueWithCredentials:(id)credentials ensureFakePasswordGeneration:(BOOL)generation;
+- (id)_constructNewBagOnInternalQueueEnsuringFakePasswordGeneration:(BOOL)generation;
 - (id)_dictionaryRepresentation;
 - (id)_passwordBagFromDictionaryRepresentation:(id)representation;
 - (id)_unbreachedCredentials;
@@ -57,27 +58,28 @@ void __84__WBSPasswordBreachQueuedPasswordBagManager_initWithContext_results_pas
   v7 = *(v6 + 32);
   *(v6 + 32) = v5;
 
-  if ([*(*(a1 + 32) + 32) count])
+  v8 = [*(*(a1 + 32) + 32) count];
+  if (v8)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v10 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      *v13 = 0;
-      _os_log_impl(&dword_1B8447000, v8, OS_LOG_TYPE_INFO, "Restored password bag.", v13, 2u);
+      *v16 = 0;
+      _os_log_impl(&dword_1B8447000, v10, OS_LOG_TYPE_INFO, "Restored password bag.", v16, 2u);
     }
   }
 
   else
   {
-    v9 = [*(a1 + 32) _constructNewBagOnInternalQueueEnsuringFakePasswordGeneration:0];
-    v10 = *(a1 + 32);
-    v11 = *(v10 + 32);
-    *(v10 + 32) = v9;
+    v11 = [*(a1 + 32) _constructNewBagOnInternalQueueEnsuringFakePasswordGeneration:0];
+    v12 = *(a1 + 32);
+    v13 = *(v12 + 32);
+    *(v12 + 32) = v11;
 
     if (![*(*(a1 + 32) + 32) count])
     {
-      v12 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v15 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(0, v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         __84__WBSPasswordBreachQueuedPasswordBagManager_initWithContext_results_passwordSource___block_invoke_cold_1();
       }
@@ -88,57 +90,57 @@ void __84__WBSPasswordBreachQueuedPasswordBagManager_initWithContext_results_pas
 - (id)_passwordBagFromDictionaryRepresentation:(id)representation
 {
   representationCopy = representation;
-  v5 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(representationCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1B8447000, v5, OS_LOG_TYPE_INFO, "Trying to restore password bag from persisted state.", buf, 2u);
+    _os_log_impl(&dword_1B8447000, v6, OS_LOG_TYPE_INFO, "Trying to restore password bag from persisted state.", buf, 2u);
   }
 
-  v6 = [representationCopy safari_numberForKey:@"FillState"];
-  v7 = v6;
-  if (v6)
+  v7 = [representationCopy safari_numberForKey:@"FillState"];
+  v9 = v7;
+  if (v7)
   {
-    self->_fillState = [v6 integerValue];
-    v8 = [representationCopy safari_arrayContainingObjectsOfClass:objc_opt_class() forKey:@"PersistentIdentifiers"];
-    if ([v8 count])
+    self->_fillState = [v7 integerValue];
+    v10 = [representationCopy safari_arrayContainingObjectsOfClass:objc_opt_class() forKey:@"PersistentIdentifiers"];
+    if ([v10 count])
     {
-      v9 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v8];
+      v12 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v10];
       _unbreachedCredentials = [(WBSPasswordBreachQueuedPasswordBagManager *)self _unbreachedCredentials];
-      v17[0] = MEMORY[0x1E69E9820];
-      v17[1] = 3221225472;
-      v17[2] = __86__WBSPasswordBreachQueuedPasswordBagManager__passwordBagFromDictionaryRepresentation___block_invoke;
-      v17[3] = &unk_1E7CF3210;
-      v18 = v9;
-      v11 = v9;
-      v12 = [_unbreachedCredentials safari_filterObjectsUsingBlock:v17];
-      v13 = [(WBSPasswordBreachQueuedPasswordBagManager *)self _constructBagOnInternalQueueWithCredentials:v12 ensureFakePasswordGeneration:0];
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __86__WBSPasswordBreachQueuedPasswordBagManager__passwordBagFromDictionaryRepresentation___block_invoke;
+      v20[3] = &unk_1E7CF3210;
+      v21 = v12;
+      v14 = v12;
+      v15 = [_unbreachedCredentials safari_filterObjectsUsingBlock:v20];
+      v16 = [(WBSPasswordBreachQueuedPasswordBagManager *)self _constructBagOnInternalQueueWithCredentials:v15 ensureFakePasswordGeneration:0];
     }
 
     else
     {
-      v15 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v18 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(0, v11);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         [WBSPasswordBreachQueuedPasswordBagManager _passwordBagFromDictionaryRepresentation:];
       }
 
-      v13 = 0;
+      v16 = 0;
     }
   }
 
   else
   {
-    v14 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v17 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(0, v8);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       [WBSPasswordBreachQueuedPasswordBagManager _passwordBagFromDictionaryRepresentation:];
     }
 
-    v13 = 0;
+    v16 = 0;
   }
 
-  return v13;
+  return v16;
 }
 
 uint64_t __86__WBSPasswordBreachQueuedPasswordBagManager__passwordBagFromDictionaryRepresentation___block_invoke(uint64_t a1, void *a2)
@@ -152,50 +154,48 @@ uint64_t __86__WBSPasswordBreachQueuedPasswordBagManager__passwordBagFromDiction
 
 - (id)_unbreachedCredentials
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   credentials = [(WBSPasswordBreachCredentialSource *)self->_credentialSource credentials];
   v4 = [credentials safari_mapObjectsUsingBlock:&__block_literal_global_40];
   v5 = [(WBSPasswordBreachResults *)self->_results resultRecordsForQueries:v4];
   v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v21;
+    v10 = *v20;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * i);
+        v12 = *(*(&v19 + 1) + 8 * i);
         persistentIdentifier = [v12 persistentIdentifier];
         [v6 setObject:v12 forKeyedSubscript:persistentIdentifier];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v9);
   }
 
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __67__WBSPasswordBreachQueuedPasswordBagManager__unbreachedCredentials__block_invoke_2;
-  v18[3] = &unk_1E7CF3210;
-  v19 = v6;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __67__WBSPasswordBreachQueuedPasswordBagManager__unbreachedCredentials__block_invoke_2;
+  v17[3] = &unk_1E7CF3210;
+  v18 = v6;
   v14 = v6;
-  v15 = [credentials safari_filterObjectsUsingBlock:v18];
-
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = [credentials safari_filterObjectsUsingBlock:v17];
 
   return v15;
 }
@@ -231,36 +231,69 @@ BOOL __67__WBSPasswordBreachQueuedPasswordBagManager__unbreachedCredentials__blo
   return v5;
 }
 
+- (id)_constructNewBagOnInternalQueueEnsuringFakePasswordGeneration:(BOOL)generation
+{
+  generationCopy = generation;
+  v5 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(self, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  {
+    [WBSPasswordBreachQueuedPasswordBagManager _constructNewBagOnInternalQueueEnsuringFakePasswordGeneration:];
+  }
+
+  fillState = self->_fillState;
+  if (fillState)
+  {
+    if (fillState != 1)
+    {
+      goto LABEL_8;
+    }
+
+    v7 = 2;
+  }
+
+  else
+  {
+    v7 = 1;
+  }
+
+  self->_fillState = v7;
+LABEL_8:
+  _unbreachedCredentials = [(WBSPasswordBreachQueuedPasswordBagManager *)self _unbreachedCredentials];
+  v9 = [(WBSPasswordBreachQueuedPasswordBagManager *)self _constructBagOnInternalQueueWithCredentials:_unbreachedCredentials ensureFakePasswordGeneration:generationCopy];
+
+  return v9;
+}
+
 - (id)_constructBagOnInternalQueueWithCredentials:(id)credentials ensureFakePasswordGeneration:(BOOL)generation
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v5 = [MEMORY[0x1E695DF20] safari_dictionaryWithObjectsInFastEnumerationCollection:credentials groupedUsingBlock:&__block_literal_global_14_0];
   v6 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v5, "count")}];
-  v32 = 0u;
-  v33 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   allValues = [v5 allValues];
-  v8 = [allValues countByEnumeratingWithState:&v32 objects:v38 count:16];
+  v8 = [allValues countByEnumeratingWithState:&v35 objects:v41 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v33;
+    v10 = *v36;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v33 != v10)
+        if (*v36 != v10)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v12 = [[WBSPasswordBreachQueuedPassword alloc] initWithCredentials:*(*(&v32 + 1) + 8 * i) context:self->_context];
+        v12 = [[WBSPasswordBreachQueuedPassword alloc] initWithCredentials:*(*(&v35 + 1) + 8 * i) context:self->_context];
         uuid = [(WBSPasswordBreachQueuedPassword *)v12 uuid];
         [v6 setObject:v12 forKeyedSubscript:uuid];
       }
 
-      v9 = [allValues countByEnumeratingWithState:&v32 objects:v38 count:16];
+      v9 = [allValues countByEnumeratingWithState:&v35 objects:v41 count:16];
     }
 
     while (v9);
@@ -272,8 +305,8 @@ BOOL __67__WBSPasswordBreachQueuedPasswordBagManager__unbreachedCredentials__blo
   v17 = [v6 count];
   if (!generation && !v17)
   {
-    v18 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v19 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(0, v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
       [WBSPasswordBreachQueuedPasswordBagManager _constructBagOnInternalQueueWithCredentials:ensureFakePasswordGeneration:];
     }
@@ -281,12 +314,12 @@ BOOL __67__WBSPasswordBreachQueuedPasswordBagManager__unbreachedCredentials__blo
     goto LABEL_19;
   }
 
-  v19 = numberOfBatchesPerSession * passwordCheckBatchSize >= v17;
-  v20 = numberOfBatchesPerSession * passwordCheckBatchSize - v17;
-  if (v20 == 0 || !v19)
+  v20 = numberOfBatchesPerSession * passwordCheckBatchSize >= v17;
+  v21 = numberOfBatchesPerSession * passwordCheckBatchSize - v17;
+  if (v21 == 0 || !v20)
   {
 LABEL_19:
-    v27 = v6;
+    v31 = v6;
     goto LABEL_20;
   }
 
@@ -295,45 +328,43 @@ LABEL_19:
 
   if (verboseSensitiveLoggingEnabled)
   {
-    v23 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+    v26 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v24, v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134545665;
-      v37 = v20;
-      _os_log_debug_impl(&dword_1B8447000, v23, OS_LOG_TYPE_DEBUG, "Adding %{sensitive}lu generated passwords to the bag.", buf, 0xCu);
+      v40 = v21;
+      _os_log_debug_impl(&dword_1B8447000, v26, OS_LOG_TYPE_DEBUG, "Adding %{sensitive}lu generated passwords to the bag.", buf, 0xCu);
     }
   }
 
   while (1)
   {
-    v24 = [[WBSPasswordBreachQueuedPassword alloc] initFakePasswordWithContext:self->_context];
-    if (!v24)
+    v27 = [[WBSPasswordBreachQueuedPassword alloc] initFakePasswordWithContext:self->_context];
+    if (!v27)
     {
       break;
     }
 
-    v25 = v24;
-    uuid2 = [v24 uuid];
-    [v6 setObject:v25 forKeyedSubscript:uuid2];
+    v29 = v27;
+    uuid2 = [v27 uuid];
+    [v6 setObject:v29 forKeyedSubscript:uuid2];
 
-    if (!--v20)
+    if (!--v21)
     {
       goto LABEL_19;
     }
   }
 
-  v30 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
+  v33 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(0, v28);
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
   {
     [WBSPasswordBreachQueuedPasswordBagManager _constructBagOnInternalQueueWithCredentials:ensureFakePasswordGeneration:];
   }
 
-  v27 = 0;
+  v31 = 0;
 LABEL_20:
 
-  v28 = *MEMORY[0x1E69E9840];
-
-  return v27;
+  return v31;
 }
 
 void *__118__WBSPasswordBreachQueuedPasswordBagManager__constructBagOnInternalQueueWithCredentials_ensureFakePasswordGeneration___block_invoke(uint64_t a1, void *a2)
@@ -379,7 +410,7 @@ void *__118__WBSPasswordBreachQueuedPasswordBagManager__constructBagOnInternalQu
 void __91__WBSPasswordBreachQueuedPasswordBagManager_getPasswordsForNextBatchWithCompletionHandler___block_invoke(uint64_t a1)
 {
   v1 = a1;
-  v68 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 8) configuration];
   v3 = [v2 passwordCheckBatchSize];
 
@@ -393,37 +424,38 @@ void __91__WBSPasswordBreachQueuedPasswordBagManager_getPasswordsForNextBatchWit
     if (!v3)
     {
 LABEL_40:
-      v13 = v6;
+      v15 = v6;
       goto LABEL_41;
     }
 
-    v8 = 0;
-    v44 = v7;
-    v45 = v4;
-    v43 = v3;
+    v9 = 0;
+    v50 = v7;
+    v51 = v4;
+    v49 = v3;
 LABEL_4:
-    v9 = arc4random();
-    v10 = v9 % [v6 count];
-    v11 = [v6 objectAtIndexedSubscript:v10];
-    v12 = [*(*(v1 + 32) + 32) objectForKeyedSubscript:v11];
-    [v4 addObject:v12];
-    [v6 removeObjectAtIndex:v10];
+    v10 = arc4random();
+    v11 = v10 % [v6 count];
+    v12 = [v6 objectAtIndexedSubscript:v11];
+    v13 = [*(*(v1 + 32) + 32) objectForKeyedSubscript:v12];
+    [v4 addObject:v13];
+    [v6 removeObjectAtIndex:v11];
     if ([v6 count])
     {
-      v13 = v6;
+      v15 = v6;
       goto LABEL_32;
     }
 
-    v14 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v16 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(0, v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      __91__WBSPasswordBreachQueuedPasswordBagManager_getPasswordsForNextBatchWithCompletionHandler___block_invoke_cold_1(&v60, v61, v14);
+      __91__WBSPasswordBreachQueuedPasswordBagManager_getPasswordsForNextBatchWithCompletionHandler___block_invoke_cold_1(&v66, v67, v16);
     }
 
-    if (([v7 shouldRefillBagWhenEmpty] & 1) == 0)
+    v17 = [v7 shouldRefillBagWhenEmpty];
+    if ((v17 & 1) == 0)
     {
-      v40 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+      v47 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v17, v18);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
       {
         __91__WBSPasswordBreachQueuedPasswordBagManager_getPasswordsForNextBatchWithCompletionHandler___block_invoke_cold_2();
       }
@@ -431,11 +463,11 @@ LABEL_4:
       goto LABEL_40;
     }
 
-    v15 = [*(v1 + 32) _constructNewBagOnInternalQueueEnsuringFakePasswordGeneration:1];
-    if (!v15)
+    v19 = [*(v1 + 32) _constructNewBagOnInternalQueueEnsuringFakePasswordGeneration:1];
+    if (!v19)
     {
-      v42 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
+      v48 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(0, v20);
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_FAULT))
       {
         __91__WBSPasswordBreachQueuedPasswordBagManager_getPasswordsForNextBatchWithCompletionHandler___block_invoke_cold_3();
       }
@@ -445,134 +477,135 @@ LABEL_4:
       goto LABEL_42;
     }
 
-    v16 = v15;
-    v46 = v12;
-    v47 = v8;
-    v48 = v11;
-    v50 = [v7 verboseSensitiveLoggingEnabled];
-    v49 = v16;
-    v17 = [v16 allKeys];
-    v13 = [v17 mutableCopy];
+    v21 = v19;
+    v52 = v13;
+    v53 = v9;
+    v54 = v12;
+    v56 = [v7 verboseSensitiveLoggingEnabled];
+    v55 = v21;
+    v22 = [v21 allKeys];
+    v15 = [v22 mutableCopy];
 
-    v58 = 0u;
-    v59 = 0u;
-    v56 = 0u;
-    v57 = 0u;
+    v64 = 0u;
+    v65 = 0u;
+    v62 = 0u;
+    v63 = 0u;
     obj = *(*(v1 + 32) + 32);
-    v18 = [obj countByEnumeratingWithState:&v56 objects:v67 count:16];
-    if (!v18)
+    v23 = [obj countByEnumeratingWithState:&v62 objects:v73 count:16];
+    if (!v23)
     {
       goto LABEL_24;
     }
 
-    v19 = v18;
-    v20 = *v57;
+    v24 = v23;
+    v25 = *v63;
 LABEL_12:
-    v21 = 0;
+    v26 = 0;
     while (1)
     {
-      if (*v57 != v20)
+      if (*v63 != v25)
       {
         objc_enumerationMutation(obj);
       }
 
-      v22 = *(*(&v56 + 1) + 8 * v21);
-      v23 = v1;
-      v24 = [*(*(v1 + 32) + 32) objectForKeyedSubscript:v22];
-      v25 = [v24 persistentIdentifiers];
-      v26 = [v25 firstObject];
-      v27 = [v26 length];
+      v27 = *(*(&v62 + 1) + 8 * v26);
+      v28 = v1;
+      v29 = [*(*(v1 + 32) + 32) objectForKeyedSubscript:v27];
+      v30 = [v29 persistentIdentifiers];
+      v31 = [v30 firstObject];
+      v32 = [v31 length];
 
-      if (!v27)
+      if (!v32)
       {
         goto LABEL_22;
       }
 
-      if ([v24 remainingHashCount])
+      v33 = [v29 remainingHashCount];
+      if (v33)
       {
-        if (!v50)
+        if (!v56)
         {
           goto LABEL_22;
         }
 
-        v28 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-        if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+        v35 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v33, v34);
+        if (!os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
         {
           goto LABEL_22;
         }
 
-        v29 = v28;
-        v30 = [v24 remainingHashCount];
+        v36 = v35;
+        v37 = [v29 remainingHashCount];
         *buf = 138740227;
-        v64 = v22;
-        v65 = 2053;
-        v66 = v30;
-        _os_log_debug_impl(&dword_1B8447000, v29, OS_LOG_TYPE_DEBUG, "Skipping adding work to %{sensitive}@ because it already has %{sensitive}lu items enqueued.", buf, 0x16u);
+        v70 = v27;
+        v71 = 2053;
+        v72 = v37;
+        _os_log_debug_impl(&dword_1B8447000, v36, OS_LOG_TYPE_DEBUG, "Skipping adding work to %{sensitive}@ because it already has %{sensitive}lu items enqueued.", buf, 0x16u);
       }
 
       else
       {
-        v29 = [v49 objectForKeyedSubscript:v22];
-        [v29 pushBucketIdentifiersAndHashesFromQueuedPassword:v24];
+        v36 = [v55 objectForKeyedSubscript:v27];
+        [v36 pushBucketIdentifiersAndHashesFromQueuedPassword:v29];
       }
 
 LABEL_22:
-      ++v21;
-      v1 = v23;
-      if (v19 == v21)
+      ++v26;
+      v1 = v28;
+      if (v24 == v26)
       {
-        v19 = [obj countByEnumeratingWithState:&v56 objects:v67 count:16];
-        if (!v19)
+        v24 = [obj countByEnumeratingWithState:&v62 objects:v73 count:16];
+        if (!v24)
         {
 LABEL_24:
 
-          v54 = 0u;
-          v55 = 0u;
-          v52 = 0u;
-          v53 = 0u;
-          v4 = v45;
-          v31 = v45;
-          v32 = [v31 countByEnumeratingWithState:&v52 objects:v62 count:16];
-          v12 = v46;
-          v8 = v47;
-          if (v32)
+          v60 = 0u;
+          v61 = 0u;
+          v58 = 0u;
+          v59 = 0u;
+          v4 = v51;
+          v38 = v51;
+          v39 = [v38 countByEnumeratingWithState:&v58 objects:v68 count:16];
+          v13 = v52;
+          v9 = v53;
+          if (v39)
           {
-            v33 = v32;
-            v34 = *v53;
+            v40 = v39;
+            v41 = *v59;
             do
             {
-              for (i = 0; i != v33; ++i)
+              for (i = 0; i != v40; ++i)
               {
-                if (*v53 != v34)
+                if (*v59 != v41)
                 {
-                  objc_enumerationMutation(v31);
+                  objc_enumerationMutation(v38);
                 }
 
-                v36 = [*(*(&v52 + 1) + 8 * i) uuid];
-                [v13 removeObject:v36];
+                v43 = [*(*(&v58 + 1) + 8 * i) uuid];
+                [v15 removeObject:v43];
               }
 
-              v33 = [v31 countByEnumeratingWithState:&v52 objects:v62 count:16];
+              v40 = [v38 countByEnumeratingWithState:&v58 objects:v68 count:16];
             }
 
-            while (v33);
+            while (v40);
           }
 
-          v37 = *(v1 + 32);
-          v38 = *(v37 + 32);
-          *(v37 + 32) = v49;
+          v44 = *(v1 + 32);
+          v45 = *(v44 + 32);
+          *(v44 + 32) = v55;
 
-          v6 = v13;
-          v3 = v43;
-          v7 = v44;
-          v11 = v48;
+          v6 = v15;
+          v3 = v49;
+          v7 = v50;
+          v12 = v54;
 LABEL_32:
 
-          if (++v8 == v3)
+          if (++v9 == v3)
           {
 LABEL_41:
             (*(*(v1 + 40) + 16))();
-            v6 = v13;
+            v6 = v15;
             goto LABEL_42;
           }
 
@@ -584,17 +617,15 @@ LABEL_41:
     }
   }
 
-  v39 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-  if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+  v46 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(0, v8);
+  if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1B8447000, v39, OS_LOG_TYPE_DEFAULT, "Queued password bag is empty. Stopping lookup session.", buf, 2u);
+    _os_log_impl(&dword_1B8447000, v46, OS_LOG_TYPE_DEFAULT, "Queued password bag is empty. Stopping lookup session.", buf, 2u);
   }
 
   (*(*(v1 + 40) + 16))();
 LABEL_42:
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reportPasswordCheckBatchResults:(id)results
@@ -613,50 +644,50 @@ LABEL_42:
 
 void __77__WBSPasswordBreachQueuedPasswordBagManager_reportPasswordCheckBatchResults___block_invoke(uint64_t a1)
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695DF00] now];
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v4 = [*(*(a1 + 32) + 8) configuration];
-  v27 = [v4 verboseSensitiveLoggingEnabled];
+  v33 = [v4 verboseSensitiveLoggingEnabled];
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
-  v38 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   obj = *(a1 + 40);
-  v31 = [obj countByEnumeratingWithState:&v37 objects:v44 count:16];
-  if (v31)
+  v37 = [obj countByEnumeratingWithState:&v43 objects:v50 count:16];
+  if (v37)
   {
-    v30 = *v38;
+    v36 = *v44;
     *&v5 = 134217984;
-    v26 = v5;
-    v29 = a1;
+    v32 = v5;
+    v35 = a1;
     do
     {
-      for (i = 0; i != v31; ++i)
+      for (i = 0; i != v37; ++i)
       {
-        if (*v38 != v30)
+        if (*v44 != v36)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v37 + 1) + 8 * i);
-        v8 = [*(*(a1 + 32) + 32) objectForKeyedSubscript:{v7, v26}];
-        if (v8)
+        v7 = *(*(&v43 + 1) + 8 * i);
+        v9 = [*(*(a1 + 32) + 32) objectForKeyedSubscript:{v7, v32}];
+        if (v9)
         {
-          v9 = [*(a1 + 40) objectForKeyedSubscript:v7];
-          v10 = [v9 unsignedIntegerValue];
+          v10 = [*(a1 + 40) objectForKeyedSubscript:v7];
+          v11 = [v10 unsignedIntegerValue];
 
-          if ((v10 - 2) < 2)
+          if ((v11 - 2) < 2)
           {
-            if (v27)
+            if (v33)
             {
-              v16 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-              if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+              v23 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v12, v13);
+              if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138739971;
-                v43 = v7;
-                _os_log_debug_impl(&dword_1B8447000, v16, OS_LOG_TYPE_DEBUG, "Password with UUID %{sensitive}@ breached. Removing from bag.", buf, 0xCu);
+                v49 = v7;
+                _os_log_debug_impl(&dword_1B8447000, v23, OS_LOG_TYPE_DEBUG, "Password with UUID %{sensitive}@ breached. Removing from bag.", buf, 0xCu);
               }
             }
 
@@ -665,40 +696,40 @@ void __77__WBSPasswordBreachQueuedPasswordBagManager_reportPasswordCheckBatchRes
 
           else
           {
-            if (!v10)
+            if (!v11)
             {
               goto LABEL_13;
             }
 
-            if (v10 == 1)
+            if (v11 == 1)
             {
-              [v8 removeTopBucketIdentifierAndHash];
-              if (v27)
+              v14 = [v9 removeTopBucketIdentifierAndHash];
+              if (v33)
               {
-                v11 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-                if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+                v16 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v14, v15);
+                if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 138739971;
-                  v43 = v7;
-                  _os_log_debug_impl(&dword_1B8447000, v11, OS_LOG_TYPE_DEBUG, "Password with UUID %{sensitive}@ not breached.", buf, 0xCu);
+                  v49 = v7;
+                  _os_log_debug_impl(&dword_1B8447000, v16, OS_LOG_TYPE_DEBUG, "Password with UUID %{sensitive}@ not breached.", buf, 0xCu);
                 }
               }
 
 LABEL_13:
-              if (![v8 remainingHashCount])
+              if (![v9 remainingHashCount])
               {
-                v12 = *(*(a1 + 32) + 32);
-                v13 = [v8 uuid];
-                [v12 removeObjectForKey:v13];
+                v17 = *(*(a1 + 32) + 32);
+                v18 = [v9 uuid];
+                [v17 removeObjectForKey:v18];
 
-                if (v27)
+                if (v33)
                 {
-                  v14 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-                  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+                  v21 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v19, v20);
+                  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 138739971;
-                    v43 = v7;
-                    _os_log_debug_impl(&dword_1B8447000, v14, OS_LOG_TYPE_DEBUG, "Password with UUID %{sensitive}@ has no remaining queued work. Removing from bag.", buf, 0xCu);
+                    v49 = v7;
+                    _os_log_debug_impl(&dword_1B8447000, v21, OS_LOG_TYPE_DEBUG, "Password with UUID %{sensitive}@ has no remaining queued work. Removing from bag.", buf, 0xCu);
                   }
                 }
               }
@@ -706,74 +737,73 @@ LABEL_13:
 
             else
             {
-              v17 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-              if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+              v24 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v12, v13);
+              if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
               {
-                *buf = v26;
-                v43 = v10;
-                _os_log_error_impl(&dword_1B8447000, v17, OS_LOG_TYPE_ERROR, "Received unknown breach check result: %lu", buf, 0xCu);
+                *buf = v32;
+                v49 = v11;
+                _os_log_error_impl(&dword_1B8447000, v24, OS_LOG_TYPE_ERROR, "Received unknown breach check result: %lu", buf, 0xCu);
               }
             }
           }
 
-          v35 = 0u;
-          v36 = 0u;
-          v33 = 0u;
-          v34 = 0u;
-          v32 = v8;
-          v18 = [v8 persistentIdentifiers];
-          v19 = [v18 countByEnumeratingWithState:&v33 objects:v41 count:16];
-          if (v19)
+          v41 = 0u;
+          v42 = 0u;
+          v39 = 0u;
+          v40 = 0u;
+          v38 = v9;
+          v25 = [v9 persistentIdentifiers];
+          v26 = [v25 countByEnumeratingWithState:&v39 objects:v47 count:16];
+          if (v26)
           {
-            v20 = v19;
-            v21 = *v34;
+            v27 = v26;
+            v28 = *v40;
             do
             {
-              for (j = 0; j != v20; ++j)
+              for (j = 0; j != v27; ++j)
               {
-                if (*v34 != v21)
+                if (*v40 != v28)
                 {
-                  objc_enumerationMutation(v18);
+                  objc_enumerationMutation(v25);
                 }
 
-                v23 = *(*(&v33 + 1) + 8 * j);
-                if ([v23 length])
+                v30 = *(*(&v39 + 1) + 8 * j);
+                if ([v30 length])
                 {
-                  v24 = [[WBSPasswordBreachResultRecord alloc] initWithPersistentIdentifier:v23 result:v10 dateLastModified:v2];
-                  [v3 addObject:v24];
+                  v31 = [[WBSPasswordBreachResultRecord alloc] initWithPersistentIdentifier:v30 result:v11 dateLastModified:v2];
+                  [v3 addObject:v31];
                 }
               }
 
-              v20 = [v18 countByEnumeratingWithState:&v33 objects:v41 count:16];
+              v27 = [v25 countByEnumeratingWithState:&v39 objects:v47 count:16];
             }
 
-            while (v20);
+            while (v27);
           }
 
-          a1 = v29;
-          v8 = v32;
+          a1 = v35;
+          v9 = v38;
           goto LABEL_35;
         }
 
-        v15 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v22 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(0, v8);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           *buf = 138477827;
-          v43 = v7;
-          _os_log_error_impl(&dword_1B8447000, v15, OS_LOG_TYPE_ERROR, "Received result for unknown password: %{private}@", buf, 0xCu);
+          v49 = v7;
+          _os_log_error_impl(&dword_1B8447000, v22, OS_LOG_TYPE_ERROR, "Received result for unknown password: %{private}@", buf, 0xCu);
         }
 
 LABEL_35:
       }
 
-      v31 = [obj countByEnumeratingWithState:&v37 objects:v44 count:16];
+      v37 = [obj countByEnumeratingWithState:&v43 objects:v50 count:16];
     }
 
-    while (v31);
+    while (v37);
   }
 
   [*(*(a1 + 32) + 16) addResultRecords:v3];
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (NSDictionary)allNonbreachedPasswords
@@ -826,76 +856,74 @@ void __59__WBSPasswordBreachQueuedPasswordBagManager_saveBagToStore__block_invok
 
 - (id)_dictionaryRepresentation
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   selfCopy = self;
   allValues = [(NSMutableDictionary *)self->_queuedPasswordsByUUID allValues];
-  v5 = [allValues countByEnumeratingWithState:&v25 objects:v32 count:16];
+  v5 = [allValues countByEnumeratingWithState:&v24 objects:v31 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v26;
+    v7 = *v25;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v26 != v7)
+        if (*v25 != v7)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v9 = *(*(&v25 + 1) + 8 * i);
+        v9 = *(*(&v24 + 1) + 8 * i);
+        v20 = 0u;
         v21 = 0u;
         v22 = 0u;
         v23 = 0u;
-        v24 = 0u;
         persistentIdentifiers = [v9 persistentIdentifiers];
-        v11 = [persistentIdentifiers countByEnumeratingWithState:&v21 objects:v31 count:16];
+        v11 = [persistentIdentifiers countByEnumeratingWithState:&v20 objects:v30 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v22;
+          v13 = *v21;
           do
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v22 != v13)
+              if (*v21 != v13)
               {
                 objc_enumerationMutation(persistentIdentifiers);
               }
 
-              v15 = *(*(&v21 + 1) + 8 * j);
+              v15 = *(*(&v20 + 1) + 8 * j);
               if ([v15 length])
               {
                 [v3 addObject:v15];
               }
             }
 
-            v12 = [persistentIdentifiers countByEnumeratingWithState:&v21 objects:v31 count:16];
+            v12 = [persistentIdentifiers countByEnumeratingWithState:&v20 objects:v30 count:16];
           }
 
           while (v12);
         }
       }
 
-      v6 = [allValues countByEnumeratingWithState:&v25 objects:v32 count:16];
+      v6 = [allValues countByEnumeratingWithState:&v24 objects:v31 count:16];
     }
 
     while (v6);
   }
 
-  v29[0] = @"FillState";
+  v28[0] = @"FillState";
   v16 = [MEMORY[0x1E696AD98] numberWithInteger:selfCopy->_fillState];
-  v29[1] = @"PersistentIdentifiers";
-  v30[0] = v16;
-  v30[1] = v3;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:2];
-
-  v18 = *MEMORY[0x1E69E9840];
+  v28[1] = @"PersistentIdentifiers";
+  v29[0] = v16;
+  v29[1] = v3;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:2];
 
   return v17;
 }

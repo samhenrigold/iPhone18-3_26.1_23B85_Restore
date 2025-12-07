@@ -146,34 +146,34 @@
 {
   if ([(NSMutableArray *)self->_events count])
   {
-    v35 = 0u;
     v36 = 0u;
-    v33 = 0u;
+    v37 = 0u;
     v34 = 0u;
+    v35 = 0u;
     events = self->_events;
-    v4 = [(NSMutableArray *)events countByEnumeratingWithState:&v33 objects:v41 count:16];
+    v4 = [(NSMutableArray *)events countByEnumeratingWithState:&v34 objects:v42 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v34;
+      v6 = *v35;
       pollInterval = 1.79769313e308;
       do
       {
         for (i = 0; i != v5; i = i + 1)
         {
-          if (*v34 != v6)
+          if (*v35 != v6)
           {
             objc_enumerationMutation(events);
           }
 
-          v9 = *(*(&v33 + 1) + 8 * i);
+          v9 = *(*(&v34 + 1) + 8 * i);
           if (pollInterval >= [v9 pollInterval])
           {
             pollInterval = [v9 pollInterval];
           }
         }
 
-        v5 = [(NSMutableArray *)events countByEnumeratingWithState:&v33 objects:v41 count:16];
+        v5 = [(NSMutableArray *)events countByEnumeratingWithState:&v34 objects:v42 count:16];
       }
 
       while (v5);
@@ -199,96 +199,106 @@
       shouldLog = [v13 shouldLog];
       if ([v13 shouldLogToDisk])
       {
-        v16 = shouldLog | 2;
+        LODWORD(v16) = shouldLog | 2;
       }
 
       else
       {
-        v16 = shouldLog;
+        LODWORD(v16) = shouldLog;
       }
 
-      if (!os_log_type_enabled([v13 OSLogObject], OS_LOG_TYPE_DEBUG))
+      oSLogObject = [v13 OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+      {
+        v16 = v16;
+      }
+
+      else
       {
         v16 &= 2u;
       }
 
       if (v16)
       {
-        v17 = objc_opt_class();
-        v37 = 138412546;
-        v38 = v17;
-        v39 = 2048;
-        v40 = v14;
-        LODWORD(v31) = 22;
-        v18 = _os_log_send_and_compose_impl();
-        if (v18)
+        v18 = objc_opt_class();
+        v38 = 138412546;
+        v39 = v18;
+        v40 = 2048;
+        v41 = v14;
+        v19 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "%@: Scheduling poll in %.2f seconds", &v38, 22);
+        if (v19)
         {
-          v19 = v18;
-          [NSString stringWithCString:v18 encoding:4, &v37, v31];
-          free(v19);
+          v20 = v19;
+          [NSString stringWithCString:v19 encoding:4];
+          free(v20);
           SSFileLog();
         }
       }
 
       pollTimer = self->_pollTimer;
-      v21 = dispatch_time(0, (v14 * 1000000000.0));
-      dispatch_source_set_timer(pollTimer, v21, (v10 * 1000000000.0), 0);
+      v22 = dispatch_time(0, (v14 * 1000000000.0));
+      dispatch_source_set_timer(pollTimer, v22, (v10 * 1000000000.0), 0);
     }
 
     else
     {
-      v22 = +[SSLogConfig sharedDaemonConfig];
-      if (!v22)
+      v23 = +[SSLogConfig sharedDaemonConfig];
+      if (!v23)
       {
-        v22 = +[SSLogConfig sharedConfig];
+        v23 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog2 = [v22 shouldLog];
-      if ([v22 shouldLogToDisk])
+      shouldLog2 = [v23 shouldLog];
+      if ([v23 shouldLogToDisk])
       {
-        v24 = shouldLog2 | 2;
+        LODWORD(v25) = shouldLog2 | 2;
       }
 
       else
       {
-        v24 = shouldLog2;
+        LODWORD(v25) = shouldLog2;
       }
 
-      if (!os_log_type_enabled([v22 OSLogObject], OS_LOG_TYPE_DEBUG))
+      oSLogObject2 = [v23 OSLogObject];
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEBUG))
       {
-        v24 &= 2u;
+        v25 = v25;
       }
 
-      if (v24)
+      else
       {
-        v25 = objc_opt_class();
-        v37 = 138412546;
-        v38 = v25;
-        v39 = 2048;
-        v40 = v10;
-        LODWORD(v31) = 22;
-        v26 = _os_log_send_and_compose_impl();
-        if (v26)
+        v25 &= 2u;
+      }
+
+      if (v25)
+      {
+        v27 = objc_opt_class();
+        v38 = 138412546;
+        v39 = v27;
+        v40 = 2048;
+        v41 = v10;
+        v28 = _os_log_send_and_compose_impl(v25, 0, 0, 0, &_mh_execute_header, oSLogObject2, 2, "%@: Scheduling poll in %.2f seconds", &v38, 22);
+        if (v28)
         {
-          v27 = v26;
-          [NSString stringWithCString:v26 encoding:4, &v37, v31];
-          free(v27);
+          v29 = v28;
+          [NSString stringWithCString:v28 encoding:4];
+          free(v29);
           SSFileLog();
         }
       }
 
       self->_lastPollTime = CFAbsoluteTimeGetCurrent();
-      v28 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
-      self->_pollTimer = v28;
-      v29 = dispatch_time(0, (v10 * 1000000000.0));
-      dispatch_source_set_timer(v28, v29, (v10 * 1000000000.0), 0);
-      v30 = self->_pollTimer;
+      v30 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
+      self->_pollTimer = v30;
+      v31 = dispatch_time(0, (v10 * 1000000000.0));
+      dispatch_source_set_timer(v30, v31, (v10 * 1000000000.0), 0);
+      v32 = self->_pollTimer;
       handler[0] = _NSConcreteStackBlock;
       handler[1] = 3221225472;
       handler[2] = sub_1001A002C;
       handler[3] = &unk_100327378;
       handler[4] = self;
-      dispatch_source_set_event_handler(v30, handler);
+      dispatch_source_set_event_handler(v32, handler);
       dispatch_resume(self->_pollTimer);
     }
   }

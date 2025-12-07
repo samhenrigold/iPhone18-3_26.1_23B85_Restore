@@ -10,22 +10,22 @@
 
 - (FCSportsEventsFetchOperation)initWithContext:(id)context tagController:(id)controller sportsEventIDs:(id)ds delegate:(id)delegate
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   controllerCopy = controller;
   dsCopy = ds;
   delegateCopy = delegate;
   if (!contextCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "context"];
+    v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "context"];
     *buf = 136315906;
-    v26 = "[FCSportsEventsFetchOperation initWithContext:tagController:sportsEventIDs:delegate:]";
-    v27 = 2080;
-    v28 = "FCSportsEventsFetchOperation.m";
-    v29 = 1024;
-    v30 = 46;
-    v31 = 2114;
-    v32 = v21;
+    v25 = "[FCSportsEventsFetchOperation initWithContext:tagController:sportsEventIDs:delegate:]";
+    v26 = 2080;
+    v27 = "FCSportsEventsFetchOperation.m";
+    v28 = 1024;
+    v29 = 46;
+    v30 = 2114;
+    v31 = v20;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (controllerCopy)
@@ -41,36 +41,36 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "tagController"];
+    v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "tagController"];
     *buf = 136315906;
-    v26 = "[FCSportsEventsFetchOperation initWithContext:tagController:sportsEventIDs:delegate:]";
-    v27 = 2080;
-    v28 = "FCSportsEventsFetchOperation.m";
-    v29 = 1024;
-    v30 = 47;
-    v31 = 2114;
-    v32 = v22;
+    v25 = "[FCSportsEventsFetchOperation initWithContext:tagController:sportsEventIDs:delegate:]";
+    v26 = 2080;
+    v27 = "FCSportsEventsFetchOperation.m";
+    v28 = 1024;
+    v29 = 47;
+    v30 = 2114;
+    v31 = v21;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
   if (!dsCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "sportsEventIDs"];
+    v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "sportsEventIDs"];
     *buf = 136315906;
-    v26 = "[FCSportsEventsFetchOperation initWithContext:tagController:sportsEventIDs:delegate:]";
-    v27 = 2080;
-    v28 = "FCSportsEventsFetchOperation.m";
-    v29 = 1024;
-    v30 = 48;
-    v31 = 2114;
-    v32 = v23;
+    v25 = "[FCSportsEventsFetchOperation initWithContext:tagController:sportsEventIDs:delegate:]";
+    v26 = 2080;
+    v27 = "FCSportsEventsFetchOperation.m";
+    v28 = 1024;
+    v29 = 48;
+    v30 = 2114;
+    v31 = v22;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v24.receiver = self;
-  v24.super_class = FCSportsEventsFetchOperation;
-  v15 = [(FCOperation *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = FCSportsEventsFetchOperation;
+  v15 = [(FCOperation *)&v23 init];
   v16 = v15;
   if (v15)
   {
@@ -84,7 +84,6 @@ LABEL_6:
     objc_storeWeak(&v16->_delegate, delegateCopy);
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -107,7 +106,7 @@ LABEL_6:
 
 - (void)performOperation
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(FCRecordChainFetchOperation);
   v4 = v3;
   if (self)
@@ -126,26 +125,24 @@ LABEL_6:
   cachePolicy = [(FCSportsEventsFetchOperation *)self cachePolicy];
   [(FCRecordChainFetchOperation *)v4 setCachePolicy:cachePolicy];
 
-  v12[0] = @"SportsEvent";
-  v11[0] = @"eventCompetitorTagIDs";
-  v11[1] = @"eventLeagueTagID";
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
-  v12[1] = @"Tag";
-  v13[0] = v7;
-  v13[1] = MEMORY[0x1E695E0F0];
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v11[0] = @"SportsEvent";
+  v10[0] = @"eventCompetitorTagIDs";
+  v10[1] = @"eventLeagueTagID";
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+  v11[1] = @"Tag";
+  v12[0] = v7;
+  v12[1] = MEMORY[0x1E695E0F0];
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
   [(FCRecordChainFetchOperation *)v4 setLinkKeysByRecordType:v8];
 
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __48__FCSportsEventsFetchOperation_performOperation__block_invoke;
-  v10[3] = &unk_1E7C39358;
-  v10[4] = self;
-  [(FCRecordChainFetchOperation *)v4 setRecordChainCompletionHandler:v10];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __48__FCSportsEventsFetchOperation_performOperation__block_invoke;
+  v9[3] = &unk_1E7C39358;
+  v9[4] = self;
+  [(FCRecordChainFetchOperation *)v4 setRecordChainCompletionHandler:v9];
   [(FCOperation *)self associateChildOperation:v4];
   [(FCOperation *)v4 start];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __48__FCSportsEventsFetchOperation_performOperation__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -313,32 +310,31 @@ id __48__FCSportsEventsFetchOperation_performOperation__block_invoke_2_11(uint64
 
 uint64_t __48__FCSportsEventsFetchOperation_performOperation__block_invoke_3(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = FCOperationLog;
   if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 32);
-    v6 = v2;
-    v7 = [v5 shortOperationDescription];
-    v8 = *(a1 + 40);
-    v9 = [*(a1 + 48) base];
-    v10 = [v9 identifier];
-    v11 = 138543874;
-    v12 = v7;
-    v13 = 2114;
-    v14 = v8;
-    v15 = 2114;
-    v16 = v10;
-    _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "%{public}@ encountered non-sports tag with id %{public}@ as a competitor tag for sports event with id %{public}@. Ignoring invalid competitor tag.", &v11, 0x20u);
+    v4 = *(a1 + 32);
+    v5 = v2;
+    v6 = [v4 shortOperationDescription];
+    v7 = *(a1 + 40);
+    v8 = [*(a1 + 48) base];
+    v9 = [v8 identifier];
+    v10 = 138543874;
+    v11 = v6;
+    v12 = 2114;
+    v13 = v7;
+    v14 = 2114;
+    v15 = v9;
+    _os_log_error_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_ERROR, "%{public}@ encountered non-sports tag with id %{public}@ as a competitor tag for sports event with id %{public}@. Ignoring invalid competitor tag.", &v10, 0x20u);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 uint64_t __48__FCSportsEventsFetchOperation_performOperation__block_invoke_14(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E695DFD8]);
   v3 = [*(a1 + 32) eventCompetitorTagIDs];
   v4 = [v2 initWithArray:v3];
@@ -348,50 +344,48 @@ uint64_t __48__FCSportsEventsFetchOperation_performOperation__block_invoke_14(ui
   v7 = FCOperationLog;
   if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_ERROR))
   {
-    v10 = *(a1 + 48);
-    v11 = v7;
-    v12 = [v10 shortOperationDescription];
-    v13 = [*(a1 + 32) base];
-    v14 = [v13 identifier];
-    v15 = [v5 allObjects];
-    v16 = [v6 allObjects];
-    v17 = 138544130;
-    v18 = v12;
-    v19 = 2114;
-    v20 = v14;
-    v21 = 2114;
-    v22 = v15;
-    v23 = 2114;
-    v24 = v16;
-    _os_log_error_impl(&dword_1B63EF000, v11, OS_LOG_TYPE_ERROR, "%{public}@ failed to fetch all competitor tags for sports event, discarding sports event record with identifier=%{public}@; fetched competitor tags=%{public}@; unfetched competitor tags=%{public}@", &v17, 0x2Au);
+    v9 = *(a1 + 48);
+    v10 = v7;
+    v11 = [v9 shortOperationDescription];
+    v12 = [*(a1 + 32) base];
+    v13 = [v12 identifier];
+    v14 = [v5 allObjects];
+    v15 = [v6 allObjects];
+    v16 = 138544130;
+    v17 = v11;
+    v18 = 2114;
+    v19 = v13;
+    v20 = 2114;
+    v21 = v14;
+    v22 = 2114;
+    v23 = v15;
+    _os_log_error_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_ERROR, "%{public}@ failed to fetch all competitor tags for sports event, discarding sports event record with identifier=%{public}@; fetched competitor tags=%{public}@; unfetched competitor tags=%{public}@", &v16, 0x2Au);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 uint64_t __48__FCSportsEventsFetchOperation_performOperation__block_invoke_19(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = FCOperationLog;
   if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 32);
-    v6 = v2;
-    v7 = [v5 shortOperationDescription];
-    v8 = [*(a1 + 40) base];
-    v9 = [v8 identifier];
-    v10 = [*(a1 + 40) eventLeagueTagID];
-    v11 = 138543874;
-    v12 = v7;
-    v13 = 2114;
-    v14 = v9;
-    v15 = 2114;
-    v16 = v10;
-    _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "%{public}@ failed to get league tag for sports event record, sports event discarded; sportsEventRecord identifier=%{public}@, leagueTag identifier=%{public}@", &v11, 0x20u);
+    v4 = *(a1 + 32);
+    v5 = v2;
+    v6 = [v4 shortOperationDescription];
+    v7 = [*(a1 + 40) base];
+    v8 = [v7 identifier];
+    v9 = [*(a1 + 40) eventLeagueTagID];
+    v10 = 138543874;
+    v11 = v6;
+    v12 = 2114;
+    v13 = v8;
+    v14 = 2114;
+    v15 = v9;
+    _os_log_error_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_ERROR, "%{public}@ failed to get league tag for sports event record, sports event discarded; sportsEventRecord identifier=%{public}@, leagueTag identifier=%{public}@", &v10, 0x20u);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return 0;
 }
 

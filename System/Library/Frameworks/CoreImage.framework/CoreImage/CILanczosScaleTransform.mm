@@ -98,7 +98,7 @@ LABEL_15:
     v86.var3 = v10 * height;
   }
 
-  Rectangle::integralize(&v86, 0.0001, &v87);
+  Rectangle::integralize(&v87, &v86, 0.0001);
   *&v86.var0 = *&v87.a;
   *&v86.var2 = *&v87.c;
   while (v8 < 0.50001 && v10 < 0.50001)
@@ -195,8 +195,8 @@ LABEL_15:
       v88.var3 = v25;
     }
 
-    Rectangle::inset(&v88, -3.0, -0.0, &v91);
-    Rectangle::integralize(&v91, 0.0001, &v87);
+    Rectangle::inset(&v91, &v88, -3.0, -0.0);
+    Rectangle::integralize(&v87, &v91, 0.0001);
     v70 = *&v87.c;
     v78 = *&v87.a;
     v29 = [CIKernel kernelWithInternalRepresentation:&CI::_lanczosDownH];
@@ -301,8 +301,8 @@ LABEL_15:
       v88.var3 = v10 * v40;
     }
 
-    Rectangle::inset(&v88, -0.0, -3.0, &v91);
-    Rectangle::integralize(&v91, 0.0001, &v87);
+    Rectangle::inset(&v91, &v88, -0.0, -3.0);
+    Rectangle::integralize(&v87, &v91, 0.0001);
     v72 = *&v87.c;
     v79 = *&v87.a;
     v44 = [CIKernel kernelWithInternalRepresentation:&CI::_lanczosDownV];
@@ -368,7 +368,7 @@ LABEL_15:
       }
     }
 
-    Rectangle::inset(&v87, -2.0, -0.0, &v84);
+    Rectangle::inset(&v84, &v87, -2.0, -0.0);
     if (fabs(v84.f64[0]) == INFINITY || fabs(v84.f64[1]) == INFINITY)
     {
       *&v88.var0 = vdupq_n_s64(0x7FF0000000000000uLL);
@@ -395,7 +395,7 @@ LABEL_15:
       }
     }
 
-    Rectangle::integralize(&v88, 0.0001, &v91);
+    Rectangle::integralize(&v91, &v88, 0.0001);
     *&v87.a = *&v91.var0;
     *&v87.c = *&v91.var2;
     v52 = [CIKernel kernelWithInternalRepresentation:&CI::_lanczosUpH];
@@ -460,7 +460,7 @@ LABEL_15:
       }
     }
 
-    Rectangle::inset(&v87, -0.0, -2.0, &v84);
+    Rectangle::inset(&v84, &v87, -0.0, -2.0);
     if (fabs(v84.f64[0]) == INFINITY || fabs(v84.f64[1]) == INFINITY)
     {
       *&v88.var0 = vdupq_n_s64(0x7FF0000000000000uLL);
@@ -487,7 +487,7 @@ LABEL_15:
       }
     }
 
-    Rectangle::integralize(&v88, 0.0001, &v91);
+    Rectangle::integralize(&v91, &v88, 0.0001);
     *&v87.a = *&v91.var0;
     *&v87.c = *&v91.var2;
     v61 = [CIKernel kernelWithInternalRepresentation:&CI::_lanczosUpV];
@@ -536,10 +536,11 @@ LABEL_15:
   return [(CIImage *)inputImage imageByCroppingToRect:var0, var1, var2, var3];
 }
 
-double __38__CILanczosScaleTransform_outputImage__block_invoke(uint64_t a1, double a2, double a3, double a4, double a5)
+double __38__CILanczosScaleTransform_outputImage__block_invoke(uint64_t a1, __n128 a2, double a3, double a4, double a5)
 {
+  v7 = a2.n128_f64[0];
   v8 = 1.0 / *(a1 + 32);
-  *&v9 = a2;
+  *&v9 = a2.n128_f64[0];
   v10 = a3;
   v44 = LODWORD(v9);
   v45 = v10;
@@ -563,7 +564,7 @@ double __38__CILanczosScaleTransform_outputImage__block_invoke(uint64_t a1, doub
   y = v50.origin.y;
   width = v50.size.width;
   height = v50.size.height;
-  *&v50.origin.x = a2 + a4;
+  *&v50.origin.x = v7 + a4;
   LODWORD(a4) = LODWORD(v50.origin.x);
   *(&v50.origin.x + 1) = v45;
   v54.origin.x = upsampleHRect(v50.origin.x, v8);
@@ -592,10 +593,11 @@ double __38__CILanczosScaleTransform_outputImage__block_invoke(uint64_t a1, doub
   return result;
 }
 
-double __38__CILanczosScaleTransform_outputImage__block_invoke_2(uint64_t a1, double a2, double a3, double a4, double a5)
+double __38__CILanczosScaleTransform_outputImage__block_invoke_2(uint64_t a1, __n128 a2, double a3, double a4, double a5)
 {
+  v7 = a2.n128_f64[0];
   v8 = 1.0 / *(a1 + 32);
-  v9.f32[0] = a2;
+  v9.f32[0] = a2.n128_f64[0];
   v10 = a3;
   v44 = v9.i32[0];
   v45 = v10;
@@ -619,7 +621,7 @@ double __38__CILanczosScaleTransform_outputImage__block_invoke_2(uint64_t a1, do
   y = v50.origin.y;
   width = v50.size.width;
   height = v50.size.height;
-  *&v50.origin.x = a2 + a4;
+  *&v50.origin.x = v7 + a4;
   LODWORD(a4) = LODWORD(v50.origin.x);
   *(&v50.origin.x + 1) = v45;
   v54.origin.x = upsampleVRect(*&v50.origin.x, v8);

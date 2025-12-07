@@ -138,20 +138,20 @@ void __123__FCFDBFeed_initFromSQLWithFeedID_feedLookupID_refreshedFromOrder_refr
 
 - (NSData)fetchedRangesData
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   fetchedRanges = [(FCFDBFeed *)self fetchedRanges];
   v4 = malloc_type_calloc(2 * [fetchedRanges count], 8uLL, 0x100004000313F17uLL);
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   fetchedRanges2 = [(FCFDBFeed *)self fetchedRanges];
-  v6 = [fetchedRanges2 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v6 = [fetchedRanges2 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v21;
+    v8 = *v20;
     v9 = v4;
     do
     {
@@ -159,12 +159,12 @@ void __123__FCFDBFeed_initFromSQLWithFeedID_feedLookupID_refreshedFromOrder_refr
       v11 = v9;
       do
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(fetchedRanges2);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * v10);
+        v12 = *(*(&v19 + 1) + 8 * v10);
         v13 = [v12 top];
         *v11 = [v13 order];
 
@@ -177,7 +177,7 @@ void __123__FCFDBFeed_initFromSQLWithFeedID_feedLookupID_refreshedFromOrder_refr
       }
 
       while (v7 != v10);
-      v7 = [fetchedRanges2 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v7 = [fetchedRanges2 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v7);
@@ -186,8 +186,6 @@ void __123__FCFDBFeed_initFromSQLWithFeedID_feedLookupID_refreshedFromOrder_refr
   v15 = MEMORY[0x1E695DEF0];
   fetchedRanges3 = [(FCFDBFeed *)self fetchedRanges];
   v17 = [v15 dataWithBytesNoCopy:v4 length:16 * objc_msgSend(fetchedRanges3 freeWhenDone:{"count"), 1}];
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -229,40 +227,40 @@ void __123__FCFDBFeed_initFromSQLWithFeedID_feedLookupID_refreshedFromOrder_refr
 
 - (id)copyWithRefreshedFromOrder:(unint64_t)order refreshedToOrder:(unint64_t)toOrder newlyFetchedRange:(id)range
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   rangeCopy = range;
   array = [MEMORY[0x1E695DF70] array];
   v10 = array;
   if (rangeCopy)
   {
     toOrderCopy = toOrder;
-    v45 = array;
+    v44 = array;
     v11 = rangeCopy;
+    v45 = 0u;
     v46 = 0u;
     v47 = 0u;
     v48 = 0u;
-    v49 = 0u;
     fetchedRanges = [(FCFDBFeed *)self fetchedRanges];
-    v13 = [fetchedRanges countByEnumeratingWithState:&v46 objects:v50 count:16];
+    v13 = [fetchedRanges countByEnumeratingWithState:&v45 objects:v49 count:16];
     if (v13)
     {
       v14 = v13;
       obj = fetchedRanges;
       selfCopy = self;
       orderCopy = order;
-      v42 = rangeCopy;
-      v15 = *v47;
+      v41 = rangeCopy;
+      v15 = *v46;
       v16 = v11;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v47 != v15)
+          if (*v46 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v18 = *(*(&v46 + 1) + 8 * i);
+          v18 = *(*(&v45 + 1) + 8 * i);
           bottom = [v18 bottom];
           order = [bottom order];
           v21 = [v11 top];
@@ -286,31 +284,31 @@ void __123__FCFDBFeed_initFromSQLWithFeedID_feedLookupID_refreshedFromOrder_refr
             {
               if (v16)
               {
-                [v45 addObject:v16];
+                [v44 addObject:v16];
               }
 
-              [v45 addObject:v18];
+              [v44 addObject:v18];
               v16 = 0;
             }
           }
 
           else
           {
-            [v45 addObject:v18];
+            [v44 addObject:v18];
           }
         }
 
-        v14 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+        v14 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
       }
 
       while (v14);
 
       order = orderCopy;
-      rangeCopy = v42;
+      rangeCopy = v41;
       self = selfCopy;
       if (!v16)
       {
-        v28 = v45;
+        v28 = v44;
 LABEL_21:
         toOrder = toOrderCopy;
         goto LABEL_22;
@@ -323,8 +321,8 @@ LABEL_21:
       v16 = v11;
     }
 
-    v28 = v45;
-    [v45 addObject:v16];
+    v28 = v44;
+    [v44 addObject:v16];
 
     goto LABEL_21;
   }
@@ -351,37 +349,36 @@ LABEL_22:
   feedID = [(FCFDBFeed *)self feedID];
   v37 = [(FCFDBFeed *)v35 initWithFeedID:feedID feedLookupID:[(FCFDBFeed *)self feedLookupID] refreshedFromOrder:order refreshedToOrder:toOrder fetchedRanges:v28];
 
-  v38 = *MEMORY[0x1E69E9840];
   return v37;
 }
 
 - (id)copyWithoutFetchedRange:(id)range
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   rangeCopy = range;
   array = [MEMORY[0x1E695DF70] array];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   selfCopy = self;
   fetchedRanges = [(FCFDBFeed *)self fetchedRanges];
-  v7 = [fetchedRanges countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v7 = [fetchedRanges countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v36;
-    v34 = fetchedRanges;
+    v9 = *v35;
+    v33 = fetchedRanges;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v36 != v9)
+        if (*v35 != v9)
         {
           objc_enumerationMutation(fetchedRanges);
         }
 
-        v11 = *(*(&v35 + 1) + 8 * i);
+        v11 = *(*(&v34 + 1) + 8 * i);
         if (([rangeCopy containsFeedRange:v11] & 1) == 0)
         {
           if ([rangeCopy intersectsRange:v11])
@@ -409,7 +406,7 @@ LABEL_22:
             array = v12;
             [v12 addObject:v19];
 
-            fetchedRanges = v34;
+            fetchedRanges = v33;
           }
 
           else
@@ -419,7 +416,7 @@ LABEL_22:
         }
       }
 
-      v8 = [fetchedRanges countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v8 = [fetchedRanges countByEnumeratingWithState:&v34 objects:v38 count:16];
     }
 
     while (v8);
@@ -447,15 +444,14 @@ LABEL_22:
   feedID = [(FCFDBFeed *)selfCopy feedID];
   v30 = [(FCFDBFeed *)v28 initWithFeedID:feedID feedLookupID:[(FCFDBFeed *)selfCopy feedLookupID] refreshedFromOrder:refreshedFromOrder refreshedToOrder:refreshedToOrder fetchedRanges:array];
 
-  v31 = *MEMORY[0x1E69E9840];
   return v30;
 }
 
 - (void)enumerateGapsWithBlock:(id)block
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   blockCopy = block;
-  v37 = 0;
+  v36 = 0;
   fetchedRanges = [(FCFDBFeed *)self fetchedRanges];
   v6 = [fetchedRanges count];
 
@@ -467,40 +463,40 @@ LABEL_22:
     v10 = [firstObject top];
     v11 = +[FCFeedCursor cursorForOrder:](FCFeedCursor, "cursorForOrder:", [v10 order]);
     v12 = [FCFeedRange feedRangeWithTop:fetchedRanges4 bottom:v11];
-    blockCopy[2](blockCopy, v12, &v37);
+    blockCopy[2](blockCopy, v12, &v36);
 
-    if (v37)
+    if (v36)
     {
       goto LABEL_19;
     }
 
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     fetchedRanges3 = [(FCFDBFeed *)self fetchedRanges];
-    v14 = [fetchedRanges3 countByEnumeratingWithState:&v33 objects:v38 count:16];
+    v14 = [fetchedRanges3 countByEnumeratingWithState:&v32 objects:v37 count:16];
     if (v14)
     {
       v15 = v14;
       selfCopy = self;
-      v32 = blockCopy;
+      v31 = blockCopy;
       v16 = 0;
-      v17 = *v34;
+      v17 = *v33;
       while (2)
       {
         for (i = 0; i != v15; ++i)
         {
           fetchedRanges4 = v16;
-          if (*v34 != v17)
+          if (*v33 != v17)
           {
             objc_enumerationMutation(fetchedRanges3);
           }
 
-          v19 = *(*(&v33 + 1) + 8 * i);
+          v19 = *(*(&v32 + 1) + 8 * i);
           if (fetchedRanges4)
           {
-            v20 = [*(*(&v33 + 1) + 8 * i) top];
+            v20 = [*(*(&v32 + 1) + 8 * i) top];
             order = [v20 order];
             bottom = [fetchedRanges4 bottom];
             order2 = [bottom order];
@@ -510,11 +506,11 @@ LABEL_22:
               bottom2 = [fetchedRanges4 bottom];
               v25 = [v19 top];
               v26 = [FCFeedRange feedRangeWithTop:bottom2 bottom:v25];
-              v32[2](v32, v26, &v37);
+              v31[2](v31, v26, &v36);
 
-              if (v37)
+              if (v36)
               {
-                blockCopy = v32;
+                blockCopy = v31;
                 goto LABEL_18;
               }
             }
@@ -523,7 +519,7 @@ LABEL_22:
           v16 = v19;
         }
 
-        v15 = [fetchedRanges3 countByEnumeratingWithState:&v33 objects:v38 count:16];
+        v15 = [fetchedRanges3 countByEnumeratingWithState:&v32 objects:v37 count:16];
         if (v15)
         {
           continue;
@@ -532,7 +528,7 @@ LABEL_22:
         break;
       }
 
-      blockCopy = v32;
+      blockCopy = v31;
       self = selfCopy;
     }
 
@@ -541,20 +537,18 @@ LABEL_22:
     bottom3 = [fetchedRanges3 bottom];
     v28 = +[FCFeedCursor cursorForBottomOfFeed];
     v29 = [FCFeedRange feedRangeWithTop:bottom3 bottom:v28];
-    blockCopy[2](blockCopy, v29, &v37);
+    blockCopy[2](blockCopy, v29, &v36);
   }
 
   else
   {
     fetchedRanges3 = +[FCFeedCursor cursorForBottomOfFeed];
     bottom3 = [FCFeedRange feedRangeWithTop:fetchedRanges4 bottom:fetchedRanges3];
-    blockCopy[2](blockCopy, bottom3, &v37);
+    blockCopy[2](blockCopy, bottom3, &v36);
   }
 
 LABEL_18:
 LABEL_19:
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (id)fetchedRangePrecedingOrder:(unint64_t)order
@@ -684,51 +678,51 @@ void __37__FCFDBFeed_hasFetchedRangesInRange___block_invoke(uint64_t a1, void *a
 
 - (void)_visitContiguousRangesInRange:(id)range withBlock:(id)block
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   rangeCopy = range;
   blockCopy = block;
-  v24[0] = 0;
-  v24[1] = v24;
-  v24[2] = 0x3032000000;
-  v24[3] = __Block_byref_object_copy__89;
-  v24[4] = __Block_byref_object_dispose__89;
-  v25 = 0;
+  v23[0] = 0;
+  v23[1] = v23;
+  v23[2] = 0x3032000000;
+  v23[3] = __Block_byref_object_copy__89;
+  v23[4] = __Block_byref_object_dispose__89;
+  v24 = 0;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __53__FCFDBFeed__visitContiguousRangesInRange_withBlock___block_invoke;
   aBlock[3] = &unk_1E7C47690;
-  v23 = v24;
+  v22 = v23;
   v8 = rangeCopy;
-  v21 = v8;
+  v20 = v8;
   v9 = blockCopy;
-  v22 = v9;
+  v21 = v9;
   v10 = _Block_copy(aBlock);
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   fetchedRanges = [(FCFDBFeed *)self fetchedRanges];
-  v12 = [fetchedRanges countByEnumeratingWithState:&v16 objects:v26 count:16];
+  v12 = [fetchedRanges countByEnumeratingWithState:&v15 objects:v25 count:16];
   if (v12)
   {
-    v13 = *v17;
+    v13 = *v16;
 LABEL_3:
     v14 = 0;
     while (1)
     {
-      if (*v17 != v13)
+      if (*v16 != v13)
       {
         objc_enumerationMutation(fetchedRanges);
       }
 
-      if ((v10[2](v10, *(*(&v16 + 1) + 8 * v14)) & 1) == 0)
+      if ((v10[2](v10, *(*(&v15 + 1) + 8 * v14)) & 1) == 0)
       {
         break;
       }
 
       if (v12 == ++v14)
       {
-        v12 = [fetchedRanges countByEnumeratingWithState:&v16 objects:v26 count:16];
+        v12 = [fetchedRanges countByEnumeratingWithState:&v15 objects:v25 count:16];
         if (v12)
         {
           goto LABEL_3;
@@ -739,8 +733,7 @@ LABEL_3:
     }
   }
 
-  _Block_object_dispose(v24, 8);
-  v15 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v23, 8);
 }
 
 uint64_t __53__FCFDBFeed__visitContiguousRangesInRange_withBlock___block_invoke(uint64_t a1, void *a2)

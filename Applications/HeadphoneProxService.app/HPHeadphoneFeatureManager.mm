@@ -1,4 +1,5 @@
 @interface HPHeadphoneFeatureManager
+- (BOOL)shouldShowProxCardForFeature:(int)feature;
 - (HPHeadphoneFeatureManager)initWithBluetoothAddress:(id)address productID:(unsigned int)d;
 - (id)getFeatureName:(int)name;
 - (unsigned)getColorCode;
@@ -6,6 +7,7 @@
 - (void)setAdaptiveControlsConfigDisabled;
 - (void)setAdaptiveControlsConfigEnabled;
 - (void)setAdaptiveControlsConversationAwareness:(BOOL)awareness;
+- (void)setAdaptiveControlsCustomized:(BOOL)customized autoVolumeEnabled:(BOOL)enabled conversationDetectionEnabled:(BOOL)detectionEnabled;
 - (void)setAdaptiveControlsPersonalizedVolume:(BOOL)volume;
 - (void)setAdaptiveControlsStatus;
 - (void)setMuteCallConfig;
@@ -23,20 +25,54 @@
   v6 = [(HPHeadphoneFeatureManager *)&v12 init];
   v7 = [addressCopy copy];
 
-  v8 = *(v6 + 2);
-  *(v6 + 2) = v7;
+  bluetoothAddressString = v6->_bluetoothAddressString;
+  v6->_bluetoothAddressString = v7;
 
-  *(v6 + 2) = d;
+  v6->_productID = d;
   if (dword_10011C2C0 <= 30 && (dword_10011C2C0 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000CF4A0(v6 + 2);
+    sub_1000CF4A0();
   }
 
   v9 = +[BluetoothManager sharedInstance];
-  v10 = *(v6 + 4);
-  *(v6 + 4) = v9;
+  btManager = v6->_btManager;
+  v6->_btManager = v9;
 
   return v6;
+}
+
+- (BOOL)shouldShowProxCardForFeature:(int)feature
+{
+  v3 = *&feature;
+  if (!feature)
+  {
+    v5 = 1;
+    goto LABEL_5;
+  }
+
+  if (feature == 1)
+  {
+    v5 = 2;
+LABEL_5:
+    [(HPHeadphoneFeatureManager *)self setUpBTDevice];
+    v6 = [(BluetoothDevice *)self->_bluetoothDevice isProxCardShowedForFeature:v5];
+    v7 = (v6 ^ 1) & [(BluetoothDevice *)self->_bluetoothDevice isProxCardSupportedForFeature:v5];
+    if (dword_10011C2C0 <= 50 && (dword_10011C2C0 != -1 || _LogCategory_Initialize()))
+    {
+      v8 = [(HPHeadphoneFeatureManager *)self getFeatureName:v3];
+      LogPrintF();
+    }
+
+    return v7;
+  }
+
+  if (dword_10011C2C0 <= 90 && (dword_10011C2C0 != -1 || _LogCategory_Initialize()))
+  {
+    sub_1000CF4E4();
+  }
+
+  LOBYTE(v7) = 0;
+  return v7;
 }
 
 - (id)getFeatureName:(int)name
@@ -129,6 +165,50 @@
   bluetoothDevice = self->_bluetoothDevice;
 
   [(BluetoothDevice *)bluetoothDevice setProxCardShowedForFeature:2 showed:1];
+}
+
+- (void)setAdaptiveControlsCustomized:(BOOL)customized autoVolumeEnabled:(BOOL)enabled conversationDetectionEnabled:(BOOL)detectionEnabled
+{
+  detectionEnabledCopy = detectionEnabled;
+  enabledCopy = enabled;
+  customizedCopy = customized;
+  if (dword_10011C2C0 <= 50 && (dword_10011C2C0 != -1 || _LogCategory_Initialize()))
+  {
+    v13 = enabledCopy;
+    v14 = detectionEnabledCopy;
+    v12 = customizedCopy;
+    LogPrintF();
+  }
+
+  if (customizedCopy)
+  {
+    [(BluetoothDevice *)self->_bluetoothDevice setListeningMode:4];
+    [(BluetoothDevice *)self->_bluetoothDevice setListeningModeConfigs:10];
+  }
+
+  if (enabledCopy)
+  {
+    v9 = 1;
+  }
+
+  else
+  {
+    v9 = 2;
+  }
+
+  [(BluetoothDevice *)self->_bluetoothDevice setAdaptiveVolumeMode:v9, v12, v13, v14];
+  bluetoothDevice = self->_bluetoothDevice;
+  if (detectionEnabledCopy)
+  {
+    v11 = 1;
+  }
+
+  else
+  {
+    v11 = 2;
+  }
+
+  [(BluetoothDevice *)bluetoothDevice setConversationDetectMode:v11];
 }
 
 - (void)setAdaptiveControlsAdaptiveMode:(BOOL)mode
@@ -240,7 +320,7 @@
           objc_storeStrong(&self->_bluetoothDevice, v8);
           if (dword_10011C2C0 <= 50 && (dword_10011C2C0 != -1 || _LogCategory_Initialize()))
           {
-            sub_1000CF6A0(&self->_bluetoothDevice);
+            sub_1000CF6A0();
           }
 
           goto LABEL_13;

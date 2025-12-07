@@ -37,27 +37,27 @@
 
 - (NSUInteger)nextIntWithUpperBound:(NSUInteger)upperBound
 {
-  v20[3] = *MEMORY[0x277D85DE8];
+  v18[3] = *MEMORY[0x277D85DE8];
   lowest = self->_lowest;
   v4 = lowest & ~(lowest >> 63);
   if (v4 > upperBound)
   {
-    v9 = MEMORY[0x277CBEAD8];
-    v10 = *MEMORY[0x277CBE660];
-    v19[0] = @"lowestInclusive";
-    v13 = [MEMORY[0x277CCABB0] numberWithInteger:lowest];
-    v20[0] = v13;
-    v19[1] = @"highestInclusive";
-    v14 = [MEMORY[0x277CCABB0] numberWithInteger:self->_highest];
-    v20[1] = v14;
-    v19[2] = @"upper";
-    v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:upperBound];
-    v20[2] = v15;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:3];
-    v17 = [v9 exceptionWithName:v10 reason:@"upper bound provided is less than lowestInclusive" userInfo:v16];
-    v18 = v17;
+    v7 = MEMORY[0x277CBEAD8];
+    v8 = *MEMORY[0x277CBE660];
+    v17[0] = @"lowestInclusive";
+    v11 = [MEMORY[0x277CCABB0] numberWithInteger:lowest];
+    v18[0] = v11;
+    v17[1] = @"highestInclusive";
+    v12 = [MEMORY[0x277CCABB0] numberWithInteger:self->_highest];
+    v18[1] = v12;
+    v17[2] = @"upper";
+    v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:upperBound];
+    v18[2] = v13;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
+    v15 = [v7 exceptionWithName:v8 reason:@"upper bound provided is less than lowestInclusive" userInfo:v14];
+    v16 = v15;
 
-    objc_exception_throw(v17);
+    objc_exception_throw(v15);
   }
 
   v5 = self->_highest & ~(self->_highest >> 63);
@@ -66,9 +66,7 @@
     v5 = upperBound - 1;
   }
 
-  v6 = [(GKRandom *)self->_source nextIntWithUpperBound:v5 - lowest + 1];
-  v7 = *MEMORY[0x277D85DE8];
-  return v6 + v4;
+  return [(GKRandom *)self->_source nextIntWithUpperBound:v5 - lowest + 1]+ v4;
 }
 
 + (GKRandomDistribution)distributionWithLowestValue:(NSInteger)lowestInclusive highestValue:(NSInteger)highestInclusive

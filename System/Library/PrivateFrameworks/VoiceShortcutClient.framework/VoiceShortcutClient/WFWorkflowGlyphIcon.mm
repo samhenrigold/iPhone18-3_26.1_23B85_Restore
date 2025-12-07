@@ -3,6 +3,7 @@
 - (BOOL)hasTransparentBackground;
 - (BOOL)isEqual:(id)equal;
 - (WFWorkflowGlyphIcon)initWithCoder:(id)coder;
+- (WFWorkflowGlyphIcon)initWithGlyph:(unsigned __int16)glyph;
 - (WFWorkflowGlyphIcon)initWithGlyph:(unsigned __int16)glyph background:(id)background;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -139,6 +140,15 @@ LABEL_14:
   }
 
   return v10;
+}
+
+- (WFWorkflowGlyphIcon)initWithGlyph:(unsigned __int16)glyph
+{
+  glyphCopy = glyph;
+  v5 = +[WFIconColorBackground clearBackground];
+  v6 = [(WFWorkflowGlyphIcon *)self initWithGlyph:glyphCopy background:v5];
+
+  return v6;
 }
 
 @end

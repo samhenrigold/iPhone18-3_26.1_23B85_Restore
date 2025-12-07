@@ -164,7 +164,7 @@ LABEL_24:
   {
     if (!v6)
     {
-      v6 = +[UIColor blackColor];
+      v6 = objc_msgSend_blackColor(UIColor);
     }
   }
 

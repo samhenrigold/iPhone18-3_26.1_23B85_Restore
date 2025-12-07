@@ -157,11 +157,11 @@ LABEL_3:
     *v28 = v5;
     *&v28[8] = v27;
     *&v28[24] = v7;
-    [off_1E77218B0 indexPathAfterRevertingChanges:changeDetails2 fromIndexPath:v28 hasIncrementalChanges:0 objectChanged:&v29];
+    objc_msgSend_indexPathAfterRevertingChanges_fromIndexPath_hasIncrementalChanges_objectChanged_(off_1E77218B0);
 
-    v19 = *&v28[32];
+    v19 = 0;
     v20 = *off_1E7721F68;
-    if (*&v28[32] != *off_1E7721F68 && *&v28[48] != 0x7FFFFFFFFFFFFFFFLL && *&v28[56] == 0x7FFFFFFFFFFFFFFFLL && v29 == 1)
+    if (*off_1E7721F68 && *&v28[48] != 0x7FFFFFFFFFFFFFFFLL && *&v28[56] == 0x7FFFFFFFFFFFFFFFLL && v29 == 1)
     {
       fromDataSource2 = [(PXSectionedTileIdentifierConverter *)self fromDataSource];
       *v28 = *&v28[32];
@@ -258,11 +258,11 @@ LABEL_4:
     *v31 = v8;
     *&v31[8] = v30;
     *&v31[24] = v10;
-    [off_1E77218B0 indexPathAfterApplyingChanges:changeDetails2 toIndexPath:v31 hasIncrementalChanges:0 objectChanged:&v32];
+    objc_msgSend_indexPathAfterApplyingChanges_toIndexPath_hasIncrementalChanges_objectChanged_(off_1E77218B0);
 
-    v21 = *&v31[32];
+    v21 = 0;
     v22 = *off_1E7721F68;
-    if (*&v31[32] != *off_1E7721F68 && *&v31[48] != 0x7FFFFFFFFFFFFFFFLL && *&v31[56] == 0x7FFFFFFFFFFFFFFFLL && v8 != v22 && *(&v30 + 1) != 0x7FFFFFFFFFFFFFFFLL && v10 == 0x7FFFFFFFFFFFFFFFLL && v32 == 1)
+    if (*off_1E7721F68 && *&v31[48] != 0x7FFFFFFFFFFFFFFFLL && *&v31[56] == 0x7FFFFFFFFFFFFFFFLL && v8 != v22 && *(&v30 + 1) != 0x7FFFFFFFFFFFFFFFLL && v10 == 0x7FFFFFFFFFFFFFFFLL && v32 == 1)
     {
       fromDataSource2 = [(PXSectionedTileIdentifierConverter *)self fromDataSource];
       *v31 = v8;

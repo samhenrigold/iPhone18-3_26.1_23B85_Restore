@@ -17,12 +17,12 @@
   ascendingCopy = ascending;
   var1 = range.var1;
   var0 = range.var0;
-  v59[1] = *MEMORY[0x277D85DE8];
+  v58[1] = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   cacheCopy = cache;
-  v55.receiver = self;
-  v55.super_class = HDMCDaySummaryEnumerator;
-  v16 = [(HDMCDaySummaryEnumerator *)&v55 init];
+  v54.receiver = self;
+  v54.super_class = HDMCDaySummaryEnumerator;
+  v16 = [(HDMCDaySummaryEnumerator *)&v54 init];
   v17 = v16;
   if (v16)
   {
@@ -31,17 +31,17 @@
     v17->_dayIndexRange.start = var0;
     v17->_dayIndexRange.duration = var1;
     v17->_ascending = ascendingCopy;
-    v53 = profileCopy;
-    v51 = ascendingCopy;
+    v52 = profileCopy;
+    v50 = ascendingCopy;
     if (temperature)
     {
-      v50 = factorsCopy;
+      v49 = factorsCopy;
       WeakRetained = objc_loadWeakRetained(&v17->_profile);
       sourceOrderManager = [WeakRetained sourceOrderManager];
       v20 = _HKMCAppleSleepingWristTemperatureType();
-      v54 = 0;
-      v21 = [sourceOrderManager orderedSourcesForObjectType:v20 error:&v54];
-      v22 = v54;
+      v53 = 0;
+      v21 = [sourceOrderManager orderedSourcesForObjectType:v20 error:&v53];
+      v22 = v53;
       orderedWatchSources = v17->_orderedWatchSources;
       v17->_orderedWatchSources = v21;
 
@@ -55,12 +55,12 @@
         }
       }
 
-      factorsCopy = v50;
+      factorsCopy = v49;
     }
 
-    v58 = *MEMORY[0x277D10400];
-    v59[0] = MEMORY[0x277CBEC38];
-    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:&v58 count:1];
+    v57 = *MEMORY[0x277D10400];
+    v58[0] = MEMORY[0x277CBEC38];
+    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:&v57 count:1];
     if (var0 == *MEMORY[0x277CCBBF8] && var1 == *(MEMORY[0x277CCBBF8] + 8))
     {
       v27 = 0;
@@ -72,7 +72,7 @@
     }
 
     v28 = HKMCDaySummaryCategoryTypes();
-    v52 = cacheCopy;
+    v51 = cacheCopy;
     if (factorsCopy)
     {
       v29 = HKMCCycleFactorsTypes();
@@ -85,41 +85,40 @@
     v32 = objc_alloc(MEMORY[0x277D10820]);
     v33 = [MEMORY[0x277CBEB98] setWithArray:v28];
     v34 = [v32 initWithSampleTypes:v33 encodingOptions:v25 restrictedSourceEntities:0 authorizationFilter:0 samplePredicate:v27];
-    v57[0] = v34;
+    v56[0] = v34;
     v35 = objc_alloc(MEMORY[0x277D10820]);
     v36 = [MEMORY[0x277CBEB98] setWithArray:v31];
     v37 = [v35 initWithSampleTypes:v36 encodingOptions:v25 restrictedSourceEntities:0 authorizationFilter:0 samplePredicate:v27];
-    v57[1] = v37;
-    v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:2];
+    v56[1] = v37;
+    v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:2];
 
     v39 = MEMORY[0x277CCCD50];
-    if (!v51)
+    if (!v50)
     {
       v39 = MEMORY[0x277CCCD38];
     }
 
     v40 = MEMORY[0x277CCAC98];
     v41 = *v39;
-    v42 = [v40 sortDescriptorWithKey:v41 ascending:v51];
+    v42 = [v40 sortDescriptorWithKey:v41 ascending:v50];
     v43 = objc_alloc(MEMORY[0x277D10780]);
-    v56 = v42;
-    v44 = [MEMORY[0x277CBEA60] arrayWithObjects:&v56 count:1];
+    v55 = v42;
+    v44 = [MEMORY[0x277CBEA60] arrayWithObjects:&v55 count:1];
     v45 = v43;
-    profileCopy = v53;
-    v46 = [v45 initWithQueryDescriptors:v38 includeDeletedObjects:0 anchor:0 sortDescriptors:v44 bufferSize:100 profile:v53];
+    profileCopy = v52;
+    v46 = [v45 initWithQueryDescriptors:v38 includeDeletedObjects:0 anchor:0 sortDescriptors:v44 bufferSize:100 profile:v52];
     iterator = v17->_iterator;
     v17->_iterator = v46;
 
-    cacheCopy = v52;
+    cacheCopy = v51;
   }
 
-  v48 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 - (BOOL)enumerateWithError:(id *)error handler:(id)handler
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v6 = _HKLogPersistedSignposts();
   v7 = _HKLogSignpostIDGenerate();
@@ -134,39 +133,37 @@
     v11 = v10;
     if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
     {
-      start = self->_dayIndexRange.start;
-      duration = self->_dayIndexRange.duration;
-      v14 = NSStringFromHKDayIndexRange();
+      v12 = NSStringFromHKDayIndexRange();
       *buf = 138412290;
-      v57 = v14;
+      v52 = v12;
       _os_signpost_emit_with_name_impl(&dword_2293D1000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "menstrual-cycles-daysummary", "dayIndexRange=%@", buf, 0xCu);
     }
   }
 
   spid = v7;
-  v15 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v55 = 0;
+  v13 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v50 = 0;
   iterator = self->_iterator;
-  v54 = 0;
-  v17 = [(HDMultiTypeSortedSampleIterator *)iterator advanceWithError:&v54];
-  v18 = v54;
-  v19 = v18;
-  if (!v17)
+  v49 = 0;
+  v15 = [(HDMultiTypeSortedSampleIterator *)iterator advanceWithError:&v49];
+  v16 = v49;
+  v17 = v16;
+  if (!v15)
   {
-    v20 = 0;
-    v37 = v18;
+    v18 = 0;
+    v35 = v16;
 LABEL_21:
-    allKeys = [v15 allKeys];
-    [(HDMCDaySummaryEnumerator *)self _closeBuilders:v15 withIndexes:allKeys handler:handlerCopy stop:&v55];
+    allKeys = [v13 allKeys];
+    [(HDMCDaySummaryEnumerator *)self _closeBuilders:v13 withIndexes:allKeys handler:handlerCopy stop:&v50];
 
     goto LABEL_22;
   }
 
   errorCopy = error;
-  v20 = 0;
+  v18 = 0;
   do
   {
-    v21 = objc_autoreleasePoolPush();
+    v19 = objc_autoreleasePoolPush();
     sample = [(HDMultiTypeSortedSampleIterator *)self->_iterator sample];
     if (([sample hkmc_isNotPresentSymptom] & 1) == 0)
     {
@@ -182,106 +179,103 @@ LABEL_21:
         hk_earliestPossibleDayIndex = [startDate hk_latestPossibleDayIndex];
       }
 
-      v25 = hk_earliestPossibleDayIndex;
+      v23 = hk_earliestPossibleDayIndex;
 
-      allKeys2 = [v15 allKeys];
-      v53[0] = MEMORY[0x277D85DD0];
-      v53[1] = 3221225472;
-      v53[2] = __55__HDMCDaySummaryEnumerator_enumerateWithError_handler___block_invoke;
-      v53[3] = &unk_27865AEA0;
-      v53[4] = self;
-      v53[5] = v25;
-      v27 = [allKeys2 hk_filter:v53];
+      allKeys2 = [v13 allKeys];
+      v48[0] = MEMORY[0x277D85DD0];
+      v48[1] = 3221225472;
+      v48[2] = __55__HDMCDaySummaryEnumerator_enumerateWithError_handler___block_invoke;
+      v48[3] = &unk_27865AEA0;
+      v48[4] = self;
+      v48[5] = v23;
+      v25 = [allKeys2 hk_filter:v48];
 
-      [(HDMCDaySummaryEnumerator *)self _closeBuilders:v15 withIndexes:v27 handler:handlerCopy stop:&v55];
+      [(HDMCDaySummaryEnumerator *)self _closeBuilders:v13 withIndexes:v25 handler:handlerCopy stop:&v50];
       calendarCache = self->_calendarCache;
       _timeZone = [sample _timeZone];
-      v30 = [(HKCalendarCache *)calendarCache calendarForTimeZone:_timeZone];
+      v28 = [(HKCalendarCache *)calendarCache calendarForTimeZone:_timeZone];
 
       if ([sample hkmc_isSleepDependentSample])
       {
         endDate = [sample endDate];
-        v32 = [endDate hk_morningIndexWithCalendar:v30];
+        v30 = [endDate hk_morningIndexWithCalendar:v28];
 
-        v33 = 1;
+        v31 = 1;
       }
 
       else
       {
-        v32 = [sample hk_dayIndexRangeWithCalendar:v30];
-        v33 = v34;
+        v30 = [sample hk_dayIndexRangeWithCalendar:v28];
+        v31 = v32;
       }
 
-      ++v20;
-      [(HDMCDaySummaryEnumerator *)self _addSample:sample toBuilders:v15 sampleRange:v32, v33, errorCopy];
+      ++v18;
+      [(HDMCDaySummaryEnumerator *)self _addSample:sample toBuilders:v13 sampleRange:v30, v31, errorCopy];
     }
 
-    objc_autoreleasePoolPop(v21);
-    v35 = self->_iterator;
-    v54 = v19;
-    v36 = [(HDMultiTypeSortedSampleIterator *)v35 advanceWithError:&v54];
-    v37 = v54;
+    objc_autoreleasePoolPop(v19);
+    v33 = self->_iterator;
+    v49 = v17;
+    v34 = [(HDMultiTypeSortedSampleIterator *)v33 advanceWithError:&v49];
+    v35 = v49;
 
-    if (!v36)
+    if (!v34)
     {
       break;
     }
 
-    v19 = v37;
+    v17 = v35;
   }
 
-  while (!v55);
+  while (!v50);
   error = errorCopy;
-  if (!v55)
+  if (!v50)
   {
     goto LABEL_21;
   }
 
 LABEL_22:
   _HKInitializeLogging();
-  v39 = _HKLogPersistedSignposts();
-  v40 = os_signpost_enabled(v39);
+  v37 = _HKLogPersistedSignposts();
+  v38 = os_signpost_enabled(v37);
 
-  if (v40)
+  if (v38)
   {
-    v41 = _HKLogPersistedSignposts();
-    v42 = v41;
-    if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v41))
+    v39 = _HKLogPersistedSignposts();
+    v40 = v39;
+    if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v39))
     {
-      v43 = self->_dayIndexRange.start;
-      v44 = self->_dayIndexRange.duration;
-      v45 = NSStringFromHKDayIndexRange();
+      v41 = NSStringFromHKDayIndexRange();
       *buf = 138412546;
-      v57 = v45;
-      v58 = 2048;
-      v59 = v20;
-      _os_signpost_emit_with_name_impl(&dword_2293D1000, v42, OS_SIGNPOST_INTERVAL_END, spid, "menstrual-cycles-daysummary", "dayIndexRange=%@ samples=%ld", buf, 0x16u);
+      v52 = v41;
+      v53 = 2048;
+      v54 = v18;
+      _os_signpost_emit_with_name_impl(&dword_2293D1000, v40, OS_SIGNPOST_INTERVAL_END, spid, "menstrual-cycles-daysummary", "dayIndexRange=%@ samples=%ld", buf, 0x16u);
     }
   }
 
-  if (v37 && ([v37 hk_isHealthKitErrorWithCode:900] & 1) == 0)
+  if (v35 && ([v35 hk_isHealthKitErrorWithCode:900] & 1) == 0)
   {
     if (error)
     {
-      v47 = v37;
-      v46 = 0;
-      *error = v37;
+      v43 = v35;
+      v42 = 0;
+      *error = v35;
     }
 
     else
     {
       _HKLogDroppedError();
-      v46 = 0;
+      v42 = 0;
     }
   }
 
   else
   {
-    v46 = 1;
+    v42 = 1;
   }
 
-  v48 = *MEMORY[0x277D85DE8];
-  return v46;
+  return v42;
 }
 
 uint64_t __55__HDMCDaySummaryEnumerator_enumerateWithError_handler___block_invoke(uint64_t a1, void *a2)
@@ -305,18 +299,18 @@ uint64_t __55__HDMCDaySummaryEnumerator_enumerateWithError_handler___block_invok
 
 - (void)_closeBuilders:(id)builders withIndexes:(id)indexes handler:(id)handler stop:(BOOL *)stop
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   buildersCopy = builders;
   indexesCopy = indexes;
   handlerCopy = handler;
   context = objc_autoreleasePoolPush();
-  v25 = indexesCopy;
+  v24 = indexesCopy;
   v13 = [indexesCopy sortedArrayUsingSelector:sel_compare_];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
-  v23 = v13;
+  v22 = v13;
   if (self->_ascending)
   {
     reverseObjectEnumerator = v13;
@@ -328,21 +322,21 @@ uint64_t __55__HDMCDaySummaryEnumerator_enumerateWithError_handler___block_invok
   }
 
   obj = reverseObjectEnumerator;
-  v15 = [reverseObjectEnumerator countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v15 = [reverseObjectEnumerator countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v15)
   {
     v16 = v15;
-    v27 = *v29;
+    v26 = *v28;
 LABEL_6:
     v17 = 0;
     while (1)
     {
-      if (*v29 != v27)
+      if (*v28 != v26)
       {
         objc_enumerationMutation(obj);
       }
 
-      v18 = *(*(&v28 + 1) + 8 * v17);
+      v18 = *(*(&v27 + 1) + 8 * v17);
       v19 = [buildersCopy objectForKeyedSubscript:v18];
       localDevice = [MEMORY[0x277CCD2E8] localDevice];
       v21 = [v19 createDaySummaryWithDevice:localDevice];
@@ -358,7 +352,7 @@ LABEL_6:
 
       if (v16 == ++v17)
       {
-        v16 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v16 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
         if (v16)
         {
           goto LABEL_6;
@@ -370,7 +364,6 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(context);
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addSample:(id)sample toBuilders:(id)builders atDayIndex:(int64_t)index
@@ -523,16 +516,14 @@ LABEL_6:
 
 - (void)initWithProfile:(uint64_t)a3 calendarCache:dayIndexRange:ascending:includeFactors:includeWristTemperature:.cold.1(void *a1, uint64_t a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = a1;
-  v7 = 138543618;
-  v8 = objc_opt_class();
-  v9 = 2114;
-  v10 = a3;
-  v5 = v8;
-  _os_log_error_impl(&dword_2293D1000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Error retrieving ordered wrist temperature sources: %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138543618;
+  v7 = objc_opt_class();
+  v8 = 2114;
+  v9 = a3;
+  v5 = v7;
+  _os_log_error_impl(&dword_2293D1000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Error retrieving ordered wrist temperature sources: %{public}@", &v6, 0x16u);
 }
 
 @end

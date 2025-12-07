@@ -1,2764 +1,4541 @@
-uint64_t physx::NpActorTemplate<physx::PxArticulationLink>::getActorFlags@<X0>(uint64_t result@<X0>, _BYTE *a2@<X8>)
+uint64_t physx::Gu::gjkPenetration<physx::Gu::RelativeConvex<physx::Gu::ConvexHullV>,physx::Gu::LocalConvex<physx::Gu::ConvexHullV>>(float32x4_t *a1, uint64_t a2, float32x4_t *a3, uint64_t *a4, int a5, _BYTE *a6, _BYTE *a7, _BYTE *a8, double a9, double a10, int8x8_t a11, int32x4_t a12, uint64_t a13)
 {
-  v2 = result + *(&physx::NpActor::sLazyInitOffsets + *(result + 8) + 18);
-  v3 = *(v2 + 8);
-  if (v3)
+  v13 = a7;
+  v14 = a6;
+  v372 = *MEMORY[0x1E69E9840];
+  v17 = a1->i64[1];
+  v18 = (v17 + 20);
+  v19 = vld1_dup_f32(v18);
+  v20 = *(a2 + 8);
+  v21 = &v20[1].f32[1];
+  v22 = vld1_dup_f32(v21);
+  v23 = vmin_f32(v19, v22);
+  v24 = vdup_n_s32(0x3DCCCCCDu);
+  v25 = vmul_f32(v23, v24);
+  v23.i32[0] = *(v17 + 16);
+  v24.i32[0] = v20[1].i32[0];
+  a11.i32[0] = -*(v17 + 32);
+  v26 = vand_s8(a11, v23);
+  v27 = vdup_lane_s32(v26, 0);
+  v26.i32[0] = -v20[2].u8[0];
+  v28 = vdup_lane_s32(vand_s8(v26, v24), 0);
+  v342 = v27;
+  v343 = v28.f32[0];
+  v29 = vadd_f32(v27, v28);
+  v30 = *a4;
+  v355 = 0uLL;
+  v354 = 0;
+  v31 = *a8;
+  __asm { FMOV            V9.2S, #1.0 }
+
+  v346 = v29;
+  if (!*a8)
   {
-    v4 = *(v2 + 16);
-  }
-
-  else
-  {
-    v4 = (*(&physx::Scb::Actor::sLazyInitOffsets + ((v3 >> 24) & 0xF) + 3) + v2 + 12);
-  }
-
-  *a2 = *v4;
-  return result;
-}
-
-int32x2_t *physx::NpActorTemplate<physx::PxArticulationLink>::setDominanceGroup(uint64_t a1, char a2)
-{
-  v3 = a1 + *(&physx::NpActor::sLazyInitOffsets + *(a1 + 8) + 18);
-  v4 = *(v3 + 8);
-  v5 = (v4 >> 24) & 0xF;
-  v6 = *(&physx::Scb::Actor::sLazyInitOffsets + v5 + 3);
-  v7 = v4 >> 30;
-  if (v7 == 2)
-  {
-    v8 = *v3;
-    if (*(*v3 + 7689))
-    {
-      goto LABEL_5;
-    }
-  }
-
-  else if (v7 == 3)
-  {
-    v8 = *v3;
-LABEL_5:
-    Stream = *(v3 + 16);
-    if (!Stream)
-    {
-      Stream = physx::Scb::Scene::getStream(v8, v5);
-      *(v3 + 16) = Stream;
-      v8 = *v3;
-    }
-
-    *(Stream + 1) = a2;
-    result = physx::Scb::Scene::scheduleForUpdate(v8, v3);
-    *(v3 + 8) |= 2u;
-    return result;
-  }
-
-  *(v6 + v3 + 14) = a2;
-  result = *(v3 + v6);
-  if (result)
-  {
-
-    return physx::Sc::ActorSim::setActorsInteractionsDirty(result, 8, 0, 1);
-  }
-
-  return result;
-}
-
-uint64_t physx::NpActorTemplate<physx::PxArticulationLink>::getDominanceGroup(uint64_t a1)
-{
-  v1 = a1 + *(&physx::NpActor::sLazyInitOffsets + *(a1 + 8) + 18);
-  v2 = *(v1 + 8);
-  if ((v2 & 2) != 0)
-  {
-    v3 = (*(v1 + 16) + 1);
-  }
-
-  else
-  {
-    v3 = (*(&physx::Scb::Actor::sLazyInitOffsets + ((v2 >> 24) & 0xF) + 3) + v1 + 14);
-  }
-
-  return *v3;
-}
-
-uint64_t physx::NpActorTemplate<physx::PxArticulationLink>::setOwnerClient(uint64_t result, char a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  v9 = result + *(&physx::NpActor::sLazyInitOffsets + *(result + 8) + 18);
-  if (*v9)
-  {
-    v10 = "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpActorTemplate.h";
-    v11 = "Attempt to set the client id when an actor is already in a scene.";
-    v12 = physx::shdfnd::Foundation::mInstance;
-    v13 = 196;
-    return physx::shdfnd::Foundation::error(v12, 8, v10, v13, v11, a6, a7, a8, a9);
-  }
-
-  v14 = *(v9 + 8);
-  if (v14 >> 30 == 3 || v14 >> 30 == 2 && (MEMORY[0x1E09] & 1) != 0)
-  {
-    v10 = "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/buffering/ScbActor.h";
-    v11 = "Attempt to set the client id when an actor is buffering";
-    v12 = physx::shdfnd::Foundation::mInstance;
-    v13 = 182;
-    return physx::shdfnd::Foundation::error(v12, 8, v10, v13, v11, a6, a7, a8, a9);
-  }
-
-  *(*(&physx::Scb::Actor::sLazyInitOffsets + ((v14 >> 24) & 0xF) + 3) + v9 + 11) = a2;
-  return result;
-}
-
-uint64_t physx::NpActorTemplate<physx::PxArticulationLink>::getAggregate(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  if (!v1)
-  {
-    return 0;
-  }
-
-  v2 = *(v1 + 80);
-  if (!v2)
-  {
-    return 0;
-  }
-
-  for (i = *(v1 + 72) + 8; *(i - 8) != 1; i += 16)
-  {
-    if (!--v2)
-    {
-      return 0;
-    }
-  }
-
-  return *i;
-}
-
-uint64_t physx::NpRigidActorTemplate<physx::PxArticulationLink>::detachShape(physx::PxRigidActor *a1, physx::NpShape *a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  if (*(a1 + 10))
-  {
-    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidActorTemplate.h", 247, "PxRigidActor::detachShape: Actor is part of a pruning structure, pruning structure is now invalid!", a6, a7, a8, v17);
-    physx::Sq::PruningStructure::invalidate(*(a1 + 10), a1);
-  }
-
-  result = physx::NpShapeManager::detachShape((a1 + 40), a2, a1, a3);
-  if ((result & 1) == 0)
-  {
-    v16 = physx::shdfnd::Foundation::mInstance;
-
-    return physx::shdfnd::Foundation::error(v16, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidActorTemplate.h", 253, "PxRigidActor::detachShape: shape is not attached to this actor!", v13, v14, v15, a9);
-  }
-
-  return result;
-}
-
-uint64_t physx::NpRigidActorTemplate<physx::PxArticulationLink>::getShapes(uint64_t a1, void *a2, unsigned int a3, int a4)
-{
-  v4 = (a1 + 40);
-  v5 = *(a1 + 48);
-  if (v5 != 1)
-  {
-    v4 = *v4;
-  }
-
-  v6 = (v5 - a4) & ~((v5 - a4) >> 31);
-  if (v6 >= a3)
-  {
-    result = a3;
-  }
-
-  else
-  {
-    result = v6;
-  }
-
-  if (result)
-  {
-    v8 = &v4[a4];
-    v9 = result;
+    v71 = vmulq_f32(*a3, *a3);
+    v71.i64[0] = vpaddq_f32(v71, v71).u64[0];
+    v63 = vbslq_s8(vmovl_s16(vdup_lane_s16(vcgtz_f32(vpadd_f32(*v71.f32, *v71.f32)), 0)), *a3, xmmword_1E3047670);
+    v355 = v63;
+    v72 = vmulq_f32(v63, v63);
+    v72.i64[0] = vpaddq_f32(v72, v72).u64[0];
+    v73 = vpadd_f32(*v72.f32, *v72.f32);
+    v74 = vrsqrte_f32(v73);
+    v75 = 4;
     do
     {
-      v10 = *v8++;
-      *a2++ = v10;
-      --v9;
+      v74 = vmul_f32(v74, vrsqrts_f32(vmul_f32(v74, v74), v73));
+      --v75;
     }
 
-    while (v9);
+    while (v75);
+    v76 = vbsl_s8(vdup_lane_s32(vceqz_f32(v73), 0), v73, vmul_f32(v73, v74));
+    v77 = vrecpe_f32(v76);
+    v78 = 4;
+    do
+    {
+      *a12.i8 = vrecps_f32(v76, v77);
+      v77 = vmul_f32(v77, *a12.i8);
+      --v78;
+    }
+
+    while (v78);
+    v79 = vmulq_n_f32(v63, v77.f32[0]);
+    v79.i32[3] = 0;
+    v349 = v79;
+    v80 = vneg_f32(0x80000000800000);
+    v81.i64[0] = -1;
+    v81.i64[1] = -1;
+    v82 = 0uLL;
+    goto LABEL_52;
   }
 
-  return result;
-}
-
-uint64_t physx::NpRigidActorTemplate<physx::PxArticulationLink>::getNbConstraints(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  if (!v1)
-  {
-    return 0;
-  }
-
-  v2 = *(v1 + 80);
-  if (!v2)
-  {
-    return 0;
-  }
-
-  LODWORD(result) = 0;
-  v4 = *(v1 + 72);
+  v37 = 0;
+  v38 = a1[1].i64[0];
+  v39 = *(v17 + 160);
+  v40 = *(v17 + 48);
+  v41 = *(v17 + 64);
+  a12 = *(v17 + 80);
+  v42 = v20[10].i64[0];
+  v43 = v20[3];
+  v44 = v20[4];
+  v45 = -1;
+  v46 = v20[5];
   do
   {
-    v5 = *v4;
-    v4 += 16;
-    if (v5)
-    {
-      result = result;
-    }
-
-    else
-    {
-      result = (result + 1);
-    }
-
-    --v2;
-  }
-
-  while (v2);
-  return result;
-}
-
-float physx::NpRigidBodyTemplate<physx::PxArticulationLink>::getCMassLocalPose@<S0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  if ((*(a1 + 381) & 4) != 0)
-  {
-    v2 = *(a1 + 112) + 224;
-  }
-
-  else
-  {
-    v2 = a1 + 176;
-  }
-
-  *a2 = *v2;
-  *(a2 + 16) = *(v2 + 16);
-  result = *(v2 + 24);
-  *(a2 + 24) = result;
-  return result;
-}
-
-float *physx::NpRigidBodyTemplate<physx::PxArticulationLink>::setMass(uint64_t a1, float a2)
-{
-  if (a2 <= 0.0)
-  {
-    v3 = 0.0;
-  }
-
-  else
-  {
-    v3 = 1.0 / a2;
-  }
-
-  v4 = *(a1 + 104);
-  if (v4 >> 30 == 2)
-  {
-    v5 = *(a1 + 96);
-    if (v5[961].i8[1])
-    {
-      goto LABEL_8;
-    }
-  }
-
-  else if (v4 >> 30 == 3)
-  {
-    v5 = *(a1 + 96);
-LABEL_8:
-    Stream = *(a1 + 112);
-    if (!Stream)
-    {
-      Stream = physx::Scb::Scene::getStream(v5, HIBYTE(v4) & 0xF);
-      *(a1 + 112) = Stream;
-      v5 = *(a1 + 96);
-    }
-
-    *(Stream + 164) = v3;
-    result = physx::Scb::Scene::scheduleForUpdate(v5, a1 + 96);
-    *(a1 + 380) |= 1u;
-    return result;
-  }
-
-  return physx::Sc::BodyCore::setInverseMass((a1 + 128), v3);
-}
-
-float physx::NpRigidBodyTemplate<physx::PxArticulationLink>::getMass(uint64_t a1)
-{
-  if (*(a1 + 380))
-  {
-    v2 = (*(a1 + 112) + 164);
-  }
-
-  else
-  {
-    v1 = *(a1 + 304);
-    if (v1 && *(v1 + 31) == 1)
-    {
-      v2 = (v1 + 44);
-    }
-
-    else
-    {
-      v2 = (a1 + 268);
-    }
-  }
-
-  result = 0.0;
-  if (*v2 > 0.0)
-  {
-    return 1.0 / *v2;
-  }
-
-  return result;
-}
-
-float physx::NpRigidBodyTemplate<physx::PxArticulationLink>::getInvMass(uint64_t a1)
-{
-  if (*(a1 + 380))
-  {
-    v2 = *(a1 + 112) + 164;
-  }
-
-  else
-  {
-    v1 = *(a1 + 304);
-    if (v1 && *(v1 + 31) == 1)
-    {
-      v2 = v1 + 44;
-    }
-
-    else
-    {
-      v2 = a1 + 268;
-    }
-  }
-
-  return *v2;
-}
-
-int32x2_t *physx::NpRigidBodyTemplate<physx::PxArticulationLink>::setMassSpaceInertiaTensor(uint64_t a1, float32x2_t *a2)
-{
-  __asm { FMOV            V2.2S, #1.0 }
-
-  v8 = vbic_s8(vdiv_f32(_D2, *a2), vceqz_f32(*a2));
-  v9 = a2[1].f32[0];
-  if (v9 == 0.0)
-  {
-    v10 = 0.0;
-  }
-
-  else
-  {
-    v10 = 1.0 / v9;
-  }
-
-  v15 = v8;
-  v16 = v10;
-  v11 = *(a1 + 104);
-  if (v11 >> 30 == 2)
-  {
-    v12 = *(a1 + 96);
-    if (v12[961].i8[1])
-    {
-      goto LABEL_8;
-    }
-
-    return physx::Sc::BodyCore::setInverseInertia(a1 + 128, &v15);
-  }
-
-  if (v11 >> 30 != 3)
-  {
-    return physx::Sc::BodyCore::setInverseInertia(a1 + 128, &v15);
-  }
-
-  v12 = *(a1 + 96);
-LABEL_8:
-  Stream = *(a1 + 112);
-  if (!Stream)
-  {
-    Stream = physx::Scb::Scene::getStream(v12, HIBYTE(v11) & 0xF);
-    *(a1 + 112) = Stream;
-    v12 = *(a1 + 96);
-  }
-
-  *(Stream + 168) = v8;
-  *(Stream + 176) = v10;
-  result = physx::Scb::Scene::scheduleForUpdate(v12, a1 + 96);
-  *(a1 + 380) |= 2u;
-  return result;
-}
-
-float32x2_t *physx::NpRigidBodyTemplate<physx::PxArticulationLink>::getMassSpaceInertiaTensor@<X0>(float32x2_t *result@<X0>, uint64_t a2@<X8>)
-{
-  if ((result[47].i8[4] & 2) != 0)
-  {
-    v3 = (*&result[14] + 168);
-  }
-
-  else
-  {
-    v2 = result[38];
-    if (v2 && v2[3].i8[7] == 1)
-    {
-      v3 = v2 + 4;
-    }
-
-    else
-    {
-      v3 = result + 32;
-    }
-  }
-
-  v4 = v3[1].f32[0];
-  v5 = 1.0 / v4;
-  _ZF = v4 == 0.0;
-  v7 = 0.0;
-  if (!_ZF)
-  {
-    v7 = v5;
-  }
-
-  __asm { FMOV            V3.2S, #1.0 }
-
-  *a2 = vbic_s8(vdiv_f32(_D3, *v3), vceqz_f32(*v3));
-  *(a2 + 8) = v7;
-  return result;
-}
-
-float physx::NpRigidBodyTemplate<physx::PxArticulationLink>::getMassSpaceInvInertiaTensor@<S0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  if ((*(a1 + 380) & 2) != 0)
-  {
-    v3 = *(a1 + 112) + 168;
-  }
-
-  else
-  {
-    v2 = *(a1 + 304);
-    if (v2 && *(v2 + 31) == 1)
-    {
-      v3 = v2 + 32;
-    }
-
-    else
-    {
-      v3 = a1 + 256;
-    }
-  }
-
-  *a2 = *v3;
-  result = *(v3 + 8);
-  *(a2 + 8) = result;
-  return result;
-}
-
-float physx::NpRigidBodyTemplate<physx::PxArticulationLink>::getLinearVelocity@<S0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  *a2 = *(a1 + 348);
-  result = *(a1 + 356);
-  *(a2 + 8) = result;
-  return result;
-}
-
-float physx::NpRigidBodyTemplate<physx::PxArticulationLink>::getAngularVelocity@<S0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  *a2 = *(a1 + 360);
-  result = *(a1 + 368);
-  *(a2 + 8) = result;
-  return result;
-}
-
-void physx::NpRigidBodyTemplate<physx::PxArticulationLink>::setRigidBodyFlag(uint64_t a1, int a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  if ((*(a1 + 381) & 0x40) != 0)
-  {
-    v10 = (*(a1 + 112) + 348);
-  }
-
-  else
-  {
-    v10 = (a1 + 172);
-  }
-
-  v11 = *v10;
-  if (a3)
-  {
-    v12 = v11 | a2;
-  }
-
-  else
-  {
-    v12 = v11 & ~a2;
-  }
-
-  if ((~v12 & 5) == 0)
-  {
-    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidBodyTemplate.h", 476, "RigidBody::setRigidBodyFlag: kinematic bodies with CCD enabled are not supported! CCD will be ignored.", a6, a7, a8, v30);
-    v12 &= ~4u;
-  }
-
-  if ((~v12 & 0x24) == 0)
-  {
-    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidBodyTemplate.h", 483, "RigidBody::setRigidBodyFlag: eENABLE_CCD can't be raised as the same time as eENABLE_SPECULATIVE_CCD! eENABLE_SPECULATIVE_CCD will be ignored.", a6, a7, a8, v30);
-    v12 &= ~0x20u;
-  }
-
-  v13 = (a1 + *(&physx::NpActor::sLazyInitOffsets + *(a1 + 8) + 18));
-  if (((*(v13 + 2) >> 30) - 1) > 1)
-  {
-    v15 = 0;
-  }
-
-  else
-  {
-    v14 = *v13;
-    if (v14)
-    {
-      v15 = v14 - 16;
-    }
-
-    else
-    {
-      v15 = 0;
-    }
-  }
-
-  if (v11 & 1) == 0 || (v12)
-  {
-    if ((v11 & 1) != 0 || (v12 & 1) == 0)
-    {
-LABEL_54:
-      if ((v11 & 1) != 0 && (v12 & 1) != 0 && ((v12 ^ v11) & 2) != 0 && ((*(a1 + 381) & 0x80) != 0 || *(a1 + 104) >> 30 != 3 && (v29 = *(a1 + 304)) != 0 && *(v29 + 31) == 1 && *(v29 + 28)))
-      {
-        if (v15)
-        {
-          physx::NpShapeManager::markAllSceneQueryForUpdate(a1 + 40, v15 + 8640, a1);
-          ++*(v15 + 8732);
-        }
-      }
-
-LABEL_64:
-      v31 = v12;
-      physx::Scb::Body::setFlags((a1 + 96), &v31);
-      return;
-    }
-
-    if ((*(*a1 + 48))(a1) != 2)
-    {
-      if (*(a1 + 104) >> 30 == 1)
-      {
-        v27 = *(a1 + 304);
-        if (v27)
-        {
-          if (*(v27 + 31) != 1)
-          {
-            physx::Sc::BodyCore::setupSimStateData(a1 + 128, *(*(a1 + 96) + 4384), 1, 0);
-          }
-        }
-      }
-
-      if (v15)
-      {
-        *(v15 + 4700) = vadd_s32(*(v15 + 4700), 0x1FFFFFFFFLL);
-      }
-
-      goto LABEL_64;
-    }
-
-    v25 = physx::shdfnd::Foundation::mInstance;
-
-    physx::shdfnd::Foundation::error(v25, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidBodyTemplate.h", 540, "RigidBody::setRigidBodyFlag: kinematic articulation links are not supported!", v22, v23, v24, a9);
-  }
-
-  else
-  {
-    v16 = *(a1 + 48);
-    v17 = a1 + 40;
-    if (v16 != 1)
-    {
-      if (*(a1 + 48))
-      {
-        v17 = *(a1 + 40);
-        goto LABEL_21;
-      }
-
-LABEL_25:
-      if ((v11 & 2) == 0)
-      {
-LABEL_26:
-        if (!v15)
-        {
-          goto LABEL_51;
-        }
-
-        goto LABEL_50;
-      }
-
-      if ((*(a1 + 381) & 0x80) != 0)
-      {
-        if (!v15)
-        {
-LABEL_51:
-          if (*(a1 + 104) >> 30 == 1)
-          {
-            v28 = *(a1 + 304);
-            if (v28)
-            {
-              physx::Sc::BodyCore::tearDownSimStateData(a1 + 128, *(*(a1 + 96) + 4384), *(v28 + 31) == 1);
-            }
-          }
-
-          goto LABEL_54;
-        }
-      }
-
-      else
-      {
-        if (*(a1 + 104) >> 30 == 3)
-        {
-          goto LABEL_26;
-        }
-
-        v26 = *(a1 + 304);
-        if (!v26 || *(v26 + 31) != 1 || !*(v26 + 28) || !v15)
-        {
-          goto LABEL_26;
-        }
-      }
-
-      physx::NpShapeManager::markAllSceneQueryForUpdate(a1 + 40, v15 + 8640, a1);
-      ++*(v15 + 8732);
-LABEL_50:
-      *(v15 + 4700) = vadd_s32(*(v15 + 4700), 0xFFFFFFFF00000001);
-      goto LABEL_51;
-    }
-
-LABEL_21:
-    while (1)
-    {
-      (*(**v17 + 312))(&v32);
-      if (v32)
-      {
-        v21 = *(*v17 + 152);
-        if ((v21 | 4) == 5 || v21 == 6)
-        {
-          break;
-        }
-      }
-
-      v17 += 8;
-      if (!--v16)
-      {
-        goto LABEL_25;
-      }
-    }
-
-    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidBodyTemplate.h", 513, "RigidBody::setRigidBodyFlag: dynamic meshes/planes/heightfields are not supported!", v18, v19, v20, v30);
-  }
-}
-
-void physx::NpRigidBodyTemplate<physx::PxArticulationLink>::setRigidBodyFlags(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  if ((*(a1 + 381) & 0x40) != 0)
-  {
-    v10 = (*(a1 + 112) + 348);
-  }
-
-  else
-  {
-    v10 = (a1 + 172);
-  }
-
-  v11 = *v10;
-  v12 = *a2;
-  if ((~v12 & 5) == 0)
-  {
-    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidBodyTemplate.h", 476, "RigidBody::setRigidBodyFlag: kinematic bodies with CCD enabled are not supported! CCD will be ignored.", a6, a7, a8, v30);
-    v12 &= ~4u;
-  }
-
-  if ((~v12 & 0x24) == 0)
-  {
-    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidBodyTemplate.h", 483, "RigidBody::setRigidBodyFlag: eENABLE_CCD can't be raised as the same time as eENABLE_SPECULATIVE_CCD! eENABLE_SPECULATIVE_CCD will be ignored.", a6, a7, a8, v30);
-    v12 &= 0xDFu;
-  }
-
-  v13 = (a1 + *(&physx::NpActor::sLazyInitOffsets + *(a1 + 8) + 18));
-  if (((*(v13 + 2) >> 30) - 1) > 1)
-  {
-    v15 = 0;
-  }
-
-  else
-  {
-    v14 = *v13;
-    if (v14)
-    {
-      v15 = v14 - 16;
-    }
-
-    else
-    {
-      v15 = 0;
-    }
-  }
-
-  if (v11 & 1) == 0 || (v12)
-  {
-    if ((v11 & 1) != 0 || (v12 & 1) == 0)
-    {
-LABEL_51:
-      if ((v11 & 1) != 0 && (v12 & 1) != 0 && ((v12 ^ v11) & 2) != 0 && ((*(a1 + 381) & 0x80) != 0 || *(a1 + 104) >> 30 != 3 && (v29 = *(a1 + 304)) != 0 && *(v29 + 31) == 1 && *(v29 + 28)))
-      {
-        if (v15)
-        {
-          physx::NpShapeManager::markAllSceneQueryForUpdate(a1 + 40, v15 + 8640, a1);
-          ++*(v15 + 8732);
-        }
-      }
-
-LABEL_61:
-      v31 = v12;
-      physx::Scb::Body::setFlags((a1 + 96), &v31);
-      return;
-    }
-
-    if ((*(*a1 + 48))(a1) != 2)
-    {
-      if (*(a1 + 104) >> 30 == 1)
-      {
-        v27 = *(a1 + 304);
-        if (v27)
-        {
-          if (*(v27 + 31) != 1)
-          {
-            physx::Sc::BodyCore::setupSimStateData(a1 + 128, *(*(a1 + 96) + 4384), 1, 0);
-          }
-        }
-      }
-
-      if (v15)
-      {
-        *(v15 + 4700) = vadd_s32(*(v15 + 4700), 0x1FFFFFFFFLL);
-      }
-
-      goto LABEL_61;
-    }
-
-    v25 = physx::shdfnd::Foundation::mInstance;
-
-    physx::shdfnd::Foundation::error(v25, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidBodyTemplate.h", 540, "RigidBody::setRigidBodyFlag: kinematic articulation links are not supported!", v22, v23, v24, a9);
-  }
-
-  else
-  {
-    v16 = *(a1 + 48);
-    v17 = a1 + 40;
-    if (v16 != 1)
-    {
-      if (*(a1 + 48))
-      {
-        v17 = *(a1 + 40);
-        goto LABEL_18;
-      }
-
-LABEL_22:
-      if ((v11 & 2) == 0)
-      {
-LABEL_23:
-        if (!v15)
-        {
-          goto LABEL_48;
-        }
-
-        goto LABEL_47;
-      }
-
-      if ((*(a1 + 381) & 0x80) != 0)
-      {
-        if (!v15)
-        {
-LABEL_48:
-          if (*(a1 + 104) >> 30 == 1)
-          {
-            v28 = *(a1 + 304);
-            if (v28)
-            {
-              physx::Sc::BodyCore::tearDownSimStateData(a1 + 128, *(*(a1 + 96) + 4384), *(v28 + 31) == 1);
-            }
-          }
-
-          goto LABEL_51;
-        }
-      }
-
-      else
-      {
-        if (*(a1 + 104) >> 30 == 3)
-        {
-          goto LABEL_23;
-        }
-
-        v26 = *(a1 + 304);
-        if (!v26 || *(v26 + 31) != 1 || !*(v26 + 28) || !v15)
-        {
-          goto LABEL_23;
-        }
-      }
-
-      physx::NpShapeManager::markAllSceneQueryForUpdate(a1 + 40, v15 + 8640, a1);
-      ++*(v15 + 8732);
-LABEL_47:
-      *(v15 + 4700) = vadd_s32(*(v15 + 4700), 0xFFFFFFFF00000001);
-      goto LABEL_48;
-    }
-
-LABEL_18:
-    while (1)
-    {
-      (*(**v17 + 312))(&v32);
-      if (v32)
-      {
-        v21 = *(*v17 + 152);
-        if ((v21 | 4) == 5 || v21 == 6)
-        {
-          break;
-        }
-      }
-
-      v17 += 8;
-      if (!--v16)
-      {
-        goto LABEL_22;
-      }
-    }
-
-    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidBodyTemplate.h", 513, "RigidBody::setRigidBodyFlag: dynamic meshes/planes/heightfields are not supported!", v18, v19, v20, v30);
-  }
-}
-
-uint64_t physx::NpRigidBodyTemplate<physx::PxArticulationLink>::getRigidBodyFlags@<X0>(uint64_t result@<X0>, _BYTE *a2@<X8>)
-{
-  if ((*(result + 381) & 0x40) != 0)
-  {
-    v2 = (*(result + 112) + 348);
-  }
-
-  else
-  {
-    v2 = (result + 172);
-  }
-
-  *a2 = *v2;
-  return result;
-}
-
-int32x2_t *physx::NpRigidBodyTemplate<physx::PxArticulationLink>::setMinCCDAdvanceCoefficient(int32x2_t *result, float a2)
-{
-  v3 = result;
-  v4 = result[13].u32[0];
-  if (v4 >> 30 == 2)
-  {
-    result = result[12];
-    if (result[961].i8[1])
-    {
-      goto LABEL_5;
-    }
-
-LABEL_8:
-    *&v3[25].i32[1] = a2;
-    return result;
-  }
-
-  if (v4 >> 30 != 3)
-  {
-    goto LABEL_8;
-  }
-
-  result = result[12];
-LABEL_5:
-  Stream = v3[14];
-  if (!Stream)
-  {
-    Stream = physx::Scb::Scene::getStream(result, HIBYTE(v4) & 0xF);
-    v3[14] = Stream;
-    result = v3[12];
-  }
-
-  *(Stream + 200) = a2;
-  result = physx::Scb::Scene::scheduleForUpdate(result, &v3[12]);
-  v3[47].i32[1] |= 0x80u;
-  return result;
-}
-
-float physx::NpRigidBodyTemplate<physx::PxArticulationLink>::getMinCCDAdvanceCoefficient(uint64_t a1)
-{
-  if ((*(a1 + 380) & 0x80) != 0)
-  {
-    v1 = *(a1 + 112) + 200;
-  }
-
-  else
-  {
-    v1 = a1 + 204;
-  }
-
-  return *v1;
-}
-
-int32x2_t *physx::NpRigidBodyTemplate<physx::PxArticulationLink>::setMaxDepenetrationVelocity(int32x2_t *result, float a2)
-{
-  v2 = result;
-  v3 = -a2;
-  v4 = result[13].u32[0];
-  if (v4 >> 30 == 2)
-  {
-    result = result[12];
-    if (result[961].i8[1])
-    {
-      goto LABEL_5;
-    }
-
-LABEL_8:
-    *&v2[27].i32[1] = v3;
-    return result;
-  }
-
-  if (v4 >> 30 != 3)
-  {
-    goto LABEL_8;
-  }
-
-  result = result[12];
-LABEL_5:
-  Stream = v2[14];
-  if (!Stream)
-  {
-    Stream = physx::Scb::Scene::getStream(result, HIBYTE(v4) & 0xF);
-    v2[14] = Stream;
-    result = v2[12];
-  }
-
-  *(Stream + 252) = v3;
-  result = physx::Scb::Scene::scheduleForUpdate(result, &v2[12]);
-  v2[47].i32[1] |= 0x800u;
-  return result;
-}
-
-float physx::NpRigidBodyTemplate<physx::PxArticulationLink>::getMaxDepenetrationVelocity(uint64_t a1)
-{
-  if ((*(a1 + 381) & 8) != 0)
-  {
-    v1 = (*(a1 + 112) + 252);
-  }
-
-  else
-  {
-    v1 = (a1 + 220);
-  }
-
-  return -*v1;
-}
-
-float *physx::NpRigidBodyTemplate<physx::PxArticulationLink>::setMaxContactImpulse(uint64_t a1, float a2)
-{
-  v4 = *(a1 + 104);
-  if (v4 >> 30 == 2)
-  {
-    v5 = *(a1 + 96);
-    if (v5[961].i8[1])
-    {
-      goto LABEL_5;
-    }
-  }
-
-  else if (v4 >> 30 == 3)
-  {
-    v5 = *(a1 + 96);
-LABEL_5:
-    Stream = *(a1 + 112);
-    if (!Stream)
-    {
-      Stream = physx::Scb::Scene::getStream(v5, HIBYTE(v4) & 0xF);
-      *(a1 + 112) = Stream;
-      v5 = *(a1 + 96);
-    }
-
-    *(Stream + 260) = a2;
-    result = physx::Scb::Scene::scheduleForUpdate(v5, a1 + 96);
-    *(a1 + 380) |= 0x2000u;
-    return result;
-  }
-
-  return physx::Sc::BodyCore::setMaxContactImpulse((a1 + 128), a2);
-}
-
-float physx::NpRigidBodyTemplate<physx::PxArticulationLink>::getMaxContactImpulse(uint64_t a1)
-{
-  if ((*(a1 + 381) & 0x20) != 0)
-  {
-    v1 = *(a1 + 112) + 260;
-  }
-
-  else
-  {
-    v1 = a1 + 272;
-  }
-
-  return *v1;
-}
-
-uint64_t physx::NpRigidBodyTemplate<physx::PxArticulationLink>::getInternalIslandNodeIndex(uint64_t a1)
-{
-  v1 = *(a1 + 128);
-  if (v1)
-  {
-    return *(v1 + 176) >> 7;
-  }
-
-  else
-  {
-    return 0x1FFFFFFLL;
-  }
-}
-
-uint64_t physx::NpArticulationJointTemplate<physx::PxArticulationJoint>::release(uint64_t a1)
-{
-  physx::NpPhysics::notifyDeletionListeners(physx::NpPhysics::mInstance, a1, 0, 1);
-  if (((*(a1 + 24) >> 30) - 1) <= 1)
-  {
-    v2 = *(a1 + 16);
-    if (v2)
-    {
-      physx::Scb::Scene::remove<physx::Scb::ArticulationJoint>(v2, a1 + 16, v2 + 1008);
-    }
-  }
-
-  return physx::Scb::Base::destroy(a1 + 16);
-}
-
-uint64_t physx::NpArticulationJointTemplate<physx::PxArticulationJoint>::getImpl(uint64_t a1)
-{
-  return a1 + 16;
-}
-
-{
-  return a1 + 16;
-}
-
-uint64_t physx::NpArticulationTemplate<physx::PxArticulation>::release(uint64_t a1)
-{
-  physx::NpPhysics::notifyDeletionListeners(physx::NpPhysics::mInstance, a1, *(a1 + 16), 1);
-  v2 = *(a1 + 152);
-  if (v2)
-  {
-    v3 = 0;
-    do
-    {
-      v3 %= v2;
-      v4 = *(*(a1 + 144) + 8 * v3);
-      if ((*(*v4 + 520))(v4))
-      {
-        ++v3;
-      }
-
-      else
-      {
-        physx::NpArticulationLink::releaseInternal(*(*(a1 + 144) + 8 * v3));
-      }
-
-      v2 = *(a1 + 152);
-    }
-
-    while (v2);
-  }
-
-  if (((*(a1 + 32) >> 30) - 1) <= 1)
-  {
-    v5 = *(a1 + 24);
-    if (v5)
-    {
-      physx::Scb::Scene::removeArticulation(*(a1 + 24), (a1 + 24));
-      physx::shdfnd::internal::HashSetBase<physx::Sc::BodySim const*,physx::shdfnd::Hash<physx::Sc::BodySim const*>,physx::shdfnd::NonTrackingAllocator,true>::erase(v5 + 1143, a1);
-    }
-  }
-
-  *(a1 + 152) = 0;
-
-  return physx::Scb::Base::destroy(a1 + 24);
-}
-
-uint64_t physx::NpArticulationTemplate<physx::PxArticulation>::getScene(uint64_t a1)
-{
-  if (((*(a1 + 32) >> 30) - 1) > 1)
-  {
-    return 0;
-  }
-
-  v1 = *(a1 + 24);
-  if (v1)
-  {
-    return v1 - 16;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-int32x2_t *physx::NpArticulationTemplate<physx::PxArticulation>::setSolverIterationCounts(int32x2_t *result, unsigned __int8 a2, __int16 a3)
-{
-  v3 = result;
-  v4 = a2 | (a3 << 8);
-  v5 = result[4].u32[0];
-  if (v5 >> 30 == 2)
-  {
-    result = result[3];
-    if (result[961].i8[1])
-    {
-      goto LABEL_5;
-    }
-
-LABEL_8:
-    v3[8].i16[2] = v4;
-    return result;
-  }
-
-  if (v5 >> 30 != 3)
-  {
-    goto LABEL_8;
-  }
-
-  result = result[3];
-LABEL_5:
-  Stream = v3[5];
-  if (!Stream)
-  {
-    Stream = physx::Scb::Scene::getStream(result, HIBYTE(v5) & 0xF);
-    v3[5] = Stream;
-    result = v3[3];
-  }
-
-  *(Stream + 20) = v4;
-  result = physx::Scb::Scene::scheduleForUpdate(result, &v3[3]);
-  v3[4].i32[0] |= 0x20u;
-  return result;
-}
-
-uint64_t physx::NpArticulationTemplate<physx::PxArticulation>::getSolverIterationCounts(uint64_t result, _DWORD *a2, unsigned int *a3)
-{
-  if ((*(result + 32) & 0x20) != 0)
-  {
-    v3 = (*(result + 40) + 20);
-  }
-
-  else
-  {
-    v3 = (result + 68);
-  }
-
-  v4 = *v3;
-  *a3 = v4 >> 8;
-  *a2 = v4;
-  return result;
-}
-
-int32x2_t *physx::NpArticulationTemplate<physx::PxArticulation>::setSleepThreshold(int32x2_t *result, float a2)
-{
-  v3 = result;
-  v4 = result[4].u32[0];
-  if (v4 >> 30 == 2)
-  {
-    result = result[3];
-    if (result[961].i8[1])
-    {
-      goto LABEL_5;
-    }
-
-LABEL_8:
-    *&v3[9].i32[1] = a2;
-    return result;
-  }
-
-  if (v4 >> 30 != 3)
-  {
-    goto LABEL_8;
-  }
-
-  result = result[3];
-LABEL_5:
-  Stream = v3[5];
-  if (!Stream)
-  {
-    Stream = physx::Scb::Scene::getStream(result, HIBYTE(v4) & 0xF);
-    v3[5] = Stream;
-    result = v3[3];
-  }
-
-  *(Stream + 16) = a2;
-  result = physx::Scb::Scene::scheduleForUpdate(result, &v3[3]);
-  v3[4].i32[0] |= 0x10u;
-  return result;
-}
-
-float physx::NpArticulationTemplate<physx::PxArticulation>::getSleepThreshold(uint64_t a1)
-{
-  if ((*(a1 + 32) & 0x10) != 0)
-  {
-    v1 = *(a1 + 40) + 16;
-  }
-
-  else
-  {
-    v1 = a1 + 76;
-  }
-
-  return *v1;
-}
-
-int32x2_t *physx::NpArticulationTemplate<physx::PxArticulation>::setStabilizationThreshold(int32x2_t *result, float a2)
-{
-  v3 = result;
-  v4 = result[4].u32[0];
-  if (v4 >> 30 == 2)
-  {
-    result = result[3];
-    if (result[961].i8[1])
-    {
-      goto LABEL_5;
-    }
-
-LABEL_8:
-    *v3[10].i32 = a2;
-    return result;
-  }
-
-  if (v4 >> 30 != 3)
-  {
-    goto LABEL_8;
-  }
-
-  result = result[3];
-LABEL_5:
-  Stream = v3[5];
-  if (!Stream)
-  {
-    Stream = physx::Scb::Scene::getStream(result, HIBYTE(v4) & 0xF);
-    v3[5] = Stream;
-    result = v3[3];
-  }
-
-  *(Stream + 24) = a2;
-  result = physx::Scb::Scene::scheduleForUpdate(result, &v3[3]);
-  v3[4].i32[0] |= 0x40u;
-  return result;
-}
-
-float physx::NpArticulationTemplate<physx::PxArticulation>::getStabilizationThreshold(uint64_t a1)
-{
-  if ((*(a1 + 32) & 0x40) != 0)
-  {
-    v1 = *(a1 + 40) + 24;
-  }
-
-  else
-  {
-    v1 = a1 + 80;
-  }
-
-  return *v1;
-}
-
-uint64_t physx::NpArticulationTemplate<physx::PxArticulation>::setWakeCounter(uint64_t result, float a2)
-{
-  v3 = result;
-  if (*(result + 152))
-  {
-    v4 = 0;
-    do
-    {
-      v5 = *(*(v3 + 144) + 8 * v4);
-      v7 = v5 + 96;
-      v6 = *(v5 + 96);
-      *(v5 + 372) = a2;
-      v8 = *(v5 + 104) >> 30;
-      if (v8 == 3 || v8 == 2 && (v6[961].i8[1] & 1) != 0)
-      {
-        if (a2 <= 0.0)
-        {
-          result = physx::Scb::Scene::scheduleForUpdate(v6, v7);
-          v9 = *(v5 + 380) | 0x1000000;
-        }
-
-        else
-        {
-          *(v5 + 376) = 0;
-          *(v5 + 372) = a2;
-          result = physx::Scb::Scene::scheduleForUpdate(v6, v7);
-          v9 = *(v5 + 380) & 0xF8FFFFFF | 0x5000000;
-        }
-
-        *(v5 + 380) = v9;
-      }
-
-      else
-      {
-        if (a2 > 0.0 && v6 != 0)
-        {
-          *(v5 + 376) = 0;
-        }
-
-        result = physx::Sc::BodyCore::setWakeCounter(v5 + 128, a2, 0);
-      }
-
-      ++v4;
-    }
-
-    while (v4 < *(v3 + 152));
-  }
-
-  *(v3 + 96) = a2;
-  v11 = *(v3 + 32) >> 30;
-  if (v11 == 2)
-  {
-    v12 = *(v3 + 24);
-    if ((*(v12 + 7689) & 1) == 0)
-    {
-      goto LABEL_23;
-    }
-
-LABEL_21:
-    if (a2 <= 0.0)
-    {
-      result = physx::Scb::Scene::scheduleForUpdate(*(v3 + 24), v3 + 24);
-      v13 = *(v3 + 32) | 0x80;
-    }
-
-    else
-    {
-      *(v3 + 100) = 0;
-      result = physx::Scb::Scene::scheduleForUpdate(*(v3 + 24), v3 + 24);
-      v13 = *(v3 + 32) & 0xFFFFFC7F | 0x280;
-    }
-
-    *(v3 + 32) = v13;
-    return result;
-  }
-
-  if (v11 == 3)
-  {
-    goto LABEL_21;
-  }
-
-  v12 = *(v3 + 24);
-LABEL_23:
-  if (a2 > 0.0)
-  {
-    if (v12)
-    {
-      *(v3 + 100) = 0;
-    }
-  }
-
-  *(v3 + 84) = a2;
-  return result;
-}
-
-int32x2_t *physx::NpArticulationTemplate<physx::PxArticulation>::putToSleep(int32x2_t *result)
-{
-  v1 = result;
-  if (result[19].i32[0])
-  {
-    v2 = 0;
-    do
-    {
-      result = physx::Scb::Body::putToSleepInternal((*(*&v1[18] + 8 * v2++) + 96));
-    }
-
-    while (v2 < v1[19].u32[0]);
-  }
-
-  v1[12].i32[0] = 0;
-  v1[12].i8[4] = 1;
-  v3 = v1[4].i32[0] >> 30;
-  if (v3 == 2)
-  {
-    result = v1[3];
-    if (result[961].i8[1])
-    {
-      goto LABEL_8;
-    }
-  }
-
-  else if (v3 == 3)
-  {
-    result = v1[3];
-LABEL_8:
-    result = physx::Scb::Scene::scheduleForUpdate(result, &v1[3]);
-    v1[4].i32[0] = v1[4].i32[0] & 0xFFFFFC7F | 0x180;
-    return result;
-  }
-
-  v1[10].i32[1] = 0;
-  return result;
-}
-
-physx::NpArticulationLink *physx::NpArticulationTemplate<physx::PxArticulation>::createLink(uint64_t a1, uint64_t a2, float32x4_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v9 = *(a1 + 152);
-  if (a2)
-  {
-    if (!v9)
-    {
-      v10 = physx::shdfnd::Foundation::mInstance;
-      v11 = "Root articulation link must have NULL parent pointer!";
-      v12 = 332;
-LABEL_6:
-      physx::shdfnd::Foundation::error(v10, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpArticulationTemplate.h", v12, v11, a6, a7, a8, v25.i8[0]);
-      return 0;
-    }
-  }
-
-  else if (v9)
-  {
-    v10 = physx::shdfnd::Foundation::mInstance;
-    v11 = "Non-root articulation link must have valid parent pointer!";
-    v12 = 338;
-    goto LABEL_6;
-  }
-
-  ++*(a1 + 176);
-  _Q0 = *a3;
-  _Q1 = vmulq_f32(_Q0, _Q0);
-  _S2 = a3->i64[1];
-  __asm { FMLA            S1, S2, V0.S[2] }
-
-  _S2 = HIDWORD(*a3);
-  __asm { FMLA            S1, S2, V0.S[3] }
-
-  _Q1.f32[0] = sqrtf(_Q1.f32[0]);
-  v25 = vdivq_f32(*a3, vdupq_lane_s32(*_Q1.f32, 0));
-  v26 = a3[1].i64[0];
-  v27 = a3[1].i32[2];
-  ArticulationLink = physx::NpFactory::createArticulationLink(physx::NpFactory::mInstance, a1, a2, v25.f32, a5, a6, a7, a8);
-  if (ArticulationLink)
-  {
-    if (((*(a1 + 32) >> 30) - 1) <= 1)
-    {
-      v22 = *(a1 + 24);
-      if (v22)
-      {
-        physx::NpScene::addArticulationLink((v22 - 16), ArticulationLink);
-      }
-    }
-
-    v25.i64[0] = ArticulationLink;
-    v23 = *(a1 + 152);
-    if ((*(a1 + 156) & 0x7FFFFFFFu) <= v23)
-    {
-      physx::shdfnd::Array<physx::NpArticulationLink *,physx::shdfnd::InlineAllocator<32u,physx::shdfnd::ReflectionAllocator<physx::NpArticulationLink *>>>::growAndPushBack(a1 + 104, &v25);
-    }
-
-    else
-    {
-      *(*(a1 + 144) + 8 * v23) = ArticulationLink;
-      *(a1 + 152) = v23 + 1;
-    }
-  }
-
-  return ArticulationLink;
-}
-
-uint64_t physx::NpArticulationTemplate<physx::PxArticulation>::getLinks(uint64_t a1, void *a2, unsigned int a3, unsigned int a4)
-{
-  v5 = (*(a1 + 152) - a4) & ~((*(a1 + 152) - a4) >> 31);
-  if (v5 >= a3)
-  {
-    result = a3;
-  }
-
-  else
-  {
-    result = v5;
-  }
-
-  if (result)
-  {
-    v7 = (*(a1 + 144) + 8 * a4);
-    v8 = result;
-    do
-    {
-      v9 = *v7++;
-      *a2++ = v9;
-      --v8;
-    }
-
-    while (v8);
-  }
-
-  return result;
-}
-
-float physx::NpArticulationTemplate<physx::PxArticulation>::getWorldBounds@<S0>(uint64_t a1@<X0>, float *a2@<X8>, float a3@<S0>, __n128 a4@<Q7>)
-{
-  if (*(a1 + 152))
-  {
-    v8 = 0;
-    *&v4 = vdup_n_s32(0xFE7FFFFF);
-    a4.n128_u64[0] = vdup_n_s32(0x7E7FFFFFu);
-    v9 = 8.5071e37;
-    v10 = -8.5071e37;
-    do
-    {
-      v21 = v4;
-      v22 = a4;
-      (*(**(*(a1 + 144) + 8 * v8) + 80))(&v23, 1.01);
-      *(&v4 + 1) = *(&v21 + 1);
-      a4.n128_u64[1] = v22.n128_u64[1];
-      if (v9 >= v23)
-      {
-        v9 = v23;
-      }
-
-      a4.n128_u64[0] = vbsl_s8(vcgt_f32(v24, v22.n128_u64[0]), v22.n128_u64[0], v24);
-      if (v10 <= v25)
-      {
-        v10 = v25;
-      }
-
-      *&v4 = vbsl_s8(vcgt_f32(*&v21, v26), *&v21, v26);
-      ++v8;
-    }
-
-    while (v8 < *(a1 + 152));
-    v11 = *(&v4 + 1);
-    v12 = a4.n128_f32[1];
-  }
-
-  else
-  {
-    v10 = -8.5071e37;
-    v9 = 8.5071e37;
-    a4.n128_u32[0] = 2122317823;
-    v12 = 8.5071e37;
-    LODWORD(v4) = -25165825;
-    v11 = -8.5071e37;
-  }
-
-  v13 = (v9 + v10) * 0.5;
-  v14 = (a4.n128_f32[0] + *&v4) * 0.5;
-  v15 = (v12 + v11) * 0.5;
-  v16 = v11 - v12;
-  v17 = ((v10 - v9) * 0.5) * a3;
-  v18 = ((*&v4 - a4.n128_f32[0]) * 0.5) * a3;
-  v19 = (v16 * 0.5) * a3;
-  *a2 = v13 - v17;
-  a2[1] = v14 - v18;
-  a2[2] = v15 - v19;
-  a2[3] = v13 + v17;
-  result = v15 + v19;
-  a2[4] = v14 + v18;
-  a2[5] = result;
-  return result;
-}
-
-uint64_t physx::NpArticulationTemplate<physx::PxArticulation>::getImpl(uint64_t a1)
-{
-  return a1 + 24;
-}
-
-{
-  return a1 + 24;
-}
-
-uint64_t physx::NpArticulationTemplate<physx::PxArticulation>::exportExtraData(uint64_t a1, uint64_t a2)
-{
-  if ((*(a1 + 136) & 1) == 0)
-  {
-    physx::Cm::ArrayAccess<physx::NpArticulationLink *,physx::shdfnd::InlineAllocator<32u,physx::shdfnd::ReflectionAllocator<physx::NpArticulationLink *>>>::store(a1 + 104, a2);
-  }
-
-  v4 = *(a1 + 168);
-  v5 = *(*a2 + 32);
-
-  return v5(a2, v4);
-}
-
-uint64_t physx::NpArticulationTemplate<physx::PxArticulation>::requiresObjects(uint64_t result, uint64_t a2)
-{
-  v2 = *(result + 152);
-  if (v2)
-  {
-    v4 = result;
-    v5 = 0;
-    v6 = 8 * v2;
-    do
-    {
-      result = (*(*a2 + 16))(a2, *(*(v4 + 144) + v5));
-      v5 += 8;
-    }
-
-    while (v6 != v5);
-  }
-
-  return result;
-}
-
-uint64_t physx::NpArticulationJointTemplate<physx::PxArticulationJointReducedCoordinate>::release(uint64_t a1)
-{
-  physx::NpPhysics::notifyDeletionListeners(physx::NpPhysics::mInstance, a1, 0, 1);
-  if (((*(a1 + 24) >> 30) - 1) <= 1)
-  {
-    v2 = *(a1 + 16);
-    if (v2)
-    {
-      physx::Scb::Scene::remove<physx::Scb::ArticulationJoint>(v2, a1 + 16, v2 + 1008);
-    }
-  }
-
-  return physx::Scb::Base::destroy(a1 + 16);
-}
-
-uint64_t physx::NpArticulationJointTemplate<physx::PxArticulationJointReducedCoordinate>::getImpl(uint64_t a1)
-{
-  return a1 + 16;
-}
-
-{
-  return a1 + 16;
-}
-
-uint64_t physx::NpArticulationTemplate<physx::PxArticulationReducedCoordinate>::release(uint64_t a1)
-{
-  physx::NpPhysics::notifyDeletionListeners(physx::NpPhysics::mInstance, a1, *(a1 + 16), 1);
-  v2 = *(a1 + 152);
-  if (v2)
-  {
-    v3 = 0;
-    do
-    {
-      v3 %= v2;
-      v4 = *(*(a1 + 144) + 8 * v3);
-      if ((*(*v4 + 520))(v4))
-      {
-        ++v3;
-      }
-
-      else
-      {
-        physx::NpArticulationLink::releaseInternal(*(*(a1 + 144) + 8 * v3));
-      }
-
-      v2 = *(a1 + 152);
-    }
-
-    while (v2);
-  }
-
-  if (((*(a1 + 32) >> 30) - 1) <= 1)
-  {
-    v5 = *(a1 + 24);
-    if (v5)
-    {
-      physx::Scb::Scene::removeArticulation(*(a1 + 24), (a1 + 24));
-      physx::shdfnd::internal::HashSetBase<physx::Sc::BodySim const*,physx::shdfnd::Hash<physx::Sc::BodySim const*>,physx::shdfnd::NonTrackingAllocator,true>::erase(v5 + 1143, a1);
-    }
-  }
-
-  *(a1 + 152) = 0;
-
-  return physx::Scb::Base::destroy(a1 + 24);
-}
-
-uint64_t physx::NpArticulationTemplate<physx::PxArticulationReducedCoordinate>::getScene(uint64_t a1)
-{
-  if (((*(a1 + 32) >> 30) - 1) > 1)
-  {
-    return 0;
-  }
-
-  v1 = *(a1 + 24);
-  if (v1)
-  {
-    return v1 - 16;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-int32x2_t *physx::NpArticulationTemplate<physx::PxArticulationReducedCoordinate>::setSolverIterationCounts(int32x2_t *result, unsigned __int8 a2, __int16 a3)
-{
-  v3 = result;
-  v4 = a2 | (a3 << 8);
-  v5 = result[4].u32[0];
-  if (v5 >> 30 == 2)
-  {
-    result = result[3];
-    if (result[961].i8[1])
-    {
-      goto LABEL_5;
-    }
-
-LABEL_8:
-    v3[8].i16[2] = v4;
-    return result;
-  }
-
-  if (v5 >> 30 != 3)
-  {
-    goto LABEL_8;
-  }
-
-  result = result[3];
-LABEL_5:
-  Stream = v3[5];
-  if (!Stream)
-  {
-    Stream = physx::Scb::Scene::getStream(result, HIBYTE(v5) & 0xF);
-    v3[5] = Stream;
-    result = v3[3];
-  }
-
-  *(Stream + 20) = v4;
-  result = physx::Scb::Scene::scheduleForUpdate(result, &v3[3]);
-  v3[4].i32[0] |= 0x20u;
-  return result;
-}
-
-uint64_t physx::NpArticulationTemplate<physx::PxArticulationReducedCoordinate>::getSolverIterationCounts(uint64_t result, _DWORD *a2, unsigned int *a3)
-{
-  if ((*(result + 32) & 0x20) != 0)
-  {
-    v3 = (*(result + 40) + 20);
-  }
-
-  else
-  {
-    v3 = (result + 68);
-  }
-
-  v4 = *v3;
-  *a3 = v4 >> 8;
-  *a2 = v4;
-  return result;
-}
-
-int32x2_t *physx::NpArticulationTemplate<physx::PxArticulationReducedCoordinate>::setSleepThreshold(int32x2_t *result, float a2)
-{
-  v3 = result;
-  v4 = result[4].u32[0];
-  if (v4 >> 30 == 2)
-  {
-    result = result[3];
-    if (result[961].i8[1])
-    {
-      goto LABEL_5;
-    }
-
-LABEL_8:
-    *&v3[9].i32[1] = a2;
-    return result;
-  }
-
-  if (v4 >> 30 != 3)
-  {
-    goto LABEL_8;
-  }
-
-  result = result[3];
-LABEL_5:
-  Stream = v3[5];
-  if (!Stream)
-  {
-    Stream = physx::Scb::Scene::getStream(result, HIBYTE(v4) & 0xF);
-    v3[5] = Stream;
-    result = v3[3];
-  }
-
-  *(Stream + 16) = a2;
-  result = physx::Scb::Scene::scheduleForUpdate(result, &v3[3]);
-  v3[4].i32[0] |= 0x10u;
-  return result;
-}
-
-float physx::NpArticulationTemplate<physx::PxArticulationReducedCoordinate>::getSleepThreshold(uint64_t a1)
-{
-  if ((*(a1 + 32) & 0x10) != 0)
-  {
-    v1 = *(a1 + 40) + 16;
-  }
-
-  else
-  {
-    v1 = a1 + 76;
-  }
-
-  return *v1;
-}
-
-int32x2_t *physx::NpArticulationTemplate<physx::PxArticulationReducedCoordinate>::setStabilizationThreshold(int32x2_t *result, float a2)
-{
-  v3 = result;
-  v4 = result[4].u32[0];
-  if (v4 >> 30 == 2)
-  {
-    result = result[3];
-    if (result[961].i8[1])
-    {
-      goto LABEL_5;
-    }
-
-LABEL_8:
-    *v3[10].i32 = a2;
-    return result;
-  }
-
-  if (v4 >> 30 != 3)
-  {
-    goto LABEL_8;
-  }
-
-  result = result[3];
-LABEL_5:
-  Stream = v3[5];
-  if (!Stream)
-  {
-    Stream = physx::Scb::Scene::getStream(result, HIBYTE(v4) & 0xF);
-    v3[5] = Stream;
-    result = v3[3];
-  }
-
-  *(Stream + 24) = a2;
-  result = physx::Scb::Scene::scheduleForUpdate(result, &v3[3]);
-  v3[4].i32[0] |= 0x40u;
-  return result;
-}
-
-float physx::NpArticulationTemplate<physx::PxArticulationReducedCoordinate>::getStabilizationThreshold(uint64_t a1)
-{
-  if ((*(a1 + 32) & 0x40) != 0)
-  {
-    v1 = *(a1 + 40) + 24;
-  }
-
-  else
-  {
-    v1 = a1 + 80;
-  }
-
-  return *v1;
-}
-
-uint64_t physx::NpArticulationTemplate<physx::PxArticulationReducedCoordinate>::setWakeCounter(uint64_t result, float a2)
-{
-  v3 = result;
-  if (*(result + 152))
-  {
-    v4 = 0;
-    do
-    {
-      v5 = *(*(v3 + 144) + 8 * v4);
-      v7 = v5 + 96;
-      v6 = *(v5 + 96);
-      *(v5 + 372) = a2;
-      v8 = *(v5 + 104) >> 30;
-      if (v8 == 3 || v8 == 2 && (v6[961].i8[1] & 1) != 0)
-      {
-        if (a2 <= 0.0)
-        {
-          result = physx::Scb::Scene::scheduleForUpdate(v6, v7);
-          v9 = *(v5 + 380) | 0x1000000;
-        }
-
-        else
-        {
-          *(v5 + 376) = 0;
-          *(v5 + 372) = a2;
-          result = physx::Scb::Scene::scheduleForUpdate(v6, v7);
-          v9 = *(v5 + 380) & 0xF8FFFFFF | 0x5000000;
-        }
-
-        *(v5 + 380) = v9;
-      }
-
-      else
-      {
-        if (a2 > 0.0 && v6 != 0)
-        {
-          *(v5 + 376) = 0;
-        }
-
-        result = physx::Sc::BodyCore::setWakeCounter(v5 + 128, a2, 0);
-      }
-
-      ++v4;
-    }
-
-    while (v4 < *(v3 + 152));
-  }
-
-  *(v3 + 96) = a2;
-  v11 = *(v3 + 32) >> 30;
-  if (v11 == 2)
-  {
-    v12 = *(v3 + 24);
-    if ((*(v12 + 7689) & 1) == 0)
-    {
-      goto LABEL_23;
-    }
-
-LABEL_21:
-    if (a2 <= 0.0)
-    {
-      result = physx::Scb::Scene::scheduleForUpdate(*(v3 + 24), v3 + 24);
-      v13 = *(v3 + 32) | 0x80;
-    }
-
-    else
-    {
-      *(v3 + 100) = 0;
-      result = physx::Scb::Scene::scheduleForUpdate(*(v3 + 24), v3 + 24);
-      v13 = *(v3 + 32) & 0xFFFFFC7F | 0x280;
-    }
-
-    *(v3 + 32) = v13;
-    return result;
-  }
-
-  if (v11 == 3)
-  {
-    goto LABEL_21;
-  }
-
-  v12 = *(v3 + 24);
-LABEL_23:
-  if (a2 > 0.0)
-  {
-    if (v12)
-    {
-      *(v3 + 100) = 0;
-    }
-  }
-
-  *(v3 + 84) = a2;
-  return result;
-}
-
-int32x2_t *physx::NpArticulationTemplate<physx::PxArticulationReducedCoordinate>::putToSleep(int32x2_t *result)
-{
-  v1 = result;
-  if (result[19].i32[0])
-  {
-    v2 = 0;
-    do
-    {
-      result = physx::Scb::Body::putToSleepInternal((*(*&v1[18] + 8 * v2++) + 96));
-    }
-
-    while (v2 < v1[19].u32[0]);
-  }
-
-  v1[12].i32[0] = 0;
-  v1[12].i8[4] = 1;
-  v3 = v1[4].i32[0] >> 30;
-  if (v3 == 2)
-  {
-    result = v1[3];
-    if (result[961].i8[1])
-    {
-      goto LABEL_8;
-    }
-  }
-
-  else if (v3 == 3)
-  {
-    result = v1[3];
-LABEL_8:
-    result = physx::Scb::Scene::scheduleForUpdate(result, &v1[3]);
-    v1[4].i32[0] = v1[4].i32[0] & 0xFFFFFC7F | 0x180;
-    return result;
-  }
-
-  v1[10].i32[1] = 0;
-  return result;
-}
-
-physx::NpArticulationLink *physx::NpArticulationTemplate<physx::PxArticulationReducedCoordinate>::createLink(uint64_t a1, uint64_t a2, float32x4_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v9 = *(a1 + 152);
-  if (a2)
-  {
-    if (!v9)
-    {
-      v10 = physx::shdfnd::Foundation::mInstance;
-      v11 = "Root articulation link must have NULL parent pointer!";
-      v12 = 332;
-LABEL_6:
-      physx::shdfnd::Foundation::error(v10, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpArticulationTemplate.h", v12, v11, a6, a7, a8, v25.i8[0]);
-      return 0;
-    }
-  }
-
-  else if (v9)
-  {
-    v10 = physx::shdfnd::Foundation::mInstance;
-    v11 = "Non-root articulation link must have valid parent pointer!";
-    v12 = 338;
-    goto LABEL_6;
-  }
-
-  ++*(a1 + 176);
-  _Q0 = *a3;
-  _Q1 = vmulq_f32(_Q0, _Q0);
-  _S2 = a3->i64[1];
-  __asm { FMLA            S1, S2, V0.S[2] }
-
-  _S2 = HIDWORD(*a3);
-  __asm { FMLA            S1, S2, V0.S[3] }
-
-  _Q1.f32[0] = sqrtf(_Q1.f32[0]);
-  v25 = vdivq_f32(*a3, vdupq_lane_s32(*_Q1.f32, 0));
-  v26 = a3[1].i64[0];
-  v27 = a3[1].i32[2];
-  ArticulationLink = physx::NpFactory::createArticulationLink(physx::NpFactory::mInstance, a1, a2, v25.f32, a5, a6, a7, a8);
-  if (ArticulationLink)
-  {
-    if (((*(a1 + 32) >> 30) - 1) <= 1)
-    {
-      v22 = *(a1 + 24);
-      if (v22)
-      {
-        physx::NpScene::addArticulationLink((v22 - 16), ArticulationLink);
-      }
-    }
-
-    v25.i64[0] = ArticulationLink;
-    v23 = *(a1 + 152);
-    if ((*(a1 + 156) & 0x7FFFFFFFu) <= v23)
-    {
-      physx::shdfnd::Array<physx::NpArticulationLink *,physx::shdfnd::InlineAllocator<32u,physx::shdfnd::ReflectionAllocator<physx::NpArticulationLink *>>>::growAndPushBack(a1 + 104, &v25);
-    }
-
-    else
-    {
-      *(*(a1 + 144) + 8 * v23) = ArticulationLink;
-      *(a1 + 152) = v23 + 1;
-    }
-  }
-
-  return ArticulationLink;
-}
-
-uint64_t physx::NpArticulationTemplate<physx::PxArticulationReducedCoordinate>::getLinks(uint64_t a1, void *a2, unsigned int a3, unsigned int a4)
-{
-  v5 = (*(a1 + 152) - a4) & ~((*(a1 + 152) - a4) >> 31);
-  if (v5 >= a3)
-  {
-    result = a3;
-  }
-
-  else
-  {
-    result = v5;
-  }
-
-  if (result)
-  {
-    v7 = (*(a1 + 144) + 8 * a4);
-    v8 = result;
-    do
-    {
-      v9 = *v7++;
-      *a2++ = v9;
-      --v8;
-    }
-
-    while (v8);
-  }
-
-  return result;
-}
-
-float physx::NpArticulationTemplate<physx::PxArticulationReducedCoordinate>::getWorldBounds@<S0>(uint64_t a1@<X0>, float *a2@<X8>, float a3@<S0>, __n128 a4@<Q7>)
-{
-  if (*(a1 + 152))
-  {
-    v8 = 0;
-    *&v4 = vdup_n_s32(0xFE7FFFFF);
-    a4.n128_u64[0] = vdup_n_s32(0x7E7FFFFFu);
-    v9 = 8.5071e37;
-    v10 = -8.5071e37;
-    do
-    {
-      v21 = v4;
-      v22 = a4;
-      (*(**(*(a1 + 144) + 8 * v8) + 80))(&v23, 1.01);
-      *(&v4 + 1) = *(&v21 + 1);
-      a4.n128_u64[1] = v22.n128_u64[1];
-      if (v9 >= v23)
-      {
-        v9 = v23;
-      }
-
-      a4.n128_u64[0] = vbsl_s8(vcgt_f32(v24, v22.n128_u64[0]), v22.n128_u64[0], v24);
-      if (v10 <= v25)
-      {
-        v10 = v25;
-      }
-
-      *&v4 = vbsl_s8(vcgt_f32(*&v21, v26), *&v21, v26);
-      ++v8;
-    }
-
-    while (v8 < *(a1 + 152));
-    v11 = *(&v4 + 1);
-    v12 = a4.n128_f32[1];
-  }
-
-  else
-  {
-    v10 = -8.5071e37;
-    v9 = 8.5071e37;
-    a4.n128_u32[0] = 2122317823;
-    v12 = 8.5071e37;
-    LODWORD(v4) = -25165825;
-    v11 = -8.5071e37;
-  }
-
-  v13 = (v9 + v10) * 0.5;
-  v14 = (a4.n128_f32[0] + *&v4) * 0.5;
-  v15 = (v12 + v11) * 0.5;
-  v16 = v11 - v12;
-  v17 = ((v10 - v9) * 0.5) * a3;
-  v18 = ((*&v4 - a4.n128_f32[0]) * 0.5) * a3;
-  v19 = (v16 * 0.5) * a3;
-  *a2 = v13 - v17;
-  a2[1] = v14 - v18;
-  a2[2] = v15 - v19;
-  a2[3] = v13 + v17;
-  result = v15 + v19;
-  a2[4] = v14 + v18;
-  a2[5] = result;
-  return result;
-}
-
-uint64_t physx::NpArticulationTemplate<physx::PxArticulationReducedCoordinate>::getImpl(uint64_t a1)
-{
-  return a1 + 24;
-}
-
-{
-  return a1 + 24;
-}
-
-uint64_t physx::NpArticulationTemplate<physx::PxArticulationReducedCoordinate>::exportExtraData(uint64_t a1, uint64_t a2)
-{
-  if ((*(a1 + 136) & 1) == 0)
-  {
-    physx::Cm::ArrayAccess<physx::NpArticulationLink *,physx::shdfnd::InlineAllocator<32u,physx::shdfnd::ReflectionAllocator<physx::NpArticulationLink *>>>::store(a1 + 104, a2);
-  }
-
-  v4 = *(a1 + 168);
-  v5 = *(*a2 + 32);
-
-  return v5(a2, v4);
-}
-
-uint64_t physx::NpArticulationTemplate<physx::PxArticulationReducedCoordinate>::requiresObjects(uint64_t result, uint64_t a2)
-{
-  v2 = *(result + 152);
-  if (v2)
-  {
-    v4 = result;
-    v5 = 0;
-    v6 = 8 * v2;
-    do
-    {
-      result = (*(*a2 + 16))(a2, *(*(v4 + 144) + v5));
-      v5 += 8;
-    }
-
-    while (v6 != v5);
-  }
-
-  return result;
-}
-
-uint64_t physx::shdfnd::internal::HashSetBase<physx::PxConstraint *,physx::shdfnd::Hash<physx::PxConstraint *>,physx::shdfnd::NonTrackingAllocator,true>::erase(int32x2_t *a1, uint64_t *a2)
-{
-  if (!a1[6].i32[1])
-  {
-    return 0;
-  }
-
-  v2 = *a2;
-  v3 = ~(*a2 << 32) + *a2;
-  v4 = (v3 ^ (v3 >> 22)) + ~((v3 ^ (v3 >> 22)) << 13);
-  v5 = (9 * (v4 ^ (v4 >> 8))) ^ ((9 * (v4 ^ (v4 >> 8))) >> 15);
-  v6 = (*&a1[3] + 4 * ((a1[4].i32[1] - 1) & (((v5 + ~(v5 << 27)) >> 31) ^ (v5 + ~(v5 << 27)))));
-  v7 = *v6;
-  if (v7 == -1)
-  {
-    return 0;
-  }
-
-  v8 = a1[1];
-  v9 = a1[2];
-  if (*(*&v8 + 8 * v7) != v2)
-  {
-    while (1)
-    {
-      v10 = v7;
-      v7 = *(*&v9 + 4 * v7);
-      if (v7 == -1)
-      {
-        return 0;
-      }
-
-      if (*(*&v8 + 8 * v7) == v2)
-      {
-        v6 = (*&v9 + 4 * v10);
-        break;
-      }
-    }
-  }
-
-  *v6 = *(*&v9 + 4 * v7);
-  v11 = vadd_s32(a1[6], 0xFFFFFFFF00000001);
-  a1[6] = v11;
-  if (v7 != v11.i32[1])
-  {
-    *(*&v8 + 8 * v7) = *(*&v8 + 8 * v11.u32[1]);
-    v13 = a1[1];
-    v12 = a1[2];
-    *(*&v12 + 4 * v7) = *(*&v12 + 4 * v11.u32[1]);
-    v14 = ~(*(*&v13 + 8 * v7) << 32) + *(*&v13 + 8 * v7);
-    v15 = 9 * (((v14 ^ (v14 >> 22)) + ~((v14 ^ (v14 >> 22)) << 13)) ^ (((v14 ^ (v14 >> 22)) + ~((v14 ^ (v14 >> 22)) << 13)) >> 8));
-    v16 = (v15 ^ (v15 >> 15)) + ~((v15 ^ (v15 >> 15)) << 27);
-    v17 = (*&a1[3] + 4 * ((a1[4].i32[1] - 1) & ((v16 >> 31) ^ v16)));
-    v18 = a1[6].u32[1];
-    v19 = *v17;
-    if (v19 != v18)
-    {
+    v47 = a6[v37];
+    *(&v360 + v37) = v47;
+    v48 = a7[v37];
+    *(&v357 + v37) = v48;
+    v49 = *(v39 + 12 * v47);
+    v50 = vmulq_n_f32(v40, v49.f32[0]);
+    v50.i32[3] = 0;
+    v51 = vmulq_lane_f32(v41, *v49.f32, 1);
+    v51.i32[3] = 0;
+    v52 = vmulq_laneq_f32(a12, v49, 2);
+    v52.i32[3] = 0;
+    v53 = vaddq_f32(v52, vaddq_f32(v50, v51));
+    v54 = vmulq_n_f32(*v38, v53.f32[0]);
+    v54.i32[3] = 0;
+    v55 = vmulq_lane_f32(v38[1], *v53.f32, 1);
+    v55.i32[3] = 0;
+    v56 = vmulq_laneq_f32(v38[2], v53, 2);
+    v56.i32[3] = 0;
+    v57 = vaddq_f32(v38[3], vaddq_f32(v56, vaddq_f32(v54, v55)));
+    v58 = *(v42 + 12 * v48);
+    v59 = vmulq_n_f32(v43, v58.f32[0]);
+    v59.i32[3] = 0;
+    v60 = vmulq_lane_f32(v44, *v58.f32, 1);
+    v60.i32[3] = 0;
+    v61 = vmulq_laneq_f32(v46, v58, 2);
+    v61.i32[3] = 0;
+    v62 = vaddq_f32(v61, vaddq_f32(v59, v60));
+    v63 = vsubq_f32(v57, v62);
+    *(&v366 + v37) = v57;
+    *(&v363 + v37) = v62;
+    *(&v369 + v37) = v63;
+    ++v45;
+    ++v37;
+  }
+
+  while (v31 != v37);
+  v354 = v31;
+  if (v45 == 3)
+  {
+    v350 = v30;
+    physx::Gu::closestPtPointTetrahedron(&v369, &v366, &v363, &v360, &v357, &v354);
+    LODWORD(v30) = v350;
+    v29.i32[0] = v346.i32[0];
+    goto LABEL_47;
+  }
+
+  if (v45 != 2)
+  {
+    if (v45 != 1)
+    {
+      goto LABEL_47;
+    }
+
+    v63 = v369;
+    v64 = vsubq_f32(v370, v369);
+    v65 = vmulq_f32(v64, v64);
+    v65.i64[0] = vpaddq_f32(v65, v65).u64[0];
+    v66 = vpadd_f32(*v65.f32, *v65.f32);
+    if (vuzp1_s8(vdup_lane_s16(vcge_f32(0x3400000034000000, v66), 0), *v369.f32).u32[0] != -1)
+    {
+      v67 = vnegq_f32(v369);
+      v67.i32[3] = 0;
+      v68 = vmulq_f32(v67, v64);
+      a12 = vpaddq_f32(v68, v68);
+      *a12.i8 = vpadd_f32(*a12.i8, *a12.i8);
+      v69 = vrecpe_f32(v66);
+      v70 = 4;
       do
       {
-        v20 = v19;
-        v19 = *(*&v12 + 4 * v19);
+        v69 = vmul_f32(v69, vrecps_f32(v66, v69));
+        --v70;
       }
 
-      while (v19 != v18);
-      v17 = (*&v12 + 4 * v20);
+      while (v70);
+      v63 = vmlaq_n_f32(v369, v64, vmax_f32(vmin_f32(vmul_f32(*a12.i8, v69), _D9), 0).f32[0]);
+LABEL_31:
+      v63.i64[1] = vextq_s8(v63, v63, 8uLL).u32[0];
+      goto LABEL_47;
     }
 
-    *v17 = v7;
+LABEL_32:
+    v354 = 1;
+    goto LABEL_47;
   }
 
-  --a1[5].i32[1];
-  return 1;
-}
-
-uint64_t physx::shdfnd::internal::HashBase<physx::PxConstraint *,physx::PxConstraint *,physx::shdfnd::Hash<physx::PxConstraint *>,physx::shdfnd::internal::HashSetBase<physx::PxConstraint *,physx::shdfnd::Hash<physx::PxConstraint *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::create(int32x2_t *a1, void *a2, _BYTE *a3)
-{
-  v5 = a1[4].u32[1];
-  if (!v5)
+  v354 = 3;
+  v63 = v369;
+  a12 = vsubq_f32(v370, v369);
+  v83 = vsubq_f32(v371[0], v369);
+  v85 = vmls_f32(vmul_f32(*a12.i8, *&vextq_s8(v83, v83, 4uLL)), *&vextq_s8(a12, a12, 4uLL), *v83.i8);
+  *v84.f32 = vext_s8(v85, vmls_f32(vmul_f32(*&vextq_s8(a12, a12, 8uLL), *v83.i8), *a12.i8, *&vextq_s8(v83, v83, 8uLL)), 4uLL);
+  v85.i32[1] = 0;
+  v86 = vpadd_f32(vmul_f32(*v84.f32, *v84.f32), vmul_f32(v85.u32[0], v85.u32[0]));
+  v87 = vpadd_f32(v86, v86);
+  if (v87.f32[0] <= 0.00000011921)
   {
-    v9 = 0;
-    goto LABEL_8;
-  }
-
-  v6 = ~(*a2 << 32) + *a2;
-  v7 = 9 * (((v6 ^ (v6 >> 22)) + ~((v6 ^ (v6 >> 22)) << 13)) ^ (((v6 ^ (v6 >> 22)) + ~((v6 ^ (v6 >> 22)) << 13)) >> 8));
-  v8 = (v7 ^ (v7 >> 15)) + ~((v7 ^ (v7 >> 15)) << 27);
-  v9 = (v5 - 1) & ((v8 >> 31) ^ v8);
-  v10 = *(*&a1[3] + 4 * v9);
-  if (v10 == -1)
-  {
-LABEL_8:
-    *a3 = 0;
-    if (a1[6].i32[1] == a1[4].i32[0])
+    v354 = 2;
+    v126 = vmulq_f32(a12, a12);
+    v126.i64[0] = vpaddq_f32(v126, v126).u64[0];
+    v127 = vpadd_f32(*v126.f32, *v126.f32);
+    if (vuzp1_s8(vdup_lane_s16(vcge_f32(0x3400000034000000, v127), 0), *v369.f32).u32[0] != -1)
     {
-      if (v5)
+      v128 = vnegq_f32(v369);
+      v128.i32[3] = 0;
+      v129 = vmulq_f32(v128, a12);
+      v129.i64[0] = vpaddq_f32(v129, v129).u64[0];
+      v130 = vpadd_f32(*v129.f32, *v129.f32);
+      v131 = vrecpe_f32(v127);
+      v132 = 4;
+      do
       {
-        v12 = 2 * v5;
+        v131 = vmul_f32(v131, vrecps_f32(v127, v131));
+        --v132;
+      }
+
+      while (v132);
+      v63 = vmlaq_n_f32(v369, a12, vmax_f32(vmin_f32(vmul_f32(v130, v131), _D9), 0).f32[0]);
+      goto LABEL_31;
+    }
+
+    goto LABEL_32;
+  }
+
+  *&v84.u32[2] = v85;
+  v88 = vextq_s8(v370, v370, 8uLL).u64[0];
+  v89 = vextq_s8(v371[0], v371[0], 8uLL).u64[0];
+  v90 = vextq_s8(v371[0], v371[0], 4uLL).u64[0];
+  v91 = vextq_s8(v370, v370, 4uLL).u64[0];
+  v92 = vmls_f32(vmul_f32(*v370.f32, v90), v91, *v371[0].f32);
+  *v93.f32 = vext_s8(v92, vmls_f32(vmul_f32(v88, *v371[0].f32), *v370.f32, v89), 4uLL);
+  v93.i64[1] = v92.u32[0];
+  v94 = vextq_s8(v369, v369, 8uLL).u64[0];
+  v95 = vextq_s8(v369, v369, 4uLL).u64[0];
+  v96 = vmls_f32(vmul_f32(v95, *v371[0].f32), v90, *v369.f32);
+  *v97.f32 = vext_s8(v96, vmls_f32(vmul_f32(*v369.f32, v89), *v371[0].f32, v94), 4uLL);
+  v97.i64[1] = v96.u32[0];
+  v98 = vmls_f32(vmul_f32(*v369.f32, v91), v95, *v370.f32);
+  *v99.f32 = vext_s8(v98, vmls_f32(vmul_f32(v94, *v370.f32), *v369.f32, v88), 4uLL);
+  v99.i64[1] = v98.u32[0];
+  v100 = vmulq_f32(v93, v84);
+  v100.i64[0] = vpaddq_f32(v100, v100).u64[0];
+  v101 = vpadd_f32(*v100.f32, *v100.f32);
+  v102 = vmulq_f32(v97, v84);
+  v102.i64[0] = vpaddq_f32(v102, v102).u64[0];
+  v103 = vpadd_f32(*v102.f32, *v102.f32);
+  v104 = vmulq_f32(v99, v84);
+  v104.i64[0] = vpaddq_f32(v104, v104).u64[0];
+  v105 = vpadd_f32(*v104.f32, *v104.f32);
+  if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcgez_f32(v103), vcgez_f32(v101)), vcgez_f32(v105)), 0), *v369.f32).u32[0] == -1)
+  {
+    v133 = vmulq_f32(v369, v84);
+    v134 = vextq_s8(v133, v133, 8uLL).u64[0];
+    v135 = vrecpe_f32(v87);
+    v136 = 4;
+    do
+    {
+      v135 = vmul_f32(v135, vrecps_f32(v87, v135));
+      --v136;
+    }
+
+    while (v136);
+    v137 = vpadd_f32(*v133.i8, v134);
+    v63 = vmulq_n_f32(v84, vmul_f32(v135, vpadd_f32(v137, v137)).f32[0]);
+    v63.i32[3] = 0;
+    goto LABEL_47;
+  }
+
+  v106 = vnegq_f32(v369);
+  v106.i32[3] = 0;
+  v107 = vnegq_f32(v370);
+  v107.i32[3] = 0;
+  v108 = vmulq_f32(v106, a12);
+  v108.i64[0] = vpaddq_f32(v108, v108).u64[0];
+  v109 = vpadd_f32(*v108.f32, *v108.f32);
+  v110 = vmulq_f32(a12, v107);
+  v110.i64[0] = vpaddq_f32(v110, v110).u64[0];
+  v111 = vpadd_f32(*v110.f32, *v110.f32);
+  if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v105), vand_s8(vclez_f32(v111), vcgez_f32(v109))), 0), *v369.f32).u32[0] == -1)
+  {
+    v138 = vsub_f32(v109, v111);
+    v139 = vrecpe_f32(v138);
+    v140 = 4;
+    do
+    {
+      v139 = vmul_f32(v139, vrecps_f32(v138, v139));
+      --v140;
+    }
+
+    while (v140);
+    v124 = 0;
+    v63 = vmlaq_n_f32(v369, a12, vmul_f32(v109, vbsl_s8(vcgt_f32(vabs_f32(v138), 0x3400000034000000), v139, 0)).f32[0]);
+    v123 = 2;
+    v125 = &v358;
+    v63.i64[1] = vextq_s8(v63, v63, 8uLL).u32[0];
+  }
+
+  else
+  {
+    v112 = vnegq_f32(v371[0]);
+    v112.i32[3] = 0;
+    v113 = vmulq_f32(v107, v83);
+    v113.i64[0] = vpaddq_f32(v113, v113).u64[0];
+    v114 = vpadd_f32(*v113.f32, *v113.f32);
+    v115 = vmulq_f32(a12, v112);
+    v115.i64[0] = vpaddq_f32(v115, v115).u64[0];
+    v116 = vpadd_f32(*v115.f32, *v115.f32);
+    v117 = vmulq_f32(v83, v112);
+    v117.i64[0] = vpaddq_f32(v117, v117).u64[0];
+    v118 = vpadd_f32(*v117.f32, *v117.f32);
+    if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcge_f32(v114, v111), vcge_f32(v116, v118)), vclez_f32(v101)), 0), *v369.f32).u32[0] == -1)
+    {
+      v145 = vsub_f32(v114, v111);
+      v146 = vadd_f32(v145, vsub_f32(v116, v118));
+      v147 = vrecpe_f32(v146);
+      v148 = 4;
+      do
+      {
+        v147 = vmul_f32(v147, vrecps_f32(v146, v147));
+        --v148;
+      }
+
+      while (v148);
+      v149 = vmlaq_n_f32(v370, vsubq_f32(v371[0], v370), vmul_f32(v145, vbsl_s8(vcgt_f32(vabs_f32(v146), 0x3400000034000000), v147, 0)).f32[0]);
+      v123 = 2;
+      v124 = 1;
+      v141 = &v362;
+      v125 = &v359;
+      v149.i64[1] = vextq_s8(v149, v149, 8uLL).u32[0];
+      v143 = v368;
+      v142 = v365;
+      v144 = v371;
+      v63 = v149;
+      goto LABEL_46;
+    }
+
+    v119 = vmulq_f32(v106, v83);
+    v120 = vpaddq_f32(v119, v119);
+    *v120.i8 = vpadd_f32(*v120.i8, *v120.i8);
+    if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v103), vand_s8(vclez_f32(v118), vcgez_f32(*v120.i8))), 0), *v369.f32).u32[0] == -1)
+    {
+      v150 = vsub_f32(*v120.i8, v118);
+      v151 = vrecpe_f32(v150);
+      v152 = 4;
+      do
+      {
+        v151 = vmul_f32(v151, vrecps_f32(v150, v151));
+        --v152;
+      }
+
+      while (v152);
+      v124 = 0;
+      v63 = vmlaq_n_f32(v369, v83, vmul_f32(*v120.i8, vbsl_s8(vcgt_f32(vabs_f32(v150), 0x3400000034000000), v151, 0)).f32[0]);
+      v123 = 2;
+      v141 = &v362;
+      v125 = &v359;
+      v63.i64[1] = vextq_s8(v63, v63, 8uLL).u32[0];
+      v143 = v368;
+      v142 = v365;
+      v144 = v371;
+      goto LABEL_46;
+    }
+
+    if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(*v120.i8), vclez_f32(v109)), 0), *v369.f32).u32[0] == -1)
+    {
+      v124 = 0;
+      v123 = 1;
+      v125 = &v358;
+    }
+
+    else
+    {
+      *v120.i8 = vcge_f32(v111, v114);
+      *v63.f32 = vdup_lane_s16(vand_s8(*v120.i8, vcgez_f32(v111)), 0);
+      *v63.f32 = vuzp1_s8(*v63.f32, *v63.f32);
+      v120.i32[0] = -1;
+      v121 = v63.i32[0];
+      v122 = vdupq_lane_s32(*&vceqq_s32(v63, v120), 0);
+      v123 = 1;
+      if (v121 == -1)
+      {
+        v124 = 1;
       }
 
       else
       {
-        v12 = 16;
+        v124 = 2;
       }
 
-      if (v5 < v12)
+      v125 = &v358;
+      v63 = vbslq_s8(v122, v370, v371[0]);
+    }
+  }
+
+  v142 = &v364;
+  v141 = &v361;
+  v143 = &v367;
+  v144 = &v370;
+LABEL_46:
+  v153 = *(&v369 + v124);
+  v154 = *v144;
+  a12 = *(&v366 + v124);
+  v155 = *v143;
+  v156 = *(&v363 + v124);
+  v157 = *v142;
+  v158 = *(&v360 + v124);
+  v159 = *v141;
+  v160 = *(&v357 + v124);
+  v161 = *v125;
+  v369 = v153;
+  v370 = v154;
+  v366 = a12;
+  v367 = v155;
+  v363 = v156;
+  v364 = v157;
+  v360 = v158;
+  v361 = v159;
+  v357 = v160;
+  v358 = v161;
+  v354 = v123;
+LABEL_47:
+  v355 = v63;
+  v162 = vmulq_f32(v63, v63);
+  v162.i64[0] = vpaddq_f32(v162, v162).u64[0];
+  v163 = vpadd_f32(*v162.f32, *v162.f32);
+  v164 = vrsqrte_f32(v163);
+  v165 = 4;
+  do
+  {
+    v164 = vmul_f32(v164, vrsqrts_f32(vmul_f32(v164, v164), v163));
+    --v165;
+  }
+
+  while (v165);
+  v80 = vbsl_s8(vdup_lane_s32(vceqz_f32(v163), 0), v163, vmul_f32(v163, v164));
+  v166 = vrecpe_f32(v80);
+  v167 = 4;
+  do
+  {
+    *a12.i8 = vrecps_f32(v80, v166);
+    v166 = vmul_f32(v166, *a12.i8);
+    --v167;
+  }
+
+  while (v167);
+  v168 = vmulq_n_f32(v63, v166.f32[0]);
+  v168.i32[3] = 0;
+  v349 = v168;
+  v81 = vdupq_lane_s32(vcgt_f32(v80, v25), 0);
+  v82 = v63;
+LABEL_52:
+  v169 = *&v30 + v29.f32[0];
+  a12.i32[0] = -1;
+  v341 = a12;
+  v170 = v80;
+  v171.i64[0] = -1;
+  v171.i64[1] = -1;
+  while (1)
+  {
+    v172 = v63;
+    v173.i64[0] = -1;
+    v173.i64[1] = -1;
+    *v173.i8 = vmovn_s32(vceqq_s32(v81, v173));
+    if (vuzp1_s8(*v173.i8, *v173.i8).u32[0] != -1)
+    {
+      break;
+    }
+
+    v347 = v172;
+    v174 = vnegq_f32(v172);
+    v174.i32[3] = 0;
+    v351 = v80;
+    v353 = v174;
+    *v175.i64 = physx::Gu::RelativeConvex<physx::Gu::ConvexHullV>::support(a1, &v353, &v360 + v354);
+    v348 = v175;
+    *v176.i64 = physx::Gu::LocalConvex<physx::Gu::ConvexHullV>::support(a2, &v355, &v357 + v354);
+    v177 = v349;
+    v178 = v176;
+    v63 = vsubq_f32(v348, v176);
+    v179 = vmulq_f32(v349, v63);
+    v179.i64[0] = vpaddq_f32(v179, v179).u64[0];
+    v180 = vpadd_f32(*v179.f32, *v179.f32).f32[0];
+    if (v180 > v169)
+    {
+      if (v14)
       {
-        physx::shdfnd::internal::HashBase<physx::PxConstraint *,physx::PxConstraint *,physx::shdfnd::Hash<physx::PxConstraint *>,physx::shdfnd::internal::HashSetBase<physx::PxConstraint *,physx::shdfnd::Hash<physx::PxConstraint *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::reserveInternal(a1, v12);
-        v5 = a1[4].u32[1];
+        v286 = v354;
+        *a8 = v354;
+        if (v286)
+        {
+          v287 = &v357;
+          v288 = &v360;
+          do
+          {
+            v289 = *v288++;
+            *v14++ = v289;
+            v290 = *v287++;
+            *v13++ = v290;
+            --v286;
+          }
+
+          while (v286);
+        }
       }
 
-      v13 = ~(*a2 << 32) + *a2;
-      v14 = 9 * (((v13 ^ (v13 >> 22)) + ~((v13 ^ (v13 >> 22)) << 13)) ^ (((v13 ^ (v13 >> 22)) + ~((v13 ^ (v13 >> 22)) << 13)) >> 8));
-      v15 = (v14 ^ (v14 >> 15)) + ~((v14 ^ (v14 >> 15)) << 27);
-      v9 = (v5 - 1) & ((v15 >> 31) ^ v15);
+      return 0;
     }
 
-    v16 = a1[5].u32[1];
-    a1[5].i32[1] = v16 + 1;
-    v17 = a1[3];
-    v18 = a1[1];
-    *(*&a1[2] + 4 * v16) = *(*&v17 + 4 * v9);
-    *(*&v17 + 4 * v9) = v16;
-    a1[6] = vadd_s32(a1[6], 0x100000001);
-    return *&v18 + 8 * v16;
-  }
-
-  v11 = a1[1];
-  while (*(*&v11 + 8 * v10) != *a2)
-  {
-    v10 = *(*&a1[2] + 4 * v10);
-    if (v10 == -1)
+    v181 = v351;
+    v182 = v354;
+    if (v180 > (0.99977 * v351.f32[0]))
     {
-      goto LABEL_8;
+      v291 = v346;
+      if (!v14)
+      {
+        goto LABEL_116;
+      }
+
+      *a8 = v354;
+      if (v182)
+      {
+        v292 = &v357;
+        v293 = &v360;
+        v294 = v182;
+        do
+        {
+          v295 = *v293++;
+          *v14++ = v295;
+          v296 = *v292++;
+          *v13++ = v296;
+          --v294;
+        }
+
+        while (v294);
+LABEL_116:
+        *(a13 + 32) = v349;
+        if (v182 != 3)
+        {
+          if (v182 == 2)
+          {
+            v308 = vsubq_f32(v369, v355);
+            v309 = vsubq_f32(vsubq_f32(v370, v355), v308);
+            v310 = vmulq_f32(v309, v309);
+            v310.i64[0] = vpaddq_f32(v310, v310).u64[0];
+            v311 = vpadd_f32(*v310.f32, *v310.f32);
+            v312 = vrecpe_f32(v311);
+            v313 = 4;
+            v299 = a5;
+            do
+            {
+              v312 = vmul_f32(v312, vrecps_f32(v311, v312));
+              --v313;
+            }
+
+            while (v313);
+            v314 = vnegq_f32(v308);
+            v314.i32[3] = 0;
+            v315 = vmulq_f32(v314, v309);
+            v315.i64[0] = vpaddq_f32(v315, v315).u64[0];
+            v314.i32[0] = vmul_f32(vbsl_s8(vcgtz_f32(v311), v312, 0), vpadd_f32(*v315.f32, *v315.f32)).u32[0];
+            v297 = vmlaq_n_f32(v366, vsubq_f32(v367, v366), v314.f32[0]);
+            v297.i64[1] = vextq_s8(v297, v297, 8uLL).u32[0];
+            v298 = vmlaq_n_f32(v363, vsubq_f32(v364, v363), v314.f32[0]);
+            v298.i64[1] = vextq_s8(v298, v298, 8uLL).u32[0];
+          }
+
+          else
+          {
+            v297 = 0uLL;
+            v298 = 0uLL;
+            v299 = a5;
+            if (v182 == 1)
+            {
+              v297 = v366;
+              v298 = v363;
+              if (!a5)
+              {
+LABEL_137:
+                v321 = vmlsq_lane_f32(v297, v177, v342, 0);
+                v321.i64[1] = vextq_s8(v321, v321, 8uLL).u32[0];
+                v322 = vmlaq_n_f32(v298, v177, v343);
+                v322.i64[1] = vextq_s8(v322, v322, 8uLL).u32[0];
+                *a13 = v321;
+                *(a13 + 16) = v322;
+                *(a13 + 64) = vsub_f32(v181, v291);
+                return 2;
+              }
+
+LABEL_134:
+              *a13 = v297;
+              *(a13 + 16) = v298;
+              result = 2;
+              *(a13 + 64) = v181;
+              return result;
+            }
+          }
+
+          if (!v299)
+          {
+            goto LABEL_137;
+          }
+
+          goto LABEL_134;
+        }
+
+        v353.i64[0] = 0;
+        v356 = 0;
+        physx::Gu::barycentricCoordinates(&v355, &v369, &v370, v371, &v353, &v356);
+        v177 = v349;
+        v181 = v351;
+        v291 = v346;
+        v316 = vmulq_n_f32(vsubq_f32(v367, v366), v353.f32[0]);
+        v316.i32[3] = 0;
+        v317 = vmulq_n_f32(vsubq_f32(v368[0], v366), v356.f32[0]);
+        v317.i32[3] = 0;
+        v318 = vaddq_f32(v316, v317);
+        v319 = vmulq_n_f32(vsubq_f32(v364, v363), v353.f32[0]);
+        v319.i32[3] = 0;
+        v297 = vaddq_f32(v366, v318);
+        v320 = vmulq_n_f32(vsubq_f32(v365[0], v363), v356.f32[0]);
+        v320.i32[3] = 0;
+        v298 = vaddq_f32(v363, vaddq_f32(v319, v320));
+      }
+
+      else
+      {
+        *(a13 + 32) = v349;
+        v297 = 0uLL;
+        v298 = 0uLL;
+      }
+
+      if (!a5)
+      {
+        goto LABEL_137;
+      }
+
+      goto LABEL_134;
     }
-  }
 
-  result = *&v11 + 8 * v10;
-  *a3 = 1;
-  return result;
-}
+    *(&v366 + v354) = v348;
+    *(&v363 + v182) = v178;
+    v354 = v182 + 1;
+    *(&v369 + v182) = v63;
+    switch(v182)
+    {
+      case 3:
+        physx::Gu::closestPtPointTetrahedron(&v369, &v366, &v363, &v360, &v357, &v354);
+        v181 = v351;
+        break;
+      case 2:
+        v63 = v369;
+        v191 = vsubq_f32(v370, v369);
+        v192 = vsubq_f32(v371[0], v369);
+        v194 = vmls_f32(vmul_f32(*v191.i8, *&vextq_s8(v192, v192, 4uLL)), *&vextq_s8(v191, v191, 4uLL), *v192.i8);
+        *v193.f32 = vext_s8(v194, vmls_f32(vmul_f32(*&vextq_s8(v191, v191, 8uLL), *v192.i8), *v191.i8, *&vextq_s8(v192, v192, 8uLL)), 4uLL);
+        v194.i32[1] = 0;
+        v354 = 3;
+        v195 = vpadd_f32(vmul_f32(*v193.f32, *v193.f32), vmul_f32(v194.u32[0], v194.u32[0]));
+        v196 = vpadd_f32(v195, v195);
+        if (v196.f32[0] <= 0.00000011921)
+        {
+          v354 = 2;
+          v235 = vmulq_f32(v191, v191);
+          v235.i64[0] = vpaddq_f32(v235, v235).u64[0];
+          v236 = vpadd_f32(*v235.f32, *v235.f32);
+          if (vuzp1_s8(vdup_lane_s16(vcge_f32(0x3400000034000000, v236), 0), *v369.f32).u32[0] == -1)
+          {
+LABEL_79:
+            v354 = 1;
+            break;
+          }
 
-void *physx::shdfnd::internal::HashBase<physx::PxConstraint *,physx::PxConstraint *,physx::shdfnd::Hash<physx::PxConstraint *>,physx::shdfnd::internal::HashSetBase<physx::PxConstraint *,physx::shdfnd::Hash<physx::PxConstraint *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::reserveInternal(uint64_t a1, unsigned int a2)
-{
-  v2 = a2;
-  if ((a2 ^ (a2 - 1)) <= a2 - 1)
-  {
-    v4 = a2 | (a2 >> 1) | ((a2 | (a2 >> 1)) >> 2);
-    v5 = v4 | (v4 >> 4) | ((v4 | (v4 >> 4)) >> 8);
-    v2 = (v5 | HIWORD(v5)) + 1;
-  }
+          v237 = vnegq_f32(v369);
+          v237.i32[3] = 0;
+          v238 = vmulq_f32(v237, v191);
+          v238.i64[0] = vpaddq_f32(v238, v238).u64[0];
+          v239 = vpadd_f32(*v238.f32, *v238.f32);
+          v240 = vrecpe_f32(v236);
+          v241 = 4;
+          do
+          {
+            v240 = vmul_f32(v240, vrecps_f32(v236, v240));
+            --v241;
+          }
 
-  v6 = *(a1 + 32);
-  v7 = (*(a1 + 40) * v2);
-  v8 = ((-4 * (v2 + v7)) & 0xC) + 4 * (v2 + v7);
-  if (v8 + 8 * v7)
-  {
-    v9 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, v8 + 8 * v7, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsHashInternals.h", 372);
-  }
+          while (v241);
+          v63 = vmlaq_n_f32(v369, v191, vmax_f32(vmin_f32(vmul_f32(v239, v240), _D9), 0).f32[0]);
+          goto LABEL_78;
+        }
 
-  else
-  {
-    v9 = 0;
-  }
+        *&v193.u32[2] = v194;
+        v197 = vextq_s8(v370, v370, 8uLL).u64[0];
+        v198 = vextq_s8(v371[0], v371[0], 8uLL).u64[0];
+        v199 = vextq_s8(v371[0], v371[0], 4uLL).u64[0];
+        v200 = vextq_s8(v370, v370, 4uLL).u64[0];
+        v201 = vmls_f32(vmul_f32(*v370.f32, v199), v200, *v371[0].f32);
+        *v202.f32 = vext_s8(v201, vmls_f32(vmul_f32(v197, *v371[0].f32), *v370.f32, v198), 4uLL);
+        v202.i64[1] = v201.u32[0];
+        v203 = vextq_s8(v369, v369, 8uLL).u64[0];
+        v204 = vextq_s8(v369, v369, 4uLL).u64[0];
+        v205 = vmls_f32(vmul_f32(v204, *v371[0].f32), v199, *v369.f32);
+        *v206.f32 = vext_s8(v205, vmls_f32(vmul_f32(*v369.f32, v198), *v371[0].f32, v203), 4uLL);
+        v206.i64[1] = v205.u32[0];
+        v207 = vmls_f32(vmul_f32(*v369.f32, v200), v204, *v370.f32);
+        *v208.f32 = vext_s8(v207, vmls_f32(vmul_f32(v203, *v370.f32), *v369.f32, v197), 4uLL);
+        v208.i64[1] = v207.u32[0];
+        v209 = vmulq_f32(v202, v193);
+        v209.i64[0] = vpaddq_f32(v209, v209).u64[0];
+        v210 = vpadd_f32(*v209.f32, *v209.f32);
+        v211 = vmulq_f32(v206, v193);
+        v211.i64[0] = vpaddq_f32(v211, v211).u64[0];
+        v212 = vpadd_f32(*v211.f32, *v211.f32);
+        v213 = vmulq_f32(v208, v193);
+        v213.i64[0] = vpaddq_f32(v213, v213).u64[0];
+        v214 = vpadd_f32(*v213.f32, *v213.f32);
+        if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcgez_f32(v212), vcgez_f32(v210)), vcgez_f32(v214)), 0), *v369.f32).u32[0] != -1)
+        {
+          v215 = vnegq_f32(v369);
+          v215.i32[3] = 0;
+          v216 = vnegq_f32(v370);
+          v216.i32[3] = 0;
+          v217 = vmulq_f32(v215, v191);
+          v217.i64[0] = vpaddq_f32(v217, v217).u64[0];
+          v218 = vpadd_f32(*v217.f32, *v217.f32);
+          v219 = vmulq_f32(v191, v216);
+          v219.i64[0] = vpaddq_f32(v219, v219).u64[0];
+          v220 = vpadd_f32(*v219.f32, *v219.f32);
+          if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v214), vand_s8(vclez_f32(v220), vcgez_f32(v218))), 0), *v369.f32).u32[0] == -1)
+          {
+            v247 = vsub_f32(v218, v220);
+            v248 = vrecpe_f32(v247);
+            v249 = 4;
+            do
+            {
+              v248 = vmul_f32(v248, vrecps_f32(v247, v248));
+              --v249;
+            }
 
-  v10 = &v9[4 * v2];
-  v11 = &v9[v8];
-  result = memset(v9, 255, 4 * v2);
-  if (*(a1 + 52))
-  {
-    v13 = 0;
+            while (v249);
+            v233 = 0;
+            v63 = vmlaq_n_f32(v369, v191, vmul_f32(v218, vbsl_s8(vcgt_f32(vabs_f32(v247), 0x3400000034000000), v248, 0)).f32[0]);
+            v232 = 2;
+            v234 = &v358;
+            v63.i64[1] = vextq_s8(v63, v63, 8uLL).u32[0];
+            goto LABEL_86;
+          }
+
+          v221 = vnegq_f32(v371[0]);
+          v221.i32[3] = 0;
+          v222 = vmulq_f32(v216, v192);
+          v222.i64[0] = vpaddq_f32(v222, v222).u64[0];
+          v223 = vpadd_f32(*v222.f32, *v222.f32);
+          v224 = vmulq_f32(v191, v221);
+          v224.i64[0] = vpaddq_f32(v224, v224).u64[0];
+          v225 = vpadd_f32(*v224.f32, *v224.f32);
+          v226 = vmulq_f32(v192, v221);
+          v226.i64[0] = vpaddq_f32(v226, v226).u64[0];
+          v227 = vpadd_f32(*v226.f32, *v226.f32);
+          if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcge_f32(v223, v220), vcge_f32(v225, v227)), vclez_f32(v210)), 0), *v369.f32).u32[0] == -1)
+          {
+            v254 = vsub_f32(v223, v220);
+            v255 = vadd_f32(v254, vsub_f32(v225, v227));
+            v256 = vrecpe_f32(v255);
+            v257 = 4;
+            do
+            {
+              v256 = vmul_f32(v256, vrecps_f32(v255, v256));
+              --v257;
+            }
+
+            while (v257);
+            v258 = vmlaq_n_f32(v370, vsubq_f32(v371[0], v370), vmul_f32(v254, vbsl_s8(vcgt_f32(vabs_f32(v255), 0x3400000034000000), v256, 0)).f32[0]);
+            v258.i64[1] = vextq_s8(v258, v258, 8uLL).u32[0];
+            v232 = 2;
+            v63 = v258;
+            v233 = 1;
+            v234 = &v359;
+          }
+
+          else
+          {
+            v228 = vmulq_f32(v215, v192);
+            v228.i64[0] = vpaddq_f32(v228, v228).u64[0];
+            v229 = vpadd_f32(*v228.f32, *v228.f32);
+            if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v212), vand_s8(vclez_f32(v227), vcgez_f32(v229))), 0), *v369.f32).u32[0] != -1)
+            {
+              if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v229), vclez_f32(v218)), 0), *v369.f32).u32[0] == -1)
+              {
+                v233 = 0;
+                v232 = 1;
+                v234 = &v358;
+              }
+
+              else
+              {
+                *v63.f32 = vdup_lane_s16(vand_s8(vcge_f32(v220, v223), vcgez_f32(v220)), 0);
+                *v63.f32 = vuzp1_s8(*v63.f32, *v63.f32);
+                v230 = v63.i32[0];
+                v231 = vdupq_lane_s32(*&vceqq_s32(v63, v341), 0);
+                v232 = 1;
+                if (v230 == -1)
+                {
+                  v233 = 1;
+                }
+
+                else
+                {
+                  v233 = 2;
+                }
+
+                v234 = &v358;
+                v63 = vbslq_s8(v231, v370, v371[0]);
+              }
+
+LABEL_86:
+              v251 = &v364;
+              v250 = &v361;
+              v252 = &v367;
+              v253 = &v370;
+LABEL_94:
+              v262 = *(&v369 + v233);
+              v263 = *v253;
+              v264 = *(&v366 + v233);
+              v265 = *v252;
+              v266 = *(&v363 + v233);
+              v267 = *v251;
+              v268 = *(&v360 + v233);
+              v269 = *v250;
+              v270 = *(&v357 + v233);
+              v271 = *v234;
+              v369 = v262;
+              v370 = v263;
+              v366 = v264;
+              v367 = v265;
+              v363 = v266;
+              v364 = v267;
+              v360 = v268;
+              v361 = v269;
+              v357 = v270;
+              v358 = v271;
+              v354 = v232;
+              break;
+            }
+
+            v259 = vsub_f32(v229, v227);
+            v260 = vrecpe_f32(v259);
+            v261 = 4;
+            do
+            {
+              v260 = vmul_f32(v260, vrecps_f32(v259, v260));
+              --v261;
+            }
+
+            while (v261);
+            v233 = 0;
+            v63 = vmlaq_n_f32(v369, v192, vmul_f32(v229, vbsl_s8(vcgt_f32(vabs_f32(v259), 0x3400000034000000), v260, 0)).f32[0]);
+            v232 = 2;
+            v234 = &v359;
+            v63.i64[1] = vextq_s8(v63, v63, 8uLL).u32[0];
+          }
+
+          v251 = v365;
+          v250 = &v362;
+          v252 = v368;
+          v253 = v371;
+          goto LABEL_94;
+        }
+
+        v242 = vmulq_f32(v369, v193);
+        v243 = vextq_s8(v242, v242, 8uLL).u64[0];
+        v244 = vrecpe_f32(v196);
+        v245 = 4;
+        do
+        {
+          v244 = vmul_f32(v244, vrecps_f32(v196, v244));
+          --v245;
+        }
+
+        while (v245);
+        v246 = vpadd_f32(*v242.i8, v243);
+        v63 = vmulq_n_f32(v193, vmul_f32(v244, vpadd_f32(v246, v246)).f32[0]);
+        v63.i32[3] = 0;
+        break;
+      case 1:
+        v63 = v369;
+        v183 = vsubq_f32(v370, v369);
+        v184 = vmulq_f32(v183, v183);
+        v184.i64[0] = vpaddq_f32(v184, v184).u64[0];
+        v185 = vpadd_f32(*v184.f32, *v184.f32);
+        if (vuzp1_s8(vdup_lane_s16(vcge_f32(0x3400000034000000, v185), 0), *v369.f32).u32[0] == -1)
+        {
+          goto LABEL_79;
+        }
+
+        v186 = vnegq_f32(v369);
+        v186.i32[3] = 0;
+        v187 = vmulq_f32(v186, v183);
+        v187.i64[0] = vpaddq_f32(v187, v187).u64[0];
+        v188 = vpadd_f32(*v187.f32, *v187.f32);
+        v189 = vrecpe_f32(v185);
+        v190 = 4;
+        do
+        {
+          v189 = vmul_f32(v189, vrecps_f32(v185, v189));
+          --v190;
+        }
+
+        while (v190);
+        v63 = vmlaq_n_f32(v369, v183, vmax_f32(vmin_f32(vmul_f32(v188, v189), _D9), 0).f32[0]);
+LABEL_78:
+        v63.i64[1] = vextq_s8(v63, v63, 8uLL).u32[0];
+        break;
+    }
+
+    v355 = v63;
+    v272 = vmulq_f32(v63, v63);
+    v272.i64[0] = vpaddq_f32(v272, v272).u64[0];
+    v273 = vpadd_f32(*v272.f32, *v272.f32);
+    v274 = vrsqrte_f32(v273);
+    v275 = 4;
     do
     {
-      v14 = *(*(a1 + 8) + 8 * v13);
-      v15 = (~(v14 << 32) + v14) ^ ((~(v14 << 32) + v14) >> 22);
-      v16 = 9 * ((v15 + ~(v15 << 13)) ^ ((v15 + ~(v15 << 13)) >> 8));
-      v17 = (v16 ^ (v16 >> 15)) + ~((v16 ^ (v16 >> 15)) << 27);
-      LODWORD(v17) = (v2 - 1) & ((v17 >> 31) ^ v17);
-      *&v10[4 * v13] = *&v9[4 * v17];
-      *&v9[4 * v17] = v13;
-      *&v11[8 * v13++] = v14;
+      v274 = vmul_f32(v274, vrsqrts_f32(vmul_f32(v274, v274), v273));
+      --v275;
     }
 
-    while (v13 < *(a1 + 52));
-  }
-
-  if (*a1)
-  {
-    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-  }
-
-  *(a1 + 16) = v10;
-  *(a1 + 24) = v9;
-  *a1 = v9;
-  *(a1 + 8) = v11;
-  *(a1 + 32) = v7;
-  *(a1 + 36) = v2;
-  if (*(a1 + 44) == -1)
-  {
-    *(a1 + 44) = v6;
-  }
-
-  return result;
-}
-
-uint64_t physx::NpRigidActorTemplate<physx::PxArticulationLink>::attachShape(physx::PxRigidActor *a1, physx::NpShape *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (*(a1 + 10))
-  {
-    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidActorTemplate.h", 233, "PxRigidActor::attachShape: Actor is part of a pruning structure, pruning structure is now invalid!", a6, a7, a8, v11);
-    physx::Sq::PruningStructure::invalidate(*(a1 + 10), a1);
-  }
-
-  physx::NpShapeManager::attachShape((a1 + 40), a2, a1);
-  return 1;
-}
-
-physx::PxActor *physx::NpActorTemplate<physx::PxArticulationLink>::release(physx::PxActor *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v8 = *(result + 4);
-  if (v8)
-  {
-    return physx::NpAggregate::removeActorAndReinsert(*(*(v8 + 72) + 8), result, 0, a4, a5, a6, a7, a8);
-  }
-
-  return result;
-}
-
-int32x2_t *physx::NpActorTemplate<physx::PxArticulationLink>::setActorFlag(int32x2_t *result, int a2, int a3)
-{
-  v3 = result + *(&physx::NpActor::sLazyInitOffsets + result[1].u16[0] + 18);
-  v4 = *(v3 + 8);
-  if (a3)
-  {
-    if (v4)
-    {
-      v6 = *(v3 + 16);
-      v7 = (v4 >> 24) & 0xF;
-      v5 = *(&physx::Scb::Actor::sLazyInitOffsets + v7 + 3) + v3;
-    }
-
-    else
-    {
-      v5 = *(&physx::Scb::Actor::sLazyInitOffsets + ((v4 >> 24) & 0xF) + 3) + v3;
-      v6 = (v5 + 12);
-      v7 = (v4 >> 24) & 0xF;
-    }
-
-    v9 = *v6 | a2;
-  }
-
-  else
-  {
-    if (v4)
-    {
-      v8 = *(v3 + 16);
-      v7 = (v4 >> 24) & 0xF;
-      v5 = *(&physx::Scb::Actor::sLazyInitOffsets + v7 + 3) + v3;
-    }
-
-    else
-    {
-      LODWORD(v7) = BYTE3(v4) & 0xF;
-      v5 = *(&physx::Scb::Actor::sLazyInitOffsets + v7 + 3) + v3;
-      v8 = (v5 + 12);
-    }
-
-    v9 = *v8 & ~a2;
-  }
-
-  v10 = v4 >> 30;
-  if (v10 == 2)
-  {
-    result = *v3;
-    if (*(*v3 + 7689))
-    {
-      goto LABEL_14;
-    }
-  }
-
-  else if (v10 == 3)
-  {
-    result = *v3;
-LABEL_14:
-    Stream = *(v3 + 16);
-    if (!Stream)
-    {
-      Stream = physx::Scb::Scene::getStream(result, v7);
-      *(v3 + 16) = Stream;
-      result = *v3;
-    }
-
-    *Stream = v9;
-    result = physx::Scb::Scene::scheduleForUpdate(result, v3);
-    *(v3 + 8) |= 1u;
-    return result;
-  }
-
-  if (v9 != *(v5 + 12))
-  {
-    *(v5 + 12) = v9;
-    result = *v5;
-    if (*v5)
-    {
-      v12 = *(*result + 16);
-
-      return v12();
-    }
-  }
-
-  return result;
-}
-
-int32x2_t *physx::NpActorTemplate<physx::PxArticulationLink>::setActorFlags(int32x2_t *result, unsigned __int8 *a2)
-{
-  v2 = *a2;
-  v3 = result + *(&physx::NpActor::sLazyInitOffsets + result[1].u16[0] + 18);
-  v4 = *(v3 + 8);
-  v5 = (v4 >> 24) & 0xF;
-  v6 = v4 >> 30;
-  if (v6 == 2)
-  {
-    result = *v3;
-    if (*(*v3 + 7689))
-    {
-      goto LABEL_5;
-    }
-  }
-
-  else if (v6 == 3)
-  {
-    result = *v3;
-LABEL_5:
-    Stream = *(v3 + 16);
-    if (!Stream)
-    {
-      Stream = physx::Scb::Scene::getStream(result, v5);
-      *(v3 + 16) = Stream;
-      result = *v3;
-    }
-
-    *Stream = v2;
-    result = physx::Scb::Scene::scheduleForUpdate(result, v3);
-    *(v3 + 8) |= 1u;
-    return result;
-  }
-
-  v8 = *(&physx::Scb::Actor::sLazyInitOffsets + v5 + 3) + v3;
-  if (v2 != *(v8 + 12))
-  {
-    *(v8 + 12) = v2;
-    result = *v8;
-    if (*v8)
-    {
-      v9 = *(*result + 16);
-
-      return v9();
-    }
-  }
-
-  return result;
-}
-
-BOOL physx::PxRigidBody::isKindOf(physx::PxRigidBody *this, const char *a2)
-{
-  if (!strcmp("PxRigidBody", a2))
-  {
-    return 1;
-  }
-
-  return physx::PxRigidActor::isKindOf(this, a2);
-}
-
-BOOL physx::PxRigidActor::isKindOf(physx::PxRigidActor *this, const char *a2)
-{
-  if (!strcmp("PxRigidActor", a2))
-  {
-    return 1;
-  }
-
-  return physx::PxActor::isKindOf(this, a2);
-}
-
-uint64_t physx::shdfnd::Array<physx::NpArticulationLink *,physx::shdfnd::InlineAllocator<32u,physx::shdfnd::ReflectionAllocator<physx::NpArticulationLink *>>>::growAndPushBack(uint64_t a1, void *a2)
-{
-  v4 = *(a1 + 52);
-  if ((v4 & 0x7FFFFFFF) != 0)
-  {
-    v5 = 2 * v4;
-  }
-
-  else
-  {
-    v5 = 1;
-  }
-
-  if (!v5)
-  {
-    goto LABEL_13;
-  }
-
-  if ((8 * v5) <= 0x20 && (*(a1 + 32) & 1) == 0)
-  {
-    *(a1 + 32) = 1;
-    v6 = a1;
-    goto LABEL_14;
-  }
-
-  if (8 * v5)
-  {
-    v7 = physx::shdfnd::Foundation::mInstance;
-    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-    {
-      v8 = "static const char *physx::shdfnd::ReflectionAllocator<physx::NpArticulationLink *>::getName() [T = physx::NpArticulationLink *]";
-    }
-
-    else
-    {
-      v8 = "<allocation names disabled>";
-    }
-
-    v6 = (*(*(v7 + 24) + 16))(v7 + 24, (8 * v5), v8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
-  }
-
-  else
-  {
-LABEL_13:
-    v6 = 0;
-  }
-
-LABEL_14:
-  v9 = *(a1 + 48);
-  v10 = (v6 + 8 * v9);
-  if (v9)
-  {
-    v11 = *(a1 + 40);
-    v12 = v6;
+    while (v275);
+    v80 = vbsl_s8(vdup_lane_s32(vceqz_f32(v273), 0), v273, vmul_f32(v273, v274));
+    v276 = vrecpe_f32(v80);
+    v277 = 4;
     do
     {
-      v13 = *v11++;
-      *v12++ = v13;
+      v276 = vmul_f32(v276, vrecps_f32(v80, v276));
+      --v277;
     }
 
-    while (v12 < v10);
+    while (v277);
+    v278 = vmulq_n_f32(v63, v276.f32[0]);
+    v278.i32[3] = 0;
+    v349 = v278;
+    *v278.f32 = vcgt_f32(v181, v80);
+    v171 = vdupq_lane_s32(*v278.f32, 0);
+    v81 = vdupq_lane_s32(vand_s8(vcgt_f32(v80, v25), *v278.f32), 0);
+    v170 = v181;
+    v82 = v347;
   }
 
-  *v10 = *a2;
-  if ((*(a1 + 52) & 0x80000000) == 0)
+  v279 = vmovn_s32(vceqzq_s32(v171));
+  v280 = v354;
+  if (vuzp1_s8(v279, v279).u32[0] != -1)
   {
-    v14 = *(a1 + 40);
-    if (v14 == a1)
+    if (v14)
     {
-      *(a1 + 32) = 0;
+      *a8 = v354;
+      if (v280)
+      {
+        v281 = &v357;
+        v282 = &v360;
+        do
+        {
+          v283 = *v282++;
+          *v14++ = v283;
+          v284 = *v281++;
+          *v13++ = v284;
+          --v280;
+        }
+
+        while (v280);
+      }
     }
 
-    else if (v14)
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-      v9 = *(a1 + 48);
-    }
+    return 5;
   }
 
-  *(a1 + 40) = v6;
-  *(a1 + 48) = v9 + 1;
-  *(a1 + 52) = v5;
-  return v6 + 8 * v9;
-}
-
-uint64_t physx::shdfnd::Array<physx::NpConnector,physx::shdfnd::InlineAllocator<64u,physx::shdfnd::ReflectionAllocator<physx::NpConnector>>>::recreate(uint64_t a1, int a2)
-{
-  result = (16 * a2);
-  if (result > 0x40 || (*(a1 + 64) & 1) != 0)
+  v300 = v346;
+  if (v14)
   {
-    result = physx::shdfnd::ReflectionAllocator<physx::NpConnector>::allocate(result);
-    v5 = result;
+    v301 = v354 - 1;
+    *a8 = v354 - 1;
+    if (v280 != 1)
+    {
+      v302 = &v357;
+      v303 = &v360;
+      do
+      {
+        v304 = *v303++;
+        *v14++ = v304;
+        v305 = *v302++;
+        *v13++ = v305;
+        --v301;
+      }
+
+      while (v301);
+      goto LABEL_125;
+    }
+
+LABEL_128:
+    v306 = v366;
+    v307 = v363;
   }
 
   else
   {
-    *(a1 + 64) = 1;
-    v5 = a1;
-  }
-
-  v6 = *(a1 + 80);
-  v7 = *(a1 + 72);
-  if (v6)
-  {
-    v8 = v5 + 16 * v6;
-    v9 = *(a1 + 72);
-    v10 = v5;
-    do
+LABEL_125:
+    v355 = v82;
+    if (v280 == 3)
     {
-      *v10 = *v9;
-      *(v10 + 8) = *(v9 + 8);
-      v10 += 16;
-      v9 += 16;
+      v353.i64[0] = 0;
+      v356 = 0;
+      v352 = v82;
+      physx::Gu::barycentricCoordinates(&v355, &v369, &v370, v371, &v353, &v356);
+      v300 = v346;
+      v331 = vmulq_n_f32(vsubq_f32(v367, v366), v353.f32[0]);
+      v331.i32[3] = 0;
+      v332 = vmulq_n_f32(vsubq_f32(v368[0], v366), v356.f32[0]);
+      v332.i32[3] = 0;
+      v333 = vaddq_f32(v331, v332);
+      v334 = vmulq_n_f32(vsubq_f32(v364, v363), v353.f32[0]);
+      v334.i32[3] = 0;
+      v306 = vaddq_f32(v366, v333);
+      v335 = vmulq_n_f32(vsubq_f32(v365[0], v363), v356.f32[0]);
+      v82 = v352;
+      v335.i32[3] = 0;
+      v307 = vaddq_f32(v363, vaddq_f32(v334, v335));
     }
 
-    while (v10 < v8);
-  }
-
-  if ((*(a1 + 84) & 0x80000000) == 0)
-  {
-    if (v7 == a1)
+    else if (v280 == 2)
     {
-      *(a1 + 64) = 0;
-    }
+      v323 = vsubq_f32(v369, v82);
+      v324 = vsubq_f32(vsubq_f32(v370, v82), v323);
+      v325 = vmulq_f32(v324, v324);
+      v325.i64[0] = vpaddq_f32(v325, v325).u64[0];
+      v326 = vpadd_f32(*v325.f32, *v325.f32);
+      v327 = vrecpe_f32(v326);
+      v328 = 4;
+      do
+      {
+        v327 = vmul_f32(v327, vrecps_f32(v326, v327));
+        --v328;
+      }
 
-    else if (v7)
-    {
-      result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-    }
-  }
-
-  *(a1 + 72) = v5;
-  *(a1 + 84) = a2;
-  return result;
-}
-
-uint64_t physx::shdfnd::ReflectionAllocator<physx::NpConnector>::allocate(uint64_t result)
-{
-  if (result)
-  {
-    v1 = result;
-    v2 = physx::shdfnd::Foundation::mInstance;
-    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-    {
-      v3 = "static const char *physx::shdfnd::ReflectionAllocator<physx::NpConnector>::getName() [T = physx::NpConnector]";
+      while (v328);
+      v329 = vnegq_f32(v323);
+      v329.i32[3] = 0;
+      v330 = vmulq_f32(v329, v324);
+      v330.i64[0] = vpaddq_f32(v330, v330).u64[0];
+      v329.i32[0] = vmul_f32(vbsl_s8(vcgtz_f32(v326), v327, 0), vpadd_f32(*v330.f32, *v330.f32)).u32[0];
+      v306 = vmlaq_n_f32(v366, vsubq_f32(v367, v366), v329.f32[0]);
+      v306.i64[1] = vextq_s8(v306, v306, 8uLL).u32[0];
+      v307 = vmlaq_n_f32(v363, vsubq_f32(v364, v363), v329.f32[0]);
+      v307.i64[1] = vextq_s8(v307, v307, 8uLL).u32[0];
     }
 
     else
     {
-      v3 = "<allocation names disabled>";
+      v306 = 0uLL;
+      v307 = 0uLL;
+      if (v280 == 1)
+      {
+        goto LABEL_128;
+      }
     }
-
-    v4 = *(*(v2 + 24) + 16);
-
-    return v4(v2 + 24, v1, v3, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
   }
 
+  v336 = vrecpe_f32(v170);
+  v337 = 4;
+  do
+  {
+    v336 = vmul_f32(v336, vrecps_f32(v170, v336));
+    --v337;
+  }
+
+  while (v337);
+  v338 = vmulq_n_f32(v82, v336.f32[0]);
+  v338.i32[3] = 0;
+  *(a13 + 32) = v338;
+  *(a13 + 48) = v349;
+  if (a5)
+  {
+    *a13 = v306;
+    *(a13 + 16) = v307;
+    *(a13 + 64) = v170;
+  }
+
+  else
+  {
+    v339 = vmlsq_lane_f32(v306, v338, v342, 0);
+    v339.i64[1] = vextq_s8(v339, v339, 8uLL).u32[0];
+    v340 = vmlaq_n_f32(v307, v338, v343);
+    v340.i64[1] = vextq_s8(v340, v340, 8uLL).u32[0];
+    *a13 = v339;
+    *(a13 + 16) = v340;
+    *(a13 + 64) = vsub_f32(v170, v300);
+    if (vcge_f32(v300, v170).u32[0])
+    {
+      return 2;
+    }
+  }
+
+  return 4;
+}
+
+double physx::Gu::LocalConvex<physx::Gu::BoxV>::supportPoint(uint64_t a1, int a2)
+{
+  v2 = *(*(a1 + 8) + 48);
+  v3 = vnegq_f32(v2);
+  v3.i32[3] = 0;
+  *&result = vbslq_s8(physx::boxVertexTable[a2], v2, v3).u64[0];
   return result;
 }
 
-uint64_t physx::shdfnd::Array<physx::NpConnector,physx::shdfnd::InlineAllocator<64u,physx::shdfnd::ReflectionAllocator<physx::NpConnector>>>::growAndPushBack(uint64_t result, uint64_t a2)
+double physx::Gu::LocalConvex<physx::Gu::BoxV>::support(uint64_t a1, float32x4_t *a2)
+{
+  v2 = *(*(a1 + 8) + 48);
+  v3 = vnegq_f32(v2);
+  v3.i32[3] = 0;
+  *&result = vbslq_s8(vcgtzq_f32(*a2), v2, v3).u64[0];
+  return result;
+}
+
+double physx::Gu::LocalConvex<physx::Gu::BoxV>::support(uint64_t a1, float32x4_t *a2, unsigned __int32 *a3)
+{
+  v3 = *(a1 + 8);
+  v4 = vcgtzq_f32(*a2);
+  v5 = vandq_s8(v4, xmmword_1E3102070);
+  v5.i64[0] = vpaddq_s32(v5, v5).u64[0];
+  *a3 = vpadd_s32(*v5.i8, *v5.i8).u32[0] & 7;
+  v6 = v3[3];
+  v7 = vnegq_f32(v6);
+  v7.i32[3] = 0;
+  *&result = vbslq_s8(v4, v6, v7).u64[0];
+  return result;
+}
+
+uint64_t physx::Gu::gjkPenetration<physx::Gu::LocalConvex<physx::Gu::CapsuleV>,physx::Gu::LocalConvex<physx::Gu::BoxV>>(uint64_t a1, uint64_t a2, float32x4_t *a3, uint64_t *a4, int a5, _BYTE *a6, _BYTE *a7, _BYTE *a8, double a9, double a10, int8x8_t a11, int32x4_t a12, int8x8_t a13, uint64_t a14)
+{
+  v15 = a7;
+  v16 = a6;
+  v359 = *MEMORY[0x1E69E9840];
+  v19 = *(a1 + 8);
+  v20 = (v19 + 20);
+  v21 = vld1_dup_f32(v20);
+  v22 = *(a2 + 8);
+  v23 = (v22 + 20);
+  v24 = vld1_dup_f32(v23);
+  a11.i32[0] = *(v19 + 16);
+  a12.i32[0] = *(v22 + 16);
+  a13.i32[0] = -*(v19 + 32);
+  v25 = vand_s8(a13, a11);
+  v26 = vdup_lane_s32(v25, 0);
+  v25.i32[0] = -*(v22 + 32);
+  v27 = vdup_lane_s32(vand_s8(v25, *a12.i8), 0);
+  v28 = vmul_f32(vmin_f32(v21, v24), vdup_n_s32(0x3DCCCCCDu));
+  v328 = v26;
+  v329 = v27.f32[0];
+  *&v14 = vadd_f32(v26, v27);
+  v29 = *a4;
+  v341 = 0uLL;
+  v340 = 0;
+  v30 = *a8;
+  __asm { FMOV            V9.2S, #1.0 }
+
+  v332 = v14;
+  if (!*a8)
+  {
+    v52 = vmulq_f32(*a3, *a3);
+    v52.i64[0] = vpaddq_f32(v52, v52).u64[0];
+    v44 = vbslq_s8(vmovl_s16(vdup_lane_s16(vcgtz_f32(vpadd_f32(*v52.f32, *v52.f32)), 0)), *a3, xmmword_1E3047670);
+    v341 = v44;
+    v53 = vmulq_f32(v44, v44);
+    v53.i64[0] = vpaddq_f32(v53, v53).u64[0];
+    v54 = vpadd_f32(*v53.f32, *v53.f32);
+    v55 = vrsqrte_f32(v54);
+    v56 = 4;
+    do
+    {
+      v55 = vmul_f32(v55, vrsqrts_f32(vmul_f32(v55, v55), v54));
+      --v56;
+    }
+
+    while (v56);
+    v57 = vbsl_s8(vdup_lane_s32(vceqz_f32(v54), 0), v54, vmul_f32(v54, v55));
+    v58 = vrecpe_f32(v57);
+    v59 = 4;
+    do
+    {
+      *a12.i8 = vrecps_f32(v57, v58);
+      v58 = vmul_f32(v58, *a12.i8);
+      --v59;
+    }
+
+    while (v59);
+    v60 = vmulq_n_f32(v44, v58.f32[0]);
+    v60.i32[3] = 0;
+    v61 = vneg_f32(0x80000000800000);
+    v62.i64[0] = -1;
+    v62.i64[1] = -1;
+    v63 = 0uLL;
+    goto LABEL_52;
+  }
+
+  v36 = 0;
+  v37 = v19 + 48;
+  v38 = *(v22 + 48);
+  v39 = vnegq_f32(v38);
+  v39.i32[3] = 0;
+  v40 = -1;
+  do
+  {
+    v41 = a6[v36];
+    *(&v347 + v36) = v41;
+    v42 = a7[v36];
+    *(&v344 + v36) = v42;
+    a12 = *(v37 + 16 * (1 - v41));
+    v43 = vbslq_s8(physx::boxVertexTable[v42], v38, v39);
+    v44 = vsubq_f32(a12, v43);
+    *(&v353 + v36) = a12;
+    *(&v350 + v36) = v43;
+    *(&v356 + v36) = v44;
+    ++v40;
+    ++v36;
+  }
+
+  while (v30 != v36);
+  v340 = v30;
+  if (v40 == 3)
+  {
+    v336 = v29;
+    physx::Gu::closestPtPointTetrahedron(&v356, &v353, &v350, &v347, &v344, &v340);
+    LODWORD(v29) = v336;
+    v14 = v332;
+    goto LABEL_47;
+  }
+
+  if (v40 != 2)
+  {
+    if (v40 != 1)
+    {
+      goto LABEL_47;
+    }
+
+    v44 = v356;
+    v45 = vsubq_f32(v357, v356);
+    v46 = vmulq_f32(v45, v45);
+    v46.i64[0] = vpaddq_f32(v46, v46).u64[0];
+    v47 = vpadd_f32(*v46.f32, *v46.f32);
+    if (vuzp1_s8(vdup_lane_s16(vcge_f32(0x3400000034000000, v47), 0), *v356.i8).u32[0] != -1)
+    {
+      v48 = vnegq_f32(v356);
+      v48.i32[3] = 0;
+      v49 = vmulq_f32(v48, v45);
+      a12 = vpaddq_f32(v49, v49);
+      *a12.i8 = vpadd_f32(*a12.i8, *a12.i8);
+      v50 = vrecpe_f32(v47);
+      v51 = 4;
+      do
+      {
+        v50 = vmul_f32(v50, vrecps_f32(v47, v50));
+        --v51;
+      }
+
+      while (v51);
+      v44 = vmlaq_n_f32(v356, v45, vmax_f32(vmin_f32(vmul_f32(*a12.i8, v50), _D9), 0).f32[0]);
+LABEL_31:
+      v44.i64[1] = vextq_s8(v44, v44, 8uLL).u32[0];
+      goto LABEL_47;
+    }
+
+LABEL_32:
+    v340 = 1;
+    goto LABEL_47;
+  }
+
+  v340 = 3;
+  v44 = v356;
+  a12 = vsubq_f32(v357, v356);
+  v64 = vsubq_f32(v358[0], v356);
+  v66 = vmls_f32(vmul_f32(*a12.i8, *&vextq_s8(v64, v64, 4uLL)), *&vextq_s8(a12, a12, 4uLL), *v64.i8);
+  *v65.f32 = vext_s8(v66, vmls_f32(vmul_f32(*&vextq_s8(a12, a12, 8uLL), *v64.i8), *a12.i8, *&vextq_s8(v64, v64, 8uLL)), 4uLL);
+  v66.i32[1] = 0;
+  v67 = vpadd_f32(vmul_f32(*v65.f32, *v65.f32), vmul_f32(v66.u32[0], v66.u32[0]));
+  v68 = vpadd_f32(v67, v67);
+  if (v68.f32[0] <= 0.00000011921)
+  {
+    v340 = 2;
+    v107 = vmulq_f32(a12, a12);
+    v107.i64[0] = vpaddq_f32(v107, v107).u64[0];
+    v108 = vpadd_f32(*v107.f32, *v107.f32);
+    if (vuzp1_s8(vdup_lane_s16(vcge_f32(0x3400000034000000, v108), 0), *v356.i8).u32[0] != -1)
+    {
+      v109 = vnegq_f32(v356);
+      v109.i32[3] = 0;
+      v110 = vmulq_f32(v109, a12);
+      v110.i64[0] = vpaddq_f32(v110, v110).u64[0];
+      v111 = vpadd_f32(*v110.f32, *v110.f32);
+      v112 = vrecpe_f32(v108);
+      v113 = 4;
+      do
+      {
+        v112 = vmul_f32(v112, vrecps_f32(v108, v112));
+        --v113;
+      }
+
+      while (v113);
+      v44 = vmlaq_n_f32(v356, a12, vmax_f32(vmin_f32(vmul_f32(v111, v112), _D9), 0).f32[0]);
+      goto LABEL_31;
+    }
+
+    goto LABEL_32;
+  }
+
+  *&v65.u32[2] = v66;
+  v69 = vextq_s8(v357, v357, 8uLL).u64[0];
+  v70 = vextq_s8(v358[0], v358[0], 8uLL).u64[0];
+  v71 = vextq_s8(v358[0], v358[0], 4uLL).u64[0];
+  v72 = vextq_s8(v357, v357, 4uLL).u64[0];
+  v73 = vmls_f32(vmul_f32(*v357.f32, v71), v72, *v358[0].f32);
+  *v74.f32 = vext_s8(v73, vmls_f32(vmul_f32(v69, *v358[0].f32), *v357.f32, v70), 4uLL);
+  v74.i64[1] = v73.u32[0];
+  v75 = vextq_s8(v356, v356, 8uLL).u64[0];
+  v76 = vextq_s8(v356, v356, 4uLL).u64[0];
+  v77 = vmls_f32(vmul_f32(v76, *v358[0].f32), v71, *v356.i8);
+  *v78.f32 = vext_s8(v77, vmls_f32(vmul_f32(*v356.i8, v70), *v358[0].f32, v75), 4uLL);
+  v78.i64[1] = v77.u32[0];
+  v79 = vmls_f32(vmul_f32(*v356.i8, v72), v76, *v357.f32);
+  *v80.f32 = vext_s8(v79, vmls_f32(vmul_f32(v75, *v357.f32), *v356.i8, v69), 4uLL);
+  v80.i64[1] = v79.u32[0];
+  v81 = vmulq_f32(v74, v65);
+  v81.i64[0] = vpaddq_f32(v81, v81).u64[0];
+  v82 = vpadd_f32(*v81.f32, *v81.f32);
+  v83 = vmulq_f32(v78, v65);
+  v83.i64[0] = vpaddq_f32(v83, v83).u64[0];
+  v84 = vpadd_f32(*v83.f32, *v83.f32);
+  v85 = vmulq_f32(v80, v65);
+  v85.i64[0] = vpaddq_f32(v85, v85).u64[0];
+  v86 = vpadd_f32(*v85.f32, *v85.f32);
+  if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcgez_f32(v84), vcgez_f32(v82)), vcgez_f32(v86)), 0), *v356.i8).u32[0] == -1)
+  {
+    v114 = vmulq_f32(v356, v65);
+    v115 = vextq_s8(v114, v114, 8uLL).u64[0];
+    v116 = vrecpe_f32(v68);
+    v117 = 4;
+    do
+    {
+      v116 = vmul_f32(v116, vrecps_f32(v68, v116));
+      --v117;
+    }
+
+    while (v117);
+    v118 = vpadd_f32(*v114.i8, v115);
+    v44 = vmulq_n_f32(v65, vmul_f32(v116, vpadd_f32(v118, v118)).f32[0]);
+    v44.i32[3] = 0;
+    goto LABEL_47;
+  }
+
+  v87 = vnegq_f32(v356);
+  v87.i32[3] = 0;
+  v88 = vnegq_f32(v357);
+  v88.i32[3] = 0;
+  v89 = vmulq_f32(v87, a12);
+  v89.i64[0] = vpaddq_f32(v89, v89).u64[0];
+  v90 = vpadd_f32(*v89.f32, *v89.f32);
+  v91 = vmulq_f32(a12, v88);
+  v91.i64[0] = vpaddq_f32(v91, v91).u64[0];
+  v92 = vpadd_f32(*v91.f32, *v91.f32);
+  if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v86), vand_s8(vclez_f32(v92), vcgez_f32(v90))), 0), *v356.i8).u32[0] == -1)
+  {
+    v119 = vsub_f32(v90, v92);
+    v120 = vrecpe_f32(v119);
+    v121 = 4;
+    do
+    {
+      v120 = vmul_f32(v120, vrecps_f32(v119, v120));
+      --v121;
+    }
+
+    while (v121);
+    v105 = 0;
+    v44 = vmlaq_n_f32(v356, a12, vmul_f32(v90, vbsl_s8(vcgt_f32(vabs_f32(v119), 0x3400000034000000), v120, 0)).f32[0]);
+    v104 = 2;
+    v106 = &v345;
+    v44.i64[1] = vextq_s8(v44, v44, 8uLL).u32[0];
+  }
+
+  else
+  {
+    v93 = vnegq_f32(v358[0]);
+    v93.i32[3] = 0;
+    v94 = vmulq_f32(v88, v64);
+    v94.i64[0] = vpaddq_f32(v94, v94).u64[0];
+    v95 = vpadd_f32(*v94.f32, *v94.f32);
+    v96 = vmulq_f32(a12, v93);
+    v96.i64[0] = vpaddq_f32(v96, v96).u64[0];
+    v97 = vpadd_f32(*v96.f32, *v96.f32);
+    v98 = vmulq_f32(v64, v93);
+    v98.i64[0] = vpaddq_f32(v98, v98).u64[0];
+    v99 = vpadd_f32(*v98.f32, *v98.f32);
+    if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcge_f32(v95, v92), vcge_f32(v97, v99)), vclez_f32(v82)), 0), *v356.i8).u32[0] == -1)
+    {
+      v126 = vsub_f32(v95, v92);
+      v127 = vadd_f32(v126, vsub_f32(v97, v99));
+      v128 = vrecpe_f32(v127);
+      v129 = 4;
+      do
+      {
+        v128 = vmul_f32(v128, vrecps_f32(v127, v128));
+        --v129;
+      }
+
+      while (v129);
+      v130 = vmlaq_n_f32(v357, vsubq_f32(v358[0], v357), vmul_f32(v126, vbsl_s8(vcgt_f32(vabs_f32(v127), 0x3400000034000000), v128, 0)).f32[0]);
+      v104 = 2;
+      v105 = 1;
+      v122 = &v349;
+      v106 = &v346;
+      v130.i64[1] = vextq_s8(v130, v130, 8uLL).u32[0];
+      v124 = v355;
+      v123 = v352;
+      v125 = v358;
+      v44 = v130;
+      goto LABEL_46;
+    }
+
+    v100 = vmulq_f32(v87, v64);
+    v101 = vpaddq_f32(v100, v100);
+    *v101.i8 = vpadd_f32(*v101.i8, *v101.i8);
+    if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v84), vand_s8(vclez_f32(v99), vcgez_f32(*v101.i8))), 0), *v356.i8).u32[0] == -1)
+    {
+      v131 = vsub_f32(*v101.i8, v99);
+      v132 = vrecpe_f32(v131);
+      v133 = 4;
+      do
+      {
+        v132 = vmul_f32(v132, vrecps_f32(v131, v132));
+        --v133;
+      }
+
+      while (v133);
+      v105 = 0;
+      v44 = vmlaq_n_f32(v356, v64, vmul_f32(*v101.i8, vbsl_s8(vcgt_f32(vabs_f32(v131), 0x3400000034000000), v132, 0)).f32[0]);
+      v104 = 2;
+      v122 = &v349;
+      v106 = &v346;
+      v44.i64[1] = vextq_s8(v44, v44, 8uLL).u32[0];
+      v124 = v355;
+      v123 = v352;
+      v125 = v358;
+      goto LABEL_46;
+    }
+
+    if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(*v101.i8), vclez_f32(v90)), 0), *v356.i8).u32[0] == -1)
+    {
+      v105 = 0;
+      v104 = 1;
+      v106 = &v345;
+    }
+
+    else
+    {
+      *v101.i8 = vcge_f32(v92, v95);
+      *v44.i8 = vdup_lane_s16(vand_s8(*v101.i8, vcgez_f32(v92)), 0);
+      *v44.i8 = vuzp1_s8(*v44.i8, *v44.i8);
+      v101.i32[0] = -1;
+      v102 = v44.i32[0];
+      v103 = vdupq_lane_s32(*&vceqq_s32(v44, v101), 0);
+      v104 = 1;
+      if (v102 == -1)
+      {
+        v105 = 1;
+      }
+
+      else
+      {
+        v105 = 2;
+      }
+
+      v106 = &v345;
+      v44 = vbslq_s8(v103, v357, v358[0]);
+    }
+  }
+
+  v123 = &v351;
+  v122 = &v348;
+  v124 = &v354;
+  v125 = &v357;
+LABEL_46:
+  v134 = *(&v356 + v105);
+  v135 = *v125;
+  a12 = *(&v353 + v105);
+  v136 = *v124;
+  v137 = *(&v350 + v105);
+  v138 = *v123;
+  v139 = *(&v347 + v105);
+  v140 = *v122;
+  v141 = *(&v344 + v105);
+  v142 = *v106;
+  v356 = v134;
+  v357 = v135;
+  v353 = a12;
+  v354 = v136;
+  v350 = v137;
+  v351 = v138;
+  v347 = v139;
+  v348 = v140;
+  v344 = v141;
+  v345 = v142;
+  v340 = v104;
+LABEL_47:
+  v341 = v44;
+  v143 = vmulq_f32(v44, v44);
+  v143.i64[0] = vpaddq_f32(v143, v143).u64[0];
+  v144 = vpadd_f32(*v143.f32, *v143.f32);
+  v145 = vrsqrte_f32(v144);
+  v146 = 4;
+  do
+  {
+    v145 = vmul_f32(v145, vrsqrts_f32(vmul_f32(v145, v145), v144));
+    --v146;
+  }
+
+  while (v146);
+  v61 = vbsl_s8(vdup_lane_s32(vceqz_f32(v144), 0), v144, vmul_f32(v144, v145));
+  v147 = vrecpe_f32(v61);
+  v148 = 4;
+  do
+  {
+    *a12.i8 = vrecps_f32(v61, v147);
+    v147 = vmul_f32(v147, *a12.i8);
+    --v148;
+  }
+
+  while (v148);
+  v60 = vmulq_n_f32(v44, v147.f32[0]);
+  v60.i32[3] = 0;
+  v62 = vdupq_lane_s32(vcgt_f32(v61, v28), 0);
+  v63 = v44;
+LABEL_52:
+  v149 = *&v29 + *&v14;
+  v150.i64[0] = -1;
+  v150.i64[1] = -1;
+  v151 = xmmword_1E3102070;
+  a12.i32[0] = -1;
+  v327 = a12;
+  v152 = v61;
+  v153.i64[0] = -1;
+  v153.i64[1] = -1;
+  while (1)
+  {
+    v154 = v44;
+    v155 = vmovn_s32(vceqq_s32(v62, v150));
+    if (vuzp1_s8(v155, v155).u32[0] != -1)
+    {
+      break;
+    }
+
+    *&v14 = v61;
+    v156 = vnegq_f32(v154);
+    v156.i32[3] = 0;
+    v157 = v340;
+    v158 = *(a1 + 8);
+    v159 = vmulq_f32(v156, v158[3]);
+    v159.i64[0] = vpaddq_f32(v159, v159).u64[0];
+    v160 = vmulq_f32(v156, v158[4]);
+    v160.i64[0] = vpaddq_f32(v160, v160).u64[0];
+    *v160.f32 = vand_s8(vcgt_f32(vpadd_f32(*v159.f32, *v159.f32), vpadd_f32(*v160.f32, *v160.f32)), 0x100000001);
+    *(&v347 + v340) = v160.i32[0];
+    v161 = vbslq_s8(vcltzq_s32(vshlq_n_s32(vdupq_lane_s32(*v160.f32, 0), 0x1FuLL)), v158[3], v158[4]);
+    v162 = *(a2 + 8);
+    v163 = vcgtzq_f32(v154);
+    v164 = vandq_s8(v163, v151);
+    v164.i64[0] = vpaddq_s32(v164, v164).u64[0];
+    *(&v344 + v157) = vpadd_s32(*v164.i8, *v164.i8).u8[0] & 7;
+    v165 = v162[3];
+    v166 = vnegq_f32(v165);
+    v166.i32[3] = 0;
+    v167 = vbslq_s8(v163, v165, v166);
+    v44 = vsubq_f32(v161, v167);
+    v168 = vmulq_f32(v60, v44);
+    v168.i64[0] = vpaddq_f32(v168, v168).u64[0];
+    v169 = vpadd_f32(*v168.f32, *v168.f32).f32[0];
+    if (v169 > v149)
+    {
+      if (v16)
+      {
+        *a8 = v157;
+        if (v157)
+        {
+          v273 = &v344;
+          v274 = &v347;
+          do
+          {
+            v275 = *v274++;
+            *v16++ = v275;
+            v276 = *v273++;
+            *v15++ = v276;
+            --v157;
+          }
+
+          while (v157);
+        }
+      }
+
+      return 0;
+    }
+
+    if (v169 > (0.99977 * *&v14))
+    {
+      v277 = v332;
+      if (!v16)
+      {
+        goto LABEL_116;
+      }
+
+      *a8 = v157;
+      if (v157)
+      {
+        v278 = &v344;
+        v279 = &v347;
+        v280 = v157;
+        do
+        {
+          v281 = *v279++;
+          *v16++ = v281;
+          v282 = *v278++;
+          *v15++ = v282;
+          --v280;
+        }
+
+        while (v280);
+LABEL_116:
+        *(a14 + 32) = v60;
+        if (v157 != 3)
+        {
+          if (v157 == 2)
+          {
+            v294 = vsubq_f32(v356, v154);
+            v295 = vsubq_f32(vsubq_f32(v357, v154), v294);
+            v296 = vmulq_f32(v295, v295);
+            v296.i64[0] = vpaddq_f32(v296, v296).u64[0];
+            v297 = vpadd_f32(*v296.f32, *v296.f32);
+            v298 = vrecpe_f32(v297);
+            v299 = 4;
+            v285 = a5;
+            do
+            {
+              v298 = vmul_f32(v298, vrecps_f32(v297, v298));
+              --v299;
+            }
+
+            while (v299);
+            v300 = vnegq_f32(v294);
+            v300.i32[3] = 0;
+            v301 = vmulq_f32(v300, v295);
+            v301.i64[0] = vpaddq_f32(v301, v301).u64[0];
+            v300.i32[0] = vmul_f32(vbsl_s8(vcgtz_f32(v297), v298, 0), vpadd_f32(*v301.f32, *v301.f32)).u32[0];
+            v283 = vmlaq_n_f32(v353, vsubq_f32(v354, v353), v300.f32[0]);
+            v283.i64[1] = vextq_s8(v283, v283, 8uLL).u32[0];
+            v284 = vmlaq_n_f32(v350, vsubq_f32(v351, v350), v300.f32[0]);
+            v284.i64[1] = vextq_s8(v284, v284, 8uLL).u32[0];
+          }
+
+          else
+          {
+            v283 = 0uLL;
+            v284 = 0uLL;
+            v285 = a5;
+            if (v157 == 1)
+            {
+              v283 = v353;
+              v284 = v350;
+              if (!a5)
+              {
+LABEL_137:
+                v307 = vmlsq_lane_f32(v283, v60, v328, 0);
+                v307.i64[1] = vextq_s8(v307, v307, 8uLL).u32[0];
+                v308 = vmlaq_n_f32(v284, v60, v329);
+                v308.i64[1] = vextq_s8(v308, v308, 8uLL).u32[0];
+                *a14 = v307;
+                *(a14 + 16) = v308;
+                *(a14 + 64) = vsub_f32(*&v14, v277);
+                return 2;
+              }
+
+LABEL_134:
+              *a14 = v283;
+              *(a14 + 16) = v284;
+              result = 2;
+              *(a14 + 64) = v14;
+              return result;
+            }
+          }
+
+          if (!v285)
+          {
+            goto LABEL_137;
+          }
+
+          goto LABEL_134;
+        }
+
+        v342 = 0;
+        v343 = 0;
+        v334 = v60;
+        v338 = v14;
+        physx::Gu::barycentricCoordinates(&v341, &v356, &v357, v358, &v343, &v342);
+        v277 = v332;
+        v302 = vmulq_n_f32(vsubq_f32(v354, v353), v343.f32[0]);
+        v302.i32[3] = 0;
+        v303 = vmulq_n_f32(vsubq_f32(v355[0], v353), v342.f32[0]);
+        v303.i32[3] = 0;
+        v304 = vaddq_f32(v302, v303);
+        v305 = vmulq_n_f32(vsubq_f32(v351, v350), v343.f32[0]);
+        v305.i32[3] = 0;
+        v283 = vaddq_f32(v353, v304);
+        v306 = vmulq_n_f32(vsubq_f32(v352[0], v350), v342.f32[0]);
+        v60 = v334;
+        *&v14 = v338;
+        v306.i32[3] = 0;
+        v284 = vaddq_f32(v350, vaddq_f32(v305, v306));
+      }
+
+      else
+      {
+        *(a14 + 32) = v60;
+        v283 = 0uLL;
+        v284 = 0uLL;
+      }
+
+      if (!a5)
+      {
+        goto LABEL_137;
+      }
+
+      goto LABEL_134;
+    }
+
+    *(&v353 + v157) = v161;
+    *(&v350 + v157) = v167;
+    v340 = v157 + 1;
+    *(&v356 + v157) = v44;
+    switch(v157)
+    {
+      case 3:
+        v333 = v154;
+        v337 = v14;
+        physx::Gu::closestPtPointTetrahedron(&v356, &v353, &v350, &v347, &v344, &v340);
+        v151 = xmmword_1E3102070;
+        v154 = v333;
+        v150.i64[0] = -1;
+        v150.i64[1] = -1;
+        v14 = v337;
+        break;
+      case 2:
+        v44 = v356;
+        v178 = vsubq_f32(v357, v356);
+        v179 = vsubq_f32(v358[0], v356);
+        v181 = vmls_f32(vmul_f32(*v178.i8, *&vextq_s8(v179, v179, 4uLL)), *&vextq_s8(v178, v178, 4uLL), *v179.i8);
+        *v180.f32 = vext_s8(v181, vmls_f32(vmul_f32(*&vextq_s8(v178, v178, 8uLL), *v179.i8), *v178.i8, *&vextq_s8(v179, v179, 8uLL)), 4uLL);
+        v181.i32[1] = 0;
+        v340 = 3;
+        v182 = vpadd_f32(vmul_f32(*v180.f32, *v180.f32), vmul_f32(v181.u32[0], v181.u32[0]));
+        v183 = vpadd_f32(v182, v182);
+        if (v183.f32[0] <= 0.00000011921)
+        {
+          v340 = 2;
+          v222 = vmulq_f32(v178, v178);
+          v222.i64[0] = vpaddq_f32(v222, v222).u64[0];
+          v223 = vpadd_f32(*v222.f32, *v222.f32);
+          if (vuzp1_s8(vdup_lane_s16(vcge_f32(0x3400000034000000, v223), 0), *v356.i8).u32[0] == -1)
+          {
+LABEL_79:
+            v340 = 1;
+            break;
+          }
+
+          v224 = vnegq_f32(v356);
+          v224.i32[3] = 0;
+          v225 = vmulq_f32(v224, v178);
+          v225.i64[0] = vpaddq_f32(v225, v225).u64[0];
+          v226 = vpadd_f32(*v225.f32, *v225.f32);
+          v227 = vrecpe_f32(v223);
+          v228 = 4;
+          do
+          {
+            v227 = vmul_f32(v227, vrecps_f32(v223, v227));
+            --v228;
+          }
+
+          while (v228);
+          v44 = vmlaq_n_f32(v356, v178, vmax_f32(vmin_f32(vmul_f32(v226, v227), _D9), 0).f32[0]);
+          goto LABEL_78;
+        }
+
+        *&v180.u32[2] = v181;
+        v184 = vextq_s8(v357, v357, 8uLL).u64[0];
+        v185 = vextq_s8(v358[0], v358[0], 8uLL).u64[0];
+        v186 = vextq_s8(v358[0], v358[0], 4uLL).u64[0];
+        v187 = vextq_s8(v357, v357, 4uLL).u64[0];
+        v188 = vmls_f32(vmul_f32(*v357.f32, v186), v187, *v358[0].f32);
+        *v189.f32 = vext_s8(v188, vmls_f32(vmul_f32(v184, *v358[0].f32), *v357.f32, v185), 4uLL);
+        v189.i64[1] = v188.u32[0];
+        v190 = vextq_s8(v356, v356, 8uLL).u64[0];
+        v191 = vextq_s8(v356, v356, 4uLL).u64[0];
+        v192 = vmls_f32(vmul_f32(v191, *v358[0].f32), v186, *v356.i8);
+        *v193.f32 = vext_s8(v192, vmls_f32(vmul_f32(*v356.i8, v185), *v358[0].f32, v190), 4uLL);
+        v193.i64[1] = v192.u32[0];
+        v194 = vmls_f32(vmul_f32(*v356.i8, v187), v191, *v357.f32);
+        *v195.f32 = vext_s8(v194, vmls_f32(vmul_f32(v190, *v357.f32), *v356.i8, v184), 4uLL);
+        v195.i64[1] = v194.u32[0];
+        v196 = vmulq_f32(v189, v180);
+        v196.i64[0] = vpaddq_f32(v196, v196).u64[0];
+        v197 = vpadd_f32(*v196.f32, *v196.f32);
+        v198 = vmulq_f32(v193, v180);
+        v198.i64[0] = vpaddq_f32(v198, v198).u64[0];
+        v199 = vpadd_f32(*v198.f32, *v198.f32);
+        v200 = vmulq_f32(v195, v180);
+        v200.i64[0] = vpaddq_f32(v200, v200).u64[0];
+        v201 = vpadd_f32(*v200.f32, *v200.f32);
+        if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcgez_f32(v199), vcgez_f32(v197)), vcgez_f32(v201)), 0), *v356.i8).u32[0] != -1)
+        {
+          v202 = vnegq_f32(v356);
+          v202.i32[3] = 0;
+          v203 = vnegq_f32(v357);
+          v203.i32[3] = 0;
+          v204 = vmulq_f32(v202, v178);
+          v204.i64[0] = vpaddq_f32(v204, v204).u64[0];
+          v205 = vpadd_f32(*v204.f32, *v204.f32);
+          v206 = vmulq_f32(v178, v203);
+          v206.i64[0] = vpaddq_f32(v206, v206).u64[0];
+          v207 = vpadd_f32(*v206.f32, *v206.f32);
+          if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v201), vand_s8(vclez_f32(v207), vcgez_f32(v205))), 0), *v356.i8).u32[0] == -1)
+          {
+            v234 = vsub_f32(v205, v207);
+            v235 = vrecpe_f32(v234);
+            v236 = 4;
+            do
+            {
+              v235 = vmul_f32(v235, vrecps_f32(v234, v235));
+              --v236;
+            }
+
+            while (v236);
+            v220 = 0;
+            v44 = vmlaq_n_f32(v356, v178, vmul_f32(v205, vbsl_s8(vcgt_f32(vabs_f32(v234), 0x3400000034000000), v235, 0)).f32[0]);
+            v219 = 2;
+            v221 = &v345;
+            v44.i64[1] = vextq_s8(v44, v44, 8uLL).u32[0];
+            goto LABEL_86;
+          }
+
+          v208 = vnegq_f32(v358[0]);
+          v208.i32[3] = 0;
+          v209 = vmulq_f32(v203, v179);
+          v209.i64[0] = vpaddq_f32(v209, v209).u64[0];
+          v210 = vpadd_f32(*v209.f32, *v209.f32);
+          v211 = vmulq_f32(v178, v208);
+          v211.i64[0] = vpaddq_f32(v211, v211).u64[0];
+          v212 = vpadd_f32(*v211.f32, *v211.f32);
+          v213 = vmulq_f32(v179, v208);
+          v213.i64[0] = vpaddq_f32(v213, v213).u64[0];
+          v214 = vpadd_f32(*v213.f32, *v213.f32);
+          if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcge_f32(v210, v207), vcge_f32(v212, v214)), vclez_f32(v197)), 0), *v356.i8).u32[0] == -1)
+          {
+            v241 = vsub_f32(v210, v207);
+            v242 = vadd_f32(v241, vsub_f32(v212, v214));
+            v243 = vrecpe_f32(v242);
+            v244 = 4;
+            do
+            {
+              v243 = vmul_f32(v243, vrecps_f32(v242, v243));
+              --v244;
+            }
+
+            while (v244);
+            v245 = vmlaq_n_f32(v357, vsubq_f32(v358[0], v357), vmul_f32(v241, vbsl_s8(vcgt_f32(vabs_f32(v242), 0x3400000034000000), v243, 0)).f32[0]);
+            v245.i64[1] = vextq_s8(v245, v245, 8uLL).u32[0];
+            v219 = 2;
+            v44 = v245;
+            v220 = 1;
+            v221 = &v346;
+          }
+
+          else
+          {
+            v215 = vmulq_f32(v202, v179);
+            v215.i64[0] = vpaddq_f32(v215, v215).u64[0];
+            v216 = vpadd_f32(*v215.f32, *v215.f32);
+            if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v199), vand_s8(vclez_f32(v214), vcgez_f32(v216))), 0), *v356.i8).u32[0] != -1)
+            {
+              if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v216), vclez_f32(v205)), 0), *v356.i8).u32[0] == -1)
+              {
+                v220 = 0;
+                v219 = 1;
+                v221 = &v345;
+              }
+
+              else
+              {
+                *v44.i8 = vdup_lane_s16(vand_s8(vcge_f32(v207, v210), vcgez_f32(v207)), 0);
+                *v44.i8 = vuzp1_s8(*v44.i8, *v44.i8);
+                v217 = v44.i32[0];
+                v218 = vdupq_lane_s32(*&vceqq_s32(v44, v327), 0);
+                v219 = 1;
+                if (v217 == -1)
+                {
+                  v220 = 1;
+                }
+
+                else
+                {
+                  v220 = 2;
+                }
+
+                v221 = &v345;
+                v44 = vbslq_s8(v218, v357, v358[0]);
+              }
+
+LABEL_86:
+              v238 = &v351;
+              v237 = &v348;
+              v239 = &v354;
+              v240 = &v357;
+LABEL_94:
+              v249 = *(&v356 + v220);
+              v250 = *v240;
+              v251 = *(&v353 + v220);
+              v252 = *v239;
+              v253 = *(&v350 + v220);
+              v254 = *v238;
+              v255 = *(&v347 + v220);
+              v256 = *v237;
+              v257 = *(&v344 + v220);
+              v258 = *v221;
+              v356 = v249;
+              v357 = v250;
+              v353 = v251;
+              v354 = v252;
+              v350 = v253;
+              v351 = v254;
+              v347 = v255;
+              v348 = v256;
+              v344 = v257;
+              v345 = v258;
+              v340 = v219;
+              break;
+            }
+
+            v246 = vsub_f32(v216, v214);
+            v247 = vrecpe_f32(v246);
+            v248 = 4;
+            do
+            {
+              v247 = vmul_f32(v247, vrecps_f32(v246, v247));
+              --v248;
+            }
+
+            while (v248);
+            v220 = 0;
+            v44 = vmlaq_n_f32(v356, v179, vmul_f32(v216, vbsl_s8(vcgt_f32(vabs_f32(v246), 0x3400000034000000), v247, 0)).f32[0]);
+            v219 = 2;
+            v221 = &v346;
+            v44.i64[1] = vextq_s8(v44, v44, 8uLL).u32[0];
+          }
+
+          v238 = v352;
+          v237 = &v349;
+          v239 = v355;
+          v240 = v358;
+          goto LABEL_94;
+        }
+
+        v229 = vmulq_f32(v356, v180);
+        v230 = vextq_s8(v229, v229, 8uLL).u64[0];
+        v231 = vrecpe_f32(v183);
+        v232 = 4;
+        do
+        {
+          v231 = vmul_f32(v231, vrecps_f32(v183, v231));
+          --v232;
+        }
+
+        while (v232);
+        v233 = vpadd_f32(*v229.i8, v230);
+        v44 = vmulq_n_f32(v180, vmul_f32(v231, vpadd_f32(v233, v233)).f32[0]);
+        v44.i32[3] = 0;
+        break;
+      case 1:
+        v44 = v356;
+        v170 = vsubq_f32(v357, v356);
+        v171 = vmulq_f32(v170, v170);
+        v171.i64[0] = vpaddq_f32(v171, v171).u64[0];
+        v172 = vpadd_f32(*v171.f32, *v171.f32);
+        if (vuzp1_s8(vdup_lane_s16(vcge_f32(0x3400000034000000, v172), 0), *v356.i8).u32[0] == -1)
+        {
+          goto LABEL_79;
+        }
+
+        v173 = vnegq_f32(v356);
+        v173.i32[3] = 0;
+        v174 = vmulq_f32(v173, v170);
+        v174.i64[0] = vpaddq_f32(v174, v174).u64[0];
+        v175 = vpadd_f32(*v174.f32, *v174.f32);
+        v176 = vrecpe_f32(v172);
+        v177 = 4;
+        do
+        {
+          v176 = vmul_f32(v176, vrecps_f32(v172, v176));
+          --v177;
+        }
+
+        while (v177);
+        v44 = vmlaq_n_f32(v356, v170, vmax_f32(vmin_f32(vmul_f32(v175, v176), _D9), 0).f32[0]);
+LABEL_78:
+        v44.i64[1] = vextq_s8(v44, v44, 8uLL).u32[0];
+        break;
+    }
+
+    v341 = v44;
+    v259 = vmulq_f32(v44, v44);
+    v259.i64[0] = vpaddq_f32(v259, v259).u64[0];
+    v260 = vpadd_f32(*v259.f32, *v259.f32);
+    v261 = vrsqrte_f32(v260);
+    v262 = 4;
+    do
+    {
+      v261 = vmul_f32(v261, vrsqrts_f32(vmul_f32(v261, v261), v260));
+      --v262;
+    }
+
+    while (v262);
+    v61 = vbsl_s8(vdup_lane_s32(vceqz_f32(v260), 0), v260, vmul_f32(v260, v261));
+    v263 = vrecpe_f32(v61);
+    v264 = 4;
+    do
+    {
+      v263 = vmul_f32(v263, vrecps_f32(v61, v263));
+      --v264;
+    }
+
+    while (v264);
+    v60 = vmulq_n_f32(v44, v263.f32[0]);
+    v60.i32[3] = 0;
+    v265 = vcgt_f32(*&v14, v61);
+    v153 = vdupq_lane_s32(v265, 0);
+    v62 = vdupq_lane_s32(vand_s8(vcgt_f32(v61, v28), v265), 0);
+    v152 = v14;
+    v63 = v154;
+  }
+
+  v266 = vmovn_s32(vceqzq_s32(v153));
+  v267 = v340;
+  if (vuzp1_s8(v266, v266).u32[0] != -1)
+  {
+    if (v16)
+    {
+      *a8 = v340;
+      if (v267)
+      {
+        v268 = &v344;
+        v269 = &v347;
+        do
+        {
+          v270 = *v269++;
+          *v16++ = v270;
+          v271 = *v268++;
+          *v15++ = v271;
+          --v267;
+        }
+
+        while (v267);
+      }
+    }
+
+    return 5;
+  }
+
+  v286 = v332;
+  if (v16)
+  {
+    v287 = v340 - 1;
+    *a8 = v340 - 1;
+    if (v267 != 1)
+    {
+      v288 = &v344;
+      v289 = &v347;
+      do
+      {
+        v290 = *v289++;
+        *v16++ = v290;
+        v291 = *v288++;
+        *v15++ = v291;
+        --v287;
+      }
+
+      while (v287);
+      goto LABEL_125;
+    }
+
+LABEL_128:
+    v292 = v353;
+    v293 = v350;
+  }
+
+  else
+  {
+LABEL_125:
+    v341 = v63;
+    if (v267 == 3)
+    {
+      v342 = 0;
+      v343 = 0;
+      v335 = v60;
+      v339 = v63;
+      physx::Gu::barycentricCoordinates(&v341, &v356, &v357, v358, &v343, &v342);
+      v286 = v332;
+      v317 = vmulq_n_f32(vsubq_f32(v354, v353), v343.f32[0]);
+      v317.i32[3] = 0;
+      v318 = vmulq_n_f32(vsubq_f32(v355[0], v353), v342.f32[0]);
+      v318.i32[3] = 0;
+      v319 = vaddq_f32(v317, v318);
+      v320 = vmulq_n_f32(vsubq_f32(v351, v350), v343.f32[0]);
+      v320.i32[3] = 0;
+      v292 = vaddq_f32(v353, v319);
+      v321 = vmulq_n_f32(vsubq_f32(v352[0], v350), v342.f32[0]);
+      v60 = v335;
+      v63 = v339;
+      v321.i32[3] = 0;
+      v293 = vaddq_f32(v350, vaddq_f32(v320, v321));
+    }
+
+    else if (v267 == 2)
+    {
+      v309 = vsubq_f32(v356, v63);
+      v310 = vsubq_f32(vsubq_f32(v357, v63), v309);
+      v311 = vmulq_f32(v310, v310);
+      v311.i64[0] = vpaddq_f32(v311, v311).u64[0];
+      v312 = vpadd_f32(*v311.f32, *v311.f32);
+      v313 = vrecpe_f32(v312);
+      v314 = 4;
+      do
+      {
+        v313 = vmul_f32(v313, vrecps_f32(v312, v313));
+        --v314;
+      }
+
+      while (v314);
+      v315 = vnegq_f32(v309);
+      v315.i32[3] = 0;
+      v316 = vmulq_f32(v315, v310);
+      v316.i64[0] = vpaddq_f32(v316, v316).u64[0];
+      v315.i32[0] = vmul_f32(vbsl_s8(vcgtz_f32(v312), v313, 0), vpadd_f32(*v316.f32, *v316.f32)).u32[0];
+      v292 = vmlaq_n_f32(v353, vsubq_f32(v354, v353), v315.f32[0]);
+      v292.i64[1] = vextq_s8(v292, v292, 8uLL).u32[0];
+      v293 = vmlaq_n_f32(v350, vsubq_f32(v351, v350), v315.f32[0]);
+      v293.i64[1] = vextq_s8(v293, v293, 8uLL).u32[0];
+    }
+
+    else
+    {
+      v292 = 0uLL;
+      v293 = 0uLL;
+      if (v267 == 1)
+      {
+        goto LABEL_128;
+      }
+    }
+  }
+
+  v322 = vrecpe_f32(v152);
+  v323 = 4;
+  do
+  {
+    v322 = vmul_f32(v322, vrecps_f32(v152, v322));
+    --v323;
+  }
+
+  while (v323);
+  v324 = vmulq_n_f32(v63, v322.f32[0]);
+  v324.i32[3] = 0;
+  *(a14 + 32) = v324;
+  *(a14 + 48) = v60;
+  if (a5)
+  {
+    *a14 = v292;
+    *(a14 + 16) = v293;
+    *(a14 + 64) = v152;
+  }
+
+  else
+  {
+    v325 = vmlsq_lane_f32(v292, v324, v328, 0);
+    v325.i64[1] = vextq_s8(v325, v325, 8uLL).u32[0];
+    v326 = vmlaq_n_f32(v293, v324, v329);
+    v326.i64[1] = vextq_s8(v326, v326, 8uLL).u32[0];
+    *a14 = v325;
+    *(a14 + 16) = v326;
+    *(a14 + 64) = vsub_f32(v152, v286);
+    if (vcge_f32(v286, v152).u32[0])
+    {
+      return 2;
+    }
+  }
+
+  return 4;
+}
+
+BOOL physx::Gu::gjkRaycast<physx::Gu::RelativeConvex<physx::Gu::BoxV>,physx::Gu::LocalConvex<physx::Gu::BoxV>>(float32x4_t *a1, uint64_t a2, float32x4_t *a3, int32x2_t a4, uint64_t a5, float32x4_t *a6, float32x4_t *a7, float32x2_t *a8, float32x4_t *a9, int8x16_t *a10)
+{
+  v239 = *MEMORY[0x1E69E9840];
+  v14 = vmlaq_f32(*a6, 0, *a7);
+  v15 = vextq_s8(v14, v14, 8uLL).u32[0];
+  v227 = 1;
+  v16 = vmulq_f32(*a3, *a3);
+  v16.i64[0] = vpaddq_f32(v16, v16).u64[0];
+  v17 = vbslq_s8(vmovl_s16(vdup_lane_s16(vcgt_f32(vpadd_f32(*v16.f32, *v16.f32), 0x3400000034000000), 0)), *a3, xmmword_1E3047670);
+  v18 = vmulq_f32(v17, v17);
+  v18.i64[0] = vpaddq_f32(v18, v18).u64[0];
+  v19 = vpadd_f32(*v18.f32, *v18.f32);
+  v20 = vrsqrte_f32(v19);
+  v21 = 4;
+  do
+  {
+    v20 = vmul_f32(v20, vrsqrts_f32(vmul_f32(v20, v20), v19));
+    --v21;
+  }
+
+  while (v21);
+  v22 = vbsl_s8(vdup_lane_s32(vceqz_f32(v19), 0), v19, vmul_f32(v19, v20));
+  v23 = vrecpe_f32(v22);
+  v24 = 4;
+  do
+  {
+    v23 = vmul_f32(v23, vrecps_f32(v22, v23));
+    --v24;
+  }
+
+  while (v24);
+  v25 = vdup_lane_s32(a4, 0);
+  v14.i64[1] = v15;
+  v26 = vmulq_n_f32(v17, v23.f32[0]);
+  v26.i32[3] = 0;
+  v27 = vnegq_f32(v26);
+  v28 = vmulq_n_f32(a1[2], v27.f32[0]);
+  v28.i32[3] = 0;
+  v29 = vmulq_lane_f32(a1[3], *v27.f32, 1);
+  v29.i32[3] = 0;
+  v30 = vmulq_laneq_f32(a1[4], v27, 2);
+  v30.i32[3] = 0;
+  v31 = a1->i64[1];
+  v32 = a1[1].i64[0];
+  v33 = vcgtzq_f32(vaddq_f32(vaddq_f32(v28, v29), v30));
+  v34 = *(v31 + 48);
+  v35 = vnegq_f32(v34);
+  v35.i32[3] = 0;
+  v36 = vbslq_s8(v33, v34, v35);
+  v37 = vmulq_n_f32(*v32, v36.f32[0]);
+  v37.i32[3] = 0;
+  v38 = vmulq_lane_f32(v32[1], *v36.f32, 1);
+  v38.i32[3] = 0;
+  v39 = vmulq_laneq_f32(v32[2], v36, 2);
+  v39.i32[3] = 0;
+  v40 = vaddq_f32(v32[3], vaddq_f32(v39, vaddq_f32(v37, v38)));
+  v41 = *(a2 + 8);
+  v42 = *(v41 + 48);
+  v43 = vnegq_f32(v42);
+  v43.i32[3] = 0;
+  v44 = vbslq_s8(vcgtzq_f32(v26), v42, v43);
+  v45 = vsubq_f32(v40, v44);
+  v236 = v45;
+  v237 = 0u;
+  memset(v238, 0, sizeof(v238));
+  v233 = v40;
+  v234 = 0u;
+  memset(v235, 0, sizeof(v235));
+  v46 = vnegq_f32(v45);
+  v46.i32[3] = 0;
+  v31 += 24;
+  v231 = 0u;
+  memset(v232, 0, sizeof(v232));
+  *v40.f32 = vld1_dup_f32(v31);
+  v47 = (v41 + 24);
+  *v43.i8 = vld1_dup_f32(v47);
+  v230 = v44;
+  *v40.f32 = vmul_f32(vmin_f32(*v40.f32, *v43.i8), vdup_n_s32(0x3DCCCCCDu));
+  v48 = vadd_f32(v25, *v40.f32);
+  v49 = vmul_f32(v48, v48);
+  v50 = vmulq_f32(v46, v46);
+  v51 = vpaddq_f32(v50, v50);
+  v52 = vpadd_f32(*v51.f32, *v51.f32);
+  v218 = vmul_f32(*v40.f32, *v40.f32);
+  v53 = vcgt_f32(v52, v218);
+  v54.i64[0] = -1;
+  v54.i64[1] = -1;
+  v51.i32[0] = -1;
+  v217 = v51;
+  v55 = vneg_f32(0x80000000800000);
+  v56 = v45;
+  v221 = v46;
+  v57 = v46;
+  v58 = 0;
+  while (1)
+  {
+    v59 = v45;
+    v60 = vcltz_s16(vshl_n_s16(vdup_lane_s16(v53, 0), 0xFuLL));
+    v61 = vuzp1_s8(v60, v60).u32[0];
+    if (v61 != -1)
+    {
+      break;
+    }
+
+    v62 = vmulq_f32(v57, v57);
+    v62.i64[0] = vpaddq_f32(v62, v62).u64[0];
+    v63 = vpadd_f32(*v62.f32, *v62.f32);
+    v64 = vrsqrte_f32(v63);
+    v65 = 4;
+    do
+    {
+      v64 = vmul_f32(v64, vrsqrts_f32(vmul_f32(v64, v64), v63));
+      --v65;
+    }
+
+    while (v65);
+    v66 = vbsl_s8(vdup_lane_s32(vceqz_f32(v63), 0), v63, vmul_f32(v63, v64));
+    v67 = vrecpe_f32(v66);
+    v68 = 4;
+    do
+    {
+      v67 = vmul_f32(v67, vrecps_f32(v66, v67));
+      --v68;
+    }
+
+    while (v68);
+    v72 = vmulq_n_f32(v57, v67.f32[0]);
+    v69 = vmulq_n_f32(a1[2], v72.f32[0]);
+    v70 = vmulq_lane_f32(a1[3], *v72.f32, 1);
+    v71 = vmulq_laneq_f32(a1[4], v72, 2);
+    v72.i32[3] = 0;
+    v73 = vnegq_f32(v72);
+    v73.i32[3] = 0;
+    v69.i32[3] = 0;
+    v74 = a1[1].i64[0];
+    v70.i32[3] = 0;
+    v71.i32[3] = 0;
+    v75 = vcgtzq_f32(vaddq_f32(vaddq_f32(v69, v70), v71));
+    v76 = *(a1->i64[1] + 48);
+    v77 = vnegq_f32(v76);
+    v77.i32[3] = 0;
+    v78 = vbslq_s8(v75, v76, v77);
+    v79 = vmulq_n_f32(*v74, v78.f32[0]);
+    v79.i32[3] = 0;
+    v80 = vmulq_lane_f32(v74[1], *v78.f32, 1);
+    v80.i32[3] = 0;
+    v81 = vmulq_laneq_f32(v74[2], v78, 2);
+    v81.i32[3] = 0;
+    v82 = vaddq_f32(v74[3], vaddq_f32(v81, vaddq_f32(v79, v80)));
+    v83 = vcgtzq_f32(v73);
+    v84 = *(*(a2 + 8) + 48);
+    v85 = vnegq_f32(v84);
+    v85.i32[3] = 0;
+    v86 = vbslq_s8(v83, v84, v85);
+    v87 = vaddq_f32(v14, v86);
+    v45 = vsubq_f32(v82, v87);
+    v88 = vnegq_f32(v45);
+    v88.i32[3] = 0;
+    v89 = vmulq_f32(v72, v88);
+    v89.i64[0] = vpaddq_f32(v89, v89).u64[0];
+    v90 = vsub_f32(vpadd_f32(*v89.f32, *v89.f32), v48);
+    if (v90.f32[0] > 0.0)
+    {
+      v91 = vmulq_f32(v72, *a7);
+      v91.i64[0] = vpaddq_f32(v91, v91).u64[0];
+      v92 = vpadd_f32(*v91.f32, *v91.f32);
+      if (v92.f32[0] >= 0.0)
+      {
+        return v61 != -1;
+      }
+
+      v93 = vrecpe_f32(v92);
+      v94 = 4;
+      do
+      {
+        v93 = vmul_f32(v93, vrecps_f32(v92, v93));
+        --v94;
+      }
+
+      while (v94);
+      v95 = vsub_f32(v58, vmul_f32(v90, v93));
+      if (vcgt_f32(v95, v58).u8[0])
+      {
+        if (v95.f32[0] > 1.0)
+        {
+          return v61 != -1;
+        }
+
+        v96 = vmlaq_n_f32(*a6, *a7, v95.f32[0]);
+        v96.i64[1] = vextq_s8(v96, v96, 8uLL).u32[0];
+        v97 = vsubq_f32(v96, v14);
+        v230 = vaddq_f32(v230, v97);
+        v231 = vaddq_f32(v231, v97);
+        v232[0] = vaddq_f32(v232[0], v97);
+        v236 = vsubq_f32(v233, v230);
+        v237 = vsubq_f32(v234, v231);
+        v238[0] = vsubq_f32(v235[0], v232[0]);
+        v87 = vaddq_f32(v86, v96);
+        v45 = vsubq_f32(v82, v87);
+        v52 = v55;
+        v221 = v57;
+        v14 = v96;
+      }
+
+      v58 = v95;
+    }
+
+    v224 = v59;
+    v98 = v227;
+    *(&v233 + v227) = v82;
+    *(&v230 + v98) = v87;
+    v227 = v98 + 1;
+    *(&v236 + v98) = v45;
+    if (v98 == 3)
+    {
+      v222 = v14;
+      physx::Gu::closestPtPointTetrahedron(&v236, &v233, &v230, &v227);
+      v14 = v222;
+LABEL_36:
+      v56 = v224;
+      goto LABEL_60;
+    }
+
+    if (v98 == 2)
+    {
+      v45 = v236;
+      v113 = vsubq_f32(v237, v236);
+      v114 = vsubq_f32(v238[0], v236);
+      v116 = vmls_f32(vmul_f32(*v113.i8, *&vextq_s8(v114, v114, 4uLL)), *&vextq_s8(v113, v113, 4uLL), *v114.i8);
+      *v115.f32 = vext_s8(v116, vmls_f32(vmul_f32(*&vextq_s8(v113, v113, 8uLL), *v114.i8), *v113.i8, *&vextq_s8(v114, v114, 8uLL)), 4uLL);
+      v116.i32[1] = 0;
+      v227 = 3;
+      v117 = vpadd_f32(vmul_f32(*v115.f32, *v115.f32), vmul_f32(v116.u32[0], v116.u32[0]));
+      v118 = vpadd_f32(v117, v117);
+      if (v118.f32[0] <= 0.00000011921)
+      {
+        v227 = 2;
+        v155 = vmulq_f32(v113, v113);
+        v155.i64[0] = vpaddq_f32(v155, v155).u64[0];
+        v156 = vpadd_f32(*v155.f32, *v155.f32);
+        if (vuzp1_s8(vdup_lane_s16(vcge_f32(0x3400000034000000, v156), 0), *v236.i8).u32[0] == -1)
+        {
+          v227 = 1;
+          goto LABEL_36;
+        }
+
+        v157 = vnegq_f32(v236);
+        v157.i32[3] = 0;
+        v158 = vmulq_f32(v157, v113);
+        v158.i64[0] = vpaddq_f32(v158, v158).u64[0];
+        v159 = vpadd_f32(*v158.f32, *v158.f32);
+        v160 = vrecpe_f32(v156);
+        v161 = 4;
+        v56 = v59;
+        do
+        {
+          v160 = vmul_f32(v160, vrecps_f32(v156, v160));
+          --v161;
+        }
+
+        while (v161);
+        v162 = vmul_f32(v159, v160);
+        __asm { FMOV            V2.2S, #1.0 }
+
+        v45 = vmlaq_n_f32(v236, v113, vmax_f32(vmin_f32(v162, _D2), 0).f32[0]);
+        goto LABEL_41;
+      }
+
+      *&v115.u32[2] = v116;
+      v119 = vextq_s8(v237, v237, 8uLL).u64[0];
+      v120 = vextq_s8(v238[0], v238[0], 8uLL).u64[0];
+      v121 = vextq_s8(v238[0], v238[0], 4uLL).u64[0];
+      v122 = vextq_s8(v237, v237, 4uLL).u64[0];
+      v123 = vmls_f32(vmul_f32(*v237.f32, v121), v122, *v238[0].f32);
+      *v124.f32 = vext_s8(v123, vmls_f32(vmul_f32(v119, *v238[0].f32), *v237.f32, v120), 4uLL);
+      v124.i64[1] = v123.u32[0];
+      v125 = vextq_s8(v236, v236, 8uLL).u64[0];
+      v126 = vextq_s8(v236, v236, 4uLL).u64[0];
+      v127 = vmls_f32(vmul_f32(v126, *v238[0].f32), v121, *v236.i8);
+      *v128.f32 = vext_s8(v127, vmls_f32(vmul_f32(*v236.i8, v120), *v238[0].f32, v125), 4uLL);
+      v128.i64[1] = v127.u32[0];
+      v129 = vmls_f32(vmul_f32(*v236.i8, v122), v126, *v237.f32);
+      *v130.f32 = vext_s8(v129, vmls_f32(vmul_f32(v125, *v237.f32), *v236.i8, v119), 4uLL);
+      v130.i64[1] = v129.u32[0];
+      v131 = vmulq_f32(v124, v115);
+      v131.i64[0] = vpaddq_f32(v131, v131).u64[0];
+      v132 = vpadd_f32(*v131.f32, *v131.f32);
+      v133 = vmulq_f32(v128, v115);
+      v133.i64[0] = vpaddq_f32(v133, v133).u64[0];
+      v134 = vpadd_f32(*v133.f32, *v133.f32);
+      v135 = vmulq_f32(v130, v115);
+      v135.i64[0] = vpaddq_f32(v135, v135).u64[0];
+      v136 = vpadd_f32(*v135.f32, *v135.f32);
+      if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcgez_f32(v134), vcgez_f32(v132)), vcgez_f32(v136)), 0), *v236.i8).u32[0] == -1)
+      {
+        v164 = vmulq_f32(v236, v115);
+        v165 = vextq_s8(v164, v164, 8uLL).u64[0];
+        v166 = vrecpe_f32(v118);
+        v167 = 4;
+        do
+        {
+          v166 = vmul_f32(v166, vrecps_f32(v118, v166));
+          --v167;
+        }
+
+        while (v167);
+        v168 = vpadd_f32(*v164.i8, v165);
+        v45 = vmulq_n_f32(v115, vmul_f32(v166, vpadd_f32(v168, v168)).f32[0]);
+        v45.i32[3] = 0;
+        goto LABEL_36;
+      }
+
+      v137 = vnegq_f32(v236);
+      v137.i32[3] = 0;
+      v138 = vnegq_f32(v237);
+      v138.i32[3] = 0;
+      v139 = vmulq_f32(v137, v113);
+      v139.i64[0] = vpaddq_f32(v139, v139).u64[0];
+      v140 = vpadd_f32(*v139.f32, *v139.f32);
+      v141 = vmulq_f32(v113, v138);
+      v141.i64[0] = vpaddq_f32(v141, v141).u64[0];
+      v142 = vpadd_f32(*v141.f32, *v141.f32);
+      if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v136), vand_s8(vclez_f32(v142), vcgez_f32(v140))), 0), *v236.i8).u32[0] == -1)
+      {
+        v169 = vsub_f32(v140, v142);
+        v170 = vrecpe_f32(v169);
+        v171 = 4;
+        v56 = v224;
+        do
+        {
+          v170 = vmul_f32(v170, vrecps_f32(v169, v170));
+          --v171;
+        }
+
+        while (v171);
+        v154 = 0;
+        v45 = vmlaq_n_f32(v236, v113, vmul_f32(v140, vbsl_s8(vcgt_f32(vabs_f32(v169), 0x3400000034000000), v170, 0)).f32[0]);
+        v45.i64[1] = vextq_s8(v45, v45, 8uLL).u32[0];
+        v153 = 2;
+        v172 = &v231;
+        v173 = &v234;
+        v174 = &v237;
+      }
+
+      else
+      {
+        v143 = vnegq_f32(v238[0]);
+        v143.i32[3] = 0;
+        v144 = vmulq_f32(v138, v114);
+        v144.i64[0] = vpaddq_f32(v144, v144).u64[0];
+        v145 = vpadd_f32(*v144.f32, *v144.f32);
+        v146 = vmulq_f32(v113, v143);
+        v146.i64[0] = vpaddq_f32(v146, v146).u64[0];
+        v147 = vpadd_f32(*v146.f32, *v146.f32);
+        v148 = vmulq_f32(v114, v143);
+        v148.i64[0] = vpaddq_f32(v148, v148).u64[0];
+        v149 = vpadd_f32(*v148.f32, *v148.f32);
+        if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcge_f32(v145, v142), vcge_f32(v147, v149)), vclez_f32(v132)), 0), *v236.i8).u32[0] == -1)
+        {
+          v175 = vsub_f32(v145, v142);
+          v176 = vadd_f32(v175, vsub_f32(v147, v149));
+          v177 = vrecpe_f32(v176);
+          v178 = 4;
+          do
+          {
+            v177 = vmul_f32(v177, vrecps_f32(v176, v177));
+            --v178;
+          }
+
+          while (v178);
+          v179 = vmlaq_n_f32(v237, vsubq_f32(v238[0], v237), vmul_f32(v175, vbsl_s8(vcgt_f32(vabs_f32(v176), 0x3400000034000000), v177, 0)).f32[0]);
+          v153 = 2;
+          v173 = v235;
+          v172 = v232;
+          v179.i64[1] = vextq_s8(v179, v179, 8uLL).u32[0];
+          v174 = v238;
+          v154 = 1;
+          v45 = v179;
+        }
+
+        else
+        {
+          v150 = vmulq_f32(v137, v114);
+          v150.i64[0] = vpaddq_f32(v150, v150).u64[0];
+          v151 = vpadd_f32(*v150.f32, *v150.f32);
+          if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v134), vand_s8(vclez_f32(v149), vcgez_f32(v151))), 0), *v236.i8).u32[0] == -1)
+          {
+            v180 = vsub_f32(v151, v149);
+            v181 = vrecpe_f32(v180);
+            v182 = 4;
+            do
+            {
+              v181 = vmul_f32(v181, vrecps_f32(v180, v181));
+              --v182;
+            }
+
+            while (v182);
+            v154 = 0;
+            v45 = vmlaq_n_f32(v236, v114, vmul_f32(v151, vbsl_s8(vcgt_f32(vabs_f32(v180), 0x3400000034000000), v181, 0)).f32[0]);
+            v45.i64[1] = vextq_s8(v45, v45, 8uLL).u32[0];
+            v153 = 2;
+            v173 = v235;
+            v172 = v232;
+            v174 = v238;
+          }
+
+          else
+          {
+            if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v151), vclez_f32(v140)), 0), *v236.i8).u32[0] == -1)
+            {
+              v154 = 0;
+              v153 = 1;
+            }
+
+            else
+            {
+              *v45.i8 = vdup_lane_s16(vand_s8(vcge_f32(v142, v145), vcgez_f32(v142)), 0);
+              *v45.i8 = vuzp1_s8(*v45.i8, *v45.i8);
+              v152 = v45.i32[0];
+              v153 = 1;
+              v45 = vbslq_s8(vdupq_lane_s32(*&vceqq_s32(v45, v217), 0), v237, v238[0]);
+              if (v152 == -1)
+              {
+                v154 = 1;
+              }
+
+              else
+              {
+                v154 = 2;
+              }
+            }
+
+            v172 = &v231;
+            v173 = &v234;
+            v174 = &v237;
+          }
+        }
+
+        v56 = v224;
+      }
+
+      v183 = *(&v233 + v154);
+      v184 = *v174;
+      v185 = *v173;
+      v186 = *(&v230 + v154);
+      v187 = *v172;
+      v236 = *(&v236 + v154);
+      v237 = v184;
+      v233 = v183;
+      v234 = v185;
+      v230 = v186;
+      v231 = v187;
+      v227 = v153;
+    }
+
+    else
+    {
+      v56 = v59;
+      if (v98 != 1)
+      {
+        goto LABEL_60;
+      }
+
+      v45 = v236;
+      v99 = vsubq_f32(v237, v236);
+      v100 = vmulq_f32(v99, v99);
+      v100.i64[0] = vpaddq_f32(v100, v100).u64[0];
+      v101 = vpadd_f32(*v100.f32, *v100.f32);
+      if (vuzp1_s8(vdup_lane_s16(vcge_f32(0x3400000034000000, v101), 0), *v236.i8).u32[0] != -1)
+      {
+        v102 = vnegq_f32(v236);
+        v102.i32[3] = 0;
+        v103 = vmulq_f32(v102, v99);
+        v103.i64[0] = vpaddq_f32(v103, v103).u64[0];
+        v104 = vpadd_f32(*v103.f32, *v103.f32);
+        v105 = vrecpe_f32(v101);
+        v106 = 4;
+        do
+        {
+          v105 = vmul_f32(v105, vrecps_f32(v101, v105));
+          --v106;
+        }
+
+        while (v106);
+        v107 = vmul_f32(v104, v105);
+        __asm { FMOV            V3.2S, #1.0 }
+
+        v45 = vmlaq_n_f32(v236, v99, vmax_f32(vmin_f32(v107, _D3), 0).f32[0]);
+LABEL_41:
+        v45.i64[1] = vextq_s8(v45, v45, 8uLL).u32[0];
+        goto LABEL_60;
+      }
+
+      v227 = 1;
+    }
+
+LABEL_60:
+    v57 = vnegq_f32(v45);
+    v57.i32[3] = 0;
+    v188 = vmulq_f32(v45, v45);
+    v188.i64[0] = vpaddq_f32(v188, v188).u64[0];
+    v189 = vpadd_f32(*v188.f32, *v188.f32);
+    v190 = vcgt_f32(v52, v189);
+    v54 = vdupq_lane_s32(vand_s8(v190, 0x100000001), 0);
+    v53 = vand_s8(vcgt_f32(v189, v49), v190);
+    v52 = v189;
+  }
+
+  v191 = vbslq_s8(vcltzq_s32(vshlq_n_s32(vandq_s8(vdupq_lane_s32(vcgt_f32(v52, v218), 0), v54), 0x1FuLL)), v57, v221);
+  v192 = vmulq_f32(v191, v191);
+  v192.i64[0] = vpaddq_f32(v192, v192).u64[0];
+  v193 = vpadd_f32(*v192.f32, *v192.f32);
+  v194 = vrsqrte_f32(v193);
+  v195 = 4;
+  do
+  {
+    v194 = vmul_f32(v194, vrsqrts_f32(vmul_f32(v194, v194), v193));
+    --v195;
+  }
+
+  while (v195);
+  v196 = vbsl_s8(vdup_lane_s32(vceqz_f32(v193), 0), v193, vmul_f32(v193, v194));
+  v197 = vrecpe_f32(v196);
+  v198 = 4;
+  do
+  {
+    v197 = vmul_f32(v197, vrecps_f32(v196, v197));
+    --v198;
+  }
+
+  while (v198);
+  v199 = vdupq_n_s32(-*(a1->i64[1] + 32));
+  v200 = vmulq_n_f32(v191, v197.f32[0]);
+  v200.i32[3] = 0;
+  v201 = vnegq_f32(vandq_s8(vdupq_lane_s32(vcgtz_f32(v196), 0), v200));
+  v201.i32[3] = 0;
+  *a9 = v201;
+  *a8 = v58;
+  v202 = vbslq_s8(vcltzq_s32(vshlq_n_s32(v54, 0x1FuLL)), v59, v56);
+  v226 = v202;
+  if (v227 == 3)
+  {
+    v228 = 0;
+    v229 = 0;
+    v223 = v201;
+    v225 = v199;
+    physx::Gu::barycentricCoordinates(&v226, &v236, &v237, v238, &v229, &v228);
+    v201 = v223;
+    v199 = v225;
+    v197.i32[1] = v233.i32[1];
+    v213 = vmulq_n_f32(vsubq_f32(v234, v233), v229.f32[0]);
+    v213.i32[3] = 0;
+    v214 = vmulq_n_f32(vsubq_f32(v235[0], v233), v228.f32[0]);
+    v214.i32[3] = 0;
+    v203 = vaddq_f32(v233, vaddq_f32(v213, v214));
+    v204 = a10;
+  }
+
+  else if (v227 == 2)
+  {
+    v205 = vsubq_f32(v236, v202);
+    v206 = vsubq_f32(vsubq_f32(v237, v202), v205);
+    v207 = vmulq_f32(v206, v206);
+    v207.i64[0] = vpaddq_f32(v207, v207).u64[0];
+    v208 = vpadd_f32(*v207.f32, *v207.f32);
+    v209 = vrecpe_f32(v208);
+    v210 = 4;
+    v204 = a10;
+    do
+    {
+      v209 = vmul_f32(v209, vrecps_f32(v208, v209));
+      --v210;
+    }
+
+    while (v210);
+    v211 = vnegq_f32(v205);
+    v211.i32[3] = 0;
+    v212 = vmulq_f32(v211, v206);
+    v212.i64[0] = vpaddq_f32(v212, v212).u64[0];
+    v203 = vmlaq_n_f32(v233, vsubq_f32(v234, v233), vmul_f32(vbsl_s8(vcgtz_f32(v208), v209, 0), vpadd_f32(*v212.f32, *v212.f32)).f32[0]);
+    v197.i32[1] = 0;
+    v203.i64[1] = vextq_s8(v203, v203, 8uLL).u32[0];
+  }
+
+  else
+  {
+    v203 = 0uLL;
+    v204 = a10;
+    if (v227 == 1)
+    {
+      v203 = v233;
+    }
+  }
+
+  v197.i32[0] = *(a1->i64[1] + 16);
+  v215 = vmlsq_lane_f32(v203, v201, v197, 0);
+  v215.i64[1] = vextq_s8(v215, v215, 8uLL).u32[0];
+  *v204 = vbslq_s8(v199, v215, v203);
+  return v61 != -1;
+}
+
+uint64_t physx::Gu::gjkPenetration<physx::Gu::RelativeConvex<physx::Gu::BoxV>,physx::Gu::LocalConvex<physx::Gu::BoxV>>(float32x4_t *a1, uint64_t a2, float32x4_t *a3, uint64_t *a4, int a5, _BYTE *a6, _BYTE *a7, _BYTE *a8, double a9, double a10, int8x8_t a11, uint64_t a12)
+{
+  v12 = a7;
+  v13 = a6;
+  v369 = *MEMORY[0x1E69E9840];
+  v16 = a1->i64[1];
+  v17 = (v16 + 20);
+  v18 = vld1_dup_f32(v17);
+  v19 = *(a2 + 8);
+  v20 = (v19 + 20);
+  v21 = vld1_dup_f32(v20);
+  v22 = vmin_f32(v18, v21);
+  v23 = vdup_n_s32(0x3DCCCCCDu);
+  v24 = vmul_f32(v22, v23);
+  v22.i32[0] = *(v16 + 16);
+  v23.i32[0] = *(v19 + 16);
+  a11.i32[0] = -*(v16 + 32);
+  v25 = vand_s8(a11, v22);
+  v26 = vdup_lane_s32(v25, 0);
+  v25.i32[0] = -*(v19 + 32);
+  v27 = vdup_lane_s32(vand_s8(v25, v23), 0);
+  v340 = v26;
+  v341 = v27.f32[0];
+  v28 = vadd_f32(v26, v27);
+  v29 = *a4;
+  v352 = 0uLL;
+  v351 = 0;
+  v30 = *a8;
+  __asm { FMOV            V9.2S, #1.0 }
+
+  v344 = v28;
+  if (!*a8)
+  {
+    v60 = vmulq_f32(*a3, *a3);
+    v60.i64[0] = vpaddq_f32(v60, v60).u64[0];
+    v51 = vbslq_s8(vmovl_s16(vdup_lane_s16(vcgtz_f32(vpadd_f32(*v60.f32, *v60.f32)), 0)), *a3, xmmword_1E3047670);
+    v352 = v51;
+    v61 = vmulq_f32(v51, v51);
+    v61.i64[0] = vpaddq_f32(v61, v61).u64[0];
+    v62 = vpadd_f32(*v61.f32, *v61.f32);
+    v63 = vrsqrte_f32(v62);
+    v64 = 4;
+    do
+    {
+      v63 = vmul_f32(v63, vrsqrts_f32(vmul_f32(v63, v63), v62));
+      --v64;
+    }
+
+    while (v64);
+    v65 = vbsl_s8(vdup_lane_s32(vceqz_f32(v62), 0), v62, vmul_f32(v62, v63));
+    v66 = vrecpe_f32(v65);
+    v67 = 4;
+    do
+    {
+      v66 = vmul_f32(v66, vrecps_f32(v65, v66));
+      --v67;
+    }
+
+    while (v67);
+    v68 = vmulq_n_f32(v51, v66.f32[0]);
+    v68.i32[3] = 0;
+    v346 = v68;
+    v69 = vneg_f32(0x80000000800000);
+    v70.i64[0] = -1;
+    v70.i64[1] = -1;
+    v71 = 0uLL;
+    goto LABEL_52;
+  }
+
+  v36 = 0;
+  v37 = a1[1].i64[0];
+  v38 = *(v16 + 48);
+  v39 = *(v19 + 48);
+  v40 = vnegq_f32(v38);
+  v40.i32[3] = 0;
+  v41 = vnegq_f32(v39);
+  v41.i32[3] = 0;
+  v42 = -1;
+  do
+  {
+    v43 = a6[v36];
+    *(&v357 + v36) = v43;
+    v44 = a7[v36];
+    *(&v354 + v36) = v44;
+    v45 = vbslq_s8(physx::boxVertexTable[v43], v38, v40);
+    v46 = vmulq_n_f32(*v37, v45.f32[0]);
+    v46.i32[3] = 0;
+    v47 = vmulq_lane_f32(v37[1], *v45.f32, 1);
+    v47.i32[3] = 0;
+    v48 = vmulq_laneq_f32(v37[2], v45, 2);
+    v48.i32[3] = 0;
+    v49 = vaddq_f32(v37[3], vaddq_f32(v48, vaddq_f32(v46, v47)));
+    v50 = vbslq_s8(physx::boxVertexTable[v44], v39, v41);
+    v51 = vsubq_f32(v49, v50);
+    *(&v363 + v36) = v49;
+    *(&v360 + v36) = v50;
+    *(&v366 + v36) = v51;
+    ++v42;
+    ++v36;
+  }
+
+  while (v30 != v36);
+  v351 = v30;
+  if (v42 == 3)
+  {
+    v347 = v29;
+    physx::Gu::closestPtPointTetrahedron(&v366, &v363, &v360, &v357, &v354, &v351);
+    LODWORD(v29) = v347;
+    v28.i32[0] = v344.i32[0];
+    goto LABEL_47;
+  }
+
+  if (v42 != 2)
+  {
+    if (v42 != 1)
+    {
+      goto LABEL_47;
+    }
+
+    v51 = v366;
+    v52 = vsubq_f32(v367, v366);
+    v53 = vmulq_f32(v52, v52);
+    v53.i64[0] = vpaddq_f32(v53, v53).u64[0];
+    v54 = vpadd_f32(*v53.f32, *v53.f32);
+    if (vuzp1_s8(vdup_lane_s16(vcge_f32(0x3400000034000000, v54), 0), *v366.f32).u32[0] != -1)
+    {
+      v55 = vnegq_f32(v366);
+      v55.i32[3] = 0;
+      v56 = vmulq_f32(v55, v52);
+      v56.i64[0] = vpaddq_f32(v56, v56).u64[0];
+      v57 = vpadd_f32(*v56.f32, *v56.f32);
+      v58 = vrecpe_f32(v54);
+      v59 = 4;
+      do
+      {
+        v58 = vmul_f32(v58, vrecps_f32(v54, v58));
+        --v59;
+      }
+
+      while (v59);
+      v51 = vmlaq_n_f32(v366, v52, vmax_f32(vmin_f32(vmul_f32(v57, v58), _D9), 0).f32[0]);
+LABEL_31:
+      v51.i64[1] = vextq_s8(v51, v51, 8uLL).u32[0];
+      goto LABEL_47;
+    }
+
+LABEL_32:
+    v351 = 1;
+    goto LABEL_47;
+  }
+
+  v351 = 3;
+  v51 = v366;
+  v72 = vsubq_f32(v367, v366);
+  v73 = vsubq_f32(v368[0], v366);
+  v75 = vmls_f32(vmul_f32(*v72.i8, *&vextq_s8(v73, v73, 4uLL)), *&vextq_s8(v72, v72, 4uLL), *v73.i8);
+  *v74.f32 = vext_s8(v75, vmls_f32(vmul_f32(*&vextq_s8(v72, v72, 8uLL), *v73.i8), *v72.i8, *&vextq_s8(v73, v73, 8uLL)), 4uLL);
+  v75.i32[1] = 0;
+  v76 = vpadd_f32(vmul_f32(*v74.f32, *v74.f32), vmul_f32(v75.u32[0], v75.u32[0]));
+  v77 = vpadd_f32(v76, v76);
+  if (v77.f32[0] <= 0.00000011921)
+  {
+    v351 = 2;
+    v116 = vmulq_f32(v72, v72);
+    v116.i64[0] = vpaddq_f32(v116, v116).u64[0];
+    v117 = vpadd_f32(*v116.f32, *v116.f32);
+    if (vuzp1_s8(vdup_lane_s16(vcge_f32(0x3400000034000000, v117), 0), *v366.f32).u32[0] != -1)
+    {
+      v118 = vnegq_f32(v366);
+      v118.i32[3] = 0;
+      v119 = vmulq_f32(v118, v72);
+      v119.i64[0] = vpaddq_f32(v119, v119).u64[0];
+      v120 = vpadd_f32(*v119.f32, *v119.f32);
+      v121 = vrecpe_f32(v117);
+      v122 = 4;
+      do
+      {
+        v121 = vmul_f32(v121, vrecps_f32(v117, v121));
+        --v122;
+      }
+
+      while (v122);
+      v51 = vmlaq_n_f32(v366, v72, vmax_f32(vmin_f32(vmul_f32(v120, v121), _D9), 0).f32[0]);
+      goto LABEL_31;
+    }
+
+    goto LABEL_32;
+  }
+
+  *&v74.u32[2] = v75;
+  v78 = vextq_s8(v367, v367, 8uLL).u64[0];
+  v79 = vextq_s8(v368[0], v368[0], 8uLL).u64[0];
+  v80 = vextq_s8(v368[0], v368[0], 4uLL).u64[0];
+  v81 = vextq_s8(v367, v367, 4uLL).u64[0];
+  v82 = vmls_f32(vmul_f32(*v367.f32, v80), v81, *v368[0].f32);
+  *v83.f32 = vext_s8(v82, vmls_f32(vmul_f32(v78, *v368[0].f32), *v367.f32, v79), 4uLL);
+  v83.i64[1] = v82.u32[0];
+  v84 = vextq_s8(v366, v366, 8uLL).u64[0];
+  v85 = vextq_s8(v366, v366, 4uLL).u64[0];
+  v86 = vmls_f32(vmul_f32(v85, *v368[0].f32), v80, *v366.f32);
+  *v87.f32 = vext_s8(v86, vmls_f32(vmul_f32(*v366.f32, v79), *v368[0].f32, v84), 4uLL);
+  v87.i64[1] = v86.u32[0];
+  v88 = vmls_f32(vmul_f32(*v366.f32, v81), v85, *v367.f32);
+  *v89.f32 = vext_s8(v88, vmls_f32(vmul_f32(v84, *v367.f32), *v366.f32, v78), 4uLL);
+  v89.i64[1] = v88.u32[0];
+  v90 = vmulq_f32(v83, v74);
+  v90.i64[0] = vpaddq_f32(v90, v90).u64[0];
+  v91 = vpadd_f32(*v90.f32, *v90.f32);
+  v92 = vmulq_f32(v87, v74);
+  v92.i64[0] = vpaddq_f32(v92, v92).u64[0];
+  v93 = vpadd_f32(*v92.f32, *v92.f32);
+  v94 = vmulq_f32(v89, v74);
+  v94.i64[0] = vpaddq_f32(v94, v94).u64[0];
+  v95 = vpadd_f32(*v94.f32, *v94.f32);
+  if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcgez_f32(v93), vcgez_f32(v91)), vcgez_f32(v95)), 0), *v366.f32).u32[0] == -1)
+  {
+    v123 = vmulq_f32(v366, v74);
+    v124 = vextq_s8(v123, v123, 8uLL).u64[0];
+    v125 = vrecpe_f32(v77);
+    v126 = 4;
+    do
+    {
+      v125 = vmul_f32(v125, vrecps_f32(v77, v125));
+      --v126;
+    }
+
+    while (v126);
+    v127 = vpadd_f32(*v123.i8, v124);
+    v51 = vmulq_n_f32(v74, vmul_f32(v125, vpadd_f32(v127, v127)).f32[0]);
+    v51.i32[3] = 0;
+    goto LABEL_47;
+  }
+
+  v96 = vnegq_f32(v366);
+  v96.i32[3] = 0;
+  v97 = vnegq_f32(v367);
+  v97.i32[3] = 0;
+  v98 = vmulq_f32(v96, v72);
+  v98.i64[0] = vpaddq_f32(v98, v98).u64[0];
+  v99 = vpadd_f32(*v98.f32, *v98.f32);
+  v100 = vmulq_f32(v72, v97);
+  v100.i64[0] = vpaddq_f32(v100, v100).u64[0];
+  v101 = vpadd_f32(*v100.f32, *v100.f32);
+  if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v95), vand_s8(vclez_f32(v101), vcgez_f32(v99))), 0), *v366.f32).u32[0] == -1)
+  {
+    v128 = vsub_f32(v99, v101);
+    v129 = vrecpe_f32(v128);
+    v130 = 4;
+    do
+    {
+      v129 = vmul_f32(v129, vrecps_f32(v128, v129));
+      --v130;
+    }
+
+    while (v130);
+    v114 = 0;
+    v51 = vmlaq_n_f32(v366, v72, vmul_f32(v99, vbsl_s8(vcgt_f32(vabs_f32(v128), 0x3400000034000000), v129, 0)).f32[0]);
+    v113 = 2;
+    v115 = &v355;
+    v51.i64[1] = vextq_s8(v51, v51, 8uLL).u32[0];
+  }
+
+  else
+  {
+    v102 = vnegq_f32(v368[0]);
+    v102.i32[3] = 0;
+    v103 = vmulq_f32(v97, v73);
+    v103.i64[0] = vpaddq_f32(v103, v103).u64[0];
+    v104 = vpadd_f32(*v103.f32, *v103.f32);
+    v105 = vmulq_f32(v72, v102);
+    v105.i64[0] = vpaddq_f32(v105, v105).u64[0];
+    v106 = vpadd_f32(*v105.f32, *v105.f32);
+    v107 = vmulq_f32(v73, v102);
+    v107.i64[0] = vpaddq_f32(v107, v107).u64[0];
+    v108 = vpadd_f32(*v107.f32, *v107.f32);
+    if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcge_f32(v104, v101), vcge_f32(v106, v108)), vclez_f32(v91)), 0), *v366.f32).u32[0] == -1)
+    {
+      v135 = vsub_f32(v104, v101);
+      v136 = vadd_f32(v135, vsub_f32(v106, v108));
+      v137 = vrecpe_f32(v136);
+      v138 = 4;
+      do
+      {
+        v137 = vmul_f32(v137, vrecps_f32(v136, v137));
+        --v138;
+      }
+
+      while (v138);
+      v139 = vmlaq_n_f32(v367, vsubq_f32(v368[0], v367), vmul_f32(v135, vbsl_s8(vcgt_f32(vabs_f32(v136), 0x3400000034000000), v137, 0)).f32[0]);
+      v113 = 2;
+      v114 = 1;
+      v131 = &v359;
+      v115 = &v356;
+      v139.i64[1] = vextq_s8(v139, v139, 8uLL).u32[0];
+      v133 = v365;
+      v132 = v362;
+      v134 = v368;
+      v51 = v139;
+      goto LABEL_46;
+    }
+
+    v109 = vmulq_f32(v96, v73);
+    v110 = vpaddq_f32(v109, v109);
+    *v110.i8 = vpadd_f32(*v110.i8, *v110.i8);
+    if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v93), vand_s8(vclez_f32(v108), vcgez_f32(*v110.i8))), 0), *v366.f32).u32[0] == -1)
+    {
+      v140 = vsub_f32(*v110.i8, v108);
+      v141 = vrecpe_f32(v140);
+      v142 = 4;
+      do
+      {
+        v141 = vmul_f32(v141, vrecps_f32(v140, v141));
+        --v142;
+      }
+
+      while (v142);
+      v114 = 0;
+      v51 = vmlaq_n_f32(v366, v73, vmul_f32(*v110.i8, vbsl_s8(vcgt_f32(vabs_f32(v140), 0x3400000034000000), v141, 0)).f32[0]);
+      v113 = 2;
+      v131 = &v359;
+      v115 = &v356;
+      v51.i64[1] = vextq_s8(v51, v51, 8uLL).u32[0];
+      v133 = v365;
+      v132 = v362;
+      v134 = v368;
+      goto LABEL_46;
+    }
+
+    if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(*v110.i8), vclez_f32(v99)), 0), *v366.f32).u32[0] == -1)
+    {
+      v114 = 0;
+      v113 = 1;
+      v115 = &v355;
+    }
+
+    else
+    {
+      *v110.i8 = vcge_f32(v101, v104);
+      *v51.f32 = vdup_lane_s16(vand_s8(*v110.i8, vcgez_f32(v101)), 0);
+      *v51.f32 = vuzp1_s8(*v51.f32, *v51.f32);
+      v110.i32[0] = -1;
+      v111 = v51.i32[0];
+      v112 = vdupq_lane_s32(*&vceqq_s32(v51, v110), 0);
+      v113 = 1;
+      if (v111 == -1)
+      {
+        v114 = 1;
+      }
+
+      else
+      {
+        v114 = 2;
+      }
+
+      v115 = &v355;
+      v51 = vbslq_s8(v112, v367, v368[0]);
+    }
+  }
+
+  v132 = &v361;
+  v131 = &v358;
+  v133 = &v364;
+  v134 = &v367;
+LABEL_46:
+  v143 = *(&v366 + v114);
+  v144 = *v134;
+  v145 = *(&v363 + v114);
+  v146 = *v133;
+  v147 = *(&v360 + v114);
+  v148 = *v132;
+  v149 = *(&v357 + v114);
+  v150 = *v131;
+  v151 = *(&v354 + v114);
+  v152 = *v115;
+  v366 = v143;
+  v367 = v144;
+  v363 = v145;
+  v364 = v146;
+  v360 = v147;
+  v361 = v148;
+  v357 = v149;
+  v358 = v150;
+  v354 = v151;
+  v355 = v152;
+  v351 = v113;
+LABEL_47:
+  v352 = v51;
+  v153 = vmulq_f32(v51, v51);
+  v153.i64[0] = vpaddq_f32(v153, v153).u64[0];
+  v154 = vpadd_f32(*v153.f32, *v153.f32);
+  v155 = vrsqrte_f32(v154);
+  v156 = 4;
+  do
+  {
+    v155 = vmul_f32(v155, vrsqrts_f32(vmul_f32(v155, v155), v154));
+    --v156;
+  }
+
+  while (v156);
+  v69 = vbsl_s8(vdup_lane_s32(vceqz_f32(v154), 0), v154, vmul_f32(v154, v155));
+  v157 = vrecpe_f32(v69);
+  v158 = 4;
+  do
+  {
+    v157 = vmul_f32(v157, vrecps_f32(v69, v157));
+    --v158;
+  }
+
+  while (v158);
+  v159 = vmulq_n_f32(v51, v157.f32[0]);
+  v159.i32[3] = 0;
+  v346 = v159;
+  v70 = vdupq_lane_s32(vcgt_f32(v69, v24), 0);
+  v71 = v51;
+LABEL_52:
+  v160 = *&v29 + v28.f32[0];
+  v161 = xmmword_1E3102070;
+  LODWORD(v161) = -1;
+  v339 = v161;
+  v162 = v69;
+  v163.i64[0] = -1;
+  v163.i64[1] = -1;
+  while (1)
+  {
+    v164 = v51;
+    v165.i64[0] = -1;
+    v165.i64[1] = -1;
+    *v165.i8 = vmovn_s32(vceqq_s32(v70, v165));
+    if (vuzp1_s8(*v165.i8, *v165.i8).u32[0] != -1)
+    {
+      break;
+    }
+
+    v345 = v164;
+    v166 = vnegq_f32(v164);
+    v166.i32[3] = 0;
+    v348 = v69;
+    v350 = v166;
+    *v167.i64 = physx::Gu::RelativeConvex<physx::Gu::BoxV>::support(a1, &v350, &v357 + v351);
+    v168 = v167;
+    v169 = v351;
+    v170 = *(a2 + 8);
+    v171 = v352;
+    v172 = vcgtzq_f32(v352);
+    v173 = vandq_s8(v172, xmmword_1E3102070);
+    v173.i64[0] = vpaddq_s32(v173, v173).u64[0];
+    *(&v354 + v351) = vpadd_s32(*v173.i8, *v173.i8).u8[0] & 7;
+    v174 = v170[3];
+    v175 = vnegq_f32(v174);
+    v175.i32[3] = 0;
+    v176 = vbslq_s8(v172, v174, v175);
+    v51 = vsubq_f32(v168, v176);
+    v177 = v346;
+    v178 = vmulq_f32(v346, v51);
+    v178.i64[0] = vpaddq_f32(v178, v178).u64[0];
+    v179 = vpadd_f32(*v178.f32, *v178.f32).f32[0];
+    if (v179 > v160)
+    {
+      if (v13)
+      {
+        *a8 = v169;
+        if (v169)
+        {
+          v284 = &v354;
+          v285 = &v357;
+          do
+          {
+            v286 = *v285++;
+            *v13++ = v286;
+            v287 = *v284++;
+            *v12++ = v287;
+            --v169;
+          }
+
+          while (v169);
+        }
+      }
+
+      return 0;
+    }
+
+    v180 = v348;
+    if (v179 > (0.99977 * v348.f32[0]))
+    {
+      v288 = v344;
+      if (!v13)
+      {
+        goto LABEL_116;
+      }
+
+      *a8 = v169;
+      if (v169)
+      {
+        v289 = &v354;
+        v290 = &v357;
+        v291 = v169;
+        do
+        {
+          v292 = *v290++;
+          *v13++ = v292;
+          v293 = *v289++;
+          *v12++ = v293;
+          --v291;
+        }
+
+        while (v291);
+LABEL_116:
+        *(a12 + 32) = v346;
+        if (v169 != 3)
+        {
+          if (v169 == 2)
+          {
+            v305 = vsubq_f32(v366, v171);
+            v306 = vsubq_f32(vsubq_f32(v367, v171), v305);
+            v307 = vmulq_f32(v306, v306);
+            v307.i64[0] = vpaddq_f32(v307, v307).u64[0];
+            v308 = vpadd_f32(*v307.f32, *v307.f32);
+            v309 = vrecpe_f32(v308);
+            v310 = 4;
+            v296 = a5;
+            do
+            {
+              v309 = vmul_f32(v309, vrecps_f32(v308, v309));
+              --v310;
+            }
+
+            while (v310);
+            v311 = vnegq_f32(v305);
+            v311.i32[3] = 0;
+            v312 = vmulq_f32(v311, v306);
+            v312.i64[0] = vpaddq_f32(v312, v312).u64[0];
+            LODWORD(v313) = vmul_f32(vbsl_s8(vcgtz_f32(v308), v309, 0), vpadd_f32(*v312.f32, *v312.f32)).u32[0];
+            v294 = vmlaq_n_f32(v363, vsubq_f32(v364, v363), v313);
+            v294.i64[1] = vextq_s8(v294, v294, 8uLL).u32[0];
+            v295 = vmlaq_n_f32(v360, vsubq_f32(v361, v360), v313);
+            v295.i64[1] = vextq_s8(v295, v295, 8uLL).u32[0];
+          }
+
+          else
+          {
+            v294 = 0uLL;
+            v295 = 0uLL;
+            v296 = a5;
+            if (v169 == 1)
+            {
+              v294 = v363;
+              v295 = v360;
+              if (!a5)
+              {
+LABEL_137:
+                v319 = vmlsq_lane_f32(v294, v177, v340, 0);
+                v319.i64[1] = vextq_s8(v319, v319, 8uLL).u32[0];
+                v320 = vmlaq_n_f32(v295, v177, v341);
+                v320.i64[1] = vextq_s8(v320, v320, 8uLL).u32[0];
+                *a12 = v319;
+                *(a12 + 16) = v320;
+                *(a12 + 64) = vsub_f32(v180, v288);
+                return 2;
+              }
+
+LABEL_134:
+              *a12 = v294;
+              *(a12 + 16) = v295;
+              result = 2;
+              *(a12 + 64) = v180;
+              return result;
+            }
+          }
+
+          if (!v296)
+          {
+            goto LABEL_137;
+          }
+
+          goto LABEL_134;
+        }
+
+        v350.i64[0] = 0;
+        v353 = 0;
+        physx::Gu::barycentricCoordinates(&v352, &v366, &v367, v368, &v350, &v353);
+        v177 = v346;
+        v180 = v348;
+        v288 = v344;
+        v314 = vmulq_n_f32(vsubq_f32(v364, v363), v350.f32[0]);
+        v314.i32[3] = 0;
+        v315 = vmulq_n_f32(vsubq_f32(v365[0], v363), v353.f32[0]);
+        v315.i32[3] = 0;
+        v316 = vaddq_f32(v314, v315);
+        v317 = vmulq_n_f32(vsubq_f32(v361, v360), v350.f32[0]);
+        v317.i32[3] = 0;
+        v294 = vaddq_f32(v363, v316);
+        v318 = vmulq_n_f32(vsubq_f32(v362[0], v360), v353.f32[0]);
+        v318.i32[3] = 0;
+        v295 = vaddq_f32(v360, vaddq_f32(v317, v318));
+      }
+
+      else
+      {
+        *(a12 + 32) = v346;
+        v294 = 0uLL;
+        v295 = 0uLL;
+      }
+
+      if (!a5)
+      {
+        goto LABEL_137;
+      }
+
+      goto LABEL_134;
+    }
+
+    *(&v363 + v169) = v168;
+    *(&v360 + v169) = v176;
+    v351 = v169 + 1;
+    *(&v366 + v169) = v51;
+    switch(v169)
+    {
+      case 3:
+        physx::Gu::closestPtPointTetrahedron(&v366, &v363, &v360, &v357, &v354, &v351);
+        v180 = v348;
+        break;
+      case 2:
+        v51 = v366;
+        v189 = vsubq_f32(v367, v366);
+        v190 = vsubq_f32(v368[0], v366);
+        v192 = vmls_f32(vmul_f32(*v189.i8, *&vextq_s8(v190, v190, 4uLL)), *&vextq_s8(v189, v189, 4uLL), *v190.i8);
+        *v191.f32 = vext_s8(v192, vmls_f32(vmul_f32(*&vextq_s8(v189, v189, 8uLL), *v190.i8), *v189.i8, *&vextq_s8(v190, v190, 8uLL)), 4uLL);
+        v192.i32[1] = 0;
+        v351 = 3;
+        v193 = vpadd_f32(vmul_f32(*v191.f32, *v191.f32), vmul_f32(v192.u32[0], v192.u32[0]));
+        v194 = vpadd_f32(v193, v193);
+        if (v194.f32[0] <= 0.00000011921)
+        {
+          v351 = 2;
+          v233 = vmulq_f32(v189, v189);
+          v233.i64[0] = vpaddq_f32(v233, v233).u64[0];
+          v234 = vpadd_f32(*v233.f32, *v233.f32);
+          if (vuzp1_s8(vdup_lane_s16(vcge_f32(0x3400000034000000, v234), 0), *v366.f32).u32[0] == -1)
+          {
+LABEL_79:
+            v351 = 1;
+            break;
+          }
+
+          v235 = vnegq_f32(v366);
+          v235.i32[3] = 0;
+          v236 = vmulq_f32(v235, v189);
+          v236.i64[0] = vpaddq_f32(v236, v236).u64[0];
+          v237 = vpadd_f32(*v236.f32, *v236.f32);
+          v238 = vrecpe_f32(v234);
+          v239 = 4;
+          do
+          {
+            v238 = vmul_f32(v238, vrecps_f32(v234, v238));
+            --v239;
+          }
+
+          while (v239);
+          v51 = vmlaq_n_f32(v366, v189, vmax_f32(vmin_f32(vmul_f32(v237, v238), _D9), 0).f32[0]);
+          goto LABEL_78;
+        }
+
+        *&v191.u32[2] = v192;
+        v195 = vextq_s8(v367, v367, 8uLL).u64[0];
+        v196 = vextq_s8(v368[0], v368[0], 8uLL).u64[0];
+        v197 = vextq_s8(v368[0], v368[0], 4uLL).u64[0];
+        v198 = vextq_s8(v367, v367, 4uLL).u64[0];
+        v199 = vmls_f32(vmul_f32(*v367.f32, v197), v198, *v368[0].f32);
+        *v200.f32 = vext_s8(v199, vmls_f32(vmul_f32(v195, *v368[0].f32), *v367.f32, v196), 4uLL);
+        v200.i64[1] = v199.u32[0];
+        v201 = vextq_s8(v366, v366, 8uLL).u64[0];
+        v202 = vextq_s8(v366, v366, 4uLL).u64[0];
+        v203 = vmls_f32(vmul_f32(v202, *v368[0].f32), v197, *v366.f32);
+        *v204.f32 = vext_s8(v203, vmls_f32(vmul_f32(*v366.f32, v196), *v368[0].f32, v201), 4uLL);
+        v204.i64[1] = v203.u32[0];
+        v205 = vmls_f32(vmul_f32(*v366.f32, v198), v202, *v367.f32);
+        *v206.f32 = vext_s8(v205, vmls_f32(vmul_f32(v201, *v367.f32), *v366.f32, v195), 4uLL);
+        v206.i64[1] = v205.u32[0];
+        v207 = vmulq_f32(v200, v191);
+        v207.i64[0] = vpaddq_f32(v207, v207).u64[0];
+        v208 = vpadd_f32(*v207.f32, *v207.f32);
+        v209 = vmulq_f32(v204, v191);
+        v209.i64[0] = vpaddq_f32(v209, v209).u64[0];
+        v210 = vpadd_f32(*v209.f32, *v209.f32);
+        v211 = vmulq_f32(v206, v191);
+        v211.i64[0] = vpaddq_f32(v211, v211).u64[0];
+        v212 = vpadd_f32(*v211.f32, *v211.f32);
+        if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcgez_f32(v210), vcgez_f32(v208)), vcgez_f32(v212)), 0), *v366.f32).u32[0] != -1)
+        {
+          v213 = vnegq_f32(v366);
+          v213.i32[3] = 0;
+          v214 = vnegq_f32(v367);
+          v214.i32[3] = 0;
+          v215 = vmulq_f32(v213, v189);
+          v215.i64[0] = vpaddq_f32(v215, v215).u64[0];
+          v216 = vpadd_f32(*v215.f32, *v215.f32);
+          v217 = vmulq_f32(v189, v214);
+          v217.i64[0] = vpaddq_f32(v217, v217).u64[0];
+          v218 = vpadd_f32(*v217.f32, *v217.f32);
+          if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v212), vand_s8(vclez_f32(v218), vcgez_f32(v216))), 0), *v366.f32).u32[0] == -1)
+          {
+            v245 = vsub_f32(v216, v218);
+            v246 = vrecpe_f32(v245);
+            v247 = 4;
+            do
+            {
+              v246 = vmul_f32(v246, vrecps_f32(v245, v246));
+              --v247;
+            }
+
+            while (v247);
+            v231 = 0;
+            v51 = vmlaq_n_f32(v366, v189, vmul_f32(v216, vbsl_s8(vcgt_f32(vabs_f32(v245), 0x3400000034000000), v246, 0)).f32[0]);
+            v230 = 2;
+            v232 = &v355;
+            v51.i64[1] = vextq_s8(v51, v51, 8uLL).u32[0];
+            goto LABEL_86;
+          }
+
+          v219 = vnegq_f32(v368[0]);
+          v219.i32[3] = 0;
+          v220 = vmulq_f32(v214, v190);
+          v220.i64[0] = vpaddq_f32(v220, v220).u64[0];
+          v221 = vpadd_f32(*v220.f32, *v220.f32);
+          v222 = vmulq_f32(v189, v219);
+          v222.i64[0] = vpaddq_f32(v222, v222).u64[0];
+          v223 = vpadd_f32(*v222.f32, *v222.f32);
+          v224 = vmulq_f32(v190, v219);
+          v224.i64[0] = vpaddq_f32(v224, v224).u64[0];
+          v225 = vpadd_f32(*v224.f32, *v224.f32);
+          if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcge_f32(v221, v218), vcge_f32(v223, v225)), vclez_f32(v208)), 0), *v366.f32).u32[0] == -1)
+          {
+            v252 = vsub_f32(v221, v218);
+            v253 = vadd_f32(v252, vsub_f32(v223, v225));
+            v254 = vrecpe_f32(v253);
+            v255 = 4;
+            do
+            {
+              v254 = vmul_f32(v254, vrecps_f32(v253, v254));
+              --v255;
+            }
+
+            while (v255);
+            v256 = vmlaq_n_f32(v367, vsubq_f32(v368[0], v367), vmul_f32(v252, vbsl_s8(vcgt_f32(vabs_f32(v253), 0x3400000034000000), v254, 0)).f32[0]);
+            v256.i64[1] = vextq_s8(v256, v256, 8uLL).u32[0];
+            v230 = 2;
+            v51 = v256;
+            v231 = 1;
+            v232 = &v356;
+          }
+
+          else
+          {
+            v226 = vmulq_f32(v213, v190);
+            v226.i64[0] = vpaddq_f32(v226, v226).u64[0];
+            v227 = vpadd_f32(*v226.f32, *v226.f32);
+            if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v210), vand_s8(vclez_f32(v225), vcgez_f32(v227))), 0), *v366.f32).u32[0] != -1)
+            {
+              if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v227), vclez_f32(v216)), 0), *v366.f32).u32[0] == -1)
+              {
+                v231 = 0;
+                v230 = 1;
+                v232 = &v355;
+              }
+
+              else
+              {
+                *v51.f32 = vdup_lane_s16(vand_s8(vcge_f32(v218, v221), vcgez_f32(v218)), 0);
+                *v51.f32 = vuzp1_s8(*v51.f32, *v51.f32);
+                v228 = v51.i32[0];
+                v229 = vdupq_lane_s32(*&vceqq_s32(v51, v339), 0);
+                v230 = 1;
+                if (v228 == -1)
+                {
+                  v231 = 1;
+                }
+
+                else
+                {
+                  v231 = 2;
+                }
+
+                v232 = &v355;
+                v51 = vbslq_s8(v229, v367, v368[0]);
+              }
+
+LABEL_86:
+              v249 = &v361;
+              v248 = &v358;
+              v250 = &v364;
+              v251 = &v367;
+LABEL_94:
+              v260 = *(&v366 + v231);
+              v261 = *v251;
+              v262 = *(&v363 + v231);
+              v263 = *v250;
+              v264 = *(&v360 + v231);
+              v265 = *v249;
+              v266 = *(&v357 + v231);
+              v267 = *v248;
+              v268 = *(&v354 + v231);
+              v269 = *v232;
+              v366 = v260;
+              v367 = v261;
+              v363 = v262;
+              v364 = v263;
+              v360 = v264;
+              v361 = v265;
+              v357 = v266;
+              v358 = v267;
+              v354 = v268;
+              v355 = v269;
+              v351 = v230;
+              break;
+            }
+
+            v257 = vsub_f32(v227, v225);
+            v258 = vrecpe_f32(v257);
+            v259 = 4;
+            do
+            {
+              v258 = vmul_f32(v258, vrecps_f32(v257, v258));
+              --v259;
+            }
+
+            while (v259);
+            v231 = 0;
+            v51 = vmlaq_n_f32(v366, v190, vmul_f32(v227, vbsl_s8(vcgt_f32(vabs_f32(v257), 0x3400000034000000), v258, 0)).f32[0]);
+            v230 = 2;
+            v232 = &v356;
+            v51.i64[1] = vextq_s8(v51, v51, 8uLL).u32[0];
+          }
+
+          v249 = v362;
+          v248 = &v359;
+          v250 = v365;
+          v251 = v368;
+          goto LABEL_94;
+        }
+
+        v240 = vmulq_f32(v366, v191);
+        v241 = vextq_s8(v240, v240, 8uLL).u64[0];
+        v242 = vrecpe_f32(v194);
+        v243 = 4;
+        do
+        {
+          v242 = vmul_f32(v242, vrecps_f32(v194, v242));
+          --v243;
+        }
+
+        while (v243);
+        v244 = vpadd_f32(*v240.i8, v241);
+        v51 = vmulq_n_f32(v191, vmul_f32(v242, vpadd_f32(v244, v244)).f32[0]);
+        v51.i32[3] = 0;
+        break;
+      case 1:
+        v51 = v366;
+        v181 = vsubq_f32(v367, v366);
+        v182 = vmulq_f32(v181, v181);
+        v182.i64[0] = vpaddq_f32(v182, v182).u64[0];
+        v183 = vpadd_f32(*v182.f32, *v182.f32);
+        if (vuzp1_s8(vdup_lane_s16(vcge_f32(0x3400000034000000, v183), 0), *v366.f32).u32[0] == -1)
+        {
+          goto LABEL_79;
+        }
+
+        v184 = vnegq_f32(v366);
+        v184.i32[3] = 0;
+        v185 = vmulq_f32(v184, v181);
+        v185.i64[0] = vpaddq_f32(v185, v185).u64[0];
+        v186 = vpadd_f32(*v185.f32, *v185.f32);
+        v187 = vrecpe_f32(v183);
+        v188 = 4;
+        do
+        {
+          v187 = vmul_f32(v187, vrecps_f32(v183, v187));
+          --v188;
+        }
+
+        while (v188);
+        v51 = vmlaq_n_f32(v366, v181, vmax_f32(vmin_f32(vmul_f32(v186, v187), _D9), 0).f32[0]);
+LABEL_78:
+        v51.i64[1] = vextq_s8(v51, v51, 8uLL).u32[0];
+        break;
+    }
+
+    v352 = v51;
+    v270 = vmulq_f32(v51, v51);
+    v270.i64[0] = vpaddq_f32(v270, v270).u64[0];
+    v271 = vpadd_f32(*v270.f32, *v270.f32);
+    v272 = vrsqrte_f32(v271);
+    v273 = 4;
+    do
+    {
+      v272 = vmul_f32(v272, vrsqrts_f32(vmul_f32(v272, v272), v271));
+      --v273;
+    }
+
+    while (v273);
+    v69 = vbsl_s8(vdup_lane_s32(vceqz_f32(v271), 0), v271, vmul_f32(v271, v272));
+    v274 = vrecpe_f32(v69);
+    v275 = 4;
+    do
+    {
+      v274 = vmul_f32(v274, vrecps_f32(v69, v274));
+      --v275;
+    }
+
+    while (v275);
+    v276 = vmulq_n_f32(v51, v274.f32[0]);
+    v276.i32[3] = 0;
+    v346 = v276;
+    *v276.f32 = vcgt_f32(v180, v69);
+    v163 = vdupq_lane_s32(*v276.f32, 0);
+    v70 = vdupq_lane_s32(vand_s8(vcgt_f32(v69, v24), *v276.f32), 0);
+    v162 = v180;
+    v71 = v345;
+  }
+
+  v277 = vmovn_s32(vceqzq_s32(v163));
+  v278 = v351;
+  if (vuzp1_s8(v277, v277).u32[0] != -1)
+  {
+    if (v13)
+    {
+      *a8 = v351;
+      if (v278)
+      {
+        v279 = &v354;
+        v280 = &v357;
+        do
+        {
+          v281 = *v280++;
+          *v13++ = v281;
+          v282 = *v279++;
+          *v12++ = v282;
+          --v278;
+        }
+
+        while (v278);
+      }
+    }
+
+    return 5;
+  }
+
+  v297 = v344;
+  if (v13)
+  {
+    v298 = v351 - 1;
+    *a8 = v351 - 1;
+    if (v278 != 1)
+    {
+      v299 = &v354;
+      v300 = &v357;
+      do
+      {
+        v301 = *v300++;
+        *v13++ = v301;
+        v302 = *v299++;
+        *v12++ = v302;
+        --v298;
+      }
+
+      while (v298);
+      goto LABEL_125;
+    }
+
+LABEL_128:
+    v303 = v363;
+    v304 = v360;
+  }
+
+  else
+  {
+LABEL_125:
+    v352 = v71;
+    if (v278 == 3)
+    {
+      v350.i64[0] = 0;
+      v353 = 0;
+      v349 = v71;
+      physx::Gu::barycentricCoordinates(&v352, &v366, &v367, v368, &v350, &v353);
+      v297 = v344;
+      v329 = vmulq_n_f32(vsubq_f32(v364, v363), v350.f32[0]);
+      v329.i32[3] = 0;
+      v330 = vmulq_n_f32(vsubq_f32(v365[0], v363), v353.f32[0]);
+      v330.i32[3] = 0;
+      v331 = vaddq_f32(v329, v330);
+      v332 = vmulq_n_f32(vsubq_f32(v361, v360), v350.f32[0]);
+      v332.i32[3] = 0;
+      v303 = vaddq_f32(v363, v331);
+      v333 = vmulq_n_f32(vsubq_f32(v362[0], v360), v353.f32[0]);
+      v71 = v349;
+      v333.i32[3] = 0;
+      v304 = vaddq_f32(v360, vaddq_f32(v332, v333));
+    }
+
+    else if (v278 == 2)
+    {
+      v321 = vsubq_f32(v366, v71);
+      v322 = vsubq_f32(vsubq_f32(v367, v71), v321);
+      v323 = vmulq_f32(v322, v322);
+      v323.i64[0] = vpaddq_f32(v323, v323).u64[0];
+      v324 = vpadd_f32(*v323.f32, *v323.f32);
+      v325 = vrecpe_f32(v324);
+      v326 = 4;
+      do
+      {
+        v325 = vmul_f32(v325, vrecps_f32(v324, v325));
+        --v326;
+      }
+
+      while (v326);
+      v327 = vnegq_f32(v321);
+      v327.i32[3] = 0;
+      v328 = vmulq_f32(v327, v322);
+      v328.i64[0] = vpaddq_f32(v328, v328).u64[0];
+      v327.i32[0] = vmul_f32(vbsl_s8(vcgtz_f32(v324), v325, 0), vpadd_f32(*v328.f32, *v328.f32)).u32[0];
+      v303 = vmlaq_n_f32(v363, vsubq_f32(v364, v363), v327.f32[0]);
+      v303.i64[1] = vextq_s8(v303, v303, 8uLL).u32[0];
+      v304 = vmlaq_n_f32(v360, vsubq_f32(v361, v360), v327.f32[0]);
+      v304.i64[1] = vextq_s8(v304, v304, 8uLL).u32[0];
+    }
+
+    else
+    {
+      v303 = 0uLL;
+      v304 = 0uLL;
+      if (v278 == 1)
+      {
+        goto LABEL_128;
+      }
+    }
+  }
+
+  v334 = vrecpe_f32(v162);
+  v335 = 4;
+  do
+  {
+    v334 = vmul_f32(v334, vrecps_f32(v162, v334));
+    --v335;
+  }
+
+  while (v335);
+  v336 = vmulq_n_f32(v71, v334.f32[0]);
+  v336.i32[3] = 0;
+  *(a12 + 32) = v336;
+  *(a12 + 48) = v346;
+  if (a5)
+  {
+    *a12 = v303;
+    *(a12 + 16) = v304;
+    *(a12 + 64) = v162;
+  }
+
+  else
+  {
+    v337 = vmlsq_lane_f32(v303, v336, v340, 0);
+    v337.i64[1] = vextq_s8(v337, v337, 8uLL).u32[0];
+    v338 = vmlaq_n_f32(v304, v336, v341);
+    v338.i64[1] = vextq_s8(v338, v338, 8uLL).u32[0];
+    *a12 = v337;
+    *(a12 + 16) = v338;
+    *(a12 + 64) = vsub_f32(v162, v297);
+    if (vcge_f32(v297, v162).u32[0])
+    {
+      return 2;
+    }
+  }
+
+  return 4;
+}
+
+double physx::Gu::LocalConvex<physx::Gu::TriangleV>::support(uint64_t a1, float32x4_t *a2)
+{
+  v2 = *(a1 + 8);
+  v3 = v2[3];
+  v4 = v2[4];
+  v5 = v2[5];
+  v6 = vmulq_f32(v3, *a2);
+  v6.i64[0] = vpaddq_f32(v6, v6).u64[0];
+  *v6.f32 = vpadd_f32(*v6.f32, *v6.f32);
+  v7 = vmulq_f32(v4, *a2);
+  v7.i64[0] = vpaddq_f32(v7, v7).u64[0];
+  *v7.f32 = vpadd_f32(*v7.f32, *v7.f32);
+  v8 = vmulq_f32(v5, *a2);
+  v8.i64[0] = vpaddq_f32(v8, v8).u64[0];
+  *v8.f32 = vpadd_f32(*v8.f32, *v8.f32);
+  *&result = vbslq_s8(vmovl_s16(vdup_lane_s16(vand_s8(vcgt_f32(*v6.f32, *v8.f32), vcgt_f32(*v6.f32, *v7.f32)), 0)), v3, vbslq_s8(vmovl_s16(vdup_lane_s16(vcgt_f32(*v7.f32, *v8.f32), 0)), v4, v5)).u64[0];
+  return result;
+}
+
+double physx::Gu::LocalConvex<physx::Gu::TriangleV>::support(uint64_t a1, float32x4_t *a2, unsigned __int32 *a3)
+{
+  v3 = *(a1 + 8);
+  v4 = v3[3];
+  v5 = v3[4];
+  v6 = v3[5];
+  v7 = vmulq_f32(v4, *a2);
+  v7.i64[0] = vpaddq_f32(v7, v7).u64[0];
+  *v7.f32 = vpadd_f32(*v7.f32, *v7.f32);
+  v8 = vmulq_f32(v5, *a2);
+  v8.i64[0] = vpaddq_f32(v8, v8).u64[0];
+  *v8.i8 = vpadd_f32(*v8.i8, *v8.i8);
+  v9 = vmulq_f32(v6, *a2);
+  v9.i64[0] = vpaddq_f32(v9, v9).u64[0];
+  *v9.f32 = vpadd_f32(*v9.f32, *v9.f32);
+  *v7.f32 = vand_s8(vcgt_f32(*v7.f32, *v9.f32), vcgt_f32(*v7.f32, *v8.i8));
+  v10 = vmovl_s16(vdup_lane_s16(vcgt_f32(*v8.i8, *v9.f32), 0));
+  v8.i64[0] = 0x200000002;
+  v8.i64[1] = 0x200000002;
+  v11.i64[0] = 0x100000001;
+  v11.i64[1] = 0x100000001;
+  *a3 = vbslq_s8(v10, v11, v8).u32[0] & ~v7.i32[0];
+  *&result = vbslq_s8(vdupq_lane_s32(*v7.f32, 0), v4, vbslq_s8(v10, v5, v6)).u64[0];
+  return result;
+}
+
+BOOL physx::Gu::gjkRaycast<physx::Gu::LocalConvex<physx::Gu::TriangleV>,physx::Gu::LocalConvex<physx::Gu::BoxV>>(uint64_t a1, uint64_t a2, float32x4_t *a3, int32x2_t a4, uint64_t a5, float32x4_t *a6, float32x4_t *a7, float32x2_t *a8, float32x4_t *a9, int8x16_t *a10)
+{
+  v227 = *MEMORY[0x1E69E9840];
+  v14 = vmlaq_f32(*a6, 0, *a7);
+  v15 = vextq_s8(v14, v14, 8uLL).u32[0];
+  v215 = 1;
+  v16 = vmulq_f32(*a3, *a3);
+  v16.i64[0] = vpaddq_f32(v16, v16).u64[0];
+  v17 = vbslq_s8(vmovl_s16(vdup_lane_s16(vcgt_f32(vpadd_f32(*v16.f32, *v16.f32), 0x3400000034000000), 0)), *a3, xmmword_1E3047670);
+  v18 = vmulq_f32(v17, v17);
+  v18.i64[0] = vpaddq_f32(v18, v18).u64[0];
+  v19 = vpadd_f32(*v18.f32, *v18.f32);
+  v20 = vrsqrte_f32(v19);
+  v21 = 4;
+  do
+  {
+    v20 = vmul_f32(v20, vrsqrts_f32(vmul_f32(v20, v20), v19));
+    --v21;
+  }
+
+  while (v21);
+  v22 = vbsl_s8(vdup_lane_s32(vceqz_f32(v19), 0), v19, vmul_f32(v19, v20));
+  v23 = vrecpe_f32(v22);
+  v24 = 4;
+  do
+  {
+    v23 = vmul_f32(v23, vrecps_f32(v22, v23));
+    --v24;
+  }
+
+  while (v24);
+  v25 = vdup_lane_s32(a4, 0);
+  v14.i64[1] = v15;
+  v26 = vmulq_n_f32(v17, v23.f32[0]);
+  v26.i32[3] = 0;
+  v27 = vnegq_f32(v26);
+  v27.i32[3] = 0;
+  v28 = *(a1 + 8);
+  v29 = v28[3];
+  v30 = v28[4];
+  v31 = v28[5];
+  v32 = vmulq_f32(v27, v29);
+  v32.i64[0] = vpaddq_f32(v32, v32).u64[0];
+  *v32.f32 = vpadd_f32(*v32.f32, *v32.f32);
+  v33 = vmulq_f32(v27, v30);
+  v33.i64[0] = vpaddq_f32(v33, v33).u64[0];
+  *v33.f32 = vpadd_f32(*v33.f32, *v33.f32);
+  v34 = vmulq_f32(v27, v31);
+  v34.i64[0] = vpaddq_f32(v34, v34).u64[0];
+  *v34.f32 = vpadd_f32(*v34.f32, *v34.f32);
+  v35 = vbslq_s8(vmovl_s16(vdup_lane_s16(vand_s8(vcgt_f32(*v32.f32, *v34.f32), vcgt_f32(*v32.f32, *v33.f32)), 0)), v29, vbslq_s8(vmovl_s16(vdup_lane_s16(vcgt_f32(*v33.f32, *v34.f32), 0)), v30, v31));
+  v36 = *(a2 + 8);
+  v37 = *(v36 + 48);
+  v38 = vnegq_f32(v37);
+  v38.i32[3] = 0;
+  v39 = vbslq_s8(vcgtzq_f32(v26), v37, v38);
+  v40 = vsubq_f32(v35, v39);
+  v224 = v40;
+  v225 = 0u;
+  memset(v226, 0, sizeof(v226));
+  v221 = v35;
+  v222 = 0u;
+  memset(v223, 0, sizeof(v223));
+  v41 = vnegq_f32(v40);
+  v41.i32[3] = 0;
+  v36 += 24;
+  v219 = 0u;
+  memset(v220, 0, sizeof(v220));
+  *v35.f32 = vld1_dup_f32(v36);
+  v218 = v39;
+  v42 = vneg_f32(0x80000000800000);
+  *v35.f32 = vmul_f32(vmin_f32(*v35.f32, v42), vdup_n_s32(0x3DCCCCCDu));
+  v43 = vadd_f32(v25, *v35.f32);
+  *v39.f32 = vmul_f32(*v35.f32, *v35.f32);
+  v44 = vmul_f32(v43, v43);
+  v45 = vmulq_f32(v41, v41);
+  v46 = vpaddq_f32(v45, v45);
+  v47 = vpadd_f32(*v46.f32, *v46.f32);
+  v206 = *v39.f32;
+  v48 = vcgt_f32(v47, *v39.f32);
+  v49.i64[0] = -1;
+  v49.i64[1] = -1;
+  v46.i32[0] = -1;
+  v205 = v46;
+  v50 = v40;
+  v209 = v41;
+  v51 = v41;
+  v52 = 0;
+  while (1)
+  {
+    v53 = v40;
+    v54 = vcltz_s16(vshl_n_s16(vdup_lane_s16(v48, 0), 0xFuLL));
+    v55 = vuzp1_s8(v54, v54).u32[0];
+    if (v55 != -1)
+    {
+      break;
+    }
+
+    v56 = vmulq_f32(v51, v51);
+    v56.i64[0] = vpaddq_f32(v56, v56).u64[0];
+    v57 = vpadd_f32(*v56.f32, *v56.f32);
+    v58 = vrsqrte_f32(v57);
+    v59 = 4;
+    do
+    {
+      v58 = vmul_f32(v58, vrsqrts_f32(vmul_f32(v58, v58), v57));
+      --v59;
+    }
+
+    while (v59);
+    v60 = vbsl_s8(vdup_lane_s32(vceqz_f32(v57), 0), v57, vmul_f32(v57, v58));
+    v61 = vrecpe_f32(v60);
+    v62 = 4;
+    do
+    {
+      v61 = vmul_f32(v61, vrecps_f32(v60, v61));
+      --v62;
+    }
+
+    while (v62);
+    v63 = vmulq_n_f32(v51, v61.f32[0]);
+    v63.i32[3] = 0;
+    v64 = vnegq_f32(v63);
+    v64.i32[3] = 0;
+    v65 = *(a1 + 8);
+    v66 = v65[3];
+    v67 = v65[4];
+    v68 = v65[5];
+    v69 = vmulq_f32(v63, v66);
+    v69.i64[0] = vpaddq_f32(v69, v69).u64[0];
+    *v69.f32 = vpadd_f32(*v69.f32, *v69.f32);
+    v70 = vmulq_f32(v63, v67);
+    v70.i64[0] = vpaddq_f32(v70, v70).u64[0];
+    *v70.f32 = vpadd_f32(*v70.f32, *v70.f32);
+    v71 = vmulq_f32(v63, v68);
+    v71.i64[0] = vpaddq_f32(v71, v71).u64[0];
+    *v71.f32 = vpadd_f32(*v71.f32, *v71.f32);
+    v72 = vbslq_s8(vmovl_s16(vdup_lane_s16(vand_s8(vcgt_f32(*v69.f32, *v71.f32), vcgt_f32(*v69.f32, *v70.f32)), 0)), v66, vbslq_s8(vmovl_s16(vdup_lane_s16(vcgt_f32(*v70.f32, *v71.f32), 0)), v67, v68));
+    v73 = *(*(a2 + 8) + 48);
+    v74 = vnegq_f32(v73);
+    v74.i32[3] = 0;
+    v75 = vbslq_s8(vcgtzq_f32(v64), v73, v74);
+    v76 = vaddq_f32(v14, v75);
+    v40 = vsubq_f32(v72, v76);
+    v77 = vnegq_f32(v40);
+    v77.i32[3] = 0;
+    v78 = vmulq_f32(v63, v77);
+    v78.i64[0] = vpaddq_f32(v78, v78).u64[0];
+    v79 = vsub_f32(vpadd_f32(*v78.f32, *v78.f32), v43);
+    if (v79.f32[0] > 0.0)
+    {
+      v80 = vmulq_f32(v63, *a7);
+      v80.i64[0] = vpaddq_f32(v80, v80).u64[0];
+      v81 = vpadd_f32(*v80.f32, *v80.f32);
+      if (v81.f32[0] >= 0.0)
+      {
+        return v55 != -1;
+      }
+
+      v82 = vrecpe_f32(v81);
+      v83 = 4;
+      do
+      {
+        v82 = vmul_f32(v82, vrecps_f32(v81, v82));
+        --v83;
+      }
+
+      while (v83);
+      v84 = vsub_f32(v52, vmul_f32(v79, v82));
+      if (vcgt_f32(v84, v52).u8[0])
+      {
+        if (v84.f32[0] > 1.0)
+        {
+          return v55 != -1;
+        }
+
+        v85 = vmlaq_n_f32(*a6, *a7, v84.f32[0]);
+        v85.i64[1] = vextq_s8(v85, v85, 8uLL).u32[0];
+        v86 = vsubq_f32(v85, v14);
+        v218 = vaddq_f32(v218, v86);
+        v219 = vaddq_f32(v219, v86);
+        v220[0] = vaddq_f32(v220[0], v86);
+        v224 = vsubq_f32(v221, v218);
+        v225 = vsubq_f32(v222, v219);
+        v226[0] = vsubq_f32(v223[0], v220[0]);
+        v76 = vaddq_f32(v75, v85);
+        v40 = vsubq_f32(v72, v76);
+        v47 = v42;
+        v209 = v51;
+        v14 = v85;
+      }
+
+      v52 = v84;
+    }
+
+    v212 = v53;
+    v87 = v215;
+    *(&v221 + v215) = v72;
+    *(&v218 + v87) = v76;
+    v215 = v87 + 1;
+    *(&v224 + v87) = v40;
+    if (v87 == 3)
+    {
+      v210 = v14;
+      physx::Gu::closestPtPointTetrahedron(&v224, &v221, &v218, &v215);
+      v14 = v210;
+LABEL_36:
+      v50 = v212;
+      goto LABEL_60;
+    }
+
+    if (v87 == 2)
+    {
+      v40 = v224;
+      v102 = vsubq_f32(v225, v224);
+      v103 = vsubq_f32(v226[0], v224);
+      v105 = vmls_f32(vmul_f32(*v102.i8, *&vextq_s8(v103, v103, 4uLL)), *&vextq_s8(v102, v102, 4uLL), *v103.i8);
+      *v104.f32 = vext_s8(v105, vmls_f32(vmul_f32(*&vextq_s8(v102, v102, 8uLL), *v103.i8), *v102.i8, *&vextq_s8(v103, v103, 8uLL)), 4uLL);
+      v105.i32[1] = 0;
+      v215 = 3;
+      v106 = vpadd_f32(vmul_f32(*v104.f32, *v104.f32), vmul_f32(v105.u32[0], v105.u32[0]));
+      v107 = vpadd_f32(v106, v106);
+      if (v107.f32[0] <= 0.00000011921)
+      {
+        v215 = 2;
+        v144 = vmulq_f32(v102, v102);
+        v144.i64[0] = vpaddq_f32(v144, v144).u64[0];
+        v145 = vpadd_f32(*v144.f32, *v144.f32);
+        if (vuzp1_s8(vdup_lane_s16(vcge_f32(0x3400000034000000, v145), 0), *v224.i8).u32[0] == -1)
+        {
+          v215 = 1;
+          goto LABEL_36;
+        }
+
+        v146 = vnegq_f32(v224);
+        v146.i32[3] = 0;
+        v147 = vmulq_f32(v146, v102);
+        v147.i64[0] = vpaddq_f32(v147, v147).u64[0];
+        v148 = vpadd_f32(*v147.f32, *v147.f32);
+        v149 = vrecpe_f32(v145);
+        v150 = 4;
+        v50 = v53;
+        do
+        {
+          v149 = vmul_f32(v149, vrecps_f32(v145, v149));
+          --v150;
+        }
+
+        while (v150);
+        v151 = vmul_f32(v148, v149);
+        __asm { FMOV            V2.2S, #1.0 }
+
+        v40 = vmlaq_n_f32(v224, v102, vmax_f32(vmin_f32(v151, _D2), 0).f32[0]);
+        goto LABEL_41;
+      }
+
+      *&v104.u32[2] = v105;
+      v108 = vextq_s8(v225, v225, 8uLL).u64[0];
+      v109 = vextq_s8(v226[0], v226[0], 8uLL).u64[0];
+      v110 = vextq_s8(v226[0], v226[0], 4uLL).u64[0];
+      v111 = vextq_s8(v225, v225, 4uLL).u64[0];
+      v112 = vmls_f32(vmul_f32(*v225.f32, v110), v111, *v226[0].f32);
+      *v113.f32 = vext_s8(v112, vmls_f32(vmul_f32(v108, *v226[0].f32), *v225.f32, v109), 4uLL);
+      v113.i64[1] = v112.u32[0];
+      v114 = vextq_s8(v224, v224, 8uLL).u64[0];
+      v115 = vextq_s8(v224, v224, 4uLL).u64[0];
+      v116 = vmls_f32(vmul_f32(v115, *v226[0].f32), v110, *v224.i8);
+      *v117.f32 = vext_s8(v116, vmls_f32(vmul_f32(*v224.i8, v109), *v226[0].f32, v114), 4uLL);
+      v117.i64[1] = v116.u32[0];
+      v118 = vmls_f32(vmul_f32(*v224.i8, v111), v115, *v225.f32);
+      *v119.f32 = vext_s8(v118, vmls_f32(vmul_f32(v114, *v225.f32), *v224.i8, v108), 4uLL);
+      v119.i64[1] = v118.u32[0];
+      v120 = vmulq_f32(v113, v104);
+      v120.i64[0] = vpaddq_f32(v120, v120).u64[0];
+      v121 = vpadd_f32(*v120.f32, *v120.f32);
+      v122 = vmulq_f32(v117, v104);
+      v122.i64[0] = vpaddq_f32(v122, v122).u64[0];
+      v123 = vpadd_f32(*v122.f32, *v122.f32);
+      v124 = vmulq_f32(v119, v104);
+      v124.i64[0] = vpaddq_f32(v124, v124).u64[0];
+      v125 = vpadd_f32(*v124.f32, *v124.f32);
+      if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcgez_f32(v123), vcgez_f32(v121)), vcgez_f32(v125)), 0), *v224.i8).u32[0] == -1)
+      {
+        v153 = vmulq_f32(v224, v104);
+        v154 = vextq_s8(v153, v153, 8uLL).u64[0];
+        v155 = vrecpe_f32(v107);
+        v156 = 4;
+        do
+        {
+          v155 = vmul_f32(v155, vrecps_f32(v107, v155));
+          --v156;
+        }
+
+        while (v156);
+        v157 = vpadd_f32(*v153.i8, v154);
+        v40 = vmulq_n_f32(v104, vmul_f32(v155, vpadd_f32(v157, v157)).f32[0]);
+        v40.i32[3] = 0;
+        goto LABEL_36;
+      }
+
+      v126 = vnegq_f32(v224);
+      v126.i32[3] = 0;
+      v127 = vnegq_f32(v225);
+      v127.i32[3] = 0;
+      v128 = vmulq_f32(v126, v102);
+      v128.i64[0] = vpaddq_f32(v128, v128).u64[0];
+      v129 = vpadd_f32(*v128.f32, *v128.f32);
+      v130 = vmulq_f32(v102, v127);
+      v130.i64[0] = vpaddq_f32(v130, v130).u64[0];
+      v131 = vpadd_f32(*v130.f32, *v130.f32);
+      if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v125), vand_s8(vclez_f32(v131), vcgez_f32(v129))), 0), *v224.i8).u32[0] == -1)
+      {
+        v158 = vsub_f32(v129, v131);
+        v159 = vrecpe_f32(v158);
+        v160 = 4;
+        v50 = v212;
+        do
+        {
+          v159 = vmul_f32(v159, vrecps_f32(v158, v159));
+          --v160;
+        }
+
+        while (v160);
+        v143 = 0;
+        v40 = vmlaq_n_f32(v224, v102, vmul_f32(v129, vbsl_s8(vcgt_f32(vabs_f32(v158), 0x3400000034000000), v159, 0)).f32[0]);
+        v40.i64[1] = vextq_s8(v40, v40, 8uLL).u32[0];
+        v142 = 2;
+        v161 = &v219;
+        v162 = &v222;
+        v163 = &v225;
+      }
+
+      else
+      {
+        v132 = vnegq_f32(v226[0]);
+        v132.i32[3] = 0;
+        v133 = vmulq_f32(v127, v103);
+        v133.i64[0] = vpaddq_f32(v133, v133).u64[0];
+        v134 = vpadd_f32(*v133.f32, *v133.f32);
+        v135 = vmulq_f32(v102, v132);
+        v135.i64[0] = vpaddq_f32(v135, v135).u64[0];
+        v136 = vpadd_f32(*v135.f32, *v135.f32);
+        v137 = vmulq_f32(v103, v132);
+        v137.i64[0] = vpaddq_f32(v137, v137).u64[0];
+        v138 = vpadd_f32(*v137.f32, *v137.f32);
+        if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcge_f32(v134, v131), vcge_f32(v136, v138)), vclez_f32(v121)), 0), *v224.i8).u32[0] == -1)
+        {
+          v164 = vsub_f32(v134, v131);
+          v165 = vadd_f32(v164, vsub_f32(v136, v138));
+          v166 = vrecpe_f32(v165);
+          v167 = 4;
+          do
+          {
+            v166 = vmul_f32(v166, vrecps_f32(v165, v166));
+            --v167;
+          }
+
+          while (v167);
+          v168 = vmlaq_n_f32(v225, vsubq_f32(v226[0], v225), vmul_f32(v164, vbsl_s8(vcgt_f32(vabs_f32(v165), 0x3400000034000000), v166, 0)).f32[0]);
+          v142 = 2;
+          v162 = v223;
+          v161 = v220;
+          v168.i64[1] = vextq_s8(v168, v168, 8uLL).u32[0];
+          v163 = v226;
+          v143 = 1;
+          v40 = v168;
+        }
+
+        else
+        {
+          v139 = vmulq_f32(v126, v103);
+          v139.i64[0] = vpaddq_f32(v139, v139).u64[0];
+          v140 = vpadd_f32(*v139.f32, *v139.f32);
+          if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v123), vand_s8(vclez_f32(v138), vcgez_f32(v140))), 0), *v224.i8).u32[0] == -1)
+          {
+            v169 = vsub_f32(v140, v138);
+            v170 = vrecpe_f32(v169);
+            v171 = 4;
+            do
+            {
+              v170 = vmul_f32(v170, vrecps_f32(v169, v170));
+              --v171;
+            }
+
+            while (v171);
+            v143 = 0;
+            v40 = vmlaq_n_f32(v224, v103, vmul_f32(v140, vbsl_s8(vcgt_f32(vabs_f32(v169), 0x3400000034000000), v170, 0)).f32[0]);
+            v40.i64[1] = vextq_s8(v40, v40, 8uLL).u32[0];
+            v142 = 2;
+            v162 = v223;
+            v161 = v220;
+            v163 = v226;
+          }
+
+          else
+          {
+            if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v140), vclez_f32(v129)), 0), *v224.i8).u32[0] == -1)
+            {
+              v143 = 0;
+              v142 = 1;
+            }
+
+            else
+            {
+              *v40.i8 = vdup_lane_s16(vand_s8(vcge_f32(v131, v134), vcgez_f32(v131)), 0);
+              *v40.i8 = vuzp1_s8(*v40.i8, *v40.i8);
+              v141 = v40.i32[0];
+              v142 = 1;
+              v40 = vbslq_s8(vdupq_lane_s32(*&vceqq_s32(v40, v205), 0), v225, v226[0]);
+              if (v141 == -1)
+              {
+                v143 = 1;
+              }
+
+              else
+              {
+                v143 = 2;
+              }
+            }
+
+            v161 = &v219;
+            v162 = &v222;
+            v163 = &v225;
+          }
+        }
+
+        v50 = v212;
+      }
+
+      v172 = *(&v221 + v143);
+      v173 = *v163;
+      v174 = *v162;
+      v175 = *(&v218 + v143);
+      v176 = *v161;
+      v224 = *(&v224 + v143);
+      v225 = v173;
+      v221 = v172;
+      v222 = v174;
+      v218 = v175;
+      v219 = v176;
+      v215 = v142;
+    }
+
+    else
+    {
+      v50 = v53;
+      if (v87 != 1)
+      {
+        goto LABEL_60;
+      }
+
+      v40 = v224;
+      v88 = vsubq_f32(v225, v224);
+      v89 = vmulq_f32(v88, v88);
+      v89.i64[0] = vpaddq_f32(v89, v89).u64[0];
+      v90 = vpadd_f32(*v89.f32, *v89.f32);
+      if (vuzp1_s8(vdup_lane_s16(vcge_f32(0x3400000034000000, v90), 0), *v224.i8).u32[0] != -1)
+      {
+        v91 = vnegq_f32(v224);
+        v91.i32[3] = 0;
+        v92 = vmulq_f32(v91, v88);
+        v92.i64[0] = vpaddq_f32(v92, v92).u64[0];
+        v93 = vpadd_f32(*v92.f32, *v92.f32);
+        v94 = vrecpe_f32(v90);
+        v95 = 4;
+        do
+        {
+          v94 = vmul_f32(v94, vrecps_f32(v90, v94));
+          --v95;
+        }
+
+        while (v95);
+        v96 = vmul_f32(v93, v94);
+        __asm { FMOV            V3.2S, #1.0 }
+
+        v40 = vmlaq_n_f32(v224, v88, vmax_f32(vmin_f32(v96, _D3), 0).f32[0]);
+LABEL_41:
+        v40.i64[1] = vextq_s8(v40, v40, 8uLL).u32[0];
+        goto LABEL_60;
+      }
+
+      v215 = 1;
+    }
+
+LABEL_60:
+    v51 = vnegq_f32(v40);
+    v51.i32[3] = 0;
+    v177 = vmulq_f32(v40, v40);
+    v177.i64[0] = vpaddq_f32(v177, v177).u64[0];
+    v178 = vpadd_f32(*v177.f32, *v177.f32);
+    v179 = vcgt_f32(v47, v178);
+    v49 = vdupq_lane_s32(vand_s8(v179, 0x100000001), 0);
+    v48 = vand_s8(vcgt_f32(v178, v44), v179);
+    v47 = v178;
+  }
+
+  v180 = vbslq_s8(vcltzq_s32(vshlq_n_s32(vandq_s8(vdupq_lane_s32(vcgt_f32(v47, v206), 0), v49), 0x1FuLL)), v51, v209);
+  v181 = vmulq_f32(v180, v180);
+  v181.i64[0] = vpaddq_f32(v181, v181).u64[0];
+  v182 = vpadd_f32(*v181.f32, *v181.f32);
+  v183 = vrsqrte_f32(v182);
+  v184 = 4;
+  do
+  {
+    v183 = vmul_f32(v183, vrsqrts_f32(vmul_f32(v183, v183), v182));
+    --v184;
+  }
+
+  while (v184);
+  v185 = vbsl_s8(vdup_lane_s32(vceqz_f32(v182), 0), v182, vmul_f32(v182, v183));
+  v186 = vrecpe_f32(v185);
+  v187 = 4;
+  do
+  {
+    v186 = vmul_f32(v186, vrecps_f32(v185, v186));
+    --v187;
+  }
+
+  while (v187);
+  v188 = vdupq_n_s32(-*(*(a1 + 8) + 32));
+  v189 = vmulq_n_f32(v180, v186.f32[0]);
+  v189.i32[3] = 0;
+  v190 = vnegq_f32(vandq_s8(vdupq_lane_s32(vcgtz_f32(v185), 0), v189));
+  v190.i32[3] = 0;
+  *a9 = v190;
+  *a8 = v52;
+  v191 = vbslq_s8(vcltzq_s32(vshlq_n_s32(v49, 0x1FuLL)), v53, v50);
+  v214 = v191;
+  if (v215 == 3)
+  {
+    v216 = 0;
+    v217 = 0;
+    v211 = v190;
+    v213 = v188;
+    physx::Gu::barycentricCoordinates(&v214, &v224, &v225, v226, &v217, &v216);
+    v190 = v211;
+    v188 = v213;
+    v186.i32[1] = v221.i32[1];
+    v201 = vmulq_n_f32(vsubq_f32(v222, v221), v217.f32[0]);
+    v201.i32[3] = 0;
+    v202 = vmulq_n_f32(vsubq_f32(v223[0], v221), v216.f32[0]);
+    v202.i32[3] = 0;
+    v192 = vaddq_f32(v221, vaddq_f32(v201, v202));
+  }
+
+  else if (v215 == 2)
+  {
+    v193 = vsubq_f32(v224, v191);
+    v194 = vsubq_f32(vsubq_f32(v225, v191), v193);
+    v195 = vmulq_f32(v194, v194);
+    v195.i64[0] = vpaddq_f32(v195, v195).u64[0];
+    v196 = vpadd_f32(*v195.f32, *v195.f32);
+    v197 = vrecpe_f32(v196);
+    v198 = 4;
+    do
+    {
+      v197 = vmul_f32(v197, vrecps_f32(v196, v197));
+      --v198;
+    }
+
+    while (v198);
+    v199 = vnegq_f32(v193);
+    v199.i32[3] = 0;
+    v200 = vmulq_f32(v199, v194);
+    v200.i64[0] = vpaddq_f32(v200, v200).u64[0];
+    v192 = vmlaq_n_f32(v221, vsubq_f32(v222, v221), vmul_f32(vbsl_s8(vcgtz_f32(v196), v197, 0), vpadd_f32(*v200.f32, *v200.f32)).f32[0]);
+    v186.i32[1] = 0;
+    v192.i64[1] = vextq_s8(v192, v192, 8uLL).u32[0];
+  }
+
+  else
+  {
+    v192 = 0uLL;
+    if (v215 == 1)
+    {
+      v192 = v221;
+    }
+  }
+
+  v186.i32[0] = *(*(a1 + 8) + 16);
+  v203 = vmlsq_lane_f32(v192, v190, v186, 0);
+  v203.i64[1] = vextq_s8(v203, v203, 8uLL).u32[0];
+  *a10 = vbslq_s8(v188, v203, v192);
+  return v55 != -1;
+}
+
+uint64_t physx::shdfnd::Array<physx::Gu::NodeAllocator::Slab,physx::shdfnd::ReflectionAllocator<physx::Gu::NodeAllocator::Slab>>::resize(uint64_t result, uint64_t a2, _OWORD *a3)
+{
+  v4 = a2;
+  v5 = result;
+  if ((*(result + 12) & 0x7FFFFFFFu) < a2)
+  {
+    result = physx::shdfnd::Array<physx::Gu::NodeAllocator::Slab,physx::shdfnd::ReflectionAllocator<physx::Gu::NodeAllocator::Slab>>::recreate(result, a2);
+  }
+
+  v6 = *(v5 + 8);
+  if (v6 < v4)
+  {
+    v7 = *v5 + 16 * v4;
+    v8 = (*v5 + 16 * v6);
+    do
+    {
+      *v8++ = *a3;
+    }
+
+    while (v8 < v7);
+  }
+
+  *(v5 + 8) = v4;
+  return result;
+}
+
+uint64_t physx::shdfnd::Array<physx::Gu::NodeAllocator::Slab,physx::shdfnd::ReflectionAllocator<physx::Gu::NodeAllocator::Slab>>::recreate(uint64_t result, unsigned int a2)
 {
   v3 = result;
-  v4 = *(result + 84);
-  if ((v4 & 0x7FFFFFFF) != 0)
+  if (a2)
   {
-    v5 = 2 * v4;
-  }
-
-  else
-  {
-    v5 = 1;
-  }
-
-  if (v5)
-  {
-    result = (16 * v5);
-    if (result > 0x40 || (*(v3 + 64) & 1) != 0)
+    v4 = physx::shdfnd::Foundation::mInstance;
+    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
     {
-      result = physx::shdfnd::ReflectionAllocator<physx::NpConnector>::allocate(result);
-      v6 = result;
+      v5 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Gu::NodeAllocator::Slab>::getName() [T = physx::Gu::NodeAllocator::Slab]";
     }
 
     else
     {
-      *(v3 + 64) = 1;
-      v6 = v3;
+      v5 = "<allocation names disabled>";
     }
+
+    result = (*(*(v4 + 24) + 16))(v4 + 24, 16 * a2, v5, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
+    v6 = result;
   }
 
   else
@@ -2766,151 +4543,58 @@ uint64_t physx::shdfnd::Array<physx::NpConnector,physx::shdfnd::InlineAllocator<
     v6 = 0;
   }
 
-  v7 = *(v3 + 80);
-  v8 = v6 + 16 * v7;
-  v9 = *(v3 + 72);
+  v7 = *(v3 + 8);
+  v8 = *v3;
   if (v7)
   {
-    v10 = *(v3 + 72);
-    v11 = v6;
+    v9 = v6 + 16 * v7;
+    v10 = v6;
     do
     {
-      *v11 = *v10;
-      *(v11 + 8) = *(v10 + 8);
-      v11 += 16;
-      v10 += 16;
+      v11 = *v8++;
+      *v10++ = v11;
     }
 
-    while (v11 < v8);
+    while (v10 < v9);
+    v8 = *v3;
   }
 
-  *v8 = *a2;
-  *(v8 + 8) = *(a2 + 8);
-  if ((*(v3 + 84) & 0x80000000) == 0)
-  {
-    if (v9 == v3)
-    {
-      *(v3 + 64) = 0;
-    }
-
-    else if (v9)
-    {
-      result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-      LODWORD(v7) = *(v3 + 80);
-    }
-  }
-
-  *(v3 + 72) = v6;
-  *(v3 + 80) = v7 + 1;
-  *(v3 + 84) = v5;
-  return result;
-}
-
-uint64_t physx::shdfnd::Array<physx::NpConnector,physx::shdfnd::InlineAllocator<64u,physx::shdfnd::ReflectionAllocator<physx::NpConnector>>>::resizeUninitialized(uint64_t result, unsigned int a2)
-{
-  v3 = result;
-  if ((*(result + 84) & 0x7FFFFFFFu) < a2)
-  {
-    result = physx::shdfnd::Array<physx::NpConnector,physx::shdfnd::InlineAllocator<64u,physx::shdfnd::ReflectionAllocator<physx::NpConnector>>>::recreate(result, a2);
-  }
-
-  *(v3 + 80) = a2;
-  return result;
-}
-
-void physx::PxArticulationImpl::~PxArticulationImpl(physx::PxArticulationImpl *this)
-{
-  v1 = *(this + 33);
-  if ((v1 & 0x80000000) == 0 && (v1 & 0x7FFFFFFF) != 0)
-  {
-    v2 = *(this + 15);
-    if (v2 == (this + 80))
-    {
-      *(this + 112) = 0;
-    }
-
-    else if (v2)
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-    }
-  }
-}
-
-float32x2_t physx::PxArticulationImpl::PxArticulationImpl(physx::PxArticulationImpl *this, char a2)
-{
-  *this = 0;
-  *(this + 2) = 0;
-  *(this + 3) = 0;
-  v2 = physx::Sc::Physics::mInstance;
-  *(this + 4) = 0x400000004;
-  v3 = *(v2 + 4);
-  v4 = *v2 * 0.1;
-  *(this + 64) = 0;
-  *(this + 68) = a2;
-  *(this + 10) = 4;
-  *(this + 22) = 260;
-  *(this + 12) = v4;
-  result = vmul_n_f32(vmul_n_f32(0x36A7C5AC3851B717, v3), v3);
-  *(this + 52) = result;
-  *(this + 15) = 1053609164;
-  *(this + 2) = 117440512;
-  *(this + 18) = 1053609164;
-  *(this + 38) = 1;
-  *(this + 112) = 1;
-  *(this + 15) = this + 80;
-  *(this + 16) = 0x400000000;
-  *(this + 17) = 0;
-  *(this + 18) = 0;
-  *(this + 38) = 0;
-  return result;
-}
-
-uint64_t physx::shdfnd::Array<physx::PxJoint *,physx::shdfnd::ReflectionAllocator<physx::PxJoint *>>::recreate(uint64_t a1, unsigned int a2)
-{
-  v4 = 8 * a2;
-  v5 = physx::shdfnd::Foundation::mInstance;
-  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-  {
-    v6 = "static const char *physx::shdfnd::ReflectionAllocator<physx::PxJoint *>::getName() [T = physx::PxJoint *]";
-  }
-
-  else
-  {
-    v6 = "<allocation names disabled>";
-  }
-
-  result = (*(*(v5 + 24) + 16))(v5 + 24, v4, v6, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
-  v8 = result;
-  v9 = *(a1 + 8);
-  v10 = *a1;
-  if (v9)
-  {
-    v11 = result + 8 * v9;
-    v12 = result;
-    do
-    {
-      v13 = *v10++;
-      *v12++ = v13;
-    }
-
-    while (v12 < v11);
-    v10 = *a1;
-  }
-
-  if ((*(a1 + 12) & 0x80000000) == 0 && v10)
+  if ((*(v3 + 12) & 0x80000000) == 0 && v8)
   {
     result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
   }
 
-  *a1 = v8;
-  *(a1 + 12) = a2;
+  *v3 = v6;
+  *(v3 + 12) = a2;
   return result;
 }
 
-uint64_t physx::shdfnd::Array<physx::PxJoint *,physx::shdfnd::ReflectionAllocator<physx::PxJoint *>>::growAndPushBack(uint64_t result, void *a2)
+uint64_t physx::shdfnd::ReflectionAllocator<physx::Gu::AABBTreeBuildNode>::allocate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v3 = result;
-  v4 = *(result + 12);
+  if (!a2)
+  {
+    return 0;
+  }
+
+  v7 = physx::shdfnd::Foundation::mInstance;
+  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
+  {
+    v8 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Gu::AABBTreeBuildNode>::getName() [T = physx::Gu::AABBTreeBuildNode]";
+  }
+
+  else
+  {
+    v8 = "<allocation names disabled>";
+  }
+
+  v9 = *(*(v7 + 24) + 16);
+
+  return v9(v7 + 24, a2, v8, a3, a4);
+}
+
+uint64_t physx::shdfnd::Array<physx::Gu::NodeAllocator::Slab,physx::shdfnd::ReflectionAllocator<physx::Gu::NodeAllocator::Slab>>::growAndPushBack(uint64_t a1, _OWORD *a2)
+{
+  v4 = *(a1 + 12);
   if ((v4 & 0x7FFFFFFF) != 0)
   {
     v5 = 2 * v4;
@@ -2926,7 +4610,7 @@ uint64_t physx::shdfnd::Array<physx::PxJoint *,physx::shdfnd::ReflectionAllocato
     v6 = physx::shdfnd::Foundation::mInstance;
     if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
     {
-      v7 = "static const char *physx::shdfnd::ReflectionAllocator<physx::PxJoint *>::getName() [T = physx::PxJoint *]";
+      v7 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Gu::NodeAllocator::Slab>::getName() [T = physx::Gu::NodeAllocator::Slab]";
     }
 
     else
@@ -2934,8 +4618,7 @@ uint64_t physx::shdfnd::Array<physx::PxJoint *,physx::shdfnd::ReflectionAllocato
       v7 = "<allocation names disabled>";
     }
 
-    result = (*(*(v6 + 24) + 16))(v6 + 24, 8 * v5, v7, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
-    v8 = result;
+    v8 = (*(*(v6 + 24) + 16))(v6 + 24, 16 * v5, v7, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
   }
 
   else
@@ -2943,11 +4626,11 @@ uint64_t physx::shdfnd::Array<physx::PxJoint *,physx::shdfnd::ReflectionAllocato
     v8 = 0;
   }
 
-  v9 = *(v3 + 8);
-  v10 = &v8[v9];
+  v9 = *(a1 + 8);
   if (v9)
   {
-    v11 = *v3;
+    v10 = v8 + 16 * v9;
+    v11 = *a1;
     v12 = v8;
     do
     {
@@ -2956,1786 +4639,7 @@ uint64_t physx::shdfnd::Array<physx::PxJoint *,physx::shdfnd::ReflectionAllocato
     }
 
     while (v12 < v10);
-  }
-
-  *v10 = *a2;
-  if ((*(v3 + 12) & 0x80000000) == 0 && *v3)
-  {
-    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-    LODWORD(v9) = *(v3 + 8);
-  }
-
-  *v3 = v8;
-  *(v3 + 8) = v9 + 1;
-  *(v3 + 12) = v5;
-  return result;
-}
-
-uint64_t physx::Cm::ArrayAccess<physx::NpArticulationLink *,physx::shdfnd::InlineAllocator<32u,physx::shdfnd::ReflectionAllocator<physx::NpArticulationLink *>>>::store(uint64_t result, uint64_t a2)
-{
-  v2 = *(result + 40);
-  if (v2)
-  {
-    v3 = *(result + 52);
-    if (*(result + 48) | v3 & 0x7FFFFFFF)
-    {
-      return (*(*a2 + 16))(a2, v2, (8 * v3));
-    }
-  }
-
-  return result;
-}
-
-float32_t physx::Scb::Body::addSpatialAcceleration(uint64_t a1, float32x2_t *a2, float32x2_t *a3)
-{
-  v6 = *(a1 + 8);
-  if (v6 >> 30 == 2)
-  {
-    v7 = *a1;
-    if ((*(*a1 + 7689) & 1) == 0)
-    {
-      goto LABEL_12;
-    }
-  }
-
-  else if (v6 >> 30 != 3)
-  {
-    v7 = *a1;
-LABEL_12:
-    v10 = *(v7 + 4384);
-    v11 = (a1 + 32);
-
-    return physx::Sc::BodyCore::addSpatialAcceleration(v11, v10, a2, a3);
-  }
-
-  Stream = *(a1 + 16);
-  if (!Stream)
-  {
-    Stream = physx::Scb::Scene::getStream(*a1, HIBYTE(v6) & 0xF);
-    *(a1 + 16) = Stream;
-  }
-
-  if (a2)
-  {
-    *(Stream + 300) = vadd_f32(*a2, *(Stream + 300));
-    *(Stream + 308) = a2[1].f32[0] + *(Stream + 308);
-    LODWORD(a2) = 0x10000;
-  }
-
-  if (a3)
-  {
-    *(Stream + 312) = vadd_f32(*a3, *(Stream + 312));
-    *(Stream + 320) = a3[1].f32[0] + *(Stream + 320);
-    LODWORD(a2) = a2 | 0x20000;
-  }
-
-  physx::Scb::Scene::scheduleForUpdate(*a1, a1);
-  *(a1 + 284) |= a2;
-  return result;
-}
-
-float32_t physx::Scb::Body::addSpatialVelocity(uint64_t a1, float32x2_t *a2, float32x2_t *a3)
-{
-  v6 = *(a1 + 8);
-  if (v6 >> 30 == 2)
-  {
-    v7 = *a1;
-    if ((*(*a1 + 7689) & 1) == 0)
-    {
-      goto LABEL_12;
-    }
-  }
-
-  else if (v6 >> 30 != 3)
-  {
-    v7 = *a1;
-LABEL_12:
-    v10 = *(v7 + 4384);
-    v11 = (a1 + 32);
-
-    return physx::Sc::BodyCore::addSpatialVelocity(v11, v10, a2, a3);
-  }
-
-  Stream = *(a1 + 16);
-  if (!Stream)
-  {
-    Stream = physx::Scb::Scene::getStream(*a1, HIBYTE(v6) & 0xF);
-    *(a1 + 16) = Stream;
-  }
-
-  if (a2)
-  {
-    *(Stream + 324) = vadd_f32(*a2, *(Stream + 324));
-    *(Stream + 332) = a2[1].f32[0] + *(Stream + 332);
-    LODWORD(a2) = 0x40000;
-  }
-
-  if (a3)
-  {
-    *(Stream + 336) = vadd_f32(*a3, *(Stream + 336));
-    *(Stream + 344) = a3[1].f32[0] + *(Stream + 344);
-    LODWORD(a2) = a2 | 0x80000;
-  }
-
-  physx::Scb::Scene::scheduleForUpdate(*a1, a1);
-  *(a1 + 284) |= a2;
-  return result;
-}
-
-void physx::Scb::Body::setFlags(physx::Sc::BodyCore *this, char *a2)
-{
-  v4 = *(this + 71);
-  if ((v4 & 0x4000) != 0)
-  {
-    v5 = (*(this + 2) + 348);
-  }
-
-  else
-  {
-    v5 = this + 76;
-  }
-
-  v6 = *v5;
-  v7 = *a2;
-  v8 = *(this + 2) >> 30;
-  if (v8 == 3 || v8 == 2 && (*(*this + 7689) & 1) != 0)
-  {
-    if (v6 & 1 | ((*a2 & 1) == 0))
-    {
-      if ((v6 & ((*a2 & 1) == 0)) != 0)
-      {
-        *(this + 71) = v4 & 0xFFFF7FFF;
-      }
-    }
-
-    else
-    {
-      physx::Scb::Body::putToSleepInternal(this);
-    }
-
-    Stream = *(this + 2);
-    v11 = *this;
-    if (!Stream)
-    {
-      Stream = physx::Scb::Scene::getStream(v11, *(this + 11) & 0xF);
-      *(this + 2) = Stream;
-      v11 = *this;
-    }
-
-    *(Stream + 348) = *a2;
-    physx::Scb::Scene::scheduleForUpdate(v11, this);
-    *(this + 71) |= 0x4000u;
-  }
-
-  else
-  {
-    if (!(v6 & 1 | ((*a2 & 1) == 0)))
-    {
-      *(this + 252) = 0;
-      *(this + 268) = 0;
-      *(this + 276) = 0x100000000;
-      *(this + 260) = 0;
-    }
-
-    if (*this)
-    {
-      v9 = *(*this + 4384);
-    }
-
-    else
-    {
-      v9 = 0;
-    }
-
-    v12 = v7;
-    physx::Sc::BodyCore::setFlags((this + 32), v9, &v12);
-  }
-}
-
-int32x2_t *physx::Scb::Body::putToSleepInternal(physx::Scb::Body *this)
-{
-  v2 = *(this + 2) >> 30;
-  if (v2 == 3)
-  {
-    *(this + 276) = 0x100000000;
-    *(this + 32) = 0;
-    *(this + 63) = 0;
-    v3 = *this;
-LABEL_9:
-    physx::Scb::Scene::scheduleForUpdate(v3, this);
-    *(this + 71) |= 0x400000u;
-    v6 = *(this + 2);
-    v10 = 0;
-    v11 = 0;
-    *(this + 33) = 0;
-    *(this + 68) = 0;
-    v7 = v6 >> 30;
-    if (v7 == 2)
-    {
-      v8 = *this;
-      if (*(*this + 7689))
-      {
-        goto LABEL_13;
-      }
-    }
-
-    else if (v7 == 3)
-    {
-      v8 = *this;
-LABEL_13:
-      physx::Scb::Scene::scheduleForUpdate(v8, this);
-      v9 = *(this + 71) | 0x800000;
-LABEL_15:
-      *(this + 71) = v9 & 0xFFF07FFF;
-      result = physx::Scb::Scene::scheduleForUpdate(*this, this);
-      *(this + 71) = *(this + 71) & 0xF8FFFFFF | 0x3000000;
-      return result;
-    }
-
-    physx::Sc::BodyCore::setAngularVelocity(this + 32, &v10);
-    v9 = *(this + 71);
-    goto LABEL_15;
-  }
-
-  if (v2 == 2)
-  {
-    v3 = *this;
-    if (*(*this + 7689))
-    {
-      *(this + 276) = 0x100000000;
-      *(this + 32) = 0;
-      *(this + 63) = 0;
-      goto LABEL_9;
-    }
-  }
-
-  *(this + 252) = 0;
-  v4 = (this + 252);
-  v4[2] = 0;
-  v4[3] = 0x100000000;
-  v4[1] = 0;
-
-  return physx::Sc::BodyCore::putToSleep((v4 - 220));
-}
-
-physx::Sc::ArticulationJointSim *physx::PxArticulationJointImpl::setParentPose(uint64_t a1, float *a2)
-{
-  result = *(a1 + 408);
-  if (!result)
-  {
-    return result;
-  }
-
-  (*(*result + 224))(&v28);
-  v5 = a2[1];
-  v6 = a2[2];
-  v7 = a2[3];
-  v8 = sqrtf((((v5 * v5) + (*a2 * *a2)) + (v6 * v6)) + (v7 * v7));
-  v9 = *a2 / v8;
-  v10 = v5 / v8;
-  v11 = v6 / v8;
-  v12 = v7 / v8;
-  v13 = (a2[4] - v31) + (a2[4] - v31);
-  v14 = (a2[5] - v32) + (a2[5] - v32);
-  v15 = (a2[6] - v33) + (a2[6] - v33);
-  v16 = (v30 * v30) + -0.5;
-  v17 = (-(*(&v28 + 1) * v14) - (*&v28 * v13)) - (v29 * v15);
-  v18 = ((v30 * ((v29 * v14) - (*(&v28 + 1) * v15))) + (v13 * v16)) - (*&v28 * v17);
-  v19 = ((v30 * ((*&v28 * v15) - (v29 * v13))) + (v14 * v16)) - (*(&v28 + 1) * v17);
-  v20 = ((v30 * ((*(&v28 + 1) * v13) - (*&v28 * v14))) + (v15 * v16)) - (v29 * v17);
-  v21 = (((v30 * v9) - (*&v28 * v12)) - (*(&v28 + 1) * v11)) + (v10 * v29);
-  v22 = (((v30 * v10) - (*(&v28 + 1) * v12)) - (v29 * v9)) + (v11 * *&v28);
-  v23 = (((v30 * v11) - (v29 * v12)) - (*&v28 * v10)) + (v9 * *(&v28 + 1));
-  v24 = (((v9 * *&v28) + (v30 * v12)) + (*(&v28 + 1) * v10)) + (v29 * v11);
-  v34[0] = v21;
-  v34[1] = v22;
-  v34[2] = v23;
-  v34[3] = v24;
-  v34[4] = v18;
-  v34[5] = v19;
-  v34[6] = v20;
-  v25 = *(a1 + 8);
-  if (v25 >> 30 == 2)
-  {
-    v26 = *a1;
-    if (*(*a1 + 7689))
-    {
-      goto LABEL_6;
-    }
-
-    return physx::Sc::ArticulationJointCore::setParentPose(a1 + 24, v34);
-  }
-
-  if (v25 >> 30 != 3)
-  {
-    return physx::Sc::ArticulationJointCore::setParentPose(a1 + 24, v34);
-  }
-
-  v26 = *a1;
-LABEL_6:
-  Stream = *(a1 + 16);
-  if (!Stream)
-  {
-    Stream = physx::Scb::Scene::getStream(v26, HIBYTE(v25) & 0xF);
-    *(a1 + 16) = Stream;
-    v26 = *a1;
-  }
-
-  *Stream = v21;
-  Stream[1] = v22;
-  Stream[2] = v23;
-  Stream[3] = v24;
-  Stream[4] = v18;
-  Stream[5] = v19;
-  Stream[6] = v20;
-  result = physx::Scb::Scene::scheduleForUpdate(v26, a1);
-  *(a1 + 8) |= 1u;
-  return result;
-}
-
-float physx::PxArticulationJointImpl::getParentPose(physx::PxArticulationJointImpl *this, uint64_t a2)
-{
-  (*(**(a2 + 408) + 224))(&v27);
-  if (*(a2 + 8))
-  {
-    v6 = *(a2 + 16);
-  }
-
-  else
-  {
-    v6 = (a2 + 32);
-  }
-
-  _S2 = v6[1].f32[0] + v6[1].f32[0];
-  v8 = v6[1].f32[1] + v6[1].f32[1];
-  _S3 = v6[1].f32[2] + v6[1].f32[2];
-  v10 = v30;
-  v11 = (v29 * v29) + -0.5;
-  *v4.i32 = v27;
-  _Q7.i64[0] = v28;
-  __asm
-  {
-    FMLA            S16, S3, V7.S[1]
-    FMLA            S18, S2, V7.S[1]
-    FMLA            S20, S16, V7.S[1]
-  }
-
-  v19 = v31 + (((v29 * _S18) + (v8 * v11)) + (*&v28 * _S16));
-  v20 = *v6;
-  v20.i32[3] = HIDWORD(v28);
-  v21 = v32 + _S20;
-  v22 = ((v29 * (vmuls_lane_f32(v8, vnegq_f32(v20), 3) + (*&v28 * _S3))) + (_S2 * v11)) + (v27 * _S16);
-  v23 = vextq_s8(vextq_s8(v4, v4, 4uLL), _Q7, 0xCuLL);
-  v23.f32[3] = -v27;
-  v24 = vmlaq_n_f32(vmulq_f32(vextq_s8(vdupq_laneq_s32(*v6, 3), *v6, 4uLL), v23), *v6, v29);
-  v23.f32[3] = -*&v28;
-  _Q7.f32[2] = v27;
-  _Q7.i32[3] = v6->i64[1];
-  v25 = vmlsq_f32(vmlaq_f32(vuzp2q_s32(vextq_s8(v24, v24, 4uLL), v24), vextq_s8(vextq_s8(*v6, *v6, 0xCuLL), *v6, 8uLL), v23), _Q7, v20);
-  *this = vzip2q_s32(vzip1q_s32(v25, vextq_s8(v25, v25, 0xCuLL)), v25);
-  result = v10 + v22;
-  *(this + 4) = v10 + v22;
-  *(this + 5) = v19;
-  *(this + 6) = v21;
-  return result;
-}
-
-physx::Sc::ArticulationJointSim *physx::PxArticulationJointImpl::setChildPose(uint64_t a1, float *a2)
-{
-  (*(**(a1 + 416) + 224))(&v28);
-  v4 = a2[1];
-  v5 = a2[2];
-  v6 = a2[3];
-  v7 = sqrtf((((v4 * v4) + (*a2 * *a2)) + (v5 * v5)) + (v6 * v6));
-  v8 = *a2 / v7;
-  v9 = v4 / v7;
-  v10 = v5 / v7;
-  v11 = v6 / v7;
-  v12 = (a2[4] - v31) + (a2[4] - v31);
-  v13 = (a2[5] - v32) + (a2[5] - v32);
-  v14 = (a2[6] - v33) + (a2[6] - v33);
-  v15 = (v30 * v30) + -0.5;
-  v16 = (-(*(&v28 + 1) * v13) - (*&v28 * v12)) - (v29 * v14);
-  v17 = ((v30 * ((v29 * v13) - (*(&v28 + 1) * v14))) + (v12 * v15)) - (*&v28 * v16);
-  v18 = ((v30 * ((*&v28 * v14) - (v29 * v12))) + (v13 * v15)) - (*(&v28 + 1) * v16);
-  v19 = ((v30 * ((*(&v28 + 1) * v12) - (*&v28 * v13))) + (v14 * v15)) - (v29 * v16);
-  v20 = (((v30 * v8) - (*&v28 * v11)) - (*(&v28 + 1) * v10)) + (v9 * v29);
-  v21 = (((v30 * v9) - (*(&v28 + 1) * v11)) - (v29 * v8)) + (v10 * *&v28);
-  v22 = (((v30 * v10) - (v29 * v11)) - (*&v28 * v9)) + (v8 * *(&v28 + 1));
-  v23 = (((v8 * *&v28) + (v30 * v11)) + (*(&v28 + 1) * v9)) + (v29 * v10);
-  v34[0] = v20;
-  v34[1] = v21;
-  v34[2] = v22;
-  v34[3] = v23;
-  v34[4] = v17;
-  v34[5] = v18;
-  v34[6] = v19;
-  v24 = *(a1 + 8);
-  if (v24 >> 30 == 2)
-  {
-    v25 = *a1;
-    if (*(*a1 + 7689))
-    {
-      goto LABEL_5;
-    }
-
-    return physx::Sc::ArticulationJointCore::setChildPose(a1 + 24, v34);
-  }
-
-  if (v24 >> 30 != 3)
-  {
-    return physx::Sc::ArticulationJointCore::setChildPose(a1 + 24, v34);
-  }
-
-  v25 = *a1;
-LABEL_5:
-  Stream = *(a1 + 16);
-  if (!Stream)
-  {
-    Stream = physx::Scb::Scene::getStream(v25, HIBYTE(v24) & 0xF);
-    *(a1 + 16) = Stream;
-    v25 = *a1;
-  }
-
-  Stream[7] = v20;
-  Stream[8] = v21;
-  Stream[9] = v22;
-  Stream[10] = v23;
-  Stream[11] = v17;
-  Stream[12] = v18;
-  Stream[13] = v19;
-  result = physx::Scb::Scene::scheduleForUpdate(v25, a1);
-  *(a1 + 8) |= 2u;
-  return result;
-}
-
-float physx::PxArticulationJointImpl::getChildPose(physx::PxArticulationJointImpl *this, uint64_t a2)
-{
-  (*(**(a2 + 416) + 224))(&v27);
-  if ((*(a2 + 8) & 2) != 0)
-  {
-    v6 = *(a2 + 16) + 28;
-  }
-
-  else
-  {
-    v6 = a2 + 60;
-  }
-
-  _S2 = *(v6 + 16) + *(v6 + 16);
-  v8 = *(v6 + 20) + *(v6 + 20);
-  _S3 = *(v6 + 24) + *(v6 + 24);
-  v10 = v30;
-  v11 = (v29 * v29) + -0.5;
-  *v4.i32 = v27;
-  _Q7.i64[0] = v28;
-  __asm
-  {
-    FMLA            S16, S3, V7.S[1]
-    FMLA            S18, S2, V7.S[1]
-    FMLA            S20, S16, V7.S[1]
-  }
-
-  v19 = v31 + (((v29 * _S18) + (v8 * v11)) + (*&v28 * _S16));
-  v20 = *v6;
-  v20.i32[3] = HIDWORD(v28);
-  v21 = v32 + _S20;
-  v22 = ((v29 * (vmuls_lane_f32(v8, vnegq_f32(v20), 3) + (*&v28 * _S3))) + (_S2 * v11)) + (v27 * _S16);
-  v23 = vextq_s8(vextq_s8(v4, v4, 4uLL), _Q7, 0xCuLL);
-  v23.f32[3] = -v27;
-  v24 = vmlaq_n_f32(vmulq_f32(vextq_s8(vdupq_laneq_s32(*v6, 3), *v6, 4uLL), v23), *v6, v29);
-  v23.f32[3] = -*&v28;
-  _Q7.f32[2] = v27;
-  _Q7.i32[3] = *(v6 + 8);
-  v25 = vmlsq_f32(vmlaq_f32(vuzp2q_s32(vextq_s8(v24, v24, 4uLL), v24), vextq_s8(vextq_s8(*v6, *v6, 0xCuLL), *v6, 8uLL), v23), _Q7, v20);
-  *this = vzip2q_s32(vzip1q_s32(v25, vextq_s8(v25, v25, 0xCuLL)), v25);
-  result = v10 + v22;
-  *(this + 4) = v10 + v22;
-  *(this + 5) = v19;
-  *(this + 6) = v21;
-  return result;
-}
-
-void physx::NpBatchQuery::~NpBatchQuery(physx::NpBatchQuery *this)
-{
-  *this = &unk_1F5D24EA0;
-  v2 = *(this + 9);
-  if ((v2 & 0x80000000) == 0 && (v2 & 0x7FFFFFFF) != 0 && *(this + 3) != 0)
-  {
-    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-  }
-
-  physx::shdfnd::SyncT<physx::shdfnd::ReflectionAllocator<physx::shdfnd::SyncImpl>>::~SyncT(this + 1);
-}
-
-{
-  physx::NpBatchQuery::~NpBatchQuery(this);
-  if (v1)
-  {
-    v2 = *(*(physx::shdfnd::Foundation::mInstance + 24) + 24);
-
-    v2();
-  }
-}
-
-uint64_t physx::NpBatchQuery::setUserMemory(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  v9 = 0;
-  atomic_compare_exchange_strong((result + 60), &v9, 0);
-  if (v9)
-  {
-    return physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpBatchQuery.cpp", 73, "PxBatchQuery::setUserMemory: This batch is still executing, skipping setUserMemory", a6, a7, a8, a9);
-  }
-
-  *(result + 96) = *a2;
-  v10 = *(a2 + 16);
-  v11 = *(a2 + 32);
-  v12 = *(a2 + 48);
-  *(result + 160) = *(a2 + 64);
-  *(result + 128) = v11;
-  *(result + 144) = v12;
-  *(result + 112) = v10;
-  return result;
-}
-
-uint64_t physx::NpBatchQuery::execute(uint64_t this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  v13 = 0;
-  atomic_compare_exchange_strong((this + 60), &v13, 1u);
-  if (v13 == -1)
-  {
-    v14 = "PxBatchQuery::execute: Another thread is still adding queries to this batch";
-    v15 = physx::shdfnd::Foundation::mInstance;
-    v16 = 317;
-
-    return physx::shdfnd::Foundation::error(v15, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpBatchQuery.cpp", v16, v14, a6, a7, a8, a9);
-  }
-
-  if (v13 == 1)
-  {
-    v14 = "PxBatchQuery::execute: This batch is already executing";
-    v15 = physx::shdfnd::Foundation::mInstance;
-    v16 = 312;
-
-    return physx::shdfnd::Foundation::error(v15, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpBatchQuery.cpp", v16, v14, a6, a7, a8, a9);
-  }
-
-  v115 = v12;
-  v116 = v11;
-  v117 = v9;
-  v118 = v10;
-  v17 = this;
-  v18 = *(this + 48);
-  if (v18)
-  {
-    v19 = *(this + 96) + 89;
-    do
-    {
-      *(v19 - 1) = 0;
-      *(v19 - 17) = 0;
-      *(v19 - 25) = 0;
-      *(v19 - 9) = 0;
-      v19 += 96;
-      --v18;
-    }
-
-    while (v18);
-  }
-
-  v20 = *(this + 52);
-  if (v20)
-  {
-    v21 = *(this + 128) + 49;
-    do
-    {
-      *(v21 - 1) = 0;
-      *(v21 - 17) = 0;
-      *(v21 - 25) = 0;
-      *(v21 - 9) = 0;
-      v21 += 56;
-      --v20;
-    }
-
-    while (v20);
-  }
-
-  v22 = *(this + 56);
-  v23 = *(this + 112);
-  if (v22)
-  {
-    v24 = v23 + 81;
-    do
-    {
-      *(v24 - 1) = 0;
-      *(v24 - 17) = 0;
-      *(v24 - 25) = 0;
-      *(v24 - 9) = 0;
-      v24 += 88;
-      --v22;
-    }
-
-    while (v22);
-  }
-
-  v25 = *(this + 96);
-  v91 = *(this + 104);
-  v27 = *(this + 128);
-  v26 = *(this + 136);
-  v28 = *(this + 120);
-  v87 = *(this + 144);
-  v88 = *(this + 152);
-  v86 = *(this + 148);
-  v29 = *(this + 72);
-  v112 = *(this + 64);
-  v113 = v29;
-  v114 = *(this + 80);
-  if (*(this + 168) == -16)
-  {
-    *(this + 40) = 0;
-    *(this + 56) = 0;
-    *(this + 48) = 0;
-    *(this + 172) = 0;
-    do
-    {
-      v30 = *(this + 60);
-      v31 = v30;
-      atomic_compare_exchange_strong((this + 60), &v31, 0);
-    }
-
-    while (v31 != v30);
-  }
-
-  else
-  {
-    v89 = v27;
-    v90 = v26;
-    v32 = 0;
-    v33 = 0;
-    do
-    {
-      v34 = *(v17 + 24);
-      v35 = v34 + v33;
-      v33 = *(v34 + v33);
-      _X8 = v34 + v33;
-      __asm { PRFM            #0, [X8] }
-
-      v40 = (v35 + 56);
-      if (*(v35 + 56))
-      {
-        *(v35 + 56) = v35 + 104;
-        v41 = 116;
-      }
-
-      else
-      {
-        v41 = 104;
-      }
-
-      if (*(v35 + 64))
-      {
-        v42 = v35 + v41;
-        v41 += 12;
-        *(v35 + 64) = v42;
-      }
-
-      if (*(v35 + 88))
-      {
-        v43 = v35 + v41;
-        v41 += 28;
-        *(v35 + 88) = v43;
-      }
-
-      if (*(v35 + 80))
-      {
-        v44 = (v35 + v41);
-        v47 = *v44;
-        v45 = v44 + 1;
-        v46 = v47;
-        if (v47 > 4 || v46 == 1)
-        {
-          v45 = 0;
-        }
-
-        *(v35 + 80) = v45;
-      }
-
-      v49 = *(v35 + 50);
-      if (v49 == 2)
-      {
-        v72 = v86 + 1227133513 * ((v28 - *(v17 + 120)) >> 3);
-        if (*(v35 + 48) >= v72)
-        {
-          v73 = v86 + 1227133513 * ((v28 - *(v17 + 120)) >> 3);
-        }
-
-        else
-        {
-          v73 = *(v35 + 48);
-        }
-
-        v94 = 0uLL;
-        LODWORD(v95) = -1;
-        WORD2(v95) = 0;
-        *v97 = 0uLL;
-        v96 = 0;
-        *&v97[16] = 2139095039;
-        v97[24] = 0;
-        v98 = v28;
-        v99 = v73;
-        v93 = &unk_1F5D25548;
-        LOBYTE(v100) = 0;
-        v102 = 0;
-        v103 = 0;
-        LODWORD(v104) = -1;
-        WORD2(v104) = 0;
-        v105 = 0;
-        v106 = 0;
-        v107 = 0;
-        LODWORD(v108) = 2139095039;
-        LOBYTE(v110) = 0;
-        v74 = *(v17 + 16);
-        v92 = *(v35 + 4);
-        this = physx::NpSceneQueries::multiQuery<physx::PxSweepHit>(v74, v40, &v93, &v92, *(v35 + 40), v35 + 8, 0, &v112);
-        v75 = 0;
-        if (!v72)
-        {
-          v75 = *(v35 + 48) != 0;
-        }
-
-        v76 = v100 | v75;
-        LOBYTE(v100) = v76;
-        *(v23 + 72) = *(v35 + 32);
-        v77 = v94;
-        *(v23 + 16) = v95;
-        *v23 = v77;
-        *(v23 + 20) = WORD2(v95);
-        *(v23 + 24) = v96;
-        *(v23 + 32) = *v97;
-        *(v23 + 36) = *&v97[4];
-        *(v23 + 52) = *&v97[20];
-        *(v23 + 81) = v97[24];
-        v78 = HIDWORD(v99);
-        v79 = HIDWORD(v99) == 0;
-        *(v23 + 64) = HIDWORD(v99);
-        v80 = v76 & 1;
-        if (v80)
-        {
-          v81 = 2;
-        }
-
-        else
-        {
-          v81 = 1;
-        }
-
-        *(v23 + 80) = v81;
-        if ((v80 & v79) != 0)
-        {
-          v82 = 0;
-        }
-
-        else
-        {
-          v82 = v98;
-        }
-
-        *(v23 + 56) = v82;
-        v23 += 88;
-        v28 += 56 * v78;
-      }
-
-      else if (v49 == 1)
-      {
-        v61 = v88 + 1431655765 * ((v90 - *(v17 + 136)) >> 3);
-        v62 = *(v35 + 48);
-        if (v62 >= v61)
-        {
-          v62 = v88 + 1431655765 * ((v90 - *(v17 + 136)) >> 3);
-        }
-
-        v94 = 0uLL;
-        LODWORD(v95) = -1;
-        LOBYTE(v96) = 0;
-        *v97 = v90;
-        *&v97[8] = v62;
-        v93 = &unk_1F5D25500;
-        v97[16] = 0;
-        *&v97[24] = 0;
-        v98 = 0;
-        LODWORD(v99) = -1;
-        LOBYTE(v102) = 0;
-        v63 = *(v17 + 16);
-        v92 = *(v35 + 4);
-        this = physx::NpSceneQueries::multiQuery<physx::PxOverlapHit>(v63, v40, &v93, &v92, *(v35 + 40), v35 + 8, 0, &v112);
-        v64 = 0;
-        if (!v61)
-        {
-          v64 = *(v35 + 48) != 0;
-        }
-
-        v65 = v97[16] | v64;
-        v97[16] = v65;
-        *(v89 + 40) = *(v35 + 32);
-        v66 = v94;
-        *(v89 + 16) = v95;
-        *v89 = v66;
-        *(v89 + 49) = v96;
-        v67 = *&v97[12];
-        v68 = *&v97[12] == 0;
-        *(v89 + 32) = *&v97[12];
-        v69 = v65 & 1;
-        if (v69)
-        {
-          v70 = 2;
-        }
-
-        else
-        {
-          v70 = 1;
-        }
-
-        *(v89 + 48) = v70;
-        if ((v69 & v68) != 0)
-        {
-          v71 = 0;
-        }
-
-        else
-        {
-          v71 = *v97;
-        }
-
-        *(v89 + 24) = v71;
-        v89 += 56;
-        v90 += 24 * v67;
-      }
-
-      else if (!*(v35 + 50))
-      {
-        v50 = (v91 - *(v17 + 104)) >> 6;
-        v51 = v87 - v50;
-        if (*(v35 + 48) < (v87 - v50))
-        {
-          v51 = *(v35 + 48);
-        }
-
-        v94 = 0uLL;
-        LODWORD(v95) = -1;
-        WORD2(v95) = 0;
-        *v97 = 0uLL;
-        v96 = 0;
-        *&v97[16] = 2139095039;
-        *&v97[24] = 0;
-        LOBYTE(v98) = 0;
-        v99 = v91;
-        v100 = v51;
-        v101 = 0;
-        v93 = &unk_1F5D254B8;
-        LOBYTE(v102) = 0;
-        v103 = 0;
-        v104 = 0;
-        LODWORD(v105) = -1;
-        WORD2(v105) = 0;
-        v107 = 0;
-        v108 = 0;
-        v106 = 0;
-        v109 = 2139095039;
-        v110 = 0;
-        v111 = 0;
-        v52 = *(v17 + 16);
-        v92 = *(v35 + 4);
-        this = physx::NpSceneQueries::multiQuery<physx::PxRaycastHit>(v52, v40, &v93, &v92, *(v35 + 40), v35 + 8, 0, &v112);
-        v53 = 0;
-        if (v87 == v50)
-        {
-          v53 = *(v35 + 48) != 0;
-        }
-
-        v54 = v102 | v53;
-        LOBYTE(v102) = v54;
-        *(v25 + 80) = *(v35 + 32);
-        v55 = v94;
-        *(v25 + 16) = v95;
-        *v25 = v55;
-        *(v25 + 20) = WORD2(v95);
-        *(v25 + 24) = v96;
-        *(v25 + 32) = *v97;
-        *(v25 + 36) = *&v97[4];
-        *(v25 + 52) = *&v97[20];
-        *(v25 + 89) = v98;
-        v56 = v101;
-        v57 = v101 == 0;
-        *(v25 + 72) = v101;
-        v58 = v54 & 1;
-        if (v58)
-        {
-          v59 = 2;
-        }
-
-        else
-        {
-          v59 = 1;
-        }
-
-        *(v25 + 88) = v59;
-        if ((v58 & v57) != 0)
-        {
-          v60 = 0;
-        }
-
-        else
-        {
-          v60 = v99;
-        }
-
-        *(v25 + 64) = v60;
-        v25 += 96;
-        v91 += v56 << 6;
-      }
-    }
-
-    while (*v35 != -16 && ++v32 < 0xF4240);
-    *(v17 + 168) = -16;
-    *(v17 + 40) = 0;
-    *(v17 + 56) = 0;
-    *(v17 + 48) = 0;
-    *(v17 + 172) = 0;
-    do
-    {
-      v84 = *(v17 + 60);
-      v85 = v84;
-      atomic_compare_exchange_strong((v17 + 60), &v85, 0);
-    }
-
-    while (v85 != v84);
-  }
-
-  return this;
-}
-
-uint64_t physx::NpBatchQuery::writeBatchHeader(uint64_t a1, uint64_t a2)
-{
-  v4 = *(a1 + 40);
-  v5 = *(a1 + 36) & 0x7FFFFFFF;
-  v6 = 3 * (v4 + 56);
-  if (v4 + 56 > v5 && v5 < v6)
-  {
-    physx::shdfnd::Array<char,physx::shdfnd::ReflectionAllocator<char>>::recreate(a1 + 24, v6);
-  }
-
-  result = physx::shdfnd::Array<char,physx::shdfnd::ReflectionAllocator<char>>::resizeUninitialized(a1 + 24, v4 + 56);
-  v9 = *(a1 + 24) + *(a1 + 40);
-  *v9 = *a2;
-  *(v9 + 4) = *(a2 + 4);
-  *(v9 + 8) = *(a2 + 8);
-  *(v9 + 24) = *(a2 + 24);
-  v10 = *(a2 + 32);
-  *(v9 + 47) = *(a2 + 47);
-  *(v9 + 32) = v10;
-  *(a1 + 40) = v4 + 56;
-  v11 = *(a1 + 168);
-  v12 = (a1 + 168);
-  if (v11 != -16)
-  {
-    v12 = (*(a1 + 24) + v11);
-  }
-
-  *v12 = v4;
-  *(a1 + 168) = v4;
-  return result;
-}
-
-_DWORD *physx::NpBatchQuery::raycast(_DWORD *result, uint64_t a2, uint64_t a3, __int16 a4, _WORD *a5, uint64_t a6, uint64_t a7, uint64_t a8, float a9, char a10)
-{
-  if (result[12] < result[39])
-  {
-    v10 = result;
-    v11 = 0;
-    atomic_compare_exchange_strong(result + 15, &v11, 0xFFFFFFFF);
-    if (v11 == 1)
-    {
-      v12 = physx::shdfnd::Foundation::mInstance;
-
-      return physx::shdfnd::Foundation::error(v12, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpBatchQuery.cpp", 484, "PxBatchQuery::raycast: This batch is still executing, skipping query.", a6, a7, a8, a10);
-    }
-
-    else
-    {
-      _X20 = a3;
-      _X21 = a2;
-      ++result[12];
-      WORD2(v24) = *a5;
-      v25 = *a6;
-      LOWORD(v26) = *(a6 + 16);
-      v27 = a7;
-      v28 = a8;
-      v29 = a4;
-      v30 = 0;
-      LODWORD(v24) = -16;
-      physx::NpBatchQuery::writeBatchHeader(result, &v24);
-      __asm
-      {
-        PRFM            #0, [X21]
-        PRFM            #0, [X20]
-      }
-
-      v24 = _X21;
-      *&v25 = _X20;
-      *(&v25 + 2) = a9;
-      v26 = 0;
-      v27 = 0;
-      LODWORD(v28) = 0;
-      result = writeQueryInput((v10 + 6), &v24);
-      do
-      {
-        v22 = v10[15];
-        v23 = v22;
-        atomic_compare_exchange_strong(v10 + 15, &v23, 0);
-      }
-
-      while (v23 != v22);
-    }
-  }
-
-  return result;
-}
-
-uint64_t writeQueryInput(uint64_t a1, __int128 *a2)
-{
-  v4 = *(a1 + 16);
-  v5 = v4 + 48;
-  v6 = *(a1 + 12) & 0x7FFFFFFF;
-  v7 = 3 * (v4 + 48);
-  if (v4 + 48 > v6 && v6 < v7)
-  {
-    physx::shdfnd::Array<char,physx::shdfnd::ReflectionAllocator<char>>::recreate(a1, v7);
-  }
-
-  result = physx::shdfnd::Array<char,physx::shdfnd::ReflectionAllocator<char>>::resizeUninitialized(a1, v4 + 48);
-  v10 = (*a1 + *(a1 + 16));
-  v11 = *a2;
-  v12 = a2[1];
-  *(v10 + 28) = *(a2 + 28);
-  *v10 = v11;
-  v10[1] = v12;
-  *(a1 + 16) = v5;
-  v13 = *a2;
-  if (*a2)
-  {
-    v5 = v4 + 60;
-    v14 = *(a1 + 12) & 0x7FFFFFFF;
-    if (v4 + 60 > v14 && v14 < 3 * v5)
-    {
-      physx::shdfnd::Array<char,physx::shdfnd::ReflectionAllocator<char>>::recreate(a1, 3 * v5);
-    }
-
-    result = physx::shdfnd::Array<char,physx::shdfnd::ReflectionAllocator<char>>::resizeUninitialized(a1, v4 + 60);
-    v15 = *a1 + *(a1 + 16);
-    *v15 = *v13;
-    *(v15 + 8) = *(v13 + 8);
-    *(a1 + 16) = v5;
-  }
-
-  v16 = *(a2 + 1);
-  if (v16)
-  {
-    v5 += 12;
-    v17 = *(a1 + 12) & 0x7FFFFFFF;
-    v18 = 3 * v5;
-    if (v5 > v17 && v17 < v18)
-    {
-      physx::shdfnd::Array<char,physx::shdfnd::ReflectionAllocator<char>>::recreate(a1, v18);
-    }
-
-    result = physx::shdfnd::Array<char,physx::shdfnd::ReflectionAllocator<char>>::resizeUninitialized(a1, v5);
-    v20 = *a1 + *(a1 + 16);
-    *v20 = *v16;
-    *(v20 + 8) = *(v16 + 8);
-    *(a1 + 16) = v5;
-  }
-
-  v21 = *(a2 + 4);
-  if (v21)
-  {
-    v5 += 28;
-    v22 = *(a1 + 12) & 0x7FFFFFFF;
-    if (v5 > v22 && v22 < 3 * v5)
-    {
-      physx::shdfnd::Array<char,physx::shdfnd::ReflectionAllocator<char>>::recreate(a1, 3 * v5);
-    }
-
-    result = physx::shdfnd::Array<char,physx::shdfnd::ReflectionAllocator<char>>::resizeUninitialized(a1, v5);
-    v23 = *a1 + *(a1 + 16);
-    *v23 = *v21;
-    *(v23 + 16) = *(v21 + 16);
-    *(v23 + 24) = *(v21 + 24);
-    *(a1 + 16) = v5;
-  }
-
-  v24 = *(a2 + 3);
-  if (v24)
-  {
-    v25 = *v24;
-    v26 = v5 + 4;
-    v27 = *(a1 + 12) & 0x7FFFFFFF;
-    if (v5 + 4 > v27 && v27 < 3 * v26)
-    {
-      physx::shdfnd::Array<char,physx::shdfnd::ReflectionAllocator<char>>::recreate(a1, 3 * v26);
-    }
-
-    result = physx::shdfnd::Array<char,physx::shdfnd::ReflectionAllocator<char>>::resizeUninitialized(a1, v5 + 4);
-    *(*a1 + *(a1 + 16)) = v25;
-    *(a1 + 16) = v26;
-    if (v25 > 2)
-    {
-      if (v25 == 3)
-      {
-        v28 = v5 + 20;
-        v36 = *(a1 + 12) & 0x7FFFFFFF;
-        if (v28 > v36 && v36 < 3 * v28)
-        {
-          physx::shdfnd::Array<char,physx::shdfnd::ReflectionAllocator<char>>::recreate(a1, 3 * v28);
-        }
-
-        result = physx::shdfnd::Array<char,physx::shdfnd::ReflectionAllocator<char>>::resizeUninitialized(a1, v28);
-        v37 = *a1 + *(a1 + 16);
-        *v37 = *v24;
-        *(v37 + 4) = *(v24 + 4);
-        *(v37 + 12) = *(v24 + 3);
-      }
-
-      else
-      {
-        if (v25 != 4)
-        {
-          return result;
-        }
-
-        v28 = v5 + 52;
-        v32 = *(a1 + 12) & 0x7FFFFFFF;
-        if (v28 > v32 && v32 < 3 * v28)
-        {
-          physx::shdfnd::Array<char,physx::shdfnd::ReflectionAllocator<char>>::recreate(a1, 3 * v28);
-        }
-
-        result = physx::shdfnd::Array<char,physx::shdfnd::ReflectionAllocator<char>>::resizeUninitialized(a1, v28);
-        v33 = *a1 + *(a1 + 16);
-        *v33 = *v24;
-        *(v33 + 4) = *(v24 + 4);
-        *(v33 + 20) = *(v24 + 20);
-        *(v33 + 28) = *(v24 + 7);
-        *(v33 + 32) = v24[4];
-        *(v33 + 40) = *(v24 + 40);
-        v34 = *(v24 + 41);
-        *(v33 + 43) = *(v24 + 43);
-        *(v33 + 41) = v34;
-      }
-    }
-
-    else if (v25)
-    {
-      if (v25 != 2)
-      {
-        return result;
-      }
-
-      v28 = v5 + 16;
-      v29 = *(a1 + 12) & 0x7FFFFFFF;
-      if (v28 > v29 && v29 < 3 * v28)
-      {
-        physx::shdfnd::Array<char,physx::shdfnd::ReflectionAllocator<char>>::recreate(a1, 3 * v28);
-      }
-
-      result = physx::shdfnd::Array<char,physx::shdfnd::ReflectionAllocator<char>>::resizeUninitialized(a1, v28);
-      v30 = *a1 + *(a1 + 16);
-      v31 = *v24;
-      *(v30 + 8) = *(v24 + 2);
-      *v30 = v31;
-    }
-
-    else
-    {
-      v28 = v5 + 12;
-      v35 = *(a1 + 12) & 0x7FFFFFFF;
-      if (v28 > v35 && v35 < 3 * v28)
-      {
-        physx::shdfnd::Array<char,physx::shdfnd::ReflectionAllocator<char>>::recreate(a1, 3 * v28);
-      }
-
-      result = physx::shdfnd::Array<char,physx::shdfnd::ReflectionAllocator<char>>::resizeUninitialized(a1, v28);
-      *(*a1 + *(a1 + 16)) = *v24;
-    }
-
-    *(a1 + 16) = v28;
-  }
-
-  return result;
-}
-
-_DWORD *physx::NpBatchQuery::overlap(_DWORD *result, uint64_t a2, uint64_t a3, __int16 a4, __int128 *a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  if (result[13] < result[41])
-  {
-    v9 = result;
-    v10 = 0;
-    atomic_compare_exchange_strong(result + 15, &v10, 0xFFFFFFFF);
-    if (v10 == 1)
-    {
-      v11 = physx::shdfnd::Foundation::mInstance;
-
-      return physx::shdfnd::Foundation::error(v11, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpBatchQuery.cpp", 505, "PxBatchQuery::overlap: This batch is still executing, skipping query.", a6, a7, a8, a9);
-    }
-
-    else
-    {
-      _X20 = a3;
-      _X21 = a2;
-      ++result[13];
-      WORD2(v22) = 0;
-      v23 = *a5;
-      LOWORD(v24) = *(a5 + 8);
-      v25 = a6;
-      v26 = a7;
-      v27 = a4;
-      v28 = 1;
-      LODWORD(v22) = -16;
-      physx::NpBatchQuery::writeBatchHeader(result, &v22);
-      __asm
-      {
-        PRFM            #0, [X21]
-        PRFM            #0, [X20]
-      }
-
-      v24 = _X21;
-      v25 = _X20;
-      LODWORD(v26) = 0;
-      v22 = 0;
-      *&v23 = 0;
-      result = writeQueryInput((v9 + 6), &v22);
-      do
-      {
-        v20 = v9[15];
-        v21 = v20;
-        atomic_compare_exchange_strong(v9 + 15, &v21, 0);
-      }
-
-      while (v21 != v20);
-    }
-  }
-
-  return result;
-}
-
-_DWORD *physx::NpBatchQuery::sweep(_DWORD *result, uint64_t a2, uint64_t a3, uint64_t a4, __int16 a5, _WORD *a6, uint64_t a7, uint64_t a8, float a9, float a10, uint64_t a11)
-{
-  if (result[14] < result[40])
-  {
-    v11 = result;
-    v12 = 0;
-    atomic_compare_exchange_strong(result + 15, &v12, 0xFFFFFFFF);
-    if (v12 == 1)
-    {
-      v13 = physx::shdfnd::Foundation::mInstance;
-
-      return physx::shdfnd::Foundation::error(v13, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpBatchQuery.cpp", 541, "PxBatchQuery::sweep: This batch is still executing, skipping query.", a6, a7, a8, a11);
-    }
-
-    else
-    {
-      _X21 = a4;
-      _X20 = a3;
-      _X22 = a2;
-      ++result[14];
-      WORD2(v34) = *a6;
-      v35 = *a7;
-      LOWORD(v36) = *(a7 + 16);
-      v37 = a8;
-      v38 = a11;
-      v39 = a5;
-      v40 = 2;
-      LODWORD(v34) = -16;
-      physx::NpBatchQuery::writeBatchHeader(result, &v34);
-      v23 = *a6;
-      *(v11 + 172) |= (v23 & 0x200) != 0;
-      if ((~v23 & 0x300) == 0)
-      {
-        physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpBatchQuery.cpp", 551, " Precise sweep doesn't support MTD. Perform MTD with default sweep", v20, v21, v22, v33);
-        v23 = *a6 & 0xFEFF;
-        *a6 &= ~0x100u;
-      }
-
-      if ((~v23 & 0x210) == 0)
-      {
-        physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpBatchQuery.cpp", 557, " eMTD cannot be used in conjunction with eASSUME_NO_INITIAL_OVERLAP. eASSUME_NO_INITIAL_OVERLAP will be ignored", v20, v21, v22, v33);
-        LOWORD(v23) = *a6 & 0xFFEF;
-        *a6 = v23;
-      }
-
-      if (a10 > 0.0 && (v23 & 0x100) != 0)
-      {
-        physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpBatchQuery.cpp", 565, " Precise sweep doesn't support inflation, inflation will be overwritten to be zero", v20, v21, v22, v33);
-        a10 = 0.0;
-      }
-
-      __asm
-      {
-        PRFM            #0, [X22]
-        PRFM            #0, [X20]
-        PRFM            #0, [X21]
-      }
-
-      *(&v35 + 2) = a9;
-      v34 = 0;
-      *&v35 = _X21;
-      v36 = _X22;
-      v37 = _X20;
-      *&v38 = a10;
-      result = writeQueryInput((v11 + 6), &v34);
-      do
-      {
-        v31 = v11[15];
-        v32 = v31;
-        atomic_compare_exchange_strong(v11 + 15, &v32, 0);
-      }
-
-      while (v32 != v31);
-    }
-  }
-
-  return result;
-}
-
-uint64_t physx::NpBatchQuery::release(physx::NpBatchQuery *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  v9 = 0;
-  atomic_compare_exchange_strong(this + 15, &v9, 0);
-  if (v9)
-  {
-    return physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpBatchQuery.cpp", 577, "PxBatchQuery::release: This batch is still executing, skipping release", a6, a7, a8, a9);
-  }
-
-  else
-  {
-    return physx::NpScene::releaseBatchQuery(*(this + 2), this);
-  }
-}
-
-void physx::NpConstraint::setConstraintFunctions(int8x16_t *a1, uint64_t a2, int8x16_t *a3)
-{
-  a1[5].i64[1] = a2;
-  a1[6] = vextq_s8(*a3, *a3, 8uLL);
-  a1[7].i64[0] = a3[1].i64[0];
-  v4 = a1[1].i64[0];
-  if (v4)
-  {
-    v5 = v4 + *(&physx::NpActor::sLazyInitOffsets + *(v4 + 8));
-    v6 = *(v5 + 8);
-    if (!v6)
-    {
-      goto LABEL_13;
-    }
-
-    v7 = *(v6 + 80);
-    if (!v7)
-    {
-      goto LABEL_13;
-    }
-
-    v8 = (*(v6 + 72) + 8);
-    v9 = 0xFFFFFFFFLL;
-    while (*(v8 - 8) || *v8 != a1)
-    {
-      --v9;
-      v8 += 2;
-      if (!--v7)
-      {
-        goto LABEL_13;
-      }
-    }
-
-    if (v9)
-    {
-      LODWORD(v4) = 0;
-    }
-
-    else
-    {
-LABEL_13:
-      physx::NpActor::addConnector(v5, 0, a1);
-      LODWORD(v4) = 1;
-    }
-  }
-
-  v11 = a1[1].i64[1];
-  if (!v11)
-  {
-    goto LABEL_25;
-  }
-
-  v12 = v11 + *(&physx::NpActor::sLazyInitOffsets + v11[4]);
-  v13 = *(v12 + 8);
-  if (!v13)
-  {
-    goto LABEL_27;
-  }
-
-  v14 = *(v13 + 80);
-  if (!v14)
-  {
-    goto LABEL_27;
-  }
-
-  v15 = (*(v13 + 72) + 8);
-  v16 = 0xFFFFFFFFLL;
-  while (*(v15 - 8) || *v15 != a1)
-  {
-    --v16;
-    v15 += 2;
-    if (!--v14)
-    {
-      goto LABEL_27;
-    }
-  }
-
-  if (v16)
-  {
-LABEL_25:
-    if (!v4)
-    {
-      return;
-    }
-  }
-
-  else
-  {
-LABEL_27:
-    physx::NpActor::addConnector(v12, 0, a1);
-    v11 = a1[1].i64[1];
-  }
-
-  v18 = a1[1].i64[0];
-  if (!v18 || ((*(*v18 + 104))(&v29, a1[1].i64[0]), (v29 & 8) != 0))
-  {
-    v19 = 0;
-    if (!v11)
-    {
-      goto LABEL_35;
-    }
-  }
-
-  else
-  {
-    v19 = (*(*v18 + 56))(v18);
-    if (!v11)
-    {
-      goto LABEL_35;
-    }
-  }
-
-  (*(*v11 + 104))(&v29, v11);
-  if ((v29 & 8) == 0)
-  {
-    v20 = (*(*v11 + 56))(v11);
-    goto LABEL_36;
-  }
-
-LABEL_35:
-  v20 = 0;
-LABEL_36:
-  v21 = v18 == 0;
-  if (v11)
-  {
-    v22 = v20 == 0;
-  }
-
-  else
-  {
-    v22 = 0;
-  }
-
-  v23 = !v22;
-  if (v19)
-  {
-    v21 = 1;
-    v24 = v19;
-  }
-
-  else
-  {
-    v24 = v20;
-  }
-
-  if ((v21 & v23) != 0)
-  {
-    v25 = v24;
-  }
-
-  else
-  {
-    v25 = 0;
-  }
-
-  if ((a1[2].i32[2] >> 30) - 1 <= 1)
-  {
-    v26 = a1[2].i64[0];
-    if (v26)
-    {
-      v27 = (v26 - 16);
-    }
-
-    else
-    {
-      v27 = 0;
-    }
-
-    if (v27 == v25)
-    {
-      return;
-    }
-
-    if (v26)
-    {
-      v29 = a1;
-      physx::shdfnd::internal::HashSetBase<physx::PxConstraint *,physx::shdfnd::Hash<physx::PxConstraint *>,physx::shdfnd::NonTrackingAllocator,true>::erase(v27 + 1136, &v29);
-      physx::Scb::Scene::removeConstraint(v27 + 2, a1[2].i64);
-    }
-  }
-
-  if (v25)
-  {
-    v29 = a1;
-    v30 = 0;
-    v28 = physx::shdfnd::internal::HashBase<physx::PxConstraint *,physx::PxConstraint *,physx::shdfnd::Hash<physx::PxConstraint *>,physx::shdfnd::internal::HashSetBase<physx::PxConstraint *,physx::shdfnd::Hash<physx::PxConstraint *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::create(v25 + 1136, &v29, &v30);
-    if ((v30 & 1) == 0)
-    {
-      *v28 = v29;
-    }
-
-    physx::Scb::Scene::add<physx::Scb::Constraint>(v25 + 2, a1[2].i64, v25 + 996);
-  }
-}
-
-void physx::NpConstraint::~NpConstraint(physx::NpConstraint *this)
-{
-  *this = &unk_1F5D24F20;
-  if (*(this + 5))
-  {
-    (*(**(this + 11) + 16))(*(this + 11));
-  }
-
-  v2 = physx::NpFactory::mInstance;
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_lock(*(physx::NpFactory::mInstance + 8));
-  }
-
-  if (*(v2 + 1004))
-  {
-    v3 = (this + ~(this << 32)) ^ ((this + ~(this << 32)) >> 22);
-    v4 = 9 * ((v3 + ~(v3 << 13)) ^ ((v3 + ~(v3 << 13)) >> 8));
-    v5 = (v4 ^ (v4 >> 15)) + ~((v4 ^ (v4 >> 15)) << 27);
-    v6 = (*(v2 + 976) + 4 * ((*(v2 + 988) - 1) & ((v5 >> 31) ^ v5)));
-    v7 = *v6;
-    if (v7 != -1)
-    {
-      v8 = *(v2 + 960);
-      v9 = *(v2 + 968);
-      if (*(v8 + 8 * v7) == this)
-      {
-LABEL_12:
-        *v6 = *(v9 + 4 * v7);
-        *(v2 + 1000) = vadd_s32(*(v2 + 1000), 0xFFFFFFFF00000001);
-        *(v9 + 4 * v7) = *(v2 + 996);
-        *(v2 + 996) = v7;
-      }
-
-      else
-      {
-        while (1)
-        {
-          v10 = v7;
-          v7 = *(v9 + 4 * v7);
-          if (v7 == -1)
-          {
-            break;
-          }
-
-          if (*(v8 + 8 * v7) == this)
-          {
-            v6 = (v9 + 4 * v10);
-            goto LABEL_12;
-          }
-        }
-      }
-    }
-  }
-
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_unlock(*(v2 + 8));
-  }
-}
-
-{
-  physx::NpConstraint::~NpConstraint(this);
-  if (v1)
-  {
-    v2 = *(*(physx::shdfnd::Foundation::mInstance + 24) + 24);
-
-    v2();
-  }
-}
-
-uint64_t physx::NpConstraint::release(physx::NpConstraint *this)
-{
-  if (((*(this + 10) >> 30) - 1) > 1)
-  {
-    v3 = 0;
-  }
-
-  else
-  {
-    v2 = *(this + 4);
-    if (v2)
-    {
-      v3 = (v2 - 16);
-    }
-
-    else
-    {
-      v3 = 0;
-    }
-  }
-
-  physx::NpPhysics::notifyDeletionListeners(physx::NpPhysics::mInstance, this, 0, 1);
-  v4 = *(this + 2);
-  if (v4)
-  {
-    physx::NpActor::removeConnector(v4 + *(&physx::NpActor::sLazyInitOffsets + v4[4]), v4, 0, this);
-  }
-
-  v5 = *(this + 3);
-  if (v5)
-  {
-    physx::NpActor::removeConnector(v5 + *(&physx::NpActor::sLazyInitOffsets + v5[4]), v5, 0, this);
-  }
-
-  if (v3)
-  {
-    v7 = this;
-    physx::shdfnd::internal::HashSetBase<physx::PxConstraint *,physx::shdfnd::Hash<physx::PxConstraint *>,physx::shdfnd::NonTrackingAllocator,true>::erase(v3 + 1136, &v7);
-    physx::Scb::Scene::removeConstraint(v3 + 2, this + 32);
-  }
-
-  return physx::Scb::Base::destroy(this + 32);
-}
-
-uint64_t physx::NpConstraint::getScene(physx::NpConstraint *this)
-{
-  if (((*(this + 10) >> 30) - 1) > 1)
-  {
-    return 0;
-  }
-
-  v1 = *(this + 4);
-  if (v1)
-  {
-    return v1 - 16;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t physx::NpConstraint::getActors(uint64_t result, void *a2, void *a3)
-{
-  *a2 = *(result + 16);
-  *a3 = *(result + 24);
-  return result;
-}
-
-int32x2_t *physx::NpConstraint::setActors(physx::NpConstraint *this, physx::PxRigidActor *a2, physx::PxRigidActor *a3)
-{
-  v6 = *(this + 2);
-  if (v6)
-  {
-    physx::NpActor::removeConnector(v6 + *(&physx::NpActor::sLazyInitOffsets + v6[4]), v6, 0, this);
-  }
-
-  v7 = *(this + 3);
-  if (v7)
-  {
-    physx::NpActor::removeConnector(v7 + *(&physx::NpActor::sLazyInitOffsets + v7[4]), v7, 0, this);
-  }
-
-  if (a2)
-  {
-    physx::NpActor::addConnector(a2 + *(&physx::NpActor::sLazyInitOffsets + *(a2 + 4)), 0, this);
-  }
-
-  if (a3)
-  {
-    physx::NpActor::addConnector(a3 + *(&physx::NpActor::sLazyInitOffsets + *(a3 + 4)), 0, this);
-  }
-
-  *(this + 2) = a2;
-  *(this + 3) = a3;
-  if (!a2 || ((*(*a2 + 104))(&v24, a2), (v24 & 8) != 0))
-  {
-    v8 = 0;
-    if (!a3)
-    {
-      goto LABEL_16;
-    }
-  }
-
-  else
-  {
-    v8 = (*(*a2 + 56))(a2);
-    if (!a3)
-    {
-      goto LABEL_16;
-    }
-  }
-
-  (*(*a3 + 104))(&v24, a3);
-  if ((v24 & 8) == 0)
-  {
-    v9 = (*(*a3 + 56))(a3);
-    goto LABEL_17;
-  }
-
-LABEL_16:
-  v9 = 0;
-LABEL_17:
-  v10 = a2 == 0;
-  if (a3)
-  {
-    v11 = v9 == 0;
-  }
-
-  else
-  {
-    v11 = 0;
-  }
-
-  v12 = !v11;
-  if (v8)
-  {
-    v10 = 1;
-    v13 = v8;
-  }
-
-  else
-  {
-    v13 = v9;
-  }
-
-  if ((v10 & v12) != 0)
-  {
-    v14 = v13;
+    v14 = *(a1 + 8);
   }
 
   else
@@ -4743,5079 +4647,5474 @@ LABEL_17:
     v14 = 0;
   }
 
-  v15 = *(this + 10);
-  v16 = v15 >> 30;
-  if ((v15 >> 30) - 1 > 1)
+  *(v8 + 16 * v14) = *a2;
+  if ((*(a1 + 12) & 0x80000000) == 0 && *a1)
   {
-    if (v14)
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  *a1 = v8;
+  v15 = *(a1 + 8);
+  *(a1 + 8) = v15 + 1;
+  *(a1 + 12) = v5;
+  return v8 + 16 * v15;
+}
+
+uint64_t physx::shdfnd::Array<physx::Gu::BVHNode const*,physx::shdfnd::InlineAllocator<2048u,physx::shdfnd::ReflectionAllocator<physx::Gu::BVHNode const*>>>::resizeUninitialized(uint64_t result, uint64_t a2)
+{
+  v2 = a2;
+  v3 = result;
+  if ((*(result + 2068) & 0x7FFFFFFFu) < a2)
+  {
+    result = physx::shdfnd::Array<physx::Gu::BVHNode const*,physx::shdfnd::InlineAllocator<2048u,physx::shdfnd::ReflectionAllocator<physx::Gu::BVHNode const*>>>::recreate(result, a2);
+  }
+
+  *(v3 + 2064) = v2;
+  return result;
+}
+
+uint64_t physx::shdfnd::Array<physx::Gu::BVHNode const*,physx::shdfnd::InlineAllocator<2048u,physx::shdfnd::ReflectionAllocator<physx::Gu::BVHNode const*>>>::recreate(uint64_t result, int a2)
+{
+  v3 = result;
+  v4 = (8 * a2);
+  if (v4 > 0x800 || (*(result + 2048) & 1) != 0)
+  {
+    if (v4)
     {
-LABEL_37:
-      if (a2)
+      v6 = physx::shdfnd::Foundation::mInstance;
+      if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
       {
-        a2 = (a2 + *(&physx::Scb::Actor::sLazyInitOffsets + (*(a2 + 107) & 0xF) + 3) + 96);
-      }
-
-      if (a3)
-      {
-        a3 = (a3 + *(&physx::Scb::Actor::sLazyInitOffsets + (*(a3 + 107) & 0xF) + 3) + 96);
-      }
-
-      v19 = *(this + 10);
-      if (v19 >> 30 == 3 || v19 >> 30 == 2 && (*(*(this + 4) + 7689) & 1) != 0)
-      {
-        Stream = *(this + 6);
-        if (!Stream)
-        {
-          Stream = physx::Scb::Scene::getStream(*(this + 4), HIBYTE(v19) & 0xF);
-          *(this + 6) = Stream;
-        }
-
-        *Stream = a2;
-        Stream[1] = a3;
-        result = physx::Scb::Scene::scheduleForUpdate(*(this + 4), this + 32);
-        *(this + 10) |= 1u;
+        v7 = "static const char *physx::shdfnd::ReflectionAllocator<const physx::Gu::BVHNode *>::getName() [T = const physx::Gu::BVHNode *]";
       }
 
       else
       {
-        result = *(this + 17);
-        if (result)
-        {
-          physx::Sc::ConstraintSim::preBodiesChange(result);
-          result = *(this + 17);
-          if (result)
-          {
-            result = physx::Sc::ConstraintSim::postBodiesChange(result, a2, a3);
-          }
-        }
+        v7 = "<allocation names disabled>";
       }
 
-      *(this + 18) = 0;
-      *(this + 19) = 0;
-      *(this + 20) = 0;
-      if (v14)
-      {
-        v24 = this;
-        v25 = 0;
-        v23 = physx::shdfnd::internal::HashBase<physx::PxConstraint *,physx::PxConstraint *,physx::shdfnd::Hash<physx::PxConstraint *>,physx::shdfnd::internal::HashSetBase<physx::PxConstraint *,physx::shdfnd::Hash<physx::PxConstraint *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::create(v14 + 1136, &v24, &v25);
-        if ((v25 & 1) == 0)
-        {
-          *v23 = v24;
-        }
-
-        return physx::Scb::Scene::add<physx::Scb::Constraint>(v14 + 2, this + 32, v14 + 996);
-      }
-
-      return result;
-    }
-  }
-
-  else
-  {
-    v17 = *(this + 4);
-    if (v17)
-    {
-      v18 = (v17 - 16);
+      result = (*(*(v6 + 24) + 16))(v6 + 24, v4, v7, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
+      v5 = result;
     }
 
     else
     {
-      v18 = 0;
-    }
-
-    if (v18 != v14)
-    {
-      if (v17)
-      {
-        v24 = this;
-        physx::shdfnd::internal::HashSetBase<physx::PxConstraint *,physx::shdfnd::Hash<physx::PxConstraint *>,physx::shdfnd::NonTrackingAllocator,true>::erase(v18 + 1136, &v24);
-        physx::Scb::Scene::removeConstraint(v18 + 2, this + 32);
-      }
-
-      goto LABEL_37;
-    }
-  }
-
-  if (a2)
-  {
-    a2 = (a2 + *(&physx::Scb::Actor::sLazyInitOffsets + (*(a2 + 107) & 0xF) + 3) + 96);
-  }
-
-  if (a3)
-  {
-    a3 = (a3 + *(&physx::Scb::Actor::sLazyInitOffsets + (*(a3 + 107) & 0xF) + 3) + 96);
-  }
-
-  if (v16 == 3 || v16 == 2 && (*(*(this + 4) + 7689) & 1) != 0)
-  {
-    v22 = *(this + 6);
-    if (!v22)
-    {
-      v22 = physx::Scb::Scene::getStream(*(this + 4), HIBYTE(v15) & 0xF);
-      *(this + 6) = v22;
-    }
-
-    *v22 = a2;
-    v22[1] = a3;
-    result = physx::Scb::Scene::scheduleForUpdate(*(this + 4), this + 32);
-    *(this + 10) |= 1u;
-  }
-
-  else
-  {
-    result = *(this + 17);
-    if (result)
-    {
-      physx::Sc::ConstraintSim::preBodiesChange(result);
-      result = *(this + 17);
-      if (result)
-      {
-        result = physx::Sc::ConstraintSim::postBodiesChange(result, a2, a3);
-      }
-    }
-  }
-
-  *(this + 18) = 0;
-  *(this + 19) = 0;
-  *(this + 20) = 0;
-  return result;
-}
-
-int32x2_t *physx::NpConstraint::setFlags(int32x2_t *a1, __int16 *a2)
-{
-  v3 = *a2;
-  v4 = a1[5].u32[0];
-  if (v4 >> 30 == 2)
-  {
-    v5 = a1[4];
-    if (v5[961].i8[1])
-    {
-      goto LABEL_5;
-    }
-
-LABEL_8:
-    v8 = *a2;
-    return physx::Sc::ConstraintCore::setFlags(a1 + 7, &v8);
-  }
-
-  if (v4 >> 30 != 3)
-  {
-    goto LABEL_8;
-  }
-
-  v5 = a1[4];
-LABEL_5:
-  Stream = a1[6];
-  if (!Stream)
-  {
-    Stream = physx::Scb::Scene::getStream(v5, HIBYTE(v4) & 0xF);
-    a1[6] = Stream;
-    v5 = a1[4];
-  }
-
-  *(Stream + 24) = v3;
-  result = physx::Scb::Scene::scheduleForUpdate(v5, &a1[4]);
-  a1[5].i32[0] |= 4u;
-  return result;
-}
-
-uint64_t physx::NpConstraint::getFlags@<X0>(uint64_t this@<X0>, _WORD *a2@<X8>)
-{
-  if ((*(this + 40) & 4) != 0)
-  {
-    v2 = *(*(this + 48) + 24) & (*(this + 168) | 0xFBFE);
-  }
-
-  else
-  {
-    v2 = (*(this + 168) | 0xFBFE) & *(this + 56);
-  }
-
-  *a2 = v2;
-  return this;
-}
-
-int32x2_t *physx::NpConstraint::setFlag(int32x2_t *a1, __int16 a2, int a3)
-{
-  v4 = a1[5].u32[0];
-  if ((v4 & 4) != 0)
-  {
-    v5 = *(*&a1[6] + 24) & (a1[21].i16[0] | 0xFBFE);
-  }
-
-  else
-  {
-    v5 = (a1[21].i16[0] | 0xFBFE) & a1[7].i16[0];
-  }
-
-  v6 = v5 | a2;
-  v7 = v5 & ~a2;
-  if (a3)
-  {
-    v8 = v6;
-  }
-
-  else
-  {
-    v8 = v7;
-  }
-
-  if (v4 >> 30 == 2)
-  {
-    v9 = a1[4];
-    if (v9[961].i8[1])
-    {
-      goto LABEL_11;
-    }
-
-LABEL_14:
-    v12 = v8;
-    return physx::Sc::ConstraintCore::setFlags(a1 + 7, &v12);
-  }
-
-  if (v4 >> 30 != 3)
-  {
-    goto LABEL_14;
-  }
-
-  v9 = a1[4];
-LABEL_11:
-  Stream = a1[6];
-  if (!Stream)
-  {
-    Stream = physx::Scb::Scene::getStream(v9, HIBYTE(v4) & 0xF);
-    a1[6] = Stream;
-    v9 = a1[4];
-  }
-
-  *(Stream + 24) = v8;
-  result = physx::Scb::Scene::scheduleForUpdate(v9, &a1[4]);
-  a1[5].i32[0] |= 4u;
-  return result;
-}
-
-float physx::NpConstraint::getForce(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  *a2 = *(a1 + 144);
-  *(a2 + 8) = *(a1 + 152);
-  *a3 = *(a1 + 156);
-  result = *(a1 + 164);
-  *(a3 + 8) = result;
-  return result;
-}
-
-uint64_t physx::NpConstraint::updateConstants(uint64_t this)
-{
-  if (*(this + 176) == 1)
-  {
-    v1 = this;
-    v2 = (***(this + 88))(*(this + 88));
-    this = *(v1 + 136);
-    if (this)
-    {
-      this = physx::Sc::ConstraintSim::setConstantsLL(this, v2);
-      *(v1 + 176) = 0;
-    }
-  }
-
-  return this;
-}
-
-int32x2_t *physx::NpConstraint::setBreakForce(physx::NpConstraint *this, float a2, float a3)
-{
-  v6 = *(this + 10);
-  if (v6 >> 30 == 2)
-  {
-    v7 = *(this + 4);
-    if (v7[961].i8[1])
-    {
-      goto LABEL_5;
-    }
-  }
-
-  else if (v6 >> 30 == 3)
-  {
-    v7 = *(this + 4);
-LABEL_5:
-    Stream = *(this + 6);
-    if (!Stream)
-    {
-      Stream = physx::Scb::Scene::getStream(v7, HIBYTE(v6) & 0xF);
-      *(this + 6) = Stream;
-      v7 = *(this + 4);
-    }
-
-    *(Stream + 16) = a2;
-    *(Stream + 20) = a3;
-    result = physx::Scb::Scene::scheduleForUpdate(v7, this + 32);
-    *(this + 10) |= 2u;
-    return result;
-  }
-
-  *(this + 31) = a2;
-  *(this + 32) = a3;
-  result = *(this + 17);
-  if (result)
-  {
-
-    return physx::Sc::ConstraintSim::setBreakForceLL(result, a2, a3);
-  }
-
-  return result;
-}
-
-float physx::NpConstraint::getBreakForce(physx::NpConstraint *this, float *a2, float *a3)
-{
-  if ((*(this + 40) & 2) != 0)
-  {
-    v5 = *(this + 6);
-    v3 = (v5 + 16);
-    v4 = (v5 + 20);
-  }
-
-  else
-  {
-    v3 = (this + 124);
-    v4 = (this + 128);
-  }
-
-  *a2 = *v3;
-  result = *v4;
-  *a3 = *v4;
-  return result;
-}
-
-int32x2_t *physx::NpConstraint::setMinResponseThreshold(int32x2_t *this, float a2)
-{
-  v3 = this;
-  v4 = this[5].u32[0];
-  if (v4 >> 30 == 2)
-  {
-    this = this[4];
-    if (this[961].i8[1])
-    {
-      goto LABEL_5;
-    }
-  }
-
-  else if (v4 >> 30 == 3)
-  {
-    this = this[4];
-LABEL_5:
-    Stream = v3[6];
-    if (!Stream)
-    {
-      Stream = physx::Scb::Scene::getStream(this, HIBYTE(v4) & 0xF);
-      v3[6] = Stream;
-      this = v3[4];
-    }
-
-    *(Stream + 28) = a2;
-    this = physx::Scb::Scene::scheduleForUpdate(this, &v3[4]);
-    v3[5].i32[0] |= 8u;
-    return this;
-  }
-
-  *&v3[16].i32[1] = a2;
-  v6 = v3[17];
-  if (v6)
-  {
-    *(*&v6 + 76) = a2;
-  }
-
-  return this;
-}
-
-float physx::NpConstraint::getMinResponseThreshold(physx::NpConstraint *this)
-{
-  if ((*(this + 40) & 8) != 0)
-  {
-    v1 = (*(this + 6) + 28);
-  }
-
-  else
-  {
-    v1 = this + 132;
-  }
-
-  return *v1;
-}
-
-uint64_t physx::NpConstraint::isValid(physx::NpConstraint *this)
-{
-  v1 = *(this + 2);
-  if (v1)
-  {
-    LODWORD(v1) = *(v1 + 8) != 6;
-  }
-
-  v2 = *(this + 3);
-  if (v2)
-  {
-    LODWORD(v2) = *(v2 + 8) != 6;
-  }
-
-  return (v1 | v2) & 1;
-}
-
-uint64_t physx::NpConstraint::comShift(uint64_t result, uint64_t a2)
-{
-  v3 = result;
-  v4 = *(result + 88);
-  if (*(result + 16) == a2)
-  {
-    result = (*(*v4 + 24))(*(result + 88), 0);
-  }
-
-  if (*(v3 + 24) == a2)
-  {
-    v5 = *(*v4 + 24);
-
-    return v5(v4, 1);
-  }
-
-  return result;
-}
-
-uint64_t physx::NpConstraint::getSceneFromActors(physx::NpConstraint *this)
-{
-  v2 = *(this + 2);
-  v1 = *(this + 3);
-  if (!v2 || ((*(*v2 + 104))(&v10 + 1, *(this + 2)), (v10 & 0x800) != 0))
-  {
-    v3 = 0;
-    if (!v1)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  else
-  {
-    v3 = (*(*v2 + 56))(v2);
-    if (!v1)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  (*(*v1 + 104))(&v10, v1);
-  if ((v10 & 8) == 0)
-  {
-    v4 = (*(*v1 + 56))(v1);
-    goto LABEL_9;
-  }
-
-LABEL_8:
-  v4 = 0;
-LABEL_9:
-  v5 = v2 == 0;
-  if (v1)
-  {
-    v6 = v4 == 0;
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  v7 = !v6;
-  if (v3)
-  {
-    v5 = 1;
-    v8 = v3;
-  }
-
-  else
-  {
-    v8 = v4;
-  }
-
-  if ((v5 & v7) != 0)
-  {
-    return v8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void physx::NpFactory::~NpFactory(physx::NpFactory *this)
-{
-  *this = &unk_1F5D24FE8;
-  v2 = *(this + 104);
-  if (v2)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  physx::shdfnd::MutexT<physx::shdfnd::ReflectionAllocator<physx::shdfnd::MutexImpl>>::~MutexT(this + 931);
-  if (*(this + 1857))
-  {
-    v209 = 0;
-    v210 = 0;
-    v3 = *(this + 930);
-    if (v3)
-    {
-      do
-      {
-        v208 = v3;
-        v4 = v210;
-        if ((HIDWORD(v210) & 0x7FFFFFFFu) <= v210)
-        {
-          physx::shdfnd::Array<void *,physx::shdfnd::ReflectionAllocator<physx::NpArticulationJointReducedCoordinate>>::growAndPushBack(&v209, &v208);
-        }
-
-        else
-        {
-          v209[v210] = v3;
-          LODWORD(v210) = v4 + 1;
-        }
-
-        v3 = **(this + 930);
-        *(this + 930) = v3;
-      }
-
-      while (v3);
-      v5 = v209;
-      v6 = v210;
-    }
-
-    else
-    {
-      v6 = 0;
       v5 = 0;
     }
-
-    physx::shdfnd::sort<void *,physx::shdfnd::Less<void *>,physx::shdfnd::ReflectionAllocator<physx::NpArticulationJointReducedCoordinate>>(v5, v6);
-    physx::shdfnd::sort<void *,physx::shdfnd::Less<void *>,physx::shdfnd::ReflectionAllocator<physx::NpArticulationJointReducedCoordinate>>(*(this + 926), *(this + 1854));
-    v7 = *(this + 1854);
-    v8 = v209;
-    if (v7)
-    {
-      v9 = *(this + 926);
-      v10 = &v9[v7];
-      do
-      {
-        v11 = *(this + 1856);
-        if (v11)
-        {
-          v12 = *v9;
-          v13 = 440 * v11;
-          v14 = *v9;
-          do
-          {
-            if (v8 != &v209[v210] && v14 == *v8)
-            {
-              ++v8;
-            }
-
-            else
-            {
-              (*(*v14 + 24))(v14);
-            }
-
-            v14 += 440;
-            v12 += 440;
-            v13 -= 440;
-          }
-
-          while (v13);
-        }
-
-        ++v9;
-      }
-
-      while (v9 != v10);
-      v8 = v209;
-    }
-
-    if ((v210 & 0x8000000000000000) == 0 && (v210 & 0x7FFFFFFF00000000) != 0 && v8 != 0)
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v8);
-    }
   }
 
-  v16 = *(this + 926);
-  v17 = *(this + 1854);
-  if (v17)
+  else
   {
-    v18 = 8 * v17;
+    *(result + 2048) = 1;
+    v5 = result;
+  }
+
+  v8 = *(v3 + 2064);
+  v9 = *(v3 + 2056);
+  if (v8)
+  {
+    v10 = v5 + 8 * v8;
+    v11 = v5;
     do
     {
-      if (*v16)
-      {
-        (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-      }
-
-      v16 = (v16 + 8);
-      v18 -= 8;
+      v12 = *v9++;
+      *v11++ = v12;
     }
 
-    while (v18);
-    v16 = *(this + 926);
+    while (v11 < v10);
+    v9 = *(v3 + 2056);
   }
 
-  v19 = *(this + 1855);
-  if ((v19 & 0x80000000) == 0 && (v19 & 0x7FFFFFFF) != 0)
+  if ((*(v3 + 2068) & 0x80000000) == 0)
   {
-    if (v16 == (this + 6888))
+    if (v9 == v3)
     {
-      *(this + 7400) = 0;
+      *(v3 + 2048) = 0;
     }
 
-    else if (v16)
+    else if (v9)
     {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v16);
+      result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
     }
   }
 
-  physx::shdfnd::MutexT<physx::shdfnd::ReflectionAllocator<physx::shdfnd::MutexImpl>>::~MutexT(this + 859);
-  if (*(this + 1713))
+  *(v3 + 2056) = v5;
+  *(v3 + 2068) = a2;
+  return result;
+}
+
+float physx::Gu::SweepAnyShapeHeightfield(int **a1, float32x2_t **a2, float32x2_t *a3, float32x2_t *a4, float32x2_t *a5, float32x2_t *a6, uint64_t a7, uint64_t a8, float a9, double a10, float a11, double a12, double a13, __n128 a14, int *a15)
+{
+  a14.n128_f32[0] = a9;
+  v216 = *MEMORY[0x1E69E9840];
+  v17 = *a2;
+  v204 = (*a2)[1];
+  v205 = v17;
+  v18 = v17[3].f32[0];
+  __asm { FMOV            V2.2S, #1.0 }
+
+  v202 = vrev64_s32(vdiv_f32(_D2, v17[2]));
+  v203 = 1.0 / v18;
+  v213[256] = 1;
+  v215 = 0x4000000000;
+  v214 = v213;
+  v201[0] = &unk_1F5D21BD8;
+  v201[1] = v213;
+  v24 = a3[3].f32[0] - a5[3].f32[0];
+  v25 = vsub_f32(a3[2], a5[2]);
+  v26 = vsub_f32(a4[2], a6[2]);
+  v27 = a4[3].f32[0] - a6[3].f32[0];
+  v28 = (v24 - v27) * 0.5;
+  v29 = (*(a1 + 19) + fabsf(v28)) + a14.n128_f32[0];
+  v30 = v28 + *(a1 + 22);
+  _D2.f32[0] = v30 - v29;
+  v31 = v29 + v30;
+  v171 = vsub_f32(v25, v26);
+  v172 = a14;
+  v32 = vmul_f32(v171, 0x3F0000003F000000);
+  v33 = vdup_lane_s32(a14.n128_u64[0], 0);
+  v34 = vadd_f32(vadd_f32(vabs_f32(v32), *(a1 + 68)), v33);
+  v35 = vadd_f32(v32, a1[10]);
+  v197 = vsub_f32(v35, v34);
+  v199 = vadd_f32(v34, v35);
+  v198 = _D2.i32[0];
+  v200 = v31;
+  physx::Gu::HeightFieldUtil::overlapAABBTriangles(&v202, a4, &v197, 1, v201);
+  *v179 = 0;
+  v196 = 0;
+  v195 = 0;
+  physx::shdfnd::Array<unsigned int,physx::shdfnd::ReflectionAllocator<unsigned int>>::resize(&v195, v215, v179);
+  *v179 = 0;
+  v193 = 0;
+  v194 = 0;
+  physx::shdfnd::Array<unsigned int,physx::shdfnd::ReflectionAllocator<unsigned int>>::resize(&v193, v215, v179);
+  v36 = v195;
+  v37 = v215;
+  if (!v215)
   {
-    v209 = 0;
-    v210 = 0;
-    v20 = *(this + 858);
-    if (v20)
+    v39 = 0;
+    goto LABEL_56;
+  }
+
+  v38 = 0;
+  v39 = 0;
+  v166 = v193;
+  v40 = a1[10];
+  v41 = v214;
+  v42 = *(a1 + 22);
+  v43 = vadd_f32(*(a1 + 68), v33);
+  v44 = vdup_n_s32(0x3F8CCCCDu);
+  v45 = vmul_f32(v43, v44);
+  v46 = (*(a1 + 19) + v172.n128_f32[0]) * 1.1;
+  v160 = vsub_f32(v26, v25);
+  v157 = vadd_f32(v40, v45);
+  v155 = v42 + v46;
+  v153 = vsub_f32(v40, v45);
+  v151 = v42 - v46;
+  v168 = v45;
+  v169 = v40;
+  *&v40 = v42;
+  v45.f32[0] = v46;
+  v162 = v45;
+  v164 = v40;
+  do
+  {
+    physx::Gu::HeightFieldUtil::getTriangle(&v202, a2 + 3, v179, 0, 0, *&v41[4 * v38], 1, 1);
+    v47 = *&v179[20];
+    v48 = *&v179[8];
+    _D16 = vsub_f32(*&v179[12], *v179);
+    v50 = vsub_f32(v180, *v179);
+    v51 = v181;
+    _S20 = v181 - *&v179[8];
+    v53 = -(vmuls_lane_f32(-(*&v179[20] - *&v179[8]), v50, 1) + (_D16.f32[1] * (v181 - *&v179[8])));
+    __asm { FMLA            S21, S20, V16.S[1] }
+
+    v55 = ((*&v179[20] - *&v179[8]) * v50.f32[0]) - (_D16.f32[0] * (v181 - *&v179[8]));
+    v56 = (-_D16.f32[1] * v50.f32[0]) + (_D16.f32[0] * v50.f32[1]);
+    v57 = -v55;
+    v58 = -v56;
+    v59 = sqrtf(((v55 * v55) + (_S21 * _S21)) + (v56 * v56));
+    if (v59 > 0.0)
     {
-      do
-      {
-        v208 = v20;
-        v21 = v210;
-        if ((HIDWORD(v210) & 0x7FFFFFFFu) <= v210)
-        {
-          physx::shdfnd::Array<void *,physx::shdfnd::ReflectionAllocator<physx::NpArticulationJoint>>::growAndPushBack(&v209, &v208);
-        }
+      v60 = 1.0 / v59;
+      v53 = v60 * v53;
+      v57 = v60 * v57;
+      v58 = v60 * v58;
+    }
 
-        else
-        {
-          v209[v210] = v20;
-          LODWORD(v210) = v21 + 1;
-        }
+    if ((((v171.f32[1] * v57) + (v171.f32[0] * v53)) + ((v24 - v27) * v58)) < a11)
+    {
+      goto LABEL_53;
+    }
 
-        v20 = **(this + 858);
-        *(this + 858) = v20;
-      }
+    v61 = vdup_n_s32(0x7E7FFFFFu);
+    v62 = vcgt_f32(*v179, v61);
+    v63 = 8.5071e37;
+    v64 = vdup_n_s32(0xFE7FFFFF);
+    if (*&v179[8] <= 8.5071e37)
+    {
+      v63 = *&v179[8];
+    }
 
-      while (v20);
-      v22 = v209;
-      v23 = v210;
+    v65 = vcgt_f32(v64, *v179);
+    if (*&v179[8] < -8.5071e37)
+    {
+      v48 = -8.5071e37;
+    }
+
+    if (v63 >= *&v179[20])
+    {
+      v63 = *&v179[20];
+    }
+
+    if (v48 > *&v179[20])
+    {
+      v47 = v48;
+    }
+
+    if (v63 >= v181)
+    {
+      v66 = v181;
     }
 
     else
     {
-      v23 = 0;
-      v22 = 0;
+      v66 = v63;
     }
 
-    physx::shdfnd::sort<void *,physx::shdfnd::Less<void *>,physx::shdfnd::ReflectionAllocator<physx::NpArticulationJoint>>(v22, v23);
-    physx::shdfnd::sort<void *,physx::shdfnd::Less<void *>,physx::shdfnd::ReflectionAllocator<physx::NpArticulationJoint>>(*(this + 854), *(this + 1710));
-    v24 = *(this + 1710);
-    v25 = v209;
-    if (v24)
+    if (v47 > v181)
     {
-      v26 = *(this + 854);
-      v27 = &v26[v24];
-      do
+      v51 = v47;
+    }
+
+    v67 = (v66 + v51) * 0.5;
+    v68 = ((v51 - v66) * 0.5) + 0.01;
+    v69 = vbsl_s8(v62, v61, *v179);
+    v70 = vbsl_s8(v65, v64, *v179);
+    v71 = vbsl_s8(vcgt_f32(*&v179[12], v69), v69, *&v179[12]);
+    v72 = vbsl_s8(vcgt_f32(v70, *&v179[12]), v70, *&v179[12]);
+    v73 = vbsl_s8(vcgt_f32(v180, v71), v71, v180);
+    v74 = vbsl_s8(vcgt_f32(v72, v180), v72, v180);
+    v75 = vmul_f32(vadd_f32(v73, v74), 0x3F0000003F000000);
+    v76 = vmul_f32(vadd_f32(vmul_f32(vsub_f32(v74, v73), 0x3F0000003F000000), vdup_n_s32(0x3C23D70Au)), v44);
+    v77 = v68 * 1.1;
+    if (fabsf(vsub_f32(v169, v75).f32[0]) <= vadd_f32(v168, v76).f32[0])
+    {
+      v78 = vmvn_s8(vcge_f32(vadd_f32(v162, __PAIR64__(v76.u32[1], LODWORD(v77))), vabd_f32(v164, __PAIR64__(v75.u32[1], LODWORD(v67)))));
+      if ((v78.i8[4] & 1) == 0)
       {
-        v28 = *(this + 1712);
-        if (v28)
+        v79 = v78.i8[0];
+        v80 = 0.0;
+        if ((v79 & 1) == 0)
         {
-          v29 = *v26;
-          v30 = 440 * v28;
-          v31 = *v26;
-          do
-          {
-            if (v25 != &v209[v210] && v31 == *v25)
-            {
-              ++v25;
-            }
-
-            else
-            {
-              (*(*v31 + 24))(v31);
-            }
-
-            v31 += 440;
-            v29 += 440;
-            v30 -= 440;
-          }
-
-          while (v30);
+          goto LABEL_22;
         }
-
-        ++v26;
       }
-
-      while (v26 != v27);
-      v25 = v209;
     }
 
-    if ((v210 & 0x8000000000000000) == 0 && (v210 & 0x7FFFFFFF00000000) != 0 && v25 != 0)
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v25);
-    }
-  }
-
-  v33 = *(this + 854);
-  v34 = *(this + 1710);
-  if (v34)
-  {
-    v35 = 8 * v34;
+    v85 = 0;
+    *&v176[0] = v160;
+    *(v176 + 2) = v27 - v24;
+    v187 = v157;
+    *&v188 = v155;
+    v211 = v153;
+    v212 = v151;
+    v208 = vadd_f32(v75, v76);
+    v209 = v67 + v77;
+    v206 = vsub_f32(v75, v76);
+    v207 = v67 - v77;
+    v80 = 0.0;
+    v86 = 1.0;
     do
     {
-      if (*v33)
+      v87 = *(v176 + v85 * 4);
+      if (v87 >= -0.000001)
       {
-        (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-      }
-
-      v33 = (v33 + 8);
-      v35 -= 8;
-    }
-
-    while (v35);
-    v33 = *(this + 854);
-  }
-
-  v36 = *(this + 1711);
-  if ((v36 & 0x80000000) == 0 && (v36 & 0x7FFFFFFF) != 0)
-  {
-    if (v33 == (this + 6312))
-    {
-      *(this + 6824) = 0;
-    }
-
-    else if (v33)
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v33);
-    }
-  }
-
-  physx::shdfnd::MutexT<physx::shdfnd::ReflectionAllocator<physx::shdfnd::MutexImpl>>::~MutexT(this + 787);
-  if (*(this + 1569))
-  {
-    v209 = 0;
-    v210 = 0;
-    v37 = *(this + 786);
-    if (v37)
-    {
-      do
-      {
-        v208 = v37;
-        v38 = v210;
-        if ((HIDWORD(v210) & 0x7FFFFFFFu) <= v210)
+        if (v87 <= 0.000001)
         {
-          physx::shdfnd::Array<void *,physx::shdfnd::ReflectionAllocator<physx::NpArticulationLink>>::growAndPushBack(&v209, &v208);
+          if (v208.f32[v85] < v211.f32[v85] || *(&v206 + v85 * 4) > v187.f32[v85])
+          {
+            goto LABEL_53;
+          }
         }
 
         else
         {
-          v209[v210] = v37;
-          LODWORD(v210) = v38 + 1;
-        }
+          v88 = *(&v206 + v85 * 4);
+          v89 = v187.f32[v85];
+          if (v88 > v89)
+          {
+            goto LABEL_53;
+          }
 
-        v37 = **(this + 786);
-        *(this + 786) = v37;
+          v93 = v208.f32[v85];
+          v94 = v211.f32[v85];
+          if (v93 < v94)
+          {
+            v95 = (v94 - v93) / v87;
+            if (v95 > v80)
+            {
+              v80 = v95;
+            }
+          }
+
+          if (v89 > v88)
+          {
+LABEL_41:
+            v96 = (v89 - v88) / v87;
+            if (v96 < v86)
+            {
+              v86 = v96;
+            }
+          }
+        }
       }
 
-      while (v37);
-      v39 = v209;
-      v40 = v210;
+      else
+      {
+        v88 = v208.f32[v85];
+        v89 = v211.f32[v85];
+        if (v88 < v89)
+        {
+          goto LABEL_53;
+        }
+
+        v90 = v187.f32[v85];
+        v91 = *(&v206 + v85 * 4);
+        if (v90 < v91)
+        {
+          v92 = (v90 - v91) / v87;
+          if (v92 > v80)
+          {
+            v80 = v92;
+          }
+        }
+
+        if (v88 > v89)
+        {
+          goto LABEL_41;
+        }
+      }
+
+      if (v80 > v86)
+      {
+        goto LABEL_53;
+      }
+
+      ++v85;
+    }
+
+    while (v85 != 3);
+    if (v80 > 1.0)
+    {
+      goto LABEL_53;
+    }
+
+LABEL_22:
+    if (v39)
+    {
+      v81 = v39;
+      v82 = &v36[v39];
+      v83 = (v166 + 4 * v39);
+      while (1)
+      {
+        v84 = *(v83 - 1);
+        if (v84 <= v80)
+        {
+          break;
+        }
+
+        *v83-- = v84;
+        *v82 = *(v82 - 1);
+        --v82;
+        if (!--v81)
+        {
+          goto LABEL_52;
+        }
+      }
+
+      v81 = v81;
     }
 
     else
     {
-      v40 = 0;
-      v39 = 0;
+      v81 = 0;
     }
 
-    physx::shdfnd::sort<void *,physx::shdfnd::Less<void *>,physx::shdfnd::ReflectionAllocator<physx::NpArticulationLink>>(v39, v40);
-    physx::shdfnd::sort<void *,physx::shdfnd::Less<void *>,physx::shdfnd::ReflectionAllocator<physx::NpArticulationLink>>(*(this + 782), *(this + 1566));
-    v41 = *(this + 1566);
-    if (v41)
-    {
-      v42 = *(this + 782);
-      v43 = &v42[v41];
-      v44 = (v39 + 8 * v40);
-      v45 = v39;
-      do
-      {
-        v46 = *(this + 1568);
-        if (v46)
-        {
-          v47 = *v42;
-          v48 = 480 * v46;
-          v49 = *v42;
-          do
-          {
-            if (v45 != v44 && v49 == *v45)
-            {
-              ++v45;
-            }
-
-            else
-            {
-              (*(*v49 + 24))(v49);
-            }
-
-            v49 += 480;
-            v47 += 480;
-            v48 -= 480;
-          }
-
-          while (v48);
-        }
-
-        ++v42;
-      }
-
-      while (v42 != v43);
-    }
-
-    if (v39 && (v210 & 0x8000000000000000) == 0 && (v210 & 0x7FFFFFFF00000000) != 0)
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v39);
-    }
+LABEL_52:
+    v36[v81] = *&v41[4 * v38];
+    *(v166 + 4 * v81) = v80;
+    ++v39;
+LABEL_53:
+    ++v38;
   }
 
-  v50 = *(this + 782);
-  v51 = *(this + 1566);
-  if (v51)
+  while (v38 != v37);
+LABEL_56:
+  v97 = 0;
+  *a7 = 0;
+  *(a7 + 8) = 0;
+  *a8 = 0;
+  *(a8 + 8) = 0;
+  v98 = *(a1 + 2);
+  v99 = a4[2].f32[0];
+  v100 = a4[2].f32[1];
+  v101 = a4[3].f32[0];
+  v102 = (*(a1 + 7) - v99) + (*(a1 + 7) - v99);
+  v103 = (*(a1 + 8) - v100) + (*(a1 + 8) - v100);
+  v104 = (*(a1 + 9) - v101) + (*(a1 + 9) - v101);
+  v106 = a4[1].f32[0];
+  v105 = a4[1].f32[1];
+  v107 = (v105 * v105) + -0.5;
+  v108 = a4->f32[0];
+  v109 = a4->f32[1];
+  v110 = ((v103 * v109) + (a4->f32[0] * v102)) + (v106 * v104);
+  *&v111 = ((v102 * v107) - (((v109 * v104) - (v106 * v103)) * v105)) + (a4->f32[0] * v110);
+  *&v112 = ((v103 * v107) - (((v106 * v102) - (a4->f32[0] * v104)) * v105)) + (v109 * v110);
+  v113 = ((v104 * v107) - (((a4->f32[0] * v103) - (v109 * v102)) * v105)) + (v106 * v110);
+  v206 = __PAIR64__(v112, v111);
+  v207 = v113;
+  if (v39)
   {
-    v52 = 8 * v51;
+    v159 = v98 * v98;
+    v114 = (a5[2].f32[0] - v99) + (a5[2].f32[0] - v99);
+    v115 = (a5[2].f32[1] - v100) + (a5[2].f32[1] - v100);
+    v116 = (a5[3].f32[0] - v101) + (a5[3].f32[0] - v101);
+    v117 = ((v109 * v115) + (v108 * v114)) + (v106 * v116);
+    v156 = ((v114 * v107) - (((v109 * v116) - (v106 * v115)) * v105)) + (v108 * v117);
+    v158 = v98;
+    v152 = ((v116 * v107) - (((v108 * v115) - (v109 * v114)) * v105)) + (v106 * v117);
+    v154 = ((v115 * v107) - (((v106 * v114) - (v108 * v116)) * v105)) + (v109 * v117);
+    v118 = v39;
+    v163 = 0;
+    v119 = 0.0;
+    v120 = -1;
+    v121 = 3.4028e38;
+    v122 = 0.0;
+    v123 = 0.0;
+    v161 = 0;
     do
     {
-      if (*v50)
+      physx::Gu::HeightFieldUtil::getTriangle(&v202, a6, &v187, 0, 0, *v36, 0, 0);
+      *v124.f32 = v187;
+      v124.i64[1] = v188;
+      *v125.f32 = v189;
+      v125.i64[1] = LODWORD(v190);
+      *v126.f32 = v191;
+      v126.i64[1] = LODWORD(v192);
+      v127 = vmulq_f32(vaddq_f32(vaddq_f32(v124, v125), v126), vdupq_n_s32(0x3EAAAA9Fu));
+      v127.i32[3] = 0;
+      LOBYTE(v181) = 0;
+      *v179 = v127;
+      v182 = v124;
+      v183 = v125;
+      v184 = v126;
+      *&v179[16] = 0x7F7FFFFF00000000;
+      v180 = 0x57F7FFFFFLL;
+      v128 = *a1;
+      v176[0] = xmmword_1E3047670;
+      v176[1] = xmmword_1E3047670;
+      v176[2] = xmmword_1E3060D60;
+      v176[3] = xmmword_1E3047680;
+      v177 = 0x3F80000000000000;
+      v178 = 0;
+      v129 = (*(&physx::Gu::g_TriangleSweepMethodTable + *v128))(v172, 0.0);
+      if (v129 <= 0.0)
       {
-        (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-      }
-
-      v50 = (v50 + 8);
-      v52 -= 8;
-    }
-
-    while (v52);
-    v50 = *(this + 782);
-  }
-
-  v53 = *(this + 1567);
-  if ((v53 & 0x80000000) == 0 && (v53 & 0x7FFFFFFF) != 0)
-  {
-    if (v50 == (this + 5736))
-    {
-      *(this + 6248) = 0;
-    }
-
-    else if (v50)
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v50);
-    }
-  }
-
-  physx::shdfnd::MutexT<physx::shdfnd::ReflectionAllocator<physx::shdfnd::MutexImpl>>::~MutexT(this + 715);
-  if (*(this + 1425))
-  {
-    v209 = 0;
-    v210 = 0;
-    v54 = *(this + 714);
-    if (v54)
-    {
-      do
-      {
-        v208 = v54;
-        v55 = v210;
-        if ((HIDWORD(v210) & 0x7FFFFFFFu) <= v210)
+        v130 = v190 - *&v188;
+        _S15 = v192 - *&v188;
+        v167 = vsub_f32(v189, v187);
+        *&v176[0] = vadd_f32(v187, v167);
+        *(v176 + 2) = *&v188 + (v190 - *&v188);
+        v165 = vsub_f32(v191, v187);
+        v211 = vadd_f32(v187, v165);
+        v212 = *&v188 + (v192 - *&v188);
+        v210 = 0;
+        physx::Gu::closestPtPointTriangle(&v206, &v187, v176, &v211, &v210 + 1, &v210, &v208);
+        v132 = (((v208.f32[1] - *(&v206 + 1)) * (v208.f32[1] - *(&v206 + 1))) + ((v208.f32[0] - *&v206) * (v208.f32[0] - *&v206))) + ((v209 - v207) * (v209 - v207));
+        v129 = 0.0;
+        if (v132 < v159)
         {
-          physx::shdfnd::Array<void *,physx::shdfnd::ReflectionAllocator<physx::NpArticulationReducedCoordinate>>::growAndPushBack(&v209, &v208);
-        }
+          _S3 = v167.i32[1];
+          __asm { FMLA            S0, S15, V5.S[1] }
 
-        else
-        {
-          v209[v210] = v54;
-          LODWORD(v210) = v55 + 1;
-        }
-
-        v54 = **(this + 714);
-        *(this + 714) = v54;
-      }
-
-      while (v54);
-      v56 = v209;
-      v57 = v210;
-    }
-
-    else
-    {
-      v57 = 0;
-      v56 = 0;
-    }
-
-    physx::shdfnd::sort<void *,physx::shdfnd::Less<void *>,physx::shdfnd::ReflectionAllocator<physx::NpArticulationReducedCoordinate>>(v56, v57);
-    physx::shdfnd::sort<void *,physx::shdfnd::Less<void *>,physx::shdfnd::ReflectionAllocator<physx::NpArticulationReducedCoordinate>>(*(this + 710), *(this + 1422));
-    v58 = *(this + 1422);
-    if (v58)
-    {
-      v59 = *(this + 710);
-      v60 = &v59[v58];
-      v61 = (v56 + 8 * v57);
-      v62 = v56;
-      do
-      {
-        v63 = *(this + 1424);
-        if (v63)
-        {
-          v64 = *v59;
-          v65 = 200 * v63;
-          v66 = *v59;
-          do
+          v135 = sqrtf(v132);
+          v136 = v135 - v158;
+          v137 = -((v158 * 2.0) - v135);
+          if ((((v154 * ((v130 * v165.f32[0]) - (v167.f32[0] * _S15))) + (_S0 * v156)) + (((-v167.f32[1] * v165.f32[0]) + (v167.f32[0] * v165.f32[1])) * v152)) <= (((((v130 * v165.f32[0]) - (v167.f32[0] * _S15)) * v187.f32[1]) + (_S0 * v187.f32[0])) + (((-v167.f32[1] * v165.f32[0]) + (v167.f32[0] * v165.f32[1])) * *&v188)))
           {
-            if (v62 != v61 && v66 == *v62)
-            {
-              ++v62;
-            }
-
-            else
-            {
-              (*(*v66 + 24))(v66);
-            }
-
-            v66 += 200;
-            v64 += 200;
-            v65 -= 200;
+            v129 = v136;
           }
 
-          while (v65);
-        }
-
-        ++v59;
-      }
-
-      while (v59 != v60);
-    }
-
-    if (v56 && (v210 & 0x8000000000000000) == 0 && (v210 & 0x7FFFFFFF00000000) != 0)
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v56);
-    }
-  }
-
-  v67 = *(this + 710);
-  v68 = *(this + 1422);
-  if (v68)
-  {
-    v69 = 8 * v68;
-    do
-    {
-      if (*v67)
-      {
-        (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-      }
-
-      v67 = (v67 + 8);
-      v69 -= 8;
-    }
-
-    while (v69);
-    v67 = *(this + 710);
-  }
-
-  v70 = *(this + 1423);
-  if ((v70 & 0x80000000) == 0 && (v70 & 0x7FFFFFFF) != 0)
-  {
-    if (v67 == (this + 5160))
-    {
-      *(this + 5672) = 0;
-    }
-
-    else if (v67)
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v67);
-    }
-  }
-
-  physx::shdfnd::MutexT<physx::shdfnd::ReflectionAllocator<physx::shdfnd::MutexImpl>>::~MutexT(this + 643);
-  if (*(this + 1281))
-  {
-    v209 = 0;
-    v210 = 0;
-    v71 = *(this + 642);
-    if (v71)
-    {
-      do
-      {
-        v208 = v71;
-        v72 = v210;
-        if ((HIDWORD(v210) & 0x7FFFFFFFu) <= v210)
-        {
-          physx::shdfnd::Array<void *,physx::shdfnd::ReflectionAllocator<physx::NpArticulation>>::growAndPushBack(&v209, &v208);
-        }
-
-        else
-        {
-          v209[v210] = v71;
-          LODWORD(v210) = v72 + 1;
-        }
-
-        v71 = **(this + 642);
-        *(this + 642) = v71;
-      }
-
-      while (v71);
-      v73 = v209;
-      v74 = v210;
-    }
-
-    else
-    {
-      v74 = 0;
-      v73 = 0;
-    }
-
-    physx::shdfnd::sort<void *,physx::shdfnd::Less<void *>,physx::shdfnd::ReflectionAllocator<physx::NpArticulation>>(v73, v74);
-    physx::shdfnd::sort<void *,physx::shdfnd::Less<void *>,physx::shdfnd::ReflectionAllocator<physx::NpArticulation>>(*(this + 638), *(this + 1278));
-    v75 = *(this + 1278);
-    if (v75)
-    {
-      v76 = *(this + 638);
-      v77 = &v76[v75];
-      v78 = (v73 + 8 * v74);
-      v79 = v73;
-      do
-      {
-        v80 = *(this + 1280);
-        if (v80)
-        {
-          v81 = *v76;
-          v82 = 184 * v80;
-          v83 = *v76;
-          do
+          else
           {
-            if (v79 != v78 && v83 == *v79)
-            {
-              ++v79;
-            }
-
-            else
-            {
-              (*(*v83 + 24))(v83);
-            }
-
-            v83 += 184;
-            v81 += 184;
-            v82 -= 184;
+            v129 = v137;
           }
-
-          while (v82);
         }
-
-        ++v76;
       }
 
-      while (v76 != v77);
-    }
-
-    if (v73 && (v210 & 0x8000000000000000) == 0 && (v210 & 0x7FFFFFFF00000000) != 0)
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v73);
-    }
-  }
-
-  v84 = *(this + 638);
-  v85 = *(this + 1278);
-  if (v85)
-  {
-    v86 = 8 * v85;
-    do
-    {
-      if (*v84)
+      if (v129 < v121)
       {
-        (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-      }
-
-      v84 = (v84 + 8);
-      v86 -= 8;
-    }
-
-    while (v86);
-    v84 = *(this + 638);
-  }
-
-  v87 = *(this + 1279);
-  if ((v87 & 0x80000000) == 0 && (v87 & 0x7FFFFFFF) != 0)
-  {
-    if (v84 == (this + 4584))
-    {
-      *(this + 5096) = 0;
-    }
-
-    else if (v84)
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v84);
-    }
-  }
-
-  physx::shdfnd::MutexT<physx::shdfnd::ReflectionAllocator<physx::shdfnd::MutexImpl>>::~MutexT(this + 571);
-  if (*(this + 1137))
-  {
-    v209 = 0;
-    v210 = 0;
-    v88 = *(this + 570);
-    if (v88)
-    {
-      do
-      {
-        v208 = v88;
-        v89 = v210;
-        if ((HIDWORD(v210) & 0x7FFFFFFFu) <= v210)
+        v123 = ((v189.f32[1] - v187.f32[1]) * (v192 - *&v188)) - ((v190 - *&v188) * (v191.f32[1] - v187.f32[1]));
+        v122 = ((v190 - *&v188) * (v191.f32[0] - v187.f32[0])) - ((v189.f32[0] - v187.f32[0]) * (v192 - *&v188));
+        v119 = ((v189.f32[0] - v187.f32[0]) * (v191.f32[1] - v187.f32[1])) - ((v189.f32[1] - v187.f32[1]) * (v191.f32[0] - v187.f32[0]));
+        v138 = sqrtf(((v122 * v122) + (v123 * v123)) + (v119 * v119));
+        if (v138 > 0.0)
         {
-          physx::shdfnd::Array<void *,physx::shdfnd::ReflectionAllocator<physx::NpMaterial>>::growAndPushBack(&v209, &v208);
+          v139 = 1.0 / v138;
+          v123 = v123 * v139;
+          v122 = v122 * v139;
+          v119 = v119 * v139;
         }
 
-        else
-        {
-          v209[v210] = v88;
-          LODWORD(v210) = v89 + 1;
-        }
-
-        v88 = **(this + 570);
-        *(this + 570) = v88;
+        v163 = v185;
+        v161 = v186;
+        v121 = v129;
+        v120 = *v36;
       }
 
-      while (v88);
-      v90 = v209;
-      v91 = v210;
+      ++v36;
+      --v118;
     }
 
-    else
-    {
-      v91 = 0;
-      v90 = 0;
-    }
-
-    physx::shdfnd::sort<void *,physx::shdfnd::Less<void *>,physx::shdfnd::ReflectionAllocator<physx::NpMaterial>>(v90, v91);
-    physx::shdfnd::sort<void *,physx::shdfnd::Less<void *>,physx::shdfnd::ReflectionAllocator<physx::NpMaterial>>(*(this + 566), *(this + 1134));
-    v92 = *(this + 1134);
-    if (v92)
-    {
-      v93 = *(this + 566);
-      v94 = &v93[v92];
-      v95 = (v90 + 8 * v91);
-      v96 = v90;
-      do
-      {
-        v97 = *(this + 1136);
-        if (v97)
-        {
-          v98 = *v93;
-          v99 = 80 * v97;
-          v100 = *v93;
-          do
-          {
-            if (v96 != v95 && v100 == *v96)
-            {
-              ++v96;
-            }
-
-            else
-            {
-              (*(*v100 + 24))(v100);
-            }
-
-            v100 += 80;
-            v98 += 80;
-            v99 -= 80;
-          }
-
-          while (v99);
-        }
-
-        ++v93;
-      }
-
-      while (v93 != v94);
-    }
-
-    if (v90 && (v210 & 0x8000000000000000) == 0 && (v210 & 0x7FFFFFFF00000000) != 0)
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v90);
-    }
+    while (v118);
+    v108 = a4->f32[0];
+    v109 = a4->f32[1];
+    v106 = a4[1].f32[0];
+    v105 = a4[1].f32[1];
+    v107 = (v105 * v105) + -0.5;
+    v140 = -v106;
+    v141 = -a4->f32[0];
+    v142 = -v109;
+    v143 = v123 + v123;
+    v144 = v122 + v122;
+    v145 = v119 + v119;
+    v97 = v163;
+    v146 = v161;
   }
 
-  v101 = *(this + 566);
-  v102 = *(this + 1134);
-  if (v102)
+  else
   {
-    v103 = 8 * v102;
-    do
-    {
-      if (*v101)
-      {
-        (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-      }
-
-      v101 = (v101 + 8);
-      v103 -= 8;
-    }
-
-    while (v103);
-    v101 = *(this + 566);
+    v140 = -v106;
+    v141 = -v108;
+    v142 = -v109;
+    v120 = -1;
+    v146 = 0;
+    v121 = 3.4028e38;
+    v143 = 0.0;
+    v144 = 0.0;
+    v145 = 0.0;
   }
 
-  v104 = *(this + 1135);
-  if ((v104 & 0x80000000) == 0 && (v104 & 0x7FFFFFFF) != 0)
-  {
-    if (v101 == (this + 4008))
-    {
-      *(this + 4520) = 0;
-    }
-
-    else if (v101)
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v101);
-    }
-  }
-
-  physx::shdfnd::MutexT<physx::shdfnd::ReflectionAllocator<physx::shdfnd::MutexImpl>>::~MutexT(this + 499);
-  if (*(this + 993))
-  {
-    v209 = 0;
-    v210 = 0;
-    v105 = *(this + 498);
-    if (v105)
-    {
-      do
-      {
-        v208 = v105;
-        v106 = v210;
-        if ((HIDWORD(v210) & 0x7FFFFFFFu) <= v210)
-        {
-          physx::shdfnd::Array<void *,physx::shdfnd::ReflectionAllocator<physx::NpConstraint>>::growAndPushBack(&v209, &v208);
-        }
-
-        else
-        {
-          v209[v210] = v105;
-          LODWORD(v210) = v106 + 1;
-        }
-
-        v105 = **(this + 498);
-        *(this + 498) = v105;
-      }
-
-      while (v105);
-      v107 = v209;
-      v108 = v210;
-    }
-
-    else
-    {
-      v108 = 0;
-      v107 = 0;
-    }
-
-    physx::shdfnd::sort<void *,physx::shdfnd::Less<void *>,physx::shdfnd::ReflectionAllocator<physx::NpConstraint>>(v107, v108);
-    physx::shdfnd::sort<void *,physx::shdfnd::Less<void *>,physx::shdfnd::ReflectionAllocator<physx::NpConstraint>>(*(this + 494), *(this + 990));
-    v109 = *(this + 990);
-    if (v109)
-    {
-      v110 = *(this + 494);
-      v111 = &v110[v109];
-      v112 = (v107 + 8 * v108);
-      v113 = v107;
-      do
-      {
-        v114 = *(this + 992);
-        if (v114)
-        {
-          v115 = *v110;
-          v116 = 184 * v114;
-          v117 = *v110;
-          do
-          {
-            if (v113 != v112 && v117 == *v113)
-            {
-              ++v113;
-            }
-
-            else
-            {
-              (*(*v117 + 24))(v117);
-            }
-
-            v117 += 184;
-            v115 += 184;
-            v116 -= 184;
-          }
-
-          while (v116);
-        }
-
-        ++v110;
-      }
-
-      while (v110 != v111);
-    }
-
-    if (v107 && (v210 & 0x8000000000000000) == 0 && (v210 & 0x7FFFFFFF00000000) != 0)
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v107);
-    }
-  }
-
-  v118 = *(this + 494);
-  v119 = *(this + 990);
-  if (v119)
-  {
-    v120 = 8 * v119;
-    do
-    {
-      if (*v118)
-      {
-        (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-      }
-
-      v118 = (v118 + 8);
-      v120 -= 8;
-    }
-
-    while (v120);
-    v118 = *(this + 494);
-  }
-
-  v121 = *(this + 991);
-  if ((v121 & 0x80000000) == 0 && (v121 & 0x7FFFFFFF) != 0)
-  {
-    if (v118 == (this + 3432))
-    {
-      *(this + 3944) = 0;
-    }
-
-    else if (v118)
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v118);
-    }
-  }
-
-  physx::shdfnd::MutexT<physx::shdfnd::ReflectionAllocator<physx::shdfnd::MutexImpl>>::~MutexT(this + 427);
-  if (*(this + 849))
-  {
-    v209 = 0;
-    v210 = 0;
-    v122 = *(this + 426);
-    if (v122)
-    {
-      do
-      {
-        v208 = v122;
-        v123 = v210;
-        if ((HIDWORD(v210) & 0x7FFFFFFFu) <= v210)
-        {
-          physx::shdfnd::Array<void *,physx::shdfnd::ReflectionAllocator<physx::NpAggregate>>::growAndPushBack(&v209, &v208);
-        }
-
-        else
-        {
-          v209[v210] = v122;
-          LODWORD(v210) = v123 + 1;
-        }
-
-        v122 = **(this + 426);
-        *(this + 426) = v122;
-      }
-
-      while (v122);
-      v124 = v209;
-      v125 = v210;
-    }
-
-    else
-    {
-      v125 = 0;
-      v124 = 0;
-    }
-
-    physx::shdfnd::sort<void *,physx::shdfnd::Less<void *>,physx::shdfnd::ReflectionAllocator<physx::NpAggregate>>(v124, v125);
-    physx::shdfnd::sort<void *,physx::shdfnd::Less<void *>,physx::shdfnd::ReflectionAllocator<physx::NpAggregate>>(*(this + 422), *(this + 846));
-    v126 = *(this + 846);
-    if (v126)
-    {
-      v127 = *(this + 422);
-      v128 = &v127[v126];
-      v129 = (v124 + 8 * v125);
-      v130 = v124;
-      do
-      {
-        v131 = *(this + 848);
-        if (v131)
-        {
-          v132 = *v127;
-          v133 = 80 * v131;
-          v134 = *v127;
-          do
-          {
-            if (v130 != v129 && v134 == *v130)
-            {
-              ++v130;
-            }
-
-            else
-            {
-              (*(*v134 + 24))(v134);
-            }
-
-            v134 += 80;
-            v132 += 80;
-            v133 -= 80;
-          }
-
-          while (v133);
-        }
-
-        ++v127;
-      }
-
-      while (v127 != v128);
-    }
-
-    if (v124 && (v210 & 0x8000000000000000) == 0 && (v210 & 0x7FFFFFFF00000000) != 0)
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v124);
-    }
-  }
-
-  v135 = *(this + 422);
-  v136 = *(this + 846);
-  if (v136)
-  {
-    v137 = 8 * v136;
-    do
-    {
-      if (*v135)
-      {
-        (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-      }
-
-      v135 = (v135 + 8);
-      v137 -= 8;
-    }
-
-    while (v137);
-    v135 = *(this + 422);
-  }
-
-  v138 = *(this + 847);
-  if ((v138 & 0x80000000) == 0 && (v138 & 0x7FFFFFFF) != 0)
-  {
-    if (v135 == (this + 2856))
-    {
-      *(this + 3368) = 0;
-    }
-
-    else if (v135)
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v135);
-    }
-  }
-
-  physx::shdfnd::MutexT<physx::shdfnd::ReflectionAllocator<physx::shdfnd::MutexImpl>>::~MutexT(this + 355);
-  if (*(this + 705))
-  {
-    v209 = 0;
-    v210 = 0;
-    v139 = *(this + 354);
-    if (v139)
-    {
-      do
-      {
-        v208 = v139;
-        v140 = v210;
-        if ((HIDWORD(v210) & 0x7FFFFFFFu) <= v210)
-        {
-          physx::shdfnd::Array<void *,physx::shdfnd::ReflectionAllocator<physx::NpShape>>::growAndPushBack(&v209, &v208);
-        }
-
-        else
-        {
-          v209[v210] = v139;
-          LODWORD(v210) = v140 + 1;
-        }
-
-        v139 = **(this + 354);
-        *(this + 354) = v139;
-      }
-
-      while (v139);
-      v141 = v209;
-      v142 = v210;
-    }
-
-    else
-    {
-      v142 = 0;
-      v141 = 0;
-    }
-
-    physx::shdfnd::sort<void *,physx::shdfnd::Less<void *>,physx::shdfnd::ReflectionAllocator<physx::NpShape>>(v141, v142);
-    physx::shdfnd::sort<void *,physx::shdfnd::Less<void *>,physx::shdfnd::ReflectionAllocator<physx::NpShape>>(*(this + 350), *(this + 702));
-    v143 = *(this + 702);
-    if (v143)
-    {
-      v144 = *(this + 350);
-      v145 = &v144[v143];
-      v146 = (v141 + 8 * v142);
-      v147 = v141;
-      do
-      {
-        v148 = *(this + 704);
-        if (v148)
-        {
-          v149 = *v144;
-          v150 = 272 * v148;
-          v151 = *v144;
-          do
-          {
-            if (v147 != v146 && v151 == *v147)
-            {
-              ++v147;
-            }
-
-            else
-            {
-              (*(*v151 + 24))(v151);
-            }
-
-            v151 += 272;
-            v149 += 272;
-            v150 -= 272;
-          }
-
-          while (v150);
-        }
-
-        ++v144;
-      }
-
-      while (v144 != v145);
-    }
-
-    if (v141 && (v210 & 0x8000000000000000) == 0 && (v210 & 0x7FFFFFFF00000000) != 0)
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v141);
-    }
-  }
-
-  v152 = *(this + 350);
-  v153 = *(this + 702);
-  if (v153)
-  {
-    v154 = 8 * v153;
-    do
-    {
-      if (*v152)
-      {
-        (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-      }
-
-      v152 = (v152 + 8);
-      v154 -= 8;
-    }
-
-    while (v154);
-    v152 = *(this + 350);
-  }
-
-  v155 = *(this + 703);
-  if ((v155 & 0x80000000) == 0 && (v155 & 0x7FFFFFFF) != 0)
-  {
-    if (v152 == (this + 2280))
-    {
-      *(this + 2792) = 0;
-    }
-
-    else if (v152)
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v152);
-    }
-  }
-
-  physx::shdfnd::MutexT<physx::shdfnd::ReflectionAllocator<physx::shdfnd::MutexImpl>>::~MutexT(this + 283);
-  if (*(this + 561))
-  {
-    v209 = 0;
-    v210 = 0;
-    v156 = *(this + 282);
-    if (v156)
-    {
-      do
-      {
-        v208 = v156;
-        v157 = v210;
-        if ((HIDWORD(v210) & 0x7FFFFFFFu) <= v210)
-        {
-          physx::shdfnd::Array<void *,physx::shdfnd::ReflectionAllocator<physx::NpRigidStatic>>::growAndPushBack(&v209, &v208);
-        }
-
-        else
-        {
-          v209[v210] = v156;
-          LODWORD(v210) = v157 + 1;
-        }
-
-        v156 = **(this + 282);
-        *(this + 282) = v156;
-      }
-
-      while (v156);
-      v158 = v209;
-      v159 = v210;
-    }
-
-    else
-    {
-      v159 = 0;
-      v158 = 0;
-    }
-
-    physx::shdfnd::sort<void *,physx::shdfnd::Less<void *>,physx::shdfnd::ReflectionAllocator<physx::NpRigidStatic>>(v158, v159);
-    physx::shdfnd::sort<void *,physx::shdfnd::Less<void *>,physx::shdfnd::ReflectionAllocator<physx::NpRigidStatic>>(*(this + 278), *(this + 558));
-    v160 = *(this + 558);
-    if (v160)
-    {
-      v161 = *(this + 278);
-      v162 = &v161[v160];
-      v163 = (v158 + 8 * v159);
-      v164 = v158;
-      do
-      {
-        v165 = *(this + 560);
-        if (v165)
-        {
-          v166 = *v161;
-          v167 = 176 * v165;
-          v168 = *v161;
-          do
-          {
-            if (v164 != v163 && v168 == *v164)
-            {
-              ++v164;
-            }
-
-            else
-            {
-              (*(*v168 + 24))(v168);
-            }
-
-            v168 += 176;
-            v166 += 176;
-            v167 -= 176;
-          }
-
-          while (v167);
-        }
-
-        ++v161;
-      }
-
-      while (v161 != v162);
-    }
-
-    if (v158 && (v210 & 0x8000000000000000) == 0 && (v210 & 0x7FFFFFFF00000000) != 0)
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v158);
-    }
-  }
-
-  v169 = *(this + 278);
-  v170 = *(this + 558);
-  if (v170)
-  {
-    v171 = 8 * v170;
-    do
-    {
-      if (*v169)
-      {
-        (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-      }
-
-      v169 = (v169 + 8);
-      v171 -= 8;
-    }
-
-    while (v171);
-    v169 = *(this + 278);
-  }
-
-  v172 = *(this + 559);
-  if ((v172 & 0x80000000) == 0 && (v172 & 0x7FFFFFFF) != 0)
-  {
-    if (v169 == (this + 1704))
-    {
-      *(this + 2216) = 0;
-    }
-
-    else if (v169)
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v169);
-    }
-  }
-
-  physx::shdfnd::MutexT<physx::shdfnd::ReflectionAllocator<physx::shdfnd::MutexImpl>>::~MutexT(this + 211);
-  if (*(this + 417))
-  {
-    v209 = 0;
-    v210 = 0;
-    v173 = *(this + 210);
-    if (v173)
-    {
-      do
-      {
-        v208 = v173;
-        v174 = v210;
-        if ((HIDWORD(v210) & 0x7FFFFFFFu) <= v210)
-        {
-          physx::shdfnd::Array<void *,physx::shdfnd::ReflectionAllocator<physx::NpRigidDynamic>>::growAndPushBack(&v209, &v208);
-        }
-
-        else
-        {
-          v209[v210] = v173;
-          LODWORD(v210) = v174 + 1;
-        }
-
-        v173 = **(this + 210);
-        *(this + 210) = v173;
-      }
-
-      while (v173);
-      v175 = v209;
-      v176 = v210;
-    }
-
-    else
-    {
-      v176 = 0;
-      v175 = 0;
-    }
-
-    physx::shdfnd::sort<void *,physx::shdfnd::Less<void *>,physx::shdfnd::ReflectionAllocator<physx::NpRigidDynamic>>(v175, v176);
-    physx::shdfnd::sort<void *,physx::shdfnd::Less<void *>,physx::shdfnd::ReflectionAllocator<physx::NpRigidDynamic>>(*(this + 206), *(this + 414));
-    v177 = *(this + 414);
-    if (v177)
-    {
-      v178 = *(this + 206);
-      v179 = &v178[v177];
-      v180 = (v175 + 8 * v176);
-      v181 = v175;
-      do
-      {
-        v182 = *(this + 416);
-        if (v182)
-        {
-          v183 = *v178;
-          v184 = 384 * v182;
-          v185 = *v178;
-          do
-          {
-            if (v181 != v180 && v185 == *v181)
-            {
-              ++v181;
-            }
-
-            else
-            {
-              (*(*v185 + 24))(v185);
-            }
-
-            v185 += 384;
-            v183 += 384;
-            v184 -= 384;
-          }
-
-          while (v184);
-        }
-
-        ++v178;
-      }
-
-      while (v178 != v179);
-    }
-
-    if (v175 && (v210 & 0x8000000000000000) == 0 && (v210 & 0x7FFFFFFF00000000) != 0)
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v175);
-    }
-  }
-
-  v186 = *(this + 206);
-  v187 = *(this + 414);
-  if (v187)
-  {
-    v188 = 8 * v187;
-    do
-    {
-      if (*v186)
-      {
-        (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-      }
-
-      v186 = (v186 + 8);
-      v188 -= 8;
-    }
-
-    while (v188);
-    v186 = *(this + 206);
-  }
-
-  v189 = *(this + 415);
-  if ((v189 & 0x80000000) == 0 && (v189 & 0x7FFFFFFF) != 0)
-  {
-    if (v186 == (this + 1128))
-    {
-      *(this + 1640) = 0;
-    }
-
-    else if (v186)
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v186);
-    }
-  }
-
-  if (*(this + 133))
+  v147 = ((v109 * v144) + (v108 * v143)) + (v106 * v145);
+  *a7 = ((v105 * ((v140 * v144) + (v109 * v145))) + (v143 * v107)) + (v108 * v147);
+  *(a7 + 4) = ((v105 * ((v141 * v145) + (v106 * v143))) + (v144 * v107)) + (v109 * v147);
+  *(a7 + 8) = ((v105 * ((v142 * v143) + (v108 * v144))) + (v145 * v107)) + (v106 * v147);
+  *a8 = v97;
+  *(a8 + 8) = v146;
+  *a15 = v120;
+  if ((v194 & 0x8000000000000000) == 0 && (v194 & 0x7FFFFFFF00000000) != 0 && v193)
   {
     (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
   }
 
-  if (*(this + 126))
+  if ((v196 & 0x8000000000000000) == 0 && (v196 & 0x7FFFFFFF00000000) != 0 && v195)
   {
     (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
   }
 
-  if (*(this + 119))
+  if ((v215 & 0x8000000000000000) == 0 && (v215 & 0x7FFFFFFF00000000) != 0 && v214 != v213 && v214)
   {
     (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
   }
 
-  if (*(this + 112))
-  {
-    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-  }
+  return v121;
+}
 
-  if (*(this + 105))
-  {
-    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-  }
+float physx::Gu::SweepEstimateAnyShapeHeightfield(uint64_t a1, float32x2_t **a2, float32x2_t *a3, float32x2_t *a4, float32x2_t *a5, float32x2_t *a6, double a7, float a8)
+{
+  v125 = *MEMORY[0x1E69E9840];
+  v11 = *a2;
+  v110 = (*a2)[1];
+  v111 = v11;
+  v12 = v11[3].f32[0];
+  __asm { FMOV            V3.2S, #1.0 }
 
-  physx::shdfnd::MutexT<physx::shdfnd::ReflectionAllocator<physx::shdfnd::MutexImpl>>::~MutexT(this + 103);
-  if (*(this + 201))
+  v108 = vrev64_s32(vdiv_f32(_D3, v11[2]));
+  v109 = 1.0 / v12;
+  v122[256] = 1;
+  v124 = 0x4000000000;
+  v123 = v122;
+  v107[0] = &unk_1F5D21BD8;
+  v107[1] = v122;
+  v18 = a3[3].f32[0] - a5[3].f32[0];
+  v19 = vsub_f32(a3[2], a5[2]);
+  v20 = vsub_f32(a4[2], a6[2]);
+  v21 = a4[3].f32[0] - a6[3].f32[0];
+  v22 = v18 - v21;
+  v23 = (v18 - v21) * 0.5;
+  v24 = (*(a1 + 76) + fabsf(v23)) + *&a7;
+  v25 = v23 + *(a1 + 88);
+  _D3.f32[0] = v25 - v24;
+  v26 = v24 + v25;
+  v96 = vsub_f32(v19, v20);
+  v27 = vmul_f32(v96, 0x3F0000003F000000);
+  v28 = vadd_f32(vadd_f32(vabs_f32(v27), *(a1 + 68)), vdup_lane_s32(*&a7, 0));
+  v29 = vadd_f32(v27, *(a1 + 80));
+  v103 = vsub_f32(v29, v28);
+  v104 = _D3.i32[0];
+  v105 = vadd_f32(v28, v29);
+  v106 = v26;
+  physx::Gu::HeightFieldUtil::overlapAABBTriangles(&v108, a4, &v103, 1, v107);
+  v30 = v124;
+  v31 = v123;
+  if (v124)
   {
-    v209 = 0;
-    v210 = 0;
-    v190 = *(this + 102);
-    if (v190)
+    v32 = 0;
+    v33 = *(a1 + 80);
+    v34 = *(a1 + 88);
+    v35 = vdup_n_s32(0x3F8CCCCDu);
+    v36 = vmul_f32(*(a1 + 68), v35);
+    v37 = *(a1 + 76) * 1.1;
+    v91 = vsub_f32(v20, v19);
+    v90 = v21 - v18;
+    v89 = vadd_f32(v33, v36);
+    v88 = v34 + v37;
+    v87 = vsub_f32(v33, v36);
+    v86 = v34 - v37;
+    v94 = v36;
+    v95 = v33;
+    v33.f32[0] = v34;
+    v36.f32[0] = v37;
+    v92 = v36;
+    v93 = v33;
+    v38 = 3.4028e38;
+    do
     {
-      do
+      physx::Gu::HeightFieldUtil::getTriangle(&v108, a2 + 3, &v97, 0, 0, *&v31[4 * v32], 1, 1);
+      v39 = v100;
+      v40 = v98;
+      _D16 = vsub_f32(v99, v97);
+      v42 = vsub_f32(v101, v97);
+      v43 = v102;
+      _S20 = v102 - v98;
+      v45 = -(vmuls_lane_f32(-(v100 - v98), v42, 1) + (_D16.f32[1] * (v102 - v98)));
+      __asm { FMLA            S21, S20, V16.S[1] }
+
+      v47 = ((v100 - v98) * v42.f32[0]) - (_D16.f32[0] * (v102 - v98));
+      v48 = (-_D16.f32[1] * v42.f32[0]) + (_D16.f32[0] * v42.f32[1]);
+      v49 = -v47;
+      v50 = -v48;
+      v51 = sqrtf(((v47 * v47) + (_S21 * _S21)) + (v48 * v48));
+      if (v51 > 0.0)
       {
-        v208 = v190;
-        v191 = v210;
-        if ((HIDWORD(v210) & 0x7FFFFFFFu) <= v210)
+        v52 = 1.0 / v51;
+        v45 = v52 * v45;
+        v49 = v52 * v49;
+        v50 = v52 * v50;
+      }
+
+      if ((((v96.f32[1] * v49) + (v96.f32[0] * v45)) + (v22 * v50)) >= a8)
+      {
+        v53 = vdup_n_s32(0x7E7FFFFFu);
+        v54 = vcgt_f32(v97, v53);
+        v55 = 8.5071e37;
+        v56 = vdup_n_s32(0xFE7FFFFF);
+        if (v98 <= 8.5071e37)
         {
-          physx::shdfnd::Array<void *,physx::shdfnd::ReflectionAllocator<physx::NpConnectorArray>>::growAndPushBack(&v209, &v208);
+          v55 = v98;
+        }
+
+        v57 = vcgt_f32(v56, v97);
+        if (v98 < -8.5071e37)
+        {
+          v40 = -8.5071e37;
+        }
+
+        if (v55 >= v100)
+        {
+          v55 = v100;
+        }
+
+        if (v40 > v100)
+        {
+          v39 = v40;
+        }
+
+        if (v55 >= v102)
+        {
+          v58 = v102;
         }
 
         else
         {
-          v209[v210] = v190;
-          LODWORD(v210) = v191 + 1;
+          v58 = v55;
         }
 
-        v190 = **(this + 102);
-        *(this + 102) = v190;
-      }
-
-      while (v190);
-      v192 = v209;
-      v193 = v210;
-    }
-
-    else
-    {
-      v193 = 0;
-      v192 = 0;
-    }
-
-    physx::shdfnd::sort<void *,physx::shdfnd::Less<void *>,physx::shdfnd::ReflectionAllocator<physx::NpConnectorArray>>(v192, v193);
-    physx::shdfnd::sort<void *,physx::shdfnd::Less<void *>,physx::shdfnd::ReflectionAllocator<physx::NpConnectorArray>>(*(this + 98), *(this + 198));
-    v194 = *(this + 198);
-    v195 = v209;
-    if (v194)
-    {
-      v196 = *(this + 98);
-      v197 = &v196[v194];
-      do
-      {
-        v198 = *(this + 200);
-        if (v198)
+        if (v39 > v102)
         {
-          v199 = *v196;
-          v200 = 88 * v198;
+          v43 = v39;
+        }
+
+        v59 = (v58 + v43) * 0.5;
+        v60 = ((v43 - v58) * 0.5) + 0.01;
+        v61 = vbsl_s8(v54, v53, v97);
+        v62 = vbsl_s8(v57, v56, v97);
+        v63 = vbsl_s8(vcgt_f32(v99, v61), v61, v99);
+        v64 = vbsl_s8(vcgt_f32(v62, v99), v62, v99);
+        v65 = vbsl_s8(vcgt_f32(v101, v63), v63, v101);
+        v66 = vbsl_s8(vcgt_f32(v64, v101), v64, v101);
+        v67 = vmul_f32(vadd_f32(v65, v66), 0x3F0000003F000000);
+        v68 = vmul_f32(vadd_f32(vmul_f32(vsub_f32(v66, v65), 0x3F0000003F000000), vdup_n_s32(0x3C23D70Au)), v35);
+        v69 = v60 * 1.1;
+        if (fabsf(vsub_f32(v95, v67).f32[0]) > vadd_f32(v94, v68).f32[0] || (v70 = vmvn_s8(vcge_f32(vadd_f32(v92, __PAIR64__(v68.u32[1], LODWORD(v69))), vabd_f32(v93, __PAIR64__(v67.u32[1], LODWORD(v59))))), (v70.i8[4] & 1) != 0) || (v71 = v70.i8[0], v72 = 0.0, (v71 & 1) != 0))
+        {
+          v73 = 0;
+          v120 = v91;
+          v121 = v90;
+          v118 = v89;
+          v119 = v88;
+          v116 = v87;
+          v117 = v86;
+          v114 = vadd_f32(v67, v68);
+          v115 = v59 + v69;
+          v112 = vsub_f32(v67, v68);
+          v113 = v59 - v69;
+          v72 = 0.0;
+          v74 = 1.0;
           do
           {
-            if (v195 != &v209[v210] && v199 == *v195)
+            v75 = v120.f32[v73];
+            if (v75 >= -0.000001)
             {
-              ++v195;
-            }
-
-            else
-            {
-              v201 = *(v199 + 84);
-              if ((v201 & 0x80000000) == 0 && (v201 & 0x7FFFFFFF) != 0)
+              if (v75 <= 0.000001)
               {
-                v202 = *(v199 + 72);
-                if (v199 == v202)
+                if (v114.f32[v73] < v116.f32[v73] || v112.f32[v73] > v118.f32[v73])
                 {
-                  *(v199 + 64) = 0;
+LABEL_44:
+                  v72 = 3.4028e38;
+                  break;
+                }
+              }
+
+              else
+              {
+                v76 = v112.f32[v73];
+                v77 = v118.f32[v73];
+                if (v76 > v77)
+                {
+                  goto LABEL_44;
                 }
 
-                else if (v202)
+                v81 = v114.f32[v73];
+                v82 = v116.f32[v73];
+                if (v81 < v82)
                 {
-                  (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+                  v83 = (v82 - v81) / v75;
+                  if (v83 > v72)
+                  {
+                    v72 = v83;
+                  }
+                }
+
+                if (v77 > v76)
+                {
+LABEL_36:
+                  v84 = (v77 - v76) / v75;
+                  if (v84 < v74)
+                  {
+                    v74 = v84;
+                  }
                 }
               }
             }
 
-            v199 += 88;
-            v200 -= 88;
-          }
-
-          while (v200);
-        }
-
-        ++v196;
-      }
-
-      while (v196 != v197);
-      v195 = v209;
-    }
-
-    if ((v210 & 0x8000000000000000) == 0 && (v210 & 0x7FFFFFFF00000000) != 0 && v195 != 0)
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v195);
-    }
-  }
-
-  v204 = *(this + 98);
-  v205 = *(this + 198);
-  if (v205)
-  {
-    v206 = 8 * v205;
-    do
-    {
-      if (*v204)
-      {
-        (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-      }
-
-      v204 = (v204 + 8);
-      v206 -= 8;
-    }
-
-    while (v206);
-    v204 = *(this + 98);
-  }
-
-  v207 = *(this + 199);
-  if ((v207 & 0x80000000) == 0 && (v207 & 0x7FFFFFFF) != 0)
-  {
-    if (v204 == (this + 264))
-    {
-      *(this + 776) = 0;
-    }
-
-    else if (v204)
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v204);
-    }
-  }
-
-  physx::GuMeshFactory::~GuMeshFactory(this);
-}
-
-{
-  physx::NpFactory::~NpFactory(this);
-  if (v1)
-  {
-    v2 = *(*(physx::shdfnd::Foundation::mInstance + 24) + 24);
-
-    v2();
-  }
-}
-
-uint64_t physx::NpFactory::addRigidStatic(uint64_t this, physx::PxRigidStatic *a2, int a3)
-{
-  if (a2)
-  {
-    v4 = this;
-    if (a3)
-    {
-      if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-      {
-        pthread_mutex_lock(*(this + 8));
-      }
-
-      v6 = a2;
-      v7 = 0;
-      this = physx::shdfnd::internal::HashBase<physx::PxActor *,physx::PxActor *,physx::shdfnd::Hash<physx::PxActor *>,physx::shdfnd::internal::HashSetBase<physx::PxActor *,physx::shdfnd::Hash<physx::PxActor *>,physx::shdfnd::NonTrackingAllocator,false>::GetKey,physx::shdfnd::NonTrackingAllocator,false>::create(v4 + 126, &v6, &v7);
-      if ((v7 & 1) == 0)
-      {
-        *this = a2;
-      }
-
-      if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-      {
-        v5 = v4[1];
-
-        return pthread_mutex_unlock(v5);
-      }
-    }
-
-    else
-    {
-      v6 = a2;
-      v8 = 0;
-      this = physx::shdfnd::internal::HashBase<physx::PxActor *,physx::PxActor *,physx::shdfnd::Hash<physx::PxActor *>,physx::shdfnd::internal::HashSetBase<physx::PxActor *,physx::shdfnd::Hash<physx::PxActor *>,physx::shdfnd::NonTrackingAllocator,false>::GetKey,physx::shdfnd::NonTrackingAllocator,false>::create((this + 1008), &v6, &v8);
-      if ((v8 & 1) == 0)
-      {
-        *this = a2;
-      }
-    }
-  }
-
-  return this;
-}
-
-uint64_t physx::NpFactory::addShape(uint64_t result, uint64_t a2, int a3)
-{
-  v6 = a2;
-  if (a2)
-  {
-    v4 = result;
-    if (a3)
-    {
-      if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-      {
-        pthread_mutex_lock(*(result + 8));
-      }
-
-      v7 = 0;
-      result = physx::shdfnd::internal::HashBase<physx::Sc::ConstraintSim *,physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::internal::HashSetBase<physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::create(v4 + 133, &v6, &v7);
-      if ((v7 & 1) == 0)
-      {
-        *result = a2;
-      }
-
-      if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-      {
-        v5 = v4[1];
-
-        return pthread_mutex_unlock(v5);
-      }
-    }
-
-    else
-    {
-      v8 = 0;
-      result = physx::shdfnd::internal::HashBase<physx::Sc::ConstraintSim *,physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::internal::HashSetBase<physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::create((result + 1064), &v6, &v8);
-      if ((v8 & 1) == 0)
-      {
-        *result = a2;
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t physx::NpFactory::onActorRelease(uint64_t this, physx::PxActor *a2)
-{
-  v3 = this;
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    this = pthread_mutex_lock(*(this + 8));
-  }
-
-  if (v3[132].i32[1])
-  {
-    v4 = (a2 + ~(a2 << 32)) ^ ((a2 + ~(a2 << 32)) >> 22);
-    v5 = 9 * ((v4 + ~(v4 << 13)) ^ ((v4 + ~(v4 << 13)) >> 8));
-    v6 = (v5 ^ (v5 >> 15)) + ~((v5 ^ (v5 >> 15)) << 27);
-    v7 = (*&v3[129] + 4 * ((v3[130].i32[1] - 1) & ((v6 >> 31) ^ v6)));
-    v8 = *v7;
-    if (v8 != -1)
-    {
-      v9 = v3[127];
-      v10 = v3[128];
-      if (*(*&v9 + 8 * v8) == a2)
-      {
-LABEL_10:
-        *v7 = *(*&v10 + 4 * v8);
-        v3[132] = vadd_s32(v3[132], 0xFFFFFFFF00000001);
-        *(*&v10 + 4 * v8) = v3[131].i32[1];
-        v3[131].i32[1] = v8;
-      }
-
-      else
-      {
-        while (1)
-        {
-          v11 = v8;
-          v8 = *(*&v10 + 4 * v8);
-          if (v8 == -1)
-          {
-            break;
-          }
-
-          if (*(*&v9 + 8 * v8) == a2)
-          {
-            v7 = (*&v10 + 4 * v11);
-            goto LABEL_10;
-          }
-        }
-      }
-    }
-  }
-
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    v12 = v3[1];
-
-    return pthread_mutex_unlock(v12);
-  }
-
-  return this;
-}
-
-uint64_t physx::NpFactory::onShapeRelease(uint64_t result, uint64_t a2)
-{
-  v3 = result;
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    result = pthread_mutex_lock(*(result + 8));
-  }
-
-  if (v3[139].i32[1])
-  {
-    v4 = (~(a2 << 32) + a2) ^ ((~(a2 << 32) + a2) >> 22);
-    v5 = 9 * ((v4 + ~(v4 << 13)) ^ ((v4 + ~(v4 << 13)) >> 8));
-    v6 = (v5 ^ (v5 >> 15)) + ~((v5 ^ (v5 >> 15)) << 27);
-    v7 = (*&v3[136] + 4 * ((v3[137].i32[1] - 1) & ((v6 >> 31) ^ v6)));
-    v8 = *v7;
-    if (v8 != -1)
-    {
-      v9 = v3[134];
-      v10 = v3[135];
-      if (*(*&v9 + 8 * v8) == a2)
-      {
-LABEL_10:
-        *v7 = *(*&v10 + 4 * v8);
-        v12 = vadd_s32(v3[139], 0xFFFFFFFF00000001);
-        v3[139] = v12;
-        if (v8 != v12.i32[1])
-        {
-          *(*&v9 + 8 * v8) = *(*&v9 + 8 * v12.u32[1]);
-          v13 = v3[135];
-          *(*&v13 + 4 * v8) = *(*&v13 + 4 * v12.u32[1]);
-          v14 = *(*&v3[134] + 8 * v8);
-          v15 = (~(v14 << 32) + v14) ^ ((~(v14 << 32) + v14) >> 22);
-          v16 = 9 * ((v15 + ~(v15 << 13)) ^ ((v15 + ~(v15 << 13)) >> 8));
-          v17 = (v16 ^ (v16 >> 15)) + ~((v16 ^ (v16 >> 15)) << 27);
-          v18 = (*&v3[136] + 4 * ((v3[137].i32[1] - 1) & ((v17 >> 31) ^ v17)));
-          v19 = v3[139].u32[1];
-          v20 = *v18;
-          if (v20 != v19)
-          {
-            do
+            else
             {
-              v21 = v20;
-              v20 = *(*&v13 + 4 * v20);
+              v76 = v114.f32[v73];
+              v77 = v116.f32[v73];
+              if (v76 < v77)
+              {
+                goto LABEL_44;
+              }
+
+              v78 = v118.f32[v73];
+              v79 = v112.f32[v73];
+              if (v78 < v79)
+              {
+                v80 = (v78 - v79) / v75;
+                if (v80 > v72)
+                {
+                  v72 = v80;
+                }
+              }
+
+              if (v76 > v77)
+              {
+                goto LABEL_36;
+              }
             }
 
-            while (v20 != v19);
-            v18 = (*&v13 + 4 * v21);
+            if (v72 > v74)
+            {
+              goto LABEL_44;
+            }
+
+            ++v73;
           }
 
-          *v18 = v8;
+          while (v73 != 3);
         }
 
-        --v3[138].i32[1];
-      }
-
-      else
-      {
-        while (1)
+        if (v38 >= v72)
         {
-          v11 = v8;
-          v8 = *(*&v10 + 4 * v8);
-          if (v8 == -1)
-          {
-            break;
-          }
-
-          if (*(*&v9 + 8 * v8) == a2)
-          {
-            v7 = (*&v10 + 4 * v11);
-            goto LABEL_10;
-          }
+          v38 = v72;
         }
       }
-    }
-  }
 
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    v22 = v3[1];
-
-    return pthread_mutex_unlock(v22);
-  }
-
-  return result;
-}
-
-uint64_t physx::NpFactory::addArticulation(uint64_t result, uint64_t a2, int a3)
-{
-  v6 = a2;
-  if (a2)
-  {
-    v4 = result;
-    if (a3)
-    {
-      if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-      {
-        pthread_mutex_lock(*(result + 8));
-      }
-
-      v7 = 0;
-      result = physx::shdfnd::internal::HashBase<physx::PxActor *,physx::PxActor *,physx::shdfnd::Hash<physx::PxActor *>,physx::shdfnd::internal::HashSetBase<physx::PxActor *,physx::shdfnd::Hash<physx::PxActor *>,physx::shdfnd::NonTrackingAllocator,false>::GetKey,physx::shdfnd::NonTrackingAllocator,false>::create(v4 + 112, &v6, &v7);
-      if ((v7 & 1) == 0)
-      {
-        *result = a2;
-      }
-
-      if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-      {
-        v5 = v4[1];
-
-        return pthread_mutex_unlock(v5);
-      }
+      ++v32;
     }
 
-    else
-    {
-      v8 = 0;
-      result = physx::shdfnd::internal::HashBase<physx::PxActor *,physx::PxActor *,physx::shdfnd::Hash<physx::PxActor *>,physx::shdfnd::internal::HashSetBase<physx::PxActor *,physx::shdfnd::Hash<physx::PxActor *>,physx::shdfnd::NonTrackingAllocator,false>::GetKey,physx::shdfnd::NonTrackingAllocator,false>::create((result + 896), &v6, &v8);
-      if ((v8 & 1) == 0)
-      {
-        *result = a2;
-      }
-    }
-  }
-
-  return result;
-}
-
-void *anonymous namespace::createArticulation(_anonymous_namespace_ *this)
-{
-  v1 = physx::NpFactory::mInstance;
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_lock(*(physx::NpFactory::mInstance + 5144));
-  }
-
-  v2 = *(v1 + 5136);
-  if (!v2)
-  {
-    v3 = physx::shdfnd::ReflectionAllocator<physx::NpArticulation>::allocate(*(v1 + 5128), "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsPool.h", 180);
-    v4 = v3;
-    v9 = v3;
-    v5 = *(v1 + 5112);
-    if ((*(v1 + 5116) & 0x7FFFFFFFu) <= v5)
-    {
-      physx::shdfnd::Array<void *,physx::shdfnd::InlineAllocator<512u,physx::shdfnd::ReflectionAllocator<physx::NpArticulation>>>::growAndPushBack(v1 + 4584, &v9);
-    }
-
-    else
-    {
-      *(*(v1 + 5104) + 8 * v5) = v3;
-      *(v1 + 5112) = v5 + 1;
-    }
-
-    v6 = v4 + 184 * *(v1 + 5120) - 184;
-    v2 = *(v1 + 5136);
-    if (v6 >= v4)
-    {
-      v7 = (v4 + 184 * *(v1 + 5120) - 184);
-      do
-      {
-        *v7 = v2;
-        v7 -= 23;
-        v2 = v6;
-        v6 = v7;
-      }
-
-      while (v7 >= v4);
-      v2 = v7 + 23;
-    }
-  }
-
-  *(v1 + 5136) = *v2;
-  ++*(v1 + 5124);
-  *(v2 + 2) = 196619;
-  v2[2] = 0;
-  *v2 = &unk_1F5D24360;
-  physx::PxArticulationImpl::PxArticulationImpl((v2 + 3), 0);
-  *v2 = &unk_1F5D237F0;
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_unlock(*(v1 + 5144));
-  }
-
-  return v2;
-}
-
-void *anonymous namespace::createArticulationLink(uint64_t a1, uint64_t a2, float *a3)
-{
-  v6 = physx::NpFactory::mInstance;
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_lock(*(physx::NpFactory::mInstance + 6296));
-  }
-
-  v7 = *(v6 + 6288);
-  if (!v7)
-  {
-    v8 = physx::shdfnd::ReflectionAllocator<physx::NpArticulationLink>::allocate(*(v6 + 6280), "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsPool.h", 180);
-    v9 = v8;
-    v35 = v8;
-    v10 = *(v6 + 6264);
-    if ((*(v6 + 6268) & 0x7FFFFFFFu) <= v10)
-    {
-      physx::shdfnd::Array<void *,physx::shdfnd::InlineAllocator<512u,physx::shdfnd::ReflectionAllocator<physx::NpArticulationLink>>>::growAndPushBack(v6 + 5736, &v35);
-    }
-
-    else
-    {
-      *(*(v6 + 6256) + 8 * v10) = v8;
-      *(v6 + 6264) = v10 + 1;
-    }
-
-    v11 = (v9 + 480 * *(v6 + 6272) - 480);
-    v7 = *(v6 + 6288);
-    if (v11 >= v9)
-    {
-      do
-      {
-        *v11 = v7;
-        v12 = v11 - 60;
-        v7 = v11;
-        v11 = v12;
-      }
-
-      while (v12 >= v9);
-      v7 = v12 + 60;
-    }
-  }
-
-  *(v6 + 6288) = *v7;
-  ++*(v6 + 6276);
-  physx::NpArticulationLink::NpArticulationLink(v7, a3, a1, a2);
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_unlock(*(v6 + 6296));
-  }
-
-  if (a2)
-  {
-    (*(*a2 + 224))(&v32, a2);
-    v13 = (a3[4] - *&v33) + (a3[4] - *&v33);
-    v14 = (a3[5] - *(&v33 + 1)) + (a3[5] - *(&v33 + 1));
-    v15 = (a3[6] - v34) + (a3[6] - v34);
-    v16 = (*(&v32 + 3) * *(&v32 + 3)) + -0.5;
-    v17 = (-(*(&v32 + 1) * v14) - (*&v32 * v13)) - (*(&v32 + 2) * v15);
-    v18 = ((*(&v32 + 3) * ((*(&v32 + 2) * v14) - (*(&v32 + 1) * v15))) + (v13 * v16)) - (*&v32 * v17);
-    v19 = ((*(&v32 + 3) * ((*&v32 * v15) - (*(&v32 + 2) * v13))) + (v14 * v16)) - (*(&v32 + 1) * v17);
-    v20 = ((*(&v32 + 3) * ((*(&v32 + 1) * v13) - (*&v32 * v14))) + (v15 * v16)) - (*(&v32 + 2) * v17);
-    v22 = a3[2];
-    v21 = a3[3];
-    v23 = a3[1];
-    v24 = (((*(&v32 + 3) * v23) - (*(&v32 + 1) * v21)) - (*(&v32 + 2) * *a3)) + (v22 * *&v32);
-    v25 = (((*(&v32 + 3) * v22) - (*(&v32 + 2) * v21)) - (*&v32 * v23)) + (*a3 * *(&v32 + 1));
-    v26 = (((*&v32 * *a3) + (*(&v32 + 3) * v21)) + (*(&v32 + 1) * v23)) + (*(&v32 + 2) * v22);
-    *&v35 = (((*(&v32 + 3) * *a3) - (*&v32 * v21)) - (*(&v32 + 1) * v22)) + (v23 * *(&v32 + 2));
-    *(&v35 + 1) = v24;
-    v36 = v25;
-    v37 = v26;
-    v38 = v18;
-    v39 = v19;
-    v40 = v20;
-    v32 = xmmword_1E30474D0;
-    v33 = 0;
-    v34 = 0.0;
-    v27 = (*(*a1 + 216))(a1, a2, &v35, v7, &v32);
-    if (v27)
-    {
-      v7[49] = v27;
-    }
-
-    else
-    {
-      (*(*v7 + 32))(v7);
-      physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 32, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpFactory.cpp", 207, "Articulation link initialization failed due to joint creation failure: returned NULL.", v28, v29, v30, v32);
-      return 0;
-    }
-  }
-
-  return v7;
-}
-
-void *anonymous namespace::createArticulationRC(_anonymous_namespace_ *this)
-{
-  v1 = physx::NpFactory::mInstance;
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_lock(*(physx::NpFactory::mInstance + 5720));
-  }
-
-  v2 = *(v1 + 5712);
-  if (!v2)
-  {
-    v3 = physx::shdfnd::ReflectionAllocator<physx::NpArticulationReducedCoordinate>::allocate(*(v1 + 5704), "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsPool.h", 180);
-    v4 = v3;
-    v9 = v3;
-    v5 = *(v1 + 5688);
-    if ((*(v1 + 5692) & 0x7FFFFFFFu) <= v5)
-    {
-      physx::shdfnd::Array<void *,physx::shdfnd::InlineAllocator<512u,physx::shdfnd::ReflectionAllocator<physx::NpArticulationReducedCoordinate>>>::growAndPushBack(v1 + 5160, &v9);
-    }
-
-    else
-    {
-      *(*(v1 + 5680) + 8 * v5) = v3;
-      *(v1 + 5688) = v5 + 1;
-    }
-
-    v6 = v4 + 200 * *(v1 + 5696) - 200;
-    v2 = *(v1 + 5712);
-    if (v6 >= v4)
-    {
-      v7 = (v4 + 200 * *(v1 + 5696) - 200);
-      do
-      {
-        *v7 = v2;
-        v7 -= 25;
-        v2 = v6;
-        v6 = v7;
-      }
-
-      while (v7 >= v4);
-      v2 = v7 + 25;
-    }
-  }
-
-  *(v1 + 5712) = *v2;
-  ++*(v1 + 5700);
-  *(v2 + 2) = 196620;
-  v2[2] = 0;
-  *v2 = &unk_1F5D24168;
-  physx::PxArticulationImpl::PxArticulationImpl((v2 + 3), 1);
-  *v2 = &unk_1F5D235F8;
-  v2[23] = 0;
-  v2[24] = 0;
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_unlock(*(v1 + 5720));
-  }
-
-  return v2;
-}
-
-uint64_t physx::NpFactory::onArticulationRelease(uint64_t result, uint64_t a2)
-{
-  v3 = result;
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    result = pthread_mutex_lock(*(result + 8));
-  }
-
-  if (v3[118].i32[1])
-  {
-    v4 = (~(a2 << 32) + a2) ^ ((~(a2 << 32) + a2) >> 22);
-    v5 = 9 * ((v4 + ~(v4 << 13)) ^ ((v4 + ~(v4 << 13)) >> 8));
-    v6 = (v5 ^ (v5 >> 15)) + ~((v5 ^ (v5 >> 15)) << 27);
-    v7 = (*&v3[115] + 4 * ((v3[116].i32[1] - 1) & ((v6 >> 31) ^ v6)));
-    v8 = *v7;
-    if (v8 != -1)
-    {
-      v9 = v3[113];
-      v10 = v3[114];
-      if (*(*&v9 + 8 * v8) == a2)
-      {
-LABEL_10:
-        *v7 = *(*&v10 + 4 * v8);
-        v3[118] = vadd_s32(v3[118], 0xFFFFFFFF00000001);
-        *(*&v10 + 4 * v8) = v3[117].i32[1];
-        v3[117].i32[1] = v8;
-      }
-
-      else
-      {
-        while (1)
-        {
-          v11 = v8;
-          v8 = *(*&v10 + 4 * v8);
-          if (v8 == -1)
-          {
-            break;
-          }
-
-          if (*(*&v9 + 8 * v8) == a2)
-          {
-            v7 = (*&v10 + 4 * v11);
-            goto LABEL_10;
-          }
-        }
-      }
-    }
-  }
-
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    v12 = v3[1];
-
-    return pthread_mutex_unlock(v12);
-  }
-
-  return result;
-}
-
-void *physx::NpFactory::createArticulationLink(uint64_t a1, uint64_t a2, uint64_t a3, float *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  {
+    while (v32 != v30);
+    v31 = v123;
   }
 
   else
   {
-    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpFactory.cpp", 324, "Articulations not registered: returned NULL.", a6, a7, a8, v8);
-    return 0;
+    v38 = 3.4028e38;
   }
+
+  if ((v124 & 0x8000000000000000) == 0 && (v124 & 0x7FFFFFFF00000000) != 0 && v31 != v122 && v31)
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v31);
+  }
+
+  return v38;
 }
 
-void *physx::NpFactory::createNpArticulationJoint(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+float physx::Gu::SweepAnyShapeMesh(int **a1, uint64_t *a2, float32x2_t *a3, uint64_t a4, float32x2_t *a5, int32x2_t *a6, __int32 *a7, uint64_t a8, __n128 a9, double a10, float a11, int *a12)
 {
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
+  v305 = *MEMORY[0x1E69E9840];
+  v19 = (*a2 + 4);
+  v227 = *a2;
+  physx::Cm::FastVertex2ShapeScaling::init(&v279, v19, (*a2 + 16));
+  v20 = a3[3].f32[0] - a5[3].f32[0];
+  v21 = vsub_f32(a3[2], a5[2]);
+  v22 = vsub_f32(*(a4 + 16), a6[2]);
+  v23 = *(a4 + 24) - *a6[3].i32;
+  v24 = vsub_f32(v21, v22);
+  v25 = v20 - v23;
+  v277 = v24;
+  v278 = v25;
+  v26 = v24.f32[1];
+  v223 = *&v24;
+  v27 = sqrtf((vmuls_lane_f32(v24.f32[1], v24, 1) + (v24.f32[0] * v24.f32[0])) + (v25 * v25));
+  if (v27 > 0.0)
   {
-    pthread_mutex_lock(*(a1 + 6872));
+    v277 = vmul_n_f32(v24, 1.0 / v27);
+    v278 = v25 * (1.0 / v27);
   }
 
-  v10 = *(a1 + 6864);
-  if (!v10)
+  v275[0] = xmmword_1E3047670;
+  v275[1] = xmmword_1E3047670;
+  v276 = 1065353216;
+  *v35.i8 = physx::Gu::computeSweptBox(&v261, a1 + 17, a1 + 10, v275, &v277, v27);
+  v34.i32[0] = *v19;
+  v35.i32[0] = 1.0;
+  if (*v19 == 1.0 && (v34.i32[0] = *(v227 + 8), *v34.i32 == 1.0) && (v35.i32[0] = *(v227 + 12), v34.i32[0] = 1.0, *v35.i32 == 1.0))
   {
-    physx::shdfnd::PoolBase<physx::NpArticulationJoint,physx::shdfnd::ReflectionAllocator<physx::NpArticulationJoint>>::allocateSlab(a1 + 6304);
-    v10 = *(a1 + 6864);
-  }
+    v36 = *(a4 + 12);
+    _S17 = *(a4 + 16) * -2.0;
+    v38 = *(a4 + 20) * -2.0;
+    _S2 = *(a4 + 24) * -2.0;
+    v40 = (v36 * v36) + -0.5;
+    v29.i32[0] = *a4;
+    _D5 = *(a4 + 4);
+    v30.i32[0] = _D5.i32[1];
+    __asm { FMLA            S19, S2, V5.S[1] }
 
-  *(a1 + 6864) = *v10;
-  ++*(a1 + 6852);
-  physx::NpArticulationJointTemplate<physx::PxArticulationJoint>::NpArticulationJointTemplate(v10, 14, a2, a3, a4, a5);
-  *v10 = &unk_1F5D23960;
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_unlock(*(a1 + 6872));
-  }
+    *&v47 = -_D5.f32[1];
+    v48 = ((_S17 * v40) - (((_D5.f32[0] * _S2) - (_D5.f32[1] * v38)) * v36)) + (*a4 * _S19);
+    *v28.i32 = -*a4;
+    __asm { FMLA            S7, S17, V5.S[1] }
 
-  return v10;
-}
+    v50 = ((v38 * v40) - (_S7 * v36)) + (_D5.f32[0] * _S19);
+    *&v51 = -_D5.f32[0];
+    __asm { FMLA            S2, S19, V5.S[1] }
 
-uint64_t physx::NpFactory::releaseArticulationJointToPool(pthread_mutex_t **this, pthread_mutex_t *a2)
-{
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_lock(this[859]);
-  }
+    _S19 = v267 + v267;
+    _S24 = v269 + v269;
+    __asm { FMLS            S28, S24, V5.S[1] }
 
-  result = (*(a2->__sig + 24))(a2);
-  --*(this + 1713);
-  a2->__sig = this[858];
-  this[858] = a2;
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    v5 = this[859];
+    v55 = ((v36 * (vmuls_lane_f32(v268 + v268, _D5, 1) - ((v269 + v269) * _D5.f32[0]))) + ((v267 + v267) * v40)) - (*a4 * *_Q28.i32);
+    __asm { FMLS            S18, S19, V5.S[1] }
 
-    return pthread_mutex_unlock(v5);
-  }
+    v57 = ((v36 * _S18) + ((v268 + v268) * v40)) - (*_Q28.i32 * _D5.f32[0]);
+    __asm { FMLS            S19, S28, V5.S[1] }
 
-  return result;
-}
-
-void *physx::NpFactory::createNpArticulationJointRC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_lock(*(a1 + 7448));
-  }
-
-  v10 = *(a1 + 7440);
-  if (!v10)
-  {
-    physx::shdfnd::PoolBase<physx::NpArticulationJointReducedCoordinate,physx::shdfnd::ReflectionAllocator<physx::NpArticulationJointReducedCoordinate>>::allocateSlab(a1 + 6880);
-    v10 = *(a1 + 7440);
-  }
-
-  *(a1 + 7440) = *v10;
-  ++*(a1 + 7428);
-  physx::NpArticulationJointTemplate<physx::PxArticulationJointReducedCoordinate>::NpArticulationJointTemplate(v10, 15, a2, a3, a4, a5);
-  *v10 = &unk_1F5D23B18;
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_unlock(*(a1 + 7448));
-  }
-
-  return v10;
-}
-
-uint64_t physx::NpFactory::releaseArticulationJointRCToPool(pthread_mutex_t **this, pthread_mutex_t *a2)
-{
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_lock(this[931]);
-  }
-
-  result = (*(a2->__sig + 24))(a2);
-  --*(this + 1857);
-  a2->__sig = this[930];
-  this[930] = a2;
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    v5 = this[931];
-
-    return pthread_mutex_unlock(v5);
-  }
-
-  return result;
-}
-
-uint64_t physx::NpFactory::addConstraint(uint64_t this, physx::PxConstraint *a2, int a3)
-{
-  v6 = a2;
-  if (a2)
-  {
-    v4 = this;
-    if (a3)
+    _S22 = v270 + v270;
+    _S24 = v272 + v272;
+    __asm
     {
-      if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
+      FMLS            S28, S24, V5.S[1]
+      FMLS            S30, S22, V5.S[1]
+      FMLS            S22, S28, V5.S[1]
+    }
+
+    v63 = v48 + (((v36 * (vmuls_lane_f32(v271 + v271, _D5, 1) - ((v272 + v272) * _D5.f32[0]))) + ((v270 + v270) * v40)) - (*a4 * *_Q28.i32));
+    v64 = v50 + (((v36 * _S30) + ((v271 + v271) * v40)) - (*_Q28.i32 * _D5.f32[0]));
+    v65 = v273;
+    v66 = v274;
+    *v32.i8 = vadd_f32(__PAIR64__(v265, v262), __PAIR64__(v265, v262));
+    *v31.i8 = vadd_f32(__PAIR64__(v266, v263), __PAIR64__(v266, v263));
+    v67 = vadd_f32(__PAIR64__(v264, v261), __PAIR64__(v264, v261));
+    *_Q28.i8 = vmls_lane_f32(vmls_lane_f32(vmul_n_f32(*v32.i8, -_D5.f32[0]), v67, v29, 0), *v31.i8, v30, 0);
+    v68 = ((v36 * (vmuls_lane_f32(*v32.i32, _D5, 1) - (*v31.i32 * _D5.f32[0]))) + (v67.f32[0] * v40)) - (*_Q28.i32 * *a4);
+    *v69.f32 = _D5;
+    v69.i32[2] = *a4;
+    v70 = ((v36 * ((*a4 * *v31.i32) - (v67.f32[0] * _D5.f32[1]))) + (*v32.i32 * v40)) - (*_Q28.i32 * _D5.f32[0]);
+    v69.i32[3] = _D5.i32[0];
+    v71.i64[0] = __PAIR64__(v32.u32[1], v67.u32[0]);
+    v71.i64[1] = __PAIR64__(v67.u32[1], v31.u32[1]);
+    v72 = v28;
+    v72.i32[1] = v51;
+    v72.i32[2] = v47;
+    v73 = vextq_s8(vuzp1q_s32(v72, v72), v72, 0xCuLL);
+    v72.i32[3] = v28.i32[0];
+    v74 = vextq_s8(v71, vrev64q_s32(v32), 8uLL);
+    v75 = vextq_s8(v74, v74, 0xCuLL);
+    v76 = vmulq_n_f32(vmlaq_f32(vmulq_f32(v69, v71), v75, v72), v36);
+    v77 = vextq_s8(v75, vrev64q_s32(v31), 8uLL);
+    *v251 = v68;
+    *&v251[1] = v70;
+    v252 = vmlaq_f32(vmlaq_n_f32(v76, vextq_s8(v77, v77, 0xCuLL), v40), vzip1q_s32(_Q28, vdupq_lane_s32(*_Q28.i8, 1)), v73);
+    v253 = v55;
+    v254 = v57;
+    v255 = _S19;
+    v256 = v63;
+    v257 = v64;
+    v258 = _S2 + _S22;
+  }
+
+  else
+  {
+    physx::Gu::computeVertexSpaceOBB(v251, &v261, a4, v19, v35, v34);
+    v65 = v259;
+    v66 = v260;
+  }
+
+  v78 = vdup_lane_s32(a9.n128_u64[0], 0);
+  v259 = vadd_f32(v65, v78);
+  v260 = v66 + a9.n128_f32[0];
+  v302[256] = 1;
+  v304 = 0x4000000000;
+  v303 = v302;
+  v249[7] = 2;
+  *&v249[5] = &unk_1F5D21C18;
+  v250 = v302;
+  physx::Gu::gMidphaseBoxCBOverlapTable[*(*(v227 + 48) + 8) - 3]();
+  v79 = v304;
+  if (!v304)
+  {
+    v138 = 3.4028e38;
+    goto LABEL_90;
+  }
+
+  v201 = a8;
+  v220 = v303;
+  v226 = v20;
+  v80 = *(a1 + 22);
+  v216 = a1[10];
+  v213 = vadd_f32(*(a1 + 68), v78);
+  v81 = *(a1 + 19) + a9.n128_f32[0];
+  v299[256] = 1;
+  v301 = 0x4000000000;
+  v300 = v299;
+  v295[0] = 0;
+  physx::shdfnd::Array<unsigned int,physx::shdfnd::InlineAllocator<256u,physx::shdfnd::ReflectionAllocator<unsigned int>>>::resize(v299, v304, v295);
+  v296 = 1;
+  v298 = 0x4000000000;
+  v297 = v295;
+  LODWORD(v242) = 0;
+  physx::shdfnd::Array<unsigned int,physx::shdfnd::InlineAllocator<256u,physx::shdfnd::ReflectionAllocator<unsigned int>>>::resize(v295, v304, &v242);
+  v82 = 0;
+  v218 = 0;
+  v83 = v300;
+  v212 = v297;
+  v208 = vsub_f32(v22, v21);
+  v206 = vadd_f32(v216, v213).u32[0];
+  v202 = vsub_f32(v216, v213).u32[0];
+  v84 = vdup_n_s32(0xFE7FFFFF);
+  do
+  {
+    LODWORD(v239) = 0;
+    v242 = v227;
+    v243 = &v279;
+    v244 = &v220[4 * v82];
+    v245 = 1;
+    v246 = &v239;
+    v247 = xmmword_1E3113BA0;
+    v248 = v84;
+    *v249 = 0;
+    *(&v249[1] + 1) = 0;
+    v86 = *(a4 + 8);
+    v85 = *(a4 + 12);
+    v87 = (v85 * v85) + -0.5;
+    v88 = *(a4 + 4);
+    v89 = (((*&v231[4] + *&v231[4]) * v88) + (*a4 * (*v231 + *v231))) + (v86 * (*&v231[8] + *&v231[8]));
+    *&v90 = -((((v85 * ((v86 * (*v231 + *v231)) - (*a4 * (*&v231[8] + *&v231[8])))) + ((*&v231[4] + *&v231[4]) * v87)) + (v88 * v89)) * v26) - (*&v223 * (((v85 * ((v88 * (*&v231[8] + *&v231[8])) - (v86 * (*&v231[4] + *&v231[4])))) + ((*v231 + *v231) * v87)) + (*a4 * v89)));
+    *&v91 = *&v90 - (v25 * (((v85 * ((*a4 * (*&v231[4] + *&v231[4])) - (v88 * (*v231 + *v231)))) + ((*&v231[8] + *&v231[8]) * v87)) + (v86 * v89)));
+    if (*&v91 < a11)
+    {
+      goto LABEL_45;
+    }
+
+    v92 = (*&v231[8] + *&v231[20]) * 0.5;
+    v93 = vmul_f32(vadd_f32(*v231, *&v231[12]), 0x3F0000003F000000);
+    v94 = vadd_f32(vmul_f32(vsub_f32(*&v231[12], *v231), 0x3F0000003F000000), vdup_n_s32(0x3CA3D70Au));
+    v95 = ((*&v231[20] - *&v231[8]) * 0.5) + 0.02;
+    v96 = vmvn_s8(vcge_f32(vadd_f32(v213, v94), vabd_f32(v216, v93)));
+    if ((v96.i8[0] & 1) != 0 || (v96.i8[4] & 1) != 0 || (v97 = 0.0, vabds_f32(v80, v92) > (v81 + v95)))
+    {
+      v102 = 0;
+      *&v228[0] = v208;
+      *(v228 + 2) = v23 - v226;
+      v293.i32[0] = v206;
+      v293.f32[1] = *(&v216 + 1) + v213.f32[1];
+      v294 = v80 + v81;
+      v290.i32[0] = v202;
+      v290.f32[1] = *(&v216 + 1) - v213.f32[1];
+      v291 = v80 - v81;
+      v288 = vadd_f32(v93, v94);
+      v289 = v92 + v95;
+      v103 = v92 - v95;
+      v286 = vsub_f32(v93, v94);
+      v97 = 0.0;
+      v104 = 1.0;
+      v287 = v103;
+      while (1)
       {
-        pthread_mutex_lock(*(this + 8));
+        v105 = *(v228 + v102 * 4);
+        if (v105 < -0.000001)
+        {
+          break;
+        }
+
+        if (v105 <= 0.000001)
+        {
+          if (*(&v288 + v102 * 4) < v290.f32[v102] || v286.f32[v102] > v293.f32[v102])
+          {
+            goto LABEL_45;
+          }
+
+          goto LABEL_38;
+        }
+
+        v106 = v286.f32[v102];
+        v107 = v293.f32[v102];
+        if (v106 > v107)
+        {
+          goto LABEL_45;
+        }
+
+        v111 = *(&v288 + v102 * 4);
+        v112 = v290.f32[v102];
+        if (v111 < v112)
+        {
+          v113 = (v112 - v111) / v105;
+          if (v113 > v97)
+          {
+            v97 = v113;
+          }
+        }
+
+        if (v107 > v106)
+        {
+          goto LABEL_33;
+        }
+
+LABEL_38:
+        if (v97 > v104)
+        {
+          goto LABEL_45;
+        }
+
+        if (++v102 == 3)
+        {
+          if (v97 > 1.0)
+          {
+            goto LABEL_45;
+          }
+
+          goto LABEL_14;
+        }
       }
 
-      v7 = 0;
-      this = physx::shdfnd::internal::HashBase<physx::PxActor *,physx::PxActor *,physx::shdfnd::Hash<physx::PxActor *>,physx::shdfnd::internal::HashSetBase<physx::PxActor *,physx::shdfnd::Hash<physx::PxActor *>,physx::shdfnd::NonTrackingAllocator,false>::GetKey,physx::shdfnd::NonTrackingAllocator,false>::create(v4 + 119, &v6, &v7);
-      if ((v7 & 1) == 0)
+      v106 = *(&v288 + v102 * 4);
+      v107 = v290.f32[v102];
+      if (v106 < v107)
       {
-        *this = a2;
+        goto LABEL_45;
       }
 
-      if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
+      v108 = v293.f32[v102];
+      v109 = v286.f32[v102];
+      if (v108 < v109)
       {
-        v5 = v4[1];
-
-        return pthread_mutex_unlock(v5);
+        v110 = (v108 - v109) / v105;
+        if (v110 > v97)
+        {
+          v97 = v110;
+        }
       }
+
+      if (v106 <= v107)
+      {
+        goto LABEL_38;
+      }
+
+LABEL_33:
+      v114 = (v107 - v106) / v105;
+      if (v114 < v104)
+      {
+        v104 = v114;
+      }
+
+      goto LABEL_38;
+    }
+
+LABEL_14:
+    if (v218)
+    {
+      v98 = v218;
+      v99 = &v83[v218];
+      v100 = &v212[v218];
+      while (1)
+      {
+        v101 = *(v100 - 1);
+        if (v101 <= v97)
+        {
+          break;
+        }
+
+        *v100-- = v101;
+        *v99 = *(v99 - 1);
+        --v99;
+        if (!--v98)
+        {
+          goto LABEL_44;
+        }
+      }
+
+      v98 = v98;
     }
 
     else
     {
-      v8 = 0;
-      this = physx::shdfnd::internal::HashBase<physx::PxActor *,physx::PxActor *,physx::shdfnd::Hash<physx::PxActor *>,physx::shdfnd::internal::HashSetBase<physx::PxActor *,physx::shdfnd::Hash<physx::PxActor *>,physx::shdfnd::NonTrackingAllocator,false>::GetKey,physx::shdfnd::NonTrackingAllocator,false>::create((this + 952), &v6, &v8);
-      if ((v8 & 1) == 0)
-      {
-        *this = a2;
-      }
-    }
-  }
-
-  return this;
-}
-
-uint64_t physx::NpFactory::addAggregate(uint64_t this, physx::PxAggregate *a2, int a3)
-{
-  v6 = a2;
-  if (a2)
-  {
-    v4 = this;
-    if (a3)
-    {
-      if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-      {
-        pthread_mutex_lock(*(this + 8));
-      }
-
-      v7 = 0;
-      this = physx::shdfnd::internal::HashBase<physx::PxActor *,physx::PxActor *,physx::shdfnd::Hash<physx::PxActor *>,physx::shdfnd::internal::HashSetBase<physx::PxActor *,physx::shdfnd::Hash<physx::PxActor *>,physx::shdfnd::NonTrackingAllocator,false>::GetKey,physx::shdfnd::NonTrackingAllocator,false>::create(v4 + 105, &v6, &v7);
-      if ((v7 & 1) == 0)
-      {
-        *this = a2;
-      }
-
-      if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-      {
-        v5 = v4[1];
-
-        return pthread_mutex_unlock(v5);
-      }
+      v98 = 0;
     }
 
-    else
-    {
-      v8 = 0;
-      this = physx::shdfnd::internal::HashBase<physx::PxActor *,physx::PxActor *,physx::shdfnd::Hash<physx::PxActor *>,physx::shdfnd::internal::HashSetBase<physx::PxActor *,physx::shdfnd::Hash<physx::PxActor *>,physx::shdfnd::NonTrackingAllocator,false>::GetKey,physx::shdfnd::NonTrackingAllocator,false>::create((this + 840), &v6, &v8);
-      if ((v8 & 1) == 0)
-      {
-        *this = a2;
-      }
-    }
+LABEL_44:
+    v83[v98] = *&v220[4 * v82];
+    *&v212[v98] = v97;
+    ++v218;
+LABEL_45:
+    ++v82;
   }
 
-  return this;
-}
-
-uint64_t physx::NpFactory::onAggregateRelease(uint64_t this, physx::PxAggregate *a2)
-{
-  v3 = this;
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
+  while (v82 != v79);
+  v115 = *(a1 + 2);
+  v116 = *(a4 + 16);
+  v117 = *(a4 + 20);
+  v118 = *(a4 + 24);
+  v119 = (*a6[2].i32 - v116) + (*a6[2].i32 - v116);
+  v120 = (*&a6[2].i32[1] - v117) + (*&a6[2].i32[1] - v117);
+  v121 = (*a6[3].i32 - v118) + (*a6[3].i32 - v118);
+  v123 = *(a4 + 8);
+  v122 = *(a4 + 12);
+  v124 = (v122 * v122) + -0.5;
+  v125 = *a4;
+  v126 = *(a4 + 4);
+  v127 = ((v120 * v126) + (*a4 * v119)) + (v123 * v121);
+  *&v128 = ((v119 * v124) - (((v126 * v121) - (v123 * v120)) * v122)) + (*a4 * v127);
+  *&v129 = ((v120 * v124) - (((v123 * v119) - (*a4 * v121)) * v122)) + (v126 * v127);
+  v130 = ((v121 * v124) - (((*a4 * v120) - (v126 * v119)) * v122)) + (v123 * v127);
+  v288 = __PAIR64__(v129, v128);
+  v289 = v130;
+  if (v218)
   {
-    this = pthread_mutex_lock(*(this + 8));
-  }
-
-  if (v3[111].i32[1])
-  {
-    v4 = (a2 + ~(a2 << 32)) ^ ((a2 + ~(a2 << 32)) >> 22);
-    v5 = 9 * ((v4 + ~(v4 << 13)) ^ ((v4 + ~(v4 << 13)) >> 8));
-    v6 = (v5 ^ (v5 >> 15)) + ~((v5 ^ (v5 >> 15)) << 27);
-    v7 = (*&v3[108] + 4 * ((v3[109].i32[1] - 1) & ((v6 >> 31) ^ v6)));
-    v8 = *v7;
-    if (v8 != -1)
+    v131 = (a5[2].f32[0] - v116) + (a5[2].f32[0] - v116);
+    v132 = (a5[2].f32[1] - v117) + (a5[2].f32[1] - v117);
+    v133 = (a5[3].f32[0] - v118) + (a5[3].f32[0] - v118);
+    v134 = ((v126 * v132) + (v125 * v131)) + (v123 * v133);
+    v207 = ((v131 * v124) - (((v126 * v133) - (v123 * v132)) * v122)) + (v125 * v134);
+    v205 = ((v132 * v124) - (((v123 * v131) - (v125 * v133)) * v122)) + (v126 * v134);
+    v204 = ((v133 * v124) - (((v125 * v132) - (v126 * v131)) * v122)) + (v123 * v134);
+    v135 = a9;
+    v203 = v115 + a9.n128_f32[0];
+    v136 = v218;
+    v211 = 0;
+    v210 = 0.0;
+    v137 = -1;
+    v138 = 3.4028e38;
+    v139 = 0.0;
+    v140 = 0;
+    v209 = 0;
+    v142 = a7;
+    v141 = v201;
+    do
     {
-      v9 = v3[106];
-      v10 = v3[107];
-      if (*(*&v9 + 8 * v8) == a2)
+      v241 = 0;
+      v242 = v227;
+      v243 = &v279;
+      v244 = v83;
+      v245 = 1;
+      v246 = &v241;
+      v247 = xmmword_1E3113BA0;
+      v248 = vdup_n_s32(0xFE7FFFFF);
+      *v249 = 0;
+      *(&v249[1] + 1) = 0;
+      v143 = *(v227 + 48);
+      v144 = *(v143 + 48);
+      v145 = (3 * *v83);
+      if ((*(v143 + 92) & 2) != 0)
       {
-LABEL_10:
-        *v7 = *(*&v10 + 4 * v8);
-        v3[111] = vadd_s32(v3[111], 0xFFFFFFFF00000001);
-        *(*&v10 + 4 * v8) = v3[110].i32[1];
-        v3[110].i32[1] = v8;
+        v150 = (v144 + 2 * v145);
+        v148 = *v150;
+        v147 = v150[1];
+        v149 = v150[2];
       }
 
       else
       {
-        while (1)
+        v146 = (v144 + 4 * v145);
+        v148 = *v146;
+        v147 = v146[1];
+        v149 = v146[2];
+      }
+
+      v151 = *(v143 + 40);
+      v152 = (v151 + 12 * v148);
+      v153 = v152[1];
+      v154 = v152[2];
+      v155 = *v152;
+      v156 = (v151 + 12 * v147);
+      v158 = v156[1];
+      v157 = v156[2];
+      v159 = *v156;
+      v160 = (v151 + 12 * v149);
+      v161 = *v160;
+      v162 = v160[1];
+      v163 = v160[2];
+      v164 = ((*v152 * v280) + (v153 * v282)) + (v154 * v284);
+      v238 = v164;
+      if (v285)
+      {
+        v165 = v161;
+      }
+
+      else
+      {
+        v165 = v159;
+      }
+
+      if (v285)
+      {
+        v166 = v162;
+      }
+
+      else
+      {
+        v166 = v158;
+      }
+
+      v167 = (v165 * v280) + (v166 * v282);
+      if (v285)
+      {
+        v168 = v163;
+      }
+
+      else
+      {
+        v168 = v157;
+      }
+
+      *v169.f32 = vadd_f32(vadd_f32(vmul_n_f32(v279, v155), vmul_n_f32(v281, v153)), vmul_n_f32(v283, v154));
+      v237 = *v169.f32;
+      v170 = vadd_f32(vadd_f32(vmul_n_f32(v279, v165), vmul_n_f32(v281, v166)), vmul_n_f32(v283, v168));
+      v171 = v167 + (v168 * v284);
+      if (v285)
+      {
+        v172 = v159;
+      }
+
+      else
+      {
+        v172 = v161;
+      }
+
+      if (!v285)
+      {
+        v158 = v162;
+      }
+
+      v173 = (v172 * v280) + (v158 * v282);
+      if (!v285)
+      {
+        v157 = v163;
+      }
+
+      v174 = v157 * v284;
+      v175 = vadd_f32(vadd_f32(vmul_n_f32(v279, v172), vmul_n_f32(v281, v158)), vmul_n_f32(v283, v157));
+      v169.i64[1] = LODWORD(v164);
+      v221 = v171;
+      v224 = v170;
+      *v176.f32 = v170;
+      v176.i64[1] = LODWORD(v171);
+      v217 = v173 + v174;
+      v219 = v175;
+      *v177.f32 = v175;
+      v177.i64[1] = LODWORD(v217);
+      v178 = vmulq_f32(vaddq_f32(v177, vaddq_f32(v169, v176)), vdupq_n_s32(0x3EAAAA9Fu));
+      v178.i32[3] = 0;
+      v233 = 0;
+      *v231 = v178;
+      v234 = v169;
+      v235 = v176;
+      v236 = v177;
+      *&v231[16] = 0x7F7FFFFF00000000;
+      v232 = 0x57F7FFFFFLL;
+      v179 = *a1;
+      v228[0] = xmmword_1E3047670;
+      v228[1] = xmmword_1E3047670;
+      v228[2] = xmmword_1E3060D60;
+      v228[3] = xmmword_1E3047680;
+      v229 = 0x3F80000000000000;
+      v230 = 0;
+      v180 = (*(&physx::Gu::g_TriangleSweepMethodTable + *v179))(v135, 0.0);
+      v181 = -v287;
+      v182 = vneg_f32(v286);
+      v286 = v182;
+      v287 = -v287;
+      if (v180 <= 0.0)
+      {
+        v184 = v221 - v238;
+        _S12 = v217 - v238;
+        v225 = vsub_f32(v224, v237);
+        *&v228[0] = vadd_f32(v237, v225);
+        *(v228 + 2) = v238 + (v221 - v238);
+        v222 = vsub_f32(v219, v237);
+        v293 = vadd_f32(v237, v222);
+        v294 = v238 + (v217 - v238);
+        v292 = 0;
+        physx::Gu::closestPtPointTriangle(&v288, &v237, v228, &v293, &v292 + 1, &v292, &v290);
+        v186 = (((v290.f32[1] - *(&v288 + 1)) * (v290.f32[1] - *(&v288 + 1))) + ((v290.f32[0] - *&v288) * (v290.f32[0] - *&v288))) + ((v291 - v289) * (v291 - v289));
+        v180 = 0.0;
+        if (v186 < (v203 * v203))
         {
-          v11 = v8;
-          v8 = *(*&v10 + 4 * v8);
-          if (v8 == -1)
+          _V4.S[1] = v225.i32[1];
+          __asm { FMLA            S3, S12, V4.S[1] }
+
+          v189 = sqrtf(v186);
+          v190 = v189 - v203;
+          v191 = -((v203 * 2.0) - v189);
+          if ((((v205 * ((v184 * v222.f32[0]) - (v225.f32[0] * _S12))) + (_S3 * v207)) + (((-v225.f32[1] * v222.f32[0]) + (v225.f32[0] * v222.f32[1])) * v204)) >= (((((v184 * v222.f32[0]) - (v225.f32[0] * _S12)) * v237.f32[1]) + (_S3 * v237.f32[0])) + (((-v225.f32[1] * v222.f32[0]) + (v225.f32[0] * v222.f32[1])) * v238)))
           {
-            break;
+            v180 = v190;
           }
 
-          if (*(*&v9 + 8 * v8) == a2)
+          else
           {
-            v7 = (*&v10 + 4 * v11);
-            goto LABEL_10;
+            v180 = v191;
           }
         }
+
+        v193 = *(a4 + 8);
+        v192 = *(a4 + 12);
+        v194 = (v192 * v192) + -0.5;
+        v195 = *(a4 + 4);
+        v196 = (((*(v228 + 1) + *(v228 + 1)) * v195) + (*a4 * (*v228 + *v228))) + (v193 * (*(v228 + 2) + *(v228 + 2)));
+        v182.f32[0] = ((v192 * ((v195 * (*(v228 + 2) + *(v228 + 2))) - (v193 * (*(v228 + 1) + *(v228 + 1))))) + ((*v228 + *v228) * v194)) + (*a4 * v196);
+        v183 = ((v192 * ((v193 * (*v228 + *v228)) - (*a4 * (*(v228 + 2) + *(v228 + 2))))) + ((*(v228 + 1) + *(v228 + 1)) * v194)) + (v195 * v196);
+        v181 = ((v192 * ((*a4 * (*(v228 + 1) + *(v228 + 1))) - (v195 * (*v228 + *v228)))) + ((*(v228 + 2) + *(v228 + 2)) * v194)) + (v193 * v196);
       }
-    }
-  }
 
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    v12 = v3[1];
-
-    return pthread_mutex_unlock(v12);
-  }
-
-  return this;
-}
-
-pthread_mutex_t *physx::NpFactory::acquireConnectorArray(pthread_mutex_t **this)
-{
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_lock(this[103]);
-  }
-
-  v2 = this[102];
-  if (!v2)
-  {
-    physx::shdfnd::PoolBase<physx::NpConnectorArray,physx::shdfnd::ReflectionAllocator<physx::NpConnectorArray>>::allocateSlab((this + 32));
-    v2 = this[102];
-  }
-
-  this[102] = v2->__sig;
-  ++*(this + 201);
-  LOBYTE(v2[1].__sig) = 1;
-  *v2[1].__opaque = v2;
-  *&v2[1].__opaque[8] = 0x400000000;
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_unlock(this[103]);
-  }
-
-  return v2;
-}
-
-uint64_t physx::NpFactory::releaseConnectorArray(uint64_t result, uint64_t a2)
-{
-  v3 = result;
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    result = pthread_mutex_lock(*(result + 824));
-  }
-
-  if (a2)
-  {
-    v4 = *(a2 + 84);
-    if ((v4 & 0x80000000) == 0 && (v4 & 0x7FFFFFFF) != 0)
-    {
-      v5 = *(a2 + 72);
-      if (v5 == a2)
+      else
       {
-        *(a2 + 64) = 0;
+        v183 = v182.f32[1];
       }
 
-      else if (v5)
+      v135 = a9;
+      if (v180 < v138)
       {
-        result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+        v211 = v239;
+        v209 = v240;
+        v140 = v182.i32[0];
+        v139 = v183;
+        v210 = v181;
+        v138 = v180;
+        v137 = *v83;
       }
+
+      ++v83;
+      --v136;
     }
 
-    --*(v3 + 804);
-    *a2 = *(v3 + 816);
-    *(v3 + 816) = a2;
+    while (v136);
+    v212 = v297;
+    v197 = v211;
+    v198 = LODWORD(v210);
+    v199 = v209;
   }
 
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
+  else
   {
-    v6 = *(v3 + 824);
-
-    return pthread_mutex_unlock(v6);
+    v197 = 0;
+    v137 = -1;
+    v199 = 0;
+    v138 = 3.4028e38;
+    v140 = 0;
+    v139 = 0.0;
+    v198 = 0;
+    v142 = a7;
+    v141 = v201;
   }
 
-  return result;
+  *v142 = v140;
+  *(v142 + 1) = v139;
+  v142[2] = v198;
+  *v141 = v197;
+  *(v141 + 8) = v199;
+  *a12 = v137;
+  if ((v298 & 0x8000000000000000) == 0 && (v298 & 0x7FFFFFFF00000000) != 0 && v212 != v295 && v212)
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v212);
+  }
+
+  if ((v301 & 0x8000000000000000) == 0 && (v301 & 0x7FFFFFFF00000000) != 0 && v300 != v299 && v300)
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+  }
+
+LABEL_90:
+  if ((v304 & 0x8000000000000000) == 0 && (v304 & 0x7FFFFFFF00000000) != 0 && v303 != v302 && v303)
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+  }
+
+  return v138;
 }
 
-uint64_t physx::shdfnd::Array<unsigned short,physx::shdfnd::InlineAllocator<8u,physx::shdfnd::ReflectionAllocator<unsigned short>>>::resize(uint64_t result, unsigned int a2, __int16 *a3)
+uint64_t physx::shdfnd::Array<unsigned int,physx::shdfnd::InlineAllocator<256u,physx::shdfnd::ReflectionAllocator<unsigned int>>>::resize(uint64_t result, uint64_t a2, int *a3)
 {
+  v4 = a2;
   v5 = result;
-  if ((*(result + 28) & 0x7FFFFFFFu) < a2)
+  if ((*(result + 276) & 0x7FFFFFFFu) < a2)
   {
-    result = physx::shdfnd::Array<unsigned short,physx::shdfnd::InlineAllocator<8u,physx::shdfnd::ReflectionAllocator<unsigned short>>>::recreate(result, a2);
+    result = physx::shdfnd::Array<unsigned int,physx::shdfnd::InlineAllocator<256u,physx::shdfnd::ReflectionAllocator<unsigned int>>>::recreate(result, a2);
   }
 
-  v6 = *(v5 + 24);
-  if (v6 < a2)
+  v6 = *(v5 + 272);
+  if (v6 < v4)
   {
     v7 = 0;
-    v8 = *(v5 + 16);
-    v9 = v8 + 2 * v6;
-    v10 = v9 + 2;
-    if (v9 + 2 <= v8 + 2 * a2)
+    v8 = *(v5 + 264);
+    v9 = v8 + 4 * v6;
+    v10 = v8 + 4 * v4;
+    if (v9 + 4 > v10)
     {
-      v10 = v8 + 2 * a2;
+      v10 = v9 + 4;
     }
 
-    v11 = (v10 + ~v8 - 2 * v6) >> 1;
-    v12 = vdupq_n_s64(v11);
-    v13 = *a3;
-    v14 = (v11 & 0x7FFFFFFFFFFFFFF8) + 8;
+    v11 = *a3;
+    v12 = (v10 + ~v8 - 4 * v6) >> 2;
+    v13 = vdupq_n_s64(v12);
+    v14 = (v12 + 4) & 0x7FFFFFFFFFFFFFFCLL;
     v15 = (v9 + 8);
     do
     {
       v16 = vdupq_n_s64(v7);
-      v17 = vmovn_s64(vcgeq_u64(v12, vorrq_s8(v16, xmmword_1E3049620)));
-      if (vuzp1_s8(vuzp1_s16(v17, *v12.i8), *v12.i8).u8[0])
+      v17 = vmovn_s64(vcgeq_u64(v13, vorrq_s8(v16, xmmword_1E3049620)));
+      if (vuzp1_s16(v17, *v13.i8).u8[0])
       {
-        *(v15 - 4) = v13;
+        *(v15 - 2) = v11;
       }
 
-      if (vuzp1_s8(vuzp1_s16(v17, *&v12), *&v12).i8[1])
+      if (vuzp1_s16(v17, *&v13).i8[2])
       {
-        *(v15 - 3) = v13;
+        *(v15 - 1) = v11;
       }
 
-      if (vuzp1_s8(vuzp1_s16(*&v12, vmovn_s64(vcgeq_u64(v12, vorrq_s8(v16, xmmword_1E3049640)))), *&v12).i8[2])
+      if (vuzp1_s16(*&v13, vmovn_s64(vcgeq_u64(v13, vorrq_s8(v16, xmmword_1E3049640)))).i32[1])
       {
-        *(v15 - 2) = v13;
-        *(v15 - 1) = v13;
+        *v15 = v11;
+        v15[1] = v11;
       }
 
-      v18 = vmovn_s64(vcgeq_u64(v12, vorrq_s8(v16, xmmword_1E3049660)));
-      if (vuzp1_s8(*&v12, vuzp1_s16(v18, *&v12)).i32[1])
-      {
-        *v15 = v13;
-      }
-
-      if (vuzp1_s8(*&v12, vuzp1_s16(v18, *&v12)).i8[5])
-      {
-        v15[1] = v13;
-      }
-
-      if (vuzp1_s8(*&v12, vuzp1_s16(*&v12, vmovn_s64(vcgeq_u64(v12, vorrq_s8(v16, xmmword_1E305F210))))).i8[6])
-      {
-        v15[2] = v13;
-        v15[3] = v13;
-      }
-
-      v7 += 8;
-      v15 += 8;
+      v7 += 4;
+      v15 += 4;
     }
 
     while (v14 != v7);
   }
 
-  *(v5 + 24) = a2;
+  *(v5 + 272) = v4;
   return result;
 }
 
-uint64_t physx::NpDestroy(uint64_t result)
+float32x2_t *physx::Gu::anonymous namespace::ConvexTriangles::getPolygonNormal(float32x2_t *this, uint64_t a2)
 {
-  v1 = *(result + 11) & 0xF;
-  if (v1 <= 5)
+  v2 = *(*a2 + 48);
+  v3 = *(v2 + 92);
+  v4 = *(v2 + 40);
+  v5 = *(v2 + 48);
+  v6 = (3 * **(a2 + 16));
+  if ((v3 & 2) != 0)
   {
-    if ((*(result + 11) & 0xFu) > 3)
-    {
-      if (v1 == 4)
-      {
-        v2 = result - 96;
-        v3 = *(result - 80);
-        if ((*(result - 86) & 1) == 0)
-        {
-          goto LABEL_57;
-        }
-
-        v17 = physx::NpFactory::mInstance;
-        if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-        {
-          pthread_mutex_lock(*(physx::NpFactory::mInstance + 6296));
-        }
-
-        (*(*v2 + 24))(v2);
-        --*(v17 + 6276);
-        *v2 = *(v17 + 6288);
-        *(v17 + 6288) = v2;
-        if ((physx::shdfnd::g_alwaysUseLocking & 1) == 0 && (physx::shdfnd::g_isLockingEnabled & 1) == 0)
-        {
-          goto LABEL_74;
-        }
-
-        v5 = *(v17 + 6296);
-      }
-
-      else
-      {
-        if (v1 != 5)
-        {
-          return result;
-        }
-
-        v2 = result - 96;
-        v3 = *(result - 80);
-        if ((*(result - 86) & 1) == 0)
-        {
-          goto LABEL_57;
-        }
-
-        v11 = physx::NpFactory::mInstance;
-        if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-        {
-          pthread_mutex_lock(*(physx::NpFactory::mInstance + 2264));
-        }
-
-        (*(*v2 + 24))(v2);
-        --*(v11 + 2244);
-        *v2 = *(v11 + 2256);
-        *(v11 + 2256) = v2;
-        if ((physx::shdfnd::g_alwaysUseLocking & 1) == 0 && (physx::shdfnd::g_isLockingEnabled & 1) == 0)
-        {
-          goto LABEL_74;
-        }
-
-        v5 = *(v11 + 2264);
-      }
-    }
-
-    else
-    {
-      if (v1 - 1 < 2)
-      {
-        v2 = result - 48;
-        v3 = *(result - 32);
-        if (*(result - 38))
-        {
-          v4 = physx::NpFactory::mInstance;
-          if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-          {
-            pthread_mutex_lock(*(physx::NpFactory::mInstance + 2840));
-          }
-
-          (*(*v2 + 24))(v2);
-          --*(v4 + 2820);
-          *v2 = *(v4 + 2832);
-          *(v4 + 2832) = v2;
-          if ((physx::shdfnd::g_alwaysUseLocking & 1) == 0 && (physx::shdfnd::g_isLockingEnabled & 1) == 0)
-          {
-            goto LABEL_74;
-          }
-
-          v5 = *(v4 + 2840);
-          goto LABEL_73;
-        }
-
-LABEL_57:
-        (*(*v2 + 24))(v2);
-LABEL_74:
-        v14 = physx::NpPhysics::mInstance;
-        v15 = v2;
-        v16 = v3;
-        goto LABEL_75;
-      }
-
-      if (v1 != 3)
-      {
-        return result;
-      }
-
-      v2 = result - 96;
-      v3 = *(result - 80);
-      if ((*(result - 86) & 1) == 0)
-      {
-        goto LABEL_57;
-      }
-
-      v12 = physx::NpFactory::mInstance;
-      if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-      {
-        pthread_mutex_lock(*(physx::NpFactory::mInstance + 1688));
-      }
-
-      (*(*v2 + 24))(v2);
-      --*(v12 + 1668);
-      *v2 = *(v12 + 1680);
-      *(v12 + 1680) = v2;
-      if ((physx::shdfnd::g_alwaysUseLocking & 1) == 0 && (physx::shdfnd::g_isLockingEnabled & 1) == 0)
-      {
-        goto LABEL_74;
-      }
-
-      v5 = *(v12 + 1688);
-    }
-
-LABEL_73:
-    pthread_mutex_unlock(v5);
-    goto LABEL_74;
-  }
-
-  if ((*(result + 11) & 0xFu) <= 7)
-  {
-    if (v1 != 6)
-    {
-      if (v1 != 7)
-      {
-        return result;
-      }
-
-      v2 = result - 24;
-      v3 = *(result - 8);
-      if ((*(result - 14) & 1) == 0)
-      {
-        goto LABEL_57;
-      }
-
-      v6 = physx::NpFactory::mInstance;
-      if (*(result - 16) == 11)
-      {
-        v7 = (physx::NpFactory::mInstance + 5144);
-        if ((physx::shdfnd::g_alwaysUseLocking | physx::shdfnd::g_isLockingEnabled))
-        {
-          pthread_mutex_lock(*v7);
-        }
-
-        (*(*v2 + 24))(v2);
-        --*(v6 + 5124);
-        *v2 = *(v6 + 5136);
-        *(v6 + 5136) = v2;
-      }
-
-      else
-      {
-        v7 = (physx::NpFactory::mInstance + 5720);
-        if ((physx::shdfnd::g_alwaysUseLocking | physx::shdfnd::g_isLockingEnabled))
-        {
-          pthread_mutex_lock(*v7);
-        }
-
-        (*(*v2 + 24))(v2);
-        --*(v6 + 5700);
-        *v2 = *(v6 + 5712);
-        *(v6 + 5712) = v2;
-      }
-
-      if ((physx::shdfnd::g_alwaysUseLocking & 1) == 0 && (physx::shdfnd::g_isLockingEnabled & 1) == 0)
-      {
-        goto LABEL_74;
-      }
-
-      v5 = *v7;
-      goto LABEL_73;
-    }
-
-    v8 = result - 32;
-    if (*(result - 22))
-    {
-      v13 = physx::NpFactory::mInstance;
-      if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-      {
-        pthread_mutex_lock(*(physx::NpFactory::mInstance + 3992));
-      }
-
-      (*(*v8 + 24))(v8);
-      --*(v13 + 3972);
-      *v8 = *(v13 + 3984);
-      *(v13 + 3984) = v8;
-      if ((physx::shdfnd::g_alwaysUseLocking & 1) == 0 && (physx::shdfnd::g_isLockingEnabled & 1) == 0)
-      {
-        goto LABEL_55;
-      }
-
-      v10 = *(v13 + 3992);
-      goto LABEL_52;
-    }
-
-    goto LABEL_54;
-  }
-
-  if (v1 == 8)
-  {
-    v8 = *(result + 400);
-    if (*(v8 + 10))
-    {
-      if (*(v8 + 8) == 14)
-      {
-        physx::NpFactory::releaseArticulationJointToPool(physx::NpFactory::mInstance, v8);
-      }
-
-      else
-      {
-        physx::NpFactory::releaseArticulationJointRCToPool(physx::NpFactory::mInstance, v8);
-      }
-
-      goto LABEL_55;
-    }
-
-    goto LABEL_54;
-  }
-
-  if (v1 != 9)
-  {
-    return result;
-  }
-
-  v8 = result - 16;
-  if ((*(result - 6) & 1) == 0)
-  {
-LABEL_54:
-    (*(*v8 + 24))(v8);
-    goto LABEL_55;
-  }
-
-  v9 = physx::NpFactory::mInstance;
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_lock(*(physx::NpFactory::mInstance + 3416));
-  }
-
-  (*(*v8 + 24))(v8);
-  --*(v9 + 3396);
-  *v8 = *(v9 + 3408);
-  *(v9 + 3408) = v8;
-  if ((physx::shdfnd::g_alwaysUseLocking & 1) == 0 && (physx::shdfnd::g_isLockingEnabled & 1) == 0)
-  {
-    goto LABEL_55;
-  }
-
-  v10 = *(v9 + 3416);
-LABEL_52:
-  pthread_mutex_unlock(v10);
-LABEL_55:
-  v14 = physx::NpPhysics::mInstance;
-  v15 = v8;
-  v16 = 0;
-LABEL_75:
-
-  return physx::NpPhysics::notifyDeletionListeners(v14, v15, v16, 2);
-}
-
-uint64_t physx::NpPhysics::removeMaterialFromTable(uint64_t this, physx::NpMaterial *a2)
-{
-  v3 = this;
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    this = pthread_mutex_lock(*(this + 160));
-  }
-
-  if (*(v3 + 16))
-  {
-    v4 = 0;
-    do
-    {
-      this = physx::Scb::Scene::removeMaterial(*(*(v3 + 8) + 8 * v4++) + 16, a2 + 48);
-    }
-
-    while (v4 < *(v3 + 16));
-  }
-
-  v5 = *(a2 + 36);
-  if (v5 != 0xFFFF)
-  {
-    *(*(v3 + 56) + 8 * *(a2 + 36)) = 0;
-    this = physx::Cm::IDPoolBase<physx::shdfnd::Array<unsigned int,physx::shdfnd::ReflectionAllocator<unsigned int>>>::freeID(v3 + 32, v5);
-  }
-
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    v6 = *(v3 + 160);
-
-    return pthread_mutex_unlock(v6);
-  }
-
-  return this;
-}
-
-void physx::NpMaterial::~NpMaterial(physx::NpMaterial *this)
-{
-  *this = &unk_1F5D25008;
-  *(this + 3) = &unk_1F5D250D8;
-  physx::NpPhysics::removeMaterialFromTable(physx::NpPhysics::mInstance, this);
-}
-
-{
-  *this = &unk_1F5D25008;
-  *(this + 3) = &unk_1F5D250D8;
-  physx::NpPhysics::removeMaterialFromTable(physx::NpPhysics::mInstance, this);
-  v1 = *(*(physx::shdfnd::Foundation::mInstance + 24) + 24);
-
-  v1();
-}
-
-void non-virtual thunk tophysx::NpMaterial::~NpMaterial(physx::NpMaterial *this)
-{
-  *(this - 3) = &unk_1F5D25008;
-  *this = &unk_1F5D250D8;
-  physx::NpPhysics::removeMaterialFromTable(physx::NpPhysics::mInstance, (this - 24));
-}
-
-{
-  physx::NpMaterial::~NpMaterial((this - 24));
-}
-
-physx::NpMaterial *physx::NpPhysics::addMaterial(pthread_mutex_t **this, physx::NpMaterial *a2)
-{
-  v2 = a2;
-  if (a2)
-  {
-    if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-    {
-      pthread_mutex_lock(this[20]);
-    }
-
-    if (physx::NpMaterialManager::setMaterial((this + 4), v2))
-    {
-      if (*(this + 4))
-      {
-        v7 = 0;
-        do
-        {
-          physx::Scb::Scene::addMaterial(*(&this[1]->__sig + v7++) + 16, v2 + 48);
-        }
-
-        while (v7 < *(this + 4));
-      }
-    }
-
-    else
-    {
-      physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpPhysics.cpp", 421, "PxPhysics::createMaterial: limit of 64K materials reached.", v4, v5, v6, v9);
-      (**v2)(v2);
-      v2 = 0;
-    }
-
-    if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-    {
-      pthread_mutex_unlock(this[20]);
-    }
-  }
-
-  return v2;
-}
-
-uint64_t physx::NpMaterial::onRefCountZero(physx::NpMaterial *this)
-{
-  v2 = *(this + 2);
-  if (*(this + 5))
-  {
-    v3 = physx::NpFactory::mInstance;
-    if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-    {
-      pthread_mutex_lock(*(physx::NpFactory::mInstance + 4568));
-    }
-
-    (*(*this + 24))(this);
-    --*(v3 + 4548);
-    *this = *(v3 + 4560);
-    *(v3 + 4560) = this;
-    if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-    {
-      pthread_mutex_unlock(*(v3 + 4568));
-    }
+    v11 = (v5 + 2 * v6);
+    v9 = *v11;
+    v8 = v11[1];
+    v10 = v11[2];
   }
 
   else
   {
-    (*(*this + 24))(this);
+    v7 = (v5 + 4 * v6);
+    v9 = *v7;
+    v8 = v7[1];
+    v10 = v7[2];
   }
 
-  v4 = physx::NpPhysics::mInstance;
-
-  return physx::NpPhysics::notifyDeletionListeners(v4, this, v2, 2);
-}
-
-uint64_t physx::NpMaterial::release(uint64_t this)
-{
-  if (atomic_fetch_add((this + 32), 0xFFFFFFFF) == 1)
+  v12 = (v4 + 12 * v9);
+  v14 = v12[1];
+  v13 = v12[2];
+  v15 = v4 + 12 * v8;
+  v16 = *(v15 + 8);
+  v17 = v4 + 12 * v10;
+  v18 = *(a2 + 8);
+  v19 = *(v18 + 12);
+  v20 = *(v18 + 24);
+  v21 = ((*v12 * *v18) + (v14 * v19)) + (v13 * v20);
+  if (*(v18 + 72))
   {
-    return (*(*(this + 24) + 16))();
-  }
-
-  return this;
-}
-
-uint64_t physx::NpMaterial::setRestitution(physx::NpMaterial *this, float a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
-{
-  if (a2 < 0.0 || a2 > 1.0)
-  {
-    v14 = a2;
-    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpMaterial.cpp", 143, "PxMaterial::setRestitution: Invalid value %f was clamped to [0,1]!", a7, a8, a9, SLOBYTE(v14));
-  }
-
-  *(this + 14) = a2;
-  v12 = physx::NpPhysics::mInstance;
-
-  return physx::NpPhysics::updateMaterial(v12, this);
-}
-
-uint64_t physx::NpMaterial::setFlag(physx::NpMaterial *a1, __int16 a2, int a3)
-{
-  if (a3)
-  {
-    v3 = *(a1 + 30) | a2;
+    v22 = *(v17 + 8);
   }
 
   else
   {
-    v3 = *(a1 + 30) & ~a2;
+    v22 = *(v15 + 8);
   }
 
-  *(a1 + 30) = v3;
-  return physx::NpPhysics::updateMaterial(physx::NpPhysics::mInstance, a1);
+  v23 = v22 * v20;
+  if (!*(v18 + 72))
+  {
+    v16 = *(v17 + 8);
+  }
+
+  v24 = *(v18 + 4);
+  v25 = *(v18 + 16);
+  v26 = *(v18 + 28);
+  v27 = vadd_f32(vadd_f32(vmul_n_f32(v24, *v12), vmul_n_f32(v25, v14)), vmul_n_f32(v26, v13));
+  if (*(v18 + 72))
+  {
+    LODWORD(v28) = *v17;
+  }
+
+  else
+  {
+    LODWORD(v28) = *v15;
+  }
+
+  v29 = *v18 * v28;
+  v30 = vmul_n_f32(v24, v28);
+  LODWORD(v31) = HIDWORD(*v15);
+  if (*(v18 + 72))
+  {
+    LODWORD(v31) = HIDWORD(*v17);
+  }
+
+  v32 = v31 * v19;
+  v33 = vadd_f32(vadd_f32(v30, vmul_n_f32(v25, v31)), vmul_n_f32(v26, v22));
+  v34 = vbsl_s8(vcltz_s32(vshl_n_s32(vdup_n_s32(*(v18 + 72)), 0x1FuLL)), *v15, *v17);
+  v35 = vzip1_s32(v24, v25);
+  v24.i32[0] = *(v18 + 12);
+  v25.i32[0] = *v18;
+  v36 = v16 * *v26.i32;
+  v37.i32[0] = vdup_lane_s32(v26, 1).u32[0];
+  v37.i32[1] = *(v18 + 24);
+  v38 = vadd_f32(vrev64_s32(vadd_f32(vmul_f32(v34, v25), vmul_f32(vrev64_s32(v34), v24))), vmul_n_f32(v37, v16));
+  v39 = v21 - ((v29 + v32) + v23);
+  v40 = vsub_f32(v27, v33);
+  v41 = *v27.i32 - (vaddv_f32(vmul_f32(v34, v35)) + v36);
+  v42.i32[0] = vdup_lane_s32(v27, 1).u32[0];
+  v42.f32[1] = v21;
+  v43.i32[0] = vdup_lane_s32(v40, 1).u32[0];
+  v44 = vsub_f32(v42, v38);
+  v43.f32[1] = v39;
+  v45 = vdup_lane_s32(v44, 0);
+  v45.f32[0] = v41;
+  v46 = vmla_f32(vmul_f32(v45, vneg_f32(v43)), v44, v40);
+  v47 = vmuls_lane_f32(-*v40.i32, v44, 1) + (v39 * v41);
+  v48 = (COERCE_FLOAT(vmul_f32(v46, v46).i32[1]) + (v46.f32[0] * v46.f32[0])) + (v47 * v47);
+  if (v48 <= 0.0)
+  {
+    v50 = 0;
+    v51 = 0.0;
+  }
+
+  else
+  {
+    v49 = 1.0 / sqrtf(v48);
+    v50 = vmul_n_f32(v46, v49);
+    v51 = v47 * v49;
+  }
+
+  *this = v50;
+  this[1].f32[0] = v51;
+  return this;
 }
 
-void physx::NpPhysics::~NpPhysics(physx::NpPhysics *this)
+float physx::Gu::anonymous namespace::ConvexTriangles::getBounds(uint64_t a1, uint64_t a2, int32x2_t *a3, double a4, double a5, double a6)
 {
-  *this = &unk_1F5D25100;
-  v2 = *(this + 4);
-  if (v2)
+  v6 = *(a1 + 24);
+  if (v6)
   {
-    v3 = *(this + 1);
+    v8 = *(a1 + 8);
+    v7 = *(a1 + 16);
+    v9 = *(*a1 + 48);
+    v10 = *(v9 + 92);
+    LODWORD(a5) = a3[1].i32[0];
+    v11 = *&a3[1].i32[1];
+    *&a6 = (v11 * v11) + -0.5;
+    _D3 = *a3;
+    v13 = vneg_f32(vzip1_s32(*&a5, *a3));
+    LODWORD(v14) = HIDWORD(*a3);
+    v15 = *(v9 + 40);
+    v16 = *(v9 + 48);
+    v17 = vdup_lane_s32(*&a6, 0);
+    v18 = vdup_lane_s32(*&a5, 0);
+    v18.f32[0] = v14;
+    v19 = *(a1 + 24);
     do
     {
-      if (*v3)
+      v20 = *v7++;
+      v21 = (3 * v20);
+      if ((v10 & 2) != 0)
       {
-        (*(**v3 + 8))(*v3);
-      }
-
-      *v3++ = 0;
-      --v2;
-    }
-
-    while (v2);
-  }
-
-  *(this + 4) = 0;
-  v4 = *(this + 16);
-  if (v4)
-  {
-    for (i = 0; i < v4; ++i)
-    {
-      v6 = *(*(this + 7) + 8 * i);
-      if (v6)
-      {
-        physx::Cm::IDPoolBase<physx::shdfnd::Array<unsigned int,physx::shdfnd::ReflectionAllocator<unsigned int>>>::freeID(this + 32, *(v6 + 72));
-        (***(*(this + 7) + 8 * i))();
-        *(*(this + 7) + 8 * i) = 0;
-        v4 = *(this + 16);
-      }
-    }
-  }
-
-  if (*(this + 7))
-  {
-    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-  }
-
-  v7 = *(this + 35);
-  if (v7)
-  {
-    v8 = (*(this + 12) + 8);
-    do
-    {
-      v9 = *v8;
-      if (*v8)
-      {
-        if (*v9)
-        {
-          (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-        }
-
-        (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v9);
-      }
-
-      v8 += 2;
-      --v7;
-    }
-
-    while (v7);
-  }
-
-  v10 = *(this + 31);
-  if (v10 && *(this + 35))
-  {
-    memset(*(this + 14), 255, (4 * v10));
-    v11 = *(this + 13);
-    v12 = (*(this + 30) - 1);
-    if (*(this + 30) == 1)
-    {
-      v20 = 0;
-    }
-
-    else
-    {
-      _X10 = v11 + 128;
-      v14 = 1;
-      do
-      {
-        __asm { PRFM            #0, [X10] }
-
-        *(_X10 - 128) = v14++;
-        _X10 += 4;
-        --v12;
-      }
-
-      while (v12);
-      v20 = (*(this + 30) - 1);
-    }
-
-    *(v11 + 4 * v20) = -1;
-    *(this + 33) = 0;
-    *(this + 35) = 0;
-  }
-
-  physx::shdfnd::MutexT<physx::shdfnd::ReflectionAllocator<physx::shdfnd::MutexImpl>>::~MutexT(this + 20);
-  if (*(this + 11))
-  {
-    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-  }
-
-  physx::shdfnd::MutexT<physx::shdfnd::ReflectionAllocator<physx::shdfnd::MutexImpl>>::~MutexT(this + 10);
-  v21 = *(this + 13);
-  if ((v21 & 0x80000000) == 0 && (v21 & 0x7FFFFFFF) != 0 && *(this + 5))
-  {
-    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-  }
-
-  physx::Sc::Physics::mInstance = 0;
-  v22 = *(this + 5);
-  if ((v22 & 0x80000000) == 0 && (v22 & 0x7FFFFFFF) != 0)
-  {
-    if (*(this + 1))
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-    }
-  }
-}
-
-{
-  physx::NpPhysics::~NpPhysics(this);
-  if (v1)
-  {
-    v2 = *(*(physx::shdfnd::Foundation::mInstance + 24) + 24);
-
-    v2();
-  }
-}
-
-uint64_t physx::NpPhysics::createInstance(physx::shdfnd::Foundation *a1, uint64_t a2, float *a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v71 = *MEMORY[0x1E69E9840];
-  if (a1 != 67174656)
-  {
-    physx::shdfnd::snprintf(v70, 0x100, "Wrong version: PhysX version is 0x%08x, tried to create 0x%08x", a4, 67174656, a1);
-    v68 = *(*(*(*a2 + 8))(a2) + 16);
-LABEL_62:
-    v68();
-    return 0;
-  }
-
-  if (*a3 <= 0.0)
-  {
-    v68 = *(*(*(*a2 + 8))(a2, *a3) + 16);
-    goto LABEL_62;
-  }
-
-  v10 = physx::NpPhysics::mRefCount;
-  if (!physx::NpPhysics::mRefCount)
-  {
-    physx::shdfnd::Foundation::incRefCount(a1, a2, a3, a4, a5, a6, a7, a8, v69);
-    xmmword_1EE1C7E00 = vdupq_n_s64(0xFFFFFFFFFFFFFFD0);
-    unk_1EE1C7E10 = vdupq_n_s64(0xFFFFFFFFFFFFFFD8);
-    physx::Sc::gOffsetTable = vdupq_n_s64(0xFFFFFFFFFFFFFF80);
-    unk_1EE1C7DF0 = xmmword_1E3117F70;
-    *&qword_1EE1C7E28 = xmmword_1E3117F80;
-    unk_1EE1C7E38 = physx::Sc::gOffsetTable;
-    physx::NpActor::sLazyInitOffsets = 0u;
-    unk_1EE1C7C48 = 0u;
-    qword_1EE1C7C58 = 0;
-    unk_1EE1C7C60 = vdupq_n_s64(0x18uLL);
-    unk_1EE1C7C70 = 0u;
-    unk_1EE1C7C80 = 0u;
-    unk_1EE1C7C90 = 0u;
-    qword_1EE1C7CA0 = 24;
-    xmmword_1EE1C7CA8 = 0u;
-    unk_1EE1C7CB8 = 0u;
-    xmmword_1EE1C7CC8 = 0u;
-    unk_1EE1C7CD8 = 0u;
-    qword_1EE1C7CE8 = 0;
-    unk_1EE1C7CF0 = vdupq_n_s64(0x60uLL);
-    unk_1EE1C7D00 = 0u;
-    unk_1EE1C7D10 = 0u;
-    unk_1EE1C7D20 = 0u;
-    qword_1EE1C7D30 = 96;
-    xmmword_1EE1C7D38 = 0u;
-    unk_1EE1C7D48 = 0u;
-    physx::Scb::Actor::sLazyInitOffsets = vdupq_n_s64(0x20uLL);
-    qword_1EE1C7D80 = 32;
-    xmmword_1EE1C7DA0 = physx::Scb::Actor::sLazyInitOffsets;
-    qword_1EE1C7DB0 = 32;
-    v11 = physx::shdfnd::Foundation::mInstance;
-    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-    {
-      v12 = "static const char *physx::shdfnd::ReflectionAllocator<physx::NpPhysics>::getName() [T = physx::NpPhysics]";
-    }
-
-    else
-    {
-      v12 = "<allocation names disabled>";
-    }
-
-    v13 = (*(*(v11 + 24) + 16))(v11 + 24, 168, v12, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpPhysics.cpp", 219);
-    *(v13 + 8) = 0;
-    *(v13 + 16) = 0;
-    *v13 = &unk_1F5D25100;
-    *(v13 + 24) = *a3;
-    physx::Sc::Physics::mInstance = v13 + 24;
-    physx::gPxvOffsetTable = xmmword_1E3117F90;
-    qword_1EE1C7EE8 = -144;
-    *(v13 + 32) = 0;
-    *(v13 + 40) = 0;
-    *(v13 + 48) = 0;
-    v14 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 1024, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpMaterialManager.h", 46);
-    *(v13 + 56) = v14;
-    *(v13 + 64) = 128;
-    bzero(v14, 0x400uLL);
-    *(v13 + 72) = &unk_1F5D25418;
-    v15 = physx::shdfnd::Foundation::mInstance;
-    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-    {
-      v16 = "static const char *physx::shdfnd::ReflectionAllocator<physx::shdfnd::MutexImpl>::getName() [T = physx::shdfnd::MutexImpl]";
-    }
-
-    else
-    {
-      v16 = "<allocation names disabled>";
-    }
-
-    v17 = (*(*(v15 + 24) + 16))(v15 + 24, 72, v16, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsMutex.h", 138);
-    *(v13 + 80) = v17;
-    physx::shdfnd::MutexImpl::MutexImpl(v17);
-    *(v13 + 120) = 0;
-    *(v13 + 88) = 0u;
-    *(v13 + 104) = 0u;
-    *(v13 + 128) = 1061158912;
-    *(v13 + 132) = 0xFFFFFFFFLL;
-    *(v13 + 140) = 0;
-    physx::shdfnd::internal::HashBase<physx::shdfnd::Pair<physx::PxDeletionListener * const,physx::NpPhysics::NpDelListenerEntry *>,physx::PxDeletionListener *,physx::shdfnd::Hash<physx::PxDeletionListener *>,physx::shdfnd::internal::HashMapBase<physx::PxDeletionListener *,physx::NpPhysics::NpDelListenerEntry *,physx::shdfnd::Hash<physx::PxDeletionListener *>,physx::shdfnd::NonTrackingAllocator>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::reserveInternal(v13 + 88, 0x40u);
-    *(v13 + 144) = &unk_1F5D25468;
-    *(v13 + 152) = 0;
-    v18 = physx::shdfnd::Foundation::mInstance;
-    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-    {
-      v19 = "static const char *physx::shdfnd::ReflectionAllocator<physx::shdfnd::MutexImpl>::getName() [T = physx::shdfnd::MutexImpl]";
-    }
-
-    else
-    {
-      v19 = "<allocation names disabled>";
-    }
-
-    v20 = (*(*(v18 + 24) + 16))(v18 + 24, 72, v19, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsMutex.h", 138);
-    *(v13 + 160) = v20;
-    physx::shdfnd::MutexImpl::MutexImpl(v20);
-    physx::NpPhysics::mInstance = v13;
-    v21 = physx::shdfnd::Foundation::mInstance;
-    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-    {
-      v22 = "static const char *physx::shdfnd::ReflectionAllocator<physx::NpFactory>::getName() [T = physx::NpFactory]";
-    }
-
-    else
-    {
-      v22 = "<allocation names disabled>";
-    }
-
-    v23 = (*(*(v21 + 24) + 16))(v21 + 24, 7456, v22, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpFactory.cpp", 101);
-    v24 = physx::GuMeshFactory::GuMeshFactory(v23);
-    *v24 = &unk_1F5D24FE8;
-    *(v24 + 99) = 0x4000000000;
-    *(v24 + 776) = 1;
-    *(v24 + 98) = v24 + 264;
-    *(v24 + 100) = 32;
-    *(v24 + 202) = 2816;
-    *(v24 + 102) = 0;
-    v25 = physx::shdfnd::Foundation::mInstance;
-    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-    {
-      v26 = "static const char *physx::shdfnd::ReflectionAllocator<physx::shdfnd::MutexImpl>::getName() [T = physx::shdfnd::MutexImpl]";
-    }
-
-    else
-    {
-      v26 = "<allocation names disabled>";
-    }
-
-    v27 = (*(*(v25 + 24) + 16))(v25 + 24, 72, v26, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsMutex.h", 138);
-    *(v23 + 824) = v27;
-    physx::shdfnd::MutexImpl::MutexImpl(v27);
-    v28 = physx::shdfnd::Foundation::mInstance;
-    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-    {
-      v29 = "static const char *physx::shdfnd::ReflectionAllocator<physx::NpPtrTableStorageManager>::getName() [T = physx::NpPtrTableStorageManager]";
-    }
-
-    else
-    {
-      v29 = "<allocation names disabled>";
-    }
-
-    v30 = (*(*(v28 + 24) + 16))(v28 + 24, 1720, v29, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpFactory.cpp", 51);
-    *v30 = &unk_1F5D25398;
-    v31 = physx::shdfnd::Foundation::mInstance;
-    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-    {
-      v32 = "static const char *physx::shdfnd::ReflectionAllocator<physx::shdfnd::MutexImpl>::getName() [T = physx::shdfnd::MutexImpl]";
-    }
-
-    else
-    {
-      v32 = "<allocation names disabled>";
-    }
-
-    v33 = (*(*(v31 + 24) + 16))(v31 + 24, 72, v32, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsMutex.h", 138);
-    *(v30 + 8) = v33;
-    physx::shdfnd::MutexImpl::MutexImpl(v33);
-    *(v30 + 552) = 0x4000000000;
-    *(v30 + 536) = 1;
-    *(v30 + 544) = v30 + 24;
-    *(v30 + 560) = 128;
-    *(v30 + 568) = 4096;
-    *(v30 + 576) = 0;
-    *(v30 + 1120) = 0x4000000000;
-    *(v30 + 1104) = 1;
-    *(v30 + 1112) = v30 + 592;
-    *(v30 + 1128) = 32;
-    *(v30 + 1136) = 4096;
-    *(v30 + 1144) = 0;
-    *(v30 + 1688) = 0x4000000000;
-    *(v30 + 1672) = 1;
-    *(v30 + 1680) = v30 + 1160;
-    *(v30 + 1696) = 8;
-    *(v30 + 1704) = 4096;
-    *(v30 + 1712) = 0;
-    *(v23 + 832) = v30;
-    *(v23 + 872) = 0;
-    *(v23 + 840) = 0u;
-    *(v23 + 856) = 0u;
-    *(v23 + 880) = 1061158912;
-    *(v23 + 884) = -1;
-    *(v23 + 888) = 0;
-    physx::shdfnd::internal::HashBase<physx::PxBase const*,physx::PxBase const*,physx::shdfnd::Hash<physx::PxBase const*>,physx::shdfnd::internal::HashSetBase<physx::PxBase const*,physx::shdfnd::Hash<physx::PxBase const*>,physx::shdfnd::NonTrackingAllocator,false>::GetKey,physx::shdfnd::NonTrackingAllocator,false>::reserveInternal(v23 + 840, 0x40u);
-    *(v23 + 928) = 0;
-    *(v23 + 896) = 0u;
-    *(v23 + 912) = 0u;
-    *(v23 + 936) = -3233808384;
-    *(v23 + 944) = 0;
-    physx::shdfnd::internal::HashBase<physx::PxBase const*,physx::PxBase const*,physx::shdfnd::Hash<physx::PxBase const*>,physx::shdfnd::internal::HashSetBase<physx::PxBase const*,physx::shdfnd::Hash<physx::PxBase const*>,physx::shdfnd::NonTrackingAllocator,false>::GetKey,physx::shdfnd::NonTrackingAllocator,false>::reserveInternal(v23 + 896, 0x40u);
-    *(v23 + 984) = 0;
-    *(v23 + 952) = 0u;
-    *(v23 + 968) = 0u;
-    *(v23 + 992) = -3233808384;
-    *(v23 + 1000) = 0;
-    physx::shdfnd::internal::HashBase<physx::PxBase const*,physx::PxBase const*,physx::shdfnd::Hash<physx::PxBase const*>,physx::shdfnd::internal::HashSetBase<physx::PxBase const*,physx::shdfnd::Hash<physx::PxBase const*>,physx::shdfnd::NonTrackingAllocator,false>::GetKey,physx::shdfnd::NonTrackingAllocator,false>::reserveInternal(v23 + 952, 0x40u);
-    *(v23 + 1040) = 0;
-    *(v23 + 1008) = 0u;
-    *(v23 + 1024) = 0u;
-    *(v23 + 1048) = -3233808384;
-    *(v23 + 1056) = 0;
-    physx::shdfnd::internal::HashBase<physx::PxBase const*,physx::PxBase const*,physx::shdfnd::Hash<physx::PxBase const*>,physx::shdfnd::internal::HashSetBase<physx::PxBase const*,physx::shdfnd::Hash<physx::PxBase const*>,physx::shdfnd::NonTrackingAllocator,false>::GetKey,physx::shdfnd::NonTrackingAllocator,false>::reserveInternal(v23 + 1008, 0x40u);
-    *(v23 + 1096) = 0;
-    *(v23 + 1064) = 0u;
-    *(v23 + 1080) = 0u;
-    *(v23 + 1104) = -3233808384;
-    *(v23 + 1112) = 0;
-    physx::shdfnd::internal::HashBase<physx::Sc::ConstraintSim *,physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::internal::HashSetBase<physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::reserveInternal(v23 + 1064, 0x40u);
-    *(v23 + 1656) = 0x4000000000;
-    *(v23 + 1640) = 1;
-    *(v23 + 1648) = v23 + 1128;
-    *(v23 + 1664) = 10;
-    *(v23 + 1672) = 4096;
-    *(v23 + 1680) = 0;
-    v34 = physx::shdfnd::Foundation::mInstance;
-    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-    {
-      v35 = "static const char *physx::shdfnd::ReflectionAllocator<physx::shdfnd::MutexImpl>::getName() [T = physx::shdfnd::MutexImpl]";
-    }
-
-    else
-    {
-      v35 = "<allocation names disabled>";
-    }
-
-    v36 = (*(*(v34 + 24) + 16))(v34 + 24, 72, v35, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsMutex.h", 138);
-    *(v23 + 1688) = v36;
-    physx::shdfnd::MutexImpl::MutexImpl(v36);
-    *(v23 + 2232) = 0x4000000000;
-    *(v23 + 2216) = 1;
-    *(v23 + 2224) = v23 + 1704;
-    *(v23 + 2240) = 23;
-    *(v23 + 2248) = 4096;
-    *(v23 + 2256) = 0;
-    v37 = physx::shdfnd::Foundation::mInstance;
-    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-    {
-      v38 = "static const char *physx::shdfnd::ReflectionAllocator<physx::shdfnd::MutexImpl>::getName() [T = physx::shdfnd::MutexImpl]";
-    }
-
-    else
-    {
-      v38 = "<allocation names disabled>";
-    }
-
-    v39 = (*(*(v37 + 24) + 16))(v37 + 24, 72, v38, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsMutex.h", 138);
-    *(v23 + 2264) = v39;
-    physx::shdfnd::MutexImpl::MutexImpl(v39);
-    *(v23 + 2808) = 0x4000000000;
-    *(v23 + 2792) = 1;
-    *(v23 + 2800) = v23 + 2280;
-    *(v23 + 2816) = 15;
-    *(v23 + 2824) = 4096;
-    *(v23 + 2832) = 0;
-    v40 = physx::shdfnd::Foundation::mInstance;
-    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-    {
-      v41 = "static const char *physx::shdfnd::ReflectionAllocator<physx::shdfnd::MutexImpl>::getName() [T = physx::shdfnd::MutexImpl]";
-    }
-
-    else
-    {
-      v41 = "<allocation names disabled>";
-    }
-
-    v42 = (*(*(v40 + 24) + 16))(v40 + 24, 72, v41, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsMutex.h", 138);
-    *(v23 + 2840) = v42;
-    physx::shdfnd::MutexImpl::MutexImpl(v42);
-    *(v23 + 3384) = 0x4000000000;
-    *(v23 + 3368) = 1;
-    *(v23 + 3376) = v23 + 2856;
-    *(v23 + 3392) = 51;
-    *(v23 + 3400) = 4096;
-    *(v23 + 3408) = 0;
-    v43 = physx::shdfnd::Foundation::mInstance;
-    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-    {
-      v44 = "static const char *physx::shdfnd::ReflectionAllocator<physx::shdfnd::MutexImpl>::getName() [T = physx::shdfnd::MutexImpl]";
-    }
-
-    else
-    {
-      v44 = "<allocation names disabled>";
-    }
-
-    v45 = (*(*(v43 + 24) + 16))(v43 + 24, 72, v44, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsMutex.h", 138);
-    *(v23 + 3416) = v45;
-    physx::shdfnd::MutexImpl::MutexImpl(v45);
-    *(v23 + 3960) = 0x4000000000;
-    *(v23 + 3944) = 1;
-    *(v23 + 3952) = v23 + 3432;
-    *(v23 + 3968) = 22;
-    *(v23 + 3976) = 4096;
-    *(v23 + 3984) = 0;
-    v46 = physx::shdfnd::Foundation::mInstance;
-    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-    {
-      v47 = "static const char *physx::shdfnd::ReflectionAllocator<physx::shdfnd::MutexImpl>::getName() [T = physx::shdfnd::MutexImpl]";
-    }
-
-    else
-    {
-      v47 = "<allocation names disabled>";
-    }
-
-    v48 = (*(*(v46 + 24) + 16))(v46 + 24, 72, v47, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsMutex.h", 138);
-    *(v23 + 3992) = v48;
-    physx::shdfnd::MutexImpl::MutexImpl(v48);
-    *(v23 + 4536) = 0x4000000000;
-    *(v23 + 4520) = 1;
-    *(v23 + 4528) = v23 + 4008;
-    *(v23 + 4544) = 51;
-    *(v23 + 4552) = 4096;
-    *(v23 + 4560) = 0;
-    v49 = physx::shdfnd::Foundation::mInstance;
-    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-    {
-      v50 = "static const char *physx::shdfnd::ReflectionAllocator<physx::shdfnd::MutexImpl>::getName() [T = physx::shdfnd::MutexImpl]";
-    }
-
-    else
-    {
-      v50 = "<allocation names disabled>";
-    }
-
-    v51 = (*(*(v49 + 24) + 16))(v49 + 24, 72, v50, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsMutex.h", 138);
-    *(v23 + 4568) = v51;
-    physx::shdfnd::MutexImpl::MutexImpl(v51);
-    *(v23 + 5112) = 0x4000000000;
-    *(v23 + 5096) = 1;
-    *(v23 + 5104) = v23 + 4584;
-    *(v23 + 5120) = 22;
-    *(v23 + 5128) = 4096;
-    *(v23 + 5136) = 0;
-    v52 = physx::shdfnd::Foundation::mInstance;
-    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-    {
-      v53 = "static const char *physx::shdfnd::ReflectionAllocator<physx::shdfnd::MutexImpl>::getName() [T = physx::shdfnd::MutexImpl]";
-    }
-
-    else
-    {
-      v53 = "<allocation names disabled>";
-    }
-
-    v54 = (*(*(v52 + 24) + 16))(v52 + 24, 72, v53, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsMutex.h", 138);
-    *(v23 + 5144) = v54;
-    physx::shdfnd::MutexImpl::MutexImpl(v54);
-    *(v23 + 5688) = 0x4000000000;
-    *(v23 + 5672) = 1;
-    *(v23 + 5680) = v23 + 5160;
-    *(v23 + 5696) = 20;
-    *(v23 + 5704) = 4096;
-    *(v23 + 5712) = 0;
-    v55 = physx::shdfnd::Foundation::mInstance;
-    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-    {
-      v56 = "static const char *physx::shdfnd::ReflectionAllocator<physx::shdfnd::MutexImpl>::getName() [T = physx::shdfnd::MutexImpl]";
-    }
-
-    else
-    {
-      v56 = "<allocation names disabled>";
-    }
-
-    v57 = (*(*(v55 + 24) + 16))(v55 + 24, 72, v56, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsMutex.h", 138);
-    *(v23 + 5720) = v57;
-    physx::shdfnd::MutexImpl::MutexImpl(v57);
-    *(v23 + 6264) = 0x4000000000;
-    *(v23 + 6248) = 1;
-    *(v23 + 6256) = v23 + 5736;
-    *(v23 + 6272) = 8;
-    *(v23 + 6280) = 4096;
-    *(v23 + 6288) = 0;
-    v58 = physx::shdfnd::Foundation::mInstance;
-    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-    {
-      v59 = "static const char *physx::shdfnd::ReflectionAllocator<physx::shdfnd::MutexImpl>::getName() [T = physx::shdfnd::MutexImpl]";
-    }
-
-    else
-    {
-      v59 = "<allocation names disabled>";
-    }
-
-    v60 = (*(*(v58 + 24) + 16))(v58 + 24, 72, v59, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsMutex.h", 138);
-    *(v23 + 6296) = v60;
-    physx::shdfnd::MutexImpl::MutexImpl(v60);
-    *(v23 + 6840) = 0x4000000000;
-    *(v23 + 6824) = 1;
-    *(v23 + 6832) = v23 + 6312;
-    *(v23 + 6848) = 9;
-    *(v23 + 6856) = 4096;
-    *(v23 + 6864) = 0;
-    v61 = physx::shdfnd::Foundation::mInstance;
-    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-    {
-      v62 = "static const char *physx::shdfnd::ReflectionAllocator<physx::shdfnd::MutexImpl>::getName() [T = physx::shdfnd::MutexImpl]";
-    }
-
-    else
-    {
-      v62 = "<allocation names disabled>";
-    }
-
-    v63 = (*(*(v61 + 24) + 16))(v61 + 24, 72, v62, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsMutex.h", 138);
-    *(v23 + 6872) = v63;
-    physx::shdfnd::MutexImpl::MutexImpl(v63);
-    *(v23 + 7416) = 0x4000000000;
-    *(v23 + 7400) = 1;
-    *(v23 + 7408) = v23 + 6888;
-    *(v23 + 7424) = 9;
-    *(v23 + 7432) = 4096;
-    *(v23 + 7440) = 0;
-    v64 = physx::shdfnd::Foundation::mInstance;
-    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-    {
-      v65 = "static const char *physx::shdfnd::ReflectionAllocator<physx::shdfnd::MutexImpl>::getName() [T = physx::shdfnd::MutexImpl]";
-    }
-
-    else
-    {
-      v65 = "<allocation names disabled>";
-    }
-
-    v66 = (*(*(v64 + 24) + 16))(v64 + 24, 72, v65, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsMutex.h", 138);
-    *(v23 + 7448) = v66;
-    physx::shdfnd::MutexImpl::MutexImpl(v66);
-    physx::NpFactory::mInstance = v23;
-    physx::GuMeshFactory::addFactoryListener(v23, physx::NpPhysics::mInstance + 144);
-    v10 = physx::NpPhysics::mRefCount;
-  }
-
-  physx::NpPhysics::mRefCount = v10 + 1;
-  return physx::NpPhysics::mInstance;
-}
-
-void physx::NpPhysics::release(physx::NpPhysics *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  if (!--physx::NpPhysics::mRefCount)
-  {
-    v55 = v9;
-    v56 = v10;
-    v11 = physx::NpFactory::mInstance;
-    v53 = 0;
-    v54 = 0;
-    v12 = *(physx::NpFactory::mInstance + 892);
-    if (v12)
-    {
-      physx::shdfnd::Array<physx::PxAggregate *,physx::shdfnd::ReflectionAllocator<physx::PxAggregate *>>::recreate(&v53, v12);
-    }
-
-    if (*(v11 + 872))
-    {
-      v13 = *(v11 + 864);
-      v14 = *v13;
-      if (v14 == -1)
-      {
-        v15 = 0;
-        while (*(v11 + 876) - 1 != v15)
-        {
-          v14 = v13[++v15];
-          if (v14 != -1)
-          {
-            goto LABEL_11;
-          }
-        }
+        v26 = (v16 + 2 * v21);
+        v23 = *v26;
+        v24 = v26[1];
+        v25 = v26[2];
       }
 
       else
       {
-        LODWORD(v15) = 0;
-        do
-        {
-LABEL_11:
-          v16 = (*(v11 + 848) + 8 * v14);
-          v17 = v54;
-          if ((HIDWORD(v54) & 0x7FFFFFFFu) <= v54)
-          {
-            physx::shdfnd::Array<physx::PxAggregate *,physx::shdfnd::ReflectionAllocator<physx::PxAggregate *>>::growAndPushBack(&v53, v16);
-          }
-
-          else
-          {
-            *(v53 + 8 * v54) = *v16;
-            LODWORD(v54) = v17 + 1;
-          }
-
-          v14 = *(*(v11 + 856) + 4 * v14);
-        }
-
-        while (v14 != -1);
-        while (*(v11 + 876) - 1 != v15)
-        {
-          LODWORD(v15) = v15 + 1;
-          v14 = *(*(v11 + 864) + 4 * v15);
-          if (v14 != -1)
-          {
-            goto LABEL_11;
-          }
-        }
-      }
-    }
-
-    if (v54)
-    {
-      v18 = 0;
-      do
-      {
-        (***(v53 + 8 * v18))(*(v53 + 8 * v18));
-        ++v18;
+        v22 = (v16 + 4 * v21);
+        v23 = *v22;
+        v24 = v22[1];
+        v25 = v22[2];
       }
 
-      while (v18 < v54);
-    }
+      v27 = (v15 + 12 * v23);
+      v29 = v27[1];
+      v28 = v27[2];
+      v30 = (v15 + 12 * v24);
+      v32 = v30[1];
+      v31 = v30[2];
+      v33 = *v30;
+      v34 = (v15 + 12 * v25);
+      v36 = v34[1];
+      v35 = v34[2];
+      v37 = *v34;
+      _D27 = vmul_n_f32(*(v8 + 12), v29);
+      v39 = ((*v27 * *(v8 + 8)) + (v29 * *(v8 + 20))) + (v28 * *(v8 + 32));
+      v40 = *(a1 + 92);
+      v41 = *(a1 + 76);
+      v42 = *(a1 + 80);
+      v43 = vadd_f32(vadd_f32(vmul_n_f32(*v8, *v27), _D27), vmul_n_f32(*(v8 + 24), v28));
+      _D22 = vadd_f32(v43, v43);
+      v45.i32[0] = vdup_lane_s32(_D22, 1).u32[0];
+      v45.f32[1] = v39 + v39;
+      v46 = (vmuls_lane_f32(v14, _D22, 1) + (_D3.f32[0] * *_D22.i32)) + (*&a5 * (v39 + v39));
+      __asm { FMLA            S27, S3, V22.S[1] }
 
-    if ((v54 & 0x8000000000000000) == 0 && (v54 & 0x7FFFFFFF00000000) != 0 && v53 != 0)
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-    }
-
-    v53 = 0;
-    v54 = 0;
-    v20 = *(v11 + 1004);
-    if (v20)
-    {
-      physx::shdfnd::Array<physx::PxConstraint *,physx::shdfnd::ReflectionAllocator<physx::PxConstraint *>>::recreate(&v53, v20);
-    }
-
-    if (*(v11 + 984))
-    {
-      v21 = *(v11 + 976);
-      v22 = *v21;
-      if (v22 == -1)
+      v51 = vadd_f32(a3[2], vmla_n_f32(vmla_f32(vmul_n_f32(vmla_f32(vmul_f32(v45, v13), vext_s8(v45, _D22, 4uLL), v18), v11), v17, _D22), _D3, v46));
+      v52 = *a3[3].i32 + (((v11 * _D27.f32[0]) + ((v39 + v39) * *&a6)) + (*&a5 * v46));
+      v53 = vadd_f32(*(a1 + 84), v51);
+      *(a1 + 84) = v53;
+      v54 = v52 + v40;
+      *(a1 + 92) = v52 + v40;
+      v55 = *&v51.i32[1];
+      if (v41 > *&v51.i32[1])
       {
-        v23 = 0;
-        while (*(v11 + 988) - 1 != v23)
-        {
-          v22 = v21[++v23];
-          if (v22 != -1)
-          {
-            goto LABEL_36;
-          }
-        }
+        v55 = v41;
+      }
+
+      if (v42 <= v52)
+      {
+        v56 = v52;
       }
 
       else
       {
-        LODWORD(v23) = 0;
-        do
+        v56 = v42;
+      }
+
+      *(a1 + 76) = v55;
+      *(a1 + 80) = v56;
+      v57 = vbsl_s8(vcgt_f32(v51, *(a1 + 60)), *(a1 + 60), v51);
+      *(a1 + 60) = v57;
+      v58 = *(v8 + 4);
+      v59 = *(v8 + 16);
+      v60 = vdup_lane_s32(v51, 0);
+      v61.i32[1] = v60.i32[1];
+      v61.i32[0] = *(a1 + 68);
+      v62.i32[1] = HIDWORD(*(a1 + 68));
+      v62.f32[0] = v52;
+      *v60.i32 = v52;
+      v63 = vbsl_s8(vcgt_f32(v62, v61), *(a1 + 68), v60);
+      *(a1 + 68) = v63;
+      v64 = ((v33 * *(v8 + 8)) + (v32 * *(v8 + 20))) + (v31 * *(v8 + 32));
+      v65 = v64 + v64;
+      v66 = *v8;
+      v66.i32[1] = v58;
+      _D29 = *(v8 + 12);
+      _D29.i32[1] = v59;
+      v68 = vadd_f32(vadd_f32(vmul_n_f32(v66, v33), vmul_n_f32(_D29, v32)), vmul_n_f32(*(v8 + 24), v31));
+      _D20 = vadd_f32(v68, v68);
+      v70 = (vmuls_lane_f32(v14, _D20, 1) + (_D3.f32[0] * *_D20.i32)) + (*&a5 * v65);
+      v71.i32[0] = vdup_lane_s32(_D20, 1).u32[0];
+      v71.f32[1] = v65;
+      v72 = vmla_n_f32(vmla_f32(vmul_n_f32(vmla_f32(vmul_f32(v71, v13), vext_s8(v71, _D20, 4uLL), v18), v11), v17, _D20), _D3, v70);
+      __asm { FMLA            S29, S3, V20.S[1] }
+
+      *_D20.i32 = ((v11 * _D29.f32[0]) + (v65 * *&a6)) + (*&a5 * v70);
+      v73 = vadd_f32(a3[2], v72);
+      v74 = *a3[3].i32 + *_D20.i32;
+      v75 = vadd_f32(v53, v73);
+      *(a1 + 84) = v75;
+      v76 = v54 + v74;
+      *(a1 + 92) = v54 + v74;
+      v77 = vbsl_s8(vcgt_f32(v73, v57), v57, v73);
+      v78 = vdup_lane_s32(v73, 0);
+      *(a1 + 60) = v77;
+      *v78.i32 = v74;
+      v79 = vbsl_s8(vcgt_f32(__PAIR64__(v63.u32[1], LODWORD(v74)), __PAIR64__(v78.u32[1], v63.u32[0])), v63, v78);
+      v80 = *&v73.i32[1];
+      if (v55 > *&v73.i32[1])
+      {
+        v80 = v55;
+      }
+
+      if (v56 <= v74)
+      {
+        v81 = v74;
+      }
+
+      else
+      {
+        v81 = v56;
+      }
+
+      *(a1 + 68) = v79;
+      *(a1 + 76) = v80;
+      *(a1 + 80) = v81;
+      v82 = vadd_f32(vmul_n_f32(*v8, v37), vmul_n_f32(*(v8 + 12), v36));
+      v83 = (v37 * *(v8 + 8)) + (v36 * *(v8 + 20));
+      v84 = vadd_f32(v82, vmul_n_f32(*(v8 + 24), v35));
+      v85 = v83 + (v35 * *(v8 + 32));
+      _D18 = vadd_f32(v84, v84);
+      v87 = v85 + v85;
+      v84.f32[0] = (vmuls_lane_f32(v14, _D18, 1) + (_D3.f32[0] * *_D18.i32)) + (*&a5 * v87);
+      v82.i32[0] = vdup_lane_s32(_D18, 1).u32[0];
+      v82.f32[1] = v87;
+      __asm { FMLA            S27, S3, V18.S[1] }
+
+      v89 = vadd_f32(a3[2], vmla_n_f32(vmla_f32(vmul_n_f32(vmla_f32(vmul_f32(v82, v13), vext_s8(v82, _D18, 4uLL), v18), v11), v17, _D18), _D3, v84.f32[0]));
+      v90 = *a3[3].i32 + (((v11 * _S27) + (v87 * *&a6)) + (*&a5 * v84.f32[0]));
+      v91 = vadd_f32(v75, v89);
+      *(a1 + 84) = v91;
+      v92 = v76 + v90;
+      *(a1 + 92) = v76 + v90;
+      v93 = vbsl_s8(vcgt_f32(v89, v77), v77, v89);
+      *(a1 + 60) = v93;
+      v94 = vdup_lane_s32(v89, 0);
+      *v94.i32 = v90;
+      v95 = vbsl_s8(vcgt_f32(__PAIR64__(v79.u32[1], LODWORD(v90)), __PAIR64__(v94.u32[1], v79.u32[0])), v79, v94);
+      v96 = *&v89.i32[1];
+      if (v80 > *&v89.i32[1])
+      {
+        v96 = v80;
+      }
+
+      *(a1 + 68) = v95;
+      if (v81 <= v90)
+      {
+        v81 = v90;
+      }
+
+      *(a1 + 76) = v96;
+      *(a1 + 80) = v81;
+      --v19;
+    }
+
+    while (v19);
+  }
+
+  else
+  {
+    v91 = *(a1 + 84);
+    v92 = *(a1 + 92);
+    v93 = *(a1 + 60);
+    v95.i32[0] = *(a1 + 68);
+  }
+
+  v97 = 1.0 / (3 * v6);
+  *(a1 + 84) = vmul_n_f32(v91, v97);
+  *(a1 + 92) = v97 * v92;
+  *(a1 + 96) = 1;
+  *a2 = v93;
+  *(a2 + 8) = v95.i32[0];
+  *(a2 + 12) = *(a1 + 72);
+  result = *(a1 + 80);
+  *(a2 + 20) = result;
+  return result;
+}
+
+float physx::Gu::SweepEstimateAnyShapeMesh(float32x2_t *a1, uint64_t *a2, float32x2_t *a3, float32x2_t *a4, float32x2_t *a5, float32x2_t *a6, double a7)
+{
+  v12 = *a2;
+  physx::Cm::FastVertex2ShapeScaling::init(v34, (*a2 + 4), (*a2 + 16));
+  v33 = a3[3].f32[0] - a5[3].f32[0];
+  v31 = a4[3].f32[0] - a6[3].f32[0];
+  v32 = vsub_f32(a3[2], a5[2]);
+  v30 = vsub_f32(a4[2], a6[2]);
+  v13 = vsub_f32(v32, v30);
+  v14 = v33 - v31;
+  v28 = v13;
+  v29 = v14;
+  v26 = v13;
+  v27 = v33 - v31;
+  v15 = sqrtf((COERCE_FLOAT(vmul_f32(v13, v13).i32[1]) + (v13.f32[0] * v13.f32[0])) + (v14 * v14));
+  if (v15 > 0.0)
+  {
+    v26 = vmul_n_f32(v13, 1.0 / v15);
+    v27 = v14 * (1.0 / v15);
+  }
+
+  v24[0] = xmmword_1E3047670;
+  v24[1] = xmmword_1E3047670;
+  v25 = 1065353216;
+  *v16.i8 = physx::Gu::computeSweptBox(v23, &a1[8] + 1, a1 + 10, v24, &v26, v15);
+  physx::Gu::computeVertexSpaceOBB(v20, v23, a4, (v12 + 4), v16, v17);
+  v21 = vadd_f32(v21, vdup_lane_s32(*&a7, 0));
+  v22 = v22 + *&a7;
+  physx::Gu::gMidphaseBoxCBOverlapTable[*(*(v12 + 48) + 8) - 3]();
+  return 3.4028e38;
+}
+
+float32_t physx::Gu::SweepGeomGeom<physx::Gu::CapsuleV,physx::Gu::CapsuleV>(uint64_t *a1, uint64_t *a2, int8x8_t *a3, int8x16_t *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9, double a10, double a11, double a12)
+{
+  v328 = *MEMORY[0x1E69E9840];
+  v12 = *a1;
+  v13 = *a2;
+  v14 = 4;
+  v310 = 4;
+  v306[1] = 0;
+  v306[0] = 0;
+  LODWORD(a12) = *(v12 + 4);
+  v16 = vmulq_n_f32(xmmword_1E3047670, *(v12 + 8));
+  v16.i32[3] = 0;
+  v15 = vnegq_f32(v16);
+  v15.i32[3] = 0;
+  v312 = v16;
+  v313 = v15;
+  v314 = vdup_lane_s32(*&a12, 0);
+  v307 = LODWORD(a12);
+  v308 = LODWORD(a12);
+  v309 = LODWORD(a12);
+  v311 = 1;
+  v301 = 4;
+  v297[1] = 0;
+  v297[0] = 0;
+  v16.i32[0] = *(v13 + 4);
+  v17 = vmulq_n_f32(xmmword_1E3047670, *(v13 + 8));
+  v17.i32[3] = 0;
+  v18 = vnegq_f32(v17);
+  v18.i32[3] = 0;
+  v277 = v18;
+  v280 = v17;
+  v303 = v17;
+  v304 = v18;
+  v305 = vdup_lane_s32(*v16.f32, 0);
+  v298 = v16.f32[0];
+  v299 = v16.i32[0];
+  v300 = v16.i32[0];
+  v302 = 1;
+  *&a9 = *&a12 + *&a9;
+  v19.i64[0] = *(a5 + 16);
+  v19.i64[1] = *(a5 + 24);
+  v20.i64[0] = *(a6 + 16);
+  v21 = *a4;
+  v20.i64[1] = *(a6 + 24);
+  v22 = vnegq_f32(*a4);
+  v23 = vsubq_f32(v19, v20);
+  v24 = v22;
+  v24.i32[3] = 0;
+  v265 = vdupq_laneq_s32(*a4, 3);
+  LODWORD(v25) = vmla_f32(0xBF000000BF000000, *v265.f32, *v265.f32).u32[0];
+  v26 = vmulq_n_f32(v23, v25);
+  v26.i32[3] = 0;
+  v27 = vextq_s8(v24, v24, 8uLL).u64[0];
+  v28 = vext_s8(*v22.f32, v27, 4uLL);
+  v29 = vmls_f32(vmul_f32(*v22.f32, *&vextq_s8(v23, v23, 4uLL)), v28, *v23.i8);
+  *v30.f32 = vext_s8(v29, vmls_f32(vmul_f32(v27, *v23.i8), *v22.f32, *&vextq_s8(v23, v23, 8uLL)), 4uLL);
+  v30.i64[1] = v29.u32[0];
+  v31 = vmlaq_laneq_f32(v26, v30, *a4, 3);
+  v31.i64[1] = vextq_s8(v31, v31, 8uLL).u32[0];
+  v32 = vmulq_f32(v24, v23);
+  v32.i64[0] = vpaddq_f32(v32, v32).u64[0];
+  v33 = vmlaq_n_f32(v31, v24, vpadd_f32(*v32.f32, *v32.f32).f32[0]);
+  v34 = vaddq_f32(v33, v33);
+  v34.i32[3] = 0;
+  v35 = *a3->i8;
+  v35.i32[3] = 0;
+  v36 = vmulq_f32(v35, v24);
+  v36.i64[0] = vpaddq_f32(v36, v36).u64[0];
+  v37 = vmulq_laneq_f32(v35, *a4, 3);
+  v35.i64[0] = vextq_s8(v35, v35, 8uLL).u64[0];
+  v38 = vmls_f32(vmul_f32(vext_s8(*a3, *v35.i8, 4uLL), *v22.f32), v28, *a3);
+  *v17.f32 = vext_s8(v38, vmls_f32(vmul_f32(*a3, v27), *v22.f32, *v35.i8), 4uLL);
+  *&v17.u32[2] = v38;
+  v39 = vaddq_f32(vaddq_f32(vmulq_laneq_f32(v24, *a3->i8, 3), v37), v17);
+  *v22.f32 = vdup_lane_s32(*v39.f32, 1);
+  *v24.i8 = vdup_laneq_s32(v39, 2);
+  v40 = vaddq_f32(v39, v39);
+  v41 = vsub_f32(vmul_f32(*&vextq_s8(*a3->i8, *a3->i8, 8uLL), *&vextq_s8(v21, v21, 8uLL)), vpadd_f32(*v36.f32, *v36.f32));
+  *v35.i8 = vdup_laneq_s32(v40, 2);
+  *v39.f32 = vdup_lane_s32(vmul_f32(*v39.f32, *v40.f32), 0);
+  v42 = vmul_lane_f32(*v22.f32, *v40.f32, 1);
+  v43 = vmul_laneq_f32(*v24.i8, v40, 2);
+  *v22.f32 = vmul_n_f32(*v22.f32, v40.f32[0]);
+  v44 = vmul_n_f32(*v24.i8, v40.f32[0]);
+  *v36.f32 = vmul_lane_f32(vdup_lane_s32(*v40.f32, 0), v41, 1);
+  *v24.i8 = vmul_lane_f32(*v24.i8, *v40.f32, 1);
+  *v40.f32 = vmul_lane_f32(vdup_lane_s32(*v40.f32, 1), v41, 1);
+  v45 = vmul_lane_f32(*v35.i8, v41, 1);
+  __asm { FMOV            V9.2S, #1.0 }
+
+  *v35.i8 = vext_s8(vsub_f32(vsub_f32(_D9, v42), v43), vadd_f32(*v22.f32, v45), 4uLL);
+  v35.i64[1] = vsub_f32(v44, *v40.f32).u32[0];
+  *v39.f32 = vsub_f32(_D9, *v39.f32);
+  *v22.f32 = vext_s8(vsub_f32(*v22.f32, v45), vsub_f32(*v39.f32, v43), 4uLL);
+  v22.i64[1] = vadd_f32(*v24.i8, *v36.f32).u32[0];
+  v51 = vadd_f32(v44, *v40.f32);
+  v40.i32[0] = vsub_f32(*v39.f32, v42).u32[0];
+  *v39.f32 = vext_s8(v51, vsub_f32(*v24.i8, *v36.f32), 4uLL);
+  v39.i64[1] = v40.u32[0];
+  *v24.i8 = a3[2];
+  v24.i64[1] = a3[3].u32[0];
+  v52.i64[0] = a4[1].i64[0];
+  v52.i64[1] = a4[1].u32[2];
+  v289 = v35;
+  v290 = v22;
+  v266 = v20;
+  v53 = v21;
+  v53.i32[3] = 0;
+  v261 = vsubq_f32(v24, v19);
+  v54 = vsubq_f32(vsubq_f32(v52, v20), v261);
+  v263 = v25;
+  v264 = *v21.i8;
+  v55 = vmulq_n_f32(v54, v25);
+  v55.i32[3] = 0;
+  v260 = vextq_s8(v53, v53, 8uLL).u64[0];
+  v259 = vext_s8(*v21.i8, v260, 4uLL);
+  *v52.f32 = vmls_f32(vmul_f32(*v21.i8, *&vextq_s8(v54, v54, 4uLL)), v259, *v54.i8);
+  *v24.i8 = vext_s8(*v52.f32, vmls_f32(vmul_f32(v260, *v54.i8), *v21.i8, *&vextq_s8(v54, v54, 8uLL)), 4uLL);
+  v24.i64[1] = v52.u32[0];
+  v56 = vmlsq_laneq_f32(v55, v24, v21, 3);
+  v56.i64[1] = vextq_s8(v56, v56, 8uLL).u32[0];
+  v291 = v39;
+  v292 = v34;
+  v57 = vmulq_f32(v53, v54);
+  v57.i64[0] = vpaddq_f32(v57, v57).u64[0];
+  v262 = v53;
+  v58 = vmlaq_n_f32(v56, v53, vpadd_f32(*v57.f32, *v57.f32).f32[0]);
+  v270 = vaddq_f32(v58, v58);
+  v283.i64[1] = v306;
+  v284 = &v289;
+  v288 = v34;
+  v59 = vzip1q_s32(v35, v39);
+  v60 = vzip1q_s32(v290, 0);
+  v285 = vzip1q_s32(v59, v60);
+  v286 = vzip2q_s32(v59, v60);
+  v287 = vzip1q_s32(vzip2q_s32(v35, v39), vzip2q_s32(v290, 0));
+  v283.i64[0] = &unk_1F5D21CA8;
+  v294 = 1;
+  v61 = vmulq_f32(v34, v34);
+  v61.i64[0] = vpaddq_f32(v61, v61).u64[0];
+  v62 = vbslq_s8(vcltzq_s32(vshlq_n_s32(vmovl_u16(vdup_lane_s16(vcgt_f32(vpadd_f32(*v61.f32, *v61.f32), 0x3400000034000000), 0)), 0x1FuLL)), v34, xmmword_1E3047670);
+  v63 = vmulq_f32(v62, v62);
+  v63.i64[0] = vpaddq_f32(v63, v63).u64[0];
+  v64 = vpadd_f32(*v63.f32, *v63.f32);
+  v65 = vrsqrte_f32(v64);
+  do
+  {
+    v65 = vmul_f32(v65, vrsqrts_f32(vmul_f32(v65, v65), v64));
+    --v14;
+  }
+
+  while (v14);
+  v66 = v270;
+  v66.i32[3] = 0;
+  v271 = v66;
+  v67 = vbsl_s8(vdup_lane_s32(vceqz_f32(v64), 0), v64, vmul_f32(v64, v65));
+  v68 = vrecpe_f32(v67);
+  v69 = 4;
+  do
+  {
+    v68 = vmul_f32(v68, vrecps_f32(v67, v68));
+    --v69;
+  }
+
+  while (v69);
+  *&a9 = *&a9 + v16.f32[0];
+  v70 = vmlaq_f32(0, 0, v66);
+  v71 = vdup_lane_s32(*&a9, 0);
+  v70.i64[1] = vextq_s8(v70, v70, 8uLL).u32[0];
+  v72 = vmulq_n_f32(v62, v68.f32[0]);
+  v72.i32[3] = 0;
+  v274 = v70;
+  v275 = v72;
+  v73 = vnegq_f32(v72);
+  v73.i32[3] = 0;
+  v315 = v73;
+  *v74.i64 = physx::Gu::RelativeConvex<physx::Gu::CapsuleV>::support(&v283, &v315);
+  v75 = v74;
+  v76 = vmulq_f32(v280, v275);
+  v76.i64[0] = vpaddq_f32(v76, v76).u64[0];
+  v77 = vmulq_f32(v277, v275);
+  v77.i64[0] = vpaddq_f32(v77, v77).u64[0];
+  v78 = vbslq_s8(vmovl_s16(vdup_lane_s16(vcgt_f32(vpadd_f32(*v76.f32, *v76.f32), vpadd_f32(*v77.f32, *v77.f32)), 0)), v280, v277);
+  v79 = vsubq_f32(v75, v78);
+  v315 = v79;
+  v316 = 0u;
+  v317 = 0u;
+  v318 = 0u;
+  v321 = v75;
+  v322 = 0u;
+  memset(v323, 0, sizeof(v323));
+  v80 = vnegq_f32(v79);
+  v80.i32[3] = 0;
+  v81 = vadd_f32(v71, 0);
+  v82 = vmul_f32(v81, v81);
+  v83 = vmulq_f32(v80, v80);
+  v84 = vpaddq_f32(v83, v83);
+  v85 = vpadd_f32(*v84.f32, *v84.f32);
+  *v84.f32 = vcgtz_f32(v85);
+  v86 = vdupq_lane_s32(*v84.f32, 0);
+  v325 = v78;
+  v326 = 0u;
+  memset(v327, 0, sizeof(v327));
+  v84.i32[0] = -1;
+  v258 = v84;
+  v87 = vneg_f32(0x80000000800000);
+  v88 = v79;
+  v89.i64[0] = -1;
+  v89.i64[1] = -1;
+  v269 = v80;
+  v90 = v80;
+  v272 = 0;
+  while (1)
+  {
+    v91 = v79;
+    v92.i64[0] = -1;
+    v92.i64[1] = -1;
+    *v92.i8 = vmovn_s32(vceqq_s32(v86, v92));
+    v93 = vuzp1_s8(*v92.i8, *v92.i8).u32[0];
+    if (v93 != -1)
+    {
+      break;
+    }
+
+    v94 = vmulq_f32(v90, v90);
+    v94.i64[0] = vpaddq_f32(v94, v94).u64[0];
+    v95 = vpadd_f32(*v94.f32, *v94.f32);
+    v96 = vrsqrte_f32(v95);
+    v97 = 4;
+    do
+    {
+      v96 = vmul_f32(v96, vrsqrts_f32(vmul_f32(v96, v96), v95));
+      --v97;
+    }
+
+    while (v97);
+    v276 = v91;
+    v98 = vbsl_s8(vdup_lane_s32(vceqz_f32(v95), 0), v95, vmul_f32(v95, v96));
+    v99 = vrecpe_f32(v98);
+    v100 = 4;
+    do
+    {
+      v99 = vmul_f32(v99, vrecps_f32(v98, v99));
+      --v100;
+    }
+
+    while (v100);
+    v273 = v90;
+    v101 = vmulq_n_f32(v90, v99.f32[0]);
+    v101.i32[3] = 0;
+    v278 = v101;
+    v293 = v101;
+    v102 = vnegq_f32(v101);
+    v102.i32[3] = 0;
+    v281 = v102;
+    *v103.i64 = physx::Gu::RelativeConvex<physx::Gu::CapsuleV>::support(&v283, &v293);
+    v104 = v103;
+    v105 = vmulq_f32(v281, v303);
+    v105.i64[0] = vpaddq_f32(v105, v105).u64[0];
+    v106 = vmulq_f32(v281, v304);
+    v106.i64[0] = vpaddq_f32(v106, v106).u64[0];
+    v107 = vbslq_s8(vmovl_s16(vdup_lane_s16(vcgt_f32(vpadd_f32(*v105.f32, *v105.f32), vpadd_f32(*v106.f32, *v106.f32)), 0)), v303, v304);
+    v108 = vaddq_f32(v274, v107);
+    v79 = vsubq_f32(v103, v108);
+    v109 = vnegq_f32(v79);
+    v109.i32[3] = 0;
+    v110 = vmulq_f32(v278, v109);
+    v110.i64[0] = vpaddq_f32(v110, v110).u64[0];
+    v111 = vsub_f32(vpadd_f32(*v110.f32, *v110.f32), v81);
+    if (v111.f32[0] > 0.0)
+    {
+      v112 = vmulq_f32(v271, v278);
+      v112.i64[0] = vpaddq_f32(v112, v112).u64[0];
+      v113 = vpadd_f32(*v112.f32, *v112.f32);
+      if (v113.f32[0] >= 0.0)
+      {
+        goto LABEL_69;
+      }
+
+      v114 = vrecpe_f32(v113);
+      v115 = 4;
+      do
+      {
+        v114 = vmul_f32(v114, vrecps_f32(v113, v114));
+        --v115;
+      }
+
+      while (v115);
+      v116 = vsub_f32(v272, vmul_f32(v111, v114));
+      if (vcgt_f32(v116, v272).u8[0])
+      {
+        if (v116.f32[0] > 1.0)
         {
+LABEL_69:
+          v211 = 0;
+          v214 = 0uLL;
+          v217 = 0uLL;
+          goto LABEL_75;
+        }
+
+        v117 = vmlaq_n_f32(0, v271, v116.f32[0]);
+        v117.i64[1] = vextq_s8(v117, v117, 8uLL).u32[0];
+        v118 = vsubq_f32(v117, v274);
+        v325 = vaddq_f32(v118, v325);
+        v326 = vaddq_f32(v118, v326);
+        v327[0] = vaddq_f32(v118, v327[0]);
+        v315 = vsubq_f32(v321, v325);
+        v316 = vsubq_f32(v322, v326);
+        v317 = vsubq_f32(v323[0], v327[0]);
+        v108 = vaddq_f32(v107, v117);
+        v79 = vsubq_f32(v104, v108);
+        v85 = v87;
+        v269 = v273;
+        v274 = v117;
+      }
+
+      v272 = v116;
+    }
+
+    v119 = v294;
+    *(&v321 + v294) = v104;
+    *(&v325 + v119) = v108;
+    v294 = v119 + 1;
+    *(&v315 + v119) = v79;
+    if (v119 == 3)
+    {
+      physx::Gu::closestPtPointTetrahedron(&v315, &v321, &v325, &v294);
 LABEL_36:
-          v24 = (*(v11 + 960) + 8 * v22);
-          v25 = v54;
-          if ((HIDWORD(v54) & 0x7FFFFFFFu) <= v54)
-          {
-            physx::shdfnd::Array<physx::PxConstraint *,physx::shdfnd::ReflectionAllocator<physx::PxConstraint *>>::growAndPushBack(&v53, v24);
-          }
-
-          else
-          {
-            *(v53 + 8 * v54) = *v24;
-            LODWORD(v54) = v25 + 1;
-          }
-
-          v22 = *(*(v11 + 968) + 4 * v22);
-        }
-
-        while (v22 != -1);
-        while (*(v11 + 988) - 1 != v23)
-        {
-          LODWORD(v23) = v23 + 1;
-          v22 = *(*(v11 + 976) + 4 * v23);
-          if (v22 != -1)
-          {
-            goto LABEL_36;
-          }
-        }
-      }
+      v88 = v276;
+      goto LABEL_60;
     }
 
-    if (v54)
+    if (v119 == 2)
     {
-      v26 = 0;
-      do
+      v79 = v315;
+      v128 = vsubq_f32(v316, v315);
+      v129 = vsubq_f32(v317, v315);
+      v131 = vmls_f32(vmul_f32(*v128.i8, *&vextq_s8(v129, v129, 4uLL)), *&vextq_s8(v128, v128, 4uLL), *v129.i8);
+      *v130.f32 = vext_s8(v131, vmls_f32(vmul_f32(*&vextq_s8(v128, v128, 8uLL), *v129.i8), *v128.i8, *&vextq_s8(v129, v129, 8uLL)), 4uLL);
+      v131.i32[1] = 0;
+      v294 = 3;
+      v132 = vpadd_f32(vmul_f32(*v130.f32, *v130.f32), vmul_f32(v131.u32[0], v131.u32[0]));
+      v133 = vpadd_f32(v132, v132);
+      if (v133.f32[0] <= 0.00000011921)
       {
-        (***(v53 + 8 * v26))(*(v53 + 8 * v26));
-        ++v26;
+        v294 = 2;
+        v170 = vmulq_f32(v128, v128);
+        v170.i64[0] = vpaddq_f32(v170, v170).u64[0];
+        v171 = vpadd_f32(*v170.f32, *v170.f32);
+        if (vuzp1_s8(vdup_lane_s16(vcge_f32(0x3400000034000000, v171), 0), *v315.i8).u32[0] == -1)
+        {
+          v294 = 1;
+          goto LABEL_36;
+        }
+
+        v172 = vnegq_f32(v315);
+        v172.i32[3] = 0;
+        v173 = vmulq_f32(v172, v128);
+        v173.i64[0] = vpaddq_f32(v173, v173).u64[0];
+        v174 = vpadd_f32(*v173.f32, *v173.f32);
+        v175 = vrecpe_f32(v171);
+        v176 = 4;
+        v88 = v276;
+        do
+        {
+          v175 = vmul_f32(v175, vrecps_f32(v171, v175));
+          --v176;
+        }
+
+        while (v176);
+        v79 = vmlaq_n_f32(v315, v128, vmax_f32(vmin_f32(vmul_f32(v174, v175), _D9), 0).f32[0]);
+        goto LABEL_41;
       }
 
-      while (v26 < v54);
-    }
-
-    if ((v54 & 0x8000000000000000) == 0 && (v54 & 0x7FFFFFFF00000000) != 0 && v53 != 0)
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-    }
-
-    v53 = 0;
-    v54 = 0;
-    v28 = *(v11 + 948);
-    if (v28)
-    {
-      physx::shdfnd::Array<physx::PxArticulationBase *,physx::shdfnd::ReflectionAllocator<physx::PxArticulationBase *>>::recreate(&v53, v28);
-    }
-
-    if (*(v11 + 928))
-    {
-      v29 = *(v11 + 920);
-      v30 = *v29;
-      if (v30 == -1)
+      *&v130.u32[2] = v131;
+      v134 = vextq_s8(v316, v316, 8uLL).u64[0];
+      v135 = vextq_s8(v317, v317, 8uLL).u64[0];
+      v136 = vextq_s8(v317, v317, 4uLL).u64[0];
+      v137 = vextq_s8(v316, v316, 4uLL).u64[0];
+      v138 = vmls_f32(vmul_f32(*v316.f32, v136), v137, *v317.f32);
+      *v139.f32 = vext_s8(v138, vmls_f32(vmul_f32(v134, *v317.f32), *v316.f32, v135), 4uLL);
+      v139.i64[1] = v138.u32[0];
+      v140 = vextq_s8(v315, v315, 8uLL).u64[0];
+      v141 = vextq_s8(v315, v315, 4uLL).u64[0];
+      v142 = vmls_f32(vmul_f32(v141, *v317.f32), v136, *v315.i8);
+      *v143.f32 = vext_s8(v142, vmls_f32(vmul_f32(*v315.i8, v135), *v317.f32, v140), 4uLL);
+      v143.i64[1] = v142.u32[0];
+      v144 = vmls_f32(vmul_f32(*v315.i8, v137), v141, *v316.f32);
+      *v145.f32 = vext_s8(v144, vmls_f32(vmul_f32(v140, *v316.f32), *v315.i8, v134), 4uLL);
+      v145.i64[1] = v144.u32[0];
+      v146 = vmulq_f32(v139, v130);
+      v146.i64[0] = vpaddq_f32(v146, v146).u64[0];
+      v147 = vpadd_f32(*v146.f32, *v146.f32);
+      v148 = vmulq_f32(v143, v130);
+      v148.i64[0] = vpaddq_f32(v148, v148).u64[0];
+      v149 = vpadd_f32(*v148.f32, *v148.f32);
+      v150 = vmulq_f32(v145, v130);
+      v150.i64[0] = vpaddq_f32(v150, v150).u64[0];
+      v151 = vpadd_f32(*v150.f32, *v150.f32);
+      if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcgez_f32(v149), vcgez_f32(v147)), vcgez_f32(v151)), 0), *v315.i8).u32[0] == -1)
       {
-        v31 = 0;
-        while (*(v11 + 932) - 1 != v31)
+        v177 = vrecpe_f32(v133);
+        v178 = 4;
+        do
         {
-          v30 = v29[++v31];
-          if (v30 != -1)
-          {
-            goto LABEL_61;
-          }
+          v177 = vmul_f32(v177, vrecps_f32(v133, v177));
+          --v178;
         }
+
+        while (v178);
+        v179 = vmulq_f32(v315, v130);
+        v179.i64[0] = vpaddq_f32(v179, v179).u64[0];
+        v79 = vmulq_n_f32(v130, vmul_f32(v177, vpadd_f32(*v179.f32, *v179.f32)).f32[0]);
+        v79.i32[3] = 0;
+        goto LABEL_36;
+      }
+
+      v152 = vnegq_f32(v315);
+      v152.i32[3] = 0;
+      v153 = vnegq_f32(v316);
+      v153.i32[3] = 0;
+      v154 = vmulq_f32(v152, v128);
+      v154.i64[0] = vpaddq_f32(v154, v154).u64[0];
+      v155 = vpadd_f32(*v154.f32, *v154.f32);
+      v156 = vmulq_f32(v128, v153);
+      v156.i64[0] = vpaddq_f32(v156, v156).u64[0];
+      v157 = vpadd_f32(*v156.f32, *v156.f32);
+      if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v151), vand_s8(vclez_f32(v157), vcgez_f32(v155))), 0), *v315.i8).u32[0] == -1)
+      {
+        v180 = vsub_f32(v155, v157);
+        v181 = vrecpe_f32(v180);
+        v182 = 4;
+        v88 = v276;
+        do
+        {
+          v181 = vmul_f32(v181, vrecps_f32(v180, v181));
+          --v182;
+        }
+
+        while (v182);
+        v169 = 0;
+        v79 = vmlaq_n_f32(v315, v128, vmul_f32(v155, vbsl_s8(vcgt_f32(vabs_f32(v180), 0x3400000034000000), v181, 0)).f32[0]);
+        v79.i64[1] = vextq_s8(v79, v79, 8uLL).u32[0];
+        v168 = 2;
+        v183 = &v326;
+        v184 = &v322;
+        v185 = &v316;
       }
 
       else
       {
-        LODWORD(v31) = 0;
-        do
+        v158 = vnegq_f32(v317);
+        v158.i32[3] = 0;
+        v159 = vmulq_f32(v153, v129);
+        v159.i64[0] = vpaddq_f32(v159, v159).u64[0];
+        v160 = vpadd_f32(*v159.f32, *v159.f32);
+        v161 = vmulq_f32(v128, v158);
+        v161.i64[0] = vpaddq_f32(v161, v161).u64[0];
+        v162 = vpadd_f32(*v161.f32, *v161.f32);
+        v163 = vmulq_f32(v129, v158);
+        v163.i64[0] = vpaddq_f32(v163, v163).u64[0];
+        v164 = vpadd_f32(*v163.f32, *v163.f32);
+        if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcge_f32(v160, v157), vcge_f32(v162, v164)), vclez_f32(v147)), 0), *v315.i8).u32[0] == -1)
         {
-LABEL_61:
-          v32 = (*(v11 + 904) + 8 * v30);
-          v33 = v54;
-          if ((HIDWORD(v54) & 0x7FFFFFFFu) <= v54)
+          v186 = vsub_f32(v160, v157);
+          v187 = vadd_f32(v186, vsub_f32(v162, v164));
+          v188 = vrecpe_f32(v187);
+          v189 = 4;
+          do
           {
-            physx::shdfnd::Array<physx::PxArticulationBase *,physx::shdfnd::ReflectionAllocator<physx::PxArticulationBase *>>::growAndPushBack(&v53, v32);
+            v188 = vmul_f32(v188, vrecps_f32(v187, v188));
+            --v189;
           }
 
-          else
-          {
-            *(v53 + 8 * v54) = *v32;
-            LODWORD(v54) = v33 + 1;
-          }
-
-          v30 = *(*(v11 + 912) + 4 * v30);
-        }
-
-        while (v30 != -1);
-        while (*(v11 + 932) - 1 != v31)
-        {
-          LODWORD(v31) = v31 + 1;
-          v30 = *(*(v11 + 920) + 4 * v31);
-          if (v30 != -1)
-          {
-            goto LABEL_61;
-          }
-        }
-      }
-    }
-
-    if (v54)
-    {
-      v34 = 0;
-      do
-      {
-        (***(v53 + 8 * v34))(*(v53 + 8 * v34));
-        ++v34;
-      }
-
-      while (v34 < v54);
-    }
-
-    if ((v54 & 0x8000000000000000) == 0 && (v54 & 0x7FFFFFFF00000000) != 0 && v53 != 0)
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-    }
-
-    v53 = 0;
-    v54 = 0;
-    v36 = *(v11 + 1060);
-    if (v36)
-    {
-      physx::shdfnd::Array<physx::PxActor *,physx::shdfnd::ReflectionAllocator<physx::PxActor *>>::recreate(&v53, v36);
-    }
-
-    if (*(v11 + 1040))
-    {
-      v37 = *(v11 + 1032);
-      v38 = *v37;
-      if (v38 == -1)
-      {
-        v39 = 0;
-        while (*(v11 + 1044) - 1 != v39)
-        {
-          v38 = v37[++v39];
-          if (v38 != -1)
-          {
-            goto LABEL_86;
-          }
-        }
-      }
-
-      else
-      {
-        LODWORD(v39) = 0;
-        do
-        {
-LABEL_86:
-          v40 = (*(v11 + 1016) + 8 * v38);
-          v41 = v54;
-          if ((HIDWORD(v54) & 0x7FFFFFFFu) <= v54)
-          {
-            physx::shdfnd::Array<physx::PxActor *,physx::shdfnd::ReflectionAllocator<physx::PxActor *>>::growAndPushBack(&v53, v40);
-          }
-
-          else
-          {
-            *(v53 + 8 * v54) = *v40;
-            LODWORD(v54) = v41 + 1;
-          }
-
-          v38 = *(*(v11 + 1024) + 4 * v38);
-        }
-
-        while (v38 != -1);
-        while (*(v11 + 1044) - 1 != v39)
-        {
-          LODWORD(v39) = v39 + 1;
-          v38 = *(*(v11 + 1032) + 4 * v39);
-          if (v38 != -1)
-          {
-            goto LABEL_86;
-          }
-        }
-      }
-    }
-
-    if (v54)
-    {
-      v42 = 0;
-      do
-      {
-        (***(v53 + 8 * v42))(*(v53 + 8 * v42));
-        ++v42;
-      }
-
-      while (v42 < v54);
-    }
-
-    if ((v54 & 0x8000000000000000) == 0 && (v54 & 0x7FFFFFFF00000000) != 0 && v53 != 0)
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-    }
-
-    while (*(v11 + 1116))
-    {
-      v44 = **(v11 + 1072);
-      if (atomic_fetch_add((v44 + 32), 0xFFFFFFFF) == 1)
-      {
-        (*(*(v44 + 24) + 16))();
-      }
-    }
-
-    physx::GuMeshFactory::release(v11);
-    physx::NpFactory::mInstance = 0;
-    v52 = physx::NpPhysics::mInstance;
-    if (physx::NpPhysics::mInstance)
-    {
-      v52 = (*(*physx::NpPhysics::mInstance + 8))(physx::NpPhysics::mInstance);
-    }
-
-    physx::NpPhysics::mInstance = 0;
-
-    physx::shdfnd::Foundation::decRefCount(v52, v45, v46, v47, v48, v49, v50, v51, a9);
-  }
-}
-
-void *physx::NpPhysics::createScene(uint64_t a1, uint64_t a2)
-{
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_lock(*(a1 + 160));
-  }
-
-  v4 = physx::shdfnd::Foundation::mInstance;
-  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-  {
-    v5 = "static const char *physx::shdfnd::ReflectionAllocator<physx::NpScene>::getName() [T = physx::NpScene]";
-  }
-
-  else
-  {
-    v5 = "<allocation names disabled>";
-  }
-
-  v6 = (*(*(v4 + 24) + 16))(v4 + 24, 9744, v5, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpPhysics.cpp", 277);
-  v24 = physx::NpScene::NpScene(v6, a2);
-  if (!v24)
-  {
-    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 32, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpPhysics.cpp", 280, "Unable to create scene.", v7, v8, v9, v23);
-    goto LABEL_24;
-  }
-
-  if (!(*(*v6 + 968))(v6))
-  {
-    v18 = physx::shdfnd::Foundation::mInstance;
-    v19 = "Unable to create scene. Task manager creation failed.";
-    v20 = 32;
-    v21 = 285;
-LABEL_22:
-    physx::shdfnd::Foundation::error(v18, v20, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpPhysics.cpp", v21, v19, v10, v11, v12, v23);
-    v6 = 0;
-    goto LABEL_24;
-  }
-
-  physx::NpScene::loadFromDesc(v6, a2);
-  v13 = *(a1 + 64);
-  if (v13)
-  {
-    v14 = 0;
-    do
-    {
-      v15 = v13 - v14;
-      v16 = (*(a1 + 56) + 8 * v14++);
-      while (!*v16)
-      {
-        ++v14;
-        ++v16;
-        if (!--v15)
-        {
-          goto LABEL_16;
-        }
-      }
-
-      physx::Scb::Scene::addMaterial((v6 + 2), *v16 + 48);
-      v13 = *(a1 + 64);
-    }
-
-    while (v14 < v13);
-  }
-
-LABEL_16:
-  if (!v6[234])
-  {
-    (*(*v6 + 8))(v6);
-    v18 = physx::shdfnd::Foundation::mInstance;
-    v19 = "Unable to create scene.";
-    v20 = 16;
-    v21 = 302;
-    goto LABEL_22;
-  }
-
-  v17 = *(a1 + 16);
-  if ((*(a1 + 20) & 0x7FFFFFFFu) <= v17)
-  {
-    physx::shdfnd::Array<physx::NpScene *,physx::shdfnd::ReflectionAllocator<physx::NpScene *>>::growAndPushBack(a1 + 8, &v24);
-  }
-
-  else
-  {
-    *(*(a1 + 8) + 8 * v17) = v6;
-    *(a1 + 16) = v17 + 1;
-  }
-
-LABEL_24:
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_unlock(*(a1 + 160));
-  }
-
-  return v6;
-}
-
-uint64_t physx::NpPhysics::releaseSceneInternal(uint64_t result, uint64_t a2)
-{
-  v3 = result;
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    result = pthread_mutex_lock(*(result + 160));
-  }
-
-  v4 = *(v3 + 16);
-  if (v4)
-  {
-    v5 = *(v3 + 16);
-    v6 = *(v3 + 8);
-    while (*v6 != a2)
-    {
-      ++v6;
-      if (!--v5)
-      {
-        goto LABEL_10;
-      }
-    }
-
-    v7 = v4 - 1;
-    v8 = *(*(v3 + 8) + 8 * v7);
-    *(v3 + 16) = v7;
-    *v6 = v8;
-    result = (*(*a2 + 8))(a2);
-  }
-
-LABEL_10:
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    v9 = *(v3 + 160);
-
-    return pthread_mutex_unlock(v9);
-  }
-
-  return result;
-}
-
-uint64_t physx::NpPhysics::getNbScenes(pthread_mutex_t **this)
-{
-  if ((physx::shdfnd::g_alwaysUseLocking & 1) == 0 && (physx::shdfnd::g_isLockingEnabled & 1) == 0)
-  {
-    return *(this + 4);
-  }
-
-  pthread_mutex_lock(this[20]);
-  v2 = *(this + 4);
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_unlock(this[20]);
-  }
-
-  return v2;
-}
-
-uint64_t physx::NpPhysics::getScenes(uint64_t a1, void *a2, int a3, unsigned int a4)
-{
-  LODWORD(v5) = a3;
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_lock(*(a1 + 160));
-  }
-
-  v8 = (*(a1 + 16) - a4) & ~((*(a1 + 16) - a4) >> 31);
-  if (v8 >= v5)
-  {
-    v5 = v5;
-  }
-
-  else
-  {
-    v5 = v8;
-  }
-
-  if (v5)
-  {
-    v9 = (*(a1 + 8) + 8 * a4);
-    v10 = v5;
-    do
-    {
-      v11 = *v9++;
-      *a2++ = v11;
-      --v10;
-    }
-
-    while (v10);
-  }
-
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_unlock(*(a1 + 160));
-  }
-
-  return v5;
-}
-
-physx::PxRigidStatic *physx::NpPhysics::createRigidStatic(uint64_t a1, float32x4_t *a2)
-{
-  v2 = physx::NpFactory::mInstance;
-  _Q0 = *a2;
-  _Q1 = vmulq_f32(_Q0, _Q0);
-  _S2 = a2->i64[1];
-  __asm { FMLA            S1, S2, V0.S[2] }
-
-  _S2 = HIDWORD(*a2);
-  __asm { FMLA            S1, S2, V0.S[3] }
-
-  _Q1.f32[0] = sqrtf(_Q1.f32[0]);
-  v18 = vdivq_f32(*a2, vdupq_lane_s32(*_Q1.f32, 0));
-  v19 = a2[1].i64[0];
-  v20 = a2[1].i32[2];
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_lock(*(physx::NpFactory::mInstance + 2264));
-  }
-
-  v11 = *(v2 + 2256);
-  if (!v11)
-  {
-    v12 = physx::shdfnd::ReflectionAllocator<physx::NpRigidStatic>::allocate(*(v2 + 2248), "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsPool.h", 180);
-    v13 = v12;
-    v21 = v12;
-    v14 = *(v2 + 2232);
-    if ((*(v2 + 2236) & 0x7FFFFFFFu) <= v14)
-    {
-      physx::shdfnd::Array<void *,physx::shdfnd::InlineAllocator<512u,physx::shdfnd::ReflectionAllocator<physx::NpRigidStatic>>>::growAndPushBack(v2 + 1704, &v21);
-    }
-
-    else
-    {
-      *(*(v2 + 2224) + 8 * v14) = v12;
-      *(v2 + 2232) = v14 + 1;
-    }
-
-    v15 = v13 + 176 * *(v2 + 2240) - 176;
-    v11 = *(v2 + 2256);
-    if (v15 >= v13)
-    {
-      v16 = (v13 + 176 * *(v2 + 2240) - 176);
-      do
-      {
-        *v16 = v11;
-        v16 -= 22;
-        v11 = v15;
-        v15 = v16;
-      }
-
-      while (v16 >= v13);
-      v11 = (v16 + 22);
-    }
-  }
-
-  *(v2 + 2256) = *v11;
-  ++*(v2 + 2244);
-  physx::NpRigidStatic::NpRigidStatic(v11, &v18);
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_unlock(*(v2 + 2264));
-  }
-
-  physx::NpFactory::addRigidStatic(v2, v11, 1);
-  return v11;
-}
-
-uint64_t physx::NpPhysics::createShape(uint64_t a1, uint64_t *a2, uint64_t a3, unsigned int a4, int a5, char *a6)
-{
-  v29 = *MEMORY[0x1E69E9840];
-  v10 = physx::NpFactory::mInstance;
-  v11 = *a6;
-  v26[8] = 1;
-  v27 = v26;
-  v28 = 0x400000000;
-  LOWORD(v25) = 0;
-  physx::shdfnd::Array<unsigned short,physx::shdfnd::InlineAllocator<8u,physx::shdfnd::ReflectionAllocator<unsigned short>>>::resize(v26, a4, &v25);
-  if (a4 == 1)
-  {
-    v12 = v27;
-    *v27 = *(*a3 + 72);
-  }
-
-  else
-  {
-    v12 = v27;
-    if (a4)
-    {
-      v13 = 0;
-      do
-      {
-        v12[v13] = *(*(a3 + 8 * v13) + 72);
-        ++v13;
-      }
-
-      while (a4 != v13);
-    }
-  }
-
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_lock(*(v10 + 2840));
-    v12 = v27;
-  }
-
-  v14 = *(v10 + 2832);
-  if (!v14)
-  {
-    v15 = physx::shdfnd::ReflectionAllocator<physx::NpShape>::allocate(*(v10 + 2824), "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsPool.h", 180);
-    v16 = v15;
-    v25 = v15;
-    v17 = *(v10 + 2808);
-    if ((*(v10 + 2812) & 0x7FFFFFFFu) <= v17)
-    {
-      physx::shdfnd::Array<void *,physx::shdfnd::InlineAllocator<512u,physx::shdfnd::ReflectionAllocator<physx::NpShape>>>::growAndPushBack(v10 + 2280, &v25);
-    }
-
-    else
-    {
-      *(*(v10 + 2800) + 8 * v17) = v15;
-      *(v10 + 2808) = v17 + 1;
-    }
-
-    v18 = (v16 + 272 * *(v10 + 2816) - 272);
-    v14 = *(v10 + 2832);
-    if (v18 >= v16)
-    {
-      do
-      {
-        *v18 = v14;
-        v19 = v18 - 34;
-        v14 = v18;
-        v18 = v19;
-      }
-
-      while (v19 >= v16);
-      v14 = (v19 + 34);
-    }
-  }
-
-  *(v10 + 2832) = *v14;
-  ++*(v10 + 2820);
-  LOBYTE(v25) = v11;
-  physx::NpShape::NpShape(v14, a2, &v25, v12, a4, a5);
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_unlock(*(v10 + 2840));
-  }
-
-  if (a4)
-  {
-    v20 = 0;
-    do
-    {
-      if ((*(v14 + 56) & 2) != 0)
-      {
-        v23 = *(v14 + 64);
-        if (*(v23 + 148) == 1)
-        {
-          v22 = v23 + 144;
+          while (v189);
+          v190 = vmlaq_n_f32(v316, vsubq_f32(v317, v316), vmul_f32(v186, vbsl_s8(vcgt_f32(vabs_f32(v187), 0x3400000034000000), v188, 0)).f32[0]);
+          v168 = 2;
+          v184 = v323;
+          v183 = v327;
+          v190.i64[1] = vextq_s8(v190, v190, 8uLL).u32[0];
+          v185 = &v317;
+          v169 = 1;
+          v79 = v190;
         }
 
         else
         {
-          v22 = *(*(v14 + 48) + 7792) + 2 * *(v23 + 144);
-        }
-      }
-
-      else
-      {
-        v21 = *(v14 + 152);
-        v22 = v14 + 146;
-        if ((v21 - 7) >= 0xFFFFFFFE)
-        {
-          if (v21 == 5)
+          v165 = vmulq_f32(v152, v129);
+          v165.i64[0] = vpaddq_f32(v165, v165).u64[0];
+          v166 = vpadd_f32(*v165.f32, *v165.f32);
+          if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v149), vand_s8(vclez_f32(v164), vcgez_f32(v166))), 0), *v315.i8).u32[0] == -1)
           {
-            v22 = *(v14 + 216);
+            v191 = vsub_f32(v166, v164);
+            v192 = vrecpe_f32(v191);
+            v193 = 4;
+            do
+            {
+              v192 = vmul_f32(v192, vrecps_f32(v191, v192));
+              --v193;
+            }
+
+            while (v193);
+            v169 = 0;
+            v79 = vmlaq_n_f32(v315, v129, vmul_f32(v166, vbsl_s8(vcgt_f32(vabs_f32(v191), 0x3400000034000000), v192, 0)).f32[0]);
+            v79.i64[1] = vextq_s8(v79, v79, 8uLL).u32[0];
+            v168 = 2;
+            v184 = v323;
+            v183 = v327;
+            v185 = &v317;
           }
 
           else
           {
-            v22 = *(v14 + 192);
+            if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v166), vclez_f32(v155)), 0), *v315.i8).u32[0] == -1)
+            {
+              v169 = 0;
+              v168 = 1;
+            }
+
+            else
+            {
+              *v79.i8 = vdup_lane_s16(vand_s8(vcge_f32(v157, v160), vcgez_f32(v157)), 0);
+              *v79.i8 = vuzp1_s8(*v79.i8, *v79.i8);
+              v167 = v79.i32[0];
+              v168 = 1;
+              v79 = vbslq_s8(vdupq_lane_s32(*&vceqq_s32(v79, v258), 0), v316, v317);
+              if (v167 == -1)
+              {
+                v169 = 1;
+              }
+
+              else
+              {
+                v169 = 2;
+              }
+            }
+
+            v183 = &v326;
+            v184 = &v322;
+            v185 = &v316;
           }
         }
+
+        v88 = v276;
       }
 
-      atomic_fetch_add((*(*(physx::NpPhysics::mInstance + 56) + 8 * *(v22 + v20)) + 32), 1u);
-      v20 += 2;
+      v194 = *(&v321 + v169);
+      v195 = *v185;
+      v196 = *v184;
+      v197 = *(&v325 + v169);
+      v198 = *v183;
+      v315 = *(&v315 + v169);
+      v316 = v195;
+      v321 = v194;
+      v322 = v196;
+      v325 = v197;
+      v326 = v198;
+      v294 = v168;
     }
 
-    while (2 * a4 != v20);
+    else
+    {
+      v88 = v276;
+      if (v119 != 1)
+      {
+        goto LABEL_60;
+      }
+
+      v79 = v315;
+      v120 = vsubq_f32(v316, v315);
+      v121 = vmulq_f32(v120, v120);
+      v121.i64[0] = vpaddq_f32(v121, v121).u64[0];
+      v122 = vpadd_f32(*v121.f32, *v121.f32);
+      if (vuzp1_s8(vdup_lane_s16(vcge_f32(0x3400000034000000, v122), 0), *v315.i8).u32[0] != -1)
+      {
+        v123 = vnegq_f32(v315);
+        v123.i32[3] = 0;
+        v124 = vmulq_f32(v123, v120);
+        v124.i64[0] = vpaddq_f32(v124, v124).u64[0];
+        v125 = vpadd_f32(*v124.f32, *v124.f32);
+        v126 = vrecpe_f32(v122);
+        v127 = 4;
+        do
+        {
+          v126 = vmul_f32(v126, vrecps_f32(v122, v126));
+          --v127;
+        }
+
+        while (v127);
+        v79 = vmlaq_n_f32(v315, v120, vmax_f32(vmin_f32(vmul_f32(v125, v126), _D9), 0).f32[0]);
+LABEL_41:
+        v79.i64[1] = vextq_s8(v79, v79, 8uLL).u32[0];
+        goto LABEL_60;
+      }
+
+      v294 = 1;
+    }
+
+LABEL_60:
+    v90 = vnegq_f32(v79);
+    v90.i32[3] = 0;
+    v199 = vmulq_f32(v79, v79);
+    v199.i64[0] = vpaddq_f32(v199, v199).u64[0];
+    v200 = vpadd_f32(*v199.f32, *v199.f32);
+    v201 = vcgt_f32(v85, v200);
+    v89 = vdupq_lane_s32(vand_s8(v201, 0x100000001), 0);
+    v86 = vdupq_lane_s32(vand_s8(vcgt_f32(v200, v82), v201), 0);
+    v85 = v200;
   }
 
-  physx::NpFactory::addShape(v10, v14, 1);
-  if ((v28 & 0x8000000000000000) == 0 && (v28 & 0x7FFFFFFF00000000) != 0 && v27 != v26 && v27)
+  v202 = v283.i64[1];
+  v203 = vbslq_s8(vcltzq_s32(vshlq_n_s32(vandq_s8(vdupq_lane_s32(vcgt_f32(v85, 0), 0), v89), 0x1FuLL)), v90, v269);
+  v204 = vmulq_f32(v203, v203);
+  v204.i64[0] = vpaddq_f32(v204, v204).u64[0];
+  v205 = vpadd_f32(*v204.f32, *v204.f32);
+  v206 = vrsqrte_f32(v205);
+  v207 = 4;
+  do
   {
-    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+    v206 = vmul_f32(v206, vrsqrts_f32(vmul_f32(v206, v206), v205));
+    --v207;
   }
 
-  return v14;
-}
-
-uint64_t physx::NpPhysics::getShapes(uint64_t a1, void *a2, unsigned int a3, unsigned int a4)
-{
-  v4 = (*(physx::NpFactory::mInstance + 1116) - a4) & ~((*(physx::NpFactory::mInstance + 1116) - a4) >> 31);
-  if (v4 >= a3)
+  while (v207);
+  v208 = vbsl_s8(vdup_lane_s32(vceqz_f32(v205), 0), v205, vmul_f32(v205, v206));
+  v209 = vrecpe_f32(v208);
+  v210 = 4;
+  v211 = v272;
+  do
   {
-    result = a3;
+    v209 = vmul_f32(v209, vrecps_f32(v208, v209));
+    --v210;
+  }
+
+  while (v210);
+  v212 = vdupq_n_s32(-*(v283.i64[1] + 32));
+  v213 = vmulq_n_f32(v203, v209.f32[0]);
+  v213.i32[3] = 0;
+  v214 = vnegq_f32(vandq_s8(vdupq_lane_s32(vcgtz_f32(v208), 0), v213));
+  v214.i32[3] = 0;
+  v215 = vbslq_s8(vcltzq_s32(vshlq_n_s32(v89, 0x1FuLL)), v91, v88);
+  v293 = v215;
+  if (v294 == 3)
+  {
+    v296 = 0;
+    v295 = 0;
+    v279 = v212;
+    v282 = v214;
+    physx::Gu::barycentricCoordinates(&v293, &v315, &v316, &v317, &v296, &v295);
+    v212 = v279;
+    v214 = v282;
+    v211 = v272;
+    v89.i32[1] = v321.i32[1];
+    v226 = vmulq_n_f32(vsubq_f32(v322, v321), v296.f32[0]);
+    v226.i32[3] = 0;
+    v227 = vmulq_n_f32(vsubq_f32(v323[0], v321), v295.f32[0]);
+    v227.i32[3] = 0;
+    v216 = vaddq_f32(v321, vaddq_f32(v226, v227));
+  }
+
+  else if (v294 == 2)
+  {
+    v218 = vsubq_f32(v315, v215);
+    v219 = vsubq_f32(vsubq_f32(v316, v215), v218);
+    v220 = vmulq_f32(v219, v219);
+    v220.i64[0] = vpaddq_f32(v220, v220).u64[0];
+    v221 = vpadd_f32(*v220.f32, *v220.f32);
+    v222 = vrecpe_f32(v221);
+    v223 = 4;
+    do
+    {
+      v222 = vmul_f32(v222, vrecps_f32(v221, v222));
+      --v223;
+    }
+
+    while (v223);
+    v224 = vnegq_f32(v218);
+    v224.i32[3] = 0;
+    v225 = vmulq_f32(v224, v219);
+    v225.i64[0] = vpaddq_f32(v225, v225).u64[0];
+    v216 = vmlaq_n_f32(v321, vsubq_f32(v322, v321), vmul_f32(vbsl_s8(vcgtz_f32(v221), v222, 0), vpadd_f32(*v225.f32, *v225.f32)).f32[0]);
+    v89.i32[1] = 0;
+    v216.i64[1] = vextq_s8(v216, v216, 8uLL).u32[0];
   }
 
   else
   {
-    result = v4;
+    v216 = 0uLL;
+    if (v294 == 1)
+    {
+      v216 = v321;
+    }
   }
 
-  if (result)
+  v89.i32[0] = *(v202 + 16);
+  v228 = vmlsq_lane_f32(v216, v214, *v89.i8, 0);
+  v228.i64[1] = vextq_s8(v228, v228, 8uLL).u32[0];
+  v217 = vbslq_s8(v212, v228, v216);
+LABEL_75:
+  if (v93 == -1)
   {
-    v6 = (*(physx::NpFactory::mInstance + 1072) + 8 * a4);
-    v7 = result;
-    do
+    v211.i32[0] = 2139095039;
+  }
+
+  else
+  {
+    if (v211.f32[0] == 0.0)
     {
-      v8 = *v6++;
-      *a2++ = v8;
-      --v7;
+      *v217.i32 = (*(v283.i64[1] + 16) + v298) * 100.0;
+      v295.i8[0] = 0;
+      v324 = 0;
+      v321 = 0u;
+      v322 = 0u;
+      v323[0] = 0u;
+      v315.i64[1] = v283.i64[1];
+      v315.i64[0] = &unk_1F5D21CA8;
+      v316.i64[0] = v284;
+      v230 = v284[2];
+      v229 = v284[3];
+      v231 = v284[1];
+      v317 = *v284;
+      v320 = v229;
+      v232 = vzip1q_s32(v317, v230);
+      v233 = vzip2q_s32(v317, v230);
+      v234 = vzip1q_s32(v231, 0);
+      v317 = vzip1q_s32(v232, v234);
+      v318 = vzip2q_s32(v232, v234);
+      v319 = vzip1q_s32(v233, vzip2q_s32(v231, 0));
+      v325.i64[0] = &unk_1F5D217B8;
+      v325.i64[1] = v297;
+      if (physx::Gu::gjkPenetration<physx::Gu::RelativeConvex<physx::Gu::CapsuleV>,physx::Gu::LocalConvex<physx::Gu::CapsuleV>>(&v315, &v325, &v293, &v296, &v295, &v321, v292, vdup_lane_s32(*v217.i8, 0), *v233.i64, v318) != 5)
+      {
+        goto LABEL_79;
+      }
+
+      __asm { FMOV            V0.2S, #1.0 }
+
+      if (physx::Gu::epaPenetration(&v283) - 5 >= 2)
+      {
+        v236 = vnegq_f32(v271);
+        v236.i32[3] = 0;
+        v237 = vmulq_f32(v236, v236);
+        v237.i64[0] = vpaddq_f32(v237, v237).u64[0];
+        v238 = vpadd_f32(*v237.f32, *v237.f32);
+        v239 = vrsqrte_f32(v238);
+        v240 = 4;
+        do
+        {
+          v239 = vmul_f32(v239, vrsqrts_f32(vmul_f32(v239, v239), v238));
+          --v240;
+        }
+
+        while (v240);
+        v241 = vbsl_s8(vdup_lane_s32(vceqz_f32(v238), 0), v238, vmul_f32(v238, v239));
+        v242 = vrecpe_f32(v241);
+        v243 = 4;
+        do
+        {
+          v242 = vmul_f32(v242, vrecps_f32(v241, v242));
+          --v243;
+        }
+
+        while (v243);
+        v214 = vmulq_n_f32(v236, v242.f32[0]);
+        v214.i32[3] = 0;
+        v217 = 0uLL;
+        v211 = 0;
+      }
+
+      else
+      {
+LABEL_79:
+        v214 = v323[0];
+        v217 = v321;
+        v211 = vmin_f32(v324, 0);
+      }
     }
 
-    while (v7);
+    v244 = vmulq_n_f32(v217, v263);
+    v244.i32[3] = 0;
+    v245 = vmls_f32(vmul_f32(v264, *&vextq_s8(v217, v217, 4uLL)), v259, *v217.i8);
+    *v246.f32 = vext_s8(v245, vmls_f32(vmul_f32(v260, *v217.i8), v264, *&vextq_s8(v217, v217, 8uLL)), 4uLL);
+    v246.i64[1] = v245.u32[0];
+    v247 = vmlaq_f32(v244, v265, v246);
+    v247.i64[1] = vextq_s8(v247, v247, 8uLL).u32[0];
+    v248 = vmulq_f32(v262, v217);
+    v248.i64[0] = vpaddq_f32(v248, v248).u64[0];
+    v249 = vmlaq_n_f32(v247, v262, vpadd_f32(*v248.f32, *v248.f32).f32[0]);
+    v249.i64[1] = vextq_s8(v249, v249, 8uLL).u32[0];
+    v246.i64[0] = 0x4000000040000000;
+    v246.i64[1] = 0x4000000040000000;
+    v250 = vmlaq_f32(v266, v246, v249);
+    v250.i64[1] = vextq_s8(v250, v250, 8uLL).u32[0];
+    v251 = vmlaq_n_f32(v250, v261, vmax_f32(v211, 0).f32[0]);
+    v252 = vmulq_n_f32(v214, v263);
+    v252.i32[3] = 0;
+    *v246.f32 = vmls_f32(vmul_f32(v264, *&vextq_s8(v214, v214, 4uLL)), v259, *v214.i8);
+    *v249.i8 = vext_s8(*v246.f32, vmls_f32(vmul_f32(v260, *v214.i8), v264, *&vextq_s8(v214, v214, 8uLL)), 4uLL);
+    v249.i64[1] = v246.u32[0];
+    v253 = vmlaq_f32(v252, v265, v249);
+    v253.i64[1] = vextq_s8(v253, v253, 8uLL).u32[0];
+    v254 = vmulq_f32(v262, v214);
+    v254.i64[0] = vpaddq_f32(v254, v254).u64[0];
+    v255 = vmlaq_n_f32(v253, v262, vpadd_f32(*v254.f32, *v254.f32).f32[0]);
+    v256 = vaddq_f32(v255, v255);
+    *a7 = v256.i64[0];
+    *(a7 + 8) = v256.i32[2];
+    *a8 = v251.i64[0];
+    *(a8 + 8) = v251.i32[2];
+  }
+
+  return v211.f32[0];
+}
+
+float32_t physx::Gu::SweepGeomGeom<physx::Gu::CapsuleV,physx::Gu::BoxV>(uint64_t *a1, uint64_t *a2, int8x8_t *a3, int8x16_t *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9, double a10, double a11, double a12)
+{
+  v325 = *MEMORY[0x1E69E9840];
+  v12 = *a1;
+  v13 = 4;
+  v307 = 4;
+  v303[1] = 0;
+  v303[0] = 0;
+  LODWORD(a12) = *(v12 + 4);
+  v14 = vmulq_n_f32(xmmword_1E3047670, *(v12 + 8));
+  v14.i32[3] = 0;
+  v15 = *a2;
+  v16 = vnegq_f32(v14);
+  v16.i32[3] = 0;
+  v309 = v14;
+  v310 = v16;
+  v311 = vdup_lane_s32(*&a12, 0);
+  v304 = LODWORD(a12);
+  v305 = LODWORD(a12);
+  v306 = LODWORD(a12);
+  v308 = 1;
+  v284 = 3;
+  v285 = 0;
+  v282[0] = 0;
+  v282[1] = 0;
+  v14.i64[0] = *(v15 + 4);
+  v17 = v14;
+  v17.i32[2] = *(v15 + 12);
+  *v16.f32 = vdup_laneq_s32(v17, 2);
+  v17.i32[3] = 0;
+  v276 = v17;
+  v286 = v17;
+  *v14.f32 = vpmin_f32(*v16.f32, *v14.f32);
+  *v14.f32 = vpmin_f32(*v14.f32, *v14.f32);
+  v282[2] = vmul_n_f32(0x3BA3D70A3C23D70ALL, v14.f32[0]);
+  v14.f32[0] = 0.05 * v14.f32[0];
+  v279 = *v14.f32;
+  v283 = v14.i32[0];
+  *&a9 = *&a12 + *&a9;
+  v17.i64[0] = *(a5 + 16);
+  v17.i64[1] = *(a5 + 24);
+  v18.i64[0] = *(a6 + 16);
+  v19 = *a4;
+  v18.i64[1] = *(a6 + 24);
+  v20 = vnegq_f32(*a4);
+  v21 = vsubq_f32(v17, v18);
+  v22 = v20;
+  v22.i32[3] = 0;
+  v264 = vdupq_laneq_s32(*a4, 3);
+  LODWORD(v23) = vmla_f32(0xBF000000BF000000, *v264.f32, *v264.f32).u32[0];
+  v24 = vmulq_n_f32(v21, v23);
+  v24.i32[3] = 0;
+  v25 = vextq_s8(v22, v22, 8uLL).u64[0];
+  v26 = vext_s8(*v20.f32, v25, 4uLL);
+  v27 = vmls_f32(vmul_f32(*v20.f32, *&vextq_s8(v21, v21, 4uLL)), v26, *v21.i8);
+  *v28.f32 = vext_s8(v27, vmls_f32(vmul_f32(v25, *v21.i8), *v20.f32, *&vextq_s8(v21, v21, 8uLL)), 4uLL);
+  v28.i64[1] = v27.u32[0];
+  v29 = vmlaq_laneq_f32(v24, v28, *a4, 3);
+  v29.i64[1] = vextq_s8(v29, v29, 8uLL).u32[0];
+  v30 = vmulq_f32(v22, v21);
+  v30.i64[0] = vpaddq_f32(v30, v30).u64[0];
+  v31 = vmlaq_n_f32(v29, v22, vpadd_f32(*v30.f32, *v30.f32).f32[0]);
+  v32 = vaddq_f32(v31, v31);
+  v32.i32[3] = 0;
+  v33 = *a3->i8;
+  v33.i32[3] = 0;
+  v34 = vmulq_f32(v33, v22);
+  v34.i64[0] = vpaddq_f32(v34, v34).u64[0];
+  v35 = vmulq_laneq_f32(v33, *a4, 3);
+  v33.i64[0] = vextq_s8(v33, v33, 8uLL).u64[0];
+  v36 = vmls_f32(vmul_f32(vext_s8(*a3, *v33.i8, 4uLL), *v20.f32), v26, *a3);
+  *v37.f32 = vext_s8(v36, vmls_f32(vmul_f32(*a3, v25), *v20.f32, *v33.i8), 4uLL);
+  *&v37.u32[2] = v36;
+  v38 = vaddq_f32(vaddq_f32(vmulq_laneq_f32(v22, *a3->i8, 3), v35), v37);
+  *v20.f32 = vdup_lane_s32(*v38.f32, 1);
+  *v22.i8 = vdup_laneq_s32(v38, 2);
+  v39 = vaddq_f32(v38, v38);
+  v40 = vsub_f32(vmul_f32(*&vextq_s8(*a3->i8, *a3->i8, 8uLL), *&vextq_s8(v19, v19, 8uLL)), vpadd_f32(*v34.f32, *v34.f32));
+  *v33.i8 = vdup_laneq_s32(v39, 2);
+  *v38.f32 = vdup_lane_s32(vmul_f32(*v38.f32, *v39.f32), 0);
+  v41 = vmul_lane_f32(*v20.f32, *v39.f32, 1);
+  v42 = vmul_laneq_f32(*v22.i8, v39, 2);
+  *v20.f32 = vmul_n_f32(*v20.f32, v39.f32[0]);
+  v43 = vmul_n_f32(*v22.i8, v39.f32[0]);
+  *v34.f32 = vmul_lane_f32(vdup_lane_s32(*v39.f32, 0), v40, 1);
+  *v22.i8 = vmul_lane_f32(*v22.i8, *v39.f32, 1);
+  *v39.f32 = vmul_lane_f32(vdup_lane_s32(*v39.f32, 1), v40, 1);
+  v44 = vmul_lane_f32(*v33.i8, v40, 1);
+  __asm { FMOV            V9.2S, #1.0 }
+
+  *v33.i8 = vext_s8(vsub_f32(vsub_f32(_D9, v41), v42), vadd_f32(*v20.f32, v44), 4uLL);
+  v33.i64[1] = vsub_f32(v43, *v39.f32).u32[0];
+  *v38.f32 = vsub_f32(_D9, *v38.f32);
+  *v20.f32 = vext_s8(vsub_f32(*v20.f32, v44), vsub_f32(*v38.f32, v42), 4uLL);
+  v20.i64[1] = vadd_f32(*v22.i8, *v34.f32).u32[0];
+  v50 = vadd_f32(v43, *v39.f32);
+  v39.i32[0] = vsub_f32(*v38.f32, v41).u32[0];
+  *v38.f32 = vext_s8(v50, vsub_f32(*v22.i8, *v34.f32), 4uLL);
+  v38.i64[1] = v39.u32[0];
+  *v22.i8 = a3[2];
+  v22.i64[1] = a3[3].u32[0];
+  v51.i64[0] = a4[1].i64[0];
+  v51.i64[1] = a4[1].u32[2];
+  v295 = v33;
+  v296 = v20;
+  v265 = v18;
+  v52 = v19;
+  v52.i32[3] = 0;
+  v260 = vsubq_f32(v22, v17);
+  v53 = vsubq_f32(vsubq_f32(v51, v18), v260);
+  v262 = v23;
+  v263 = *v19.i8;
+  v54 = vmulq_n_f32(v53, v23);
+  v54.i32[3] = 0;
+  v259 = vextq_s8(v52, v52, 8uLL).u64[0];
+  v258 = vext_s8(*v19.i8, v259, 4uLL);
+  *v51.f32 = vmls_f32(vmul_f32(*v19.i8, *&vextq_s8(v53, v53, 4uLL)), v258, *v53.i8);
+  *v22.i8 = vext_s8(*v51.f32, vmls_f32(vmul_f32(v259, *v53.i8), *v19.i8, *&vextq_s8(v53, v53, 8uLL)), 4uLL);
+  v22.i64[1] = v51.u32[0];
+  v55 = vmlsq_laneq_f32(v54, v22, v19, 3);
+  v55.i64[1] = vextq_s8(v55, v55, 8uLL).u32[0];
+  v297 = v38;
+  v298 = v32;
+  v56 = vmulq_f32(v52, v53);
+  v56.i64[0] = vpaddq_f32(v56, v56).u64[0];
+  v261 = v52;
+  v57 = vmlaq_n_f32(v55, v52, vpadd_f32(*v56.f32, *v56.f32).f32[0]);
+  v269 = vaddq_f32(v57, v57);
+  v289.i64[1] = v303;
+  v290 = &v295;
+  v294 = v32;
+  v58 = vzip1q_s32(v33, v38);
+  v59 = vzip1q_s32(v296, 0);
+  v291 = vzip1q_s32(v58, v59);
+  v292 = vzip2q_s32(v58, v59);
+  v293 = vzip1q_s32(vzip2q_s32(v33, v38), vzip2q_s32(v296, 0));
+  v288 = v282;
+  v289.i64[0] = &unk_1F5D21CA8;
+  v287 = &unk_1F5D21A80;
+  v300 = 1;
+  v60 = vmulq_f32(v32, v32);
+  v60.i64[0] = vpaddq_f32(v60, v60).u64[0];
+  v61 = vbslq_s8(vcltzq_s32(vshlq_n_s32(vmovl_u16(vdup_lane_s16(vcgt_f32(vpadd_f32(*v60.f32, *v60.f32), 0x3400000034000000), 0)), 0x1FuLL)), v32, xmmword_1E3047670);
+  v62 = vmulq_f32(v61, v61);
+  v62.i64[0] = vpaddq_f32(v62, v62).u64[0];
+  v63 = vpadd_f32(*v62.f32, *v62.f32);
+  v64 = vrsqrte_f32(v63);
+  do
+  {
+    v64 = vmul_f32(v64, vrsqrts_f32(vmul_f32(v64, v64), v63));
+    --v13;
+  }
+
+  while (v13);
+  v65 = v269;
+  v65.i32[3] = 0;
+  v270 = v65;
+  v66 = vbsl_s8(vdup_lane_s32(vceqz_f32(v63), 0), v63, vmul_f32(v63, v64));
+  v67 = vrecpe_f32(v66);
+  v68 = 4;
+  do
+  {
+    v67 = vmul_f32(v67, vrecps_f32(v66, v67));
+    --v68;
+  }
+
+  while (v68);
+  *&a9 = *&a9 + 0.0;
+  v69 = vmlaq_f32(0, 0, v65);
+  v70 = vdup_lane_s32(*&a9, 0);
+  v69.i64[1] = vextq_s8(v69, v69, 8uLL).u32[0];
+  v71 = vmulq_n_f32(v61, v67.f32[0]);
+  v71.i32[3] = 0;
+  v273 = v69;
+  v274 = v71;
+  v72 = vnegq_f32(v71);
+  v72.i32[3] = 0;
+  v312 = v72;
+  *v73.i64 = physx::Gu::RelativeConvex<physx::Gu::CapsuleV>::support(&v289, &v312);
+  v74 = v73;
+  v75 = vnegq_f32(v276);
+  v75.i32[3] = 0;
+  v76 = vbslq_s8(vcgtzq_f32(v274), v276, v75);
+  v77 = vsubq_f32(v73, v76);
+  v312 = v77;
+  v313 = 0u;
+  v314 = 0u;
+  v315 = 0u;
+  v318 = v74;
+  v319 = 0u;
+  memset(v320, 0, sizeof(v320));
+  v78 = vnegq_f32(v77);
+  v78.i32[3] = 0;
+  v322 = v76;
+  v323 = 0u;
+  memset(v324, 0, sizeof(v324));
+  *v74.f32 = vmul_f32(vmin_f32(vdup_lane_s32(v279, 0), 0), vdup_n_s32(0x3DCCCCCDu));
+  v79 = vadd_f32(v70, *v74.f32);
+  *v76.f32 = vmul_f32(*v74.f32, *v74.f32);
+  v80 = vmul_f32(v79, v79);
+  v81 = vmulq_f32(v78, v78);
+  v82 = vpaddq_f32(v81, v81);
+  v83 = vpadd_f32(*v82.f32, *v82.f32);
+  v257 = *v76.f32;
+  *v82.f32 = vcgt_f32(v83, *v76.f32);
+  v84 = vdupq_lane_s32(*v82.f32, 0);
+  v82.i32[0] = -1;
+  v256 = v82;
+  v85 = vneg_f32(0x80000000800000);
+  v86 = v77;
+  v87.i64[0] = -1;
+  v87.i64[1] = -1;
+  v268 = v78;
+  v88 = v78;
+  v271 = 0;
+  while (1)
+  {
+    v89 = v77;
+    v90.i64[0] = -1;
+    v90.i64[1] = -1;
+    *v90.i8 = vmovn_s32(vceqq_s32(v84, v90));
+    v91 = vuzp1_s8(*v90.i8, *v90.i8).u32[0];
+    if (v91 != -1)
+    {
+      break;
+    }
+
+    v92 = vmulq_f32(v88, v88);
+    v92.i64[0] = vpaddq_f32(v92, v92).u64[0];
+    v93 = vpadd_f32(*v92.f32, *v92.f32);
+    v94 = vrsqrte_f32(v93);
+    v95 = 4;
+    do
+    {
+      v94 = vmul_f32(v94, vrsqrts_f32(vmul_f32(v94, v94), v93));
+      --v95;
+    }
+
+    while (v95);
+    v275 = v89;
+    v96 = vbsl_s8(vdup_lane_s32(vceqz_f32(v93), 0), v93, vmul_f32(v93, v94));
+    v97 = vrecpe_f32(v96);
+    v98 = 4;
+    do
+    {
+      v97 = vmul_f32(v97, vrecps_f32(v96, v97));
+      --v98;
+    }
+
+    while (v98);
+    v272 = v88;
+    v99 = vmulq_n_f32(v88, v97.f32[0]);
+    v99.i32[3] = 0;
+    v299 = v99;
+    v100 = vnegq_f32(v99);
+    v100.i32[3] = 0;
+    v277 = v99;
+    v280 = v100;
+    *v101.i64 = physx::Gu::RelativeConvex<physx::Gu::CapsuleV>::support(&v289, &v299);
+    v102 = v101;
+    v103 = v288[3];
+    v104 = vnegq_f32(v103);
+    v104.i32[3] = 0;
+    v105 = vbslq_s8(vcgtzq_f32(v280), v103, v104);
+    v106 = vaddq_f32(v273, v105);
+    v77 = vsubq_f32(v101, v106);
+    v107 = vnegq_f32(v77);
+    v107.i32[3] = 0;
+    v108 = vmulq_f32(v277, v107);
+    v108.i64[0] = vpaddq_f32(v108, v108).u64[0];
+    v109 = vsub_f32(vpadd_f32(*v108.f32, *v108.f32), v79);
+    if (v109.f32[0] > 0.0)
+    {
+      v110 = vmulq_f32(v270, v277);
+      v110.i64[0] = vpaddq_f32(v110, v110).u64[0];
+      v111 = vpadd_f32(*v110.f32, *v110.f32);
+      if (v111.f32[0] >= 0.0)
+      {
+        goto LABEL_69;
+      }
+
+      v112 = vrecpe_f32(v111);
+      v113 = 4;
+      do
+      {
+        v112 = vmul_f32(v112, vrecps_f32(v111, v112));
+        --v113;
+      }
+
+      while (v113);
+      v114 = vsub_f32(v271, vmul_f32(v109, v112));
+      if (vcgt_f32(v114, v271).u8[0])
+      {
+        if (v114.f32[0] > 1.0)
+        {
+LABEL_69:
+          v209 = 0;
+          v212 = 0uLL;
+          v215 = 0uLL;
+          goto LABEL_75;
+        }
+
+        v115 = vmlaq_n_f32(0, v270, v114.f32[0]);
+        v115.i64[1] = vextq_s8(v115, v115, 8uLL).u32[0];
+        v116 = vsubq_f32(v115, v273);
+        v322 = vaddq_f32(v116, v322);
+        v323 = vaddq_f32(v116, v323);
+        v324[0] = vaddq_f32(v116, v324[0]);
+        v312 = vsubq_f32(v318, v322);
+        v313 = vsubq_f32(v319, v323);
+        v314 = vsubq_f32(v320[0], v324[0]);
+        v106 = vaddq_f32(v105, v115);
+        v77 = vsubq_f32(v102, v106);
+        v83 = v85;
+        v268 = v272;
+        v273 = v115;
+      }
+
+      v271 = v114;
+    }
+
+    v117 = v300;
+    *(&v318 + v300) = v102;
+    *(&v322 + v117) = v106;
+    v300 = v117 + 1;
+    *(&v312 + v117) = v77;
+    if (v117 == 3)
+    {
+      physx::Gu::closestPtPointTetrahedron(&v312, &v318, &v322, &v300);
+LABEL_36:
+      v86 = v275;
+      goto LABEL_60;
+    }
+
+    if (v117 == 2)
+    {
+      v77 = v312;
+      v126 = vsubq_f32(v313, v312);
+      v127 = vsubq_f32(v314, v312);
+      v129 = vmls_f32(vmul_f32(*v126.i8, *&vextq_s8(v127, v127, 4uLL)), *&vextq_s8(v126, v126, 4uLL), *v127.i8);
+      *v128.f32 = vext_s8(v129, vmls_f32(vmul_f32(*&vextq_s8(v126, v126, 8uLL), *v127.i8), *v126.i8, *&vextq_s8(v127, v127, 8uLL)), 4uLL);
+      v129.i32[1] = 0;
+      v300 = 3;
+      v130 = vpadd_f32(vmul_f32(*v128.f32, *v128.f32), vmul_f32(v129.u32[0], v129.u32[0]));
+      v131 = vpadd_f32(v130, v130);
+      if (v131.f32[0] <= 0.00000011921)
+      {
+        v300 = 2;
+        v168 = vmulq_f32(v126, v126);
+        v168.i64[0] = vpaddq_f32(v168, v168).u64[0];
+        v169 = vpadd_f32(*v168.f32, *v168.f32);
+        if (vuzp1_s8(vdup_lane_s16(vcge_f32(0x3400000034000000, v169), 0), *v312.i8).u32[0] == -1)
+        {
+          v300 = 1;
+          goto LABEL_36;
+        }
+
+        v170 = vnegq_f32(v312);
+        v170.i32[3] = 0;
+        v171 = vmulq_f32(v170, v126);
+        v171.i64[0] = vpaddq_f32(v171, v171).u64[0];
+        v172 = vpadd_f32(*v171.f32, *v171.f32);
+        v173 = vrecpe_f32(v169);
+        v174 = 4;
+        v86 = v275;
+        do
+        {
+          v173 = vmul_f32(v173, vrecps_f32(v169, v173));
+          --v174;
+        }
+
+        while (v174);
+        v77 = vmlaq_n_f32(v312, v126, vmax_f32(vmin_f32(vmul_f32(v172, v173), _D9), 0).f32[0]);
+        goto LABEL_41;
+      }
+
+      *&v128.u32[2] = v129;
+      v132 = vextq_s8(v313, v313, 8uLL).u64[0];
+      v133 = vextq_s8(v314, v314, 8uLL).u64[0];
+      v134 = vextq_s8(v314, v314, 4uLL).u64[0];
+      v135 = vextq_s8(v313, v313, 4uLL).u64[0];
+      v136 = vmls_f32(vmul_f32(*v313.f32, v134), v135, *v314.f32);
+      *v137.f32 = vext_s8(v136, vmls_f32(vmul_f32(v132, *v314.f32), *v313.f32, v133), 4uLL);
+      v137.i64[1] = v136.u32[0];
+      v138 = vextq_s8(v312, v312, 8uLL).u64[0];
+      v139 = vextq_s8(v312, v312, 4uLL).u64[0];
+      v140 = vmls_f32(vmul_f32(v139, *v314.f32), v134, *v312.i8);
+      *v141.f32 = vext_s8(v140, vmls_f32(vmul_f32(*v312.i8, v133), *v314.f32, v138), 4uLL);
+      v141.i64[1] = v140.u32[0];
+      v142 = vmls_f32(vmul_f32(*v312.i8, v135), v139, *v313.f32);
+      *v143.f32 = vext_s8(v142, vmls_f32(vmul_f32(v138, *v313.f32), *v312.i8, v132), 4uLL);
+      v143.i64[1] = v142.u32[0];
+      v144 = vmulq_f32(v137, v128);
+      v144.i64[0] = vpaddq_f32(v144, v144).u64[0];
+      v145 = vpadd_f32(*v144.f32, *v144.f32);
+      v146 = vmulq_f32(v141, v128);
+      v146.i64[0] = vpaddq_f32(v146, v146).u64[0];
+      v147 = vpadd_f32(*v146.f32, *v146.f32);
+      v148 = vmulq_f32(v143, v128);
+      v148.i64[0] = vpaddq_f32(v148, v148).u64[0];
+      v149 = vpadd_f32(*v148.f32, *v148.f32);
+      if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcgez_f32(v147), vcgez_f32(v145)), vcgez_f32(v149)), 0), *v312.i8).u32[0] == -1)
+      {
+        v175 = vrecpe_f32(v131);
+        v176 = 4;
+        do
+        {
+          v175 = vmul_f32(v175, vrecps_f32(v131, v175));
+          --v176;
+        }
+
+        while (v176);
+        v177 = vmulq_f32(v312, v128);
+        v177.i64[0] = vpaddq_f32(v177, v177).u64[0];
+        v77 = vmulq_n_f32(v128, vmul_f32(v175, vpadd_f32(*v177.f32, *v177.f32)).f32[0]);
+        v77.i32[3] = 0;
+        goto LABEL_36;
+      }
+
+      v150 = vnegq_f32(v312);
+      v150.i32[3] = 0;
+      v151 = vnegq_f32(v313);
+      v151.i32[3] = 0;
+      v152 = vmulq_f32(v150, v126);
+      v152.i64[0] = vpaddq_f32(v152, v152).u64[0];
+      v153 = vpadd_f32(*v152.f32, *v152.f32);
+      v154 = vmulq_f32(v126, v151);
+      v154.i64[0] = vpaddq_f32(v154, v154).u64[0];
+      v155 = vpadd_f32(*v154.f32, *v154.f32);
+      if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v149), vand_s8(vclez_f32(v155), vcgez_f32(v153))), 0), *v312.i8).u32[0] == -1)
+      {
+        v178 = vsub_f32(v153, v155);
+        v179 = vrecpe_f32(v178);
+        v180 = 4;
+        v86 = v275;
+        do
+        {
+          v179 = vmul_f32(v179, vrecps_f32(v178, v179));
+          --v180;
+        }
+
+        while (v180);
+        v167 = 0;
+        v77 = vmlaq_n_f32(v312, v126, vmul_f32(v153, vbsl_s8(vcgt_f32(vabs_f32(v178), 0x3400000034000000), v179, 0)).f32[0]);
+        v77.i64[1] = vextq_s8(v77, v77, 8uLL).u32[0];
+        v166 = 2;
+        v181 = &v323;
+        v182 = &v319;
+        v183 = &v313;
+      }
+
+      else
+      {
+        v156 = vnegq_f32(v314);
+        v156.i32[3] = 0;
+        v157 = vmulq_f32(v151, v127);
+        v157.i64[0] = vpaddq_f32(v157, v157).u64[0];
+        v158 = vpadd_f32(*v157.f32, *v157.f32);
+        v159 = vmulq_f32(v126, v156);
+        v159.i64[0] = vpaddq_f32(v159, v159).u64[0];
+        v160 = vpadd_f32(*v159.f32, *v159.f32);
+        v161 = vmulq_f32(v127, v156);
+        v161.i64[0] = vpaddq_f32(v161, v161).u64[0];
+        v162 = vpadd_f32(*v161.f32, *v161.f32);
+        if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcge_f32(v158, v155), vcge_f32(v160, v162)), vclez_f32(v145)), 0), *v312.i8).u32[0] == -1)
+        {
+          v184 = vsub_f32(v158, v155);
+          v185 = vadd_f32(v184, vsub_f32(v160, v162));
+          v186 = vrecpe_f32(v185);
+          v187 = 4;
+          do
+          {
+            v186 = vmul_f32(v186, vrecps_f32(v185, v186));
+            --v187;
+          }
+
+          while (v187);
+          v188 = vmlaq_n_f32(v313, vsubq_f32(v314, v313), vmul_f32(v184, vbsl_s8(vcgt_f32(vabs_f32(v185), 0x3400000034000000), v186, 0)).f32[0]);
+          v166 = 2;
+          v182 = v320;
+          v181 = v324;
+          v188.i64[1] = vextq_s8(v188, v188, 8uLL).u32[0];
+          v183 = &v314;
+          v167 = 1;
+          v77 = v188;
+        }
+
+        else
+        {
+          v163 = vmulq_f32(v150, v127);
+          v163.i64[0] = vpaddq_f32(v163, v163).u64[0];
+          v164 = vpadd_f32(*v163.f32, *v163.f32);
+          if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v147), vand_s8(vclez_f32(v162), vcgez_f32(v164))), 0), *v312.i8).u32[0] == -1)
+          {
+            v189 = vsub_f32(v164, v162);
+            v190 = vrecpe_f32(v189);
+            v191 = 4;
+            do
+            {
+              v190 = vmul_f32(v190, vrecps_f32(v189, v190));
+              --v191;
+            }
+
+            while (v191);
+            v167 = 0;
+            v77 = vmlaq_n_f32(v312, v127, vmul_f32(v164, vbsl_s8(vcgt_f32(vabs_f32(v189), 0x3400000034000000), v190, 0)).f32[0]);
+            v77.i64[1] = vextq_s8(v77, v77, 8uLL).u32[0];
+            v166 = 2;
+            v182 = v320;
+            v181 = v324;
+            v183 = &v314;
+          }
+
+          else
+          {
+            if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v164), vclez_f32(v153)), 0), *v312.i8).u32[0] == -1)
+            {
+              v167 = 0;
+              v166 = 1;
+            }
+
+            else
+            {
+              *v77.i8 = vdup_lane_s16(vand_s8(vcge_f32(v155, v158), vcgez_f32(v155)), 0);
+              *v77.i8 = vuzp1_s8(*v77.i8, *v77.i8);
+              v165 = v77.i32[0];
+              v166 = 1;
+              v77 = vbslq_s8(vdupq_lane_s32(*&vceqq_s32(v77, v256), 0), v313, v314);
+              if (v165 == -1)
+              {
+                v167 = 1;
+              }
+
+              else
+              {
+                v167 = 2;
+              }
+            }
+
+            v181 = &v323;
+            v182 = &v319;
+            v183 = &v313;
+          }
+        }
+
+        v86 = v275;
+      }
+
+      v192 = *(&v318 + v167);
+      v193 = *v183;
+      v194 = *v182;
+      v195 = *(&v322 + v167);
+      v196 = *v181;
+      v312 = *(&v312 + v167);
+      v313 = v193;
+      v318 = v192;
+      v319 = v194;
+      v322 = v195;
+      v323 = v196;
+      v300 = v166;
+    }
+
+    else
+    {
+      v86 = v275;
+      if (v117 != 1)
+      {
+        goto LABEL_60;
+      }
+
+      v77 = v312;
+      v118 = vsubq_f32(v313, v312);
+      v119 = vmulq_f32(v118, v118);
+      v119.i64[0] = vpaddq_f32(v119, v119).u64[0];
+      v120 = vpadd_f32(*v119.f32, *v119.f32);
+      if (vuzp1_s8(vdup_lane_s16(vcge_f32(0x3400000034000000, v120), 0), *v312.i8).u32[0] != -1)
+      {
+        v121 = vnegq_f32(v312);
+        v121.i32[3] = 0;
+        v122 = vmulq_f32(v121, v118);
+        v122.i64[0] = vpaddq_f32(v122, v122).u64[0];
+        v123 = vpadd_f32(*v122.f32, *v122.f32);
+        v124 = vrecpe_f32(v120);
+        v125 = 4;
+        do
+        {
+          v124 = vmul_f32(v124, vrecps_f32(v120, v124));
+          --v125;
+        }
+
+        while (v125);
+        v77 = vmlaq_n_f32(v312, v118, vmax_f32(vmin_f32(vmul_f32(v123, v124), _D9), 0).f32[0]);
+LABEL_41:
+        v77.i64[1] = vextq_s8(v77, v77, 8uLL).u32[0];
+        goto LABEL_60;
+      }
+
+      v300 = 1;
+    }
+
+LABEL_60:
+    v88 = vnegq_f32(v77);
+    v88.i32[3] = 0;
+    v197 = vmulq_f32(v77, v77);
+    v197.i64[0] = vpaddq_f32(v197, v197).u64[0];
+    v198 = vpadd_f32(*v197.f32, *v197.f32);
+    v199 = vcgt_f32(v83, v198);
+    v87 = vdupq_lane_s32(vand_s8(v199, 0x100000001), 0);
+    v84 = vdupq_lane_s32(vand_s8(vcgt_f32(v198, v80), v199), 0);
+    v83 = v198;
+  }
+
+  v200 = v289.i64[1];
+  v201 = vbslq_s8(vcltzq_s32(vshlq_n_s32(vandq_s8(vdupq_lane_s32(vcgt_f32(v83, v257), 0), v87), 0x1FuLL)), v88, v268);
+  v202 = vmulq_f32(v201, v201);
+  v202.i64[0] = vpaddq_f32(v202, v202).u64[0];
+  v203 = vpadd_f32(*v202.f32, *v202.f32);
+  v204 = vrsqrte_f32(v203);
+  v205 = 4;
+  do
+  {
+    v204 = vmul_f32(v204, vrsqrts_f32(vmul_f32(v204, v204), v203));
+    --v205;
+  }
+
+  while (v205);
+  v206 = vbsl_s8(vdup_lane_s32(vceqz_f32(v203), 0), v203, vmul_f32(v203, v204));
+  v207 = vrecpe_f32(v206);
+  v208 = 4;
+  v209 = v271;
+  do
+  {
+    v207 = vmul_f32(v207, vrecps_f32(v206, v207));
+    --v208;
+  }
+
+  while (v208);
+  v210 = vdupq_n_s32(-*(v289.i64[1] + 32));
+  v211 = vmulq_n_f32(v201, v207.f32[0]);
+  v211.i32[3] = 0;
+  v212 = vnegq_f32(vandq_s8(vdupq_lane_s32(vcgtz_f32(v206), 0), v211));
+  v212.i32[3] = 0;
+  v213 = vbslq_s8(vcltzq_s32(vshlq_n_s32(v87, 0x1FuLL)), v89, v86);
+  v299 = v213;
+  if (v300 == 3)
+  {
+    v302 = 0;
+    v301 = 0;
+    v278 = v210;
+    v281 = v212;
+    physx::Gu::barycentricCoordinates(&v299, &v312, &v313, &v314, &v302, &v301);
+    v210 = v278;
+    v212 = v281;
+    v209 = v271;
+    v87.i32[1] = v318.i32[1];
+    v224 = vmulq_n_f32(vsubq_f32(v319, v318), v302.f32[0]);
+    v224.i32[3] = 0;
+    v225 = vmulq_n_f32(vsubq_f32(v320[0], v318), v301.f32[0]);
+    v225.i32[3] = 0;
+    v214 = vaddq_f32(v318, vaddq_f32(v224, v225));
+  }
+
+  else if (v300 == 2)
+  {
+    v216 = vsubq_f32(v312, v213);
+    v217 = vsubq_f32(vsubq_f32(v313, v213), v216);
+    v218 = vmulq_f32(v217, v217);
+    v218.i64[0] = vpaddq_f32(v218, v218).u64[0];
+    v219 = vpadd_f32(*v218.f32, *v218.f32);
+    v220 = vrecpe_f32(v219);
+    v221 = 4;
+    do
+    {
+      v220 = vmul_f32(v220, vrecps_f32(v219, v220));
+      --v221;
+    }
+
+    while (v221);
+    v222 = vnegq_f32(v216);
+    v222.i32[3] = 0;
+    v223 = vmulq_f32(v222, v217);
+    v223.i64[0] = vpaddq_f32(v223, v223).u64[0];
+    v214 = vmlaq_n_f32(v318, vsubq_f32(v319, v318), vmul_f32(vbsl_s8(vcgtz_f32(v219), v220, 0), vpadd_f32(*v223.f32, *v223.f32)).f32[0]);
+    v87.i32[1] = 0;
+    v214.i64[1] = vextq_s8(v214, v214, 8uLL).u32[0];
+  }
+
+  else
+  {
+    v214 = 0uLL;
+    if (v300 == 1)
+    {
+      v214 = v318;
+    }
+  }
+
+  v87.i32[0] = *(v200 + 16);
+  v226 = vmlsq_lane_f32(v214, v212, *v87.i8, 0);
+  v226.i64[1] = vextq_s8(v226, v226, 8uLL).u32[0];
+  v215 = vbslq_s8(v210, v226, v214);
+LABEL_75:
+  if (v91 == -1)
+  {
+    v209.i32[0] = 2139095039;
+  }
+
+  else
+  {
+    if (v209.f32[0] == 0.0)
+    {
+      *v215.i32 = (*(v289.i64[1] + 16) + *v288[1].i32) * 100.0;
+      v301.i8[0] = 0;
+      v321 = 0;
+      v318 = 0u;
+      v319 = 0u;
+      v320[0] = 0u;
+      v312.i64[1] = v289.i64[1];
+      v312.i64[0] = &unk_1F5D21CA8;
+      v313.i64[0] = v290;
+      v228 = v290[2];
+      v227 = v290[3];
+      v229 = v290[1];
+      v314 = *v290;
+      v317 = v227;
+      v230 = vzip1q_s32(v314, v228);
+      v231 = vzip2q_s32(v314, v228);
+      v232 = vzip1q_s32(v229, 0);
+      v314 = vzip1q_s32(v230, v232);
+      v315 = vzip2q_s32(v230, v232);
+      v316 = vzip1q_s32(v231, vzip2q_s32(v229, 0));
+      v322.i64[0] = &unk_1F5D21A80;
+      v322.i64[1] = v288;
+      if (physx::Gu::gjkPenetration<physx::Gu::RelativeConvex<physx::Gu::CapsuleV>,physx::Gu::LocalConvex<physx::Gu::BoxV>>(&v312, &v322, &v299, &v302, &v301, &v318, v298, vdup_lane_s32(*v215.i8, 0), *v231.i64, *v315.i8) != 5)
+      {
+        goto LABEL_79;
+      }
+
+      __asm { FMOV            V0.2S, #1.0 }
+
+      if (physx::Gu::epaPenetration(&v289) - 5 >= 2)
+      {
+        v234 = vnegq_f32(v270);
+        v234.i32[3] = 0;
+        v235 = vmulq_f32(v234, v234);
+        v235.i64[0] = vpaddq_f32(v235, v235).u64[0];
+        v236 = vpadd_f32(*v235.f32, *v235.f32);
+        v237 = vrsqrte_f32(v236);
+        v238 = 4;
+        do
+        {
+          v237 = vmul_f32(v237, vrsqrts_f32(vmul_f32(v237, v237), v236));
+          --v238;
+        }
+
+        while (v238);
+        v239 = vbsl_s8(vdup_lane_s32(vceqz_f32(v236), 0), v236, vmul_f32(v236, v237));
+        v240 = vrecpe_f32(v239);
+        v241 = 4;
+        do
+        {
+          v240 = vmul_f32(v240, vrecps_f32(v239, v240));
+          --v241;
+        }
+
+        while (v241);
+        v212 = vmulq_n_f32(v234, v240.f32[0]);
+        v212.i32[3] = 0;
+        v209 = 0;
+        v215 = 0uLL;
+      }
+
+      else
+      {
+LABEL_79:
+        v212 = v320[0];
+        v215 = v318;
+        v209 = vmin_f32(v321, 0);
+      }
+    }
+
+    v242 = vmulq_n_f32(v215, v262);
+    v242.i32[3] = 0;
+    v243 = vmls_f32(vmul_f32(v263, *&vextq_s8(v215, v215, 4uLL)), v258, *v215.i8);
+    *v244.f32 = vext_s8(v243, vmls_f32(vmul_f32(v259, *v215.i8), v263, *&vextq_s8(v215, v215, 8uLL)), 4uLL);
+    v244.i64[1] = v243.u32[0];
+    v245 = vmlaq_f32(v242, v264, v244);
+    v245.i64[1] = vextq_s8(v245, v245, 8uLL).u32[0];
+    v246 = vmulq_f32(v261, v215);
+    v246.i64[0] = vpaddq_f32(v246, v246).u64[0];
+    v247 = vmlaq_n_f32(v245, v261, vpadd_f32(*v246.f32, *v246.f32).f32[0]);
+    v247.i64[1] = vextq_s8(v247, v247, 8uLL).u32[0];
+    v244.i64[0] = 0x4000000040000000;
+    v244.i64[1] = 0x4000000040000000;
+    v248 = vmlaq_f32(v265, v244, v247);
+    v248.i64[1] = vextq_s8(v248, v248, 8uLL).u32[0];
+    v249 = vmlaq_n_f32(v248, v260, vmax_f32(v209, 0).f32[0]);
+    v250 = vmulq_n_f32(v212, v262);
+    v250.i32[3] = 0;
+    *v244.f32 = vmls_f32(vmul_f32(v263, *&vextq_s8(v212, v212, 4uLL)), v258, *v212.i8);
+    *v247.i8 = vext_s8(*v244.f32, vmls_f32(vmul_f32(v259, *v212.i8), v263, *&vextq_s8(v212, v212, 8uLL)), 4uLL);
+    v247.i64[1] = v244.u32[0];
+    v251 = vmlaq_f32(v250, v264, v247);
+    v251.i64[1] = vextq_s8(v251, v251, 8uLL).u32[0];
+    v252 = vmulq_f32(v261, v212);
+    v252.i64[0] = vpaddq_f32(v252, v252).u64[0];
+    v253 = vmlaq_n_f32(v251, v261, vpadd_f32(*v252.f32, *v252.f32).f32[0]);
+    v254 = vaddq_f32(v253, v253);
+    *a7 = v254.i64[0];
+    *(a7 + 8) = v254.i32[2];
+    *a8 = v249.i64[0];
+    *(a8 + 8) = v249.i32[2];
+  }
+
+  return v209.f32[0];
+}
+
+float32_t physx::Gu::SweepGeomGeom<physx::Gu::CapsuleV,physx::Gu::ConvexHullV>(uint64_t *a1, uint64_t *a2, int8x8_t *a3, int8x16_t *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9, float32x4_t a10)
+{
+  v398 = *MEMORY[0x1E69E9840];
+  v10 = *a1;
+  v380 = 4;
+  v376[1] = 0;
+  v376[0] = 0;
+  a10.i32[0] = *(v10 + 4);
+  v11 = vmulq_n_f32(xmmword_1E3047670, *(v10 + 8));
+  v11.i32[3] = 0;
+  v12 = *a2;
+  v13 = vnegq_f32(v11);
+  v13.i32[3] = 0;
+  v382 = v11;
+  v383 = v13;
+  v384 = vdup_lane_s32(*a10.f32, 0);
+  v377 = a10.i32[0];
+  v378 = a10.i32[0];
+  v379 = a10.i32[0];
+  v381 = 1;
+  v365 = 0;
+  v363 = 0u;
+  v364 = 0u;
+  v14 = *(v12 + 48);
+  v15 = *(v12 + 4);
+  v16 = v15;
+  v16.i32[3] = 0;
+  v17 = *(v12 + 16);
+  v11.i32[0] = HIDWORD(*(v12 + 4));
+  v18 = COERCE_FLOAT(*(v12 + 12)) == 1.0;
+  if (v11.f32[0] != 1.0)
+  {
+    v18 = 0;
+  }
+
+  v372 = v14;
+  v374 = *(v14 + 40) + 20 * *(v14 + 39);
+  v375 = *(v14 + 38);
+  v20 = v15.f32[0] == 1.0 && v18;
+  v19.i64[1] = *(v14 + 68);
+  v19.i64[0] = *(v14 + 60);
+  v21 = vmulq_f32(v16, v19);
+  *v21.i8 = vpmin_f32(vdup_laneq_s32(v21, 2), *v21.i8);
+  *v21.i32 = vpmin_f32(*v21.i8, *v21.i8).f32[0];
+  *&v364 = vmul_n_f32(0x3D4CCCCD3DCCCCCDLL, *v21.i32);
+  *(&v364 + 2) = 0.025 * *v21.i32;
+  __asm { FMOV            V9.2S, #1.0 }
+
+  if (v20)
+  {
+    v366 = xmmword_1E3047670;
+    v367 = xmmword_1E3047680;
+    v368 = xmmword_1E30476A0;
+    v369 = xmmword_1E3047670;
+    v370 = xmmword_1E3047680;
+    v371 = xmmword_1E30476A0;
+  }
+
+  else
+  {
+    v27 = vrecpeq_f32(v16);
+    v28 = 4;
+    do
+    {
+      v27 = vmulq_f32(v27, vrecpsq_f32(v27, v16));
+      --v28;
+    }
+
+    while (v28);
+    *v29.f32 = vdup_lane_s32(*v15.f32, 0);
+    v29.i64[1] = v29.u32[0];
+    if ((~vuzp1_s8(vmovn_s32(vceqq_f32(v29, v16)), *&a9).u32[0] & 0xFFFFFF) != 0)
+    {
+      v33 = vdup_lane_s32(*v17.f32, 1);
+      v34 = vdup_laneq_s32(v17, 2);
+      v35 = vdup_laneq_s32(v17, 3);
+      v36 = vaddq_f32(v17, v17);
+      v37 = vmul_lane_f32(v33, *v36.f32, 1);
+      v38 = vmul_laneq_f32(v34, v36, 2);
+      v39 = vmul_n_f32(v33, v36.f32[0]);
+      v40 = vmul_n_f32(v34, v36.f32[0]);
+      v41 = vmul_n_f32(v35, v36.f32[0]);
+      v42 = vmul_lane_f32(v34, *v36.f32, 1);
+      v43 = vmul_lane_f32(v35, *v36.f32, 1);
+      v44 = vmul_laneq_f32(v35, v36, 2);
+      v45 = vsub_f32(_D9, vdup_lane_s32(vmul_f32(*v17.f32, *v36.f32), 0));
+      v46 = vsub_f32(vsub_f32(_D9, v37), v38);
+      v47 = vadd_f32(v39, v44);
+      *v36.f32 = vsub_f32(v40, v43);
+      v48 = vsub_f32(v39, v44);
+      v49 = vsub_f32(v45, v38);
+      v50 = vadd_f32(v40, v43);
+      v51 = vsub_f32(v42, v41);
+      v52 = vext_s8(v50, v51, 4uLL);
+      v53 = vadd_f32(v42, v41);
+      *v54.f32 = vext_s8(v46, *&vdupq_lane_s32(v48, 1), 4uLL);
+      v54.i64[1] = vdup_lane_s32(v52, 0).u32[0];
+      v55 = vsub_f32(v45, v37);
+      *v56.f32 = vext_s8(*&vdupq_lane_s32(v47, 0), v49, 4uLL);
+      v56.i64[1] = vdup_lane_s32(v52, 1).u32[0];
+      *v57.f32 = vext_s8(*&vdupq_lane_s32(*v36.f32, 0), v53, 4uLL);
+      v57.i64[1] = vdup_lane_s32(v55, 0).u32[0];
+      v58 = vmulq_n_f32(v54, v15.f32[0]);
+      v58.i32[3] = 0;
+      v59 = vmulq_lane_f32(v56, *v15.f32, 1);
+      v59.i32[3] = 0;
+      v60 = vmulq_laneq_f32(v57, v15, 2);
+      v60.i32[3] = 0;
+      v61 = vmulq_lane_f32(v58, v46, 1);
+      v61.i32[3] = 0;
+      v62 = vmulq_n_f32(v59, *v47.i32);
+      v62.i32[3] = 0;
+      v63 = vmulq_n_f32(v60, v36.f32[0]);
+      v63.i32[3] = 0;
+      v64 = vaddq_f32(v61, v62);
+      v65 = vmulq_lane_f32(v58, v48, 1);
+      v65.i32[3] = 0;
+      v66 = vmulq_n_f32(v59, *v49.i32);
+      v66.i32[3] = 0;
+      v30 = vaddq_f32(v63, v64);
+      v67 = vmulq_n_f32(v60, *v53.i32);
+      v67.i32[3] = 0;
+      v31 = vaddq_f32(v67, vaddq_f32(v65, v66));
+      v68 = vmulq_lane_f32(v58, v50, 1);
+      v68.i32[3] = 0;
+      v69 = vmulq_n_f32(v59, *v51.i32);
+      v69.i32[3] = 0;
+      v70 = vmulq_n_f32(v60, *v55.i32);
+      v70.i32[3] = 0;
+      v32 = vaddq_f32(v70, vaddq_f32(v68, v69));
+      v71 = vmulq_n_f32(v54, v27.f32[0]);
+      v71.i32[3] = 0;
+      v72 = vmulq_lane_f32(v56, *v27.f32, 1);
+      v72.i32[3] = 0;
+      v73 = vmulq_laneq_f32(v57, v27, 2);
+      v73.i32[3] = 0;
+      v74 = vmulq_lane_f32(v71, v46, 1);
+      v74.i32[3] = 0;
+      v75 = vmulq_n_f32(v72, *v47.i32);
+      v75.i32[3] = 0;
+      v76 = vmulq_n_f32(v73, v36.f32[0]);
+      v76.i32[3] = 0;
+      v366 = v30;
+      v367 = v31;
+      v77 = vaddq_f32(v76, vaddq_f32(v74, v75));
+      v78 = vmulq_lane_f32(v71, v48, 1);
+      v78.i32[3] = 0;
+      v79 = vmulq_n_f32(v72, *v49.i32);
+      v79.i32[3] = 0;
+      v80 = vmulq_n_f32(v73, *v53.i32);
+      v80.i32[3] = 0;
+      v81 = vmulq_lane_f32(v71, v50, 1);
+      v81.i32[3] = 0;
+      a10 = vmulq_n_f32(v72, *v51.i32);
+      a10.i32[3] = 0;
+      v82 = vmulq_n_f32(v73, *v55.i32);
+      v82.i32[3] = 0;
+      v368 = v32;
+      v369 = v77;
+      v370 = vaddq_f32(v80, vaddq_f32(v78, v79));
+      v371 = vaddq_f32(v82, vaddq_f32(v81, a10));
+      a10.i32[0] = *(v10 + 4);
+    }
+
+    else
+    {
+      v27.i32[3] = 0;
+      v30 = vmulq_f32(v16, xmmword_1E3047670);
+      v31 = vmulq_f32(v16, xmmword_1E3047680);
+      v32 = vmulq_f32(v16, xmmword_1E30476A0);
+      v366 = v30;
+      v367 = v31;
+      v368 = v32;
+      v369 = vmulq_f32(v27, xmmword_1E3047670);
+      v370 = vmulq_f32(v27, xmmword_1E3047680);
+      v371 = vmulq_f32(v27, xmmword_1E30476A0);
+    }
+
+    v83 = vmulq_f32(v30, 0);
+    v83.i32[3] = 0;
+    v84 = vmulq_f32(v31, 0);
+    v84.i32[3] = 0;
+    v85 = vmulq_f32(v32, 0);
+    v85.i32[3] = 0;
+    v363 = vaddq_f32(v85, vaddq_f32(v84, v83));
+  }
+
+  v373 = *(v14 + 48);
+  *&a9 = a10.f32[0] + *&a9;
+  v86.i64[0] = *(a5 + 16);
+  v86.i64[1] = *(a5 + 24);
+  v87.i64[0] = *(a6 + 16);
+  v88 = *a4;
+  v87.i64[1] = *(a6 + 24);
+  v89 = vnegq_f32(*a4);
+  v90 = vsubq_f32(v86, v87);
+  v91 = v89;
+  v91.i32[3] = 0;
+  v328 = vdupq_laneq_s32(*a4, 3);
+  LODWORD(v92) = vmla_f32(0xBF000000BF000000, *v328.f32, *v328.f32).u32[0];
+  v93 = vmulq_n_f32(v90, v92);
+  v93.i32[3] = 0;
+  v94 = vextq_s8(v91, v91, 8uLL).u64[0];
+  v95 = vext_s8(*v89.f32, v94, 4uLL);
+  v96 = vmls_f32(vmul_f32(*v89.f32, *&vextq_s8(v90, v90, 4uLL)), v95, *v90.i8);
+  *v97.f32 = vext_s8(v96, vmls_f32(vmul_f32(v94, *v90.i8), *v89.f32, *&vextq_s8(v90, v90, 8uLL)), 4uLL);
+  v97.i64[1] = v96.u32[0];
+  v98 = vmlaq_laneq_f32(v93, v97, *a4, 3);
+  v98.i64[1] = vextq_s8(v98, v98, 8uLL).u32[0];
+  v99 = vmulq_f32(v91, v90);
+  v99.i64[0] = vpaddq_f32(v99, v99).u64[0];
+  v100 = vmlaq_n_f32(v98, v91, vpadd_f32(*v99.f32, *v99.f32).f32[0]);
+  v101 = vaddq_f32(v100, v100);
+  v101.i32[3] = 0;
+  v102 = *a3->i8;
+  v102.i32[3] = 0;
+  v103 = vmulq_f32(v102, v91);
+  v103.i64[0] = vpaddq_f32(v103, v103).u64[0];
+  v104 = vmulq_laneq_f32(v102, *a4, 3);
+  v102.i64[0] = vextq_s8(v102, v102, 8uLL).u64[0];
+  v105 = vmls_f32(vmul_f32(vext_s8(*a3, *v102.i8, 4uLL), *v89.f32), v95, *a3);
+  *v106.f32 = vext_s8(v105, vmls_f32(vmul_f32(*a3, v94), *v89.f32, *v102.i8), 4uLL);
+  *&v106.u32[2] = v105;
+  v107 = vaddq_f32(vaddq_f32(vmulq_laneq_f32(v91, *a3->i8, 3), v104), v106);
+  *v89.f32 = vdup_lane_s32(*v107.f32, 1);
+  *v91.i8 = vdup_laneq_s32(v107, 2);
+  v108 = vaddq_f32(v107, v107);
+  v109 = vsub_f32(vmul_f32(*&vextq_s8(*a3->i8, *a3->i8, 8uLL), *&vextq_s8(v88, v88, 8uLL)), vpadd_f32(*v103.f32, *v103.f32));
+  *v102.i8 = vdup_laneq_s32(v108, 2);
+  *v107.f32 = vdup_lane_s32(vmul_f32(*v107.f32, *v108.f32), 0);
+  v110 = vmul_lane_f32(*v89.f32, *v108.f32, 1);
+  v111 = vmul_laneq_f32(*v91.i8, v108, 2);
+  *v89.f32 = vmul_n_f32(*v89.f32, v108.f32[0]);
+  v112 = vmul_n_f32(*v91.i8, v108.f32[0]);
+  *v103.f32 = vmul_lane_f32(vdup_lane_s32(*v108.f32, 0), v109, 1);
+  *v91.i8 = vmul_lane_f32(*v91.i8, *v108.f32, 1);
+  *v108.f32 = vmul_lane_f32(vdup_lane_s32(*v108.f32, 1), v109, 1);
+  v113 = vmul_lane_f32(*v102.i8, v109, 1);
+  *v107.f32 = vsub_f32(_D9, *v107.f32);
+  *v102.i8 = vext_s8(vsub_f32(vsub_f32(_D9, v110), v111), vadd_f32(*v89.f32, v113), 4uLL);
+  v102.i64[1] = vsub_f32(v112, *v108.f32).u32[0];
+  *v89.f32 = vext_s8(vsub_f32(*v89.f32, v113), vsub_f32(*v107.f32, v111), 4uLL);
+  v89.i64[1] = vadd_f32(*v91.i8, *v103.f32).u32[0];
+  v354 = v102;
+  v355 = v89;
+  *v89.f32 = vext_s8(vadd_f32(v112, *v108.f32), vsub_f32(*v91.i8, *v103.f32), 4uLL);
+  v89.i64[1] = vsub_f32(*v107.f32, v110).u32[0];
+  v356 = v89;
+  v357 = v101;
+  *v107.f32 = a3[2];
+  v107.i64[1] = a3[3].u32[0];
+  v89.i64[0] = a4[1].i64[0];
+  v89.i64[1] = a4[1].u32[2];
+  v329 = v87;
+  v324 = vsubq_f32(v107, v86);
+  v114 = vsubq_f32(vsubq_f32(v89, v87), v324);
+  v115 = v88;
+  v115.i32[3] = 0;
+  v326 = v92;
+  v327 = *v88.i8;
+  v116 = vmulq_n_f32(v114, v92);
+  v116.i32[3] = 0;
+  v323 = vextq_s8(v115, v115, 8uLL).u64[0];
+  v322 = vext_s8(*v88.i8, v323, 4uLL);
+  *v91.i8 = vmls_f32(vmul_f32(*v88.i8, *&vextq_s8(v114, v114, 4uLL)), v322, *v114.i8);
+  *v89.f32 = vext_s8(*v91.i8, vmls_f32(vmul_f32(v323, *v114.i8), *v88.i8, *&vextq_s8(v114, v114, 8uLL)), 4uLL);
+  v89.i64[1] = v91.u32[0];
+  v117 = vmlsq_laneq_f32(v116, v89, v88, 3);
+  v117.i64[1] = vextq_s8(v117, v117, 8uLL).u32[0];
+  v118 = vmulq_f32(v115, v114);
+  v118.i64[0] = vpaddq_f32(v118, v118).u64[0];
+  v325 = v115;
+  v119 = vmlaq_n_f32(v117, v115, vpadd_f32(*v118.f32, *v118.f32).f32[0]);
+  v333 = vaddq_f32(v119, v119);
+  v348.i64[1] = v376;
+  v349 = &v354;
+  v353 = v101;
+  v120 = vzip1q_s32(v354, v356);
+  v121 = vzip1q_s32(v355, 0);
+  v350 = vzip1q_s32(v120, v121);
+  v351 = vzip2q_s32(v120, v121);
+  v352 = vzip1q_s32(vzip2q_s32(v354, v356), vzip2q_s32(v355, 0));
+  v347 = &v363;
+  v348.i64[0] = &unk_1F5D21CA8;
+  v346 = &unk_1F5D21818;
+  v361 = 1;
+  v122 = vmulq_f32(v101, v101);
+  v122.i64[0] = vpaddq_f32(v122, v122).u64[0];
+  v123 = vbslq_s8(vcltzq_s32(vshlq_n_s32(vmovl_u16(vdup_lane_s16(vcgt_f32(vpadd_f32(*v122.f32, *v122.f32), 0x3400000034000000), 0)), 0x1FuLL)), v101, xmmword_1E3047670);
+  v124 = vmulq_f32(v123, v123);
+  v124.i64[0] = vpaddq_f32(v124, v124).u64[0];
+  v125 = vpadd_f32(*v124.f32, *v124.f32);
+  v126 = vrsqrte_f32(v125);
+  v127 = 4;
+  do
+  {
+    v126 = vmul_f32(v126, vrsqrts_f32(vmul_f32(v126, v126), v125));
+    --v127;
+  }
+
+  while (v127);
+  v128 = v333;
+  v128.i32[3] = 0;
+  v334 = v128;
+  v129 = vbsl_s8(vdup_lane_s32(vceqz_f32(v125), 0), v125, vmul_f32(v125, v126));
+  v130 = vrecpe_f32(v129);
+  v131 = 4;
+  do
+  {
+    v130 = vmul_f32(v130, vrecps_f32(v129, v130));
+    --v131;
+  }
+
+  while (v131);
+  *&a9 = *&a9 + 0.0;
+  v132 = vmlaq_f32(0, 0, v128);
+  v133 = vdup_lane_s32(*&a9, 0);
+  v132.i64[1] = vextq_s8(v132, v132, 8uLL).u32[0];
+  v338 = v132;
+  v134 = vmulq_n_f32(v123, v130.f32[0]);
+  v134.i32[3] = 0;
+  v360 = v134;
+  v135 = vnegq_f32(v134);
+  v135.i32[3] = 0;
+  v385 = v135;
+  *v136.i64 = physx::Gu::RelativeConvex<physx::Gu::CapsuleV>::support(&v348, &v385);
+  v343 = v136;
+  *v137.i64 = physx::Gu::LocalConvex<physx::Gu::ConvexHullV>::support(&v346, &v360);
+  v138 = v137;
+  v139 = vsubq_f32(v343, v137);
+  v385 = v139;
+  v386 = 0u;
+  v387 = 0u;
+  v388 = 0u;
+  v391 = v343;
+  v392 = 0u;
+  memset(v393, 0, sizeof(v393));
+  v140 = vnegq_f32(v139);
+  v140.i32[3] = 0;
+  v395 = v138;
+  v396 = 0u;
+  memset(v397, 0, sizeof(v397));
+  v141 = &v347[1].f32[2];
+  *v138.f32 = vld1_dup_f32(v141);
+  *v138.f32 = vmul_f32(vmin_f32(*v138.f32, 0), vdup_n_s32(0x3DCCCCCDu));
+  v142 = vadd_f32(v133, *v138.f32);
+  v143 = vmul_f32(*v138.f32, *v138.f32);
+  v144 = vmul_f32(v142, v142);
+  v145 = vmulq_f32(v140, v140);
+  v146 = vpaddq_f32(v145, v145);
+  v147 = vpadd_f32(*v146.f32, *v146.f32);
+  v321 = v143;
+  *v146.f32 = vcgt_f32(v147, v143);
+  v148 = vdupq_lane_s32(*v146.f32, 0);
+  v146.i32[0] = -1;
+  v320 = v146;
+  v149 = vneg_f32(0x80000000800000);
+  v150 = v139;
+  v151.i64[0] = -1;
+  v151.i64[1] = -1;
+  v332 = v140;
+  v152 = v140;
+  v335 = 0;
+  while (1)
+  {
+    v153 = v139;
+    v154.i64[0] = -1;
+    v154.i64[1] = -1;
+    *v154.i8 = vmovn_s32(vceqq_s32(v148, v154));
+    v155 = vuzp1_s8(*v154.i8, *v154.i8).u32[0];
+    if (v155 != -1)
+    {
+      break;
+    }
+
+    v156 = vmulq_f32(v152, v152);
+    v156.i64[0] = vpaddq_f32(v156, v156).u64[0];
+    v157 = vpadd_f32(*v156.f32, *v156.f32);
+    v158 = vrsqrte_f32(v157);
+    v159 = 4;
+    do
+    {
+      v158 = vmul_f32(v158, vrsqrts_f32(vmul_f32(v158, v158), v157));
+      --v159;
+    }
+
+    while (v159);
+    v339 = v153;
+    v160 = vbsl_s8(vdup_lane_s32(vceqz_f32(v157), 0), v157, vmul_f32(v157, v158));
+    v161 = vrecpe_f32(v160);
+    v162 = 4;
+    do
+    {
+      v161 = vmul_f32(v161, vrecps_f32(v160, v161));
+      --v162;
+    }
+
+    while (v162);
+    v337 = v152;
+    v163 = vmulq_n_f32(v152, v161.f32[0]);
+    v163.i32[3] = 0;
+    v340 = v163;
+    v359 = v163;
+    v164 = vnegq_f32(v163);
+    v164.i32[3] = 0;
+    v358 = v164;
+    *v165.i64 = physx::Gu::RelativeConvex<physx::Gu::CapsuleV>::support(&v348, &v359);
+    v344 = v165;
+    *v166.i64 = physx::Gu::LocalConvex<physx::Gu::ConvexHullV>::support(&v346, &v358);
+    v167 = v344;
+    v168 = vaddq_f32(v338, v166);
+    v139 = vsubq_f32(v344, v168);
+    v169 = vnegq_f32(v139);
+    v169.i32[3] = 0;
+    v170 = vmulq_f32(v340, v169);
+    v170.i64[0] = vpaddq_f32(v170, v170).u64[0];
+    v171 = vsub_f32(vpadd_f32(*v170.f32, *v170.f32), v142);
+    if (v171.f32[0] > 0.0)
+    {
+      v172 = vmulq_f32(v334, v340);
+      v172.i64[0] = vpaddq_f32(v172, v172).u64[0];
+      v173 = vpadd_f32(*v172.f32, *v172.f32);
+      if (v173.f32[0] >= 0.0)
+      {
+        goto LABEL_83;
+      }
+
+      v174 = vrecpe_f32(v173);
+      v175 = 4;
+      do
+      {
+        v174 = vmul_f32(v174, vrecps_f32(v173, v174));
+        --v175;
+      }
+
+      while (v175);
+      v176 = vsub_f32(v335, vmul_f32(v171, v174));
+      if (vcgt_f32(v176, v335).u8[0])
+      {
+        if (v176.f32[0] > 1.0)
+        {
+LABEL_83:
+          v273 = 0;
+          v276 = 0uLL;
+          v279 = 0uLL;
+          goto LABEL_89;
+        }
+
+        v177 = vmlaq_n_f32(0, v334, v176.f32[0]);
+        v177.i64[1] = vextq_s8(v177, v177, 8uLL).u32[0];
+        v341 = v177;
+        v178 = vsubq_f32(v177, v338);
+        v336 = v176;
+        v395 = vaddq_f32(v178, v395);
+        v396 = vaddq_f32(v178, v396);
+        v397[0] = vaddq_f32(v178, v397[0]);
+        v385 = vsubq_f32(v391, v395);
+        v386 = vsubq_f32(v392, v396);
+        v387 = vsubq_f32(v393[0], v397[0]);
+        *v179.i64 = physx::Gu::LocalConvex<physx::Gu::ConvexHullV>::support(&v346, &v358);
+        v167 = v344;
+        v168 = vaddq_f32(v341, v179);
+        v139 = vsubq_f32(v344, v168);
+        v147 = v149;
+        v180 = v336;
+        v332 = v337;
+        v338 = v341;
+      }
+
+      else
+      {
+        v180 = v176;
+      }
+
+      v335 = v180;
+    }
+
+    v181 = v361;
+    *(&v391 + v361) = v167;
+    *(&v395 + v181) = v168;
+    v361 = v181 + 1;
+    *(&v385 + v181) = v139;
+    if (v181 == 3)
+    {
+      physx::Gu::closestPtPointTetrahedron(&v385, &v391, &v395, &v361);
+LABEL_50:
+      v150 = v339;
+      goto LABEL_74;
+    }
+
+    if (v181 == 2)
+    {
+      v139 = v385;
+      v190 = vsubq_f32(v386, v385);
+      v191 = vsubq_f32(v387, v385);
+      v193 = vmls_f32(vmul_f32(*v190.i8, *&vextq_s8(v191, v191, 4uLL)), *&vextq_s8(v190, v190, 4uLL), *v191.i8);
+      *v192.f32 = vext_s8(v193, vmls_f32(vmul_f32(*&vextq_s8(v190, v190, 8uLL), *v191.i8), *v190.i8, *&vextq_s8(v191, v191, 8uLL)), 4uLL);
+      v193.i32[1] = 0;
+      v361 = 3;
+      v194 = vpadd_f32(vmul_f32(*v192.f32, *v192.f32), vmul_f32(v193.u32[0], v193.u32[0]));
+      v195 = vpadd_f32(v194, v194);
+      if (v195.f32[0] <= 0.00000011921)
+      {
+        v361 = 2;
+        v232 = vmulq_f32(v190, v190);
+        v232.i64[0] = vpaddq_f32(v232, v232).u64[0];
+        v233 = vpadd_f32(*v232.f32, *v232.f32);
+        if (vuzp1_s8(vdup_lane_s16(vcge_f32(0x3400000034000000, v233), 0), *v385.i8).u32[0] == -1)
+        {
+          v361 = 1;
+          goto LABEL_50;
+        }
+
+        v234 = vnegq_f32(v385);
+        v234.i32[3] = 0;
+        v235 = vmulq_f32(v234, v190);
+        v235.i64[0] = vpaddq_f32(v235, v235).u64[0];
+        v236 = vpadd_f32(*v235.f32, *v235.f32);
+        v237 = vrecpe_f32(v233);
+        v238 = 4;
+        v150 = v339;
+        do
+        {
+          v237 = vmul_f32(v237, vrecps_f32(v233, v237));
+          --v238;
+        }
+
+        while (v238);
+        v139 = vmlaq_n_f32(v385, v190, vmax_f32(vmin_f32(vmul_f32(v236, v237), _D9), 0).f32[0]);
+        goto LABEL_55;
+      }
+
+      *&v192.u32[2] = v193;
+      v196 = vextq_s8(v386, v386, 8uLL).u64[0];
+      v197 = vextq_s8(v387, v387, 8uLL).u64[0];
+      v198 = vextq_s8(v387, v387, 4uLL).u64[0];
+      v199 = vextq_s8(v386, v386, 4uLL).u64[0];
+      v200 = vmls_f32(vmul_f32(*v386.f32, v198), v199, *v387.f32);
+      *v201.f32 = vext_s8(v200, vmls_f32(vmul_f32(v196, *v387.f32), *v386.f32, v197), 4uLL);
+      v201.i64[1] = v200.u32[0];
+      v202 = vextq_s8(v385, v385, 8uLL).u64[0];
+      v203 = vextq_s8(v385, v385, 4uLL).u64[0];
+      v204 = vmls_f32(vmul_f32(v203, *v387.f32), v198, *v385.i8);
+      *v205.f32 = vext_s8(v204, vmls_f32(vmul_f32(*v385.i8, v197), *v387.f32, v202), 4uLL);
+      v205.i64[1] = v204.u32[0];
+      v206 = vmls_f32(vmul_f32(*v385.i8, v199), v203, *v386.f32);
+      *v207.f32 = vext_s8(v206, vmls_f32(vmul_f32(v202, *v386.f32), *v385.i8, v196), 4uLL);
+      v207.i64[1] = v206.u32[0];
+      v208 = vmulq_f32(v201, v192);
+      v208.i64[0] = vpaddq_f32(v208, v208).u64[0];
+      v209 = vpadd_f32(*v208.f32, *v208.f32);
+      v210 = vmulq_f32(v205, v192);
+      v210.i64[0] = vpaddq_f32(v210, v210).u64[0];
+      v211 = vpadd_f32(*v210.f32, *v210.f32);
+      v212 = vmulq_f32(v207, v192);
+      v212.i64[0] = vpaddq_f32(v212, v212).u64[0];
+      v213 = vpadd_f32(*v212.f32, *v212.f32);
+      if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcgez_f32(v211), vcgez_f32(v209)), vcgez_f32(v213)), 0), *v385.i8).u32[0] == -1)
+      {
+        v239 = vrecpe_f32(v195);
+        v240 = 4;
+        do
+        {
+          v239 = vmul_f32(v239, vrecps_f32(v195, v239));
+          --v240;
+        }
+
+        while (v240);
+        v241 = vmulq_f32(v385, v192);
+        v241.i64[0] = vpaddq_f32(v241, v241).u64[0];
+        v139 = vmulq_n_f32(v192, vmul_f32(v239, vpadd_f32(*v241.f32, *v241.f32)).f32[0]);
+        v139.i32[3] = 0;
+        goto LABEL_50;
+      }
+
+      v214 = vnegq_f32(v385);
+      v214.i32[3] = 0;
+      v215 = vnegq_f32(v386);
+      v215.i32[3] = 0;
+      v216 = vmulq_f32(v214, v190);
+      v216.i64[0] = vpaddq_f32(v216, v216).u64[0];
+      v217 = vpadd_f32(*v216.f32, *v216.f32);
+      v218 = vmulq_f32(v190, v215);
+      v218.i64[0] = vpaddq_f32(v218, v218).u64[0];
+      v219 = vpadd_f32(*v218.f32, *v218.f32);
+      if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v213), vand_s8(vclez_f32(v219), vcgez_f32(v217))), 0), *v385.i8).u32[0] == -1)
+      {
+        v242 = vsub_f32(v217, v219);
+        v243 = vrecpe_f32(v242);
+        v244 = 4;
+        v150 = v339;
+        do
+        {
+          v243 = vmul_f32(v243, vrecps_f32(v242, v243));
+          --v244;
+        }
+
+        while (v244);
+        v231 = 0;
+        v139 = vmlaq_n_f32(v385, v190, vmul_f32(v217, vbsl_s8(vcgt_f32(vabs_f32(v242), 0x3400000034000000), v243, 0)).f32[0]);
+        v139.i64[1] = vextq_s8(v139, v139, 8uLL).u32[0];
+        v230 = 2;
+        v245 = &v396;
+        v246 = &v392;
+        v247 = &v386;
+      }
+
+      else
+      {
+        v220 = vnegq_f32(v387);
+        v220.i32[3] = 0;
+        v221 = vmulq_f32(v215, v191);
+        v221.i64[0] = vpaddq_f32(v221, v221).u64[0];
+        v222 = vpadd_f32(*v221.f32, *v221.f32);
+        v223 = vmulq_f32(v190, v220);
+        v223.i64[0] = vpaddq_f32(v223, v223).u64[0];
+        v224 = vpadd_f32(*v223.f32, *v223.f32);
+        v225 = vmulq_f32(v191, v220);
+        v225.i64[0] = vpaddq_f32(v225, v225).u64[0];
+        v226 = vpadd_f32(*v225.f32, *v225.f32);
+        if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcge_f32(v222, v219), vcge_f32(v224, v226)), vclez_f32(v209)), 0), *v385.i8).u32[0] == -1)
+        {
+          v248 = vsub_f32(v222, v219);
+          v249 = vadd_f32(v248, vsub_f32(v224, v226));
+          v250 = vrecpe_f32(v249);
+          v251 = 4;
+          do
+          {
+            v250 = vmul_f32(v250, vrecps_f32(v249, v250));
+            --v251;
+          }
+
+          while (v251);
+          v252 = vmlaq_n_f32(v386, vsubq_f32(v387, v386), vmul_f32(v248, vbsl_s8(vcgt_f32(vabs_f32(v249), 0x3400000034000000), v250, 0)).f32[0]);
+          v230 = 2;
+          v246 = v393;
+          v245 = v397;
+          v252.i64[1] = vextq_s8(v252, v252, 8uLL).u32[0];
+          v247 = &v387;
+          v231 = 1;
+          v139 = v252;
+        }
+
+        else
+        {
+          v227 = vmulq_f32(v214, v191);
+          v227.i64[0] = vpaddq_f32(v227, v227).u64[0];
+          v228 = vpadd_f32(*v227.f32, *v227.f32);
+          if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v211), vand_s8(vclez_f32(v226), vcgez_f32(v228))), 0), *v385.i8).u32[0] == -1)
+          {
+            v253 = vsub_f32(v228, v226);
+            v254 = vrecpe_f32(v253);
+            v255 = 4;
+            do
+            {
+              v254 = vmul_f32(v254, vrecps_f32(v253, v254));
+              --v255;
+            }
+
+            while (v255);
+            v231 = 0;
+            v139 = vmlaq_n_f32(v385, v191, vmul_f32(v228, vbsl_s8(vcgt_f32(vabs_f32(v253), 0x3400000034000000), v254, 0)).f32[0]);
+            v139.i64[1] = vextq_s8(v139, v139, 8uLL).u32[0];
+            v230 = 2;
+            v246 = v393;
+            v245 = v397;
+            v247 = &v387;
+          }
+
+          else
+          {
+            if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v228), vclez_f32(v217)), 0), *v385.i8).u32[0] == -1)
+            {
+              v231 = 0;
+              v230 = 1;
+            }
+
+            else
+            {
+              *v139.i8 = vdup_lane_s16(vand_s8(vcge_f32(v219, v222), vcgez_f32(v219)), 0);
+              *v139.i8 = vuzp1_s8(*v139.i8, *v139.i8);
+              v229 = v139.i32[0];
+              v230 = 1;
+              v139 = vbslq_s8(vdupq_lane_s32(*&vceqq_s32(v139, v320), 0), v386, v387);
+              if (v229 == -1)
+              {
+                v231 = 1;
+              }
+
+              else
+              {
+                v231 = 2;
+              }
+            }
+
+            v245 = &v396;
+            v246 = &v392;
+            v247 = &v386;
+          }
+        }
+
+        v150 = v339;
+      }
+
+      v256 = *(&v391 + v231);
+      v257 = *v247;
+      v258 = *v246;
+      v259 = *(&v395 + v231);
+      v260 = *v245;
+      v385 = *(&v385 + v231);
+      v386 = v257;
+      v391 = v256;
+      v392 = v258;
+      v395 = v259;
+      v396 = v260;
+      v361 = v230;
+    }
+
+    else
+    {
+      v150 = v339;
+      if (v181 != 1)
+      {
+        goto LABEL_74;
+      }
+
+      v139 = v385;
+      v182 = vsubq_f32(v386, v385);
+      v183 = vmulq_f32(v182, v182);
+      v183.i64[0] = vpaddq_f32(v183, v183).u64[0];
+      v184 = vpadd_f32(*v183.f32, *v183.f32);
+      if (vuzp1_s8(vdup_lane_s16(vcge_f32(0x3400000034000000, v184), 0), *v385.i8).u32[0] != -1)
+      {
+        v185 = vnegq_f32(v385);
+        v185.i32[3] = 0;
+        v186 = vmulq_f32(v185, v182);
+        v186.i64[0] = vpaddq_f32(v186, v186).u64[0];
+        v187 = vpadd_f32(*v186.f32, *v186.f32);
+        v188 = vrecpe_f32(v184);
+        v189 = 4;
+        do
+        {
+          v188 = vmul_f32(v188, vrecps_f32(v184, v188));
+          --v189;
+        }
+
+        while (v189);
+        v139 = vmlaq_n_f32(v385, v182, vmax_f32(vmin_f32(vmul_f32(v187, v188), _D9), 0).f32[0]);
+LABEL_55:
+        v139.i64[1] = vextq_s8(v139, v139, 8uLL).u32[0];
+        goto LABEL_74;
+      }
+
+      v361 = 1;
+    }
+
+LABEL_74:
+    v152 = vnegq_f32(v139);
+    v152.i32[3] = 0;
+    v261 = vmulq_f32(v139, v139);
+    v261.i64[0] = vpaddq_f32(v261, v261).u64[0];
+    v262 = vpadd_f32(*v261.f32, *v261.f32);
+    v263 = vcgt_f32(v147, v262);
+    v151 = vdupq_lane_s32(vand_s8(v263, 0x100000001), 0);
+    v148 = vdupq_lane_s32(vand_s8(vcgt_f32(v262, v144), v263), 0);
+    v147 = v262;
+  }
+
+  v264 = v348.i64[1];
+  v265 = vbslq_s8(vcltzq_s32(vshlq_n_s32(vandq_s8(vdupq_lane_s32(vcgt_f32(v147, v321), 0), v151), 0x1FuLL)), v152, v332);
+  v266 = vmulq_f32(v265, v265);
+  v266.i64[0] = vpaddq_f32(v266, v266).u64[0];
+  v267 = vpadd_f32(*v266.f32, *v266.f32);
+  v268 = vrsqrte_f32(v267);
+  v269 = 4;
+  do
+  {
+    v268 = vmul_f32(v268, vrsqrts_f32(vmul_f32(v268, v268), v267));
+    --v269;
+  }
+
+  while (v269);
+  v270 = vbsl_s8(vdup_lane_s32(vceqz_f32(v267), 0), v267, vmul_f32(v267, v268));
+  v271 = vrecpe_f32(v270);
+  v272 = 4;
+  v273 = v335;
+  do
+  {
+    v271 = vmul_f32(v271, vrecps_f32(v270, v271));
+    --v272;
+  }
+
+  while (v272);
+  v274 = vdupq_n_s32(-*(v348.i64[1] + 32));
+  v275 = vmulq_n_f32(v265, v271.f32[0]);
+  v275.i32[3] = 0;
+  v276 = vnegq_f32(vandq_s8(vdupq_lane_s32(vcgtz_f32(v270), 0), v275));
+  v276.i32[3] = 0;
+  v277 = vbslq_s8(vcltzq_s32(vshlq_n_s32(v151, 0x1FuLL)), v153, v150);
+  v359 = v277;
+  if (v361 == 3)
+  {
+    v358.i64[0] = 0;
+    v362 = 0;
+    v342 = v274;
+    v345 = v276;
+    physx::Gu::barycentricCoordinates(&v359, &v385, &v386, &v387, &v358, &v362);
+    v274 = v342;
+    v276 = v345;
+    v273 = v335;
+    v151.i32[1] = v391.i32[1];
+    v288 = vmulq_n_f32(vsubq_f32(v392, v391), v358.f32[0]);
+    v288.i32[3] = 0;
+    v289 = vmulq_n_f32(vsubq_f32(v393[0], v391), v362.f32[0]);
+    v289.i32[3] = 0;
+    v278 = vaddq_f32(v391, vaddq_f32(v288, v289));
+  }
+
+  else if (v361 == 2)
+  {
+    v280 = vsubq_f32(v385, v277);
+    v281 = vsubq_f32(vsubq_f32(v386, v277), v280);
+    v282 = vmulq_f32(v281, v281);
+    v282.i64[0] = vpaddq_f32(v282, v282).u64[0];
+    v283 = vpadd_f32(*v282.f32, *v282.f32);
+    v284 = vrecpe_f32(v283);
+    v285 = 4;
+    do
+    {
+      v284 = vmul_f32(v284, vrecps_f32(v283, v284));
+      --v285;
+    }
+
+    while (v285);
+    v286 = vnegq_f32(v280);
+    v286.i32[3] = 0;
+    v287 = vmulq_f32(v286, v281);
+    v287.i64[0] = vpaddq_f32(v287, v287).u64[0];
+    v278 = vmlaq_n_f32(v391, vsubq_f32(v392, v391), vmul_f32(vbsl_s8(vcgtz_f32(v283), v284, 0), vpadd_f32(*v287.f32, *v287.f32)).f32[0]);
+    v151.i32[1] = 0;
+    v278.i64[1] = vextq_s8(v278, v278, 8uLL).u32[0];
+  }
+
+  else
+  {
+    v278 = 0uLL;
+    if (v361 == 1)
+    {
+      v278 = v391;
+    }
+  }
+
+  v151.i32[0] = *(v264 + 16);
+  v290 = vmlsq_lane_f32(v278, v276, *v151.i8, 0);
+  v290.i64[1] = vextq_s8(v290, v290, 8uLL).u32[0];
+  v279 = vbslq_s8(v274, v290, v278);
+LABEL_89:
+  if (v155 == -1)
+  {
+    v273.i32[0] = 2139095039;
+  }
+
+  else
+  {
+    if (v273.f32[0] == 0.0)
+    {
+      *v279.i32 = (*(v348.i64[1] + 16) + v347[1].f32[0]) * 100.0;
+      v358.i8[0] = 0;
+      v394 = 0;
+      v391 = 0u;
+      v392 = 0u;
+      v393[0] = 0u;
+      v385.i64[1] = v348.i64[1];
+      v385.i64[0] = &unk_1F5D21CA8;
+      v386.i64[0] = v349;
+      v292 = v349[2];
+      v291 = v349[3];
+      v293 = v349[1];
+      v387 = *v349;
+      v390 = v291;
+      v294 = vzip1q_s32(v387, v292);
+      v295 = vzip2q_s32(v387, v292);
+      v296 = vzip1q_s32(v293, 0);
+      v387 = vzip1q_s32(v294, v296);
+      v388 = vzip2q_s32(v294, v296);
+      v389 = vzip1q_s32(v295, vzip2q_s32(v293, 0));
+      v395.i64[0] = &unk_1F5D21818;
+      v395.i64[1] = v347;
+      if (physx::Gu::gjkPenetration<physx::Gu::RelativeConvex<physx::Gu::CapsuleV>,physx::Gu::LocalConvex<physx::Gu::ConvexHullV>>(&v385, &v395, &v360, &v359, &v358, &v391, v357, vdup_lane_s32(*v279.i8, 0), *v295.i64, v388, *v387.f32, *v294.i8) != 5)
+      {
+        goto LABEL_93;
+      }
+
+      __asm { FMOV            V0.2S, #1.0 }
+
+      if (physx::Gu::epaPenetration(&v348) - 5 >= 2)
+      {
+        v298 = vnegq_f32(v334);
+        v298.i32[3] = 0;
+        v299 = vmulq_f32(v298, v298);
+        v299.i64[0] = vpaddq_f32(v299, v299).u64[0];
+        v300 = vpadd_f32(*v299.f32, *v299.f32);
+        v301 = vrsqrte_f32(v300);
+        v302 = 4;
+        do
+        {
+          v301 = vmul_f32(v301, vrsqrts_f32(vmul_f32(v301, v301), v300));
+          --v302;
+        }
+
+        while (v302);
+        v303 = vbsl_s8(vdup_lane_s32(vceqz_f32(v300), 0), v300, vmul_f32(v300, v301));
+        v304 = vrecpe_f32(v303);
+        v305 = 4;
+        do
+        {
+          v304 = vmul_f32(v304, vrecps_f32(v303, v304));
+          --v305;
+        }
+
+        while (v305);
+        v276 = vmulq_n_f32(v298, v304.f32[0]);
+        v276.i32[3] = 0;
+        v273 = 0;
+        v279 = 0uLL;
+      }
+
+      else
+      {
+LABEL_93:
+        v276 = v393[0];
+        v279 = v391;
+        v273 = vmin_f32(v394, 0);
+      }
+    }
+
+    v306 = vmulq_n_f32(v279, v326);
+    v306.i32[3] = 0;
+    v307 = vmls_f32(vmul_f32(v327, *&vextq_s8(v279, v279, 4uLL)), v322, *v279.i8);
+    *v308.f32 = vext_s8(v307, vmls_f32(vmul_f32(v323, *v279.i8), v327, *&vextq_s8(v279, v279, 8uLL)), 4uLL);
+    v308.i64[1] = v307.u32[0];
+    v309 = vmlaq_f32(v306, v328, v308);
+    v309.i64[1] = vextq_s8(v309, v309, 8uLL).u32[0];
+    v310 = vmulq_f32(v325, v279);
+    v310.i64[0] = vpaddq_f32(v310, v310).u64[0];
+    v311 = vmlaq_n_f32(v309, v325, vpadd_f32(*v310.f32, *v310.f32).f32[0]);
+    v311.i64[1] = vextq_s8(v311, v311, 8uLL).u32[0];
+    v308.i64[0] = 0x4000000040000000;
+    v308.i64[1] = 0x4000000040000000;
+    v312 = vmlaq_f32(v329, v308, v311);
+    v312.i64[1] = vextq_s8(v312, v312, 8uLL).u32[0];
+    v313 = vmlaq_n_f32(v312, v324, vmax_f32(v273, 0).f32[0]);
+    v314 = vmulq_n_f32(v276, v326);
+    v314.i32[3] = 0;
+    *v308.f32 = vmls_f32(vmul_f32(v327, *&vextq_s8(v276, v276, 4uLL)), v322, *v276.i8);
+    *v311.i8 = vext_s8(*v308.f32, vmls_f32(vmul_f32(v323, *v276.i8), v327, *&vextq_s8(v276, v276, 8uLL)), 4uLL);
+    v311.i64[1] = v308.u32[0];
+    v315 = vmlaq_f32(v314, v328, v311);
+    v315.i64[1] = vextq_s8(v315, v315, 8uLL).u32[0];
+    v316 = vmulq_f32(v325, v276);
+    v316.i64[0] = vpaddq_f32(v316, v316).u64[0];
+    v317 = vmlaq_n_f32(v315, v325, vpadd_f32(*v316.f32, *v316.f32).f32[0]);
+    v318 = vaddq_f32(v317, v317);
+    *a7 = v318.i64[0];
+    *(a7 + 8) = v318.i32[2];
+    *a8 = v313.i64[0];
+    *(a8 + 8) = v313.i32[2];
+  }
+
+  return v273.f32[0];
+}
+
+BOOL physx::Gu::SweepGeomGeom<physx::Gu::BoxV,physx::Gu::BoxV>(uint64_t *a1, uint64_t *a2, int8x8_t *a3, int8x16_t *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9, float32x4_t a10)
+{
+  v12 = *a1;
+  v13 = *a2;
+  v93 = 3;
+  v91[0] = 0;
+  v91[1] = 0;
+  a10.i64[0] = *(v12 + 4);
+  v14 = a10;
+  v14.i32[2] = *(v12 + 12);
+  v94 = 0;
+  v15 = vdup_laneq_s32(v14, 2);
+  v14.i32[3] = 0;
+  v95 = v14;
+  *a10.f32 = vpmin_f32(v15, *a10.f32);
+  a10.f32[0] = vpmin_f32(*a10.f32, *a10.f32).f32[0];
+  v91[2] = vmul_n_f32(0x3BA3D70A3C23D70ALL, a10.f32[0]);
+  v92 = 0.05 * a10.f32[0];
+  v86[0] = 0;
+  v86[1] = 0;
+  a10.i64[0] = *(v13 + 4);
+  v16 = a10;
+  v16.i32[2] = *(v13 + 12);
+  v88 = 3;
+  v17 = vdup_laneq_s32(v16, 2);
+  v16.i32[3] = 0;
+  v89 = 0;
+  v90 = v16;
+  v18 = vpmin_f32(v17, *a10.f32);
+  v18.f32[0] = vpmin_f32(v18, v18).f32[0];
+  v86[2] = vmul_n_f32(0x3BA3D70A3C23D70ALL, v18.f32[0]);
+  v87 = 0.05 * v18.f32[0];
+  *&a9 = *&a9 + 0.0;
+  v19.i64[0] = *(a5 + 16);
+  v19.i64[1] = *(a5 + 24);
+  v20 = *a4;
+  v21.i64[0] = *(a6 + 16);
+  v21.i64[1] = *(a6 + 24);
+  v22 = vnegq_f32(*a4);
+  v23 = v22;
+  v23.i32[3] = 0;
+  v24 = vsubq_f32(v19, v21);
+  v84 = vdupq_laneq_s32(*a4, 3);
+  LODWORD(v25) = vmla_f32(0xBF000000BF000000, *v84.f32, *v84.f32).u32[0];
+  v26 = vmulq_n_f32(v24, v25);
+  v26.i32[3] = 0;
+  v27 = vextq_s8(v23, v23, 8uLL).u64[0];
+  v28 = vext_s8(*v22.i8, v27, 4uLL);
+  v29 = vmls_f32(vmul_f32(*v22.i8, *&vextq_s8(v24, v24, 4uLL)), v28, *v24.i8);
+  *v30.f32 = vext_s8(v29, vmls_f32(vmul_f32(v27, *v24.i8), *v22.i8, *&vextq_s8(v24, v24, 8uLL)), 4uLL);
+  v30.i64[1] = v29.u32[0];
+  v31 = vmlaq_laneq_f32(v26, v30, *a4, 3);
+  v31.i64[1] = vextq_s8(v31, v31, 8uLL).u32[0];
+  v32 = vmulq_f32(v23, v24);
+  v32.i64[0] = vpaddq_f32(v32, v32).u64[0];
+  v33 = vmlaq_n_f32(v31, v23, vpadd_f32(*v32.f32, *v32.f32).f32[0]);
+  v34 = *a3->i8;
+  v34.i32[3] = 0;
+  v35 = vmulq_f32(v34, v23);
+  v35.i64[0] = vpaddq_f32(v35, v35).u64[0];
+  v36 = vmulq_laneq_f32(v34, *a4, 3);
+  v34.i64[0] = vextq_s8(v34, v34, 8uLL).u64[0];
+  v37 = vmls_f32(vmul_f32(vext_s8(*a3, *v34.i8, 4uLL), *v22.i8), v28, *a3);
+  *v14.f32 = vext_s8(v37, vmls_f32(vmul_f32(*a3, v27), *v22.i8, *v34.i8), 4uLL);
+  *&v14.u32[2] = v37;
+  v38 = vaddq_f32(vaddq_f32(vmulq_laneq_f32(v23, *a3->i8, 3), v36), v14);
+  *v22.i8 = vdup_lane_s32(*v38.f32, 1);
+  *v23.i8 = vdup_laneq_s32(v38, 2);
+  v39 = vaddq_f32(v38, v38);
+  *v34.i8 = vsub_f32(vmul_f32(*&vextq_s8(*a3->i8, *a3->i8, 8uLL), *&vextq_s8(v20, v20, 8uLL)), vpadd_f32(*v35.f32, *v35.f32));
+  v40 = vdup_laneq_s32(v39, 2);
+  v41 = vmul_f32(*v38.f32, *v39.f32);
+  v42 = vmul_lane_f32(*v22.i8, *v39.f32, 1);
+  v43 = vmul_laneq_f32(*v23.i8, v39, 2);
+  *v22.i8 = vmul_n_f32(*v22.i8, v39.f32[0]);
+  v44 = vmul_n_f32(*v23.i8, v39.f32[0]);
+  *v35.f32 = vmul_lane_f32(vdup_lane_s32(*v39.f32, 0), *v34.i8, 1);
+  *v23.i8 = vmul_lane_f32(*v23.i8, *v39.f32, 1);
+  *v39.f32 = vmul_lane_f32(vdup_lane_s32(*v39.f32, 1), *v34.i8, 1);
+  *v34.i8 = vmul_lane_f32(v40, *v34.i8, 1);
+  __asm { FMOV            V7.2S, #1.0 }
+
+  *v36.f32 = vext_s8(vsub_f32(vsub_f32(_D7, v42), v43), vadd_f32(*v22.i8, *v34.i8), 4uLL);
+  v36.i64[1] = vsub_f32(v44, *v39.f32).u32[0];
+  v112 = 0u;
+  v50 = vaddq_f32(v33, v33);
+  v50.i32[3] = 0;
+  v51 = vsub_f32(_D7, vdup_lane_s32(v41, 0));
+  *v34.i8 = vext_s8(vsub_f32(*v22.i8, *v34.i8), vsub_f32(v51, v43), 4uLL);
+  v34.i64[1] = vadd_f32(*v23.i8, *v35.f32).u32[0];
+  *v22.i8 = vext_s8(vadd_f32(v44, *v39.f32), vsub_f32(*v23.i8, *v35.f32), 4uLL);
+  v22.i64[1] = vsub_f32(v51, v42).u32[0];
+  *v23.i8 = a3[2];
+  v23.i64[1] = a3[3].u32[0];
+  v52.i64[0] = a4[1].i64[0];
+  v52.i64[1] = a4[1].u32[2];
+  v108 = v36;
+  v109 = v34;
+  v85 = v21;
+  v53 = v20;
+  v53.i32[3] = 0;
+  v80 = vsubq_f32(v23, v19);
+  v54 = vsubq_f32(vsubq_f32(v52, v21), v80);
+  v82 = v25;
+  v83 = *v20.i8;
+  v55 = vmulq_n_f32(v54, v25);
+  v55.i32[3] = 0;
+  v39.i64[0] = vextq_s8(v53, v53, 8uLL).u64[0];
+  v56 = vext_s8(*v20.i8, *v39.f32, 4uLL);
+  v79 = *v39.f32;
+  *v52.f32 = vmls_f32(vmul_f32(*v20.i8, *&vextq_s8(v54, v54, 4uLL)), v56, *v54.i8);
+  *v34.i8 = vext_s8(*v52.f32, vmls_f32(vmul_f32(*v39.f32, *v54.i8), *v20.i8, *&vextq_s8(v54, v54, 8uLL)), 4uLL);
+  v34.i64[1] = v52.u32[0];
+  v57 = vmlsq_laneq_f32(v55, v34, v20, 3);
+  v57.i64[1] = vextq_s8(v57, v57, 8uLL).u32[0];
+  v110 = v22;
+  v111 = v50;
+  v58 = vmulq_f32(v53, v54);
+  v58.i64[0] = vpaddq_f32(v58, v58).u64[0];
+  v81 = v53;
+  v59 = vmlaq_n_f32(v57, v53, vpadd_f32(*v58.f32, *v58.f32).f32[0]);
+  v60 = vaddq_f32(v59, v59);
+  v60.i32[3] = 0;
+  v107 = v60;
+  v106 = 0;
+  v104 = 0u;
+  v105 = 0u;
+  v103 = 0;
+  v97.i64[1] = v91;
+  v98 = &v108;
+  v102 = v50;
+  v61 = vzip1q_s32(v36, v22);
+  v62 = vzip1q_s32(v109, 0);
+  v99 = vzip1q_s32(v61, v62);
+  v100 = vzip2q_s32(v61, v62);
+  v101 = vzip1q_s32(vzip2q_s32(v36, v22), vzip2q_s32(v109, 0));
+  v96[1] = v86;
+  v97.i64[0] = &unk_1F5D21AE0;
+  v96[0] = &unk_1F5D21A80;
+  result = physx::Gu::gjkRaycastPenetration<physx::Gu::RelativeConvex<physx::Gu::BoxV>,physx::Gu::LocalConvex<physx::Gu::BoxV>>(&v97, v96, &v111, &v103, &v112, &v107, &v106, &v104, *&a9, &v105, 1);
+  if (result)
+  {
+    v64 = vmulq_n_f32(v105, v82);
+    v64.i32[3] = 0;
+    v65 = vextq_s8(v105, v105, 8uLL).u64[0];
+    v66 = vmls_f32(vmul_f32(v83, vext_s8(*v105.f32, v65, 4uLL)), v56, *v105.f32);
+    *v67.f32 = vext_s8(v66, vmls_f32(vmul_f32(v79, *v105.f32), v83, v65), 4uLL);
+    v67.i64[1] = v66.u32[0];
+    v68 = vmlaq_f32(v64, v84, v67);
+    v68.i64[1] = vextq_s8(v68, v68, 8uLL).u32[0];
+    v69 = vmulq_f32(v81, v105);
+    v69.i64[0] = vpaddq_f32(v69, v69).u64[0];
+    v70 = vmlaq_n_f32(v68, v81, vpadd_f32(*v69.f32, *v69.f32).f32[0]);
+    v70.i64[1] = vextq_s8(v70, v70, 8uLL).u32[0];
+    v69.i64[0] = 0x4000000040000000;
+    v69.i64[1] = 0x4000000040000000;
+    v71 = vmlaq_f32(v85, v69, v70);
+    v71.i64[1] = vextq_s8(v71, v71, 8uLL).u32[0];
+    v72 = vmlaq_n_f32(v71, v80, vmax_f32(v106, 0).f32[0]);
+    v73 = vmulq_n_f32(v104, v82);
+    v73.i32[3] = 0;
+    v67.i64[0] = vextq_s8(v104, v104, 8uLL).u64[0];
+    v74 = vmls_f32(vmul_f32(v83, vext_s8(*v104.f32, *v67.f32, 4uLL)), v56, *v104.f32);
+    *v67.f32 = vext_s8(v74, vmls_f32(vmul_f32(v79, *v104.f32), v83, *v67.f32), 4uLL);
+    v67.i64[1] = v74.u32[0];
+    v75 = vmlaq_f32(v73, v84, v67);
+    v75.i64[1] = vextq_s8(v75, v75, 8uLL).u32[0];
+    v76 = vmulq_f32(v81, v104);
+    v76.i64[0] = vpaddq_f32(v76, v76).u64[0];
+    v77 = vmlaq_n_f32(v75, v81, vpadd_f32(*v76.f32, *v76.f32).f32[0]);
+    v78 = vaddq_f32(v77, v77);
+    *a7 = v78.i64[0];
+    *(a7 + 8) = v78.i32[2];
+    *a8 = v72.i64[0];
+    *(a8 + 8) = v72.i32[2];
   }
 
   return result;
 }
 
-physx::PxRigidStatic *physx::NpPhysics::createRigidDynamic(uint64_t a1, float32x4_t *a2)
+BOOL physx::Gu::SweepGeomGeom<physx::Gu::BoxV,physx::Gu::ConvexHullV>(uint64_t *a1, uint64_t *a2, int8x8_t *a3, int8x16_t *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int8x8_t a9, int32x4_t a10)
 {
-  v2 = physx::NpFactory::mInstance;
-  _Q0 = *a2;
-  _Q1 = vmulq_f32(_Q0, _Q0);
-  _S2 = a2->i64[1];
-  __asm { FMLA            S1, S2, V0.S[2] }
-
-  _S2 = HIDWORD(*a2);
-  __asm { FMLA            S1, S2, V0.S[3] }
-
-  _Q1.f32[0] = sqrtf(_Q1.f32[0]);
-  v18 = vdivq_f32(*a2, vdupq_lane_s32(*_Q1.f32, 0));
-  v19 = a2[1].i64[0];
-  v20 = a2[1].i32[2];
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
+  v190 = *MEMORY[0x1E69E9840];
+  v12 = *a1;
+  v13 = *a2;
+  v157 = 3;
+  v158 = 0;
+  v155[0] = 0;
+  v155[1] = 0;
+  a10.i64[0] = *(v12 + 4);
+  v14 = a10;
+  v14.i32[2] = *(v12 + 12);
+  v15 = vdup_laneq_s32(v14, 2);
+  v14.i32[3] = 0;
+  v159 = v14;
+  *a10.i8 = vpmin_f32(v15, *a10.i8);
+  *a10.i32 = vpmin_f32(*a10.i8, *a10.i8).f32[0];
+  v155[2] = vmul_n_f32(0x3BA3D70A3C23D70ALL, *a10.i32);
+  v156 = 0.05 * *a10.i32;
+  v179 = 0;
+  v177 = 0u;
+  v178 = 0u;
+  v16 = *(v13 + 48);
+  v17 = *(v13 + 4);
+  v18 = v17;
+  v18.i32[3] = 0;
+  v19 = *(v13 + 16);
+  a10.i32[0] = HIDWORD(*(v13 + 4));
+  v20 = COERCE_FLOAT(*(v13 + 12)) == 1.0;
+  if (v17.f32[0] != 1.0 || *a10.i32 != 1.0)
   {
-    pthread_mutex_lock(*(physx::NpFactory::mInstance + 1688));
+    v20 = 0;
   }
 
-  v11 = *(v2 + 1680);
-  if (!v11)
+  v22 = *(v16 + 40) + 20 * *(v16 + 39);
+  v186 = v16;
+  v188 = v22;
+  v23.i64[0] = *(v16 + 60);
+  v23.i64[1] = *(v16 + 68);
+  v24 = vmulq_f32(v18, v23);
+  v189 = *(v16 + 38);
+  *v24.i8 = vpmin_f32(vdup_laneq_s32(v24, 2), *v24.i8);
+  *v24.i32 = vpmin_f32(*v24.i8, *v24.i8).f32[0];
+  *&v178 = vmul_n_f32(0x3D4CCCCD3DCCCCCDLL, *v24.i32);
+  *(&v178 + 2) = 0.025 * *v24.i32;
+  __asm { FMOV            V1.2S, #1.0 }
+
+  if (v20)
   {
-    v12 = physx::shdfnd::ReflectionAllocator<physx::NpRigidDynamic>::allocate(*(v2 + 1672), "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsPool.h", 180);
-    v13 = v12;
-    v21 = v12;
-    v14 = *(v2 + 1656);
-    if ((*(v2 + 1660) & 0x7FFFFFFFu) <= v14)
+    v180 = xmmword_1E3047670;
+    v181 = xmmword_1E3047680;
+    v182 = xmmword_1E30476A0;
+    v183 = xmmword_1E3047670;
+    v184 = xmmword_1E3047680;
+    v185 = xmmword_1E30476A0;
+  }
+
+  else
+  {
+    v29 = vrecpeq_f32(v18);
+    v30 = 4;
+    do
     {
-      physx::shdfnd::Array<void *,physx::shdfnd::InlineAllocator<512u,physx::shdfnd::ReflectionAllocator<physx::NpRigidDynamic>>>::growAndPushBack(v2 + 1128, &v21);
+      v29 = vmulq_f32(v29, vrecpsq_f32(v29, v18));
+      --v30;
+    }
+
+    while (v30);
+    *v31.f32 = vdup_lane_s32(*v17.f32, 0);
+    v31.i64[1] = v31.u32[0];
+    if ((~vuzp1_s8(vmovn_s32(vceqq_f32(v31, v18)), a9).u32[0] & 0xFFFFFF) != 0)
+    {
+      v38 = vdup_lane_s32(*v19.f32, 1);
+      v39 = vdup_laneq_s32(v19, 2);
+      v40 = vdup_laneq_s32(v19, 3);
+      v41 = vaddq_f32(v19, v19);
+      v42 = vmul_lane_f32(v38, *v41.f32, 1);
+      v43 = vmul_laneq_f32(v39, v41, 2);
+      v44 = vmul_n_f32(v38, v41.f32[0]);
+      v45 = vmul_n_f32(v39, v41.f32[0]);
+      v46 = vmul_n_f32(v40, v41.f32[0]);
+      v47 = vmul_lane_f32(v39, *v41.f32, 1);
+      v48 = vmul_lane_f32(v40, *v41.f32, 1);
+      v49 = vmul_laneq_f32(v40, v41, 2);
+      v50 = vsub_f32(_D1, vdup_lane_s32(vmul_f32(*v19.f32, *v41.f32), 0));
+      v51 = vsub_f32(vsub_f32(_D1, v42), v43);
+      *v41.f32 = vadd_f32(v44, v49);
+      v52 = vsub_f32(v45, v48);
+      v53 = vsub_f32(v44, v49);
+      v54 = vadd_f32(v45, v48);
+      v55 = vsub_f32(v47, v46);
+      v56 = vext_s8(v54, v55, 4uLL);
+      v57 = vsub_f32(v50, v43);
+      *v58.f32 = vext_s8(v51, *&vdupq_lane_s32(v53, 1), 4uLL);
+      v58.i64[1] = vdup_lane_s32(v56, 0).u32[0];
+      v59 = vsub_f32(v50, v42);
+      *v60.f32 = vext_s8(*&vdupq_lane_s32(*v41.f32, 0), v57, 4uLL);
+      v60.i64[1] = vdup_lane_s32(v56, 1).u32[0];
+      v61 = vadd_f32(v47, v46);
+      *v62.f32 = vext_s8(*&vdupq_lane_s32(v52, 0), v61, 4uLL);
+      v62.i64[1] = vdup_lane_s32(v59, 0).u32[0];
+      v63 = vmulq_n_f32(v58, v17.f32[0]);
+      v63.i32[3] = 0;
+      v64 = vmulq_lane_f32(v60, *v17.f32, 1);
+      v64.i32[3] = 0;
+      v65 = vmulq_laneq_f32(v62, v17, 2);
+      v65.i32[3] = 0;
+      v66 = vmulq_lane_f32(v63, v51, 1);
+      v66.i32[3] = 0;
+      v67 = vmulq_n_f32(v64, v41.f32[0]);
+      v67.i32[3] = 0;
+      v68 = vmulq_n_f32(v65, *v52.i32);
+      v68.i32[3] = 0;
+      v32 = vaddq_f32(v68, vaddq_f32(v66, v67));
+      v69 = vmulq_lane_f32(v63, v53, 1);
+      v69.i32[3] = 0;
+      v70 = vmulq_n_f32(v64, *v57.i32);
+      v70.i32[3] = 0;
+      v71 = vmulq_n_f32(v65, *v61.i32);
+      v71.i32[3] = 0;
+      v33 = vaddq_f32(v71, vaddq_f32(v69, v70));
+      v72 = vmulq_lane_f32(v63, v54, 1);
+      v72.i32[3] = 0;
+      v73 = vmulq_n_f32(v64, *v55.i32);
+      v73.i32[3] = 0;
+      v74 = vmulq_n_f32(v65, *v59.i32);
+      v74.i32[3] = 0;
+      v34 = vaddq_f32(v74, vaddq_f32(v72, v73));
+      v180 = v32;
+      v181 = v33;
+      v75 = vmulq_n_f32(v58, v29.f32[0]);
+      v75.i32[3] = 0;
+      v76 = vmulq_lane_f32(v60, *v29.f32, 1);
+      v76.i32[3] = 0;
+      v77 = vmulq_laneq_f32(v62, v29, 2);
+      v77.i32[3] = 0;
+      v78 = vmulq_lane_f32(v75, v51, 1);
+      v78.i32[3] = 0;
+      v79 = vmulq_n_f32(v76, v41.f32[0]);
+      v79.i32[3] = 0;
+      v80 = vmulq_n_f32(v77, *v52.i32);
+      v80.i32[3] = 0;
+      v81 = vaddq_f32(v80, vaddq_f32(v78, v79));
+      v82 = vmulq_lane_f32(v75, v53, 1);
+      v82.i32[3] = 0;
+      v83 = vmulq_n_f32(v76, *v57.i32);
+      v83.i32[3] = 0;
+      v84 = vmulq_n_f32(v77, *v61.i32);
+      v84.i32[3] = 0;
+      v85 = vmulq_lane_f32(v75, v54, 1);
+      v85.i32[3] = 0;
+      v86 = vmulq_n_f32(v76, *v55.i32);
+      v86.i32[3] = 0;
+      v87 = vmulq_n_f32(v77, *v59.i32);
+      v87.i32[3] = 0;
+      v37 = vaddq_f32(v87, vaddq_f32(v85, v86));
+      v182 = v34;
+      v183 = v81;
+      v184 = vaddq_f32(v84, vaddq_f32(v82, v83));
     }
 
     else
     {
-      *(*(v2 + 1648) + 8 * v14) = v12;
-      *(v2 + 1656) = v14 + 1;
+      v29.i32[3] = 0;
+      v32 = vmulq_f32(v18, xmmword_1E3047670);
+      v33 = vmulq_f32(v18, xmmword_1E3047680);
+      v34 = vmulq_f32(v18, xmmword_1E30476A0);
+      v180 = v32;
+      v181 = v33;
+      v35 = vmulq_f32(v29, xmmword_1E3047670);
+      v36 = vmulq_f32(v29, xmmword_1E3047680);
+      v37 = vmulq_f32(v29, xmmword_1E30476A0);
+      v182 = v34;
+      v183 = v35;
+      v184 = v36;
     }
 
-    v15 = (v13 + 384 * *(v2 + 1664) - 384);
-    v11 = *(v2 + 1680);
-    if (v15 >= v13)
-    {
-      do
-      {
-        *v15 = v11;
-        v16 = v15 - 48;
-        v11 = v15;
-        v15 = v16;
-      }
-
-      while (v16 >= v13);
-      v11 = (v16 + 48);
-    }
+    v88 = vmulq_f32(v32, 0);
+    v88.i32[3] = 0;
+    v89 = vmulq_f32(v33, 0);
+    v89.i32[3] = 0;
+    v90 = vmulq_f32(v34, 0);
+    v90.i32[3] = 0;
+    v185 = v37;
+    v177 = vaddq_f32(v90, vaddq_f32(v89, v88));
   }
 
-  *(v2 + 1680) = *v11;
-  ++*(v2 + 1668);
-  physx::NpRigidDynamic::NpRigidDynamic(v11, &v18);
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
+  v187 = *(v16 + 48);
+  *a9.i32 = *a9.i32 + 0.0;
+  v91.i64[0] = *(a5 + 16);
+  v91.i64[1] = *(a5 + 24);
+  v92 = *a4;
+  v93.i64[0] = *(a6 + 16);
+  v93.i64[1] = *(a6 + 24);
+  v94 = vnegq_f32(*a4);
+  v95 = v94;
+  v95.i32[3] = 0;
+  v96 = vsubq_f32(v91, v93);
+  v153 = vdupq_laneq_s32(*a4, 3);
+  LODWORD(v97) = vmla_f32(0xBF000000BF000000, *v153.f32, *v153.f32).u32[0];
+  v98 = vmulq_n_f32(v96, v97);
+  v98.i32[3] = 0;
+  v99 = vextq_s8(v95, v95, 8uLL).u64[0];
+  v100 = vext_s8(*v94.f32, v99, 4uLL);
+  v101 = vmls_f32(vmul_f32(*v94.f32, *&vextq_s8(v96, v96, 4uLL)), v100, *v96.i8);
+  *v102.f32 = vext_s8(v101, vmls_f32(vmul_f32(v99, *v96.i8), *v94.f32, *&vextq_s8(v96, v96, 8uLL)), 4uLL);
+  v102.i64[1] = v101.u32[0];
+  v103 = vmlaq_laneq_f32(v98, v102, *a4, 3);
+  v103.i64[1] = vextq_s8(v103, v103, 8uLL).u32[0];
+  v104 = vmulq_f32(v95, v96);
+  v104.i64[0] = vpaddq_f32(v104, v104).u64[0];
+  v105 = vmlaq_n_f32(v103, v95, vpadd_f32(*v104.f32, *v104.f32).f32[0]);
+  v106 = *a3->i8;
+  v106.i32[3] = 0;
+  v107 = vmulq_f32(v106, v95);
+  v107.i64[0] = vpaddq_f32(v107, v107).u64[0];
+  v108 = vmulq_laneq_f32(v106, *a4, 3);
+  v106.i64[0] = vextq_s8(v106, v106, 8uLL).u64[0];
+  v109 = vmls_f32(vmul_f32(vext_s8(*a3, *v106.i8, 4uLL), *v94.f32), v100, *a3);
+  *v94.f32 = vext_s8(v109, vmls_f32(vmul_f32(*a3, v99), *v94.f32, *v106.i8), 4uLL);
+  *&v94.u32[2] = v109;
+  v110 = vaddq_f32(vaddq_f32(vmulq_laneq_f32(v95, *a3->i8, 3), v108), v94);
+  v111 = vdup_lane_s32(*v110.f32, 1);
+  *v95.i8 = vsub_f32(vmul_f32(*&vextq_s8(*a3->i8, *a3->i8, 8uLL), *&vextq_s8(v92, v92, 8uLL)), vpadd_f32(*v107.f32, *v107.f32));
+  *v106.i8 = vdup_laneq_s32(v110, 2);
+  v112 = vaddq_f32(v110, v110);
+  v113 = vdup_laneq_s32(v112, 2);
+  *v108.f32 = vmul_f32(*v110.f32, *v112.f32);
+  v114 = vmul_lane_f32(v111, *v112.f32, 1);
+  v115 = vmul_laneq_f32(*v106.i8, v112, 2);
+  v116 = vmul_n_f32(v111, v112.f32[0]);
+  v117 = vmul_n_f32(*v106.i8, v112.f32[0]);
+  *v102.f32 = vmul_lane_f32(vdup_lane_s32(*v112.f32, 0), *v95.i8, 1);
+  *v106.i8 = vmul_lane_f32(*v106.i8, *v112.f32, 1);
+  *v112.f32 = vmul_lane_f32(vdup_lane_s32(*v112.f32, 1), *v95.i8, 1);
+  *v95.i8 = vmul_lane_f32(v113, *v95.i8, 1);
+  *v107.f32 = vext_s8(vsub_f32(vsub_f32(_D1, v114), v115), vadd_f32(v116, *v95.i8), 4uLL);
+  v107.i64[1] = vsub_f32(v117, *v112.f32).u32[0];
+  v176 = 0u;
+  v118 = vaddq_f32(v105, v105);
+  v118.i32[3] = 0;
+  v119 = vsub_f32(_D1, vdup_lane_s32(*v108.f32, 0));
+  *v120.i8 = vext_s8(vsub_f32(v116, *v95.i8), vsub_f32(v119, v115), 4uLL);
+  v120.i64[1] = vadd_f32(*v106.i8, *v102.f32).u32[0];
+  *v95.i8 = vadd_f32(v117, *v112.f32);
+  v112.i32[0] = vsub_f32(v119, v114).u32[0];
+  *v121.i8 = vext_s8(*v95.i8, vsub_f32(*v106.i8, *v102.f32), 4uLL);
+  v121.i64[1] = v112.u32[0];
+  *v95.i8 = a3[2];
+  v95.i64[1] = a3[3].u32[0];
+  v106.i64[0] = a4[1].i64[0];
+  v106.i64[1] = a4[1].u32[2];
+  v172 = v107;
+  v173 = v120;
+  v154 = v93;
+  v122 = v92;
+  v122.i32[3] = 0;
+  v149 = vsubq_f32(v95, v91);
+  v123 = vsubq_f32(vsubq_f32(v106, v93), v149);
+  v151 = v97;
+  v152 = *v92.i8;
+  v124 = vmulq_n_f32(v123, v97);
+  v124.i32[3] = 0;
+  v112.i64[0] = vextq_s8(v122, v122, 8uLL).u64[0];
+  v125 = vext_s8(*v92.i8, *v112.f32, 4uLL);
+  v148 = *v112.f32;
+  *v106.i8 = vmls_f32(vmul_f32(*v92.i8, *&vextq_s8(v123, v123, 4uLL)), v125, *v123.i8);
+  *v95.i8 = vext_s8(*v106.i8, vmls_f32(vmul_f32(*v112.f32, *v123.i8), *v92.i8, *&vextq_s8(v123, v123, 8uLL)), 4uLL);
+  v95.i64[1] = v106.u32[0];
+  v126 = vmlsq_laneq_f32(v124, v95, v92, 3);
+  v126.i64[1] = vextq_s8(v126, v126, 8uLL).u32[0];
+  v174 = v121;
+  v175 = v118;
+  v127 = vmulq_f32(v122, v123);
+  v127.i64[0] = vpaddq_f32(v127, v127).u64[0];
+  v150 = v122;
+  v128 = vmlaq_n_f32(v126, v122, vpadd_f32(*v127.f32, *v127.f32).f32[0]);
+  v129 = vaddq_f32(v128, v128);
+  v129.i32[3] = 0;
+  v171 = v129;
+  v170 = 0;
+  v168 = 0u;
+  v169 = 0u;
+  v167 = 0;
+  v161.i64[1] = v155;
+  v162 = &v172;
+  v166 = v118;
+  v130 = vzip1q_s32(v107, v174);
+  v131 = vzip1q_s32(v173, 0);
+  v163 = vzip1q_s32(v130, v131);
+  v164 = vzip2q_s32(v130, v131);
+  v165 = vzip1q_s32(vzip2q_s32(v107, v174), vzip2q_s32(v173, 0));
+  v160[1] = &v177;
+  v161.i64[0] = &unk_1F5D21AE0;
+  v160[0] = &unk_1F5D21818;
+  result = physx::Gu::gjkRaycastPenetration<physx::Gu::RelativeConvex<physx::Gu::BoxV>,physx::Gu::LocalConvex<physx::Gu::ConvexHullV>>(&v161, v160, &v175, &v167, &v176, &v171, &v170, &v168, a9, &v169, 1);
+  if (result)
   {
-    pthread_mutex_unlock(*(v2 + 1688));
+    v133 = vmulq_n_f32(v169, v151);
+    v133.i32[3] = 0;
+    v134 = vextq_s8(v169, v169, 8uLL).u64[0];
+    v135 = vmls_f32(vmul_f32(v152, vext_s8(*v169.f32, v134, 4uLL)), v125, *v169.f32);
+    *v136.f32 = vext_s8(v135, vmls_f32(vmul_f32(v148, *v169.f32), v152, v134), 4uLL);
+    v136.i64[1] = v135.u32[0];
+    v137 = vmlaq_f32(v133, v153, v136);
+    v137.i64[1] = vextq_s8(v137, v137, 8uLL).u32[0];
+    v138 = vmulq_f32(v150, v169);
+    v138.i64[0] = vpaddq_f32(v138, v138).u64[0];
+    v139 = vmlaq_n_f32(v137, v150, vpadd_f32(*v138.f32, *v138.f32).f32[0]);
+    v139.i64[1] = vextq_s8(v139, v139, 8uLL).u32[0];
+    v138.i64[0] = 0x4000000040000000;
+    v138.i64[1] = 0x4000000040000000;
+    v140 = vmlaq_f32(v154, v138, v139);
+    v140.i64[1] = vextq_s8(v140, v140, 8uLL).u32[0];
+    v141 = vmlaq_n_f32(v140, v149, vmax_f32(v170, 0).f32[0]);
+    v142 = vmulq_n_f32(v168, v151);
+    v142.i32[3] = 0;
+    v136.i64[0] = vextq_s8(v168, v168, 8uLL).u64[0];
+    v143 = vmls_f32(vmul_f32(v152, vext_s8(*v168.f32, *v136.f32, 4uLL)), v125, *v168.f32);
+    *v136.f32 = vext_s8(v143, vmls_f32(vmul_f32(v148, *v168.f32), v152, *v136.f32), 4uLL);
+    v136.i64[1] = v143.u32[0];
+    v144 = vmlaq_f32(v142, v153, v136);
+    v144.i64[1] = vextq_s8(v144, v144, 8uLL).u32[0];
+    v145 = vmulq_f32(v150, v168);
+    v145.i64[0] = vpaddq_f32(v145, v145).u64[0];
+    v146 = vmlaq_n_f32(v144, v150, vpadd_f32(*v145.f32, *v145.f32).f32[0]);
+    v147 = vaddq_f32(v146, v146);
+    *a7 = v147.i64[0];
+    *(a7 + 8) = v147.i32[2];
+    *a8 = v141.i64[0];
+    *(a8 + 8) = v141.i32[2];
   }
 
-  physx::NpFactory::addRigidStatic(v2, v11, 1);
-  return v11;
+  return result;
 }
 
-uint64_t physx::NpPhysics::createConstraint(uint64_t a1, unsigned __int16 *a2, unsigned __int16 *a3, uint64_t a4, int8x16_t *a5, int a6)
+BOOL physx::Gu::SweepGeomGeom<physx::Gu::ConvexHullV,physx::Gu::ConvexHullV>(uint64_t *a1, uint64_t *a2, int8x8_t *a3, int8x16_t *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int8x8_t a9)
 {
-  v11 = physx::NpFactory::mInstance;
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_lock(*(physx::NpFactory::mInstance + 3992));
-  }
-
-  v12 = *(v11 + 3984);
-  if (!v12)
-  {
-    v13 = physx::shdfnd::ReflectionAllocator<physx::NpConstraint>::allocate(*(v11 + 3976), "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsPool.h", 180);
-    v14 = v13;
-    v24 = v13;
-    v15 = *(v11 + 3960);
-    if ((*(v11 + 3964) & 0x7FFFFFFFu) <= v15)
-    {
-      physx::shdfnd::Array<void *,physx::shdfnd::InlineAllocator<512u,physx::shdfnd::ReflectionAllocator<physx::NpConstraint>>>::growAndPushBack(v11 + 3432, &v24);
-    }
-
-    else
-    {
-      *(*(v11 + 3952) + 8 * v15) = v13;
-      *(v11 + 3960) = v15 + 1;
-    }
-
-    v16 = v14 + 184 * *(v11 + 3968) - 184;
-    v12 = *(v11 + 3984);
-    if (v16 >= v14)
-    {
-      v17 = (v14 + 184 * *(v11 + 3968) - 184);
-      do
-      {
-        *v17 = v12;
-        v17 -= 23;
-        v12 = v16;
-        v16 = v17;
-      }
-
-      while (v17 >= v14);
-      v12 = (v17 + 23);
-    }
-  }
-
-  *(v11 + 3984) = *v12;
-  ++*(v11 + 3972);
-  *(v12 + 8) = 65545;
-  *v12 = &unk_1F5D24F20;
-  *(v12 + 16) = a2;
-  *(v12 + 24) = a3;
-  *(v12 + 32) = 0;
-  *(v12 + 56) = 32;
-  *(v12 + 48) = 0;
-  *(v12 + 68) = 0;
-  *(v12 + 76) = 0;
-  *(v12 + 60) = 0;
-  *(v12 + 88) = a4;
-  *(v12 + 96) = vextq_s8(*a5, *a5, 8uLL);
-  *(v12 + 112) = a5[1].i64[0];
-  *(v12 + 120) = a6;
-  *(v12 + 124) = vneg_f32(0x80000000800000);
-  *(v12 + 132) = 0u;
-  *(v12 + 148) = 0u;
-  *(v12 + 162) = 0;
-  *(v12 + 40) = 100663296;
-  *(v12 + 176) = 1;
-  LOWORD(v24) = a5[1].i32[2];
-  physx::Sc::ConstraintCore::setFlags((v12 + 56), &v24);
-  if (a2)
-  {
-    physx::NpActor::addConnector(a2 + *(&physx::NpActor::sLazyInitOffsets + a2[4]), 0, v12);
-  }
-
-  if (a3)
-  {
-    physx::NpActor::addConnector(a3 + *(&physx::NpActor::sLazyInitOffsets + a3[4]), 0, v12);
-  }
-
-  if (!a2 || ((*(*a2 + 104))(&v24, a2), (v24 & 8) != 0))
+  v266 = *MEMORY[0x1E69E9840];
+  v11 = *a1;
+  v12 = *a2;
+  v255 = 0;
+  v253 = 0u;
+  v254 = 0u;
+  v13 = *(v11 + 48);
+  v14 = *(v11 + 4);
+  v15 = v14;
+  v15.i32[3] = 0;
+  v16 = *(v11 + 16);
+  LODWORD(v17) = HIDWORD(*(v11 + 4));
+  v18 = COERCE_FLOAT(*(v11 + 12)) == 1.0;
+  if (v14.f32[0] != 1.0 || v17 != 1.0)
   {
     v18 = 0;
-    if (!a3)
-    {
-      goto LABEL_24;
-    }
   }
 
-  else
-  {
-    v18 = (*(*a2 + 56))(a2);
-    if (!a3)
-    {
-      goto LABEL_24;
-    }
-  }
+  v20 = *(v13 + 40) + 20 * *(v13 + 39);
+  v262 = v13;
+  v264 = v20;
+  v21.i64[0] = *(v13 + 60);
+  v21.i64[1] = *(v13 + 68);
+  v22 = vmulq_f32(v15, v21);
+  v265 = *(v13 + 38);
+  *v22.i8 = vpmin_f32(vdup_laneq_s32(v22, 2), *v22.i8);
+  *v22.i32 = vpmin_f32(*v22.i8, *v22.i8).f32[0];
+  *&v254 = vmul_n_f32(0x3D4CCCCD3DCCCCCDLL, *v22.i32);
+  *(&v254 + 2) = 0.025 * *v22.i32;
+  __asm { FMOV            V1.2S, #1.0 }
 
-  (*(*a3 + 104))(&v24, a3);
-  if ((v24 & 8) == 0)
-  {
-    v19 = (*(*a3 + 56))(a3);
-    if (a2)
-    {
-      goto LABEL_25;
-    }
-
-    goto LABEL_26;
-  }
-
-LABEL_24:
-  v19 = 0;
-  if (a2)
-  {
-LABEL_25:
-    if (!v18)
-    {
-      goto LABEL_38;
-    }
-  }
-
-LABEL_26:
   if (v18)
   {
-    v20 = v18;
+    v256 = xmmword_1E3047670;
+    v257 = xmmword_1E3047680;
+    v258 = xmmword_1E30476A0;
+    v259 = xmmword_1E3047670;
+    v260 = xmmword_1E3047680;
+    v261 = xmmword_1E30476A0;
   }
 
   else
   {
-    v20 = v19;
-  }
-
-  if (v19)
-  {
-    v21 = 1;
-  }
-
-  else
-  {
-    v21 = a3 == 0;
-  }
-
-  if (v21 && v20)
-  {
-    v24 = v12;
-    v25 = 0;
-    v22 = physx::shdfnd::internal::HashBase<physx::PxConstraint *,physx::PxConstraint *,physx::shdfnd::Hash<physx::PxConstraint *>,physx::shdfnd::internal::HashSetBase<physx::PxConstraint *,physx::shdfnd::Hash<physx::PxConstraint *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::create(v20 + 1136, &v24, &v25);
-    if ((v25 & 1) == 0)
+    v27 = vrecpeq_f32(v15);
+    v28 = 4;
+    do
     {
-      *v22 = v24;
+      v27 = vmulq_f32(v27, vrecpsq_f32(v27, v15));
+      --v28;
     }
 
-    physx::Scb::Scene::add<physx::Scb::Constraint>(v20 + 2, v12 + 32, v20 + 996);
-  }
-
-LABEL_38:
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_unlock(*(v11 + 3992));
-  }
-
-  physx::NpFactory::addConstraint(v11, v12, 1);
-  return v12;
-}
-
-void *physx::NpPhysics::createArticulation(physx::NpPhysics *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  {
-    v8 = physx::NpFactory::mInstance;
-    if (Articulation)
+    while (v28);
+    *v29.f32 = vdup_lane_s32(*v14.f32, 0);
+    v29.i64[1] = v29.u32[0];
+    if ((~vuzp1_s8(vmovn_s32(vceqq_f32(v29, v15)), a9).u32[0] & 0xFFFFFF) != 0)
     {
-      physx::NpFactory::addArticulation(v8, Articulation, 1);
-    }
-  }
-
-  else
-  {
-    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpFactory.cpp", 263, "Articulations not registered: returned NULL.", a6, a7, a8, v11);
-    return 0;
-  }
-
-  return Articulation;
-}
-
-void *physx::NpPhysics::createArticulationReducedCoordinate(physx::NpPhysics *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  {
-    v8 = physx::NpFactory::mInstance;
-    if (ArticulationRC)
-    {
-      physx::NpFactory::addArticulation(v8, ArticulationRC, 1);
-    }
-  }
-
-  else
-  {
-    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpFactory.cpp", 279, "Articulations not registered: returned NULL.", a6, a7, a8, v11);
-    return 0;
-  }
-
-  return ArticulationRC;
-}
-
-physx::NpAggregate *physx::NpPhysics::createAggregate(physx::NpPhysics *this, unsigned int a2, char a3)
-{
-  v5 = physx::NpFactory::mInstance;
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_lock(*(physx::NpFactory::mInstance + 3416));
-  }
-
-  v6 = *(v5 + 3408);
-  if (!v6)
-  {
-    v7 = physx::shdfnd::ReflectionAllocator<physx::NpAggregate>::allocate(*(v5 + 3400), "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsPool.h", 180);
-    v8 = v7;
-    v13 = v7;
-    v9 = *(v5 + 3384);
-    if ((*(v5 + 3388) & 0x7FFFFFFFu) <= v9)
-    {
-      physx::shdfnd::Array<void *,physx::shdfnd::InlineAllocator<512u,physx::shdfnd::ReflectionAllocator<physx::NpAggregate>>>::growAndPushBack(v5 + 2856, &v13);
+      v36 = vdup_lane_s32(*v16.f32, 1);
+      v37 = vdup_laneq_s32(v16, 2);
+      v38 = vdup_laneq_s32(v16, 3);
+      v39 = vaddq_f32(v16, v16);
+      v40 = vmul_lane_f32(v36, *v39.f32, 1);
+      v41 = vmul_laneq_f32(v37, v39, 2);
+      v42 = vmul_n_f32(v36, v39.f32[0]);
+      v43 = vmul_n_f32(v37, v39.f32[0]);
+      v44 = vmul_n_f32(v38, v39.f32[0]);
+      v45 = vmul_lane_f32(v37, *v39.f32, 1);
+      v46 = vmul_lane_f32(v38, *v39.f32, 1);
+      v47 = vmul_laneq_f32(v38, v39, 2);
+      v48 = vsub_f32(_D1, vdup_lane_s32(vmul_f32(*v16.f32, *v39.f32), 0));
+      v49 = vsub_f32(vsub_f32(_D1, v40), v41);
+      *v39.f32 = vadd_f32(v42, v47);
+      v50 = vsub_f32(v43, v46);
+      v51 = vsub_f32(v42, v47);
+      v52 = vadd_f32(v43, v46);
+      v53 = vsub_f32(v45, v44);
+      v54 = vext_s8(v52, v53, 4uLL);
+      v55 = vsub_f32(v48, v41);
+      *v56.f32 = vext_s8(v49, *&vdupq_lane_s32(v51, 1), 4uLL);
+      v56.i64[1] = vdup_lane_s32(v54, 0).u32[0];
+      v57 = vsub_f32(v48, v40);
+      *v58.f32 = vext_s8(*&vdupq_lane_s32(*v39.f32, 0), v55, 4uLL);
+      v58.i64[1] = vdup_lane_s32(v54, 1).u32[0];
+      v59 = vadd_f32(v45, v44);
+      *v60.f32 = vext_s8(*&vdupq_lane_s32(v50, 0), v59, 4uLL);
+      v60.i64[1] = vdup_lane_s32(v57, 0).u32[0];
+      v61 = vmulq_n_f32(v56, v14.f32[0]);
+      v61.i32[3] = 0;
+      v62 = vmulq_lane_f32(v58, *v14.f32, 1);
+      v62.i32[3] = 0;
+      v63 = vmulq_laneq_f32(v60, v14, 2);
+      v63.i32[3] = 0;
+      v64 = vmulq_lane_f32(v61, v49, 1);
+      v64.i32[3] = 0;
+      v65 = vmulq_n_f32(v62, v39.f32[0]);
+      v65.i32[3] = 0;
+      v66 = vmulq_n_f32(v63, *v50.i32);
+      v66.i32[3] = 0;
+      v30 = vaddq_f32(v66, vaddq_f32(v64, v65));
+      v67 = vmulq_lane_f32(v61, v51, 1);
+      v67.i32[3] = 0;
+      v68 = vmulq_n_f32(v62, *v55.i32);
+      v68.i32[3] = 0;
+      v69 = vmulq_n_f32(v63, *v59.i32);
+      v69.i32[3] = 0;
+      v31 = vaddq_f32(v69, vaddq_f32(v67, v68));
+      v70 = vmulq_lane_f32(v61, v52, 1);
+      v70.i32[3] = 0;
+      v71 = vmulq_n_f32(v62, *v53.i32);
+      v71.i32[3] = 0;
+      v72 = vmulq_n_f32(v63, *v57.i32);
+      v72.i32[3] = 0;
+      v32 = vaddq_f32(v72, vaddq_f32(v70, v71));
+      v256 = v30;
+      v257 = v31;
+      v73 = vmulq_n_f32(v56, v27.f32[0]);
+      v73.i32[3] = 0;
+      v74 = vmulq_lane_f32(v58, *v27.f32, 1);
+      v74.i32[3] = 0;
+      v75 = vmulq_laneq_f32(v60, v27, 2);
+      v75.i32[3] = 0;
+      v76 = vmulq_lane_f32(v73, v49, 1);
+      v76.i32[3] = 0;
+      v77 = vmulq_n_f32(v74, v39.f32[0]);
+      v77.i32[3] = 0;
+      v78 = vmulq_n_f32(v75, *v50.i32);
+      v78.i32[3] = 0;
+      v79 = vaddq_f32(v78, vaddq_f32(v76, v77));
+      v80 = vmulq_lane_f32(v73, v51, 1);
+      v80.i32[3] = 0;
+      v81 = vmulq_n_f32(v74, *v55.i32);
+      v81.i32[3] = 0;
+      v82 = vmulq_n_f32(v75, *v59.i32);
+      v82.i32[3] = 0;
+      v83 = vmulq_lane_f32(v73, v52, 1);
+      v83.i32[3] = 0;
+      v84 = vmulq_n_f32(v74, *v53.i32);
+      v84.i32[3] = 0;
+      v85 = vmulq_n_f32(v75, *v57.i32);
+      v85.i32[3] = 0;
+      v35 = vaddq_f32(v85, vaddq_f32(v83, v84));
+      v258 = v32;
+      v259 = v79;
+      v260 = vaddq_f32(v82, vaddq_f32(v80, v81));
     }
 
     else
     {
-      *(*(v5 + 3376) + 8 * v9) = v7;
-      *(v5 + 3384) = v9 + 1;
+      v27.i32[3] = 0;
+      v30 = vmulq_f32(v15, xmmword_1E3047670);
+      v31 = vmulq_f32(v15, xmmword_1E3047680);
+      v32 = vmulq_f32(v15, xmmword_1E30476A0);
+      v256 = v30;
+      v257 = v31;
+      v33 = vmulq_f32(v27, xmmword_1E3047670);
+      v34 = vmulq_f32(v27, xmmword_1E3047680);
+      v35 = vmulq_f32(v27, xmmword_1E30476A0);
+      v258 = v32;
+      v259 = v33;
+      v260 = v34;
     }
 
-    v10 = v8 + 80 * *(v5 + 3392) - 80;
-    v6 = *(v5 + 3408);
-    if (v10 >= v8)
-    {
-      v11 = (v8 + 80 * *(v5 + 3392) - 80);
-      do
-      {
-        *v11 = v6;
-        v11 -= 10;
-        v6 = v10;
-        v10 = v11;
-      }
-
-      while (v11 >= v8);
-      v6 = (v11 + 10);
-    }
+    v86 = vmulq_f32(v30, 0);
+    v86.i32[3] = 0;
+    v87 = vmulq_f32(v31, 0);
+    v87.i32[3] = 0;
+    v88 = vmulq_f32(v32, 0);
+    v88.i32[3] = 0;
+    v261 = v35;
+    v253 = vaddq_f32(v88, vaddq_f32(v87, v86));
   }
 
-  *(v5 + 3408) = *v6;
-  ++*(v5 + 3396);
-  physx::NpAggregate::NpAggregate(v6, a2, a3);
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
+  v89 = 0;
+  v263 = *(v13 + 48);
+  v242 = 0;
+  v240 = 0u;
+  v241 = 0u;
+  v90 = *(v12 + 48);
+  v91 = *(v12 + 4);
+  v92 = v91;
+  v92.i32[3] = 0;
+  if (v91.f32[0] == 1.0 && v91.f32[1] == 1.0)
   {
-    pthread_mutex_unlock(*(v5 + 3416));
+    v89 = v91.f32[2] == 1.0;
   }
 
-  physx::NpFactory::addAggregate(v5, v6, 1);
-  return v6;
+  v93 = *(v12 + 16);
+  v94 = *(v90 + 40) + 20 * *(v90 + 39);
+  v249 = v90;
+  v251 = v94;
+  v95.i64[0] = *(v90 + 60);
+  v95.i32[2] = *(v90 + 68);
+  v252 = *(v90 + 38);
+  v95.i64[1] = v95.u32[2];
+  v96 = vmulq_f32(v92, v95);
+  *v96.i8 = vpmin_f32(vdup_laneq_s32(v96, 2), *v96.i8);
+  *v96.i32 = vpmin_f32(*v96.i8, *v96.i8).f32[0];
+  *&v241 = vmul_n_f32(0x3D4CCCCD3DCCCCCDLL, *v96.i32);
+  *(&v241 + 2) = 0.025 * *v96.i32;
+  if (v89)
+  {
+    v243 = xmmword_1E3047670;
+    v244 = xmmword_1E3047680;
+    v245 = xmmword_1E30476A0;
+    v246 = xmmword_1E3047670;
+    v247 = xmmword_1E3047680;
+    v248 = xmmword_1E30476A0;
+  }
+
+  else
+  {
+    v97 = vrecpeq_f32(v92);
+    v98 = 4;
+    do
+    {
+      v97 = vmulq_f32(v97, vrecpsq_f32(v97, v92));
+      --v98;
+    }
+
+    while (v98);
+    *v99.f32 = vdup_lane_s32(*v91.f32, 0);
+    v99.i64[1] = v99.u32[0];
+    if ((~vuzp1_s8(vmovn_s32(vceqq_f32(v99, v92)), a9).u32[0] & 0xFFFFFF) != 0)
+    {
+      v106 = vdup_lane_s32(*v93.f32, 1);
+      v107 = vdup_laneq_s32(v93, 2);
+      v108 = vdup_laneq_s32(v93, 3);
+      v109 = vaddq_f32(v93, v93);
+      v110 = vmul_lane_f32(v106, *v109.f32, 1);
+      v111 = vmul_laneq_f32(v107, v109, 2);
+      v112 = vmul_n_f32(v106, v109.f32[0]);
+      v113 = vmul_n_f32(v107, v109.f32[0]);
+      v114 = vmul_n_f32(v108, v109.f32[0]);
+      v115 = vmul_lane_f32(v107, *v109.f32, 1);
+      v116 = vmul_lane_f32(v108, *v109.f32, 1);
+      v117 = vmul_laneq_f32(v108, v109, 2);
+      v118 = vsub_f32(_D1, vdup_lane_s32(vmul_f32(*v93.f32, *v109.f32), 0));
+      v119 = vsub_f32(vsub_f32(_D1, v110), v111);
+      *v109.f32 = vadd_f32(v112, v117);
+      v120 = vsub_f32(v113, v116);
+      v121 = vsub_f32(v112, v117);
+      v122 = vadd_f32(v113, v116);
+      v123 = vsub_f32(v115, v114);
+      v124 = vext_s8(v122, v123, 4uLL);
+      v125 = vsub_f32(v118, v111);
+      *v126.f32 = vext_s8(v119, *&vdupq_lane_s32(v121, 1), 4uLL);
+      v126.i64[1] = vdup_lane_s32(v124, 0).u32[0];
+      v127 = vsub_f32(v118, v110);
+      *v128.f32 = vext_s8(*&vdupq_lane_s32(*v109.f32, 0), v125, 4uLL);
+      v128.i64[1] = vdup_lane_s32(v124, 1).u32[0];
+      v129 = vadd_f32(v115, v114);
+      *v130.f32 = vext_s8(*&vdupq_lane_s32(v120, 0), v129, 4uLL);
+      v130.i64[1] = vdup_lane_s32(v127, 0).u32[0];
+      v131 = vmulq_n_f32(v126, v91.f32[0]);
+      v131.i32[3] = 0;
+      v132 = vmulq_lane_f32(v128, *v91.f32, 1);
+      v132.i32[3] = 0;
+      v133 = vmulq_laneq_f32(v130, v91, 2);
+      v133.i32[3] = 0;
+      v134 = vmulq_lane_f32(v131, v119, 1);
+      v134.i32[3] = 0;
+      v135 = vmulq_n_f32(v132, v109.f32[0]);
+      v135.i32[3] = 0;
+      v136 = vmulq_n_f32(v133, *v120.i32);
+      v136.i32[3] = 0;
+      v100 = vaddq_f32(v136, vaddq_f32(v134, v135));
+      v137 = vmulq_lane_f32(v131, v121, 1);
+      v137.i32[3] = 0;
+      v138 = vmulq_n_f32(v132, *v125.i32);
+      v138.i32[3] = 0;
+      v139 = vmulq_n_f32(v133, *v129.i32);
+      v139.i32[3] = 0;
+      v101 = vaddq_f32(v139, vaddq_f32(v137, v138));
+      v140 = vmulq_lane_f32(v131, v122, 1);
+      v140.i32[3] = 0;
+      v141 = vmulq_n_f32(v132, *v123.i32);
+      v141.i32[3] = 0;
+      v142 = vmulq_n_f32(v133, *v127.i32);
+      v142.i32[3] = 0;
+      v102 = vaddq_f32(v142, vaddq_f32(v140, v141));
+      v243 = v100;
+      v244 = v101;
+      v143 = vmulq_n_f32(v126, v97.f32[0]);
+      v143.i32[3] = 0;
+      v144 = vmulq_lane_f32(v128, *v97.f32, 1);
+      v144.i32[3] = 0;
+      v145 = vmulq_laneq_f32(v130, v97, 2);
+      v145.i32[3] = 0;
+      v146 = vmulq_lane_f32(v143, v119, 1);
+      v146.i32[3] = 0;
+      v147 = vmulq_n_f32(v144, v109.f32[0]);
+      v147.i32[3] = 0;
+      v148 = vmulq_n_f32(v145, *v120.i32);
+      v148.i32[3] = 0;
+      v149 = vaddq_f32(v148, vaddq_f32(v146, v147));
+      v150 = vmulq_lane_f32(v143, v121, 1);
+      v150.i32[3] = 0;
+      v151 = vmulq_n_f32(v144, *v125.i32);
+      v151.i32[3] = 0;
+      v152 = vmulq_n_f32(v145, *v129.i32);
+      v152.i32[3] = 0;
+      v153 = vmulq_lane_f32(v143, v122, 1);
+      v153.i32[3] = 0;
+      v154 = vmulq_n_f32(v144, *v123.i32);
+      v154.i32[3] = 0;
+      v155 = vmulq_n_f32(v145, *v127.i32);
+      v155.i32[3] = 0;
+      v105 = vaddq_f32(v155, vaddq_f32(v153, v154));
+      v245 = v102;
+      v246 = v149;
+      v247 = vaddq_f32(v152, vaddq_f32(v150, v151));
+    }
+
+    else
+    {
+      v97.i32[3] = 0;
+      v100 = vmulq_f32(v92, xmmword_1E3047670);
+      v101 = vmulq_f32(v92, xmmword_1E3047680);
+      v102 = vmulq_f32(v92, xmmword_1E30476A0);
+      v243 = v100;
+      v244 = v101;
+      v103 = vmulq_f32(v97, xmmword_1E3047670);
+      v104 = vmulq_f32(v97, xmmword_1E3047680);
+      v105 = vmulq_f32(v97, xmmword_1E30476A0);
+      v245 = v102;
+      v246 = v103;
+      v247 = v104;
+    }
+
+    v156 = vmulq_f32(v100, 0);
+    v156.i32[3] = 0;
+    v157 = vmulq_f32(v101, 0);
+    v157.i32[3] = 0;
+    v158 = vmulq_f32(v102, 0);
+    v158.i32[3] = 0;
+    v248 = v105;
+    v240 = vaddq_f32(v158, vaddq_f32(v157, v156));
+  }
+
+  v250 = *(v90 + 48);
+  *a9.i32 = *a9.i32 + 0.0;
+  v159.i64[0] = *(a5 + 16);
+  v159.i64[1] = *(a5 + 24);
+  v160 = *a4;
+  v161.i64[0] = *(a6 + 16);
+  v161.i64[1] = *(a6 + 24);
+  v162 = vnegq_f32(*a4);
+  v163 = v162;
+  v163.i32[3] = 0;
+  v164 = vsubq_f32(v159, v161);
+  v221 = vdupq_laneq_s32(*a4, 3);
+  LODWORD(v165) = vmla_f32(0xBF000000BF000000, *v221.f32, *v221.f32).u32[0];
+  v166 = vmulq_n_f32(v164, v165);
+  v166.i32[3] = 0;
+  v167 = vextq_s8(v163, v163, 8uLL).u64[0];
+  v168 = vext_s8(*v162.f32, v167, 4uLL);
+  v169 = vmls_f32(vmul_f32(*v162.f32, *&vextq_s8(v164, v164, 4uLL)), v168, *v164.i8);
+  *v170.f32 = vext_s8(v169, vmls_f32(vmul_f32(v167, *v164.i8), *v162.f32, *&vextq_s8(v164, v164, 8uLL)), 4uLL);
+  v170.i64[1] = v169.u32[0];
+  v171 = vmlaq_laneq_f32(v166, v170, *a4, 3);
+  v171.i64[1] = vextq_s8(v171, v171, 8uLL).u32[0];
+  v172 = vmulq_f32(v163, v164);
+  v172.i64[0] = vpaddq_f32(v172, v172).u64[0];
+  v173 = vmlaq_n_f32(v171, v163, vpadd_f32(*v172.f32, *v172.f32).f32[0]);
+  v174 = *a3->i8;
+  v174.i32[3] = 0;
+  v175 = vmulq_f32(v174, v163);
+  v175.i64[0] = vpaddq_f32(v175, v175).u64[0];
+  v176 = vmulq_laneq_f32(v174, *a4, 3);
+  v174.i64[0] = vextq_s8(v174, v174, 8uLL).u64[0];
+  v177 = vmls_f32(vmul_f32(vext_s8(*a3, *v174.i8, 4uLL), *v162.f32), v168, *a3);
+  *v162.f32 = vext_s8(v177, vmls_f32(vmul_f32(*a3, v167), *v162.f32, *v174.i8), 4uLL);
+  *&v162.u32[2] = v177;
+  v178 = vaddq_f32(vaddq_f32(vmulq_laneq_f32(v163, *a3->i8, 3), v176), v162);
+  v179 = vdup_lane_s32(*v178.f32, 1);
+  *v163.i8 = vsub_f32(vmul_f32(*&vextq_s8(*a3->i8, *a3->i8, 8uLL), *&vextq_s8(v160, v160, 8uLL)), vpadd_f32(*v175.f32, *v175.f32));
+  *v174.i8 = vdup_laneq_s32(v178, 2);
+  v180 = vaddq_f32(v178, v178);
+  v181 = vdup_laneq_s32(v180, 2);
+  *v176.f32 = vmul_f32(*v178.f32, *v180.f32);
+  v182 = vmul_lane_f32(v179, *v180.f32, 1);
+  v183 = vmul_laneq_f32(*v174.i8, v180, 2);
+  v184 = vmul_n_f32(v179, v180.f32[0]);
+  v185 = vmul_n_f32(*v174.i8, v180.f32[0]);
+  *v170.f32 = vmul_lane_f32(vdup_lane_s32(*v180.f32, 0), *v163.i8, 1);
+  *v174.i8 = vmul_lane_f32(*v174.i8, *v180.f32, 1);
+  *v180.f32 = vmul_lane_f32(vdup_lane_s32(*v180.f32, 1), *v163.i8, 1);
+  *v163.i8 = vmul_lane_f32(v181, *v163.i8, 1);
+  *v175.f32 = vext_s8(vsub_f32(vsub_f32(_D1, v182), v183), vadd_f32(v184, *v163.i8), 4uLL);
+  v175.i64[1] = vsub_f32(v185, *v180.f32).u32[0];
+  v239 = 0u;
+  v186 = vaddq_f32(v173, v173);
+  v186.i32[3] = 0;
+  v187 = vsub_f32(_D1, vdup_lane_s32(*v176.f32, 0));
+  *v188.i8 = vext_s8(vsub_f32(v184, *v163.i8), vsub_f32(v187, v183), 4uLL);
+  v188.i64[1] = vadd_f32(*v174.i8, *v170.f32).u32[0];
+  *v163.i8 = vadd_f32(v185, *v180.f32);
+  v180.i32[0] = vsub_f32(v187, v182).u32[0];
+  *v189.i8 = vext_s8(*v163.i8, vsub_f32(*v174.i8, *v170.f32), 4uLL);
+  v189.i64[1] = v180.u32[0];
+  *v163.i8 = a3[2];
+  v163.i64[1] = a3[3].u32[0];
+  v174.i64[0] = a4[1].i64[0];
+  v174.i64[1] = a4[1].u32[2];
+  v235 = v175;
+  v236 = v188;
+  v222 = v161;
+  v190 = v160;
+  v190.i32[3] = 0;
+  v217 = vsubq_f32(v163, v159);
+  v191 = vsubq_f32(vsubq_f32(v174, v161), v217);
+  v219 = v165;
+  v220 = *v160.i8;
+  v192 = vmulq_n_f32(v191, v165);
+  v192.i32[3] = 0;
+  v180.i64[0] = vextq_s8(v190, v190, 8uLL).u64[0];
+  v193 = vext_s8(*v160.i8, *v180.f32, 4uLL);
+  v216 = *v180.f32;
+  *v174.i8 = vmls_f32(vmul_f32(*v160.i8, *&vextq_s8(v191, v191, 4uLL)), v193, *v191.i8);
+  *v163.i8 = vext_s8(*v174.i8, vmls_f32(vmul_f32(*v180.f32, *v191.i8), *v160.i8, *&vextq_s8(v191, v191, 8uLL)), 4uLL);
+  v163.i64[1] = v174.u32[0];
+  v194 = vmlsq_laneq_f32(v192, v163, v160, 3);
+  v194.i64[1] = vextq_s8(v194, v194, 8uLL).u32[0];
+  v237 = v189;
+  v238 = v186;
+  v195 = vmulq_f32(v190, v191);
+  v195.i64[0] = vpaddq_f32(v195, v195).u64[0];
+  v218 = v190;
+  v196 = vmlaq_n_f32(v194, v190, vpadd_f32(*v195.f32, *v195.f32).f32[0]);
+  v197 = vaddq_f32(v196, v196);
+  v197.i32[3] = 0;
+  v234 = v197;
+  v233 = 0;
+  v231 = 0u;
+  v232 = 0u;
+  v230 = 0;
+  v224.i64[1] = &v253;
+  v225 = &v235;
+  v229 = v186;
+  v198 = vzip1q_s32(v175, v237);
+  v199 = vzip1q_s32(v236, 0);
+  v226 = vzip1q_s32(v198, v199);
+  v227 = vzip2q_s32(v198, v199);
+  v228 = vzip1q_s32(vzip2q_s32(v175, v237), vzip2q_s32(v236, 0));
+  v223[1] = &v240;
+  v224.i64[0] = &unk_1F5D21B40;
+  v223[0] = &unk_1F5D21818;
+  result = physx::Gu::gjkRaycastPenetration<physx::Gu::RelativeConvex<physx::Gu::ConvexHullV>,physx::Gu::LocalConvex<physx::Gu::ConvexHullV>>(&v224, v223, &v238, &v230, &v239, &v234, &v233, &v231, a9, &v232, 1);
+  if (result)
+  {
+    v201 = vmulq_n_f32(v232, v219);
+    v201.i32[3] = 0;
+    v202 = vextq_s8(v232, v232, 8uLL).u64[0];
+    v203 = vmls_f32(vmul_f32(v220, vext_s8(*v232.f32, v202, 4uLL)), v193, *v232.f32);
+    *v204.f32 = vext_s8(v203, vmls_f32(vmul_f32(v216, *v232.f32), v220, v202), 4uLL);
+    v204.i64[1] = v203.u32[0];
+    v205 = vmlaq_f32(v201, v221, v204);
+    v205.i64[1] = vextq_s8(v205, v205, 8uLL).u32[0];
+    v206 = vmulq_f32(v218, v232);
+    v206.i64[0] = vpaddq_f32(v206, v206).u64[0];
+    v207 = vmlaq_n_f32(v205, v218, vpadd_f32(*v206.f32, *v206.f32).f32[0]);
+    v207.i64[1] = vextq_s8(v207, v207, 8uLL).u32[0];
+    v206.i64[0] = 0x4000000040000000;
+    v206.i64[1] = 0x4000000040000000;
+    v208 = vmlaq_f32(v222, v206, v207);
+    v208.i64[1] = vextq_s8(v208, v208, 8uLL).u32[0];
+    v209 = vmlaq_n_f32(v208, v217, vmax_f32(v233, 0).f32[0]);
+    v210 = vmulq_n_f32(v231, v219);
+    v210.i32[3] = 0;
+    v204.i64[0] = vextq_s8(v231, v231, 8uLL).u64[0];
+    v211 = vmls_f32(vmul_f32(v220, vext_s8(*v231.f32, *v204.f32, 4uLL)), v193, *v231.f32);
+    *v204.f32 = vext_s8(v211, vmls_f32(vmul_f32(v216, *v231.f32), v220, *v204.f32), 4uLL);
+    v204.i64[1] = v211.u32[0];
+    v212 = vmlaq_f32(v210, v221, v204);
+    v212.i64[1] = vextq_s8(v212, v212, 8uLL).u32[0];
+    v213 = vmulq_f32(v218, v231);
+    v213.i64[0] = vpaddq_f32(v213, v213).u64[0];
+    v214 = vmlaq_n_f32(v212, v218, vpadd_f32(*v213.f32, *v213.f32).f32[0]);
+    v215 = vaddq_f32(v214, v214);
+    *a7 = v215.i64[0];
+    *(a7 + 8) = v215.i32[2];
+    *a8 = v209.i64[0];
+    *(a8 + 8) = v209.i32[2];
+  }
+
+  return result;
 }

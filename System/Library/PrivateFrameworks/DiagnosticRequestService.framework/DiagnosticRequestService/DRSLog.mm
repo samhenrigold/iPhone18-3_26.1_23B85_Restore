@@ -5,6 +5,7 @@
 - (BOOL)isEqual:(id)equal;
 - (NSString)name;
 - (id)_initWithLogMO_ON_MOC_QUEUE:(id)e;
+- (id)_initWithLogPath:(id)path transferOwnership:(BOOL)ownership;
 - (id)_initWithLogPath:(id)path transferOwnership:(BOOL)ownership size:(unint64_t)size;
 - (id)debugDescription;
 - (id)fileDescription;
@@ -62,6 +63,79 @@
   return selfCopy;
 }
 
+- (id)_initWithLogPath:(id)path transferOwnership:(BOOL)ownership
+{
+  ownershipCopy = ownership;
+  v25 = *MEMORY[0x277D85DE8];
+  pathCopy = path;
+  defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+  v20 = 0;
+  v8 = [defaultManager attributesOfItemAtPath:pathCopy error:&v20];
+  v9 = v20;
+
+  if (v8)
+  {
+    fileSize = [v8 fileSize];
+    if (fileSize)
+    {
+      v12 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:fileSize];
+      goto LABEL_13;
+    }
+
+    v13 = DPLogHandle_RequestError(0);
+    if (os_signpost_enabled(v13))
+    {
+      localizedDescription = [v9 localizedDescription];
+      v15 = localizedDescription;
+      v16 = @"Unknown";
+      if (localizedDescription)
+      {
+        v16 = localizedDescription;
+      }
+
+LABEL_11:
+      *buf = 138543618;
+      v22 = pathCopy;
+      v23 = 2114;
+      v24 = v16;
+      _os_signpost_emit_with_name_impl(&dword_232906000, v13, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "LogSizeError", "Failed to get size of file for %{public}@ due to error: %{public}@", buf, 0x16u);
+    }
+  }
+
+  else
+  {
+    v13 = DPLogHandle_RequestError(v10);
+    if (os_signpost_enabled(v13))
+    {
+      localizedDescription2 = [v9 localizedDescription];
+      v15 = localizedDescription2;
+      v16 = @"Unknown";
+      if (localizedDescription2)
+      {
+        v16 = localizedDescription2;
+      }
+
+      goto LABEL_11;
+    }
+  }
+
+  v12 = 0;
+LABEL_13:
+
+  if (v12)
+  {
+    self = -[DRSLog _initWithLogPath:transferOwnership:size:](self, "_initWithLogPath:transferOwnership:size:", pathCopy, ownershipCopy, [v12 unsignedLongLongValue]);
+    selfCopy = self;
+  }
+
+  else
+  {
+    selfCopy = 0;
+  }
+
+  return selfCopy;
+}
+
 - (BOOL)isAvailableOnDisk
 {
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
@@ -90,59 +164,56 @@
       if (fileSize)
       {
         self->_size = fileSize;
-        v9 = 1;
+        v10 = 1;
 LABEL_15:
 
-        goto LABEL_16;
+        return v10;
       }
 
-      v10 = DPLogHandle_RequestError();
-      if (os_signpost_enabled(v10))
+      v11 = DPLogHandle_RequestError(0);
+      if (os_signpost_enabled(v11))
       {
         path3 = [(DRSLog *)self path];
         localizedDescription = [v7 localizedDescription];
-        v13 = localizedDescription;
-        v14 = @"Unknown";
+        v14 = localizedDescription;
+        v15 = @"Unknown";
         if (localizedDescription)
         {
-          v14 = localizedDescription;
+          v15 = localizedDescription;
         }
 
 LABEL_13:
         *buf = 138543618;
         v20 = path3;
         v21 = 2114;
-        v22 = v14;
-        _os_signpost_emit_with_name_impl(&dword_232906000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "LogSizeError", "Failed to get size of file for %{public}@ due to error: %{public}@", buf, 0x16u);
+        v22 = v15;
+        _os_signpost_emit_with_name_impl(&dword_232906000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "LogSizeError", "Failed to get size of file for %{public}@ due to error: %{public}@", buf, 0x16u);
       }
     }
 
     else
     {
-      v10 = DPLogHandle_RequestError();
-      if (os_signpost_enabled(v10))
+      v11 = DPLogHandle_RequestError(v8);
+      if (os_signpost_enabled(v11))
       {
         path3 = [(DRSLog *)self path];
         localizedDescription2 = [v7 localizedDescription];
-        v13 = localizedDescription2;
-        v14 = @"Unknown";
+        v14 = localizedDescription2;
+        v15 = @"Unknown";
         if (localizedDescription2)
         {
-          v14 = localizedDescription2;
+          v15 = localizedDescription2;
         }
 
         goto LABEL_13;
       }
     }
 
-    v9 = 0;
+    v10 = 0;
     goto LABEL_15;
   }
 
-  v9 = 1;
-LABEL_16:
-  v16 = *MEMORY[0x277D85DE8];
-  return v9;
+  return 1;
 }
 
 - (BOOL)isEqual:(id)equal

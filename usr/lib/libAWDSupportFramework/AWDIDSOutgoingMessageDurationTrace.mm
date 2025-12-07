@@ -600,7 +600,6 @@ LABEL_20:
   has = self->_has;
   if ((*&has & 4) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 0x20000) == 0)
@@ -620,7 +619,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  sendToDaemonStart = self->_sendToDaemonStart;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -635,7 +633,6 @@ LABEL_4:
   }
 
 LABEL_28:
-  sendToDaemonDuration = self->_sendToDaemonDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80000) == 0)
@@ -650,7 +647,6 @@ LABEL_5:
   }
 
 LABEL_29:
-  storeInDatabaseStart = self->_storeInDatabaseStart;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40000) == 0)
@@ -665,7 +661,6 @@ LABEL_6:
   }
 
 LABEL_30:
-  storeInDatabaseDuration = self->_storeInDatabaseDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -680,7 +675,6 @@ LABEL_7:
   }
 
 LABEL_31:
-  compressPayloadStart = self->_compressPayloadStart;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -695,7 +689,6 @@ LABEL_8:
   }
 
 LABEL_32:
-  compressPayloadDuration = self->_compressPayloadDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -710,7 +703,6 @@ LABEL_9:
   }
 
 LABEL_33:
-  uncompressedMessageSize = self->_uncompressedMessageSize;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 1) == 0)
@@ -725,7 +717,6 @@ LABEL_10:
   }
 
 LABEL_34:
-  compressedMessageSize = self->_compressedMessageSize;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -740,7 +731,6 @@ LABEL_11:
   }
 
 LABEL_35:
-  iDQueryStart = self->_iDQueryStart;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -755,7 +745,6 @@ LABEL_12:
   }
 
 LABEL_36:
-  iDQueryDuration = self->_iDQueryDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -770,7 +759,6 @@ LABEL_13:
   }
 
 LABEL_37:
-  messageOnQueueStart = self->_messageOnQueueStart;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -785,7 +773,6 @@ LABEL_14:
   }
 
 LABEL_38:
-  messageOnQueueDuration = self->_messageOnQueueDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -800,7 +787,6 @@ LABEL_15:
   }
 
 LABEL_39:
-  messagesOnQueue = self->_messagesOnQueue;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -815,7 +801,6 @@ LABEL_16:
   }
 
 LABEL_40:
-  encryptionCount = self->_encryptionCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -830,7 +815,6 @@ LABEL_17:
   }
 
 LABEL_41:
-  avgEncryptionDuration = self->_avgEncryptionDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -845,12 +829,10 @@ LABEL_18:
   }
 
 LABEL_42:
-  aggregatedMessageSendCount = self->_aggregatedMessageSendCount;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_19:
-    avgAggregatedMessageSendDuration = self->_avgAggregatedMessageSendDuration;
     PBDataWriterWriteUint32Field();
   }
 
@@ -860,17 +842,15 @@ LABEL_20:
     PBDataWriterWriteStringField();
   }
 
-  v6 = self->_has;
-  if ((*&v6 & 0x80) != 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x80) != 0)
   {
-    command = self->_command;
     PBDataWriterWriteUint32Field();
-    v6 = self->_has;
+    v5 = self->_has;
   }
 
-  if ((*&v6 & 0x8000) != 0)
+  if ((*&v5 & 0x8000) != 0)
   {
-    priority = self->_priority;
 
     PBDataWriterWriteUint32Field();
   }

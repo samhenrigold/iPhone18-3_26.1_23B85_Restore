@@ -39,14 +39,14 @@
 - (uint64_t)br_isInSyncedDesktop;
 - (uint64_t)br_isInSyncedDocuments;
 - (uint64_t)br_isInTrash;
-- (uint64_t)br_isModifiedSinceShared;
-- (uint64_t)br_isTopLevelSharedItem;
 - (uint64_t)br_setAccessTime:()BRAdditions error:;
 - (uint64_t)br_wouldBeExcludedFromSync;
 - (void)br_bookmarkableStringForRemoteOpeningAppWithBundleID:()BRAdditions completion:;
 - (void)br_containerIDsWithExternalReferencesWithHandler:()BRAdditions;
 - (void)br_isConflictedWithHandler:()BRAdditions;
 - (void)br_isExternalDocumentReference;
+- (void)br_isModifiedSinceShared;
+- (void)br_isTopLevelSharedItem;
 - (void)br_preCacheBookmarkData:()BRAdditions versionEtag:;
 @end
 
@@ -209,7 +209,7 @@ LABEL_18:
 
 + (void)br_setIOPolicy:()BRAdditions type:forBlock:
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v7 = a5;
   getpid();
   if (sandbox_check())
@@ -219,36 +219,36 @@ LABEL_18:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      *v16 = v8;
+      *v15 = v8;
       _os_log_impl(&dword_1AE2A9000, v9, OS_LOG_TYPE_DEFAULT, "[WARNING] sandbox_check: current process does not allow iopolicy syscalls%@", buf, 0xCu);
     }
 
     goto LABEL_5;
   }
 
-  v11 = getiopolicy_np(a4, 1);
-  if (v11 == -1)
+  v10 = getiopolicy_np(a4, 1);
+  if (v10 == -1)
   {
-    v13 = brc_bread_crumbs("+[NSURL(BRAdditions) br_setIOPolicy:type:forBlock:]", 58);
-    v14 = brc_default_log(1, 0);
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v12 = brc_bread_crumbs("+[NSURL(BRAdditions) br_setIOPolicy:type:forBlock:]", 58);
+    v13 = brc_default_log(1, 0);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109890;
-      *v16 = a3;
-      *&v16[4] = 1024;
-      *&v16[6] = a4;
-      v17 = 1024;
-      v18 = 1;
-      v19 = 2112;
-      v20 = v13;
-      _os_log_impl(&dword_1AE2A9000, v14, OS_LOG_TYPE_DEFAULT, "[WARNING] getiopolicy_np failed when setting policy: %d, type: %d, scope: %d%@", buf, 0x1Eu);
+      *v15 = a3;
+      *&v15[4] = 1024;
+      *&v15[6] = a4;
+      v16 = 1024;
+      v17 = 1;
+      v18 = 2112;
+      v19 = v12;
+      _os_log_impl(&dword_1AE2A9000, v13, OS_LOG_TYPE_DEFAULT, "[WARNING] getiopolicy_np failed when setting policy: %d, type: %d, scope: %d%@", buf, 0x1Eu);
     }
 
     goto LABEL_5;
   }
 
-  v12 = v11;
-  if (v11 == a3)
+  v11 = v10;
+  if (v10 == a3)
   {
 LABEL_5:
     v7[2](v7);
@@ -257,14 +257,12 @@ LABEL_5:
 
   setiopolicy_np(a4, 1, a3);
   v7[2](v7);
-  if ((v12 & 0x80000000) == 0)
+  if ((v11 & 0x80000000) == 0)
   {
-    setiopolicy_np(a4, 1, v12);
+    setiopolicy_np(a4, 1, v11);
   }
 
 LABEL_6:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)br_realpathURLWithIsDirectory:()BRAdditions
@@ -352,7 +350,7 @@ LABEL_6:
   v8[3] = &unk_1E7A15518;
   v8[4] = self;
   v8[5] = &v9;
-  v4 = MEMORY[0x1B26FEA90](v8);
+  v4 = MEMORY[0x1B26FEA90](v8, a2);
   v5 = v4;
   if (a3)
   {
@@ -532,11 +530,11 @@ LABEL_6:
 
 + (id)br_documentURLFromFileObjectID:()BRAdditions error:
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = +[BRSpecialFolders homeDirForCurrentPersona];
-  memset(&v29, 0, sizeof(v29));
-  if (stat([v6 fileSystemRepresentation], &v29))
+  memset(&v28, 0, sizeof(v28));
+  if (stat([v6 fileSystemRepresentation], &v28))
   {
     v7 = brc_bread_crumbs("+[NSURL(BRAdditions) br_documentURLFromFileObjectID:error:]", 328);
     v8 = brc_default_log(0, 0);
@@ -546,7 +544,7 @@ LABEL_6:
     }
   }
 
-  br_documentURLFromFileObjectID_error__deviceID = v29.st_dev;
+  br_documentURLFromFileObjectID_error__deviceID = v28.st_dev;
   isDocumentID = [v5 isDocumentID];
   rawID = [v5 rawID];
   if (isDocumentID)
@@ -556,9 +554,9 @@ LABEL_6:
     {
       if (*__error() != 35 && *__error() != 16 && *__error() != 70)
       {
-        v25 = brc_bread_crumbs("+[NSURL(BRAdditions) br_documentURLFromFileObjectID:error:]", 337);
-        v26 = brc_default_log(0, 0);
-        if (os_log_type_enabled(v26, 0x90u))
+        v24 = brc_bread_crumbs("+[NSURL(BRAdditions) br_documentURLFromFileObjectID:error:]", 337);
+        v25 = brc_default_log(0, 0);
+        if (os_log_type_enabled(v25, 0x90u))
         {
           +[NSURL(BRAdditions) br_documentURLFromFileObjectID:error:];
         }
@@ -577,9 +575,9 @@ LABEL_6:
     }
 
 LABEL_13:
-    v28.val[0] = br_documentURLFromFileObjectID_error__deviceID;
-    v28.val[1] = 0;
-    if ((fsgetpath(buf, 0x400uLL, &v28, v11) & 0x8000000000000000) == 0)
+    v27.val[0] = br_documentURLFromFileObjectID_error__deviceID;
+    v27.val[1] = 0;
+    if ((fsgetpath(buf, 0x400uLL, &v27, v11) & 0x8000000000000000) == 0)
     {
       v14 = [MEMORY[0x1E696AEC0] br_pathWithFileSystemRepresentation:buf];
       v15 = [MEMORY[0x1E695DFF8] fileURLWithPath:v14];
@@ -621,20 +619,20 @@ LABEL_18:
     v21 = brc_default_log(0, 0);
     if (os_log_type_enabled(v21, 0x90u))
     {
-      v27 = "(passed to caller)";
+      v26 = "(passed to caller)";
       *buf = 136315906;
-      v31 = "+[NSURL(BRAdditions) br_documentURLFromFileObjectID:error:]";
-      v32 = 2080;
+      v30 = "+[NSURL(BRAdditions) br_documentURLFromFileObjectID:error:]";
+      v31 = 2080;
       if (!a4)
       {
-        v27 = "(ignored by caller)";
+        v26 = "(ignored by caller)";
       }
 
-      v33 = v27;
-      v34 = 2112;
-      v35 = v19;
-      v36 = 2112;
-      v37 = v20;
+      v32 = v26;
+      v33 = 2112;
+      v34 = v19;
+      v35 = 2112;
+      v36 = v20;
       _os_log_error_impl(&dword_1AE2A9000, v21, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
     }
   }
@@ -647,8 +645,6 @@ LABEL_18:
 
   br_logicalURL = 0;
 LABEL_26:
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return br_logicalURL;
 }
@@ -677,56 +673,56 @@ LABEL_26:
 
 + (id)br_documentURLFromBookmarkableString:()BRAdditions error:
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = __Block_byref_object_copy__8;
-  v28 = __Block_byref_object_dispose__8;
-  v29 = 0;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__8;
-  v22 = __Block_byref_object_dispose__8;
   v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__8;
+  v27 = __Block_byref_object_dispose__8;
+  v28 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__8;
+  v21 = __Block_byref_object_dispose__8;
+  v22 = 0;
   v6 = +[BRDaemonConnection defaultConnection];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __65__NSURL_BRAdditions__br_documentURLFromBookmarkableString_error___block_invoke;
-  v17[3] = &unk_1E7A15C78;
-  v17[4] = &v18;
-  v7 = [v6 synchronousRemoteObjectProxyWithErrorHandler:v17];
-
   v16[0] = MEMORY[0x1E69E9820];
   v16[1] = 3221225472;
-  v16[2] = __65__NSURL_BRAdditions__br_documentURLFromBookmarkableString_error___block_invoke_2;
-  v16[3] = &unk_1E7A15F70;
-  v16[4] = &v24;
-  v16[5] = &v18;
-  [v7 resolveBookmarkDataToURL:v5 reply:v16];
-  v8 = v19[5];
+  v16[2] = __65__NSURL_BRAdditions__br_documentURLFromBookmarkableString_error___block_invoke;
+  v16[3] = &unk_1E7A15C78;
+  v16[4] = &v17;
+  v7 = [v6 synchronousRemoteObjectProxyWithErrorHandler:v16];
+
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __65__NSURL_BRAdditions__br_documentURLFromBookmarkableString_error___block_invoke_2;
+  v15[3] = &unk_1E7A15F70;
+  v15[4] = &v23;
+  v15[5] = &v17;
+  [v7 resolveBookmarkDataToURL:v5 reply:v15];
+  v8 = v18[5];
   if (v8)
   {
     v9 = brc_bread_crumbs("+[NSURL(BRAdditions) br_documentURLFromBookmarkableString:error:]", 392);
     v10 = brc_default_log(0, 0);
     if (os_log_type_enabled(v10, 0x90u))
     {
-      v15 = "(passed to caller)";
+      v14 = "(passed to caller)";
       *buf = 136315906;
-      v31 = "+[NSURL(BRAdditions) br_documentURLFromBookmarkableString:error:]";
-      v32 = 2080;
+      v30 = "+[NSURL(BRAdditions) br_documentURLFromBookmarkableString:error:]";
+      v31 = 2080;
       if (!a4)
       {
-        v15 = "(ignored by caller)";
+        v14 = "(ignored by caller)";
       }
 
-      v33 = v15;
-      v34 = 2112;
-      v35 = v8;
-      v36 = 2112;
-      v37 = v9;
+      v32 = v14;
+      v33 = 2112;
+      v34 = v8;
+      v35 = 2112;
+      v36 = v9;
       _os_log_error_impl(&dword_1AE2A9000, v10, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
     }
   }
@@ -737,32 +733,29 @@ LABEL_26:
     *a4 = v8;
   }
 
-  v12 = v25[5];
-  _Block_object_dispose(&v18, 8);
+  v12 = v24[5];
+  _Block_object_dispose(&v17, 8);
 
-  _Block_object_dispose(&v24, 8);
-  v13 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v23, 8);
 
   return v12;
 }
 
 - (void)br_containerIDsWithExternalReferencesWithHandler:()BRAdditions
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = MEMORY[0x1E695DFF8];
-  v11[0] = self;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __71__NSURL_BRAdditions__br_containerIDsWithExternalReferencesWithHandler___block_invoke;
-  v9[3] = &unk_1E7A15F98;
-  v9[4] = self;
-  v10 = v4;
+  v10[0] = self;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __71__NSURL_BRAdditions__br_containerIDsWithExternalReferencesWithHandler___block_invoke;
+  v8[3] = &unk_1E7A15F98;
+  v8[4] = self;
+  v9 = v4;
   v7 = v4;
-  [v5 br_containerIDsWithExternalReferencesTo:v6 completionHandler:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  [v5 br_containerIDsWithExternalReferencesTo:v6 completionHandler:v8];
 }
 
 + (void)br_containerIDsWithExternalReferencesTo:()BRAdditions completionHandler:
@@ -942,28 +935,28 @@ LABEL_26:
 
 - (uint64_t)_br_mightBeInSyncedLocationUnderCurrentPersonaID:()BRAdditions strictly:
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = [BRDaemonConnection syncedRootURLsForPersonaID:a3 needsPersonaSwitch:0, 0];
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     while (2)
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        if ([*(*(&v14 + 1) + 8 * v10) br_isParentOfURL:self strictly:a4])
+        if ([*(*(&v13 + 1) + 8 * v10) br_isParentOfURL:self strictly:a4])
         {
           v11 = 1;
           goto LABEL_11;
@@ -973,7 +966,7 @@ LABEL_26:
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v8)
       {
         continue;
@@ -986,7 +979,6 @@ LABEL_26:
   v11 = 0;
 LABEL_11:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -1159,15 +1151,15 @@ LABEL_11:
 
 - (id)br_externalDocumentPropertiesWithError:()BRAdditions
 {
-  v14[5] = *MEMORY[0x1E69E9840];
+  v13[5] = *MEMORY[0x1E69E9840];
   v5 = *MEMORY[0x1E695EA10];
-  v14[0] = *MEMORY[0x1E695DAB8];
-  v14[1] = v5;
+  v13[0] = *MEMORY[0x1E695DAB8];
+  v13[1] = v5;
   v6 = *MEMORY[0x1E695E3A0];
-  v14[2] = *MEMORY[0x1E695E2B0];
-  v14[3] = v6;
-  v14[4] = *MEMORY[0x1E695DC30];
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:5];
+  v13[2] = *MEMORY[0x1E695E2B0];
+  v13[3] = v6;
+  v13[4] = *MEMORY[0x1E695DC30];
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:5];
   v8 = [MEMORY[0x1E695DFF8] bookmarkDataWithContentsOfURL:self error:a3];
   if (v8)
   {
@@ -1186,32 +1178,30 @@ LABEL_11:
     v9 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (id)br_URLByResolvingInProcessExternalDocumentReferenceWithProperties:()BRAdditions
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = *MEMORY[0x1E695DAB8];
   v6 = [v4 objectForKeyedSubscript:*MEMORY[0x1E695DAB8]];
-  if (!v6 || (v34 = 0, [self getResourceValue:&v34 forKey:*MEMORY[0x1E695E3E8] error:0], (v7 = v34) == 0))
+  if (!v6 || (v33 = 0, [self getResourceValue:&v33 forKey:*MEMORY[0x1E695E3E8] error:0], (v7 = v33) == 0))
   {
     br_logicalURL = 0;
     goto LABEL_40;
   }
 
   v8 = v7;
-  v31 = [v4 objectForKeyedSubscript:*MEMORY[0x1E695DC30]];
+  v30 = [v4 objectForKeyedSubscript:*MEMORY[0x1E695DC30]];
   v9 = [v4 objectForKeyedSubscript:*MEMORY[0x1E695E2B0]];
   if (v9)
   {
     v10 = [MEMORY[0x1E695DFF8] brc_fileURLWithVolumeDeviceID:v8 fileID:v9 isDirectory:0];
-    v33 = 0;
-    v11 = [v10 getResourceValue:&v33 forKey:v5 error:0];
-    v12 = v33;
+    v32 = 0;
+    v11 = [v10 getResourceValue:&v32 forKey:v5 error:0];
+    v12 = v32;
     v13 = v12;
     if (v11 && [v12 br_isEqualToNumber:v6])
     {
@@ -1222,7 +1212,7 @@ LABEL_11:
         v16 = brc_default_log(1, 0);
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
-          v29 = v15;
+          v28 = v15;
           if (v10 == br_logicalURL)
           {
             v17 = &stru_1F23D4ED0;
@@ -1235,12 +1225,12 @@ LABEL_11:
 
           path = [br_logicalURL path];
           *buf = 138412802;
-          v36 = v17;
-          v15 = v29;
-          v37 = 2112;
-          v38 = path;
-          v39 = 2112;
-          v40 = v29;
+          v35 = v17;
+          v15 = v28;
+          v36 = 2112;
+          v37 = path;
+          v38 = 2112;
+          v39 = v28;
           _os_log_debug_impl(&dword_1AE2A9000, v16, OS_LOG_TYPE_DEBUG, "[DEBUG] resolved by fileID to %@%@%@", buf, 0x20u);
         }
       }
@@ -1261,7 +1251,7 @@ LABEL_38:
 
       v19 = v13;
       v20 = v9;
-      v21 = v31;
+      v21 = v30;
       goto LABEL_39;
     }
 
@@ -1276,10 +1266,10 @@ LABEL_38:
 
   v20 = [v4 objectForKeyedSubscript:*MEMORY[0x1E695E3A0]];
 
-  v21 = v31;
+  v21 = v30;
   if (v20)
   {
-    v22 = v31 == 0;
+    v22 = v30 == 0;
   }
 
   else
@@ -1302,11 +1292,11 @@ LABEL_30:
     goto LABEL_39;
   }
 
-  v10 = [MEMORY[0x1E695DFF8] fileURLWithPath:v31 isDirectory:0 relativeToURL:v23];
+  v10 = [MEMORY[0x1E695DFF8] fileURLWithPath:v30 isDirectory:0 relativeToURL:v23];
 
-  v32 = 0;
-  v24 = [v10 getResourceValue:&v32 forKey:v5 error:0];
-  v13 = v32;
+  v31 = 0;
+  v24 = [v10 getResourceValue:&v31 forKey:v5 error:0];
+  v13 = v31;
 
   if (v24 && [v13 br_isEqualToNumber:v6])
   {
@@ -1317,7 +1307,7 @@ LABEL_30:
       v16 = brc_default_log(1, 0);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
-        v30 = v15;
+        v29 = v15;
         if (v10 == br_logicalURL)
         {
           v25 = &stru_1F23D4ED0;
@@ -1330,12 +1320,12 @@ LABEL_30:
 
         path2 = [br_logicalURL path];
         *buf = 138412802;
-        v36 = v25;
-        v15 = v30;
-        v37 = 2112;
-        v38 = path2;
-        v39 = 2112;
-        v40 = v30;
+        v35 = v25;
+        v15 = v29;
+        v36 = 2112;
+        v37 = path2;
+        v38 = 2112;
+        v39 = v29;
         _os_log_debug_impl(&dword_1AE2A9000, v16, OS_LOG_TYPE_DEBUG, "[DEBUG] resolved by parent ID and name to %@%@%@", buf, 0x20u);
       }
     }
@@ -1361,30 +1351,29 @@ LABEL_30:
 LABEL_39:
 
 LABEL_40:
-  v27 = *MEMORY[0x1E69E9840];
 
   return br_logicalURL;
 }
 
 - (id)br_URLByResolvingExternalDocumentReferenceWithError:()BRAdditions
 {
-  v42 = *MEMORY[0x1E69E9840];
-  memset(v33, 0, sizeof(v33));
-  __brc_create_section(0, "[NSURL(BRAdditions) br_URLByResolvingExternalDocumentReferenceWithError:]", 846, 0, v33);
+  v41 = *MEMORY[0x1E69E9840];
+  memset(v32, 0, sizeof(v32));
+  __brc_create_section(0, "[NSURL(BRAdditions) br_URLByResolvingExternalDocumentReferenceWithError:]", 846, 0, v32);
   v5 = brc_bread_crumbs("[NSURL(BRAdditions) br_URLByResolvingExternalDocumentReferenceWithError:]", 846);
   v6 = brc_default_log(1, 0);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v21 = v33[0];
+    v21 = v32[0];
     path = [self path];
     *buf = 134218754;
-    v35 = v21;
-    v36 = 2080;
-    v37 = "[NSURL(BRAdditions) br_URLByResolvingExternalDocumentReferenceWithError:]";
-    v38 = 2112;
-    v39 = path;
-    v40 = 2112;
-    v41 = v5;
+    v34 = v21;
+    v35 = 2080;
+    v36 = "[NSURL(BRAdditions) br_URLByResolvingExternalDocumentReferenceWithError:]";
+    v37 = 2112;
+    v38 = path;
+    v39 = 2112;
+    v40 = v5;
     _os_log_debug_impl(&dword_1AE2A9000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx %s: %@%@", buf, 0x2Au);
   }
 
@@ -1421,38 +1410,38 @@ LABEL_40:
 
     v12 = [v11 substringFromIndex:{objc_msgSend(@"docs.icloud.com:", "length")}];
 
-    v32 = 0;
-    v13 = BRCopyDocumentURLForUbiquitousBookmarkData(v12, &v32);
+    v31 = 0;
+    v13 = BRCopyDocumentURLForUbiquitousBookmarkData(v12, &v31);
     if (!v13)
     {
       v23 = brc_bread_crumbs("[NSURL(BRAdditions) br_URLByResolvingExternalDocumentReferenceWithError:]", 883);
       v24 = brc_default_log(1, 0);
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
-        [(NSURL(BRAdditions) *)&v32 br_URLByResolvingExternalDocumentReferenceWithError:v23, v24];
+        [(NSURL(BRAdditions) *)&v31 br_URLByResolvingExternalDocumentReferenceWithError:v23, v24];
       }
 
-      v17 = v32;
-      if (v32)
+      v17 = v31;
+      if (v31)
       {
         v25 = brc_bread_crumbs("[NSURL(BRAdditions) br_URLByResolvingExternalDocumentReferenceWithError:]", 884);
         v26 = brc_default_log(0, 0);
         if (os_log_type_enabled(v26, 0x90u))
         {
-          v30 = "(passed to caller)";
+          v29 = "(passed to caller)";
           *buf = 136315906;
-          v35 = "[NSURL(BRAdditions) br_URLByResolvingExternalDocumentReferenceWithError:]";
-          v36 = 2080;
+          v34 = "[NSURL(BRAdditions) br_URLByResolvingExternalDocumentReferenceWithError:]";
+          v35 = 2080;
           if (!a3)
           {
-            v30 = "(ignored by caller)";
+            v29 = "(ignored by caller)";
           }
 
-          v37 = v30;
-          v38 = 2112;
-          v39 = v17;
-          v40 = 2112;
-          v41 = v25;
+          v36 = v29;
+          v37 = 2112;
+          v38 = v17;
+          v39 = 2112;
+          v40 = v25;
           _os_log_error_impl(&dword_1AE2A9000, v26, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
         }
       }
@@ -1507,8 +1496,8 @@ LABEL_30:
       if ([v13 br_isInCloudDocsPrivateStorages])
       {
         v17 = brc_bread_crumbs("[NSURL(BRAdditions) br_URLByResolvingExternalDocumentReferenceWithError:]", 878);
-        v31 = brc_default_log(0, 0);
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
+        v30 = brc_default_log(0, 0);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
         {
           [NSURL(BRAdditions) br_URLByResolvingExternalDocumentReferenceWithError:];
         }
@@ -1526,19 +1515,18 @@ LABEL_30:
 LABEL_34:
 
 LABEL_35:
-  __brc_leave_section(v33);
-  v28 = *MEMORY[0x1E69E9840];
+  __brc_leave_section(v32);
 
   return v10;
 }
 
 - (id)br_itemID
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = +[BRContainerCache containerHelper];
-  v9 = 0;
-  v3 = [v2 itemIDForURL:self error:&v9];
-  v4 = v9;
+  v8 = 0;
+  v3 = [v2 itemIDForURL:self error:&v8];
+  v4 = v8;
 
   if (!v3)
   {
@@ -1548,15 +1536,13 @@ LABEL_35:
     {
       *buf = 138412802;
       selfCopy = self;
-      v12 = 2112;
-      v13 = v4;
-      v14 = 2112;
-      v15 = v5;
+      v11 = 2112;
+      v12 = v4;
+      v13 = 2112;
+      v14 = v5;
       _os_log_error_impl(&dword_1AE2A9000, v6, 0x90u, "[ERROR] error getting itemID for item at URL %@: %@%@", buf, 0x20u);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -1578,7 +1564,7 @@ LABEL_35:
 
 - (uint64_t)br_setAccessTime:()BRAdditions error:
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = [MEMORY[0x1E696ABC0] brc_errorMethodNotImplemented:sel_br_setAccessTime_error_];
   if (v5)
   {
@@ -1586,21 +1572,21 @@ LABEL_35:
     v7 = brc_default_log(0, 0);
     if (os_log_type_enabled(v7, 0x90u))
     {
-      v11 = "(passed to caller)";
-      v12 = 136315906;
-      v13 = "[NSURL(BRAdditions) br_setAccessTime:error:]";
-      v14 = 2080;
+      v10 = "(passed to caller)";
+      v11 = 136315906;
+      v12 = "[NSURL(BRAdditions) br_setAccessTime:error:]";
+      v13 = 2080;
       if (!a4)
       {
-        v11 = "(ignored by caller)";
+        v10 = "(ignored by caller)";
       }
 
-      v15 = v11;
-      v16 = 2112;
-      v17 = v5;
-      v18 = 2112;
-      v19 = v6;
-      _os_log_error_impl(&dword_1AE2A9000, v7, 0x90u, "[ERROR] %s: %s error: %@%@", &v12, 0x2Au);
+      v14 = v10;
+      v15 = 2112;
+      v16 = v5;
+      v17 = 2112;
+      v18 = v6;
+      _os_log_error_impl(&dword_1AE2A9000, v7, 0x90u, "[ERROR] %s: %s error: %@%@", &v11, 0x2Au);
     }
   }
 
@@ -1610,7 +1596,6 @@ LABEL_35:
     *a4 = v5;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -1678,7 +1663,7 @@ LABEL_35:
   return v14;
 }
 
-- (uint64_t)br_isTopLevelSharedItem
+- (void)br_isTopLevelSharedItem
 {
   result = [self br_isInSyncedLocation];
   if (result)
@@ -1692,7 +1677,7 @@ LABEL_35:
   return result;
 }
 
-- (uint64_t)br_isModifiedSinceShared
+- (void)br_isModifiedSinceShared
 {
   result = [self br_isInSyncedLocation];
   if (result)
@@ -1708,53 +1693,53 @@ LABEL_35:
 
 - (id)br_creatorNameComponentsWithError:()BRAdditions
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   if ([self br_isInSyncedLocation])
   {
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x3032000000;
-    v25 = __Block_byref_object_copy__8;
-    v26 = __Block_byref_object_dispose__8;
-    v27 = 0;
-    v16 = 0;
-    v17 = &v16;
-    v18 = 0x3032000000;
-    v19 = __Block_byref_object_copy__8;
-    v20 = __Block_byref_object_dispose__8;
     v21 = 0;
+    v22 = &v21;
+    v23 = 0x3032000000;
+    v24 = __Block_byref_object_copy__8;
+    v25 = __Block_byref_object_dispose__8;
+    v26 = 0;
+    v15 = 0;
+    v16 = &v15;
+    v17 = 0x3032000000;
+    v18 = __Block_byref_object_copy__8;
+    v19 = __Block_byref_object_dispose__8;
+    v20 = 0;
     _br_itemServiceSyncProxy = [self _br_itemServiceSyncProxy];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __56__NSURL_BRAdditions__br_creatorNameComponentsWithError___block_invoke;
-    v15[3] = &unk_1E7A16088;
-    v15[4] = &v16;
-    v15[5] = &v22;
-    [_br_itemServiceSyncProxy getCreatorNameComponents:v15];
-    v6 = v23[5];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __56__NSURL_BRAdditions__br_creatorNameComponentsWithError___block_invoke;
+    v14[3] = &unk_1E7A16088;
+    v14[4] = &v15;
+    v14[5] = &v21;
+    [_br_itemServiceSyncProxy getCreatorNameComponents:v14];
+    v6 = v22[5];
     if (!v6)
     {
-      v7 = v17[5];
+      v7 = v16[5];
       if (v7)
       {
         v8 = brc_bread_crumbs("[NSURL(BRAdditions) br_creatorNameComponentsWithError:]", 997);
         v9 = brc_default_log(0, 0);
         if (os_log_type_enabled(v9, 0x90u))
         {
-          v14 = "(passed to caller)";
+          v13 = "(passed to caller)";
           *buf = 136315906;
-          v29 = "[NSURL(BRAdditions) br_creatorNameComponentsWithError:]";
-          v30 = 2080;
+          v28 = "[NSURL(BRAdditions) br_creatorNameComponentsWithError:]";
+          v29 = 2080;
           if (!a3)
           {
-            v14 = "(ignored by caller)";
+            v13 = "(ignored by caller)";
           }
 
-          v31 = v14;
-          v32 = 2112;
-          v33 = v7;
-          v34 = 2112;
-          v35 = v8;
+          v30 = v13;
+          v31 = 2112;
+          v32 = v7;
+          v33 = 2112;
+          v34 = v8;
           _os_log_error_impl(&dword_1AE2A9000, v9, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
         }
       }
@@ -1765,13 +1750,13 @@ LABEL_35:
         *a3 = v7;
       }
 
-      v6 = v23[5];
+      v6 = v22[5];
     }
 
     v11 = v6;
 
-    _Block_object_dispose(&v16, 8);
-    _Block_object_dispose(&v22, 8);
+    _Block_object_dispose(&v15, 8);
+    _Block_object_dispose(&v21, 8);
   }
 
   else
@@ -1779,22 +1764,20 @@ LABEL_35:
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
 - (id)br_getSyncRootWithError:()BRAdditions
 {
-  v32[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   fp_lmdURL = [MEMORY[0x1E695DFF8] fp_lmdURL];
-  v31 = 0;
+  v30 = 0;
   if (fp_lmdURL)
   {
-    v30 = 0;
-    v6 = [MEMORY[0x1E695DFF8] br_isURL:fp_lmdURL syncRootOwnedByICloudDrive:&v31 withError:&v30];
-    v7 = v30;
-    if (v6 && v31 == 1 && [fp_lmdURL br_isParentOfURL:self ignoreHomeDirectoryCheck:1])
+    v29 = 0;
+    v6 = [MEMORY[0x1E695DFF8] br_isURL:fp_lmdURL syncRootOwnedByICloudDrive:&v30 withError:&v29];
+    v7 = v29;
+    if (v6 && v30 == 1 && [fp_lmdURL br_isParentOfURL:self ignoreHomeDirectoryCheck:1])
     {
       v8 = fp_lmdURL;
       goto LABEL_30;
@@ -1836,8 +1819,8 @@ LABEL_13:
   else
   {
     v14 = v13;
-    v27 = a3;
-    v28 = fp_lmdURL;
+    v26 = a3;
+    v27 = fp_lmdURL;
     v15 = 0;
     v16 = 0;
     v17 = 0;
@@ -1854,8 +1837,8 @@ LABEL_13:
       else
       {
         v22 = MEMORY[0x1E695DFF8];
-        v32[0] = v18;
-        v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:1];
+        v31[0] = v18;
+        v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
         v20 = [v22 fileURLWithPathComponents:v21];
       }
 
@@ -1863,11 +1846,11 @@ LABEL_13:
 
       if ([v19 isEqualToString:@"Mobile Documents"])
       {
-        v29 = v17;
-        v23 = [MEMORY[0x1E695DFF8] br_isURL:v16 syncRootOwnedByICloudDrive:&v31 withError:&v29];
-        v7 = v29;
+        v28 = v17;
+        v23 = [MEMORY[0x1E695DFF8] br_isURL:v16 syncRootOwnedByICloudDrive:&v30 withError:&v28];
+        v7 = v28;
 
-        if (v23 && (v31 & 1) != 0)
+        if (v23 && (v30 & 1) != 0)
         {
           v8 = v16;
 
@@ -1881,11 +1864,11 @@ LABEL_13:
     }
 
     while (v15 <= v14);
-    if (v27)
+    if (v26)
     {
       v24 = v17;
       v8 = 0;
-      *v27 = v17;
+      *v26 = v17;
     }
 
     else
@@ -1895,18 +1878,17 @@ LABEL_13:
 
     v7 = v17;
 LABEL_28:
-    fp_lmdURL = v28;
+    fp_lmdURL = v27;
   }
 
 LABEL_30:
-  v25 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (uint64_t)_br_isParentOfURL:()BRAdditions strictly:ignoreHomeDirectoryCheck:
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v8 = a3;
   if (![v8 isFileURL])
   {
@@ -1917,13 +1899,13 @@ LABEL_30:
   {
     if (([self br_isInLocalHomeDirectory] & 1) == 0)
     {
-      v21 = brc_bread_crumbs("[NSURL(BRAdditions) _br_isParentOfURL:strictly:ignoreHomeDirectoryCheck:]", 114);
-      v22 = brc_default_log(0, 0);
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+      v20 = brc_bread_crumbs("[NSURL(BRAdditions) _br_isParentOfURL:strictly:ignoreHomeDirectoryCheck:]", 114);
+      v21 = brc_default_log(0, 0);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412290;
-        selfCopy = v21;
-        _os_log_fault_impl(&dword_1AE2A9000, v22, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: self.br_isInLocalHomeDirectory%@", buf, 0xCu);
+        selfCopy = v20;
+        _os_log_fault_impl(&dword_1AE2A9000, v21, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: self.br_isInLocalHomeDirectory%@", buf, 0xCu);
       }
     }
 
@@ -1935,23 +1917,23 @@ LABEL_15:
     }
   }
 
-  v30 = 0;
-  v9 = [v8 getResourceValue:&v30 forKey:*MEMORY[0x1E695DB68] error:0];
-  v10 = v30;
+  v29 = 0;
+  v9 = [v8 getResourceValue:&v29 forKey:*MEMORY[0x1E695DB68] error:0];
+  v10 = v29;
   v11 = v10;
   if (v9 && [v10 BOOLValue])
   {
     [self removeAllCachedResourceValues];
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
+    v27 = 0;
     v28 = 0;
-    v29 = 0;
-    v23 = [defaultManager getRelationship:&v29 ofDirectoryAtURL:self toItemAtURL:v8 error:&v28];
-    v24 = v28;
-    if (v23)
+    v22 = [defaultManager getRelationship:&v28 ofDirectoryAtURL:self toItemAtURL:v8 error:&v27];
+    v23 = v27;
+    if (v22)
     {
-      if (v29)
+      if (v28)
       {
-        v18 = (v29 == 1) & ~a4;
+        v18 = (v28 == 1) & ~a4;
       }
 
       else
@@ -1962,20 +1944,20 @@ LABEL_15:
       goto LABEL_13;
     }
 
-    v25 = v24;
-    v26 = brc_bread_crumbs("[NSURL(BRAdditions) _br_isParentOfURL:strictly:ignoreHomeDirectoryCheck:]", 138);
-    v27 = brc_default_log(0, 0);
-    if (os_log_type_enabled(v27, 0x90u))
+    v24 = v23;
+    v25 = brc_bread_crumbs("[NSURL(BRAdditions) _br_isParentOfURL:strictly:ignoreHomeDirectoryCheck:]", 138);
+    v26 = brc_default_log(0, 0);
+    if (os_log_type_enabled(v26, 0x90u))
     {
       *buf = 138413058;
       selfCopy = self;
-      v33 = 2112;
-      v34 = v8;
-      v35 = 2112;
-      v36 = v25;
-      v37 = 2112;
-      v38 = v26;
-      _os_log_error_impl(&dword_1AE2A9000, v27, 0x90u, "[ERROR] can't tell if '%@'\n  is parent of alias '%@'\n  error %@%@", buf, 0x2Au);
+      v32 = 2112;
+      v33 = v8;
+      v34 = 2112;
+      v35 = v24;
+      v36 = 2112;
+      v37 = v25;
+      _os_log_error_impl(&dword_1AE2A9000, v26, 0x90u, "[ERROR] can't tell if '%@'\n  is parent of alias '%@'\n  error %@%@", buf, 0x2Au);
     }
   }
 
@@ -1999,101 +1981,74 @@ LABEL_15:
 LABEL_13:
 
 LABEL_14:
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 + (void)br_documentURLFromFileObjectID:()BRAdditions error:.cold.1()
 {
   OUTLINED_FUNCTION_6_1();
-  v6 = *MEMORY[0x1E69E9840];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_4_2();
   OUTLINED_FUNCTION_2_3();
-  _os_log_fault_impl(v1, v2, OS_LOG_TYPE_FAULT, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(v0, v1, OS_LOG_TYPE_FAULT, v2, v3, 0x1Cu);
 }
 
 + (void)br_documentURLFromFileObjectID:()BRAdditions error:.cold.2()
 {
   OUTLINED_FUNCTION_6_1();
-  v6 = *MEMORY[0x1E69E9840];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_4_2();
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v1, v2, 0x90u, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, 0x90u, v2, v3, 0x1Cu);
 }
 
 + (void)br_documentURLFromFileObjectID:()BRAdditions error:.cold.3()
 {
   OUTLINED_FUNCTION_6_1();
-  v6 = *MEMORY[0x1E69E9840];
   v0 = __error();
   strerror(*v0);
   OUTLINED_FUNCTION_2_3();
   _os_log_error_impl(v1, v2, 0x90u, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)br_documentURLFromFileObjectID:()BRAdditions error:.cold.4()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v6 = *__error();
+  __error();
   OUTLINED_FUNCTION_0_4();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)br_documentURLFromFileObjectID:()BRAdditions error:.cold.5()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6(&dword_1AE2A9000, v0, v1, "[DEBUG] can't find file ID for %@, falling back to bird%@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)br_isExternalDocumentReference
 {
   OUTLINED_FUNCTION_6_1();
-  v8 = *MEMORY[0x1E69E9840];
   path = [v0 path];
   OUTLINED_FUNCTION_0_4();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x20u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)br_externalDocumentPropertiesWithError:()BRAdditions .cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(&dword_1AE2A9000, v0, OS_LOG_TYPE_DEBUG, "[DEBUG] no bookmark data%@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1AE2A9000, v0, OS_LOG_TYPE_DEBUG, "[DEBUG] no bookmark data%@", v1, 0xCu);
 }
 
 - (void)br_URLByResolvingInProcessExternalDocumentReferenceWithProperties:()BRAdditions .cold.1()
 {
   OUTLINED_FUNCTION_6_1();
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [v0 path];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_4();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)br_URLByResolvingInProcessExternalDocumentReferenceWithProperties:()BRAdditions .cold.2()
 {
   OUTLINED_FUNCTION_6_1();
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [v0 path];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_4();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)br_URLByResolvingExternalDocumentReferenceWithError:()BRAdditions .cold.2(void *a1, uint64_t a2, uint8_t *buf, os_log_t log)
@@ -2107,28 +2062,25 @@ LABEL_14:
 
 - (void)br_URLByResolvingExternalDocumentReferenceWithError:()BRAdditions .cold.3()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_fault_impl(&dword_1AE2A9000, v0, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: !((__bridge NSURL *)physicalURL).br_isInCloudDocsPrivateStorages%@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1AE2A9000, v0, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: !((__bridge NSURL *)physicalURL).br_isInCloudDocsPrivateStorages%@", v1, 0xCu);
 }
 
 - (void)br_URLByResolvingExternalDocumentReferenceWithError:()BRAdditions .cold.4()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_fault_impl(&dword_1AE2A9000, v0, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: !((__bridge NSURL *)logicalURL).br_isInCloudDocsPrivateStorages%@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1AE2A9000, v0, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: !((__bridge NSURL *)logicalURL).br_isInCloudDocsPrivateStorages%@", v1, 0xCu);
 }
 
 - (void)br_URLByResolvingExternalDocumentReferenceWithError:()BRAdditions .cold.5(void *a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = *a1;
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_6(&dword_1AE2A9000, a2, a3, "[DEBUG] can't resolve bookmark data: %@%@", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
+  *v3 = 138412546;
+  *&v3[4] = *a1;
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_6(&dword_1AE2A9000, a2, a3, "[DEBUG] can't resolve bookmark data: %@%@", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 @end

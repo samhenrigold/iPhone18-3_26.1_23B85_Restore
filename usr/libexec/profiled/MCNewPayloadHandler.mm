@@ -2,7 +2,10 @@
 - (MCNewPayloadHandler)initWithPayload:(id)payload profileHandler:(id)handler;
 - (MCProfileHandler)profileHandler;
 - (id)_temporaryPersistentIDForIdentityUUID:(id)d outError:(id *)error;
+- (void)_releaseDependencyBetweenPersistentID:(id)d andUUID:(id)iD forSystem:(BOOL)system user:(BOOL)user personaID:(id)personaID;
+- (void)_retainDependencyBetweenPersistentID:(id)d andUUID:(id)iD forSystem:(BOOL)system user:(BOOL)user personaID:(id)personaID;
 - (void)_touchDependencyBetweenPersistentID:(id)d andUUID:(id)iD;
+- (void)_touchDependencyBetweenPersistentID:(id)d andUUID:(id)iD forSystem:(BOOL)system user:(BOOL)user;
 - (void)_touchDependencyBetweenPersistentID:(id)d andUUID:(id)iD personaID:(id)personaID;
 @end
 
@@ -40,6 +43,80 @@
   dCopy = d;
   [(MCNewPayloadHandler *)self _retainDependencyBetweenPersistentID:dCopy andUUID:iDCopy forSystem:1 user:0 personaID:personaIDCopy];
   [(MCNewPayloadHandler *)self _releaseDependencyBetweenPersistentID:dCopy andUUID:iDCopy forSystem:1 user:0 personaID:personaIDCopy];
+}
+
+- (void)_touchDependencyBetweenPersistentID:(id)d andUUID:(id)iD forSystem:(BOOL)system user:(BOOL)user
+{
+  userCopy = user;
+  systemCopy = system;
+  iDCopy = iD;
+  dCopy = d;
+  [(MCNewPayloadHandler *)self _retainDependencyBetweenPersistentID:dCopy andUUID:iDCopy forSystem:systemCopy user:userCopy];
+  [(MCNewPayloadHandler *)self _releaseDependencyBetweenPersistentID:dCopy andUUID:iDCopy forSystem:systemCopy user:userCopy];
+}
+
+- (void)_retainDependencyBetweenPersistentID:(id)d andUUID:(id)iD forSystem:(BOOL)system user:(BOOL)user personaID:(id)personaID
+{
+  userCopy = user;
+  systemCopy = system;
+  iDCopy = iD;
+  dCopy = d;
+  v13 = [personaID length];
+  v14 = &kMCDMCertificateToPayloadUUIDDependencyKey;
+  if (v13)
+  {
+    v14 = &kMCDMEnterpriseCertificateToPayloadUUIDDependencyKey;
+  }
+
+  v15 = *v14;
+  if (v13)
+  {
+    v16 = &kMCDMPayloadUUIDToEnterpriseCertificateDependencyKey;
+  }
+
+  else
+  {
+    v16 = &kMCDMPayloadUUIDToCertificateDependencyKey;
+  }
+
+  v20 = v15;
+  v17 = *v16;
+  v18 = +[MCDependencyManager sharedManager];
+  mCHexString = [dCopy MCHexString];
+
+  [v18 addDependent:iDCopy ofParent:mCHexString inDomain:v20 reciprocalDomain:v17 toSystem:systemCopy user:userCopy];
+}
+
+- (void)_releaseDependencyBetweenPersistentID:(id)d andUUID:(id)iD forSystem:(BOOL)system user:(BOOL)user personaID:(id)personaID
+{
+  userCopy = user;
+  systemCopy = system;
+  iDCopy = iD;
+  dCopy = d;
+  v13 = [personaID length];
+  v14 = &kMCDMCertificateToPayloadUUIDDependencyKey;
+  if (v13)
+  {
+    v14 = &kMCDMEnterpriseCertificateToPayloadUUIDDependencyKey;
+  }
+
+  v15 = *v14;
+  if (v13)
+  {
+    v16 = &kMCDMPayloadUUIDToEnterpriseCertificateDependencyKey;
+  }
+
+  else
+  {
+    v16 = &kMCDMPayloadUUIDToCertificateDependencyKey;
+  }
+
+  v20 = v15;
+  v17 = *v16;
+  v18 = +[MCDependencyManager sharedManager];
+  mCHexString = [dCopy MCHexString];
+
+  [v18 removeDependent:iDCopy fromParent:mCHexString inDomain:v20 reciprocalDomain:v17 fromSystem:systemCopy user:userCopy];
 }
 
 - (id)_temporaryPersistentIDForIdentityUUID:(id)d outError:(id *)error

@@ -16,10 +16,11 @@
 - (id)customizedActions:(id)actions actionTypes:(id)types
 {
   v5 = _Block_copy(types);
-  sub_1A3C52C70(0, &qword_1EB126C10);
+  sub_1A3C52C70(0, &qword_1EB126C10, 0x1E69DCC78);
   v6 = sub_1A524CA34();
   _Block_copy(v5);
-  sub_1A42C6324(v6, self);
+  selfCopy = self;
+  sub_1A42C6324(v6, selfCopy, v5, v8);
 }
 
 - (PXPhotosGridActionMenuCustomizer)init

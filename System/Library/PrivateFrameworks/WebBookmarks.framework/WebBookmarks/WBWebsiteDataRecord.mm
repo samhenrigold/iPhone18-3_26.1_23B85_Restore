@@ -49,43 +49,42 @@
 
 - (OS_xpc_object)XPCDictionaryRepresentation
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_string(v3, "WebsiteDataRecordDomain", [(NSString *)self->_domain UTF8String]);
   xpc_dictionary_set_uint64(v3, "WebsiteDataRecordUsage", self->_usage);
   v4 = xpc_array_create(0, 0);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = self->_profileIdentifiers;
-  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         v11 = xpc_string_create([v10 UTF8String]);
         xpc_array_append_value(v4, v11);
       }
 
-      v7 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
 
   xpc_dictionary_set_value(v3, kWebsiteProfileIdentifiersKey, v4);
-  v12 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

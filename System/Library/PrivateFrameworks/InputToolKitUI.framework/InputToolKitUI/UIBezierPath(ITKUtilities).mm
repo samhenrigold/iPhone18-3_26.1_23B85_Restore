@@ -9,11 +9,11 @@
 + (id)itk_subpathArrayFromCGPath:()ITKUtilities;
 + (id)mapPaths:()ITKUtilities toQuads:;
 + (uint64_t)itk_cgPathcontainsAnyCurveToPoints:()ITKUtilities;
-+ (uint64_t)itk_signForRadiusWithVectorStart:()ITKUtilities end:otherPoint:;
 + (void)_processPointsForNarrowAngles:()ITKUtilities;
 + (void)_processPointsForRounding:()ITKUtilities withRadius:;
 + (void)itk_calculateCenterForPoints:()ITKUtilities p2:p3:radius:;
 + (void)itk_roundAndGroupNormalizedQuadsForHighlight:()ITKUtilities aspectRatio:expansionScale:radiusToAvgHeightRatio:;
++ (void)itk_signForRadiusWithVectorStart:()ITKUtilities end:otherPoint:;
 - (double)itk_centroid;
 - (double)itk_lengthIgnoringCurves;
 - (id)_itk_flattenWithPath:()ITKUtilities clipType:;
@@ -259,34 +259,36 @@
 {
   [self bounds];
   ITKCenterOfRect();
-  v3 = v2;
-  v5 = v4;
-  ITKCenterOfRect();
-  v7 = v6;
-  v9 = v8;
-  ITKSizeRatioFromSizes();
   v11 = v10;
   v13 = v12;
-  memset(&v19, 0, sizeof(v19));
-  CGAffineTransformMakeTranslation(&v19, -v3, -v5);
-  t1 = v19;
-  CGAffineTransformMakeScale(&t2, v11, v13);
-  CGAffineTransformConcat(&v18, &t1, &t2);
+  v24 = a2;
+  v25 = a3;
+  ITKCenterOfRect();
+  v15 = v14;
+  v17 = v16;
+  ITKSizeRatioFromSizes();
   v19 = v18;
-  t1 = v18;
-  CGAffineTransformMakeTranslation(&t2, v7, v9);
-  CGAffineTransformConcat(&v18, &t1, &t2);
-  v19 = v18;
-  v14 = [self copy];
-  v18 = v19;
-  [v14 itk_applyTransform:&v18];
-  [v14 bounds];
-  if ((ITKNearlyEqualRects() & 1) == 0)
+  v21 = v20;
+  memset(&v29, 0, sizeof(v29));
+  CGAffineTransformMakeTranslation(&v29, -v11, -v13);
+  t1 = v29;
+  CGAffineTransformMakeScale(&t2, v19, v21);
+  CGAffineTransformConcat(&v28, &t1, &t2);
+  v29 = v28;
+  t1 = v28;
+  CGAffineTransformMakeTranslation(&t2, v15, v17);
+  CGAffineTransformConcat(&v28, &t1, &t2);
+  v29 = v28;
+  v22 = [self copy];
+  v28 = v29;
+  [v22 itk_applyTransform:&v28];
+  [v22 bounds];
+  if ((ITKNearlyEqualRects(v24, v25, a4, a5) & 1) == 0)
   {
     [MEMORY[0x277D1C0E8] handleFailedAssertWithCondition:"ITKNearlyEqualRects(endBounds functionName:result.bounds)" simulateCrash:"-[UIBezierPath(ITKUtilities) itk_pathByFittingToRect:]" showAlert:0 format:{0, @"path itk_transformToFitRect did not give a correct result"}];
   }
 
-  return v14;
+  return v22;
 }
 
 - (id)itk_unionAndFlattenWithPath:()ITKUtilities
@@ -325,47 +327,47 @@
 
 - (id)_itk_flattenWithPath:()ITKUtilities clipType:
 {
-  v19[18] = *MEMORY[0x277D85DE8];
-  v4 = a3;
-  memset(v10, 0, sizeof(v10));
-  ClipperLib::Clipper::Clipper(&v11, 0);
+  v20[18] = *MEMORY[0x277D85DE8];
+  v5 = a3;
+  memset(v11, 0, sizeof(v11));
+  ClipperLib::Clipper::Clipper(&v12, 0);
   selfCopy = self;
-  if (v4 && ([v4 isEmpty] & 1) == 0)
+  if (v5 && ([v5 isEmpty] & 1) == 0)
   {
-    memset(&v9, 0, sizeof(v9));
-    CGAffineTransformMakeScale(&v9, 10000.0, 10000.0);
+    memset(&v10, 0, sizeof(v10));
+    CGAffineTransformMakeScale(&v10, 10000.0, 10000.0);
     if (([selfCopy isEmpty] & 1) == 0)
     {
-      v6 = MEMORY[0x259C27E10]([selfCopy itk_CGPath], &v9);
-      ITKClipperPathsFromCGPath(v6, 1.0);
+      v7 = MEMORY[0x259C27E10]([selfCopy itk_CGPath], &v10);
+      ITKClipperPathsFromCGPath(v7, 1.0);
     }
 
-    v7 = MEMORY[0x259C27E10]([v4 itk_CGPath], &v9);
-    ITKClipperPathsFromCGPath(v7, 1.0);
+    v8 = MEMORY[0x259C27E10]([v5 itk_CGPath], &v10);
+    ITKClipperPathsFromCGPath(v8, 1.0);
   }
 
-  std::__list_imp<long long>::clear(v18);
+  std::__list_imp<long long>::clear(v19);
   if (__p)
   {
-    v17 = __p;
+    v18 = __p;
     operator delete(__p);
   }
 
-  if (v14)
+  if (v15)
   {
-    v15 = v14;
-    operator delete(v14);
+    v16 = v15;
+    operator delete(v15);
   }
 
-  if (v12)
+  if (v13)
   {
-    v13 = v12;
-    operator delete(v12);
+    v14 = v13;
+    operator delete(v13);
   }
 
-  ClipperLib::ClipperBase::~ClipperBase(v19);
-  v11 = v10;
-  std::vector<std::vector<ClipperLib::IntPoint>>::__destroy_vector::operator()[abi:ne200100](&v11);
+  ClipperLib::ClipperBase::~ClipperBase(v20);
+  v12 = v11;
+  std::vector<std::vector<ClipperLib::IntPoint>>::__destroy_vector::operator()[abi:ne200100](&v12);
 
   return selfCopy;
 }
@@ -383,30 +385,30 @@
 
 + (id)itk_groupAndRoundPaths:()ITKUtilities radius:offset:
 {
-  v16[36] = *MEMORY[0x277D85DE8];
-  v4 = a3;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __67__UIBezierPath_ITKUtilities__itk_groupAndRoundPaths_radius_offset___block_invoke;
-  v9[3] = &__block_descriptor_40_e29_B32__0__UIBezierPath_8Q16_B24l;
-  v9[4] = self;
-  if (([v4 itk_containsObjectPassingTest:v9] & 1) == 0)
+  v18[36] = *MEMORY[0x277D85DE8];
+  v6 = a5;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __67__UIBezierPath_ITKUtilities__itk_groupAndRoundPaths_radius_offset___block_invoke;
+  v11[3] = &__block_descriptor_40_e29_B32__0__UIBezierPath_8Q16_B24l;
+  v11[4] = self;
+  if (([v6 itk_containsObjectPassingTest:v11] & 1) == 0)
   {
-    memset(v8, 0, sizeof(v8));
-    v10 = 0;
-    v11 = &v10;
-    v12 = 0x15012000000;
-    v13 = __Block_byref_object_copy__16;
-    v14 = __Block_byref_object_dispose__17;
-    v15 = &unk_254C2D841;
-    v5 = ClipperLib::Clipper::Clipper(v16, 0);
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __67__UIBezierPath_ITKUtilities__itk_groupAndRoundPaths_radius_offset___block_invoke_19;
-    v7[3] = &unk_2797B0248;
-    v7[4] = &v10;
-    [v4 enumerateObjectsUsingBlock:{v7, v5}];
-    ClipperLib::Clipper::Execute((v11 + 6), 1, v8, 0);
+    memset(v10, 0, sizeof(v10));
+    v12 = 0;
+    v13 = &v12;
+    v14 = 0x15012000000;
+    v15 = __Block_byref_object_copy__16;
+    v16 = __Block_byref_object_dispose__17;
+    v17 = &unk_254C2D841;
+    v7 = ClipperLib::Clipper::Clipper(v18, 0);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __67__UIBezierPath_ITKUtilities__itk_groupAndRoundPaths_radius_offset___block_invoke_19;
+    v9[3] = &unk_2797B0248;
+    v9[4] = &v12;
+    [v6 enumerateObjectsUsingBlock:{v9, v7}];
+    ClipperLib::Clipper::Execute((v13 + 6), 1, v10, 0);
     operator new();
   }
 
@@ -580,47 +582,49 @@
 + (void)_processPointsForRounding:()ITKUtilities withRadius:
 {
   v5 = a4;
-  v17[0] = 0;
-  v17[1] = v17;
-  v17[2] = 0x3032000000;
-  v17[3] = __Block_byref_object_copy__8;
-  v17[4] = __Block_byref_object_dispose__9;
-  v18 = 0;
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x3032000000;
-  v14 = __Block_byref_object_copy__8;
-  v15 = __Block_byref_object_dispose__9;
+  v22[0] = 0;
+  v22[1] = v22;
+  v22[2] = 0x3032000000;
+  v22[3] = __Block_byref_object_copy__8;
+  v22[4] = __Block_byref_object_dispose__9;
+  v23 = 0;
   v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__8;
+  v20 = __Block_byref_object_dispose__9;
+  v21 = 0;
   v6 = [v5 copy];
-  v10[1] = 3221225472;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[2] = __67__UIBezierPath_ITKUtilities___processPointsForRounding_withRadius___block_invoke;
-  v10[3] = &unk_2797B02C0;
-  *&v10[6] = self / 3.0;
-  v10[4] = v17;
-  v10[5] = &v11;
-  [v6 enumerateObjectsUsingBlock:v10];
+  v15[1] = 3221225472;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[2] = __67__UIBezierPath_ITKUtilities___processPointsForRounding_withRadius___block_invoke;
+  v15[3] = &unk_2797B02C0;
+  *&v15[6] = self / 3.0;
+  v15[4] = v22;
+  v15[5] = &v16;
+  [v6 enumerateObjectsUsingBlock:v15];
 
-  if (v12[5])
+  if (v17[5])
   {
     [v5 removeObjectsAtIndexes:?];
   }
 
   firstObject = [v5 firstObject];
   [firstObject itk_pointValue];
+  v9 = v8;
+  v11 = v10;
   lastObject = [v5 lastObject];
   [lastObject itk_pointValue];
-  v9 = ITKNearlyEqualPointsWithThreshold();
+  v14 = ITKNearlyEqualPointsWithThreshold(v9, v11, v13);
 
-  if (v9)
+  if (v14)
   {
     [v5 removeLastObject];
   }
 
-  _Block_object_dispose(&v11, 8);
+  _Block_object_dispose(&v16, 8);
 
-  _Block_object_dispose(v17, 8);
+  _Block_object_dispose(v22, 8);
 }
 
 + (id)itk_shiftLinePerpendicularlyFromPoint:()ITKUtilities to:radius:
@@ -633,22 +637,18 @@
     cos(v10);
   }
 
-  ITKAddPoints();
-  [v8 setStartPoint:?];
-  ITKAddPoints();
-  [v8 setEndPoint:?];
+  [v8 setStartPoint:ITKAddPoints()];
+  [v8 setEndPoint:ITKAddPoints()];
 
   return v8;
 }
 
-+ (uint64_t)itk_signForRadiusWithVectorStart:()ITKUtilities end:otherPoint:
++ (void)itk_signForRadiusWithVectorStart:()ITKUtilities end:otherPoint:
 {
-  if (self != a3)
+  if (a2 != a4)
   {
-    return ITKSlopeOfLine();
+    ITKSlopeOfLine();
   }
-
-  return result;
 }
 
 + (void)itk_calculateCenterForPoints:()ITKUtilities p2:p3:radius:
@@ -666,49 +666,49 @@
 
 + (double)itk_projectPoint:()ITKUtilities lineStart:lineEnd:
 {
-  v6 = a3;
-  v15 = *MEMORY[0x277CBF348];
-  if (a3 != a5)
+  v7 = a4;
+  v16 = *MEMORY[0x277CBF348];
+  if (a4 != a6)
   {
-    if (a4 == a6)
+    if (a5 == a7)
     {
-      return self;
+      return a2;
     }
 
     else
     {
       ITKSlopeOfLine();
-      v11 = v10;
-      v12 = objc_alloc_init(MEMORY[0x277D1C0F0]);
-      [v12 setA:v11];
-      [v12 setB:a4 - v11 * v6];
+      v12 = v11;
       v13 = objc_alloc_init(MEMORY[0x277D1C0F0]);
-      [v13 setA:-1.0 / v11];
-      [v13 setB:a2 + 1.0 / v11 * self];
+      [v13 setA:v12];
+      [v13 setB:a5 - v12 * v7];
+      v14 = objc_alloc_init(MEMORY[0x277D1C0F0]);
+      [v14 setA:-1.0 / v12];
+      [v14 setB:a3 + 1.0 / v12 * a2];
       ITKIntersectsLine();
 
-      return *&v15;
+      return *&v16;
     }
   }
 
-  return v6;
+  return v7;
 }
 
 + (void)itk_roundAndGroupNormalizedQuadsForHighlight:()ITKUtilities aspectRatio:expansionScale:radiusToAvgHeightRatio:
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = a3;
-  v4 = objc_alloc_init(MEMORY[0x277D75208]);
-  v6[0] = 0;
-  v6[1] = v6;
-  v6[2] = 0x13812000000;
-  v6[3] = __Block_byref_object_copy__25;
-  v6[4] = __Block_byref_object_dispose__26;
-  v6[5] = &unk_254C2D841;
-  ClipperLib::ClipperOffset::ClipperOffset(&v7, 2.0, 0.25);
-  v5[0] = 0;
-  v5[1] = v5;
-  v5[2] = 0x2020000000;
+  v11 = *MEMORY[0x277D85DE8];
+  v6 = a6;
+  v7 = objc_alloc_init(MEMORY[0x277D75208]);
+  v9[0] = 0;
+  v9[1] = v9;
+  v9[2] = 0x13812000000;
+  v9[3] = __Block_byref_object_copy__25;
+  v9[4] = __Block_byref_object_dispose__26;
+  v9[5] = &unk_254C2D841;
+  ClipperLib::ClipperOffset::ClipperOffset(&v10, 2.0, 0.25);
+  v8[0] = 0;
+  v8[1] = v8;
+  v8[2] = 0x2020000000;
   operator new();
 }
 

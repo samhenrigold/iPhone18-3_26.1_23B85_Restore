@@ -1,3 +1,243 @@
+void sub_29A2B343C(uint64_t a1@<X8>)
+{
+  *&v12 = *MEMORY[0x29EDCA608];
+  sub_29A008E78(__p, "Unsupported type for comparison");
+  if (v6 >= 0)
+  {
+    v4 = __p;
+  }
+
+  else
+  {
+    v4 = __p[0];
+  }
+
+  pxrInternal__aapl__pxrReserved__::TfStringPrintf("%s: %s", v2, v3, "leq", v4);
+  v7 = 0uLL;
+  v8 = 0;
+  sub_29A280C48(&v7, &v10, &v12, 1uLL);
+  *(a1 + 8) = 0;
+  *(a1 + 16) = v7;
+  *(a1 + 32) = v8;
+  v7 = 0uLL;
+  v8 = 0;
+  v9 = &v7;
+  sub_29A012C90(&v9);
+  if (v11 < 0)
+  {
+    operator delete(v10);
+  }
+
+  if (v6 < 0)
+  {
+    operator delete(__p[0]);
+  }
+}
+
+void sub_29A2B3540(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+{
+  if (*(v17 - 41) < 0)
+  {
+    operator delete(*(v17 - 64));
+  }
+
+  if (a17 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_29A2B357C(uint64_t a1@<X8>)
+{
+  *&v12 = *MEMORY[0x29EDCA608];
+  sub_29A008E78(__p, "Unsupported type for comparison");
+  if (v6 >= 0)
+  {
+    v4 = __p;
+  }
+
+  else
+  {
+    v4 = __p[0];
+  }
+
+  pxrInternal__aapl__pxrReserved__::TfStringPrintf("%s: %s", v2, v3, "leq", v4);
+  v7 = 0uLL;
+  v8 = 0;
+  sub_29A280C48(&v7, &v10, &v12, 1uLL);
+  *(a1 + 8) = 0;
+  *(a1 + 16) = v7;
+  *(a1 + 32) = v8;
+  v7 = 0uLL;
+  v8 = 0;
+  v9 = &v7;
+  sub_29A012C90(&v9);
+  if (v11 < 0)
+  {
+    operator delete(v10);
+  }
+
+  if (v6 < 0)
+  {
+    operator delete(__p[0]);
+  }
+}
+
+void sub_29A2B3680(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+{
+  if (*(v17 - 41) < 0)
+  {
+    operator delete(*(v17 - 64));
+  }
+
+  if (a17 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_29A2B36BC(uint64_t a1@<X8>)
+{
+  *&v12 = *MEMORY[0x29EDCA608];
+  sub_29A008E78(__p, "Unsupported type for comparison");
+  if (v6 >= 0)
+  {
+    v4 = __p;
+  }
+
+  else
+  {
+    v4 = __p[0];
+  }
+
+  pxrInternal__aapl__pxrReserved__::TfStringPrintf("%s: %s", v2, v3, "leq", v4);
+  v7 = 0uLL;
+  v8 = 0;
+  sub_29A280C48(&v7, &v10, &v12, 1uLL);
+  *(a1 + 8) = 0;
+  *(a1 + 16) = v7;
+  *(a1 + 32) = v8;
+  v7 = 0uLL;
+  v8 = 0;
+  v9 = &v7;
+  sub_29A012C90(&v9);
+  if (v11 < 0)
+  {
+    operator delete(v10);
+  }
+
+  if (v6 < 0)
+  {
+    operator delete(__p[0]);
+  }
+}
+
+void sub_29A2B37C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+{
+  if (*(v17 - 41) < 0)
+  {
+    operator delete(*(v17 - 64));
+  }
+
+  if (a17 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_29A2B37FC(uint64_t a1@<X8>)
+{
+  *&v12 = *MEMORY[0x29EDCA608];
+  sub_29A008E78(__p, "Unsupported type for comparison");
+  if (v6 >= 0)
+  {
+    v4 = __p;
+  }
+
+  else
+  {
+    v4 = __p[0];
+  }
+
+  pxrInternal__aapl__pxrReserved__::TfStringPrintf("%s: %s", v2, v3, "leq", v4);
+  v7 = 0uLL;
+  v8 = 0;
+  sub_29A280C48(&v7, &v10, &v12, 1uLL);
+  *(a1 + 8) = 0;
+  *(a1 + 16) = v7;
+  *(a1 + 32) = v8;
+  v7 = 0uLL;
+  v8 = 0;
+  v9 = &v7;
+  sub_29A012C90(&v9);
+  if (v11 < 0)
+  {
+    operator delete(v10);
+  }
+
+  if (v6 < 0)
+  {
+    operator delete(__p[0]);
+  }
+}
+
+void sub_29A2B3900(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+{
+  if (*(v17 - 41) < 0)
+  {
+    operator delete(*(v17 - 64));
+  }
+
+  if (a17 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_29A2B393C(uint64_t a1@<X8>)
+{
+  *&v12 = *MEMORY[0x29EDCA608];
+  sub_29A008E78(__p, "Unsupported type for comparison");
+  if (v6 >= 0)
+  {
+    v4 = __p;
+  }
+
+  else
+  {
+    v4 = __p[0];
+  }
+
+  pxrInternal__aapl__pxrReserved__::TfStringPrintf("%s: %s", v2, v3, "leq", v4);
+  v7 = 0uLL;
+  v8 = 0;
+  sub_29A280C48(&v7, &v10, &v12, 1uLL);
+  *(a1 + 8) = 0;
+  *(a1 + 16) = v7;
+  *(a1 + 32) = v8;
+  v7 = 0uLL;
+  v8 = 0;
+  v9 = &v7;
+  sub_29A012C90(&v9);
+  if (v11 < 0)
+  {
+    operator delete(v10);
+  }
+
+  if (v6 < 0)
+  {
+    operator delete(__p[0]);
+  }
+}
+
 void sub_29A2B3A40(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
 {
   if (*(v17 - 41) < 0)
@@ -13,7 +253,7 @@ void sub_29A2B3A40(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL sub_29A2B3A7C@<W0>(uint64_t *a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
+BOOL sub_29A2B3A7C@<W0>(uint64_t **a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
 {
   v5 = *a1;
   v6 = *(v5 + 8);
@@ -4954,7 +5194,7 @@ void sub_29A2BB264(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL sub_29A2BB2A0@<W0>(uint64_t *a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
+BOOL sub_29A2BB2A0@<W0>(uint64_t **a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
 {
   v5 = *a1;
   v6 = *(v5 + 8);
@@ -9539,261 +9779,6 @@ void sub_29A2C21C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 }
 
 void sub_29A2C2204(uint64_t a1@<X8>)
-{
-  *&v12 = *MEMORY[0x29EDCA608];
-  sub_29A008E78(__p, "Unsupported type for comparison");
-  if (v6 >= 0)
-  {
-    v4 = __p;
-  }
-
-  else
-  {
-    v4 = __p[0];
-  }
-
-  pxrInternal__aapl__pxrReserved__::TfStringPrintf("%s: %s", v2, v3, "geq", v4);
-  v7 = 0uLL;
-  v8 = 0;
-  sub_29A280C48(&v7, &v10, &v12, 1uLL);
-  *(a1 + 8) = 0;
-  *(a1 + 16) = v7;
-  *(a1 + 32) = v8;
-  v7 = 0uLL;
-  v8 = 0;
-  v9 = &v7;
-  sub_29A012C90(&v9);
-  if (v11 < 0)
-  {
-    operator delete(v10);
-  }
-
-  if (v6 < 0)
-  {
-    operator delete(__p[0]);
-  }
-}
-
-void sub_29A2C2308(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
-{
-  if (*(v17 - 41) < 0)
-  {
-    operator delete(*(v17 - 64));
-  }
-
-  if (a17 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_29A2C2344(uint64_t a1@<X8>)
-{
-  *&v12 = *MEMORY[0x29EDCA608];
-  sub_29A008E78(__p, "Unsupported type for comparison");
-  if (v6 >= 0)
-  {
-    v4 = __p;
-  }
-
-  else
-  {
-    v4 = __p[0];
-  }
-
-  pxrInternal__aapl__pxrReserved__::TfStringPrintf("%s: %s", v2, v3, "geq", v4);
-  v7 = 0uLL;
-  v8 = 0;
-  sub_29A280C48(&v7, &v10, &v12, 1uLL);
-  *(a1 + 8) = 0;
-  *(a1 + 16) = v7;
-  *(a1 + 32) = v8;
-  v7 = 0uLL;
-  v8 = 0;
-  v9 = &v7;
-  sub_29A012C90(&v9);
-  if (v11 < 0)
-  {
-    operator delete(v10);
-  }
-
-  if (v6 < 0)
-  {
-    operator delete(__p[0]);
-  }
-}
-
-void sub_29A2C2448(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
-{
-  if (*(v17 - 41) < 0)
-  {
-    operator delete(*(v17 - 64));
-  }
-
-  if (a17 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_29A2C2484(uint64_t a1@<X8>)
-{
-  *&v12 = *MEMORY[0x29EDCA608];
-  sub_29A008E78(__p, "Unsupported type for comparison");
-  if (v6 >= 0)
-  {
-    v4 = __p;
-  }
-
-  else
-  {
-    v4 = __p[0];
-  }
-
-  pxrInternal__aapl__pxrReserved__::TfStringPrintf("%s: %s", v2, v3, "geq", v4);
-  v7 = 0uLL;
-  v8 = 0;
-  sub_29A280C48(&v7, &v10, &v12, 1uLL);
-  *(a1 + 8) = 0;
-  *(a1 + 16) = v7;
-  *(a1 + 32) = v8;
-  v7 = 0uLL;
-  v8 = 0;
-  v9 = &v7;
-  sub_29A012C90(&v9);
-  if (v11 < 0)
-  {
-    operator delete(v10);
-  }
-
-  if (v6 < 0)
-  {
-    operator delete(__p[0]);
-  }
-}
-
-void sub_29A2C2588(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
-{
-  if (*(v17 - 41) < 0)
-  {
-    operator delete(*(v17 - 64));
-  }
-
-  if (a17 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_29A2C25C4(uint64_t a1@<X8>)
-{
-  *&v12 = *MEMORY[0x29EDCA608];
-  sub_29A008E78(__p, "Unsupported type for comparison");
-  if (v6 >= 0)
-  {
-    v4 = __p;
-  }
-
-  else
-  {
-    v4 = __p[0];
-  }
-
-  pxrInternal__aapl__pxrReserved__::TfStringPrintf("%s: %s", v2, v3, "geq", v4);
-  v7 = 0uLL;
-  v8 = 0;
-  sub_29A280C48(&v7, &v10, &v12, 1uLL);
-  *(a1 + 8) = 0;
-  *(a1 + 16) = v7;
-  *(a1 + 32) = v8;
-  v7 = 0uLL;
-  v8 = 0;
-  v9 = &v7;
-  sub_29A012C90(&v9);
-  if (v11 < 0)
-  {
-    operator delete(v10);
-  }
-
-  if (v6 < 0)
-  {
-    operator delete(__p[0]);
-  }
-}
-
-void sub_29A2C26C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
-{
-  if (*(v17 - 41) < 0)
-  {
-    operator delete(*(v17 - 64));
-  }
-
-  if (a17 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_29A2C2704(uint64_t a1@<X8>)
-{
-  *&v12 = *MEMORY[0x29EDCA608];
-  sub_29A008E78(__p, "Unsupported type for comparison");
-  if (v6 >= 0)
-  {
-    v4 = __p;
-  }
-
-  else
-  {
-    v4 = __p[0];
-  }
-
-  pxrInternal__aapl__pxrReserved__::TfStringPrintf("%s: %s", v2, v3, "geq", v4);
-  v7 = 0uLL;
-  v8 = 0;
-  sub_29A280C48(&v7, &v10, &v12, 1uLL);
-  *(a1 + 8) = 0;
-  *(a1 + 16) = v7;
-  *(a1 + 32) = v8;
-  v7 = 0uLL;
-  v8 = 0;
-  v9 = &v7;
-  sub_29A012C90(&v9);
-  if (v11 < 0)
-  {
-    operator delete(v10);
-  }
-
-  if (v6 < 0)
-  {
-    operator delete(__p[0]);
-  }
-}
-
-void sub_29A2C2808(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
-{
-  if (*(v17 - 41) < 0)
-  {
-    operator delete(*(v17 - 64));
-  }
-
-  if (a17 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_29A2C2844(uint64_t a1@<X8>)
 {
   *&v12 = *MEMORY[0x29EDCA608];
   sub_29A008E78(__p, "Unsupported type for comparison");

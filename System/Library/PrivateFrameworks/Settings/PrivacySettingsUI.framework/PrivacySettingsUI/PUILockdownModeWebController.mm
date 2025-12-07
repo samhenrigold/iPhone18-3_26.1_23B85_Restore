@@ -117,7 +117,7 @@ void __45__PUILockdownModeWebController_dataDidChange__block_invoke(uint64_t a1)
     v66 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"LOCKDOWN_MODE_GROUP"];
     v3 = MEMORY[0x277CCACA8];
     v4 = PUI_LocalizedStringForLockdownMode(@"WEB_CONTENT_FOOTER");
-    v5 = getLocalizedDeviceName();
+    v5 = getLocalizedDeviceName(v4);
     v6 = [v3 stringWithFormat:v4, v5];
     [v66 setObject:v6 forKeyedSubscript:*MEMORY[0x277D3FF88]];
 
@@ -196,11 +196,11 @@ void __45__PUILockdownModeWebController_dataDidChange__block_invoke(uint64_t a1)
 
             if (v79)
             {
-              dataContainerURL = _PUILoggingFacility();
+              dataContainerURL = _PUILoggingFacility(v20);
               if (os_log_type_enabled(dataContainerURL, OS_LOG_TYPE_ERROR))
               {
                 bundleIdentifier4 = [v11 bundleIdentifier];
-                v22 = bundleIdentifier4;
+                v23 = bundleIdentifier4;
                 uTF8String = [bundleIdentifier4 UTF8String];
                 *buf = 136315394;
                 *&buf[4] = "[PUILockdownModeWebController specifiers]";
@@ -215,58 +215,58 @@ void __45__PUILockdownModeWebController_dataDidChange__block_invoke(uint64_t a1)
               dataContainerURL = [v78 dataContainerURL];
               if (dataContainerURL)
               {
-                v24 = objc_alloc(MEMORY[0x277CBEBD0]);
+                v25 = objc_alloc(MEMORY[0x277CBEBD0]);
                 bundleIdentifier5 = [v78 bundleIdentifier];
                 bundleIdentifier6 = [v78 bundleIdentifier];
                 if ([v75 containsObject:bundleIdentifier6])
                 {
-                  v27 = 0;
+                  v28 = 0;
                 }
 
                 else
                 {
-                  v27 = dataContainerURL;
+                  v28 = dataContainerURL;
                 }
 
-                v28 = [v24 _initWithSuiteName:bundleIdentifier5 container:v27];
+                v29 = [v25 _initWithSuiteName:bundleIdentifier5 container:v28];
 
-                if ([v28 BOOLForKey:@"WebKitCaptivePortalModeAlertShown"])
+                if ([v29 BOOLForKey:@"WebKitCaptivePortalModeAlertShown"])
                 {
                   path = [dataContainerURL path];
                   [bundleIdentifier setObject:MEMORY[0x277CBEC38] forKeyedSubscript:v72];
                   [bundleIdentifier setObject:path forKeyedSubscript:@"PUILockdownModeWebContainerPathKey"];
-                  v29 = [MEMORY[0x277CCABB0] numberWithInt:{+[PUILockdownModeUtilities isCaptivePortalModeIgnoredForContainerPath:](PUILockdownModeUtilities, "isCaptivePortalModeIgnoredForContainerPath:", path) ^ 1}];
-                  [bundleIdentifier setObject:v29 forKeyedSubscript:v71];
+                  v30 = [MEMORY[0x277CCABB0] numberWithInt:{+[PUILockdownModeUtilities isCaptivePortalModeIgnoredForContainerPath:](PUILockdownModeUtilities, "isCaptivePortalModeIgnoredForContainerPath:", path) ^ 1}];
+                  [bundleIdentifier setObject:v30 forKeyedSubscript:v71];
 
                   bundleIdentifier7 = [v11 bundleIdentifier];
-                  v31 = [bundleIdentifier7 isEqualToString:@"com.apple.mobilecal"];
+                  v32 = [bundleIdentifier7 isEqualToString:@"com.apple.mobilecal"];
 
-                  if (v31)
+                  if (v32)
                   {
-                    v32 = objc_alloc(MEMORY[0x277D1B1A8]);
+                    v33 = objc_alloc(MEMORY[0x277D1B1A8]);
                     date = [MEMORY[0x277CBEAA8] date];
                     currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
-                    bundleIdentifier8 = [v32 initWithDate:date calendar:currentCalendar format:0];
+                    bundleIdentifier8 = [v33 initWithDate:date calendar:currentCalendar format:0];
 
-                    v35 = objc_alloc(MEMORY[0x277D1B1C8]);
-                    v36 = PSBlankIconImage();
-                    [v36 size];
-                    v38 = v37;
-                    v40 = v39;
+                    v36 = objc_alloc(MEMORY[0x277D1B1C8]);
+                    v37 = PSBlankIconImage();
+                    [v37 size];
+                    v39 = v38;
+                    v41 = v40;
                     mainScreen = [MEMORY[0x277D759A0] mainScreen];
                     [mainScreen scale];
-                    v74 = [v35 initWithSize:v38 scale:{v40, v42}];
+                    v74 = [v36 initWithSize:v39 scale:{v41, v43}];
 
                     v92 = v74;
-                    v43 = [MEMORY[0x277CBEA60] arrayWithObjects:&v92 count:1];
-                    [bundleIdentifier8 prepareImagesForImageDescriptors:v43];
+                    v44 = [MEMORY[0x277CBEA60] arrayWithObjects:&v92 count:1];
+                    [bundleIdentifier8 prepareImagesForImageDescriptors:v44];
 
-                    v44 = [bundleIdentifier8 imageForDescriptor:v74];
-                    v45 = MEMORY[0x277D755B8];
-                    cGImage = [v44 CGImage];
-                    [v44 scale];
-                    v47 = [v45 imageWithCGImage:cGImage scale:0 orientation:?];
-                    [bundleIdentifier setObject:v47 forKeyedSubscript:v67];
+                    v45 = [bundleIdentifier8 imageForDescriptor:v74];
+                    v46 = MEMORY[0x277D755B8];
+                    cGImage = [v45 CGImage];
+                    [v45 scale];
+                    v48 = [v46 imageWithCGImage:cGImage scale:0 orientation:?];
+                    [bundleIdentifier setObject:v48 forKeyedSubscript:v67];
                   }
 
                   else
@@ -294,24 +294,24 @@ LABEL_27:
     }
 
     safariSettingsBundle = [(PUILockdownModeWebController *)self safariSettingsBundle];
-    v49 = safariSettingsBundle;
+    v50 = safariSettingsBundle;
     if (safariSettingsBundle)
     {
-      v50 = [safariSettingsBundle classNamed:@"SafariLockdownModePerSitePreferenceSettingsController"];
-      if (v50)
+      v51 = [safariSettingsBundle classNamed:@"SafariLockdownModePerSitePreferenceSettingsController"];
+      if (v51)
       {
         emptyGroupSpecifier = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
         [v70 addObject:emptyGroupSpecifier];
-        v52 = MEMORY[0x277D3FAD8];
-        v53 = PUI_LocalizedStringForLockdownMode(@"WEBSITES");
-        v54 = [v52 preferenceSpecifierNamed:v53 target:self set:0 get:0 detail:v50 cell:2 edit:0];
+        v53 = MEMORY[0x277D3FAD8];
+        v54 = PUI_LocalizedStringForLockdownMode(@"WEBSITES");
+        v55 = [v53 preferenceSpecifierNamed:v54 target:self set:0 get:0 detail:v51 cell:2 edit:0];
 
-        [v70 addObject:v54];
+        [v70 addObject:v55];
       }
 
       else
       {
-        emptyGroupSpecifier = _PUILoggingFacility();
+        emptyGroupSpecifier = _PUILoggingFacility(0);
         if (os_log_type_enabled(emptyGroupSpecifier, OS_LOG_TYPE_FAULT))
         {
           [(PUILockdownModeWebController *)emptyGroupSpecifier specifiers];
@@ -321,7 +321,7 @@ LABEL_27:
 
     else
     {
-      emptyGroupSpecifier = _PUILoggingFacility();
+      emptyGroupSpecifier = _PUILoggingFacility(0);
       if (os_log_type_enabled(emptyGroupSpecifier, OS_LOG_TYPE_FAULT))
       {
         [(PUILockdownModeWebController *)emptyGroupSpecifier specifiers];
@@ -330,11 +330,11 @@ LABEL_27:
 
     if ([v73 count])
     {
-      v55 = MEMORY[0x277D3FAD8];
-      v56 = PUI_LocalizedStringForLockdownMode(@"APPS_SECTION");
-      v57 = [v55 groupSpecifierWithID:@"APPS_GROUP" name:v56];
+      v56 = MEMORY[0x277D3FAD8];
+      v57 = PUI_LocalizedStringForLockdownMode(@"APPS_SECTION");
+      v58 = [v56 groupSpecifierWithID:@"APPS_GROUP" name:v57];
 
-      [v70 addObject:v57];
+      [v70 addObject:v58];
       [v73 sortUsingFunction:PUICompareSpecifiersByName context:0];
       [v70 addObjectsFromArray:v73];
     }
@@ -347,21 +347,20 @@ LABEL_27:
 
   if (isActive)
   {
-    v60 = *MEMORY[0x277D3FC48];
+    v61 = *MEMORY[0x277D3FC48];
   }
 
   else
   {
     _allSpecifiers2 = [(PUILockdownModeWebController *)self _allSpecifiers];
-    v60 = *MEMORY[0x277D3FC48];
-    v62 = *(&self->super.super.super.super.super.isa + v60);
-    *(&self->super.super.super.super.super.isa + v60) = _allSpecifiers2;
+    v61 = *MEMORY[0x277D3FC48];
+    v63 = *(&self->super.super.super.super.super.isa + v61);
+    *(&self->super.super.super.super.super.isa + v61) = _allSpecifiers2;
   }
 
-  v63 = *(&self->super.super.super.super.super.isa + v60);
-  v64 = *MEMORY[0x277D85DE8];
+  v64 = *(&self->super.super.super.super.super.isa + v61);
 
-  return v63;
+  return v64;
 }
 
 - (void)setAppLockdownModeEnabled:(id)enabled forSpecifier:(id)specifier
@@ -374,22 +373,21 @@ LABEL_27:
   if (([enabledCopy isEqual:v8] & 1) == 0)
   {
     bOOLValue = [enabledCopy BOOLValue];
-    v10 = _PUILoggingFacility();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v10 = bOOLValue;
+    v11 = _PUILoggingFacility(bOOLValue);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v13 = 136315394;
       v14 = "[PUILockdownModeWebController setAppLockdownModeEnabled:forSpecifier:]";
       v15 = 1024;
-      v16 = bOOLValue;
-      _os_log_impl(&dword_2657FE000, v10, OS_LOG_TYPE_DEFAULT, "%s - enable for app: %d", &v13, 0x12u);
+      v16 = v10;
+      _os_log_impl(&dword_2657FE000, v11, OS_LOG_TYPE_DEFAULT, "%s - enable for app: %d", &v13, 0x12u);
     }
 
     [specifierCopy setProperty:enabledCopy forKey:v7];
-    v11 = [specifierCopy propertyForKey:@"PUILockdownModeWebContainerPathKey"];
-    [PUILockdownModeUtilities setCaptivePortalModeIgnoredForContainerPath:v11 ignored:bOOLValue ^ 1u];
+    v12 = [specifierCopy propertyForKey:@"PUILockdownModeWebContainerPathKey"];
+    [PUILockdownModeUtilities setCaptivePortalModeIgnoredForContainerPath:v12 ignored:v10 ^ 1u];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)presentAboutController
@@ -511,11 +509,10 @@ void __71__PUILockdownModeWebController_updateSearchResultsForSearchController__
 
 - (void)specifiers
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[PUILockdownModeWebController specifiers]";
-  _os_log_fault_impl(&dword_2657FE000, log, OS_LOG_TYPE_FAULT, "%s Error getting Safari Settings Bundle", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[PUILockdownModeWebController specifiers]";
+  _os_log_fault_impl(&dword_2657FE000, log, OS_LOG_TYPE_FAULT, "%s Error getting Safari Settings Bundle", &v1, 0xCu);
 }
 
 @end

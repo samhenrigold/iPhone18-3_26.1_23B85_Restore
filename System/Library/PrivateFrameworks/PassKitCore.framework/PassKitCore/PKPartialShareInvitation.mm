@@ -87,19 +87,19 @@
       goto LABEL_12;
     }
 
-    v21 = [(__CFString *)v18 isEqualToString:@"UI"];
+    isEqualToString = objc_msgSend_isEqualToString_(v18);
 
-    if ((v21 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       v22 = v19;
-      if (v22 == @"remoteLocalDevice" || (v23 = v22, v24 = [(__CFString *)v22 isEqualToString:@"remoteLocalDevice"], v23, (v24 & 1) != 0))
+      if (v22 == @"remoteLocalDevice" || (v23 = v22, v24 = objc_msgSend_isEqualToString_(v22), v23, (v24 & 1) != 0))
       {
         v20 = 1;
         goto LABEL_12;
       }
 
       v25 = v23;
-      if (v25 == @"remoteExternalDevice" || (v26 = v25, v27 = [(__CFString *)v25 isEqualToString:@"remoteExternalDevice"], v26, v27))
+      if (v25 == @"remoteExternalDevice" || (v26 = v25, v27 = objc_msgSend_isEqualToString_(v25), v26, v27))
       {
         v20 = 2;
         goto LABEL_12;

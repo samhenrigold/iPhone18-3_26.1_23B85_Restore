@@ -1,3 +1,328 @@
+uint64_t udpconnection_RunInline(uint64_t a1)
+{
+  DerivedStorage = CMBaseObjectGetDerivedStorage();
+  if (*(DerivedStorage + 192) != 3)
+  {
+    return 4294894975;
+  }
+
+  v3 = DerivedStorage;
+  v4 = *(DerivedStorage + 72);
+  *(v4 + 72) = mach_absolute_time();
+  if ((atomic_fetch_or_explicit(APSWrapperGetValue(), 0, memory_order_relaxed) & 3) != 1)
+  {
+    APSRealTimeSignalRaise();
+    return 0;
+  }
+
+  Value = APSWrapperGetValue();
+  if (udpconnection_runInlineInternal(Value, *(v3 + 32), 0) || gLogCategory_APTransportConnectionUDPNW > 30)
+  {
+    return 0;
+  }
+
+  if (gLogCategory_APTransportConnectionUDPNW != -1 || (OUTLINED_FUNCTION_10_4(), result = _LogCategory_Initialize(), result))
+  {
+    OUTLINED_FUNCTION_1();
+    LogPrintF(v7, v8, v9, v10, a1);
+    return 0;
+  }
+
+  return result;
+}
+
+void udpconnectionInlineInactivityMonitor_fire(uint64_t a1)
+{
+  v2 = mach_absolute_time();
+  v30 = 0;
+  if (a1)
+  {
+    v3 = *(a1 + 72);
+    if (MillisecondsToUpTicks() + v3 > v2)
+    {
+      if (*(a1 + 64))
+      {
+        if (gLogCategory_APTransportConnectionUDPNW <= 50 && (gLogCategory_APTransportConnectionUDPNW != -1 || OUTLINED_FUNCTION_8(&gLogCategory_APTransportConnectionUDPNW)))
+        {
+          v27 = *(a1 + 24);
+          OUTLINED_FUNCTION_3_1();
+          LogPrintF(v4, v5, v6, v7, v27, a1);
+        }
+
+        *(a1 + 64) = 0;
+      }
+
+      v8 = UpTicksToNanoseconds();
+      v9 = dispatch_time(0, v8);
+      v10 = *(a1 + 40);
+      CFRetain(a1);
+      OUTLINED_FUNCTION_5_7();
+      dispatch_after_f(v9, v10, v11, v12);
+      goto LABEL_10;
+    }
+
+    if (!*(a1 + 64))
+    {
+      if (gLogCategory_APTransportConnectionUDPNW <= 50 && (gLogCategory_APTransportConnectionUDPNW != -1 || OUTLINED_FUNCTION_8(&gLogCategory_APTransportConnectionUDPNW)))
+      {
+        v28 = *(a1 + 24);
+        OUTLINED_FUNCTION_3_1();
+        LogPrintF(v13, v14, v15, v16, v28, a1);
+      }
+
+      *(a1 + 64) = 1;
+    }
+
+    v17 = FigCFWeakReferenceHolderCopyReferencedObject();
+    Value = APSWrapperGetValue();
+    udpconnection_runInlineInternal(Value, *(a1 + 48), &v30);
+    if (v30 && (*(a1 + 17) & 1) != 0)
+    {
+      if (gLogCategory_APTransportConnectionUDPNW <= 50 && (gLogCategory_APTransportConnectionUDPNW != -1 || OUTLINED_FUNCTION_8(&gLogCategory_APTransportConnectionUDPNW)))
+      {
+        v29 = *(a1 + 24);
+        OUTLINED_FUNCTION_3_1();
+        LogPrintF(v19, v20, v21, v22, v29, a1);
+      }
+
+      nw_context_cancel();
+      if (!v17)
+      {
+        goto LABEL_10;
+      }
+    }
+
+    else
+    {
+      v23 = dispatch_time(0, 20000000);
+      v24 = *(a1 + 40);
+      CFRetain(a1);
+      OUTLINED_FUNCTION_5_7();
+      dispatch_after_f(v23, v24, v25, v26);
+      if (!v17)
+      {
+        goto LABEL_10;
+      }
+    }
+
+    CFRelease(v17);
+LABEL_10:
+    CFRelease(a1);
+  }
+}
+
+uint64_t udpconnection_runInlineInternal(uint64_t a1, uint64_t a2, _BYTE *a3)
+{
+  v4 = FigSimpleMutexTryLock();
+  if (v4)
+  {
+    OUTLINED_FUNCTION_20_0(722863900);
+    v5 = nw_context_run_queued_blocks_inline();
+    OUTLINED_FUNCTION_20_0(722863904);
+    FigSimpleMutexUnlock();
+    if (a3)
+    {
+      *a3 = v5 ^ 1;
+    }
+  }
+
+  return v4;
+}
+
+uint64_t udpconnection_receiveDataLoop(uint64_t result)
+{
+  if (!*(result + 16))
+  {
+    v1 = result;
+    APTTrafficMetricsMessageReadStarted(*(result + 88), 1);
+    CFRetain(v1);
+    return nw_connection_receive_multiple();
+  }
+
+  return result;
+}
+
+void __udpconnection_receiveDataLoop_block_invoke(uint64_t a1, dispatch_data_t data, uint64_t a3, int a4, NSObject *a5)
+{
+  v9 = *(*(a1 + 32) + 88);
+  if (data)
+  {
+    size = dispatch_data_get_size(data);
+    if (a5)
+    {
+LABEL_3:
+      error_code = nw_error_get_error_code(a5);
+      goto LABEL_6;
+    }
+  }
+
+  else
+  {
+    size = 0;
+    if (a5)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  error_code = 0;
+LABEL_6:
+  APTTrafficMetricsMessageReadFinished(v9, size, error_code);
+  v12 = *(a1 + 32);
+  cf = 0;
+  v28 = 0;
+  if (*(v12 + 16))
+  {
+    v14 = 0;
+    v15 = 0;
+    goto LABEL_39;
+  }
+
+  if (!a5)
+  {
+    if (!data)
+    {
+      APSLogErrorAt();
+      if (gLogCategory_APTransportConnectionUDPNW <= 90 && (gLogCategory_APTransportConnectionUDPNW != -1 || OUTLINED_FUNCTION_9_0(&gLogCategory_APTransportConnectionUDPNW)))
+      {
+        OUTLINED_FUNCTION_15(&gLogCategory_APTransportConnectionUDPNW, "OSStatus udpconnection_receiveDataCallback(APTransportConnectionUDPNWReceiveLoopContextRef, dispatch_data_t, nw_error_t, Boolean *)", v26, "### [%{ptr}] Received callback with no content.\n");
+      }
+
+      goto LABEL_34;
+    }
+
+    if (!*(v12 + 80))
+    {
+      v14 = FigCFWeakReferenceHolderCopyReferencedObject();
+      if (!v14)
+      {
+        goto LABEL_36;
+      }
+
+      DerivedStorage = CMBaseObjectGetDerivedStorage();
+      APSRealTimeAllocatorGetDefault();
+      if (APSCMBlockBufferCreateWithDispatchData())
+      {
+        APSLogErrorAt();
+        APSSignalErrorAt();
+        goto LABEL_36;
+      }
+
+      v21 = *(DerivedStorage + 152);
+      Default = APSRealTimeAllocatorGetDefault();
+      if (v21(Default, v28, &cf))
+      {
+        APSLogErrorAt();
+        goto LABEL_36;
+      }
+
+      SequenceNumberForPackage = udpconnection_getSequenceNumberForPackage(cf);
+      v24 = CMBaseObjectGetDerivedStorage();
+      udpconnection_markSignPostExplicit(*(v24 + 384), 722863896, SequenceNumberForPackage);
+      udpconnection_callEventCallback(v14, 7u, cf);
+LABEL_26:
+      if (*(v12 + 64) && (atomic_fetch_and_explicit(APSWrapperGetValue(), 0xFFFFFFFD, memory_order_relaxed) & 2) != 0 && gLogCategory_APTransportConnectionUDPNW <= 50 && (gLogCategory_APTransportConnectionUDPNW != -1 || _LogCategory_Initialize()))
+      {
+        LogPrintF(&gLogCategory_APTransportConnectionUDPNW, "OSStatus udpconnection_receiveDataCallback(APTransportConnectionUDPNWReceiveLoopContextRef, dispatch_data_t, nw_error_t, Boolean *)", 33554482, "[%{ptr}] Did receive first packet offline\n", *(v12 + 24));
+      }
+
+      goto LABEL_36;
+    }
+
+    if (APSRealTimeReadableRingBufferWrite())
+    {
+      APSLogErrorAt();
+      goto LABEL_34;
+    }
+
+    v16 = *(v12 + 96);
+    v17 = *(v12 + 72);
+    v30 = 0;
+    v29 = 0;
+    if (v17 == APTransportPackageRTPCreateWithBBuf)
+    {
+      if (APSDispatchDataCopyBytes())
+      {
+        APSLogErrorAt();
+      }
+
+      else if ((BYTE1(v29) & 0x7E) == 0x60)
+      {
+        v18 = bswap32(WORD1(v29)) >> 16;
+LABEL_18:
+        udpconnection_markSignPostExplicit(v16, 722863896, v18);
+        v14 = 0;
+        goto LABEL_26;
+      }
+    }
+
+    v18 = 0;
+    goto LABEL_18;
+  }
+
+  v13 = nw_error_get_error_code(a5);
+  if (nw_error_get_error_domain(a5) == nw_error_domain_posix && v13 == 89)
+  {
+    v14 = 0;
+    v15 = 1;
+    goto LABEL_37;
+  }
+
+  v14 = nw_error_copy_cf_error(a5);
+  if (gLogCategory_APTransportConnectionUDPNW <= 90 && (gLogCategory_APTransportConnectionUDPNW != -1 || OUTLINED_FUNCTION_9_0(&gLogCategory_APTransportConnectionUDPNW)))
+  {
+    OUTLINED_FUNCTION_15(&gLogCategory_APTransportConnectionUDPNW, "OSStatus udpconnection_receiveDataCallback(APTransportConnectionUDPNWReceiveLoopContextRef, dispatch_data_t, nw_error_t, Boolean *)", v19, "### [%{ptr}] Received callback with error %@\n");
+  }
+
+  if (v14)
+  {
+    CFRelease(v14);
+LABEL_34:
+    v15 = 0;
+    v14 = 0;
+    goto LABEL_37;
+  }
+
+LABEL_36:
+  v15 = 0;
+LABEL_37:
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+LABEL_39:
+  if (v28)
+  {
+    CFRelease(v28);
+  }
+
+  if (v14)
+  {
+    CFRelease(v14);
+  }
+
+  APTTrafficMetricsMessageProcessed(*(*(a1 + 32) + 88));
+  if (v15 || a4)
+  {
+    if (!v15)
+    {
+      udpconnection_receiveDataLoop(*(a1 + 32));
+    }
+
+    v25 = *(a1 + 32);
+    if (v25)
+    {
+      CFRelease(v25);
+    }
+  }
+
+  else
+  {
+    APTTrafficMetricsMessageReadStarted(*(*(a1 + 32) + 88), 1);
+  }
+}
+
 void udpconnection_sendBatchInternal(uint64_t a1, const __CFArray *a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
@@ -16,33 +341,33 @@ void udpconnection_sendBatchInternal(uint64_t a1, const __CFArray *a2)
     if (Count < 1)
     {
 LABEL_8:
-      v11 = *(DerivedStorage + 196);
-      v12 = -1;
-      if (v11 == 1718776692)
+      v12 = *(DerivedStorage + 196);
+      v13 = -1;
+      if (v12 == 1718776692)
       {
-        v12 = 0;
+        v13 = 0;
       }
 
-      v13 = *(DerivedStorage + 296);
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 0x40000000;
-      v15[2] = __udpconnection_sendBatchInternal_block_invoke;
-      v15[3] = &__block_descriptor_tmp_185;
-      if (v11 == 1818325876)
+      v14 = *(DerivedStorage + 296);
+      v16[0] = MEMORY[0x277D85DD0];
+      v16[1] = 0x40000000;
+      v16[2] = __udpconnection_sendBatchInternal_block_invoke;
+      v16[3] = &__block_descriptor_tmp_185;
+      if (v12 == 1818325876)
       {
-        v14 = v7;
+        v15 = v7;
       }
 
       else
       {
-        v14 = v12;
+        v15 = v13;
       }
 
-      v15[4] = v6;
-      v15[5] = a1;
-      v15[6] = a2;
-      v15[7] = v14;
-      nw_connection_batch(v13, v15);
+      v16[4] = v6;
+      v16[5] = a1;
+      v16[6] = a2;
+      v16[7] = v15;
+      nw_connection_batch(v14, v16);
     }
 
     else
@@ -52,7 +377,7 @@ LABEL_8:
       {
         ValueAtIndex = CFArrayGetValueAtIndex(a2, v8);
         v10 = CFGetTypeID(ValueAtIndex);
-        if (v10 != APTransportPackageGetTypeID())
+        if (v10 != APTransportPackageGetTypeID(v10, v11))
         {
           break;
         }
@@ -71,24 +396,24 @@ LABEL_8:
 uint64_t APTransportConnectionUDPNWCreate_cold_3(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_5_4();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_5_4(v2, "dispatch queue allocation failed");
   *a1 = result;
   return result;
 }
 
 uint64_t APTransportConnectionUDPNWCreate_cold_6(uint64_t *a1)
 {
-  v2 = *a1;
+  v6 = *a1;
   OUTLINED_FUNCTION_3_1();
-  return LogPrintF();
+  return LogPrintF(v1, v2, v3, v4, v6);
 }
 
 uint64_t APTransportConnectionUDPNWCreate_cold_13(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_5_4();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_5_4(v2, "callback state queue allocation failed");
   *a1 = result;
   return result;
 }
@@ -96,8 +421,8 @@ uint64_t APTransportConnectionUDPNWCreate_cold_13(_DWORD *a1)
 uint64_t APTransportConnectionUDPNWCreate_cold_19(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_5_4();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_5_4(v2, "dispatch queue allocation failed");
   *a1 = result;
   return result;
 }
@@ -105,8 +430,8 @@ uint64_t APTransportConnectionUDPNWCreate_cold_19(_DWORD *a1)
 uint64_t APTransportConnectionUDPNWCreate_cold_21(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_5_4();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_5_4(v2, "inline mutex creation failed");
   *a1 = result;
   return result;
 }
@@ -114,8 +439,8 @@ uint64_t APTransportConnectionUDPNWCreate_cold_21(_DWORD *a1)
 uint64_t APTransportConnectionUDPNWCreate_cold_22(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_5_4();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_5_4(v2, "failed to copy nw_context");
   *a1 = result;
   return result;
 }
@@ -123,8 +448,8 @@ uint64_t APTransportConnectionUDPNWCreate_cold_22(_DWORD *a1)
 uint64_t APTransportConnectionUDPNWCreate_cold_23(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_5_4();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_5_4(v2, "weak reference holder allocation failed");
   *a1 = result;
   return result;
 }
@@ -132,8 +457,8 @@ uint64_t APTransportConnectionUDPNWCreate_cold_23(_DWORD *a1)
 uint64_t APTransportConnectionUDPNWCreate_cold_25(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_4_6();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_4_6(v2, "outConnection is NULL");
   *a1 = result;
   return result;
 }
@@ -141,8 +466,8 @@ uint64_t APTransportConnectionUDPNWCreate_cold_25(_DWORD *a1)
 uint64_t udpconnection_CopyProperty_cold_1(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_14_2();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_14_2(v2, "UDP connection already invalidated");
   *a1 = result;
   return result;
 }
@@ -150,8 +475,8 @@ uint64_t udpconnection_CopyProperty_cold_1(_DWORD *a1)
 uint64_t udpconnection_CopyProperty_cold_2(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_14_2();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_14_2(v2, "UDP connection already invalidated");
   *a1 = result;
   return result;
 }
@@ -160,7 +485,7 @@ uint64_t udpconnection_CopyProperty_cold_4(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
   APSLogErrorAt();
-  result = OUTLINED_FUNCTION_4();
+  result = OUTLINED_FUNCTION_4(0xE57Fu, "UDP connection is not a listener");
   *a1 = result;
   return result;
 }
@@ -169,23 +494,24 @@ uint64_t udpconnection_CopyProperty_cold_5(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
   APSLogErrorAt();
-  result = OUTLINED_FUNCTION_4();
+  result = OUTLINED_FUNCTION_4(0xE57Au, "UDP connection already invalidated");
   *a1 = result;
   return result;
 }
 
-uint64_t udpconnection_CopyProperty_cold_6(int a1, uint64_t a2, uint64_t a3, _DWORD *a4)
+uint64_t udpconnection_CopyProperty_cold_6(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
 {
+  v5 = a1;
   result = APSLogErrorAt();
   if (gLogCategory_APTransportConnectionUDPNW <= 90)
   {
-    if (gLogCategory_APTransportConnectionUDPNW != -1 || (result = OUTLINED_FUNCTION_9_0(), result))
+    if (gLogCategory_APTransportConnectionUDPNW != -1 || (result = OUTLINED_FUNCTION_9_0(&gLogCategory_APTransportConnectionUDPNW), result))
     {
-      result = OUTLINED_FUNCTION_15();
+      result = OUTLINED_FUNCTION_15(&gLogCategory_APTransportConnectionUDPNW, "OSStatus udpconnection_copyLocalNetworkInfo(APTransportConnectionRef, CFAllocatorRef, CFDictionaryRef *)", v7, "[%{ptr}] Copying local network information: Failed to get interface address for '%s'. Error: %#m\n");
     }
   }
 
-  *a4 = a1;
+  *a4 = v5;
   return result;
 }
 
@@ -193,7 +519,7 @@ uint64_t udpconnection_CopyProperty_cold_7(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
   APSLogErrorAt();
-  result = OUTLINED_FUNCTION_4();
+  result = OUTLINED_FUNCTION_4(0xE56Cu, "Failed to get local address");
   *a1 = result;
   return result;
 }
@@ -208,21 +534,20 @@ void udpconnection_CopyProperty_cold_8(const void *a1, _DWORD *a2)
 uint64_t udpconnection_CopyProperty_cold_9(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_5_4();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_5_4(v2, "Failed to create ip address string\n");
   *a1 = result;
   return result;
 }
 
-uint64_t udpconnection_CopyProperty_cold_10(uint64_t *a1, uint64_t a2, _DWORD *a3)
+uint64_t udpconnection_CopyProperty_cold_10(uint64_t a1, uint64_t a2, _DWORD *a3)
 {
   result = APSLogErrorAt();
   if (gLogCategory_APTransportConnectionUDPNW <= 90)
   {
-    if (gLogCategory_APTransportConnectionUDPNW != -1 || (result = OUTLINED_FUNCTION_9_0(), result))
+    if (gLogCategory_APTransportConnectionUDPNW != -1 || (result = OUTLINED_FUNCTION_9_0(&gLogCategory_APTransportConnectionUDPNW), result))
     {
-      v6 = *a1;
-      result = OUTLINED_FUNCTION_15();
+      result = OUTLINED_FUNCTION_15(&gLogCategory_APTransportConnectionUDPNW, "OSStatus udpconnection_copyLocalNetworkInfo(APTransportConnectionRef, CFAllocatorRef, CFDictionaryRef *)", v5, "[%{ptr}] Copying local network information: Failed to convert interface name '%@'\n");
     }
   }
 
@@ -233,8 +558,8 @@ uint64_t udpconnection_CopyProperty_cold_10(uint64_t *a1, uint64_t a2, _DWORD *a
 uint64_t udpconnection_CopyProperty_cold_11(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_5_4();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_5_4(v2, "Failed to create network dictionary\n");
   *a1 = result;
   return result;
 }
@@ -243,7 +568,7 @@ uint64_t udpconnection_CopyProperty_cold_13(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
   APSLogErrorAt();
-  result = OUTLINED_FUNCTION_4();
+  result = OUTLINED_FUNCTION_4(0xE57Au, "UDP connection already invalidated");
   *a1 = result;
   return result;
 }
@@ -252,7 +577,7 @@ uint64_t udpconnection_CopyProperty_cold_16(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
   APSLogErrorAt();
-  result = OUTLINED_FUNCTION_4();
+  result = OUTLINED_FUNCTION_4(0xE57Fu, "Failed to get nw client id");
   *a1 = result;
   return result;
 }
@@ -260,8 +585,8 @@ uint64_t udpconnection_CopyProperty_cold_16(_DWORD *a1)
 uint64_t udpconnection_CopyProperty_cold_17(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_5_4();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_5_4(v2, "Failed to create CFDataRef");
   *a1 = result;
   return result;
 }
@@ -269,8 +594,8 @@ uint64_t udpconnection_CopyProperty_cold_17(_DWORD *a1)
 uint64_t udpconnection_CopyProperty_cold_18(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_5_4();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_5_4(v2, "Failed to create nw_evaluator\n");
   *a1 = result;
   return result;
 }
@@ -278,8 +603,8 @@ uint64_t udpconnection_CopyProperty_cold_18(_DWORD *a1)
 uint64_t udpconnection_CopyProperty_cold_19(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_5_4();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_5_4(v2, "Failed to create remote nw_endpoint\n");
   *a1 = result;
   return result;
 }
@@ -287,8 +612,8 @@ uint64_t udpconnection_CopyProperty_cold_19(_DWORD *a1)
 uint64_t udpconnection_CopyProperty_cold_20(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_4_6();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_4_6(v2, "Client PID is not valid");
   *a1 = result;
   return result;
 }
@@ -296,8 +621,8 @@ uint64_t udpconnection_CopyProperty_cold_20(_DWORD *a1)
 uint64_t udpconnection_CopyProperty_cold_21(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_4_6();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_4_6(v2, "Remote address is not valid");
   *a1 = result;
   return result;
 }
@@ -306,7 +631,7 @@ uint64_t udpconnection_CopyProperty_cold_22(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
   APSLogErrorAt();
-  result = OUTLINED_FUNCTION_4();
+  result = OUTLINED_FUNCTION_4(0xE57Fu, "UDP connection is not a listener");
   *a1 = result;
   return result;
 }
@@ -315,7 +640,7 @@ uint64_t udpconnection_CopyProperty_cold_24(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
   APSLogErrorAt();
-  result = OUTLINED_FUNCTION_4();
+  result = OUTLINED_FUNCTION_4(0xE580u, "Querying interface name on a disconnected Connection");
   *a1 = result;
   return result;
 }
@@ -323,8 +648,8 @@ uint64_t udpconnection_CopyProperty_cold_24(_DWORD *a1)
 uint64_t udpconnection_SetProperty_cold_1(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_14_2();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_14_2(v2, "UDP connection already invalidated");
   *a1 = result;
   return result;
 }
@@ -332,8 +657,8 @@ uint64_t udpconnection_SetProperty_cold_1(_DWORD *a1)
 uint64_t udpconnection_SetProperty_cold_2(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_4_6();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_4_6(v2, "inPropertyValue is not a type of CFDictionaryRef");
   *a1 = result;
   return result;
 }
@@ -341,8 +666,8 @@ uint64_t udpconnection_SetProperty_cold_2(_DWORD *a1)
 uint64_t udpconnection_SetProperty_cold_3(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_4_6();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_4_6(v2, "inPropertyValue is not a type of APSNetworkAddress");
   *a1 = result;
   return result;
 }
@@ -350,8 +675,8 @@ uint64_t udpconnection_SetProperty_cold_3(_DWORD *a1)
 uint64_t udpconnection_SetProperty_cold_4(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_4_6();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_4_6(v2, "inPropertyValue does not have a valid MAC address length");
   *a1 = result;
   return result;
 }
@@ -359,8 +684,8 @@ uint64_t udpconnection_SetProperty_cold_4(_DWORD *a1)
 uint64_t udpconnection_SetProperty_cold_5(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_4_6();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_4_6(v2, "inPropertyValue is not a type of CFData");
   *a1 = result;
   return result;
 }
@@ -368,26 +693,26 @@ uint64_t udpconnection_SetProperty_cold_5(_DWORD *a1)
 uint64_t udpconnection_SetProperty_cold_8(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_4_6();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_4_6(v2, "inPropertyValue is not a type of CFString");
   *a1 = result;
   return result;
 }
 
-uint64_t udpconnection_createUDPParameters_cold_1()
+uint64_t udpconnection_createUDPParameters_cold_1(uint64_t a1)
 {
   result = APSLogErrorAt();
   if (gLogCategory_APTransportConnectionUDPNW <= 90)
   {
     if (gLogCategory_APTransportConnectionUDPNW != -1)
     {
-      return OUTLINED_FUNCTION_15();
+      return OUTLINED_FUNCTION_15(&gLogCategory_APTransportConnectionUDPNW, "OSStatus udpconnection_getLocalAddress(APTransportConnectionRef, char *, sockaddr_ip *)", v2, "[%{ptr}] Getting local address: Failed to get interface address for '%s'. Error: %#m\n");
     }
 
-    result = OUTLINED_FUNCTION_9_0();
+    result = OUTLINED_FUNCTION_9_0(&gLogCategory_APTransportConnectionUDPNW);
     if (result)
     {
-      return OUTLINED_FUNCTION_15();
+      return OUTLINED_FUNCTION_15(&gLogCategory_APTransportConnectionUDPNW, "OSStatus udpconnection_getLocalAddress(APTransportConnectionRef, char *, sockaddr_ip *)", v2, "[%{ptr}] Getting local address: Failed to get interface address for '%s'. Error: %#m\n");
     }
   }
 
@@ -397,8 +722,8 @@ uint64_t udpconnection_createUDPParameters_cold_1()
 uint64_t udpconnection_createUDPParameters_cold_2(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_5_4();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_5_4(v2, "Failed to create replicateOptions\n");
   *a1 = result;
   return result;
 }
@@ -406,8 +731,8 @@ uint64_t udpconnection_createUDPParameters_cold_2(_DWORD *a1)
 uint64_t udpconnection_createUDPParameters_cold_3(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_5_4();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_5_4(v2, "Failed to create localEndpoint\n");
   *a1 = result;
   return result;
 }
@@ -415,8 +740,8 @@ uint64_t udpconnection_createUDPParameters_cold_3(_DWORD *a1)
 uint64_t udpconnection_createUDPParameters_cold_4(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_5_4();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_5_4(v2, "Failed to create interface\n");
   *a1 = result;
   return result;
 }
@@ -424,8 +749,8 @@ uint64_t udpconnection_createUDPParameters_cold_4(_DWORD *a1)
 uint64_t udpconnection_createUDPParameters_cold_6(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_5_4();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_5_4(v2, "Failed to copy protocol stack\n");
   *a1 = result;
   return result;
 }
@@ -433,8 +758,8 @@ uint64_t udpconnection_createUDPParameters_cold_6(_DWORD *a1)
 uint64_t udpconnection_createUDPParameters_cold_7(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_5_4();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_5_4(v2, "Failed to create UDP parameters\n");
   *a1 = result;
   return result;
 }
@@ -442,8 +767,8 @@ uint64_t udpconnection_createUDPParameters_cold_7(_DWORD *a1)
 uint64_t udpconnection_createUDPParameters_cold_8(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_4_6();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_4_6(v2, "Invalid outParameters\n");
   *a1 = result;
   return result;
 }
@@ -451,24 +776,24 @@ uint64_t udpconnection_createUDPParameters_cold_8(_DWORD *a1)
 uint64_t udpconnection_createRemoteEndpoint_cold_2(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_5_4();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_5_4(v2, "nw_endpoint_create_host failed.");
   *a1 = result;
   return result;
 }
 
-uint64_t udpconnection_Resume_cold_2(uint64_t a1)
+uint64_t udpconnection_Resume_cold_2()
 {
-  OUTLINED_FUNCTION_15_1(a1);
+  OUTLINED_FUNCTION_15_1();
   OUTLINED_FUNCTION_3_1();
-  return LogPrintF();
+  return LogPrintF(v0, v1, v2, v3);
 }
 
 uint64_t udpconnection_Resume_cold_5(uint64_t *a1)
 {
-  v2 = *a1;
+  v6 = *a1;
   OUTLINED_FUNCTION_1();
-  return LogPrintF();
+  return LogPrintF(v1, v2, v3, v4, v6);
 }
 
 uint64_t udpconnection_Resume_cold_6(uint64_t a1, void *a2, _DWORD *a3)
@@ -476,9 +801,9 @@ uint64_t udpconnection_Resume_cold_6(uint64_t a1, void *a2, _DWORD *a3)
   result = APSLogErrorAt();
   if (gLogCategory_APTransportConnectionUDPNW <= 90)
   {
-    if (gLogCategory_APTransportConnectionUDPNW != -1 || (result = OUTLINED_FUNCTION_9_0(), result))
+    if (gLogCategory_APTransportConnectionUDPNW != -1 || (result = OUTLINED_FUNCTION_9_0(&gLogCategory_APTransportConnectionUDPNW), result))
     {
-      result = OUTLINED_FUNCTION_15();
+      result = OUTLINED_FUNCTION_15(&gLogCategory_APTransportConnectionUDPNW, "OSStatus udpconnection_setupListenerNW(APTransportConnectionRef)", v6, "[%{ptr}] Timed out waiting for server ready!");
     }
   }
 
@@ -487,18 +812,19 @@ uint64_t udpconnection_Resume_cold_6(uint64_t a1, void *a2, _DWORD *a3)
   return result;
 }
 
-uint64_t udpconnection_Resume_cold_8(int a1, uint64_t a2, uint64_t a3, void *a4, _DWORD *a5)
+uint64_t udpconnection_Resume_cold_8(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, _DWORD *a5)
 {
+  v8 = a1;
   result = APSLogErrorAt();
   if (gLogCategory_APTransportConnectionUDPNW <= 90)
   {
-    if (gLogCategory_APTransportConnectionUDPNW != -1 || (result = OUTLINED_FUNCTION_9_0(), result))
+    if (gLogCategory_APTransportConnectionUDPNW != -1 || (result = OUTLINED_FUNCTION_9_0(&gLogCategory_APTransportConnectionUDPNW), result))
     {
-      result = OUTLINED_FUNCTION_15();
+      result = OUTLINED_FUNCTION_15(&gLogCategory_APTransportConnectionUDPNW, "OSStatus udpconnection_setupListenerNW(APTransportConnectionRef)", v10, "[%{ptr}] setup connection from receiver to sender failed!");
     }
   }
 
-  *a5 = a1;
+  *a5 = v8;
   *a4 = a3;
   return result;
 }
@@ -506,8 +832,8 @@ uint64_t udpconnection_Resume_cold_8(int a1, uint64_t a2, uint64_t a3, void *a4,
 uint64_t udpconnection_Resume_cold_10(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_5_4();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_5_4(v2, "Failed to create listener queue");
   *a1 = result;
   return result;
 }
@@ -515,8 +841,8 @@ uint64_t udpconnection_Resume_cold_10(_DWORD *a1)
 uint64_t udpconnection_Resume_cold_11(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_5_4();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_5_4(v2, "Failed to create nw_listener");
   *a1 = result;
   return result;
 }
@@ -524,8 +850,8 @@ uint64_t udpconnection_Resume_cold_11(_DWORD *a1)
 uint64_t udpconnection_Resume_cold_12(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_5_4();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_5_4(v2, "create semaphore failed.");
   *a1 = result;
   return result;
 }
@@ -555,80 +881,70 @@ uint64_t udpconnection_Resume_cold_18(_DWORD *a1)
 BOOL udpconnection_AcquirePackage_cold_1()
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  v0 = OUTLINED_FUNCTION_14_2();
-  return OUTLINED_FUNCTION_16_0(v0);
+  v0 = APSLogErrorAt();
+  v1 = OUTLINED_FUNCTION_14_2(v0, "UDP connection already invalidated");
+  return OUTLINED_FUNCTION_16_0(v1);
 }
 
 BOOL udpconnection_AcquirePackageWithMessageSize_cold_1()
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  v0 = OUTLINED_FUNCTION_14_2();
-  return OUTLINED_FUNCTION_16_0(v0);
+  v0 = APSLogErrorAt();
+  v1 = OUTLINED_FUNCTION_14_2(v0, "UDP connection already invalidated");
+  return OUTLINED_FUNCTION_16_0(v1);
 }
 
 uint64_t udpconnection_setupNWConnection_cold_3(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_5_4();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_5_4(v2, "nw_connection_create failed.");
   *a1 = result;
   return result;
 }
 
 uint64_t __udpconnection_setupListenerNW_block_invoke_2_cold_3(uint64_t a1)
 {
-  nw_listener_get_port(*(a1 + 48));
+  port = nw_listener_get_port(*(a1 + 48));
   OUTLINED_FUNCTION_3_1();
-  return LogPrintF();
+  return LogPrintF(v1, v2, v3, v4, port);
 }
 
 uint64_t __udpconnection_setupListenerNW_block_invoke_2_cold_4(uint64_t a1)
 {
-  nw_listener_get_port(*(a1 + 48));
+  port = nw_listener_get_port(*(a1 + 48));
   OUTLINED_FUNCTION_3_1();
-  return LogPrintF();
+  return LogPrintF(v1, v2, v3, v4, port);
 }
 
 uint64_t udpconnection_handleNWConnectionStateChange_cold_1(uint64_t a1, const void *a2, const void *a3, CFNumberRef *a4)
 {
   APTTrafficMetricsConnectionClosed(*(a1 + 408));
-  v8 = *(a1 + 8);
   FigSimpleMutexLock();
   *(a1 + 144) = 6;
-  v9 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt32Type, a2);
-  *a4 = v9;
-  udpconnection_callEventCallback(a3, *(a1 + 144), v9);
-  v10 = *(a1 + 8);
+  v8 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt32Type, a2);
+  *a4 = v8;
+  udpconnection_callEventCallback(a3, *(a1 + 144), v8);
   return FigSimpleMutexUnlock();
 }
 
-uint64_t _APTransportConnectionUDPNWReceiveLoopContextFinalize_cold_2(uint64_t a1)
+uint64_t _APTransportConnectionUDPNWReceiveLoopContextFinalize_cold_2()
 {
-  OUTLINED_FUNCTION_15_1(a1);
+  OUTLINED_FUNCTION_15_1();
   OUTLINED_FUNCTION_3_1();
-  return LogPrintF();
+  return LogPrintF(v0, v1, v2, v3);
 }
 
-uint64_t udpconnection_primaryDropLogger_cold_1(uint64_t *a1)
+uint64_t __udpconnection_sendPackageInternal_block_invoke_cold_1(const void **a1, uint64_t a2, uint64_t a3)
 {
-  v3 = *(a1 + 4);
-  v4 = a1[2];
-  v2 = *a1;
-  return OUTLINED_FUNCTION_15();
-}
-
-uint64_t __udpconnection_sendPackageInternal_block_invoke_cold_1(const void **a1, uint64_t a2)
-{
-  result = udpconnection_callEventCallback(*a1, 8, *(a2 + 40));
+  result = udpconnection_callEventCallback(*a1, 8u, *(a2 + 40));
   if (gLogCategory_APTransportConnectionUDPNW <= 50)
   {
-    if (gLogCategory_APTransportConnectionUDPNW != -1 || (result = OUTLINED_FUNCTION_8(), result))
+    if (gLogCategory_APTransportConnectionUDPNW != -1 || (result = OUTLINED_FUNCTION_8(&gLogCategory_APTransportConnectionUDPNW), result))
     {
-      v4 = *a1;
+      v10 = *a1;
       OUTLINED_FUNCTION_3_1();
-      return LogPrintF();
+      return LogPrintF(v6, v7, v8, v9, v10, a3);
     }
   }
 
@@ -648,11 +964,11 @@ void __udpconnection_sendBatchInternal_block_invoke_cold_1(uint64_t a1, CFIndex 
   while (v4 < *a2);
 }
 
-uint64_t _APTransportConnectionUDPNWInlineInactivityMonitorFinalize_cold_1(uint64_t a1)
+uint64_t _APTransportConnectionUDPNWInlineInactivityMonitorFinalize_cold_1()
 {
-  OUTLINED_FUNCTION_15_1(a1);
+  OUTLINED_FUNCTION_15_1();
   OUTLINED_FUNCTION_3_1();
-  return LogPrintF();
+  return LogPrintF(v0, v1, v2, v3);
 }
 
 void carBonjourBrowser_dispatchEvent(const void *a1, int a2, const void *a3)
@@ -666,8 +982,8 @@ void carBonjourBrowser_dispatchEvent(const void *a1, int a2, const void *a3)
     if (gLogCategory_APBrowserCarBonjour <= 20 && (gLogCategory_APBrowserCarBonjour != -1 || _LogCategory_Initialize()))
     {
       v10 = *(v8 + 16);
-      APBrowserGetEventString(a2);
-      LogPrintF();
+      EventString = APBrowserGetEventString(a2);
+      LogPrintF(&gLogCategory_APBrowserCarBonjour, "void carBonjourBrowser_dispatchEvent(APBrowserRef, APBrowserEventType, CFDictionaryRef)", 33554452, "%@ dispatching event %s with info %@\n", v10, EventString, a3);
     }
 
     if (a1)
@@ -680,32 +996,32 @@ void carBonjourBrowser_dispatchEvent(const void *a1, int a2, const void *a3)
       CFRetain(a3);
     }
 
-    v11 = *(v8 + 120);
+    v12 = *(v8 + 120);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 0x40000000;
     block[2] = __carBonjourBrowser_dispatchEvent_block_invoke;
     block[3] = &__block_descriptor_tmp_82;
     block[4] = v7;
     block[5] = a1;
-    v13 = a2;
+    v14 = a2;
     block[6] = a3;
     block[7] = v9;
-    dispatch_async(v11, block);
+    dispatch_async(v12, block);
   }
 }
 
-uint64_t carBonjourBrowser_invalidate()
+uint64_t carBonjourBrowser_invalidate(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v1 = *(DerivedStorage + 24);
-  if (v1)
+  v2 = *(DerivedStorage + 24);
+  if (v2)
   {
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 0x40000000;
     block[2] = __carBonjourBrowser_invalidate_block_invoke;
     block[3] = &__block_descriptor_tmp_17;
     block[4] = DerivedStorage;
-    dispatch_sync(v1, block);
+    dispatch_sync(v2, block);
   }
 
   return 0;
@@ -718,9 +1034,9 @@ void __carBonjourBrowser_setMode_block_invoke(uint64_t a1)
   {
     APSLogErrorAt();
     OUTLINED_FUNCTION_8_1();
-    v12 = -12785;
+    v15 = -12785;
 LABEL_33:
-    *(v11 + 24) = v12;
+    *(v14 + 24) = v15;
     return;
   }
 
@@ -728,22 +1044,23 @@ LABEL_33:
   {
     APSLogErrorAt();
     OUTLINED_FUNCTION_8_1();
-    v12 = -72060;
+    v15 = -72060;
     goto LABEL_33;
   }
 
+  v3 = *(a1 + 48);
   if (*(a1 + 48))
   {
-    if (*(a1 + 48) == 3)
+    if (v3 == 3)
     {
       if (!*(v2 + 104))
       {
         if (gLogCategory_APBrowserCarBonjour <= 50)
         {
-          if (gLogCategory_APBrowserCarBonjour != -1 || (v4 = _LogCategory_Initialize(), v2 = *(a1 + 40), v4))
+          if (gLogCategory_APBrowserCarBonjour != -1 || (v7 = _LogCategory_Initialize(), v2 = *(a1 + 40), v7))
           {
-            OUTLINED_FUNCTION_5_8(v2);
-            OUTLINED_FUNCTION_9();
+            OUTLINED_FUNCTION_5_8();
+            OUTLINED_FUNCTION_9(&gLogCategory_APBrowserCarBonjour, "OSStatus carBonjourBrowser_setMode(APBrowserRef, APBrowserMode)_block_invoke", v4, "[%@] Enabling CarPlayHelper event listening\n");
             v2 = *(a1 + 40);
           }
         }
@@ -754,11 +1071,11 @@ LABEL_33:
           v2 = *(a1 + 40);
         }
 
-        v5 = *(v2 + 96);
-        v6 = *(*(CMBaseObjectGetVTable() + 16) + 8);
-        if (v6)
+        v8 = *(v2 + 96);
+        v9 = *(*(CMBaseObjectGetVTable() + 16) + 8);
+        if (v9)
         {
-          v6(v5, 1);
+          v9(v8, 1);
         }
 
         *(*(a1 + 40) + 104) = 1;
@@ -780,14 +1097,13 @@ LABEL_33:
       }
 
       v2 = *(a1 + 40);
-      v13 = *(a1 + 48);
+      v3 = *(a1 + 48);
     }
 
-    v14 = *(v2 + 16);
-    LogPrintF();
+    LogPrintF(&gLogCategory_APBrowserCarBonjour, "OSStatus carBonjourBrowser_setMode(APBrowserRef, APBrowserMode)_block_invoke", 33554492, "[%@] Unrecognized browse mode %d\n", *(v2 + 16), v3);
 LABEL_17:
     OUTLINED_FUNCTION_8_1();
-    *(v3 + 24) = -72062;
+    *(v6 + 24) = -72062;
 
     APSLogErrorAt();
     return;
@@ -797,24 +1113,24 @@ LABEL_17:
   {
     if (gLogCategory_APBrowserCarBonjour <= 50)
     {
-      if (gLogCategory_APBrowserCarBonjour != -1 || (v7 = _LogCategory_Initialize(), v2 = *(a1 + 40), v7))
+      if (gLogCategory_APBrowserCarBonjour != -1 || (v10 = _LogCategory_Initialize(), v2 = *(a1 + 40), v10))
       {
-        OUTLINED_FUNCTION_5_8(v2);
-        OUTLINED_FUNCTION_9();
+        OUTLINED_FUNCTION_5_8();
+        OUTLINED_FUNCTION_9(&gLogCategory_APBrowserCarBonjour, "OSStatus carBonjourBrowser_setMode(APBrowserRef, APBrowserMode)_block_invoke", v5, "[%@] Disabling CarPlayHelper event listening\n");
         v2 = *(a1 + 40);
       }
     }
 
-    v8 = *(v2 + 96);
-    v9 = *(*(CMBaseObjectGetVTable() + 16) + 8);
-    if (v9)
+    v11 = *(v2 + 96);
+    v12 = *(*(CMBaseObjectGetVTable() + 16) + 8);
+    if (v12)
     {
-      v9(v8, 0);
+      v12(v11, 0);
     }
 
-    v10 = *(a1 + 40);
-    ++*(v10 + 108);
-    *(v10 + 104) = 0;
+    v13 = *(a1 + 40);
+    ++*(v13 + 108);
+    *(v13 + 104) = 0;
   }
 }
 
@@ -839,30 +1155,11 @@ uint64_t carBonjourBrowser_getDNSForDeviceID_cold_2(uint64_t a1)
   return result;
 }
 
-uint64_t __carBonjourBrowser_getDNSForDeviceID_block_invoke_cold_4(uint64_t *a1, uint64_t *a2, _BYTE **a3)
-{
-  if (*a3)
-  {
-    **a3;
-  }
-
-  v5 = *a2;
-  v4 = *a1;
-  return OUTLINED_FUNCTION_9();
-}
-
 uint64_t __carBonjourBrowser_getDNSForDeviceID_block_invoke_cold_5(uint64_t a1)
 {
   result = APSLogErrorAt();
   *(*(*a1 + 8) + 24) = -12786;
   return result;
-}
-
-uint64_t __carBonjourBrowser_getDNSForDeviceID_block_invoke_cold_6(uint64_t *a1, uint64_t *a2)
-{
-  v3 = *a1;
-  v4 = *a2;
-  return OUTLINED_FUNCTION_9();
 }
 
 void __carBonjourBrowser_getDNSForDeviceID_block_invoke_cold_7()
@@ -894,41 +1191,27 @@ uint64_t __carBonjourBrowser_handleBonjourEvent_block_invoke_cold_6(uint64_t a1,
   return APSLogErrorAt();
 }
 
-uint64_t __carBonjourBrowser_handleBonjourEvent_block_invoke_cold_13(uint64_t a1, uint64_t *a2)
-{
-  v3 = *(a1 + 16);
-  v4 = *a2;
-  return OUTLINED_FUNCTION_9();
-}
-
 void carBonjourBrowser_removeAllDevices_cold_2(const void *a1, uint64_t a2, _DWORD *a3)
 {
   carBonjourBrowser_dispatchEvent(a1, 6, 0);
   if (*(a2 + 112))
   {
-    v5 = os_transaction_copy_description();
+    v6 = os_transaction_copy_description();
     if (gLogCategory_APBrowserCarBonjour <= 50 && (gLogCategory_APBrowserCarBonjour != -1 || _LogCategory_Initialize()))
     {
-      OUTLINED_FUNCTION_9();
+      OUTLINED_FUNCTION_9(&gLogCategory_APBrowserCarBonjour, "OSStatus carBonjourBrowser_removeAllDevices(APBrowserRef, Boolean)", v5, "Releasing osTransaction: %s\n");
     }
 
-    free(v5);
-    v6 = *(a2 + 112);
-    if (v6)
+    free(v6);
+    v7 = *(a2 + 112);
+    if (v7)
     {
-      os_release(v6);
+      os_release(v7);
       *(a2 + 112) = 0;
     }
   }
 
   *a3 = 0;
-}
-
-uint64_t __carBonjourBrowser_removeAllDevices_block_invoke_cold_2(uint64_t a1, uint64_t *a2)
-{
-  v3 = *(a1 + 16);
-  v4 = *a2;
-  return OUTLINED_FUNCTION_7_0();
 }
 
 uint64_t carPlayHelperWiFi_invalidate(uint64_t a1)
@@ -1084,15 +1367,14 @@ void carPlayHelperWiFi_setInterfaceWatchingEnabled(const void *a1, char a2)
   {
     v5 = DerivedStorage;
     CFRetain(a1);
-    v6 = *(v5 + 16);
     OUTLINED_FUNCTION_1_2();
-    v9 = 3221225472;
-    v10 = __carPlayHelperWiFi_setInterfaceWatchingEnabled_block_invoke;
-    v11 = &__block_descriptor_49_e5_v8__0l;
-    v14 = a2;
-    v12 = v5;
-    v13 = a1;
-    dispatch_async(v7, block);
+    v8 = 3221225472;
+    v9 = __carPlayHelperWiFi_setInterfaceWatchingEnabled_block_invoke;
+    v10 = &__block_descriptor_49_e5_v8__0l;
+    v13 = a2;
+    v11 = v5;
+    v12 = a1;
+    dispatch_async(v6, block);
   }
 }
 
@@ -1109,22 +1391,31 @@ void __carPlayHelperWiFi_setInterfaceWatchingEnabled_block_invoke(uint64_t a1)
 
     if (*(a1 + 48))
     {
-      v9[0] = MEMORY[0x277D85DD0];
-      v9[1] = 3221225472;
-      v9[2] = __carPlayHelperWiFi_setInterfaceWatchingEnabled_block_invoke_2;
-      v9[3] = &__block_descriptor_48_e24_v16__0__NSNotification_8l;
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __carPlayHelperWiFi_setInterfaceWatchingEnabled_block_invoke_2;
+      v14[3] = &__block_descriptor_48_e24_v16__0__NSNotification_8l;
       v4 = *(a1 + 40);
-      v9[4] = v3;
-      v9[5] = v4;
-      v5 = [v2 addObserverForName:@"CRPairedVehiclesDidChangeNotification" object:0 queue:0 usingBlock:v9];
+      v14[4] = v3;
+      v14[5] = v4;
+      v5 = [v2 addObserverForName:@"CRPairedVehiclesDidChangeNotification" object:0 queue:0 usingBlock:v14];
       v7 = *(a1 + 32);
       v6 = *(a1 + 40);
       *(v7 + 48) = v5;
-      if (APConnectivityHelperRegisterForEvent(*(v7 + 72), v6, 3) || APConnectivityHelperRegisterForEvent(*(*(a1 + 32) + 72), *(a1 + 40), 9))
+      v8 = APConnectivityHelperRegisterForEvent(*(v7 + 72), v6, 3);
+      if (v8)
       {
-LABEL_14:
+        v10 = v8;
+        goto LABEL_17;
+      }
+
+      v9 = APConnectivityHelperRegisterForEvent(*(*(a1 + 32) + 72), *(a1 + 40), 9);
+      if (v9)
+      {
+        v10 = v9;
+LABEL_17:
         APSLogErrorAt();
-        goto LABEL_15;
+        goto LABEL_18;
       }
     }
 
@@ -1137,9 +1428,18 @@ LABEL_14:
         *(v3 + 48) = 0;
       }
 
-      if (APConnectivityHelperDeregisterForEvent(*(v3 + 72), *(a1 + 40), 3) || APConnectivityHelperDeregisterForEvent(*(*(a1 + 32) + 72), *(a1 + 40), 9))
+      v11 = APConnectivityHelperDeregisterForEvent(*(v3 + 72), *(a1 + 40), 3);
+      if (v11)
       {
-        goto LABEL_14;
+        v10 = v11;
+        goto LABEL_17;
+      }
+
+      v12 = APConnectivityHelperDeregisterForEvent(*(*(a1 + 32) + 72), *(a1 + 40), 9);
+      if (v12)
+      {
+        v10 = v12;
+        goto LABEL_17;
       }
     }
 
@@ -1147,38 +1447,52 @@ LABEL_14:
     goto LABEL_12;
   }
 
-LABEL_15:
+  v10 = 4294954511;
+LABEL_18:
   if (gLogCategory_APBrowserCarWiFiHelper <= 90 && (gLogCategory_APBrowserCarWiFiHelper != -1 || _LogCategory_Initialize()))
   {
-    v8 = *(a1 + 40);
-    *(a1 + 48);
-    LogPrintF();
+    if (*(a1 + 48))
+    {
+      v13 = "enable";
+    }
+
+    else
+    {
+      v13 = "disable";
+    }
+
+    LogPrintF(&gLogCategory_APBrowserCarWiFiHelper, "void carPlayHelperWiFi_setInterfaceWatchingEnabled(APCarPlayHelperRef, Boolean)_block_invoke", 33554522, "[%{ptr}] Failed to %s WiFi interface watching %#m\n", *(a1 + 40), v13, v10);
   }
 
 LABEL_12:
   CFRelease(*(a1 + 40));
 }
 
-uint64_t __carPlayHelperWiFi_setInterfaceWatchingEnabled_block_invoke_3(uint64_t result)
+void *__carPlayHelperWiFi_setInterfaceWatchingEnabled_block_invoke_3(void *result)
 {
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   if (!*v1)
   {
     if (v1[80])
     {
-      return carPlayHelperWiFi_updateCarKitInCarStatus(*(result + 40));
+      return carPlayHelperWiFi_updateCarKitInCarStatus(*(result + 5));
     }
   }
 
   return result;
 }
 
-intptr_t __carPlayHelperWiFi_updateCarKitNetworkStatus_block_invoke(void *a1, char a2, void *a3)
+intptr_t __carPlayHelperWiFi_updateCarKitNetworkStatus_block_invoke(void *a1, int a2, void *a3)
 {
   if (gLogCategory_APBrowserCarWiFiHelper <= 30 && (gLogCategory_APBrowserCarWiFiHelper != -1 || _LogCategory_Initialize()))
   {
-    v8 = a1[5];
-    LogPrintF();
+    v6 = "No";
+    if (a2)
+    {
+      v6 = "Yes";
+    }
+
+    LogPrintF(&gLogCategory_APBrowserCarWiFiHelper, "OSStatus carPlayHelperWiFi_updateCarKitNetworkStatus(APCarPlayHelperRef)_block_invoke", 33554462, "CRAllowsConnectionsForWiFiUUID: %@ allowed: %s %?@\n", a1[5], v6, a3 != 0, a3);
   }
 
   if (!a3 || ![a3 code])
@@ -1186,9 +1500,9 @@ intptr_t __carPlayHelperWiFi_updateCarKitNetworkStatus_block_invoke(void *a1, ch
     *(*(a1[4] + 8) + 24) = a2;
   }
 
-  v6 = *(a1[6] + 56);
+  v7 = *(a1[6] + 56);
 
-  return dispatch_semaphore_signal(v6);
+  return dispatch_semaphore_signal(v7);
 }
 
 void __carPlayHelperWiFi_registerForCarKitInCarNotification_block_invoke_2(uint64_t a1)
@@ -1197,7 +1511,7 @@ void __carPlayHelperWiFi_registerForCarKitInCarNotification_block_invoke_2(uint6
   {
     if (gLogCategory_APBrowserCarWiFiHelper <= 30 && (gLogCategory_APBrowserCarWiFiHelper != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APBrowserCarWiFiHelper, "OSStatus carPlayHelperWiFi_registerForCarKitInCarNotification(APCarPlayHelperRef)_block_invoke_2", 33554462, "CRInCarNotification received\n");
     }
 
     *(*(*(a1 + 32) + 8) + 24) = carPlayHelperWiFi_updateCarKitInCarStatus(*(a1 + 48));
@@ -1229,7 +1543,7 @@ void CarKitLibrary_cold_1(void *a1)
   __break(1u);
 }
 
-uint64_t carPlayHelperWiFi_networkChanged_cold_2()
+uint64_t carPlayHelperWiFi_networkChanged_cold_2(uint64_t a1)
 {
   APSLogErrorAt();
 
@@ -1300,7 +1614,7 @@ LABEL_11:
     CFRelease(v29);
   }
 
-  OUTLINED_FUNCTION_7_4(v29, v15, v16, v17, v18, v19, v20, v21, v31, v32, v33, v34, v35, v36);
+  OUTLINED_FUNCTION_7_4(v29, v15, v16, v17, v18, v19, v20, v21, v31, v32, v33, v34, v35, v36, v37, block, v39, v40, v41, v42, v43, v44);
   _Block_object_dispose(v49, 8);
   return v0;
 }
@@ -1369,7 +1683,7 @@ LABEL_11:
     CFRelease(v29);
   }
 
-  OUTLINED_FUNCTION_7_4(v29, v15, v16, v17, v18, v19, v20, v21, v31, v32, v33, v34, v35, v36);
+  OUTLINED_FUNCTION_7_4(v29, v15, v16, v17, v18, v19, v20, v21, v31, v32, v33, v34, v35, v36, v37, block, v39, v40, v41, v42, v43, v44);
   _Block_object_dispose(v49, 8);
   return v0;
 }
@@ -1415,7 +1729,7 @@ void __stream_handleEventFromSendConnection_block_invoke_cold_1(const void *a1, 
 
   if (*(DerivedStorage + 24))
   {
-    v13 = -16617;
+    v12 = -16617;
   }
 
   else
@@ -1433,27 +1747,26 @@ void __stream_handleEventFromSendConnection_block_invoke_cold_1(const void *a1, 
         CFRetain(v8);
       }
 
-      v11 = *(DerivedStorage + 104);
       OUTLINED_FUNCTION_4_8();
-      v15 = 0x40000000;
-      v16 = __stream_packageReceived_block_invoke;
-      v17 = &__block_descriptor_tmp_36;
-      v18 = DerivedStorage;
-      v19 = a1;
-      v20 = a2;
-      v21 = v8;
-      dispatch_async(v12, block);
+      v14 = 0x40000000;
+      v15 = __stream_packageReceived_block_invoke;
+      v16 = &__block_descriptor_tmp_36;
+      v17 = DerivedStorage;
+      v18 = a1;
+      v19 = a2;
+      v20 = v8;
+      dispatch_async(v11, block);
     }
 
     else if (gLogCategory_APTransportStreamUnbuffered < 61 && (gLogCategory_APTransportStreamUnbuffered != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APTransportStreamUnbuffered, "OSStatus stream_packageReceived(FigTransportStreamRef, APTransportPackageRef)", 33554492, "[%{ptr}] received unsupported package type='%C'\n", a1, v10);
     }
 
-    v13 = 0;
+    v12 = 0;
   }
 
-  *a3 = v13;
+  *a3 = v12;
   if (v8)
   {
     CFRelease(v8);
@@ -1583,9 +1896,9 @@ uint64_t __APBrowserRapportManagerCopyShowInfo_block_invoke(uint64_t result)
     v5 = APBrowserRapportManager_ensurePreferencesUpdated(*(result + 40), 0);
     if (v5)
     {
-      v9 = v5;
+      v13 = v5;
       result = APSLogErrorAt();
-      v2 = v9;
+      v2 = v13;
     }
 
     else
@@ -1594,25 +1907,61 @@ uint64_t __APBrowserRapportManagerCopyShowInfo_block_invoke(uint64_t result)
       if (Mutable)
       {
         v7 = Mutable;
-        CFStringAppendF();
-        CFStringAppendF();
-        *(v3 + 50);
-        CFStringAppendF();
-        if (*(v3 + 48) && *(v3 + 48) != 1 && gLogCategory_APBrowserRapportManager <= 60 && (gLogCategory_APBrowserRapportManager != -1 || _LogCategory_Initialize()))
+        CFStringAppendF(Mutable, "+-+ APBrowserRapportManager state +-+\n");
+        CFStringAppendF(v7, "\n");
+        if (*(v3 + 50))
         {
-          LogPrintF();
+          v8 = "yes";
         }
 
-        CFStringAppendF();
-        *(v3 + 72);
-        CFStringAppendF();
+        else
+        {
+          v8 = "no";
+        }
+
+        CFStringAppendF(v7, "Rapport: enabled=%s", v8);
+        v9 = *(v3 + 48);
+        if (*(v3 + 48))
+        {
+          if (v9 == 1)
+          {
+            v10 = "Detailed";
+          }
+
+          else
+          {
+            if (gLogCategory_APBrowserRapportManager <= 60 && (gLogCategory_APBrowserRapportManager != -1 || _LogCategory_Initialize()))
+            {
+              LogPrintF(&gLogCategory_APBrowserRapportManager, "const char *APBrowserRapportManager_stringForRapportMode(APBrowserRapportMode)", 33554492, "Unknown Rapport mode %d\n", v9);
+            }
+
+            v10 = "Unknown";
+          }
+        }
+
+        else
+        {
+          v10 = "None";
+        }
+
+        CFStringAppendF(v7, " mode=%s", v10);
+        if (*(v3 + 72))
+        {
+          v11 = "yes";
+        }
+
+        else
+        {
+          v11 = "no";
+        }
+
+        CFStringAppendF(v7, " scanning=%s", v11);
         Count = CFDictionaryGetCount(*(v3 + 80));
-        CFStringAppendF();
-        result = CFStringAppendF();
+        CFStringAppendF(v7, " devicesDetected=%d", Count);
+        result = CFStringAppendF(v7, "\n");
         if (Count)
         {
-          CFStringAppendF();
-          v8 = *(v3 + 80);
+          CFStringAppendF(v7, "Detected Devices:\n");
           OUTLINED_FUNCTION_1_2();
           OUTLINED_FUNCTION_4_0();
           result = CFDictionaryApplyBlock();
@@ -1641,15 +1990,15 @@ uint64_t APBrowserRapportManager_stop(uint64_t a1)
     return 0;
   }
 
-  if (gLogCategory_APBrowserRapportManager <= 40 && (gLogCategory_APBrowserRapportManager != -1 || OUTLINED_FUNCTION_7()))
+  if (gLogCategory_APBrowserRapportManager <= 40 && (gLogCategory_APBrowserRapportManager != -1 || OUTLINED_FUNCTION_7(&gLogCategory_APBrowserRapportManager)))
   {
     OUTLINED_FUNCTION_5();
-    LogPrintF();
+    LogPrintF(v2, v3, v4, v5);
   }
 
   *(a1 + 48) = 0;
-  v2 = APBrowserRapportManager_update(a1);
-  if (v2)
+  v6 = APBrowserRapportManager_update(a1);
+  if (v6)
   {
     APSLogErrorAt();
   }
@@ -1659,97 +2008,92 @@ uint64_t APBrowserRapportManager_stop(uint64_t a1)
     APBrowserRapportManager_dispatchEvent(a1, 3, 0);
   }
 
-  return v2;
+  return v6;
 }
 
-uint64_t APBrowserRapportManager_tryNextEffectiveID(uint64_t result, const void *a2)
+id *APBrowserRapportManager_tryNextEffectiveID(id *result, const void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  if (a2)
+  v21 = *MEMORY[0x277D85DE8];
+  if (!a2)
   {
-    v2 = result;
-    if (!*(result + 48))
-    {
-LABEL_21:
-      v13 = *MEMORY[0x277D85DE8];
-      return result;
-    }
+    goto LABEL_22;
+  }
 
-    v4 = *(result + 80);
-    CFDictionaryGetTypeID();
-    if (OUTLINED_FUNCTION_6_8())
+  v2 = result;
+  if (!*(result + 24))
+  {
+    return result;
+  }
+
+  TypeID = CFDictionaryGetTypeID();
+  if (OUTLINED_FUNCTION_6_8(TypeID) && (CFSetGetTypeID(), (TypedValue = CFDictionaryGetTypedValue()) != 0))
+  {
+    v6 = TypedValue;
+    v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
+    v7 = [v2[9] activeDevices];
+    result = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    if (result)
     {
-      CFSetGetTypeID();
-      TypedValue = CFDictionaryGetTypedValue();
-      if (TypedValue)
-      {
-        v6 = TypedValue;
-        v19 = 0u;
-        v20 = 0u;
-        v17 = 0u;
-        v18 = 0u;
-        v7 = [*(v2 + 72) activeDevices];
-        result = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
-        if (result)
-        {
-          v8 = result;
-          v9 = *v18;
+      v8 = result;
+      v9 = *v17;
 LABEL_7:
-          v10 = 0;
-          while (1)
+      v10 = 0;
+      while (1)
+      {
+        if (*v17 != v9)
+        {
+          objc_enumerationMutation(v7);
+        }
+
+        v11 = *(*(&v16 + 1) + 8 * v10);
+        if ([v11 idsDeviceIdentifier] == a2 || objc_msgSend(v11, "idsDeviceIdentifier") && CFEqual(a2, objc_msgSend(v11, "idsDeviceIdentifier")))
+        {
+          v12 = [v11 effectiveIdentifier];
+          if (!CFSetContainsValue(v6, v12))
           {
-            if (*v18 != v9)
+            if (gLogCategory_APBrowserRapportManager <= 40 && (gLogCategory_APBrowserRapportManager != -1 || OUTLINED_FUNCTION_7(&gLogCategory_APBrowserRapportManager)))
             {
-              objc_enumerationMutation(v7);
+              OUTLINED_FUNCTION_5();
+              LogPrintF(v13, v14, v15, "[%@:%@] Trying as next effective ID\n", a2, v12);
             }
 
-            v11 = *(*(&v17 + 1) + 8 * v10);
-            if ([v11 idsDeviceIdentifier] == a2 || objc_msgSend(v11, "idsDeviceIdentifier") && CFEqual(a2, objc_msgSend(v11, "idsDeviceIdentifier")))
+            result = APBrowserRapportManager_sendGetInfo(v2, v11, a2, v12);
+            if (!result)
             {
-              v12 = [v11 effectiveIdentifier];
-              if (!CFSetContainsValue(v6, v12))
-              {
-                if (gLogCategory_APBrowserRapportManager <= 40 && (gLogCategory_APBrowserRapportManager != -1 || OUTLINED_FUNCTION_7()))
-                {
-                  v15 = a2;
-                  v16 = v12;
-                  OUTLINED_FUNCTION_5();
-                  LogPrintF();
-                }
-
-                result = APBrowserRapportManager_sendGetInfo(v2, v11, a2, v12);
-                if (!result)
-                {
-                  break;
-                }
-              }
-            }
-
-            if (v8 == ++v10)
-            {
-              result = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
-              v8 = result;
-              if (result)
-              {
-                goto LABEL_7;
-              }
-
-              goto LABEL_21;
+              break;
             }
           }
         }
 
-        goto LABEL_21;
+        if (v8 == ++v10)
+        {
+          result = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+          v8 = result;
+          if (result)
+          {
+            goto LABEL_7;
+          }
+
+          return result;
+        }
       }
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
+  else
+  {
+LABEL_22:
 
-  return APSLogErrorAt();
+    return APSLogErrorAt();
+  }
+
+  return result;
 }
 
-uint64_t APBrowserRapportManager_sendDeviceEvent_cold_1()
+uint64_t APBrowserRapportManager_sendDeviceEvent_cold_1(uint64_t a1, uint64_t a2)
 {
   APSLogErrorAt();
 
@@ -1758,33 +2102,32 @@ uint64_t APBrowserRapportManager_sendDeviceEvent_cold_1()
 
 void __APConnectivityHelperCreateWithWiFiInterfaceClass_block_invoke(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
   if (qword_281309B90 != -1)
   {
     dispatch_once(&qword_281309B90, &__block_literal_global_85);
   }
 
-  v4 = FigCFWeakReferenceTableCopyValue();
-  if (v4)
+  v3 = FigCFWeakReferenceTableCopyValue();
+  if (v3)
   {
-    v5 = v4;
-    CFRetain(v4);
-    v6 = a2;
-    v7 = v5[2];
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = ___APConnectivityHelperHandleCWFEventExternal_block_invoke;
-    v8[3] = &unk_278BC72B0;
-    v8[4] = a2;
-    v8[5] = v5;
-    dispatch_async(v7, v8);
-    CFRelease(v5);
+    v4 = v3;
+    CFRetain(v3);
+    v5 = a2;
+    v6 = v4[2];
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = ___APConnectivityHelperHandleCWFEventExternal_block_invoke;
+    v7[3] = &unk_278BC72B0;
+    v7[4] = a2;
+    v7[5] = v4;
+    dispatch_async(v6, v7);
+    CFRelease(v4);
   }
 }
 
-void _APConnectivityHelperStartListeningToEvent(_DWORD *a1)
+void _APConnectivityHelperStartListeningToEvent(unsigned int *a1, uint64_t a2, uint64_t a3)
 {
-  v3 = *a1;
+  v5 = *a1;
   if (*(*a1 + 232))
   {
     APSLogErrorAt();
@@ -1793,40 +2136,40 @@ void _APConnectivityHelperStartListeningToEvent(_DWORD *a1)
 
   else
   {
-    v4 = a1[2];
-    if (v4)
+    v6 = a1[2];
+    if (v6)
     {
       if (gLogCategory_APConnectivityHelper <= 50)
       {
         OUTLINED_FUNCTION_2_9();
-        if (!v5 || _LogCategory_Initialize())
+        if (!v8 || _LogCategory_Initialize())
         {
-          APConnectivityHelperGetEventString(v4);
-          LogPrintF();
+          EventString = APConnectivityHelperGetEventString(v6);
+          LogPrintF(&gLogCategory_APConnectivityHelper, "void _APConnectivityHelperStartListeningToEvent(void *)", started + 10, "[%{ptr}] Start listening for event %'s", v5, EventString);
         }
       }
 
-      switch(v4)
+      switch(v6)
       {
         case 1:
-          *(v3 + 87) = 1;
-          started = _APConnectivityHelperEnsureWiFiDeviceAvailabilityCheckStarted(v3);
+          *(v5 + 87) = 1;
+          started = _APConnectivityHelperEnsureWiFiDeviceAvailabilityCheckStarted(v5, a2, a3);
           if (started)
           {
             APSLogErrorAt();
-            *(v3 + 87) = 0;
+            *(v5 + 87) = 0;
           }
 
           break;
         case 2:
-          if (*(v3 + 85) || *(v3 + 86))
+          if (*(v5 + 85) || *(v5 + 86))
           {
             goto LABEL_85;
           }
 
-          if (*(v3 + 56))
+          if (*(v5 + 56))
           {
-            started = _APConnectivityHelperStartWiFiPowerListener(v3);
+            started = _APConnectivityHelperStartWiFiPowerListener(v5);
             if (started)
             {
               goto LABEL_73;
@@ -1835,8 +2178,8 @@ void _APConnectivityHelperStartListeningToEvent(_DWORD *a1)
 
           else
           {
-            *(v3 + 86) = 1;
-            started = _APConnectivityHelperEnsureWiFiDeviceAvailabilityCheckStarted(v3);
+            *(v5 + 86) = 1;
+            started = _APConnectivityHelperEnsureWiFiDeviceAvailabilityCheckStarted(v5, a2, a3);
             if (started)
             {
               goto LABEL_73;
@@ -1845,14 +2188,14 @@ void _APConnectivityHelperStartListeningToEvent(_DWORD *a1)
 
           break;
         case 3:
-          if (*(v3 + 81) || *(v3 + 82))
+          if (*(v5 + 81) || *(v5 + 82))
           {
             goto LABEL_85;
           }
 
-          if (*(v3 + 56))
+          if (*(v5 + 56))
           {
-            started = _APConnectivityHelperStartWiFiNetworkListener(v3);
+            started = _APConnectivityHelperStartWiFiNetworkListener(v5);
             if (started)
             {
               goto LABEL_73;
@@ -1861,8 +2204,8 @@ void _APConnectivityHelperStartListeningToEvent(_DWORD *a1)
 
           else
           {
-            *(v3 + 82) = 1;
-            started = _APConnectivityHelperEnsureWiFiDeviceAvailabilityCheckStarted(v3);
+            *(v5 + 82) = 1;
+            started = _APConnectivityHelperEnsureWiFiDeviceAvailabilityCheckStarted(v5, a2, a3);
             if (started)
             {
               goto LABEL_73;
@@ -1871,90 +2214,94 @@ void _APConnectivityHelperStartListeningToEvent(_DWORD *a1)
 
           break;
         case 4:
-          if (*(v3 + 120))
+          if (*(v5 + 120))
           {
             goto LABEL_85;
           }
 
-          *(v3 + 120) = 1;
-          v12 = _APConnectivityHelperStartListeningToDynamicStoreNetworkEntity(v3, *MEMORY[0x277CE16A0], _APConnectivityHelperHandleUSBNetworkChangedEvent);
-          if (v12)
+          *(v5 + 120) = 1;
+          v18 = _APConnectivityHelperStartListeningToDynamicStoreNetworkEntity(v5, *MEMORY[0x277CE16A0], _APConnectivityHelperHandleUSBNetworkChangedEvent);
+          if (v18)
           {
-            started = v12;
+            started = v18;
             APSLogErrorAt();
-            *(v3 + 120) = 0;
-            _APConnectivityHelperStopUSBInterfaceListener(v3);
+            *(v5 + 120) = 0;
+            _APConnectivityHelperStopUSBInterfaceListener(v5);
             APSLogErrorAt();
             goto LABEL_89;
           }
 
           OUTLINED_FUNCTION_11_4();
-          if (!(v7 ^ v8 | v5) || v13 == -1 && !OUTLINED_FUNCTION_7())
+          if (v10 ^ v11 | v8 && (v19 != -1 || OUTLINED_FUNCTION_7(&gLogCategory_APConnectivityHelper)))
           {
-            goto LABEL_85;
+            v16 = "OSStatus _APConnectivityHelperStartUSBInterfaceListener(APConnectivityHelperRef)";
+            v17 = "[%{ptr}] USB interface watching started.\n";
+            goto LABEL_62;
           }
 
-          goto LABEL_62;
+          goto LABEL_85;
         case 5:
-          goto LABEL_21;
+          goto LABEL_20;
         case 6:
-          if (*(v3 + 176))
+          if (*(v5 + 176))
           {
             goto LABEL_85;
           }
 
-          *(v3 + 176) = 1;
-          v10 = _APConnectivityHelperStartListeningToDynamicStoreNetworkEntity(v3, *MEMORY[0x277CE1690], _APConnectivityHelperHandleIPv6ChangedEvent);
-          if (v10)
+          *(v5 + 176) = 1;
+          v13 = _APConnectivityHelperStartListeningToDynamicStoreNetworkEntity(v5, *MEMORY[0x277CE1690], _APConnectivityHelperHandleIPv6ChangedEvent);
+          if (v13)
           {
-            started = v10;
+            started = v13;
             APSLogErrorAt();
-            *(v3 + 176) = 0;
-            _APConnectivityHelperStopIPv6AddressListener(v3);
+            *(v5 + 176) = 0;
+            _APConnectivityHelperStopIPv6AddressListener(v5);
             APSLogErrorAt();
             goto LABEL_89;
           }
 
           OUTLINED_FUNCTION_11_4();
-          if (v7 ^ v8 | v5 && (v11 != -1 || OUTLINED_FUNCTION_7()))
+          if (v10 ^ v11 | v8 && (v15 != -1 || OUTLINED_FUNCTION_7(&gLogCategory_APConnectivityHelper)))
           {
+            v16 = "OSStatus _APConnectivityHelperStartIPv6AddressListener(APConnectivityHelperRef)";
+            v17 = "[%{ptr}] IPv6 address watching started.\n";
             goto LABEL_62;
           }
 
           goto LABEL_85;
         case 7:
-          *(v3 + 208) = 1;
-          started = _APConnectivityHelperEnsureAWDLDevicePresentListenerStarted(v3);
+          *(v5 + 208) = 1;
+          started = _APConnectivityHelperEnsureAWDLDevicePresentListenerStarted(v5, a2, a3);
           if (started)
           {
             APSLogErrorAt();
-            *(v3 + 208) = 0;
+            *(v5 + 208) = 0;
           }
 
           break;
         case 8:
-          if (!*(v3 + 153))
+          if (!*(v5 + 153))
           {
-            if (!*(v3 + 154))
+            if (!*(v5 + 154))
             {
               OUTLINED_FUNCTION_11_4();
-              if (v7 ^ v8 | v5 && (v16 != -1 || OUTLINED_FUNCTION_7()))
+              if (v10 ^ v11 | v8 && (v23 != -1 || OUTLINED_FUNCTION_7(&gLogCategory_APConnectivityHelper)))
               {
-                OUTLINED_FUNCTION_11();
+                OUTLINED_FUNCTION_11(&gLogCategory_APConnectivityHelper, "OSStatus _APConnectivityHelperStartAWDLSoloSupportListener(APConnectivityHelperRef)", v22, "[%{ptr}] Starting AWDL solo support listener.\n");
               }
 
-              v17 = objc_opt_new();
-              *(v3 + 144) = v17;
-              if (v17)
+              v24 = objc_opt_new();
+              *(v5 + 144) = v24;
+              if (v24)
               {
-                v18[0] = MEMORY[0x277D85DD0];
-                v18[1] = 3221225472;
-                v18[2] = ___APConnectivityHelperStartAWDLSoloSupportListener_block_invoke;
-                v18[3] = &unk_278BC8380;
-                v18[4] = v3;
-                [v17 setStateUpdatedHandler:v18];
-                [*(v3 + 144) beginMonitoring];
-                *(v3 + 154) = 1;
+                v26[0] = MEMORY[0x277D85DD0];
+                v26[1] = 3221225472;
+                v26[2] = ___APConnectivityHelperStartAWDLSoloSupportListener_block_invoke;
+                v26[3] = &unk_278BC8380;
+                v26[4] = v5;
+                [v24 setStateUpdatedHandler:v26];
+                [*(v5 + 144) beginMonitoring];
+                *(v5 + 154) = 1;
               }
 
               else
@@ -1966,7 +2313,7 @@ void _APConnectivityHelperStartListeningToEvent(_DWORD *a1)
             goto LABEL_85;
           }
 
-          started = _APConnectivityHelperSendAWDLSoloSupportEvent(v3);
+          started = _APConnectivityHelperSendAWDLSoloSupportEvent(v5, a2, a3);
           if (!started)
           {
             break;
@@ -1974,14 +2321,14 @@ void _APConnectivityHelperStartListeningToEvent(_DWORD *a1)
 
           goto LABEL_89;
         case 9:
-          if (*(v3 + 83) || *(v3 + 84))
+          if (*(v5 + 83) || *(v5 + 84))
           {
             goto LABEL_85;
           }
 
-          if (*(v3 + 56))
+          if (*(v5 + 56))
           {
-            started = _APConnectivityHelperStartLinkDebounceFailedListener(v3);
+            started = _APConnectivityHelperStartLinkDebounceFailedListener(v5);
             if (!started)
             {
               break;
@@ -1990,8 +2337,8 @@ void _APConnectivityHelperStartListeningToEvent(_DWORD *a1)
 
           else
           {
-            *(v3 + 84) = 1;
-            started = _APConnectivityHelperEnsureWiFiDeviceAvailabilityCheckStarted(v3);
+            *(v5 + 84) = 1;
+            started = _APConnectivityHelperEnsureWiFiDeviceAvailabilityCheckStarted(v5, a2, a3);
             if (!started)
             {
               break;
@@ -2002,54 +2349,54 @@ LABEL_73:
           APSLogErrorAt();
           goto LABEL_89;
         case 10:
-          if (*(v3 + 192))
+          if (*(v5 + 192))
           {
             goto LABEL_85;
           }
 
-          *(v3 + 192) = 1;
-          v14 = _APConnectivityHelperStartListeningToDynamicStoreNetworkEntity(v3, *MEMORY[0x277CE1688], _APConnectivityHelperHandleIPv4ChangedEvent);
-          if (v14)
+          *(v5 + 192) = 1;
+          v20 = _APConnectivityHelperStartListeningToDynamicStoreNetworkEntity(v5, *MEMORY[0x277CE1688], _APConnectivityHelperHandleIPv4ChangedEvent);
+          if (v20)
           {
-            started = v14;
+            started = v20;
             APSLogErrorAt();
-            *(v3 + 192) = 0;
-            _APConnectivityHelperStopIPv4AddressListener(v3);
+            *(v5 + 192) = 0;
+            _APConnectivityHelperStopIPv4AddressListener(v5);
             APSLogErrorAt();
             goto LABEL_89;
           }
 
           OUTLINED_FUNCTION_11_4();
-          if (v7 ^ v8 | v5 && (v15 != -1 || OUTLINED_FUNCTION_7()))
+          if (v10 ^ v11 | v8 && (v21 != -1 || OUTLINED_FUNCTION_7(&gLogCategory_APConnectivityHelper)))
           {
+            v16 = "OSStatus _APConnectivityHelperStartIPv4AddressListener(APConnectivityHelperRef)";
+            v17 = "[%{ptr}] IPv4 address watching started.\n";
 LABEL_62:
-            OUTLINED_FUNCTION_11();
+            OUTLINED_FUNCTION_11(&gLogCategory_APConnectivityHelper, v16, v14, v17);
           }
 
 LABEL_85:
           started = 0;
           break;
         default:
-          v5 = (v4 - 100) > 9 || ((1 << (v4 - 100)) & 0x39F) == 0;
-          if (v5)
+          v8 = (v6 - 100) > 9 || ((1 << (v6 - 100)) & 0x39F) == 0;
+          if (v8)
           {
-LABEL_21:
+LABEL_20:
             OUTLINED_FUNCTION_9_4();
-            if (v7 ^ v8 | v5 && (v9 != -1 || _LogCategory_Initialize()))
+            if (v10 ^ v11 | v8 && (v12 != -1 || _LogCategory_Initialize()))
             {
-              goto LABEL_18;
+              LogPrintF(&gLogCategory_APConnectivityHelper, "void _APConnectivityHelperStartListeningToEvent(void *)", 33554492, "[%{ptr}] Unrecognized event type %d.\n", v5, v6);
             }
           }
 
           else
           {
             OUTLINED_FUNCTION_9_4();
-            if (v7 ^ v8 | v5 && (v6 != -1 || _LogCategory_Initialize()))
+            if (v10 ^ v11 | v8 && (v9 != -1 || _LogCategory_Initialize()))
             {
-              APConnectivityHelperGetEventString(v4);
-LABEL_18:
-              LogPrintF();
-              break;
+              v25 = APConnectivityHelperGetEventString(v6);
+              LogPrintF(&gLogCategory_APConnectivityHelper, "void _APConnectivityHelperStartListeningToEvent(void *)", 33554492, "[%{ptr}] Invalid event type %s.\n", v5, v25);
             }
           }
 
@@ -2070,9 +2417,8 @@ LABEL_89:
 
 uint64_t _APConnectivityHelperDeregisterForEvent(uint64_t a1, const void *a2, void *key)
 {
-  v13 = a1;
-  v14 = key;
-  v15 = 0;
+  v16 = a1;
+  v17 = key;
   if (a2)
   {
     v3 = key;
@@ -2092,30 +2438,30 @@ uint64_t _APConnectivityHelperDeregisterForEvent(uint64_t a1, const void *a2, vo
     CFSetRemoveValue(v8, a2);
     if (gLogCategory_APConnectivityHelper <= 50 && (gLogCategory_APConnectivityHelper != -1 || _LogCategory_Initialize()))
     {
-      APConnectivityHelperGetEventString(v3);
-      CFSetGetCount(v8);
-      LogPrintF();
+      EventString = APConnectivityHelperGetEventString(v3);
+      Count = CFSetGetCount(v8);
+      LogPrintF(&gLogCategory_APConnectivityHelper, "OSStatus _APConnectivityHelperDeregisterForEvent(APConnectivityHelperRef, CFTypeRef, APConnectivityHelperEventType)", 33554482, "[%{ptr}] Deregistered client [%{ptr}] for event %'s. %ld registered clients", a1, a2, EventString, Count, v16, v17);
     }
 
-    v9 = v3 - 1;
-    if (v3 - 1) <= 9 && ((0x3EFu >> v9))
+    v11 = v3 - 1;
+    if (v3 - 1) <= 9 && ((0x3EFu >> v11))
     {
-      v10 = dword_23D383828[v9];
+      v12 = dword_23D383828[v11];
       if (gLogCategory_APConnectivityHelper <= 30 && (gLogCategory_APConnectivityHelper != -1 || _LogCategory_Initialize()))
       {
-        APConnectivityHelperGetEventString(v10);
-        OUTLINED_FUNCTION_7_0();
+        APConnectivityHelperGetEventString(v12);
+        OUTLINED_FUNCTION_7_0(&gLogCategory_APConnectivityHelper, "void _APConnectivityHelperDispatchDeregisterEventIfNecessary(APConnectivityHelperRef, CFTypeRef, APConnectivityHelperEventType)", v13, "[%{ptr}] Dispatching deregister event %'s to client [%{ptr}]");
       }
 
-      _APConnectivityHelperDispatchEventToClient(a1, a2, v10, 0);
+      _APConnectivityHelperDispatchEventToClient(a1, a2, v12, 0);
     }
 
     if (!CFSetGetCount(v8))
     {
       CFDictionaryRemoveValue(*(a1 + 248), v6);
-      _APConnectivityHelperStopListeningToEvent(&v13);
-      v11 = v15;
-      if (v15)
+      _APConnectivityHelperStopListeningToEvent(&v16);
+      v14 = HIDWORD(v17);
+      if (HIDWORD(v17))
       {
         APSLogErrorAt();
       }
@@ -2133,7 +2479,7 @@ uint64_t _APConnectivityHelperDeregisterForEvent(uint64_t a1, const void *a2, vo
     return 4294960591;
   }
 
-  return v11;
+  return v14;
 }
 
 uint64_t _APConnectivityHelperDeregisterActivity(uint64_t a1, const void *a2, void *key)
@@ -2156,7 +2502,7 @@ uint64_t _APConnectivityHelperDeregisterActivity(uint64_t a1, const void *a2, vo
       if (gLogCategory_APConnectivityHelper <= 50 && (gLogCategory_APConnectivityHelper != -1 || _LogCategory_Initialize()))
       {
         CFSetGetCount(v8);
-        OUTLINED_FUNCTION_9();
+        OUTLINED_FUNCTION_9(&gLogCategory_APConnectivityHelper, "OSStatus _APConnectivityHelperDeregisterActivity(APConnectivityHelperRef, CFTypeRef, APConnectivityHelperActivityType)", v9, "[%{ptr}] Deregistered client [%{ptr}] for activity %'s. %ld registered clients");
       }
 
       if (!CFSetGetCount(v8))
@@ -2164,10 +2510,10 @@ uint64_t _APConnectivityHelperDeregisterActivity(uint64_t a1, const void *a2, vo
         CFDictionaryRemoveValue(*(a1 + 256), v6);
         if (v3)
         {
-          v9 = 4294960561;
+          v10 = 4294960561;
           APSLogErrorAt();
           APSLogErrorAt();
-          return v9;
+          return v10;
         }
 
         _APConnectivityHelperStopWakeOnWireless(a1);
@@ -2198,9 +2544,9 @@ void __APConnectivityHelperRemoveAllRegistrations_block_invoke_5(uint64_t a1)
   *(v6 + 24) = 0;
 }
 
-uint64_t _APConnectivityHelperInvalidate(uint64_t a1)
+uint64_t _APConnectivityHelperInvalidate(_DWORD *a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *a1;
+  v4 = *a1;
   if (*(*a1 + 232))
   {
     result = 4294895093;
@@ -2208,16 +2554,16 @@ uint64_t _APConnectivityHelperInvalidate(uint64_t a1)
 
   else
   {
-    _APConnectivityHelperEnsureWiFiDeviceAvailabilityCheckStopped(*a1);
-    _APConnectivityHelperEnsureWiFiPowerListenerStopped(v2);
-    _APConnectivityHelperEnsureWiFiNetworkListenerStopped(v2);
-    _APConnectivityHelperEnsureUSBInterfaceListenerStopped(v2);
-    _APConnectivityHelperEnsureIPv6AddressesListenerStopped(v2);
-    _APConnectivityHelperEnsureIPv4AddressesListenerStopped(v2);
-    _APConnectivityHelperEnsureAWDLDevicePresentListenerStopped(v2);
-    _APConnectivityHelperEnsureAWDLSoloSupportListenerStopped(v2);
-    _APConnectivityHelperStopWakeOnWireless(v2);
-    if (*(v2 + 40))
+    _APConnectivityHelperEnsureWiFiDeviceAvailabilityCheckStopped(*a1, a2, a3);
+    _APConnectivityHelperEnsureWiFiPowerListenerStopped(v4, v5, v6);
+    _APConnectivityHelperEnsureWiFiNetworkListenerStopped(v4, v7, v8);
+    _APConnectivityHelperEnsureUSBInterfaceListenerStopped(v4);
+    _APConnectivityHelperEnsureIPv6AddressesListenerStopped(v4);
+    _APConnectivityHelperEnsureIPv4AddressesListenerStopped(v4);
+    _APConnectivityHelperEnsureAWDLDevicePresentListenerStopped(v4, v9, v10);
+    _APConnectivityHelperEnsureAWDLSoloSupportListenerStopped(v4, v11, v12);
+    _APConnectivityHelperStopWakeOnWireless(v4);
+    if (*(v4 + 40))
     {
       if (qword_281309B90 != -1)
       {
@@ -2225,15 +2571,15 @@ uint64_t _APConnectivityHelperInvalidate(uint64_t a1)
       }
 
       FigCFWeakReferenceTableRemoveValue();
-      *(v2 + 40) = 0;
+      *(v4 + 40) = 0;
     }
 
-    [*(v2 + 48) invalidate];
-    result = _APConnectivityHelperDispatchEvent(v2, 0x64, 0);
-    *(v2 + 232) = 1;
+    [*(v4 + 48) invalidate];
+    result = _APConnectivityHelperDispatchEvent(v4, 0x64, 0);
+    *(v4 + 232) = 1;
   }
 
-  *(a1 + 8) = result;
+  a1[2] = result;
   return result;
 }
 
@@ -2261,57 +2607,57 @@ void _APConnectivityHelperStopWakeOnWireless(uint64_t a1)
   }
 }
 
-uint64_t _APConnectivityHelperHandleWiFiLinkChangedInternal(_BYTE *cf, void *a2)
+uint64_t _APConnectivityHelperHandleWiFiLinkChangedInternal(_BYTE *cf, void *a2, uint64_t a3)
 {
-  v9 = cf;
+  v10 = cf;
   if (!cf[81])
   {
     return 0;
   }
 
-  if (gLogCategory_APConnectivityHelper <= 40 && (gLogCategory_APConnectivityHelper != -1 || OUTLINED_FUNCTION_7()))
+  if (gLogCategory_APConnectivityHelper <= 40 && (gLogCategory_APConnectivityHelper != -1 || OUTLINED_FUNCTION_7(&gLogCategory_APConnectivityHelper)))
   {
-    OUTLINED_FUNCTION_11();
+    OUTLINED_FUNCTION_11(&gLogCategory_APConnectivityHelper, "OSStatus _APConnectivityHelperHandleWiFiLinkChangedInternal(APConnectivityHelperRef, NSDictionary *)", a3, "[%{ptr}] Wifi Link changed %@");
   }
 
-  v4 = CFGetAllocator(cf);
-  theDict = CFDictionaryCreateMutable(v4, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+  v5 = CFGetAllocator(cf);
+  theDict = CFDictionaryCreateMutable(v5, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (theDict)
   {
-    v11 = 0;
-    _APConnectivityHelperPopulateCurrentWiFiNetworkInfo(&v9);
-    if (v11)
+    v12 = 0;
+    _APConnectivityHelperPopulateCurrentWiFiNetworkInfo(&v10);
+    if (v12)
     {
       APSLogErrorAt();
-      v7 = 0;
-      v6 = theDict;
+      v8 = 0;
+      v7 = theDict;
     }
 
     else
     {
       if (a2)
       {
-        v5 = [a2 objectForKeyedSubscript:*MEMORY[0x277D02A88]];
-        if (v5)
+        v6 = [a2 objectForKeyedSubscript:*MEMORY[0x277D02A88]];
+        if (v6)
         {
-          if ([v5 isLinkDownDebounceInProgress])
+          if ([v6 isLinkDownDebounceInProgress])
           {
             CFDictionarySetValue(theDict, @"wifiNetworkIsLinkDownDebounceInProgress", *MEMORY[0x277CBED28]);
           }
         }
       }
 
-      v6 = theDict;
-      v7 = _APConnectivityHelperDispatchEvent(cf, 3, theDict);
-      if (v7)
+      v7 = theDict;
+      v8 = _APConnectivityHelperDispatchEvent(cf, 3, theDict);
+      if (v8)
       {
         APSLogErrorAt();
       }
     }
 
-    if (v6)
+    if (v7)
     {
-      CFRelease(v6);
+      CFRelease(v7);
     }
   }
 
@@ -2321,19 +2667,19 @@ uint64_t _APConnectivityHelperHandleWiFiLinkChangedInternal(_BYTE *cf, void *a2)
     return 4294895096;
   }
 
-  return v7;
+  return v8;
 }
 
-uint64_t _APConnectivityHelperEnsureAWDLDevicePresentListenerStopped(uint64_t a1)
+uint64_t _APConnectivityHelperEnsureAWDLDevicePresentListenerStopped(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (!*(a1 + 209) && !*(a1 + 210))
   {
     return 0;
   }
 
-  if (gLogCategory_APConnectivityHelper <= 40 && (gLogCategory_APConnectivityHelper != -1 || OUTLINED_FUNCTION_7()))
+  if (gLogCategory_APConnectivityHelper <= 40 && (gLogCategory_APConnectivityHelper != -1 || OUTLINED_FUNCTION_7(&gLogCategory_APConnectivityHelper)))
   {
-    OUTLINED_FUNCTION_11();
+    OUTLINED_FUNCTION_11(&gLogCategory_APConnectivityHelper, "OSStatus _APConnectivityHelperStopAWDLDevicePresentListener(APConnectivityHelperRef)", a3, "[%{ptr}] Stopping AWDL device present listener.\n");
   }
 
   *(a1 + 209) = 0;
@@ -2343,20 +2689,20 @@ uint64_t _APConnectivityHelperEnsureAWDLDevicePresentListenerStopped(uint64_t a1
     return 0;
   }
 
-  v2 = _APConnectivityHelperDispatchEvent(a1, 0x6B, 0);
-  if (v2)
+  v4 = _APConnectivityHelperDispatchEvent(a1, 0x6B, 0);
+  if (v4)
   {
     APSLogErrorAt();
     APSLogErrorAt();
   }
 
-  return v2;
+  return v4;
 }
 
-void _APConnectivityHelperStopInterfaceAddedRetryTimer(uint64_t a1)
+void _APConnectivityHelperStopInterfaceAddedRetryTimer(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v1 = *(a1 + 96);
-  if (v1)
+  v3 = *(a1 + 96);
+  if (v3)
   {
     if (gLogCategory_APConnectivityHelper > 30)
     {
@@ -2365,15 +2711,15 @@ void _APConnectivityHelperStopInterfaceAddedRetryTimer(uint64_t a1)
 
     if (gLogCategory_APConnectivityHelper != -1 || _LogCategory_Initialize())
     {
-      OUTLINED_FUNCTION_7_0();
+      OUTLINED_FUNCTION_7_0(&gLogCategory_APConnectivityHelper, "void _APConnectivityHelperStopInterfaceAddedRetryTimer(APConnectivityHelperRef)", a3, "[%{ptr}] Stop InterfaceAdded timer\n");
     }
 
-    v1 = *(a1 + 96);
-    if (v1)
+    v3 = *(a1 + 96);
+    if (v3)
     {
 LABEL_7:
-      dispatch_source_cancel(v1);
-      dispatch_release(v1);
+      dispatch_source_cancel(v3);
+      dispatch_release(v3);
       *(a1 + 96) = 0;
     }
   }
@@ -2427,17 +2773,17 @@ uint64_t _APConnectivityHelperEnsureIPv4AddressesListenerStopped(uint64_t a1)
   return v1;
 }
 
-uint64_t _APConnectivityHelperEnsureAWDLSoloSupportListenerStopped(uint64_t a1)
+uint64_t _APConnectivityHelperEnsureAWDLSoloSupportListenerStopped(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (!*(a1 + 154))
   {
     return 0;
   }
 
-  if (gLogCategory_APConnectivityHelper <= 40 && (gLogCategory_APConnectivityHelper != -1 || OUTLINED_FUNCTION_7()))
+  if (gLogCategory_APConnectivityHelper <= 40 && (gLogCategory_APConnectivityHelper != -1 || OUTLINED_FUNCTION_7(&gLogCategory_APConnectivityHelper)))
   {
-    v4 = a1;
-    OUTLINED_FUNCTION_11();
+    v6 = a1;
+    OUTLINED_FUNCTION_11(&gLogCategory_APConnectivityHelper, "OSStatus _APConnectivityHelperStopAWDLSoloSupportListener(APConnectivityHelperRef)", a3, "[%{ptr}] Stopping AWDL solo support listener.\n");
   }
 
   [*(a1 + 144) endMonitoring];
@@ -2449,14 +2795,14 @@ uint64_t _APConnectivityHelperEnsureAWDLSoloSupportListenerStopped(uint64_t a1)
     return 0;
   }
 
-  v2 = _APConnectivityHelperDispatchEvent(a1, 0x6C, 0);
-  if (v2)
+  v4 = _APConnectivityHelperDispatchEvent(a1, 0x6C, 0);
+  if (v4)
   {
     APSLogErrorAt();
     APSLogErrorAt();
   }
 
-  return v2;
+  return v4;
 }
 
 uint64_t _APConnectivityHelperStopUSBInterfaceListener(uint64_t a1)
@@ -2467,9 +2813,9 @@ uint64_t _APConnectivityHelperStopUSBInterfaceListener(uint64_t a1)
   }
 
   _APConnectivityHelperStopListeningToDynamicStoreNetworkEntity(a1, *MEMORY[0x277CE16A0]);
-  if (gLogCategory_APConnectivityHelper <= 40 && (gLogCategory_APConnectivityHelper != -1 || OUTLINED_FUNCTION_7()))
+  if (gLogCategory_APConnectivityHelper <= 40 && (gLogCategory_APConnectivityHelper != -1 || OUTLINED_FUNCTION_7(&gLogCategory_APConnectivityHelper)))
   {
-    OUTLINED_FUNCTION_11();
+    OUTLINED_FUNCTION_11(&gLogCategory_APConnectivityHelper, "OSStatus _APConnectivityHelperStopUSBInterfaceListener(APConnectivityHelperRef)", v2, "[%{ptr}] USB interface listener stopped.\n");
   }
 
   CFDictionaryRemoveAllValues(*(a1 + 112));
@@ -2479,13 +2825,13 @@ uint64_t _APConnectivityHelperStopUSBInterfaceListener(uint64_t a1)
     return 0;
   }
 
-  v2 = _APConnectivityHelperDispatchEvent(a1, 0x68, 0);
-  if (v2)
+  v3 = _APConnectivityHelperDispatchEvent(a1, 0x68, 0);
+  if (v3)
   {
     APSLogErrorAt();
   }
 
-  return v2;
+  return v3;
 }
 
 uint64_t _APConnectivityHelperStopIPv6AddressListener(uint64_t a1)
@@ -2496,9 +2842,9 @@ uint64_t _APConnectivityHelperStopIPv6AddressListener(uint64_t a1)
   }
 
   _APConnectivityHelperStopListeningToDynamicStoreNetworkEntity(a1, *MEMORY[0x277CE1690]);
-  if (gLogCategory_APConnectivityHelper <= 40 && (gLogCategory_APConnectivityHelper != -1 || OUTLINED_FUNCTION_7()))
+  if (gLogCategory_APConnectivityHelper <= 40 && (gLogCategory_APConnectivityHelper != -1 || OUTLINED_FUNCTION_7(&gLogCategory_APConnectivityHelper)))
   {
-    OUTLINED_FUNCTION_11();
+    OUTLINED_FUNCTION_11(&gLogCategory_APConnectivityHelper, "OSStatus _APConnectivityHelperStopIPv6AddressListener(APConnectivityHelperRef)", v2, "[%{ptr}] IPv6 address listener stopped.\n");
   }
 
   CFDictionaryRemoveAllValues(*(a1 + 128));
@@ -2508,13 +2854,13 @@ uint64_t _APConnectivityHelperStopIPv6AddressListener(uint64_t a1)
     return 0;
   }
 
-  v2 = _APConnectivityHelperDispatchEvent(a1, 0x6A, 0);
-  if (v2)
+  v3 = _APConnectivityHelperDispatchEvent(a1, 0x6A, 0);
+  if (v3)
   {
     APSLogErrorAt();
   }
 
-  return v2;
+  return v3;
 }
 
 uint64_t _APConnectivityHelperStopIPv4AddressListener(uint64_t a1)
@@ -2525,9 +2871,9 @@ uint64_t _APConnectivityHelperStopIPv4AddressListener(uint64_t a1)
   }
 
   _APConnectivityHelperStopListeningToDynamicStoreNetworkEntity(a1, *MEMORY[0x277CE1688]);
-  if (gLogCategory_APConnectivityHelper <= 40 && (gLogCategory_APConnectivityHelper != -1 || OUTLINED_FUNCTION_7()))
+  if (gLogCategory_APConnectivityHelper <= 40 && (gLogCategory_APConnectivityHelper != -1 || OUTLINED_FUNCTION_7(&gLogCategory_APConnectivityHelper)))
   {
-    OUTLINED_FUNCTION_11();
+    OUTLINED_FUNCTION_11(&gLogCategory_APConnectivityHelper, "OSStatus _APConnectivityHelperStopIPv4AddressListener(APConnectivityHelperRef)", v2, "[%{ptr}] IPv4 address listener stopped.\n");
   }
 
   CFDictionaryRemoveAllValues(*(a1 + 136));
@@ -2537,29 +2883,27 @@ uint64_t _APConnectivityHelperStopIPv4AddressListener(uint64_t a1)
     return 0;
   }
 
-  v2 = _APConnectivityHelperDispatchEvent(a1, 0x6E, 0);
-  if (v2)
+  v3 = _APConnectivityHelperDispatchEvent(a1, 0x6E, 0);
+  if (v3)
   {
     APSLogErrorAt();
   }
 
-  return v2;
+  return v3;
 }
 
-uint64_t _APConnectivityHelperStopListeningToEvent_cold_4()
+uint64_t _APConnectivityHelperStopListeningToEvent_cold_4(uint64_t a1)
 {
   APSLogErrorAt();
 
   return APSLogErrorAt();
 }
 
-uint64_t __APConnectivityHelperRegisterForEvent_block_invoke_cold_1(uint64_t *a1, uint64_t *a2, int *a3, const __CFSet *a4)
+uint64_t __APConnectivityHelperRegisterForEvent_block_invoke_cold_1(uint64_t a1, uint64_t a2, int *a3, const __CFSet *a4)
 {
-  v5 = *a1;
-  v6 = *a2;
   APConnectivityHelperGetEventString(*a3);
   CFSetGetCount(a4);
-  return OUTLINED_FUNCTION_9();
+  return OUTLINED_FUNCTION_9(&gLogCategory_APConnectivityHelper, "OSStatus APConnectivityHelperRegisterForEvent(APConnectivityHelperRef, CFTypeRef, APConnectivityHelperEventType)_block_invoke", v5, "[%{ptr}] Registered client [%{ptr}] for event %'s. %ld registered clients");
 }
 
 BOOL __APConnectivityHelperRegisterForEvent_block_invoke_cold_4()
@@ -2570,56 +2914,31 @@ BOOL __APConnectivityHelperRegisterForEvent_block_invoke_cold_4()
   return *(v0 + 24) == 0;
 }
 
-uint64_t __APConnectivityHelperRegisterActivity_block_invoke_cold_1(uint64_t *a1, uint64_t a2, _DWORD *a3, CFSetRef theSet)
-{
-  v4 = *a1;
-  v5 = *(a2 + 48);
-  *a3;
-  CFSetGetCount(theSet);
-  return OUTLINED_FUNCTION_9();
-}
-
 uint64_t __APConnectivityHelperRegisterActivity_block_invoke_cold_5(uint64_t *a1, uint64_t a2, _DWORD *a3, CFSetRef theSet)
 {
   v4 = *a1;
   v5 = *(a2 + 48);
-  *a3;
-  if (theSet)
+  if (*a3)
   {
-    CFSetGetCount(theSet);
+    v6 = "Unknown";
   }
 
-  return LogPrintF();
-}
+  else
+  {
+    v6 = "Wake on Wireless";
+  }
 
-uint64_t __APConnectivityHelperRemoveAllRegistrations_block_invoke_cold_1(uint64_t *a1, CFSetRef theSet, uint64_t *a3)
-{
-  v4 = *a1;
-  CFSetGetCount(theSet);
-  v6 = *a3;
-  return OUTLINED_FUNCTION_7_0();
-}
+  if (theSet)
+  {
+    Count = CFSetGetCount(theSet);
+  }
 
-uint64_t __APConnectivityHelperRemoveAllRegistrations_block_invoke_cold_2(uint64_t *a1, CFSetRef theSet, uint64_t *a3)
-{
-  v4 = *a1;
-  CFSetGetCount(theSet);
-  v6 = *a3;
-  return OUTLINED_FUNCTION_7_0();
-}
+  else
+  {
+    Count = 0;
+  }
 
-uint64_t __APConnectivityHelperRegisterEventHandler_block_invoke_cold_1(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  return OUTLINED_FUNCTION_9();
-}
-
-uint64_t __APConnectivityHelperDeregisterEventHandler_block_invoke_cold_1(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  return OUTLINED_FUNCTION_9();
+  return LogPrintF(&gLogCategory_APConnectivityHelper, "OSStatus APConnectivityHelperRegisterActivity(APConnectivityHelperRef, CFTypeRef, APConnectivityHelperActivityType)_block_invoke", 33554522, "[%{ptr}] Failed to register client [%{ptr}] for activity %'s. %ld registered clients", v4, v5, v6, Count);
 }
 
 void APConnectivityHelperCopyCurrentWiFiNetworkInfo_cold_1(uint64_t a1, CFTypeRef *a2)
@@ -2631,14 +2950,14 @@ void APConnectivityHelperCopyCurrentWiFiNetworkInfo_cold_1(uint64_t a1, CFTypeRe
   }
 }
 
-uint64_t _APConnectivityHelperDispatchEventToClient_cold_1(uint64_t result, int a2)
+uint64_t _APConnectivityHelperDispatchEventToClient_cold_1(uint64_t result, int a2, uint64_t a3, uint64_t a4)
 {
   if (result <= 90)
   {
     if (result != -1 || (result = _LogCategory_Initialize(), result))
     {
-      APConnectivityHelperGetEventString(a2);
-      return LogPrintF();
+      EventString = APConnectivityHelperGetEventString(a2);
+      return LogPrintF(&gLogCategory_APConnectivityHelper, "void _APConnectivityHelperDispatchEventToClient(APConnectivityHelperRef, CFTypeRef, APConnectivityHelperEventType, CFDictionaryRef)", 33554522, "[%{ptr}] Failed to dispatch event %'s to client [%{ptr}]. No event handler registered.", a3, EventString, a4);
     }
   }
 
@@ -2648,7 +2967,7 @@ uint64_t _APConnectivityHelperDispatchEventToClient_cold_1(uint64_t result, int 
 uint64_t _APConnectivityHelperEnsureAWDLDevicePresentListenerStarted_cold_2(uint64_t a1, uint64_t a2)
 {
   APSLogErrorAt();
-  _APConnectivityHelperEnsureAWDLDevicePresentListenerStopped(a2);
+  _APConnectivityHelperEnsureAWDLDevicePresentListenerStopped(a2, v3, v4);
 
   return APSLogErrorAt();
 }
@@ -2656,10 +2975,10 @@ uint64_t _APConnectivityHelperEnsureAWDLDevicePresentListenerStarted_cold_2(uint
 uint64_t _APConnectivityHelperEnsureWiFiDeviceAvailabilityCheckStarted_cold_2(uint64_t a1, uint64_t a2)
 {
   APSLogErrorAt();
-  _APConnectivityHelperStopWiFiDeviceAttachmentListener(a2);
+  _APConnectivityHelperStopWiFiDeviceAttachmentListener(a2, v3, v4);
   APSLogErrorAt();
 
-  return _APConnectivityHelperEnsureWiFiDeviceAvailabilityCheckStopped(a2);
+  return _APConnectivityHelperEnsureWiFiDeviceAvailabilityCheckStopped(a2, v5, v6);
 }
 
 void _APConnectivityHelperUpdateInterfaceAddedListener_cold_1(dispatch_object_t *a1, void *a2, uint64_t a3, void *a4)
@@ -2724,7 +3043,7 @@ uint64_t _APConnectivityHelperSendAWDLSoloSupportEvent_cold_3()
   return APSLogErrorAt();
 }
 
-uint64_t _APConnectivityHelperHandleUSBInterfaceChange_cold_2()
+uint64_t _APConnectivityHelperHandleUSBInterfaceChange_cold_2(uint64_t a1, uint64_t a2)
 {
   APSLogErrorAt();
 
@@ -2758,7 +3077,6 @@ void _APConnectivityHelperHandleIPv4ChangedEvent_cold_2()
 
 uint64_t APTPacingControllerSetMaxPacingRate(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a1 + 32);
   FigSimpleMutexLock();
   if (a2)
   {
@@ -2767,7 +3085,7 @@ uint64_t APTPacingControllerSetMaxPacingRate(uint64_t a1, uint64_t a2)
       *(a1 + 72) = a2;
       if (gLogCategory_APTPacingController <= 30 && (gLogCategory_APTPacingController != -1 || _LogCategory_Initialize()))
       {
-        OUTLINED_FUNCTION_7_0();
+        OUTLINED_FUNCTION_7_0(&gLogCategory_APTPacingController, "OSStatus APTPacingControllerSetMaxPacingRate(APTPacingControllerRef, uint64_t)", v4, "[%{ptr}] maxPacingRate=%llu");
       }
 
       if (*(a1 + 80))
@@ -2786,7 +3104,6 @@ uint64_t APTPacingControllerSetMaxPacingRate(uint64_t a1, uint64_t a2)
     v5 = 4294960591;
   }
 
-  v6 = *(a1 + 32);
   FigSimpleMutexUnlock();
   return v5;
 }
@@ -2796,13 +3113,6 @@ void APTPacingControllerYieldOnQueueWithContinuationBlock_cold_1(uint64_t a1, co
   APSLogErrorAt();
 
   _Block_release(a2);
-}
-
-uint64_t pacingController_updateYieldTimerIfNeededAsync_cold_1(uint64_t a1)
-{
-  v2 = *(a1 + 56);
-  v3 = *(a1 + 64);
-  return OUTLINED_FUNCTION_7_0();
 }
 
 uint64_t APTNANDataSessionIssueReportCreate(const void *a1, const void *a2, CFTypeRef *a3)
@@ -2852,24 +3162,24 @@ uint64_t APTNANDataSessionIssueReportCreate(const void *a1, const void *a2, CFTy
 
 uint64_t APTransportPackageTCPGetHeaderSize_cold_1(_DWORD *a1)
 {
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_1_13();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_1_13(v2, "outHeaderSize is NULL");
   *a1 = result;
   return result;
 }
 
 uint64_t APTransportPackageTCPGetPayloadSize_cold_3(_DWORD *a1)
 {
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_1_13();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_1_13(v2, "inHeader is NULL");
   *a1 = result;
   return result;
 }
 
 uint64_t APTransportPackageTCPGetPayloadSize_cold_4(_DWORD *a1)
 {
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_1_13();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_1_13(v2, "outPayloadSize is NULL");
   *a1 = result;
   return result;
 }
@@ -2879,40 +3189,37 @@ void connectionlistener_resumeInternal(_DWORD *a1)
   v2 = *a1;
   if (*(*a1 + 89))
   {
-    v6 = -71862;
+    v4 = -71862;
   }
 
   else if (*(v2 + 88))
   {
-    v6 = 0;
+    v4 = 0;
   }
 
   else
   {
-    v3 = *(v2 + 24);
-    v4 = *(v2 + 28);
-    v5 = ServerSocketPairOpen();
-    if (v5)
+    v3 = ServerSocketPairOpen();
+    if (v3)
     {
-      v7 = v5;
+      v5 = v3;
       APSLogErrorAt();
-      v6 = v7;
+      v4 = v5;
     }
 
     else
     {
       if (gLogCategory_APTConnectionListener <= 50 && (gLogCategory_APTConnectionListener != -1 || _LogCategory_Initialize()))
       {
-        v8 = *(v2 + 24);
-        LogPrintF();
+        LogPrintF(&gLogCategory_APTConnectionListener, "OSStatus connectionlistener_setupListenerSocket(APTConnectionListenerRef)", 33554482, "[%{ptr}] Started listening on port %d\n", v2, *(v2 + 24));
       }
 
-      v6 = 0;
+      v4 = 0;
     }
 
     free(0);
     free(0);
-    if (v6)
+    if (v4)
     {
       APSLogErrorAt();
     }
@@ -2923,7 +3230,7 @@ void connectionlistener_resumeInternal(_DWORD *a1)
     }
   }
 
-  a1[2] = v6;
+  a1[2] = v4;
 }
 
 _DWORD *connectionlistener_getListeningPortInternal(_DWORD *result)
@@ -2956,7 +3263,7 @@ void connectionlistener_invalidateInternal(uint64_t a1)
   v2 = *a1;
   if (*(*a1 + 89))
   {
-    v4 = -71862;
+    v3 = -71862;
   }
 
   else
@@ -2965,31 +3272,28 @@ void connectionlistener_invalidateInternal(uint64_t a1)
     *(v2 + 89) = 1;
     if (*(v2 + 48))
     {
-      v5 = *(v2 + 48);
-      v6 = *(v2 + 56);
       CFRetain(v2);
-      v3 = *(v2 + 64);
       APSDispatchAsyncFHelper();
     }
 
-    v4 = 0;
+    v3 = 0;
   }
 
-  *(a1 + 8) = v4;
+  *(a1 + 8) = v3;
 }
 
 void APTConnectionListenerCreate_cold_2(const void *a1, _DWORD *a2)
 {
-  APSLogErrorAt();
-  *a2 = OUTLINED_FUNCTION_4_9();
+  v4 = APSLogErrorAt();
+  *a2 = OUTLINED_FUNCTION_4_9(v4, "dispatch_queue_create failed");
   CFRelease(a1);
 }
 
 uint64_t APTConnectionListenerCreate_cold_4(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_3_8();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_3_8(v2, "inCallbackQueue is NULL");
   *a1 = result;
   return result;
 }
@@ -2997,8 +3301,8 @@ uint64_t APTConnectionListenerCreate_cold_4(_DWORD *a1)
 uint64_t APTConnectionListenerCreate_cold_5(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_3_8();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_3_8(v2, "inConnectedCallback is NULL");
   *a1 = result;
   return result;
 }
@@ -3006,8 +3310,8 @@ uint64_t APTConnectionListenerCreate_cold_5(_DWORD *a1)
 uint64_t APTConnectionListenerCreate_cold_6(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_3_8();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_3_8(v2, "outListener is NULL");
   *a1 = result;
   return result;
 }
@@ -3015,26 +3319,26 @@ uint64_t APTConnectionListenerCreate_cold_6(_DWORD *a1)
 uint64_t APTConnectionListenerGetListeningPort_cold_1(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_3_8();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_3_8(v2, "outPort is NULL");
   *a1 = result;
   return result;
 }
 
-uint64_t connectionlistener_listenerSocketEventHandler_cold_1()
+uint64_t connectionlistener_listenerSocketEventHandler_cold_1(uint64_t a1, uint64_t a2)
 {
   result = APSLogErrorAt();
   if (gLogCategory_APTConnectionListener <= 90)
   {
     if (gLogCategory_APTConnectionListener != -1)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_APTConnectionListener, "OSStatus connectionlistener_acceptConnection(APTConnectionListenerRef, SocketRef)", 33554522, "### [%{ptr}] %###s SocketAccept error: %d", a2, "OSStatus connectionlistener_acceptConnection(APTConnectionListenerRef, SocketRef)", a1);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_APTConnectionListener, "OSStatus connectionlistener_acceptConnection(APTConnectionListenerRef, SocketRef)", 33554522, "### [%{ptr}] %###s SocketAccept error: %d", a2, "OSStatus connectionlistener_acceptConnection(APTConnectionListenerRef, SocketRef)", a1);
     }
   }
 
@@ -3083,23 +3387,21 @@ void __getHMHomeManagerClass_block_invoke_cold_1()
 
 uint64_t unbufnw_CopyProperty(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v7 = *DerivedStorage;
-  v8 = *(*DerivedStorage + 72);
+  v6 = *CMBaseObjectGetDerivedStorage();
   FigSimpleMutexLock();
   if (CFEqual(a2, @"LastDeliveredPackage"))
   {
-    if (*(v7 + 38))
+    if (*(v6 + 38))
     {
-      unbufnwGuts_updatePackageTrackingInternal(v7);
-      v9 = *(v7 + 304);
-      if (v9)
+      unbufnwGuts_updatePackageTrackingInternal(v6);
+      v7 = *(v6 + 304);
+      if (v7)
       {
-        v9 = CFRetain(v9);
+        v7 = CFRetain(v7);
       }
 
       a2 = 0;
-      *a4 = v9;
+      *a4 = v7;
       goto LABEL_23;
     }
 
@@ -3111,17 +3413,17 @@ LABEL_30:
   if (CFEqual(a2, @"MaxPackageSize"))
   {
     *bytes = 0;
-    v10 = *(v7 + 208);
-    if (!v10)
+    v8 = *(v6 + 208);
+    if (!v8)
     {
       APSLogErrorAt();
       goto LABEL_30;
     }
 
-    v11 = v10(bytes);
-    if (v11)
+    v9 = v8(bytes);
+    if (v9)
     {
-      a2 = v11;
+      a2 = v9;
       goto LABEL_39;
     }
 
@@ -3144,31 +3446,31 @@ LABEL_22:
   if (CFEqual(a2, @"LocalNetworkIPAddress"))
   {
     *bytes = 0;
-    v24 = 0;
-    v26 = 0;
-    v25 = 0;
-    if (!*(v7 + 36))
+    v21 = 0;
+    v23 = 0;
+    v22 = 0;
+    if (!*(v6 + 36))
     {
-      if (*(v7 + 248))
+      if (*(v6 + 248))
       {
-        if (*(v7 + 312) != 5)
+        if (*(v6 + 312) != 5)
         {
           APSLogErrorAt();
           OUTLINED_FUNCTION_21_0();
-          a2 = (v19 + 3);
+          a2 = (v17 + 3);
           goto LABEL_23;
         }
 
-        v13 = nw_connection_copy_connected_local_endpoint();
-        if (v13)
+        v11 = nw_connection_copy_connected_local_endpoint();
+        if (v11)
         {
-          a2 = v13;
-          nw_endpoint_get_address(v13);
+          a2 = v11;
+          nw_endpoint_get_address(v11);
           SockAddrCopy();
           nw_release(a2);
-          v14 = CFDataCreate(*MEMORY[0x277CBECE8], bytes, 28);
-          *a4 = v14;
-          if (!v14)
+          v12 = CFDataCreate(*MEMORY[0x277CBECE8], bytes, 28);
+          *a4 = v12;
+          if (!v12)
           {
             goto LABEL_10;
           }
@@ -3189,15 +3491,15 @@ LABEL_38:
 
   if (CFEqual(a2, @"LocalNetworkPort"))
   {
-    if (*(v7 + 36))
+    if (*(v6 + 36))
     {
-      v15 = *(v7 + 232);
-      if (v15)
+      v14 = *(v6 + 232);
+      if (v14)
       {
-        nw_listener_get_port(v15);
-        v16 = CFNumberCreateInt64();
-        *a4 = v16;
-        if (v16)
+        nw_listener_get_port(v14);
+        v15 = CFNumberCreateInt64();
+        *a4 = v15;
+        if (v15)
         {
           goto LABEL_22;
         }
@@ -3208,62 +3510,56 @@ LABEL_38:
 LABEL_37:
       APSLogErrorAt();
       OUTLINED_FUNCTION_21_0();
-      a2 = (v21 - 5);
+      a2 = (v19 - 5);
       goto LABEL_23;
     }
 
 LABEL_36:
     APSLogErrorAt();
     OUTLINED_FUNCTION_21_0();
-    a2 = v20 | 2u;
+    a2 = v18 | 2u;
     goto LABEL_23;
   }
 
-  if (gLogCategory_APTransportConnectionUnbufferedNW <= 30 && (gLogCategory_APTransportConnectionUnbufferedNW != -1 || OUTLINED_FUNCTION_8_0()))
+  if (gLogCategory_APTransportConnectionUnbufferedNW <= 30 && (gLogCategory_APTransportConnectionUnbufferedNW != -1 || OUTLINED_FUNCTION_8_0(&gLogCategory_APTransportConnectionUnbufferedNW)))
   {
-    v22 = *(v7 + 16);
-    OUTLINED_FUNCTION_7_0();
+    OUTLINED_FUNCTION_7_0(&gLogCategory_APTransportConnectionUnbufferedNW, "OSStatus unbufnw_CopyProperty(CMBaseObjectRef, CFStringRef, CFAllocatorRef, void *)", v13, "[%{ptr}] unknown property %@\n");
   }
 
   a2 = 4294954512;
 LABEL_23:
-  v17 = *(v7 + 72);
   FigSimpleMutexUnlock();
   return a2;
 }
 
 uint64_t unbufnw_SetProperty(uint64_t a1, const void *a2, const void *a3)
 {
-  v63 = *MEMORY[0x277D85DE8];
-  v61 = 0;
-  DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v6 = *DerivedStorage;
-  v7 = *(*DerivedStorage + 72);
+  v52 = *MEMORY[0x277D85DE8];
+  v50 = 0;
+  v5 = *CMBaseObjectGetDerivedStorage();
   FigSimpleMutexLock();
-  if (gLogCategory_APTransportConnectionUnbufferedNW <= 30 && (gLogCategory_APTransportConnectionUnbufferedNW != -1 || OUTLINED_FUNCTION_8_0()))
+  if (gLogCategory_APTransportConnectionUnbufferedNW <= 30 && (gLogCategory_APTransportConnectionUnbufferedNW != -1 || OUTLINED_FUNCTION_8_0(&gLogCategory_APTransportConnectionUnbufferedNW)))
   {
-    v49 = *(v6 + 16);
-    OUTLINED_FUNCTION_7_0();
+    OUTLINED_FUNCTION_7_0(&gLogCategory_APTransportConnectionUnbufferedNW, "OSStatus unbufnw_SetProperty(CMBaseObjectRef, CFStringRef, CFTypeRef)", v6, "[%{ptr}] set property %@ to %@\n");
   }
 
   if (!CFEqual(a2, @"PackageType"))
   {
     if (CFEqual(a2, @"RemoteNetworkIPAddress"))
     {
-      if (*(v6 + 80))
+      if (*(v5 + 80))
       {
         goto LABEL_130;
       }
 
       if (a3)
       {
-        v8 = CFGetTypeID(a3);
-        if (v8 == APSNetworkAddressGetTypeID())
+        v7 = CFGetTypeID(a3);
+        if (v7 == APSNetworkAddressGetTypeID())
         {
           APSNetworkAddressGetSocketAddr();
-          *(v6 + 88) = v59[0];
-          *(v6 + 100) = *(v59 + 12);
-          v9 = *(v6 + 116);
+          *(v5 + 88) = v48[0];
+          *(v5 + 100) = *(v48 + 12);
 LABEL_23:
           SockAddrSetPort();
           goto LABEL_34;
@@ -3275,17 +3571,17 @@ LABEL_23:
 
     if (CFEqual(a2, @"RemoteNetworkPort"))
     {
-      if (*(v6 + 80))
+      if (*(v5 + 80))
       {
         goto LABEL_130;
       }
 
       if (a3)
       {
-        v12 = CFGetTypeID(a3);
-        if (v12 == CFNumberGetTypeID())
+        v11 = CFGetTypeID(a3);
+        if (v11 == CFNumberGetTypeID())
         {
-          *(v6 + 116) = OUTLINED_FUNCTION_23();
+          *(v5 + 116) = OUTLINED_FUNCTION_23();
           goto LABEL_23;
         }
       }
@@ -3295,18 +3591,18 @@ LABEL_23:
 
     if (CFEqual(a2, @"BoundInterfaceIndex"))
     {
-      if (*(v6 + 80))
+      if (*(v5 + 80))
       {
         goto LABEL_130;
       }
 
       if (a3)
       {
-        v21 = CFGetTypeID(a3);
-        if (v21 == CFNumberGetTypeID())
+        v18 = CFGetTypeID(a3);
+        if (v18 == CFNumberGetTypeID())
         {
           OUTLINED_FUNCTION_17_2();
-          *(v6 + 120) = CFGetInt64Ranged();
+          *(v5 + 120) = CFGetInt64Ranged();
           goto LABEL_34;
         }
       }
@@ -3316,52 +3612,50 @@ LABEL_23:
 
     if (CFEqual(a2, @"BoundLocalNetworkIPAddress"))
     {
-      v22 = *(v6 + 32);
       OUTLINED_FUNCTION_10_6();
-      if (v15 && *(v6 + 36))
+      if (v14 && *(v5 + 36))
       {
-        if (*(v6 + 80))
+        if (*(v5 + 80))
         {
           goto LABEL_130;
         }
 
         if (a3)
         {
-          v23 = CFGetTypeID(a3);
-          if (v23 == APSNetworkAddressGetTypeID())
+          v19 = CFGetTypeID(a3);
+          if (v19 == APSNetworkAddressGetTypeID())
           {
             APSNetworkAddressGetSocketAddr();
-            v24 = BYTE1(v59[0]);
-            v25 = WORD1(v59[0]);
-            v26 = BYTE4(v59[0]);
-            v57 = *(v59 + 5);
-            v58 = BYTE7(v59[0]);
-            v27 = BYTE8(v59[0]);
-            *v62 = *(v59 + 9);
-            *&v62[15] = DWORD2(v59[1]);
-            if (BYTE1(v59[0]) == 2)
+            v20 = BYTE1(v48[0]);
+            v21 = WORD1(v48[0]);
+            v22 = BYTE4(v48[0]);
+            v46 = *(v48 + 5);
+            v47 = BYTE7(v48[0]);
+            v23 = BYTE8(v48[0]);
+            *v51 = *(v48 + 9);
+            *&v51[15] = DWORD2(v48[1]);
+            if (BYTE1(v48[0]) == 2)
             {
-              if ((BYTE4(v59[0]) & 0xF0) != 0xE0)
+              if ((BYTE4(v48[0]) & 0xF0) != 0xE0)
               {
                 goto LABEL_134;
               }
             }
 
-            else if (BYTE1(v59[0]) != 30 || BYTE8(v59[0]) != 255)
+            else if (BYTE1(v48[0]) != 30 || BYTE8(v48[0]) != 255)
             {
               goto LABEL_134;
             }
 
-            *(v6 + 128) = v59[0];
-            *(v6 + 129) = v24;
-            *(v6 + 130) = v25;
-            *(v6 + 132) = v26;
-            *(v6 + 133) = v57;
-            *(v6 + 135) = v58;
-            *(v6 + 136) = v27;
-            *(v6 + 137) = *v62;
-            *(v6 + 152) = *&v62[15];
-            v29 = *(v6 + 124);
+            *(v5 + 128) = v48[0];
+            *(v5 + 129) = v20;
+            *(v5 + 130) = v21;
+            *(v5 + 132) = v22;
+            *(v5 + 133) = v46;
+            *(v5 + 135) = v47;
+            *(v5 + 136) = v23;
+            *(v5 + 137) = *v51;
+            *(v5 + 152) = *&v51[15];
             goto LABEL_23;
           }
         }
@@ -3369,26 +3663,26 @@ LABEL_23:
 
 LABEL_134:
       APSLogErrorAt();
-      v48 = -72322;
+      v40 = -72322;
       goto LABEL_135;
     }
 
     if (CFEqual(a2, @"BoundLocalNetworkPort"))
     {
-      if (*(v6 + 36))
+      if (*(v5 + 36))
       {
-        if (*(v6 + 80))
+        if (*(v5 + 80))
         {
           goto LABEL_130;
         }
 
         if (a3)
         {
-          v28 = CFGetTypeID(a3);
-          if (v28 == CFNumberGetTypeID())
+          v24 = CFGetTypeID(a3);
+          if (v24 == CFNumberGetTypeID())
           {
             OUTLINED_FUNCTION_17_2();
-            *(v6 + 124) = CFGetInt64Ranged();
+            *(v5 + 124) = CFGetInt64Ranged();
             goto LABEL_23;
           }
         }
@@ -3399,13 +3693,13 @@ LABEL_134:
 
     if (CFEqual(a2, @"HopLimit"))
     {
-      if (*(v6 + 80))
+      if (*(v5 + 80))
       {
 LABEL_130:
         APSLogErrorAt();
-        v48 = -72342;
+        v40 = -72342;
 LABEL_135:
-        v61 = v48;
+        v50 = v40;
         goto LABEL_34;
       }
 
@@ -3414,16 +3708,16 @@ LABEL_135:
         goto LABEL_134;
       }
 
-      v30 = CFGetTypeID(a3);
-      if (v30 != CFNumberGetTypeID())
+      v25 = CFGetTypeID(a3);
+      if (v25 != CFNumberGetTypeID())
       {
         goto LABEL_134;
       }
 
       OUTLINED_FUNCTION_17_2();
       CFGetInt64Ranged();
-      v31 = *(v6 + 160);
-      *(v6 + 160) = a3;
+      v26 = *(v5 + 160);
+      *(v5 + 160) = a3;
     }
 
     else
@@ -3432,24 +3726,23 @@ LABEL_135:
       {
         if (a3)
         {
-          v32 = CFGetTypeID(a3);
-          if (v32 == CFNumberGetTypeID())
+          v27 = CFGetTypeID(a3);
+          if (v27 == CFNumberGetTypeID())
           {
-            v33 = OUTLINED_FUNCTION_23();
-            if (*(v6 + 272) != v33)
+            v28 = OUTLINED_FUNCTION_23();
+            if (*(v5 + 272) != v28)
             {
-              *(v6 + 272) = v33;
-              TrafficClassForSocketQoS = APTransportConnectionGetTrafficClassForSocketQoS(v33);
+              *(v5 + 272) = v28;
+              TrafficClassForSocketQoS = APTransportConnectionGetTrafficClassForSocketQoS(v28);
               if (gLogCategory_APTransportConnectionUnbufferedNW <= 50 && (gLogCategory_APTransportConnectionUnbufferedNW != -1 || _LogCategory_Initialize()))
               {
-                v50 = *(v6 + 16);
-                LogPrintF();
+                LogPrintF(&gLogCategory_APTransportConnectionUnbufferedNW, "OSStatus unbufnw_SetProperty(CMBaseObjectRef, CFStringRef, CFTypeRef)", 33554482, "[%{ptr}] socketQoS=%u (trafficClass=%u)", *(v5 + 16), v28, TrafficClassForSocketQoS);
               }
 
-              if (TrafficClassForSocketQoS != *(v6 + 276))
+              if (TrafficClassForSocketQoS != *(v5 + 276))
               {
-                *(v6 + 276) = TrafficClassForSocketQoS;
-                if (*(v6 + 248))
+                *(v5 + 276) = TrafficClassForSocketQoS;
+                if (*(v5 + 248))
                 {
                   nw_connection_reset_traffic_class();
                 }
@@ -3469,20 +3762,19 @@ LABEL_135:
         {
           if (a3)
           {
-            v36 = CFGetTypeID(a3);
-            if (v36 == CFBooleanGetTypeID())
+            v31 = CFGetTypeID(a3);
+            if (v31 == CFBooleanGetTypeID())
             {
               Value = CFBooleanGetValue(a3);
-              if (!atomic_exchange((v6 + 436), Value) && Value)
+              if (!atomic_exchange((v5 + 436), Value) && Value)
               {
-                CFRetain(v6);
-                v38 = *(v6 + 400);
+                CFRetain(v5);
                 OUTLINED_FUNCTION_3_9();
-                v53 = 0x40000000;
-                v54 = __unbufnw_SetProperty_block_invoke;
-                v55 = &__block_descriptor_tmp_27_0;
-                v56 = v6;
-                dispatch_async(v39, block);
+                v42 = 0x40000000;
+                v43 = __unbufnw_SetProperty_block_invoke;
+                v44 = &__block_descriptor_tmp_27_0;
+                v45 = v5;
+                dispatch_async(v33, block);
               }
 
               goto LABEL_34;
@@ -3494,58 +3786,54 @@ LABEL_135:
         {
           if (!CFEqual(a2, @"DataPacer"))
           {
-            if (gLogCategory_APTransportConnectionUnbufferedNW <= 30 && (gLogCategory_APTransportConnectionUnbufferedNW != -1 || OUTLINED_FUNCTION_8_0()))
+            if (gLogCategory_APTransportConnectionUnbufferedNW <= 30 && (gLogCategory_APTransportConnectionUnbufferedNW != -1 || OUTLINED_FUNCTION_8_0(&gLogCategory_APTransportConnectionUnbufferedNW)))
             {
-              v51 = *(v6 + 16);
-              OUTLINED_FUNCTION_7_0();
+              OUTLINED_FUNCTION_7_0(&gLogCategory_APTransportConnectionUnbufferedNW, "OSStatus unbufnw_SetProperty(CMBaseObjectRef, CFStringRef, CFTypeRef)", v35, "[%{ptr}] unknown property '%@'");
             }
 
             goto LABEL_34;
           }
 
-          if (!a3 || (v41 = CFGetTypeID(a3), v41 == APSDataPacerGetTypeID()))
+          if (!a3 || (v36 = CFGetTypeID(a3), v36 == APSDataPacerGetTypeID()))
           {
             OUTLINED_FUNCTION_12_2();
-            if (!v42 && !*(v6 + 40))
+            if (!v37 && !*(v5 + 40))
             {
-              v43 = *(v6 + 280);
-              if (v43 != a3)
+              v38 = *(v5 + 280);
+              if (v38 != a3)
               {
-                v44 = MEMORY[0x277CEA058];
-                if (v43)
+                if (v38)
                 {
                   CMNotificationCenterGetDefaultLocalCenter();
-                  v46 = *v44;
                   OUTLINED_FUNCTION_2_11();
                   FigNotificationCenterRemoveWeakListener();
-                  v45 = *(v6 + 280);
+                  v39 = *(v5 + 280);
                 }
 
                 else
                 {
-                  v45 = 0;
+                  v39 = 0;
                 }
 
-                *(v6 + 280) = a3;
+                *(v5 + 280) = a3;
                 if (a3)
                 {
                   CFRetain(a3);
                 }
 
-                if (v45)
+                if (v39)
                 {
-                  CFRelease(v45);
+                  CFRelease(v39);
                 }
 
-                if (*(v6 + 280))
+                if (*(v5 + 280))
                 {
                   CMNotificationCenterGetDefaultLocalCenter();
-                  v47 = *v44;
                   OUTLINED_FUNCTION_2_11();
                   FigNotificationCenterAddWeakListener();
                 }
 
-                unbufnwGuts_updateDataPacingInternal(v6);
+                unbufnwGuts_updateDataPacingInternal(v5);
               }
             }
 
@@ -3561,158 +3849,153 @@ LABEL_135:
         goto LABEL_134;
       }
 
-      v35 = CFGetTypeID(a3);
-      if (v35 != CFAllocatorGetTypeID())
+      v30 = CFGetTypeID(a3);
+      if (v30 != CFAllocatorGetTypeID())
       {
         goto LABEL_134;
       }
 
-      if (*(v6 + 80))
+      if (*(v5 + 80))
       {
         goto LABEL_130;
       }
 
-      v31 = *(v6 + 216);
-      *(v6 + 216) = a3;
+      v26 = *(v5 + 216);
+      *(v5 + 216) = a3;
     }
 
     CFRetain(a3);
-    if (v31)
+    if (v26)
     {
-      CFRelease(v31);
+      CFRelease(v26);
     }
 
     goto LABEL_34;
   }
 
-  v60 = 0;
-  memset(v59, 0, sizeof(v59));
-  if (*(v6 + 80))
+  v49 = 0;
+  memset(v48, 0, sizeof(v48));
+  if (*(v5 + 80))
   {
     goto LABEL_130;
   }
 
   if (!a3)
   {
-    v40 = -72322;
+    v34 = -72322;
     goto LABEL_107;
   }
 
   if (CFEqual(a3, @"Datagram"))
   {
-    LODWORD(v59[0]) = 0;
-    *(&v59[0] + 1) = APTransportPackageDatagramCreate;
-    *(&v59[1] + 1) = 0;
-    v60 = 0;
-    *&v59[1] = APTransportPackageDatagramCreateWithBBuf;
+    LODWORD(v48[0]) = 0;
+    *(&v48[0] + 1) = APTransportPackageDatagramCreate;
+    *(&v48[1] + 1) = 0;
+    v49 = 0;
+    *&v48[1] = APTransportPackageDatagramCreateWithBBuf;
   }
 
   else
   {
     if (CFEqual(a3, @"RTPBuffered"))
     {
-      HeaderSize = APTPackageRTPBufferedGetHeaderSize(v59);
+      HeaderSize = APTPackageRTPBufferedGetHeaderSize(v48, v8);
       if (HeaderSize)
       {
-        v40 = HeaderSize;
+        v34 = HeaderSize;
         goto LABEL_107;
       }
 
-      *(&v59[0] + 1) = APTPackageRTPBufferedCreate;
-      *&v59[1] = APTPackageRTPBufferedCreateWithBBuf;
-      *(&v59[1] + 1) = APTPackageRTPBufferedGetPayloadSize;
-      v11 = APTPackageRTPBufferedGetMaxPayloadSize;
+      *(&v48[0] + 1) = APTPackageRTPBufferedCreate;
+      *&v48[1] = APTPackageRTPBufferedCreateWithBBuf;
+      *(&v48[1] + 1) = APTPackageRTPBufferedGetPayloadSize;
+      v10 = APTPackageRTPBufferedGetMaxPayloadSize;
     }
 
     else
     {
       if (!CFEqual(a3, @"BufferedAPAP"))
       {
-        v40 = -72322;
+        v34 = -72322;
 LABEL_41:
-        v61 = v40;
+        v50 = v34;
         APSLogErrorAt();
         goto LABEL_34;
       }
 
-      v13 = APTransportPackageBufferedAPAPGetHeaderSize(v59);
+      v13 = APTransportPackageBufferedAPAPGetHeaderSize(v48, v12);
       if (v13)
       {
-        v40 = v13;
+        v34 = v13;
         goto LABEL_107;
       }
 
-      *(&v59[0] + 1) = APTransportPackageBufferedAPAPCreate;
-      *&v59[1] = APTransportPackageBufferedAPAPCreateWithBBuf;
-      *(&v59[1] + 1) = APTransportPackageBufferedAPAPGetPayloadSize;
-      v11 = APTransportPackageBufferedAPAPGetMaxPayloadSize;
+      *(&v48[0] + 1) = APTransportPackageBufferedAPAPCreate;
+      *&v48[1] = APTransportPackageBufferedAPAPCreateWithBBuf;
+      *(&v48[1] + 1) = APTransportPackageBufferedAPAPGetPayloadSize;
+      v10 = APTransportPackageBufferedAPAPGetMaxPayloadSize;
     }
 
-    v60 = v11;
+    v49 = v10;
   }
 
-  if (!LODWORD(v59[0]))
+  if (!LODWORD(v48[0]))
   {
-    v14 = *(v6 + 32);
     OUTLINED_FUNCTION_10_6();
-    if (!v15)
+    if (!v14)
     {
-      v40 = -72322;
+      v34 = -72322;
 LABEL_107:
       APSLogErrorAt();
       goto LABEL_41;
     }
   }
 
-  v61 = 0;
-  v16 = *(v6 + 168);
-  *(v6 + 168) = a3;
+  v50 = 0;
+  v15 = *(v5 + 168);
+  *(v5 + 168) = a3;
   CFRetain(a3);
-  if (v16)
+  if (v15)
   {
-    CFRelease(v16);
+    CFRelease(v15);
   }
 
-  v17 = v59[1];
-  *(v6 + 176) = v59[0];
-  *(v6 + 192) = v17;
-  *(v6 + 208) = v60;
+  v16 = v48[1];
+  *(v5 + 176) = v48[0];
+  *(v5 + 192) = v16;
+  *(v5 + 208) = v49;
 LABEL_34:
-  v18 = *(v6 + 72);
   FigSimpleMutexUnlock();
-  result = v61;
-  v20 = *MEMORY[0x277D85DE8];
-  return result;
+  return v50;
 }
 
-void unbufnwGuts_invalidateInternal(uint64_t a1)
+void unbufnwGuts_invalidateInternal(uint64_t result)
 {
-  if (!atomic_exchange((a1 + 28), 1u))
+  if (!atomic_exchange((result + 28), 1u))
   {
-    if (gLogCategory_APTransportConnectionUnbufferedNW <= 50 && (gLogCategory_APTransportConnectionUnbufferedNW != -1 || OUTLINED_FUNCTION_8()))
+    if (gLogCategory_APTransportConnectionUnbufferedNW <= 50 && (gLogCategory_APTransportConnectionUnbufferedNW != -1 || OUTLINED_FUNCTION_8(&gLogCategory_APTransportConnectionUnbufferedNW)))
     {
       OUTLINED_FUNCTION_14_3();
       OUTLINED_FUNCTION_3_1();
-      LogPrintF();
+      LogPrintF(v2, v3, v4, v5);
     }
 
-    if (*(a1 + 280))
+    if (*(result + 280))
     {
       CMNotificationCenterGetDefaultLocalCenter();
-      v2 = *MEMORY[0x277CEA058];
       OUTLINED_FUNCTION_2_11();
       FigNotificationCenterRemoveWeakListener();
     }
 
-    if ((*(a1 + 312) | 2) != 6)
+    if ((*(result + 312) | 2) != 6)
     {
 
-      unbufnwGuts_updateStatusInternal(a1, 6u, 0);
+      unbufnwGuts_updateStatusInternal(result, 6, 0);
     }
   }
 }
 
-void unbufnwGuts_updateStatusInternal(uint64_t a1, unsigned int a2, int a3)
+void unbufnwGuts_updateStatusInternal(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = *(a1 + 312);
   if (v4 == a2)
@@ -3727,6 +4010,7 @@ void unbufnwGuts_updateStatusInternal(uint64_t a1, unsigned int a2, int a3)
     return;
   }
 
+  v6 = a2;
   if (a3)
   {
     v7 = 90;
@@ -3750,28 +4034,28 @@ void unbufnwGuts_updateStatusInternal(uint64_t a1, unsigned int a2, int a3)
     }
 
     v8 = *(a1 + 16);
-    APTransportConnectionGetStatusString(v4);
-    APTransportConnectionGetStatusString(a2);
-    LogPrintF();
+    StatusString = APTransportConnectionGetStatusString(v4);
+    v10 = APTransportConnectionGetStatusString(v6);
+    LogPrintF(&gLogCategory_APTransportConnectionUnbufferedNW, "OSStatus unbufnwGuts_updateStatusInternal(APTransportConnectionUnbufferedNWGutsRef, APTransportConnectionStatus, OSStatus)", v7 | 0x2000000u, "[%{ptr}] status '%@' -> '%@'%?{end} err=%#m", v8, StatusString, v10, a3 == 0, a3);
   }
 
 LABEL_12:
-  *(a1 + 312) = a2;
-  if (a2 != 5)
+  *(a1 + 312) = v6;
+  if (v6 != 5)
   {
-    v9 = *(a1 + 248);
-    if (!v9)
+    v11 = *(a1 + 248);
+    if (!v11)
     {
-      v10 = *(a1 + 240);
-      if (v10)
+      v12 = *(a1 + 240);
+      if (v12)
       {
-        nw_connection_group_cancel(v10);
+        nw_connection_group_cancel(v12);
       }
 
-      v11 = *(a1 + 232);
-      if (v11)
+      v13 = *(a1 + 232);
+      if (v13)
       {
-        nw_listener_cancel(v11);
+        nw_listener_cancel(v13);
       }
 
       if (!a3)
@@ -3784,7 +4068,7 @@ LABEL_21:
       goto LABEL_22;
     }
 
-    nw_connection_cancel(v9);
+    nw_connection_cancel(v11);
     if (a3)
     {
       goto LABEL_21;
@@ -3813,7 +4097,7 @@ LABEL_22:
 
 uint64_t unbufnwGuts_updateDataPacingInternal(uint64_t a1)
 {
-  v10 = -1;
+  v12 = -1;
   result = OUTLINED_FUNCTION_13_4(a1);
   if (!v2)
   {
@@ -3823,7 +4107,7 @@ uint64_t unbufnwGuts_updateDataPacingInternal(uint64_t a1)
       v4 = *(result + 40);
       if (v4)
       {
-        v10 = *(result + 40);
+        v12 = *(result + 40);
       }
 
       else
@@ -3831,20 +4115,19 @@ uint64_t unbufnwGuts_updateDataPacingInternal(uint64_t a1)
         v5 = *(result + 280);
         if (v5)
         {
-          v6 = *(result + 280);
-          v7 = *(*(CMBaseObjectGetVTable() + 16) + 8);
-          if (!v7 || v7(v5, &v10))
+          v6 = *(*(CMBaseObjectGetVTable() + 16) + 8);
+          if (!v6 || v6(v5, &v12))
           {
             return APSLogErrorAt();
           }
         }
 
-        v4 = v10;
+        v4 = v12;
       }
 
       if (v4 == -1)
       {
-        if (gLogCategory_APTransportConnectionUnbufferedNW > 50 || gLogCategory_APTransportConnectionUnbufferedNW == -1 && !OUTLINED_FUNCTION_8())
+        if (gLogCategory_APTransportConnectionUnbufferedNW > 50 || gLogCategory_APTransportConnectionUnbufferedNW == -1 && !OUTLINED_FUNCTION_8(&gLogCategory_APTransportConnectionUnbufferedNW))
         {
           goto LABEL_23;
         }
@@ -3852,28 +4135,23 @@ uint64_t unbufnwGuts_updateDataPacingInternal(uint64_t a1)
         OUTLINED_FUNCTION_14_3();
       }
 
-      else
+      else if (gLogCategory_APTransportConnectionUnbufferedNW > 50 || gLogCategory_APTransportConnectionUnbufferedNW == -1 && !OUTLINED_FUNCTION_8(&gLogCategory_APTransportConnectionUnbufferedNW))
       {
-        if (gLogCategory_APTransportConnectionUnbufferedNW > 50 || gLogCategory_APTransportConnectionUnbufferedNW == -1 && !OUTLINED_FUNCTION_8())
-        {
-          goto LABEL_23;
-        }
-
-        v9 = v3[2];
+        goto LABEL_23;
       }
 
       OUTLINED_FUNCTION_3_1();
-      LogPrintF();
+      LogPrintF(v7, v8, v9, v10);
 LABEL_23:
-      v8 = v3[55];
-      if (v8)
+      v11 = *(v3 + 440);
+      if (v11)
       {
-        return APTPacingControllerSetMaxPacingRate(v8, v10);
+        return APTPacingControllerSetMaxPacingRate(v11, v12);
       }
 
       else
       {
-        result = v3[33];
+        result = *(v3 + 264);
         if (result)
         {
           return nw_tcp_set_max_pacing_rate();
@@ -3889,100 +4167,97 @@ uint64_t unbufnwGuts_callEventCallbackInternal(uint64_t a1)
 {
   values[2] = *MEMORY[0x277D85DE8];
   v1 = OUTLINED_FUNCTION_13_4(a1);
-  if (v3 || (v4 = v1, !*(v1 + 360)))
+  if (v3)
   {
-    v12 = 0;
+    return 0;
   }
 
-  else
+  v4 = v1;
+  if (!*(v1 + 360))
   {
-    v5 = v2;
-    Int64 = CFNumberCreateInt64();
-    if (Int64)
+    return 0;
+  }
+
+  v5 = v2;
+  Int64 = CFNumberCreateInt64();
+  if (Int64)
+  {
+    v7 = Int64;
+    v8 = *MEMORY[0x277CBECE8];
+    values[0] = v7;
+    values[1] = v5;
+    if (v5)
     {
-      v7 = Int64;
-      v8 = *MEMORY[0x277CBECE8];
-      values[0] = v7;
-      values[1] = v5;
-      if (v5)
+      v9 = 2;
+    }
+
+    else
+    {
+      v9 = 1;
+    }
+
+    v10 = CFArrayCreate(v8, values, v9, MEMORY[0x277CBF128]);
+    if (v10)
+    {
+      v11 = v10;
+      v12 = CFArrayEnsureCreatedAndAppend();
+      if (v12)
       {
-        v9 = 2;
-      }
-
-      else
-      {
-        v9 = 1;
-      }
-
-      v10 = CFArrayCreate(v8, values, v9, MEMORY[0x277CBF128]);
-      if (v10)
-      {
-        v11 = v10;
-        v12 = CFArrayEnsureCreatedAndAppend();
-        if (v12)
-        {
-          APSLogErrorAt();
-        }
-
-        else
-        {
-          unbufnwGuts_drainEventQueueAsyncOnCallbackQueue(v4, v4[47]);
-        }
-
-        CFRelease(v7);
-        v13 = v11;
-      }
-
-      else
-      {
-        v12 = 4294894973;
         APSLogErrorAt();
-        v13 = v7;
       }
 
-      CFRelease(v13);
+      else
+      {
+        unbufnwGuts_drainEventQueueAsyncOnCallbackQueue(v4, v4[47]);
+      }
+
+      CFRelease(v7);
+      v13 = v11;
     }
 
     else
     {
       v12 = 4294894973;
       APSLogErrorAt();
+      v13 = v7;
     }
+
+    CFRelease(v13);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
+  else
+  {
+    v12 = 4294894973;
+    APSLogErrorAt();
+  }
+
   return v12;
 }
 
 void __unbufnwGuts_drainEventQueueAsyncOnCallbackQueue_block_invoke(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 320);
   FigSimpleMutexLock();
-  v3 = atomic_load((*(a1 + 32) + 28));
-  v4 = *(a1 + 32);
-  if (!v3)
+  v2 = atomic_load((*(a1 + 32) + 28));
+  v3 = *(a1 + 32);
+  if (!v2)
   {
-    if (*(v4 + 384))
+    if (*(v3 + 384))
     {
-      if (*(v4 + 376) == *(a1 + 40))
+      if (*(v3 + 376) == *(a1 + 40))
       {
-        CFArrayGetCount(*(v4 + 384));
+        CFArrayGetCount(*(v3 + 384));
         OUTLINED_FUNCTION_1_2();
-        v7 = *(a1 + 32);
         CFArrayApplyBlock();
-        v4 = *(a1 + 32);
-        v5 = *(v4 + 384);
-        if (v5)
+        v4 = *(*(a1 + 32) + 384);
+        if (v4)
         {
-          CFRelease(v5);
+          CFRelease(v4);
           *(*(a1 + 32) + 384) = 0;
-          v4 = *(a1 + 32);
         }
       }
     }
   }
 
-  v6 = *(v4 + 320);
   FigSimpleMutexUnlock();
   dispatch_release(*(a1 + 40));
   CFRelease(*(a1 + 32));
@@ -3999,35 +4274,19 @@ uint64_t unbufnwGuts_updatePackageTrackingInternal(uint64_t a1)
       if (v2)
       {
         v6 = v3;
-        v13 = *(result + 296);
-        v7 = *(result + 288);
         APSFlatQueueEnqueue();
         *(v5 + 296) += v6;
       }
 
-      v8 = *(v5 + 288);
       result = APSFlatQueueIsEmpty();
       if (!result)
       {
-        v9 = *(v5 + 296) - nw_tcp_get_available_send_buffer(*(v5 + 264));
-        if (gLogCategory_APTransportConnectionUnbufferedNW <= 30)
+        nw_tcp_get_available_send_buffer(*(v5 + 264));
+        if (gLogCategory_APTransportConnectionUnbufferedNW <= 30 && (gLogCategory_APTransportConnectionUnbufferedNW != -1 || OUTLINED_FUNCTION_8_0(&gLogCategory_APTransportConnectionUnbufferedNW)))
         {
-          if (gLogCategory_APTransportConnectionUnbufferedNW == -1)
-          {
-            if (!OUTLINED_FUNCTION_8_0())
-            {
-              goto LABEL_10;
-            }
-
-            v11 = *(v5 + 296);
-          }
-
-          v12 = *(v5 + 16);
-          OUTLINED_FUNCTION_7_0();
+          OUTLINED_FUNCTION_7_0(&gLogCategory_APTransportConnectionUnbufferedNW, "void unbufnwGuts_updatePackageTrackingInternal(APTransportConnectionUnbufferedNWGutsRef, APTransportPackageRef, size_t)", v7, "[%{ptr}] updatePackageTracking() lastSendSeq=%u unsentByteCount=%u lastDeliveredSeq=%u");
         }
 
-LABEL_10:
-        v10 = *(v5 + 288);
         OUTLINED_FUNCTION_3_9();
         return APSFlatQueueDequeueWhileB();
       }
@@ -4076,24 +4335,22 @@ void unbufnwGuts_connectionReceivePackages(uint64_t a1)
           *(v1 + 437) = 1;
           *(v1 + 472) = 0;
           CFRetain(v1);
-          APTTrafficMetricsMessageReadStarted(*(v3 + 448));
-          v5 = *(v3 + 32);
-          v6 = *(v3 + 248);
+          APTTrafficMetricsMessageReadStarted(*(v3 + 448), 1);
           OUTLINED_FUNCTION_10_6();
-          if (v8)
+          if (v6)
           {
             nw_connection_receive_multiple();
           }
 
           else
           {
-            v9 = *(v3 + 176);
-            v10[0] = MEMORY[0x277D85DD0];
-            v10[1] = 0x40000000;
-            v10[2] = __unbufnwGuts_connectionReceivePackages_block_invoke_2;
-            v10[3] = &__block_descriptor_tmp_31;
-            v10[4] = v3;
-            nw_connection_receive(v7, v9, v9, v10);
+            v7 = *(v3 + 176);
+            v8[0] = MEMORY[0x277D85DD0];
+            v8[1] = 0x40000000;
+            v8[2] = __unbufnwGuts_connectionReceivePackages_block_invoke_2;
+            v8[3] = &__block_descriptor_tmp_31;
+            v8[4] = v3;
+            nw_connection_receive(v5, v7, v7, v8);
           }
         }
       }
@@ -4122,8 +4379,7 @@ BOOL unbufnwGuts_connectionHandlePotentialDisconnect(uint64_t a1)
     v10 = nw_error_copy_cf_error(v6);
     if (gLogCategory_APTransportConnectionUnbufferedNW <= 90 && (gLogCategory_APTransportConnectionUnbufferedNW != -1 || _LogCategory_Initialize()))
     {
-      v11 = *(v7 + 16);
-      LogPrintF();
+      LogPrintF(&gLogCategory_APTransportConnectionUnbufferedNW, "Boolean unbufnwGuts_connectionHandlePotentialDisconnect(APTransportConnectionUnbufferedNWGutsRef, nw_content_context_t, _Bool, nw_error_t)", 33554522, "[%{ptr}] received ERROR '%@', disconnecting...", *(v7 + 16), v10);
     }
 
     unbufnwGuts_updateStatus(v7, error_code);
@@ -4143,11 +4399,11 @@ BOOL unbufnwGuts_connectionHandlePotentialDisconnect(uint64_t a1)
       result = nw_content_context_get_is_final(v2);
       if (result)
       {
-        if (gLogCategory_APTransportConnectionUnbufferedNW <= 50 && (gLogCategory_APTransportConnectionUnbufferedNW != -1 || OUTLINED_FUNCTION_8()))
+        if (gLogCategory_APTransportConnectionUnbufferedNW <= 50 && (gLogCategory_APTransportConnectionUnbufferedNW != -1 || OUTLINED_FUNCTION_8(&gLogCategory_APTransportConnectionUnbufferedNW)))
         {
           OUTLINED_FUNCTION_14_3();
           OUTLINED_FUNCTION_3_1();
-          LogPrintF();
+          LogPrintF(v11, v12, v13, v14);
         }
 
         unbufnwGuts_updateStatus(v7, 0);
@@ -4170,119 +4426,111 @@ void unbufnwGuts_connectionHandlePackagePayload(uint64_t a1, NSObject *a2, NSObj
       size = dispatch_data_get_size(a2);
       v10 = *(a1 + 176);
       v11 = MEMORY[0x23EEDC950](*(a1 + 216), size + v10, 2348728618, 0);
-      if (!v11)
+      if (v11)
       {
-        APSLogErrorAt();
-        v28 = -72323;
-LABEL_32:
-        unbufnwGuts_updateStatus(a1, v28);
-LABEL_35:
-        v20 = 0;
-        goto LABEL_15;
-      }
-
-      v12 = v11;
-      v13 = *(a1 + 176);
-      if (v13)
-      {
-        v14 = CMBlockBufferCopyDataBytes(*(a1 + 256), 0, v13, v11);
-        if (v14)
+        v12 = v11;
+        v13 = *(a1 + 176);
+        if (v13 && (v14 = CMBlockBufferCopyDataBytes(*(a1 + 256), 0, v13, v11), v14))
         {
-          v29 = v14;
-          goto LABEL_34;
+          v25 = v14;
         }
 
-        v15 = *(a1 + 176);
-      }
-
-      v16 = APSDispatchDataCopyBytes();
-      if (v16)
-      {
-        v29 = v16;
-      }
-
-      else
-      {
-        v17 = *MEMORY[0x277CBECE8];
-        v18 = CMBlockBufferCreateWithMemoryBlock(*MEMORY[0x277CBECE8], v12, size + v10, *(a1 + 216), 0, 0, size + v10, 0, &blockBufferOut);
-        if (!v18)
+        else
         {
-          v19 = (*(a1 + 192))(v17, blockBufferOut, &cf);
-          if (!v19)
+          v15 = APSDispatchDataCopyBytes();
+          if (v15)
           {
-            if (*(a1 + 39))
+            v25 = v15;
+          }
+
+          else
+          {
+            v16 = *MEMORY[0x277CBECE8];
+            v17 = CMBlockBufferCreateWithMemoryBlock(*MEMORY[0x277CBECE8], v12, size + v10, *(a1 + 216), 0, 0, size + v10, 0, &blockBufferOut);
+            if (!v17)
             {
-              v20 = 0;
-              if (a3)
+              v18 = (*(a1 + 192))(v16, blockBufferOut, &cf);
+              if (!v18)
               {
-                if (*(a1 + 472))
+                if (*(a1 + 39))
                 {
-                  v25 = nw_content_context_copy_protocol_metadata(a3, *(a1 + 64));
-                  v20 = v25;
-                  if (v25)
+                  v19 = 0;
+                  if (a3)
                   {
-                    if (nw_ip_metadata_get_receive_time(v25))
+                    if (*(a1 + 472))
                     {
-                      v26 = cf;
-                      v27 = NanosecondsToUpTicks();
-                      APTransportPackageSetArrivalTicks(v26, v27 - *(a1 + 464) + *(a1 + 456));
+                      v21 = nw_content_context_copy_protocol_metadata(a3, *(a1 + 64));
+                      v19 = v21;
+                      if (v21)
+                      {
+                        if (nw_ip_metadata_get_receive_time(v21))
+                        {
+                          v22 = cf;
+                          v23 = NanosecondsToUpTicks();
+                          APTransportPackageSetArrivalTicks(v22, v23 - *(a1 + 464) + *(a1 + 456));
+                        }
+                      }
                     }
                   }
                 }
+
+                else
+                {
+                  v19 = 0;
+                }
+
+                FigSimpleMutexLock();
+                unbufnwGuts_callEventCallbackInternal(a1);
+                FigSimpleMutexUnlock();
+                goto LABEL_12;
               }
+
+              v24 = v18;
+              APSLogErrorAt();
+              goto LABEL_31;
             }
 
-            else
-            {
-              v20 = 0;
-            }
-
-            v21 = *(a1 + 320);
-            FigSimpleMutexLock();
-            unbufnwGuts_callEventCallbackInternal(a1);
-            v22 = *(a1 + 320);
-            FigSimpleMutexUnlock();
-            goto LABEL_13;
+            v25 = v17;
           }
-
-          v28 = v19;
-          APSLogErrorAt();
-          goto LABEL_32;
         }
 
-        v29 = v18;
+        APSLogErrorAt();
+        unbufnwGuts_updateStatus(a1, v25);
+        CFAllocatorDeallocate(*(a1 + 216), v12);
+        goto LABEL_34;
       }
 
-LABEL_34:
       APSLogErrorAt();
-      unbufnwGuts_updateStatus(a1, v29);
-      CFAllocatorDeallocate(*(a1 + 216), v12);
-      goto LABEL_35;
+      v24 = 4294894973;
+LABEL_31:
+      unbufnwGuts_updateStatus(a1, v24);
+LABEL_34:
+      v19 = 0;
+      goto LABEL_14;
     }
 
     if (gLogCategory_APTransportConnectionUnbufferedNW <= 60 && (gLogCategory_APTransportConnectionUnbufferedNW != -1 || _LogCategory_Initialize()))
     {
       OUTLINED_FUNCTION_14_3();
-      LogPrintF();
+      LogPrintF(&gLogCategory_APTransportConnectionUnbufferedNW, "void unbufnwGuts_connectionHandlePackagePayload(APTransportConnectionUnbufferedNWGutsRef, dispatch_data_t, nw_content_context_t, _Bool, _Bool, nw_error_t)", 33554492, "[%{ptr}] handlePackagePayload() inData is NULL!");
     }
   }
 
-  v20 = 0;
-LABEL_13:
+  v19 = 0;
+LABEL_12:
   APTTrafficMetricsMessageProcessed(*(a1 + 448));
   if (a5)
   {
     CFRetain(a1);
-    v23 = *(a1 + 400);
     OUTLINED_FUNCTION_1_2();
-    v31 = 0x40000000;
-    v32 = __unbufnwGuts_connectionHandlePackagePayload_block_invoke;
-    v33 = &__block_descriptor_tmp_37;
-    v34 = a1;
-    dispatch_async(v24, block);
+    v27 = 0x40000000;
+    v28 = __unbufnwGuts_connectionHandlePackagePayload_block_invoke;
+    v29 = &__block_descriptor_tmp_37;
+    v30 = a1;
+    dispatch_async(v20, block);
   }
 
-LABEL_15:
+LABEL_14:
   if (blockBufferOut)
   {
     CFRelease(blockBufferOut);
@@ -4293,7 +4541,7 @@ LABEL_15:
     CFRelease(cf);
   }
 
-  nw_release(v20);
+  nw_release(v19);
 }
 
 void __unbufnwGuts_connectionHandlePackageHeader_block_invoke(uint64_t a1, dispatch_data_t data, NSObject *a3, uint64_t a4)
@@ -4301,85 +4549,90 @@ void __unbufnwGuts_connectionHandlePackageHeader_block_invoke(uint64_t a1, dispa
   v8 = *(*(a1 + 32) + 448);
   if (data)
   {
-    dispatch_data_get_size(data);
+    size = dispatch_data_get_size(data);
   }
 
-  v9 = *(a1 + 40);
-  if (v9)
+  else
   {
-    nw_error_get_error_code(v9);
+    size = 0;
   }
 
-  APTTrafficMetricsMessageReadFinished(v8);
-  unbufnwGuts_connectionHandlePackagePayload(*(a1 + 32), data, a3, a4, *(a1 + 48));
-  v10 = *(a1 + 32);
+  v10 = *(a1 + 40);
+  if (v10)
+  {
+    error_code = nw_error_get_error_code(v10);
+  }
 
-  CFRelease(v10);
+  else
+  {
+    error_code = 0;
+  }
+
+  APTTrafficMetricsMessageReadFinished(v8, size, error_code);
+  unbufnwGuts_connectionHandlePackagePayload(*(a1 + 32), data, a3, a4, *(a1 + 48));
+  v12 = *(a1 + 32);
+
+  CFRelease(v12);
 }
 
-uint64_t unbufnwGuts_updateStatus(uint64_t a1, int a2)
+uint64_t unbufnwGuts_updateStatus(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a1 + 320);
   FigSimpleMutexLock();
-  v5 = *(a1 + 72);
   FigSimpleMutexLock();
-  unbufnwGuts_updateStatusInternal(a1, 6u, a2);
-  v6 = *(a1 + 72);
+  unbufnwGuts_updateStatusInternal(a1, 6, a2);
   FigSimpleMutexUnlock();
-  v7 = *(a1 + 320);
 
   return FigSimpleMutexUnlock();
 }
 
 void __unbufnwGuts_connectionHandlePackagePayload_block_invoke(uint64_t a1)
 {
-  *(*(a1 + 32) + 437) = 0;
-  unbufnwGuts_connectionReceivePackages();
   v2 = *(a1 + 32);
+  *(v2 + 437) = 0;
+  unbufnwGuts_connectionReceivePackages(v2);
+  v3 = *(a1 + 32);
 
-  CFRelease(v2);
+  CFRelease(v3);
 }
 
 uint64_t unbufnw_Resume(NSObject *a1)
 {
-  v72 = *MEMORY[0x277D85DE8];
-  v67 = 0;
-  v68 = &v67;
-  v69 = 0x2000000000;
-  v70 = 0;
+  v76 = *MEMORY[0x277D85DE8];
+  v71 = 0;
+  v72 = &v71;
+  v73 = 0x2000000000;
+  v74 = 0;
   v8 = *CMBaseObjectGetDerivedStorage();
-  v61 = 0;
-  v62 = &v61;
-  v63 = 0x3000000000;
   v65 = 0;
-  v66 = 0;
-  v64 = 0;
-  v9 = *(v8 + 320);
+  v66 = &v65;
+  v67 = 0x3000000000;
+  v69 = 0;
+  v70 = 0;
+  v68 = 0;
   FigSimpleMutexLock();
-  v10 = *(v8 + 72);
   FigSimpleMutexLock();
-  v11 = &OBJC_IVAR___APBonjourCacheManager__removedItems;
+  v9 = &OBJC_IVAR___APBonjourCacheManager__removedItems;
   if (*(v8 + 80))
   {
     goto LABEL_99;
   }
 
-  if (gLogCategory_APTransportConnectionUnbufferedNW <= 50 && (gLogCategory_APTransportConnectionUnbufferedNW != -1 || OUTLINED_FUNCTION_8()))
+  if (gLogCategory_APTransportConnectionUnbufferedNW <= 50 && (gLogCategory_APTransportConnectionUnbufferedNW != -1 || OUTLINED_FUNCTION_8(&gLogCategory_APTransportConnectionUnbufferedNW)))
   {
     OUTLINED_FUNCTION_14_3();
     OUTLINED_FUNCTION_3_1();
-    LogPrintF();
+    LogPrintF(v10, v11, v12, v13);
   }
 
   OUTLINED_FUNCTION_12_2();
-  if (v12)
+  if (v14)
   {
     APSLogErrorAt();
     OUTLINED_FUNCTION_0_6();
     obj = 0;
-    v15 = 0;
+    v17 = 0;
     OUTLINED_FUNCTION_9_5();
-    v21 = v46 - 3;
+    v21 = v50 - 3;
     goto LABEL_29;
   }
 
@@ -4388,32 +4641,32 @@ uint64_t unbufnw_Resume(NSObject *a1)
     APSLogErrorAt();
     OUTLINED_FUNCTION_0_6();
     obj = 0;
-    v15 = 0;
+    v17 = 0;
     OUTLINED_FUNCTION_9_5();
-    v21 = v47 - 4;
+    v21 = v51 - 4;
     goto LABEL_29;
   }
 
-  v13 = *(v8 + 176);
-  if (v13)
+  v15 = *(v8 + 176);
+  if (v15)
   {
-    v14 = CMBlockBufferCreateWithMemoryBlock(*MEMORY[0x277CBECE8], 0, v13, *MEMORY[0x277CBECF0], 0, 0, v13, 1u, (v8 + 256));
-    if (OUTLINED_FUNCTION_20_1(v14))
+    v16 = CMBlockBufferCreateWithMemoryBlock(*MEMORY[0x277CBECE8], 0, v15, *MEMORY[0x277CBECF0], 0, 0, v15, 1u, (v8 + 256));
+    if (OUTLINED_FUNCTION_20_1(v16))
     {
       APSLogErrorAt();
 LABEL_99:
       OUTLINED_FUNCTION_0_6();
       obj = 0;
 LABEL_112:
-      v15 = 0;
+      v17 = 0;
       goto LABEL_82;
     }
   }
 
   if (*(v8 + 120))
   {
-    v15 = nw_interface_create_with_index();
-    if (!v15)
+    v17 = nw_interface_create_with_index();
+    if (!v17)
     {
       APSLogErrorAt();
       OUTLINED_FUNCTION_0_6();
@@ -4426,20 +4679,20 @@ LABEL_125:
 
   else
   {
-    v15 = 0;
+    v17 = 0;
   }
 
-  v16 = *(v8 + 32);
+  v18 = *(v8 + 32);
   v5 = "ing.\n";
-  obj = v15;
-  switch(v16)
+  obj = v17;
+  switch(v18)
   {
     case 1903520099:
       configure_quic[0] = MEMORY[0x277D85DD0];
       configure_quic[1] = 0x40000000;
       configure_quic[2] = __unbufnw_Resume_block_invoke_2;
       configure_quic[3] = &unk_278BC8568;
-      configure_quic[4] = &v67;
+      configure_quic[4] = &v71;
       configure_quic[5] = v8;
       quic = nw_parameters_create_quic(configure_quic);
       if (!quic)
@@ -4451,7 +4704,7 @@ LABEL_108:
         goto LABEL_109;
       }
 
-      if (*(v68 + 6))
+      if (*(v72 + 6))
       {
         APSLogErrorAt();
         OUTLINED_FUNCTION_5_11();
@@ -4482,7 +4735,7 @@ LABEL_111:
     default:
       OUTLINED_FUNCTION_0_6();
 LABEL_28:
-      v15 = 0;
+      v17 = 0;
       OUTLINED_FUNCTION_9_5();
       v21 = v20 + 1;
 LABEL_29:
@@ -4490,16 +4743,14 @@ LABEL_29:
       goto LABEL_82;
   }
 
-  v17 = *(v8 + 392);
   nw_parameters_set_context();
-  v18 = *(v8 + 24);
   nw_parameters_set_use_p2p();
-  nw_parameters_require_interface(quic, v15);
+  nw_parameters_require_interface(quic, v17);
   if ((*(v8 + 24) & 0x20) != 0)
   {
     if (gLogCategory_APTransportConnectionUnbufferedNW <= 30 && (gLogCategory_APTransportConnectionUnbufferedNW != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APTransportConnectionUnbufferedNW, "OSStatus unbufnw_Resume(APTransportConnectionRef)", 33554462, "[%{ptr}] Prohibiting cellular interfaces", a1);
     }
 
     nw_parameters_prohibit_interface_type(quic, nw_interface_type_cellular);
@@ -4526,9 +4777,8 @@ LABEL_122:
     goto LABEL_123;
   }
 
-  v23 = *(v8 + 32);
   OUTLINED_FUNCTION_10_6();
-  if (v24)
+  if (v23)
   {
     nw_ip_options_set_disable_fragmentation(v3, 0);
   }
@@ -4540,14 +4790,14 @@ LABEL_122:
 
   if (*(v8 + 160))
   {
-    v25 = CFGetInt64Ranged();
-    MEMORY[0x23EEDE870](v3, v25);
+    v24 = CFGetInt64Ranged();
+    MEMORY[0x23EEDE870](v3, v24);
   }
 
   if (*(v8 + 36))
   {
-    v26 = *(v8 + 129);
-    if (v26 == 30)
+    v25 = *(v8 + 129);
+    if (v25 == 30)
     {
       if (*(v8 + 136) == 255)
       {
@@ -4574,22 +4824,22 @@ LABEL_123:
             OUTLINED_FUNCTION_5_11();
 LABEL_124:
             a1 = 0;
-            v15 = 0;
+            v17 = 0;
             goto LABEL_125;
           }
 
           if (!*(v8 + 89))
           {
-            v15 = 0;
+            v17 = 0;
             goto LABEL_74;
           }
 
           if (*(v8 + 89) == *(v8 + 129))
           {
-            v15 = nw_endpoint_create_address((v8 + 88));
-            if (v15)
+            v17 = nw_endpoint_create_address((v8 + 88));
+            if (v17)
             {
-              nw_multicast_group_descriptor_set_specific_source(multicast, v15);
+              nw_multicast_group_descriptor_set_specific_source(multicast, v17);
 LABEL_74:
               nw_multicast_group_descriptor_set_disable_unicast_traffic(multicast, 1);
               a1 = nw_connection_group_create(multicast, quic);
@@ -4600,14 +4850,14 @@ LABEL_74:
                 goto LABEL_125;
               }
 
-              v36 = unbufnwGuts_handleNewConnectionGroupInternal(v8, a1);
-              if (!OUTLINED_FUNCTION_20_1(v36))
+              v39 = unbufnwGuts_handleNewConnectionGroupInternal(v8, a1);
+              if (!OUTLINED_FUNCTION_20_1(v39))
               {
-                if (gLogCategory_APTransportConnectionUnbufferedNW <= 50 && (gLogCategory_APTransportConnectionUnbufferedNW != -1 || OUTLINED_FUNCTION_8()))
+                if (gLogCategory_APTransportConnectionUnbufferedNW <= 50 && (gLogCategory_APTransportConnectionUnbufferedNW != -1 || OUTLINED_FUNCTION_8(&gLogCategory_APTransportConnectionUnbufferedNW)))
                 {
                   blockBufferOut = *(v8 + 16);
                   OUTLINED_FUNCTION_3_1();
-                  LogPrintF();
+                  LogPrintF(v40, v41, v42, v43, blockBufferOut, v8 + 128);
                 }
 
                 OUTLINED_FUNCTION_5_11();
@@ -4643,43 +4893,43 @@ LABEL_106:
       }
     }
 
-    else if (v26 == 2 && (*(v8 + 132) & 0xF0) == 0xE0)
+    else if (v25 == 2 && (*(v8 + 132) & 0xF0) == 0xE0)
     {
       goto LABEL_45;
     }
 
-    v30 = *(v8 + 124);
+    v29 = *(v8 + 124);
     if (*(v8 + 124))
     {
       *__str = 0;
-      if (snprintf(__str, 8uLL, "%u", v30) < 1)
+      if (snprintf(__str, 8uLL, "%u", v29) < 1)
       {
-        v51 = -6762;
+        v55 = -6762;
       }
 
       else
       {
-        v31 = nw_listener_create_with_port(__str, quic);
-        if (v31)
+        v30 = nw_listener_create_with_port(__str, quic);
+        if (v30)
         {
-          v4 = v31;
+          v4 = v30;
 LABEL_62:
-          v32 = CFRetain(v8);
-          v62[3] = v32;
-          v33 = dispatch_semaphore_create(0);
-          v34 = v62;
-          v62[5] = v33;
-          if (v33)
+          v31 = CFRetain(v8);
+          v66[3] = v31;
+          v32 = dispatch_semaphore_create(0);
+          v33 = v66;
+          v66[5] = v32;
+          if (v32)
           {
-            CFRetain(v34[3]);
-            dispatch_retain(v62[5]);
+            CFRetain(v33[3]);
+            dispatch_retain(v66[5]);
             nw_listener_set_queue(v4, *(v8 + 400));
-            v59[0] = MEMORY[0x277D85DD0];
-            v59[1] = 0x40000000;
-            v59[2] = __unbufnw_Resume_block_invoke_3;
-            v59[3] = &unk_278BC8590;
-            v59[4] = &v61;
-            MEMORY[0x23EEDE8D0](v4, v59);
+            v63[0] = MEMORY[0x277D85DD0];
+            v63[1] = 0x40000000;
+            v63[2] = __unbufnw_Resume_block_invoke_3;
+            v63[3] = &unk_278BC8590;
+            v63[4] = &v65;
+            MEMORY[0x23EEDE8D0](v4, v63);
             nw_listener_set_new_connection_limit(v4, 0);
             if (*(v8 + 32) == 1903520099)
             {
@@ -4694,68 +4944,68 @@ LABEL_62:
             else
             {
               OUTLINED_FUNCTION_3_9();
-              v54 = 0x40000000;
-              v55 = __unbufnw_Resume_block_invoke_5;
-              v56 = &__block_descriptor_tmp_53;
-              v57 = v8;
-              nw_listener_set_new_connection_handler(v4, v53);
+              v58 = 0x40000000;
+              v59 = __unbufnw_Resume_block_invoke_5;
+              v60 = &__block_descriptor_tmp_53;
+              v61 = v8;
+              nw_listener_set_new_connection_handler(v4, v57);
             }
 
             nw_listener_start(v4);
-            a1 = v62[5];
-            v35 = dispatch_time(0, 10000000000);
-            if (dispatch_semaphore_wait(a1, v35))
+            a1 = v66[5];
+            v34 = dispatch_time(0, 10000000000);
+            if (dispatch_semaphore_wait(a1, v34))
             {
               APSLogErrorAt();
               nw_listener_cancel(v4);
-              v11 = 0;
+              v9 = 0;
               OUTLINED_FUNCTION_4_10();
-              v15 = 0;
-              v19 = v68;
+              v17 = 0;
+              v19 = v72;
               v21 = -6722;
               goto LABEL_29;
             }
 
-            if (!OUTLINED_FUNCTION_20_1(*(v62 + 9)))
+            if (!OUTLINED_FUNCTION_20_1(*(v66 + 9)))
             {
-              if (gLogCategory_APTransportConnectionUnbufferedNW <= 50 && (gLogCategory_APTransportConnectionUnbufferedNW != -1 || OUTLINED_FUNCTION_8()))
+              if (gLogCategory_APTransportConnectionUnbufferedNW <= 50 && (gLogCategory_APTransportConnectionUnbufferedNW != -1 || OUTLINED_FUNCTION_8(&gLogCategory_APTransportConnectionUnbufferedNW)))
               {
                 a1 = *(v8 + 16);
-                nw_listener_get_port(v4);
+                port = nw_listener_get_port(v4);
                 OUTLINED_FUNCTION_3_1();
-                LogPrintF();
+                LogPrintF(v35, v36, v37, v38, a1, port);
               }
 
               *(v8 + 232) = nw_retain(v4);
               nw_listener_set_new_connection_limit(v4, 1u);
-              v11 = 0;
+              v9 = 0;
               OUTLINED_FUNCTION_4_10();
-              v15 = 0;
+              v17 = 0;
               goto LABEL_81;
             }
 
             APSLogErrorAt();
             nw_listener_cancel(v4);
-            v11 = 0;
+            v9 = 0;
             goto LABEL_111;
           }
 
 LABEL_121:
           APSLogErrorAt();
-          v11 = 0;
+          v9 = 0;
           goto LABEL_122;
         }
 
         OUTLINED_FUNCTION_21_0();
-        v51 = v48;
+        v55 = v52;
       }
 
       APSLogErrorAt();
       OUTLINED_FUNCTION_5_11();
       OUTLINED_FUNCTION_4_10();
-      v15 = 0;
-      v19 = v68;
-      v21 = v51;
+      v17 = 0;
+      v19 = v72;
+      v21 = v55;
       goto LABEL_29;
     }
 
@@ -4768,12 +5018,12 @@ LABEL_121:
     goto LABEL_62;
   }
 
-  v28 = nw_endpoint_create_address((v8 + 88));
-  v15 = v28;
-  if (!v28)
+  v27 = nw_endpoint_create_address((v8 + 88));
+  v17 = v27;
+  if (!v27)
   {
     APSLogErrorAt();
-    v11 = 0;
+    v9 = 0;
 LABEL_105:
     v4 = 0;
     v5 = 0;
@@ -4781,15 +5031,15 @@ LABEL_105:
     goto LABEL_106;
   }
 
-  v11 = nw_connection_create(v28, quic);
-  if (!v11)
+  v9 = nw_connection_create(v27, quic);
+  if (!v9)
   {
     APSLogErrorAt();
     goto LABEL_105;
   }
 
-  v29 = unbufnwGuts_handleNewConnectionInternal(v8, v11);
-  if (!OUTLINED_FUNCTION_20_1(v29))
+  v28 = unbufnwGuts_handleNewConnectionInternal(v8, v9, 0);
+  if (!OUTLINED_FUNCTION_20_1(v28))
   {
     v4 = 0;
     OUTLINED_FUNCTION_4_10();
@@ -4802,7 +5052,8 @@ LABEL_81:
   v4 = 0;
   OUTLINED_FUNCTION_4_10();
 LABEL_82:
-  if (!*(v68 + 6))
+  v44 = *(v72 + 6);
+  if (!v44)
   {
     goto LABEL_83;
   }
@@ -4812,14 +5063,13 @@ LABEL_82:
     if (gLogCategory_APTransportConnectionUnbufferedNW != -1)
     {
 LABEL_92:
-      blockBufferOuta = *(v8 + 16);
-      LogPrintF();
+      LogPrintF(&gLogCategory_APTransportConnectionUnbufferedNW, "OSStatus unbufnw_Resume(APTransportConnectionRef)", 33554522, "[%{ptr}] Resume failed err=%#m", *(v8 + 16), v44);
       goto LABEL_93;
     }
 
     if (_LogCategory_Initialize())
     {
-      v45 = *(v68 + 6);
+      v44 = *(v72 + 6);
       goto LABEL_92;
     }
   }
@@ -4827,43 +5077,41 @@ LABEL_92:
 LABEL_93:
   unbufnwGuts_invalidateInternal(v8);
 LABEL_83:
-  v37 = *(v8 + 72);
   FigSimpleMutexUnlock();
-  v38 = *(v8 + 320);
   FigSimpleMutexUnlock();
-  nw_release(v15);
+  nw_release(v17);
   nw_release(obj);
   nw_release(quic);
-  nw_release(v11);
+  nw_release(v9);
   nw_release(v4);
   nw_release(v2);
   nw_release(v3);
   nw_release(v5);
   nw_release(multicast);
   nw_release(a1);
-  v39 = v62;
-  v40 = v62[3];
-  if (v40)
+  v45 = v66;
+  v46 = v66[3];
+  if (v46)
   {
-    CFRelease(v40);
-    v39 = v62;
+    CFRelease(v46);
+    v45 = v66;
   }
 
-  v41 = v39[5];
-  if (v41)
+  v47 = v45[5];
+  if (v47)
   {
-    dispatch_release(v41);
+    dispatch_release(v47);
   }
 
-  v42 = *(v68 + 6);
-  _Block_object_dispose(&v61, 8);
-  _Block_object_dispose(&v67, 8);
-  v43 = *MEMORY[0x277D85DE8];
-  return v42;
+  v48 = *(v72 + 6);
+  _Block_object_dispose(&v65, 8);
+  _Block_object_dispose(&v71, 8);
+  return v48;
 }
 
-void __unbufnwGuts_handleNewConnectionInternal_block_invoke(uint64_t a1, int a2, nw_error_t error)
+void __unbufnwGuts_handleNewConnectionInternal_block_invoke(uint64_t a1, uint64_t a2, nw_error_t error)
 {
+  v3 = a2;
   v4 = *(a1 + 32);
   if (error)
   {
@@ -4875,11 +5123,11 @@ void __unbufnwGuts_handleNewConnectionInternal_block_invoke(uint64_t a1, int a2,
     error_code = 0;
   }
 
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2000000000;
-  v36 = 0;
-  *(v4 + 412) = a2;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x2000000000;
+  v38 = 0;
+  *(v4 + 412) = v3;
   if (error_code)
   {
     v6 = 90;
@@ -4892,79 +5140,95 @@ void __unbufnwGuts_handleNewConnectionInternal_block_invoke(uint64_t a1, int a2,
 
   if (v6 >= gLogCategory_APTransportConnectionUnbufferedNW && (gLogCategory_APTransportConnectionUnbufferedNW != -1 || _LogCategory_Initialize()))
   {
-    v31 = *(v4 + 16);
-    nw_connection_state_to_string();
-    LogPrintF();
+    v7 = *(v4 + 16);
+    v8 = nw_connection_state_to_string();
+    LogPrintF(&gLogCategory_APTransportConnectionUnbufferedNW, "void unbufnwGuts_connectionStateChangedHandler(APTransportConnectionUnbufferedNWGutsRef, nw_connection_state_t, nw_error_t)", v6 | 0x2000000u, "[%{ptr}] connection state '%s'%?{end} err=%#m", v7, v8, error_code == 0, error_code);
   }
 
-  v7 = 0;
-  v8 = a2 - 1;
   v9 = 0;
-  v10 = 0;
-  switch(v8)
+  v10 = v3 - 1;
+  v11 = 0;
+  v12 = 0;
+  switch(v10)
   {
     case 0:
       if (!error_code)
       {
-        goto LABEL_29;
+        goto LABEL_35;
       }
 
       goto LABEL_13;
     case 2:
       OUTLINED_FUNCTION_12_2();
-      if (v18)
+      if (v16)
       {
-        goto LABEL_29;
+        goto LABEL_35;
       }
 
       APTTrafficMetricsConnectionFormed(*(v4 + 448));
-      v19 = *(v4 + 320);
       FigSimpleMutexLock();
-      v20 = *(v4 + 72);
       FigSimpleMutexLock();
       if (*(v4 + 32) == 1601463152)
       {
         *(v4 + 264) = nw_connection_copy_protocol_metadata(*(v4 + 248), *(v4 + 56));
       }
 
-      v21 = *(v4 + 248);
-      v22 = *(v4 + 276);
       nw_connection_reset_traffic_class();
-      v23 = *(v4 + 248);
-      v7 = nw_connection_copy_connected_path();
-      v10 = nw_path_copy_effective_local_endpoint(v7);
-      v9 = nw_path_copy_effective_remote_endpoint(v7);
+      v9 = nw_connection_copy_connected_path();
+      v12 = nw_path_copy_effective_local_endpoint(v9);
+      v11 = nw_path_copy_effective_remote_endpoint(v9);
       enumerate_block[0] = MEMORY[0x277D85DD0];
       enumerate_block[1] = 0x40000000;
       enumerate_block[2] = __unbufnwGuts_connectionStateChangedHandler_block_invoke;
       enumerate_block[3] = &unk_278BC8618;
-      enumerate_block[4] = &v33;
-      nw_path_enumerate_interfaces(v7, enumerate_block);
-      if (gLogCategory_APTransportConnectionUnbufferedNW <= 50 && (gLogCategory_APTransportConnectionUnbufferedNW != -1 || OUTLINED_FUNCTION_8()))
+      enumerate_block[4] = &v35;
+      nw_path_enumerate_interfaces(v9, enumerate_block);
+      if (gLogCategory_APTransportConnectionUnbufferedNW <= 50 && (gLogCategory_APTransportConnectionUnbufferedNW != -1 || OUTLINED_FUNCTION_8(&gLogCategory_APTransportConnectionUnbufferedNW)))
       {
-        v24 = *(v4 + 16);
-        *(v4 + 36);
-        nw_endpoint_get_address(v9);
-        *(v4 + 36);
-        nw_endpoint_get_address(v10);
-        v25 = v34[3];
-        if (v25)
+        v17 = *(v4 + 16);
+        if (*(v4 + 36))
         {
-          nw_interface_get_name(v25);
+          v18 = "from";
+        }
+
+        else
+        {
+          v18 = "to";
+        }
+
+        address = nw_endpoint_get_address(v11);
+        if (*(v4 + 36))
+        {
+          v20 = "to";
+        }
+
+        else
+        {
+          v20 = "from";
+        }
+
+        v21 = nw_endpoint_get_address(v12);
+        v22 = v36[3];
+        if (v22)
+        {
+          name = nw_interface_get_name(v22);
+        }
+
+        else
+        {
+          name = "unknown";
         }
 
         mach_absolute_time();
-        v28 = *(v4 + 224);
         UpTicksToSecondsF();
+        v33 = v28 * 1000.0;
         OUTLINED_FUNCTION_3_1();
-        LogPrintF();
+        LogPrintF(v29, v30, v31, v32, v17, v18, address, v20, v21, name, *&v33);
       }
 
-      unbufnwGuts_updateStatusInternal(v4, 5u, 0);
+      unbufnwGuts_updateStatusInternal(v4, 5, 0);
       unbufnwGuts_updateDataPacingInternal(v4);
-      v29 = *(v4 + 72);
       FigSimpleMutexUnlock();
-      v30 = *(v4 + 320);
       FigSimpleMutexUnlock();
       unbufnwGuts_connectionSendPackages(v4);
       unbufnwGuts_connectionReceivePackages(v4);
@@ -4972,25 +5236,32 @@ void __unbufnwGuts_handleNewConnectionInternal_block_invoke(uint64_t a1, int a2,
     case 3:
 LABEL_13:
       OUTLINED_FUNCTION_12_2();
-      if (v11)
+      if (v13)
       {
-        goto LABEL_29;
+        goto LABEL_35;
       }
 
-      v12 = *(v4 + 320);
       FigSimpleMutexLock();
-      v13 = *(v4 + 72);
       FigSimpleMutexLock();
       v14 = *(v4 + 312);
       if (v14 == 5 || v14 == 0)
       {
-        v9 = nw_connection_copy_endpoint(*(v4 + 248));
+        v11 = nw_connection_copy_endpoint(*(v4 + 248));
         if (gLogCategory_APTransportConnectionUnbufferedNW <= 90 && (gLogCategory_APTransportConnectionUnbufferedNW != -1 || _LogCategory_Initialize()))
         {
-          v26 = *(v4 + 16);
-          *(v4 + 312);
-          nw_endpoint_get_address(v9);
-          LogPrintF();
+          v24 = *(v4 + 16);
+          if (*(v4 + 312))
+          {
+            v25 = "disconnected from";
+          }
+
+          else
+          {
+            v25 = "failed to connect to";
+          }
+
+          v26 = nw_endpoint_get_address(v11);
+          LogPrintF(&gLogCategory_APTransportConnectionUnbufferedNW, "void unbufnwGuts_connectionStateChangedHandler(APTransportConnectionUnbufferedNWGutsRef, nw_connection_state_t, nw_error_t)", 33554522, "[%{ptr}] %s '%##a' err=%#m", v24, v25, v26, error_code);
         }
 
         if (*(v4 + 312))
@@ -5008,56 +5279,53 @@ LABEL_13:
 
       else
       {
-        v9 = 0;
+        v11 = 0;
       }
 
-      v16 = *(v4 + 72);
       FigSimpleMutexUnlock();
-      v17 = *(v4 + 320);
       FigSimpleMutexUnlock();
-      v7 = 0;
-      goto LABEL_30;
+      v9 = 0;
+      goto LABEL_36;
     case 4:
       APTTrafficMetricsConnectionClosed(*(v4 + 448));
       CFRelease(v4);
-LABEL_29:
-      v7 = 0;
+LABEL_35:
       v9 = 0;
-LABEL_30:
-      v10 = 0;
+      v11 = 0;
+LABEL_36:
+      v12 = 0;
       break;
     default:
       break;
   }
 
-  nw_release(v7);
-  nw_release(v10);
   nw_release(v9);
-  nw_release(v34[3]);
-  _Block_object_dispose(&v33, 8);
+  nw_release(v12);
+  nw_release(v11);
+  nw_release(v36[3]);
+  _Block_object_dispose(&v35, 8);
 }
 
 void unbufnwGuts_connectionSendPackages(uint64_t a1)
 {
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2000000000;
-  v24 = 0;
   v17 = 0;
   v18 = &v17;
   v19 = 0x2000000000;
   v20 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2000000000;
+  v16 = 0;
   OUTLINED_FUNCTION_13_4(a1);
-  if (v2 || (v3 = *(a1 + 424), !APSFlatQueueIsEmpty()) || *(a1 + 418) || *(a1 + 412) != 3 || !*(a1 + 416))
+  if (v2 || !APSFlatQueueIsEmpty() || *(a1 + 418) || *(a1 + 412) != 3 || !*(a1 + 416))
   {
-    v7 = 0;
+    v5 = 0;
     goto LABEL_15;
   }
 
-  v4 = *(a1 + 320);
   FigSimpleMutexLock();
   OUTLINED_FUNCTION_12_2();
-  if (v5)
+  if (v3)
   {
     goto LABEL_10;
   }
@@ -5065,85 +5333,95 @@ void unbufnwGuts_connectionSendPackages(uint64_t a1)
   if (!*(a1 + 344))
   {
 LABEL_13:
-    v7 = 1;
+    v5 = 1;
     goto LABEL_14;
   }
 
-  v6 = *(a1 + 248);
+  v4 = *(a1 + 248);
   batch_block[0] = MEMORY[0x277D85DD0];
   batch_block[1] = 0x40000000;
   batch_block[2] = __unbufnwGuts_connectionSendPackages_block_invoke;
   batch_block[3] = &unk_278BC8660;
-  batch_block[4] = &v17;
-  batch_block[5] = &v21;
+  batch_block[4] = &v13;
+  batch_block[5] = &v17;
   batch_block[6] = a1;
-  nw_connection_batch(v6, batch_block);
-  if (*(v22 + 6))
+  nw_connection_batch(v4, batch_block);
+  if (*(v18 + 6))
   {
     APSLogErrorAt();
     goto LABEL_10;
   }
 
-  if (!v18[3])
+  if (!v14[3])
   {
     APTTrafficMetricsConsumedAllData(*(a1 + 448));
-    v8 = *(a1 + 440);
-    if (v8)
+    v6 = *(a1 + 440);
+    if (v6)
     {
-      APTPacingControllerReset(v8);
+      APTPacingControllerReset(v6);
     }
 
     goto LABEL_13;
   }
 
 LABEL_10:
-  v7 = 0;
+  v5 = 0;
 LABEL_14:
-  v9 = *(a1 + 320);
   FigSimpleMutexUnlock();
 LABEL_15:
-  v10 = v22;
-  v11 = *(v22 + 6);
-  if ((v7 & 1) != 0 || v11)
+  v7 = v18;
+  v8 = *(v18 + 6);
+  if ((v5 & 1) != 0 || v8)
   {
-    if (v11)
+    if (v8)
     {
-      v12 = 90;
+      v9 = 90;
     }
 
     else
     {
-      v12 = 30;
+      v9 = 30;
     }
 
-    if (v12 < gLogCategory_APTransportConnectionUnbufferedNW)
+    if (v9 < gLogCategory_APTransportConnectionUnbufferedNW)
     {
-      goto LABEL_24;
+      goto LABEL_27;
     }
 
     if (gLogCategory_APTransportConnectionUnbufferedNW == -1)
     {
-      v13 = _LogCategory_Initialize();
-      v10 = v22;
-      if (!v13)
+      v11 = _LogCategory_Initialize();
+      v7 = v18;
+      if (!v11)
       {
-        goto LABEL_24;
+LABEL_27:
+        *(a1 + 416) = 0;
+        LODWORD(v8) = *(v7 + 6);
+        goto LABEL_28;
       }
 
-      v14 = *(v22 + 6);
+      v8 = *(v18 + 6);
     }
 
-    v15 = *(a1 + 16);
-    LogPrintF();
-    v10 = v22;
-LABEL_24:
-    *(a1 + 416) = 0;
-    v11 = *(v10 + 6);
+    if (v8)
+    {
+      v10 = 33554522;
+    }
+
+    else
+    {
+      v10 = 33554462;
+    }
+
+    LogPrintF(&gLogCategory_APTransportConnectionUnbufferedNW, "void unbufnwGuts_connectionSendPackages(APTransportConnectionUnbufferedNWGutsRef)", v10, "[%{ptr}] isDataAvailable=0, err=%#m", *(a1 + 16), v8);
+    v7 = v18;
+    goto LABEL_27;
   }
 
-  *(a1 + 432) = v11;
+LABEL_28:
+  *(a1 + 432) = v8;
+  _Block_object_dispose(&v13, 8);
   _Block_object_dispose(&v17, 8);
-  _Block_object_dispose(&v21, 8);
 }
 
 void __unbufnwGuts_connectionSendPackages_block_invoke(uint64_t a1)
@@ -5151,10 +5429,8 @@ void __unbufnwGuts_connectionSendPackages_block_invoke(uint64_t a1)
   content = 0;
   theArray = 0;
   APTTrafficMetricsRequestDataStarted(*(*(a1 + 48) + 448));
-  v2 = *(*(a1 + 48) + 48);
   APSStallMonitorActivityBegin();
   (*(*(a1 + 48) + 344))(*(*(a1 + 48) + 352), *(*(a1 + 48) + 432), *(*(a1 + 48) + 184), &theArray);
-  v3 = *(*(a1 + 48) + 48);
   APSStallMonitorActivityEnd();
   APTTrafficMetricsRequestDataFinished(*(*(a1 + 48) + 448));
   if (theArray)
@@ -5163,134 +5439,130 @@ void __unbufnwGuts_connectionSendPackages_block_invoke(uint64_t a1)
   }
 
   OUTLINED_FUNCTION_8_1();
-  *(v5 + 24) = v4;
+  *(v3 + 24) = v2;
   OUTLINED_FUNCTION_8_1();
-  if (*(v6 + 24) < 1 || (v7 = *(*(a1 + 48) + 440)) != 0 && (APTPacingControllerAddBytesSent(v7, 0), OUTLINED_FUNCTION_8_1(), *(v8 + 24) < 1))
+  if (*(v4 + 24) < 1 || (v5 = *(*(a1 + 48) + 440)) != 0 && (APTPacingControllerAddBytesSent(v5, 0), OUTLINED_FUNCTION_8_1(), *(v6 + 24) < 1))
   {
 LABEL_28:
-    v16 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v9 = 0;
-    v10 = 0;
-    v11 = *MEMORY[0x277CBED00];
-    v12 = *MEMORY[0x277CD9218];
+    v7 = 0;
+    v8 = 0;
+    v9 = *MEMORY[0x277CD9218];
     while (1)
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(theArray, v9);
-      v14 = *(*(CMBaseObjectGetVTable() + 16) + 64);
-      if (!v14 || (v15 = v14(ValueAtIndex)) == 0)
+      ValueAtIndex = CFArrayGetValueAtIndex(theArray, v7);
+      v11 = *(*(CMBaseObjectGetVTable() + 16) + 64);
+      if (!v11 || (v12 = v11(ValueAtIndex)) == 0)
       {
         APSLogErrorAt();
-        v16 = 0;
-        OUTLINED_FUNCTION_6_10(*(a1 + 40));
+        v13 = 0;
+        OUTLINED_FUNCTION_6_10();
 LABEL_30:
-        *(v34 + 24) = v35;
+        *(v32 + 24) = v33;
         goto LABEL_31;
       }
 
-      v16 = v15;
+      v13 = v12;
       APSDispatchDataCreateWithBlockBuffer();
       OUTLINED_FUNCTION_15_2();
-      *(v18 + 24) = v17;
+      *(v15 + 24) = v14;
       OUTLINED_FUNCTION_15_2();
-      if (*(v19 + 24))
+      if (*(v16 + 24))
       {
         break;
       }
 
-      DataLength = CMBlockBufferGetDataLength(v16);
+      DataLength = CMBlockBufferGetDataLength(v13);
       if (HIDWORD(DataLength))
       {
         APSLogErrorAt();
-        OUTLINED_FUNCTION_6_10(*(a1 + 40));
-        v35 = v36 + 1;
+        OUTLINED_FUNCTION_6_10();
+        v33 = v34 + 1;
         goto LABEL_30;
       }
 
-      v21 = DataLength;
-      v22 = *(*(a1 + 48) + 424);
-      v39 = v21;
+      v18 = DataLength;
+      v37 = DataLength;
       APSFlatQueueEnqueue();
       OUTLINED_FUNCTION_15_2();
-      *(v24 + 24) = v23;
+      *(v20 + 24) = v19;
       OUTLINED_FUNCTION_15_2();
-      if (*(v25 + 24))
+      if (*(v21 + 24))
       {
         break;
       }
 
       if (*(*(a1 + 48) + 37))
       {
-        v26 = *(*(CMBaseObjectGetVTable() + 16) + 136);
-        if (v26)
+        v22 = *(*(CMBaseObjectGetVTable() + 16) + 136);
+        if (v22)
         {
-          v27 = v26(ValueAtIndex) == 0;
+          v23 = v22(ValueAtIndex) == 0;
         }
 
         else
         {
-          v27 = 1;
+          v23 = 1;
         }
       }
 
       else
       {
-        v27 = 0;
+        v23 = 0;
       }
 
-      v28 = *(a1 + 48);
-      if (*(v28 + 417) != v27)
+      v24 = *(a1 + 48);
+      if (*(v24 + 417) != v23)
       {
         if (gLogCategory_APTransportConnectionUnbufferedNW <= 50)
         {
-          if (gLogCategory_APTransportConnectionUnbufferedNW != -1 || (v29 = OUTLINED_FUNCTION_8(), v28 = *(a1 + 48), v29))
+          if (gLogCategory_APTransportConnectionUnbufferedNW != -1 || (v28 = OUTLINED_FUNCTION_8(&gLogCategory_APTransportConnectionUnbufferedNW), v24 = *(a1 + 48), v28))
           {
-            v37 = *(v28 + 16);
+            v35 = *(v24 + 16);
             OUTLINED_FUNCTION_3_1();
-            LogPrintF();
-            v28 = *(a1 + 48);
+            LogPrintF(v25, v26, v27, "[%{ptr}] isAggregating=%u", v35, v23);
           }
         }
 
-        v30 = *(v28 + 264);
         nw_tcp_set_no_push();
-        v28 = *(a1 + 48);
-        *(v28 + 417) = v27;
+        v24 = *(a1 + 48);
+        *(v24 + 417) = v23;
       }
 
-      if (!v9)
+      if (!v7)
       {
-        APTTrafficMetricsSendStarted(*(v28 + 448));
-        v28 = *(a1 + 48);
+        APTTrafficMetricsSendStarted(*(v24 + 448), v18);
+        v24 = *(a1 + 48);
       }
 
-      v10 += v21;
-      CFRetain(v28);
+      v8 += v18;
+      CFRetain(v24);
       CFRetain(ValueAtIndex);
-      v31 = *(a1 + 48);
-      v32 = *(v31 + 248);
+      v29 = *(a1 + 48);
+      v30 = *(v29 + 248);
       completion[0] = MEMORY[0x277D85DD0];
       completion[1] = 0x40000000;
       completion[2] = __unbufnwGuts_connectionSendPackages_block_invoke_2;
       completion[3] = &__block_descriptor_tmp_75;
-      completion[4] = v31;
+      completion[4] = v29;
       completion[5] = ValueAtIndex;
-      completion[6] = v21;
-      completion[7] = v10;
-      nw_connection_send(v32, content, v12, 1, completion);
-      CFRelease(v16);
+      completion[6] = v18;
+      completion[7] = v8;
+      nw_connection_send(v30, content, v9, 1, completion);
+      CFRelease(v13);
       if (content)
       {
         dispatch_release(content);
         content = 0;
       }
 
-      ++v9;
+      ++v7;
       OUTLINED_FUNCTION_8_1();
-      if (v9 >= *(v33 + 24))
+      if (v7 >= *(v31 + 24))
       {
         goto LABEL_28;
       }
@@ -5305,9 +5577,9 @@ LABEL_31:
     CFRelease(theArray);
   }
 
-  if (v16)
+  if (v13)
   {
-    CFRelease(v16);
+    CFRelease(v13);
   }
 
   if (content)
@@ -5335,19 +5607,15 @@ void __unbufnwGuts_connectionSendPackages_block_invoke_2(uint64_t a1, nw_error_t
       }
 
       *(v4 + 432) = error_code;
-      v6 = *(v4 + 424);
       APSFlatQueueDequeue();
-      v7 = *(a1 + 32);
-      if (!*(v7 + 432))
+      v6 = *(a1 + 32);
+      v7 = *(v6 + 432);
+      if (!v7)
       {
-        if (*(v7 + 38))
+        if (*(v6 + 38))
         {
-          v8 = *(v7 + 72);
           FigSimpleMutexLock();
-          v9 = *(a1 + 40);
-          v10 = *(a1 + 48);
           unbufnwGuts_updatePackageTrackingInternal(*(a1 + 32));
-          v11 = *(*(a1 + 32) + 72);
           FigSimpleMutexUnlock();
         }
 
@@ -5359,47 +5627,41 @@ void __unbufnwGuts_connectionSendPackages_block_invoke_2(uint64_t a1, nw_error_t
         if (gLogCategory_APTransportConnectionUnbufferedNW != -1)
         {
 LABEL_9:
-          v20 = *(v7 + 16);
-          LogPrintF();
+          LogPrintF(&gLogCategory_APTransportConnectionUnbufferedNW, "void unbufnwGuts_connectionSendPackages(APTransportConnectionUnbufferedNWGutsRef)_block_invoke_2", 33554522, "[%{ptr}] ### send error: %#m\n", *(v6 + 16), v7);
           goto LABEL_13;
         }
 
         if (_LogCategory_Initialize())
         {
-          v7 = *(a1 + 32);
-          v19 = *(v7 + 432);
+          v6 = *(a1 + 32);
+          v7 = *(v6 + 432);
           goto LABEL_9;
         }
       }
 
 LABEL_13:
-      v12 = *(a1 + 32);
-      v13 = *(v12 + 432);
-      v14 = *(a1 + 48);
-      APTTrafficMetricsSendFinished(*(v12 + 448));
-      v15 = *(*(a1 + 32) + 424);
+      APTTrafficMetricsSendFinished(*(*(a1 + 32) + 448), *(*(a1 + 32) + 432), *(a1 + 48));
       if (APSFlatQueueIsEmpty())
       {
-        v17 = *(a1 + 32);
-        if (*(v17 + 440))
+        v8 = *(a1 + 32);
+        if (*(v8 + 440))
         {
-          *(v17 + 418) = 1;
-          CFRetain(v17);
+          *(v8 + 418) = 1;
+          CFRetain(v8);
           APTPacingControllerAddBytesSent(*(*(a1 + 32) + 440), *(a1 + 56));
           APTPacingControllerYieldOnQueueWithContinuationFunction(*(*(a1 + 32) + 440), unbufnwGuts_connectionSendPackagesYieldContinuation, *(a1 + 32));
         }
 
         else
         {
-          unbufnwGuts_connectionSendPackages(v17, v16);
+          unbufnwGuts_connectionSendPackages(v8);
         }
       }
 
       else
       {
-        v18 = *(*(a1 + 32) + 424);
         APSFlatQueuePeek();
-        APTTrafficMetricsSendStarted(*(*(a1 + 32) + 448));
+        APTTrafficMetricsSendStarted(*(*(a1 + 32) + 448), 0);
       }
     }
   }
@@ -5411,14 +5673,15 @@ LABEL_13:
 void unbufnwGuts_connectionSendPackagesYieldContinuation(_BYTE *a1)
 {
   a1[418] = 0;
-  unbufnwGuts_connectionSendPackages();
+  unbufnwGuts_connectionSendPackages(a1);
 
   CFRelease(a1);
 }
 
-void __unbufnwGuts_handleNewConnectionGroupInternal_block_invoke_3(uint64_t a1, int a2, nw_error_t error)
+void __unbufnwGuts_handleNewConnectionGroupInternal_block_invoke_3(uint64_t a1, uint64_t a2, nw_error_t error)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v3 = a2;
+  v27 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   v5 = *(a1 + 40);
   if (error)
@@ -5431,15 +5694,9 @@ void __unbufnwGuts_handleNewConnectionGroupInternal_block_invoke_3(uint64_t a1, 
     error_code = 0;
   }
 
-  memset(v35, 0, sizeof(v35));
-  v34 = 0u;
-  v33 = 0u;
-  v32 = 0u;
-  v31 = 0u;
-  v30 = 0u;
-  v29 = 0u;
-  qmemcpy(v28, "any", sizeof(v28));
-  *(v4 + 408) = a2;
+  memset(&v26[3], 0, 125);
+  qmemcpy(v26, "any", 3);
+  *(v4 + 408) = v3;
   if (error_code)
   {
     v7 = 90;
@@ -5452,12 +5709,12 @@ void __unbufnwGuts_handleNewConnectionGroupInternal_block_invoke_3(uint64_t a1, 
 
   if (v7 >= gLogCategory_APTransportConnectionUnbufferedNW && (gLogCategory_APTransportConnectionUnbufferedNW != -1 || _LogCategory_Initialize()))
   {
-    v27 = *(v4 + 16);
-    nw_connection_group_state_to_string();
-    LogPrintF();
+    v8 = *(v4 + 16);
+    v9 = nw_connection_group_state_to_string();
+    LogPrintF(&gLogCategory_APTransportConnectionUnbufferedNW, "void unbufnwGuts_multicastConnectionGroupStateChangedHandler(APTransportConnectionUnbufferedNWGutsRef, nw_connection_group_t, nw_connection_group_state_t, nw_error_t)", v7 | 0x2000000u, "[%{ptr}] connection group state '%s'%?{end} err=%#m", v8, v9, error_code == 0, error_code);
   }
 
-  switch(a2)
+  switch(v3)
   {
     case 1:
       if (!error_code)
@@ -5468,85 +5725,91 @@ void __unbufnwGuts_handleNewConnectionGroupInternal_block_invoke_3(uint64_t a1, 
       goto LABEL_13;
     case 2:
       OUTLINED_FUNCTION_12_2();
-      if (v14)
+      if (v12)
       {
         goto LABEL_26;
       }
 
       APTTrafficMetricsConnectionFormed(*(v4 + 448));
-      v15 = *(v4 + 320);
       FigSimpleMutexLock();
-      v16 = *(v4 + 72);
       FigSimpleMutexLock();
-      v17 = nw_connection_group_copy_parameters(v5);
-      v18 = nw_parameters_copy_required_interface(v17);
+      v13 = nw_connection_group_copy_parameters(v5);
+      v14 = nw_parameters_copy_required_interface(v13);
       if (*(v4 + 89))
       {
         SockAddrToString();
       }
 
-      if (gLogCategory_APTransportConnectionUnbufferedNW <= 50 && (gLogCategory_APTransportConnectionUnbufferedNW != -1 || OUTLINED_FUNCTION_8()))
+      if (gLogCategory_APTransportConnectionUnbufferedNW <= 50 && (gLogCategory_APTransportConnectionUnbufferedNW != -1 || OUTLINED_FUNCTION_8(&gLogCategory_APTransportConnectionUnbufferedNW)))
       {
-        v19 = *(v4 + 16);
-        if (v18)
+        v15 = *(v4 + 16);
+        if (v14)
         {
-          nw_interface_get_name(v18);
+          name = nw_interface_get_name(v14);
+        }
+
+        else
+        {
+          name = "unknown";
         }
 
         mach_absolute_time();
-        v24 = *(v4 + 224);
         UpTicksToSecondsF();
+        v25 = v20 * 1000.0;
         OUTLINED_FUNCTION_3_1();
-        LogPrintF();
+        LogPrintF(v21, v22, v23, v24, v15, v26, v4 + 128, name, *&v25, *v26, *&v26[16], *&v26[32], *&v26[48], *&v26[64], *&v26[80], *&v26[96], *&v26[104], *&v26[112], v27);
       }
 
-      unbufnwGuts_updateStatusInternal(v4, 5u, 0);
+      unbufnwGuts_updateStatusInternal(v4, 5, 0);
       unbufnwGuts_updateDataPacingInternal(v4);
-      v25 = *(v4 + 72);
       FigSimpleMutexUnlock();
-      v26 = *(v4 + 320);
       FigSimpleMutexUnlock();
       *(v4 + 437) = 1;
-      APTTrafficMetricsMessageReadStarted(*(v4 + 448));
+      APTTrafficMetricsMessageReadStarted(*(v4 + 448), 1);
       break;
     case 3:
 LABEL_13:
       OUTLINED_FUNCTION_12_2();
-      if (!v8)
+      if (!v10)
       {
-        v9 = *(v4 + 320);
         FigSimpleMutexLock();
-        v10 = *(v4 + 72);
         FigSimpleMutexLock();
         v11 = *(v4 + 312);
         if (v11 == 5 || !v11)
         {
           if (gLogCategory_APTransportConnectionUnbufferedNW <= 90)
           {
-            if (gLogCategory_APTransportConnectionUnbufferedNW != -1 || (v21 = _LogCategory_Initialize(), v11 = *(v4 + 312), v21))
+            if (gLogCategory_APTransportConnectionUnbufferedNW != -1 || (v17 = _LogCategory_Initialize(), v11 = *(v4 + 312), v17))
             {
-              v22 = *(v4 + 16);
-              LogPrintF();
+              if (v11)
+              {
+                v18 = "disconnected";
+              }
+
+              else
+              {
+                v18 = "failed to connect";
+              }
+
+              LogPrintF(&gLogCategory_APTransportConnectionUnbufferedNW, "void unbufnwGuts_multicastConnectionGroupStateChangedHandler(APTransportConnectionUnbufferedNWGutsRef, nw_connection_group_t, nw_connection_group_state_t, nw_error_t)", 33554522, "[%{ptr}] %s err=%#m", *(v4 + 16), v18, error_code);
               v11 = *(v4 + 312);
             }
           }
 
           if (v11)
           {
-            v23 = 6;
+            v19 = 6;
           }
 
           else
           {
-            v23 = 4;
+            v19 = 4;
           }
 
-          unbufnwGuts_updateStatusInternal(v4, v23, error_code);
+          unbufnwGuts_updateStatusInternal(v4, v19, error_code);
         }
 
-        v12 = *(v4 + 72);
         FigSimpleMutexUnlock();
-        v13 = *(v4 + 320);
         FigSimpleMutexUnlock();
       }
 
@@ -5557,17 +5820,16 @@ LABEL_13:
       goto LABEL_26;
     default:
 LABEL_26:
-      v18 = 0;
-      v17 = 0;
+      v14 = 0;
+      v13 = 0;
       break;
   }
 
-  nw_release(v17);
-  nw_release(v18);
-  v20 = *MEMORY[0x277D85DE8];
+  nw_release(v13);
+  nw_release(v14);
 }
 
-void unbufnwGuts_readyToSendBatchSlow(uint64_t a1, uint64_t a2, unsigned int (*a3)(void, CFTypeRef *), CFArrayRef *a4)
+void unbufnwGuts_readyToSendBatchSlow(uint64_t a1, uint64_t a2, uint64_t (*a3)(void, CFTypeRef *), CFArrayRef *a4)
 {
   values[1] = *MEMORY[0x277D85DE8];
   cf = 0;
@@ -5581,7 +5843,7 @@ void unbufnwGuts_readyToSendBatchSlow(uint64_t a1, uint64_t a2, unsigned int (*a
   (*(a1 + 328))(*(a1 + 336), &cf, a2);
   if (!cf)
   {
-    goto LABEL_6;
+    return;
   }
 
   values[0] = cf;
@@ -5597,9 +5859,6 @@ LABEL_7:
   {
     CFRelease(cf);
   }
-
-LABEL_6:
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void unbufnwGuts_connectionHandlePackageHeader_cold_5(uint64_t a1, char a2)
@@ -5607,7 +5866,7 @@ void unbufnwGuts_connectionHandlePackageHeader_cold_5(uint64_t a1, char a2)
   if (gLogCategory_APTransportConnectionUnbufferedNW <= 60 && (gLogCategory_APTransportConnectionUnbufferedNW != -1 || _LogCategory_Initialize()))
   {
     OUTLINED_FUNCTION_14_3();
-    LogPrintF();
+    LogPrintF(&gLogCategory_APTransportConnectionUnbufferedNW, "void unbufnwGuts_connectionHandlePackageHeader(APTransportConnectionUnbufferedNWGutsRef, dispatch_data_t, nw_content_context_t, _Bool, _Bool, nw_error_t)", 33554492, "[%{ptr}] handlePackageHeader() inHeaderData is NULL!");
   }
 
   unbufnwGuts_connectionHandlePackagePayload(a1, 0, 0, 1, a2 & 1);
@@ -5629,10 +5888,10 @@ void unbufnwGuts_handleNewConnectionGroupInternal_cold_1(NSObject *a1)
 
 uint64_t _APTransportConnectionUnbufferedNWGutsFinalize_cold_1(uint64_t a1)
 {
-  v2 = *(a1 + 16);
-  v3 = *(a1 + 32);
+  v6 = *(a1 + 16);
+  v7 = *(a1 + 32);
   OUTLINED_FUNCTION_3_1();
-  return LogPrintF();
+  return LogPrintF(v1, v2, v3, v4, v6, v7);
 }
 
 void _APBrokerDoReceiverPollingIfNecessary(uint64_t a1, uint64_t a2)
@@ -5654,9 +5913,9 @@ void _APBrokerGroupRemoveAllReceivers(uint64_t a1)
 {
   if (CFDictionaryGetCount(*(a1 + 56)) >= 1)
   {
-    if (gLogCategory_APBrokerGroup <= 30 && (gLogCategory_APBrokerGroup != -1 || OUTLINED_FUNCTION_8_0()))
+    if (gLogCategory_APBrokerGroup <= 30 && (gLogCategory_APBrokerGroup != -1 || OUTLINED_FUNCTION_8_0(&gLogCategory_APBrokerGroup)))
     {
-      OUTLINED_FUNCTION_7_0();
+      OUTLINED_FUNCTION_7_0(&gLogCategory_APBrokerGroup, "OSStatus _APBrokerGroupRemoveAllReceivers(APBrokerGroupRef)", v2, "[%{ptr}] Removing all receivers\n");
     }
 
     CFDictionaryRemoveAllValues(*(a1 + 56));
@@ -5702,36 +5961,35 @@ void __APBrokerGroupStartReceiverPolling_block_invoke(uint64_t a1)
     v2 = FigCFWeakReferenceHolderCreateWithReferencedObject();
     if (v2)
     {
-      v3 = v2;
-      v4 = *(a1 + 40);
-      *(v4 + 112) = 1;
+      v4 = v2;
+      v5 = *(a1 + 40);
+      *(v5 + 112) = 1;
       if (gLogCategory_APBrokerGroup <= 50)
       {
-        if (gLogCategory_APBrokerGroup != -1 || (v5 = _LogCategory_Initialize(), v4 = *(a1 + 40), v5))
+        if (gLogCategory_APBrokerGroup != -1 || (v6 = _LogCategory_Initialize(), v5 = *(a1 + 40), v6))
         {
-          OUTLINED_FUNCTION_9();
-          v4 = *(a1 + 40);
+          OUTLINED_FUNCTION_9(&gLogCategory_APBrokerGroup, "OSStatus APBrokerGroupStartReceiverPolling(APBrokerGroupRef)_block_invoke", v3, "[%{ptr}] Started receiver polling\n");
+          v5 = *(a1 + 40);
         }
       }
 
-      *(*(a1 + 40) + 120) = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, *(v4 + 104));
-      v6 = *(*(a1 + 40) + 120);
-      if (v6)
+      *(*(a1 + 40) + 120) = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, *(v5 + 104));
+      v7 = *(*(a1 + 40) + 120);
+      if (v7)
       {
         handler[0] = MEMORY[0x277D85DD0];
         handler[1] = 0x40000000;
         handler[2] = __APBrokerGroupStartReceiverPolling_block_invoke_2;
         handler[3] = &__block_descriptor_tmp_29;
-        handler[4] = v3;
-        dispatch_source_set_event_handler(v6, handler);
-        v7 = *(*(a1 + 40) + 120);
+        handler[4] = v4;
+        dispatch_source_set_event_handler(v7, handler);
+        v8 = *(*(a1 + 40) + 120);
         v13[0] = MEMORY[0x277D85DD0];
         v13[1] = 0x40000000;
         v13[2] = __APBrokerGroupStartReceiverPolling_block_invoke_4;
         v13[3] = &__block_descriptor_tmp_30_0;
-        v13[4] = v3;
-        dispatch_source_set_cancel_handler(v7, v13);
-        v8 = *(*(a1 + 40) + 120);
+        v13[4] = v4;
+        dispatch_source_set_cancel_handler(v8, v13);
         dispatch_time(0, 0);
         v9 = OUTLINED_FUNCTION_7_5();
         dispatch_source_set_timer(v9, v10, v11, v12);
@@ -5743,7 +6001,7 @@ void __APBrokerGroupStartReceiverPolling_block_invoke(uint64_t a1)
         APSLogErrorAt();
         OUTLINED_FUNCTION_1_0();
 
-        CFRelease(v3);
+        CFRelease(v4);
       }
     }
 
@@ -5757,17 +6015,15 @@ void __APBrokerGroupStartReceiverPolling_block_invoke(uint64_t a1)
 
 uint64_t APBrokerGroupStopReceiverPolling(uint64_t a1)
 {
-  v2 = *(a1 + 24);
   FigSimpleMutexLock();
-  v3 = *(a1 + 104);
+  v2 = *(a1 + 104);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 0x40000000;
   block[2] = ___APBrokerGroupStopReceiverPollingInternal_block_invoke;
   block[3] = &__block_descriptor_tmp_67;
   block[4] = a1;
-  dispatch_sync(v3, block);
+  dispatch_sync(v2, block);
   _APBrokerGroupRemoveAllReceivers(a1);
-  v4 = *(a1 + 24);
   return FigSimpleMutexUnlock();
 }
 
@@ -5789,16 +6045,15 @@ void _APBrokerGroupFireReceiversChanged(uint64_t a1)
     }
 
     CFRetain(a1);
-    v6 = *(a1 + 96);
     OUTLINED_FUNCTION_2_0();
-    v8[1] = 0x40000000;
-    v8[2] = ___APBrokerGroupFireReceiversChanged_block_invoke;
-    v8[3] = &__block_descriptor_tmp_36_0;
-    v9 = v3;
-    v8[4] = a1;
-    v8[5] = v1;
-    v8[6] = v5;
-    dispatch_async(v7, v8);
+    v7[1] = 0x40000000;
+    v7[2] = ___APBrokerGroupFireReceiversChanged_block_invoke;
+    v7[3] = &__block_descriptor_tmp_36_0;
+    v8 = v3;
+    v7[4] = a1;
+    v7[5] = v1;
+    v7[6] = v5;
+    dispatch_async(v6, v7);
   }
 }
 
@@ -5822,12 +6077,12 @@ uint64_t _APBrokerGroupCallAllBrokers_cold_2()
 uint64_t APBrokerGroupResolveReceiverDNSName_cold_1()
 {
   OUTLINED_FUNCTION_2_5();
-  if (v0)
+  if (v1)
   {
     IsAppleInternalBuild();
   }
 
-  return OUTLINED_FUNCTION_9();
+  return OUTLINED_FUNCTION_9(&gLogCategory_APBrokerGroup, "void APBrokerGroupResolveReceiverDNSName(APBrokerGroupRef, CFStringRef, APBrokerResolveBrokeredAddressCallbackBlock)", v0, "[%{ptr}] Resolving receiver address with public reciever UUID %@\n");
 }
 
 void _APBrokerGroupCallNextBroker_cold_3()
@@ -5836,13 +6091,6 @@ void _APBrokerGroupCallNextBroker_cold_3()
   APSLogErrorAt();
   *(v1 + 44) = -6728;
   _APBrokerGroupDoneCallingBrokers(v0, v1);
-}
-
-uint64_t _APBrokerGroupDoneCallingBrokers_cold_1(uint64_t *a1, CFSetRef *a2)
-{
-  v2 = *a1;
-  CFSetGetCount(*a2);
-  return OUTLINED_FUNCTION_7_0();
 }
 
 void tcpunbuf_invalidateInternal(void *a1)
@@ -5854,38 +6102,35 @@ void tcpunbuf_invalidateInternal(void *a1)
     APTTrafficMetricsConnectionClosed(*(DerivedStorage + 584));
     if (gLogCategory_APTransportConnectionTCPUnbuffered <= 50 && (gLogCategory_APTransportConnectionTCPUnbuffered != -1 || _LogCategory_Initialize()))
     {
-      v6 = *(v3 + 16);
-      OUTLINED_FUNCTION_9();
+      OUTLINED_FUNCTION_9(&gLogCategory_APTransportConnectionTCPUnbuffered, "void tcpunbuf_invalidateInternal(void *)", v4, "[%{ptr}] APTransportConnectionTCPUnbuffered with name %@ invalidating.\n");
     }
 
     *v3 = 1;
-    v4 = *(v3 + 384);
-    if (v4)
+    v5 = *(v3 + 384);
+    if (v5)
     {
       dispatch_source_cancel(*(v3 + 384));
-      dispatch_release(v4);
+      dispatch_release(v5);
       *(v3 + 384) = 0;
     }
 
-    tcpunbuf_cleanUp();
-    v5 = *(v3 + 24);
+    tcpunbuf_cleanUp(a1);
+    v6 = *(v3 + 24);
 
-    dispatch_sync_f(v5, a1, tcpunbuf_clearCallbackState);
+    dispatch_sync_f(v6, a1, tcpunbuf_clearCallbackState);
   }
 }
 
-_BYTE *tcpunbuf_callEventCallback(uint64_t a1, uint64_t a2, const void *a3)
+_BYTE *tcpunbuf_callEventCallback(uint64_t a1, unsigned int a2, const void *a3)
 {
   result = CMBaseObjectGetDerivedStorage();
   if (!*result)
   {
-    v5 = result;
     if (a3)
     {
       CFRetain(a3);
     }
 
-    v6 = *(v5 + 3);
     return APSDispatchAsyncFHelper();
   }
 
@@ -5894,38 +6139,37 @@ _BYTE *tcpunbuf_callEventCallback(uint64_t a1, uint64_t a2, const void *a3)
 
 void tcpunbuf_receivedData(uint64_t *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   valuePtr = 0;
-  v2 = *a1;
+  v1 = *a1;
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v4 = a1[1];
   Value = APSWrapperGetValue();
   if (!*DerivedStorage && *(DerivedStorage + 180) == 5)
   {
-    v6 = Value;
+    v4 = Value;
     data = dispatch_source_get_data(*(DerivedStorage + 160));
     if (data)
     {
-      v8 = data;
+      v6 = data;
       if (gLogCategory_APTransportConnectionTCPUnbuffered <= 60 && (gLogCategory_APTransportConnectionTCPUnbuffered != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_APTransportConnectionTCPUnbuffered, "void tcpunbuf_receivedData(void *)", 33554492, "[%{ptr}] Unexpected data from receiver: %zu bytes\n", v1, v6);
       }
 
       while (1)
       {
-        v9 = v8 >= 0x400 ? 1024 : v8;
-        v13 = 0;
-        valuePtr = (*(v6 + 24))(v6, v9, v9, v15, &v13, 0, 1);
+        v7 = v6 >= 0x400 ? 1024 : v6;
+        v10 = 0;
+        valuePtr = (*(v4 + 24))(v4, v7, v7, v12, &v10, 0, 1);
         if (valuePtr)
         {
           break;
         }
 
-        v8 -= v13;
-        if (!v8)
+        v6 -= v10;
+        if (!v6)
         {
-          goto LABEL_13;
+          return;
         }
       }
 
@@ -5934,26 +6178,23 @@ void tcpunbuf_receivedData(uint64_t *a1)
 
     else if (gLogCategory_APTransportConnectionTCPUnbuffered <= 90 && (gLogCategory_APTransportConnectionTCPUnbuffered != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APTransportConnectionTCPUnbuffered, "void tcpunbuf_receivedData(void *)", 33554522, "[%{ptr}] Receiver disconnected\n", v1);
     }
 
-    v11 = CMBaseObjectGetDerivedStorage();
-    if (!*v11)
+    v8 = CMBaseObjectGetDerivedStorage();
+    if (!*v8)
     {
-      APTTrafficMetricsConnectionClosed(*(v11 + 584));
-      tcpunbuf_cleanUp();
+      APTTrafficMetricsConnectionClosed(*(v8 + 584));
+      tcpunbuf_cleanUp(v1);
     }
 
-    v12 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt32Type, &valuePtr);
-    tcpunbuf_callEventCallback(v2, 6, v12);
-    if (v12)
+    v9 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt32Type, &valuePtr);
+    tcpunbuf_callEventCallback(v1, 6u, v9);
+    if (v9)
     {
-      CFRelease(v12);
+      CFRelease(v9);
     }
   }
-
-LABEL_13:
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t APTransportConnectionTCPUnbufferedCreate_cold_2(_DWORD *a1)
@@ -5980,20 +6221,6 @@ uint64_t APTransportConnectionTCPUnbufferedCreate_cold_4()
   return APSSignalErrorAt();
 }
 
-uint64_t tcpunbuf_setPropertyInternal_cold_1(uint64_t *a1, uint64_t *a2)
-{
-  v3 = *a1;
-  v4 = *a2;
-  return LogPrintF();
-}
-
-uint64_t tcpunbuf_setPropertyInternal_cold_9(uint64_t *a1, unsigned int *a2)
-{
-  v3 = *a1;
-  v4 = *a2;
-  return LogPrintF();
-}
-
 uint64_t tcpunbuf_setPropertyInternal_cold_15(_DWORD *a1)
 {
   result = APSLogErrorAt();
@@ -6008,7 +6235,7 @@ uint64_t tcpunbuf_resumeInternal_cold_7(uint64_t a1, uint64_t a2, int a3, void *
   {
     if (gLogCategory_APTransportConnectionTCPUnbuffered != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = LogPrintF();
+      result = LogPrintF(&gLogCategory_APTransportConnectionTCPUnbuffered, "OSStatus tcpunbuf_resumeInternal(void *)", 33554522, "[%{ptr}] ### connect failed: %#m\n", a2, a1);
     }
   }
 
@@ -6167,10 +6394,8 @@ uint64_t APTransportStreamSendBackingProviderCopyPackageForAcquiredBBuf(uint64_t
       v6 = 4294894944;
       if (lengthAtOffsetOut == totalLengthOut)
       {
-        v7 = *(a1 + 16);
         FigSimpleMutexLock();
         Value = CFDictionaryGetValue(*(a1 + 40), dataPointerOut);
-        v9 = *(a1 + 16);
         FigSimpleMutexUnlock();
         if (Value)
         {
@@ -6209,22 +6434,20 @@ uint64_t APTransportStreamSendBackingProviderUpdateAcquiredBBuf(uint64_t a1, CMB
       v5 = 4294894944;
       if (lengthAtOffsetOut == totalLengthOut)
       {
-        v6 = *(a1 + 16);
         FigSimpleMutexLock();
         Value = CFDictionaryGetValue(*(a1 + 40), dataPointerOut);
-        v8 = *(a1 + 16);
         FigSimpleMutexUnlock();
         if (Value)
         {
-          v9 = *(*(CMBaseObjectGetVTable() + 16) + 16);
-          if (v9)
+          v7 = *(*(CMBaseObjectGetVTable() + 16) + 16);
+          if (v7)
           {
-            v9(Value, theBuffer);
+            v7(Value, theBuffer);
           }
 
           if (gLogCategory_APTransportStreamSendBackingProvider <= 10 && (gLogCategory_APTransportStreamSendBackingProvider != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&gLogCategory_APTransportStreamSendBackingProvider, "OSStatus APTransportStreamSendBackingProviderUpdateAcquiredBBuf(APTransportStreamSendBackingProviderRef, CMBlockBufferRef)", 33554442, "[%{ptr}] Set BBuf [%{ptr}] on package [%{ptr}]", a1, theBuffer, Value);
           }
 
           return 0;
@@ -6252,8 +6475,8 @@ void carSessionBrowser_dispatchEvent(const void *a1, int a2, const void *a3)
     v9 = *(DerivedStorage + 128);
     if (gLogCategory_APBrowserCarSession <= 20 && (gLogCategory_APBrowserCarSession != -1 || _LogCategory_Initialize()))
     {
-      APBrowserGetEventString(a2);
-      LogPrintF();
+      EventString = APBrowserGetEventString(a2);
+      LogPrintF(&gLogCategory_APBrowserCarSession, "void carSessionBrowser_dispatchEvent(APBrowserRef, APBrowserEventType, CFDictionaryRef)", 33554452, "Dispatching event %s with info %@\n", EventString, a3);
     }
 
     if (a1)
@@ -6266,83 +6489,84 @@ void carSessionBrowser_dispatchEvent(const void *a1, int a2, const void *a3)
       CFRetain(a3);
     }
 
-    v10 = *(v8 + 112);
+    v11 = *(v8 + 112);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 0x40000000;
     block[2] = __carSessionBrowser_dispatchEvent_block_invoke;
     block[3] = &__block_descriptor_tmp_46_1;
     block[4] = v7;
     block[5] = a1;
-    v12 = a2;
+    v13 = a2;
     block[6] = a3;
     block[7] = v9;
-    dispatch_async(v10, block);
+    dispatch_async(v11, block);
   }
 }
 
-uint64_t carSessionBrowser_invalidate()
+uint64_t carSessionBrowser_invalidate(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v1 = *(DerivedStorage + 24);
-  if (v1)
+  v2 = *(DerivedStorage + 24);
+  if (v2)
   {
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 0x40000000;
     block[2] = __carSessionBrowser_invalidate_block_invoke;
     block[3] = &__block_descriptor_tmp_11_0;
     block[4] = DerivedStorage;
-    dispatch_sync(v1, block);
+    dispatch_sync(v2, block);
   }
 
   return 0;
 }
 
-void __carSessionBrowser_setMode_block_invoke(uint64_t a1)
+void __carSessionBrowser_setMode_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *(a1 + 40);
-  if (*(v2 + 32))
+  v4 = *(a1 + 40);
+  if (*(v4 + 32))
   {
     APSLogErrorAt();
     OUTLINED_FUNCTION_8_1();
-    v12 = -12785;
+    v15 = -12785;
 LABEL_37:
-    *(v11 + 24) = v12;
+    *(v14 + 24) = v15;
     return;
   }
 
-  if (!*(v2 + 120))
+  if (!*(v4 + 120))
   {
     APSLogErrorAt();
     OUTLINED_FUNCTION_8_1();
-    v12 = -72060;
+    v15 = -72060;
     goto LABEL_37;
   }
 
+  v5 = *(a1 + 56);
   if (*(a1 + 56))
   {
-    if (*(a1 + 56) == 3)
+    if (v5 == 3)
     {
-      if (!*(v2 + 72))
+      if (!*(v4 + 72))
       {
         if (gLogCategory_APBrowserCarSession <= 50 && (gLogCategory_APBrowserCarSession != -1 || _LogCategory_Initialize()))
         {
-          OUTLINED_FUNCTION_9();
+          OUTLINED_FUNCTION_9(&gLogCategory_APBrowserCarSession, "OSStatus carSessionBrowser_setMode(APBrowserRef, APBrowserMode)_block_invoke", a3, "Enabling CarPlayHelper event listening\n");
         }
 
-        v4 = *(a1 + 40);
-        if (*(v4 + 16))
+        v7 = *(a1 + 40);
+        if (*(v7 + 16))
         {
-          if (*(v4 + 48))
+          if (*(v7 + 48))
           {
             APSPowerAssertionRaiseTemporary();
-            v4 = *(a1 + 40);
+            v7 = *(a1 + 40);
           }
 
-          v5 = *(v4 + 64);
-          v6 = *(*(CMBaseObjectGetVTable() + 16) + 8);
-          if (v6)
+          v8 = *(v7 + 64);
+          v9 = *(*(CMBaseObjectGetVTable() + 16) + 8);
+          if (v9)
           {
-            v6(v5, 1);
+            v9(v8, 1);
           }
         }
 
@@ -6364,46 +6588,46 @@ LABEL_37:
         goto LABEL_17;
       }
 
-      v13 = *(a1 + 56);
+      v5 = *(a1 + 56);
     }
 
-    LogPrintF();
+    LogPrintF(&gLogCategory_APBrowserCarSession, "OSStatus carSessionBrowser_setMode(APBrowserRef, APBrowserMode)_block_invoke", 33554492, "Unrecognized browse mode %d\n", v5);
 LABEL_17:
     OUTLINED_FUNCTION_8_1();
-    *(v3 + 24) = -72062;
+    *(v6 + 24) = -72062;
 
     APSLogErrorAt();
     return;
   }
 
-  if (*(v2 + 72))
+  if (*(v4 + 72))
   {
     if (gLogCategory_APBrowserCarSession <= 50 && (gLogCategory_APBrowserCarSession != -1 || _LogCategory_Initialize()))
     {
-      OUTLINED_FUNCTION_9();
+      OUTLINED_FUNCTION_9(&gLogCategory_APBrowserCarSession, "OSStatus carSessionBrowser_setMode(APBrowserRef, APBrowserMode)_block_invoke", a3, "Disabling CarPlayHelper event listening\n");
     }
 
-    v7 = *(a1 + 40);
-    if (*(v7 + 16))
+    v10 = *(a1 + 40);
+    if (*(v10 + 16))
     {
-      v8 = *(v7 + 64);
-      v9 = *(*(CMBaseObjectGetVTable() + 16) + 8);
-      if (v9)
+      v11 = *(v10 + 64);
+      v12 = *(*(CMBaseObjectGetVTable() + 16) + 8);
+      if (v12)
       {
-        v9(v8, 0);
+        v12(v11, 0);
       }
 
-      v10 = *(a1 + 40);
-      ++*(v10 + 76);
+      v13 = *(a1 + 40);
+      ++*(v13 + 76);
     }
 
     else
     {
       carSessionBrowser_dispatchEvent(*(a1 + 48), 7, 0);
-      v10 = *(a1 + 40);
+      v13 = *(a1 + 40);
     }
 
-    *(v10 + 72) = 0;
+    *(v13 + 72) = 0;
   }
 }
 
@@ -6456,15 +6680,15 @@ void __carSessionBrowser_getDNSForDeviceID_block_invoke_cold_3()
   *(v0 + 24) = -72063;
 }
 
-uint64_t __carSessionBrowser_getDNSForDeviceID_block_invoke_cold_5(uint64_t *a1, _BYTE **a2)
+uint64_t __carSessionBrowser_getDNSForDeviceID_block_invoke_cold_5(const char **a1, void *a2, uint64_t a3)
 {
-  if (*a2)
+  v3 = "not required";
+  if (*a2 && **a2)
   {
-    **a2;
+    v3 = "required";
   }
 
-  v3 = *a1;
-  return LogPrintF();
+  return LogPrintF(&gLogCategory_APBrowserCarSession, "OSStatus carSessionBrowser_getDNSForDeviceID(APBrowserRef, uint64_t, Boolean, Boolean, Boolean, char *, size_t, Boolean *)_block_invoke", 33554472, "DNS = '%s' For deviceID: %#.6a (WoW comatibility %s)\n", *a1, *&a3, v3);
 }
 
 uint64_t __carSessionBrowser_handleCarPlayHelperEvent_block_invoke_cold_7(_DWORD *a1)
@@ -6509,17 +6733,17 @@ void carSessionBrowser_networkChanged_cold_2(void *a1, uint64_t a2, const void *
   carSessionBrowser_dispatchEvent(a3, 6, 0);
   if (*(a2 + 80))
   {
-    v6 = os_transaction_copy_description();
+    v7 = os_transaction_copy_description();
     if (gLogCategory_APBrowserCarSession <= 50 && (gLogCategory_APBrowserCarSession != -1 || _LogCategory_Initialize()))
     {
-      OUTLINED_FUNCTION_9();
+      OUTLINED_FUNCTION_9(&gLogCategory_APBrowserCarSession, "OSStatus carSessionBrowser_networkChanged(APBrowserRef, CFDictionaryRef)", v6, "Releasing osTransaction: %s\n");
     }
 
-    free(v6);
-    v7 = *(a2 + 80);
-    if (v7)
+    free(v7);
+    v8 = *(a2 + 80);
+    if (v8)
     {
-      os_release(v7);
+      os_release(v8);
       *(a2 + 80) = 0;
     }
   }
@@ -6527,70 +6751,68 @@ void carSessionBrowser_networkChanged_cold_2(void *a1, uint64_t a2, const void *
 
 uint64_t APTransportDeviceParseInterfaceIndexFromDNSName(char *a1, unsigned int *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  if (!a1 || !a2)
+  v11 = *MEMORY[0x277D85DE8];
+  if (a1 && a2)
   {
-    APSLogErrorAt();
-    result = 4294960591;
-    goto LABEL_11;
-  }
-
-  v3 = strchr(a1, 37);
-  if (!v3)
-  {
-    result = 4294960569;
-    goto LABEL_11;
-  }
-
-  v4 = v3 + 1;
-  v5 = strpbrk(v3 + 1, ":]");
-  if (!v5)
-  {
-    v5 = &v4[strlen(v4)];
-  }
-
-  v6 = v5 - v4;
-  if ((v5 - v4) >= 0x11)
-  {
-    goto LABEL_14;
-  }
-
-  __memcpy_chk();
-  v11[v6] = 0;
-  v7 = if_nametoindex(v11);
-  v10 = v7;
-  if (!v7)
-  {
-    if (sscanf(v11, "%u", &v10) == 1)
+    v3 = strchr(a1, 37);
+    if (v3)
     {
-      v7 = v10;
-      goto LABEL_10;
+      v4 = v3 + 1;
+      v5 = strpbrk(v3 + 1, ":]");
+      if (!v5)
+      {
+        v5 = &v4[strlen(v4)];
+      }
+
+      v6 = v5 - v4;
+      if ((v5 - v4) < 0x11)
+      {
+        __memcpy_chk();
+        v10[v6] = 0;
+        v7 = if_nametoindex(v10);
+        v9 = v7;
+        if (v7)
+        {
+LABEL_10:
+          result = 0;
+          *a2 = v7;
+          return result;
+        }
+
+        if (sscanf(v10, "%u", &v9) == 1)
+        {
+          v7 = v9;
+          goto LABEL_10;
+        }
+      }
+
+      APSLogErrorAt();
+      return 4294960554;
     }
 
-LABEL_14:
-    APSLogErrorAt();
-    result = 4294960554;
-    goto LABEL_11;
+    else
+    {
+      return 4294960569;
+    }
   }
 
-LABEL_10:
-  result = 0;
-  *a2 = v7;
-LABEL_11:
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  else
+  {
+    APSLogErrorAt();
+    return 4294960591;
+  }
 }
 
 uint64_t aptransportdevice_copyInterfaceNameFromDNSName(char *a1, CFTypeRef *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v7 = 0;
+  v9 = *MEMORY[0x277D85DE8];
+  v6 = 0;
   *cStr = 0;
-  v9 = 0;
-  result = APTransportDeviceParseInterfaceIndexFromDNSName(a1, &v7);
+  v8 = 0;
+  result = APTransportDeviceParseInterfaceIndexFromDNSName(a1, &v6);
   if (!result)
   {
-    if (if_indextoname(v7, cStr))
+    if (if_indextoname(v6, cStr))
     {
       v4 = CFStringCreateWithCString(*MEMORY[0x277CBECE8], cStr, 0x8000100u);
       if (v4)
@@ -6598,24 +6820,23 @@ uint64_t aptransportdevice_copyInterfaceNameFromDNSName(char *a1, CFTypeRef *a2)
         v5 = v4;
         *a2 = CFRetain(v4);
         CFRelease(v5);
-        result = 0;
+        return 0;
       }
 
       else
       {
         APSLogErrorAt();
-        result = 4294960568;
+        return 4294960568;
       }
     }
 
     else
     {
       APSLogErrorAt();
-      result = 4294960569;
+      return 4294960569;
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6637,26 +6858,23 @@ uint64_t APTransportDeviceStartTracking(void *a1, uint64_t a2)
     return 0;
   }
 
-  v4 = a1[3];
   Int64 = CFDictionaryGetInt64();
-  VTable = CMBaseObjectGetVTable();
-  v7 = *(*(VTable + 16) + 40);
-  if (!v7)
+  v5 = *(*(CMBaseObjectGetVTable() + 16) + 40);
+  if (!v5)
   {
-    v9 = 4294954514;
-LABEL_9:
+    v6 = 4294954514;
+LABEL_8:
     APSLogErrorAt();
-    return v9;
+    return v6;
   }
 
-  v8 = *(VTable + 16) + 40;
-  v9 = v7(v2, Int64, a2);
-  if (v9)
+  v6 = v5(v2, Int64, a2);
+  if (v6)
   {
-    goto LABEL_9;
+    goto LABEL_8;
   }
 
-  return v9;
+  return v6;
 }
 
 uint64_t APTransportDeviceStopTracking(void *a1)
@@ -6669,23 +6887,20 @@ uint64_t APTransportDeviceStopTracking(void *a1)
   v1 = a1[2];
   if (v1)
   {
-    v2 = a1[3];
     Int64 = CFDictionaryGetInt64();
-    VTable = CMBaseObjectGetVTable();
-    v5 = *(*(VTable + 16) + 48);
-    if (!v5)
+    v3 = *(*(CMBaseObjectGetVTable() + 16) + 48);
+    if (!v3)
     {
       v1 = 4294954514;
-LABEL_9:
+LABEL_8:
       APSLogErrorAt();
       return v1;
     }
 
-    v6 = *(VTable + 16) + 48;
-    v1 = v5(v1, Int64);
+    v1 = v3(v1, Int64);
     if (v1)
     {
-      goto LABEL_9;
+      goto LABEL_8;
     }
   }
 
@@ -6702,23 +6917,20 @@ uint64_t APTransportDeviceReconfirm(void *a1)
   v1 = a1[2];
   if (v1)
   {
-    v2 = a1[3];
     Int64 = CFDictionaryGetInt64();
-    VTable = CMBaseObjectGetVTable();
-    v5 = *(*(VTable + 16) + 56);
-    if (!v5)
+    v3 = *(*(CMBaseObjectGetVTable() + 16) + 56);
+    if (!v3)
     {
       v1 = 4294954514;
-LABEL_9:
+LABEL_8:
       APSLogErrorAt();
       return v1;
     }
 
-    v6 = *(VTable + 16) + 56;
-    v1 = v5(v1, Int64, 0);
+    v1 = v3(v1, Int64, 0);
     if (v1)
     {
-      goto LABEL_9;
+      goto LABEL_8;
     }
   }
 
@@ -6743,29 +6955,26 @@ uint64_t APTransportDeviceTriggerWoLCachingIfNeeded(void *a1, uint64_t a2)
     return 0;
   }
 
-  v4 = a1[3];
   Int64 = CFDictionaryGetInt64();
-  VTable = CMBaseObjectGetVTable();
-  v7 = *(*(VTable + 16) + 64);
-  if (!v7)
+  v5 = *(*(CMBaseObjectGetVTable() + 16) + 64);
+  if (!v5)
   {
-    v9 = 4294954514;
-LABEL_9:
+    v6 = 4294954514;
+LABEL_8:
     APSLogErrorAt();
-    return v9;
+    return v6;
   }
 
-  v8 = *(VTable + 16) + 64;
-  v9 = v7(v2, Int64, a2);
-  if (v9)
+  v6 = v5(v2, Int64, a2);
+  if (v6)
   {
-    goto LABEL_9;
+    goto LABEL_8;
   }
 
-  return v9;
+  return v6;
 }
 
-void __transportDevice_networkAddressesToCStringRepresentation_block_invoke()
+void __transportDevice_networkAddressesToCStringRepresentation_block_invoke(uint64_t a1, uint64_t a2)
 {
   if (APSNetworkAddressCopyStringRepresentation())
   {
@@ -6780,31 +6989,23 @@ void APTransportDeviceCreate_cold_1(const void *a1)
   CFRelease(a1);
 }
 
-uint64_t APTransportDeviceGetAddress_cold_1(uint64_t a1, uint64_t *a2)
-{
-  v2 = *a2;
-  CFDictionaryGetInt64Ranged();
-  return LogPrintF();
-}
-
-uint64_t APTransportDeviceCopyProximityData_cold_1(uint64_t result, void *a2, uint64_t a3, uint64_t a4, void *a5)
+void **APTransportDeviceCopyProximityData_cold_1(void **result, void *a2, uint64_t a3, uint64_t a4, void *a5)
 {
   if (gLogCategory_APTransportDevice <= 90)
   {
     if (gLogCategory_APTransportDevice == -1)
     {
-      v7 = result;
+      v8 = result;
       result = _LogCategory_Initialize();
       if (!result)
       {
         goto LABEL_5;
       }
 
-      a2 = *v7;
+      a2 = *v8;
     }
 
-    [a2 localizedFailureReason];
-    result = LogPrintF();
+    result = LogPrintF(&gLogCategory_APTransportDevice, "CFDataRef APTransportDeviceCopyProximityData(APTransportDeviceRef)", 33554522, "[%{ptr}] Failed to archive NINearbyObject with error: %@\n", a3, [a2 localizedFailureReason]);
   }
 
 LABEL_5:
@@ -6812,17 +7013,17 @@ LABEL_5:
   return result;
 }
 
-uint64_t APTransportDeviceCopyProximityData_cold_2(int a1)
+uint64_t APTransportDeviceCopyProximityData_cold_2(int a1, uint64_t a2, uint64_t a3)
 {
   if (a1 != -1)
   {
-    return LogPrintF();
+    return LogPrintF(&gLogCategory_APTransportDevice, "CFDataRef APTransportDeviceCopyProximityData(APTransportDeviceRef)", 33554462, "[%{ptr}] Nearby object: %@\n", a2, a3);
   }
 
   result = _LogCategory_Initialize();
   if (result)
   {
-    return LogPrintF();
+    return LogPrintF(&gLogCategory_APTransportDevice, "CFDataRef APTransportDeviceCopyProximityData(APTransportDeviceRef)", 33554462, "[%{ptr}] Nearby object: %@\n", a2, a3);
   }
 
   return result;
@@ -6849,96 +7050,94 @@ void __getNIDiscoveryTokenClass_block_invoke_cold_1()
   __break(1u);
 }
 
-void __APTNANDataSessionRetainActivation_block_invoke_3(void *a1)
+void __APTNANDataSessionRetainActivation_block_invoke_3(void *a1, uint64_t a2)
 {
-  v2 = a1[5];
-  v3 = FigCFWeakReferenceHolderCopyReferencedObject();
+  v4 = FigCFWeakReferenceHolderCopyReferencedObject();
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (gLogCategory_APTNANDataSession <= 50 && (gLogCategory_APTNANDataSession != -1 || _LogCategory_Initialize()))
   {
-    v10 = a1[6];
-    LogPrintF();
+    LogPrintF(&gLogCategory_APTNANDataSession, "OSStatus APTNANDataSessionRetainActivation(APTNANDataSessionRef)_block_invoke_3", 33554482, "NANDS [%{ptr}] terminated: %@", a1[6], a2);
   }
 
-  if (v3)
+  if (v4)
   {
-    v5 = a1[4];
-    v6 = NSErrorToOSStatus();
-    if (v6 != 313374)
+    v6 = a1[4];
+    v7 = NSErrorToOSStatus();
+    if (v7 != 313374)
     {
       goto LABEL_25;
     }
 
-    v7 = [v5 wfaDataSessionClient];
-    if (!v7)
+    v8 = [v6 wfaDataSessionClient];
+    if (!v8)
     {
-      if (gLogCategory_APTNANDataSession <= 90 && (gLogCategory_APTNANDataSession != -1 || OUTLINED_FUNCTION_9_0()))
+      if (gLogCategory_APTNANDataSession <= 90 && (gLogCategory_APTNANDataSession != -1 || OUTLINED_FUNCTION_9_0(&gLogCategory_APTNANDataSession)))
       {
-        OUTLINED_FUNCTION_15();
+        OUTLINED_FUNCTION_15(&gLogCategory_APTNANDataSession, "OSStatus _APTNANDataSessionGetTerminationError(CUNANDataSession *, const void *, OSStatus)", v9, "### NANDS [%{ptr}] Failed to retrieve WFADataSessionClient");
       }
 
-      v6 = 313374;
+      v7 = 313374;
       goto LABEL_25;
     }
 
-    v6 = -72401;
-    v8 = [v7 internetSharingPolicy];
-    if ((v8 - 2) < 2)
+    v7 = -72401;
+    v10 = [v8 internetSharingPolicy];
+    if ((v10 - 2) < 2)
     {
       goto LABEL_21;
     }
 
-    if (v8 == 1)
+    if (v10 == 1)
     {
-      v6 = -72400;
+      v7 = -72400;
     }
 
     else
     {
-      if (!v8)
+      if (!v10)
       {
         if (gLogCategory_APTNANDataSession <= 90)
         {
-          if (gLogCategory_APTNANDataSession != -1 || OUTLINED_FUNCTION_9_0())
+          if (gLogCategory_APTNANDataSession != -1 || OUTLINED_FUNCTION_9_0(&gLogCategory_APTNANDataSession))
           {
-            OUTLINED_FUNCTION_15();
+            OUTLINED_FUNCTION_15(&gLogCategory_APTNANDataSession, "OSStatus _APTNANDataSessionGetTerminationError(CUNANDataSession *, const void *, OSStatus)", v11, "### NANDS [%{ptr}] WFA error %#m with WiFiP2PInternetSharingPolicyOff");
           }
 
-          v6 = -6762;
+          v7 = -6762;
           goto LABEL_21;
         }
 
-        v6 = -6762;
+        v7 = -6762;
 LABEL_25:
-        CFRetain(v3);
-        v9 = *(DerivedStorage + 32);
+        CFRetain(v4);
+        v12 = *(DerivedStorage + 32);
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __APTNANDataSessionRetainActivation_block_invoke_4;
         block[3] = &__block_descriptor_52_e5_v8__0l;
-        v12 = v6;
+        v14 = v7;
         block[4] = DerivedStorage;
-        block[5] = v3;
-        dispatch_async(v9, block);
-        CFRelease(v3);
+        block[5] = v4;
+        dispatch_async(v12, block);
+        CFRelease(v4);
         return;
       }
 
       if (APSIsPersistentGroupSDBCapable())
       {
-        v6 = -72401;
+        v7 = -72401;
       }
 
       else
       {
-        v6 = -72400;
+        v7 = -72400;
       }
     }
 
 LABEL_21:
-    if (gLogCategory_APTNANDataSession <= 90 && (gLogCategory_APTNANDataSession != -1 || OUTLINED_FUNCTION_9_0()))
+    if (gLogCategory_APTNANDataSession <= 90 && (gLogCategory_APTNANDataSession != -1 || OUTLINED_FUNCTION_9_0(&gLogCategory_APTNANDataSession)))
     {
-      OUTLINED_FUNCTION_15();
+      OUTLINED_FUNCTION_15(&gLogCategory_APTNANDataSession, "OSStatus _APTNANDataSessionGetTerminationError(CUNANDataSession *, const void *, OSStatus)", v11, "### NANDS [%{ptr}] infra relay policy=%ld failed, throwing err=%#m");
     }
 
     goto LABEL_25;
@@ -6947,62 +7146,54 @@ LABEL_21:
 
 void __APTNANDataSessionRetainActivation_block_invoke_4(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 56);
   FigSimpleMutexLock();
-  v3 = *(a1 + 32);
-  if (*(v3 + 80))
+  v2 = *(a1 + 32);
+  if (*(v2 + 80))
   {
-    *(v3 + 88) = *(a1 + 48);
+    *(v2 + 88) = *(a1 + 48);
   }
 
-  v4 = *(v3 + 56);
   FigSimpleMutexUnlock();
-  v5 = *(a1 + 40);
-  if (v5)
+  v3 = *(a1 + 40);
+  if (v3)
   {
 
-    CFRelease(v5);
+    CFRelease(v3);
   }
 }
 
-uint64_t _APTNANDataSessionReportIssue(uint64_t a1)
+uint64_t _APTNANDataSessionReportIssue(uint64_t a1, uint64_t a2)
 {
-  v16 = 0;
+  v12 = 0;
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   cf = 0;
-  v3 = *MEMORY[0x277CEA1F0];
   CFStringGetTypeID();
   CFDictionaryGetTypedValue();
-  v4 = *MEMORY[0x277CEA1F8];
   if (FigCFEqual())
   {
-    v5 = *(DerivedStorage + 56);
     FigSimpleMutexLock();
-    v6 = *MEMORY[0x277CEA1E0];
     CFNumberGetTypeID();
     TypedValue = CFDictionaryGetTypedValue();
-    v8 = *MEMORY[0x277CEA1E8];
     CFNumberGetTypeID();
-    v9 = CFDictionaryGetTypedValue();
-    v16 = APTNANDataSessionIssueReportCreate(TypedValue, v9, &cf);
-    if (v16)
+    v5 = CFDictionaryGetTypedValue();
+    v12 = APTNANDataSessionIssueReportCreate(TypedValue, v5, &cf);
+    if (v12)
     {
       APSLogErrorAt();
     }
 
     else if (gLogCategory_APTNANDataSession <= 50 && (gLogCategory_APTNANDataSession != -1 || _LogCategory_Initialize()))
     {
-      v14 = cf;
-      OUTLINED_FUNCTION_9();
-      [*(DerivedStorage + 80) reportIssue:{cf, a1, v14}];
+      v10 = cf;
+      OUTLINED_FUNCTION_9(&gLogCategory_APTNANDataSession, "OSStatus _APTNANDataSessionReportIssue(APSIssueReporterRef, CFDictionaryRef)", v6, "NANDS [%{ptr}] Submitting NAN Issue Report '%@'");
+      [*(DerivedStorage + 80) reportIssue:{cf, a1, v10}];
     }
 
     else
     {
-      [*(DerivedStorage + 80) reportIssue:{cf, v12, v13}];
+      [*(DerivedStorage + 80) reportIssue:{cf, v8, v9}];
     }
 
-    v10 = *(DerivedStorage + 56);
     FigSimpleMutexUnlock();
     if (cf)
     {
@@ -7010,47 +7201,32 @@ uint64_t _APTNANDataSessionReportIssue(uint64_t a1)
     }
   }
 
-  return v16;
+  return v12;
 }
 
-uint64_t APTNANDataSessionIsActivatable_cold_1()
+uint64_t APTNANDataSessionIsActivatable_cold_1(uint64_t a1, uint64_t a2)
 {
   result = APSLogErrorAt();
   if (gLogCategory_APTNANDataSession <= 50)
   {
     if (gLogCategory_APTNANDataSession != -1)
     {
-      return OUTLINED_FUNCTION_9();
+      return OUTLINED_FUNCTION_9(&gLogCategory_APTNANDataSession, "Boolean APTNANDataSessionIsActivatable(APTNANDataSessionRef)", v3, "NANDS [%{ptr}] not activatable, failed to obtain NANEndpoint with error: %#m");
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return OUTLINED_FUNCTION_9();
+      return OUTLINED_FUNCTION_9(&gLogCategory_APTNANDataSession, "Boolean APTNANDataSessionIsActivatable(APTNANDataSessionRef)", v3, "NANDS [%{ptr}] not activatable, failed to obtain NANEndpoint with error: %#m");
     }
   }
 
   return result;
 }
 
-uint64_t __APTNANDataSessionRetainActivation_block_invoke_5_cold_1(uint64_t a1)
-{
-  v3 = *(a1 + 64);
-  v2 = *(a1 + 56);
-  return OUTLINED_FUNCTION_15();
-}
-
-uint64_t __APTNANDataSessionRetainActivation_block_invoke_5_cold_2(uint64_t a1)
-{
-  v2 = *(a1 + 56);
-  v3 = *(a1 + 64);
-  return OUTLINED_FUNCTION_9();
-}
-
 uint64_t APTNANDataSessionCreateStatisticsReport_cold_3(uint64_t *a1)
 {
   APSLogErrorAt();
-  v2 = *a1;
 
   return FigSimpleMutexUnlock();
 }
@@ -7063,7 +7239,7 @@ uint64_t APBrokerCreateBrokeredReceiversFromBrokerResponse(uint64_t a1, uint64_t
   v17 = 0;
   if (gLogCategory_APBroker <= 30 && (gLogCategory_APBroker != -1 || _LogCategory_Initialize()))
   {
-    OUTLINED_FUNCTION_7_0();
+    OUTLINED_FUNCTION_7_0(&gLogCategory_APBroker, "OSStatus APBrokerCreateBrokeredReceiversFromBrokerResponse(CFStringRef, CFDictionaryRef, CFDictionaryRef *, uint64_t *)", a3, "Create BrokeredReceivers from broker response:%@\n");
   }
 
   v8 = 4294960591;
@@ -7138,96 +7314,123 @@ void _CallRequestCallbackBlock(int a1, NSObject *a2, const void *a3, void *aBloc
 void __APBrokerAuthenticate_block_invoke()
 {
   OUTLINED_FUNCTION_4_11();
-  if (v6 ^ v7 | v5)
+  if (v8 ^ v9 | v7)
   {
-    if (v4 == -1)
+    v10 = v5;
+    v11 = v4;
+    if (v6 == -1)
     {
       if (!_LogCategory_Initialize())
       {
-        goto LABEL_9;
+        goto LABEL_12;
       }
 
-      v4 = *(v3 + 2792);
+      v6 = *(v3 + 2792);
     }
 
-    v8 = *(v0 + 40);
-    if (v4 == -1)
+    v12 = *(v0 + 40);
+    if (v6 > 20)
     {
-      _LogCategory_Initialize();
+      v13 = 1;
     }
 
-    LogPrintF();
+    else
+    {
+      v13 = v6 == -1 && _LogCategory_Initialize() == 0;
+    }
+
+    LogPrintF(&gLogCategory_APBroker, "void APBrokerAuthenticate(APBrokerRef, CFStringRef, APBrokerAuthenticateCallbackBlock)_block_invoke", 33554482, "[%{ptr}] User auth token request finished. status=%ld, err=%#m%?{end}, data=%@\n", v12, v10, v1, v13, v11);
   }
 
-LABEL_9:
+LABEL_12:
   if (v1)
   {
     APSLogErrorAt();
     Mutable = 0;
-    goto LABEL_22;
+    goto LABEL_33;
   }
 
-  v9 = *(v0 + 48);
-  v10 = *(v9 + 40);
+  v14 = *(v0 + 48);
+  v22 = 0;
+  cf = 0;
+  v20 = 0;
+  v21 = 0;
   FigSimpleMutexCheckIsNotLockedOnThisThread();
   Mutable = 0;
-  v1 = -6705;
-  if (v2 && v9)
+  LODWORD(v1) = -6705;
+  if (v2 && v14)
   {
-    v12 = *(v3 + 2792);
-    if (v12 <= 30 && (v12 != -1 || _LogCategory_Initialize()))
+    v17 = *(v3 + 2792);
+    if (v17 <= 30 && (v17 != -1 || _LogCategory_Initialize()))
     {
-      OUTLINED_FUNCTION_7_0();
+      OUTLINED_FUNCTION_7_0(&gLogCategory_APBroker, "OSStatus _APBrokerHandleAuthenticationResponseCreatingCallbackResponse(APBrokerRef, CFDictionaryRef, CFDictionaryRef *)", v15, "[%{ptr}] Got Authentication response: %@\n");
     }
 
-    v13 = APBrokerCopyAuthInfoFromBrokerResponse();
-    if (v13)
+    v18 = APBrokerCopyAuthInfoFromBrokerResponse(v2, &cf, &v22, &v20, &v21);
+    if (v18)
     {
-      v1 = v13;
+      LODWORD(v1) = v18;
       APSLogErrorAt();
     }
 
     else
     {
-      v14 = *(v9 + 40);
       FigSimpleMutexLock();
-      v15 = APBrokerKeychainUtilsStoreAuthToken(*(v9 + 24), 0, 0, 0);
-      if (!v15)
+      v19 = APBrokerKeychainUtilsStoreAuthToken(*(v14 + 24), v20, cf, v22);
+      if (!v19)
       {
-        v16 = *(v9 + 40);
         FigSimpleMutexUnlock();
         Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
         if (Mutable)
         {
           FigCFDictionarySetValue();
-          v1 = 0;
+          LODWORD(v1) = 0;
         }
 
         else
         {
           APSLogErrorAt();
-          v1 = -6728;
+          LODWORD(v1) = -6728;
         }
 
-        goto LABEL_20;
+        goto LABEL_23;
       }
 
-      v1 = v15;
+      LODWORD(v1) = v19;
       APSLogErrorAt();
-      v17 = *(v9 + 40);
       FigSimpleMutexUnlock();
     }
 
     Mutable = 0;
   }
 
-LABEL_20:
+LABEL_23:
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  if (v22)
+  {
+    CFRelease(v22);
+  }
+
+  if (v21)
+  {
+    CFRelease(v21);
+  }
+
+  if (v20)
+  {
+    CFRelease(v20);
+  }
+
   if (v1)
   {
     APSLogErrorAt();
   }
 
-LABEL_22:
+LABEL_33:
   _CallRequestCallbackBlock(v1, *(v0 + 56), Mutable, *(v0 + 32));
   if (Mutable)
   {
@@ -7241,28 +7444,27 @@ LABEL_22:
 void __APBrokerGetInfo_block_invoke()
 {
   OUTLINED_FUNCTION_4_11();
-  if (!(v5 ^ v6 | v4))
+  if (!(v6 ^ v7 | v5))
   {
     goto LABEL_9;
   }
 
-  if (v3 == -1)
+  if (v4 == -1)
   {
     if (!_LogCategory_Initialize())
     {
       goto LABEL_9;
     }
 
-    v3 = *(v2 + 2792);
+    v4 = *(v2 + 2792);
   }
 
-  v7 = *(v0 + 40);
-  if (v3 == -1)
+  if (v4 == -1)
   {
     _LogCategory_Initialize();
   }
 
-  OUTLINED_FUNCTION_9();
+  OUTLINED_FUNCTION_9(&gLogCategory_APBroker, "void APBrokerGetInfo(APBrokerRef, APBrokerGetInfoCallbackBlock)_block_invoke", v3, "[%{ptr}] Get info request finished. status=%ld, err=%#m%?{end}, data=%@\n");
 LABEL_9:
   if (v1)
   {
@@ -7288,15 +7490,15 @@ LABEL_9:
   _Block_release(v9);
 }
 
-void __APBrokerGetReceiverConnectivityInfo_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int BrokeredReceiverConnectivityInfoFromBrokerResponse)
+void __APBrokerGetReceiverConnectivityInfo_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
+  BrokeredReceiverConnectivityInfoFromBrokerResponse = a6;
   cf = 0;
   if (gLogCategory_APBroker <= 50 && (gLogCategory_APBroker != -1 || _LogCategory_Initialize()))
   {
-    v10 = *(a1 + 40);
-    if (*(a1 + 48) && IsAppleInternalBuild())
+    if (*(a1 + 48))
     {
-      v11 = *(a1 + 48);
+      IsAppleInternalBuild();
     }
 
     if (gLogCategory_APBroker == -1)
@@ -7304,7 +7506,7 @@ void __APBrokerGetReceiverConnectivityInfo_block_invoke(uint64_t a1, uint64_t a2
       _LogCategory_Initialize();
     }
 
-    OUTLINED_FUNCTION_9();
+    OUTLINED_FUNCTION_9(&gLogCategory_APBroker, "void APBrokerGetReceiverConnectivityInfo(APBrokerRef, CFStringRef, CFStringRef, APBrokerGetReceiverConnectivityInfoCallbackBlock)_block_invoke", a3, "[%{ptr}] Receiver %@ connectivity info request finished. status=%ld, err=%#m%?{end}, data=%@\n");
   }
 
   if (BrokeredReceiverConnectivityInfoFromBrokerResponse || (BrokeredReceiverConnectivityInfoFromBrokerResponse = APBrokerCreateBrokeredReceiverConnectivityInfoFromBrokerResponse(a2, a4, &cf)) != 0)
@@ -7323,39 +7525,39 @@ void __APBrokerGetReceiverConnectivityInfo_block_invoke(uint64_t a1, uint64_t a2
   _Block_release(*(a1 + 32));
 }
 
-uint64_t APBrokerCopyAuthInfoFromBrokerResponse()
+uint64_t APBrokerCopyAuthInfoFromBrokerResponse(uint64_t a1, CFTypeRef *a2, CFTypeRef *a3, CFTypeRef *a4, CFTypeRef *a5)
 {
-  CFStringGetTypeID();
-  if (OUTLINED_FUNCTION_7_6())
+  TypeID = CFStringGetTypeID();
+  if (OUTLINED_FUNCTION_7_6(TypeID, @"userAuthToken", TypeID))
   {
-    CFNumberGetTypeID();
-    if (OUTLINED_FUNCTION_7_6())
+    v6 = CFNumberGetTypeID();
+    if (OUTLINED_FUNCTION_7_6(v6, @"userAuthTokenTTLSecs", v6))
     {
-      CFStringGetTypeID();
-      if (!OUTLINED_FUNCTION_7_6())
+      v7 = CFStringGetTypeID();
+      if (!OUTLINED_FUNCTION_7_6(v7, @"receiverGroupUUID", v7))
       {
-        v2 = 0;
-        v0 = 0;
+        v12 = 0;
+        v9 = 0;
         goto LABEL_8;
       }
 
-      CFDictionaryGetTypeID();
-      v0 = OUTLINED_FUNCTION_7_6();
-      if (!v0)
+      v8 = CFDictionaryGetTypeID();
+      v9 = OUTLINED_FUNCTION_7_6(v8, @"receiverInfo", v8);
+      if (!v9)
       {
 LABEL_17:
         APSLogErrorAt();
         goto LABEL_18;
       }
 
-      CFStringGetTypeID();
-      if (OUTLINED_FUNCTION_7_6())
+      v10 = CFStringGetTypeID();
+      if (OUTLINED_FUNCTION_7_6(v10, @"bonjourTXTRecord", v10))
       {
-        v0 = APSCFDataCreateWithBase64String();
-        if (!v0)
+        v9 = APSCFDataCreateWithBase64String();
+        if (!v9)
         {
           APSLogErrorAt();
-          v2 = 4294960568;
+          v12 = 4294960568;
           goto LABEL_8;
         }
 
@@ -7366,19 +7568,19 @@ LABEL_17:
   }
 
   APSLogErrorAt();
-  v0 = 0;
+  v9 = 0;
 LABEL_18:
-  v2 = 4294960591;
+  v12 = 4294960591;
 LABEL_8:
-  if (v0)
+  if (v9)
   {
-    CFRelease(v0);
+    CFRelease(v9);
   }
 
-  return v2;
+  return v12;
 }
 
-void *__APBrokerCreateBrokeredReceiversFromBrokerResponse_block_invoke(void *result, CFTypeRef cf)
+uint64_t __APBrokerCreateBrokeredReceiversFromBrokerResponse_block_invoke(uint64_t result, CFTypeRef cf)
 {
   if (cf)
   {
@@ -7397,7 +7599,7 @@ void *__APBrokerCreateBrokeredReceiversFromBrokerResponse_block_invoke(void *res
         {
           v4 = result;
           Int64 = CFDictionaryGetInt64();
-          v6 = *(v2[4] + 8);
+          v6 = *(*(v2 + 32) + 8);
           v7 = *(v6 + 24);
           if (!v7 || Int64 && Int64 < v7)
           {
@@ -7406,8 +7608,6 @@ void *__APBrokerCreateBrokeredReceiversFromBrokerResponse_block_invoke(void *res
 
           CFArrayGetCount(v4);
           OUTLINED_FUNCTION_1_2();
-          v8 = v2[5];
-          v9 = v2[6];
           return CFArrayApplyBlock();
         }
       }
@@ -7417,18 +7617,11 @@ void *__APBrokerCreateBrokeredReceiversFromBrokerResponse_block_invoke(void *res
   return result;
 }
 
-uint64_t APBrokerGetBrokeredReceivers_cold_3(uint64_t *a1)
-{
-  APSLogErrorAt();
-  v2 = *a1;
-  return FigSimpleMutexUnlock();
-}
-
 uint64_t APBrokerSendRequest_cold_1(uint64_t a1, int a2)
 {
   APBrokerHTTPProtocolString(*(a1 + 32));
   APBrokerHTTPMethodString(a2);
-  return OUTLINED_FUNCTION_7_0();
+  return OUTLINED_FUNCTION_7_0(&gLogCategory_APBroker, "void APBrokerSendRequest(APBrokerRef, int, CFStringRef, CFDictionaryRef, CFTypeRef, APBrokerHTTPResponseHandler)", v3, "[%{ptr}] Starting %s %s to %@\n");
 }
 
 uint64_t APBrokerSendRequest_cold_4(_DWORD *a1)
@@ -7445,11 +7638,11 @@ uint64_t APBrokerSendRequest_cold_7(_DWORD *a1)
   return result;
 }
 
-uint64_t APBrokerAuthenticate_cold_1(uint64_t a1)
+uint64_t APBrokerAuthenticate_cold_1(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (*(a1 + 24) && IsAppleInternalBuild())
+  if (*(a1 + 24))
   {
-    v2 = *(a1 + 24);
+    IsAppleInternalBuild();
   }
 
   if (gLogCategory_APBroker == -1)
@@ -7457,32 +7650,30 @@ uint64_t APBrokerAuthenticate_cold_1(uint64_t a1)
     _LogCategory_Initialize();
   }
 
-  return OUTLINED_FUNCTION_9();
+  return OUTLINED_FUNCTION_9(&gLogCategory_APBroker, "void APBrokerAuthenticate(APBrokerRef, CFStringRef, APBrokerAuthenticateCallbackBlock)", a3, "[%{ptr}] Requesting user auth token for group: %@%?{end} with broker token: %@\n");
 }
 
-void APBrokerAuthenticate_cold_3(uint64_t *a1, const void *a2)
+void APBrokerAuthenticate_cold_3(void *a1, const void *a2)
 {
   APSLogErrorAt();
-  v4 = *a1;
   FigSimpleMutexUnlock();
 
   CFRelease(a2);
 }
 
-uint64_t APBrokerGetInfo_cold_1(uint64_t a1)
+uint64_t APBrokerGetInfo_cold_1(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (*(a1 + 24) && IsAppleInternalBuild())
+  if (*(a1 + 24))
   {
-    v2 = *(a1 + 24);
+    IsAppleInternalBuild();
   }
 
-  return OUTLINED_FUNCTION_9();
+  return OUTLINED_FUNCTION_9(&gLogCategory_APBroker, "void APBrokerGetInfo(APBrokerRef, APBrokerGetInfoCallbackBlock)", a3, "[%{ptr}] Requesting info for group: %@\n");
 }
 
 uint64_t APBrokerGetInfo_cold_3(uint64_t *a1)
 {
   APSLogErrorAt();
-  v2 = *a1;
 
   return FigSimpleMutexUnlock();
 }
@@ -7495,7 +7686,7 @@ uint64_t APBrokerGetReceiverConnectivityInfo_cold_1(uint64_t a1)
   }
 
   IsAppleInternalBuild();
-  return OUTLINED_FUNCTION_7_0();
+  return OUTLINED_FUNCTION_7_0(&gLogCategory_APBroker, "void APBrokerGetReceiverConnectivityInfo(APBrokerRef, CFStringRef, CFStringRef, APBrokerGetReceiverConnectivityInfoCallbackBlock)", v1, "[%{ptr}] Get connectivity info for receiver with groupUUID %@ publicUUID %@\n");
 }
 
 uint64_t APBrokerCreateBrokeredReceiverConnectivityInfoFromBrokerResponse_cold_5(_DWORD *a1)
@@ -7505,46 +7696,37 @@ uint64_t APBrokerCreateBrokeredReceiverConnectivityInfoFromBrokerResponse_cold_5
   return result;
 }
 
-uint64_t _APBrokerFinalize_cold_1(uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  v3 = *(a1 + 16);
-  return OUTLINED_FUNCTION_9();
-}
-
 uint64_t __APBrokerSendRequest_block_invoke_cold_1(uint64_t a1)
 {
-  v1 = *(a1 + 40);
   APBrokerHTTPProtocolString(*(*(a1 + 48) + 32));
   if (gLogCategory_APBroker == -1)
   {
     _LogCategory_Initialize();
   }
 
-  return OUTLINED_FUNCTION_7_0();
+  return OUTLINED_FUNCTION_7_0(&gLogCategory_APBroker, "void APBrokerSendRequest(APBrokerRef, int, CFStringRef, CFDictionaryRef, CFTypeRef, APBrokerHTTPResponseHandler)_block_invoke", v1, "[%{ptr}] %s request finished: status=%ld, err=%#m%?{end}, data=%@\n");
 }
 
-void service_invalidateInternal()
+void service_invalidateInternal(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (!*DerivedStorage)
   {
-    v1 = DerivedStorage;
+    v3 = DerivedStorage;
     if (gLogCategory_APTransportService <= 30 && (gLogCategory_APTransportService != -1 || _LogCategory_Initialize()))
     {
-      v3 = *(v1 + 5);
-      LogPrintF();
+      LogPrintF(&gLogCategory_APTransportService, "OSStatus service_invalidateInternal(CMBaseObjectRef)", 33554462, "APTransportService %{ptr} with type %@ invalidating.\n", a1, *(v3 + 5));
     }
 
-    *v1 = 1;
-    service_cleanUp();
-    *(v1 + 3) = 0;
-    *(v1 + 4) = 0;
-    v2 = *(v1 + 6);
-    if (v2)
+    *v3 = 1;
+    service_cleanUp(a1);
+    *(v3 + 3) = 0;
+    *(v3 + 4) = 0;
+    v4 = *(v3 + 6);
+    if (v4)
     {
-      CFRelease(v2);
-      *(v1 + 6) = 0;
+      CFRelease(v4);
+      *(v3 + 6) = 0;
     }
   }
 }
@@ -7583,18 +7765,18 @@ uint64_t service_handleListenerConnected_cold_2()
 void __APTransportWifiManagerClientUnregister_block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 40);
-  if (*(v2 + 56))
+  v3 = *(v2 + 56);
+  if (v3)
   {
-    v3 = *(v2 + 24);
-    v4 = __OFSUB__(v3--, 1);
-    *(v2 + 24) = v3;
-    if ((v3 < 0) ^ v4 | (v3 == 0))
+    v4 = *(v2 + 24);
+    v5 = __OFSUB__(v4--, 1);
+    *(v2 + 24) = v4;
+    if ((v4 < 0) ^ v5 | (v4 == 0))
     {
       [*(v2 + 48) endActivity:?];
       if (gLogCategory_APTransportWifiManagerClient <= 40 && (gLogCategory_APTransportWifiManagerClient != -1 || _LogCategory_Initialize()))
       {
-        v6 = *(v2 + 48);
-        LogPrintF();
+        LogPrintF(&gLogCategory_APTransportWifiManagerClient, "OSStatus wifiManagerClient_unregisterInternal(APTransportWifiManagerClientRef)", 33554472, "Destroying CWFInterface [%{ptr}]\n", *(v2 + 48));
       }
 
       *(v2 + 56) = 0;
@@ -7603,22 +7785,20 @@ void __APTransportWifiManagerClientUnregister_block_invoke(uint64_t a1)
       *(v2 + 48) = 0;
     }
 
-    if (gLogCategory_APTransportWifiManagerClient <= 30 && (gLogCategory_APTransportWifiManagerClient != -1 || OUTLINED_FUNCTION_8_0()))
+    if (gLogCategory_APTransportWifiManagerClient <= 30 && (gLogCategory_APTransportWifiManagerClient != -1 || OUTLINED_FUNCTION_8_0(&gLogCategory_APTransportWifiManagerClient)))
     {
-      v7 = *(v2 + 48);
-      v8 = *(v2 + 24);
-      OUTLINED_FUNCTION_7_0();
+      OUTLINED_FUNCTION_7_0(&gLogCategory_APTransportWifiManagerClient, "OSStatus wifiManagerClient_unregisterInternal(APTransportWifiManagerClientRef)", v3, "[%{ptr}] Unregister: RegistrationCount = %d\n");
     }
   }
 
   CFRetain(v2);
-  v5 = *(v2 + 16);
+  v6 = *(v2 + 16);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __wifiManagerClient_unregisterInternal_block_invoke;
   block[3] = &__block_descriptor_40_e5_v8__0l;
   block[4] = v2;
-  dispatch_async(v5, block);
+  dispatch_async(v6, block);
   *(*(*(a1 + 32) + 8) + 24) = 0;
 }
 
@@ -7627,83 +7807,80 @@ uint64_t wifiManagerClient_ensureSubscribedForStatistics(uint64_t a1)
   v4 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
-    v3 = 0;
+    return 0;
   }
 
-  else if (Apple80211GetIOReportingService())
+  if (Apple80211GetIOReportingService())
   {
     if (gLogCategory_APTransportWifiManagerClient <= 90 && (gLogCategory_APTransportWifiManagerClient != -1 || _LogCategory_Initialize()))
     {
-      Apple80211ErrToStr();
-      LogPrintF();
+      v2 = Apple80211ErrToStr();
+      LogPrintF(&gLogCategory_APTransportWifiManagerClient, "OSStatus wifiManagerClient_ensureSubscribedForStatistics(APTransportWifiManagerClientRef)", 33554522, "Error getting IOReportingService: %s\n", v2);
     }
 
-    v3 = 4294960534;
+    return 4294960534;
   }
 
   else
   {
     APSLogErrorAt();
-    v3 = APSSignalErrorAt();
+    return APSSignalErrorAt();
   }
-
-  v1 = *MEMORY[0x277D85DE8];
-  return v3;
 }
 
-uint64_t __wifiManagerClient_copyWifiStatistics_block_invoke(uint64_t a1)
+uint64_t __wifiManagerClient_copyWifiStatistics_block_invoke(uint64_t a1, uint64_t a2)
 {
   IOReportChannelGetGroup();
-  v2 = FigCFEqual();
+  v3 = FigCFEqual();
   ChannelName = IOReportChannelGetChannelName();
   if (!ChannelName)
   {
     return 0;
   }
 
-  v4 = ChannelName;
+  v5 = ChannelName;
   Length = CFStringGetLength(ChannelName);
-  MutableCopy = CFStringCreateMutableCopy(0, Length, v4);
+  MutableCopy = CFStringCreateMutableCopy(0, Length, v5);
   CFStringTrimWhitespace(MutableCopy);
   UnitLabel = IOReportChannelGetUnitLabel();
   IntegerValue = IOReportSimpleGetIntegerValue();
-  v9 = CFStringCreateWithFormat(0, 0, @"%lld%@", IntegerValue, UnitLabel);
+  v10 = CFStringCreateWithFormat(0, 0, @"%lld%@", IntegerValue, UnitLabel);
   if (FigCFEqual())
   {
-    v10 = *(a1 + 32);
-    if (v2)
+    v11 = *(a1 + 32);
+    if (v3)
     {
-      v11 = @"P2PCCA";
+      v12 = @"P2PCCA";
     }
 
     else
     {
-      v11 = @"InfraCCA";
+      v12 = @"InfraCCA";
     }
   }
 
   else if (FigCFEqual())
   {
-    v10 = *(a1 + 32);
-    v11 = @"InfraRSSI";
+    v11 = *(a1 + 32);
+    v12 = @"InfraRSSI";
   }
 
   else
   {
-    if (!FigCFEqual() || v2)
+    if (!FigCFEqual() || v3)
     {
       goto LABEL_12;
     }
 
-    v10 = *(a1 + 32);
-    v11 = @"InfraSNR";
+    v11 = *(a1 + 32);
+    v12 = @"InfraSNR";
   }
 
-  CFDictionarySetValue(v10, v11, v9);
+  CFDictionarySetValue(v11, v12, v10);
 LABEL_12:
-  if (v9)
+  if (v10)
   {
-    CFRelease(v9);
+    CFRelease(v10);
   }
 
   if (MutableCopy)
@@ -7723,29 +7900,29 @@ void APTransportWifiManagerClientCreate_cold_3(const void *a1)
 
 uint64_t __APTransportWifiManagerClientCopyWifiStatistics_block_invoke_cold_2(_DWORD *a1)
 {
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_3_10();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_3_10(v2, "IOReportIterate failed");
   *a1 = result;
   return result;
 }
 
 uint64_t __APTransportWifiManagerClientGetPeerRSSI_block_invoke_cold_3(_DWORD *a1)
 {
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_3_10();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_3_10(v2, "IOReportIterate failed");
   *a1 = result;
   return result;
 }
 
 uint64_t __APTransportWifiManagerClientGetPeerRSSI_block_invoke_cold_4(_DWORD *a1)
 {
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_3_10();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_3_10(v2, "IOReportIterate failed");
   *a1 = result;
   return result;
 }
 
-uint64_t __APTransportWifiManagerClientGetPeerRSSI_block_invoke_cold_5(_DWORD *a1, uint64_t *a2, void *a3, void *a4)
+uint64_t __APTransportWifiManagerClientGetPeerRSSI_block_invoke_cold_5(_DWORD *a1, void *a2, void *a3, void *a4)
 {
   result = APSLogErrorAt();
   *a1 = -71730;
@@ -7753,8 +7930,7 @@ uint64_t __APTransportWifiManagerClientGetPeerRSSI_block_invoke_cold_5(_DWORD *a
   {
     if (gLogCategory_APTransportWifiManagerClient != -1 || (result = _LogCategory_Initialize(), result))
     {
-      v9 = *a2;
-      result = LogPrintF();
+      result = LogPrintF(&gLogCategory_APTransportWifiManagerClient, "OSStatus wifiManagerClient_getPeerRSSI(APTransportWifiManagerClientRef, uint8_t *, int64_t *)", 33554522, "Create samples failed, error=%@", *a2);
     }
   }
 
@@ -7770,15 +7946,20 @@ uint64_t __APTransportWifiManagerClientGetPeerRSSI_block_invoke_cold_6(_DWORD *a
   return result;
 }
 
-uint64_t wifiManagerClient_dumpWifiStatistics_cold_3(uint64_t *a1)
+uint64_t wifiManagerClient_dumpWifiStatistics_cold_3(void *a1)
 {
   result = APSLogErrorAt();
   if (gLogCategory_APTransportWifiManagerClient <= 90)
   {
-    if (gLogCategory_APTransportWifiManagerClient != -1 || (result = _LogCategory_Initialize(), result))
+    if (gLogCategory_APTransportWifiManagerClient != -1)
     {
-      v3 = *a1;
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_APTransportWifiManagerClient, "OSStatus wifiManagerClient_dumpWifiStatistics(APTransportWifiManagerClientRef)", 33554522, "Create samples failed, error=%@", *a1);
+    }
+
+    result = _LogCategory_Initialize();
+    if (result)
+    {
+      return LogPrintF(&gLogCategory_APTransportWifiManagerClient, "OSStatus wifiManagerClient_dumpWifiStatistics(APTransportWifiManagerClientRef)", 33554522, "Create samples failed, error=%@", *a1);
     }
   }
 
@@ -7794,73 +7975,51 @@ void APTransportPackageScreenCreateWithBBuf_cold_1(uint64_t a1, CFTypeRef *a2)
   }
 }
 
-uint64_t streamAggregate_invalidateInternal()
+void streamAggregate_invalidateInternal(uint64_t a1)
 {
-  result = CMBaseObjectGetDerivedStorage();
-  if (!*result)
+  DerivedStorage = CMBaseObjectGetDerivedStorage();
+  if (!*DerivedStorage)
   {
-    v1 = result;
-    *result = 1;
-    v2 = *(result + 56);
-    result = FigCFDictionaryGetCount();
-    if (result >= 1 && gLogCategory_APTransportStreamAggregate <= 90)
+    v3 = DerivedStorage;
+    *DerivedStorage = 1;
+    if (FigCFDictionaryGetCount() >= 1 && gLogCategory_APTransportStreamAggregate <= 90 && (gLogCategory_APTransportStreamAggregate != -1 || _LogCategory_Initialize()))
     {
-      if (gLogCategory_APTransportStreamAggregate != -1 || (result = _LogCategory_Initialize(), result))
-      {
-        result = LogPrintF();
-      }
+      LogPrintF(&gLogCategory_APTransportStreamAggregate, "OSStatus streamAggregate_invalidateInternal(FigTransportStreamRef)", 33554522, "[%{ptr}] ### Non-Zero sub connection count upon invalidate\n", a1);
     }
 
-    v3 = *(v1 + 48);
-    if (v3)
+    v4 = *(v3 + 6);
+    if (v4)
     {
-      v4 = *(v1 + 48);
-      VTable = CMBaseObjectGetVTable();
-      v6 = *(*(VTable + 16) + 24);
-      if (v6)
+      v5 = *(*(CMBaseObjectGetVTable() + 16) + 24);
+      if (v5)
       {
-        v7 = *(VTable + 16) + 24;
-        v6(v3, 0);
+        v5(v4, 0);
       }
 
-      result = APTransportConnectionGetCMBaseObject(*(v1 + 48));
-      if (result)
+      APTransportConnectionGetCMBaseObject();
+      if (v6)
       {
-        v8 = result;
-        v9 = CMBaseObjectGetVTable();
-        v10 = *(v9 + 8);
-        result = v9 + 8;
-        v11 = *(v10 + 24);
-        if (v11)
+        v7 = v6;
+        v8 = *(*(CMBaseObjectGetVTable() + 8) + 24);
+        if (v8)
         {
-          result = v11(v8);
+          v8(v7);
         }
       }
     }
 
-    if (gLogCategory_APTransportStreamAggregate <= 30)
+    if (gLogCategory_APTransportStreamAggregate <= 30 && (gLogCategory_APTransportStreamAggregate != -1 || _LogCategory_Initialize()))
     {
-      if (gLogCategory_APTransportStreamAggregate != -1)
-      {
-        return LogPrintF();
-      }
-
-      result = _LogCategory_Initialize();
-      if (result)
-      {
-        return LogPrintF();
-      }
+      LogPrintF(&gLogCategory_APTransportStreamAggregate, "OSStatus streamAggregate_invalidateInternal(FigTransportStreamRef)", 33554462, "[%{ptr}] Invalidate\n", a1);
     }
   }
-
-  return result;
 }
 
 uint64_t streamAggregate_SendMessage(uint64_t a1, uint64_t a2, OpaqueCMBlockBuffer *a3)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v15 = 0;
-  v14 = 0;
+  v19 = 0;
+  v18 = 0;
   if (*DerivedStorage)
   {
     return 0;
@@ -7869,27 +8028,27 @@ uint64_t streamAggregate_SendMessage(uint64_t a1, uint64_t a2, OpaqueCMBlockBuff
   v7 = DerivedStorage;
   if (*(DerivedStorage + 48))
   {
-    v8 = streamAggregate_copyFormattedAsyncPackageForBBuf(a1, a3, a2, &v15, &v14);
+    v8 = streamAggregate_copyFormattedAsyncPackageForBBuf(a1, a3, a2, &v19, &v18);
     if (v8)
     {
-      v12 = v8;
+      v16 = v8;
     }
 
     else
     {
-      if (gLogCategory_APTransportStreamAggregate <= 10 && (gLogCategory_APTransportStreamAggregate != -1 || OUTLINED_FUNCTION_2_15()))
+      if (gLogCategory_APTransportStreamAggregate <= 10 && (gLogCategory_APTransportStreamAggregate != -1 || OUTLINED_FUNCTION_2_15(&gLogCategory_APTransportStreamAggregate)))
       {
         OUTLINED_FUNCTION_1_21();
-        LogPrintF();
+        LogPrintF(v9, v10, v11, v12, a1, a2, a3);
       }
 
-      v9 = *(v7 + 48);
-      v10 = v15;
-      v11 = *(*(CMBaseObjectGetVTable() + 16) + 56);
-      if (v11)
+      v13 = *(v7 + 48);
+      v14 = v19;
+      v15 = *(*(CMBaseObjectGetVTable() + 16) + 56);
+      if (v15)
       {
-        v12 = v11(v9, v10);
-        if (!v12)
+        v16 = v15(v13, v14);
+        if (!v16)
         {
           goto LABEL_13;
         }
@@ -7897,7 +8056,7 @@ uint64_t streamAggregate_SendMessage(uint64_t a1, uint64_t a2, OpaqueCMBlockBuff
 
       else
       {
-        v12 = 4294954514;
+        v16 = 4294954514;
       }
     }
 
@@ -7906,16 +8065,16 @@ uint64_t streamAggregate_SendMessage(uint64_t a1, uint64_t a2, OpaqueCMBlockBuff
 
   else
   {
-    v12 = 0;
+    v16 = 0;
   }
 
 LABEL_13:
-  if (v14)
+  if (v18)
   {
     APTransportStreamSendBackingProviderRelinquishBBuf(*(v7 + 8), a3);
   }
 
-  return v12;
+  return v16;
 }
 
 uint64_t streamAggregate_SendBatch(uint64_t a1, uint64_t a2, const __CFArray *a3)
@@ -7938,38 +8097,38 @@ uint64_t streamAggregate_SendBatch(uint64_t a1, uint64_t a2, const __CFArray *a3
     if (v11)
     {
       v12 = v11;
-      v29 = DerivedStorage;
+      v40 = DerivedStorage;
       bzero(v11, v8);
-      if (gLogCategory_APTransportStreamAggregate <= 10 && (gLogCategory_APTransportStreamAggregate != -1 || OUTLINED_FUNCTION_2_15()))
+      if (gLogCategory_APTransportStreamAggregate <= 10 && (gLogCategory_APTransportStreamAggregate != -1 || OUTLINED_FUNCTION_2_15(&gLogCategory_APTransportStreamAggregate)))
       {
         OUTLINED_FUNCTION_1_21();
-        LogPrintF();
+        LogPrintF(v13, v14, v15, v16, a1, a2);
       }
 
       if (v8 < 1)
       {
 LABEL_21:
-        if (gLogCategory_APTransportStreamAggregate <= 10 && (gLogCategory_APTransportStreamAggregate != -1 || OUTLINED_FUNCTION_2_15()))
+        if (gLogCategory_APTransportStreamAggregate <= 10 && (gLogCategory_APTransportStreamAggregate != -1 || OUTLINED_FUNCTION_2_15(&gLogCategory_APTransportStreamAggregate)))
         {
           OUTLINED_FUNCTION_1_21();
-          LogPrintF();
+          LogPrintF(v27, v28, v29, v30, a1, a2);
         }
 
-        v20 = v29;
-        v21 = *(v29 + 48);
-        v22 = *(*(CMBaseObjectGetVTable() + 16) + 88);
-        if (v22)
+        v31 = v40;
+        v32 = *(v40 + 48);
+        v33 = *(*(CMBaseObjectGetVTable() + 16) + 88);
+        if (v33)
         {
-          v23 = v22(v21, Mutable);
+          v34 = v33(v32, Mutable);
         }
 
         else
         {
-          v23 = APTransportConnectionSendBatchSlow(v21, Mutable);
+          v34 = APTransportConnectionSendBatchSlow(v32, Mutable);
         }
 
-        v24 = v23;
-        if (v23)
+        v35 = v34;
+        if (v34)
         {
           APSLogErrorAt();
         }
@@ -7977,29 +8136,29 @@ LABEL_21:
 
       else
       {
-        v13 = 0;
-        v14 = v12;
-        v15 = v8;
+        v17 = 0;
+        v18 = v12;
+        v19 = v8;
         while (1)
         {
-          ValueAtIndex = CFArrayGetValueAtIndex(a3, v13);
-          if (!ValueAtIndex || (v17 = ValueAtIndex, v18 = CFGetTypeID(ValueAtIndex), v18 != CMBlockBufferGetTypeID()))
+          ValueAtIndex = CFArrayGetValueAtIndex(a3, v17);
+          if (!ValueAtIndex || (v21 = ValueAtIndex, v22 = CFGetTypeID(ValueAtIndex), v22 != CMBlockBufferGetTypeID()))
           {
             APSLogErrorAt();
-            v24 = 4294950686;
+            v35 = 4294950686;
             goto LABEL_40;
           }
 
-          v19 = streamAggregate_copyFormattedAsyncPackageForBBuf(a1, v17, a2, &cf, v14);
-          if (v19)
+          v23 = streamAggregate_copyFormattedAsyncPackageForBBuf(a1, v21, a2, &cf, v18);
+          if (v23)
           {
             break;
           }
 
-          if (gLogCategory_APTransportStreamAggregate <= 10 && (gLogCategory_APTransportStreamAggregate != -1 || OUTLINED_FUNCTION_2_15()))
+          if (gLogCategory_APTransportStreamAggregate <= 10 && (gLogCategory_APTransportStreamAggregate != -1 || OUTLINED_FUNCTION_2_15(&gLogCategory_APTransportStreamAggregate)))
           {
             OUTLINED_FUNCTION_1_21();
-            LogPrintF();
+            LogPrintF(v24, v25, v26, "[%{ptr}] Sending batch: type %'C message %{ptr}.\n", a1, a2, v21);
           }
 
           CFArrayAppendValue(Mutable, cf);
@@ -8009,18 +8168,18 @@ LABEL_21:
             cf = 0;
           }
 
-          ++v13;
-          ++v14;
-          if (!--v15)
+          ++v17;
+          ++v18;
+          if (!--v19)
           {
             goto LABEL_21;
           }
         }
 
-        v24 = v19;
+        v35 = v23;
         APSLogErrorAt();
 LABEL_40:
-        v20 = v29;
+        v31 = v40;
       }
 
       if (v8 >= 1)
@@ -8029,20 +8188,20 @@ LABEL_40:
         {
           if (v12[i])
           {
-            v26 = CFArrayGetValueAtIndex(a3, i);
-            APTransportStreamSendBackingProviderRelinquishBBuf(*(v20 + 8), v26);
+            v37 = CFArrayGetValueAtIndex(a3, i);
+            APTransportStreamSendBackingProviderRelinquishBBuf(*(v31 + 8), v37);
           }
         }
       }
 
-      v27 = CFGetAllocator(a3);
-      CFAllocatorDeallocate(v27, v12);
+      v38 = CFGetAllocator(a3);
+      CFAllocatorDeallocate(v38, v12);
     }
 
     else
     {
       APSLogErrorAt();
-      v24 = 4294950685;
+      v35 = 4294950685;
     }
 
     CFRelease(Mutable);
@@ -8054,7 +8213,7 @@ LABEL_40:
     return 4294950685;
   }
 
-  return v24;
+  return v35;
 }
 
 uint64_t APTransportStreamAggregateCreate_cold_3(_DWORD *a1)
@@ -8081,14 +8240,23 @@ CFTypeRef streamAggregate_CopyProperty_cold_3(void *a1)
   return result;
 }
 
-uint64_t streamAggregate_eventReceived_cold_1(int a1)
+uint64_t streamAggregate_eventReceived_cold_1(int a1, uint64_t a2, uint64_t a3)
 {
-  if ((a1 - 1) <= 6)
+  if ((a1 - 1) > 6)
   {
-    v1 = off_278BC92B0[a1 - 1];
+    v5 = "?";
+    if (a1 == 8)
+    {
+      v5 = "PackageFailedToSend";
+    }
   }
 
-  return LogPrintF();
+  else
+  {
+    v5 = off_278BC92B0[a1 - 1];
+  }
+
+  return LogPrintF(&gLogCategory_APTransportStreamAggregate, "OSStatus streamAggregate_eventReceived(APTransportConnectionEvent, CFTypeRef, void *)", a2, "[%{ptr}] ConnectionEvent: %s\n", a3, v5, v3, v4);
 }
 
 uint64_t APBrokerHTTPSendRequest_cold_3(_DWORD *a1)
@@ -8112,11 +8280,36 @@ uint64_t APBrokerHTTPSendRequest_cold_11(_DWORD *a1)
   return result;
 }
 
-uint64_t _APBrokerHTTPSendRequestToURL_cold_1(uint64_t a1)
+uint64_t _APBrokerHTTPSendRequestToURL_cold_1(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  *(a1 + 20);
-  *(a1 + 16);
-  return LogPrintF();
+  if (*(a1 + 20))
+  {
+    v3 = "https";
+  }
+
+  else
+  {
+    v3 = "http";
+  }
+
+  v4 = *(a1 + 16);
+  v5 = "UNKNOWNMETHOD";
+  if (v4 == 2)
+  {
+    v5 = "POST";
+  }
+
+  if (v4 == 1)
+  {
+    v6 = "GET";
+  }
+
+  else
+  {
+    v6 = v5;
+  }
+
+  return LogPrintF(&gLogCategory_APBrokerHTTPUtils, "void _APBrokerHTTPSendRequestToURL(APBrokerHTTPRequestData *, CFStringRef)", 33554462, "[%{ptr}] Starting %s %s to %@", a2, v3, v6, a3);
 }
 
 uint64_t APTNANDataSessionStatisticsReportCopyDictionary(void *a1, CFTypeRef *a2)
@@ -8224,61 +8417,56 @@ uint64_t APTNANDataSessionStatisticsReportCopyDictionary(void *a1, CFTypeRef *a2
 
 void _APTNANDataSessionStatisticsReportDictionarySetHistogram(CFMutableDictionaryRef theDict, void *key, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
-  if (!theDict || !key)
+  if (theDict && key)
   {
-LABEL_13:
-    v26 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  if (a3)
-  {
-    Mutable = CFStringCreateMutable(*MEMORY[0x277CBECE8], 0);
-    if (Mutable)
+    if (a3)
     {
-      v7 = Mutable;
-      CFStringAppendFormat(Mutable, 0, @"[");
-      v12 = OUTLINED_FUNCTION_0_9(v8, v9, v10, v11);
-      if (v12)
+      Mutable = CFStringCreateMutable(*MEMORY[0x277CBECE8], 0);
+      if (Mutable)
       {
-        v13 = v12;
-        v14 = MEMORY[0];
-        do
+        v7 = Mutable;
+        CFStringAppendFormat(Mutable, 0, @"[");
+        v16 = OUTLINED_FUNCTION_0_9(v8, v9, v10, v11, v12, v13, v14, v15);
+        if (v16)
         {
-          for (i = 0; i != v13; ++i)
+          v17 = v16;
+          v18 = MEMORY[0];
+          do
           {
-            if (MEMORY[0] != v14)
+            for (i = 0; i != v17; ++i)
             {
-              objc_enumerationMutation(a3);
+              if (MEMORY[0] != v18)
+              {
+                objc_enumerationMutation(a3);
+              }
+
+              v20 = *(8 * i);
+              [v20 binStart];
+              v22 = v21;
+              [v20 binEnd];
+              v24 = v23;
+              [v20 value];
+              CFStringAppendFormat(v7, 0, @"[%.2f, %.2f, %.2f], ", v22, v24, v25);
             }
 
-            v16 = *(8 * i);
-            [v16 binStart];
-            v18 = v17;
-            [v16 binEnd];
-            v20 = v19;
-            [v16 value];
-            CFStringAppendFormat(v7, 0, @"[%.2f, %.2f, %.2f], ", v18, v20, v21);
+            v17 = OUTLINED_FUNCTION_0_9(v26, v27, v28, v29, v30, v31, v32, v33);
           }
 
-          v13 = OUTLINED_FUNCTION_0_9(v22, v23, v24, v25);
+          while (v17);
         }
 
-        while (v13);
+        CFStringAppendFormat(v7, 0, @"]");
+        CFDictionarySetValue(theDict, key, v7);
+        CFRelease(v7);
       }
-
-      CFStringAppendFormat(v7, 0, @"]");
-      CFDictionarySetValue(theDict, key, v7);
-      CFRelease(v7);
     }
 
-    goto LABEL_13;
+    else
+    {
+
+      CFDictionaryRemoveValue(theDict, key);
+    }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
-
-  CFDictionaryRemoveValue(theDict, key);
 }
 
 uint64_t transport_CreateSessionToService_cold_1(_DWORD *a1)
@@ -8289,15 +8477,9 @@ uint64_t transport_CreateSessionToService_cold_1(_DWORD *a1)
   return result;
 }
 
-uint64_t transport_registerSession_cold_3(uint64_t *a1, uint64_t *a2)
+uint64_t APBrowserGetStartEventForBrowserDeviceEvent(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v3 = *a1;
-  v4 = *a2;
-  return LogPrintF();
-}
-
-uint64_t APBrowserGetStartEventForBrowserDeviceEvent(uint64_t a1, uint64_t a2, int a3)
-{
+  v3 = a3;
   EventTimeRecursive = APSEventRecorderGetEventTimeRecursive();
   if (!EventTimeRecursive)
   {
@@ -8305,7 +8487,7 @@ uint64_t APBrowserGetStartEventForBrowserDeviceEvent(uint64_t a1, uint64_t a2, i
   }
 
   v5 = EventTimeRecursive;
-  if (a3 - 268374017) < 0xC && ((0xB83u >> (a3 - 1)))
+  if (v3 - 268374017) < 0xC && ((0xB83u >> (v3 - 1)))
   {
     return 268431362;
   }
@@ -8340,24 +8522,23 @@ void __lowPowerKeepAliveController_resumeInternal_block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 32);
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v3 = *(DerivedStorage + 40);
-  v4 = FigCFWeakReferenceHolderCopyReferencedObject();
-  if (v4)
+  v3 = FigCFWeakReferenceHolderCopyReferencedObject();
+  if (v3)
   {
-    v5 = v4;
+    v4 = v3;
     if (v1)
     {
       CFRetain(v1);
     }
 
-    v6 = *DerivedStorage;
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 0x40000000;
-    v7[2] = __lowPowerKeepAliveController_timerFired_block_invoke;
-    v7[3] = &__block_descriptor_tmp_16_0;
-    v7[4] = v1;
-    v7[5] = v5;
-    dispatch_async(v6, v7);
+    v5 = *DerivedStorage;
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 0x40000000;
+    v6[2] = __lowPowerKeepAliveController_timerFired_block_invoke;
+    v6[3] = &__block_descriptor_tmp_16_0;
+    v6[4] = v1;
+    v6[5] = v4;
+    dispatch_async(v5, v6);
   }
 }
 
@@ -8369,8 +8550,9 @@ uint64_t APTKeepAliveControllerLowPowerCreate_cold_9(_DWORD *a1)
   return result;
 }
 
-void __lowPowerKeepAliveController_timerFired_block_invoke_cold_2(uint64_t a1, void *a2, const void *a3, int a4)
+void __lowPowerKeepAliveController_timerFired_block_invoke_cold_2(uint64_t a1, void *a2, const void *a3, uint64_t a4)
 {
+  v4 = a4;
   APSLogErrorAt();
   if (a3)
   {
@@ -8383,30 +8565,30 @@ void __lowPowerKeepAliveController_timerFired_block_invoke_cold_2(uint64_t a1, v
   a2[2] = __lowPowerKeepAliveController_sendKeepAlive_block_invoke;
   a2[3] = &__block_descriptor_tmp_18_1;
   a2[4] = a3;
-  *(a2 + 10) = a4;
+  *(a2 + 10) = v4;
   dispatch_async(v8, a2);
 }
 
 uint64_t APTPackageMusicDataGetHeaderSize_cold_1(_DWORD *a1)
 {
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_1_13();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_1_13(v2, "outHeaderSize is NULL");
   *a1 = result;
   return result;
 }
 
 uint64_t APTPackageMusicDataGetPayloadSize_cold_3(_DWORD *a1)
 {
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_1_13();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_1_13(v2, "inHeader is NULL");
   *a1 = result;
   return result;
 }
 
 uint64_t APTPackageMusicDataGetPayloadSize_cold_4(_DWORD *a1)
 {
-  APSLogErrorAt();
-  result = OUTLINED_FUNCTION_1_13();
+  v2 = APSLogErrorAt();
+  result = OUTLINED_FUNCTION_1_13(v2, "outPayloadSize is NULL");
   *a1 = result;
   return result;
 }
@@ -8563,15 +8745,14 @@ void carPlayHelperUSB_setInterfaceWatchingEnabled(const void *a1, char a2)
   {
     v5 = DerivedStorage;
     CFRetain(a1);
-    v6 = *(v5 + 16);
     OUTLINED_FUNCTION_1_2();
-    v9 = 3221225472;
-    v10 = __carPlayHelperUSB_setInterfaceWatchingEnabled_block_invoke;
-    v11 = &__block_descriptor_49_e5_v8__0l;
-    v14 = a2;
-    v12 = v5;
-    v13 = a1;
-    dispatch_async(v7, block);
+    v8 = 3221225472;
+    v9 = __carPlayHelperUSB_setInterfaceWatchingEnabled_block_invoke;
+    v10 = &__block_descriptor_49_e5_v8__0l;
+    v13 = a2;
+    v11 = v5;
+    v12 = a1;
+    dispatch_async(v6, block);
   }
 }
 
@@ -8590,50 +8771,67 @@ void __carPlayHelperUSB_setInterfaceWatchingEnabled_block_invoke(uint64_t a1)
     v5 = *(a1 + 40);
     if (v3)
     {
-      if (APConnectivityHelperRegisterForEvent(v4, v5, 4))
+      v6 = APConnectivityHelperRegisterForEvent(v4, v5, 4);
+      if (v6)
       {
-        goto LABEL_12;
+        v7 = v6;
+LABEL_13:
+        APSLogErrorAt();
+        goto LABEL_14;
       }
     }
 
-    else if (APConnectivityHelperDeregisterForEvent(v4, v5, 4))
+    else
     {
-LABEL_12:
-      APSLogErrorAt();
-      goto LABEL_13;
+      v8 = APConnectivityHelperDeregisterForEvent(v4, v5, 4);
+      if (v8)
+      {
+        v7 = v8;
+        goto LABEL_13;
+      }
     }
 
     *(*(a1 + 32) + 48) = *(a1 + 48);
     goto LABEL_8;
   }
 
-LABEL_13:
+  v7 = 4294954511;
+LABEL_14:
   if (gLogCategory_APBrowserCarUSBHelper <= 90 && (gLogCategory_APBrowserCarUSBHelper != -1 || _LogCategory_Initialize()))
   {
-    *(a1 + 48);
-    v7 = *(a1 + 40);
-    LogPrintF();
+    if (*(a1 + 48))
+    {
+      v10 = "enable";
+    }
+
+    else
+    {
+      v10 = "disable";
+    }
+
+    LogPrintF(&gLogCategory_APBrowserCarUSBHelper, "void carPlayHelperUSB_setInterfaceWatchingEnabled(APCarPlayHelperRef, Boolean)_block_invoke", 33554522, "[%{ptr}] Failed to %s USB interface watching %#m\n", *(a1 + 40), v10, v7);
   }
 
 LABEL_8:
-  v6 = *(a1 + 40);
+  v9 = *(a1 + 40);
 
-  CFRelease(v6);
+  CFRelease(v9);
 }
 
-uint64_t __carPlayHelperUSB_handleConnectivityHelperEvent_block_invoke_cold_2()
+uint64_t __carPlayHelperUSB_handleConnectivityHelperEvent_block_invoke_cold_2(uint64_t result, uint64_t a2)
 {
   if (gLogCategory_APBrowserCarUSBHelper <= 50)
   {
+    v3 = result;
     if (gLogCategory_APBrowserCarUSBHelper != -1)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_APBrowserCarUSBHelper, "OSStatus carPlayHelperUSB_usbInterfaceChanged(APCarPlayHelperRef, CFDictionaryRef)", 33554482, "[%{ptr}] Ignoring change to %@ USB interface\n", v3, a2);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_APBrowserCarUSBHelper, "OSStatus carPlayHelperUSB_usbInterfaceChanged(APCarPlayHelperRef, CFDictionaryRef)", 33554482, "[%{ptr}] Ignoring change to %@ USB interface\n", v3, a2);
     }
   }
 
@@ -8651,7 +8849,7 @@ void standardKeepAliveController_timerFiredCheck(uint64_t a1, CMTime *a2, int a3
     time = *(v6 + 56);
     if (Seconds - CMTimeGetSeconds(&time) >= 1.0 && gLogCategory_APTransportKeepAliveControllerStandard <= 60 && (gLogCategory_APTransportKeepAliveControllerStandard != -1 || _LogCategory_Initialize()))
     {
-      OUTLINED_FUNCTION_3_0();
+      OUTLINED_FUNCTION_3_0(&gLogCategory_APTransportKeepAliveControllerStandard, "void standardKeepAliveController_timerFiredCheck(APTransportKeepAliveControllerRef, CMTime, Boolean)", v8, "[%{ptr}] Timer was delayed by %.3f seconds\n");
     }
 
     if (a3)
@@ -8674,23 +8872,38 @@ uint64_t APTransportKeepAliveControllerStandardCreate_cold_6(_DWORD *a1)
 
 uint64_t standardKeepAliveController_timerFiredCallback_cold_1(__int128 *a1, uint64_t a2, uint64_t a3, uint64_t a4, CMTime *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  OUTLINED_FUNCTION_1_23(a1, a2, a3, a4, a5, a6, a7, a8, v9, v10, v11, v12, v13, v14);
+  OUTLINED_FUNCTION_1_23(a1, a2, a3, a4, a5, a6, a7, a8, v10, v11, v12, v13, v14, v15);
   OUTLINED_FUNCTION_2_16();
-  return OUTLINED_FUNCTION_3_0();
+  return OUTLINED_FUNCTION_3_0(&gLogCategory_APTransportKeepAliveControllerStandard, "OSStatus standardKeepAliveController_handleSlowKeepAlive(APTransportKeepAliveControllerRef)", v8, "### [%{ptr}] Keep-alive taking too long to send (%.3f seconds, %u total)\n");
 }
 
 uint64_t standardKeepAliveController_timerFiredCallback_cold_2(__int128 *a1, uint64_t a2, uint64_t a3, uint64_t a4, CMTime *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  OUTLINED_FUNCTION_1_23(a1, a2, a3, a4, a5, a6, a7, a8, v9, v10, v11, v12, v13, v14);
+  OUTLINED_FUNCTION_1_23(a1, a2, a3, a4, a5, a6, a7, a8, v10, v11, v12, v13, v14, v15);
   OUTLINED_FUNCTION_2_16();
-  return OUTLINED_FUNCTION_3_0();
+  return OUTLINED_FUNCTION_3_0(&gLogCategory_APTransportKeepAliveControllerStandard, "OSStatus standardKeepAliveController_handleSlowKeepAlive(APTransportKeepAliveControllerRef)", v8, "### [%{ptr}] Network stall detected (%.3f seconds, %u stalls total).\n");
+}
+
+uint64_t standardKeepAliveController_timerFiredCallback_cold_3(uint64_t a1)
+{
+  if (IsAppleInternalBuild())
+  {
+    v2 = 33554482;
+  }
+
+  else
+  {
+    v2 = 33554462;
+  }
+
+  return LogPrintF(&gLogCategory_APTransportKeepAliveControllerStandard, "OSStatus standardKeepAliveController_handleSlowKeepAlive(APTransportKeepAliveControllerRef)", v2, "[%{ptr}] Posting system-wide notification of AirPlay network stall", a1);
 }
 
 uint64_t standardKeepAliveController_sendKeepAliveCallback_cold_3(CMTime *a1)
 {
   time = *a1;
   CMTimeGetSeconds(&time);
-  return OUTLINED_FUNCTION_3_0();
+  return OUTLINED_FUNCTION_3_0(&gLogCategory_APTransportKeepAliveControllerStandard, "OSStatus standardKeepAliveController_sendKeepAlive(APTransportKeepAliveControllerRef)", v1, "### [%{ptr}] Feedback took a long time to complete (%.3f seconds)\n");
 }
 
 void standardKeepAliveController_controllerSuspendedCallback_cold_1(uint64_t a1, uint64_t a2, _BYTE *a3)
@@ -8712,33 +8925,19 @@ void standardKeepAliveController_controllerSuspendedCallback_cold_1(uint64_t a1,
 
   if (gLogCategory_APTransportKeepAliveControllerStandard <= 50 && (gLogCategory_APTransportKeepAliveControllerStandard != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APTransportKeepAliveControllerStandard, "void standardKeepAliveController_controllerSuspendedCallback(void *)", 33554482, "[%{ptr}] Stopped keep alive", a1);
   }
 
   *a3 = 0;
 }
 
-uint64_t __APTransportTrafficRegistrarAWDLTrafficRegistrationCreateEx_block_invoke_cold_1(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  return OUTLINED_FUNCTION_9();
-}
-
-uint64_t __APTransportTrafficRegistrarInfraTransactionCreate_block_invoke_cold_1(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  return OUTLINED_FUNCTION_9();
-}
-
-uint64_t __APTransportTrafficRegistrarGetAWDLChannelSequence_block_invoke_cold_1(uint64_t a1, _DWORD *a2)
+uint64_t __APTransportTrafficRegistrarGetAWDLChannelSequence_block_invoke_cold_1(uint64_t a1, _DWORD *a2, uint64_t a3)
 {
   if (gLogCategory_APTransportTrafficRegistrar <= 50)
   {
     if (gLogCategory_APTransportTrafficRegistrar != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = OUTLINED_FUNCTION_9();
+      result = OUTLINED_FUNCTION_9(&gLogCategory_APTransportTrafficRegistrar, "OSStatus trafficRegistrar_getAWDLChannelSequence(APTransportTrafficRegistrarRef, uint8_t *, uint8_t *, uint32_t *)", a3, "[%{ptr}] Ignoring getAWDLChannelSequence on VirtualMachine\n");
     }
   }
 
@@ -8754,14 +8953,14 @@ uint64_t APTransportTrafficRegistrarGetWifiChannel_cold_1(_DWORD *a1)
   return result;
 }
 
-uint64_t APTNANEndpointSupportsServiceType(void *a1)
+uint64_t APTNANEndpointSupportsServiceType(void *a1, uint64_t a2)
 {
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     if ([a1 customData])
     {
-      v2 = APSBinaryTXTRecordCopyString();
+      v3 = APSBinaryTXTRecordCopyString();
     }
 
     else
@@ -8773,36 +8972,39 @@ uint64_t APTNANEndpointSupportsServiceType(void *a1)
         return APSNANServiceTypeIsKindOfType();
       }
 
-      v2 = CFRetain(Value);
-      if (!v2)
+      v3 = CFRetain(Value);
+      if (!v3)
       {
         return APSNANServiceTypeIsKindOfType();
       }
     }
 
     APSNANServiceTypeMakeWithTXTString();
-    if (v2)
+    if (v3)
     {
-      CFRelease(v2);
+      CFRelease(v3);
     }
   }
 
   return APSNANServiceTypeIsKindOfType();
 }
 
-uint64_t _APCarPlayControlServerHandleMessage(uint64_t a1, void *a2, uint64_t a3)
+uint64_t _APCarPlayControlServerHandleMessage(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v13 = 0;
+  v12 = 0;
   if (!*(a3 + 88))
   {
     APSLogErrorAt();
     return 503;
   }
 
+  v10 = 0;
+  v11 = 0;
+  v9 = 0;
   OUTLINED_FUNCTION_2_17();
   if (!HTTPConnectionGetNextURLSegmentEx())
   {
-    return v13;
+    return v12;
   }
 
   if (strnicmpx())
@@ -8813,7 +9015,7 @@ uint64_t _APCarPlayControlServerHandleMessage(uint64_t a1, void *a2, uint64_t a3
   OUTLINED_FUNCTION_2_17();
   if (!HTTPConnectionGetNextURLSegmentEx())
   {
-    return v13;
+    return v12;
   }
 
   if (strnicmpx())
@@ -8821,9 +9023,7 @@ uint64_t _APCarPlayControlServerHandleMessage(uint64_t a1, void *a2, uint64_t a3
 LABEL_24:
     if (gLogCategory_CarPlayControlServer <= 60 && (gLogCategory_CarPlayControlServer != -1 || _LogCategory_Initialize()))
     {
-      v10 = a2[1034];
-      v11 = a2[1033];
-      LogPrintF();
+      LogPrintF(&gLogCategory_CarPlayControlServer, "OSStatus _APCarPlayControlServerHandleMessage(HTTPConnectionRef, HTTPMessageRef, void *)", 60, "### Bad URL: '%.*s'\n", *(a2 + 8272), *(a2 + 8264));
     }
 
     v6 = 404;
@@ -8833,18 +9033,17 @@ LABEL_24:
   OUTLINED_FUNCTION_2_17();
   if (!HTTPConnectionGetNextURLSegmentEx())
   {
-    return v13;
+    return v12;
   }
 
-  v12 = a2[1034] + a2[1033];
-  v8 = a2[1027];
-  if (HTTPScanFHeaderValue() != 1)
+  v10 = *(a2 + 8272) - v11 + *(a2 + 8264);
+  if (HTTPScanFHeaderValue(a2 + 24, *(a2 + 8216), "AirPlay-Receiver-Device-ID", "%llu", &v9) != 1)
   {
     return 456;
   }
 
-  v13 = (*(a3 + 88))(a3, 0, 0, v12, *(a3 + 96));
-  if (v13)
+  v12 = (*(a3 + 88))(a3, v9, v11, v10, *(a3 + 96));
+  if (v12)
   {
     v6 = 400;
   }
@@ -8855,20 +9054,13 @@ LABEL_24:
   }
 
 LABEL_11:
-  v13 = MEMORY[0x23EEDD8F0](a1, v6, v13, 0, 0, 0);
-  if (v13)
+  v12 = MEMORY[0x23EEDD8F0](a1, v6, v12, 0, 0, 0);
+  if (v12)
   {
     APSLogErrorAt();
   }
 
-  return v13;
-}
-
-uint64_t __APCarPlayControlServerAddInterface_block_invoke_cold_2(uint64_t a1, uint64_t a2)
-{
-  v4 = *(a2 + 48);
-  v3 = *(*(*a1 + 32) + 48);
-  return LogPrintF();
+  return v12;
 }
 
 uint64_t APTransportConnectionUDPCreate_cold_2()
@@ -8956,12 +9148,12 @@ uint64_t udpconnection_setPropertyInternal_cold_6()
   return APSSignalErrorAt();
 }
 
-void udpconnection_setPropertyInternal_cold_8()
+void udpconnection_setPropertyInternal_cold_8(uint64_t a1, uint64_t a2)
 {
   APSLogErrorAt();
   if (gLogCategory_APTransportConnectionUDP <= 90 && (gLogCategory_APTransportConnectionUDP != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APTransportConnectionUDP, "OSStatus udpconnection_setPropertyInternal(CMBaseObjectRef, CFStringRef, CFTypeRef)", 33554522, "[%{ptr}] Tried to set bound interface after stream was resumed", a2);
   }
 
   OUTLINED_FUNCTION_1_1();
@@ -8999,14 +9191,14 @@ uint64_t udpconnection_resumeInternal_cold_8()
   return APSSignalErrorAt();
 }
 
-uint64_t udpconnection_resumeInternal_cold_12(uint64_t a1, int a2, _DWORD *a3)
+uint64_t udpconnection_resumeInternal_cold_12(uint64_t a1, uint64_t a2, _DWORD *a3)
 {
   result = APSLogErrorAt();
   if (gLogCategory_APTransportConnectionUDP <= 90)
   {
     if (gLogCategory_APTransportConnectionUDP != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = LogPrintF();
+      result = LogPrintF(&gLogCategory_APTransportConnectionUDP, "OSStatus udpconnection_setupConnectorSocket(APTransportConnectionRef, int)", 33554522, "[%{ptr}] connect failed: %#m\n", a1, a2);
     }
   }
 
@@ -9037,13 +9229,6 @@ uint64_t udpconnection_acquirePackageInternal_cold_1()
   return APSSignalErrorAt();
 }
 
-uint64_t udpconnection_acquirePackageInternal_cold_3(uint64_t *a1, uint64_t **a2)
-{
-  v3 = *a1;
-  v4 = **a2;
-  return OUTLINED_FUNCTION_7_0();
-}
-
 uint64_t udpconnection_acquirePackageWithMessageSizeInternal_cold_1()
 {
   OUTLINED_FUNCTION_17();
@@ -9051,14 +9236,6 @@ uint64_t udpconnection_acquirePackageWithMessageSizeInternal_cold_1()
   OUTLINED_FUNCTION_7_2();
 
   return APSSignalErrorAt();
-}
-
-uint64_t udpconnection_acquirePackageWithMessageSizeInternal_cold_3(uint64_t *a1, uint64_t **a2, uint64_t *a3)
-{
-  v5 = **a2;
-  v6 = *a3;
-  v4 = *a1;
-  return OUTLINED_FUNCTION_7_0();
 }
 
 uint64_t udpconnection_sendPackageInternal_cold_1()
@@ -9079,38 +9256,38 @@ uint64_t udpconnection_sendPackageInternal_cold_3()
   return APSSignalErrorAt();
 }
 
-uint64_t apapPackage_CreateBBufRepresentation_cold_1()
+uint64_t apapPackage_CreateBBufRepresentation_cold_1(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (gLogCategory_APTransportPackageAPAP <= 90)
   {
     if (gLogCategory_APTransportPackageAPAP != -1)
     {
-      return OUTLINED_FUNCTION_15();
+      return OUTLINED_FUNCTION_15(&gLogCategory_APTransportPackageAPAP, "CMBlockBufferRef apapPackage_CreateBBufRepresentation(APTransportPackageRef)", a3, "[%{ptr}] failed to CreateBBufRepresentation, invalid APAP header in messageData err=%#m");
     }
 
-    result = OUTLINED_FUNCTION_9_0();
+    result = OUTLINED_FUNCTION_9_0(&gLogCategory_APTransportPackageAPAP);
     if (result)
     {
-      return OUTLINED_FUNCTION_15();
+      return OUTLINED_FUNCTION_15(&gLogCategory_APTransportPackageAPAP, "CMBlockBufferRef apapPackage_CreateBBufRepresentation(APTransportPackageRef)", a3, "[%{ptr}] failed to CreateBBufRepresentation, invalid APAP header in messageData err=%#m");
     }
   }
 
   return result;
 }
 
-uint64_t apapPackage_CreateBBufRepresentation_cold_2()
+uint64_t apapPackage_CreateBBufRepresentation_cold_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (gLogCategory_APTransportPackageAPAP <= 90)
   {
     if (gLogCategory_APTransportPackageAPAP != -1)
     {
-      return OUTLINED_FUNCTION_15();
+      return OUTLINED_FUNCTION_15(&gLogCategory_APTransportPackageAPAP, "CMBlockBufferRef apapPackage_CreateBBufRepresentation(APTransportPackageRef)", a3, "[%{ptr}] failed to CreateBBufRepresentation, messageData length %zu exceeds maxPayloadSize %zu");
     }
 
-    result = OUTLINED_FUNCTION_9_0();
+    result = OUTLINED_FUNCTION_9_0(&gLogCategory_APTransportPackageAPAP);
     if (result)
     {
-      return OUTLINED_FUNCTION_15();
+      return OUTLINED_FUNCTION_15(&gLogCategory_APTransportPackageAPAP, "CMBlockBufferRef apapPackage_CreateBBufRepresentation(APTransportPackageRef)", a3, "[%{ptr}] failed to CreateBBufRepresentation, messageData length %zu exceeds maxPayloadSize %zu");
     }
   }
 
@@ -9127,51 +9304,54 @@ void apapPackage_CreateBBufRepresentation_cold_4(uint64_t a1, CFTypeRef *a2)
   }
 }
 
-uint64_t apapPackage_CreateBBufRepresentation_cold_5()
+uint64_t apapPackage_CreateBBufRepresentation_cold_5(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (gLogCategory_APTransportPackageAPAP <= 90)
   {
     if (gLogCategory_APTransportPackageAPAP != -1)
     {
-      return OUTLINED_FUNCTION_15();
+      return OUTLINED_FUNCTION_15(&gLogCategory_APTransportPackageAPAP, "CMBlockBufferRef apapPackage_CreateBBufRepresentation(APTransportPackageRef)", a3, "[%{ptr}] failed to CreateBBufRepresentation, messageData is NULL");
     }
 
-    result = OUTLINED_FUNCTION_9_0();
+    result = OUTLINED_FUNCTION_9_0(&gLogCategory_APTransportPackageAPAP);
     if (result)
     {
-      return OUTLINED_FUNCTION_15();
+      return OUTLINED_FUNCTION_15(&gLogCategory_APTransportPackageAPAP, "CMBlockBufferRef apapPackage_CreateBBufRepresentation(APTransportPackageRef)", a3, "[%{ptr}] failed to CreateBBufRepresentation, messageData is NULL");
     }
   }
 
   return result;
 }
 
-uint64_t apapPackage_CreateBBufRepresentation_cold_6(uint64_t result)
+uint64_t apapPackage_CreateBBufRepresentation_cold_6(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (gLogCategory_APTransportPackageAPAP <= 90)
   {
-    v1 = result;
-    if (gLogCategory_APTransportPackageAPAP != -1 || (result = OUTLINED_FUNCTION_9_0(), result))
+    if (gLogCategory_APTransportPackageAPAP != -1)
     {
-      v2 = *(v1 + 4);
-      return OUTLINED_FUNCTION_15();
+      return OUTLINED_FUNCTION_15(&gLogCategory_APTransportPackageAPAP, "CMBlockBufferRef apapPackage_CreateBBufRepresentation(APTransportPackageRef)", a3, "[%{ptr}] failed to CreateBBufRepresentation, unsupported messageType '%C'");
+    }
+
+    result = OUTLINED_FUNCTION_9_0(&gLogCategory_APTransportPackageAPAP);
+    if (result)
+    {
+      return OUTLINED_FUNCTION_15(&gLogCategory_APTransportPackageAPAP, "CMBlockBufferRef apapPackage_CreateBBufRepresentation(APTransportPackageRef)", a3, "[%{ptr}] failed to CreateBBufRepresentation, unsupported messageType '%C'");
     }
   }
 
   return result;
 }
 
-void httppackage_appendCustomHeaderField(const void *a1, const void *a2)
+void httppackage_appendCustomHeaderField(const void *a1, const void *a2, uint64_t a3)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (!CFEqual(a1, *MEMORY[0x277CEA380]) && !CFEqual(a1, *MEMORY[0x277CEA360]))
   {
-    if (a2 && (v5 = CFGetTypeID(a2), v5 == CFStringGetTypeID()))
+    if (a2 && (v6 = CFGetTypeID(a2), v6 == CFStringGetTypeID()))
     {
       CFStringCopyUTF8CString();
       CFStringCopyUTF8CString();
-      v6 = *(DerivedStorage + 24);
-      HTTPHeader_SetField();
+      HTTPHeader_SetField(*(DerivedStorage + 24) + 24, 0, "%s", 0);
     }
 
     else
@@ -9398,219 +9578,370 @@ void carPlayHelperSession_setInterfaceWatchingEnabled(const void *a1, char a2)
   {
     v5 = DerivedStorage;
     CFRetain(a1);
-    v6 = *(v5 + 16);
     OUTLINED_FUNCTION_1_2();
-    v9 = 3221225472;
-    v10 = __carPlayHelperSession_setInterfaceWatchingEnabled_block_invoke;
-    v11 = &__block_descriptor_49_e5_v8__0l;
-    v12 = v5;
-    v13 = a1;
-    v14 = a2;
-    dispatch_async(v7, block);
+    v8 = 3221225472;
+    v9 = __carPlayHelperSession_setInterfaceWatchingEnabled_block_invoke;
+    v10 = &__block_descriptor_49_e5_v8__0l;
+    v11 = v5;
+    v12 = a1;
+    v13 = a2;
+    dispatch_async(v6, block);
   }
 }
 
-void __carPlayHelperSession_setInterfaceWatchingEnabled_block_invoke(uint64_t a1)
+void __carPlayHelperSession_setInterfaceWatchingEnabled_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *(a1 + 32);
-  if (*v2)
+  v4 = *(a1 + 32);
+  if (!*v4)
   {
-    goto LABEL_17;
+    if (gLogCategory_APBrowserCarSessionHelper <= 50 && (gLogCategory_APBrowserCarSessionHelper != -1 || OUTLINED_FUNCTION_8(&gLogCategory_APBrowserCarSessionHelper)))
+    {
+      OUTLINED_FUNCTION_9(&gLogCategory_APBrowserCarSessionHelper, "void carPlayHelperSession_setInterfaceWatchingEnabled(APCarPlayHelperRef, Boolean)_block_invoke", a3, "[%{ptr}] %s %s interface watching\n");
+    }
+
+    v5 = *(a1 + 32);
+    if (*(a1 + 48))
+    {
+      if (*(v5 + 64))
+      {
+        v6 = OUTLINED_FUNCTION_7_7(v5);
+        APConnectivityHelperRegisterForEvent(v6, v7, 4);
+        v5 = *(a1 + 32);
+      }
+
+      if (*(v5 + 112))
+      {
+        v8 = OUTLINED_FUNCTION_7_7(v5);
+        APConnectivityHelperRegisterForEvent(v8, v9, 3);
+        v10 = OUTLINED_FUNCTION_12_3();
+        APConnectivityHelperRegisterForEvent(v10, v11, 9);
+        v12 = OUTLINED_FUNCTION_12_3();
+        APConnectivityHelperRegisterForEvent(v12, v13, 10);
+        v5 = *(a1 + 32);
+      }
+
+      v14 = OUTLINED_FUNCTION_7_7(v5);
+      APConnectivityHelperRegisterForEvent(v14, v15, 6);
+    }
+
+    else
+    {
+      v16 = OUTLINED_FUNCTION_7_7(v5);
+      APConnectivityHelperDeregisterForEvent(v16, v17, 6);
+      v18 = *(a1 + 32);
+      if (*(v18 + 64))
+      {
+        v19 = OUTLINED_FUNCTION_7_7(v18);
+        APConnectivityHelperDeregisterForEvent(v19, v20, 4);
+        carPlayHelperSession_usbInterfaceListeningStopped(*(a1 + 40));
+        v18 = *(a1 + 32);
+      }
+
+      if (*(v18 + 112))
+      {
+        v21 = OUTLINED_FUNCTION_7_7(v18);
+        APConnectivityHelperDeregisterForEvent(v21, v22, 3);
+        v23 = OUTLINED_FUNCTION_12_3();
+        APConnectivityHelperDeregisterForEvent(v23, v24, 9);
+        v25 = OUTLINED_FUNCTION_12_3();
+        APConnectivityHelperDeregisterForEvent(v25, v26, 10);
+        carPlayHelperSession_wifiNetworkListeningStopped(*(a1 + 40));
+      }
+
+      carPlayHelperSession_dispatchEvent(*(a1 + 40), 2, 0);
+    }
   }
 
-  if (gLogCategory_APBrowserCarSessionHelper <= 50)
-  {
-    if (gLogCategory_APBrowserCarSessionHelper != -1)
-    {
-LABEL_4:
-      v3 = *(a1 + 40);
-      v4 = v2[177];
-      v5 = v2[64];
-      v6 = v2[112];
-      *(a1 + 48);
-      OUTLINED_FUNCTION_9();
-      goto LABEL_6;
-    }
-
-    if (OUTLINED_FUNCTION_8())
-    {
-      v2 = *(a1 + 32);
-      goto LABEL_4;
-    }
-  }
-
-LABEL_6:
-  v7 = *(a1 + 32);
-  if (*(a1 + 48))
-  {
-    if (*(v7 + 64))
-    {
-      v8 = OUTLINED_FUNCTION_7_7(v7);
-      APConnectivityHelperRegisterForEvent(v8, v9, 4);
-      v7 = *(a1 + 32);
-    }
-
-    if (*(v7 + 112))
-    {
-      v10 = OUTLINED_FUNCTION_7_7(v7);
-      APConnectivityHelperRegisterForEvent(v10, v11, 3);
-      v12 = OUTLINED_FUNCTION_12_3();
-      APConnectivityHelperRegisterForEvent(v12, v13, 9);
-      v14 = OUTLINED_FUNCTION_12_3();
-      APConnectivityHelperRegisterForEvent(v14, v15, 10);
-      v7 = *(a1 + 32);
-    }
-
-    v16 = OUTLINED_FUNCTION_7_7(v7);
-    APConnectivityHelperRegisterForEvent(v16, v17, 6);
-  }
-
-  else
-  {
-    v18 = OUTLINED_FUNCTION_7_7(v7);
-    APConnectivityHelperDeregisterForEvent(v18, v19, 6);
-    v20 = *(a1 + 32);
-    if (*(v20 + 64))
-    {
-      v21 = OUTLINED_FUNCTION_7_7(v20);
-      APConnectivityHelperDeregisterForEvent(v21, v22, 4);
-      v23 = *(a1 + 40);
-      carPlayHelperSession_usbInterfaceListeningStopped();
-      v20 = *(a1 + 32);
-    }
-
-    if (*(v20 + 112))
-    {
-      v24 = OUTLINED_FUNCTION_7_7(v20);
-      APConnectivityHelperDeregisterForEvent(v24, v25, 3);
-      v26 = OUTLINED_FUNCTION_12_3();
-      APConnectivityHelperDeregisterForEvent(v26, v27, 9);
-      v28 = OUTLINED_FUNCTION_12_3();
-      APConnectivityHelperDeregisterForEvent(v28, v29, 10);
-      carPlayHelperSession_wifiNetworkListeningStopped(*(a1 + 40));
-    }
-
-    carPlayHelperSession_dispatchEvent(*(a1 + 40), 2, 0);
-  }
-
-LABEL_17:
-  v30 = *(a1 + 40);
+  v27 = *(a1 + 40);
   *(*(a1 + 32) + 48) = *(a1 + 48);
 
-  CFRelease(v30);
+  CFRelease(v27);
 }
 
 uint64_t carPlayHelperSession_wifiNetworkChanged(const void *a1, uint64_t a2)
 {
   updated = 0;
   DerivedStorage = CMBaseObjectGetDerivedStorage();
+  HIBYTE(v80) = 0;
   if (*DerivedStorage)
   {
     return updated;
   }
 
   v5 = DerivedStorage;
+  v6 = @"N/A";
   if (a2)
   {
     CFStringGetTypeID();
-    CFDictionaryGetTypedValue();
-    CFStringGetTypeID();
-    OUTLINED_FUNCTION_13_5();
-    CFStringGetTypeID();
-    OUTLINED_FUNCTION_13_5();
-    FigCFDictionaryGetBooleanIfPresent();
-    v6 = CFDictionaryGetInt64() == 0;
+    TypedValue = CFDictionaryGetTypedValue();
+    TypeID = CFStringGetTypeID();
+    v16 = OUTLINED_FUNCTION_13_5(TypeID, v9, v10, v11, v12, v13, v14, v15, v63, v65, v67, v69, v71, v73, v75, v77, buf, v80, updated);
+    v17 = updated;
+    v18 = CFStringGetTypeID();
+    v26 = OUTLINED_FUNCTION_13_5(v18, v19, v20, v21, v22, v23, v24, v25, v64, v66, v68, v70, v72, v74, v76, v78, buf, v80, updated);
+    v27 = a1;
+    v28 = updated;
+    BooleanIfPresent = FigCFDictionaryGetBooleanIfPresent();
+    v30 = CFDictionaryGetInt64() == 0;
     updated = 0;
+    if (v17 == -6727)
+    {
+      v31 = @"N/A";
+    }
+
+    else
+    {
+      v31 = v16;
+    }
+
+    v32 = BooleanIfPresent == 0;
+    v38 = v28 == -6727;
+    a1 = v27;
+    v33 = v26;
+    if (v38)
+    {
+      v34 = @"N/A";
+    }
+
+    else
+    {
+      v34 = v26;
+    }
+
+    v6 = v31;
   }
 
   else
   {
-    v6 = 1;
+    v33 = 0;
+    TypedValue = 0;
+    v30 = 1;
+    v32 = 1;
+    v34 = @"N/A";
   }
 
   OUTLINED_FUNCTION_11_6();
-  if (v9 ^ v10 | v8 && (v7 != -1 || OUTLINED_FUNCTION_8()))
+  if (v36 ^ v37 | v38 && (v35 != -1 || OUTLINED_FUNCTION_8(&gLogCategory_APBrowserCarSessionHelper)))
   {
     OUTLINED_FUNCTION_4_12();
-    OUTLINED_FUNCTION_9();
+    if (v41)
+    {
+      v42 = "[Session/WiFi/USB]";
+      if (v38)
+      {
+        v42 = "[Session/USB]";
+      }
+
+      v43 = "[Session/WiFi]";
+    }
+
+    else
+    {
+      v42 = "[Bonjour/WiFi/USB]";
+      if (v38)
+      {
+        v42 = "[Bonjour/USB]";
+      }
+
+      v43 = "[Bonjour/WiFi]";
+    }
+
+    if (v38)
+    {
+      v43 = "<Invalid>";
+    }
+
+    if (v40)
+    {
+      v44 = v42;
+    }
+
+    else
+    {
+      v44 = v43;
+    }
+
+    v45 = "Y";
+    if (HIBYTE(v80))
+    {
+      v46 = "Y";
+    }
+
+    else
+    {
+      v46 = "N";
+    }
+
+    if (v32)
+    {
+      v46 = "N/A";
+    }
+
+    if (v30)
+    {
+      v45 = "N";
+    }
+
+    v73 = v45;
+    v75 = TypedValue;
+    v69 = v46;
+    v71 = v34;
+    v63 = a1;
+    v65 = v44;
+    v67 = v6;
+    OUTLINED_FUNCTION_9(&gLogCategory_APBrowserCarSessionHelper, "OSStatus carPlayHelperSession_wifiNetworkChanged(APCarPlayHelperRef, CFDictionaryRef)", v39, "[%{ptr}] %s WiFi Network changed to: %@, IsCarPlay: %s, CarPlay UUID: %@, isLinkDownDebounceInProgress: %s, interfaceName: %@\n");
   }
 
-  if (v6)
+  if (HIBYTE(v80))
   {
-    v11 = *(v5 + 16);
-    if (!v11)
+    if (*(v5 + 4))
+    {
+      APSPowerAssertionRaiseTemporary();
+    }
+
+    if (FigCFEqual() && FigCFEqual())
+    {
+      OUTLINED_FUNCTION_11_6();
+      if (v36 ^ v37 | v38 && (v47 != -1 || OUTLINED_FUNCTION_8(&gLogCategory_APBrowserCarSessionHelper)))
+      {
+        OUTLINED_FUNCTION_4_12();
+        v61 = "[%{ptr}] %s Ignoring WiFi network changed since wifiInterfaceName and wifiCurrentUUID did not change\n";
+LABEL_87:
+        OUTLINED_FUNCTION_9(&gLogCategory_APBrowserCarSessionHelper, "OSStatus carPlayHelperSession_wifiNetworkChanged(APCarPlayHelperRef, CFDictionaryRef)", v48, v61);
+        return updated;
+      }
+
+      return updated;
+    }
+
+    v49 = *(v5 + 16);
+    *(v5 + 16) = TypedValue;
+    if (TypedValue)
+    {
+      CFRetain(TypedValue);
+    }
+
+    if (v49)
+    {
+      CFRelease(v49);
+    }
+
+    v50 = *(v5 + 17);
+    *(v5 + 17) = v33;
+    if (v33)
+    {
+      CFRetain(v33);
+    }
+
+    if (v50)
+    {
+      CFRelease(v50);
+    }
+
+    *(v5 + 15) = CFAbsoluteTimeGetCurrent();
+    if (*(v5 + 33))
+    {
+      APSEventRecorderRecordEvent();
+      v51 = LogCategoryCopyOSLogHandle();
+      v52 = v51;
+      if (v51)
+      {
+        v53 = v51;
+      }
+
+      else
+      {
+        v53 = MEMORY[0x277D86220];
+      }
+
+      if (os_signpost_enabled(v53))
+      {
+        LOWORD(buf) = 0;
+        _os_signpost_emit_with_name_impl(&dword_23D2A9000, v53, OS_SIGNPOST_EVENT, 0x2B8D07E4uLL, "AP_SIGNPOST_CAR_WIFI_LINKUP", "", &buf, 2u);
+      }
+
+      if (v52)
+      {
+      }
+    }
+
+    APConnectivityHelperRegisterActivity(*(v5 + 5), a1, 0);
+    if (!v5[177])
+    {
+      if (_MergedGlobals_18 != -1)
+      {
+        dispatch_once(&_MergedGlobals_18, &__block_literal_global_176);
+      }
+
+      [qword_281309C60 checkCarPlayControlAdvertisingForWiFiUUID:{v33, v63, v65, v67, v69, v71, v73, v75}];
+    }
+
+    updated = carPlayHelperSession_updateNetworkAndSessionState(a1);
+    if (!updated)
     {
       return updated;
     }
 
-    CFRelease(v11);
-    *(v5 + 16) = 0;
-    v12 = *(v5 + 17);
-    if (v12)
+LABEL_91:
+    APSLogErrorAt();
+    return updated;
+  }
+
+  if (v30)
+  {
+    v54 = *(v5 + 16);
+    if (!v54)
     {
-      CFRelease(v12);
+      return updated;
+    }
+
+    CFRelease(v54);
+    *(v5 + 16) = 0;
+    v55 = *(v5 + 17);
+    if (v55)
+    {
+      CFRelease(v55);
       *(v5 + 17) = 0;
     }
 
     *(v5 + 15) = CFAbsoluteTimeGetCurrent();
-    v13 = *(v5 + 23);
-    if (!v13 || *(v5 + 52) != 2)
+    v56 = *(v5 + 23);
+    if (v56 && *(v5 + 52) == 2)
     {
-      goto LABEL_36;
-    }
 
-    *(v5 + 23) = 0;
-    v14 = *(v5 + 24);
-    if (v14)
-    {
-      CFRelease(v14);
-      *(v5 + 24) = 0;
-    }
-
-    *(v5 + 25) = 0;
-    *(v5 + 52) = 0;
-    OUTLINED_FUNCTION_11_6();
-    if (!(v9 ^ v10 | v8) || v15 == -1 && !OUTLINED_FUNCTION_8())
-    {
-      goto LABEL_36;
-    }
-
-    v16 = v5[64];
-    v8 = v5[112] == 0;
-    if (v5[177])
-    {
-      if (v5[64])
+      *(v5 + 23) = 0;
+      v57 = *(v5 + 24);
+      if (v57)
       {
-        goto LABEL_33;
+        CFRelease(v57);
+        *(v5 + 24) = 0;
+      }
+
+      *(v5 + 25) = 0;
+      *(v5 + 52) = 0;
+      OUTLINED_FUNCTION_11_6();
+      if (v36 ^ v37 | v38 && (v59 != -1 || OUTLINED_FUNCTION_8(&gLogCategory_APBrowserCarSessionHelper)))
+      {
+        OUTLINED_FUNCTION_9(&gLogCategory_APBrowserCarSessionHelper, "OSStatus carPlayHelperSession_wifiNetworkChanged(APCarPlayHelperRef, CFDictionaryRef)", v58, "[%{ptr}] %###s %s Releasing SessionHost for WiFi connection.\n");
       }
     }
 
-    else if (v5[64])
+    APConnectivityHelperDeregisterActivity(*(v5 + 5), a1, 0);
+    updated = carPlayHelperSession_updateNetworkAndSessionState(a1);
+    if (!updated)
     {
-LABEL_33:
-      v5[112];
-LABEL_35:
-      OUTLINED_FUNCTION_9();
-LABEL_36:
-      APConnectivityHelperDeregisterActivity(*(v5 + 5), a1, 0);
-      updated = carPlayHelperSession_updateNetworkAndSessionState(a1);
-      if (updated)
-      {
-        APSLogErrorAt();
-      }
-
       return updated;
     }
 
-    v5[112];
-    goto LABEL_35;
+    goto LABEL_91;
   }
 
   OUTLINED_FUNCTION_11_6();
-  if (v9 ^ v10 | v8 && (v17 != -1 || OUTLINED_FUNCTION_8()))
+  if (v36 ^ v37 | v38 && (v60 != -1 || OUTLINED_FUNCTION_8(&gLogCategory_APBrowserCarSessionHelper)))
   {
     OUTLINED_FUNCTION_4_12();
-    OUTLINED_FUNCTION_9();
+    v61 = "[%{ptr}] %###s %s Ignoring WiFi network changed since LinkDownDebounceInProgress is set.\n";
+    goto LABEL_87;
   }
 
   return updated;
@@ -9672,49 +10003,69 @@ uint64_t APCarPlayHelperSessionCreate_cold_13(_DWORD *a1)
   return result;
 }
 
-uint64_t carPlayHelperSession_connectivityHelperCheckIfWiFiUUIDChanged_cold_1(_BYTE *a1, uint64_t *a2)
+uint64_t carPlayHelperSession_dispatchEvent_cold_1()
 {
-  a1[112];
-  a1[64];
-  a1[112];
-  a1[112];
-  a1[64];
-  a1[177];
-  v3 = *a2;
-  return OUTLINED_FUNCTION_9();
-}
-
-uint64_t carPlayHelperSession_connectivityHelperCheckIfWiFiUUIDChanged_cold_2(_BYTE *a1, uint64_t *a2)
-{
-  a1[112];
-  a1[64];
-  a1[112];
-  a1[112];
-  a1[64];
-  a1[177];
-  v3 = *a2;
-  return OUTLINED_FUNCTION_9();
-}
-
-uint64_t carPlayHelperSession_dispatchEvent_cold_1(unsigned __int8 *a1)
-{
-  OUTLINED_FUNCTION_2_18(a1);
+  OUTLINED_FUNCTION_2_18();
   OUTLINED_FUNCTION_6_11();
-  return LogPrintF();
+  v7 = "[Session/WiFi]";
+  if (v8)
+  {
+    v7 = "<Invalid>";
+  }
+
+  if (!v4)
+  {
+    v6 = v7;
+  }
+
+  v9 = "[Bonjour/USB]";
+  v8 = v5 == 0;
+  v10 = "[Bonjour/WiFi]";
+  if (v8)
+  {
+    v10 = "<Invalid>";
+  }
+
+  else
+  {
+    v9 = "[Bonjour/WiFi/USB]";
+  }
+
+  if (v4)
+  {
+    v11 = v9;
+  }
+
+  else
+  {
+    v11 = v10;
+  }
+
+  if (v3)
+  {
+    v12 = v6;
+  }
+
+  else
+  {
+    v12 = v11;
+  }
+
+  return LogPrintF(&gLogCategory_APBrowserCarSessionHelper, "void carPlayHelperSession_dispatchEvent(APCarPlayHelperRef, APCarPlayHelperEventType, CFDictionaryRef)", 33554452, "[%{ptr}] %s Dispatching event %d with info %@\n", v0, v12, v1, v2);
 }
 
-uint64_t carPlayHelperSession_usbInterfaceListeningStopped_cold_1(unsigned __int8 *a1)
+uint64_t carPlayHelperSession_usbInterfaceListeningStopped_cold_1()
 {
-  OUTLINED_FUNCTION_2_18(a1);
+  OUTLINED_FUNCTION_2_18();
   OUTLINED_FUNCTION_6_11();
-  return OUTLINED_FUNCTION_7_0();
+  return OUTLINED_FUNCTION_7_0(&gLogCategory_APBrowserCarSessionHelper, "void carPlayHelperSession_usbInterfaceListeningStopped(APCarPlayHelperRef)", v0, "[%{ptr}] %s ConnectivityHelper stopped listening to USB\n");
 }
 
-uint64_t carPlayHelperSession_wifiNetworkListeningStopped_cold_1(unsigned __int8 *a1)
+uint64_t carPlayHelperSession_wifiNetworkListeningStopped_cold_1()
 {
-  OUTLINED_FUNCTION_2_18(a1);
+  OUTLINED_FUNCTION_2_18();
   OUTLINED_FUNCTION_6_11();
-  return OUTLINED_FUNCTION_7_0();
+  return OUTLINED_FUNCTION_7_0(&gLogCategory_APBrowserCarSessionHelper, "void carPlayHelperSession_wifiNetworkListeningStopped(APCarPlayHelperRef)", v0, "[%{ptr}] %s ConnectivityHelper stopped listening to WiFi\n");
 }
 
 uint64_t __carPlayHelperSession_handleConnectivityHelperEvent_block_invoke_cold_1(uint64_t a1)
@@ -9735,29 +10086,26 @@ void __carPlayHelperSession_handleConnectivityHelperEvent_block_invoke_cold_2()
   if (gLogCategory_APBrowserCarSessionHelper <= 50)
   {
     OUTLINED_FUNCTION_10_8();
-    if (!v1 || OUTLINED_FUNCTION_8())
+    if (!v0 || OUTLINED_FUNCTION_8(&gLogCategory_APBrowserCarSessionHelper))
     {
-      v2 = v0[177];
-      v3 = v0[64];
-      v4 = v0[112];
       OUTLINED_FUNCTION_6_11();
-      OUTLINED_FUNCTION_9();
+      OUTLINED_FUNCTION_9(&gLogCategory_APBrowserCarSessionHelper, "OSStatus carPlayHelperSession_usbInterfaceChanged(APCarPlayHelperRef, CFDictionaryRef)", v1, "[%{ptr}] %s Ignoring change to %@ USB interface\n");
     }
   }
 }
 
-uint64_t __carPlayHelperSession_handleConnectivityHelperEvent_block_invoke_cold_4(unsigned __int8 *a1)
+uint64_t __carPlayHelperSession_handleConnectivityHelperEvent_block_invoke_cold_4()
 {
-  OUTLINED_FUNCTION_2_18(a1);
+  OUTLINED_FUNCTION_2_18();
   OUTLINED_FUNCTION_6_11();
-  return OUTLINED_FUNCTION_9();
+  return OUTLINED_FUNCTION_9(&gLogCategory_APBrowserCarSessionHelper, "OSStatus carPlayHelperSession_usbInterfaceChanged(APCarPlayHelperRef, CFDictionaryRef)", v0, "[%{ptr}] %s USB Network interface changed to %@, powerAssertSet: %s\n");
 }
 
-uint64_t __carPlayHelperSession_handleConnectivityHelperEvent_block_invoke_cold_5(unsigned __int8 *a1)
+uint64_t __carPlayHelperSession_handleConnectivityHelperEvent_block_invoke_cold_5()
 {
-  OUTLINED_FUNCTION_2_18(a1);
+  OUTLINED_FUNCTION_2_18();
   OUTLINED_FUNCTION_6_11();
-  return OUTLINED_FUNCTION_9();
+  return OUTLINED_FUNCTION_9(&gLogCategory_APBrowserCarSessionHelper, "OSStatus carPlayHelperSession_usbInterfaceChanged(APCarPlayHelperRef, CFDictionaryRef)", v0, "[%{ptr}] %###s %s Releasing SessionHost for USB connection.\n");
 }
 
 void __carPlayHelperSession_handleConnectivityHelperEvent_block_invoke_cold_11()
@@ -9765,32 +10113,28 @@ void __carPlayHelperSession_handleConnectivityHelperEvent_block_invoke_cold_11()
   if (gLogCategory_APBrowserCarSessionHelper <= 50)
   {
     OUTLINED_FUNCTION_10_8();
-    if (!v1 || OUTLINED_FUNCTION_8())
+    if (!v0 || OUTLINED_FUNCTION_8(&gLogCategory_APBrowserCarSessionHelper))
     {
-      v2 = v0[177];
-      v3 = v0[64];
-      v4 = v0[112];
       OUTLINED_FUNCTION_6_11();
-      OUTLINED_FUNCTION_9();
+      OUTLINED_FUNCTION_9(&gLogCategory_APBrowserCarSessionHelper, "void carPlayHelperSession_resetRSDInterfaceIfNeeded(APCarPlayHelperRef, CFStringRef, CFArrayRef)", v1, "[%{ptr}] %s Ignoring %@ interface\n");
     }
   }
 }
 
-uint64_t __carPlayHelperSession_handleConnectivityHelperEvent_block_invoke_cold_12(unsigned __int8 *a1)
+uint64_t __carPlayHelperSession_handleConnectivityHelperEvent_block_invoke_cold_12()
 {
-  OUTLINED_FUNCTION_2_18(a1);
+  OUTLINED_FUNCTION_2_18();
   OUTLINED_FUNCTION_6_11();
-  return OUTLINED_FUNCTION_9();
+  return OUTLINED_FUNCTION_9(&gLogCategory_APBrowserCarSessionHelper, "void carPlayHelperSession_resetRSDInterfaceIfNeeded(APCarPlayHelperRef, CFStringRef, CFArrayRef)", v0, "[%{ptr}] %s RSD network interface changed to NULL");
 }
 
-uint64_t __carPlayHelperSession_handleConnectivityHelperEvent_block_invoke_cold_14(unsigned __int8 *a1)
+uint64_t __carPlayHelperSession_handleConnectivityHelperEvent_block_invoke_cold_14()
 {
-  OUTLINED_FUNCTION_2_18(a1);
+  OUTLINED_FUNCTION_2_18();
   OUTLINED_FUNCTION_6_11();
-  v2 = *v1;
-  if (!v3)
+  if (!v2)
   {
-    switch(*v1)
+    switch(*v0)
     {
       case 1:
       case 2:
@@ -9800,25 +10144,10 @@ uint64_t __carPlayHelperSession_handleConnectivityHelperEvent_block_invoke_cold_
       case 6:
       case 7:
       case 8:
-        return OUTLINED_FUNCTION_9();
       default:
         JUMPOUT(0);
     }
   }
-
-  return OUTLINED_FUNCTION_9();
-}
-
-uint64_t __carPlayHelperSession_handleConnectivityHelperEvent_block_invoke_cold_20(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a2 + 48);
-  v4 = *(a3 + 177);
-  v5 = *(a3 + 112);
-  OUTLINED_FUNCTION_6_11();
-  *(v6 + 64);
-  *(v6 + 64);
-  v9 = *v7;
-  return OUTLINED_FUNCTION_7_0();
 }
 
 void __carPlayHelperSession_handleConnectivityHelperEvent_block_invoke_cold_21(uint64_t a1)
@@ -9854,127 +10183,128 @@ void __APTransportStreamEnableReverseControl_block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 40);
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  if (gLogCategory_APTransportStream <= 30 && (gLogCategory_APTransportStream != -1 || OUTLINED_FUNCTION_8_0()))
+  if (gLogCategory_APTransportStream <= 30 && (gLogCategory_APTransportStream != -1 || OUTLINED_FUNCTION_8_0(&gLogCategory_APTransportStream)))
   {
-    OUTLINED_FUNCTION_7_0();
+    OUTLINED_FUNCTION_7_0(&gLogCategory_APTransportStream, "OSStatus stream_enableReverseControlInternal(FigTransportStreamRef)", v2, "[%{ptr}] Enabling reverse control.\n");
   }
 
   if (*(DerivedStorage + 72))
   {
     APSLogErrorAt();
-    v24 = -16617;
+    v26 = -16617;
     goto LABEL_28;
   }
 
-  v3 = 48;
+  v4 = 48;
   if (!*(DerivedStorage + 24))
   {
-    v3 = 56;
+    v4 = 56;
   }
 
-  v4 = *(DerivedStorage + v3);
-  if (*(v4 + 9))
+  v5 = *(DerivedStorage + v4);
+  if (*(v5 + 9))
   {
-    v24 = 0;
+    v26 = 0;
     goto LABEL_28;
   }
 
   OUTLINED_FUNCTION_11_7();
-  if (v6)
-  {
-    v5 = 48;
-  }
-
-  v7 = *(*(DerivedStorage + v5) + 40);
   if (v7)
   {
-    CMBaseObject = APTransportConnectionGetCMBaseObject(*(v4 + 24));
-    v9 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-    if (!v9)
-    {
-      v24 = -12782;
-      goto LABEL_27;
-    }
-
-    v10 = v9(CMBaseObject, @"RemoteNetworkIPAddress", v7);
-    if (v10)
-    {
-      v24 = v10;
-      goto LABEL_27;
-    }
+    v6 = 48;
   }
 
-  v11 = *(DerivedStorage + 120);
-  if (v11)
+  v8 = *(*(DerivedStorage + v6) + 40);
+  if (v8)
   {
-    v12 = *(DerivedStorage + 128);
+    APTransportConnectionGetCMBaseObject();
+    v10 = v9;
+    v11 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+    if (!v11)
+    {
+      v26 = -12782;
+      goto LABEL_27;
+    }
+
+    v12 = v11(v10, @"RemoteNetworkIPAddress", v8);
     if (v12)
     {
-      v13 = *(v4 + 24);
-      v14 = *(*(CMBaseObjectGetVTable() + 16) + 80);
-      if (!v14)
+      v26 = v12;
+      goto LABEL_27;
+    }
+  }
+
+  v13 = *(DerivedStorage + 120);
+  if (v13)
+  {
+    v14 = *(DerivedStorage + 128);
+    if (v14)
+    {
+      v15 = *(v5 + 24);
+      v16 = *(*(CMBaseObjectGetVTable() + 16) + 80);
+      if (!v16)
       {
-        v24 = -12782;
+        v26 = -12782;
         goto LABEL_27;
       }
 
-      v15 = v14(v13, v11, v12);
-      if (v15)
+      v17 = v16(v15, v13, v14);
+      if (v17)
       {
-        v24 = v15;
+        v26 = v17;
         goto LABEL_27;
       }
     }
   }
 
-  v17 = *(v4 + 24);
-  v16 = *(v4 + 32);
-  v18 = *(DerivedStorage + 184);
-  v19 = *(DerivedStorage + 96);
-  v20 = *(*(CMBaseObjectGetVTable() + 16) + 16);
-  if (!v20)
+  v19 = *(v5 + 24);
+  v18 = *(v5 + 32);
+  v20 = *(DerivedStorage + 184);
+  v21 = *(DerivedStorage + 96);
+  v22 = *(*(CMBaseObjectGetVTable() + 16) + 16);
+  if (!v22)
   {
-    v24 = -12782;
+    v26 = -12782;
     goto LABEL_27;
   }
 
-  v21 = v20(v17, v1, v16, v18, v19);
-  if (v21)
+  v23 = v22(v19, v1, v18, v20, v21);
+  if (v23)
   {
-    v24 = v21;
+    v26 = v23;
     goto LABEL_27;
   }
 
-  v22 = *(v4 + 24);
-  v23 = *(*(CMBaseObjectGetVTable() + 16) + 8);
-  if (!v23)
+  v24 = *(v5 + 24);
+  v25 = *(*(CMBaseObjectGetVTable() + 16) + 8);
+  if (!v25)
   {
-    v24 = -12782;
+    v26 = -12782;
     goto LABEL_27;
   }
 
-  v24 = v23(v22);
-  if (v24)
+  v26 = v25(v24);
+  if (v26)
   {
 LABEL_27:
     APSLogErrorAt();
     goto LABEL_28;
   }
 
-  *(v4 + 9) = 1;
-  stream_postCachedConnectionEvent(v1, v4);
+  *(v5 + 9) = 1;
+  stream_postCachedConnectionEvent(v1, v5);
 LABEL_28:
   OUTLINED_FUNCTION_8_1();
-  *(v25 + 24) = v24;
+  *(v27 + 24) = v26;
 }
 
 uint64_t APTransportStreamCopyConvertedLinkLocalIPv6Addresses(uint64_t a1, uint64_t a2)
 {
   v3 = a2;
   *buffer = 0;
-  v16 = 0;
-  v18 = 0;
   v17 = 0;
+  v19 = 0;
+  v18 = 0;
   cf = 0;
   theData = 0;
   if (!a2)
@@ -9988,48 +10318,48 @@ uint64_t APTransportStreamCopyConvertedLinkLocalIPv6Addresses(uint64_t a1, uint6
     return 0;
   }
 
-  if (!v2 || (v5 = CFGetTypeID(v2), v5 != FigTransportStreamGetTypeID()))
+  if (!v2 || (v6 = CFGetTypeID(v2), v6 != FigTransportStreamGetTypeID()))
   {
-    if (gLogCategory_APTransportStream <= 50 && (gLogCategory_APTransportStream != -1 || OUTLINED_FUNCTION_8()))
+    if (gLogCategory_APTransportStream <= 50 && (gLogCategory_APTransportStream != -1 || OUTLINED_FUNCTION_8(&gLogCategory_APTransportStream)))
     {
-      OUTLINED_FUNCTION_9();
+      OUTLINED_FUNCTION_9(&gLogCategory_APTransportStream, "CFArrayRef APTransportStreamCopyConvertedLinkLocalIPv6Addresses(FigTransportStreamRef, CFArrayRef)", v5, "TransportControlStream is not a FigTransportStream: [%{ptr}]\n");
     }
 
     v3 = 0;
     goto LABEL_16;
   }
 
-  v6 = *MEMORY[0x277CBECE8];
+  v7 = *MEMORY[0x277CBECE8];
   CMBaseObject = FigTransportStreamGetCMBaseObject();
-  v8 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-  if (v8)
+  v9 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (v9)
   {
-    v8(CMBaseObject, @"LocalNetworkIPAddress", v6, &theData);
+    v9(CMBaseObject, @"LocalNetworkIPAddress", v7, &theData);
   }
 
-  v9 = FigTransportStreamGetCMBaseObject();
-  v10 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-  if (v10)
+  v10 = FigTransportStreamGetCMBaseObject();
+  v11 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (v11)
   {
-    v10(v9, @"LocalInterfaceName", v6, &cf);
-    v11 = cf;
+    v11(v10, @"LocalInterfaceName", v7, &cf);
+    v12 = cf;
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  if (!(theData | v11))
+  if (!(theData | v12))
   {
     return 0;
   }
 
   if (theData)
   {
-    v19.location = 0;
-    v19.length = 28;
-    CFDataGetBytes(theData, v19, buffer);
+    v20.location = 0;
+    v20.length = 28;
+    CFDataGetBytes(theData, v20, buffer);
   }
 
   v3 = APSNetworkCopyConvertedLinkLocalIPv6Addresses();
@@ -10052,26 +10382,24 @@ uint64_t stream_RelinquishMessageBBuf(uint64_t a1, uint64_t a2)
   CMBaseObjectGetDerivedStorage();
   if (a2)
   {
-    v4 = OUTLINED_FUNCTION_5_2();
-    CFRetain(v4);
-    v5 = *(v2 + 64);
+    v3 = OUTLINED_FUNCTION_5_2();
+    CFRetain(v3);
     APSDispatchAsyncFHelper();
   }
 
   return 0;
 }
 
-uint64_t stream_SendBatch(const void *a1, uint64_t a2, const void *a3)
+uint64_t stream_SendBatch(const void *a1, unsigned int a2, const void *a3)
 {
   CMBaseObjectGetDerivedStorage();
   if (a1 && a3)
   {
-    v6 = OUTLINED_FUNCTION_5_2();
-    if (CFArrayGetCount(v6) >= 1)
+    v5 = OUTLINED_FUNCTION_5_2();
+    if (CFArrayGetCount(v5) >= 1)
     {
       CFRetain(a1);
       CFRetain(a3);
-      v7 = *(v3 + 64);
       APSDispatchAsyncFHelper();
     }
 
@@ -10087,11 +10415,11 @@ uint64_t stream_SendBatch(const void *a1, uint64_t a2, const void *a3)
 
 uint64_t stream_createConnectionAddressFromEventData(int a1, CFDataRef theData)
 {
-  v8 = 0;
+  v10 = 0;
   *buffer = 0;
-  v5 = 0;
   v7 = 0;
-  v6 = 0;
+  v9 = 0;
+  v8 = 0;
   if (!theData)
   {
     return 0;
@@ -10104,15 +10432,14 @@ uint64_t stream_createConnectionAddressFromEventData(int a1, CFDataRef theData)
       return 0;
     }
 
-LABEL_10:
-    OUTLINED_FUNCTION_3_0();
-    return 0;
+    v5 = "[%{ptr}] Event data was not the expected size";
+    goto LABEL_11;
   }
 
-  v9.location = 0;
-  v9.length = 28;
-  CFDataGetBytes(theData, v9, buffer);
-  result = CFStringCreateF();
+  v11.location = 0;
+  v11.length = 28;
+  CFDataGetBytes(theData, v11, buffer);
+  result = CFStringCreateF(&v10, "%##a", buffer);
   if (!result)
   {
     if (gLogCategory_APTransportStream > 60 || gLogCategory_APTransportStream == -1 && !_LogCategory_Initialize())
@@ -10120,7 +10447,10 @@ LABEL_10:
       return 0;
     }
 
-    goto LABEL_10;
+    v5 = "[%{ptr}] Could not create IP address from connection event data";
+LABEL_11:
+    OUTLINED_FUNCTION_3_0(&gLogCategory_APTransportStream, "CFStringRef stream_createConnectionAddressFromEventData(FigTransportStreamRef, CFTypeRef)", v3, v5);
+    return 0;
   }
 
   return result;
@@ -10143,62 +10473,47 @@ uint64_t stream_DumpHierarchy_cold_1_0()
   return APSLogErrorAt();
 }
 
-uint64_t stream_sendBatchInternal_cold_2(uint64_t *a1)
-{
-  v2 = *a1;
-  v3 = *(a1 + 2);
-  return LogPrintF();
-}
-
-uint64_t stream_sendBatchInternal_cold_4(uint64_t *a1)
-{
-  v2 = *a1;
-  v3 = *(a1 + 2);
-  return LogPrintF();
-}
-
-uint64_t stream_recordConnectionEvent_cold_2()
+uint64_t stream_recordConnectionEvent_cold_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (gLogCategory_APTransportStream <= 60)
   {
     if (gLogCategory_APTransportStream != -1)
     {
-      return OUTLINED_FUNCTION_3_0();
+      return OUTLINED_FUNCTION_3_0(&gLogCategory_APTransportStream, "void stream_recordSuccessfulConnectionStartTime(FigTransportStreamRef, CFTypeRef)", a3, "[%{ptr}] No start time for connection to %@\n");
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return OUTLINED_FUNCTION_3_0();
+      return OUTLINED_FUNCTION_3_0(&gLogCategory_APTransportStream, "void stream_recordSuccessfulConnectionStartTime(FigTransportStreamRef, CFTypeRef)", a3, "[%{ptr}] No start time for connection to %@\n");
     }
   }
 
   return result;
 }
 
-uint64_t APTTrafficMetricsMessageReadStarted(uint64_t result)
+uint64_t APTTrafficMetricsMessageReadStarted(uint64_t result, int a2)
 {
   if (result)
   {
     OUTLINED_FUNCTION_6_12();
     mach_absolute_time();
-    v2 = *(v1 + 56);
     APSAtomicMessageQueueSendMessage();
-    v3 = *(v1 + 64);
     return APSRealTimeSignalRaise();
   }
 
   return result;
 }
 
-uint64_t APTTrafficMetricsMessageReadFinished(uint64_t result)
+uint64_t APTTrafficMetricsMessageReadFinished(uint64_t result, uint64_t a2, int a3)
 {
   if (result)
   {
     OUTLINED_FUNCTION_6_12();
-    mach_absolute_time();
-    OUTLINED_FUNCTION_3_11();
-    v2 = *(v1 + 64);
+    LODWORD(v13) = 12;
+    v5 = mach_absolute_time();
+    LODWORD(v14) = a3;
+    OUTLINED_FUNCTION_3_11(v5, v6, v7, v8, v9, v10, v11, v12, v13, v5, v14, a2, v15);
     return APSRealTimeSignalRaise();
   }
 
@@ -10210,9 +10525,9 @@ uint64_t APTTrafficMetricsMessageProcessed(uint64_t result)
   if (result)
   {
     OUTLINED_FUNCTION_6_12();
-    mach_absolute_time();
-    OUTLINED_FUNCTION_0_10();
-    v2 = *(v1 + 64);
+    LODWORD(v9) = 13;
+    v1 = mach_absolute_time();
+    OUTLINED_FUNCTION_0_10(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13);
     return APSRealTimeSignalRaise();
   }
 
@@ -10222,8 +10537,8 @@ uint64_t APTTrafficMetricsMessageProcessed(uint64_t result)
 void datagramPackage_SetMessageData(uint64_t a1, const void *a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v4 = *(DerivedStorage + 8);
-  if (v4 != a2)
+  v5 = *(DerivedStorage + 8);
+  if (v5 != a2)
   {
     *(DerivedStorage + 8) = a2;
     if (a2)
@@ -10231,12 +10546,12 @@ void datagramPackage_SetMessageData(uint64_t a1, const void *a2)
       CFRetain(a2);
     }
 
-    if (v4)
+    if (v5)
     {
-      CFRelease(v4);
+      CFRelease(v5);
     }
 
-    datagramPackage_updateMessageDataArrivalTicks();
+    datagramPackage_updateMessageDataArrivalTicks(a1);
   }
 }
 
@@ -10247,19 +10562,18 @@ void datagramPackage_SetArrivalTicks(uint64_t a1, uint64_t a2)
   {
     *(DerivedStorage + 16) = a2;
 
-    datagramPackage_updateMessageDataArrivalTicks();
+    datagramPackage_updateMessageDataArrivalTicks(a1);
   }
 }
 
-void datagramPackage_updateMessageDataArrivalTicks()
+void datagramPackage_updateMessageDataArrivalTicks(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v1 = *(DerivedStorage + 8);
-  if (v1)
+  v2 = *(DerivedStorage + 8);
+  if (v2)
   {
     if (*(DerivedStorage + 16))
     {
-      v2 = *MEMORY[0x277CBECE8];
       UInt64 = FigCFNumberCreateUInt64();
       CMSetAttachment(*(DerivedStorage + 8), *MEMORY[0x277CEA348], UInt64, 0);
       if (UInt64)
@@ -10273,7 +10587,7 @@ void datagramPackage_updateMessageDataArrivalTicks()
     {
       v4 = *MEMORY[0x277CEA348];
 
-      CMRemoveAttachment(v1, v4);
+      CMRemoveAttachment(v2, v4);
     }
   }
 }
@@ -10296,42 +10610,40 @@ uint64_t browser_invalidateNoQueueCheck(void *a1)
 
   if (*(v3 + 104))
   {
-    CMBaseObject = APBrowserDeviceQueryManagerGetCMBaseObject();
-    if (CMBaseObject)
+    APBrowserDeviceQueryManagerGetCMBaseObject();
+    if (v5)
     {
-      v6 = CMBaseObject;
-      VTable = CMBaseObjectGetVTable();
-      v8 = *(*(VTable + 8) + 24);
-      if (v8)
+      v6 = v5;
+      v7 = *(*(CMBaseObjectGetVTable() + 8) + 24);
+      if (v7)
       {
-        v9 = *(VTable + 8) + 24;
-        v8(v6);
+        v7(v6);
       }
     }
   }
 
-  v10 = *(v3 + 184);
+  v8 = *(v3 + 184);
+  if (v8)
+  {
+    APConnectivityHelperRemoveAllRegistrations(v8, a1);
+  }
+
+  v9 = *(v3 + 144);
+  if (v9)
+  {
+    APBrowserRapportManagerInvalidate(v9);
+  }
+
+  v10 = *(v3 + 88);
   if (v10)
   {
-    APConnectivityHelperRemoveAllRegistrations(v10, a1);
-  }
-
-  v11 = *(v3 + 144);
-  if (v11)
-  {
-    APBrowserRapportManagerInvalidate(v11);
-  }
-
-  v12 = *(v3 + 88);
-  if (v12)
-  {
-    APBonjourBrowserInvalidate(v12);
+    APBonjourBrowserInvalidate(v10);
   }
 
   [*(v3 + 224) stopBrowsing];
-  browser_stopNI();
-  browser_ensureDetailedForeverTimerStopped();
-  v13 = browser_dispatchEvent(a1, 8, 0);
+  browser_stopNI(a1);
+  browser_ensureDetailedForeverTimerStopped(a1);
+  v11 = browser_dispatchEvent(a1, 8, 0);
   *(v3 + 248) = 0;
   *(v3 + 256) = 0;
   if (*(v3 + 56))
@@ -10340,10 +10652,10 @@ uint64_t browser_invalidateNoQueueCheck(void *a1)
   }
 
   *(v3 + 245) = 1;
-  return v13;
+  return v11;
 }
 
-uint64_t browser_tickleDetailedMode()
+uint64_t browser_tickleDetailedMode(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (*(DerivedStorage + 245))
@@ -10356,8 +10668,8 @@ uint64_t browser_tickleDetailedMode()
   {
     if (*(DerivedStorage + 130) && *(DerivedStorage + 129) && *(DerivedStorage + 198))
     {
-      v1 = APBonjourBrowserTickleDetailedMode(*(DerivedStorage + 88));
-      if (v1)
+      v2 = APBonjourBrowserTickleDetailedMode(*(DerivedStorage + 88));
+      if (v2)
       {
         APSLogErrorAt();
       }
@@ -10375,7 +10687,7 @@ uint64_t browser_tickleDetailedMode()
     return 4294960587;
   }
 
-  return v1;
+  return v2;
 }
 
 uint64_t browser_invalidate(void *a1)
@@ -10390,58 +10702,55 @@ uint64_t browser_invalidate(void *a1)
   return v2;
 }
 
-uint64_t browser_getMode(uint64_t *a1)
+uint64_t browser_getMode(uint64_t a1)
 {
-  v2 = *a1;
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (*(DerivedStorage + 245))
   {
     return 4294960573;
   }
 
-  v4 = DerivedStorage;
+  v3 = DerivedStorage;
   result = 0;
-  *a1[1] = *(v4 + 24);
+  **(a1 + 8) = *(v3 + 24);
   return result;
 }
 
 void __browser_updateDetailedDiscoveryThresholdTimer_block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  OUTLINED_FUNCTION_4_14(DerivedStorage);
-  if (v3 <= 50)
+  v2 = OUTLINED_FUNCTION_4_14(DerivedStorage);
+  if (v4 <= 50)
   {
-    if (v3 != -1)
+    if (v4 != -1)
     {
 LABEL_3:
-      OUTLINED_FUNCTION_9();
+      OUTLINED_FUNCTION_9(v2, "void browser_handleDetailedDiscoveryThresholdTimerFired(APBrowserRef)", v3, "Invoking TTR error for Discovery being turned on for too long.\n");
       goto LABEL_5;
     }
 
-    if (OUTLINED_FUNCTION_8())
+    if (OUTLINED_FUNCTION_8(v2))
     {
-      v9 = *DerivedStorage;
+      v2 = *DerivedStorage;
       goto LABEL_3;
     }
   }
 
 LABEL_5:
-  v4 = CFStringCreateF();
-  if (v4)
+  v5 = CFStringCreateF(0, "\n");
+  if (v5)
   {
-    v5 = v4;
-    v6 = CFStringCreateF();
-    if (v6)
+    v6 = v5;
+    v7 = CFStringCreateF(0, "TTR: Airplay Discovery turned ON for %ds or longer", 3600);
+    if (v7)
     {
-      v7 = v6;
-      v8 = *MEMORY[0x277CEA2F8];
+      v8 = v7;
       APSTapToRadarInvoke();
-      CFRelease(v5);
-      v5 = v7;
+      CFRelease(v6);
+      v6 = v8;
     }
 
-    CFRelease(v5);
+    CFRelease(v6);
   }
 }
 
@@ -10449,26 +10758,14 @@ void __browser_ensureDetailedForeverTimerStarted_block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 32);
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  OUTLINED_FUNCTION_4_14(DerivedStorage);
-  if (v3 <= 30)
+  v3 = OUTLINED_FUNCTION_4_14(DerivedStorage);
+  if (v4 <= 30 && (v4 != -1 || OUTLINED_FUNCTION_8_0(v3)))
   {
-    if (v3 != -1)
-    {
-LABEL_3:
-      OUTLINED_FUNCTION_1();
-      LogPrintF();
-      goto LABEL_5;
-    }
-
-    if (OUTLINED_FUNCTION_8_0())
-    {
-      v10 = *DerivedStorage;
-      goto LABEL_3;
-    }
+    OUTLINED_FUNCTION_1();
+    LogPrintF(v5, v6, v7, v8);
   }
 
-LABEL_5:
-  v4 = CMBaseObjectGetDerivedStorage();
+  CMBaseObjectGetDerivedStorage();
   if (APSRTCReportingAgentCreate())
   {
     APSLogErrorAt();
@@ -10483,32 +10780,24 @@ LABEL_5:
       CFDictionarySetInt64();
       CFDictionarySetValue(Mutable, @"sessionType", @"Discovery");
       APSRTCReportingAgentSendEvent();
-      OUTLINED_FUNCTION_10_10(*v4);
-      if (v8 ^ v9 | v7)
+      OUTLINED_FUNCTION_10_10();
+      if (v13 ^ v14 | v12)
       {
-        if (v6 == -1)
+        if (v11 != -1 || OUTLINED_FUNCTION_8_0(v10))
         {
-          if (!OUTLINED_FUNCTION_8_0())
-          {
-            goto LABEL_12;
-          }
-
-          v11 = *v4;
+          OUTLINED_FUNCTION_1();
+          LogPrintF(v15, v16, v17, v18, Mutable);
         }
-
-        OUTLINED_FUNCTION_1();
-        LogPrintF();
       }
     }
   }
 
-LABEL_12:
   if (Mutable)
   {
     CFRelease(Mutable);
   }
 
-  browser_ensureDetailedForeverTimerStopped();
+  browser_ensureDetailedForeverTimerStopped(v1);
 }
 
 void __browser_startOrExtendDiscoverySessionThresholdTimer_block_invoke(uint64_t a1)
@@ -10518,19 +10807,19 @@ void __browser_startOrExtendDiscoverySessionThresholdTimer_block_invoke(uint64_t
   CFAbsoluteTimeGetCurrent();
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   v3 = *(DerivedStorage + 24);
-  OUTLINED_FUNCTION_4_14(DerivedStorage);
-  if (v4 <= 50)
+  v4 = OUTLINED_FUNCTION_4_14(DerivedStorage);
+  if (v6 <= 50)
   {
-    if (v4 != -1)
+    if (v6 != -1)
     {
 LABEL_3:
-      OUTLINED_FUNCTION_9();
+      OUTLINED_FUNCTION_9(v4, "OSStatus browser_handleDiscoverySessionThresholdTimerFired(APBrowserRef)", v5, "Discovery session threshold timer fired. Discovery active: %s");
       goto LABEL_5;
     }
 
-    if (OUTLINED_FUNCTION_8())
+    if (OUTLINED_FUNCTION_8(v4))
     {
-      v6 = *DerivedStorage;
+      v4 = *DerivedStorage;
       goto LABEL_3;
     }
   }
@@ -10538,11 +10827,10 @@ LABEL_3:
 LABEL_5:
   if (v3)
   {
-    browser_batchAndSendDiscoveredDeviceRTCMetrics();
-    v5 = *(DerivedStorage + 384);
+    browser_batchAndSendDiscoveredDeviceRTCMetrics(v1);
     APSEventRecorderRecordEventWithFlagsAtTime();
 
-    browser_ensureDiscoverySessionThresholdTimerStopped();
+    browser_ensureDiscoverySessionThresholdTimerStopped(v1);
   }
 }
 
@@ -10561,51 +10849,50 @@ uint64_t browser_startWiFiPowerChangedListener(uint64_t a1)
     return 4294960587;
   }
 
-  OUTLINED_FUNCTION_2_21();
-  if (v6 ^ v7 | v5)
+  v4 = OUTLINED_FUNCTION_2_21();
+  if (v8 ^ v9 | v7)
   {
-    if (v4 == -1)
+    if (v6 == -1)
     {
-      if (!OUTLINED_FUNCTION_7())
+      if (!OUTLINED_FUNCTION_7(v4))
       {
         goto LABEL_8;
       }
 
-      v12 = *v3;
+      v4 = *v3;
     }
 
-    OUTLINED_FUNCTION_11();
+    OUTLINED_FUNCTION_11(v4, "OSStatus browser_startWiFiPowerChangedListener(APBrowserRef)", v5, "Starting WiFi power listener.\n");
   }
 
 LABEL_8:
-  v8 = APConnectivityHelperRegisterForEvent(*(v3 + 184), a1, 2);
-  if (v8)
+  v10 = APConnectivityHelperRegisterForEvent(*(v3 + 184), a1, 2);
+  if (v10)
   {
-    v10 = v8;
+    v14 = v10;
     APSLogErrorAt();
-    return v10;
+    return v14;
   }
 
   *(v3 + 196) = 1;
   APConnectivityHelperQueryWiFiPower(*(v3 + 184), v3 + 198);
-  OUTLINED_FUNCTION_2_21();
-  if (!(v6 ^ v7 | v5))
+  v11 = OUTLINED_FUNCTION_2_21();
+  if (!(v8 ^ v9 | v7))
   {
     return 0;
   }
 
-  if (v9 == -1)
+  if (v13 == -1)
   {
-    if (!OUTLINED_FUNCTION_7())
+    if (!OUTLINED_FUNCTION_7(v11))
     {
       return 0;
     }
 
-    v13 = *v3;
+    v11 = *v3;
   }
 
-  *(v3 + 198);
-  OUTLINED_FUNCTION_11();
+  OUTLINED_FUNCTION_11(v11, "OSStatus browser_startWiFiPowerChangedListener(APBrowserRef)", v12, "WiFi powered %s.");
   return 0;
 }
 
@@ -10660,16 +10947,15 @@ uint64_t browser_handleBonjourRemove(const void *a1, __CFString *a2, const __CFD
   return v6;
 }
 
-uint64_t browser_setEventHandler(uint64_t *a1)
+uint64_t browser_setEventHandler(uint64_t a1)
 {
-  v2 = *a1;
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (*(DerivedStorage + 245))
   {
     return 4294960573;
   }
 
-  v4 = DerivedStorage;
+  v3 = DerivedStorage;
   if (*(DerivedStorage + 24))
   {
     APSLogErrorAt();
@@ -10679,7 +10965,7 @@ uint64_t browser_setEventHandler(uint64_t *a1)
   else
   {
     result = 0;
-    *(v4 + 248) = *(a1 + 1);
+    *(v3 + 248) = *(a1 + 8);
   }
 
   return result;
@@ -10720,15 +11006,15 @@ uint64_t browser_startTrackingDevice(uint64_t a1)
   if (!Value)
   {
     APSLogErrorAt();
-    v22 = -6727;
+    v23 = -6727;
     goto LABEL_15;
   }
 
   v12 = Value;
   CFDictionaryGetInt64();
   CFDictionaryGetInt64();
-  v22 = browser_cacheP2PDNSAddresses(v2, v8, v12);
-  if (v22)
+  v23 = browser_cacheP2PDNSAddresses(v2, v8, v12);
+  if (v23)
   {
     APSLogErrorAt();
     goto LABEL_15;
@@ -10736,7 +11022,7 @@ uint64_t browser_startTrackingDevice(uint64_t a1)
 
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   ++*(DerivedStorage + 240);
-  v22 = 0;
+  v23 = 0;
   CFDictionarySetInt64();
   CFDictionarySetValue(v12, @"IsTracked", *MEMORY[0x277CBED28]);
   if (*(a1 + 24))
@@ -10750,26 +11036,26 @@ uint64_t browser_startTrackingDevice(uint64_t a1)
   }
 
   *(v5 + 444) |= v14;
-  OUTLINED_FUNCTION_1_29();
-  if (!(v17 ^ v18 | v16))
+  v15 = OUTLINED_FUNCTION_1_29();
+  if (!(v19 ^ v20 | v18))
   {
     goto LABEL_15;
   }
 
-  if (v15 == -1)
+  if (v17 == -1)
   {
-    if (!OUTLINED_FUNCTION_7())
+    if (!OUTLINED_FUNCTION_7(v15))
     {
       goto LABEL_15;
     }
 
-    v20 = *v5;
+    v15 = *v5;
   }
 
-  OUTLINED_FUNCTION_11();
+  OUTLINED_FUNCTION_11(v15, "OSStatus browser_startTrackingDevice(void *)", v16, "Started tracking device with ID %@ (%d)\n");
 LABEL_15:
   CFRelease(v8);
-  return v22;
+  return v23;
 }
 
 uint64_t browser_stopTrackingDevice(uint64_t *a1)
@@ -10806,23 +11092,23 @@ uint64_t browser_stopTrackingDevice(uint64_t *a1)
   Value = CFDictionaryGetValue(v8, v9);
   if (!Value)
   {
-    OUTLINED_FUNCTION_1_29();
-    if (!(v15 ^ v16 | v14))
+    v24 = OUTLINED_FUNCTION_1_29();
+    if (!(v17 ^ v18 | v16))
     {
       goto LABEL_33;
     }
 
-    if (v20 == -1)
+    if (v26 == -1)
     {
-      if (!OUTLINED_FUNCTION_7())
+      if (!OUTLINED_FUNCTION_7(v24))
       {
         goto LABEL_33;
       }
 
-      v23 = *v4;
+      v24 = *v4;
     }
 
-    OUTLINED_FUNCTION_11();
+    OUTLINED_FUNCTION_11(v24, "OSStatus browser_stopTrackingDevice(void *)", v25, "No device info for device with ID %@, this device isn't tracked.\n");
 LABEL_33:
     updated = 0;
     goto LABEL_20;
@@ -10841,20 +11127,20 @@ LABEL_22:
   v12 = CFDictionaryGetInt64() - 1;
   OUTLINED_FUNCTION_11_8();
   CFDictionarySetInt64();
-  OUTLINED_FUNCTION_1_29();
-  if (v15 ^ v16 | v14)
+  v13 = OUTLINED_FUNCTION_1_29();
+  if (v17 ^ v18 | v16)
   {
-    if (v13 == -1)
+    if (v15 == -1)
     {
-      if (!OUTLINED_FUNCTION_7())
+      if (!OUTLINED_FUNCTION_7(v13))
       {
         goto LABEL_12;
       }
 
-      v21 = *v4;
+      v13 = *v4;
     }
 
-    OUTLINED_FUNCTION_11();
+    OUTLINED_FUNCTION_11(v13, "OSStatus browser_stopTrackingDevice(void *)", v14, "Stopping tracking device with ID %@ (%d)\n");
   }
 
 LABEL_12:
@@ -10876,23 +11162,23 @@ LABEL_12:
     goto LABEL_19;
   }
 
-  OUTLINED_FUNCTION_1_29();
-  if (!(v15 ^ v16 | v14))
+  v20 = OUTLINED_FUNCTION_1_29();
+  if (!(v17 ^ v18 | v16))
   {
     goto LABEL_19;
   }
 
-  if (v18 == -1)
+  if (v22 == -1)
   {
-    if (!OUTLINED_FUNCTION_7())
+    if (!OUTLINED_FUNCTION_7(v20))
     {
       goto LABEL_19;
     }
 
-    v22 = *v4;
+    v20 = *v4;
   }
 
-  OUTLINED_FUNCTION_11();
+  OUTLINED_FUNCTION_11(v20, "OSStatus browser_stopTrackingDevice(void *)", v21, "Stopped tracking device with ID %@\n");
 LABEL_19:
   CFRelease(v11);
 LABEL_20:
@@ -10939,7 +11225,7 @@ uint64_t browser_reconfirmDevice(uint64_t a1)
   if (!Value)
   {
     APSLogErrorAt();
-    v25 = 4294960569;
+    v31 = 4294960569;
     goto LABEL_28;
   }
 
@@ -10950,95 +11236,95 @@ uint64_t browser_reconfirmDevice(uint64_t a1)
     v14 = APBonjourBrowserReconfirmDevice(*(v5 + 88), v13, *(v5 + 72), v3);
     if (v14)
     {
-      v25 = v14;
+      v31 = v14;
 LABEL_38:
       APSLogErrorAt();
       goto LABEL_28;
     }
 
-    OUTLINED_FUNCTION_1_29();
-    if (v17 ^ v18 | v16)
+    v15 = OUTLINED_FUNCTION_1_29();
+    if (v19 ^ v20 | v18)
     {
-      if (v15 == -1)
+      if (v17 == -1)
       {
-        if (!OUTLINED_FUNCTION_7())
+        if (!OUTLINED_FUNCTION_7(v15))
         {
           goto LABEL_13;
         }
 
-        v27 = *v5;
+        v15 = *v5;
       }
 
-      OUTLINED_FUNCTION_11();
+      OUTLINED_FUNCTION_11(v15, "OSStatus browser_reconfirmDevice(void *)", v16, "Reconfirming airplay services for device with ID %@\n");
     }
   }
 
 LABEL_13:
-  v19 = CFDictionaryGetValue(v12, @"AirPlayNANFullBonjourInfo");
-  if (!v19)
+  v21 = CFDictionaryGetValue(v12, @"AirPlayNANFullBonjourInfo");
+  if (!v21)
   {
     goto LABEL_20;
   }
 
-  v20 = APBonjourBrowserReconfirmDevice(*(v5 + 88), v19, @"AirPlayNANFullBonjourInfo", 0);
-  if (v20)
+  v22 = APBonjourBrowserReconfirmDevice(*(v5 + 88), v21, @"AirPlayNANFullBonjourInfo", 0);
+  if (v22)
   {
-    v25 = v20;
+    v31 = v22;
     goto LABEL_38;
   }
 
-  OUTLINED_FUNCTION_1_29();
-  if (v17 ^ v18 | v16)
+  v23 = OUTLINED_FUNCTION_1_29();
+  if (v19 ^ v20 | v18)
   {
-    if (v21 == -1)
+    if (v25 == -1)
     {
-      if (!OUTLINED_FUNCTION_7())
+      if (!OUTLINED_FUNCTION_7(v23))
       {
         goto LABEL_20;
       }
 
-      v28 = *v5;
+      v23 = *v5;
     }
 
-    OUTLINED_FUNCTION_11();
+    OUTLINED_FUNCTION_11(v23, "OSStatus browser_reconfirmDevice(void *)", v24, "Reconfirming NAN airplay services for device with ID %@\n");
   }
 
 LABEL_20:
-  v22 = CFDictionaryGetValue(v12, @"RAOPBonjourInfo");
-  if (!v22)
+  v26 = CFDictionaryGetValue(v12, @"RAOPBonjourInfo");
+  if (!v26)
   {
     goto LABEL_27;
   }
 
-  v23 = APBonjourBrowserReconfirmDevice(*(v5 + 88), v22, @"RAOP", v3);
-  if (v23)
+  v27 = APBonjourBrowserReconfirmDevice(*(v5 + 88), v26, @"RAOP", v3);
+  if (v27)
   {
-    v25 = v23;
+    v31 = v27;
     goto LABEL_38;
   }
 
-  OUTLINED_FUNCTION_1_29();
-  if (!(v17 ^ v18 | v16))
+  v28 = OUTLINED_FUNCTION_1_29();
+  if (!(v19 ^ v20 | v18))
   {
     goto LABEL_27;
   }
 
-  if (v24 == -1)
+  if (v30 == -1)
   {
-    if (!OUTLINED_FUNCTION_7())
+    if (!OUTLINED_FUNCTION_7(v28))
     {
       goto LABEL_27;
     }
 
-    v29 = *v5;
+    v28 = *v5;
   }
 
-  OUTLINED_FUNCTION_11();
+  OUTLINED_FUNCTION_11(v28, "OSStatus browser_reconfirmDevice(void *)", v29, "Reconfirming raop services for device with ID %@\n");
 LABEL_27:
-  v25 = 0;
+  v31 = 0;
 LABEL_28:
   CFRelease(v8);
-  return v25;
+  return v31;
 }
 
 void browser_triggerWoLCachingIfNeeded(uint64_t a1)
@@ -11077,23 +11363,23 @@ void browser_triggerWoLCachingIfNeeded(uint64_t a1)
         }
 
         APBonjourBrowserTriggerWoLCachingIfNeeded(*(v5 + 88), v10, v3);
-        OUTLINED_FUNCTION_3_12(*v5);
-        if (!(v13 ^ v14 | v12))
+        OUTLINED_FUNCTION_3_12();
+        if (!(v15 ^ v16 | v14))
         {
           goto LABEL_12;
         }
 
-        if (v11 == -1)
+        if (v13 == -1)
         {
-          if (!OUTLINED_FUNCTION_7())
+          if (!OUTLINED_FUNCTION_7(v11))
           {
             goto LABEL_12;
           }
 
-          v15 = *v5;
+          v11 = *v5;
         }
 
-        OUTLINED_FUNCTION_11();
+        OUTLINED_FUNCTION_11(v11, "void browser_triggerWoLCachingIfNeeded(void *)", v12, "Got request for potential caching for device with ID %@\n");
 LABEL_12:
         CFRelease(v8);
         goto LABEL_13;
@@ -11110,12 +11396,13 @@ LABEL_13:
   }
 }
 
-uint64_t browser_getDeviceRelationship_cold_2(unsigned int **a1, uint64_t a2, _DWORD *a3)
+uint64_t browser_getDeviceRelationship_cold_2(uint64_t *a1, uint64_t a2, _DWORD *a3)
 {
   result = OUTLINED_FUNCTION_4_14(a1);
-  if (v6 <= 90)
+  if (v7 <= 90)
   {
-    if (v6 == -1)
+    v8 = v6;
+    if (v7 == -1)
     {
       result = _LogCategory_Initialize();
       if (!result)
@@ -11123,10 +11410,10 @@ uint64_t browser_getDeviceRelationship_cold_2(unsigned int **a1, uint64_t a2, _D
         goto LABEL_5;
       }
 
-      v7 = *a1;
+      result = *a1;
     }
 
-    result = LogPrintF();
+    result = LogPrintF(result, "APBrowserDeviceRelationship browser_getDeviceRelationship(APBrowserRef, CFNumberRef, APAdvertiserInfoRef)", 33554522, "No device relationship for device ID %@\n", v8);
   }
 
 LABEL_5:
@@ -11138,20 +11425,20 @@ uint64_t browser_setModeInternal_cold_4()
 {
   OUTLINED_FUNCTION_2_5();
   result = OUTLINED_FUNCTION_4_14(v2);
-  if (v4 <= 50)
+  if (v5 <= 50)
   {
-    if (v4 == -1)
+    if (v5 == -1)
     {
-      result = OUTLINED_FUNCTION_8();
+      result = OUTLINED_FUNCTION_8(result);
       if (!result)
       {
         goto LABEL_5;
       }
 
-      v5 = *v1;
+      result = *v1;
     }
 
-    result = OUTLINED_FUNCTION_9();
+    result = OUTLINED_FUNCTION_9(result, "OSStatus browser_startOrExtendDiscoverySessionThresholdTimer(APBrowserRef)", v4, "Ignoring request to update threshold timer after session threshold");
   }
 
 LABEL_5:
@@ -11176,10 +11463,10 @@ uint64_t __browser_batchAndSendDiscoveredDeviceRTCMetrics_block_invoke_cold_4()
   return APSLogErrorAt();
 }
 
-uint64_t browser_updateBTLEBrowsing_cold_5()
+uint64_t browser_updateBTLEBrowsing_cold_5(uint64_t a1)
 {
   APSLogErrorAt();
-  browser_ensureConnectivityCheckTimerStopped();
+  browser_ensureConnectivityCheckTimerStopped(a1);
 
   return APSLogErrorAt();
 }
@@ -11205,24 +11492,24 @@ void browser_updateBrokerBrowsing_cold_3()
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (CFDictionaryGetCount(*(DerivedStorage + 360)) > 0)
   {
-    v4 = **DerivedStorage;
-    if (v4 <= 50)
+    v5 = *DerivedStorage;
+    v6 = **DerivedStorage;
+    if (v6 <= 50)
     {
-      if (v4 == -1)
+      if (v6 == -1)
       {
-        if (!OUTLINED_FUNCTION_8())
+        if (!OUTLINED_FUNCTION_8(v5))
         {
           goto LABEL_8;
         }
 
-        v6 = *DerivedStorage;
+        v5 = *DerivedStorage;
       }
 
-      OUTLINED_FUNCTION_9();
+      OUTLINED_FUNCTION_9(v5, "OSStatus browser_flushAllBrokerResults(APBrowserRef)", v4, "[%{ptr}] Flush all %d broker results\n");
     }
 
 LABEL_8:
-    v5 = *(DerivedStorage + 360);
     CFDictionaryApplyBlock();
     CFDictionaryRemoveAllValues(*(DerivedStorage + 360));
   }
@@ -11235,13 +11522,13 @@ uint64_t browser_updateEventInfoForDevice_cold_2(uint64_t a1, int *a2)
   {
     if (*a2 != -1)
     {
-      return OUTLINED_FUNCTION_11();
+      return OUTLINED_FUNCTION_11(a2, "OSStatus browser_createSidePlayAdvertiserInfoForDevice(CFAllocatorRef, CFDictionaryRef, LogCategory *, APAdvertiserInfoRef *)", v4, "Failed to create advertiser info for %@.\n");
     }
 
-    result = OUTLINED_FUNCTION_7();
+    result = OUTLINED_FUNCTION_7(a2);
     if (result)
     {
-      return OUTLINED_FUNCTION_11();
+      return OUTLINED_FUNCTION_11(a2, "OSStatus browser_createSidePlayAdvertiserInfoForDevice(CFAllocatorRef, CFDictionaryRef, LogCategory *, APAdvertiserInfoRef *)", v4, "Failed to create advertiser info for %@.\n");
     }
   }
 
@@ -11255,20 +11542,20 @@ uint64_t browser_updateEventInfoForDevice_cold_5(uint64_t a1, int *a2)
   {
     if (*a2 != -1)
     {
-      return OUTLINED_FUNCTION_11();
+      return OUTLINED_FUNCTION_11(a2, "OSStatus browser_createAdvertiserInfoForDevice(CFAllocatorRef, CFDictionaryRef, LogCategory *, APAdvertiserInfoRef *)", v4, "Failed to create advertiser info for %@.\n");
     }
 
-    result = OUTLINED_FUNCTION_7();
+    result = OUTLINED_FUNCTION_7(a2);
     if (result)
     {
-      return OUTLINED_FUNCTION_11();
+      return OUTLINED_FUNCTION_11(a2, "OSStatus browser_createAdvertiserInfoForDevice(CFAllocatorRef, CFDictionaryRef, LogCategory *, APAdvertiserInfoRef *)", v4, "Failed to create advertiser info for %@.\n");
     }
   }
 
   return result;
 }
 
-uint64_t browser_handleConnectivityHelperEventInternal_cold_6(unsigned int **a1, int a2, _DWORD *a3)
+uint64_t browser_handleConnectivityHelperEventInternal_cold_6(uint64_t *a1, uint64_t a2, _DWORD *a3)
 {
   result = OUTLINED_FUNCTION_4_14(a1);
   if (v7 <= 90)
@@ -11281,10 +11568,10 @@ uint64_t browser_handleConnectivityHelperEventInternal_cold_6(unsigned int **a1,
         goto LABEL_5;
       }
 
-      v8 = *a1;
+      result = *a1;
     }
 
-    result = LogPrintF();
+    result = LogPrintF(result, "OSStatus browser_handleWiFiPowerChangedEvent(APBrowserRef)", 33554522, "Failed to query WiFi power state: %#m.", a2);
   }
 
 LABEL_5:
@@ -11348,52 +11635,48 @@ uint64_t browser_getDNSForDeviceIDInternal_cold_7(_DWORD *a1)
   return result;
 }
 
-uint64_t browser_removeBonjourWithBTLE_cold_3(unsigned int **a1, uint64_t a2, _DWORD *a3)
+void browser_removeBonjourWithBTLE_cold_3(uint64_t *a1, uint64_t a2, _DWORD *a3)
 {
-  result = OUTLINED_FUNCTION_3_12(*a1);
-  if (v8 ^ v9 | v7)
+  OUTLINED_FUNCTION_3_12();
+  if (v9 ^ v10 | v8)
   {
-    if (v6 == -1)
+    if (v7 == -1)
     {
-      result = OUTLINED_FUNCTION_7();
-      if (!result)
+      if (!OUTLINED_FUNCTION_7(v5))
       {
         goto LABEL_6;
       }
 
-      v10 = *a1;
+      v5 = *a1;
     }
 
-    result = OUTLINED_FUNCTION_11();
+    OUTLINED_FUNCTION_11(v5, "OSStatus browser_removeBonjourWithBTLE(APBrowserRef, CFStringRef)", v6, "Can't process BTLE remove event for device %@. Device info not found.\n");
   }
 
 LABEL_6:
   *a3 = 0;
-  return result;
 }
 
-uint64_t __browser_handleBTLEQueryEventExternal_block_invoke_cold_12(unsigned int **a1, _DWORD *a2)
+void __browser_handleBTLEQueryEventExternal_block_invoke_cold_12(uint64_t *a1, _DWORD *a2)
 {
-  result = OUTLINED_FUNCTION_3_12(*a1);
-  if (v7 ^ v8 | v6)
+  OUTLINED_FUNCTION_3_12();
+  if (v8 ^ v9 | v7)
   {
-    if (v5 == -1)
+    if (v6 == -1)
     {
-      result = OUTLINED_FUNCTION_7();
-      if (!result)
+      if (!OUTLINED_FUNCTION_7(v4))
       {
         goto LABEL_6;
       }
 
-      v9 = *a1;
+      v4 = *a1;
     }
 
-    result = OUTLINED_FUNCTION_11();
+    OUTLINED_FUNCTION_11(v4, "OSStatus browser_handleBTLEQueryEventInternal(APBrowserRef, CFStringRef, CFDictionaryRef, OSStatus)", v5, "Can't process BTLE query response. Device %@ was lost.\n");
   }
 
 LABEL_6:
   *a2 = 0;
-  return result;
 }
 
 uint64_t browser_handleBonjourAddOrUpdate_cold_1(const void *a1, __CFString *a2, const __CFDictionary *a3, _DWORD *a4)
@@ -11422,30 +11705,27 @@ void __getNISpatialBrowsingConfigurationClass_block_invoke_cold_1()
   __break(1u);
 }
 
-uint64_t __browser_resolveBrokerAddress_block_invoke_cold_1()
+void __browser_resolveBrokerAddress_block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2_5();
-  result = OUTLINED_FUNCTION_3_12(*(v2 + 48));
+  OUTLINED_FUNCTION_3_12();
   if (v6 ^ v7 | v5)
   {
     if (v4 == -1)
     {
-      result = OUTLINED_FUNCTION_7();
-      if (!result)
+      if (!OUTLINED_FUNCTION_7(v2))
       {
         goto LABEL_6;
       }
 
-      v8 = *(v1 + 48);
+      v2 = *(v1 + 48);
     }
 
-    v9 = *(v1 + 56);
-    result = OUTLINED_FUNCTION_11();
+    OUTLINED_FUNCTION_11(v2, "void browser_resolveBrokerAddress(APBrowserRef, uint64_t, CFStringRef, CFTypeRef, APBrowserResolvedAddressHandler)_block_invoke", v3, "[%{ptr}] Context went away while resolving DNS address\n");
   }
 
 LABEL_6:
   *v0 = 0;
-  return result;
 }
 
 uint64_t browser_handleBonjourEvent_cold_1(const void *a1, __CFString *a2, const __CFDictionary *a3)
@@ -11467,14 +11747,14 @@ void browser_handleBonjourEvent_cold_7(uint64_t a1, const void *a2)
   CFRelease(a2);
 }
 
-uint64_t __browser_handleBTLEEventExternal_block_invoke_cold_2()
+uint64_t __browser_handleBTLEEventExternal_block_invoke_cold_2(uint64_t a1)
 {
   APSLogErrorAt();
 
   return APSLogErrorAt();
 }
 
-uint64_t __browser_handleBTLEEventExternal_block_invoke_cold_4()
+uint64_t __browser_handleBTLEEventExternal_block_invoke_cold_4(uint64_t a1)
 {
   APSLogErrorAt();
 

@@ -19,40 +19,40 @@
   {
     v8 = objc_alloc_init(ACAccountStore);
     aa_fmfAccount = [(ACAccount *)self aa_fmfAccount];
-    v21 = 0;
-    v10 = [v8 credentialForAccount:aa_fmfAccount error:&v21];
-    v11 = v21;
+    v22 = 0;
+    v10 = [v8 credentialForAccount:aa_fmfAccount error:&v22];
+    v11 = v22;
 
     if (!v10)
     {
-      v12 = sub_100002830();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = sub_100002830(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        sub_100038E28(v11, v12);
+        sub_100038E28(v11, v13);
       }
     }
 
-    v13 = [v10 credentialItemForKey:ACFindMyFriendsAppTokenKey];
-    [v5 fm_safelyMapKey:@"appToken" toObject:v13];
+    v14 = [v10 credentialItemForKey:ACFindMyFriendsAppTokenKey];
+    [v5 fm_safelyMapKey:@"appToken" toObject:v14];
 
-    v14 = [v10 credentialItemForKey:ACFindMyFriendsTokenKey];
-    [v5 fm_safelyMapKey:@"internalToken" toObject:v14];
+    v15 = [v10 credentialItemForKey:ACFindMyFriendsTokenKey];
+    [v5 fm_safelyMapKey:@"internalToken" toObject:v15];
   }
 
-  v15 = [(ACAccount *)self propertiesForDataclass:@"com.apple.Dataclass.ShareLocation"];
-  v16 = [v15 objectForKeyedSubscript:@"appHostname"];
-  [v5 fm_safelyMapKey:@"appHostname" toObject:v16];
+  v16 = [(ACAccount *)self propertiesForDataclass:@"com.apple.Dataclass.ShareLocation"];
+  v17 = [v16 objectForKeyedSubscript:@"appHostname"];
+  [v5 fm_safelyMapKey:@"appHostname" toObject:v17];
 
-  v17 = [v15 objectForKeyedSubscript:@"hostname"];
-  [v5 fm_safelyMapKey:@"hostname" toObject:v17];
+  v18 = [v16 objectForKeyedSubscript:@"hostname"];
+  [v5 fm_safelyMapKey:@"hostname" toObject:v18];
 
   [v5 fm_safelyMapKey:@"scheme" toObject:@"https"];
-  v18 = [v15 objectForKeyedSubscript:@"apsEnv"];
-  [v5 fm_safelyMapKey:@"apsEnv" toObject:v18];
+  v19 = [v16 objectForKeyedSubscript:@"apsEnv"];
+  [v5 fm_safelyMapKey:@"apsEnv" toObject:v19];
 
-  v19 = [v5 copy];
+  v20 = [v5 copy];
 
-  return v19;
+  return v20;
 }
 
 - (id)fmfAccountInfoForProactiveChanges

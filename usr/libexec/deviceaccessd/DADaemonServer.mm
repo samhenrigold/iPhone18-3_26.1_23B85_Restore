@@ -77,6 +77,7 @@
 - (void)_necpUpdateUUIDForAppID:(id)d device:(id)device;
 - (void)_necpUpdateUUIDsWithBlock:(id)block;
 - (void)_necpUpdateValueStrings:(id)strings;
+- (void)_persistBluetoothDevice:(id)device device:(id)a4 requirePairing:(BOOL)pairing pairWithCTKD:(BOOL)d;
 - (void)_persistWiFiAwareDevice:(id)device device:(id)a4 pairingID:(unint64_t)d bundleID:(id)iD;
 - (void)_prefsChanged;
 - (void)_reauthorizeWiFiAwareDeviceFor:(id)for withAppPairingID:(unint64_t)d completionHandler:(id)handler;
@@ -84,10 +85,14 @@
 - (void)_removeAllDevicesAndAppAccess;
 - (void)_removeAllWiFiAwareDevicesFor:(id)for completionHandler:(id)handler;
 - (void)_reportDeviceAccessoryServicesChanged:(id)changed;
+- (void)_reportDeviceChanged:(id)changed appID:(id)d discovery:(BOOL)discovery;
 - (void)_reportDeviceConnectionStatusChanged:(id)changed;
 - (void)_reportDevicesMigratedEvent:(id)event appID:(id)d;
+- (void)_reportDevicesPresentChanged:(BOOL)changed appID:(id)d;
+- (void)_reportDevicesPresentChanged:(BOOL)changed migrated:(BOOL)migrated appID:(id)d;
 - (void)_reportDiscoveredBTDevice:(id)device advertisementData:(id)data RSSI:(id)i AppID:(id)d DADaemonDiscovery:(id)discovery DADiscovery:(id)aDiscovery config:(id)config;
 - (void)_reportDiscoveryEvent:(id)event appID:(id)d;
+- (void)_reportRemovedDevice:(id)device appID:(id)d discovery:(BOOL)discovery;
 - (void)_saveAppDataDict:(id)dict fileURL:(id)l;
 - (void)_scheduleCheckAppAccessInfo;
 - (void)_scheduleCheckDevices;
@@ -190,256 +195,252 @@
 - (id)descriptionWithLevel:(int)level
 {
   levelCopy = level;
-  v89 = 0;
-  v90 = &v89;
-  v91 = 0x3032000000;
-  v92 = sub_100002EE4;
-  v93 = sub_100002EF4;
-  v94 = 0;
+  v85 = 0;
+  v86 = &v85;
+  v87 = 0x3032000000;
+  v88 = sub_100002EE4;
+  v89 = sub_100002EF4;
+  v90 = 0;
   obj = 0;
   mach_continuous_time();
-  startTicksFull = self->_startTicksFull;
+  UpTicksToSeconds();
+  v5 = CUPrintDuration64();
+  mach_absolute_time();
   UpTicksToSeconds();
   v6 = CUPrintDuration64();
-  mach_absolute_time();
-  startTicksAwake = self->_startTicksAwake;
-  UpTicksToSeconds();
-  CUPrintDuration64();
-  v51 = v49 = v6;
-  NSAppendPrintF();
-  objc_storeStrong(&v94, 0);
+  NSAppendPrintF(&obj, "Up %@ (awake %@)", v5, v6);
+  objc_storeStrong(&v90, obj);
 
   if (self->_deviceStateTimer)
   {
-    v8 = (v90 + 5);
-    v87 = v90[5];
-    NSAppendPrintF();
-    objc_storeStrong(v8, v87);
+    v7 = (v86 + 5);
+    v83 = v86[5];
+    NSAppendPrintF(&v83, ", DeviceStateTimer yes");
+    objc_storeStrong(v7, v83);
   }
 
-  v9 = (v90 + 5);
-  v86 = v90[5];
-  NSAppendPrintF();
-  objc_storeStrong(v9, v86);
-  v54 = [(DADaemonServer *)self getDevicesWithFlags:8 appID:0, v49, v51];
-  v10 = [v54 count];
-  v11 = [v54 count];
-  v12 = v11 != 0;
-  if (v11)
+  v8 = (v86 + 5);
+  v82 = v86[5];
+  NSAppendPrintF(&v82, "\n");
+  objc_storeStrong(v8, v82);
+  v50 = [(DADaemonServer *)self getDevicesWithFlags:8 appID:0];
+  v9 = [v50 count];
+  v10 = [v50 count];
+  v11 = v10 != 0;
+  if (v10)
   {
-    v13 = (v90 + 5);
-    v85 = v90[5];
-    NSAppendPrintF();
-    objc_storeStrong(v13, v85);
-    v14 = (v90 + 5);
-    v84 = v90[5];
-    NSAppendPrintF();
-    objc_storeStrong(v14, v84);
-    v82[0] = _NSConcreteStackBlock;
-    v82[1] = 3221225472;
-    v82[2] = sub_100002EFC;
-    v82[3] = &unk_100058B08;
-    v82[4] = &v89;
+    v12 = (v86 + 5);
+    v81 = v86[5];
+    NSAppendPrintF(&v81, "\n");
+    objc_storeStrong(v12, v81);
+    v13 = (v86 + 5);
+    v80 = v86[5];
+    NSAppendPrintF(&v80, "== Accessories: %d ==\n", v9);
+    objc_storeStrong(v13, v80);
+    v78[0] = _NSConcreteStackBlock;
+    v78[1] = 3221225472;
+    v78[2] = sub_100002EFC;
+    v78[3] = &unk_100058B08;
+    v78[4] = &v85;
     levelCopy2 = level;
-    [v54 enumerateObjectsUsingBlock:{v82, v10}];
-    v15 = (v90 + 5);
-    v81 = v90[5];
-    NSAppendPrintF();
-    objc_storeStrong(v15, v81);
+    [v50 enumerateObjectsUsingBlock:v78];
+    v14 = (v86 + 5);
+    v77 = v86[5];
+    NSAppendPrintF(&v77, "\n");
+    objc_storeStrong(v14, v77);
   }
 
-  v53 = [(DADaemonServer *)self getDevicesWithFlags:1024 appID:0];
-  v16 = [v53 count];
-  if (v16)
+  v49 = [(DADaemonServer *)self getDevicesWithFlags:1024 appID:0];
+  v15 = [v49 count];
+  if (v15)
+  {
+    if (!v10)
+    {
+      v16 = (v86 + 5);
+      v76 = v86[5];
+      NSAppendPrintF(&v76, "\n");
+      objc_storeStrong(v16, v76);
+    }
+
+    v17 = (v86 + 5);
+    v75 = v86[5];
+    NSAppendPrintF(&v75, "== App Session Paired: %d ==\n", v15);
+    objc_storeStrong(v17, v75);
+    v73[0] = _NSConcreteStackBlock;
+    v73[1] = 3221225472;
+    v73[2] = sub_100002F6C;
+    v73[3] = &unk_100058B08;
+    v73[4] = &v85;
+    levelCopy3 = level;
+    [v49 enumerateObjectsUsingBlock:v73];
+    v18 = (v86 + 5);
+    v72 = v86[5];
+    NSAppendPrintF(&v72, "\n");
+    objc_storeStrong(v18, v72);
+    v11 = 1;
+  }
+
+  v19 = [(NSMutableDictionary *)self->_discoveryMap count];
+  if (v19)
   {
     if (!v11)
     {
-      v17 = (v90 + 5);
-      v80 = v90[5];
-      NSAppendPrintF();
-      objc_storeStrong(v17, v80);
+      v20 = (v86 + 5);
+      v71 = v86[5];
+      NSAppendPrintF(&v71, "\n");
+      objc_storeStrong(v20, v71);
     }
 
-    v18 = (v90 + 5);
-    v79 = v90[5];
-    NSAppendPrintF();
-    objc_storeStrong(v18, v79);
-    v77[0] = _NSConcreteStackBlock;
-    v77[1] = 3221225472;
-    v77[2] = sub_100002F6C;
-    v77[3] = &unk_100058B08;
-    v77[4] = &v89;
-    levelCopy3 = level;
-    [v53 enumerateObjectsUsingBlock:{v77, v16}];
-    v19 = (v90 + 5);
-    v76 = v90[5];
-    NSAppendPrintF();
-    objc_storeStrong(v19, v76);
-    v12 = 1;
-  }
-
-  v20 = [(NSMutableDictionary *)self->_discoveryMap count];
-  if (v20)
-  {
-    if (!v12)
-    {
-      v21 = (v90 + 5);
-      v75 = v90[5];
-      NSAppendPrintF();
-      objc_storeStrong(v21, v75);
-    }
-
-    v22 = (v90 + 5);
-    v74 = v90[5];
-    NSAppendPrintF();
-    objc_storeStrong(v22, v74);
+    v21 = (v86 + 5);
+    v70 = v86[5];
+    NSAppendPrintF(&v70, "== Discovery: %d ==\n", v19);
+    objc_storeStrong(v21, v70);
     discoveryMap = self->_discoveryMap;
-    v73[0] = _NSConcreteStackBlock;
-    v73[1] = 3221225472;
-    v73[2] = sub_100002FDC;
-    v73[3] = &unk_100058B30;
-    v73[4] = &v89;
-    [(NSMutableDictionary *)discoveryMap enumerateKeysAndObjectsUsingBlock:v73, v20];
-    v24 = (v90 + 5);
-    v72 = v90[5];
-    NSAppendPrintF();
-    objc_storeStrong(v24, v72);
-    v12 = 1;
+    v69[0] = _NSConcreteStackBlock;
+    v69[1] = 3221225472;
+    v69[2] = sub_100002FDC;
+    v69[3] = &unk_100058B30;
+    v69[4] = &v85;
+    [(NSMutableDictionary *)discoveryMap enumerateKeysAndObjectsUsingBlock:v69];
+    v23 = (v86 + 5);
+    v68 = v86[5];
+    NSAppendPrintF(&v68, "\n");
+    objc_storeStrong(v23, v68);
+    v11 = 1;
   }
 
-  v25 = [(NSMutableSet *)self->_xpcConnections count];
-  if (v25)
+  v24 = [(NSMutableSet *)self->_xpcConnections count];
+  if (v24)
   {
-    if (!v12)
+    if (!v11)
     {
-      v26 = (v90 + 5);
-      v71 = v90[5];
-      NSAppendPrintF();
-      objc_storeStrong(v26, v71);
+      v25 = (v86 + 5);
+      v67 = v86[5];
+      NSAppendPrintF(&v67, "\n");
+      objc_storeStrong(v25, v67);
     }
 
-    v27 = (v90 + 5);
-    v70 = v90[5];
-    NSAppendPrintF();
-    objc_storeStrong(v27, v70);
-    v68 = 0u;
-    v69 = 0u;
-    v67 = 0u;
-    v66 = 0u;
-    v28 = self->_xpcConnections;
-    v29 = [(NSMutableSet *)v28 countByEnumeratingWithState:&v66 objects:v96 count:16, v25];
-    if (v29)
+    v26 = (v86 + 5);
+    v66 = v86[5];
+    NSAppendPrintF(&v66, "== XPC Cnx: %d ==\n", v24);
+    objc_storeStrong(v26, v66);
+    v64 = 0u;
+    v65 = 0u;
+    v63 = 0u;
+    v62 = 0u;
+    v27 = self->_xpcConnections;
+    v28 = [(NSMutableSet *)v27 countByEnumeratingWithState:&v62 objects:v92 count:16];
+    if (v28)
     {
-      v30 = *v67;
+      v29 = *v63;
       do
       {
-        for (i = 0; i != v29; i = i + 1)
+        for (i = 0; i != v28; ++i)
         {
-          if (*v67 != v30)
+          if (*v63 != v29)
           {
-            objc_enumerationMutation(v28);
+            objc_enumerationMutation(v27);
           }
 
-          v32 = *(*(&v66 + 1) + 8 * i);
-          v33 = (v90 + 5);
-          v65 = v90[5];
-          v50 = CUDescriptionWithLevel();
-          NSAppendPrintF();
-          objc_storeStrong(v33, v65);
+          v31 = (v86 + 5);
+          v61 = v86[5];
+          v32 = CUDescriptionWithLevel();
+          NSAppendPrintF(&v61, "%@", v32);
+          objc_storeStrong(v31, v61);
 
           if (levelCopy >= 0xB)
           {
-            v34 = (v90 + 5);
-            v64 = v90[5];
-            NSAppendPrintF();
-            objc_storeStrong(v34, v64);
+            v33 = (v86 + 5);
+            v60 = v86[5];
+            NSAppendPrintF(&v60, "\n");
+            objc_storeStrong(v33, v60);
           }
         }
 
-        v29 = [(NSMutableSet *)v28 countByEnumeratingWithState:&v66 objects:v96 count:16, v50];
+        v28 = [(NSMutableSet *)v27 countByEnumeratingWithState:&v62 objects:v92 count:16];
       }
 
-      while (v29);
+      while (v28);
     }
 
-    v35 = (v90 + 5);
-    v63 = v90[5];
-    NSAppendPrintF();
-    objc_storeStrong(v35, v63);
-    v12 = 1;
+    v34 = (v86 + 5);
+    v59 = v86[5];
+    NSAppendPrintF(&v59, "\n");
+    objc_storeStrong(v34, v59);
+    v11 = 1;
   }
 
   if (levelCopy <= 0x14)
   {
-    v61 = 0u;
-    v62 = 0u;
-    v59 = 0u;
-    v60 = 0u;
-    v36 = CFPrefs_CopyKeys();
-    v37 = [v36 countByEnumeratingWithState:&v59 objects:v95 count:16];
-    if (!v37)
+    v57 = 0u;
+    v58 = 0u;
+    v55 = 0u;
+    v56 = 0u;
+    v35 = CFPrefs_CopyKeys();
+    v36 = [v35 countByEnumeratingWithState:&v55 objects:v91 count:16];
+    if (!v36)
     {
 LABEL_40:
 
       goto LABEL_41;
     }
 
-    v38 = 0;
-    v39 = *v60;
+    v37 = 0;
+    v38 = *v56;
     do
     {
-      for (j = 0; j != v37; j = j + 1)
+      for (j = 0; j != v36; j = j + 1)
       {
-        if (*v60 != v39)
+        if (*v56 != v38)
         {
-          objc_enumerationMutation(v36);
+          objc_enumerationMutation(v35);
         }
 
-        v41 = *(*(&v59 + 1) + 8 * j);
+        v40 = *(*(&v55 + 1) + 8 * j);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          if (!v12)
+          if (!v11)
           {
-            v42 = (v90 + 5);
-            v58 = v90[5];
-            NSAppendPrintF();
-            objc_storeStrong(v42, v58);
+            v41 = (v86 + 5);
+            v54 = v86[5];
+            NSAppendPrintF(&v54, "\n");
+            objc_storeStrong(v41, v54);
           }
 
-          v43 = CFPrefs_CopyTypedValue();
-          v44 = (v90 + 5);
-          v57 = v90[5];
-          v52 = CUPrintNSObjectOneLine();
-          NSAppendPrintF();
-          objc_storeStrong(v44, v57);
+          v42 = CFPrefs_CopyTypedValue();
+          v43 = (v86 + 5);
+          v53 = v86[5];
+          v44 = CUPrintNSObjectOneLine();
+          NSAppendPrintF(&v53, "Pref: '%@' = '%@'\n", v40, v44);
+          objc_storeStrong(v43, v53);
 
-          ++v38;
-          v12 = 1;
+          ++v37;
+          v11 = 1;
         }
       }
 
-      v37 = [v36 countByEnumeratingWithState:&v59 objects:v95 count:16];
+      v36 = [v35 countByEnumeratingWithState:&v55 objects:v91 count:16];
     }
 
-    while (v37);
+    while (v36);
 
-    if (v38 >= 1)
+    if (v37 >= 1)
     {
-      v45 = v90;
-      v56 = v90[5];
-      NSAppendPrintF();
-      v46 = v56;
-      v36 = v45[5];
+      v45 = v86;
+      v52 = v86[5];
+      NSAppendPrintF(&v52, "\n");
+      v46 = v52;
+      v35 = v45[5];
       v45[5] = v46;
       goto LABEL_40;
     }
   }
 
 LABEL_41:
-  v47 = v90[5];
+  v47 = v86[5];
 
-  _Block_object_dispose(&v89, 8);
+  _Block_object_dispose(&v85, 8);
 
   return v47;
 }
@@ -480,12 +481,12 @@ LABEL_41:
   if (self->_prefsChangedNotifyToken == -1)
   {
     dispatchQueue = self->_dispatchQueue;
-    v20[0] = _NSConcreteStackBlock;
-    v20[1] = 3221225472;
-    v20[2] = sub_100003594;
-    v20[3] = &unk_100058BA8;
-    v20[4] = self;
-    notify_register_dispatch("com.apple.DeviceAccess.prefsChanged", &self->_prefsChangedNotifyToken, dispatchQueue, v20);
+    v19[0] = _NSConcreteStackBlock;
+    v19[1] = 3221225472;
+    v19[2] = sub_100003594;
+    v19[3] = &unk_100058BA8;
+    v19[4] = self;
+    notify_register_dispatch("com.apple.DeviceAccess.prefsChanged", &self->_prefsChangedNotifyToken, dispatchQueue, v19);
   }
 
   if (self->_resetPrivacySettingsToken == -1)
@@ -496,12 +497,12 @@ LABEL_41:
     }
 
     v7 = self->_dispatchQueue;
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_1000035FC;
-    v19[3] = &unk_100058BA8;
-    v19[4] = self;
-    notify_register_dispatch("com.apple.Preferences.ResetPrivacyWarningsNotification", &self->_resetPrivacySettingsToken, v7, v19);
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_1000035FC;
+    v18[3] = &unk_100058BA8;
+    v18[4] = self;
+    notify_register_dispatch("com.apple.Preferences.ResetPrivacyWarningsNotification", &self->_resetPrivacySettingsToken, v7, v18);
   }
 
   if (self->_resetNetworkSettingsToken == -1)
@@ -512,56 +513,55 @@ LABEL_41:
     }
 
     v8 = self->_dispatchQueue;
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = sub_100003664;
-    v18[3] = &unk_100058BA8;
-    v18[4] = self;
-    notify_register_dispatch("com.apple.Preferences.ResetNetworkSettingsNotification", &self->_resetNetworkSettingsToken, v8, v18);
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_100003664;
+    v17[3] = &unk_100058BA8;
+    v17[4] = self;
+    notify_register_dispatch("com.apple.Preferences.ResetNetworkSettingsNotification", &self->_resetNetworkSettingsToken, v8, v17);
   }
 
   if (!self->_stateHandler)
   {
-    v9 = self->_dispatchQueue;
-    v17[5] = _NSConcreteStackBlock;
-    v17[6] = 3221225472;
-    v17[7] = sub_1000036D8;
-    v17[8] = &unk_100058C10;
-    v17[9] = self;
+    v16[5] = _NSConcreteStackBlock;
+    v16[6] = 3221225472;
+    v16[7] = sub_1000036D8;
+    v16[8] = &unk_100058C10;
+    v16[9] = self;
     self->_stateHandler = os_state_add_handler();
   }
 
   if (!self->_systemMonitor)
   {
-    v10 = objc_alloc_init(CUSystemMonitor);
+    v9 = objc_alloc_init(CUSystemMonitor);
     systemMonitor = self->_systemMonitor;
-    self->_systemMonitor = v10;
+    self->_systemMonitor = v9;
 
-    v17[0] = _NSConcreteStackBlock;
-    v17[1] = 3221225472;
-    v17[2] = sub_1000036F4;
-    v17[3] = &unk_100058B58;
-    v17[4] = self;
-    [(CUSystemMonitor *)self->_systemMonitor setFirstUnlockHandler:v17];
-    v12 = self->_systemMonitor;
     v16[0] = _NSConcreteStackBlock;
     v16[1] = 3221225472;
-    v16[2] = sub_100003730;
+    v16[2] = sub_1000036F4;
     v16[3] = &unk_100058B58;
     v16[4] = self;
-    [(CUSystemMonitor *)v12 activateWithCompletion:v16];
+    [(CUSystemMonitor *)self->_systemMonitor setFirstUnlockHandler:v16];
+    v11 = self->_systemMonitor;
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_100003730;
+    v15[3] = &unk_100058B58;
+    v15[4] = self;
+    [(CUSystemMonitor *)v11 activateWithCompletion:v15];
   }
 
   [(DADaemonServer *)self _prefsChanged];
-  v13 = +[LSApplicationWorkspace defaultWorkspace];
-  [v13 addObserver:self];
+  v12 = +[LSApplicationWorkspace defaultWorkspace];
+  [v12 addObserver:self];
 
   [(DADaemonServer *)self updateDADevicesWithInstalledApps];
   if (!self->_cbCentralManager)
   {
-    v14 = [[CBCentralManager alloc] initWithDelegate:self queue:self->_dispatchQueue options:0];
+    v13 = [[CBCentralManager alloc] initWithDelegate:self queue:self->_dispatchQueue options:0];
     cbCentralManager = self->_cbCentralManager;
-    self->_cbCentralManager = v14;
+    self->_cbCentralManager = v13;
   }
 
   xpc_set_event_stream_handler("com.apple.notifyd.matching", self->_dispatchQueue, &stru_100058C50);
@@ -752,14 +752,12 @@ LABEL_41:
         prefCheckAppAccessInfoSeconds = self->_prefCheckAppAccessInfoSeconds;
       }
 
-      v38 = prefCheckAppAccessInfoSeconds;
-      v39 = v6;
-      LogPrintF();
+      LogPrintF(&dword_1000603A0, "[DADaemonServer _prefsChanged]", 30, "CheckAppAccessInfoSeconds: %f -> %f", prefCheckAppAccessInfoSeconds, v6);
     }
 
 LABEL_19:
     self->_prefCheckAppAccessInfoSeconds = v6;
-    [(DADaemonServer *)self _scheduleCheckAppAccessInfo:*&v38];
+    [(DADaemonServer *)self _scheduleCheckAppAccessInfo];
   }
 
   CFPrefs_GetDouble();
@@ -788,14 +786,12 @@ LABEL_19:
         prefCheckAppSessionAccessSeconds = self->_prefCheckAppSessionAccessSeconds;
       }
 
-      v38 = prefCheckAppSessionAccessSeconds;
-      v39 = v9;
-      LogPrintF();
+      LogPrintF(&dword_1000603A0, "[DADaemonServer _prefsChanged]", 30, "CheckAppSessionAccessSeconds: %f -> %f", prefCheckAppSessionAccessSeconds, v9);
     }
 
 LABEL_28:
     self->_prefCheckAppSessionAccessSeconds = v9;
-    [(DADaemonServer *)self _scheduleCheckAppAccessInfo:*&v38];
+    [(DADaemonServer *)self _scheduleCheckAppAccessInfo];
   }
 
   v11 = CFPrefs_GetInt64() != 0;
@@ -828,11 +824,11 @@ LABEL_28:
 
   else
   {
-    *&v14 = NAN;
+    v14 = -45;
   }
 
-  *&v15 = self->_prefsBTRSSIThreshold;
-  if (v14 != *&v15)
+  prefsBTRSSIThreshold = self->_prefsBTRSSIThreshold;
+  if (v14 != prefsBTRSSIThreshold)
   {
     if (dword_1000603A0 <= 30)
     {
@@ -843,12 +839,10 @@ LABEL_28:
           goto LABEL_47;
         }
 
-        *&v15 = self->_prefsBTRSSIThreshold;
+        LODWORD(prefsBTRSSIThreshold) = self->_prefsBTRSSIThreshold;
       }
 
-      v38 = v15;
-      v39 = *&v14;
-      LogPrintF();
+      LogPrintF(&dword_1000603A0, "[DADaemonServer _prefsChanged]", 30, "BluetoothDiscoveryRSSIThreshold: %d -> %lld", prefsBTRSSIThreshold, v14);
     }
 
 LABEL_47:
@@ -881,9 +875,7 @@ LABEL_47:
         prefBTScanRefreshSeconds = self->_prefBTScanRefreshSeconds;
       }
 
-      v38 = prefBTScanRefreshSeconds;
-      v39 = v17;
-      LogPrintF();
+      LogPrintF(&dword_1000603A0, "[DADaemonServer _prefsChanged]", 30, "BluetoothScanRefreshSeconds: %f -> %f", prefBTScanRefreshSeconds, v17);
     }
 
 LABEL_56:
@@ -916,9 +908,7 @@ LABEL_56:
         prefsBTTaskTimeoutSeconds = self->_prefsBTTaskTimeoutSeconds;
       }
 
-      v38 = prefsBTTaskTimeoutSeconds;
-      v39 = v20;
-      LogPrintF();
+      LogPrintF(&dword_1000603A0, "[DADaemonServer _prefsChanged]", 30, "BluetoothTaskTimeoutSeconds: %f -> %f", prefsBTTaskTimeoutSeconds, v20);
     }
 
 LABEL_65:
@@ -951,14 +941,12 @@ LABEL_65:
         prefCheckDevicesSeconds = self->_prefCheckDevicesSeconds;
       }
 
-      v38 = prefCheckDevicesSeconds;
-      v39 = v23;
-      LogPrintF();
+      LogPrintF(&dword_1000603A0, "[DADaemonServer _prefsChanged]", 30, "CheckDevicesSeconds: %f -> %f", prefCheckDevicesSeconds, v23);
     }
 
 LABEL_74:
     self->_prefCheckDevicesSeconds = v23;
-    [(DADaemonServer *)self _scheduleCheckDevices:*&v38];
+    [(DADaemonServer *)self _scheduleCheckDevices];
   }
 
   CFPrefs_GetDouble();
@@ -988,14 +976,12 @@ LABEL_74:
         prefDeviceApprovedSeconds = self->_prefDeviceApprovedSeconds;
       }
 
-      v38 = prefDeviceApprovedSeconds;
-      v39 = v27;
-      LogPrintF();
+      LogPrintF(&dword_1000603A0, "[DADaemonServer _prefsChanged]", 30, "DeviceApprovedSeconds: %f -> %f", prefDeviceApprovedSeconds, v27);
     }
 
 LABEL_83:
     self->_prefDeviceApprovedSeconds = v27;
-    [(DADaemonServer *)self _scheduleCheckDevices:*&v38];
+    [(DADaemonServer *)self _scheduleCheckDevices];
   }
 
   CFPrefs_GetDouble();
@@ -1024,14 +1010,12 @@ LABEL_83:
         prefDeviceStateTimeoutSeconds = self->_prefDeviceStateTimeoutSeconds;
       }
 
-      v38 = prefDeviceStateTimeoutSeconds;
-      v39 = v30;
-      LogPrintF();
+      LogPrintF(&dword_1000603A0, "[DADaemonServer _prefsChanged]", 30, "DeviceStateTimeoutSeconds: %f -> %f", prefDeviceStateTimeoutSeconds, v30);
     }
 
 LABEL_92:
     self->_prefDeviceStateTimeoutSeconds = v30;
-    [(DADaemonServer *)self _scheduleCheckDevices:*&v38];
+    [(DADaemonServer *)self _scheduleCheckDevices];
   }
 
   v32 = CFPrefs_GetInt64() != 0;
@@ -1051,7 +1035,8 @@ LABEL_92:
     v26 = v33;
   }
 
-  if (v26 != self->_prefAppPartialIPUpdateMinCadenceSeconds)
+  prefAppPartialIPUpdateMinCadenceSeconds = self->_prefAppPartialIPUpdateMinCadenceSeconds;
+  if (v26 != prefAppPartialIPUpdateMinCadenceSeconds)
   {
     if (dword_1000603A0 <= 30)
     {
@@ -1065,43 +1050,43 @@ LABEL_92:
         prefAppPartialIPUpdateMinCadenceSeconds = self->_prefAppPartialIPUpdateMinCadenceSeconds;
       }
 
-      LogPrintF();
+      LogPrintF(&dword_1000603A0, "[DADaemonServer _prefsChanged]", 30, "DAAppPartialIPUpdateMinCadenceSeconds: %f -> %f", prefAppPartialIPUpdateMinCadenceSeconds, v26);
     }
 
 LABEL_105:
     self->_prefAppPartialIPUpdateMinCadenceSeconds = v26;
   }
 
-  v34 = CFPrefs_GetInt64() != 0;
-  if (self->_prefEnabled != v34)
+  v35 = CFPrefs_GetInt64() != 0;
+  if (self->_prefEnabled != v35)
   {
     if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
       sub_10003111C();
     }
 
-    self->_prefEnabled = v34;
+    self->_prefEnabled = v35;
   }
 
   if (CFPrefs_GetInt64())
   {
-    v35 = IsAppleInternalBuild() != 0;
+    v36 = IsAppleInternalBuild() != 0;
   }
 
   else
   {
-    v35 = 0;
+    v36 = 0;
   }
 
-  v36 = v35;
-  if (self->_prefKeychainDisabled != v35)
+  v37 = v36;
+  if (self->_prefKeychainDisabled != v36)
   {
     if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
       sub_100031174();
     }
 
-    self->_prefKeychainDisabled = v36;
+    self->_prefKeychainDisabled = v37;
   }
 }
 
@@ -1206,7 +1191,7 @@ LABEL_105:
   installCopy = install;
   if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_100031224();
+    sub_100031224(installCopy);
   }
 
   v5[0] = _NSConcreteStackBlock;
@@ -1236,7 +1221,7 @@ LABEL_105:
   uninstallCopy = uninstall;
   if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000312A4();
+    sub_1000312A4(uninstallCopy);
   }
 
   v6[0] = _NSConcreteStackBlock;
@@ -1267,7 +1252,7 @@ LABEL_105:
   {
     if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1000603A0, "[DADaemonServer _keychainMarkDeviceForRestoreOnSameDevice]", 90, "### Keychain disabled, skipping marking keychain");
     }
   }
 
@@ -1284,7 +1269,7 @@ LABEL_105:
     [v4 setType:@"DADaemon-SameDevice"];
     if (dword_1000603A0 <= 40 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1000603A0, "[DADaemonServer _keychainMarkDeviceForRestoreOnSameDevice]", 40, "### Saving restore marker in keychain");
     }
 
     v6 = objc_alloc_init(CUKeychainManager);
@@ -1304,52 +1289,56 @@ LABEL_105:
 {
   if (self->_prefKeychainDisabled)
   {
-    sub_100031424();
-  }
-
-  else if (([(CUSystemMonitor *)self->_systemMonitor firstUnlocked]& 1) != 0)
-  {
-    v2 = objc_alloc_init(CUKeychainItem);
-    [v2 setAccessGroup:@"com.apple.DeviceAccess"];
-    v3 = [NSString stringWithFormat:@"%@-%@", @"com.apple.DeviceAccess", @"DADaemon-SameDevice"];
-    [v2 setIdentifier:v3];
-
-    [v2 setSyncType:1];
-    [v2 setType:@"DADaemon-SameDevice"];
-    v4 = objc_alloc_init(CUKeychainManager);
-    v18[0] = 0;
-    v5 = [v4 copyItemsMatchingItem:v2 flags:1 error:v18];
-    v6 = v18[0];
-    v7 = v6;
-    if (v5 || [v6 code] != -25300)
-    {
-      sub_100031344();
-      v11 = v18[1];
-    }
-
-    else
-    {
-      v8 = +[NSFileManager defaultManager];
-      v9 = +[NSFileManager defaultManager];
-      v17 = v7;
-      v10 = [v9 URLForDirectory:5 inDomain:1 appropriateForURL:0 create:1 error:&v17];
-      v11 = v17;
-
-      v12 = [v10 URLByAppendingPathComponent:@"com.apple.DeviceAccess" isDirectory:1];
-      v13 = [v12 URLByAppendingPathComponent:@"AccessorySetup" isDirectory:1];
-      v16 = 0;
-      v14 = [v8 removeItemAtURL:v13 error:&v16];
-      v15 = v16;
-      if ((v14 & 1) == 0 && dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
-      {
-        sub_1000313D0();
-      }
-    }
+    sub_100031424(self, a2, v2);
   }
 
   else
   {
-    sub_1000312E4();
+    firstUnlocked = [(CUSystemMonitor *)self->_systemMonitor firstUnlocked];
+    if (firstUnlocked)
+    {
+      v6 = objc_alloc_init(CUKeychainItem);
+      [v6 setAccessGroup:@"com.apple.DeviceAccess"];
+      v7 = [NSString stringWithFormat:@"%@-%@", @"com.apple.DeviceAccess", @"DADaemon-SameDevice"];
+      [v6 setIdentifier:v7];
+
+      [v6 setSyncType:1];
+      [v6 setType:@"DADaemon-SameDevice"];
+      v8 = objc_alloc_init(CUKeychainManager);
+      v22[0] = 0;
+      v9 = [v8 copyItemsMatchingItem:v6 flags:1 error:v22];
+      v10 = v22[0];
+      v11 = v10;
+      if (v9 || [v10 code] != -25300)
+      {
+        sub_100031344();
+        v15 = v22[1];
+      }
+
+      else
+      {
+        v12 = +[NSFileManager defaultManager];
+        v13 = +[NSFileManager defaultManager];
+        v21 = v11;
+        v14 = [v13 URLForDirectory:5 inDomain:1 appropriateForURL:0 create:1 error:&v21];
+        v15 = v21;
+
+        v16 = [v14 URLByAppendingPathComponent:@"com.apple.DeviceAccess" isDirectory:1];
+        v17 = [v16 URLByAppendingPathComponent:@"AccessorySetup" isDirectory:1];
+        v20 = 0;
+        v18 = [v12 removeItemAtURL:v17 error:&v20];
+        v19 = v20;
+        if ((v18 & 1) == 0 && dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+        {
+          sub_1000313D0(v19);
+        }
+      }
+    }
+
+    else
+    {
+      sub_1000312E4(firstUnlocked, v4, v5);
+    }
   }
 }
 
@@ -1360,141 +1349,142 @@ LABEL_105:
     sub_100031484();
   }
 
-  if (off_100060398())
+  v3 = off_100060398();
+  if (v3)
   {
-    sub_100031584();
+    sub_100031584(v3, v4, v5);
   }
 
   else
   {
-    v3 = [(DADaemonServer *)self getDevicesWithFlags:1032 appID:0];
-    v4 = objc_opt_new();
-    v5 = objc_opt_new();
-    v6 = objc_opt_new();
+    v6 = [(DADaemonServer *)self getDevicesWithFlags:1032 appID:0];
     v7 = objc_opt_new();
-    v42[0] = _NSConcreteStackBlock;
-    v42[1] = 3221225472;
-    v42[2] = sub_100005774;
-    v42[3] = &unk_100058D80;
-    v8 = v5;
-    v43 = v8;
-    v9 = v4;
-    v44 = v9;
-    v29 = v3;
-    [v3 enumerateObjectsUsingBlock:v42];
+    v8 = objc_opt_new();
+    v9 = objc_opt_new();
+    v10 = objc_opt_new();
+    v45[0] = _NSConcreteStackBlock;
+    v45[1] = 3221225472;
+    v45[2] = sub_100005774;
+    v45[3] = &unk_100058D80;
+    v11 = v8;
+    v46 = v11;
+    v12 = v7;
+    v47 = v12;
+    v32 = v6;
+    [v6 enumerateObjectsUsingBlock:v45];
     if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
-      sub_1000314F0(v9);
+      sub_1000314F0(v12);
     }
 
-    v10 = [LSApplicationRecord enumeratorWithOptions:192];
-    v38 = 0u;
-    v39 = 0u;
-    v40 = 0u;
+    v13 = [LSApplicationRecord enumeratorWithOptions:192];
     v41 = 0u;
-    v11 = [v10 countByEnumeratingWithState:&v38 objects:v47 count:16];
-    if (v11)
+    v42 = 0u;
+    v43 = 0u;
+    v44 = 0u;
+    v14 = [v13 countByEnumeratingWithState:&v41 objects:v50 count:16];
+    if (v14)
     {
-      v12 = v11;
-      v13 = *v39;
+      v15 = v14;
+      v16 = *v42;
       do
       {
-        for (i = 0; i != v12; i = i + 1)
+        for (i = 0; i != v15; i = i + 1)
         {
-          if (*v39 != v13)
+          if (*v42 != v16)
           {
-            objc_enumerationMutation(v10);
+            objc_enumerationMutation(v13);
           }
 
-          bundleIdentifier = [*(*(&v38 + 1) + 8 * i) bundleIdentifier];
+          bundleIdentifier = [*(*(&v41 + 1) + 8 * i) bundleIdentifier];
           if (bundleIdentifier)
           {
-            [v6 addObject:bundleIdentifier];
-            if ([v9 containsObject:bundleIdentifier])
+            [v9 addObject:bundleIdentifier];
+            if ([v12 containsObject:bundleIdentifier])
             {
               [(DADaemonServer *)self updateAppInfo:bundleIdentifier];
             }
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v38 objects:v47 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v41 objects:v50 count:16];
       }
 
-      while (v12);
+      while (v15);
     }
 
-    v36 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     v37 = 0u;
-    v34 = 0u;
+    v38 = 0u;
+    v19 = v12;
+    v20 = [v19 countByEnumeratingWithState:&v37 objects:v49 count:16];
+    if (v20)
+    {
+      v21 = v20;
+      v22 = *v38;
+      do
+      {
+        for (j = 0; j != v21; j = j + 1)
+        {
+          if (*v38 != v22)
+          {
+            objc_enumerationMutation(v19);
+          }
+
+          v24 = *(*(&v37 + 1) + 8 * j);
+          if (([v9 containsObject:v24] & 1) == 0)
+          {
+            [v10 addObject:v24];
+          }
+        }
+
+        v21 = [v19 countByEnumeratingWithState:&v37 objects:v49 count:16];
+      }
+
+      while (v21);
+    }
+
     v35 = 0u;
-    v16 = v9;
-    v17 = [v16 countByEnumeratingWithState:&v34 objects:v46 count:16];
-    if (v17)
-    {
-      v18 = v17;
-      v19 = *v35;
-      do
-      {
-        for (j = 0; j != v18; j = j + 1)
-        {
-          if (*v35 != v19)
-          {
-            objc_enumerationMutation(v16);
-          }
-
-          v21 = *(*(&v34 + 1) + 8 * j);
-          if (([v6 containsObject:v21] & 1) == 0)
-          {
-            [v7 addObject:v21];
-          }
-        }
-
-        v18 = [v16 countByEnumeratingWithState:&v34 objects:v46 count:16];
-      }
-
-      while (v18);
-    }
-
-    v32 = 0u;
+    v36 = 0u;
     v33 = 0u;
-    v30 = 0u;
-    v31 = 0u;
-    v22 = v8;
-    v23 = [v22 countByEnumeratingWithState:&v30 objects:v45 count:16];
-    if (v23)
+    v34 = 0u;
+    v25 = v11;
+    v26 = [v25 countByEnumeratingWithState:&v33 objects:v48 count:16];
+    if (v26)
     {
-      v24 = v23;
-      v25 = *v31;
+      v27 = v26;
+      v28 = *v34;
       do
       {
-        for (k = 0; k != v24; k = k + 1)
+        for (k = 0; k != v27; k = k + 1)
         {
-          if (*v31 != v25)
+          if (*v34 != v28)
           {
-            objc_enumerationMutation(v22);
+            objc_enumerationMutation(v25);
           }
 
-          v27 = *(*(&v30 + 1) + 8 * k);
-          if (([v6 containsObject:v27] & 1) == 0)
+          v30 = *(*(&v33 + 1) + 8 * k);
+          if (([v9 containsObject:v30] & 1) == 0)
           {
-            [v7 addObject:v27];
+            [v10 addObject:v30];
           }
         }
 
-        v24 = [v22 countByEnumeratingWithState:&v30 objects:v45 count:16];
+        v27 = [v25 countByEnumeratingWithState:&v33 objects:v48 count:16];
       }
 
-      while (v24);
+      while (v27);
     }
 
-    if ([v7 count])
+    if ([v10 count])
     {
       if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
       {
-        sub_100031534(v7);
+        sub_100031534(v10);
       }
 
-      allObjects = [v7 allObjects];
+      allObjects = [v10 allObjects];
       [(DADaemonServer *)self removeAppsAccess:allObjects];
     }
   }
@@ -1502,36 +1492,40 @@ LABEL_105:
 
 - (void)_removeAllDevicesAndAppAccess
 {
-  if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1000603A0 <= 50)
   {
-    sub_1000315E4();
+    if (dword_1000603A0 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1000315E4(self, a2, v2);
+    }
   }
 
-  v3 = [(DADaemonServer *)self getDevicesWithFlags:1032 appID:0];
-  v10[0] = _NSConcreteStackBlock;
-  v10[1] = 3221225472;
-  v10[2] = sub_100005A6C;
-  v10[3] = &unk_100058DD0;
-  v10[4] = self;
-  [v3 enumerateObjectsUsingBlock:v10];
-  v9[1] = 1;
-  v4 = container_system_group_path_for_identifier();
-  if (v4)
+  v4 = [(DADaemonServer *)selfCopy getDevicesWithFlags:1032 appID:0];
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_100005A6C;
+  v13[3] = &unk_100058DD0;
+  v13[4] = selfCopy;
+  [v4 enumerateObjectsUsingBlock:v13];
+  v12[1] = 1;
+  v5 = container_system_group_path_for_identifier();
+  if (v5)
   {
-    v5 = v4;
+    v8 = v5;
     if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
-      sub_100031600();
+      sub_100031600(v8, v6, v7);
     }
 
-    v6 = [NSURL fileURLWithFileSystemRepresentation:v5 isDirectory:1 relativeToURL:0];
-    free(v5);
-    if (v6)
+    v9 = [NSURL fileURLWithFileSystemRepresentation:v8 isDirectory:1 relativeToURL:0];
+    free(v8);
+    if (v9)
     {
-      v7 = [v6 URLByAppendingPathComponent:@"com.apple.DeviceAccess" isDirectory:1];
-      v8 = +[NSFileManager defaultManager];
-      v9[0] = 0;
-      [v8 removeItemAtURL:v7 error:v9];
+      v10 = [v9 URLByAppendingPathComponent:@"com.apple.DeviceAccess" isDirectory:1];
+      v11 = +[NSFileManager defaultManager];
+      v12[0] = 0;
+      [v11 removeItemAtURL:v10 error:v12];
     }
 
     else if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
@@ -1546,7 +1540,7 @@ LABEL_105:
   accessCopy = access;
   if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000316B0();
+    sub_1000316B0(accessCopy);
   }
 
   v5 = [(DADaemonServer *)self getDevicesWithFlags:1032 appID:0];
@@ -1596,23 +1590,23 @@ LABEL_105:
 - (BOOL)updateAppAccessInfo:(id)info accessoryDevice:(id)device removalType:(int64_t)type error:(id *)error
 {
   infoCopy = info;
-  v50 = 0;
-  v51 = &v50;
-  v52 = 0x3032000000;
-  v53 = sub_100002EE4;
-  v54 = sub_100002EF4;
-  v55 = 0;
-  v47[0] = _NSConcreteStackBlock;
-  v47[1] = 3221225472;
-  v47[2] = sub_1000068E4;
-  v47[3] = &unk_100058AE0;
-  v49 = &v50;
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x3032000000;
+  v52 = sub_100002EE4;
+  v53 = sub_100002EF4;
+  v54 = 0;
+  v46[0] = _NSConcreteStackBlock;
+  v46[1] = 3221225472;
+  v46[2] = sub_1000068E4;
+  v46[3] = &unk_100058AE0;
+  v48 = &v49;
   deviceCopy = device;
-  v48 = deviceCopy;
-  v11 = objc_retainBlock(v47);
-  v35 = [deviceCopy copy];
+  v47 = deviceCopy;
+  v11 = objc_retainBlock(v46);
+  v34 = [deviceCopy copy];
   v12 = deviceCopy;
-  v37 = [v12 copy];
+  v36 = [v12 copy];
   bundleIdentifier = [infoCopy bundleIdentifier];
   if ([bundleIdentifier length])
   {
@@ -1621,7 +1615,7 @@ LABEL_105:
     {
       if (error)
       {
-        DAErrorF();
+        DAErrorF(350001, "No device ID");
         *error = v32 = 0;
       }
 
@@ -1641,11 +1635,11 @@ LABEL_105:
       [v12 setAppAccessInfoDeviceMap:v16];
     }
 
-    v17 = v51;
-    obj = v51[5];
+    v17 = v50;
+    obj = v50[5];
     v18 = [(DADaemonServer *)self _saveDeviceAppAccessInfo:infoCopy device:v12 error:&obj];
     objc_storeStrong(v17 + 5, obj);
-    v19 = v51[5];
+    v19 = v50[5];
     if (v19)
     {
       if (error)
@@ -1667,7 +1661,7 @@ LABEL_33:
       v21 = [(DADaemonServer *)self generateImageURLForDevice:v12];
       [v12 setDisplayImageFileURL:v21];
 
-      if (-[DADaemonServer _saveAccessoryDevice:oldDeviceReference:bundleID:existingOptions:removalType:error:](self, "_saveAccessoryDevice:oldDeviceReference:bundleID:existingOptions:removalType:error:", v12, v37, bundleIdentifier, [infoCopy accessoryOptions], type, error))
+      if (-[DADaemonServer _saveAccessoryDevice:oldDeviceReference:bundleID:existingOptions:removalType:error:](self, "_saveAccessoryDevice:oldDeviceReference:bundleID:existingOptions:removalType:error:", v12, v36, bundleIdentifier, [infoCopy accessoryOptions], type, error))
       {
         v22 = [(NSMutableDictionary *)self->_discoveryMap objectForKeyedSubscript:bundleIdentifier];
         discoveryObj = [v22 discoveryObj];
@@ -1677,11 +1671,10 @@ LABEL_33:
         {
           if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
           {
-            v34 = v12;
-            LogPrintF();
+            LogPrintF(&dword_1000603A0, "[DADaemonServer updateAppAccessInfo:accessoryDevice:removalType:error:]", 50, "### UpdateAppAccessInfo report change: %@", v12);
           }
 
-          [(DADaemonServer *)self _reportDeviceChanged:v12 appID:bundleIdentifier discovery:1, v34];
+          [(DADaemonServer *)self _reportDeviceChanged:v12 appID:bundleIdentifier discovery:1];
           goto LABEL_29;
         }
 
@@ -1691,21 +1684,19 @@ LABEL_33:
         {
           if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
           {
-            v34 = v35;
-            LogPrintF();
+            LogPrintF(&dword_1000603A0, "[DADaemonServer updateAppAccessInfo:accessoryDevice:removalType:error:]", 50, "### UpdateAppAccessInfo report lost: %@", v34);
           }
 
-          [(DADaemonServer *)self _reportRemovedDevice:v35 appID:bundleIdentifier discovery:v26 != 0, v34];
+          [(DADaemonServer *)self _reportRemovedDevice:v34 appID:bundleIdentifier discovery:v26 != 0];
           goto LABEL_28;
         }
 
         if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
         {
-          v34 = v12;
-          LogPrintF();
+          LogPrintF(&dword_1000603A0, "[DADaemonServer updateAppAccessInfo:accessoryDevice:removalType:error:]", 50, "### UpdateAppAccessInfo report change: %@", v12);
         }
 
-        [(DADaemonServer *)self _reportDeviceChanged:v12 appID:bundleIdentifier discovery:v26 != 0, v34];
+        [(DADaemonServer *)self _reportDeviceChanged:v12 appID:bundleIdentifier discovery:v26 != 0];
         if ([v12 upgradeFinished])
         {
           v27 = [[DADeviceEvent alloc] initWithEventType:16 device:v12];
@@ -1733,14 +1724,14 @@ LABEL_29:
             block[1] = 3221225472;
             block[2] = sub_1000069B0;
             block[3] = &unk_100058E70;
-            v39 = bundleIdentifier;
-            v40 = v12;
+            v38 = bundleIdentifier;
+            v39 = v12;
             typeCopy = type;
-            v41 = v18;
-            v42 = v40;
+            v40 = v18;
+            v41 = v39;
             selfCopy = self;
             v31 = v29;
-            v44 = v31;
+            v43 = v31;
             dispatch_async(dispatchQueue, block);
             [(DADaemonServer *)self _keychainMarkDeviceForRestoreOnSameDevice];
 
@@ -1762,7 +1753,7 @@ LABEL_29:
 
   if (error)
   {
-    DAErrorF();
+    DAErrorF(350001, "No bundle ID");
     *error = v32 = 0;
   }
 
@@ -1774,27 +1765,33 @@ LABEL_29:
 LABEL_34:
 
   (v11[2])(v11);
-  _Block_object_dispose(&v50, 8);
+  _Block_object_dispose(&v49, 8);
 
   return v32;
 }
 
 - (void)_checkAppAccessInfo
 {
-  if ([(DADaemonServer *)self _checkAppAccessInfoExpired])
+  _checkAppAccessInfoExpired = [(DADaemonServer *)self _checkAppAccessInfoExpired];
+  if (_checkAppAccessInfoExpired)
   {
     if (self->_prefCheckAppAccessInfoSeconds >= 10.0)
     {
       prefCheckAppAccessInfoSeconds = self->_prefCheckAppAccessInfoSeconds;
     }
 
-    v4 = self->_checkAppAccessInfoTimer;
-    if (v4)
+    else
     {
-      v5 = v4;
+      prefCheckAppAccessInfoSeconds = 10.0;
+    }
+
+    v7 = self->_checkAppAccessInfoTimer;
+    if (v7)
+    {
+      v8 = v7;
       if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
       {
-        sub_1000317B4();
+        sub_1000317B4(prefCheckAppAccessInfoSeconds);
       }
 
       CUDispatchTimerSet();
@@ -1802,57 +1799,57 @@ LABEL_34:
 
     else
     {
-      v8 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
+      v11 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
       checkAppAccessInfoTimer = self->_checkAppAccessInfoTimer;
-      self->_checkAppAccessInfoTimer = v8;
+      self->_checkAppAccessInfoTimer = v11;
 
       handler[0] = _NSConcreteStackBlock;
       handler[1] = 3221225472;
       handler[2] = sub_100006D10;
       handler[3] = &unk_100058CB8;
-      v5 = v8;
-      v13 = v5;
+      v8 = v11;
+      v16 = v8;
       selfCopy = self;
-      dispatch_source_set_event_handler(v5, handler);
+      dispatch_source_set_event_handler(v8, handler);
       if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
       {
-        sub_100031810();
+        sub_100031810(prefCheckAppAccessInfoSeconds);
       }
 
       CUDispatchTimerSet();
-      dispatch_activate(v5);
+      dispatch_activate(v8);
     }
 
     return;
   }
 
-  v6 = self->_checkAppAccessInfoTimer;
-  if (!v6)
+  v9 = self->_checkAppAccessInfoTimer;
+  if (!v9)
   {
     return;
   }
 
   if (dword_1000603A0 >= 31)
   {
-    v7 = v6;
-LABEL_22:
-    v11 = v7;
-    dispatch_source_cancel(v7);
-    v10 = self->_checkAppAccessInfoTimer;
+    v10 = v9;
+LABEL_23:
+    v14 = v10;
+    dispatch_source_cancel(v10);
+    v13 = self->_checkAppAccessInfoTimer;
     self->_checkAppAccessInfoTimer = 0;
 
     return;
   }
 
-  if (dword_1000603A0 != -1 || _LogCategory_Initialize())
+  if (dword_1000603A0 != -1 || (_checkAppAccessInfoExpired = _LogCategory_Initialize(), _checkAppAccessInfoExpired))
   {
-    sub_100031798();
+    sub_100031798(_checkAppAccessInfoExpired, v4, v5);
   }
 
-  v7 = self->_checkAppAccessInfoTimer;
-  if (v7)
+  v10 = self->_checkAppAccessInfoTimer;
+  if (v10)
   {
-    goto LABEL_22;
+    goto LABEL_23;
   }
 }
 
@@ -1934,50 +1931,50 @@ LABEL_22:
 
 - (void)_checkDevicesForAllApps
 {
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x3032000000;
-  v40 = sub_100002EE4;
-  v41 = sub_100002EF4;
-  v42 = 0;
-  v36[0] = _NSConcreteStackBlock;
-  v36[1] = 3221225472;
-  v36[2] = sub_1000076A8;
-  v36[3] = &unk_100058D30;
-  v36[4] = &v37;
-  v2 = objc_retainBlock(v36);
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x3032000000;
+  v39 = sub_100002EE4;
+  v40 = sub_100002EF4;
+  v41 = 0;
+  v35[0] = _NSConcreteStackBlock;
+  v35[1] = 3221225472;
+  v35[2] = sub_1000076A8;
+  v35[3] = &unk_100058D30;
+  v35[4] = &v36;
+  v2 = objc_retainBlock(v35);
   v3 = +[NSFileManager defaultManager];
   v4 = NSTemporaryDirectory();
   v5 = [NSURL fileURLWithPath:v4];
-  v6 = (v38 + 5);
-  obj = v38[5];
-  v26 = [v3 contentsOfDirectoryAtURL:v5 includingPropertiesForKeys:0 options:4 error:&obj];
-  v25 = v3;
+  v6 = (v37 + 5);
+  obj = v37[5];
+  v25 = [v3 contentsOfDirectoryAtURL:v5 includingPropertiesForKeys:0 options:4 error:&obj];
+  v24 = v3;
   objc_storeStrong(v6, obj);
 
-  if (v26)
+  if (v25)
   {
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
-    v7 = v26;
-    v8 = [v7 countByEnumeratingWithState:&v31 objects:v43 count:16];
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v7 = v25;
+    v8 = [v7 countByEnumeratingWithState:&v30 objects:v42 count:16];
     if (v8)
     {
       v9 = 0;
-      v10 = *v32;
+      v10 = *v31;
       do
       {
         for (i = 0; i != v8; i = i + 1)
         {
           v12 = v2;
-          if (*v32 != v10)
+          if (*v31 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v13 = *(*(&v31 + 1) + 8 * i);
+          v13 = *(*(&v30 + 1) + 8 * i);
           pathExtension = [v13 pathExtension];
           v15 = [pathExtension caseInsensitiveCompare:@"daappdata"] == 0;
 
@@ -1988,30 +1985,25 @@ LABEL_22:
           }
         }
 
-        v8 = [v7 countByEnumeratingWithState:&v31 objects:v43 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v30 objects:v42 count:16];
       }
 
       while (v8);
 
       if (v9)
       {
-        if (self->_prefCheckDevicesSeconds >= 10.0)
+        v16 = self->_checkDevicesTimer;
+        if (v16)
         {
-          prefCheckDevicesSeconds = self->_prefCheckDevicesSeconds;
-        }
-
-        v17 = self->_checkDevicesTimer;
-        if (v17)
-        {
-          v18 = v17;
+          v17 = v16;
           if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
           {
-            v23 = CUPrintDurationDouble();
-            LogPrintF();
+            v18 = CUPrintDurationDouble();
+            LogPrintF(&dword_1000603A0, "[DADaemonServer _checkDevicesForAllApps]", 30, "CheckDevices timer update: %@", v18, v24);
           }
 
           CUDispatchTimerSet();
-          goto LABEL_35;
+          goto LABEL_33;
         }
 
         v20 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
@@ -2022,23 +2014,23 @@ LABEL_22:
         handler[1] = 3221225472;
         handler[2] = sub_10000776C;
         handler[3] = &unk_100058CB8;
-        v18 = v20;
-        v29 = v18;
+        v17 = v20;
+        v28 = v17;
         selfCopy = self;
-        dispatch_source_set_event_handler(v18, handler);
+        dispatch_source_set_event_handler(v17, handler);
         if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
         {
-          v24 = CUPrintDurationDouble();
-          LogPrintF();
+          v22 = CUPrintDurationDouble();
+          LogPrintF(&dword_1000603A0, "[DADaemonServer _checkDevicesForAllApps]", 30, "CheckDevices timer start: %@", v22, v24);
         }
 
         CUDispatchTimerSet();
-        dispatch_activate(v18);
-        v22 = v29;
-LABEL_34:
+        dispatch_activate(v17);
+        v23 = v28;
+LABEL_32:
 
-LABEL_35:
-        goto LABEL_36;
+LABEL_33:
+        goto LABEL_34;
       }
     }
 
@@ -2051,81 +2043,81 @@ LABEL_35:
     {
       if (dword_1000603A0 >= 31)
       {
-        v18 = v19;
-LABEL_29:
-        dispatch_source_cancel(v18);
-        v22 = self->_checkDevicesTimer;
+        v17 = v19;
+LABEL_27:
+        dispatch_source_cancel(v17);
+        v23 = self->_checkDevicesTimer;
         self->_checkDevicesTimer = 0;
-        goto LABEL_34;
+        goto LABEL_32;
       }
 
       if (dword_1000603A0 != -1 || _LogCategory_Initialize())
       {
-        LogPrintF();
+        LogPrintF(&dword_1000603A0, "[DADaemonServer _checkDevicesForAllApps]", 30, "CheckDevices timer stop");
       }
 
-      v18 = self->_checkDevicesTimer;
-      if (v18)
+      v17 = self->_checkDevicesTimer;
+      if (v17)
       {
-        goto LABEL_29;
+        goto LABEL_27;
       }
     }
   }
 
-LABEL_36:
+LABEL_34:
 
   (v2[2])(v2);
-  _Block_object_dispose(&v37, 8);
+  _Block_object_dispose(&v36, 8);
 }
 
 - (BOOL)_checkDevicesForAppDataURL:(id)l
 {
   lCopy = l;
-  v75 = 0;
-  v5 = [[NSDictionary alloc] initWithContentsOfURL:lCopy error:&v75];
-  v6 = v75;
+  v71 = 0;
+  v5 = [[NSDictionary alloc] initWithContentsOfURL:lCopy error:&v71];
+  v6 = v71;
   v7 = v6;
   if (v5)
   {
-    v58 = lCopy;
-    v59 = v6;
-    lastPathComponent = [lCopy lastPathComponent];
-    stringByDeletingPathExtension = [lastPathComponent stringByDeletingPathExtension];
+    v54 = lCopy;
+    v55 = v6;
+    v8 = objc_msgSend_lastPathComponent(lCopy);
+    stringByDeletingPathExtension = [v8 stringByDeletingPathExtension];
 
     Current = CFAbsoluteTimeGetCurrent();
     CFDictionaryGetTypeID();
-    v64 = v5;
+    v60 = v5;
     CFDictionaryGetTypedValue();
-    v71 = 0u;
-    v72 = 0u;
-    v73 = 0u;
-    v69 = v74 = 0u;
-    obj = [v69 allKeys];
-    v68 = [obj countByEnumeratingWithState:&v71 objects:v76 count:16];
+    v67 = 0u;
+    v68 = 0u;
+    v69 = 0u;
+    v65 = v70 = 0u;
+    obj = [v65 allKeys];
+    v64 = [obj countByEnumeratingWithState:&v67 objects:v72 count:16];
     v11 = 0;
     v12 = 0;
-    if (!v68)
+    if (!v64)
     {
       v13 = DAWiFiScanDescriptor;
       goto LABEL_74;
     }
 
-    v66 = *v72;
+    v62 = *v68;
     v13 = DAWiFiScanDescriptor;
     while (1)
     {
       v14 = 0;
       do
       {
-        if (*v72 != v66)
+        if (*v68 != v62)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v71 + 1) + 8 * v14);
+        v15 = *(*(&v67 + 1) + 8 * v14);
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
-        v17 = [v69 objectForKeyedSubscript:v15];
+        v17 = [v65 objectForKeyedSubscript:v15];
         if ((isKindOfClass & 1) == 0)
         {
           v27 = @"bad deviceID class";
@@ -2152,15 +2144,15 @@ LABEL_36:
           CFDictionaryGetDouble();
           if (self->_prefDeviceApprovedSeconds - (Current - v36) <= 0.0)
           {
-            v62 = [(DADaemonServer *)self _statefulDevicesForAppID:stringByDeletingPathExtension];
-            v37 = [v62 objectForKeyedSubscript:v15];
+            v58 = [(DADaemonServer *)self _statefulDevicesForAppID:stringByDeletingPathExtension];
+            v37 = [v58 objectForKeyedSubscript:v15];
             v38 = v37;
             if (v37)
             {
               [v37 setState:30];
             }
 
-            v63 = [(DADaemonServer *)self _updateStateForDiscoveryDeviceID:v15 state:30 appID:stringByDeletingPathExtension referenceDevice:v38, v54];
+            v59 = [(DADaemonServer *)self _updateStateForDiscoveryDeviceID:v15 state:30 appID:stringByDeletingPathExtension referenceDevice:v38];
             if (!v38)
             {
               v38 = objc_alloc_init(DADevice);
@@ -2170,19 +2162,17 @@ LABEL_36:
             superclass = v13[23].superclass;
             if (superclass <= 30 && (superclass != -1 || _LogCategory_Initialize()))
             {
-              v55 = stringByDeletingPathExtension;
-              v56 = v38;
-              LogPrintF();
+              LogPrintF(&dword_1000603A0, "[DADaemonServer _checkDevicesForAppDataURL:]", 30, "Invalidating expired device: app %@, device %@", stringByDeletingPathExtension, v38);
             }
 
-            v61 = v38;
-            [(DADaemonServer *)self _reportDeviceChanged:v38 appID:stringByDeletingPathExtension discovery:v63 != 0];
-            v60 = [v69 objectForKeyedSubscript:v15];
-            v40 = [v60 mutableCopy];
+            v57 = v38;
+            [(DADaemonServer *)self _reportDeviceChanged:v38 appID:stringByDeletingPathExtension discovery:v59 != 0];
+            v56 = [v65 objectForKeyedSubscript:v15];
+            v40 = [v56 mutableCopy];
             [v40 setObject:&off_10005ABA8 forKeyedSubscript:@"deviceState"];
             if (!v11)
             {
-              v11 = [v69 mutableCopy];
+              v11 = [v65 mutableCopy];
             }
 
             v41 = [v40 copy];
@@ -2190,7 +2180,7 @@ LABEL_36:
 
             if (!v12)
             {
-              v12 = [v64 mutableCopy];
+              v12 = [v60 mutableCopy];
             }
 
             [v12 setObject:v11 forKeyedSubscript:@"devices"];
@@ -2210,21 +2200,18 @@ LABEL_38:
             v33 = v13[23].superclass;
             if (v33 <= 30 && (v33 != -1 || _LogCategory_Initialize()))
             {
-              v56 = v15;
-              v57 = v27;
-              v54 = stringByDeletingPathExtension;
-              LogPrintF();
+              LogPrintF(&dword_1000603A0, "[DADaemonServer _checkDevicesForAppDataURL:]", 30, "Remove device: app %@, device %@, reason %@", stringByDeletingPathExtension, v15, v27);
             }
 
             if (!v11)
             {
-              v11 = [v69 mutableCopy];
+              v11 = [v65 mutableCopy];
             }
 
-            [v11 setObject:0 forKeyedSubscript:{v15, v54, v56, v57}];
+            [v11 setObject:0 forKeyedSubscript:v15];
             if (!v12)
             {
-              v12 = [v64 mutableCopy];
+              v12 = [v60 mutableCopy];
             }
 
             [v12 setObject:v11 forKeyedSubscript:@"devices"];
@@ -2280,24 +2267,21 @@ LABEL_38:
         if (v32 <= 30 && (v32 != -1 || _LogCategory_Initialize()))
         {
           v27 = CUPrintDurationDouble();
-          v56 = v15;
-          v57 = v27;
-          v54 = stringByDeletingPathExtension;
-          LogPrintF();
+          LogPrintF(&dword_1000603A0, "[DADaemonServer _checkDevicesForAppDataURL:]", 30, "Keeping device: app %@, device %@, expire %@", stringByDeletingPathExtension, v15, v27);
 LABEL_49:
         }
 
         v14 = v14 + 1;
       }
 
-      while (v68 != v14);
-      v42 = [obj countByEnumeratingWithState:&v71 objects:v76 count:16];
-      v68 = v42;
+      while (v64 != v14);
+      v42 = [obj countByEnumeratingWithState:&v67 objects:v72 count:16];
+      v64 = v42;
       if (!v42)
       {
 LABEL_74:
 
-        v5 = v64;
+        v5 = v60;
         CFDictionaryGetTypeID();
         v44 = CFDictionaryGetTypedValue();
         v45 = [v44 count];
@@ -2305,32 +2289,32 @@ LABEL_74:
         if (v45)
         {
           v46 = v13[23].superclass;
-          lCopy = v58;
+          lCopy = v54;
           if (v46 <= 30 && (v46 != -1 || _LogCategory_Initialize()))
           {
-            sub_1000318A4(v44);
+            sub_1000318A4(v44, stringByDeletingPathExtension);
           }
 
           v47 = v12;
           v48 = v47;
-          if (v12 && ([v47 isEqual:v64] & 1) == 0)
+          if (v12 && ([v47 isEqual:v60] & 1) == 0)
           {
-            [(DADaemonServer *)self _saveAppDataDict:v48 fileURL:v58];
+            [(DADaemonServer *)self _saveAppDataDict:v48 fileURL:v54];
           }
 
 LABEL_92:
-          v7 = v59;
+          v7 = v55;
 LABEL_93:
 
           goto LABEL_96;
         }
 
         v49 = +[NSFileManager defaultManager];
-        v70 = v59;
+        v66 = v55;
         v50 = v13;
-        lCopy = v58;
-        v51 = [v49 removeItemAtURL:v58 error:&v70];
-        v67 = v70;
+        lCopy = v54;
+        v51 = [v49 removeItemAtURL:v54 error:&v66];
+        v63 = v66;
 
         v52 = v50[23].superclass;
         if (v51)
@@ -2340,7 +2324,7 @@ LABEL_93:
             v43 = 1;
             if (v52 != -1 || _LogCategory_Initialize())
             {
-              sub_10003194C();
+              sub_10003194C(stringByDeletingPathExtension);
             }
 
             goto LABEL_90;
@@ -2352,17 +2336,17 @@ LABEL_93:
           v43 = 1;
           if (v52 != -1 || _LogCategory_Initialize())
           {
-            sub_1000318F4();
-            v59 = v67;
+            sub_1000318F4(v63);
+            v55 = v63;
             goto LABEL_92;
           }
 
 LABEL_90:
-          v59 = v67;
+          v55 = v63;
           goto LABEL_92;
         }
 
-        v59 = v67;
+        v55 = v63;
         v43 = 1;
         goto LABEL_92;
       }
@@ -2372,7 +2356,7 @@ LABEL_90:
   if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
     v12 = CUPrintNSError();
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _checkDevicesForAppDataURL:]", 90, "### CheckDevicesForApp read failed: %@, %@", lCopy, v12);
     v43 = 1;
     goto LABEL_93;
   }
@@ -2398,27 +2382,27 @@ LABEL_96:
   sessionCopy = session;
   settingsCopy = settings;
   [(DADaemonServer *)self getDevicesWithFlags:8 appID:0];
+  v25 = 0u;
+  v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v13 = v30 = 0u;
-  v14 = [v13 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v13 = v28 = 0u;
+  v14 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v14)
   {
     v15 = v14;
     errorCopy = error;
-    v26 = sessionCopy;
-    v16 = *v28;
+    v24 = sessionCopy;
+    v16 = *v26;
     while (2)
     {
       for (i = 0; i != v15; i = i + 1)
       {
-        if (*v28 != v16)
+        if (*v26 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v27 + 1) + 8 * i);
+        v18 = *(*(&v25 + 1) + 8 * i);
         identifier = [v18 identifier];
         v20 = [identifier isEqualToString:identifierCopy];
 
@@ -2426,18 +2410,16 @@ LABEL_96:
         {
           if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
           {
-            v23 = settingsCopy;
-            v24 = v18;
-            LogPrintF();
+            LogPrintF(&dword_1000603A0, "[DADaemonServer modifyDeviceIdentifier:session:settings:error:]", 30, "Modify %@, device %@", settingsCopy, v18);
           }
 
-          sessionCopy = v26;
-          v21 = [(DADaemonServer *)self modifyAccessoryDevice:v18 session:v26 settings:settingsCopy error:errorCopy, v23, v24];
+          sessionCopy = v24;
+          v21 = [(DADaemonServer *)self modifyAccessoryDevice:v18 session:v24 settings:settingsCopy error:errorCopy];
           goto LABEL_16;
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
       if (v15)
       {
         continue;
@@ -2447,7 +2429,7 @@ LABEL_96:
     }
 
     v21 = 1;
-    sessionCopy = v26;
+    sessionCopy = v24;
   }
 
   else
@@ -2462,26 +2444,26 @@ LABEL_16:
 
 - (id)generateImageURLForDevice:(id)device
 {
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = sub_100002EE4;
-  v35 = sub_100002EF4;
-  v36 = 0;
-  v28[0] = _NSConcreteStackBlock;
-  v28[1] = 3221225472;
-  v28[2] = sub_100008758;
-  v28[3] = &unk_100058AE0;
-  v30 = &v31;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = sub_100002EE4;
+  v34 = sub_100002EF4;
+  v35 = 0;
+  v27[0] = _NSConcreteStackBlock;
+  v27[1] = 3221225472;
+  v27[2] = sub_100008758;
+  v27[3] = &unk_100058AE0;
+  v29 = &v30;
   deviceCopy = device;
-  v29 = deviceCopy;
-  v4 = objc_retainBlock(v28);
+  v28 = deviceCopy;
+  v4 = objc_retainBlock(v27);
   identifier = [deviceCopy identifier];
   if (![identifier length])
   {
-    v20 = DAErrorF();
-    v21 = v32[5];
-    v32[5] = v20;
+    v20 = DAErrorF(350001, "No device ID");
+    v21 = v31[5];
+    v31[5] = v20;
 
 LABEL_15:
     v19 = 0;
@@ -2497,29 +2479,28 @@ LABEL_15:
 
   if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    v24 = v6;
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer generateImageURLForDevice:]", 30, "Using container path %s", v6);
   }
 
-  v7 = [NSURL fileURLWithFileSystemRepresentation:v6 isDirectory:1 relativeToURL:0, v24];
+  v7 = [NSURL fileURLWithFileSystemRepresentation:v6 isDirectory:1 relativeToURL:0];
   free(v6);
   if (!v7)
   {
     goto LABEL_15;
   }
 
-  v26 = v4;
+  v25 = v4;
   v8 = [v7 URLByAppendingPathComponent:@"com.apple.DeviceAccess" isDirectory:1];
   v9 = [v8 URLByAppendingPathComponent:@"AccessorySetup" isDirectory:1];
   path = [v9 path];
   v11 = path;
   if (v9 && path)
   {
-    v25 = v8;
+    v24 = v8;
     v12 = [v9 URLByAppendingPathComponent:@"DADevices" isDirectory:1];
     v13 = +[NSFileManager defaultManager];
-    v14 = v32 + 5;
-    obj[0] = v32[5];
+    v14 = v31 + 5;
+    obj[0] = v31[5];
     v15 = [v13 createDirectoryAtURL:v12 withIntermediateDirectories:1 attributes:0 error:obj];
     objc_storeStrong(v14, obj[0]);
 
@@ -2536,22 +2517,22 @@ LABEL_15:
       v19 = 0;
     }
 
-    v8 = v25;
-    v4 = v26;
+    v8 = v24;
+    v4 = v25;
   }
 
   else
   {
-    v23 = DAErrorF();
+    v23 = DAErrorF(350001, "Bad file path");
     v19 = 0;
-    v12 = v32[5];
-    v32[5] = v23;
+    v12 = v31[5];
+    v31[5] = v23;
   }
 
 LABEL_16:
   (v4[2])(v4);
 
-  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v30, 8);
 
   return v19;
 }
@@ -2559,18 +2540,18 @@ LABEL_16:
 - (id)getDevicesWithFlags:(unint64_t)flags appID:(id)d
 {
   dCopy = d;
-  v128 = 0;
-  v129 = &v128;
-  v130 = 0x3032000000;
-  v131 = sub_100002EE4;
-  v132 = sub_100002EF4;
-  v133 = 0;
-  v127[0] = _NSConcreteStackBlock;
-  v127[1] = 3221225472;
-  v127[2] = sub_100009670;
-  v127[3] = &unk_100058D30;
-  v127[4] = &v128;
-  v80 = objc_retainBlock(v127);
+  v125 = 0;
+  v126 = &v125;
+  v127 = 0x3032000000;
+  v128 = sub_100002EE4;
+  v129 = sub_100002EF4;
+  v130 = 0;
+  v124[0] = _NSConcreteStackBlock;
+  v124[1] = 3221225472;
+  v124[2] = sub_100009670;
+  v124[3] = &unk_100058D30;
+  v124[4] = &v125;
+  v77 = objc_retainBlock(v124);
   obj[1] = 1;
   v4 = container_system_group_path_for_identifier();
   if (!v4)
@@ -2580,82 +2561,80 @@ LABEL_16:
 
   if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    v69 = v4;
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer getDevicesWithFlags:appID:]", 30, "Using container path %s", v4);
   }
 
-  v5 = [NSURL fileURLWithFileSystemRepresentation:v4 isDirectory:1 relativeToURL:0, v69];
+  v5 = [NSURL fileURLWithFileSystemRepresentation:v4 isDirectory:1 relativeToURL:0];
   free(v4);
   if (!v5)
   {
 LABEL_12:
-    v15 = v129[5];
-    v16 = DANestedErrorF();
-    v83 = 0;
-    v17 = v129[5];
-    v129[5] = v16;
+    v15 = DANestedErrorF();
+    v80 = 0;
+    v16 = v126[5];
+    v126[5] = v15;
     goto LABEL_61;
   }
 
-  v76 = v5;
-  v75 = [v5 URLByAppendingPathComponent:@"com.apple.DeviceAccess" isDirectory:1];
-  v82 = [v75 URLByAppendingPathComponent:@"AccessorySetup" isDirectory:1];
-  v95 = +[NSMutableDictionary dictionary];
-  v74 = [v82 URLByAppendingPathComponent:@"AppAccessInfos" isDirectory:1];
-  path = [v74 path];
+  v73 = v5;
+  v72 = [v5 URLByAppendingPathComponent:@"com.apple.DeviceAccess" isDirectory:1];
+  v79 = [v72 URLByAppendingPathComponent:@"AccessorySetup" isDirectory:1];
+  v92 = +[NSMutableDictionary dictionary];
+  v71 = [v79 URLByAppendingPathComponent:@"AppAccessInfos" isDirectory:1];
+  path = [v71 path];
   if (!dCopy)
   {
-    v92 = +[NSFileManager defaultManager];
-    v18 = [NSURL fileURLWithPath:path];
-    v19 = v129 + 5;
-    v122 = v129[5];
-    v20 = [v92 contentsOfDirectoryAtURL:v18 includingPropertiesForKeys:0 options:4 error:&v122];
-    objc_storeStrong(v19, v122);
+    v89 = +[NSFileManager defaultManager];
+    v17 = [NSURL fileURLWithPath:path];
+    v18 = v126 + 5;
+    v119 = v126[5];
+    v19 = [v89 contentsOfDirectoryAtURL:v17 includingPropertiesForKeys:0 options:4 error:&v119];
+    objc_storeStrong(v18, v119);
 
-    v120 = 0u;
-    v121 = 0u;
+    v117 = 0u;
     v118 = 0u;
-    v119 = 0u;
-    v21 = v20;
-    v22 = [v21 countByEnumeratingWithState:&v118 objects:v136 count:16];
-    if (v22)
+    v115 = 0u;
+    v116 = 0u;
+    v20 = v19;
+    v21 = [v20 countByEnumeratingWithState:&v115 objects:v133 count:16];
+    if (v21)
     {
-      v23 = *v119;
+      v22 = *v116;
       do
       {
-        for (i = 0; i != v22; i = i + 1)
+        for (i = 0; i != v21; i = i + 1)
         {
-          if (*v119 != v23)
+          if (*v116 != v22)
           {
-            objc_enumerationMutation(v21);
+            objc_enumerationMutation(v20);
           }
 
-          v25 = [[NSDictionary alloc] initWithContentsOfURL:*(*(&v118 + 1) + 8 * i)];
-          if (v25)
+          v24 = [[NSDictionary alloc] initWithContentsOfURL:*(*(&v115 + 1) + 8 * i)];
+          if (v24)
           {
             CFStringGetTypeID();
-            v26 = CFDictionaryGetTypedValue();
-            if (v26)
+            v25 = CFDictionaryGetTypedValue();
+            if (v25)
             {
               CFDictionaryGetTypeID();
-              v27 = CFDictionaryGetTypedValue();
-              v114[0] = _NSConcreteStackBlock;
-              v114[1] = 3221225472;
-              v114[2] = sub_10000984C;
-              v114[3] = &unk_100058F10;
-              v115 = v95;
-              v117 = &v128;
-              v28 = v26;
-              v116 = v28;
-              [v27 enumerateKeysAndObjectsUsingBlock:v114];
+              v26 = CFDictionaryGetTypedValue();
+              v111[0] = _NSConcreteStackBlock;
+              v111[1] = 3221225472;
+              v111[2] = sub_10000984C;
+              v111[3] = &unk_100058F10;
+              v112 = v92;
+              v114 = &v125;
+              v27 = v25;
+              v113 = v27;
+              [v26 enumerateKeysAndObjectsUsingBlock:v111];
             }
           }
         }
 
-        v22 = [v21 countByEnumeratingWithState:&v118 objects:v136 count:16];
+        v21 = [v20 countByEnumeratingWithState:&v115 objects:v133 count:16];
       }
 
-      while (v22);
+      while (v21);
     }
 
     goto LABEL_24;
@@ -2668,223 +2647,222 @@ LABEL_12:
   v10 = [v9 URLByAppendingPathComponent:v8 isDirectory:0];
 
   v11 = [NSDictionary alloc];
-  v12 = v129 + 5;
-  obj[0] = v129[5];
+  v12 = v126 + 5;
+  obj[0] = v126[5];
   v13 = [v11 initWithContentsOfURL:v10 error:obj];
   objc_storeStrong(v12, obj[0]);
   if (v13)
   {
     CFDictionaryGetTypeID();
     v14 = CFDictionaryGetTypedValue();
-    v123[0] = _NSConcreteStackBlock;
-    v123[1] = 3221225472;
-    v123[2] = sub_100009734;
-    v123[3] = &unk_100058EE8;
-    v124 = v95;
-    v125 = &v128;
-    [v14 enumerateKeysAndObjectsUsingBlock:v123];
+    v120[0] = _NSConcreteStackBlock;
+    v120[1] = 3221225472;
+    v120[2] = sub_100009734;
+    v120[3] = &unk_100058EE8;
+    v121 = v92;
+    v122 = &v125;
+    [v14 enumerateKeysAndObjectsUsingBlock:v120];
   }
 
   else
   {
-    v67 = v129[5];
-    v68 = DANestedErrorF();
-    v14 = v129[5];
-    v129[5] = v68;
+    v66 = DANestedErrorF();
+    v14 = v126[5];
+    v126[5] = v66;
   }
 
   if (v13)
   {
 LABEL_24:
-    v79 = +[NSFileManager defaultManager];
-    v73 = [v82 URLByAppendingPathComponent:@"AccessoryServiceInfos" isDirectory:1];
-    path2 = [v73 path];
-    v29 = [NSURL fileURLWithPath:?];
-    v30 = v129 + 5;
-    v113 = v129[5];
-    v31 = [v79 contentsOfDirectoryAtURL:v29 includingPropertiesForKeys:0 options:4 error:&v113];
-    objc_storeStrong(v30, v113);
+    v76 = +[NSFileManager defaultManager];
+    v70 = [v79 URLByAppendingPathComponent:@"AccessoryServiceInfos" isDirectory:1];
+    path2 = [v70 path];
+    v28 = [NSURL fileURLWithPath:?];
+    v29 = v126 + 5;
+    v110 = v126[5];
+    v30 = [v76 contentsOfDirectoryAtURL:v28 includingPropertiesForKeys:0 options:4 error:&v110];
+    objc_storeStrong(v29, v110);
 
-    v85 = +[NSMutableDictionary dictionary];
-    v111 = 0u;
-    v112 = 0u;
+    v82 = +[NSMutableDictionary dictionary];
+    v108 = 0u;
     v109 = 0u;
-    v110 = 0u;
-    v87 = v31;
-    v32 = [v87 countByEnumeratingWithState:&v109 objects:v135 count:16];
-    if (v32)
+    v106 = 0u;
+    v107 = 0u;
+    v84 = v30;
+    v31 = [v84 countByEnumeratingWithState:&v106 objects:v132 count:16];
+    if (v31)
     {
-      v90 = *v110;
+      v87 = *v107;
       do
       {
-        v33 = 0;
-        v93 = v32;
+        v32 = 0;
+        v90 = v31;
         do
         {
-          if (*v110 != v90)
+          if (*v107 != v87)
           {
-            objc_enumerationMutation(v87);
+            objc_enumerationMutation(v84);
           }
 
-          v34 = *(*(&v109 + 1) + 8 * v33);
-          v35 = objc_autoreleasePoolPush();
-          v108 = 0;
-          [v34 getResourceValue:&v108 forKey:NSURLNameKey error:0];
-          v36 = v108;
-          v107 = 0;
-          [v34 getResourceValue:&v107 forKey:NSURLIsDirectoryKey error:0];
-          v37 = v107;
-          if (([v37 BOOLValue] & 1) == 0)
+          v33 = *(*(&v106 + 1) + 8 * v32);
+          v34 = objc_autoreleasePoolPush();
+          v105 = 0;
+          [v33 getResourceValue:&v105 forKey:NSURLNameKey error:0];
+          v35 = v105;
+          v104 = 0;
+          [v33 getResourceValue:&v104 forKey:NSURLIsDirectoryKey error:0];
+          v36 = v104;
+          if (([v36 BOOLValue] & 1) == 0)
           {
-            lastPathComponent = [v34 lastPathComponent];
-            stringByDeletingPathExtension = [lastPathComponent stringByDeletingPathExtension];
+            v37 = objc_msgSend_lastPathComponent(v33);
+            stringByDeletingPathExtension = [v37 stringByDeletingPathExtension];
 
-            v40 = [v95 objectForKeyedSubscript:stringByDeletingPathExtension];
-            LOBYTE(lastPathComponent) = v40 == 0;
+            v39 = [v92 objectForKeyedSubscript:stringByDeletingPathExtension];
+            LOBYTE(v37) = v39 == 0;
 
-            if ((lastPathComponent & 1) == 0)
+            if ((v37 & 1) == 0)
             {
-              path3 = [v34 path];
-              v42 = [NSURL fileURLWithPath:path3];
-              v43 = [NSDictionary dictionaryWithContentsOfURL:v42];
-              if (v43)
+              path3 = [v33 path];
+              v41 = [NSURL fileURLWithPath:path3];
+              v42 = [NSDictionary dictionaryWithContentsOfURL:v41];
+              if (v42)
               {
                 CFStringGetTypeID();
-                v88 = CFDictionaryGetTypedValue();
+                v85 = CFDictionaryGetTypedValue();
                 CFDictionaryGetTypeID();
-                v44 = CFDictionaryGetTypedValue();
-                if (v44)
+                v43 = CFDictionaryGetTypedValue();
+                if (v43)
                 {
-                  v45 = +[NSMutableDictionary dictionary];
-                  v104[0] = _NSConcreteStackBlock;
-                  v104[1] = 3221225472;
-                  v104[2] = sub_10000994C;
-                  v104[3] = &unk_100058F38;
-                  v105 = v88;
-                  v46 = v45;
-                  v106 = v46;
-                  [v44 enumerateKeysAndObjectsUsingBlock:v104];
-                  [v85 setObject:v46 forKeyedSubscript:stringByDeletingPathExtension];
+                  v44 = +[NSMutableDictionary dictionary];
+                  v101[0] = _NSConcreteStackBlock;
+                  v101[1] = 3221225472;
+                  v101[2] = sub_10000994C;
+                  v101[3] = &unk_100058F38;
+                  v102 = v85;
+                  v45 = v44;
+                  v103 = v45;
+                  [v43 enumerateKeysAndObjectsUsingBlock:v101];
+                  [v82 setObject:v45 forKeyedSubscript:stringByDeletingPathExtension];
                 }
               }
             }
           }
 
-          objc_autoreleasePoolPop(v35);
-          v33 = v33 + 1;
+          objc_autoreleasePoolPop(v34);
+          v32 = v32 + 1;
         }
 
-        while (v93 != v33);
-        v32 = [v87 countByEnumeratingWithState:&v109 objects:v135 count:16];
+        while (v90 != v32);
+        v31 = [v84 countByEnumeratingWithState:&v106 objects:v132 count:16];
       }
 
-      while (v32);
+      while (v31);
     }
 
-    v71 = [v82 URLByAppendingPathComponent:@"DADevices" isDirectory:1];
-    path4 = [v71 path];
-    v47 = [NSURL fileURLWithPath:?];
-    v48 = v129 + 5;
-    v103 = v129[5];
-    v78 = [v79 contentsOfDirectoryAtURL:v47 includingPropertiesForKeys:0 options:4 error:&v103];
-    objc_storeStrong(v48, v103);
+    v68 = [v79 URLByAppendingPathComponent:@"DADevices" isDirectory:1];
+    path4 = [v68 path];
+    v46 = [NSURL fileURLWithPath:?];
+    v47 = v126 + 5;
+    v100 = v126[5];
+    v75 = [v76 contentsOfDirectoryAtURL:v46 includingPropertiesForKeys:0 options:4 error:&v100];
+    objc_storeStrong(v47, v100);
 
-    if (v78)
+    if (v75)
     {
-      v83 = +[NSMutableArray array];
-      v101 = 0u;
-      v102 = 0u;
+      v80 = +[NSMutableArray array];
+      v98 = 0u;
       v99 = 0u;
-      v100 = 0u;
-      v86 = v78;
-      v49 = [v86 countByEnumeratingWithState:&v99 objects:v134 count:16];
-      if (v49)
+      v96 = 0u;
+      v97 = 0u;
+      v83 = v75;
+      v48 = [v83 countByEnumeratingWithState:&v96 objects:v131 count:16];
+      if (v48)
       {
-        v91 = *v100;
+        v88 = *v97;
         do
         {
-          v50 = 0;
-          v94 = v49;
+          v49 = 0;
+          v91 = v48;
           do
           {
-            if (*v100 != v91)
+            if (*v97 != v88)
             {
-              objc_enumerationMutation(v86);
+              objc_enumerationMutation(v83);
             }
 
-            v51 = *(*(&v99 + 1) + 8 * v50);
-            v52 = objc_autoreleasePoolPush();
-            v98 = 0;
-            [v51 getResourceValue:&v98 forKey:NSURLNameKey error:0];
-            v53 = v98;
-            v97 = 0;
-            [v51 getResourceValue:&v97 forKey:NSURLIsDirectoryKey error:0];
-            v54 = v97;
-            if (([v54 BOOLValue] & 1) == 0)
+            v50 = *(*(&v96 + 1) + 8 * v49);
+            v51 = objc_autoreleasePoolPush();
+            v95 = 0;
+            [v50 getResourceValue:&v95 forKey:NSURLNameKey error:0];
+            v52 = v95;
+            v94 = 0;
+            [v50 getResourceValue:&v94 forKey:NSURLIsDirectoryKey error:0];
+            v53 = v94;
+            if (([v53 BOOLValue] & 1) == 0)
             {
-              lastPathComponent2 = [v51 lastPathComponent];
-              stringByDeletingPathExtension2 = [lastPathComponent2 stringByDeletingPathExtension];
+              v54 = objc_msgSend_lastPathComponent(v50);
+              stringByDeletingPathExtension2 = [v54 stringByDeletingPathExtension];
 
-              v57 = [v95 objectForKeyedSubscript:stringByDeletingPathExtension2];
-              v58 = v57 == 0;
+              v56 = [v92 objectForKeyedSubscript:stringByDeletingPathExtension2];
+              v57 = v56 == 0;
 
-              if (!v58)
+              if (!v57)
               {
-                path5 = [v51 path];
-                v60 = [NSURL fileURLWithPath:path5];
-                v61 = [NSDictionary dictionaryWithContentsOfURL:v60];
-                v62 = [DADevice alloc];
-                v96 = 0;
-                v63 = [v62 initWithPersistentDictionaryRepresentation:v61 error:&v96];
-                v89 = v96;
-                if (v63 && ([v63 flags] & flags) != 0)
+                path5 = [v50 path];
+                v59 = [NSURL fileURLWithPath:path5];
+                v60 = [NSDictionary dictionaryWithContentsOfURL:v59];
+                v61 = [DADevice alloc];
+                v93 = 0;
+                v62 = [v61 initWithPersistentDictionaryRepresentation:v60 error:&v93];
+                v86 = v93;
+                if (v62 && ([v62 flags] & flags) != 0)
                 {
-                  v64 = [v95 objectForKeyedSubscript:stringByDeletingPathExtension2];
-                  [v63 setAppAccessInfoDeviceMap:v64];
+                  v63 = [v92 objectForKeyedSubscript:stringByDeletingPathExtension2];
+                  [v62 setAppAccessInfoDeviceMap:v63];
 
-                  v65 = [v85 objectForKeyedSubscript:stringByDeletingPathExtension2];
-                  [v63 setAccessoryServicesInternalMap:v65];
+                  v64 = [v82 objectForKeyedSubscript:stringByDeletingPathExtension2];
+                  [v62 setAccessoryServicesInternalMap:v64];
 
-                  [v83 addObject:v63];
+                  [v80 addObject:v62];
                 }
 
                 else if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
                 {
-                  LogPrintF();
+                  LogPrintF(&dword_1000603A0, "[DADaemonServer getDevicesWithFlags:appID:]", 90, "[Device Decoding Error] %@", v86);
                 }
               }
             }
 
-            objc_autoreleasePoolPop(v52);
-            v50 = v50 + 1;
+            objc_autoreleasePoolPop(v51);
+            v49 = v49 + 1;
           }
 
-          while (v94 != v50);
-          v49 = [v86 countByEnumeratingWithState:&v99 objects:v134 count:16];
+          while (v91 != v49);
+          v48 = [v83 countByEnumeratingWithState:&v96 objects:v131 count:16];
         }
 
-        while (v49);
+        while (v48);
       }
     }
 
     else
     {
-      v83 = 0;
+      v80 = 0;
     }
 
     goto LABEL_60;
   }
 
-  v83 = 0;
+  v80 = 0;
 LABEL_60:
 
-  v17 = v76;
+  v16 = v73;
 LABEL_61:
 
-  (v80[2])(v80);
-  _Block_object_dispose(&v128, 8);
+  (v77[2])(v77);
+  _Block_object_dispose(&v125, 8);
 
-  return v83;
+  return v80;
 }
 
 - (void)reportAuthorizedDevices:(id)devices
@@ -2963,6 +2941,66 @@ LABEL_61:
   }
 }
 
+- (void)_reportDeviceChanged:(id)changed appID:(id)d discovery:(BOOL)discovery
+{
+  discoveryCopy = discovery;
+  changedCopy = changed;
+  dCopy = d;
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v10 = self->_xpcConnections;
+  v11 = [(NSMutableSet *)v10 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  if (v11)
+  {
+    v12 = v11;
+    v13 = *v25;
+    do
+    {
+      v14 = 0;
+      do
+      {
+        if (*v25 != v13)
+        {
+          objc_enumerationMutation(v10);
+        }
+
+        [*(*(&v24 + 1) + 8 * v14) reportDeviceChanged:changedCopy appID:dCopy discovery:{discoveryCopy, v24}];
+        v14 = v14 + 1;
+      }
+
+      while (v12 != v14);
+      v12 = [(NSMutableSet *)v10 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    }
+
+    while (v12);
+  }
+
+  v15 = [(NSMutableDictionary *)self->_discoveryMap objectForKeyedSubscript:dCopy];
+  discoveryObj = [v15 discoveryObj];
+  configuration = [discoveryObj configuration];
+  bundleID = [configuration bundleID];
+  v19 = [bundleID isEqualToString:dCopy];
+
+  discoveryObj2 = [v15 discoveryObj];
+  discoveryObj3 = discoveryObj2;
+  if (v19)
+  {
+    goto LABEL_11;
+  }
+
+  bundleID2 = [discoveryObj2 bundleID];
+  v23 = [bundleID2 isEqualToString:dCopy];
+
+  if (v23)
+  {
+    discoveryObj3 = [v15 discoveryObj];
+LABEL_11:
+    [discoveryObj3 reportDeviceChanged:changedCopy appID:{dCopy, v24}];
+  }
+}
+
 - (void)_reportDeviceConnectionStatusChanged:(id)changed
 {
   changedCopy = changed;
@@ -3000,6 +3038,78 @@ LABEL_61:
   [changedCopy identifier];
 }
 
+- (void)_reportDevicesPresentChanged:(BOOL)changed appID:(id)d
+{
+  changedCopy = changed;
+  dCopy = d;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v7 = self->_xpcConnections;
+  v8 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v8)
+  {
+    v9 = v8;
+    v10 = *v13;
+    do
+    {
+      v11 = 0;
+      do
+      {
+        if (*v13 != v10)
+        {
+          objc_enumerationMutation(v7);
+        }
+
+        [*(*(&v12 + 1) + 8 * v11) reportDevicesPresentChanged:changedCopy appID:{dCopy, v12}];
+        v11 = v11 + 1;
+      }
+
+      while (v9 != v11);
+      v9 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    }
+
+    while (v9);
+  }
+}
+
+- (void)_reportDevicesPresentChanged:(BOOL)changed migrated:(BOOL)migrated appID:(id)d
+{
+  changedCopy = changed;
+  dCopy = d;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v8 = self->_xpcConnections;
+  v9 = [(NSMutableSet *)v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v14;
+    do
+    {
+      v12 = 0;
+      do
+      {
+        if (*v14 != v11)
+        {
+          objc_enumerationMutation(v8);
+        }
+
+        [*(*(&v13 + 1) + 8 * v12) reportDevicesPresentChanged:changedCopy appID:{dCopy, v13}];
+        v12 = v12 + 1;
+      }
+
+      while (v10 != v12);
+      v10 = [(NSMutableSet *)v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    }
+
+    while (v10);
+  }
+}
+
 - (void)_reportDeviceAccessoryServicesChanged:(id)changed
 {
   changedCopy = changed;
@@ -3035,6 +3145,43 @@ LABEL_61:
   }
 }
 
+- (void)_reportRemovedDevice:(id)device appID:(id)d discovery:(BOOL)discovery
+{
+  discoveryCopy = discovery;
+  deviceCopy = device;
+  dCopy = d;
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v10 = self->_xpcConnections;
+  v11 = [(NSMutableSet *)v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v11)
+  {
+    v12 = v11;
+    v13 = *v16;
+    do
+    {
+      v14 = 0;
+      do
+      {
+        if (*v16 != v13)
+        {
+          objc_enumerationMutation(v10);
+        }
+
+        [*(*(&v15 + 1) + 8 * v14) reportRemovedDevice:deviceCopy appID:dCopy discovery:{discoveryCopy, v15}];
+        v14 = v14 + 1;
+      }
+
+      while (v12 != v14);
+      v12 = [(NSMutableSet *)v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    }
+
+    while (v12);
+  }
+}
+
 - (BOOL)revokeBluetoothGlobalTCCIfNeededForDeviceAppAccessInfo:(id)info device:(id)device
 {
   infoCopy = info;
@@ -3044,7 +3191,7 @@ LABEL_61:
   v10 = [(NSMutableDictionary *)v8 objectForKey:bundleIdentifier];
   if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_100031A44();
+    sub_100031A44(deviceCopy);
   }
 
   v28 = 0;
@@ -3082,7 +3229,7 @@ LABEL_61:
           if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
           {
             bundleIdentifier3 = [v12 bundleIdentifier];
-            LogPrintF();
+            LogPrintF(&dword_1000603A0, "[DADaemonServer revokeBluetoothGlobalTCCIfNeededForDeviceAppAccessInfo:device:]", 50, "### revokeBluetoothGlobalTCCIfNeededForDeviceAppAccessInfo for bundleIdentifier %@ ", bundleIdentifier3);
           }
 
           bundleIdentifier4 = [v12 bundleIdentifier];
@@ -3091,9 +3238,9 @@ LABEL_61:
           v35[0] = &__kCFBooleanTrue;
           v35[1] = &__kCFBooleanTrue;
           [NSDictionary dictionaryWithObjects:v35 forKeys:v34 count:2];
-          v21 = TCCAccessResetForBundleIdWithOptions();
+          v22 = TCCAccessResetForBundleIdWithOptions();
 
-          if (v21)
+          if (v22)
           {
             v18 = 1;
             goto LABEL_12;
@@ -3102,7 +3249,7 @@ LABEL_61:
           if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
           {
             bundleID = [v29[5] bundleID];
-            LogPrintF();
+            LogPrintF(&dword_1000603A0, "[DADaemonServer revokeBluetoothGlobalTCCIfNeededForDeviceAppAccessInfo:device:]", 90, "Error revoking Bluetooth TCC for bundle %@", bundleID);
           }
         }
       }
@@ -3152,8 +3299,8 @@ LABEL_12:
   v13[0] = 0;
   v6 = [NSPropertyListSerialization dataWithPropertyList:dict format:200 options:0 error:v13];
   v7 = v13[0];
-  lastPathComponent = [lCopy lastPathComponent];
-  stringByDeletingPathExtension = [lastPathComponent stringByDeletingPathExtension];
+  v8 = objc_msgSend_lastPathComponent(lCopy);
+  stringByDeletingPathExtension = [v8 stringByDeletingPathExtension];
 
   if (v6)
   {
@@ -3165,13 +3312,13 @@ LABEL_12:
     {
       if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
       {
-        sub_100031AC4();
+        sub_100031AC4(stringByDeletingPathExtension);
       }
     }
 
     else if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
-      sub_100031A84();
+      sub_100031A84(stringByDeletingPathExtension);
     }
   }
 
@@ -3187,23 +3334,23 @@ LABEL_12:
   createCopy = create;
   deviceCopy = device;
   sessionCopy = session;
-  v102 = 0;
-  v103 = &v102;
-  v104 = 0x2020000000;
-  v105 = 0;
-  v98 = 0;
-  v99 = &v98;
-  v100 = 0x2020000000;
-  v101 = 0;
-  v97[0] = _NSConcreteStackBlock;
-  v97[1] = 3221225472;
-  v97[2] = sub_10000BB84;
-  v97[3] = &unk_100058FD8;
-  v97[5] = &v102;
-  v97[6] = &v98;
+  v100 = 0;
+  v101 = &v100;
+  v102 = 0x2020000000;
+  v103 = 0;
+  v96 = 0;
+  v97 = &v96;
+  v98 = 0x2020000000;
+  v99 = 0;
+  v95[0] = _NSConcreteStackBlock;
+  v95[1] = 3221225472;
+  v95[2] = sub_10000BB84;
+  v95[3] = &unk_100058FD8;
+  v95[5] = &v100;
+  v95[6] = &v96;
   selfCopy = self;
-  v97[4] = self;
-  v74 = objc_retainBlock(v97);
+  v95[4] = self;
+  v72 = objc_retainBlock(v95);
   bundleID = [sessionCopy bundleID];
   if ([bundleID length])
   {
@@ -3212,113 +3359,113 @@ LABEL_12:
     {
       if (error)
       {
-        DAErrorF();
-        *error = v51 = 0;
+        DAErrorF(350001, "No device ID");
+        *error = v52 = 0;
       }
 
       else
       {
-        v51 = 0;
+        v52 = 0;
       }
 
-      goto LABEL_104;
+      goto LABEL_105;
     }
 
     v9 = [[NSString alloc] initWithFormat:@"%@.%@", bundleID, @"daappdata"];
     v10 = NSTemporaryDirectory();
     v11 = [NSURL fileURLWithPath:v10];
-    v80 = [v11 URLByAppendingPathComponent:v9 isDirectory:0];
-    v73 = v9;
+    v78 = [v11 URLByAppendingPathComponent:v9 isDirectory:0];
+    v71 = v9;
 
-    v96 = 0;
-    v12 = [[NSDictionary alloc] initWithContentsOfURL:v80 error:&v96];
-    v75 = v96;
-    v81 = v12;
+    v94 = 0;
+    v12 = [[NSDictionary alloc] initWithContentsOfURL:v78 error:&v94];
+    v73 = v94;
+    v79 = v12;
     if (!v12 && !createCopy)
     {
       if (error)
       {
         DANestedErrorF();
-        *error = v51 = 0;
+        *error = v52 = 0;
       }
 
       else
       {
-        v51 = 0;
+        v52 = 0;
       }
 
-      goto LABEL_103;
+      goto LABEL_104;
     }
 
     v13 = [v12 mutableCopy];
     v14 = v13;
     if (v13)
     {
-      v84 = v13;
+      v82 = v13;
     }
 
     else
     {
-      v84 = objc_alloc_init(NSMutableDictionary);
+      v82 = objc_alloc_init(NSMutableDictionary);
     }
 
     CFDictionaryGetTypeID();
-    v76 = CFDictionaryGetTypedValue();
-    if (!v76 && !createCopy)
+    v74 = CFDictionaryGetTypedValue();
+    if (!v74 && !createCopy)
     {
       if (error)
       {
-        DAErrorF();
-        *error = v51 = 0;
+        DAErrorF(350006, "No devices");
+        *error = v52 = 0;
       }
 
       else
       {
-        v51 = 0;
+        v52 = 0;
+      }
+
+      goto LABEL_103;
+    }
+
+    v15 = [v74 mutableCopy];
+    v16 = v15;
+    if (v15)
+    {
+      v86 = v15;
+    }
+
+    else
+    {
+      v86 = objc_alloc_init(NSMutableDictionary);
+    }
+
+    v81 = [v86 objectForKeyedSubscript:identifier];
+    if (!v81 && !createCopy)
+    {
+      if (error)
+      {
+        DAErrorF(350006, "Device not found");
+        *error = v52 = 0;
+      }
+
+      else
+      {
+        v52 = 0;
       }
 
       goto LABEL_102;
     }
 
-    v15 = [v76 mutableCopy];
-    v16 = v15;
-    if (v15)
-    {
-      v88 = v15;
-    }
-
-    else
-    {
-      v88 = objc_alloc_init(NSMutableDictionary);
-    }
-
-    v83 = [v88 objectForKeyedSubscript:identifier];
-    if (!v83 && !createCopy)
-    {
-      if (error)
-      {
-        DAErrorF();
-        *error = v51 = 0;
-      }
-
-      else
-      {
-        v51 = 0;
-      }
-
-      goto LABEL_101;
-    }
-
-    v17 = [v83 mutableCopy];
+    v17 = [v81 mutableCopy];
     v18 = v17;
     if (v17)
     {
-      v85 = v17;
+      v83 = v17;
     }
 
     else
     {
-      v85 = objc_alloc_init(NSMutableDictionary);
+      v83 = objc_alloc_init(NSMutableDictionary);
     }
 
     v19 = NSDictionaryGetNSNumber();
@@ -3342,88 +3489,48 @@ LABEL_12:
             v24 = "yes";
           }
 
-          v68 = deviceCopy;
-          v69 = bundleID;
-          v65 = v24;
-          LogPrintF();
+          LogPrintF(&dword_1000603A0, "[DADaemonServer saveDevice:session:allowCreate:error:]", 30, "nw_endpoint signed: %s for device: %@ for app: %@", v24, deviceCopy, bundleID);
         }
 
         persistentDictionaryRepresentation = [deviceCopy persistentDictionaryRepresentation];
         v28 = [persistentDictionaryRepresentation mutableCopy];
 
-        v85 = v28;
-        goto LABEL_35;
-      }
-
-LABEL_32:
-      v71 = 1;
-      v26 = v85;
-      v85 = 0;
-LABEL_46:
-
-      [v88 setObject:v85 forKeyedSubscript:identifier];
-      goto LABEL_47;
-    }
-
-    CFDictionaryGetDouble();
-    if (selfCopy->_prefDeviceApprovedSeconds <= v21 - v25 && state)
-    {
-      if (error)
-      {
-        DAErrorF();
-        *error = v51 = 0;
-        goto LABEL_100;
-      }
-
-      goto LABEL_136;
-    }
-
-    if (integerValue)
-    {
-      if (!state)
-      {
-        goto LABEL_32;
-      }
-
-      if (state != 10)
-      {
-        networkEndpoint = [NSNumber numberWithInteger:?];
-        [v85 setObject:networkEndpoint forKeyedSubscript:@"deviceState"];
+        v83 = v28;
 LABEL_35:
 
-        if (!v85)
+        if (!v83)
         {
-          v85 = 0;
-          v71 = 1;
-          [v88 setObject:0 forKeyedSubscript:identifier];
+          v83 = 0;
+          v69 = 1;
+          [v86 setObject:0 forKeyedSubscript:identifier];
 LABEL_47:
           if ([deviceCopy state] == 20 && objc_msgSend(deviceCopy, "supportsGrouping"))
           {
-            ++*(v103 + 6);
-            ++*(v99 + 6);
-            v94 = 0u;
-            v95 = 0u;
+            ++*(v101 + 6);
+            ++*(v97 + 6);
             v92 = 0u;
             v93 = 0u;
-            allKeys = [v88 allKeys];
-            v33 = [allKeys countByEnumeratingWithState:&v92 objects:v106 count:16];
+            v90 = 0u;
+            v91 = 0u;
+            allKeys = [v86 allKeys];
+            v33 = [allKeys countByEnumeratingWithState:&v90 objects:v104 count:16];
             if (v33)
             {
-              v34 = *v93;
+              v34 = *v91;
               obj = allKeys;
               do
               {
                 for (i = 0; i != v33; i = i + 1)
                 {
-                  if (*v93 != v34)
+                  if (*v91 != v34)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v36 = *(*(&v92 + 1) + 8 * i);
+                  v36 = *(*(&v90 + 1) + 8 * i);
                   if (([v36 isEqualToString:identifier] & 1) == 0)
                   {
-                    v37 = [v88 objectForKeyedSubscript:v36];
+                    v37 = [v86 objectForKeyedSubscript:v36];
                     CFStringGetTypeID();
                     v38 = CFDictionaryGetTypedValue();
                     Int64 = CFDictionaryGetInt64();
@@ -3437,15 +3544,15 @@ LABEL_47:
 
                       if (v44)
                       {
-                        ++*(v103 + 6);
+                        ++*(v101 + 6);
                         if (v41 == 20)
                         {
                           v45 = [v37 mutableCopy];
                           v46 = [NSNumber numberWithDouble:v21];
                           [v45 setObject:v46 forKeyedSubscript:@"approveTime"];
 
-                          [v88 setObject:v45 forKeyedSubscript:v36];
-                          ++*(v99 + 6);
+                          [v86 setObject:v45 forKeyedSubscript:v36];
+                          ++*(v97 + 6);
                         }
                       }
                     }
@@ -3453,144 +3560,143 @@ LABEL_47:
                 }
 
                 allKeys = obj;
-                v33 = [obj countByEnumeratingWithState:&v92 objects:v106 count:16];
+                v33 = [obj countByEnumeratingWithState:&v90 objects:v104 count:16];
               }
 
               while (v33);
             }
           }
 
-          [v84 setObject:v88 forKeyedSubscript:@"devices"];
-          if ([v84 isEqual:v81])
+          [v82 setObject:v86 forKeyedSubscript:@"devices"];
+          if ([v82 isEqual:v79])
           {
             if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
             {
-              LogPrintF();
+              LogPrintF(&dword_1000603A0, "[DADaemonServer saveDevice:session:allowCreate:error:]", 30, "SaveDevice: no changes, %@, %@", sessionCopy, deviceCopy);
             }
 
-            v51 = 1;
-            goto LABEL_100;
+            v52 = 1;
+            goto LABEL_101;
           }
 
-          v91 = 0;
-          v47 = [NSPropertyListSerialization dataWithPropertyList:v84 format:200 options:0 error:&v91];
-          v48 = v91;
+          v89 = 0;
+          v47 = [NSPropertyListSerialization dataWithPropertyList:v82 format:200 options:0 error:&v89];
+          v48 = v89;
 
           if (!v47)
           {
             if (error)
             {
               DANestedErrorF();
-              *error = v51 = 0;
+              *error = v52 = 0;
             }
 
             else
             {
-              v51 = 0;
+              v52 = 0;
             }
 
-            goto LABEL_99;
+            goto LABEL_100;
           }
 
-          v90 = v48;
-          v49 = [v47 writeToURL:v80 options:1073741825 error:&v90];
-          v50 = v90;
+          v88 = v48;
+          v49 = [v47 writeToURL:v78 options:1073741825 error:&v88];
+          v50 = v88;
 
           if ((v49 & 1) == 0)
           {
             if (error)
             {
               DANestedErrorF();
-              *error = v51 = 0;
+              *error = v52 = 0;
             }
 
             else
             {
-              v51 = 0;
+              v52 = 0;
             }
 
-LABEL_98:
-            v48 = v50;
 LABEL_99:
-
-            v75 = v48;
+            v48 = v50;
 LABEL_100:
 
+            v73 = v48;
 LABEL_101:
+
 LABEL_102:
-
 LABEL_103:
-LABEL_104:
 
-            goto LABEL_105;
+LABEL_104:
+LABEL_105:
+
+            goto LABEL_106;
           }
 
-          if (v71)
+          if (v69)
           {
             if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
             {
-LABEL_75:
-              v65 = sessionCopy;
-              v68 = deviceCopy;
-              LogPrintF();
+              v51 = "SaveDevice: remove, %@, %@";
+LABEL_76:
+              LogPrintF(&dword_1000603A0, "[DADaemonServer saveDevice:session:allowCreate:error:]", 30, v51, sessionCopy, deviceCopy);
             }
           }
 
           else if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
           {
-            goto LABEL_75;
+            v51 = "SaveDevice: changed, %@, %@";
+            goto LABEL_76;
           }
 
-          [(DADaemonServer *)selfCopy _necpUpdateUUIDForAppID:bundleID device:deviceCopy, v65, v68];
+          [(DADaemonServer *)selfCopy _necpUpdateUUIDForAppID:bundleID device:deviceCopy];
           [(DADaemonServer *)selfCopy _scheduleCheckDevices];
-          v52 = [(DADaemonServer *)selfCopy _updateStateForDiscoveryDeviceID:identifier state:state appID:bundleID referenceDevice:deviceCopy];
-          v53 = v52;
-          if (v52)
+          v53 = [(DADaemonServer *)selfCopy _updateStateForDiscoveryDeviceID:identifier state:state appID:bundleID referenceDevice:deviceCopy];
+          v54 = v53;
+          if (v53)
           {
-            v54 = v52;
+            v55 = v53;
           }
 
           else
           {
-            v54 = deviceCopy;
+            v55 = deviceCopy;
           }
 
-          [(DADaemonServer *)selfCopy _reportDeviceChanged:v54 appID:bundleID discovery:v52 != 0];
-          v55 = [(NSMutableDictionary *)selfCopy->_discoveryMap objectForKeyedSubscript:bundleID];
-          deviceMap = [v55 deviceMap];
-          v57 = deviceMap;
+          [(DADaemonServer *)selfCopy _reportDeviceChanged:v55 appID:bundleID discovery:v53 != 0];
+          v56 = [(NSMutableDictionary *)selfCopy->_discoveryMap objectForKeyedSubscript:bundleID];
+          deviceMap = [v56 deviceMap];
+          v58 = deviceMap;
           if (deviceMap)
           {
-            v58 = [deviceMap count];
-            v59 = [v57 objectForKeyedSubscript:identifier];
+            v59 = [deviceMap count];
+            v60 = [v58 objectForKeyedSubscript:identifier];
             if (integerValue == 20 && state != 20)
             {
-              v60 = [v57 objectForKeyedSubscript:identifier];
-              pendingRemoval = [v60 pendingRemoval];
+              v61 = [v58 objectForKeyedSubscript:identifier];
+              pendingRemoval = [v61 pendingRemoval];
 
               if (pendingRemoval)
               {
                 if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
                 {
-                  v66 = v59;
-                  LogPrintF();
+                  LogPrintF(&dword_1000603A0, "[DADaemonServer saveDevice:session:allowCreate:error:]", 30, "Device is pending removal and not activated anymore: %@", v60);
                 }
 
-                v62 = [[DADeviceEvent alloc] initWithEventType:41 device:v59];
-                [(DADaemonServer *)selfCopy _reportDiscoveryEvent:v62 appID:bundleID];
-                [v57 setObject:0 forKeyedSubscript:identifier];
+                v63 = [[DADeviceEvent alloc] initWithEventType:41 device:v60];
+                [(DADaemonServer *)selfCopy _reportDiscoveryEvent:v63 appID:bundleID];
+                [v58 setObject:0 forKeyedSubscript:identifier];
               }
             }
 
-            v63 = [v57 count];
-            if (v58 && !v63)
+            v64 = [v58 count];
+            if (v59 && !v64)
             {
               [(DADaemonServer *)selfCopy _reportDevicesPresentChanged:0 appID:bundleID];
             }
           }
 
-          v51 = 1;
-          goto LABEL_98;
+          v52 = 1;
+          goto LABEL_99;
         }
 
         if (state == 30 || state == 10)
@@ -3604,7 +3710,7 @@ LABEL_75:
 
         else
         {
-          [v85 setObject:0 forKeyedSubscript:@"deviceStateStartTime"];
+          [v83 setObject:0 forKeyedSubscript:@"deviceStateStartTime"];
         }
 
         CFStringGetTypeID();
@@ -3615,7 +3721,7 @@ LABEL_75:
         if (!v26 || !v30 || ([v26 isEqualToString:v30] & 1) != 0)
         {
 
-          v71 = 0;
+          v69 = 0;
           goto LABEL_46;
         }
 
@@ -3624,46 +3730,84 @@ LABEL_75:
           *error = DANestedErrorF();
         }
 
-LABEL_136:
-        v51 = 0;
-        goto LABEL_100;
-      }
-
-      if (!error)
-      {
-        goto LABEL_136;
+LABEL_137:
+        v52 = 0;
+        goto LABEL_101;
       }
     }
 
-    else if (!error)
+    else
     {
-      goto LABEL_136;
+      CFDictionaryGetDouble();
+      if (selfCopy->_prefDeviceApprovedSeconds <= v21 - v25 && state)
+      {
+        if (error)
+        {
+          DAErrorF(350006, "Expired");
+          *error = v52 = 0;
+          goto LABEL_101;
+        }
+
+        goto LABEL_137;
+      }
+
+      if (!integerValue)
+      {
+        if (error)
+        {
+          v66 = DADeviceStateToString();
+          *error = DAErrorF(350006, "Not in approved state: %@", v66);
+        }
+
+        goto LABEL_137;
+      }
+
+      if (state)
+      {
+        if (state == 10)
+        {
+          if (error)
+          {
+            v67 = DADeviceStateToString();
+            *error = DAErrorF(350006, "State not allowed: %@", v67);
+          }
+
+          goto LABEL_137;
+        }
+
+        networkEndpoint = [NSNumber numberWithInteger:?];
+        [v83 setObject:networkEndpoint forKeyedSubscript:@"deviceState"];
+        goto LABEL_35;
+      }
     }
 
-    v67 = DADeviceStateToString();
-    *error = DAErrorF();
+    v69 = 1;
+    v26 = v83;
+    v83 = 0;
+LABEL_46:
 
-    goto LABEL_136;
+    [v86 setObject:v83 forKeyedSubscript:identifier];
+    goto LABEL_47;
   }
 
   if (error)
   {
-    DAErrorF();
-    *error = v51 = 0;
+    DAErrorF(350001, "No app bundle ID");
+    *error = v52 = 0;
   }
 
   else
   {
-    v51 = 0;
+    v52 = 0;
   }
 
-LABEL_105:
+LABEL_106:
 
-  (v74[2])(v74);
-  _Block_object_dispose(&v98, 8);
-  _Block_object_dispose(&v102, 8);
+  (v72[2])(v72);
+  _Block_object_dispose(&v96, 8);
+  _Block_object_dispose(&v100, 8);
 
-  return v51;
+  return v52;
 }
 
 - (BOOL)saveDeviceAccessoryServiceInfo:(id)info device:(id)device error:(id *)error
@@ -3676,269 +3820,276 @@ LABEL_105:
     identifier = [deviceCopy identifier];
     if ([identifier length])
     {
-      v72[1] = 1;
+      v75[1] = 1;
       v12 = container_system_group_path_for_identifier();
       if (v12)
       {
-        v13 = v12;
+        v15 = v12;
         errorCopy = error;
         if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
         {
-          sub_100031C34();
+          sub_100031C34(v15, v13, v14);
         }
 
         selfCopy = self;
-        v14 = [NSURL fileURLWithFileSystemRepresentation:v13 isDirectory:1 relativeToURL:0];
-        free(v13);
-        if (v14)
+        v16 = [NSURL fileURLWithFileSystemRepresentation:v15 isDirectory:1 relativeToURL:0];
+        free(v15);
+        if (v16)
         {
-          v15 = [v14 URLByAppendingPathComponent:@"com.apple.DeviceAccess" isDirectory:1];
-          [v15 setResourceValue:&__kCFBooleanFalse forKey:NSURLIsExcludedFromBackupKey error:0];
-          v16 = [v15 URLByAppendingPathComponent:@"AccessorySetup" isDirectory:1];
-          path = [v16 path];
-          v18 = path;
-          if (!v16 || !path)
+          v17 = [v16 URLByAppendingPathComponent:@"com.apple.DeviceAccess" isDirectory:1];
+          [v17 setResourceValue:&__kCFBooleanFalse forKey:NSURLIsExcludedFromBackupKey error:0];
+          v18 = [v17 URLByAppendingPathComponent:@"AccessorySetup" isDirectory:1];
+          path = [v18 path];
+          v20 = path;
+          if (!v18 || !path)
           {
             sub_100031CEC();
-            v48 = 0;
+            v50 = 0;
             goto LABEL_46;
           }
 
-          v64 = path;
-          v65 = v14;
-          v66 = v15;
-          [v16 setResourceValue:&__kCFBooleanFalse forKey:NSURLIsExcludedFromBackupKey error:0];
-          v63 = v16;
-          v19 = [v16 URLByAppendingPathComponent:@"AccessoryServiceInfos" isDirectory:1];
-          v20 = +[NSFileManager defaultManager];
-          v21 = [v20 createDirectoryAtURL:v19 withIntermediateDirectories:1 attributes:0 error:errorCopy];
+          v67 = path;
+          v68 = v16;
+          v69 = v17;
+          [v18 setResourceValue:&__kCFBooleanFalse forKey:NSURLIsExcludedFromBackupKey error:0];
+          v66 = v18;
+          v21 = [v18 URLByAppendingPathComponent:@"AccessoryServiceInfos" isDirectory:1];
+          v22 = +[NSFileManager defaultManager];
+          v23 = [v22 createDirectoryAtURL:v21 withIntermediateDirectories:1 attributes:0 error:errorCopy];
 
-          v62 = v19;
-          if (!v21)
+          v65 = v21;
+          if (!v23)
           {
-            v48 = 0;
-            v15 = v66;
+            v50 = 0;
+            v17 = v69;
             goto LABEL_45;
           }
 
-          [v19 setResourceValue:&__kCFBooleanFalse forKey:NSURLIsExcludedFromBackupKey error:0];
-          path2 = [v19 path];
-          v23 = [[NSString alloc] initWithFormat:@"%@.%@", identifier, @"daserviceInfodata"];
-          v60 = path2;
-          v24 = [NSURL fileURLWithPath:path2];
-          v59 = v23;
-          v25 = [v24 URLByAppendingPathComponent:v23 isDirectory:0];
+          [v21 setResourceValue:&__kCFBooleanFalse forKey:NSURLIsExcludedFromBackupKey error:0];
+          path2 = [v21 path];
+          v25 = [[NSString alloc] initWithFormat:@"%@.%@", identifier, @"daserviceInfodata"];
+          v63 = path2;
+          v26 = [NSURL fileURLWithPath:path2];
+          v62 = v25;
+          v27 = [v26 URLByAppendingPathComponent:v25 isDirectory:0];
 
-          path3 = [v25 path];
-          v27 = +[NSFileManager defaultManager];
-          v58 = path3;
-          v28 = [v27 fileExistsAtPath:path3];
-          v29 = 0;
-          if (v28)
-          {
-            v29 = [[NSDictionary alloc] initWithContentsOfURL:v25 error:0];
-          }
-
-          v30 = [v29 mutableCopy];
-          v31 = v30;
-          v68 = deviceCopy;
-          v61 = associatedBundleID;
+          path3 = [v27 path];
+          v29 = +[NSFileManager defaultManager];
+          v61 = path3;
+          v30 = [v29 fileExistsAtPath:path3];
+          v31 = 0;
           if (v30)
           {
-            v32 = v30;
+            v31 = [[NSDictionary alloc] initWithContentsOfURL:v27 error:0];
+          }
+
+          v32 = [v31 mutableCopy];
+          v33 = v32;
+          v71 = deviceCopy;
+          v64 = associatedBundleID;
+          if (v32)
+          {
+            v34 = v32;
           }
 
           else
           {
-            v32 = objc_alloc_init(NSMutableDictionary);
+            v34 = objc_alloc_init(NSMutableDictionary);
           }
 
-          v33 = v32;
-          v69 = v25;
+          v35 = v34;
+          v72 = v27;
 
           authorizationLevel = [infoCopy authorizationLevel];
           name = [infoCopy name];
           CFDictionaryGetTypeID();
-          v36 = CFDictionaryGetTypedValue();
-          v37 = [v36 mutableCopy];
-          v38 = v37;
-          v70 = identifier;
-          if (v37)
-          {
-            v39 = v37;
-          }
-
-          else
-          {
-            v39 = objc_alloc_init(NSMutableDictionary);
-          }
-
+          v38 = CFDictionaryGetTypedValue();
+          v39 = [v38 mutableCopy];
           v40 = v39;
-
-          v41 = [v36 objectForKeyedSubscript:name];
-          v42 = [v41 mutableCopy];
-          v43 = v42;
-          if (v42)
+          v73 = identifier;
+          if (v39)
           {
-            v44 = v42;
+            v41 = v39;
           }
 
           else
           {
-            v44 = objc_alloc_init(NSMutableDictionary);
+            v41 = objc_alloc_init(NSMutableDictionary);
           }
 
+          v42 = v41;
+
+          v43 = [v38 objectForKeyedSubscript:name];
+          v44 = [v43 mutableCopy];
           v45 = v44;
+          if (v44)
+          {
+            v46 = v44;
+          }
+
+          else
+          {
+            v46 = objc_alloc_init(NSMutableDictionary);
+          }
+
+          v47 = v46;
 
           if (authorizationLevel == 1)
           {
-            v46 = 0;
+            v48 = 0;
           }
 
           else
           {
             persistentDictionaryRepresentation = [infoCopy persistentDictionaryRepresentation];
-            v46 = [persistentDictionaryRepresentation mutableCopy];
+            v48 = [persistentDictionaryRepresentation mutableCopy];
 
-            v45 = persistentDictionaryRepresentation;
+            v47 = persistentDictionaryRepresentation;
           }
 
-          [v40 setObject:v46 forKeyedSubscript:name];
-          [v33 setObject:v70 forKeyedSubscript:@"identifier"];
-          [v33 setObject:v40 forKeyedSubscript:@"services"];
-          if ([v33 isEqual:v29])
+          [v42 setObject:v48 forKeyedSubscript:name];
+          [v35 setObject:v73 forKeyedSubscript:@"identifier"];
+          [v35 setObject:v42 forKeyedSubscript:@"services"];
+          if ([v35 isEqual:v31])
           {
             if (dword_1000603A0 > 30)
             {
-              v48 = 1;
-              v15 = v66;
+              v50 = 1;
+              v17 = v69;
             }
 
             else
             {
-              v15 = v66;
+              v17 = v69;
               if (dword_1000603A0 != -1 || _LogCategory_Initialize())
               {
-                sub_100031CAC();
+                sub_100031CAC(infoCopy);
               }
 
-              v48 = 1;
+              v50 = 1;
             }
 
             goto LABEL_44;
           }
 
-          v57 = infoCopy;
-          v72[0] = 0;
-          v49 = [NSPropertyListSerialization dataWithPropertyList:v33 format:200 options:0 error:v72];
-          v50 = v72[0];
-          v51 = v50;
-          if (!v49)
+          v60 = infoCopy;
+          v75[0] = 0;
+          v51 = [NSPropertyListSerialization dataWithPropertyList:v35 format:200 options:0 error:v75];
+          v52 = v75[0];
+          v53 = v52;
+          if (!v51)
           {
             if (errorCopy)
             {
               DANestedErrorF();
-              *errorCopy = v48 = 0;
+              *errorCopy = v50 = 0;
             }
 
             else
             {
-              v48 = 0;
+              v50 = 0;
             }
 
-            v55 = v51;
+            v58 = v53;
             goto LABEL_42;
           }
 
-          v71 = v50;
-          v52 = [v49 writeToURL:v69 options:1073741825 error:&v71];
-          v55 = v71;
+          v74 = v52;
+          v54 = [v51 writeToURL:v72 options:1073741825 error:&v74];
+          v58 = v74;
 
-          if ((v52 & 1) == 0)
+          if ((v54 & 1) == 0)
           {
-            v15 = v66;
+            v17 = v69;
             if (errorCopy)
             {
               DANestedErrorF();
-              *errorCopy = v48 = 0;
+              *errorCopy = v50 = 0;
             }
 
             else
             {
-              v48 = 0;
+              v50 = 0;
             }
 
             goto LABEL_43;
           }
 
-          if (v46)
+          if (v48)
           {
             if (dword_1000603A0 > 30 || dword_1000603A0 == -1 && !_LogCategory_Initialize())
             {
               goto LABEL_41;
             }
+
+            v55 = "saveDeviceAccessoryServiceInfo: changed, %@";
           }
 
-          else if (dword_1000603A0 > 30 || dword_1000603A0 == -1 && !_LogCategory_Initialize())
+          else
           {
-            goto LABEL_41;
+            if (dword_1000603A0 > 30 || dword_1000603A0 == -1 && !_LogCategory_Initialize())
+            {
+              goto LABEL_41;
+            }
+
+            v55 = "saveDeviceAccessoryServiceInfo: remove, %@";
           }
 
-          sub_100031C70();
+          sub_100031C70(v55, v60);
 LABEL_41:
-          accessoryServicesInternalMap = [v68 accessoryServicesInternalMap];
-          [accessoryServicesInternalMap setObject:v57 forKeyedSubscript:name];
+          accessoryServicesInternalMap = [v71 accessoryServicesInternalMap];
+          [accessoryServicesInternalMap setObject:v60 forKeyedSubscript:name];
 
-          [(DADaemonServer *)selfCopy _reportDeviceAccessoryServicesChanged:v68];
-          v48 = 1;
+          [(DADaemonServer *)selfCopy _reportDeviceAccessoryServicesChanged:v71];
+          v50 = 1;
 LABEL_42:
-          v15 = v66;
+          v17 = v69;
 LABEL_43:
 
-          infoCopy = v57;
+          infoCopy = v60;
 LABEL_44:
 
-          deviceCopy = v68;
-          associatedBundleID = v61;
-          identifier = v70;
+          deviceCopy = v71;
+          associatedBundleID = v64;
+          identifier = v73;
 LABEL_45:
 
-          v18 = v64;
-          v14 = v65;
-          v16 = v63;
+          v20 = v67;
+          v16 = v68;
+          v18 = v66;
 LABEL_46:
 
-LABEL_55:
-          goto LABEL_56;
+LABEL_56:
+          goto LABEL_57;
         }
       }
     }
 
     else if (error)
     {
-      DAErrorF();
-      *error = v48 = 0;
-      goto LABEL_55;
+      DAErrorF(350001, "No device ID");
+      *error = v50 = 0;
+      goto LABEL_56;
     }
 
-    v48 = 0;
-    goto LABEL_55;
+    v50 = 0;
+    goto LABEL_56;
   }
 
   if (error)
   {
-    DAErrorF();
-    *error = v48 = 0;
+    DAErrorF(350001, "No associated bundle ID");
+    *error = v50 = 0;
   }
 
   else
   {
-    v48 = 0;
+    v50 = 0;
   }
 
-LABEL_56:
+LABEL_57:
 
-  return v48;
+  return v50;
 }
 
 - (id)_saveDeviceAppAccessInfo:(id)info device:(id)device error:(id *)error
@@ -3951,207 +4102,205 @@ LABEL_56:
     deviceIdentifier = [infoCopy deviceIdentifier];
     if ([deviceIdentifier length])
     {
-      v102 = [(DADaemonServer *)self appBundleInfoAccessoryOptions:bundleIdentifier];
+      v99 = [(DADaemonServer *)self appBundleInfoAccessoryOptions:bundleIdentifier];
       error[1] = 1;
       v12 = container_system_group_path_for_identifier();
       if (v12)
       {
-        v13 = v12;
+        v15 = v12;
         selfCopy = self;
         errorCopy = error;
         if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
         {
-          sub_100031D1C();
+          sub_100031D1C(v15, v13, v14);
         }
 
-        v14 = [NSURL fileURLWithFileSystemRepresentation:v13 isDirectory:1 relativeToURL:0];
-        free(v13);
-        if (v14)
+        v16 = [NSURL fileURLWithFileSystemRepresentation:v15 isDirectory:1 relativeToURL:0];
+        free(v15);
+        if (v16)
         {
-          v105 = deviceCopy;
-          v15 = [v14 URLByAppendingPathComponent:@"com.apple.DeviceAccess" isDirectory:1];
+          v102 = deviceCopy;
+          v17 = [v16 URLByAppendingPathComponent:@"com.apple.DeviceAccess" isDirectory:1];
           if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
           {
             sub_100031D58();
           }
 
           error[0] = 0;
-          if (!CFURLSetResourcePropertyForKey(v15, _kCFURLIsExcludedFromUnencryptedBackupKey, kCFBooleanTrue, error) && dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+          if (!CFURLSetResourcePropertyForKey(v17, _kCFURLIsExcludedFromUnencryptedBackupKey, kCFBooleanTrue, error) && dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
           {
             sub_100031D98(error);
           }
 
-          v113 = 0;
-          [(__CFURL *)v15 setResourceValue:&__kCFBooleanFalse forKey:NSURLIsExcludedFromBackupKey error:&v113];
-          v16 = v113;
-          v17 = [(__CFURL *)v15 URLByAppendingPathComponent:@"AccessorySetup" isDirectory:1];
-          v107 = [v17 URLByAppendingPathComponent:@"AppAccessInfos" isDirectory:1];
-          v112 = v16;
-          [v17 setResourceValue:&__kCFBooleanFalse forKey:NSURLIsExcludedFromBackupKey error:&v112];
-          v18 = v112;
-
           v110 = 0;
-          v111 = 0;
-          v97 = v17;
-          [v17 getResourceValue:&v111 forKey:NSURLIsExcludedFromBackupKey error:&v110];
-          v99 = v111;
-          v19 = v110;
+          [(__CFURL *)v17 setResourceValue:&__kCFBooleanFalse forKey:NSURLIsExcludedFromBackupKey error:&v110];
+          v18 = v110;
+          v19 = [(__CFURL *)v17 URLByAppendingPathComponent:@"AccessorySetup" isDirectory:1];
+          v104 = [v19 URLByAppendingPathComponent:@"AppAccessInfos" isDirectory:1];
+          v109 = v18;
+          [v19 setResourceValue:&__kCFBooleanFalse forKey:NSURLIsExcludedFromBackupKey error:&v109];
+          v20 = v109;
+
+          v107 = 0;
+          v108 = 0;
+          v94 = v19;
+          [v19 getResourceValue:&v108 forKey:NSURLIsExcludedFromBackupKey error:&v107];
+          v96 = v108;
+          v21 = v107;
 
           if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
           {
-            v84 = v99;
-            v86 = v19;
-            LogPrintF();
+            LogPrintF(&dword_1000603A0, "[DADaemonServer _saveDeviceAppAccessInfo:device:error:]", 50, "SaveDeviceAppAccessInfo: backup resource %@, error %@", v96, v21);
           }
 
-          v96 = v19;
-          v20 = v107;
-          [v107 setResourceValue:&__kCFBooleanFalse forKey:NSURLIsExcludedFromBackupKey error:{0, v84, v86}];
-          v21 = +[NSFileManager defaultManager];
-          v22 = [v21 createDirectoryAtURL:v107 withIntermediateDirectories:1 attributes:0 error:errorCopy];
+          v93 = v21;
+          v22 = v104;
+          [v104 setResourceValue:&__kCFBooleanFalse forKey:NSURLIsExcludedFromBackupKey error:0];
+          v23 = +[NSFileManager defaultManager];
+          v24 = [v23 createDirectoryAtURL:v104 withIntermediateDirectories:1 attributes:0 error:errorCopy];
 
-          v98 = v15;
-          if (!v22)
+          v95 = v17;
+          if (!v24)
           {
-            v51 = 0;
+            v53 = 0;
             goto LABEL_122;
           }
 
-          v94 = v14;
-          path = [v107 path];
-          v92 = CBGenerateObfuscatedSHA256HashedString();
-          v24 = [[NSString alloc] initWithFormat:@"%@.%@", v92, @"daappInfodata"];
-          v93 = path;
-          v25 = [NSURL fileURLWithPath:path];
-          v91 = v24;
-          v26 = [v25 URLByAppendingPathComponent:v24 isDirectory:0];
+          v91 = v16;
+          path = [v104 path];
+          v89 = CBGenerateObfuscatedSHA256HashedString();
+          v26 = [[NSString alloc] initWithFormat:@"%@.%@", v89, @"daappInfodata"];
+          v90 = path;
+          v27 = [NSURL fileURLWithPath:path];
+          v88 = v26;
+          v28 = [v27 URLByAppendingPathComponent:v26 isDirectory:0];
 
-          v100 = v26;
-          v27 = [[NSDictionary alloc] initWithContentsOfURL:v26 error:0];
-          v28 = [v27 mutableCopy];
-          v29 = v28;
-          if (v28)
+          v97 = v28;
+          v29 = [[NSDictionary alloc] initWithContentsOfURL:v28 error:0];
+          v30 = [v29 mutableCopy];
+          v31 = v30;
+          if (v30)
           {
-            v30 = v28;
+            v32 = v30;
           }
 
           else
           {
-            v30 = objc_alloc_init(NSMutableDictionary);
+            v32 = objc_alloc_init(NSMutableDictionary);
           }
 
-          v31 = v30;
+          v33 = v32;
 
           CFDictionaryGetTypeID();
-          v90 = CFDictionaryGetTypedValue();
-          v32 = [v90 mutableCopy];
-          v33 = v32;
-          if (v32)
-          {
-            v34 = v32;
-          }
-
-          else
-          {
-            v34 = objc_alloc_init(NSMutableDictionary);
-          }
-
+          v87 = CFDictionaryGetTypedValue();
+          v34 = [v87 mutableCopy];
           v35 = v34;
-
-          v104 = v35;
-          v36 = [v35 objectForKeyedSubscript:deviceIdentifier];
-          v37 = NSDictionaryGetNSNumber();
-          unsignedIntegerValue = [v37 unsignedIntegerValue];
-
-          v106 = v36;
-          v39 = [v36 mutableCopy];
-          v40 = v39;
-          v95 = deviceIdentifier;
-          if (v39)
+          if (v34)
           {
-            v41 = v39;
+            v36 = v34;
           }
 
           else
           {
-            v41 = objc_alloc_init(NSMutableDictionary);
+            v36 = objc_alloc_init(NSMutableDictionary);
           }
 
+          v37 = v36;
+
+          v101 = v37;
+          v38 = [v37 objectForKeyedSubscript:deviceIdentifier];
+          v39 = NSDictionaryGetNSNumber();
+          unsignedIntegerValue = [v39 unsignedIntegerValue];
+
+          v103 = v38;
+          v41 = [v38 mutableCopy];
           v42 = v41;
-          v101 = v27;
+          v92 = deviceIdentifier;
+          if (v41)
+          {
+            v43 = v41;
+          }
+
+          else
+          {
+            v43 = objc_alloc_init(NSMutableDictionary);
+          }
+
+          v44 = v43;
+          v98 = v29;
 
           Current = CFAbsoluteTimeGetCurrent();
           state = [infoCopy state];
-          v45 = NSDictionaryGetNSNumber();
-          integerValue = [v45 integerValue];
+          v47 = NSDictionaryGetNSNumber();
+          integerValue = [v47 integerValue];
 
           appDiscoveryConfiguration = [infoCopy appDiscoveryConfiguration];
           if (([appDiscoveryConfiguration flags] & 0x40) != 0)
           {
-            flags = [v105 flags];
-            v50 = flags;
-            v48 = (flags >> 10) & 1;
+            flags = [v102 flags];
+            v52 = flags;
+            v50 = (flags >> 10) & 1;
 
-            if ((v50 & 0x400) != 0 && unsignedIntegerValue)
+            if ((v52 & 0x400) != 0 && unsignedIntegerValue)
             {
-              v20 = v107;
+              v22 = v104;
               if ((unsignedIntegerValue & 0x40000000) == 0)
               {
                 if (errorCopy)
                 {
-                  DAErrorF();
-                  *errorCopy = v51 = 0;
+                  DAErrorF(350011, "App already has access to this accessory via ASK");
+                  *errorCopy = v53 = 0;
                 }
 
                 else
                 {
-                  v51 = 0;
+                  v53 = 0;
                 }
 
-                deviceCopy = v105;
-                deviceIdentifier = v95;
+                deviceCopy = v102;
+                deviceIdentifier = v92;
                 goto LABEL_120;
               }
             }
 
             else
             {
-              v20 = v107;
+              v22 = v104;
             }
           }
 
           else
           {
 
-            LODWORD(v48) = 0;
+            LODWORD(v50) = 0;
           }
 
           if (!state)
           {
-            v54 = 0;
-            deviceCopy = v105;
-            deviceIdentifier = v95;
+            v56 = 0;
+            deviceCopy = v102;
+            deviceIdentifier = v92;
 LABEL_93:
-            v55 = v101;
+            v57 = v98;
 
-            v42 = v54;
+            v44 = v56;
 LABEL_94:
-            [v104 setObject:v42 forKeyedSubscript:deviceIdentifier];
-            [v31 setObject:v104 forKeyedSubscript:@"devices"];
-            [v31 setObject:bundleIdentifier forKeyedSubscript:@"bundleID"];
-            if ([v31 isEqual:v55])
+            [v101 setObject:v44 forKeyedSubscript:deviceIdentifier];
+            [v33 setObject:v101 forKeyedSubscript:@"devices"];
+            [v33 setObject:bundleIdentifier forKeyedSubscript:@"bundleID"];
+            if ([v33 isEqual:v57])
             {
               if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
               {
-                sub_100031F34();
+                sub_100031F34(infoCopy);
               }
 
-              v51 = infoCopy;
+              v53 = infoCopy;
               goto LABEL_121;
             }
 
-            v69 = deviceIdentifier;
-            if (v42)
+            v71 = deviceIdentifier;
+            if (v44)
             {
               discoveryConfiguration = [deviceCopy discoveryConfiguration];
               bluetoothIdentifier = [discoveryConfiguration bluetoothIdentifier];
@@ -4162,56 +4311,56 @@ LABEL_94:
                 bluetoothIdentifier2 = [discoveryConfiguration2 bluetoothIdentifier];
 
                 cbCentralManager = selfCopy->_cbCentralManager;
-                v115 = bluetoothIdentifier2;
-                v75 = [NSArray arrayWithObjects:&v115 count:1];
-                v76 = [(CBCentralManager *)cbCentralManager retrievePeripheralsWithIdentifiers:v75];
+                v112 = bluetoothIdentifier2;
+                v77 = [NSArray arrayWithObjects:&v112 count:1];
+                v78 = [(CBCentralManager *)cbCentralManager retrievePeripheralsWithIdentifiers:v77];
 
-                if (v76 && [v76 count])
+                if (v78 && [v78 count])
                 {
                   if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
                   {
-                    sub_100031E74();
+                    sub_100031E74(v78);
                   }
 
-                  firstObject = [v76 firstObject];
+                  firstObject = [v78 firstObject];
                   [firstObject tag:@"DA_ASK_RETAIN_DEVICE"];
                 }
               }
             }
 
-            v109 = 0;
-            v78 = [NSPropertyListSerialization dataWithPropertyList:v31 format:200 options:0 error:&v109];
-            v79 = v109;
-            v80 = v79;
-            if (v78)
+            v106 = 0;
+            v80 = [NSPropertyListSerialization dataWithPropertyList:v33 format:200 options:0 error:&v106];
+            v81 = v106;
+            v82 = v81;
+            if (v80)
             {
-              v108 = v79;
-              v81 = [v78 writeToURL:v100 options:1073741825 error:&v108];
-              v82 = v108;
+              v105 = v81;
+              v83 = [v80 writeToURL:v97 options:1073741825 error:&v105];
+              v84 = v105;
 
-              if (v81)
+              if (v83)
               {
-                deviceCopy = v105;
-                if (v42)
+                deviceCopy = v102;
+                if (v44)
                 {
-                  v20 = v107;
+                  v22 = v104;
                   if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
                   {
-                    sub_100031EB4();
+                    sub_100031EB4(infoCopy);
                   }
 
-                  v51 = [[DADeviceAppAccessInfo alloc] initWithPersistentDictionaryRepresentation:v42 error:errorCopy];
+                  v53 = [[DADeviceAppAccessInfo alloc] initWithPersistentDictionaryRepresentation:v44 error:errorCopy];
                 }
 
                 else
                 {
-                  v20 = v107;
+                  v22 = v104;
                   if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
                   {
-                    sub_100031EF4();
+                    sub_100031EF4(infoCopy);
                   }
 
-                  v51 = 0;
+                  v53 = 0;
                 }
 
                 goto LABEL_119;
@@ -4220,12 +4369,12 @@ LABEL_94:
               if (errorCopy)
               {
                 DANestedErrorF();
-                *errorCopy = v51 = 0;
+                *errorCopy = v53 = 0;
               }
 
               else
               {
-                v51 = 0;
+                v53 = 0;
               }
             }
 
@@ -4234,68 +4383,68 @@ LABEL_94:
               if (errorCopy)
               {
                 DANestedErrorF();
-                *errorCopy = v51 = 0;
+                *errorCopy = v53 = 0;
               }
 
               else
               {
-                v51 = 0;
+                v53 = 0;
               }
 
-              v82 = v80;
+              v84 = v82;
             }
 
-            deviceCopy = v105;
-            v20 = v107;
+            deviceCopy = v102;
+            v22 = v104;
 LABEL_119:
 
-            deviceIdentifier = v69;
+            deviceIdentifier = v71;
 LABEL_120:
-            v55 = v101;
+            v57 = v98;
 LABEL_121:
 
-            v14 = v94;
+            v16 = v91;
 LABEL_122:
 
 LABEL_135:
             goto LABEL_136;
           }
 
-          deviceCopy = v105;
-          if (!((v102 != 0) | v48 & 1))
+          deviceCopy = v102;
+          if (!((v99 != 0) | v50 & 1))
           {
-            deviceIdentifier = v95;
-            v55 = v101;
+            deviceIdentifier = v92;
+            v57 = v98;
             goto LABEL_94;
           }
 
           [infoCopy setApproveTime:Current];
-          if ([(DADaemonServer *)selfCopy deviceRequiresMultiTechDiscovery:v105])
+          if ([(DADaemonServer *)selfCopy deviceRequiresMultiTechDiscovery:v102])
           {
-            v52 = DAWiFiScanDescriptor;
-            v53 = (![v105 bluetoothSetupFinished] || (objc_msgSend(v105, "wifiAwareSetupFinished") & 1) == 0) && state == 10;
-            v57 = v53 | [v105 upgradeInProgress];
+            v54 = DAWiFiScanDescriptor;
+            v55 = (![v102 bluetoothSetupFinished] || (objc_msgSend(v102, "wifiAwareSetupFinished") & 1) == 0) && state == 10;
+            v59 = v55 | [v102 upgradeInProgress];
           }
 
           else
           {
-            v57 = state == 10 && integerValue != 10;
-            v52 = DAWiFiScanDescriptor;
+            v59 = state == 10 && integerValue != 10;
+            v54 = DAWiFiScanDescriptor;
           }
 
-          if ([v105 requiresWiFiAwareSetup] && state != integerValue)
+          if ([v102 requiresWiFiAwareSetup] && state != integerValue)
           {
-            v57 = 1;
+            v59 = 1;
           }
 
-          if ((([v105 flags] & 8) == 0) | v48 & 1)
+          if ((([v102 flags] & 8) == 0) | v50 & 1)
           {
-            if (v48)
+            if (v50)
             {
               [infoCopy setAccessoryOptions:{objc_msgSend(infoCopy, "accessoryOptions") | 0x40000000}];
             }
 
-            if (!v57)
+            if (!v59)
             {
               goto LABEL_67;
             }
@@ -4303,13 +4452,13 @@ LABEL_135:
 
           else
           {
-            if (!v57)
+            if (!v59)
             {
               [infoCopy setAccessoryOptions:{objc_msgSend(infoCopy, "accessoryOptions") | 0xFFFFFFFFBFFFFFFFLL}];
               accessoryOptions = [infoCopy accessoryOptions];
-              if ((accessoryOptions & 1) != 0 && (v102 & 1) == 0 && ([infoCopy setAccessoryOptions:{objc_msgSend(infoCopy, "accessoryOptions") & 0xFFFFFFFFFFFFFFFELL}], superclass = v52[23].superclass, superclass <= 50) && (superclass != -1 || _LogCategory_Initialize()))
+              if ((accessoryOptions & 1) != 0 && (v99 & 1) == 0 && ([infoCopy setAccessoryOptions:{objc_msgSend(infoCopy, "accessoryOptions") & 0xFFFFFFFFFFFFFFFELL}], superclass = v54[23].superclass, superclass <= 50) && (superclass != -1 || _LogCategory_Initialize()))
               {
-                sub_100031DF4();
+                sub_100031DF4(infoCopy);
                 if ((accessoryOptions & 2) == 0)
                 {
                   goto LABEL_67;
@@ -4321,73 +4470,70 @@ LABEL_135:
                 goto LABEL_67;
               }
 
-              if ((v102 & 2) == 0)
+              if ((v99 & 2) == 0)
               {
                 [infoCopy setAccessoryOptions:{objc_msgSend(infoCopy, "accessoryOptions") & 0xFFFFFFFFFFFFFFFDLL}];
-                v67 = v52[23].superclass;
-                if (v67 <= 50 && (v67 != -1 || _LogCategory_Initialize()))
+                v69 = v54[23].superclass;
+                if (v69 <= 50 && (v69 != -1 || _LogCategory_Initialize()))
                 {
-                  sub_100031E34();
+                  sub_100031E34(infoCopy);
                 }
               }
 
               goto LABEL_67;
             }
 
-            [infoCopy setAccessoryOptions:v102];
+            [infoCopy setAccessoryOptions:v99];
           }
 
-          v58 = [(DADaemonServer *)selfCopy _updateDeviceStateForBluetooth:infoCopy device:v105];
-          [infoCopy setState:v58];
-          [infoCopy setState:{-[DADaemonServer _updateDeviceStateForWifi:currentState:](selfCopy, "_updateDeviceStateForWifi:currentState:", v105, v58)}];
-          state = [(DADaemonServer *)selfCopy _updateDeviceStateForWiFiAware:infoCopy device:v105 oldState:integerValue];
+          v60 = [(DADaemonServer *)selfCopy _updateDeviceStateForBluetooth:infoCopy device:v102];
+          [infoCopy setState:v60];
+          [infoCopy setState:{-[DADaemonServer _updateDeviceStateForWifi:currentState:](selfCopy, "_updateDeviceStateForWifi:currentState:", v102, v60)}];
+          state = [(DADaemonServer *)selfCopy _updateDeviceStateForWiFiAware:infoCopy device:v102 oldState:integerValue];
           [infoCopy setState:state];
 LABEL_67:
           [infoCopy setState:state];
-          discoveryConfiguration3 = [v105 discoveryConfiguration];
+          discoveryConfiguration3 = [v102 discoveryConfiguration];
           if (discoveryConfiguration3)
           {
             [infoCopy setAppDiscoveryConfiguration:discoveryConfiguration3];
           }
 
-          deviceIdentifier = v95;
-          if (v48)
+          deviceIdentifier = v92;
+          if (v50)
           {
             [infoCopy endTime];
-            if (v60 == 0.0)
+            if (v62 == 0.0)
             {
               [infoCopy setEndTime:Current + selfCopy->_prefCheckAppSessionAccessSeconds];
             }
           }
 
-          if (v102)
+          if (v99)
           {
-            v61 = [(DADaemonServer *)selfCopy revokeBluetoothGlobalTCCIfNeededForDeviceAppAccessInfo:infoCopy device:v105];
-            v62 = v52[23].superclass;
-            if (v62 <= 50)
+            v63 = [(DADaemonServer *)selfCopy revokeBluetoothGlobalTCCIfNeededForDeviceAppAccessInfo:infoCopy device:v102];
+            v64 = v54[23].superclass;
+            if (v64 <= 50)
             {
-              v63 = v61;
-              if (v62 != -1 || _LogCategory_Initialize())
+              v65 = v63;
+              if (v64 != -1 || _LogCategory_Initialize())
               {
-                v64 = "no";
-                if (v63)
+                v66 = "no";
+                if (v65)
                 {
-                  v64 = "yes";
+                  v66 = "yes";
                 }
 
-                v85 = infoCopy;
-                v87 = v105;
-                v88 = v64;
-                LogPrintF();
+                LogPrintF(&dword_1000603A0, "[DADaemonServer _saveDeviceAppAccessInfo:device:error:]", 50, "revokeBluetoothTCC %@ Device %@ returned %s", infoCopy, v102, v66);
               }
             }
           }
 
           persistentDictionaryRepresentation = [infoCopy persistentDictionaryRepresentation];
-          v54 = [persistentDictionaryRepresentation mutableCopy];
+          v56 = [persistentDictionaryRepresentation mutableCopy];
 
-          v42 = persistentDictionaryRepresentation;
-          v20 = v107;
+          v44 = persistentDictionaryRepresentation;
+          v22 = v104;
           goto LABEL_93;
         }
       }
@@ -4395,29 +4541,29 @@ LABEL_67:
 
     else if (error)
     {
-      DAErrorF();
-      *error = v51 = 0;
+      DAErrorF(350001, "No device ID");
+      *error = v53 = 0;
       goto LABEL_135;
     }
 
-    v51 = 0;
+    v53 = 0;
     goto LABEL_135;
   }
 
   if (error)
   {
-    DAErrorF();
-    *error = v51 = 0;
+    DAErrorF(350001, "No bundle ID");
+    *error = v53 = 0;
   }
 
   else
   {
-    v51 = 0;
+    v53 = 0;
   }
 
 LABEL_136:
 
-  return v51;
+  return v53;
 }
 
 - (BOOL)modifyAccessoryDevice:(id)device session:(id)session settings:(id)settings error:(id *)error
@@ -4429,38 +4575,38 @@ LABEL_136:
   identifier = [deviceCopy identifier];
   if ([identifier length])
   {
-    v115[1] = 1;
+    v114[1] = 1;
     appAccessInfoMap2 = container_system_group_path_for_identifier();
     if (appAccessInfoMap2)
     {
-      v105 = sessionCopy;
+      v104 = sessionCopy;
       if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
       {
-        sub_100031F74();
+        sub_100031F74(appAccessInfoMap2, v14, v15);
       }
 
       errorCopy = error;
-      v15 = [NSURL fileURLWithFileSystemRepresentation:appAccessInfoMap2 isDirectory:1 relativeToURL:0];
+      v17 = [NSURL fileURLWithFileSystemRepresentation:appAccessInfoMap2 isDirectory:1 relativeToURL:0];
       free(appAccessInfoMap2);
-      if (!v15)
+      if (!v17)
       {
         LOBYTE(appAccessInfoMap2) = 0;
         goto LABEL_115;
       }
 
-      v16 = [v15 URLByAppendingPathComponent:@"com.apple.DeviceAccess" isDirectory:1];
-      v17 = [v16 URLByAppendingPathComponent:@"AccessorySetup" isDirectory:1];
-      path = [v17 path];
-      v113 = v17;
-      v102 = v16;
-      if (!v17 || !path)
+      v18 = [v17 URLByAppendingPathComponent:@"com.apple.DeviceAccess" isDirectory:1];
+      v19 = [v18 URLByAppendingPathComponent:@"AccessorySetup" isDirectory:1];
+      path = [v19 path];
+      v112 = v19;
+      v101 = v18;
+      if (!v19 || !path)
       {
         if (errorCopy)
         {
-          v83 = path;
-          DAErrorF();
+          v85 = path;
+          DAErrorF(350001, "Bad file path");
           *errorCopy = LOBYTE(appAccessInfoMap2) = 0;
-          path = v83;
+          path = v85;
         }
 
         else
@@ -4471,69 +4617,69 @@ LABEL_136:
         goto LABEL_114;
       }
 
-      v101 = path;
-      v19 = [v17 URLByAppendingPathComponent:@"DADevices" isDirectory:1];
-      v20 = +[NSFileManager defaultManager];
-      v21 = [v20 createDirectoryAtURL:v19 withIntermediateDirectories:1 attributes:0 error:errorCopy];
+      v100 = path;
+      v21 = [v19 URLByAppendingPathComponent:@"DADevices" isDirectory:1];
+      v22 = +[NSFileManager defaultManager];
+      v23 = [v22 createDirectoryAtURL:v21 withIntermediateDirectories:1 attributes:0 error:errorCopy];
 
-      if (!v21)
+      if (!v23)
       {
         LOBYTE(appAccessInfoMap2) = 0;
         goto LABEL_113;
       }
 
-      v100 = v15;
-      v112 = v19;
-      path2 = [v19 path];
-      v23 = [[NSString alloc] initWithFormat:@"%@.%@", identifier, @"dadevicedata"];
-      v99 = path2;
-      v24 = [NSURL fileURLWithPath:path2];
-      v98 = v23;
-      v25 = [v24 URLByAppendingPathComponent:v23 isDirectory:0];
+      v99 = v17;
+      v111 = v21;
+      path2 = [v21 path];
+      v25 = [[NSString alloc] initWithFormat:@"%@.%@", identifier, @"dadevicedata"];
+      v98 = path2;
+      v26 = [NSURL fileURLWithPath:path2];
+      v97 = v25;
+      v27 = [v26 URLByAppendingPathComponent:v25 isDirectory:0];
 
-      path3 = [v25 path];
+      path3 = [v27 path];
       appAccessInfoMap = [deviceCopy appAccessInfoMap];
-      v28 = [appAccessInfoMap objectForKeyedSubscript:bundleID];
+      v30 = [appAccessInfoMap objectForKeyedSubscript:bundleID];
 
-      v114 = v28;
-      appDiscoveryConfiguration = [v28 appDiscoveryConfiguration];
-      v29 = +[NSFileManager defaultManager];
-      v96 = path3;
-      LODWORD(v28) = [v29 fileExistsAtPath:path3];
+      v113 = v30;
+      appDiscoveryConfiguration = [v30 appDiscoveryConfiguration];
+      v31 = +[NSFileManager defaultManager];
+      v95 = path3;
+      LODWORD(v30) = [v31 fileExistsAtPath:path3];
 
-      v30 = 0;
-      if (v28)
+      v32 = 0;
+      if (v30)
       {
-        v31 = [[NSDictionary alloc] initWithContentsOfURL:v25 error:0];
+        v33 = [[NSDictionary alloc] initWithContentsOfURL:v27 error:0];
 
-        v30 = v31 != 0;
+        v32 = v33 != 0;
       }
 
-      v97 = v25;
+      v96 = v27;
       appAccessInfoMap2 = [deviceCopy appAccessInfoMap];
-      v32 = [appAccessInfoMap2 objectForKeyedSubscript:bundleID];
-      state = [v32 state];
+      v34 = [appAccessInfoMap2 objectForKeyedSubscript:bundleID];
+      state = [v34 state];
 
       LOBYTE(appAccessInfoMap2) = 1;
-      if (!v30)
+      if (!v32)
       {
-        v19 = v112;
+        v21 = v111;
         goto LABEL_112;
       }
 
-      v19 = v112;
+      v21 = v111;
       if (state < 2)
       {
 LABEL_112:
 
-        v15 = v100;
+        v17 = v99;
 LABEL_113:
 
-        path = v101;
+        path = v100;
 LABEL_114:
 
 LABEL_115:
-        sessionCopy = v105;
+        sessionCopy = v104;
         goto LABEL_116;
       }
 
@@ -4541,7 +4687,7 @@ LABEL_115:
       {
         if (errorCopy)
         {
-          DAErrorF();
+          DAErrorF(350006, "Permission denied for current operation");
           *errorCopy = LOBYTE(appAccessInfoMap2) = 0;
         }
 
@@ -4553,7 +4699,7 @@ LABEL_115:
         goto LABEL_112;
       }
 
-      v94 = identifier;
+      v93 = identifier;
       bluetoothClassicAddress = [deviceCopy bluetoothClassicAddress];
       name = [deviceCopy name];
       sSID = [deviceCopy SSID];
@@ -4568,25 +4714,25 @@ LABEL_115:
 
       flags2 = [deviceCopy flags];
       flags3 = [appDiscoveryConfiguration flags];
-      v109 = sSID2;
-      v95 = bundleID;
-      v92 = sSID;
-      v93 = name;
-      v91 = displayName;
+      v108 = sSID2;
+      v94 = bundleID;
+      v91 = sSID;
+      v92 = name;
+      v90 = displayName;
       if (userInitiated)
       {
         if (sSID2 && ([sSID isEqualToString:sSID2] & 1) == 0)
         {
           [deviceCopy setSSID:sSID2];
-          v41 = 1;
+          v43 = 1;
         }
 
         else
         {
-          v41 = 0;
+          v43 = 0;
         }
 
-        v88 = settingsCopy;
+        v87 = settingsCopy;
         if (displayName && ([name isEqualToString:displayName] & 1) == 0)
         {
           [deviceCopy setName:displayName];
@@ -4598,35 +4744,35 @@ LABEL_115:
               sub_100031FB0(deviceCopy);
             }
 
-            v46 = -[DADaemonServer _updateWiFiAwareDeviceNameFor:appPairingID:newName:](self, "_updateWiFiAwareDeviceNameFor:appPairingID:newName:", bundleID, [v114 wifiAwarePairingID], name2);
-            v41 = v46 == 0;
+            v48 = -[DADaemonServer _updateWiFiAwareDeviceNameFor:appPairingID:newName:](self, "_updateWiFiAwareDeviceNameFor:appPairingID:newName:", bundleID, [v113 wifiAwarePairingID], name2);
+            v43 = v48 == 0;
           }
 
           else
           {
-            v41 = 1;
+            v43 = 1;
           }
         }
 
         identifier2 = [iconType identifier];
         protocolType = [deviceCopy protocolType];
         identifier3 = [protocolType identifier];
-        v50 = [identifier2 isEqualToString:identifier3];
+        v52 = [identifier2 isEqualToString:identifier3];
 
-        if (v50)
+        if (v52)
         {
           [deviceCopy setProtocolType:iconType];
-          v41 = 1;
+          v43 = 1;
         }
 
         bluetoothIdentifier = [deviceCopy bluetoothIdentifier];
 
-        v42 = 0;
-        settingsCopy = v88;
-        v43 = DAWiFiScanDescriptor;
+        v44 = 0;
+        settingsCopy = v87;
+        v45 = DAWiFiScanDescriptor;
         if (bluetoothIdentifier && (flags2 & 0x40) == 0)
         {
-          v44 = bridgingIdentifier;
+          v46 = bridgingIdentifier;
           if ((flags & 2) != 0)
           {
             if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
@@ -4634,7 +4780,7 @@ LABEL_115:
               sub_10003201C();
             }
 
-            v42 = 1;
+            v44 = 1;
           }
 
 LABEL_39:
@@ -4642,58 +4788,57 @@ LABEL_39:
           {
             if (state == 25)
             {
-              v53 = userInitiated;
+              v55 = userInitiated;
             }
 
             else
             {
-              v53 = 1;
+              v55 = 1;
             }
 
-            if ((v53 & 1) == 0)
+            if ((v55 & 1) == 0)
             {
-              superclass = v43[23].superclass;
-              bundleID = v95;
+              superclass = v45[23].superclass;
+              bundleID = v94;
               if (superclass <= 90 && (superclass != -1 || _LogCategory_Initialize()))
               {
-                v85 = deviceCopy;
-                LogPrintF();
-                v52 = 0;
-                if (v41)
+                LogPrintF(&dword_1000603A0, "[DADaemonServer modifyAccessoryDevice:session:settings:error:]", 90, "Device already authorized: %@", deviceCopy);
+                v54 = 0;
+                if (v43)
                 {
-                  v54 = 0;
+                  v56 = 0;
                   goto LABEL_95;
                 }
               }
 
               else
               {
+                v56 = 0;
                 v54 = 0;
-                v52 = 0;
-                if (v41)
+                if (v43)
                 {
                   goto LABEL_95;
                 }
               }
 
 LABEL_100:
-              v81 = v43[23].superclass;
-              if (v81 > 30)
+              v83 = v45[23].superclass;
+              if (v83 > 30)
               {
                 LOBYTE(appAccessInfoMap2) = 1;
-                identifier = v94;
-                v19 = v112;
-                v80 = v92;
+                identifier = v93;
+                v21 = v111;
+                v82 = v91;
               }
 
               else
               {
-                identifier = v94;
-                v19 = v112;
-                v80 = v92;
-                if (v81 != -1 || _LogCategory_Initialize())
+                identifier = v93;
+                v21 = v111;
+                v82 = v91;
+                if (v83 != -1 || _LogCategory_Initialize())
                 {
-                  sub_100032090();
+                  sub_100032090(deviceCopy);
                 }
 
                 LOBYTE(appAccessInfoMap2) = 1;
@@ -4702,11 +4847,11 @@ LABEL_100:
               goto LABEL_111;
             }
 
+            v56 = 0;
             v54 = 0;
-            v52 = 0;
 LABEL_94:
-            bundleID = v95;
-            if (v41)
+            bundleID = v94;
+            if (v43)
             {
               goto LABEL_95;
             }
@@ -4714,23 +4859,23 @@ LABEL_94:
             goto LABEL_100;
           }
 
-          [v114 setState:25];
+          [v113 setState:25];
           [deviceCopy setState:25];
-          v52 = 0;
-          if (v44 && !bluetoothClassicAddress)
+          v54 = 0;
+          if (v46 && !bluetoothClassicAddress)
           {
-            if ([0 isEqualToData:v44])
+            if ([0 isEqualToData:v46])
             {
-              v52 = 0;
+              v54 = 0;
             }
 
             else
             {
-              bytes = [v44 bytes];
-              v52 = [NSString stringWithFormat:@"%02X:%02X:%02X:%02X:%02X:%02X", *bytes, bytes[1], bytes[2], bytes[3], bytes[4], bytes[5]];
-              if (v52)
+              bytes = [v46 bytes];
+              v54 = [NSString stringWithFormat:@"%02X:%02X:%02X:%02X:%02X:%02X", *bytes, bytes[1], bytes[2], bytes[3], bytes[4], bytes[5]];
+              if (v54)
               {
-                [deviceCopy setBluetoothClassicAddress:v44];
+                [deviceCopy setBluetoothClassicAddress:v46];
               }
             }
           }
@@ -4739,109 +4884,106 @@ LABEL_94:
 
           if (!bluetoothClassicAddress2)
           {
-            v41 |= (flags3 >> 4) & 1;
+            v43 |= (flags3 >> 4) & 1;
             goto LABEL_73;
           }
 
-          [deviceCopy setBluetoothClassicAddress:v44];
+          [deviceCopy setBluetoothClassicAddress:v46];
           bluetoothIdentifier2 = [deviceCopy bluetoothIdentifier];
           cbCentralManager = self->_cbCentralManager;
-          v116 = bluetoothIdentifier2;
-          v60 = [NSArray arrayWithObjects:&v116 count:1];
-          v61 = [(CBCentralManager *)cbCentralManager retrievePeripheralsWithIdentifiers:v60];
+          v115 = bluetoothIdentifier2;
+          v62 = [NSArray arrayWithObjects:&v115 count:1];
+          v63 = [(CBCentralManager *)cbCentralManager retrievePeripheralsWithIdentifiers:v62];
 
-          if (![v61 count])
+          if (![v63 count])
           {
 LABEL_72:
 
-            LOBYTE(v41) = 1;
-            v44 = bridgingIdentifier;
+            LOBYTE(v43) = 1;
+            v46 = bridgingIdentifier;
 LABEL_73:
-            if (v109)
+            if (v108)
             {
               discoveryConfiguration2 = [deviceCopy discoveryConfiguration];
               hotspotSSIDPrefixes = [discoveryConfiguration2 hotspotSSIDPrefixes];
               firstObject = [hotspotSSIDPrefixes firstObject];
 
-              if (firstObject && ([v109 hasPrefix:firstObject] & 1) == 0)
+              if (firstObject && ([v108 hasPrefix:firstObject] & 1) == 0)
               {
-                v68 = v43[23].superclass;
-                if (v68 <= 90 && (v68 != -1 || _LogCategory_Initialize()))
+                v70 = v45[23].superclass;
+                if (v70 <= 90 && (v70 != -1 || _LogCategory_Initialize()))
                 {
-                  v86 = firstObject;
-                  v87 = deviceCopy;
-                  v85 = v109;
-                  LogPrintF();
+                  LogPrintF(&dword_1000603A0, "[DADaemonServer modifyAccessoryDevice:session:settings:error:]", 90, "SSID %@ did not match discovery config's prefix %@ for %@", v108, firstObject, deviceCopy);
                 }
 
-                [v114 setState:{0, v85, v86, v87}];
+                [v113 setState:0];
                 [deviceCopy setState:0];
-                v54 = 1;
+                v56 = 1;
               }
 
               else
               {
-                [deviceCopy setSSID:v109];
-                v54 = 0;
+                [deviceCopy setSSID:v108];
+                v56 = 0;
               }
 
-              v44 = bridgingIdentifier;
+              v46 = bridgingIdentifier;
 
-              LOBYTE(v41) = 1;
+              LOBYTE(v43) = 1;
             }
 
             else
             {
-              v54 = 0;
+              v56 = 0;
             }
 
             bluetoothIdentifier3 = [deviceCopy bluetoothIdentifier];
 
-            v70 = v42 ^ 1;
+            v72 = v44 ^ 1;
             if (!bluetoothIdentifier3)
             {
-              v70 = 1;
+              v72 = 1;
             }
 
-            if ((v70 & 1) == 0)
+            if ((v72 & 1) == 0)
             {
-              v71 = v43[23].superclass;
-              bundleID = v95;
-              if (v71 <= 90 && (v71 != -1 || _LogCategory_Initialize()))
+              v73 = v45[23].superclass;
+              bundleID = v94;
+              if (v73 <= 90 && (v73 != -1 || _LogCategory_Initialize()))
               {
                 sub_10003201C();
               }
 
-              [v114 setState:0];
+              [v113 setState:0];
               [deviceCopy setState:0];
               btPairingManager = self->_btPairingManager;
               if (btPairingManager)
               {
                 getCurrentTaskBluetoothIdentifier = [(DABluetoothPairingManager *)btPairingManager getCurrentTaskBluetoothIdentifier];
                 bluetoothIdentifier4 = [deviceCopy bluetoothIdentifier];
-                v75 = [getCurrentTaskBluetoothIdentifier isEqual:bluetoothIdentifier4];
+                v77 = [getCurrentTaskBluetoothIdentifier isEqual:bluetoothIdentifier4];
 
-                if (v75)
+                if (v77)
                 {
                   [(DABluetoothPairingManager *)self->_btPairingManager cancelCurrentTask];
                 }
 
-                v44 = bridgingIdentifier;
+                v46 = bridgingIdentifier;
               }
 
 LABEL_95:
-              v115[0] = 0;
-              v76 = [(DADaemonServer *)self updateAppAccessInfo:v114 accessoryDevice:deviceCopy removalType:0 error:v115, v85];
-              v77 = v115[0];
-              v78 = v77;
-              if (v76)
+              v114[0] = 0;
+              v78 = [(DADaemonServer *)self updateAppAccessInfo:v113 accessoryDevice:deviceCopy removalType:0 error:v114];
+              v79 = v114[0];
+              v80 = v79;
+              if (v78)
               {
-                if (v54)
+                if (v56)
                 {
-                  v19 = v112;
+                  v21 = v111;
                   if (errorCopy)
                   {
-                    DAErrorF();
+                    DAErrorF(350001, "SSID did not match discovery configuration's SSID prefix.");
                     *errorCopy = LOBYTE(appAccessInfoMap2) = 0;
                   }
 
@@ -4853,15 +4995,15 @@ LABEL_95:
 
                 else
                 {
-                  v79 = v43[23].superclass;
-                  v19 = v112;
-                  if (v79 <= 30)
+                  v81 = v45[23].superclass;
+                  v21 = v111;
+                  if (v81 <= 30)
                   {
-                    identifier = v94;
-                    v80 = v92;
-                    if (v79 != -1 || _LogCategory_Initialize())
+                    identifier = v93;
+                    v82 = v91;
+                    if (v81 != -1 || _LogCategory_Initialize())
                     {
-                      LogPrintF();
+                      LogPrintF(&dword_1000603A0, "[DADaemonServer modifyAccessoryDevice:session:settings:error:]", 30, "SaveDeviceSettings: changed, %@, %@", v104, deviceCopy);
                     }
 
                     LOBYTE(appAccessInfoMap2) = 1;
@@ -4871,17 +5013,17 @@ LABEL_95:
                   LOBYTE(appAccessInfoMap2) = 1;
                 }
 
-                identifier = v94;
+                identifier = v93;
               }
 
               else
               {
-                identifier = v94;
+                identifier = v93;
                 if (errorCopy)
                 {
-                  v84 = v77;
+                  v86 = v79;
                   LOBYTE(appAccessInfoMap2) = 0;
-                  *errorCopy = v78;
+                  *errorCopy = v80;
                 }
 
                 else
@@ -4889,10 +5031,10 @@ LABEL_95:
                   LOBYTE(appAccessInfoMap2) = 0;
                 }
 
-                v19 = v112;
+                v21 = v111;
               }
 
-              v80 = v92;
+              v82 = v91;
 LABEL_110:
 
 LABEL_111:
@@ -4902,31 +5044,27 @@ LABEL_111:
             goto LABEL_94;
           }
 
-          v62 = [v61 objectAtIndexedSubscript:0];
-          v63 = v43[23].superclass;
-          if (v63 <= 40 && (v63 != -1 || _LogCategory_Initialize()))
+          v64 = [v63 objectAtIndexedSubscript:0];
+          v65 = v45[23].superclass;
+          if (v65 <= 40 && (v65 != -1 || _LogCategory_Initialize()))
           {
-            sub_100032050();
-            if (v62)
+            sub_100032050(v63);
+            if (v64)
             {
-              goto LABEL_61;
+LABEL_61:
+              v66 = v45[23].superclass;
+              if (v66 <= 40 && (v66 != -1 || _LogCategory_Initialize()))
+              {
+                LogPrintF(&dword_1000603A0, "[DADaemonServer modifyAccessoryDevice:session:settings:error:]", 40, "### modifyAccessoryDevice CBPeripheral %@ setting bridging property %@", v63, v54);
+              }
+
+              [v64 setCustomProperty:@"ASK_RELATED_RADIO_ADDRESS" value:v54];
             }
           }
 
-          else if (v62)
+          else if (v64)
           {
-LABEL_61:
-            v64 = v43[23].superclass;
-            if (v64 <= 40 && (v64 != -1 || _LogCategory_Initialize()))
-            {
-              LogPrintF();
-              [v62 setCustomProperty:@"ASK_RELATED_RADIO_ADDRESS" value:{v52, v61, v52}];
-            }
-
-            else
-            {
-              [v62 setCustomProperty:@"ASK_RELATED_RADIO_ADDRESS" value:{v52, v85, v86}];
-            }
+            goto LABEL_61;
           }
 
           goto LABEL_72;
@@ -4935,19 +5073,19 @@ LABEL_61:
 
       else
       {
-        v42 = 0;
-        v41 = 0;
-        v43 = DAWiFiScanDescriptor;
+        v44 = 0;
+        v43 = 0;
+        v45 = DAWiFiScanDescriptor;
       }
 
-      v44 = bridgingIdentifier;
+      v46 = bridgingIdentifier;
       goto LABEL_39;
     }
   }
 
   else if (error)
   {
-    DAErrorF();
+    DAErrorF(350001, "No device ID");
     *error = LOBYTE(appAccessInfoMap2) = 0;
   }
 
@@ -4971,114 +5109,114 @@ LABEL_116:
   {
     if (error)
     {
-      DAErrorF();
-      *error = v58 = 0;
-      goto LABEL_108;
+      DAErrorF(350001, "No device ID");
+      *error = v60 = 0;
+      goto LABEL_109;
     }
 
-LABEL_107:
-    v58 = 0;
-    goto LABEL_108;
+LABEL_108:
+    v60 = 0;
+    goto LABEL_109;
   }
 
   error[1] = 1;
   v16 = container_system_group_path_for_identifier();
   if (!v16)
   {
-    goto LABEL_107;
+    goto LABEL_108;
   }
 
-  v17 = v16;
+  v19 = v16;
   if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000320D0();
+    sub_1000320D0(v19, v17, v18);
   }
 
   errorCopy = error;
-  v18 = [NSURL fileURLWithFileSystemRepresentation:v17 isDirectory:1 relativeToURL:0];
-  free(v17);
-  if (!v18)
+  v20 = [NSURL fileURLWithFileSystemRepresentation:v19 isDirectory:1 relativeToURL:0];
+  free(v19);
+  if (!v20)
   {
-    goto LABEL_107;
+    goto LABEL_108;
   }
 
-  v19 = [v18 URLByAppendingPathComponent:@"com.apple.DeviceAccess" isDirectory:1];
+  v21 = [v20 URLByAppendingPathComponent:@"com.apple.DeviceAccess" isDirectory:1];
   error[0] = 0;
-  if (!CFURLSetResourcePropertyForKey(v19, _kCFURLIsExcludedFromUnencryptedBackupKey, kCFBooleanTrue, error) && dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+  if (!CFURLSetResourcePropertyForKey(v21, _kCFURLIsExcludedFromUnencryptedBackupKey, kCFBooleanTrue, error) && dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
     sub_10003210C(error);
   }
 
-  [(__CFURL *)v19 setResourceValue:&__kCFBooleanFalse forKey:NSURLIsExcludedFromBackupKey error:0];
-  v77 = v19;
-  v20 = [(__CFURL *)v19 URLByAppendingPathComponent:@"AccessorySetup" isDirectory:1];
-  path = [v20 path];
+  [(__CFURL *)v21 setResourceValue:&__kCFBooleanFalse forKey:NSURLIsExcludedFromBackupKey error:0];
+  v77 = v21;
+  v22 = [(__CFURL *)v21 URLByAppendingPathComponent:@"AccessorySetup" isDirectory:1];
+  path = [v22 path];
   v76 = path;
-  if (!v20 || !path)
+  if (!v22 || !path)
   {
     sub_100031CEC();
-    v58 = 0;
+    v60 = 0;
+    goto LABEL_105;
+  }
+
+  v75 = v20;
+  v85 = dCopy;
+  v80 = referenceCopy;
+  [v22 setResourceValue:&__kCFBooleanFalse forKey:NSURLIsExcludedFromBackupKey error:0];
+  v24 = [v22 URLByAppendingPathComponent:@"DADevices" isDirectory:1];
+  v25 = +[NSFileManager defaultManager];
+  v26 = [v25 createDirectoryAtURL:v24 withIntermediateDirectories:1 attributes:0 error:errorCopy];
+
+  if (!v26)
+  {
+    v60 = 0;
     goto LABEL_104;
   }
 
-  v75 = v18;
-  v85 = dCopy;
-  v80 = referenceCopy;
-  [v20 setResourceValue:&__kCFBooleanFalse forKey:NSURLIsExcludedFromBackupKey error:0];
-  v22 = [v20 URLByAppendingPathComponent:@"DADevices" isDirectory:1];
-  v23 = +[NSFileManager defaultManager];
-  v24 = [v23 createDirectoryAtURL:v22 withIntermediateDirectories:1 attributes:0 error:errorCopy];
-
-  if (!v24)
-  {
-    v58 = 0;
-    goto LABEL_103;
-  }
-
-  [v22 setResourceValue:&__kCFBooleanFalse forKey:NSURLIsExcludedFromBackupKey error:0];
-  path2 = [v22 path];
-  v26 = [[NSString alloc] initWithFormat:@"%@.%@", identifier, @"dadevicedata"];
+  [v24 setResourceValue:&__kCFBooleanFalse forKey:NSURLIsExcludedFromBackupKey error:0];
+  path2 = [v24 path];
+  v28 = [[NSString alloc] initWithFormat:@"%@.%@", identifier, @"dadevicedata"];
   v74 = path2;
-  v27 = [NSURL fileURLWithPath:path2];
-  v73 = v26;
-  v28 = [v27 URLByAppendingPathComponent:v26 isDirectory:0];
+  v29 = [NSURL fileURLWithPath:path2];
+  v73 = v28;
+  v30 = [v29 URLByAppendingPathComponent:v28 isDirectory:0];
 
-  path3 = [v28 path];
-  v30 = +[NSFileManager defaultManager];
+  path3 = [v30 path];
+  v32 = +[NSFileManager defaultManager];
   v79 = path3;
-  v31 = [v30 fileExistsAtPath:path3];
-  v32 = 0;
-  if (v31)
-  {
-    v32 = [[NSDictionary alloc] initWithContentsOfURL:v28 error:0];
-  }
-
-  v84 = v28;
-
-  v33 = [v32 mutableCopy];
-  v34 = v33;
+  v33 = [v32 fileExistsAtPath:path3];
+  v34 = 0;
   if (v33)
   {
-    v35 = v33;
+    v34 = [[NSDictionary alloc] initWithContentsOfURL:v30 error:0];
+  }
+
+  v84 = v30;
+
+  v35 = [v34 mutableCopy];
+  v36 = v35;
+  if (v35)
+  {
+    v37 = v35;
   }
 
   else
   {
-    v35 = objc_alloc_init(NSMutableDictionary);
+    v37 = objc_alloc_init(NSMutableDictionary);
   }
 
-  v36 = v35;
+  v38 = v37;
 
   CFStringGetTypeID();
   v83 = CFDictionaryGetTypedValue();
   CFStringGetTypeID();
   v82 = CFDictionaryGetTypedValue();
   CFStringGetTypeID();
-  v37 = CFDictionaryGetTypedValue();
-  v72 = v37;
-  if (v37)
+  v39 = CFDictionaryGetTypedValue();
+  v72 = v39;
+  if (v39)
   {
-    v81 = [[NSUUID alloc] initWithUUIDString:v37];
+    v81 = [[NSUUID alloc] initWithUUIDString:v39];
   }
 
   else
@@ -5103,7 +5241,7 @@ LABEL_107:
     persistentDictionaryRepresentation = [deviceCopy persistentDictionaryRepresentation];
     v87 = [persistentDictionaryRepresentation mutableCopy];
 
-    v36 = persistentDictionaryRepresentation;
+    v38 = persistentDictionaryRepresentation;
   }
 
   else
@@ -5112,277 +5250,272 @@ LABEL_107:
   }
 
   [(DADaemonServer *)self _refreshRegistrationForBTConnectionEvents];
-  v40 = [v87 isEqual:v32];
+  v42 = [v87 isEqual:v34];
   state = [deviceCopy state];
-  v42 = v40 ^ 1;
+  v44 = v42 ^ 1;
   if (state == 1)
   {
-    v42 = 1;
+    v44 = 1;
   }
 
-  if ((v42 & 1) == 0)
+  if ((v44 & 1) == 0)
   {
     if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1000603A0, "[DADaemonServer _saveAccessoryDevice:oldDeviceReference:bundleID:existingOptions:removalType:error:]", 30, "SaveDevice: no changes, %@, %@", v85, deviceCopy);
     }
 
-    v58 = 1;
-    goto LABEL_102;
+    v60 = 1;
+    goto LABEL_103;
   }
 
-  if (v87)
-  {
-    v95 = 0;
-    v43 = [NSPropertyListSerialization dataWithPropertyList:v87 format:200 options:0 error:&v95];
-    v44 = v95;
-    v45 = v44;
-    if (v43)
-    {
-      v94 = v44;
-      v46 = [v43 writeToURL:v84 options:1073741825 error:&v94];
-      v47 = v94;
-
-      if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
-      {
-        v67 = deviceCopy;
-        v68 = v47;
-        LogPrintF();
-      }
-
-      if (v46)
-      {
-
-        if (type != 5)
-        {
-          if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
-          {
-            v67 = v85;
-            v68 = deviceCopy;
-            LogPrintF();
-          }
-
-          v58 = 1;
-          if (type != 1 || !v81)
-          {
-            goto LABEL_101;
-          }
-
-          appAccessInfoMap2 = [v80 appAccessInfoMap];
-          v62 = [appAccessInfoMap2 objectForKeyedSubscript:v85];
-          wifiAwarePairingID = [v62 wifiAwarePairingID];
-
-          if (wifiAwarePairingID)
-          {
-            if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
-            {
-              name = [deviceCopy name];
-              identifier2 = [deviceCopy identifier];
-              LogPrintF();
-            }
-
-            v88[0] = _NSConcreteStackBlock;
-            v88[1] = 3221225472;
-            v88[2] = sub_10000ED4C;
-            v88[3] = &unk_100059028;
-            v47 = v47;
-            v89 = v47;
-            v90 = deviceCopy;
-            v91 = v85;
-            [(DADaemonServer *)self _uninstallWiFiAwareDeviceFor:v91 appPairingID:wifiAwarePairingID completionHandler:v88];
-          }
-
-          goto LABEL_100;
-        }
-
-        goto LABEL_59;
-      }
-
-      if (!errorCopy)
-      {
-        goto LABEL_117;
-      }
-
-      v66 = DANestedErrorF();
-    }
-
-    else
-    {
-      if (!errorCopy)
-      {
-        v47 = v44;
-        goto LABEL_117;
-      }
-
-      v66 = DANestedErrorF();
-      v47 = v45;
-    }
-
-    *errorCopy = v66;
-LABEL_117:
-
-LABEL_118:
-    v58 = 0;
-    goto LABEL_101;
-  }
-
-  v48 = +[NSFileManager defaultManager];
-  v49 = [v48 fileExistsAtPath:v79];
-
-  if (v49)
+  if (!v87)
   {
     v50 = +[NSFileManager defaultManager];
-    v93 = 0;
-    v51 = [v50 removeItemAtURL:v84 error:&v93];
-    v52 = v93;
+    v51 = [v50 fileExistsAtPath:v79];
 
-    if ((v51 & 1) == 0)
+    if (v51)
     {
-      if (errorCopy)
+      v52 = +[NSFileManager defaultManager];
+      v93 = 0;
+      v53 = [v52 removeItemAtURL:v84 error:&v93];
+      v54 = v93;
+
+      if ((v53 & 1) == 0)
       {
-        DANestedErrorF();
-        *errorCopy = v58 = 0;
+        if (errorCopy)
+        {
+          DANestedErrorF();
+          *errorCopy = v60 = 0;
+        }
+
+        else
+        {
+          v60 = 0;
+        }
+
+        v49 = v54;
+        goto LABEL_102;
+      }
+
+      v71 = v54;
+      displayImageFileURL = [deviceCopy displayImageFileURL];
+      path4 = [displayImageFileURL path];
+      if (path4 && (+[NSFileManager defaultManager](NSFileManager, "defaultManager"), v56 = objc_claimAutoreleasedReturnValue(), v57 = [v56 fileExistsAtPath:path4], v56, v57))
+      {
+        v58 = +[NSFileManager defaultManager];
+        v92 = v71;
+        v59 = [v58 removeItemAtURL:displayImageFileURL error:&v92];
+        v49 = v92;
+
+        if ((v59 & 1) == 0)
+        {
+          if (errorCopy)
+          {
+            *errorCopy = DANestedErrorF();
+          }
+
+          goto LABEL_119;
+        }
       }
 
       else
       {
-        v58 = 0;
+        v49 = v71;
       }
 
-      v47 = v52;
-      goto LABEL_101;
-    }
-
-    v71 = v52;
-    displayImageFileURL = [deviceCopy displayImageFileURL];
-    path4 = [displayImageFileURL path];
-    if (path4 && (+[NSFileManager defaultManager](NSFileManager, "defaultManager"), v54 = objc_claimAutoreleasedReturnValue(), v55 = [v54 fileExistsAtPath:path4], v54, v55))
-    {
-      v56 = +[NSFileManager defaultManager];
-      v92 = v71;
-      v57 = [v56 removeItemAtURL:displayImageFileURL error:&v92];
-      v47 = v92;
-
-      if ((v57 & 1) == 0)
+      if (type)
       {
-        if (errorCopy)
-        {
-          *errorCopy = DANestedErrorF();
-        }
-
-        goto LABEL_118;
+        goto LABEL_59;
       }
     }
 
     else
     {
-      v47 = v71;
-    }
-
-    if (!type)
-    {
-LABEL_53:
-      if (dword_1000603A0 > 30 || dword_1000603A0 == -1 && !_LogCategory_Initialize())
+      v49 = 0;
+      if (type)
       {
-        goto LABEL_100;
+        goto LABEL_59;
       }
-
-      goto LABEL_55;
-    }
-  }
-
-  else
-  {
-    v47 = 0;
-    if (!type)
-    {
-      goto LABEL_53;
-    }
-  }
-
-LABEL_59:
-  if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
-  {
-    if ((type - 1) <= 4)
-    {
-      v59 = off_1000597D8[type - 1];
     }
 
-    LogPrintF();
-  }
-
-  if (type <= 6 && ((1 << type) & 0x64) != 0 || !v98[3] && type <= 4 && ((1 << type) & 0x1A) != 0)
-  {
-    if (v83)
+    if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
-      v60 = [[NSUUID alloc] initWithUUIDString:v83];
-      [(DADaemonServer *)self _forgetBluetoothDevice:v60];
-    }
-
-    if (v82)
-    {
-      [(DADaemonServer *)self _forgetWiFiDevice:v82];
-    }
-
-    v58 = 1;
-    if (type != 6 && v81)
-    {
-      [(DADaemonServer *)self _forgetWiFiAwareDevice:v80];
+      LogPrintF(&dword_1000603A0, "[DADaemonServer _saveAccessoryDevice:oldDeviceReference:bundleID:existingOptions:removalType:error:]", 30, "SaveDevice: unlinking accessory, %@, %@", v85, deviceCopy);
     }
 
     goto LABEL_101;
   }
 
-  if (dword_1000603A0 > 30 || dword_1000603A0 == -1 && !_LogCategory_Initialize())
+  v95 = 0;
+  v45 = [NSPropertyListSerialization dataWithPropertyList:v87 format:200 options:0 error:&v95];
+  v46 = v95;
+  v47 = v46;
+  if (!v45)
   {
-    goto LABEL_100;
+    if (!errorCopy)
+    {
+      v49 = v46;
+      goto LABEL_118;
+    }
+
+    v69 = DANestedErrorF();
+    v49 = v47;
+    goto LABEL_116;
   }
 
-LABEL_55:
-  LogPrintF();
-LABEL_100:
-  v58 = 1;
-LABEL_101:
+  v94 = v46;
+  v48 = [v45 writeToURL:v84 options:1073741825 error:&v94];
+  v49 = v94;
 
+  if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _saveAccessoryDevice:oldDeviceReference:bundleID:existingOptions:removalType:error:]", 30, "SaveDevice: changes, %@, %@", deviceCopy, v49);
+  }
+
+  if ((v48 & 1) == 0)
+  {
+    if (!errorCopy)
+    {
+LABEL_118:
+
+LABEL_119:
+      v60 = 0;
+      goto LABEL_102;
+    }
+
+    v69 = DANestedErrorF();
+LABEL_116:
+    *errorCopy = v69;
+    goto LABEL_118;
+  }
+
+  if (type == 5)
+  {
+LABEL_59:
+    if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+    {
+      if ((type - 1) > 4)
+      {
+        v61 = "None";
+      }
+
+      else
+      {
+        v61 = off_1000597D8[type - 1];
+      }
+
+      LogPrintF(&dword_1000603A0, "[DADaemonServer _saveAccessoryDevice:oldDeviceReference:bundleID:existingOptions:removalType:error:]", 30, "SaveDevice: remove (%s) accessory, %@, %@", v61, v85, deviceCopy);
+    }
+
+    if (type <= 6 && ((1 << type) & 0x64) != 0 || !v98[3] && type <= 4 && ((1 << type) & 0x1A) != 0)
+    {
+      if (v83)
+      {
+        v62 = [[NSUUID alloc] initWithUUIDString:v83];
+        [(DADaemonServer *)self _forgetBluetoothDevice:v62];
+      }
+
+      if (v82)
+      {
+        [(DADaemonServer *)self _forgetWiFiDevice:v82];
+      }
+
+      v60 = 1;
+      if (type != 6 && v81)
+      {
+        [(DADaemonServer *)self _forgetWiFiAwareDevice:v80];
+      }
+
+      goto LABEL_102;
+    }
+
+    if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&dword_1000603A0, "[DADaemonServer _saveAccessoryDevice:oldDeviceReference:bundleID:existingOptions:removalType:error:]", 30, "SaveDevice: unlinked accessory, %@, %@", v85, deviceCopy);
+    }
+
+    goto LABEL_101;
+  }
+
+  if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _saveAccessoryDevice:oldDeviceReference:bundleID:existingOptions:removalType:error:]", 30, "SaveDevice: changed, %@, %@", v85, deviceCopy);
+  }
+
+  v60 = 1;
+  if (type != 1 || !v81)
+  {
+    goto LABEL_102;
+  }
+
+  appAccessInfoMap2 = [v80 appAccessInfoMap];
+  v64 = [appAccessInfoMap2 objectForKeyedSubscript:v85];
+  wifiAwarePairingID = [v64 wifiAwarePairingID];
+
+  if (wifiAwarePairingID)
+  {
+    if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+    {
+      name = [deviceCopy name];
+      identifier2 = [deviceCopy identifier];
+      LogPrintF(&dword_1000603A0, "[DADaemonServer _saveAccessoryDevice:oldDeviceReference:bundleID:existingOptions:removalType:error:]", 30, "Uninstalling Wi-Fi Aware device %@, deviceID='%@', forBundleID='%@'", name, identifier2, v85);
+    }
+
+    v88[0] = _NSConcreteStackBlock;
+    v88[1] = 3221225472;
+    v88[2] = sub_10000ED4C;
+    v88[3] = &unk_100059028;
+    v49 = v49;
+    v89 = v49;
+    v90 = deviceCopy;
+    v91 = v85;
+    [(DADaemonServer *)self _uninstallWiFiAwareDeviceFor:v91 appPairingID:wifiAwarePairingID completionHandler:v88];
+  }
+
+LABEL_101:
+  v60 = 1;
 LABEL_102:
-  _Block_object_dispose(&v97, 8);
 
 LABEL_103:
+  _Block_object_dispose(&v97, 8);
+
+LABEL_104:
   referenceCopy = v80;
   dCopy = v85;
-  v18 = v75;
-LABEL_104:
+  v20 = v75;
+LABEL_105:
 
-LABEL_108:
-  return v58;
+LABEL_109:
+  return v60;
 }
 
 - (void)_updateDeviceStateTimer
 {
+  selfCopy = self;
   deviceStateTimer = self->_deviceStateTimer;
   if (self->_deviceStateHasTransient)
   {
     if (!deviceStateTimer)
     {
-      v4 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
-      v5 = self->_deviceStateTimer;
-      self->_deviceStateTimer = v4;
+      v5 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
+      v6 = selfCopy->_deviceStateTimer;
+      selfCopy->_deviceStateTimer = v5;
 
       handler[0] = _NSConcreteStackBlock;
       handler[1] = 3221225472;
       handler[2] = sub_10000F024;
       handler[3] = &unk_100058CB8;
-      handler[4] = v4;
-      handler[5] = self;
-      dispatch_source_set_event_handler(v4, handler);
+      handler[4] = v5;
+      handler[5] = selfCopy;
+      dispatch_source_set_event_handler(v5, handler);
       if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
       {
-        sub_100032230(self);
+        sub_100032230(selfCopy);
       }
 
-      prefDeviceStateTimeoutSeconds = self->_prefDeviceStateTimeoutSeconds;
       CUDispatchTimerSet();
-      dispatch_activate(v4);
+      dispatch_activate(v5);
     }
 
     return;
@@ -5399,18 +5532,18 @@ LABEL_108:
 LABEL_14:
     v9 = v7;
     dispatch_source_cancel(v7);
-    v8 = self->_deviceStateTimer;
-    self->_deviceStateTimer = 0;
+    v8 = selfCopy->_deviceStateTimer;
+    selfCopy->_deviceStateTimer = 0;
 
     return;
   }
 
-  if (dword_1000603A0 != -1 || _LogCategory_Initialize())
+  if (dword_1000603A0 != -1 || (self = _LogCategory_Initialize(), self))
   {
-    sub_100032214();
+    sub_100032214(self, a2, v2);
   }
 
-  v7 = self->_deviceStateTimer;
+  v7 = selfCopy->_deviceStateTimer;
   if (v7)
   {
     goto LABEL_14;
@@ -5476,7 +5609,7 @@ LABEL_6:
         v20 = discoveryObj;
         if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
         {
-          sub_1000322A4(discoverySet);
+          sub_1000322A4(discoverySet, v20);
         }
       }
 
@@ -5502,7 +5635,7 @@ LABEL_6:
         [v20 setEventHandler:&v30];
         if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
         {
-          sub_1000322F4();
+          sub_1000322F4(v20);
         }
 
         [v20 activate];
@@ -5537,7 +5670,7 @@ LABEL_6:
 
   if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_100032334();
+    sub_100032334(discoveryCopy);
   }
 
   v23 = 0;
@@ -5575,7 +5708,7 @@ LABEL_29:
   {
     if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
-      sub_100032374(discoverySet);
+      sub_100032374(discoverySet, discoveryObj);
     }
   }
 
@@ -5590,7 +5723,7 @@ LABEL_29:
     [deviceMap enumerateKeysAndObjectsUsingBlock:v14];
     if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
-      sub_1000323C4();
+      sub_1000323C4(discoveryObj);
     }
 
     deviceMap2 = [v8 deviceMap];
@@ -5692,96 +5825,96 @@ LABEL_16:
   bundleID = [discoveryCopy bundleID];
   if (!bundleID)
   {
-    sub_1000326B8();
+    sub_1000326B8(0, v6, v7);
     goto LABEL_116;
   }
 
   if (!self->_cbCentralManager)
   {
-    v7 = [[CBCentralManager alloc] initWithDelegate:self queue:self->_dispatchQueue options:0];
+    v9 = [[CBCentralManager alloc] initWithDelegate:self queue:self->_dispatchQueue options:0];
     cbCentralManager = self->_cbCentralManager;
-    self->_cbCentralManager = v7;
+    self->_cbCentralManager = v9;
   }
 
-  v9 = [(DADaemonServer *)self getDevicesWithFlags:8 appID:bundleID];
+  v11 = [(DADaemonServer *)self getDevicesWithFlags:8 appID:bundleID];
   if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_10003247C(v9);
+    sub_10003247C(v11);
   }
 
-  v87 = v9;
-  v10 = self->_cbCentralManager;
-  v109 = _NSConcreteStackBlock;
-  v110 = 3221225472;
-  v111 = sub_10001098C;
-  v112 = &unk_1000590F0;
-  v113 = bundleID;
-  v94 = v113;
-  [CBCentralManager retrieveBundle:v10 sessionCountWithCompletion:"retrieveBundle:sessionCountWithCompletion:"];
-  v11 = +[NSMutableArray array];
+  v89 = v11;
+  v12 = self->_cbCentralManager;
+  v111 = _NSConcreteStackBlock;
+  v112 = 3221225472;
+  v113 = sub_10001098C;
+  v114 = &unk_1000590F0;
+  v115 = bundleID;
+  v96 = v115;
+  [CBCentralManager retrieveBundle:v12 sessionCountWithCompletion:"retrieveBundle:sessionCountWithCompletion:"];
+  v13 = +[NSMutableArray array];
   configuration = [discoveryCopy configuration];
   selfCopy = self;
-  v88 = bundleID;
-  v86 = configuration;
+  v90 = bundleID;
+  v88 = configuration;
   if (configuration)
   {
-    v13 = configuration;
+    v15 = configuration;
     bluetoothIdentifier = [configuration bluetoothIdentifier];
-    if (bluetoothIdentifier || ([v13 networkHotspotSSID], (bluetoothIdentifier = objc_claimAutoreleasedReturnValue()) != 0))
+    if (bluetoothIdentifier || ([v15 networkHotspotSSID], (bluetoothIdentifier = objc_claimAutoreleasedReturnValue()) != 0))
     {
 
       goto LABEL_11;
     }
 
-    if ([v13 wifiAwarePairingID])
+    if ([v15 wifiAwarePairingID])
     {
-      wifiAwareServiceName = [v13 wifiAwareServiceName];
+      wifiAwareServiceName = [v15 wifiAwareServiceName];
 
       if (wifiAwareServiceName)
       {
 LABEL_11:
-        if (onboarding || ([(DADaemonServer *)self _findDADeviceWithMigrationConfig:v13], (configurations2 = objc_claimAutoreleasedReturnValue()) == 0))
+        if (onboarding || ([(DADaemonServer *)self _findDADeviceWithMigrationConfig:v15], (configurations2 = objc_claimAutoreleasedReturnValue()) == 0))
         {
-          bluetoothIdentifier2 = [v13 bluetoothIdentifier];
+          bluetoothIdentifier2 = [v15 bluetoothIdentifier];
 
           if (bluetoothIdentifier2)
           {
-            bluetoothIdentifier3 = [v13 bluetoothIdentifier];
+            bluetoothIdentifier3 = [v15 bluetoothIdentifier];
             configurations2 = objc_alloc_init(DADevice);
-            v18 = +[NSUUID UUID];
-            uUIDString = [v18 UUIDString];
+            v20 = +[NSUUID UUID];
+            uUIDString = [v20 UUIDString];
             [configurations2 setIdentifier:uUIDString];
 
-            bluetoothIdentifier4 = [v13 bluetoothIdentifier];
+            bluetoothIdentifier4 = [v15 bluetoothIdentifier];
             [configurations2 setBluetoothIdentifier:bluetoothIdentifier4];
 
             if ([(CBCentralManager *)self->_cbCentralManager state]== 5)
             {
-              v21 = self->_cbCentralManager;
-              v118 = bluetoothIdentifier3;
-              v22 = [NSArray arrayWithObjects:&v118 count:1];
-              v23 = [(CBCentralManager *)v21 retrievePeripheralsWithIdentifiers:v22];
+              v23 = self->_cbCentralManager;
+              v120 = bluetoothIdentifier3;
+              v24 = [NSArray arrayWithObjects:&v120 count:1];
+              v25 = [(CBCentralManager *)v23 retrievePeripheralsWithIdentifiers:v24];
 
               if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
               {
-                sub_100032508();
+                sub_100032508(v25);
               }
 
-              if ([v23 count])
+              if ([v25 count])
               {
-                v24 = configurations2;
-                v25 = v11;
-                v26 = [v23 objectAtIndex:0];
-                name = [v26 name];
+                v26 = configurations2;
+                v27 = v13;
+                v28 = [v25 objectAtIndex:0];
+                name = [v28 name];
 
                 if (name)
                 {
-                  name2 = [v26 name];
-                  [v24 setBluetoothOTAName:name2];
+                  name2 = [v28 name];
+                  [v26 setBluetoothOTAName:name2];
                 }
 
-                v11 = v25;
-                configurations2 = v24;
+                v13 = v27;
+                configurations2 = v26;
               }
             }
 
@@ -5790,27 +5923,27 @@ LABEL_11:
               sub_1000324C0(&self->_cbCentralManager);
             }
 
-            [configurations2 setDiscoveryConfiguration:v13];
+            [configurations2 setDiscoveryConfiguration:v15];
             [configurations2 setFlags:8];
-            displayName = [v13 displayName];
+            displayName = [v15 displayName];
             [configurations2 setName:displayName];
 
-            networkHotspotSSID = [v13 networkHotspotSSID];
+            networkHotspotSSID = [v15 networkHotspotSSID];
 
             if (networkHotspotSSID)
             {
-              networkHotspotSSID2 = [v13 networkHotspotSSID];
+              networkHotspotSSID2 = [v15 networkHotspotSSID];
               [configurations2 setSSID:networkHotspotSSID2];
             }
 
             if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
             {
-              sub_100032548();
+              sub_100032548(configurations2);
             }
 
 LABEL_36:
 
-            [v11 addObject:configurations2];
+            [v13 addObject:configurations2];
 LABEL_78:
 
             goto LABEL_79;
@@ -5821,7 +5954,7 @@ LABEL_78:
 
         if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
         {
-          sub_100032588();
+          sub_100032588(configurations2);
         }
 
         bluetoothIdentifier3 = [discoveryCopy configuration];
@@ -5836,103 +5969,103 @@ LABEL_78:
 
   onboardingCopy = onboarding;
   configurations = [discoveryCopy configurations];
-  v36 = [configurations count];
+  v38 = [configurations count];
 
-  if (v36)
+  if (v38)
   {
+    v109 = 0u;
+    v110 = 0u;
     v107 = 0u;
     v108 = 0u;
-    v105 = 0u;
-    v106 = 0u;
     configurations2 = [discoveryCopy configurations];
-    v37 = [configurations2 countByEnumeratingWithState:&v105 objects:v117 count:16];
-    if (v37)
+    v39 = [configurations2 countByEnumeratingWithState:&v107 objects:v119 count:16];
+    if (v39)
     {
-      v38 = *v106;
-      v39 = onboardingCopy;
-      v40 = v37;
+      v40 = *v108;
+      v41 = onboardingCopy;
+      v42 = v39;
       do
       {
-        v41 = 0;
-        v91 = v40;
+        v43 = 0;
+        v93 = v42;
         do
         {
-          if (*v106 != v38)
+          if (*v108 != v40)
           {
             objc_enumerationMutation(configurations2);
           }
 
-          v42 = *(*(&v105 + 1) + 8 * v41);
-          if ((v39 || (-[DADaemonServer _findDADeviceWithMigrationConfig:](selfCopy, "_findDADeviceWithMigrationConfig:", *(*(&v105 + 1) + 8 * v41)), (v43 = objc_claimAutoreleasedReturnValue()) == 0)) && ([v42 bluetoothIdentifier], v43 = objc_claimAutoreleasedReturnValue(), v43, v43))
+          v44 = *(*(&v107 + 1) + 8 * v43);
+          if ((v41 || (-[DADaemonServer _findDADeviceWithMigrationConfig:](selfCopy, "_findDADeviceWithMigrationConfig:", *(*(&v107 + 1) + 8 * v43)), (v45 = objc_claimAutoreleasedReturnValue()) == 0)) && ([v44 bluetoothIdentifier], v45 = objc_claimAutoreleasedReturnValue(), v45, v45))
           {
-            v44 = configurations2;
-            v45 = v11;
-            bluetoothIdentifier5 = [v42 bluetoothIdentifier];
-            v43 = objc_alloc_init(DADevice);
-            v47 = +[NSUUID UUID];
-            uUIDString2 = [v47 UUIDString];
-            [v43 setIdentifier:uUIDString2];
+            v46 = configurations2;
+            v47 = v13;
+            bluetoothIdentifier5 = [v44 bluetoothIdentifier];
+            v45 = objc_alloc_init(DADevice);
+            v49 = +[NSUUID UUID];
+            uUIDString2 = [v49 UUIDString];
+            [v45 setIdentifier:uUIDString2];
 
-            bluetoothIdentifier6 = [v42 bluetoothIdentifier];
-            [v43 setBluetoothIdentifier:bluetoothIdentifier6];
+            bluetoothIdentifier6 = [v44 bluetoothIdentifier];
+            [v45 setBluetoothIdentifier:bluetoothIdentifier6];
 
             if ([(CBCentralManager *)selfCopy->_cbCentralManager state]== 5)
             {
-              v50 = selfCopy->_cbCentralManager;
-              v116 = bluetoothIdentifier5;
-              v51 = [NSArray arrayWithObjects:&v116 count:1];
-              v52 = [(CBCentralManager *)v50 retrievePeripheralsWithIdentifiers:v51];
+              v52 = selfCopy->_cbCentralManager;
+              v118 = bluetoothIdentifier5;
+              v53 = [NSArray arrayWithObjects:&v118 count:1];
+              v54 = [(CBCentralManager *)v52 retrievePeripheralsWithIdentifiers:v53];
 
               if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
               {
-                sub_100032508();
+                sub_100032508(v54);
               }
 
-              if ([v52 count])
+              if ([v54 count])
               {
-                v53 = [v52 objectAtIndex:0];
-                name3 = [v53 name];
+                v55 = [v54 objectAtIndex:0];
+                name3 = [v55 name];
 
                 if (name3)
                 {
-                  name4 = [v53 name];
-                  [v43 setBluetoothOTAName:name4];
+                  name4 = [v55 name];
+                  [v45 setBluetoothOTAName:name4];
                 }
               }
             }
 
             else if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
             {
-              sub_1000325C8(&selfCopy->_cbCentralManager);
+              sub_1000325C8(&selfCopy->_cbCentralManager, v45);
             }
 
-            [v43 setDiscoveryConfiguration:v42];
-            [v43 setFlags:8];
-            displayName2 = [v42 displayName];
-            [v43 setName:displayName2];
+            [v45 setDiscoveryConfiguration:v44];
+            [v45 setFlags:8];
+            displayName2 = [v44 displayName];
+            [v45 setName:displayName2];
 
-            networkHotspotSSID3 = [v42 networkHotspotSSID];
+            networkHotspotSSID3 = [v44 networkHotspotSSID];
 
-            v11 = v45;
-            v39 = onboardingCopy;
+            v13 = v47;
+            v41 = onboardingCopy;
             if (networkHotspotSSID3)
             {
-              networkHotspotSSID4 = [v42 networkHotspotSSID];
-              [v43 setSSID:networkHotspotSSID4];
+              networkHotspotSSID4 = [v44 networkHotspotSSID];
+              [v45 setSSID:networkHotspotSSID4];
             }
 
-            configurations2 = v44;
+            configurations2 = v46;
             if (dword_1000603A0 > 50)
             {
-              v40 = v91;
+              v42 = v93;
             }
 
             else
             {
-              v40 = v91;
+              v42 = v93;
               if (dword_1000603A0 != -1 || _LogCategory_Initialize())
               {
-                sub_100032548();
+                sub_100032548(v45);
               }
             }
           }
@@ -5941,24 +6074,24 @@ LABEL_78:
           {
             if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
             {
-              sub_100032588();
+              sub_100032588(v45);
             }
 
-            bluetoothIdentifier5 = [v42 associationIdentifier];
-            discoveryConfiguration2 = [v43 discoveryConfiguration];
+            bluetoothIdentifier5 = [v44 associationIdentifier];
+            discoveryConfiguration2 = [v45 discoveryConfiguration];
             [discoveryConfiguration2 setAssociationIdentifier:bluetoothIdentifier5];
           }
 
-          [v11 addObject:v43];
-          v41 = v41 + 1;
+          [v13 addObject:v45];
+          v43 = v43 + 1;
         }
 
-        while (v40 != v41);
-        v60 = [configurations2 countByEnumeratingWithState:&v105 objects:v117 count:16];
-        v40 = v60;
+        while (v42 != v43);
+        v62 = [configurations2 countByEnumeratingWithState:&v107 objects:v119 count:16];
+        v42 = v62;
       }
 
-      while (v60);
+      while (v62);
       self = selfCopy;
     }
 
@@ -5966,76 +6099,76 @@ LABEL_78:
   }
 
 LABEL_79:
-  v90 = +[NSMutableArray array];
   v92 = +[NSMutableArray array];
-  v101 = 0u;
-  v102 = 0u;
+  v94 = +[NSMutableArray array];
   v103 = 0u;
   v104 = 0u;
-  v61 = v11;
-  v62 = [v61 countByEnumeratingWithState:&v101 objects:v115 count:16];
-  if (v62)
+  v105 = 0u;
+  v106 = 0u;
+  v63 = v13;
+  v64 = [v63 countByEnumeratingWithState:&v103 objects:v117 count:16];
+  if (v64)
   {
-    v63 = v62;
-    v64 = *v102;
+    v65 = v64;
+    v66 = *v104;
     do
     {
-      for (i = 0; i != v63; i = i + 1)
+      for (i = 0; i != v65; i = i + 1)
       {
-        if (*v102 != v64)
+        if (*v104 != v66)
         {
-          objc_enumerationMutation(v61);
+          objc_enumerationMutation(v63);
         }
 
-        v66 = *(*(&v101 + 1) + 8 * i);
-        identifier = [v66 identifier];
+        v68 = *(*(&v103 + 1) + 8 * i);
+        identifier = [v68 identifier];
         if (identifier)
         {
           bundleID2 = [discoveryCopy bundleID];
           if (bundleID2)
           {
-            v69 = [(DADaemonServer *)self appBundleInfoAccessoryOptions:bundleID2]& 3;
-            if (v69)
+            v71 = [(DADaemonServer *)self appBundleInfoAccessoryOptions:bundleID2]& 3;
+            if (v71)
             {
-              appAccessInfoMap = [v66 appAccessInfoMap];
-              v71 = [appAccessInfoMap count];
+              appAccessInfoMap = [v68 appAccessInfoMap];
+              v73 = [appAccessInfoMap count];
 
-              if (v71)
+              if (v73)
               {
-                [v92 addObject:v66];
+                [v94 addObject:v68];
               }
 
               else
               {
-                v72 = [[DADeviceAppAccessInfo alloc] initWithBundleIdentifier:v94 deviceIdentifier:identifier state:25];
-                [v72 setAccessoryOptions:v69];
-                appAccessInfoDeviceMap = [v66 appAccessInfoDeviceMap];
-                v74 = [appAccessInfoDeviceMap objectForKeyedSubscript:bundleID2];
+                v74 = [[DADeviceAppAccessInfo alloc] initWithBundleIdentifier:v96 deviceIdentifier:identifier state:25];
+                [v74 setAccessoryOptions:v71];
+                appAccessInfoDeviceMap = [v68 appAccessInfoDeviceMap];
+                v76 = [appAccessInfoDeviceMap objectForKeyedSubscript:bundleID2];
 
-                if (!v74)
+                if (!v76)
                 {
-                  v75 = +[NSMutableDictionary dictionary];
-                  [v66 setAppAccessInfoDeviceMap:v75];
+                  v77 = +[NSMutableDictionary dictionary];
+                  [v68 setAppAccessInfoDeviceMap:v77];
                 }
 
-                appAccessInfoDeviceMap2 = [v66 appAccessInfoDeviceMap];
-                [appAccessInfoDeviceMap2 setObject:v72 forKeyedSubscript:bundleID2];
+                appAccessInfoDeviceMap2 = [v68 appAccessInfoDeviceMap];
+                [appAccessInfoDeviceMap2 setObject:v74 forKeyedSubscript:bundleID2];
 
-                [v66 setFlags:{objc_msgSend(v66, "flags") | 0x100}];
-                v100 = 0;
-                [(DADaemonServer *)selfCopy updateAppAccessInfo:v72 accessoryDevice:v66 removalType:0 error:&v100];
-                v77 = v100;
-                if (v77)
+                [v68 setFlags:{objc_msgSend(v68, "flags") | 0x100}];
+                v102 = 0;
+                [(DADaemonServer *)selfCopy updateAppAccessInfo:v74 accessoryDevice:v68 removalType:0 error:&v102];
+                v79 = v102;
+                if (v79)
                 {
                   if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
                   {
-                    sub_10003261C();
+                    sub_10003261C(v79, v68);
                   }
                 }
 
                 else
                 {
-                  [v90 addObject:v66];
+                  [v92 addObject:v68];
                 }
               }
 
@@ -6047,57 +6180,57 @@ LABEL_79:
               self = selfCopy;
               if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
               {
-                sub_100032678();
+                sub_100032678(v68);
               }
             }
           }
         }
       }
 
-      v63 = [v61 countByEnumeratingWithState:&v101 objects:v115 count:16];
+      v65 = [v63 countByEnumeratingWithState:&v103 objects:v117 count:16];
     }
 
-    while (v63);
+    while (v65);
   }
 
-  if ([v92 count])
+  if ([v94 count])
   {
+    v100 = 0u;
+    v101 = 0u;
     v98 = 0u;
     v99 = 0u;
-    v96 = 0u;
-    v97 = 0u;
-    v78 = v92;
-    v79 = [v78 countByEnumeratingWithState:&v96 objects:v114 count:16];
-    if (v79)
+    v80 = v94;
+    v81 = [v80 countByEnumeratingWithState:&v98 objects:v116 count:16];
+    if (v81)
     {
-      v80 = v79;
-      v81 = *v97;
+      v82 = v81;
+      v83 = *v99;
       do
       {
-        for (j = 0; j != v80; j = j + 1)
+        for (j = 0; j != v82; j = j + 1)
         {
-          if (*v97 != v81)
+          if (*v99 != v83)
           {
-            objc_enumerationMutation(v78);
+            objc_enumerationMutation(v80);
           }
 
-          v83 = [[DADeviceEvent alloc] initWithEventType:40 device:*(*(&v96 + 1) + 8 * j)];
-          [(DADaemonServer *)self _discoveryEvent:v83 appID:v94];
+          v85 = [[DADeviceEvent alloc] initWithEventType:40 device:*(*(&v98 + 1) + 8 * j)];
+          [(DADaemonServer *)self _discoveryEvent:v85 appID:v96];
         }
 
-        v80 = [v78 countByEnumeratingWithState:&v96 objects:v114 count:16];
+        v82 = [v80 countByEnumeratingWithState:&v98 objects:v116 count:16];
       }
 
-      while (v80);
+      while (v82);
     }
   }
 
-  v84 = [[DAEventDevicesPresent alloc] initWithMigration:1];
-  v85 = [v90 arrayByAddingObjectsFromArray:v92];
-  [v84 setDevices:v85];
+  v86 = [[DAEventDevicesPresent alloc] initWithMigration:1];
+  v87 = [v92 arrayByAddingObjectsFromArray:v94];
+  [v86 setDevices:v87];
 
-  [(DADaemonServer *)self _reportDevicesMigratedEvent:v84 appID:v94];
-  bundleID = v88;
+  [(DADaemonServer *)self _reportDevicesMigratedEvent:v86 appID:v96];
+  bundleID = v90;
 LABEL_116:
 }
 
@@ -6107,8 +6240,8 @@ LABEL_116:
   bundleID = [discoveryCopy bundleID];
   if (!bundleID)
   {
-    sub_100032934();
-    goto LABEL_47;
+    sub_100032934(0, v5, v6);
+    goto LABEL_48;
   }
 
   configurations = [discoveryCopy configurations];
@@ -6116,55 +6249,55 @@ LABEL_116:
 
   if (!firstObject)
   {
-    sub_1000328D4();
-    goto LABEL_46;
+    sub_1000328D4(v10, v11, v12);
+    goto LABEL_47;
   }
 
   selfCopy = self;
-  v39 = bundleID;
-  v8 = [(DADaemonServer *)self getDevicesWithFlags:8 appID:bundleID];
+  v45 = bundleID;
+  v13 = [(DADaemonServer *)self getDevicesWithFlags:8 appID:bundleID];
   existingDeviceIdentifier = [firstObject existingDeviceIdentifier];
-  v40 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  v43 = 0u;
-  v10 = v8;
-  v11 = [v10 countByEnumeratingWithState:&v40 objects:v45 count:16];
-  if (!v11)
+  v46 = 0u;
+  v47 = 0u;
+  v48 = 0u;
+  v49 = 0u;
+  v15 = v13;
+  v16 = [v15 countByEnumeratingWithState:&v46 objects:v51 count:16];
+  if (!v16)
   {
 LABEL_11:
 
 LABEL_12:
-    sub_100032860(&v44);
-    v18 = v44;
-    bundleID = v39;
-    goto LABEL_45;
+    sub_100032860(&v50);
+    v23 = v50;
+    bundleID = v45;
+    goto LABEL_46;
   }
 
-  v12 = v11;
-  v13 = *v41;
+  v17 = v16;
+  v18 = *v47;
 LABEL_5:
-  v14 = 0;
+  v19 = 0;
   while (1)
   {
-    if (*v41 != v13)
+    if (*v47 != v18)
     {
-      objc_enumerationMutation(v10);
+      objc_enumerationMutation(v15);
     }
 
-    v15 = *(*(&v40 + 1) + 8 * v14);
-    identifier = [v15 identifier];
-    v17 = [identifier isEqualToString:existingDeviceIdentifier];
+    v20 = *(*(&v46 + 1) + 8 * v19);
+    identifier = [v20 identifier];
+    v22 = [identifier isEqualToString:existingDeviceIdentifier];
 
-    if (v17)
+    if (v22)
     {
       break;
     }
 
-    if (v12 == ++v14)
+    if (v17 == ++v19)
     {
-      v12 = [v10 countByEnumeratingWithState:&v40 objects:v45 count:16];
-      if (v12)
+      v17 = [v15 countByEnumeratingWithState:&v46 objects:v51 count:16];
+      if (v17)
       {
         goto LABEL_5;
       }
@@ -6173,180 +6306,184 @@ LABEL_5:
     }
   }
 
-  v19 = v15;
+  v24 = v20;
 
-  if (!v19)
+  if (!v24)
   {
     goto LABEL_12;
   }
 
-  v38 = discoveryCopy;
-  bluetoothIdentifier = [v19 bluetoothIdentifier];
+  v44 = discoveryCopy;
+  bluetoothIdentifier = [v24 bluetoothIdentifier];
 
-  wifiAwareDevicePairingID = [v19 wifiAwareDevicePairingID];
+  wifiAwareDevicePairingID = [v24 wifiAwareDevicePairingID];
 
-  v37 = v19;
-  sSID = [v19 SSID];
+  v43 = v24;
+  sSID = [v24 SSID];
 
   bluetoothServices = [firstObject bluetoothServices];
   if (bluetoothServices)
   {
-    v24 = firstObject;
-    v25 = 1;
+    v29 = firstObject;
+    v30 = 1;
   }
 
   else
   {
     bluetoothCompanyIdentifiers = [firstObject bluetoothCompanyIdentifiers];
-    v24 = firstObject;
-    v25 = bluetoothCompanyIdentifiers != 0;
+    v29 = firstObject;
+    v30 = bluetoothCompanyIdentifiers != 0;
   }
 
-  wifiAwareServiceName = [v24 wifiAwareServiceName];
+  wifiAwareServiceName = [v29 wifiAwareServiceName];
 
-  hotspotSSIDs = [v24 hotspotSSIDs];
-  v29 = v24;
+  hotspotSSIDs = [v29 hotspotSSIDs];
+  v34 = v29;
   if (hotspotSSIDs)
   {
-    v30 = 0;
+    v35 = 0;
   }
 
   else
   {
-    hotspotSSIDPrefixes = [v24 hotspotSSIDPrefixes];
-    v30 = hotspotSSIDPrefixes == 0;
+    hotspotSSIDPrefixes = [v29 hotspotSSIDPrefixes];
+    v35 = hotspotSSIDPrefixes == 0;
   }
 
   if (bluetoothIdentifier && wifiAwareDevicePairingID)
   {
     if (dword_1000603A0 <= 90)
     {
-      discoveryCopy = v38;
-      bundleID = v39;
-      firstObject = v29;
-      v18 = v37;
+      discoveryCopy = v44;
+      bundleID = v45;
+      firstObject = v34;
+      v23 = v43;
       if (dword_1000603A0 != -1 || _LogCategory_Initialize())
       {
         sub_100032760();
       }
 
-      goto LABEL_45;
+      goto LABEL_46;
     }
 
-    goto LABEL_43;
+    goto LABEL_44;
   }
 
-  if (sSID != 0 && !v25 && !wifiAwareServiceName)
+  if (sSID != 0 && !v30 && !wifiAwareServiceName)
   {
     if (dword_1000603A0 <= 90)
     {
-      discoveryCopy = v38;
-      bundleID = v39;
-      firstObject = v29;
-      v18 = v37;
+      discoveryCopy = v44;
+      bundleID = v45;
+      firstObject = v34;
+      v23 = v43;
       if (dword_1000603A0 != -1 || _LogCategory_Initialize())
       {
         sub_100032794();
       }
 
-      goto LABEL_45;
+      goto LABEL_46;
     }
 
-    goto LABEL_43;
+    goto LABEL_44;
   }
 
-  if (wifiAwareDevicePairingID != 0 && !v30)
+  if (wifiAwareDevicePairingID != 0 && !v35)
   {
     if (dword_1000603A0 <= 90)
     {
-      discoveryCopy = v38;
-      bundleID = v39;
-      firstObject = v29;
-      v18 = v37;
+      discoveryCopy = v44;
+      bundleID = v45;
+      firstObject = v34;
+      v23 = v43;
       if (dword_1000603A0 != -1 || _LogCategory_Initialize())
       {
         sub_1000327C8();
       }
 
-      goto LABEL_45;
+      goto LABEL_46;
     }
 
-LABEL_43:
-    discoveryCopy = v38;
-    bundleID = v39;
-    firstObject = v29;
 LABEL_44:
-    v18 = v37;
-    goto LABEL_45;
+    discoveryCopy = v44;
+    bundleID = v45;
+    firstObject = v34;
+LABEL_45:
+    v23 = v43;
+    goto LABEL_46;
   }
 
-  if (bluetoothIdentifier && wifiAwareServiceName)
+  if (!bluetoothIdentifier || !wifiAwareServiceName)
   {
-    discoveryCopy = v38;
-    bundleID = v39;
-    v32 = selfCopy;
-    v18 = v37;
-    firstObject = v29;
-    if (dword_1000603A0 > 30 || dword_1000603A0 == -1 && !_LogCategory_Initialize())
+    v39 = !v30;
+    if (!wifiAwareDevicePairingID || !v30)
     {
-      goto LABEL_61;
+      firstObject = v34;
+      if (sSID && wifiAwareServiceName)
+      {
+        discoveryCopy = v44;
+        bundleID = v45;
+        v37 = selfCopy;
+        v23 = v43;
+        if (dword_1000603A0 > 30 || dword_1000603A0 == -1 && !_LogCategory_Initialize())
+        {
+          goto LABEL_62;
+        }
+
+        v38 = "Upgrade device to add Wi-Fi aware transport and remove previous SoftAP access";
+        goto LABEL_39;
+      }
+
+      discoveryCopy = v44;
+      if (sSID == 0 || v39)
+      {
+        bundleID = v45;
+        goto LABEL_45;
+      }
+
+      v40 = dword_1000603A0;
+      v41 = dword_1000603A0 <= 30;
+      bundleID = v45;
     }
 
-    goto LABEL_38;
-  }
-
-  v33 = !v25;
-  if (wifiAwareDevicePairingID && v25)
-  {
-    v34 = dword_1000603A0;
-    v35 = dword_1000603A0 <= 30;
-    discoveryCopy = v38;
-    bundleID = v39;
-    firstObject = v29;
-    goto LABEL_51;
-  }
-
-  firstObject = v29;
-  if (!sSID || !wifiAwareServiceName)
-  {
-    discoveryCopy = v38;
-    if (sSID == 0 || v33)
+    else
     {
-      bundleID = v39;
-      goto LABEL_44;
+      v40 = dword_1000603A0;
+      v41 = dword_1000603A0 <= 30;
+      discoveryCopy = v44;
+      bundleID = v45;
+      firstObject = v34;
     }
 
-    v34 = dword_1000603A0;
-    v35 = dword_1000603A0 <= 30;
-    bundleID = v39;
-LABEL_51:
-    v18 = v37;
-    if (v35 && (v34 != -1 || _LogCategory_Initialize()))
+    v23 = v43;
+    if (v41 && (v40 != -1 || _LogCategory_Initialize()))
     {
       sub_10003282C();
     }
 
     [(DADaemonServer *)selfCopy _updateBluetoothScannerIfNeeded];
-    goto LABEL_45;
+    goto LABEL_46;
   }
 
-  discoveryCopy = v38;
-  bundleID = v39;
-  v32 = selfCopy;
-  v18 = v37;
+  discoveryCopy = v44;
+  bundleID = v45;
+  v37 = selfCopy;
+  v23 = v43;
+  firstObject = v34;
   if (dword_1000603A0 > 30 || dword_1000603A0 == -1 && !_LogCategory_Initialize())
   {
-    goto LABEL_61;
+    goto LABEL_62;
   }
 
-LABEL_38:
-  sub_1000327FC();
-LABEL_61:
-  [(DADaemonServer *)v32 _updateWiFiManagerIfNeeded];
-LABEL_45:
-
+  v38 = "Upgrade device to add Wi-Fi aware transport";
+LABEL_39:
+  sub_1000327FC(v38);
+LABEL_62:
+  [(DADaemonServer *)v37 _updateWiFiManagerIfNeeded];
 LABEL_46:
+
 LABEL_47:
+LABEL_48:
 }
 
 - (void)runSystemDiscovery
@@ -6417,7 +6554,7 @@ LABEL_12:
     {
       if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
       {
-        sub_100032994();
+        sub_100032994(v10);
       }
 
       v19 = 0;
@@ -6476,30 +6613,8 @@ LABEL_12:
 
             if (v24 && [(DADaemonServer *)self deviceRequiresMultiTechDiscovery:v21])
             {
-              bluetoothIdentifier = [v21 bluetoothIdentifier];
-              v26 = [bluetoothIdentifier isEqual:identifierCopy];
-
-              if (v26)
+              if ([v21 bluetoothIdentifier], v25 = objc_claimAutoreleasedReturnValue(), v26 = objc_msgSend(v25, "isEqual:", identifierCopy), v25, (v26) || (objc_msgSend(v21, "bluetoothIdentifier"), v27 = objc_claimAutoreleasedReturnValue(), v27, identifierCopy) && !v27 || (objc_msgSend(v21, "wifiAwareOTAName"), v28 = objc_claimAutoreleasedReturnValue(), v29 = objc_msgSend(v28, "isEqual:", nameCopy), v28, (v29) || (objc_msgSend(v21, "wifiAwareOTAName"), v30 = objc_claimAutoreleasedReturnValue(), v30, nameCopy) && !v30)
               {
-                goto LABEL_19;
-              }
-
-              bluetoothIdentifier2 = [v21 bluetoothIdentifier];
-
-              if (identifierCopy)
-              {
-                if (!bluetoothIdentifier2)
-                {
-                  goto LABEL_19;
-                }
-              }
-
-              wifiAwareOTAName = [v21 wifiAwareOTAName];
-              v29 = [wifiAwareOTAName isEqual:nameCopy];
-
-              if ((v29 & 1) != 0 || ([v21 wifiAwareOTAName], v30 = objc_claimAutoreleasedReturnValue(), v30, nameCopy) && !v30)
-              {
-LABEL_19:
                 v31 = v21;
                 goto LABEL_20;
               }
@@ -6574,38 +6689,34 @@ LABEL_20:
 {
   bluetoothCopy = bluetooth;
   deviceCopy = device;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x3032000000;
-  v32 = sub_100002EE4;
-  v33 = sub_100002EF4;
-  v34 = 0;
-  v28[0] = _NSConcreteStackBlock;
-  v28[1] = 3221225472;
-  v28[2] = sub_100011868;
-  v28[3] = &unk_100058D30;
-  v28[4] = &v29;
-  v8 = objc_retainBlock(v28);
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = sub_100002EE4;
+  v29 = sub_100002EF4;
+  v30 = 0;
+  v24[0] = _NSConcreteStackBlock;
+  v24[1] = 3221225472;
+  v24[2] = sub_100011868;
+  v24[3] = &unk_100058D30;
+  v24[4] = &v25;
+  v8 = objc_retainBlock(v24);
   state = [bluetoothCopy state];
   if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
     v10 = DADeviceStateToString();
     discoveryConfiguration = [deviceCopy discoveryConfiguration];
     associationIdentifier = [discoveryConfiguration associationIdentifier];
-    v27 = bluetoothCopy;
-    v23 = deviceCopy;
-    v24 = v10;
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _updateDeviceStateForBluetooth:device:]", 50, "### _updateDeviceStateForBluetooth device %@ state %@ asID %@ deviceAccessMap %@", deviceCopy, v10, associationIdentifier, bluetoothCopy);
   }
 
   bluetoothIdentifier = [deviceCopy bluetoothIdentifier];
 
   if (!bluetoothIdentifier)
   {
-    v21 = v30[5];
-    v22 = DANestedErrorF();
-    v19 = v30[5];
-    v30[5] = v22;
+    v23 = DANestedErrorF();
+    v20 = v26[5];
+    v26[5] = v23;
     goto LABEL_22;
   }
 
@@ -6618,9 +6729,9 @@ LABEL_19:
     }
 
     [bluetoothCopy state];
-    v19 = DADeviceStateToString();
-    v26 = DADeviceStateToString();
-    LogPrintF();
+    v20 = DADeviceStateToString();
+    v21 = DADeviceStateToString();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _updateDeviceStateForBluetooth:device:]", 50, "### _updateDeviceStateForBluetooth device %@ state %@->%@", deviceCopy, v20, v21);
 
 LABEL_22:
     goto LABEL_24;
@@ -6638,32 +6749,32 @@ LABEL_22:
 
     if (allowsBluetoothPairing)
     {
-      v15 = 1;
+      v16 = 1;
     }
 
     else
     {
       discoveryConfiguration3 = [deviceCopy discoveryConfiguration];
-      v15 = ([discoveryConfiguration3 flags] >> 1) & 1;
+      v16 = ([discoveryConfiguration3 flags] >> 1) & 1;
     }
 
     discoveryConfiguration4 = [deviceCopy discoveryConfiguration];
     flags = [discoveryConfiguration4 flags];
 
     [deviceCopy setBluetoothOnboardingFinished:0];
-    [(DADaemonServer *)self _persistBluetoothDevice:bluetoothCopy device:deviceCopy requirePairing:v15 pairWithCTKD:(flags >> 2) & 1];
+    [(DADaemonServer *)self _persistBluetoothDevice:bluetoothCopy device:deviceCopy requirePairing:v16 pairWithCTKD:(flags >> 2) & 1];
     goto LABEL_19;
   }
 
   if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _updateDeviceStateForBluetooth:device:]", 50, "### _updateDeviceStateForBluetooth deferring setup for device due to ongoing wi-fi aware setup %@", deviceCopy);
   }
 
 LABEL_24:
   (v8[2])(v8);
 
-  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v25, 8);
   return state;
 }
 
@@ -6723,12 +6834,82 @@ LABEL_24:
   }
 }
 
+- (void)_persistBluetoothDevice:(id)device device:(id)a4 requirePairing:(BOOL)pairing pairWithCTKD:(BOOL)d
+{
+  dCopy = d;
+  pairingCopy = pairing;
+  deviceCopy = device;
+  v11 = a4;
+  if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _persistBluetoothDevice:device:requirePairing:pairWithCTKD:]", 50, "### _persistBluetoothDevice app %@ device %@ inRequirePairing:%d inPairCTKD:%d", deviceCopy, v11, pairingCopy, dCopy);
+  }
+
+  v25 = pairingCopy;
+  deviceIdentifier = [deviceCopy deviceIdentifier];
+  bundleIdentifier = [deviceCopy bundleIdentifier];
+  appDiscoveryConfiguration = [deviceCopy appDiscoveryConfiguration];
+  displayName = [appDiscoveryConfiguration displayName];
+
+  discoveryConfiguration = [v11 discoveryConfiguration];
+  flags = [discoveryConfiguration flags];
+  if ((flags & 0x10) != 0)
+  {
+    v16 = 60;
+  }
+
+  else
+  {
+    v16 = 30;
+  }
+
+  flags2 = [discoveryConfiguration flags];
+  v38[0] = 0;
+  v38[1] = v38;
+  v38[2] = 0x2020000000;
+  v38[3] = [deviceCopy state];
+  bluetoothIdentifier = [v11 bluetoothIdentifier];
+
+  if (bluetoothIdentifier)
+  {
+    [(DADaemonServer *)self _cleanupBTDiscoveryIfPossible:0];
+    [(DADaemonServer *)self _cleanupWiFiDiscoveryIfPossible:v11];
+    v26 = deviceIdentifier;
+    bluetoothIdentifier2 = [v11 bluetoothIdentifier];
+    v20 = [bluetoothIdentifier2 copy];
+
+    [(DADaemonServer *)self _setupBTPairingManager];
+    btPairingManager = self->_btPairingManager;
+    v21 = [NSNumber numberWithInt:v16];
+    LODWORD(bluetoothIdentifier2) = (flags2 >> 5) & 1;
+    v29[0] = _NSConcreteStackBlock;
+    v29[1] = 3221225472;
+    v29[2] = sub_100011EC8;
+    v29[3] = &unk_100059158;
+    v30 = deviceCopy;
+    v31 = discoveryConfiguration;
+    v37 = v38;
+    v32 = v11;
+    selfCopy = self;
+    v22 = v20;
+    v34 = v22;
+    v35 = bundleIdentifier;
+    v36 = v26;
+    LOBYTE(v23) = bluetoothIdentifier2;
+    [(DABluetoothPairingManager *)btPairingManager persistBluetoothDevice:v22 pairingRequired:v25 pairWithCTKD:dCopy displayName:displayName taskTimeout:v21 appConfirmsAuth:(flags >> 4) & 1 supportsHID:v23 completion:v29];
+
+    deviceIdentifier = v26;
+  }
+
+  _Block_object_dispose(v38, 8);
+}
+
 - (void)_forgetBluetoothDevice:(id)device
 {
   deviceCopy = device;
   if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_100032AF8();
+    sub_100032AF8(deviceCopy);
     if (!deviceCopy)
     {
       goto LABEL_6;
@@ -6757,29 +6938,33 @@ LABEL_6:
 
 - (void)_updateBluetoothScannerIfNeeded
 {
-  if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1000603A0 <= 50)
   {
-    sub_100032BA8();
+    if (dword_1000603A0 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_100032BA8(self, a2, v2);
+    }
   }
 
-  [(DADaemonServer *)self _cleanupBTDiscoveryIfPossible:0];
-  v3 = self->_discoveryMap;
-  v7[0] = _NSConcreteStackBlock;
-  v7[1] = 3221225472;
-  v7[2] = sub_1000126A8;
-  v7[3] = &unk_1000591F8;
-  v7[4] = self;
-  [(NSMutableDictionary *)v3 enumerateKeysAndObjectsUsingBlock:v7];
-  if ([(NSMutableArray *)self->_cbScanFilterArray count])
+  [(DADaemonServer *)selfCopy _cleanupBTDiscoveryIfPossible:0];
+  v4 = selfCopy->_discoveryMap;
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_1000126A8;
+  v8[3] = &unk_1000591F8;
+  v8[4] = selfCopy;
+  [(NSMutableDictionary *)v4 enumerateKeysAndObjectsUsingBlock:v8];
+  if ([(NSMutableArray *)selfCopy->_cbScanFilterArray count])
   {
-    v4 = [[CBCentralManager alloc] initWithDelegate:self queue:self->_dispatchQueue options:0];
-    cbCentralManager = self->_cbCentralManager;
-    self->_cbCentralManager = v4;
+    v5 = [[CBCentralManager alloc] initWithDelegate:selfCopy queue:selfCopy->_dispatchQueue options:0];
+    cbCentralManager = selfCopy->_cbCentralManager;
+    selfCopy->_cbCentralManager = v5;
   }
 
   else
   {
-    btPairingManager = self->_btPairingManager;
+    btPairingManager = selfCopy->_btPairingManager;
     if (btPairingManager)
     {
       [(DABluetoothPairingManager *)btPairingManager cancelAll];
@@ -6789,90 +6974,101 @@ LABEL_6:
 
 - (void)_startBTScan
 {
-  if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1000603A0 <= 50)
   {
-    sub_100032BC4();
+    if (dword_1000603A0 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_100032BC4(self, a2, v2);
+    }
   }
 
-  v3 = objc_opt_new();
-  [v3 setValue:self->_cbScanFilterArray forKey:CBCentralManagerScanOptionMatchingRuleKey];
-  cbScanClient = self->_cbScanClient;
-  v4 = [NSArray arrayWithObjects:&cbScanClient count:1];
-  [v3 setValue:v4 forKey:CBManagerListOfClients];
+  v4 = objc_opt_new();
+  [v4 setValue:selfCopy->_cbScanFilterArray forKey:CBCentralManagerScanOptionMatchingRuleKey];
+  cbScanClient = selfCopy->_cbScanClient;
+  v5 = [NSArray arrayWithObjects:&cbScanClient count:1];
+  [v4 setValue:v5 forKey:CBManagerListOfClients];
 
-  cbScanFilterArray = self->_cbScanFilterArray;
-  v6[0] = _NSConcreteStackBlock;
-  v6[1] = 3221225472;
-  v6[2] = sub_100012BDC;
-  v6[3] = &unk_100059248;
-  v6[4] = self;
-  [(NSMutableArray *)cbScanFilterArray enumerateObjectsUsingBlock:v6];
-  [(CBCentralManager *)self->_cbCentralManager scanForPeripheralsWithServices:0 options:v3 completion:&stru_100059288];
+  cbScanFilterArray = selfCopy->_cbScanFilterArray;
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_100012BDC;
+  v7[3] = &unk_100059248;
+  v7[4] = selfCopy;
+  [(NSMutableArray *)cbScanFilterArray enumerateObjectsUsingBlock:v7];
+  [(CBCentralManager *)selfCopy->_cbCentralManager scanForPeripheralsWithServices:0 options:v4 completion:&stru_100059288];
 }
 
 - (void)_stopBTScan
 {
-  if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1000603A0 <= 50)
   {
-    sub_100032C4C();
+    if (dword_1000603A0 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_100032C4C(self, a2, v2);
+    }
   }
 
-  cbCentralManager = self->_cbCentralManager;
+  cbCentralManager = selfCopy->_cbCentralManager;
 
   [(CBCentralManager *)cbCentralManager stopScan];
 }
 
 - (void)_checkAndReportLostBTDevices
 {
-  if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1000603A0 <= 50)
   {
-    sub_100032C68();
+    if (dword_1000603A0 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_100032C68(self, a2, v2);
+    }
   }
 
   Current = CFAbsoluteTimeGetCurrent();
-  v4 = objc_opt_new();
-  cbDADeviceMap = self->_cbDADeviceMap;
+  v5 = objc_opt_new();
+  cbDADeviceMap = selfCopy->_cbDADeviceMap;
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_100013028;
+  v9[3] = &unk_1000592B0;
+  v11 = Current;
+  v9[4] = selfCopy;
+  v10 = v5;
+  v7 = v5;
+  [(NSMutableDictionary *)cbDADeviceMap enumerateKeysAndObjectsUsingBlock:v9];
   v8[0] = _NSConcreteStackBlock;
   v8[1] = 3221225472;
-  v8[2] = sub_100013028;
-  v8[3] = &unk_1000592B0;
-  v10 = Current;
-  v8[4] = self;
-  v9 = v4;
-  v6 = v4;
-  [(NSMutableDictionary *)cbDADeviceMap enumerateKeysAndObjectsUsingBlock:v8];
-  v7[0] = _NSConcreteStackBlock;
-  v7[1] = 3221225472;
-  v7[2] = sub_100013180;
-  v7[3] = &unk_1000592D8;
-  v7[4] = self;
-  *&v7[5] = Current;
-  [v6 enumerateObjectsUsingBlock:v7];
+  v8[2] = sub_100013180;
+  v8[3] = &unk_1000592D8;
+  v8[4] = selfCopy;
+  *&v8[5] = Current;
+  [v7 enumerateObjectsUsingBlock:v8];
 }
 
 - (void)_armBTScanTimer
 {
   if (!self->_btScanRefreshTimer)
   {
-    v8[8] = v2;
-    v8[9] = v3;
+    v7[8] = v2;
+    v7[9] = v3;
     v5 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
     btScanRefreshTimer = self->_btScanRefreshTimer;
     self->_btScanRefreshTimer = v5;
 
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_1000133F0;
-    v8[3] = &unk_100058CB8;
-    v8[4] = v5;
-    v8[5] = self;
-    dispatch_source_set_event_handler(v5, v8);
+    v7[0] = _NSConcreteStackBlock;
+    v7[1] = 3221225472;
+    v7[2] = sub_1000133F0;
+    v7[3] = &unk_100058CB8;
+    v7[4] = v5;
+    v7[5] = self;
+    dispatch_source_set_event_handler(v5, v7);
     if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
       sub_100032CC4(self);
     }
 
-    prefBTScanRefreshSeconds = self->_prefBTScanRefreshSeconds;
     CUDispatchTimerSet();
     dispatch_activate(v5);
   }
@@ -6887,8 +7083,8 @@ LABEL_6:
   {
     if (dword_1000603A0 != -1 || (v6 = _LogCategory_Initialize(), BTPoweredOn = self->_BTPoweredOn, v6))
     {
-      LogPrintF();
-      BTPoweredOn = self->_BTPoweredOn;
+      LogPrintF(&dword_1000603A0, "[DADaemonServer centralManagerDidUpdateState:]", 50, "### centralManagerDidUpdateState powerState: %d", BTPoweredOn);
+      LOBYTE(BTPoweredOn) = self->_BTPoweredOn;
     }
   }
 
@@ -6896,7 +7092,8 @@ LABEL_6:
   {
     [(DADaemonServer *)self _checkAppAccessInfo];
     [(DADaemonServer *)self _refreshRegistrationForBTConnectionEvents];
-    if ([(NSMutableArray *)self->_cbScanFilterArray count])
+    v7 = [(NSMutableArray *)self->_cbScanFilterArray count];
+    if (v7)
     {
       [(DADaemonServer *)self _startBTScan];
       [(DADaemonServer *)self _armBTScanTimer];
@@ -6906,21 +7103,24 @@ LABEL_6:
       }
     }
 
-    else if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+    else if (dword_1000603A0 <= 50)
     {
-      sub_100032D7C();
+      if (dword_1000603A0 != -1 || (v7 = _LogCategory_Initialize(), v7))
+      {
+        sub_100032D7C(v7, v8, v9);
+      }
     }
   }
 
   else
   {
     cbDADeviceMap = self->_cbDADeviceMap;
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_100013654;
-    v8[3] = &unk_100059300;
-    v8[4] = self;
-    [(NSMutableDictionary *)cbDADeviceMap enumerateKeysAndObjectsUsingBlock:v8];
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_100013654;
+    v11[3] = &unk_100059300;
+    v11[4] = self;
+    [(NSMutableDictionary *)cbDADeviceMap enumerateKeysAndObjectsUsingBlock:v11];
     if ([(CBCentralManager *)v4 state]!= 1)
     {
       [(DADaemonServer *)self _cleanupBTDiscoveryIfPossible:0];
@@ -6930,27 +7130,31 @@ LABEL_6:
 
 - (void)_refreshRegistrationForBTConnectionEvents
 {
-  if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1000603A0 <= 50)
   {
-    sub_100032D98();
+    if (dword_1000603A0 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_100032D98(self, a2, v2);
+    }
   }
 
-  v3 = [(DADaemonServer *)self getDevicesWithFlags:8 appID:0];
-  v6[0] = _NSConcreteStackBlock;
-  v6[1] = 3221225472;
-  v6[2] = sub_10001386C;
-  v6[3] = &unk_100058DD0;
-  v4 = objc_opt_new();
-  v7 = v4;
-  [v3 enumerateObjectsUsingBlock:v6];
-  v5 = objc_alloc_init(NSMutableDictionary);
-  [v5 setObject:v4 forKeyedSubscript:CBConnectionEventMatchingOptionPeripheralUUIDs];
+  v4 = [(DADaemonServer *)selfCopy getDevicesWithFlags:8 appID:0];
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_10001386C;
+  v7[3] = &unk_100058DD0;
+  v5 = objc_opt_new();
+  v8 = v5;
+  [v4 enumerateObjectsUsingBlock:v7];
+  v6 = objc_alloc_init(NSMutableDictionary);
+  [v6 setObject:v5 forKeyedSubscript:CBConnectionEventMatchingOptionPeripheralUUIDs];
   if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_100032DB4();
+    sub_100032DB4(v6);
   }
 
-  [(CBCentralManager *)self->_cbCentralManager registerForConnectionEventsWithOptions:v5];
+  [(CBCentralManager *)selfCopy->_cbCentralManager registerForConnectionEventsWithOptions:v6];
 }
 
 - (id)_findDADeviceWithBTPeripheral:(id)peripheral
@@ -6958,20 +7162,21 @@ LABEL_6:
   peripheralCopy = peripheral;
   if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_100032E34();
+    sub_100032E34(peripheralCopy);
   }
 
   cbDADeviceMap = self->_cbDADeviceMap;
   identifier = [peripheralCopy identifier];
   v7 = [(NSMutableDictionary *)cbDADeviceMap objectForKey:identifier];
 
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = sub_100002EE4;
-  v20 = sub_100002EF4;
-  v21 = [v7 objectForKeyedSubscript:@"DADevice"];
-  if (v17[5])
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = sub_100002EE4;
+  v22 = sub_100002EF4;
+  v23 = [v7 objectForKeyedSubscript:@"DADevice"];
+  v8 = v19[5];
+  if (v8)
   {
     if (dword_1000603A0 > 50)
     {
@@ -6985,36 +7190,35 @@ LABEL_6:
         goto LABEL_10;
       }
 
-      v11 = v17[5];
+      v8 = v19[5];
     }
 
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _findDADeviceWithBTPeripheral:]", 50, "### _findDADeviceWithBTPeripheral local cache DADevice %@ for %@", v8, peripheralCopy);
   }
 
   else
   {
-    v8 = [(DADaemonServer *)self getDevicesWithFlags:8 appID:0];
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_100013BDC;
-    v13[3] = &unk_100059328;
-    v14 = peripheralCopy;
-    v15 = &v16;
-    [v8 enumerateObjectsUsingBlock:v13];
+    v9 = [(DADaemonServer *)self getDevicesWithFlags:8 appID:0];
+    v12 = _NSConcreteStackBlock;
+    v13 = 3221225472;
+    v14 = sub_100013BDC;
+    v15 = &unk_100059328;
+    v16 = peripheralCopy;
+    v17 = &v18;
+    [v9 enumerateObjectsUsingBlock:&v12];
   }
 
 LABEL_10:
   if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    v12 = v17[5];
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _findDADeviceWithBTPeripheral:]", 50, "### _findDADeviceWithBTPeripheral DADevice %@ for %@", v19[5], peripheralCopy, v12, v13, v14, v15);
   }
 
 LABEL_14:
-  v9 = v17[5];
-  _Block_object_dispose(&v16, 8);
+  v10 = v19[5];
+  _Block_object_dispose(&v18, 8);
 
-  return v9;
+  return v10;
 }
 
 - (id)_findDADeviceWithBTIdentifier:(id)identifier
@@ -7022,17 +7226,18 @@ LABEL_14:
   identifierCopy = identifier;
   if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_100032EB4();
+    sub_100032EB4(identifierCopy);
   }
 
   v5 = [(NSMutableDictionary *)self->_cbDADeviceMap objectForKey:identifierCopy];
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = sub_100002EE4;
-  v18 = sub_100002EF4;
-  v19 = [v5 objectForKeyedSubscript:@"DADevice"];
-  if (v15[5])
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = sub_100002EE4;
+  v20 = sub_100002EF4;
+  v21 = [v5 objectForKeyedSubscript:@"DADevice"];
+  v6 = v17[5];
+  if (v6)
   {
     if (dword_1000603A0 > 50)
     {
@@ -7046,36 +7251,35 @@ LABEL_14:
         goto LABEL_10;
       }
 
-      v9 = v15[5];
+      v6 = v17[5];
     }
 
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _findDADeviceWithBTIdentifier:]", 50, "### _findDADeviceWithBTIdentifier local cache DADevice %@ for %@", v6, identifierCopy);
   }
 
   else
   {
-    v6 = [(DADaemonServer *)self getDevicesWithFlags:8 appID:0];
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_100013F48;
-    v11[3] = &unk_100059328;
-    v12 = identifierCopy;
-    v13 = &v14;
-    [v6 enumerateObjectsUsingBlock:v11];
+    v7 = [(DADaemonServer *)self getDevicesWithFlags:8 appID:0];
+    v10 = _NSConcreteStackBlock;
+    v11 = 3221225472;
+    v12 = sub_100013F48;
+    v13 = &unk_100059328;
+    v14 = identifierCopy;
+    v15 = &v16;
+    [v7 enumerateObjectsUsingBlock:&v10];
   }
 
 LABEL_10:
   if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    v10 = v15[5];
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _findDADeviceWithBTIdentifier:]", 50, "### _findDADeviceWithBTIdentifier DADevice %@ for %@", v17[5], identifierCopy, v10, v11, v12, v13);
   }
 
 LABEL_14:
-  v7 = v15[5];
-  _Block_object_dispose(&v14, 8);
+  v8 = v17[5];
+  _Block_object_dispose(&v16, 8);
 
-  return v7;
+  return v8;
 }
 
 - (id)_findExistingDeviceWithSSID:(id)d bundleID:(id)iD
@@ -7084,31 +7288,29 @@ LABEL_14:
   iDCopy = iD;
   if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    v13 = dCopy;
-    v14 = iDCopy;
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _findExistingDeviceWithSSID:bundleID:]", 50, "### _findDeviceWithSSID looking for device %@ associated with %@", dCopy, iDCopy);
   }
 
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = sub_100002EE4;
-  v23 = sub_100002EF4;
-  v24 = 0;
-  v8 = [(DADaemonServer *)self getDevicesWithFlags:8 appID:0, v13, v14];
-  v15[0] = _NSConcreteStackBlock;
-  v15[1] = 3221225472;
-  v15[2] = sub_1000141E0;
-  v15[3] = &unk_100059350;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = sub_100002EE4;
+  v21 = sub_100002EF4;
+  v22 = 0;
+  v8 = [(DADaemonServer *)self getDevicesWithFlags:8 appID:0];
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_1000141E0;
+  v13[3] = &unk_100059350;
   v9 = iDCopy;
-  v16 = v9;
+  v14 = v9;
   v10 = dCopy;
-  v17 = v10;
-  v18 = &v19;
-  [v8 enumerateObjectsUsingBlock:v15];
-  v11 = v20[5];
+  v15 = v10;
+  v16 = &v17;
+  [v8 enumerateObjectsUsingBlock:v13];
+  v11 = v18[5];
 
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v17, 8);
 
   return v11;
 }
@@ -7125,20 +7327,13 @@ LABEL_14:
   bundleID = [configCopy bundleID];
   if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    v70 = aDiscoveryCopy;
-    v71 = configCopy;
-    v68 = dataCopy;
-    v69 = discoveryCopy;
-    v65 = dCopy;
-    v67 = iCopy;
-    v63 = bundleID;
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _reportDiscoveredBTDevice:advertisementData:RSSI:AppID:DADaemonDiscovery:DADiscovery:config:]", 50, "### _reportDiscoveredBTDevice app %@ appID: %@ rssi: %@ advData: %@ inDaemonDiscovery %@ inDiscoveryObject %@ config %@", bundleID, dCopy, iCopy, dataCopy, discoveryCopy, aDiscoveryCopy, configCopy);
   }
 
   bundleID2 = [configCopy bundleID];
   existingDeviceIdentifier = [configCopy existingDeviceIdentifier];
 
-  v74 = bundleID2;
+  v69 = bundleID2;
   if (existingDeviceIdentifier)
   {
     existingDeviceIdentifier2 = [configCopy existingDeviceIdentifier];
@@ -7154,27 +7349,30 @@ LABEL_11:
 
     if (v25)
     {
-      if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+      if (dword_1000603A0 <= 30)
       {
-        sub_100032F84();
+        if (dword_1000603A0 != -1 || (v26 = _LogCategory_Initialize(), v26))
+        {
+          sub_100032F84(v26, v27, v28);
+        }
       }
 
       goto LABEL_11;
     }
 
-    v72 = discoveryCopy;
-    v73 = dCopy;
-    v29 = [dataCopy copy];
-    [v24 setBluetoothAdvertisementData:v29];
+    v67 = discoveryCopy;
+    v68 = dCopy;
+    v34 = [dataCopy copy];
+    [v24 setBluetoothAdvertisementData:v34];
 
-    v30 = [iCopy copy];
-    [v24 setBluetoothRSSI:v30];
+    v35 = [iCopy copy];
+    [v24 setBluetoothRSSI:v35];
 
     identifier = [deviceCopy identifier];
     [v24 setBluetoothIdentifier:identifier];
 
-    v32 = [(DADaemonServer *)self _getAdvName:dataCopy];
-    [v24 setBluetoothOTAName:v32];
+    v37 = [(DADaemonServer *)self _getAdvName:dataCopy];
+    [v24 setBluetoothOTAName:v37];
 
     [v24 setBluetoothAppearance:{-[DADaemonServer _getAppearance:](self, "_getAppearance:", dataCopy)}];
     [v24 setDiscoveryConfiguration:configCopy];
@@ -7184,77 +7382,77 @@ LABEL_11:
     goto LABEL_35;
   }
 
-  v26 = [(DADaemonServer *)self _findDADeviceWithBTPeripheral:deviceCopy];
-  v24 = v26;
-  v72 = discoveryCopy;
-  v73 = dCopy;
-  if (v26 && [v26 state] != 1)
+  v29 = [(DADaemonServer *)self _findDADeviceWithBTPeripheral:deviceCopy];
+  v24 = v29;
+  v67 = discoveryCopy;
+  v68 = dCopy;
+  if (v29 && [v29 state] != 1)
   {
     if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
-      sub_100032FA0();
+      sub_100032FA0(v24);
     }
 
     [v24 setDiscoveryConfiguration:configCopy];
     goto LABEL_36;
   }
 
-  if ([configCopy bluetoothRange] != 10 || objc_msgSend(iCopy, "intValue") >= self->_prefsBTRSSIThreshold)
+  if ([configCopy bluetoothRange] != 10 || (v30 = objc_msgSend(iCopy, "intValue"), prefsBTRSSIThreshold = self->_prefsBTRSSIThreshold, v30 >= prefsBTRSSIThreshold))
   {
     existingDeviceIdentifier2 = [configCopy associationIdentifier];
     identifier2 = [deviceCopy identifier];
-    v28 = [(DADaemonServer *)self findAlreadyDiscoveredDeviceForMultiTech:existingDeviceIdentifier2 appID:v74 bluetoothIdentifier:identifier2 wifiAwareOTAName:0];
+    v33 = [(DADaemonServer *)self findAlreadyDiscoveredDeviceForMultiTech:existingDeviceIdentifier2 appID:v69 bluetoothIdentifier:identifier2 wifiAwareOTAName:0];
 
-    if (v28)
+    if (v33)
     {
       if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
       {
-        sub_100032FE0();
+        sub_100032FE0(v33);
       }
 
-      v24 = v28;
+      v24 = v33;
     }
 
     else
     {
       v24 = objc_alloc_init(DADevice);
-      v33 = +[NSUUID UUID];
-      uUIDString = [v33 UUIDString];
+      v38 = +[NSUUID UUID];
+      uUIDString = [v38 UUIDString];
       [v24 setIdentifier:uUIDString];
     }
 
-    v35 = [dataCopy copy];
-    [v24 setBluetoothAdvertisementData:v35];
+    v40 = [dataCopy copy];
+    [v24 setBluetoothAdvertisementData:v40];
 
-    v36 = [iCopy copy];
-    [v24 setBluetoothRSSI:v36];
+    v41 = [iCopy copy];
+    [v24 setBluetoothRSSI:v41];
 
     identifier3 = [deviceCopy identifier];
     [v24 setBluetoothIdentifier:identifier3];
 
-    v38 = [(DADaemonServer *)self _getAdvName:dataCopy];
-    [v24 setBluetoothOTAName:v38];
+    v43 = [(DADaemonServer *)self _getAdvName:dataCopy];
+    [v24 setBluetoothOTAName:v43];
 
     [v24 setBluetoothAppearance:{-[DADaemonServer _getAppearance:](self, "_getAppearance:", dataCopy)}];
     [v24 setDiscoveryConfiguration:configCopy];
     if (([aDiscoveryCopy flags] & 0x20) != 0)
     {
-      v39 = 1024;
+      v44 = 1024;
     }
 
     else
     {
-      v39 = 8;
+      v44 = 8;
     }
 
-    [v24 setFlags:v39];
+    [v24 setFlags:v44];
     displayName = [configCopy displayName];
     [v24 setName:displayName];
 
     hotspotSSIDs = [configCopy hotspotSSIDs];
-    v42 = [hotspotSSIDs count];
+    v47 = [hotspotSSIDs count];
 
-    if (v42)
+    if (v47)
     {
       hotspotSSIDs2 = [configCopy hotspotSSIDs];
       firstObject = [hotspotSSIDs2 firstObject];
@@ -7263,68 +7461,66 @@ LABEL_11:
 
     if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
-      sub_100033020();
+      sub_100033020(v24);
     }
 
 LABEL_35:
 
 LABEL_36:
     appAccessInfoMap = [v24 appAccessInfoMap];
-    v46 = [appAccessInfoMap objectForKeyedSubscript:bundleID];
-    accessoryOptions = [v46 accessoryOptions];
+    v51 = [appAccessInfoMap objectForKeyedSubscript:bundleID];
+    accessoryOptions = [v51 accessoryOptions];
 
-    v48 = [(DADaemonServer *)self appBundleInfoAccessoryOptions:bundleID];
+    v53 = [(DADaemonServer *)self appBundleInfoAccessoryOptions:bundleID];
     appAccessInfoMap2 = [v24 appAccessInfoMap];
-    v50 = [appAccessInfoMap2 objectForKeyedSubscript:bundleID];
-    if ([v50 state] && ((v48 & 1) == 0 || (accessoryOptions & 1) != 0))
+    v55 = [appAccessInfoMap2 objectForKeyedSubscript:bundleID];
+    if ([v55 state] && ((v53 & 1) == 0 || (accessoryOptions & 1) != 0))
     {
-      v51 = [v24 upgradeInProgress] ^ 1;
+      v56 = [v24 upgradeInProgress] ^ 1;
     }
 
     else
     {
-      v51 = 0;
+      v56 = 0;
     }
 
     name = [deviceCopy name];
-    if (name && (v53 = name, [deviceCopy name], v54 = objc_claimAutoreleasedReturnValue(), v55 = objc_msgSend(v54, "length"), v54, v53, v55))
+    if (name && (v58 = name, [deviceCopy name], v59 = objc_claimAutoreleasedReturnValue(), v60 = objc_msgSend(v59, "length"), v59, v58, v60))
     {
-      if ((v51 & 1) == 0)
+      if ((v56 & 1) == 0)
       {
-        v56 = [[DADeviceEvent alloc] initWithEventType:40 device:v24];
-        [(DADaemonServer *)self _discoveryEvent:v56 appID:v73];
+        v61 = [[DADeviceEvent alloc] initWithEventType:40 device:v24];
+        [(DADaemonServer *)self _discoveryEvent:v61 appID:v68];
       }
     }
 
     else if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
-      v64 = v24;
-      v66 = deviceCopy;
-      LogPrintF();
+      LogPrintF(&dword_1000603A0, "[DADaemonServer _reportDiscoveredBTDevice:advertisementData:RSSI:AppID:DADaemonDiscovery:DADiscovery:config:]", 50, "### _reportDiscoveredBTDevice %@ %@ has no bluetooth name", v24, deviceCopy);
     }
 
-    v57 = objc_opt_new();
-    [v57 setObject:v24 forKey:@"DADevice"];
-    [v57 setObject:deviceCopy forKey:@"CBPeripheral"];
-    [v57 setObject:dataCopy forKey:@"ADVData"];
-    [v57 setObject:iCopy forKey:@"RSSI"];
-    [v57 setObject:aDiscoveryCopy forKey:@"DiscoveryObj"];
+    v62 = objc_opt_new();
+    [v62 setObject:v24 forKey:@"DADevice"];
+    [v62 setObject:deviceCopy forKey:@"CBPeripheral"];
+    [v62 setObject:dataCopy forKey:@"ADVData"];
+    [v62 setObject:iCopy forKey:@"RSSI"];
+    [v62 setObject:aDiscoveryCopy forKey:@"DiscoveryObj"];
     cbDADeviceMap = self->_cbDADeviceMap;
     identifier4 = [deviceCopy identifier];
-    [(NSMutableDictionary *)cbDADeviceMap setObject:v57 forKeyedSubscript:identifier4];
+    [(NSMutableDictionary *)cbDADeviceMap setObject:v62 forKeyedSubscript:identifier4];
 
-    discoveryCopy = v72;
+    discoveryCopy = v67;
     if (-[DADaemonServer deviceRequiresMultiTechDiscovery:](self, "deviceRequiresMultiTechDiscovery:", v24) && (![v24 bluetoothSetupFinished] || !objc_msgSend(v24, "wifiAwareSetupFinished") || objc_msgSend(v24, "upgradeInProgress")))
     {
       if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
       {
-        sub_100033060();
+        sub_100033060(v24);
       }
 
       appAccessInfoMap3 = [v24 appAccessInfoMap];
-      v61 = [appAccessInfoMap3 objectForKeyedSubscript:bundleID];
+      v66 = [appAccessInfoMap3 objectForKeyedSubscript:bundleID];
 
-      [(DADaemonServer *)self updateAppAccessInfo:v61 accessoryDevice:v24 removalType:0 error:0];
+      [(DADaemonServer *)self updateAppAccessInfo:v66 accessoryDevice:v24 removalType:0 error:0];
     }
 
     goto LABEL_58;
@@ -7342,11 +7538,11 @@ LABEL_36:
       prefsBTRSSIThreshold = self->_prefsBTRSSIThreshold;
     }
 
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _reportDiscoveredBTDevice:advertisementData:RSSI:AppID:DADaemonDiscovery:DADiscovery:config:]", 50, "### _reportDiscoveredBTDevice rssi: %@ lower than threshold %d, ignoring", iCopy, prefsBTRSSIThreshold);
   }
 
 LABEL_58:
-  dCopy = v73;
+  dCopy = v68;
 LABEL_59:
 }
 
@@ -7358,8 +7554,7 @@ LABEL_59:
   iCopy = i;
   if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    [iCopy intValue];
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "-[DADaemonServer centralManager:didDiscoverPeripheral:advertisementData:RSSI:]", 50, "### didDiscoverPeripheral %@ rssi: %d data: %@", peripheralCopy, [iCopy intValue], dataCopy);
   }
 
   discoveryMap = self->_discoveryMap;
@@ -7403,33 +7598,37 @@ LABEL_59:
 
 - (void)_updateLocalNetworkScannerIfNeeded
 {
-  if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1000603A0 <= 50)
   {
-    sub_1000330EC();
+    if (dword_1000603A0 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1000330EC(self, a2, v2);
+    }
   }
 
-  v7[0] = 0;
-  v7[1] = v7;
-  v7[2] = 0x3032000000;
-  v7[3] = sub_100002EE4;
-  v7[4] = sub_100002EF4;
-  v8 = 0;
+  v8[0] = 0;
+  v8[1] = v8;
+  v8[2] = 0x3032000000;
+  v8[3] = sub_100002EE4;
+  v8[4] = sub_100002EF4;
+  v9 = 0;
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_1000154A8;
+  v7[3] = &unk_100058D30;
+  v7[4] = v8;
+  v4 = objc_retainBlock(v7);
+  v5 = selfCopy->_discoveryMap;
   v6[0] = _NSConcreteStackBlock;
   v6[1] = 3221225472;
-  v6[2] = sub_1000154A8;
-  v6[3] = &unk_100058D30;
-  v6[4] = v7;
-  v3 = objc_retainBlock(v6);
-  v4 = self->_discoveryMap;
-  v5[0] = _NSConcreteStackBlock;
-  v5[1] = 3221225472;
-  v5[2] = sub_10001556C;
-  v5[3] = &unk_1000591F8;
-  v5[4] = self;
-  [(NSMutableDictionary *)v4 enumerateKeysAndObjectsUsingBlock:v5];
+  v6[2] = sub_10001556C;
+  v6[3] = &unk_1000591F8;
+  v6[4] = selfCopy;
+  [(NSMutableDictionary *)v5 enumerateKeysAndObjectsUsingBlock:v6];
 
-  (v3[2])(v3);
-  _Block_object_dispose(v7, 8);
+  (v4[2])(v4);
+  _Block_object_dispose(v8, 8);
 }
 
 - (int64_t)_updateDeviceStateForWifi:(id)wifi currentState:(int64_t)state
@@ -7452,7 +7651,7 @@ LABEL_59:
 
   if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_100033264();
+    sub_100033264(state);
   }
 
   bluetoothIdentifier = [wifiCopy bluetoothIdentifier];
@@ -7533,8 +7732,8 @@ LABEL_26:
                 }
 
                 v21 = DADeviceStateToString();
-                v23 = DADeviceStateToString();
-                LogPrintF();
+                v22 = DADeviceStateToString();
+                LogPrintF(&dword_1000603A0, "[DADaemonServer _updateDeviceStateForWifi:currentState:]", 50, "### _updateDeviceStateForWifi device %@ state %@->%@", wifiCopy, v21, v22);
 
                 state = stateCopy;
                 goto LABEL_29;
@@ -7569,7 +7768,7 @@ LABEL_32:
     wifiAwareDevicePairingID = [deviceCopy wifiAwareDevicePairingID];
     if (wifiAwareDevicePairingID)
     {
-      v15 = wifiAwareDevicePairingID;
+      v18 = wifiAwareDevicePairingID;
       appAccessInfoDeviceMap = [deviceCopy appAccessInfoDeviceMap];
       wifiAwarePairingID |= [appAccessInfoDeviceMap count];
     }
@@ -7582,7 +7781,7 @@ LABEL_32:
         {
           if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
           {
-            sub_100033504();
+            sub_100033504(deviceCopy);
           }
         }
 
@@ -7612,8 +7811,8 @@ LABEL_58:
         sub_1000332CC();
       }
 
-      v23 = -[DADaemonServer _deauthorizeWiFiAwareDeviceFor:withAppPairingID:](self, "_deauthorizeWiFiAwareDeviceFor:withAppPairingID:", bundleIdentifier, [awareCopy wifiAwarePairingID]);
-      if (v23)
+      v26 = -[DADaemonServer _deauthorizeWiFiAwareDeviceFor:withAppPairingID:](self, "_deauthorizeWiFiAwareDeviceFor:withAppPairingID:", bundleIdentifier, [awareCopy wifiAwarePairingID]);
+      if (v26)
       {
         if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
         {
@@ -7651,28 +7850,28 @@ LABEL_57:
     }
 
     appAccessInfoMap = [deviceCopy appAccessInfoMap];
-    v19 = [appAccessInfoMap objectForKeyedSubscript:bundleIdentifier];
+    v22 = [appAccessInfoMap objectForKeyedSubscript:bundleIdentifier];
 
     appAccessInfoMap2 = [deviceCopy appAccessInfoMap];
-    v21 = [appAccessInfoMap2 count];
+    v24 = [appAccessInfoMap2 count];
 
-    v22 = v21 > 1;
-    if (!v19)
+    v25 = v24 > 1;
+    if (!v22)
     {
-      v22 = v21 != 0;
+      v25 = v24 != 0;
     }
 
-    if (state == 10 && !v22)
+    if (state == 10 && !v25)
     {
       goto LABEL_29;
     }
 
-    if (state == 10 && v22)
+    if (state == 10 && v25)
     {
-      v27 = 0;
-      v24 = [(DADaemonServer *)self _authorizeWiFiAwareDeviceFor:bundleIdentifier pairingKeyStoreID:wifiAwareDevicePairingID2 device:deviceCopy error:&v27];
-      v25 = v27;
-      if (v25)
+      v30 = 0;
+      v27 = [(DADaemonServer *)self _authorizeWiFiAwareDeviceFor:bundleIdentifier pairingKeyStoreID:wifiAwareDevicePairingID2 device:deviceCopy error:&v30];
+      v28 = v30;
+      if (v28)
       {
         if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
         {
@@ -7684,7 +7883,7 @@ LABEL_57:
         goto LABEL_56;
       }
 
-      [awareCopy setWifiAwarePairingID:v24];
+      [awareCopy setWifiAwarePairingID:v27];
 LABEL_55:
       stateCopy2 = 25;
 LABEL_56:
@@ -7694,8 +7893,8 @@ LABEL_56:
 
     if (state == 28)
     {
-      v25 = -[DADaemonServer _reauthorizeWiFiAwareDeviceFor:withAppPairingID:](self, "_reauthorizeWiFiAwareDeviceFor:withAppPairingID:", bundleIdentifier, [awareCopy wifiAwarePairingID]);
-      if (v25)
+      v28 = -[DADaemonServer _reauthorizeWiFiAwareDeviceFor:withAppPairingID:](self, "_reauthorizeWiFiAwareDeviceFor:withAppPairingID:", bundleIdentifier, [awareCopy wifiAwarePairingID]);
+      if (v28)
       {
         if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
         {
@@ -7715,9 +7914,12 @@ LABEL_29:
     goto LABEL_57;
   }
 
-  if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+  if (dword_1000603A0 <= 50)
   {
-    sub_100033544();
+    if (dword_1000603A0 != -1 || (v12 = _LogCategory_Initialize(), v12))
+    {
+      sub_100033544(v12, v13, v14);
+    }
   }
 
 LABEL_59:
@@ -7731,70 +7933,78 @@ LABEL_59:
 
   if (storedPin)
   {
-    if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+    if (dword_1000603A0 <= 50)
     {
-      sub_100033560();
+      if (dword_1000603A0 != -1 || (v4 = _LogCategory_Initialize(), v4))
+      {
+        sub_100033560(v4, v5, v6);
+      }
     }
   }
 
   else
   {
-    if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+    if (dword_1000603A0 <= 50)
     {
-      sub_10003357C();
+      if (dword_1000603A0 != -1 || (v4 = _LogCategory_Initialize(), v4))
+      {
+        sub_10003357C(v4, v5, v6);
+      }
     }
 
-    [(DADaemonServer *)self _cleanupWiFiDiscoveryIfPossible:0];
-    if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+    v7 = [(DADaemonServer *)self _cleanupWiFiDiscoveryIfPossible:0];
+    if (dword_1000603A0 <= 50)
     {
-      sub_100033598();
+      if (dword_1000603A0 != -1 || (v7 = _LogCategory_Initialize(), v7))
+      {
+        sub_100033598(v7, v8, v9);
+      }
     }
 
-    v4 = +[NSMutableArray array];
-    v14 = 0;
-    v15 = &v14;
-    v16 = 0x3032000000;
-    v17 = sub_100002EE4;
-    v18 = sub_100002EF4;
+    v10 = +[NSMutableArray array];
     v19 = 0;
-    v5 = self->_discoveryMap;
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_100016BC4;
-    v11[3] = &unk_100059440;
-    v6 = v4;
-    v12 = v6;
-    v13 = &v14;
-    [(NSMutableDictionary *)v5 enumerateKeysAndObjectsUsingBlock:v11];
+    v20 = &v19;
+    v21 = 0x3032000000;
+    v22 = sub_100002EE4;
+    v23 = sub_100002EF4;
+    v24 = 0;
+    v11 = self->_discoveryMap;
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_100016BC4;
+    v16[3] = &unk_100059440;
+    v12 = v10;
+    v17 = v12;
+    v18 = &v19;
+    [(NSMutableDictionary *)v11 enumerateKeysAndObjectsUsingBlock:v16];
     if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
-      v7 = v6;
-      LogPrintF();
+      LogPrintF(&dword_1000603A0, "[DADaemonServer _updateWiFiManagerIfNeeded]", 30, "[WIFI] scan descriptors='%@'", v12);
     }
 
-    if ([v6 count])
+    if ([v12 count])
     {
       objc_initWeak(&location, self);
       [(DADaemonServer *)self _setupWiFiScanner];
-      [(DAWiFiScanner *)self->_wifiScanner setDeviceOTANameToBroadcast:v15[5]];
-      v8[0] = _NSConcreteStackBlock;
-      v8[1] = 3221225472;
-      v8[2] = sub_1000175F4;
-      v8[3] = &unk_100059490;
-      objc_copyWeak(&v9, &location);
-      v8[4] = self;
-      [(DAWiFiScanner *)self->_wifiScanner setResultsHandler:v8];
-      [(DAWiFiScanner *)self->_wifiScanner startScanningWithDescriptors:v6];
-      objc_destroyWeak(&v9);
+      [(DAWiFiScanner *)self->_wifiScanner setDeviceOTANameToBroadcast:v20[5]];
+      v13[0] = _NSConcreteStackBlock;
+      v13[1] = 3221225472;
+      v13[2] = sub_1000175F4;
+      v13[3] = &unk_100059490;
+      objc_copyWeak(&v14, &location);
+      v13[4] = self;
+      [(DAWiFiScanner *)self->_wifiScanner setResultsHandler:v13];
+      [(DAWiFiScanner *)self->_wifiScanner startScanningWithDescriptors:v12];
+      objc_destroyWeak(&v14);
       objc_destroyWeak(&location);
     }
 
     else if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1000603A0, "[DADaemonServer _updateWiFiManagerIfNeeded]", 30, "[WIFI] invalid scan descriptors");
     }
 
-    _Block_object_dispose(&v14, 8);
+    _Block_object_dispose(&v19, 8);
   }
 }
 
@@ -7835,7 +8045,7 @@ LABEL_59:
   deviceCopy = device;
   if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_100033B68();
+    sub_100033B68(deviceCopy);
   }
 
   appAccessInfoMap = [deviceCopy appAccessInfoMap];
@@ -7887,12 +8097,10 @@ LABEL_59:
   deviceCopy = device;
   if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    v16 = forCopy;
-    v17 = dCopy;
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _authorizeWiFiAwareDeviceFor:pairingKeyStoreID:device:error:]", 30, "[WiFi] authorizePairedDeviceFor bundleID='%@', devicePairedID='%@'", forCopy, dCopy);
   }
 
-  [(DADaemonServer *)self _setupWiFiScanner:v16];
+  [(DADaemonServer *)self _setupWiFiScanner];
   if (([deviceCopy flags] & 0x400) != 0)
   {
     v13 = 2;
@@ -7917,12 +8125,10 @@ LABEL_59:
   handlerCopy = handler;
   if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    v14 = forCopy;
-    v15 = dCopy;
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _authorizeWiFiAwareDeviceFor:pairingKeyStoreID:device:completionHandler:]", 30, "[WiFi] authorizePairedDeviceFor bundleID='%@', devicePairedID='%@'", forCopy, dCopy);
   }
 
-  [(DADaemonServer *)self _setupWiFiScanner:v14];
+  [(DADaemonServer *)self _setupWiFiScanner];
   if (([deviceCopy flags] & 0x400) != 0)
   {
     v13 = 2;
@@ -7943,12 +8149,10 @@ LABEL_59:
   handlerCopy = handler;
   if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    v9 = forCopy;
-    dCopy = d;
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _reauthorizeWiFiAwareDeviceFor:withAppPairingID:completionHandler:]", 30, "[WiFi] reauthorizePairedDeviceFor bundleID='%@', appPairingID='%llu'", forCopy, d);
   }
 
-  [(DADaemonServer *)self _setupWiFiScanner:v9];
+  [(DADaemonServer *)self _setupWiFiScanner];
   [(DAWiFiScanner *)self->_wifiScanner reauthorizePairedDeviceFor:forCopy withAppPairingID:d completionHandler:handlerCopy];
 }
 
@@ -7957,12 +8161,10 @@ LABEL_59:
   forCopy = for;
   if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    v9 = forCopy;
-    dCopy = d;
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _reauthorizeWiFiAwareDeviceFor:withAppPairingID:]", 30, "[WiFi] reauthorizePairedDeviceFor bundleID='%@', appPairingID='%llu'", forCopy, d);
   }
 
-  [(DADaemonServer *)self _setupWiFiScanner:v9];
+  [(DADaemonServer *)self _setupWiFiScanner];
   v7 = [(DAWiFiScanner *)self->_wifiScanner reauthorizePairedDeviceFor:forCopy withAppPairingID:d];
 
   return v7;
@@ -7974,12 +8176,10 @@ LABEL_59:
   handlerCopy = handler;
   if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    v9 = forCopy;
-    dCopy = d;
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _deauthorizeWiFiAwareDeviceFor:withAppPairingID:completionHandler:]", 30, "[WiFi] _deauthorizeWiFiAwareDeviceFor bundleID='%@' with ID='%llu'", forCopy, d);
   }
 
-  [(DADaemonServer *)self _setupWiFiScanner:v9];
+  [(DADaemonServer *)self _setupWiFiScanner];
   [(DAWiFiScanner *)self->_wifiScanner deauthorizePairedDeviceFor:forCopy withAppPairingID:d completionHandler:handlerCopy];
 }
 
@@ -7988,12 +8188,10 @@ LABEL_59:
   forCopy = for;
   if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    v9 = forCopy;
-    dCopy = d;
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _deauthorizeWiFiAwareDeviceFor:withAppPairingID:]", 30, "[WiFi] _deauthorizeWiFiAwareDeviceFor bundleID='%@' with ID='%llu'", forCopy, d);
   }
 
-  [(DADaemonServer *)self _setupWiFiScanner:v9];
+  [(DADaemonServer *)self _setupWiFiScanner];
   v7 = [(DAWiFiScanner *)self->_wifiScanner deauthorizePairedDeviceFor:forCopy withAppPairingID:d];
 
   return v7;
@@ -8005,7 +8203,7 @@ LABEL_59:
   handlerCopy = handler;
   if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_100033C5C();
+    sub_100033C5C(forCopy);
   }
 
   [(DADaemonServer *)self _setupWiFiScanner];
@@ -8018,12 +8216,10 @@ LABEL_59:
   handlerCopy = handler;
   if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    v9 = forCopy;
-    dCopy = d;
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _uninstallWiFiAwareDeviceFor:appPairingID:completionHandler:]", 30, "[WiFi] uninstallWiFiAwareDeviceFor BundleID='%@', appPairingID='%llu'", forCopy, d);
   }
 
-  [(DADaemonServer *)self _setupWiFiScanner:v9];
+  [(DADaemonServer *)self _setupWiFiScanner];
   [(DAWiFiScanner *)self->_wifiScanner uninstallPairedDeviceFor:forCopy withAppPairingID:d completionHandler:handlerCopy];
 }
 
@@ -8032,12 +8228,10 @@ LABEL_59:
   forCopy = for;
   if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    v9 = forCopy;
-    dCopy = d;
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _uninstallWiFiAwareDeviceFor:appPairingID:]", 30, "[WiFi] uninstallWiFiAwareDeviceFor BundleID='%@', appPairingID='%llu'", forCopy, d);
   }
 
-  [(DADaemonServer *)self _setupWiFiScanner:v9];
+  [(DADaemonServer *)self _setupWiFiScanner];
   v7 = [(DAWiFiScanner *)self->_wifiScanner uninstallPairedDeviceFor:forCopy withAppPairingID:d];
 
   return v7;
@@ -8046,21 +8240,25 @@ LABEL_59:
 - (void)resetWiFiIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+  v7 = identifierCopy;
+  if (dword_1000603A0 <= 50)
   {
-    sub_100033C9C();
+    if (dword_1000603A0 != -1 || (identifierCopy = _LogCategory_Initialize(), identifierCopy))
+    {
+      sub_100033C9C(identifierCopy, v5, v6);
+    }
   }
 
   [(DADaemonServer *)self _setupWiFiScanner];
   wifiScanner = self->_wifiScanner;
-  v7[0] = _NSConcreteStackBlock;
-  v7[1] = 3221225472;
-  v7[2] = sub_100019100;
-  v7[3] = &unk_100059530;
-  v7[4] = self;
-  v8 = identifierCopy;
-  v6 = identifierCopy;
-  [(DAWiFiScanner *)wifiScanner removeAllPairedDevices:v7];
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_100019100;
+  v10[3] = &unk_100059530;
+  v10[4] = self;
+  v11 = v7;
+  v9 = v7;
+  [(DAWiFiScanner *)wifiScanner removeAllPairedDevices:v10];
 }
 
 - (void)_updateWiFiAwareDeviceNameFor:(id)for appPairingID:(unint64_t)d newName:(id)name completionHandler:(id)handler
@@ -8070,13 +8268,10 @@ LABEL_59:
   handlerCopy = handler;
   if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    v13 = nameCopy;
-    dCopy = d;
-    v12 = forCopy;
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _updateWiFiAwareDeviceNameFor:appPairingID:newName:completionHandler:]", 30, "[WiFi] updateWiFiAwareDeviceNameFor bundleID='%@', newName='%@', pairingID='%llu'", forCopy, nameCopy, d);
   }
 
-  [(DADaemonServer *)self _setupWiFiScanner:v12];
+  [(DADaemonServer *)self _setupWiFiScanner];
   [(DAWiFiScanner *)self->_wifiScanner updatePairedDeviceNameFor:forCopy withAppPairingID:d newName:nameCopy completionHandler:handlerCopy];
 }
 
@@ -8086,13 +8281,10 @@ LABEL_59:
   nameCopy = name;
   if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    v13 = nameCopy;
-    dCopy = d;
-    v12 = forCopy;
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _updateWiFiAwareDeviceNameFor:appPairingID:newName:]", 30, "[WiFi] updateWiFiAwareDeviceNameFor bundleID='%@', newName='%@', pairingID='%llu'", forCopy, nameCopy, d);
   }
 
-  [(DADaemonServer *)self _setupWiFiScanner:v12];
+  [(DADaemonServer *)self _setupWiFiScanner];
   v10 = [(DAWiFiScanner *)self->_wifiScanner updatePairedDeviceNameFor:forCopy withAppPairingID:d toNewName:nameCopy];
 
   return v10;
@@ -8120,19 +8312,19 @@ LABEL_59:
   iDCopy = iD;
   if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_100034004();
+    sub_100034004(v11);
   }
 
-  v26[0] = _NSConcreteStackBlock;
-  v26[1] = 3221225472;
-  v26[2] = sub_100019D20;
-  v26[3] = &unk_100059580;
-  v26[4] = self;
+  v25[0] = _NSConcreteStackBlock;
+  v25[1] = 3221225472;
+  v25[2] = sub_100019D20;
+  v25[3] = &unk_100059580;
+  v25[4] = self;
   v13 = v11;
-  v27 = v13;
+  v26 = v13;
   v14 = deviceCopy;
-  v28 = v14;
-  [(DAWiFiScanner *)self->_wifiScanner setWifiAwareDevicePairedHandler:v26];
+  v27 = v14;
+  [(DAWiFiScanner *)self->_wifiScanner setWifiAwareDevicePairedHandler:v25];
   objc_initWeak(&location, self);
   discoveryConfiguration = [v13 discoveryConfiguration];
   wifiAwareServiceType = [discoveryConfiguration wifiAwareServiceType];
@@ -8141,36 +8333,35 @@ LABEL_59:
   {
     if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
-      v17 = v13;
-      LogPrintF();
+      LogPrintF(&dword_1000603A0, "[DADaemonServer _persistWiFiAwareDevice:device:pairingID:bundleID:]", 30, "[WiFi] Device is receiver, asking device='%@' for PIN", v13);
     }
 
-    [(DAWiFiScanner *)self->_wifiScanner selectWiFiAwareDevice:v13 withBundleID:iDCopy, v17];
+    [(DAWiFiScanner *)self->_wifiScanner selectWiFiAwareDevice:v13 withBundleID:iDCopy];
     [(DAWiFiScanner *)self->_wifiScanner pairSelectedWiFiAwareDevice:v13 withBundleID:iDCopy];
-    v22[0] = _NSConcreteStackBlock;
-    v22[1] = 3221225472;
-    v22[2] = sub_10001A164;
-    v22[3] = &unk_1000595A8;
-    v24[1] = d;
-    v24[2] = 30;
-    objc_copyWeak(v24, &location);
-    v23 = iDCopy;
-    [(DAWiFiScanner *)self->_wifiScanner setShowPinInputHandler:v22];
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3221225472;
+    v21[2] = sub_10001A164;
+    v21[3] = &unk_1000595A8;
+    v23[1] = d;
+    v23[2] = 30;
+    objc_copyWeak(v23, &location);
+    v22 = iDCopy;
+    [(DAWiFiScanner *)self->_wifiScanner setShowPinInputHandler:v21];
 
-    objc_destroyWeak(v24);
+    objc_destroyWeak(v23);
   }
 
   else
   {
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = sub_10001A1FC;
-    v18[3] = &unk_1000595D0;
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_10001A1FC;
+    v17[3] = &unk_1000595D0;
     dCopy = d;
-    v21 = 20;
-    v18[4] = self;
-    v19 = iDCopy;
-    [(DAWiFiScanner *)self->_wifiScanner setPinCreatedOnPublisher:v18];
+    v20 = 20;
+    v17[4] = self;
+    v18 = iDCopy;
+    [(DAWiFiScanner *)self->_wifiScanner setPinCreatedOnPublisher:v17];
     [(DAWiFiScanner *)self->_wifiScanner pairingPINAccepted:v13];
   }
 
@@ -8196,26 +8387,26 @@ LABEL_59:
 {
   endpointCopy = endpoint;
   dCopy = d;
-  v34[0] = 0;
-  v34[1] = v34;
-  v34[2] = 0x3032000000;
-  v34[3] = sub_100002EE4;
-  v34[4] = sub_100002EF4;
-  v35 = 0;
+  v32[0] = 0;
+  v32[1] = v32;
+  v32[2] = 0x3032000000;
+  v32[3] = sub_100002EE4;
+  v32[4] = sub_100002EF4;
+  v33 = 0;
   networkEndpoint = [endpointCopy networkEndpoint];
-  v30[0] = _NSConcreteStackBlock;
-  v30[1] = 3221225472;
-  v30[2] = sub_10001A7A4;
-  v30[3] = &unk_1000595F8;
-  v33 = v34;
+  v28[0] = _NSConcreteStackBlock;
+  v28[1] = 3221225472;
+  v28[2] = sub_10001A7A4;
+  v28[3] = &unk_1000595F8;
+  v31 = v32;
   v8 = endpointCopy;
-  v31 = v8;
+  v29 = v8;
   v9 = dCopy;
-  v32 = v9;
-  v10 = objc_retainBlock(v30);
+  v30 = v9;
+  v10 = objc_retainBlock(v28);
   if (!networkEndpoint)
   {
-    v17 = NSErrorF_safe();
+    v19 = NSErrorF_safe();
     goto LABEL_22;
   }
 
@@ -8224,43 +8415,41 @@ LABEL_59:
     if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
       identifier = [v8 identifier];
-      v21 = v9;
-      v18 = networkEndpoint;
-      LogPrintF();
+      LogPrintF(&dword_1000603A0, "[DADaemonServer _addTXTRecordToNWEndpoint:appID:]", 30, "Processing Bonjour TXT Record for networkEndpoint: NEP %@, deviceID %@, appID %@, TXT Record ??", networkEndpoint, identifier, v9);
     }
 
     txtRecordData = [v8 txtRecordData];
     identifier2 = txtRecordData;
     if (txtRecordData)
     {
-      v13 = nw_txt_record_create_with_bytes([txtRecordData bytes], objc_msgSend(txtRecordData, "length"));
-      if (v13)
+      v14 = nw_txt_record_create_with_bytes([txtRecordData bytes], objc_msgSend(txtRecordData, "length"));
+      if (v14)
       {
         out_signature_length = 0;
         signature = nw_endpoint_get_signature(networkEndpoint, &out_signature_length);
-        v28 = 0;
-        v15 = (off_100060380[0])(signature, out_signature_length, &v28);
-        v16 = v15;
-        if (v15)
+        v26 = 0;
+        v16 = off_100060380(signature, out_signature_length, &v26);
+        v17 = v16;
+        if (v16)
         {
           access_bytes[0] = _NSConcreteStackBlock;
           access_bytes[1] = 3221225472;
           access_bytes[2] = sub_10001A814;
           access_bytes[3] = &unk_100059620;
-          v27 = v15;
-          v23 = v9;
-          v24 = v8;
-          v25 = networkEndpoint;
-          v26 = v13;
-          nw_txt_record_access_bytes(v13, access_bytes);
+          v25 = v16;
+          v21 = v9;
+          v22 = v8;
+          v23 = networkEndpoint;
+          v24 = v14;
+          nw_txt_record_access_bytes(v14, access_bytes);
 
-          (off_100060390[0])(v16);
+          off_100060390(v17);
         }
 
         else if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
         {
-          v19 = CUPrintErrorCode();
-          LogPrintF();
+          v18 = CUPrintErrorCode();
+          LogPrintF(&dword_1000603A0, "[DADaemonServer _addTXTRecordToNWEndpoint:appID:]", 30, "Failed to get mDNS result: %@", v18);
         }
       }
     }
@@ -8271,40 +8460,40 @@ LABEL_59:
   if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
     identifier2 = [v8 identifier];
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _addTXTRecordToNWEndpoint:appID:]", 30, "Skipping Bonjour processing for networkEndpoint: NEP %@, deviceID %@, appID %@", networkEndpoint, identifier2, v9);
 LABEL_21:
   }
 
 LABEL_22:
   (v10[2])(v10);
 
-  _Block_object_dispose(v34, 8);
+  _Block_object_dispose(v32, 8);
 }
 
 - (void)_addSSDPDatatoNWEndpoint:(id)endpoint appID:(id)d
 {
   endpointCopy = endpoint;
   dCopy = d;
-  v56[0] = 0;
-  v56[1] = v56;
-  v56[2] = 0x3032000000;
-  v56[3] = sub_100002EE4;
-  v56[4] = sub_100002EF4;
-  v57 = 0;
+  v57[0] = 0;
+  v57[1] = v57;
+  v57[2] = 0x3032000000;
+  v57[3] = sub_100002EE4;
+  v57[4] = sub_100002EF4;
+  v58 = 0;
   networkEndpoint = [endpointCopy networkEndpoint];
-  v52[0] = _NSConcreteStackBlock;
-  v52[1] = 3221225472;
-  v52[2] = sub_10001B2B8;
-  v52[3] = &unk_1000595F8;
-  v55 = v56;
+  v53[0] = _NSConcreteStackBlock;
+  v53[1] = 3221225472;
+  v53[2] = sub_10001B2B8;
+  v53[3] = &unk_1000595F8;
+  v56 = v57;
   v8 = endpointCopy;
-  v53 = v8;
+  v54 = v8;
   v9 = dCopy;
-  v54 = v9;
-  v10 = objc_retainBlock(v52);
+  v55 = v9;
+  v10 = objc_retainBlock(v53);
   if (!networkEndpoint)
   {
-    v31 = NSErrorF_safe();
+    v35 = NSErrorF_safe();
     goto LABEL_50;
   }
 
@@ -8314,135 +8503,127 @@ LABEL_22:
     if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
       identifier = [v8 identifier];
-      v35 = v9;
-      v33 = networkEndpoint;
-      LogPrintF();
+      LogPrintF(&dword_1000603A0, "[DADaemonServer _addSSDPDatatoNWEndpoint:appID:]", 30, "Processing non-Bonjour networkEndpoint: NEP %@, deviceID %@, appID %@", networkEndpoint, identifier, v9);
     }
 
     dictionary = nw_txt_record_create_dictionary();
-    v13 = [v8 url];
-    if (v13)
+    v14 = [v8 url];
+    if (v14)
     {
-      if ([DADevice deviceMetadataURLValid:v13])
+      if ([DADevice deviceMetadataURLValid:v14])
       {
         if (dword_1000603A0 <= 30)
         {
           if (dword_1000603A0 != -1 || _LogCategory_Initialize())
           {
-            identifier = [v8 identifier];
-            v35 = v13;
-            v33 = v9;
-            LogPrintF();
+            identifier2 = [v8 identifier];
+            LogPrintF(&dword_1000603A0, "[DADaemonServer _addSSDPDatatoNWEndpoint:appID:]", 30, "Valid URL for appID %@, deviceID %@, URL %@", v9, identifier2, v14);
           }
 
           if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
           {
-            identifier = [v8 identifier];
-            v35 = v13;
-            v33 = v9;
-            LogPrintF();
+            identifier3 = [v8 identifier];
+            LogPrintF(&dword_1000603A0, "[DADaemonServer _addSSDPDatatoNWEndpoint:appID:]", 30, "Resolving Host for URL for appID %@, deviceID %@, URL %@", v9, identifier3, v14);
           }
         }
 
-        v15 = [v13 host:v33];
-        v16 = v15;
-        uTF8String = [v15 UTF8String];
+        host = [v14 host];
+        v20 = host;
+        uTF8String = [host UTF8String];
 
-        if (!uTF8String || (-[NSObject port](v13, "port"), v18 = objc_claimAutoreleasedReturnValue(), v19 = [v18 utf8ValueSafe], v18, !v19))
+        if (!uTF8String || ([v14 port], v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v22, "utf8ValueSafe"), v22, !v23))
         {
-          v32 = NSErrorF_safe();
+          v36 = NSErrorF_safe();
 
           goto LABEL_49;
         }
 
         parameters = nw_parameters_create_secure_tcp(_nw_parameters_configure_protocol_disable, _nw_parameters_configure_protocol_default_configuration);
-        v20 = v13;
-        host = nw_endpoint_create_host(uTF8String, v19);
-        v21 = nw_connection_create(host, parameters);
-        v36 = dispatch_semaphore_create(0);
-        v48 = 0;
-        v49 = &v48;
-        v50 = 0x2020000000;
-        v51 = 0;
-        v22 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-        queue = dispatch_queue_create("DAConnectionQueue", v22);
+        v24 = v14;
+        host = nw_endpoint_create_host(uTF8String, v23);
+        v25 = nw_connection_create(host, parameters);
+        v37 = dispatch_semaphore_create(0);
+        v49 = 0;
+        v50 = &v49;
+        v51 = 0x2020000000;
+        v52 = 0;
+        v26 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+        queue = dispatch_queue_create("DAConnectionQueue", v26);
 
-        v13 = v20;
-        nw_connection_set_queue(v21, queue);
+        v14 = v24;
+        nw_connection_set_queue(v25, queue);
         handler[0] = _NSConcreteStackBlock;
         handler[1] = 3221225472;
         handler[2] = sub_10001B328;
         handler[3] = &unk_100059648;
-        v46 = uTF8String;
-        v47 = v19;
-        identifier2 = v21;
-        v41 = identifier2;
-        v42 = v9;
-        v43 = v8;
-        v45 = &v48;
-        v23 = v36;
-        v44 = v23;
-        nw_connection_set_state_changed_handler(identifier2, handler);
-        nw_connection_start(identifier2);
-        v24 = dispatch_time(0, 3000000000);
-        if (dispatch_semaphore_wait(v23, v24) && dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+        v47 = uTF8String;
+        v48 = v23;
+        identifier5 = v25;
+        v42 = identifier5;
+        v43 = v9;
+        v44 = v8;
+        v46 = &v49;
+        v27 = v37;
+        v45 = v27;
+        nw_connection_set_state_changed_handler(identifier5, handler);
+        nw_connection_start(identifier5);
+        v28 = dispatch_time(0, 3000000000);
+        if (dispatch_semaphore_wait(v27, v28) && dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&dword_1000603A0, "[DADaemonServer _addSSDPDatatoNWEndpoint:appID:]", 30, "nw_connection ready did timeout");
         }
 
-        if (*(v49 + 24) == 1)
+        if (*(v50 + 24) == 1)
         {
           if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&dword_1000603A0, "[DADaemonServer _addSSDPDatatoNWEndpoint:appID:]", 30, "nw_connection start succeeded");
           }
 
-          absoluteString = [v20 absoluteString];
-          v26 = absoluteString;
+          absoluteString = [v24 absoluteString];
+          v30 = absoluteString;
           uTF8String2 = [absoluteString UTF8String];
 
-          v28 = strlen(uTF8String2);
-          nw_txt_record_set_key(dictionary, "DDDeviceURL", uTF8String2, v28);
+          v32 = strlen(uTF8String2);
+          nw_txt_record_set_key(dictionary, "DDDeviceURL", uTF8String2, v32);
         }
 
         else if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&dword_1000603A0, "[DADaemonServer _addSSDPDatatoNWEndpoint:appID:]", 30, "nw_connection start failed");
         }
 
-        nw_connection_cancel(identifier2);
+        nw_connection_cancel(identifier5);
 
-        _Block_object_dispose(&v48, 8);
+        _Block_object_dispose(&v49, 8);
       }
 
       else
       {
         if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
         {
-          identifier = [v8 identifier];
-          v35 = v13;
-          v33 = v9;
-          LogPrintF();
+          identifier4 = [v8 identifier];
+          LogPrintF(&dword_1000603A0, "[DADaemonServer _addSSDPDatatoNWEndpoint:appID:]", 30, "Invalid URL for appID %@, deviceID %@, URL %@", v9, identifier4, v14);
         }
 
-        v58[0] = @"BundleID";
-        v58[1] = @"SupportsSSDP";
-        v59[0] = v9;
-        v59[1] = &off_10005ABD8;
-        v58[2] = @"SSDPProtocol";
+        v59[0] = @"BundleID";
+        v59[1] = @"SupportsSSDP";
+        v60[0] = v9;
+        v60[1] = &off_10005ABD8;
+        v59[2] = @"SSDPProtocol";
         parameters = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v8 protocol]);
-        v59[2] = parameters;
-        host = [NSDictionary dictionaryWithObjects:v59 forKeys:v58 count:3];
-        identifier2 = [v8 identifier];
-        [DADeviceAccessAnalytics sendAnalyticsInfo:host forEvent:@"com.apple.DeviceAccess.SSDPMetadataInvalidURL" withDeviceIdentifier:identifier2];
+        v60[2] = parameters;
+        host = [NSDictionary dictionaryWithObjects:v60 forKeys:v59 count:3];
+        identifier5 = [v8 identifier];
+        [DADeviceAccessAnalytics sendAnalyticsInfo:host forEvent:@"com.apple.DeviceAccess.SSDPMetadataInvalidURL" withDeviceIdentifier:identifier5];
       }
     }
 
     if ([v8 protocol] == 1)
     {
       uTF8String3 = [DADeviceProtocolDIAL UTF8String];
-      v30 = strlen(uTF8String3);
-      nw_txt_record_set_key(dictionary, "DDDeviceProtocolType", uTF8String3, v30);
+      v34 = strlen(uTF8String3);
+      nw_txt_record_set_key(dictionary, "DDDeviceProtocolType", uTF8String3, v34);
     }
 
     nw_endpoint_set_txt_record();
@@ -8452,14 +8633,14 @@ LABEL_22:
   if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
     dictionary = [v8 identifier];
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _addSSDPDatatoNWEndpoint:appID:]", 30, "Skip SSDP processing for networkEndpoint: NEP %@, deviceID %@, appID %@", networkEndpoint, dictionary, v9);
 LABEL_49:
   }
 
 LABEL_50:
   (v10[2])(v10);
 
-  _Block_object_dispose(v56, 8);
+  _Block_object_dispose(v57, 8);
 }
 
 - (void)_necpCleanupIfNeeded
@@ -8491,10 +8672,10 @@ LABEL_7:
         goto LABEL_8;
       }
 
-      v4 = self->_necpFD;
+      necpFD = self->_necpFD;
     }
 
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _necpCleanupIfNeeded]", 30, "NECP close: FD %d", necpFD);
     goto LABEL_7;
   }
 
@@ -8534,7 +8715,7 @@ LABEL_8:
   v11 = objc_retainBlock(v25);
   if (!v8)
   {
-    v18 = NSErrorF_safe();
+    v21 = NSErrorF_safe();
     goto LABEL_24;
   }
 
@@ -8548,15 +8729,15 @@ LABEL_8:
       {
         v36 = 0;
         v37 = 0;
-        v16 = [(DADaemonServer *)self _necpUUIDForAppID:v10 deviceID:identifier uuidBytes:&v36];
-        v17 = (v31 + 5);
+        v17 = [(DADaemonServer *)self _necpUUIDForAppID:v10 deviceID:identifier uuidBytes:&v36];
+        v18 = (v31 + 5);
         v23 = v31[5];
         [(DADaemonServer *)self _necpSignHostnameEndpoint:v8 uuidBytes:&v36 error:&v23];
-        objc_storeStrong(v17, v23);
+        objc_storeStrong(v18, v23);
         if (!v31[5] && dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
         {
           identifier2 = [v9 identifier];
-          LogPrintF();
+          LogPrintF(&dword_1000603A0, "[DADaemonServer _necpSignEndpointForDevice:appID:]", 30, "Signed networkEndpoint: hostname, %@, deviceID %@, appID %@, UUID %@", v8, identifier2, v10, v17);
         }
       }
 
@@ -8572,20 +8753,20 @@ LABEL_8:
         if (!v31[5] && dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
         {
           identifier3 = [v9 identifier];
-          LogPrintF();
+          LogPrintF(&dword_1000603A0, "[DADaemonServer _necpSignEndpointForDevice:appID:]", 30, "Signed networkEndpoint: address, %@, deviceID %@, appID %@, UUID %@", v8, identifier3, v10, v14);
         }
       }
 
       else if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
       {
         identifier4 = [v9 identifier];
-        LogPrintF();
+        LogPrintF(&dword_1000603A0, "[DADaemonServer _necpSignEndpointForDevice:appID:]", 30, "Skip sign networkEndpoint: NEP %@, deviceID %@, appID %@", v8, identifier4, v10);
       }
     }
 
     else
     {
-      v19 = NSErrorF_safe();
+      v22 = NSErrorF_safe();
     }
 
     goto LABEL_23;
@@ -8594,7 +8775,7 @@ LABEL_8:
   if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
     identifier = [v9 identifier];
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _necpSignEndpointForDevice:appID:]", 30, "networkEndpoint already signed for deviceID: %@, appID: %@", identifier, v10);
 LABEL_23:
   }
 
@@ -8621,12 +8802,12 @@ LABEL_24:
   }
 
   v10 = v9;
-  v17[0] = _NSConcreteStackBlock;
-  v17[1] = 3221225472;
-  v17[2] = sub_10001BDDC;
-  v17[3] = &unk_100059690;
-  v17[4] = v9;
-  v11 = objc_retainBlock(v17);
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_10001BDDC;
+  v14[3] = &unk_100059690;
+  v14[4] = v9;
+  v11 = objc_retainBlock(v14);
   v10[2] = *bytes;
   *(v10 + 6) = 4;
   SockAddrCopy();
@@ -8647,12 +8828,10 @@ LABEL_24:
 
     if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
-      necpFD = self->_necpFD;
-      LogPrintF();
+      LogPrintF(&dword_1000603A0, "[DADaemonServer _necpSignAddressEndpoint:uuidBytes:error:]", 30, "NECP opened: FD %d", self->_necpFD);
     }
   }
 
-  v13 = self->_necpFD;
   if (necp_client_action() && (!*__error() || *__error()))
   {
     if (!error)
@@ -8665,7 +8844,6 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  v14 = self->_necpFD;
   if (necp_client_action() && (!*__error() || *__error()))
   {
     if (!error)
@@ -8712,12 +8890,12 @@ LABEL_25:
   }
 
   v15 = v14;
-  v22[0] = _NSConcreteStackBlock;
-  v22[1] = 3221225472;
-  v22[2] = sub_10001C108;
-  v22[3] = &unk_100059690;
-  v22[4] = v14;
-  v16 = objc_retainBlock(v22);
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_10001C108;
+  v19[3] = &unk_100059690;
+  v19[4] = v14;
+  v16 = objc_retainBlock(v19);
   v15[2] = *bytes;
   *(v15 + 6) = 6;
   *(v15 + 28) = 0;
@@ -8740,12 +8918,10 @@ LABEL_25:
 
     if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
-      necpFD = self->_necpFD;
-      LogPrintF();
+      LogPrintF(&dword_1000603A0, "[DADaemonServer _necpSignHostnameEndpoint:uuidBytes:error:]", 30, "NECP opened: FD %d", self->_necpFD);
     }
   }
 
-  v18 = self->_necpFD;
   if (necp_client_action() && (!*__error() || *__error()))
   {
     if (!error)
@@ -8758,7 +8934,6 @@ LABEL_24:
     goto LABEL_25;
   }
 
-  v19 = self->_necpFD;
   if (necp_client_action() && (!*__error() || *__error()))
   {
     if (!error)
@@ -8824,7 +8999,7 @@ LABEL_26:
 
       if (!networkEndpoint2)
       {
-        sub_1000346A8();
+        sub_1000346A8(dCopy, identifier);
         goto LABEL_13;
       }
     }
@@ -8835,7 +9010,7 @@ LABEL_26:
     {
       if (out_signature_length <= 0x2F)
       {
-        sub_100034588(&out_signature_length);
+        sub_100034588(&out_signature_length, out_signature_length, dCopy, identifier);
       }
 
       else
@@ -8846,25 +9021,22 @@ LABEL_26:
         v17 = [[NSString alloc] initWithFormat:@"%@:%@", dCopy, identifier];
         if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
         {
-          v19 = identifier;
-          v20 = uUIDString;
-          v18 = dCopy;
-          LogPrintF();
+          LogPrintF(&dword_1000603A0, "[DADaemonServer _necpUpdateUUIDForAppID:device:]", 30, "NECP update UUID: appID %@, deviceID %@, UUID %@", dCopy, identifier, uUIDString);
         }
 
-        v21[0] = _NSConcreteStackBlock;
-        v21[1] = 3221225472;
-        v21[2] = sub_10001C99C;
-        v21[3] = &unk_100059708;
-        v21[4] = uUIDString;
-        v21[5] = v17;
-        [(DADaemonServer *)self _necpUpdateUUIDsWithBlock:v21, v18, v19, v20];
+        v18[0] = _NSConcreteStackBlock;
+        v18[1] = 3221225472;
+        v18[2] = sub_10001C99C;
+        v18[3] = &unk_100059708;
+        v18[4] = uUIDString;
+        v18[5] = v17;
+        [(DADaemonServer *)self _necpUpdateUUIDsWithBlock:v18];
       }
     }
 
     else
     {
-      sub_100034628();
+      sub_100034628(dCopy, identifier);
     }
   }
 
@@ -8879,39 +9051,38 @@ LABEL_13:
 - (void)_necpUpdateUUIDsWithBlock:(id)block
 {
   blockCopy = block;
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x3032000000;
-  v40 = sub_100002EE4;
-  v41 = sub_100002EF4;
-  v42 = 0;
-  v36[0] = _NSConcreteStackBlock;
-  v36[1] = 3221225472;
-  v36[2] = sub_10001CF00;
-  v36[3] = &unk_100058D30;
-  v36[4] = &v37;
-  v5 = objc_retainBlock(v36);
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x3032000000;
+  v36 = sub_100002EE4;
+  v37 = sub_100002EF4;
+  v38 = 0;
+  v32[0] = _NSConcreteStackBlock;
+  v32[1] = 3221225472;
+  v32[2] = sub_10001CF00;
+  v32[3] = &unk_100058D30;
+  v32[4] = &v33;
+  v5 = objc_retainBlock(v32);
   v6 = +[NSFileManager defaultManager];
-  v7 = v38 + 5;
-  obj = v38[5];
+  v7 = v34 + 5;
+  obj = v34[5];
   v8 = [v6 URLForDirectory:5 inDomain:1 appropriateForURL:0 create:1 error:&obj];
   objc_storeStrong(v7, obj);
 
   if (!v8)
   {
-    v27 = v38[5];
-    v28 = DANestedErrorF();
-    v9 = v38[5];
-    v38[5] = v28;
+    v25 = DANestedErrorF();
+    v9 = v34[5];
+    v34[5] = v25;
     goto LABEL_21;
   }
 
   v9 = [v8 URLByAppendingPathComponent:@"com.apple.DeviceAccess" isDirectory:1];
   v10 = +[NSFileManager defaultManager];
-  v11 = v38 + 5;
-  v34 = v38[5];
-  v12 = [v10 createDirectoryAtURL:v9 withIntermediateDirectories:1 attributes:0 error:&v34];
-  objc_storeStrong(v11, v34);
+  v11 = v34 + 5;
+  v30 = v34[5];
+  v12 = [v10 createDirectoryAtURL:v9 withIntermediateDirectories:1 attributes:0 error:&v30];
+  objc_storeStrong(v11, v30);
 
   if (v12)
   {
@@ -8929,77 +9100,72 @@ LABEL_13:
       v17 = objc_alloc_init(NSMutableDictionary);
     }
 
-    v21 = v17;
+    v20 = v17;
 
-    blockCopy[2](blockCopy, v21);
-    if ([v21 isEqual:v14])
+    blockCopy[2](blockCopy, v20);
+    if ([v20 isEqual:v14])
     {
       if (dword_1000603A0 <= 20 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
       {
-        [v14 count];
-        LogPrintF();
+        LogPrintF(&dword_1000603A0, "-[DADaemonServer _necpUpdateUUIDsWithBlock:]", 20, "NECP update UUIDs: unchanged, total %d", [v14 count]);
       }
 
       goto LABEL_20;
     }
 
-    v22 = v38;
-    v33 = 0;
-    v23 = [NSPropertyListSerialization dataWithPropertyList:v21 format:200 options:0 error:&v33];
-    objc_storeStrong(v22 + 5, v33);
-    v25 = v38 + 5;
-    v24 = v38[5];
-    if (v23)
+    v21 = v34;
+    v29 = 0;
+    v22 = [NSPropertyListSerialization dataWithPropertyList:v20 format:200 options:0 error:&v29];
+    objc_storeStrong(v21 + 5, v29);
+    v23 = v34 + 5;
+    if (v22)
     {
-      v32 = v38[5];
-      v26 = [v23 writeToURL:v13 options:1073741825 error:&v32];
-      objc_storeStrong(v25, v32);
-      if (v26)
+      v28 = v34[5];
+      v24 = [v22 writeToURL:v13 options:1073741825 error:&v28];
+      objc_storeStrong(v23, v28);
+      if (v24)
       {
         if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
         {
-          [v21 count];
-          LogPrintF();
+          LogPrintF(&dword_1000603A0, "-[DADaemonServer _necpUpdateUUIDsWithBlock:]", 30, "NECP update UUIDs: changed, total %d", [v20 count]);
         }
 
         goto LABEL_19;
       }
 
-      v30 = v38[5];
-      v29 = DANestedErrorF();
+      v26 = DANestedErrorF();
     }
 
     else
     {
-      v29 = DANestedErrorF();
+      v26 = DANestedErrorF();
     }
 
-    v31 = v38[5];
-    v38[5] = v29;
+    v27 = v34[5];
+    v34[5] = v26;
 
 LABEL_19:
     goto LABEL_20;
   }
 
-  v18 = v38[5];
-  v19 = DANestedErrorF();
-  v20 = v38[5];
-  v38[5] = v19;
+  v18 = DANestedErrorF();
+  v19 = v34[5];
+  v34[5] = v18;
 
-  v43[0] = @"Method";
+  v39[0] = @"Method";
   v13 = NSStringFromSelector(a2);
-  v44[0] = v13;
-  v43[1] = @"Error";
+  v40[0] = v13;
+  v39[1] = @"Error";
   v14 = [NSNumber numberWithInteger:350006];
-  v44[1] = v14;
-  v21 = [NSDictionary dictionaryWithObjects:v44 forKeys:v43 count:2];
-  [DADeviceAccessAnalytics sendAnalytics:v21 forEvent:@"com.apple.DeviceAccess.Error"];
+  v40[1] = v14;
+  v20 = [NSDictionary dictionaryWithObjects:v40 forKeys:v39 count:2];
+  [DADeviceAccessAnalytics sendAnalytics:v20 forEvent:@"com.apple.DeviceAccess.Error"];
 LABEL_20:
 
 LABEL_21:
   (v5[2])(v5);
 
-  _Block_object_dispose(&v37, 8);
+  _Block_object_dispose(&v33, 8);
 }
 
 - (id)_necpUUIDForAppID:(id)d deviceID:(id)iD uuidBytes:(unsigned __int8)bytes[16]
@@ -9033,27 +9199,27 @@ LABEL_21:
   v4 = [_EXQuery alloc];
   v5 = [v4 initWithExtensionPointIdentifier:DAExtensionPointIdentifier];
   [_EXQueryController executeQuery:v5];
+  v20 = 0u;
+  v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v6 = v25 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v6 = v23 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v7)
   {
     v8 = v7;
-    v21 = v5;
-    v9 = *v23;
+    v19 = v5;
+    v9 = *v21;
     v10 = DAExtensionEntitlement;
     while (2)
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v23 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v22 + 1) + 8 * i);
+        v12 = *(*(&v20 + 1) + 8 * i);
         bundleIdentifier = [v12 bundleIdentifier];
         stringByDeletingPathExtension = [bundleIdentifier stringByDeletingPathExtension];
 
@@ -9061,9 +9227,7 @@ LABEL_21:
         {
           if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
           {
-            v19 = extensionCopy;
-            v20 = stringByDeletingPathExtension;
-            LogPrintF();
+            LogPrintF(&dword_1000603A0, "[DADaemonServer checkAppHasMediaDeviceDiscoveryExtension:]", 30, "Ignoring extension parent bundle mismatch: expected %@ vs %@", extensionCopy, stringByDeletingPathExtension);
           }
         }
 
@@ -9086,7 +9250,7 @@ LABEL_21:
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v8)
       {
         continue;
@@ -9097,7 +9261,7 @@ LABEL_21:
 
     v17 = 0;
 LABEL_21:
-    v5 = v21;
+    v5 = v19;
   }
 
   else
@@ -9119,7 +9283,7 @@ LABEL_21:
 
   if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000347F0();
+    sub_1000347F0(v13);
   }
 
   v14 = [[NSDictionary alloc] initWithContentsOfURL:v13 error:0];
@@ -9253,7 +9417,7 @@ LABEL_31:
 
   if (error)
   {
-    DAErrorF();
+    DAErrorF(350001, "setPartialIPs rejected: too soon");
     *error = v37 = 0;
   }
 
@@ -9277,7 +9441,7 @@ LABEL_21:
 
   if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_100034830();
+    sub_100034830(v9);
   }
 
   v32 = 0;
@@ -9385,9 +9549,13 @@ LABEL_21:
 - (void)respondToWiFiAwarePairingRequest:(unint64_t)request accept:(BOOL)accept pairingType:(int64_t)type passkey:(id)passkey
 {
   passkeyCopy = passkey;
-  if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+  v13 = passkeyCopy;
+  if (dword_1000603A0 <= 90)
   {
-    sub_100034904();
+    if (dword_1000603A0 != -1 || (passkeyCopy = _LogCategory_Initialize(), passkeyCopy))
+    {
+      sub_100034904(passkeyCopy, v11, v12);
+    }
   }
 
   dispatchQueue = self->_dispatchQueue;
@@ -9399,8 +9567,8 @@ LABEL_21:
   requestCopy = request;
   typeCopy = type;
   block[4] = self;
-  v14 = passkeyCopy;
-  v12 = passkeyCopy;
+  v17 = v13;
+  v15 = v13;
   dispatch_async(dispatchQueue, block);
 }
 
@@ -9446,14 +9614,14 @@ LABEL_21:
     goto LABEL_8;
   }
 
-  v5 = eventCopy;
+  v6 = eventCopy;
   if (eventCopy == &_xpc_error_connection_invalid)
   {
     if (dword_1000603A0 <= 30)
     {
-      if (dword_1000603A0 != -1 || (type = _LogCategory_Initialize(), v5 = eventCopy, type))
+      if (dword_1000603A0 != -1 || (type = _LogCategory_Initialize(), v6 = eventCopy, type))
       {
-        type = sub_10003497C();
+        type = sub_10003497C(type, v6, v5);
         goto LABEL_8;
       }
     }
@@ -9461,15 +9629,15 @@ LABEL_21:
 
   else if (dword_1000603A0 <= 90)
   {
-    if (dword_1000603A0 != -1 || (type = _LogCategory_Initialize(), v5 = eventCopy, type))
+    if (dword_1000603A0 != -1 || (type = _LogCategory_Initialize(), v6 = eventCopy, type))
     {
       sub_100034920();
 LABEL_8:
-      v5 = eventCopy;
+      v6 = eventCopy;
     }
   }
 
-  _objc_release_x1(type, v5);
+  _objc_release_x1(type, v6);
 }
 
 - (void)_xpcConnectionAccept:(id)accept
@@ -9513,13 +9681,13 @@ LABEL_8:
 
   if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer getAuthorizedDevices:]", 50, "appDataFileURL %@, appDataFilename %@", v7, v4);
   }
 
   v8 = [[NSDictionary alloc] initWithContentsOfURL:v7 error:0];
   if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer getAuthorizedDevices:]", 30, "appDataDict %@, appID %@", v8, devicesCopy);
   }
 
   if (v8)
@@ -9563,18 +9731,17 @@ LABEL_8:
 {
   dCopy = d;
   iDCopy = iD;
-  v40[1] = 1;
+  v39[1] = 1;
   v7 = container_system_group_path_for_identifier();
   if (v7)
   {
     v8 = v7;
     if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
-      v31 = v8;
-      LogPrintF();
+      LogPrintF(&dword_1000603A0, "[DADaemonServer appAccessInfoForDeviceID:appID:]", 30, "Using container path %s", v8);
     }
 
-    v9 = [NSURL fileURLWithFileSystemRepresentation:v8 isDirectory:1 relativeToURL:0, v31];
+    v9 = [NSURL fileURLWithFileSystemRepresentation:v8 isDirectory:1 relativeToURL:0];
     free(v8);
     if (v9)
     {
@@ -9582,18 +9749,18 @@ LABEL_8:
       v11 = [v10 URLByAppendingPathComponent:@"AccessorySetup" isDirectory:1];
       v12 = [v11 URLByAppendingPathComponent:@"AppAccessInfos" isDirectory:1];
       path = [v12 path];
-      v38 = CBGenerateObfuscatedSHA256HashedString();
-      v14 = [[NSString alloc] initWithFormat:@"%@.%@", v38, @"daappInfodata"];
+      v37 = CBGenerateObfuscatedSHA256HashedString();
+      v14 = [[NSString alloc] initWithFormat:@"%@.%@", v37, @"daappInfodata"];
       v15 = [NSURL fileURLWithPath:path];
       v16 = [v15 URLByAppendingPathComponent:v14 isDirectory:0];
 
-      v40[0] = 0;
-      v36 = v16;
-      v17 = [[NSDictionary alloc] initWithContentsOfURL:v16 error:v40];
-      v18 = v40[0];
-      v34 = path;
-      v35 = v17;
-      v37 = v14;
+      v39[0] = 0;
+      v35 = v16;
+      v17 = [[NSDictionary alloc] initWithContentsOfURL:v16 error:v39];
+      v18 = v39[0];
+      v33 = path;
+      v34 = v17;
+      v36 = v14;
       if (v17)
       {
         CFDictionaryGetTypeID();
@@ -9601,16 +9768,16 @@ LABEL_8:
         v20 = v19;
         if (v19)
         {
-          v33 = v12;
+          v32 = v12;
           v21 = v11;
           v22 = v9;
           v23 = v10;
           v24 = iDCopy;
           v25 = dCopy;
           v17 = [v19 objectForKeyedSubscript:dCopy];
-          v39 = v18;
-          v26 = [[DADeviceAppAccessInfo alloc] initWithPersistentDictionaryRepresentation:v17 error:&v39];
-          v27 = v39;
+          v38 = v18;
+          v26 = [[DADeviceAppAccessInfo alloc] initWithPersistentDictionaryRepresentation:v17 error:&v38];
+          v27 = v38;
 
           if (v26)
           {
@@ -9619,8 +9786,8 @@ LABEL_8:
 
           else if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
           {
-            v32 = CUPrintNSError();
-            LogPrintF();
+            v31 = CUPrintNSError();
+            LogPrintF(&dword_1000603A0, "[DADaemonServer appAccessInfoForDeviceID:appID:]", 90, "### Unable to decode app info: %@, %@", v25, v31);
           }
 
           v18 = v27;
@@ -9629,7 +9796,7 @@ LABEL_8:
           v10 = v23;
           v9 = v22;
           v11 = v21;
-          v12 = v33;
+          v12 = v32;
           goto LABEL_12;
         }
 
@@ -9638,14 +9805,14 @@ LABEL_8:
           CUPrintNSError();
           objc_claimAutoreleasedReturnValue();
           sub_10001E3E0();
-          LogPrintF();
+          LogPrintF(&dword_1000603A0, "[DADaemonServer appAccessInfoForDeviceID:appID:]", 90, "### Devices within app info not found: %@");
           v26 = 0;
 LABEL_12:
 
 LABEL_13:
-          v29 = v38;
+          v29 = v37;
 
-          path = v34;
+          path = v33;
 LABEL_14:
 
           goto LABEL_16;
@@ -9666,14 +9833,14 @@ LABEL_33:
         if (dword_1000603A0 != -1 || _LogCategory_Initialize())
         {
           v20 = CUPrintNSError();
-          LogPrintF();
+          LogPrintF(&dword_1000603A0, "[DADaemonServer appAccessInfoForDeviceID:appID:]", 90, "### Device app info not found: %@", v20);
           goto LABEL_33;
         }
 
         v26 = 0;
       }
 
-      v29 = v38;
+      v29 = v37;
       goto LABEL_14;
     }
   }
@@ -9740,37 +9907,37 @@ LABEL_16:
         {
           if (eventType == 41)
           {
-            objc_opt_class();
-            if (sub_10001E4A8() & 1) != 0 || (objc_opt_class(), (sub_10001E4A8()))
+            v21 = objc_opt_class();
+            if (sub_10001E4A8(v21) & 1) != 0 || (v22 = objc_opt_class(), (sub_10001E4A8(v22)))
             {
-              v19 = eventCopy;
-              device = [v19 device];
+              v23 = eventCopy;
+              device = [v23 device];
               identifier = [device identifier];
 
               if (identifier)
               {
-                device2 = [v19 device];
+                device2 = [v23 device];
                 if (device2)
                 {
                   statefulDeviceMap = [v8 statefulDeviceMap];
-                  v24 = [statefulDeviceMap objectForKeyedSubscript:identifier];
+                  v28 = [statefulDeviceMap objectForKeyedSubscript:identifier];
 
-                  if (v24)
+                  if (v28)
                   {
-                    [device2 setState:{objc_msgSend(v24, "state")}];
+                    [device2 setState:{objc_msgSend(v28, "state")}];
                   }
 
                   deviceMap = [v8 deviceMap];
-                  v26 = [deviceMap count];
+                  v30 = [deviceMap count];
                   if ([device2 state] == 20)
                   {
                     [deviceMap objectForKeyedSubscript:identifier];
-                    v40 = v26;
-                    v28 = v27 = v19;
-                    [v28 setPendingRemoval:1];
+                    v44 = v30;
+                    v32 = v31 = v23;
+                    [v32 setPendingRemoval:1];
 
-                    v19 = v27;
-                    v26 = v40;
+                    v23 = v31;
+                    v30 = v44;
                   }
 
                   else
@@ -9779,8 +9946,8 @@ LABEL_16:
                     [deviceMap setObject:0 forKeyedSubscript:identifier];
                   }
 
-                  v36 = [deviceMap count];
-                  if (v26 && !v36)
+                  v41 = [deviceMap count];
+                  if (v30 && !v41)
                   {
                     [(DADaemonServer *)self _reportDevicesPresentChanged:0 appID:dCopy];
                   }
@@ -9792,8 +9959,8 @@ LABEL_16:
           goto LABEL_40;
         }
 
-        objc_opt_class();
-        if ((sub_10001E4A8() & 1) == 0)
+        v33 = objc_opt_class();
+        if ((sub_10001E4A8(v33) & 1) == 0)
         {
           goto LABEL_40;
         }
@@ -9803,11 +9970,11 @@ LABEL_16:
       goto LABEL_40;
     }
 
-    objc_opt_class();
-    if (sub_10001E4A8() & 1) != 0 || (objc_opt_class(), (sub_10001E4A8()))
+    v10 = objc_opt_class();
+    if (sub_10001E4A8(v10) & 1) != 0 || (v11 = objc_opt_class(), (sub_10001E4A8(v11)))
     {
-      v39 = eventCopy;
-      device3 = [v39 device];
+      v43 = eventCopy;
+      device3 = [v43 device];
       if (!device3)
       {
 LABEL_39:
@@ -9815,7 +9982,7 @@ LABEL_39:
         goto LABEL_40;
       }
 
-      v11 = device3;
+      v13 = device3;
       identifier2 = [device3 identifier];
       if (!identifier2)
       {
@@ -9824,33 +9991,32 @@ LABEL_38:
         goto LABEL_39;
       }
 
-      bluetoothIdentifier = [v11 bluetoothIdentifier];
-      v38 = bluetoothIdentifier;
-      if ([v11 discoveredInExtension] && bluetoothIdentifier)
+      bluetoothIdentifier = [v13 bluetoothIdentifier];
+      v42 = bluetoothIdentifier;
+      if ([v13 discoveredInExtension] && bluetoothIdentifier)
       {
         cbCentralManager = self->_cbCentralManager;
-        v46 = bluetoothIdentifier;
-        v15 = [NSArray arrayWithObjects:&v46 count:1];
-        v16 = [(CBCentralManager *)cbCentralManager retrievePeripheralsWithIdentifiers:v15];
-        firstObject = [v16 firstObject];
+        v50 = bluetoothIdentifier;
+        v17 = [NSArray arrayWithObjects:&v50 count:1];
+        v18 = [(CBCentralManager *)cbCentralManager retrievePeripheralsWithIdentifiers:v17];
+        firstObject = [v18 firstObject];
 
         name = [firstObject name];
-        [v11 setBluetoothOTAName:name];
+        [v13 setBluetoothOTAName:name];
 
         if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
         {
-          v37 = firstObject;
-          LogPrintF();
+          LogPrintF(&dword_1000603A0, "[DADaemonServer _discoveryEvent:appID:]", 50, "### _discoveryEvent peripheral %@", firstObject);
         }
       }
 
       statefulDeviceMap2 = [v8 statefulDeviceMap];
-      v30 = [statefulDeviceMap2 objectForKeyedSubscript:identifier2];
+      v35 = [statefulDeviceMap2 objectForKeyedSubscript:identifier2];
 
-      [v11 setState:{objc_msgSend(v30, "state")}];
+      [v13 setState:{objc_msgSend(v35, "state")}];
       [sub_10001E428() _addTXTRecordToNWEndpoint:? appID:?];
       [sub_10001E428() _addSSDPDatatoNWEndpoint:? appID:?];
-      deviceMap2 = [v11 url];
+      deviceMap2 = [v13 url];
       if (deviceMap2 && ([DADevice deviceMetadataURLValid:deviceMap2]& 1) == 0)
       {
         if (dword_1000603A0 > 30 || dword_1000603A0 == -1 && !_LogCategory_Initialize())
@@ -9858,40 +10024,40 @@ LABEL_38:
           goto LABEL_37;
         }
 
-        identifier3 = [v11 identifier];
-        LogPrintF();
+        identifier3 = [v13 identifier];
+        LogPrintF(&dword_1000603A0, "[DADaemonServer _discoveryEvent:appID:]", 30, "Invalid URL for appID %@, deviceID %@, URL %@", dCopy, identifier3, deviceMap2);
       }
 
       else
       {
 
         deviceMap2 = [v8 deviceMap];
-        v32 = [deviceMap2 count];
+        v37 = [deviceMap2 count];
         if (!deviceMap2)
         {
           deviceMap2 = objc_alloc_init(NSMutableDictionary);
           [v8 setDeviceMap:deviceMap2];
         }
 
-        [deviceMap2 setObject:v11 forKeyedSubscript:identifier2];
+        [deviceMap2 setObject:v13 forKeyedSubscript:identifier2];
         [sub_10001E428() _necpSignEndpointForDevice:? appID:?];
-        [(DADaemonServer *)self _reportDiscoveryEvent:v39 appID:dCopy];
-        if (!v32)
+        [(DADaemonServer *)self _reportDiscoveryEvent:v43 appID:dCopy];
+        if (!v37)
         {
           [(DADaemonServer *)self _reportDevicesPresentChanged:1 appID:dCopy];
         }
 
-        v33 = [NSNumber numberWithDouble:CFAbsoluteTimeGetCurrent()];
+        v38 = [NSNumber numberWithDouble:CFAbsoluteTimeGetCurrent()];
         dispatchQueue = self->_dispatchQueue;
         block[0] = _NSConcreteStackBlock;
         block[1] = 3221225472;
         block[2] = sub_10000F8F0;
         block[3] = &unk_1000590A0;
-        v42 = dCopy;
-        v43 = v11;
-        v44 = v8;
-        v45 = v33;
-        identifier3 = v33;
+        v46 = dCopy;
+        v47 = v13;
+        v48 = v8;
+        v49 = v38;
+        identifier3 = v38;
         dispatch_async(dispatchQueue, block);
       }
 
@@ -9902,7 +10068,7 @@ LABEL_37:
 
   else if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _discoveryEvent:appID:]", 90, "### Discovery event for appID: %@", dCopy);
   }
 
 LABEL_40:
@@ -10177,40 +10343,38 @@ LABEL_25:
       v11 = "Disconnected";
     }
 
-    v32 = v11;
-    connectedTransport = [peripheralCopy connectedTransport];
+    v30 = v11;
     occur = occurCopy;
-    v30 = peripheralCopy;
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "-[DADaemonServer centralManager:connectionEventDidOccur:forPeripheral:]", 50, "connectionEventDidOccur %@ %s transport=%d", peripheralCopy, v30, [peripheralCopy connectedTransport]);
   }
 
-  v12 = [(DADaemonServer *)self getDevicesWithFlags:8 appID:0, v30, v32, connectedTransport];
+  v12 = [(DADaemonServer *)self getDevicesWithFlags:8 appID:0];
   v13 = v12;
   if (v12)
   {
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
-    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     v14 = v12;
-    v15 = [v14 countByEnumeratingWithState:&v38 objects:v42 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v34 objects:v38 count:16];
     if (v15)
     {
       v16 = v15;
       occurCopy2 = occur;
       selfCopy = self;
-      v37 = managerCopy;
-      v17 = *v39;
+      v33 = managerCopy;
+      v17 = *v35;
       while (2)
       {
         for (i = 0; i != v16; i = i + 1)
         {
-          if (*v39 != v17)
+          if (*v35 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v38 + 1) + 8 * i);
+          v19 = *(*(&v34 + 1) + 8 * i);
           bluetoothIdentifier = [v19 bluetoothIdentifier];
           identifier = [peripheralCopy identifier];
           v22 = bluetoothIdentifier;
@@ -10230,14 +10394,12 @@ LABEL_23:
                 v28 = @"connected";
               }
 
-              v31 = v28;
-              v33 = v19;
-              LogPrintF();
+              LogPrintF(&dword_1000603A0, "[DADaemonServer centralManager:connectionEventDidOccur:forPeripheral:]", 50, "Found %@ device: %@", v28, v19);
             }
 
             v26 = v19;
             self = selfCopy;
-            managerCopy = v37;
+            managerCopy = v33;
             goto LABEL_31;
           }
 
@@ -10256,7 +10418,7 @@ LABEL_23:
           }
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v38 objects:v42 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v34 objects:v38 count:16];
         if (v16)
         {
           continue;
@@ -10267,7 +10429,7 @@ LABEL_23:
 
       v26 = 0;
       self = selfCopy;
-      managerCopy = v37;
+      managerCopy = v33;
       v27 = DAWiFiScanDescriptor;
       occur = occurCopy2;
     }
@@ -10280,15 +10442,14 @@ LABEL_23:
 
 LABEL_31:
 
-    [(__CFString *)v26 setConnectionStatus:[(__CFString *)v26 connectionStatus]& 0xFFFFFFFFFFFFFBFFLL | ((occur == 1) << 10)];
+    [v26 setConnectionStatus:{objc_msgSend(v26, "connectionStatus") & 0xFFFFFFFFFFFFFBFFLL | ((occur == 1) << 10)}];
     superclass = v27[23].superclass;
     if (superclass <= 50 && (superclass != -1 || _LogCategory_Initialize()))
     {
-      v31 = v26;
-      LogPrintF();
+      LogPrintF(&dword_1000603A0, "[DADaemonServer centralManager:connectionEventDidOccur:forPeripheral:]", 50, "Reporting connection status changed: %@", v26);
     }
 
-    [(DADaemonServer *)self _reportDeviceConnectionStatusChanged:v26, v31, v33];
+    [(DADaemonServer *)self _reportDeviceConnectionStatusChanged:v26];
   }
 }
 
@@ -10321,7 +10482,7 @@ LABEL_31:
   v98 = 0u;
   v99 = 0u;
   v100 = 0u;
-  v83 = [v11 countByEnumeratingWithState:&v97 objects:v102 count:16];
+  v83 = [v11 countByEnumeratingWithState:&v97 objects:v101 count:16];
   HIDWORD(v81) = v9;
   if (v83)
   {
@@ -10419,7 +10580,7 @@ LABEL_31:
               appAccessInfoMap = [v87 appAccessInfoMap];
               allValues = [appAccessInfoMap allValues];
 
-              v39 = sub_10001E504(v31, v32, v33, v34, v35, v36, v37, v38, v74, v75, v76, v77, v9, v12, v80, v81, v82, v83, v84, v85, v86, v87, 0, 0, 0, 0, 0, 0, 0, 0, v97, *(&v97 + 1), v98, *(&v98 + 1), v99, *(&v99 + 1), v100, *(&v100 + 1), v101);
+              v39 = sub_10001E504(v31, v32, v33, v34, v35, v36, v37, v38, v74, v75, v76, v77, v9, v12, v80, v81, v82, v83, v84, v85, v86, v87, 0, 0, 0, 0, 0, 0, 0, 0, v97, *(&v97 + 1), v98, *(&v98 + 1), v99, *(&v99 + 1), v100, *(&v100 + 1));
               if (v39)
               {
                 v40 = v39;
@@ -10464,7 +10625,7 @@ LABEL_31:
                     }
                   }
 
-                  v40 = sub_10001E504(wifiAwarePairingID2, v46, v47, v48, v49, v50, v51, v52, v74, v75, v76, v77, v78, v79, v80, v81, v82, v83, v84, v85, v86, v88, v89, v90, v91, v92, v93, v94, v95, v96, v97, *(&v97 + 1), v98, *(&v98 + 1), v99, *(&v99 + 1), v100, *(&v100 + 1), v101);
+                  v40 = sub_10001E504(wifiAwarePairingID2, v46, v47, v48, v49, v50, v51, v52, v74, v75, v76, v77, v78, v79, v80, v81, v82, v83, v84, v85, v86, v88, v89, v90, v91, v92, v93, v94, v95, v96, v97, *(&v97 + 1), v98, *(&v98 + 1), v99, *(&v99 + 1), v100, *(&v100 + 1));
                 }
 
                 while (v40);
@@ -10486,7 +10647,7 @@ LABEL_31:
         }
       }
 
-      v83 = [v11 countByEnumeratingWithState:&v97 objects:v102 count:16];
+      v83 = [v11 countByEnumeratingWithState:&v97 objects:v101 count:16];
     }
 
     while (v83);
@@ -10635,9 +10796,7 @@ LABEL_79:
   dCopy = d;
   if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    v12 = deviceCopy;
-    v13 = dCopy;
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _updateWiFiDevice:bundleID:]", 30, "[WiFi] updating WiFi device = '%@ for bundleID = '%@'", deviceCopy, dCopy);
   }
 
   identifier = [deviceCopy identifier];
@@ -10650,16 +10809,16 @@ LABEL_79:
       [v9 activate];
       v10 = [v9 knownNetworkProfilesWithProperties:0];
       sub_10001E380();
-      v15 = 3221225472;
-      v16 = sub_1000195D4;
-      v17 = &unk_100059558;
-      v18 = identifier;
-      v19 = sSID;
-      v20 = v9;
-      v21 = dCopy;
-      v22 = deviceCopy;
+      v13 = 3221225472;
+      v14 = sub_1000195D4;
+      v15 = &unk_100059558;
+      v16 = identifier;
+      v17 = sSID;
+      v18 = v9;
+      v19 = dCopy;
+      v20 = deviceCopy;
       v11 = v9;
-      [v10 enumerateObjectsUsingBlock:v14];
+      [v10 enumerateObjectsUsingBlock:v12];
     }
   }
 }

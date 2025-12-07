@@ -3,73 +3,75 @@
 
 @implementation ATXDataStore
 
-void __43___ATXDataStore__removeActionsWithoutTitle__block_invoke(uint64_t a1)
+void __43___ATXDataStore__removeActionsWithoutTitle__block_invoke(uint64_t a1, uint64_t a2)
 {
   v27 = *MEMORY[0x277D85DE8];
-  v2 = objc_opt_new();
-  v3 = *(*(a1 + 32) + 48);
+  v3 = objc_opt_new();
+  v4 = *(*(a1 + 32) + 48);
   v22[0] = MEMORY[0x277D85DD0];
   v22[1] = 3221225472;
   v22[2] = __43___ATXDataStore__removeActionsWithoutTitle__block_invoke_2;
   v22[3] = &unk_278599FC8;
-  v4 = v2;
-  v23 = v4;
+  v5 = v3;
+  v23 = v5;
   v21[0] = MEMORY[0x277D85DD0];
   v21[1] = 3221225472;
   v21[2] = __43___ATXDataStore__removeActionsWithoutTitle__block_invoke_3;
   v21[3] = &unk_27859A1A0;
   v21[4] = *(a1 + 40);
-  [v3 prepAndRunQuery:@"SELECT slots onPrep:id FROM alog" onRow:0 onError:{v22, v21}];
+  [v4 prepAndRunQuery:@"SELECT slots onPrep:id FROM alog" onRow:0 onError:{v22, v21}];
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  obj = v4;
-  v5 = [obj countByEnumeratingWithState:&v17 objects:v26 count:16];
-  if (v5)
+  obj = v5;
+  v6 = [obj countByEnumeratingWithState:&v17 objects:v26 count:16];
+  if (v6)
   {
-    v6 = v5;
-    v7 = *v18;
+    v7 = v6;
+    v8 = *v18;
     do
     {
-      for (i = 0; i != v6; ++i)
+      v9 = 0;
+      do
       {
-        if (*v18 != v7)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * i);
-        v10 = __atxlog_handle_deletions();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v10 = *(*(&v17 + 1) + 8 * v9);
+        v11 = __atxlog_handle_deletions(v6);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
-          v11 = [v9 longLongValue];
+          v12 = [v10 longLongValue];
           *buf = 134217984;
-          v25 = v11;
-          _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_DEFAULT, "_ATXDataStore: Deleting actions without title with rowId: %lld", buf, 0xCu);
+          v25 = v12;
+          _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEFAULT, "_ATXDataStore: Deleting actions without title with rowId: %lld", buf, 0xCu);
         }
 
-        v12 = *(*(a1 + 32) + 48);
+        v13 = *(*(a1 + 32) + 48);
         v16[0] = MEMORY[0x277D85DD0];
         v16[1] = 3221225472;
         v16[2] = __43___ATXDataStore__removeActionsWithoutTitle__block_invoke_711;
         v16[3] = &unk_278598768;
-        v16[4] = v9;
+        v16[4] = v10;
         v15[0] = MEMORY[0x277D85DD0];
         v15[1] = 3221225472;
         v15[2] = __43___ATXDataStore__removeActionsWithoutTitle__block_invoke_2_713;
         v15[3] = &unk_27859A1A0;
         v15[4] = *(a1 + 40);
-        [v12 prepAndRunQuery:@"DELETE FROM alog WHERE id = :id" onPrep:v16 onRow:0 onError:v15];
+        v6 = [v13 prepAndRunQuery:@"DELETE FROM alog WHERE id = :id" onPrep:v16 onRow:0 onError:v15];
+        ++v9;
       }
 
+      while (v7 != v9);
       v6 = [obj countByEnumeratingWithState:&v17 objects:v26 count:16];
+      v7 = v6;
     }
 
     while (v6);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __43___ATXDataStore__removeActionsWithoutTitle__block_invoke_2(uint64_t a1, void *a2)
@@ -125,10 +127,10 @@ void __81___ATXDataStore_IntentCache__writeValidParameterCombinationsWithSchema_
   [v6 bindNamedParam:":param_combinations" toNSData:*(a1 + 40)];
 }
 
-uint64_t __81___ATXDataStore_IntentCache__writeValidParameterCombinationsWithSchema_cacheKey___block_invoke_3()
+uint64_t __81___ATXDataStore_IntentCache__writeValidParameterCombinationsWithSchema_cacheKey___block_invoke_3(uint64_t a1)
 {
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
     __81___ATXDataStore_IntentCache__writeValidParameterCombinationsWithSchema_cacheKey___block_invoke_3_cold_1();
   }
@@ -170,10 +172,10 @@ uint64_t __78___ATXDataStore_IntentCache__validParameterCombinationsWithSchemaFo
   return *MEMORY[0x277D42698];
 }
 
-uint64_t __78___ATXDataStore_IntentCache__validParameterCombinationsWithSchemaForCacheKey___block_invoke_4()
+uint64_t __78___ATXDataStore_IntentCache__validParameterCombinationsWithSchemaForCacheKey___block_invoke_4(uint64_t a1)
 {
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
     __78___ATXDataStore_IntentCache__validParameterCombinationsWithSchemaForCacheKey___block_invoke_4_cold_1();
   }
@@ -206,10 +208,10 @@ void __72___ATXDataStore_IntentCache__writeSupportsBackgroundExecution_cacheKey_
   [v6 bindNamedParam:":background_execution" toInteger:*(a1 + 40)];
 }
 
-uint64_t __72___ATXDataStore_IntentCache__writeSupportsBackgroundExecution_cacheKey___block_invoke_3()
+uint64_t __72___ATXDataStore_IntentCache__writeSupportsBackgroundExecution_cacheKey___block_invoke_3(uint64_t a1)
 {
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
     __72___ATXDataStore_IntentCache__writeSupportsBackgroundExecution_cacheKey___block_invoke_3_cold_1();
   }
@@ -251,10 +253,10 @@ uint64_t __69___ATXDataStore_IntentCache__supportsBackgroundExecutionForCacheKey
   return *MEMORY[0x277D42698];
 }
 
-uint64_t __69___ATXDataStore_IntentCache__supportsBackgroundExecutionForCacheKey___block_invoke_4()
+uint64_t __69___ATXDataStore_IntentCache__supportsBackgroundExecutionForCacheKey___block_invoke_4(uint64_t a1)
 {
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
     __69___ATXDataStore_IntentCache__supportsBackgroundExecutionForCacheKey___block_invoke_4_cold_1();
   }
@@ -297,10 +299,10 @@ void __50___ATXDataStore_IntentCache__writeTitle_cacheKey___block_invoke_2(uint6
   [v7 bindNamedParam:":title" toNSString:v6];
 }
 
-uint64_t __50___ATXDataStore_IntentCache__writeTitle_cacheKey___block_invoke_3()
+uint64_t __50___ATXDataStore_IntentCache__writeTitle_cacheKey___block_invoke_3(uint64_t a1)
 {
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
     __50___ATXDataStore_IntentCache__writeTitle_cacheKey___block_invoke_3_cold_1();
   }
@@ -342,10 +344,10 @@ uint64_t __47___ATXDataStore_IntentCache__titleForCacheKey___block_invoke_3(uint
   return *MEMORY[0x277D42698];
 }
 
-uint64_t __47___ATXDataStore_IntentCache__titleForCacheKey___block_invoke_4()
+uint64_t __47___ATXDataStore_IntentCache__titleForCacheKey___block_invoke_4(uint64_t a1)
 {
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
     __47___ATXDataStore_IntentCache__titleForCacheKey___block_invoke_4_cold_1();
   }
@@ -378,10 +380,10 @@ void __53___ATXDataStore_IntentCache__writeSubtitle_cacheKey___block_invoke_2(ui
   [v6 bindNamedParam:":subtitle" toNSString:*(a1 + 40)];
 }
 
-uint64_t __53___ATXDataStore_IntentCache__writeSubtitle_cacheKey___block_invoke_3()
+uint64_t __53___ATXDataStore_IntentCache__writeSubtitle_cacheKey___block_invoke_3(uint64_t a1)
 {
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
     __53___ATXDataStore_IntentCache__writeSubtitle_cacheKey___block_invoke_3_cold_1();
   }
@@ -423,10 +425,10 @@ uint64_t __50___ATXDataStore_IntentCache__subtitleForCacheKey___block_invoke_3(u
   return *MEMORY[0x277D42698];
 }
 
-uint64_t __50___ATXDataStore_IntentCache__subtitleForCacheKey___block_invoke_4()
+uint64_t __50___ATXDataStore_IntentCache__subtitleForCacheKey___block_invoke_4(uint64_t a1)
 {
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
     __50___ATXDataStore_IntentCache__subtitleForCacheKey___block_invoke_4_cold_1();
   }
@@ -459,10 +461,10 @@ void __63___ATXDataStore_IntentCache__writeEligibleForWidgets_cacheKey___block_i
   [v6 bindNamedParam:":eligible_for_widgets" toInteger:*(a1 + 40)];
 }
 
-uint64_t __63___ATXDataStore_IntentCache__writeEligibleForWidgets_cacheKey___block_invoke_3()
+uint64_t __63___ATXDataStore_IntentCache__writeEligibleForWidgets_cacheKey___block_invoke_3(uint64_t a1)
 {
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
     __63___ATXDataStore_IntentCache__writeEligibleForWidgets_cacheKey___block_invoke_3_cold_1();
   }
@@ -504,10 +506,10 @@ uint64_t __62___ATXDataStore_IntentCache__isEligibleForWidgetsForCacheKey___bloc
   return *MEMORY[0x277D42698];
 }
 
-uint64_t __62___ATXDataStore_IntentCache__isEligibleForWidgetsForCacheKey___block_invoke_4()
+uint64_t __62___ATXDataStore_IntentCache__isEligibleForWidgetsForCacheKey___block_invoke_4(uint64_t a1)
 {
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
     __62___ATXDataStore_IntentCache__isEligibleForWidgetsForCacheKey___block_invoke_4_cold_1();
   }
@@ -526,10 +528,10 @@ void __62___ATXDataStore_IntentCache__removeCachedIntentsWithBundleId___block_in
   [v2 prepAndRunQuery:@"DELETE FROM intentCache WHERE bundleId = :bundle_id" onPrep:v3 onRow:0 onError:&__block_literal_global_81];
 }
 
-uint64_t __62___ATXDataStore_IntentCache__removeCachedIntentsWithBundleId___block_invoke_3()
+uint64_t __62___ATXDataStore_IntentCache__removeCachedIntentsWithBundleId___block_invoke_3(uint64_t a1)
 {
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
     __62___ATXDataStore_IntentCache__removeCachedIntentsWithBundleId___block_invoke_3_cold_1();
   }
@@ -543,10 +545,10 @@ void __52___ATXDataStore_IntentCache__removeAllCachedIntents__block_invoke(uint6
   [v1 prepAndRunQuery:@"DELETE FROM intentCache" onPrep:0 onRow:0 onError:&__block_literal_global_86];
 }
 
-uint64_t __52___ATXDataStore_IntentCache__removeAllCachedIntents__block_invoke_2()
+uint64_t __52___ATXDataStore_IntentCache__removeAllCachedIntents__block_invoke_2(uint64_t a1)
 {
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
     __52___ATXDataStore_IntentCache__removeAllCachedIntents__block_invoke_2_cold_1();
   }
@@ -579,12 +581,12 @@ uint64_t __53___ATXDataStore_WebClip__webClipsForAppClipBundleId___block_invoke_
   return *v4;
 }
 
-uint64_t __53___ATXDataStore_WebClip__webClipsForAppClipBundleId___block_invoke_4()
+uint64_t __53___ATXDataStore_WebClip__webClipsForAppClipBundleId___block_invoke_4(uint64_t a1)
 {
-  v0 = __atxlog_handle_hero();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v1 = __atxlog_handle_hero(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    __53___ATXDataStore_WebClip__webClipsForAppClipBundleId___block_invoke_4_cold_1(v0);
+    __53___ATXDataStore_WebClip__webClipsForAppClipBundleId___block_invoke_4_cold_1(v1);
   }
 
   return *MEMORY[0x277D42698];
@@ -610,24 +612,24 @@ void __47___ATXDataStore_WebClip__writeWebClip_appClip___block_invoke_2(uint64_t
   [v4 bindNamedParam:":appClipBundleId" toNSString:*(a1 + 40)];
 }
 
-uint64_t __47___ATXDataStore_WebClip__writeWebClip_appClip___block_invoke_3()
+uint64_t __47___ATXDataStore_WebClip__writeWebClip_appClip___block_invoke_3(uint64_t a1)
 {
-  v0 = __atxlog_handle_hero();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v1 = __atxlog_handle_hero(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    __47___ATXDataStore_WebClip__writeWebClip_appClip___block_invoke_3_cold_1(v0);
+    __47___ATXDataStore_WebClip__writeWebClip_appClip___block_invoke_3_cold_1(v1);
   }
 
   return *MEMORY[0x277D42698];
 }
 
-uint64_t __31___ATXDataStore_sharedInstance__block_invoke()
+uint64_t __31___ATXDataStore_sharedInstance__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
-  v1 = sharedInstance_instance;
-  sharedInstance_instance = v0;
+  v2 = objc_opt_new();
+  v3 = sharedInstance_instance;
+  sharedInstance_instance = v2;
 
-  return MEMORY[0x2821F96F8](v0, v1);
+  return MEMORY[0x2821F96F8](v2, v3);
 }
 
 uint64_t __26___ATXDataStore__doAsync___block_invoke(uint64_t a1)
@@ -1191,45 +1193,45 @@ uint64_t __43___ATXDataStore__appInfoForBundleIdNoSync___block_invoke_2(uint64_t
 
   v11 = [v3 getInt64ForColumn:5];
   v12 = [v3 getInt64ForColumn:6];
-  if ([v3 isColumnNull:6])
+  v13 = [v3 isColumnNull:6];
+  if (v13)
   {
-    v13 = __atxlog_handle_default();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = __atxlog_handle_default(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = *(a1 + 32);
+      v15 = *(a1 + 32);
       *buf = 138412290;
-      v26 = v14;
-      _os_log_impl(&dword_2263AA000, v13, OS_LOG_TYPE_DEFAULT, "Unexpected NULL isEnterpriseApp for bundleId: %@", buf, 0xCu);
+      v26 = v15;
+      _os_log_impl(&dword_2263AA000, v14, OS_LOG_TYPE_DEFAULT, "Unexpected NULL isEnterpriseApp for bundleId: %@", buf, 0xCu);
     }
   }
 
-  v15 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v3, "getInt64ForColumn:", 7)}];
+  v16 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v3, "getInt64ForColumn:", 7)}];
   if ([v3 isColumnNull:8])
-  {
-    v16 = 0;
-  }
-
-  else
-  {
-    v16 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v3, "getInt64ForColumn:", 8)}];
-  }
-
-  if ([v3 isColumnNull:9])
   {
     v17 = 0;
   }
 
   else
   {
-    v17 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v3, "getInt64ForColumn:", 9)}];
+    v17 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v3, "getInt64ForColumn:", 8)}];
   }
 
-  v18 = [[_ATXAppInfo alloc] initWithBundleId:*(a1 + 32) isExtension:v11 != 0 isEnterpriseApp:v12 != 0 installDate:v24 lastLaunch:v23 lastSpotlightLaunch:v7 averageSecondsBetweenLaunches:v16 medianSecondsBetweenLaunches:v17 genreId:v8 subGenreIds:v10 app2VecCluster:v15];
-  v19 = *(*(a1 + 40) + 8);
-  v20 = *(v19 + 40);
-  *(v19 + 40) = v18;
+  if ([v3 isColumnNull:9])
+  {
+    v18 = 0;
+  }
 
-  v21 = *MEMORY[0x277D85DE8];
+  else
+  {
+    v18 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v3, "getInt64ForColumn:", 9)}];
+  }
+
+  v19 = [[_ATXAppInfo alloc] initWithBundleId:*(a1 + 32) isExtension:v11 != 0 isEnterpriseApp:v12 != 0 installDate:v24 lastLaunch:v23 lastSpotlightLaunch:v7 averageSecondsBetweenLaunches:v17 medianSecondsBetweenLaunches:v18 genreId:v8 subGenreIds:v10 app2VecCluster:v16];
+  v20 = *(*(a1 + 40) + 8);
+  v21 = *(v20 + 40);
+  *(v20 + 40) = v19;
+
   return *MEMORY[0x277D42698];
 }
 
@@ -1479,115 +1481,112 @@ uint64_t __32___ATXDataStore_lastLaunchedApp__block_invoke_4(uint64_t a1, uint64
 
 void __51___ATXDataStore_removeAppInfoForBundleIdsNotInSet___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v2 = [&unk_283A57ED8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v2 = [&unk_283A57ED8 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v14;
+    v4 = *v13;
     do
     {
       v5 = 0;
       do
       {
-        if (*v14 != v4)
+        if (*v13 != v4)
         {
           objc_enumerationMutation(&unk_283A57ED8);
         }
 
-        v6 = *(*(&v13 + 1) + 8 * v5);
+        v6 = *(*(&v12 + 1) + 8 * v5);
         v7 = *(*(a1 + 32) + 48);
-        v11[0] = MEMORY[0x277D85DD0];
-        v11[1] = 3221225472;
-        v11[2] = __51___ATXDataStore_removeAppInfoForBundleIdsNotInSet___block_invoke_2;
-        v11[3] = &unk_278598768;
-        v12 = *(a1 + 40);
         v10[0] = MEMORY[0x277D85DD0];
         v10[1] = 3221225472;
-        v10[2] = __51___ATXDataStore_removeAppInfoForBundleIdsNotInSet___block_invoke_3;
-        v10[3] = &unk_2785987B8;
-        v10[4] = *(a1 + 32);
-        [v7 prepAndRunQuery:v6 onPrep:v11 onRow:0 onError:v10];
+        v10[2] = __51___ATXDataStore_removeAppInfoForBundleIdsNotInSet___block_invoke_2;
+        v10[3] = &unk_278598768;
+        v11 = *(a1 + 40);
+        v9[0] = MEMORY[0x277D85DD0];
+        v9[1] = 3221225472;
+        v9[2] = __51___ATXDataStore_removeAppInfoForBundleIdsNotInSet___block_invoke_3;
+        v9[3] = &unk_2785987B8;
+        v9[4] = *(a1 + 32);
+        [v7 prepAndRunQuery:v6 onPrep:v10 onRow:0 onError:v9];
 
         ++v5;
       }
 
       while (v3 != v5);
-      v3 = [&unk_283A57ED8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v3 = [&unk_283A57ED8 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v3);
   }
 
   objc_autoreleasePoolPop(context);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __42___ATXDataStore_removeAppInfoForBundleId___block_invoke(uint64_t a1)
+void *__42___ATXDataStore_removeAppInfoForBundleId___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  v15 = 0u;
-  v16 = 0u;
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
+  v14 = 0u;
   if (ATXIsRemoteAppBundleId())
   {
-    v3 = &unk_283A57EF0;
+    v2 = &unk_283A57EF0;
   }
 
   else
   {
-    v3 = &unk_283A57F08;
+    v2 = &unk_283A57F08;
   }
 
-  v17 = 0uLL;
-  v18 = 0uLL;
-  obj = v3;
-  result = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v15 = 0uLL;
+  v16 = 0uLL;
+  obj = v2;
+  result = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (result)
   {
-    v5 = result;
-    v6 = *v16;
+    v4 = result;
+    v5 = *v14;
     do
     {
-      v7 = 0;
+      v6 = 0;
       do
       {
-        if (*v16 != v6)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * v7);
-        v9 = *(*(a1 + 40) + 48);
-        v13[0] = MEMORY[0x277D85DD0];
-        v13[1] = 3221225472;
-        v13[2] = __42___ATXDataStore_removeAppInfoForBundleId___block_invoke_2;
-        v13[3] = &unk_278598768;
-        v14 = *(a1 + 32);
-        v12[0] = MEMORY[0x277D85DD0];
-        v12[1] = 3221225472;
-        v12[2] = __42___ATXDataStore_removeAppInfoForBundleId___block_invoke_4;
-        v12[3] = &unk_2785987B8;
-        v12[4] = *(a1 + 40);
-        [v9 prepAndRunQuery:v8 onPrep:v13 onRow:&__block_literal_global_283 onError:v12];
+        v7 = *(*(&v13 + 1) + 8 * v6);
+        v8 = *(*(a1 + 40) + 48);
+        v11[0] = MEMORY[0x277D85DD0];
+        v11[1] = 3221225472;
+        v11[2] = __42___ATXDataStore_removeAppInfoForBundleId___block_invoke_2;
+        v11[3] = &unk_278598768;
+        v12 = *(a1 + 32);
+        v10[0] = MEMORY[0x277D85DD0];
+        v10[1] = 3221225472;
+        v10[2] = __42___ATXDataStore_removeAppInfoForBundleId___block_invoke_4;
+        v10[3] = &unk_2785987B8;
+        v10[4] = *(a1 + 40);
+        [v8 prepAndRunQuery:v7 onPrep:v11 onRow:&__block_literal_global_283 onError:v10];
 
-        ++v7;
+        v6 = v6 + 1;
       }
 
-      while (v5 != v7);
-      result = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
-      v5 = result;
+      while (v4 != v6);
+      result = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = result;
     }
 
     while (result);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1620,10 +1619,10 @@ void __46___ATXDataStore_removeAppLaunchesForBundleId___block_invoke(uint64_t a1
 uint64_t __46___ATXDataStore_removeAppLaunchesForBundleId___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_default();
+  v4 = __atxlog_handle_default(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __46___ATXDataStore_removeAppLaunchesForBundleId___block_invoke_3_cold_1(a1);
+    __46___ATXDataStore_removeAppLaunchesForBundleId___block_invoke_3_cold_1();
   }
 
   [_ATXDataStore _simulateCrashForMigrationFailure:v3];
@@ -1716,37 +1715,37 @@ uint64_t __28___ATXDataStore_loadAppInfo__block_invoke_2(uint64_t a1, void *a2)
   v5 = [v3 getInt64ForColumn:1];
   if (v4)
   {
-    v22 = a1;
+    v23 = a1;
     if (v5)
     {
-      v23 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v5];
+      v24 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v5];
     }
 
     else
     {
-      v23 = 0;
+      v24 = 0;
     }
 
     v7 = [v3 getInt64ForColumn:2];
     if (v7)
     {
-      v21 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v7];
+      v22 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v7];
     }
 
     else
     {
-      v21 = 0;
+      v22 = 0;
     }
 
     v8 = [v3 getInt64ForColumn:3];
     if (v8)
     {
-      v20 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v8];
+      v21 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v8];
     }
 
     else
     {
-      v20 = 0;
+      v21 = 0;
     }
 
     v9 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v3, "getInt64ForColumn:", 4)}];
@@ -1755,38 +1754,39 @@ uint64_t __28___ATXDataStore_loadAppInfo__block_invoke_2(uint64_t a1, void *a2)
 
     v12 = [v3 getInt64ForColumn:6];
     v13 = [v3 getInt64ForColumn:7];
-    if ([v3 isColumnNull:7])
+    v14 = [v3 isColumnNull:7];
+    if (v14)
     {
-      v14 = __atxlog_handle_default();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      v15 = __atxlog_handle_default(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         __28___ATXDataStore_loadAppInfo__block_invoke_2_cold_1();
       }
     }
 
-    v15 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v3, "getInt64ForColumn:", 8)}];
+    v16 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v3, "getInt64ForColumn:", 8)}];
     if ([v3 isColumnNull:9])
-    {
-      v16 = 0;
-    }
-
-    else
-    {
-      v16 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v3, "getInt64ForColumn:", 9)}];
-    }
-
-    if ([v3 isColumnNull:10])
     {
       v17 = 0;
     }
 
     else
     {
-      v17 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v3, "getInt64ForColumn:", 10)}];
+      v17 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v3, "getInt64ForColumn:", 9)}];
     }
 
-    v18 = [[_ATXAppInfo alloc] initWithBundleId:v4 isExtension:v12 != 0 isEnterpriseApp:v13 != 0 installDate:v23 lastLaunch:v21 lastSpotlightLaunch:v20 averageSecondsBetweenLaunches:v16 medianSecondsBetweenLaunches:v17 genreId:v9 subGenreIds:v11 app2VecCluster:v15];
-    [*(v22 + 32) setObject:v18 forKeyedSubscript:v4];
+    if ([v3 isColumnNull:10])
+    {
+      v18 = 0;
+    }
+
+    else
+    {
+      v18 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v3, "getInt64ForColumn:", 10)}];
+    }
+
+    v19 = [[_ATXAppInfo alloc] initWithBundleId:v4 isExtension:v12 != 0 isEnterpriseApp:v13 != 0 installDate:v24 lastLaunch:v22 lastSpotlightLaunch:v21 averageSecondsBetweenLaunches:v17 medianSecondsBetweenLaunches:v18 genreId:v9 subGenreIds:v11 app2VecCluster:v16];
+    [*(v23 + 32) setObject:v19 forKeyedSubscript:v4];
 
     v6 = *MEMORY[0x277D42690];
   }
@@ -2005,9 +2005,9 @@ uint64_t __45___ATXDataStore_loadLaunchesFollowingBundle___block_invoke_3(uint64
     v7 = objc_opt_class();
     v8 = [v5 setWithObjects:{v6, v7, objc_opt_class(), 0}];
     v9 = objc_autoreleasePoolPush();
-    v17 = 0;
-    v10 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v8 fromData:v4 error:&v17];
-    v11 = v17;
+    v18 = 0;
+    v10 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v8 fromData:v4 error:&v18];
+    v11 = v18;
     v12 = *(*(a1 + 40) + 8);
     v13 = *(v12 + 40);
     *(v12 + 40) = v10;
@@ -2015,17 +2015,17 @@ uint64_t __45___ATXDataStore_loadLaunchesFollowingBundle___block_invoke_3(uint64
     objc_autoreleasePoolPop(v9);
     if (!*(*(*(a1 + 40) + 8) + 40))
     {
-      v14 = __atxlog_handle_default();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = __atxlog_handle_default(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        __45___ATXDataStore_loadLaunchesFollowingBundle___block_invoke_3_cold_1(a1);
+        __45___ATXDataStore_loadLaunchesFollowingBundle___block_invoke_3_cold_1();
       }
     }
   }
 
-  v15 = MEMORY[0x277D42690];
+  v16 = MEMORY[0x277D42690];
 
-  return *v15;
+  return *v16;
 }
 
 uint64_t __45___ATXDataStore_loadLaunchesFollowingBundle___block_invoke_344(uint64_t a1, uint64_t a2)
@@ -2084,9 +2084,9 @@ uint64_t __48___ATXDataStore_loadAppActionLaunchesFollowing___block_invoke_3(uin
     v7 = objc_opt_class();
     v8 = [v5 setWithObjects:{v6, v7, objc_opt_class(), 0}];
     v9 = objc_autoreleasePoolPush();
-    v17 = 0;
-    v10 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v8 fromData:v4 error:&v17];
-    v11 = v17;
+    v18 = 0;
+    v10 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v8 fromData:v4 error:&v18];
+    v11 = v18;
     v12 = *(*(a1 + 40) + 8);
     v13 = *(v12 + 40);
     *(v12 + 40) = v10;
@@ -2094,17 +2094,17 @@ uint64_t __48___ATXDataStore_loadAppActionLaunchesFollowing___block_invoke_3(uin
     objc_autoreleasePoolPop(v9);
     if (!*(*(*(a1 + 40) + 8) + 40))
     {
-      v14 = __atxlog_handle_default();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = __atxlog_handle_default(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        __45___ATXDataStore_loadLaunchesFollowingBundle___block_invoke_3_cold_1(a1);
+        __45___ATXDataStore_loadLaunchesFollowingBundle___block_invoke_3_cold_1();
       }
     }
   }
 
-  v15 = MEMORY[0x277D42698];
+  v16 = MEMORY[0x277D42698];
 
-  return *v15;
+  return *v16;
 }
 
 uint64_t __48___ATXDataStore_loadAppActionLaunchesFollowing___block_invoke_357(uint64_t a1, uint64_t a2)
@@ -2132,15 +2132,15 @@ void __47___ATXDataStore_deleteLaunchesFollowingBundle___block_invoke(uint64_t a
 
 uint64_t __47___ATXDataStore_deleteLaunchesFollowingBundle___block_invoke_3(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = __atxlog_handle_default();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  v3 = __atxlog_handle_default(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __47___ATXDataStore_deleteLaunchesFollowingBundle___block_invoke_3_cold_1(a1);
+    __47___ATXDataStore_deleteLaunchesFollowingBundle___block_invoke_3_cold_1();
   }
 
-  v5 = MEMORY[0x277D42698];
-  return *v5;
+  v4 = MEMORY[0x277D42698];
+  return *v4;
 }
 
 void __50___ATXDataStore_deleteLaunchesFollowingAppAction___block_invoke(uint64_t a1)
@@ -2176,15 +2176,15 @@ void __50___ATXDataStore_deleteLaunchesFollowingAppAction___block_invoke(uint64_
 
 uint64_t __50___ATXDataStore_deleteLaunchesFollowingAppAction___block_invoke_3(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = __atxlog_handle_default();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  v3 = __atxlog_handle_default(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __50___ATXDataStore_deleteLaunchesFollowingAppAction___block_invoke_3_cold_1(a1);
+    __50___ATXDataStore_deleteLaunchesFollowingAppAction___block_invoke_3_cold_1();
   }
 
-  v5 = MEMORY[0x277D42698];
-  return *v5;
+  v4 = MEMORY[0x277D42698];
+  return *v4;
 }
 
 uint64_t __56___ATXDataStore__enumerateAppInfoBundlesExecutingBlock___block_invoke(uint64_t a1, void *a2)
@@ -2211,7 +2211,7 @@ uint64_t __56___ATXDataStore__enumerateAppInfoBundlesExecutingBlock___block_invo
 uint64_t __56___ATXDataStore__enumerateAppInfoBundlesExecutingBlock___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __56___ATXDataStore__enumerateAppInfoBundlesExecutingBlock___block_invoke_2_cold_1();
@@ -2245,7 +2245,7 @@ uint64_t __59___ATXDataStore__enumerateAppInfoAppActionsExecutingBlock___block_i
 uint64_t __59___ATXDataStore__enumerateAppInfoAppActionsExecutingBlock___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __59___ATXDataStore__enumerateAppInfoAppActionsExecutingBlock___block_invoke_2_cold_1();
@@ -2582,27 +2582,27 @@ void __67___ATXDataStore_filenamesAndDataForBackupShouldPareDown_transport___blo
     v6 = [MEMORY[0x277CEBCB0] appPredictionDirectoryFile:@"tempdb-backup.db"];
     nukeDbFiles(v6);
     v7 = *(*(a1 + 32) + 48);
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __67___ATXDataStore_filenamesAndDataForBackupShouldPareDown_transport___block_invoke_2;
-    v25[3] = &unk_278598768;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __67___ATXDataStore_filenamesAndDataForBackupShouldPareDown_transport___block_invoke_2;
+    v26[3] = &unk_278598768;
     v8 = v6;
-    v26 = v8;
-    [v7 prepAndRunQuery:@"VACUUM INTO :tmp_db_path" onPrep:v25 onRow:0 onError:0];
-    v21 = 0;
-    v22 = &v21;
-    v23 = 0x2020000000;
-    v24 = 0;
+    v27 = v8;
+    [v7 prepAndRunQuery:@"VACUUM INTO :tmp_db_path" onPrep:v26 onRow:0 onError:0];
+    v22 = 0;
+    v23 = &v22;
+    v24 = 0x2020000000;
+    v25 = 0;
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __67___ATXDataStore_filenamesAndDataForBackupShouldPareDown_transport___block_invoke_3;
     aBlock[3] = &unk_278596C38;
     v9 = v8;
-    v19 = v9;
-    v20 = &v21;
+    v20 = v9;
+    v21 = &v22;
     v10 = _Block_copy(aBlock);
     v11 = [v9 UTF8String];
-    if (sqlite3_open_v2(v11, v22 + 3, 2, 0) || sqlite3_exec(v22[3], "PRAGMA journal_mode=memory", 0, 0, 0) || *(a1 + 56) == 1 && ![_ATXDataStore pareDownForBackup:v22[3]])
+    if (sqlite3_open_v2(v11, v23 + 3, 2, 0) || sqlite3_exec(v23[3], "PRAGMA journal_mode=memory", 0, 0, 0) || *(a1 + 56) == 1 && ![_ATXDataStore pareDownForBackup:v23[3]])
     {
       v10[2](v10);
       v12 = 0;
@@ -2610,12 +2610,12 @@ void __67___ATXDataStore_filenamesAndDataForBackupShouldPareDown_transport___blo
 
     else
     {
-      sqlite3_exec(v22[3], "VACUUM", 0, 0, 0);
-      sqlite3_close(v22[3]);
-      v22[3] = 0;
-      v17 = 0;
-      v13 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:v9 options:1 error:&v17];
-      v12 = v17;
+      sqlite3_exec(v23[3], "VACUUM", 0, 0, 0);
+      sqlite3_close(v23[3]);
+      v23[3] = 0;
+      v18 = 0;
+      v13 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:v9 options:1 error:&v18];
+      v12 = v18;
       v14 = *(*(a1 + 48) + 8);
       v15 = *(v14 + 40);
       *(v14 + 40) = v13;
@@ -2627,8 +2627,8 @@ void __67___ATXDataStore_filenamesAndDataForBackupShouldPareDown_transport___blo
 
       else
       {
-        v16 = __atxlog_handle_default();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v17 = __atxlog_handle_default(v16);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           __67___ATXDataStore_filenamesAndDataForBackupShouldPareDown_transport___block_invoke_cold_1();
         }
@@ -2637,7 +2637,7 @@ void __67___ATXDataStore_filenamesAndDataForBackupShouldPareDown_transport___blo
       }
     }
 
-    _Block_object_dispose(&v21, 8);
+    _Block_object_dispose(&v22, 8);
   }
 }
 
@@ -2682,36 +2682,37 @@ void __89___ATXDataStore_removeSensitiveInformationFromModeEntityScoresFile_shou
 
 void __35___ATXDataStore_restoreFromBackup___block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
+  v33 = *MEMORY[0x277D85DE8];
   v28 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v26;
+    v6 = *v29;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v26 != v6)
+        if (*v29 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v25 + 1) + 8 * i);
-        if ([v8 hasPrefix:@"dataStore_"])
+        v8 = *(*(&v28 + 1) + 8 * i);
+        v9 = [v8 hasPrefix:@"dataStore_"];
+        if (v9)
         {
           if (v5)
           {
-            v9 = __atxlog_handle_backup();
-            if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+            v10 = __atxlog_handle_backup(v9);
+            if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
             {
-              __35___ATXDataStore_restoreFromBackup___block_invoke_cold_1(&buf, v24, v9);
+              __35___ATXDataStore_restoreFromBackup___block_invoke_cold_1(&buf, v27, v10);
             }
           }
 
@@ -2722,57 +2723,59 @@ void __35___ATXDataStore_restoreFromBackup___block_invoke(uint64_t a1)
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v4);
 
     if (v5)
     {
-      v10 = [*(a1 + 32) objectForKeyedSubscript:v5];
-      v11 = -[NSObject substringFromIndex:](v5, "substringFromIndex:", [@"dataStore_" length]);
-      v12 = [MEMORY[0x277CEBCB0] appPredictionDirectoryFile:v11];
-      if (v10 && [_ATXDataStore isSqliteData:v10])
+      v12 = [*(a1 + 32) objectForKeyedSubscript:v5];
+      v13 = -[NSObject substringFromIndex:](v5, "substringFromIndex:", [@"dataStore_" length]);
+      v14 = [MEMORY[0x277CEBCB0] appPredictionDirectoryFile:v13];
+      v15 = v14;
+      if (v12 && (v14 = [_ATXDataStore isSqliteData:v12], (v14 & 1) != 0))
       {
         [*(a1 + 40) _disconnectFromDb];
-        v13 = [MEMORY[0x277CCAA00] defaultManager];
-        [v13 removeItemAtPath:v12 error:0];
-
-        v14 = [MEMORY[0x277CCAA00] defaultManager];
-        v15 = [v12 stringByAppendingString:@"-shm"];
-        [v14 removeItemAtPath:v15 error:0];
-
         v16 = [MEMORY[0x277CCAA00] defaultManager];
-        v17 = [v12 stringByAppendingString:@"-wal"];
-        [v16 removeItemAtPath:v17 error:0];
+        [v16 removeItemAtPath:v15 error:0];
 
-        v22 = 0;
-        LOBYTE(v17) = [v10 writeToFile:v12 options:1073741825 error:&v22];
-        v18 = v22;
-        if (v17)
+        v17 = [MEMORY[0x277CCAA00] defaultManager];
+        v18 = [v15 stringByAppendingString:@"-shm"];
+        [v17 removeItemAtPath:v18 error:0];
+
+        v19 = [MEMORY[0x277CCAA00] defaultManager];
+        v20 = [v15 stringByAppendingString:@"-wal"];
+        [v19 removeItemAtPath:v20 error:0];
+
+        v25 = 0;
+        LOBYTE(v20) = [v12 writeToFile:v15 options:1073741825 error:&v25];
+        v21 = v25;
+        v22 = v21;
+        if (v20)
         {
-          v19 = 1;
+          v23 = 1;
         }
 
         else
         {
-          v20 = __atxlog_handle_backup();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+          v24 = __atxlog_handle_backup(v21);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
           {
             __35___ATXDataStore_restoreFromBackup___block_invoke_cold_2();
           }
 
-          v19 = 0;
+          v23 = 0;
         }
 
-        *(*(*(a1 + 48) + 8) + 24) = v19;
+        *(*(*(a1 + 48) + 8) + 24) = v23;
       }
 
       else
       {
         *(*(*(a1 + 48) + 8) + 24) = 0;
-        v18 = __atxlog_handle_backup();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        v22 = __atxlog_handle_backup(v14);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           __35___ATXDataStore_restoreFromBackup___block_invoke_cold_3();
         }
@@ -2786,15 +2789,13 @@ void __35___ATXDataStore_restoreFromBackup___block_invoke(uint64_t a1)
   {
   }
 
-  v5 = __atxlog_handle_backup();
+  v5 = __atxlog_handle_backup(v11);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     __35___ATXDataStore_restoreFromBackup___block_invoke_cold_4();
   }
 
 LABEL_29:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __55___ATXDataStore_addAppLaunchForAppLaunchSequence_date___block_invoke(uint64_t a1)
@@ -3170,15 +3171,13 @@ void __40___ATXDataStore_alogContainsActionUUID___block_invoke(uint64_t a1)
 
 uint64_t __40___ATXDataStore_alogContainsActionUUID___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = a2;
-  [v2 getUUIDBytes:v7];
+  [v2 getUUIDBytes:v6];
   v4 = [v3 stmt];
 
-  result = sqlite3_bind_blob(v4, 1, v7, 16, 0xFFFFFFFFFFFFFFFFLL);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return sqlite3_bind_blob(v4, 1, v6, 16, 0xFFFFFFFFFFFFFFFFLL);
 }
 
 uint64_t __40___ATXDataStore_alogContainsActionUUID___block_invoke_4(uint64_t a1, uint64_t a2)
@@ -3342,7 +3341,7 @@ void __191___ATXDataStore_writeActionType_bundleId_date_action_slotSets_timeZone
 
 void __191___ATXDataStore_writeActionType_bundleId_date_action_slotSets_timeZone_prevLocationUUID_locationUUID_weight_actionUUID_motionType_appSessionStartDate_appSessionEndDate_geohash_coarseGeohash___block_invoke_9(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [v3 bindParam:1 toInt64:*(*(*(a1 + 88) + 8) + 24)];
   [v3 bindParam:2 toInt64:*(*(*(a1 + 96) + 8) + 24)];
@@ -3354,8 +3353,8 @@ void __191___ATXDataStore_writeActionType_bundleId_date_action_slotSets_timeZone
   v5 = *(a1 + 48);
   if (v5)
   {
-    [v5 getUUIDBytes:v13];
-    sqlite3_bind_blob([v3 stmt], 7, v13, 16, 0xFFFFFFFFFFFFFFFFLL);
+    [v5 getUUIDBytes:v12];
+    sqlite3_bind_blob([v3 stmt], 7, v12, 16, 0xFFFFFFFFFFFFFFFFLL);
   }
 
   else
@@ -3366,8 +3365,8 @@ void __191___ATXDataStore_writeActionType_bundleId_date_action_slotSets_timeZone
   v6 = *(a1 + 56);
   if (v6)
   {
-    [v6 getUUIDBytes:v13];
-    sqlite3_bind_blob([v3 stmt], 8, v13, 16, 0xFFFFFFFFFFFFFFFFLL);
+    [v6 getUUIDBytes:v12];
+    sqlite3_bind_blob([v3 stmt], 8, v12, 16, 0xFFFFFFFFFFFFFFFFLL);
   }
 
   else
@@ -3376,8 +3375,8 @@ void __191___ATXDataStore_writeActionType_bundleId_date_action_slotSets_timeZone
   }
 
   [v3 bindParam:9 toDouble:*(a1 + 120)];
-  [*(a1 + 64) getUUIDBytes:v13];
-  sqlite3_bind_blob([v3 stmt], 10, v13, 16, 0xFFFFFFFFFFFFFFFFLL);
+  [*(a1 + 64) getUUIDBytes:v12];
+  sqlite3_bind_blob([v3 stmt], 10, v12, 16, 0xFFFFFFFFFFFFFFFFLL);
   [v3 bindParam:11 toInteger:*(a1 + 128)];
   v7 = *(a1 + 72);
   if (v7)
@@ -3407,21 +3406,17 @@ void __191___ATXDataStore_writeActionType_bundleId_date_action_slotSets_timeZone
   [v3 bindParam:14 toInt64:(v11 * 1000.0)];
   [v3 bindParam:15 toInt64:*(a1 + 136)];
   [v3 bindParam:16 toInt64:*(a1 + 144)];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __191___ATXDataStore_writeActionType_bundleId_date_action_slotSets_timeZone_prevLocationUUID_locationUUID_weight_actionUUID_motionType_appSessionStartDate_appSessionEndDate_geohash_coarseGeohash___block_invoke_10(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = a2;
-  [v2 getUUIDBytes:v7];
+  [v2 getUUIDBytes:v6];
   v4 = [v3 stmt];
 
-  result = sqlite3_bind_blob(v4, 1, v7, 16, 0xFFFFFFFFFFFFFFFFLL);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return sqlite3_bind_blob(v4, 1, v6, 16, 0xFFFFFFFFFFFFFFFFLL);
 }
 
 uint64_t __191___ATXDataStore_writeActionType_bundleId_date_action_slotSets_timeZone_prevLocationUUID_locationUUID_weight_actionUUID_motionType_appSessionStartDate_appSessionEndDate_geohash_coarseGeohash___block_invoke_11(uint64_t a1, void *a2)
@@ -3434,7 +3429,7 @@ uint64_t __191___ATXDataStore_writeActionType_bundleId_date_action_slotSets_time
 uint64_t __191___ATXDataStore_writeActionType_bundleId_date_action_slotSets_timeZone_prevLocationUUID_locationUUID_weight_actionUUID_motionType_appSessionStartDate_appSessionEndDate_geohash_coarseGeohash___block_invoke_12(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __191___ATXDataStore_writeActionType_bundleId_date_action_slotSets_timeZone_prevLocationUUID_locationUUID_weight_actionUUID_motionType_appSessionStartDate_appSessionEndDate_geohash_coarseGeohash___block_invoke_12_cold_1();
@@ -3468,11 +3463,11 @@ void __191___ATXDataStore_writeActionType_bundleId_date_action_slotSets_timeZone
 
 void __191___ATXDataStore_writeActionType_bundleId_date_action_slotSets_timeZone_prevLocationUUID_locationUUID_weight_actionUUID_motionType_appSessionStartDate_appSessionEndDate_geohash_coarseGeohash___block_invoke_2_524(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [v3 bindParam:1 toInt64:*(*(*(a1 + 48) + 8) + 24)];
-  [*(a1 + 32) getUUIDBytes:v7];
-  sqlite3_bind_blob([v3 stmt], 2, v7, 16, 0xFFFFFFFFFFFFFFFFLL);
+  [*(a1 + 32) getUUIDBytes:v6];
+  sqlite3_bind_blob([v3 stmt], 2, v6, 16, 0xFFFFFFFFFFFFFFFFLL);
   [v3 bindParam:3 toInt64:{objc_msgSend(*(a1 + 40), "hash")}];
   [v3 bindParam:4 toInt64:{objc_msgSend(*(a1 + 40), "slotHash")}];
   v4 = *(a1 + 40);
@@ -3487,16 +3482,14 @@ void __191___ATXDataStore_writeActionType_bundleId_date_action_slotSets_timeZone
   }
 
   [v3 bindParam:5 toInt64:v5];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __64___ATXDataStore__deserializeActionLogRowWithStmt_invokingBlock___block_invoke(uint64_t a1)
 {
-  v2 = __atxlog_handle_deletions();
+  v2 = __atxlog_handle_deletions(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __64___ATXDataStore__deserializeActionLogRowWithStmt_invokingBlock___block_invoke_cold_1(a1);
+    __64___ATXDataStore__deserializeActionLogRowWithStmt_invokingBlock___block_invoke_cold_1();
   }
 
   v3 = MEMORY[0x277D42578];
@@ -3680,46 +3673,36 @@ uint64_t __57___ATXDataStore_enumerateSlotUuidsOfType_bundleId_block___block_inv
   }
 
   *(v6 + 24) = v5;
-  if ([v4 length] == 16)
+  v28 = [v4 length];
+  if (v28 == 16)
   {
-    v28 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:{objc_msgSend(v4, "bytes")}];
-    v29 = objc_autoreleasePoolPush();
-    v30 = a1[4];
-    v31 = *(*(a1[8] + 8) + 40);
-    v42 = *(*(a1[17] + 8) + 24);
-    v43 = *(*(a1[18] + 8) + 24);
-    v40 = *(*(a1[15] + 8) + 40);
-    v41 = *(*(a1[16] + 8) + 40);
-    v38 = *(*(a1[12] + 8) + 40);
-    v39 = *(*(a1[13] + 8) + 24);
-    v36 = *(*(a1[10] + 8) + 24);
-    v37 = *(*(a1[11] + 8) + 40);
-    v35 = *(*(a1[9] + 8) + 24);
-    v32 = (*(a1[5] + 16))(*(*(a1[14] + 8) + 24));
-    objc_autoreleasePoolPop(v29);
-    if (v32)
+    v29 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:{objc_msgSend(v4, "bytes")}];
+    v30 = objc_autoreleasePoolPush();
+    v31 = (*(a1[5] + 16))(*(*(a1[14] + 8) + 24));
+    objc_autoreleasePoolPop(v30);
+    if (v31)
     {
-      v33 = MEMORY[0x277D42690];
+      v32 = MEMORY[0x277D42690];
     }
 
     else
     {
-      v33 = MEMORY[0x277D42698];
+      v32 = MEMORY[0x277D42698];
     }
   }
 
   else
   {
-    v28 = __atxlog_handle_default();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v29 = __atxlog_handle_default(v28);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       __57___ATXDataStore_enumerateSlotUuidsOfType_bundleId_block___block_invoke_3_cold_1();
     }
 
-    v33 = MEMORY[0x277D42690];
+    v32 = MEMORY[0x277D42690];
   }
 
-  return *v33;
+  return *v32;
 }
 
 void __49___ATXDataStore_enumerateActionsInUUIDSet_block___block_invoke(uint64_t a1)
@@ -3747,7 +3730,7 @@ void __49___ATXDataStore_enumerateActionsInUUIDSet_block___block_invoke(uint64_t
 
 void __49___ATXDataStore_enumerateActionsInUUIDSet_block___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([*(a1 + 32) count])
   {
@@ -3755,15 +3738,13 @@ void __49___ATXDataStore_enumerateActionsInUUIDSet_block___block_invoke_2(uint64
     do
     {
       v5 = [*(a1 + 32) objectAtIndexedSubscript:v4];
-      [v5 getUUIDBytes:v7];
+      [v5 getUUIDBytes:v6];
 
-      sqlite3_bind_blob([v3 stmt], ++v4, v7, 16, 0xFFFFFFFFFFFFFFFFLL);
+      sqlite3_bind_blob([v3 stmt], ++v4, v6, 16, 0xFFFFFFFFFFFFFFFFLL);
     }
 
     while (v4 < [*(a1 + 32) count]);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __71___ATXDataStore_appIntentDuetEventsForActionsBetweenStartDate_endDate___block_invoke(uint64_t a1)
@@ -3795,7 +3776,7 @@ void __71___ATXDataStore_appIntentDuetEventsForActionsBetweenStartDate_endDate__
 
 uint64_t __71___ATXDataStore_appIntentDuetEventsForActionsBetweenStartDate_endDate___block_invoke_3(uint64_t a1, void *a2)
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (([v3 isColumnNull:0] & 1) != 0 || (objc_msgSend(v3, "isColumnNull:", 1) & 1) != 0 || (objc_msgSend(v3, "isColumnNull:", 2) & 1) != 0 || (objc_msgSend(v3, "isColumnNull:", 4) & 1) != 0 || (objc_msgSend(v3, "isColumnNull:", 5) & 1) != 0 || (objc_msgSend(v3, "isColumnNull:", 6) & 1) != 0 || objc_msgSend(v3, "isColumnNull:", 7))
   {
@@ -3804,33 +3785,32 @@ uint64_t __71___ATXDataStore_appIntentDuetEventsForActionsBetweenStartDate_endDa
 
   else
   {
-    v19 = [v3 getInt64ForColumn:0];
-    v21 = [v3 getNSStringForColumn:1];
-    v20 = [v3 getNSStringForColumn:2];
-    v7 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:{objc_msgSend(v3, "getInt64ForColumn:", 3)}];
-    v8 = [v3 getInt64ForColumn:5];
-    v9 = [v3 getInt64ForColumn:6];
-    v10 = [v3 getInt64ForColumn:7];
-    v11 = [ATXAppIntentDuetEvent alloc];
-    v12 = [MEMORY[0x277CCABB0] numberWithLongLong:v8];
-    v23[0] = v12;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
-    v14 = [MEMORY[0x277CCABB0] numberWithLongLong:v9];
-    v22 = v14;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
-    v16 = [MEMORY[0x277CCABB0] numberWithLongLong:v10];
-    v17 = [MEMORY[0x277CCABB0] numberWithLongLong:v19];
-    v18 = [(ATXAppIntentDuetEvent *)v11 initWithBundleId:v21 actionType:v20 parameterHashes:v13 slotSetHashes:v15 paramCount:v16 startDate:v7 endDate:v7 alogId:v17];
+    v18 = [v3 getInt64ForColumn:0];
+    v20 = [v3 getNSStringForColumn:1];
+    v19 = [v3 getNSStringForColumn:2];
+    v6 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:{objc_msgSend(v3, "getInt64ForColumn:", 3)}];
+    v7 = [v3 getInt64ForColumn:5];
+    v8 = [v3 getInt64ForColumn:6];
+    v9 = [v3 getInt64ForColumn:7];
+    v10 = [ATXAppIntentDuetEvent alloc];
+    v11 = [MEMORY[0x277CCABB0] numberWithLongLong:v7];
+    v22[0] = v11;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+    v13 = [MEMORY[0x277CCABB0] numberWithLongLong:v8];
+    v21 = v13;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
+    v15 = [MEMORY[0x277CCABB0] numberWithLongLong:v9];
+    v16 = [MEMORY[0x277CCABB0] numberWithLongLong:v18];
+    v17 = [(ATXAppIntentDuetEvent *)v10 initWithBundleId:v20 actionType:v19 parameterHashes:v12 slotSetHashes:v14 paramCount:v15 startDate:v6 endDate:v6 alogId:v16];
 
-    if (v18)
+    if (v17)
     {
-      [*(a1 + 32) addObject:v18];
+      [*(a1 + 32) addObject:v17];
     }
 
     v4 = *MEMORY[0x277D42690];
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -4037,15 +4017,13 @@ void __95___ATXDataStore_numActionParameterHashOccurrencesForActionKey_parameter
 
 uint64_t __35___ATXDataStore_actionForSlotUUID___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = a2;
-  [v2 getUUIDBytes:v7];
+  [v2 getUUIDBytes:v6];
   v4 = [v3 stmt];
 
-  result = sqlite3_bind_blob(v4, 1, v7, 16, 0xFFFFFFFFFFFFFFFFLL);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return sqlite3_bind_blob(v4, 1, v6, 16, 0xFFFFFFFFFFFFFFFFLL);
 }
 
 uint64_t __35___ATXDataStore_actionForSlotUUID___block_invoke_2(void *a1, void *a2)
@@ -4057,11 +4035,10 @@ uint64_t __35___ATXDataStore_actionForSlotUUID___block_invoke_2(void *a1, void *
 
   if (*(*(a1[4] + 8) + 40))
   {
-    v6 = *(a1[6] + 8);
-    v7 = ATXSlotSetsDeserialize();
-    v8 = *(a1[5] + 8);
-    v9 = *(v8 + 40);
-    *(v8 + 40) = v7;
+    v6 = ATXSlotSetsDeserialize();
+    v7 = *(a1[5] + 8);
+    v8 = *(v7 + 40);
+    *(v7 + 40) = v6;
   }
 
   return *MEMORY[0x277D42698];
@@ -4069,67 +4046,65 @@ uint64_t __35___ATXDataStore_actionForSlotUUID___block_invoke_2(void *a1, void *
 
 uint64_t __35___ATXDataStore_actionForSlotUUID___block_invoke_3(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = __atxlog_handle_default();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  v3 = __atxlog_handle_default(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __35___ATXDataStore_actionForSlotUUID___block_invoke_3_cold_1(a1);
+    __35___ATXDataStore_actionForSlotUUID___block_invoke_3_cold_1();
   }
 
-  v5 = MEMORY[0x277D42698];
-  return *v5;
+  v4 = MEMORY[0x277D42698];
+  return *v4;
 }
 
-void __48___ATXDataStore_removeActionDataForActionUUIDs___block_invoke(uint64_t a1)
+void __48___ATXDataStore_removeActionDataForActionUUIDs___block_invoke(uint64_t a1, uint64_t a2)
 {
   v21 = *MEMORY[0x277D85DE8];
-  v2 = objc_opt_new();
+  v3 = objc_opt_new();
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v15 objects:v20 count:16];
-  if (v4)
+  v4 = *(a1 + 32);
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v20 count:16];
+  if (v5)
   {
-    v5 = v4;
-    v6 = *v16;
+    v6 = v5;
+    v7 = *v16;
     do
     {
-      v7 = 0;
+      v8 = 0;
       do
       {
-        if (*v16 != v6)
+        if (*v16 != v7)
         {
-          objc_enumerationMutation(v3);
+          objc_enumerationMutation(v4);
         }
 
-        [*(*(&v15 + 1) + 8 * v7) getUUIDBytes:v19];
-        v8 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v19 length:16];
-        [v2 addObject:v8];
+        [*(*(&v15 + 1) + 8 * v8) getUUIDBytes:v19];
+        v9 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v19 length:16];
+        [v3 addObject:v9];
 
-        ++v7;
+        ++v8;
       }
 
-      while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v15 objects:v20 count:16];
+      while (v6 != v8);
+      v6 = [v4 countByEnumeratingWithState:&v15 objects:v20 count:16];
     }
 
-    while (v5);
+    while (v6);
   }
 
-  v9 = *(a1 + 40);
-  v10 = *(v9 + 48);
+  v10 = *(a1 + 40);
+  v11 = *(v10 + 48);
   v13[0] = MEMORY[0x277D85DD0];
   v13[1] = 3221225472;
   v13[2] = __48___ATXDataStore_removeActionDataForActionUUIDs___block_invoke_2;
   v13[3] = &unk_278596C10;
-  v13[4] = v9;
-  v14 = v2;
-  v11 = v2;
-  [v10 writeTransaction:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v13[4] = v10;
+  v14 = v3;
+  v12 = v3;
+  [v11 writeTransaction:v13];
 }
 
 void __48___ATXDataStore_removeActionDataForActionUUIDs___block_invoke_2(uint64_t a1)
@@ -4198,41 +4173,35 @@ void __47___ATXDataStore_removeActionDataForActionUUID___block_invoke_2(uint64_t
 
 uint64_t __47___ATXDataStore_removeActionDataForActionUUID___block_invoke_3(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = a2;
-  [v2 getUUIDBytes:v7];
+  [v2 getUUIDBytes:v6];
   v4 = [v3 stmt];
 
-  result = sqlite3_bind_blob(v4, 1, v7, 16, 0xFFFFFFFFFFFFFFFFLL);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return sqlite3_bind_blob(v4, 1, v6, 16, 0xFFFFFFFFFFFFFFFFLL);
 }
 
 uint64_t __47___ATXDataStore_removeActionDataForActionUUID___block_invoke_4(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = a2;
-  [v2 getUUIDBytes:v7];
+  [v2 getUUIDBytes:v6];
   v4 = [v3 stmt];
 
-  result = sqlite3_bind_blob(v4, 1, v7, 16, 0xFFFFFFFFFFFFFFFFLL);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return sqlite3_bind_blob(v4, 1, v6, 16, 0xFFFFFFFFFFFFFFFFLL);
 }
 
 uint64_t __47___ATXDataStore_removeActionDataForActionUUID___block_invoke_5(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = a2;
-  [v2 getUUIDBytes:v7];
+  [v2 getUUIDBytes:v6];
   v4 = [v3 stmt];
 
-  result = sqlite3_bind_blob(v4, 1, v7, 16, 0xFFFFFFFFFFFFFFFFLL);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return sqlite3_bind_blob(v4, 1, v6, 16, 0xFFFFFFFFFFFFFFFFLL);
 }
 
 uint64_t __37___ATXDataStore_hasOrphanSlotSetKeys__block_invoke(uint64_t a1)
@@ -4314,7 +4283,7 @@ uint64_t __40___ATXDataStore_actionAndSlotsForRowId___block_invoke_2(uint64_t a1
 uint64_t __40___ATXDataStore_actionAndSlotsForRowId___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __40___ATXDataStore_actionAndSlotsForRowId___block_invoke_3_cold_1();
@@ -4328,17 +4297,17 @@ uint64_t __40___ATXDataStore_actionAndSlotsForRowId___block_invoke_3(uint64_t a1
 
 uint64_t __50___ATXDataStore__regenerateSlotSetKeyForBundleId___block_invoke_4(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = __atxlog_handle_default();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  v3 = __atxlog_handle_default(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __50___ATXDataStore__regenerateSlotSetKeyForBundleId___block_invoke_4_cold_1(a1);
+    __50___ATXDataStore__regenerateSlotSetKeyForBundleId___block_invoke_4_cold_1();
   }
 
-  [_ATXDataStore _simulateCrashForMigrationFailure:v3];
-  v5 = MEMORY[0x277D42698];
+  [_ATXDataStore _simulateCrashForMigrationFailure:v2];
+  v4 = MEMORY[0x277D42698];
 
-  return *v5;
+  return *v4;
 }
 
 uint64_t __50___ATXDataStore__regenerateSlotSetKeyForBundleId___block_invoke_2_627(uint64_t a1, void *a2)
@@ -4359,33 +4328,32 @@ void __50___ATXDataStore__regenerateSlotSetKeyForBundleId___block_invoke_628(uin
 
 void __49___ATXDataStore_regenerateSlotSetKeyForBundleId___block_invoke(uint64_t a1)
 {
-  v2 = __atxlog_handle_default();
+  v2 = __atxlog_handle_default(a1);
   v3 = os_signpost_id_generate(v2);
 
-  v4 = __atxlog_handle_default();
-  v5 = v4;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
+  v5 = __atxlog_handle_default(v4);
+  v6 = v5;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_2263AA000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v3, "regenerateSlotSetKeyForBundleId", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_2263AA000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v3, "regenerateSlotSetKeyForBundleId", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v7 = *(a1 + 32);
-  v6 = *(a1 + 40);
-  v8 = *(v7 + 48);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __49___ATXDataStore_regenerateSlotSetKeyForBundleId___block_invoke_632;
-  v11[3] = &unk_278596C10;
-  v11[4] = v7;
-  v12 = v6;
-  [v8 writeTransaction:v11];
-  v9 = __atxlog_handle_default();
-  v10 = v9;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+  v8 = *(a1 + 32);
+  v7 = *(a1 + 40);
+  v9 = *(v8 + 48);
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __49___ATXDataStore_regenerateSlotSetKeyForBundleId___block_invoke_632;
+  v12[3] = &unk_278596C10;
+  v12[4] = v8;
+  v13 = v7;
+  v10 = __atxlog_handle_default([v9 writeTransaction:v12]);
+  v11 = v10;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_2263AA000, v10, OS_SIGNPOST_INTERVAL_END, v3, "regenerateSlotSetKeyForBundleId", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_2263AA000, v11, OS_SIGNPOST_INTERVAL_END, v3, "regenerateSlotSetKeyForBundleId", "", buf, 2u);
   }
 }
 
@@ -4403,50 +4371,50 @@ void __51___ATXDataStore_trimActionHistoryWithAppWhitelist___block_invoke(uint64
   [v2 writeTransaction:v5];
 }
 
-void __51___ATXDataStore_trimActionHistoryWithAppWhitelist___block_invoke_2(uint64_t a1)
+void __51___ATXDataStore_trimActionHistoryWithAppWhitelist___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v106 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
-    v2 = objc_opt_new();
-    v3 = *(*(a1 + 40) + 48);
+    v3 = objc_opt_new();
+    v4 = *(*(a1 + 40) + 48);
     v101[0] = MEMORY[0x277D85DD0];
     v101[1] = 3221225472;
     v101[2] = __51___ATXDataStore_trimActionHistoryWithAppWhitelist___block_invoke_3;
     v101[3] = &unk_27859C820;
     v102 = *(a1 + 32);
-    v4 = v2;
-    v103 = v4;
-    [v3 prepAndRunQuery:@"SELECT id onPrep:bundleId FROM alogBundleId" onRow:0 onError:{v101, 0}];
+    v5 = v3;
+    v103 = v5;
+    [v4 prepAndRunQuery:@"SELECT id onPrep:bundleId FROM alogBundleId" onRow:0 onError:{v101, 0}];
     v99 = 0u;
     v100 = 0u;
     v97 = 0u;
     v98 = 0u;
-    v5 = v4;
-    v6 = [v5 countByEnumeratingWithState:&v97 objects:v105 count:16];
-    if (v6)
+    v6 = v5;
+    v7 = [v6 countByEnumeratingWithState:&v97 objects:v105 count:16];
+    if (v7)
     {
-      v7 = *v98;
+      v8 = *v98;
       do
       {
-        for (i = 0; i != v6; ++i)
+        for (i = 0; i != v7; ++i)
         {
-          if (*v98 != v7)
+          if (*v98 != v8)
           {
-            objc_enumerationMutation(v5);
+            objc_enumerationMutation(v6);
           }
 
           removeActionDataByBundleIdId(*(*(a1 + 40) + 48), [*(*(&v97 + 1) + 8 * i) unsignedLongLongValue]);
         }
 
-        v6 = [v5 countByEnumeratingWithState:&v97 objects:v105 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v97 objects:v105 count:16];
       }
 
-      while (v6);
+      while (v7);
     }
   }
 
-  v9 = objc_opt_new();
+  v10 = objc_opt_new();
   v93 = 0;
   v94 = &v93;
   v95 = 0x2020000000;
@@ -4463,19 +4431,19 @@ void __51___ATXDataStore_trimActionHistoryWithAppWhitelist___block_invoke_2(uint
   v82 = &v81;
   v83 = 0x2020000000;
   v84 = 0;
-  v10 = +[_ATXGlobals sharedInstance];
-  v11 = MEMORY[0x277CBEAA8];
-  v49 = v10;
-  [v10 maximumSlotResolutionDatabaseEntryAge];
-  v13 = [v11 dateWithTimeIntervalSinceNow:v12 * 24.0 * 60.0 * -60.0];
+  v11 = +[_ATXGlobals sharedInstance];
+  v12 = MEMORY[0x277CBEAA8];
+  v49 = v11;
+  [v11 maximumSlotResolutionDatabaseEntryAge];
+  v14 = [v12 dateWithTimeIntervalSinceNow:v13 * 24.0 * 60.0 * -60.0];
   v75 = 0;
   v76 = &v75;
   v77 = 0x3032000000;
   v78 = __Block_byref_object_copy__50;
   v79 = __Block_byref_object_dispose__50;
   v80 = 0;
-  v14 = *(a1 + 40);
-  v15 = *(v14 + 48);
+  v15 = *(a1 + 40);
+  v16 = *(v15 + 48);
   v67[0] = MEMORY[0x277D85DD0];
   v67[1] = 3221225472;
   v67[2] = __51___ATXDataStore_trimActionHistoryWithAppWhitelist___block_invoke_4;
@@ -4484,24 +4452,24 @@ void __51___ATXDataStore_trimActionHistoryWithAppWhitelist___block_invoke_2(uint
   v72 = &v89;
   v73 = &v81;
   v70 = &v75;
-  v67[4] = v14;
-  v16 = v13;
-  v68 = v16;
-  v17 = v9;
-  v69 = v17;
+  v67[4] = v15;
+  v17 = v14;
+  v68 = v17;
+  v18 = v10;
+  v69 = v18;
   v74 = &v85;
-  [v15 prepAndRunQuery:@"SELECT bundleId onPrep:actionType onRow:id onError:{date FROM alog ORDER BY bundleId, actionType ASC, rowid DESC", 0, v67, 0}];
+  [v16 prepAndRunQuery:@"SELECT bundleId onPrep:actionType onRow:id onError:{date FROM alog ORDER BY bundleId, actionType ASC, rowid DESC", 0, v67, 0}];
   if (v94[3] != -1 && v90[3] != -1)
   {
-    if (*(*(a1 + 40) + 56) < *(v82 + 6) || ([v76[5] timeIntervalSinceDate:v16], v18 < 0.0))
+    if (*(*(a1 + 40) + 56) < *(v82 + 6) || ([v76[5] timeIntervalSinceDate:v17], v19 < 0.0))
     {
-      v19 = objc_alloc(MEMORY[0x277D42648]);
-      v20 = [MEMORY[0x277CCABB0] numberWithLongLong:v94[3]];
-      v21 = [MEMORY[0x277CCABB0] numberWithLongLong:v90[3]];
-      v22 = [v19 initWithFirst:v20 second:v21];
+      v20 = objc_alloc(MEMORY[0x277D42648]);
+      v21 = [MEMORY[0x277CCABB0] numberWithLongLong:v94[3]];
+      v22 = [MEMORY[0x277CCABB0] numberWithLongLong:v90[3]];
+      v23 = [v20 initWithFirst:v21 second:v22];
 
-      v23 = [MEMORY[0x277CCABB0] numberWithLongLong:v86[3]];
-      [v17 setObject:v23 forKeyedSubscript:v22];
+      v24 = [MEMORY[0x277CCABB0] numberWithLongLong:v86[3]];
+      [v18 setObject:v24 forKeyedSubscript:v23];
     }
   }
 
@@ -4510,48 +4478,48 @@ void __51___ATXDataStore_trimActionHistoryWithAppWhitelist___block_invoke_2(uint
   v66[2] = __51___ATXDataStore_trimActionHistoryWithAppWhitelist___block_invoke_5;
   v66[3] = &unk_27859C870;
   v66[4] = *(a1 + 40);
-  [v17 enumerateKeysAndObjectsUsingBlock:v66];
-  v24 = objc_opt_new();
+  [v18 enumerateKeysAndObjectsUsingBlock:v66];
+  v25 = objc_opt_new();
 
   v94[3] = -1;
   v90[3] = -1;
   v86[3] = -1;
   *(v82 + 6) = 0;
-  v25 = MEMORY[0x277CBEAA8];
+  v26 = MEMORY[0x277CBEAA8];
   [v49 maximumSlotFeedbackDatabaseEntryAge];
-  v27 = [v25 dateWithTimeIntervalSinceNow:v26 * 24.0 * 60.0 * -60.0];
+  v28 = [v26 dateWithTimeIntervalSinceNow:v27 * 24.0 * 60.0 * -60.0];
 
-  v28 = objc_opt_new();
-  v29 = *(*(a1 + 40) + 48);
+  v29 = objc_opt_new();
+  v30 = *(*(a1 + 40) + 48);
   v56[0] = MEMORY[0x277D85DD0];
   v56[1] = 3221225472;
   v56[2] = __51___ATXDataStore_trimActionHistoryWithAppWhitelist___block_invoke_3_652;
   v56[3] = &unk_27859C898;
   v61 = &v75;
-  v30 = v28;
+  v31 = v29;
   v62 = &v93;
   v63 = &v89;
   v64 = &v81;
-  v31 = *(a1 + 40);
-  v57 = v30;
-  v58 = v31;
-  v32 = v27;
-  v59 = v32;
-  v33 = v24;
-  v60 = v33;
+  v32 = *(a1 + 40);
+  v57 = v31;
+  v58 = v32;
+  v33 = v28;
+  v59 = v33;
+  v34 = v25;
+  v60 = v34;
   v65 = &v85;
-  [v29 prepAndRunQuery:@"SELECT bundleId onPrep:actionType onRow:id onError:{date FROM afeedback ORDER BY bundleId, actionType ASC, id DESC", 0, v56, 0}];
+  [v30 prepAndRunQuery:@"SELECT bundleId onPrep:actionType onRow:id onError:{date FROM afeedback ORDER BY bundleId, actionType ASC, id DESC", 0, v56, 0}];
   if (v94[3] != -1 && v90[3] != -1)
   {
-    if (*(*(a1 + 40) + 56) < *(v82 + 6) || ([v76[5] timeIntervalSinceDate:v32], v34 < 0.0))
+    if (*(*(a1 + 40) + 56) < *(v82 + 6) || ([v76[5] timeIntervalSinceDate:v33], v35 < 0.0))
     {
-      v35 = objc_alloc(MEMORY[0x277D42648]);
-      v36 = [MEMORY[0x277CCABB0] numberWithLongLong:v94[3]];
-      v37 = [MEMORY[0x277CCABB0] numberWithLongLong:v90[3]];
-      v38 = [v35 initWithFirst:v36 second:v37];
+      v36 = objc_alloc(MEMORY[0x277D42648]);
+      v37 = [MEMORY[0x277CCABB0] numberWithLongLong:v94[3]];
+      v38 = [MEMORY[0x277CCABB0] numberWithLongLong:v90[3]];
+      v39 = [v36 initWithFirst:v37 second:v38];
 
-      v39 = [MEMORY[0x277CCABB0] numberWithLongLong:v86[3]];
-      [v33 setObject:v39 forKeyedSubscript:v38];
+      v40 = [MEMORY[0x277CCABB0] numberWithLongLong:v86[3]];
+      [v34 setObject:v40 forKeyedSubscript:v39];
     }
   }
 
@@ -4560,41 +4528,41 @@ void __51___ATXDataStore_trimActionHistoryWithAppWhitelist___block_invoke_2(uint
   v55[2] = __51___ATXDataStore_trimActionHistoryWithAppWhitelist___block_invoke_4_653;
   v55[3] = &unk_27859C870;
   v55[4] = *(a1 + 40);
-  [v33 enumerateKeysAndObjectsUsingBlock:v55];
-  v48 = v33;
-  v40 = v32;
+  [v34 enumerateKeysAndObjectsUsingBlock:v55];
+  v48 = v34;
+  v41 = v33;
   v53 = 0u;
   v54 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v41 = v30;
-  v42 = [v41 countByEnumeratingWithState:&v51 objects:v104 count:16];
-  if (v42)
+  v42 = v31;
+  v43 = [v42 countByEnumeratingWithState:&v51 objects:v104 count:16];
+  if (v43)
   {
-    v43 = *v52;
+    v44 = *v52;
     do
     {
-      for (j = 0; j != v42; ++j)
+      for (j = 0; j != v43; ++j)
       {
-        if (*v52 != v43)
+        if (*v52 != v44)
         {
-          objc_enumerationMutation(v41);
+          objc_enumerationMutation(v42);
         }
 
-        v45 = *(*(&v51 + 1) + 8 * j);
-        v46 = *(*(a1 + 40) + 48);
+        v46 = *(*(&v51 + 1) + 8 * j);
+        v47 = *(*(a1 + 40) + 48);
         v50[0] = MEMORY[0x277D85DD0];
         v50[1] = 3221225472;
         v50[2] = __51___ATXDataStore_trimActionHistoryWithAppWhitelist___block_invoke_6;
         v50[3] = &unk_278598768;
-        v50[4] = v45;
-        [v46 prepAndRunQuery:@"DELETE FROM afeedback WHERE id=?" onPrep:v50 onRow:0 onError:0];
+        v50[4] = v46;
+        [v47 prepAndRunQuery:@"DELETE FROM afeedback WHERE id=?" onPrep:v50 onRow:0 onError:0];
       }
 
-      v42 = [v41 countByEnumeratingWithState:&v51 objects:v104 count:16];
+      v43 = [v42 countByEnumeratingWithState:&v51 objects:v104 count:16];
     }
 
-    while (v42);
+    while (v43);
   }
 
   [*(*(a1 + 40) + 48) prepAndRunQuery:@"DELETE FROM alogAction WHERE id NOT IN (SELECT actionType FROM alog UNION SELECT actionType FROM afeedback)" onPrep:0 onRow:0 onError:0];
@@ -4606,8 +4574,6 @@ void __51___ATXDataStore_trimActionHistoryWithAppWhitelist___block_invoke_2(uint
   _Block_object_dispose(&v85, 8);
   _Block_object_dispose(&v89, 8);
   _Block_object_dispose(&v93, 8);
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __51___ATXDataStore_trimActionHistoryWithAppWhitelist___block_invoke_3(uint64_t a1, void *a2)
@@ -4715,39 +4681,37 @@ LABEL_17:
 
 void __51___ATXDataStore_trimActionHistoryWithAppWhitelist___block_invoke_5(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = __atxlog_handle_deletions();
+  v7 = __atxlog_handle_deletions(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v22 = [v6 longLongValue];
+    v21 = [v6 longLongValue];
     _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "_ATXDataStore: Deleting rows older than id: %lld", buf, 0xCu);
   }
 
   v8 = *(*(a1 + 32) + 48);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __51___ATXDataStore_trimActionHistoryWithAppWhitelist___block_invoke_643;
-  v18[3] = &unk_278598718;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __51___ATXDataStore_trimActionHistoryWithAppWhitelist___block_invoke_643;
+  v17[3] = &unk_278598718;
   v9 = v5;
-  v19 = v9;
+  v18 = v9;
   v10 = v6;
-  v20 = v10;
-  [v8 prepAndRunQuery:@"DELETE FROM slotSetKey WHERE alogId IN (SELECT id FROM alog WHERE alog.bundleId=? AND alog.actionType=? AND alog.id<?)" onPrep:v18 onRow:0 onError:0];
+  v19 = v10;
+  [v8 prepAndRunQuery:@"DELETE FROM slotSetKey WHERE alogId IN (SELECT id FROM alog WHERE alog.bundleId=? AND alog.actionType=? AND alog.id<?)" onPrep:v17 onRow:0 onError:0];
   v11 = *(*(a1 + 32) + 48);
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __51___ATXDataStore_trimActionHistoryWithAppWhitelist___block_invoke_2_647;
-  v15[3] = &unk_278598718;
-  v16 = v9;
-  v17 = v10;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __51___ATXDataStore_trimActionHistoryWithAppWhitelist___block_invoke_2_647;
+  v14[3] = &unk_278598718;
+  v15 = v9;
+  v16 = v10;
   v12 = v10;
   v13 = v9;
-  [v11 prepAndRunQuery:@"DELETE FROM alog WHERE bundleId=? AND actionType=? AND id<?" onPrep:v15 onRow:0 onError:0];
-
-  v14 = *MEMORY[0x277D85DE8];
+  [v11 prepAndRunQuery:@"DELETE FROM alog WHERE bundleId=? AND actionType=? AND id<?" onPrep:v14 onRow:0 onError:0];
 }
 
 void __51___ATXDataStore_trimActionHistoryWithAppWhitelist___block_invoke_643(uint64_t a1, void *a2)
@@ -5020,7 +4984,7 @@ void __148___ATXDataStore_recordConfirms_rejects_forFeedbackType_forActionType_b
 
 void __148___ATXDataStore_recordConfirms_rejects_forFeedbackType_forActionType_bundleId_action_slotSet_actionUUID_date_consumerSubType_geohash_coarseGeohash___block_invoke_9(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = *(*(*(a1 + 56) + 8) + 24);
   v4 = a2;
   [v4 bindParam:1 toInt64:v3];
@@ -5028,8 +4992,8 @@ void __148___ATXDataStore_recordConfirms_rejects_forFeedbackType_forActionType_b
   [v4 bindParam:3 toNSData:*(a1 + 32)];
   [v4 bindParam:4 toDouble:*(a1 + 72)];
   [v4 bindParam:5 toDouble:*(a1 + 80)];
-  [*(a1 + 40) getUUIDBytes:v9];
-  sqlite3_bind_blob([v4 stmt], 6, v9, 16, 0xFFFFFFFFFFFFFFFFLL);
+  [*(a1 + 40) getUUIDBytes:v8];
+  sqlite3_bind_blob([v4 stmt], 6, v8, 16, 0xFFFFFFFFFFFFFFFFLL);
   [*(a1 + 48) timeIntervalSinceReferenceDate];
   [v4 bindParam:7 toInt64:v5];
   v6 = [MEMORY[0x277CEBCF0] stringForConsumerSubtype:*(a1 + 112)];
@@ -5040,8 +5004,6 @@ void __148___ATXDataStore_recordConfirms_rejects_forFeedbackType_forActionType_b
 
   [v4 bindParam:10 toInt64:*(a1 + 96)];
   [v4 bindParam:11 toInt64:*(a1 + 104)];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __65___ATXDataStore_enumerateFeedbackForActionOfType_bundleId_block___block_invoke(uint64_t a1)
@@ -5144,10 +5106,10 @@ uint64_t __65___ATXDataStore_enumerateFeedbackForActionOfType_bundleId_block___b
 
 uint64_t __65___ATXDataStore_enumerateFeedbackForActionOfType_bundleId_block___block_invoke_4(uint64_t a1)
 {
-  v2 = __atxlog_handle_default();
+  v2 = __atxlog_handle_default(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __65___ATXDataStore_enumerateFeedbackForActionOfType_bundleId_block___block_invoke_4_cold_1(a1);
+    __65___ATXDataStore_enumerateFeedbackForActionOfType_bundleId_block___block_invoke_4_cold_1();
   }
 
   v3 = MEMORY[0x277D42578];
@@ -5166,7 +5128,7 @@ uint64_t __65___ATXDataStore_enumerateFeedbackForActionOfType_bundleId_block___b
 
 uint64_t __44___ATXDataStore_removeAllSlotsFromActionLog__block_invoke(uint64_t a1)
 {
-  v2 = __atxlog_handle_deletions();
+  v2 = __atxlog_handle_deletions(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -5179,7 +5141,7 @@ uint64_t __44___ATXDataStore_removeAllSlotsFromActionLog__block_invoke(uint64_t 
 uint64_t __44___ATXDataStore_removeAllSlotsFromActionLog__block_invoke_689(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __44___ATXDataStore_removeAllSlotsFromActionLog__block_invoke_689_cold_1();
@@ -5194,7 +5156,7 @@ uint64_t __44___ATXDataStore_removeAllSlotsFromActionLog__block_invoke_689(uint6
 uint64_t __49___ATXDataStore_removeAllSlotsFromActionFeedback__block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __49___ATXDataStore_removeAllSlotsFromActionFeedback__block_invoke_2_cold_1();
@@ -5209,7 +5171,7 @@ uint64_t __49___ATXDataStore_removeAllSlotsFromActionFeedback__block_invoke_2(ui
 uint64_t __45___ATXDataStore_removeAllSlotsFromSlotSetKey__block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __45___ATXDataStore_removeAllSlotsFromSlotSetKey__block_invoke_2_cold_1();
@@ -5239,7 +5201,7 @@ uint64_t __38___ATXDataStore_actionFeedbackLogKeys__block_invoke(uint64_t a1, vo
 uint64_t __43___ATXDataStore__removeActionsWithoutTitle__block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_default();
+  v4 = __atxlog_handle_default(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __43___ATXDataStore__removeActionsWithoutTitle__block_invoke_3_cold_1();
@@ -5262,7 +5224,7 @@ void __43___ATXDataStore__removeActionsWithoutTitle__block_invoke_711(uint64_t a
 uint64_t __43___ATXDataStore__removeActionsWithoutTitle__block_invoke_2_713(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_default();
+  v4 = __atxlog_handle_default(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __43___ATXDataStore__removeActionsWithoutTitle__block_invoke_2_713_cold_1();
@@ -5291,36 +5253,36 @@ uint64_t __34___ATXDataStore_configureDatabase__block_invoke(uint64_t a1, uint64
 
 uint64_t __34___ATXDataStore_runMigrationPlan___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
-  v20 = 1;
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
+  v19 = 1;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v21 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v20 count:16];
   if (v3)
   {
-    v4 = *v14;
+    v4 = *v13;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v14 != v4)
+        if (*v13 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v13 + 1) + 8 * i);
+        v6 = *(*(&v12 + 1) + 8 * i);
         if ([(NSString *)v6 hasPrefix:@"migration_"])
         {
           v7 = NSSelectorFromString(v6);
           if (!v7 || ([*(a1 + 40) methodForSelector:v7])(*(a1 + 40), v7) != 3)
           {
-            *(v18 + 24) = 0;
+            *(v17 + 24) = 0;
             goto LABEL_15;
           }
         }
@@ -5328,20 +5290,20 @@ uint64_t __34___ATXDataStore_runMigrationPlan___block_invoke(uint64_t a1)
         else
         {
           v8 = *(*(a1 + 40) + 48);
-          v12[0] = MEMORY[0x277D85DD0];
-          v12[1] = 3221225472;
-          v12[2] = __34___ATXDataStore_runMigrationPlan___block_invoke_2;
-          v12[3] = &unk_27859A1A0;
-          v12[4] = &v17;
-          [v8 prepAndRunQuery:v6 onPrep:0 onRow:0 onError:v12];
-          if (*(v18 + 24) != 1)
+          v11[0] = MEMORY[0x277D85DD0];
+          v11[1] = 3221225472;
+          v11[2] = __34___ATXDataStore_runMigrationPlan___block_invoke_2;
+          v11[3] = &unk_27859A1A0;
+          v11[4] = &v16;
+          [v8 prepAndRunQuery:v6 onPrep:0 onRow:0 onError:v11];
+          if (*(v17 + 24) != 1)
           {
             goto LABEL_15;
           }
         }
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v13 objects:v21 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v12 objects:v20 count:16];
       if (v3)
       {
         continue;
@@ -5353,11 +5315,11 @@ uint64_t __34___ATXDataStore_runMigrationPlan___block_invoke(uint64_t a1)
 
 LABEL_15:
 
-  if (*(v18 + 24) == 1)
+  if (*(v17 + 24) == 1)
   {
     [*(a1 + 40) updateSchemaVersionNumberTo:*(*(a1 + 40) + 24)];
     *(*(*(a1 + 48) + 8) + 24) = 3;
-    v9 = *(v18 + 24);
+    v9 = *(v17 + 24);
   }
 
   else
@@ -5365,15 +5327,14 @@ LABEL_15:
     v9 = 0;
   }
 
-  _Block_object_dispose(&v17, 8);
-  v10 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v16, 8);
   return v9 & 1;
 }
 
 uint64_t __34___ATXDataStore_runMigrationPlan___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_default();
+  v4 = __atxlog_handle_default(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __34___ATXDataStore_runMigrationPlan___block_invoke_2_cold_1();
@@ -5389,7 +5350,7 @@ uint64_t __34___ATXDataStore_runMigrationPlan___block_invoke_2(uint64_t a1, void
 uint64_t __45___ATXDataStore_updateSchemaVersionNumberTo___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __45___ATXDataStore_updateSchemaVersionNumberTo___block_invoke_2_cold_1();
@@ -5424,7 +5385,7 @@ uint64_t __30___ATXDataStore_clearDatabase__block_invoke_3(uint64_t a1, uint64_t
   return *MEMORY[0x277D42698];
 }
 
-uint64_t __52___ATXDataStore_migration_LaunchHistoriesToAppTable__block_invoke(uint64_t a1)
+void *__52___ATXDataStore_migration_LaunchHistoriesToAppTable__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = *(v2 + 48);
@@ -5569,7 +5530,7 @@ uint64_t __59___ATXDataStore_migration_RemoveFeedbackForUninstalledApps__block_i
 uint64_t __59___ATXDataStore_migration_RemoveFeedbackForUninstalledApps__block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __59___ATXDataStore_migration_RemoveFeedbackForUninstalledApps__block_invoke_2_cold_1();
@@ -5584,7 +5545,7 @@ uint64_t __59___ATXDataStore_migration_RemoveFeedbackForUninstalledApps__block_i
 uint64_t __54___ATXDataStore_migration_RemoveAllSubsequentLaunches__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __54___ATXDataStore_migration_RemoveAllSubsequentLaunches__block_invoke_cold_1();
@@ -5644,7 +5605,7 @@ void __69___ATXDataStore_updateOrInsertCategoricalHistogramData_forHistogram___b
 uint64_t __58___ATXDataStore_migration_DeprecateGenericAppIntentModels__block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __58___ATXDataStore_migration_DeprecateGenericAppIntentModels__block_invoke_2_cold_1();
@@ -5669,7 +5630,7 @@ void __62___ATXDataStore_migration_DeprecateIntentForAllAppsHistograms__block_in
 uint64_t __62___ATXDataStore_migration_DeprecateIntentForAllAppsHistograms__block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __62___ATXDataStore_migration_DeprecateIntentForAllAppsHistograms__block_invoke_2_cold_1();
@@ -5684,7 +5645,7 @@ uint64_t __62___ATXDataStore_migration_DeprecateIntentForAllAppsHistograms__bloc
 uint64_t __62___ATXDataStore_migration_DeprecateIntentForAllAppsHistograms__block_invoke_2_855(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __62___ATXDataStore_migration_DeprecateIntentForAllAppsHistograms__block_invoke_2_cold_1();
@@ -5728,7 +5689,7 @@ LABEL_6:
 uint64_t __35___ATXDataStore_allActionsAndSlots__block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_default();
+  v4 = __atxlog_handle_default(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __35___ATXDataStore_allActionsAndSlots__block_invoke_2_cold_1();
@@ -5745,25 +5706,23 @@ uint64_t __35___ATXDataStore_allActionsAndSlots__block_invoke_2(uint64_t a1, voi
 
 void __65___ATXDataStore_writeSlotSetKeyParameters_rowId_slotSet_success___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v4 = a2;
   [v4 bindParam:1 toInteger:{objc_msgSend(v3, "integerValue")}];
   v5 = [*(a1 + 40) uuid];
-  [v5 getUUIDBytes:v7];
+  [v5 getUUIDBytes:v6];
 
-  sqlite3_bind_blob([v4 stmt], 2, v7, 16, 0xFFFFFFFFFFFFFFFFLL);
+  sqlite3_bind_blob([v4 stmt], 2, v6, 16, 0xFFFFFFFFFFFFFFFFLL);
   [v4 bindParam:3 toInt64:{objc_msgSend(*(a1 + 48), "hash")}];
   [v4 bindParam:4 toInt64:{objc_msgSend(*(a1 + 40), "hash")}];
   [v4 bindParam:5 toInt64:{objc_msgSend(*(a1 + 48), "paramCount")}];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __65___ATXDataStore_writeSlotSetKeyParameters_rowId_slotSet_success___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_default();
+  v4 = __atxlog_handle_default(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __65___ATXDataStore_writeSlotSetKeyParameters_rowId_slotSet_success___block_invoke_2_cold_1();
@@ -5785,15 +5744,15 @@ void __43___ATXDataStore_updateAlog_slotsToMigrate___block_invoke(uint64_t a1, v
 
 uint64_t __43___ATXDataStore_updateAlog_slotsToMigrate___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = __atxlog_handle_default();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  v3 = __atxlog_handle_default(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __43___ATXDataStore_updateAlog_slotsToMigrate___block_invoke_2_cold_1(a1);
+    __43___ATXDataStore_updateAlog_slotsToMigrate___block_invoke_2_cold_1();
   }
 
-  v5 = MEMORY[0x277D42698];
-  return *v5;
+  v4 = MEMORY[0x277D42698];
+  return *v4;
 }
 
 uint64_t __45___ATXDataStore_migration_AddFeedbackColumns__block_invoke_2(uint64_t a1, uint64_t a2)
@@ -5883,7 +5842,7 @@ void __69___ATXDataStore_migration_forceUpdateNewCrystalSystemAppsInstallDate__b
 uint64_t __69___ATXDataStore_migration_forceUpdateNewCrystalSystemAppsInstallDate__block_invoke_2(uint64_t a1)
 {
   *(*(*(a1 + 32) + 8) + 24) = 0;
-  v1 = __atxlog_handle_app_install();
+  v1 = __atxlog_handle_app_install(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __69___ATXDataStore_migration_forceUpdateNewCrystalSystemAppsInstallDate__block_invoke_2_cold_1();
@@ -5904,7 +5863,7 @@ void __69___ATXDataStore_migration_forceUpdateNewCrystalSystemAppsInstallDate__b
 uint64_t __69___ATXDataStore_migration_forceUpdateNewCrystalSystemAppsInstallDate__block_invoke_2_967(uint64_t a1)
 {
   *(*(*(a1 + 32) + 8) + 24) = 0;
-  v1 = __atxlog_handle_app_install();
+  v1 = __atxlog_handle_app_install(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __69___ATXDataStore_migration_forceUpdateNewCrystalSystemAppsInstallDate__block_invoke_2_967_cold_1();
@@ -5916,7 +5875,7 @@ uint64_t __69___ATXDataStore_migration_forceUpdateNewCrystalSystemAppsInstallDat
 uint64_t __44___ATXDataStore_migration_RemoveLinkActions__block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __44___ATXDataStore_migration_RemoveLinkActions__block_invoke_2_cold_1();
@@ -6030,7 +5989,7 @@ void __61___ATXDataStore_updateOrInsertDataForRemoteAppsWithMappings___block_inv
 uint64_t __61___ATXDataStore_updateOrInsertDataForRemoteAppsWithMappings___block_invoke_4(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __61___ATXDataStore_updateOrInsertDataForRemoteAppsWithMappings___block_invoke_4_cold_1();
@@ -6062,7 +6021,7 @@ void __61___ATXDataStore_setInstallDateToDistantOldTimeForRemoteApps___block_inv
 uint64_t __61___ATXDataStore_setInstallDateToDistantOldTimeForRemoteApps___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __61___ATXDataStore_setInstallDateToDistantOldTimeForRemoteApps___block_invoke_3_cold_1();
@@ -6140,29 +6099,28 @@ uint64_t __36___ATXDataStore_deleteAllRemoteApps__block_invoke_2(uint64_t a1, ui
   return *MEMORY[0x277D42698];
 }
 
-void __45___ATXDataStore_migration_populateModeCaches__block_invoke()
+void __45___ATXDataStore_migration_populateModeCaches__block_invoke(uint64_t a1)
 {
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_2263AA000, v0, OS_LOG_TYPE_DEFAULT, "Populating mode caches in migration", buf, 2u);
-  }
-
-  v1 = __atxlog_handle_default();
+  v1 = __atxlog_handle_default(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_2263AA000, v1, OS_LOG_TYPE_DEFAULT, "Training mode entity models...", v5, 2u);
+    *buf = 0;
+    _os_log_impl(&dword_2263AA000, v1, OS_LOG_TYPE_DEFAULT, "Populating mode caches in migration", buf, 2u);
   }
 
-  v2 = objc_opt_new();
-  [v2 train];
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_2263AA000, v3, OS_LOG_TYPE_DEFAULT, "Done training mode entity models.", v4, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_2263AA000, v3, OS_LOG_TYPE_DEFAULT, "Training mode entity models...", v7, 2u);
+  }
+
+  v4 = objc_opt_new();
+  v5 = __atxlog_handle_default([v4 train]);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *v6 = 0;
+    _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "Done training mode entity models.", v6, 2u);
   }
 }
 
@@ -6329,15 +6287,15 @@ void __123___ATXDataStore_updateOrInsertInstallTimestamp_genreId_subGenreIds_app
 
 uint64_t __123___ATXDataStore_updateOrInsertInstallTimestamp_genreId_subGenreIds_app2VecCluster_forBundleId_isExtension_isEnterpriseApp___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = __atxlog_handle_app_install();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+  v2 = a2;
+  v3 = __atxlog_handle_app_install(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    __123___ATXDataStore_updateOrInsertInstallTimestamp_genreId_subGenreIds_app2VecCluster_forBundleId_isExtension_isEnterpriseApp___block_invoke_2_cold_1(a1);
+    __123___ATXDataStore_updateOrInsertInstallTimestamp_genreId_subGenreIds_app2VecCluster_forBundleId_isExtension_isEnterpriseApp___block_invoke_2_cold_1();
   }
 
-  v5 = MEMORY[0x277D42698];
-  return *v5;
+  v4 = MEMORY[0x277D42698];
+  return *v4;
 }
 
 void __47___ATXDataStore__markBundleId_asEnterpriseApp___block_invoke(uint64_t a1, void *a2)
@@ -6473,7 +6431,7 @@ void __145___ATXDataStore_migrationPre44WriteActionType_bundleId_date_action_slo
 
 void __145___ATXDataStore_migrationPre44WriteActionType_bundleId_date_action_slotSets_timeZone_prevLocationUUID_locationUUID_weight_actionUUID_motionType___block_invoke_9(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [v3 bindParam:1 toInt64:*(*(*(a1 + 72) + 8) + 24)];
   [v3 bindParam:2 toInt64:*(*(*(a1 + 80) + 8) + 24)];
@@ -6485,8 +6443,8 @@ void __145___ATXDataStore_migrationPre44WriteActionType_bundleId_date_action_slo
   v5 = *(a1 + 48);
   if (v5)
   {
-    [v5 getUUIDBytes:v8];
-    sqlite3_bind_blob([v3 stmt], 7, v8, 16, 0xFFFFFFFFFFFFFFFFLL);
+    [v5 getUUIDBytes:v7];
+    sqlite3_bind_blob([v3 stmt], 7, v7, 16, 0xFFFFFFFFFFFFFFFFLL);
   }
 
   else
@@ -6497,8 +6455,8 @@ void __145___ATXDataStore_migrationPre44WriteActionType_bundleId_date_action_slo
   v6 = *(a1 + 56);
   if (v6)
   {
-    [v6 getUUIDBytes:v8];
-    sqlite3_bind_blob([v3 stmt], 8, v8, 16, 0xFFFFFFFFFFFFFFFFLL);
+    [v6 getUUIDBytes:v7];
+    sqlite3_bind_blob([v3 stmt], 8, v7, 16, 0xFFFFFFFFFFFFFFFFLL);
   }
 
   else
@@ -6507,11 +6465,9 @@ void __145___ATXDataStore_migrationPre44WriteActionType_bundleId_date_action_slo
   }
 
   [v3 bindParam:9 toDouble:*(a1 + 104)];
-  [*(a1 + 64) getUUIDBytes:v8];
-  sqlite3_bind_blob([v3 stmt], 10, v8, 16, 0xFFFFFFFFFFFFFFFFLL);
+  [*(a1 + 64) getUUIDBytes:v7];
+  sqlite3_bind_blob([v3 stmt], 10, v7, 16, 0xFFFFFFFFFFFFFFFFLL);
   [v3 bindParam:11 toInteger:*(a1 + 112)];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __73___ATXDataStore_deleteSamplesThatAreMoreThan28DaysOldFromActionDatabases__block_invoke(uint64_t a1)
@@ -6564,7 +6520,7 @@ void __73___ATXDataStore_deleteSamplesThatAreMoreThan28DaysOldFromActionDatabase
 uint64_t __73___ATXDataStore_deleteSamplesThatAreMoreThan28DaysOldFromActionDatabases__block_invoke_4(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __73___ATXDataStore_deleteSamplesThatAreMoreThan28DaysOldFromActionDatabases__block_invoke_4_cold_1();
@@ -6585,7 +6541,7 @@ void __73___ATXDataStore_deleteSamplesThatAreMoreThan28DaysOldFromActionDatabase
 uint64_t __73___ATXDataStore_deleteSamplesThatAreMoreThan28DaysOldFromActionDatabases__block_invoke_2_1147(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __73___ATXDataStore_deleteSamplesThatAreMoreThan28DaysOldFromActionDatabases__block_invoke_2_1147_cold_1();
@@ -6606,7 +6562,7 @@ void __73___ATXDataStore_deleteSamplesThatAreMoreThan28DaysOldFromActionDatabase
 uint64_t __73___ATXDataStore_deleteSamplesThatAreMoreThan28DaysOldFromActionDatabases__block_invoke_2_1154(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __73___ATXDataStore_deleteSamplesThatAreMoreThan28DaysOldFromActionDatabases__block_invoke_2_1147_cold_1();
@@ -6752,15 +6708,15 @@ uint64_t __66___ATXDataStore_fetchParameterizedSuggestionWithUniqueIdentifier___
 
 uint64_t __66___ATXDataStore_fetchParameterizedSuggestionWithUniqueIdentifier___block_invoke_4(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = __atxlog_handle_default();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  v3 = __atxlog_handle_default(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __66___ATXDataStore_fetchParameterizedSuggestionWithUniqueIdentifier___block_invoke_4_cold_1(a1);
+    __66___ATXDataStore_fetchParameterizedSuggestionWithUniqueIdentifier___block_invoke_4_cold_1();
   }
 
-  v5 = MEMORY[0x277D42698];
-  return *v5;
+  v4 = MEMORY[0x277D42698];
+  return *v4;
 }
 
 void __38___ATXDataStore__testMigrateToSchema___block_invoke(uint64_t a1)
@@ -6774,62 +6730,60 @@ void __38___ATXDataStore__testMigrateToSchema___block_invoke(uint64_t a1)
 
 void __32___ATXDataStore__databaseSchema__block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 48);
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __32___ATXDataStore__databaseSchema__block_invoke_2;
-  v21[3] = &unk_278599FC8;
-  v22 = *(a1 + 40);
   v20[0] = MEMORY[0x277D85DD0];
   v20[1] = 3221225472;
-  v20[2] = __32___ATXDataStore__databaseSchema__block_invoke_3;
-  v20[3] = &unk_2785987B8;
-  v20[4] = *(a1 + 32);
-  [v2 prepAndRunQuery:@"SELECT name FROM sqlite_master WHERE type='table' AND NOT name LIKE 'sqlite_%'" onPrep:0 onRow:v21 onError:v20];
+  v20[2] = __32___ATXDataStore__databaseSchema__block_invoke_2;
+  v20[3] = &unk_278599FC8;
+  v21 = *(a1 + 40);
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __32___ATXDataStore__databaseSchema__block_invoke_3;
+  v19[3] = &unk_2785987B8;
+  v19[4] = *(a1 + 32);
+  [v2 prepAndRunQuery:@"SELECT name FROM sqlite_master WHERE type='table' AND NOT name LIKE 'sqlite_%'" onPrep:0 onRow:v20 onError:v19];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   obj = *(a1 + 40);
-  v3 = [obj countByEnumeratingWithState:&v16 objects:v23 count:16];
+  v3 = [obj countByEnumeratingWithState:&v15 objects:v22 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v17;
+    v5 = *v16;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v17 != v5)
+        if (*v16 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v16 + 1) + 8 * i);
+        v7 = *(*(&v15 + 1) + 8 * i);
         v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"PRAGMA table_info(%@)", v7];;
         v9 = *(*(a1 + 32) + 48);
-        v13[0] = MEMORY[0x277D85DD0];
-        v13[1] = 3221225472;
-        v13[2] = __32___ATXDataStore__databaseSchema__block_invoke_4;
-        v13[3] = &unk_27859C820;
-        v14 = *(a1 + 40);
-        v15 = v7;
         v12[0] = MEMORY[0x277D85DD0];
         v12[1] = 3221225472;
-        v12[2] = __32___ATXDataStore__databaseSchema__block_invoke_5;
-        v12[3] = &unk_2785987B8;
-        v12[4] = *(a1 + 32);
-        [v9 prepAndRunQuery:v8 onPrep:0 onRow:v13 onError:v12];
+        v12[2] = __32___ATXDataStore__databaseSchema__block_invoke_4;
+        v12[3] = &unk_27859C820;
+        v13 = *(a1 + 40);
+        v14 = v7;
+        v11[0] = MEMORY[0x277D85DD0];
+        v11[1] = 3221225472;
+        v11[2] = __32___ATXDataStore__databaseSchema__block_invoke_5;
+        v11[3] = &unk_2785987B8;
+        v11[4] = *(a1 + 32);
+        [v9 prepAndRunQuery:v8 onPrep:0 onRow:v12 onError:v11];
       }
 
-      v4 = [obj countByEnumeratingWithState:&v16 objects:v23 count:16];
+      v4 = [obj countByEnumeratingWithState:&v15 objects:v22 count:16];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __32___ATXDataStore__databaseSchema__block_invoke_2(uint64_t a1, void *a2)
@@ -6851,20 +6805,19 @@ uint64_t __32___ATXDataStore__databaseSchema__block_invoke_3(uint64_t a1, uint64
 
 uint64_t __32___ATXDataStore__databaseSchema__block_invoke_4(uint64_t a1, void *a2)
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 getNSStringForColumn:1];
   v5 = [v3 getNSStringForColumn:2];
 
   v6 = [*(a1 + 32) objectForKeyedSubscript:*(a1 + 40)];
-  v10[0] = @"column";
-  v10[1] = @"dataType";
-  v11[0] = v4;
-  v11[1] = v5;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v9[0] = @"column";
+  v9[1] = @"dataType";
+  v10[0] = v4;
+  v10[1] = v5;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
   [v6 addObject:v7];
 
-  v8 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42690];
 }
 
@@ -6930,100 +6883,68 @@ uint64_t __66___ATXDataStore_ActionTypes__enumerateActionTypesOlderThan_block___
   *(v8 + 40) = v7;
 
   v10 = objc_autoreleasePoolPush();
-  v11 = *(*(a1[5] + 8) + 24);
-  v12 = *(*(a1[6] + 8) + 40);
-  v13 = *(*(a1[7] + 8) + 40);
   LODWORD(a1) = (*(a1[4] + 16))();
   objc_autoreleasePoolPop(v10);
-  v14 = MEMORY[0x277D42690];
-  v15 = MEMORY[0x277D42698];
+  v11 = MEMORY[0x277D42690];
+  v12 = MEMORY[0x277D42698];
 
   if (a1)
   {
-    v16 = v14;
+    v13 = v11;
   }
 
   else
   {
-    v16 = v15;
+    v13 = v12;
   }
 
-  return *v16;
+  return *v13;
 }
 
-uint64_t __66___ATXDataStore_ActionTypes__enumerateActionTypesOlderThan_block___block_invoke_4()
+uint64_t __66___ATXDataStore_ActionTypes__enumerateActionTypesOlderThan_block___block_invoke_4(uint64_t a1)
 {
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    __66___ATXDataStore_ActionTypes__enumerateActionTypesOlderThan_block___block_invoke_4_cold_1(v0);
+    __66___ATXDataStore_ActionTypes__enumerateActionTypesOlderThan_block___block_invoke_4_cold_1(v1);
   }
 
   return *MEMORY[0x277D42698];
 }
 
-void __46___ATXDataStore_removeAppLaunchesForBundleId___block_invoke_3_cold_1(uint64_t a1)
+void __46___ATXDataStore_removeAppLaunchesForBundleId___block_invoke_3_cold_1()
 {
-  OUTLINED_FUNCTION_12_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_12_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v1, v2, "Unable to delete launch timestamps for %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Unable to delete launch timestamps for %@", v2, v3, v4, v5);
 }
 
 void __28___ATXDataStore_loadAppInfo__block_invoke_2_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(&dword_2263AA000, v0, OS_LOG_TYPE_DEBUG, "Unexpected NULL isEnterpriseApp for bundleId: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_2263AA000, v0, OS_LOG_TYPE_DEBUG, "Unexpected NULL isEnterpriseApp for bundleId: %@", v1, 0xCu);
 }
 
-void __45___ATXDataStore_loadLaunchesFollowingBundle___block_invoke_3_cold_1(uint64_t a1)
+void __45___ATXDataStore_loadLaunchesFollowingBundle___block_invoke_3_cold_1()
 {
-  OUTLINED_FUNCTION_12_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_12_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_21();
-  OUTLINED_FUNCTION_2_6(&dword_2263AA000, v1, v2, "Error unarchving subsequent launches for %@: %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_6(&dword_2263AA000, v0, v1, "Error unarchving subsequent launches for %@: %@");
 }
 
-void __47___ATXDataStore_deleteLaunchesFollowingBundle___block_invoke_3_cold_1(uint64_t a1)
+void __47___ATXDataStore_deleteLaunchesFollowingBundle___block_invoke_3_cold_1()
 {
-  OUTLINED_FUNCTION_12_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_12_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_21();
-  OUTLINED_FUNCTION_2_6(&dword_2263AA000, v1, v2, "Unable to delete subsequentLaunchCounts for bundle %@ (%@)");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_6(&dword_2263AA000, v0, v1, "Unable to delete subsequentLaunchCounts for bundle %@ (%@)");
 }
 
-void __50___ATXDataStore_deleteLaunchesFollowingAppAction___block_invoke_3_cold_1(uint64_t a1)
+void __50___ATXDataStore_deleteLaunchesFollowingAppAction___block_invoke_3_cold_1()
 {
-  OUTLINED_FUNCTION_12_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_12_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_21();
-  OUTLINED_FUNCTION_2_6(&dword_2263AA000, v1, v2, "Unable to delete subsequentAppActionLaunchCounts for appAction %@ (%@)");
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-void __56___ATXDataStore__enumerateAppInfoBundlesExecutingBlock___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Error enumerating AppInfo bundleIds: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __59___ATXDataStore__enumerateAppInfoAppActionsExecutingBlock___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Error enumerating AppInfo appActions: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __67___ATXDataStore_filenamesAndDataForBackupShouldPareDown_transport___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Could not read sqlite database: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_6(&dword_2263AA000, v0, v1, "Unable to delete subsequentAppActionLaunchCounts for appAction %@ (%@)");
 }
 
 void __35___ATXDataStore_restoreFromBackup___block_invoke_cold_1(uint8_t *buf, _BYTE *a2, os_log_t log)
@@ -7031,14 +6952,6 @@ void __35___ATXDataStore_restoreFromBackup___block_invoke_cold_1(uint8_t *buf, _
   *buf = 0;
   *a2 = 0;
   _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "More than one ATXDataStore found in backup", buf, 2u);
-}
-
-void __35___ATXDataStore_restoreFromBackup___block_invoke_cold_2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_2_6(&dword_2263AA000, v0, v1, "Error restoring to file %@: %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __35___ATXDataStore_restoreFromBackup___block_invoke_cold_3()
@@ -7055,183 +6968,52 @@ void __35___ATXDataStore_restoreFromBackup___block_invoke_cold_4()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __191___ATXDataStore_writeActionType_bundleId_date_action_slotSets_timeZone_prevLocationUUID_locationUUID_weight_actionUUID_motionType_appSessionStartDate_appSessionEndDate_geohash_coarseGeohash___block_invoke_12_cold_1()
+void __64___ATXDataStore__deserializeActionLogRowWithStmt_invokingBlock___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Error retrieving action just added: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __64___ATXDataStore__deserializeActionLogRowWithStmt_invokingBlock___block_invoke_cold_1(uint64_t a1)
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __57___ATXDataStore_enumerateSlotUuidsOfType_bundleId_block___block_invoke_3_cold_1()
+void __35___ATXDataStore_actionForSlotUUID___block_invoke_3_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Error obtaining slotset UUID for action row: %lld", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __35___ATXDataStore_actionForSlotUUID___block_invoke_3_cold_1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_12_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_12_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_21();
-  OUTLINED_FUNCTION_2_6(&dword_2263AA000, v1, v2, "Error retrieving action for slot UUID:%@ error:%@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_6(&dword_2263AA000, v0, v1, "Error retrieving action for slot UUID:%@ error:%@");
 }
 
-void __40___ATXDataStore_actionAndSlotsForRowId___block_invoke_3_cold_1()
+void __50___ATXDataStore__regenerateSlotSetKeyForBundleId___block_invoke_4_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Error fetching action and slots from db for row identifier: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __50___ATXDataStore__regenerateSlotSetKeyForBundleId___block_invoke_4_cold_1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_12_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_12_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_21();
-  OUTLINED_FUNCTION_2_6(&dword_2263AA000, v1, v2, "Error deleting slotSetKey data for bundleId: %@ error:%@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_6(&dword_2263AA000, v0, v1, "Error deleting slotSetKey data for bundleId: %@ error:%@");
 }
 
-void __65___ATXDataStore_enumerateFeedbackForActionOfType_bundleId_block___block_invoke_4_cold_1(uint64_t a1)
+void __65___ATXDataStore_enumerateFeedbackForActionOfType_bundleId_block___block_invoke_4_cold_1()
 {
-  OUTLINED_FUNCTION_12_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_12_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v1, v2, "Exception deserializing slots: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __44___ATXDataStore_removeAllSlotsFromActionLog__block_invoke_689_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Error deleting data associated with alog: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __49___ATXDataStore_removeAllSlotsFromActionFeedback__block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Error deleting data associated with afeedback: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __45___ATXDataStore_removeAllSlotsFromSlotSetKey__block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Error deleting data associated with slotSetKey: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __43___ATXDataStore__removeActionsWithoutTitle__block_invoke_3_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Error collating data while clearing actions without title: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __43___ATXDataStore__removeActionsWithoutTitle__block_invoke_2_713_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Error deleting data while clearing actions without title: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __34___ATXDataStore_runMigrationPlan___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Error creating table: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __45___ATXDataStore_updateSchemaVersionNumberTo___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Error updating schema: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __59___ATXDataStore_migration_RemoveFeedbackForUninstalledApps__block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Error iterating through bundles in app table: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __54___ATXDataStore_migration_RemoveAllSubsequentLaunches__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Error wiping subsequent launch counts (migration_RemoveAllSubsequentLaunches: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __58___ATXDataStore_migration_DeprecateGenericAppIntentModels__block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Error deleting data associated with deprecated histogram _APRHistogramTypeAppIntentDonation: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __62___ATXDataStore_migration_DeprecateIntentForAllAppsHistograms__block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Error deleting data associated with deprecated histograms: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __35___ATXDataStore_allActionsAndSlots__block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Error all actions and slots from db: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Exception deserializing slots: %@", v2, v3, v4, v5);
 }
 
 void __65___ATXDataStore_writeSlotSetKeyParameters_rowId_slotSet_success___block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_1();
-  v13 = *MEMORY[0x277D85DE8];
-  v4 = [*(v3 + 32) uuid];
-  v5 = *(v2 + 40);
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = [*(v2 + 32) uuid];
   OUTLINED_FUNCTION_2();
-  v9 = 2112;
-  v10 = v6;
-  v11 = 2112;
-  v12 = v1;
-  _os_log_error_impl(&dword_2263AA000, v0, OS_LOG_TYPE_ERROR, "Failed to insert slotSetKey UUID: %@ alogId: %@ with error: %@", v8, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 2112;
+  v7 = v4;
+  v8 = 2112;
+  v9 = v1;
+  _os_log_error_impl(&dword_2263AA000, v0, OS_LOG_TYPE_ERROR, "Failed to insert slotSetKey UUID: %@ alogId: %@ with error: %@", v5, 0x20u);
 }
 
-void __43___ATXDataStore_updateAlog_slotsToMigrate___block_invoke_2_cold_1(uint64_t a1)
+void __43___ATXDataStore_updateAlog_slotsToMigrate___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_12_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_12_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_21();
-  OUTLINED_FUNCTION_2_6(&dword_2263AA000, v1, v2, "Failed to update action id: %@ with error: %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_6(&dword_2263AA000, v0, v1, "Failed to update action id: %@ with error: %@");
 }
 
 void __69___ATXDataStore_migration_forceUpdateNewCrystalSystemAppsInstallDate__block_invoke_2_cold_1()
@@ -7248,62 +7030,20 @@ void __69___ATXDataStore_migration_forceUpdateNewCrystalSystemAppsInstallDate__b
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __44___ATXDataStore_migration_RemoveLinkActions__block_invoke_2_cold_1()
+void __123___ATXDataStore_updateOrInsertInstallTimestamp_genreId_subGenreIds_app2VecCluster_forBundleId_isExtension_isEnterpriseApp___block_invoke_2_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "error deleting samples from the anchorModelTrainingData table: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __61___ATXDataStore_updateOrInsertDataForRemoteAppsWithMappings___block_invoke_4_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "ATXDataStore: Updating data failed for remote apps error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __61___ATXDataStore_setInstallDateToDistantOldTimeForRemoteApps___block_invoke_3_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "ATXDataStore: Backdating of install date for remote apps failed with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __123___ATXDataStore_updateOrInsertInstallTimestamp_genreId_subGenreIds_app2VecCluster_forBundleId_isExtension_isEnterpriseApp___block_invoke_2_cold_1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_12_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_12_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_2();
-  v5 = 2114;
-  v6 = v1;
-  _os_log_fault_impl(&dword_2263AA000, v2, OS_LOG_TYPE_FAULT, "ATXDataStore: Updating install date failed for bundle id: %@ error: %{public}@", v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 2114;
+  v4 = v0;
+  _os_log_fault_impl(&dword_2263AA000, v1, OS_LOG_TYPE_FAULT, "ATXDataStore: Updating install date failed for bundle id: %@ error: %{public}@", v2, 0x16u);
 }
 
-void __73___ATXDataStore_deleteSamplesThatAreMoreThan28DaysOldFromActionDatabases__block_invoke_4_cold_1()
+void __66___ATXDataStore_fetchParameterizedSuggestionWithUniqueIdentifier___block_invoke_4_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "error deleting samples from the afeedback table: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __73___ATXDataStore_deleteSamplesThatAreMoreThan28DaysOldFromActionDatabases__block_invoke_2_1147_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "error deleting samples from the alog table: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __66___ATXDataStore_fetchParameterizedSuggestionWithUniqueIdentifier___block_invoke_4_cold_1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_12_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_12_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_21();
-  OUTLINED_FUNCTION_2_6(&dword_2263AA000, v1, v2, "Error fetching parameterized suggestion with uniqueID %@: %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_6(&dword_2263AA000, v0, v1, "Error fetching parameterized suggestion with uniqueID %@: %@");
 }
 
 @end

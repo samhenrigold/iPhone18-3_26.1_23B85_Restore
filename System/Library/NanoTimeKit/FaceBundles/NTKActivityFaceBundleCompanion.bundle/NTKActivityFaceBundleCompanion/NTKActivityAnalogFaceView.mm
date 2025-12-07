@@ -21,6 +21,7 @@
 - (unint64_t)_layoutStyleForSlot:(id)slot;
 - (void)_addOrRemoveChronoViewsIfNecessary;
 - (void)_applyBreathingFraction:(double)fraction forCustomEditMode:(int64_t)mode slot:(id)slot;
+- (void)_applyCurrentDataModelByFraction:(double)fraction updateLabels:(BOOL)labels animated:(BOOL)animated;
 - (void)_applyDataMode;
 - (void)_applyDataModel:(id)model byFraction:(double)fraction updateLabels:(BOOL)labels ignoreScreenBlanked:(BOOL)blanked animated:(BOOL)animated;
 - (void)_applyFrozen;
@@ -46,13 +47,17 @@
 - (void)_performWristRaiseAnimation;
 - (void)_prepareForEditing;
 - (void)_prepareWristRaiseAnimation;
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group;
 - (void)_setActivityViewsAlpha:(double)alpha includeDateComplication:(BOOL)complication animated:(BOOL)animated;
 - (void)_showChronoDetailByFraction:(double)fraction fillRings:(BOOL)rings;
 - (void)_unloadSnapshotContentViews;
 - (void)_updateActivityLabelColors:(BOOL)colors;
 - (void)_updatePausedState;
+- (void)applyDataModel:(id)model animated:(BOOL)animated;
 - (void)dealloc;
 - (void)layoutSubviews;
+- (void)screenDidTurnOffAnimated:(BOOL)animated;
+- (void)screenWillTurnOnAnimated:(BOOL)animated;
 - (void)setDataMode:(int64_t)mode;
 @end
 
@@ -173,6 +178,24 @@
   }
 }
 
+- (void)applyDataModel:(id)model animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  modelCopy = model;
+  if (([(NTKActivityAnalogFaceView *)self editing]& 1) == 0)
+  {
+    [(NTKActivityAnalogFaceView *)self _applyDataModel:modelCopy byFraction:1 updateLabels:0 ignoreScreenBlanked:animatedCopy animated:1.0];
+  }
+}
+
+- (void)_applyCurrentDataModelByFraction:(double)fraction updateLabels:(BOOL)labels animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  labelsCopy = labels;
+  currentDataModel = [(NTKActivityFaceViewFactory *)self->_faceViewFactory currentDataModel];
+  [(NTKActivityAnalogFaceView *)self _applyDataModel:currentDataModel byFraction:labelsCopy updateLabels:0 ignoreScreenBlanked:animatedCopy animated:fraction];
+}
+
 - (void)_applyDataModel:(id)model byFraction:(double)fraction updateLabels:(BOOL)labels ignoreScreenBlanked:(BOOL)blanked animated:(BOOL)animated
 {
   animatedCopy = animated;
@@ -268,31 +291,13 @@
 
   if (self->_ringsView)
   {
-    if (vabdd_f64(self->_lastStandPercentage, v35) <= 2.22044605e-16)
+    if (vabdd_f64(self->_lastStandPercentage, v35) <= 2.22044605e-16 || (-[NTKRingsQuad ringGroups](self->_ringsQuad, "ringGroups"), v37 = objc_claimAutoreleasedReturnValue(), [v37 objectAtIndexedSubscript:2], v38 = v17, v39 = labels, v40 = objc_claimAutoreleasedReturnValue(), *&v41 = v35, objc_msgSend(v40, "setStandHoursPercentage:animated:", animatedCopy, v41), v40, labels = v39, v17 = v38, v37, self->_lastStandPercentage = v35, v27 = 1, self->_ringsView))
     {
-      goto LABEL_23;
-    }
-
-    ringGroups3 = [(NTKRingsQuad *)self->_ringsQuad ringGroups];
-    [ringGroups3 objectAtIndexedSubscript:2];
-    v38 = v17;
-    v40 = v39 = labels;
-    *&v41 = v35;
-    [v40 setStandHoursPercentage:animatedCopy animated:v41];
-
-    labels = v39;
-    v17 = v38;
-
-    self->_lastStandPercentage = v35;
-    v27 = 1;
-    if (self->_ringsView)
-    {
-LABEL_23:
       if (self->_lastPausedState != paused)
       {
         self->_lastPausedState = paused;
-        ringGroups4 = [(NTKRingsQuad *)self->_ringsQuad ringGroups];
-        sub_2240(ringGroups4, paused);
+        ringGroups3 = [(NTKRingsQuad *)self->_ringsQuad ringGroups];
+        sub_2240(ringGroups3, paused);
 
         [(NTKActivityAnalogFaceView *)self _updateActivityLabelColors:paused];
         [(NTKFaceViewTapControl *)self->_tapToLaunchButton highlightImageView];
@@ -716,6 +721,32 @@ LABEL_23:
   v3 = v6;
 
   return v3;
+}
+
+- (void)screenDidTurnOffAnimated:(BOOL)animated
+{
+  v4.receiver = self;
+  v4.super_class = NTKActivityAnalogFaceView;
+  [(NTKActivityAnalogFaceView *)&v4 screenDidTurnOffAnimated:animated];
+  [(NTKActivityAnalogFaceView *)self _updatePausedState];
+}
+
+- (void)screenWillTurnOnAnimated:(BOOL)animated
+{
+  v4.receiver = self;
+  v4.super_class = NTKActivityAnalogFaceView;
+  [(NTKActivityAnalogFaceView *)&v4 screenWillTurnOnAnimated:animated];
+  [(NTKActivityAnalogFaceView *)self _updatePausedState];
+}
+
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group
+{
+  discardCopy = discard;
+  v7.receiver = self;
+  v7.super_class = NTKActivityAnalogFaceView;
+  groupCopy = group;
+  [(NTKActivityAnalogFaceView *)&v7 _renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy];
+  [(NTKRingsMetalQuadView *)self->_ringsView renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy, v7.receiver, v7.super_class];
 }
 
 - (void)_applyFrozen
@@ -1235,58 +1266,58 @@ LABEL_6:
 
 - (void)_showChronoDetailByFraction:(double)fraction fillRings:(BOOL)rings
 {
-  v48 = 0;
+  v47 = 0;
+  v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
   v7 = fraction < 0.5;
-  v44 = 0uLL;
-  v45 = 0uLL;
-  v42 = 0uLL;
   v43 = 0uLL;
-  v40 = 0uLL;
+  v44 = 0uLL;
   v41 = 0uLL;
-  v38 = 0uLL;
+  v42 = 0uLL;
   v39 = 0uLL;
-  v36 = 0uLL;
+  v40 = 0uLL;
   v37 = 0uLL;
-  v34 = 0uLL;
+  v38 = 0uLL;
   v35 = 0uLL;
+  v36 = 0uLL;
+  v33 = 0uLL;
+  v34 = 0uLL;
   device = [(NTKActivityAnalogFaceView *)self device];
-  sub_72E0(device, &v34);
+  sub_72E0(device, &v33);
 
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v30 = v47;
-  v28 = v45;
+  v15[0] = _NSConcreteStackBlock;
+  v15[1] = 3221225472;
   v29 = v46;
+  v27 = v44;
+  v28 = v45;
+  v23 = v40;
   v24 = v41;
   v25 = v42;
   v26 = v43;
-  v27 = v44;
+  v19 = v36;
   v20 = v37;
   v21 = v38;
   v22 = v39;
-  v23 = v40;
+  v16 = v33;
   v17 = v34;
-  v18 = v35;
-  v16[2] = sub_55E4;
-  v16[3] = &unk_20888;
-  v32 = v7;
-  *&v16[6] = fraction;
-  v31 = v48;
-  v19 = v36;
-  ringsCopy = rings;
-  v16[4] = self;
-  v16[5] = 0x3FE0000000000000;
-  [(NTKActivityAnalogFaceView *)self _enumerateRingGroups:v16];
-  v15[0] = _NSConcreteStackBlock;
-  v15[1] = 3221225472;
-  v15[2] = sub_5810;
-  v15[3] = &unk_208B0;
+  v15[2] = sub_55E4;
+  v15[3] = &unk_20888;
+  v31 = v7;
   *&v15[6] = fraction;
+  v30 = v47;
+  v18 = v35;
+  ringsCopy = rings;
   v15[4] = self;
   v15[5] = 0x3FE0000000000000;
-  [(NTKActivityAnalogFaceView *)self _enumerateActivityLabels:v15];
+  [(NTKActivityAnalogFaceView *)self _enumerateRingGroups:v15];
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_5810;
+  v14[3] = &unk_208B0;
+  *&v14[6] = fraction;
+  v14[4] = self;
+  v14[5] = 0x3FE0000000000000;
+  [(NTKActivityAnalogFaceView *)self _enumerateActivityLabels:v14];
   v9 = 0.0;
   if (fraction >= 0.6875)
   {
@@ -1299,11 +1330,10 @@ LABEL_6:
   }
 
   [(NTKActivityDateComplicationLabel *)self->_dateComplicationLabel setAlpha:v9 * self->_activityViewsAlpha];
-  innerDialViewScale = self->_innerDialViewScale;
   CLKInterpolateBetweenFloatsClipped();
   dateComplicationLabel = self->_dateComplicationLabel;
-  CGAffineTransformMakeScale(&v14, v13, v13);
-  [(NTKActivityDateComplicationLabel *)dateComplicationLabel setTransform:&v14];
+  CGAffineTransformMakeScale(&v13, v12, v12);
+  [(NTKActivityDateComplicationLabel *)dateComplicationLabel setTransform:&v13];
 }
 
 + (void)_prewarmForDevice:(id)device
@@ -1338,13 +1368,12 @@ LABEL_6:
 
 - (void)_enumerateActivityLabels:(id)labels
 {
-  moveLabel = self->_moveLabel;
-  v5 = (labels + 16);
-  v6 = *(labels + 2);
+  v4 = (labels + 16);
+  v5 = *(labels + 2);
   labelsCopy = labels;
-  v6();
-  (*v5)(labelsCopy, self->_exerciseLabel, 1);
-  (*v5)(labelsCopy, self->_standLabel, 2);
+  v5();
+  (*v4)(labelsCopy, self->_exerciseLabel, 1);
+  (*v4)(labelsCopy, self->_standLabel, 2);
 }
 
 - (void)_enumerateChronoViews:(id)views

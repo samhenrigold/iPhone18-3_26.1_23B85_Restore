@@ -7,6 +7,7 @@
 - (void)_seeAllTapped;
 - (void)_setupCollectionView;
 - (void)_setupViews;
+- (void)collectionsCarouselDidRouteToCollectionId:(id)id atIndex:(int64_t)index isSaved:(BOOL)saved;
 - (void)collectionsCarouselDidScrollBackward;
 - (void)collectionsCarouselDidScrollForward;
 - (void)exploreGuidesButtonTapped;
@@ -117,6 +118,14 @@
 {
   analyticsManager = [(MUCuratedGuidesSectionController *)self analyticsManager];
   [analyticsManager placecardExploreGuidesButtonTapped];
+}
+
+- (void)collectionsCarouselDidRouteToCollectionId:(id)id atIndex:(int64_t)index isSaved:(BOOL)saved
+{
+  savedCopy = saved;
+  idCopy = id;
+  analyticsManager = [(MUCuratedGuidesSectionController *)self analyticsManager];
+  [analyticsManager placecardCollectionTapped:idCopy atIndex:index isCurrentlySaved:savedCopy];
 }
 
 - (void)collectionsCarouselDidScrollBackward

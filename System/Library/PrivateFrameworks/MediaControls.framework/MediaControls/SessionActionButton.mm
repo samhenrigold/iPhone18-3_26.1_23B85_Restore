@@ -23,7 +23,7 @@
 - (void)layoutSubviews
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for SessionActionButton();
+  v6.super_class = type metadata accessor for SessionActionButton(0);
   v2 = v6.receiver;
   [(SessionActionButton *)&v6 layoutSubviews];
   v3 = *&v2[OBJC_IVAR____TtC13MediaControls19SessionActionButton_backgroundView];
@@ -41,7 +41,7 @@
 - (BOOL)isHighlighted
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for SessionActionButton();
+  v3.super_class = type metadata accessor for SessionActionButton(0);
   return [(SessionActionButton *)&v3 isHighlighted];
 }
 

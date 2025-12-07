@@ -65,11 +65,11 @@
 
 - (TCSCall)initWithURL:(id)l
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   lCopy = l;
-  v56.receiver = self;
-  v56.super_class = TCSCall;
-  v5 = [(TCSCall *)&v56 init];
+  v57.receiver = self;
+  v57.super_class = TCSCall;
+  v5 = [(TCSCall *)&v57 init];
   if (v5)
   {
     v6 = [objc_alloc(MEMORY[0x277CCACE0]) initWithURL:lCopy resolvingAgainstBaseURL:0];
@@ -81,39 +81,39 @@
 
       if (v9)
       {
-        v51 = lCopy;
-        v10 = objc_opt_new();
-        [v10 setNumberStyle:1];
-        v54 = 0u;
+        v52 = lCopy;
+        v12 = objc_opt_new();
+        [v12 setNumberStyle:1];
         v55 = 0u;
-        v52 = 0u;
+        v56 = 0u;
         v53 = 0u;
+        v54 = 0u;
         queryItems = [v6 queryItems];
-        v12 = [queryItems countByEnumeratingWithState:&v52 objects:v57 count:16];
-        if (!v12)
+        v14 = [queryItems countByEnumeratingWithState:&v53 objects:v58 count:16];
+        if (!v14)
         {
           goto LABEL_51;
         }
 
-        v13 = v12;
-        v14 = *v53;
+        v15 = v14;
+        v16 = *v54;
         while (1)
         {
-          for (i = 0; i != v13; ++i)
+          for (i = 0; i != v15; ++i)
           {
-            if (*v53 != v14)
+            if (*v54 != v16)
             {
               objc_enumerationMutation(queryItems);
             }
 
-            v16 = *(*(&v52 + 1) + 8 * i);
-            name = [v16 name];
-            v18 = [@"conn" isEqualToString:name];
+            v18 = *(*(&v53 + 1) + 8 * i);
+            name = [v18 name];
+            v20 = [@"conn" isEqualToString:name];
 
-            if (v18)
+            if (v20)
             {
-              value = [v16 value];
-              value6 = [v10 numberFromString:value];
+              value = [v18 value];
+              value6 = [v12 numberFromString:value];
 
               if (value6)
               {
@@ -130,13 +130,13 @@
 
             else
             {
-              name2 = [v16 name];
-              v23 = [@"out" isEqualToString:name2];
+              name2 = [v18 name];
+              v25 = [@"out" isEqualToString:name2];
 
-              if (v23)
+              if (v25)
               {
-                value2 = [v16 value];
-                value6 = [v10 numberFromString:value2];
+                value2 = [v18 value];
+                value6 = [v12 numberFromString:value2];
 
                 if (value6)
                 {
@@ -153,13 +153,13 @@
 
               else
               {
-                name3 = [v16 name];
-                v27 = [@"rUM" isEqualToString:name3];
+                name3 = [v18 name];
+                v29 = [@"rUM" isEqualToString:name3];
 
-                if (v27)
+                if (v29)
                 {
-                  value3 = [v16 value];
-                  value6 = [v10 numberFromString:value3];
+                  value3 = [v18 value];
+                  value6 = [v12 numberFromString:value3];
 
                   if (value6)
                   {
@@ -176,13 +176,13 @@
 
                 else
                 {
-                  name4 = [v16 name];
-                  v31 = [@"stat" isEqualToString:name4];
+                  name4 = [v18 name];
+                  v33 = [@"stat" isEqualToString:name4];
 
-                  if (v31)
+                  if (v33)
                   {
-                    value4 = [v16 value];
-                    value6 = [v10 numberFromString:value4];
+                    value4 = [v18 value];
+                    value6 = [v12 numberFromString:value4];
 
                     if (value6)
                     {
@@ -199,13 +199,13 @@
 
                   else
                   {
-                    name5 = [v16 name];
-                    v35 = [@"dR" isEqualToString:name5];
+                    name5 = [v18 name];
+                    v37 = [@"dR" isEqualToString:name5];
 
-                    if (v35)
+                    if (v37)
                     {
-                      value5 = [v16 value];
-                      value6 = [v10 numberFromString:value5];
+                      value5 = [v18 value];
+                      value6 = [v12 numberFromString:value5];
 
                       if (value6)
                       {
@@ -222,16 +222,16 @@
 
                     else
                     {
-                      name6 = [v16 name];
-                      v39 = [@"cID" isEqualToString:name6];
+                      name6 = [v18 name];
+                      v41 = [@"cID" isEqualToString:name6];
 
-                      if (v39)
+                      if (v41)
                       {
-                        value6 = [v16 value];
+                        value6 = [v18 value];
                         value7 = [value6 length];
                         if (value7)
                         {
-                          value7 = [v16 value];
+                          value7 = [v18 value];
                         }
 
                         contactIdentifier = v5->_contactIdentifier;
@@ -240,16 +240,16 @@
 
                       else
                       {
-                        name7 = [v16 name];
-                        v43 = [@"hdl" isEqualToString:name7];
+                        name7 = [v18 name];
+                        v45 = [@"hdl" isEqualToString:name7];
 
-                        if (v43)
+                        if (v45)
                         {
-                          value6 = [v16 value];
+                          value6 = [v18 value];
                           value8 = [value6 length];
                           if (value8)
                           {
-                            value8 = [v16 value];
+                            value8 = [v18 value];
                           }
 
                           contactIdentifier = v5->_handleValue;
@@ -258,18 +258,18 @@
 
                         else
                         {
-                          name8 = [v16 name];
-                          v46 = [@"uPI" isEqualToString:name8];
+                          name8 = [v18 name];
+                          v48 = [@"uPI" isEqualToString:name8];
 
-                          if (!v46)
+                          if (!v48)
                           {
                             continue;
                           }
 
-                          value6 = [v16 value];
+                          value6 = [v18 value];
                           if ([value6 length])
                           {
-                            value9 = [v16 value];
+                            value9 = [v18 value];
                           }
 
                           else
@@ -288,12 +288,12 @@
             }
           }
 
-          v13 = [queryItems countByEnumeratingWithState:&v52 objects:v57 count:16];
-          if (!v13)
+          v15 = [queryItems countByEnumeratingWithState:&v53 objects:v58 count:16];
+          if (!v15)
           {
 LABEL_51:
 
-            lCopy = v51;
+            lCopy = v52;
             goto LABEL_56;
           }
         }
@@ -304,18 +304,17 @@ LABEL_51:
     {
     }
 
-    _TCSInitializeLogging();
-    v48 = TCSLogDefault;
+    _TCSInitializeLogging(v10, v11);
+    v50 = TCSLogDefault;
     if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_ERROR))
     {
-      [(TCSCall *)lCopy initWithURL:v48];
+      [(TCSCall *)lCopy initWithURL:v50];
     }
 
     v5->_isNilCall = 1;
 LABEL_56:
   }
 
-  v49 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -472,37 +471,37 @@ LABEL_36:
 
 - (id)URL
 {
-  v44[8] = *MEMORY[0x277D85DE8];
+  v43[8] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   [v3 setNumberStyle:1];
   v4 = objc_opt_new();
   [v4 setScheme:@"tincan"];
   [v4 setHost:@"tcsCall"];
   v5 = MEMORY[0x277CCAD18];
-  v43 = [MEMORY[0x277CCABB0] numberWithBool:{-[TCSCall isConnected](self, "isConnected")}];
-  v42 = [v3 stringFromNumber:v43];
-  v41 = [v5 queryItemWithName:@"conn" value:v42];
-  v44[0] = v41;
+  v42 = [MEMORY[0x277CCABB0] numberWithBool:{-[TCSCall isConnected](self, "isConnected")}];
+  v41 = [v3 stringFromNumber:v42];
+  v40 = [v5 queryItemWithName:@"conn" value:v41];
+  v43[0] = v40;
   v6 = MEMORY[0x277CCAD18];
-  v40 = [MEMORY[0x277CCABB0] numberWithBool:{-[TCSCall isOutgoing](self, "isOutgoing")}];
-  v39 = [v3 stringFromNumber:v40];
-  v38 = [v6 queryItemWithName:@"out" value:v39];
-  v44[1] = v38;
+  v39 = [MEMORY[0x277CCABB0] numberWithBool:{-[TCSCall isOutgoing](self, "isOutgoing")}];
+  v38 = [v3 stringFromNumber:v39];
+  v37 = [v6 queryItemWithName:@"out" value:v38];
+  v43[1] = v37;
   v7 = MEMORY[0x277CCAD18];
-  v37 = [MEMORY[0x277CCABB0] numberWithBool:{-[TCSCall isRemoteUplinkMuted](self, "isRemoteUplinkMuted")}];
-  v36 = [v3 stringFromNumber:v37];
-  v35 = [v7 queryItemWithName:@"rUM" value:v36];
-  v44[2] = v35;
+  v36 = [MEMORY[0x277CCABB0] numberWithBool:{-[TCSCall isRemoteUplinkMuted](self, "isRemoteUplinkMuted")}];
+  v35 = [v3 stringFromNumber:v36];
+  v34 = [v7 queryItemWithName:@"rUM" value:v35];
+  v43[2] = v34;
   v8 = MEMORY[0x277CCAD18];
-  v34 = [MEMORY[0x277CCABB0] numberWithInt:{-[TCSCall status](self, "status")}];
-  v33 = [v3 stringFromNumber:v34];
-  v32 = [v8 queryItemWithName:@"stat" value:v33];
-  v44[3] = v32;
+  v33 = [MEMORY[0x277CCABB0] numberWithInt:{-[TCSCall status](self, "status")}];
+  v32 = [v3 stringFromNumber:v33];
+  v31 = [v8 queryItemWithName:@"stat" value:v32];
+  v43[3] = v31;
   v9 = MEMORY[0x277CCAD18];
-  v31 = [MEMORY[0x277CCABB0] numberWithInt:{-[TCSCall disconnectedReason](self, "disconnectedReason")}];
-  v30 = [v3 stringFromNumber:v31];
-  v10 = [v9 queryItemWithName:@"dR" value:v30];
-  v44[4] = v10;
+  v30 = [MEMORY[0x277CCABB0] numberWithInt:{-[TCSCall disconnectedReason](self, "disconnectedReason")}];
+  v29 = [v3 stringFromNumber:v30];
+  v10 = [v9 queryItemWithName:@"dR" value:v29];
+  v43[4] = v10;
   v11 = MEMORY[0x277CCAD18];
   contactIdentifier = [(TCSCall *)self contactIdentifier];
   v13 = contactIdentifier;
@@ -517,7 +516,7 @@ LABEL_36:
   }
 
   v15 = [v11 queryItemWithName:@"cID" value:v14];
-  v44[5] = v15;
+  v43[5] = v15;
   v16 = MEMORY[0x277CCAD18];
   handleValue = [(TCSCall *)self handleValue];
   v18 = handleValue;
@@ -532,7 +531,7 @@ LABEL_36:
   }
 
   v20 = [v16 queryItemWithName:@"hdl" value:v19];
-  v44[6] = v20;
+  v43[6] = v20;
   v21 = MEMORY[0x277CCAD18];
   uniqueProxyIdentifier = [(TCSCall *)self uniqueProxyIdentifier];
   v23 = uniqueProxyIdentifier;
@@ -547,13 +546,11 @@ LABEL_36:
   }
 
   v25 = [v21 queryItemWithName:@"uPI" value:v24];
-  v44[7] = v25;
-  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:8];
+  v43[7] = v25;
+  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:8];
   [v4 setQueryItems:v26];
 
   v27 = [v4 URL];
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v27;
 }
@@ -749,11 +746,10 @@ LABEL_36:
 
 - (void)initWithURL:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138477827;
-  v4 = a1;
-  _os_log_error_impl(&dword_26F110000, a2, OS_LOG_TYPE_ERROR, "Failed to parse URL %{private}@ into a TCSCall.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138477827;
+  v3 = a1;
+  _os_log_error_impl(&dword_26F110000, a2, OS_LOG_TYPE_ERROR, "Failed to parse URL %{private}@ into a TCSCall.", &v2, 0xCu);
 }
 
 @end

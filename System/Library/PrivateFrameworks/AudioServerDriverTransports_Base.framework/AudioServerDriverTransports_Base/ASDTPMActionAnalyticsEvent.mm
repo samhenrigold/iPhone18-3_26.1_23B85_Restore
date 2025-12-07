@@ -9,13 +9,13 @@
 - (ASDTPMActionAnalyticsEvent)initWithConfig:(id)config forSequencer:(id)sequencer
 {
   configCopy = config;
-  v17.receiver = self;
-  v17.super_class = ASDTPMActionAnalyticsEvent;
-  v7 = [(ASDTPMAction *)&v17 initWithConfig:configCopy forSequencer:sequencer];
+  v19.receiver = self;
+  v19.super_class = ASDTPMActionAnalyticsEvent;
+  v7 = [(ASDTPMAction *)&v19 initWithConfig:configCopy forSequencer:sequencer];
   if (!v7)
   {
 LABEL_5:
-    v14 = v7;
+    v16 = v7;
     goto LABEL_9;
   }
 
@@ -30,25 +30,25 @@ LABEL_5:
 
     if (!asdtName)
     {
-      v11 = MEMORY[0x277CCACA8];
+      v13 = MEMORY[0x277CCACA8];
       eventName2 = [(ASDTPMActionAnalyticsEvent *)v7 eventName];
-      v13 = [v11 stringWithFormat:@"AnalyticsEvent:%@", eventName2];
-      [(ASDTPMAction *)v7 setName:v13];
+      v15 = [v13 stringWithFormat:@"AnalyticsEvent:%@", eventName2];
+      [(ASDTPMAction *)v7 setName:v15];
     }
 
     goto LABEL_5;
   }
 
-  v15 = ASDTBaseLogType();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v17 = ASDTBaseLogType(v10, v11);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
-    [(ASDTPMActionAnalyticsEvent *)v7 initWithConfig:configCopy forSequencer:v15];
+    [(ASDTPMActionAnalyticsEvent *)v7 initWithConfig:configCopy forSequencer:v17];
   }
 
-  v14 = 0;
+  v16 = 0;
 LABEL_9:
 
-  return v14;
+  return v16;
 }
 
 - (void)sendEventNamed:(id)named withData:(id)data
@@ -60,43 +60,41 @@ LABEL_9:
 
 - (int)action
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   eventData = [(ASDTPMActionAnalyticsEvent *)self eventData];
+  v5 = eventData;
   if (eventData)
   {
-    v4 = ASDTBaseLogType();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = ASDTBaseLogType(eventData, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       name = [(ASDTPMDevice *)self name];
       eventName = [(ASDTPMActionAnalyticsEvent *)self eventName];
-      v10 = 138412802;
-      v11 = name;
-      v12 = 2112;
-      v13 = eventName;
-      v14 = 2112;
-      v15 = eventData;
-      _os_log_impl(&dword_241659000, v4, OS_LOG_TYPE_DEFAULT, "%@: %@: %@", &v10, 0x20u);
+      v11 = 138412802;
+      v12 = name;
+      v13 = 2112;
+      v14 = eventName;
+      v15 = 2112;
+      v16 = v5;
+      _os_log_impl(&dword_241659000, v6, OS_LOG_TYPE_DEFAULT, "%@: %@: %@", &v11, 0x20u);
     }
 
     eventName2 = [(ASDTPMActionAnalyticsEvent *)self eventName];
-    [(ASDTPMActionAnalyticsEvent *)self sendEventNamed:eventName2 withData:eventData];
+    [(ASDTPMActionAnalyticsEvent *)self sendEventNamed:eventName2 withData:v5];
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (void)initWithConfig:(NSObject *)a3 forSequencer:.cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [a1 name];
-  v7 = 138412546;
-  v8 = v5;
-  v9 = 2112;
-  v10 = a2;
-  _os_log_error_impl(&dword_241659000, a3, OS_LOG_TYPE_ERROR, "%@: Event name must be defined in config: %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = v5;
+  v8 = 2112;
+  v9 = a2;
+  _os_log_error_impl(&dword_241659000, a3, OS_LOG_TYPE_ERROR, "%@: Event name must be defined in config: %@", &v6, 0x16u);
 }
 
 @end

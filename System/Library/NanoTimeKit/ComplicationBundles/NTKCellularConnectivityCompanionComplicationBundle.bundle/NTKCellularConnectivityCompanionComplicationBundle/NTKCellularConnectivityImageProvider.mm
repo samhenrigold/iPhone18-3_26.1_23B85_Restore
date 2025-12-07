@@ -2,6 +2,7 @@
 - (NTKCellularConnectivityImageProvider)init;
 - (NTKCellularConnectivityImageProvider)initWithDotLayoutConstraints:(id)constraints;
 - (id)copyWithZone:(_NSZone *)zone;
+- (void)finalizeWithPointSize:(id)size weight:(int64_t)weight maxSDKSize:(CGSize)kSize maxDeviceSize:(CGSize)deviceSize maskToCircle:(BOOL)circle;
 @end
 
 @implementation NTKCellularConnectivityImageProvider
@@ -32,6 +33,24 @@
   }
 
   return v4;
+}
+
+- (void)finalizeWithPointSize:(id)size weight:(int64_t)weight maxSDKSize:(CGSize)kSize maxDeviceSize:(CGSize)deviceSize maskToCircle:(BOOL)circle
+{
+  circleCopy = circle;
+  height = deviceSize.height;
+  width = deviceSize.width;
+  v10 = kSize.height;
+  v11 = kSize.width;
+  sizeCopy = size;
+  if (!sizeCopy)
+  {
+    sizeCopy = self->_imageSize;
+  }
+
+  v15.receiver = self;
+  v15.super_class = NTKCellularConnectivityImageProvider;
+  [(NTKCellularConnectivityImageProvider *)&v15 finalizeWithPointSize:sizeCopy weight:weight maxSDKSize:circleCopy maxDeviceSize:v11 maskToCircle:v10, width, height];
 }
 
 - (id)copyWithZone:(_NSZone *)zone

@@ -3,78 +3,88 @@
 - (void)_initializeMyriadDeviceWithInstanceContext:(id)context analytics:(id)analytics preferences:(id)preferences delegate:(id)delegate workQueue:(id)queue analyticsQueue:(id)analyticsQueue;
 - (void)preheatMyriad;
 - (void)resetMyriad;
+- (void)setupEnabled:(BOOL)enabled;
 - (void)startAdvertising:(unint64_t)advertising withSCDAGoodnessScoreContext:(id)context withSCDAAudioContext:(id)audioContext completion:(id)completion;
 @end
 
 @implementation SVXMyriadDeviceManager
 
+- (void)setupEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v8 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277CEF098];
+  if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
+  {
+    v6 = 136315138;
+    v7 = "[SVXMyriadDeviceManager setupEnabled:]";
+    _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s ", &v6, 0xCu);
+  }
+
+  [(SVXMyriadRequestDelegate *)self->_device setupEnabled:enabledCopy];
+}
+
 - (void)resetMyriad
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v5 = 136315138;
-    v6 = "[SVXMyriadDeviceManager resetMyriad]";
-    _os_log_impl(&dword_2695B9000, v3, OS_LOG_TYPE_INFO, "%s #myriad", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[SVXMyriadDeviceManager resetMyriad]";
+    _os_log_impl(&dword_2695B9000, v3, OS_LOG_TYPE_INFO, "%s #myriad", &v4, 0xCu);
   }
 
   [(SVXMyriadRequestDelegate *)self->_device resetMyriad];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)preheatMyriad
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v5 = 136315138;
-    v6 = "[SVXMyriadDeviceManager preheatMyriad]";
-    _os_log_impl(&dword_2695B9000, v3, OS_LOG_TYPE_INFO, "%s #myriad", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[SVXMyriadDeviceManager preheatMyriad]";
+    _os_log_impl(&dword_2695B9000, v3, OS_LOG_TYPE_INFO, "%s #myriad", &v4, 0xCu);
   }
 
   [(SVXMyriadRequestDelegate *)self->_device preheatMyriad];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startAdvertising:(unint64_t)advertising withSCDAGoodnessScoreContext:(id)context withSCDAAudioContext:(id)audioContext completion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   audioContextCopy = audioContext;
   completionCopy = completion;
   v13 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v15 = 136315138;
-    v16 = "[SVXMyriadDeviceManager startAdvertising:withSCDAGoodnessScoreContext:withSCDAAudioContext:completion:]";
-    _os_log_impl(&dword_2695B9000, v13, OS_LOG_TYPE_INFO, "%s #myriad", &v15, 0xCu);
+    v14 = 136315138;
+    v15 = "[SVXMyriadDeviceManager startAdvertising:withSCDAGoodnessScoreContext:withSCDAAudioContext:completion:]";
+    _os_log_impl(&dword_2695B9000, v13, OS_LOG_TYPE_INFO, "%s #myriad", &v14, 0xCu);
   }
 
   [(SVXMyriadRequestDelegate *)self->_device startAdvertising:advertising withSCDAGoodnessScoreContext:contextCopy withSCDAAudioContext:audioContextCopy completion:completionCopy];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_initializeMyriadDeviceWithInstanceContext:(id)context analytics:(id)analytics preferences:(id)preferences delegate:(id)delegate workQueue:(id)queue analyticsQueue:(id)analyticsQueue
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   queueCopy = queue;
   v12 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v16 = 136315138;
-    v17 = "[SVXMyriadDeviceManager _initializeMyriadDeviceWithInstanceContext:analytics:preferences:delegate:workQueue:analyticsQueue:]";
-    _os_log_impl(&dword_2695B9000, v12, OS_LOG_TYPE_INFO, "%s #myriad Initializing Myriad on host device", &v16, 0xCu);
+    v15 = 136315138;
+    v16 = "[SVXMyriadDeviceManager _initializeMyriadDeviceWithInstanceContext:analytics:preferences:delegate:workQueue:analyticsQueue:]";
+    _os_log_impl(&dword_2695B9000, v12, OS_LOG_TYPE_INFO, "%s #myriad Initializing Myriad on host device", &v15, 0xCu);
   }
 
   v13 = [[SVXMyriadHostDevice alloc] initWithDelegate:delegateCopy queue:queueCopy];
   device = self->_device;
   self->_device = v13;
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (SVXMyriadDeviceManager)initWithInstanceContext:(id)context analytics:(id)analytics preferences:(id)preferences delegate:(id)delegate

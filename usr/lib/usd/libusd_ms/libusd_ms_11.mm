@@ -349,9 +349,9 @@ void Alembic::AbcGeom::v12::OSubDSchema::createUVsProperty(uint64_t a1, uint64_t
   Alembic::Abc::v12::SetSourceName(&v37, (a1 + 1096));
   if (*(a2 + 536) != 127 && (*(a2 + 528) || *(a2 + 552) != *(a2 + 544)))
   {
-    sub_29A05259C(v34, &v49);
+    sub_29A05259C(&v34, &v49);
     sub_29A052640(&v30, &v46);
-    sub_29A0526E4(&__dst, v34, &v30, *(a2 + 568));
+    sub_29A0526E4(&__dst, &v34, &v30, *(a2 + 568));
     *&v39 = __dst;
     *(&v39 + 5) = *(&__dst + 5);
     sub_29A00CB24(&v40, v22, v23[0], (v23[0] - v22) >> 3);
@@ -391,7 +391,7 @@ void Alembic::AbcGeom::v12::OSubDSchema::createUVsProperty(uint64_t a1, uint64_t
       atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    sub_29A008E78(v34, "uv");
+    sub_29A008E78(&v34, "uv");
     v10 = v45;
     sub_29A07BC38(a1, &v17);
     LODWORD(v30) = 4;
@@ -400,7 +400,7 @@ void Alembic::AbcGeom::v12::OSubDSchema::createUVsProperty(uint64_t a1, uint64_t
     v16 = &v37;
     v13 = 0;
     v14 = 0;
-    sub_29A052798(&__dst, &v19, v34, 1, v10, 1, &v30, &v15, &v13);
+    sub_29A052798(&__dst, &v19, &v34, 1, v10, 1, &v30, &v15, &v13);
     sub_29A050950(a1 + 920, &__dst);
     Alembic::Abc::v12::OCompoundProperty::~OCompoundProperty(v29);
     Alembic::Abc::v12::OArrayProperty::~OArrayProperty(&v27);
@@ -417,7 +417,7 @@ void Alembic::AbcGeom::v12::OSubDSchema::createUVsProperty(uint64_t a1, uint64_t
 
     if (SHIBYTE(v35) < 0)
     {
-      operator delete(*v34);
+      operator delete(v34);
     }
 
     v7 = v20;
@@ -431,10 +431,10 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  sub_29A05259C(v34, &v49);
+  sub_29A05259C(&v34, &v49);
   v4 = *(a2 + 568);
-  *&__dst = *v34;
-  *(&__dst + 5) = *&v34[5];
+  *&__dst = v34;
+  *(&__dst + 5) = *(&v34 + 5);
   v22 = 0;
   v23[0] = 0;
   v23[1] = 0;
@@ -478,7 +478,7 @@ LABEL_17:
     atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  sub_29A008E78(v34, "uv");
+  sub_29A008E78(&v34, "uv");
   v6 = v45;
   sub_29A07BC38(a1, &v17);
   LODWORD(v30) = 4;
@@ -487,7 +487,7 @@ LABEL_17:
   v16 = &v37;
   v13 = 0;
   v14 = 0;
-  sub_29A052798(&__dst, &v11, v34, 0, v6, 1, &v30, &v15, &v13);
+  sub_29A052798(&__dst, &v11, &v34, 0, v6, 1, &v30, &v15, &v13);
   sub_29A050950(a1 + 920, &__dst);
   Alembic::Abc::v12::OCompoundProperty::~OCompoundProperty(v29);
   Alembic::Abc::v12::OArrayProperty::~OArrayProperty(&v27);
@@ -504,7 +504,7 @@ LABEL_17:
 
   if (SHIBYTE(v35) < 0)
   {
-    operator delete(*v34);
+    operator delete(v34);
   }
 
   v7 = v12;
@@ -552,7 +552,7 @@ LABEL_18:
   }
 }
 
-void sub_29A07AE50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, std::__shared_weak_count *a18, uint64_t a19, std::__shared_weak_count *a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *a45, uint64_t a46, uint64_t a47, void *__p, uint64_t a49, int a50, __int16 a51, char a52, char a53, uint64_t a54)
+void sub_29A07AE50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, std::__shared_weak_count *a18, uint64_t a19, std::__shared_weak_count *a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *a45, uint64_t a46, uint64_t a47, void *__p, uint64_t a49, int a50, __int16 a51, char a52, char a53, uint64_t a54)
 {
   sub_29A050A50(&a21);
   if (a18)
@@ -1013,7 +1013,7 @@ void Alembic::AbcGeom::v12::OSubDSchema::initCorners(Alembic::AbcGeom::v12::OSub
   }
 }
 
-void sub_29A07B7F8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, void *a30, uint64_t a31)
+void sub_29A07B7F8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31)
 {
   Alembic::Abc::v12::OArrayProperty::~OArrayProperty(&a28);
   if (a25 < 0)
@@ -1147,7 +1147,7 @@ void Alembic::AbcGeom::v12::OSubDSchema::initHoles(Alembic::AbcGeom::v12::OSubDS
   }
 }
 
-void sub_29A07BB14(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, std::__shared_weak_count *a25, char a26, uint64_t a27, void *a28, uint64_t a29)
+void sub_29A07BB14(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, std::__shared_weak_count *a25, uint64_t a26, uint64_t a27, void *a28, uint64_t a29)
 {
   Alembic::Abc::v12::OArrayProperty::~OArrayProperty(&a26);
   if (a23 < 0)
@@ -1224,17 +1224,17 @@ LABEL_5:
   }
 }
 
-void sub_29A07BCDC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A07BCDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
   Alembic::Abc::v12::OArchive::~OArchive(va1);
   Alembic::Abc::v12::OObject::~OObject(va);
   _Unwind_Resume(a1);
@@ -2057,18 +2057,18 @@ uint64_t *Alembic::AbcGeom::v12::OSubDSchema::createFaceSet(uint64_t a1, const v
     sub_29A008864(v18);
     sub_29A00911C(v19, "faceSet has already been created in SubD.", 41);
     std::stringbuf::str();
-    sub_29A008C60(v28, &v34);
+    sub_29A008C60(&v28, &v34);
     if (v35 < 0)
     {
       operator delete(v34);
     }
 
     exception = __cxa_allocate_exception(0x20uLL);
-    v9 = sub_29A008E1C(exception, v28);
+    v9 = sub_29A008E1C(exception, &v28);
     __cxa_throw(v9, &unk_2A203B108, sub_29A008B08);
   }
 
-  sub_29A04428C(v4, v28);
+  sub_29A04428C(v4, &v28);
   v13 = v29;
   if (SHIBYTE(v31) < 0)
   {
@@ -2096,8 +2096,8 @@ uint64_t *Alembic::AbcGeom::v12::OSubDSchema::createFaceSet(uint64_t a1, const v
   v10[0] = 0;
   v10[2] = 0;
   sub_29A071EA0(v18, &v12, a2, &v34, v11, v10);
-  v38 = a2;
-  v5 = sub_29A071CB8((a1 + 1120), a2, &unk_29B432B03, &v38);
+  v39 = a2;
+  v5 = sub_29A071CB8((a1 + 1120), a2, &unk_29B432B03, &v39, &v38);
   sub_29A070910((v5 + 7), v18);
   v18[0] = &unk_2A203DFC8;
   v20 = &unk_2A203DAA8;
@@ -2112,25 +2112,25 @@ uint64_t *Alembic::AbcGeom::v12::OSubDSchema::createFaceSet(uint64_t a1, const v
   Alembic::Abc::v12::OObject::~OObject(v18);
   Alembic::Abc::v12::OObject::~OObject(&v12);
   v18[0] = a2;
-  v6 = sub_29A071CB8((a1 + 1120), a2, &unk_29B432B03, v18) + 7;
-  Alembic::Abc::v12::OObject::~OObject(v28);
+  v6 = sub_29A071CB8((a1 + 1120), a2, &unk_29B432B03, v18, &v34) + 7;
+  Alembic::Abc::v12::OObject::~OObject(&v28);
   return v6;
 }
 
-void sub_29A07CAC0(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_29A07CAC0(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a13);
-  sub_29A008F20((v13 - 160));
+  va_start(va, a19);
+  sub_29A008F20((v19 - 160));
   sub_29A008B0C(va);
-  v16 = __cxa_begin_catch(a1);
+  v22 = __cxa_begin_catch(a1);
   if (a2 == 2)
   {
-    sub_29A02D768(v13 - 80, v16);
+    sub_29A02D768(v19 - 80, v22);
   }
 
   else
   {
-    sub_29A02D6F8(v13 - 80, 0);
+    sub_29A02D6F8(v19 - 80, 0);
   }
 
   __cxa_end_catch();
@@ -2138,9 +2138,9 @@ void sub_29A07CAC0(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint
   {
     if (__cxa_guard_acquire(&qword_2A153ED08))
     {
-      v17 = operator new(0x198uLL);
-      sub_29A0729EC(v17);
-      qword_2A153ED00 = v17;
+      v23 = operator new(0x198uLL);
+      sub_29A0729EC(v23);
+      qword_2A153ED00 = v23;
       __cxa_guard_release(&qword_2A153ED08);
     }
   }
@@ -2182,10 +2182,10 @@ void sub_29A07CC94(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint
   JUMPOUT(0x29A07CC80);
 }
 
-uint64_t Alembic::AbcGeom::v12::OSubDSchema::getFaceSet@<X0>(uint64_t a1@<X0>, __int128 *a2@<X1>, uint64_t a3@<X8>)
+uint64_t Alembic::AbcGeom::v12::OSubDSchema::getFaceSet@<X0>(uint64_t a1@<X0>, const void **a2@<X1>, uint64_t a3@<X8>)
 {
-  v9 = a2;
-  v4 = sub_29A071CB8((a1 + 1120), a2, &unk_29B432B03, &v9);
+  v10 = a2;
+  v4 = sub_29A071CB8((a1 + 1120), a2, &unk_29B432B03, &v10, &v9);
   v5 = v4;
   *(a3 + 8) = *(v4 + 16);
   if (*(v4 + 95) < 0)
@@ -2502,8 +2502,8 @@ void sub_29A07D350(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   {
     sub_29A008E78(__p, "schema");
     sub_29A008E78(&__str, "AbcGeom_SubD_v1");
-    v30 = __p;
-    v13 = sub_29A00B038(&v22, __p, &unk_29B432B03, &v30);
+    v31 = __p;
+    v13 = sub_29A00B038(&v22, __p, &unk_29B432B03, &v31, &v30);
     std::string::operator=((v13 + 7), &__str);
     if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -2519,8 +2519,8 @@ void sub_29A07D350(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
     {
       sub_29A008E78(__p, "schemaBaseType");
       sub_29A008E78(&__str, "AbcGeom_GeomBase_v1");
-      v30 = __p;
-      v14 = sub_29A00B038(&v22, __p, &unk_29B432B03, &v30);
+      v31 = __p;
+      v14 = sub_29A00B038(&v22, __p, &unk_29B432B03, &v31, &v30);
       std::string::operator=((v14 + 7), &__str);
       if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -2558,7 +2558,7 @@ void sub_29A07D350(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   sub_29A01752C(v26, v26[1]);
 }
 
-void sub_29A07D64C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25)
+void sub_29A07D64C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25)
 {
   sub_29A008F20(&__p);
   sub_29A008B0C(&a24);
@@ -4262,9 +4262,9 @@ void sub_29A07FA6C(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint
 
 void Alembic::AbcGeom::v12::ISubDSchema::loadFaceSetNames(uint64_t **this)
 {
-  v2 = (this + 1);
-  v16 = v2;
-  v17 = "ISubDSchema::loadFaceSetNames()";
+  v2 = this + 1;
+  v15[12] = v2;
+  v15[13] = "ISubDSchema::loadFaceSetNames()";
   if ((this[134] & 1) == 0)
   {
     sub_29A07386C(v2, v15);
@@ -4278,8 +4278,8 @@ void Alembic::AbcGeom::v12::ISubDSchema::loadFaceSetNames(uint64_t **this)
         if (sub_29A0749C4((ChildHeader + 3), 0))
         {
           sub_29A074FA8(v7);
-          v18 = ChildHeader;
-          v6 = sub_29A074DC0(this + 135, ChildHeader, &unk_29B432B04, &v18);
+          v17 = ChildHeader;
+          v6 = sub_29A074DC0(this + 135, ChildHeader, &unk_29B432B04, &v17, &v16);
           sub_29A0739C0((v6 + 7), v7);
           v7[0] = &unk_2A203E020;
           v8 = &unk_2A203E058;
@@ -4381,7 +4381,7 @@ uint64_t Alembic::AbcGeom::v12::ISubDSchema::getFaceSet@<X0>(uint64_t a1@<X0>, c
   }
 
   v16[0] = a2;
-  v7 = sub_29A074DC0((a1 + 1080), a2, &unk_29B432B04, v16);
+  v7 = sub_29A074DC0((a1 + 1080), a2, &unk_29B432B04, v16, v25);
   if (!sub_29A0751C8((v7 + 7)))
   {
     sub_29A07386C(v6, v25);
@@ -4390,8 +4390,8 @@ uint64_t Alembic::AbcGeom::v12::ISubDSchema::getFaceSet@<X0>(uint64_t a1@<X0>, c
     v15[0] = 0;
     v15[2] = 0;
     sub_29A0751F8(v16, v25, a2, &v26, v15);
-    v30 = a2;
-    v8 = sub_29A074DC0((a1 + 1080), a2, &unk_29B432B04, &v30);
+    v31 = a2;
+    v8 = sub_29A074DC0((a1 + 1080), a2, &unk_29B432B04, &v31, &v30);
     sub_29A0739C0((v8 + 7), v16);
     v16[0] = &unk_2A203E020;
     v18 = &unk_2A203E058;
@@ -4407,7 +4407,7 @@ uint64_t Alembic::AbcGeom::v12::ISubDSchema::getFaceSet@<X0>(uint64_t a1@<X0>, c
   }
 
   v16[0] = a2;
-  v9 = sub_29A074DC0((a1 + 1080), a2, &unk_29B432B04, v16);
+  v9 = sub_29A074DC0((a1 + 1080), a2, &unk_29B432B04, v16, v25);
   sub_29A030028(a3, (v9 + 7));
   *a3 = &unk_2A203E020;
   sub_29A074608(a3 + 96, (v9 + 19));
@@ -4436,25 +4436,25 @@ uint64_t Alembic::AbcGeom::v12::ISubDSchema::getFaceSet@<X0>(uint64_t a1@<X0>, c
   return pthread_mutex_unlock((a1 + 1104));
 }
 
-void sub_29A0800E4(void *a1, int a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A0800E4(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
 {
-  va_start(va, a4);
-  sub_29A008F20((v6 - 200));
+  va_start(va, a6);
+  sub_29A008F20((v8 - 200));
   sub_29A008B0C(va);
-  pthread_mutex_unlock((v5 + 1104));
-  v9 = __cxa_begin_catch(a1);
+  pthread_mutex_unlock((v7 + 1104));
+  v11 = __cxa_begin_catch(a1);
   if (a2 == 2)
   {
-    sub_29A02D768(v6 - 80, v9);
+    sub_29A02D768(v8 - 80, v11);
   }
 
   else
   {
-    sub_29A02D6F8(v6 - 80, 0);
+    sub_29A02D6F8(v8 - 80, 0);
   }
 
   __cxa_end_catch();
-  sub_29A074FA8(v4);
+  sub_29A074FA8(v6);
   JUMPOUT(0x29A080050);
 }
 
@@ -4500,9 +4500,9 @@ void Alembic::AbcGeom::v12::CreateVisibilityProperty(Alembic::Abc::v12::OObject 
   Alembic::Abc::v12::OScalarProperty::~OScalarProperty(&v10);
 }
 
-void sub_29A0802DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_29A0802DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   Alembic::Abc::v12::OScalarProperty::~OScalarProperty(va);
   _Unwind_Resume(a1);
 }
@@ -4510,7 +4510,7 @@ void sub_29A0802DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void Alembic::AbcGeom::v12::CreateVisibilityProperty(Alembic::AbcGeom::v12 *this@<X0>, Alembic::Abc::v12::OObject *a2@<X1>, uint64_t a3@<X8>)
 {
   v3 = a2;
-  Alembic::Abc::v12::OObject::getProperties(this, v10);
+  Alembic::Abc::v12::OObject::getProperties(v10, this);
   sub_29A008E78(__p, "visible");
   v7[0] = 2;
   v7[2] = v3;
@@ -4540,11 +4540,11 @@ void sub_29A08039C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void Alembic::AbcGeom::v12::GetVisibilityProperty(Alembic::AbcGeom::v12 *this@<X0>, uint64_t a2@<X8>)
 {
-  Alembic::Abc::v12::IObject::getProperties(this, v10);
+  Alembic::Abc::v12::IObject::getProperties(v9, this);
   sub_29A008E78(__p, "visible");
-  PropertyHeader = Alembic::Abc::v12::ICompoundProperty::getPropertyHeader(v10);
-  v5 = PropertyHeader;
-  if ((v9 & 0x80000000) == 0)
+  PropertyHeader = Alembic::Abc::v12::ICompoundProperty::getPropertyHeader(v9);
+  v4 = PropertyHeader;
+  if ((v8 & 0x80000000) == 0)
   {
     if (PropertyHeader)
     {
@@ -4560,25 +4560,25 @@ LABEL_6:
   }
 
   operator delete(__p[0]);
-  if (!v5)
+  if (!v4)
   {
     goto LABEL_6;
   }
 
 LABEL_3:
   sub_29A008E78(__p, "visible");
-  v7[0] = 0;
-  v7[2] = 0;
   v6[0] = 0;
   v6[2] = 0;
-  sub_29A080DE8(a2, v10, __p, v7, v6);
-  if (v9 < 0)
+  v5[0] = 0;
+  v5[2] = 0;
+  sub_29A080DE8(a2, v9, __p, v6, v5);
+  if (v8 < 0)
   {
     operator delete(__p[0]);
   }
 
 LABEL_7:
-  Alembic::Abc::v12::ICompoundProperty::~ICompoundProperty(v10);
+  Alembic::Abc::v12::ICompoundProperty::~ICompoundProperty(v9);
 }
 
 uint64_t Alembic::AbcGeom::v12::GetVisibility(Alembic::AbcGeom::v12 *a1, uint64_t a2)
@@ -4637,9 +4637,9 @@ LABEL_12:
   return v7;
 }
 
-void sub_29A0805CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_29A0805CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   Alembic::Abc::v12::IScalarProperty::~IScalarProperty(va);
   _Unwind_Resume(a1);
 }
@@ -4812,14 +4812,14 @@ LABEL_36:
 
   v14 = 0;
 LABEL_40:
-  Alembic::Abc::v12::IObject::~IObject(&v31);
+  Alembic::Abc::v12::IObject::~IObject(&v31.__r_.__value_.__l.__data_);
   Alembic::Abc::v12::IScalarProperty::~IScalarProperty(&__p);
   return v14;
 }
 
-void sub_29A08088C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_29A08088C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   Alembic::Abc::v12::IScalarProperty::~IScalarProperty(va);
   _Unwind_Resume(a1);
 }
@@ -4951,36 +4951,36 @@ void sub_29A0809DC(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t
   sub_29A01752C(v26, v26[1]);
 }
 
-void sub_29A080CC0(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_29A080CC0(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
-  va_start(va1, a6);
-  va_start(va, a6);
-  v12.__vftable = va_arg(va1, std::exception_vtbl *);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a10);
+  va_start(va, a10);
+  v16.__vftable = va_arg(va1, std::exception_vtbl *);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
-  v10 = __cxa_begin_catch(a1);
+  v14 = __cxa_begin_catch(a1);
   if (a2 == 2)
   {
-    v11 = v10;
-    sub_29A02F0A0(v6);
-    sub_29A02D768(v7 - 160, v11);
+    v15 = v14;
+    sub_29A02F0A0(v10);
+    sub_29A02D768(v11 - 160, v15);
   }
 
   else
   {
-    sub_29A02F0A0(v6);
-    sub_29A02D6F8(v7 - 160, 0);
+    sub_29A02F0A0(v10);
+    sub_29A02D6F8(v11 - 160, 0);
   }
 
   __cxa_end_catch();
   JUMPOUT(0x29A080C0CLL);
 }
 
-uint64_t sub_29A080DE8(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_29A080DE8(uint64_t a1, int *a2, uint64_t **a3, uint64_t a4, uint64_t a5)
 {
   *a1 = 2;
   sub_29A008E78((a1 + 8), "");
@@ -5049,7 +5049,7 @@ uint64_t sub_29A080DE8(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t 
 
     else
     {
-      v37 = *(a3 + 8);
+      v37 = a3[1];
     }
 
     sub_29A00911C(v34, v36, v37);
@@ -5066,7 +5066,7 @@ uint64_t sub_29A080DE8(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t 
   }
 
   v16 = *(v13 + 56) == 2 && *(v13 + 60) == 1 && *(v13 + 24) == 1;
-  if (!v16 || (sub_29A081374(v13 + 32, v52) & 1) == 0)
+  if (!v16 || !sub_29A081374(v13 + 32, v52))
   {
     sub_29A008864(&v46);
     v20 = sub_29A00911C(v47, "Incorrect match of header datatype: ", 36);
@@ -5151,7 +5151,7 @@ uint64_t sub_29A080DE8(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t 
   return a1;
 }
 
-void sub_29A08122C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, char a23, uint64_t a24)
+void sub_29A08122C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24)
 {
   sub_29A008F20(&__p);
   sub_29A008B0C(&a23);
@@ -5178,7 +5178,7 @@ void sub_29A08122C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x29A080F8CLL);
 }
 
-uint64_t sub_29A081374(uint64_t a1, int a2)
+BOOL sub_29A081374(uint64_t a1, int a2)
 {
   if (a2)
   {
@@ -5340,13 +5340,13 @@ void sub_29A081644(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void Alembic::AbcGeom::v12::XformOp::setType(uint64_t a1, unsigned int a2)
+void Alembic::AbcGeom::v12::XformOp::setType(void *result, unsigned int a2)
 {
-  *a1 = a2;
-  *(a1 + 4) = 0;
+  *result = a2;
+  *(result + 4) = 0;
   if (a2 <= 6)
   {
-    sub_29A00BF50((a1 + 8), qword_29B432B18[a2]);
+    sub_29A00BF50(result + 1, qword_29B432B18[a2]);
   }
 }
 
@@ -5597,14 +5597,14 @@ double Alembic::AbcGeom::v12::XformOp::setVector(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_29A0819D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A0819D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5.__vftable = va_arg(va1, std::exception_vtbl *);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v8.__vftable = va_arg(va1, std::exception_vtbl *);
+  v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
   _Unwind_Resume(a1);
@@ -5631,14 +5631,14 @@ double Alembic::AbcGeom::v12::XformOp::setTranslate(_DWORD *a1, uint64_t a2)
   return Alembic::AbcGeom::v12::XformOp::setVector(a1, a2);
 }
 
-void sub_29A081AB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A081AB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5.__vftable = va_arg(va1, std::exception_vtbl *);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v8.__vftable = va_arg(va1, std::exception_vtbl *);
+  v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
   _Unwind_Resume(a1);
@@ -5665,14 +5665,14 @@ double Alembic::AbcGeom::v12::XformOp::setScale(_DWORD *a1, uint64_t a2)
   return Alembic::AbcGeom::v12::XformOp::setVector(a1, a2);
 }
 
-void sub_29A081B90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A081B90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5.__vftable = va_arg(va1, std::exception_vtbl *);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v8.__vftable = va_arg(va1, std::exception_vtbl *);
+  v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
   _Unwind_Resume(a1);
@@ -5699,14 +5699,14 @@ double Alembic::AbcGeom::v12::XformOp::setAxis(_DWORD *a1, uint64_t a2)
   return Alembic::AbcGeom::v12::XformOp::setVector(a1, a2);
 }
 
-void sub_29A081C70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A081C70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5.__vftable = va_arg(va1, std::exception_vtbl *);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v8.__vftable = va_arg(va1, std::exception_vtbl *);
+  v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
   _Unwind_Resume(a1);
@@ -5744,14 +5744,14 @@ uint64_t Alembic::AbcGeom::v12::XformOp::setAngle(uint64_t this, double a2)
   return this;
 }
 
-void sub_29A081D60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A081D60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5.__vftable = va_arg(va1, std::exception_vtbl *);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v8.__vftable = va_arg(va1, std::exception_vtbl *);
+  v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
   _Unwind_Resume(a1);
@@ -5793,14 +5793,14 @@ uint64_t Alembic::AbcGeom::v12::XformOp::setMatrix(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_29A081E64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A081E64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5.__vftable = va_arg(va1, std::exception_vtbl *);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v8.__vftable = va_arg(va1, std::exception_vtbl *);
+  v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
   _Unwind_Resume(a1);
@@ -5831,14 +5831,14 @@ double Alembic::AbcGeom::v12::XformOp::getVector@<D0>(Alembic::AbcGeom::v12::Xfo
   return result;
 }
 
-void sub_29A081F48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A081F48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5.__vftable = va_arg(va1, std::exception_vtbl *);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v8.__vftable = va_arg(va1, std::exception_vtbl *);
+  v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
   _Unwind_Resume(a1);
@@ -5865,14 +5865,14 @@ double Alembic::AbcGeom::v12::XformOp::getTranslate@<D0>(Alembic::AbcGeom::v12::
   return Alembic::AbcGeom::v12::XformOp::getVector(this, a2);
 }
 
-void sub_29A082028(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A082028(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5.__vftable = va_arg(va1, std::exception_vtbl *);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v8.__vftable = va_arg(va1, std::exception_vtbl *);
+  v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
   _Unwind_Resume(a1);
@@ -5899,14 +5899,14 @@ double Alembic::AbcGeom::v12::XformOp::getScale@<D0>(Alembic::AbcGeom::v12::Xfor
   return Alembic::AbcGeom::v12::XformOp::getVector(this, a2);
 }
 
-void sub_29A082104(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A082104(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5.__vftable = va_arg(va1, std::exception_vtbl *);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v8.__vftable = va_arg(va1, std::exception_vtbl *);
+  v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
   _Unwind_Resume(a1);
@@ -5970,14 +5970,14 @@ LABEL_13:
   return result;
 }
 
-void sub_29A082244(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A082244(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5.__vftable = va_arg(va1, std::exception_vtbl *);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v8.__vftable = va_arg(va1, std::exception_vtbl *);
+  v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
   _Unwind_Resume(a1);
@@ -6014,14 +6014,14 @@ double Alembic::AbcGeom::v12::XformOp::getAngle(Alembic::AbcGeom::v12::XformOp *
   return *v1;
 }
 
-void sub_29A082334(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A082334(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5.__vftable = va_arg(va1, std::exception_vtbl *);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v8.__vftable = va_arg(va1, std::exception_vtbl *);
+  v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
   _Unwind_Resume(a1);
@@ -6100,14 +6100,14 @@ void Alembic::AbcGeom::v12::XformOp::getXRotation(Alembic::AbcGeom::v12::XformOp
   }
 }
 
-void sub_29A08258C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A08258C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5.__vftable = va_arg(va1, std::exception_vtbl *);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v8.__vftable = va_arg(va1, std::exception_vtbl *);
+  v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
   _Unwind_Resume(a1);
@@ -6186,14 +6186,14 @@ void Alembic::AbcGeom::v12::XformOp::getYRotation(Alembic::AbcGeom::v12::XformOp
   }
 }
 
-void sub_29A0827E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A0827E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5.__vftable = va_arg(va1, std::exception_vtbl *);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v8.__vftable = va_arg(va1, std::exception_vtbl *);
+  v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
   _Unwind_Resume(a1);
@@ -6272,14 +6272,14 @@ void Alembic::AbcGeom::v12::XformOp::getZRotation(Alembic::AbcGeom::v12::XformOp
   }
 }
 
-void sub_29A082A3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A082A3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5.__vftable = va_arg(va1, std::exception_vtbl *);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v8.__vftable = va_arg(va1, std::exception_vtbl *);
+  v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
   _Unwind_Resume(a1);
@@ -6329,14 +6329,14 @@ __n128 Alembic::AbcGeom::v12::XformOp::getMatrix@<Q0>(Alembic::AbcGeom::v12::Xfo
   return result;
 }
 
-void sub_29A082B5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A082B5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5.__vftable = va_arg(va1, std::exception_vtbl *);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v8.__vftable = va_arg(va1, std::exception_vtbl *);
+  v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
   _Unwind_Resume(a1);
@@ -6374,7 +6374,7 @@ uint64_t Alembic::AbcGeom::v12::XformSample::XformSample(uint64_t this)
   return this;
 }
 
-uint64_t Alembic::AbcGeom::v12::XformSample::addOp(uint64_t a1, Alembic::AbcGeom::v12::XformOp *this, uint64_t a3)
+uint64_t Alembic::AbcGeom::v12::XformSample::addOp(uint64_t a1, char **this, uint64_t a3)
 {
   for (i = 0; i != 3; ++i)
   {
@@ -6424,8 +6424,8 @@ uint64_t Alembic::AbcGeom::v12::XformSample::addOp(uint64_t a1, Alembic::AbcGeom
     *v9 = v10;
     if (v9 != this)
     {
-      sub_29A00CB24((v9 + 8), *(this + 1), *(this + 2), (*(this + 2) - *(this + 1)) >> 3);
-      sub_29A086068((v9 + 32), *(this + 4), this + 10);
+      sub_29A00CB24((v9 + 8), this[1], this[2], (this[2] - this[1]) >> 3);
+      sub_29A086068((v9 + 32), this[4], this + 10);
     }
 
     *(a1 + 40) = (*(a1 + 40) + 1) % (0x6DB6DB6DB6DB6DB7 * ((*(a1 + 16) - *(a1 + 8)) >> 3));
@@ -6517,8 +6517,8 @@ uint64_t Alembic::AbcGeom::v12::XformSample::addOp(uint64_t a1, Alembic::AbcGeom
     *v12 = v13;
     if (v12 != this)
     {
-      sub_29A00CB24((v12 + 8), *(this + 1), *(this + 2), (*(this + 2) - *(this + 1)) >> 3);
-      sub_29A086068((v12 + 32), *(this + 4), this + 10);
+      sub_29A00CB24((v12 + 8), this[1], this[2], (this[2] - this[1]) >> 3);
+      sub_29A086068((v12 + 32), this[4], this + 10);
     }
 
     *(a1 + 40) = (*(a1 + 40) + 1) % (0x6DB6DB6DB6DB6DB7 * ((*(a1 + 16) - *(a1 + 8)) >> 3));
@@ -6550,14 +6550,14 @@ uint64_t Alembic::AbcGeom::v12::XformSample::addOp(uint64_t a1, Alembic::AbcGeom
   return v10;
 }
 
-void sub_29A082EF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A082EF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5.__vftable = va_arg(va1, std::exception_vtbl *);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v8.__vftable = va_arg(va1, std::exception_vtbl *);
+  v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
   _Unwind_Resume(a1);
@@ -6582,7 +6582,7 @@ uint64_t sub_29A082F30(uint64_t a1, int *a2)
   return result;
 }
 
-uint64_t Alembic::AbcGeom::v12::XformSample::addOp(uint64_t a1, Alembic::AbcGeom::v12::XformOp *this, uint64_t a3, double a4)
+uint64_t Alembic::AbcGeom::v12::XformSample::addOp(uint64_t a1, char **this, uint64_t a3, double a4)
 {
   for (i = 0; i != 3; ++i)
   {
@@ -6633,8 +6633,8 @@ uint64_t Alembic::AbcGeom::v12::XformSample::addOp(uint64_t a1, Alembic::AbcGeom
     *v11 = v12;
     if (v11 != this)
     {
-      sub_29A00CB24((v11 + 8), *(this + 1), *(this + 2), (*(this + 2) - *(this + 1)) >> 3);
-      sub_29A086068((v11 + 32), *(this + 4), this + 10);
+      sub_29A00CB24((v11 + 8), this[1], this[2], (this[2] - this[1]) >> 3);
+      sub_29A086068((v11 + 32), this[4], this + 10);
     }
 
     *(a1 + 40) = (*(a1 + 40) + 1) % (0x6DB6DB6DB6DB6DB7 * ((*(a1 + 16) - *(a1 + 8)) >> 3));
@@ -6666,20 +6666,20 @@ uint64_t Alembic::AbcGeom::v12::XformSample::addOp(uint64_t a1, Alembic::AbcGeom
   return v9;
 }
 
-void sub_29A08328C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A08328C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5.__vftable = va_arg(va1, std::exception_vtbl *);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v8.__vftable = va_arg(va1, std::exception_vtbl *);
+  v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
   _Unwind_Resume(a1);
 }
 
-uint64_t Alembic::AbcGeom::v12::XformSample::addOp(uint64_t a1, uint64_t a2, double a3)
+uint64_t Alembic::AbcGeom::v12::XformSample::addOp(uint64_t a1, int *a2, double a3)
 {
   Alembic::AbcGeom::v12::XformOp::setChannelValue(a2, 0, a3);
   if (*(a1 + 33))
@@ -6725,8 +6725,8 @@ uint64_t Alembic::AbcGeom::v12::XformSample::addOp(uint64_t a1, uint64_t a2, dou
     *v7 = v8;
     if (v7 != a2)
     {
-      sub_29A00CB24((v7 + 8), *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 3);
-      sub_29A086068((v7 + 32), *(a2 + 32), (a2 + 40));
+      sub_29A00CB24((v7 + 8), *(a2 + 1), *(a2 + 2), (*(a2 + 2) - *(a2 + 1)) >> 3);
+      sub_29A086068((v7 + 32), *(a2 + 4), a2 + 10);
     }
 
     *(a1 + 40) = (*(a1 + 40) + 1) % (0x6DB6DB6DB6DB6DB7 * ((*(a1 + 16) - *(a1 + 8)) >> 3));
@@ -6758,33 +6758,33 @@ uint64_t Alembic::AbcGeom::v12::XformSample::addOp(uint64_t a1, uint64_t a2, dou
   return v5;
 }
 
-void sub_29A083594(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A083594(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5.__vftable = va_arg(va1, std::exception_vtbl *);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v8.__vftable = va_arg(va1, std::exception_vtbl *);
+  v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
   _Unwind_Resume(a1);
 }
 
-void sub_29A0838D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A0838D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5.__vftable = va_arg(va1, std::exception_vtbl *);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v8.__vftable = va_arg(va1, std::exception_vtbl *);
+  v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
   _Unwind_Resume(a1);
 }
 
-uint64_t Alembic::AbcGeom::v12::XformSample::addOp(Alembic::AbcGeom::v12::XformSample *this, const Alembic::AbcGeom::v12::XformOp *a2)
+uint64_t Alembic::AbcGeom::v12::XformSample::addOp(Alembic::AbcGeom::v12::XformSample *this, char **a2)
 {
   if (*(this + 33))
   {
@@ -6829,8 +6829,8 @@ uint64_t Alembic::AbcGeom::v12::XformSample::addOp(Alembic::AbcGeom::v12::XformS
     *v6 = v7;
     if (v6 != a2)
     {
-      sub_29A00CB24((v6 + 8), *(a2 + 1), *(a2 + 2), (*(a2 + 2) - *(a2 + 1)) >> 3);
-      sub_29A086068((v6 + 32), *(a2 + 4), a2 + 10);
+      sub_29A00CB24((v6 + 8), a2[1], a2[2], (a2[2] - a2[1]) >> 3);
+      sub_29A086068((v6 + 32), a2[4], a2 + 10);
     }
 
     *(this + 5) = (*(this + 5) + 1) % (0x6DB6DB6DB6DB6DB7 * ((*(this + 2) - *(this + 1)) >> 3));
@@ -6862,14 +6862,14 @@ uint64_t Alembic::AbcGeom::v12::XformSample::addOp(Alembic::AbcGeom::v12::XformS
   return v4;
 }
 
-void sub_29A083BD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A083BD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5.__vftable = va_arg(va1, std::exception_vtbl *);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v8.__vftable = va_arg(va1, std::exception_vtbl *);
+  v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
   _Unwind_Resume(a1);
@@ -6934,7 +6934,7 @@ uint64_t Alembic::AbcGeom::v12::XformSample::getNumOpChannels(Alembic::AbcGeom::
 
 void Alembic::AbcGeom::v12::XformSample::setTranslation(uint64_t a1, uint64_t a2)
 {
-  Alembic::AbcGeom::v12::XformOp::XformOp(&v21, 1, 0);
+  Alembic::AbcGeom::v12::XformOp::XformOp(&v21, 1u, 0);
   for (i = 0; i != 3; ++i)
   {
     Alembic::AbcGeom::v12::XformOp::setChannelValue(&v21, i, *(a2 + 8 * i));
@@ -7020,17 +7020,17 @@ void Alembic::AbcGeom::v12::XformSample::setTranslation(uint64_t a1, uint64_t a2
   }
 }
 
-void sub_29A084078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_29A084078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v7.__vftable = va_arg(va1, std::exception_vtbl *);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v11.__vftable = va_arg(va1, std::exception_vtbl *);
+  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
-  sub_29A0840DC(v5 - 88);
+  sub_29A0840DC(v9 - 88);
   _Unwind_Resume(a1);
 }
 
@@ -7049,7 +7049,7 @@ uint64_t sub_29A0840DC(uint64_t a1)
 
 void Alembic::AbcGeom::v12::XformSample::setRotation(uint64_t a1, uint64_t a2, double a3)
 {
-  Alembic::AbcGeom::v12::XformOp::XformOp(&v23, 2, 0);
+  Alembic::AbcGeom::v12::XformOp::XformOp(&v23, 2u, 0);
   for (i = 0; i != 3; ++i)
   {
     Alembic::AbcGeom::v12::XformOp::setChannelValue(&v23, i, *(a2 + 8 * i));
@@ -7136,17 +7136,17 @@ void Alembic::AbcGeom::v12::XformSample::setRotation(uint64_t a1, uint64_t a2, d
   }
 }
 
-void sub_29A084424(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_29A084424(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v7.__vftable = va_arg(va1, std::exception_vtbl *);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v11.__vftable = va_arg(va1, std::exception_vtbl *);
+  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
-  sub_29A0840DC(v5 - 104);
+  sub_29A0840DC(v9 - 104);
   _Unwind_Resume(a1);
 }
 
@@ -7238,23 +7238,23 @@ void Alembic::AbcGeom::v12::XformSample::setScale(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_29A084774(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_29A084774(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v7.__vftable = va_arg(va1, std::exception_vtbl *);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v11.__vftable = va_arg(va1, std::exception_vtbl *);
+  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
-  sub_29A0840DC(v5 - 88);
+  sub_29A0840DC(v9 - 88);
   _Unwind_Resume(a1);
 }
 
 void Alembic::AbcGeom::v12::XformSample::setXRotation(Alembic::AbcGeom::v12::XformSample *this, double a2)
 {
-  v4 = Alembic::AbcGeom::v12::XformOp::XformOp(&v21, 4, 0);
+  v4 = Alembic::AbcGeom::v12::XformOp::XformOp(&v21, 4u, 0);
   Alembic::AbcGeom::v12::XformOp::setChannelValue(v4, 0, a2);
   if (*(this + 33))
   {
@@ -7336,23 +7336,23 @@ void Alembic::AbcGeom::v12::XformSample::setXRotation(Alembic::AbcGeom::v12::Xfo
   }
 }
 
-void sub_29A084AB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_29A084AB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v7.__vftable = va_arg(va1, std::exception_vtbl *);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v11.__vftable = va_arg(va1, std::exception_vtbl *);
+  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
-  sub_29A0840DC(v5 - 104);
+  sub_29A0840DC(v9 - 104);
   _Unwind_Resume(a1);
 }
 
 void Alembic::AbcGeom::v12::XformSample::setYRotation(Alembic::AbcGeom::v12::XformSample *this, double a2)
 {
-  v4 = Alembic::AbcGeom::v12::XformOp::XformOp(&v21, 5, 0);
+  v4 = Alembic::AbcGeom::v12::XformOp::XformOp(&v21, 5u, 0);
   Alembic::AbcGeom::v12::XformOp::setChannelValue(v4, 0, a2);
   if (*(this + 33))
   {
@@ -7434,23 +7434,23 @@ void Alembic::AbcGeom::v12::XformSample::setYRotation(Alembic::AbcGeom::v12::Xfo
   }
 }
 
-void sub_29A084DF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_29A084DF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v7.__vftable = va_arg(va1, std::exception_vtbl *);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v11.__vftable = va_arg(va1, std::exception_vtbl *);
+  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
-  sub_29A0840DC(v5 - 104);
+  sub_29A0840DC(v9 - 104);
   _Unwind_Resume(a1);
 }
 
 void Alembic::AbcGeom::v12::XformSample::setZRotation(Alembic::AbcGeom::v12::XformSample *this, double a2)
 {
-  v4 = Alembic::AbcGeom::v12::XformOp::XformOp(&v21, 6, 0);
+  v4 = Alembic::AbcGeom::v12::XformOp::XformOp(&v21, 6u, 0);
   Alembic::AbcGeom::v12::XformOp::setChannelValue(v4, 0, a2);
   if (*(this + 33))
   {
@@ -7532,23 +7532,23 @@ void Alembic::AbcGeom::v12::XformSample::setZRotation(Alembic::AbcGeom::v12::Xfo
   }
 }
 
-void sub_29A085138(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_29A085138(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v7.__vftable = va_arg(va1, std::exception_vtbl *);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v11.__vftable = va_arg(va1, std::exception_vtbl *);
+  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
-  sub_29A0840DC(v5 - 104);
+  sub_29A0840DC(v9 - 104);
   _Unwind_Resume(a1);
 }
 
 void Alembic::AbcGeom::v12::XformSample::setMatrix(uint64_t a1, uint64_t a2)
 {
-  Alembic::AbcGeom::v12::XformOp::XformOp(&v24, 3, 0);
+  Alembic::AbcGeom::v12::XformOp::XformOp(&v24, 3u, 0);
   v4 = 0;
   for (i = 0; i != 4; ++i)
   {
@@ -7645,17 +7645,17 @@ void Alembic::AbcGeom::v12::XformSample::setMatrix(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_29A0854B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_29A0854B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v7.__vftable = va_arg(va1, std::exception_vtbl *);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v11.__vftable = va_arg(va1, std::exception_vtbl *);
+  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
-  sub_29A0840DC(v5 - 120);
+  sub_29A0840DC(v9 - 120);
   _Unwind_Resume(a1);
 }
 
@@ -7926,7 +7926,7 @@ LABEL_35:
   return result;
 }
 
-void sub_29A085B48(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, void *__p, uint64_t a39)
+void sub_29A085B48(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, void *__p, uint64_t a39)
 {
   *v39 = a31;
   v39[1] = v41;
@@ -7947,7 +7947,7 @@ double Alembic::AbcGeom::v12::XformSample::getTranslation@<D0>(Alembic::AbcGeom:
   return result;
 }
 
-BOOL sub_29A085C28(float64x2_t *a1, float64x2_t *a2, int a3)
+BOOL sub_29A085C28(float64x2_t *a1, float64x2_t *a2, uint64_t a3)
 {
   v3 = a1[1];
   v8[0] = *a1;
@@ -8015,7 +8015,7 @@ double *sub_29A085C74@<X0>(double *result@<X0>, double *a2@<X8>)
   return result;
 }
 
-long double Alembic::AbcGeom::v12::XformSample::getAngle(Alembic::AbcGeom::v12::XformSample *this)
+double Alembic::AbcGeom::v12::XformSample::getAngle(Alembic::AbcGeom::v12::XformSample *this)
 {
   Alembic::AbcGeom::v12::XformSample::getMatrix(this, v5);
   sub_29A085C74(v5, &v6);
@@ -8044,47 +8044,47 @@ double Alembic::AbcGeom::v12::XformSample::getXRotation(Alembic::AbcGeom::v12::X
 void Alembic::AbcGeom::v12::XformSample::clear(Alembic::AbcGeom::v12::XformSample *this)
 {
   *(this + 33) = 0;
-  sub_29A085EF8(this + 8, 0);
+  sub_29A085EF8(this + 1, 0);
   *this = 0;
   *(this + 5) = 0;
   *(this + 32) = 1;
 }
 
-void sub_29A085EF8(uint64_t a1, unint64_t a2)
+void sub_29A085EF8(void **result, unint64_t a2)
 {
-  v3 = *(a1 + 8);
-  v4 = 0x6DB6DB6DB6DB6DB7 * ((v3 - *a1) >> 3);
+  v3 = result[1];
+  v4 = 0x6DB6DB6DB6DB6DB7 * ((v3 - *result) >> 3);
   v5 = a2 >= v4;
   v6 = a2 - v4;
   if (v6 != 0 && v5)
   {
 
-    sub_29A086F84(a1, v6);
+    sub_29A086F84(result, v6);
   }
 
   else if (!v5)
   {
-    v7 = *a1 + 56 * a2;
+    v7 = *result + 56 * a2;
     while (v3 != v7)
     {
       v3 -= 56;
-      sub_29A086924(a1, v3);
+      sub_29A086924(result, v3);
     }
 
-    *(a1 + 8) = v7;
+    result[1] = v7;
   }
 }
 
 void Alembic::AbcGeom::v12::XformSample::reset(Alembic::AbcGeom::v12::XformSample *this)
 {
   *(this + 33) = 0;
-  sub_29A085EF8(this + 8, 0);
+  sub_29A085EF8(this + 1, 0);
   *this = 0;
   *(this + 5) = 0;
   *(this + 32) = 1;
 }
 
-BOOL Alembic::AbcGeom::v12::XformSample::isTopologyEqual(Alembic::AbcGeom::v12::XformSample *this, const Alembic::AbcGeom::v12::XformSample *a2)
+uint64_t Alembic::AbcGeom::v12::XformSample::isTopologyEqual(Alembic::AbcGeom::v12::XformSample *this, const Alembic::AbcGeom::v12::XformSample *a2)
 {
   v3 = *(this + 1);
   v2 = *(this + 2);
@@ -8117,15 +8117,15 @@ BOOL Alembic::AbcGeom::v12::XformSample::isTopologyEqual(Alembic::AbcGeom::v12::
   return result;
 }
 
-uint64_t **sub_29A086068(uint64_t **result, unsigned int *a2, unsigned int *a3)
+void *sub_29A086068(void *result, unsigned int *a2, unsigned int *a3)
 {
   v5 = result;
   if (result[2])
   {
     v6 = *result;
     v7 = result[1];
-    *result = (result + 1);
-    v7[2] = 0;
+    *result = result + 1;
+    *(v7 + 16) = 0;
     result[1] = 0;
     result[2] = 0;
     if (v6[1])
@@ -8235,17 +8235,17 @@ uint64_t **sub_29A086068(uint64_t **result, unsigned int *a2, unsigned int *a3)
   return result;
 }
 
-void sub_29A0861B8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A0861B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A08623C(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_29A0861CC(uint64_t **a1, uint64_t a2)
+uint64_t sub_29A0861CC(uint64_t a1, uint64_t a2)
 {
-  v3 = a1 + 1;
-  v4 = a1[1];
+  v3 = (a1 + 8);
+  v4 = *(a1 + 8);
   if (v4)
   {
     do
@@ -8275,7 +8275,7 @@ uint64_t sub_29A0861CC(uint64_t **a1, uint64_t a2)
 
   else
   {
-    v5 = a1 + 1;
+    v5 = (a1 + 8);
   }
 
 LABEL_8:
@@ -8308,13 +8308,13 @@ uint64_t sub_29A08623C(uint64_t a1)
   return a1;
 }
 
-uint64_t *sub_29A086294(uint64_t **a1, unsigned int *a2)
+uint64_t *sub_29A086294(uint64_t a1, unsigned int *a2)
 {
   v4 = operator new(0x20uLL);
   v5 = *a2;
   *(v4 + 7) = *a2;
-  v6 = a1 + 1;
-  v7 = a1[1];
+  v6 = (a1 + 8);
+  v7 = *(a1 + 8);
   if (v7)
   {
     do
@@ -8344,7 +8344,7 @@ uint64_t *sub_29A086294(uint64_t **a1, unsigned int *a2)
 
   else
   {
-    v8 = a1 + 1;
+    v8 = (a1 + 8);
   }
 
 LABEL_8:
@@ -8369,7 +8369,7 @@ uint64_t *sub_29A08637C(uint64_t *result, unsigned int *a2, unsigned int *a3)
     v5 = result;
     do
     {
-      result = sub_29A086404(v5, v5 + 1, v4 + 7, v4 + 7);
+      result = sub_29A086404(v5, (v5 + 8), v4 + 7, v4 + 7);
       v6 = *(v4 + 1);
       if (v6)
       {
@@ -8418,9 +8418,9 @@ uint64_t *sub_29A086404(uint64_t **a1, uint64_t *a2, unsigned int *a3, _DWORD *a
   return v7;
 }
 
-uint64_t *sub_29A08648C(void *a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, unsigned int *a5)
+uint64_t *sub_29A08648C(uint64_t **a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, unsigned int *a5)
 {
-  v5 = a1 + 1;
+  v5 = (a1 + 1);
   if (a1 + 1 == a2 || (v6 = *a5, v7 = *(a2 + 7), *a5 < v7))
   {
     v8 = *a2;
@@ -8447,7 +8447,7 @@ LABEL_17:
       do
       {
         v10 = v9;
-        v9 = v9[1];
+        v9 = *(v9 + 8);
       }
 
       while (v9);
@@ -8508,7 +8508,7 @@ LABEL_17:
 
     else
     {
-      v17 = a1 + 1;
+      v17 = (a1 + 1);
     }
 
 LABEL_29:
@@ -8587,7 +8587,7 @@ LABEL_29:
 
     else
     {
-      v21 = a1 + 1;
+      v21 = (a1 + 1);
     }
 
 LABEL_48:
@@ -8609,21 +8609,21 @@ LABEL_48:
   return a4;
 }
 
-uint64_t sub_29A086634(uint64_t a1, int *a2)
+uint64_t sub_29A086634(char **a1, int *a2)
 {
-  v2 = 0x6DB6DB6DB6DB6DB7 * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0x6DB6DB6DB6DB6DB7 * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if ((v2 + 1) > 0x492492492492492)
   {
     sub_29A00C9A4();
   }
 
-  if (0xDB6DB6DB6DB6DB6ELL * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0xDB6DB6DB6DB6DB6ELL * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0xDB6DB6DB6DB6DB6ELL * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0xDB6DB6DB6DB6DB6ELL * ((a1[2] - *a1) >> 3);
   }
 
-  if ((0x6DB6DB6DB6DB6DB7 * ((*(a1 + 16) - *a1) >> 3)) >= 0x249249249249249)
+  if ((0x6DB6DB6DB6DB6DB7 * ((a1[2] - *a1) >> 3)) >= 0x249249249249249)
   {
     v6 = 0x492492492492492;
   }
@@ -8649,14 +8649,14 @@ uint64_t sub_29A086634(uint64_t a1, int *a2)
   *(&v16 + 1) = &v7[14 * v6];
   sub_29A086780(a1, v15, a2);
   *&v16 = v15 + 14;
-  v8 = *(a1 + 8);
+  v8 = a1[1];
   v9 = v15 + *a1 - v8;
   sub_29A086804(a1, *a1, v8, v9);
   v10 = *a1;
   *a1 = v9;
-  v11 = *(a1 + 16);
+  v11 = a1[2];
   v13 = v16;
-  *(a1 + 8) = v16;
+  *(a1 + 1) = v16;
   *&v16 = v10;
   *(&v16 + 1) = v11;
   v14 = v10;
@@ -8665,9 +8665,9 @@ uint64_t sub_29A086634(uint64_t a1, int *a2)
   return v13;
 }
 
-void sub_29A08676C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A08676C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_29A086A04(va);
   _Unwind_Resume(a1);
 }
@@ -8829,8 +8829,9 @@ void sub_29A086A38(void *a1)
   }
 }
 
-BOOL sub_29A086A80(float64x2_t *a1, float64x2_t *a2, double *a3, int a4)
+BOOL sub_29A086A80(float64x2_t *a1, float64x2_t *a2, double *a3, uint64_t a4)
 {
+  v4 = a4;
   v8 = 0;
   v74 = *MEMORY[0x29EDCA608];
   v9 = a1->f64[0];
@@ -8884,7 +8885,7 @@ LABEL_14:
     }
 
     a2->f64[0] = v23;
-    result = sub_29A086E78(a2->f64, &v68, a4);
+    result = sub_29A086E78(a2->f64, &v68, v4);
     if (result)
     {
       v24 = a2->f64[0];
@@ -8904,7 +8905,7 @@ LABEL_14:
       v32 = v31 < 4.45014772e-308 ? sub_29B284C54(&v70) : sqrt(v31);
       a2->f64[1] = v32;
       v33 = &a2->f64[1];
-      result = sub_29A086E78(&a2->f64[1], &v70, a4);
+      result = sub_29A086E78(&a2->f64[1], &v70, v4);
       if (result)
       {
         v34 = *v33;
@@ -8932,7 +8933,7 @@ LABEL_14:
         v48 = v47 < 4.45014772e-308 ? sub_29B284C54(&v72) : sqrt(v47);
         a2[1].f64[0] = v48;
         v49 = &a2[1];
-        result = sub_29A086E78(a2[1].f64, &v72, a4);
+        result = sub_29A086E78(a2[1].f64, &v72, v4);
         if (result)
         {
           v50 = *v49;
@@ -8963,15 +8964,15 @@ LABEL_14:
           }
 
           v62 = &v69;
-          f64 = a1[1].f64;
+          v63 = a1 + 1;
           v64 = 3;
           do
           {
-            *(f64 - 1) = *(v62 - 1);
+            v63[-1] = *(v62 - 2);
             v65 = *v62;
             v62 += 3;
-            *f64 = v65;
-            f64 += 4;
+            v63->f64[0] = v65;
+            v63 += 2;
             --v64;
           }
 
@@ -8991,7 +8992,7 @@ LABEL_14:
     while (1)
     {
       v19 = (&v68 + v18);
-      result = sub_29A086E78(&v67, &v68 + v18, a4);
+      result = sub_29A086E78(&v67, &v68 + v18, v4);
       if (!result)
       {
         break;
@@ -9086,7 +9087,7 @@ void **sub_29A086F84(void **result, unint64_t a2)
       v5 = v11;
     }
 
-    *(v3 + 8) = v5;
+    v3[1] = v5;
   }
 
   else
@@ -9141,13 +9142,13 @@ void **sub_29A086F84(void **result, unint64_t a2)
 
     while (v14);
     *&v22 = v15;
-    v16 = *(v3 + 8);
+    v16 = v3[1];
     v17 = v21 + *v3 - v16;
     sub_29A086804(v3, *v3, v16, v17);
     v18 = *v3;
     *v3 = v17;
-    v19 = *(v3 + 16);
-    *(v3 + 8) = v22;
+    v19 = v3[2];
+    *(v3 + 1) = v22;
     *&v22 = v18;
     *(&v22 + 1) = v19;
     v20 = v18;
@@ -9158,9 +9159,9 @@ void **sub_29A086F84(void **result, unint64_t a2)
   return result;
 }
 
-void sub_29A087104(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A087104(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A086A04(va);
   _Unwind_Resume(a1);
 }
@@ -9615,7 +9616,7 @@ LABEL_87:
 LABEL_107:
             v47 = 0;
             v42 = 0;
-            v44 += 7;
+            v44 = (v44 + 56);
             if (v44 == v45)
             {
               goto LABEL_110;
@@ -9633,7 +9634,7 @@ LABEL_107:
           }
 
           LODWORD(__p[0]) = v47;
-          sub_29A089628(v44 + 4, __p, __p);
+          sub_29A089628(v44 + 32, __p, __p);
           v42 = v47 + 1;
           v43 = v46 + 1;
         }

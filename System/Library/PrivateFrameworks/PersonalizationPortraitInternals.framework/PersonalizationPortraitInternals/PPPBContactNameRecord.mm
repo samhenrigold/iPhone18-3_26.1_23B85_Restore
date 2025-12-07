@@ -1,8 +1,10 @@
 @interface PPPBContactNameRecord
 - (BOOL)isEqual:(id)equal;
+- (id)changeTypeAsString:(unsigned __int8)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)sourceAsString:(unsigned __int8)string;
 - (unint64_t)hash;
 - (void)addCityNames:(id)names;
 - (void)addRelatedNames:(id)names;
@@ -18,7 +20,7 @@
 
 - (void)mergeFrom:(id)from
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   if (*(fromCopy + 5))
   {
@@ -108,91 +110,89 @@ LABEL_7:
     [(PPPBContactNameRecord *)self setNickname:?];
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v6 = *(fromCopy + 14);
-  v7 = [v6 countByEnumeratingWithState:&v30 objects:v36 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v29 objects:v35 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v31;
+    v9 = *v30;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v31 != v9)
+        if (*v30 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(PPPBContactNameRecord *)self addRelatedNames:*(*(&v30 + 1) + 8 * i)];
+        [(PPPBContactNameRecord *)self addRelatedNames:*(*(&v29 + 1) + 8 * i)];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v30 objects:v36 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v29 objects:v35 count:16];
     }
 
     while (v8);
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v11 = *(fromCopy + 17);
-  v12 = [v11 countByEnumeratingWithState:&v26 objects:v35 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v25 objects:v34 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v27;
+    v14 = *v26;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v27 != v14)
+        if (*v26 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        [(PPPBContactNameRecord *)self addStreetNames:*(*(&v26 + 1) + 8 * j)];
+        [(PPPBContactNameRecord *)self addStreetNames:*(*(&v25 + 1) + 8 * j)];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v26 objects:v35 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v25 objects:v34 count:16];
     }
 
     while (v13);
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v16 = *(fromCopy + 3);
-  v17 = [v16 countByEnumeratingWithState:&v22 objects:v34 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v21 objects:v33 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v23;
+    v19 = *v22;
     do
     {
       for (k = 0; k != v18; ++k)
       {
-        if (*v23 != v19)
+        if (*v22 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        [(PPPBContactNameRecord *)self addCityNames:*(*(&v22 + 1) + 8 * k), v22];
+        [(PPPBContactNameRecord *)self addCityNames:*(*(&v21 + 1) + 8 * k), v21];
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v22 objects:v34 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v21 objects:v33 count:16];
     }
 
     while (v18);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)hash
@@ -285,7 +285,6 @@ LABEL_14:
     }
   }
 
-  v6 = equalCopy[144];
   if (*&self->_has)
   {
     if ((equalCopy[144] & 1) == 0 || self->_score != *(equalCopy + 1))
@@ -297,7 +296,7 @@ LABEL_14:
   else if (equalCopy[144])
   {
 LABEL_45:
-    v20 = 0;
+    v19 = 0;
     goto LABEL_46;
   }
 
@@ -435,22 +434,22 @@ LABEL_45:
   cityNames = self->_cityNames;
   if (cityNames | *(equalCopy + 3))
   {
-    v20 = [(NSMutableArray *)cityNames isEqual:?];
+    v19 = [(NSMutableArray *)cityNames isEqual:?];
   }
 
   else
   {
-    v20 = 1;
+    v19 = 1;
   }
 
 LABEL_46:
 
-  return v20;
+  return v19;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_identifier copyWithZone:zone];
   v7 = *(v5 + 40);
@@ -529,94 +528,93 @@ LABEL_5:
   v28 = *(v5 + 72);
   *(v5 + 72) = v27;
 
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
   v58 = 0u;
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   v29 = self->_relatedNames;
-  v30 = [(NSMutableArray *)v29 countByEnumeratingWithState:&v57 objects:v63 count:16];
+  v30 = [(NSMutableArray *)v29 countByEnumeratingWithState:&v56 objects:v62 count:16];
   if (v30)
   {
     v31 = v30;
-    v32 = *v58;
+    v32 = *v57;
     do
     {
       for (i = 0; i != v31; ++i)
       {
-        if (*v58 != v32)
+        if (*v57 != v32)
         {
           objc_enumerationMutation(v29);
         }
 
-        v34 = [*(*(&v57 + 1) + 8 * i) copyWithZone:zone];
+        v34 = [*(*(&v56 + 1) + 8 * i) copyWithZone:zone];
         [v5 addRelatedNames:v34];
       }
 
-      v31 = [(NSMutableArray *)v29 countByEnumeratingWithState:&v57 objects:v63 count:16];
+      v31 = [(NSMutableArray *)v29 countByEnumeratingWithState:&v56 objects:v62 count:16];
     }
 
     while (v31);
   }
 
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
   v54 = 0u;
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
   v35 = self->_streetNames;
-  v36 = [(NSMutableArray *)v35 countByEnumeratingWithState:&v53 objects:v62 count:16];
+  v36 = [(NSMutableArray *)v35 countByEnumeratingWithState:&v52 objects:v61 count:16];
   if (v36)
   {
     v37 = v36;
-    v38 = *v54;
+    v38 = *v53;
     do
     {
       for (j = 0; j != v37; ++j)
       {
-        if (*v54 != v38)
+        if (*v53 != v38)
         {
           objc_enumerationMutation(v35);
         }
 
-        v40 = [*(*(&v53 + 1) + 8 * j) copyWithZone:zone];
+        v40 = [*(*(&v52 + 1) + 8 * j) copyWithZone:zone];
         [v5 addStreetNames:v40];
       }
 
-      v37 = [(NSMutableArray *)v35 countByEnumeratingWithState:&v53 objects:v62 count:16];
+      v37 = [(NSMutableArray *)v35 countByEnumeratingWithState:&v52 objects:v61 count:16];
     }
 
     while (v37);
   }
 
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   v41 = self->_cityNames;
-  v42 = [(NSMutableArray *)v41 countByEnumeratingWithState:&v49 objects:v61 count:16];
+  v42 = [(NSMutableArray *)v41 countByEnumeratingWithState:&v48 objects:v60 count:16];
   if (v42)
   {
     v43 = v42;
-    v44 = *v50;
+    v44 = *v49;
     do
     {
       for (k = 0; k != v43; ++k)
       {
-        if (*v50 != v44)
+        if (*v49 != v44)
         {
           objc_enumerationMutation(v41);
         }
 
-        v46 = [*(*(&v49 + 1) + 8 * k) copyWithZone:{zone, v49}];
+        v46 = [*(*(&v48 + 1) + 8 * k) copyWithZone:{zone, v48}];
         [v5 addCityNames:v46];
       }
 
-      v43 = [(NSMutableArray *)v41 countByEnumeratingWithState:&v49 objects:v61 count:16];
+      v43 = [(NSMutableArray *)v41 countByEnumeratingWithState:&v48 objects:v60 count:16];
     }
 
     while (v43);
   }
 
-  v47 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -761,7 +759,7 @@ LABEL_7:
 
 - (void)writeTo:(id)to
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_identifier)
   {
@@ -771,7 +769,6 @@ LABEL_7:
   has = self->_has;
   if (has)
   {
-    score = self->_score;
     PBDataWriterWriteDoubleField();
     has = self->_has;
     if ((has & 4) == 0)
@@ -791,12 +788,10 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  source = self->_source;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_6:
-    changeType = self->_changeType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -851,99 +846,94 @@ LABEL_7:
     PBDataWriterWriteStringField();
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
-  v37 = 0u;
-  v7 = self->_relatedNames;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v36 objects:v42 count:16];
-  if (v8)
+  v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v6 = self->_relatedNames;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v29 objects:v35 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v37;
+    v8 = v7;
+    v9 = *v30;
     do
     {
-      for (i = 0; i != v9; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v37 != v10)
+        if (*v30 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v36 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v36 objects:v42 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v29 objects:v35 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v13 = self->_streetNames;
-  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v32 objects:v41 count:16];
-  if (v14)
-  {
-    v15 = v14;
-    v16 = *v33;
-    do
-    {
-      for (j = 0; j != v15; ++j)
-      {
-        if (*v33 != v16)
-        {
-          objc_enumerationMutation(v13);
-        }
-
-        v18 = *(*(&v32 + 1) + 8 * j);
-        PBDataWriterWriteStringField();
-      }
-
-      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v32 objects:v41 count:16];
-    }
-
-    while (v15);
-  }
-
-  v30 = 0u;
-  v31 = 0u;
+  v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v19 = self->_cityNames;
-  v20 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v28 objects:v40 count:16];
-  if (v20)
+  v25 = 0u;
+  v26 = 0u;
+  v11 = self->_streetNames;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v25 objects:v34 count:16];
+  if (v12)
   {
-    v21 = v20;
-    v22 = *v29;
+    v13 = v12;
+    v14 = *v26;
     do
     {
-      for (k = 0; k != v21; ++k)
+      for (j = 0; j != v13; ++j)
       {
-        if (*v29 != v22)
+        if (*v26 != v14)
         {
-          objc_enumerationMutation(v19);
+          objc_enumerationMutation(v11);
         }
 
-        v24 = *(*(&v28 + 1) + 8 * k);
         PBDataWriterWriteStringField();
       }
 
-      v21 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v28 objects:v40 count:16];
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v25 objects:v34 count:16];
     }
 
-    while (v21);
+    while (v13);
   }
 
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v16 = self->_cityNames;
+  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v21 objects:v33 count:16];
+  if (v17)
+  {
+    v18 = v17;
+    v19 = *v22;
+    do
+    {
+      for (k = 0; k != v18; ++k)
+      {
+        if (*v22 != v19)
+        {
+          objc_enumerationMutation(v16);
+        }
+
+        PBDataWriterWriteStringField();
+      }
+
+      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v21 objects:v33 count:16];
+    }
+
+    while (v18);
+  }
 }
 
 - (id)dictionaryRepresentation
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v4 = dictionary;
   identifier = self->_identifier;
@@ -955,8 +945,8 @@ LABEL_7:
   has = self->_has;
   if (has)
   {
-    v30 = [MEMORY[0x277CCABB0] numberWithDouble:self->_score];
-    [v4 setObject:v30 forKey:@"score"];
+    v29 = [MEMORY[0x277CCABB0] numberWithDouble:self->_score];
+    [v4 setObject:v29 forKey:@"score"];
 
     has = self->_has;
     if ((has & 4) == 0)
@@ -976,8 +966,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v31 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:self->_source];
-  stringValue = [v31 stringValue];
+  v30 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:self->_source];
+  stringValue = [v30 stringValue];
   [v4 setObject:stringValue forKey:@"source"];
 
   if ((*&self->_has & 2) != 0)
@@ -1052,30 +1042,30 @@ LABEL_7:
   if ([(NSMutableArray *)self->_relatedNames count])
   {
     v19 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_relatedNames, "count")}];
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
     v20 = self->_relatedNames;
-    v21 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v21 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v34;
+      v23 = *v33;
       do
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v34 != v23)
+          if (*v33 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          dictionaryRepresentation = [*(*(&v33 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v32 + 1) + 8 * i) dictionaryRepresentation];
           [v19 addObject:dictionaryRepresentation];
         }
 
-        v22 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v22 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v32 objects:v36 count:16];
       }
 
       while (v22);
@@ -1095,8 +1085,6 @@ LABEL_7:
   {
     [v4 setObject:cityNames forKey:@"cityNames"];
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1167,6 +1155,14 @@ LABEL_7:
   [(NSMutableArray *)relatedNames addObject:namesCopy];
 }
 
+- (id)changeTypeAsString:(unsigned __int8)string
+{
+  v3 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:string];
+  stringValue = [v3 stringValue];
+
+  return stringValue;
+}
+
 - (void)setHasChangeType:(BOOL)type
 {
   if (type)
@@ -1180,6 +1176,14 @@ LABEL_7:
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)sourceAsString:(unsigned __int8)string
+{
+  v3 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:string];
+  stringValue = [v3 stringValue];
+
+  return stringValue;
 }
 
 - (void)setHasSource:(BOOL)source

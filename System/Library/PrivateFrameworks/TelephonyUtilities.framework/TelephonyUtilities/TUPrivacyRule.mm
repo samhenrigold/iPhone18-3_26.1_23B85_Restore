@@ -102,21 +102,19 @@
 - (TUPrivacyRule)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v13.receiver = self;
-  v13.super_class = TUPrivacyRule;
-  v5 = [(TUPrivacyRule *)&v13 init];
+  v11.receiver = self;
+  v11.super_class = TUPrivacyRule;
+  v5 = [(TUPrivacyRule *)&v11 init];
   if (v5)
   {
     v6 = [coderCopy decodeInt32ForKey:@"Type"];
     v5->_type = v6;
     if (v6 <= 2)
     {
-      v7 = off_1E7426CC0[v6];
-      v8 = 8 * v6;
-      v9 = *(&off_1E7426CA8)[v6];
-      v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:v7];
-      v11 = *(&v5->_phoneNumber + v8);
-      *(&v5->_phoneNumber + v8) = v10;
+      v7 = 8 * v6;
+      v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:off_1E7426CC0[v6]];
+      v9 = *(&v5->_phoneNumber + v7);
+      *(&v5->_phoneNumber + v7) = v8;
     }
   }
 

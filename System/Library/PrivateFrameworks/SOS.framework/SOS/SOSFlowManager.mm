@@ -44,27 +44,28 @@ uint64_t __32__SOSFlowManager_sharedInstance__block_invoke(uint64_t a1)
 
 - (id)_init
 {
-  v8.receiver = self;
-  v8.super_class = SOSFlowManager;
-  v2 = [(SOSFlowManager *)&v8 init];
+  v9.receiver = self;
+  v9.super_class = SOSFlowManager;
+  v2 = [(SOSFlowManager *)&v9 init];
+  p_isa = &v2->super.isa;
   if (v2)
   {
-    v3 = sos_default_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sos_default_log(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_264323000, v3, OS_LOG_TYPE_DEFAULT, "SOSFlowManager, init", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_264323000, v4, OS_LOG_TYPE_DEFAULT, "SOSFlowManager, init", v8, 2u);
     }
 
-    v4 = objc_alloc_init(MEMORY[0x277CCD4D8]);
-    healthStore = v2->_healthStore;
-    v2->_healthStore = v4;
+    v5 = objc_alloc_init(MEMORY[0x277CCD4D8]);
+    v6 = p_isa[1];
+    p_isa[1] = v5;
 
-    [(HKHealthStore *)v2->_healthStore setDebugIdentifier:@"com.apple.sos"];
-    [(HKHealthStore *)v2->_healthStore resume];
+    [p_isa[1] setDebugIdentifier:@"com.apple.sos"];
+    [p_isa[1] resume];
   }
 
-  return v2;
+  return p_isa;
 }
 
 - (void)kappaWasRequested
@@ -81,31 +82,30 @@ uint64_t __32__SOSFlowManager_sharedInstance__block_invoke(uint64_t a1)
 
 - (void)startSOSFlowWithTriggerMechanism:(int64_t)mechanism
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v5 = sos_default_log();
+  v11 = *MEMORY[0x277D85DE8];
+  v5 = sos_default_log(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = SOSStringForSOSTriggerMechanism(mechanism);
-    v8 = 136315394;
-    v9 = "[SOSFlowManager startSOSFlowWithTriggerMechanism:]";
-    v10 = 2112;
-    v11 = v6;
-    _os_log_impl(&dword_264323000, v5, OS_LOG_TYPE_DEFAULT, "%s: Starting SOSFlow with trigger: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[SOSFlowManager startSOSFlowWithTriggerMechanism:]";
+    v9 = 2112;
+    v10 = v6;
+    _os_log_impl(&dword_264323000, v5, OS_LOG_TYPE_DEFAULT, "%s: Starting SOSFlow with trigger: %@", &v7, 0x16u);
   }
 
   [(SOSFlowManager *)self startFreshSOSFlowWithTriggerMechanism:mechanism];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startFreshSOSFlowWithTriggerMechanism:(int64_t)mechanism
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v5 = sos_default_log();
+  v17 = *MEMORY[0x277D85DE8];
+  v5 = sos_default_log(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 136315138;
-    v17 = "[SOSFlowManager startFreshSOSFlowWithTriggerMechanism:]";
-    _os_log_impl(&dword_264323000, v5, OS_LOG_TYPE_DEFAULT, "%s: Starting a fresh SOSFlow", &v16, 0xCu);
+    v15 = 136315138;
+    v16 = "[SOSFlowManager startFreshSOSFlowWithTriggerMechanism:]";
+    _os_log_impl(&dword_264323000, v5, OS_LOG_TYPE_DEFAULT, "%s: Starting a fresh SOSFlow", &v15, 0xCu);
   }
 
   activeSOSFlow = [(SOSFlowManager *)self activeSOSFlow];
@@ -131,21 +131,20 @@ uint64_t __32__SOSFlowManager_sharedInstance__block_invoke(uint64_t a1)
 
   activeSOSFlow5 = [(SOSFlowManager *)self activeSOSFlow];
   [activeSOSFlow5 handleSOSFlowEvent:0 withMetaData:0];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sosFlow:(id)flow didChangeToState:(int64_t)state
 {
   v10 = *MEMORY[0x277D85DE8];
-  if ([SOSFlow isTerminalState:state])
+  v5 = [SOSFlow isTerminalState:state];
+  if (v5)
   {
-    v5 = sos_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sos_default_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 136315138;
       v9 = "[SOSFlowManager sosFlow:didChangeToState:]";
-      _os_log_impl(&dword_264323000, v5, OS_LOG_TYPE_DEFAULT, "%s: SOSFlow reached terminal state, tearing down", &v8, 0xCu);
+      _os_log_impl(&dword_264323000, v6, OS_LOG_TYPE_DEFAULT, "%s: SOSFlow reached terminal state, tearing down", &v8, 0xCu);
     }
 
     activeSOSFlow = [(SOSFlowManager *)self activeSOSFlow];
@@ -153,8 +152,6 @@ uint64_t __32__SOSFlowManager_sharedInstance__block_invoke(uint64_t a1)
 
     [(SOSFlowManager *)self setActiveSOSFlow:0];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -19,7 +19,7 @@
   respectImageSizeClass = [infoCopy respectImageSizeClass];
   [v6 setRespectImageSizeClass:respectImageSizeClass];
 
-  [v6 setRespectImageSizeClassIsPrefix:{objc_msgSend(infoCopy, "respectImageSizeClassIsPrefix")}];
+  [v6 setRespectImageSizeClassIsPrefix:objc_msgSend_respectImageSizeClassIsPrefix(infoCopy)];
   [v6 setHasBuiltInFonts:{objc_msgSend(infoCopy, "hasBuiltInFonts")}];
   [v6 setShouldDisableOptimizeSpeed:{objc_msgSend(infoCopy, "shouldDisableOptimizeSpeed")}];
   bookLanguage = [infoCopy bookLanguage];

@@ -1,6 +1,6 @@
 @interface SFNavigationBarAccessoryButtonArrangement
 - (id)description;
-- (uint64_t)containsButtonType:(uint64_t)result;
+- (void)containsButtonType:(void *)result;
 - (void)enumerateButtonTypesFromEdge:(uint64_t)edge withLayoutDirection:(void *)direction usingBlock:;
 - (void)initWithLeadingButtonTypes:(uint64_t)types trailingButtonTypes:(uint64_t)buttonTypes;
 @end
@@ -132,7 +132,7 @@ uint64_t __105__SFNavigationBarAccessoryButtonArrangement_enumerateButtonTypesFr
   OUTLINED_FUNCTION_61();
 }
 
-- (uint64_t)containsButtonType:(uint64_t)result
+- (void)containsButtonType:(void *)result
 {
   if (result)
   {

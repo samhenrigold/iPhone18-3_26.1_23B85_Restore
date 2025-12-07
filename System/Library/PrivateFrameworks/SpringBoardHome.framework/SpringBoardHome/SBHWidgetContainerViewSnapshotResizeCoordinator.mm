@@ -24,7 +24,7 @@
     objc_storeStrong(&v17->_multiplexingView, multiplexingView);
     v17->_newSize.width = width;
     v17->_newSize.height = height;
-    [viewCopy bounds];
+    objc_msgSend_bounds(viewCopy);
     v17->_currentSize.width = v18;
     v17->_currentSize.height = v19;
     v17->_shouldHideMultiplexingViewInitially = initially;

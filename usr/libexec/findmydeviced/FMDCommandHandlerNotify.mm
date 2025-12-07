@@ -27,44 +27,44 @@
       {
         if (v10)
         {
-          v11 = objc_alloc_init(FMDUserNotificationContent);
-          [(FMDUserNotificationContent *)v11 setTitle:v4];
-          [(FMDUserNotificationContent *)v11 setBody:v6];
-          [(FMDUserNotificationContent *)v11 setCategoryIdentifier:v8];
-          [(FMDUserNotificationContent *)v11 setDeviceId:v10];
-          v12 = +[FMDFMIPManager sharedInstance];
-          [v12 addNotificationRequest:v11 completion:&stru_1002CEFD0];
+          v12 = objc_alloc_init(FMDUserNotificationContent);
+          [(FMDUserNotificationContent *)v12 setTitle:v4];
+          [(FMDUserNotificationContent *)v12 setBody:v6];
+          [(FMDUserNotificationContent *)v12 setCategoryIdentifier:v8];
+          [(FMDUserNotificationContent *)v12 setDeviceId:v10];
+          v13 = +[FMDFMIPManager sharedInstance];
+          [v13 addNotificationRequest:v12 completion:&stru_1002CEFD0];
 
           [(FMDCommandHandler *)self didHandleCommandWithAckData:0];
           goto LABEL_13;
         }
 
-        v13 = 3;
+        v14 = 3;
       }
 
       else
       {
-        v13 = 2;
+        v14 = 2;
       }
     }
 
     else
     {
-      v13 = 1;
+      v14 = 1;
     }
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
-  v14 = sub_100002880();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = sub_100002880(v11);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 134217984;
-    v16 = v13;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Notify command failed; missing : %lu", &v15, 0xCu);
+    v16 = 134217984;
+    v17 = v14;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Notify command failed; missing : %lu", &v16, 0xCu);
   }
 
   [(FMDCommandHandler *)self didHandleCommandWithAckData:0];
@@ -78,15 +78,16 @@ LABEL_13:
   v6 = [commandParams objectForKeyedSubscript:@"ackURL"];
 
   provider = [(FMDCommandHandler *)self provider];
+  v8 = provider;
   if (v6)
   {
-    v8 = [NSURL URLWithString:v6];
+    v9 = [NSURL URLWithString:v6];
     ackDataForCommand = [(FMDCommandHandler *)self ackDataForCommand];
-    v10 = [ackDataForCommand objectForKeyedSubscript:@"status"];
-    if (v10)
+    v11 = [ackDataForCommand objectForKeyedSubscript:@"status"];
+    if (v11)
     {
-      v11 = [ackDataForCommand objectForKeyedSubscript:@"status"];
-      intValue = [v11 intValue];
+      v12 = [ackDataForCommand objectForKeyedSubscript:@"status"];
+      intValue = [v12 intValue];
     }
 
     else
@@ -95,56 +96,56 @@ LABEL_13:
     }
 
     commandParams2 = [(FMDCommandHandler *)self commandParams];
-    v13 = [commandParams2 objectForKey:@"udid"];
-    fm_nullToNil = [v13 fm_nullToNil];
+    v14 = [commandParams2 objectForKey:@"udid"];
+    fm_nullToNil = [v14 fm_nullToNil];
 
-    v27 = ackDataForCommand;
-    v28 = completionCopy;
+    v28 = ackDataForCommand;
+    v29 = completionCopy;
     if ([fm_nullToNil length])
     {
-      v15 = [[FMDAccessoryIdentifier alloc] initWithString:fm_nullToNil];
-      accessoryRegistry = [provider accessoryRegistry];
-      v17 = [accessoryRegistry accessoryForIdentifier:v15];
+      v16 = [[FMDAccessoryIdentifier alloc] initWithString:fm_nullToNil];
+      accessoryRegistry = [v8 accessoryRegistry];
+      v18 = [accessoryRegistry accessoryForIdentifier:v16];
     }
 
     else
     {
-      v17 = 0;
+      v18 = 0;
     }
 
-    v18 = [FMDActingRequestDecorator alloc];
-    v32[0] = _NSConcreteStackBlock;
-    v32[1] = 3221225472;
-    v32[2] = sub_10015810C;
-    v32[3] = &unk_1002CDF18;
-    v33 = v17;
-    v19 = provider;
-    v34 = v19;
-    v20 = v17;
-    v21 = [(FMDActingRequestDecorator *)v18 initWithDeviceContextGenerator:&stru_1002CEFF0 deviceInfoGenerator:v32 serverContextGenerator:0 requestHeaderGenerator:0];
-    v22 = [FMDRequestAckNotify alloc];
-    account = [v19 account];
+    v19 = [FMDActingRequestDecorator alloc];
+    v33[0] = _NSConcreteStackBlock;
+    v33[1] = 3221225472;
+    v33[2] = sub_10015810C;
+    v33[3] = &unk_1002CDF18;
+    v34 = v18;
+    v20 = v8;
+    v35 = v20;
+    v21 = v18;
+    v22 = [(FMDActingRequestDecorator *)v19 initWithDeviceContextGenerator:&stru_1002CEFF0 deviceInfoGenerator:v33 serverContextGenerator:0 requestHeaderGenerator:0];
+    v23 = [FMDRequestAckNotify alloc];
+    account = [v20 account];
     commandParams3 = [(FMDCommandHandler *)self commandParams];
-    v25 = [(FMDRequestAckNotify *)v22 initWithAccount:account messageCommand:commandParams3 cmdStatusCode:intValue ackURL:v8];
+    v26 = [(FMDRequestAckNotify *)v23 initWithAccount:account messageCommand:commandParams3 cmdStatusCode:intValue ackURL:v9];
 
-    [(FMDRequest *)v25 setDecorator:v21];
-    v30[0] = _NSConcreteStackBlock;
-    v30[1] = 3221225472;
-    v30[2] = sub_1001581A8;
-    v30[3] = &unk_1002CD1D0;
-    completionCopy = v28;
-    v31 = v28;
-    [(FMDRequest *)v25 setCompletionHandler:v30];
-    [v19 enqueueRequest:v25];
+    [(FMDRequest *)v26 setDecorator:v22];
+    v31[0] = _NSConcreteStackBlock;
+    v31[1] = 3221225472;
+    v31[2] = sub_1001581A8;
+    v31[3] = &unk_1002CD1D0;
+    completionCopy = v29;
+    v32 = v29;
+    [(FMDRequest *)v26 setCompletionHandler:v31];
+    [v20 enqueueRequest:v26];
   }
 
   else
   {
-    v8 = sub_100002880();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100002880(provider);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Not acking the message command because there is no ack URL", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Not acking the message command because there is no ack URL", buf, 2u);
     }
   }
 }

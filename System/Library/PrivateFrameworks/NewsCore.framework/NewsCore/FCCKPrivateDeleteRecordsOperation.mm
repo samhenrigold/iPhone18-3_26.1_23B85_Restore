@@ -8,39 +8,28 @@
 
 - (BOOL)validateOperation
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v9.receiver = self;
-  v9.super_class = FCCKPrivateDeleteRecordsOperation;
-  validateOperation = [(FCCKPrivateDatabaseOperation *)&v9 validateOperation];
+  v17 = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = FCCKPrivateDeleteRecordsOperation;
+  validateOperation = [(FCCKPrivateDatabaseOperation *)&v8 validateOperation];
   recordIDsToDelete = [(FCCKPrivateDeleteRecordsOperation *)self recordIDsToDelete];
   v5 = [recordIDsToDelete count];
 
   if (!v5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't delete records without records IDs to delete"];
+    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't delete records without records IDs to delete"];
     *buf = 136315906;
-    v11 = "[FCCKPrivateDeleteRecordsOperation validateOperation]";
-    v12 = 2080;
-    v13 = "FCCKPrivateDeleteRecordsOperation.m";
-    v14 = 1024;
-    v15 = 28;
-    v16 = 2114;
-    v17 = v8;
+    v10 = "[FCCKPrivateDeleteRecordsOperation validateOperation]";
+    v11 = 2080;
+    v12 = "FCCKPrivateDeleteRecordsOperation.m";
+    v13 = 1024;
+    v14 = 28;
+    v15 = 2114;
+    v16 = v7;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  if (v5)
-  {
-    result = validateOperation;
-  }
-
-  else
-  {
-    result = 0;
-  }
-
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return v5 && validateOperation;
 }
 
 - (void)performOperation

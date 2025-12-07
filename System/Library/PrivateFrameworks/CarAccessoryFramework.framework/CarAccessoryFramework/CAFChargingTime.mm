@@ -6,6 +6,7 @@
 - (CAFMeasurementRange)remainingTimeMeasurementRange;
 - (CAFUInt64Range)remainingTimeRange;
 - (NSMeasurement)remainingTime;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -114,6 +115,35 @@
   isInvalid = [remainingTimeCharacteristic isInvalid];
 
   return isInvalid;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if (![characteristicType isEqual:@"0x0000000030000030"])
+  {
+    goto LABEL_4;
+  }
+
+  uniqueIdentifier = [updateCopy uniqueIdentifier];
+  remainingTimeCharacteristic = [(CAFChargingTime *)self remainingTimeCharacteristic];
+  uniqueIdentifier2 = [remainingTimeCharacteristic uniqueIdentifier];
+  v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+  if (v11)
+  {
+    characteristicType = [(CAFService *)self observers];
+    remainingTime = [(CAFChargingTime *)self remainingTime];
+    [characteristicType chargingTimeService:self didUpdateRemainingTime:remainingTime];
+
+LABEL_4:
+  }
+
+  v13.receiver = self;
+  v13.super_class = CAFChargingTime;
+  [(CAFService *)&v13 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForRemainingTime

@@ -6,27 +6,13 @@
 
 - (void)submit
 {
-  if (self)
-  {
-    btNotRecommendedStart = self->_btNotRecommendedStart;
-    btNotRecommendedEnd = self->_btNotRecommendedEnd;
-    NRDiffMachTimeInSeconds();
-    v6 = v5;
-    cmpWiFiNotRecommendedStart = self->_cmpWiFiNotRecommendedStart;
-    cmpWiFiNotRecommendedEnd = self->_cmpWiFiNotRecommendedEnd;
-  }
-
-  else
-  {
-    NRDiffMachTimeInSeconds();
-    v6 = v15;
-  }
-
   NRDiffMachTimeInSeconds();
-  v10 = v9;
-  if (v6 > 0.0)
+  v4 = v3;
+  NRDiffMachTimeInSeconds();
+  v6 = v5;
+  if (v4 > 0.0)
   {
-    v11 = [NSNumber numberWithDouble:round(v6 * 1000.0) * 0.001];
+    v7 = [NSNumber numberWithDouble:round(v4 * 1000.0) * 0.001];
     if (self)
     {
       eventDictionary = self->super._eventDictionary;
@@ -37,23 +23,23 @@
       eventDictionary = 0;
     }
 
-    [(NSMutableDictionary *)eventDictionary setObject:v11 forKeyedSubscript:@"btNotRecommendedDurationInSec"];
+    [(NSMutableDictionary *)eventDictionary setObject:v7 forKeyedSubscript:@"btNotRecommendedDurationInSec"];
   }
 
-  if (v10 > 0.0)
+  if (v6 > 0.0)
   {
-    v13 = [NSNumber numberWithDouble:round(v10 * 1000.0) * 0.001];
+    v9 = [NSNumber numberWithDouble:round(v6 * 1000.0) * 0.001];
     if (self)
     {
-      v14 = self->super._eventDictionary;
+      v10 = self->super._eventDictionary;
     }
 
     else
     {
-      v14 = 0;
+      v10 = 0;
     }
 
-    [(NSMutableDictionary *)v14 setObject:v13 forKeyedSubscript:@"cmpWiFiNotRecommendedDurationInSec"];
+    [(NSMutableDictionary *)v10 setObject:v9 forKeyedSubscript:@"cmpWiFiNotRecommendedDurationInSec"];
   }
 
   sub_1001557BC(self, @"com.apple.networkrelay.analytics.linkRecommendation");

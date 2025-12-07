@@ -33,8 +33,8 @@
 
 - (id)dictionaryRepresentation
 {
-  v19[4] = *MEMORY[0x277D85DE8];
-  v18[0] = @"ingredientId";
+  v18[4] = *MEMORY[0x277D85DE8];
+  v17[0] = @"ingredientId";
   ingredientId = [(HKIngredientSearchResult *)self ingredientId];
   v4 = ingredientId;
   if (ingredientId)
@@ -47,8 +47,8 @@
     v5 = @"(null)";
   }
 
-  v19[0] = v5;
-  v18[1] = @"ingredientName";
+  v18[0] = v5;
+  v17[1] = @"ingredientName";
   ingredientName = [(HKIngredientSearchResult *)self ingredientName];
   v7 = ingredientName;
   if (ingredientName)
@@ -61,8 +61,8 @@
     v8 = @"(null)";
   }
 
-  v19[1] = v8;
-  v18[2] = @"strengthQuantity";
+  v18[1] = v8;
+  v17[2] = @"strengthQuantity";
   strengthQuantity = [(HKIngredientSearchResult *)self strengthQuantity];
   v10 = strengthQuantity;
   if (strengthQuantity)
@@ -75,8 +75,8 @@
     v11 = @"(null)";
   }
 
-  v19[2] = v11;
-  v18[3] = @"strengthUnit";
+  v18[2] = v11;
+  v17[3] = @"strengthUnit";
   strengthUnit = [(HKIngredientSearchResult *)self strengthUnit];
   v13 = strengthUnit;
   if (strengthUnit)
@@ -89,10 +89,8 @@
     v14 = @"(null)";
   }
 
-  v19[3] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:4];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v18[3] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:4];
 
   return v15;
 }

@@ -7,13 +7,12 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v5 = *(&self->super.isa + OBJC_IVAR____TtC26DeepThoughtBiomeFoundation25StreamsBookmarkCollection_bookmarks);
   type metadata accessor for StreamsBookmark();
   coderCopy = coder;
   selfCopy = self;
-  v7 = sub_248731230();
-  v8 = sub_248730FC0();
-  [coderCopy encodeObject:v7 forKey:v8];
+  v6 = sub_248731230();
+  v7 = sub_248730FC0();
+  [coderCopy encodeObject:v6 forKey:v7];
 }
 
 - (_TtC26DeepThoughtBiomeFoundation25StreamsBookmarkCollection)init

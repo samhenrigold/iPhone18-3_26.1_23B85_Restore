@@ -19,34 +19,32 @@
 
 + (id)settingsControllerModule
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   v4 = objc_opt_class();
-  v18 = MEMORY[0x277D85DD0];
-  v19 = 3221225472;
-  v20 = __53__AMMotionDetectionSettings_settingsControllerModule__block_invoke;
-  v21 = &unk_278C73638;
-  v22 = array;
+  v17 = MEMORY[0x277D85DD0];
+  v18 = 3221225472;
+  v19 = __53__AMMotionDetectionSettings_settingsControllerModule__block_invoke;
+  v20 = &unk_278C73638;
+  v21 = array;
   selfCopy = self;
   v5 = array;
-  [v4 _enumerateTriggerTypes:&v18];
-  v6 = [MEMORY[0x277D43218] sectionWithRows:v5 title:{@"Enabled Triggers", v18, v19, v20, v21}];
+  [v4 _enumerateTriggerTypes:&v17];
+  v6 = [MEMORY[0x277D43218] sectionWithRows:v5 title:{@"Enabled Triggers", v17, v18, v19, v20}];
   v7 = MEMORY[0x277D431A8];
   v8 = [MEMORY[0x277D43238] actionWithSettingsKeyPath:0];
   v9 = [v7 rowWithTitle:@"Restore Defaults" action:v8];
 
   v10 = MEMORY[0x277D43218];
-  v25[0] = v9;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+  v24[0] = v9;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
   v12 = [v10 sectionWithRows:v11];
 
   v13 = MEMORY[0x277D43218];
-  v24[0] = v6;
-  v24[1] = v12;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
+  v23[0] = v6;
+  v23[1] = v12;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
   v15 = [v13 moduleWithTitle:@"Motion Detection" contents:v14];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -128,48 +126,45 @@ void __48__AMMotionDetectionSettings_setEnabledTriggers___block_invoke(uint64_t 
   v6 = a2;
   v7 = ([a3 unsignedIntegerValue] & v5) != 0;
   v8 = *(a1 + 32);
-  v11 = [MEMORY[0x277CCABB0] numberWithBool:v7];
-  v9 = *(a1 + 32);
-  v10 = [objc_opt_class() _keyPathForTriggerTypeName:v6];
+  v10 = [MEMORY[0x277CCABB0] numberWithBool:v7];
+  v9 = [objc_opt_class() _keyPathForTriggerTypeName:v6];
 
-  [v8 setValue:v11 forKey:v10];
+  [v8 setValue:v10 forKey:v9];
 }
 
 + (void)_enumerateTriggerTypes:(id)types
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   typesCopy = types;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v4 = [&unk_285177BB0 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [&unk_285177BB0 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(&unk_285177BB0);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         v9 = [v8 objectForKeyedSubscript:@"name"];
         v10 = [v8 objectForKeyedSubscript:@"value"];
         typesCopy[2](typesCopy, v9, v10);
       }
 
-      v5 = [&unk_285177BB0 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [&unk_285177BB0 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

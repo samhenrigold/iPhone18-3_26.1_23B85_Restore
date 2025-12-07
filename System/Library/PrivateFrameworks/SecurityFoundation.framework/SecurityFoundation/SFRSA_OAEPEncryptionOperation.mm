@@ -69,10 +69,7 @@ LABEL_3:
 
 - (void)setMaskGenerationFunction:(id)function
 {
-  v4 = [function copyWithZone:0];
-  oaepEncryptionOperationInternal = self->_oaepEncryptionOperationInternal;
-  v6 = oaepEncryptionOperationInternal[1];
-  oaepEncryptionOperationInternal[1] = v4;
+  *(self->_oaepEncryptionOperationInternal + 1) = [function copyWithZone:0];
 
   MEMORY[0x2821F96F8]();
 }

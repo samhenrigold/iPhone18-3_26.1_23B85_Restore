@@ -105,9 +105,9 @@
         handler[1] = 3221225472;
         handler[2] = sub_188677E14;
         handler[3] = &unk_1E70BC680;
-        objc_copyWeak(&v27, location);
+        objc_copyWeak(&v26, location);
         dispatch_source_set_event_handler(v13, handler);
-        objc_destroyWeak(&v27);
+        objc_destroyWeak(&v26);
         objc_destroyWeak(location);
       }
 
@@ -121,11 +121,11 @@
       v16 = ck_log_facility_sql;
       if (os_log_type_enabled(ck_log_facility_sql, OS_LOG_TYPE_DEBUG))
       {
-        v24 = v16;
-        v25 = CKDescriptionForTimeInterval(v15 / 1000000000.0);
+        v23 = v16;
+        v24 = CKDescriptionForTimeInterval(v15 / 1000000000.0);
         LODWORD(location[0]) = 138543362;
-        *(location + 4) = v25;
-        _os_log_debug_impl(&dword_1883EA000, v24, OS_LOG_TYPE_DEBUG, "CKSQLiteDatabaseManager activity will run in %{public}@", location, 0xCu);
+        *(location + 4) = v24;
+        _os_log_debug_impl(&dword_1883EA000, v23, OS_LOG_TYPE_DEBUG, "CKSQLiteDatabaseManager activity will run in %{public}@", location, 0xCu);
       }
 
       v17 = self->_activityTimer;
@@ -165,8 +165,6 @@
   }
 
   os_unfair_lock_unlock(&self->_timerLock);
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (id)nextActivityDate

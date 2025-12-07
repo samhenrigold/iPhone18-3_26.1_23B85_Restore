@@ -168,29 +168,29 @@ void __34__VMUScanOverlay_initWithScanner___block_invoke(uint64_t a1, void *a2)
 
 void __34__VMUScanOverlay_initWithScanner___block_invoke_2(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v20;
+    v7 = *v19;
     do
     {
       v8 = 0;
       do
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * v8);
+        v9 = *(*(&v18 + 1) + 8 * v8);
         v10 = [v3 ivarName];
         LODWORD(v9) = [v10 isEqualToString:v9];
 
@@ -199,20 +199,20 @@ void __34__VMUScanOverlay_initWithScanner___block_invoke_2(uint64_t a1, void *a2
           v11 = [v3 mutableCopy];
           [v11 setScanType:4];
           v12 = *(a1 + 40);
-          v16[0] = MEMORY[0x1E69E9820];
-          v16[1] = 3221225472;
-          v16[2] = __34__VMUScanOverlay_initWithScanner___block_invoke_3;
-          v16[3] = &unk_1E82782B0;
-          v17 = v3;
-          v18 = *(a1 + 48);
-          [v12 addVariant:v11 forField:v17 withEvaluator:v16];
+          v15[0] = MEMORY[0x1E69E9820];
+          v15[1] = 3221225472;
+          v15[2] = __34__VMUScanOverlay_initWithScanner___block_invoke_3;
+          v15[3] = &unk_1E82782B0;
+          v16 = v3;
+          v17 = *(a1 + 48);
+          [v12 addVariant:v11 forField:v16 withEvaluator:v15];
         }
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v6);
@@ -233,55 +233,53 @@ void __34__VMUScanOverlay_initWithScanner___block_invoke_2(uint64_t a1, void *a2
     [v3 setDestinationLayout:v13];
 LABEL_13:
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __34__VMUScanOverlay_initWithScanner___block_invoke_3(uint64_t a1, int a2, void *a3, void *a4)
+uint64_t __34__VMUScanOverlay_initWithScanner___block_invoke_3(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v7 = a3;
-  v8 = a4;
-  v9 = a2 + [*(a1 + 32) offset];
+  v6 = a3;
+  v7 = a4;
+  [*(a1 + 32) offset];
   LODWORD(a1) = *(a1 + 40);
-  v10 = v8;
-  v11 = v10[2];
+  v8 = v7;
+  v9 = v8[2];
   if (a1 == 8)
   {
-    v12 = v11();
-    if (v12)
+    v10 = v9();
+    if (v10)
     {
-      v13 = *v12;
+      v11 = *v10;
       goto LABEL_7;
     }
   }
 
   else
   {
-    v14 = v11();
-    if (v14)
+    v12 = v9();
+    if (v12)
     {
-      v13 = *v14;
+      v11 = *v12;
       goto LABEL_7;
     }
   }
 
-  v13 = 0;
+  v11 = 0;
 LABEL_7:
 
-  if (v13)
+  if (v11)
   {
-    v15 = [v7 classInfoForObjectAtAddress:v13];
-    v16 = [v15 className];
+    v13 = [v6 classInfoForObjectAtAddress:v11];
+    v14 = [v13 className];
 
-    v13 = [v16 isEqualToString:@"NSWeakObjectValue"] ^ 1;
+    v11 = [v14 isEqualToString:@"NSWeakObjectValue"] ^ 1;
   }
 
-  return v13;
+  return v11;
 }
 
 void __34__VMUScanOverlay_initWithScanner___block_invoke_4(uint64_t a1, void *a2)
 {
-  v152[3] = *MEMORY[0x1E69E9840];
+  v151[3] = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 infoType] == 1 || objc_msgSend(v3, "infoType") == 8 || objc_msgSend(v3, "infoType") == 64 || objc_msgSend(v3, "infoType") == 128)
   {
@@ -350,31 +348,31 @@ LABEL_22:
         LODWORD(v20) = _isSwiftRootClass(v24);
 
         v25 = objc_loadWeakRetained(&location);
-        v141 = MEMORY[0x1E69E9820];
-        v142 = 3221225472;
+        v140 = MEMORY[0x1E69E9820];
+        v141 = 3221225472;
         if (v20)
         {
-          v143 = ___variantForSwiftClass_block_invoke;
-          v144 = &unk_1E82783D8;
-          objc_copyWeak(&v146, &location);
-          v145 = v22;
-          [v25 mutateTypeFieldsWithBlock:&v141];
+          v142 = ___variantForSwiftClass_block_invoke;
+          v143 = &unk_1E82783D8;
+          objc_copyWeak(&v145, &location);
+          v144 = v22;
+          [v25 mutateTypeFieldsWithBlock:&v140];
 
-          objc_destroyWeak(&v146);
+          objc_destroyWeak(&v145);
         }
 
         else
         {
-          v143 = ___variantForSwiftClass_block_invoke_2;
-          v144 = &unk_1E82784A0;
-          v145 = v22;
-          objc_copyWeak(&v147, &location);
-          v146 = v23;
-          objc_copyWeak(&v148, &from);
-          [v25 mutateTypeFieldsRecursivelyWithBlock:&v141];
+          v142 = ___variantForSwiftClass_block_invoke_2;
+          v143 = &unk_1E82784A0;
+          v144 = v22;
+          objc_copyWeak(&v146, &location);
+          v145 = v23;
+          objc_copyWeak(&v147, &from);
+          [v25 mutateTypeFieldsRecursivelyWithBlock:&v140];
 
-          objc_destroyWeak(&v148);
           objc_destroyWeak(&v147);
+          objc_destroyWeak(&v146);
         }
 
         objc_destroyWeak(&from);
@@ -404,50 +402,50 @@ LABEL_20:
       goto LABEL_26;
     }
 
-    v27 = *(a1 + 64);
-    v28 = [v3 binaryName];
-    LODWORD(v27) = [v27 containsObject:v28];
+    v26 = *(a1 + 64);
+    v27 = [v3 binaryName];
+    LODWORD(v26) = [v26 containsObject:v27];
 
-    if (!v27)
+    if (!v26)
     {
       goto LABEL_26;
     }
 
-    v29 = [v3 className];
-    v30 = [v29 isEqualToString:@"_CFXNotificationRegistrationContainer"];
+    v28 = [v3 className];
+    v29 = [v28 isEqualToString:@"_CFXNotificationRegistrationContainer"];
 
-    if (v30)
+    if (v29)
     {
-      v31 = [v3 pointerSize];
-      v32 = [v3 firstFieldWithName:@"_children"];
-      if (v32)
+      v30 = [v3 pointerSize];
+      v31 = [v3 firstFieldWithName:@"_children"];
+      if (v31)
       {
-        v33 = -[VMUFieldInfo initWithName:type:scan:offset:size:]([VMUMutableFieldInfo alloc], "initWithName:type:scan:offset:size:", @"_children.elements", @"^v", 2, [v32 offset], v31);
-        v34 = -[VMUFieldInfo initWithName:type:scan:offset:size:]([VMUMutableFieldInfo alloc], "initWithName:type:scan:offset:size:", @"_children.singleChildKey", @"^v", 1, [v32 offset] + v31, v31);
-        v35 = -[VMUFieldInfo initWithName:type:scan:offset:size:]([VMUMutableFieldInfo alloc], "initWithName:type:scan:offset:size:", @"_children.callbacks", @"^v", 2, [v32 offset] + 2 * v31, v31);
-        v152[0] = v33;
-        v152[1] = v34;
-        v152[2] = v35;
-        v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:v152 count:3];
-        [v3 replaceField:v32 withFields:v36];
+        v32 = -[VMUFieldInfo initWithName:type:scan:offset:size:]([VMUMutableFieldInfo alloc], "initWithName:type:scan:offset:size:", @"_children.elements", @"^v", 2, [v31 offset], v30);
+        v33 = -[VMUFieldInfo initWithName:type:scan:offset:size:]([VMUMutableFieldInfo alloc], "initWithName:type:scan:offset:size:", @"_children.singleChildKey", @"^v", 1, [v31 offset] + v30, v30);
+        v34 = -[VMUFieldInfo initWithName:type:scan:offset:size:]([VMUMutableFieldInfo alloc], "initWithName:type:scan:offset:size:", @"_children.callbacks", @"^v", 2, [v31 offset] + 2 * v30, v30);
+        v151[0] = v32;
+        v151[1] = v33;
+        v151[2] = v34;
+        v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:v151 count:3];
+        [v3 replaceField:v31 withFields:v35];
 
-        v37 = [(VMUFieldInfo *)v34 mutableCopy];
-        [v37 setScanType:4];
-        v38 = [(VMUFieldInfo *)v35 offset];
-        v138[0] = MEMORY[0x1E69E9820];
-        v138[1] = 3221225472;
-        v138[2] = __34__VMUScanOverlay_initWithScanner___block_invoke_5;
-        v138[3] = &__block_descriptor_40_e45_B32__0Q8__VMUTaskMemoryScanner_16____v__QQ_24l;
-        v139 = v38;
-        v140 = v31;
-        [v3 addVariant:v37 forField:v34 withEvaluator:v138];
+        v36 = [(VMUFieldInfo *)v33 mutableCopy];
+        [v36 setScanType:4];
+        v37 = [(VMUFieldInfo *)v34 offset];
+        v137[0] = MEMORY[0x1E69E9820];
+        v137[1] = 3221225472;
+        v137[2] = __34__VMUScanOverlay_initWithScanner___block_invoke_5;
+        v137[3] = &__block_descriptor_40_e45_B32__0Q8__VMUTaskMemoryScanner_16____v__QQ_24l;
+        v138 = v37;
+        v139 = v30;
+        [v3 addVariant:v36 forField:v33 withEvaluator:v137];
       }
 
       goto LABEL_40;
     }
 
-    v39 = [v3 className];
-    if ([v39 isEqualToString:@"__NSCFDictionary"])
+    v38 = [v3 className];
+    if ([v38 isEqualToString:@"__NSCFDictionary"])
     {
 
 LABEL_39:
@@ -455,334 +453,334 @@ LABEL_39:
       goto LABEL_40;
     }
 
-    v40 = [v3 className];
-    v41 = [v40 isEqualToString:@"__NSCFSet"];
+    v39 = [v3 className];
+    v40 = [v39 isEqualToString:@"__NSCFSet"];
 
-    if (v41)
+    if (v40)
     {
       goto LABEL_39;
     }
 
-    v42 = [v3 className];
-    v43 = [v42 isEqualToString:@"__NSCFString"];
+    v41 = [v3 className];
+    v42 = [v41 isEqualToString:@"__NSCFString"];
 
-    if (v43)
+    if (v42)
     {
-      v44 = _destinationLayoutStorageVariant(v3, 16, @"content", 0, &stru_1F461F9C8);
-      [v3 addVariant:v44 forField:0 withEvaluator:&__block_literal_global_5];
+      v43 = _destinationLayoutStorageVariant(v3, 16, @"content", 0, &stru_1F461F9C8);
+      [v3 addVariant:v43 forField:0 withEvaluator:&__block_literal_global_5];
       [v3 setVariantScanType:0 withEvaluator:&__block_literal_global_481];
 
       goto LABEL_40;
     }
 
-    v45 = [v3 className];
-    v46 = [v45 isEqualToString:@"NSConcreteHashTable"];
+    v44 = [v3 className];
+    v45 = [v44 isEqualToString:@"NSConcreteHashTable"];
 
-    if (v46 || ([v3 className], v47 = objc_claimAutoreleasedReturnValue(), v48 = objc_msgSend(v47, "isEqualToString:", @"NSConcretePointerArray"), v47, v48))
+    if (v45 || ([v3 className], v46 = objc_claimAutoreleasedReturnValue(), v47 = objc_msgSend(v46, "isEqualToString:", @"NSConcretePointerArray"), v46, v47))
     {
-      v49 = @"slice";
-      v50 = @"Object";
+      v48 = @"slice";
+      v49 = @"Object";
 LABEL_46:
-      _variantForNSSlice(v3, v49, v50);
+      _variantForNSSlice(v3, v48, v49);
       goto LABEL_40;
     }
 
-    v51 = [v3 className];
-    v52 = [v51 isEqualToString:@"NSConcreteMapTable"];
+    v50 = [v3 className];
+    v51 = [v50 isEqualToString:@"NSConcreteMapTable"];
 
-    if (v52)
+    if (v51)
     {
       _variantForNSSlice(v3, @"keys", @"Key");
-      v49 = @"values";
-      v50 = @"Value";
+      v48 = @"values";
+      v49 = @"Value";
       goto LABEL_46;
     }
 
-    v53 = [v3 className];
-    v54 = [v53 isEqualToString:@"_CFXNotificationRegistrationBase"];
+    v52 = [v3 className];
+    v53 = [v52 isEqualToString:@"_CFXNotificationRegistrationBase"];
 
-    if (v54)
+    if (v53)
     {
-      v55 = &__block_literal_global_504;
+      v54 = &__block_literal_global_504;
       goto LABEL_59;
     }
 
-    v56 = [v3 className];
-    v57 = [v56 isEqualToString:@"_NSThreadData"];
+    v55 = [v3 className];
+    v56 = [v55 isEqualToString:@"_NSThreadData"];
 
-    if (v57)
+    if (v56)
     {
-      v55 = &__block_literal_global_509;
+      v54 = &__block_literal_global_509;
       goto LABEL_59;
     }
 
-    v58 = [v3 className];
-    v59 = [v58 isEqualToString:@"_CFXNotificationObserverRegistration"];
+    v57 = [v3 className];
+    v58 = [v57 isEqualToString:@"_CFXNotificationObserverRegistration"];
 
-    if (v59)
+    if (v58)
     {
-      v55 = &__block_literal_global_514;
+      v54 = &__block_literal_global_514;
+      goto LABEL_59;
+    }
+
+    v59 = [v3 className];
+    if ([v59 isEqualToString:@"_CFXNotificationObjectRegistration"])
+    {
+
+LABEL_58:
+      v54 = &__block_literal_global_525;
       goto LABEL_59;
     }
 
     v60 = [v3 className];
-    if ([v60 isEqualToString:@"_CFXNotificationObjectRegistration"])
-    {
+    v61 = [v60 isEqualToString:@"_CFXNotificationObjcObserverRegistration"];
 
-LABEL_58:
-      v55 = &__block_literal_global_525;
-      goto LABEL_59;
-    }
-
-    v61 = [v3 className];
-    v62 = [v61 isEqualToString:@"_CFXNotificationObjcObserverRegistration"];
-
-    if (v62)
+    if (v61)
     {
       goto LABEL_58;
     }
 
-    v63 = [v3 className];
-    v64 = [v63 isEqualToString:@"__NSObserver"];
+    v62 = [v3 className];
+    v63 = [v62 isEqualToString:@"__NSObserver"];
 
-    if (v64)
+    if (v63)
     {
-      v55 = &__block_literal_global_533;
+      v54 = &__block_literal_global_533;
       goto LABEL_59;
     }
 
-    v65 = [v3 className];
-    v66 = [v65 isEqualToString:@"_NSBindingInfo"];
+    v64 = [v3 className];
+    v65 = [v64 isEqualToString:@"_NSBindingInfo"];
 
-    if (v66)
+    if (v65)
     {
-      v55 = &__block_literal_global_541;
+      v54 = &__block_literal_global_541;
       goto LABEL_59;
     }
 
-    v67 = [v3 className];
-    v68 = [v67 isEqualToString:@"_NSModelObservingTracker"];
+    v66 = [v3 className];
+    v67 = [v66 isEqualToString:@"_NSModelObservingTracker"];
 
-    if (v68)
+    if (v67)
     {
-      v55 = &__block_literal_global_549;
+      v54 = &__block_literal_global_549;
       goto LABEL_59;
     }
 
-    v69 = [v3 className];
-    v70 = [v69 isEqualToString:@"__NSOperationInternal"];
+    v68 = [v3 className];
+    v69 = [v68 isEqualToString:@"__NSOperationInternal"];
 
-    if (v70)
+    if (v69)
     {
-      v55 = &__block_literal_global_557;
+      v54 = &__block_literal_global_557;
       goto LABEL_59;
     }
 
-    v71 = [v3 className];
-    v72 = [v71 isEqualToString:@"NSKeyValueObservance"];
+    v70 = [v3 className];
+    v71 = [v70 isEqualToString:@"NSKeyValueObservance"];
 
-    if (v72)
+    if (v71)
     {
-      v55 = &__block_literal_global_568;
+      v54 = &__block_literal_global_568;
       goto LABEL_59;
     }
 
-    v73 = [v3 className];
-    v74 = [v73 isEqualToString:@"__NSSingleObjectArrayI"];
+    v72 = [v3 className];
+    v73 = [v72 isEqualToString:@"__NSSingleObjectArrayI"];
 
-    if (v74)
+    if (v73)
     {
-      v55 = &__block_literal_global_573;
+      v54 = &__block_literal_global_573;
       goto LABEL_59;
     }
 
-    v75 = [v3 className];
-    v76 = [v75 isEqualToString:@"__NSSingleObjectSetI"];
+    v74 = [v3 className];
+    v75 = [v74 isEqualToString:@"__NSSingleObjectSetI"];
 
-    if (v76)
+    if (v75)
     {
-      v55 = &__block_literal_global_575;
+      v54 = &__block_literal_global_575;
       goto LABEL_59;
     }
 
-    v77 = [v3 className];
-    if ([v77 isEqualToString:@"__NSArrayM"])
+    v76 = [v3 className];
+    if ([v76 isEqualToString:@"__NSArrayM"])
     {
     }
 
     else
     {
-      v78 = [v3 className];
-      v79 = [v78 isEqualToString:@"__NSFrozenArrayM"];
+      v77 = [v3 className];
+      v78 = [v77 isEqualToString:@"__NSFrozenArrayM"];
 
-      if (!v79)
+      if (!v78)
       {
-        v80 = [v3 className];
-        if ([v80 isEqualToString:@"__NSDictionaryM"])
+        v79 = [v3 className];
+        if ([v79 isEqualToString:@"__NSDictionaryM"])
         {
         }
 
         else
         {
-          v81 = [v3 className];
-          v82 = [v81 isEqualToString:@"__NSFrozenDictionaryM"];
+          v80 = [v3 className];
+          v81 = [v80 isEqualToString:@"__NSFrozenDictionaryM"];
 
-          if (!v82)
+          if (!v81)
           {
-            v83 = [v3 className];
-            if ([v83 isEqualToString:@"__NSSetM"])
+            v82 = [v3 className];
+            if ([v82 isEqualToString:@"__NSSetM"])
             {
             }
 
             else
             {
-              v84 = [v3 className];
-              v85 = [v84 isEqualToString:@"__NSFrozenSetM"];
+              v83 = [v3 className];
+              v84 = [v83 isEqualToString:@"__NSFrozenSetM"];
 
-              if (!v85)
+              if (!v84)
               {
-                v86 = [v3 className];
-                v87 = [v86 isEqualToString:@"__NSArrayI"];
+                v85 = [v3 className];
+                v86 = [v85 isEqualToString:@"__NSArrayI"];
 
-                if (v87)
+                if (v86)
                 {
                   [v3 setDefaultScanType:2];
                   goto LABEL_40;
                 }
 
-                v88 = [v3 className];
-                v89 = [v88 isEqualToString:@"NSResponder"];
+                v87 = [v3 className];
+                v88 = [v87 isEqualToString:@"NSResponder"];
 
-                if (v89)
+                if (v88)
                 {
-                  v55 = &__block_literal_global_589;
+                  v54 = &__block_literal_global_589;
                   goto LABEL_59;
                 }
 
-                v90 = [v3 className];
-                v91 = [v90 isEqualToString:@"NSMenuItem"];
+                v89 = [v3 className];
+                v90 = [v89 isEqualToString:@"NSMenuItem"];
 
-                if (v91)
+                if (v90)
                 {
-                  v55 = &__block_literal_global_597;
+                  v54 = &__block_literal_global_597;
                   goto LABEL_59;
                 }
 
-                v92 = [v3 className];
-                v93 = [v92 isEqualToString:@"NSActionCell"];
+                v91 = [v3 className];
+                v92 = [v91 isEqualToString:@"NSActionCell"];
 
-                if (v93)
+                if (v92)
                 {
-                  v55 = &__block_literal_global_611;
+                  v54 = &__block_literal_global_611;
                   goto LABEL_59;
                 }
 
-                v94 = [v3 className];
-                v95 = [v94 isEqualToString:@"NSCellAuxiliary"];
+                v93 = [v3 className];
+                v94 = [v93 isEqualToString:@"NSCellAuxiliary"];
 
-                if (v95)
+                if (v94)
                 {
-                  v55 = &__block_literal_global_619;
+                  v54 = &__block_literal_global_619;
                   goto LABEL_59;
                 }
 
-                v96 = [v3 className];
-                v97 = [v96 isEqualToString:@"NSMenu"];
+                v95 = [v3 className];
+                v96 = [v95 isEqualToString:@"NSMenu"];
 
-                if (v97)
+                if (v96)
                 {
-                  v55 = &__block_literal_global_627;
+                  v54 = &__block_literal_global_627;
                   goto LABEL_59;
                 }
 
-                v98 = [v3 className];
-                v99 = [v98 isEqualToString:@"NSLayoutConstraint"];
+                v97 = [v3 className];
+                v98 = [v97 isEqualToString:@"NSLayoutConstraint"];
 
-                if (v99)
+                if (v98)
                 {
-                  v55 = &__block_literal_global_635;
+                  v54 = &__block_literal_global_635;
                   goto LABEL_59;
                 }
 
-                v100 = [v3 className];
-                v101 = [v100 isEqualToString:@"NSLayoutAnchor"];
+                v99 = [v3 className];
+                v100 = [v99 isEqualToString:@"NSLayoutAnchor"];
 
-                if (v101)
+                if (v100)
                 {
-                  v55 = &__block_literal_global_649;
+                  v54 = &__block_literal_global_649;
                   goto LABEL_59;
                 }
 
-                v102 = [v3 className];
-                v103 = [v102 isEqualToString:@"NSView"];
+                v101 = [v3 className];
+                v102 = [v101 isEqualToString:@"NSView"];
 
-                if (v103)
+                if (v102)
                 {
-                  v55 = &__block_literal_global_657;
+                  v54 = &__block_literal_global_657;
                   goto LABEL_59;
                 }
 
-                v104 = [v3 className];
-                v105 = [v104 isEqualToString:@"_NSViewAuxiliary"];
+                v103 = [v3 className];
+                v104 = [v103 isEqualToString:@"_NSViewAuxiliary"];
 
-                if (v105)
+                if (v104)
                 {
-                  v55 = &__block_literal_global_674;
+                  v54 = &__block_literal_global_674;
                   goto LABEL_59;
                 }
 
-                v106 = [v3 className];
-                v107 = [v106 isEqualToString:@"NSTextInputContext"];
+                v105 = [v3 className];
+                v106 = [v105 isEqualToString:@"NSTextInputContext"];
 
-                if (v107)
+                if (v106)
                 {
-                  v55 = &__block_literal_global_679;
+                  v54 = &__block_literal_global_679;
                   goto LABEL_59;
                 }
 
-                v108 = [v3 className];
-                v109 = [v108 isEqualToString:@"NSWeakObjectValue"];
+                v107 = [v3 className];
+                v108 = [v107 isEqualToString:@"NSWeakObjectValue"];
 
-                if (v109)
+                if (v108)
                 {
-                  v55 = &__block_literal_global_684;
+                  v54 = &__block_literal_global_684;
                   goto LABEL_59;
                 }
 
-                v110 = [v3 className];
-                v111 = [v110 isEqualToString:@"NSAccessibilityWeakReferenceContainer"];
+                v109 = [v3 className];
+                v110 = [v109 isEqualToString:@"NSAccessibilityWeakReferenceContainer"];
 
-                if (v111)
+                if (v110)
                 {
-                  v55 = &__block_literal_global_692;
+                  v54 = &__block_literal_global_692;
                   goto LABEL_59;
                 }
 
-                v112 = [v3 className];
-                if ([v112 isEqualToString:@"NSInputStream"])
+                v111 = [v3 className];
+                if ([v111 isEqualToString:@"NSInputStream"])
                 {
                 }
 
                 else
                 {
-                  v113 = [v3 className];
-                  v114 = [v113 isEqualToString:@"NSOutputStream"];
+                  v112 = [v3 className];
+                  v113 = [v112 isEqualToString:@"NSOutputStream"];
 
-                  if (!v114)
+                  if (!v113)
                   {
-                    v121 = [v3 displayName];
-                    v122 = [v121 isEqualToString:@"__SwiftNativeNSError"];
+                    v120 = [v3 displayName];
+                    v121 = [v120 isEqualToString:@"__SwiftNativeNSError"];
 
-                    if (v122)
+                    if (v121)
                     {
                       [v3 setInfoType:8];
                       goto LABEL_26;
                     }
 
-                    v123 = [v3 className];
-                    v124 = [v123 isEqualToString:@"_NSKVODeallocSentinel"];
+                    v122 = [v3 className];
+                    v123 = [v122 isEqualToString:@"_NSKVODeallocSentinel"];
 
-                    if (!v124)
+                    if (!v123)
                     {
 LABEL_40:
                       (*(*(a1 + 72) + 16))();
@@ -792,158 +790,155 @@ LABEL_26:
                       goto LABEL_27;
                     }
 
-                    v55 = &__block_literal_global_733;
+                    v54 = &__block_literal_global_733;
 LABEL_59:
-                    [v3 mutateTypeFieldsWithBlock:v55];
+                    [v3 mutateTypeFieldsWithBlock:v54];
                     goto LABEL_40;
                   }
                 }
 
-                v128 = [v3 firstFieldWithName:@"_reserved"];
-                if (v128)
+                v127 = [v3 firstFieldWithName:@"_reserved"];
+                if (v127)
                 {
-                  v115 = [v3 pointerSize];
-                  v127 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"error" type:@"^v" scan:1 offset:(3 * v115) size:v115];
-                  v126 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"client" type:@"^{_CFStreamClient=}" scan:1 offset:(4 * v115) size:v115];
-                  v125 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"info" type:@"^v" scan:1 offset:(5 * v115) size:v115];
-                  v116 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"callBacks" type:@"^{_CFStreamCallBacks=}" scan:1 offset:(6 * v115) size:v115];
-                  v117 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"streamLock" type:@"^v" scan:1 offset:(7 * v115) size:v115];
-                  v118 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"previousRunloopsAndModes" type:@"^v" scan:1 offset:(8 * v115) size:v115];
-                  v119 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"queue" type:@"^v" scan:1 offset:(9 * v115) size:v115];
-                  v151[0] = v127;
-                  v151[1] = v126;
-                  v151[2] = v125;
-                  v151[3] = v116;
-                  v151[4] = v117;
-                  v151[5] = v118;
-                  v151[6] = v119;
-                  v120 = [MEMORY[0x1E695DEC8] arrayWithObjects:v151 count:7];
-                  [v3 replaceField:v128 withFields:v120];
+                  v114 = [v3 pointerSize];
+                  v126 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"error" type:@"^v" scan:1 offset:(3 * v114) size:v114];
+                  v125 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"client" type:@"^{_CFStreamClient=}" scan:1 offset:(4 * v114) size:v114];
+                  v124 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"info" type:@"^v" scan:1 offset:(5 * v114) size:v114];
+                  v115 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"callBacks" type:@"^{_CFStreamCallBacks=}" scan:1 offset:(6 * v114) size:v114];
+                  v116 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"streamLock" type:@"^v" scan:1 offset:(7 * v114) size:v114];
+                  v117 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"previousRunloopsAndModes" type:@"^v" scan:1 offset:(8 * v114) size:v114];
+                  v118 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"queue" type:@"^v" scan:1 offset:(9 * v114) size:v114];
+                  v150[0] = v126;
+                  v150[1] = v125;
+                  v150[2] = v124;
+                  v150[3] = v115;
+                  v150[4] = v116;
+                  v150[5] = v117;
+                  v150[6] = v118;
+                  v119 = [MEMORY[0x1E695DEC8] arrayWithObjects:v150 count:7];
+                  [v3 replaceField:v127 withFields:v119];
                 }
 
                 goto LABEL_40;
               }
             }
 
-            v141 = 0;
-            v142 = &v141;
-            v143 = 0x2020000000;
-            LOBYTE(v144) = 0;
-            v129[0] = MEMORY[0x1E69E9820];
-            v129[1] = 3221225472;
-            v129[2] = __34__VMUScanOverlay_initWithScanner___block_invoke_21;
-            v129[3] = &unk_1E8278388;
-            v130 = v3;
-            v131 = &v141;
-            [v130 mutateTypeFieldsWithBlock:v129];
+            v140 = 0;
+            v141 = &v140;
+            v142 = 0x2020000000;
+            LOBYTE(v143) = 0;
+            v128[0] = MEMORY[0x1E69E9820];
+            v128[1] = 3221225472;
+            v128[2] = __34__VMUScanOverlay_initWithScanner___block_invoke_21;
+            v128[3] = &unk_1E8278388;
+            v129 = v3;
+            v130 = &v140;
+            [v129 mutateTypeFieldsWithBlock:v128];
 
 LABEL_78:
-            _Block_object_dispose(&v141, 8);
+            _Block_object_dispose(&v140, 8);
             goto LABEL_40;
           }
         }
 
-        v141 = 0;
-        v142 = &v141;
-        v143 = 0x2020000000;
-        LOBYTE(v144) = 0;
-        v132[0] = MEMORY[0x1E69E9820];
-        v132[1] = 3221225472;
-        v132[2] = __34__VMUScanOverlay_initWithScanner___block_invoke_20;
-        v132[3] = &unk_1E8278388;
-        v133 = v3;
-        v134 = &v141;
-        [v133 mutateTypeFieldsWithBlock:v132];
+        v140 = 0;
+        v141 = &v140;
+        v142 = 0x2020000000;
+        LOBYTE(v143) = 0;
+        v131[0] = MEMORY[0x1E69E9820];
+        v131[1] = 3221225472;
+        v131[2] = __34__VMUScanOverlay_initWithScanner___block_invoke_20;
+        v131[3] = &unk_1E8278388;
+        v132 = v3;
+        v133 = &v140;
+        [v132 mutateTypeFieldsWithBlock:v131];
 
         goto LABEL_78;
       }
     }
 
-    v141 = 0;
-    v142 = &v141;
-    v143 = 0x2020000000;
-    LOBYTE(v144) = 0;
-    v135[0] = MEMORY[0x1E69E9820];
-    v135[1] = 3221225472;
-    v135[2] = __34__VMUScanOverlay_initWithScanner___block_invoke_19;
-    v135[3] = &unk_1E8278388;
-    v136 = v3;
-    v137 = &v141;
-    [v136 mutateTypeFieldsWithBlock:v135];
+    v140 = 0;
+    v141 = &v140;
+    v142 = 0x2020000000;
+    LOBYTE(v143) = 0;
+    v134[0] = MEMORY[0x1E69E9820];
+    v134[1] = 3221225472;
+    v134[2] = __34__VMUScanOverlay_initWithScanner___block_invoke_19;
+    v134[3] = &unk_1E8278388;
+    v135 = v3;
+    v136 = &v140;
+    [v135 mutateTypeFieldsWithBlock:v134];
 
     goto LABEL_78;
   }
 
 LABEL_27:
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 BOOL __34__VMUScanOverlay_initWithScanner___block_invoke_5(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v7 = a3;
-  v8 = a4;
-  v9 = v8[2];
-  v10 = *(a1 + 32) + a2;
+  v6 = a3;
+  v7 = a4;
+  v8 = v7[2];
   if (*(a1 + 36) != 8)
   {
-    v13 = v9();
-    if (!v13)
+    v11 = v8();
+    if (!v11)
     {
       goto LABEL_7;
     }
 
-    v12 = *v13;
-    if (!*v13)
+    v10 = *v11;
+    if (!*v11)
     {
       goto LABEL_7;
     }
 
 LABEL_9:
-    v15 = *(a1 + 36);
-    v16 = v8[2];
-    v17 = v12 + v15;
-    if (v15 == 8)
+    v13 = *(a1 + 36);
+    v14 = v7[2];
+    v15 = v10 + v13;
+    if (v13 == 8)
     {
-      v18 = v16(v8, v17, 8);
-      if (v18)
+      v16 = v14(v7, v15, 8);
+      if (v16)
       {
-        v19 = *v18;
+        v17 = *v16;
 LABEL_15:
-        v14 = v19 == 0;
+        v12 = v17 == 0;
         goto LABEL_16;
       }
     }
 
     else
     {
-      v20 = v16(v8, v17, 4);
-      if (v20)
+      v18 = v14(v7, v15, 4);
+      if (v18)
       {
-        v19 = *v20;
+        v17 = *v18;
         goto LABEL_15;
       }
     }
 
-    v19 = 0;
+    v17 = 0;
     goto LABEL_15;
   }
 
-  v11 = v9();
-  if (v11)
+  v9 = v8();
+  if (v9)
   {
-    v12 = *v11;
-    if (*v11)
+    v10 = *v9;
+    if (*v9)
     {
       goto LABEL_9;
     }
   }
 
 LABEL_7:
-  v14 = 0;
+  v12 = 0;
 LABEL_16:
 
-  return v14;
+  return v12;
 }
 
 uint64_t __34__VMUScanOverlay_initWithScanner___block_invoke_6(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)

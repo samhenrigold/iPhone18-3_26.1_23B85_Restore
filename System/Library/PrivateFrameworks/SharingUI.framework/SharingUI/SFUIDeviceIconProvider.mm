@@ -8,13 +8,14 @@
 {
   swift_getObjCClassMetadata();
   MEMORY[0x1E69E5928](identifier);
-  sub_1B9ED8AAC();
+  v5 = sub_1B9ED8AAC();
+  v6 = v3;
   swift_getObjCClassMetadata();
-  v5 = sub_1B9ED4508();
+  v8 = sub_1B9ED4508(v5, v6);
 
   MEMORY[0x1E69E5920](identifier);
 
-  return v5;
+  return v8;
 }
 
 @end

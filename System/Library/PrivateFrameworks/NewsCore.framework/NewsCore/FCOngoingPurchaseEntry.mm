@@ -9,7 +9,7 @@
 
 - (FCOngoingPurchaseEntry)initWithEntryID:(id)d tagID:(id)iD purchaseID:(id)purchaseID productID:(id)productID bundleID:(id)bundleID webAccessOptIn:(BOOL)in appAdamID:(id)adamID storeExternalVersion:(id)self0 vendorIdentifier:(id)self1 purchaseInitiatedTime:(id)self2 price:(id)self3
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   dCopy = d;
   iDCopy = iD;
   purchaseIDCopy = purchaseID;
@@ -22,15 +22,15 @@
   priceCopy = price;
   if (!dCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v50 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"ongoing purchase entry must have an identifier"];
+    v49 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"ongoing purchase entry must have an identifier"];
     *buf = 136315906;
-    v59 = "[FCOngoingPurchaseEntry initWithEntryID:tagID:purchaseID:productID:bundleID:webAccessOptIn:appAdamID:storeExternalVersion:vendorIdentifier:purchaseInitiatedTime:price:]";
-    v60 = 2080;
-    v61 = "FCOngoingPurchaseEntry.m";
-    v62 = 1024;
-    v63 = 53;
-    v64 = 2114;
-    v65 = v50;
+    v58 = "[FCOngoingPurchaseEntry initWithEntryID:tagID:purchaseID:productID:bundleID:webAccessOptIn:appAdamID:storeExternalVersion:vendorIdentifier:purchaseInitiatedTime:price:]";
+    v59 = 2080;
+    v60 = "FCOngoingPurchaseEntry.m";
+    v61 = 1024;
+    v62 = 53;
+    v63 = 2114;
+    v64 = v49;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (iDCopy)
@@ -46,30 +46,30 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v51 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"ongoing purchase entry must have an tag ID"];
+    v50 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"ongoing purchase entry must have an tag ID"];
     *buf = 136315906;
-    v59 = "[FCOngoingPurchaseEntry initWithEntryID:tagID:purchaseID:productID:bundleID:webAccessOptIn:appAdamID:storeExternalVersion:vendorIdentifier:purchaseInitiatedTime:price:]";
-    v60 = 2080;
-    v61 = "FCOngoingPurchaseEntry.m";
-    v62 = 1024;
-    v63 = 54;
-    v64 = 2114;
-    v65 = v51;
+    v58 = "[FCOngoingPurchaseEntry initWithEntryID:tagID:purchaseID:productID:bundleID:webAccessOptIn:appAdamID:storeExternalVersion:vendorIdentifier:purchaseInitiatedTime:price:]";
+    v59 = 2080;
+    v60 = "FCOngoingPurchaseEntry.m";
+    v61 = 1024;
+    v62 = 54;
+    v63 = 2114;
+    v64 = v50;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
   if (!productIDCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v52 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"ongoing purchase entry must have an product identifier"];
+    v51 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"ongoing purchase entry must have an product identifier"];
     *buf = 136315906;
-    v59 = "[FCOngoingPurchaseEntry initWithEntryID:tagID:purchaseID:productID:bundleID:webAccessOptIn:appAdamID:storeExternalVersion:vendorIdentifier:purchaseInitiatedTime:price:]";
-    v60 = 2080;
-    v61 = "FCOngoingPurchaseEntry.m";
-    v62 = 1024;
-    v63 = 55;
-    v64 = 2114;
-    v65 = v52;
+    v58 = "[FCOngoingPurchaseEntry initWithEntryID:tagID:purchaseID:productID:bundleID:webAccessOptIn:appAdamID:storeExternalVersion:vendorIdentifier:purchaseInitiatedTime:price:]";
+    v59 = 2080;
+    v60 = "FCOngoingPurchaseEntry.m";
+    v61 = 1024;
+    v62 = 55;
+    v63 = 2114;
+    v64 = v51;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (purchaseIDCopy)
@@ -85,22 +85,22 @@ LABEL_6:
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v53 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"ongoing purchase entry must have an purchase ID"];
+    v52 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"ongoing purchase entry must have an purchase ID"];
     *buf = 136315906;
-    v59 = "[FCOngoingPurchaseEntry initWithEntryID:tagID:purchaseID:productID:bundleID:webAccessOptIn:appAdamID:storeExternalVersion:vendorIdentifier:purchaseInitiatedTime:price:]";
-    v60 = 2080;
-    v61 = "FCOngoingPurchaseEntry.m";
-    v62 = 1024;
-    v63 = 56;
-    v64 = 2114;
-    v65 = v53;
+    v58 = "[FCOngoingPurchaseEntry initWithEntryID:tagID:purchaseID:productID:bundleID:webAccessOptIn:appAdamID:storeExternalVersion:vendorIdentifier:purchaseInitiatedTime:price:]";
+    v59 = 2080;
+    v60 = "FCOngoingPurchaseEntry.m";
+    v61 = 1024;
+    v62 = 56;
+    v63 = 2114;
+    v64 = v52;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_11:
-  v57.receiver = self;
-  v57.super_class = FCOngoingPurchaseEntry;
-  v26 = [(FCOngoingPurchaseEntry *)&v57 init];
+  v56.receiver = self;
+  v56.super_class = FCOngoingPurchaseEntry;
+  v26 = [(FCOngoingPurchaseEntry *)&v56 init];
   v27 = v26;
   if (v26)
   {
@@ -155,34 +155,33 @@ LABEL_11:
     }
   }
 
-  v48 = *MEMORY[0x1E69E9840];
   return v27;
 }
 
 - (FCOngoingPurchaseEntry)initWithEntryID:(id)d dictionaryRepresentation:(id)representation
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   dCopy = d;
   representationCopy = representation;
   if (!dCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"ongoing purchase entry must have an identifier"];
+    v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"ongoing purchase entry must have an identifier"];
     *buf = 136315906;
-    v24 = "[FCOngoingPurchaseEntry initWithEntryID:dictionaryRepresentation:]";
-    v25 = 2080;
-    v26 = "FCOngoingPurchaseEntry.m";
-    v27 = 1024;
-    v28 = 84;
-    v29 = 2114;
-    v30 = v16;
+    v23 = "[FCOngoingPurchaseEntry initWithEntryID:dictionaryRepresentation:]";
+    v24 = 2080;
+    v25 = "FCOngoingPurchaseEntry.m";
+    v26 = 1024;
+    v27 = 84;
+    v28 = 2114;
+    v29 = v15;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   v7 = [representationCopy objectForKeyedSubscript:@"OngoingPurchaseEntryTagID"];
   v8 = [representationCopy objectForKeyedSubscript:@"OngoingPurchaseEntryPurchaseID"];
-  v18 = [representationCopy objectForKeyedSubscript:@"OngoingPurchaseEntryPurchaseAppAdamID"];
-  v20 = [representationCopy objectForKeyedSubscript:@"OngoingPurchaseEntryProductID"];
-  v19 = [representationCopy objectForKeyedSubscript:@"OngoingPurchaseEntryBundleIDKey"];
+  v17 = [representationCopy objectForKeyedSubscript:@"OngoingPurchaseEntryPurchaseAppAdamID"];
+  v19 = [representationCopy objectForKeyedSubscript:@"OngoingPurchaseEntryProductID"];
+  v18 = [representationCopy objectForKeyedSubscript:@"OngoingPurchaseEntryBundleIDKey"];
   v9 = [representationCopy objectForKeyedSubscript:@"OngoingPurchaseEntryStoreExternalVersion"];
   v10 = [representationCopy objectForKeyedSubscript:@"OngoingPurchaseEntryVendorIdentifier"];
   v11 = [representationCopy objectForKeyedSubscript:@"OngoingPurchaseEntryHasWebOptIn"];
@@ -190,10 +189,9 @@ LABEL_11:
 
   v12 = [representationCopy objectForKeyedSubscript:@"OngoingPurchaseEntryPurchaseInitiatedTime"];
   v13 = [representationCopy objectForKeyedSubscript:@"OngoingPurchaseEntryPurchasePrice"];
-  v22 = [(FCOngoingPurchaseEntry *)self initWithEntryID:dCopy tagID:v7 purchaseID:v8 productID:v20 bundleID:v19 webAccessOptIn:bOOLValue appAdamID:v18 storeExternalVersion:v9 vendorIdentifier:v10 purchaseInitiatedTime:v12 price:v13];
+  v21 = [(FCOngoingPurchaseEntry *)self initWithEntryID:dCopy tagID:v7 purchaseID:v8 productID:v19 bundleID:v18 webAccessOptIn:bOOLValue appAdamID:v17 storeExternalVersion:v9 vendorIdentifier:v10 purchaseInitiatedTime:v12 price:v13];
 
-  v14 = *MEMORY[0x1E69E9840];
-  return v22;
+  return v21;
 }
 
 - (id)dictionaryRepresentation

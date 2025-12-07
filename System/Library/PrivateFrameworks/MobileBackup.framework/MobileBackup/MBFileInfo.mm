@@ -103,9 +103,9 @@
 - (id)description
 {
   v3 = MEMORY[0x1E696AEC0];
-  v10.receiver = self;
-  v10.super_class = MBFileInfo;
-  v4 = [(MBFileInfo *)&v10 description];
+  v9.receiver = self;
+  v9.super_class = MBFileInfo;
+  v4 = [(MBFileInfo *)&v9 description];
   v5 = v4;
   v6 = "";
   if (self->_isDirectory)
@@ -113,10 +113,9 @@
     v6 = "isDir ";
   }
 
-  path = self->_path;
-  v8 = [v3 stringWithFormat:@"%@(%spriority %ld %@ xattr %@)", v4, v6, self->_priority, path, self->_extendedAttributes];
+  v7 = [v3 stringWithFormat:@"%@(%spriority %ld %@ xattr %@)", v4, v6, self->_priority, self->_path, self->_extendedAttributes];
 
-  return v8;
+  return v7;
 }
 
 @end

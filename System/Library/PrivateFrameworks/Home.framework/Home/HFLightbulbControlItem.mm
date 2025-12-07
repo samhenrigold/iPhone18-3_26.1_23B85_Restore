@@ -304,7 +304,7 @@ id __61__HFLightbulbControlItem_readValueAndPopulateStandardResults__block_invok
 
 - (id)writeValue:(id)value
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   if (+[HFUtilities isInternalInstall])
   {
@@ -364,21 +364,19 @@ id __61__HFLightbulbControlItem_readValueAndPopulateStandardResults__block_invok
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412802;
-        v25 = name;
-        v26 = 2112;
-        v27 = v14;
-        v28 = 2112;
-        v29 = objc_opt_class();
+        v24 = name;
+        v25 = 2112;
+        v26 = v14;
+        v27 = 2112;
+        v28 = objc_opt_class();
         _os_log_impl(&dword_20D9BF000, v19, OS_LOG_TYPE_DEFAULT, "User changed brightness for light %@. Value: %@. Value Source: %@", buf, 0x20u);
       }
     }
   }
 
-  v23.receiver = self;
-  v23.super_class = HFLightbulbControlItem;
-  v20 = [(HFIncrementalStateControlItem *)&v23 writeValue:valueCopy];
-
-  v21 = *MEMORY[0x277D85DE8];
+  v22.receiver = self;
+  v22.super_class = HFLightbulbControlItem;
+  v20 = [(HFIncrementalStateControlItem *)&v22 writeValue:valueCopy];
 
   return v20;
 }

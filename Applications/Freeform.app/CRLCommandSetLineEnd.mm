@@ -11,13 +11,13 @@
 {
   v3 = type metadata accessor for UUID();
   v4 = *(v3 - 8);
-  __chkstk_darwin(v3);
-  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v4 + 16))(v6, self + OBJC_IVAR____TtC8Freeform20CRLCommandSetLineEnd_id, v3);
-  v7.super.isa = UUID._bridgeToObjectiveC()().super.isa;
-  (*(v4 + 8))(v6, v3);
+  v5 = __chkstk_darwin(v3);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v4 + 16))(v7, self + OBJC_IVAR____TtC8Freeform20CRLCommandSetLineEnd_id, v3, v5);
+  v8.super.isa = UUID._bridgeToObjectiveC()().super.isa;
+  (*(v4 + 8))(v7, v3);
 
-  return v7.super.isa;
+  return v8.super.isa;
 }
 
 - (_TtC8Freeform20CRLCommandSetLineEnd)initWithId:(id)id lineEnd:(id)end chirality:(int64_t)chirality

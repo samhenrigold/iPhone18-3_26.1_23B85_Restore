@@ -14,7 +14,7 @@ uint64_t __WiFiManagerClientMIGDemuxCallback(uint64_t a1, _DWORD *a2, uint64_t a
   return result;
 }
 
-uint64_t _wifi_manager_client_dispatch_event(unsigned int a1, UInt8 *a2, unsigned int a3, uint64_t a4, UInt8 *a5, unsigned int a6)
+uint64_t _wifi_manager_client_dispatch_event(uint64_t a1, UInt8 *a2, unsigned int a3, uint64_t a4, UInt8 *a5, unsigned int a6)
 {
   v11 = WiFiPortCacheCopy(a1);
   if (v11)
@@ -56,7 +56,7 @@ uint64_t _wifi_manager_client_dispatch_event(unsigned int a1, UInt8 *a2, unsigne
       case 3:
         if (Device)
         {
-          _WiFiDeviceClientDispatchRemovalEvent(Device);
+          _WiFiDeviceClientDispatchRemovalEvent();
         }
 
         goto LABEL_67;
@@ -510,7 +510,7 @@ CFPropertyListRef _WiFiCopyUnserialized(UInt8 *bytes, CFIndex length)
     objc_autoreleasePoolPop(objc_autoreleasePoolPush());
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      _WiFiCopyUnserialized_cold_2(&error);
+      _WiFiCopyUnserialized_cold_2();
     }
 
     CFRelease(error);
@@ -535,10 +535,12 @@ const void *WiFiManagerClientGetDevice(uint64_t a1, const void *a2)
 
 uint64_t _WiFiVMDealloc(uint64_t result, uint64_t a2)
 {
-  if (result && a2)
+  if (result)
   {
-    v2 = *MEMORY[0x277D85F48];
-    JUMPOUT(0x25F84DFD0);
+    if (a2)
+    {
+      JUMPOUT(0x25F84DFD0);
+    }
   }
 
   return result;
@@ -546,30 +548,30 @@ uint64_t _WiFiVMDealloc(uint64_t result, uint64_t a2)
 
 _WORD *WiFiDeviceClientCopyCurrentNetwork(uint64_t a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_12_0();
   v2 = getprogname();
   if (!strncmp("SpringBoard", v2, 0xBuLL) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     if (a1)
     {
-      v32 = *(a1 + 16);
+      v31 = *(a1 + 16);
     }
 
     else
     {
-      v32 = -1;
+      v31 = -1;
     }
 
     *buf = 136315394;
-    v36 = "__WiFiDeviceClientCopyCurrentNetworkLegacy";
-    v37 = 1024;
-    v38 = v32;
+    v35 = "__WiFiDeviceClientCopyCurrentNetworkLegacy";
+    v36 = 1024;
+    v37 = v31;
     _os_log_error_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: server port [%d]", buf, 0x12u);
   }
 
   IsServerPortValid = _WiFiDeviceClientIsServerPortValid(a1);
-  if (IsServerPortValid && (OUTLINED_FUNCTION_9_0(), OUTLINED_FUNCTION_10_0(), v11 = OUTLINED_FUNCTION_0_1(), v16 = wifi_device_copy_current_network(v11, v12, v13, v14, v15), v24 = OUTLINED_FUNCTION_2(v16, v17, v18, v19, v20, v21, v22, v23, v33, v34), (IsServerPortValid = _WiFiCopyUnserialized(v24, v25)) != 0))
+  if (IsServerPortValid && (OUTLINED_FUNCTION_9_0(), OUTLINED_FUNCTION_10_0(), v11 = OUTLINED_FUNCTION_0_1(), v16 = wifi_device_copy_current_network(v11, v12, v13, v14, v15), v24 = OUTLINED_FUNCTION_2(v16, v17, v18, v19, v20, v21, v22, v23, v32, v33), (IsServerPortValid = _WiFiCopyUnserialized(v24, v25)) != 0))
   {
     v26 = IsServerPortValid;
     v27 = WiFiNetworkCreate(*MEMORY[0x277CBECE8], IsServerPortValid);
@@ -581,13 +583,12 @@ _WORD *WiFiDeviceClientCopyCurrentNetwork(uint64_t a1)
     v27 = 0;
   }
 
-  v28 = OUTLINED_FUNCTION_2(IsServerPortValid, v4, v5, v6, v7, v8, v9, v10, v33, v34);
+  v28 = OUTLINED_FUNCTION_2(IsServerPortValid, v4, v5, v6, v7, v8, v9, v10, v32, v33);
   _WiFiVMDealloc(v28, v29);
-  v30 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
-uint64_t wifi_device_copy_current_network(int a1, uint64_t a2, int a3, void *a4, _DWORD *a5)
+uint64_t wifi_device_copy_current_network(int a1, uint64_t a2, int a3, uint64_t *a4, int *a5)
 {
   *&v8 = 0xAAAAAAAAAAAAAAAALL;
   *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
@@ -701,7 +702,7 @@ uint64_t OUTLINED_FUNCTION_2_1(int a1, int a2, int a3, int a4, int a5, int a6, i
   return CC_SHA256_Init(&a9);
 }
 
-_WORD *__WiFiNetworkCreate(int a1, CFTypeRef cf, char a3)
+_WORD *__WiFiNetworkCreate(uint64_t a1, CFTypeRef cf, char a3)
 {
   if (cf)
   {
@@ -907,11 +908,10 @@ uint64_t WiFiDeviceClientSetCoexParameters(uint64_t a1, uint64_t a2, const void 
       CFDataGetLength(v11);
     }
 
-    v12 = *(v4 + 16);
     CFDataGetBytePtr(*(v4 + 48));
     CFDataGetLength(*(v4 + 48));
-    v13 = OUTLINED_FUNCTION_8_0();
-    wifi_device_set_coex_parameters(v13, v14, v15, v16, v17, v18, v19, v20);
+    v12 = OUTLINED_FUNCTION_8_0();
+    wifi_device_set_coex_parameters(v12, v13, v14, v15, v16, v17, v18, v19);
     if (v9)
     {
       CFRelease(v9);
@@ -1017,7 +1017,7 @@ CFTypeRef _CFPropertyListCreateBinaryData(CFAllocatorRef bufferAllocator, const 
       objc_autoreleasePoolPop(objc_autoreleasePoolPush());
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        _CFPropertyListCreateBinaryData_cold_1(&error);
+        _CFPropertyListCreateBinaryData_cold_1();
       }
 
       CFRelease(error);
@@ -1035,7 +1035,7 @@ CFTypeRef _CFPropertyListCreateBinaryData(CFAllocatorRef bufferAllocator, const 
   return v5;
 }
 
-uint64_t wifi_device_copy_property(mach_port_t a1, uint64_t a2, int a3, uint64_t a4, int a5, void *a6, _DWORD *a7)
+uint64_t wifi_device_copy_property(mach_port_t a1, uint64_t a2, int a3, uint64_t a4, int a5, uint64_t *a6, int *a7)
 {
   v17 = 2;
   v18 = a2;
@@ -1100,11 +1100,11 @@ uint64_t wifi_device_copy_property(mach_port_t a1, uint64_t a2, int a3, uint64_t
             v13 = 4294966996;
           }
 
-          goto LABEL_24;
+          goto LABEL_25;
         }
 
         v13 = 4294966996;
-        if (v17 == 1 && *&v16.msgh_size == 56 && HIBYTE(v19) == 1)
+        if (v17 == 1 && v16.msgh_size == 56 && !v16.msgh_remote_port && HIBYTE(v19) == 1)
         {
           v14 = v20;
           if (v20 == v22)
@@ -1122,7 +1122,7 @@ uint64_t wifi_device_copy_property(mach_port_t a1, uint64_t a2, int a3, uint64_t
         v13 = 4294966995;
       }
 
-LABEL_24:
+LABEL_25:
       mach_msg_destroy(&v16);
       return v13;
     }
@@ -1135,21 +1135,21 @@ LABEL_24:
 
 uint64_t wifi_device_set_coex_parameters(mach_port_t a1, uint64_t a2, int a3, uint64_t a4, int a5, uint64_t a6, int a7, int *a8)
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v18 = 3;
-  v19 = a2;
-  v20 = 27918592;
-  v21 = a3;
-  v22 = a4;
-  v23 = 27918592;
-  v24 = a5;
-  v25 = a6;
-  v26 = 27918592;
-  v27 = a7;
-  v28 = *MEMORY[0x277D85EF8];
-  v29 = a3;
-  v30 = a5;
-  v31 = a7;
+  v31 = *MEMORY[0x277D85DE8];
+  v17 = 3;
+  v18 = a2;
+  v19 = 27918592;
+  v20 = a3;
+  v21 = a4;
+  v22 = 27918592;
+  v23 = a5;
+  v24 = a6;
+  v25 = 27918592;
+  v26 = a7;
+  v27 = *MEMORY[0x277D85EF8];
+  v28 = a3;
+  v29 = a5;
+  v30 = a7;
   special_reply_port = mig_get_special_reply_port();
   *&msg.msgh_bits = 0xAAAAAAAA80001513;
   msg.msgh_remote_port = a1;
@@ -1185,11 +1185,11 @@ uint64_t wifi_device_set_coex_parameters(mach_port_t a1, uint64_t a2, int a3, ui
           {
             if (!msg.msgh_remote_port)
             {
-              v13 = HIDWORD(v19);
-              if (!HIDWORD(v19))
+              v13 = HIDWORD(v18);
+              if (!HIDWORD(v18))
               {
-                *a8 = v20;
-                goto LABEL_24;
+                *a8 = v19;
+                return v13;
               }
 
               goto LABEL_23;
@@ -1205,7 +1205,7 @@ uint64_t wifi_device_set_coex_parameters(mach_port_t a1, uint64_t a2, int a3, ui
 
             else
             {
-              v14 = HIDWORD(v19) == 0;
+              v14 = HIDWORD(v18) == 0;
             }
 
             if (v14)
@@ -1215,7 +1215,7 @@ uint64_t wifi_device_set_coex_parameters(mach_port_t a1, uint64_t a2, int a3, ui
 
             else
             {
-              v13 = HIDWORD(v19);
+              v13 = HIDWORD(v18);
             }
 
             goto LABEL_23;
@@ -1232,14 +1232,12 @@ uint64_t wifi_device_set_coex_parameters(mach_port_t a1, uint64_t a2, int a3, ui
 
 LABEL_23:
       mach_msg_destroy(&msg);
-      goto LABEL_24;
+      return v13;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_24:
-  v15 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -1380,10 +1378,10 @@ uint64_t WiFiManagerClientGetWoWCapability(uint64_t a1)
 atomic_uint *__WiFiManagerClientGetOrReconnectServerPort(uint64_t a1, int a2)
 {
   error[3] = *MEMORY[0x277D85DE8];
-  v35 = 0;
+  v34 = 0;
   sp = 0;
   previous = -1431655766;
-  v34 = -1431655766;
+  v33 = -1431655766;
   v4 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
   os_unfair_recursive_lock_lock_with_options();
   v5 = *(a1 + 32);
@@ -1397,7 +1395,7 @@ atomic_uint *__WiFiManagerClientGetOrReconnectServerPort(uint64_t a1, int a2)
   {
     atomic_fetch_add_explicit(v5, 1u, memory_order_relaxed);
     os_unfair_recursive_lock_unlock();
-    goto LABEL_38;
+    return v5;
   }
 
   error[0] = 0;
@@ -1441,8 +1439,7 @@ LABEL_41:
     __WiFiManagerClientGetOrReconnectServerPort_cold_8();
 LABEL_47:
     os_unfair_recursive_lock_unlock();
-    v5 = 0;
-    goto LABEL_38;
+    return 0;
   }
 
   if (bootstrap_look_up(*MEMORY[0x277D85F18], "com.apple.wifi.manager", &sp))
@@ -1469,21 +1466,21 @@ LABEL_47:
   v14 = sp;
   v15 = *(a1 + 16);
   v16 = getpid();
-  wifi_manager_open(v14, v15, v16, Port, &v35, &v34);
+  wifi_manager_open(v14, v15, v16, Port, &v34, &v33);
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     __WiFiManagerClientGetOrReconnectServerPort_cold_3(v4);
   }
 
   mach_port_deallocate(*v13, sp);
-  if (v34 == 1)
+  if (v33 == 1)
   {
     __WiFiManagerClientGetOrReconnectServerPort_cold_6();
     goto LABEL_47;
   }
 
-  v17 = v35;
-  if (!v35)
+  v17 = v34;
+  if (!v34)
   {
     __WiFiManagerClientGetOrReconnectServerPort_cold_5();
     goto LABEL_47;
@@ -1493,10 +1490,10 @@ LABEL_47:
   *v5 = 1;
   v5[1] = v17;
   *(a1 + 32) = v5;
-  wifi_manager_set_event_mask(v35, *(a1 + 72));
+  wifi_manager_set_event_mask(v34, *(a1 + 72));
   Mutable = CFArrayCreateMutable(v6, 0, MEMORY[0x277CBF128]);
   memset(length, 0, sizeof(length));
-  wifi_manager_copy_devices(v35, &length[1], length);
+  wifi_manager_copy_devices(v34, &length[1], length);
   if (*&length[1])
   {
     if (length[0])
@@ -1559,8 +1556,6 @@ LABEL_47:
     CFRelease(Mutable);
   }
 
-LABEL_38:
-  v31 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -1719,11 +1714,11 @@ atomic_uint *OUTLINED_FUNCTION_3(uint64_t a1)
 
 uint64_t wifi_manager_copy_wow_state(int a1, void *a2, _DWORD *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   *&v6 = 0xAAAAAAAAAAAAAAAALL;
   *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *&v15[12] = v6;
-  *v15 = v6;
+  *&v14[12] = v6;
+  *v14 = v6;
   *&msg[20] = v6;
   *&msg[4] = -1431655766;
   special_reply_port = mig_get_special_reply_port();
@@ -1783,15 +1778,15 @@ uint64_t wifi_manager_copy_wow_state(int a1, void *a2, _DWORD *a3)
         }
 
         v10 = 4294966996;
-        if (*&msg[24] == 1 && *&msg[4] == 56 && !*&msg[8] && v15[3] == 1)
+        if (*&msg[24] == 1 && *&msg[4] == 56 && !*&msg[8] && v14[3] == 1)
         {
-          v11 = *&v15[4];
-          if (*&v15[4] == *&v15[16])
+          v11 = *&v14[4];
+          if (*&v14[4] == *&v14[16])
           {
             v10 = 0;
             *a2 = *&msg[28];
             *a3 = v11;
-            goto LABEL_26;
+            return v10;
           }
         }
       }
@@ -1803,14 +1798,12 @@ uint64_t wifi_manager_copy_wow_state(int a1, void *a2, _DWORD *a3)
 
 LABEL_25:
       mach_msg_destroy(msg);
-      goto LABEL_26;
+      return v10;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_26:
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -1831,22 +1824,22 @@ BOOL WiFiDeviceClientGetPower(uint64_t a1)
 
 uint64_t wifi_device_get_power(mach_port_t a1, uint64_t a2, int a3, int *a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v14 = 1;
-  v15 = a2;
-  v16 = 27918592;
-  v17 = a3;
-  v18 = *MEMORY[0x277D85EF8];
-  v19 = a3;
+  v19 = *MEMORY[0x277D85DE8];
+  v13 = 1;
+  v14 = a2;
+  v15 = 27918592;
+  v16 = a3;
+  v17 = *MEMORY[0x277D85EF8];
+  v18 = a3;
   special_reply_port = mig_get_special_reply_port();
-  *&v13.msgh_bits = 0xAAAAAAAA80001513;
-  v13.msgh_remote_port = a1;
-  v13.msgh_local_port = special_reply_port;
-  *&v13.msgh_voucher_port = 0x1106F00000000;
+  *&v12.msgh_bits = 0xAAAAAAAA80001513;
+  v12.msgh_remote_port = a1;
+  v12.msgh_local_port = special_reply_port;
+  *&v12.msgh_voucher_port = 0x1106F00000000;
   if (MEMORY[0x28223BE58])
   {
-    voucher_mach_msg_set(&v13);
-    msgh_local_port = v13.msgh_local_port;
+    voucher_mach_msg_set(&v12);
+    msgh_local_port = v12.msgh_local_port;
   }
 
   else
@@ -1854,46 +1847,46 @@ uint64_t wifi_device_get_power(mach_port_t a1, uint64_t a2, int a3, int *a4)
     msgh_local_port = special_reply_port;
   }
 
-  v8 = mach_msg(&v13, 3162115, 0x38u, 0x30u, msgh_local_port, 0, 0);
+  v8 = mach_msg(&v12, 3162115, 0x38u, 0x30u, msgh_local_port, 0, 0);
   v9 = v8;
   if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
   {
     if (!v8)
     {
-      if (v13.msgh_id == 71)
+      if (v12.msgh_id == 71)
       {
         v9 = 4294966988;
       }
 
-      else if (v13.msgh_id == 69843)
+      else if (v12.msgh_id == 69843)
       {
-        if ((v13.msgh_bits & 0x80000000) == 0)
+        if ((v12.msgh_bits & 0x80000000) == 0)
         {
-          if (v13.msgh_size == 40)
+          if (v12.msgh_size == 40)
           {
-            if (!v13.msgh_remote_port)
+            if (!v12.msgh_remote_port)
             {
-              v9 = HIDWORD(v15);
-              if (!HIDWORD(v15))
+              v9 = HIDWORD(v14);
+              if (!HIDWORD(v14))
               {
-                *a4 = v16;
-                goto LABEL_24;
+                *a4 = v15;
+                return v9;
               }
 
               goto LABEL_23;
             }
           }
 
-          else if (v13.msgh_size == 36)
+          else if (v12.msgh_size == 36)
           {
-            if (v13.msgh_remote_port)
+            if (v12.msgh_remote_port)
             {
               v10 = 1;
             }
 
             else
             {
-              v10 = HIDWORD(v15) == 0;
+              v10 = HIDWORD(v14) == 0;
             }
 
             if (v10)
@@ -1903,7 +1896,7 @@ uint64_t wifi_device_get_power(mach_port_t a1, uint64_t a2, int a3, int *a4)
 
             else
             {
-              v9 = HIDWORD(v15);
+              v9 = HIDWORD(v14);
             }
 
             goto LABEL_23;
@@ -1919,26 +1912,25 @@ uint64_t wifi_device_get_power(mach_port_t a1, uint64_t a2, int a3, int *a4)
       }
 
 LABEL_23:
-      mach_msg_destroy(&v13);
-      goto LABEL_24;
+      mach_msg_destroy(&v12);
+      return v9;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_24:
-  v11 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
-void WiFiManagerClientSetType(uint64_t a1, int a2)
+void WiFiManagerClientSetType(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   *(a1 + 16) = a2;
   v3 = __WiFiManagerClientGetOrReconnectServerPort(a1, 0);
   if (v3)
   {
     v4 = v3;
-    wifi_manager_set_client_type(v3[1], a2);
+    wifi_manager_set_client_type(v3[1], v2);
 
     WiFiSendRightRelease(v4);
   }
@@ -2027,17 +2019,17 @@ BOOL WiFiManagerClientIsUserInteractive(_BOOL8 result)
 
 uint64_t wifi_device_scan_async(mach_port_t a1, uint64_t a2, int a3, uint64_t a4, int a5, int *a6)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v16 = 2;
-  v17 = a2;
-  v18 = 27918592;
-  v19 = a3;
-  v20 = a4;
-  v21 = 27918592;
-  v22 = a5;
-  v23 = *MEMORY[0x277D85EF8];
-  v24 = a3;
-  v25 = a5;
+  v25 = *MEMORY[0x277D85DE8];
+  v15 = 2;
+  v16 = a2;
+  v17 = 27918592;
+  v18 = a3;
+  v19 = a4;
+  v20 = 27918592;
+  v21 = a5;
+  v22 = *MEMORY[0x277D85EF8];
+  v23 = a3;
+  v24 = a5;
   special_reply_port = mig_get_special_reply_port();
   *&msg.msgh_bits = 0xAAAAAAAA80001513;
   msg.msgh_remote_port = a1;
@@ -2073,11 +2065,11 @@ uint64_t wifi_device_scan_async(mach_port_t a1, uint64_t a2, int a3, uint64_t a4
           {
             if (!msg.msgh_remote_port)
             {
-              v11 = HIDWORD(v17);
-              if (!HIDWORD(v17))
+              v11 = HIDWORD(v16);
+              if (!HIDWORD(v16))
               {
-                *a6 = v18;
-                goto LABEL_24;
+                *a6 = v17;
+                return v11;
               }
 
               goto LABEL_23;
@@ -2093,7 +2085,7 @@ uint64_t wifi_device_scan_async(mach_port_t a1, uint64_t a2, int a3, uint64_t a4
 
             else
             {
-              v12 = HIDWORD(v17) == 0;
+              v12 = HIDWORD(v16) == 0;
             }
 
             if (v12)
@@ -2103,7 +2095,7 @@ uint64_t wifi_device_scan_async(mach_port_t a1, uint64_t a2, int a3, uint64_t a4
 
             else
             {
-              v11 = HIDWORD(v17);
+              v11 = HIDWORD(v16);
             }
 
             goto LABEL_23;
@@ -2120,44 +2112,42 @@ uint64_t wifi_device_scan_async(mach_port_t a1, uint64_t a2, int a3, uint64_t a4
 
 LABEL_23:
       mach_msg_destroy(&msg);
-      goto LABEL_24;
+      return v11;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_24:
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
-void _wifi_manager_client_dispatch_scan_results()
+void _wifi_manager_client_dispatch_scan_results(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   OUTLINED_FUNCTION_25();
-  v1 = v0;
-  v3 = OUTLINED_FUNCTION_13(v2);
-  if (v3)
+  v7 = v6;
+  v9 = OUTLINED_FUNCTION_13(v8);
+  if (v9)
   {
-    v4 = v3;
-    v5 = OUTLINED_FUNCTION_8();
-    v7 = _WiFiCopyUnserialized(v5, v6);
-    if (v7)
+    v10 = v9;
+    v11 = OUTLINED_FUNCTION_8();
+    v13 = _WiFiCopyUnserialized(v11, v12);
+    if (v13)
     {
-      v8 = v7;
-      Device = WiFiManagerClientGetDevice(v4, v7);
+      v14 = v13;
+      Device = WiFiManagerClientGetDevice(v10, v13);
       if (Device)
       {
-        v10 = Device;
-        v11 = OUTLINED_FUNCTION_10();
-        v13 = _WiFiCopyUnserialized(v11, v12);
-        if (v13)
+        v16 = Device;
+        v17 = OUTLINED_FUNCTION_10();
+        v19 = _WiFiCopyUnserialized(v17, v18);
+        if (v19)
         {
-          v14 = v13;
-          v15 = CFGetTypeID(v13);
-          if (v15 == CFArrayGetTypeID())
+          v20 = v19;
+          v21 = CFGetTypeID(v19);
+          if (v21 == CFArrayGetTypeID())
           {
-            NetworksFromRecords = _WiFiCreateNetworksFromRecords(v14);
-            _WiFiDeviceClientDispatchScanResults(v10, NetworksFromRecords, v1);
+            NetworksFromRecords = _WiFiCreateNetworksFromRecords(v20);
+            _WiFiDeviceClientDispatchScanResults(v16, NetworksFromRecords, v7);
             if (NetworksFromRecords)
             {
               CFRelease(NetworksFromRecords);
@@ -2167,30 +2157,30 @@ void _wifi_manager_client_dispatch_scan_results()
           else
           {
             objc_autoreleasePoolPop(objc_autoreleasePoolPush());
-            v23 = OUTLINED_FUNCTION_21();
-            _WiFiDeviceClientDispatchScanResults(v23, v24, v1);
+            v29 = OUTLINED_FUNCTION_21();
+            _WiFiDeviceClientDispatchScanResults(v29, v30, v7);
           }
 
-          CFRelease(v14);
+          CFRelease(v20);
         }
 
         else
         {
-          v21 = OUTLINED_FUNCTION_21();
-          _WiFiDeviceClientDispatchScanResults(v21, v22, v1);
+          v27 = OUTLINED_FUNCTION_21();
+          _WiFiDeviceClientDispatchScanResults(v27, v28, v7);
         }
       }
 
-      CFRelease(v8);
+      CFRelease(v14);
     }
 
-    CFRelease(v4);
+    CFRelease(v10);
   }
 
-  v17 = OUTLINED_FUNCTION_8();
-  _WiFiVMDealloc(v17, v18);
-  v19 = OUTLINED_FUNCTION_10();
-  _WiFiVMDealloc(v19, v20);
+  v23 = OUTLINED_FUNCTION_8();
+  _WiFiVMDealloc(v23, v24);
+  v25 = OUTLINED_FUNCTION_10();
+  _WiFiVMDealloc(v25, v26);
   OUTLINED_FUNCTION_26();
 }
 
@@ -2206,54 +2196,56 @@ BOOL OUTLINED_FUNCTION_13_0(uint64_t a1)
   return _WiFiDeviceClientIsServerPortValid(a1);
 }
 
-void _Xwifi_manager_client_dispatch_scan_results(uint64_t a1, uint64_t a2)
+void _Xwifi_manager_client_dispatch_scan_results(uint64_t result, uint64_t a2)
 {
-  if ((*a1 & 0x80000000) != 0 && *(a1 + 24) == 2 && *(a1 + 4) == 80)
+  if ((*result & 0x80000000) != 0 && *(result + 24) == 2 && *(result + 4) == 80)
   {
-    if (*(a1 + 39) == 1 && *(a1 + 55) == 1 && *(a1 + 40) == *(a1 + 68) && *(a1 + 56) == *(a1 + 72))
+    if (*(result + 39) == 1 && *(result + 55) == 1)
     {
-      v3 = *(a1 + 12);
-      v4 = *(a1 + 28);
-      v5 = *(a1 + 44);
-      v6 = *(a1 + 76);
-      _wifi_manager_client_dispatch_scan_results();
-      *(a2 + 32) = v7;
-      return;
+      v3 = *(result + 40);
+      if (v3 == *(result + 68))
+      {
+        v4 = *(result + 56);
+        if (v4 == *(result + 72))
+        {
+          _wifi_manager_client_dispatch_scan_results(*(result + 12), *(result + 28), v3, *(result + 44), v4, *(result + 76));
+          *(a2 + 32) = v5;
+          return;
+        }
+      }
     }
 
-    v8 = -300;
+    v6 = -300;
   }
 
   else
   {
-    v8 = -304;
+    v6 = -304;
   }
 
-  *(a2 + 32) = v8;
+  *(a2 + 32) = v6;
   *(a2 + 24) = *MEMORY[0x277D85EF8];
 }
 
-uint64_t OUTLINED_FUNCTION_25_0(uint64_t a1, ...)
+uint64_t OUTLINED_FUNCTION_25_0(uint64_t a1, uint64_t a2, ...)
 {
-  va_start(va, a1);
+  va_start(va, a2);
 
-  return bcmp((v1 + 2), va, 7uLL);
+  return bcmp((v2 + 2), va, 7uLL);
 }
 
 const UInt8 *OUTLINED_FUNCTION_9_0()
 {
-  v2 = *(v0 + 16);
-  v3 = *(v0 + 48);
+  v2 = *(v0 + 48);
 
-  return CFDataGetBytePtr(v3);
+  return CFDataGetBytePtr(v2);
 }
 
 const UInt8 *OUTLINED_FUNCTION_21_0()
 {
-  v2 = *(v0 + 16);
-  v3 = *(v0 + 48);
+  v2 = *(v0 + 48);
 
-  return CFDataGetBytePtr(v3);
+  return CFDataGetBytePtr(v2);
 }
 
 uint64_t _WiFiDeviceClientDispatchScanResults(uint64_t result, uint64_t a2, uint64_t a3)
@@ -2275,14 +2267,14 @@ CFDataRef OUTLINED_FUNCTION_26_0(const __CFAllocator *a1, const __CFString *a2)
 
 __CFArray *WiFiManagerClientCopyDevices(uint64_t a1)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   os_unfair_recursive_lock_lock_with_options();
   v2 = *(a1 + 64);
   if (v2 && (Count = CFDictionaryGetCount(v2)) != 0)
   {
     v4 = Count;
     MEMORY[0x28223BE20]();
-    v6 = (v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
+    v6 = (v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
     memset(v6, 170, v5);
     CFDictionaryGetKeysAndValues(*(a1 + 64), 0, v6);
     Mutable = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
@@ -2309,7 +2301,6 @@ __CFArray *WiFiManagerClientCopyDevices(uint64_t a1)
   }
 
   os_unfair_recursive_lock_unlock();
-  v8 = *MEMORY[0x277D85DE8];
   return Mutable;
 }
 
@@ -2499,7 +2490,7 @@ void WiFiNetworkIsApplePersonalHotspot_cold_1(CFDictionaryRef *a1, char *a2)
   {
     objc_autoreleasePoolPop(objc_autoreleasePoolPush());
 LABEL_12:
-    v11 = 0;
+    v12 = 0;
     goto LABEL_13;
   }
 
@@ -2517,29 +2508,28 @@ LABEL_12:
   while (1)
   {
     OUTLINED_FUNCTION_17_1();
-    if (v8)
+    if (v9)
     {
-      if (*(v5 + 1) == 10 && !OUTLINED_FUNCTION_25_0(v7))
+      if (*(v5 + 1) == 10 && !OUTLINED_FUNCTION_25_0(v7, v8))
       {
         break;
       }
     }
 
     OUTLINED_FUNCTION_3_0();
-    if (v9 == v10)
+    if (v10 == v11)
     {
       goto LABEL_12;
     }
   }
 
-  v11 = 1;
+  v12 = 1;
 LABEL_13:
-  *a2 = v11;
+  *a2 = v12;
 }
 
 const UInt8 *OUTLINED_FUNCTION_18(CFDataRef theData)
 {
-  v3 = *(v1 + 4);
 
   return CFDataGetBytePtr(theData);
 }
@@ -2839,24 +2829,20 @@ double getEpochTimeInMicroseconds()
 uint64_t isAppleOUI(unsigned __int16 *a1)
 {
   v1 = 0;
-  v7 = *MEMORY[0x277D85DE8];
-  v5[0] = xmmword_25A14B860;
-  v5[1] = xmmword_25A14B870;
-  v6 = -13;
-  while (*(v5 + v1) != *a1 || *(v5 + v1 + 2) != *(a1 + 2))
+  v6 = *MEMORY[0x277D85DE8];
+  v4[0] = xmmword_25A14B860;
+  v4[1] = xmmword_25A14B870;
+  v5 = -13;
+  while (*(v4 + v1) != *a1 || *(v4 + v1 + 2) != *(a1 + 2))
   {
     v1 += 3;
     if (v1 == 33)
     {
-      result = 0;
-      goto LABEL_9;
+      return 0;
     }
   }
 
-  result = 1;
-LABEL_9:
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 void *_WiFiReallocArray(void *a1, unint64_t a2, unint64_t a3)
@@ -3294,45 +3280,36 @@ __CFString *WiFiGetAssocTypeString(int a1)
 
 BOOL WiFiIsSystemWokenByWiFi()
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
+  v18 = *MEMORY[0x277D85DE8];
   v16 = 0u;
-  v13 = 0u;
+  v17 = 0u;
   v14 = 0u;
-  v11 = 0u;
+  v15 = 0u;
   v12 = 0u;
-  v9 = 0u;
+  v13 = 0u;
   v10 = 0u;
-  v7 = 0u;
+  v11 = 0u;
   v8 = 0u;
-  v5 = 0u;
+  v9 = 0u;
   v6 = 0u;
-  *__big = 0u;
+  v7 = 0u;
   v4 = 0u;
-  v2 = 255;
-  sysctlbyname("kern.wakereason", __big, &v2, 0, 0);
-  if (__big[0])
+  v5 = 0u;
+  *__big = 0u;
+  v3 = 0u;
+  v1 = 255;
+  sysctlbyname("kern.wakereason", __big, &v1, 0, 0);
+  if (!__big[0])
   {
-    if (strcasestr(__big, "wlan"))
-    {
-      result = 1;
-    }
-
-    else
-    {
-      result = strcasestr(__big, "wifibt") != 0;
-    }
+    return 0;
   }
 
-  else
+  if (strcasestr(__big, "wlan"))
   {
-    result = 0;
+    return 1;
   }
 
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
+  return strcasestr(__big, "wifibt") != 0;
 }
 
 uint64_t WiFiExtractPerCoreValues(const __CFArray *a1, void *a2, void *a3)
@@ -3392,13 +3369,12 @@ CFMutableDictionaryRef __WiFiMIGMachPortRegister()
   return result;
 }
 
-uint64_t WiFiMIGMachPortScheduleWithQueue(uint64_t a1)
+uint64_t WiFiMIGMachPortScheduleWithQueue(uint64_t a1, uint64_t a2)
 {
   result = dispatch_mach_create_f();
   *(a1 + 72) = result;
   if (result)
   {
-    v3 = *(a1 + 16);
 
     return MEMORY[0x282201D00]();
   }
@@ -3406,7 +3382,7 @@ uint64_t WiFiMIGMachPortScheduleWithQueue(uint64_t a1)
   return result;
 }
 
-void __WiFiMIGMachPortDispatchPortCallback(uint64_t a1, uint64_t a2)
+void __WiFiMIGMachPortDispatchPortCallback(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   switch(a2)
   {
@@ -3416,20 +3392,20 @@ void __WiFiMIGMachPortDispatchPortCallback(uint64_t a1, uint64_t a2)
       CFRelease(a1);
       break;
     case 7:
-      v5 = *(dispatch_mach_msg_get_msg() + 12);
-      v6 = *MEMORY[0x277D85F48];
+      v6 = *(dispatch_mach_msg_get_msg() + 12);
+      v7 = *MEMORY[0x277D85F48];
 
-      mach_port_mod_refs(v6, v5, 1u, -1);
+      mach_port_mod_refs(v7, v6, 1u, -1);
       break;
     case 2:
       if (*(dispatch_mach_msg_get_msg() + 20) == 70)
       {
-        v3 = *(a1 + 96);
-        if (v3)
+        v4 = *(a1 + 96);
+        if (v4)
         {
-          v4 = *(a1 + 104);
+          v5 = *(a1 + 104);
 
-          v3(a1, v4);
+          v4(a1, v5);
         }
       }
 
@@ -3591,7 +3567,7 @@ void __WiFiManagerClientServerTerminationCallback(uint64_t a1, uint64_t a2)
   *(a2 + 336) = 1;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    __WiFiManagerClientServerTerminationCallback_cold_1(v3);
+    __WiFiManagerClientServerTerminationCallback_cold_1();
   }
 
   WiFiSendRightRelease(v3);
@@ -3653,8 +3629,10 @@ LABEL_12:
   }
 }
 
-void WiFiManagerClientDispatchNotificationResponse(uint64_t a1, int a2, int a3, const void *a4)
+void WiFiManagerClientDispatchNotificationResponse(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4)
 {
+  v5 = a3;
+  v6 = a2;
   v7 = __WiFiManagerClientGetOrReconnectServerPort(a1, 0);
   if (v7)
   {
@@ -3665,7 +3643,7 @@ void WiFiManagerClientDispatchNotificationResponse(uint64_t a1, int a2, int a3, 
       v10 = BinaryData;
       BytePtr = CFDataGetBytePtr(BinaryData);
       Length = CFDataGetLength(v10);
-      wifi_manager_dispatch_notification_response(v8[1], a2, a3, BytePtr, Length);
+      wifi_manager_dispatch_notification_response(v8[1], v6, v5, BytePtr, Length);
       WiFiSendRightRelease(v8);
 
       CFRelease(v10);
@@ -3673,15 +3651,17 @@ void WiFiManagerClientDispatchNotificationResponse(uint64_t a1, int a2, int a3, 
 
     else
     {
-      wifi_manager_dispatch_notification_response(v8[1], a2, a3, 0, 0);
+      wifi_manager_dispatch_notification_response(v8[1], v6, v5, 0, 0);
 
       WiFiSendRightRelease(v8);
     }
   }
 }
 
-uint64_t WiFiManagerClientIndicateCarPlayHIDEventReceived(uint64_t a1, int a2, int a3, const void *a4)
+uint64_t WiFiManagerClientIndicateCarPlayHIDEventReceived(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4)
 {
+  v5 = a3;
+  v6 = a2;
   v7 = __WiFiManagerClientGetOrReconnectServerPort(a1, 0);
   if (v7)
   {
@@ -3692,14 +3672,14 @@ uint64_t WiFiManagerClientIndicateCarPlayHIDEventReceived(uint64_t a1, int a2, i
       v10 = BinaryData;
       BytePtr = CFDataGetBytePtr(BinaryData);
       Length = CFDataGetLength(v10);
-      wifi_manager_indicate_carplay_hid_event_received(v8[1], a2, a3, BytePtr, Length);
+      wifi_manager_indicate_carplay_hid_event_received(v8[1], v6, v5, BytePtr, Length);
       WiFiSendRightRelease(v8);
       CFRelease(v10);
     }
 
     else
     {
-      wifi_manager_indicate_carplay_hid_event_received(v8[1], a2, a3, 0, 0);
+      wifi_manager_indicate_carplay_hid_event_received(v8[1], v6, v5, 0, 0);
       WiFiSendRightRelease(v8);
     }
   }
@@ -3770,13 +3750,13 @@ LABEL_9:
 
 uint64_t __WiFiManagerClientGetRootDevice(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   os_unfair_recursive_lock_lock_with_options();
   v2 = *(a1 + 64);
   if (v2 && CFDictionaryGetCount(v2))
   {
     MEMORY[0x28223BE20]();
-    v4 = (v8 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0));
+    v4 = (v7 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0));
     memset(v4, 170, v3);
     CFDictionaryGetKeysAndValues(*(a1 + 64), 0, v4);
     v5 = *v4;
@@ -3788,7 +3768,6 @@ uint64_t __WiFiManagerClientGetRootDevice(uint64_t a1)
   }
 
   os_unfair_recursive_lock_unlock();
-  v6 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -3911,13 +3890,14 @@ void WiFiManagerClientRegisterScanBackoffReportCallback(uint64_t a1, uint64_t a2
   }
 }
 
-void WiFiManagerClientSetAssociationMode(uint64_t a1, int a2)
+void WiFiManagerClientSetAssociationMode(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v3 = __WiFiManagerClientGetOrReconnectServerPort(a1, 0);
   if (v3)
   {
     v4 = v3;
-    wifi_manager_set_association_mode(v3[1], a2);
+    wifi_manager_set_association_mode(v3[1], v2);
 
     WiFiSendRightRelease(v4);
   }
@@ -3937,13 +3917,14 @@ uint64_t WiFiManagerClientGetAssociationMode(uint64_t a1)
   return v4;
 }
 
-void WiFiManagerClientSetAskToJoinPreference(uint64_t a1, int a2)
+void WiFiManagerClientSetAskToJoinPreference(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v3 = __WiFiManagerClientGetOrReconnectServerPort(a1, 0);
   if (v3)
   {
     v4 = v3;
-    wifi_manager_set_asktojoin_preference(v3[1], a2);
+    wifi_manager_set_asktojoin_preference(v3[1], v2);
 
     WiFiSendRightRelease(v4);
   }
@@ -3987,13 +3968,14 @@ void WiFiManagerClientDisable(uint64_t a1)
   }
 }
 
-void WiFiManagerClientSetPower(uint64_t a1, int a2)
+void WiFiManagerClientSetPower(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v3 = __WiFiManagerClientGetOrReconnectServerPort(a1, 0);
   if (v3)
   {
     v4 = v3;
-    wifi_manager_set_power(v3[1], a2);
+    wifi_manager_set_power(v3[1], v2);
 
     WiFiSendRightRelease(v4);
   }
@@ -4044,13 +4026,14 @@ void WiFiManagerClientSetPowerExt(uint64_t a1, unsigned int a2)
   }
 }
 
-void WiFiManagerClientSetMISState(uint64_t a1, int a2)
+void WiFiManagerClientSetMISState(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v3 = __WiFiManagerClientGetOrReconnectServerPort(a1, 0);
   if (v3)
   {
     v4 = v3;
-    wifi_manager_set_mis_state(v3[1], a2);
+    wifi_manager_set_mis_state(v3[1], v2);
 
     WiFiSendRightRelease(v4);
   }
@@ -4071,15 +4054,17 @@ atomic_uint *WiFiManagerClientGetMISState(uint64_t a1)
   return result;
 }
 
-void WiFiManagerClientSetMISDiscoveryState(uint64_t a1, int a2, int a3)
+void WiFiManagerClientSetMISDiscoveryState(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
+  v4 = a2;
   v5 = __WiFiManagerClientGetOrReconnectServerPort(a1, 0);
   if (v5)
   {
     v6 = v5;
     v7 = getprogname();
     v8 = strncmp("sharingd", v7, 8uLL) == 0;
-    wifi_manager_set_mis_discovery_state(v6[1], a2, a3, v8, 0, 0, 0, 0, 0, 0);
+    wifi_manager_set_mis_discovery_state(v6[1], v4, v3, v8, 0, 0, 0, 0, 0, 0);
 
     WiFiSendRightRelease(v6);
   }
@@ -4223,21 +4208,23 @@ atomic_uint *WiFiManagerClientGetMISDiscoveryState(uint64_t a1)
   return result;
 }
 
-void WiFiManagerClientSetWoWState(uint64_t a1, int a2)
+void WiFiManagerClientSetWoWState(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = __WiFiManagerClientGetOrReconnectServerPort(a1, 0);
   if (v4)
   {
     v5 = v4;
-    *(a1 + 80) = a2;
-    wifi_manager_set_wow_state(v4[1], a2);
+    *(a1 + 80) = v2;
+    wifi_manager_set_wow_state(v4[1], v2);
 
     WiFiSendRightRelease(v5);
   }
 }
 
-uint64_t WiFiManagerClienSetQuiesceState(uint64_t a1, int a2)
+uint64_t WiFiManagerClienSetQuiesceState(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v6 = 0;
   v3 = __WiFiManagerClientGetOrReconnectServerPort(a1, 0);
   if (!v3)
@@ -4246,7 +4233,7 @@ uint64_t WiFiManagerClienSetQuiesceState(uint64_t a1, int a2)
   }
 
   v4 = v3;
-  wifi_manager_set_quiesce_state(v3[1], a2, &v6);
+  wifi_manager_set_quiesce_state(v3[1], v2, &v6);
   WiFiSendRightRelease(v4);
   return v6;
 }
@@ -4337,7 +4324,7 @@ uint64_t WiFiManagerClientIsAlwaysOnWiFiSupported(uint64_t a1)
 
 uint64_t WiFiManagerClientIsWiFiAlwaysOnSupported()
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v0 = MGGetProductType();
   v1 = 0;
   v5 = v0 != 1302273958 && v0 != 761631964 && v0 != 262180327 && v0 != 2445473385;
@@ -4375,14 +4362,13 @@ LABEL_20:
       v7 = "supported";
     }
 
-    v10 = 136315394;
-    v11 = "WiFiManagerClientIsWiFiAlwaysOnSupported";
-    v12 = 2080;
-    v13 = v7;
-    _os_log_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: always on wifi %s", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "WiFiManagerClientIsWiFiAlwaysOnSupported";
+    v11 = 2080;
+    v12 = v7;
+    _os_log_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: always on wifi %s", &v9, 0x16u);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v1;
 }
 
@@ -4489,13 +4475,14 @@ uint64_t WiFiManagerClientCopyMisPassword(uint64_t a1)
   return v2;
 }
 
-void WiFiManagerClientSetRetryIntervalCap(uint64_t a1, int a2)
+void WiFiManagerClientSetRetryIntervalCap(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v3 = __WiFiManagerClientGetOrReconnectServerPort(a1, 0);
   if (v3)
   {
     v4 = v3;
-    wifi_manager_set_retry_cap(v3[1], a2);
+    wifi_manager_set_retry_cap(v3[1], v2);
 
     WiFiSendRightRelease(v4);
   }
@@ -4632,17 +4619,18 @@ void WiFiManagerClientRemoveNetwork(uint64_t a1, const void *a2)
   }
 }
 
-void WiFiManagerClientRemoveNetworkWithReason(uint64_t a1, const void *a2, int a3)
+void WiFiManagerClientRemoveNetworkWithReason(uint64_t a1, const void *a2, uint64_t a3)
 {
   if (a2)
   {
+    v3 = a3;
     v5 = __WiFiManagerClientGetOrReconnectServerPort(a1, 0);
     if (v5)
     {
       v6 = WiFiNetworkCopyRecord(a2);
       if (v6)
       {
-        WiFiManagerClientRemoveNetworkWithReason_cold_1(v6, a2, a3, v5);
+        WiFiManagerClientRemoveNetworkWithReason_cold_1(v6, a2, v3, v5);
       }
     }
 
@@ -4710,7 +4698,7 @@ uint64_t WiFiManagerClientCopyClientNames(uint64_t a1)
 
 CFIndex WiFiManagerClientCopyInterfaces(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   os_unfair_recursive_lock_lock_with_options();
   v2 = *(a1 + 64);
   if (v2)
@@ -4719,7 +4707,7 @@ CFIndex WiFiManagerClientCopyInterfaces(uint64_t a1)
     if (Count)
     {
       MEMORY[0x28223BE20]();
-      v5 = v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v5 = v7 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
       memset(v5, 170, v4);
       CFDictionaryGetKeysAndValues(*(a1 + 64), 0, v5);
       Count = CFArrayCreate(*MEMORY[0x277CBECE8], v5, Count, MEMORY[0x277CBF128]);
@@ -4732,7 +4720,6 @@ CFIndex WiFiManagerClientCopyInterfaces(uint64_t a1)
   }
 
   os_unfair_recursive_lock_unlock();
-  v6 = *MEMORY[0x277D85DE8];
   return Count;
 }
 
@@ -4767,7 +4754,7 @@ LABEL_19:
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    __WiFiManagerClientAddDevice_cold_1(a2, v9);
+    __WiFiManagerClientAddDevice_cold_1();
   }
 
   v10 = _WiFiDeviceClientCreate(*MEMORY[0x277CBECE8], a1, v9[1], a2, a3);
@@ -4813,16 +4800,16 @@ LABEL_19:
 
 void WiFiManagerClientRemoveDevice(uint64_t a1, const void *a2, int a3, int a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v12 = 136315650;
-    v13 = "WiFiManagerClientRemoveDevice";
-    v14 = 2112;
-    v15 = a2;
-    v16 = 2112;
-    v17 = a1;
-    _os_log_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: removed %@ (manager %@)", &v12, 0x20u);
+    v11 = 136315650;
+    v12 = "WiFiManagerClientRemoveDevice";
+    v13 = 2112;
+    v14 = a2;
+    v15 = 2112;
+    v16 = a1;
+    _os_log_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: removed %@ (manager %@)", &v11, 0x20u);
   }
 
   if (a2)
@@ -4871,13 +4858,12 @@ void WiFiManagerClientRemoveDevice(uint64_t a1, const void *a2, int a3, int a4)
       os_unfair_recursive_lock_unlock();
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
-void WiFiManagerClientDispatchAttachmentEvent(void *a1, CFStringRef theString, int a3)
+void WiFiManagerClientDispatchAttachmentEvent(void *a1, CFStringRef theString, uint64_t a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v3 = a3;
+  v20 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     v6 = 6;
@@ -4888,7 +4874,7 @@ void WiFiManagerClientDispatchAttachmentEvent(void *a1, CFStringRef theString, i
     v6 = 0;
   }
 
-  if (theString && a3)
+  if (theString && v3)
   {
     if (CFStringHasPrefix(theString, @"ap"))
     {
@@ -4906,20 +4892,20 @@ void WiFiManagerClientDispatchAttachmentEvent(void *a1, CFStringRef theString, i
     Device = WiFiManagerClientGetDevice(a1, theString);
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      v11 = 136316162;
-      v12 = "WiFiManagerClientDispatchAttachmentEvent";
-      v13 = 2112;
-      v14 = theString;
-      v15 = 1024;
-      v16 = a3;
-      v17 = 2112;
-      v18 = a1;
-      v19 = 2112;
-      v20 = Device;
-      _os_log_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: attached %@ (isVirtual %d manager %@ deviceClient %@)", &v11, 0x30u);
+      v10 = 136316162;
+      v11 = "WiFiManagerClientDispatchAttachmentEvent";
+      v12 = 2112;
+      v13 = theString;
+      v14 = 1024;
+      v15 = v3;
+      v16 = 2112;
+      v17 = a1;
+      v18 = 2112;
+      v19 = Device;
+      _os_log_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: attached %@ (isVirtual %d manager %@ deviceClient %@)", &v10, 0x30u);
     }
 
-    if (a3)
+    if (v3)
     {
       v8 = a1[18];
       if (v8)
@@ -4942,8 +4928,6 @@ void WiFiManagerClientDispatchAttachmentEvent(void *a1, CFStringRef theString, i
   {
     WiFiManagerClientDispatchAttachmentEvent_cold_1();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void *WiFiManagerClientRegisterServerRestartCallback(void *result, uint64_t a2, uint64_t a3)
@@ -5014,7 +4998,7 @@ void __WiFiManagerClientAvailableCallback(uint64_t a1, uint64_t a2, uint64_t a3,
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      __WiFiManagerClientAvailableCallback_cold_2(v5);
+      __WiFiManagerClientAvailableCallback_cold_2();
     }
 
     WiFiSendRightRelease(v5);
@@ -5108,8 +5092,9 @@ uint64_t WiFiManagerClientIsRestrictionPolicyActive(uint64_t a1)
   return v4;
 }
 
-void WiFiManagerClientSetInCarState(uint64_t a1, int a2, const __CFData *a3)
+void WiFiManagerClientSetInCarState(uint64_t a1, uint64_t a2, const __CFData *a3)
 {
+  v4 = a2;
   kdebug_trace();
   objc_autoreleasePoolPop(objc_autoreleasePoolPush());
   v6 = __WiFiManagerClientGetOrReconnectServerPort(a1, 0);
@@ -5128,7 +5113,7 @@ void WiFiManagerClientSetInCarState(uint64_t a1, int a2, const __CFData *a3)
       Length = 0;
     }
 
-    wifi_manager_set_incar_state(v7[1], a2, BytePtr, Length);
+    wifi_manager_set_incar_state(v7[1], v4, BytePtr, Length);
     if (a3)
     {
       CFRelease(a3);
@@ -5145,13 +5130,14 @@ void WiFiManagerClientSetInCarState(uint64_t a1, int a2, const __CFData *a3)
   }
 }
 
-void WiFiManagerClientSetThermalIndex(uint64_t a1, int a2)
+void WiFiManagerClientSetThermalIndex(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v3 = __WiFiManagerClientGetOrReconnectServerPort(a1, 0);
   if (v3)
   {
     v4 = v3;
-    wifi_manager_set_thermal_index(v3[1], a2);
+    wifi_manager_set_thermal_index(v3[1], v2);
 
     WiFiSendRightRelease(v4);
   }
@@ -5562,13 +5548,14 @@ void WiFiManagerClientRemoveUnusedNetworkGeotags(uint64_t a1, double a2)
   }
 }
 
-void WiFiManagerClientScheduleUnusedNetworkGeotagsRemovalTest(uint64_t a1, int a2, double a3)
+void WiFiManagerClientScheduleUnusedNetworkGeotagsRemovalTest(uint64_t a1, uint64_t a2, double a3)
 {
+  v3 = a2;
   v5 = __WiFiManagerClientGetOrReconnectServerPort(a1, 0);
   if (v5)
   {
     v6 = v5;
-    wifi_manager_schedule_unused_network_geotags_removal_test(v5[1], a2, a3);
+    wifi_manager_schedule_unused_network_geotags_removal_test(v5[1], v3, a3);
 
     WiFiSendRightRelease(v6);
   }
@@ -5601,7 +5588,7 @@ void WiFiManagerClientRegisterPreferredNetworksChangedCallback(uint64_t a1, uint
   }
 }
 
-uint64_t WiFiManagerClientSimulateNotification(uint64_t a1, CFDictionaryRef a2, int a3, const __CFData *a4)
+uint64_t WiFiManagerClientSimulateNotification(uint64_t a1, CFDictionaryRef a2, uint64_t a3, const __CFData *a4)
 {
   if (!a1)
   {
@@ -5610,6 +5597,7 @@ uint64_t WiFiManagerClientSimulateNotification(uint64_t a1, CFDictionaryRef a2, 
     goto LABEL_20;
   }
 
+  v5 = a3;
   v7 = __WiFiManagerClientGetOrReconnectServerPort(a1, 0);
   if (!v7)
   {
@@ -5631,7 +5619,7 @@ LABEL_10:
     v15 = 0;
     v16 = 0;
 LABEL_11:
-    wifi_manager_simulate_notification(v7[1], BytePtr, Length, a3, v15, v16);
+    wifi_manager_simulate_notification(v7[1], BytePtr, Length, v5, v15, v16);
     v17 = 0;
     if (!v11)
     {
@@ -5704,13 +5692,14 @@ LABEL_17:
   return v17;
 }
 
-void WiFiManagerClientSetAutoInstantHotspotMode(uint64_t a1, int a2)
+void WiFiManagerClientSetAutoInstantHotspotMode(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v3 = __WiFiManagerClientGetOrReconnectServerPort(a1, 0);
   if (v3)
   {
     v4 = v3;
-    wifi_manager_set_auto_instant_hotspot_mode(v3[1], a2);
+    wifi_manager_set_auto_instant_hotspot_mode(v3[1], v2);
 
     WiFiSendRightRelease(v4);
   }
@@ -5730,13 +5719,14 @@ uint64_t WiFiManagerClientGetAutoInstantHotspotMode(uint64_t a1)
   return v4;
 }
 
-void WiFiManagerClientSetShareMyPersonalHotspotMode(uint64_t a1, int a2)
+void WiFiManagerClientSetShareMyPersonalHotspotMode(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v3 = __WiFiManagerClientGetOrReconnectServerPort(a1, 0);
   if (v3)
   {
     v4 = v3;
-    wifi_manager_set_share_personal_hotspot_mode(v3[1], a2);
+    wifi_manager_set_share_personal_hotspot_mode(v3[1], v2);
 
     WiFiSendRightRelease(v4);
   }
@@ -5756,13 +5746,14 @@ uint64_t WiFiManagerClientGetShareMyPersonalHotspotMode(uint64_t a1)
   return v4;
 }
 
-void WiFiManagerClientSetAutoInstantHotspotTestMode(uint64_t a1, int a2)
+void WiFiManagerClientSetAutoInstantHotspotTestMode(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v3 = __WiFiManagerClientGetOrReconnectServerPort(a1, 0);
   if (v3)
   {
     v4 = v3;
-    wifi_manager_set_auto_instant_hotspot_test_mode(v3[1], a2);
+    wifi_manager_set_auto_instant_hotspot_test_mode(v3[1], v2);
 
     WiFiSendRightRelease(v4);
   }
@@ -5995,13 +5986,14 @@ uint64_t WiFiManagerClientIsManagedAppleID(uint64_t a1)
   return v4;
 }
 
-void WiFiManagerClientSetBuiltInReceiver(uint64_t a1, int a2)
+void WiFiManagerClientSetBuiltInReceiver(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v3 = __WiFiManagerClientGetOrReconnectServerPort(a1, 0);
   if (v3)
   {
     v4 = v3;
-    wifi_manager_set_built_in_receiver(v3[1], a2);
+    wifi_manager_set_built_in_receiver(v3[1], v2);
 
     WiFiSendRightRelease(v4);
   }
@@ -6169,8 +6161,9 @@ LABEL_7:
   WiFiSendRightRelease(v4);
 }
 
-BOOL WiFiManagerClientSetPrivateMacPrefForScanRecord(uint64_t a1, const void *a2, const void *a3, int a4)
+BOOL WiFiManagerClientSetPrivateMacPrefForScanRecord(uint64_t a1, const void *a2, const void *a3, uint64_t a4)
 {
+  v4 = a4;
   v19 = 0;
   v7 = *MEMORY[0x277CBECE8];
   BinaryData = _CFPropertyListCreateBinaryData(*MEMORY[0x277CBECE8], a2);
@@ -6205,7 +6198,7 @@ BOOL WiFiManagerClientSetPrivateMacPrefForScanRecord(uint64_t a1, const void *a2
   if (v16)
   {
     v17 = v16;
-    wifi_manager_set_private_mac_pref(v16[1], BytePtr, Length, a4, v14, v15, &v19);
+    wifi_manager_set_private_mac_pref(v16[1], BytePtr, Length, v4, v14, v15, &v19);
     WiFiSendRightRelease(v17);
   }
 
@@ -6335,13 +6328,14 @@ void WiFiManagerClientCleanupLogBufferFiles(uint64_t a1)
   }
 }
 
-void WiFiManagerClientWiFiCallHandoverNotification(uint64_t a1, int a2)
+void WiFiManagerClientWiFiCallHandoverNotification(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v3 = __WiFiManagerClientGetOrReconnectServerPort(a1, 0);
   v4 = v3;
   if (v3)
   {
-    wifi_manager_wificall_handover_notification(v3[1], a2);
+    wifi_manager_wificall_handover_notification(v3[1], v2);
   }
 
   else
@@ -6425,13 +6419,14 @@ void WiFiManagerClientSetSimulatedMovementStates(uint64_t a1, const void *a2)
   WiFiSendRightRelease(v3);
 }
 
-void WiFiManagerClientSetBatterySaveMode(uint64_t a1, int a2)
+void WiFiManagerClientSetBatterySaveMode(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v3 = __WiFiManagerClientGetOrReconnectServerPort(a1, 0);
   if (v3)
   {
     v4 = v3;
-    wifi_manager_set_battery_save_mode(v3[1], a2);
+    wifi_manager_set_battery_save_mode(v3[1], v2);
 
     WiFiSendRightRelease(v4);
   }
@@ -6505,13 +6500,14 @@ uint64_t _WiFiManagerClientGetCoreWiFiInterface(uint64_t a1)
   return *(a1 + 344);
 }
 
-void WiFiManagerClientConfigureMISIdleLinkTest(uint64_t a1, int a2)
+void WiFiManagerClientConfigureMISIdleLinkTest(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v3 = __WiFiManagerClientGetOrReconnectServerPort(a1, 0);
   if (v3)
   {
     v4 = v3;
-    wifi_manager_configure_mis_idle_link_test(v3[1], a2);
+    wifi_manager_configure_mis_idle_link_test(v3[1], v2);
 
     WiFiSendRightRelease(v4);
   }
@@ -6578,7 +6574,7 @@ void __WiFiManagerClientRelease(uint64_t a1)
 
 uint64_t __WiFiManagerClientClearDevicePorts(uint64_t a1)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   os_unfair_recursive_lock_lock_with_options();
   v2 = *(a1 + 64);
   if (v2)
@@ -6588,7 +6584,7 @@ uint64_t __WiFiManagerClientClearDevicePorts(uint64_t a1)
     {
       v4 = Count;
       MEMORY[0x28223BE20]();
-      v6 = (v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
+      v6 = (v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
       memset(v6, 170, v5);
       CFDictionaryGetKeysAndValues(*(a1 + 64), 0, v6);
       if (v4 >= 1)
@@ -6605,23 +6601,7 @@ uint64_t __WiFiManagerClientClearDevicePorts(uint64_t a1)
     }
   }
 
-  result = os_unfair_recursive_lock_unlock();
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_6()
-{
-  result = *v1;
-  v3 = *v0;
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_7()
-{
-  result = *v1;
-  v3 = *v0;
-  return result;
+  return os_unfair_recursive_lock_unlock();
 }
 
 const void *OUTLINED_FUNCTION_16(const void *a1)
@@ -6922,8 +6902,9 @@ uint64_t WiFiDeviceClientAssociateCancel(uint64_t result)
   return result;
 }
 
-uint64_t WiFiDeviceClientStartNetwork(uint64_t a1, int a2, CFTypeRef BinaryData, uint64_t a4, uint64_t a5)
+uint64_t WiFiDeviceClientStartNetwork(uint64_t a1, uint64_t a2, CFTypeRef BinaryData, uint64_t a4, uint64_t a5)
 {
+  v8 = a2;
   v17 = 0;
   if (!_WiFiDeviceClientIsServerPortValid(a1))
   {
@@ -6931,7 +6912,7 @@ uint64_t WiFiDeviceClientStartNetwork(uint64_t a1, int a2, CFTypeRef BinaryData,
     goto LABEL_11;
   }
 
-  if ((a2 - 1) >= 4 || a2 != 4 && !BinaryData || !a4 || BinaryData && (BinaryData = _CFPropertyListCreateBinaryData(*MEMORY[0x277CBECE8], BinaryData)) == 0)
+  if ((v8 - 1) >= 4 || v8 != 4 && !BinaryData || !a4 || BinaryData && (BinaryData = _CFPropertyListCreateBinaryData(*MEMORY[0x277CBECE8], BinaryData)) == 0)
   {
     v15 = 22;
 LABEL_11:
@@ -6949,13 +6930,13 @@ LABEL_11:
   {
     v13 = CFDataGetBytePtr(BinaryData);
     v14 = CFDataGetLength(BinaryData);
-    wifi_device_start_network(v10, BytePtr, Length, a2, v13, v14, &v17);
+    wifi_device_start_network(v10, BytePtr, Length, v8, v13, v14, &v17);
     CFRelease(BinaryData);
   }
 
   else
   {
-    wifi_device_start_network(v10, BytePtr, Length, a2, 0, 0, &v17);
+    wifi_device_start_network(v10, BytePtr, Length, v8, 0, 0, &v17);
   }
 
   v15 = v17;
@@ -7018,34 +6999,6 @@ void WiFiDeviceClientRegisterVirtualInterfaceStateChangeCallback(uint64_t *a1, u
   }
 }
 
-void __WiFiDeviceClientRegisterVirtualInterfaceStateChangeCallback_block_invoke(uint64_t a1)
-{
-  cf = 0;
-  v2 = WiFiDeviceClientCopyInterfaceStateInfo(*(a1 + 32), &cf);
-  v3 = cf;
-  if (cf)
-  {
-    v4 = v2 == 0;
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  if (v4)
-  {
-    _WiFiDeviceClientDispatchVirtInterfaceStateChangeEvent(*(a1 + 32), cf);
-  }
-
-  else if (!cf)
-  {
-    return;
-  }
-
-  CFRelease(v3);
-}
-
 uint64_t WiFiDeviceClientRegisterRoamStatusEventCallback(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   *(a1 + 592) = a2;
@@ -7054,7 +7007,7 @@ uint64_t WiFiDeviceClientRegisterRoamStatusEventCallback(uint64_t a1, uint64_t a
   return _WiFiDeviceClientSendEventMaskToServer(a1);
 }
 
-uint64_t WiFiDeviceClientSetWiFiDirect(uint64_t a1, unsigned __int8 a2)
+uint64_t WiFiDeviceClientSetWiFiDirect(uint64_t a1, uint64_t a2)
 {
   v3 = 0;
   if (!a1)
@@ -7082,21 +7035,21 @@ uint64_t _WiFiDeviceClientDispatchAssociationResult(uint64_t result, uint64_t a2
 
 uint64_t _WiFiDeviceClientDispatchStartNetworkResult(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 192);
   if (v4)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      v19 = 136315906;
-      v20 = "_WiFiDeviceClientDispatchStartNetworkResult";
-      v21 = 1024;
-      v22 = a2;
-      v23 = 2112;
-      v24 = a4;
-      v25 = 2112;
-      v26 = a3;
-      _os_log_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: dispatching callback (error=%d) with response %@ and network %@", &v19, 0x26u);
+      v18 = 136315906;
+      v19 = "_WiFiDeviceClientDispatchStartNetworkResult";
+      v20 = 1024;
+      v21 = a2;
+      v22 = 2112;
+      v23 = a4;
+      v24 = 2112;
+      v25 = a3;
+      _os_log_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: dispatching callback (error=%d) with response %@ and network %@", &v18, 0x26u);
       v4 = *(a1 + 192);
     }
 
@@ -7113,28 +7066,27 @@ uint64_t _WiFiDeviceClientDispatchStartNetworkResult(uint64_t a1, uint64_t a2, u
       _WiFiDeviceClientDispatchStartNetworkResult_cold_1(v10, v11, v12, v13, v14, v15, v16, v17);
     }
 
-    result = 2;
+    return 2;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t _WiFiDeviceClientDispatchStopNetworkResult(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 208);
   if (v3)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      v17 = 136315650;
-      v18 = "_WiFiDeviceClientDispatchStopNetworkResult";
-      v19 = 1024;
-      v20 = a2;
-      v21 = 2112;
-      v22 = a3;
-      _os_log_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: dispatching callback (error=%d) with response %@", &v17, 0x1Cu);
+      v16 = 136315650;
+      v17 = "_WiFiDeviceClientDispatchStopNetworkResult";
+      v18 = 1024;
+      v19 = a2;
+      v20 = 2112;
+      v21 = a3;
+      _os_log_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: dispatching callback (error=%d) with response %@", &v16, 0x1Cu);
       v3 = *(a1 + 208);
     }
 
@@ -7151,10 +7103,9 @@ uint64_t _WiFiDeviceClientDispatchStopNetworkResult(uint64_t a1, uint64_t a2, ui
       _WiFiDeviceClientDispatchStopNetworkResult_cold_1(v8, v9, v10, v11, v12, v13, v14, v15);
     }
 
-    result = 2;
+    return 2;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7455,8 +7406,9 @@ uint64_t _WiFiDeviceClientDispatchDeviceAvailableEvent(uint64_t result, uint64_t
   return result;
 }
 
-uint64_t WiFiDeviceClientSetRangeable(uint64_t a1, int a2, const __CFData *a3)
+uint64_t WiFiDeviceClientSetRangeable(uint64_t a1, uint64_t a2, const __CFData *a3)
 {
+  v4 = a2;
   v13 = 0;
   if (_WiFiDeviceClientIsServerPortValid(a1))
   {
@@ -7475,7 +7427,7 @@ uint64_t WiFiDeviceClientSetRangeable(uint64_t a1, int a2, const __CFData *a3)
     v9 = *(a1 + 16);
     v10 = CFDataGetBytePtr(*(a1 + 48));
     v11 = CFDataGetLength(*(a1 + 48));
-    wifi_device_set_rangeable(v9, v10, v11, a2, BytePtr, Length, &v13);
+    wifi_device_set_rangeable(v9, v10, v11, v4, BytePtr, Length, &v13);
     if (a3)
     {
       CFRelease(a3);
@@ -7895,10 +7847,11 @@ void ___dispatchCopyCurrentNetwork_block_invoke(uint64_t a1)
   free(v2);
 }
 
-void OUTLINED_FUNCTION_5_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_5_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 CFIndex OUTLINED_FUNCTION_10_0()
@@ -7910,10 +7863,9 @@ CFIndex OUTLINED_FUNCTION_10_0()
 
 const UInt8 *OUTLINED_FUNCTION_14_0()
 {
-  v2 = *(v0 + 16);
-  v3 = *(v0 + 48);
+  v2 = *(v0 + 48);
 
-  return CFDataGetBytePtr(v3);
+  return CFDataGetBytePtr(v2);
 }
 
 CFIndex OUTLINED_FUNCTION_15_0()
@@ -7947,13 +7899,12 @@ CFSetRef __WiFiNetworkRegister()
   values[4] = @"AcceptEAPTypes";
   v0 = *MEMORY[0x277CBECE8];
   __eapKeys = CFArrayCreate(*MEMORY[0x277CBECE8], values, 5, MEMORY[0x277CBF128]);
-  v3[0] = @"AppleWiFi";
-  v3[1] = @"AppleWifi";
-  v3[2] = @"AppleWiFiSecure";
-  v3[3] = @"AppleWatch";
-  result = CFSetCreate(v0, v3, 4, MEMORY[0x277CBF158]);
+  v2[0] = @"AppleWiFi";
+  v2[1] = @"AppleWifi";
+  v2[2] = @"AppleWiFiSecure";
+  v2[3] = @"AppleWatch";
+  result = CFSetCreate(v0, v2, 4, MEMORY[0x277CBF158]);
   __internalSSIDs = result;
-  v2 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8138,23 +8089,22 @@ CFStringRef __WiFiNetworkCopyPasswordForAccount(uint64_t a1)
 
 CFStringRef WiFiNetworkCopyPassword(CFDictionaryRef *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "WiFiNetworkCopyPassword";
-    v8 = 2112;
+    v5 = 136315394;
+    v6 = "WiFiNetworkCopyPassword";
+    v7 = 2112;
     AccountForNetwork = WiFiNetworkGetAccountForNetwork(a1);
-    _os_log_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Copy password for Network %@", &v6, 0x16u);
+    _os_log_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Copy password for Network %@", &v5, 0x16u);
   }
 
   if (!a1 || !CFDictionaryContainsKey(a1[2], @"PayloadUUID") || (v2 = WiFiNetworkGetAccountForNetwork(a1), (result = WiFiSecurityCopyNonSyncablePassword(v2)) == 0))
   {
     v4 = WiFiNetworkGetAccountForNetwork(a1);
-    result = WiFiSecurityCopyPassword(v4);
+    return WiFiSecurityCopyPassword(v4);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8497,17 +8447,17 @@ void WiFiNetworkMergeAutoJoinProperties(uint64_t a1, uint64_t a2)
   objc_autoreleasePoolPop(v9);
 }
 
-void WiFiNetworkMerge(uint64_t a1, uint64_t a2)
+void WiFiNetworkMerge(uint64_t result, uint64_t a2)
 {
   if (a2)
   {
-    WiFiNetworkMergeProperties(a1, *(a2 + 16));
-    if (*(a1 + 24) == -1)
+    WiFiNetworkMergeProperties(result, *(a2 + 16));
+    if (*(result + 24) == -1)
     {
       v4 = *(a2 + 24);
       if (v4 != 0xFFFF)
       {
-        *(a1 + 24) = v4;
+        *(result + 24) = v4;
       }
     }
   }
@@ -8826,30 +8776,29 @@ const __CFString *WiFiNetworkGetSSIDData(const void *a1)
   return result;
 }
 
-const __CFString *WiFiNetworkCopyBSSIDData(uint64_t a1)
+CFDataRef WiFiNetworkCopyBSSIDData(uint64_t a1)
 {
-  v6[2] = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
   result = WiFiNetworkGetProperty(a1, @"BSSID");
   if (result)
   {
     v2 = result;
     v3 = CFGetTypeID(result);
-    if (v3 == CFStringGetTypeID() && (v5 = 0, v6[0] = 0, *(v6 + 7) = 0, CFStringGetCString(v2, &v5, 19, 0x8000100u)))
+    if (v3 == CFStringGetTypeID() && (v4 = 0, v5[0] = 0, *(v5 + 7) = 0, CFStringGetCString(v2, &v4, 19, 0x8000100u)))
     {
-      result = ether_aton(&v5);
+      result = ether_aton(&v4);
       if (result)
       {
-        result = CFDataCreate(*MEMORY[0x277CBECE8], result, 6);
+        return CFDataCreate(*MEMORY[0x277CBECE8], result, 6);
       }
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -9039,7 +8988,7 @@ const __CFDictionary *WiFiNetworkIsSAE(const __CFDictionary *result)
   return result;
 }
 
-void WiFiNetworkSetSAE(int a1, int a2, int a3)
+void WiFiNetworkSetSAE(uint64_t a1, int a2, int a3)
 {
   if (a2)
   {
@@ -9072,17 +9021,16 @@ void WiFiNetworkSetSAE(int a1, int a2, int a3)
 
       else
       {
-        v12 = *MEMORY[0x277CBED10];
-        WiFiNetworkSetProperty(a1, @"ALLOW_WPA2_PSK");
+        WiFiNetworkSetProperty(a1, @"ALLOW_WPA2_PSK", *MEMORY[0x277CBED10]);
       }
 
       keys = @"IE_KEY_RSN_AUTHSELS";
-      v13 = CFDictionaryCreate(v5, &keys, &values, 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-      if (v13)
+      v12 = CFDictionaryCreate(v5, &keys, &values, 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+      if (v12)
       {
-        v14 = v13;
-        WiFiNetworkSetProperty(a1, @"RSN_IE");
-        CFRelease(v14);
+        v13 = v12;
+        WiFiNetworkSetProperty(a1, @"RSN_IE", v12);
+        CFRelease(v13);
       }
 
       CFRelease(values);
@@ -9092,7 +9040,7 @@ void WiFiNetworkSetSAE(int a1, int a2, int a3)
   else
   {
 
-    WiFiNetworkSetProperty(a1, @"RSN_IE");
+    WiFiNetworkSetProperty(a1, @"RSN_IE", 0);
   }
 }
 
@@ -9118,7 +9066,6 @@ uint64_t WiFiNetworkIsWPAWPA2PSK(uint64_t result)
 
 void WiFiNetworkSetWPA(uint64_t a1, int a2)
 {
-  v2 = a1;
   if (a2)
   {
     v3 = 2 * (WiFiNetworkGetProperty(a1, @"EnterpriseProfile") == 0);
@@ -9135,7 +9082,7 @@ void WiFiNetworkSetWPA(uint64_t a1, int a2)
         if (v5)
         {
           v6 = v5;
-          WiFiNetworkSetProperty(v2, @"RSN_IE");
+          WiFiNetworkSetProperty(a1, @"RSN_IE", v5);
           CFRelease(v6);
         }
 
@@ -9165,7 +9112,7 @@ void WiFiNetworkSetWPA(uint64_t a1, int a2)
         if (v7)
         {
           v8 = v7;
-          WiFiNetworkSetProperty(v2, @"WPA_IE");
+          WiFiNetworkSetProperty(a1, @"WPA_IE", v7);
           CFRelease(v8);
         }
 
@@ -9185,9 +9132,9 @@ void WiFiNetworkSetWPA(uint64_t a1, int a2)
 
   else
   {
-    WiFiNetworkSetProperty(a1, @"RSN_IE");
+    WiFiNetworkSetProperty(a1, @"RSN_IE", 0);
 
-    WiFiNetworkSetProperty(v2, @"WPA_IE");
+    WiFiNetworkSetProperty(a1, @"WPA_IE", 0);
   }
 }
 
@@ -9380,7 +9327,7 @@ uint64_t WiFiNetworkGetCaptiveStatus(uint64_t a1)
   }
 }
 
-uint64_t WiFiNetworkIsWoWAllowed(uint64_t a1)
+BOOL WiFiNetworkIsWoWAllowed(uint64_t a1)
 {
   if (a1 && (v2 = (a1 + 16), (v1 = *(a1 + 16)) != 0) && (v3 = CFGetTypeID(v1), v3 == CFDictionaryGetTypeID()))
   {
@@ -9434,7 +9381,7 @@ uint64_t WiFiNetworkIsNanPH(uint64_t a1)
   return result;
 }
 
-BOOL WiFiNetworkIsWPA(_BOOL8 result)
+uint64_t WiFiNetworkIsWPA(uint64_t result)
 {
   if (result)
   {
@@ -9548,17 +9495,17 @@ const __CFDictionary *__WiFiNetworkContainsWPA2Auth(const __CFDictionary *result
   return result;
 }
 
-const __CFDictionary *WiFiNetworkSupportsWPA3(const __CFDictionary *result)
+const __CFDictionary **WiFiNetworkSupportsWPA3(const __CFDictionary **result)
 {
   if (result)
   {
-    return __WiFiNetworkIsSAE(*(result + 2));
+    return __WiFiNetworkIsSAE(result[2]);
   }
 
   return result;
 }
 
-uint64_t WiFiNetworkIsBcnProtCapable(uint64_t result)
+BOOL WiFiNetworkIsBcnProtCapable(_BOOL8 result)
 {
   if (result)
   {
@@ -9581,11 +9528,11 @@ const __CFDictionary *WiFiNetworkIsSAEPK(const __CFDictionary *result)
   return result;
 }
 
-const __CFDictionary *WiFiNetworkIsSAEPKPasswordUsed(const __CFDictionary *result)
+const __CFDictionary **WiFiNetworkIsSAEPKPasswordUsed(const __CFDictionary **result)
 {
   if (result)
   {
-    v1 = *(result + 2);
+    v1 = result[2];
     value = 0;
     result = __WiFiNetworkIsSAE(v1);
     if (result)
@@ -9665,6 +9612,56 @@ uint64_t WiFiNetworkIsOWETransition(uint64_t result)
     {
       v3 = CFDictionaryGetValue(v1, @"ALLOW_OWE_TSN");
       LOBYTE(result) = _CFTypeGetIntValue(v3);
+    }
+  }
+
+  return result;
+}
+
+const __CFDictionary *WiFiNetworkIsOWEOnly(const __CFDictionary *result)
+{
+  if (result)
+  {
+    return __WiFiNetworkIsOWEOnly(*(result + 2));
+  }
+
+  return result;
+}
+
+const __CFDictionary *__WiFiNetworkIsOWEOnly(const __CFDictionary *a1)
+{
+  result = CFDictionaryGetValue(a1, @"RSN_IE");
+  if (result)
+  {
+    result = __WiFiNetworkContainsAuthSelector(result, 18);
+    if (result)
+    {
+      Value = CFDictionaryGetValue(a1, @"SCAN_RESULT_OWE_MULTI_SSID");
+      if (_CFTypeGetIntValue(Value))
+      {
+        return 0;
+      }
+
+      else
+      {
+        v4 = CFDictionaryGetValue(a1, @"ALLOW_OWE_TSN");
+        return (_CFTypeGetIntValue(v4) == 0);
+      }
+    }
+  }
+
+  return result;
+}
+
+BOOL WiFiNetworkAllowsPasswordBasedEAPType(_BOOL8 result)
+{
+  if (result)
+  {
+    v1 = result;
+    result = WiFiNetworkIsEAP(result);
+    if (result)
+    {
+      return __WiFiNetworkIsEAPWithType(v1, 17) || __WiFiNetworkIsEAPWithType(v1, 21) || __WiFiNetworkIsEAPWithType(v1, 25) || __WiFiNetworkIsEAPWithType(v1, 26) || __WiFiNetworkIsEAPWithType(v1, 43) != 0;
     }
   }
 

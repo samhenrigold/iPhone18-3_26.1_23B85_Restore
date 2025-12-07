@@ -89,9 +89,9 @@ LABEL_7:
     {
       if (_homeAffordanceSceneNotifier && v9)
       {
-        v11 = [_homeAffordanceSceneNotifier isEqual:v9];
+        isEqual = objc_msgSend_isEqual_(_homeAffordanceSceneNotifier);
 
-        if (v11)
+        if (isEqual)
         {
           goto LABEL_20;
         }

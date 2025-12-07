@@ -28,7 +28,7 @@
   v9 = [(ENSignature *)self init];
   if (!v9)
   {
-    v31 = ENErrorF(1);
+    v31 = ENErrorF(1, "init failed");
     v29 = 0;
     v10 = v44[5];
     v44[5] = v31;
@@ -454,39 +454,36 @@ id __50__ENSignature__readSignatureInfoPtr_length_error___block_invoke(uint64_t 
 
 - (id)description
 {
-  NSAppendPrintF_safe();
-  v3 = 0;
+  v15 = 0;
+  NSAppendPrintF_safe(&v15, "ENSignature");
+  v3 = v15;
   v4 = v3;
-  if (self->_appleBundleID)
+  appleBundleID = self->_appleBundleID;
+  if (appleBundleID)
   {
-    v16 = v3;
-    appleBundleID = self->_appleBundleID;
-    NSAppendPrintF_safe();
-    v5 = v16;
-
-    v4 = v5;
-  }
-
-  if (self->_androidBundleID)
-  {
-    appleBundleID = self->_androidBundleID;
-    NSAppendPrintF_safe();
-    v6 = v4;
+    v14 = v3;
+    NSAppendPrintF_safe(&v14, ", Apple %@, ", appleBundleID);
+    v6 = v14;
 
     v4 = v6;
   }
 
-  keyID = self->_keyID;
-  keyVersion = self->_keyVersion;
-  signatureAlgorithm = self->_signatureAlgorithm;
-  signatureData = self->_signatureData;
-  batchNumber = self->_batchNumber;
-  batchCount = self->_batchCount;
-  [(NSData *)signatureData length];
-  NSAppendPrintF_safe();
-  v13 = v4;
+  androidBundleID = self->_androidBundleID;
+  if (androidBundleID)
+  {
+    v13 = v4;
+    NSAppendPrintF_safe(&v13, ", Android %@, ", androidBundleID);
+    v8 = v13;
 
-  return v4;
+    v4 = v8;
+  }
+
+  v12 = v4;
+  NSAppendPrintF_safe(&v12, ", KeyID %@, Vers %@, Batch %u of %u, Alg %@, %llu bytes", self->_keyID, self->_keyVersion, self->_batchNumber, self->_batchCount, self->_signatureAlgorithm, [(NSData *)self->_signatureData length]);
+  v9 = v12;
+  v10 = v12;
+
+  return v9;
 }
 
 - (BOOL)encodeWithProtobufCoder:(id)coder error:(id *)error
@@ -526,12 +523,12 @@ id __50__ENSignature__readSignatureInfoPtr_length_error___block_invoke(uint64_t 
   {
     if (!error)
     {
-      goto LABEL_21;
+      goto LABEL_22;
     }
 
-LABEL_20:
-    ENErrorF(2);
-    *error = v10 = 0;
+    ENErrorF(2, "super init failed");
+LABEL_21:
+    *error = v13 = 0;
     goto LABEL_16;
   }
 
@@ -539,45 +536,47 @@ LABEL_20:
   {
     if (!error)
     {
-      goto LABEL_21;
+      goto LABEL_22;
     }
 
-    goto LABEL_20;
-  }
-
-  OUTLINED_FUNCTION_0_0();
-  if (!CUXPCDecodeNSString())
-  {
+    ENErrorF(2, "XPC non-dict");
     goto LABEL_21;
   }
 
   OUTLINED_FUNCTION_0_0();
   if (!CUXPCDecodeNSString())
   {
-    goto LABEL_21;
+    goto LABEL_22;
   }
 
-  v8 = OUTLINED_FUNCTION_3_1();
-  if (v8 == 6)
+  OUTLINED_FUNCTION_0_0();
+  v8 = CUXPCDecodeNSString();
+  if (!v8)
+  {
+    goto LABEL_22;
+  }
+
+  v10 = OUTLINED_FUNCTION_3_1(v8, "btCnt", v9);
+  if (v10 == 6)
   {
     v7->_batchCount = 0;
   }
 
-  else if (v8 == 5)
+  else if (v10 == 5)
   {
-    goto LABEL_21;
+    goto LABEL_22;
   }
 
-  v9 = OUTLINED_FUNCTION_3_1();
-  if (v9 != 6)
+  v12 = OUTLINED_FUNCTION_3_1(v10, "btNum", v11);
+  if (v12 != 6)
   {
-    if (v9 != 5)
+    if (v12 != 5)
     {
       goto LABEL_11;
     }
 
-LABEL_21:
-    v10 = 0;
+LABEL_22:
+    v13 = 0;
     goto LABEL_16;
   }
 
@@ -586,31 +585,31 @@ LABEL_11:
   OUTLINED_FUNCTION_0_0();
   if (!CUXPCDecodeNSString())
   {
-    goto LABEL_21;
+    goto LABEL_22;
   }
 
   OUTLINED_FUNCTION_0_0();
   if (!CUXPCDecodeNSString())
   {
-    goto LABEL_21;
+    goto LABEL_22;
   }
 
   OUTLINED_FUNCTION_0_0();
   if (!CUXPCDecodeNSString())
   {
-    goto LABEL_21;
+    goto LABEL_22;
   }
 
   OUTLINED_FUNCTION_0_0();
   if (!CUXPCDecodeNSData())
   {
-    goto LABEL_21;
+    goto LABEL_22;
   }
 
-  v10 = v7;
+  v13 = v7;
 LABEL_16:
 
-  return v10;
+  return v13;
 }
 
 @end

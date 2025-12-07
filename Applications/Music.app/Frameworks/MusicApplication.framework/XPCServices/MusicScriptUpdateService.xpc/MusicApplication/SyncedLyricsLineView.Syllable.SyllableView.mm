@@ -7,7 +7,7 @@
 - (_TtCCC7LyricsX20SyncedLyricsLineView8Syllable12SyllableView)initWithCoder:(id)coder
 {
   v7.receiver = self;
-  v7.super_class = _s8SyllableC12SyllableViewCMa();
+  v7.super_class = _s8SyllableC12SyllableViewCMa(self, a2);
   coderCopy = coder;
   v5 = [(_TtCE14MusicUtilitiesaSo8CTRunRef14PartialRunView *)&v7 initWithCoder:coderCopy];
 

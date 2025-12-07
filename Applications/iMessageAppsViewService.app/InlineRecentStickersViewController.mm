@@ -18,6 +18,7 @@
 - (void)stickerDruidDragEndedWithIMSticker:(id)sticker;
 - (void)stickerDruidDragEndedWithMSSticker:(id)sticker;
 - (void)stickerDruidDragStarted;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -74,7 +75,7 @@
 - (void)setHostBundleID:(id)d
 {
   dCopy = d;
-  [(InlineRecentStickersViewController *)self _hostAuditToken];
+  objc_msgSend__hostAuditToken(self);
   v5 = SecTaskCreateWithAuditToken(0, &v12);
   if (v5)
   {
@@ -150,7 +151,7 @@
   labelCopy = label;
   metadataCopy = metadata;
   infoCopy = info;
-  v22 = sub_100007044();
+  v22 = sub_100007044(infoCopy);
   if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
   {
     LODWORD(buf) = 138412290;
@@ -220,6 +221,15 @@
   }
 }
 
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = InlineRecentStickersViewController;
+  [(InlineRecentStickersViewController *)&v5 viewDidDisappear:disappear];
+  _remoteProxy = [(InlineRecentStickersViewController *)self _remoteProxy];
+  [_remoteProxy dismissCard];
+}
+
 + (id)_remoteViewControllerInterface
 {
   if (qword_100015DA0 != -1)
@@ -246,7 +256,7 @@
 
 - (void)stickerCollectionViewController:(id)controller didSelectSticker:(id)sticker
 {
-  v4 = sub_100007044();
+  v4 = sub_100007044(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     sub_1000071C4();
@@ -255,7 +265,7 @@
 
 - (void)stickerCollectionViewController:(id)controller didSelectSticker:(id)sticker withFrame:(CGRect)frame
 {
-  v5 = sub_100007044();
+  v5 = sub_100007044(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     sub_1000071C4();
@@ -264,7 +274,7 @@
 
 - (void)stickerCollectionViewControllerPrepareForNewSticker:(id)sticker fromPhotoPicker:(BOOL)picker
 {
-  v4 = sub_100007044();
+  v4 = sub_100007044(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     sub_1000071F8();
@@ -385,7 +395,7 @@
 
 - (void)stickerCollectionViewController:(id)controller isPresentingViewController:(id)viewController
 {
-  v4 = sub_100007044();
+  v4 = sub_100007044(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     sub_10000722C();
@@ -394,7 +404,7 @@
 
 - (void)stickerCollectionViewController:(id)controller isDonePresentingViewController:(id)viewController
 {
-  v4 = sub_100007044();
+  v4 = sub_100007044(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     sub_10000722C();
@@ -490,7 +500,7 @@
 
 - (void)showBrowserForPluginIdentifier:(id)identifier style:(unint64_t)style completion:(id)completion
 {
-  v5 = sub_100007044();
+  v5 = sub_100007044(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     sub_100007260();

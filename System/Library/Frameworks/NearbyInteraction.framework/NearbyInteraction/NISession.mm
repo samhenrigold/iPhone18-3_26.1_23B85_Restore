@@ -13,6 +13,7 @@
 + (id)generateFindingDiscoveryTokenWithSharedSecret:(id)secret;
 + (id)localDevicePrintableState;
 + (id)observerSession;
++ (id)setLocalDeviceCanInteract:(BOOL)interact withDiscoveryTokens:(id)tokens;
 + (id)setLocalDeviceDebugParameters:(id)parameters;
 + (id)setLocalDeviceInteractableDiscoveryTokens:(id)tokens;
 + (void)_queryAndCacheCapabilities;
@@ -209,10 +210,10 @@
 
 - (id)_initAndConnectToServerWithOptions:(unint64_t)options
 {
-  v38 = *MEMORY[0x1E69E9840];
-  v35.receiver = self;
-  v35.super_class = NISession;
-  v4 = [(NISession *)&v35 init];
+  v37 = *MEMORY[0x1E69E9840];
+  v34.receiver = self;
+  v34.super_class = NISession;
+  v4 = [(NISession *)&v34 init];
   v5 = v4;
   if (v4)
   {
@@ -256,19 +257,19 @@
     v5->_itemLocalizerDidPrewarmRanging = 0;
     objc_initWeak(&location, v5);
     v21 = v5->_connection;
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __48__NISession__initAndConnectToServerWithOptions___block_invoke;
-    v32[3] = &unk_1E7F13980;
-    objc_copyWeak(&v33, &location);
-    [(NIServerConnection *)v21 setInterruptionHandler:v32];
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = __48__NISession__initAndConnectToServerWithOptions___block_invoke;
+    v31[3] = &unk_1E7F13980;
+    objc_copyWeak(&v32, &location);
+    [(NIServerConnection *)v21 setInterruptionHandler:v31];
     v22 = v5->_connection;
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __48__NISession__initAndConnectToServerWithOptions___block_invoke_2;
-    v30[3] = &unk_1E7F13980;
-    objc_copyWeak(&v31, &location);
-    [(NIServerConnection *)v22 setInvalidationHandler:v30];
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __48__NISession__initAndConnectToServerWithOptions___block_invoke_2;
+    v29[3] = &unk_1E7F13980;
+    objc_copyWeak(&v30, &location);
+    [(NIServerConnection *)v22 setInvalidationHandler:v29];
     [(NIServerConnection *)v5->_connection resume];
     if (+[NIPlatformInfo isInternalBuild])
     {
@@ -277,25 +278,24 @@
       {
         v24 = v5->_internalID;
         *buf = 138412290;
-        v37 = v24;
+        v36 = v24;
         _os_log_impl(&dword_1BAC42000, v23, OS_LOG_TYPE_DEFAULT, "NISession init [%@]", buf, 0xCu);
       }
     }
 
     _remoteObject = [(NISession *)v5 _remoteObject];
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __48__NISession__initAndConnectToServerWithOptions___block_invoke_891;
-    v28[3] = &unk_1E7F139A8;
-    v29 = v5;
-    [_remoteObject activate:v28];
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __48__NISession__initAndConnectToServerWithOptions___block_invoke_891;
+    v27[3] = &unk_1E7F139A8;
+    v28 = v5;
+    [_remoteObject activate:v27];
 
-    objc_destroyWeak(&v31);
-    objc_destroyWeak(&v33);
+    objc_destroyWeak(&v30);
+    objc_destroyWeak(&v32);
     objc_destroyWeak(&location);
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -371,16 +371,16 @@ void __39__NISession__queryAndCacheCapabilities__block_invoke(uint64_t a1, void 
 
 - (void)_osLogNearbyObjectUpdate:(id)update
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   updateCopy = update;
   v5 = [MEMORY[0x1E695DF00] now];
   ++self->_objectUpdateLogging.totalUpdates;
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __38__NISession__osLogNearbyObjectUpdate___block_invoke;
-  v15[3] = &unk_1E7F139F8;
-  v15[4] = self;
-  [updateCopy enumerateObjectsUsingBlock:v15];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __38__NISession__osLogNearbyObjectUpdate___block_invoke;
+  v14[3] = &unk_1E7F139F8;
+  v14[4] = self;
+  [updateCopy enumerateObjectsUsingBlock:v14];
   if (self->_lastObjectUpdateLogTime)
   {
     [v5 timeIntervalSinceDate:?];
@@ -415,7 +415,7 @@ void __39__NISession__queryAndCacheCapabilities__block_invoke(uint64_t a1, void 
     if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138477827;
-      v17 = v9;
+      v16 = v9;
       _os_log_impl(&dword_1BAC42000, log, OS_LOG_TYPE_DEFAULT, "%{private}@", buf, 0xCu);
     }
   }
@@ -430,7 +430,6 @@ void __39__NISession__queryAndCacheCapabilities__block_invoke(uint64_t a1, void 
   self->_objectUpdateLogging.lastHorizontalAngleRad = v12;
 
 LABEL_13:
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __38__NISession__osLogNearbyObjectUpdate___block_invoke(uint64_t a1, void *a2)
@@ -495,13 +494,11 @@ void __38__NISession__osLogNearbyObjectUpdate___block_invoke(uint64_t a1, void *
 
 id __21__NISession__logTime__block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"duration";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"duration";
   v1 = [MEMORY[0x1E696AD98] numberWithDouble:*(*(a1 + 32) + 104)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -524,13 +521,11 @@ id __21__NISession__logTime__block_invoke(uint64_t a1)
 
 id __35__NISession__logDurationAndSubmit___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"duration";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"duration";
   v1 = [MEMORY[0x1E696AD98] numberWithDouble:*(*(a1 + 32) + 104)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -574,20 +569,18 @@ id __35__NISession__logDurationAndSubmit___block_invoke(uint64_t a1)
 
 id __32__NISession__submitErrorMetric___block_invoke(uint64_t a1)
 {
-  v10[3] = *MEMORY[0x1E69E9840];
-  v9[0] = @"domain";
+  v9[3] = *MEMORY[0x1E69E9840];
+  v8[0] = @"domain";
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) domain];
-  v10[0] = v3;
-  v9[1] = @"code";
+  v9[0] = v3;
+  v8[1] = @"code";
   v4 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(*v2, "code")}];
-  v9[2] = @"string";
+  v8[2] = @"string";
   v5 = *(a1 + 40);
-  v10[1] = v4;
-  v10[2] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v9[1] = v4;
+  v9[2] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }
@@ -608,22 +601,20 @@ id __32__NISession__submitErrorMetric___block_invoke(uint64_t a1)
 
 id __25__NISession_setDelegate___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (+[NIPlatformInfo isInternalBuild])
   {
     v2 = *(*(a1 + 32) + 88);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = *(a1 + 40);
-      v6 = 134283521;
-      v7 = v3;
-      _os_log_impl(&dword_1BAC42000, v2, OS_LOG_TYPE_DEFAULT, "Set delegate: %{private}p", &v6, 0xCu);
+      v5 = 134283521;
+      v6 = v3;
+      _os_log_impl(&dword_1BAC42000, v2, OS_LOG_TYPE_DEFAULT, "Set delegate: %{private}p", &v5, 0xCu);
     }
   }
 
-  result = objc_storeWeak((*(a1 + 32) + 248), *(a1 + 40));
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return objc_storeWeak((*(a1 + 32) + 248), *(a1 + 40));
 }
 
 - (void)setDelegateQueue:(dispatch_queue_t)delegateQueue
@@ -648,21 +639,20 @@ id __25__NISession_setDelegate___block_invoke(uint64_t a1)
 
 void __30__NISession_setDelegateQueue___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (+[NIPlatformInfo isInternalBuild])
   {
     v2 = *(*(a1 + 32) + 88);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = *(a1 + 40);
-      v5 = 134283521;
-      v6 = v3;
-      _os_log_impl(&dword_1BAC42000, v2, OS_LOG_TYPE_DEFAULT, "Set delegate queue: %{private}p", &v5, 0xCu);
+      v4 = 134283521;
+      v5 = v3;
+      _os_log_impl(&dword_1BAC42000, v2, OS_LOG_TYPE_DEFAULT, "Set delegate queue: %{private}p", &v4, 0xCu);
     }
   }
 
   objc_storeStrong((*(a1 + 32) + 256), *(a1 + 40));
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (id)deviceCapabilities
@@ -815,7 +805,7 @@ void __27__NISession_discoveryToken__block_invoke_3(uint64_t a1)
 
 void __34__NISession_runWithConfiguration___block_invoke(uint64_t a1)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) internalState];
   if (+[NIPlatformInfo isInternalBuild])
   {
@@ -827,21 +817,21 @@ void __34__NISession_runWithConfiguration___block_invoke(uint64_t a1)
       v6 = NISessionInternalStateToString(v2);
       v7 = *(a1 + 40);
       *buf = 138412802;
-      v31 = v4;
+      v29 = v4;
+      v30 = 2112;
+      v31 = v6;
       v32 = 2112;
-      v33 = v6;
-      v34 = 2112;
-      v35 = v7;
+      v33 = v7;
       _os_log_impl(&dword_1BAC42000, v5, OS_LOG_TYPE_DEFAULT, "Client: runWithConfiguration [%@]. State: %@. Config: %@.", buf, 0x20u);
     }
   }
 
   atomic_store(1u, (*(a1 + 32) + 80));
-  v28[1] = MEMORY[0x1E69E9820];
-  v28[2] = 3221225472;
-  v28[3] = __34__NISession_runWithConfiguration___block_invoke_939;
-  v28[4] = &__block_descriptor_36_e19___NSDictionary_8__0l;
-  v29 = v2;
+  v26[1] = MEMORY[0x1E69E9820];
+  v26[2] = 3221225472;
+  v26[3] = __34__NISession_runWithConfiguration___block_invoke_939;
+  v26[4] = &__block_descriptor_36_e19___NSDictionary_8__0l;
+  v27 = v2;
   AnalyticsSendEventLazy();
   if (v2 <= 3)
   {
@@ -850,27 +840,27 @@ void __34__NISession_runWithConfiguration___block_invoke(uint64_t a1)
 LABEL_19:
       if (+[NIPlatformInfo isInternalBuild])
       {
-        v20 = *(*(a1 + 32) + 88);
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v18 = *(*(a1 + 32) + 88);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1BAC42000, v20, OS_LOG_TYPE_DEFAULT, "Not runnable", buf, 2u);
+          _os_log_impl(&dword_1BAC42000, v18, OS_LOG_TYPE_DEFAULT, "Not runnable", buf, 2u);
         }
       }
 
-      goto LABEL_16;
+      return;
     }
 
 LABEL_15:
-    v16 = (a1 + 32);
+    v15 = (a1 + 32);
     [*(a1 + 32) setInternalState:2];
-    v17 = [*(a1 + 40) copy];
-    v18 = *(*(a1 + 32) + 40);
-    *(*v16 + 5) = v17;
+    v16 = [*(a1 + 40) copy];
+    v17 = *(*(a1 + 32) + 40);
+    *(*v15 + 5) = v16;
 
     [*(a1 + 32) _logTime];
-    [*v16 _internalRunWithConfiguration:*(*v16 + 5)];
-    goto LABEL_16;
+    [*v15 _internalRunWithConfiguration:*(*v15 + 5)];
+    return;
   }
 
   if ((v2 - 4) < 2)
@@ -883,91 +873,86 @@ LABEL_15:
     if (v2 == 6)
     {
       [*(a1 + 32) _reinterruptSessionWithCachedInterruption];
-      goto LABEL_16;
+      return;
     }
 
     goto LABEL_19;
   }
 
-  v8 = *(a1 + 40);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     if (+[NIPlatformInfo isInternalBuild])
     {
-      v9 = *(*(a1 + 32) + 88);
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v8 = *(*(a1 + 32) + 88);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = *(*(a1 + 32) + 16);
+        v9 = *(*(a1 + 32) + 16);
         *buf = 138412290;
-        v31 = v10;
-        _os_log_impl(&dword_1BAC42000, v9, OS_LOG_TYPE_DEFAULT, "Client: enact ranging-auth mitigation (147495615) [%@].", buf, 0xCu);
+        v29 = v9;
+        _os_log_impl(&dword_1BAC42000, v8, OS_LOG_TYPE_DEFAULT, "Client: enact ranging-auth mitigation (147495615) [%@].", buf, 0xCu);
       }
     }
 
-    v11 = [[NIServerConnection alloc] initWithSessionID:*(*(a1 + 32) + 16) queue:*(*(a1 + 32) + 8) exportedObject:*(*(a1 + 32) + 32) options:*(*(a1 + 32) + 144)];
-    v12 = *(*(a1 + 32) + 24);
-    *(*(a1 + 32) + 24) = v11;
+    v10 = [[NIServerConnection alloc] initWithSessionID:*(*(a1 + 32) + 16) queue:*(*(a1 + 32) + 8) exportedObject:*(*(a1 + 32) + 32) options:*(*(a1 + 32) + 144)];
+    v11 = *(*(a1 + 32) + 24);
+    *(*(a1 + 32) + 24) = v10;
 
     objc_initWeak(buf, *(a1 + 32));
-    v13 = *(*(a1 + 32) + 24);
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __34__NISession_runWithConfiguration___block_invoke_945;
-    v27[3] = &unk_1E7F13980;
-    objc_copyWeak(v28, buf);
-    [v13 setInterruptionHandler:v27];
-    v14 = *(*(a1 + 32) + 24);
+    v12 = *(*(a1 + 32) + 24);
     v25[0] = MEMORY[0x1E69E9820];
     v25[1] = 3221225472;
-    v25[2] = __34__NISession_runWithConfiguration___block_invoke_2;
+    v25[2] = __34__NISession_runWithConfiguration___block_invoke_945;
     v25[3] = &unk_1E7F13980;
-    objc_copyWeak(&v26, buf);
-    [v14 setInvalidationHandler:v25];
+    objc_copyWeak(v26, buf);
+    [v12 setInterruptionHandler:v25];
+    v13 = *(*(a1 + 32) + 24);
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __34__NISession_runWithConfiguration___block_invoke_2;
+    v23[3] = &unk_1E7F13980;
+    objc_copyWeak(&v24, buf);
+    [v13 setInvalidationHandler:v23];
     [*(*(a1 + 32) + 24) resume];
-    v15 = [*(a1 + 32) _remoteObject];
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __34__NISession_runWithConfiguration___block_invoke_3;
-    v24[3] = &unk_1E7F139A8;
-    v24[4] = *(a1 + 32);
-    [v15 activate:v24];
+    v14 = [*(a1 + 32) _remoteObject];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __34__NISession_runWithConfiguration___block_invoke_3;
+    v22[3] = &unk_1E7F139A8;
+    v22[4] = *(a1 + 32);
+    [v14 activate:v22];
 
     [*(a1 + 32) setInternalState:0];
     [*(a1 + 32) setInvalidationError:0];
-    objc_destroyWeak(&v26);
-    objc_destroyWeak(v28);
+    objc_destroyWeak(&v24);
+    objc_destroyWeak(v26);
     objc_destroyWeak(buf);
     goto LABEL_15;
   }
 
-  v21 = [*(a1 + 32) invalidationError];
-  v22 = *(a1 + 32);
-  if (v21)
+  v19 = [*(a1 + 32) invalidationError];
+  v20 = *(a1 + 32);
+  if (v19)
   {
-    [v22 invalidationError];
+    [v20 invalidationError];
   }
 
   else
   {
-    [v22 _getSessionFailureError];
+    [v20 _getSessionFailureError];
   }
-  v23 = ;
+  v21 = ;
 
-  [*(a1 + 32) _notifyDidInvalidateWithError:v23];
-LABEL_16:
-  v19 = *MEMORY[0x1E69E9840];
+  [*(a1 + 32) _notifyDidInvalidateWithError:v21];
 }
 
 id __34__NISession_runWithConfiguration___block_invoke_939(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"state";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"state";
   v1 = NISessionInternalStateToString(*(a1 + 32));
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -1013,7 +998,7 @@ void __34__NISession_runWithConfiguration___block_invoke_3(uint64_t a1, void *a2
 
 void __18__NISession_pause__block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) internalState];
   if (+[NIPlatformInfo isInternalBuild])
   {
@@ -1024,9 +1009,9 @@ void __18__NISession_pause__block_invoke(uint64_t a1)
       v5 = v3;
       v6 = NISessionInternalStateToString(v2);
       *buf = 138412546;
-      v16 = v4;
-      v17 = 2112;
-      v18 = v6;
+      v15 = v4;
+      v16 = 2112;
+      v17 = v6;
       _os_log_impl(&dword_1BAC42000, v5, OS_LOG_TYPE_DEFAULT, "Client: pause [%@]. State: %@.", buf, 0x16u);
     }
   }
@@ -1038,12 +1023,12 @@ void __18__NISession_pause__block_invoke(uint64_t a1)
     [v10 setInternalState:4];
     [*v9 _pauseInternalARSessionIfNeeded];
     v11 = [*v9 _remoteObject];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __18__NISession_pause__block_invoke_946;
-    v14[3] = &unk_1E7F13AE0;
-    v14[4] = *v9;
-    [v11 pause:v14];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __18__NISession_pause__block_invoke_946;
+    v13[3] = &unk_1E7F13AE0;
+    v13[4] = *v9;
+    [v11 pause:v13];
   }
 
   else if ((v2 - 7) >= 2)
@@ -1071,8 +1056,6 @@ void __18__NISession_pause__block_invoke(uint64_t a1)
 
     [*(a1 + 32) _notifyDidInvalidateWithError:v12];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __18__NISession_pause__block_invoke_946(uint64_t a1, void *a2)
@@ -1104,7 +1087,7 @@ void __18__NISession_pause__block_invoke_946(uint64_t a1, void *a2)
 
 uint64_t __23__NISession_invalidate__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (+[NIPlatformInfo isInternalBuild])
   {
     v2 = *(*(a1 + 32) + 88);
@@ -1113,22 +1096,20 @@ uint64_t __23__NISession_invalidate__block_invoke(uint64_t a1)
       v3 = *(a1 + 32);
       v4 = v3[2];
       v5 = NISessionInternalStateToString([v3 internalState]);
-      v8 = 138412546;
-      v9 = v4;
-      v10 = 2112;
-      v11 = v5;
-      _os_log_impl(&dword_1BAC42000, v2, OS_LOG_TYPE_DEFAULT, "Client: invalidate [%@]. State: %@.", &v8, 0x16u);
+      v7 = 138412546;
+      v8 = v4;
+      v9 = 2112;
+      v10 = v5;
+      _os_log_impl(&dword_1BAC42000, v2, OS_LOG_TYPE_DEFAULT, "Client: invalidate [%@]. State: %@.", &v7, 0x16u);
     }
   }
 
-  result = [*(a1 + 32) _invalidateInternal];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _invalidateInternal];
 }
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (+[NIPlatformInfo isInternalBuild])
   {
     log = self->_log;
@@ -1136,15 +1117,14 @@ uint64_t __23__NISession_invalidate__block_invoke(uint64_t a1)
     {
       internalID = self->_internalID;
       *buf = 138412290;
-      v8 = internalID;
+      v7 = internalID;
       _os_log_impl(&dword_1BAC42000, log, OS_LOG_TYPE_DEFAULT, "Client: dealloc [%@]", buf, 0xCu);
     }
   }
 
-  v6.receiver = self;
-  v6.super_class = NISession;
-  [(NISession *)&v6 dealloc];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = NISession;
+  [(NISession *)&v5 dealloc];
 }
 
 - (void)setARSession:(ARSession *)session
@@ -1181,7 +1161,6 @@ uint64_t __23__NISession_invalidate__block_invoke(uint64_t a1)
     [(NISession *)self _handleARSession:internalCopy willRunWithConfiguration:configuration];
   }
 
-  currentConfiguration = self->_currentConfiguration;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -1197,8 +1176,8 @@ uint64_t __23__NISession_invalidate__block_invoke(uint64_t a1)
           log = self->_log;
           if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
           {
-            *v11 = 0;
-            _os_log_impl(&dword_1BAC42000, log, OS_LOG_TYPE_DEFAULT, "_setARSessionInternal: ARSession was interrupted, new ARSession created in uninterrupted state.", v11, 2u);
+            *v10 = 0;
+            _os_log_impl(&dword_1BAC42000, log, OS_LOG_TYPE_DEFAULT, "_setARSessionInternal: ARSession was interrupted, new ARSession created in uninterrupted state.", v10, 2u);
           }
         }
 
@@ -1407,7 +1386,7 @@ void __24__NISession_description__block_invoke(uint64_t a1)
 
 - (void)_serverConnectionInvalidated
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   internalState = [(NISession *)self internalState];
   if (+[NIPlatformInfo isInternalBuild])
@@ -1418,11 +1397,11 @@ void __24__NISession_description__block_invoke(uint64_t a1)
       internalID = self->_internalID;
       v6 = log;
       v7 = NISessionInternalStateToString(internalState);
-      v10 = 138412546;
-      v11 = internalID;
-      v12 = 2112;
-      v13 = v7;
-      _os_log_impl(&dword_1BAC42000, v6, OS_LOG_TYPE_DEFAULT, "Server connection invalidated [%@]. State: %@.", &v10, 0x16u);
+      v9 = 138412546;
+      v10 = internalID;
+      v11 = 2112;
+      v12 = v7;
+      _os_log_impl(&dword_1BAC42000, v6, OS_LOG_TYPE_DEFAULT, "Server connection invalidated [%@]. State: %@.", &v9, 0x16u);
     }
   }
 
@@ -1434,12 +1413,11 @@ void __24__NISession_description__block_invoke(uint64_t a1)
   }
 
   dispatch_semaphore_signal(self->_discoveryTokenSemaphore);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_serverConnectionInterrupted
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   if (+[NIPlatformInfo isInternalBuild])
   {
@@ -1449,9 +1427,9 @@ void __24__NISession_description__block_invoke(uint64_t a1)
       internalID = self->_internalID;
       v5 = NISessionInternalStateToString([(NISession *)self internalState]);
       *buf = 138412546;
-      v22 = internalID;
-      v23 = 2112;
-      v24 = v5;
+      v20 = internalID;
+      v21 = 2112;
+      v22 = v5;
       _os_log_impl(&dword_1BAC42000, v3, OS_LOG_TYPE_DEFAULT, "Server connection interrupted [%@]. State: %@.", buf, 0x16u);
     }
   }
@@ -1465,48 +1443,45 @@ void __24__NISession_description__block_invoke(uint64_t a1)
     block[1] = 3221225472;
     block[2] = __41__NISession__serverConnectionInterrupted__block_invoke;
     block[3] = &unk_1E7F13980;
-    objc_copyWeak(&v18, buf);
+    objc_copyWeak(&v16, buf);
     dispatch_after(v6, queue, block);
-    objc_destroyWeak(&v18);
+    objc_destroyWeak(&v16);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    currentConfiguration = self->_currentConfiguration;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      LOWORD(v22) = 1026;
+      LOWORD(v20) = 1026;
       *buf = 33558787;
-      v9 = [MEMORY[0x1E695DEF0] dataWithBytes:buf length:6];
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __41__NISession__serverConnectionInterrupted__block_invoke_2;
-      v15[3] = &unk_1E7F13A70;
-      v15[4] = self;
-      v16 = v9;
-      v10 = v9;
-      [(NISession *)self _performBlockOnDelegateQueue:v15 ifRespondsToSelector:sel_session_relayDCKMessage_];
+      v8 = [MEMORY[0x1E695DEF0] dataWithBytes:buf length:6];
+      v13[0] = MEMORY[0x1E69E9820];
+      v13[1] = 3221225472;
+      v13[2] = __41__NISession__serverConnectionInterrupted__block_invoke_2;
+      v13[3] = &unk_1E7F13A70;
+      v13[4] = self;
+      v14 = v8;
+      v9 = v8;
+      [(NISession *)self _performBlockOnDelegateQueue:v13 ifRespondsToSelector:sel_session_relayDCKMessage_];
     }
 
-    v11 = *MEMORY[0x1E696A598];
-    v19[0] = *MEMORY[0x1E696A588];
-    v19[1] = v11;
-    v20[0] = @"The session token has been invalidated. This session cannot be restarted.";
-    v20[1] = @"Create a new session and exchange token again.";
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
-    v13 = NIErrorWithCodeAndUserInfo(-5887, v12);
+    v10 = *MEMORY[0x1E696A598];
+    v17[0] = *MEMORY[0x1E696A588];
+    v17[1] = v10;
+    v18[0] = @"The session token has been invalidated. This session cannot be restarted.";
+    v18[1] = @"Create a new session and exchange token again.";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
+    v12 = NIErrorWithCodeAndUserInfo(-5887, v11);
 
-    [(NISession *)self _invalidateSessionAndNotifyError:v13];
+    [(NISession *)self _invalidateSessionAndNotifyError:v12];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __41__NISession__serverConnectionInterrupted__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -1518,21 +1493,19 @@ void __41__NISession__serverConnectionInterrupted__block_invoke(uint64_t a1)
       {
         v3 = WeakRetained[2];
         *buf = 138412290;
-        v8 = v3;
+        v7 = v3;
         _os_log_impl(&dword_1BAC42000, v2, OS_LOG_TYPE_DEFAULT, "NISession trying to re-activate nearbyd [%@]", buf, 0xCu);
       }
     }
 
     v4 = [WeakRetained _remoteObject];
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = __41__NISession__serverConnectionInterrupted__block_invoke_981;
-    v6[3] = &unk_1E7F139A8;
-    v6[4] = WeakRetained;
-    [v4 activate:v6];
+    v5[0] = MEMORY[0x1E69E9820];
+    v5[1] = 3221225472;
+    v5[2] = __41__NISession__serverConnectionInterrupted__block_invoke_981;
+    v5[3] = &unk_1E7F139A8;
+    v5[4] = WeakRetained;
+    [v4 activate:v5];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __41__NISession__serverConnectionInterrupted__block_invoke_981(uint64_t a1, void *a2, void *a3)
@@ -1579,7 +1552,7 @@ void __41__NISession__serverConnectionInterrupted__block_invoke_2(uint64_t a1)
 
 - (void)didRemoveNearbyObjects:(id)objects withReason:(unint64_t)reason
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
   dispatch_assert_queue_V2(self->_queue);
   if (+[NIPlatformInfo isInternalBuild])
@@ -1589,15 +1562,14 @@ void __41__NISession__serverConnectionInterrupted__block_invoke_2(uint64_t a1)
     {
       *buf = 67109379;
       reasonCopy = reason;
-      v16 = 2113;
-      v17 = objectsCopy;
+      v13 = 2113;
+      v14 = objectsCopy;
       _os_log_impl(&dword_1BAC42000, log, OS_LOG_TYPE_DEFAULT, "DelegateProxy: removed objects with reason: %d. Objects: %{private}@", buf, 0x12u);
     }
   }
 
-  currentConfiguration = self->_currentConfiguration;
   objc_opt_class();
-  if (objc_opt_isKindOfClass() & 1) != 0 || (v9 = self->_currentConfiguration, objc_opt_class(), (objc_opt_isKindOfClass()))
+  if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
   {
     [(NISession *)self _pauseInternalARSessionIfNeeded];
     [(NISession *)self setInternalState:5];
@@ -1605,33 +1577,31 @@ void __41__NISession__serverConnectionInterrupted__block_invoke_2(uint64_t a1)
 
   if (reason == 1)
   {
-    v10 = v12;
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __47__NISession_didRemoveNearbyObjects_withReason___block_invoke_2;
-    v12[3] = &unk_1E7F13A70;
-    v12[4] = self;
-    v12[5] = objectsCopy;
-    [(NISession *)self _performBlockOnDelegateQueue:v12 ifRespondsToSelector:sel_session_didRemoveNearbyObjects_withReason_];
+    v8 = v9;
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __47__NISession_didRemoveNearbyObjects_withReason___block_invoke_2;
+    v9[3] = &unk_1E7F13A70;
+    v9[4] = self;
+    v9[5] = objectsCopy;
+    [(NISession *)self _performBlockOnDelegateQueue:v9 ifRespondsToSelector:sel_session_didRemoveNearbyObjects_withReason_];
     goto LABEL_11;
   }
 
   if (!reason)
   {
-    v10 = v13;
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __47__NISession_didRemoveNearbyObjects_withReason___block_invoke;
-    v13[3] = &unk_1E7F13A70;
-    v13[4] = self;
-    v13[5] = objectsCopy;
-    [(NISession *)self _performBlockOnDelegateQueue:v13 ifRespondsToSelector:sel_session_didRemoveNearbyObjects_withReason_];
+    v8 = v10;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __47__NISession_didRemoveNearbyObjects_withReason___block_invoke;
+    v10[3] = &unk_1E7F13A70;
+    v10[4] = self;
+    v10[5] = objectsCopy;
+    [(NISession *)self _performBlockOnDelegateQueue:v10 ifRespondsToSelector:sel_session_didRemoveNearbyObjects_withReason_];
 LABEL_11:
   }
 
   AnalyticsSendEventLazy();
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __47__NISession_didRemoveNearbyObjects_withReason___block_invoke(uint64_t a1)
@@ -1648,32 +1618,30 @@ void __47__NISession_didRemoveNearbyObjects_withReason___block_invoke_2(uint64_t
 
 id __47__NISession_didRemoveNearbyObjects_withReason___block_invoke_3(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"reason";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"reason";
   v1 = UWBTrackingStopReasonInternalToString(*(a1 + 32));
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
 
 - (void)didUpdateNearbyObjects:(id)objects
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
   dispatch_assert_queue_V2(self->_queue);
-  v16 = MEMORY[0x1E69E9820];
-  v17 = 3221225472;
-  v18 = __36__NISession_didUpdateNearbyObjects___block_invoke;
-  v19 = &unk_1E7F13A70;
+  v15 = MEMORY[0x1E69E9820];
+  v16 = 3221225472;
+  v17 = __36__NISession_didUpdateNearbyObjects___block_invoke;
+  v18 = &unk_1E7F13A70;
   selfCopy = self;
   v5 = objectsCopy;
-  v21 = v5;
-  [(NISession *)self _performBlockOnDelegateQueue:&v16 ifRespondsToSelector:sel_session_didUpdateNearbyObjects_];
+  v20 = v5;
+  [(NISession *)self _performBlockOnDelegateQueue:&v15 ifRespondsToSelector:sel_session_didUpdateNearbyObjects_];
   self->_updatedNearbyObjects = 1;
-  [(NISession *)self _osLogNearbyObjectUpdate:v5, v16, v17, v18, v19, selfCopy];
+  [(NISession *)self _osLogNearbyObjectUpdate:v5, v15, v16, v17, v18, selfCopy];
   firstObject = [v5 firstObject];
   resetARSession = [firstObject resetARSession];
 
@@ -1690,9 +1658,9 @@ id __47__NISession_didRemoveNearbyObjects_withReason___block_invoke_3(uint64_t a
       if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109376;
-        v23 = arSession != 0;
-        v24 = 1024;
-        v25 = state == 1;
+        v22 = arSession != 0;
+        v23 = 1024;
+        v24 = state == 1;
         _os_log_impl(&dword_1BAC42000, log, OS_LOG_TYPE_DEFAULT, "DelegateProxy: reset ARSession (Exists: %d. Running: %d)", buf, 0xEu);
       }
     }
@@ -1705,8 +1673,6 @@ id __47__NISession_didRemoveNearbyObjects_withReason___block_invoke_3(uint64_t a
       [arSession3 runWithConfiguration:configuration options:15];
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __36__NISession_didUpdateNearbyObjects___block_invoke(uint64_t a1)
@@ -1744,7 +1710,7 @@ void __36__NISession_didUpdateNearbyObjects___block_invoke(uint64_t a1)
 
 - (void)uwbSessionInterruptedWithReason:(int64_t)reason timestamp:(double)timestamp
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   if (+[NIPlatformInfo isInternalBuild])
   {
@@ -1754,10 +1720,10 @@ void __36__NISession_didUpdateNearbyObjects___block_invoke(uint64_t a1)
       v8 = NISessionInternalStateToString([(NISession *)self internalState]);
       v9 = UWBSessionInterruptionReasonInternalToString(reason);
       *buf = 138478339;
-      v29 = v8;
-      v30 = 2113;
-      v31 = v9;
-      v32 = 2048;
+      v28 = v8;
+      v29 = 2113;
+      v30 = v9;
+      v31 = 2048;
       timestampCopy = timestamp;
       _os_log_impl(&dword_1BAC42000, v7, OS_LOG_TYPE_DEFAULT, "DelegateProxy: suspension reason started. State: %{private}@. Reason: %{private}@. Timestamp: %f", buf, 0x20u);
     }
@@ -1831,35 +1797,31 @@ void __36__NISession_didUpdateNearbyObjects___block_invoke(uint64_t a1)
   }
 
   self->_interruptions.__end_ = v17;
-  v27 = v13;
+  v26 = v13;
   AnalyticsSendEventLazy();
   [(NISession *)self _interruptSessionWithInternalReason:reason cachedInterruption:0 nearbydReSuspension:v14];
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 id __55__NISession_uwbSessionInterruptedWithReason_timestamp___block_invoke(uint64_t a1)
 {
-  v9[3] = *MEMORY[0x1E69E9840];
-  v8[0] = @"reason";
+  v8[3] = *MEMORY[0x1E69E9840];
+  v7[0] = @"reason";
   v2 = UWBSessionInterruptionReasonInternalToString(*(a1 + 40));
-  v9[0] = v2;
-  v8[1] = @"reinterrupted";
+  v8[0] = v2;
+  v7[1] = @"reinterrupted";
   v3 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 48)];
-  v8[2] = @"previousReason";
+  v7[2] = @"previousReason";
   v4 = *(a1 + 32);
-  v9[1] = v3;
-  v9[2] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:3];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v8[1] = v3;
+  v8[2] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
   return v5;
 }
 
 - (void)uwbSessionInterruptionReasonEnded:(int64_t)ended timestamp:(double)timestamp
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   if (+[NIPlatformInfo isInternalBuild])
   {
@@ -1974,13 +1936,13 @@ id __55__NISession_uwbSessionInterruptedWithReason_timestamp___block_invoke(uint
 
   if (v15)
   {
-    v28[5] = MEMORY[0x1E69E9820];
-    v28[6] = 3221225472;
-    v28[7] = __57__NISession_uwbSessionInterruptionReasonEnded_timestamp___block_invoke;
-    v28[8] = &__block_descriptor_56_e19___NSDictionary_8__0l;
-    v28[9] = ended;
-    *&v28[10] = timestamp;
-    v28[11] = 0;
+    v27[5] = MEMORY[0x1E69E9820];
+    v27[6] = 3221225472;
+    v27[7] = __57__NISession_uwbSessionInterruptionReasonEnded_timestamp___block_invoke;
+    v27[8] = &__block_descriptor_56_e19___NSDictionary_8__0l;
+    v27[9] = ended;
+    *&v27[10] = timestamp;
+    v27[11] = 0;
     AnalyticsSendEventLazy();
     if (begin == end)
     {
@@ -1991,29 +1953,29 @@ id __55__NISession_uwbSessionInterruptedWithReason_timestamp___block_invoke(uint
         if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
         {
           internalID = self->_internalID;
-          *v29 = 138412290;
-          v30 = internalID;
-          _os_log_impl(&dword_1BAC42000, log, OS_LOG_TYPE_DEFAULT, "Delegate: notify suspension ended [%@]", v29, 0xCu);
+          *v28 = 138412290;
+          v29 = internalID;
+          _os_log_impl(&dword_1BAC42000, log, OS_LOG_TYPE_DEFAULT, "Delegate: notify suspension ended [%@]", v28, 0xCu);
         }
       }
 
-      v28[0] = MEMORY[0x1E69E9820];
-      v28[1] = 3221225472;
-      v28[2] = __57__NISession_uwbSessionInterruptionReasonEnded_timestamp___block_invoke_1009;
-      v28[3] = &unk_1E7F13A98;
-      v28[4] = self;
-      [(NISession *)self _performBlockOnDelegateQueue:v28 ifRespondsToSelector:sel_sessionSuspensionEnded_];
+      v27[0] = MEMORY[0x1E69E9820];
+      v27[1] = 3221225472;
+      v27[2] = __57__NISession_uwbSessionInterruptionReasonEnded_timestamp___block_invoke_1009;
+      v27[3] = &unk_1E7F13A98;
+      v27[4] = self;
+      [(NISession *)self _performBlockOnDelegateQueue:v27 ifRespondsToSelector:sel_sessionSuspensionEnded_];
     }
 
     v24 = InternalInterruptionReasonToNISessionSuspensionReason(ended);
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __57__NISession_uwbSessionInterruptionReasonEnded_timestamp___block_invoke_2;
-    v26[3] = &unk_1E7F13B98;
-    v26[4] = self;
-    v26[5] = v24;
-    v27 = begin == end;
-    [(NISession *)self _performBlockOnDelegateQueue:v26 ifRespondsToSelector:sel_session_suspensionReasonEnded_isNoLongerSuspended_];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __57__NISession_uwbSessionInterruptionReasonEnded_timestamp___block_invoke_2;
+    v25[3] = &unk_1E7F13B98;
+    v25[4] = self;
+    v25[5] = v24;
+    v26 = begin == end;
+    [(NISession *)self _performBlockOnDelegateQueue:v25 ifRespondsToSelector:sel_session_suspensionReasonEnded_isNoLongerSuspended_];
     if (begin == end && [(NISession *)self _shouldReRunSessionAfterSessionInterruptionEnded])
     {
       [(NISession *)self _internalRunWithConfiguration:self->_currentConfiguration];
@@ -2030,22 +1992,18 @@ id __55__NISession_uwbSessionInterruptedWithReason_timestamp___block_invoke(uint
     *&buf[8] = *buf;
     operator delete(*buf);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 id __57__NISession_uwbSessionInterruptionReasonEnded_timestamp___block_invoke(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x1E69E9840];
-  v7[0] = @"reason";
+  v7[2] = *MEMORY[0x1E69E9840];
+  v6[0] = @"reason";
   v2 = UWBSessionInterruptionReasonInternalToString(*(a1 + 32));
-  v7[1] = @"duration";
-  v8[0] = v2;
+  v6[1] = @"duration";
+  v7[0] = v2;
   v3 = [MEMORY[0x1E696AD98] numberWithDouble:*(a1 + 40) - *(a1 + 48)];
-  v8[1] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v7[1] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
@@ -2064,7 +2022,7 @@ void __57__NISession_uwbSessionInterruptionReasonEnded_timestamp___block_invoke_
 
 - (void)didUpdateLocalDiscoveryToken:(id)token
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   tokenCopy = token;
   dispatch_assert_queue_V2(self->_queue);
   if (+[NIPlatformInfo isInternalBuild])
@@ -2073,21 +2031,19 @@ void __57__NISession_uwbSessionInterruptionReasonEnded_timestamp___block_invoke_
     if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138477827;
-      v10 = tokenCopy;
+      v9 = tokenCopy;
       _os_log_impl(&dword_1BAC42000, log, OS_LOG_TYPE_DEFAULT, "DelegateProxy: updated token %{private}@", buf, 0xCu);
     }
   }
 
   objc_storeStrong(&self->_discoveryToken, token);
   dispatch_semaphore_signal(self->_discoveryTokenSemaphore);
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __42__NISession_didUpdateLocalDiscoveryToken___block_invoke;
-  v8[3] = &unk_1E7F13A98;
-  v8[4] = self;
-  [(NISession *)self _performBlockOnDelegateQueue:v8 ifRespondsToSelector:sel_sessionDidUpdateDiscoveryToken_];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __42__NISession_didUpdateLocalDiscoveryToken___block_invoke;
+  v7[3] = &unk_1E7F13A98;
+  v7[4] = self;
+  [(NISession *)self _performBlockOnDelegateQueue:v7 ifRespondsToSelector:sel_sessionDidUpdateDiscoveryToken_];
 }
 
 void __42__NISession_didUpdateLocalDiscoveryToken___block_invoke(uint64_t a1)
@@ -2119,7 +2075,7 @@ void __59__NISession_didReceiveRangingAuthRecommendation_forObject___block_invok
 
 - (void)didDiscoverNearbyObject:(id)object
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   dispatch_assert_queue_V2(self->_queue);
   if (+[NIPlatformInfo isInternalBuild])
@@ -2128,21 +2084,19 @@ void __59__NISession_didReceiveRangingAuthRecommendation_forObject___block_invok
     if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138477827;
-      v11 = objectCopy;
+      v10 = objectCopy;
       _os_log_impl(&dword_1BAC42000, log, OS_LOG_TYPE_DEFAULT, "DelegateProxy: discovered object: %{private}@", buf, 0xCu);
     }
   }
 
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __37__NISession_didDiscoverNearbyObject___block_invoke;
-  v8[3] = &unk_1E7F13A70;
-  v8[4] = self;
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __37__NISession_didDiscoverNearbyObject___block_invoke;
+  v7[3] = &unk_1E7F13A70;
+  v7[4] = self;
   v6 = objectCopy;
-  v9 = v6;
-  [(NISession *)self _performBlockOnDelegateQueue:v8 ifRespondsToSelector:sel_session_didDiscoverNearbyObject_];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8 = v6;
+  [(NISession *)self _performBlockOnDelegateQueue:v7 ifRespondsToSelector:sel_session_didDiscoverNearbyObject_];
 }
 
 void __37__NISession_didDiscoverNearbyObject___block_invoke(uint64_t a1)
@@ -2153,7 +2107,7 @@ void __37__NISession_didDiscoverNearbyObject___block_invoke(uint64_t a1)
 
 - (void)object:(id)object didUpdateRegion:(id)region previousRegion:(id)previousRegion
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   regionCopy = region;
   previousRegionCopy = previousRegion;
@@ -2164,29 +2118,27 @@ void __37__NISession_didDiscoverNearbyObject___block_invoke(uint64_t a1)
     if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138478339;
-      v21 = regionCopy;
-      v22 = 2113;
-      v23 = previousRegionCopy;
-      v24 = 2113;
-      v25 = objectCopy;
+      v20 = regionCopy;
+      v21 = 2113;
+      v22 = previousRegionCopy;
+      v23 = 2113;
+      v24 = objectCopy;
       _os_log_impl(&dword_1BAC42000, log, OS_LOG_TYPE_DEFAULT, "DelegateProxy: updated region %{private}@ (previous: %{private}@). Object: %{private}@", buf, 0x20u);
     }
   }
 
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __51__NISession_object_didUpdateRegion_previousRegion___block_invoke;
-  v16[3] = &unk_1E7F13BE8;
-  v16[4] = self;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __51__NISession_object_didUpdateRegion_previousRegion___block_invoke;
+  v15[3] = &unk_1E7F13BE8;
+  v15[4] = self;
   v12 = objectCopy;
-  v17 = v12;
+  v16 = v12;
   v13 = regionCopy;
-  v18 = v13;
+  v17 = v13;
   v14 = previousRegionCopy;
-  v19 = v14;
-  [(NISession *)self _performBlockOnDelegateQueue:v16 ifRespondsToSelector:sel_session_object_didUpdateRegion_previousRegion_];
-
-  v15 = *MEMORY[0x1E69E9840];
+  v18 = v14;
+  [(NISession *)self _performBlockOnDelegateQueue:v15 ifRespondsToSelector:sel_session_object_didUpdateRegion_previousRegion_];
 }
 
 void __51__NISession_object_didUpdateRegion_previousRegion___block_invoke(void *a1)
@@ -2427,7 +2379,7 @@ void __39__NISession_didReceiveAopSFZoneUpdate___block_invoke(uint64_t a1)
 
 - (void)didGenerateShareableConfigurationData:(id)data forObject:(id)object
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   objectCopy = object;
   if (+[NIPlatformInfo isInternalBuild])
@@ -2436,25 +2388,23 @@ void __39__NISession_didReceiveAopSFZoneUpdate___block_invoke(uint64_t a1)
     if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138478083;
-      v16 = dataCopy;
-      v17 = 2113;
-      v18 = objectCopy;
+      v15 = dataCopy;
+      v16 = 2113;
+      v17 = objectCopy;
       _os_log_impl(&dword_1BAC42000, log, OS_LOG_TYPE_DEFAULT, "DelegateProxy: generated shareable config: %{private}@. Object: %{private}@", buf, 0x16u);
     }
   }
 
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __61__NISession_didGenerateShareableConfigurationData_forObject___block_invoke;
-  v12[3] = &unk_1E7F13C60;
-  v12[4] = self;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __61__NISession_didGenerateShareableConfigurationData_forObject___block_invoke;
+  v11[3] = &unk_1E7F13C60;
+  v11[4] = self;
   v9 = dataCopy;
-  v13 = v9;
+  v12 = v9;
   v10 = objectCopy;
-  v14 = v10;
-  [(NISession *)self _performBlockOnDelegateQueue:v12 ifRespondsToSelector:sel_session_didGenerateShareableConfigurationData_forObject_];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v13 = v10;
+  [(NISession *)self _performBlockOnDelegateQueue:v11 ifRespondsToSelector:sel_session_didGenerateShareableConfigurationData_forObject_];
 }
 
 void __61__NISession_didGenerateShareableConfigurationData_forObject___block_invoke(void *a1)
@@ -2465,7 +2415,7 @@ void __61__NISession_didGenerateShareableConfigurationData_forObject___block_inv
 
 - (void)systemDidUpdateState:(id)state
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   if (+[NIPlatformInfo isInternalBuild])
   {
@@ -2473,21 +2423,19 @@ void __61__NISession_didGenerateShareableConfigurationData_forObject___block_inv
     if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138477827;
-      v11 = stateCopy;
+      v10 = stateCopy;
       _os_log_impl(&dword_1BAC42000, log, OS_LOG_TYPE_DEFAULT, "DelegateProxy: system updated state: %{private}@", buf, 0xCu);
     }
   }
 
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __34__NISession_systemDidUpdateState___block_invoke;
-  v8[3] = &unk_1E7F13A70;
-  v8[4] = self;
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __34__NISession_systemDidUpdateState___block_invoke;
+  v7[3] = &unk_1E7F13A70;
+  v7[4] = self;
   v6 = stateCopy;
-  v9 = v6;
-  [(NISession *)self _performBlockOnDelegateQueue:v8 ifRespondsToSelector:sel_systemConfigurator_didUpdateState_];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8 = v6;
+  [(NISession *)self _performBlockOnDelegateQueue:v7 ifRespondsToSelector:sel_systemConfigurator_didUpdateState_];
 }
 
 void __34__NISession_systemDidUpdateState___block_invoke(uint64_t a1)
@@ -2499,7 +2447,7 @@ void __34__NISession_systemDidUpdateState___block_invoke(uint64_t a1)
 - (void)systemDidUpdateResourceUsageLimitExceeded:(BOOL)exceeded forSessionConfigurationTypeWithName:(id)name
 {
   exceededCopy = exceeded;
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   if (+[NIPlatformInfo isInternalBuild])
   {
@@ -2507,9 +2455,9 @@ void __34__NISession_systemDidUpdateState___block_invoke(uint64_t a1)
     if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67174915;
-      v13 = exceededCopy;
-      v14 = 2113;
-      v15 = nameCopy;
+      v12 = exceededCopy;
+      v13 = 2113;
+      v14 = nameCopy;
       _os_log_impl(&dword_1BAC42000, log, OS_LOG_TYPE_DEFAULT, "DelegateProxy: system updated resource usage limit exceeded: %{private}d. Configuration type: %{private}@", buf, 0x12u);
     }
   }
@@ -2517,17 +2465,15 @@ void __34__NISession_systemDidUpdateState___block_invoke(uint64_t a1)
   v8 = NSClassFromString(nameCopy);
   if (v8)
   {
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __91__NISession_systemDidUpdateResourceUsageLimitExceeded_forSessionConfigurationTypeWithName___block_invoke;
-    v10[3] = &unk_1E7F13CD8;
-    v11 = exceededCopy;
-    v10[4] = self;
-    v10[5] = v8;
-    [(NISession *)self _performBlockOnDelegateQueue:v10 ifRespondsToSelector:sel_systemConfigurator_didUpdateResourceUsageLimitExceeded_forSessionConfigurationType_];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __91__NISession_systemDidUpdateResourceUsageLimitExceeded_forSessionConfigurationTypeWithName___block_invoke;
+    v9[3] = &unk_1E7F13CD8;
+    v10 = exceededCopy;
+    v9[4] = self;
+    v9[5] = v8;
+    [(NISession *)self _performBlockOnDelegateQueue:v9 ifRespondsToSelector:sel_systemConfigurator_didUpdateResourceUsageLimitExceeded_forSessionConfigurationType_];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __91__NISession_systemDidUpdateResourceUsageLimitExceeded_forSessionConfigurationTypeWithName___block_invoke(uint64_t a1)
@@ -2538,7 +2484,7 @@ void __91__NISession_systemDidUpdateResourceUsageLimitExceeded_forSessionConfigu
 
 - (void)didUpdateAlgorithmState:(id)state forObject:(id)object
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   objectCopy = object;
   convergence = [stateCopy convergence];
@@ -2574,38 +2520,36 @@ void __91__NISession_systemDidUpdateResourceUsageLimitExceeded_forSessionConfigu
     if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109635;
-      v24 = convergence;
-      v25 = 2113;
-      v26 = objectCopy;
-      v27 = 2113;
-      v28 = v9;
+      v23 = convergence;
+      v24 = 2113;
+      v25 = objectCopy;
+      v26 = 2113;
+      v27 = v9;
       _os_log_impl(&dword_1BAC42000, log, OS_LOG_TYPE_DEFAULT, "DelegateProxy: algorithm convergence status: %d. Object: %{private}@. Reasons: %{private}@", buf, 0x1Cu);
     }
   }
 
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __47__NISession_didUpdateAlgorithmState_forObject___block_invoke;
-  v19[3] = &unk_1E7F13D00;
-  v19[4] = self;
-  v22 = convergence;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __47__NISession_didUpdateAlgorithmState_forObject___block_invoke;
+  v18[3] = &unk_1E7F13D00;
+  v18[4] = self;
+  v21 = convergence;
   v11 = v9;
-  v20 = v11;
+  v19 = v11;
   v12 = objectCopy;
-  v21 = v12;
-  [(NISession *)self _performBlockOnDelegateQueue:v19 ifRespondsToSelector:sel_session_didUpdateAlgorithmConvergence_forObject_];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __47__NISession_didUpdateAlgorithmState_forObject___block_invoke_2;
-  v16[3] = &unk_1E7F13C60;
-  v16[4] = self;
+  v20 = v12;
+  [(NISession *)self _performBlockOnDelegateQueue:v18 ifRespondsToSelector:sel_session_didUpdateAlgorithmConvergence_forObject_];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __47__NISession_didUpdateAlgorithmState_forObject___block_invoke_2;
+  v15[3] = &unk_1E7F13C60;
+  v15[4] = self;
   v13 = stateCopy;
-  v17 = v13;
+  v16 = v13;
   v14 = v12;
-  v18 = v14;
-  [(NISession *)self _performBlockOnDelegateQueue:v16 ifRespondsToSelector:sel_session_didUpdateAlgorithmState_forObject_];
-
-  v15 = *MEMORY[0x1E69E9840];
+  v17 = v14;
+  [(NISession *)self _performBlockOnDelegateQueue:v15 ifRespondsToSelector:sel_session_didUpdateAlgorithmState_forObject_];
 }
 
 void __47__NISession_didUpdateAlgorithmState_forObject___block_invoke(void *a1)
@@ -2625,7 +2569,6 @@ void __47__NISession_didUpdateAlgorithmState_forObject___block_invoke_2(void *a1
 - (void)didUpdateState:(int64_t)state forItem:(id)item
 {
   itemCopy = item;
-  currentConfiguration = self->_currentConfiguration;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -2634,8 +2577,8 @@ void __47__NISession_didUpdateAlgorithmState_forObject___block_invoke_2(void *a1
       log = self->_log;
       if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
       {
-        *v17 = 0;
-        _os_log_impl(&dword_1BAC42000, log, OS_LOG_TYPE_DEFAULT, "#item-loc, didUpdateState:forItem: Configuration not of item localizer type", v17, 2u);
+        *v16 = 0;
+        _os_log_impl(&dword_1BAC42000, log, OS_LOG_TYPE_DEFAULT, "#item-loc, didUpdateState:forItem: Configuration not of item localizer type", v16, 2u);
       }
     }
 
@@ -2652,24 +2595,24 @@ LABEL_13:
       state = 4;
       goto LABEL_13;
     case 1:
-      v8 = [(NIConfiguration *)self->_currentConfiguration copy];
-      if ([v8 preferredUpdateRate] == 3)
+      v7 = [(NIConfiguration *)self->_currentConfiguration copy];
+      if ([v7 preferredUpdateRate] == 3)
       {
         [(NISession *)self _sendRemoteDevice:itemCopy changedState:1];
         if (+[NIPlatformInfo isInternalBuild])
         {
-          v9 = self->_log;
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+          v8 = self->_log;
+          if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_1BAC42000, v9, OS_LOG_TYPE_DEFAULT, "#item-loc, Remote device findable", buf, 2u);
+            _os_log_impl(&dword_1BAC42000, v8, OS_LOG_TYPE_DEFAULT, "#item-loc, Remote device findable", buf, 2u);
           }
         }
       }
 
       else
       {
-        if ([v8 preferredUpdateRate] != 2)
+        if ([v7 preferredUpdateRate] != 2)
         {
           if (+[NIPlatformInfo isInternalBuild]&& os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
           {
@@ -2683,33 +2626,33 @@ LABEL_13:
         {
           if (+[NIPlatformInfo isInternalBuild])
           {
-            v11 = self->_log;
-            if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+            v10 = self->_log;
+            if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
             {
-              *v14 = 0;
-              _os_log_impl(&dword_1BAC42000, v11, OS_LOG_TYPE_DEFAULT, "#item-loc, Remote device Reconnected", v14, 2u);
+              *v13 = 0;
+              _os_log_impl(&dword_1BAC42000, v10, OS_LOG_TYPE_DEFAULT, "#item-loc, Remote device Reconnected", v13, 2u);
             }
           }
 
-          v12 = 3;
+          v11 = 3;
         }
 
         else
         {
           if (+[NIPlatformInfo isInternalBuild])
           {
-            v13 = self->_log;
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+            v12 = self->_log;
+            if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
             {
-              *v15 = 0;
-              _os_log_impl(&dword_1BAC42000, v13, OS_LOG_TYPE_DEFAULT, "#item-loc, Remote device findable", v15, 2u);
+              *v14 = 0;
+              _os_log_impl(&dword_1BAC42000, v12, OS_LOG_TYPE_DEFAULT, "#item-loc, Remote device findable", v14, 2u);
             }
           }
 
-          v12 = 1;
+          v11 = 1;
         }
 
-        [(NISession *)self _sendRemoteDevice:itemCopy changedState:v12];
+        [(NISession *)self _sendRemoteDevice:itemCopy changedState:v11];
       }
 
       self->_itemLocalizerDidPrewarmRanging = 1;
@@ -2968,21 +2911,20 @@ uint64_t __59__NISession_sessionShouldAttemptRelocalization_completion___block_i
 
 - (void)_handleARSessionDidChangeState:(unint64_t)state
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   if (+[NIPlatformInfo isInternalBuild])
   {
     log = self->_log;
     if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
     {
-      v7[0] = 67109120;
-      v7[1] = state;
-      _os_log_impl(&dword_1BAC42000, log, OS_LOG_TYPE_DEFAULT, "ARSession: changed state: %d", v7, 8u);
+      v6[0] = 67109120;
+      v6[1] = state;
+      _os_log_impl(&dword_1BAC42000, log, OS_LOG_TYPE_DEFAULT, "ARSession: changed state: %d", v6, 8u);
     }
   }
 
   [(NISessionVisionContext *)self->_visionContext setArSessionState:state];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleARSession:(id)session willRunWithConfiguration:(id)configuration
@@ -3011,21 +2953,19 @@ uint64_t __59__NISession_sessionShouldAttemptRelocalization_completion___block_i
 
 void __46__NISession__configureAndRunInternalARSession__block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   v2 = MEMORY[0x1E696ABC0];
-  v6 = *MEMORY[0x1E696A578];
-  v7[0] = @"Invalid camera assistance configuration.";
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5 = *MEMORY[0x1E696A578];
+  v6[0] = @"Invalid camera assistance configuration.";
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   v4 = [v2 errorWithDomain:@"com.apple.NearbyInteraction" code:-5888 userInfo:v3];
   [v1 _invalidateSessionAndNotifyError:v4];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_isValidARSession:(id)session andConfiguration:(id)configuration
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   configurationCopy = configuration;
   dispatch_assert_queue_V2(self->_queue);
@@ -3056,12 +2996,12 @@ void __46__NISession__configureAndRunInternalARSession__block_invoke(uint64_t a1
   if ([(NISessionVisionContext *)self->_visionContext isARSessionInternal])
   {
     arSession = [(NISessionVisionContext *)self->_visionContext arSession];
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __48__NISession__isValidARSession_andConfiguration___block_invoke;
-    v26[3] = &unk_1E7F13D50;
-    v26[4] = self;
-    [(NISession *)self sessionShouldAttemptRelocalization:arSession completion:v26];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __48__NISession__isValidARSession_andConfiguration___block_invoke;
+    v25[3] = &unk_1E7F13D50;
+    v25[4] = self;
+    [(NISession *)self sessionShouldAttemptRelocalization:arSession completion:v25];
 
     goto LABEL_6;
   }
@@ -3109,19 +3049,19 @@ LABEL_28:
 
   if (+[NIPlatformInfo isInternalBuild])
   {
-    v21 = self->_log;
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v20 = self->_log;
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = [delegate sessionShouldAttemptRelocalization:sessionCopy];
-      v23 = "NO";
-      if (v22)
+      v21 = [delegate sessionShouldAttemptRelocalization:sessionCopy];
+      v22 = "NO";
+      if (v21)
       {
-        v23 = "YES";
+        v22 = "YES";
       }
 
       *buf = 136315138;
-      v28 = v23;
-      _os_log_impl(&dword_1BAC42000, v21, OS_LOG_TYPE_DEFAULT, "_isValidARSession got %s from sessionShouldAttemptRelocalization", buf, 0xCu);
+      v27 = v22;
+      _os_log_impl(&dword_1BAC42000, v20, OS_LOG_TYPE_DEFAULT, "_isValidARSession got %s from sessionShouldAttemptRelocalization", buf, 0xCu);
     }
   }
 
@@ -3168,9 +3108,9 @@ LABEL_6:
     else
     {
       initialWorldMap = [v10 initialWorldMap];
-      v25 = initialWorldMap == 0;
+      v24 = initialWorldMap == 0;
 
-      if (v25)
+      if (v24)
       {
         if (![v10 isCollaborationEnabled])
         {
@@ -3229,7 +3169,6 @@ LABEL_33:
   v18 = 0;
 LABEL_34:
 
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -3320,21 +3259,16 @@ void __48__NISession__isValidARSession_andConfiguration___block_invoke(uint64_t 
 - (void)_interruptSessionWithInternalReason:(int64_t)reason cachedInterruption:(BOOL)interruption nearbydReSuspension:(BOOL)suspension
 {
   interruptionCopy = interruption;
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
-  if ([(NISession *)self internalState]== 6 && !interruptionCopy)
+  if ([(NISession *)self internalState]!= 6 || interruptionCopy)
   {
+    [(NISession *)self setInternalState:6];
     if (suspension)
     {
-      goto LABEL_11;
+      return;
     }
 
-    goto LABEL_10;
-  }
-
-  [(NISession *)self setInternalState:6];
-  if (!suspension)
-  {
     if (+[NIPlatformInfo isInternalBuild])
     {
       log = self->_log;
@@ -3342,30 +3276,32 @@ void __48__NISession__isValidARSession_andConfiguration___block_invoke(uint64_t 
       {
         internalID = self->_internalID;
         *buf = 138412290;
-        v16 = internalID;
+        v15 = internalID;
         _os_log_impl(&dword_1BAC42000, log, OS_LOG_TYPE_DEFAULT, "Delegate: notify suspension started [%@]", buf, 0xCu);
       }
     }
 
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __88__NISession__interruptSessionWithInternalReason_cachedInterruption_nearbydReSuspension___block_invoke;
-    v14[3] = &unk_1E7F13A98;
-    v14[4] = self;
-    [(NISession *)self _performBlockOnDelegateQueue:v14 ifRespondsToSelector:sel_sessionWasSuspended_];
-LABEL_10:
-    v11 = InternalInterruptionReasonToNISessionSuspensionReason(reason);
     v13[0] = MEMORY[0x1E69E9820];
     v13[1] = 3221225472;
-    v13[2] = __88__NISession__interruptSessionWithInternalReason_cachedInterruption_nearbydReSuspension___block_invoke_2;
-    v13[3] = &unk_1E7F13C10;
+    v13[2] = __88__NISession__interruptSessionWithInternalReason_cachedInterruption_nearbydReSuspension___block_invoke;
+    v13[3] = &unk_1E7F13A98;
     v13[4] = self;
-    v13[5] = v11;
-    [(NISession *)self _performBlockOnDelegateQueue:v13 ifRespondsToSelector:sel_session_suspendedWithReason_];
+    [(NISession *)self _performBlockOnDelegateQueue:v13 ifRespondsToSelector:sel_sessionWasSuspended_];
+    goto LABEL_10;
   }
 
-LABEL_11:
-  v12 = *MEMORY[0x1E69E9840];
+  if (!suspension)
+  {
+LABEL_10:
+    v11 = InternalInterruptionReasonToNISessionSuspensionReason(reason);
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __88__NISession__interruptSessionWithInternalReason_cachedInterruption_nearbydReSuspension___block_invoke_2;
+    v12[3] = &unk_1E7F13C10;
+    v12[4] = self;
+    v12[5] = v11;
+    [(NISession *)self _performBlockOnDelegateQueue:v12 ifRespondsToSelector:sel_session_suspendedWithReason_];
+  }
 }
 
 void __88__NISession__interruptSessionWithInternalReason_cachedInterruption_nearbydReSuspension___block_invoke(uint64_t a1)
@@ -3382,7 +3318,7 @@ void __88__NISession__interruptSessionWithInternalReason_cachedInterruption_near
 
 - (void)_invalidateInternal
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   internalState = [(NISession *)self internalState];
   if (+[NIPlatformInfo isInternalBuild])
@@ -3393,11 +3329,11 @@ void __88__NISession__interruptSessionWithInternalReason_cachedInterruption_near
       internalID = self->_internalID;
       v6 = log;
       v7 = NISessionInternalStateToString(internalState);
-      v10 = 138412546;
-      v11 = internalID;
-      v12 = 2112;
-      v13 = v7;
-      _os_log_impl(&dword_1BAC42000, v6, OS_LOG_TYPE_DEFAULT, "invalidateInternal [%@]. State: %@.", &v10, 0x16u);
+      v9 = 138412546;
+      v10 = internalID;
+      v11 = 2112;
+      v12 = v7;
+      _os_log_impl(&dword_1BAC42000, v6, OS_LOG_TYPE_DEFAULT, "invalidateInternal [%@]. State: %@.", &v9, 0x16u);
     }
   }
 
@@ -3412,13 +3348,11 @@ void __88__NISession__interruptSessionWithInternalReason_cachedInterruption_near
     self->_itemLocalizerDidPrewarmRanging = 0;
     [(NISession *)self _invalidateInternalARSessionIfNeeded];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleActivationError:(id)error
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (+[NIPlatformInfo isInternalBuild])
   {
@@ -3427,25 +3361,23 @@ void __88__NISession__interruptSessionWithInternalReason_cachedInterruption_near
     {
       internalID = self->_internalID;
       v7 = NISessionInternalStateToString([(NISession *)self internalState]);
-      v9 = 138412802;
-      v10 = internalID;
-      v11 = 2112;
-      v12 = v7;
-      v13 = 2112;
-      v14 = errorCopy;
-      _os_log_impl(&dword_1BAC42000, v5, OS_LOG_TYPE_DEFAULT, "Activation error [%@]. State: %@. Error: %@", &v9, 0x20u);
+      v8 = 138412802;
+      v9 = internalID;
+      v10 = 2112;
+      v11 = v7;
+      v12 = 2112;
+      v13 = errorCopy;
+      _os_log_impl(&dword_1BAC42000, v5, OS_LOG_TYPE_DEFAULT, "Activation error [%@]. State: %@. Error: %@", &v8, 0x20u);
     }
   }
 
   dispatch_assert_queue_V2(self->_queue);
   [(NISession *)self _invalidateSessionAndNotifyError:errorCopy];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleActivationSuccess:(id)success
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   successCopy = success;
   if (+[NIPlatformInfo isInternalBuild])
   {
@@ -3454,13 +3386,13 @@ void __88__NISession__interruptSessionWithInternalReason_cachedInterruption_near
     {
       internalID = self->_internalID;
       v7 = NISessionInternalStateToString([(NISession *)self internalState]);
-      v9 = 138412802;
-      v10 = internalID;
-      v11 = 2112;
-      v12 = v7;
-      v13 = 2112;
-      v14 = successCopy;
-      _os_log_impl(&dword_1BAC42000, v5, OS_LOG_TYPE_DEFAULT, "Activation success [%@]. State: %@. Response: %@", &v9, 0x20u);
+      v8 = 138412802;
+      v9 = internalID;
+      v10 = 2112;
+      v11 = v7;
+      v12 = 2112;
+      v13 = successCopy;
+      _os_log_impl(&dword_1BAC42000, v5, OS_LOG_TYPE_DEFAULT, "Activation success [%@]. State: %@. Response: %@", &v8, 0x20u);
     }
   }
 
@@ -3482,13 +3414,11 @@ void __88__NISession__interruptSessionWithInternalReason_cachedInterruption_near
   }
 
   [(NISession *)self setActivationResponse:successCopy];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleRunSessionError:(id)error
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (+[NIPlatformInfo isInternalBuild])
   {
@@ -3497,13 +3427,13 @@ void __88__NISession__interruptSessionWithInternalReason_cachedInterruption_near
     {
       internalID = self->_internalID;
       v7 = NISessionInternalStateToString([(NISession *)self internalState]);
-      v9 = 138412802;
-      v10 = internalID;
-      v11 = 2112;
-      v12 = v7;
-      v13 = 2112;
-      v14 = errorCopy;
-      _os_log_impl(&dword_1BAC42000, v5, OS_LOG_TYPE_DEFAULT, "Run session error [%@]. State: %@. Error: %@", &v9, 0x20u);
+      v8 = 138412802;
+      v9 = internalID;
+      v10 = 2112;
+      v11 = v7;
+      v12 = 2112;
+      v13 = errorCopy;
+      _os_log_impl(&dword_1BAC42000, v5, OS_LOG_TYPE_DEFAULT, "Run session error [%@]. State: %@. Error: %@", &v8, 0x20u);
     }
   }
 
@@ -3512,13 +3442,11 @@ void __88__NISession__interruptSessionWithInternalReason_cachedInterruption_near
   {
     [(NISession *)self _invalidateSessionAndNotifyError:errorCopy];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleRunSessionSuccess
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (+[NIPlatformInfo isInternalBuild])
   {
     v3 = self->_log;
@@ -3527,9 +3455,9 @@ void __88__NISession__interruptSessionWithInternalReason_cachedInterruption_near
       internalID = self->_internalID;
       v5 = NISessionInternalStateToString([(NISession *)self internalState]);
       *buf = 138412546;
-      v9 = internalID;
-      v10 = 2112;
-      v11 = v5;
+      v8 = internalID;
+      v9 = 2112;
+      v10 = v5;
       _os_log_impl(&dword_1BAC42000, v3, OS_LOG_TYPE_DEFAULT, "Run session succeeded [%@]. State: %@", buf, 0x16u);
     }
   }
@@ -3543,15 +3471,13 @@ void __88__NISession__interruptSessionWithInternalReason_cachedInterruption_near
       [(NISession *)self _configureAndRunInternalARSession];
     }
 
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __37__NISession__handleRunSessionSuccess__block_invoke;
-    v7[3] = &unk_1E7F13A98;
-    v7[4] = self;
-    [(NISession *)self _performBlockOnDelegateQueue:v7 ifRespondsToSelector:sel_sessionDidStartRunning_];
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __37__NISession__handleRunSessionSuccess__block_invoke;
+    v6[3] = &unk_1E7F13A98;
+    v6[4] = self;
+    [(NISession *)self _performBlockOnDelegateQueue:v6 ifRespondsToSelector:sel_sessionDidStartRunning_];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __37__NISession__handleRunSessionSuccess__block_invoke(uint64_t a1)
@@ -3562,7 +3488,7 @@ void __37__NISession__handleRunSessionSuccess__block_invoke(uint64_t a1)
 
 - (void)_handlePauseSessionError:(id)error
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (+[NIPlatformInfo isInternalBuild])
   {
@@ -3571,25 +3497,23 @@ void __37__NISession__handleRunSessionSuccess__block_invoke(uint64_t a1)
     {
       internalID = self->_internalID;
       v7 = NISessionInternalStateToString([(NISession *)self internalState]);
-      v9 = 138412802;
-      v10 = internalID;
-      v11 = 2112;
-      v12 = v7;
-      v13 = 2112;
-      v14 = errorCopy;
-      _os_log_impl(&dword_1BAC42000, v5, OS_LOG_TYPE_DEFAULT, "Pause session error [%@]. State: %@. Error: %@", &v9, 0x20u);
+      v8 = 138412802;
+      v9 = internalID;
+      v10 = 2112;
+      v11 = v7;
+      v12 = 2112;
+      v13 = errorCopy;
+      _os_log_impl(&dword_1BAC42000, v5, OS_LOG_TYPE_DEFAULT, "Pause session error [%@]. State: %@. Error: %@", &v8, 0x20u);
     }
   }
 
   dispatch_assert_queue_V2(self->_queue);
   [(NISession *)self _invalidateSessionAndNotifyError:errorCopy];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handlePauseSessionSuccess
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (+[NIPlatformInfo isInternalBuild])
   {
     v3 = self->_log;
@@ -3597,11 +3521,11 @@ void __37__NISession__handleRunSessionSuccess__block_invoke(uint64_t a1)
     {
       internalID = self->_internalID;
       v5 = NISessionInternalStateToString([(NISession *)self internalState]);
-      v7 = 138412546;
-      v8 = internalID;
-      v9 = 2112;
-      v10 = v5;
-      _os_log_impl(&dword_1BAC42000, v3, OS_LOG_TYPE_DEFAULT, "Pause session success [%@]. State: %@", &v7, 0x16u);
+      v6 = 138412546;
+      v7 = internalID;
+      v8 = 2112;
+      v9 = v5;
+      _os_log_impl(&dword_1BAC42000, v3, OS_LOG_TYPE_DEFAULT, "Pause session success [%@]. State: %@", &v6, 0x16u);
     }
   }
 
@@ -3611,8 +3535,6 @@ void __37__NISession__handleRunSessionSuccess__block_invoke(uint64_t a1)
     [(NISession *)self setInternalState:5];
     [(NISession *)self _logDurationAndSubmit:0];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_performBlockOnDelegateQueue:(id)queue ifRespondsToSelector:(SEL)selector evenIfNotRunning:(BOOL)running
@@ -3663,7 +3585,7 @@ LABEL_11:
 
 - (id)_verifyError:(id)error
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   code = [errorCopy code];
   if ((code + 5889) < 8)
@@ -3686,18 +3608,16 @@ LABEL_5:
 
   if (+[NIPlatformInfo isInternalBuild])
   {
-    v12 = self->_log;
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v11 = self->_log;
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       errorCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid error code blocked from being sent to NISessionDelegate.  Error: %@", errorCopy];
-      [(NISession *)errorCopy _verifyError:buf, v12];
+      [(NISession *)errorCopy _verifyError:buf, v11];
     }
   }
 
   v9 = NIErrorWithCodeAndUserInfo(-5887, 0);
 LABEL_6:
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -3741,39 +3661,36 @@ void __43__NISession__notifyDidInvalidateWithError___block_invoke(uint64_t a1)
 
 - (id)_getSessionFailureError
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v6 = *MEMORY[0x1E696A588];
-  v7[0] = @"This session object is invalidated. Dispose of it and create a new one instead.";
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v6[1] = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E696A588];
+  v6[0] = @"This session object is invalidated. Dispose of it and create a new one instead.";
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   v3 = NIErrorWithCodeAndUserInfo(-5887, v2);
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (BOOL)_shouldReRunSessionAfterSessionInterruptionEnded
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   _configurationSupportsRetry = [(NISession *)self _configurationSupportsRetry];
   if (+[NIPlatformInfo isInternalBuild])
   {
     log = self->_log;
     if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
     {
-      v7[0] = 67109120;
-      v7[1] = _configurationSupportsRetry;
-      _os_log_impl(&dword_1BAC42000, log, OS_LOG_TYPE_DEFAULT, "_shouldReRunSessionAfterSessionInterruptionEnded %d", v7, 8u);
+      v6[0] = 67109120;
+      v6[1] = _configurationSupportsRetry;
+      _os_log_impl(&dword_1BAC42000, log, OS_LOG_TYPE_DEFAULT, "_shouldReRunSessionAfterSessionInterruptionEnded %d", v6, 8u);
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return _configurationSupportsRetry;
 }
 
 - (void)_internalRunWithConfiguration:(id)configuration
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   if (+[NIPlatformInfo isInternalBuild])
   {
@@ -3782,23 +3699,21 @@ void __43__NISession__notifyDidInvalidateWithError___block_invoke(uint64_t a1)
     {
       v6 = NISessionInternalStateToString([(NISession *)self internalState]);
       *buf = 138412546;
-      v11 = configurationCopy;
-      v12 = 2112;
-      v13 = v6;
+      v10 = configurationCopy;
+      v11 = 2112;
+      v12 = v6;
       _os_log_impl(&dword_1BAC42000, v5, OS_LOG_TYPE_DEFAULT, "Calling _internalRunWithConfiguration with Config: %@, internal state: %@", buf, 0x16u);
     }
   }
 
   [(NISession *)self setInternalState:2];
   _remoteObject = [(NISession *)self _remoteObject];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __43__NISession__internalRunWithConfiguration___block_invoke;
-  v9[3] = &unk_1E7F13AE0;
-  v9[4] = self;
-  [_remoteObject runWithConfiguration:configurationCopy reply:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __43__NISession__internalRunWithConfiguration___block_invoke;
+  v8[3] = &unk_1E7F13AE0;
+  v8[4] = self;
+  [_remoteObject runWithConfiguration:configurationCopy reply:v8];
 }
 
 void __43__NISession__internalRunWithConfiguration___block_invoke(uint64_t a1, void *a2)
@@ -3901,14 +3816,12 @@ void __38__NISession__tryToRecoverFromFailure___block_invoke(uint64_t a1)
 
 - (BOOL)_configurationSupportsRetry
 {
-  currentConfiguration = self->_currentConfiguration;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     return 1;
   }
 
-  v5 = self->_currentConfiguration;
   objc_opt_class();
   return (objc_opt_isKindOfClass() & 1) != 0 && [(NIConfiguration *)self->_currentConfiguration discoveryTokenVariant]== 2;
 }
@@ -4313,15 +4226,14 @@ LABEL_3:
 
 void __56__NISession_CarKey__processDCKMessage_responseCallback___block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696ABC0];
-  v6 = *MEMORY[0x1E696A578];
-  v7[0] = @"Received a nil or 0 length DCK message.";
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5 = *MEMORY[0x1E696A578];
+  v6[0] = @"Received a nil or 0 length DCK message.";
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   v4 = [v2 errorWithDomain:@"com.apple.NearbyInteraction" code:-19889 userInfo:v3];
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __56__NISession_CarKey__processDCKMessage_responseCallback___block_invoke_2(uint64_t a1)
@@ -4390,17 +4302,17 @@ void __32__NISession_CarKey__deleteURSKs__block_invoke(uint64_t a1)
 
 - (id)_setDebugURSK:(id)k transactionIdentifier:(unsigned int)identifier
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   kCopy = k;
   v7 = kCopy;
   if (kCopy)
   {
-    v18 = 0;
-    v19 = &v18;
-    v20 = 0x3032000000;
-    v21 = __Block_byref_object_copy_;
-    v22 = __Block_byref_object_dispose_;
-    v23 = 0;
+    v17 = 0;
+    v18 = &v17;
+    v19 = 0x3032000000;
+    v20 = __Block_byref_object_copy_;
+    v21 = __Block_byref_object_dispose_;
+    v22 = 0;
     queue = self->_queue;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
@@ -4408,24 +4320,22 @@ void __32__NISession_CarKey__deleteURSKs__block_invoke(uint64_t a1)
     block[3] = &unk_1E7F13F00;
     block[4] = self;
     identifierCopy = identifier;
-    v15 = kCopy;
-    v16 = &v18;
+    v14 = kCopy;
+    v15 = &v17;
     dispatch_sync(queue, block);
-    v9 = v19[5];
+    v9 = v18[5];
 
-    _Block_object_dispose(&v18, 8);
+    _Block_object_dispose(&v17, 8);
   }
 
   else
   {
     v10 = MEMORY[0x1E696ABC0];
-    v24 = *MEMORY[0x1E696A578];
-    v25[0] = @"Given nil URSK.";
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+    v23 = *MEMORY[0x1E696A578];
+    v24[0] = @"Given nil URSK.";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
     v9 = [v10 errorWithDomain:@"com.apple.NearbyInteraction" code:-19886 userInfo:v11];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -4732,7 +4642,7 @@ void __40__NISession_Vision__processVisionInput___block_invoke(uint64_t a1)
 
 + (id)generateBluetoothDeviceTokenWithPublicAddress:(id)address IRK:(id)k
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   addressCopy = address;
   kCopy = k;
   if (!kCopy)
@@ -4747,11 +4657,11 @@ void __40__NISession_Vision__processVisionInput___block_invoke(uint64_t a1)
     [currentHandler2 handleFailureInMethod:a2 object:self file:@"NISession.mm" lineNumber:2833 description:{@"Invalid parameter not satisfying: %@", @"[IRK length] == NIDiscoveryTokenIRKLengthBytes"}];
   }
 
-  v17[0] = &unk_1F38D7A58;
-  v17[1] = &unk_1F38D7A70;
-  v18[0] = kCopy;
-  v18[1] = addressCopy;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v16[0] = &unk_1F38D7A58;
+  v16[1] = &unk_1F38D7A70;
+  v17[0] = kCopy;
+  v17[1] = addressCopy;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
   v10 = MEMORY[0x1BFAFF9B0](v9, 8, 0);
   if (!v10)
   {
@@ -4760,8 +4670,6 @@ void __40__NISession_Vision__processVisionInput___block_invoke(uint64_t a1)
   }
 
   v11 = [[NIDiscoveryToken alloc] initWithBytes:v10];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -4875,7 +4783,7 @@ void __55__NISession_LocalDeviceInteraction___localDeviceLogger__block_invoke()
 
 + (void)setAsyncLocalDeviceInteractableDiscoveryTokens:(id)tokens completion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   tokensCopy = tokens;
   completionCopy = completion;
   v7 = [tokensCopy copy];
@@ -4886,40 +4794,38 @@ void __55__NISession_LocalDeviceInteraction___localDeviceLogger__block_invoke()
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v21 = [v7 count];
+      v20 = [v7 count];
       _os_log_impl(&dword_1BAC42000, v9, OS_LOG_TYPE_DEFAULT, "setAsyncLocalDeviceInteractableDiscoveryTokens:completion: with %d tokens", buf, 8u);
     }
   }
 
   v10 = [NIServerConnection createOneShotConnectionAndResume:1];
   remoteObjectProxy = [v10 remoteObjectProxy];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __95__NISession_LocalDeviceInteraction__setAsyncLocalDeviceInteractableDiscoveryTokens_completion___block_invoke;
-  v16[3] = &unk_1E7F14090;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __95__NISession_LocalDeviceInteraction__setAsyncLocalDeviceInteractableDiscoveryTokens_completion___block_invoke;
+  v15[3] = &unk_1E7F14090;
   v12 = v8;
-  v17 = v12;
+  v16 = v12;
   v13 = completionCopy;
-  v19 = v13;
+  v18 = v13;
   v14 = v10;
-  v18 = v14;
-  [remoteObjectProxy setLocalDeviceInteractableDiscoveryTokens:v7 reply:v16];
-
-  v15 = *MEMORY[0x1E69E9840];
+  v17 = v14;
+  [remoteObjectProxy setLocalDeviceInteractableDiscoveryTokens:v7 reply:v15];
 }
 
 void __95__NISession_LocalDeviceInteraction__setAsyncLocalDeviceInteractableDiscoveryTokens_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (+[NIPlatformInfo isInternalBuild])
   {
     v4 = *(a1 + 32);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = v3;
-      _os_log_impl(&dword_1BAC42000, v4, OS_LOG_TYPE_DEFAULT, "setAsyncLocalDeviceInteractableDiscoveryTokens:completion replied error: %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v3;
+      _os_log_impl(&dword_1BAC42000, v4, OS_LOG_TYPE_DEFAULT, "setAsyncLocalDeviceInteractableDiscoveryTokens:completion replied error: %@", &v6, 0xCu);
     }
   }
 
@@ -4930,8 +4836,6 @@ void __95__NISession_LocalDeviceInteraction__setAsyncLocalDeviceInteractableDisc
   }
 
   [*(a1 + 40) invalidate];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (void)getAsyncInteractableDiscoveryTokens:(id)tokens
@@ -4961,7 +4865,7 @@ void __95__NISession_LocalDeviceInteraction__setAsyncLocalDeviceInteractableDisc
 
 void __73__NISession_LocalDeviceInteraction__getAsyncInteractableDiscoveryTokens___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (+[NIPlatformInfo isInternalBuild])
@@ -4969,11 +4873,11 @@ void __73__NISession_LocalDeviceInteraction__getAsyncInteractableDiscoveryTokens
     v7 = *(a1 + 32);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v10[0] = 67109378;
-      v10[1] = [v5 count];
-      v11 = 2112;
-      v12 = v6;
-      _os_log_impl(&dword_1BAC42000, v7, OS_LOG_TYPE_DEFAULT, "getAsyncInteractableDiscoveryTokens: replied %d tokens. Server error: %@", v10, 0x12u);
+      v9[0] = 67109378;
+      v9[1] = [v5 count];
+      v10 = 2112;
+      v11 = v6;
+      _os_log_impl(&dword_1BAC42000, v7, OS_LOG_TYPE_DEFAULT, "getAsyncInteractableDiscoveryTokens: replied %d tokens. Server error: %@", v9, 0x12u);
     }
   }
 
@@ -4984,8 +4888,6 @@ void __73__NISession_LocalDeviceInteraction__getAsyncInteractableDiscoveryTokens
   }
 
   [*(a1 + 40) invalidate];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (void)getAsyncActivelyInteractingDiscoveryTokens:(id)tokens
@@ -5015,7 +4917,7 @@ void __73__NISession_LocalDeviceInteraction__getAsyncInteractableDiscoveryTokens
 
 void __80__NISession_LocalDeviceInteraction__getAsyncActivelyInteractingDiscoveryTokens___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (+[NIPlatformInfo isInternalBuild])
@@ -5023,11 +4925,11 @@ void __80__NISession_LocalDeviceInteraction__getAsyncActivelyInteractingDiscover
     v7 = *(a1 + 32);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v10[0] = 67109378;
-      v10[1] = [v5 count];
-      v11 = 2112;
-      v12 = v6;
-      _os_log_impl(&dword_1BAC42000, v7, OS_LOG_TYPE_DEFAULT, "getAsyncActivelyInteractingDiscoveryTokens: replied %d tokens. Server error: %@", v10, 0x12u);
+      v9[0] = 67109378;
+      v9[1] = [v5 count];
+      v10 = 2112;
+      v11 = v6;
+      _os_log_impl(&dword_1BAC42000, v7, OS_LOG_TYPE_DEFAULT, "getAsyncActivelyInteractingDiscoveryTokens: replied %d tokens. Server error: %@", v9, 0x12u);
     }
   }
 
@@ -5038,8 +4940,90 @@ void __80__NISession_LocalDeviceInteraction__getAsyncActivelyInteractingDiscover
   }
 
   [*(a1 + 40) invalidate];
+}
 
-  v9 = *MEMORY[0x1E69E9840];
++ (id)setLocalDeviceCanInteract:(BOOL)interact withDiscoveryTokens:(id)tokens
+{
+  interactCopy = interact;
+  v40 = *MEMORY[0x1E69E9840];
+  tokensCopy = tokens;
+  v6 = [tokensCopy copy];
+  v7 = +[NISession _localDeviceLogger];
+  if (interactCopy)
+  {
+    v8 = "YES";
+  }
+
+  else
+  {
+    v8 = "NO";
+  }
+
+  if (+[NIPlatformInfo isInternalBuild])
+  {
+    v9 = v7;
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315394;
+      *&buf[4] = v8;
+      *&buf[12] = 1024;
+      *&buf[14] = [v6 count];
+      _os_log_impl(&dword_1BAC42000, v9, OS_LOG_TYPE_DEFAULT, "setLocalDeviceCanInteract:%s with %d tokens", buf, 0x12u);
+    }
+  }
+
+  v10 = [NIServerConnection createOneShotConnectionAndResume:1];
+  remoteObjectProxy = [v10 remoteObjectProxy];
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 0;
+  *buf = 0;
+  *&buf[8] = buf;
+  *&buf[16] = 0x3032000000;
+  v37 = __Block_byref_object_copy__1;
+  v38 = __Block_byref_object_dispose__1;
+  v39 = 0;
+  v12 = dispatch_semaphore_create(0);
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __83__NISession_LocalDeviceInteraction__setLocalDeviceCanInteract_withDiscoveryTokens___block_invoke;
+  v22[3] = &unk_1E7F13FC8;
+  v24 = &v26;
+  v25 = buf;
+  v13 = v12;
+  v23 = v13;
+  [remoteObjectProxy setLocalDeviceCanInteract:interactCopy withDiscoveryTokens:v6 reply:v22];
+  v14 = dispatch_time(0, 5000000000);
+  dispatch_semaphore_wait(v13, v14);
+  [v10 invalidate];
+  if ((v27[3] & 1) == 0)
+  {
+    v15 = MEMORY[0x1E696ABC0];
+    v34 = *MEMORY[0x1E696A578];
+    v35 = @"Server did not reply.";
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+    v17 = [v15 errorWithDomain:@"com.apple.NearbyInteraction" code:-10020 userInfo:v16];
+    v18 = *(*&buf[8] + 40);
+    *(*&buf[8] + 40) = v17;
+  }
+
+  if (+[NIPlatformInfo isInternalBuild]&& os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v19 = *(*&buf[8] + 40);
+    *v30 = 136315394;
+    v31 = v8;
+    v32 = 2112;
+    v33 = v19;
+    _os_log_impl(&dword_1BAC42000, v7, OS_LOG_TYPE_DEFAULT, "setLocalDeviceCanInteract:%s return error: %@", v30, 0x16u);
+  }
+
+  v20 = *(*&buf[8] + 40);
+
+  _Block_object_dispose(buf, 8);
+  _Block_object_dispose(&v26, 8);
+
+  return v20;
 }
 
 void __83__NISession_LocalDeviceInteraction__setLocalDeviceCanInteract_withDiscoveryTokens___block_invoke(uint64_t a1, void *a2)
@@ -5052,7 +5036,7 @@ void __83__NISession_LocalDeviceInteraction__setLocalDeviceCanInteract_withDisco
 
 + (id)setLocalDeviceDebugParameters:(id)parameters
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   v4 = [parametersCopy copy];
   v5 = +[NISession _localDeviceLogger];
@@ -5065,35 +5049,35 @@ void __83__NISession_LocalDeviceInteraction__setLocalDeviceCanInteract_withDisco
 
   v6 = [NIServerConnection createOneShotConnectionAndResume:1];
   remoteObjectProxy = [v6 remoteObjectProxy];
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
-  v26 = 0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 0;
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy__1;
-  v34 = __Block_byref_object_dispose__1;
-  v35 = 0;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy__1;
+  v33 = __Block_byref_object_dispose__1;
+  v34 = 0;
   v8 = dispatch_semaphore_create(0);
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __67__NISession_LocalDeviceInteraction__setLocalDeviceDebugParameters___block_invoke;
-  v19[3] = &unk_1E7F13FC8;
-  v21 = &v23;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __67__NISession_LocalDeviceInteraction__setLocalDeviceDebugParameters___block_invoke;
+  v18[3] = &unk_1E7F13FC8;
+  v20 = &v22;
   p_buf = &buf;
   v9 = v8;
-  v20 = v9;
-  [remoteObjectProxy setLocalDeviceDebugParameters:v4 reply:v19];
+  v19 = v9;
+  [remoteObjectProxy setLocalDeviceDebugParameters:v4 reply:v18];
   v10 = dispatch_time(0, 5000000000);
   dispatch_semaphore_wait(v9, v10);
   [v6 invalidate];
-  if ((v24[3] & 1) == 0)
+  if ((v23[3] & 1) == 0)
   {
     v11 = MEMORY[0x1E696ABC0];
-    v29 = *MEMORY[0x1E696A578];
-    v30 = @"Server did not reply.";
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+    v28 = *MEMORY[0x1E696A578];
+    v29 = @"Server did not reply.";
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
     v13 = [v11 errorWithDomain:@"com.apple.NearbyInteraction" code:-10020 userInfo:v12];
     v14 = *(*(&buf + 1) + 40);
     *(*(&buf + 1) + 40) = v13;
@@ -5102,17 +5086,15 @@ void __83__NISession_LocalDeviceInteraction__setLocalDeviceCanInteract_withDisco
   if (+[NIPlatformInfo isInternalBuild]&& os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v15 = *(*(&buf + 1) + 40);
-    *v27 = 138412290;
-    v28 = v15;
-    _os_log_impl(&dword_1BAC42000, v5, OS_LOG_TYPE_DEFAULT, "setLocalDeviceDebugParameters return error: %@", v27, 0xCu);
+    *v26 = 138412290;
+    v27 = v15;
+    _os_log_impl(&dword_1BAC42000, v5, OS_LOG_TYPE_DEFAULT, "setLocalDeviceDebugParameters return error: %@", v26, 0xCu);
   }
 
   v16 = *(*(&buf + 1) + 40);
 
   _Block_object_dispose(&buf, 8);
-  _Block_object_dispose(&v23, 8);
-
-  v17 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v22, 8);
 
   return v16;
 }
@@ -5127,7 +5109,7 @@ void __67__NISession_LocalDeviceInteraction__setLocalDeviceDebugParameters___blo
 
 + (id)setLocalDeviceInteractableDiscoveryTokens:(id)tokens
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   tokensCopy = tokens;
   v4 = [tokensCopy copy];
   v5 = +[NISession _localDeviceLogger];
@@ -5144,54 +5126,52 @@ void __67__NISession_LocalDeviceInteraction__setLocalDeviceDebugParameters___blo
 
   v7 = [NIServerConnection createOneShotConnectionAndResume:1];
   remoteObjectProxy = [v7 remoteObjectProxy];
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2020000000;
-  v27 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
   *buf = 0;
-  v33 = buf;
-  v34 = 0x3032000000;
-  v35 = __Block_byref_object_copy__1;
-  v36 = __Block_byref_object_dispose__1;
-  v37 = 0;
+  v32 = buf;
+  v33 = 0x3032000000;
+  v34 = __Block_byref_object_copy__1;
+  v35 = __Block_byref_object_dispose__1;
+  v36 = 0;
   v9 = dispatch_semaphore_create(0);
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __79__NISession_LocalDeviceInteraction__setLocalDeviceInteractableDiscoveryTokens___block_invoke;
-  v20[3] = &unk_1E7F13FC8;
-  v22 = &v24;
-  v23 = buf;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __79__NISession_LocalDeviceInteraction__setLocalDeviceInteractableDiscoveryTokens___block_invoke;
+  v19[3] = &unk_1E7F13FC8;
+  v21 = &v23;
+  v22 = buf;
   v10 = v9;
-  v21 = v10;
-  [remoteObjectProxy setLocalDeviceInteractableDiscoveryTokens:v4 reply:v20];
+  v20 = v10;
+  [remoteObjectProxy setLocalDeviceInteractableDiscoveryTokens:v4 reply:v19];
   v11 = dispatch_time(0, 5000000000);
   dispatch_semaphore_wait(v10, v11);
   [v7 invalidate];
-  if ((v25[3] & 1) == 0)
+  if ((v24[3] & 1) == 0)
   {
     v12 = MEMORY[0x1E696ABC0];
-    v30 = *MEMORY[0x1E696A578];
-    v31 = @"Server did not reply.";
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+    v29 = *MEMORY[0x1E696A578];
+    v30 = @"Server did not reply.";
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
     v14 = [v12 errorWithDomain:@"com.apple.NearbyInteraction" code:-10020 userInfo:v13];
-    v15 = *(v33 + 5);
-    *(v33 + 5) = v14;
+    v15 = *(v32 + 5);
+    *(v32 + 5) = v14;
   }
 
   if (+[NIPlatformInfo isInternalBuild]&& os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = *(v33 + 5);
-    *v28 = 138412290;
-    v29 = v16;
-    _os_log_impl(&dword_1BAC42000, v5, OS_LOG_TYPE_DEFAULT, "setLocalDeviceInteractableDiscoveryTokens return error: %@", v28, 0xCu);
+    v16 = *(v32 + 5);
+    *v27 = 138412290;
+    v28 = v16;
+    _os_log_impl(&dword_1BAC42000, v5, OS_LOG_TYPE_DEFAULT, "setLocalDeviceInteractableDiscoveryTokens return error: %@", v27, 0xCu);
   }
 
-  v17 = *(v33 + 5);
+  v17 = *(v32 + 5);
 
   _Block_object_dispose(buf, 8);
-  _Block_object_dispose(&v24, 8);
-
-  v18 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v23, 8);
 
   return v17;
 }
@@ -5206,7 +5186,7 @@ void __79__NISession_LocalDeviceInteraction__setLocalDeviceInteractableDiscovery
 
 + (NSArray)interactableDiscoveryTokens
 {
-  v48[1] = *MEMORY[0x1E69E9840];
+  v47[1] = *MEMORY[0x1E69E9840];
   v2 = +[NISession _localDeviceLogger];
   if (+[NIPlatformInfo isInternalBuild]&& os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -5216,48 +5196,48 @@ void __79__NISession_LocalDeviceInteraction__setLocalDeviceInteractableDiscovery
 
   v3 = [NIServerConnection createOneShotConnectionAndResume:1];
   remoteObjectProxy = [v3 remoteObjectProxy];
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2020000000;
-  v42 = 0;
-  *buf = 0;
-  v34 = buf;
-  v35 = 0x3032000000;
-  v36 = __Block_byref_object_copy__1;
-  v37 = __Block_byref_object_dispose__1;
   v38 = 0;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy__1;
-  v31 = __Block_byref_object_dispose__1;
-  v32 = 0;
+  v39 = &v38;
+  v40 = 0x2020000000;
+  v41 = 0;
+  *buf = 0;
+  v33 = buf;
+  v34 = 0x3032000000;
+  v35 = __Block_byref_object_copy__1;
+  v36 = __Block_byref_object_dispose__1;
+  v37 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy__1;
+  v30 = __Block_byref_object_dispose__1;
+  v31 = 0;
   v5 = dispatch_semaphore_create(0);
-  v19 = MEMORY[0x1E69E9820];
-  v20 = 3221225472;
-  v21 = __64__NISession_LocalDeviceInteraction__interactableDiscoveryTokens__block_invoke;
-  v22 = &unk_1E7F140E0;
-  v24 = &v39;
-  v25 = buf;
-  v26 = &v27;
+  v18 = MEMORY[0x1E69E9820];
+  v19 = 3221225472;
+  v20 = __64__NISession_LocalDeviceInteraction__interactableDiscoveryTokens__block_invoke;
+  v21 = &unk_1E7F140E0;
+  v23 = &v38;
+  v24 = buf;
+  v25 = &v26;
   v6 = v5;
-  v23 = v6;
-  [remoteObjectProxy getInteractableDiscoveryTokens:&v19];
+  v22 = v6;
+  [remoteObjectProxy getInteractableDiscoveryTokens:&v18];
   v7 = dispatch_time(0, 5000000000);
   dispatch_semaphore_wait(v6, v7);
   [v3 invalidate];
-  if ((v40[3] & 1) == 0)
+  if ((v39[3] & 1) == 0)
   {
-    v8 = *(v34 + 5);
-    *(v34 + 5) = 0;
+    v8 = *(v33 + 5);
+    *(v33 + 5) = 0;
 
     v9 = MEMORY[0x1E696ABC0];
-    v47 = *MEMORY[0x1E696A578];
-    v48[0] = @"Server did not reply.";
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:&v47 count:1];
+    v46 = *MEMORY[0x1E696A578];
+    v47[0] = @"Server did not reply.";
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:&v46 count:1];
     v11 = [v9 errorWithDomain:@"com.apple.NearbyInteraction" code:-10020 userInfo:v10];
-    v12 = v28[5];
-    v28[5] = v11;
+    v12 = v27[5];
+    v27[5] = v11;
   }
 
   if (+[NIPlatformInfo isInternalBuild])
@@ -5265,23 +5245,22 @@ void __79__NISession_LocalDeviceInteraction__setLocalDeviceInteractableDiscovery
     v13 = v2;
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = [*(v34 + 5) count];
-      v15 = v28[5];
-      *v43 = 67109378;
-      v44 = v14;
-      v45 = 2112;
-      v46 = v15;
-      _os_log_impl(&dword_1BAC42000, v13, OS_LOG_TYPE_DEFAULT, "interactableDiscoveryTokens return %d tokens. Server error: %@", v43, 0x12u);
+      v14 = [*(v33 + 5) count];
+      v15 = v27[5];
+      *v42 = 67109378;
+      v43 = v14;
+      v44 = 2112;
+      v45 = v15;
+      _os_log_impl(&dword_1BAC42000, v13, OS_LOG_TYPE_DEFAULT, "interactableDiscoveryTokens return %d tokens. Server error: %@", v42, 0x12u);
     }
   }
 
-  v16 = *(v34 + 5);
+  v16 = *(v33 + 5);
 
-  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(&v26, 8);
   _Block_object_dispose(buf, 8);
 
-  _Block_object_dispose(&v39, 8);
-  v17 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v38, 8);
 
   return v16;
 }
@@ -5306,7 +5285,7 @@ void __64__NISession_LocalDeviceInteraction__interactableDiscoveryTokens__block_
 
 + (NSArray)activelyInteractingDiscoveryTokens
 {
-  v48[1] = *MEMORY[0x1E69E9840];
+  v47[1] = *MEMORY[0x1E69E9840];
   v2 = +[NISession _localDeviceLogger];
   if (+[NIPlatformInfo isInternalBuild]&& os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -5316,48 +5295,48 @@ void __64__NISession_LocalDeviceInteraction__interactableDiscoveryTokens__block_
 
   v3 = [NIServerConnection createOneShotConnectionAndResume:1];
   remoteObjectProxy = [v3 remoteObjectProxy];
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2020000000;
-  v42 = 0;
-  *buf = 0;
-  v34 = buf;
-  v35 = 0x3032000000;
-  v36 = __Block_byref_object_copy__1;
-  v37 = __Block_byref_object_dispose__1;
   v38 = 0;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy__1;
-  v31 = __Block_byref_object_dispose__1;
-  v32 = 0;
+  v39 = &v38;
+  v40 = 0x2020000000;
+  v41 = 0;
+  *buf = 0;
+  v33 = buf;
+  v34 = 0x3032000000;
+  v35 = __Block_byref_object_copy__1;
+  v36 = __Block_byref_object_dispose__1;
+  v37 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy__1;
+  v30 = __Block_byref_object_dispose__1;
+  v31 = 0;
   v5 = dispatch_semaphore_create(0);
-  v19 = MEMORY[0x1E69E9820];
-  v20 = 3221225472;
-  v21 = __71__NISession_LocalDeviceInteraction__activelyInteractingDiscoveryTokens__block_invoke;
-  v22 = &unk_1E7F140E0;
-  v24 = &v39;
-  v25 = buf;
-  v26 = &v27;
+  v18 = MEMORY[0x1E69E9820];
+  v19 = 3221225472;
+  v20 = __71__NISession_LocalDeviceInteraction__activelyInteractingDiscoveryTokens__block_invoke;
+  v21 = &unk_1E7F140E0;
+  v23 = &v38;
+  v24 = buf;
+  v25 = &v26;
   v6 = v5;
-  v23 = v6;
-  [remoteObjectProxy getActivelyInteractingDiscoveryTokens:&v19];
+  v22 = v6;
+  [remoteObjectProxy getActivelyInteractingDiscoveryTokens:&v18];
   v7 = dispatch_time(0, 5000000000);
   dispatch_semaphore_wait(v6, v7);
   [v3 invalidate];
-  if ((v40[3] & 1) == 0)
+  if ((v39[3] & 1) == 0)
   {
-    v8 = *(v34 + 5);
-    *(v34 + 5) = 0;
+    v8 = *(v33 + 5);
+    *(v33 + 5) = 0;
 
     v9 = MEMORY[0x1E696ABC0];
-    v47 = *MEMORY[0x1E696A578];
-    v48[0] = @"Server did not reply.";
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:&v47 count:1];
+    v46 = *MEMORY[0x1E696A578];
+    v47[0] = @"Server did not reply.";
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:&v46 count:1];
     v11 = [v9 errorWithDomain:@"com.apple.NearbyInteraction" code:-10020 userInfo:v10];
-    v12 = v28[5];
-    v28[5] = v11;
+    v12 = v27[5];
+    v27[5] = v11;
   }
 
   if (+[NIPlatformInfo isInternalBuild])
@@ -5365,23 +5344,22 @@ void __64__NISession_LocalDeviceInteraction__interactableDiscoveryTokens__block_
     v13 = v2;
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = [*(v34 + 5) count];
-      v15 = v28[5];
-      *v43 = 67109378;
-      v44 = v14;
-      v45 = 2112;
-      v46 = v15;
-      _os_log_impl(&dword_1BAC42000, v13, OS_LOG_TYPE_DEFAULT, "activelyInteractingDiscoveryTokens return %d tokens. Server error: %@", v43, 0x12u);
+      v14 = [*(v33 + 5) count];
+      v15 = v27[5];
+      *v42 = 67109378;
+      v43 = v14;
+      v44 = 2112;
+      v45 = v15;
+      _os_log_impl(&dword_1BAC42000, v13, OS_LOG_TYPE_DEFAULT, "activelyInteractingDiscoveryTokens return %d tokens. Server error: %@", v42, 0x12u);
     }
   }
 
-  v16 = *(v34 + 5);
+  v16 = *(v33 + 5);
 
-  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(&v26, 8);
   _Block_object_dispose(buf, 8);
 
-  _Block_object_dispose(&v39, 8);
-  v17 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v38, 8);
 
   return v16;
 }
@@ -5406,7 +5384,7 @@ void __71__NISession_LocalDeviceInteraction__activelyInteractingDiscoveryTokens_
 
 + (id)localDevicePrintableState
 {
-  v44[1] = *MEMORY[0x1E69E9840];
+  v43[1] = *MEMORY[0x1E69E9840];
   v2 = +[NISession _localDeviceLogger];
   if (+[NIPlatformInfo isInternalBuild]&& os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -5416,65 +5394,64 @@ void __71__NISession_LocalDeviceInteraction__activelyInteractingDiscoveryTokens_
 
   v3 = [NIServerConnection createOneShotConnectionAndResume:1];
   remoteObjectProxy = [v3 remoteObjectProxy];
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x2020000000;
-  v40 = 0;
-  *buf = 0;
-  v32 = buf;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy__1;
-  v35 = __Block_byref_object_dispose__1;
   v36 = 0;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy__1;
-  v29 = __Block_byref_object_dispose__1;
-  v30 = 0;
+  v37 = &v36;
+  v38 = 0x2020000000;
+  v39 = 0;
+  *buf = 0;
+  v31 = buf;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__1;
+  v34 = __Block_byref_object_dispose__1;
+  v35 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__1;
+  v28 = __Block_byref_object_dispose__1;
+  v29 = 0;
   v5 = dispatch_semaphore_create(0);
-  v17 = MEMORY[0x1E69E9820];
-  v18 = 3221225472;
-  v19 = __62__NISession_LocalDeviceInteraction__localDevicePrintableState__block_invoke;
-  v20 = &unk_1E7F14108;
-  v22 = &v37;
-  v23 = buf;
-  v24 = &v25;
+  v16 = MEMORY[0x1E69E9820];
+  v17 = 3221225472;
+  v18 = __62__NISession_LocalDeviceInteraction__localDevicePrintableState__block_invoke;
+  v19 = &unk_1E7F14108;
+  v21 = &v36;
+  v22 = buf;
+  v23 = &v24;
   v6 = v5;
-  v21 = v6;
-  [remoteObjectProxy getLocalDevicePrintableState:&v17];
+  v20 = v6;
+  [remoteObjectProxy getLocalDevicePrintableState:&v16];
   v7 = dispatch_time(0, 5000000000);
   dispatch_semaphore_wait(v6, v7);
   [v3 invalidate];
-  if ((v38[3] & 1) == 0)
+  if ((v37[3] & 1) == 0)
   {
-    v8 = *(v32 + 5);
-    *(v32 + 5) = 0;
+    v8 = *(v31 + 5);
+    *(v31 + 5) = 0;
 
     v9 = MEMORY[0x1E696ABC0];
-    v43 = *MEMORY[0x1E696A578];
-    v44[0] = @"Server did not reply.";
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:&v43 count:1];
+    v42 = *MEMORY[0x1E696A578];
+    v43[0] = @"Server did not reply.";
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:&v42 count:1];
     v11 = [v9 errorWithDomain:@"com.apple.NearbyInteraction" code:-10020 userInfo:v10];
-    v12 = v26[5];
-    v26[5] = v11;
+    v12 = v25[5];
+    v25[5] = v11;
   }
 
   if (+[NIPlatformInfo isInternalBuild]&& os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = v26[5];
-    *v41 = 138412290;
-    v42 = v13;
-    _os_log_impl(&dword_1BAC42000, v2, OS_LOG_TYPE_DEFAULT, "localDevicePrintableState error: %@", v41, 0xCu);
+    v13 = v25[5];
+    *v40 = 138412290;
+    v41 = v13;
+    _os_log_impl(&dword_1BAC42000, v2, OS_LOG_TYPE_DEFAULT, "localDevicePrintableState error: %@", v40, 0xCu);
   }
 
-  v14 = *(v32 + 5);
+  v14 = *(v31 + 5);
 
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v24, 8);
   _Block_object_dispose(buf, 8);
 
-  _Block_object_dispose(&v37, 8);
-  v15 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v36, 8);
 
   return v14;
 }
@@ -5499,30 +5476,26 @@ void __62__NISession_LocalDeviceInteraction__localDevicePrintableState__block_in
 
 + (void)generateSOSBeaconSubjectDataWithCompletion:(id)completion
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v4 = MEMORY[0x1E696ABC0];
-  v8 = *MEMORY[0x1E696A578];
-  v9[0] = @"Operation not enabled";
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = *MEMORY[0x1E696A578];
+  v8[0] = @"Operation not enabled";
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v6 = [v4 errorWithDomain:@"com.apple.NearbyInteraction" code:-10020 userInfo:v5];
   completionCopy[2](completionCopy, 0, v6);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (void)generateSOSBeaconSearcherDataMatchingSubjectData:(id)data completion:(id)completion
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = MEMORY[0x1E696ABC0];
-  v9 = *MEMORY[0x1E696A578];
-  v10[0] = @"Operation not enabled";
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = *MEMORY[0x1E696A578];
+  v9[0] = @"Operation not enabled";
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v7 = [v5 errorWithDomain:@"com.apple.NearbyInteraction" code:-10020 userInfo:v6];
   completionCopy[2](completionCopy, 0, v7);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)discoveryToken
@@ -5534,20 +5507,16 @@ void __62__NISession_LocalDeviceInteraction__localDevicePrintableState__block_in
 
 - (void)uwbSessionDidFailWithError:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)uwbSessionDidInvalidateWithError:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)uwbSessionInterruptionReasonEnded:timestamp:.cold.1()
@@ -5566,20 +5535,16 @@ void __62__NISession_LocalDeviceInteraction__localDevicePrintableState__block_in
 
 - (void)_handleARSessionDidFailWithError:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleARSession:willRunWithConfiguration:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_verifyError:(os_log_t)log .cold.1(void *a1, uint8_t *buf, os_log_t log)
@@ -5591,12 +5556,11 @@ void __62__NISession_LocalDeviceInteraction__localDevicePrintableState__block_in
 
 - (void)_notifyDidInvalidateWithError:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_1BAC42000, v1, OS_LOG_TYPE_ERROR, "Delegate: notify invalidation: %@. Sanitized: %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_1BAC42000, v1, OS_LOG_TYPE_ERROR, "Delegate: notify invalidation: %@. Sanitized: %@", v2, 0x16u);
 }
 
 @end

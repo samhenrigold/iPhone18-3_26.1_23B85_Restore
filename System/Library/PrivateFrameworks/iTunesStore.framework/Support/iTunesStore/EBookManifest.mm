@@ -233,34 +233,39 @@
   shouldLog = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v3 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v3 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (v5)
   {
-    v6 = objc_opt_class();
+    v7 = objc_opt_class();
     manifestPath = self->_manifestPath;
     v13 = 138412546;
-    v14 = v6;
+    v14 = v7;
     v15 = 2112;
     v16 = manifestPath;
-    LODWORD(v11) = 22;
-    v8 = _os_log_send_and_compose_impl();
-    if (v8)
+    v9 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Invalidating after external change: %@", &v13, 22);
+    if (v9)
     {
-      v9 = v8;
-      [NSString stringWithCString:v8 encoding:4, &v13, v11];
-      free(v9);
+      v10 = v9;
+      [NSString stringWithCString:v9 encoding:4];
+      free(v10);
       SSFileLog();
     }
   }
@@ -282,12 +287,12 @@
     v4 = objc_alloc_init(NSFileManager);
     if ([v4 fileExistsAtPath:self->_manifestPath])
     {
-      v21 = 0;
-      v5 = [[NSData alloc] initWithContentsOfFile:self->_manifestPath options:0 error:&v21];
+      v22 = 0;
+      v5 = [[NSData alloc] initWithContentsOfFile:self->_manifestPath options:0 error:&v22];
       if (v5)
       {
         v6 = v5;
-        v7 = [NSPropertyListSerialization propertyListWithData:v5 options:2 format:0 error:&v21];
+        v7 = [NSPropertyListSerialization propertyListWithData:v5 options:2 format:0 error:&v22];
         self->_manifest = v7;
         if (!v7)
         {
@@ -300,33 +305,38 @@
           shouldLog = [v8 shouldLog];
           if ([v8 shouldLogToDisk])
           {
-            v10 = shouldLog | 2;
+            LODWORD(v10) = shouldLog | 2;
           }
 
           else
           {
-            v10 = shouldLog;
+            LODWORD(v10) = shouldLog;
           }
 
-          if (!os_log_type_enabled([v8 OSLogObject], OS_LOG_TYPE_DEFAULT))
+          oSLogObject = [v8 OSLogObject];
+          if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+          {
+            v10 = v10;
+          }
+
+          else
           {
             v10 &= 2u;
           }
 
           if (v10)
           {
-            v11 = objc_opt_class();
-            v22 = 138412546;
-            v23 = v11;
-            v24 = 2112;
-            v25 = v21;
-            LODWORD(v20) = 22;
-            v12 = _os_log_send_and_compose_impl();
-            if (v12)
+            v12 = objc_opt_class();
+            v23 = 138412546;
+            v24 = v12;
+            v25 = 2112;
+            v26 = v22;
+            v13 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Could not unserialize data: %@", &v23, 22);
+            if (v13)
             {
-              v13 = v12;
-              [NSString stringWithCString:v12 encoding:4, &v22, v20];
-              free(v13);
+              v14 = v13;
+              [NSString stringWithCString:v13 encoding:4];
+              free(v14);
               SSFileLog();
             }
           }
@@ -334,52 +344,57 @@
           self->_manifest = objc_alloc_init(NSMutableDictionary);
         }
 
-        goto LABEL_28;
+        goto LABEL_30;
       }
 
-      v14 = +[SSLogConfig sharedDaemonConfig];
-      if (!v14)
+      v15 = +[SSLogConfig sharedDaemonConfig];
+      if (!v15)
       {
-        v14 = +[SSLogConfig sharedConfig];
+        v15 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog2 = [v14 shouldLog];
-      if ([v14 shouldLogToDisk])
+      shouldLog2 = [v15 shouldLog];
+      if ([v15 shouldLogToDisk])
       {
-        v16 = shouldLog2 | 2;
+        LODWORD(v17) = shouldLog2 | 2;
       }
 
       else
       {
-        v16 = shouldLog2;
+        LODWORD(v17) = shouldLog2;
       }
 
-      if (!os_log_type_enabled([v14 OSLogObject], OS_LOG_TYPE_DEFAULT))
+      oSLogObject2 = [v15 OSLogObject];
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
       {
-        v16 &= 2u;
+        v17 = v17;
       }
 
-      if (v16)
+      else
       {
-        v17 = objc_opt_class();
-        v22 = 138412546;
-        v23 = v17;
-        v24 = 2112;
-        v25 = v21;
-        LODWORD(v20) = 22;
-        v18 = _os_log_send_and_compose_impl();
-        if (v18)
+        v17 &= 2u;
+      }
+
+      if (v17)
+      {
+        v19 = objc_opt_class();
+        v23 = 138412546;
+        v24 = v19;
+        v25 = 2112;
+        v26 = v22;
+        v20 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Could not read data: %@", &v23, 22);
+        if (v20)
         {
-          v19 = v18;
-          [NSString stringWithCString:v18 encoding:4, &v22, v20];
-          free(v19);
+          v21 = v20;
+          [NSString stringWithCString:v20 encoding:4];
+          free(v21);
           SSFileLog();
         }
       }
     }
 
     self->_manifest = objc_alloc_init(NSMutableDictionary);
-LABEL_28:
+LABEL_30:
 
     return self->_manifest;
   }

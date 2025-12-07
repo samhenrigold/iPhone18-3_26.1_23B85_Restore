@@ -1,6 +1,1027 @@
-uint64_t std::__format_spec::__process_parsed_BOOL[abi:ne200100]<char>(uint64_t result, const char *a2)
+void sub_29828A3A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
-  v2 = *(result + 1);
+  operator delete(v11);
+  *v10 = 0;
+  _Unwind_Resume(a1);
+}
+
+uint64_t eUICC::getPairingIdentifier(eUICC *this, const __CFDictionary **a2)
+{
+  if (this)
+  {
+    Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
+    v5 = *gBBULogMaskGet(Mutable, v4) & (gBBULogVerbosity > 0);
+    if (Mutable)
+    {
+      if (v5)
+      {
+        _BBULog(0, 1, "eUICCVinylFactory", "", "Return 16 byte zero EID as pairing identifier\n");
+      }
+
+      CFDictionarySetValue(Mutable, @"EID", @"00000000000000000000000000000000");
+      v6 = 0;
+      *this = Mutable;
+    }
+
+    else
+    {
+      if (v5)
+      {
+        _BBULog(0, 1, "eUICCVinylFactory", "", "Failed to allocate shared info dict\n");
+      }
+
+      return 19;
+    }
+  }
+
+  else
+  {
+    v6 = 1;
+    if ((*gBBULogMaskGet(0, a2) & 1) != 0 && gBBULogVerbosity >= 1)
+    {
+      _BBULog(0, 1, "eUICCVinylFactory", "", "Client rsp data is not valid\n");
+    }
+  }
+
+  return v6;
+}
+
+uint64_t eUICC::getEID()
+{
+  v0 = MEMORY[0x2A1C7C4A8]();
+  v26 = *MEMORY[0x29EDCA608];
+  (*(**v1 + 8))(v24);
+  RadioVendor = TelephonyRadiosGetRadioVendor();
+  if (LODWORD(v24[0]) == (RadioVendor - 5) < 0xFFFFFFFD)
+  {
+    stringifyDataBuffer(&__p, v24 + 7, 16);
+    gBBULogMaskGet(v4, v5);
+    p_p = &__p;
+    if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    {
+      p_p = __p.__r_.__value_.__r.__words[0];
+    }
+
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylFactory", "", "EID: %s\n", p_p);
+    v7 = *MEMORY[0x29EDB8ED8];
+    Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
+    if (Mutable)
+    {
+      if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+      {
+        std::string::__init_copy_ctor_external(&v20, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+      }
+
+      else
+      {
+        v20 = __p;
+      }
+
+      v12 = copyAsCFString(&v20);
+      v21 = v12;
+      if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v20.__r_.__value_.__l.__data_);
+      }
+
+      CFDictionarySetValue(Mutable, @"EID", v12);
+      *v0 = Mutable;
+      v13 = CFStringCreateWithFormat(v7, 0, @"%@", Mutable);
+      v14 = v13;
+      if (v13)
+      {
+        CString = CFStringGetCString(v13, buffer, 0x2000, 0x8000100u);
+        if (CString)
+        {
+          gBBULogMaskGet(CString, v16);
+          _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylFactory", "", "client rsp data: %s\n", buffer);
+        }
+
+        CFRelease(v14);
+      }
+
+      if (v12)
+      {
+        CFRelease(v12);
+      }
+    }
+
+    else
+    {
+      v17 = gBBULogMaskGet(0, v8);
+      EID = eUICC::getEID(v17);
+      if (EID)
+      {
+        EID = _BBULog(1, 6, "eUICCVinylFactory", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCCommon.cpp", 125, "eidSharedRef");
+      }
+
+      if ((*gBBULogMaskGet(EID, v19) & 1) != 0 && gBBULogVerbosity >= 1)
+      {
+        _BBULog(0, 1, "eUICCVinylFactory", "", "Failed to allocate shared info dict\n");
+      }
+    }
+
+    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(__p.__r_.__value_.__l.__data_);
+    }
+  }
+
+  else
+  {
+    v10 = v25;
+    gBBULogMaskGet(RadioVendor, v3);
+    if ((v10 & 1) == 0)
+    {
+      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylFactory", "", "Error: GetData() output not valid and isAbsentOK = false. kBBUReturnGetEIDFailure will be reported as kVinylResultDataMissing!\n");
+      return 107;
+    }
+
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylFactory", "", "eUICC not stuffed but that's ok!\n");
+  }
+
+  return 0;
+}
+
+void sub_29828A868(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, char a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25)
+{
+  if (a25 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t eUICC::checkEOSDev(_BYTE *a1, uint64_t a2)
+{
+  v15 = *MEMORY[0x29EDCA608];
+  *a1 = 0;
+  pthread_mutex_lock(&ctu::Singleton<BBUCapabilities,BBUCapabilities,ctu::PthreadMutexGuardPolicy<BBUCapabilities>>::sInstance);
+  v4 = xmmword_2A13A8CA0;
+  if (!xmmword_2A13A8CA0)
+  {
+    BBUCapabilities::create_default_global(v14);
+    v5 = v14[0];
+    v14[0] = 0uLL;
+    v6 = *(&xmmword_2A13A8CA0 + 1);
+    xmmword_2A13A8CA0 = v5;
+    if (v6)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+      if (*(&v14[0] + 1))
+      {
+        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v14[0] + 1));
+      }
+    }
+
+    v4 = xmmword_2A13A8CA0;
+  }
+
+  v7 = *(&xmmword_2A13A8CA0 + 1);
+  if (*(&xmmword_2A13A8CA0 + 1))
+  {
+    atomic_fetch_add_explicit((*(&xmmword_2A13A8CA0 + 1) + 8), 1uLL, memory_order_relaxed);
+  }
+
+  pthread_mutex_unlock(&ctu::Singleton<BBUCapabilities,BBUCapabilities,ctu::PthreadMutexGuardPolicy<BBUCapabilities>>::sInstance);
+  v8 = BBUCapabilities::supportsEuiccViaEOS(v4);
+  if (v7)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+  }
+
+  if ((v8 & 1) == 0)
+  {
+    return 0;
+  }
+
+  (*(**a2 + 8))(v14);
+  if (LODWORD(v14[0]) == TelephonyRadiosGetRadioVendor() - 5 < 0xFFFFFFFD)
+  {
+    stringifyDataBuffer(&__p, v14 + 7, 16);
+    gBBULogMaskGet(v9, v10);
+    p_p = &__p;
+    if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    {
+      p_p = __p.__r_.__value_.__r.__words[0];
+    }
+
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylFactory", "", "EID: %s\n", p_p);
+    if (HIBYTE(v14[0]) == 99)
+    {
+      *a1 = 1;
+    }
+
+    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(__p.__r_.__value_.__l.__data_);
+    }
+
+    return 0;
+  }
+
+  return 107;
+}
+
+void std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100](uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 8);
+  v3 = v2 * 1.6;
+  if (v2 + a2 <= v3)
+  {
+    v4 = v3;
+  }
+
+  else
+  {
+    v4 = v2 + a2;
+  }
+
+  std::__format::__allocating_buffer<char>::__grow_buffer[abi:ne200100](a1, v4);
+}
+
+void std::__format::__allocating_buffer<char>::__grow_buffer[abi:ne200100](uint64_t a1, size_t __sz)
+{
+  if (__sz >= 0x100)
+  {
+    v4 = operator new(__sz);
+    v5 = v4;
+    v6 = *(a1 + 296);
+    v7 = *(a1 + 16);
+    if (v7)
+    {
+      memmove(v4, *(a1 + 296), v7);
+    }
+
+    if (v6 != (a1 + 40))
+    {
+      operator delete(v6);
+    }
+
+    *(a1 + 296) = v5;
+    *a1 = v5;
+    *(a1 + 8) = __sz;
+  }
+}
+
+unsigned __int8 *std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(unsigned __int8 *a1, unsigned __int8 *a2, uint64_t a3, uint64_t *a4)
+{
+  v4 = *a4;
+  v14[0] = a2;
+  v14[1] = &a2[a3];
+  v15 = 0;
+  v16 = 0;
+  v17 = v4;
+  v10 = *a4;
+  v11 = a4[2];
+  LOBYTE(v7.__locale_) = 0;
+  v8 = 0;
+  v9 = a1;
+  LOBYTE(v12.__locale_) = 0;
+  v13 = 0;
+  v5 = std::__format::__vformat_to[abi:ne200100]<std::basic_format_parse_context<char>,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v14, &v9);
+  if (v13 == 1)
+  {
+    std::locale::~locale(&v12);
+  }
+
+  return v5;
+}
+
+void sub_29828AC98(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::locale a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
+{
+  if (a17 == 1)
+  {
+    std::locale::~locale(v17 + 4);
+    if (a11)
+    {
+      std::locale::~locale(&a10);
+    }
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+unsigned __int8 *std::__format::__vformat_to[abi:ne200100]<std::basic_format_parse_context<char>,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unsigned __int8 **a1, unsigned __int8 **a2)
+{
+  v3 = *a1;
+  v2 = a1[1];
+  v4 = *a2;
+  if (*a1 != v2)
+  {
+    while (1)
+    {
+      v7 = *v3;
+      if (v7 == 125)
+      {
+        break;
+      }
+
+      if (v7 != 123)
+      {
+        goto LABEL_10;
+      }
+
+      if (++v3 == v2)
+      {
+        std::__throw_format_error[abi:ne200100]("The format string terminates at a '{'");
+      }
+
+      if (*v3 == 123)
+      {
+LABEL_10:
+        ++v3;
+        std::__format::__output_buffer<char>::push_back[abi:ne200100](v4, v7);
+        if (v3 == v2)
+        {
+          return v4;
+        }
+      }
+
+      else
+      {
+        *a2 = v4;
+        v3 = std::__format::__handle_replacement_field[abi:ne200100]<char const*,std::basic_format_parse_context<char>,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v3, v2, a1, a2);
+        v4 = *a2;
+        if (v3 == v2)
+        {
+          return v4;
+        }
+      }
+    }
+
+    if (++v3 == v2 || *v3 != 125)
+    {
+      std::__throw_format_error[abi:ne200100]("The format string contains an invalid escape sequence");
+    }
+
+    goto LABEL_10;
+  }
+
+  return v4;
+}
+
+void std::__throw_format_error[abi:ne200100](const char *a1)
+{
+  exception = __cxa_allocate_exception(0x10uLL);
+  std::format_error::format_error[abi:ne200100](exception, a1);
+}
+
+unsigned __int8 *std::__format::__handle_replacement_field[abi:ne200100]<char const*,std::basic_format_parse_context<char>,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unsigned __int8 *a1, unsigned __int8 *a2, unsigned __int8 **a3, unsigned __int8 **a4)
+{
+  v23 = *MEMORY[0x29EDCA608];
+  v7 = std::__format::__parse_arg_id[abi:ne200100]<char const*,std::basic_format_parse_context<char>>(a1, a2, a3);
+  if (v7 == a2)
+  {
+    goto LABEL_14;
+  }
+
+  v9 = *v7;
+  v20 = v9 == 58;
+  if (v9 == 125)
+  {
+    goto LABEL_5;
+  }
+
+  if (v9 != 58)
+  {
+LABEL_14:
+    std::__throw_format_error[abi:ne200100]("The argument index should end with a ':' or a '}'");
+  }
+
+  ++v7;
+LABEL_5:
+  *a3 = v7;
+  v19[0] = a3;
+  v19[1] = a4;
+  v19[2] = &v20;
+  v10 = a4[1];
+  if (v10 <= v8)
+  {
+    LOBYTE(v22) = 0;
+  }
+
+  else if (v10 > 0xC)
+  {
+    v15 = &a4[2][32 * v8];
+    v16 = *(v15 + 1);
+    v21 = *v15;
+    v22 = v16;
+  }
+
+  else
+  {
+    v11 = &a4[2][16 * v8];
+    v13 = *v11;
+    v12 = *(v11 + 1);
+    v14 = (a4[3] >> (5 * v8)) & 0x1F;
+    *&v21 = v13;
+    *(&v21 + 1) = v12;
+    LOBYTE(v22) = v14;
+  }
+
+  std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_replacement_field[abi:ne200100]<char const*,std::basic_format_parse_context<char>,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char const*,char const*,std::basic_format_parse_context<char> &,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char> &)::{lambda(char const*)#1},std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v19, &v21);
+  v17 = *a3;
+  if (*a3 == a2 || *v17 != 125)
+  {
+    std::__throw_format_error[abi:ne200100]("The replacement field misses a terminating '}'");
+  }
+
+  return v17 + 1;
+}
+
+std::runtime_error *std::format_error::format_error[abi:ne200100](std::runtime_error *a1, const char *a2)
+{
+  result = std::runtime_error::runtime_error(a1, a2);
+  result->__vftable = &unk_2A1EB39C8;
+  return result;
+}
+
+void std::format_error::~format_error(std::runtime_error *this)
+{
+  std::runtime_error::~runtime_error(this);
+
+  operator delete(v1);
+}
+
+unsigned __int8 *std::__format::__parse_arg_id[abi:ne200100]<char const*,std::basic_format_parse_context<char>>(unsigned __int8 *a1, unsigned __int8 *a2, uint64_t a3)
+{
+  v3 = a1;
+  v4 = *a1;
+  if (v4 == 125 || v4 == 58)
+  {
+    std::basic_format_parse_context<char>::next_arg_id[abi:ne200100](a3);
+    return v3;
+  }
+
+  if (v4 == 48)
+  {
+    v5 = *(a3 + 16);
+    if (v5)
+    {
+      if (v5 == 2)
+      {
+        std::__throw_format_error[abi:ne200100]("Using manual argument numbering in automatic argument numbering mode");
+      }
+    }
+
+    else
+    {
+      *(a3 + 16) = 1;
+    }
+
+    return a1 + 1;
+  }
+
+  if ((v4 - 58) <= 0xFFFFFFF5)
+  {
+    std::__throw_format_error[abi:ne200100]("The argument index starts with an invalid character");
+  }
+
+  return std::__format::__detail::__parse_manual[abi:ne200100]<char const*,std::basic_format_parse_context<char>>(a1, a2, a3);
+}
+
+uint64_t *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_replacement_field[abi:ne200100]<char const*,std::basic_format_parse_context<char>,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char const*,char const*,std::basic_format_parse_context<char> &,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char> &)::{lambda(char const*)#1},std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unsigned __int8 ***a1, unsigned __int8 *a2)
+{
+  switch(a2[16])
+  {
+    case 1u:
+      v3 = *a2;
+      *v60 = 0;
+      *&v60[8] = -1;
+      v61 = 32;
+      v62 = 0;
+      v63 = 0;
+      if (*a1[2] == 1)
+      {
+        v4 = *a1;
+        v5 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(v60, *a1, 311);
+        std::__format_spec::__process_parsed_BOOL[abi:ne200100]<char>(v60, "a BOOL");
+        *v4 = v5;
+      }
+
+      v6 = a1[1];
+      result = std::formatter<BOOL,char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v3, v6);
+      goto LABEL_65;
+    case 2u:
+      v26 = *a2;
+      *v60 = 0;
+      *&v60[8] = -1;
+      v61 = 32;
+      v62 = 0;
+      v63 = 0;
+      if (*a1[2] == 1)
+      {
+        v27 = *a1;
+        v28 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(v60, *a1, 311);
+        std::__format_spec::__process_parsed_char[abi:ne200100]<char>(v60, "a character");
+        *v27 = v28;
+      }
+
+      v6 = a1[1];
+      result = std::__formatter_char<char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v26, v6);
+      goto LABEL_65;
+    case 3u:
+      v29 = *a2;
+      *v60 = 0;
+      *&v60[8] = -1;
+      v61 = 32;
+      v62 = 0;
+      v63 = 0;
+      if (*a1[2] == 1)
+      {
+        v30 = *a1;
+        v31 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(v60, *a1, 311);
+        std::__format_spec::__process_parsed_integer[abi:ne200100]<char>(v60, "an integer");
+        *v30 = v31;
+      }
+
+      v6 = a1[1];
+      result = std::__formatter_integer<char>::format[abi:ne200100]<int,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v29, v6);
+      goto LABEL_65;
+    case 4u:
+      v16 = *a2;
+      *v60 = 0;
+      *&v60[8] = -1;
+      v61 = 32;
+      v62 = 0;
+      v63 = 0;
+      if (*a1[2] == 1)
+      {
+        v17 = *a1;
+        v18 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(v60, *a1, 311);
+        std::__format_spec::__process_parsed_integer[abi:ne200100]<char>(v60, "an integer");
+        *v17 = v18;
+      }
+
+      v6 = a1[1];
+      result = std::__formatter_integer<char>::format[abi:ne200100]<long long,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v16, v6);
+      goto LABEL_65;
+    case 5u:
+      v36 = *a2;
+      v35 = *(a2 + 1);
+      *v60 = 0;
+      *&v60[8] = -1;
+      v61 = 32;
+      v62 = 0;
+      v63 = 0;
+      if (*a1[2] == 1)
+      {
+        v37 = *a1;
+        v38 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(v60, *a1, 311);
+        std::__format_spec::__process_parsed_integer[abi:ne200100]<char>(v60, "an integer");
+        *v37 = v38;
+      }
+
+      v6 = a1[1];
+      result = std::__formatter_integer<char>::format[abi:ne200100]<__int128,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v36, v35, v6);
+      goto LABEL_65;
+    case 6u:
+      v32 = *a2;
+      *v60 = 0;
+      *&v60[8] = -1;
+      v61 = 32;
+      v62 = 0;
+      v63 = 0;
+      if (*a1[2] == 1)
+      {
+        v33 = *a1;
+        v34 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(v60, *a1, 311);
+        std::__format_spec::__process_parsed_integer[abi:ne200100]<char>(v60, "an integer");
+        *v33 = v34;
+      }
+
+      v6 = a1[1];
+      result = std::__formatter_integer<char>::format[abi:ne200100]<unsigned int,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v32, v6);
+      goto LABEL_65;
+    case 7u:
+      v42 = *a2;
+      *v60 = 0;
+      *&v60[8] = -1;
+      v61 = 32;
+      v62 = 0;
+      v63 = 0;
+      if (*a1[2] == 1)
+      {
+        v43 = *a1;
+        v44 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(v60, *a1, 311);
+        std::__format_spec::__process_parsed_integer[abi:ne200100]<char>(v60, "an integer");
+        *v43 = v44;
+      }
+
+      v6 = a1[1];
+      result = std::__formatter_integer<char>::format[abi:ne200100]<unsigned long long,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v42, v6);
+      goto LABEL_65;
+    case 8u:
+      v23 = *a2;
+      v22 = *(a2 + 1);
+      *v60 = 0;
+      *&v60[8] = -1;
+      v61 = 32;
+      v62 = 0;
+      v63 = 0;
+      if (*a1[2] == 1)
+      {
+        v24 = *a1;
+        v25 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(v60, *a1, 311);
+        std::__format_spec::__process_parsed_integer[abi:ne200100]<char>(v60, "an integer");
+        *v24 = v25;
+      }
+
+      v6 = a1[1];
+      result = std::__formatter_integer<char>::format[abi:ne200100]<unsigned __int128,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v23, v22, v6);
+      goto LABEL_65;
+    case 9u:
+      v19 = *a2;
+      *v60 = 0;
+      *&v60[8] = -1;
+      v61 = 32;
+      v62 = 0;
+      v63 = 0;
+      if (*a1[2] != 1)
+      {
+        goto LABEL_56;
+      }
+
+      v20 = *a1;
+      v21 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(v60, *a1, 319);
+      if (v60[1] - 13 < 6)
+      {
+        if ((*&v60[2] & 0x80000000) == 0 && *&v60[8] == -1)
+        {
+          *&v60[8] = 6;
+        }
+
+LABEL_55:
+        *v20 = v21;
+LABEL_56:
+        v6 = a1[1];
+        v54 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v6);
+        result = std::__formatter::__format_floating_point[abi:ne200100]<float,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v6, v54, v55, v19);
+        goto LABEL_65;
+      }
+
+      if (v60[1] <= 0xCu && ((1 << v60[1]) & 0x1801) != 0)
+      {
+        goto LABEL_55;
+      }
+
+      goto LABEL_67;
+    case 0xAu:
+      v45 = *a2;
+      *v60 = 0;
+      *&v60[8] = -1;
+      v61 = 32;
+      v62 = 0;
+      v63 = 0;
+      if (*a1[2] != 1)
+      {
+        goto LABEL_64;
+      }
+
+      v46 = *a1;
+      v47 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(v60, *a1, 319);
+      if (v60[1] - 13 < 6)
+      {
+        if ((*&v60[2] & 0x80000000) == 0 && *&v60[8] == -1)
+        {
+          *&v60[8] = 6;
+        }
+
+LABEL_63:
+        *v46 = v47;
+LABEL_64:
+        v6 = a1[1];
+        v58 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v6);
+        result = std::__formatter::__format_floating_point[abi:ne200100]<double,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v6, v58, v59, v45);
+        goto LABEL_65;
+      }
+
+      if (v60[1] <= 0xCu && ((1 << v60[1]) & 0x1801) != 0)
+      {
+        goto LABEL_63;
+      }
+
+      goto LABEL_67;
+    case 0xBu:
+      v39 = *a2;
+      *v60 = 0;
+      *&v60[8] = -1;
+      v61 = 32;
+      v62 = 0;
+      v63 = 0;
+      if (*a1[2] != 1)
+      {
+        goto LABEL_60;
+      }
+
+      v40 = *a1;
+      v41 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(v60, *a1, 319);
+      if (v60[1] - 13 >= 6)
+      {
+        if (v60[1] > 0xCu || ((1 << v60[1]) & 0x1801) == 0)
+        {
+LABEL_67:
+          std::__format_spec::__throw_invalid_type_format_error[abi:ne200100]("a floating-point");
+        }
+      }
+
+      else if ((*&v60[2] & 0x80000000) == 0 && *&v60[8] == -1)
+      {
+        *&v60[8] = 6;
+      }
+
+      *v40 = v41;
+LABEL_60:
+      v6 = a1[1];
+      v56 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v6);
+      result = std::__formatter::__format_floating_point[abi:ne200100]<long double,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v6, v56, v57, v39);
+LABEL_65:
+      *v6 = result;
+      return result;
+    case 0xCu:
+      v48 = *a2;
+      *v60 = 1;
+      *&v60[4] = 0xFFFFFFFF00000000;
+      v61 = 32;
+      v62 = 0;
+      v63 = 0;
+      if (*a1[2] == 1)
+      {
+        v49 = *a1;
+        *v49 = std::__formatter_string<char>::parse[abi:ne200100]<std::basic_format_parse_context<char>>(v60, *a1);
+      }
+
+      v6 = a1[1];
+      result = std::formatter<char const*,char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v48, v6);
+      goto LABEL_65;
+    case 0xDu:
+      v10 = *a2;
+      v11 = *(a2 + 1);
+      *v60 = 1;
+      *&v60[4] = 0xFFFFFFFF00000000;
+      v61 = 32;
+      v62 = 0;
+      v63 = 0;
+      if (*a1[2] == 1)
+      {
+        v12 = *a1;
+        *v12 = std::__formatter_string<char>::parse[abi:ne200100]<std::basic_format_parse_context<char>>(v60, *a1);
+      }
+
+      v6 = a1[1];
+      v13 = *v6;
+      v14 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v6);
+      result = std::__formatter::__write_string[abi:ne200100]<char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v10, v11, v13, v14, v15);
+      goto LABEL_65;
+    case 0xEu:
+      v8 = *a2;
+      *v60 = 0;
+      *&v60[8] = -1;
+      v61 = 32;
+      v62 = 0;
+      v63 = 0;
+      if (*a1[2] == 1)
+      {
+        v9 = *a1;
+        *v9 = std::__formatter_pointer<char>::parse[abi:ne200100]<std::basic_format_parse_context<char>>(v60, *a1);
+      }
+
+      v6 = a1[1];
+      result = std::__formatter_pointer<char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v8, v6);
+      goto LABEL_65;
+    case 0xFu:
+      v50 = *a1;
+      v51 = *a2;
+      v52 = *(a2 + 1);
+      v53 = a1[1];
+
+      return v52(v50, v53, v51);
+    default:
+      std::__throw_format_error[abi:ne200100]("The argument index value is too large for the number of arguments supplied");
+  }
+}
+
+unsigned __int8 *std::__format::__detail::__parse_manual[abi:ne200100]<char const*,std::basic_format_parse_context<char>>(unsigned __int8 *a1, unsigned __int8 *a2, uint64_t a3)
+{
+  result = std::__format::__parse_number[abi:ne200100]<char const*>(a1, a2);
+  v5 = *(a3 + 16);
+  if (v5)
+  {
+    if (v5 == 2)
+    {
+      std::__throw_format_error[abi:ne200100]("Using manual argument numbering in automatic argument numbering mode");
+    }
+  }
+
+  else
+  {
+    *(a3 + 16) = 1;
+  }
+
+  return result;
+}
+
+uint64_t std::basic_format_parse_context<char>::next_arg_id[abi:ne200100](uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    if (v1 == 1)
+    {
+      std::__throw_format_error[abi:ne200100]("Using automatic argument numbering in manual argument numbering mode");
+    }
+  }
+
+  else
+  {
+    *(a1 + 16) = 2;
+  }
+
+  v2 = *(a1 + 24);
+  *(a1 + 24) = v2 + 1;
+  return v2;
+}
+
+unsigned __int8 *std::__format::__parse_number[abi:ne200100]<char const*>(unsigned __int8 *a1, unsigned __int8 *a2)
+{
+  v2 = a1;
+  v3 = a1 + 9;
+  if (a2 - a1 <= 9)
+  {
+    v3 = a2;
+  }
+
+  v5 = *a1;
+  result = a1 + 1;
+  v6 = v5 - 48;
+  if (result == v3)
+  {
+    v3 = result;
+LABEL_9:
+    if (v3 == a2)
+    {
+      return a2;
+    }
+
+    else
+    {
+      v8 = *v3;
+      if ((v8 - 48) > 9)
+      {
+        return v3;
+      }
+
+      else if ((v8 + 10 * v6 - 48) >> 31 || (result = v2 + 2, v2 + 2 != a2) && *result - 48 <= 9)
+      {
+        std::__throw_format_error[abi:ne200100]("The numeric value of the format specifier is too large");
+      }
+    }
+  }
+
+  else
+  {
+    v2 = v3 - 1;
+    while (1)
+    {
+      v7 = *result;
+      if ((v7 - 58) < 0xFFFFFFF6)
+      {
+        break;
+      }
+
+      v6 = v7 + 10 * v6 - 48;
+      if (++result == v3)
+      {
+        goto LABEL_9;
+      }
+    }
+  }
+
+  return result;
+}
+
+void *std::formatter<BOOL,char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, uint64_t a2, uint64_t **a3)
+{
+  if (*(a1 + 1) > 1u)
+  {
+    v9 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a3);
+
+    return std::__formatter::__format_integer[abi:ne200100]<unsigned int,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a2, a3, v9, v8, 0);
+  }
+
+  else
+  {
+    v6 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a3);
+
+    return std::__formatter::__format_BOOL[abi:ne200100]<char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a2, a3, v6, v5);
+  }
+}
+
+unsigned __int8 *std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(_BYTE *a1, unsigned __int8 **a2, __int16 a3)
+{
+  result = *a2;
+  v5 = a2[1];
+  v14 = result;
+  if (result == v5)
+  {
+    return result;
+  }
+
+  v6 = *result;
+  if (v6 == 125 || (a3 & 0x40) != 0 && v6 == 58)
+  {
+    return result;
+  }
+
+  v9 = std::__format_spec::__parser<char>::__parse_fill_align[abi:ne200100]<char const*>(a1, &v14, v5);
+  result = v14;
+  if (v9)
+  {
+    if (v14 == v5)
+    {
+      return result;
+    }
+  }
+
+  if ((a3 & 1) == 0)
+  {
+    goto LABEL_15;
+  }
+
+  v10 = *v14;
+  switch(v10)
+  {
+    case ' ':
+      v11 = *a1 | 0x18;
+LABEL_14:
+      *a1 = v11;
+      v14 = ++result;
+      if (result == v5)
+      {
+        return result;
+      }
+
+      break;
+    case '+':
+      v11 = *a1 & 0xE7 | 0x10;
+      goto LABEL_14;
+    case '-':
+      v11 = *a1 & 0xE7 | 8;
+      goto LABEL_14;
+  }
+
+LABEL_15:
+  if ((a3 & 2) == 0 || *result != 35 || (*a1 |= 0x20u, ++result, v14 = result, result != v5))
+  {
+    if ((a3 & 4) == 0 || *result != 48)
+    {
+      goto LABEL_23;
+    }
+
+    if ((*a1 & 7) == 0)
+    {
+      *a1 |= 4u;
+    }
+
+    v14 = ++result;
+    if (result != v5)
+    {
+LABEL_23:
+      v12 = std::__format_spec::__parser<char>::__parse_width[abi:ne200100]<char const*,std::basic_format_parse_context<char>>(a1, &v14, v5, a2);
+      result = v14;
+      if (!v12 || v14 != v5)
+      {
+        if ((a3 & 8) == 0 || (v13 = std::__format_spec::__parser<char>::__parse_precision[abi:ne200100]<char const*,std::basic_format_parse_context<char>>(a1, &v14, v5, a2), result = v14, !v13) || v14 != v5)
+        {
+          if ((a3 & 0x10) == 0 || *result != 76 || (*a1 |= 0x40u, ++result, v14 = result, result != v5))
+          {
+            if ((a3 & 0x80) == 0 || *result != 110 || (*a1 |= 0x80u, ++result, v14 = result, result != v5))
+            {
+              if ((a3 & 0x20) != 0)
+              {
+                std::__format_spec::__parser<char>::__parse_type[abi:ne200100]<char const*>(a1, &v14);
+              }
+
+              result = v14;
+              if ((a3 & 0x100) != 0 && v14 != v5 && *v14 != 125)
+              {
+                std::__throw_format_error[abi:ne200100]("The format specifier should consume the input or end with a '}'");
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+_BYTE *std::__format_spec::__process_parsed_BOOL[abi:ne200100]<char>(_BYTE *result, const char *a2)
+{
+  v2 = result[1];
   if (v2 - 2 >= 6)
   {
     if (v2 > 1)
@@ -131,9 +1152,9 @@ BOOL std::__format_spec::__parser<char>::__parse_precision[abi:ne200100]<char co
   v5 = **a2;
   if (v5 == 46)
   {
-    v8 = v4 + 1;
-    *a2 = v4 + 1;
-    if (v4 + 1 == a3)
+    v8 = (v4 + 1);
+    *a2 = (v4 + 1);
+    if ((v4 + 1) == a3)
     {
       std::__throw_format_error[abi:ne200100]("End of input while parsing format specifier precision");
     }
@@ -141,8 +1162,8 @@ BOOL std::__format_spec::__parser<char>::__parse_precision[abi:ne200100]<char co
     v9 = *v8;
     if (v9 == 123)
     {
-      *a2 = v4 + 2;
-      v10 = std::__format_spec::__parse_arg_id[abi:ne200100]<char const*,std::basic_format_parse_context<char>>(v4 + 2, a3, a4);
+      *a2 = (v4 + 2);
+      v10 = std::__format_spec::__parse_arg_id[abi:ne200100]<char const*,std::basic_format_parse_context<char>>((v4 + 2), a3, a4);
       *(a1 + 2) |= 0x8000u;
       *(a1 + 8) = v11;
     }
@@ -511,7 +1532,7 @@ void sub_29828C3E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__formatter::__format_BOOL[abi:ne200100]<char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(int a1, void **a2, uint64_t a3, unint64_t a4)
+void *std::__formatter::__format_BOOL[abi:ne200100]<char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(int a1, uint64_t *a2, uint64_t a3, unint64_t a4)
 {
   if ((a3 & 0x40) != 0)
   {
@@ -595,27 +1616,26 @@ void sub_29828C5CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-unint64_t std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, void *a2)
+unint64_t std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, void *a2)
 {
   v4 = *a1;
-  v5 = *(a1 + 1);
+  v5 = a1[1];
   v6 = std::__format_spec::__parser<char>::__get_width[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2);
-  *(a1 + 12);
   std::__format_spec::__parser<char>::__get_precision[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2);
   return (v5 << 8) | (v6 << 32) | v4 & 0x7F;
 }
 
-void *std::__formatter::__format_integer[abi:ne200100]<unsigned int,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unsigned int a1, void **a2, unint64_t a3, unint64_t a4, char a5)
+void *std::__formatter::__format_integer[abi:ne200100]<unsigned int,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, uint64_t **a2, unint64_t a3, unint64_t a4, char a5)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   if (BYTE1(a3) <= 3u)
   {
     if (!BYTE1(a3))
     {
-      goto LABEL_11;
+      return std::__formatter::__format_integer[abi:ne200100]<unsigned int,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, v11, v12, 0, 0xAu);
     }
 
-    v11 = 2;
+    v10 = 2;
     if (BYTE1(a3) == 2)
     {
       v7 = "0b";
@@ -628,15 +1648,13 @@ void *std::__formatter::__format_integer[abi:ne200100]<unsigned int,char,std::ba
       v8 = a3 & 0xFFFFFFFFFFFF00FFLL | 0x300;
     }
 
-    v9 = &v15;
-LABEL_18:
-    result = std::__formatter::__format_integer[abi:ne200100]<unsigned int,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, v8, a4, a5, v12, v9, v7, v11);
-    goto LABEL_19;
+    v9 = &v14;
+    return std::__formatter::__format_integer[abi:ne200100]<unsigned int,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, v8, a4, a5, v11, v9, v7, v10);
   }
 
   if (BYTE1(a3) > 5u)
   {
-    v11 = 16;
+    v10 = 16;
     if (BYTE1(a3) == 6)
     {
       v7 = "0x";
@@ -649,15 +1667,13 @@ LABEL_18:
       v8 = a3 & 0xFFFFFFFFFFFF00FFLL | 0x700;
     }
 
-    v9 = v13;
-    goto LABEL_18;
+    v9 = v12;
+    return std::__formatter::__format_integer[abi:ne200100]<unsigned int,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, v8, a4, a5, v11, v9, v7, v10);
   }
 
   if (BYTE1(a3) != 4)
   {
-LABEL_11:
-    result = std::__formatter::__format_integer[abi:ne200100]<unsigned int,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, v12, v13, 0, 0xAu);
-    goto LABEL_19;
+    return std::__formatter::__format_integer[abi:ne200100]<unsigned int,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, v11, v12, 0, 0xAu);
   }
 
   if (a1)
@@ -670,10 +1686,7 @@ LABEL_11:
     v5 = 0;
   }
 
-  result = std::__formatter::__format_integer[abi:ne200100]<unsigned int,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3 & 0xFFFFFFFFFFFF00FFLL | 0x400, a4, a5, v12, v14, v5, 8u);
-LABEL_19:
-  v10 = *MEMORY[0x29EDCA608];
-  return result;
+  return std::__formatter::__format_integer[abi:ne200100]<unsigned int,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3 & 0xFFFFFFFFFFFF00FFLL | 0x400, a4, a5, v11, v13, v5, 8u);
 }
 
 std::locale *std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>::locale[abi:ne200100]@<X0>(uint64_t a1@<X0>, std::locale *a2@<X8>)
@@ -720,7 +1733,7 @@ uint64_t std::optional<std::locale>::operator=[abi:ne200100]<std::locale,void>(u
   return a1;
 }
 
-uint64_t std::__format_spec::__estimate_column_width[abi:ne200100]<char,char const*>(unsigned __int8 *a1, uint64_t a2, unint64_t a3, int a4)
+unint64_t std::__format_spec::__estimate_column_width[abi:ne200100]<char,char const*>(char *a1, uint64_t a2, unint64_t a3, int a4)
 {
   result = 0;
   if (a2 && a3)
@@ -840,12 +1853,12 @@ void *std::__format::__output_buffer<char>::__copy[abi:ne200100]<char>(void *res
   v10 = result[2];
   do
   {
-    v11 = *(v4 + 8) - v10;
+    v11 = v4[1] - v10;
     if (v11 < v8 + 1)
     {
-      result = (*(v4 + 24))(v4, v8 + 2);
-      v10 = *(v4 + 16);
-      v11 = *(v4 + 8) - v10;
+      result = (v4[3])(v4, v8 + 2);
+      v10 = v4[2];
+      v11 = v4[1] - v10;
     }
 
     if (v11 >= v8)
@@ -861,11 +1874,11 @@ void *std::__format::__output_buffer<char>::__copy[abi:ne200100]<char>(void *res
     if (v12)
     {
       result = memmove((*v4 + v10), __src, v12);
-      v10 = *(v4 + 16);
+      v10 = v4[2];
     }
 
     v10 += v12;
-    *(v4 + 16) = v10;
+    v4[2] = v10;
     __src += v12;
     v13 = v8 > v11;
     v8 -= v12;
@@ -930,8 +1943,9 @@ uint64_t std::__width_estimation_table::__estimated_width[abi:ne200100](unsigned
   return v1;
 }
 
-uint64_t std::__unicode::__extended_grapheme_cluster_break::__extended_grapheme_cluster_break[abi:ne200100](uint64_t a1, unsigned int a2)
+uint64_t std::__unicode::__extended_grapheme_cluster_break::__extended_grapheme_cluster_break[abi:ne200100](uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   *a1 = a2;
   v4 = std::__extended_grapheme_custer_property_boundary::__get_property[abi:ne200100](a2);
   *(a1 + 4) = v4;
@@ -951,7 +1965,7 @@ LABEL_7:
     return a1;
   }
 
-  if (!std::__indic_conjunct_break::__get_property[abi:ne200100](a2))
+  if (!std::__indic_conjunct_break::__get_property[abi:ne200100](v2))
   {
     v5 = 1;
     goto LABEL_7;
@@ -1046,7 +2060,7 @@ uint64_t std::__indic_conjunct_break::__get_property[abi:ne200100](unsigned int 
   return v7;
 }
 
-uint64_t std::__unicode::__extended_grapheme_cluster_break::__evaluate[abi:ne200100](uint64_t a1, unsigned int a2, unsigned int a3)
+uint64_t std::__unicode::__extended_grapheme_cluster_break::__evaluate[abi:ne200100](uint64_t a1, uint64_t a2, unsigned int a3)
 {
   v3 = *(a1 + 8);
   if (v3 > 1)
@@ -1312,12 +2326,12 @@ LABEL_8:
     v10 = result[2];
     do
     {
-      v11 = *(v5 + 8) - v10;
+      v11 = v5[1] - v10;
       if (v11 < v4 + 1)
       {
-        result = (*(v5 + 24))(v5, v4 + 2);
-        v10 = *(v5 + 16);
-        v11 = *(v5 + 8) - v10;
+        result = (v5[3])(v5, v4 + 2);
+        v10 = v5[2];
+        v11 = v5[1] - v10;
       }
 
       if (v11 >= v4)
@@ -1333,11 +2347,11 @@ LABEL_8:
       if (v12)
       {
         result = memset((*v5 + v10), __c, v12);
-        v10 = *(v5 + 16);
+        v10 = v5[2];
       }
 
       v10 += v12;
-      *(v5 + 16) = v10;
+      v5[2] = v10;
       v13 = v4 > v11;
       v4 -= v12;
     }
@@ -1350,99 +2364,87 @@ LABEL_8:
 
 unint64_t std::__format_spec::__parser<char>::__get_width[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, void *a2)
 {
-  *&v14[23] = *MEMORY[0x29EDCA608];
-  if ((*(a1 + 2) & 0x4000) != 0)
+  *&v13[23] = *MEMORY[0x29EDCA608];
+  if ((*(a1 + 2) & 0x4000) == 0)
   {
-    v4 = *(a1 + 4);
-    v5 = a2[1];
-    if (v5 <= v4)
-    {
-      LOBYTE(v6) = 0;
-    }
+    return *(a1 + 4);
+  }
 
-    else if (v5 > 0xC)
-    {
-      v8 = a2[2] + 32 * v4;
-      v4 = *v8;
-      v2 = *(v8 + 8);
-      LOBYTE(v6) = *(v8 + 16);
-      v11[0] = *(v8 + 17);
-      *(v11 + 7) = *(v8 + 24);
-    }
+  v4 = *(a1 + 4);
+  v5 = a2[1];
+  if (v5 <= v4)
+  {
+    LOBYTE(v6) = 0;
+  }
 
-    else
-    {
-      v6 = (a2[3] >> (5 * v4)) & 0x1FLL;
-      v7 = (a2[2] + 16 * v4);
-      v4 = *v7;
-      v2 = v7[1];
-    }
-
-    v12[0] = v4;
-    v12[1] = v2;
-    v13 = v6;
-    *v14 = v11[0];
-    *&v14[7] = *(v11 + 7);
-    result = std::__visit_format_arg[abi:ne200100]<unsigned int std::__format_spec::__substitute_arg_id[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(std::basic_format_arg<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>)::{lambda(std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>)#1},std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(&v10, v12);
+  else if (v5 > 0xC)
+  {
+    v8 = a2[2] + 32 * v4;
+    v4 = *v8;
+    v2 = *(v8 + 8);
+    LOBYTE(v6) = *(v8 + 16);
+    v10[0] = *(v8 + 17);
+    *(v10 + 7) = *(v8 + 24);
   }
 
   else
   {
-    result = *(a1 + 4);
+    v6 = (a2[3] >> (5 * v4)) & 0x1FLL;
+    v7 = (a2[2] + 16 * v4);
+    v4 = *v7;
+    v2 = v7[1];
   }
 
-  v9 = *MEMORY[0x29EDCA608];
-  return result;
+  v11[0] = v4;
+  v11[1] = v2;
+  v12 = v6;
+  *v13 = v10[0];
+  *&v13[7] = *(v10 + 7);
+  return std::__visit_format_arg[abi:ne200100]<unsigned int std::__format_spec::__substitute_arg_id[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(std::basic_format_arg<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>)::{lambda(std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>)#1},std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(&v9, v11);
 }
 
 unint64_t std::__format_spec::__parser<char>::__get_precision[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, void *a2)
 {
-  *&v14[23] = *MEMORY[0x29EDCA608];
-  if (*(a1 + 2) < 0)
+  *&v13[23] = *MEMORY[0x29EDCA608];
+  if ((*(a1 + 2) & 0x80000000) == 0)
   {
-    v4 = *(a1 + 8);
-    v5 = a2[1];
-    if (v5 <= v4)
-    {
-      LOBYTE(v6) = 0;
-    }
+    return *(a1 + 8);
+  }
 
-    else if (v5 > 0xC)
-    {
-      v8 = a2[2] + 32 * v4;
-      v4 = *v8;
-      v2 = *(v8 + 8);
-      LOBYTE(v6) = *(v8 + 16);
-      v11[0] = *(v8 + 17);
-      *(v11 + 7) = *(v8 + 24);
-    }
+  v4 = *(a1 + 8);
+  v5 = a2[1];
+  if (v5 <= v4)
+  {
+    LOBYTE(v6) = 0;
+  }
 
-    else
-    {
-      v6 = (a2[3] >> (5 * v4)) & 0x1FLL;
-      v7 = (a2[2] + 16 * v4);
-      v4 = *v7;
-      v2 = v7[1];
-    }
-
-    v12[0] = v4;
-    v12[1] = v2;
-    v13 = v6;
-    *v14 = v11[0];
-    *&v14[7] = *(v11 + 7);
-    result = std::__visit_format_arg[abi:ne200100]<unsigned int std::__format_spec::__substitute_arg_id[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(std::basic_format_arg<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>)::{lambda(std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>)#1},std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(&v10, v12);
+  else if (v5 > 0xC)
+  {
+    v8 = a2[2] + 32 * v4;
+    v4 = *v8;
+    v2 = *(v8 + 8);
+    LOBYTE(v6) = *(v8 + 16);
+    v10[0] = *(v8 + 17);
+    *(v10 + 7) = *(v8 + 24);
   }
 
   else
   {
-    result = *(a1 + 8);
+    v6 = (a2[3] >> (5 * v4)) & 0x1FLL;
+    v7 = (a2[2] + 16 * v4);
+    v4 = *v7;
+    v2 = v7[1];
   }
 
-  v9 = *MEMORY[0x29EDCA608];
-  return result;
+  v11[0] = v4;
+  v11[1] = v2;
+  v12 = v6;
+  *v13 = v10[0];
+  *&v13[7] = *(v10 + 7);
+  return std::__visit_format_arg[abi:ne200100]<unsigned int std::__format_spec::__substitute_arg_id[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(std::basic_format_arg<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>)::{lambda(std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>)#1},std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(&v9, v11);
 }
 
-unint64_t std::__visit_format_arg[abi:ne200100]<unsigned int std::__format_spec::__substitute_arg_id[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(std::basic_format_arg<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>)::{lambda(std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>)#1},std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, unint64_t *a2)
+unint64_t std::__visit_format_arg[abi:ne200100]<unsigned int std::__format_spec::__substitute_arg_id[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(std::basic_format_arg<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>)::{lambda(std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>)#1},std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, unsigned int *a2)
 {
   switch(*(a2 + 16))
   {
@@ -1507,7 +2509,7 @@ unint64_t std::invoke[abi:ne200100]<unsigned int std::__format_spec::__substitut
   return result;
 }
 
-void *std::__formatter::__format_integer[abi:ne200100]<unsigned int,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unsigned int a1, void **a2, unint64_t a3, unint64_t a4, char a5, char *a6, uint64_t a7, _BYTE *a8, unsigned int a9)
+void *std::__formatter::__format_integer[abi:ne200100]<unsigned int,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, uint64_t **a2, unint64_t a3, unint64_t a4, char a5, char *a6, uint64_t a7, char *a8, unsigned int a9)
 {
   v9 = a6;
   v13 = a3;
@@ -1545,8 +2547,7 @@ LABEL_8:
         v18 = a8 + 1;
         do
         {
-          *v16 = v17;
-          v16 = (v16 + 1);
+          *v16++ = v17;
           v19 = *v18++;
           v17 = v19;
         }
@@ -1724,9 +2725,10 @@ void sub_29828D784(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__formatter::__write_using_decimal_separators[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char *,char>(void *a1, char *__src, char *a3, int a4, uint64_t *a5, char a6, uint64_t a7, unint64_t a8)
+void *std::__formatter::__write_using_decimal_separators[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char *,char>(uint64_t *a1, char *__src, char *a3, int a4, uint64_t *a5, uint64_t a6, uint64_t a7, unint64_t a8)
 {
   v8 = a7;
+  v9 = a6;
   v11 = a3;
   v13 = a1;
   v14 = HIDWORD(a7);
@@ -1791,7 +2793,7 @@ LABEL_17:
 
   else
   {
-    v24 = (*a5 + a5[1]);
+    v24 = *a5 + a5[1];
   }
 
   if (v22 >= 0)
@@ -1828,7 +2830,7 @@ LABEL_17:
       break;
     }
 
-    std::__format::__output_buffer<char>::push_back[abi:ne200100](v13, a6);
+    std::__format::__output_buffer<char>::push_back[abi:ne200100](v13, v9);
   }
 
   return std::__formatter::__fill[abi:ne200100]<char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v13, v19, v15);
@@ -1885,7 +2887,7 @@ uint64_t std::__formatter::__hex_to_upper[abi:ne200100](int a1)
   }
 }
 
-char *std::__to_chars_integral[abi:ne200100]<unsigned int>(_WORD *a1, uint64_t a2, unsigned int a3, unsigned int a4)
+char *std::__to_chars_integral[abi:ne200100]<unsigned int>(_WORD *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v4 = a2;
   HIDWORD(v6) = a4 - 2;
@@ -1906,6 +2908,8 @@ char *std::__to_chars_integral[abi:ne200100]<unsigned int>(_WORD *a1, uint64_t a
     if (v5 != 7)
     {
       v10 = a2 - a1;
+      v16 = a4;
+      v17 = a3;
       v11 = std::__to_chars_integral_width[abi:ne200100]<unsigned int>(a3, a4);
       if (v10 < v11)
       {
@@ -1913,13 +2917,13 @@ char *std::__to_chars_integral[abi:ne200100]<unsigned int>(_WORD *a1, uint64_t a
       }
 
       v4 = a1 + v11;
-      v12 = v4 - 1;
-      v13 = a3;
+      v12 = (v4 - 1);
+      v13 = v17;
       do
       {
-        *v12-- = a0123456789abcd[v13 % a4];
-        v14 = v13 >= a4;
-        v13 /= a4;
+        *v12-- = a0123456789abcd[v13 % v16];
+        v14 = v13 >= v16;
+        v13 /= v16;
       }
 
       while (v14);
@@ -2299,7 +3303,7 @@ uint64_t std::__format::__output_buffer<char>::__transform[abi:ne200100]<char *,
   return result;
 }
 
-void *std::__formatter_char<char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, unsigned __int8 a2, void *a3)
+void *std::__formatter_char<char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, unsigned __int8 a2, uint64_t **a3)
 {
   v5 = *(a1 + 1);
   if (v5 == 10 || v5 == 0)
@@ -2318,9 +3322,9 @@ void *std::__formatter_char<char>::format[abi:ne200100]<std::basic_format_contex
   }
 }
 
-uint64_t std::__format_spec::__process_parsed_char[abi:ne200100]<char>(uint64_t result, const char *a2)
+_BYTE *std::__format_spec::__process_parsed_char[abi:ne200100]<char>(_BYTE *result, const char *a2)
 {
-  v2 = *(result + 1);
+  v2 = result[1];
   if (v2 - 2 >= 6)
   {
     v3 = v2 > 0x13;
@@ -2341,7 +3345,7 @@ uint64_t std::__format_spec::__process_parsed_char[abi:ne200100]<char>(uint64_t 
   return result;
 }
 
-void *std::__formatter_integer<char>::format[abi:ne200100]<int,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, int a2, void *a3)
+void *std::__formatter_integer<char>::format[abi:ne200100]<int,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, int a2, uint64_t **a3)
 {
   v6 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a3);
   v7 = v5;
@@ -2368,9 +3372,9 @@ void *std::__formatter_integer<char>::format[abi:ne200100]<int,std::basic_format
   }
 }
 
-uint64_t std::__format_spec::__process_parsed_integer[abi:ne200100]<char>(uint64_t result, const char *a2)
+_BYTE *std::__format_spec::__process_parsed_integer[abi:ne200100]<char>(_BYTE *result, const char *a2)
 {
-  v2 = *(result + 1);
+  v2 = result[1];
   if ((v2 - 2) >= 6 && v2 != 0)
   {
     if (v2 != 10)
@@ -2400,7 +3404,7 @@ void *std::__formatter::__format_char[abi:ne200100]<char,int,std::back_insert_it
   return std::__formatter::__write[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&__src, 1uLL, a2, a3, a4, 1);
 }
 
-void *std::__formatter_integer<char>::format[abi:ne200100]<long long,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, uint64_t a2, void *a3)
+void *std::__formatter_integer<char>::format[abi:ne200100]<long long,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, uint64_t a2, uint64_t **a3)
 {
   v6 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a3);
   v7 = v5;
@@ -2438,17 +3442,17 @@ void *std::__formatter::__format_char[abi:ne200100]<char,long long,std::back_ins
   return std::__formatter::__write[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&__src, 1uLL, a2, a3, a4, 1);
 }
 
-void *std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, void **a2, unint64_t a3, unint64_t a4, char a5)
+void *std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, uint64_t **a2, unint64_t a3, unint64_t a4, char a5)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   if (BYTE1(a3) <= 3u)
   {
     if (!BYTE1(a3))
     {
-      goto LABEL_11;
+      return std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, v11, &v12 + 2, 0, 0xAu);
     }
 
-    v11 = 2;
+    v10 = 2;
     if (BYTE1(a3) == 2)
     {
       v7 = "0b";
@@ -2461,15 +3465,13 @@ void *std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char,s
       v8 = a3 & 0xFFFFFFFFFFFF00FFLL | 0x300;
     }
 
-    v9 = &v14;
-LABEL_18:
-    result = std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, v8, a4, a5, v12, v9, v7, v11);
-    goto LABEL_19;
+    v9 = &v13;
+    return std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, v8, a4, a5, v11, v9, v7, v10);
   }
 
   if (BYTE1(a3) > 5u)
   {
-    v11 = 16;
+    v10 = 16;
     if (BYTE1(a3) == 6)
     {
       v7 = "0x";
@@ -2482,15 +3484,13 @@ LABEL_18:
       v8 = a3 & 0xFFFFFFFFFFFF00FFLL | 0x700;
     }
 
-    v9 = &v13;
-    goto LABEL_18;
+    v9 = &v12;
+    return std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, v8, a4, a5, v11, v9, v7, v10);
   }
 
   if (BYTE1(a3) != 4)
   {
-LABEL_11:
-    result = std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, v12, &v13 + 2, 0, 10);
-    goto LABEL_19;
+    return std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, v11, &v12 + 2, 0, 0xAu);
   }
 
   if (a1)
@@ -2503,13 +3503,10 @@ LABEL_11:
     v5 = 0;
   }
 
-  result = std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3 & 0xFFFFFFFFFFFF00FFLL | 0x400, a4, a5, v12, &v13 + 5, v5, 8);
-LABEL_19:
-  v10 = *MEMORY[0x29EDCA608];
-  return result;
+  return std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3 & 0xFFFFFFFFFFFF00FFLL | 0x400, a4, a5, v11, &v12 + 5, v5, 8u);
 }
 
-void *std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, void **a2, unint64_t a3, unint64_t a4, char a5, char *a6, uint64_t a7, _BYTE *a8, signed int a9)
+void *std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, uint64_t **a2, unint64_t a3, unint64_t a4, char a5, char *a6, char *a7, char *a8, unsigned int a9)
 {
   v9 = a6;
   v13 = a3;
@@ -2725,7 +3722,7 @@ void sub_29828EAC8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-char *std::__to_chars_integral[abi:ne200100]<unsigned long long>(char *a1, uint64_t a2, unint64_t a3, signed int a4)
+char *std::__to_chars_integral[abi:ne200100]<unsigned long long>(char *a1, char *a2, unint64_t a3, uint64_t a4)
 {
   v4 = a3;
   v5 = a2;
@@ -2748,6 +3745,7 @@ char *std::__to_chars_integral[abi:ne200100]<unsigned long long>(char *a1, uint6
     {
       v12 = a1;
       v13 = a2 - a1;
+      v14 = a4;
       v15 = std::__to_chars_integral_width[abi:ne200100]<unsigned long long>(a3, a4);
       if (v13 < v15)
       {
@@ -2755,12 +3753,12 @@ char *std::__to_chars_integral[abi:ne200100]<unsigned long long>(char *a1, uint6
       }
 
       v5 = &v12[v15];
-      v16 = (v5 - 1);
+      v16 = v5 - 1;
       do
       {
-        *v16-- = a0123456789abcd[(v4 % a4)];
-        v17 = v4 >= a4;
-        v4 /= a4;
+        *v16-- = a0123456789abcd[(v4 % v14)];
+        v17 = v4 >= v14;
+        v4 /= v14;
       }
 
       while (v17);
@@ -2965,7 +3963,7 @@ uint64_t std::__itoa::__integral<16u>::__to_chars[abi:ne200100]<unsigned long lo
   return v4;
 }
 
-void *std::__formatter_integer<char>::format[abi:ne200100]<__int128,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, unint64_t a2, uint64_t a3, void *a4)
+void *std::__formatter_integer<char>::format[abi:ne200100]<__int128,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, unint64_t a2, uint64_t a3, uint64_t **a4)
 {
   v8 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a4);
   if ((v8 & 0xFF00) == 0xA00)
@@ -2994,59 +3992,55 @@ void *std::__formatter::__format_char[abi:ne200100]<char,__int128,std::back_inse
   return std::__formatter::__write[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&__src, 1uLL, a3, a4, a5, 1);
 }
 
-void *std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, unint64_t a2, void **a3, unint64_t a4, unint64_t a5, char a6)
+void *std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, unint64_t a2, uint64_t **a3, unint64_t a4, unint64_t a5, char a6)
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   if (BYTE1(a4) <= 3u)
   {
     if (!BYTE1(a4))
     {
-      goto LABEL_11;
+      return std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, a6, v12, &v13 + 5, 0, 0xAu);
     }
 
-    v12 = 2;
+    v11 = 2;
     if (BYTE1(a4) == 2)
     {
-      v11 = "0b";
+      v10 = "0b";
       v8 = a4 & 0xFFFFFFFFFFFF00FFLL | 0x200;
     }
 
     else
     {
-      v11 = "0B";
+      v10 = "0B";
       v8 = a4 & 0xFFFFFFFFFFFF00FFLL | 0x300;
     }
 
-    v9 = &v16;
-LABEL_18:
-    result = std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, v8, a5, a6, v13, v9, v11, v12);
-    goto LABEL_19;
+    v9 = &v15;
+    return std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, v8, a5, a6, v12, v9, v10, v11);
   }
 
   if (BYTE1(a4) > 5u)
   {
-    v12 = 16;
+    v11 = 16;
     if (BYTE1(a4) == 6)
     {
-      v11 = "0x";
+      v10 = "0x";
       v8 = a4 & 0xFFFFFFFFFFFF00FFLL | 0x600;
     }
 
     else
     {
-      v11 = "0X";
+      v10 = "0X";
       v8 = a4 & 0xFFFFFFFFFFFF00FFLL | 0x700;
     }
 
-    v9 = &v14;
-    goto LABEL_18;
+    v9 = &v13;
+    return std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, v8, a5, a6, v12, v9, v10, v11);
   }
 
   if (BYTE1(a4) != 4)
   {
-LABEL_11:
-    result = std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, a6, v13, &v14 + 5, 0, 10);
-    goto LABEL_19;
+    return std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, a6, v12, &v13 + 5, 0, 0xAu);
   }
 
   if (a1 | a2)
@@ -3059,13 +4053,10 @@ LABEL_11:
     v6 = 0;
   }
 
-  result = std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4 & 0xFFFFFFFFFFFF00FFLL | 0x400, a5, a6, v13, v15, v6, 8);
-LABEL_19:
-  v10 = *MEMORY[0x29EDCA608];
-  return result;
+  return std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4 & 0xFFFFFFFFFFFF00FFLL | 0x400, a5, a6, v12, v14, v6, 8u);
 }
 
-void *std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, unint64_t a2, void **a3, unint64_t a4, unint64_t a5, char a6, char *a7, uint64_t a8, _BYTE *a9, signed int a10)
+void *std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, unint64_t a2, uint64_t **a3, unint64_t a4, unint64_t a5, char a6, char *a7, char *a8, char *a9, unsigned int a10)
 {
   v10 = a7;
   v14 = a4;
@@ -3281,7 +4272,7 @@ void sub_29828F574(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-char *std::__to_chars_integral[abi:ne200100]<unsigned __int128>(char *a1, uint64_t a2, unint64_t a3, unint64_t a4, signed int a5)
+char *std::__to_chars_integral[abi:ne200100]<unsigned __int128>(char *a1, char *a2, unint64_t a3, unint64_t a4, uint64_t a5)
 {
   v5 = a4;
   v6 = a3;
@@ -3303,18 +4294,19 @@ char *std::__to_chars_integral[abi:ne200100]<unsigned __int128>(char *a1, uint64
 
     if (v8 != 7)
     {
+      v16 = a5;
       v17 = a1;
       v18 = a2 - a1;
       v19 = std::__to_chars_integral_width[abi:ne200100]<unsigned __int128>(a3, a4, a5);
       if (v18 >= v19)
       {
         v7 = &v17[v19];
-        v20 = (v7 - 1);
+        v20 = v7 - 1;
         do
         {
           v21 = __udivti3();
-          v22 = __PAIR128__(v5, v6) >= a5;
-          *v20-- = a0123456789abcd[(v6 - v21 * a5)];
+          v22 = __PAIR128__(v5, v6) >= v16;
+          *v20-- = a0123456789abcd[(v6 - v21 * v16)];
           v6 = v21;
           v5 = v23;
         }
@@ -3362,7 +4354,7 @@ char *std::__to_chars_integral[abi:ne200100]<unsigned __int128>(char *a1, uint64
   return v7;
 }
 
-uint64_t std::__to_chars_integral_width[abi:ne200100]<unsigned __int128>(uint64_t a1, unint64_t a2, unsigned int a3)
+uint64_t std::__to_chars_integral_width[abi:ne200100]<unsigned __int128>(unint64_t a1, unint64_t a2, unsigned int a3)
 {
   if (__PAIR128__(a2, a1) < a3)
   {
@@ -3623,7 +4615,7 @@ uint64_t std::__itoa::__integral<16u>::__to_chars[abi:ne200100]<unsigned __int12
   return v7;
 }
 
-void *std::__formatter_integer<char>::format[abi:ne200100]<unsigned int,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, unsigned int a2, void *a3)
+void *std::__formatter_integer<char>::format[abi:ne200100]<unsigned int,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, uint64_t a2, uint64_t **a3)
 {
   v6 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a3);
   v7 = v5;
@@ -3652,7 +4644,7 @@ void *std::__formatter::__format_char[abi:ne200100]<char,unsigned int,std::back_
   return std::__formatter::__write[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&__src, 1uLL, a2, a3, a4, 1);
 }
 
-void *std::__formatter_integer<char>::format[abi:ne200100]<unsigned long long,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, unint64_t a2, void *a3)
+void *std::__formatter_integer<char>::format[abi:ne200100]<unsigned long long,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, unint64_t a2, uint64_t **a3)
 {
   v6 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a3);
   v7 = v5;
@@ -3681,7 +4673,7 @@ void *std::__formatter::__format_char[abi:ne200100]<char,unsigned long long,std:
   return std::__formatter::__write[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&__src, 1uLL, a2, a3, a4, 1);
 }
 
-void *std::__formatter_integer<char>::format[abi:ne200100]<unsigned __int128,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, unint64_t a2, unint64_t a3, void *a4)
+void *std::__formatter_integer<char>::format[abi:ne200100]<unsigned __int128,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, unint64_t a2, unint64_t a3, uint64_t **a4)
 {
   v8 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a4);
   if ((v8 & 0xFF00) == 0xA00)
@@ -3709,9 +4701,9 @@ void *std::__formatter::__format_char[abi:ne200100]<char,unsigned __int128,std::
   return std::__formatter::__write[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&__src, 1uLL, a3, a4, a5, 1);
 }
 
-void *std::__formatter::__format_floating_point[abi:ne200100]<float,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(void **a1, uint64_t a2, unint64_t a3, float a4)
+void *std::__formatter::__format_floating_point[abi:ne200100]<float,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t **a1, unint64_t a2, unint64_t a3, float a4)
 {
-  v48[32] = *MEMORY[0x29EDCA608];
+  v46[32] = *MEMORY[0x29EDCA608];
   v7 = LODWORD(a4) >> 31;
   if ((LODWORD(a4) & 0x7FFFFFFFu) < 0x7F800000)
   {
@@ -3727,46 +4719,46 @@ void *std::__formatter::__format_floating_point[abi:ne200100]<float,char,std::ba
       v10 = a3;
     }
 
-    v44 = v10;
-    v45 = 0;
+    v42 = v10;
+    v43 = 0;
     if (v10 < 150)
     {
-      v46 = v10 + 45;
+      v44 = v10 + 45;
       if ((v10 + 45) >= 0x101)
       {
         v11 = operator new(v10 + 45);
 LABEL_10:
         __p = v11;
-        std::__formatter::__format_buffer[abi:ne200100]<float,float>(&v44, v7, (a3 & 0x80000000) == 0, (a2 >> 3) & 3, v8, &v40, v9);
+        std::__formatter::__format_buffer[abi:ne200100]<float,float>(&v42, v7, (a3 & 0x80000000) == 0, (a2 >> 3) & 3, v8, &v38, v9);
         if ((a2 & 0x20) != 0)
         {
-          v12 = v41;
-          v13 = *v43;
-          if (v41 == *v43)
+          v12 = v39;
+          v13 = *v41;
+          if (v39 == *v41)
           {
-            ++*v43;
+            ++*v41;
             *v13 = 46;
-            v14 = v42;
-            v15 = (*v43 - 1);
-            if (v42 != (*v43 - 1))
+            v14 = v40;
+            v15 = (*v41 - 1);
+            if (v40 != (*v41 - 1))
             {
-              if (v42 + 1 == v15)
+              if (v40 + 1 == v15)
               {
-                v17 = *v42;
-                *v42 = v42[1];
+                v17 = *v40;
+                *v40 = v40[1];
                 v14[1] = v17;
               }
 
               else
               {
-                v16 = *(*v43 - 1);
-                memmove(v42 + 1, v42, v15 - v42);
+                v16 = *(*v41 - 1);
+                memmove(v40 + 1, v40, v15 - v40);
                 *v14 = v16;
               }
             }
 
-            v12 = v42;
-            v41 = v42++;
+            v12 = v40;
+            v39 = v40++;
           }
 
           if ((BYTE1(a2) - 17) <= 1u)
@@ -3786,9 +4778,9 @@ LABEL_10:
               v18 = 6;
             }
 
-            if (v42 == *v43)
+            if (v40 == *v41)
             {
-              v19 = v40 - v12;
+              v19 = v38 - v12;
             }
 
             else
@@ -3797,10 +4789,10 @@ LABEL_10:
             }
 
             v20 = v19 + v18;
-            v21 = &v42[~v12];
+            v21 = &v40[~v12];
             if (v21 < v20)
             {
-              v45 += v20 - v21;
+              v43 += v20 - v21;
             }
           }
         }
@@ -3808,30 +4800,30 @@ LABEL_10:
         if ((a2 & 0x40) != 0)
         {
           v29 = *a1;
-          std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>::locale[abi:ne200100](a1, &v39);
-          v30 = std::__formatter::__format_locale_specific_form[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,float,char>(v29, &v44, &v40, &v39, a2, a3);
-          std::locale::~locale(&v39);
+          std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>::locale[abi:ne200100](a1, &v37);
+          v30 = std::__formatter::__format_locale_specific_form[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,float,char>(v29, &v42, &v38, &v37, a2, a3);
+          std::locale::~locale(&v37);
         }
 
         else
         {
-          v22 = *v43;
+          v22 = *v41;
           v23 = __p;
-          v24 = *v43 - __p;
-          v25 = v45;
-          if (*v43 - __p + v45 >= a2 >> 32)
+          v24 = *v41 - __p;
+          v25 = v43;
+          if (*v41 - __p + v43 >= a2 >> 32)
           {
-            if (!v45 || (v31 = v42, v42 == *v43))
+            if (!v43 || (v31 = v40, v40 == *v41))
             {
               v30 = *a1;
-              std::__format::__output_buffer<char>::__copy[abi:ne200100]<char>(*a1, __p, *v43 - __p);
+              std::__format::__output_buffer<char>::__copy[abi:ne200100]<char>(*a1, __p, *v41 - __p);
               std::__format::__output_buffer<char>::__fill[abi:ne200100](v30, v25, 48);
             }
 
             else
             {
               v30 = *a1;
-              std::__format::__output_buffer<char>::__copy[abi:ne200100]<char>(*a1, __p, v42 - __p);
+              std::__format::__output_buffer<char>::__copy[abi:ne200100]<char>(*a1, __p, v40 - __p);
               std::__format::__output_buffer<char>::__fill[abi:ne200100](v30, v25, 48);
               std::__format::__output_buffer<char>::__copy[abi:ne200100]<char>(v30, v31, v22 - v31);
             }
@@ -3842,7 +4834,7 @@ LABEL_10:
             v26 = *a1;
             if ((a2 & 7) == 4)
             {
-              if (__p != v40)
+              if (__p != v38)
               {
                 std::__format::__output_buffer<char>::push_back[abi:ne200100](v26, *__p);
                 ++v23;
@@ -3862,43 +4854,41 @@ LABEL_10:
             v33 = a3 & 0xFFFFFF00FFFFFFFFLL | (v28 << 32);
             if (v25)
             {
-              v34 = std::__formatter::__write_using_trailing_zeros[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v23, *v43, v26, v32, v33, v24, v42, v25);
+              v34 = std::__formatter::__write_using_trailing_zeros[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v23, *v41, v26, v32, v33, v24, v40, v25);
             }
 
             else
             {
-              v34 = std::__formatter::__write[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v23, *v43 - v23, v26, v32, v33, v24);
+              v34 = std::__formatter::__write[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v23, *v41 - v23, v26, v32, v33, v24);
             }
 
             v30 = v34;
           }
         }
 
-        if (v46 >= 0x101)
+        if (v44 >= 0x101)
         {
           operator delete(__p);
         }
 
-        v35 = *MEMORY[0x29EDCA608];
         return v30;
       }
     }
 
     else
     {
-      v44 = 149;
-      v45 = v10 - 149;
-      v46 = 194;
+      v42 = 149;
+      v43 = v10 - 149;
+      v44 = 194;
     }
 
-    v11 = v48;
+    v11 = v46;
     goto LABEL_10;
   }
 
-  v37 = *a1;
-  v38 = *MEMORY[0x29EDCA608];
+  v36 = *a1;
 
-  return std::__formatter::__format_floating_point_non_finite[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>(v37, a2, a3, a4 < 0.0, 0);
+  return std::__formatter::__format_floating_point_non_finite[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>(v36, a2, a3, a4 < 0.0, 0);
 }
 
 void sub_298290474(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::locale a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, unint64_t a16, void *__p)
@@ -3977,7 +4967,7 @@ LABEL_8:
   return std::__formatter::__write[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&__src, p_src - &__src + 3, a1, a2 & 0xFFFFFFFFFFFFFF00 | v11, a3, p_src - &__src + 3);
 }
 
-char *std::__formatter::__format_buffer[abi:ne200100]<float,float>@<X0>(unsigned int *a1@<X0>, char a2@<W1>, int a3@<W2>, int a4@<W3>, int a5@<W4>, char **a6@<X8>, float a7@<S0>)
+std::__1 *std::__formatter::__format_buffer[abi:ne200100]<float,float>@<X0>(unsigned int *a1@<X0>, char a2@<W1>, int a3@<W2>, int a4@<W3>, int a5@<W4>, std::__1 **a6@<X8>, float a7@<S0>)
 {
   v9 = *(a1 + 2);
   if (a2)
@@ -4022,7 +5012,7 @@ LABEL_8:
         v14 = 0;
       }
 
-      a6[1] = &result[-v14];
+      a6[1] = (result - v14);
       return result;
     }
 
@@ -4099,7 +5089,7 @@ LABEL_35:
   return std::__formatter::__format_buffer_hexadecimal_upper_case[abi:ne200100]<float,float>(a1, v17, v9, a6);
 }
 
-void *std::__formatter::__format_locale_specific_form[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,float,char>(void *a1, uint64_t a2, char **a3, std::locale *this, uint64_t a5, unint64_t a6)
+void *std::__formatter::__format_locale_specific_form[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,float,char>(uint64_t *a1, uint64_t a2, char **a3, std::locale *this, uint64_t a5, unint64_t a6)
 {
   v11 = std::locale::use_facet(this, MEMORY[0x29EDC93F8]);
   (v11->__vftable[1].__on_zero_shared)(&__p);
@@ -4406,7 +5396,7 @@ _BYTE *std::__formatter::__format_buffer_general_lower_case[abi:ne200100]<float,
   v6 = MEMORY[0x29C286C90](a3, *(a1 + 16) + *(a1 + 8), 3, a2);
   a4[3] = v6;
   result = (a3 + 1);
-  if (a3 + 1 == v6)
+  if ((a3 + 1) == v6)
   {
     a4[1] = v6;
     v11 = 2;
@@ -4429,7 +5419,7 @@ LABEL_8:
     }
 
     v10 = -v9;
-    while (*(v6 + v10) != 101)
+    while (v6[v10] != 101)
     {
       if (++v10 == -3)
       {
@@ -4437,12 +5427,12 @@ LABEL_8:
       }
     }
 
-    a4[2] = v6 + v10;
+    a4[2] = &v6[v10];
     if (v10)
     {
       if (*result == 46)
       {
-        v6 = a3 + 1;
+        v6 = (a3 + 1);
       }
 
       goto LABEL_11;
@@ -4618,27 +5608,27 @@ LABEL_8:
   return result;
 }
 
-uint64_t std::__format::__output_buffer<char>::push_back[abi:ne200100](uint64_t result, char a2)
+uint64_t *std::__format::__output_buffer<char>::push_back[abi:ne200100](uint64_t *result, char a2)
 {
-  v2 = *(result + 32);
+  v2 = result[4];
   if (!v2 || (v4 = *v2, v3 = v2[1], v2[1] = v3 + 1, v3 < v4))
   {
     v5 = *result;
-    v6 = *(result + 16);
-    *(result + 16) = v6 + 1;
+    v6 = result[2];
+    result[2] = v6 + 1;
     *(v5 + v6) = a2;
-    if (*(result + 16) == *(result + 8))
+    if (result[2] == result[1])
     {
-      return (*(result + 24))(result, 2);
+      return (result[3])(result, 2);
     }
   }
 
   return result;
 }
 
-void *std::__formatter::__format_floating_point[abi:ne200100]<double,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(void **a1, uint64_t a2, unint64_t a3, double a4)
+void *std::__formatter::__format_floating_point[abi:ne200100]<double,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t **a1, unint64_t a2, unint64_t a3, double a4)
 {
-  v49[128] = *MEMORY[0x29EDCA608];
+  v47[128] = *MEMORY[0x29EDCA608];
   v7 = *&a4 >> 63;
   if ((*&a4 & 0x7FFFFFFFFFFFFFFFuLL) < 0x7FF0000000000000)
   {
@@ -4654,60 +5644,60 @@ void *std::__formatter::__format_floating_point[abi:ne200100]<double,char,std::b
       v10 = a3;
     }
 
-    v45 = v10;
-    v46 = 0;
+    v43 = v10;
+    v44 = 0;
     if (v10 < 1075)
     {
       v11 = v10 + 316;
-      v47 = v11;
+      v45 = v11;
       if ((v10 + 316) < 0x401)
       {
-        v12 = v49;
+        v12 = v47;
         goto LABEL_10;
       }
     }
 
     else
     {
-      v45 = 1074;
-      v46 = v10 - 1074;
+      v43 = 1074;
+      v44 = v10 - 1074;
       v11 = 1390;
-      v47 = 1390;
+      v45 = 1390;
     }
 
     v12 = operator new(v11);
 LABEL_10:
     __p = v12;
-    std::__formatter::__format_buffer[abi:ne200100]<double,double>(&v45, v7, (a3 & 0x80000000) == 0, (a2 >> 3) & 3, v8, &v41, v9);
+    std::__formatter::__format_buffer[abi:ne200100]<double,double>(&v43, v7, (a3 & 0x80000000) == 0, (a2 >> 3) & 3, v8, &v39, v9);
     if ((a2 & 0x20) != 0)
     {
-      v13 = v42;
-      v14 = *v44;
-      if (v42 == *v44)
+      v13 = v40;
+      v14 = *v42;
+      if (v40 == *v42)
       {
-        ++*v44;
+        ++*v42;
         *v14 = 46;
-        v15 = v43;
-        v16 = (*v44 - 1);
-        if (v43 != (*v44 - 1))
+        v15 = v41;
+        v16 = (*v42 - 1);
+        if (v41 != (*v42 - 1))
         {
-          if (v43 + 1 == v16)
+          if (v41 + 1 == v16)
           {
-            v18 = *v43;
-            *v43 = v43[1];
+            v18 = *v41;
+            *v41 = v41[1];
             v15[1] = v18;
           }
 
           else
           {
-            v17 = *(*v44 - 1);
-            memmove(v43 + 1, v43, v16 - v43);
+            v17 = *(*v42 - 1);
+            memmove(v41 + 1, v41, v16 - v41);
             *v15 = v17;
           }
         }
 
-        v13 = v43;
-        v42 = v43++;
+        v13 = v41;
+        v40 = v41++;
       }
 
       if ((BYTE1(a2) - 17) <= 1u)
@@ -4727,9 +5717,9 @@ LABEL_10:
           v19 = 6;
         }
 
-        if (v43 == *v44)
+        if (v41 == *v42)
         {
-          v20 = v41 - v13;
+          v20 = v39 - v13;
         }
 
         else
@@ -4738,10 +5728,10 @@ LABEL_10:
         }
 
         v21 = v20 + v19;
-        v22 = &v43[~v13];
+        v22 = &v41[~v13];
         if (v22 < v21)
         {
-          v46 += v21 - v22;
+          v44 += v21 - v22;
         }
       }
     }
@@ -4749,30 +5739,30 @@ LABEL_10:
     if ((a2 & 0x40) != 0)
     {
       v30 = *a1;
-      std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>::locale[abi:ne200100](a1, &v40);
-      v31 = std::__formatter::__format_locale_specific_form[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,double,char>(v30, &v45, &v41, &v40, a2, a3);
-      std::locale::~locale(&v40);
+      std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>::locale[abi:ne200100](a1, &v38);
+      v31 = std::__formatter::__format_locale_specific_form[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,double,char>(v30, &v43, &v39, &v38, a2, a3);
+      std::locale::~locale(&v38);
     }
 
     else
     {
-      v23 = *v44;
+      v23 = *v42;
       v24 = __p;
-      v25 = *v44 - __p;
-      v26 = v46;
-      if (*v44 - __p + v46 >= a2 >> 32)
+      v25 = *v42 - __p;
+      v26 = v44;
+      if (*v42 - __p + v44 >= a2 >> 32)
       {
-        if (!v46 || (v32 = v43, v43 == *v44))
+        if (!v44 || (v32 = v41, v41 == *v42))
         {
           v31 = *a1;
-          std::__format::__output_buffer<char>::__copy[abi:ne200100]<char>(*a1, __p, *v44 - __p);
+          std::__format::__output_buffer<char>::__copy[abi:ne200100]<char>(*a1, __p, *v42 - __p);
           std::__format::__output_buffer<char>::__fill[abi:ne200100](v31, v26, 48);
         }
 
         else
         {
           v31 = *a1;
-          std::__format::__output_buffer<char>::__copy[abi:ne200100]<char>(*a1, __p, v43 - __p);
+          std::__format::__output_buffer<char>::__copy[abi:ne200100]<char>(*a1, __p, v41 - __p);
           std::__format::__output_buffer<char>::__fill[abi:ne200100](v31, v26, 48);
           std::__format::__output_buffer<char>::__copy[abi:ne200100]<char>(v31, v32, v23 - v32);
         }
@@ -4783,7 +5773,7 @@ LABEL_10:
         v27 = *a1;
         if ((a2 & 7) == 4)
         {
-          if (__p != v41)
+          if (__p != v39)
           {
             std::__format::__output_buffer<char>::push_back[abi:ne200100](v27, *__p);
             ++v24;
@@ -4803,31 +5793,29 @@ LABEL_10:
         v34 = a3 & 0xFFFFFF00FFFFFFFFLL | (v29 << 32);
         if (v26)
         {
-          v35 = std::__formatter::__write_using_trailing_zeros[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v24, *v44, v27, v33, v34, v25, v43, v26);
+          v35 = std::__formatter::__write_using_trailing_zeros[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v24, *v42, v27, v33, v34, v25, v41, v26);
         }
 
         else
         {
-          v35 = std::__formatter::__write[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v24, *v44 - v24, v27, v33, v34, v25);
+          v35 = std::__formatter::__write[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v24, *v42 - v24, v27, v33, v34, v25);
         }
 
         v31 = v35;
       }
     }
 
-    if (v47 >= 0x401)
+    if (v45 >= 0x401)
     {
       operator delete(__p);
     }
 
-    v36 = *MEMORY[0x29EDCA608];
     return v31;
   }
 
-  v38 = *a1;
-  v39 = *MEMORY[0x29EDCA608];
+  v37 = *a1;
 
-  return std::__formatter::__format_floating_point_non_finite[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>(v38, a2, a3, a4 < 0.0, 0);
+  return std::__formatter::__format_floating_point_non_finite[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>(v37, a2, a3, a4 < 0.0, 0);
 }
 
 void sub_298291408(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::locale a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, unint64_t a16, void *__p)
@@ -4840,7 +5828,7 @@ void sub_298291408(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-char *std::__formatter::__format_buffer[abi:ne200100]<double,double>@<X0>(unsigned int *a1@<X0>, char a2@<W1>, int a3@<W2>, int a4@<W3>, int a5@<W4>, char **a6@<X8>, double a7@<D0>)
+std::__1 *std::__formatter::__format_buffer[abi:ne200100]<double,double>@<X0>(unsigned int *a1@<X0>, char a2@<W1>, int a3@<W2>, int a4@<W3>, int a5@<W4>, std::__1 **a6@<X8>, double a7@<D0>)
 {
   v9 = *(a1 + 2);
   if (a2)
@@ -4885,7 +5873,7 @@ LABEL_8:
         v14 = 0;
       }
 
-      a6[1] = &result[-v14];
+      a6[1] = (result - v14);
       return result;
     }
 
@@ -4962,7 +5950,7 @@ LABEL_35:
   return std::__formatter::__format_buffer_hexadecimal_upper_case[abi:ne200100]<double,double>(a1, v17, v9, a6);
 }
 
-void *std::__formatter::__format_locale_specific_form[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,double,char>(void *a1, uint64_t a2, char **a3, std::locale *this, uint64_t a5, unint64_t a6)
+void *std::__formatter::__format_locale_specific_form[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,double,char>(uint64_t *a1, uint64_t a2, char **a3, std::locale *this, uint64_t a5, unint64_t a6)
 {
   v11 = std::locale::use_facet(this, MEMORY[0x29EDC93F8]);
   (v11->__vftable[1].__on_zero_shared)(&__p);
@@ -5235,7 +6223,7 @@ _BYTE *std::__formatter::__format_buffer_general_lower_case[abi:ne200100]<double
   v6 = MEMORY[0x29C286C30](a3, *(a1 + 16) + *(a1 + 8), 3, a2);
   a4[3] = v6;
   result = (a3 + 1);
-  if (a3 + 1 == v6)
+  if ((a3 + 1) == v6)
   {
     a4[1] = v6;
     v11 = 2;
@@ -5258,7 +6246,7 @@ LABEL_8:
     }
 
     v10 = -v9;
-    while (*(v6 + v10) != 101)
+    while (v6[v10] != 101)
     {
       if (++v10 == -3)
       {
@@ -5266,12 +6254,12 @@ LABEL_8:
       }
     }
 
-    a4[2] = v6 + v10;
+    a4[2] = &v6[v10];
     if (v10)
     {
       if (*result == 46)
       {
-        v6 = a3 + 1;
+        v6 = (a3 + 1);
       }
 
       goto LABEL_11;
@@ -5447,9 +6435,9 @@ LABEL_8:
   return result;
 }
 
-void *std::__formatter::__format_floating_point[abi:ne200100]<long double,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(void **a1, uint64_t a2, unint64_t a3, double a4)
+void *std::__formatter::__format_floating_point[abi:ne200100]<long double,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t **a1, unint64_t a2, unint64_t a3, double a4)
 {
-  v49[128] = *MEMORY[0x29EDCA608];
+  v47[128] = *MEMORY[0x29EDCA608];
   v7 = *&a4 >> 63;
   if ((*&a4 & 0x7FFFFFFFFFFFFFFFuLL) < 0x7FF0000000000000)
   {
@@ -5465,60 +6453,60 @@ void *std::__formatter::__format_floating_point[abi:ne200100]<long double,char,s
       v10 = a3;
     }
 
-    v45 = v10;
-    v46 = 0;
+    v43 = v10;
+    v44 = 0;
     if (v10 < 1075)
     {
       v11 = v10 + 316;
-      v47 = v11;
+      v45 = v11;
       if ((v10 + 316) < 0x401)
       {
-        v12 = v49;
+        v12 = v47;
         goto LABEL_10;
       }
     }
 
     else
     {
-      v45 = 1074;
-      v46 = v10 - 1074;
+      v43 = 1074;
+      v44 = v10 - 1074;
       v11 = 1390;
-      v47 = 1390;
+      v45 = 1390;
     }
 
     v12 = operator new(v11);
 LABEL_10:
     __p = v12;
-    std::__formatter::__format_buffer[abi:ne200100]<double,long double>(&v45, v7, (a3 & 0x80000000) == 0, (a2 >> 3) & 3, v8, &v41, v9);
+    std::__formatter::__format_buffer[abi:ne200100]<double,long double>(&v43, v7, (a3 & 0x80000000) == 0, (a2 >> 3) & 3, v8, &v39, v9);
     if ((a2 & 0x20) != 0)
     {
-      v13 = v42;
-      v14 = *v44;
-      if (v42 == *v44)
+      v13 = v40;
+      v14 = *v42;
+      if (v40 == *v42)
       {
-        ++*v44;
+        ++*v42;
         *v14 = 46;
-        v15 = v43;
-        v16 = (*v44 - 1);
-        if (v43 != (*v44 - 1))
+        v15 = v41;
+        v16 = (*v42 - 1);
+        if (v41 != (*v42 - 1))
         {
-          if (v43 + 1 == v16)
+          if (v41 + 1 == v16)
           {
-            v18 = *v43;
-            *v43 = v43[1];
+            v18 = *v41;
+            *v41 = v41[1];
             v15[1] = v18;
           }
 
           else
           {
-            v17 = *(*v44 - 1);
-            memmove(v43 + 1, v43, v16 - v43);
+            v17 = *(*v42 - 1);
+            memmove(v41 + 1, v41, v16 - v41);
             *v15 = v17;
           }
         }
 
-        v13 = v43;
-        v42 = v43++;
+        v13 = v41;
+        v40 = v41++;
       }
 
       if ((BYTE1(a2) - 17) <= 1u)
@@ -5538,9 +6526,9 @@ LABEL_10:
           v19 = 6;
         }
 
-        if (v43 == *v44)
+        if (v41 == *v42)
         {
-          v20 = v41 - v13;
+          v20 = v39 - v13;
         }
 
         else
@@ -5549,10 +6537,10 @@ LABEL_10:
         }
 
         v21 = v20 + v19;
-        v22 = &v43[~v13];
+        v22 = &v41[~v13];
         if (v22 < v21)
         {
-          v46 += v21 - v22;
+          v44 += v21 - v22;
         }
       }
     }
@@ -5560,30 +6548,30 @@ LABEL_10:
     if ((a2 & 0x40) != 0)
     {
       v30 = *a1;
-      std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>::locale[abi:ne200100](a1, &v40);
-      v31 = std::__formatter::__format_locale_specific_form[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,double,char>(v30, &v45, &v41, &v40, a2, a3);
-      std::locale::~locale(&v40);
+      std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>::locale[abi:ne200100](a1, &v38);
+      v31 = std::__formatter::__format_locale_specific_form[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,double,char>(v30, &v43, &v39, &v38, a2, a3);
+      std::locale::~locale(&v38);
     }
 
     else
     {
-      v23 = *v44;
+      v23 = *v42;
       v24 = __p;
-      v25 = *v44 - __p;
-      v26 = v46;
-      if (*v44 - __p + v46 >= a2 >> 32)
+      v25 = *v42 - __p;
+      v26 = v44;
+      if (*v42 - __p + v44 >= a2 >> 32)
       {
-        if (!v46 || (v32 = v43, v43 == *v44))
+        if (!v44 || (v32 = v41, v41 == *v42))
         {
           v31 = *a1;
-          std::__format::__output_buffer<char>::__copy[abi:ne200100]<char>(*a1, __p, *v44 - __p);
+          std::__format::__output_buffer<char>::__copy[abi:ne200100]<char>(*a1, __p, *v42 - __p);
           std::__format::__output_buffer<char>::__fill[abi:ne200100](v31, v26, 48);
         }
 
         else
         {
           v31 = *a1;
-          std::__format::__output_buffer<char>::__copy[abi:ne200100]<char>(*a1, __p, v43 - __p);
+          std::__format::__output_buffer<char>::__copy[abi:ne200100]<char>(*a1, __p, v41 - __p);
           std::__format::__output_buffer<char>::__fill[abi:ne200100](v31, v26, 48);
           std::__format::__output_buffer<char>::__copy[abi:ne200100]<char>(v31, v32, v23 - v32);
         }
@@ -5594,7 +6582,7 @@ LABEL_10:
         v27 = *a1;
         if ((a2 & 7) == 4)
         {
-          if (__p != v41)
+          if (__p != v39)
           {
             std::__format::__output_buffer<char>::push_back[abi:ne200100](v27, *__p);
             ++v24;
@@ -5614,31 +6602,29 @@ LABEL_10:
         v34 = a3 & 0xFFFFFF00FFFFFFFFLL | (v29 << 32);
         if (v26)
         {
-          v35 = std::__formatter::__write_using_trailing_zeros[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v24, *v44, v27, v33, v34, v25, v43, v26);
+          v35 = std::__formatter::__write_using_trailing_zeros[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v24, *v42, v27, v33, v34, v25, v41, v26);
         }
 
         else
         {
-          v35 = std::__formatter::__write[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v24, *v44 - v24, v27, v33, v34, v25);
+          v35 = std::__formatter::__write[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v24, *v42 - v24, v27, v33, v34, v25);
         }
 
         v31 = v35;
       }
     }
 
-    if (v47 >= 0x401)
+    if (v45 >= 0x401)
     {
       operator delete(__p);
     }
 
-    v36 = *MEMORY[0x29EDCA608];
     return v31;
   }
 
-  v38 = *a1;
-  v39 = *MEMORY[0x29EDCA608];
+  v37 = *a1;
 
-  return std::__formatter::__format_floating_point_non_finite[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>(v38, a2, a3, a4 < 0.0, 0);
+  return std::__formatter::__format_floating_point_non_finite[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>(v37, a2, a3, a4 < 0.0, 0);
 }
 
 void sub_298292168(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::locale a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, unint64_t a16, void *__p)
@@ -5651,7 +6637,7 @@ void sub_298292168(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-char *std::__formatter::__format_buffer[abi:ne200100]<double,long double>@<X0>(unsigned int *a1@<X0>, char a2@<W1>, int a3@<W2>, int a4@<W3>, int a5@<W4>, char **a6@<X8>, double a7@<D0>)
+std::__1 *std::__formatter::__format_buffer[abi:ne200100]<double,long double>@<X0>(unsigned int *a1@<X0>, char a2@<W1>, int a3@<W2>, int a4@<W3>, int a5@<W4>, std::__1 **a6@<X8>, double a7@<D0>)
 {
   v9 = *(a1 + 2);
   if (a2)
@@ -5696,7 +6682,7 @@ LABEL_8:
         v14 = 0;
       }
 
-      a6[1] = &result[-v14];
+      a6[1] = (result - v14);
       return result;
     }
 
@@ -5780,7 +6766,7 @@ _BYTE *std::__formatter::__format_buffer_general_lower_case[abi:ne200100]<double
   v6 = MEMORY[0x29C286C60](a3, *(a1 + 16) + *(a1 + 8), 3, a2);
   a4[3] = v6;
   result = (a3 + 1);
-  if (a3 + 1 == v6)
+  if ((a3 + 1) == v6)
   {
     a4[1] = v6;
     v11 = 2;
@@ -5803,7 +6789,7 @@ LABEL_8:
     }
 
     v10 = -v9;
-    while (*(v6 + v10) != 101)
+    while (v6[v10] != 101)
     {
       if (++v10 == -3)
       {
@@ -5811,12 +6797,12 @@ LABEL_8:
       }
     }
 
-    a4[2] = v6 + v10;
+    a4[2] = &v6[v10];
     if (v10)
     {
       if (*result == 46)
       {
-        v6 = a3 + 1;
+        v6 = (a3 + 1);
       }
 
       goto LABEL_11;
@@ -6004,7 +6990,7 @@ unsigned __int8 *std::__formatter_string<char>::parse[abi:ne200100]<std::basic_f
   return result;
 }
 
-void *std::formatter<char const*,char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, char *__s, void *a3)
+void *std::formatter<char const*,char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, char *__s, uint64_t *a3)
 {
   v6 = strlen(__s);
   v7 = *a3;
@@ -6042,7 +7028,7 @@ unsigned __int8 *std::__formatter_pointer<char>::parse[abi:ne200100]<std::basic_
   return result;
 }
 
-void *std::__formatter_pointer<char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, unint64_t a2, void *a3)
+void *std::__formatter_pointer<char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, unint64_t a2, uint64_t **a3)
 {
   v5 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a3);
   v7 = 1536;
@@ -6054,17 +7040,17 @@ void *std::__formatter_pointer<char>::format[abi:ne200100]<std::basic_format_con
   return std::__formatter::__format_integer[abi:ne200100]<unsigned long,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a2, a3, v5 & 0xFFFFFFFFFFFF00FFLL | v7 | 0x20, v6, 0);
 }
 
-void *std::__formatter::__format_integer[abi:ne200100]<unsigned long,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, void **a2, unint64_t a3, unint64_t a4, char a5)
+void *std::__formatter::__format_integer[abi:ne200100]<unsigned long,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, uint64_t **a2, unint64_t a3, unint64_t a4, char a5)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   if (BYTE1(a3) <= 3u)
   {
     if (!BYTE1(a3))
     {
-      goto LABEL_11;
+      return std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, v11, &v12 + 2, 0, 0xAu);
     }
 
-    v11 = 2;
+    v10 = 2;
     if (BYTE1(a3) == 2)
     {
       v7 = "0b";
@@ -6077,15 +7063,13 @@ void *std::__formatter::__format_integer[abi:ne200100]<unsigned long,char,std::b
       v8 = a3 & 0xFFFFFFFFFFFF00FFLL | 0x300;
     }
 
-    v9 = &v14;
-LABEL_18:
-    result = std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, v8, a4, a5, v12, v9, v7, v11);
-    goto LABEL_19;
+    v9 = &v13;
+    return std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, v8, a4, a5, v11, v9, v7, v10);
   }
 
   if (BYTE1(a3) > 5u)
   {
-    v11 = 16;
+    v10 = 16;
     if (BYTE1(a3) == 6)
     {
       v7 = "0x";
@@ -6098,15 +7082,13 @@ LABEL_18:
       v8 = a3 & 0xFFFFFFFFFFFF00FFLL | 0x700;
     }
 
-    v9 = &v13;
-    goto LABEL_18;
+    v9 = &v12;
+    return std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, v8, a4, a5, v11, v9, v7, v10);
   }
 
   if (BYTE1(a3) != 4)
   {
-LABEL_11:
-    result = std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, v12, &v13 + 2, 0, 10);
-    goto LABEL_19;
+    return std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, v11, &v12 + 2, 0, 0xAu);
   }
 
   if (a1)
@@ -6119,13 +7101,10 @@ LABEL_11:
     v5 = 0;
   }
 
-  result = std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3 & 0xFFFFFFFFFFFF00FFLL | 0x400, a4, a5, v12, &v13 + 5, v5, 8);
-LABEL_19:
-  v10 = *MEMORY[0x29EDCA608];
-  return result;
+  return std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3 & 0xFFFFFFFFFFFF00FFLL | 0x400, a4, a5, v11, &v12 + 5, v5, 8u);
 }
 
-void *std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, void **a2, unint64_t a3, unint64_t a4, char a5, char *a6, uint64_t a7, _BYTE *a8, signed int a9)
+void *std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, uint64_t **a2, unint64_t a3, unint64_t a4, char a5, char *a6, char *a7, char *a8, unsigned int a9)
 {
   v9 = a6;
   v13 = a3;
@@ -6359,27 +7338,27 @@ uint64_t __cxx_global_var_init_23()
   return result;
 }
 
-void VinylICECommunication::statusCallback(char a1, uint64_t a2, int a3)
+void VinylICECommunication::statusCallback(const void *a1, uint64_t a2, int a3)
 {
-  if ((*gBBULogMaskGet() & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
+  if ((*gBBULogMaskGet(a1, a2) & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
   {
-    _BBULog(2, 0, "BBUICE16Communication", "", "transport %p, status: %d\n", v5, v6, v7, a1);
+    _BBULog(2, 0, "BBUICE16Communication", "", "transport %p, status: %d\n", a1, a3);
   }
 
   if (a3 == 1)
   {
-    v8 = *MEMORY[0x29EDB8ED8];
     Controller = TelephonyBasebandCreateController();
-    v10 = TelephonyBasebandResetModem();
-    if ((*gBBULogMaskGet() & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
+    v6 = TelephonyBasebandResetModem();
+    v7 = v6;
+    if ((*gBBULogMaskGet(v6, v8) & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
     {
-      v14 = "failure";
-      if (v10)
+      v9 = "failure";
+      if (v7)
       {
-        v14 = "success";
+        v9 = "success";
       }
 
-      _BBULog(2, 0, "BBUICE16Communication", "", "Resetting modem: %s\n", v11, v12, v13, v14);
+      _BBULog(2, 0, "BBUICE16Communication", "", "Resetting modem: %s\n", v9);
     }
 
     if (Controller)
@@ -6389,14 +7368,14 @@ void VinylICECommunication::statusCallback(char a1, uint64_t a2, int a3)
   }
 }
 
-void sub_298292EE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_298292EE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   ctu::cf::CFSharedRef<__TelephonyBasebandControllerHandle_tag>::~CFSharedRef(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t VinylICECommunication::freeTransportSync(uint64_t a1, uint64_t a2)
+uint64_t VinylICECommunication::freeTransportSync(uint64_t a1, const void *a2)
 {
   v2 = *(a1 + 48);
   if (!v2)
@@ -6406,107 +7385,106 @@ uint64_t VinylICECommunication::freeTransportSync(uint64_t a1, uint64_t a2)
 
   if (v2 == a2)
   {
-    v9 = *(a1 + 40);
+    v6 = *(a1 + 40);
     block[0] = MEMORY[0x29EDCA5F8];
     block[1] = 0x40000000;
     block[2] = ___ZN21VinylICECommunication17freeTransportSyncEP26TelephonyUtilTransport_tag_block_invoke;
     block[3] = &__block_descriptor_tmp_3;
     block[4] = a1;
-    dispatch_sync(v9, block);
-    v8 = TelephonyUtilTransportFree();
-    v10 = *(a1 + 40);
-    v13[0] = MEMORY[0x29EDCA5F8];
-    v13[1] = 0x40000000;
-    v13[2] = ___ZN21VinylICECommunication17freeTransportSyncEP26TelephonyUtilTransport_tag_block_invoke_2;
-    v13[3] = &__block_descriptor_tmp_8;
-    v14 = v8;
-    v13[4] = a1;
-    v13[5] = a2;
-    dispatch_sync(v10, v13);
+    dispatch_sync(v6, block);
+    v5 = TelephonyUtilTransportFree();
+    v7 = *(a1 + 40);
+    v9[0] = MEMORY[0x29EDCA5F8];
+    v9[1] = 0x40000000;
+    v9[2] = ___ZN21VinylICECommunication17freeTransportSyncEP26TelephonyUtilTransport_tag_block_invoke_2;
+    v9[3] = &__block_descriptor_tmp_8;
+    v10 = v5;
+    v9[4] = a1;
+    v9[5] = a2;
+    dispatch_sync(v7, v9);
   }
 
   else
   {
-    v8 = 0;
-    if ((*gBBULogMaskGet() & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
+    v5 = 0;
+    if ((*gBBULogMaskGet(a1, a2) & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
     {
-      v12 = *(a1 + 48);
-      _BBULog(2, 0, "BBUICE16Communication", "", "call with %p different from fTransportCreated(%p)\n", v5, v6, v7, a2);
+      _BBULog(2, 0, "BBUICE16Communication", "", "call with %p different from fTransportCreated(%p)\n", a2, *(a1 + 48));
       return 0;
     }
   }
 
-  return v8;
+  return v5;
 }
 
-uint64_t ___ZN21VinylICECommunication17freeTransportSyncEP26TelephonyUtilTransport_tag_block_invoke_2(uint64_t result)
+uint64_t ___ZN21VinylICECommunication17freeTransportSyncEP26TelephonyUtilTransport_tag_block_invoke_2(uint64_t result, uint64_t a2)
 {
-  v1 = *(result + 32);
-  *(v1 + 24) = 0;
+  v2 = *(result + 32);
+  *(v2 + 24) = 0;
   if (*(result + 48) == 1)
   {
-    *(v1 + 48) = 0;
+    *(v2 + 48) = 0;
   }
 
   else
   {
-    v2 = result;
-    result = gBBULogMaskGet();
+    v3 = result;
+    result = gBBULogMaskGet(result, a2);
     if ((*result & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
     {
-      return _BBULog(2, 0, "BBUICE16Communication", "", "fail to free transport: %p\n", v3, v4, v5, *(v2 + 40));
+      return _BBULog(2, 0, "BBUICE16Communication", "", "fail to free transport: %p\n", *(v3 + 40));
     }
   }
 
   return result;
 }
 
-uint64_t VinylICECommunication::openChannel()
+uint64_t VinylICECommunication::openChannel(uint64_t a1, uint64_t a2)
 {
-  gBBULogMaskGet();
-  _BBULog(0, 0xFFFFFFFFLL, "BBUICE16Communication", "", " Initializing KTL options struct, opening ARI channel\n", v0, v1, v2, v10);
+  gBBULogMaskGet(a1, a2);
+  _BBULog(0, 0xFFFFFFFFLL, "BBUICE16Communication", "", " Initializing KTL options struct, opening ARI channel\n");
   IceAriGetContext();
   pthread_mutex_lock(&ctu::Singleton<BBUCapabilities,BBUCapabilities,ctu::PthreadMutexGuardPolicy<BBUCapabilities>>::sInstance);
-  v3 = xmmword_2A13A8CA0;
+  v2 = xmmword_2A13A8CA0;
   if (!xmmword_2A13A8CA0)
   {
-    BBUCapabilities::create_default_global(&v10);
-    v4 = v10;
-    v10 = 0uLL;
-    v5 = *(&xmmword_2A13A8CA0 + 1);
-    xmmword_2A13A8CA0 = v4;
-    if (v5)
+    BBUCapabilities::create_default_global(&v9);
+    v3 = v9;
+    v9 = 0uLL;
+    v4 = *(&xmmword_2A13A8CA0 + 1);
+    xmmword_2A13A8CA0 = v3;
+    if (v4)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-      if (*(&v10 + 1))
+      std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+      if (*(&v9 + 1))
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v10 + 1));
+        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v9 + 1));
       }
     }
 
-    v3 = xmmword_2A13A8CA0;
+    v2 = xmmword_2A13A8CA0;
   }
 
-  v6 = *(&xmmword_2A13A8CA0 + 1);
+  v5 = *(&xmmword_2A13A8CA0 + 1);
   if (*(&xmmword_2A13A8CA0 + 1))
   {
     atomic_fetch_add_explicit((*(&xmmword_2A13A8CA0 + 1) + 8), 1uLL, memory_order_relaxed);
   }
 
   pthread_mutex_unlock(&ctu::Singleton<BBUCapabilities,BBUCapabilities,ctu::PthreadMutexGuardPolicy<BBUCapabilities>>::sInstance);
-  BBUCapabilities::getARICommandTimeout(v3);
-  v7 = KTLInitOptions();
-  if (v6)
+  BBUCapabilities::getARICommandTimeout(v2);
+  v6 = KTLInitOptions();
+  if (v5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   }
 
-  if (v7)
+  if (v6)
   {
     IceAriGetContext();
-    v8 = KTLOpenChannel();
+    v7 = KTLOpenChannel();
     IceAriSetContextValid(1);
-    if (v8)
+    if (v7)
     {
       return 0;
     }
@@ -6563,76 +7541,77 @@ void IceAriSetContextValid(char a1)
   }
 }
 
-uint64_t VinylICECommunication::createTransport(uint64_t a1, uint64_t a2)
+uint64_t VinylICECommunication::createTransport(uint64_t a1, const void *a2)
 {
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x2000000000;
-  v37 = 3;
-  v32[0] = 0;
-  v32[1] = v32;
-  v32[2] = 0x2000000000;
-  v33 = 0;
-  TelephonyBasebandPCITransportInitParameters();
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2000000000;
+  v31 = 3;
+  v26[0] = 0;
+  v26[1] = v26;
+  v26[2] = 0x2000000000;
+  v27 = 0;
+  inited = TelephonyBasebandPCITransportInitParameters();
   if (*(a1 + 48))
   {
-    if ((*gBBULogMaskGet() & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
+    if ((*gBBULogMaskGet(inited, v5) & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
     {
-      _BBULog(2, 0, "BBUICE16Communication", "", "Need to free transport before creating again", v4, v5, v6, v17);
+      _BBULog(2, 0, "BBUICE16Communication", "", "Need to free transport before creating again");
     }
 
-    (*(*a1 + 40))(a1, *(a1 + 48));
+    inited = (*(*a1 + 40))(a1, *(a1 + 48));
     *(a1 + 48) = 0;
   }
 
-  v7 = *(a1 + 40);
-  LODWORD(v28) = v28 | 1;
-  v25[0] = MEMORY[0x29EDCA5F8];
-  v25[1] = 0x40000000;
-  v25[2] = ___ZN21VinylICECommunication15createTransportEP26TelephonyUtilTransport_tag_block_invoke;
-  v25[3] = &__block_descriptor_tmp_12;
-  v25[4] = a2;
-  *(&v26 + 1) = v7;
-  *&v27 = v25;
-  if ((*gBBULogMaskGet() & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
+  v6 = *(a1 + 40);
+  LODWORD(v22) = v22 | 1;
+  v19[0] = MEMORY[0x29EDCA5F8];
+  v19[1] = 0x40000000;
+  v19[2] = ___ZN21VinylICECommunication15createTransportEP26TelephonyUtilTransport_tag_block_invoke;
+  v19[3] = &__block_descriptor_tmp_12;
+  v19[4] = a2;
+  *(&v20 + 1) = v6;
+  *&v21 = v19;
+  v7 = gBBULogMaskGet(inited, v5);
+  if ((*v7 & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
   {
-    _BBULog(2, 0, "BBUICE16Communication", "", "Creating transport:%p \n", v8, v9, v10, a2);
+    v7 = _BBULog(2, 0, "BBUICE16Communication", "", "Creating transport:%p \n", a2);
   }
 
-  LODWORD(v26) = 8;
-  DWORD2(v27) = 10000;
+  LODWORD(v20) = 8;
+  DWORD2(v21) = 10000;
   *(a1 + 56) = 8;
-  if ((*gBBULogMaskGet() & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
+  if ((*gBBULogMaskGet(v7, v8) & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
   {
-    _BBULog(2, 0, "BBUICE16Communication", "", "Creating with timeout set to %u ms\n", v11, v12, v13, SBYTE8(v27));
+    _BBULog(2, 0, "BBUICE16Communication", "", "Creating with timeout set to %u ms\n", DWORD2(v21));
   }
 
-  v14 = *(a1 + 32);
+  v9 = *(a1 + 32);
   block[0] = MEMORY[0x29EDCA5F8];
   block[1] = 0x40000000;
   block[2] = ___ZN21VinylICECommunication15createTransportEP26TelephonyUtilTransport_tag_block_invoke_2;
   block[3] = &unk_29EE8E908;
   block[6] = a1;
   block[7] = a2;
-  v21 = v28;
-  v22 = v29;
-  v23 = v30;
-  v24 = v31;
-  v19 = v26;
-  v20 = v27;
-  block[4] = v32;
-  block[5] = &v34;
-  dispatch_sync(v14, block);
-  v15 = *(v35 + 6);
-  if (v26 == 8 && !v15)
+  v15 = v22;
+  v16 = v23;
+  v17 = v24;
+  v18 = v25;
+  v13 = v20;
+  v14 = v21;
+  block[4] = v26;
+  block[5] = &v28;
+  dispatch_sync(v9, block);
+  v10 = *(v29 + 6);
+  if (v20 == 8 && !v10)
   {
-    v15 = (*(*a1 + 24))(a1, a2);
-    *(v35 + 6) = v15;
+    v10 = (*(*a1 + 24))(a1, a2);
+    *(v29 + 6) = v10;
   }
 
-  _Block_object_dispose(v32, 8);
-  _Block_object_dispose(&v34, 8);
-  return v15;
+  _Block_object_dispose(v26, 8);
+  _Block_object_dispose(&v28, 8);
+  return v10;
 }
 
 void sub_298293618(_Unwind_Exception *a1)
@@ -6642,45 +7621,46 @@ void sub_298293618(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-_BYTE *___ZN21VinylICECommunication15createTransportEP26TelephonyUtilTransport_tag_block_invoke_2(void *a1)
+_BYTE *___ZN21VinylICECommunication15createTransportEP26TelephonyUtilTransport_tag_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v2 = a1[6];
-  *(v2 + 48) = a1[7];
-  *(*(a1[4] + 8) + 24) = TelephonyBasebandPCITransportCreate();
-  result = gBBULogMaskGet();
+  v7 = *(a1 + 48);
+  *(v7 + 48) = *(a1 + 56);
+  v8 = TelephonyBasebandPCITransportCreate();
+  *(*(*(a1 + 32) + 8) + 24) = v8;
+  result = gBBULogMaskGet(v8, v9);
   if ((*result & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
   {
-    if (*(*(a1[4] + 8) + 24))
+    if (*(*(*(a1 + 32) + 8) + 24))
     {
-      v7 = "success";
+      v11 = "success";
     }
 
     else
     {
-      v7 = "failure";
+      v11 = "failure";
     }
 
-    result = _BBULog(2, 0, "BBUICE16Communication", "", " TelephonyBasebandPCITransportCreate returns: %s\n", v4, v5, v6, v7);
+    result = _BBULog(2, 0, "BBUICE16Communication", "", " TelephonyBasebandPCITransportCreate returns: %s\n", v11);
   }
 
-  if (*(*(a1[4] + 8) + 24))
+  if (*(*(*(a1 + 32) + 8) + 24))
   {
-    if (!*(v2 + 48))
+    if (!*(v7 + 48))
     {
       exception = __cxa_allocate_exception(0x210uLL);
-      _BBUException::_BBUException(exception, 67, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Communication/ICE/VinylICECommunication.cpp", 0x82u, "Assertion failure(nullptr != fTransportCreated && Telephony util transport error.)", v10, v11, v12, v13);
+      _BBUException::_BBUException(exception, 67, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Communication/ICE/VinylICECommunication.cpp", 0x82u, "Assertion failure(nullptr != fTransportCreated && Telephony util transport error.)");
     }
 
-    v8 = 0;
+    v12 = 0;
   }
 
   else
   {
-    result = VinylICECommunication::freeTransportSync(v2, a1[7]);
-    v8 = 3;
+    result = VinylICECommunication::freeTransportSync(v7, *(a1 + 56));
+    v12 = 3;
   }
 
-  *(*(a1[5] + 8) + 24) = v8;
+  *(*(*(a1 + 40) + 8) + 24) = v12;
   return result;
 }
 
@@ -6736,36 +7716,36 @@ uint64_t IceAriGetContextValid(void)
   return v5;
 }
 
-uint64_t VinylICECommunication::freeTransport(void *a1, uint64_t a2)
+uint64_t VinylICECommunication::freeTransport(void *a1, const void *a2)
 {
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x2000000000;
-  v14 = 1;
-  if ((*gBBULogMaskGet() & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2000000000;
+  v11 = 1;
+  if ((*gBBULogMaskGet(a1, a2) & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
   {
-    _BBULog(2, 0, "BBUICE16Communication", "", "request to free transport: %p\n", v4, v5, v6, a2);
+    _BBULog(2, 0, "BBUICE16Communication", "", "request to free transport: %p\n", a2);
   }
 
   (*(*a1 + 32))(a1);
-  v7 = a1[4];
+  v4 = a1[4];
   block[0] = MEMORY[0x29EDCA5F8];
   block[1] = 0x40000000;
   block[2] = ___ZN21VinylICECommunication13freeTransportEP26TelephonyUtilTransport_tag_block_invoke;
   block[3] = &unk_29EE8E930;
-  block[4] = &v11;
+  block[4] = &v8;
   block[5] = a1;
   block[6] = a2;
-  dispatch_sync(v7, block);
-  v8 = *(v12 + 24);
-  _Block_object_dispose(&v11, 8);
-  return v8;
+  dispatch_sync(v4, block);
+  v5 = *(v9 + 24);
+  _Block_object_dispose(&v8, 8);
+  return v5;
 }
 
-uint64_t ___ZN21VinylICECommunication13freeTransportEP26TelephonyUtilTransport_tag_block_invoke(void *a1)
+uint64_t ___ZN21VinylICECommunication13freeTransportEP26TelephonyUtilTransport_tag_block_invoke(uint64_t a1)
 {
-  result = VinylICECommunication::freeTransportSync(a1[5], a1[6]);
-  *(*(a1[4] + 8) + 24) = result;
+  result = VinylICECommunication::freeTransportSync(*(a1 + 40), *(a1 + 48));
+  *(*(*(a1 + 32) + 8) + 24) = result;
   return result;
 }
 
@@ -6811,27 +7791,27 @@ uint64_t __cxx_global_var_init_21()
   return result;
 }
 
-void VinylEURCommunication::statusCallback(char a1, uint64_t a2, int a3)
+void VinylEURCommunication::statusCallback(const void *a1, uint64_t a2, int a3)
 {
-  if ((*gBBULogMaskGet() & 1) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
+  if ((*gBBULogMaskGet(a1, a2) & 1) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
   {
-    _BBULog(0, 0, "VinylEURCommunication", "", "transport %p, status: %#x\n", v5, v6, v7, a1);
+    _BBULog(0, 0, "VinylEURCommunication", "", "transport %p, status: %#x\n", a1, a3);
   }
 
   if (a3 == 1)
   {
-    v8 = *MEMORY[0x29EDB8ED8];
     Controller = TelephonyBasebandCreateController();
-    v10 = TelephonyBasebandResetModem();
-    if ((*gBBULogMaskGet() & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
+    v6 = TelephonyBasebandResetModem();
+    v7 = v6;
+    if ((*gBBULogMaskGet(v6, v8) & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
     {
-      v14 = "failure";
-      if (v10)
+      v9 = "failure";
+      if (v7)
       {
-        v14 = "success";
+        v9 = "success";
       }
 
-      _BBULog(2, 0, "VinylEURCommunication", "", "Resetting modem: %s\n", v11, v12, v13, v14);
+      _BBULog(2, 0, "VinylEURCommunication", "", "Resetting modem: %s\n", v9);
     }
 
     if (Controller)
@@ -6841,14 +7821,14 @@ void VinylEURCommunication::statusCallback(char a1, uint64_t a2, int a3)
   }
 }
 
-void sub_298293C70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_298293C70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   ctu::cf::CFSharedRef<__TelephonyBasebandControllerHandle_tag>::~CFSharedRef(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t VinylEURCommunication::freeTransportSync(uint64_t a1, uint64_t a2)
+uint64_t VinylEURCommunication::freeTransportSync(uint64_t a1, const void *a2)
 {
   v2 = *(a1 + 40);
   if (!v2)
@@ -6858,35 +7838,34 @@ uint64_t VinylEURCommunication::freeTransportSync(uint64_t a1, uint64_t a2)
 
   if (v2 == a2)
   {
-    v8 = TelephonyUtilTransportFree();
-    v9 = *(a1 + 32);
+    v5 = TelephonyUtilTransportFree();
+    v6 = *(a1 + 32);
     block[0] = MEMORY[0x29EDCA5F8];
     block[1] = 0x40000000;
     block[2] = ___ZN21VinylEURCommunication17freeTransportSyncEP26TelephonyUtilTransport_tag_block_invoke;
     block[3] = &__block_descriptor_tmp_4;
-    v13 = v8;
+    v9 = v5;
     block[4] = a1;
     block[5] = a2;
-    dispatch_sync(v9, block);
+    dispatch_sync(v6, block);
   }
 
   else
   {
-    v8 = 0;
-    if ((*gBBULogMaskGet() & 1) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
+    v5 = 0;
+    if ((*gBBULogMaskGet(a1, a2) & 1) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
     {
-      v11 = *(a1 + 40);
-      _BBULog(0, 0, "VinylEURCommunication", "", "call with %p different from fTransportCreated(%p)\n", v5, v6, v7, a2);
+      _BBULog(0, 0, "VinylEURCommunication", "", "call with %p different from fTransportCreated(%p)\n", a2, *(a1 + 40));
       return 0;
     }
   }
 
-  return v8;
+  return v5;
 }
 
-uint64_t ___ZN21VinylEURCommunication17freeTransportSyncEP26TelephonyUtilTransport_tag_block_invoke(uint64_t result)
+uint64_t ___ZN21VinylEURCommunication17freeTransportSyncEP26TelephonyUtilTransport_tag_block_invoke(uint64_t result, uint64_t a2)
 {
-  v1 = result;
+  v2 = result;
   if (*(result + 48) == 1)
   {
     *(*(result + 32) + 40) = 0;
@@ -6894,78 +7873,79 @@ uint64_t ___ZN21VinylEURCommunication17freeTransportSyncEP26TelephonyUtilTranspo
 
   else
   {
-    result = gBBULogMaskGet();
+    result = gBBULogMaskGet(result, a2);
     if ((*result & 1) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
     {
-      return _BBULog(0, 0, "VinylEURCommunication", "", "fail to free transport: %p\n", v2, v3, v4, *(v1 + 40));
+      return _BBULog(0, 0, "VinylEURCommunication", "", "fail to free transport: %p\n", *(v2 + 40));
     }
   }
 
   return result;
 }
 
-uint64_t VinylEURCommunication::createTransport(uint64_t a1, uint64_t a2)
+uint64_t VinylEURCommunication::createTransport(uint64_t a1, const void *a2)
 {
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2000000000;
-  v38 = 3;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x2000000000;
+  v32 = 3;
   if (capabilities::diag::preferredInterface(a1) == 8)
   {
-    v33[0] = 0;
-    v33[1] = v33;
-    v33[2] = 0x2000000000;
-    v34 = 0;
-    TelephonyBasebandPCITransportInitParameters();
+    v27[0] = 0;
+    v27[1] = v27;
+    v27[2] = 0x2000000000;
+    v28 = 0;
+    inited = TelephonyBasebandPCITransportInitParameters();
     if (*(a1 + 40))
     {
       exception = __cxa_allocate_exception(0x210uLL);
-      _BBUException::_BBUException(exception, 67, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Communication/Eureka/VinylEURCommunication.cpp", 0x59u, "Assertion failure(nullptr == fTransportCreated && Telephony transport error.)", v15, v16, v17, v18);
+      _BBUException::_BBUException(exception, 67, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Communication/Eureka/VinylEURCommunication.cpp", 0x59u, "Assertion failure(nullptr == fTransportCreated && Telephony transport error.)");
     }
 
-    v4 = *(a1 + 32);
-    v26[0] = MEMORY[0x29EDCA5F8];
-    v26[1] = 0x40000000;
-    v26[2] = ___ZN21VinylEURCommunication15createTransportEP26TelephonyUtilTransport_tag_block_invoke;
-    v26[3] = &__block_descriptor_tmp_11;
-    v26[4] = a2;
-    *(&v27 + 1) = v4;
-    *&v28 = v26;
-    if ((*gBBULogMaskGet() & 1) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
+    v6 = *(a1 + 32);
+    v20[0] = MEMORY[0x29EDCA5F8];
+    v20[1] = 0x40000000;
+    v20[2] = ___ZN21VinylEURCommunication15createTransportEP26TelephonyUtilTransport_tag_block_invoke;
+    v20[3] = &__block_descriptor_tmp_11;
+    v20[4] = a2;
+    *(&v21 + 1) = v6;
+    *&v22 = v20;
+    v7 = gBBULogMaskGet(inited, v5);
+    if ((*v7 & 1) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
     {
-      _BBULog(0, 0, "VinylEURCommunication", "", "Creating transport:%p \n", v5, v6, v7, a2);
+      v7 = _BBULog(0, 0, "VinylEURCommunication", "", "Creating transport:%p \n", a2);
     }
 
-    LODWORD(v27) = 2;
-    DWORD2(v28) = 2000;
+    LODWORD(v21) = 2;
+    DWORD2(v22) = 2000;
     *(a1 + 48) = 2;
-    if ((*gBBULogMaskGet() & 1) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
+    if ((*gBBULogMaskGet(v7, v8) & 1) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
     {
-      _BBULog(0, 0, "VinylEURCommunication", "", "Creating with timeout set to %u ms\n", v8, v9, v10, SBYTE8(v28));
+      _BBULog(0, 0, "VinylEURCommunication", "", "Creating with timeout set to %u ms\n", DWORD2(v22));
     }
 
-    v11 = *(a1 + 24);
+    v9 = *(a1 + 24);
     block[0] = MEMORY[0x29EDCA5F8];
     block[1] = 0x40000000;
     block[2] = ___ZN21VinylEURCommunication15createTransportEP26TelephonyUtilTransport_tag_block_invoke_2;
     block[3] = &unk_29EE8E998;
     block[6] = a1;
     block[7] = a2;
-    v22 = v29;
-    v23 = v30;
-    v24 = v31;
-    v25 = v32;
-    v20 = v27;
-    v21 = v28;
-    block[4] = v33;
-    block[5] = &v35;
-    dispatch_sync(v11, block);
-    _Block_object_dispose(v33, 8);
+    v16 = v23;
+    v17 = v24;
+    v18 = v25;
+    v19 = v26;
+    v14 = v21;
+    v15 = v22;
+    block[4] = v27;
+    block[5] = &v29;
+    dispatch_sync(v9, block);
+    _Block_object_dispose(v27, 8);
   }
 
-  v12 = *(v36 + 6);
-  _Block_object_dispose(&v35, 8);
-  return v12;
+  v10 = *(v30 + 6);
+  _Block_object_dispose(&v29, 8);
+  return v10;
 }
 
 void sub_298294088(_Unwind_Exception *a1)
@@ -6976,77 +7956,78 @@ void sub_298294088(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-_BYTE *___ZN21VinylEURCommunication15createTransportEP26TelephonyUtilTransport_tag_block_invoke_2(void *a1)
+_BYTE *___ZN21VinylEURCommunication15createTransportEP26TelephonyUtilTransport_tag_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v2 = a1[6];
-  *(v2 + 40) = a1[7];
-  *(*(a1[4] + 8) + 24) = TelephonyBasebandPCITransportCreate();
-  result = gBBULogMaskGet();
+  v7 = *(a1 + 48);
+  *(v7 + 40) = *(a1 + 56);
+  v8 = TelephonyBasebandPCITransportCreate();
+  *(*(*(a1 + 32) + 8) + 24) = v8;
+  result = gBBULogMaskGet(v8, v9);
   if ((*result & 1) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
   {
-    if (*(*(a1[4] + 8) + 24))
+    if (*(*(*(a1 + 32) + 8) + 24))
     {
-      v7 = "success";
+      v11 = "success";
     }
 
     else
     {
-      v7 = "failure";
+      v11 = "failure";
     }
 
-    result = _BBULog(0, 0, "VinylEURCommunication", "", " TelephonyBasebandPCITransportCreate returns: %s\n", v4, v5, v6, v7);
+    result = _BBULog(0, 0, "VinylEURCommunication", "", " TelephonyBasebandPCITransportCreate returns: %s\n", v11);
   }
 
-  if (*(*(a1[4] + 8) + 24))
+  if (*(*(*(a1 + 32) + 8) + 24))
   {
-    if (!*(v2 + 40))
+    if (!*(v7 + 40))
     {
       exception = __cxa_allocate_exception(0x210uLL);
-      _BBUException::_BBUException(exception, 67, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Communication/Eureka/VinylEURCommunication.cpp", 0x76u, "Assertion failure(nullptr != fTransportCreated && Telephony Util transport error!\\n)", v10, v11, v12, v13);
+      _BBUException::_BBUException(exception, 67, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Communication/Eureka/VinylEURCommunication.cpp", 0x76u, "Assertion failure(nullptr != fTransportCreated && Telephony Util transport error!\\n)");
     }
 
-    v8 = 0;
+    v12 = 0;
   }
 
   else
   {
-    result = VinylEURCommunication::freeTransportSync(v2, a1[7]);
-    v8 = 3;
+    result = VinylEURCommunication::freeTransportSync(v7, *(a1 + 56));
+    v12 = 3;
   }
 
-  *(*(a1[5] + 8) + 24) = v8;
+  *(*(*(a1 + 40) + 8) + 24) = v12;
   return result;
 }
 
-uint64_t VinylEURCommunication::freeTransport(uint64_t a1, uint64_t a2)
+uint64_t VinylEURCommunication::freeTransport(uint64_t a1, const void *a2)
 {
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x2000000000;
-  v14 = 1;
-  if ((*gBBULogMaskGet() & 1) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2000000000;
+  v11 = 1;
+  if ((*gBBULogMaskGet(a1, a2) & 1) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
   {
-    _BBULog(0, 0, "VinylEURCommunication", "", "request to free transport: %p\n", v4, v5, v6, a2);
+    _BBULog(0, 0, "VinylEURCommunication", "", "request to free transport: %p\n", a2);
   }
 
-  v7 = *(a1 + 24);
+  v4 = *(a1 + 24);
   block[0] = MEMORY[0x29EDCA5F8];
   block[1] = 0x40000000;
   block[2] = ___ZN21VinylEURCommunication13freeTransportEP26TelephonyUtilTransport_tag_block_invoke;
   block[3] = &unk_29EE8E9C0;
-  block[4] = &v11;
+  block[4] = &v8;
   block[5] = a1;
   block[6] = a2;
-  dispatch_sync(v7, block);
-  v8 = *(v12 + 24);
-  _Block_object_dispose(&v11, 8);
-  return v8;
+  dispatch_sync(v4, block);
+  v5 = *(v9 + 24);
+  _Block_object_dispose(&v8, 8);
+  return v5;
 }
 
-uint64_t ___ZN21VinylEURCommunication13freeTransportEP26TelephonyUtilTransport_tag_block_invoke(void *a1)
+uint64_t ___ZN21VinylEURCommunication13freeTransportEP26TelephonyUtilTransport_tag_block_invoke(uint64_t a1)
 {
-  result = VinylEURCommunication::freeTransportSync(a1[5], a1[6]);
-  *(*(a1[4] + 8) + 24) = result;
+  result = VinylEURCommunication::freeTransportSync(*(a1 + 40), *(a1 + 48));
+  *(*(*(a1 + 32) + 8) + 24) = result;
   return result;
 }
 
@@ -7076,7 +8057,7 @@ void VinylEURCommunication::~VinylEURCommunication(VinylEURCommunication *this)
 
 uint64_t Options::Options(uint64_t a1, const __CFDictionary **a2)
 {
-  v74 = *MEMORY[0x29EDCA608];
+  v59 = *MEMORY[0x29EDCA608];
   *a1 = 255;
   *(a1 + 4) = 0;
   v4 = (a1 + 4);
@@ -7096,13 +8077,11 @@ uint64_t Options::Options(uint64_t a1, const __CFDictionary **a2)
   *(a1 + 168) = 0;
   if (*a2)
   {
-    ctu::cf::dict_adapter::dict_adapter(v64, *a2);
+    ctu::cf::dict_adapter::dict_adapter(v49, *a2);
     Value = CFDictionaryGetValue(*a2, @"BasebandUpdater");
-    ctu::cf::dict_adapter::dict_adapter(v63, Value);
-    v8 = *(a1 + 11);
-    *(a1 + 11) = ctu::cf::map_adapter::getBool(v63, @"VinylForceGold");
-    v9 = *(a1 + 10);
-    *(a1 + 10) = ctu::cf::map_adapter::getBool(v63, @"VinylForceMain");
+    ctu::cf::dict_adapter::dict_adapter(v48, Value);
+    *(a1 + 11) = ctu::cf::map_adapter::getBool(v48, @"VinylForceGold");
+    *(a1 + 10) = ctu::cf::map_adapter::getBool(v48, @"VinylForceMain");
     ctu::cf::map_adapter::getString();
     if (*(a1 + 47) < 0)
     {
@@ -7110,9 +8089,8 @@ uint64_t Options::Options(uint64_t a1, const __CFDictionary **a2)
     }
 
     *(a1 + 24) = *__p;
-    *(a1 + 40) = v66;
-    v10 = *(a1 + 20);
-    *(a1 + 20) = ctu::cf::map_adapter::getInt(v63, @"BypassPairing");
+    *(a1 + 40) = v51;
+    *(a1 + 20) = ctu::cf::map_adapter::getInt(v48, @"BypassPairing");
     ctu::cf::map_adapter::getString();
     if (*(a1 + 79) < 0)
     {
@@ -7120,9 +8098,8 @@ uint64_t Options::Options(uint64_t a1, const __CFDictionary **a2)
     }
 
     *(a1 + 56) = *__p;
-    *(a1 + 72) = v66;
-    v11 = *(a1 + 80);
-    *(a1 + 80) = ctu::cf::map_adapter::getBool(v64, @"VinylTwoPhasePresenceCheck");
+    *(a1 + 72) = v51;
+    *(a1 + 80) = ctu::cf::map_adapter::getBool(v49, @"VinylTwoPhasePresenceCheck");
     ctu::cf::map_adapter::getString();
     if (*(a1 + 111) < 0)
     {
@@ -7130,7 +8107,7 @@ uint64_t Options::Options(uint64_t a1, const __CFDictionary **a2)
     }
 
     *(a1 + 88) = *__p;
-    *(a1 + 104) = v66;
+    *(a1 + 104) = v51;
     ctu::cf::map_adapter::getString();
     if (*(a1 + 135) < 0)
     {
@@ -7138,65 +8115,63 @@ uint64_t Options::Options(uint64_t a1, const __CFDictionary **a2)
     }
 
     *v5 = *__p;
-    *(a1 + 128) = v66;
-    v12 = *(a1 + 135);
-    if (v12 < 0)
+    *(a1 + 128) = v51;
+    v8 = *(a1 + 135);
+    if (v8 < 0)
+    {
+      v9 = *(a1 + 112);
+      v8 = *(a1 + 120);
+    }
+
+    else
+    {
+      v9 = (a1 + 112);
+    }
+
+    v10 = std::remove_if[abi:ne200100]<std::__wrap_iter<char *>,int (*)(int)>(v9, &v9[v8], isblank);
+    v11 = *(a1 + 135);
+    if (v11 < 0)
     {
       v13 = *(a1 + 112);
-      v12 = *(a1 + 120);
+      v12 = (v13 + *(a1 + 120));
     }
 
     else
     {
-      v13 = (a1 + 112);
+      v12 = v5 + v11;
+      v13 = a1 + 112;
     }
 
-    v14 = std::remove_if[abi:ne200100]<std::__wrap_iter<char *>,int (*)(int)>(v13, &v13[v12], isblank);
-    v15 = *(a1 + 135);
-    if (v15 < 0)
+    std::string::erase((a1 + 112), &v10[-v13], v12 - v10);
+    v14 = *(a1 + 135);
+    if (v14 < 0)
     {
-      v17 = *(a1 + 112);
-      v16 = (v17 + *(a1 + 120));
+      v15 = *(a1 + 112);
+      v14 = *(a1 + 120);
     }
 
     else
     {
-      v16 = v5 + v15;
-      v17 = a1 + 112;
+      v15 = (a1 + 112);
     }
 
-    std::string::erase((a1 + 112), &v14[-v17], v16 - v14);
-    v18 = *(a1 + 135);
-    if (v18 < 0)
+    v16 = std::remove_if[abi:ne200100]<std::__wrap_iter<char *>,int (*)(int)>(v15, &v15[v14], iscntrl);
+    v17 = *(a1 + 135);
+    if (v17 < 0)
     {
       v19 = *(a1 + 112);
-      v18 = *(a1 + 120);
+      v18 = (v19 + *(a1 + 120));
     }
 
     else
     {
-      v19 = (a1 + 112);
+      v18 = v5 + v17;
+      v19 = a1 + 112;
     }
 
-    v20 = std::remove_if[abi:ne200100]<std::__wrap_iter<char *>,int (*)(int)>(v19, &v19[v18], iscntrl);
-    v21 = *(a1 + 135);
-    if (v21 < 0)
-    {
-      v23 = *(a1 + 112);
-      v22 = (v23 + *(a1 + 120));
-    }
-
-    else
-    {
-      v22 = v5 + v21;
-      v23 = a1 + 112;
-    }
-
-    std::string::erase((a1 + 112), &v20[-v23], v22 - v20);
-    v24 = *(a1 + 136);
-    *(a1 + 136) = ctu::cf::map_adapter::getBool(v64, @"VinylSkipProvisioning");
-    v25 = *(a1 + 137);
-    *(a1 + 137) = ctu::cf::map_adapter::getBool(v64, @"OptimizeRefurbFirmwareUpdatePath");
+    std::string::erase((a1 + 112), &v16[-v19], v18 - v16);
+    *(a1 + 136) = ctu::cf::map_adapter::getBool(v49, @"VinylSkipProvisioning");
+    *(a1 + 137) = ctu::cf::map_adapter::getBool(v49, @"OptimizeRefurbFirmwareUpdatePath");
     ctu::cf::map_adapter::getString();
     if (*(a1 + 167) < 0)
     {
@@ -7204,185 +8179,179 @@ uint64_t Options::Options(uint64_t a1, const __CFDictionary **a2)
     }
 
     *v6 = *__p;
-    *(a1 + 160) = v66;
-    v26 = *(a1 + 167);
-    if (v26 < 0)
+    *(a1 + 160) = v51;
+    v20 = *(a1 + 167);
+    if (v20 < 0)
     {
-      v27 = *(a1 + 144);
-      v28 = *(a1 + 152);
+      v21 = *(a1 + 144);
+      v22 = *(a1 + 152);
     }
 
     else
     {
-      v27 = (a1 + 144);
-      v28 = *(a1 + 167);
+      v21 = (a1 + 144);
+      v22 = *(a1 + 167);
     }
 
-    v29 = &v27[v28];
-    if (v28 >= 2)
+    v23 = &v21[v22];
+    if (v22 >= 2)
     {
-      v30 = v27;
+      v24 = v21;
       do
       {
-        v31 = memchr(v30, 45, v28 - 1);
+        v25 = memchr(v24, 45, v22 - 1);
+        if (!v25)
+        {
+          break;
+        }
+
+        if (*v25 == 26157)
+        {
+          goto LABEL_33;
+        }
+
+        v24 = v25 + 1;
+        v22 = v23 - v24;
+      }
+
+      while (v23 - v24 > 1);
+    }
+
+    v25 = v23;
+LABEL_33:
+    v27 = v25 != v23 && v25 - v21 != -1;
+    *(a1 + 168) = v27;
+    if ((v20 & 0x80000000) != 0)
+    {
+      v28 = *(a1 + 144);
+      v20 = *(a1 + 152);
+    }
+
+    else
+    {
+      v28 = (a1 + 144);
+    }
+
+    v29 = &v28[v20];
+    if (v20 >= 2)
+    {
+      v30 = v28;
+      do
+      {
+        v31 = memchr(v30, 45, v20 - 1);
         if (!v31)
         {
           break;
         }
 
-        if (*v31 == 26157)
+        if (*v31 == 25389)
         {
-          goto LABEL_33;
+          goto LABEL_48;
         }
 
         v30 = v31 + 1;
-        v28 = v29 - v30;
+        v20 = v29 - v30;
       }
 
       while (v29 - v30 > 1);
     }
 
     v31 = v29;
-LABEL_33:
-    v33 = v31 != v29 && v31 - v27 != -1;
-    *(a1 + 168) = v33;
-    if ((v26 & 0x80000000) != 0)
-    {
-      v34 = *(a1 + 144);
-      v26 = *(a1 + 152);
-    }
-
-    else
-    {
-      v34 = (a1 + 144);
-    }
-
-    v35 = &v34[v26];
-    if (v26 >= 2)
-    {
-      v36 = v34;
-      do
-      {
-        v37 = memchr(v36, 45, v26 - 1);
-        if (!v37)
-        {
-          break;
-        }
-
-        if (*v37 == 25389)
-        {
-          goto LABEL_48;
-        }
-
-        v36 = v37 + 1;
-        v26 = v35 - v36;
-      }
-
-      while (v35 - v36 > 1);
-    }
-
-    v37 = v35;
 LABEL_48:
-    v39 = v37 != v35 && v37 - v34 != -1;
-    *(a1 + 169) = v39;
-    v40 = *(a1 + 8);
-    if (ctu::cf::map_adapter::getBool(v63, @"VinylSkipAll"))
+    v33 = v31 != v29 && v31 - v28 != -1;
+    *(a1 + 169) = v33;
+    if (ctu::cf::map_adapter::getBool(v48, @"VinylSkipAll"))
     {
-      v41 = 1;
+      v34 = 1;
     }
 
     else
     {
-      v41 = ctu::cf::map_adapter::getBool(v64, @"UpdateBaseband") ^ 1;
+      v34 = ctu::cf::map_adapter::getBool(v49, @"UpdateBaseband") ^ 1;
     }
 
-    *(a1 + 8) = v41;
-    v42 = *(a1 + 9);
-    *(a1 + 9) = ctu::cf::map_adapter::getBool(v63, @"VinylOnlyPerso");
-    if (ctu::cf::map_adapter::getBool(v63, @"VinylUse4FF"))
+    *(a1 + 8) = v34;
+    *(a1 + 9) = ctu::cf::map_adapter::getBool(v48, @"VinylOnlyPerso");
+    if (ctu::cf::map_adapter::getBool(v48, @"VinylUse4FF"))
     {
       *a1 = 1;
     }
 
-    if (BBUpdaterCommon::isNVRAMKeyPresent(@"VinylForceGenericUpdate", v43))
+    if (BBUpdaterCommon::isNVRAMKeyPresent(@"VinylForceGenericUpdate", v35))
     {
       *(a1 + 10) = 257;
     }
 
-    v44 = *(a1 + 13);
-    *(a1 + 13) = ctu::cf::map_adapter::getBool(v64, @"VinylVerifyPairing");
-    v45 = *(a1 + 12);
-    *(a1 + 12) = ctu::cf::map_adapter::getBool(v64, @"VinylInstallSealingManifest");
-    v46 = *(a1 + 16);
-    *(a1 + 16) = ctu::cf::map_adapter::getInt(v64, @"VinylPairingAuthTest");
+    *(a1 + 13) = ctu::cf::map_adapter::getBool(v49, @"VinylVerifyPairing");
+    *(a1 + 12) = ctu::cf::map_adapter::getBool(v49, @"VinylInstallSealingManifest");
+    *(a1 + 16) = ctu::cf::map_adapter::getInt(v49, @"VinylPairingAuthTest");
     __p[0] = 0;
     __p[1] = 0;
-    v66 = 0;
+    v51 = 0;
     ctu::cf::map_adapter::getString();
-    if (SHIBYTE(v66) < 0)
+    if (SHIBYTE(v51) < 0)
     {
       operator delete(__p[0]);
     }
 
-    v47 = v62;
-    v48 = v62;
-    if ((v62 & 0x80u) != 0)
+    v36 = v47;
+    v37 = v47;
+    if ((v47 & 0x80u) != 0)
     {
-      v47 = v61[1];
+      v36 = v46[1];
     }
 
-    if (v47)
+    if (v36)
     {
       std::string::basic_string[abi:ne200100]<0>(__p, "Bootstrap");
-      v67 = 1;
-      std::string::basic_string[abi:ne200100]<0>(v68, "All");
-      v69 = 2;
-      std::string::basic_string[abi:ne200100]<0>(v70, "Bootstrap Preferences");
-      v71 = 3;
-      std::string::basic_string[abi:ne200100]<0>(v72, "All Preferences");
-      v73 = 4;
-      std::map<std::string,VinylRefurbAction,BBUpdaterCommon::case_insensitive_key_comparer,std::allocator<std::pair<std::string const,VinylRefurbAction>>>::map[abi:ne200100](v59, __p, 4);
+      v52 = 1;
+      std::string::basic_string[abi:ne200100]<0>(v53, "All");
+      v54 = 2;
+      std::string::basic_string[abi:ne200100]<0>(v55, "Bootstrap Preferences");
+      v56 = 3;
+      std::string::basic_string[abi:ne200100]<0>(v57, "All Preferences");
+      v58 = 4;
+      std::map<std::string,VinylRefurbAction,BBUpdaterCommon::case_insensitive_key_comparer,std::allocator<std::pair<std::string const,VinylRefurbAction>>>::map[abi:ne200100](v44, __p, 4);
       for (i = 0; i != -16; i -= 4)
       {
-        if (SHIBYTE(v72[i + 2]) < 0)
+        if (SHIBYTE(v57[i + 2]) < 0)
         {
-          operator delete(v72[i]);
+          operator delete(v57[i]);
         }
       }
 
-      v50 = std::__tree<std::__value_type<std::string,VinylRefurbAction>,std::__map_value_compare<std::string,std::__value_type<std::string,VinylRefurbAction>,BBUpdaterCommon::case_insensitive_key_comparer,true>,std::allocator<std::__value_type<std::string,VinylRefurbAction>>>::find<std::string>(v59, v61);
-      if (&v60 == v50)
+      v39 = std::__tree<std::__value_type<std::string,VinylRefurbAction>,std::__map_value_compare<std::string,std::__value_type<std::string,VinylRefurbAction>,BBUpdaterCommon::case_insensitive_key_comparer,true>,std::allocator<std::__value_type<std::string,VinylRefurbAction>>>::find<std::string>(v44, v46);
+      if (&v45 == v39)
       {
         exception = __cxa_allocate_exception(0x210uLL);
-        v57 = exception;
-        v58 = v61;
-        if ((v62 & 0x80u) != 0)
+        v42 = exception;
+        v43 = v46;
+        if ((v47 & 0x80u) != 0)
         {
-          LOBYTE(v58) = v61[0];
+          v43 = v46[0];
         }
 
-        _BBUException::_BBUException(exception, 2, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Options/eUICCOptions.cpp", 0x57u, "Invalid Refurb Option %s", v54, v55, v56, v58);
+        _BBUException::_BBUException(exception, 2, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Options/eUICCOptions.cpp", 0x57u, "Invalid Refurb Option %s", v43);
       }
 
-      *v4 = *(v50 + 56);
-      std::__tree<std::__value_type<std::string,VinylRefurbAction>,std::__map_value_compare<std::string,std::__value_type<std::string,VinylRefurbAction>,BBUpdaterCommon::case_insensitive_key_comparer,true>,std::allocator<std::__value_type<std::string,VinylRefurbAction>>>::destroy(v59, v60);
-      v48 = v62;
+      *v4 = *(v39 + 56);
+      std::__tree<std::__value_type<std::string,VinylRefurbAction>,std::__map_value_compare<std::string,std::__value_type<std::string,VinylRefurbAction>,BBUpdaterCommon::case_insensitive_key_comparer,true>,std::allocator<std::__value_type<std::string,VinylRefurbAction>>>::destroy(v44, v45);
+      v37 = v47;
     }
 
-    if ((v48 & 0x80) != 0)
+    if ((v37 & 0x80) != 0)
     {
-      operator delete(v61[0]);
+      operator delete(v46[0]);
     }
 
-    MEMORY[0x29C286020](v63);
-    MEMORY[0x29C286020](v64);
+    MEMORY[0x29C286020](v48);
+    MEMORY[0x29C286020](v49);
   }
 
-  v51 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
-void sub_298294AF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, char *a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, char a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, int a27, __int16 a28, char a29, char a30)
+void sub_298294AF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char *a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, int a27, __int16 a28, char a29, char a30)
 {
   __cxa_free_exception(v33);
   std::__tree<std::__value_type<std::string,VinylRefurbAction>,std::__map_value_compare<std::string,std::__value_type<std::string,VinylRefurbAction>,BBUpdaterCommon::case_insensitive_key_comparer,true>,std::allocator<std::__value_type<std::string,VinylRefurbAction>>>::destroy(&a12, a13);
@@ -7496,7 +8465,7 @@ void *Options::StringifyPostProcess@<X0>(int a1@<W1>, void *a2@<X8>)
   return std::string::basic_string[abi:ne200100]<0>(a2, v2);
 }
 
-uint64_t Options::ToString@<X0>(Options *this@<X0>, _BYTE *a2@<X8>)
+uint64_t *Options::ToString@<X0>(uint64_t *__return_ptr a1@<X8>, Options *this@<X0>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v88);
   v4 = v88;
@@ -7709,7 +8678,7 @@ uint64_t Options::ToString@<X0>(Options *this@<X0>, _BYTE *a2@<X8>)
     if ((v95 & 8) == 0)
     {
       v80 = 0;
-      a2[23] = 0;
+      *(a1 + 23) = 0;
       goto LABEL_55;
     }
 
@@ -7736,22 +8705,22 @@ uint64_t Options::ToString@<X0>(Options *this@<X0>, _BYTE *a2@<X8>)
     }
 
     v84 = operator new(v83);
-    *(a2 + 1) = v80;
-    *(a2 + 2) = v83 | 0x8000000000000000;
-    *a2 = v84;
-    a2 = v84;
+    a1[1] = v80;
+    a1[2] = v83 | 0x8000000000000000;
+    *a1 = v84;
+    a1 = v84;
     goto LABEL_54;
   }
 
-  a2[23] = v80;
+  *(a1 + 23) = v80;
   if (v80)
   {
 LABEL_54:
-    memmove(a2, locale, v80);
+    memmove(a1, locale, v80);
   }
 
 LABEL_55:
-  a2[v80] = 0;
+  *(a1 + v80) = 0;
   v88 = *MEMORY[0x29EDC9538];
   *(&v88 + *(v88 - 24)) = *(MEMORY[0x29EDC9538] + 24);
   v89 = MEMORY[0x29EDC9570] + 16;
@@ -7766,10 +8735,10 @@ LABEL_55:
   return MEMORY[0x29C286CA0](&v96);
 }
 
-void sub_2982953C0(_Unwind_Exception *a1, void *__p, uint64_t a3, int a4, __int16 a5, char a6, char a7, char a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
+void sub_2982953C0(_Unwind_Exception *a1, void *__p, uint64_t a3, int a4, __int16 a5, char a6, char a7, char a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
-  va_start(va, a21);
-  std::ostringstream::~ostringstream(&a8, MEMORY[0x29EDC9538]);
+  va_start(va, a25);
+  std::ostringstream::~ostringstream(&a12, MEMORY[0x29EDC9538]);
   MEMORY[0x29C286CA0](va);
   _Unwind_Resume(a1);
 }
@@ -7818,12 +8787,12 @@ uint64_t std::ostringstream::~ostringstream(uint64_t a1, uint64_t *a2)
   return std::ostream::~ostream();
 }
 
-uint64_t std::map<std::string,VinylRefurbAction,BBUpdaterCommon::case_insensitive_key_comparer,std::allocator<std::pair<std::string const,VinylRefurbAction>>>::map[abi:ne200100](uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t ***std::map<std::string,VinylRefurbAction,BBUpdaterCommon::case_insensitive_key_comparer,std::allocator<std::pair<std::string const,VinylRefurbAction>>>::map[abi:ne200100](uint64_t ***a1, uint64_t a2, uint64_t a3)
 {
-  *(a1 + 8) = 0;
-  v4 = (a1 + 8);
-  *(a1 + 16) = 0;
-  *a1 = a1 + 8;
+  a1[1] = 0;
+  v4 = (a1 + 1);
+  a1[2] = 0;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v6 = 32 * a3;
@@ -7840,23 +8809,23 @@ uint64_t std::map<std::string,VinylRefurbAction,BBUpdaterCommon::case_insensitiv
   return a1;
 }
 
-uint64_t *std::__tree<std::__value_type<std::string,VinylRefurbAction>,std::__map_value_compare<std::string,std::__value_type<std::string,VinylRefurbAction>,BBUpdaterCommon::case_insensitive_key_comparer,true>,std::allocator<std::__value_type<std::string,VinylRefurbAction>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,VinylRefurbAction> const&>(uint64_t **a1, uint64_t *a2, uint64_t a3, uint64_t a4)
+uint64_t *std::__tree<std::__value_type<std::string,VinylRefurbAction>,std::__map_value_compare<std::string,std::__value_type<std::string,VinylRefurbAction>,BBUpdaterCommon::case_insensitive_key_comparer,true>,std::allocator<std::__value_type<std::string,VinylRefurbAction>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,VinylRefurbAction> const&>(uint64_t ***a1, uint64_t **a2, uint64_t a3, uint64_t a4)
 {
   v6 = std::__tree<std::__value_type<std::string,VinylRefurbAction>,std::__map_value_compare<std::string,std::__value_type<std::string,VinylRefurbAction>,BBUpdaterCommon::case_insensitive_key_comparer,true>,std::allocator<std::__value_type<std::string,VinylRefurbAction>>>::__find_equal<std::string>(a1, a2, &v10, &v9, a3);
   result = *v6;
   if (!*v6)
   {
-    std::__tree<std::__value_type<std::string,VinylRefurbAction>,std::__map_value_compare<std::string,std::__value_type<std::string,VinylRefurbAction>,BBUpdaterCommon::case_insensitive_key_comparer,true>,std::allocator<std::__value_type<std::string,VinylRefurbAction>>>::__construct_node<std::pair<std::string const,VinylRefurbAction> const&>(a1, a4, &v8);
-    std::__tree<std::__value_type<std::string,VinylRefurbAction>,std::__map_value_compare<std::string,std::__value_type<std::string,VinylRefurbAction>,BBUpdaterCommon::case_insensitive_key_comparer,true>,std::allocator<std::__value_type<std::string,VinylRefurbAction>>>::__insert_node_at(a1, v10, v6, v8);
-    return v8;
+    std::__tree<std::__value_type<std::string,VinylRefurbAction>,std::__map_value_compare<std::string,std::__value_type<std::string,VinylRefurbAction>,BBUpdaterCommon::case_insensitive_key_comparer,true>,std::allocator<std::__value_type<std::string,VinylRefurbAction>>>::__construct_node<std::pair<std::string const,VinylRefurbAction> const&>(a1, a4, v8);
+    std::__tree<std::__value_type<std::string,VinylRefurbAction>,std::__map_value_compare<std::string,std::__value_type<std::string,VinylRefurbAction>,BBUpdaterCommon::case_insensitive_key_comparer,true>,std::allocator<std::__value_type<std::string,VinylRefurbAction>>>::__insert_node_at(a1, v10, v6, v8[0]);
+    return v8[0];
   }
 
   return result;
 }
 
-uint64_t *std::__tree<std::__value_type<std::string,VinylRefurbAction>,std::__map_value_compare<std::string,std::__value_type<std::string,VinylRefurbAction>,BBUpdaterCommon::case_insensitive_key_comparer,true>,std::allocator<std::__value_type<std::string,VinylRefurbAction>>>::__find_equal<std::string>(uint64_t **a1, uint64_t *a2, uint64_t **a3, uint64_t **a4, uint64_t a5)
+uint64_t *std::__tree<std::__value_type<std::string,VinylRefurbAction>,std::__map_value_compare<std::string,std::__value_type<std::string,VinylRefurbAction>,BBUpdaterCommon::case_insensitive_key_comparer,true>,std::allocator<std::__value_type<std::string,VinylRefurbAction>>>::__find_equal<std::string>(uint64_t ***a1, uint64_t **a2, uint64_t **a3, uint64_t **a4, uint64_t a5)
 {
-  v9 = a1 + 1;
+  v9 = (a1 + 1);
   if (a1 + 1 == a2 || (*(a5 + 23) >= 0 ? (v11 = a5) : (v11 = *a5), *(a2 + 55) >= 0 ? (v12 = (a2 + 4)) : (v12 = a2[4]), strcasecmp(v11, v12) < 0))
   {
     v13 = *a2;
@@ -7883,7 +8852,7 @@ LABEL_29:
       do
       {
         v15 = v14;
-        v14 = v14[1];
+        v14 = *(v14 + 8);
       }
 
       while (v14);
@@ -7973,7 +8942,7 @@ LABEL_29:
       else
       {
         *a3 = a2;
-        return a2 + 1;
+        return (a2 + 1);
       }
 
       return a4;
@@ -8012,7 +8981,7 @@ void sub_298295A08(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__tree<std::__value_type<std::string,VinylRefurbAction>,std::__map_value_compare<std::string,std::__value_type<std::string,VinylRefurbAction>,BBUpdaterCommon::case_insensitive_key_comparer,true>,std::allocator<std::__value_type<std::string,VinylRefurbAction>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<std::string,VinylRefurbAction>,std::__map_value_compare<std::string,std::__value_type<std::string,VinylRefurbAction>,BBUpdaterCommon::case_insensitive_key_comparer,true>,std::allocator<std::__value_type<std::string,VinylRefurbAction>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -8098,12 +9067,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -8117,22 +9086,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -8166,13 +9135,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -8410,16 +9379,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x29EDC93D0]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -8442,9 +9411,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_298296180(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_298296180(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x29C286A10](&a10);
+  MEMORY[0x29C286A10](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -8547,7 +9516,7 @@ uint64_t VinylSecureElement::init(VinylSecureElement *this)
   if (!v1)
   {
     exception = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(exception, 1, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/SecureElement/VinylSecureElement.cpp", 0x2Eu, "Assertion failure(lib != __null && Could not find /usr/lib/libnfrestore.dylib)", v5, v6, v7, v17);
+    _BBUException::_BBUException(exception, 1, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/SecureElement/VinylSecureElement.cpp", 0x2Eu, "Assertion failure(lib != __null && Could not find /usr/lib/libnfrestore.dylib)");
     goto LABEL_10;
   }
 
@@ -8556,7 +9525,7 @@ uint64_t VinylSecureElement::init(VinylSecureElement *this)
   if (!pfnNfRestoreOpenWithSE)
   {
     exception = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(exception, 1, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/SecureElement/VinylSecureElement.cpp", 0x31u, "Assertion failure(pfnNfRestoreOpenWithSE != __null && Could not find NfRestoreSEOpenWithError symbol\\n)", v8, v9, v10, v17);
+    _BBUException::_BBUException(exception, 1, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/SecureElement/VinylSecureElement.cpp", 0x31u, "Assertion failure(pfnNfRestoreOpenWithSE != __null && Could not find NfRestoreSEOpenWithError symbol\\n)");
     goto LABEL_10;
   }
 
@@ -8564,7 +9533,7 @@ uint64_t VinylSecureElement::init(VinylSecureElement *this)
   if (!pfnNfRestoreSEClose)
   {
     exception = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(exception, 1, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/SecureElement/VinylSecureElement.cpp", 0x34u, "Assertion failure(pfnNfRestoreSEClose != __null && Could not find NfRestoreSEClose symbol\\n)", v11, v12, v13, v17);
+    _BBUException::_BBUException(exception, 1, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/SecureElement/VinylSecureElement.cpp", 0x34u, "Assertion failure(pfnNfRestoreSEClose != __null && Could not find NfRestoreSEClose symbol\\n)");
     goto LABEL_10;
   }
 
@@ -8572,7 +9541,7 @@ uint64_t VinylSecureElement::init(VinylSecureElement *this)
   if (!pfnNfRestoreDumpUART)
   {
     exception = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(exception, 1, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/SecureElement/VinylSecureElement.cpp", 0x37u, "Assertion failure(pfnNfRestoreDumpUART != __null && Could not find pfnNfRestoreDumpUART symbol\\n)", v14, v15, v16, v17);
+    _BBUException::_BBUException(exception, 1, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/SecureElement/VinylSecureElement.cpp", 0x37u, "Assertion failure(pfnNfRestoreDumpUART != __null && Could not find pfnNfRestoreDumpUART symbol\\n)");
 LABEL_10:
   }
 
@@ -8581,7 +9550,7 @@ LABEL_10:
 
 uint64_t VinylSecureElement::PowerUpSE(VinylSecureElement *this)
 {
-  v7 = 0;
+  v6 = 0;
   if (pfnNfRestoreOpenWithSE)
   {
     v1 = pfnNfRestoreDumpUART == 0;
@@ -8597,11 +9566,12 @@ uint64_t VinylSecureElement::PowerUpSE(VinylSecureElement *this)
     return 0;
   }
 
-  v2 = pfnNfRestoreOpenWithSE(0, 0, &v7);
-  if (v7)
+  v3 = pfnNfRestoreOpenWithSE(0, 0, &v6);
+  v2 = v3;
+  if (v6)
   {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "VinylSecureElement", "", "pfnNfRestoreOpenWithSE failure, outResult: %d\n", v3, v4, v5, v7);
+    gBBULogMaskGet(v3, v4);
+    _BBULog(0, 0xFFFFFFFFLL, "VinylSecureElement", "", "pfnNfRestoreOpenWithSE failure, outResult: %d\n", v6);
   }
 
   __ns.__rep_ = 1000000000;
@@ -8616,29 +9586,24 @@ uint64_t VinylSecureElement::PowerDownSE(VinylSecureElement *this, void *a2)
     return 1;
   }
 
-  pfnNfRestoreSEClose(a2);
-  gBBULogMaskGet();
-  _BBULog(0, 0xFFFFFFFFLL, "VinylSecureElement", "", "SE closed SUCCESSFULLY\n", v2, v3, v4, vars0);
+  v2 = pfnNfRestoreSEClose(a2);
+  gBBULogMaskGet(v2, v3);
+  _BBULog(0, 0xFFFFFFFFLL, "VinylSecureElement", "", "SE closed SUCCESSFULLY\n");
   return 0;
 }
 
-uint64_t _BBUException::_BBUException(uint64_t a1, int a2, char *a3, unsigned int a4, ctu::LogMessageBuffer *a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t _BBUException::_BBUException(uint64_t a1, uint64_t a2, char *a3, unsigned int a4, ctu::LogMessageBuffer *a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
   *a1 = &unk_2A1EB3AB0;
   *(a1 + 520) = a2;
-  _BBUException::constructCommon(a1, a2, a3, a4, a5, &a9);
+  _BBUException::constructCommon(a1, a2, a3, a4, a5, va);
   return a1;
 }
 
+void _BBUException::constructCommon(uint64_t a1, uint64_t a2, char *a3, unsigned int a4, ctu::LogMessageBuffer *this, char *a6)
 {
-  *a1 = &unk_2A1EB3AB0;
-  *(a1 + 520) = a2;
-  _BBUException::constructCommon(a1, a2, a3, a4, a5, &a9);
-  return a1;
-}
-
-void _BBUException::constructCommon(uint64_t a1, int a2, char *a3, unsigned int a4, ctu::LogMessageBuffer *this, char *a6)
-{
+  v8 = a2;
   ctu::LogMessageBuffer::vCreateWithFormat(&v40, this, a6, a3);
   v10 = MEMORY[0x29C285FC0](&v40);
   v11 = *v10;
@@ -8650,7 +9615,7 @@ void _BBUException::constructCommon(uint64_t a1, int a2, char *a3, unsigned int 
   MEMORY[0x29C285FE0](&v40);
   *(&v35.__r_.__value_.__s + 23) = 1;
   LOWORD(v35.__r_.__value_.__l.__data_) = 32;
-  v12 = BBUReturnAsString(a2);
+  v12 = BBUReturnAsString(v8);
   v13 = strlen(v12);
   v14 = std::string::append(&v35, v12, v13);
   v15 = *&v14->__r_.__value_.__l.__data_;
@@ -8885,1008 +9850,4 @@ void sub_2982969C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
-}
-
-void _BBUException::~_BBUException(std::exception *this)
-{
-  std::exception::~exception(this);
-
-  operator delete(v1);
-}
-
-void _BBUException::_BBUException(_BBUException *this, const _BBUException *a2)
-{
-  *this = &unk_2A1EB3AB0;
-  strncpy(this + 8, a2 + 8, 0x200uLL);
-  *(this + 130) = *(a2 + 130);
-}
-
-ctu::llvm::StringRef *ctu::llvm::StringRef::StringRef(ctu::llvm::StringRef *this, const char *__s)
-{
-  *this = __s;
-  if (!__s)
-  {
-    ctu::llvm::StringRef::StringRef();
-  }
-
-  *(this + 1) = strlen(__s);
-  return this;
-}
-
-uint64_t VinyleUICCPerformOperationWithTransportAndLogSync(unsigned int a1, eUICC::Pairing *a2, const __CFDictionary *a3, int a4, uint64_t a5, void *a6)
-{
-  VinylLogRegisterSync(a6);
-  gBBULogMaskGet();
-  _BBULog(0, 0xFFFFFFFFLL, "VinylNonUpdate", "", "Vinyl Operation: %d, lastOperation: %d\n", v11, v12, v13, a1);
-  pthread_mutex_lock(&ctu::Singleton<BBUCapabilities,BBUCapabilities,ctu::PthreadMutexGuardPolicy<BBUCapabilities>>::sInstance);
-  v14 = xmmword_2A13A8CA0;
-  if (!xmmword_2A13A8CA0)
-  {
-    BBUCapabilities::create_default_global(&v45);
-    v15 = v45;
-    v45 = 0uLL;
-    v16 = *(&xmmword_2A13A8CA0 + 1);
-    xmmword_2A13A8CA0 = v15;
-    if (v16)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v16);
-      if (*(&v45 + 1))
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v45 + 1));
-      }
-    }
-
-    v14 = xmmword_2A13A8CA0;
-  }
-
-  v17 = *(&xmmword_2A13A8CA0 + 1);
-  if (*(&xmmword_2A13A8CA0 + 1))
-  {
-    atomic_fetch_add_explicit((*(&xmmword_2A13A8CA0 + 1) + 8), 1uLL, memory_order_relaxed);
-  }
-
-  pthread_mutex_unlock(&ctu::Singleton<BBUCapabilities,BBUCapabilities,ctu::PthreadMutexGuardPolicy<BBUCapabilities>>::sInstance);
-  v18 = BBUCapabilities::supportsVinylRestore(v14);
-  if (v17)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
-  }
-
-  if ((v18 & 1) == 0)
-  {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "VinylNonUpdate", "", "unsupported device\n", v30, v31, v32, v44);
-    v19 = 0;
-LABEL_25:
-    VinylLogRegisterSync(v19);
-    return 0;
-  }
-
-  if (a3)
-  {
-    ctu::cf::dict_adapter::dict_adapter(&v45, a3);
-    if ((ctu::cf::map_adapter::getBool(&v45, @"UpdateBaseband") & 1) == 0)
-    {
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "VinylNonUpdate", "", "updateBaseband false\n", v34, v35, v36, v44);
-      VinylLogRegisterSync(0);
-      MEMORY[0x29C286020](&v45);
-      return 0;
-    }
-
-    MEMORY[0x29C286020](&v45);
-  }
-
-  if (a1 < 9)
-  {
-    v19 = VinylController::create(a5, 1);
-    if (v19)
-    {
-      v20 = v19;
-      updated = VinylController::performNonUpdateOperation(v19, a1, a2, a3);
-      goto LABEL_17;
-    }
-
-    goto LABEL_25;
-  }
-
-  VinyleUICCPerformOperationWithTransportAndLogSync_cold_1(a1, &v46, &v45);
-  updated = v46;
-  v20 = v45;
-LABEL_17:
-  if (a4 == 1)
-  {
-    VinylControllerObjDestroy(v20, v21, v22, v23, v24, v25, v26, v27, v44);
-  }
-
-  if (!updated || updated == 9)
-  {
-    goto LABEL_36;
-  }
-
-  if (updated != 107)
-  {
-    goto LABEL_32;
-  }
-
-  ctu::cf::dict_adapter::dict_adapter(&v45, a3);
-  Bool = ctu::cf::map_adapter::getBool(&v45, @"BasebandEnableProvisioning");
-  if (!ctu::cf::map_adapter::getBool(&v45, @"VinylSkipProvisioning"))
-  {
-    if (a5 && TelephonyRadiosGetRadioVendor() == 1)
-    {
-      MEMORY[0x29C286020](&v45);
-    }
-
-    else
-    {
-      MEMORY[0x29C286020](&v45);
-      if ((Bool & 1) == 0)
-      {
-        goto LABEL_35;
-      }
-    }
-
-LABEL_32:
-    gBBULogMaskGet();
-    v40 = _BBULog(0, 0xFFFFFFFFLL, "VinylNonUpdate", "", "something is wrong.. : %d\n", v37, v38, v39, updated);
-    if (!a5)
-    {
-      if (BBUpdaterCommon::inRestoreOS(v40))
-      {
-        BBUpdaterCommon::collectCoreDump(a2, 0, 0, updated == 14);
-      }
-    }
-
-    goto LABEL_36;
-  }
-
-  MEMORY[0x29C286020](&v45);
-LABEL_35:
-  gBBULogMaskGet();
-  _BBULog(0, 0xFFFFFFFFLL, "VinylNonUpdate", "", "Failed to GetEID but it is fine because BB Provisioning not enabled or it is enabled but Vinyl Provisioning Skipped\n", v41, v42, v43, v44);
-  updated = 0;
-LABEL_36:
-  VinylLogRegisterSync(0);
-  return VinylControllerMapBBUReturnToVinylResult(updated);
-}
-
-void sub_298296F24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  MEMORY[0x29C286020](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __cxx_global_var_init_6()
-{
-  {
-    return __cxa_atexit(ctu::PthreadMutexGuardPolicy<BBUCapabilities>::~PthreadMutexGuardPolicy, &ctu::Singleton<BBUCapabilities,BBUCapabilities,ctu::PthreadMutexGuardPolicy<BBUCapabilities>>::sInstance, &dword_29826A000);
-  }
-
-  return result;
-}
-
-void CFOBJ_STR(void *a1@<X0>, void *a2@<X8>)
-{
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  v2 = CFStringCreateWithFormat(*MEMORY[0x29EDB8ED8], 0, @"%@", *a1);
-  ctu::cf::assign();
-  if (v2)
-  {
-    CFRelease(v2);
-  }
-}
-
-void sub_298297040(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  ctu::cf::CFSharedRef<__CFString const>::~CFSharedRef(va);
-  if (*(v2 + 23) < 0)
-  {
-    operator delete(*v2);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t VinylControllerMapBBUReturnToVinylResult(uint64_t result)
-{
-  switch(result)
-  {
-    case 0:
-    case 1:
-    case 2:
-    case 3:
-      return result;
-    case 4:
-    case 12:
-      goto LABEL_4;
-    case 5:
-      result = 4;
-      break;
-    case 6:
-      result = 5;
-      break;
-    case 7:
-      result = 6;
-      break;
-    case 8:
-      result = 7;
-      break;
-    case 9:
-      result = 8;
-      break;
-    case 10:
-      result = 9;
-      break;
-    case 11:
-      result = 10;
-      break;
-    case 13:
-      result = 11;
-      break;
-    case 14:
-      result = 12;
-      break;
-    case 15:
-      result = 13;
-      break;
-    case 16:
-      result = 14;
-      break;
-    case 17:
-      result = 15;
-      break;
-    case 18:
-      result = 16;
-      break;
-    case 19:
-      result = 17;
-      break;
-    case 20:
-      result = 18;
-      break;
-    case 21:
-      result = 19;
-      break;
-    case 22:
-      result = 20;
-      break;
-    case 23:
-      result = 21;
-      break;
-    case 24:
-      result = 22;
-      break;
-    case 25:
-      result = 23;
-      break;
-    case 26:
-      result = 24;
-      break;
-    case 27:
-      result = 25;
-      break;
-    default:
-      if (result == 107)
-      {
-        result = 26;
-      }
-
-      else
-      {
-LABEL_4:
-        result = 1;
-      }
-
-      break;
-  }
-
-  return result;
-}
-
-uint64_t eUICC::TwoPhaseProv::ComposeGps(BBUpdaterCommon *a1)
-{
-  v13 = *MEMORY[0x29EDCA608];
-  v11 = bswap64(BBUpdaterCommon::getECID(a1));
-  v10[0] = &v11;
-  v10[1] = 8;
-  length = 16;
-  if (DEREncodeSequenceFromObject(0xE00000000000002DLL, v10, 0x10uLL, 1u, &eUICC::TwoPhaseProv::getProvSessReqSpec, bytes, 0x10uLL, &length))
-  {
-    gBBULogMaskGet();
-    v5 = "DR_Success == enc_ret";
-  }
-
-  else
-  {
-    v8 = CFDataCreate(*MEMORY[0x29EDB8ED8], bytes, length);
-    ctu::cf::CFSharedRef<__CFData const>::operator=(a1, &v8);
-    if (*a1)
-    {
-      result = 0;
-      goto LABEL_6;
-    }
-
-    gBBULogMaskGet();
-    v5 = "gps_req.get()";
-  }
-
-  _BBULog(0, 0xFFFFFFFFLL, "VinylTwoPhaseProvUtil", "", "Condition <<%s>> failed %s %s/%d\n", v2, v3, v4, v5);
-  result = 17;
-LABEL_6:
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-const void **ctu::cf::CFSharedRef<__CFData const>::operator=(const void **a1, const void **a2)
-{
-  v3 = *a1;
-  *a1 = *a2;
-  if (v3)
-  {
-    CFRelease(v3);
-  }
-
-  return a1;
-}
-
-uint64_t eUICC::TwoPhaseProv::ConvertGpsToGbpp(uint64_t *a1, const void **a2)
-{
-  v15[9] = *MEMORY[0x29EDCA608];
-  v14[1] = @"APIVersion";
-  v15[0] = @"1";
-  v3 = *a1;
-  v15[1] = @"BPPRequestData";
-  v15[2] = v3;
-  v15[3] = @"Command";
-  v15[4] = @"GetBpp";
-  v15[5] = @"ResponseDataFlag";
-  v15[6] = @"NEW_BPP";
-  v15[7] = @"HardwareType";
-  v15[8] = @"2";
-  theDict = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 5, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-  if (theDict)
-  {
-    v4 = v15;
-    v5 = 5;
-    do
-    {
-      CFDictionaryAddValue(theDict, *(v4 - 1), *v4);
-      v4 += 2;
-      --v5;
-    }
-
-    while (v5);
-    ctu::cf::CFSharedRef<__CFDictionary const>::CFSharedRef<void const,void>(&v12, &theDict);
-    if (&v12 != a2)
-    {
-      v14[0] = *a2;
-      *a2 = v12;
-      v12 = 0;
-      ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::~SharedRef(v14);
-    }
-
-    ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::~SharedRef(&v12);
-    v6 = 0;
-  }
-
-  else
-  {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "VinylTwoPhaseProvUtil", "", "Condition <<%s>> failed %s %s/%d\n", v7, v8, v9, "dict");
-    v6 = 17;
-  }
-
-  if (theDict)
-  {
-    CFRelease(theDict);
-  }
-
-  v10 = *MEMORY[0x29EDCA608];
-  return v6;
-}
-
-void sub_298297494(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
-{
-  va_start(va, a6);
-  ctu::cf::CFSharedRef<__CFDictionary>::~CFSharedRef(va);
-  _Unwind_Resume(a1);
-}
-
-const void **ctu::cf::CFSharedRef<__CFDictionary>::~CFSharedRef(const void **a1)
-{
-  v2 = *a1;
-  if (v2)
-  {
-    CFRelease(v2);
-  }
-
-  return a1;
-}
-
-uint64_t eUICC::TwoPhaseProv::ConvertPirToHir(const void **a1, const void **this, CFTypeRef *a3)
-{
-  v25[10] = *MEMORY[0x29EDCA608];
-  v24 = 0;
-  memset(&v23[1], 0, 32);
-  if (a1 && *a1 && eUICC::TwoPhaseProv::SessionData::extractDataFromPir(this, a1))
-  {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "VinylTwoPhaseProvUtil", "", "Condition <<%s>> failed %s %s/%d\n", v6, v7, v8, "(kVinylResultSuccess == sessionData.extractDataFromPir(*pir))");
-    v9 = 27;
-  }
-
-  else
-  {
-    v25[0] = @"APIVersion";
-    v25[1] = @"1";
-    v25[2] = @"Command";
-    v25[3] = @"HandleInstallationResult";
-    v25[4] = @"EuiccSessionID";
-    eUICC::TwoPhaseProv::SessionData::getEUICCSessionId(this, v23);
-    v25[5] = v23[0];
-    v25[6] = @"EID";
-    eUICC::TwoPhaseProv::SessionData::getEid(this, &v22);
-    v25[7] = v22;
-    v25[8] = @"TransactionID";
-    eUICC::TwoPhaseProv::SessionData::getTransactionId(this, &cf);
-    v25[9] = cf;
-    if (cf)
-    {
-      CFRelease(cf);
-    }
-
-    if (v22)
-    {
-      CFRelease(v22);
-    }
-
-    if (v23[0])
-    {
-      CFRelease(v23[0]);
-    }
-
-    Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 5, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-    v11 = v24;
-    v24 = Mutable;
-    if (v11)
-    {
-      CFRelease(v11);
-      Mutable = v24;
-    }
-
-    if (Mutable)
-    {
-      for (i = 0; i != 10; i += 2)
-      {
-        v13 = v25[i + 1];
-        if (v13)
-        {
-          CFDictionaryAddValue(v24, v25[i], v13);
-        }
-      }
-
-      eUICC::TwoPhaseProv::SessionData::getError(this, v23);
-      if (v23[0])
-      {
-        eUICC::TwoPhaseProv::SessionData::getError(this, &v22);
-        v14 = v22;
-        if (v22)
-        {
-          CFRelease(v22);
-        }
-
-        if (v23[0])
-        {
-          CFRelease(v23[0]);
-        }
-
-        if (v14)
-        {
-          v15 = v24;
-          eUICC::TwoPhaseProv::SessionData::getError(this, v23);
-          CFDictionaryAddValue(v15, @"ErrorCode", v23[0]);
-          if (v23[0])
-          {
-            CFRelease(v23[0]);
-          }
-        }
-      }
-
-      if (a1 && *a1)
-      {
-        CFDictionaryAddValue(v24, @"ProfileInstallationResult", *a1);
-      }
-
-      ctu::cf::CFSharedRef<__CFDictionary const>::CFSharedRef<void const,void>(v23, &v24);
-      if (v23 != a3)
-      {
-        v25[0] = *a3;
-        *a3 = v23[0];
-        v23[0] = 0;
-        ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::~SharedRef(v25);
-      }
-
-      ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::~SharedRef(v23);
-      v9 = 0;
-    }
-
-    else
-    {
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "VinylTwoPhaseProvUtil", "", "Condition <<%s>> failed %s %s/%d\n", v16, v17, v18, "dict");
-      v9 = 17;
-    }
-  }
-
-  if (v24)
-  {
-    CFRelease(v24);
-  }
-
-  v19 = *MEMORY[0x29EDCA608];
-  return v9;
-}
-
-void sub_29829781C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, int a16, __int16 a17, char a18, char a19, int a20, __int16 a21, char a22, char a23, int a24, __int16 a25, char a26, char a27, int a28, __int16 a29, char a30, char a31, int a32, __int16 a33, char a34, char a35, int a36, __int16 a37, char a38, char a39)
-{
-  if (a2)
-  {
-    __clang_call_terminate(exception_object);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-const void **ctu::cf::CFSharedRef<__CFNumber const>::~CFSharedRef(const void **a1)
-{
-  v2 = *a1;
-  if (v2)
-  {
-    CFRelease(v2);
-  }
-
-  return a1;
-}
-
-uint64_t eUICC::TwoPhaseProv::ExtractNotificationListSeqNumbers(CFDataRef *a1, void *a2)
-{
-  v4 = *MEMORY[0x29EDB8ED8];
-  Length = CFDataGetLength(*a1);
-  MutableCopy = CFDataCreateMutableCopy(v4, Length, *a1);
-  v22[2] = MutableCopy;
-  v22[0] = CFDataGetMutableBytePtr(MutableCopy);
-  v22[1] = CFDataGetLength(MutableCopy);
-  if (DERDecodeSeqContentInit(v22, v25))
-  {
-    goto LABEL_2;
-  }
-
-  if (DERDecodeSeqNext(v25, &v23) || v23 != 0xA000000000000028)
-  {
-    gBBULogMaskGet();
-    v10 = "DR_Success == der_ret && TAG_LN == dec.tag";
-    goto LABEL_3;
-  }
-
-  if (DERDecodeSeqContentInit(v24, v25))
-  {
-    goto LABEL_2;
-  }
-
-  if (DERDecodeSeqNext(v25, &v23) || v23 != 0xA000000000000000)
-  {
-    gBBULogMaskGet();
-    v10 = "DR_Success == der_ret && TAG_NML == dec.tag";
-    goto LABEL_3;
-  }
-
-  if (DERDecodeSeqContentInit(v24, v25))
-  {
-LABEL_2:
-    gBBULogMaskGet();
-    v10 = "DR_Success == der_ret";
-    goto LABEL_3;
-  }
-
-  v11 = 0;
-  while (1)
-  {
-    v13 = DERDecodeSeqNext(v25, &v23);
-    if (v13)
-    {
-      break;
-    }
-
-    cf = 0;
-    if (v23 == 0xA00000000000002FLL)
-    {
-      if (DERDecodeSeqContentInit(v24, v21))
-      {
-        gBBULogMaskGet();
-        v17 = "DR_Success == der_ret";
-      }
-
-      else
-      {
-        if (!DERDecodeSeqNext(v21, &v23) && v23 == 0x8000000000000000)
-        {
-          v19 = CFDataCreate(v4, v24[0], v24[1]);
-          ctu::cf::CFSharedRef<__CFData const>::operator=(&cf, &v19);
-          std::vector<ctu::cf::CFSharedRef<__CFData const>>::emplace_back<ctu::cf::CFSharedRef<__CFData const> const&>(a2, &cf);
-          v18 = 1;
-          goto LABEL_24;
-        }
-
-        gBBULogMaskGet();
-        v17 = "DR_Success == der_ret && TAG_SEQN == dec.tag";
-      }
-    }
-
-    else
-    {
-      gBBULogMaskGet();
-      v17 = "TAG_NM == dec.tag";
-    }
-
-    _BBULog(0, 0xFFFFFFFFLL, "VinylTwoPhaseProvUtil", "", "Condition <<%s>> failed %s %s/%d\n", v14, v15, v16, v17);
-    v18 = 0;
-    v11 = 27;
-LABEL_24:
-    if (cf)
-    {
-      CFRelease(cf);
-    }
-
-    if ((v18 & 1) == 0)
-    {
-      goto LABEL_4;
-    }
-  }
-
-  if (v13 != 1)
-  {
-    gBBULogMaskGet();
-    v10 = "DR_EndOfSequence == der_ret";
-LABEL_3:
-    _BBULog(0, 0xFFFFFFFFLL, "VinylTwoPhaseProvUtil", "", "Condition <<%s>> failed %s %s/%d\n", v7, v8, v9, v10);
-    v11 = 27;
-  }
-
-LABEL_4:
-  if (MutableCopy)
-  {
-    CFRelease(MutableCopy);
-  }
-
-  return v11;
-}
-
-void sub_298297BC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
-{
-  va_start(va1, a6);
-  va_start(va, a6);
-  v7 = va_arg(va1, const void *);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  ctu::cf::CFSharedRef<__CFData const>::~CFSharedRef(va);
-  ctu::cf::CFSharedRef<__CFData>::~CFSharedRef(va1);
-  _Unwind_Resume(a1);
-}
-
-uint64_t eUICC::TwoPhaseProv::ExtractProfileInfo(CFDataRef *a1, uint64_t **a2)
-{
-  v4 = *MEMORY[0x29EDB8ED8];
-  Length = CFDataGetLength(*a1);
-  MutableCopy = CFDataCreateMutableCopy(v4, Length, *a1);
-  v36[2] = MutableCopy;
-  v36[0] = CFDataGetMutableBytePtr(MutableCopy);
-  v36[1] = CFDataGetLength(MutableCopy);
-  if (!DERDecodeSeqContentInit(v36, v39))
-  {
-    if (DERDecodeSeqNext(v39, &v37) || v37 != 0xA00000000000002DLL)
-    {
-      gBBULogMaskGet();
-      v10 = "DR_Success == der_ret && TAG_PILR == dec.tag";
-      goto LABEL_3;
-    }
-
-    if (!DERDecodeSeqContentInit(v38, v39))
-    {
-      if (DERDecodeSeqNext(v39, &v37) || v37 != 0xA000000000000000)
-      {
-        gBBULogMaskGet();
-        v10 = "DR_Success == der_ret && TAG_PILR_OK == dec.tag";
-        goto LABEL_3;
-      }
-
-      if (!DERDecodeSeqContentInit(v38, v39))
-      {
-        v11 = 0;
-        v21 = *MEMORY[0x29EDB8F00];
-        v20 = *MEMORY[0x29EDB8EF8];
-        while (1)
-        {
-          if (DERDecodeSeqNext(v39, &v37) == 1)
-          {
-            goto LABEL_4;
-          }
-
-          v34 = 0;
-          v33[0] = 0;
-          v33[1] = 0;
-          v32 = v33;
-          v26 = 0;
-          cf = 0;
-          __p[0] = 0;
-          __p[1] = 0;
-          v25 = 0;
-          if (!DERDecodeSeqContentInit(v38, &v35))
-          {
-            if (v37 != 0xE000000000000003)
-            {
-              gBBULogMaskGet();
-              v16 = "DR_Success == der_ret && TAG_PI == dec.tag";
-              goto LABEL_21;
-            }
-
-            if (!DERParseSequenceContent(v38, 3u, &eUICC::TwoPhaseProv::profileInfoSpec, v28, 0x30uLL))
-            {
-              v17 = 0;
-              if (!*v30 || !__sz)
-              {
-                goto LABEL_22;
-              }
-
-              v22 = 0uLL;
-              v23 = 0;
-              std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v22, *v30, *v30 + __sz, __sz);
-              if (__p[0])
-              {
-                __p[1] = __p[0];
-                operator delete(__p[0]);
-              }
-
-              *__p = v22;
-              v25 = v23;
-              *&v22 = CFDataCreate(v4, v28[0], v28[1]);
-              ctu::cf::CFSharedRef<__CFData const>::operator=(&v26, &v22);
-              if (!DERParseInteger(&v29, &v34))
-              {
-                v18 = v21;
-                if (v34 != 1)
-                {
-                  v18 = v20;
-                }
-
-                v19 = cf;
-                cf = v18;
-                *&v22 = v19;
-                ctu::cf::CFSharedRef<__CFBoolean const>::~CFSharedRef(&v22);
-                std::__tree<std::__value_type<std::vector<unsigned char>,eUICC::TwoPhaseProv::ProfileProperties>,std::__map_value_compare<std::vector<unsigned char>,std::__value_type<std::vector<unsigned char>,eUICC::TwoPhaseProv::ProfileProperties>,std::less<std::vector<unsigned char>>,true>,std::allocator<std::__value_type<std::vector<unsigned char>,eUICC::TwoPhaseProv::ProfileProperties>>>::__emplace_unique_key_args<std::vector<unsigned char>,std::vector<unsigned char>&,eUICC::TwoPhaseProv::ProfileProperties&>(a2, __p, __p, &v26);
-                v17 = 0;
-                goto LABEL_22;
-              }
-            }
-          }
-
-          gBBULogMaskGet();
-          v16 = "DR_Success == der_ret";
-LABEL_21:
-          _BBULog(0, 0xFFFFFFFFLL, "VinylTwoPhaseProvUtil", "", "Condition <<%s>> failed %s %s/%d\n", v13, v14, v15, v16);
-          v11 = 27;
-          v17 = 1;
-LABEL_22:
-          if (__p[0])
-          {
-            __p[1] = __p[0];
-            operator delete(__p[0]);
-          }
-
-          if (cf)
-          {
-            CFRelease(cf);
-          }
-
-          if (v26)
-          {
-            CFRelease(v26);
-          }
-
-          std::__tree<std::__value_type<std::vector<unsigned char>,eUICC::TwoPhaseProv::ProfileProperties>,std::__map_value_compare<std::vector<unsigned char>,std::__value_type<std::vector<unsigned char>,eUICC::TwoPhaseProv::ProfileProperties>,std::less<std::vector<unsigned char>>,true>,std::allocator<std::__value_type<std::vector<unsigned char>,eUICC::TwoPhaseProv::ProfileProperties>>>::destroy(&v32, v33[0]);
-          if (v17)
-          {
-            goto LABEL_4;
-          }
-        }
-      }
-    }
-  }
-
-  gBBULogMaskGet();
-  v10 = "DR_Success == der_ret";
-LABEL_3:
-  _BBULog(0, 0xFFFFFFFFLL, "VinylTwoPhaseProvUtil", "", "Condition <<%s>> failed %s %s/%d\n", v7, v8, v9, v10);
-  v11 = 27;
-LABEL_4:
-  if (MutableCopy)
-  {
-    CFRelease(MutableCopy);
-  }
-
-  return v11;
-}
-
-void sub_298297FC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, void *a31)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  eUICC::TwoPhaseProv::ProfileProperties::~ProfileProperties(&a22);
-  std::__tree<std::__value_type<std::vector<unsigned char>,eUICC::TwoPhaseProv::ProfileProperties>,std::__map_value_compare<std::vector<unsigned char>,std::__value_type<std::vector<unsigned char>,eUICC::TwoPhaseProv::ProfileProperties>,std::less<std::vector<unsigned char>>,true>,std::allocator<std::__value_type<std::vector<unsigned char>,eUICC::TwoPhaseProv::ProfileProperties>>>::destroy(&a30, a31);
-  ctu::cf::CFSharedRef<__CFData>::~CFSharedRef((v31 - 136));
-  _Unwind_Resume(a1);
-}
-
-uint64_t eUICC::TwoPhaseProv::ExtractResult(CFDataRef *a1, BOOL *a2, uint64_t a3)
-{
-  v16 = 0;
-  v6 = *MEMORY[0x29EDB8ED8];
-  Length = CFDataGetLength(*a1);
-  MutableCopy = CFDataCreateMutableCopy(v6, Length, *a1);
-  v15[2] = MutableCopy;
-  v15[0] = CFDataGetMutableBytePtr(MutableCopy);
-  v15[1] = CFDataGetLength(MutableCopy);
-  *a2 = 0;
-  if (DERDecodeSeqContentInit(v15, v19))
-  {
-    goto LABEL_2;
-  }
-
-  if (DERDecodeSeqNext(v19, &v17) || v17 != a3)
-  {
-    gBBULogMaskGet();
-    v12 = "DR_Success == der_ret && top_level_tag == dec.tag";
-  }
-
-  else
-  {
-    if (DERDecodeSeqContentInit(v18, v19))
-    {
-LABEL_2:
-      gBBULogMaskGet();
-      v12 = "DR_Success == der_ret";
-      goto LABEL_3;
-    }
-
-    if (!DERDecodeSeqNext(v19, &v17) && v17 == 0x8000000000000000)
-    {
-      if (!DERParseInteger(v18, &v16))
-      {
-        v13 = 0;
-        *a2 = v16 == 0;
-        if (!MutableCopy)
-        {
-          return v13;
-        }
-
-        goto LABEL_4;
-      }
-
-      goto LABEL_2;
-    }
-
-    gBBULogMaskGet();
-    v12 = "DR_Success == der_ret && TAG_DP_RESULT == dec.tag";
-  }
-
-LABEL_3:
-  _BBULog(0, 0xFFFFFFFFLL, "VinylTwoPhaseProvUtil", "", "Condition <<%s>> failed %s %s/%d\n", v9, v10, v11, v12);
-  v13 = 27;
-  if (MutableCopy)
-  {
-LABEL_4:
-    CFRelease(MutableCopy);
-  }
-
-  return v13;
-}
-
-void sub_2982981C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
-{
-  va_start(va, a8);
-  ctu::cf::CFSharedRef<__CFData>::~CFSharedRef(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t eUICC::TwoPhaseProv::SerializeDictIntoPlistData(const void **a1)
-{
-  v29 = 0;
-  v28 = 0;
-  v2 = *MEMORY[0x29EDB8ED8];
-  v3 = *a1;
-  error[0] = 0;
-  error[1] = &v29;
-  Data = CFPropertyListCreateData(v2, v3, kCFPropertyListXMLFormat_v1_0, 0, error);
-  v28 = Data;
-  ctu::cf::detail::TakeOwnershipProxy<__CFError>::~TakeOwnershipProxy(error);
-  if (Data)
-  {
-    if (ctu::cf::assign())
-    {
-      v5 = 0;
-    }
-
-    else
-    {
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "VinylTwoPhaseProvUtil", "", "Condition <<%s>> failed %s %s/%d\n", v14, v15, v16, "success");
-      gBBULogMaskGet();
-      _BBULog(22, 0xFFFFFFFFLL, "VinylTwoPhaseProvUtil", "", "Failed to assign output data\n", v17, v18, v19, v21);
-      v5 = 10;
-    }
-
-    CFRelease(Data);
-  }
-
-  else
-  {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "VinylTwoPhaseProvUtil", "", "Condition <<%s>> failed %s %s/%d\n", v6, v7, v8, "outData");
-    gBBULogMaskGet();
-    v9 = *a1;
-    v25 = v9;
-    if (v9)
-    {
-      CFRetain(v9);
-    }
-
-    v10 = error;
-    CFOBJ_STR(&v25, error);
-    if (v27 < 0)
-    {
-      LOBYTE(v10) = error[0];
-    }
-
-    cf = v29;
-    if (v29)
-    {
-      CFRetain(v29);
-    }
-
-    CFOBJ_STR(&cf, &__p);
-    _BBULog(22, 0xFFFFFFFFLL, "VinylTwoPhaseProvUtil", "", "Failed to serialize dictionary %s error %s\n", v11, v12, v13, v10);
-    if (v24 < 0)
-    {
-      operator delete(__p);
-    }
-
-    if (cf)
-    {
-      CFRelease(cf);
-    }
-
-    if (v27 < 0)
-    {
-      operator delete(error[0]);
-    }
-
-    if (v25)
-    {
-      CFRelease(v25);
-    }
-
-    v5 = 10;
-  }
-
-  ctu::SharedRef<__CFError,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFError>::~SharedRef(&v29);
-  return v5;
 }

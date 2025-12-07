@@ -112,7 +112,7 @@ LABEL_7:
   v27 = v26;
   if (view)
   {
-    [view transform];
+    objc_msgSend_transform(view);
   }
 
   else
@@ -465,7 +465,7 @@ LABEL_29:
     if (edgeClip)
     {
       height = [[UIView alloc] initWithFrame:-width, 0.0, width, height];
-      [(UIView *)height setBackgroundColor:+[UIColor blackColor]];
+      [(UIView *)height setBackgroundColor:objc_msgSend_blackColor(UIColor)];
       [(UIView *)height setAutoresizingMask:20];
       [(UIView *)self->_rotatingSnapshotView addSubview:height];
 
@@ -488,7 +488,7 @@ LABEL_25:
     }
 
     height2 = [[UIView alloc] initWithFrame:width, 0.0, width, height];
-    [(UIView *)height2 setBackgroundColor:+[UIColor blackColor]];
+    [(UIView *)height2 setBackgroundColor:objc_msgSend_blackColor(UIColor)];
     [(UIView *)height2 setAutoresizingMask:17];
     [(UIView *)self->_rotatingSnapshotView addSubview:height2];
 
@@ -506,7 +506,7 @@ LABEL_26:
 
 LABEL_31:
     height3 = [[UIView alloc] initWithFrame:0.0, -height, width, height];
-    [(UIView *)height3 setBackgroundColor:+[UIColor blackColor]];
+    [(UIView *)height3 setBackgroundColor:objc_msgSend_blackColor(UIColor)];
     [(UIView *)height3 setAutoresizingMask:34];
     [(UIView *)self->_rotatingSnapshotView addSubview:height3];
 
@@ -517,7 +517,7 @@ LABEL_31:
 
 LABEL_27:
     height4 = [[UIView alloc] initWithFrame:0.0, height, width, height];
-    [(UIView *)height4 setBackgroundColor:+[UIColor blackColor]];
+    [(UIView *)height4 setBackgroundColor:objc_msgSend_blackColor(UIColor)];
     [(UIView *)height4 setAutoresizingMask:10];
     [(UIView *)self->_rotatingSnapshotView addSubview:height4];
 

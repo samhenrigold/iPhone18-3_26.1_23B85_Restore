@@ -10,26 +10,24 @@
 
 - (id)attributeDescriptions
 {
-  v18[4] = *MEMORY[0x277D85DE8];
+  v17[4] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   name = [(HAPThreadNetworkMetadata *)self name];
   v5 = [v3 initWithName:@"Name" value:name];
-  v18[0] = v5;
+  v17[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{-[HAPThreadNetworkMetadata channel](self, "channel")}];
   v8 = [v6 initWithName:@"Channel" value:v7];
-  v18[1] = v8;
+  v17[1] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   pANID = [(HAPThreadNetworkMetadata *)self PANID];
   v11 = [v9 initWithName:@"PAN ID" value:pANID];
-  v18[2] = v11;
+  v17[2] = v11;
   v12 = objc_alloc(MEMORY[0x277D0F778]);
   extendedPANID = [(HAPThreadNetworkMetadata *)self extendedPANID];
   v14 = [v12 initWithName:@"extended PAN ID" value:extendedPANID];
-  v18[3] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:4];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v17[3] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:4];
 
   return v15;
 }

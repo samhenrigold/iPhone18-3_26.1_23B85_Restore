@@ -383,7 +383,7 @@ PXSharedLibraryIncludedPeopleInfo *__77__PXSharedLibraryIncludedPeopleDataSource
   PXFilter();
 }
 
-uint64_t __67__PXSharedLibraryIncludedPeopleDataSourceManager__updateDataSource__block_invoke_6(id *a1)
+void *__67__PXSharedLibraryIncludedPeopleDataSourceManager__updateDataSource__block_invoke_6(id *a1)
 {
   v13 = *MEMORY[0x1E69E9840];
   v8 = 0u;
@@ -433,7 +433,7 @@ uint64_t __67__PXSharedLibraryIncludedPeopleDataSourceManager__updateDataSource_
   return v4;
 }
 
-id __67__PXSharedLibraryIncludedPeopleDataSourceManager__updateDataSource__block_invoke_3(uint64_t a1, void *a2)
+PXSharedLibraryIncludedPeopleInfo *__67__PXSharedLibraryIncludedPeopleDataSourceManager__updateDataSource__block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
   v3 = [PXSharedLibraryIncludedPeopleInfo personForParticipant:v2];

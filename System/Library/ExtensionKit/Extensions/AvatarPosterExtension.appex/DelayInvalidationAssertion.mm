@@ -8,7 +8,7 @@
 - (void)invalidate
 {
   selfCopy = self;
-  sub_10000857C();
+  sub_10000857C(selfCopy, v2);
 }
 
 - (_TtC21AvatarPosterExtensionP33_C771079E74C2E9E4099184D8AE9CA0AA26DelayInvalidationAssertion)init

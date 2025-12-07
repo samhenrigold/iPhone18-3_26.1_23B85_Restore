@@ -111,9 +111,9 @@ LABEL_17:
         goto LABEL_18;
       }
 
-      v12 = [(NSString *)v9 isEqualToString:v10];
+      isEqualToString = objc_msgSend_isEqualToString_(v9);
 
-      if (!v12)
+      if (!isEqualToString)
       {
         goto LABEL_17;
       }
@@ -148,7 +148,7 @@ LABEL_22:
         goto LABEL_23;
       }
 
-      v17 = [(NSString *)account isEqualToString:v15];
+      v17 = objc_msgSend_isEqualToString_(account);
 
       if (!v17)
       {

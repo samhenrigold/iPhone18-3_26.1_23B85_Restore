@@ -14,28 +14,28 @@
 
 - (BOOL)isMemeFromSceneClassifications:(id)classifications
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   classificationsCopy = classifications;
-  v5 = [classificationsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [classificationsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(classificationsCopy);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v12 + 1) + 8 * i);
         if (-[CLSMemeModel isResponsibleForSignalIdentifier:](self, "isResponsibleForSignalIdentifier:", [v10 extendedSceneIdentifier]))
         {
           if ([(CLSSignalNode *)self->_negativeNode passesWithSignal:v10])
@@ -50,7 +50,7 @@
         }
       }
 
-      v6 = [classificationsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [classificationsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
@@ -62,34 +62,33 @@ LABEL_14:
     v7 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v7 & 1;
 }
 
 - (BOOL)isMemeExclusiveFromSceneClassifications:(id)classifications
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   classificationsCopy = classifications;
-  v5 = [classificationsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [classificationsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(classificationsCopy);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v12 + 1) + 8 * i);
         if (-[CLSMemeModel isResponsibleForSignalIdentifier:](self, "isResponsibleForSignalIdentifier:", [v10 extendedSceneIdentifier]))
         {
           if ([(CLSSignalNode *)self->_negativeNode passesWithSignal:v10])
@@ -101,7 +100,7 @@ LABEL_14:
         }
       }
 
-      v6 = [classificationsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [classificationsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
@@ -113,24 +112,21 @@ LABEL_12:
     LOBYTE(v7) = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v7 & 1;
 }
 
 - (id)modelInfo
 {
-  v12[3] = *MEMORY[0x277D85DE8];
+  v11[3] = *MEMORY[0x277D85DE8];
   negativeNode = [(CLSMemeModel *)self negativeNode];
   v4 = [negativeNode signalInfoWithIsHierarchical:0];
   documentNode = [(CLSMemeModel *)self documentNode];
   v6 = [documentNode signalInfoWithIsHierarchical:0];
-  v12[1] = v6;
+  v11[1] = v6;
   memeScreenshotEtcNode = [(CLSMemeModel *)self memeScreenshotEtcNode];
   v8 = [memeScreenshotEtcNode signalInfoWithIsHierarchical:0];
-  v12[2] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:3];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[2] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:3];
 
   return v9;
 }
@@ -179,9 +175,7 @@ LABEL_8:
   documentNode = self->_documentNode;
   self->_documentNode = v5;
 
-  v7 = [[CLSSignalNode alloc] initWithIdentifier:2147482367 name:@"Meme - MemeScreenshotEtc" operatingPoint:0.91 highPrecisionOperatingPoint:0.98 highRecallOperatingPoint:0.6];
-  memeScreenshotEtcNode = self->_memeScreenshotEtcNode;
-  self->_memeScreenshotEtcNode = v7;
+  self->_memeScreenshotEtcNode = [[CLSSignalNode alloc] initWithIdentifier:2147482367 name:@"Meme - MemeScreenshotEtc" operatingPoint:0.91 highPrecisionOperatingPoint:0.98 highRecallOperatingPoint:0.6];
 
   MEMORY[0x2821F96F8]();
 }
@@ -197,9 +191,7 @@ LABEL_8:
   documentNode = self->_documentNode;
   self->_documentNode = v5;
 
-  v7 = [[CLSSignalNode alloc] initWithIdentifier:2147482367 name:@"Meme - MemeScreenshotEtc" operatingPoint:0.976 highPrecisionOperatingPoint:0.996 highRecallOperatingPoint:0.868];
-  memeScreenshotEtcNode = self->_memeScreenshotEtcNode;
-  self->_memeScreenshotEtcNode = v7;
+  self->_memeScreenshotEtcNode = [[CLSSignalNode alloc] initWithIdentifier:2147482367 name:@"Meme - MemeScreenshotEtc" operatingPoint:0.976 highPrecisionOperatingPoint:0.996 highRecallOperatingPoint:0.868];
 
   MEMORY[0x2821F96F8]();
 }
@@ -215,19 +207,17 @@ LABEL_8:
   documentNode = self->_documentNode;
   self->_documentNode = v5;
 
-  v7 = [[CLSSignalNode alloc] initWithIdentifier:2147482367 name:@"Meme - MemeScreenshotEtc" operatingPoint:0.993 highPrecisionOperatingPoint:0.997 highRecallOperatingPoint:0.925];
-  memeScreenshotEtcNode = self->_memeScreenshotEtcNode;
-  self->_memeScreenshotEtcNode = v7;
+  self->_memeScreenshotEtcNode = [[CLSSignalNode alloc] initWithIdentifier:2147482367 name:@"Meme - MemeScreenshotEtc" operatingPoint:0.993 highPrecisionOperatingPoint:0.997 highRecallOperatingPoint:0.925];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (CLSMemeModel)initWithSceneAnalysisVersion:(unint64_t)version
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v9.receiver = self;
-  v9.super_class = CLSMemeModel;
-  v4 = [(CLSMemeModel *)&v9 init];
+  v13 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = CLSMemeModel;
+  v4 = [(CLSMemeModel *)&v8 init];
   v5 = v4;
   if (v4)
   {
@@ -242,12 +232,12 @@ LABEL_8:
             v6 = objc_opt_class();
             *buf = 67109378;
             versionCopy = version;
-            v12 = 2112;
-            v13 = v6;
+            v11 = 2112;
+            v12 = v6;
             _os_log_impl(&dword_25E5F0000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Unsupported version %d in %@", buf, 0x12u);
           }
 
-          v5 = 0;
+          return 0;
         }
 
         else
@@ -268,7 +258,6 @@ LABEL_8:
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

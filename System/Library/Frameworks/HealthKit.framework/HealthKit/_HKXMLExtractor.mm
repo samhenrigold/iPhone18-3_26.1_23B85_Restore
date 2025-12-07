@@ -96,35 +96,35 @@
 
 - (id)_matchSpecificationWithAttributes:(id)attributes
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = self->_allTagSpecifications;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
-        if ([v9 matchesElementStack:{self->_stackOfElements, v13}])
+        v9 = *(*(&v12 + 1) + 8 * i);
+        if ([v9 matchesElementStack:{self->_stackOfElements, v12}])
         {
           specificationString = [v9 specificationString];
           goto LABEL_11;
         }
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -136,8 +136,6 @@
 
   specificationString = 0;
 LABEL_11:
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return specificationString;
 }

@@ -8,14 +8,16 @@
 - (void)loadPreviewControllerWithContents:(id)contents context:(id)context completionHandler:(id)handler;
 - (void)loadView;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
+- (void)previewDidAppear:(BOOL)appear;
 - (void)previewIsAppearingWithProgress:(double)progress;
+- (void)setAppearance:(id)appearance animated:(BOOL)animated;
 @end
 
 @implementation QLWebLocationItemViewController
 
 - (void)loadView
 {
-  v37[1] = *MEMORY[0x277D85DE8];
+  v36[1] = *MEMORY[0x277D85DE8];
   if (!self->_webView)
   {
     v3 = objc_opt_new();
@@ -63,14 +65,12 @@
     view5 = [(QLWebLocationItemViewController *)self view];
     v31 = MEMORY[0x277CCAAD0];
     v32 = self->_webView;
-    v36 = @"webView";
-    v37[0] = v32;
-    v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:&v36 count:1];
+    v35 = @"webView";
+    v36[0] = v32;
+    v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
     v34 = [v31 constraintsWithVisualFormat:@"V:|[webView]|" options:0 metrics:0 views:v33];
     [view5 addConstraints:v34];
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadPreviewControllerWithContents:(id)contents context:(id)context completionHandler:(id)handler
@@ -112,12 +112,30 @@
   [accessoryView setAlpha:progress];
 }
 
+- (void)previewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = QLWebLocationItemViewController;
+  [(QLItemViewController *)&v5 previewDidAppear:appear];
+  accessoryView = [(QLWebLocationItemViewController *)self accessoryView];
+  [accessoryView setAlpha:1.0];
+}
+
 - (void)dealloc
 {
   [(WKWebView *)self->_webView removeObserver:self forKeyPath:@"estimatedProgress"];
   v3.receiver = self;
   v3.super_class = QLWebLocationItemViewController;
   [(QLWebLocationItemViewController *)&v3 dealloc];
+}
+
+- (void)setAppearance:(id)appearance animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v6.receiver = self;
+  v6.super_class = QLWebLocationItemViewController;
+  [(QLItemViewController *)&v6 setAppearance:appearance animated:?];
+  [(QLWebLocationItemViewController *)self _updateConstraintConstants:animatedCopy];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
@@ -196,21 +214,19 @@
 
 - (id)toolbarButtonsForTraitCollection:(id)collection
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277D43FB0]) initWithIdentifier:@"QLSafariButtonIdentifier"];
   [v3 setSymbolImageName:@"safari"];
   [v3 setPlacement:2];
-  v7[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
 
   return v4;
 }
 
 - (void)buttonPressedWithIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   handlerCopy = handler;
   if ([identifierCopy isEqualToString:@"QLSafariButtonIdentifier"])
@@ -236,9 +252,9 @@
       }
 
       mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
-      v19 = *MEMORY[0x277D766B8];
-      v20[0] = MEMORY[0x277CBEC38];
-      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+      v18 = *MEMORY[0x277D766B8];
+      v19[0] = MEMORY[0x277CBEC38];
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
       [mEMORY[0x277D75128] openURL:v10 options:v14 completionHandler:&__block_literal_global_8];
     }
 
@@ -253,7 +269,7 @@
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v18 = v9;
+        v17 = v9;
         _os_log_impl(&dword_23A714000, v12, OS_LOG_TYPE_ERROR, "Safari button tapped but the URL is invalid: %@ #AnyItemViewController", buf, 0xCu);
       }
     }
@@ -266,17 +282,15 @@
 
   else
   {
-    v16.receiver = self;
-    v16.super_class = QLWebLocationItemViewController;
-    [(QLItemViewController *)&v16 buttonPressedWithIdentifier:identifierCopy completionHandler:handlerCopy];
+    v15.receiver = self;
+    v15.super_class = QLWebLocationItemViewController;
+    [(QLItemViewController *)&v15 buttonPressedWithIdentifier:identifierCopy completionHandler:handlerCopy];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __81__QLWebLocationItemViewController_buttonPressedWithIdentifier_completionHandler___block_invoke(uint64_t a1, int a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D43EF8];
   v4 = *MEMORY[0x277D43EF8];
   if (!*MEMORY[0x277D43EF8])
@@ -287,12 +301,10 @@ void __81__QLWebLocationItemViewController_buttonPressedWithIdentifier_completio
 
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6[0] = 67109120;
-    v6[1] = a2;
-    _os_log_impl(&dword_23A714000, v4, OS_LOG_TYPE_DEFAULT, "The url was opened successfully: %d #AnyItemViewController", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = a2;
+    _os_log_impl(&dword_23A714000, v4, OS_LOG_TYPE_DEFAULT, "The url was opened successfully: %d #AnyItemViewController", v5, 8u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateConstraintConstants:(BOOL)constants

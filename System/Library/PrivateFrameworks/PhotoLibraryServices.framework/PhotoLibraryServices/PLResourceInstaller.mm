@@ -847,9 +847,9 @@ LABEL_16:
       identifier = [identifierCopy identifier];
       supplementalResourceXMPType = [MEMORY[0x1E69C08F0] supplementalResourceXMPType];
       identifier2 = [supplementalResourceXMPType identifier];
-      v16 = [identifier isEqualToString:identifier2];
+      isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-      if (v16)
+      if (isEqualToString)
       {
         v11 = 9;
       }
@@ -859,7 +859,7 @@ LABEL_16:
         identifier3 = [v8 identifier];
         supplementalResourceAAEType = [MEMORY[0x1E69C08F0] supplementalResourceAAEType];
         identifier4 = [supplementalResourceAAEType identifier];
-        v22 = [identifier3 isEqualToString:identifier4];
+        v22 = objc_msgSend_isEqualToString_(identifier3);
 
         if (v22)
         {
@@ -3293,7 +3293,7 @@ LABEL_20:
 
   if (count)
   {
-    *count = [v23 count];
+    *count = objc_msgSend_count(v23);
   }
 
   if (error && v24)

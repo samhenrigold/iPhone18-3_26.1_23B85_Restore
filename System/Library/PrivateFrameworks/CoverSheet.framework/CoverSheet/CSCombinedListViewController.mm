@@ -109,6 +109,7 @@
 - (void)_setQuickActionsHidden:(BOOL)hidden forReason:(id)reason;
 - (void)_setScreenOn:(BOOL)on;
 - (void)_startScreenOnTimer;
+- (void)_stopScreenOnTimer;
 - (void)_tearDownContainerViewForExpandedNotificationContent;
 - (void)_testingClearAllNotificationRequests;
 - (void)_toggleGestureStudyInteractionIfNecessary;
@@ -694,9 +695,11 @@ uint64_t __51__CSCombinedListViewController_presentationRegions__block_invoke(ui
 
 - (void)_startScreenOnTimer
 {
-  self->_screenOnTime = [MEMORY[0x277CBEAA8] date];
+  date = [MEMORY[0x277CBEAA8] date];
+  screenOnTime = self->_screenOnTime;
+  self->_screenOnTime = date;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](date, screenOnTime);
 }
 
 - (void)_updateDeviceWakeProximitySensorAssertion
@@ -2527,7 +2530,7 @@ LABEL_22:
   return v7;
 }
 
-uint64_t __130__CSCombinedListViewController_notificationStructuredListViewController_containerViewProviderForExpandedContentForViewController___block_invoke(uint64_t a1, uint64_t a2)
+void *__130__CSCombinedListViewController_notificationStructuredListViewController_containerViewProviderForExpandedContentForViewController___block_invoke(uint64_t a1, uint64_t a2)
 {
   [*(*(a1 + 32) + 1088) removeObject:a2];
   result = [*(*(a1 + 32) + 1088) count];
@@ -2718,10 +2721,10 @@ LABEL_5:
 
 - (void)notificationStructuredListViewControllerDidSignificantUserInteraction:(id)interaction
 {
-  v4 = SBLogDashBoard();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = SBLogDashBoard();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    [CSCombinedListViewController notificationStructuredListViewControllerDidSignificantUserInteraction:];
+    [(CSCombinedListViewController *)self notificationStructuredListViewControllerDidSignificantUserInteraction:a2];
   }
 
   [(CSCombinedListViewController *)self _triggerSignificantUserInteractionIfNeeded];
@@ -2829,10 +2832,10 @@ LABEL_5:
 
   if (!self->_listBeingLaidOut)
   {
-    v10 = SBLogDashBoard();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = SBLogDashBoard();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      [CSCombinedListViewController notificationStructuredListViewControllerDidSignificantUserInteraction:];
+      [(CSCombinedListViewController *)self notificationStructuredListViewControllerDidSignificantUserInteraction:a2];
     }
   }
 }
@@ -2848,10 +2851,10 @@ LABEL_5:
     goto LABEL_18;
   }
 
-  v6 = SBLogDashBoard();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = SBLogDashBoard();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    [CSCombinedListViewController notificationStructuredListViewControllerDidSignificantUserInteraction:];
+    [(CSCombinedListViewController *)self notificationStructuredListViewControllerDidSignificantUserInteraction:a2];
   }
 
   notificationDimmingLayerComponent = self->_notificationDimmingLayerComponent;
@@ -2859,26 +2862,26 @@ LABEL_5:
   [scrollView contentOffset];
   [(CSComponent *)notificationDimmingLayerComponent setOffset:?];
 
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __52__CSCombinedListViewController_scrollViewDidScroll___block_invoke;
-  v17[3] = &unk_27838B770;
-  v17[4] = self;
-  [MEMORY[0x277D75D18] performWithoutAnimation:v17];
-  v9 = [(NSMutableSet *)self->_quickActionsHiddenReasons containsObject:@"CSQuickActionsScrolledSignificantlyReason"];
-  v10 = [(CSCombinedListViewController *)self _hasExperiencedSignificantScrollingOnScrollView:scrollCopy];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __52__CSCombinedListViewController_scrollViewDidScroll___block_invoke;
+  v18[3] = &unk_27838B770;
+  v18[4] = self;
+  [MEMORY[0x277D75D18] performWithoutAnimation:v18];
+  v10 = [(NSMutableSet *)self->_quickActionsHiddenReasons containsObject:@"CSQuickActionsScrolledSignificantlyReason"];
+  v11 = [(CSCombinedListViewController *)self _hasExperiencedSignificantScrollingOnScrollView:scrollCopy];
   idleTimerSettings = [(CSLockScreenSettings *)self->_lockScreenSettings idleTimerSettings];
   increaseNotificationScrollLogging = [idleTimerSettings increaseNotificationScrollLogging];
 
   if (increaseNotificationScrollLogging)
   {
-    if (!(v9 & 1 | !v10))
+    if (!(v10 & 1 | !v11))
     {
-      v13 = SBLogIdleTimer();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = SBLogIdleTimer();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v16) = 0;
-        v14 = "Switching to scrolling significantly";
+        LOWORD(v17) = 0;
+        v15 = "Switching to scrolling significantly";
         goto LABEL_11;
       }
 
@@ -2887,15 +2890,15 @@ LABEL_12:
       goto LABEL_13;
     }
 
-    if (!v10 && (v9 & 1) != 0)
+    if (!v11 && (v10 & 1) != 0)
     {
-      v13 = SBLogIdleTimer();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = SBLogIdleTimer();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v16) = 0;
-        v14 = "No longer scrolling significantly";
+        LOWORD(v17) = 0;
+        v15 = "No longer scrolling significantly";
 LABEL_11:
-        _os_log_impl(&dword_21EB05000, v13, OS_LOG_TYPE_DEFAULT, v14, &v16, 2u);
+        _os_log_impl(&dword_21EB05000, v14, OS_LOG_TYPE_DEFAULT, v15, &v17, 2u);
         goto LABEL_12;
       }
 
@@ -2904,9 +2907,9 @@ LABEL_11:
   }
 
 LABEL_13:
-  v15 = v10 && [(CSCombinedListViewController *)self _notificationListExpandsVisibleRegionOnSignificantScroll];
-  [(CSCombinedListViewController *)self _updateHidingQuickActionsForSignificantScrolling:v15, v16];
-  if (([(CSCombinedListViewController *)self interfaceOrientation]- 1) < 2 && v10)
+  v16 = v11 && [(CSCombinedListViewController *)self _notificationListExpandsVisibleRegionOnSignificantScroll];
+  [(CSCombinedListViewController *)self _updateHidingQuickActionsForSignificantScrolling:v16, v17];
+  if (([(CSCombinedListViewController *)self interfaceOrientation]- 1) < 2 && v11)
   {
     [(CSCombinedListViewController *)self _dismissDNDBedtimeGreetingViewAnimated:1];
   }
@@ -21827,7 +21830,7 @@ LABEL_5:
   v3 = OUTLINED_FUNCTION_3_0();
   v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_2_0(&dword_21EB05000, v5, v6, "%{public}@ received raise gesture", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_2_0(&dword_21EB05000, v5, v6, "%{public}@ received raise gesture", v7, v8, v9, v10);
 }
 
 - (void)coverSheetViewControllerWillPresentPosterSwitcher:(id)switcher
@@ -22031,7 +22034,7 @@ LABEL_35:
           v12 = SBLogDashBoard();
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
           {
-            [CSCombinedListViewController handleEvent:];
+            [CSCombinedListViewController handleEvent:?];
           }
         }
 
@@ -22378,18 +22381,20 @@ LABEL_14:
     v28 = v27;
     if ([(CSCombinedListViewController *)self _allowsDateViewOrProudLockScroll])
     {
+      v29 = cachedAdjunctHeight + v26;
       [(CSCombinedListViewController *)self scrollingContentInset];
       [(CSCombinedListViewController *)self clippingOffset];
-      [(CSCombinedListViewController *)self updateAppearanceForHidden:BSFloatGreaterThanOrEqualToFloat() offset:cachedAdjunctHeight + v26];
+      [(CSCombinedListViewController *)self updateAppearanceForHidden:BSFloatGreaterThanOrEqualToFloat() offset:v29];
     }
 
     else
     {
       [(CSCombinedListViewController *)self updateAppearanceForHidden:0 offset:0.0];
+      v29 = cachedAdjunctHeight + v26;
     }
 
     [(CSNotificationAdjunctListViewController *)self->_adjunctListViewController setProminentElementHeightToMimic:v28 + -8.666666];
-    CSUpdateStatusBarBackgroundComponent(self);
+    CSUpdateStatusBarBackgroundComponent(self, v29);
     if (self->_presentationDirtiedAppearance)
     {
       [(CSCoverSheetViewControllerBase *)self rebuildAppearance];
@@ -22497,11 +22502,11 @@ LABEL_14:
   }
 }
 
-uint64_t __59__CSCombinedListViewController__updateListViewContentInset__block_invoke_2(uint64_t result)
+id *__59__CSCombinedListViewController__updateListViewContentInset__block_invoke_2(id *result)
 {
-  if ((*(result + 40) & 1) == 0)
+  if ((result[5] & 1) == 0)
   {
-    return [*(result + 32) _updatePresentationForReason:@"_updateListViewContentInset"];
+    return [result[4] _updatePresentationForReason:@"_updateListViewContentInset"];
   }
 
   return result;
@@ -23703,7 +23708,7 @@ LABEL_21:
   v6 = *MEMORY[0x277D77DB0];
   if (os_log_type_enabled(*MEMORY[0x277D77DB0], OS_LOG_TYPE_DEBUG))
   {
-    [CSCombinedListViewController _updateRaiseGestureDetectionForNotificationRequest:v6];
+    [(CSCombinedListViewController *)v6 _updateRaiseGestureDetectionForNotificationRequest:?];
   }
 
   mEMORY[0x277D65EE8] = [MEMORY[0x277D65EE8] sharedInstance];
@@ -24248,6 +24253,13 @@ LABEL_13:
   }
 }
 
+- (void)_stopScreenOnTimer
+{
+  screenOnTime = self->_screenOnTime;
+  self->_screenOnTime = 0;
+  MEMORY[0x2821F96F8](self, screenOnTime);
+}
+
 - (void)settings:(id)settings changedValueForKey:(id)key
 {
   v4 = [(CSLockScreenSettings *)self->_lockScreenSettings dashBoardNotificationScrollSettings:settings];
@@ -24379,14 +24391,14 @@ LABEL_13:
   v3 = OUTLINED_FUNCTION_3_0();
   v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_2_0(&dword_21EB05000, v5, v6, "%{public}@ stopped listening to raise gesture", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_2_0(&dword_21EB05000, v5, v6, "%{public}@ stopped listening to raise gesture", v7, v8, v9, v10);
 }
 
-- (void)notificationStructuredListViewControllerDidSignificantUserInteraction:.cold.1()
+- (void)notificationStructuredListViewControllerDidSignificantUserInteraction:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v0 = _SBFLoggingMethodProem();
+  v2 = _SBFLoggingMethodProem();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0_3(&dword_21EB05000, v1, v2, "%@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0_3(&dword_21EB05000, v3, v4, "%@", v5, v6, v7, v8);
 }
 
 - (void)notificationStructuredListViewController:(void *)a1 requestsPresentingFocusActivityPickerFromView:.cold.1(void *a1)
@@ -24395,15 +24407,15 @@ LABEL_13:
   v3 = OUTLINED_FUNCTION_3_0();
   v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_2_0(&dword_21EB05000, v5, v6, "%{public}@ presenting focus activity picker from notification list", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_2_0(&dword_21EB05000, v5, v6, "%{public}@ presenting focus activity picker from notification list", v7, v8, v9, v10);
 }
 
-- (void)handleEvent:.cold.1()
+- (void)handleEvent:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0_3(&dword_21EB05000, v2, v3, "Destination %@ handled home button tap dismissing long look", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_3(&dword_21EB05000, v3, v4, "Destination %@ handled home button tap dismissing long look", v5, v6, v7, v8);
 }
 
 - (void)handleEvent:(void *)a1 .cold.2(void *a1)
@@ -24423,16 +24435,16 @@ LABEL_13:
   _os_log_error_impl(&dword_21EB05000, v0, OS_LOG_TYPE_ERROR, "CSCombinedListViewController attempted a second presentation update for reason: %@", v1, 0xCu);
 }
 
-- (void)_updateRaiseGestureDetectionForNotificationRequest:(void *)a1 .cold.1(void *a1)
+- (void)_updateRaiseGestureDetectionForNotificationRequest:(void *)a1 .cold.1(void *a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = a1;
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v9 = *MEMORY[0x277D85DE8];
+  v2 = a1;
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_4();
-  v6 = 2114;
-  v7 = v4;
-  _os_log_debug_impl(&dword_21EB05000, v1, OS_LOG_TYPE_DEBUG, "%{public}@ %{public}@ to raise gesture", v5, 0x16u);
+  v7 = 2114;
+  v8 = v5;
+  _os_log_debug_impl(&dword_21EB05000, v2, OS_LOG_TYPE_DEBUG, "%{public}@ %{public}@ to raise gesture", v6, 0x16u);
 }
 
 @end

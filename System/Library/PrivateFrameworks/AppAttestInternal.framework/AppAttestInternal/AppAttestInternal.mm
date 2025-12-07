@@ -8,12 +8,12 @@ uint64_t AppAttest_AppAttestation_IsSupported()
 
 uint64_t AppAttest_AppAttestation_IsEligibleApplication(_OWORD *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(AppAttestEligibilityManager);
   v3 = a1[1];
-  *v16 = *a1;
-  *&v16[16] = v3;
-  if ([(AppAttestEligibilityManager *)v2 isEligibleApplicationFor:v16]|| (v4 = a1[1], *v16 = *a1, *&v16[16] = v4, [(AppAttestEligibilityManager *)v2 isEligibleDaemonFor:v16]) || (v5 = a1[1], *v16 = *a1, *&v16[16] = v5, [(AppAttestEligibilityManager *)v2 isEligibleApplicationExtensionFor:v16]))
+  *v15 = *a1;
+  *&v15[16] = v3;
+  if ([(AppAttestEligibilityManager *)v2 isEligibleApplicationFor:v15]|| (v4 = a1[1], *v15 = *a1, *&v15[16] = v4, [(AppAttestEligibilityManager *)v2 isEligibleDaemonFor:v15]) || (v5 = a1[1], *v15 = *a1, *&v15[16] = v5, [(AppAttestEligibilityManager *)v2 isEligibleApplicationExtensionFor:v15]))
   {
     v6 = 1;
   }
@@ -25,49 +25,48 @@ uint64_t AppAttest_AppAttestation_IsEligibleApplication(_OWORD *a1)
       AppAttest_AppAttestation_IsEligibleApplication_cold_1();
     }
 
-    v9 = AAInternalLogSystem_log_7;
+    v8 = AAInternalLogSystem_log_7;
     if (os_log_type_enabled(AAInternalLogSystem_log_7, OS_LOG_TYPE_DEBUG))
     {
+      v9 = 0;
       v10 = 0;
-      v11 = 0;
-      v12 = 47;
+      v11 = 47;
       do
       {
-        v13 = &aLibraryCachesC_7[v10];
-        if (v12 == 47)
+        v12 = &aLibraryCachesC_7[v9];
+        if (v11 == 47)
         {
-          v11 = &aLibraryCachesC_7[v10];
+          v10 = &aLibraryCachesC_7[v9];
         }
 
-        v12 = v13[1];
-        if (!v13[1])
+        v11 = v12[1];
+        if (!v12[1])
         {
           break;
         }
       }
 
-      while (v10++ < 0xFFF);
-      if (v11)
+      while (v9++ < 0xFFF);
+      if (v10)
       {
-        v15 = v11 + 1;
+        v14 = v10 + 1;
       }
 
       else
       {
-        v15 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/AppAttestInternal/Source/Interfaces/AppAttestAppAttestation.m";
+        v14 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/AppAttestInternal/Source/Interfaces/AppAttestAppAttestation.m";
       }
 
-      *v16 = 136315394;
-      *&v16[4] = v15;
-      *&v16[12] = 1024;
-      *&v16[14] = 77;
-      _os_log_impl(&dword_226177000, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d Client is of ineligible type.", v16, 0x12u);
+      *v15 = 136315394;
+      *&v15[4] = v14;
+      *&v15[12] = 1024;
+      *&v15[14] = 77;
+      _os_log_impl(&dword_226177000, v8, OS_LOG_TYPE_DEBUG, "%25s:%-5d Client is of ineligible type.", v15, 0x12u);
     }
 
     v6 = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -123,7 +122,6 @@ uint64_t sub_226178F94(uint64_t result, uint64_t a2, int a3, uint64_t a4)
 
 uint64_t sub_226179048()
 {
-  v1 = *(v0 + 32);
 
   sub_22619C840(*(v0 + 48), *(v0 + 56));
   sub_22619C840(*(v0 + 64), *(v0 + 72));
@@ -131,21 +129,21 @@ uint64_t sub_226179048()
   return MEMORY[0x2821FE8E8](v0, 80, 7);
 }
 
-uint64_t sub_226179098(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+uint64_t sub_226179098(uint64_t result, uint64_t a2, char a3, char a4)
 {
   if (a4)
   {
-    return sub_22619C830();
+    return sub_22619C830(result, a2);
   }
 
   return result;
 }
 
-id sub_2261790A8(void *a1, uint64_t a2, uint64_t a3, char a4)
+id sub_2261790A8(uint64_t a1, uint64_t a2, char a3, char a4)
 {
   if (a4)
   {
-    return sub_22619C838();
+    return sub_22619C838(a1, a2);
   }
 
   else
@@ -251,48 +249,24 @@ uint64_t sub_22617933C(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 
 uint64_t sub_2261793FC()
 {
-  v1 = v0[3];
-
-  v2 = v0[5];
-
-  v3 = v0[7];
-
-  v4 = v0[9];
 
   return MEMORY[0x2821FE8E8](v0, 80, 7);
 }
 
 uint64_t sub_22617944C()
 {
-  v1 = v0[3];
-
-  v2 = v0[5];
-
-  v3 = v0[7];
-
-  v4 = v0[9];
-
-  v5 = v0[11];
-
-  v6 = v0[13];
-
-  v7 = v0[15];
 
   return MEMORY[0x2821FE8E8](v0, 129, 7);
 }
 
 uint64_t sub_2261794B4()
 {
-  v1 = *(v0 + 24);
-
-  v2 = *(v0 + 40);
 
   return MEMORY[0x2821FE8E8](v0, 48, 7);
 }
 
 uint64_t sub_2261794F4()
 {
-  v1 = *(v0 + 32);
 
   sub_22619C840(*(v0 + 48), *(v0 + 56));
   sub_22619C840(*(v0 + 64), *(v0 + 72));
@@ -302,9 +276,6 @@ uint64_t sub_2261794F4()
 
 uint64_t sub_226179544()
 {
-  v1 = *(v0 + 32);
-
-  v2 = *(v0 + 48);
 
   return MEMORY[0x2821FE8E8](v0, 56, 7);
 }
@@ -316,11 +287,11 @@ uint64_t sub_22617958C()
   return MEMORY[0x2821FE8E8](v0, 24, 7);
 }
 
-void sub_2261795CC(void *a1, uint64_t a2, uint64_t a3, char a4)
+void sub_2261795CC(uint64_t a1, uint64_t a2, char a3, char a4)
 {
   if (a4)
   {
-    sub_22619C830();
+    sub_22619C830(a1, a2);
   }
 
   else
@@ -477,20 +448,20 @@ LABEL_11:
   return v31;
 }
 
-void sub_22617AB34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22617AB34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
-  v19 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v11 - 144), 8);
-  _Block_object_dispose((v11 - 96), 8);
+  _Block_object_dispose((v18 - 144), 8);
+  _Block_object_dispose((v18 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -503,7 +474,7 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
 
 void __sendServerRequestWithError_block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -517,15 +488,14 @@ void __sendServerRequestWithError_block_invoke(uint64_t a1, void *a2, void *a3, 
   {
     if (!v17)
     {
-      v18 = createAppAttestError("sendServerRequestWithError_block_invoke", 158, -7, v9, @"Network communication error", v13, v14, v15, v46);
+      v18 = createAppAttestError("sendServerRequestWithError_block_invoke", 158, -7, v9, @"Network communication error", v13, v14, v15, v45);
       v19 = *(a1 + 56);
       goto LABEL_28;
     }
 
     v20 = [*(a1 + 32) URL];
     v21 = [*(a1 + 40) connectionProxyDictionary];
-    v48 = [MEMORY[0x277CCAD50] description];
-    v49 = *(*(*(a1 + 48) + 8) + 24);
+    v47 = [MEMORY[0x277CCAD50] description];
     v25 = createAppAttestError("sendServerRequestWithError_block_invoke", 160, -1, v9, @"Failed to send HTTP request to %@ (proxy settings: %@ // session: %@): %ld", v22, v23, v24, v20);
     v26 = *(*(a1 + 56) + 8);
     v27 = *(v26 + 40);
@@ -587,15 +557,15 @@ LABEL_28:
 
         v35 = *(*(*(a1 + 48) + 8) + 24);
         *buf = 136316162;
-        v51 = v34;
-        v52 = 1024;
-        v53 = 166;
-        v54 = 2048;
-        v55 = v35;
+        v49 = v34;
+        v50 = 1024;
+        v51 = 166;
+        v52 = 2048;
+        v53 = v35;
+        v54 = 2080;
+        v55 = [v11 UTF8String];
         v56 = 2080;
-        v57 = [v11 UTF8String];
-        v58 = 2080;
-        v59 = [v16 UTF8String];
+        v57 = [v16 UTF8String];
         _os_log_impl(&dword_226177000, v28, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Received invalid server response. { statusCode=%ld, serverTimestamp=%s, traceId=%s }", buf, 0x30u);
       }
 
@@ -612,7 +582,7 @@ LABEL_28:
       v36 = -6;
     }
 
-    v47 = [MEMORY[0x277CCAA40] localizedStringForStatusCode:v17];
+    v46 = [MEMORY[0x277CCAA40] localizedStringForStatusCode:v17];
     v40 = createAppAttestError("sendServerRequestWithError_block_invoke", 176, v36, 0, @"Server error: %ld (%@)", v37, v38, v39, v17);
     v41 = *(*(a1 + 56) + 8);
     v42 = *(v41 + 40);
@@ -621,8 +591,6 @@ LABEL_28:
 
 LABEL_29:
   dispatch_semaphore_signal(*(*(*(a1 + 72) + 8) + 40));
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 BOOL AppAttest_Common_ValidateBikParameters(__SecKey *a1)
@@ -677,7 +645,7 @@ LABEL_9:
 
 id getSHA256(void *a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = isNSData(v1);
 
@@ -694,18 +662,18 @@ id getSHA256(void *a1)
     }
   }
 
-  v3 = *MEMORY[0x277D85DE8];
-
   return v2;
 }
 
-void AppAttest_Common_AttestKey(unsigned int a1, int a2, void *a3, __SecKey *a4, void *a5, void *a6, void *a7)
+void AppAttest_Common_AttestKey(uint64_t a1, uint64_t a2, void *a3, __SecKey *a4, void *a5, void *a6, void *a7)
 {
+  v11 = a2;
+  v12 = a1;
   v13 = a3;
   v14 = a5;
   v15 = a6;
   v19 = a7;
-  if (a1 == 1)
+  if (v12 == 1)
   {
     v20 = createAppAttestError("AppAttest_Common_AttestKey", 315, -1, 0, @"Invalid request type.", v16, v17, v18, v26);
     if (!v19)
@@ -717,11 +685,11 @@ void AppAttest_Common_AttestKey(unsigned int a1, int a2, void *a3, __SecKey *a4,
   }
 
   v27 = 0;
-  v21 = createAnonymousAttestationRequest(a1, a2, v13, a4, v14, v15, &v27);
+  v21 = createAnonymousAttestationRequest(v12, v11, v13, a4, v14, v15, &v27);
   v20 = v27;
   if (v21)
   {
-    AppAttest_Common_AttestKeyRequest(a1, a2, v21, a4, v19, 60.0);
+    AppAttest_Common_AttestKeyRequest(v12, v11, v21, a4, v19, 60.0);
   }
 
   else
@@ -741,8 +709,8 @@ LABEL_8:
 
 id createAnonymousAttestationRequest(int a1, int a2, void *a3, uint64_t a4, void *a5, void *a6, void *a7)
 {
-  v97[4] = *MEMORY[0x277D85DE8];
-  v89 = a3;
+  v96[4] = *MEMORY[0x277D85DE8];
+  v88 = a3;
   v12 = a5;
   v13 = a6;
   v14 = isNSData(v12);
@@ -755,8 +723,8 @@ LABEL_12:
     v42 = -2;
 LABEL_13:
     v43 = createAppAttestError("createAnonymousAttestationRequest", v41, v42, 0, v40, v15, v16, v17, cf);
+    v86 = 0;
     v87 = 0;
-    v88 = 0;
     v20 = 0;
 LABEL_14:
     v39 = 0;
@@ -784,19 +752,19 @@ LABEL_14:
   }
 
   v19 = v18;
-  v91 = 0;
-  v20 = getChipIDECID(&v91);
-  v24 = v91;
-  v87 = v19;
+  v90 = 0;
+  v20 = getChipIDECID(&v90);
+  v24 = v90;
+  v86 = v19;
   if (!v20)
   {
     v43 = createAppAttestError("createAnonymousAttestationRequest", 503, -1, v24, @"Failed to generate chip/ecid", v21, v22, v23, cf);
 
-    v88 = 0;
+    v87 = 0;
     goto LABEL_14;
   }
 
-  v88 = v20;
+  v87 = v20;
   v25 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v20 = v25;
   if (!v25)
@@ -809,20 +777,20 @@ LABEL_14:
   if (a1 == 2)
   {
     v48 = *MEMORY[0x277D04950];
-    v94[0] = &unk_283960E60;
+    v93[0] = &unk_283960E60;
     v49 = *MEMORY[0x277D04928];
-    v93[0] = v48;
-    v93[1] = v49;
-    v92 = *MEMORY[0x277D04920];
-    [MEMORY[0x277CBEA60] arrayWithObjects:&v92 count:1];
-    v50 = v85 = v24;
-    v93[2] = *MEMORY[0x277D048F0];
-    v94[1] = v50;
-    v94[2] = v19;
-    v51 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v94 forKeys:v93 count:3];
+    v92[0] = v48;
+    v92[1] = v49;
+    v91 = *MEMORY[0x277D04920];
+    [MEMORY[0x277CBEA60] arrayWithObjects:&v91 count:1];
+    v50 = v84 = v24;
+    v92[2] = *MEMORY[0x277D048F0];
+    v93[1] = v50;
+    v93[2] = v19;
+    v51 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v93 forKeys:v92 count:3];
     v39 = [v51 mutableCopy];
 
-    v24 = v85;
+    v24 = v84;
     v25 = [v20 setObject:@"webauthn" forKeyedSubscript:@"requestOrigin"];
     goto LABEL_22;
   }
@@ -833,38 +801,38 @@ LABEL_14:
     goto LABEL_22;
   }
 
-  v84 = v24;
-  v29 = isNSString(v89);
+  v83 = v24;
+  v29 = isNSString(v88);
 
   if (!v29)
   {
-    v43 = createAppAttestError("createAnonymousAttestationRequest", 516, -1, v84, @"Incorrect parameters for App Attestation", v30, v31, v32, cf);
+    v43 = createAppAttestError("createAnonymousAttestationRequest", 516, -1, v83, @"Incorrect parameters for App Attestation", v30, v31, v32, cf);
 
     goto LABEL_14;
   }
 
-  v97[0] = &unk_283960E60;
+  v96[0] = &unk_283960E60;
   v33 = *MEMORY[0x277D04928];
-  v96[0] = *MEMORY[0x277D04950];
-  v96[1] = v33;
+  v95[0] = *MEMORY[0x277D04950];
+  v95[1] = v33;
   v34 = *MEMORY[0x277D04908];
-  v95[0] = *MEMORY[0x277D04918];
-  v95[1] = v34;
-  v95[2] = *MEMORY[0x277D04920];
-  v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v95 count:3];
+  v94[0] = *MEMORY[0x277D04918];
+  v94[1] = v34;
+  v94[2] = *MEMORY[0x277D04920];
+  v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v94 count:3];
   v36 = *MEMORY[0x277D048F0];
-  v97[1] = v35;
-  v97[2] = v19;
+  v96[1] = v35;
+  v96[2] = v19;
   v37 = *MEMORY[0x277D048A8];
-  v96[2] = v36;
-  v96[3] = v37;
-  v97[3] = v89;
-  v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v97 forKeys:v96 count:4];
+  v95[2] = v36;
+  v95[3] = v37;
+  v96[3] = v88;
+  v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v96 forKeys:v95 count:4];
   v39 = [v38 mutableCopy];
 
   [v20 setObject:@"appattestation" forKeyedSubscript:@"requestOrigin"];
-  v25 = [v20 setObject:v89 forKeyedSubscript:@"appID"];
-  v24 = v84;
+  v25 = [v20 setObject:v88 forKeyedSubscript:@"appID"];
+  v24 = v83;
 LABEL_22:
   if ((MEMORY[0x22AA788B0](v25) & 1) == 0)
   {
@@ -882,7 +850,7 @@ LABEL_22:
   }
 
   [v20 setObject:v52 forKeyedSubscript:@"environment"];
-  v90[1] = v24;
+  v89[1] = v24;
   v44 = DeviceIdentityCopyAttestationDictionary();
   v53 = v24;
   v54 = v24;
@@ -890,16 +858,16 @@ LABEL_22:
 
   if (v44)
   {
-    v90[0] = 0;
-    v45 = [MEMORY[0x277CCAC58] dataWithPropertyList:v44 format:100 options:0 error:v90];
-    v43 = v90[0];
+    v89[0] = 0;
+    v45 = [MEMORY[0x277CCAC58] dataWithPropertyList:v44 format:100 options:0 error:v89];
+    v43 = v89[0];
 
     if (v45)
     {
       v59 = [v45 base64EncodedStringWithOptions:0];
       [v20 setObject:v59 forKeyedSubscript:@"attUIKtoBIK"];
 
-      v60 = [v88 base64EncodedStringWithOptions:0];
+      v60 = [v87 base64EncodedStringWithOptions:0];
       [v20 setObject:v60 forKeyedSubscript:@"chipIDECID"];
 
       v61 = [v12 base64EncodedStringWithOptions:0];
@@ -922,7 +890,7 @@ LABEL_48:
         cfa = v63;
         v64 = SecTaskCopyValueForEntitlement(v63, @"com.apple.appattest.daemoncheck", 0);
         v65 = isNSNumber(v64);
-        v86 = v64;
+        v85 = v64;
         if (v65)
         {
           v66 = v65;
@@ -936,8 +904,8 @@ LABEL_48:
           v68 = 0;
         }
 
-        v81 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.DeviceCheck"];
-        if (([v81 BOOLForKey:@"AAADisableTracking"] & 1) != 0 || v68)
+        v80 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.DeviceCheck"];
+        if (([v80 BOOLForKey:@"AAADisableTracking"] & 1) != 0 || v68)
         {
           [v20 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:{@"DEBUG_notracking", cfa}];
         }
@@ -1001,7 +969,6 @@ LABEL_16:
 LABEL_42:
   v78 = v47;
 
-  v79 = *MEMORY[0x277D85DE8];
   return v47;
 }
 
@@ -1362,13 +1329,13 @@ LABEL_24:
 
 uint64_t AppAttest_Common_ValidateEntitlements(void *a1)
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   error = 0;
   v2 = SecTaskCreateFromSelf(*MEMORY[0x277CBECE8]);
   v6 = v2;
   if (!v2)
   {
-    v15 = createAppAttestError("AppAttest_Common_ValidateEntitlements", 709, -1, 0, @"Failed to create task.", v3, v4, v5, v31);
+    v15 = createAppAttestError("AppAttest_Common_ValidateEntitlements", 709, -1, 0, @"Failed to create task.", v3, v4, v5, v30);
     v7 = 0;
     if (!a1)
     {
@@ -1383,9 +1350,9 @@ uint64_t AppAttest_Common_ValidateEntitlements(void *a1)
   if (!v8 || (v9 = v8, v10 = [v7 BOOLValue], v9, (v10 & 1) == 0))
   {
     v17 = error;
-    v35 = @"com.apple.appattest.spi";
-    v36[0] = MEMORY[0x277CBEC38];
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+    v34 = @"com.apple.appattest.spi";
+    v35[0] = MEMORY[0x277CBEC38];
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
     v15 = createAppAttestError("AppAttest_Common_ValidateEntitlements", 715, -5, v17, @"Missing required entitlement: %@", v19, v20, v21, v18);
 
     if (!a1)
@@ -1401,11 +1368,11 @@ uint64_t AppAttest_Common_ValidateEntitlements(void *a1)
   v12 = isNSNumber(v11);
   if (!v12 || (v13 = v12, v14 = [v11 BOOLValue], v13, (v14 & 1) == 0))
   {
-    v26 = error;
-    v33 = @"com.apple.security.attestation.access";
-    v34 = MEMORY[0x277CBEC38];
-    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
-    v15 = createAppAttestError("AppAttest_Common_ValidateEntitlements", 721, -5, v26, @"Missing required entitlement: %@", v28, v29, v30, v27);
+    v25 = error;
+    v32 = @"com.apple.security.attestation.access";
+    v33 = MEMORY[0x277CBEC38];
+    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+    v15 = createAppAttestError("AppAttest_Common_ValidateEntitlements", 721, -5, v25, @"Missing required entitlement: %@", v27, v28, v29, v26);
 
     v7 = v11;
     if (!a1)
@@ -1439,7 +1406,6 @@ LABEL_13:
     CFRelease(error);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
@@ -1552,7 +1518,7 @@ uint64_t __AAInternalLogSystem_block_invoke_1()
 
 CFTypeRef createReferenceKeyBlob(const void *a1, char a2, void *a3)
 {
-  v42[4] = *MEMORY[0x277D85DE8];
+  v43[4] = *MEMORY[0x277D85DE8];
   v6 = *MEMORY[0x277CDC040];
   error = 0;
   v7 = MGCopyAnswer();
@@ -1560,10 +1526,10 @@ CFTypeRef createReferenceKeyBlob(const void *a1, char a2, void *a3)
 
   if (!v8)
   {
-    v22 = createAppAttestError("createReferenceKeyBlob", 44, -1, 0, @"Failed to retrieve PKA state.", v9, v10, v11, v39);
-    v23 = 0;
-    v24 = 0;
+    v24 = createAppAttestError("createReferenceKeyBlob", 44, -1, 0, @"Failed to retrieve PKA state.", v9, v10, v11, v40);
     v25 = 0;
+    v26 = 0;
+    v27 = 0;
     v14 = 0;
     if (!a3)
     {
@@ -1590,60 +1556,64 @@ CFTypeRef createReferenceKeyBlob(const void *a1, char a2, void *a3)
     }
   }
 
-  if ((isRunningInRecovery() & 1) == 0 && (isRunningInRecovery() & 1) == 0 && !isRunningInDiagnosticsMode())
+  if ((isRunningInRecovery() & 1) == 0)
   {
-    v14 = SecAccessControlCreateWithFlags(0, *MEMORY[0x277CDBEE8], 0x40000000uLL, &error);
-    if (v14)
+    v15 = isRunningInRecovery();
+    if ((v15 & 1) == 0 && !isRunningInDiagnosticsMode(v15, v16))
     {
-      goto LABEL_20;
-    }
+      v14 = SecAccessControlCreateWithFlags(0, *MEMORY[0x277CDBEE8], 0x40000000uLL, &error);
+      if (v14)
+      {
+        goto LABEL_20;
+      }
 
-    createAppAttestError("createReferenceKeyBlob", 73, -1, error, @"Failed to create access control (%@).", v26, v27, v28, *MEMORY[0x277CDBF00]);
-    v22 = LABEL_17:;
-    v23 = 0;
-    v24 = 0;
-    v25 = 0;
-    if (!a3)
-    {
-      goto LABEL_26;
-    }
+      createAppAttestError("createReferenceKeyBlob", 73, -1, error, @"Failed to create access control (%@).", v28, v29, v30, *MEMORY[0x277CDBF00]);
+      v24 = LABEL_17:;
+      v25 = 0;
+      v26 = 0;
+      v27 = 0;
+      if (!a3)
+      {
+        goto LABEL_26;
+      }
 
-    goto LABEL_24;
+      goto LABEL_24;
+    }
   }
 
   v14 = SecAccessControlCreate();
   if (!v14)
   {
-    createAppAttestError("createReferenceKeyBlob", 63, -1, error, @"Failed to create access control.", v15, v16, v17, v39);
+    createAppAttestError("createReferenceKeyBlob", 63, -1, error, @"Failed to create access control.", v17, v18, v19, v40);
     goto LABEL_17;
   }
 
-  v18 = *MEMORY[0x277CDBF08];
+  v20 = *MEMORY[0x277CDBF08];
   if ((SecAccessControlSetProtection() & 1) == 0)
   {
-    createAppAttestError("createReferenceKeyBlob", 67, -1, error, @"Failed to set ACL protection to %@.", v19, v20, v21, v18);
+    createAppAttestError("createReferenceKeyBlob", 67, -1, error, @"Failed to set ACL protection to %@.", v21, v22, v23, v20);
     goto LABEL_17;
   }
 
 LABEL_20:
-  v29 = *MEMORY[0x277CDC158];
-  v41[0] = *MEMORY[0x277CDBFD0];
-  v41[1] = v29;
-  v30 = *MEMORY[0x277CDC170];
-  v42[0] = MEMORY[0x277CBEC28];
-  v42[1] = v30;
-  v31 = *MEMORY[0x277CDBEC0];
-  v41[2] = *MEMORY[0x277CDC028];
-  v41[3] = v31;
-  v42[2] = v6;
-  v42[3] = v14;
-  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:4];
-  v32 = SecKeyCreateRandomKey(v23, &error);
-  v25 = v32;
-  if (v32)
+  v31 = *MEMORY[0x277CDC158];
+  v42[0] = *MEMORY[0x277CDBFD0];
+  v42[1] = v31;
+  v32 = *MEMORY[0x277CDC170];
+  v43[0] = MEMORY[0x277CBEC28];
+  v43[1] = v32;
+  v33 = *MEMORY[0x277CDBEC0];
+  v42[2] = *MEMORY[0x277CDC028];
+  v42[3] = v33;
+  v43[2] = v6;
+  v43[3] = v14;
+  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:4];
+  v34 = SecKeyCreateRandomKey(v25, &error);
+  v27 = v34;
+  if (v34)
   {
-    v24 = CFRetain(v32);
-    v22 = 0;
+    v26 = CFRetain(v34);
+    v24 = 0;
     if (!a3)
     {
       goto LABEL_26;
@@ -1652,8 +1622,8 @@ LABEL_20:
 
   else
   {
-    v22 = createAppAttestError("createReferenceKeyBlob", 87, -1, error, @"Failed to create ref key.", v33, v34, v35, v39);
-    v24 = 0;
+    v24 = createAppAttestError("createReferenceKeyBlob", 87, -1, error, @"Failed to create ref key.", v35, v36, v37, v40);
+    v26 = 0;
     if (!a3)
     {
       goto LABEL_26;
@@ -1661,16 +1631,16 @@ LABEL_20:
   }
 
 LABEL_24:
-  if (!v24)
+  if (!v26)
   {
-    v36 = v22;
-    *a3 = v22;
+    v38 = v24;
+    *a3 = v24;
   }
 
 LABEL_26:
-  if (v25)
+  if (v27)
   {
-    CFRelease(v25);
+    CFRelease(v27);
   }
 
   if (v14)
@@ -1683,27 +1653,26 @@ LABEL_26:
     CFRelease(error);
   }
 
-  v37 = *MEMORY[0x277D85DE8];
-  return v24;
+  return v26;
 }
 
 id lockcrypto_decode_pems(void *a1, const char *a2, void *a3)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v8 = a1;
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
-  v44 = 0u;
-  *__str = 0u;
-  v42 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   v43 = 0u;
-  *__little = 0u;
+  *__str = 0u;
   v41 = 0u;
+  v42 = 0u;
+  *__little = 0u;
+  v40 = 0u;
   if (!v8 || !a2)
   {
-    v15 = createAppAttestError("lockcrypto_decode_pems", 42, -1, 0, @"Invalid input(s).", v5, v6, v7, v35);
+    v15 = createAppAttestError("lockcrypto_decode_pems", 42, -1, 0, @"Invalid input(s).", v5, v6, v7, v34);
     v17 = 0;
     goto LABEL_15;
   }
@@ -1711,7 +1680,7 @@ id lockcrypto_decode_pems(void *a1, const char *a2, void *a3)
   v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if (!v12)
   {
-    v15 = createAppAttestError("lockcrypto_decode_pems", 48, -1, 0, @"Failed to allocate array.", v9, v10, v11, v35);
+    v15 = createAppAttestError("lockcrypto_decode_pems", 48, -1, 0, @"Failed to allocate array.", v9, v10, v11, v34);
     v17 = 0;
     goto LABEL_23;
   }
@@ -1732,9 +1701,9 @@ id lockcrypto_decode_pems(void *a1, const char *a2, void *a3)
     goto LABEL_20;
   }
 
-  v38 = v8;
-  v39 = v12;
-  v37 = a3;
+  v37 = v8;
+  v38 = v12;
+  v36 = a3;
   v17 = 0;
   v18 = 0x277CBE000uLL;
   while (1)
@@ -1775,19 +1744,19 @@ LABEL_12:
 
   if (v27)
   {
-    [v39 addObject:v27];
+    [v38 addObject:v27];
     v17 = v27;
     goto LABEL_12;
   }
 
-  v15 = createAppAttestError("lockcrypto_decode_pems", 78, -1, 0, @"Failed to decode data.", v28, v29, v30, v36);
+  v15 = createAppAttestError("lockcrypto_decode_pems", 78, -1, 0, @"Failed to decode data.", v28, v29, v30, v35);
 
   objc_autoreleasePoolPop(v25);
   v17 = 0;
 LABEL_19:
-  a3 = v37;
-  v8 = v38;
-  v12 = v39;
+  a3 = v36;
+  v8 = v37;
+  v12 = v38;
 LABEL_20:
   if (![v12 count])
   {
@@ -1805,8 +1774,6 @@ LABEL_15:
   }
 
 LABEL_23:
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -1852,7 +1819,7 @@ id createAppAttestError(uint64_t a1, uint64_t a2, int a3, void *a4, void *a5, ui
 
 CFTypeRef copy_keychain_item_for_system_keychain(void *a1, void *a2, uint64_t a3, OSStatus *a4, void *a5)
 {
-  v31[5] = *MEMORY[0x277D85DE8];
+  v30[5] = *MEMORY[0x277D85DE8];
   v8 = a1;
   v9 = a2;
   v13 = v9;
@@ -1860,19 +1827,19 @@ CFTypeRef copy_keychain_item_for_system_keychain(void *a1, void *a2, uint64_t a3
   if (v9)
   {
     v14 = *MEMORY[0x277CDC228];
-    v30[0] = *MEMORY[0x277CDC080];
-    v30[1] = v14;
+    v29[0] = *MEMORY[0x277CDC080];
+    v29[1] = v14;
     v15 = *MEMORY[0x277CDC250];
-    v31[0] = v9;
-    v31[1] = v15;
+    v30[0] = v9;
+    v30[1] = v15;
     v16 = *MEMORY[0x277CDC5C8];
-    v30[2] = *MEMORY[0x277CDC568];
-    v30[3] = v16;
-    v31[2] = MEMORY[0x277CBEC38];
-    v31[3] = MEMORY[0x277CBEC38];
-    v30[4] = *MEMORY[0x277CDC5D0];
-    v31[4] = MEMORY[0x277CBEC38];
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:5];
+    v29[2] = *MEMORY[0x277CDC568];
+    v29[3] = v16;
+    v30[2] = MEMORY[0x277CBEC38];
+    v30[3] = MEMORY[0x277CBEC38];
+    v29[4] = *MEMORY[0x277CDC5D0];
+    v30[4] = MEMORY[0x277CBEC38];
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:5];
     v18 = [v17 mutableCopy];
 
     if (v8)
@@ -1907,7 +1874,7 @@ CFTypeRef copy_keychain_item_for_system_keychain(void *a1, void *a2, uint64_t a3
     goto LABEL_8;
   }
 
-  v23 = createAppAttestError("copy_keychain_item_for_system_keychain", 34, -2, 0, @"Invalid input.", v10, v11, v12, v28);
+  v23 = createAppAttestError("copy_keychain_item_for_system_keychain", 34, -2, 0, @"Invalid input.", v10, v11, v12, v27);
   v24 = 0;
   v22 = -1;
   if (a4)
@@ -1928,30 +1895,29 @@ LABEL_9:
     CFRelease(result);
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
 CFTypeRef copy_all_items(void *a1, _DWORD *a2, void *a3)
 {
-  v23[5] = *MEMORY[0x277D85DE8];
+  v22[5] = *MEMORY[0x277D85DE8];
   v5 = a1;
   result = 0;
   v6 = *MEMORY[0x277CDC250];
   v7 = *MEMORY[0x277CDC550];
-  v22[0] = *MEMORY[0x277CDC228];
-  v22[1] = v7;
+  v21[0] = *MEMORY[0x277CDC228];
+  v21[1] = v7;
   v8 = *MEMORY[0x277CDC428];
-  v22[2] = *MEMORY[0x277CDC5C8];
-  v22[3] = v8;
+  v21[2] = *MEMORY[0x277CDC5C8];
+  v21[3] = v8;
   v9 = *MEMORY[0x277CDC430];
-  v23[2] = MEMORY[0x277CBEC38];
-  v23[3] = v9;
-  v23[0] = v6;
-  v23[1] = MEMORY[0x277CBEC38];
-  v22[4] = *MEMORY[0x277CDC5D0];
-  v23[4] = MEMORY[0x277CBEC38];
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:5];
+  v22[2] = MEMORY[0x277CBEC38];
+  v22[3] = v9;
+  v22[0] = v6;
+  v22[1] = MEMORY[0x277CBEC38];
+  v21[4] = *MEMORY[0x277CDC5D0];
+  v22[4] = MEMORY[0x277CBEC38];
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:5];
   v11 = [v10 mutableCopy];
 
   if (v5)
@@ -1993,24 +1959,23 @@ LABEL_6:
     CFRelease(result);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 BOOL delete_keychain_item_for_system_keychain(void *a1, void *a2, uint64_t a3, void *a4)
 {
-  v23[3] = *MEMORY[0x277D85DE8];
+  v22[3] = *MEMORY[0x277D85DE8];
   v6 = a1;
   v7 = a2;
   v8 = *MEMORY[0x277CDC250];
   v9 = *MEMORY[0x277CDC5C8];
-  v22[0] = *MEMORY[0x277CDC228];
-  v22[1] = v9;
-  v23[0] = v8;
-  v23[1] = MEMORY[0x277CBEC38];
-  v22[2] = *MEMORY[0x277CDC5D0];
-  v23[2] = MEMORY[0x277CBEC38];
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:3];
+  v21[0] = *MEMORY[0x277CDC228];
+  v21[1] = v9;
+  v22[0] = v8;
+  v22[1] = MEMORY[0x277CBEC38];
+  v21[2] = *MEMORY[0x277CDC5D0];
+  v22[2] = MEMORY[0x277CBEC38];
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:3];
   v11 = [v10 mutableCopy];
 
   if (v7)
@@ -2051,41 +2016,40 @@ BOOL delete_keychain_item_for_system_keychain(void *a1, void *a2, uint64_t a3, v
     *a4 = v18;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 uint64_t store_keychain_item(__SecKey *a1, void *a2, void *a3, void *a4)
 {
-  v37[6] = *MEMORY[0x277D85DE8];
+  v36[6] = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v12 = v8;
   if (a1 && v8)
   {
-    v35 = 0;
-    v13 = delete_keychain_item_for_system_keychain(v7, v8, 0, &v35);
-    v17 = v35;
+    v34 = 0;
+    v13 = delete_keychain_item_for_system_keychain(v7, v8, 0, &v34);
+    v17 = v34;
     if (v13)
     {
       v18 = *MEMORY[0x277CDC228];
-      v36[0] = *MEMORY[0x277CDC080];
-      v36[1] = v18;
+      v35[0] = *MEMORY[0x277CDC080];
+      v35[1] = v18;
       v19 = *MEMORY[0x277CDC250];
-      v37[0] = v12;
-      v37[1] = v19;
+      v36[0] = v12;
+      v36[1] = v19;
       v20 = *MEMORY[0x277CDC5C8];
-      v36[2] = *MEMORY[0x277CDC5F8];
-      v36[3] = v20;
+      v35[2] = *MEMORY[0x277CDC5F8];
+      v35[3] = v20;
       v21 = *MEMORY[0x277CDBED8];
-      v36[4] = *MEMORY[0x277CDC5D0];
-      v36[5] = v21;
-      v37[2] = a1;
-      v37[3] = MEMORY[0x277CBEC38];
+      v35[4] = *MEMORY[0x277CDC5D0];
+      v35[5] = v21;
+      v36[2] = a1;
+      v36[3] = MEMORY[0x277CBEC38];
       v22 = *MEMORY[0x277CDBF00];
-      v37[4] = MEMORY[0x277CBEC38];
-      v37[5] = v22;
-      v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:6];
+      v36[4] = MEMORY[0x277CBEC38];
+      v36[5] = v22;
+      v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:6];
       v24 = [v23 mutableCopy];
 
       v25 = SecKeyCopyAttributes(a1);
@@ -2105,7 +2069,7 @@ uint64_t store_keychain_item(__SecKey *a1, void *a2, void *a3, void *a4)
 
     else
     {
-      v29 = createAppAttestError("store_keychain_item", 196, -1, v17, @"Failed to delete existing keychain item.", v14, v15, v16, v34);
+      v29 = createAppAttestError("store_keychain_item", 196, -1, v17, @"Failed to delete existing keychain item.", v14, v15, v16, v33);
 
       v24 = 0;
       v25 = 0;
@@ -2120,7 +2084,7 @@ uint64_t store_keychain_item(__SecKey *a1, void *a2, void *a3, void *a4)
 
   else
   {
-    v17 = createAppAttestError("store_keychain_item", 191, -2, 0, @"Invalid input(s).", v9, v10, v11, v34);
+    v17 = createAppAttestError("store_keychain_item", 191, -2, 0, @"Invalid input(s).", v9, v10, v11, v33);
     v24 = 0;
     v25 = 0;
     if (!a4)
@@ -2136,13 +2100,12 @@ LABEL_12:
   *a4 = v17;
 LABEL_14:
 
-  v32 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
 id copy_keychain_data(void *a1, void *a2, OSStatus *a3, void *a4)
 {
-  v33[8] = *MEMORY[0x277D85DE8];
+  v32[8] = *MEMORY[0x277D85DE8];
   v7 = a1;
   v8 = a2;
   v12 = v8;
@@ -2150,27 +2113,27 @@ id copy_keychain_data(void *a1, void *a2, OSStatus *a3, void *a4)
   if (v8)
   {
     v13 = *MEMORY[0x277CDBFB8];
-    v32[0] = *MEMORY[0x277CDC080];
-    v32[1] = v13;
-    v33[0] = v8;
-    v33[1] = v8;
+    v31[0] = *MEMORY[0x277CDC080];
+    v31[1] = v13;
+    v32[0] = v8;
+    v32[1] = v8;
     v14 = *MEMORY[0x277CDC120];
-    v32[2] = *MEMORY[0x277CDBF20];
-    v32[3] = v14;
-    v33[2] = v8;
-    v33[3] = v8;
+    v31[2] = *MEMORY[0x277CDBF20];
+    v31[3] = v14;
+    v32[2] = v8;
+    v32[3] = v8;
     v15 = *MEMORY[0x277CDC238];
     v16 = *MEMORY[0x277CDC558];
-    v32[4] = *MEMORY[0x277CDC228];
-    v32[5] = v16;
-    v33[4] = v15;
-    v33[5] = MEMORY[0x277CBEC38];
+    v31[4] = *MEMORY[0x277CDC228];
+    v31[5] = v16;
+    v32[4] = v15;
+    v32[5] = MEMORY[0x277CBEC38];
     v17 = *MEMORY[0x277CDC5D0];
-    v32[6] = *MEMORY[0x277CDC5C8];
-    v32[7] = v17;
-    v33[6] = MEMORY[0x277CBEC38];
-    v33[7] = MEMORY[0x277CBEC38];
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:8];
+    v31[6] = *MEMORY[0x277CDC5C8];
+    v31[7] = v17;
+    v32[6] = MEMORY[0x277CBEC38];
+    v32[7] = MEMORY[0x277CBEC38];
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:8];
     v19 = [v18 mutableCopy];
 
     if (v7)
@@ -2203,7 +2166,7 @@ id copy_keychain_data(void *a1, void *a2, OSStatus *a3, void *a4)
     goto LABEL_8;
   }
 
-  v24 = createAppAttestError("copy_keychain_data", 248, -2, 0, @"Invalid input.", v9, v10, v11, v30);
+  v24 = createAppAttestError("copy_keychain_data", 248, -2, 0, @"Invalid input.", v9, v10, v11, v29);
   v25 = 0;
   v19 = 0;
   v23 = -1;
@@ -2227,33 +2190,31 @@ LABEL_9:
 
   v27 = v25;
 
-  v28 = *MEMORY[0x277D85DE8];
-
   return v27;
 }
 
 CFTypeRef copy_all_datas(void *a1, _DWORD *a2, void *a3)
 {
-  v23[6] = *MEMORY[0x277D85DE8];
+  v22[6] = *MEMORY[0x277D85DE8];
   v5 = a1;
   result = 0;
   v6 = *MEMORY[0x277CDC238];
   v7 = *MEMORY[0x277CDC550];
-  v22[0] = *MEMORY[0x277CDC228];
-  v22[1] = v7;
-  v23[0] = v6;
-  v23[1] = MEMORY[0x277CBEC38];
+  v21[0] = *MEMORY[0x277CDC228];
+  v21[1] = v7;
+  v22[0] = v6;
+  v22[1] = MEMORY[0x277CBEC38];
   v8 = *MEMORY[0x277CDC5C8];
-  v22[2] = *MEMORY[0x277CDC558];
-  v22[3] = v8;
+  v21[2] = *MEMORY[0x277CDC558];
+  v21[3] = v8;
   v9 = *MEMORY[0x277CDC5D0];
-  v22[4] = *MEMORY[0x277CDC428];
-  v22[5] = v9;
-  v23[2] = MEMORY[0x277CBEC38];
-  v23[3] = MEMORY[0x277CBEC38];
-  v23[4] = *MEMORY[0x277CDC430];
-  v23[5] = MEMORY[0x277CBEC38];
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:6];
+  v21[4] = *MEMORY[0x277CDC428];
+  v21[5] = v9;
+  v22[2] = MEMORY[0x277CBEC38];
+  v22[3] = MEMORY[0x277CBEC38];
+  v22[4] = *MEMORY[0x277CDC430];
+  v22[5] = MEMORY[0x277CBEC38];
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:6];
   v11 = [v10 mutableCopy];
 
   if (v5)
@@ -2295,19 +2256,18 @@ LABEL_6:
     CFRelease(result);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 uint64_t delete_keychain_data(void *a1, void *a2, void *a3)
 {
-  v27[7] = *MEMORY[0x277D85DE8];
+  v26[7] = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a2;
   v10 = v6;
   if (!v6)
   {
-    v21 = createAppAttestError("delete_keychain_data", 348, -2, 0, @"Invalid input(s).", v7, v8, v9, v25);
+    v21 = createAppAttestError("delete_keychain_data", 348, -2, 0, @"Invalid input(s).", v7, v8, v9, v24);
     v16 = 0;
     if (!a3)
     {
@@ -2318,24 +2278,24 @@ uint64_t delete_keychain_data(void *a1, void *a2, void *a3)
   }
 
   v11 = *MEMORY[0x277CDBFB8];
-  v26[0] = *MEMORY[0x277CDC080];
-  v26[1] = v11;
-  v27[0] = v6;
-  v27[1] = v6;
+  v25[0] = *MEMORY[0x277CDC080];
+  v25[1] = v11;
+  v26[0] = v6;
+  v26[1] = v6;
   v12 = *MEMORY[0x277CDC120];
-  v26[2] = *MEMORY[0x277CDBF20];
-  v26[3] = v12;
-  v27[2] = v6;
-  v27[3] = v6;
+  v25[2] = *MEMORY[0x277CDBF20];
+  v25[3] = v12;
+  v26[2] = v6;
+  v26[3] = v6;
   v13 = *MEMORY[0x277CDC238];
   v14 = *MEMORY[0x277CDC5C8];
-  v26[4] = *MEMORY[0x277CDC228];
-  v26[5] = v14;
-  v27[4] = v13;
-  v27[5] = MEMORY[0x277CBEC38];
-  v26[6] = *MEMORY[0x277CDC5D0];
-  v27[6] = MEMORY[0x277CBEC38];
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:7];
+  v25[4] = *MEMORY[0x277CDC228];
+  v25[5] = v14;
+  v26[4] = v13;
+  v26[5] = MEMORY[0x277CBEC38];
+  v25[6] = *MEMORY[0x277CDC5D0];
+  v26[6] = MEMORY[0x277CBEC38];
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:7];
   v16 = [v15 mutableCopy];
 
   if (v5)
@@ -2364,48 +2324,47 @@ LABEL_9:
 
 LABEL_10:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
 uint64_t store_keychain_data(void *a1, void *a2, void *a3, void *a4)
 {
-  v37[9] = *MEMORY[0x277D85DE8];
+  v36[9] = *MEMORY[0x277D85DE8];
   v7 = a1;
   v8 = a2;
   v9 = a3;
   v13 = v9;
   if (v7 && v9)
   {
-    v35 = 0;
-    v14 = delete_keychain_data(v8, v9, &v35);
-    v18 = v35;
+    v34 = 0;
+    v14 = delete_keychain_data(v8, v9, &v34);
+    v18 = v34;
     if (v14)
     {
       v19 = *MEMORY[0x277CDBFB8];
-      v36[0] = *MEMORY[0x277CDC080];
-      v36[1] = v19;
-      v37[0] = v13;
-      v37[1] = v13;
+      v35[0] = *MEMORY[0x277CDC080];
+      v35[1] = v19;
+      v36[0] = v13;
+      v36[1] = v13;
       v20 = *MEMORY[0x277CDC120];
-      v36[2] = *MEMORY[0x277CDBF20];
-      v36[3] = v20;
-      v37[2] = v13;
-      v37[3] = v13;
+      v35[2] = *MEMORY[0x277CDBF20];
+      v35[3] = v20;
+      v36[2] = v13;
+      v36[3] = v13;
       v21 = *MEMORY[0x277CDC238];
       v22 = *MEMORY[0x277CDC5E8];
-      v36[4] = *MEMORY[0x277CDC228];
-      v36[5] = v22;
-      v37[4] = v21;
-      v37[5] = v7;
+      v35[4] = *MEMORY[0x277CDC228];
+      v35[5] = v22;
+      v36[4] = v21;
+      v36[5] = v7;
       v23 = *MEMORY[0x277CDC5D0];
-      v36[6] = *MEMORY[0x277CDC5C8];
-      v36[7] = v23;
-      v37[6] = MEMORY[0x277CBEC38];
-      v37[7] = MEMORY[0x277CBEC38];
-      v36[8] = *MEMORY[0x277CDBED8];
-      v37[8] = *MEMORY[0x277CDBF00];
-      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:9];
+      v35[6] = *MEMORY[0x277CDC5C8];
+      v35[7] = v23;
+      v36[6] = MEMORY[0x277CBEC38];
+      v36[7] = MEMORY[0x277CBEC38];
+      v35[8] = *MEMORY[0x277CDBED8];
+      v36[8] = *MEMORY[0x277CDBF00];
+      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:9];
       v25 = [v24 mutableCopy];
 
       if (v8)
@@ -2424,7 +2383,7 @@ uint64_t store_keychain_data(void *a1, void *a2, void *a3, void *a4)
 
     else
     {
-      v29 = createAppAttestError("store_keychain_data", 400, -1, v18, @"Failed to delete existing keychain item.", v15, v16, v17, v34);
+      v29 = createAppAttestError("store_keychain_data", 400, -1, v18, @"Failed to delete existing keychain item.", v15, v16, v17, v33);
 
       v25 = 0;
     }
@@ -2438,7 +2397,7 @@ uint64_t store_keychain_data(void *a1, void *a2, void *a3, void *a4)
 
   else
   {
-    v18 = createAppAttestError("store_keychain_data", 395, -2, 0, @"Invalid input(s).", v10, v11, v12, v34);
+    v18 = createAppAttestError("store_keychain_data", 395, -2, 0, @"Invalid input(s).", v10, v11, v12, v33);
     v25 = 0;
     if (!a4)
     {
@@ -2453,28 +2412,27 @@ LABEL_12:
   *a4 = v18;
 LABEL_14:
 
-  v32 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
 void AppAttest_WebAuthentication_AttestKey(__SecKey *a1, void *a2, void *a3, void *a4)
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  v50 = 0;
-  v51 = &v50;
-  v52 = 0x3032000000;
-  v53 = __Block_byref_object_copy__0;
-  v54 = __Block_byref_object_dispose__0;
-  v55 = 0;
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x3032000000;
+  v52 = __Block_byref_object_copy__0;
+  v53 = __Block_byref_object_dispose__0;
+  v54 = 0;
   if (v9)
   {
     if (DeviceIdentityIsSupported())
     {
-      v13 = (v51 + 5);
-      v14 = v51[5];
+      v13 = (v50 + 5);
+      v14 = v50[5];
       if (isSupportedSPIClient_onceToken != -1)
       {
         AppAttest_WebAuthentication_AttestKey_cold_1();
@@ -2487,8 +2445,8 @@ void AppAttest_WebAuthentication_AttestKey(__SecKey *a1, void *a2, void *a3, voi
         {
 
           objc_storeStrong(v13, v14);
-          v22 = (v51 + 5);
-          obj = v51[5];
+          v22 = (v50 + 5);
+          obj = v50[5];
           v23 = AppAttest_Common_ValidateEntitlements(&obj);
           objc_storeStrong(v22, obj);
           if (!v23)
@@ -2535,25 +2493,25 @@ void AppAttest_WebAuthentication_AttestKey(__SecKey *a1, void *a2, void *a3, voi
           }
 
 LABEL_31:
-          v42 = createAppAttestError("AppAttest_WebAuthentication_AttestKey", v30, v29, v28, v31, v10, v11, v12, v45);
-          v43 = v51[5];
-          v51[5] = v42;
+          v42 = createAppAttestError("AppAttest_WebAuthentication_AttestKey", v30, v29, v28, v31, v10, v11, v12, v44);
+          v43 = v50[5];
+          v50[5] = v42;
 
 LABEL_32:
-          if (v51[5])
+          if (v50[5])
           {
             v9[2](v9, 0);
           }
 
           else
           {
-            v46[0] = MEMORY[0x277D85DD0];
-            v46[1] = 3221225472;
-            v46[2] = __AppAttest_WebAuthentication_AttestKey_block_invoke;
-            v46[3] = &unk_278585168;
-            v48 = &v50;
-            v47 = v9;
-            AppAttest_Common_AttestKey(2u, 1, 0, a1, v7, v8, v46);
+            v45[0] = MEMORY[0x277D85DD0];
+            v45[1] = 3221225472;
+            v45[2] = __AppAttest_WebAuthentication_AttestKey_block_invoke;
+            v45[3] = &unk_278585168;
+            v47 = &v49;
+            v46 = v9;
+            AppAttest_Common_AttestKey(2, 1, 0, a1, v7, v8, v45);
           }
 
           goto LABEL_35;
@@ -2569,13 +2527,13 @@ LABEL_32:
 
       else
       {
-        v39 = createAppAttestError("isSupportedSPIClient", 68, -1, 0, @"Failed to query process name.", v15, v16, v17, v45);
+        v39 = createAppAttestError("isSupportedSPIClient", 68, -1, 0, @"Failed to query process name.", v15, v16, v17, v44);
       }
 
       v41 = v39;
 
       objc_storeStrong(v13, v39);
-      v28 = v51[5];
+      v28 = v50[5];
       v31 = @"Client is not supported.";
       v29 = -1;
       v30 = 108;
@@ -2627,21 +2585,19 @@ LABEL_32:
     }
 
     *buf = 136315394;
-    v57 = v38;
-    v58 = 1024;
-    v59 = 97;
+    v56 = v38;
+    v57 = 1024;
+    v58 = 97;
     _os_log_impl(&dword_226177000, v32, OS_LOG_TYPE_DEBUG, "%25s:%-5d Cannot attest key, completion handler is nil.", buf, 0x12u);
   }
 
 LABEL_35:
-  _Block_object_dispose(&v50, 8);
-
-  v44 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v49, 8);
 }
 
-void sub_22617F2C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22617F2C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2680,19 +2636,19 @@ id buildApplicationIdentifierKeychainLabel(void *a1)
 
 NSObject *resolveAppUUIDKeychain(void *a1, void *a2, void *a3)
 {
-  v84 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a2;
   v7 = a3;
-  v69 = -1;
+  v72 = -1;
   v8 = buildApplicationIdentifierKeychainLabel(v7);
-  v68 = 0;
-  v9 = copy_keychain_data(@"com.apple.appattest.identities", v8, &v69, &v68);
-  v64 = v9;
-  v65 = v68;
+  v71 = 0;
+  v9 = copy_keychain_data(@"com.apple.appattest.identities", v8, &v72, &v71);
+  v67 = v9;
+  v68 = v71;
   v10 = &unk_28136F000;
-  v63 = v69;
-  if (!v69)
+  v66 = v72;
+  if (!v72)
   {
     v14 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v9 encoding:4];
     if (AAInternalLogSystem_onceToken_3 != -1)
@@ -2704,22 +2660,22 @@ NSObject *resolveAppUUIDKeychain(void *a1, void *a2, void *a3)
     if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136316162;
-      v71 = "AppAttestation.m";
-      v72 = 1024;
-      v73 = 118;
-      v74 = 2112;
-      v75 = v14;
-      v76 = 2112;
-      v77 = v5;
-      v78 = 2112;
-      v79 = v8;
+      v74 = "AppAttestation.m";
+      v75 = 1024;
+      v76 = 118;
+      v77 = 2112;
+      v78 = v14;
+      v79 = 2112;
+      v80 = v5;
+      v81 = 2112;
+      v82 = v8;
       _os_log_impl(&dword_226177000, v15, OS_LOG_TYPE_DEBUG, "%25s:%-5d Loaded last App UUID entry set. { lastAppUUIDValues=%@, requestAppUUID=%@, keychainLabel=%@ }", buf, 0x30u);
     }
 
     if (!v14)
     {
       v12 = 0;
-      v66 = 0;
+      v69 = 0;
       v13 = 0;
 LABEL_47:
 
@@ -2729,7 +2685,7 @@ LABEL_47:
     v16 = [v14 componentsSeparatedByString:@":"];
     if ([v16 count] == 1)
     {
-      v66 = v7;
+      v69 = v7;
       v12 = [v16 objectAtIndexedSubscript:0];
       if (AAInternalLogSystem_onceToken_3 != -1)
       {
@@ -2740,15 +2696,15 @@ LABEL_47:
       if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136316162;
-        v71 = "AppAttestation.m";
-        v72 = 1024;
-        v73 = 126;
-        v74 = 2112;
-        v75 = v12;
-        v76 = 2112;
-        v77 = v5;
-        v78 = 2112;
-        v79 = v8;
+        v74 = "AppAttestation.m";
+        v75 = 1024;
+        v76 = 126;
+        v77 = 2112;
+        v78 = v12;
+        v79 = 2112;
+        v80 = v5;
+        v81 = 2112;
+        v82 = v8;
         _os_log_impl(&dword_226177000, v17, OS_LOG_TYPE_DEBUG, "%25s:%-5d Loaded first generation key. { lastAppUUID=%@, requestAppUUID=%@, keychainLabel=%@ }", buf, 0x30u);
       }
 
@@ -2760,7 +2716,7 @@ LABEL_47:
     if ([v16 count] != 3)
     {
       v12 = 0;
-      v66 = 0;
+      v69 = 0;
       v13 = 0;
 LABEL_46:
 
@@ -2768,7 +2724,7 @@ LABEL_46:
     }
 
     v18 = [v16 objectAtIndexedSubscript:0];
-    v62 = v18;
+    v65 = v18;
     if ([v18 isEqualToString:@"m"])
     {
       if (AAInternalLogSystem_onceToken_3 != -1)
@@ -2780,15 +2736,15 @@ LABEL_46:
       if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136316162;
-        v71 = "AppAttestation.m";
-        v72 = 1024;
-        v73 = 131;
-        v74 = 2112;
-        v75 = v14;
-        v76 = 2112;
-        v77 = v5;
-        v78 = 2112;
-        v79 = v8;
+        v74 = "AppAttestation.m";
+        v75 = 1024;
+        v76 = 131;
+        v77 = 2112;
+        v78 = v14;
+        v79 = 2112;
+        v80 = v5;
+        v81 = 2112;
+        v82 = v8;
         _os_log_impl(&dword_226177000, v19, OS_LOG_TYPE_DEBUG, "%25s:%-5d Detected last App type as Main. { lastAppUUIDValues=%@, requestAppUUID=%@, keychainLabel=%@ }", buf, 0x30u);
       }
 
@@ -2798,119 +2754,121 @@ LABEL_46:
     else
     {
       v20 = [v18 isEqualToString:@"c"];
-      v21 = AAInternalLogSystem();
-      v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG);
-      if (!v20)
+      v21 = v20;
+      v22 = AAInternalLogSystem(v20);
+      v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG);
+      if (!v21)
       {
-        v61 = v21;
-        if (v22)
+        v64 = v22;
+        if (v23)
         {
           *buf = 136316162;
-          v71 = "AppAttestation.m";
-          v72 = 1024;
-          v73 = 137;
-          v74 = 2112;
-          v75 = v14;
-          v76 = 2112;
-          v77 = v5;
-          v78 = 2112;
-          v79 = v8;
-          _os_log_impl(&dword_226177000, v21, OS_LOG_TYPE_DEBUG, "%25s:%-5d Failed to load App class from last App UUID keychain values, tampering possible. { lastAppUUIDValues=%@, requestAppUUID=%@, keychainLabel=%@ }", buf, 0x30u);
+          v74 = "AppAttestation.m";
+          v75 = 1024;
+          v76 = 137;
+          v77 = 2112;
+          v78 = v14;
+          v79 = 2112;
+          v80 = v5;
+          v81 = 2112;
+          v82 = v8;
+          _os_log_impl(&dword_226177000, v22, OS_LOG_TYPE_DEBUG, "%25s:%-5d Failed to load App class from last App UUID keychain values, tampering possible. { lastAppUUIDValues=%@, requestAppUUID=%@, keychainLabel=%@ }", buf, 0x30u);
         }
 
         v12 = 0;
-        v66 = 0;
+        v69 = 0;
         v13 = 0;
         v10 = &unk_28136F000;
         goto LABEL_45;
       }
 
-      if (v22)
+      if (v23)
       {
         *buf = 136316162;
-        v71 = "AppAttestation.m";
-        v72 = 1024;
-        v73 = 134;
-        v74 = 2112;
-        v75 = v14;
-        v76 = 2112;
-        v77 = v5;
-        v78 = 2112;
-        v79 = v8;
-        _os_log_impl(&dword_226177000, v21, OS_LOG_TYPE_DEBUG, "%25s:%-5d Detected last App type as Clip. { lastAppUUIDValues=%@, requestAppUUID=%@, keychainLabel=%@ }", buf, 0x30u);
+        v74 = "AppAttestation.m";
+        v75 = 1024;
+        v76 = 134;
+        v77 = 2112;
+        v78 = v14;
+        v79 = 2112;
+        v80 = v5;
+        v81 = 2112;
+        v82 = v8;
+        _os_log_impl(&dword_226177000, v22, OS_LOG_TYPE_DEBUG, "%25s:%-5d Detected last App type as Clip. { lastAppUUIDValues=%@, requestAppUUID=%@, keychainLabel=%@ }", buf, 0x30u);
       }
 
       v13 = 2;
     }
 
-    v23 = objc_alloc(MEMORY[0x277CCAD78]);
-    v24 = [v16 objectAtIndexedSubscript:2];
-    v25 = [v23 initWithUUIDString:v24];
+    v24 = objc_alloc(MEMORY[0x277CCAD78]);
+    v25 = [v16 objectAtIndexedSubscript:2];
+    v26 = [v24 initWithUUIDString:v25];
 
-    v61 = v25;
-    if (v25)
+    v64 = v26;
+    if (v26)
     {
-      v26 = [v16 objectAtIndexedSubscript:1];
-      v27 = [v16 objectAtIndexedSubscript:2];
-      v60 = v26;
-      if ([v26 hasPrefix:v7])
+      v28 = [v16 objectAtIndexedSubscript:1];
+      v29 = [v16 objectAtIndexedSubscript:2];
+      v30 = [v28 hasPrefix:v7];
+      v63 = v28;
+      if (v30)
       {
-        v66 = v26;
-        v12 = v27;
+        v69 = v28;
+        v12 = v29;
         v10 = &unk_28136F000;
-        v28 = v27;
+        v31 = v29;
       }
 
       else
       {
-        v59 = v27;
-        v30 = AAInternalLogSystem();
+        v62 = v29;
+        v33 = AAInternalLogSystem(v30);
         v10 = &unk_28136F000;
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136316418;
-          v71 = "AppAttestation.m";
-          v72 = 1024;
-          v73 = 154;
-          v74 = 2112;
-          v75 = v60;
-          v76 = 2112;
-          v77 = v59;
-          v78 = 2112;
-          v79 = v5;
-          v80 = 2112;
-          v81 = v8;
-          _os_log_impl(&dword_226177000, v30, OS_LOG_TYPE_DEBUG, "%25s:%-5d Loaded App ID from last App UUID keychain values is invalid, possible tampering. { appID=%@, lastAppUUID=%@, requestAppUUID=%@, keychainLabel=%@ }", buf, 0x3Au);
+          v74 = "AppAttestation.m";
+          v75 = 1024;
+          v76 = 154;
+          v77 = 2112;
+          v78 = v63;
+          v79 = 2112;
+          v80 = v62;
+          v81 = 2112;
+          v82 = v5;
+          v83 = 2112;
+          v84 = v8;
+          _os_log_impl(&dword_226177000, v33, OS_LOG_TYPE_DEBUG, "%25s:%-5d Loaded App ID from last App UUID keychain values is invalid, possible tampering. { appID=%@, lastAppUUID=%@, requestAppUUID=%@, keychainLabel=%@ }", buf, 0x3Au);
         }
 
         v12 = 0;
-        v66 = 0;
+        v69 = 0;
         v13 = 0;
-        v28 = v59;
+        v31 = v62;
       }
     }
 
     else
     {
-      v29 = AAInternalLogSystem();
-      v60 = v29;
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+      v32 = AAInternalLogSystem(v27);
+      v63 = v32;
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136316162;
-        v71 = "AppAttestation.m";
-        v72 = 1024;
-        v73 = 144;
-        v74 = 2112;
-        v75 = v14;
-        v76 = 2112;
-        v77 = v5;
-        v78 = 2112;
-        v79 = v8;
-        _os_log_impl(&dword_226177000, v29, OS_LOG_TYPE_DEBUG, "%25s:%-5d Failed to load UUID from last App UUID keychain values. { lastAppUUIDValues=%@, requestAppUUID=%@, keychainLabel=%@ }", buf, 0x30u);
+        v74 = "AppAttestation.m";
+        v75 = 1024;
+        v76 = 144;
+        v77 = 2112;
+        v78 = v14;
+        v79 = 2112;
+        v80 = v5;
+        v81 = 2112;
+        v82 = v8;
+        _os_log_impl(&dword_226177000, v32, OS_LOG_TYPE_DEBUG, "%25s:%-5d Failed to load UUID from last App UUID keychain values. { lastAppUUIDValues=%@, requestAppUUID=%@, keychainLabel=%@ }", buf, 0x30u);
       }
 
       v12 = 0;
-      v66 = 0;
+      v69 = 0;
       v10 = &unk_28136F000;
     }
 
@@ -2927,174 +2885,174 @@ LABEL_45:
   if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315906;
-    v71 = "AppAttestation.m";
-    v72 = 1024;
-    v73 = 112;
-    v74 = 2112;
-    v75 = v5;
-    v76 = 2112;
-    v77 = v8;
+    v74 = "AppAttestation.m";
+    v75 = 1024;
+    v76 = 112;
+    v77 = 2112;
+    v78 = v5;
+    v79 = 2112;
+    v80 = v8;
     _os_log_impl(&dword_226177000, v11, OS_LOG_TYPE_DEBUG, "%25s:%-5d Failed to fetch any last App UUID. { requestAppUUID=%@, keychainLabel=%@ }", buf, 0x26u);
   }
 
   v12 = 0;
-  v66 = 0;
+  v69 = 0;
   v13 = 0;
 LABEL_48:
-  if (([v6 hasPrefix:v7, v59]& 1) == 0)
+  if (([v6 hasPrefix:v7, v62]& 1) == 0)
   {
     if (AAInternalLogSystem_onceToken_3 != -1)
     {
       resolveAppUUIDKeychain_cold_1();
     }
 
-    v31 = v10[425];
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+    v34 = v10[425];
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315906;
-      v71 = "AppAttestation.m";
-      v72 = 1024;
-      v73 = 166;
-      v74 = 2112;
-      v75 = v6;
-      v76 = 2112;
-      v77 = v7;
-      _os_log_impl(&dword_226177000, v31, OS_LOG_TYPE_DEBUG, "%25s:%-5d App ID does not have resolved App ID as prefix. { appID=%@, resolvedAppID=%@ }", buf, 0x26u);
+      v74 = "AppAttestation.m";
+      v75 = 1024;
+      v76 = 166;
+      v77 = 2112;
+      v78 = v6;
+      v79 = 2112;
+      v80 = v7;
+      _os_log_impl(&dword_226177000, v34, OS_LOG_TYPE_DEBUG, "%25s:%-5d App ID does not have resolved App ID as prefix. { appID=%@, resolvedAppID=%@ }", buf, 0x26u);
     }
   }
 
-  v32 = [v7 isEqualToString:v6];
-  v33 = 0;
-  if (!v13 || !v66 || !v12)
+  v35 = [v7 isEqualToString:v6];
+  v36 = 0;
+  if (!v13 || !v69 || !v12)
   {
-    v37 = &unk_28136F000;
+    v40 = &unk_28136F000;
     goto LABEL_77;
   }
 
-  v34 = v32;
+  v37 = v35;
   if (v5)
   {
     if ([v12 isEqualToString:v5])
     {
-      v33 = v12;
+      v36 = v12;
       if (AAInternalLogSystem_onceToken_3 != -1)
       {
         resolveAppUUIDKeychain_cold_1();
       }
 
-      v35 = v10;
-      v36 = v10[425];
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+      v38 = v10;
+      v39 = v10[425];
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315906;
-        v71 = "AppAttestation.m";
-        v72 = 1024;
-        v73 = 188;
-        v74 = 2112;
-        v75 = v33;
-        v76 = 2112;
-        v77 = v33;
-        _os_log_impl(&dword_226177000, v36, OS_LOG_TYPE_DEBUG, "%25s:%-5d Provided App UUID matches last App UUID. { requestAppUUID=%@, resolvedAppUUID=%@ }", buf, 0x26u);
+        v74 = "AppAttestation.m";
+        v75 = 1024;
+        v76 = 188;
+        v77 = 2112;
+        v78 = v36;
+        v79 = 2112;
+        v80 = v36;
+        _os_log_impl(&dword_226177000, v39, OS_LOG_TYPE_DEBUG, "%25s:%-5d Provided App UUID matches last App UUID. { requestAppUUID=%@, resolvedAppUUID=%@ }", buf, 0x26u);
       }
 
-      v10 = v35;
+      v10 = v38;
 LABEL_99:
-      v37 = &unk_28136F000;
+      v40 = &unk_28136F000;
       goto LABEL_100;
     }
 
-    if (([v6 isEqualToString:v66]& 1) != 0)
+    if (([v6 isEqualToString:v69]& 1) != 0)
     {
-      v37 = &unk_28136F000;
+      v40 = &unk_28136F000;
       if (AAInternalLogSystem_onceToken_3 != -1)
       {
         resolveAppUUIDKeychain_cold_1();
       }
 
-      v38 = v10[425];
-      if (!os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+      v41 = v10[425];
+      if (!os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_76;
       }
 
       *buf = 136316162;
-      v71 = "AppAttestation.m";
-      v72 = 1024;
-      v73 = 195;
-      v74 = 2112;
-      v75 = 0;
-      v76 = 2112;
-      v77 = v12;
-      v78 = 2112;
-      v79 = v5;
-      v39 = "%25s:%-5d Main App or App Clip re-installed. Request App UUID and fetched last App UUID mismatch. { resolvedAppUUID=%@, lastAppUUID=%@, requestAppUUID=%@ }";
+      v74 = "AppAttestation.m";
+      v75 = 1024;
+      v76 = 195;
+      v77 = 2112;
+      v78 = 0;
+      v79 = 2112;
+      v80 = v12;
+      v81 = 2112;
+      v82 = v5;
+      v42 = "%25s:%-5d Main App or App Clip re-installed. Request App UUID and fetched last App UUID mismatch. { resolvedAppUUID=%@, lastAppUUID=%@, requestAppUUID=%@ }";
       goto LABEL_74;
     }
   }
 
-  else if ([v6 isEqualToString:v66])
+  else if ([v6 isEqualToString:v69])
   {
-    v37 = &unk_28136F000;
+    v40 = &unk_28136F000;
     if (AAInternalLogSystem_onceToken_3 != -1)
     {
       resolveAppUUIDKeychain_cold_1();
     }
 
-    v38 = v10[425];
-    if (!os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+    v41 = v10[425];
+    if (!os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_76;
     }
 
     *buf = 136316162;
-    v71 = "AppAttestation.m";
-    v72 = 1024;
-    v73 = 194;
-    v74 = 2112;
-    v75 = 0;
-    v76 = 2112;
-    v77 = v12;
-    v78 = 2112;
-    v79 = 0;
-    v39 = "%25s:%-5d Main App or App Clip re-installed. { resolvedAppUUID=%@, lastAppUUID=%@, requestAppUUID=%@ }";
+    v74 = "AppAttestation.m";
+    v75 = 1024;
+    v76 = 194;
+    v77 = 2112;
+    v78 = 0;
+    v79 = 2112;
+    v80 = v12;
+    v81 = 2112;
+    v82 = 0;
+    v42 = "%25s:%-5d Main App or App Clip re-installed. { resolvedAppUUID=%@, lastAppUUID=%@, requestAppUUID=%@ }";
 LABEL_74:
-    v40 = v38;
-    v41 = 48;
+    v43 = v41;
+    v44 = 48;
 LABEL_75:
-    _os_log_impl(&dword_226177000, v40, OS_LOG_TYPE_DEBUG, v39, buf, v41);
+    _os_log_impl(&dword_226177000, v43, OS_LOG_TYPE_DEBUG, v42, buf, v44);
 LABEL_76:
-    v33 = 0;
+    v36 = 0;
 LABEL_77:
-    if (!v63)
+    if (!v66)
     {
-      v42 = v10;
-      v67[0] = v65;
-      v43 = delete_keychain_data(@"com.apple.appattest.identities", v8, v67);
-      v44 = v67[0];
+      v45 = v10;
+      v70[0] = v68;
+      v46 = delete_keychain_data(@"com.apple.appattest.identities", v8, v70);
+      v47 = v70[0];
 
-      if (v37[416] != -1)
+      if (v40[416] != -1)
       {
         resolveAppUUIDKeychain_cold_1();
       }
 
-      v45 = v42[425];
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
+      v48 = v45[425];
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315906;
-        v71 = "AppAttestation.m";
-        v72 = 1024;
-        v73 = 244;
-        v74 = 2112;
-        v75 = v12;
-        v76 = 1024;
-        LODWORD(v77) = v43;
-        _os_log_impl(&dword_226177000, v45, OS_LOG_TYPE_DEBUG, "%25s:%-5d Deleting last App UUID keychain entry. { lastAppUUID=%@, didDelete=%d }", buf, 0x22u);
+        v74 = "AppAttestation.m";
+        v75 = 1024;
+        v76 = 244;
+        v77 = 2112;
+        v78 = v12;
+        v79 = 1024;
+        LODWORD(v80) = v46;
+        _os_log_impl(&dword_226177000, v48, OS_LOG_TYPE_DEBUG, "%25s:%-5d Deleting last App UUID keychain entry. { lastAppUUID=%@, didDelete=%d }", buf, 0x22u);
       }
 
-      v33 = 0;
-      v65 = v44;
-      v10 = v42;
-      v37 = &unk_28136F000;
+      v36 = 0;
+      v68 = v47;
+      v10 = v45;
+      v40 = &unk_28136F000;
     }
 
     goto LABEL_100;
@@ -3102,12 +3060,12 @@ LABEL_77:
 
   if (v13 != 2)
   {
-    if ((v34 & 1) == 0)
+    if ((v37 & 1) == 0)
     {
-      v67[2] = 0;
-      v37 = &unk_28136F000;
-      CPCopyBundleIdentifierAndTeamFromApplicationIdentifier();
-      v33 = 0;
+      v70[2] = 0;
+      v59 = CPCopyBundleIdentifierAndTeamFromApplicationIdentifier();
+      v40 = &unk_28136F000;
+      v36 = 0;
       if (v5)
       {
         if (AAInternalLogSystem_onceToken_3 != -1)
@@ -3115,227 +3073,225 @@ LABEL_77:
           resolveAppUUIDKeychain_cold_1();
         }
 
-        v57 = v10[425];
-        if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
+        v60 = v10[425];
+        if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136316674;
-          v71 = "AppAttestation.m";
-          v72 = 1024;
-          v73 = 230;
-          v74 = 2112;
-          v75 = 0;
-          v76 = 2112;
-          v77 = v12;
-          v78 = 2112;
-          v79 = v5;
-          v80 = 2112;
-          v81 = v66;
-          v82 = 2112;
-          v83 = v6;
-          _os_log_impl(&dword_226177000, v57, OS_LOG_TYPE_DEBUG, "%25s:%-5d Downgraded from Main App to App Clip. Request App UUID and fetched last App UUID mismatch. { resolvedAppUUID=%@, lastAppUUID=%@, requestAppUUID=%@, lastAppID=%@, appID=%@ }", buf, 0x44u);
+          v74 = "AppAttestation.m";
+          v75 = 1024;
+          v76 = 230;
+          v77 = 2112;
+          v78 = 0;
+          v79 = 2112;
+          v80 = v12;
+          v81 = 2112;
+          v82 = v5;
+          v83 = 2112;
+          v84 = v69;
+          v85 = 2112;
+          v86 = v6;
+          _os_log_impl(&dword_226177000, v60, OS_LOG_TYPE_DEBUG, "%25s:%-5d Downgraded from Main App to App Clip. Request App UUID and fetched last App UUID mismatch. { resolvedAppUUID=%@, lastAppUUID=%@, requestAppUUID=%@, lastAppID=%@, appID=%@ }", buf, 0x44u);
         }
       }
 
       else
       {
-        v58 = AAInternalLogSystem();
-        if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
+        v61 = AAInternalLogSystem(v59);
+        if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136316674;
-          v71 = "AppAttestation.m";
-          v72 = 1024;
-          v73 = 229;
-          v74 = 2112;
-          v75 = 0;
-          v76 = 2112;
-          v77 = v12;
-          v78 = 2112;
-          v79 = 0;
-          v80 = 2112;
-          v81 = v66;
-          v82 = 2112;
-          v83 = v6;
-          _os_log_impl(&dword_226177000, v58, OS_LOG_TYPE_DEBUG, "%25s:%-5d Downgraded from Main App to App Clip. { resolvedAppUUID=%@, lastAppUUID=%@, requestAppUUID=%@, lastAppID=%@, appID=%@ }", buf, 0x44u);
+          v74 = "AppAttestation.m";
+          v75 = 1024;
+          v76 = 229;
+          v77 = 2112;
+          v78 = 0;
+          v79 = 2112;
+          v80 = v12;
+          v81 = 2112;
+          v82 = 0;
+          v83 = 2112;
+          v84 = v69;
+          v85 = 2112;
+          v86 = v6;
+          _os_log_impl(&dword_226177000, v61, OS_LOG_TYPE_DEBUG, "%25s:%-5d Downgraded from Main App to App Clip. { resolvedAppUUID=%@, lastAppUUID=%@, requestAppUUID=%@, lastAppID=%@, appID=%@ }", buf, 0x44u);
         }
       }
 
       goto LABEL_77;
     }
 
-    v37 = &unk_28136F000;
+    v40 = &unk_28136F000;
     if (AAInternalLogSystem_onceToken_3 != -1)
     {
       resolveAppUUIDKeychain_cold_1();
     }
 
-    v54 = v10[425];
-    if (!os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
+    v56 = v10[425];
+    if (!os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_76;
     }
 
     *buf = 136316674;
-    v71 = "AppAttestation.m";
-    v72 = 1024;
-    v73 = 235;
-    v74 = 2112;
-    v75 = 0;
-    v76 = 2112;
-    v77 = v12;
-    v78 = 2112;
-    v79 = v5;
-    v80 = 2112;
-    v81 = v66;
-    v82 = 2112;
-    v83 = v6;
-    v39 = "%25s:%-5d Invalid scenario, App IDs cannot change across installations. { resolvedAppUUID=%@, lastAppUUID=%@, requestAppUUID=%@, lastRealAppID=%@, appID=%@ }";
-    v40 = v54;
-    v41 = 68;
+    v74 = "AppAttestation.m";
+    v75 = 1024;
+    v76 = 235;
+    v77 = 2112;
+    v78 = 0;
+    v79 = 2112;
+    v80 = v12;
+    v81 = 2112;
+    v82 = v5;
+    v83 = 2112;
+    v84 = v69;
+    v85 = 2112;
+    v86 = v6;
+    v42 = "%25s:%-5d Invalid scenario, App IDs cannot change across installations. { resolvedAppUUID=%@, lastAppUUID=%@, requestAppUUID=%@, lastRealAppID=%@, appID=%@ }";
+    v43 = v56;
+    v44 = 68;
     goto LABEL_75;
   }
 
-  v33 = v12;
-  v46 = v34 ^ 1;
+  v36 = v12;
+  v49 = v37 ^ 1;
   if (v5)
   {
-    v46 = 1;
+    v49 = 1;
   }
 
-  if ((v46 & 1) == 0)
+  if ((v49 & 1) == 0)
   {
     if (AAInternalLogSystem_onceToken_3 != -1)
     {
       resolveAppUUIDKeychain_cold_1();
     }
 
-    v47 = AAInternalLogSystem_log_3;
+    v50 = AAInternalLogSystem_log_3;
     if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136316162;
-      v71 = "AppAttestation.m";
-      v72 = 1024;
-      v73 = 206;
-      v74 = 2112;
-      v75 = v33;
-      v76 = 2112;
-      v77 = v33;
-      v78 = 2112;
-      v79 = 0;
-      _os_log_impl(&dword_226177000, v47, OS_LOG_TYPE_DEBUG, "%25s:%-5d Upgrading from App Clip to Main App. { resolvedAppUUID=%@, lastAppUUID=%@, requestAppUUID=%@ }", buf, 0x30u);
+      v74 = "AppAttestation.m";
+      v75 = 1024;
+      v76 = 206;
+      v77 = 2112;
+      v78 = v36;
+      v79 = 2112;
+      v80 = v36;
+      v81 = 2112;
+      v82 = 0;
+      _os_log_impl(&dword_226177000, v50, OS_LOG_TYPE_DEBUG, "%25s:%-5d Upgrading from App Clip to Main App. { resolvedAppUUID=%@, lastAppUUID=%@, requestAppUUID=%@ }", buf, 0x30u);
     }
   }
 
-  v48 = v34;
+  v51 = v37;
   if (v5)
   {
-    v48 = 1;
+    v51 = 1;
   }
 
-  if ((v48 & 1) == 0)
+  if ((v51 & 1) == 0)
   {
     if (AAInternalLogSystem_onceToken_3 != -1)
     {
       resolveAppUUIDKeychain_cold_1();
     }
 
-    v49 = AAInternalLogSystem_log_3;
+    v52 = AAInternalLogSystem_log_3;
     if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136316162;
-      v71 = "AppAttestation.m";
-      v72 = 1024;
-      v73 = 207;
-      v74 = 2112;
-      v75 = v33;
-      v76 = 2112;
-      v77 = v33;
-      v78 = 2112;
-      v79 = 0;
-      _os_log_impl(&dword_226177000, v49, OS_LOG_TYPE_DEBUG, "%25s:%-5d Moving from App Clip to App Clip. { resolvedAppUUID=%@, lastAppUUID=%@, requestAppUUID=%@ }", buf, 0x30u);
+      v74 = "AppAttestation.m";
+      v75 = 1024;
+      v76 = 207;
+      v77 = 2112;
+      v78 = v36;
+      v79 = 2112;
+      v80 = v36;
+      v81 = 2112;
+      v82 = 0;
+      _os_log_impl(&dword_226177000, v52, OS_LOG_TYPE_DEBUG, "%25s:%-5d Moving from App Clip to App Clip. { resolvedAppUUID=%@, lastAppUUID=%@, requestAppUUID=%@ }", buf, 0x30u);
     }
 
     v10 = &unk_28136F000;
     goto LABEL_99;
   }
 
-  v55 = v34 ^ 1;
+  v57 = v37 ^ 1;
   if (!v5)
   {
-    v55 = 1;
+    v57 = 1;
   }
 
   v10 = &unk_28136F000;
-  v37 = &unk_28136F000;
-  if ((v55 & 1) == 0)
+  v40 = &unk_28136F000;
+  if ((v57 & 1) == 0)
   {
     if (AAInternalLogSystem_onceToken_3 != -1)
     {
       resolveAppUUIDKeychain_cold_1();
     }
 
-    v56 = AAInternalLogSystem_log_3;
+    v58 = AAInternalLogSystem_log_3;
     if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136316162;
-      v71 = "AppAttestation.m";
-      v72 = 1024;
-      v73 = 208;
-      v74 = 2112;
-      v75 = v33;
-      v76 = 2112;
-      v77 = v33;
-      v78 = 2112;
-      v79 = v5;
-      _os_log_impl(&dword_226177000, v56, OS_LOG_TYPE_DEBUG, "%25s:%-5d Upgrading from App Clip to Main App. Request App UUID and fetched last App UUID mismatch. { resolvedAppUUID=%@, lastAppUUID=%@, requestAppUUID=%@ }", buf, 0x30u);
+      v74 = "AppAttestation.m";
+      v75 = 1024;
+      v76 = 208;
+      v77 = 2112;
+      v78 = v36;
+      v79 = 2112;
+      v80 = v36;
+      v81 = 2112;
+      v82 = v5;
+      _os_log_impl(&dword_226177000, v58, OS_LOG_TYPE_DEBUG, "%25s:%-5d Upgrading from App Clip to Main App. Request App UUID and fetched last App UUID mismatch. { resolvedAppUUID=%@, lastAppUUID=%@, requestAppUUID=%@ }", buf, 0x30u);
     }
 
     v10 = &unk_28136F000;
   }
 
 LABEL_100:
-  if (v37[416] != -1)
+  if (v40[416] != -1)
   {
     resolveAppUUIDKeychain_cold_1();
   }
 
-  v50 = v10[425];
-  if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
+  v53 = v10[425];
+  if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136316162;
-    v71 = "AppAttestation.m";
-    v72 = 1024;
-    v73 = 247;
-    v74 = 2112;
-    v75 = v5;
-    v76 = 2112;
-    v77 = v12;
-    v78 = 2112;
-    v79 = v33;
-    _os_log_impl(&dword_226177000, v50, OS_LOG_TYPE_DEBUG, "%25s:%-5d Finished resolving App UUID. { requestAppUUID=%@, lastAppUUID=%@, resolvedAppUUID=%@ }", buf, 0x30u);
+    v74 = "AppAttestation.m";
+    v75 = 1024;
+    v76 = 247;
+    v77 = 2112;
+    v78 = v5;
+    v79 = 2112;
+    v80 = v12;
+    v81 = 2112;
+    v82 = v36;
+    _os_log_impl(&dword_226177000, v53, OS_LOG_TYPE_DEBUG, "%25s:%-5d Finished resolving App UUID. { requestAppUUID=%@, lastAppUUID=%@, resolvedAppUUID=%@ }", buf, 0x30u);
   }
 
-  v51 = v33;
+  v54 = v36;
 
-  v52 = *MEMORY[0x277D85DE8];
-
-  return v51;
+  return v54;
 }
 
-id AAInternalLogSystem()
+id AAInternalLogSystem(uint64_t a1)
 {
   if (AAInternalLogSystem_onceToken_3 != -1)
   {
     AAInternalLogSystem_cold_1();
   }
 
-  v1 = AAInternalLogSystem_log_3;
+  v2 = AAInternalLogSystem_log_3;
 
-  return v1;
+  return v2;
 }
 
 uint64_t saveAppUUIDKeychain(void *a1, void *a2, void *a3)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a2;
   v7 = a3;
@@ -3373,15 +3329,15 @@ LABEL_8:
   if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136316162;
-    v29 = "AppAttestation.m";
-    v30 = 1024;
-    v31 = 260;
-    v32 = 2112;
-    v33 = v5;
-    v34 = 2112;
-    v35 = v6;
-    v36 = 2112;
-    v37 = v7;
+    v28 = "AppAttestation.m";
+    v29 = 1024;
+    v30 = 260;
+    v31 = 2112;
+    v32 = v5;
+    v33 = 2112;
+    v34 = v6;
+    v35 = 2112;
+    v36 = v7;
     _os_log_impl(&dword_226177000, v15, OS_LOG_TYPE_DEBUG, "%25s:%-5d Failed to save App UUID to keychain, invalid inputs. { appUUID=%@, realAppID=%@, resolvedAppID=%@ }", buf, 0x30u);
   }
 
@@ -3398,9 +3354,9 @@ LABEL_12:
 
   v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@:%@:%@", v17, v6, v5];
   v21 = [v20 dataUsingEncoding:4];
-  v27 = 0;
-  v22 = store_keychain_data(v21, @"com.apple.appattest.identities", v16, &v27);
-  v23 = v27;
+  v26 = 0;
+  v22 = store_keychain_data(v21, @"com.apple.appattest.identities", v16, &v26);
+  v23 = v26;
   if ((v22 & 1) == 0)
   {
     if (AAInternalLogSystem_onceToken_3 != -1)
@@ -3412,24 +3368,23 @@ LABEL_12:
     if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315906;
-      v29 = "AppAttestation.m";
-      v30 = 1024;
-      v31 = 273;
-      v32 = 2112;
-      v33 = v16;
-      v34 = 2112;
-      v35 = v20;
+      v28 = "AppAttestation.m";
+      v29 = 1024;
+      v30 = 273;
+      v31 = 2112;
+      v32 = v16;
+      v33 = 2112;
+      v34 = v20;
       _os_log_impl(&dword_226177000, v24, OS_LOG_TYPE_DEBUG, "%25s:%-5d Failed to save App UUID to keychain. { label=%@, appUUIDGrouped=%@ }", buf, 0x26u);
     }
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
 id encodeKeyToCOSE(__SecKey *a1, void *a2)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v4 = fetchPublicKey(a1);
   if (v4)
   {
@@ -3450,12 +3405,12 @@ id encodeKeyToCOSE(__SecKey *a1, void *a2)
         v10 = _Block_copy(aBlock);
         [v4 getBytes:v9 range:{1, v8}];
         v11 = malloc_type_malloc(v8, 0x100004077774924uLL);
-        v32[0] = MEMORY[0x277D85DD0];
-        v32[1] = 3221225472;
-        v32[2] = __encodeKeyToCOSE_block_invoke_2;
-        v32[3] = &__block_descriptor_40_e5_v8__0l;
-        v32[4] = v11;
-        v12 = _Block_copy(v32);
+        v31[0] = MEMORY[0x277D85DD0];
+        v31[1] = 3221225472;
+        v31[2] = __encodeKeyToCOSE_block_invoke_2;
+        v31[3] = &__block_descriptor_40_e5_v8__0l;
+        v31[4] = v11;
+        v12 = _Block_copy(v31);
         [v4 getBytes:v11 range:{v8 + 1, v8}];
         v13 = [MEMORY[0x277CBEA90] dataWithBytes:v9 length:v8];
         v14 = [MEMORY[0x277CBEA90] dataWithBytes:v11 length:v8];
@@ -3478,15 +3433,15 @@ LABEL_22:
       {
         v29 = v25;
         *buf = 136315650;
-        v35 = "AppAttestation.m";
-        v36 = 1024;
-        v37 = 296;
-        v38 = 2048;
-        v39 = [v7 intValue];
+        v34 = "AppAttestation.m";
+        v35 = 1024;
+        v36 = 296;
+        v37 = 2048;
+        v38 = [v7 intValue];
         _os_log_impl(&dword_226177000, v29, OS_LOG_TYPE_DEBUG, "%25s:%-5d Unsupported key coordinate size. { size=%ld }", buf, 0x1Cu);
       }
 
-      v24 = createAppAttestError("encodeKeyToCOSE", 297, -3, 0, @"Failed to fetch size of public key.", v26, v27, v28, v32[0]);
+      v24 = createAppAttestError("encodeKeyToCOSE", 297, -3, 0, @"Failed to fetch size of public key.", v26, v27, v28, v31[0]);
     }
 
     else
@@ -3500,13 +3455,13 @@ LABEL_22:
       if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315394;
-        v35 = "AppAttestation.m";
-        v36 = 1024;
-        v37 = 290;
+        v34 = "AppAttestation.m";
+        v35 = 1024;
+        v36 = 290;
         _os_log_impl(&dword_226177000, v20, OS_LOG_TYPE_DEBUG, "%25s:%-5d Failed to fetch size of public key.", buf, 0x12u);
       }
 
-      v24 = createAppAttestError("encodeKeyToCOSE", 291, -3, 0, @"Failed to fetch size of public key.", v21, v22, v23, v32[0]);
+      v24 = createAppAttestError("encodeKeyToCOSE", 291, -3, 0, @"Failed to fetch size of public key.", v21, v22, v23, v31[0]);
     }
 
     v15 = 0;
@@ -3523,24 +3478,22 @@ LABEL_22:
   if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v35 = "AppAttestation.m";
-    v36 = 1024;
-    v37 = 282;
+    v34 = "AppAttestation.m";
+    v35 = 1024;
+    v36 = 282;
     _os_log_impl(&dword_226177000, v16, OS_LOG_TYPE_DEBUG, "%25s:%-5d Failed to fetch data representation of public key.", buf, 0x12u);
   }
 
-  createAppAttestError("encodeKeyToCOSE", 283, -3, 0, @"Failed to fetch data representation of public key.", v17, v18, v19, v32[0]);
+  createAppAttestError("encodeKeyToCOSE", 283, -3, 0, @"Failed to fetch data representation of public key.", v17, v18, v19, v31[0]);
   *a2 = v15 = 0;
 LABEL_23:
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
 
 const __CFData *fetchPublicKey(__SecKey *a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (AppAttest_Common_ValidateBikParameters(a1))
   {
     v2 = SecKeyCopyPublicKey(a1);
@@ -3561,9 +3514,9 @@ const __CFData *fetchPublicKey(__SecKey *a1)
       if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315394;
-        v20 = "AppAttestation.m";
-        v21 = 1024;
-        v22 = 1473;
+        v19 = "AppAttestation.m";
+        v20 = 1024;
+        v21 = 1473;
         _os_log_impl(&dword_226177000, v12, OS_LOG_TYPE_DEBUG, "%25s:%-5d Failed to fetch public key from BIK.", buf, 0x12u);
       }
 
@@ -3571,13 +3524,13 @@ const __CFData *fetchPublicKey(__SecKey *a1)
       goto LABEL_23;
     }
 
-    v16[4] = 0;
+    v15[4] = 0;
     error = 0;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __fetchPublicKey_block_invoke_149;
-    v16[3] = &__block_descriptor_40_e5_v8__0l;
-    v4 = _Block_copy(v16);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __fetchPublicKey_block_invoke_149;
+    v15[3] = &__block_descriptor_40_e5_v8__0l;
+    v4 = _Block_copy(v15);
     v5 = SecKeyCopyExternalRepresentation(v2, &error);
     v6 = v5;
     if (error)
@@ -3592,11 +3545,11 @@ const __CFData *fetchPublicKey(__SecKey *a1)
       {
         v8 = CFErrorCopyDescription(error);
         *buf = 136315650;
-        v20 = "AppAttestation.m";
-        v21 = 1024;
-        v22 = 1482;
-        v23 = 2112;
-        v24 = v8;
+        v19 = "AppAttestation.m";
+        v20 = 1024;
+        v21 = 1482;
+        v22 = 2112;
+        v23 = v8;
         v9 = v8;
         _os_log_impl(&dword_226177000, v7, OS_LOG_TYPE_DEBUG, "%25s:%-5d Failed to fetch data representation of public key. { error=%@ }", buf, 0x1Cu);
       }
@@ -3615,14 +3568,14 @@ const __CFData *fetchPublicKey(__SecKey *a1)
         resolveAppUUIDKeychain_cold_1();
       }
 
-      v15 = AAInternalLogSystem_log_3;
+      v14 = AAInternalLogSystem_log_3;
       if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315394;
-        v20 = "AppAttestation.m";
-        v21 = 1024;
-        v22 = 1487;
-        _os_log_impl(&dword_226177000, v15, OS_LOG_TYPE_DEBUG, "%25s:%-5d Failed to fetch data representation of public key.", buf, 0x12u);
+        v19 = "AppAttestation.m";
+        v20 = 1024;
+        v21 = 1487;
+        _os_log_impl(&dword_226177000, v14, OS_LOG_TYPE_DEBUG, "%25s:%-5d Failed to fetch data representation of public key.", buf, 0x12u);
       }
     }
 
@@ -3645,15 +3598,14 @@ LABEL_23:
   if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v20 = "AppAttestation.m";
-    v21 = 1024;
-    v22 = 1465;
+    v19 = "AppAttestation.m";
+    v20 = 1024;
+    v21 = 1465;
     _os_log_impl(&dword_226177000, v11, OS_LOG_TYPE_DEBUG, "%25s:%-5d Key has invalid properties.", buf, 0x12u);
   }
 
   v10 = 0;
 LABEL_24:
-  v13 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -3685,7 +3637,7 @@ void __encodeKeyToCOSE_block_invoke_2(uint64_t a1)
 
 id generateCOSEForKeySize(uint64_t a1, void *a2, void *a3)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if ((a1 & 0xFFFFFFFFFFFFFFEFLL) == 0x20)
@@ -3750,15 +3702,15 @@ LABEL_13:
       if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
       {
         v25 = v24;
-        v28 = 136315906;
-        v29 = "AppAttestation.m";
-        v30 = 1024;
-        v31 = 1530;
-        v32 = 2048;
-        v33 = [v23 length];
-        v34 = 2048;
-        v35 = v12;
-        _os_log_impl(&dword_226177000, v25, OS_LOG_TYPE_DEBUG, "%25s:%-5d COSE key representation of public key is of unexpected length. { length=%zu, expected=%ld }", &v28, 0x26u);
+        v27 = 136315906;
+        v28 = "AppAttestation.m";
+        v29 = 1024;
+        v30 = 1530;
+        v31 = 2048;
+        v32 = [v23 length];
+        v33 = 2048;
+        v34 = v12;
+        _os_log_impl(&dword_226177000, v25, OS_LOG_TYPE_DEBUG, "%25s:%-5d COSE key representation of public key is of unexpected length. { length=%zu, expected=%ld }", &v27, 0x26u);
       }
 
       v14 = 0;
@@ -3775,19 +3727,17 @@ LABEL_13:
   v13 = AAInternalLogSystem_log_3;
   if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
   {
-    v28 = 136315650;
-    v29 = "AppAttestation.m";
-    v30 = 1024;
-    v31 = 1497;
-    v32 = 2048;
-    v33 = a1;
-    _os_log_impl(&dword_226177000, v13, OS_LOG_TYPE_DEBUG, "%25s:%-5d Cannot generate COSE encoding for key, unsupported coordinate size. { coordinateSize=%ld }", &v28, 0x1Cu);
+    v27 = 136315650;
+    v28 = "AppAttestation.m";
+    v29 = 1024;
+    v30 = 1497;
+    v31 = 2048;
+    v32 = a1;
+    _os_log_impl(&dword_226177000, v13, OS_LOG_TYPE_DEBUG, "%25s:%-5d Cannot generate COSE encoding for key, unsupported coordinate size. { coordinateSize=%ld }", &v27, 0x1Cu);
   }
 
   v14 = 0;
 LABEL_21:
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -3902,13 +3852,13 @@ LABEL_13:
 
 uint64_t generateEnvironmentByAppSigning(_OWORD *a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v30 = 0;
+  v31 = *MEMORY[0x277D85DE8];
+  v29 = 0;
   v2 = a1[1];
   *token.val = *a1;
   *&token.val[4] = v2;
-  v3 = [MEMORY[0x277CC1E90] bundleRecordForAuditToken:&token error:&v30];
-  v4 = v30;
+  v3 = [MEMORY[0x277CC1E90] bundleRecordForAuditToken:&token error:&v29];
+  v4 = v29;
   if (!v3)
   {
     v8 = objc_alloc_init(AppAttestEligibilityManager);
@@ -3979,14 +3929,14 @@ LABEL_13:
           resolveAppUUIDKeychain_cold_1();
         }
 
-        v28 = AAInternalLogSystem_log_3;
+        v27 = AAInternalLogSystem_log_3;
         if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
         {
           token.val[0] = 136315394;
           *&token.val[1] = "AppAttestation.m";
           LOWORD(token.val[3]) = 1024;
           *(&token.val[3] + 2) = 446;
-          _os_log_impl(&dword_226177000, v28, OS_LOG_TYPE_DEBUG, "%25s:%-5d FreeDev or Dev environment detected.", &token, 0x12u);
+          _os_log_impl(&dword_226177000, v27, OS_LOG_TYPE_DEBUG, "%25s:%-5d FreeDev or Dev environment detected.", &token, 0x12u);
         }
 
         v7 = 0;
@@ -4020,7 +3970,7 @@ LABEL_13:
 LABEL_42:
     v7 = 1;
 LABEL_14:
-    v29 = 0;
+    v28 = 0;
     v15 = *MEMORY[0x277CBECE8];
     v16 = a1[1];
     *token.val = *a1;
@@ -4029,7 +3979,7 @@ LABEL_14:
     if (v17)
     {
       v18 = v17;
-      v19 = SecTaskCopyValueForEntitlement(v17, @"com.apple.developer.devicecheck.appattest-environment", &v29);
+      v19 = SecTaskCopyValueForEntitlement(v17, @"com.apple.developer.devicecheck.appattest-environment", &v28);
       v20 = isNSString(v19);
       if (v20)
       {
@@ -4050,7 +4000,7 @@ LABEL_14:
           _os_log_impl(&dword_226177000, v21, OS_LOG_TYPE_DEBUG, "%25s:%-5d Environment override default set. { overrideDefault=%@ }", &token, 0x1Cu);
         }
 
-        if ([v20 caseInsensitiveCompare:{@"production", v29}])
+        if ([v20 caseInsensitiveCompare:{@"production", v28}])
         {
           if ([v20 caseInsensitiveCompare:@"development"])
           {
@@ -4124,7 +4074,6 @@ LABEL_14:
   v7 = 1;
 LABEL_45:
 
-  v26 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -4149,7 +4098,7 @@ id buildAppAttestApplicationIdentifier(void *a1, void *a2)
 
 void resolveAppAttestApplicationIdentifiersForApplicationRecord(void *a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v9 = a1;
   v10 = a2;
   v11 = a3;
@@ -4182,30 +4131,30 @@ void resolveAppAttestApplicationIdentifiersForApplicationRecord(void *a1, void *
   if (v17)
   {
     [v17 parentApplicationIdentifiers];
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
-    v19 = v34 = 0u;
-    v20 = [v19 countByEnumeratingWithState:&v31 objects:v41 count:16];
+    v19 = v33 = 0u;
+    v20 = [v19 countByEnumeratingWithState:&v30 objects:v40 count:16];
     if (v20)
     {
       v21 = v20;
-      v27 = v16;
-      v28 = v14;
-      v29 = a5;
-      v30 = v9;
-      v22 = *v32;
+      v26 = v16;
+      v27 = v14;
+      v28 = a5;
+      v29 = v9;
+      v22 = *v31;
       do
       {
         v23 = 0;
         do
         {
-          if (*v32 != v22)
+          if (*v31 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          v24 = *(*(&v31 + 1) + 8 * v23);
+          v24 = *(*(&v30 + 1) + 8 * v23);
           if (AAInternalLogSystem_onceToken_3 != -1)
           {
             resolveAppUUIDKeychain_cold_1();
@@ -4215,11 +4164,11 @@ void resolveAppAttestApplicationIdentifiersForApplicationRecord(void *a1, void *
           if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315650;
-            v36 = "AppAttestation.m";
-            v37 = 1024;
-            v38 = 524;
-            v39 = 2112;
-            v40 = v24;
+            v35 = "AppAttestation.m";
+            v36 = 1024;
+            v37 = 524;
+            v38 = 2112;
+            v39 = v24;
             _os_log_impl(&dword_226177000, v25, OS_LOG_TYPE_DEBUG, "%25s:%-5d Found parent application for App Clip. { parentAppID=%@ }", buf, 0x1Cu);
           }
 
@@ -4228,20 +4177,18 @@ void resolveAppAttestApplicationIdentifiersForApplicationRecord(void *a1, void *
         }
 
         while (v21 != v23);
-        v21 = [v19 countByEnumeratingWithState:&v31 objects:v41 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v30 objects:v40 count:16];
       }
 
       while (v21);
-      v16 = v27;
-      v9 = v30;
-      a5 = v29;
-      v14 = v28;
+      v16 = v26;
+      v9 = v29;
+      a5 = v28;
+      v14 = v27;
     }
   }
 
   *a5 = buildAppAttestApplicationIdentifier(v14, v16);
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void resolveAppAttestApplicationIdentifiersForApplicationExtensionRecord(void *a1, void *a2, void *a3, void *a4, void *a5)
@@ -4451,20 +4398,20 @@ LABEL_40:
           {
             v49 = v35;
             resolveAppAttestApplicationIdentifiersForApplicationRecord(0, v49, v61, a3, a4);
-            v50 = AAInternalLogSystem();
-            if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
+            v51 = AAInternalLogSystem(v50);
+            if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
             {
-              v51 = *a3;
-              v52 = *a4;
+              v52 = *a3;
+              v53 = *a4;
               *buf = 136315906;
               *&buf[4] = "AppAttestation.m";
               *&buf[12] = 1024;
               *&buf[14] = 665;
               *&buf[18] = 2112;
-              *&buf[20] = v51;
+              *&buf[20] = v52;
               *&buf[28] = 2112;
-              *&buf[30] = v52;
-              _os_log_impl(&dword_226177000, v50, OS_LOG_TYPE_DEBUG, "%25s:%-5d Extracted application identifiers for daemon client connection. { realApplicationIdentifier=%@, resolvedApplicationIdentifier=%@ }", buf, 0x26u);
+              *&buf[30] = v53;
+              _os_log_impl(&dword_226177000, v51, OS_LOG_TYPE_DEBUG, "%25s:%-5d Extracted application identifiers for daemon client connection. { realApplicationIdentifier=%@, resolvedApplicationIdentifier=%@ }", buf, 0x26u);
             }
 
             v22 = 1;
@@ -4498,13 +4445,12 @@ LABEL_40:
 LABEL_44:
   v14[2](v14);
 
-  v53 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
 void sub_226182EF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
 {
-  (*(v15 + 16))(v15);
+  (*(v15 + 16))(v15, a2, a3, a4, a5, a6, a7, a8);
   (*(a11 + 16))();
   (*(a10 + 16))();
   (*(a13 + 16))();
@@ -4569,11 +4515,11 @@ void __extractApplicationIdentifiers_block_invoke_3_50(uint64_t a1)
 
 id generateAttestationObject(void *a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v55 = *MEMORY[0x277D85DE8];
-  v46 = a1;
+  v54 = *MEMORY[0x277D85DE8];
+  v45 = a1;
   v8 = a2;
-  v47 = a3;
-  v48 = a4;
+  v46 = a3;
+  v47 = a4;
   context = objc_autoreleasePoolPush();
   v9 = objc_alloc_init(CBORArray);
   if (v8 && [v8 count] == 2 && objc_msgSend(v8, "count"))
@@ -4592,11 +4538,11 @@ id generateAttestationObject(void *a1, void *a2, void *a3, void *a4, void *a5)
         v12 = v11;
         v13 = [v8 objectAtIndexedSubscript:v10];
         *buf = 136315650;
-        v50 = "AppAttestation.m";
-        v51 = 1024;
-        v52 = 709;
-        v53 = 2112;
-        v54 = v13;
+        v49 = "AppAttestation.m";
+        v50 = 1024;
+        v51 = 709;
+        v52 = 2112;
+        v53 = v13;
         _os_log_impl(&dword_226177000, v12, OS_LOG_TYPE_DEBUG, "%25s:%-5d Adding certificate to attestastion object CBOR. { certificate=%@ }", buf, 0x1Cu);
       }
 
@@ -4616,7 +4562,7 @@ id generateAttestationObject(void *a1, void *a2, void *a3, void *a4, void *a5)
   [(CBORMap *)v17 setKey:v18 value:v9];
 
   v19 = [[CBORString alloc] initWith:@"receipt"];
-  v20 = [[CBORData alloc] initWith:v47];
+  v20 = [[CBORData alloc] initWith:v46];
   [(CBORMap *)v17 setKey:v19 value:v20];
 
   if (AAInternalLogSystem_onceToken_3 != -1)
@@ -4625,21 +4571,21 @@ id generateAttestationObject(void *a1, void *a2, void *a3, void *a4, void *a5)
   }
 
   v21 = AAInternalLogSystem_log_3;
-  v22 = v46;
+  v22 = v45;
   if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315650;
-    v50 = "AppAttestation.m";
-    v51 = 1024;
-    v52 = 718;
-    v53 = 2112;
-    v54 = v46;
+    v49 = "AppAttestation.m";
+    v50 = 1024;
+    v51 = 718;
+    v52 = 2112;
+    v53 = v45;
     _os_log_impl(&dword_226177000, v21, OS_LOG_TYPE_DEBUG, "%25s:%-5d Adding authenticator data to attestation object CBOR. { authData=%@ }", buf, 0x1Cu);
   }
 
   v23 = objc_alloc_init(CBORMap);
   v24 = [[CBORString alloc] initWith:@"authData"];
-  v25 = [[CBORData alloc] initWith:v46];
+  v25 = [[CBORData alloc] initWith:v45];
   [(CBORMap *)v23 setKey:v24 value:v25];
 
   v26 = [[CBORString alloc] initWith:@"fmt"];
@@ -4649,7 +4595,7 @@ id generateAttestationObject(void *a1, void *a2, void *a3, void *a4, void *a5)
   v28 = [[CBORString alloc] initWith:@"attStmt"];
   [(CBORMap *)v23 setKey:v28 value:v17];
 
-  if (v48)
+  if (v47)
   {
     if (AAInternalLogSystem_onceToken_3 != -1)
     {
@@ -4660,20 +4606,20 @@ id generateAttestationObject(void *a1, void *a2, void *a3, void *a4, void *a5)
     if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v50 = "AppAttestation.m";
-      v51 = 1024;
-      v52 = 726;
+      v49 = "AppAttestation.m";
+      v50 = 1024;
+      v51 = 726;
       _os_log_impl(&dword_226177000, v29, OS_LOG_TYPE_DEBUG, "%25s:%-5d Adding CD Hash data to attestation object CBOR.", buf, 0x12u);
     }
 
     v30 = objc_alloc_init(CBORMap);
     v31 = [[CBORString alloc] initWith:@"hash"];
     v32 = [CBORData alloc];
-    v33 = [v48 cdHash];
+    v33 = [v47 cdHash];
     v34 = [(CBORData *)v32 initWith:v33];
     [(CBORMap *)v30 setKey:v31 value:v34];
 
-    buf[0] = [v48 type];
+    buf[0] = [v47 type];
     v35 = [MEMORY[0x277CBEA90] dataWithBytes:buf length:1];
     v36 = [[CBORString alloc] initWith:@"type"];
     v37 = [[CBORData alloc] initWith:v35];
@@ -4682,7 +4628,7 @@ id generateAttestationObject(void *a1, void *a2, void *a3, void *a4, void *a5)
     v38 = [[CBORString alloc] initWith:@"cdHash"];
     [(CBORMap *)v23 setKey:v38 value:v30];
 
-    v22 = v46;
+    v22 = v45;
   }
 
   v39 = objc_alloc_init(MEMORY[0x277CBEB28]);
@@ -4697,11 +4643,11 @@ id generateAttestationObject(void *a1, void *a2, void *a3, void *a4, void *a5)
   if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315650;
-    v50 = "AppAttestation.m";
-    v51 = 1024;
-    v52 = 743;
-    v53 = 2112;
-    v54 = v39;
+    v49 = "AppAttestation.m";
+    v50 = 1024;
+    v51 = 743;
+    v52 = 2112;
+    v53 = v39;
     _os_log_impl(&dword_226177000, v41, OS_LOG_TYPE_DEBUG, "%25s:%-5d Created attestastion object CBOR. { attObj=%@ }", buf, 0x1Cu);
   }
 
@@ -4711,14 +4657,12 @@ id generateAttestationObject(void *a1, void *a2, void *a3, void *a4, void *a5)
     *a5 = 0;
   }
 
-  v42 = *MEMORY[0x277D85DE8];
-
   return v40;
 }
 
 id generateAssertionObject(__SecKey *a1, void *a2, void *a3, void *a4, void *a5, void *a6)
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v11 = a2;
   v12 = a3;
   v13 = a4;
@@ -4726,8 +4670,8 @@ id generateAssertionObject(__SecKey *a1, void *a2, void *a3, void *a4, void *a5,
   v15 = [objc_alloc(MEMORY[0x277CBEB28]) initWithData:v12];
   [v15 appendData:v13];
   getSHA256(v15);
-  v45 = error = 0;
-  v19 = SecKeyCreateSignature(a1, *MEMORY[0x277CDC300], v45, &error);
+  v44 = error = 0;
+  v19 = SecKeyCreateSignature(a1, *MEMORY[0x277CDC300], v44, &error);
   if (!v19)
   {
     v37 = createAppAttestError("generateAssertionObject", 771, -1, error, @"Failed to sign data with ref key.", v16, v17, v18, context);
@@ -4740,8 +4684,8 @@ id generateAssertionObject(__SecKey *a1, void *a2, void *a3, void *a4, void *a5,
     goto LABEL_11;
   }
 
-  v43 = a6;
-  v44 = v13;
+  v42 = a6;
+  v43 = v13;
   contexta = objc_autoreleasePoolPush();
   v20 = objc_alloc_init(CBORMap);
   v21 = [[CBORString alloc] initWith:@"authenticatorData"];
@@ -4779,23 +4723,23 @@ id generateAssertionObject(__SecKey *a1, void *a2, void *a3, void *a4, void *a5,
     resolveAppUUIDKeychain_cold_1();
   }
 
-  v13 = v44;
+  v13 = v43;
   v36 = AAInternalLogSystem_log_3;
   if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315650;
-    v48 = "AppAttestation.m";
-    v49 = 1024;
-    v50 = 796;
-    v51 = 2112;
-    v52 = v34;
+    v47 = "AppAttestation.m";
+    v48 = 1024;
+    v49 = 796;
+    v50 = 2112;
+    v51 = v34;
     _os_log_impl(&dword_226177000, v36, OS_LOG_TYPE_DEBUG, "%25s:%-5d Created assertion object CBOR. { assertionObj=%@ }", buf, 0x1Cu);
   }
 
   objc_autoreleasePoolPop(contexta);
   v37 = 0;
-  a6 = v43;
-  if (v43)
+  a6 = v42;
+  if (v42)
   {
 LABEL_11:
     if (!v35)
@@ -4811,20 +4755,19 @@ LABEL_13:
     CFRelease(error);
   }
 
-  v39 = *MEMORY[0x277D85DE8];
-
   return v35;
 }
 
-uint64_t saveCredentialKeychain(__SecKey *a1, int a2, void *a3, void *a4, void *a5)
+uint64_t saveCredentialKeychain(__SecKey *a1, uint64_t a2, void *a3, void *a4, void *a5)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v7 = a2;
+  v32 = *MEMORY[0x277D85DE8];
   v9 = a4;
   v10 = a5;
-  v11 = buildKeychainLabel(a2, a3, v9, v10, @"rk");
-  v20 = 0;
-  v12 = store_keychain_item(a1, @"com.apple.appattest.identities", v11, &v20);
-  v13 = v20;
+  v11 = buildKeychainLabel(v7, a3, v9, v10, @"rk");
+  v19 = 0;
+  v12 = store_keychain_item(a1, @"com.apple.appattest.identities", v11, &v19);
+  v13 = v19;
   if (v12)
   {
     if (AAInternalLogSystem_onceToken_3 != -1)
@@ -4836,15 +4779,15 @@ uint64_t saveCredentialKeychain(__SecKey *a1, int a2, void *a3, void *a4, void *
     if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136316162;
-      v22 = "AppAttestation.m";
-      v23 = 1024;
-      v24 = 822;
-      v25 = 2112;
-      v26 = v11;
-      v27 = 2112;
-      v28 = v9;
-      v29 = 2112;
-      v30 = v10;
+      v21 = "AppAttestation.m";
+      v22 = 1024;
+      v23 = 822;
+      v24 = 2112;
+      v25 = v11;
+      v26 = 2112;
+      v27 = v9;
+      v28 = 2112;
+      v29 = v10;
       _os_log_impl(&dword_226177000, v14, OS_LOG_TYPE_DEBUG, "%25s:%-5d [BIKCredentialKeychain] Saved credential to keychain. { 'label':%@, 'appID':%@, 'credentialID':%@ }", buf, 0x30u);
     }
   }
@@ -4862,22 +4805,21 @@ uint64_t saveCredentialKeychain(__SecKey *a1, int a2, void *a3, void *a4, void *
       v16 = v15;
       v17 = [v13 localizedDescription];
       *buf = 136316418;
-      v22 = "AppAttestation.m";
-      v23 = 1024;
-      v24 = 823;
-      v25 = 2112;
-      v26 = v11;
-      v27 = 2112;
-      v28 = v9;
-      v29 = 2112;
-      v30 = v10;
-      v31 = 2112;
-      v32 = v17;
+      v21 = "AppAttestation.m";
+      v22 = 1024;
+      v23 = 823;
+      v24 = 2112;
+      v25 = v11;
+      v26 = 2112;
+      v27 = v9;
+      v28 = 2112;
+      v29 = v10;
+      v30 = 2112;
+      v31 = v17;
       _os_log_impl(&dword_226177000, v16, OS_LOG_TYPE_DEBUG, "%25s:%-5d [BIKCredentialKeychain] Failed to save credential to keychain. { 'label':%@, 'appID':%@, 'credentialID':%@, 'error':%@ }", buf, 0x3Au);
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -4915,15 +4857,15 @@ id buildKeychainLabel(int a1, void *a2, void *a3, void *a4, void *a5)
 
 CFTypeRef loadCredentialKeychain(int a1, void *a2, void *a3, void *a4)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
-  v21 = -1;
+  v20 = -1;
   v9 = buildKeychainLabel(a1, a2, v7, v8, @"rk");
-  v20 = 0;
-  v10 = copy_keychain_item(@"com.apple.appattest.identities", v9, &v21, &v20);
-  v11 = v20;
-  if (v21 || (v18 = CFRetain(v10)) == 0)
+  v19 = 0;
+  v10 = copy_keychain_item(@"com.apple.appattest.identities", v9, &v20, &v19);
+  v11 = v19;
+  if (v20 || (v17 = CFRetain(v10)) == 0)
   {
     if (AAInternalLogSystem_onceToken_3 != -1)
     {
@@ -4936,17 +4878,17 @@ CFTypeRef loadCredentialKeychain(int a1, void *a2, void *a3, void *a4)
       v13 = v12;
       v14 = [v11 localizedDescription];
       *buf = 136316418;
-      v23 = "AppAttestation.m";
-      v24 = 1024;
-      v25 = 849;
-      v26 = 2112;
-      v27 = v9;
-      v28 = 2112;
-      v29 = v7;
-      v30 = 2112;
-      v31 = v8;
-      v32 = 2112;
-      v33 = v14;
+      v22 = "AppAttestation.m";
+      v23 = 1024;
+      v24 = 849;
+      v25 = 2112;
+      v26 = v9;
+      v27 = 2112;
+      v28 = v7;
+      v29 = 2112;
+      v30 = v8;
+      v31 = 2112;
+      v32 = v14;
       _os_log_impl(&dword_226177000, v13, OS_LOG_TYPE_DEFAULT, "%25s:%-5d [BIKCredentialKeychain] Failed to fetch credential from keychain. { 'label':%@, 'appID':%@, 'credentialID':%@, 'error':%@ }", buf, 0x3Au);
     }
 
@@ -4955,26 +4897,26 @@ CFTypeRef loadCredentialKeychain(int a1, void *a2, void *a3, void *a4)
 
   else
   {
-    v15 = v18;
+    v15 = v17;
     if (AAInternalLogSystem_onceToken_3 != -1)
     {
       resolveAppUUIDKeychain_cold_1();
     }
 
-    v19 = AAInternalLogSystem_log_3;
+    v18 = AAInternalLogSystem_log_3;
     if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136316162;
-      v23 = "AppAttestation.m";
-      v24 = 1024;
-      v25 = 848;
-      v26 = 2112;
-      v27 = v9;
-      v28 = 2112;
-      v29 = v7;
-      v30 = 2112;
-      v31 = v8;
-      _os_log_impl(&dword_226177000, v19, OS_LOG_TYPE_DEBUG, "%25s:%-5d [BIKCredentialKeychain] Fetched credential from keychain. { 'label':%@, 'appID':%@, 'credentialID':%@ }", buf, 0x30u);
+      v22 = "AppAttestation.m";
+      v23 = 1024;
+      v24 = 848;
+      v25 = 2112;
+      v26 = v9;
+      v27 = 2112;
+      v28 = v7;
+      v29 = 2112;
+      v30 = v8;
+      _os_log_impl(&dword_226177000, v18, OS_LOG_TYPE_DEBUG, "%25s:%-5d [BIKCredentialKeychain] Fetched credential from keychain. { 'label':%@, 'appID':%@, 'credentialID':%@ }", buf, 0x30u);
     }
   }
 
@@ -4983,17 +4925,16 @@ CFTypeRef loadCredentialKeychain(int a1, void *a2, void *a3, void *a4)
     CFRelease(v10);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 BOOL deleteCredentialKeychainWithLabel(void *a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v1 = a1;
-  v10 = 0;
-  v2 = delete_keychain_item(@"com.apple.appattest.identities", v1, &v10);
-  v3 = v10;
+  v9 = 0;
+  v2 = delete_keychain_item(@"com.apple.appattest.identities", v1, &v9);
+  v3 = v9;
   if (v2)
   {
     if (AAInternalLogSystem_onceToken_3 != -1)
@@ -5005,11 +4946,11 @@ BOOL deleteCredentialKeychainWithLabel(void *a1)
     if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315650;
-      v12 = "AppAttestation.m";
-      v13 = 1024;
-      v14 = 860;
-      v15 = 2112;
-      v16 = v1;
+      v11 = "AppAttestation.m";
+      v12 = 1024;
+      v13 = 860;
+      v14 = 2112;
+      v15 = v1;
       _os_log_impl(&dword_226177000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d [BIKCredentialKeychain] Delete credential from keychain. { 'label':%@ }", buf, 0x1Cu);
     }
   }
@@ -5027,18 +4968,17 @@ BOOL deleteCredentialKeychainWithLabel(void *a1)
       v6 = v5;
       v7 = [v3 localizedDescription];
       *buf = 136315906;
-      v12 = "AppAttestation.m";
-      v13 = 1024;
-      v14 = 861;
-      v15 = 2112;
-      v16 = v1;
-      v17 = 2112;
-      v18 = v7;
+      v11 = "AppAttestation.m";
+      v12 = 1024;
+      v13 = 861;
+      v14 = 2112;
+      v15 = v1;
+      v16 = 2112;
+      v17 = v7;
       _os_log_impl(&dword_226177000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d [BIKCredentialKeychain] Failed to delete credential from keychain. { 'label':%@, 'error':%@ }", buf, 0x26u);
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -5052,12 +4992,12 @@ id getAllCredentialKeychainLabels()
 
 id getAllCredentialKeychainLabelsWithShouldExit(_BYTE *a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v17 = -1;
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = -1;
   v2 = objc_opt_new();
-  v16 = 0;
-  v3 = copy_all_items(@"com.apple.appattest.identities", &v17, &v16);
-  v4 = v16;
+  v15 = 0;
+  v3 = copy_all_items(@"com.apple.appattest.identities", &v16, &v15);
+  v4 = v15;
   if (v3)
   {
     Count = CFArrayGetCount(v3);
@@ -5097,9 +5037,9 @@ LABEL_8:
       if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v19 = "AppAttestation.m";
-        v20 = 1024;
-        v21 = 889;
+        v18 = "AppAttestation.m";
+        v19 = 1024;
+        v20 = 889;
         _os_log_impl(&dword_226177000, v12, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Cannot fetch all credential keychain labels, must exit.", buf, 0x12u);
       }
 
@@ -5114,22 +5054,20 @@ LABEL_8:
 
   v13 = v11;
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 uint64_t saveAssertionCounterKeychain(void *a1, int a2, void *a3, void *a4, void *a5)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v9 = a1;
   v10 = buildKeychainLabel(a2, a3, a4, a5, @"ct");
-  v24 = 0;
-  v11 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v9 requiringSecureCoding:1 error:&v24];
-  v12 = v24;
-  v23 = v12;
-  v13 = store_keychain_data(v11, @"com.apple.appattest.identities", v10, &v23);
-  v14 = v23;
+  v23 = 0;
+  v11 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v9 requiringSecureCoding:1 error:&v23];
+  v12 = v23;
+  v22 = v12;
+  v13 = store_keychain_data(v11, @"com.apple.appattest.identities", v10, &v22);
+  v14 = v22;
 
   if (v13)
   {
@@ -5144,13 +5082,13 @@ uint64_t saveAssertionCounterKeychain(void *a1, int a2, void *a3, void *a4, void
       v16 = v15;
       v17 = [v9 intValue];
       *buf = 136315906;
-      v26 = "AppAttestation.m";
-      v27 = 1024;
-      v28 = 963;
-      v29 = 2112;
-      v30 = v10;
-      v31 = 1024;
-      v32 = v17;
+      v25 = "AppAttestation.m";
+      v26 = 1024;
+      v27 = 963;
+      v28 = 2112;
+      v29 = v10;
+      v30 = 1024;
+      v31 = v17;
       _os_log_impl(&dword_226177000, v16, OS_LOG_TYPE_DEBUG, "%25s:%-5d [AssertionCredentialKeychain] Saved assertion counter to keychain. { 'label':%@, 'counterValue':%d }", buf, 0x22u);
 LABEL_10:
     }
@@ -5170,35 +5108,34 @@ LABEL_10:
       v19 = [v9 intValue];
       v20 = [v14 localizedDescription];
       *buf = 136316162;
-      v26 = "AppAttestation.m";
-      v27 = 1024;
-      v28 = 964;
-      v29 = 2112;
-      v30 = v10;
-      v31 = 1024;
-      v32 = v19;
-      v33 = 2112;
-      v34 = v20;
+      v25 = "AppAttestation.m";
+      v26 = 1024;
+      v27 = 964;
+      v28 = 2112;
+      v29 = v10;
+      v30 = 1024;
+      v31 = v19;
+      v32 = 2112;
+      v33 = v20;
       _os_log_impl(&dword_226177000, v16, OS_LOG_TYPE_DEBUG, "%25s:%-5d [AssertionCredentialKeychain] Failed to save assertion counter to keychain. { 'label':%@, 'counterValue':%d, 'error':%@ }", buf, 0x2Cu);
 
       goto LABEL_10;
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 id loadAssertionCounterKeychain(int a1, void *a2, void *a3, void *a4)
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v21 = -1;
+  v31 = *MEMORY[0x277D85DE8];
+  v20 = -1;
   v4 = buildKeychainLabel(a1, a2, a3, a4, @"ct");
-  v20 = 0;
-  v5 = copy_keychain_data(@"com.apple.appattest.identities", v4, &v21, &v20);
-  v6 = v20;
+  v19 = 0;
+  v5 = copy_keychain_data(@"com.apple.appattest.identities", v4, &v20, &v19);
+  v6 = v19;
   v7 = v6;
-  if (v21)
+  if (v20)
   {
     v8 = v6;
 LABEL_3:
@@ -5214,15 +5151,15 @@ LABEL_3:
       v11 = [0 intValue];
       v12 = [v8 localizedDescription];
       *buf = 136316162;
-      v23 = "AppAttestation.m";
-      v24 = 1024;
-      v25 = 992;
-      v26 = 2112;
-      v27 = v4;
-      v28 = 1024;
-      v29 = v11;
-      v30 = 2112;
-      v31 = v12;
+      v22 = "AppAttestation.m";
+      v23 = 1024;
+      v24 = 992;
+      v25 = 2112;
+      v26 = v4;
+      v27 = 1024;
+      v28 = v11;
+      v29 = 2112;
+      v30 = v12;
       _os_log_impl(&dword_226177000, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d [AssertionCredentialKeychain] Failed to load assertion counter from keychain. { 'label':%@, 'counterValue':%d, 'error':%@ }", buf, 0x2Cu);
     }
 
@@ -5230,9 +5167,9 @@ LABEL_3:
     goto LABEL_8;
   }
 
-  v19 = v6;
-  v13 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v5 error:&v19];
-  v8 = v19;
+  v18 = v6;
+  v13 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v5 error:&v18];
+  v8 = v18;
 
   if (!v13)
   {
@@ -5244,36 +5181,34 @@ LABEL_3:
     resolveAppUUIDKeychain_cold_1();
   }
 
-  v16 = AAInternalLogSystem_log_3;
+  v15 = AAInternalLogSystem_log_3;
   if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
   {
-    v17 = v16;
-    v18 = [v13 intValue];
+    v16 = v15;
+    v17 = [v13 intValue];
     *buf = 136315906;
-    v23 = "AppAttestation.m";
-    v24 = 1024;
-    v25 = 991;
-    v26 = 2112;
-    v27 = v4;
-    v28 = 1024;
-    v29 = v18;
-    _os_log_impl(&dword_226177000, v17, OS_LOG_TYPE_DEBUG, "%25s:%-5d [AssertionCredentialKeychain] Loaded assertion counter from keychain. { 'label':%@, 'counterValue':%d }", buf, 0x22u);
+    v22 = "AppAttestation.m";
+    v23 = 1024;
+    v24 = 991;
+    v25 = 2112;
+    v26 = v4;
+    v27 = 1024;
+    v28 = v17;
+    _os_log_impl(&dword_226177000, v16, OS_LOG_TYPE_DEBUG, "%25s:%-5d [AssertionCredentialKeychain] Loaded assertion counter from keychain. { 'label':%@, 'counterValue':%d }", buf, 0x22u);
   }
 
 LABEL_8:
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 uint64_t deleteAssertionCounterKeychainWithLabel(void *a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v1 = a1;
-  v10 = 0;
-  v2 = delete_keychain_data(@"com.apple.appattest.identities", v1, &v10);
-  v3 = v10;
+  v9 = 0;
+  v2 = delete_keychain_data(@"com.apple.appattest.identities", v1, &v9);
+  v3 = v9;
   if (v2)
   {
     if (AAInternalLogSystem_onceToken_3 != -1)
@@ -5285,11 +5220,11 @@ uint64_t deleteAssertionCounterKeychainWithLabel(void *a1)
     if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315650;
-      v12 = "AppAttestation.m";
-      v13 = 1024;
-      v14 = 1003;
-      v15 = 2112;
-      v16 = v1;
+      v11 = "AppAttestation.m";
+      v12 = 1024;
+      v13 = 1003;
+      v14 = 2112;
+      v15 = v1;
       _os_log_impl(&dword_226177000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d [AssertionCredentialKeychain] Deleted assertion counter from keychain. { 'label':%@ }", buf, 0x1Cu);
     }
   }
@@ -5307,29 +5242,28 @@ uint64_t deleteAssertionCounterKeychainWithLabel(void *a1)
       v6 = v5;
       v7 = [v3 localizedDescription];
       *buf = 136315906;
-      v12 = "AppAttestation.m";
-      v13 = 1024;
-      v14 = 1004;
-      v15 = 2112;
-      v16 = v1;
-      v17 = 2112;
-      v18 = v7;
+      v11 = "AppAttestation.m";
+      v12 = 1024;
+      v13 = 1004;
+      v14 = 2112;
+      v15 = v1;
+      v16 = 2112;
+      v17 = v7;
       _os_log_impl(&dword_226177000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d [AssertionCredentialKeychain] Failed to delete assertion counter from keychain. { 'label':%@, 'error':%@ }", buf, 0x26u);
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 id getAllAssertionCounterKeychainLabelsWithShouldExit(_BYTE *a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v17 = -1;
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = -1;
   v2 = objc_opt_new();
-  v16 = 0;
-  v3 = copy_all_datas(@"com.apple.appattest.identities", &v17, &v16);
-  v4 = v16;
+  v15 = 0;
+  v3 = copy_all_datas(@"com.apple.appattest.identities", &v16, &v15);
+  v4 = v15;
   if (v3)
   {
     Count = CFArrayGetCount(v3);
@@ -5369,9 +5303,9 @@ LABEL_8:
       if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v19 = "AppAttestation.m";
-        v20 = 1024;
-        v21 = 1031;
+        v18 = "AppAttestation.m";
+        v19 = 1024;
+        v20 = 1031;
         _os_log_impl(&dword_226177000, v12, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Cannot fetch all assertion counter keychain labels, must exit.", buf, 0x12u);
       }
 
@@ -5386,14 +5320,12 @@ LABEL_8:
 
   v13 = v11;
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 id getApplicationIdentifierHashFromKeychainLabel(void *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [v1 componentsSeparatedByString:@":"];
   if ([v2 count] > 4)
@@ -5412,39 +5344,37 @@ id getApplicationIdentifierHashFromKeychainLabel(void *a1)
     if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_ERROR))
     {
       v4 = v3;
-      v8 = 136315906;
-      v9 = "AppAttestation.m";
-      v10 = 1024;
-      v11 = 1079;
-      v12 = 2112;
-      v13 = v1;
-      v14 = 2048;
-      v15 = [v2 count];
-      _os_log_impl(&dword_226177000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d [BIKCredentialKeychain] Failed to fetch application identifier from keychain label. { 'label':%@, 'numComponents':%lu }", &v8, 0x26u);
+      v7 = 136315906;
+      v8 = "AppAttestation.m";
+      v9 = 1024;
+      v10 = 1079;
+      v11 = 2112;
+      v12 = v1;
+      v13 = 2048;
+      v14 = [v2 count];
+      _os_log_impl(&dword_226177000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d [BIKCredentialKeychain] Failed to fetch application identifier from keychain label. { 'label':%@, 'numComponents':%lu }", &v7, 0x26u);
     }
 
     v5 = 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 id getAllAppUUIDKeychainLabelsWithShouldExit(_BYTE *a1)
 {
-  v51 = *MEMORY[0x277D85DE8];
-  v42 = -1;
-  v39 = objc_opt_new();
-  v41 = 0;
-  theArray = copy_all_datas(@"com.apple.appattest.identities", &v42, &v41);
-  v30 = v41;
+  v50 = *MEMORY[0x277D85DE8];
+  v41 = -1;
+  v38 = objc_opt_new();
+  v40 = 0;
+  theArray = copy_all_datas(@"com.apple.appattest.identities", &v41, &v40);
+  v29 = v40;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __getAllAppUUIDKeychainLabelsWithShouldExit_block_invoke;
   aBlock[3] = &__block_descriptor_40_e5_v8__0l;
   aBlock[4] = theArray;
-  v31 = _Block_copy(aBlock);
+  v30 = _Block_copy(aBlock);
   if (!theArray)
   {
     v24 = objc_opt_new();
@@ -5460,9 +5390,9 @@ id getAllAppUUIDKeychainLabelsWithShouldExit(_BYTE *a1)
   if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v44 = "AppAttestation.m";
-    v45 = 1024;
-    v46 = 1105;
+    v43 = "AppAttestation.m";
+    v44 = 1024;
+    v45 = 1105;
     _os_log_impl(&dword_226177000, v1, OS_LOG_TYPE_DEBUG, "%25s:%-5d Fetching all App UUIDs values from keychain.", buf, 0x12u);
   }
 
@@ -5470,26 +5400,26 @@ id getAllAppUUIDKeychainLabelsWithShouldExit(_BYTE *a1)
   if (Count < 1)
   {
 LABEL_35:
-    v24 = [MEMORY[0x277CBEA60] arrayWithArray:v39];
+    v24 = [MEMORY[0x277CBEA60] arrayWithArray:v38];
     goto LABEL_42;
   }
 
   v2 = 0;
   key = *MEMORY[0x277CDC080];
-  v29 = *MEMORY[0x277CDC5E8];
+  v28 = *MEMORY[0x277CDC5E8];
   while (*a1 != 1)
   {
     ValueAtIndex = CFArrayGetValueAtIndex(theArray, v2);
     v4 = CFDictionaryGetValue(ValueAtIndex, key);
     if ([v4 hasPrefix:@"au:"])
     {
-      v37 = [v4 componentsSeparatedByString:@":"];
-      if ([v37 count] == 2)
+      v36 = [v4 componentsSeparatedByString:@":"];
+      if ([v36 count] == 2)
       {
-        v5 = [v37 objectAtIndexedSubscript:1];
-        v33 = CFDictionaryGetValue(ValueAtIndex, v29);
-        v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v33 encoding:4];
-        v32 = v6;
+        v5 = [v36 objectAtIndexedSubscript:1];
+        v32 = CFDictionaryGetValue(ValueAtIndex, v28);
+        v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v32 encoding:4];
+        v31 = v6;
         if (v6)
         {
           v7 = [v6 componentsSeparatedByString:@":"];
@@ -5531,11 +5461,11 @@ LABEL_17:
           if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315650;
-            v44 = "AppAttestation.m";
-            v45 = 1024;
-            v46 = 1135;
-            v47 = 2112;
-            v48 = v9;
+            v43 = "AppAttestation.m";
+            v44 = 1024;
+            v45 = 1135;
+            v46 = 2112;
+            v47 = v9;
             _os_log_impl(&dword_226177000, v12, OS_LOG_TYPE_DEBUG, "%25s:%-5d Invalid App UUID found. { appUUID=%@ }", buf, 0x1Cu);
           }
         }
@@ -5566,17 +5496,17 @@ LABEL_17:
             if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
             {
               *buf = 136315906;
-              v44 = "AppAttestation.m";
-              v45 = 1024;
-              v46 = 1145;
-              v47 = 2112;
-              v48 = v9;
-              v49 = 2112;
-              v50 = v22;
+              v43 = "AppAttestation.m";
+              v44 = 1024;
+              v45 = 1145;
+              v46 = 2112;
+              v47 = v9;
+              v48 = 2112;
+              v49 = v22;
               _os_log_impl(&dword_226177000, v23, OS_LOG_TYPE_DEBUG, "%25s:%-5d Fetched App UUID. { appUUID=%@, appUUIDKeychainLabel=%@ }", buf, 0x26u);
             }
 
-            [v39 addObject:v22];
+            [v38 addObject:v22];
 
             v14 = 0;
             v15 = @"p";
@@ -5602,18 +5532,16 @@ LABEL_17:
   if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v44 = "AppAttestation.m";
-    v45 = 1024;
-    v46 = 1110;
+    v43 = "AppAttestation.m";
+    v44 = 1024;
+    v45 = 1110;
     _os_log_impl(&dword_226177000, v25, OS_LOG_TYPE_DEFAULT, "%25s:%-5d App UUIDs fetch operation must exit.", buf, 0x12u);
   }
 
-  v24 = v39;
+  v24 = v38;
 LABEL_42:
   v26 = v24;
-  v31[2]();
-
-  v27 = *MEMORY[0x277D85DE8];
+  v30[2]();
 
   return v26;
 }
@@ -5629,7 +5557,7 @@ void __getAllAppUUIDKeychainLabelsWithShouldExit_block_invoke(uint64_t a1)
 
 id listKeychainItems()
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CC1E70] enumeratorWithOptions:0];
   v1 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v2 = [v0 nextObject];
@@ -5638,11 +5566,11 @@ id listKeychainItems()
     v3 = v2;
     do
     {
+      v51 = 0;
       v52 = 0;
-      v53 = 0;
-      resolveAppAttestApplicationIdentifiersForApplicationRecord(v3, 0, 0, &v53, &v52);
-      v4 = v53;
-      v5 = v52;
+      resolveAppAttestApplicationIdentifiersForApplicationRecord(v3, 0, 0, &v52, &v51);
+      v4 = v52;
+      v5 = v51;
       v6 = [v5 dataUsingEncoding:4];
       v7 = getSHA256(v6);
 
@@ -5657,27 +5585,27 @@ id listKeychainItems()
     while (v9);
   }
 
-  v41 = objc_alloc_init(AppAttestEligibilityManager);
-  v10 = [(AppAttestEligibilityManager *)v41 allowlistedDaemons];
+  v40 = objc_alloc_init(AppAttestEligibilityManager);
+  v10 = [(AppAttestEligibilityManager *)v40 allowlistedDaemons];
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
-  v11 = [v10 countByEnumeratingWithState:&v48 objects:v55 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v47 objects:v54 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v49;
+    v13 = *v48;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v49 != v13)
+        if (*v48 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v48 + 1) + 8 * i);
+        v15 = *(*(&v47 + 1) + 8 * i);
         v16 = [v15 dataUsingEncoding:4];
         v17 = getSHA256(v16);
 
@@ -5685,7 +5613,7 @@ id listKeychainItems()
         [v1 setObject:v15 forKeyedSubscript:v18];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v48 objects:v55 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v47 objects:v54 count:16];
     }
 
     while (v12);
@@ -5699,11 +5627,11 @@ id listKeychainItems()
     v21 = v20;
     do
     {
+      v45 = 0;
       v46 = 0;
-      v47 = 0;
-      resolveAppAttestApplicationIdentifiersForApplicationExtensionRecord(v21, 0, 0, &v47, &v46);
-      v22 = v47;
-      v23 = v46;
+      resolveAppAttestApplicationIdentifiersForApplicationExtensionRecord(v21, 0, 0, &v46, &v45);
+      v22 = v46;
+      v23 = v45;
       v24 = v23;
       if (v22)
       {
@@ -5734,26 +5662,26 @@ id listKeychainItems()
 
   v30 = getAllCredentialKeychainLabels();
   v31 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   v32 = v30;
-  v33 = [v32 countByEnumeratingWithState:&v42 objects:v54 count:16];
+  v33 = [v32 countByEnumeratingWithState:&v41 objects:v53 count:16];
   if (v33)
   {
     v34 = v33;
-    v35 = *v43;
+    v35 = *v42;
     do
     {
       for (j = 0; j != v34; ++j)
       {
-        if (*v43 != v35)
+        if (*v42 != v35)
         {
           objc_enumerationMutation(v32);
         }
 
-        v37 = getApplicationIdentifierHashFromKeychainLabel(*(*(&v42 + 1) + 8 * j));
+        v37 = getApplicationIdentifierHashFromKeychainLabel(*(*(&v41 + 1) + 8 * j));
         v38 = [v1 objectForKey:v37];
         if (v38)
         {
@@ -5761,20 +5689,18 @@ id listKeychainItems()
         }
       }
 
-      v34 = [v32 countByEnumeratingWithState:&v42 objects:v54 count:16];
+      v34 = [v32 countByEnumeratingWithState:&v41 objects:v53 count:16];
     }
 
     while (v34);
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 
   return v31;
 }
 
 void removeAllKeychainItemsForMissingAppsWithShouldExit(_BYTE *a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (AAInternalLogSystem_onceToken_3 != -1)
   {
     AAInternalLogSystem_cold_1();
@@ -5784,9 +5710,9 @@ void removeAllKeychainItemsForMissingAppsWithShouldExit(_BYTE *a1)
   if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v22 = "AppAttestation.m";
-    v23 = 1024;
-    v24 = 1222;
+    v21 = "AppAttestation.m";
+    v22 = 1024;
+    v23 = 1222;
     _os_log_impl(&dword_226177000, v2, OS_LOG_TYPE_DEBUG, "%25s:%-5d Removing all keychain items for missing apps.", buf, 0x12u);
   }
 
@@ -5806,18 +5732,18 @@ void removeAllKeychainItemsForMissingAppsWithShouldExit(_BYTE *a1)
   aBlock[3] = &__block_descriptor_40_e48_v32__0__NSArray_8__NSArray_16___v____NSArray__24l;
   aBlock[4] = a1;
   v10 = _Block_copy(aBlock);
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __removeAllKeychainItemsForMissingAppsWithShouldExit_block_invoke_139;
-  v19[3] = &__block_descriptor_40_e17_v16__0__NSArray_8l;
-  v19[4] = a1;
-  v11 = _Block_copy(v19);
   v18[0] = MEMORY[0x277D85DD0];
   v18[1] = 3221225472;
-  v18[2] = __removeAllKeychainItemsForMissingAppsWithShouldExit_block_invoke_142;
+  v18[2] = __removeAllKeychainItemsForMissingAppsWithShouldExit_block_invoke_139;
   v18[3] = &__block_descriptor_40_e17_v16__0__NSArray_8l;
   v18[4] = a1;
-  v12 = _Block_copy(v18);
+  v11 = _Block_copy(v18);
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __removeAllKeychainItemsForMissingAppsWithShouldExit_block_invoke_142;
+  v17[3] = &__block_descriptor_40_e17_v16__0__NSArray_8l;
+  v17[4] = a1;
+  v12 = _Block_copy(v17);
   if (AAInternalLogSystem_onceToken_3 != -1)
   {
     resolveAppUUIDKeychain_cold_1();
@@ -5827,9 +5753,9 @@ void removeAllKeychainItemsForMissingAppsWithShouldExit(_BYTE *a1)
   if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v22 = "AppAttestation.m";
-    v23 = 1024;
-    v24 = 1313;
+    v21 = "AppAttestation.m";
+    v22 = 1024;
+    v23 = 1313;
     _os_log_impl(&dword_226177000, v13, OS_LOG_TYPE_DEBUG, "%25s:%-5d Removing all stale credential keychain labels.", buf, 0x12u);
   }
 
@@ -5845,21 +5771,19 @@ void removeAllKeychainItemsForMissingAppsWithShouldExit(_BYTE *a1)
   if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v22 = "AppAttestation.m";
-    v23 = 1024;
-    v24 = 1316;
+    v21 = "AppAttestation.m";
+    v22 = 1024;
+    v23 = 1316;
     _os_log_impl(&dword_226177000, v15, OS_LOG_TYPE_DEBUG, "%25s:%-5d Removing all stale assertion counter keychain labels.", buf, 0x12u);
   }
 
   v16 = getAllAssertionCounterKeychainLabelsWithShouldExit(a1);
   v10[2](v10, v16, v9, v12);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 id listOfInstalledAppHashesWithShouldExit(_BYTE *a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CC1E70] enumeratorWithOptions:0];
   v3 = objc_opt_new();
   if (AAInternalLogSystem_onceToken_3 != -1)
@@ -5871,9 +5795,9 @@ id listOfInstalledAppHashesWithShouldExit(_BYTE *a1)
   if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v22 = "AppAttestation.m";
-    v23 = 1024;
-    v24 = 1332;
+    v21 = "AppAttestation.m";
+    v22 = 1024;
+    v23 = 1332;
     _os_log_impl(&dword_226177000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d Fetching hashes for all installed Apps.", buf, 0x12u);
   }
 
@@ -5882,14 +5806,14 @@ id listOfInstalledAppHashesWithShouldExit(_BYTE *a1)
   {
     v7 = v5;
     *&v6 = 136315906;
-    v18 = v6;
+    v17 = v6;
     while (*a1 != 1)
     {
+      v18 = 0;
       v19 = 0;
-      v20 = 0;
-      resolveAppAttestApplicationIdentifiersForApplicationRecord(v7, 0, 0, &v20, &v19);
-      v8 = v20;
-      v9 = v19;
+      resolveAppAttestApplicationIdentifiersForApplicationRecord(v7, 0, 0, &v19, &v18);
+      v8 = v19;
+      v9 = v18;
       v10 = [v9 dataUsingEncoding:4];
       v11 = getSHA256(v10);
 
@@ -5904,19 +5828,19 @@ id listOfInstalledAppHashesWithShouldExit(_BYTE *a1)
         v13 = AAInternalLogSystem_log_3;
         if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
         {
-          *buf = v18;
-          v22 = "AppAttestation.m";
-          v23 = 1024;
-          v24 = 1345;
-          v25 = 2112;
-          v26 = v9;
-          v27 = 2112;
-          v28 = v12;
+          *buf = v17;
+          v21 = "AppAttestation.m";
+          v22 = 1024;
+          v23 = 1345;
+          v24 = 2112;
+          v25 = v9;
+          v26 = 2112;
+          v27 = v12;
           _os_log_impl(&dword_226177000, v13, OS_LOG_TYPE_DEBUG, "%25s:%-5d Fetched App. { appID=%@, appIDHash=%@ }", buf, 0x26u);
         }
       }
 
-      [v3 addObject:{v12, v18}];
+      [v3 addObject:{v12, v17}];
 
       v14 = [v2 nextObject];
 
@@ -5936,30 +5860,28 @@ id listOfInstalledAppHashesWithShouldExit(_BYTE *a1)
     if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v22 = "AppAttestation.m";
-      v23 = 1024;
-      v24 = 1335;
+      v21 = "AppAttestation.m";
+      v22 = 1024;
+      v23 = 1335;
       _os_log_impl(&dword_226177000, v15, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Installed app hashes operation must exit.", buf, 0x12u);
     }
   }
 
 LABEL_20:
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 id listOfAllowlistedDaemonHashesWithShouldExit(_BYTE *a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(AppAttestEligibilityManager);
   v3 = [(AppAttestEligibilityManager *)v2 allowlistedDaemons];
   v4 = [v3 mutableCopy];
 
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   [v4 addObject:@"rcsStressTest.com.apple.coretelephony"];
-  v19 = v2;
+  v18 = v2;
   if (AAInternalLogSystem_onceToken_3 != -1)
   {
     AAInternalLogSystem_cold_1();
@@ -5969,28 +5891,28 @@ id listOfAllowlistedDaemonHashesWithShouldExit(_BYTE *a1)
   if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v26 = "AppAttestation.m";
-    v27 = 1024;
-    v28 = 1403;
+    v25 = "AppAttestation.m";
+    v26 = 1024;
+    v27 = 1403;
     _os_log_impl(&dword_226177000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d Fetching hashes for all allowlisted daemons.", buf, 0x12u);
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   obj = v4;
-  v7 = [obj countByEnumeratingWithState:&v21 objects:v33 count:16];
+  v7 = [obj countByEnumeratingWithState:&v20 objects:v32 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v22;
+    v9 = *v21;
     while (2)
     {
       v10 = 0;
       do
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(obj);
         }
@@ -6006,16 +5928,16 @@ id listOfAllowlistedDaemonHashesWithShouldExit(_BYTE *a1)
           if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315394;
-            v26 = "AppAttestation.m";
-            v27 = 1024;
-            v28 = 1406;
+            v25 = "AppAttestation.m";
+            v26 = 1024;
+            v27 = 1406;
             _os_log_impl(&dword_226177000, v16, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Installed daemons operation must exit.", buf, 0x12u);
           }
 
           goto LABEL_22;
         }
 
-        v11 = *(*(&v21 + 1) + 8 * v10);
+        v11 = *(*(&v20 + 1) + 8 * v10);
         v12 = [v11 dataUsingEncoding:4];
         v13 = getSHA256(v12);
 
@@ -6030,13 +5952,13 @@ id listOfAllowlistedDaemonHashesWithShouldExit(_BYTE *a1)
         if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315906;
-          v26 = "AppAttestation.m";
-          v27 = 1024;
-          v28 = 1413;
-          v29 = 2112;
-          v30 = v11;
-          v31 = 2112;
-          v32 = v14;
+          v25 = "AppAttestation.m";
+          v26 = 1024;
+          v27 = 1413;
+          v28 = 2112;
+          v29 = v11;
+          v30 = 2112;
+          v31 = v14;
           _os_log_impl(&dword_226177000, v15, OS_LOG_TYPE_DEBUG, "%25s:%-5d Fetched daemon. { daemon=%@, daemonHash=%@ }", buf, 0x26u);
         }
 
@@ -6044,7 +5966,7 @@ id listOfAllowlistedDaemonHashesWithShouldExit(_BYTE *a1)
       }
 
       while (v8 != v10);
-      v8 = [obj countByEnumeratingWithState:&v21 objects:v33 count:16];
+      v8 = [obj countByEnumeratingWithState:&v20 objects:v32 count:16];
       if (v8)
       {
         continue;
@@ -6056,14 +5978,12 @@ id listOfAllowlistedDaemonHashesWithShouldExit(_BYTE *a1)
 
 LABEL_22:
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 id listOfInstalledExtensionHashesWithShouldExit(_BYTE *a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CC1E50] enumeratorWithOptions:0];
   v3 = objc_opt_new();
   if (AAInternalLogSystem_onceToken_3 != -1)
@@ -6075,9 +5995,9 @@ id listOfInstalledExtensionHashesWithShouldExit(_BYTE *a1)
   if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v23 = "AppAttestation.m";
-    v24 = 1024;
-    v25 = 1365;
+    v22 = "AppAttestation.m";
+    v23 = 1024;
+    v24 = 1365;
     _os_log_impl(&dword_226177000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d   Installed extensions\n", buf, 0x12u);
   }
 
@@ -6086,14 +6006,14 @@ id listOfInstalledExtensionHashesWithShouldExit(_BYTE *a1)
   {
     v7 = v5;
     *&v6 = 136315906;
-    v19 = v6;
+    v18 = v6;
     while (*a1 != 1)
     {
+      v19 = 0;
       v20 = 0;
-      v21 = 0;
-      resolveAppAttestApplicationIdentifiersForApplicationExtensionRecord(v7, 0, 0, &v21, &v20);
-      v8 = v21;
-      v9 = v20;
+      resolveAppAttestApplicationIdentifiersForApplicationExtensionRecord(v7, 0, 0, &v20, &v19);
+      v8 = v20;
+      v9 = v19;
       v10 = v9;
       if (v9)
       {
@@ -6109,18 +6029,18 @@ id listOfInstalledExtensionHashesWithShouldExit(_BYTE *a1)
         v14 = AAInternalLogSystem_log_3;
         if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
         {
-          *buf = v19;
-          v23 = "AppAttestation.m";
-          v24 = 1024;
-          v25 = 1379;
-          v26 = 2112;
-          v27 = v10;
-          v28 = 2112;
-          v29 = v13;
+          *buf = v18;
+          v22 = "AppAttestation.m";
+          v23 = 1024;
+          v24 = 1379;
+          v25 = 2112;
+          v26 = v10;
+          v27 = 2112;
+          v28 = v13;
           _os_log_impl(&dword_226177000, v14, OS_LOG_TYPE_DEBUG, "%25s:%-5d     %@ -> %@\n", buf, 0x26u);
         }
 
-        [v3 addObject:{v13, v19}];
+        [v3 addObject:{v13, v18}];
       }
 
       v15 = [v2 nextObject];
@@ -6141,51 +6061,49 @@ id listOfInstalledExtensionHashesWithShouldExit(_BYTE *a1)
     if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v23 = "AppAttestation.m";
-      v24 = 1024;
-      v25 = 1368;
+      v22 = "AppAttestation.m";
+      v23 = 1024;
+      v24 = 1368;
       _os_log_impl(&dword_226177000, v16, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Installed extensions operation must exit.", buf, 0x12u);
     }
   }
 
 LABEL_21:
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 void __removeAllKeychainItemsForMissingAppsWithShouldExit_block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   v10 = getAllAppUUIDKeychainLabelsWithShouldExit(*(a1 + 32));
   v11 = objc_opt_new();
+  v52 = 0u;
   v53 = 0u;
   v54 = 0u;
   v55 = 0u;
-  v56 = 0u;
   v12 = v7;
-  v13 = [v12 countByEnumeratingWithState:&v53 objects:v65 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v52 objects:v64 count:16];
   if (v13)
   {
     v15 = v13;
-    v16 = *v54;
+    v16 = *v53;
     *&v14 = 136315650;
-    v39 = v14;
-    v40 = v9;
-    v41 = *v54;
-    v42 = v10;
-    v43 = v11;
-    v44 = v12;
+    v38 = v14;
+    v39 = v9;
+    v40 = *v53;
+    v41 = v10;
+    v42 = v11;
+    v43 = v12;
     while (2)
     {
       v17 = 0;
       do
       {
-        if (*v54 != v16)
+        if (*v53 != v16)
         {
           objc_enumerationMutation(v12);
         }
@@ -6197,17 +6115,17 @@ void __removeAllKeychainItemsForMissingAppsWithShouldExit_block_invoke(uint64_t 
             resolveAppUUIDKeychain_cold_1();
           }
 
-          v9 = v40;
-          v10 = v42;
-          v11 = v43;
-          v38 = AAInternalLogSystem_log_3;
+          v9 = v39;
+          v10 = v41;
+          v11 = v42;
+          v37 = AAInternalLogSystem_log_3;
           if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315394;
-            v59 = "AppAttestation.m";
-            v60 = 1024;
-            v61 = 1235;
-            _os_log_impl(&dword_226177000, v38, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Keychain removal operation must exit.", buf, 0x12u);
+            v58 = "AppAttestation.m";
+            v59 = 1024;
+            v60 = 1235;
+            _os_log_impl(&dword_226177000, v37, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Keychain removal operation must exit.", buf, 0x12u);
           }
 
 LABEL_56:
@@ -6215,26 +6133,26 @@ LABEL_56:
           goto LABEL_57;
         }
 
-        v18 = *(*(&v53 + 1) + 8 * v17);
+        v18 = *(*(&v52 + 1) + 8 * v17);
         v19 = getApplicationIdentifierHashFromKeychainLabel(v18);
         if (v19)
         {
-          v51 = 0u;
-          v52 = 0u;
-          v49 = 0u;
           v50 = 0u;
+          v51 = 0u;
+          v48 = 0u;
+          v49 = 0u;
           v20 = v8;
           v21 = v8;
-          v22 = [v21 countByEnumeratingWithState:&v49 objects:v64 count:16];
+          v22 = [v21 countByEnumeratingWithState:&v48 objects:v63 count:16];
           if (v22)
           {
             v23 = v22;
-            v24 = *v50;
+            v24 = *v49;
 LABEL_10:
             v25 = 0;
             while (1)
             {
-              if (*v50 != v24)
+              if (*v49 != v24)
               {
                 objc_enumerationMutation(v21);
               }
@@ -6247,34 +6165,34 @@ LABEL_10:
                 }
 
                 v8 = v20;
-                v9 = v40;
-                v10 = v42;
-                v11 = v43;
+                v9 = v39;
+                v10 = v41;
+                v11 = v42;
                 v36 = AAInternalLogSystem_log_3;
                 if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 136315394;
-                  v59 = "AppAttestation.m";
-                  v60 = 1024;
-                  v61 = 1247;
+                  v58 = "AppAttestation.m";
+                  v59 = 1024;
+                  v60 = 1247;
 LABEL_54:
                   _os_log_impl(&dword_226177000, v36, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Keychain removal operation must exit.", buf, 0x12u);
                 }
 
 LABEL_55:
 
-                v12 = v44;
+                v12 = v43;
                 goto LABEL_56;
               }
 
-              if ([v19 isEqualToString:*(*(&v49 + 1) + 8 * v25)])
+              if ([v19 isEqualToString:*(*(&v48 + 1) + 8 * v25)])
               {
                 break;
               }
 
               if (v23 == ++v25)
               {
-                v23 = [v21 countByEnumeratingWithState:&v49 objects:v64 count:16];
+                v23 = [v21 countByEnumeratingWithState:&v48 objects:v63 count:16];
                 if (v23)
                 {
                   goto LABEL_10;
@@ -6284,21 +6202,21 @@ LABEL_55:
               }
             }
 
-            v47 = 0u;
-            v48 = 0u;
-            v45 = 0u;
             v46 = 0u;
-            v21 = v42;
-            v29 = [v21 countByEnumeratingWithState:&v45 objects:v57 count:16];
+            v47 = 0u;
+            v44 = 0u;
+            v45 = 0u;
+            v21 = v41;
+            v29 = [v21 countByEnumeratingWithState:&v44 objects:v56 count:16];
             if (v29)
             {
               v30 = v29;
-              v31 = *v46;
+              v31 = *v45;
 LABEL_23:
               v32 = 0;
               while (1)
               {
-                if (*v46 != v31)
+                if (*v45 != v31)
                 {
                   objc_enumerationMutation(v21);
                 }
@@ -6308,7 +6226,7 @@ LABEL_23:
                   break;
                 }
 
-                if ([v18 hasPrefix:*(*(&v45 + 1) + 8 * v32)])
+                if ([v18 hasPrefix:*(*(&v44 + 1) + 8 * v32)])
                 {
                   if (AAInternalLogSystem_onceToken_3 != -1)
                   {
@@ -6319,22 +6237,22 @@ LABEL_23:
                   v34 = AAInternalLogSystem_log_3;
                   if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
                   {
-                    *buf = v39;
-                    v59 = "AppAttestation.m";
-                    v60 = 1024;
-                    v61 = 1271;
-                    v62 = 2112;
-                    v63 = v18;
+                    *buf = v38;
+                    v58 = "AppAttestation.m";
+                    v59 = 1024;
+                    v60 = 1271;
+                    v61 = 2112;
+                    v62 = v18;
                     _os_log_impl(&dword_226177000, v34, OS_LOG_TYPE_DEBUG, "%25s:%-5d Detected App is installed, not removing keychain entries. { label=%@ }", buf, 0x1Cu);
                   }
 
-                  v12 = v44;
+                  v12 = v43;
                   goto LABEL_36;
                 }
 
                 if (v30 == ++v32)
                 {
-                  v30 = [v21 countByEnumeratingWithState:&v45 objects:v57 count:16];
+                  v30 = [v21 countByEnumeratingWithState:&v44 objects:v56 count:16];
                   if (v30)
                   {
                     goto LABEL_23;
@@ -6350,16 +6268,16 @@ LABEL_23:
                 resolveAppUUIDKeychain_cold_1();
               }
 
-              v9 = v40;
-              v10 = v42;
-              v11 = v43;
+              v9 = v39;
+              v10 = v41;
+              v11 = v42;
               v36 = AAInternalLogSystem_log_3;
               if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 136315394;
-                v59 = "AppAttestation.m";
-                v60 = 1024;
-                v61 = 1266;
+                v58 = "AppAttestation.m";
+                v59 = 1024;
+                v60 = 1266;
                 goto LABEL_54;
               }
 
@@ -6374,16 +6292,16 @@ LABEL_30:
             }
 
             v8 = v20;
-            v12 = v44;
+            v12 = v43;
             v33 = AAInternalLogSystem_log_3;
             if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
             {
-              *buf = v39;
-              v59 = "AppAttestation.m";
-              v60 = 1024;
-              v61 = 1278;
-              v62 = 2112;
-              v63 = v18;
+              *buf = v38;
+              v58 = "AppAttestation.m";
+              v59 = 1024;
+              v60 = 1278;
+              v61 = 2112;
+              v62 = v18;
               v27 = v33;
               v28 = "%25s:%-5d Detected App is installed, but App UUID entry in keychain is stale, preparing keychain entry for removal. { label=%@ }";
               goto LABEL_34;
@@ -6399,17 +6317,17 @@ LABEL_17:
               resolveAppUUIDKeychain_cold_1();
             }
 
-            v12 = v44;
+            v12 = v43;
             v26 = AAInternalLogSystem_log_3;
             v8 = v20;
             if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
             {
-              *buf = v39;
-              v59 = "AppAttestation.m";
-              v60 = 1024;
-              v61 = 1259;
-              v62 = 2112;
-              v63 = v18;
+              *buf = v38;
+              v58 = "AppAttestation.m";
+              v59 = 1024;
+              v60 = 1259;
+              v61 = 2112;
+              v62 = v18;
               v27 = v26;
               v28 = "%25s:%-5d Detected App is no longer installed, preparing keychain entry for removal. { label=%@ }";
 LABEL_34:
@@ -6417,20 +6335,20 @@ LABEL_34:
             }
           }
 
-          [v43 addObject:{v18, v39}];
+          [v42 addObject:{v18, v38}];
 LABEL_36:
-          v16 = v41;
+          v16 = v40;
         }
 
         ++v17;
       }
 
       while (v17 != v15);
-      v35 = [v12 countByEnumeratingWithState:&v53 objects:v65 count:16];
+      v35 = [v12 countByEnumeratingWithState:&v52 objects:v64 count:16];
       v15 = v35;
-      v9 = v40;
-      v10 = v42;
-      v11 = v43;
+      v9 = v39;
+      v10 = v41;
+      v11 = v42;
       if (v35)
       {
         continue;
@@ -6442,31 +6360,29 @@ LABEL_36:
 
   v9[2](v9, v11);
 LABEL_57:
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 void __removeAllKeychainItemsForMissingAppsWithShouldExit_block_invoke_139(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v3 = a2;
-  v4 = [v3 countByEnumeratingWithState:&v15 objects:v25 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v14 objects:v24 count:16];
   if (!v4)
   {
     goto LABEL_24;
   }
 
   v5 = v4;
-  v6 = *v16;
+  v6 = *v15;
   while (2)
   {
     for (i = 0; i != v5; ++i)
     {
-      if (*v16 != v6)
+      if (*v15 != v6)
       {
         objc_enumerationMutation(v3);
       }
@@ -6482,16 +6398,16 @@ void __removeAllKeychainItemsForMissingAppsWithShouldExit_block_invoke_139(uint6
         if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v20 = "AppAttestation.m";
-          v21 = 1024;
-          v22 = 1290;
+          v19 = "AppAttestation.m";
+          v20 = 1024;
+          v21 = 1290;
           _os_log_impl(&dword_226177000, v13, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Keychain removal operation must exit.", buf, 0x12u);
         }
 
         goto LABEL_24;
       }
 
-      v8 = *(*(&v15 + 1) + 8 * i);
+      v8 = *(*(&v14 + 1) + 8 * i);
       if (deleteCredentialKeychainWithLabel(v8))
       {
         if (AAInternalLogSystem_onceToken_3 != -1)
@@ -6503,11 +6419,11 @@ void __removeAllKeychainItemsForMissingAppsWithShouldExit_block_invoke_139(uint6
         if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315650;
-          v20 = "AppAttestation.m";
-          v21 = 1024;
-          v22 = 1295;
-          v23 = 2112;
-          v24 = v8;
+          v19 = "AppAttestation.m";
+          v20 = 1024;
+          v21 = 1295;
+          v22 = 2112;
+          v23 = v8;
           v10 = v9;
           v11 = "%25s:%-5d [BIKCredentialKeychain] Removed credential from keychain. { 'label':%@ }";
 LABEL_16:
@@ -6527,11 +6443,11 @@ LABEL_16:
         if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315650;
-          v20 = "AppAttestation.m";
-          v21 = 1024;
-          v22 = 1296;
-          v23 = 2112;
-          v24 = v8;
+          v19 = "AppAttestation.m";
+          v20 = 1024;
+          v21 = 1296;
+          v22 = 2112;
+          v23 = v8;
           v10 = v12;
           v11 = "%25s:%-5d [BIKCredentialKeychain] Failed to remove credential from keychain. { 'label':%@ }";
           goto LABEL_16;
@@ -6539,7 +6455,7 @@ LABEL_16:
       }
     }
 
-    v5 = [v3 countByEnumeratingWithState:&v15 objects:v25 count:16];
+    v5 = [v3 countByEnumeratingWithState:&v14 objects:v24 count:16];
     if (v5)
     {
       continue;
@@ -6549,31 +6465,29 @@ LABEL_16:
   }
 
 LABEL_24:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __removeAllKeychainItemsForMissingAppsWithShouldExit_block_invoke_142(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v3 = a2;
-  v4 = [v3 countByEnumeratingWithState:&v15 objects:v25 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v14 objects:v24 count:16];
   if (!v4)
   {
     goto LABEL_24;
   }
 
   v5 = v4;
-  v6 = *v16;
+  v6 = *v15;
   while (2)
   {
     for (i = 0; i != v5; ++i)
     {
-      if (*v16 != v6)
+      if (*v15 != v6)
       {
         objc_enumerationMutation(v3);
       }
@@ -6589,16 +6503,16 @@ void __removeAllKeychainItemsForMissingAppsWithShouldExit_block_invoke_142(uint6
         if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v20 = "AppAttestation.m";
-          v21 = 1024;
-          v22 = 1303;
+          v19 = "AppAttestation.m";
+          v20 = 1024;
+          v21 = 1303;
           _os_log_impl(&dword_226177000, v13, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Keychain removal operation must exit.", buf, 0x12u);
         }
 
         goto LABEL_24;
       }
 
-      v8 = *(*(&v15 + 1) + 8 * i);
+      v8 = *(*(&v14 + 1) + 8 * i);
       if (deleteAssertionCounterKeychainWithLabel(v8))
       {
         if (AAInternalLogSystem_onceToken_3 != -1)
@@ -6610,11 +6524,11 @@ void __removeAllKeychainItemsForMissingAppsWithShouldExit_block_invoke_142(uint6
         if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315650;
-          v20 = "AppAttestation.m";
-          v21 = 1024;
-          v22 = 1308;
-          v23 = 2112;
-          v24 = v8;
+          v19 = "AppAttestation.m";
+          v20 = 1024;
+          v21 = 1308;
+          v22 = 2112;
+          v23 = v8;
           v10 = v9;
           v11 = "%25s:%-5d [AssertionCredentialKeychain] Removed assertion counter from keychain. { 'label':%@ }";
 LABEL_16:
@@ -6634,11 +6548,11 @@ LABEL_16:
         if (os_log_type_enabled(AAInternalLogSystem_log_3, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315650;
-          v20 = "AppAttestation.m";
-          v21 = 1024;
-          v22 = 1309;
-          v23 = 2112;
-          v24 = v8;
+          v19 = "AppAttestation.m";
+          v20 = 1024;
+          v21 = 1309;
+          v22 = 2112;
+          v23 = v8;
           v10 = v12;
           v11 = "%25s:%-5d [AssertionCredentialKeychain] Failed to remove assertion counter from keychain. { 'label':%@ }";
           goto LABEL_16;
@@ -6646,7 +6560,7 @@ LABEL_16:
       }
     }
 
-    v5 = [v3 countByEnumeratingWithState:&v15 objects:v25 count:16];
+    v5 = [v3 countByEnumeratingWithState:&v14 objects:v24 count:16];
     if (v5)
     {
       continue;
@@ -6656,8 +6570,6 @@ LABEL_16:
   }
 
 LABEL_24:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __fetchPublicKey_block_invoke(uint64_t a1)
@@ -6716,7 +6628,7 @@ uint64_t __AAInternalLogSystem_block_invoke_4()
   return MEMORY[0x2821F96F8]();
 }
 
-uint64_t isRunningInDiagnosticsMode()
+uint64_t isRunningInDiagnosticsMode(uint64_t a1, uint64_t a2)
 {
   if (isRunningInDiagnosticsMode_onceToken != -1)
   {
@@ -6801,43 +6713,42 @@ id isNSData(void *a1)
   return v2;
 }
 
-id copy_process_name()
+id copy_process_name(uint64_t a1)
 {
-  v0 = MEMORY[0x28223BE20]();
+  v1 = MEMORY[0x28223BE20](a1);
   v11 = *MEMORY[0x277D85DE8];
   bzero(buffer, 0x1000uLL);
   memset(v9, 0, sizeof(v9));
-  if (v0 && ([MEMORY[0x277CCAE80] currentConnection], (v1 = objc_claimAutoreleasedReturnValue()) != 0))
+  if (v1 && ([MEMORY[0x277CCAE80] currentConnection], (v2 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v2 = v1;
-    v3 = [v1 processIdentifier];
+    v3 = v2;
+    v4 = [v2 processIdentifier];
   }
 
   else
   {
-    v3 = getpid();
+    v4 = getpid();
   }
 
-  proc_pidpath(v3, buffer, 0x1000u);
-  v4 = strlen(buffer);
-  if ((v4 & 0x80000000) == 0)
+  proc_pidpath(v4, buffer, 0x1000u);
+  v5 = strlen(buffer);
+  if ((v5 & 0x80000000) == 0)
   {
     do
     {
-      if (buffer[v4] == 47)
+      if (buffer[v5] == 47)
       {
         break;
       }
     }
 
-    while (v4-- > 0);
+    while (v5-- > 0);
   }
 
   __strlcpy_chk();
-  v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%s", v9];
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%s", v9];
 
-  return v6;
+  return v7;
 }
 
 uint64_t AppAttest_DeviceAttestation_IsSupportedWithAuditToken(_OWORD *a1)
@@ -6884,15 +6795,15 @@ void AppAttest_DeviceAttestation_AttestKeyWithAuditToken(_OWORD *a1, __SecKey *a
 
 void AppAttest_DeviceAttestation_AttestKey(__SecKey *a1, void *a2, void *a3)
 {
-  v166[1] = *MEMORY[0x277D85DE8];
+  v167[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v154 = 0;
-  v155 = &v154;
-  v156 = 0x3032000000;
-  v157 = __Block_byref_object_copy__1;
-  v158 = __Block_byref_object_dispose__1;
-  v159 = 0;
+  v155 = 0;
+  v156 = &v155;
+  v157 = 0x3032000000;
+  v158 = __Block_byref_object_copy__1;
+  v159 = __Block_byref_object_dispose__1;
+  v160 = 0;
   if (v6)
   {
     v7 = 60.0;
@@ -6939,17 +6850,17 @@ void AppAttest_DeviceAttestation_AttestKey(__SecKey *a1, void *a2, void *a3)
 
         *error = 136315394;
         *&error[4] = v50;
-        v161 = 1024;
-        v162 = 254;
+        v162 = 1024;
+        v163 = 254;
         _os_log_impl(&dword_226177000, v42, OS_LOG_TYPE_ERROR, "%25s:%-5d Device attestation is not supported.", error, 0x12u);
       }
 
-      v51 = createAppAttestError("AppAttest_DeviceAttestation_AttestKey", 255, -4, 0, @"Not supported", v43, v44, v45, v148);
+      v51 = createAppAttestError("AppAttest_DeviceAttestation_AttestKey", 255, -4, 0, @"Not supported", v43, v44, v45, v149);
       goto LABEL_60;
     }
 
-    v8 = (v155 + 5);
-    v9 = v155[5];
+    v8 = (v156 + 5);
+    v9 = v156[5];
     if (isSupportedSPIClient_onceToken_0[0] != -1)
     {
       AppAttest_DeviceAttestation_AttestKey_cold_2();
@@ -6962,15 +6873,15 @@ void AppAttest_DeviceAttestation_AttestKey(__SecKey *a1, void *a2, void *a3)
       {
 
         objc_storeStrong(v8, v9);
-        v17 = (v155 + 5);
-        v18 = v155[5];
+        v17 = (v156 + 5);
+        v18 = v156[5];
         *error = 0;
         v19 = SecTaskCreateFromSelf(*MEMORY[0x277CBECE8]);
         v23 = v19;
         if (!v19)
         {
-          v18 = createAppAttestError("validateDeviceAttestationEntitlements", 77, -1, 0, @"Failed to create task.", v20, v21, v22, v148);
-          v74 = v18;
+          v18 = createAppAttestError("validateDeviceAttestationEntitlements", 77, -1, 0, @"Failed to create task.", v20, v21, v22, v149);
+          v73 = v18;
           v24 = 0;
           v33 = 0;
           v32 = v18;
@@ -6986,11 +6897,11 @@ void AppAttest_DeviceAttestation_AttestKey(__SecKey *a1, void *a2, void *a3)
           v28 = isNSNumber(v27);
           if (!v28 || (v29 = [v27 BOOLValue], v28, (v29 & 1) == 0))
           {
-            v75 = *error;
-            v166[0] = @"com.apple.mobileactivationd.eda";
+            v74 = *error;
+            v167[0] = @"com.apple.mobileactivationd.eda";
             *buf = MEMORY[0x277CBEC38];
-            v69 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v166 count:1];
-            v18 = createAppAttestError("validateDeviceAttestationEntitlements", 89, -5, v75, @"Missing required entitlement: %@", v76, v77, v78, v69);
+            v68 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v167 count:1];
+            v18 = createAppAttestError("validateDeviceAttestationEntitlements", 89, -5, v74, @"Missing required entitlement: %@", v75, v76, v77, v68);
             v24 = v27;
             goto LABEL_70;
           }
@@ -7025,45 +6936,45 @@ LABEL_72:
                 v66 = AAInternalLogSystem_log_5;
                 if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
                 {
+                  v91 = 0;
                   v92 = 0;
-                  v93 = 0;
-                  v94 = 47;
+                  v93 = 47;
                   do
                   {
-                    v95 = &aLibraryCachesC_5[v92];
-                    if (v94 == 47)
+                    v94 = &aLibraryCachesC_5[v91];
+                    if (v93 == 47)
                     {
-                      v93 = &aLibraryCachesC_5[v92];
+                      v92 = &aLibraryCachesC_5[v91];
                     }
 
-                    v94 = v95[1];
-                    if (!v95[1])
+                    v93 = v94[1];
+                    if (!v94[1])
                     {
                       break;
                     }
 
-                    v39 = v92++ >= 0xFFF;
+                    v39 = v91++ >= 0xFFF;
                   }
 
                   while (!v39);
-                  v96 = [v155[5] localizedDescription];
-                  v97 = v96;
-                  if (v93)
+                  v95 = [v156[5] localizedDescription];
+                  v96 = v95;
+                  if (v92)
                   {
-                    v98 = v93 + 1;
+                    v97 = v92 + 1;
                   }
 
                   else
                   {
-                    v98 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/AppAttestInternal/Source/Interfaces/AppAttestDeviceAttestation.m";
+                    v97 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/AppAttestInternal/Source/Interfaces/AppAttestDeviceAttestation.m";
                   }
 
                   *error = 136315650;
-                  *&error[4] = v98;
-                  v161 = 1024;
-                  v162 = 266;
-                  v163 = 2112;
-                  v164 = v96;
+                  *&error[4] = v97;
+                  v162 = 1024;
+                  v163 = 266;
+                  v164 = 2112;
+                  v165 = v95;
                   _os_log_impl(&dword_226177000, v66, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to validate device attestation entitlements. { error=%@ }", error, 0x1Cu);
                 }
 
@@ -7075,47 +6986,47 @@ LABEL_72:
                 AppAttest_DeviceAttestation_AttestKey_cold_1();
               }
 
-              v80 = AAInternalLogSystem_log_5;
+              v79 = AAInternalLogSystem_log_5;
               if (os_log_type_enabled(AAInternalLogSystem_log_5, OS_LOG_TYPE_DEFAULT))
               {
+                v80 = 0;
                 v81 = 0;
-                v82 = 0;
-                v83 = 47;
+                v82 = 47;
                 do
                 {
-                  v84 = &aLibraryCachesC_5[v81];
-                  if (v83 == 47)
+                  v83 = &aLibraryCachesC_5[v80];
+                  if (v82 == 47)
                   {
-                    v82 = &aLibraryCachesC_5[v81];
+                    v81 = &aLibraryCachesC_5[v80];
                   }
 
-                  v83 = v84[1];
-                  if (!v84[1])
+                  v82 = v83[1];
+                  if (!v83[1])
                   {
                     break;
                   }
 
-                  v39 = v81++ >= 0xFFF;
+                  v39 = v80++ >= 0xFFF;
                 }
 
                 while (!v39);
-                if (v82)
+                if (v81)
                 {
-                  v85 = v82 + 1;
+                  v84 = v81 + 1;
                 }
 
                 else
                 {
-                  v85 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/AppAttestInternal/Source/Interfaces/AppAttestDeviceAttestation.m";
+                  v84 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/AppAttestInternal/Source/Interfaces/AppAttestDeviceAttestation.m";
                 }
 
                 *error = 136315650;
-                *&error[4] = v85;
-                v161 = 1024;
-                v162 = 272;
-                v163 = 2112;
-                v164 = a1;
-                _os_log_impl(&dword_226177000, v80, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Attempting to validate key. { referenceKey=%@ }", error, 0x1Cu);
+                *&error[4] = v84;
+                v162 = 1024;
+                v163 = 272;
+                v164 = 2112;
+                v165 = a1;
+                _os_log_impl(&dword_226177000, v79, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Attempting to validate key. { referenceKey=%@ }", error, 0x1Cu);
               }
 
               if (!a1)
@@ -7123,26 +7034,26 @@ LABEL_72:
                 goto LABEL_136;
               }
 
-              v86 = SecKeyCopyAttributes(a1);
-              Value = CFDictionaryGetValue(v86, *MEMORY[0x277CDC158]);
-              v88 = isNSString(Value);
-              v89 = v88;
-              if (!v88 || [v88 compare:*MEMORY[0x277CDC170]] && objc_msgSend(v89, "compare:", *MEMORY[0x277CDC160]))
+              v85 = SecKeyCopyAttributes(a1);
+              Value = CFDictionaryGetValue(v85, *MEMORY[0x277CDC158]);
+              v87 = isNSString(Value);
+              v88 = v87;
+              if (!v87 || [v87 compare:*MEMORY[0x277CDC170]] && objc_msgSend(v88, "compare:", *MEMORY[0x277CDC160]))
               {
+                v89 = 0;
                 v90 = 0;
-                v91 = 0;
                 goto LABEL_117;
               }
 
-              v99 = CFDictionaryGetValue(v86, *MEMORY[0x277CDC018]);
-              v100 = isNSNumber(v99);
-              v91 = v100;
-              if (!v100 || [v100 unsignedLongValue] != 256 && objc_msgSend(v91, "unsignedLongValue") != 384)
+              v98 = CFDictionaryGetValue(v85, *MEMORY[0x277CDC018]);
+              v99 = isNSNumber(v98);
+              v90 = v99;
+              if (!v99 || [v99 unsignedLongValue] != 256 && objc_msgSend(v90, "unsignedLongValue") != 384)
               {
-                v90 = 0;
+                v89 = 0;
 LABEL_117:
-                v103 = 0;
-                if (!v86)
+                v102 = 0;
+                if (!v85)
                 {
                   goto LABEL_119;
                 }
@@ -7150,13 +7061,13 @@ LABEL_117:
                 goto LABEL_118;
               }
 
-              v101 = CFDictionaryGetValue(v86, *MEMORY[0x277CDC028]);
-              v102 = isNSString(v101);
-              v103 = v102;
-              if (!v102 || [v102 compare:*MEMORY[0x277CDC070]] && objc_msgSend(v103, "compare:", *MEMORY[0x277CDC068]) && objc_msgSend(v103, "compare:", *MEMORY[0x277CDC040]) && objc_msgSend(v103, "compare:", *MEMORY[0x277CDC048]))
+              v100 = CFDictionaryGetValue(v85, *MEMORY[0x277CDC028]);
+              v101 = isNSString(v100);
+              v102 = v101;
+              if (!v101 || [v101 compare:*MEMORY[0x277CDC070]] && objc_msgSend(v102, "compare:", *MEMORY[0x277CDC068]) && objc_msgSend(v102, "compare:", *MEMORY[0x277CDC040]) && objc_msgSend(v102, "compare:", *MEMORY[0x277CDC048]))
               {
-                v90 = 0;
-                if (!v86)
+                v89 = 0;
+                if (!v85)
                 {
                   goto LABEL_119;
                 }
@@ -7164,98 +7075,98 @@ LABEL_117:
 
               else
               {
-                v90 = 1;
-                if (!v86)
+                v89 = 1;
+                if (!v85)
                 {
 LABEL_119:
 
-                  if (v90)
+                  if (v89)
                   {
-                    v104 = v5;
-                    v105 = *MEMORY[0x277D04938];
-                    v106 = [v104 objectForKeyedSubscript:*MEMORY[0x277D04938]];
-                    v107 = isNSNumber(v106);
-                    if (v107)
+                    v103 = v5;
+                    v104 = *MEMORY[0x277D04938];
+                    v105 = [v103 objectForKeyedSubscript:*MEMORY[0x277D04938]];
+                    v106 = isNSNumber(v105);
+                    if (v106)
                     {
-                      v108 = [v104 objectForKeyedSubscript:v105];
-                      v109 = [v108 BOOLValue];
+                      v107 = [v103 objectForKeyedSubscript:v104];
+                      v108 = [v107 BOOLValue];
 
-                      if (v109)
+                      if (v108)
                       {
                         v110 = *MEMORY[0x277D048E8];
-                        v111 = [v104 objectForKeyedSubscript:*MEMORY[0x277D048E8]];
+                        v111 = [v103 objectForKeyedSubscript:*MEMORY[0x277D048E8]];
                         v112 = isNSNumber(v111);
 
-                        if (!v112 || ([v104 objectForKeyedSubscript:v110], v113 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v113, "doubleValue"), v7 = v114, v113, v7 > 0.0))
+                        if (!v112 || ([v103 objectForKeyedSubscript:v110], v113 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v113, "doubleValue"), v7 = v114, v113, v7 > 0.0))
                         {
-                          v118 = (v155 + 5);
-                          obj = v155[5];
-                          v41 = createDeviceAttestationRequest(1, 1, a1, v104, &obj);
+                          v118 = (v156 + 5);
+                          obj = v156[5];
+                          v41 = createDeviceAttestationRequest(1, 1, a1, v103, &obj);
                           objc_storeStrong(v118, obj);
                           if (v41)
                           {
 LABEL_62:
-                            if (v155[5])
+                            if (v156[5])
                             {
                               v6[2](v6, 0);
                             }
 
                             else
                             {
-                              v150[0] = MEMORY[0x277D85DD0];
-                              v150[1] = 3221225472;
-                              v150[2] = __AppAttest_DeviceAttestation_AttestKey_block_invoke;
-                              v150[3] = &unk_278585168;
-                              v152 = &v154;
-                              v151 = v6;
-                              AppAttest_Common_AttestKeyRequest(1u, 1, v41, a1, v150, v7);
+                              v151[0] = MEMORY[0x277D85DD0];
+                              v151[1] = 3221225472;
+                              v151[2] = __AppAttest_DeviceAttestation_AttestKey_block_invoke;
+                              v151[3] = &unk_278585168;
+                              v153 = &v155;
+                              v152 = v6;
+                              AppAttest_Common_AttestKeyRequest(1u, 1, v41, a1, v151, v7);
                             }
 
                             goto LABEL_65;
                           }
 
-                          v66 = AAInternalLogSystem_0();
+                          v66 = AAInternalLogSystem_0(v119);
                           if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
                           {
-                            v119 = 0;
                             v120 = 0;
-                            v121 = 47;
+                            v121 = 0;
+                            v122 = 47;
                             do
                             {
-                              v122 = &aLibraryCachesC_5[v119];
-                              if (v121 == 47)
+                              v123 = &aLibraryCachesC_5[v120];
+                              if (v122 == 47)
                               {
-                                v120 = &aLibraryCachesC_5[v119];
+                                v121 = &aLibraryCachesC_5[v120];
                               }
 
-                              v121 = v122[1];
-                              if (!v122[1])
+                              v122 = v123[1];
+                              if (!v123[1])
                               {
                                 break;
                               }
 
-                              v39 = v119++ >= 0xFFF;
+                              v39 = v120++ >= 0xFFF;
                             }
 
                             while (!v39);
-                            v123 = [v155[5] localizedDescription];
-                            v124 = v123;
-                            if (v120)
+                            v124 = [v156[5] localizedDescription];
+                            v125 = v124;
+                            if (v121)
                             {
-                              v125 = v120 + 1;
+                              v126 = v121 + 1;
                             }
 
                             else
                             {
-                              v125 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/AppAttestInternal/Source/Interfaces/AppAttestDeviceAttestation.m";
+                              v126 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/AppAttestInternal/Source/Interfaces/AppAttestDeviceAttestation.m";
                             }
 
                             *error = 136315650;
-                            *&error[4] = v125;
-                            v161 = 1024;
-                            v162 = 297;
-                            v163 = 2112;
-                            v164 = v123;
+                            *&error[4] = v126;
+                            v162 = 1024;
+                            v163 = 297;
+                            v164 = 2112;
+                            v165 = v124;
                             _os_log_impl(&dword_226177000, v66, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to create device attestation request. { error=%@ }", error, 0x1Cu);
                           }
 
@@ -7265,10 +7176,10 @@ LABEL_61:
                           goto LABEL_62;
                         }
 
-                        v51 = createAppAttestError("AppAttest_DeviceAttestation_AttestKey", 289, -2, 0, @"Invalid network timeout requested", v115, v116, v117, v148);
+                        v51 = createAppAttestError("AppAttest_DeviceAttestation_AttestKey", 289, -2, 0, @"Invalid network timeout requested", v115, v116, v117, v149);
 LABEL_60:
-                        v66 = v155[5];
-                        v155[5] = v51;
+                        v66 = v156[5];
+                        v156[5] = v51;
                         goto LABEL_61;
                       }
                     }
@@ -7277,50 +7188,50 @@ LABEL_60:
                     {
                     }
 
-                    v135 = AAInternalLogSystem_0();
-                    if (os_log_type_enabled(v135, OS_LOG_TYPE_ERROR))
+                    v136 = AAInternalLogSystem_0(v109);
+                    if (os_log_type_enabled(v136, OS_LOG_TYPE_ERROR))
                     {
-                      v136 = 0;
                       v137 = 0;
-                      v138 = 47;
+                      v138 = 0;
+                      v139 = 47;
                       do
                       {
-                        v139 = &aLibraryCachesC_5[v136];
-                        if (v138 == 47)
+                        v140 = &aLibraryCachesC_5[v137];
+                        if (v139 == 47)
                         {
-                          v137 = &aLibraryCachesC_5[v136];
+                          v138 = &aLibraryCachesC_5[v137];
                         }
 
-                        v138 = v139[1];
-                        if (!v139[1])
+                        v139 = v140[1];
+                        if (!v140[1])
                         {
                           break;
                         }
 
-                        v39 = v136++ >= 0xFFF;
+                        v39 = v137++ >= 0xFFF;
                       }
 
                       while (!v39);
-                      if (v137)
+                      if (v138)
                       {
-                        v140 = v137 + 1;
+                        v141 = v138 + 1;
                       }
 
                       else
                       {
-                        v140 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/AppAttestInternal/Source/Interfaces/AppAttestDeviceAttestation.m";
+                        v141 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/AppAttestInternal/Source/Interfaces/AppAttestDeviceAttestation.m";
                       }
 
                       *error = 136315650;
-                      *&error[4] = v140;
-                      v161 = 1024;
-                      v162 = 280;
-                      v163 = 2112;
-                      v164 = v104;
-                      _os_log_impl(&dword_226177000, v135, OS_LOG_TYPE_ERROR, "%25s:%-5d Invalid device attestation options. { options=%@ }", error, 0x1Cu);
+                      *&error[4] = v141;
+                      v162 = 1024;
+                      v163 = 280;
+                      v164 = 2112;
+                      v165 = v103;
+                      _os_log_impl(&dword_226177000, v136, OS_LOG_TYPE_ERROR, "%25s:%-5d Invalid device attestation options. { options=%@ }", error, 0x1Cu);
                     }
 
-                    v51 = createAppAttestError("AppAttest_DeviceAttestation_AttestKey", 281, -3, 0, @"Invalid options", v141, v142, v143, v148);
+                    v51 = createAppAttestError("AppAttest_DeviceAttestation_AttestKey", 281, -3, 0, @"Invalid options", v142, v143, v144, v149);
                     goto LABEL_60;
                   }
 
@@ -7330,80 +7241,80 @@ LABEL_136:
                     AppAttest_DeviceAttestation_AttestKey_cold_1();
                   }
 
-                  v126 = AAInternalLogSystem_log_5;
+                  v127 = AAInternalLogSystem_log_5;
                   if (os_log_type_enabled(AAInternalLogSystem_log_5, OS_LOG_TYPE_ERROR))
                   {
-                    v130 = 0;
                     v131 = 0;
-                    v132 = 47;
+                    v132 = 0;
+                    v133 = 47;
                     do
                     {
-                      v133 = &aLibraryCachesC_5[v130];
-                      if (v132 == 47)
+                      v134 = &aLibraryCachesC_5[v131];
+                      if (v133 == 47)
                       {
-                        v131 = &aLibraryCachesC_5[v130];
+                        v132 = &aLibraryCachesC_5[v131];
                       }
 
-                      v132 = v133[1];
-                      if (!v133[1])
+                      v133 = v134[1];
+                      if (!v134[1])
                       {
                         break;
                       }
 
-                      v39 = v130++ >= 0xFFF;
+                      v39 = v131++ >= 0xFFF;
                     }
 
                     while (!v39);
-                    if (v131)
+                    if (v132)
                     {
-                      v134 = v131 + 1;
+                      v135 = v132 + 1;
                     }
 
                     else
                     {
-                      v134 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/AppAttestInternal/Source/Interfaces/AppAttestDeviceAttestation.m";
+                      v135 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/AppAttestInternal/Source/Interfaces/AppAttestDeviceAttestation.m";
                     }
 
                     *error = 136315650;
-                    *&error[4] = v134;
-                    v161 = 1024;
-                    v162 = 274;
-                    v163 = 2112;
-                    v164 = a1;
-                    _os_log_impl(&dword_226177000, v126, OS_LOG_TYPE_ERROR, "%25s:%-5d Invalid referenceKey. { referenceKey=%@ }", error, 0x1Cu);
+                    *&error[4] = v135;
+                    v162 = 1024;
+                    v163 = 274;
+                    v164 = 2112;
+                    v165 = a1;
+                    _os_log_impl(&dword_226177000, v127, OS_LOG_TYPE_ERROR, "%25s:%-5d Invalid referenceKey. { referenceKey=%@ }", error, 0x1Cu);
                   }
 
-                  v51 = createAppAttestError("AppAttest_DeviceAttestation_AttestKey", 275, -3, 0, @"Invalid referenceKey", v127, v128, v129, v148);
+                  v51 = createAppAttestError("AppAttest_DeviceAttestation_AttestKey", 275, -3, 0, @"Invalid referenceKey", v128, v129, v130, v149);
                   goto LABEL_60;
                 }
               }
 
 LABEL_118:
-              CFRelease(v86);
+              CFRelease(v85);
               goto LABEL_119;
             }
           }
 
-          v144 = *error;
-          v166[0] = @"com.apple.security.attestation.access";
+          v145 = *error;
+          v167[0] = @"com.apple.security.attestation.access";
           *buf = MEMORY[0x277CBEC38];
-          v69 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v166 count:1];
-          v73 = createAppAttestError("validateDeviceAttestationEntitlements", 95, -5, v144, @"Missing required entitlement: %@", v145, v146, v147, v69);
+          v68 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v167 count:1];
+          v72 = createAppAttestError("validateDeviceAttestationEntitlements", 95, -5, v145, @"Missing required entitlement: %@", v146, v147, v148, v68);
         }
 
         else
         {
-          v68 = *error;
-          v166[0] = @"com.apple.appattest.spi";
+          v67 = *error;
+          v167[0] = @"com.apple.appattest.spi";
           *buf = MEMORY[0x277CBEC38];
-          v69 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v166 count:1];
-          v73 = createAppAttestError("validateDeviceAttestationEntitlements", 83, -5, v68, @"Missing required entitlement: %@", v70, v71, v72, v69);
+          v68 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v167 count:1];
+          v72 = createAppAttestError("validateDeviceAttestationEntitlements", 83, -5, v67, @"Missing required entitlement: %@", v69, v70, v71, v68);
         }
 
-        v18 = v73;
+        v18 = v72;
 LABEL_70:
 
-        v79 = v18;
+        v78 = v18;
         v33 = 0;
         v32 = v18;
         goto LABEL_71;
@@ -7419,7 +7330,7 @@ LABEL_70:
 
     else
     {
-      v52 = createAppAttestError("isSupportedSPIClient", 197, -1, 0, @"Failed to query process name.", v10, v11, v12, v148);
+      v52 = createAppAttestError("isSupportedSPIClient", 197, -1, 0, @"Failed to query process name.", v10, v11, v12, v149);
     }
 
     v54 = v52;
@@ -7454,7 +7365,7 @@ LABEL_70:
       }
 
       while (!v39);
-      v60 = [v155[5] localizedDescription];
+      v60 = [v156[5] localizedDescription];
       v61 = v60;
       if (v57)
       {
@@ -7468,14 +7379,14 @@ LABEL_70:
 
       *error = 136315650;
       *&error[4] = v62;
-      v161 = 1024;
-      v162 = 260;
-      v163 = 2112;
-      v164 = v60;
+      v162 = 1024;
+      v163 = 260;
+      v164 = 2112;
+      v165 = v60;
       _os_log_impl(&dword_226177000, v55, OS_LOG_TYPE_ERROR, "%25s:%-5d Client is not supported. { error=%@ }", error, 0x1Cu);
     }
 
-    v51 = createAppAttestError("AppAttest_DeviceAttestation_AttestKey", 261, -1, v155[5], @"Client is not supported.", v63, v64, v65, v149);
+    v51 = createAppAttestError("AppAttest_DeviceAttestation_AttestKey", 261, -1, v156[5], @"Client is not supported.", v63, v64, v65, v150);
     goto LABEL_60;
   }
 
@@ -7520,21 +7431,20 @@ LABEL_70:
 
     *error = 136315394;
     *&error[4] = v40;
-    v161 = 1024;
-    v162 = 248;
+    v162 = 1024;
+    v163 = 248;
     _os_log_impl(&dword_226177000, v34, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to attest key, completion handler is nil.", error, 0x12u);
   }
 
   v41 = 0;
 LABEL_65:
 
-  _Block_object_dispose(&v154, 8);
-  v67 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v155, 8);
 }
 
-void sub_22618B748(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22618B748(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7546,16 +7456,16 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-id AAInternalLogSystem_0()
+id AAInternalLogSystem_0(uint64_t a1)
 {
   if (AAInternalLogSystem_onceToken_5 != -1)
   {
     AAInternalLogSystem_cold_1_0();
   }
 
-  v1 = AAInternalLogSystem_log_5;
+  v2 = AAInternalLogSystem_log_5;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __AAInternalLogSystem_block_invoke_5()
@@ -7573,7 +7483,7 @@ void __isSupportedSPIClient_block_invoke_0()
 
 BOOL fetchAlwaysAccessibleKeysEntitlement(_OWORD *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v1 = *MEMORY[0x277CBECE8];
   v2 = a1[1];
   *token.val = *a1;
@@ -7585,20 +7495,20 @@ BOOL fetchAlwaysAccessibleKeysEntitlement(_OWORD *a1)
   aBlock[3] = &__block_descriptor_40_e5_v8__0l;
   aBlock[4] = v3;
   v4 = _Block_copy(aBlock);
-  v13[4] = 0;
+  v12[4] = 0;
   error = 0;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __fetchAlwaysAccessibleKeysEntitlement_block_invoke_2;
-  v13[3] = &__block_descriptor_40_e5_v8__0l;
-  v5 = _Block_copy(v13);
-  v6 = SecTaskCopyValueForEntitlement(v3, @"com.apple.devicecheck.private.always-accessible-keys", &error);
   v12[0] = MEMORY[0x277D85DD0];
   v12[1] = 3221225472;
-  v12[2] = __fetchAlwaysAccessibleKeysEntitlement_block_invoke_3;
+  v12[2] = __fetchAlwaysAccessibleKeysEntitlement_block_invoke_2;
   v12[3] = &__block_descriptor_40_e5_v8__0l;
-  v12[4] = v6;
-  v7 = _Block_copy(v12);
+  v5 = _Block_copy(v12);
+  v6 = SecTaskCopyValueForEntitlement(v3, @"com.apple.devicecheck.private.always-accessible-keys", &error);
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __fetchAlwaysAccessibleKeysEntitlement_block_invoke_3;
+  v11[3] = &__block_descriptor_40_e5_v8__0l;
+  v11[4] = v6;
+  v7 = _Block_copy(v11);
   if (AAInternalLogSystem_onceToken_6 != -1)
   {
     fetchAlwaysAccessibleKeysEntitlement_cold_1();
@@ -7622,7 +7532,6 @@ BOOL fetchAlwaysAccessibleKeysEntitlement(_OWORD *a1)
   v5[2](v5);
   v4[2](v4);
 
-  v10 = *MEMORY[0x277D85DE8];
   return v6 == v8;
 }
 
@@ -7655,7 +7564,7 @@ void __fetchAlwaysAccessibleKeysEntitlement_block_invoke_3(uint64_t a1)
 
 id fetchOptInEntitlements(_OWORD *a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v1 = *MEMORY[0x277CBECE8];
   v2 = a1[1];
   *token.val = *a1;
@@ -7667,13 +7576,13 @@ id fetchOptInEntitlements(_OWORD *a1)
   aBlock[3] = &__block_descriptor_40_e5_v8__0l;
   aBlock[4] = v3;
   v4 = _Block_copy(aBlock);
-  v14[4] = 0;
+  v13[4] = 0;
   error = 0;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __fetchOptInEntitlements_block_invoke_2;
-  v14[3] = &__block_descriptor_40_e5_v8__0l;
-  v5 = _Block_copy(v14);
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __fetchOptInEntitlements_block_invoke_2;
+  v13[3] = &__block_descriptor_40_e5_v8__0l;
+  v5 = _Block_copy(v13);
   v6 = SecTaskCopyValueForEntitlement(v3, @"com.apple.developer.devicecheck.app-attest-opt-in", &error);
   if (error)
   {
@@ -7708,14 +7617,14 @@ LABEL_7:
       fetchAlwaysAccessibleKeysEntitlement_cold_1();
     }
 
-    v13 = AAInternalLogSystem_log_6;
+    v12 = AAInternalLogSystem_log_6;
     if (os_log_type_enabled(AAInternalLogSystem_log_6, OS_LOG_TYPE_DEFAULT))
     {
       token.val[0] = 136315394;
       *&token.val[1] = "AppAttestUtils.m";
       LOWORD(token.val[3]) = 1024;
       *(&token.val[3] + 2) = 62;
-      _os_log_impl(&dword_226177000, v13, OS_LOG_TYPE_DEFAULT, "%25s:%-5d No values for opt-in entitlement found.", &token, 0x12u);
+      _os_log_impl(&dword_226177000, v12, OS_LOG_TYPE_DEFAULT, "%25s:%-5d No values for opt-in entitlement found.", &token, 0x12u);
     }
 
     goto LABEL_7;
@@ -7726,7 +7635,7 @@ LABEL_7:
     fetchAlwaysAccessibleKeysEntitlement_cold_1();
   }
 
-  v12 = AAInternalLogSystem_log_6;
+  v11 = AAInternalLogSystem_log_6;
   if (os_log_type_enabled(AAInternalLogSystem_log_6, OS_LOG_TYPE_DEFAULT))
   {
     token.val[0] = 136315650;
@@ -7735,14 +7644,13 @@ LABEL_7:
     *(&token.val[3] + 2) = 67;
     HIWORD(token.val[4]) = 2112;
     *&token.val[5] = v9;
-    _os_log_impl(&dword_226177000, v12, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Fetched opt-in entitlement values. { values=%@ }", &token, 0x1Cu);
+    _os_log_impl(&dword_226177000, v11, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Fetched opt-in entitlement values. { values=%@ }", &token, 0x1Cu);
   }
 
 LABEL_8:
   v5[2](v5);
 
   v4[2](v4);
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -7774,12 +7682,12 @@ void __fetchOptInEntitlements_block_invoke_2(uint64_t a1)
 
 AppAttestCDHash *fetchCdHash(_OWORD *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v1 = a1[1];
   *atoken.val = *a1;
   *&atoken.val[4] = v1;
   audit_token_to_pid(&atoken);
-  memset(v12, 0, 21);
+  memset(v11, 0, 21);
   v2 = csops();
   if (v2)
   {
@@ -7808,12 +7716,10 @@ AppAttestCDHash *fetchCdHash(_OWORD *a1)
 
   else
   {
-    v8 = [MEMORY[0x277CBEA90] dataWithBytes:v12 length:20];
+    v8 = [MEMORY[0x277CBEA90] dataWithBytes:v11 length:20];
     v9 = [AppAttestCDHash alloc];
-    v7 = [(AppAttestCDHash *)v9 initWithHash:v8 andType:BYTE4(v12[2])];
+    v7 = [(AppAttestCDHash *)v9 initWithHash:v8 andType:BYTE4(v11[2])];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -7960,16 +7866,16 @@ uint64_t __AAInternalLogSystem_block_invoke_6()
   return MEMORY[0x2821F96F8]();
 }
 
-id AAInternalLogSystem_1()
+id AAInternalLogSystem_1(uint64_t a1)
 {
   if (AAInternalLogSystem_onceToken_7 != -1)
   {
     AAInternalLogSystem_cold_1_1();
   }
 
-  v1 = AAInternalLogSystem_log_7;
+  v2 = AAInternalLogSystem_log_7;
 
-  return v1;
+  return v2;
 }
 
 uint64_t AppAttest_AppAttestation_IsEligibleApplicationPriv(__int128 *a1)
@@ -7996,7 +7902,7 @@ uint64_t AppAttest_AppAttestation_IsEligibleApplicationPriv(__int128 *a1)
 
 uint64_t AppAttest_AppAttestation_IsSupportedAndEligibleApplication(_OWORD *a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(AppAttestEligibilityManager);
   v3 = [(AppAttestEligibilityManager *)v2 isSupportedHardware];
 
@@ -8041,18 +7947,18 @@ uint64_t AppAttest_AppAttestation_IsSupportedAndEligibleApplication(_OWORD *a1)
         v10 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/AppAttestInternal/Source/Interfaces/AppAttestAppAttestation.m";
       }
 
-      *v21 = 136315394;
-      *&v21[4] = v10;
-      *&v21[12] = 1024;
-      *&v21[14] = 106;
-      _os_log_impl(&dword_226177000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d App Attest is not supported.", v21, 0x12u);
+      *v20 = 136315394;
+      *&v20[4] = v10;
+      *&v20[12] = 1024;
+      *&v20[14] = 106;
+      _os_log_impl(&dword_226177000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d App Attest is not supported.", v20, 0x12u);
     }
   }
 
   v11 = a1[1];
-  *v21 = *a1;
-  *&v21[16] = v11;
-  IsEligibleApplication = AppAttest_AppAttestation_IsEligibleApplication(v21);
+  *v20 = *a1;
+  *&v20[16] = v11;
+  IsEligibleApplication = AppAttest_AppAttestation_IsEligibleApplication(v20);
   if ((IsEligibleApplication & 1) == 0)
   {
     if (AAInternalLogSystem_onceToken_7 != -1)
@@ -8094,15 +8000,14 @@ uint64_t AppAttest_AppAttestation_IsSupportedAndEligibleApplication(_OWORD *a1)
         v18 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/AppAttestInternal/Source/Interfaces/AppAttestAppAttestation.m";
       }
 
-      *v21 = 136315394;
-      *&v21[4] = v18;
-      *&v21[12] = 1024;
-      *&v21[14] = 109;
-      _os_log_impl(&dword_226177000, v13, OS_LOG_TYPE_DEBUG, "%25s:%-5d Client application is not eligible to use App Attest.", v21, 0x12u);
+      *v20 = 136315394;
+      *&v20[4] = v18;
+      *&v20[12] = 1024;
+      *&v20[14] = 109;
+      _os_log_impl(&dword_226177000, v13, OS_LOG_TYPE_DEBUG, "%25s:%-5d Client application is not eligible to use App Attest.", v20, 0x12u);
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v3 & IsEligibleApplication;
 }
 
@@ -8131,7 +8036,7 @@ void AppAttest_AppAttestation_CreateKey(__int128 *a1, void *a2, void *a3)
 
 void CreateKey(_OWORD *a1, void *a2, void *a3, void *a4)
 {
-  v106 = *MEMORY[0x277D85DE8];
+  v105 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -8159,24 +8064,24 @@ LABEL_7:
         *buf = *a1;
         *&buf[16] = v18;
         EnvironmentByAppSigning = generateEnvironmentByAppSigning(buf);
-        v102 = 0;
-        v103 = 0;
         v101 = 0;
+        v102 = 0;
+        v100 = 0;
         v19 = a1[1];
         *buf = *a1;
         *&buf[16] = v19;
-        v20 = extractApplicationIdentifiers(buf, v7, &v103, &v102, &v101);
-        v21 = v103;
-        v22 = v102;
-        v26 = v101;
+        v20 = extractApplicationIdentifiers(buf, v7, &v102, &v101, &v100);
+        v21 = v102;
+        v22 = v101;
+        v26 = v100;
         if (v20)
         {
           resolveAppUUIDKeychain(v8, v21, v22);
-          v98 = v96 = v22;
-          if (!v98)
+          v97 = v95 = v22;
+          if (!v97)
           {
             v27 = [MEMORY[0x277CCAD78] UUID];
-            v98 = [v27 UUIDString];
+            v97 = [v27 UUIDString];
           }
 
           v28 = a1[1];
@@ -8244,22 +8149,22 @@ LABEL_7:
             v29 = 0;
           }
 
-          v100 = v26;
-          v48 = createReferenceKeyBlob(v29, 0, &v100);
-          v49 = v100;
+          v99 = v26;
+          v48 = createReferenceKeyBlob(v29, 0, &v99);
+          v49 = v99;
 
           if (v48)
           {
-            v99 = v49;
-            v46 = generateCredentialIdString(v48, &v99, v50, v51, v52, v53, v54, v55);
-            v45 = v99;
+            v98 = v49;
+            v46 = generateCredentialIdString(v48, &v98, v50, v51, v52, v53, v54, v55);
+            v45 = v98;
 
             if (v46)
             {
-              v47 = v96;
-              if (saveCredentialKeychain(v48, EnvironmentByAppSigning, v98, v96, v46))
+              v47 = v95;
+              if (saveCredentialKeychain(v48, EnvironmentByAppSigning, v97, v95, v46))
               {
-                if (v98 == v8 || (saveAppUUIDKeychain(v98, v21, v96) & 1) != 0)
+                if (v97 == v8 || (saveAppUUIDKeychain(v97, v21, v95) & 1) != 0)
                 {
                   v15 = &unk_28136F000;
 LABEL_69:
@@ -8267,14 +8172,14 @@ LABEL_69:
                   goto LABEL_70;
                 }
 
-                v74 = createAppAttestError("CreateKey", 364, -3, 0, @"Failed to refresh appUUID keychain", v62, v63, v64, v94);
+                v74 = createAppAttestError("CreateKey", 364, -3, 0, @"Failed to refresh appUUID keychain", v62, v63, v64, v93);
 
-                v98 = 0;
+                v97 = 0;
               }
 
               else
               {
-                v74 = createAppAttestError("CreateKey", 357, -3, 0, @"Failed to store keychain", v59, v60, v61, v94);
+                v74 = createAppAttestError("CreateKey", 357, -3, 0, @"Failed to store keychain", v59, v60, v61, v93);
               }
 
               v45 = v46;
@@ -8283,27 +8188,27 @@ LABEL_69:
 
             else
             {
-              v74 = createAppAttestError("CreateKey", 352, -3, v45, @"Failed to generate credentialId", v56, v57, v58, v94);
+              v74 = createAppAttestError("CreateKey", 352, -3, v45, @"Failed to generate credentialId", v56, v57, v58, v93);
             }
 
             v46 = 0;
             v45 = v74;
-            v47 = v96;
+            v47 = v95;
             goto LABEL_69;
           }
 
-          v45 = createAppAttestError("CreateKey", 346, -3, v49, @"Failed to create bik", v53, v54, v55, v94);
+          v45 = createAppAttestError("CreateKey", 346, -3, v49, @"Failed to create bik", v53, v54, v55, v93);
 
           v46 = 0;
-          v47 = v96;
+          v47 = v95;
         }
 
         else
         {
-          v45 = createAppAttestError("CreateKey", 327, -2, v26, @"Unable to fetch application identifier", v23, v24, v25, v94);
+          v45 = createAppAttestError("CreateKey", 327, -2, v26, @"Unable to fetch application identifier", v23, v24, v25, v93);
 
           v46 = 0;
-          v98 = 0;
+          v97 = 0;
           v47 = v22;
         }
 
@@ -8319,7 +8224,7 @@ LABEL_70:
           v76 = AAInternalLogSystem_log_7;
           if (os_log_type_enabled(v76, OS_LOG_TYPE_DEBUG))
           {
-            v97 = v47;
+            v96 = v47;
             v77 = v7;
             v78 = v10;
             v79 = v21;
@@ -8363,14 +8268,14 @@ LABEL_70:
             *&buf[18] = 2112;
             *&buf[20] = v86;
             *&buf[28] = 2112;
-            *&buf[30] = v98;
+            *&buf[30] = v97;
             _os_log_impl(&dword_226177000, v76, OS_LOG_TYPE_DEBUG, "%25s:%-5d Failed to create key. { error=%@, appUUID=%@ }", buf, 0x26u);
 
             v8 = v80;
             v21 = v79;
             v10 = v78;
             v7 = v77;
-            v47 = v97;
+            v47 = v96;
           }
         }
 
@@ -8422,12 +8327,12 @@ LABEL_70:
             *&buf[18] = 2112;
             *&buf[20] = v46;
             *&buf[28] = 2112;
-            *&buf[30] = v98;
+            *&buf[30] = v97;
             _os_log_impl(&dword_226177000, v87, OS_LOG_TYPE_DEBUG, "%25s:%-5d Created key. { keyId=%@, appUUID=%@ }", buf, 0x26u);
           }
         }
 
-        v9[2](v9, v98, v46, v45);
+        v9[2](v9, v97, v46, v45);
 
         goto LABEL_99;
       }
@@ -8478,16 +8383,16 @@ LABEL_70:
         _os_log_impl(&dword_226177000, v65, OS_LOG_TYPE_ERROR, "%25s:%-5d Client is not eligible for priv service.", buf, 0x12u);
       }
 
-      v45 = createAppAttestError("CreateKey", 316, -4, 0, @"Client is not eligible for priv service.", v66, v67, v68, v94);
+      v45 = createAppAttestError("CreateKey", 316, -4, 0, @"Client is not eligible for priv service.", v66, v67, v68, v93);
     }
 
     else
     {
-      v45 = createAppAttestError("CreateKey", 304, -4, 0, @"Client is not eligible.", v12, v13, v14, v94);
+      v45 = createAppAttestError("CreateKey", 304, -4, 0, @"Client is not eligible.", v12, v13, v14, v93);
     }
 
     v46 = 0;
-    v98 = 0;
+    v97 = 0;
     v21 = 0;
     v47 = 0;
     goto LABEL_70;
@@ -8540,8 +8445,6 @@ LABEL_70:
   }
 
 LABEL_99:
-
-  v93 = *MEMORY[0x277D85DE8];
 }
 
 void AppAttest_AppAttestation_CreateKeyWithTeamIdentifier(__int128 *a1, void *a2, void *a3, void *a4)
@@ -8587,7 +8490,7 @@ void AppAttest_AppAttestation_AttestKey(__int128 *a1, void *a2, void *a3, void *
 
 void AttestKey(_OWORD *a1, void *a2, void *a3, void *a4, void *a5, void *a6)
 {
-  v182 = *MEMORY[0x277D85DE8];
+  v183 = *MEMORY[0x277D85DE8];
   v11 = a2;
   v12 = a3;
   v13 = a4;
@@ -8599,8 +8502,8 @@ void AttestKey(_OWORD *a1, void *a2, void *a3, void *a4, void *a5, void *a6)
     v17 = a1[1];
     *buf = *a1;
     *&buf[16] = v17;
-    v156 = v16;
-    v157 = v12;
+    v157 = v16;
+    v158 = v12;
     if ([(AppAttestEligibilityManager *)v16 isEligibleClientFor:buf])
     {
       if (!v11)
@@ -8616,29 +8519,29 @@ LABEL_7:
         v23 = a1[1];
         *buf = *a1;
         *&buf[16] = v23;
-        HIDWORD(v147) = generateEnvironmentByAppSigning(buf);
-        v179 = 0;
+        HIDWORD(v148) = generateEnvironmentByAppSigning(buf);
         v180 = 0;
-        v178 = 0;
+        v181 = 0;
+        v179 = 0;
         v24 = a1[1];
         *buf = *a1;
         *&buf[16] = v24;
-        v25 = extractApplicationIdentifiers(buf, v11, &v180, &v179, &v178);
-        v26 = v180;
-        v27 = v179;
-        v162 = v178;
+        v25 = extractApplicationIdentifiers(buf, v11, &v181, &v180, &v179);
+        v26 = v181;
+        v27 = v180;
+        v163 = v179;
         if (v25)
         {
           v28 = resolveAppUUIDKeychain(v12, v26, v27);
           if (v28)
           {
-            v150 = v28;
+            v151 = v28;
             v29 = isNSString(v13);
 
             if (v29)
             {
               v30 = isNSData(v14);
-              v154 = v26;
+              v155 = v26;
               if (v30)
               {
                 v31 = v30;
@@ -8646,17 +8549,17 @@ LABEL_7:
 
                 if (v32 < 0x21)
                 {
-                  v51 = HIDWORD(v147);
-                  v52 = v150;
-                  CredentialKeychain = loadCredentialKeychain(SHIDWORD(v147), v150, v27, v13);
+                  v51 = HIDWORD(v148);
+                  v52 = v151;
+                  CredentialKeychain = loadCredentialKeychain(SHIDWORD(v148), v151, v27, v13);
                   if (CredentialKeychain)
                   {
-                    v115 = loadAssertionCounterKeychain(SHIDWORD(v147), v150, v27, v13);
-                    v116 = v115;
-                    if (v115 && [v115 intValue] >= 2)
+                    v114 = loadAssertionCounterKeychain(SHIDWORD(v148), v151, v27, v13);
+                    v115 = v114;
+                    if (v114 && (v116 = [v114 intValue], v116 >= 2))
                     {
-                      v161 = v116;
-                      v117 = AAInternalLogSystem_1();
+                      v162 = v115;
+                      v117 = AAInternalLogSystem_1(v116);
                       if (os_log_type_enabled(v117, OS_LOG_TYPE_ERROR))
                       {
                         v118 = 0;
@@ -8690,7 +8593,7 @@ LABEL_7:
                           v122 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/AppAttestInternal/Source/Interfaces/AppAttestAppAttestation.m";
                         }
 
-                        v123 = [v161 intValue];
+                        v123 = [v162 intValue];
                         *buf = 136316674;
                         *&buf[4] = v122;
                         *&buf[12] = 1024;
@@ -8700,7 +8603,7 @@ LABEL_7:
                         *&buf[28] = 1024;
                         *&buf[30] = v123;
                         *&buf[34] = 2112;
-                        *&buf[36] = v150;
+                        *&buf[36] = v151;
                         *&buf[44] = 2112;
                         *&buf[46] = v27;
                         *&buf[54] = 2112;
@@ -8708,25 +8611,25 @@ LABEL_7:
                         _os_log_impl(&dword_226177000, v117, OS_LOG_TYPE_ERROR, "%25s:%-5d Key already used, cannot be re-attested. { keyID=%@, counter=%d, appUUID=%@, resolvedAppID=%@, realAppID=%@ }", buf, 0x40u);
                       }
 
-                      v44 = createAppAttestError("AttestKey", 463, -3, 0, @"Key already used, cannot be reattested.", v124, v125, v126, v147);
+                      v44 = createAppAttestError("AttestKey", 463, -3, 0, @"Key already used, cannot be reattested.", v124, v125, v126, v148);
 
-                      v163 = 0;
+                      v164 = 0;
                     }
 
                     else
                     {
-                      v161 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:0];
+                      v162 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:0];
 
-                      v177 = v162;
-                      v127 = createAppAttestationAuthenticatorDataFull(SHIDWORD(v147), v27, v161, CredentialKeychain, &v177);
-                      v160 = v177;
+                      v178 = v163;
+                      v127 = createAppAttestationAuthenticatorDataFull(SHIDWORD(v148), v27, v162, CredentialKeychain, &v178);
+                      v161 = v178;
 
-                      v163 = v127;
+                      v164 = v127;
                       if (v127)
                       {
-                        v44 = v160;
+                        v44 = v161;
 LABEL_100:
-                        v159 = v44;
+                        v160 = v44;
                         if (v44)
                         {
                           if (AAInternalLogSystem_onceToken_7 != -1)
@@ -8738,7 +8641,7 @@ LABEL_100:
                           v91 = AAInternalLogSystem_log_7;
                           if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
                           {
-                            v151 = v52;
+                            v152 = v52;
                             v92 = v27;
                             v93 = v15;
                             v94 = v14;
@@ -8789,12 +8692,12 @@ LABEL_100:
                             v14 = v94;
                             v15 = v93;
                             v27 = v92;
-                            v52 = v151;
+                            v52 = v152;
                             v90 = CredentialKeychain;
                           }
 
-                          v102 = v159;
-                          (*(v15 + 2))(v15, 0, v159);
+                          v102 = v160;
+                          (*(v15 + 2))(v15, 0, v160);
                           if (!v90)
                           {
                             goto LABEL_116;
@@ -8803,43 +8706,43 @@ LABEL_100:
 
                         else
                         {
-                          v152 = v27;
-                          v104 = dispatch_semaphore_create(0);
-                          v164[0] = MEMORY[0x277D85DD0];
-                          v164[1] = 3221225472;
-                          v164[2] = __AttestKey_block_invoke;
-                          v164[3] = &unk_278585288;
-                          v174 = v51;
-                          v165 = v13;
-                          v166 = v161;
-                          v167 = v52;
-                          v105 = v27;
-                          v106 = v15;
-                          v107 = v14;
-                          v108 = v13;
-                          v109 = v11;
-                          v110 = v105;
-                          v168 = v105;
-                          v169 = v26;
-                          v111 = a1[1];
-                          v175 = *a1;
-                          v176 = v111;
-                          v170 = v163;
-                          v171 = 0;
-                          v172 = v104;
-                          v173 = v106;
-                          v112 = v104;
-                          v113 = v51;
-                          v114 = v110;
-                          v11 = v109;
-                          v13 = v108;
-                          v14 = v107;
-                          v15 = v106;
+                          v153 = v27;
+                          v103 = dispatch_semaphore_create(0);
+                          v165[0] = MEMORY[0x277D85DD0];
+                          v165[1] = 3221225472;
+                          v165[2] = __AttestKey_block_invoke;
+                          v165[3] = &unk_278585288;
+                          v175 = v51;
+                          v166 = v13;
+                          v167 = v162;
+                          v168 = v52;
+                          v104 = v27;
+                          v105 = v15;
+                          v106 = v14;
+                          v107 = v13;
+                          v108 = v11;
+                          v109 = v104;
+                          v169 = v104;
+                          v170 = v26;
+                          v110 = a1[1];
+                          v176 = *a1;
+                          v177 = v110;
+                          v171 = v164;
+                          v172 = 0;
+                          v173 = v103;
+                          v174 = v105;
+                          v111 = v103;
+                          v112 = v51;
+                          v113 = v109;
+                          v11 = v108;
+                          v13 = v107;
+                          v14 = v106;
+                          v15 = v105;
                           v90 = CredentialKeychain;
-                          AppAttest_Common_AttestKey(0, v113, v114, CredentialKeychain, v170, v14, v164);
-                          dispatch_semaphore_wait(v112, 0xFFFFFFFFFFFFFFFFLL);
+                          AppAttest_Common_AttestKey(0, v112, v113, CredentialKeychain, v171, v14, v165);
+                          dispatch_semaphore_wait(v111, 0xFFFFFFFFFFFFFFFFLL);
 
-                          v27 = v152;
+                          v27 = v153;
                           v102 = 0;
                           if (!CredentialKeychain)
                           {
@@ -8850,135 +8753,135 @@ LABEL_100:
                         CFRelease(v90);
 LABEL_116:
 
-                        v12 = v157;
+                        v12 = v158;
                         goto LABEL_117;
                       }
 
-                      v153 = v27;
-                      v137 = AAInternalLogSystem_1();
-                      if (os_log_type_enabled(v137, OS_LOG_TYPE_ERROR))
+                      v154 = v27;
+                      v138 = AAInternalLogSystem_1(v128);
+                      if (os_log_type_enabled(v138, OS_LOG_TYPE_ERROR))
                       {
-                        v138 = 0;
                         v139 = 0;
-                        v140 = 47;
+                        v140 = 0;
+                        v141 = 47;
                         do
                         {
-                          v141 = &aLibraryCachesC_7[v138];
-                          if (v140 == 47)
+                          v142 = &aLibraryCachesC_7[v139];
+                          if (v141 == 47)
                           {
-                            v139 = &aLibraryCachesC_7[v138];
+                            v140 = &aLibraryCachesC_7[v139];
                           }
 
-                          v140 = v141[1];
-                          if (!v141[1])
+                          v141 = v142[1];
+                          if (!v142[1])
                           {
                             break;
                           }
 
-                          v38 = v138++ >= 0xFFF;
+                          v38 = v139++ >= 0xFFF;
                         }
 
                         while (!v38);
-                        if (v139)
+                        if (v140)
                         {
-                          v142 = v139 + 1;
+                          v143 = v140 + 1;
                         }
 
                         else
                         {
-                          v142 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/AppAttestInternal/Source/Interfaces/AppAttestAppAttestation.m";
+                          v143 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/AppAttestInternal/Source/Interfaces/AppAttestAppAttestation.m";
                         }
 
-                        v143 = [v161 intValue];
+                        v144 = [v162 intValue];
                         *buf = 136316930;
-                        *&buf[4] = v142;
+                        *&buf[4] = v143;
                         *&buf[12] = 1024;
                         *&buf[14] = 473;
                         *&buf[18] = 1024;
-                        *&buf[20] = HIDWORD(v147);
+                        *&buf[20] = HIDWORD(v148);
                         *&buf[24] = 2112;
                         *&buf[26] = v13;
                         *&buf[34] = 1024;
-                        *&buf[36] = v143;
+                        *&buf[36] = v144;
                         *&buf[40] = 2112;
-                        *&buf[42] = v150;
+                        *&buf[42] = v151;
                         *&buf[50] = 2112;
-                        *&buf[52] = v153;
+                        *&buf[52] = v154;
                         *&buf[60] = 2112;
-                        *&buf[62] = v154;
-                        _os_log_impl(&dword_226177000, v137, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to create authenticator data for attestation. { env=%d, keyID=%@, counter=%d, appUUID=%@, resolvedAppID=%@, realAppID=%@ }", buf, 0x46u);
+                        *&buf[62] = v155;
+                        _os_log_impl(&dword_226177000, v138, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to create authenticator data for attestation. { env=%d, keyID=%@, counter=%d, appUUID=%@, resolvedAppID=%@, realAppID=%@ }", buf, 0x46u);
                       }
 
-                      v44 = createAppAttestError("AttestKey", 474, -3, v160, @"Failed to generate authenticator data", v144, v145, v146, v147);
+                      v44 = createAppAttestError("AttestKey", 474, -3, v161, @"Failed to generate authenticator data", v145, v146, v147, v148);
 
-                      v163 = 0;
-                      v27 = v153;
-                      v26 = v154;
+                      v164 = 0;
+                      v27 = v154;
+                      v26 = v155;
                     }
                   }
 
                   else
                   {
-                    v128 = AAInternalLogSystem_1();
-                    if (os_log_type_enabled(v128, OS_LOG_TYPE_ERROR))
+                    v129 = AAInternalLogSystem_1(0);
+                    if (os_log_type_enabled(v129, OS_LOG_TYPE_ERROR))
                     {
-                      v129 = 0;
                       v130 = 0;
-                      v131 = 47;
+                      v131 = 0;
+                      v132 = 47;
                       do
                       {
-                        v132 = &aLibraryCachesC_7[v129];
-                        if (v131 == 47)
+                        v133 = &aLibraryCachesC_7[v130];
+                        if (v132 == 47)
                         {
-                          v130 = &aLibraryCachesC_7[v129];
+                          v131 = &aLibraryCachesC_7[v130];
                         }
 
-                        v131 = v132[1];
-                        if (!v132[1])
+                        v132 = v133[1];
+                        if (!v133[1])
                         {
                           break;
                         }
 
-                        v38 = v129++ >= 0xFFF;
+                        v38 = v130++ >= 0xFFF;
                       }
 
                       while (!v38);
-                      if (v130)
+                      if (v131)
                       {
-                        v133 = v130 + 1;
+                        v134 = v131 + 1;
                       }
 
                       else
                       {
-                        v133 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/AppAttestInternal/Source/Interfaces/AppAttestAppAttestation.m";
+                        v134 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/AppAttestInternal/Source/Interfaces/AppAttestAppAttestation.m";
                       }
 
                       *buf = 136316674;
-                      *&buf[4] = v133;
+                      *&buf[4] = v134;
                       *&buf[12] = 1024;
                       *&buf[14] = 455;
                       *&buf[18] = 1024;
-                      *&buf[20] = HIDWORD(v147);
+                      *&buf[20] = HIDWORD(v148);
                       *&buf[24] = 2112;
                       *&buf[26] = v13;
                       *&buf[34] = 2112;
-                      *&buf[36] = v150;
+                      *&buf[36] = v151;
                       *&buf[44] = 2112;
                       *&buf[46] = v27;
                       *&buf[54] = 2112;
                       *&buf[56] = v26;
-                      _os_log_impl(&dword_226177000, v128, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to load BIK from Keychain. { env=%d, keyID=%@, appUUID=%@, resolvedAppID=%@, realAppID=%@ }", buf, 0x40u);
+                      _os_log_impl(&dword_226177000, v129, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to load BIK from Keychain. { env=%d, keyID=%@, appUUID=%@, resolvedAppID=%@, realAppID=%@ }", buf, 0x40u);
                     }
 
-                    v44 = createAppAttestError("AttestKey", 456, -3, 0, @"Failed to load keychain", v134, v135, v136, v147);
+                    v44 = createAppAttestError("AttestKey", 456, -3, 0, @"Failed to load keychain", v135, v136, v137, v148);
 
-                    v161 = 0;
-                    v163 = 0;
+                    v162 = 0;
+                    v164 = 0;
                     CredentialKeychain = 0;
                   }
 
 LABEL_99:
-                  v52 = v150;
+                  v52 = v151;
                   goto LABEL_100;
                 }
               }
@@ -9031,10 +8934,10 @@ LABEL_99:
                 *&buf[20] = v40;
                 _os_log_impl(&dword_226177000, v33, OS_LOG_TYPE_ERROR, "%25s:%-5d Invalid client data hash. { clientDataHash=%@ }", buf, 0x1Cu);
 
-                v26 = v154;
+                v26 = v155;
               }
 
-              v44 = createAppAttestError("AttestKey", 448, -2, 0, @"Invalid clientDataHash", v41, v42, v43, v147);
+              v44 = createAppAttestError("AttestKey", 448, -2, 0, @"Invalid clientDataHash", v41, v42, v43, v148);
             }
 
             else
@@ -9087,13 +8990,13 @@ LABEL_99:
                 _os_log_impl(&dword_226177000, v81, OS_LOG_TYPE_ERROR, "%25s:%-5d Key ID is invalid. { keyID=%@ }", buf, 0x1Cu);
               }
 
-              v44 = createAppAttestError("AttestKey", 442, -2, v162, @"Invalid keyId", v82, v83, v84, v147);
+              v44 = createAppAttestError("AttestKey", 442, -2, v163, @"Invalid keyId", v82, v83, v84, v148);
             }
 
-            v161 = 0;
-            v163 = 0;
+            v162 = 0;
+            v164 = 0;
             CredentialKeychain = 0;
-            v51 = v148;
+            v51 = v149;
             goto LABEL_99;
           }
 
@@ -9149,7 +9052,7 @@ LABEL_99:
             _os_log_impl(&dword_226177000, v63, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed resolved App UUID. { incomingAppUUID=%@, resolvedAppID=%@, realAppID=%@ }", buf, 0x30u);
           }
 
-          v44 = createAppAttestError("AttestKey", 436, -2, 0, @"Invalid appUUID", v64, v65, v66, v147);
+          v44 = createAppAttestError("AttestKey", 436, -2, 0, @"Invalid appUUID", v64, v65, v66, v148);
         }
 
         else
@@ -9162,7 +9065,7 @@ LABEL_99:
           v53 = AAInternalLogSystem_log_7;
           if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
           {
-            v155 = v26;
+            v156 = v26;
             v54 = 0;
             v55 = 0;
             v56 = 47;
@@ -9194,7 +9097,7 @@ LABEL_99:
               v58 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/AppAttestInternal/Source/Interfaces/AppAttestAppAttestation.m";
             }
 
-            v59 = [v162 localizedDescription];
+            v59 = [v163 localizedDescription];
             *buf = 136315650;
             *&buf[4] = v58;
             *&buf[12] = 1024;
@@ -9203,17 +9106,17 @@ LABEL_99:
             *&buf[20] = v59;
             _os_log_impl(&dword_226177000, v53, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to fetch identifiers. { error=%@ }", buf, 0x1Cu);
 
-            v26 = v155;
+            v26 = v156;
           }
 
-          v44 = createAppAttestError("AttestKey", 429, -2, v162, @"Unable to fetch application identifier", v60, v61, v62, v147);
+          v44 = createAppAttestError("AttestKey", 429, -2, v163, @"Unable to fetch application identifier", v60, v61, v62, v148);
         }
 
-        v161 = 0;
-        v163 = 0;
+        v162 = 0;
+        v164 = 0;
         v52 = 0;
         CredentialKeychain = 0;
-        v51 = v149;
+        v51 = v150;
         goto LABEL_100;
       }
 
@@ -9263,17 +9166,17 @@ LABEL_99:
         _os_log_impl(&dword_226177000, v72, OS_LOG_TYPE_ERROR, "%25s:%-5d Client is not eligible for priv service.", buf, 0x12u);
       }
 
-      v44 = createAppAttestError("AttestKey", 417, -4, 0, @"Client is not eligible for priv service.", v73, v74, v75, v147);
+      v44 = createAppAttestError("AttestKey", 417, -4, 0, @"Client is not eligible for priv service.", v73, v74, v75, v148);
     }
 
     else
     {
-      v44 = createAppAttestError("AttestKey", 405, -4, 0, @"Client is not eligible.", v18, v19, v20, v147);
+      v44 = createAppAttestError("AttestKey", 405, -4, 0, @"Client is not eligible.", v18, v19, v20, v148);
     }
 
     v51 = 0;
-    v161 = 0;
-    v163 = 0;
+    v162 = 0;
+    v164 = 0;
     v27 = 0;
     v26 = 0;
     v52 = 0;
@@ -9328,8 +9231,6 @@ LABEL_99:
   }
 
 LABEL_117:
-
-  v103 = *MEMORY[0x277D85DE8];
 }
 
 void AppAttest_AppAttestation_AttestKeyWithTeamIdentifier(__int128 *a1, void *a2, void *a3, void *a4, void *a5, void *a6)
@@ -9350,7 +9251,7 @@ void AppAttest_AppAttestation_AttestKeyWithTeamIdentifier(__int128 *a1, void *a2
 
 void AppAttest_AppAttestation_Assert(_OWORD *a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v9 = a2;
   v10 = a3;
   v11 = a4;
@@ -9389,28 +9290,28 @@ LABEL_28:
     goto LABEL_29;
   }
 
-  v31 = v12;
+  v30 = v12;
   v14 = listKeychainItems();
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
-  v15 = [v14 countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v31 objects:v36 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v33;
+    v17 = *v32;
     do
     {
       v18 = 0;
       do
       {
-        if (*v33 != v17)
+        if (*v32 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v32 + 1) + 8 * v18);
+        v19 = *(*(&v31 + 1) + 8 * v18);
         if (AAInternalLogSystem_onceToken_7 != -1)
         {
           AppAttest_AppAttestation_IsEligibleApplication_cold_1();
@@ -9461,15 +9362,523 @@ LABEL_28:
       }
 
       while (v18 != v16);
-      v16 = [v14 countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v31 objects:v36 count:16];
     }
 
     while (v16);
   }
 
-  v12 = v31;
-  (*(v31 + 2))(v31, 0, 0);
+  v12 = v30;
+  (*(v30 + 2))(v30, 0, 0);
 
 LABEL_29:
-  v30 = *MEMORY[0x277D85DE8];
+}
+
+void Assert(_OWORD *a1, void *a2, void *a3, void *a4, void *a5, void *a6)
+{
+  v137 = *MEMORY[0x277D85DE8];
+  v11 = a2;
+  v124 = a3;
+  v12 = a4;
+  v13 = a5;
+  v14 = a6;
+  v15 = &unk_28136F000;
+  if (v14)
+  {
+    v122 = v13;
+    v123 = v11;
+    v121 = v14;
+    if (os_variant_allows_internal_security_policies())
+    {
+      if ([v12 isEqualToString:@"__debug_aa_kc_cleanup__"])
+      {
+        removeAllKeychainItemsForMissingApps();
+        (*(v14 + 2))(v14, 0, 0);
+      }
+
+      else if ([v12 isEqualToString:@"__debug_aa_kc_list__"])
+      {
+        v119 = v12;
+        v23 = listKeychainItems();
+        v131 = 0u;
+        v132 = 0u;
+        v133 = 0u;
+        v134 = 0u;
+        v24 = [v23 countByEnumeratingWithState:&v131 objects:v136 count:16];
+        if (v24)
+        {
+          v25 = v24;
+          v26 = *v132;
+          do
+          {
+            for (i = 0; i != v25; ++i)
+            {
+              if (*v132 != v26)
+              {
+                objc_enumerationMutation(v23);
+              }
+
+              v28 = *(*(&v131 + 1) + 8 * i);
+              if (AAInternalLogSystem_onceToken_7 != -1)
+              {
+                AppAttest_AppAttestation_IsEligibleApplication_cold_1();
+              }
+
+              v29 = AAInternalLogSystem_log_7;
+              if (os_log_type_enabled(AAInternalLogSystem_log_7, OS_LOG_TYPE_DEBUG))
+              {
+                v30 = 0;
+                v31 = 0;
+                v32 = 47;
+                do
+                {
+                  v33 = &aLibraryCachesC_7[v30];
+                  if (v32 == 47)
+                  {
+                    v31 = &aLibraryCachesC_7[v30];
+                  }
+
+                  v32 = v33[1];
+                  if (!v33[1])
+                  {
+                    break;
+                  }
+
+                  v21 = v30++ >= 0xFFF;
+                }
+
+                while (!v21);
+                *buf = 136315650;
+                if (v31)
+                {
+                  v34 = v31 + 1;
+                }
+
+                else
+                {
+                  v34 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/AppAttestInternal/Source/Interfaces/AppAttestAppAttestation.m";
+                }
+
+                *&buf[4] = v34;
+                *&buf[12] = 1024;
+                *&buf[14] = 588;
+                *&buf[18] = 2112;
+                *&buf[20] = v28;
+                _os_log_impl(&dword_226177000, v29, OS_LOG_TYPE_DEBUG, "%25s:%-5d Found app ID in keychain. { appID=%@ }", buf, 0x1Cu);
+              }
+            }
+
+            v25 = [v23 countByEnumeratingWithState:&v131 objects:v136 count:16];
+          }
+
+          while (v25);
+        }
+
+        (*(v121 + 2))(v121, 0, 0);
+
+        v12 = v119;
+        v15 = &unk_28136F000;
+      }
+    }
+
+    v35 = objc_alloc_init(AppAttestEligibilityManager);
+    v36 = a1[1];
+    *buf = *a1;
+    *&buf[16] = v36;
+    v118 = v35;
+    if (![(AppAttestEligibilityManager *)v35 isEligibleClientFor:buf])
+    {
+      v45 = createAppAttestError("Assert", 616, -4, 0, @"Client is not eligible.", v37, v38, v39, v111);
+      v116 = 0;
+      v117 = 0;
+      v40 = 0;
+      goto LABEL_46;
+    }
+
+    if (v11)
+    {
+      v40 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.DeviceCheck"];
+      if (([v40 BOOLForKey:@"allowPrivAPI"] & 1) == 0)
+      {
+        v41 = a1[1];
+        *buf = *a1;
+        *&buf[16] = v41;
+        if (![(AppAttestEligibilityManager *)v35 isEligibleForPrivService:buf])
+        {
+          v45 = createAppAttestError("Assert", 627, -4, 0, @"Client is not eligible for priv service.", v42, v43, v44, v111);
+          v116 = 0;
+          v117 = 0;
+LABEL_46:
+          v46 = 0;
+          v47 = 0;
+          v48 = 0;
+          v49 = 0;
+          v120 = 0;
+          v50 = 0;
+LABEL_51:
+          v125 = v49;
+          if (v15[420] != -1)
+          {
+            AppAttest_AppAttestation_IsEligibleApplication_cold_1();
+          }
+
+          v57 = v48;
+          v58 = AAInternalLogSystem_log_7;
+          if (os_log_type_enabled(AAInternalLogSystem_log_7, OS_LOG_TYPE_DEBUG))
+          {
+            v59 = 0;
+            v60 = 0;
+            v61 = 47;
+            do
+            {
+              v62 = &aLibraryCachesC_7[v59];
+              if (v61 == 47)
+              {
+                v60 = &aLibraryCachesC_7[v59];
+              }
+
+              v61 = v62[1];
+              if (!v62[1])
+              {
+                break;
+              }
+
+              v21 = v59++ >= 0xFFF;
+            }
+
+            while (!v21);
+            if (v60)
+            {
+              v63 = v60 + 1;
+            }
+
+            else
+            {
+              v63 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/AppAttestInternal/Source/Interfaces/AppAttestAppAttestation.m";
+            }
+
+            *buf = 136315650;
+            *&buf[4] = v63;
+            *&buf[12] = 1024;
+            *&buf[14] = 711;
+            *&buf[18] = 2112;
+            *&buf[20] = v12;
+            _os_log_impl(&dword_226177000, v58, OS_LOG_TYPE_DEBUG, "%25s:%-5d Failed to create assertion. { keyId=%@ }", buf, 0x1Cu);
+          }
+
+          v64 = 0;
+          v65 = v40;
+LABEL_65:
+          (*(v121 + 2))(v121, v64, v45);
+
+          v14 = v121;
+          v13 = v122;
+          v11 = v123;
+          goto LABEL_66;
+        }
+      }
+    }
+
+    else
+    {
+      v40 = 0;
+    }
+
+    v51 = isNSData(v13);
+    if (!v51 || (v55 = v51, v56 = [v13 length], v55, v56 >= 0x21))
+    {
+      v45 = createAppAttestError("Assert", 634, -2, 0, @"Invalid clientDataHash", v52, v53, v54, v111);
+      v116 = 0;
+      v117 = 0;
+      v46 = 0;
+      v47 = 0;
+      v48 = 0;
+      v49 = 0;
+      v120 = 0;
+      v50 = 0;
+      v15 = &unk_28136F000;
+      goto LABEL_51;
+    }
+
+    v66 = a1[1];
+    *buf = *a1;
+    *&buf[16] = v66;
+    EnvironmentByAppSigning = generateEnvironmentByAppSigning(buf);
+    v129 = 0;
+    v130 = 0;
+    v128 = 0;
+    v68 = a1[1];
+    v115 = a1;
+    *buf = *a1;
+    *&buf[16] = v68;
+    v69 = extractApplicationIdentifiers(buf, v11, &v130, &v129, &v128);
+    v70 = v130;
+    v71 = v129;
+    v75 = v128;
+    if ((v69 & 1) == 0)
+    {
+      v48 = v71;
+      v45 = createAppAttestError("Assert", 643, -2, v75, @"Unable to fetch application identifier", v72, v73, v74, v111);
+
+      v116 = 0;
+      v117 = 0;
+      v46 = 0;
+      v47 = 0;
+      v120 = 0;
+      v50 = 0;
+      v15 = &unk_28136F000;
+      v49 = v70;
+      goto LABEL_51;
+    }
+
+    v125 = v70;
+    v76 = resolveAppUUIDKeychain(v124, v70, v71);
+    if (v76)
+    {
+      v120 = v76;
+      v47 = isNSString(v12);
+
+      if (v47)
+      {
+        CredentialKeychain = loadCredentialKeychain(EnvironmentByAppSigning, v120, v71, v12);
+        if (CredentialKeychain)
+        {
+          cf = CredentialKeychain;
+          loadAssertionCounterKeychain(EnvironmentByAppSigning, v120, v71, v12);
+          v87 = v114 = v71;
+          v88 = isNSNumber(v87);
+
+          v117 = v87;
+          if (v88)
+          {
+            if ([v87 unsignedIntValue] != -1)
+            {
+              v116 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{objc_msgSend(v87, "unsignedIntValue") + 1}];
+              if (saveAssertionCounterKeychain(v116, EnvironmentByAppSigning, v120, v114, v12))
+              {
+                v127 = v75;
+                v50 = createAppAttestationAuthenticatorDataShort(v114, v87, &v127);
+                v112 = v127;
+
+                if (v12 && v50)
+                {
+                  v65 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.DeviceCheck"];
+
+                  if ([v65 BOOLForKey:@"addCdHash"])
+                  {
+                    v98 = v115[1];
+                    *buf = *v115;
+                    *&buf[16] = v98;
+                    v47 = fetchCdHash(buf);
+                    v46 = 0;
+                  }
+
+                  else
+                  {
+                    v102 = v115[1];
+                    *buf = *v115;
+                    *&buf[16] = v102;
+                    v103 = fetchOptInEntitlements(buf);
+                    v46 = v103;
+                    if (v103 && [v103 containsObject:@"CDhash"])
+                    {
+                      v104 = v115[1];
+                      *buf = *v115;
+                      *&buf[16] = v104;
+                      v47 = fetchCdHash(buf);
+                    }
+
+                    else
+                    {
+                      v47 = 0;
+                    }
+                  }
+
+                  v126 = v112;
+                  v64 = generateAssertionObject(cf, v12, v50, v13, v47, &v126);
+                  v45 = v126;
+
+                  CFRelease(cf);
+                  if (v64)
+                  {
+                    v57 = v114;
+                    if (AAInternalLogSystem_onceToken_7 != -1)
+                    {
+                      AppAttest_AppAttestation_IsEligibleApplication_cold_1();
+                    }
+
+                    v105 = AAInternalLogSystem_log_7;
+                    if (os_log_type_enabled(AAInternalLogSystem_log_7, OS_LOG_TYPE_DEBUG))
+                    {
+                      v106 = 0;
+                      v107 = 0;
+                      v108 = 47;
+                      do
+                      {
+                        v109 = &aLibraryCachesC_7[v106];
+                        if (v108 == 47)
+                        {
+                          v107 = &aLibraryCachesC_7[v106];
+                        }
+
+                        v108 = v109[1];
+                        if (!v109[1])
+                        {
+                          break;
+                        }
+
+                        v21 = v106++ >= 0xFFF;
+                      }
+
+                      while (!v21);
+                      if (v107)
+                      {
+                        v110 = v107 + 1;
+                      }
+
+                      else
+                      {
+                        v110 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/AppAttestInternal/Source/Interfaces/AppAttestAppAttestation.m";
+                      }
+
+                      *buf = 136315650;
+                      *&buf[4] = v110;
+                      *&buf[12] = 1024;
+                      *&buf[14] = 710;
+                      *&buf[18] = 2112;
+                      *&buf[20] = v12;
+                      _os_log_impl(&dword_226177000, v105, OS_LOG_TYPE_DEBUG, "%25s:%-5d Created assertion. { keyId=%@ }", buf, 0x1Cu);
+                    }
+
+                    goto LABEL_65;
+                  }
+
+                  v48 = v114;
+                  v40 = v65;
+                  goto LABEL_89;
+                }
+
+                v48 = v114;
+                v75 = v112;
+                v45 = createAppAttestError("Assert", 687, -3, v112, @"Failed to generate authenticator data", v95, v96, v97, v112);
+                goto LABEL_88;
+              }
+
+              v48 = v114;
+              v45 = createAppAttestError("Assert", 680, -3, v75, @"Unable to update counter for authenticator data", v92, v93, v94, v111);
+LABEL_87:
+              v50 = 0;
+LABEL_88:
+
+              CFRelease(cf);
+              v46 = 0;
+              v47 = 0;
+              goto LABEL_89;
+            }
+
+            v48 = v114;
+            v99 = @"Unable to update counter for authenticator data";
+            v100 = 672;
+            v101 = 0;
+          }
+
+          else
+          {
+            v48 = v114;
+            v99 = @"Key not yet attested";
+            v100 = 666;
+            v101 = v75;
+          }
+
+          v45 = createAppAttestError("Assert", v100, -3, v101, v99, v89, v90, v91, v111);
+          v116 = 0;
+          goto LABEL_87;
+        }
+
+        v48 = v71;
+        v45 = createAppAttestError("Assert", 660, -3, 0, @"Failed to load keychain", v84, v85, v86, v111);
+
+        v116 = 0;
+        v117 = 0;
+        v46 = 0;
+        v47 = 0;
+      }
+
+      else
+      {
+        v48 = v71;
+        v45 = createAppAttestError("Assert", 654, -2, v75, @"Invalid keyId", v80, v81, v82, v111);
+
+        v116 = 0;
+        v117 = 0;
+        v46 = 0;
+      }
+    }
+
+    else
+    {
+      v48 = v71;
+      v45 = createAppAttestError("Assert", 649, -2, 0, @"Invalid appUUID", v77, v78, v79, v111);
+
+      v116 = 0;
+      v117 = 0;
+      v46 = 0;
+      v47 = 0;
+      v120 = 0;
+    }
+
+    v50 = 0;
+LABEL_89:
+    v15 = &unk_28136F000;
+    v49 = v70;
+    goto LABEL_51;
+  }
+
+  if (AAInternalLogSystem_onceToken_7 != -1)
+  {
+    AAInternalLogSystem_cold_1_1();
+  }
+
+  v16 = AAInternalLogSystem_log_7;
+  if (os_log_type_enabled(AAInternalLogSystem_log_7, OS_LOG_TYPE_DEBUG))
+  {
+    v17 = 0;
+    v18 = 0;
+    v19 = 47;
+    do
+    {
+      v20 = &aLibraryCachesC_7[v17];
+      if (v19 == 47)
+      {
+        v18 = &aLibraryCachesC_7[v17];
+      }
+
+      v19 = v20[1];
+      if (!v20[1])
+      {
+        break;
+      }
+
+      v21 = v17++ >= 0xFFF;
+    }
+
+    while (!v21);
+    if (v18)
+    {
+      v22 = v18 + 1;
+    }
+
+    else
+    {
+      v22 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/AppAttestInternal/Source/Interfaces/AppAttestAppAttestation.m";
+    }
+
+    *buf = 136315394;
+    *&buf[4] = v22;
+    *&buf[12] = 1024;
+    *&buf[14] = 576;
+    _os_log_impl(&dword_226177000, v16, OS_LOG_TYPE_DEBUG, "%25s:%-5d Cannot assert key, completion handler is nil.", buf, 0x12u);
+  }
+
+LABEL_66:
 }

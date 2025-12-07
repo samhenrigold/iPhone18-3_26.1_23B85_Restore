@@ -19,7 +19,6 @@
 - (unint64_t)_lightnessLevel;
 - (unint64_t)_lightnessLevelForColor:(id)color;
 - (void)configurationDidChange:(id)change;
-- (void)invalidateCachedValues;
 @end
 
 @implementation NTKCrosswindColorPalette
@@ -50,13 +49,6 @@
   [v4 setIsEditingComplications:self->_isEditingComplications];
   [v4 invalidateCachedValues];
   return v4;
-}
-
-- (void)invalidateCachedValues
-{
-  cachedIdentifier = self->_cachedIdentifier;
-  self->_cachedIdentifier = 0;
-  _objc_release_x1();
 }
 
 - (void)configurationDidChange:(id)change

@@ -34,7 +34,7 @@
 
 - (void)setArtworkCatalog:(id)catalog
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit7ArtworkVSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit7ArtworkVSgMd, &_s8MusicKit7ArtworkVSgMR);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v13 - v6;
   if (catalog)
@@ -60,7 +60,7 @@
 {
   v3 = *(&self->super.super.super.super.isa + OBJC_IVAR___CPUIMediaContainerTableHeaderFooterView_viewModel);
   swift_getKeyPath();
-  lazy protocol witness table accessor for type CPUIMediaContainerTableHeaderFooterView.ViewModel and conformance CPUIMediaContainerTableHeaderFooterView.ViewModel(&lazy protocol witness table cache variable for type CPUIMediaContainerTableHeaderFooterView.ViewModel and conformance CPUIMediaContainerTableHeaderFooterView.ViewModel, type metadata accessor for CPUIMediaContainerTableHeaderFooterView.ViewModel);
+  lazy protocol witness table accessor for type CPUIMediaContainerTableHeaderFooterView.ViewModel and conformance CPUIMediaContainerTableHeaderFooterView.ViewModel(&lazy protocol witness table cache variable for type CPUIMediaContainerTableHeaderFooterView.ViewModel and conformance CPUIMediaContainerTableHeaderFooterView.ViewModel, type metadata accessor for CPUIMediaContainerTableHeaderFooterView.ViewModel, &protocol conformance descriptor for CPUIMediaContainerTableHeaderFooterView.ViewModel);
   selfCopy = self;
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
@@ -84,7 +84,7 @@
 {
   v3 = *(&self->super.super.super.super.isa + OBJC_IVAR___CPUIMediaContainerTableHeaderFooterView_viewModel);
   swift_getKeyPath();
-  lazy protocol witness table accessor for type CPUIMediaContainerTableHeaderFooterView.ViewModel and conformance CPUIMediaContainerTableHeaderFooterView.ViewModel(&lazy protocol witness table cache variable for type CPUIMediaContainerTableHeaderFooterView.ViewModel and conformance CPUIMediaContainerTableHeaderFooterView.ViewModel, type metadata accessor for CPUIMediaContainerTableHeaderFooterView.ViewModel);
+  lazy protocol witness table accessor for type CPUIMediaContainerTableHeaderFooterView.ViewModel and conformance CPUIMediaContainerTableHeaderFooterView.ViewModel(&lazy protocol witness table cache variable for type CPUIMediaContainerTableHeaderFooterView.ViewModel and conformance CPUIMediaContainerTableHeaderFooterView.ViewModel, type metadata accessor for CPUIMediaContainerTableHeaderFooterView.ViewModel, &protocol conformance descriptor for CPUIMediaContainerTableHeaderFooterView.ViewModel);
   selfCopy = self;
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
@@ -127,21 +127,24 @@
   v4 = _Block_copy(action);
   if (v4)
   {
-    *(swift_allocObject() + 16) = v4;
-    v5 = thunk for @escaping @callee_unowned @convention(block) () -> ()partial apply;
+    v5 = v4;
+    v6 = swift_allocObject();
+    *(v6 + 16) = v5;
+    v7 = thunk for @escaping @callee_unowned @convention(block) () -> ()partial apply;
   }
 
   else
   {
-    v5 = 0;
+    v7 = 0;
+    v6 = 0;
   }
 
   KeyPath = swift_getKeyPath();
   MEMORY[0x28223BE20](KeyPath);
-  lazy protocol witness table accessor for type CPUIMediaContainerTableHeaderFooterView.ViewModel and conformance CPUIMediaContainerTableHeaderFooterView.ViewModel(&lazy protocol witness table cache variable for type CPUIMediaContainerTableHeaderFooterView.ViewModel and conformance CPUIMediaContainerTableHeaderFooterView.ViewModel, type metadata accessor for CPUIMediaContainerTableHeaderFooterView.ViewModel);
+  lazy protocol witness table accessor for type CPUIMediaContainerTableHeaderFooterView.ViewModel and conformance CPUIMediaContainerTableHeaderFooterView.ViewModel(&lazy protocol witness table cache variable for type CPUIMediaContainerTableHeaderFooterView.ViewModel and conformance CPUIMediaContainerTableHeaderFooterView.ViewModel, type metadata accessor for CPUIMediaContainerTableHeaderFooterView.ViewModel, &protocol conformance descriptor for CPUIMediaContainerTableHeaderFooterView.ViewModel);
   selfCopy = self;
   ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v5);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v7, v6);
 }
 
 - (void)setShuffleAction:(id)action
@@ -149,21 +152,24 @@
   v4 = _Block_copy(action);
   if (v4)
   {
-    *(swift_allocObject() + 16) = v4;
-    v5 = _sIeyB_Ieg_TRTA_0;
+    v5 = v4;
+    v6 = swift_allocObject();
+    *(v6 + 16) = v5;
+    v7 = _sIeyB_Ieg_TRTA_0;
   }
 
   else
   {
-    v5 = 0;
+    v7 = 0;
+    v6 = 0;
   }
 
   KeyPath = swift_getKeyPath();
   MEMORY[0x28223BE20](KeyPath);
-  lazy protocol witness table accessor for type CPUIMediaContainerTableHeaderFooterView.ViewModel and conformance CPUIMediaContainerTableHeaderFooterView.ViewModel(&lazy protocol witness table cache variable for type CPUIMediaContainerTableHeaderFooterView.ViewModel and conformance CPUIMediaContainerTableHeaderFooterView.ViewModel, type metadata accessor for CPUIMediaContainerTableHeaderFooterView.ViewModel);
+  lazy protocol witness table accessor for type CPUIMediaContainerTableHeaderFooterView.ViewModel and conformance CPUIMediaContainerTableHeaderFooterView.ViewModel(&lazy protocol witness table cache variable for type CPUIMediaContainerTableHeaderFooterView.ViewModel and conformance CPUIMediaContainerTableHeaderFooterView.ViewModel, type metadata accessor for CPUIMediaContainerTableHeaderFooterView.ViewModel, &protocol conformance descriptor for CPUIMediaContainerTableHeaderFooterView.ViewModel);
   selfCopy = self;
   ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v5);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v7, v6);
 }
 
 - (CPUIMediaContainerTableHeaderFooterView)initWithReuseIdentifier:(id)identifier

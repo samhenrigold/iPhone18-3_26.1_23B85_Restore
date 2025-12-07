@@ -221,30 +221,30 @@ LABEL_11:
   v27 = v26;
   v29 = v28;
   v30 = objc_opt_class();
-  v77 = v27;
+  v79 = v27;
   [_presentedExpandedPlatter platterFrameForFrame:{v23, v25, v27, v29}];
   [v30 _sizeOfViewWithPreferredContentSize:v31 inUseableContainerViewBounds:{v32, v10, v12, v14, v16}];
   BSRectWithSize();
-  v74 = v33;
-  v80 = v34;
+  v76 = v33;
+  v82 = v34;
   [(PLExpandedPlatterPresentationController *)self _sourceViewFinalPresentationFrame];
-  if (!CGRectIsEmpty(v81))
+  if (!CGRectIsEmpty(v83))
   {
     UIRectCenteredIntegralRect();
     v23 = v35;
     v25 = v36;
   }
 
-  v82.origin.x = v10;
-  v82.origin.y = v12;
-  v82.size.width = v14;
-  v82.size.height = v16;
-  MinY = CGRectGetMinY(v82);
-  v83.origin.x = v23;
-  v83.origin.y = v25;
-  v83.size.height = v29;
-  v83.size.width = v77;
-  v38 = CGRectGetMinY(v83);
+  v84.origin.x = v10;
+  v84.origin.y = v12;
+  v84.size.width = v14;
+  v84.size.height = v16;
+  MinY = CGRectGetMinY(v84);
+  v85.origin.x = v23;
+  v85.origin.y = v25;
+  v85.size.height = v29;
+  v85.size.width = v79;
+  v38 = CGRectGetMinY(v85);
   if (MinY >= v38)
   {
     v39 = MinY;
@@ -262,44 +262,44 @@ LABEL_11:
     [mainScreen _peripheryInsets];
 
     UIRectInset();
-    v75 = v44;
-    v76 = v45;
+    v77 = v44;
+    v78 = v45;
   }
 
   else
   {
-    v84.origin.x = p_keyboardFrame->origin.x;
-    v84.origin.y = self->_keyboardFrame.origin.y;
-    v84.size.width = self->_keyboardFrame.size.width;
-    v84.size.height = self->_keyboardFrame.size.height;
-    v46 = CGRectGetMinY(v84);
-    v85.origin.x = v10;
-    v85.origin.y = v12;
-    v85.size.width = v14;
-    v85.size.height = v16;
-    v47 = CGRectGetMinY(v85);
+    v86.origin.x = p_keyboardFrame->origin.x;
+    v86.origin.y = self->_keyboardFrame.origin.y;
+    v86.size.width = self->_keyboardFrame.size.width;
+    v86.size.height = self->_keyboardFrame.size.height;
+    v46 = CGRectGetMinY(v86);
+    v87.origin.x = v10;
+    v87.origin.y = v12;
+    v87.size.width = v14;
+    v87.size.height = v16;
+    v47 = CGRectGetMinY(v87);
     v43 = v12;
-    v75 = v14;
-    v76 = v46 - v47;
+    v77 = v14;
+    v78 = v46 - v47;
     v42 = v10;
   }
 
-  v78 = v42;
-  v79 = v43;
+  v80 = v42;
+  v81 = v43;
   UIRectCenteredXInRect();
-  MinX = CGRectGetMinX(v86);
-  [_presentedExpandedPlatter frameForPlatterFrame:{MinX, v39, v74, v80}];
-  CGRectGetMinX(v87);
+  MinX = CGRectGetMinX(v88);
+  [_presentedExpandedPlatter frameForPlatterFrame:{MinX, v39, v76, v82}];
+  CGRectGetMinX(v89);
   UIRectContainInRect();
   v50 = v49;
   v52 = v51;
   v54 = v53;
   v56 = v55;
-  v88.origin.x = p_keyboardFrame->origin.x;
-  v88.origin.y = self->_keyboardFrame.origin.y;
-  v88.size.width = self->_keyboardFrame.size.width;
-  v88.size.height = self->_keyboardFrame.size.height;
-  IsEmpty = CGRectIsEmpty(v88);
+  v90.origin.x = p_keyboardFrame->origin.x;
+  v90.origin.y = self->_keyboardFrame.origin.y;
+  v90.size.width = self->_keyboardFrame.size.width;
+  v90.size.height = self->_keyboardFrame.size.height;
+  IsEmpty = CGRectIsEmpty(v90);
   if (IsEmpty)
   {
     MinX = v50;
@@ -317,7 +317,7 @@ LABEL_11:
 
   else
   {
-    v58 = v74;
+    v58 = v76;
   }
 
   if (IsEmpty)
@@ -327,54 +327,54 @@ LABEL_11:
 
   else
   {
-    v59 = v80;
-  }
-
-  v89.origin.x = MinX;
-  v89.origin.y = v52;
-  v89.size.width = v58;
-  v89.size.height = v59;
-  MaxY = CGRectGetMaxY(v89);
-  v90.origin.x = v78;
-  v90.origin.y = v79;
-  v90.size.width = v75;
-  v90.size.height = v76;
-  v61 = CGRectGetMaxY(v90);
-  if (MaxY > v61)
-  {
-    MaxY = v61;
+    v59 = v82;
   }
 
   v91.origin.x = MinX;
   v91.origin.y = v52;
   v91.size.width = v58;
   v91.size.height = v59;
-  [_presentedExpandedPlatter frameForPlatterFrame:{v50, MaxY - CGRectGetHeight(v91), v54, v56}];
-  v93.origin.y = CGRectGetMinY(v92);
-  v93.origin.x = v50;
-  v93.size.width = v54;
-  v93.size.height = v56;
-  CGRectGetMinY(v93);
-  v94.origin.x = v78;
-  v94.origin.y = v79;
-  v94.size.width = v75;
-  v94.size.height = v76;
-  CGRectGetMinY(v94);
-  PLMainScreenScale();
+  MaxY = CGRectGetMaxY(v91);
+  v92.origin.x = v80;
+  v92.origin.y = v81;
+  v92.size.width = v77;
+  v92.size.height = v78;
+  v61 = CGRectGetMaxY(v92);
+  if (MaxY > v61)
+  {
+    MaxY = v61;
+  }
+
+  v93.origin.x = MinX;
+  v93.origin.y = v52;
+  v93.size.width = v58;
+  v93.size.height = v59;
+  [_presentedExpandedPlatter frameForPlatterFrame:{v50, MaxY - CGRectGetHeight(v93), v54, v56}];
+  v95.origin.y = CGRectGetMinY(v94);
+  v95.origin.x = v50;
+  v95.size.width = v54;
+  v95.size.height = v56;
+  CGRectGetMinY(v95);
+  v96.origin.x = v80;
+  v96.origin.y = v81;
+  v96.size.width = v77;
+  v96.size.height = v78;
+  CGRectGetMinY(v96);
+  PLMainScreenScale(v62, v63);
   UIRectIntegralWithScale();
-  v63 = v62;
   v65 = v64;
   v67 = v66;
   v69 = v68;
+  v71 = v70;
 
-  v70 = v63;
-  v71 = v65;
-  v72 = v67;
-  v73 = v69;
-  result.size.height = v73;
-  result.size.width = v72;
-  result.origin.y = v71;
-  result.origin.x = v70;
+  v72 = v65;
+  v73 = v67;
+  v74 = v69;
+  v75 = v71;
+  result.size.height = v75;
+  result.size.width = v74;
+  result.origin.y = v73;
+  result.origin.x = v72;
   return result;
 }
 
@@ -636,7 +636,7 @@ uint64_t __74__PLExpandedPlatterPresentationController__setLocalHomeAffordanceVi
   return [*(a1 + 32) setAlpha:v1];
 }
 
-uint64_t __74__PLExpandedPlatterPresentationController__setLocalHomeAffordanceVisible___block_invoke_2(uint64_t a1)
+void *__74__PLExpandedPlatterPresentationController__setLocalHomeAffordanceVisible___block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D75D18] _isInAnimationBlock];
   if ((result & 1) == 0 && (*(a1 + 40) & 1) == 0)
@@ -693,9 +693,9 @@ uint64_t __74__PLExpandedPlatterPresentationController__setLocalHomeAffordanceVi
     {
       if ([(PLExpandedPlatterPresentationController *)self _isLocalHomeAffordanceVisible])
       {
-        [(MTLumaDodgePillView *)self->_homeAffordanceView frame];
+        frame = [(MTLumaDodgePillView *)self->_homeAffordanceView frame];
         homeAffordanceView = self->_homeAffordanceView;
-        PLMainScreenScale();
+        PLMainScreenScale(frame, v6);
         UIRectIntegralWithScale();
 
         [(MTLumaDodgePillView *)homeAffordanceView setFrame:?];
@@ -932,28 +932,28 @@ LABEL_4:
     [(UILabel *)v8 setTextColor:whiteColor];
 
     v10 = self->_dismissLabel;
-    v11 = PlatterKitFrameworkBundle();
-    v12 = [v11 localizedStringForKey:@"EXPANDED_PLATTER_DISMISS_HINT" value:&stru_28338E618 table:0];
-    localizedUppercaseString = [v12 localizedUppercaseString];
+    v12 = PlatterKitFrameworkBundle(v11);
+    v13 = [v12 localizedStringForKey:@"EXPANDED_PLATTER_DISMISS_HINT" value:&stru_28338E618 table:0];
+    localizedUppercaseString = [v13 localizedUppercaseString];
     [(UILabel *)v10 setText:localizedUppercaseString];
 
     [(UILabel *)self->_dismissLabel setContentMode:4];
     [(UILabel *)self->_dismissLabel setTextAlignment:1];
-    v14 = objc_alloc(MEMORY[0x277D75D18]);
-    v15 = self->_dismissLabel;
+    v15 = objc_alloc(MEMORY[0x277D75D18]);
+    v16 = self->_dismissLabel;
     containerView = [(PLExpandedPlatterPresentationController *)self containerView];
     [containerView bounds];
-    [(UILabel *)v15 sizeThatFits:v17, v18];
+    [(UILabel *)v16 sizeThatFits:v18, v19];
     BSRectWithSize();
-    v19 = [v14 initWithFrame:?];
+    v20 = [v15 initWithFrame:?];
     dismissLabelContainerView = self->_dismissLabelContainerView;
-    self->_dismissLabelContainerView = v19;
+    self->_dismissLabelContainerView = v20;
 
     [(UIView *)self->_dismissLabelContainerView setUserInteractionEnabled:0];
     [(UIView *)self->_dismissLabelContainerView setAutoresizesSubviews:1];
-    v21 = self->_dismissLabel;
+    v22 = self->_dismissLabel;
     [(UIView *)self->_dismissLabelContainerView bounds];
-    [(UILabel *)v21 setFrame:?];
+    [(UILabel *)v22 setFrame:?];
     [(UIView *)self->_dismissLabelContainerView addSubview:self->_dismissLabel];
     [(UILabel *)self->_dismissLabel setAutoresizingMask:18];
     containerView2 = [(PLExpandedPlatterPresentationController *)self containerView];
@@ -980,17 +980,17 @@ LABEL_4:
   v18 = v17;
   v20 = v19;
   font = [(UILabel *)self->_dismissLabel font];
-  v43.origin.x = v14;
-  v43.origin.y = v16;
-  v43.size.width = v18;
-  v43.size.height = v20;
-  CGRectGetMaxY(v43);
+  v45.origin.x = v14;
+  v45.origin.y = v16;
+  v45.size.width = v18;
+  v45.size.height = v20;
+  CGRectGetMaxY(v45);
   [font descender];
-  v44.origin.x = v6;
-  v44.origin.y = v8;
-  v44.size.width = v10;
-  v44.size.height = v12;
-  CGRectGetWidth(v44);
+  v46.origin.x = v6;
+  v46.origin.y = v8;
+  v46.size.width = v10;
+  v46.size.height = v12;
+  CGRectGetWidth(v46);
   [font lineHeight];
   BSRectWithSize();
   v23 = v22;
@@ -998,26 +998,26 @@ LABEL_4:
   v27 = v26;
   v29 = v28;
   CGRectGetMinY(frame);
-  v45.origin.x = v23;
-  v45.origin.y = v25;
-  v45.size.width = v27;
-  v45.size.height = v29;
-  CGRectGetHeight(v45);
-  PLMainScreenScale();
+  v47.origin.x = v23;
+  v47.origin.y = v25;
+  v47.size.width = v27;
+  v47.size.height = v29;
+  CGRectGetHeight(v47);
+  PLMainScreenScale(v30, v31);
   UIRectIntegralWithScale();
-  v31 = v30;
   v33 = v32;
   v35 = v34;
   v37 = v36;
+  v39 = v38;
 
-  v38 = v31;
-  v39 = v33;
-  v40 = v35;
-  v41 = v37;
-  result.size.height = v41;
-  result.size.width = v40;
-  result.origin.y = v39;
-  result.origin.x = v38;
+  v40 = v33;
+  v41 = v35;
+  v42 = v37;
+  v43 = v39;
+  result.size.height = v43;
+  result.size.width = v42;
+  result.origin.y = v41;
+  result.origin.x = v40;
   return result;
 }
 
@@ -1449,30 +1449,30 @@ void __74__PLExpandedPlatterPresentationController_presentationTransitionWillBeg
     v16 = v15;
     v18 = v17;
 
-    v29.origin.x = v12;
-    v29.origin.y = v14;
-    v29.size.width = v16;
-    v29.size.height = v18;
-    [(MTLumaDodgePillView *)self->_homeAffordanceView suggestedSizeForContentWidth:CGRectGetWidth(v29)];
+    v31.origin.x = v12;
+    v31.origin.y = v14;
+    v31.size.width = v16;
+    v31.size.height = v18;
+    [(MTLumaDodgePillView *)self->_homeAffordanceView suggestedSizeForContentWidth:CGRectGetWidth(v31)];
     BSRectWithSize();
     UIRectCenteredXInRect();
     v20 = v19;
     v22 = v21;
     v24 = v23;
     v26 = v25;
-    v30.origin.x = v12;
-    v30.origin.y = v14;
-    v30.size.width = v16;
-    v30.size.height = v18;
-    CGRectGetMaxY(v30);
-    v31.origin.x = v20;
-    v31.origin.y = v22;
-    v31.size.width = v24;
-    v31.size.height = v26;
-    CGRectGetHeight(v31);
-    [(MTLumaDodgePillView *)self->_homeAffordanceView suggestedEdgeSpacing];
+    v32.origin.x = v12;
+    v32.origin.y = v14;
+    v32.size.width = v16;
+    v32.size.height = v18;
+    CGRectGetMaxY(v32);
+    v33.origin.x = v20;
+    v33.origin.y = v22;
+    v33.size.width = v24;
+    v33.size.height = v26;
+    CGRectGetHeight(v33);
+    suggestedEdgeSpacing = [(MTLumaDodgePillView *)self->_homeAffordanceView suggestedEdgeSpacing];
     homeAffordanceView = self->_homeAffordanceView;
-    PLMainScreenScale();
+    PLMainScreenScale(suggestedEdgeSpacing, v29);
     UIRectIntegralWithScale();
 
     [(MTLumaDodgePillView *)homeAffordanceView setFrame:?];

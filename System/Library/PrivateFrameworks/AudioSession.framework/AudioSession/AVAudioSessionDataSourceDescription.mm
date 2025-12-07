@@ -1,4 +1,5 @@
 @interface AVAudioSessionDataSourceDescription
++ (id)privateCreateArray:(id)array portID:(id)d sessionID:(unsigned int)iD;
 - (AVAudioSessionDataSourceDescription)initWithRawSourceDescription:(id)description andOwningPortID:(id)d andSessionID:(unsigned int)iD;
 - (AVAudioSessionDataSourceDescription)initWithSessionID:(unsigned int)d;
 - (AVAudioSessionPolarPattern)preferredPolarPattern;
@@ -232,7 +233,7 @@ LABEL_16:
   v19 = *v16;
   objc_storeStrong(impl + 7, pattern);
   v20 = [MEMORY[0x1E695DEC8] arrayWithObject:v15];
-  AVAudioSessionGetXPCConnection(*impl, &v25);
+  AVAudioSessionGetXPCConnection(&v25, *impl);
   v23 = v25;
   v24 = v26;
   if (v26)
@@ -258,25 +259,24 @@ LABEL_15:
 
 - (AVAudioSessionDataSourceDescription)initWithRawSourceDescription:(id)description andOwningPortID:(id)d andSessionID:(unsigned int)iD
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
   dCopy = d;
-  v12.receiver = self;
-  v12.super_class = AVAudioSessionDataSourceDescription;
-  if ([(AVAudioSessionDataSourceDescription *)&v12 init])
+  v11.receiver = self;
+  v11.super_class = AVAudioSessionDataSourceDescription;
+  if ([(AVAudioSessionDataSourceDescription *)&v11 init])
   {
     operator new();
   }
 
   v9 = 0;
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (void)configurePolarPatterns:(id)patterns
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   patternsCopy = patterns;
   privateGetImplementation = [(AVAudioSessionDataSourceDescription *)self privateGetImplementation];
   v6 = *MEMORY[0x1E69B0588];
@@ -291,38 +291,38 @@ LABEL_15:
   v12 = [patternsCopy objectForKey:v11];
 
   v13 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v12, "count")}];
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v14 = v12;
-  v15 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v15)
   {
-    v16 = *v25;
+    v16 = *v24;
     do
     {
       v17 = 0;
       do
       {
-        if (*v25 != v16)
+        if (*v24 != v16)
         {
           objc_enumerationMutation(v14);
         }
 
-        v18 = *(*(&v24 + 1) + 8 * v17);
+        v18 = *(*(&v23 + 1) + 8 * v17);
         v19 = GetPolarPatternValueConverter();
         v20 = StringUIntValueConverter::getNSString(v19, v18);
         if (v20)
         {
-          [v13 addObject:{v20, v24}];
+          [v13 addObject:{v20, v23}];
         }
 
         ++v17;
       }
 
       while (v15 != v17);
-      v15 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v15);
@@ -333,7 +333,39 @@ LABEL_15:
   privateGetImplementation->var5 = v21;
 
   DataSourceDescriptionImpl::ValidateRequiredFields(privateGetImplementation);
-  v23 = *MEMORY[0x1E69E9840];
+}
+
++ (id)privateCreateArray:(id)array portID:(id)d sessionID:(unsigned int)iD
+{
+  v5 = *&iD;
+  arrayCopy = array;
+  dCopy = d;
+  if (arrayCopy)
+  {
+    v9 = [arrayCopy count];
+    v10 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v9];
+    if (v9)
+    {
+      for (i = 0; i != v9; ++i)
+      {
+        v12 = [arrayCopy objectAtIndex:i];
+        v13 = [[AVAudioSessionDataSourceDescription alloc] initWithRawSourceDescription:v12 andOwningPortID:dCopy andSessionID:v5];
+        if (v13)
+        {
+          [v10 insertObject:v13 atIndex:i];
+        }
+      }
+    }
+
+    v14 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:v10];
+  }
+
+  else
+  {
+    v14 = objc_alloc_init(MEMORY[0x1E695DEC8]);
+  }
+
+  return v14;
 }
 
 @end

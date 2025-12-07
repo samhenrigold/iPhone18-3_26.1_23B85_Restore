@@ -8,27 +8,32 @@
 
 - (APTNANPairingDelegate)initWithHandleAuthorizationRequestBlock:(id)block logContext:(__CFString *)context
 {
-  if (block && context)
+  if (!block)
   {
-    v8.receiver = self;
-    v8.super_class = APTNANPairingDelegate;
-    v6 = [(APTNANPairingDelegate *)&v8 init];
-    if (v6)
-    {
-      v6->_handleAuthorizationRequestBlock = _Block_copy(block);
-      v6->_logContext = CFRetain(context);
-      *&v6->_handledPairingRequest = 0;
-      if (gLogCategory_APTNANDataSession <= 50 && (gLogCategory_APTNANDataSession != -1 || _LogCategory_Initialize()))
-      {
-        [APTNANPairingDelegate initWithHandleAuthorizationRequestBlock:logContext:];
-      }
-    }
+    v10 = 1073;
+LABEL_11:
+    [APTNANPairingDelegate initWithHandleAuthorizationRequestBlock:v10 logContext:?];
+    return 0;
   }
 
-  else
+  if (!context)
   {
-    [APTNANPairingDelegate initWithHandleAuthorizationRequestBlock:? logContext:?];
-    return 0;
+    v10 = 1074;
+    goto LABEL_11;
+  }
+
+  v11.receiver = self;
+  v11.super_class = APTNANPairingDelegate;
+  v6 = [(APTNANPairingDelegate *)&v11 init];
+  if (v6)
+  {
+    v6->_handleAuthorizationRequestBlock = _Block_copy(block);
+    v6->_logContext = CFRetain(context);
+    *&v6->_handledPairingRequest = 0;
+    if (gLogCategory_APTNANDataSession <= 50 && (gLogCategory_APTNANDataSession != -1 || _LogCategory_Initialize()))
+    {
+      [(APTNANPairingDelegate *)v6 initWithHandleAuthorizationRequestBlock:v7 logContext:v8];
+    }
   }
 
   return v6;
@@ -57,7 +62,7 @@
 {
   if (gLogCategory_APTNANDataSession <= 50 && (gLogCategory_APTNANDataSession != -1 || _LogCategory_Initialize()))
   {
-    [APTNANPairingDelegate handlePairingRequestOfType:type withInputCompletionHandler:self];
+    [(APTNANPairingDelegate *)type handlePairingRequestOfType:type withInputCompletionHandler:?];
   }
 
   v7 = (*(self->_handleAuthorizationRequestBlock + 2))();
@@ -69,26 +74,19 @@
 
   if (gLogCategory_APTNANDataSession <= 50 && (gLogCategory_APTNANDataSession != -1 || _LogCategory_Initialize()))
   {
-    [APTNANPairingDelegate handlePairingRequestOfType:withInputCompletionHandler:];
+    [(APTNANPairingDelegate *)self handlePairingRequestOfType:v8 withInputCompletionHandler:v9];
   }
 
   (*(handler + 2))(handler, 0);
 }
 
-- (void)initWithHandleAuthorizationRequestBlock:(void *)a1 logContext:.cold.2(void *a1)
+- (void)initWithHandleAuthorizationRequestBlock:(void *)a1 logContext:(uint64_t)a2 .cold.2(void *a1, uint64_t a2)
 {
   APSLogErrorAt();
-  if (gLogCategory_APTNANDataSession <= 90 && (gLogCategory_APTNANDataSession != -1 || OUTLINED_FUNCTION_9_0()))
+  if (gLogCategory_APTNANDataSession <= 90 && (gLogCategory_APTNANDataSession != -1 || OUTLINED_FUNCTION_9_0(&gLogCategory_APTNANDataSession)))
   {
-    OUTLINED_FUNCTION_15();
+    OUTLINED_FUNCTION_15(&gLogCategory_APTNANDataSession, "[APTNANPairingDelegate initWithHandleAuthorizationRequestBlock:logContext:]", v2, "Failed to initialize NAN Pairing Delegate.");
   }
-}
-
-- (uint64_t)handlePairingRequestOfType:(uint64_t)a1 withInputCompletionHandler:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 16);
-  v4 = *(a2 + 8);
-  return OUTLINED_FUNCTION_9();
 }
 
 @end

@@ -306,7 +306,7 @@ LABEL_8:
         v9 = *(*(&v13 + 1) + 8 * v8);
         if (v9)
         {
-          [v9 minFrameDuration];
+          objc_msgSend_minFrameDuration(v9);
         }
 
         else
@@ -319,7 +319,7 @@ LABEL_8:
         {
           if (v9)
           {
-            [v9 minFrameDuration];
+            objc_msgSend_minFrameDuration(v9);
           }
 
           else
@@ -370,7 +370,7 @@ LABEL_8:
         v9 = *(*(&v13 + 1) + 8 * v8);
         if (v9)
         {
-          [v9 maxFrameDuration];
+          objc_msgSend_maxFrameDuration(v9);
         }
 
         else
@@ -383,7 +383,7 @@ LABEL_8:
         {
           if (v9)
           {
-            [v9 maxFrameDuration];
+            objc_msgSend_maxFrameDuration(v9);
           }
 
           else
@@ -759,20 +759,20 @@ LABEL_7:
     return 0;
   }
 
-  v4 = [-[NSDictionary objectForKeyedSubscript:](self->_internal->fcSourceAttributes objectForKeyedSubscript:{*MEMORY[0x1E6990138]), "intValue"}];
-  if (v4 == 15)
+  intValue = [objc_msgSend_objectForKeyedSubscript_(self->_internal->fcSourceAttributes) intValue];
+  if (intValue == 15)
   {
     return 0;
   }
 
-  v5 = v4;
+  v5 = intValue;
   v6 = [(AVCaptureDeviceFormat *)self isHighestPhotoQualitySupported]? 5.0 : 3.0;
-  if ([-[NSDictionary objectForKeyedSubscript:](self->_internal->fcSourceAttributes objectForKeyedSubscript:{*MEMORY[0x1E6990220]), "intValue"}] != 1)
+  if ([objc_msgSend_objectForKeyedSubscript_(self->_internal->fcSourceAttributes) intValue] != 1)
   {
     return 0;
   }
 
-  v7 = [(NSDictionary *)self->_internal->fcSourceAttributes objectForKeyedSubscript:*MEMORY[0x1E69900D0]];
+  v7 = objc_msgSend_objectForKeyedSubscript_(self->_internal->fcSourceAttributes);
   if (v7)
   {
     [objc_msgSend(v7 "lastObject")];
@@ -837,7 +837,7 @@ LABEL_7:
   if (result)
   {
 
-    return [(CMTime *)result minExposureDuration];
+    return objc_msgSend_minExposureDuration(result);
   }
 
   else
@@ -856,7 +856,7 @@ LABEL_7:
   if (result)
   {
 
-    return [(CMTime *)result maxExposureDuration];
+    return objc_msgSend_maxExposureDuration(result);
   }
 
   else
@@ -971,14 +971,14 @@ LABEL_11:
     return 0;
   }
 
-  v4 = [(NSDictionary *)self->_internal->fcSourceAttributes objectForKeyedSubscript:*MEMORY[0x1E69902C8]];
+  v4 = objc_msgSend_objectForKeyedSubscript_(self->_internal->fcSourceAttributes);
 
   return [v4 BOOLValue];
 }
 
 - (BOOL)isCameraCalibrationDataDeliverySupported
 {
-  v2 = [(NSDictionary *)self->_internal->fcSourceAttributes objectForKeyedSubscript:*MEMORY[0x1E69900E0]];
+  v2 = objc_msgSend_objectForKeyedSubscript_(self->_internal->fcSourceAttributes, a2, *MEMORY[0x1E69900E0]);
 
   return [v2 BOOLValue];
 }
@@ -1161,14 +1161,14 @@ LABEL_11:
     return 0;
   }
 
-  [-[NSDictionary objectForKeyedSubscript:](internal->fcSourceAttributes objectForKeyedSubscript:{*MEMORY[0x1E6990218], v2, v3), "floatValue"}];
-  return v5 > 0.0;
+  [objc_msgSend_objectForKeyedSubscript_(internal->fcSourceAttributes a2];
+  return v3 > 0.0;
 }
 
 - (id)supportedSemanticSegmentationMatteTypes
 {
   array = [MEMORY[0x1E695DF70] array];
-  v4 = [(NSDictionary *)self->_internal->fcSourceAttributes objectForKeyedSubscript:*MEMORY[0x1E6990270]];
+  v4 = objc_msgSend_objectForKeyedSubscript_(self->_internal->fcSourceAttributes);
   if ([v4 count])
   {
     v5 = *MEMORY[0x1E69917E8];
@@ -1201,7 +1201,7 @@ LABEL_11:
             objc_enumerationMutation(v4);
           }
 
-          v12 = [v7 objectForKeyedSubscript:*(*(&v15 + 1) + 8 * v11)];
+          v12 = objc_msgSend_objectForKeyedSubscript_(v7);
           if (v12)
           {
             [array addObject:v12];
@@ -1299,7 +1299,7 @@ LABEL_11:
   internal = self->_internal;
   if (internal->continuousZoomWithDepthEnabled && (v5 = v3, v3 > 0.0))
   {
-    [objc_msgSend(-[NSDictionary objectForKeyedSubscript:](internal->fcSourceAttributes objectForKeyedSubscript:{*MEMORY[0x1E69902B0]), "firstObject"), "floatValue"}];
+    [objc_msgSend(objc_msgSend_objectForKeyedSubscript_(internal->fcSourceAttributes) "firstObject")];
     if (v6 == 0.0)
     {
       v6 = 1.0;
@@ -1312,7 +1312,7 @@ LABEL_11:
   else
   {
     array = [MEMORY[0x1E695DF70] array];
-    v9 = [(NSDictionary *)self->_internal->fcSourceAttributes objectForKeyedSubscript:*MEMORY[0x1E69902B0]];
+    v9 = objc_msgSend_objectForKeyedSubscript_(self->_internal->fcSourceAttributes);
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
@@ -1350,16 +1350,16 @@ LABEL_11:
 
 - (BOOL)isDCProcessingWithDepthSupported
 {
-  v2 = [(NSDictionary *)self->_internal->fcSourceAttributes objectForKeyedSubscript:*MEMORY[0x1E6990130]];
-  v3 = [v2 objectForKeyedSubscript:*MEMORY[0x1E698FA20]];
+  v2 = objc_msgSend_objectForKeyedSubscript_(self->_internal->fcSourceAttributes, a2, *MEMORY[0x1E6990130]);
+  v3 = objc_msgSend_objectForKeyedSubscript_(v2);
 
   return [v3 BOOLValue];
 }
 
 - (BOOL)isDemosaicedRawConfigurationWithDepthSupported
 {
-  v2 = [(NSDictionary *)self->_internal->fcSourceAttributes objectForKeyedSubscript:*MEMORY[0x1E6990130]];
-  v3 = [v2 objectForKeyedSubscript:*MEMORY[0x1E698FA28]];
+  v2 = objc_msgSend_objectForKeyedSubscript_(self->_internal->fcSourceAttributes, a2, *MEMORY[0x1E6990130]);
+  v3 = objc_msgSend_objectForKeyedSubscript_(v2);
 
   return [v3 BOOLValue];
 }
@@ -1618,9 +1618,9 @@ LABEL_7:
 
   if (self)
   {
-    [(AVCaptureDeviceFormat *)self minExposureDuration];
+    objc_msgSend_minExposureDuration(self);
     Seconds = CMTimeGetSeconds(&time);
-    [(AVCaptureDeviceFormat *)self maxExposureDuration];
+    objc_msgSend_maxExposureDuration(self);
   }
 
   else
@@ -1776,9 +1776,9 @@ LABEL_7:
 
 - (AVCaptureDeviceFormat)initWithFigCaptureSourceFormat:(id)format fcSourceAttributes:(id)attributes
 {
-  v20.receiver = self;
-  v20.super_class = AVCaptureDeviceFormat;
-  v6 = [(AVCaptureDeviceFormat *)&v20 init];
+  v30.receiver = self;
+  v30.super_class = AVCaptureDeviceFormat;
+  v6 = [(AVCaptureDeviceFormat *)&v30 init];
   if (v6)
   {
     v7 = objc_alloc_init(AVCaptureDeviceFormatInternal);
@@ -1793,11 +1793,12 @@ LABEL_7:
         v6->_internal->mountedInPortraitOrientation = AVCaptureIsSensorMountedInPortraitOrientation(v8);
         [(AVCaptureDeviceFormat *)v6 _initializeSupportedMaxPhotoDimensions];
         v6->_internal->backgroundBlurSupported = [(FigCaptureSourceFormat *)v6->_internal->sourceFormat isBackgroundBlurSupported];
-        v6->_internal->backgroundBlurSupportedForContinuityCamera = [(FigCaptureSourceFormat *)v6->_internal->sourceFormat isBackgroundBlurSupportedForContinuityCapture];
+        isBackgroundBlurSupportedForContinuityCapture = [(FigCaptureSourceFormat *)v6->_internal->sourceFormat isBackgroundBlurSupportedForContinuityCapture];
+        v6->_internal->backgroundBlurSupportedForContinuityCamera = isBackgroundBlurSupportedForContinuityCapture;
         internal = v6->_internal;
         if (!internal->backgroundBlurSupported)
         {
-          IsContinuityCapture = AVCaptureClientIsContinuityCapture();
+          IsContinuityCapture = AVCaptureClientIsContinuityCapture(isBackgroundBlurSupportedForContinuityCapture, v10);
           internal = v6->_internal;
           if (IsContinuityCapture)
           {
@@ -1807,65 +1808,69 @@ LABEL_7:
         }
 
         v6->_internal->studioLightingSupported = [(FigCaptureSourceFormat *)internal->sourceFormat isStudioLightingSupported];
-        v6->_internal->studioLightingSupportedForContinuityCamera = [(FigCaptureSourceFormat *)v6->_internal->sourceFormat isStudioLightingSupportedForContinuityCapture];
-        v11 = v6->_internal;
-        if (!v11->studioLightingSupported)
-        {
-          v12 = AVCaptureClientIsContinuityCapture();
-          v11 = v6->_internal;
-          if (v12)
-          {
-            v11->studioLightingSupported = v11->studioLightingSupportedForContinuityCamera;
-            v11 = v6->_internal;
-          }
-        }
-
-        v6->_internal->reactionEffectsSupported = [(FigCaptureSourceFormat *)v11->sourceFormat reactionEffectsSupported];
-        v6->_internal->reactionEffectsSupportedForContinuityCamera = [(FigCaptureSourceFormat *)v6->_internal->sourceFormat reactionEffectsSupportedForContinuityCapture];
-        v13 = v6->_internal;
-        if (!v13->reactionEffectsSupported)
-        {
-          v14 = AVCaptureClientIsContinuityCapture();
-          v13 = v6->_internal;
-          if (v14)
-          {
-            v13->reactionEffectsSupported = v13->reactionEffectsSupportedForContinuityCamera;
-            v13 = v6->_internal;
-          }
-        }
-
-        v6->_internal->backgroundReplacementSupported = [(FigCaptureSourceFormat *)v13->sourceFormat isBackgroundReplacementSupported];
-        v6->_internal->backgroundReplacementSupportedForContinuityCamera = [(FigCaptureSourceFormat *)v6->_internal->sourceFormat isBackgroundReplacementSupportedForContinuityCapture];
+        isStudioLightingSupportedForContinuityCapture = [(FigCaptureSourceFormat *)v6->_internal->sourceFormat isStudioLightingSupportedForContinuityCapture];
+        v6->_internal->studioLightingSupportedForContinuityCamera = isStudioLightingSupportedForContinuityCapture;
         v15 = v6->_internal;
-        if (!v15->backgroundReplacementSupported)
+        if (!v15->studioLightingSupported)
         {
-          v16 = AVCaptureClientIsContinuityCapture();
+          v16 = AVCaptureClientIsContinuityCapture(isStudioLightingSupportedForContinuityCapture, v14);
           v15 = v6->_internal;
           if (v16)
           {
-            v15->backgroundReplacementSupported = v15->backgroundReplacementSupportedForContinuityCamera;
+            v15->studioLightingSupported = v15->studioLightingSupportedForContinuityCamera;
             v15 = v6->_internal;
           }
         }
 
-        v6->_internal->centerStageSupported = [(FigCaptureSourceFormat *)v15->sourceFormat isCinematicFramingSupported];
-        v6->_internal->centerStageSupportedForContinuityCamera = [(FigCaptureSourceFormat *)v6->_internal->sourceFormat isCinematicFramingSupportedForContinuityCapture];
-        if (!v6->_internal->centerStageSupported && AVCaptureClientIsContinuityCapture())
+        v6->_internal->reactionEffectsSupported = [(FigCaptureSourceFormat *)v15->sourceFormat reactionEffectsSupported];
+        reactionEffectsSupportedForContinuityCapture = [(FigCaptureSourceFormat *)v6->_internal->sourceFormat reactionEffectsSupportedForContinuityCapture];
+        v6->_internal->reactionEffectsSupportedForContinuityCamera = reactionEffectsSupportedForContinuityCapture;
+        v19 = v6->_internal;
+        if (!v19->reactionEffectsSupported)
+        {
+          v20 = AVCaptureClientIsContinuityCapture(reactionEffectsSupportedForContinuityCapture, v18);
+          v19 = v6->_internal;
+          if (v20)
+          {
+            v19->reactionEffectsSupported = v19->reactionEffectsSupportedForContinuityCamera;
+            v19 = v6->_internal;
+          }
+        }
+
+        v6->_internal->backgroundReplacementSupported = [(FigCaptureSourceFormat *)v19->sourceFormat isBackgroundReplacementSupported];
+        isBackgroundReplacementSupportedForContinuityCapture = [(FigCaptureSourceFormat *)v6->_internal->sourceFormat isBackgroundReplacementSupportedForContinuityCapture];
+        v6->_internal->backgroundReplacementSupportedForContinuityCamera = isBackgroundReplacementSupportedForContinuityCapture;
+        v23 = v6->_internal;
+        if (!v23->backgroundReplacementSupported)
+        {
+          v24 = AVCaptureClientIsContinuityCapture(isBackgroundReplacementSupportedForContinuityCapture, v22);
+          v23 = v6->_internal;
+          if (v24)
+          {
+            v23->backgroundReplacementSupported = v23->backgroundReplacementSupportedForContinuityCamera;
+            v23 = v6->_internal;
+          }
+        }
+
+        v6->_internal->centerStageSupported = [(FigCaptureSourceFormat *)v23->sourceFormat isCinematicFramingSupported];
+        isCinematicFramingSupportedForContinuityCapture = [(FigCaptureSourceFormat *)v6->_internal->sourceFormat isCinematicFramingSupportedForContinuityCapture];
+        v6->_internal->centerStageSupportedForContinuityCamera = isCinematicFramingSupportedForContinuityCapture;
+        if (!v6->_internal->centerStageSupported && AVCaptureClientIsContinuityCapture(isCinematicFramingSupportedForContinuityCapture, v26))
         {
           v6->_internal->centerStageSupported = v6->_internal->centerStageSupportedForContinuityCamera;
         }
 
         v6->_internal->smartCropFeatureFlagEnabled = _os_feature_enabled_impl();
         v6->_internal->smartCropSupported = [(FigCaptureSourceFormat *)v6->_internal->sourceFormat isSmartCropSupported];
-        v17 = v6->_internal;
-        if (v17->smartCropSupported && v17->smartCropFeatureFlagEnabled)
+        v27 = v6->_internal;
+        if (v27->smartCropSupported && v27->smartCropFeatureFlagEnabled)
         {
-          v17->centerStageSupported = 1;
-          v17 = v6->_internal;
+          v27->centerStageSupported = 1;
+          v27 = v6->_internal;
         }
 
-        v6->_internal->constantColorSupported = [(FigCaptureSourceFormat *)v17->sourceFormat isConstantColorSupported];
-        if ([-[NSDictionary objectForKeyedSubscript:](v6->_internal->fcSourceAttributes objectForKeyedSubscript:{*MEMORY[0x1E6990138]), "intValue"}] == 9)
+        v6->_internal->constantColorSupported = [(FigCaptureSourceFormat *)v27->sourceFormat isConstantColorSupported];
+        if ([objc_msgSend_objectForKeyedSubscript_(v6->_internal->fcSourceAttributes) intValue] == 9)
         {
           v6->_internal->depthDataFormatsDisabled = !v6->_internal->continuousZoomWithDepthEnabled;
         }
@@ -1877,7 +1882,7 @@ LABEL_7:
       else if ([(FigCaptureSourceFormat *)v6->_internal->sourceFormat mediaType]== 1685091432)
       {
         [format sensorOrientation];
-        v6->_internal->mountedInPortraitOrientation = AVCaptureIsSensorMountedInPortraitOrientation(v18);
+        v6->_internal->mountedInPortraitOrientation = AVCaptureIsSensorMountedInPortraitOrientation(v28);
         v6->_internal->isDepthDataFormat = 1;
       }
     }
@@ -1961,7 +1966,7 @@ LABEL_7:
 
 - (NSArray)supportedVideoZoomFactorsForDepthDataDelivery
 {
-  result = [(NSDictionary *)self->_internal->fcSourceAttributes objectForKeyedSubscript:*MEMORY[0x1E69902B0]];
+  result = objc_msgSend_objectForKeyedSubscript_(self->_internal->fcSourceAttributes, a2, *MEMORY[0x1E69902B0]);
   if (!result)
   {
     return MEMORY[0x1E695E0F0];
@@ -2399,7 +2404,7 @@ LABEL_7:
 {
   if (AVGestaltGetBoolAnswer(@"AVGQCaptureConnectionCinematicVISAwareAPIsAreAvailable"))
   {
-    v4 = [objc_msgSend(objc_msgSend(MEMORY[0x1E696AE30] "processInfo")];
+    v4 = objc_msgSend_objectForKeyedSubscript_([objc_msgSend(MEMORY[0x1E696AE30] "processInfo")]);
     if (([v4 isEqualToString:@"YES"] & 1) == 0 && (objc_msgSend(v4, "isEqualToString:", @"yes") & 1) == 0 && (objc_msgSend(v4, "isEqualToString:", @"1") & 1) == 0)
     {
       v5 = objc_opt_class();
@@ -2421,9 +2426,9 @@ LABEL_7:
     return 0;
   }
 
-  v6 = [(NSDictionary *)internal->fcSourceAttributes objectForKeyedSubscript:*MEMORY[0x1E69901A0], v2];
+  v5 = objc_msgSend_objectForKeyedSubscript_(internal->fcSourceAttributes, a2, *MEMORY[0x1E69901A0]);
 
-  return [v6 BOOLValue];
+  return [v5 BOOLValue];
 }
 
 - (BOOL)isVideoStabilizationModeSupported:(AVCaptureVideoStabilizationMode)videoStabilizationMode
@@ -2556,7 +2561,7 @@ LABEL_15:
   if (internal->continuousZoomWithDepthEnabled != enabled)
   {
     internal->continuousZoomWithDepthEnabled = enabled;
-    if ([-[NSDictionary objectForKeyedSubscript:](self->_internal->fcSourceAttributes objectForKeyedSubscript:{*MEMORY[0x1E6990138]), "intValue"}] == 9)
+    if ([objc_msgSend_objectForKeyedSubscript_(self->_internal->fcSourceAttributes a2] == 9)
     {
       self->_internal->depthDataFormatsDisabled = !enabled;
 
@@ -2632,7 +2637,7 @@ LABEL_15:
   v6 = *&self->var1;
   if ((*(v6 + 36) & 1) == 0)
   {
-    [($3CC8671D27C23BF42ADDB32F2B5E48AE *)self lowestSupportedVideoFrameDuration];
+    objc_msgSend_lowestSupportedVideoFrameDuration(self, preset);
     *(v6 + 24) = v11;
     self = [($3CC8671D27C23BF42ADDB32F2B5E48AE *)selfCopy figCaptureSourceVideoFormat];
     if (self)
@@ -2656,7 +2661,7 @@ LABEL_15:
   v6 = *&self->var1;
   if ((*(v6 + 60) & 1) == 0)
   {
-    [($3CC8671D27C23BF42ADDB32F2B5E48AE *)self highestSupportedVideoFrameDuration];
+    objc_msgSend_highestSupportedVideoFrameDuration(self, preset);
     *(v6 + 48) = v11;
     self = [($3CC8671D27C23BF42ADDB32F2B5E48AE *)selfCopy figCaptureSourceVideoFormat];
     if (self)

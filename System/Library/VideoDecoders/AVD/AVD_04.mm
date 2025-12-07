@@ -473,11 +473,11 @@ LABEL_87:
 
     v48 = a3[15];
     v49 = a2[5718];
-    v50 = (a3 + 37);
+    v50 = a3 + 37;
     v52 = *(v25 + 2644) == 1 && v47 != 0;
     do
     {
-      v53 = v49 + v49 * *&v50[4 * v36];
+      v53 = v49 + v49 * v50[v36];
       if (v53 + v37 > v44)
       {
         v53 = v44 - v37;
@@ -854,7 +854,7 @@ uint64_t CAHDecTansyHevc::setVPInstrFifo(uint64_t this, int a2)
   return this;
 }
 
-void *createTansyLghDecoder(uint64_t a1)
+CAHDecTansyLgh *createTansyLghDecoder(CAVDLghDecoder *a1)
 {
   v2 = operator new(0xC48uLL, MEMORY[0x277D826F0]);
   v3 = v2;
@@ -3495,7 +3495,7 @@ uint64_t CAHDecTansyLgh::setVPInstrFifo(uint64_t this, int a2)
   return this;
 }
 
-void *createTansyAvxDecoder(void **a1)
+CAHDecTansyAvx *createTansyAvxDecoder(void **a1)
 {
   v2 = operator new(0x1060uLL, MEMORY[0x277D826F0]);
   v3 = v2;
@@ -8846,7 +8846,7 @@ void CAVDMvHevcDecoder::CAVDMvHevcDecoder(CAVDMvHevcDecoder *this, void *a2, int
   bzero(this + 11484, 0x240uLL);
 }
 
-_DWORD *CAVDMvHevcDecoder::getInterLayerShortTermPic(HEVC_RLM **this, int a2, unsigned int a3)
+_DWORD *CAVDMvHevcDecoder::getInterLayerShortTermPic(HEVC_RLM **this, int a2, int a3)
 {
   if (*(this + 2022) >= a3)
   {
@@ -8859,7 +8859,7 @@ _DWORD *CAVDMvHevcDecoder::getInterLayerShortTermPic(HEVC_RLM **this, int a2, un
   }
 }
 
-uint64_t CAVDMvHevcDecoder::allocateMultiViewHwDecoders(CAVDMvHevcDecoder *this, int a2)
+uint64_t CAVDMvHevcDecoder::allocateMultiViewHwDecoders(CAVDMvHevcDecoder *this, unsigned int a2)
 {
   v16 = *MEMORY[0x277D85DE8];
   if (a2 < 1)
@@ -9600,8 +9600,9 @@ uint64_t CAVDMvHevcDecoder::calcSmallestLayerId(CAVDMvHevcDecoder *this, int a2)
   return result;
 }
 
-uint64_t CAVDMvHevcDecoder::deriveSpsParamsFromActiveVps(uint64_t a1, uint64_t a2, int a3)
+uint64_t CAVDMvHevcDecoder::deriveSpsParamsFromActiveVps(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   v12 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 8088);
   if (v4 >= a3)
@@ -9621,7 +9622,7 @@ uint64_t CAVDMvHevcDecoder::deriveSpsParamsFromActiveVps(uint64_t a1, uint64_t a
       v6 = 136315650;
       v7 = "deriveSpsParamsFromActiveVps";
       v8 = 1024;
-      v9 = a3;
+      v9 = v3;
       v10 = 1024;
       v11 = v4;
       _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: ERROR: %s: layerID %d > vps_max_layer_id %d!\n", &v6, 0x18u);
@@ -9758,13 +9759,13 @@ uint64_t CAVDMvHevcDecoder::VAStopDecode(CAVDMvHevcDecoder *this)
 BOOL CAVDMvHevcDecoder::AccessUnitBumpingProcess(HEVC_RLM **this)
 {
   v2 = 0;
-  v3 = (this + 1211);
+  v3 = this + 1211;
   v4 = 0x7FFFFFFF;
   v5 = -1;
   do
   {
-    v6 = &v3[40 * v2];
-    if (v6[32] == 1)
+    v6 = &v3[5 * v2];
+    if (*(v6 + 32) == 1)
     {
       v7 = *(v6 + 7);
       if (v7)
@@ -9778,7 +9779,7 @@ BOOL CAVDMvHevcDecoder::AccessUnitBumpingProcess(HEVC_RLM **this)
             v8 = (*(*v9 + 2) | v8) != 0;
           }
 
-          v9 += 8;
+          v9 = (v9 + 8);
           --v7;
         }
 
@@ -9801,7 +9802,7 @@ BOOL CAVDMvHevcDecoder::AccessUnitBumpingProcess(HEVC_RLM **this)
   while (v2 != 16);
   if (v5 != -1)
   {
-    v11 = &v3[40 * v5];
+    v11 = &v3[5 * v5];
     if (!*(v11 + 7))
     {
       goto LABEL_27;
@@ -9810,7 +9811,7 @@ BOOL CAVDMvHevcDecoder::AccessUnitBumpingProcess(HEVC_RLM **this)
     v12 = 0;
     do
     {
-      v13 = *(*v11 + 8 * v12);
+      v13 = *(*v11 + v12);
       if (v13)
       {
         v14 = *(v13 + 28);
@@ -9824,7 +9825,7 @@ BOOL CAVDMvHevcDecoder::AccessUnitBumpingProcess(HEVC_RLM **this)
         if (!*(v13 + 20))
         {
           HEVC_RLM::removeEntry(this[*(this[1020] + v14 + 290) + 377], v15);
-          *(*v11 + 8 * v12) = 0;
+          *(*v11 + v12) = 0;
         }
       }
 
@@ -9842,7 +9843,9 @@ BOOL CAVDMvHevcDecoder::AccessUnitBumpingProcess(HEVC_RLM **this)
     v18 = *v11;
     do
     {
-      if (*v18++)
+      v19 = *v18;
+      v18 = (v18 + 8);
+      if (v19)
       {
         ++v17;
       }
@@ -9854,12 +9857,12 @@ BOOL CAVDMvHevcDecoder::AccessUnitBumpingProcess(HEVC_RLM **this)
     if (!v17)
     {
 LABEL_27:
-      if (v11[32] == 1)
+      if (*(v11 + 32) == 1)
       {
         *(v11 + 4) = 0;
-        *(v11 + 3) = 0;
-        v11[32] = 0;
-        bzero(*(v11 + 1), *(this + 931) + 1);
+        v11[3] = 0;
+        *(v11 + 32) = 0;
+        bzero(v11[1], *(this + 931) + 1);
         --*(this + 2582);
       }
     }

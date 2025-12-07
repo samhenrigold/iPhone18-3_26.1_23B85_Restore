@@ -10,7 +10,7 @@
   reasonCopy = reason;
   configurationCopy = configuration;
   role = [configurationCopy role];
-  v10 = PBFLogDataStore();
+  v10 = PBFLogDataStore(role);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -39,7 +39,7 @@ void __121__PBFProactivePosterSwitchNotifier_posterExtensionDataStore_didUpdateA
 {
   v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = PBFLogDataStore();
+  v4 = PBFLogDataStore(v3);
   v5 = v4;
   if (v3)
   {

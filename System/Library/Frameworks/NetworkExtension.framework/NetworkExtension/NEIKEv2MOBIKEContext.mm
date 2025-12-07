@@ -130,8 +130,6 @@ uint64_t __58__NEIKEv2MOBIKEContext_sendCallbackSuccess_session_error___block_in
   v1 = *(result + 32);
   if (!v1 || (*(v1 + 12) & 1) == 0)
   {
-    v2 = *(result + 56);
-    v3 = *(result + 40);
     return (*(*(result + 48) + 16))(*(result + 48));
   }
 

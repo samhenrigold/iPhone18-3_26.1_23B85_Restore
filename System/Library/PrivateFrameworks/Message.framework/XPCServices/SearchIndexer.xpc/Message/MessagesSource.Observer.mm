@@ -12,11 +12,10 @@
   {
     if (*(Strong + OBJC_IVAR____TtC17IMAPSearchIndexer14MessagesSource_state) == 1)
     {
-      v6 = *(Strong + OBJC_IVAR____TtC17IMAPSearchIndexer14MessagesSource_contentDidChange);
-      v5 = *(Strong + OBJC_IVAR____TtC17IMAPSearchIndexer14MessagesSource_contentDidChange + 8);
+      v5 = *(Strong + OBJC_IVAR____TtC17IMAPSearchIndexer14MessagesSource_contentDidChange);
       selfCopy = self;
 
-      v6(v7);
+      v5(v6);
     }
 
     else

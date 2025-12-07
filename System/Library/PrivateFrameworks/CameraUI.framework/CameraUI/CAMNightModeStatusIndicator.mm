@@ -38,7 +38,7 @@
 - (id)valueText
 {
   integerFormatter = [objc_opt_class() integerFormatter];
-  [(CAMNightModeStatusIndicator *)self duration];
+  objc_msgSend_duration(self);
   v5 = [MEMORY[0x1E696AD98] numberWithDouble:{fmax(round(v4), 1.0)}];
   v6 = [integerFormatter stringFromNumber:v5];
 

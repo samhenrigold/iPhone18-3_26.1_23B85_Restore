@@ -50,7 +50,7 @@ uint64_t __34__STKUSSDFilter_cachedExpressions__block_invoke()
 
 - (BOOL)shouldFilterString:(id)string coalescable:(BOOL *)coalescable
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   if (![stringCopy length])
   {
@@ -64,26 +64,26 @@ uint64_t __34__STKUSSDFilter_cachedExpressions__block_invoke()
     goto LABEL_40;
   }
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   alwaysFilteredPatterns = [(STKUSSDFilter *)self alwaysFilteredPatterns];
-  v8 = [alwaysFilteredPatterns countByEnumeratingWithState:&v35 objects:v40 count:16];
+  v8 = [alwaysFilteredPatterns countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v36;
+    v10 = *v35;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v36 != v10)
+        if (*v35 != v10)
         {
           objc_enumerationMutation(alwaysFilteredPatterns);
         }
 
-        v12 = [(STKUSSDFilter *)self _matchesInString:stringCopy forPattern:*(*(&v35 + 1) + 8 * i)];
+        v12 = [(STKUSSDFilter *)self _matchesInString:stringCopy forPattern:*(*(&v34 + 1) + 8 * i)];
         v13 = [v12 count];
 
         if (v13)
@@ -94,7 +94,7 @@ uint64_t __34__STKUSSDFilter_cachedExpressions__block_invoke()
         }
       }
 
-      v9 = [alwaysFilteredPatterns countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v9 = [alwaysFilteredPatterns countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
     while (v9);
@@ -103,8 +103,8 @@ uint64_t __34__STKUSSDFilter_cachedExpressions__block_invoke()
   Current = CFAbsoluteTimeGetCurrent();
   [(STKUSSDFilter *)self lastWarningTime];
   v16 = Current - v15;
+  v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   if (v16 >= 0.0)
   {
     v17 = v16;
@@ -115,26 +115,26 @@ uint64_t __34__STKUSSDFilter_cachedExpressions__block_invoke()
     v17 = -v16;
   }
 
+  v32 = 0uLL;
   v33 = 0uLL;
-  v34 = 0uLL;
   alwaysFilteredPatterns = [(STKUSSDFilter *)self sometimesFilteredPatterns];
-  v18 = [alwaysFilteredPatterns countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v18 = [alwaysFilteredPatterns countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (!v18)
   {
     goto LABEL_21;
   }
 
-  v19 = *v32;
+  v19 = *v31;
   while (2)
   {
     for (j = 0; j != v18; ++j)
     {
-      if (*v32 != v19)
+      if (*v31 != v19)
       {
         objc_enumerationMutation(alwaysFilteredPatterns);
       }
 
-      v21 = [(STKUSSDFilter *)self _matchesInString:stringCopy forPattern:*(*(&v31 + 1) + 8 * j)];
+      v21 = [(STKUSSDFilter *)self _matchesInString:stringCopy forPattern:*(*(&v30 + 1) + 8 * j)];
       if ([v21 count])
       {
         if (v17 >= 300.0)
@@ -169,7 +169,7 @@ LABEL_37:
       }
     }
 
-    v18 = [alwaysFilteredPatterns countByEnumeratingWithState:&v31 objects:v39 count:16];
+    v18 = [alwaysFilteredPatterns countByEnumeratingWithState:&v30 objects:v38 count:16];
     if (v18)
     {
       continue;
@@ -190,7 +190,6 @@ LABEL_39:
 
 LABEL_40:
 
-  v29 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -203,7 +202,7 @@ LABEL_40:
 
 - (id)_matchesInString:(id)string forPattern:(id)pattern
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   patternCopy = pattern;
   cachedExpressions = [objc_opt_class() cachedExpressions];
@@ -211,19 +210,19 @@ LABEL_40:
 
   if (!v8)
   {
-    v24 = 0;
-    v8 = [objc_alloc(MEMORY[0x277CCAC68]) initWithPattern:patternCopy options:0 error:&v24];
-    v9 = v24;
+    v23 = 0;
+    v8 = [objc_alloc(MEMORY[0x277CCAC68]) initWithPattern:patternCopy options:0 error:&v23];
+    v9 = v23;
     v10 = v9;
     if (!v8 || v9)
     {
-      v11 = STKUSSDLog();
+      v11 = STKUSSDLog(v9);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        v26 = patternCopy;
-        v27 = 2114;
-        v28 = v10;
+        v25 = patternCopy;
+        v26 = 2114;
+        v27 = v10;
         _os_log_impl(&dword_262BB4000, v11, OS_LOG_TYPE_ERROR, "Invalid USSD filter regular expression pattern: /%{public}@/ %{public}@", buf, 0x16u);
       }
     }
@@ -245,8 +244,6 @@ LABEL_40:
       [v16 addObject:v21];
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

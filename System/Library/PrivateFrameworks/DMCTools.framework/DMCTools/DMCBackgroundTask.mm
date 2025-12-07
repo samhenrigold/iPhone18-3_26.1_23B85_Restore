@@ -18,30 +18,26 @@
 
 - (NSString)name
 {
-  v2 = *(self + OBJC_IVAR___DMCBackgroundTask_name);
-  v3 = *(self + OBJC_IVAR___DMCBackgroundTask_name + 8);
 
-  v4 = sub_247F23EFC();
+  v2 = sub_247F23EFC();
 
-  return v4;
+  return v2;
 }
 
 - (NSString)targetDateString
 {
   if (*(self + OBJC_IVAR___DMCBackgroundTask_targetDateString + 8))
   {
-    v2 = *(self + OBJC_IVAR___DMCBackgroundTask_targetDateString);
-    v3 = *(self + OBJC_IVAR___DMCBackgroundTask_targetDateString + 8);
 
-    v4 = sub_247F23EFC();
+    v2 = sub_247F23EFC();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (void)setTargetDateString:(id)string
@@ -58,7 +54,6 @@
   }
 
   v6 = (self + OBJC_IVAR___DMCBackgroundTask_targetDateString);
-  v7 = *(self + OBJC_IVAR___DMCBackgroundTask_targetDateString + 8);
   *v6 = v4;
   v6[1] = v5;
 }
@@ -107,7 +102,7 @@
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_247F081EC(v8);
+  sub_247F081EC(v8, v9);
 }
 
 - (DMCBackgroundTask)initWithName:(id)name queue:(id)queue launchHandler:(id)handler
@@ -133,8 +128,8 @@
 
 - (id)targetDate
 {
-  v3 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE7EC68, &unk_247F25BC0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE7EC68, &unk_247F25BC0);
+  MEMORY[0x28223BE20](v3 - 8);
   v5 = &v16 - v4;
   selfCopy = self;
   targetDateString = [(DMCBackgroundTask *)selfCopy targetDateString];

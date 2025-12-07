@@ -7,7 +7,7 @@
 - (void)distributorListChanged
 {
 
-  sub_659C();
+  sub_659C(v2);
 }
 
 @end

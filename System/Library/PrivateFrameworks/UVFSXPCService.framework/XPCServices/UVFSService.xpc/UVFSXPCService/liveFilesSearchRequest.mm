@@ -1,4 +1,5 @@
 @interface liveFilesSearchRequest
+- (int)replentishCredits:(int)credits;
 - (int)startSearch;
 - (liveFilesSearchRequest)initWithVolume:(id)volume withStartLocation:(id)location withSearchToken:(id)token withSearchCriteria:(id)criteria withProxy:(id)proxy andWithCallerID:(unint64_t)d;
 - (void)invalidateConnections;
@@ -75,6 +76,30 @@
 
   [(userFSVolume *)self->_targetVolume invalidateFileNodesForConnection:self->_searchLIClientID];
   [(userFSVolume *)self->_targetVolume releaseConnectionAllocation:self->_searchLIClientID];
+}
+
+- (int)replentishCredits:(int)credits
+{
+  v3 = *&credits;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
+  v5 = dispatch_semaphore_create(0);
+  resultsHandler = self->_resultsHandler;
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_1000190F8;
+  v9[3] = &unk_100038CC0;
+  v11 = &v12;
+  v7 = v5;
+  v10 = v7;
+  [(LiveFSVolumeSearchResultConnector *)resultsHandler replenishCredits:v3 reply:v9];
+  dispatch_semaphore_wait(v7, 0xFFFFFFFFFFFFFFFFLL);
+  LODWORD(v3) = *(v13 + 6);
+
+  _Block_object_dispose(&v12, 8);
+  return v3;
 }
 
 @end

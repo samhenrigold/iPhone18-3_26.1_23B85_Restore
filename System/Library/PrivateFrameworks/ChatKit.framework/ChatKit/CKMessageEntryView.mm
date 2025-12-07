@@ -2559,7 +2559,7 @@ void __37__CKMessageEntryView_updateEntryView__block_invoke(uint64_t a1)
 
 - (void)setCharacterCountString
 {
-  v98 = *MEMORY[0x1E69E9840];
+  v101 = *MEMORY[0x1E69E9840];
   characterCountLabel = [(CKMessageEntryView *)self characterCountLabel];
   if (![(CKMessageEntryView *)self isCharacterCountHidden])
   {
@@ -2568,7 +2568,7 @@ void __37__CKMessageEntryView_updateEntryView__block_invoke(uint64_t a1)
 
     if ((isSingleLine & 1) == 0)
     {
-      v91 = 0;
+      v94 = 0;
       composition = [(CKMessageEntryView *)self composition];
       text = [composition text];
       string = [text string];
@@ -2579,9 +2579,9 @@ void __37__CKMessageEntryView_updateEntryView__block_invoke(uint64_t a1)
       if (composition)
       {
         v10 = [string lengthOfBytesUsingEncoding:4];
-        v91 = v10;
+        v94 = v10;
         v11 = MEMORY[0x1E696AEC0];
-        v12 = CKFrameworkBundle();
+        v12 = CKFrameworkBundle(v10);
         v13 = [v12 localizedStringForKey:@"CHARACTER_COUNT_FMT" value:&stru_1F04268F8 table:@"ChatKit"];
         v14 = [MEMORY[0x1E696AD98] numberWithInteger:v10];
         v15 = CKLocalizedStringForNumber(v14);
@@ -2615,8 +2615,8 @@ void __37__CKMessageEntryView_updateEntryView__block_invoke(uint64_t a1)
           {
             [MEMORY[0x1E69DC888] systemOrangeColor];
           }
-          v83 = ;
-          [characterCountLabel setTextColor:v83];
+          v86 = ;
+          [characterCountLabel setTextColor:v86];
         }
 
         characterCountLabel2 = [(CKMessageEntryView *)self characterCountLabel];
@@ -2625,7 +2625,7 @@ void __37__CKMessageEntryView_updateEntryView__block_invoke(uint64_t a1)
         goto LABEL_35;
       }
 
-      v90 = 0;
+      v93 = 0;
       mEMORY[0x1E69A7F68] = [MEMORY[0x1E69A7F68] sharedInstance];
       ctSubscriptionInfo = [mEMORY[0x1E69A7F68] ctSubscriptionInfo];
       preferredOrDefaultSubscriptionContext = [ctSubscriptionInfo preferredOrDefaultSubscriptionContext];
@@ -2651,98 +2651,98 @@ void __37__CKMessageEntryView_updateEntryView__block_invoke(uint64_t a1)
       if (shouldDisplayOffGridModeStatus)
       {
         iMessageLiteService = [MEMORY[0x1E69A5C90] iMessageLiteService];
-        v91 = [string lengthOfBytesUsingEncoding:4];
+        v94 = [string lengthOfBytesUsingEncoding:4];
         serviceProperties = [iMessageLiteService serviceProperties];
         v34 = [serviceProperties valueForKey:*MEMORY[0x1E69A7B30]];
         intValue = [v34 intValue];
         v36 = intValue;
-        v90 = intValue;
+        v93 = intValue;
 
         v37 = MEMORY[0x1E696AEC0];
-        v38 = CKFrameworkBundle();
-        v39 = [v38 localizedStringForKey:@"CHARACTER_COUNT_FMT" value:&stru_1F04268F8 table:@"ChatKit"];
-        v40 = [MEMORY[0x1E696AD98] numberWithInteger:v91];
-        v41 = CKLocalizedStringForNumber(v40);
-        v42 = [MEMORY[0x1E696AD98] numberWithInteger:v36];
-        v43 = CKLocalizedStringForNumber(v42);
-        v44 = [v37 stringWithFormat:v39, v41, v43];
+        v39 = CKFrameworkBundle(v38);
+        v40 = [v39 localizedStringForKey:@"CHARACTER_COUNT_FMT" value:&stru_1F04268F8 table:@"ChatKit"];
+        v41 = [MEMORY[0x1E696AD98] numberWithInteger:v94];
+        v42 = CKLocalizedStringForNumber(v41);
+        v43 = [MEMORY[0x1E696AD98] numberWithInteger:v36];
+        v44 = CKLocalizedStringForNumber(v43);
+        v45 = [v37 stringWithFormat:v40, v42, v44];
 
         mEMORY[0x1E69DC668]2 = [MEMORY[0x1E69DC668] sharedApplication];
         userInterfaceLayoutDirection2 = [mEMORY[0x1E69DC668]2 userInterfaceLayoutDirection];
 
         if (userInterfaceLayoutDirection2 == 1)
         {
-          v47 = @"\u200F";
+          v48 = @"\u200F";
         }
 
         else
         {
-          v47 = @"\u200E";
+          v48 = @"\u200E";
         }
 
-        v48 = [(__CFString *)v47 stringByAppendingString:v44];
+        v49 = [(__CFString *)v48 stringByAppendingString:v45];
 
         characterCountLabel3 = [(CKMessageEntryView *)self characterCountLabel];
-        [characterCountLabel3 setText:v48];
+        [characterCountLabel3 setText:v49];
       }
 
       else if (__ck_isSatelliteSMS)
       {
-        v91 = [string lengthOfBytesUsingEncoding:4];
+        v94 = [string lengthOfBytesUsingEncoding:4];
         conversation5 = [(CKMessageEntryView *)self conversation];
         sendingService3 = [conversation5 sendingService];
         serviceProperties2 = [sendingService3 serviceProperties];
-        v53 = [serviceProperties2 valueForKey:*MEMORY[0x1E69A7B30]];
-        intValue2 = [v53 intValue];
-        v55 = intValue2;
-        v90 = intValue2;
+        v54 = [serviceProperties2 valueForKey:*MEMORY[0x1E69A7B30]];
+        intValue2 = [v54 intValue];
+        v56 = intValue2;
+        v93 = intValue2;
 
-        v56 = MEMORY[0x1E696AEC0];
-        v57 = CKFrameworkBundle();
-        v58 = [v57 localizedStringForKey:@"CHARACTER_COUNT_FMT" value:&stru_1F04268F8 table:@"ChatKit"];
-        v59 = [MEMORY[0x1E696AD98] numberWithInteger:v91];
-        v60 = CKLocalizedStringForNumber(v59);
-        v61 = [MEMORY[0x1E696AD98] numberWithInteger:v55];
+        v57 = MEMORY[0x1E696AEC0];
+        v59 = CKFrameworkBundle(v58);
+        v60 = [v59 localizedStringForKey:@"CHARACTER_COUNT_FMT" value:&stru_1F04268F8 table:@"ChatKit"];
+        v61 = [MEMORY[0x1E696AD98] numberWithInteger:v94];
         v62 = CKLocalizedStringForNumber(v61);
-        v63 = [v56 stringWithFormat:v58, v60, v62];
+        v63 = [MEMORY[0x1E696AD98] numberWithInteger:v56];
+        v64 = CKLocalizedStringForNumber(v63);
+        v65 = [v57 stringWithFormat:v60, v62, v64];
 
         mEMORY[0x1E69DC668]3 = [MEMORY[0x1E69DC668] sharedApplication];
         userInterfaceLayoutDirection3 = [mEMORY[0x1E69DC668]3 userInterfaceLayoutDirection];
 
         if (userInterfaceLayoutDirection3 == 1)
         {
-          v66 = @"\u200F";
+          v68 = @"\u200F";
         }
 
         else
         {
-          v66 = @"\u200E";
+          v68 = @"\u200E";
         }
 
-        v67 = [(__CFString *)v66 stringByAppendingString:v63];
+        v69 = [(__CFString *)v68 stringByAppendingString:v65];
 
         characterCountLabel4 = [(CKMessageEntryView *)self characterCountLabel];
-        [characterCountLabel4 setText:v67];
+        [characterCountLabel4 setText:v69];
       }
 
       else
       {
-        if (!preferredOrDefaultSubscriptionContext || ([CTMessageCenterClass() sharedMessageCenter], v69 = objc_claimAutoreleasedReturnValue(), v70 = objc_msgSend(v69, "getCharacterCountForSub:count:andMessageSplitThreshold:forSmsText:", preferredOrDefaultSubscriptionContext, &v91, &v90, string), v69, !v70))
+        if (!preferredOrDefaultSubscriptionContext || ([CTMessageCenterClass() sharedMessageCenter], v71 = objc_claimAutoreleasedReturnValue(), v72 = objc_msgSend(v71, "getCharacterCountForSub:count:andMessageSplitThreshold:forSmsText:", preferredOrDefaultSubscriptionContext, &v94, &v93, string), v71, !v72))
         {
           if (IMOSLoggingEnabled())
           {
-            v85 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v85, OS_LOG_TYPE_INFO))
+            v88 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v88, OS_LOG_TYPE_INFO))
             {
-              v86 = [MEMORY[0x1E696AD98] numberWithInteger:v90];
-              v87 = [MEMORY[0x1E696AD98] numberWithInteger:v91];
+              v89 = [MEMORY[0x1E696AD98] numberWithInteger:v93];
+              v90 = [MEMORY[0x1E696AD98] numberWithInteger:v94];
               *buf = 138412802;
-              v93 = v86;
-              v94 = 2112;
-              v95 = v87;
-              v96 = 2112;
-              v97 = preferredOrDefaultSubscriptionContext;
-              _os_log_impl(&dword_19020E000, v85, OS_LOG_TYPE_INFO, "Not showing character count: %@/%@ - subscription: %@", buf, 0x20u);
+              v96 = v89;
+              v97 = 2112;
+              v98 = v90;
+              v99 = 2112;
+              v100 = preferredOrDefaultSubscriptionContext;
+              _os_log_impl(&dword_19020E000, v88, OS_LOG_TYPE_INFO, "Not showing character count: %@/%@ - subscription: %@", buf, 0x20u);
             }
           }
 
@@ -2750,32 +2750,32 @@ void __37__CKMessageEntryView_updateEntryView__block_invoke(uint64_t a1)
           goto LABEL_31;
         }
 
-        v71 = MEMORY[0x1E696AEC0];
-        v72 = CKFrameworkBundle();
-        v73 = [v72 localizedStringForKey:@"CHARACTER_COUNT_FMT" value:&stru_1F04268F8 table:@"ChatKit"];
-        v74 = [MEMORY[0x1E696AD98] numberWithInteger:v91];
-        v75 = CKLocalizedStringForNumber(v74);
-        v76 = [MEMORY[0x1E696AD98] numberWithInteger:v90];
-        v77 = CKLocalizedStringForNumber(v76);
-        v78 = [v71 stringWithFormat:v73, v75, v77];
+        v74 = MEMORY[0x1E696AEC0];
+        v75 = CKFrameworkBundle(v73);
+        v76 = [v75 localizedStringForKey:@"CHARACTER_COUNT_FMT" value:&stru_1F04268F8 table:@"ChatKit"];
+        v77 = [MEMORY[0x1E696AD98] numberWithInteger:v94];
+        v78 = CKLocalizedStringForNumber(v77);
+        v79 = [MEMORY[0x1E696AD98] numberWithInteger:v93];
+        v80 = CKLocalizedStringForNumber(v79);
+        v81 = [v74 stringWithFormat:v76, v78, v80];
 
         mEMORY[0x1E69DC668]4 = [MEMORY[0x1E69DC668] sharedApplication];
-        LODWORD(v76) = [mEMORY[0x1E69DC668]4 userInterfaceLayoutDirection] == 1;
+        LODWORD(v79) = [mEMORY[0x1E69DC668]4 userInterfaceLayoutDirection] == 1;
 
-        if (v76)
+        if (v79)
         {
-          v80 = @"\u200F";
+          v83 = @"\u200F";
         }
 
         else
         {
-          v80 = @"\u200E";
+          v83 = @"\u200E";
         }
 
-        v81 = [(__CFString *)v80 stringByAppendingString:v78];
+        v84 = [(__CFString *)v83 stringByAppendingString:v81];
 
         characterCountLabel5 = [(CKMessageEntryView *)self characterCountLabel];
-        [characterCountLabel5 setText:v81];
+        [characterCountLabel5 setText:v84];
       }
 
       v6 = 0;
@@ -4149,7 +4149,7 @@ uint64_t __71__CKMessageEntryView__updateSendMenuPresentationStateVariableSendMe
   return inputAccessoryViewBackdropEffects;
 }
 
-uint64_t __79__CKMessageEntryView__shouldUseKeyboardVisibleBottomInsetsForTextEffectsPicker__block_invoke()
+uint64_t __79__CKMessageEntryView__shouldUseKeyboardVisibleBottomInsetsForTextEffectsPicker__block_invoke(uint64_t a1)
 {
   result = objc_opt_respondsToSelector();
   _shouldUseKeyboardVisibleBottomInsetsForTextEffectsPicker_respondsToIsTextFormattingInProgress = result & 1;
@@ -6031,8 +6031,7 @@ LABEL_30:
   }
 
   v183 = [objc_alloc(MEMORY[0x1E69DCC10]) initWithFrame:{v101, v102, v103, v104}];
-  [v183 setNumberOfLines:0];
-  v184 = CKFrameworkBundle();
+  v184 = CKFrameworkBundle([v183 setNumberOfLines:0]);
   v185 = [v184 localizedStringForKey:@"AUDIO_HINT_TAP" value:&stru_1F04268F8 table:@"ChatKit"];
   [v183 setText:v185];
 
@@ -6775,7 +6774,7 @@ void __60__CKMessageEntryView_compositionWithAcceptedAutocorrection___block_invo
       }
     }
 
-    [textView setAllowPollSuggestions:{v11, *v18}];
+    [textView setAllowPollSuggestions:{v11, *v18, *&v18[8]}];
   }
 }
 
@@ -7170,7 +7169,7 @@ uint64_t __32__CKMessageEntryView_anchorRect__block_invoke(uint64_t a1, double a
           audioRecordingView3 = [(CKMessageEntryView *)self audioRecordingView];
           [audioRecordingView3 setPlaybackCurrentTime:NAN];
 
-          [firstObject duration];
+          objc_msgSend_duration(firstObject);
           v18 = v17;
           audioRecordingView4 = [(CKMessageEntryView *)self audioRecordingView];
           [audioRecordingView4 setPlaybackDuration:v18];
@@ -8291,14 +8290,14 @@ uint64_t __54__CKMessageEntryView_sendMenuPopoverMetricsDidChange___block_invoke
 
   if (isStewieEmergencyChat)
   {
-    v7 = CKFrameworkBundle();
-    mEMORY[0x1E69A60F0] = v7;
-    v9 = @"STEWIE_EMERGENCY_TEXT_ENTRY_PLACEHOLDER";
-    v10 = @"ChatKit-SYDROB_FEATURES";
+    v8 = CKFrameworkBundle(v7);
+    mEMORY[0x1E69A60F0] = v8;
+    v10 = @"STEWIE_EMERGENCY_TEXT_ENTRY_PLACEHOLDER";
+    v11 = @"ChatKit-SYDROB_FEATURES";
 LABEL_7:
-    v14 = [v7 localizedStringForKey:v9 value:&stru_1F04268F8 table:v10];
+    v16 = [v8 localizedStringForKey:v10 value:&stru_1F04268F8 table:v11];
 LABEL_8:
-    __ck_entryViewDisplayName = v14;
+    __ck_entryViewDisplayName = v16;
 LABEL_9:
 
     goto LABEL_10;
@@ -8309,10 +8308,10 @@ LABEL_9:
 
   if (shouldDisplayOffGridModeStatus)
   {
-    v7 = CKFrameworkBundle();
-    mEMORY[0x1E69A60F0] = v7;
-    v9 = @"PLACEHOLDER_TEXT_VIEW_SATELLITE_MESSAGE";
-    v10 = @"ChatKit-CarrierPigeon";
+    v8 = CKFrameworkBundle(v15);
+    mEMORY[0x1E69A60F0] = v8;
+    v10 = @"PLACEHOLDER_TEXT_VIEW_SATELLITE_MESSAGE";
+    v11 = @"ChatKit-CarrierPigeon";
     goto LABEL_7;
   }
 
@@ -8326,47 +8325,49 @@ LABEL_9:
     chatIdentifier = [chat4 chatIdentifier];
     mEMORY[0x1E69A60F0] = [mEMORY[0x1E69A5B00] roadsideProviderNameForChatIdentifier:chatIdentifier];
 
-    v21 = MEMORY[0x1E696AEC0];
-    v22 = CKFrameworkBundle();
-    v23 = [v22 localizedStringForKey:@"STEWIE_ROADSIDE_TEXT_ENTRY_PLACEHOLDER" value:&stru_1F04268F8 table:@"ChatKit-Avocet"];
-    __ck_entryViewDisplayName = [v21 localizedStringWithFormat:v23, mEMORY[0x1E69A60F0]];
+    v23 = MEMORY[0x1E696AEC0];
+    v25 = CKFrameworkBundle(v24);
+    v26 = [v25 localizedStringForKey:@"STEWIE_ROADSIDE_TEXT_ENTRY_PLACEHOLDER" value:&stru_1F04268F8 table:@"ChatKit-Avocet"];
+    __ck_entryViewDisplayName = [v23 localizedStringWithFormat:v26, mEMORY[0x1E69A60F0]];
 
     goto LABEL_9;
   }
 
-  if ([conversationCopy isMapKitBusinessConversation])
+  isMapKitBusinessConversation = [conversationCopy isMapKitBusinessConversation];
+  if (isMapKitBusinessConversation)
   {
-    v24 = MEMORY[0x1E696AEC0];
-    v25 = CKFrameworkBundle();
-    v26 = [v25 localizedStringForKey:@"BUSINESS_CHAT_TO" value:&stru_1F04268F8 table:@"ChatKit"];
+    v28 = MEMORY[0x1E696AEC0];
+    v29 = CKFrameworkBundle(isMapKitBusinessConversation);
+    v30 = [v29 localizedStringForKey:@"BUSINESS_CHAT_TO" value:&stru_1F04268F8 table:@"ChatKit"];
     recipient = [conversationCopy recipient];
     name = [recipient name];
-    mEMORY[0x1E69A60F0] = [v24 stringWithFormat:v26, name];
+    mEMORY[0x1E69A60F0] = [v28 stringWithFormat:v30, name];
 
     mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
     userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
     if (userInterfaceLayoutDirection == 1)
     {
-      v31 = @"\u200F";
+      v35 = @"\u200F";
     }
 
     else
     {
-      v31 = @"\u200E";
+      v35 = @"\u200E";
     }
 
-    v14 = [(__CFString *)v31 stringByAppendingString:mEMORY[0x1E69A60F0]];
+    v16 = [(__CFString *)v35 stringByAppendingString:mEMORY[0x1E69A60F0]];
     goto LABEL_8;
   }
 
-  if (CKMessageEntryViewStyleIsForReply([(CKMessageEntryView *)self style]))
+  v36 = CKMessageEntryViewStyleIsForReply([(CKMessageEntryView *)self style]);
+  if (v36)
   {
-    v7 = CKFrameworkBundle();
-    mEMORY[0x1E69A60F0] = v7;
-    v9 = @"INLINE_REPLY_TEXT_ENTRY_PLACEHOLDER";
+    v8 = CKFrameworkBundle(v36);
+    mEMORY[0x1E69A60F0] = v8;
+    v10 = @"INLINE_REPLY_TEXT_ENTRY_PLACEHOLDER";
 LABEL_24:
-    v10 = @"ChatKit";
+    v11 = @"ChatKit";
     goto LABEL_7;
   }
 
@@ -8374,14 +8375,14 @@ LABEL_24:
 
   if (sendLaterPluginInfo)
   {
-    v7 = CKFrameworkBundle();
-    mEMORY[0x1E69A60F0] = v7;
-    v9 = @"SEND_LATER_TEXT_ENTRY_PLACEHOLDER";
+    v8 = CKFrameworkBundle(v38);
+    mEMORY[0x1E69A60F0] = v8;
+    v10 = @"SEND_LATER_TEXT_ENTRY_PLACEHOLDER";
     goto LABEL_24;
   }
 
-  v33 = [(CKMessageEntryView *)self _serviceForEntryViewForConversation:conversationCopy];
-  __ck_entryViewDisplayName = [v33 __ck_entryViewDisplayName];
+  v39 = [(CKMessageEntryView *)self _serviceForEntryViewForConversation:conversationCopy];
+  __ck_entryViewDisplayName = [v39 __ck_entryViewDisplayName];
 
   mEMORY[0x1E69A60F0] = [MEMORY[0x1E69A60F0] sharedInstance];
   if (![mEMORY[0x1E69A60F0] isInternalInstall])
@@ -8389,11 +8390,11 @@ LABEL_24:
     goto LABEL_9;
   }
 
-  v34 = IMGetCachedDomainBoolForKey();
+  v40 = IMGetCachedDomainBoolForKey();
 
-  if (v34 && [conversationCopy supportsEncryption])
+  if (v40 && [conversationCopy supportsEncryption])
   {
-    v14 = [(__CFString *)__ck_entryViewDisplayName stringByAppendingString:@" Encrypted"];
+    v16 = [(__CFString *)__ck_entryViewDisplayName stringByAppendingString:@" Encrypted"];
     mEMORY[0x1E69A60F0] = __ck_entryViewDisplayName;
     goto LABEL_8;
   }
@@ -8637,7 +8638,7 @@ LABEL_12:
 
     if (firstObject)
     {
-      [firstObject duration];
+      objc_msgSend_duration(firstObject);
       v9 = v8;
       mEMORY[0x1E69A8168] = [MEMORY[0x1E69A8168] sharedInstance];
       v11 = *MEMORY[0x1E69A7328];
@@ -8814,7 +8815,7 @@ void __62__CKMessageEntryView_stopRecordingForRaiseGestureWithFailure___block_in
     v5 = [v3 mediaObjects];
     v6 = [v5 firstObject];
 
-    [v6 duration];
+    objc_msgSend_duration(v6);
     if ((*(a1 + 40) & 1) != 0 || (v8 = v7, +[CKUIBehavior sharedBehaviors](CKUIBehavior, "sharedBehaviors"), v9 = objc_claimAutoreleasedReturnValue(), [v9 raiseToTalkErrorMaxDuration], v11 = v10, v9, v8 < v11))
     {
       if (IMOSLoggingEnabled())
@@ -9227,7 +9228,7 @@ void __45__CKMessageEntryView_audioButtonLongPressed___block_invoke(id *a1)
     {
       v7 = off_1E72F4870[reason];
       hintLabel2 = [(CKMessageEntryView *)self hintLabel];
-      v9 = CKFrameworkBundle();
+      v9 = CKFrameworkBundle(hintLabel2);
       v10 = [v9 localizedStringForKey:v7 value:&stru_1F04268F8 table:@"ChatKit"];
       [hintLabel2 setText:v10];
     }
@@ -9527,7 +9528,7 @@ void __35__CKMessageEntryView_stopRecording__block_invoke(uint64_t a1, void *a2)
 
     if (v6)
     {
-      [v6 duration];
+      objc_msgSend_duration(v6);
       v8 = v7;
       v9 = [*(a1 + 32) audioRecordingView];
       [v9 setPlaybackDuration:v8];
@@ -9621,7 +9622,7 @@ uint64_t __35__CKMessageEntryView_stopRecording__block_invoke_3(uint64_t a1)
       mediaObjects = [audioComposition2 mediaObjects];
       firstObject = [mediaObjects firstObject];
 
-      [firstObject duration];
+      objc_msgSend_duration(firstObject);
       v16 = v15;
       audioRecordingView = [(CKMessageEntryView *)self audioRecordingView];
       [audioRecordingView setPlaybackDuration:v16];
@@ -10060,7 +10061,7 @@ void __52__CKMessageEntryView_audioRecordingPillViewSnapshot__block_invoke(uint6
 
         if (firstObject)
         {
-          [firstObject duration];
+          objc_msgSend_duration(firstObject);
           v12 = v11;
           audioRecordingView2 = [(CKMessageEntryView *)self audioRecordingView];
           [audioRecordingView2 setPlaybackDuration:v12];

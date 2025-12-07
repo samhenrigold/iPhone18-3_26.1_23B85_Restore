@@ -646,9 +646,9 @@ LABEL_5:
 {
   chromeViewController = [(TransitNavigationContext *)self chromeViewController];
   navigationDisplay = [chromeViewController navigationDisplay];
-  configuration = [navigationDisplay configuration];
+  v4 = objc_msgSend_configuration(navigationDisplay);
 
-  cameraPaused = [configuration cameraPaused];
+  cameraPaused = [v4 cameraPaused];
   LOBYTE(navigationDisplay) = [cameraPaused BOOLValue];
 
   return navigationDisplay ^ 1;

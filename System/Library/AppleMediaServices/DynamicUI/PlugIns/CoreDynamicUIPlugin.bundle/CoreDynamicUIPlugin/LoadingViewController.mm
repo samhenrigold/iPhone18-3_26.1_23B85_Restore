@@ -19,19 +19,19 @@
 - (void)loadView
 {
   selfCopy = self;
-  sub_4C7F4();
+  sub_4C7F4(selfCopy);
 }
 
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_4C908();
+  sub_4C908(selfCopy);
 }
 
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_4C988();
+  sub_4C988(selfCopy);
 }
 
 - (_TtC19CoreDynamicUIPlugin21LoadingViewController)initWithNibName:(id)name bundle:(id)bundle

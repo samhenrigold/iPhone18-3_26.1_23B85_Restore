@@ -114,50 +114,45 @@ void __25__CalABCReporter_report___block_invoke(uint64_t a1, void *a2)
 
 - (void)report:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v4 = [a1 domain];
   v5 = [a1 type];
   v6 = [a1 subtype];
   v7 = [a1 subtypeContext];
   v8 = [a1 events];
   OUTLINED_FUNCTION_0();
-  v13 = v5;
-  v14 = v9;
-  v15 = v6;
-  v16 = v9;
-  v17 = v7;
-  v18 = v9;
-  v19 = v10;
-  _os_log_error_impl(&dword_1B990D000, a2, OS_LOG_TYPE_ERROR, "Not reporting to ABC because we are rate limited: %@.%@.%@.%@ - %@", v12, 0x34u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = v5;
+  v13 = v9;
+  v14 = v6;
+  v15 = v9;
+  v16 = v7;
+  v17 = v9;
+  v18 = v10;
+  _os_log_error_impl(&dword_1B990D000, a2, OS_LOG_TYPE_ERROR, "Not reporting to ABC because we are rate limited: %@.%@.%@.%@ - %@", v11, 0x34u);
 }
 
 - (void)report:(void *)a1 .cold.2(void *a1, NSObject *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = [a1 domain];
   v5 = [a1 type];
   v6 = [a1 subtype];
   v7 = [a1 subtypeContext];
   OUTLINED_FUNCTION_0();
-  v12 = v5;
-  v13 = v8;
-  v14 = v6;
-  v15 = v8;
-  v16 = v9;
-  _os_log_debug_impl(&dword_1B990D000, a2, OS_LOG_TYPE_DEBUG, "Submitting snapshot request to ABC for signature: %@.%@.%@.%@", v11, 0x2Au);
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = v5;
+  v12 = v8;
+  v13 = v6;
+  v14 = v8;
+  v15 = v9;
+  _os_log_debug_impl(&dword_1B990D000, a2, OS_LOG_TYPE_DEBUG, "Submitting snapshot request to ABC for signature: %@.%@.%@.%@", v10, 0x2Au);
 }
 
 void __25__CalABCReporter_report___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1B990D000, a2, OS_LOG_TYPE_DEBUG, "Submitted diagnostic reporter snapshot request with reply: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1B990D000, a2, OS_LOG_TYPE_DEBUG, "Submitted diagnostic reporter snapshot request with reply: %@", &v2, 0xCu);
 }
 
 @end

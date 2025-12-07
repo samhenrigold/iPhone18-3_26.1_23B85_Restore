@@ -779,13 +779,13 @@ LABEL_18:
   return v2;
 }
 
-void __55__PXImportItemViewModel_alreadyImportedGroupIdentifier__block_invoke()
+void __55__PXImportItemViewModel_alreadyImportedGroupIdentifier__block_invoke(uint64_t a1)
 {
-  v3 = [MEMORY[0x1E695DF00] distantPast];
-  v0 = [objc_opt_class() dateFormatter];
-  v1 = [v0 stringFromDate:v3];
-  v2 = alreadyImportedGroupIdentifier_alreadyImportedIdentifier;
-  alreadyImportedGroupIdentifier_alreadyImportedIdentifier = v1;
+  v4 = [MEMORY[0x1E695DF00] distantPast];
+  v1 = [objc_opt_class() dateFormatter];
+  v2 = [v1 stringFromDate:v4];
+  v3 = alreadyImportedGroupIdentifier_alreadyImportedIdentifier;
+  alreadyImportedGroupIdentifier_alreadyImportedIdentifier = v2;
 }
 
 + (id)dateFormatter

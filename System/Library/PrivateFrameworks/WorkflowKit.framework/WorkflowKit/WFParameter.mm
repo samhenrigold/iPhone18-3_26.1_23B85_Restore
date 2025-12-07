@@ -77,13 +77,13 @@
 {
   type metadata accessor for WFUserVisibleString();
   sub_1CA3434EC();
-  sub_1CA94C1C8();
+  v6 = sub_1CA94C1C8();
   swift_unknownObjectRetain();
   selfCopy = self;
-  v7 = sub_1CA5C53E8(state);
+  v8 = sub_1CA5C53E8(state, v6);
   swift_unknownObjectRelease();
 
-  return v7;
+  return v8;
 }
 
 - (Class)toolkitValueClass
@@ -124,30 +124,30 @@
 
 - (void)stateValidityCriteriaDidChange
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   eventObservers = [(WFParameter *)self eventObservers];
   allObjects = [eventObservers allObjects];
 
-  v5 = [allObjects countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [allObjects countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(allObjects);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * v8);
+        v9 = *(*(&v10 + 1) + 8 * v8);
         if (objc_opt_respondsToSelector())
         {
           [v9 parameterStateValidityCriteriaDidChange:self];
@@ -157,41 +157,39 @@
       }
 
       while (v6 != v8);
-      v6 = [allObjects countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [allObjects countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)defaultSerializedRepresentationDidChange
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   eventObservers = [(WFParameter *)self eventObservers];
   allObjects = [eventObservers allObjects];
 
-  v5 = [allObjects countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [allObjects countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(allObjects);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * v8);
+        v9 = *(*(&v10 + 1) + 8 * v8);
         if (objc_opt_respondsToSelector())
         {
           [v9 parameterDefaultSerializedRepresentationDidChange:self];
@@ -201,44 +199,42 @@
       }
 
       while (v6 != v8);
-      v6 = [allObjects countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [allObjects countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)attributesDidChange
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   localizedStringCache = [(WFParameter *)self localizedStringCache];
   [localizedStringCache removeAllObjects];
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   eventObservers = [(WFParameter *)self eventObservers];
   allObjects = [eventObservers allObjects];
 
-  v6 = [allObjects countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [allObjects countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(allObjects);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
+        v10 = *(*(&v11 + 1) + 8 * v9);
         if (objc_opt_respondsToSelector())
         {
           [v10 parameterAttributesDidChange:self];
@@ -248,13 +244,11 @@
       }
 
       while (v7 != v9);
-      v7 = [allObjects countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [allObjects countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setHidden:(BOOL)hidden
@@ -301,42 +295,42 @@ LABEL_17:
         goto LABEL_18;
       }
 
-      v11 = [familyCopy isEqualToString:*MEMORY[0x1E69AC188]];
+      isEqualToString = objc_msgSend_isEqualToString_(familyCopy);
       v12 = *MEMORY[0x1E69AC190];
-      if ((v11 & 1) == 0)
+      if ((isEqualToString & 1) == 0)
       {
-        v13 = [familyCopy isEqualToString:v12];
+        v13 = objc_msgSend_isEqualToString_(familyCopy);
         v12 = *MEMORY[0x1E69AC198];
         if ((v13 & 1) == 0)
         {
-          v14 = [familyCopy isEqualToString:v12];
+          v14 = objc_msgSend_isEqualToString_(familyCopy);
           v12 = *MEMORY[0x1E69AC1A0];
           if ((v14 & 1) == 0)
           {
-            if (![familyCopy isEqualToString:v12])
+            if (!objc_msgSend_isEqualToString_(familyCopy))
             {
-              v15 = [familyCopy isEqualToString:*MEMORY[0x1E69AC178]];
+              v15 = objc_msgSend_isEqualToString_(familyCopy);
               v12 = *MEMORY[0x1E69AC160];
               if (v15)
               {
                 goto LABEL_16;
               }
 
-              v16 = [familyCopy isEqualToString:v12];
+              v16 = objc_msgSend_isEqualToString_(familyCopy);
               v12 = *MEMORY[0x1E69AC168];
               if (v16)
               {
                 goto LABEL_16;
               }
 
-              v17 = [familyCopy isEqualToString:v12];
+              v17 = objc_msgSend_isEqualToString_(familyCopy);
               v12 = *MEMORY[0x1E69AC170];
               if (v17)
               {
                 goto LABEL_16;
               }
 
-              if (![familyCopy isEqualToString:v12])
+              if (!objc_msgSend_isEqualToString_(familyCopy))
               {
                 v7 = 0;
                 rangeValue = 0x7FFFFFFFFFFFFFFFLL;
@@ -401,15 +395,15 @@ LABEL_18:
         goto LABEL_17;
       }
 
-      v10 = [classCopy isEqualToString:*MEMORY[0x1E696E538]];
+      isEqualToString = objc_msgSend_isEqualToString_(classCopy);
       v11 = *MEMORY[0x1E696E540];
-      if ((v10 & 1) == 0)
+      if ((isEqualToString & 1) == 0)
       {
-        v12 = [classCopy isEqualToString:*MEMORY[0x1E696E540]];
+        v12 = objc_msgSend_isEqualToString_(classCopy);
         v11 = *MEMORY[0x1E696E548];
         if ((v12 & 1) == 0)
         {
-          if ([classCopy isEqualToString:*MEMORY[0x1E696E548]] || (v11 = *MEMORY[0x1E696E520], objc_msgSend(classCopy, "isEqualToString:", *MEMORY[0x1E696E520])))
+          if (objc_msgSend_isEqualToString_(classCopy) || (v11 = *MEMORY[0x1E696E520], objc_msgSend_isEqualToString_(classCopy)))
           {
             v11 = *MEMORY[0x1E696E550];
           }
@@ -417,9 +411,9 @@ LABEL_18:
           else
           {
             v15 = *MEMORY[0x1E696E518];
-            if (([classCopy isEqualToString:*MEMORY[0x1E696E518]] & 1) == 0)
+            if ((objc_msgSend_isEqualToString_(classCopy) & 1) == 0)
             {
-              if ([classCopy isEqualToString:*MEMORY[0x1E696E530]])
+              if (objc_msgSend_isEqualToString_(classCopy))
               {
                 v11 = v15;
               }
@@ -427,7 +421,7 @@ LABEL_18:
               else
               {
                 v11 = v15;
-                if (![classCopy isEqualToString:*MEMORY[0x1E696E528]])
+                if (!objc_msgSend_isEqualToString_(classCopy))
                 {
                   v9 = 1;
                   goto LABEL_17;

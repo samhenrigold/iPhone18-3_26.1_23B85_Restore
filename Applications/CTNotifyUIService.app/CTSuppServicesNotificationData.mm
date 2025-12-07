@@ -229,18 +229,8 @@ LABEL_23:
 - (id)ssServiceTypeString
 {
   supplementaryServiceType = [(CTSuppServicesNotificationData *)self supplementaryServiceType];
-  if (!supplementaryServiceType)
+  if (!supplementaryServiceType || (+[NSBundle bundleWithIdentifier:](NSBundle, "bundleWithIdentifier:", @"com.apple.CTNotifyUIService"), v3 = objc_claimAutoreleasedReturnValue(), [v3 localizedStringForKey:@"Type %d" value:&stru_100018670 table:@"SIMToolkitUI"], v4 = objc_claimAutoreleasedReturnValue(), +[NSString localizedStringWithFormat:](NSString, "localizedStringWithFormat:", v4, objc_msgSend(supplementaryServiceType, "intValue")), v5 = objc_claimAutoreleasedReturnValue(), v4, v3, !v5))
   {
-    goto LABEL_3;
-  }
-
-  v3 = [NSBundle bundleWithIdentifier:@"com.apple.CTNotifyUIService"];
-  v4 = [v3 localizedStringForKey:@"Type %d" value:&stru_100018670 table:@"SIMToolkitUI"];
-  v5 = +[NSString localizedStringWithFormat:](NSString, "localizedStringWithFormat:", v4, [supplementaryServiceType intValue]);
-
-  if (!v5)
-  {
-LABEL_3:
     v6 = [NSBundle bundleWithIdentifier:@"com.apple.CTNotifyUIService"];
     v5 = [v6 localizedStringForKey:@"No Service Specified" value:&stru_100018670 table:@"SIMToolkitUI"];
   }

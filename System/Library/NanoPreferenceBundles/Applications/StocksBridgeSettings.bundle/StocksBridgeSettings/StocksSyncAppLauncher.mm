@@ -1,5 +1,6 @@
 @interface StocksSyncAppLauncher
 + (BOOL)_acquire:(id)_acquire;
++ (id)_createAssertionForTargetWithPid:(int)pid;
 + (void)_invalidateAfterDelay:(id)delay;
 + (void)_launchAppWithBundleID:(id)d withAction:(id)action completion:(id)completion;
 + (void)_postNotification:(__CFString *)notification;
@@ -15,58 +16,70 @@
 
   if (getActivePairedDevice)
   {
-    v5 = dispatch_get_global_queue(2, 0);
+    v6 = dispatch_get_global_queue(2, 0);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_29E4;
     block[3] = &unk_C328;
     block[4] = self;
-    dispatch_async(v5, block);
+    dispatch_async(v6, block);
   }
 
   else
   {
-    v5 = stocks_sync_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = stocks_sync_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Asked to launch phone app but there isn't a paired watch to ping; ignore.", buf, 2u);
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Asked to launch phone app but there isn't a paired watch to ping; ignore.", buf, 2u);
     }
   }
 }
 
 + (BOOL)_acquire:(id)_acquire
 {
-  v13 = 0;
-  [_acquire acquireWithError:&v13];
-  v3 = v13;
-  v4 = stocks_sync_log();
-  v5 = v4;
-  if (v3)
+  v14 = 0;
+  v3 = [_acquire acquireWithError:&v14];
+  v4 = v14;
+  v5 = stocks_sync_log(v3);
+  v6 = v5;
+  if (v4)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v12 = 0;
-      v6 = "Unable to acquire assertion.";
-      v7 = &v12;
-      v8 = v5;
-      v9 = OS_LOG_TYPE_INFO;
+      v13 = 0;
+      v7 = "Unable to acquire assertion.";
+      v8 = &v13;
+      v9 = v6;
+      v10 = OS_LOG_TYPE_INFO;
 LABEL_6:
-      _os_log_impl(&dword_0, v8, v9, v6, v7, 2u);
+      _os_log_impl(&dword_0, v9, v10, v7, v8, 2u);
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 0;
-    v6 = "Acquired assertion.";
-    v7 = &v11;
-    v8 = v5;
-    v9 = OS_LOG_TYPE_DEFAULT;
+    v12 = 0;
+    v7 = "Acquired assertion.";
+    v8 = &v12;
+    v9 = v6;
+    v10 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_6;
   }
 
-  return v3 == 0;
+  return v4 == 0;
+}
+
++ (id)_createAssertionForTargetWithPid:(int)pid
+{
+  v3 = [RBSTarget targetWithPid:*&pid];
+  v4 = [RBSDomainAttribute attributeWithDomain:@"com.apple.stocks" name:@"TalkToWatch"];
+  v5 = [RBSAssertion alloc];
+  v9 = v4;
+  v6 = [NSArray arrayWithObjects:&v9 count:1];
+  v7 = [v5 initWithExplanation:@"Stocks Sync Assertion" target:v3 attributes:v6];
+
+  return v7;
 }
 
 + (void)_invalidateAfterDelay:(id)delay
@@ -85,7 +98,7 @@ LABEL_6:
 
 + (void)_postNotification:(__CFString *)notification
 {
-  v4 = stocks_sync_log();
+  v4 = stocks_sync_log(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -102,7 +115,7 @@ LABEL_6:
   dCopy = d;
   completionCopy = completion;
   actionCopy = action;
-  v10 = stocks_sync_log();
+  v10 = stocks_sync_log(actionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;

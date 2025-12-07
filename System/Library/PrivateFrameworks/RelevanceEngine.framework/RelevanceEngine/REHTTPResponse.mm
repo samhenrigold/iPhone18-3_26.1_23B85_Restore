@@ -126,11 +126,10 @@ void __32__REHTTPResponse__dateFormatter__block_invoke()
 - (_CFHTTPServerResponse)response
 {
   [(REHTTPRequest *)self->_request request];
-  message = self->_message;
   [(REHTTPResponse *)self body];
-  v4 = _CFHTTPServerResponseCreateWithData();
+  v3 = _CFHTTPServerResponseCreateWithData();
   _CFHTTPServerResponseSetClient();
-  return v4;
+  return v3;
 }
 
 @end

@@ -8,6 +8,7 @@
 - (id)specifiersWithSpecifier:(id)specifier;
 - (int64_t)getSelectedIntelligentCallScreeningMenuOptionForPhone;
 - (void)refreshView:(id)view;
+- (void)setCallScreeningEnabled:(BOOL)enabled;
 - (void)setSelectedIntelligentCallScreeningOption:(id)option;
 @end
 
@@ -54,79 +55,77 @@
   configurationProvider = [(IntelligentCallScreeningSettingsBundleController *)self configurationProvider];
   isReceptionistAvailable = [configurationProvider isReceptionistAvailable];
 
-  v6 = PHDefaultLog();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  v7 = PHDefaultLog(v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (isReceptionistAvailable)
   {
-    if (v7)
+    if (v8)
     {
       *buf = 0;
-      _os_log_impl(&dword_23C144000, v6, OS_LOG_TYPE_DEFAULT, "INTELLIGENT CALL SCREENING SETTINGS: We are in Phone Settings with receptionist available, so we will show Intelligent Call Screening group", buf, 2u);
+      _os_log_impl(&dword_23C144000, v7, OS_LOG_TYPE_DEFAULT, "INTELLIGENT CALL SCREENING SETTINGS: We are in Phone Settings with receptionist available, so we will show Intelligent Call Screening group", buf, 2u);
     }
 
     v25 = [IntelligentCallScreeningMenuCellOption localizedStringForKey:@"INTELLIGENT_CALL_SCREENING_MENU_TITLE"];
-    v8 = [MEMORY[0x277D3FAD8] groupSpecifierWithName:?];
-    [v8 setIdentifier:@"INTELLIGENT_CALL_SCREENING_MENU_TITLE"];
-    [(NSArray *)array addObject:v8];
-    v24 = v8;
-    [v8 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FFE8]];
-    v9 = +[IntelligentCallScreeningMenuCellOption optionMenuItems];
+    v9 = [MEMORY[0x277D3FAD8] groupSpecifierWithName:?];
+    [v9 setIdentifier:@"INTELLIGENT_CALL_SCREENING_MENU_TITLE"];
+    [(NSArray *)array addObject:v9];
+    v24 = v9;
+    [v9 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FFE8]];
+    v10 = +[IntelligentCallScreeningMenuCellOption optionMenuItems];
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v10 = [v9 countByEnumeratingWithState:&v27 objects:v32 count:16];
-    if (v10)
+    v11 = [v10 countByEnumeratingWithState:&v27 objects:v32 count:16];
+    if (v11)
     {
-      v11 = v10;
-      v12 = *v28;
+      v12 = v11;
+      v13 = *v28;
       do
       {
-        for (i = 0; i != v11; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v28 != v12)
+          if (*v28 != v13)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v10);
           }
 
-          v14 = *(*(&v27 + 1) + 8 * i);
-          v15 = [(IntelligentCallScreeningSettingsBundleController *)self createSpecifierForMenuOption:v14];
-          if (v15)
+          v15 = *(*(&v27 + 1) + 8 * i);
+          v16 = [(IntelligentCallScreeningSettingsBundleController *)self createSpecifierForMenuOption:v15];
+          if (v16)
           {
-            [(NSArray *)array addObject:v15];
-            [(NSMutableArray *)self->_intelligentCallScreeningMenuSpecifiers addObject:v15];
-            optionID = [v14 optionID];
+            [(NSArray *)array addObject:v16];
+            [(NSMutableArray *)self->_intelligentCallScreeningMenuSpecifiers addObject:v16];
+            optionID = [v15 optionID];
             integerValue = [optionID integerValue];
 
             intelligentCallScreeningOptionToSpecifierMap = self->_intelligentCallScreeningOptionToSpecifierMap;
-            v19 = [MEMORY[0x277CCABB0] numberWithInteger:integerValue];
-            [(NSMutableDictionary *)intelligentCallScreeningOptionToSpecifierMap setObject:v15 forKey:v19];
+            v20 = [MEMORY[0x277CCABB0] numberWithInteger:integerValue];
+            [(NSMutableDictionary *)intelligentCallScreeningOptionToSpecifierMap setObject:v16 forKey:v20];
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v27 objects:v32 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
-      while (v11);
+      while (v12);
     }
 
     specifiers = self->_specifiers;
     self->_specifiers = array;
-    v21 = array;
+    v22 = array;
 
     [(IntelligentCallScreeningSettingsBundleController *)self refreshView:0];
     array = [(NSArray *)self->_specifiers copy];
 
-    v6 = v25;
+    v7 = v25;
   }
 
-  else if (v7)
+  else if (v8)
   {
     *buf = 0;
-    _os_log_impl(&dword_23C144000, v6, OS_LOG_TYPE_DEFAULT, "INTELLIGENT CALL SCREENING SETTINGS: We are NOT in Phone Settings with receptionist available, so we will NOT show Intelligent Call Screening group, we must show Silence Unknown Callers toggle instead", buf, 2u);
+    _os_log_impl(&dword_23C144000, v7, OS_LOG_TYPE_DEFAULT, "INTELLIGENT CALL SCREENING SETTINGS: We are NOT in Phone Settings with receptionist available, so we will NOT show Intelligent Call Screening group, we must show Silence Unknown Callers toggle instead", buf, 2u);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -177,7 +176,7 @@
 
 - (void)refreshView:(id)view
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   viewCopy = view;
   if (!viewCopy)
   {
@@ -188,28 +187,28 @@
   parentListController = [(IntelligentCallScreeningSettingsBundleController *)self parentListController];
   [parentListController reloadSpecifier:viewCopy];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   selfCopy = self;
   v6 = self->_specifiers;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     v10 = MEMORY[0x277CBEC38];
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         if (([v12 isEqualToSpecifier:viewCopy] & 1) == 0)
         {
           v13 = [v12 propertyForKey:@"specifier-checked"];
@@ -224,13 +223,11 @@
         }
       }
 
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)getSelectedIntelligentCallScreeningMenuOptionForPhone
@@ -269,23 +266,23 @@
       if (getCallScreeningEnabled)
       {
 LABEL_9:
-        v11 = dispatch_get_global_queue(33, 0);
-        v12[0] = MEMORY[0x277D85DD0];
-        v12[1] = 3221225472;
-        v12[2] = __94__IntelligentCallScreeningSettingsBundleController_setSelectedIntelligentCallScreeningOption___block_invoke;
-        v12[3] = &unk_278BB3588;
-        v13 = optionCopy;
+        v12 = dispatch_get_global_queue(33, 0);
+        v13[0] = MEMORY[0x277D85DD0];
+        v13[1] = 3221225472;
+        v13[2] = __94__IntelligentCallScreeningSettingsBundleController_setSelectedIntelligentCallScreeningOption___block_invoke;
+        v13[3] = &unk_278BB3588;
+        v14 = optionCopy;
         selfCopy = self;
-        dispatch_async(v11, v12);
+        dispatch_async(v12, v13);
 
         goto LABEL_10;
       }
 
-      v10 = PHDefaultLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = PHDefaultLog(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_23C144000, v10, OS_LOG_TYPE_DEFAULT, "Turning on Live Voicemail due to Receptionist turning on", buf, 2u);
+        _os_log_impl(&dword_23C144000, v11, OS_LOG_TYPE_DEFAULT, "Turning on Live Voicemail due to Receptionist turning on", buf, 2u);
       }
 
       [(IntelligentCallScreeningSettingsBundleController *)self setCallScreeningEnabled:1];
@@ -330,6 +327,13 @@ void __94__IntelligentCallScreeningSettingsBundleController_setSelectedIntellige
   }
 
   return isCallScreeningEnabled;
+}
+
+- (void)setCallScreeningEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  configurationProvider = [(IntelligentCallScreeningSettingsBundleController *)self configurationProvider];
+  [configurationProvider setCallScreeningEnabled:enabledCopy];
 }
 
 @end

@@ -146,18 +146,18 @@ uint64_t __54__MPModelPodcastEpisodeKind_kindWithVariants_options___block_invoke
 
 - (shared_ptr<mlcore::Predicate>)predicateWithBaseProperty:(void *)property
 {
-  memset(v8, 0, 24);
+  memset(v9, 0, sizeof(v9));
   if (([(MPModelPodcastEpisodeKind *)self variants:0]& 1) != 0)
   {
-    LODWORD(v7) = 4;
-    std::vector<int>::push_back[abi:ne200100](v8, &v7);
+    v8[0] = 4;
+    std::vector<int>::push_back[abi:ne200100](v9, v8);
   }
 
   variants = [(MPModelPodcastEpisodeKind *)self variants];
   if ((variants & 2) != 0)
   {
-    LODWORD(v7) = 256;
-    std::vector<int>::push_back[abi:ne200100](v8, &v7);
+    v8[0] = 256;
+    std::vector<int>::push_back[abi:ne200100](v9, v8);
   }
 
   Property = mlcore::ItemPropertyMediaType(variants);
@@ -166,8 +166,8 @@ uint64_t __54__MPModelPodcastEpisodeKind_kindWithVariants_options___block_invoke
     Property = MPMediaLibraryGetProperty(property, Property);
   }
 
-  v8[4] = Property;
-  std::allocate_shared[abi:ne200100]<mlcore::InPredicate<int>,std::allocator<mlcore::InPredicate<int>>,mlcore::ModelProperty<int> *&,std::vector<int> const&,0>();
+  v10 = Property;
+  std::allocate_shared[abi:ne200100]<mlcore::InPredicate<int>,std::allocator<mlcore::InPredicate<int>>,mlcore::ModelProperty<int> *&,std::vector<int> const&,0>(&v7, &v10, v9);
 }
 
 @end

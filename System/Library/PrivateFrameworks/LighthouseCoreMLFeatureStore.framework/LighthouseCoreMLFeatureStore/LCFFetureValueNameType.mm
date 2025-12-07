@@ -7,17 +7,18 @@
 - (id)init:(id)init featureValueType:(int64_t)type
 {
   initCopy = init;
-  v10.receiver = self;
-  v10.super_class = LCFFetureValueNameType;
-  v8 = [(LCFFetureValueNameType *)&v10 init];
+  v12.receiver = self;
+  v12.super_class = LCFFetureValueNameType;
+  v8 = [(LCFFetureValueNameType *)&v12 init];
+  v10 = v8;
   if (v8)
   {
-    LCFLoggingUtilsInit();
-    objc_storeStrong(&v8->_featureName, init);
-    v8->_featureValueType = type;
+    LCFLoggingUtilsInit(v8, v9);
+    objc_storeStrong(&v10->_featureName, init);
+    v10->_featureValueType = type;
   }
 
-  return v8;
+  return v10;
 }
 
 @end

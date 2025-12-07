@@ -98,12 +98,12 @@ uint64_t __47__NEFilterSource_remediateWithDecisionHandler___block_invoke_2(uint
 
 void __47__NEFilterSource_remediateWithDecisionHandler___block_invoke_3(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
     *uuid = 0;
-    v23 = 0;
+    v19 = 0;
     Property = *(a1 + 32);
     if (Property)
     {
@@ -124,49 +124,40 @@ void __47__NEFilterSource_remediateWithDecisionHandler___block_invoke_3(uint64_t
       xpc_dictionary_set_string(v6, "parent-url", [v9 UTF8String]);
     }
 
-    v10 = *(a1 + 32);
-    if (v10)
-    {
-      v11 = *(v10 + 192);
-    }
-
-    v18 = *(a1 + 32);
-    v19 = *(a1 + 56);
+    v15 = *(a1 + 56);
     ne_filter_send_message();
   }
 
   else
   {
     *(*(a1 + 32) + 24) = 2;
-    v12 = ne_log_obj();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v10 = ne_log_obj();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *uuid = 0;
-      _os_log_error_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_ERROR, "remediateWithDecisionHandler: could not establish connection to data provider", uuid, 2u);
+      _os_log_error_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_ERROR, "remediateWithDecisionHandler: could not establish connection to data provider", uuid, 2u);
     }
 
-    v14 = *(a1 + 32);
-    if (v14)
+    v12 = *(a1 + 32);
+    if (v12)
     {
-      v15 = objc_getProperty(v14, v13, 144, 1);
+      v13 = objc_getProperty(v12, v11, 144, 1);
     }
 
     else
     {
-      v15 = 0;
+      v13 = 0;
     }
 
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __47__NEFilterSource_remediateWithDecisionHandler___block_invoke_85;
     block[3] = &unk_1E7F0B588;
-    v16 = *(a1 + 56);
+    v14 = *(a1 + 56);
     block[4] = *(a1 + 32);
-    v21 = v16;
-    dispatch_async(v15, block);
+    v17 = v14;
+    dispatch_async(v13, block);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connectToFilterUnit:(void *)unit withCompletionHandler:
@@ -174,17 +165,15 @@ void __47__NEFilterSource_remediateWithDecisionHandler___block_invoke_3(uint64_t
   unitCopy = unit;
   if (unitCopy)
   {
-    v5 = *(self + 192);
-    v6 = ne_filter_copy_connection();
-    if (v6)
+    v4 = ne_filter_copy_connection();
+    if (v4)
     {
-      unitCopy[2](unitCopy, v6);
+      unitCopy[2](unitCopy, v4);
     }
 
     else
     {
-      v7 = *(self + 192);
-      v8 = unitCopy;
+      v5 = unitCopy;
       ne_filter_request_connection();
     }
   }
@@ -194,22 +183,15 @@ void __60__NEFilterSource_connectToFilterUnit_withCompletionHandler___block_invo
 {
   if (a2)
   {
-    v3 = *(a1 + 32);
-    if (v3)
-    {
-      v4 = *(v3 + 192);
-    }
-
-    v7 = ne_filter_copy_connection();
+    v4 = ne_filter_copy_connection();
     (*(*(a1 + 40) + 16))();
   }
 
   else
   {
-    v5 = *(a1 + 40);
-    v6 = *(*(a1 + 40) + 16);
+    v3 = *(*(a1 + 40) + 16);
 
-    v6();
+    v3();
   }
 }
 
@@ -224,7 +206,7 @@ uint64_t __47__NEFilterSource_remediateWithDecisionHandler___block_invoke_85(uin
 
 void __47__NEFilterSource_remediateWithDecisionHandler___block_invoke_2_86(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ne_log_obj();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
@@ -236,9 +218,9 @@ void __47__NEFilterSource_remediateWithDecisionHandler___block_invoke_2_86(uint6
     }
 
     *buf = 138412546;
-    v18 = Property;
-    v19 = 2112;
-    v20 = v3;
+    v17 = Property;
+    v18 = 2112;
+    v19 = v3;
     _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "NEFilterSource got remediation reply %@: %@", buf, 0x16u);
   }
 
@@ -250,9 +232,9 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  v13 = xpc_dictionary_get_BOOL(v3, "verdict-drop");
+  v12 = xpc_dictionary_get_BOOL(v3, "verdict-drop");
   v7 = *(a1 + 32);
-  if (v13)
+  if (v12)
   {
     goto LABEL_5;
   }
@@ -271,16 +253,14 @@ LABEL_6:
     v10 = 0;
   }
 
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __47__NEFilterSource_remediateWithDecisionHandler___block_invoke_87;
-  v15[3] = &unk_1E7F0B588;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __47__NEFilterSource_remediateWithDecisionHandler___block_invoke_87;
+  v14[3] = &unk_1E7F0B588;
   v11 = *(a1 + 40);
-  v15[4] = *(a1 + 32);
-  v16 = v11;
-  dispatch_async(v10, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  v14[4] = *(a1 + 32);
+  v15 = v11;
+  dispatch_async(v10, v14);
 }
 
 void __47__NEFilterSource_remediateWithDecisionHandler___block_invoke_87(uint64_t a1)
@@ -582,7 +562,7 @@ void __59__NEFilterSource_handleFinishedLoadingWithDecisionHandler___block_invok
 
 void __59__NEFilterSource_handleFinishedLoadingWithDecisionHandler___block_invoke_5(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = *(a1 + 32);
   if (!v5)
@@ -615,10 +595,10 @@ LABEL_17:
       length_4[3] = &unk_1E7F0B588;
       v17 = *(a1 + 40);
       length_4[4] = *(a1 + 32);
-      v28 = v17;
+      v24 = v17;
       dispatch_async(Property, length_4);
 
-      goto LABEL_25;
+      goto LABEL_23;
     }
 
 LABEL_16:
@@ -629,7 +609,7 @@ LABEL_16:
   if ([v5 status] == 3)
   {
     *uuid = 0;
-    v33 = 0;
+    v29 = 0;
     v8 = *(a1 + 32);
     if (v8)
     {
@@ -677,26 +657,19 @@ LABEL_16:
       v18 = ne_log_obj();
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        v23 = *(a1 + 32);
-        if (v23)
+        v20 = *(a1 + 32);
+        if (v20)
         {
-          v23 = objc_getProperty(v23, v19, 80, 1);
+          v20 = objc_getProperty(v20, v19, 80, 1);
         }
 
         *buf = 138412290;
-        v30 = v23;
+        v26 = v20;
         _os_log_error_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_ERROR, "NEFilterSource failed to sign data complete message for %@", buf, 0xCu);
       }
     }
 
-    v20 = *(a1 + 32);
-    if (v20)
-    {
-      v21 = *(v20 + 192);
-    }
-
-    v24 = *(a1 + 32);
-    v25 = *(a1 + 48);
+    v21 = *(a1 + 48);
     ne_filter_send_message();
   }
 
@@ -705,14 +678,12 @@ LABEL_16:
     (*(*(a1 + 48) + 16))();
   }
 
-LABEL_25:
-
-  v22 = *MEMORY[0x1E69E9840];
+LABEL_23:
 }
 
 - (void)prepareAgentForResponse:(void *)response handler:
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   if (self)
   {
     responseCopy = response;
@@ -727,7 +698,7 @@ LABEL_25:
       [v9 setUrl:v7];
       [v9 setPid:{objc_msgSend(self, "sourceAppPid")}];
       sourceAppIdentifier = [self sourceAppIdentifier];
-      if ([sourceAppIdentifier isEqualToString:@"com.apple.SafariViewService"])
+      if (objc_msgSend_isEqualToString_(sourceAppIdentifier))
       {
         v11 = [v9 pid];
 
@@ -764,7 +735,7 @@ LABEL_25:
         sourceAppPid = [self sourceAppPid];
         if (sourceAppPid != getpid())
         {
-          v48 = 0;
+          v47 = 0;
           memset(buffer, 0, sizeof(buffer));
           if (proc_pidinfo([self sourceAppPid], 17, 1uLL, buffer, 56) == 56)
           {
@@ -797,12 +768,12 @@ LABEL_25:
         {
           v21 = MEMORY[0x1E6977E28];
           [v7 host];
-          v22 = v44 = responseCopy;
+          v22 = v43 = responseCopy;
           port2 = [v7 port];
           stringValue2 = [port2 stringValue];
           v25 = [v21 endpointWithHostname:v22 port:stringValue2];
 
-          responseCopy = v44;
+          responseCopy = v43;
         }
 
         else
@@ -834,8 +805,6 @@ LABEL_25:
     Property = objc_getProperty(self, v41, 80, 1);
     [(NEFilterSource *)self prepareAgentForURL:v34 urlRequest:v36 urlResponse:v38 parentURL:v40 direction:2 flowUUID:Property handler:responseCopy];
   }
-
-  v43 = *MEMORY[0x1E69E9840];
 }
 
 - (void)prepareAgentForURL:(void *)l urlRequest:(void *)request urlResponse:(void *)response parentURL:(uint64_t)rL direction:(void *)direction flowUUID:(void *)d handler:
@@ -884,7 +853,7 @@ LABEL_25:
 
 void __97__NEFilterSource_prepareAgentForURL_urlRequest_urlResponse_parentURL_direction_flowUUID_handler___block_invoke(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   if (!v3)
@@ -899,11 +868,11 @@ void __97__NEFilterSource_prepareAgentForURL_urlRequest_urlResponse_parentURL_di
     v5 = *(*(a1 + 80) + 16);
 LABEL_6:
     v5();
-    goto LABEL_27;
+    goto LABEL_25;
   }
 
   *uuid = 0;
-  v33 = 0;
+  v29 = 0;
   [*(a1 + 40) getUUIDBytes:uuid];
   v6 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_int64(v6, "command", 2);
@@ -966,9 +935,9 @@ LABEL_6:
     v17 = ne_log_obj();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v23 = *(a1 + 40);
+      v20 = *(a1 + 40);
       length_4 = 138412290;
-      v30 = v23;
+      v26 = v20;
       _os_log_error_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_ERROR, "NEFilterSource failed to sign new flow message for %@", &length_4, 0xCu);
     }
   }
@@ -976,41 +945,30 @@ LABEL_6:
   v18 = ne_log_obj();
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
-    v22 = *(a1 + 40);
+    v19 = *(a1 + 40);
     length_4 = 138412290;
-    v30 = v22;
+    v26 = v19;
     _os_log_debug_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_DEBUG, "NEFilterSource send new flow %@", &length_4, 0xCu);
   }
 
-  v19 = *(a1 + 32);
-  if (v19)
-  {
-    v20 = *(v19 + 192);
-  }
-
-  v24 = *(a1 + 32);
-  v25 = *(a1 + 40);
-  v27 = *(a1 + 80);
-  v26 = v3;
+  v21 = *(a1 + 40);
+  v23 = *(a1 + 80);
+  v22 = v3;
   ne_filter_send_message();
 
-LABEL_27:
-  v21 = *MEMORY[0x1E69E9840];
+LABEL_25:
 }
 
 - (uint64_t)generateCryptoSignature:(_DWORD *)signature length:
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    v3 = 0;
-    goto LABEL_14;
+    return 0;
   }
 
   v3 = 0;
-  v28 = 0;
-  v26 = 0u;
-  v27 = 0u;
+  v26 = 0;
   v24 = 0u;
   v25 = 0u;
   v22 = 0u;
@@ -1019,15 +977,17 @@ LABEL_27:
   v21 = 0u;
   v18 = 0u;
   v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   if (a2 && signature)
   {
     [objc_getProperty(self a2];
-    DWORD2(v19) = 1;
-    HIDWORD(v23) = [self sourceAppPid];
-    DWORD2(v23) = getpid();
+    DWORD2(v17) = 1;
+    HIDWORD(v21) = [self sourceAppPid];
+    DWORD2(v21) = getpid();
     v6 = self[26];
-    *(&v27 + 1) = self[25];
-    v28 = v6;
+    *(&v25 + 1) = self[25];
+    v26 = v6;
     sourceAppIdentifier = [self sourceAppIdentifier];
     uTF8String = [sourceAppIdentifier UTF8String];
 
@@ -1036,7 +996,6 @@ LABEL_27:
     uTF8String2 = [absoluteString UTF8String];
 
     *signature = 32;
-    v12 = self[24];
     if (uTF8String)
     {
       strlen(uTF8String);
@@ -1044,24 +1003,24 @@ LABEL_27:
       {
 LABEL_8:
         v3 = ne_filter_sign_data();
-        v13 = ne_log_obj();
-        v14 = v13;
+        v12 = ne_log_obj();
+        v13 = v12;
         if (v3)
         {
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
           {
             *buf = 0;
-            _os_log_debug_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_DEBUG, "generateCryptoSignature: signed flow message", buf, 2u);
+            _os_log_debug_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_DEBUG, "generateCryptoSignature: signed flow message", buf, 2u);
           }
         }
 
-        else if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        else if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_error_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_ERROR, "generateCryptoSignature: Failed to sign flow message", buf, 2u);
+          _os_log_error_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_ERROR, "generateCryptoSignature: Failed to sign flow message", buf, 2u);
         }
 
-        goto LABEL_14;
+        return v3;
       }
     }
 
@@ -1074,14 +1033,12 @@ LABEL_8:
     goto LABEL_8;
   }
 
-LABEL_14:
-  v15 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 void __97__NEFilterSource_prepareAgentForURL_urlRequest_urlResponse_parentURL_direction_flowUUID_handler___block_invoke_20(void *a1, void *a2)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (!v3 || MEMORY[0x1BFAFC5E0](v3) != MEMORY[0x1E69E9E80])
@@ -1090,8 +1047,8 @@ void __97__NEFilterSource_prepareAgentForURL_urlRequest_urlResponse_parentURL_di
     v5 = ne_log_obj();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v34) = 0;
-      _os_log_debug_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEBUG, "NEFilterSource could not add new flow", &v34, 2u);
+      LOWORD(v32) = 0;
+      _os_log_debug_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEBUG, "NEFilterSource could not add new flow", &v32, 2u);
     }
 
 LABEL_5:
@@ -1099,66 +1056,66 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  v8 = xpc_dictionary_get_BOOL(v4, "verdict-drop");
-  v9 = ne_log_obj();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v6 = xpc_dictionary_get_BOOL(v4, "verdict-drop");
+  v7 = ne_log_obj();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v33 = a1[5];
-    v34 = 138412546;
-    v35 = v33;
-    v36 = 2112;
-    v37 = v4;
-    _os_log_debug_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_DEBUG, "NEFilterSource got new-flow reply %@: %@", &v34, 0x16u);
+    v31 = a1[5];
+    v32 = 138412546;
+    v33 = v31;
+    v34 = 2112;
+    v35 = v4;
+    _os_log_debug_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_DEBUG, "NEFilterSource got new-flow reply %@: %@", &v32, 0x16u);
   }
 
-  if (v8)
+  if (v6)
   {
     *(a1[4] + 24) = 2;
     string = xpc_dictionary_get_string(v4, "remediation-url");
     if (string)
     {
-      v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:string];
-      v13 = a1[4];
-      if (v13)
+      v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:string];
+      v11 = a1[4];
+      if (v11)
       {
-        objc_setProperty_atomic(v13, v11, v12, 160);
+        objc_setProperty_atomic(v11, v9, v10, 160);
       }
 
       Property = a1[4];
       if (Property)
       {
-        Property = objc_getProperty(Property, v14, 160, 1);
+        Property = objc_getProperty(Property, v12, 160, 1);
       }
 
-      if ([Property isEqualToString:@"x-apple-content-filter://nefilter-unblock"])
+      if (objc_msgSend_isEqualToString_(Property))
       {
-        v16 = a1[4];
-        if (v16)
+        v14 = a1[4];
+        if (v14)
         {
-          *(v16 + 9) = 1;
+          *(v14 + 9) = 1;
         }
       }
     }
 
-    v17 = xpc_dictionary_get_string(v4, "remediation-button-text");
-    if (v17)
+    v15 = xpc_dictionary_get_string(v4, "remediation-button-text");
+    if (v15)
     {
-      v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v17];
-      v20 = a1[4];
-      if (v20)
+      v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v15];
+      v18 = a1[4];
+      if (v18)
       {
-        objc_setProperty_atomic(v20, v18, v19, 168);
+        objc_setProperty_atomic(v18, v16, v17, 168);
       }
     }
 
-    v21 = xpc_dictionary_get_string(v4, "organization");
-    if (v21)
+    v19 = xpc_dictionary_get_string(v4, "organization");
+    if (v19)
     {
-      v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v21];
-      v24 = a1[4];
-      if (v24)
+      v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v19];
+      v22 = a1[4];
+      if (v22)
       {
-        objc_setProperty_atomic(v24, v22, v23, 176);
+        objc_setProperty_atomic(v22, v20, v21, 176);
       }
     }
   }
@@ -1166,51 +1123,48 @@ LABEL_5:
   else
   {
     uint64 = xpc_dictionary_get_uint64(v4, "verdict-peek");
-    v26 = a1[4];
-    if (v26)
+    v24 = a1[4];
+    if (v24)
     {
-      *(v26 + 112) = uint64;
+      *(v24 + 112) = uint64;
     }
 
     *(a1[4] + 120) = xpc_dictionary_get_uint64(v4, "verdict-pass");
-    v27 = a1[4];
-    if (*(v27 + 120) == -1)
+    v25 = a1[4];
+    if (*(v25 + 120) == -1)
     {
-      v28 = 1;
+      v26 = 1;
     }
 
     else
     {
-      v28 = 3;
+      v26 = 3;
     }
 
-    *(v27 + 24) = v28;
+    *(v25 + 24) = v26;
   }
 
-  v29 = a1[4];
-  if (v29)
+  v27 = a1[4];
+  if (v27)
   {
-    *(v29 + 8) = 1;
+    *(v27 + 8) = 1;
   }
 
-  v30 = xpc_dictionary_get_string(v4, "url-append-string");
-  if (v30)
+  v28 = xpc_dictionary_get_string(v4, "url-append-string");
+  if (v28)
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v30];
-    v32 = a1[4];
-    if (v32)
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v28];
+    v30 = a1[4];
+    if (v30)
     {
-      objc_setProperty_atomic(v32, v31, v5, 152);
+      objc_setProperty_atomic(v30, v29, v5, 152);
     }
 
     goto LABEL_5;
   }
 
 LABEL_6:
-  v6 = a1[6];
   (*(a1[7] + 16))();
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __59__NEFilterSource_handleFinishedLoadingWithDecisionHandler___block_invoke_6(uint64_t a1)
@@ -1224,7 +1178,7 @@ uint64_t __59__NEFilterSource_handleFinishedLoadingWithDecisionHandler___block_i
 
 void __59__NEFilterSource_handleFinishedLoadingWithDecisionHandler___block_invoke_84(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ne_log_obj();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
@@ -1235,11 +1189,11 @@ void __59__NEFilterSource_handleFinishedLoadingWithDecisionHandler___block_invok
       Property = objc_getProperty(Property, v5, 80, 1);
     }
 
-    v26 = 138412546;
-    v27 = Property;
-    v28 = 2112;
-    v29 = v3;
-    _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "NEFilterSource finishedLoadingWithDecisionHandler got inbound-data-completion reply %@: %@", &v26, 0x16u);
+    v25 = 138412546;
+    v26 = Property;
+    v27 = 2112;
+    v28 = v3;
+    _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "NEFilterSource finishedLoadingWithDecisionHandler got inbound-data-completion reply %@: %@", &v25, 0x16u);
   }
 
   if (!v3 || MEMORY[0x1BFAFC5E0](v3) != MEMORY[0x1E69E9E80])
@@ -1251,9 +1205,9 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  v9 = xpc_dictionary_get_BOOL(v3, "verdict-drop");
+  v8 = xpc_dictionary_get_BOOL(v3, "verdict-drop");
   v6 = *(a1 + 32);
-  if (!v9)
+  if (!v8)
   {
     v7 = 1;
     goto LABEL_5;
@@ -1263,55 +1217,53 @@ LABEL_5:
   string = xpc_dictionary_get_string(v3, "remediation-url");
   if (string)
   {
-    v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:string];
-    v13 = *(a1 + 32);
-    if (v13)
+    v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:string];
+    v12 = *(a1 + 32);
+    if (v12)
     {
-      objc_setProperty_atomic(v13, v11, v12, 160);
+      objc_setProperty_atomic(v12, v10, v11, 160);
     }
 
-    v15 = *(a1 + 32);
-    if (v15)
+    v14 = *(a1 + 32);
+    if (v14)
     {
-      v15 = objc_getProperty(v15, v14, 160, 1);
+      v14 = objc_getProperty(v14, v13, 160, 1);
     }
 
-    if ([v15 isEqualToString:@"x-apple-content-filter://nefilter-unblock"])
+    if (objc_msgSend_isEqualToString_(v14))
     {
-      v16 = *(a1 + 32);
-      if (v16)
+      v15 = *(a1 + 32);
+      if (v15)
       {
-        *(v16 + 9) = 1;
+        *(v15 + 9) = 1;
       }
     }
   }
 
-  v17 = xpc_dictionary_get_string(v3, "remediation-button-text");
-  if (v17)
+  v16 = xpc_dictionary_get_string(v3, "remediation-button-text");
+  if (v16)
   {
-    v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v17];
-    v20 = *(a1 + 32);
-    if (v20)
+    v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v16];
+    v19 = *(a1 + 32);
+    if (v19)
     {
-      objc_setProperty_atomic(v20, v18, v19, 168);
+      objc_setProperty_atomic(v19, v17, v18, 168);
     }
   }
 
-  v21 = xpc_dictionary_get_string(v3, "organization");
-  if (v21)
+  v20 = xpc_dictionary_get_string(v3, "organization");
+  if (v20)
   {
-    v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v21];
-    v24 = *(a1 + 32);
-    if (v24)
+    v22 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v20];
+    v23 = *(a1 + 32);
+    if (v23)
     {
-      objc_setProperty_atomic(v24, v22, v23, 176);
+      objc_setProperty_atomic(v23, v21, v22, 176);
     }
   }
 
 LABEL_6:
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __59__NEFilterSource_handleFinishedLoadingWithDecisionHandler___block_invoke_4(uint64_t a1, const char *a2)
@@ -1526,7 +1478,7 @@ uint64_t __47__NEFilterSource_receivedData_decisionHandler___block_invoke_6(uint
 
 - (uint64_t)sendDataToPluginWithConnection:(void *)connection completionHandler:
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v5 = a2;
   connectionCopy = connection;
   if (!self)
@@ -1585,7 +1537,7 @@ LABEL_21:
   }
 
   *buf = 0;
-  v32 = 0;
+  v30 = 0;
   [objc_getProperty(self v15];
   v19 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_int64(v19, "command", 3);
@@ -1603,88 +1555,86 @@ LABEL_21:
     xpc_dictionary_set_data(v19, "url-response", [encodedData bytes], objc_msgSend(encodedData, "length"));
   }
 
-  v26 = *(self + 192);
-  v29 = v5;
-  v30 = connectionCopy;
+  v27 = v5;
+  v28 = connectionCopy;
   ne_filter_send_message();
 
   self = 1;
 LABEL_22:
 
-  v27 = *MEMORY[0x1E69E9840];
   return self;
 }
 
-void __67__NEFilterSource_sendDataToPluginWithConnection_completionHandler___block_invoke(void *a1, void *a2)
+void __67__NEFilterSource_sendDataToPluginWithConnection_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ne_log_obj();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    Property = a1[4];
+    Property = *(a1 + 32);
     if (Property)
     {
       Property = objc_getProperty(Property, v5, 80, 1);
     }
 
-    v29 = 138412546;
-    v30 = Property;
-    v31 = 2112;
-    v32 = v3;
-    _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "NEFilterSource got send-inbound-data reply %@: %@", &v29, 0x16u);
+    v28 = 138412546;
+    v29 = Property;
+    v30 = 2112;
+    v31 = v3;
+    _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "NEFilterSource got send-inbound-data reply %@: %@", &v28, 0x16u);
   }
 
   if (v3 && MEMORY[0x1BFAFC5E0](v3) == MEMORY[0x1E69E9E80])
   {
     if (xpc_dictionary_get_BOOL(v3, "verdict-drop"))
     {
-      *(a1[4] + 24) = 2;
+      *(*(a1 + 32) + 24) = 2;
       string = xpc_dictionary_get_string(v3, "remediation-url");
       if (string)
       {
-        v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:string];
-        v12 = a1[4];
-        if (v12)
+        v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:string];
+        v11 = *(a1 + 32);
+        if (v11)
         {
-          objc_setProperty_atomic(v12, v10, v11, 160);
+          objc_setProperty_atomic(v11, v9, v10, 160);
         }
 
-        v14 = a1[4];
-        if (v14)
+        v13 = *(a1 + 32);
+        if (v13)
         {
-          v14 = objc_getProperty(v14, v13, 160, 1);
+          v13 = objc_getProperty(v13, v12, 160, 1);
         }
 
-        if ([v14 isEqualToString:@"x-apple-content-filter://nefilter-unblock"])
+        if (objc_msgSend_isEqualToString_(v13))
         {
-          v15 = a1[4];
-          if (v15)
+          v14 = *(a1 + 32);
+          if (v14)
           {
-            *(v15 + 9) = 1;
+            *(v14 + 9) = 1;
           }
         }
       }
 
-      v16 = xpc_dictionary_get_string(v3, "remediation-button-text");
-      if (v16)
+      v15 = xpc_dictionary_get_string(v3, "remediation-button-text");
+      if (v15)
       {
-        v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v16];
-        v19 = a1[4];
-        if (v19)
+        v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v15];
+        v18 = *(a1 + 32);
+        if (v18)
         {
-          objc_setProperty_atomic(v19, v17, v18, 168);
+          objc_setProperty_atomic(v18, v16, v17, 168);
         }
       }
 
-      v20 = xpc_dictionary_get_string(v3, "organization");
-      if (v20)
+      v19 = xpc_dictionary_get_string(v3, "organization");
+      if (v19)
       {
-        v22 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v20];
-        v23 = a1[4];
-        if (v23)
+        v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v19];
+        v22 = *(a1 + 32);
+        if (v22)
         {
-          objc_setProperty_atomic(v23, v21, v22, 176);
+          objc_setProperty_atomic(v22, v20, v21, 176);
         }
       }
 
@@ -1692,26 +1642,26 @@ void __67__NEFilterSource_sendDataToPluginWithConnection_completionHandler___blo
     }
 
     uint64 = xpc_dictionary_get_uint64(v3, "verdict-peek");
-    v25 = a1[4];
-    if (v25)
+    v24 = *(a1 + 32);
+    if (v24)
     {
-      *(v25 + 112) = uint64;
+      *(v24 + 112) = uint64;
     }
 
-    v26 = xpc_dictionary_get_uint64(v3, "verdict-pass");
-    v6 = a1[4];
-    v27 = *(v6 + 120);
-    if (v26 > v27)
+    v25 = xpc_dictionary_get_uint64(v3, "verdict-pass");
+    v6 = *(a1 + 32);
+    v26 = *(v6 + 120);
+    if (v25 > v26)
     {
-      *(v6 + 120) = v26;
-      v6 = a1[4];
-      v27 = *(v6 + 120);
+      *(v6 + 120) = v25;
+      v6 = *(a1 + 32);
+      v26 = *(v6 + 120);
     }
 
-    if (v27 != -1)
+    if (v26 != -1)
     {
       *(v6 + 24) = 3;
-      if (([(NEFilterSource *)a1[4] sendDataToPluginWithConnection:a1[6] completionHandler:?]& 1) != 0)
+      if (([(NEFilterSource *)*(a1 + 32) sendDataToPluginWithConnection:*(a1 + 48) completionHandler:?]& 1) != 0)
       {
         goto LABEL_7;
       }
@@ -1724,16 +1674,14 @@ void __67__NEFilterSource_sendDataToPluginWithConnection_completionHandler___blo
 
   else
   {
-    v6 = a1[4];
+    v6 = *(a1 + 32);
     v7 = 2;
   }
 
   *(v6 + 24) = v7;
 LABEL_6:
-  (*(a1[6] + 16))();
+  (*(*(a1 + 48) + 16))();
 LABEL_7:
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __47__NEFilterSource_receivedData_decisionHandler___block_invoke_4(uint64_t a1)
@@ -1862,19 +1810,19 @@ void __51__NEFilterSource_receivedResponse_decisionHandler___block_invoke_2(uint
 
 void __50__NEFilterSource_willSendRequest_decisionHandler___block_invoke(uint64_t a1)
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   v2 = *(a1 + 40);
-  v49[0] = MEMORY[0x1E69E9820];
-  v49[1] = 3221225472;
-  v49[2] = __50__NEFilterSource_willSendRequest_decisionHandler___block_invoke_2;
-  v49[3] = &unk_1E7F07A78;
-  v49[4] = v1;
+  v48[0] = MEMORY[0x1E69E9820];
+  v48[1] = 3221225472;
+  v48[2] = __50__NEFilterSource_willSendRequest_decisionHandler___block_invoke_2;
+  v48[3] = &unk_1E7F07A78;
+  v48[4] = v1;
   v3 = *(a1 + 48);
-  v50 = v3;
+  v49 = v3;
   if (v1)
   {
-    v4 = v49;
+    v4 = v48;
     v5 = v2;
     v6 = [v5 URL];
     objc_setProperty_atomic(v1, v7, 0, 128);
@@ -1882,7 +1830,7 @@ void __50__NEFilterSource_willSendRequest_decisionHandler___block_invoke(uint64_
     [v8 setUrl:v6];
     [v8 setPid:{objc_msgSend(v1, "sourceAppPid")}];
     v9 = [v1 sourceAppIdentifier];
-    if ([v9 isEqualToString:@"com.apple.SafariViewService"])
+    if (objc_msgSend_isEqualToString_(v9))
     {
       v10 = [v8 pid];
 
@@ -1919,7 +1867,7 @@ void __50__NEFilterSource_willSendRequest_decisionHandler___block_invoke(uint64_
       v14 = [v1 sourceAppPid];
       if (v14 != getpid())
       {
-        v54 = 0;
+        v53 = 0;
         memset(buffer, 0, sizeof(buffer));
         if (proc_pidinfo([v1 sourceAppPid], 17, 1uLL, buffer, 56) == 56)
         {
@@ -1935,9 +1883,9 @@ void __50__NEFilterSource_willSendRequest_decisionHandler___block_invoke(uint64_
           v16 = ne_log_obj();
           if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
-            v46 = [v1 sourceAppPid];
+            v45 = [v1 sourceAppPid];
             *buf = 67109120;
-            v52 = v46;
+            v51 = v45;
             _os_log_error_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_ERROR, "Failed to convert from PID (%d) to UUID", buf, 8u);
           }
         }
@@ -1947,21 +1895,21 @@ void __50__NEFilterSource_willSendRequest_decisionHandler___block_invoke(uint64_
     v17 = [v6 host];
     if (v17)
     {
-      v48 = v5;
+      v47 = v5;
       v18 = [v6 port];
       v19 = [v18 stringValue];
       if (v19)
       {
         v20 = MEMORY[0x1E6977E28];
         [v6 host];
-        v47 = v8;
+        v46 = v8;
         v22 = v21 = v4;
         v23 = [v6 port];
         v24 = [v23 stringValue];
         v25 = [v20 endpointWithHostname:v22 port:v24];
 
         v4 = v21;
-        v8 = v47;
+        v8 = v46;
       }
 
       else
@@ -1969,7 +1917,7 @@ void __50__NEFilterSource_willSendRequest_decisionHandler___block_invoke(uint64_
         v25 = 0;
       }
 
-      v5 = v48;
+      v5 = v47;
     }
 
     else
@@ -1999,10 +1947,8 @@ void __50__NEFilterSource_willSendRequest_decisionHandler___block_invoke(uint64_
     Property = objc_getProperty(v1, v43, 80, 1);
     [(NEFilterSource *)v1 prepareAgentForURL:v36 urlRequest:v38 urlResponse:v40 parentURL:v42 direction:1 flowUUID:Property handler:v4];
 
-    v3 = v50;
+    v3 = v49;
   }
-
-  v45 = *MEMORY[0x1E69E9840];
 }
 
 void __50__NEFilterSource_willSendRequest_decisionHandler___block_invoke_4(uint64_t a1, const char *a2)
@@ -2031,7 +1977,7 @@ void __50__NEFilterSource_willSendRequest_decisionHandler___block_invoke_4(uint6
 
 void __50__NEFilterSource_willSendRequest_decisionHandler___block_invoke_6(id *a1, void *a2)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = a1[4];
   if (!v5)
@@ -2064,10 +2010,10 @@ LABEL_18:
       length_4[3] = &unk_1E7F0B588;
       v18 = a1[5];
       length_4[4] = a1[4];
-      v30 = v18;
+      v26 = v18;
       dispatch_async(Property, length_4);
 
-      goto LABEL_28;
+      goto LABEL_26;
     }
 
 LABEL_17:
@@ -2080,7 +2026,7 @@ LABEL_17:
     v7 = a1[6];
 LABEL_22:
     v7[2]();
-    goto LABEL_28;
+    goto LABEL_26;
   }
 
   if ([a1[4] status] != 3)
@@ -2090,7 +2036,7 @@ LABEL_22:
   }
 
   *uuid = 0;
-  v35 = 0;
+  v31 = 0;
   v10 = a1[4];
   if (v10)
   {
@@ -2138,31 +2084,23 @@ LABEL_22:
     v19 = ne_log_obj();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v24 = a1[4];
-      if (v24)
+      v21 = a1[4];
+      if (v21)
       {
-        v24 = objc_getProperty(v24, v20, 80, 1);
+        v21 = objc_getProperty(v21, v20, 80, 1);
       }
 
       *buf = 138412290;
-      v32 = v24;
+      v28 = v21;
       _os_log_error_impl(&dword_1BA83C000, v19, OS_LOG_TYPE_ERROR, "NEFilterSource failed to sign data complete message for %@", buf, 0xCu);
     }
   }
 
-  v21 = a1[4];
-  if (v21)
-  {
-    v22 = v21[24];
-  }
-
-  v25 = a1[4];
-  v26 = a1[7];
-  v27 = a1[6];
+  v22 = a1[7];
+  v23 = a1[6];
   ne_filter_send_message();
 
-LABEL_28:
-  v23 = *MEMORY[0x1E69E9840];
+LABEL_26:
 }
 
 uint64_t __50__NEFilterSource_willSendRequest_decisionHandler___block_invoke_7(uint64_t a1)
@@ -2176,7 +2114,7 @@ uint64_t __50__NEFilterSource_willSendRequest_decisionHandler___block_invoke_7(u
 
 void __50__NEFilterSource_willSendRequest_decisionHandler___block_invoke_83(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ne_log_obj();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
@@ -2187,11 +2125,11 @@ void __50__NEFilterSource_willSendRequest_decisionHandler___block_invoke_83(uint
       Property = objc_getProperty(Property, v5, 80, 1);
     }
 
-    v27 = 138412546;
-    v28 = Property;
-    v29 = 2112;
-    v30 = v3;
-    _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "NEFilterSource willSendRequest got inbound-data-completion reply %@: %@", &v27, 0x16u);
+    v26 = 138412546;
+    v27 = Property;
+    v28 = 2112;
+    v29 = v3;
+    _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "NEFilterSource willSendRequest got inbound-data-completion reply %@: %@", &v26, 0x16u);
   }
 
   if (!v3 || MEMORY[0x1BFAFC5E0](v3) != MEMORY[0x1E69E9E80])
@@ -2203,9 +2141,9 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  v10 = xpc_dictionary_get_BOOL(v3, "verdict-drop");
+  v9 = xpc_dictionary_get_BOOL(v3, "verdict-drop");
   v6 = *(a1 + 32);
-  if (!v10)
+  if (!v9)
   {
     v7 = 1;
     goto LABEL_5;
@@ -2215,48 +2153,48 @@ LABEL_5:
   string = xpc_dictionary_get_string(v3, "remediation-url");
   if (string)
   {
-    v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:string];
-    v14 = *(a1 + 32);
-    if (v14)
+    v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:string];
+    v13 = *(a1 + 32);
+    if (v13)
     {
-      objc_setProperty_atomic(v14, v12, v13, 160);
+      objc_setProperty_atomic(v13, v11, v12, 160);
     }
 
-    v16 = *(a1 + 32);
-    if (v16)
+    v15 = *(a1 + 32);
+    if (v15)
     {
-      v16 = objc_getProperty(v16, v15, 160, 1);
+      v15 = objc_getProperty(v15, v14, 160, 1);
     }
 
-    if ([v16 isEqualToString:@"x-apple-content-filter://nefilter-unblock"])
+    if (objc_msgSend_isEqualToString_(v15))
     {
-      v17 = *(a1 + 32);
-      if (v17)
+      v16 = *(a1 + 32);
+      if (v16)
       {
-        *(v17 + 9) = 1;
+        *(v16 + 9) = 1;
       }
     }
   }
 
-  v18 = xpc_dictionary_get_string(v3, "remediation-button-text");
-  if (v18)
+  v17 = xpc_dictionary_get_string(v3, "remediation-button-text");
+  if (v17)
   {
-    v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v18];
-    v21 = *(a1 + 32);
-    if (v21)
+    v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v17];
+    v20 = *(a1 + 32);
+    if (v20)
     {
-      objc_setProperty_atomic(v21, v19, v20, 168);
+      objc_setProperty_atomic(v20, v18, v19, 168);
     }
   }
 
-  v22 = xpc_dictionary_get_string(v3, "organization");
-  if (v22)
+  v21 = xpc_dictionary_get_string(v3, "organization");
+  if (v21)
   {
-    v24 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v22];
-    v25 = *(a1 + 32);
-    if (v25)
+    v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v21];
+    v24 = *(a1 + 32);
+    if (v24)
     {
-      objc_setProperty_atomic(v25, v23, v24, 176);
+      objc_setProperty_atomic(v24, v22, v23, 176);
     }
   }
 
@@ -2268,8 +2206,6 @@ LABEL_6:
   }
 
   (*(*(a1 + v8) + 16))();
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __50__NEFilterSource_willSendRequest_decisionHandler___block_invoke_5(uint64_t a1)
@@ -2365,13 +2301,12 @@ void __50__NEFilterSource_willSendRequest_decisionHandler___block_invoke_3(uint6
 
 intptr_t __29__NEFilterSource_initGlobals__block_invoke(void *a1)
 {
-  v2 = a1[4];
-  v3 = ne_filter_get_definition();
+  v2 = ne_filter_get_definition();
   *(*(a1[6] + 8) + 24) = nw_context_get_globals_for_protocol();
 
-  v4 = a1[5];
+  v3 = a1[5];
 
-  return dispatch_semaphore_signal(v4);
+  return dispatch_semaphore_signal(v3);
 }
 
 - (void)dataCompleteWithCompletionQueue:(id)queue completionHandler:(id)handler
@@ -2392,7 +2327,7 @@ intptr_t __29__NEFilterSource_initGlobals__block_invoke(void *a1)
 
 void __68__NEFilterSource_dataCompleteWithCompletionQueue_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   if (!v4)
@@ -2415,9 +2350,9 @@ LABEL_17:
       v17 = *(a1 + 40);
       v18 = *(a1 + 48);
       block[4] = *(a1 + 32);
-      v32 = v18;
+      v28 = v18;
       dispatch_async(v17, block);
-      v16 = v32;
+      v16 = v28;
       goto LABEL_18;
     }
 
@@ -2435,16 +2370,16 @@ LABEL_16:
     v14 = *(a1 + 40);
     v15 = *(a1 + 48);
     length_4[4] = *(a1 + 32);
-    v30 = v15;
+    v26 = v15;
     dispatch_async(v14, length_4);
-    v16 = v30;
+    v16 = v26;
 LABEL_18:
 
-    goto LABEL_24;
+    goto LABEL_22;
   }
 
   *uuid = 0;
-  v37 = 0;
+  v33 = 0;
   Property = *(a1 + 32);
   if (Property)
   {
@@ -2492,31 +2427,23 @@ LABEL_18:
     v19 = ne_log_obj();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v24 = *(a1 + 32);
-      if (v24)
+      v21 = *(a1 + 32);
+      if (v21)
       {
-        v24 = objc_getProperty(v24, v20, 80, 1);
+        v21 = objc_getProperty(v21, v20, 80, 1);
       }
 
       *buf = 138412290;
-      v34 = v24;
+      v30 = v21;
       _os_log_error_impl(&dword_1BA83C000, v19, OS_LOG_TYPE_ERROR, "NEFilterSource failed to sign data complete message for %@", buf, 0xCu);
     }
   }
 
-  v21 = *(a1 + 32);
-  if (v21)
-  {
-    v22 = *(v21 + 192);
-  }
-
-  v25 = *(a1 + 32);
-  v26 = *(a1 + 40);
-  v27 = *(a1 + 48);
+  v22 = *(a1 + 40);
+  v23 = *(a1 + 48);
   ne_filter_send_message();
 
-LABEL_24:
-  v23 = *MEMORY[0x1E69E9840];
+LABEL_22:
 }
 
 - (void)prepareAgentWithHandler:(void *)handler
@@ -2553,7 +2480,7 @@ void __68__NEFilterSource_dataCompleteWithCompletionQueue_completionHandler___bl
 
 void __68__NEFilterSource_dataCompleteWithCompletionQueue_completionHandler___block_invoke_81(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ne_log_obj();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
@@ -2565,9 +2492,9 @@ void __68__NEFilterSource_dataCompleteWithCompletionQueue_completionHandler___bl
     }
 
     *buf = 138412546;
-    v31 = Property;
-    v32 = 2112;
-    v33 = v3;
+    v30 = Property;
+    v31 = 2112;
+    v32 = v3;
     _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "NEFilterSource got inbound-data-completion reply %@: %@", buf, 0x16u);
   }
 
@@ -2580,9 +2507,9 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  v11 = xpc_dictionary_get_BOOL(v3, "verdict-drop");
+  v10 = xpc_dictionary_get_BOOL(v3, "verdict-drop");
   v6 = *(a1 + 32);
-  if (!v11)
+  if (!v10)
   {
     v7 = 1;
     goto LABEL_5;
@@ -2592,63 +2519,61 @@ LABEL_5:
   string = xpc_dictionary_get_string(v3, "remediation-url");
   if (string)
   {
-    v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:string];
-    v15 = *(a1 + 32);
-    if (v15)
+    v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:string];
+    v14 = *(a1 + 32);
+    if (v14)
     {
-      objc_setProperty_atomic(v15, v13, v14, 160);
+      objc_setProperty_atomic(v14, v12, v13, 160);
     }
 
-    v17 = *(a1 + 32);
-    if (v17)
+    v16 = *(a1 + 32);
+    if (v16)
     {
-      v17 = objc_getProperty(v17, v16, 160, 1);
+      v16 = objc_getProperty(v16, v15, 160, 1);
     }
 
-    if ([v17 isEqualToString:@"x-apple-content-filter://nefilter-unblock"])
+    if (objc_msgSend_isEqualToString_(v16))
     {
-      v18 = *(a1 + 32);
-      if (v18)
+      v17 = *(a1 + 32);
+      if (v17)
       {
-        *(v18 + 9) = 1;
+        *(v17 + 9) = 1;
       }
     }
   }
 
-  v19 = xpc_dictionary_get_string(v3, "remediation-button-text");
-  if (v19)
+  v18 = xpc_dictionary_get_string(v3, "remediation-button-text");
+  if (v18)
   {
-    v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v19];
-    v22 = *(a1 + 32);
-    if (v22)
+    v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v18];
+    v21 = *(a1 + 32);
+    if (v21)
     {
-      objc_setProperty_atomic(v22, v20, v21, 168);
+      objc_setProperty_atomic(v21, v19, v20, 168);
     }
   }
 
-  v23 = xpc_dictionary_get_string(v3, "organization");
-  if (v23)
+  v22 = xpc_dictionary_get_string(v3, "organization");
+  if (v22)
   {
-    v25 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v23];
-    v26 = *(a1 + 32);
-    if (v26)
+    v24 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v22];
+    v25 = *(a1 + 32);
+    if (v25)
     {
-      objc_setProperty_atomic(v26, v24, v25, 176);
+      objc_setProperty_atomic(v25, v23, v24, 176);
     }
   }
 
 LABEL_6:
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __68__NEFilterSource_dataCompleteWithCompletionQueue_completionHandler___block_invoke_82;
-  v28[3] = &unk_1E7F0B588;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __68__NEFilterSource_dataCompleteWithCompletionQueue_completionHandler___block_invoke_82;
+  v27[3] = &unk_1E7F0B588;
   v8 = *(a1 + 40);
   v9 = *(a1 + 48);
-  v28[4] = *(a1 + 32);
-  v29 = v9;
-  dispatch_async(v8, v28);
-
-  v10 = *MEMORY[0x1E69E9840];
+  v27[4] = *(a1 + 32);
+  v28 = v9;
+  dispatch_async(v8, v27);
 }
 
 void __68__NEFilterSource_dataCompleteWithCompletionQueue_completionHandler___block_invoke_82(uint64_t a1)
@@ -2873,22 +2798,22 @@ void __64__NEFilterSource_addData_withCompletionQueue_completionHandler___block_
 
 + (BOOL)filterRequired
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (g_delegation_audit_token)
   {
     v2 = objc_alloc_init(MEMORY[0x1E6977E40]);
     v3 = *(g_delegation_audit_token + 16);
-    *v15 = *g_delegation_audit_token;
-    *&v15[16] = v3;
-    [v2 setSourceApplicationWithToken:v15];
+    *v14 = *g_delegation_audit_token;
+    *&v14[16] = v3;
+    [v2 setSourceApplicationWithToken:v14];
     v4 = ne_log_obj();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      *v15 = 136315394;
-      *&v15[4] = "+[NEFilterSource filterRequired]";
-      *&v15[12] = 2112;
-      *&v15[14] = v2;
-      _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "%s: parameters %@", v15, 0x16u);
+      *v14 = 136315394;
+      *&v14[4] = "+[NEFilterSource filterRequired]";
+      *&v14[12] = 2112;
+      *&v14[14] = v2;
+      _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "%s: parameters %@", v14, 0x16u);
     }
 
     v5 = [objc_alloc(MEMORY[0x1E6977E50]) initWithEndpoint:0 parameters:v2];
@@ -2911,14 +2836,13 @@ void __64__NEFilterSource_addData_withCompletionQueue_completionHandler___block_
   v12 = ne_log_obj();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    *v15 = 136315394;
-    *&v15[4] = "+[NEFilterSource filterRequired]";
-    *&v15[12] = 1024;
-    *&v15[14] = v11;
-    _os_log_debug_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_DEBUG, "%s: result %d", v15, 0x12u);
+    *v14 = 136315394;
+    *&v14[4] = "+[NEFilterSource filterRequired]";
+    *&v14[12] = 1024;
+    *&v14[14] = v11;
+    _os_log_debug_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_DEBUG, "%s: result %d", v14, 0x12u);
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

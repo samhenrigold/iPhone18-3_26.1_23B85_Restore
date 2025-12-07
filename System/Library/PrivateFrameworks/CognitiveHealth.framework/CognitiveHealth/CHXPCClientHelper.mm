@@ -34,7 +34,7 @@
 
 - (void)_locked_establishConnection
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (!self->_conn)
   {
     v3 = ch_xpc_handle();
@@ -42,7 +42,7 @@
     {
       serviceName = self->_serviceName;
       *buf = 138412290;
-      v17 = serviceName;
+      v16 = serviceName;
       _os_log_impl(&dword_243B92000, v3, OS_LOG_TYPE_DEFAULT, "Establishing new connection to %@ .", buf, 0xCu);
     }
 
@@ -55,28 +55,45 @@
     [(NSXPCConnection *)self->_conn setExportedObject:WeakRetained];
 
     objc_initWeak(buf, self);
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __48__CHXPCClientHelper__locked_establishConnection__block_invoke;
-    v14[3] = &unk_278DE4ED8;
-    objc_copyWeak(&v15, buf);
-    [(NSXPCConnection *)self->_conn setInterruptionHandler:v14];
-    v9 = MEMORY[0x277D85DD0];
-    v10 = 3221225472;
-    v11 = __48__CHXPCClientHelper__locked_establishConnection__block_invoke_7;
-    v12 = &unk_278DE4ED8;
-    objc_copyWeak(&v13, buf);
-    [(NSXPCConnection *)self->_conn setInvalidationHandler:&v9];
-    [(NSXPCConnection *)self->_conn resume:v9];
-    objc_destroyWeak(&v13);
-    objc_destroyWeak(&v15);
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __48__CHXPCClientHelper__locked_establishConnection__block_invoke;
+    v13[3] = &unk_278DE4ED8;
+    objc_copyWeak(&v14, buf);
+    [(NSXPCConnection *)self->_conn setInterruptionHandler:v13];
+    v8 = MEMORY[0x277D85DD0];
+    v9 = 3221225472;
+    v10 = __48__CHXPCClientHelper__locked_establishConnection__block_invoke_7;
+    v11 = &unk_278DE4ED8;
+    objc_copyWeak(&v12, buf);
+    [(NSXPCConnection *)self->_conn setInvalidationHandler:&v8];
+    [(NSXPCConnection *)self->_conn resume:v8];
+    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v14);
     objc_destroyWeak(buf);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __48__CHXPCClientHelper__locked_establishConnection__block_invoke(uint64_t a1)
+{
+  v6 = *MEMORY[0x277D85DE8];
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  if (WeakRetained)
+  {
+    v2 = ch_xpc_handle();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    {
+      v3 = WeakRetained[10];
+      v4 = 138412290;
+      v5 = v3;
+      _os_log_error_impl(&dword_243B92000, v2, OS_LOG_TYPE_ERROR, "Connection to %@ interrupted.", &v4, 0xCu);
+    }
+
+    (*(WeakRetained[13] + 16))();
+  }
+}
+
+void __48__CHXPCClientHelper__locked_establishConnection__block_invoke_7(uint64_t a1)
 {
   v7 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -85,31 +102,10 @@ void __48__CHXPCClientHelper__locked_establishConnection__block_invoke(uint64_t 
     v2 = ch_xpc_handle();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v4 = WeakRetained[10];
+      v4 = *(WeakRetained + 10);
       v5 = 138412290;
       v6 = v4;
-      _os_log_error_impl(&dword_243B92000, v2, OS_LOG_TYPE_ERROR, "Connection to %@ interrupted.", &v5, 0xCu);
-    }
-
-    (*(WeakRetained[13] + 16))();
-  }
-
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-void __48__CHXPCClientHelper__locked_establishConnection__block_invoke_7(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  if (WeakRetained)
-  {
-    v2 = ch_xpc_handle();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
-    {
-      v5 = *(WeakRetained + 10);
-      v6 = 138412290;
-      v7 = v5;
-      _os_log_error_impl(&dword_243B92000, v2, OS_LOG_TYPE_ERROR, "Connection to %@ invalidated.", &v6, 0xCu);
+      _os_log_error_impl(&dword_243B92000, v2, OS_LOG_TYPE_ERROR, "Connection to %@ invalidated.", &v5, 0xCu);
     }
 
     (*(*(WeakRetained + 14) + 16))();
@@ -119,8 +115,6 @@ void __48__CHXPCClientHelper__locked_establishConnection__block_invoke_7(uint64_
 
     pthread_mutex_unlock((WeakRetained + 8));
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc

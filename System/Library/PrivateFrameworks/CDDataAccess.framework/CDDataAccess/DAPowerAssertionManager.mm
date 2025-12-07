@@ -82,7 +82,7 @@
 
 - (void)retainPowerAssertion:(id)assertion withGroupIdentifier:(id)identifier
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   assertionCopy = assertion;
   identifierCopy = identifier;
   if (!assertionCopy)
@@ -100,11 +100,11 @@
   v10 = *(MEMORY[0x277CF3AF0] + 6);
   if (os_log_type_enabled(v8, v10))
   {
-    v29 = 138412546;
-    v30 = assertionCopy;
-    v31 = 2112;
-    v32 = identifierCopy;
-    _os_log_impl(&dword_24244C000, v8, v10, "Context %@ retaining power assertion with group identifier %@", &v29, 0x16u);
+    v28 = 138412546;
+    v29 = assertionCopy;
+    v30 = 2112;
+    v31 = identifierCopy;
+    _os_log_impl(&dword_24244C000, v8, v10, "Context %@ retaining power assertion with group identifier %@", &v28, 0x16u);
   }
 
   selfCopy = self;
@@ -115,11 +115,11 @@
     v15 = *(v9 + 7);
     if (os_log_type_enabled(v14, v15))
     {
-      v29 = 138412546;
-      v30 = assertionCopy;
-      v31 = 2112;
-      v32 = identifierCopy;
-      _os_log_impl(&dword_24244C000, v14, v15, "Context %@ getting added to our held aside contexts, as group %@ is currently dropped", &v29, 0x16u);
+      v28 = 138412546;
+      v29 = assertionCopy;
+      v30 = 2112;
+      v31 = identifierCopy;
+      _os_log_impl(&dword_24244C000, v14, v15, "Context %@ getting added to our held aside contexts, as group %@ is currently dropped", &v28, 0x16u);
     }
 
     heldAsideContexts = [(DAPowerAssertionManager *)selfCopy heldAsideContexts];
@@ -172,12 +172,11 @@
   }
 
   objc_sync_exit(selfCopy);
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)releasePowerAssertion:(id)assertion
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   assertionCopy = assertion;
   if (!assertionCopy)
   {
@@ -188,9 +187,9 @@
   v6 = *(MEMORY[0x277CF3AF0] + 6);
   if (os_log_type_enabled(v5, v6))
   {
-    v28 = 138412290;
-    v29 = assertionCopy;
-    _os_log_impl(&dword_24244C000, v5, v6, "Context %@ releasing power assertion", &v28, 0xCu);
+    v27 = 138412290;
+    v28 = assertionCopy;
+    _os_log_impl(&dword_24244C000, v5, v6, "Context %@ releasing power assertion", &v27, 0xCu);
   }
 
   selfCopy = self;
@@ -213,12 +212,12 @@ LABEL_7:
 
   if (v13)
   {
-    v27 = DALoggingwithCategory();
-    if (os_log_type_enabled(v27, v6))
+    v26 = DALoggingwithCategory();
+    if (os_log_type_enabled(v26, v6))
     {
-      v28 = 138412290;
-      v29 = assertionCopy;
-      _os_log_impl(&dword_24244C000, v27, v6, "Context object %@ attempting to release power assertion without first retaining it", &v28, 0xCu);
+      v27 = 138412290;
+      v28 = assertionCopy;
+      _os_log_impl(&dword_24244C000, v26, v6, "Context object %@ attempting to release power assertion without first retaining it", &v27, 0xCu);
     }
 
     goto LABEL_7;
@@ -263,7 +262,6 @@ LABEL_15:
   }
 
   objc_sync_exit(selfCopy);
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (id)stateString
@@ -283,14 +281,14 @@ LABEL_15:
 
 - (void)dropPowerAssertionsForGroupIdentifier:(id)identifier
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = DALoggingwithCategory();
   v6 = *(MEMORY[0x277CF3AF0] + 6);
   if (os_log_type_enabled(v5, v6))
   {
     *buf = 138412290;
-    v39 = identifierCopy;
+    v38 = identifierCopy;
     _os_log_impl(&dword_24244C000, v5, v6, "Dropping power assertion for group identifier %@", buf, 0xCu);
   }
 
@@ -312,26 +310,26 @@ LABEL_15:
     groupIdentifierToContexts = [(DAPowerAssertionManager *)selfCopy groupIdentifierToContexts];
     v13 = [groupIdentifierToContexts objectForKey:identifierCopy];
 
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     v10 = v13;
-    v14 = [v10 countByEnumeratingWithState:&v32 objects:v37 count:16];
+    v14 = [v10 countByEnumeratingWithState:&v31 objects:v36 count:16];
     if (v14)
     {
-      v15 = *v33;
+      v15 = *v32;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v33 != v15)
+          if (*v32 != v15)
           {
             objc_enumerationMutation(v10);
           }
 
           v17 = 0;
-          v18 = *(*(&v32 + 1) + 8 * i);
+          v18 = *(*(&v31 + 1) + 8 * i);
           while (1)
           {
             contexts = [(DAPowerAssertionManager *)selfCopy contexts];
@@ -352,54 +350,53 @@ LABEL_15:
           }
         }
 
-        v14 = [v10 countByEnumeratingWithState:&v32 objects:v37 count:16];
+        v14 = [v10 countByEnumeratingWithState:&v31 objects:v36 count:16];
       }
 
       while (v14);
     }
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v23 = [v10 copy];
-  v24 = [v23 countByEnumeratingWithState:&v28 objects:v36 count:16];
+  v24 = [v23 countByEnumeratingWithState:&v27 objects:v35 count:16];
   if (v24)
   {
-    v25 = *v29;
+    v25 = *v28;
     do
     {
       for (j = 0; j != v24; ++j)
       {
-        if (*v29 != v25)
+        if (*v28 != v25)
         {
           objc_enumerationMutation(v23);
         }
 
-        [(DAPowerAssertionManager *)selfCopy _releaseAssertionForContext:*(*(&v28 + 1) + 8 * j), v28];
+        [(DAPowerAssertionManager *)selfCopy _releaseAssertionForContext:*(*(&v27 + 1) + 8 * j), v27];
       }
 
-      v24 = [v23 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v24 = [v23 countByEnumeratingWithState:&v27 objects:v35 count:16];
     }
 
     while (v24);
   }
 
   objc_sync_exit(selfCopy);
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reattainPowerAssertionsForGroupIdentifier:(id)identifier
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = DALoggingwithCategory();
   v6 = *(MEMORY[0x277CF3AF0] + 6);
   if (os_log_type_enabled(v5, v6))
   {
     *buf = 138412290;
-    v39 = identifierCopy;
+    v38 = identifierCopy;
     _os_log_impl(&dword_24244C000, v5, v6, "Reattaining power assertion for group identifier %@", buf, 0xCu);
   }
 
@@ -416,26 +413,26 @@ LABEL_15:
     groupIdentifierToContexts = [(DAPowerAssertionManager *)selfCopy groupIdentifierToContexts];
     v12 = [groupIdentifierToContexts objectForKey:identifierCopy];
 
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     v13 = v12;
-    v14 = [v13 countByEnumeratingWithState:&v32 objects:v37 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v31 objects:v36 count:16];
     if (v14)
     {
-      v15 = *v33;
+      v15 = *v32;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v33 != v15)
+          if (*v32 != v15)
           {
             objc_enumerationMutation(v13);
           }
 
           v17 = 0;
-          v18 = *(*(&v32 + 1) + 8 * i);
+          v18 = *(*(&v31 + 1) + 8 * i);
           while (1)
           {
             heldAsideContexts = [(DAPowerAssertionManager *)selfCopy heldAsideContexts];
@@ -456,7 +453,7 @@ LABEL_15:
           }
         }
 
-        v14 = [v13 countByEnumeratingWithState:&v32 objects:v37 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v31 objects:v36 count:16];
       }
 
       while (v14);
@@ -468,40 +465,39 @@ LABEL_15:
     v13 = 0;
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v23 = [v13 copy];
-  v24 = [v23 countByEnumeratingWithState:&v28 objects:v36 count:16];
+  v24 = [v23 countByEnumeratingWithState:&v27 objects:v35 count:16];
   if (v24)
   {
-    v25 = *v29;
+    v25 = *v28;
     do
     {
       for (j = 0; j != v24; ++j)
       {
-        if (*v29 != v25)
+        if (*v28 != v25)
         {
           objc_enumerationMutation(v23);
         }
 
-        [(DAPowerAssertionManager *)selfCopy _retainAssertionForContext:*(*(&v28 + 1) + 8 * j), v28];
+        [(DAPowerAssertionManager *)selfCopy _retainAssertionForContext:*(*(&v27 + 1) + 8 * j), v27];
       }
 
-      v24 = [v23 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v24 = [v23 countByEnumeratingWithState:&v27 objects:v35 count:16];
     }
 
     while (v24);
   }
 
   objc_sync_exit(selfCopy);
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_retainAssertionForContext:(id)context
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   if (_retainAssertionForContext__onceToken != -1)
   {
@@ -524,15 +520,14 @@ LABEL_15:
   {
     contextToPowerAssertionRef3 = [(DAPowerAssertionManager *)self contextToPowerAssertionRef];
     *buf = 138412802;
-    v16 = contextCopy;
-    v17 = 2048;
-    v18 = contextCopy;
-    v19 = 2048;
-    v20 = [contextToPowerAssertionRef3 count];
+    v15 = contextCopy;
+    v16 = 2048;
+    v17 = contextCopy;
+    v18 = 2048;
+    v19 = [contextToPowerAssertionRef3 count];
     _os_log_impl(&dword_24244C000, v10, v11, "DAPowerAssertionManager retained power assertion %@ for context %p, outstanding assertion count %lu", buf, 0x20u);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v6 == 0;
 }
 
@@ -545,18 +540,18 @@ uint64_t __54__DAPowerAssertionManager__retainAssertionForContext___block_invoke
 
 - (BOOL)_releaseAssertionForContext:(id)context
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = DALoggingwithCategory();
   v6 = *(MEMORY[0x277CF3AF0] + 6);
   if (os_log_type_enabled(v5, v6))
   {
     contextToPowerAssertionRef = [(DAPowerAssertionManager *)self contextToPowerAssertionRef];
-    v13 = 134218240;
-    v14 = contextCopy;
-    v15 = 1024;
-    v16 = [contextToPowerAssertionRef count] - 1;
-    _os_log_impl(&dword_24244C000, v5, v6, "DAPowerAssertionManager releasing power assertion for context %p, outstanding assertion count %u ontext", &v13, 0x12u);
+    v12 = 134218240;
+    v13 = contextCopy;
+    v14 = 1024;
+    v15 = [contextToPowerAssertionRef count] - 1;
+    _os_log_impl(&dword_24244C000, v5, v6, "DAPowerAssertionManager releasing power assertion for context %p, outstanding assertion count %u ontext", &v12, 0x12u);
   }
 
   contextToPowerAssertionRef2 = [(DAPowerAssertionManager *)self contextToPowerAssertionRef];
@@ -565,7 +560,6 @@ uint64_t __54__DAPowerAssertionManager__retainAssertionForContext___block_invoke
   contextToPowerAssertionRef3 = [(DAPowerAssertionManager *)self contextToPowerAssertionRef];
   v10 = [contextToPowerAssertionRef3 count] == 0;
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

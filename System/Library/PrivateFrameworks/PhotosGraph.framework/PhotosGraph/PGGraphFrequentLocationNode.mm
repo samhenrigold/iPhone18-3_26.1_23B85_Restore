@@ -90,22 +90,20 @@
 
 - (id)propertyDictionary
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  v12[0] = @"universalStartDate";
+  v12[2] = *MEMORY[0x277D85DE8];
+  v11[0] = @"universalStartDate";
   v3 = MEMORY[0x277CCABB0];
   startDate = [(NSDateInterval *)self->_universalDateInterval startDate];
   [startDate timeIntervalSinceReferenceDate];
   v5 = [v3 numberWithDouble:?];
-  v12[1] = @"universalEndDate";
-  v13[0] = v5;
+  v11[1] = @"universalEndDate";
+  v12[0] = v5;
   v6 = MEMORY[0x277CCABB0];
   endDate = [(NSDateInterval *)self->_universalDateInterval endDate];
   [endDate timeIntervalSinceReferenceDate];
   v8 = [v6 numberWithDouble:?];
-  v13[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
 
   return v9;
 }
@@ -120,21 +118,8 @@
   }
 
   v6 = [v5 objectForKeyedSubscript:@"universalStartDate"];
-  if (!v6)
+  if (!v6 || (v7 = v6, [v6 doubleValue], v9 = v8, -[NSDateInterval startDate](self->_universalDateInterval, "startDate"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "timeIntervalSinceReferenceDate"), v12 = v11, v10, v7, v9 == v12))
   {
-    goto LABEL_6;
-  }
-
-  v7 = v6;
-  [v6 doubleValue];
-  v9 = v8;
-  startDate = [(NSDateInterval *)self->_universalDateInterval startDate];
-  [startDate timeIntervalSinceReferenceDate];
-  v12 = v11;
-
-  if (v9 == v12)
-  {
-LABEL_6:
     v14 = [v5 objectForKeyedSubscript:@"universalEndDate"];
     if (v14)
     {

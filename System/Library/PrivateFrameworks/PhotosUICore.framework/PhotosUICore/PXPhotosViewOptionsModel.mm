@@ -55,11 +55,11 @@
   if (!yearsAndMonthsMode)
   {
     v5 = [off_1E7721518 alloc];
-    PXLocalizedLensTitleForViewMode();
+    PXLocalizedLensTitleForViewMode(0);
   }
 
   v6 = [off_1E7721518 alloc];
-  PXLocalizedLensTitleForViewMode();
+  PXLocalizedLensTitleForViewMode(2);
 }
 
 - (void)observable:(id)observable didChange:(unint64_t)change context:(void *)context

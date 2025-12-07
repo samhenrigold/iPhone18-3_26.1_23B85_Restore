@@ -41,19 +41,19 @@
   if ((*&selfCopy->_fetchedFlags & 2) == 0)
   {
     bundle = selfCopy->_bundle;
-    objc_opt_class();
-    v4 = _ACDSetForKeyInBundle(bundle, @"ACSupportedAccountTypes");
+    v4 = objc_opt_class();
+    v5 = _ACDSetForKeyInBundle(bundle, @"ACSupportedAccountTypes", v4);
     supportedAccountTypes = selfCopy->_supportedAccountTypes;
-    selfCopy->_supportedAccountTypes = v4;
+    selfCopy->_supportedAccountTypes = v5;
 
     *&selfCopy->_fetchedFlags |= 2u;
   }
 
   objc_sync_exit(selfCopy);
 
-  v6 = selfCopy->_supportedAccountTypes;
+  v7 = selfCopy->_supportedAccountTypes;
 
-  return v6;
+  return v7;
 }
 
 - (NSSet)supportedDataclasses
@@ -63,19 +63,19 @@
   if ((*&selfCopy->_fetchedFlags & 4) == 0)
   {
     bundle = selfCopy->_bundle;
-    objc_opt_class();
-    v4 = _ACDSetForKeyInBundle(bundle, @"ACSupportedDataclasses");
+    v4 = objc_opt_class();
+    v5 = _ACDSetForKeyInBundle(bundle, @"ACSupportedDataclasses", v4);
     supportedDataclasses = selfCopy->_supportedDataclasses;
-    selfCopy->_supportedDataclasses = v4;
+    selfCopy->_supportedDataclasses = v5;
 
     *&selfCopy->_fetchedFlags |= 4u;
   }
 
   objc_sync_exit(selfCopy);
 
-  v6 = selfCopy->_supportedDataclasses;
+  v7 = selfCopy->_supportedDataclasses;
 
-  return v6;
+  return v7;
 }
 
 - (id)principalObject

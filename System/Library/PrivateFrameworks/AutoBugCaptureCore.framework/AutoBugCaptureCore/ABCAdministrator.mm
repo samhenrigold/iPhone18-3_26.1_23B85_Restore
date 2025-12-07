@@ -13,6 +13,7 @@
 - (void)registerIDS;
 - (void)scheduleDiagnosticsMaintenanceActivity;
 - (void)shutdown;
+- (void)startAutoBugCaptureAdministrative:(BOOL)administrative;
 - (void)startAutoBugCaptureAdministrative:(BOOL)administrative parameters:(id)parameters;
 - (void)startEssentialServices;
 - (void)startUploadTaskScheduler;
@@ -43,9 +44,11 @@ uint64_t __34__ABCAdministrator_sharedInstance__block_invoke()
     __34__ABCAdministrator_sharedInstance__block_invoke_cold_1();
   }
 
-  sharedInstance_sharedInstance_2 = objc_alloc_init(ABCAdministrator);
+  v0 = objc_alloc_init(ABCAdministrator);
+  v1 = sharedInstance_sharedInstance_2;
+  sharedInstance_sharedInstance_2 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 uint64_t __34__ABCAdministrator_sharedInstance__block_invoke_2()
@@ -101,8 +104,7 @@ uint64_t __34__ABCAdministrator_sharedInstance__block_invoke_3()
   v3 = objc_alloc_init(ABCConfigurationManager);
   [(ABCAdministrator *)self setConfigurationManager:v3];
 
-  [(ABCAdministrator *)self registerIDS];
-  v4 = adminLogHandle();
+  v4 = adminLogHandle([(ABCAdministrator *)self registerIDS]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -116,27 +118,27 @@ uint64_t __34__ABCAdministrator_sharedInstance__block_invoke_3()
   configurationManager = [(ABCAdministrator *)self configurationManager];
   [configurationManager addObserver:self forKeyPath:@"autoBugCaptureEnabled" options:1 context:0];
 
-  v8 = adminLogHandle();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = adminLogHandle(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    *v10 = 0;
-    _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_DEFAULT, "Initializing CacheDelete handlers", v10, 2u);
+    *v11 = 0;
+    _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_DEFAULT, "Initializing CacheDelete handlers", v11, 2u);
   }
 
-  v9 = [[AutoBugCaptureCacheDelete alloc] initWithStorageManager:0];
-  [(ABCAdministrator *)self setCacheDeleteHandler:v9];
+  v10 = [[AutoBugCaptureCacheDelete alloc] initWithStorageManager:0];
+  [(ABCAdministrator *)self setCacheDeleteHandler:v10];
 }
 
 - (void)stopEssentialServices
 {
-  [(ABCAdministrator *)self deregisterIDS];
+  deregisterIDS = [(ABCAdministrator *)self deregisterIDS];
   if (self->diagTransport)
   {
-    v3 = adminLogHandle();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = adminLogHandle(deregisterIDS);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_241804000, v3, OS_LOG_TYPE_DEFAULT, "Stopping AutoBugCapture XPC services", buf, 2u);
+      _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_DEFAULT, "Stopping AutoBugCapture XPC services", buf, 2u);
     }
 
     [(DiagnosticsTransport *)self->diagTransport shutdown];
@@ -152,11 +154,11 @@ uint64_t __34__ABCAdministrator_sharedInstance__block_invoke_3()
 
   if (cacheDeleteHandler)
   {
-    v7 = adminLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v9 = adminLogHandle(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_INFO, "Stopping CacheDelete handlers", v8, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_INFO, "Stopping CacheDelete handlers", v10, 2u);
     }
 
     [(ABCAdministrator *)self setCacheDeleteHandler:0];
@@ -238,14 +240,15 @@ uint64_t __58__ABCAdministrator_scheduleDiagnosticsMaintenanceActivity__block_in
 - (void)startUploadTaskScheduler
 {
   cloudKitEnabled = [(ABCConfigurationManager *)self->_configurationManager cloudKitEnabled];
-  v4 = adminLogHandle();
-  v5 = v4;
-  if (cloudKitEnabled)
+  v4 = cloudKitEnabled;
+  v5 = adminLogHandle(cloudKitEnabled);
+  v6 = v5;
+  if (v4)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_INFO, "Scheduling periodic upload tasks", buf, 2u);
+      _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_INFO, "Scheduling periodic upload tasks", buf, 2u);
     }
 
     uploadController = self->_uploadController;
@@ -255,29 +258,29 @@ uint64_t __58__ABCAdministrator_scheduleDiagnosticsMaintenanceActivity__block_in
       return;
     }
 
-    v5 = adminLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = adminLogHandle(0);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      v7 = "No log upload controller allocated. Cannot schedule periodic upload tasks!";
-      v8 = v10;
+      *v11 = 0;
+      v8 = "No log upload controller allocated. Cannot schedule periodic upload tasks!";
+      v9 = v11;
       goto LABEL_10;
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 0;
-    v7 = "CloudKit uploading is not enabled";
-    v8 = &v9;
+    v10 = 0;
+    v8 = "CloudKit uploading is not enabled";
+    v9 = &v10;
 LABEL_10:
-    _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_DEFAULT, v7, v8, 2u);
+    _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_DEFAULT, v8, v9, 2u);
   }
 }
 
 - (void)stopUploadTaskScheduler
 {
-  v2 = adminLogHandle();
+  v2 = adminLogHandle(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v3 = 0;
@@ -292,7 +295,7 @@ LABEL_10:
   if (!self->_autoBugCaptureAdministrativelyEnabled)
   {
     self->_autoBugCaptureAdministrativelyEnabled = 1;
-    v3 = adminLogHandle();
+    v3 = adminLogHandle(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v4 = 0;
@@ -310,7 +313,7 @@ LABEL_10:
     v9 = v2;
     v10 = v3;
     self->_autoBugCaptureAdministrativelyEnabled = 0;
-    v5 = adminLogHandle();
+    v5 = adminLogHandle(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *v8 = 0;
@@ -327,11 +330,76 @@ LABEL_10:
   }
 }
 
+- (void)startAutoBugCaptureAdministrative:(BOOL)administrative
+{
+  administrativeCopy = administrative;
+  v18 = *MEMORY[0x277D85DE8];
+  v5 = adminLogHandle(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    LOWORD(v17[0]) = 0;
+    _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_DEFAULT, "Preparing to start AutoBugCapture...", v17, 2u);
+  }
+
+  v6 = MKBDeviceUnlockedSinceBoot();
+  v7 = v6;
+  v8 = adminLogHandle(v6);
+  v9 = v8;
+  if (v7 == 1)
+  {
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    {
+      LOWORD(v17[0]) = 0;
+      v10 = "Device is ready for AutoBugCapture";
+      v11 = v9;
+      v12 = OS_LOG_TYPE_INFO;
+LABEL_14:
+      _os_log_impl(&dword_241804000, v11, v12, v10, v17, 2u);
+    }
+  }
+
+  else
+  {
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(v17[0]) = 0;
+      _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_DEFAULT, "Device not yet ready. Waiting for first unlock...", v17, 2u);
+    }
+
+    dispatch_semaphore_wait(waitFirstUnlock, 0xFFFFFFFFFFFFFFFFLL);
+    v13 = MKBDeviceUnlockedSinceBoot();
+    if (v13 != 1)
+    {
+      v14 = v13;
+      v15 = adminLogHandle(v13);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      {
+        v17[0] = 67109120;
+        v17[1] = v14;
+        _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_ERROR, "Unexpected first-unlock event, %d", v17, 8u);
+      }
+    }
+
+    v9 = adminLogHandle(v13);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(v17[0]) = 0;
+      v10 = "Device is now ready for AutoBugCapture";
+      v11 = v9;
+      v12 = OS_LOG_TYPE_DEFAULT;
+      goto LABEL_14;
+    }
+  }
+
+  autoBugCaptureConfig = [(ABCAdministrator *)self autoBugCaptureConfig];
+  [(ABCAdministrator *)self startAutoBugCaptureAdministrative:administrativeCopy parameters:autoBugCaptureConfig];
+}
+
 - (void)startAutoBugCaptureAdministrative:(BOOL)administrative parameters:(id)parameters
 {
   v23 = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
-  v7 = adminLogHandle();
+  v7 = adminLogHandle(parametersCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
@@ -347,18 +415,18 @@ LABEL_10:
     v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{-[ABCConfigurationManager logArchiveGID](self->_configurationManager, "logArchiveGID")}];
     [(ABCAdministrator *)self prepareLogArchiveDirectory:logArchivePath uid:v9 gid:v10];
 
-    v11 = adminLogHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = adminLogHandle(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_DEFAULT, "Initializing persistent storage", buf, 2u);
+      _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_DEFAULT, "Initializing persistent storage", buf, 2u);
     }
 
-    v12 = [ABCPersistentStoreController alloc];
+    v13 = [ABCPersistentStoreController alloc];
     configurationManager = [(ABCAdministrator *)self configurationManager];
     databaseContainerPath = [configurationManager databaseContainerPath];
-    v15 = [(ABCPersistentStoreController *)v12 initWithDirectory:databaseContainerPath];
-    [(ABCAdministrator *)self setStoreController:v15];
+    v16 = [(ABCPersistentStoreController *)v13 initWithDirectory:databaseContainerPath];
+    [(ABCAdministrator *)self setStoreController:v16];
 
     storeController = [(ABCAdministrator *)self storeController];
     [storeController setDelegate:self];
@@ -372,8 +440,6 @@ LABEL_10:
     v19[4] = self;
     [getDiagnosticLiaison registerAutoBugCaptureTransports:v19];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __65__ABCAdministrator_startAutoBugCaptureAdministrative_parameters___block_invoke(uint64_t a1)
@@ -382,7 +448,7 @@ void __65__ABCAdministrator_startAutoBugCaptureAdministrative_parameters___block
   {
     v7 = v1;
     v8 = v2;
-    v4 = adminLogHandle();
+    v4 = adminLogHandle(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       *v6 = 0;
@@ -394,59 +460,60 @@ void __65__ABCAdministrator_startAutoBugCaptureAdministrative_parameters___block
   }
 }
 
-void __65__ABCAdministrator_startAutoBugCaptureAdministrative_parameters___block_invoke_26()
+void __65__ABCAdministrator_startAutoBugCaptureAdministrative_parameters___block_invoke_26(uint64_t a1)
 {
-  v0 = adminLogHandle();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = adminLogHandle(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_241804000, v0, OS_LOG_TYPE_DEBUG, "Finished remotely enabling ABC.", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_241804000, v1, OS_LOG_TYPE_DEBUG, "Finished remotely enabling ABC.", v2, 2u);
   }
 }
 
 - (void)continueStartingAutoBugCapture
 {
-  if ([(ABCAdministrator *)self autoBugCaptureState]== 2)
+  autoBugCaptureState = [(ABCAdministrator *)self autoBugCaptureState];
+  if (autoBugCaptureState == 2)
   {
-    v3 = adminLogHandle();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = adminLogHandle(autoBugCaptureState);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v38 = 0;
-      _os_log_impl(&dword_241804000, v3, OS_LOG_TYPE_DEFAULT, "Initializing case management", v38, 2u);
+      *v44 = 0;
+      _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_DEFAULT, "Initializing case management", v44, 2u);
     }
 
-    v4 = [DiagnosticCaseManager alloc];
+    v5 = [DiagnosticCaseManager alloc];
     storeController = [(ABCAdministrator *)self storeController];
     workspace = [storeController workspace];
     diagnosticLiaison = [(ABCAdministrator *)self diagnosticLiaison];
-    v8 = [(DiagnosticCaseManager *)v4 initWithWorkspace:workspace liaison:diagnosticLiaison];
-    [(ABCAdministrator *)self setCaseManager:v8];
+    v9 = [(DiagnosticCaseManager *)v5 initWithWorkspace:workspace liaison:diagnosticLiaison];
+    [(ABCAdministrator *)self setCaseManager:v9];
 
     caseManager = [(ABCAdministrator *)self caseManager];
     [caseManager forceCloseDiagnosticCaseStorage];
 
-    v10 = adminLogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-    {
-      *v38 = 0;
-      _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_DEFAULT, "Initializing diagnostic extension controller", v38, 2u);
-    }
-
-    v11 = objc_alloc_init(DiagnosticExtensionController);
-    [(ABCAdministrator *)self setDiagExtensionController:v11];
-
-    v12 = adminLogHandle();
+    v12 = adminLogHandle(v11);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      *v38 = 0;
-      _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_DEFAULT, "Initializing storage management", v38, 2u);
+      *v44 = 0;
+      _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_DEFAULT, "Initializing diagnostic extension controller", v44, 2u);
     }
 
-    v13 = [DiagnosticStorageManager alloc];
+    v13 = objc_alloc_init(DiagnosticExtensionController);
+    [(ABCAdministrator *)self setDiagExtensionController:v13];
+
+    v15 = adminLogHandle(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      *v44 = 0;
+      _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_DEFAULT, "Initializing storage management", v44, 2u);
+    }
+
+    v16 = [DiagnosticStorageManager alloc];
     storeController2 = [(ABCAdministrator *)self storeController];
     logArchivePath = [(ABCConfigurationManager *)self->_configurationManager logArchivePath];
-    v16 = [(DiagnosticStorageManager *)v13 initWithPersistentStoreController:storeController2 logArchiveDirectory:logArchivePath];
-    [(ABCAdministrator *)self setStorageManager:v16];
+    v19 = [(DiagnosticStorageManager *)v16 initWithPersistentStoreController:storeController2 logArchiveDirectory:logArchivePath];
+    [(ABCAdministrator *)self setStorageManager:v19];
 
     storageManager = [(ABCAdministrator *)self storageManager];
     caseManager2 = [(ABCAdministrator *)self caseManager];
@@ -454,14 +521,14 @@ void __65__ABCAdministrator_startAutoBugCaptureAdministrative_parameters___block
 
     cacheDeleteHandler = [(ABCAdministrator *)self cacheDeleteHandler];
 
-    v20 = adminLogHandle();
-    cacheDeleteHandler3 = v20;
+    v24 = adminLogHandle(v23);
+    cacheDeleteHandler3 = v24;
     if (cacheDeleteHandler)
     {
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
-        *v38 = 0;
-        _os_log_impl(&dword_241804000, cacheDeleteHandler3, OS_LOG_TYPE_DEFAULT, "Configuring CacheDelete handler with storage management", v38, 2u);
+        *v44 = 0;
+        _os_log_impl(&dword_241804000, cacheDeleteHandler3, OS_LOG_TYPE_DEFAULT, "Configuring CacheDelete handler with storage management", v44, 2u);
       }
 
       storageManager2 = [(ABCAdministrator *)self storageManager];
@@ -472,69 +539,69 @@ void __65__ABCAdministrator_startAutoBugCaptureAdministrative_parameters___block
       [cacheDeleteHandler3 initCacheDeletePurgeMonitor];
     }
 
-    else if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      *v38 = 0;
-      _os_log_impl(&dword_241804000, cacheDeleteHandler3, OS_LOG_TYPE_ERROR, "CacheDelete handler is unexpectedly nil", v38, 2u);
+      *v44 = 0;
+      _os_log_impl(&dword_241804000, cacheDeleteHandler3, OS_LOG_TYPE_ERROR, "CacheDelete handler is unexpectedly nil", v44, 2u);
     }
 
     configurationManager = [(ABCAdministrator *)self configurationManager];
     cloudKitEnabled = [configurationManager cloudKitEnabled];
 
-    v26 = adminLogHandle();
-    v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
+    v31 = adminLogHandle(v30);
+    v32 = os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT);
     if (cloudKitEnabled)
     {
-      if (v27)
+      if (v32)
       {
-        *v38 = 0;
-        _os_log_impl(&dword_241804000, v26, OS_LOG_TYPE_DEFAULT, "Initializing CloudKit upload controller", v38, 2u);
+        *v44 = 0;
+        _os_log_impl(&dword_241804000, v31, OS_LOG_TYPE_DEFAULT, "Initializing CloudKit upload controller", v44, 2u);
       }
 
-      v28 = [CloudKitUploadController alloc];
+      v33 = [CloudKitUploadController alloc];
       storeController3 = [(ABCAdministrator *)self storeController];
       workspace2 = [storeController3 workspace];
-      v31 = [(CloudKitUploadController *)v28 initWithWorkspace:workspace2];
+      v36 = [(CloudKitUploadController *)v33 initWithWorkspace:workspace2];
       uploadController = self->_uploadController;
-      self->_uploadController = v31;
+      self->_uploadController = v36;
 
-      [(ABCAdministrator *)self startUploadTaskScheduler];
+      startUploadTaskScheduler = [(ABCAdministrator *)self startUploadTaskScheduler];
     }
 
     else
     {
-      if (v27)
+      if (v32)
       {
-        *v38 = 0;
-        _os_log_impl(&dword_241804000, v26, OS_LOG_TYPE_DEFAULT, "CloudKit upload is disabled - not initializing", v38, 2u);
+        *v44 = 0;
+        _os_log_impl(&dword_241804000, v31, OS_LOG_TYPE_DEFAULT, "CloudKit upload is disabled - not initializing", v44, 2u);
       }
 
-      [(ABCAdministrator *)self stopUploadTaskScheduler];
+      startUploadTaskScheduler = [(ABCAdministrator *)self stopUploadTaskScheduler];
     }
 
-    v33 = adminLogHandle();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    v39 = adminLogHandle(startUploadTaskScheduler);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
     {
-      *v38 = 0;
-      _os_log_impl(&dword_241804000, v33, OS_LOG_TYPE_DEFAULT, "Completed startup of all AutoBugCapture services", v38, 2u);
+      *v44 = 0;
+      _os_log_impl(&dword_241804000, v39, OS_LOG_TYPE_DEFAULT, "Completed startup of all AutoBugCapture services", v44, 2u);
     }
 
     [(ABCAdministrator *)self setAutoBugCaptureState:3];
-    v34 = [[KernelMsgSignalHandlerSDXC alloc] init:self];
+    v40 = [[KernelMsgSignalHandlerSDXC alloc] init:self];
     kernelHandler = self->kernelHandler;
-    self->kernelHandler = v34;
+    self->kernelHandler = v40;
 
-    v36 = self->kernelHandler;
-    if (v36)
+    v42 = self->kernelHandler;
+    if (v42)
     {
-      [(KernelMsgSignalHandlerSDXC *)v36 setupListener:self->adminQueue];
+      v42 = [(KernelMsgSignalHandlerSDXC *)v42 setupListener:self->adminQueue];
     }
 
-    v37 = adminLogHandle();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+    v43 = adminLogHandle(v42);
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
     {
-      *v38 = 0;
-      _os_log_impl(&dword_241804000, v37, OS_LOG_TYPE_DEFAULT, "Completed startup of KernelMsgSignalHandler", v38, 2u);
+      *v44 = 0;
+      _os_log_impl(&dword_241804000, v43, OS_LOG_TYPE_DEFAULT, "Completed startup of KernelMsgSignalHandler", v44, 2u);
     }
   }
 }
@@ -542,7 +609,7 @@ void __65__ABCAdministrator_startAutoBugCaptureAdministrative_parameters___block
 - (void)stopAutoBugCapture:(BOOL)capture
 {
   captureCopy = capture;
-  v5 = adminLogHandle();
+  v5 = adminLogHandle(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -557,66 +624,62 @@ void __65__ABCAdministrator_startAutoBugCaptureAdministrative_parameters___block
     self->kernelHandler = 0;
   }
 
-  [(ABCAdministrator *)self setAutoBugCaptureState:4];
-  v8 = adminLogHandle();
+  v8 = adminLogHandle([(ABCAdministrator *)self setAutoBugCaptureState:4]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    *v22 = 0;
-    _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_INFO, "Stopping XPC services", v22, 2u);
+    *v24 = 0;
+    _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_INFO, "Stopping XPC services", v24, 2u);
   }
 
   [(DiagnosticsTransport *)self->diagTransport shutdown];
   diagTransport = self->diagTransport;
   self->diagTransport = 0;
 
-  v10 = adminLogHandle();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v11 = adminLogHandle(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    *v21 = 0;
-    _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_INFO, "Stopping persistent storage", v21, 2u);
+    *v23 = 0;
+    _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_INFO, "Stopping persistent storage", v23, 2u);
   }
 
   storeController = [(ABCAdministrator *)self storeController];
   [storeController shutdown];
 
-  [(ABCAdministrator *)self setStoreController:0];
+  stopUploadTaskScheduler = [(ABCAdministrator *)self setStoreController:0];
   if (captureCopy)
   {
     diagnosticLiaison = [(ABCAdministrator *)self diagnosticLiaison];
     [diagnosticLiaison remotelyDisableAutoBugCapture:&__block_literal_global_34];
 
-    [(ABCAdministrator *)self stopUploadTaskScheduler];
+    stopUploadTaskScheduler = [(ABCAdministrator *)self stopUploadTaskScheduler];
   }
 
-  v13 = adminLogHandle();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
-  {
-    *v20 = 0;
-    _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_INFO, "Stopping case management", v20, 2u);
-  }
-
-  [(ABCAdministrator *)self setCaseManager:0];
-  v14 = adminLogHandle();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
-  {
-    *v19 = 0;
-    _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_INFO, "Stopping storage management", v19, 2u);
-  }
-
-  [(ABCAdministrator *)self setStorageManager:0];
-  v15 = adminLogHandle();
+  v15 = adminLogHandle(stopUploadTaskScheduler);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
-    *v18 = 0;
-    _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_INFO, "Stopping diagnostic extension controller", v18, 2u);
+    *v22 = 0;
+    _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_INFO, "Stopping case management", v22, 2u);
   }
 
-  [(ABCAdministrator *)self setDiagExtensionController:0];
-  v16 = adminLogHandle();
+  v16 = adminLogHandle([(ABCAdministrator *)self setCaseManager:0]);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
-    *v17 = 0;
-    _os_log_impl(&dword_241804000, v16, OS_LOG_TYPE_INFO, "Stopping CacheDelete handlers", v17, 2u);
+    *v21 = 0;
+    _os_log_impl(&dword_241804000, v16, OS_LOG_TYPE_INFO, "Stopping storage management", v21, 2u);
+  }
+
+  v17 = adminLogHandle([(ABCAdministrator *)self setStorageManager:0]);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+  {
+    *v20 = 0;
+    _os_log_impl(&dword_241804000, v17, OS_LOG_TYPE_INFO, "Stopping diagnostic extension controller", v20, 2u);
+  }
+
+  v18 = adminLogHandle([(ABCAdministrator *)self setDiagExtensionController:0]);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+  {
+    *v19 = 0;
+    _os_log_impl(&dword_241804000, v18, OS_LOG_TYPE_INFO, "Stopping CacheDelete handlers", v19, 2u);
   }
 
   [(ABCAdministrator *)self setCacheDeleteHandler:0];
@@ -625,14 +688,14 @@ void __65__ABCAdministrator_startAutoBugCaptureAdministrative_parameters___block
 
 - (void)prepareLogArchiveDirectory:(id)directory uid:(id)uid gid:(id)gid
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
   uidCopy = uid;
   gidCopy = gid;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v61 = 0;
-  v11 = [defaultManager fileExistsAtPath:directoryCopy isDirectory:&v61];
-  if (v61)
+  v65 = 0;
+  v11 = [defaultManager fileExistsAtPath:directoryCopy isDirectory:&v65];
+  if (v65)
   {
     v12 = v11;
   }
@@ -647,52 +710,53 @@ void __65__ABCAdministrator_startAutoBugCaptureAdministrative_parameters___block
     goto LABEL_19;
   }
 
-  if ((v61 & 1) == 0)
+  if ((v65 & 1) == 0)
   {
-    v60 = 0;
-    v14 = [defaultManager removeItemAtPath:directoryCopy error:&v60];
-    v15 = v60;
+    v64 = 0;
+    v14 = [defaultManager removeItemAtPath:directoryCopy error:&v64];
+    v15 = v64;
+    v16 = v15;
     if (v14)
     {
-      v16 = adminLogHandle();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v17 = adminLogHandle(v15);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v69 = directoryCopy;
-        v17 = "Successfully removed file at %@";
-        v18 = v16;
-        v19 = OS_LOG_TYPE_DEFAULT;
+        v73 = directoryCopy;
+        v18 = "Successfully removed file at %@";
+        v19 = v17;
+        v20 = OS_LOG_TYPE_DEFAULT;
 LABEL_17:
-        _os_log_impl(&dword_241804000, v18, v19, v17, buf, 0xCu);
+        _os_log_impl(&dword_241804000, v19, v20, v18, buf, 0xCu);
       }
     }
 
     else
     {
-      v16 = adminLogHandle();
-      v20 = os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
-      if (v15)
+      v17 = adminLogHandle(v15);
+      v21 = os_log_type_enabled(v17, OS_LOG_TYPE_ERROR);
+      if (v16)
       {
-        if (v20)
+        if (v21)
         {
-          localizedFailureReason = [v15 localizedFailureReason];
+          localizedFailureReason = [v16 localizedFailureReason];
           *buf = 138412546;
-          v69 = directoryCopy;
-          v70 = 2112;
-          v71 = localizedFailureReason;
-          _os_log_impl(&dword_241804000, v16, OS_LOG_TYPE_ERROR, "Failed to remove file at %@. (%@)", buf, 0x16u);
+          v73 = directoryCopy;
+          v74 = 2112;
+          v75 = localizedFailureReason;
+          _os_log_impl(&dword_241804000, v17, OS_LOG_TYPE_ERROR, "Failed to remove file at %@. (%@)", buf, 0x16u);
         }
 
         goto LABEL_18;
       }
 
-      if (v20)
+      if (v21)
       {
         *buf = 138412290;
-        v69 = directoryCopy;
-        v17 = "Failed to remove file at %@";
-        v18 = v16;
-        v19 = OS_LOG_TYPE_ERROR;
+        v73 = directoryCopy;
+        v18 = "Failed to remove file at %@";
+        v19 = v17;
+        v20 = OS_LOG_TYPE_ERROR;
         goto LABEL_17;
       }
     }
@@ -706,168 +770,169 @@ LABEL_19:
       goto LABEL_60;
     }
 
-    v22 = 0;
+    v23 = 0;
     goto LABEL_22;
   }
 
-  if (v61)
+  if (v65)
   {
     v13 = 0;
 LABEL_32:
-    v29 = [defaultManager attributesOfItemAtPath:directoryCopy error:0];
-    v30 = v29;
-    if (v29)
+    v31 = [defaultManager attributesOfItemAtPath:directoryCopy error:0];
+    v32 = v31;
+    if (v31)
     {
-      filePosixPermissions = [v29 filePosixPermissions];
-      v31 = [v30 objectForKeyedSubscript:*MEMORY[0x277CCA158]];
-      v32 = *MEMORY[0x277CCA118];
-      v33 = [v30 objectForKeyedSubscript:*MEMORY[0x277CCA118]];
-      v34 = [v31 isEqual:uidCopy];
-      v56 = v33;
-      v35 = [v33 isEqual:gidCopy];
+      filePosixPermissions = [v31 filePosixPermissions];
+      v33 = [v32 objectForKeyedSubscript:*MEMORY[0x277CCA158]];
+      v34 = *MEMORY[0x277CCA118];
+      v35 = [v32 objectForKeyedSubscript:*MEMORY[0x277CCA118]];
+      v36 = [v33 isEqual:uidCopy];
+      v60 = v35;
+      v37 = [v35 isEqual:gidCopy];
       shortValue = [&unk_28537A050 shortValue];
-      if (!v34 || !v35 || filePosixPermissions != shortValue)
+      if (!v36 || !v37 || filePosixPermissions != shortValue)
       {
-        v53 = shortValue;
-        v54 = v31;
-        v37 = storageLogHandle();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+        v57 = shortValue;
+        v58 = v33;
+        v39 = storageLogHandle(shortValue);
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_241804000, v37, OS_LOG_TYPE_DEFAULT, "Log archive directory path requires repairing...", buf, 2u);
+          _os_log_impl(&dword_241804000, v39, OS_LOG_TYPE_DEFAULT, "Log archive directory path requires repairing...", buf, 2u);
         }
 
-        if (v34)
+        if (v36)
         {
-          if (v35)
+          if (v37)
           {
-            v38 = 0;
+            v41 = 0;
           }
 
           else
           {
-            v64 = v32;
-            v65 = gidCopy;
-            v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
-            v58 = 0;
-            v41 = [defaultManager setAttributes:v40 ofItemAtPath:directoryCopy error:&v58];
-            v38 = v58;
+            v68 = v34;
+            v69 = gidCopy;
+            v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v69 forKeys:&v68 count:1];
+            v62 = 0;
+            v44 = [defaultManager setAttributes:v43 ofItemAtPath:directoryCopy error:&v62];
+            v41 = v62;
 
-            v42 = adminLogHandle();
-            v43 = v42;
-            if (v41)
+            v46 = adminLogHandle(v45);
+            v47 = v46;
+            if (v44)
             {
-              if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+              if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
               {
                 shortValue2 = [gidCopy shortValue];
                 *buf = 67109120;
-                LODWORD(v69) = shortValue2;
-                _os_log_impl(&dword_241804000, v43, OS_LOG_TYPE_DEFAULT, "Repaired group ownership to %d", buf, 8u);
+                LODWORD(v73) = shortValue2;
+                _os_log_impl(&dword_241804000, v47, OS_LOG_TYPE_DEFAULT, "Repaired group ownership to %d", buf, 8u);
               }
             }
 
-            else if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+            else if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
             {
-              localizedFailureReason2 = [v38 localizedFailureReason];
+              localizedFailureReason2 = [v41 localizedFailureReason];
               *buf = 138412546;
-              v69 = directoryCopy;
-              v70 = 2112;
-              v71 = localizedFailureReason2;
-              _os_log_impl(&dword_241804000, v43, OS_LOG_TYPE_ERROR, "Unable to fix group for %@: %@", buf, 0x16u);
+              v73 = directoryCopy;
+              v74 = 2112;
+              v75 = localizedFailureReason2;
+              _os_log_impl(&dword_241804000, v47, OS_LOG_TYPE_ERROR, "Unable to fix group for %@: %@", buf, 0x16u);
             }
           }
 
-          if (filePosixPermissions == v53)
+          if (filePosixPermissions == v57)
           {
-            v39 = v38;
+            v42 = v41;
           }
 
           else
           {
-            v62 = *MEMORY[0x277CCA180];
-            v63 = &unk_28537A050;
-            v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
-            v57 = v38;
-            v47 = [defaultManager setAttributes:v46 ofItemAtPath:directoryCopy error:&v57];
-            v39 = v57;
+            v66 = *MEMORY[0x277CCA180];
+            v67 = &unk_28537A050;
+            v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
+            v61 = v41;
+            v51 = [defaultManager setAttributes:v50 ofItemAtPath:directoryCopy error:&v61];
+            v42 = v61;
 
-            v48 = adminLogHandle();
-            v49 = v48;
-            if (v47)
+            v53 = adminLogHandle(v52);
+            v54 = v53;
+            if (v51)
             {
-              if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+              if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
               {
                 shortValue3 = [&unk_28537A050 shortValue];
                 *buf = 67109120;
-                LODWORD(v69) = shortValue3;
-                _os_log_impl(&dword_241804000, v49, OS_LOG_TYPE_DEFAULT, "Repaired permission to %od", buf, 8u);
+                LODWORD(v73) = shortValue3;
+                _os_log_impl(&dword_241804000, v54, OS_LOG_TYPE_DEFAULT, "Repaired permission to %od", buf, 8u);
               }
             }
 
-            else if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+            else if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
             {
-              localizedFailureReason3 = [v39 localizedFailureReason];
+              localizedFailureReason3 = [v42 localizedFailureReason];
               *buf = 138412546;
-              v69 = directoryCopy;
-              v70 = 2112;
-              v71 = localizedFailureReason3;
-              _os_log_impl(&dword_241804000, v49, OS_LOG_TYPE_ERROR, "Unable to fix permission for %@: %@", buf, 0x16u);
+              v73 = directoryCopy;
+              v74 = 2112;
+              v75 = localizedFailureReason3;
+              _os_log_impl(&dword_241804000, v54, OS_LOG_TYPE_ERROR, "Unable to fix permission for %@: %@", buf, 0x16u);
             }
           }
         }
 
         else
         {
-          v39 = adminLogHandle();
-          if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+          v42 = adminLogHandle(v40);
+          if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v69 = directoryCopy;
-            _os_log_impl(&dword_241804000, v39, OS_LOG_TYPE_ERROR, "Incorrect ownership for %@. (Log collection may not work correctly)", buf, 0xCu);
+            v73 = directoryCopy;
+            _os_log_impl(&dword_241804000, v42, OS_LOG_TYPE_ERROR, "Incorrect ownership for %@. (Log collection may not work correctly)", buf, 0xCu);
           }
         }
 
-        v31 = v54;
+        v33 = v58;
       }
     }
 
     goto LABEL_60;
   }
 
-  v22 = 1;
+  v23 = 1;
 LABEL_22:
-  v23 = *MEMORY[0x277CCA158];
-  v66[0] = *MEMORY[0x277CCA180];
-  v66[1] = v23;
-  v67[0] = &unk_28537A050;
-  v67[1] = uidCopy;
-  v66[2] = *MEMORY[0x277CCA118];
-  v67[2] = gidCopy;
-  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v67 forKeys:v66 count:3];
-  v59 = 0;
-  v25 = [defaultManager createDirectoryAtPath:directoryCopy withIntermediateDirectories:1 attributes:v24 error:&v59];
-  v13 = v59;
-  if (v25)
+  v24 = *MEMORY[0x277CCA158];
+  v70[0] = *MEMORY[0x277CCA180];
+  v70[1] = v24;
+  v71[0] = &unk_28537A050;
+  v71[1] = uidCopy;
+  v70[2] = *MEMORY[0x277CCA118];
+  v71[2] = gidCopy;
+  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v71 forKeys:v70 count:3];
+  v63 = 0;
+  v26 = [defaultManager createDirectoryAtPath:directoryCopy withIntermediateDirectories:1 attributes:v25 error:&v63];
+  v27 = v63;
+  v13 = v27;
+  if (v26)
   {
 
     goto LABEL_32;
   }
 
-  v26 = adminLogHandle();
-  v27 = os_log_type_enabled(v26, OS_LOG_TYPE_ERROR);
+  v28 = adminLogHandle(v27);
+  v29 = os_log_type_enabled(v28, OS_LOG_TYPE_ERROR);
   if (v13)
   {
-    if (v27)
+    if (v29)
     {
       localizedFailureReason4 = [v13 localizedFailureReason];
       *buf = 138412546;
-      v69 = directoryCopy;
-      v70 = 2112;
-      v71 = localizedFailureReason4;
-      _os_log_impl(&dword_241804000, v26, OS_LOG_TYPE_ERROR, "Failed to create log archive directory at %@. (%@)", buf, 0x16u);
+      v73 = directoryCopy;
+      v74 = 2112;
+      v75 = localizedFailureReason4;
+      _os_log_impl(&dword_241804000, v28, OS_LOG_TYPE_ERROR, "Failed to create log archive directory at %@. (%@)", buf, 0x16u);
     }
 
-    if (v22)
+    if (v23)
     {
       goto LABEL_32;
     }
@@ -875,23 +940,21 @@ LABEL_22:
 
   else
   {
-    if (v27)
+    if (v29)
     {
       *buf = 138412290;
-      v69 = directoryCopy;
-      _os_log_impl(&dword_241804000, v26, OS_LOG_TYPE_ERROR, "Failed to create log archive directory at %@", buf, 0xCu);
+      v73 = directoryCopy;
+      _os_log_impl(&dword_241804000, v28, OS_LOG_TYPE_ERROR, "Failed to create log archive directory at %@", buf, 0xCu);
     }
 
     v13 = 0;
-    if (v22)
+    if (v23)
     {
       goto LABEL_32;
     }
   }
 
 LABEL_60:
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
@@ -901,7 +964,8 @@ LABEL_60:
   changeCopy = change;
   v10 = *MEMORY[0x277CCA2F0];
   v11 = [changeCopy objectForKeyedSubscript:*MEMORY[0x277CCA2F0]];
-  if ([pathCopy isEqualToString:@"autoBugCaptureEnabled"])
+  v12 = [pathCopy isEqualToString:@"autoBugCaptureEnabled"];
+  if (v12)
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -909,16 +973,16 @@ LABEL_60:
       goto LABEL_5;
     }
 
-    v12 = v11;
-    v15 = adminLogHandle();
+    v13 = v11;
+    v15 = adminLogHandle(v13);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v23) = [v12 BOOLValue];
+      LODWORD(v23) = [v13 BOOLValue];
       _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_DEFAULT, "KVO: autoBugCaptureEnabled is %d", buf, 8u);
     }
 
-    bOOLValue = [v12 BOOLValue];
+    bOOLValue = [v13 BOOLValue];
     adminQueue = self->adminQueue;
     if (bOOLValue)
     {
@@ -944,20 +1008,19 @@ LABEL_60:
 
   else
   {
-    v12 = adminLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = adminLogHandle(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      v13 = [changeCopy objectForKeyedSubscript:v10];
+      v14 = [changeCopy objectForKeyedSubscript:v10];
       *buf = 138412546;
       v23 = pathCopy;
       v24 = 2112;
-      v25 = v13;
-      _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_DEBUG, "KVO: unknown keypath (%@) observed with value %@", buf, 0x16u);
+      v25 = v14;
+      _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_DEBUG, "KVO: unknown keypath (%@) observed with value %@", buf, 0x16u);
     }
   }
 
 LABEL_5:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startup
@@ -973,7 +1036,7 @@ LABEL_5:
 
 uint64_t __27__ABCAdministrator_startup__block_invoke(uint64_t a1)
 {
-  v2 = adminLogHandle();
+  v2 = adminLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -1010,7 +1073,7 @@ uint64_t __27__ABCAdministrator_startup__block_invoke(uint64_t a1)
 
 uint64_t __28__ABCAdministrator_shutdown__block_invoke(uint64_t a1)
 {
-  v2 = adminLogHandle();
+  v2 = adminLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;

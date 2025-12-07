@@ -4,6 +4,7 @@
 - (void)applyAndCancelGrouping:(void *)grouping;
 - (void)cancelGrouping:(void *)grouping;
 - (void)dealloc;
+- (void)lineOutEnabled:(BOOL)enabled onTransport:(void *)transport;
 - (void)startGrouping:(void *)grouping;
 - (void)videoOutSettingsChanged:(void *)changed;
 @end
@@ -79,41 +80,43 @@
     return;
   }
 
-  v9 = [[NSNumber alloc] initWithUnsignedInteger:grouping];
+  v13 = [[NSNumber alloc] initWithUnsignedInteger:grouping];
   p_iapGroupedCommands = &self->_iapGroupedCommands;
   if ((&self->_iapGroupedCommands & 7) != 0)
   {
     goto LABEL_18;
   }
 
-  v6 = [(NSMutableDictionary *)*p_iapGroupedCommands objectForKey:v9];
+  v6 = [(NSMutableDictionary *)*p_iapGroupedCommands objectForKey:v13];
   if (v6)
   {
     v7 = v6;
     [v6 setCancelled:1];
-    if ([v7 lineOutChanged])
+    lineOutChanged = [v7 lineOutChanged];
+    if (lineOutChanged)
     {
-      v8 = sub_100045A94();
-      if (!v8 || (v8 & 7) != 0)
+      v10 = sub_100045A94(lineOutChanged, v9);
+      if (!v10 || (v10 & 7) != 0)
       {
         goto LABEL_18;
       }
 
-      (*(*v8 + 176))(v8, grouping, [v7 lineOutEnabled]);
+      (*(*v10 + 176))(v10, grouping, [v7 lineOutEnabled]);
       [v7 setLineOutChanged:0];
     }
 
-    if (![v7 videoOutSettingChanged])
+    videoOutSettingChanged = [v7 videoOutSettingChanged];
+    if (!videoOutSettingChanged)
     {
       goto LABEL_11;
     }
 
-    if ((sub_10004B1AC() & 7) == 0)
+    if ((sub_10004B1AC(videoOutSettingChanged, v12) & 7) == 0)
     {
       sub_10004D334(grouping);
       [v7 setVideoOutSettingChanged:0];
 LABEL_11:
-      [(NSMutableDictionary *)*p_iapGroupedCommands removeObjectForKey:v9];
+      [(NSMutableDictionary *)*p_iapGroupedCommands removeObjectForKey:v13];
       if (![(NSMutableDictionary *)*p_iapGroupedCommands count])
       {
 
@@ -184,6 +187,33 @@ LABEL_15:
     else
     {
       NSLog(@"ERROR - %s:%s - %d grouping not enabled for %hhx", "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAPGroupedCommandManager.mm", "[IAPGroupedCommandManager videoOutSettingsChanged:]", 147, changed);
+    }
+  }
+}
+
+- (void)lineOutEnabled:(BOOL)enabled onTransport:(void *)transport
+{
+  enabledCopy = enabled;
+  v7 = [[NSNumber alloc] initWithUnsignedInteger:transport];
+  if ((&self->_iapGroupedCommands & 7) != 0)
+  {
+    __break(0x5516u);
+  }
+
+  else
+  {
+    v10 = v7;
+    v8 = [(NSMutableDictionary *)self->_iapGroupedCommands objectForKey:v7];
+    if (v8)
+    {
+      v9 = v8;
+      [v8 setLineOutChanged:1];
+      [v9 setLineOutEnabled:enabledCopy];
+    }
+
+    else
+    {
+      NSLog(@"ERROR - %s:%s - %d grouping not enabled for %hhx", "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAPGroupedCommandManager.mm", "[IAPGroupedCommandManager lineOutEnabled:onTransport:]", 162, transport);
     }
   }
 }

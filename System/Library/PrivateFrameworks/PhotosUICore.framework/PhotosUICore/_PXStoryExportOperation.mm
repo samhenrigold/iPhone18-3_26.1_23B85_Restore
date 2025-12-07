@@ -167,7 +167,7 @@
   dispatch_assert_queue_V2(v8);
 
   audioCueSource = [(_PXStoryExportOperation *)self audioCueSource];
-  [(_PXStoryExportOperation *)self currentTime];
+  objc_msgSend_currentTime(self);
   CMTimeMakeWithSeconds(&duration, 3.0, PXAudioDefaultCMTimeScale);
   CMTimeRangeMake(&v16, v14, &duration);
   v10 = *&time->var0;
@@ -212,7 +212,7 @@
   v7 = timeSource;
   if (timeSource)
   {
-    [timeSource currentTime];
+    objc_msgSend_currentTime(timeSource);
   }
 
   else
@@ -353,7 +353,7 @@
   {
     audioQueue_assetReader = [(_PXStoryExportOperation *)self audioQueue_assetReader];
     memset(&v44, 0, sizeof(v44));
-    [(_PXStoryExportOperation *)self exportDuration];
+    objc_msgSend_exportDuration(self);
     if ([inputCopy isReadyForMoreMediaData])
     {
       v40 = inputCopy;
@@ -821,7 +821,7 @@ LABEL_4:
         v7 = *(*(&v42 + 1) + 8 * v6);
         if (v7)
         {
-          [*(*(&v42 + 1) + 8 * v6) loadingVideoTimeRange];
+          objc_msgSend_loadingVideoTimeRange(*(*(&v42 + 1) + 8 * v6));
         }
 
         else
@@ -995,8 +995,8 @@ LABEL_4:
 - (void)_setupAudioExporting
 {
   v3 = [PXStoryExportAudioCompositionBuilder alloc];
-  [(_PXStoryExportOperation *)self exportDuration];
-  [(_PXStoryExportOperation *)self outroDuration];
+  objc_msgSend_exportDuration(self);
+  objc_msgSend_outroDuration(self);
   v4 = [(PXStoryExportAudioCompositionBuilder *)v3 initWithMaximumDuration:v10 outroDuration:v9];
   [(_PXStoryExportOperation *)self _addSongAssetToAudioCompositionBuilder:v4];
   if ([(_PXStoryExportOperation *)self shouldContinueExporting])
@@ -1027,7 +1027,7 @@ LABEL_4:
     v6 = storyQueue_storyModel;
     if (storyQueue_storyModel)
     {
-      [storyQueue_storyModel nominalPlaybackTime];
+      objc_msgSend_nominalPlaybackTime(storyQueue_storyModel);
     }
 
     else
@@ -1107,7 +1107,7 @@ LABEL_4:
   dispatch_sync(storyQueue, block);
 
   memset(&v38, 0, sizeof(v38));
-  [(_PXStoryExportOperation *)self exportDuration];
+  objc_msgSend_exportDuration(self);
   v37.epoch = 0;
   *&v37.value = PXStoryTimeZero;
   configuration = [(_PXStoryExportOperation *)self configuration];
@@ -1239,14 +1239,14 @@ LABEL_4:
 
   if ([(_PXStoryExportOperation *)self shouldContinueExporting])
   {
-    [(_PXStoryExportOperation *)self videoQueue_firstWrittenStoryTime];
+    objc_msgSend_videoQueue_firstWrittenStoryTime(self);
     if ((time.flags & 1) == 0)
     {
       time = *time;
       [(_PXStoryExportOperation *)self setVideoQueue_firstWrittenStoryTime:&time];
     }
 
-    [(_PXStoryExportOperation *)self videoQueue_firstWrittenStoryTime];
+    objc_msgSend_videoQueue_firstWrittenStoryTime(self);
     time = *time;
     rhs = *v29;
     CMTimeSubtract(&v30, &time, &rhs);
@@ -1433,7 +1433,7 @@ LABEL_9:
 
   if (timeSource)
   {
-    [timeSource currentTime];
+    objc_msgSend_currentTime(timeSource);
   }
 
   else
@@ -1456,7 +1456,7 @@ LABEL_9:
   memset(&v19, 0, sizeof(v19));
   if (timeSource)
   {
-    [timeSource currentTime];
+    objc_msgSend_currentTime(timeSource);
   }
 
   else
@@ -1475,8 +1475,8 @@ LABEL_9:
   lhs = v19;
   [v8 incrementByTime:{&lhs, *&v18.value, v18.epoch}];
   storyQueue_engine = [(_PXStoryExportOperation *)self storyQueue_engine];
-  layout = [storyQueue_engine layout];
-  [layout setNeedsUpdate];
+  v10 = objc_msgSend_layout(storyQueue_engine);
+  [v10 setNeedsUpdate];
 
   storyQueue_engine2 = [(_PXStoryExportOperation *)self storyQueue_engine];
   displayLink = [storyQueue_engine2 displayLink];
@@ -1578,7 +1578,7 @@ LABEL_9:
 
   v20 = [[PXStoryTimelineSpecManager alloc] initWithExtendedTraitCollection:extendedTraitCollection configuration:v7];
   v21 = [PXStoryTimelineManager timelineManagerWithTimelineProducer:v14 resourcesDataSourceManager:v16 styleManager:v19 specManager:v20 configuration:v7 loadingCoordinator:0 paperTrailOptions:0];
-  v22 = -[PXStoryLayoutSpecManager initWithExtendedTraitCollection:options:storyConfigurationOptions:]([PXStoryLayoutSpecManager alloc], "initWithExtendedTraitCollection:options:storyConfigurationOptions:", extendedTraitCollection, 0, [v7 options]);
+  v22 = [[PXStoryLayoutSpecManager alloc] initWithExtendedTraitCollection:extendedTraitCollection options:0 storyConfigurationOptions:objc_msgSend_options(v7)];
   v23 = [[PXStoryModel alloc] initWithTimelineManager:v21 layoutSpecManager:v22 configuration:v7];
 
   return v23;

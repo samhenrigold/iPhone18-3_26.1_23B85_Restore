@@ -74,7 +74,7 @@
   return v17;
 }
 
-uint64_t __49__SUUIContextActionsConfiguration_contextActions__block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__49__SUUIContextActionsConfiguration_contextActions__block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) dispatchEventOfType:2 canBubble:1 isCancelable:1 extraInfo:0 completionBlock:0];
   *a3 = 1;

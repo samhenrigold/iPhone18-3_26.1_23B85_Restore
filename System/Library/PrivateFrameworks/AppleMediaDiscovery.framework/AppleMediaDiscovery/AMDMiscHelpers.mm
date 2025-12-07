@@ -84,7 +84,6 @@ void __42__AMDMiscHelpers_setAppStoreDirAttributes__block_invoke(void *a1)
   objc_storeStrong(&v17, 0);
   objc_storeStrong(&v18, 0);
   objc_storeStrong(v19, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)ensureDir:(id)dir removeIfExists:(BOOL)exists
@@ -197,7 +196,6 @@ LABEL_24:
   objc_storeStrong(&path, 0);
   objc_storeStrong(&defaultManager, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   return v28 & 1;
 }
 
@@ -319,7 +317,6 @@ LABEL_21:
   objc_storeStrong(&defaultManager, 0);
   objc_storeStrong(&v40, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   return v42 & 1;
 }
 
@@ -405,7 +402,6 @@ LABEL_17:
   objc_storeStrong(&v29, 0);
   objc_storeStrong(&v30, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)isValidDSID:(id)d
@@ -418,7 +414,6 @@ LABEL_17:
   [location[0] longLongValue];
   v5 = 1;
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   return v5 & 1;
 }
 
@@ -530,7 +525,6 @@ LABEL_17:
   objc_storeStrong(&oslog, 0);
   v5 = [AMDError allocError:errorCopy withMessage:location];
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -686,7 +680,6 @@ uint64_t __84__AMDMiscHelpers_sortArrayElements_inDescendingOrder_withComparison
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v3 = v17;
 
   return v3;
@@ -805,7 +798,6 @@ LABEL_15:
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v6 = v32;
 
   return v6;

@@ -9,13 +9,8 @@
 
 - (id)description
 {
-  if (self)
-  {
-    target = self->_target;
-  }
-
-  v4 = objc_opt_class();
-  v5 = NSStringFromClass(v4);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
   if (self)
   {
     selector = self->_selector;
@@ -26,15 +21,15 @@
     selector = 0;
   }
 
-  v7 = NSStringFromSelector(selector);
-  v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"<HMCRedirectorStrongTuple -[%@ %@]>", v5, v7];
+  v6 = NSStringFromSelector(selector);
+  v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"<HMCRedirectorStrongTuple -[%@ %@]>", v4, v6];
 
-  return v8;
+  return v7;
 }
 
 - (id)attributeDescriptions
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   if (self)
   {
@@ -48,7 +43,7 @@
 
   v5 = target;
   v6 = [v3 initWithName:@"Target" value:v5];
-  v14[0] = v6;
+  v13[0] = v6;
   v7 = objc_alloc(MEMORY[0x277D0F778]);
   if (self)
   {
@@ -62,10 +57,8 @@
 
   v9 = NSStringFromSelector(selector);
   v10 = [v7 initWithName:@"Selector" value:v9];
-  v14[1] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v13[1] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
 
   return v11;
 }

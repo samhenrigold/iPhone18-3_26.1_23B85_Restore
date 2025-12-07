@@ -31,7 +31,7 @@
 
 - (void)waitWithPriority:(int64_t)priority
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (self->_options)
   {
     os_unfair_lock_lock(&self->_lock);
@@ -41,21 +41,20 @@
     {
       self->_isHighCount = 1;
       v5 = MEMORY[0x277CCC2A0];
-      v6 = *MEMORY[0x277CCC2A0];
       self->_signpost = _HKLogSignpostIDGenerate();
       _HKInitializeLogging();
-      v7 = *v5;
-      if (os_signpost_enabled(v7))
+      v6 = *v5;
+      if (os_signpost_enabled(v6))
       {
+        v7 = v6;
         v8 = v7;
-        v9 = v8;
         signpost = self->_signpost;
-        if (signpost - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+        if (signpost - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
         {
-          v11 = [(NSString *)self->_debugIdentifier cStringUsingEncoding:4];
-          v19 = 136446210;
-          v20 = v11;
-          _os_signpost_emit_with_name_impl(&dword_25156C000, v9, OS_SIGNPOST_INTERVAL_BEGIN, signpost, "HDDatabase-semaphore-high-count", "Name: %{public}s", &v19, 0xCu);
+          v10 = [(NSString *)self->_debugIdentifier cStringUsingEncoding:4];
+          v17 = 136446210;
+          v18 = v10;
+          _os_signpost_emit_with_name_impl(&dword_25156C000, v8, OS_SIGNPOST_INTERVAL_BEGIN, signpost, "HDDatabase-semaphore-high-count", "Name: %{public}s", &v17, 0xCu);
         }
       }
     }
@@ -67,32 +66,30 @@
   if (self->_options)
   {
     os_unfair_lock_lock(&self->_lock);
-    v12 = self->_waitCount - 1;
-    self->_waitCount = v12;
-    if (v12 <= 4 && self->_isHighCount)
+    v11 = self->_waitCount - 1;
+    self->_waitCount = v11;
+    if (v11 <= 4 && self->_isHighCount)
     {
       self->_isHighCount = 0;
       _HKInitializeLogging();
-      v13 = *MEMORY[0x277CCC2A0];
+      v12 = *MEMORY[0x277CCC2A0];
       if (os_signpost_enabled(*MEMORY[0x277CCC2A0]))
       {
+        v13 = v12;
         v14 = v13;
-        v15 = v14;
-        v16 = self->_signpost;
-        if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
+        v15 = self->_signpost;
+        if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
         {
-          v17 = [(NSString *)self->_debugIdentifier cStringUsingEncoding:4];
-          v19 = 136446210;
-          v20 = v17;
-          _os_signpost_emit_with_name_impl(&dword_25156C000, v15, OS_SIGNPOST_INTERVAL_END, v16, "HDDatabase-semaphore-high-count", "Name: %{public}s", &v19, 0xCu);
+          v16 = [(NSString *)self->_debugIdentifier cStringUsingEncoding:4];
+          v17 = 136446210;
+          v18 = v16;
+          _os_signpost_emit_with_name_impl(&dword_25156C000, v14, OS_SIGNPOST_INTERVAL_END, v15, "HDDatabase-semaphore-high-count", "Name: %{public}s", &v17, 0xCu);
         }
       }
     }
 
     os_unfair_lock_unlock(&self->_lock);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 @end

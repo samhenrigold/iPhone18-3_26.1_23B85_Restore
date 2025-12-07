@@ -90,30 +90,30 @@ LABEL_15:
 
 - (id)renyiDPBudgetsForAlphas:(id)alphas error:(id *)error
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   alphasCopy = alphas;
   if ([alphasCopy count])
   {
-    v64 = 0u;
-    v65 = 0u;
-    v62 = 0u;
     v63 = 0u;
+    v64 = 0u;
+    v61 = 0u;
+    v62 = 0u;
     v7 = alphasCopy;
-    v8 = [v7 countByEnumeratingWithState:&v62 objects:v66 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v61 objects:v65 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v63;
+      v10 = *v62;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v63 != v10)
+          if (*v62 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          [*(*(&v62 + 1) + 8 * i) doubleValue];
+          [*(*(&v61 + 1) + 8 * i) doubleValue];
           if (![_DPRenyiDP isValidAlpha:error error:?])
           {
             v50 = 0;
@@ -122,7 +122,7 @@ LABEL_15:
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v62 objects:v66 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v61 objects:v65 count:16];
         if (v9)
         {
           continue;
@@ -144,16 +144,16 @@ LABEL_15:
       batchSize = 10000000;
     }
 
-    v61 = alphasCopy;
+    v60 = alphasCopy;
     [(_DPSymmetricRAPPORWithOHE *)self localEpsilon];
     v15 = exp(v14);
     [(_DPSymmetricRAPPORWithOHE *)self localEpsilon];
     v17 = v15 / (exp(v16) + 1.0);
     v18 = [v7 count];
-    v60 = [MEMORY[0x277CBEB28] dataWithLength:8 * v18];
-    bytes = [v60 bytes];
     v59 = [MEMORY[0x277CBEB28] dataWithLength:8 * v18];
-    bytes2 = [v59 bytes];
+    bytes = [v59 bytes];
+    v58 = [MEMORY[0x277CBEB28] dataWithLength:8 * v18];
+    bytes2 = [v58 bytes];
     v21 = bytes2;
     if (v18)
     {
@@ -259,7 +259,7 @@ LABEL_15:
         +[_DPBudgetAuditor budgetAuditorFromMetadata:plistParameters:isInternalBuild:error:];
       }
 
-      v51 = v60;
+      v51 = v59;
       if (error)
       {
         v56 = v54;
@@ -273,10 +273,10 @@ LABEL_15:
     {
 LABEL_33:
       v50 = v42;
-      v51 = v60;
+      v51 = v59;
     }
 
-    alphasCopy = v61;
+    alphasCopy = v60;
   }
 
   else
@@ -303,14 +303,12 @@ LABEL_33:
 
 LABEL_46:
 
-  v57 = *MEMORY[0x277D85DE8];
-
   return v50;
 }
 
 - (id)approximateDPBudgetForDelta:(double)delta error:(id *)error
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if ([_DPApproximateDP isValidDelta:"isValidDelta:error:" error:?])
   {
     v7 = +[_DPRenyiDP defaultAlphas];
@@ -318,27 +316,27 @@ LABEL_46:
 
     if ([v8 count])
     {
-      v26 = 0u;
-      v27 = 0u;
-      v24 = 0u;
       v25 = 0u;
+      v26 = 0u;
+      v23 = 0u;
+      v24 = 0u;
       v9 = v8;
-      v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v10)
       {
         v11 = v10;
         v12 = 0;
-        v13 = *v25;
+        v13 = *v24;
         while (2)
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v25 != v13)
+            if (*v24 != v13)
             {
               objc_enumerationMutation(v9);
             }
 
-            v15 = [*(*(&v24 + 1) + 8 * i) approximateDPForDelta:error error:{delta, v24}];
+            v15 = [*(*(&v23 + 1) + 8 * i) approximateDPForDelta:error error:{delta, v23}];
             if (!v15)
             {
 
@@ -355,7 +353,7 @@ LABEL_46:
             }
           }
 
-          v11 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
           if (v11)
           {
             continue;
@@ -386,8 +384,6 @@ LABEL_20:
     v21 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v21;
 }
 
@@ -416,11 +412,10 @@ LABEL_20:
 
 - (void)renyiDPBudgetsForAlphas:(os_log_t)log error:.cold.1(os_log_t log)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 67109120;
-  v2[1] = 10000000;
-  _os_log_debug_impl(&dword_22622D000, log, OS_LOG_TYPE_DEBUG, "Cap batch size at %u to keep computation time of symmetric RAPPOR analysis in reasonable range.", v2, 8u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 67109120;
+  v1[1] = 10000000;
+  _os_log_debug_impl(&dword_22622D000, log, OS_LOG_TYPE_DEBUG, "Cap batch size at %u to keep computation time of symmetric RAPPOR analysis in reasonable range.", v1, 8u);
 }
 
 @end

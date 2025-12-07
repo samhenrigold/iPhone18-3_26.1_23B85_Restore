@@ -50,7 +50,7 @@
 
 - (void)_resolveVideo
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = [(LPMediaAssetFetcher *)self URL];
 
   if (v3)
@@ -61,54 +61,54 @@
     if (v5)
     {
       self->_hasAudio = 1;
-      v6 = [LPVideo alloc];
-      v23 = [(LPMediaAssetFetcher *)self URL];
+      v8 = [LPVideo alloc];
+      v25 = [(LPMediaAssetFetcher *)self URL];
       videoProperties = [(LPMediaAssetFetcher *)self videoProperties];
-      v8 = [(LPVideo *)v6 initWithYouTubeURL:v23 properties:videoProperties];
-      [(LPMediaAssetFetcher *)self _completedWithVideo:v8];
+      v10 = [(LPVideo *)v8 initWithYouTubeURL:v25 properties:videoProperties];
+      [(LPMediaAssetFetcher *)self _completedWithVideo:v10];
     }
 
     else if (self->_fetchIsNotUserInitiated)
     {
-      v9 = LPLogChannelFetching();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = LPLogChannelFetching(v6, v7);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
         _loggingID = [(LPFetcher *)self _loggingID];
-        _os_log_impl(&dword_1AE886000, v9, OS_LOG_TYPE_DEFAULT, "LPMediaAssetFetcher<%d>: forcing video to stream instead of downloading", buf, 8u);
+        _os_log_impl(&dword_1AE886000, v11, OS_LOG_TYPE_DEFAULT, "LPMediaAssetFetcher<%d>: forcing video to stream instead of downloading", buf, 8u);
       }
 
-      v10 = [LPVideo alloc];
-      v11 = [(LPMediaAssetFetcher *)self URL];
+      v12 = [LPVideo alloc];
+      v13 = [(LPMediaAssetFetcher *)self URL];
       videoProperties2 = [(LPMediaAssetFetcher *)self videoProperties];
-      v13 = [(LPVideo *)v10 initWithStreamingURL:v11 properties:videoProperties2];
-      [(LPMediaAssetFetcher *)self _completedWithVideo:v13];
+      v15 = [(LPVideo *)v12 initWithStreamingURL:v13 properties:videoProperties2];
+      [(LPMediaAssetFetcher *)self _completedWithVideo:v15];
     }
 
     else
     {
-      v14 = [(LPMediaAssetFetcher *)self URL];
-      v15 = +[LPTestingOverrides customLoader];
+      v16 = [(LPMediaAssetFetcher *)self URL];
+      v17 = +[LPTestingOverrides customLoader];
 
-      if (v15)
+      if (v17)
       {
-        v16 = +[LPTestingOverrides customLoader];
-        v17 = [v16 overrideURLForMediaURL:v14];
+        v18 = +[LPTestingOverrides customLoader];
+        v19 = [v18 overrideURLForMediaURL:v16];
 
-        v14 = v17;
+        v16 = v19;
       }
 
-      v18 = [MEMORY[0x1E6988168] assetWithURL:v14];
+      v20 = [MEMORY[0x1E6988168] assetWithURL:v16];
       asset = self->_asset;
-      self->_asset = v18;
+      self->_asset = v20;
 
-      v20 = +[LPTestingOverrides customLoader];
+      v22 = +[LPTestingOverrides customLoader];
 
-      if (v20)
+      if (v22)
       {
-        v21 = +[LPTestingOverrides customLoader];
+        v23 = +[LPTestingOverrides customLoader];
         resourceLoader = [(AVURLAsset *)self->_asset resourceLoader];
-        [v21 installCustomMediaLoader:resourceLoader];
+        [v23 installCustomMediaLoader:resourceLoader];
       }
 
       [AVURLAsset loadValuesAsynchronouslyForKeys:"loadValuesAsynchronouslyForKeys:completionHandler:" completionHandler:?];
@@ -183,7 +183,7 @@ void __36__LPMediaAssetFetcher__resolveVideo__block_invoke_2(uint64_t a1)
 
     v9 = *(a1 + 40);
     v10 = *(v9 + 48);
-    if (v10 && ([v10 duration], v9 = *(a1 + 40), (v24 & 0x1D) == 1) && *(v9 + 90) == 1)
+    if (v10 && (objc_msgSend_duration(v10), v9 = *(a1 + 40), (v24 & 0x1D) == 1) && *(v9 + 90) == 1)
     {
       v11 = [MEMORY[0x1E695AC80] ephemeralSessionConfiguration];
       v12 = +[LPTestingOverrides customLoader];

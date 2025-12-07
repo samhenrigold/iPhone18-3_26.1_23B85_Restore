@@ -18,46 +18,44 @@
 
 - (id)accessibilityCustomActions
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   v2 = [(GKCollectionViewCellAccessibility *)self safeValueForKey:@"editActionsView"];
   v3 = __UIAccessibilitySafeClass();
 
   v4 = [v3 safeValueForKey:@"_cell"];
-  v20 = 0;
+  v19 = 0;
   v5 = [v4 safeValueForKey:@"editActions"];
   v6 = __UIAccessibilitySafeClass();
 
   array = [MEMORY[0x29EDB8DE8] array];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [*(*(&v16 + 1) + 8 * i) safeValueForKey:{@"name", v16}];
+        v13 = [*(*(&v15 + 1) + 8 * i) safeValueForKey:{@"name", v15}];
         [array axSafelyAddObject:v13];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v16 objects:v21 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v15 objects:v20 count:16];
     }
 
     while (v10);
   }
-
-  v14 = *MEMORY[0x29EDCA608];
 
   return array;
 }
@@ -68,7 +66,7 @@
   v5 = __UIAccessibilitySafeClass();
 
   v6 = [v5 safeValueForKey:@"_cell"];
-  LOBYTE(v16) = 0;
+  LOBYTE(v15[0]) = 0;
   v7 = [v6 safeValueForKey:@"editActions"];
   v8 = __UIAccessibilitySafeClass();
 
@@ -78,23 +76,22 @@
     v10 = [v8 objectAtIndex:action];
     v11 = __UIAccessibilitySafeClass();
 
-    v16 = 0;
-    v17 = &v16;
-    v18 = 0x2020000000;
-    v19 = 0;
-    v15 = v11;
+    v15[0] = 0;
+    v15[1] = v15;
+    v15[2] = 0x2020000000;
+    v15[3] = 0;
+    v14 = v11;
     AXPerformSafeBlock();
-    v12 = v17[3];
 
-    _Block_object_dispose(&v16, 8);
-    v14 = v6;
+    _Block_object_dispose(v15, 8);
+    v13 = v6;
     AXPerformSafeBlock();
   }
 
   return v9 > action;
 }
 
-uint64_t __70__GKCollectionViewCellAccessibility_accessibilityPerformCustomAction___block_invoke(uint64_t a1)
+void *__70__GKCollectionViewCellAccessibility_accessibilityPerformCustomAction___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) selector];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -109,20 +106,18 @@ void __70__GKCollectionViewCellAccessibility_accessibilityPerformCustomAction___
 
 - (id)_accessibilitySupplementaryFooterViews
 {
-  v6[1] = *MEMORY[0x29EDCA608];
+  v5[1] = *MEMORY[0x29EDCA608];
   v2 = [(GKCollectionViewCellAccessibility *)self safeValueForKey:@"editActionsView"];
   if ([v2 _accessibilityViewIsVisible])
   {
-    v6[0] = v2;
-    v3 = [MEMORY[0x29EDB8D80] arrayWithObjects:v6 count:1];
+    v5[0] = v2;
+    v3 = [MEMORY[0x29EDB8D80] arrayWithObjects:v5 count:1];
   }
 
   else
   {
     v3 = 0;
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 
   return v3;
 }

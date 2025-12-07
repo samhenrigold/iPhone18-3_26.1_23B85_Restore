@@ -10,25 +10,24 @@
 - (NSURL)launchURL
 {
   v3 = sub_100007B4C(&qword_100019AC8, &qword_1000116D0);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8, v5);
-  v7 = &v16 - v6;
+  __chkstk_darwin(v3 - 8, v4);
+  v6 = &v15 - v5;
   selfCopy = self;
-  sub_1000024E8(v7);
+  sub_1000024E8(v6);
 
-  v9 = type metadata accessor for URL();
-  v10 = *(v9 - 8);
-  v11 = (*(v10 + 48))(v7, 1, v9);
-  v12 = 0;
-  if (v11 != 1)
+  v8 = type metadata accessor for URL();
+  v9 = *(v8 - 8);
+  v10 = (*(v9 + 48))(v6, 1, v8);
+  v11 = 0;
+  if (v10 != 1)
   {
-    URL._bridgeToObjectiveC()(v11);
-    v14 = v13;
-    (*(v10 + 8))(v7, v9);
-    v12 = v14;
+    URL._bridgeToObjectiveC()(v10);
+    v13 = v12;
+    (*(v9 + 8))(v6, v8);
+    v11 = v13;
   }
 
-  return v12;
+  return v11;
 }
 
 - (void)viewDidLoad

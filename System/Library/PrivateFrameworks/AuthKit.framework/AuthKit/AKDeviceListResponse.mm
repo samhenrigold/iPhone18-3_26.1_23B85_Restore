@@ -86,84 +86,78 @@
 
 - (AKDeviceListResponse)initWithCoder:(id)coder
 {
-  v48 = &selfCopy;
+  v42 = &selfCopy;
   selfCopy = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, coder);
   v3 = selfCopy;
   selfCopy = 0;
-  v49 = [(AKDeviceListResponse *)v3 init];
-  selfCopy = v49;
-  objc_storeStrong(&selfCopy, v49);
-  if (v49)
+  v43 = [(AKDeviceListResponse *)v3 init];
+  selfCopy = v43;
+  objc_storeStrong(&selfCopy, v43);
+  if (v43)
   {
-    v30 = location[0];
-    v45 = 0x1E696A000uLL;
+    v24 = location[0];
+    v39 = 0x1E696A000uLL;
     v4 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_altDSID"];
     altDSID = selfCopy->_altDSID;
     selfCopy->_altDSID = v4;
     MEMORY[0x1E69E5920](altDSID);
-    v31 = location[0];
-    v6 = *(v45 + 3776);
-    v7 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_deviceListVersion"];
+    v25 = location[0];
+    v6 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_deviceListVersion"];
     deviceListVersion = selfCopy->_deviceListVersion;
-    selfCopy->_deviceListVersion = v7;
+    selfCopy->_deviceListVersion = v6;
     MEMORY[0x1E69E5920](deviceListVersion);
-    v34 = location[0];
-    v36 = 0x1E695D000uLL;
-    v33 = MEMORY[0x1E695DFD8];
-    v37 = 0x1E695D000uLL;
-    v32 = objc_opt_class();
-    v38 = 0x1E73D2000uLL;
-    v35 = [v33 setWithObjects:{v32, objc_opt_class(), 0}];
-    v9 = [v34 decodeObjectOfClasses:? forKey:?];
+    v28 = location[0];
+    v30 = 0x1E695D000uLL;
+    v27 = MEMORY[0x1E695DFD8];
+    v31 = 0x1E695D000uLL;
+    v26 = objc_opt_class();
+    v32 = 0x1E73D2000uLL;
+    v29 = [v27 setWithObjects:{v26, objc_opt_class(), 0}];
+    v8 = [v28 decodeObjectOfClasses:? forKey:?];
     deviceList = selfCopy->_deviceList;
-    selfCopy->_deviceList = v9;
+    selfCopy->_deviceList = v8;
     MEMORY[0x1E69E5920](deviceList);
-    MEMORY[0x1E69E5920](v35);
-    v41 = location[0];
-    v40 = *(v36 + 4056);
-    v11 = *(v37 + 3784);
-    v39 = objc_opt_class();
-    v12 = *(v38 + 3360);
-    v42 = [v40 setWithObjects:{v39, objc_opt_class(), 0}];
-    v13 = [v41 decodeObjectOfClasses:? forKey:?];
+    MEMORY[0x1E69E5920](v29);
+    v35 = location[0];
+    v34 = *(v30 + 4056);
+    v33 = objc_opt_class();
+    v36 = [v34 setWithObjects:{v33, objc_opt_class(), 0}];
+    v10 = [v35 decodeObjectOfClasses:? forKey:?];
     deletedDeviceList = selfCopy->_deletedDeviceList;
-    selfCopy->_deletedDeviceList = v13;
+    selfCopy->_deletedDeviceList = v10;
     MEMORY[0x1E69E5920](deletedDeviceList);
-    MEMORY[0x1E69E5920](v42);
-    v43 = location[0];
-    v15 = *(v45 + 3776);
-    v16 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_deletedDevicesCacheExpiryOffset"];
+    MEMORY[0x1E69E5920](v36);
+    v37 = location[0];
+    v12 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_deletedDevicesCacheExpiryOffset"];
     deletedDevicesCacheExpiryOffset = selfCopy->_deletedDevicesCacheExpiryOffset;
-    selfCopy->_deletedDevicesCacheExpiryOffset = v16;
+    selfCopy->_deletedDevicesCacheExpiryOffset = v12;
     MEMORY[0x1E69E5920](deletedDevicesCacheExpiryOffset);
-    v44 = location[0];
-    v18 = *(v45 + 3776);
-    v19 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_trustedDeviceHash"];
+    v38 = location[0];
+    v14 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_trustedDeviceHash"];
     trustedDeviceHash = selfCopy->_trustedDeviceHash;
-    selfCopy->_trustedDeviceHash = v19;
+    selfCopy->_trustedDeviceHash = v14;
     MEMORY[0x1E69E5920](trustedDeviceHash);
-    v46 = location[0];
-    v21 = *(v45 + 3776);
-    v22 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_deletedDeviceHash"];
+    v40 = location[0];
+    v16 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_deletedDeviceHash"];
     deletedDeviceHash = selfCopy->_deletedDeviceHash;
-    selfCopy->_deletedDeviceHash = v22;
+    selfCopy->_deletedDeviceHash = v16;
     MEMORY[0x1E69E5920](deletedDeviceHash);
-    v47 = location[0];
-    v24 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_trustedDevicesUpdateTimestamp"];
+    v41 = location[0];
+    v18 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_trustedDevicesUpdateTimestamp"];
     trustedDevicesUpdateTimestamp = selfCopy->_trustedDevicesUpdateTimestamp;
-    selfCopy->_trustedDevicesUpdateTimestamp = v24;
+    selfCopy->_trustedDevicesUpdateTimestamp = v18;
     MEMORY[0x1E69E5920](trustedDevicesUpdateTimestamp);
   }
 
-  v27 = &selfCopy;
-  v29 = MEMORY[0x1E69E5928](selfCopy);
+  v21 = &selfCopy;
+  v23 = MEMORY[0x1E69E5928](selfCopy);
   obj = 0;
   objc_storeStrong(location, 0);
-  objc_storeStrong(v27, obj);
-  return v29;
+  objc_storeStrong(v21, obj);
+  return v23;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -348,7 +342,6 @@ void __50__AKDeviceListResponse_deviceMapFromResponseBody___block_invoke(void *a
   objc_storeStrong(&v13, 0);
   objc_storeStrong(&v12, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t __57__AKDeviceListResponse_updateWithDeviceRestrictionState___block_invoke(id *a1, void *a2, void *a3)
@@ -412,7 +405,6 @@ uint64_t __57__AKDeviceListResponse_updateWithDeviceRestrictionState___block_inv
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   return v19 & 1;
 }
 
@@ -495,7 +487,6 @@ uint64_t __57__AKDeviceListResponse_updateWithDeviceRestrictionState___block_inv
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   v7 = v24;
 
   return v7;

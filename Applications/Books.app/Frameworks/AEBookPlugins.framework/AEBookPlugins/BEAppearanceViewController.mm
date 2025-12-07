@@ -438,7 +438,7 @@
 - (void)configureHorizontalScrollSwitchCell:(id)cell
 {
   cellCopy = cell;
-  v6 = AEBundle();
+  v6 = AEBundle(cellCopy);
   v5 = [v6 localizedStringForKey:@"Horizontal Scrolling" value:&stru_1E7188 table:0];
   [(BEAppearanceViewController *)self configureScrollSwitchCell:cellCopy text:v5];
 }
@@ -446,7 +446,7 @@
 - (void)configureVerticalScrollSwitchCell:(id)cell
 {
   cellCopy = cell;
-  v6 = AEBundle();
+  v6 = AEBundle(cellCopy);
   v5 = [v6 localizedStringForKey:@"Vertical Scrolling" value:&stru_1E7188 table:0];
   [(BEAppearanceViewController *)self configureScrollSwitchCell:cellCopy text:v5];
 }

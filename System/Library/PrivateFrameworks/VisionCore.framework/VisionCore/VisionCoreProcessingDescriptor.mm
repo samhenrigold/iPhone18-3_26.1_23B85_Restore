@@ -250,11 +250,11 @@ LABEL_12:
 + (id)_subclassResponsibleForIdentifier:(uint64_t)identifier
 {
   v2 = a2;
-  objc_opt_self();
-  v3 = +[VisionCoreProcessingDescriptor _identifierToSubclassMapping];
-  v4 = [v3 objectForKey:v2];
+  v3 = objc_opt_self();
+  v4 = +[(VisionCoreProcessingDescriptor *)v3];
+  v5 = [v4 objectForKey:v2];
 
-  return v4;
+  return v5;
 }
 
 + (id)_identifierToSubclassMapping
@@ -265,9 +265,9 @@ LABEL_12:
     dispatch_once(&_identifierToSubclassMapping_ourOnceToken, &__block_literal_global_3449);
   }
 
-  v0 = _identifierToSubclassMapping_ourIdentifierToClassMapping;
+  v1 = _identifierToSubclassMapping_ourIdentifierToClassMapping;
 
-  return v0;
+  return v1;
 }
 
 void __62__VisionCoreProcessingDescriptor__identifierToSubclassMapping__block_invoke()
@@ -359,7 +359,7 @@ void __62__VisionCoreProcessingDescriptor__identifierToSubclassMapping__block_in
 
 + (id)availableIdentifiers
 {
-  v2 = +[VisionCoreProcessingDescriptor _identifierToSubclassMapping];
+  v2 = +[(VisionCoreProcessingDescriptor *)self];
   allKeys = [v2 allKeys];
 
   return allKeys;

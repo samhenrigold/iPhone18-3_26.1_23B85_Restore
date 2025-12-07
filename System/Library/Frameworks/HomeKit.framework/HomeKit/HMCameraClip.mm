@@ -88,13 +88,13 @@ __CFString *__37__HMCameraClip_attributeDescriptions__block_invoke(uint64_t a1, 
 
 - (HMCameraClip)initWithCoder:(id)coder
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v4 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMCC.ck.uuid"];
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMCC.ck.st"];
   [coderCopy decodeDoubleForKey:@"HMCC.ck.d"];
   v7 = v6;
-  v26 = [coderCopy decodeIntegerForKey:@"HMCC.ck.s"];
+  v25 = [coderCopy decodeIntegerForKey:@"HMCC.ck.s"];
   [coderCopy decodeDoubleForKey:@"HMCC.ck.tfd"];
   v9 = v8;
   v10 = [coderCopy decodeBoolForKey:@"HMCC.ck.ic"];
@@ -109,7 +109,7 @@ __CFString *__37__HMCameraClip_attributeDescriptions__block_invoke(uint64_t a1, 
 
   if (v4 && v5 && v13 && v14 && v18)
   {
-    selfCopy = [(HMCameraClip *)self initWithUniqueIdentifier:v4 startDate:v5 duration:v26 size:v10 targetFragmentDuration:v11 isComplete:v12 isDonated:v7 quality:v9 streamingAssetVersion:v13 encryptionContext:v14 significantEvents:v18];
+    selfCopy = [(HMCameraClip *)self initWithUniqueIdentifier:v4 startDate:v5 duration:v25 size:v10 targetFragmentDuration:v11 isComplete:v12 isDonated:v7 quality:v9 streamingAssetVersion:v13 encryptionContext:v14 significantEvents:v18];
     v20 = selfCopy;
   }
 
@@ -122,17 +122,17 @@ __CFString *__37__HMCameraClip_attributeDescriptions__block_invoke(uint64_t a1, 
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138544642;
-      v29 = v23;
-      v30 = 2112;
-      v31 = v4;
-      v32 = 2112;
-      v33 = v5;
-      v34 = 2112;
-      v35 = v13;
-      v36 = 2112;
-      v37 = v14;
-      v38 = 2112;
-      v39 = v18;
+      v28 = v23;
+      v29 = 2112;
+      v30 = v4;
+      v31 = 2112;
+      v32 = v5;
+      v33 = 2112;
+      v34 = v13;
+      v35 = 2112;
+      v36 = v14;
+      v37 = 2112;
+      v38 = v18;
       _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded uuid: %@ startDate: %@ streamingAssetVersion: %@ encryptionContext: %@ significantEvents: %@", buf, 0x3Eu);
     }
 
@@ -140,7 +140,6 @@ __CFString *__37__HMCameraClip_attributeDescriptions__block_invoke(uint64_t a1, 
     v20 = 0;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -202,21 +201,7 @@ __CFString *__37__HMCameraClip_attributeDescriptions__block_invoke(uint64_t a1, 
     {
       startDate = [(HMCameraClip *)self startDate];
       startDate2 = [v6 startDate];
-      if (![startDate isEqualToDate:startDate2])
-      {
-        goto LABEL_18;
-      }
-
-      [(HMCameraClip *)self duration];
-      v12 = v11;
-      [v6 duration];
-      if (v12 != v13)
-      {
-        goto LABEL_18;
-      }
-
-      v14 = [(HMCameraClip *)self size];
-      if (v14 == [v6 size] && (-[HMCameraClip targetFragmentDuration](self, "targetFragmentDuration"), v16 = v15, objc_msgSend(v6, "targetFragmentDuration"), v16 == v17) && (v18 = -[HMCameraClip isComplete](self, "isComplete"), v18 == objc_msgSend(v6, "isComplete")) && (v19 = -[HMCameraClip isDonated](self, "isDonated"), v19 == objc_msgSend(v6, "isDonated")) && (v20 = -[HMCameraClip quality](self, "quality"), v20 == objc_msgSend(v6, "quality")))
+      if ([startDate isEqualToDate:startDate2] && (-[HMCameraClip duration](self, "duration"), v12 = v11, objc_msgSend(v6, "duration"), v12 == v13) && (v14 = -[HMCameraClip size](self, "size"), v14 == objc_msgSend(v6, "size")) && (-[HMCameraClip targetFragmentDuration](self, "targetFragmentDuration"), v16 = v15, objc_msgSend(v6, "targetFragmentDuration"), v16 == v17) && (v18 = -[HMCameraClip isComplete](self, "isComplete"), v18 == objc_msgSend(v6, "isComplete")) && (v19 = -[HMCameraClip isDonated](self, "isDonated"), v19 == objc_msgSend(v6, "isDonated")) && (v20 = -[HMCameraClip quality](self, "quality"), v20 == objc_msgSend(v6, "quality")))
       {
         streamingAssetVersion = [(HMCameraClip *)self streamingAssetVersion];
         streamingAssetVersion2 = [v6 streamingAssetVersion];
@@ -248,7 +233,6 @@ __CFString *__37__HMCameraClip_attributeDescriptions__block_invoke(uint64_t a1, 
 
       else
       {
-LABEL_18:
         v27 = 0;
       }
     }
@@ -269,58 +253,54 @@ LABEL_18:
 
 - (BOOL)canAskForUserFeedback
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   significantEvents = [(HMCameraClip *)self significantEvents];
   v4 = [significantEvents count];
 
-  if (v4)
+  if (!v4)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
-    v14 = 0u;
-    significantEvents2 = [(HMCameraClip *)self significantEvents];
-    v6 = [significantEvents2 countByEnumeratingWithState:&v13 objects:v17 count:16];
-    if (v6)
+    return 0;
+  }
+
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  significantEvents2 = [(HMCameraClip *)self significantEvents];
+  v6 = [significantEvents2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v13;
+    while (2)
     {
-      v7 = v6;
-      v8 = *v14;
-      while (2)
+      for (i = 0; i != v7; ++i)
       {
-        for (i = 0; i != v7; ++i)
+        if (*v13 != v8)
         {
-          if (*v14 != v8)
-          {
-            objc_enumerationMutation(significantEvents2);
-          }
-
-          if (![*(*(&v13 + 1) + 8 * i) canAskForUserFeedback])
-          {
-            v10 = 0;
-            goto LABEL_12;
-          }
+          objc_enumerationMutation(significantEvents2);
         }
 
-        v7 = [significantEvents2 countByEnumeratingWithState:&v13 objects:v17 count:16];
-        if (v7)
+        if (![*(*(&v12 + 1) + 8 * i) canAskForUserFeedback])
         {
-          continue;
+          v10 = 0;
+          goto LABEL_12;
         }
-
-        break;
       }
+
+      v7 = [significantEvents2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      if (v7)
+      {
+        continue;
+      }
+
+      break;
     }
+  }
 
-    v10 = 1;
+  v10 = 1;
 LABEL_12:
-  }
 
-  else
-  {
-    v10 = 0;
-  }
-
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -389,14 +369,12 @@ LABEL_12:
 
 + (id)requiredHTTPHeadersForStreamingAssetVersion:(id)version
 {
-  v9[1] = *MEMORY[0x1E69E9840];
-  v8 = @"x-apple-sa-version";
-  v9[0] = version;
+  v8[1] = *MEMORY[0x1E69E9840];
+  v7 = @"x-apple-sa-version";
+  v8[0] = version;
   v3 = MEMORY[0x1E695DF20];
   versionCopy = version;
-  v5 = [v3 dictionaryWithObjects:v9 forKeys:&v8 count:1];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = [v3 dictionaryWithObjects:v8 forKeys:&v7 count:1];
 
   return v5;
 }

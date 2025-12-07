@@ -84,7 +84,7 @@
   return v8;
 }
 
-uint64_t __56__SGReminderExtractionModel_whitelistedRangesInContent___block_invoke_2(uint64_t result, void *a2)
+id *__56__SGReminderExtractionModel_whitelistedRangesInContent___block_invoke_2(id *result, void *a2)
 {
   if (a2)
   {
@@ -98,7 +98,7 @@ uint64_t __56__SGReminderExtractionModel_whitelistedRangesInContent___block_invo
     }
 
     v6 = v5 - 50;
-    v7 = [*(v2 + 32) length];
+    v7 = [v2[4] length];
     v8 = [v3 range];
     v10 = v9;
 
@@ -108,7 +108,7 @@ uint64_t __56__SGReminderExtractionModel_whitelistedRangesInContent___block_invo
       v11 = v7;
     }
 
-    v12 = *(*(*(v2 + 40) + 8) + 40);
+    v12 = *(*(v2[5] + 1) + 40);
 
     return [v12 addIndexesInRange:{v6, v11 - v6}];
   }
@@ -238,7 +238,7 @@ uint64_t __56__SGReminderExtractionModel_whitelistedRangesInContent___block_invo
 
 - (id)modelInferences:(id)inferences
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   inferencesCopy = inferences;
   v5 = objc_opt_new();
   if (!self->_inputTokenMapping)
@@ -246,8 +246,8 @@ uint64_t __56__SGReminderExtractionModel_whitelistedRangesInContent___block_invo
     v12 = sgRemindersLogHandle();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      *v28 = 0;
-      _os_log_error_impl(&dword_231E60000, v12, OS_LOG_TYPE_ERROR, "No inputTokenMapping found", v28, 2u);
+      *v27 = 0;
+      _os_log_error_impl(&dword_231E60000, v12, OS_LOG_TYPE_ERROR, "No inputTokenMapping found", v27, 2u);
     }
 
     goto LABEL_14;
@@ -258,8 +258,8 @@ uint64_t __56__SGReminderExtractionModel_whitelistedRangesInContent___block_invo
     v12 = sgRemindersLogHandle();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      *v28 = 0;
-      _os_log_error_impl(&dword_231E60000, v12, OS_LOG_TYPE_ERROR, "No output configuration found.", v28, 2u);
+      *v27 = 0;
+      _os_log_error_impl(&dword_231E60000, v12, OS_LOG_TYPE_ERROR, "No output configuration found.", v27, 2u);
     }
 
 LABEL_14:
@@ -268,10 +268,10 @@ LABEL_14:
     goto LABEL_37;
   }
 
-  v30 = 0;
-  *v28 = @"ReminderDissector model inference";
+  v29 = 0;
+  *v27 = @"ReminderDissector model inference";
   v6 = mach_absolute_time();
-  v29 = v6;
+  v28 = v6;
   v7 = sgRemindersLogHandle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
@@ -285,9 +285,9 @@ LABEL_14:
     v9 = [objc_opt_class() inputFromTaggedCharacterRanges:inferencesCopy usingTokenMapping:self->_inputTokenMapping forModel:loadModel];
     if (v9)
     {
-      v27 = 0;
-      v10 = [loadModel predictionFromFeatures:v9 error:&v27];
-      v26 = v27;
+      v26 = 0;
+      v10 = [loadModel predictionFromFeatures:v9 error:&v26];
+      v25 = v26;
       if (v10)
       {
         v11 = [[SGExtractionModelCoreMLFeatureWrapper alloc] initWithFeatureProvider:v10];
@@ -299,7 +299,7 @@ LABEL_14:
         if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v32 = *&v26;
+          v31 = *&v25;
           _os_log_error_impl(&dword_231E60000, v16, OS_LOG_TYPE_ERROR, "Model inference failed: %@", buf, 0xCu);
         }
 
@@ -309,10 +309,10 @@ LABEL_14:
       v17 = sgRemindersLogHandle();
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
-        v24 = mach_absolute_time();
-        v25 = SGMachTimeToNanoseconds(v24 - v6);
+        v23 = mach_absolute_time();
+        v24 = SGMachTimeToNanoseconds(v23 - v6);
         *buf = 134217984;
-        v32 = v25 * 0.000000001;
+        v31 = v24 * 0.000000001;
         _os_log_debug_impl(&dword_231E60000, v17, OS_LOG_TYPE_DEBUG, "Model inference done in %f", buf, 0xCu);
       }
 
@@ -371,17 +371,15 @@ LABEL_14:
     v13 = v5;
   }
 
-  SGRecordMeasurementState(v28);
+  SGRecordMeasurementState(v27);
 LABEL_37:
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 - (id)loadModel
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   [v3 setComputeUnits:0];
   v4 = +[SGReminderTrialClientWrapper sharedInstance];
@@ -393,7 +391,7 @@ LABEL_37:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v18 = v6;
+      v17 = v6;
       _os_log_impl(&dword_231E60000, v7, OS_LOG_TYPE_INFO, "SGReminderExtractionModel: Loading model from trial override at path: %@", buf, 0xCu);
     }
 
@@ -408,9 +406,9 @@ LABEL_37:
   v9 = v8;
   if (v8)
   {
-    v16 = 0;
-    v10 = [MEMORY[0x277CBFF20] modelWithContentsOfURL:v8 configuration:v3 error:&v16];
-    v11 = v16;
+    v15 = 0;
+    v10 = [MEMORY[0x277CBFF20] modelWithContentsOfURL:v8 configuration:v3 error:&v15];
+    v11 = v15;
     if (v10)
     {
       v12 = v10;
@@ -422,7 +420,7 @@ LABEL_37:
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v18 = v11;
+        v17 = v11;
         _os_log_error_impl(&dword_231E60000, v13, OS_LOG_TYPE_ERROR, "Unable to load model from URL: %@", buf, 0xCu);
       }
     }
@@ -433,8 +431,6 @@ LABEL_37:
     v11 = 0;
     v10 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -537,38 +533,38 @@ void __38__SGReminderExtractionModel_updateAll__block_invoke(uint64_t a1, void *
 
 + (id)enrichTaggedCharacterRangesWithModelOutput:(id)output usingInputCharacterRanges:(id)ranges
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   outputCopy = output;
   rangesCopy = ranges;
-  v32 = objc_opt_new();
+  v31 = objc_opt_new();
   v7 = objc_opt_new();
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   obj = outputCopy;
   v8 = off_278949000;
   v9 = rangesCopy;
-  v37 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
-  if (v37)
+  v36 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+  if (v36)
   {
-    v35 = *v41;
+    v34 = *v40;
     do
     {
-      for (i = 0; i != v37; ++i)
+      for (i = 0; i != v36; ++i)
       {
-        if (*v41 != v35)
+        if (*v40 != v34)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = [obj objectForKeyedSubscript:*(*(&v40 + 1) + 8 * i)];
-        if ([v11 count])
+        v11 = [obj objectForKeyedSubscript:*(*(&v39 + 1) + 8 * i)];
+        if (objc_msgSend_count(v11))
         {
           v12 = 0;
           do
           {
-            if ([v7 count] <= v12)
+            if (objc_msgSend_count(v7) <= v12)
             {
               v13 = objc_opt_new();
               [v7 addObject:v13];
@@ -593,33 +589,33 @@ void __38__SGReminderExtractionModel_updateAll__block_invoke(uint64_t a1, void *
             ++v12;
           }
 
-          while ([v11 count] > v12);
+          while (objc_msgSend_count(v11) > v12);
         }
       }
 
-      v37 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+      v36 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
     }
 
-    while (v37);
+    while (v36);
   }
 
-  if ([v7 count])
+  if (objc_msgSend_count(v7))
   {
     v21 = 0;
     do
     {
-      v33 = objc_alloc(v8[59]);
-      v38 = [rangesCopy objectAtIndexedSubscript:v21];
-      tags = [v38 tags];
-      v34 = [v7 objectAtIndexedSubscript:v21];
-      v22 = [tags arrayByAddingObjectsFromArray:v34];
+      v32 = objc_alloc(v8[59]);
+      v37 = [rangesCopy objectAtIndexedSubscript:v21];
+      tags = [v37 tags];
+      v33 = [v7 objectAtIndexedSubscript:v21];
+      v22 = [tags arrayByAddingObjectsFromArray:v33];
       v23 = [rangesCopy objectAtIndexedSubscript:v21];
       range = [v23 range];
       v26 = v25;
       v27 = [v9 objectAtIndexedSubscript:v21];
       text = [v27 text];
-      v29 = [v33 initWithAnnotationType:4 tags:v22 range:range text:{v26, text}];
-      [v32 addObject:v29];
+      v29 = [v32 initWithAnnotationType:4 tags:v22 range:range text:{v26, text}];
+      [v31 addObject:v29];
 
       v8 = off_278949000;
       rangesCopy = v9;
@@ -627,12 +623,10 @@ void __38__SGReminderExtractionModel_updateAll__block_invoke(uint64_t a1, void *
       ++v21;
     }
 
-    while ([v7 count] > v21);
+    while (objc_msgSend_count(v7) > v21);
   }
 
-  v30 = *MEMORY[0x277D85DE8];
-
-  return v32;
+  return v31;
 }
 
 + (id)inputFromTaggedCharacterRanges:(id)ranges usingTokenMapping:(id)mapping forModel:(id)model

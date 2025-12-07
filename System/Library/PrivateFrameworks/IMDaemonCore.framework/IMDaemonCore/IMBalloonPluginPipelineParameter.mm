@@ -20,11 +20,11 @@
 
 - (IMBalloonPluginPipelineParameter)initWithBD:(id)d idsTrustedData:(id)data
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v45.receiver = self;
-  v45.super_class = IMBalloonPluginPipelineParameter;
-  v7 = [(IMTextMessagePipelineParameter *)&v45 initWithBD:dCopy idsTrustedData:data];
+  v44.receiver = self;
+  v44.super_class = IMBalloonPluginPipelineParameter;
+  v7 = [(IMTextMessagePipelineParameter *)&v44 initWithBD:dCopy idsTrustedData:data];
   if (!v7)
   {
     goto LABEL_41;
@@ -141,7 +141,7 @@ LABEL_15:
           payload4 = [balloonPlugin payload];
           type2 = [payload4 type];
           *buf = 134217984;
-          v47 = type2;
+          v46 = type2;
           _os_log_impl(&dword_22B4CC000, payload2, OS_LOG_TYPE_DEFAULT, "[WARN] Unable to handle unknown payload type (type: %tu).", buf, 0xCu);
         }
 
@@ -160,7 +160,7 @@ LABEL_38:
 
   if (v27)
   {
-    v44 = +[IMDFileTransferCenter sharedInstance];
+    v43 = +[IMDFileTransferCenter sharedInstance];
     attachments2 = [balloonPlugin attachments];
     metadata = [dCopy metadata];
     [metadata messageGUID];
@@ -170,7 +170,7 @@ LABEL_38:
     v33 = dCopy;
     v35 = v34 = Mutable;
     uUIDString = [v35 UUIDString];
-    v37 = [v44 guidsForStoredAttachmentBlastDoorPayloadData:attachments2 messageGUID:uUIDString];
+    v37 = [v43 guidsForStoredAttachmentBlastDoorPayloadData:attachments2 messageGUID:uUIDString];
 
     Mutable = v34;
     dCopy = v33;
@@ -195,7 +195,6 @@ LABEL_38:
   [(IMBalloonPluginPipelineParameter *)v7 setAssociatedMessageRange:associatedMessageRange, v41];
 
 LABEL_41:
-  v42 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

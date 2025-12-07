@@ -26,7 +26,7 @@
     v11 = objc_alloc(MEMORY[0x277CCAEB8]);
     identifier = [v3 identifier];
     currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
-    v12 = SHS_BundleForSoundsAndHapticsSettingsFramework();
+    v12 = SHS_BundleForSoundsAndHapticsSettingsFramework(currentLocale);
     bundleURL = [v12 bundleURL];
     v14 = [v11 initWithKey:identifier table:@"Sounds" locale:currentLocale bundleURL:bundleURL];
 

@@ -34,7 +34,7 @@
       [object fState];
       self->_fState.elements[0] = v5;
       self->_fState.elements[1] = v6;
-      [object fP];
+      objc_msgSend_fP(object);
       self->_fP.fD = v13;
       self->_fP.fU.fData[0] = v14;
       [object fQ];

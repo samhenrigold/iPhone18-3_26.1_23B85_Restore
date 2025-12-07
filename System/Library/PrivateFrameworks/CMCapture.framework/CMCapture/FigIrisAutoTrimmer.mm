@@ -2,9 +2,6 @@
 + (void)initialize;
 - ($3CC8671D27C23BF42ADDB32F2B5E48AE)beginTrimmingForStillImageHostPTS:(SEL)s minimumPTS:(id *)tS;
 - ($3CC8671D27C23BF42ADDB32F2B5E48AE)maxHoldDuration;
-- (BOOL)_isUnstable:(void *)unstable withLookback:;
-- (BOOL)_shouldCut:(void *)cut withLookahead:(void *)lookahead withLookback:;
-- (BOOL)_shouldCutSVM:(_BOOL8)result;
 - (BOOL)_shouldCutUnstable:(void *)unstable withLookahead:;
 - (FigIrisAutoTrimmer)init;
 - (Float64)_getHostTime;
@@ -14,12 +11,15 @@
 - (float)computeVitalityScoreForStillImageHostPTS:(id *)s movieRange:(id *)range;
 - (id)exportMotionSamples;
 - (int)emissionStatusForHostPTS:(id *)s;
+- (int64_t)_findClosestIndexToTimestamp:(int64_t)timestamp fromIndex:(double)index limitIndex:;
 - (uint64_t)_checkSamplesContainHostTime:(uint64_t)result;
-- (uint64_t)_directionalWeightForSample:(uint64_t)result;
 - (uint64_t)_findClosestIndexToHostTime:(uint64_t)time fromIndex:(uint64_t)index limitIndex:;
-- (unint64_t)_findClosestIndexToOffset:(int64_t)offset atLeastOneFromIndex:(double)index limitIndex:;
-- (unint64_t)_findClosestIndexToTimestamp:(int64_t)timestamp fromIndex:(double)index limitIndex:;
+- (uint64_t)_findClosestIndexToOffset:(int64_t)offset atLeastOneFromIndex:(double)index limitIndex:;
+- (uint64_t)_shouldCut:(void *)cut withLookahead:(void *)lookahead withLookback:;
+- (uint64_t)_shouldCutSVM:(uint64_t)result;
+- (void)_directionalWeightForSample:(void *)result;
 - (void)_initSVM:(uint64_t)m fromFile:(void *)file;
+- (void)_isUnstable:(void *)unstable withLookback:;
 - (void)_processMotionSample:(uint64_t)sample gravity:(__int128 *)gravity motionTimestamp:(void *)timestamp frameTimestamp:(double)frameTimestamp metadata:;
 - (void)dealloc;
 - (void)processCountOfVisibleVitalityObjects:(int)objects forHostTime:(id *)time;
@@ -129,7 +129,7 @@
 
 - (void)processISPMotionData:(id)data forHostTime:(id *)time
 {
-  v4 = MEMORY[0x1EEE9AC00](self);
+  v4 = MEMORY[0x1EEE9AC00](self, a2, data, time);
   if (v5)
   {
     v7 = v6;
@@ -199,7 +199,7 @@
 
   else
   {
-    [FigIrisAutoTrimmer processISPMotionData:forHostTime:];
+    [FigIrisAutoTrimmer processISPMotionData:v4 forHostTime:?];
   }
 }
 
@@ -265,9 +265,9 @@
   *retstr = *tS;
   lastObject = [(NSMutableArray *)self->_motionSamples lastObject];
   v10 = lastObject;
-  if (!lastObject || ([lastObject cmTimestamp], time2 = *tS, CMTimeCompare(&time1, &time2) < 0))
+  if (!lastObject || (objc_msgSend_cmTimestamp(lastObject), time2 = *tS, CMTimeCompare(&time1, &time2) < 0))
   {
-    [v10 timestamp];
+    objc_msgSend_timestamp(v10);
     if (v31 >= [(FigIrisAutoTrimmer *)self _timeoutThreshold])
     {
 LABEL_19:
@@ -301,7 +301,7 @@ LABEL_20:
     memset(&time1, 0, sizeof(time1));
     if (v14)
     {
-      [v14 cmTimestamp];
+      objc_msgSend_cmTimestamp(v14);
     }
 
     time2 = time1;
@@ -338,9 +338,9 @@ LABEL_20:
       result = CMTimeCompare(&time2, &v34);
       if (result <= 0)
       {
-        [-[NSMutableArray lastObject](self->_motionSamples "lastObject")];
+        objc_msgSend_timestamp([(NSMutableArray *)self->_motionSamples lastObject]);
         v19 = v18;
-        result = [v15 timestamp];
+        result = objc_msgSend_timestamp(v15);
         if (v19 - v20 < 0.0333333333)
         {
           goto LABEL_19;
@@ -353,13 +353,13 @@ LABEL_20:
         self->_captureMotionDelta.x = v24;
         self->_captureMotionDelta.y = v25;
         self->_captureMotionDelta.z = v26;
-        [-[NSMutableArray objectAtIndexedSubscript:](self->_motionSamples objectAtIndexedSubscript:{v22), "timestamp"}];
+        objc_msgSend_timestamp([(NSMutableArray *)self->_motionSamples objectAtIndexedSubscript:v22]);
         v28 = v27;
-        [-[NSMutableArray objectAtIndexedSubscript:](self->_motionSamples objectAtIndexedSubscript:{v21), "timestamp"}];
+        objc_msgSend_timestamp([(NSMutableArray *)self->_motionSamples objectAtIndexedSubscript:v21]);
         self->_captureMotionDeltaPeriod = v28 - v29;
         self->_haveCaptureMotionDelta = 1;
         *retstr = time1;
-        result = [v15 timestamp];
+        result = objc_msgSend_timestamp(v15);
         self->_lastCheckedTimestamp = v30;
         self->_lastStatus = 4;
       }
@@ -399,7 +399,7 @@ LABEL_21:
       goto LABEL_12;
     }
 
-    [-[NSMutableArray objectAtIndexedSubscript:](self->_motionSamples objectAtIndexedSubscript:{v8), "timestamp"}];
+    objc_msgSend_timestamp([(NSMutableArray *)self->_motionSamples objectAtIndexedSubscript:v8]);
   }
 
   while (v10 > self->_lastCheckedTimestamp);
@@ -407,7 +407,7 @@ LABEL_21:
   v12 = v8 + 1;
   if (v11)
   {
-    [v11 cmTimestamp];
+    objc_msgSend_cmTimestamp(v11);
   }
 
   else
@@ -423,7 +423,7 @@ LABEL_12:
   {
 LABEL_27:
     lastObject = [(NSMutableArray *)self->_motionSamples lastObject];
-    if (lastObject && ([lastObject timestamp], v23 >= -[FigIrisAutoTrimmer _timeoutThreshold](self)) && self->_motionAvailable)
+    if (lastObject && (objc_msgSend_timestamp(lastObject), v23 >= [(FigIrisAutoTrimmer *)self _timeoutThreshold]) && self->_motionAvailable)
     {
       return 5;
     }
@@ -444,7 +444,7 @@ LABEL_27:
       memset(&time, 0, sizeof(time));
       if (v13)
       {
-        [v13 cmTimestamp];
+        objc_msgSend_cmTimestamp(v13);
       }
 
       else
@@ -463,7 +463,7 @@ LABEL_27:
       }
 
       v29 = time;
-      [v14 timestamp];
+      objc_msgSend_timestamp(v14);
       self->_lastCheckedTimestamp = v15;
       v16 = [(FigIrisAutoTrimmer *)self _findClosestIndexToOffset:v12 atLeastOneFromIndex:[(NSMutableArray *)self->_motionSamples count]- 1 limitIndex:0.0666666667];
       if (v12 != v16)
@@ -499,7 +499,7 @@ LABEL_27:
       self->_lastStatus = 4;
       if (v14)
       {
-        [v14 cmTimestamp];
+        objc_msgSend_cmTimestamp(v14);
       }
 
       else
@@ -564,7 +564,7 @@ LABEL_17:
     v9 = [(NSMutableArray *)self->_motionSamples objectAtIndexedSubscript:v7];
     if (v9)
     {
-      [v9 originatingFrameTime];
+      objc_msgSend_originatingFrameTime(v9);
     }
 
     else
@@ -595,7 +595,7 @@ LABEL_19:
   v10 = [(NSMutableArray *)self->_motionSamples objectAtIndexedSubscript:v7];
   if (v10)
   {
-    [v10 originatingFrameTime];
+    objc_msgSend_originatingFrameTime(v10);
   }
 
   else
@@ -714,14 +714,14 @@ LABEL_20:
 
     if ([file objectForKeyedSubscript:@"KernelType"])
     {
-      if ([objc_msgSend(file objectForKeyedSubscript:{@"KernelType", "isEqualToString:", @"Linear"}])
+      if (objc_msgSend_isEqualToString_([file objectForKeyedSubscript:@"KernelType"]))
       {
         *(m + 140) = 0;
       }
 
       else
       {
-        if (![objc_msgSend(file objectForKeyedSubscript:{@"KernelType", "isEqualToString:", @"RBF"}])
+        if (!objc_msgSend_isEqualToString_([file objectForKeyedSubscript:@"KernelType"]))
         {
           return;
         }
@@ -807,15 +807,15 @@ LABEL_20:
     }
 
     v14 = [FigIrisAutoTrimmerMotionSample alloc];
-    v72 = *gravity;
-    v73 = *(gravity + 2);
-    v15 = [(FigIrisAutoTrimmerMotionSample *)v14 initWithAttitude:a2 gravity:sample motionTimestamp:&v72 frameTimestamp:v13 previousSample:frameTimestamp];
+    v71 = *gravity;
+    v72 = *(gravity + 2);
+    v15 = [(FigIrisAutoTrimmerMotionSample *)v14 initWithAttitude:a2 gravity:sample motionTimestamp:&v71 frameTimestamp:v13 previousSample:frameTimestamp];
     v16 = v15;
     if (*(self + 160))
     {
       v17 = [(FigIrisAutoTrimmerMotionSample *)v15 prepareIntermediates:*(self + 192)];
       v18 = *(self + 160);
-      v26 = OUTLINED_FUNCTION_4_2(v17, v19, v20, v21, v22, v23, v24, v25, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69, 0);
+      v26 = OUTLINED_FUNCTION_4_2(v17, v19, v20, v21, v22, v23, v24, v25, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69);
       if (v26)
       {
         v27 = v26;
@@ -837,7 +837,7 @@ LABEL_20:
             }
           }
 
-          v27 = OUTLINED_FUNCTION_4_2(v31, v32, v33, v34, v35, v36, v37, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, v70, v71);
+          v27 = OUTLINED_FUNCTION_4_2(v31, v32, v33, v34, v35, v36, v37, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, v70);
         }
 
         while (v27);
@@ -865,7 +865,7 @@ LABEL_20:
   firstObject = [*(v3 + 184) firstObject];
   if (firstObject)
   {
-    [firstObject originatingFrameTime];
+    objc_msgSend_originatingFrameTime(firstObject);
   }
 
   else
@@ -880,7 +880,7 @@ LABEL_20:
     if (firstObject2)
     {
 LABEL_14:
-      [firstObject2 originatingFrameTime];
+      objc_msgSend_originatingFrameTime(firstObject2);
       goto LABEL_15;
     }
 
@@ -896,7 +896,7 @@ LABEL_15:
   lastObject = [*(v3 + 184) lastObject];
   if (lastObject)
   {
-    [lastObject originatingFrameTime];
+    objc_msgSend_originatingFrameTime(lastObject);
   }
 
   else
@@ -927,7 +927,7 @@ LABEL_17:
   firstObject3 = [*(v3 + 184) firstObject];
   if (firstObject3)
   {
-    [firstObject3 originatingFrameTime];
+    objc_msgSend_originatingFrameTime(firstObject3);
   }
 
   else
@@ -938,7 +938,7 @@ LABEL_17:
   lastObject2 = [*(v3 + 184) lastObject];
   if (lastObject2)
   {
-    [lastObject2 originatingFrameTime];
+    objc_msgSend_originatingFrameTime(lastObject2);
   }
 
   else
@@ -970,7 +970,7 @@ LABEL_17:
     v8 = [*(result + 184) objectAtIndexedSubscript:?];
     if (v8)
     {
-      [v8 originatingFrameTime];
+      objc_msgSend_originatingFrameTime(v8);
     }
 
     else
@@ -989,7 +989,7 @@ LABEL_17:
         timeCopy = [*(v6 + 184) objectAtIndexedSubscript:v7 + timeCopy];
         if (timeCopy)
         {
-          [timeCopy originatingFrameTime];
+          objc_msgSend_originatingFrameTime(timeCopy);
         }
 
         else
@@ -1046,7 +1046,7 @@ LABEL_17:
   return Host - CMTimeGetSeconds(&v4);
 }
 
-- (unint64_t)_findClosestIndexToOffset:(int64_t)offset atLeastOneFromIndex:(double)index limitIndex:
+- (uint64_t)_findClosestIndexToOffset:(int64_t)offset atLeastOneFromIndex:(double)index limitIndex:
 {
   if (!self)
   {
@@ -1054,7 +1054,7 @@ LABEL_17:
   }
 
   v4 = a2;
-  if ((a2 & 0x8000000000000000) != 0)
+  if (a2 < 0)
   {
     return v4;
   }
@@ -1076,7 +1076,7 @@ LABEL_17:
   }
 
   v11 = v10 + v4;
-  if ((v10 + v4) < 0)
+  if (v10 + v4 < 0)
   {
     return -1;
   }
@@ -1088,13 +1088,13 @@ LABEL_17:
     return v4;
   }
 
-  [objc_msgSend(*(self + 184) objectAtIndexedSubscript:{v4), "timestamp"}];
+  objc_msgSend_timestamp([*(self + 184) objectAtIndexedSubscript:v4]);
   v16 = v15 + index * v10;
 
   return [(FigIrisAutoTrimmer *)self _findClosestIndexToTimestamp:offset fromIndex:v16 limitIndex:?];
 }
 
-- (BOOL)_shouldCut:(void *)cut withLookahead:(void *)lookahead withLookback:
+- (uint64_t)_shouldCut:(void *)cut withLookahead:(void *)lookahead withLookback:
 {
   if (!self)
   {
@@ -1206,7 +1206,7 @@ LABEL_17:
   return v6;
 }
 
-- (unint64_t)_findClosestIndexToTimestamp:(int64_t)timestamp fromIndex:(double)index limitIndex:
+- (int64_t)_findClosestIndexToTimestamp:(int64_t)timestamp fromIndex:(double)index limitIndex:
 {
   if (!self)
   {
@@ -1224,9 +1224,9 @@ LABEL_17:
     v8 = -1;
   }
 
-  [objc_msgSend(*(self + 184) objectAtIndexedSubscript:{a2), "timestamp"}];
+  objc_msgSend_timestamp([*(self + 184) objectAtIndexedSubscript:a2]);
   v10 = v8 + v5;
-  if ((v8 + v5) >= 0)
+  if (v8 + v5 >= 0)
   {
     v11 = vabdd_f64(v9, index);
     v12 = v5 + 2 * v8;
@@ -1238,7 +1238,7 @@ LABEL_17:
         break;
       }
 
-      [objc_msgSend(*(self + 184) objectAtIndexedSubscript:{v10), "timestamp"}];
+      objc_msgSend_timestamp([*(self + 184) objectAtIndexedSubscript:v10]);
       v15 = vabdd_f64(v14, index);
       if (v15 <= v11)
       {
@@ -1261,7 +1261,7 @@ LABEL_17:
   return v5;
 }
 
-- (uint64_t)_directionalWeightForSample:(uint64_t)result
+- (void)_directionalWeightForSample:(void *)result
 {
   if (result)
   {
@@ -1271,14 +1271,14 @@ LABEL_17:
     v7 = v6;
     v9 = v8;
     v10 = sqrt(v6 * v6 + v4 * v4 + v8 * v8);
-    v11 = acos(*(v3 + 16));
+    v11 = acos(*(v3 + 2));
     v12 = v11 + v11;
     if (v12 > 3.14159265)
     {
       v12 = v12 + -6.28318531;
     }
 
-    v13 = fabs(v12) / *(v3 + 48);
+    v13 = fabs(v12) / *(v3 + 6);
     if ([a2 intermediateCalculations])
     {
       [objc_msgSend(a2 "intermediateCalculations")];
@@ -1300,16 +1300,16 @@ LABEL_17:
 
       else
       {
-        v14 = *(v3 + 24);
-        v15 = *(v3 + 32);
-        v16 = *(v3 + 40);
+        v14 = *(v3 + 3);
+        v15 = *(v3 + 4);
+        v16 = *(v3 + 5);
       }
 
       v20 = (v7 * v15 + v14 * v5 + v16 * v9) / (v10 * sqrt(v15 * v15 + v14 * v14 + v16 * v16));
       result = [a2 intermediateCalculations];
       if (result)
       {
-        [MEMORY[0x1E696AD98] numberWithDouble:(v7 * *(v3 + 32) + *(v3 + 24) * v5 + *(v3 + 40) * v9) / (v10 * sqrt(*(v3 + 32) * *(v3 + 32) + *(v3 + 24) * *(v3 + 24) + *(v3 + 40) * *(v3 + 40)))];
+        [MEMORY[0x1E696AD98] numberWithDouble:(v7 * *(v3 + 4) + *(v3 + 3) * v5 + *(v3 + 5) * v9) / (v10 * sqrt(*(v3 + 4) * *(v3 + 4) + *(v3 + 3) * *(v3 + 3) + *(v3 + 5) * *(v3 + 5)))];
         [OUTLINED_FUNCTION_2_115() setObject:v3 forKeyedSubscript:@"captureDP"];
         [a2 gravity];
         v22 = v21;
@@ -1339,7 +1339,7 @@ LABEL_17:
   return result;
 }
 
-- (BOOL)_isUnstable:(void *)unstable withLookback:
+- (void)_isUnstable:(void *)unstable withLookback:
 {
   if (result)
   {
@@ -1379,7 +1379,7 @@ LABEL_17:
     v24 = fabs(OUTLINED_FUNCTION_5_84(v23));
     [a2 deltaPeriod];
     v26 = v21 * (v24 / v25) * v22;
-    [a2 timestamp];
+    objc_msgSend_timestamp(a2);
     if ([a2 intermediateCalculations])
     {
       [MEMORY[0x1E696AD98] numberWithDouble:v16];
@@ -1402,7 +1402,7 @@ LABEL_17:
       [OUTLINED_FUNCTION_2_115() setObject:v27 forKeyedSubscript:@"unstable"];
     }
 
-    return v26 > *&sBadAccelThreshold;
+    return (v26 > *&sBadAccelThreshold);
   }
 
   return result;
@@ -1425,9 +1425,9 @@ LABEL_17:
     }
 
     v15 = fabs(v14);
-    [unstable timestamp];
+    objc_msgSend_timestamp(unstable);
     v17 = v16;
-    [a2 timestamp];
+    objc_msgSend_timestamp(a2);
     v19 = vabdd_f64(v17, v18);
     v20 = 0.0;
     if (v19 <= 0.0001)
@@ -1440,8 +1440,8 @@ LABEL_17:
       v21 = v15 / v19;
     }
 
-    [unstable timestamp];
-    [a2 timestamp];
+    objc_msgSend_timestamp(unstable);
+    objc_msgSend_timestamp(a2);
     [a2 accel];
     v26 = sqrt(v10 * v10 + v8 * v8 + v12 * v12);
     if (v26 >= 0.00001)
@@ -1479,7 +1479,7 @@ LABEL_17:
   return result;
 }
 
-- (BOOL)_shouldCutSVM:(_BOOL8)result
+- (uint64_t)_shouldCutSVM:(uint64_t)result
 {
   if (result)
   {
@@ -1584,20 +1584,6 @@ LABEL_17:
   CMClockGetTime(&v4, HostTimeClock);
   v3 = v4;
   return CMTimeGetSeconds(&v3);
-}
-
-- (uint64_t)processISPMotionData:forHostTime:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)processISPMotionData:forHostTime:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
 }
 
 - (uint64_t)processCountOfVisibleVitalityObjects:(int)a3 forHostTime:.cold.1(uint64_t a1, uint64_t a2, int a3)

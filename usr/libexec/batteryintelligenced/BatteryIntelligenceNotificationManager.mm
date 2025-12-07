@@ -178,7 +178,7 @@
 
 - (void)postTT80NotificationWithDuration:(double)duration
 {
-  if (sub_10001E444())
+  if (sub_10001E444(self, a2))
   {
     v5 = [(BatteryIntelligenceNotificationManager *)self tt80NotificationRequestWithDuration:duration];
     objc_initWeak(location, self);

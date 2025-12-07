@@ -26,61 +26,62 @@
 - (FMDExtAccessory)initWithExtAccessoryInfo:(id)info
 {
   infoCopy = info;
-  v28.receiver = self;
-  v28.super_class = FMDExtAccessory;
-  v5 = [(FMDExtAccessory *)&v28 init];
+  v29.receiver = self;
+  v29.super_class = FMDExtAccessory;
+  v5 = [(FMDExtAccessory *)&v29 init];
+  v6 = v5;
   if (v5)
   {
-    v6 = sub_10000BE38();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_10000BE38(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v30 = infoCopy;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "FMDExtAccessory initWithExtAccessoryInfo %@", buf, 0xCu);
+      v31 = infoCopy;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "FMDExtAccessory initWithExtAccessoryInfo %@", buf, 0xCu);
     }
 
     deviceDiscoveryId = [infoCopy deviceDiscoveryId];
-    address = v5->_address;
-    v5->_address = deviceDiscoveryId;
+    address = v6->_address;
+    v6->_address = deviceDiscoveryId;
 
-    v9 = [FMDAccessoryIdentifier alloc];
+    v10 = [FMDAccessoryIdentifier alloc];
     accessoryIdentifier = [infoCopy accessoryIdentifier];
-    v11 = [v9 initWithString:accessoryIdentifier];
-    accessoryIdentifier = v5->_accessoryIdentifier;
-    v5->_accessoryIdentifier = v11;
+    v12 = [v10 initWithString:accessoryIdentifier];
+    accessoryIdentifier = v6->_accessoryIdentifier;
+    v6->_accessoryIdentifier = v12;
 
     accessoryType = [infoCopy accessoryType];
-    accessoryType = v5->_accessoryType;
-    v5->_accessoryType = accessoryType;
+    accessoryType = v6->_accessoryType;
+    v6->_accessoryType = accessoryType;
 
     name = [infoCopy name];
-    name = v5->_name;
-    v5->_name = name;
+    name = v6->_name;
+    v6->_name = name;
 
     serialNumbers = [infoCopy serialNumbers];
-    serialNumbers = v5->_serialNumbers;
-    v5->_serialNumbers = serialNumbers;
+    serialNumbers = v6->_serialNumbers;
+    v6->_serialNumbers = serialNumbers;
 
     firmwareVersion = [infoCopy firmwareVersion];
-    firmwareVersion = v5->_firmwareVersion;
-    v5->_firmwareVersion = firmwareVersion;
+    firmwareVersion = v6->_firmwareVersion;
+    v6->_firmwareVersion = firmwareVersion;
 
     additionalInfo = [infoCopy additionalInfo];
-    additionalInfo = v5->_additionalInfo;
-    v5->_additionalInfo = additionalInfo;
+    additionalInfo = v6->_additionalInfo;
+    v6->_additionalInfo = additionalInfo;
 
-    v23 = [[FMDCommandContext alloc] initWithAccessory:v5];
-    commandContext = v5->_commandContext;
-    v5->_commandContext = v23;
+    v24 = [[FMDCommandContext alloc] initWithAccessory:v6];
+    commandContext = v6->_commandContext;
+    v6->_commandContext = v24;
 
-    style = v5->_style;
-    v5->_style = @"-1";
+    style = v6->_style;
+    v6->_style = @"-1";
 
-    batteryInfo = v5->_batteryInfo;
-    v5->_batteryInfo = &off_1002E8DE0;
+    batteryInfo = v6->_batteryInfo;
+    v6->_batteryInfo = &off_1002E8DE0;
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)updateWithAccessory:(id)accessory
@@ -103,24 +104,24 @@
       {
         lastActiveTime = [v5 lastActiveTime];
         [lastActiveTime timeIntervalSinceReferenceDate];
-        v14 = v13;
+        v15 = v14;
         lastActiveTime2 = [(FMDExtAccessory *)selfCopy lastActiveTime];
         [lastActiveTime2 timeIntervalSinceReferenceDate];
-        v17 = v16;
+        v18 = v17;
 
-        if (v14 > v17)
+        if (v15 > v18)
         {
           [(FMDExtAccessory *)selfCopy setLastActiveTime:lastActiveTime];
         }
 
         lastStatusUpdateTime = [v5 lastStatusUpdateTime];
         [lastStatusUpdateTime timeIntervalSinceReferenceDate];
-        v20 = v19;
+        v21 = v20;
         lastStatusUpdateTime2 = [(FMDExtAccessory *)selfCopy lastStatusUpdateTime];
         [lastStatusUpdateTime2 timeIntervalSinceReferenceDate];
-        v23 = v22;
+        v24 = v23;
 
-        if (v20 > v23)
+        if (v21 > v24)
         {
           [(FMDExtAccessory *)selfCopy setLastStatusUpdateTime:lastStatusUpdateTime];
         }
@@ -158,25 +159,25 @@
         }
 
         baUUID = [v5 baUUID];
-        v33 = sub_100002880();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+        v34 = sub_100002880(baUUID);
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
         {
           [baUUID UUIDString];
-          v34 = v40 = lastStatusUpdateTime;
+          v35 = v41 = lastStatusUpdateTime;
           baUUID2 = [(FMDExtAccessory *)selfCopy baUUID];
           name3 = [v5 name];
           address = [v5 address];
           *buf = 138413058;
-          v42 = v34;
-          v43 = 2112;
-          v44 = baUUID2;
-          v45 = 2112;
-          v46 = name3;
-          v47 = 2112;
-          v48 = address;
-          _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "FMDExtAccessory existing baUUID: %@, new baUUID %@ for %@, %@", buf, 0x2Au);
+          v43 = v35;
+          v44 = 2112;
+          v45 = baUUID2;
+          v46 = 2112;
+          v47 = name3;
+          v48 = 2112;
+          v49 = address;
+          _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "FMDExtAccessory existing baUUID: %@, new baUUID %@ for %@, %@", buf, 0x2Au);
 
-          lastStatusUpdateTime = v40;
+          lastStatusUpdateTime = v41;
         }
 
         baUUID3 = [(FMDExtAccessory *)selfCopy baUUID];
@@ -198,11 +199,11 @@ LABEL_24:
     {
     }
 
-    lastActiveTime = sub_10000BE38();
+    lastActiveTime = sub_10000BE38(v12);
     if (os_log_type_enabled(lastActiveTime, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v42 = v5;
+      v43 = v5;
       _os_log_impl(&_mh_execute_header, lastActiveTime, OS_LOG_TYPE_DEFAULT, "got invalid accessory %@", buf, 0xCu);
     }
 
@@ -223,10 +224,10 @@ LABEL_25:
   [(FMDExtAccessory *)self setPlaybackChannels:channelsCopy];
   [(FMDExtAccessory *)self _updateAudioChannelPlayingState:channelsCopy];
 
-  v9 = sub_100002880();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = sub_100002880(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    sub_10022B7BC(self, v9);
+    sub_10022B7BC(self, v10);
   }
 
   return v8 ^ 1;
@@ -316,115 +317,116 @@ LABEL_25:
     v7 = [FMDExtExtensionHelper getAccessoryControllerForFeature:@"connection" flavor:v6];
     if (!v7)
     {
-      v18 = 0;
+      v20 = 0;
 LABEL_16:
 
       goto LABEL_17;
     }
 
-    v34 = 0;
-    v35 = &v34;
-    v36 = 0x3032000000;
-    v37 = sub_10000AA74;
-    v38 = sub_100002B04;
-    v39 = 0;
-    v30 = 0;
-    v31 = &v30;
-    v32 = 0x2020000000;
-    v33 = 0;
+    v36 = 0;
+    v37 = &v36;
+    v38 = 0x3032000000;
+    v39 = sub_10000AA74;
+    v40 = sub_100002B04;
+    v41 = 0;
+    v32 = 0;
+    v33 = &v32;
+    v34 = 0x2020000000;
+    v35 = 0;
     v8 = dispatch_group_create();
     dispatch_group_enter(v8);
-    v9 = sub_10000BE38();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_10000BE38(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "start for connection status", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "start for connection status", buf, 2u);
     }
 
     accessoryIdentifier = [(FMDExtAccessory *)self accessoryIdentifier];
     stringValue = [accessoryIdentifier stringValue];
-    v26[0] = _NSConcreteStackBlock;
-    v26[1] = 3221225472;
-    v26[2] = sub_1001887A8;
-    v26[3] = &unk_1002CFE28;
-    v28 = &v34;
-    v29 = &v30;
-    v12 = v8;
-    v27 = v12;
-    [v7 connectionStatusForAccessory:stringValue withCompletion:v26];
+    v28[0] = _NSConcreteStackBlock;
+    v28[1] = 3221225472;
+    v28[2] = sub_1001887A8;
+    v28[3] = &unk_1002CFE28;
+    v30 = &v36;
+    v31 = &v32;
+    v13 = v8;
+    v29 = v13;
+    [v7 connectionStatusForAccessory:stringValue withCompletion:v28];
 
     [v5 timeoutForFeature:@"connection"];
-    v14 = dispatch_time(0, (v13 * 1000000000.0));
-    v15 = dispatch_group_wait(v12, v14);
-    if (v15 || v35[5])
+    v15 = dispatch_time(0, (v14 * 1000000000.0));
+    v16 = dispatch_group_wait(v13, v15);
+    v17 = v16;
+    if (v16 || v37[5])
     {
-      p_super = sub_10000BE38();
+      p_super = sub_10000BE38(v16);
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
       {
         name = [(FMDExtAccessory *)self name];
-        v25 = v35[5];
+        v27 = v37[5];
         *buf = 138412802;
-        v41 = name;
-        v42 = 2048;
-        v43 = v15;
-        v44 = 2112;
-        v45 = v25;
+        v43 = name;
+        v44 = 2048;
+        v45 = v17;
+        v46 = 2112;
+        v47 = v27;
         _os_log_error_impl(&_mh_execute_header, p_super, OS_LOG_TYPE_ERROR, "%@ connection status failed timeout %ld error %@", buf, 0x20u);
       }
 
-      v17 = 1;
+      v19 = 1;
     }
 
     else
     {
-      v20 = sub_10000BE38();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v22 = sub_10000BE38(0);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         name2 = [(FMDExtAccessory *)self name];
-        v22 = *(v31 + 24);
+        v24 = *(v33 + 24);
         *buf = 138412546;
-        v41 = name2;
-        v42 = 1024;
-        LODWORD(v43) = v22;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "%@ connection status success %d", buf, 0x12u);
+        v43 = name2;
+        v44 = 1024;
+        LODWORD(v45) = v24;
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%@ connection status success %d", buf, 0x12u);
       }
 
-      if (*(v31 + 24) != 1)
+      if (*(v33 + 24) != 1)
       {
-        v17 = 0;
-        v18 = 0;
+        v19 = 0;
+        v20 = 0;
 LABEL_11:
 
-        _Block_object_dispose(&v30, 8);
-        _Block_object_dispose(&v34, 8);
+        _Block_object_dispose(&v32, 8);
+        _Block_object_dispose(&v36, 8);
 
-        if (v17)
+        if (v19)
         {
-          v18 = 0;
+          v20 = 0;
         }
 
         goto LABEL_16;
       }
 
-      v23 = +[NSDate date];
-      v17 = 0;
+      v25 = +[NSDate date];
+      v19 = 0;
       p_super = &self->_lastActiveTime->super;
-      self->_lastActiveTime = v23;
+      self->_lastActiveTime = v25;
     }
 
-    v18 = 1;
+    v20 = 1;
     goto LABEL_11;
   }
 
-  v18 = 0;
+  v20 = 0;
 LABEL_17:
 
-  return v18;
+  return v20;
 }
 
 - (BOOL)nearby
 {
-  v3 = sub_10000BE38();
+  v3 = sub_10000BE38(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10022B854(v3);
@@ -735,32 +737,32 @@ LABEL_17:
   [v3 setValue:batteryInfo forKey:@"batteryInfo"];
 
   v21 = objc_opt_new();
-  v48 = 0u;
   v49 = 0u;
   v50 = 0u;
   v51 = 0u;
+  v52 = 0u;
   audioChannelInfo = [(FMDExtAccessory *)self audioChannelInfo];
   allValues = [audioChannelInfo allValues];
 
-  v24 = [allValues countByEnumeratingWithState:&v48 objects:v54 count:16];
+  v24 = [allValues countByEnumeratingWithState:&v49 objects:v55 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v49;
+    v26 = *v50;
     do
     {
       for (i = 0; i != v25; i = i + 1)
       {
-        if (*v49 != v26)
+        if (*v50 != v26)
         {
           objc_enumerationMutation(allValues);
         }
 
-        dictionaryValue = [*(*(&v48 + 1) + 8 * i) dictionaryValue];
+        dictionaryValue = [*(*(&v49 + 1) + 8 * i) dictionaryValue];
         [v21 addObject:dictionaryValue];
       }
 
-      v25 = [allValues countByEnumeratingWithState:&v48 objects:v54 count:16];
+      v25 = [allValues countByEnumeratingWithState:&v49 objects:v55 count:16];
     }
 
     while (v25);
@@ -807,12 +809,12 @@ LABEL_17:
   uUIDString = [baUUID UUIDString];
   [v3 fm_safelyMapKey:@"baUUID" toObject:uUIDString];
 
-  v46 = sub_10000BE38();
-  if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+  v47 = sub_10000BE38(v46);
+  if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v53 = v3;
-    _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "device Info = %@", buf, 0xCu);
+    v54 = v3;
+    _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "device Info = %@", buf, 0xCu);
   }
 
   return v3;
@@ -1012,10 +1014,10 @@ LABEL_17:
   if (!v9)
   {
 LABEL_12:
-    v19 = sub_10000BE38();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = sub_10000BE38(v10);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      sub_10022B898(v19);
+      sub_10022B898(v20);
     }
 
     goto LABEL_18;
@@ -1049,9 +1051,9 @@ LABEL_16:
 
   address = [(FMDExtAccessory *)self address];
   address2 = [changedCopy address];
-  v31 = [address isEqualToString:address2];
+  v32 = [address isEqualToString:address2];
 
-  if (!v31)
+  if (!v32)
   {
     goto LABEL_18;
   }
@@ -1059,14 +1061,14 @@ LABEL_16:
   name = [(FMDExtAccessory *)self baUUID];
   if (!name)
   {
-    v18 = 0;
+    v19 = 0;
     goto LABEL_22;
   }
 
   name2 = [changedCopy baUUID];
   if (!name2)
   {
-    v18 = 0;
+    v19 = 0;
     goto LABEL_22;
   }
 
@@ -1077,7 +1079,7 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v18 = 1;
+  v19 = 1;
 LABEL_22:
   baUUID = [(FMDExtAccessory *)self baUUID];
   if (!baUUID)
@@ -1085,7 +1087,7 @@ LABEL_22:
     baUUID2 = [changedCopy baUUID];
     if (baUUID2)
     {
-      v24 = 1;
+      v25 = 1;
       goto LABEL_31;
     }
   }
@@ -1094,7 +1096,7 @@ LABEL_22:
   if (baUUID3)
   {
 
-    v24 = 0;
+    v25 = 0;
     if (baUUID)
     {
       goto LABEL_25;
@@ -1104,7 +1106,7 @@ LABEL_30:
     baUUID2 = 0;
 LABEL_31:
 
-    if ((v18 & 1) == 0)
+    if ((v19 & 1) == 0)
     {
       goto LABEL_33;
     }
@@ -1113,7 +1115,7 @@ LABEL_31:
   }
 
   baUUID4 = [(FMDExtAccessory *)self baUUID];
-  v24 = baUUID4 != 0;
+  v25 = baUUID4 != 0;
 
   if (!baUUID)
   {
@@ -1122,7 +1124,7 @@ LABEL_31:
 
 LABEL_25:
 
-  if (v18)
+  if (v19)
   {
 LABEL_32:
   }
@@ -1132,37 +1134,37 @@ LABEL_33:
   {
   }
 
-  if (!v24)
+  if (!v25)
   {
     additionalInfo = [(FMDExtAccessory *)self additionalInfo];
     if (additionalInfo || ([changedCopy additionalInfo], (name2 = objc_claimAutoreleasedReturnValue()) != 0))
     {
       additionalInfo2 = [(FMDExtAccessory *)self additionalInfo];
       additionalInfo3 = [changedCopy additionalInfo];
-      v30 = [additionalInfo2 isEqualToDictionary:additionalInfo3];
+      v31 = [additionalInfo2 isEqualToDictionary:additionalInfo3];
 
       if (additionalInfo)
       {
 LABEL_42:
 
-        v20 = v30 ^ 1;
+        v21 = v31 ^ 1;
         goto LABEL_19;
       }
     }
 
     else
     {
-      v30 = 1;
+      v31 = 1;
     }
 
     goto LABEL_42;
   }
 
 LABEL_18:
-  v20 = 1;
+  v21 = 1;
 LABEL_19:
 
-  return v20;
+  return v21;
 }
 
 - (BOOL)isEqual:(id)equal

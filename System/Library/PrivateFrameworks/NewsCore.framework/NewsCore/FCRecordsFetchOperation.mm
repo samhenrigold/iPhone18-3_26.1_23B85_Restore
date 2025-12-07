@@ -9,7 +9,7 @@
 {
   if ([(NSArray *)self->_recordIdentifiers count])
   {
-    [(FCRecordSource *)self->_recordSource _prepareForUse];
+    [(FCRecordSource *)&self->_recordSource->super.isa _prepareForUse];
     date = [MEMORY[0x1E695DF00] date];
     queue = FCDispatchQueueForQualityOfService([(FCRecordsFetchOperation *)self qualityOfService]);
     v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -241,32 +241,32 @@
 
 void __43__FCRecordsFetchOperation_performOperation__block_invoke(uint64_t a1)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   objc_storeStrong((*(a1 + 32) + 440), *(a1 + 40));
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v2 = *(*(a1 + 32) + 424);
-  v3 = [v2 countByEnumeratingWithState:&v30 objects:v42 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v29 objects:v41 count:16];
   if (v3)
   {
     v5 = v3;
-    v6 = *v31;
+    v6 = *v30;
     v7 = 0x1EDB0F000uLL;
     *&v4 = 136315906;
-    v29 = v4;
+    v28 = v4;
     do
     {
       v8 = 0;
       do
       {
-        if (*v31 != v6)
+        if (*v30 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v9 = *(*(&v30 + 1) + 8 * v8);
+        v9 = *(*(&v29 + 1) + 8 * v8);
         v10 = *(v7 + 2236);
         v11 = *(*(a1 + 32) + v10);
         if (v11)
@@ -279,7 +279,7 @@ void __43__FCRecordsFetchOperation_performOperation__block_invoke(uint64_t a1)
           v12 = 0;
         }
 
-        if ([v12 cacheContainsKey:{*(*(&v30 + 1) + 8 * v8), v29, v30}])
+        if ([v12 cacheContainsKey:{*(*(&v29 + 1) + 8 * v8), v28, v29}])
         {
           if ([*(a1 + 48) containsObject:v9])
           {
@@ -336,7 +336,7 @@ LABEL_21:
           {
             if ((v20 - 2) < 2)
             {
-              if (-[NTPBRecordBase hasExpiredAssetURLs](v18) || *(a1 + 88) != 0.0 && [v19 fc_isCachedAgeGreaterThan:?])
+              if ((-[NTPBRecordBase hasExpiredAssetURLs](v18) & 1) != 0 || *(a1 + 88) != 0.0 && [v19 fc_isCachedAgeGreaterThan:?])
               {
                 v14 = [FCFetchOperationResult resultWithStatus:2 fetchedObject:0 error:0];
                 v21 = [MEMORY[0x1E695DFD8] setWithObject:v9];
@@ -366,14 +366,14 @@ LABEL_24:
             else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
             {
               v26 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"record sources must always specify a concrete default cache policy"];
-              *buf = v29;
-              v35 = "[FCRecordsFetchOperation performOperation]_block_invoke";
-              v36 = 2080;
-              v37 = "FCRecordSource.m";
-              v38 = 1024;
-              v39 = 1459;
-              v40 = 2114;
-              v41 = v26;
+              *buf = v28;
+              v34 = "[FCRecordsFetchOperation performOperation]_block_invoke";
+              v35 = 2080;
+              v36 = "FCRecordSource.m";
+              v37 = 1024;
+              v38 = 1459;
+              v39 = 2114;
+              v40 = v26;
               _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
             }
 
@@ -406,14 +406,12 @@ LABEL_42:
       }
 
       while (v5 != v8);
-      v27 = [v2 countByEnumeratingWithState:&v30 objects:v42 count:16];
+      v27 = [v2 countByEnumeratingWithState:&v29 objects:v41 count:16];
       v5 = v27;
     }
 
     while (v27);
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __43__FCRecordsFetchOperation_performOperation__block_invoke_312(uint64_t a1)
@@ -547,31 +545,31 @@ void __43__FCRecordsFetchOperation_performOperation__block_invoke_306(uint64_t a
 
 void __43__FCRecordsFetchOperation_performOperation__block_invoke_2(uint64_t a1)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v26 objects:v36 count:16];
+  v2 = [obj countByEnumeratingWithState:&v25 objects:v35 count:16];
   if (v2)
   {
     v4 = v2;
-    v5 = *v27;
+    v5 = *v26;
     v6 = off_1E7C34000;
     *&v3 = 138543874;
-    v24 = v3;
+    v23 = v3;
     do
     {
       v7 = 0;
       do
       {
-        if (*v27 != v5)
+        if (*v26 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v26 + 1) + 8 * v7);
+        v8 = *(*(&v25 + 1) + 8 * v7);
         v9 = *(*(a1 + 40) + 416);
         if (v9)
         {
@@ -583,7 +581,7 @@ void __43__FCRecordsFetchOperation_performOperation__block_invoke_2(uint64_t a1)
           v10 = 0;
         }
 
-        v11 = [v10 cacheContainsKey:{*(*(&v26 + 1) + 8 * v7), v24}];
+        v11 = [v10 cacheContainsKey:{*(*(&v25 + 1) + 8 * v7), v23}];
         v12 = *(*(a1 + 40) + 416);
         if (v11)
         {
@@ -609,12 +607,12 @@ void __43__FCRecordsFetchOperation_performOperation__block_invoke_2(uint64_t a1)
             v19 = *(a1 + 40);
             v20 = v17;
             v21 = [v19 operationID];
-            *buf = v24;
-            v31 = v21;
-            v32 = 2114;
-            v33 = v8;
-            v34 = 2114;
-            v35 = v13;
+            *buf = v23;
+            v30 = v21;
+            v31 = 2114;
+            v32 = v8;
+            v33 = 2114;
+            v34 = v13;
             _os_log_impl(&dword_1B63EF000, v20, OS_LOG_TYPE_INFO, "operation with ID %{public}@ failed to fetch record %{public}@ with error %{public}@", buf, 0x20u);
 
             v5 = v18;
@@ -630,14 +628,12 @@ void __43__FCRecordsFetchOperation_performOperation__block_invoke_2(uint64_t a1)
       }
 
       while (v4 != v7);
-      v22 = [obj countByEnumeratingWithState:&v26 objects:v36 count:16];
+      v22 = [obj countByEnumeratingWithState:&v25 objects:v35 count:16];
       v4 = v22;
     }
 
     while (v22);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __43__FCRecordsFetchOperation_performOperation__block_invoke_307(uint64_t a1)
@@ -674,30 +670,30 @@ void __43__FCRecordsFetchOperation_performOperation__block_invoke_307(uint64_t a
 
 void __43__FCRecordsFetchOperation_performOperation__block_invoke_2_308(uint64_t a1)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v28 objects:v40 count:16];
+  v2 = [obj countByEnumeratingWithState:&v27 objects:v39 count:16];
   if (v2)
   {
     v4 = v2;
-    v27 = *v29;
+    v26 = *v28;
     *&v3 = 136315906;
-    v25 = v3;
+    v24 = v3;
     do
     {
       v5 = 0;
       do
       {
-        if (*v29 != v27)
+        if (*v28 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v28 + 1) + 8 * v5);
+        v6 = *(*(&v27 + 1) + 8 * v5);
         v7 = *(*(a1 + 40) + 416);
         if (v7)
         {
@@ -709,7 +705,7 @@ void __43__FCRecordsFetchOperation_performOperation__block_invoke_2_308(uint64_t
           v8 = 0;
         }
 
-        v9 = [v8 objectForKey:{*(*(&v28 + 1) + 8 * v5), v25}];
+        v9 = [v8 objectForKey:{*(*(&v27 + 1) + 8 * v5), v24}];
         v10 = [(FCFaultableRecord *)v9 recordBase];
         v11 = v10;
         if (!v9)
@@ -730,14 +726,14 @@ LABEL_17:
             if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
             {
               v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"shouldn't get here"];
-              *buf = v25;
-              v33 = "[FCRecordsFetchOperation performOperation]_block_invoke_2";
-              v34 = 2080;
-              v35 = "FCRecordSource.m";
-              v36 = 1024;
-              v37 = 1573;
-              v38 = 2114;
-              v39 = v22;
+              *buf = v24;
+              v32 = "[FCRecordsFetchOperation performOperation]_block_invoke_2";
+              v33 = 2080;
+              v34 = "FCRecordSource.m";
+              v35 = 1024;
+              v36 = 1573;
+              v37 = 2114;
+              v38 = v22;
               _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
               v13 = 1;
@@ -770,7 +766,17 @@ LABEL_16:
         }
 
 LABEL_19:
-        if (![(NTPBRecordBase *)v11 hasExpiredAssetURLs]&& v13 != 0)
+        if ([(NTPBRecordBase *)v11 hasExpiredAssetURLs])
+        {
+          v19 = 1;
+        }
+
+        else
+        {
+          v19 = v13 == 0;
+        }
+
+        if (!v19)
         {
           v21 = [(FCFaultableRecord *)v9 record];
           v15 = [FCFetchOperationResult resultWithStatus:0 fetchedObject:v21 error:0];
@@ -790,14 +796,12 @@ LABEL_26:
       }
 
       while (v4 != v5);
-      v23 = [obj countByEnumeratingWithState:&v28 objects:v40 count:16];
+      v23 = [obj countByEnumeratingWithState:&v27 objects:v39 count:16];
       v4 = v23;
     }
 
     while (v23);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __43__FCRecordsFetchOperation_performOperation__block_invoke_3(uint64_t a1)

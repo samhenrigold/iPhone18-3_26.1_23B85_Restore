@@ -62,7 +62,7 @@
 
 - (void)_clearFailureBadge
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v3 = OSLogHandleForIMFoundationCategory();
@@ -78,67 +78,64 @@
         v4 = @"NO";
       }
 
-      v6 = 138412290;
-      v7 = v4;
-      _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "Clearing failure badge, old value = %@", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v4;
+      _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "Clearing failure badge, old value = %@", &v5, 0xCu);
     }
   }
 
   self->_showingFailure = 0;
   [(IMDBadgeUtilities *)self _updateBadge];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateBadge
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if ([(IMDBadgeUtilities *)self _shouldShowFailureString])
   {
-    v3 = *MEMORY[0x277D85DE8];
 
     MEMORY[0x2821F9670](self, sel__postBadgeString_);
   }
 
   else
   {
-    v10 = 0;
-    v11 = &v10;
-    v12 = 0x2020000000;
+    v8 = 0;
+    v9 = &v8;
+    v10 = 0x2020000000;
     unreadCount = self->_unreadCount;
     if (self->_isStewieActive)
     {
       pendingSatelliteMessagesPerService = [(IMDBadgeUtilities *)self pendingSatelliteMessagesPerService];
-      v9[0] = MEMORY[0x277D85DD0];
-      v9[1] = 3221225472;
-      v9[2] = sub_22B6DEF18;
-      v9[3] = &unk_278708790;
-      v9[4] = &v10;
-      [pendingSatelliteMessagesPerService enumerateKeysAndObjectsUsingBlock:v9];
+      v7[0] = MEMORY[0x277D85DD0];
+      v7[1] = 3221225472;
+      v7[2] = sub_22B6DEF18;
+      v7[3] = &unk_278708790;
+      v7[4] = &v8;
+      [pendingSatelliteMessagesPerService enumerateKeysAndObjectsUsingBlock:v7];
     }
 
     if (IMOSLoggingEnabled())
     {
-      v5 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      v4 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
-        v6 = v11[3];
+        v5 = v9[3];
         *buf = 134217984;
-        v15 = v6;
-        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Updating unread message count badge to %ld", buf, 0xCu);
+        v13 = v5;
+        _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "Updating unread message count badge to %ld", buf, 0xCu);
       }
     }
 
-    v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v11[3]];
-    [(IMDBadgeUtilities *)self _postBadgeNumber:v7];
+    v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v9[3]];
+    [(IMDBadgeUtilities *)self _postBadgeNumber:v6];
 
-    _Block_object_dispose(&v10, 8);
-    v8 = *MEMORY[0x277D85DE8];
+    _Block_object_dispose(&v8, 8);
   }
 }
 
 - (BOOL)_shouldShowFailureString
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (-[IMDBadgeUtilities isInAppleStoreDemoMode](self, "isInAppleStoreDemoMode") || ([MEMORY[0x277D1A8A0] sharedManager], v3 = objc_claimAutoreleasedReturnValue(), v4 = objc_msgSend(v3, "isAssistiveAccessRunning"), v3, (v4 & 1) != 0))
   {
     LOBYTE(v5) = 0;
@@ -148,39 +145,38 @@
   {
     if (IMOSLoggingEnabled())
     {
-      v7 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v6 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         showingFailure = self->_showingFailure;
         _isUnexpectedlyLoggedOut = [(IMDBadgeUtilities *)self _isUnexpectedlyLoggedOut];
-        v10 = @"NO";
+        v9 = @"NO";
         if (showingFailure)
-        {
-          v11 = @"YES";
-        }
-
-        else
-        {
-          v11 = @"NO";
-        }
-
-        if (_isUnexpectedlyLoggedOut)
         {
           v10 = @"YES";
         }
 
-        v13 = 138412546;
-        v14 = v11;
-        v15 = 2112;
-        v16 = v10;
-        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "_shouldShowFailureString _showingFailure %@ _isUnexpectedlyLoggedOut %@ ", &v13, 0x16u);
+        else
+        {
+          v10 = @"NO";
+        }
+
+        if (_isUnexpectedlyLoggedOut)
+        {
+          v9 = @"YES";
+        }
+
+        v12 = 138412546;
+        v13 = v10;
+        v14 = 2112;
+        v15 = v9;
+        _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "_shouldShowFailureString _showingFailure %@ _isUnexpectedlyLoggedOut %@ ", &v12, 0x16u);
       }
     }
 
     LOBYTE(v5) = 1;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -204,34 +200,34 @@
 
 + (BOOL)_iMessageEnabled
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   [objc_opt_class() _accountsArrayForServiceIMessage];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v2 = v13 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v2 = v12 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        if ([objc_opt_class() _isUsableSendingForAccount:{*(*(&v10 + 1) + 8 * i), v10}])
+        if ([objc_opt_class() _isUsableSendingForAccount:{*(*(&v9 + 1) + 8 * i), v9}])
         {
           v7 = 1;
           goto LABEL_11;
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v4)
       {
         continue;
@@ -244,7 +240,6 @@
   v7 = 0;
 LABEL_11:
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -260,33 +255,33 @@ LABEL_11:
 
 + (BOOL)_isTryingToLogin
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   [objc_opt_class() _accountsArrayForServiceIMessage];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
-  v2 = v11 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v2 = v10 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        if ([*(*(&v8 + 1) + 8 * i) loginStatus] == 3)
+        if ([*(*(&v7 + 1) + 8 * i) loginStatus] == 3)
         {
           LOBYTE(v3) = 1;
           goto LABEL_11;
         }
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -298,34 +293,33 @@ LABEL_11:
 
 LABEL_11:
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 + (BOOL)_iMessageFailedAccountIsIrreparable
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   _accountsArrayForServiceIMessage = [objc_opt_class() _accountsArrayForServiceIMessage];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v3 = [_accountsArrayForServiceIMessage countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v3 = [_accountsArrayForServiceIMessage countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v3)
   {
     v4 = 0;
     v5 = 0;
-    v6 = *v16;
+    v6 = *v15;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(_accountsArrayForServiceIMessage);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * i);
+        v8 = *(*(&v14 + 1) + 8 * i);
         session = [v8 session];
         registrationStatus = [session registrationStatus];
 
@@ -339,14 +333,13 @@ LABEL_11:
         }
       }
 
-      v3 = [_accountsArrayForServiceIMessage countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v3 = [_accountsArrayForServiceIMessage countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v3);
     LOBYTE(v3) = v4 & (v5 ^ 1);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v3 & 1;
 }
 
@@ -385,12 +378,12 @@ LABEL_11:
 
 - (IMDBadgeUtilities)initWithMessageStore:(id)store defaultsStore:(id)defaultsStore
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   storeCopy = store;
   defaultsStoreCopy = defaultsStore;
-  v27.receiver = self;
-  v27.super_class = IMDBadgeUtilities;
-  v8 = [(IMDBadgeUtilities *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = IMDBadgeUtilities;
+  v8 = [(IMDBadgeUtilities *)&v26 init];
   if (v8)
   {
     v9 = dispatch_queue_create("IMDBadgeUtilitiesQueue", 0);
@@ -410,7 +403,7 @@ LABEL_11:
       {
         unreadCount = v8->_unreadCount;
         *buf = 134217984;
-        v29 = unreadCount;
+        v28 = unreadCount;
         _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Initializing IMDBadgeUtilities with unread count: %ld", buf, 0xCu);
       }
     }
@@ -442,9 +435,9 @@ LABEL_11:
         v21 = [MEMORY[0x277CCABB0] numberWithLongLong:v8->_lastFailedMessageDate];
         v22 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(storeCopy, "lastFailedMessageDate")}];
         *buf = 138412546;
-        v29 = v21;
-        v30 = 2112;
-        v31 = v22;
+        v28 = v21;
+        v29 = 2112;
+        v30 = v22;
         _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "_lastFailedMessageDate saved date %@  last failed message data in DB %@ ", buf, 0x16u);
       }
     }
@@ -456,7 +449,6 @@ LABEL_11:
     [(IMDBadgeUtilities *)v8 _updateBadge];
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -557,28 +549,26 @@ LABEL_11:
 
 - (void)_postBadgeNumber:(id)number
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   numberCopy = number;
   if (IMOSLoggingEnabled())
   {
     v5 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v8 = 138412290;
-      v9 = numberCopy;
-      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Call notification center to post badge number %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = numberCopy;
+      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Call notification center to post badge number %@", &v7, 0xCu);
     }
   }
 
   notificationCenter = [(IMDBadgeUtilities *)self notificationCenter];
   [notificationCenter setBadgeCount:objc_msgSend(numberCopy withCompletionHandler:{"integerValue"), &unk_283F1B368}];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_postBadgeString:(id)string
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   notificationCenter = [(IMDBadgeUtilities *)self notificationCenter];
   if (IMOSLoggingEnabled())
@@ -587,22 +577,20 @@ LABEL_11:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v14 = stringCopy;
+      v13 = stringCopy;
       _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Call notification center to post badge string %@", buf, 0xCu);
     }
   }
 
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = sub_22B6DF2A4;
-  v10[3] = &unk_278702FA0;
-  v11 = notificationCenter;
-  v12 = stringCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = sub_22B6DF2A4;
+  v9[3] = &unk_278702FA0;
+  v10 = notificationCenter;
+  v11 = stringCopy;
   v7 = stringCopy;
   v8 = notificationCenter;
-  dispatch_async(MEMORY[0x277D85CD0], v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  dispatch_async(MEMORY[0x277D85CD0], v9);
 }
 
 - (BOOL)isUnexpectedlyLoggedOut
@@ -746,7 +734,7 @@ LABEL_6:
 
 - (void)_cacheFailureDate:(int64_t)date
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (date >= 1)
   {
     if (IMOSLoggingEnabled())
@@ -755,18 +743,16 @@ LABEL_6:
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
         lastFailedMessageDate = self->_lastFailedMessageDate;
-        v8 = 134218240;
-        v9 = lastFailedMessageDate;
-        v10 = 2048;
+        v7 = 134218240;
+        v8 = lastFailedMessageDate;
+        v9 = 2048;
         dateCopy = date;
-        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Cached failure id %lld    alert failure id %lld", &v8, 0x16u);
+        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Cached failure id %lld    alert failure id %lld", &v7, 0x16u);
       }
     }
 
     [(IMDBadgeUtilities *)self _saveFailureDate:date];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (IMDefaults)sharedDefaultsInstance

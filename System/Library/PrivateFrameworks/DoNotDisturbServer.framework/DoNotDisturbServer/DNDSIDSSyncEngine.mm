@@ -6,6 +6,7 @@
 - (double)_queue_earliestExpirationTimeSinceNowForInflightMetadata;
 - (id)_queue_dataSourceForZone:(id)zone;
 - (id)inflightMetadata;
+- (id)sysdiagnoseDataForDate:(id)date redacted:(BOOL)redacted;
 - (unint64_t)pairSyncState;
 - (void)_queue_handleAckMessage:(id)message fromPairedDeviceIdentifier:(id)identifier;
 - (void)_queue_handleMessage:(id)message fromPairedDeviceIdentifier:(id)identifier;
@@ -140,34 +141,30 @@ LABEL_10:
 
 void __58__DNDSIDSSyncEngine_addRecordIDsToSave_recordIDsToDelete___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if ((~*(*(a1 + 32) + 32) & 7) != 0)
   {
-    v4 = DNDSLogIDSSyncEngine;
+    v3 = DNDSLogIDSSyncEngine;
     if (os_log_type_enabled(DNDSLogIDSSyncEngine, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(*(a1 + 32) + 32);
+      v4 = *(*(a1 + 32) + 32);
       *buf = 134349056;
-      v9 = v5;
-      _os_log_impl(&dword_24912E000, v4, OS_LOG_TYPE_DEFAULT, "Ignoring records as the sync engine is disabled: %{public}llu", buf, 0xCu);
+      v7 = v4;
+      _os_log_impl(&dword_24912E000, v3, OS_LOG_TYPE_DEFAULT, "Ignoring records as the sync engine is disabled: %{public}llu", buf, 0xCu);
     }
-
-    v6 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v7 = [MEMORY[0x277CBEAA8] date];
-    [*(*(a1 + 32) + 40) setDeletedAtDate:v7 forRecordIDs:*(a1 + 40)];
-    [*(*(a1 + 32) + 40) setLastModifiedDate:v7 forRecordIDs:*(a1 + 48)];
+    v5 = [MEMORY[0x277CBEAA8] date];
+    [*(*(a1 + 32) + 40) setDeletedAtDate:v5 forRecordIDs:*(a1 + 40)];
+    [*(*(a1 + 32) + 40) setLastModifiedDate:v5 forRecordIDs:*(a1 + 48)];
     [*(a1 + 32) _queue_resetRetryTimer];
     v2 = [*(*(a1 + 32) + 24) deviceIdentifier];
     if (v2)
     {
       [*(a1 + 32) _queue_syncDataSourcesToDeviceWithIdentifier:v2];
     }
-
-    v3 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -237,7 +234,7 @@ uint64_t __43__DNDSIDSSyncEngine_setDataSource_forZone___block_invoke(uint64_t a
 
 void __49__DNDSIDSSyncEngine_setPairedDevice_syncEnabled___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 48);
   v3 = (*(*(a1 + 32) + 32) >> 2) & 1;
   if (v3 != v2)
@@ -255,9 +252,9 @@ void __49__DNDSIDSSyncEngine_setPairedDevice_syncEnabled___block_invoke(uint64_t
         v5 = "disabled";
       }
 
-      v28 = 136446210;
-      v29 = v5;
-      _os_log_impl(&dword_24912E000, v4, OS_LOG_TYPE_DEFAULT, "IDS sync engine changed to %{public}s", &v28, 0xCu);
+      v27 = 136446210;
+      v28 = v5;
+      _os_log_impl(&dword_24912E000, v4, OS_LOG_TYPE_DEFAULT, "IDS sync engine changed to %{public}s", &v27, 0xCu);
     }
 
     v6 = 4;
@@ -276,70 +273,66 @@ void __49__DNDSIDSSyncEngine_setPairedDevice_syncEnabled___block_invoke(uint64_t
     if (os_log_type_enabled(DNDSLogIDSSyncEngine, OS_LOG_TYPE_DEFAULT))
     {
       v11 = *(*(a1 + 32) + 32);
-      v28 = 134349056;
-      v29 = v11;
-      _os_log_impl(&dword_24912E000, v10, OS_LOG_TYPE_DEFAULT, "Ignoring paired device/enabled change as the sync engine is not available: %{public}llu", &v28, 0xCu);
+      v27 = 134349056;
+      v28 = v11;
+      _os_log_impl(&dword_24912E000, v10, OS_LOG_TYPE_DEFAULT, "Ignoring paired device/enabled change as the sync engine is not available: %{public}llu", &v27, 0xCu);
     }
 
     v12 = *(a1 + 32);
     v13 = *(v12 + 24);
     *(v12 + 24) = 0;
+    goto LABEL_35;
   }
 
-  else
+  v8 = *(a1 + 40);
+  v9 = *(v7 + 24);
+  if (v8 != v9 && (!v8 || !v9 || ([v8 isEqual:?] & 1) == 0))
   {
-    v8 = *(a1 + 40);
-    v9 = *(v7 + 24);
-    if (v8 == v9 || v8 && v9 && ([v8 isEqual:?] & 1) != 0)
+    v14 = DNDSLogIDSSyncEngine;
+    if (os_log_type_enabled(DNDSLogIDSSyncEngine, OS_LOG_TYPE_DEFAULT))
     {
-      if (v3 == v2)
-      {
-        goto LABEL_36;
-      }
+      v15 = *(*(a1 + 32) + 24);
+      v16 = v14;
+      v17 = [v15 deviceIdentifier];
+      v18 = [*(a1 + 40) deviceIdentifier];
+      v27 = 138543618;
+      v28 = v17;
+      v29 = 2114;
+      v30 = v18;
+      _os_log_impl(&dword_24912E000, v16, OS_LOG_TYPE_DEFAULT, "Paired device changed from %{public}@ to %{public}@", &v27, 0x16u);
+    }
+
+    [*(a1 + 32) _queue_resetRetryTimer];
+    v19 = *(a1 + 40);
+    if (v19 && [v19 configurationSyncProtocolVersion] >= 0xB && objc_msgSend(*(a1 + 40), "configurationSyncProtocolVersion") <= 0xC && objc_msgSend(*(a1 + 40), "syncServiceType") == 1)
+    {
+      v20 = [*(a1 + 40) copy];
     }
 
     else
     {
-      v14 = DNDSLogIDSSyncEngine;
+      v21 = DNDSLogIDSSyncEngine;
       if (os_log_type_enabled(DNDSLogIDSSyncEngine, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = *(*(a1 + 32) + 24);
-        v16 = v14;
-        v17 = [v15 deviceIdentifier];
-        v18 = [*(a1 + 40) deviceIdentifier];
-        v28 = 138543618;
-        v29 = v17;
-        v30 = 2114;
-        v31 = v18;
-        _os_log_impl(&dword_24912E000, v16, OS_LOG_TYPE_DEFAULT, "Paired device changed from %{public}@ to %{public}@", &v28, 0x16u);
+        v22 = *(a1 + 40);
+        v27 = 138412290;
+        v28 = v22;
+        _os_log_impl(&dword_24912E000, v21, OS_LOG_TYPE_DEFAULT, "Ignoring paired device not supported by IDS Sync Engine: %@", &v27, 0xCu);
       }
 
-      [*(a1 + 32) _queue_resetRetryTimer];
-      v19 = *(a1 + 40);
-      if (v19 && [v19 configurationSyncProtocolVersion] >= 0xB && objc_msgSend(*(a1 + 40), "configurationSyncProtocolVersion") <= 0xC && objc_msgSend(*(a1 + 40), "syncServiceType") == 1)
-      {
-        v20 = [*(a1 + 40) copy];
-      }
-
-      else
-      {
-        v21 = DNDSLogIDSSyncEngine;
-        if (os_log_type_enabled(DNDSLogIDSSyncEngine, OS_LOG_TYPE_DEFAULT))
-        {
-          v22 = *(a1 + 40);
-          v28 = 138412290;
-          v29 = v22;
-          _os_log_impl(&dword_24912E000, v21, OS_LOG_TYPE_DEFAULT, "Ignoring paired device not supported by IDS Sync Engine: %@", &v28, 0xCu);
-        }
-
-        v20 = 0;
-      }
-
-      v23 = *(a1 + 32);
-      v24 = *(v23 + 24);
-      *(v23 + 24) = v20;
+      v20 = 0;
     }
 
+    v23 = *(a1 + 32);
+    v24 = *(v23 + 24);
+    *(v23 + 24) = v20;
+
+    goto LABEL_31;
+  }
+
+  if (v3 != v2)
+  {
+LABEL_31:
     [*(a1 + 32) _queue_validate];
     v13 = [*(a1 + 40) deviceIdentifier];
     if (v13)
@@ -356,10 +349,9 @@ void __49__DNDSIDSSyncEngine_setPairedDevice_syncEnabled___block_invoke(uint64_t
         [v26 _queue_sendResyncMessageToDeviceWithIdentifier:v13];
       }
     }
-  }
 
-LABEL_36:
-  v27 = *MEMORY[0x277D85DE8];
+LABEL_35:
+  }
 }
 
 - (void)setDidReceiveUnlockMessage:(id)message
@@ -513,23 +505,22 @@ uint64_t __37__DNDSIDSSyncEngine_inflightMetadata__block_invoke(uint64_t a1)
 
 void __102__DNDSIDSSyncEngine_syncService_didReceiveMessage_withVersionNumber_messageType_fromDeviceIdentifier___block_invoke(void *a1)
 {
-  v3 = (a1 + 4);
   v2 = a1[4];
   if ((~v2[8] & 7) != 0)
   {
     if (os_log_type_enabled(DNDSLogIDSSyncEngine, OS_LOG_TYPE_ERROR))
     {
-      __102__DNDSIDSSyncEngine_syncService_didReceiveMessage_withVersionNumber_messageType_fromDeviceIdentifier___block_invoke_cold_1(v3);
+      __102__DNDSIDSSyncEngine_syncService_didReceiveMessage_withVersionNumber_messageType_fromDeviceIdentifier___block_invoke_cold_1();
     }
   }
 
   else
   {
     [v2 _queue_handleMessage:a1[5] fromPairedDeviceIdentifier:a1[6]];
-    v4 = a1[4];
-    v5 = a1[6];
+    v3 = a1[4];
+    v4 = a1[6];
 
-    [v4 _queue_syncDataSourcesToDeviceWithIdentifier:v5];
+    [v3 _queue_syncDataSourcesToDeviceWithIdentifier:v4];
   }
 }
 
@@ -572,7 +563,7 @@ void __112__DNDSIDSSyncEngine_syncService_shouldAcceptIncomingMessage_withVersio
     {
       if (os_log_type_enabled(DNDSLogIDSSyncEngine, OS_LOG_TYPE_ERROR))
       {
-        __112__DNDSIDSSyncEngine_syncService_shouldAcceptIncomingMessage_withVersionNumber_messageType_fromDeviceIdentifier___block_invoke_cold_1(v1);
+        __112__DNDSIDSSyncEngine_syncService_shouldAcceptIncomingMessage_withVersionNumber_messageType_fromDeviceIdentifier___block_invoke_cold_1();
       }
     }
 
@@ -590,13 +581,13 @@ void __112__DNDSIDSSyncEngine_syncService_shouldAcceptIncomingMessage_withVersio
 
         else if (os_log_type_enabled(DNDSLogIDSSyncEngine, OS_LOG_TYPE_ERROR))
         {
-          __112__DNDSIDSSyncEngine_syncService_shouldAcceptIncomingMessage_withVersionNumber_messageType_fromDeviceIdentifier___block_invoke_cold_3((a1 + 72));
+          __112__DNDSIDSSyncEngine_syncService_shouldAcceptIncomingMessage_withVersionNumber_messageType_fromDeviceIdentifier___block_invoke_cold_3();
         }
       }
 
       else if (os_log_type_enabled(DNDSLogIDSSyncEngine, OS_LOG_TYPE_ERROR))
       {
-        __112__DNDSIDSSyncEngine_syncService_shouldAcceptIncomingMessage_withVersionNumber_messageType_fromDeviceIdentifier___block_invoke_cold_2((a1 + 56), v1);
+        __112__DNDSIDSSyncEngine_syncService_shouldAcceptIncomingMessage_withVersionNumber_messageType_fromDeviceIdentifier___block_invoke_cold_2();
       }
     }
   }
@@ -622,14 +613,14 @@ void __112__DNDSIDSSyncEngine_syncService_shouldAcceptIncomingMessage_withVersio
 
 void __80__DNDSIDSSyncEngine_syncService_didSendWithRequestIdentifier_withSuccess_error___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v1 = *(a1 + 32);
   if ((~*(v1 + 8) & 7) != 0)
   {
     if (os_log_type_enabled(DNDSLogIDSSyncEngine, OS_LOG_TYPE_ERROR))
     {
-      __80__DNDSIDSSyncEngine_syncService_didSendWithRequestIdentifier_withSuccess_error___block_invoke_cold_1(v2);
+      __80__DNDSIDSSyncEngine_syncService_didSendWithRequestIdentifier_withSuccess_error___block_invoke_cold_1();
     }
   }
 
@@ -639,7 +630,7 @@ void __80__DNDSIDSSyncEngine_syncService_didSendWithRequestIdentifier_withSucces
     {
       if (os_log_type_enabled(DNDSLogIDSSyncEngine, OS_LOG_TYPE_ERROR))
       {
-        __80__DNDSIDSSyncEngine_syncService_didSendWithRequestIdentifier_withSuccess_error___block_invoke_cold_2(a1);
+        __80__DNDSIDSSyncEngine_syncService_didSendWithRequestIdentifier_withSuccess_error___block_invoke_cold_2();
       }
 
       [*v2 _queue_startRetryTimer];
@@ -657,11 +648,11 @@ void __80__DNDSIDSSyncEngine_syncService_didSendWithRequestIdentifier_withSucces
       v6 = v5;
       v7 = [v4 count];
       v8 = [*(*v2 + 14) count];
-      v14 = 134349312;
-      v15 = v7;
-      v16 = 2050;
-      v17 = v8;
-      _os_log_impl(&dword_24912E000, v6, OS_LOG_TYPE_DEFAULT, "Removed %{public}llu inflight records; %{public}llu remaining", &v14, 0x16u);
+      v13 = 134349312;
+      v14 = v7;
+      v15 = 2050;
+      v16 = v8;
+      _os_log_impl(&dword_24912E000, v6, OS_LOG_TYPE_DEFAULT, "Removed %{public}llu inflight records; %{public}llu remaining", &v13, 0x16u);
     }
 
     v9 = DNDSLogIDSSyncEngine;
@@ -670,13 +661,11 @@ void __80__DNDSIDSSyncEngine_syncService_didSendWithRequestIdentifier_withSucces
       v10 = *(*v2 + 12);
       v11 = v9;
       v12 = [v10 count];
-      v14 = 134349056;
-      v15 = v12;
-      _os_log_impl(&dword_24912E000, v11, OS_LOG_TYPE_DEFAULT, "%{public}llu outstanding request identifiers", &v14, 0xCu);
+      v13 = 134349056;
+      v14 = v12;
+      _os_log_impl(&dword_24912E000, v11, OS_LOG_TYPE_DEFAULT, "%{public}llu outstanding request identifiers", &v13, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)keybagDidUnlockForTheFirstTime:(id)time
@@ -731,6 +720,23 @@ void __52__DNDSIDSSyncEngine_keybagDidUnlockForTheFirstTime___block_invoke(uint6
   }
 }
 
+- (id)sysdiagnoseDataForDate:(id)date redacted:(BOOL)redacted
+{
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  queue = self->_queue;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __53__DNDSIDSSyncEngine_sysdiagnoseDataForDate_redacted___block_invoke;
+  v10[3] = &unk_278F89F48;
+  v7 = dictionary;
+  v11 = v7;
+  selfCopy = self;
+  dispatch_sync(queue, v10);
+  v8 = v7;
+
+  return v7;
+}
+
 void __53__DNDSIDSSyncEngine_sysdiagnoseDataForDate_redacted___block_invoke(uint64_t a1)
 {
   v2 = [*(*(a1 + 40) + 8) dictionaryRepresentation];
@@ -774,7 +780,7 @@ void __53__DNDSIDSSyncEngine_sysdiagnoseDataForDate_redacted___block_invoke(uint
 
 - (void)_queue_syncDataSourcesToDeviceWithIdentifier:(id)identifier
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   dispatch_assert_queue_V2(self->_queue);
   if (([(DNDSKeybagStateProviding *)self->_keybag hasUnlockedSinceBoot]& 1) == 0)
@@ -828,34 +834,34 @@ LABEL_19:
     _os_log_impl(&dword_24912E000, v5, OS_LOG_TYPE_DEFAULT, "Performing sync for all data sources", buf, 2u);
   }
 
-  v24 = [(DNDSIDSSyncEngineMetadataStoring *)self->_metadataStore modifiedRecordIDsForPairedDeviceIdentifier:identifierCopy];
+  v23 = [(DNDSIDSSyncEngineMetadataStoring *)self->_metadataStore modifiedRecordIDsForPairedDeviceIdentifier:identifierCopy];
   v7 = [(DNDSIDSSyncEngineMetadataStoring *)self->_metadataStore deletedRecordIDsForPairedDeviceIdentifier:identifierCopy];
   array = [MEMORY[0x277CBEB18] array];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v9 = self->_sourcesByZone;
-  v10 = [(NSMapTable *)v9 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v10 = [(NSMapTable *)v9 countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v26;
+    v12 = *v25;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v26 != v12)
+        if (*v25 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [(NSMapTable *)self->_sourcesByZone objectForKey:*(*(&v25 + 1) + 8 * i)];
+        v14 = [(NSMapTable *)self->_sourcesByZone objectForKey:*(*(&v24 + 1) + 8 * i)];
         v15 = [v14 recordIDsForIDSSyncEngine:self];
         [array addObjectsFromArray:v15];
       }
 
-      v11 = [(NSMapTable *)v9 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v11 = [(NSMapTable *)v9 countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v11);
@@ -866,16 +872,15 @@ LABEL_19:
   date = [MEMORY[0x277CBEAA8] date];
   [(DNDSIDSSyncEngineMetadataStoring *)metadataStore setLastModifiedDate:date forRecordIDs:v16];
 
-  v19 = [v16 arrayByAddingObjectsFromArray:v24];
+  v19 = [v16 arrayByAddingObjectsFromArray:v23];
   [(DNDSIDSSyncEngine *)self _queue_sendModifiedRecordIDs:v19 deletedRecordIDs:v7 toDeviceWithIdentifier:identifierCopy];
 
 LABEL_20:
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_sendAckWithMetadata:(id)metadata forAction:(id)action toDeviceWithIdentifier:(id)identifier
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   actionCopy = action;
   identifierCopy = identifier;
@@ -915,72 +920,72 @@ LABEL_18:
     {
       v12 = v11;
       *buf = 138543618;
-      v45 = actionCopy;
-      v46 = 2050;
-      v47 = [metadataCopy count];
+      v44 = actionCopy;
+      v45 = 2050;
+      v46 = [metadataCopy count];
       _os_log_impl(&dword_24912E000, v12, OS_LOG_TYPE_DEFAULT, "Sending ack for action %{public}@ with %{public}llu record metadata items", buf, 0x16u);
     }
 
     v13 = objc_alloc_init(DNDSApplicationIdentifierMapper);
-    v32 = objc_alloc_init(DNDSContactProvider);
-    v33 = v13;
-    v14 = [[DNDSBackingStoreDictionaryContext alloc] initWithDestination:0 partitionType:3 redactSensitiveData:0 contactProvider:v32 applicationIdentifierMapper:v13];
+    v31 = objc_alloc_init(DNDSContactProvider);
+    v32 = v13;
+    v14 = [[DNDSBackingStoreDictionaryContext alloc] initWithDestination:0 partitionType:3 redactSensitiveData:0 contactProvider:v31 applicationIdentifierMapper:v13];
     array = [MEMORY[0x277CBEB18] array];
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
-    v34 = metadataCopy;
+    v33 = metadataCopy;
     v16 = metadataCopy;
-    v17 = [v16 countByEnumeratingWithState:&v37 objects:v43 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v36 objects:v42 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v38;
+      v19 = *v37;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v38 != v19)
+          if (*v37 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = [*(*(&v37 + 1) + 8 * i) dictionaryRepresentationWithContext:v14];
+          v21 = [*(*(&v36 + 1) + 8 * i) dictionaryRepresentationWithContext:v14];
           [array addObject:v21];
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v37 objects:v43 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v36 objects:v42 count:16];
       }
 
       while (v18);
     }
 
-    v41[0] = @"action";
-    v41[1] = @"ackAction";
-    v42[0] = @"ack";
-    v42[1] = actionCopy;
-    v42[2] = array;
-    v41[2] = @"metadataAck";
-    v41[3] = @"syncDate";
+    v40[0] = @"action";
+    v40[1] = @"ackAction";
+    v41[0] = @"ack";
+    v41[1] = actionCopy;
+    v41[2] = array;
+    v40[2] = @"metadataAck";
+    v40[3] = @"syncDate";
     v22 = MEMORY[0x277CCABB0];
     date = [MEMORY[0x277CBEAA8] date];
     [date timeIntervalSinceReferenceDate];
     v24 = [v22 numberWithDouble:?];
-    v42[3] = v24;
-    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:4];
+    v41[3] = v24;
+    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:4];
 
     v26 = [MEMORY[0x277CBEB98] setWithObject:identifierCopy];
     syncService = self->_syncService;
     configurationSyncProtocolVersion = [(DNDSPairedDevice *)self->_pairedDevice configurationSyncProtocolVersion];
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __81__DNDSIDSSyncEngine__queue_sendAckWithMetadata_forAction_toDeviceWithIdentifier___block_invoke;
-    v35[3] = &unk_278F89F70;
-    v36 = v16;
-    [(DNDSSyncService *)syncService sendMessage:v25 withVersionNumber:configurationSyncProtocolVersion messageType:@"syncEngine" toDestinations:v26 completionHandler:v35];
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __81__DNDSIDSSyncEngine__queue_sendAckWithMetadata_forAction_toDeviceWithIdentifier___block_invoke;
+    v34[3] = &unk_278F89F70;
+    v35 = v16;
+    [(DNDSSyncService *)syncService sendMessage:v25 withVersionNumber:configurationSyncProtocolVersion messageType:@"syncEngine" toDestinations:v26 completionHandler:v34];
 
-    metadataCopy = v34;
+    metadataCopy = v33;
   }
 
   else if (os_log_type_enabled(DNDSLogIDSSyncEngine, OS_LOG_TYPE_ERROR))
@@ -989,13 +994,11 @@ LABEL_18:
   }
 
 LABEL_19:
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __81__DNDSIDSSyncEngine__queue_sendAckWithMetadata_forAction_toDeviceWithIdentifier___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = DNDSLogIDSSyncEngine;
   if (a2)
@@ -1004,9 +1007,9 @@ void __81__DNDSIDSSyncEngine__queue_sendAckWithMetadata_forAction_toDeviceWithId
     {
       v7 = *(a1 + 32);
       v8 = v6;
-      v10 = 134349056;
-      v11 = [v7 count];
-      _os_log_impl(&dword_24912E000, v8, OS_LOG_TYPE_DEFAULT, "Sent %{public}llu record metadata items in ack", &v10, 0xCu);
+      v9 = 134349056;
+      v10 = [v7 count];
+      _os_log_impl(&dword_24912E000, v8, OS_LOG_TYPE_DEFAULT, "Sent %{public}llu record metadata items in ack", &v9, 0xCu);
     }
   }
 
@@ -1014,13 +1017,11 @@ void __81__DNDSIDSSyncEngine__queue_sendAckWithMetadata_forAction_toDeviceWithId
   {
     __81__DNDSIDSSyncEngine__queue_sendAckWithMetadata_forAction_toDeviceWithIdentifier___block_invoke_cold_1();
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_sendUnlockMessageToDeviceWithIdentifier:(id)identifier
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if (([(DNDSKeybagStateProviding *)self->_keybag hasUnlockedSinceBoot]& 1) == 0)
   {
@@ -1030,10 +1031,10 @@ void __81__DNDSIDSSyncEngine__queue_sendAckWithMetadata_forAction_toDeviceWithId
       goto LABEL_9;
     }
 
-    *v10 = 0;
+    *v9 = 0;
     v8 = "Will not send unlock message because keybag is locked";
 LABEL_8:
-    _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, v8, v10, 2u);
+    _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, v8, v9, 2u);
     goto LABEL_9;
   }
 
@@ -1045,19 +1046,18 @@ LABEL_8:
       goto LABEL_9;
     }
 
-    *v10 = 0;
+    *v9 = 0;
     v8 = "Will not send unlock message because sync is inactive";
     goto LABEL_8;
   }
 
-  v11 = @"action";
-  v12[0] = @"unlock";
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v10 = @"action";
+  v11[0] = @"unlock";
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v6 = [MEMORY[0x277CBEB98] setWithObject:identifierCopy];
   [(DNDSSyncService *)self->_syncService sendMessage:v5 withVersionNumber:[(DNDSPairedDevice *)self->_pairedDevice configurationSyncProtocolVersion] messageType:@"syncEngine" toDestinations:v6 completionHandler:&__block_literal_global];
 
 LABEL_9:
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __68__DNDSIDSSyncEngine__queue_sendUnlockMessageToDeviceWithIdentifier___block_invoke(uint64_t a1, int a2, void *a3)
@@ -1081,7 +1081,7 @@ void __68__DNDSIDSSyncEngine__queue_sendUnlockMessageToDeviceWithIdentifier___bl
 
 - (void)_queue_sendResyncMessageToDeviceWithIdentifier:(id)identifier
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if (([(DNDSKeybagStateProviding *)self->_keybag hasUnlockedSinceBoot]& 1) == 0)
   {
@@ -1091,10 +1091,10 @@ void __68__DNDSIDSSyncEngine__queue_sendUnlockMessageToDeviceWithIdentifier___bl
       goto LABEL_9;
     }
 
-    *v10 = 0;
+    *v9 = 0;
     v8 = "Will not sync because keybag is locked";
 LABEL_8:
-    _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, v8, v10, 2u);
+    _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, v8, v9, 2u);
     goto LABEL_9;
   }
 
@@ -1106,19 +1106,18 @@ LABEL_8:
       goto LABEL_9;
     }
 
-    *v10 = 0;
+    *v9 = 0;
     v8 = "Will not send resync message because sync is inactive";
     goto LABEL_8;
   }
 
-  v11 = @"action";
-  v12[0] = @"resync";
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v10 = @"action";
+  v11[0] = @"resync";
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v6 = [MEMORY[0x277CBEB98] setWithObject:identifierCopy];
   [(DNDSSyncService *)self->_syncService sendMessage:v5 withVersionNumber:[(DNDSPairedDevice *)self->_pairedDevice configurationSyncProtocolVersion] messageType:@"syncEngine" toDestinations:v6 completionHandler:&__block_literal_global_83];
 
 LABEL_9:
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __68__DNDSIDSSyncEngine__queue_sendResyncMessageToDeviceWithIdentifier___block_invoke(uint64_t a1, int a2, void *a3)
@@ -1142,7 +1141,7 @@ void __68__DNDSIDSSyncEngine__queue_sendResyncMessageToDeviceWithIdentifier___bl
 
 - (void)_queue_sendModifiedRecordIDs:(id)ds deletedRecordIDs:(id)iDs toDeviceWithIdentifier:(id)identifier
 {
-  v105 = *MEMORY[0x277D85DE8];
+  v104 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   iDsCopy = iDs;
   identifierCopy = identifier;
@@ -1198,15 +1197,15 @@ LABEL_20:
   {
     v12 = v11;
     *buf = 134349312;
-    v102 = [dsCopy count];
-    v103 = 2048;
-    v104 = [iDsCopy count];
+    v101 = [dsCopy count];
+    v102 = 2048;
+    v103 = [iDsCopy count];
     _os_log_impl(&dword_24912E000, v12, OS_LOG_TYPE_DEFAULT, "Sending %{public}llu modified records and %{publi}llu deleted record IDs", buf, 0x16u);
   }
 
   role = self->_role;
-  v75 = iDsCopy;
-  v73 = identifierCopy;
+  v74 = iDsCopy;
+  v72 = identifierCopy;
   if (role == 1)
   {
     goto LABEL_13;
@@ -1240,40 +1239,40 @@ LABEL_20:
 LABEL_13:
     v17 = @"update";
 LABEL_25:
-    v70 = v17;
+    v69 = v17;
     goto LABEL_26;
   }
 
-  v70 = 0;
+  v69 = 0;
 LABEL_26:
   v20 = objc_alloc_init(DNDSApplicationIdentifierMapper);
-  v71 = objc_alloc_init(DNDSContactProvider);
-  v72 = v20;
-  v79 = [[DNDSBackingStoreDictionaryContext alloc] initWithDestination:0 partitionType:3 redactSensitiveData:0 contactProvider:v71 applicationIdentifierMapper:v20];
+  v70 = objc_alloc_init(DNDSContactProvider);
+  v71 = v20;
+  v78 = [[DNDSBackingStoreDictionaryContext alloc] initWithDestination:0 partitionType:3 redactSensitiveData:0 contactProvider:v70 applicationIdentifierMapper:v20];
   array = [MEMORY[0x277CBEB18] array];
   v21 = [MEMORY[0x277CBEB58] set];
+  v88 = 0u;
   v89 = 0u;
   v90 = 0u;
   v91 = 0u;
-  v92 = 0u;
-  v74 = dsCopy;
+  v73 = dsCopy;
   obj = dsCopy;
-  v22 = [obj countByEnumeratingWithState:&v89 objects:v100 count:16];
+  v22 = [obj countByEnumeratingWithState:&v88 objects:v99 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v90;
+    v24 = *v89;
     do
     {
       for (i = 0; i != v23; ++i)
       {
-        if (*v90 != v24)
+        if (*v89 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v26 = *(*(&v89 + 1) + 8 * i);
-        v27 = [(DNDSIDSSyncEngineMetadataStoring *)self->_metadataStore recordMetadataForRecordID:v26, v70];
+        v26 = *(*(&v88 + 1) + 8 * i);
+        v27 = [(DNDSIDSSyncEngineMetadataStoring *)self->_metadataStore recordMetadataForRecordID:v26, v69];
         if (v27)
         {
           if ([(NSMutableSet *)self->_inflightMetadata containsObject:v27])
@@ -1284,7 +1283,7 @@ LABEL_26:
               v29 = v28;
               recordID = [v27 recordID];
               *buf = 138543362;
-              v102 = recordID;
+              v101 = recordID;
               _os_log_impl(&dword_24912E000, v29, OS_LOG_TYPE_DEFAULT, "Metadata for modified record with ID %{public}@ is already syncing", buf, 0xCu);
             }
           }
@@ -1296,7 +1295,7 @@ LABEL_26:
             v33 = [(DNDSIDSSyncEngine *)self _queue_dataSourceForZone:v32];
 
             [v33 idsSyncEngine:self prepareRecordToSave:v31];
-            v34 = [(DNDSIDSRecord *)v31 dictionaryRepresentationWithContext:v79];
+            v34 = [(DNDSIDSRecord *)v31 dictionaryRepresentationWithContext:v78];
             if (v34)
             {
               [array addObject:v34];
@@ -1308,40 +1307,40 @@ LABEL_26:
               v35 = DNDSLogIDSSyncEngine;
               if (os_log_type_enabled(DNDSLogIDSSyncEngine, OS_LOG_TYPE_ERROR))
               {
-                [(DNDSIDSSyncEngine *)&v98 _queue_sendModifiedRecordIDs:v35 deletedRecordIDs:v27 toDeviceWithIdentifier:&v99];
+                [(DNDSIDSSyncEngine *)&v97 _queue_sendModifiedRecordIDs:v35 deletedRecordIDs:v27 toDeviceWithIdentifier:&v98];
               }
             }
           }
         }
       }
 
-      v23 = [obj countByEnumeratingWithState:&v89 objects:v100 count:16];
+      v23 = [obj countByEnumeratingWithState:&v88 objects:v99 count:16];
     }
 
     while (v23);
   }
 
   array2 = [MEMORY[0x277CBEB18] array];
+  v84 = 0u;
   v85 = 0u;
   v86 = 0u;
   v87 = 0u;
-  v88 = 0u;
-  v36 = v75;
-  v37 = [v36 countByEnumeratingWithState:&v85 objects:v97 count:16];
+  v36 = v74;
+  v37 = [v36 countByEnumeratingWithState:&v84 objects:v96 count:16];
   if (v37)
   {
     v38 = v37;
-    v39 = *v86;
+    v39 = *v85;
     do
     {
       for (j = 0; j != v38; ++j)
       {
-        if (*v86 != v39)
+        if (*v85 != v39)
         {
           objc_enumerationMutation(v36);
         }
 
-        v41 = [(DNDSIDSSyncEngineMetadataStoring *)self->_metadataStore recordMetadataForRecordID:*(*(&v85 + 1) + 8 * j), v70];
+        v41 = [(DNDSIDSSyncEngineMetadataStoring *)self->_metadataStore recordMetadataForRecordID:*(*(&v84 + 1) + 8 * j), v69];
         if (v41)
         {
           if ([(NSMutableSet *)self->_inflightMetadata containsObject:v41])
@@ -1352,14 +1351,14 @@ LABEL_26:
               v43 = v42;
               recordID2 = [v41 recordID];
               *buf = 138543362;
-              v102 = recordID2;
+              v101 = recordID2;
               _os_log_impl(&dword_24912E000, v43, OS_LOG_TYPE_DEFAULT, "Metadata for deleted record with ID %{public}@ is already syncing", buf, 0xCu);
             }
           }
 
           else
           {
-            v45 = [v41 dictionaryRepresentationWithContext:v79];
+            v45 = [v41 dictionaryRepresentationWithContext:v78];
             if (v45)
             {
               [array2 addObject:v45];
@@ -1371,14 +1370,14 @@ LABEL_26:
               v46 = DNDSLogIDSSyncEngine;
               if (os_log_type_enabled(DNDSLogIDSSyncEngine, OS_LOG_TYPE_ERROR))
               {
-                [(DNDSIDSSyncEngine *)&v95 _queue_sendModifiedRecordIDs:v46 deletedRecordIDs:v41 toDeviceWithIdentifier:&v96];
+                [(DNDSIDSSyncEngine *)&v94 _queue_sendModifiedRecordIDs:v46 deletedRecordIDs:v41 toDeviceWithIdentifier:&v95];
               }
             }
           }
         }
       }
 
-      v38 = [v36 countByEnumeratingWithState:&v85 objects:v97 count:16];
+      v38 = [v36 countByEnumeratingWithState:&v84 objects:v96 count:16];
     }
 
     while (v38);
@@ -1389,27 +1388,27 @@ LABEL_26:
   v49 = os_log_type_enabled(DNDSLogIDSSyncEngine, OS_LOG_TYPE_DEFAULT);
   if (v47)
   {
-    identifierCopy = v73;
+    identifierCopy = v72;
     if (v49)
     {
       v50 = v48;
       v51 = [array count];
       v52 = [array2 count];
       *buf = 134349312;
-      v102 = v51;
-      v103 = 2050;
-      v104 = v52;
+      v101 = v51;
+      v102 = 2050;
+      v103 = v52;
       _os_log_impl(&dword_24912E000, v50, OS_LOG_TYPE_DEFAULT, "Syncing %{public}llu modifications and %{public}llu deletions", buf, 0x16u);
     }
 
-    v93[0] = @"action";
-    v93[1] = @"modifiedRecords";
-    v94[0] = v70;
-    v94[1] = array;
-    v93[2] = @"deletedMetadata";
-    v94[2] = array2;
-    v53 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v94 forKeys:v93 count:{3, v70}];
-    v54 = [MEMORY[0x277CBEB98] setWithObject:v73];
+    v92[0] = @"action";
+    v92[1] = @"modifiedRecords";
+    v93[0] = v69;
+    v93[1] = array;
+    v92[2] = @"deletedMetadata";
+    v93[2] = array2;
+    v53 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v93 forKeys:v92 count:{3, v69}];
+    v54 = [MEMORY[0x277CBEB98] setWithObject:v72];
     uUID = [MEMORY[0x277CCAD78] UUID];
     uUIDString = [uUID UUIDString];
 
@@ -1426,9 +1425,9 @@ LABEL_26:
       v60 = [v21 count];
       v61 = [(NSMutableSet *)self->_inflightMetadata count];
       *buf = 134349312;
-      v102 = v60;
-      v103 = 2050;
-      v104 = v61;
+      v101 = v60;
+      v102 = 2050;
+      v103 = v61;
       _os_log_impl(&dword_24912E000, v59, OS_LOG_TYPE_DEFAULT, "Added %{public}llu inflight records; %{public}llu remaining", buf, 0x16u);
     }
 
@@ -1439,28 +1438,28 @@ LABEL_26:
       v64 = v62;
       v65 = [(NSMutableDictionary *)inflightMetadataByRequestIdentifier count];
       *buf = 134349056;
-      v102 = v65;
+      v101 = v65;
       _os_log_impl(&dword_24912E000, v64, OS_LOG_TYPE_DEFAULT, "%{public}llu outstanding request identifiers", buf, 0xCu);
     }
 
     syncService = self->_syncService;
     configurationSyncProtocolVersion = [(DNDSPairedDevice *)self->_pairedDevice configurationSyncProtocolVersion];
-    v80[0] = MEMORY[0x277D85DD0];
-    v80[1] = 3221225472;
-    v80[2] = __90__DNDSIDSSyncEngine__queue_sendModifiedRecordIDs_deletedRecordIDs_toDeviceWithIdentifier___block_invoke;
-    v80[3] = &unk_278F89FE0;
-    v80[4] = self;
-    v81 = uUIDString;
-    v82 = obj;
-    v83 = v36;
-    v84 = v21;
+    v79[0] = MEMORY[0x277D85DD0];
+    v79[1] = 3221225472;
+    v79[2] = __90__DNDSIDSSyncEngine__queue_sendModifiedRecordIDs_deletedRecordIDs_toDeviceWithIdentifier___block_invoke;
+    v79[3] = &unk_278F89FE0;
+    v79[4] = self;
+    v80 = uUIDString;
+    v81 = obj;
+    v82 = v36;
+    v83 = v21;
     v68 = uUIDString;
-    [(DNDSSyncService *)syncService sendMessage:v53 withVersionNumber:configurationSyncProtocolVersion messageType:@"syncEngine" toDestinations:v54 identifyingCompletionHandler:v80];
+    [(DNDSSyncService *)syncService sendMessage:v53 withVersionNumber:configurationSyncProtocolVersion messageType:@"syncEngine" toDestinations:v54 identifyingCompletionHandler:v79];
   }
 
   else
   {
-    identifierCopy = v73;
+    identifierCopy = v72;
     if (v49)
     {
       *buf = 0;
@@ -1468,11 +1467,9 @@ LABEL_26:
     }
   }
 
-  dsCopy = v74;
-  iDsCopy = v75;
+  dsCopy = v73;
+  iDsCopy = v74;
 LABEL_69:
-
-  v69 = *MEMORY[0x277D85DE8];
 }
 
 void __90__DNDSIDSSyncEngine__queue_sendModifiedRecordIDs_deletedRecordIDs_toDeviceWithIdentifier___block_invoke(uint64_t a1, char a2, void *a3, void *a4)
@@ -1503,7 +1500,7 @@ void __90__DNDSIDSSyncEngine__queue_sendModifiedRecordIDs_deletedRecordIDs_toDev
 
 uint64_t __90__DNDSIDSSyncEngine__queue_sendModifiedRecordIDs_deletedRecordIDs_toDeviceWithIdentifier___block_invoke_2(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   [*(*(a1 + 32) + 96) setObject:0 forKeyedSubscript:*(a1 + 40)];
   [*(*(a1 + 32) + 104) setObject:0 forKeyedSubscript:*(a1 + 40)];
   v2 = DNDSLogIDSSyncEngine;
@@ -1515,38 +1512,35 @@ uint64_t __90__DNDSIDSSyncEngine__queue_sendModifiedRecordIDs_deletedRecordIDs_t
       v4 = v2;
       v5 = [v3 count];
       v6 = [*(a1 + 56) count];
-      v10 = 134349312;
-      v11 = v5;
-      v12 = 2048;
-      v13 = v6;
-      _os_log_impl(&dword_24912E000, v4, OS_LOG_TYPE_DEFAULT, "Sent %{public}llu modified record IDs and %{publi}llu deleted record IDs", &v10, 0x16u);
+      v9 = 134349312;
+      v10 = v5;
+      v11 = 2048;
+      v12 = v6;
+      _os_log_impl(&dword_24912E000, v4, OS_LOG_TYPE_DEFAULT, "Sent %{public}llu modified record IDs and %{publi}llu deleted record IDs", &v9, 0x16u);
     }
 
     [*(*(a1 + 32) + 96) setObject:*(a1 + 72) forKeyedSubscript:*(a1 + 64)];
     v7 = [MEMORY[0x277CBEAA8] date];
     [*(*(a1 + 32) + 104) setObject:v7 forKeyedSubscript:*(a1 + 64)];
 
-    result = [*(a1 + 32) _queue_restartInflightExpirationTimer];
+    return [*(a1 + 32) _queue_restartInflightExpirationTimer];
   }
 
   else
   {
     if (os_log_type_enabled(DNDSLogIDSSyncEngine, OS_LOG_TYPE_ERROR))
     {
-      __90__DNDSIDSSyncEngine__queue_sendModifiedRecordIDs_deletedRecordIDs_toDeviceWithIdentifier___block_invoke_2_cold_1(a1);
+      __90__DNDSIDSSyncEngine__queue_sendModifiedRecordIDs_deletedRecordIDs_toDeviceWithIdentifier___block_invoke_2_cold_1();
     }
 
     [*(*(a1 + 32) + 112) minusSet:*(a1 + 72)];
-    result = [*(a1 + 32) _queue_startRetryTimer];
+    return [*(a1 + 32) _queue_startRetryTimer];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (void)_queue_startRetryTimer
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   if (self->_retriesAvailable)
   {
@@ -1562,7 +1556,7 @@ uint64_t __90__DNDSIDSSyncEngine__queue_sendModifiedRecordIDs_deletedRecordIDs_t
         if (os_log_type_enabled(DNDSLogIDSSyncEngine, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          v17 = 16 * v5;
+          v16 = 16 * v5;
           _os_log_impl(&dword_24912E000, v6, OS_LOG_TYPE_DEFAULT, "Retry timer will fire in %llus", buf, 0xCu);
         }
 
@@ -1574,21 +1568,21 @@ uint64_t __90__DNDSIDSSyncEngine__queue_sendModifiedRecordIDs_deletedRecordIDs_t
         v10 = dispatch_time(0, 16000000000 * v5);
         dispatch_source_set_timer(v9, v10, 0xFFFFFFFFFFFFFFFFLL, 0);
         v11 = self->_retryTimer;
-        v15[0] = MEMORY[0x277D85DD0];
-        v15[1] = 3221225472;
-        v15[2] = __43__DNDSIDSSyncEngine__queue_startRetryTimer__block_invoke;
-        v15[3] = &unk_278F8A008;
-        v15[4] = self;
-        v15[5] = v4;
-        dispatch_source_set_event_handler(v11, v15);
+        v14[0] = MEMORY[0x277D85DD0];
+        v14[1] = 3221225472;
+        v14[2] = __43__DNDSIDSSyncEngine__queue_startRetryTimer__block_invoke;
+        v14[3] = &unk_278F8A008;
+        v14[4] = self;
+        v14[5] = v4;
+        dispatch_source_set_event_handler(v11, v14);
         dispatch_resume(self->_retryTimer);
-        goto LABEL_14;
+        return;
       }
 
       v12 = DNDSLogIDSSyncEngine;
       if (!os_log_type_enabled(DNDSLogIDSSyncEngine, OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_14;
+        return;
       }
 
       *buf = 0;
@@ -1600,7 +1594,7 @@ uint64_t __90__DNDSIDSSyncEngine__queue_sendModifiedRecordIDs_deletedRecordIDs_t
       v12 = DNDSLogIDSSyncEngine;
       if (!os_log_type_enabled(DNDSLogIDSSyncEngine, OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_14;
+        return;
       }
 
       *buf = 0;
@@ -1608,28 +1602,25 @@ uint64_t __90__DNDSIDSSyncEngine__queue_sendModifiedRecordIDs_deletedRecordIDs_t
     }
 
     _os_log_impl(&dword_24912E000, v12, OS_LOG_TYPE_DEFAULT, v13, buf, 2u);
-    goto LABEL_14;
+    return;
   }
 
   if (os_log_type_enabled(DNDSLogIDSSyncEngine, OS_LOG_TYPE_ERROR))
   {
     [DNDSIDSSyncEngine _queue_startRetryTimer];
   }
-
-LABEL_14:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __43__DNDSIDSSyncEngine__queue_startRetryTimer__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = DNDSLogIDSSyncEngine;
   if (os_log_type_enabled(DNDSLogIDSSyncEngine, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
-    v8 = 134349056;
-    v9 = v3;
-    _os_log_impl(&dword_24912E000, v2, OS_LOG_TYPE_DEFAULT, "Retry timer fired (attempt #%{public}llu)", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = v3;
+    _os_log_impl(&dword_24912E000, v2, OS_LOG_TYPE_DEFAULT, "Retry timer fired (attempt #%{public}llu)", &v7, 0xCu);
   }
 
   [*(a1 + 32) _queue_cancelRetryTimer];
@@ -1640,8 +1631,6 @@ void __43__DNDSIDSSyncEngine__queue_startRetryTimer__block_invoke(uint64_t a1)
     v6 = [v5 deviceIdentifier];
     [v4 _queue_syncDataSourcesToDeviceWithIdentifier:v6];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_resetRetryTimer
@@ -1683,29 +1672,29 @@ void __43__DNDSIDSSyncEngine__queue_startRetryTimer__block_invoke(uint64_t a1)
 
 - (double)_queue_earliestExpirationTimeSinceNowForInflightMetadata
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   distantFuture = [MEMORY[0x277CBEAA8] distantFuture];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v4 = self->_inflightDateByRequestIdentifier;
-  v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v17;
     do
     {
       v8 = 0;
       do
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [(NSMutableDictionary *)self->_inflightDateByRequestIdentifier objectForKeyedSubscript:*(*(&v17 + 1) + 8 * v8), v17];
+        v9 = [(NSMutableDictionary *)self->_inflightDateByRequestIdentifier objectForKeyedSubscript:*(*(&v16 + 1) + 8 * v8), v16];
         v10 = [v9 earlierDate:distantFuture];
 
         if (v10 == v9)
@@ -1719,7 +1708,7 @@ void __43__DNDSIDSSyncEngine__queue_startRetryTimer__block_invoke(uint64_t a1)
       }
 
       while (v6 != v8);
-      v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v6);
@@ -1729,7 +1718,6 @@ void __43__DNDSIDSSyncEngine__queue_startRetryTimer__block_invoke(uint64_t a1)
   [v12 timeIntervalSinceNow];
   v14 = v13;
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -1742,21 +1730,21 @@ void __43__DNDSIDSSyncEngine__queue_startRetryTimer__block_invoke(uint64_t a1)
 
 - (void)_queue_startInflightExpirationTimer
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   if (![(NSMutableSet *)self->_inflightMetadata count])
   {
     v11 = DNDSLogIDSSyncEngine;
     if (!os_log_type_enabled(DNDSLogIDSSyncEngine, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_14;
+      return;
     }
 
     *buf = 0;
     v12 = "No inflight metadata; will not start expiration timer";
 LABEL_13:
     _os_log_impl(&dword_24912E000, v11, OS_LOG_TYPE_DEFAULT, v12, buf, 2u);
-    goto LABEL_14;
+    return;
   }
 
   if (([(DNDSKeybagStateProviding *)self->_keybag hasUnlockedSinceBoot]& 1) == 0)
@@ -1764,7 +1752,7 @@ LABEL_13:
     v11 = DNDSLogIDSSyncEngine;
     if (!os_log_type_enabled(DNDSLogIDSSyncEngine, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_14;
+      return;
     }
 
     *buf = 0;
@@ -1777,7 +1765,7 @@ LABEL_13:
     v11 = DNDSLogIDSSyncEngine;
     if (!os_log_type_enabled(DNDSLogIDSSyncEngine, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_14;
+      return;
     }
 
     *buf = 0;
@@ -1791,7 +1779,7 @@ LABEL_13:
   if (os_log_type_enabled(DNDSLogIDSSyncEngine, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v16 = v4;
+    v15 = v4;
     _os_log_impl(&dword_24912E000, v5, OS_LOG_TYPE_DEFAULT, "Expiration timer will fire in %llus", buf, 0xCu);
   }
 
@@ -1810,8 +1798,6 @@ LABEL_13:
   handler[4] = self;
   dispatch_source_set_event_handler(v10, handler);
   dispatch_resume(self->_inflightExpirationTimer);
-LABEL_14:
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __56__DNDSIDSSyncEngine__queue_startInflightExpirationTimer__block_invoke(uint64_t a1)
@@ -1870,79 +1856,77 @@ uint64_t __56__DNDSIDSSyncEngine__queue_startInflightExpirationTimer__block_invo
 
 - (void)_queue_removeAllInflightMetadataWithExpirationDate:(id)date
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   dispatch_assert_queue_V2(self->_queue);
-  v22 = [MEMORY[0x277CBEB58] set];
+  v21 = [MEMORY[0x277CBEB58] set];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   v5 = self->_inflightDateByRequestIdentifier;
-  v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v28;
+    v8 = *v27;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v28 != v8)
+        if (*v27 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v27 + 1) + 8 * i);
+        v10 = *(*(&v26 + 1) + 8 * i);
         v11 = [(NSMutableDictionary *)self->_inflightDateByRequestIdentifier objectForKeyedSubscript:v10];
         v12 = [v11 dateByAddingTimeInterval:self->_inflightExpirationTime];
         v13 = [dateCopy laterDate:v12];
 
         if (v13 == dateCopy)
         {
-          [v22 addObject:v10];
+          [v21 addObject:v10];
         }
       }
 
-      v7 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v7 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
     while (v7);
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
-  v14 = v22;
-  v15 = [v14 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v14 = v21;
+  v15 = [v14 countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v24;
+    v17 = *v23;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v24 != v17)
+        if (*v23 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v23 + 1) + 8 * j);
+        v19 = *(*(&v22 + 1) + 8 * j);
         v20 = [(NSMutableDictionary *)self->_inflightMetadataByRequestIdentifier objectForKeyedSubscript:v19];
         [(NSMutableDictionary *)self->_inflightMetadataByRequestIdentifier setObject:0 forKeyedSubscript:v19];
         [(NSMutableDictionary *)self->_inflightDateByRequestIdentifier setObject:0 forKeyedSubscript:v19];
         [(NSMutableSet *)self->_inflightMetadata minusSet:v20];
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v22 objects:v30 count:16];
     }
 
     while (v16);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_handleMessage:(id)message fromPairedDeviceIdentifier:(id)identifier
@@ -2015,60 +1999,60 @@ uint64_t __56__DNDSIDSSyncEngine__queue_startInflightExpirationTimer__block_invo
 
 - (void)_queue_handleAckMessage:(id)message fromPairedDeviceIdentifier:(id)identifier
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   identifierCopy = identifier;
   dispatch_assert_queue_V2(self->_queue);
   v7 = [messageCopy bs_safeArrayForKey:@"metadataAck"];
-  v27 = [messageCopy bs_safeNumberForKey:@"syncDate"];
+  v26 = [messageCopy bs_safeNumberForKey:@"syncDate"];
   v8 = [messageCopy bs_safeStringForKey:@"ackAction"];
   v9 = DNDSLogIDSSyncEngine;
   if (os_log_type_enabled(DNDSLogIDSSyncEngine, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v35 = v8;
+    v34 = v8;
     _os_log_impl(&dword_24912E000, v9, OS_LOG_TYPE_DEFAULT, "Received ack message for action %{public}@", buf, 0xCu);
   }
 
-  v26 = v8;
+  v25 = v8;
   v10 = objc_alloc_init(DNDSApplicationIdentifierMapper);
-  v24 = objc_alloc_init(DNDSContactProvider);
-  v25 = v10;
-  v11 = [[DNDSBackingStoreDictionaryContext alloc] initWithDestination:0 partitionType:3 redactSensitiveData:0 contactProvider:v24 applicationIdentifierMapper:v10];
+  v23 = objc_alloc_init(DNDSContactProvider);
+  v24 = v10;
+  v11 = [[DNDSBackingStoreDictionaryContext alloc] initWithDestination:0 partitionType:3 redactSensitiveData:0 contactProvider:v23 applicationIdentifierMapper:v10];
   array = [MEMORY[0x277CBEB18] array];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v13 = v7;
-  v14 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v30;
+    v16 = *v29;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v30 != v16)
+        if (*v29 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = [DNDSIDSRecordMetadata newWithDictionaryRepresentation:*(*(&v29 + 1) + 8 * i) context:v11];
+        v18 = [DNDSIDSRecordMetadata newWithDictionaryRepresentation:*(*(&v28 + 1) + 8 * i) context:v11];
         [array addObject:v18];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v15);
   }
 
   v19 = MEMORY[0x277CBEAA8];
-  [v27 doubleValue];
+  [v26 doubleValue];
   v20 = [v19 dateWithTimeIntervalSinceReferenceDate:?];
-  if ([v26 isEqualToString:@"replace"])
+  if ([v25 isEqualToString:@"replace"])
   {
     v21 = DNDSLogIDSSyncEngine;
     if (os_log_type_enabled(DNDSLogIDSSyncEngine, OS_LOG_TYPE_DEFAULT))
@@ -2094,8 +2078,6 @@ uint64_t __56__DNDSIDSSyncEngine__queue_startInflightExpirationTimer__block_invo
   {
     [(DNDSIDSSyncEngineMetadataStoring *)self->_metadataStore setSyncDate:v20 forRecordsMatchingMetadata:array forPairedDeviceIdentifier:identifierCopy];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_handleUnlockMessage:(id)message fromPairedDeviceIdentifier:(id)identifier
@@ -2123,7 +2105,7 @@ uint64_t __56__DNDSIDSSyncEngine__queue_startInflightExpirationTimer__block_invo
 
 - (void)_queue_handleUpdateMessage:(id)message fromPairedDeviceIdentifier:(id)identifier
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   identifierCopy = identifier;
   dispatch_assert_queue_V2(self->_queue);
@@ -2136,77 +2118,65 @@ uint64_t __56__DNDSIDSSyncEngine__queue_startInflightExpirationTimer__block_invo
 
   if (self->_role || ([(DNDSIDSSyncEngineMetadataStoring *)self->_metadataStore hasPerformedInitialSyncForPairedDeviceIdentifier:identifierCopy]& 1) != 0)
   {
-    v71 = identifierCopy;
+    v70 = identifierCopy;
     v9 = objc_alloc_init(DNDSApplicationIdentifierMapper);
-    v64 = objc_alloc_init(DNDSContactProvider);
-    v65 = v9;
-    v73 = [[DNDSBackingStoreDictionaryContext alloc] initWithDestination:0 partitionType:3 redactSensitiveData:0 contactProvider:v64 applicationIdentifierMapper:v9];
+    v63 = objc_alloc_init(DNDSContactProvider);
+    v64 = v9;
+    v72 = [[DNDSBackingStoreDictionaryContext alloc] initWithDestination:0 partitionType:3 redactSensitiveData:0 contactProvider:v63 applicationIdentifierMapper:v9];
     v10 = [messageCopy bs_safeArrayForKey:@"modifiedRecords"];
-    v66 = messageCopy;
-    v63 = [messageCopy bs_safeArrayForKey:@"deletedMetadata"];
+    v65 = messageCopy;
+    v62 = [messageCopy bs_safeArrayForKey:@"deletedMetadata"];
     array = [MEMORY[0x277CBEB18] array];
     date = [MEMORY[0x277CBEAA8] date];
+    v77 = 0u;
     v78 = 0u;
     v79 = 0u;
     v80 = 0u;
-    v81 = 0u;
     obj = v10;
-    v11 = [obj countByEnumeratingWithState:&v78 objects:v91 count:16];
+    v11 = [obj countByEnumeratingWithState:&v77 objects:v90 count:16];
     if (v11)
     {
       v12 = v11;
-      v68 = *v79;
+      v67 = *v78;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v79 != v68)
+          if (*v78 != v67)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = [DNDSIDSRecord newWithDictionaryRepresentation:*(*(&v78 + 1) + 8 * i) context:v73];
+          v14 = [DNDSIDSRecord newWithDictionaryRepresentation:*(*(&v77 + 1) + 8 * i) context:v72];
           metadataStore = self->_metadataStore;
           recordID = [v14 recordID];
           v17 = [(DNDSIDSSyncEngineMetadataStoring *)metadataStore recordMetadataForRecordID:recordID];
 
-          if (!v17)
+          if (!v17 || ([v17 lastModified], v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "metadata"), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v19, "lastModified"), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "earlierDate:", v20), v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v17, "lastModified"), v22 = objc_claimAutoreleasedReturnValue(), v22, v21, v20, v19, v18, v21 == v22))
           {
-            goto LABEL_14;
-          }
-
-          lastModified = [v17 lastModified];
-          metadata = [v14 metadata];
-          lastModified2 = [metadata lastModified];
-          v21 = [lastModified earlierDate:lastModified2];
-          lastModified3 = [v17 lastModified];
-
-          if (v21 == lastModified3)
-          {
-LABEL_14:
             recordID2 = [v14 recordID];
             v25 = [recordID2 zone];
             v26 = [(DNDSIDSSyncEngine *)self _queue_dataSourceForZone:v25];
 
             v27 = self->_metadataStore;
-            metadata2 = [v14 metadata];
-            v90 = metadata2;
-            v29 = [MEMORY[0x277CBEA60] arrayWithObjects:&v90 count:1];
+            metadata = [v14 metadata];
+            v89 = metadata;
+            v29 = [MEMORY[0x277CBEA60] arrayWithObjects:&v89 count:1];
             [(DNDSIDSSyncEngineMetadataStoring *)v27 updateMetadata:v29];
 
             v30 = self->_metadataStore;
             recordID3 = [v14 recordID];
-            v89 = recordID3;
-            v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v89 count:1];
-            [(DNDSIDSSyncEngineMetadataStoring *)v30 setSyncDate:date forRecordIDs:v32 forPairedDeviceIdentifier:v71];
+            v88 = recordID3;
+            v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v88 count:1];
+            [(DNDSIDSSyncEngineMetadataStoring *)v30 setSyncDate:date forRecordIDs:v32 forPairedDeviceIdentifier:v70];
 
             v33 = DNDSLogIDSSyncEngine;
             if (os_log_type_enabled(DNDSLogIDSSyncEngine, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138478083;
-              v86 = v14;
-              v87 = 2114;
-              v88 = v26;
+              v85 = v14;
+              v86 = 2114;
+              v87 = v26;
               _os_log_impl(&dword_24912E000, v33, OS_LOG_TYPE_DEFAULT, "Sending modified record %{private}@ to data source %{public}@", buf, 0x16u);
             }
 
@@ -2219,72 +2189,61 @@ LABEL_14:
             if (os_log_type_enabled(DNDSLogIDSSyncEngine, OS_LOG_TYPE_ERROR))
             {
               *buf = 138477827;
-              v86 = v14;
+              v85 = v14;
               _os_log_error_impl(&dword_24912E000, v23, OS_LOG_TYPE_ERROR, "Incoming modified record %{private}@ has an older lastModified date than the existing record", buf, 0xCu);
             }
           }
 
-          metadata3 = [v14 metadata];
-          [array addObject:metadata3];
+          metadata2 = [v14 metadata];
+          [array addObject:metadata2];
         }
 
-        v12 = [obj countByEnumeratingWithState:&v78 objects:v91 count:16];
+        v12 = [obj countByEnumeratingWithState:&v77 objects:v90 count:16];
       }
 
       while (v12);
     }
 
-    v76 = 0u;
-    v77 = 0u;
-    v74 = 0u;
     v75 = 0u;
-    v69 = v63;
-    v35 = [v69 countByEnumeratingWithState:&v74 objects:v84 count:16];
+    v76 = 0u;
+    v73 = 0u;
+    v74 = 0u;
+    v68 = v62;
+    v35 = [v68 countByEnumeratingWithState:&v73 objects:v83 count:16];
     if (v35)
     {
       v36 = v35;
-      v37 = *v75;
+      v37 = *v74;
       do
       {
         for (j = 0; j != v36; ++j)
         {
-          if (*v75 != v37)
+          if (*v74 != v37)
           {
-            objc_enumerationMutation(v69);
+            objc_enumerationMutation(v68);
           }
 
-          v39 = [DNDSIDSRecordMetadata newWithDictionaryRepresentation:*(*(&v74 + 1) + 8 * j) context:v73];
+          v39 = [DNDSIDSRecordMetadata newWithDictionaryRepresentation:*(*(&v73 + 1) + 8 * j) context:v72];
           v40 = self->_metadataStore;
           recordID4 = [v39 recordID];
           v42 = [(DNDSIDSSyncEngineMetadataStoring *)v40 recordMetadataForRecordID:recordID4];
 
-          if (!v42)
+          if (!v42 || ([v42 lastModified], v43 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v39, "lastModified"), v44 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v43, "earlierDate:", v44), v45 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v42, "lastModified"), v46 = objc_claimAutoreleasedReturnValue(), v46, v45, v44, v43, v45 == v46))
           {
-            goto LABEL_28;
-          }
-
-          lastModified4 = [v42 lastModified];
-          lastModified5 = [v39 lastModified];
-          v45 = [lastModified4 earlierDate:lastModified5];
-          lastModified6 = [v42 lastModified];
-
-          if (v45 == lastModified6)
-          {
-LABEL_28:
             recordID5 = [v39 recordID];
             v49 = [recordID5 zone];
             v50 = [(DNDSIDSSyncEngine *)self _queue_dataSourceForZone:v49];
 
             v51 = self->_metadataStore;
-            v83 = v39;
-            v52 = [MEMORY[0x277CBEA60] arrayWithObjects:&v83 count:1];
+            v82 = v39;
+            v52 = [MEMORY[0x277CBEA60] arrayWithObjects:&v82 count:1];
             [(DNDSIDSSyncEngineMetadataStoring *)v51 updateMetadata:v52];
 
             v53 = self->_metadataStore;
             recordID6 = [v39 recordID];
-            v82 = recordID6;
-            v55 = [MEMORY[0x277CBEA60] arrayWithObjects:&v82 count:1];
-            [(DNDSIDSSyncEngineMetadataStoring *)v53 setSyncDate:date forRecordIDs:v55 forPairedDeviceIdentifier:v71];
+            v81 = recordID6;
+            v55 = [MEMORY[0x277CBEA60] arrayWithObjects:&v81 count:1];
+            [(DNDSIDSSyncEngineMetadataStoring *)v53 setSyncDate:date forRecordIDs:v55 forPairedDeviceIdentifier:v70];
 
             v56 = DNDSLogIDSSyncEngine;
             if (os_log_type_enabled(DNDSLogIDSSyncEngine, OS_LOG_TYPE_DEFAULT))
@@ -2292,9 +2251,9 @@ LABEL_28:
               v57 = v56;
               recordID7 = [v39 recordID];
               *buf = 138478083;
-              v86 = recordID7;
-              v87 = 2114;
-              v88 = v50;
+              v85 = recordID7;
+              v86 = 2114;
+              v87 = v50;
               _os_log_impl(&dword_24912E000, v57, OS_LOG_TYPE_DEFAULT, "Sending deleted recordID %{private}@ to data source %{public}@", buf, 0x16u);
             }
 
@@ -2308,7 +2267,7 @@ LABEL_28:
             if (os_log_type_enabled(DNDSLogIDSSyncEngine, OS_LOG_TYPE_ERROR))
             {
               *buf = 138477827;
-              v86 = v39;
+              v85 = v39;
               _os_log_error_impl(&dword_24912E000, v47, OS_LOG_TYPE_ERROR, "Incoming deleted metadata %{private}@ has an older lastModified date than the existing metadata", buf, 0xCu);
             }
           }
@@ -2316,34 +2275,32 @@ LABEL_28:
           [array addObject:v39];
         }
 
-        v36 = [v69 countByEnumeratingWithState:&v74 objects:v84 count:16];
+        v36 = [v68 countByEnumeratingWithState:&v73 objects:v83 count:16];
       }
 
       while (v36);
     }
 
-    messageCopy = v66;
-    v60 = [v66 bs_safeStringForKey:@"action"];
-    identifierCopy = v71;
-    [(DNDSIDSSyncEngine *)self _queue_sendAckWithMetadata:array forAction:v60 toDeviceWithIdentifier:v71];
+    messageCopy = v65;
+    v60 = [v65 bs_safeStringForKey:@"action"];
+    identifierCopy = v70;
+    [(DNDSIDSSyncEngine *)self _queue_sendAckWithMetadata:array forAction:v60 toDeviceWithIdentifier:v70];
   }
 
   else
   {
-    v62 = DNDSLogIDSSyncEngine;
+    v61 = DNDSLogIDSSyncEngine;
     if (os_log_type_enabled(DNDSLogIDSSyncEngine, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_24912E000, v62, OS_LOG_TYPE_DEFAULT, "Ignoring update from paired device that we have never synced with", buf, 2u);
+      _os_log_impl(&dword_24912E000, v61, OS_LOG_TYPE_DEFAULT, "Ignoring update from paired device that we have never synced with", buf, 2u);
     }
   }
-
-  v61 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_handleReplaceMessage:(id)message fromPairedDeviceIdentifier:(id)identifier
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   identifierCopy = identifier;
   dispatch_assert_queue_V2(self->_queue);
@@ -2357,34 +2314,34 @@ LABEL_28:
   if (self->_role)
   {
     v9 = [(NSMapTable *)self->_sourcesByZone copy];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v10 = v9;
-    v11 = [v10 countByEnumeratingWithState:&v17 objects:v22 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v16 objects:v21 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v18;
+      v13 = *v17;
       do
       {
         v14 = 0;
         do
         {
-          if (*v18 != v13)
+          if (*v17 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = [v10 objectForKey:{*(*(&v17 + 1) + 8 * v14), v17}];
+          v15 = [v10 objectForKey:{*(*(&v16 + 1) + 8 * v14), v16}];
           [v15 purgeRecordsForIDSSyncEngine:self];
 
           ++v14;
         }
 
         while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v17 objects:v22 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v16 objects:v21 count:16];
       }
 
       while (v12);
@@ -2399,8 +2356,6 @@ LABEL_28:
   {
     [DNDSIDSSyncEngine _queue_handleReplaceMessage:fromPairedDeviceIdentifier:];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_validate
@@ -2436,83 +2391,41 @@ LABEL_28:
   }
 }
 
-void __102__DNDSIDSSyncEngine_syncService_didReceiveMessage_withVersionNumber_messageType_fromDeviceIdentifier___block_invoke_cold_1(uint64_t a1)
+void __102__DNDSIDSSyncEngine_syncService_didReceiveMessage_withVersionNumber_messageType_fromDeviceIdentifier___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v1, v2, "Ignoring incoming message as the sync engine is disabled: %{public}llu", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Ignoring incoming message as the sync engine is disabled: %{public}llu", v2, v3, v4, v5);
 }
 
-void __112__DNDSIDSSyncEngine_syncService_shouldAcceptIncomingMessage_withVersionNumber_messageType_fromDeviceIdentifier___block_invoke_cold_1(uint64_t a1)
+void __112__DNDSIDSSyncEngine_syncService_shouldAcceptIncomingMessage_withVersionNumber_messageType_fromDeviceIdentifier___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v1, v2, "Rejecting incoming message as the sync engine is disabled: %{public}llu", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Rejecting incoming message as the sync engine is disabled: %{public}llu", v2, v3, v4, v5);
 }
 
-void __112__DNDSIDSSyncEngine_syncService_shouldAcceptIncomingMessage_withVersionNumber_messageType_fromDeviceIdentifier___block_invoke_cold_2(uint64_t *a1, uint64_t a2)
+void __112__DNDSIDSSyncEngine_syncService_shouldAcceptIncomingMessage_withVersionNumber_messageType_fromDeviceIdentifier___block_invoke_cold_2()
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  v3 = *(*a2 + 24);
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  v8 = 2114;
-  v9 = v4;
-  _os_log_error_impl(&dword_24912E000, v5, OS_LOG_TYPE_ERROR, "Rejecting incoming message as it is not from the active device: deviceIdentifier=%{public}@, pairedDevice=%{public}@", v7, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = 2114;
+  v4 = v0;
+  _os_log_error_impl(&dword_24912E000, v1, OS_LOG_TYPE_ERROR, "Rejecting incoming message as it is not from the active device: deviceIdentifier=%{public}@, pairedDevice=%{public}@", v2, 0x16u);
 }
 
-void __112__DNDSIDSSyncEngine_syncService_shouldAcceptIncomingMessage_withVersionNumber_messageType_fromDeviceIdentifier___block_invoke_cold_3(uint64_t *a1)
+void __112__DNDSIDSSyncEngine_syncService_shouldAcceptIncomingMessage_withVersionNumber_messageType_fromDeviceIdentifier___block_invoke_cold_3()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __80__DNDSIDSSyncEngine_syncService_didSendWithRequestIdentifier_withSuccess_error___block_invoke_cold_1(uint64_t a1)
+void __80__DNDSIDSSyncEngine_syncService_didSendWithRequestIdentifier_withSuccess_error___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v1, v2, "Ignoring message send callback as the sync engine is disabled: %{public}llu", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __80__DNDSIDSSyncEngine_syncService_didSendWithRequestIdentifier_withSuccess_error___block_invoke_cold_2(uint64_t a1)
-{
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 40);
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v2, v3, "Error in didSendWithRequestIdentifier sending record modifications: %{public}@", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __81__DNDSIDSSyncEngine__queue_sendAckWithMetadata_forAction_toDeviceWithIdentifier___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Error sending metadata ack: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __68__DNDSIDSSyncEngine__queue_sendUnlockMessageToDeviceWithIdentifier___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Failed to send unlock message: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __68__DNDSIDSSyncEngine__queue_sendResyncMessageToDeviceWithIdentifier___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Failed to send resync message: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Ignoring message send callback as the sync engine is disabled: %{public}llu", v2, v3, v4, v5);
 }
 
 - (void)_queue_sendModifiedRecordIDs:(void *)a3 deletedRecordIDs:(void *)a4 toDeviceWithIdentifier:.cold.1(_DWORD *a1, void *a2, void *a3, void *a4)
@@ -2531,23 +2444,6 @@ void __68__DNDSIDSSyncEngine__queue_sendResyncMessageToDeviceWithIdentifier___bl
   *a1 = 138412290;
   *a4 = v8;
   OUTLINED_FUNCTION_5(&dword_24912E000, v9, v10, "Deleted record metadata could not be serialized: %@");
-}
-
-void __90__DNDSIDSSyncEngine__queue_sendModifiedRecordIDs_deletedRecordIDs_toDeviceWithIdentifier___block_invoke_2_cold_1(uint64_t a1)
-{
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 80);
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v2, v3, "Error in sendMessage sending record modifications: %{public}@", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_queue_handleMessage:fromPairedDeviceIdentifier:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Unknown action %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

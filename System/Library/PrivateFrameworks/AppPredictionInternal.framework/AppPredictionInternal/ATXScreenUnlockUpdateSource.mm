@@ -68,24 +68,23 @@ void __53__ATXScreenUnlockUpdateSource__listenForScreenUnlock__block_invoke(uint
 
 - (void)_handleScreenUnlockEvent
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = __atxlog_handle_default();
+  v12 = *MEMORY[0x277D85DE8];
+  v3 = __atxlog_handle_default(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_class();
     v5 = NSStringFromClass(v4);
-    v9 = 138412546;
-    v10 = v5;
-    v11 = 2080;
-    v12 = "[ATXScreenUnlockUpdateSource _handleScreenUnlockEvent]";
-    _os_log_impl(&dword_2263AA000, v3, OS_LOG_TYPE_DEFAULT, "%@ - %s: got screen unlock event", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v5;
+    v10 = 2080;
+    v11 = "[ATXScreenUnlockUpdateSource _handleScreenUnlockEvent]";
+    _os_log_impl(&dword_2263AA000, v3, OS_LOG_TYPE_DEFAULT, "%@ - %s: got screen unlock event", &v8, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained tryUpdatePredictionsDefaultIntervalWithReason:7];
 
   updateContextStreamAndReturnPredictionContextForCurrentContext = [(ATXPredictionContextBuilderProtocol *)self->_predictionContextBuilder updateContextStreamAndReturnPredictionContextForCurrentContext];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (ATXUpdatePredictionsDelegate)delegate

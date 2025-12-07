@@ -327,7 +327,6 @@ LABEL_12:
   has = self->_has;
   if ((has & 0x100) != 0)
   {
-    start = self->_start;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 1) == 0)
@@ -347,7 +346,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  complete = self->_complete;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -362,7 +360,6 @@ LABEL_4:
   }
 
 LABEL_17:
-  peakOutage = self->_peakOutage;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -377,7 +374,6 @@ LABEL_5:
   }
 
 LABEL_18:
-  totalDuration = self->_totalDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -392,7 +388,6 @@ LABEL_6:
   }
 
 LABEL_19:
-  dc0 = self->_dc0;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -407,7 +402,6 @@ LABEL_7:
   }
 
 LABEL_20:
-  dc1 = self->_dc1;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -422,7 +416,6 @@ LABEL_8:
   }
 
 LABEL_21:
-  dc2 = self->_dc2;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -437,7 +430,6 @@ LABEL_9:
   }
 
 LABEL_22:
-  dc3 = self->_dc3;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -452,12 +444,10 @@ LABEL_10:
   }
 
 LABEL_23:
-  dc4 = self->_dc4;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_11:
-    dc5 = self->_dc5;
     PBDataWriterWriteUint32Field();
   }
 

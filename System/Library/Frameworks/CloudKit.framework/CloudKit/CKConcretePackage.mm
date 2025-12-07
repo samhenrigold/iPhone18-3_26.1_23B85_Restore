@@ -125,7 +125,7 @@
   downloadItemIndices = self->_downloadItemIndices;
   self->_downloadItemIndices = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, downloadItemIndices);
 }
 
 - (NSIndexSet)downloadItemIndices
@@ -143,11 +143,11 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v31.receiver = self;
-  v31.super_class = CKConcretePackage;
-  [(CKPackage *)&v31 encodeWithCoder:coderCopy];
+  v30.receiver = self;
+  v30.super_class = CKConcretePackage;
+  [(CKPackage *)&v30 encodeWithCoder:coderCopy];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -159,9 +159,9 @@
     v7 = 0;
   }
 
-  v30 = 0;
-  v8 = objc_msgSend_anchorWithExpirationDate_error_(self, v5, v7, &v30);
-  v10 = v30;
+  v29 = 0;
+  v8 = objc_msgSend_anchorWithExpirationDate_error_(self, v5, v7, &v29);
+  v10 = v29;
   if (v8)
   {
     objc_msgSend_encodeObject_forKey_(coderCopy, v9, v8, @"anchor");
@@ -179,7 +179,7 @@
         v13 = v11;
         v16 = objc_msgSend_packageID(sqlitePackage, v14, v15);
         *buf = 138543362;
-        v33 = v16;
+        v32 = v16;
         v17 = "Encoded package for xpc with ID=%{public}@";
 LABEL_20:
         _os_log_debug_impl(&dword_1883EA000, v13, OS_LOG_TYPE_DEBUG, v17, buf, 0xCu);
@@ -196,11 +196,11 @@ LABEL_20:
       v20 = ck_log_facility_package;
       if (os_log_type_enabled(ck_log_facility_package, OS_LOG_TYPE_DEBUG))
       {
-        v27 = self->_sqlitePackage;
+        v26 = self->_sqlitePackage;
         v13 = v20;
-        v16 = objc_msgSend_packageID(v27, v28, v29);
+        v16 = objc_msgSend_packageID(v26, v27, v28);
         *buf = 138543362;
-        v33 = v16;
+        v32 = v16;
         v17 = "Encoded package with ID=%{public}@";
         goto LABEL_20;
       }
@@ -217,25 +217,23 @@ LABEL_20:
     v18 = ck_log_facility_package;
     if (os_log_type_enabled(ck_log_facility_package, OS_LOG_TYPE_ERROR))
     {
-      v22 = self->_sqlitePackage;
-      v23 = v18;
-      v26 = objc_msgSend_packageID(v22, v24, v25);
+      v21 = self->_sqlitePackage;
+      v22 = v18;
+      v25 = objc_msgSend_packageID(v21, v23, v24);
       *buf = 138543618;
-      v33 = v26;
-      v34 = 2114;
-      v35 = v10;
-      _os_log_error_impl(&dword_1883EA000, v23, OS_LOG_TYPE_ERROR, "Failed to encode package with ID=%{public}@: %{public}@", buf, 0x16u);
+      v32 = v25;
+      v33 = 2114;
+      v34 = v10;
+      _os_log_error_impl(&dword_1883EA000, v22, OS_LOG_TYPE_ERROR, "Failed to encode package with ID=%{public}@: %{public}@", buf, 0x16u);
     }
 
     objc_msgSend_encodeObject_forKey_(coderCopy, v19, v10, @"error");
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (CKConcretePackage)initWithCoder:(id)coder
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = objc_opt_class();
   v7 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v6, v5, @"error");
@@ -251,7 +249,7 @@ LABEL_20:
     if (os_log_type_enabled(ck_log_facility_package, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v36 = v8;
+      v35 = v8;
       _os_log_error_impl(&dword_1883EA000, v9, OS_LOG_TYPE_ERROR, "Failed to decode package due to encode error: %{public}@", buf, 0xCu);
     }
 
@@ -262,9 +260,9 @@ LABEL_20:
   {
     v11 = objc_opt_class();
     v13 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v12, v11, @"anchor");
-    v34 = 0;
-    v15 = objc_msgSend_packageFromAnchor_error_(CKPackageDatabase, v14, v13, &v34);
-    v8 = v34;
+    v33 = 0;
+    v15 = objc_msgSend_packageFromAnchor_error_(CKPackageDatabase, v14, v13, &v33);
+    v8 = v33;
     v17 = objc_msgSend_initWithSQLitePackageRef_(self, v16, v15);
     if (v17)
     {
@@ -279,12 +277,12 @@ LABEL_20:
         v18 = ck_log_facility_package;
         if (os_log_type_enabled(ck_log_facility_package, OS_LOG_TYPE_DEBUG))
         {
-          v24 = v17[3];
-          v25 = v18;
-          v28 = objc_msgSend_packageID(v24, v26, v27);
+          v23 = v17[3];
+          v24 = v18;
+          v27 = objc_msgSend_packageID(v23, v25, v26);
           *buf = 138543362;
-          v36 = v28;
-          _os_log_debug_impl(&dword_1883EA000, v25, OS_LOG_TYPE_DEBUG, "Decoded package for xpc with ID=%{public}@", buf, 0xCu);
+          v35 = v27;
+          _os_log_debug_impl(&dword_1883EA000, v24, OS_LOG_TYPE_DEBUG, "Decoded package for xpc with ID=%{public}@", buf, 0xCu);
         }
 
         v20 = objc_msgSend_liftAnchor_(CKPackageDatabase, v19, v13);
@@ -300,12 +298,12 @@ LABEL_20:
         v21 = ck_log_facility_package;
         if (os_log_type_enabled(ck_log_facility_package, OS_LOG_TYPE_DEBUG))
         {
-          v29 = v17[3];
-          v30 = v21;
-          v33 = objc_msgSend_packageID(v29, v31, v32);
+          v28 = v17[3];
+          v29 = v21;
+          v32 = objc_msgSend_packageID(v28, v30, v31);
           *buf = 138543362;
-          v36 = v33;
-          _os_log_debug_impl(&dword_1883EA000, v30, OS_LOG_TYPE_DEBUG, "Decoded package with ID=%{public}@", buf, 0xCu);
+          v35 = v32;
+          _os_log_debug_impl(&dword_1883EA000, v29, OS_LOG_TYPE_DEBUG, "Decoded package with ID=%{public}@", buf, 0xCu);
         }
       }
     }
@@ -315,22 +313,19 @@ LABEL_20:
     selfCopy = self;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (id)UUID
 {
-  v14[2] = *MEMORY[0x1E69E9840];
-  v14[1] = 0;
+  v13[2] = *MEMORY[0x1E69E9840];
+  v13[1] = 0;
   v3 = objc_msgSend_packageID(self->_sqlitePackage, a2, v2);
-  v14[0] = objc_msgSend_unsignedLongLongValue(v3, v4, v5);
+  v13[0] = objc_msgSend_unsignedLongLongValue(v3, v4, v5);
 
   v6 = objc_alloc(MEMORY[0x1E696AFB0]);
-  v8 = objc_msgSend_initWithUUIDBytes_(v6, v7, v14);
+  v8 = objc_msgSend_initWithUUIDBytes_(v6, v7, v13);
   v11 = objc_msgSend_UUIDString(v8, v9, v10);
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

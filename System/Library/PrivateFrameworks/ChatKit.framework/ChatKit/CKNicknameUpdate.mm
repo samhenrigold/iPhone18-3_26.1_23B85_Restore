@@ -107,26 +107,26 @@
 
   if (!contact2)
   {
-    v10 = MEMORY[0x1E696AEC0];
-    v11 = CKFrameworkBundle();
-    v12 = [v11 localizedStringForKey:@"NEW_CONTACT_INFORMATION" value:&stru_1F04268F8 table:@"ChatKit"];
+    v11 = MEMORY[0x1E696AEC0];
+    v12 = CKFrameworkBundle(v6);
+    v13 = [v12 localizedStringForKey:@"NEW_CONTACT_INFORMATION" value:&stru_1F04268F8 table:@"ChatKit"];
 LABEL_12:
-    v8 = [v10 stringWithFormat:v12, v20];
+    v9 = [v11 stringWithFormat:v13, v21];
 
     mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
     userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
     if (userInterfaceLayoutDirection == 1)
     {
-      v18 = @"\u200F";
+      v19 = @"\u200F";
     }
 
     else
     {
-      v18 = @"\u200E";
+      v19 = @"\u200E";
     }
 
-    v9 = [(__CFString *)v18 stringByAppendingString:v8];
+    v10 = [(__CFString *)v19 stringByAppendingString:v9];
     goto LABEL_16;
   }
 
@@ -136,39 +136,39 @@ LABEL_12:
   {
     if ((updateType & 2) != 0)
     {
-      v10 = MEMORY[0x1E696AEC0];
-      v14 = CKFrameworkBundle();
-      v11 = v14;
-      v15 = @"%@_SHARED_A_NEW_NAME";
+      v11 = MEMORY[0x1E696AEC0];
+      v15 = CKFrameworkBundle(updateType2);
+      v12 = v15;
+      v16 = @"%@_SHARED_A_NEW_NAME";
     }
 
     else
     {
       if ((updateType2 & 4) == 0)
       {
-        v13 = 0;
+        v14 = 0;
         goto LABEL_17;
       }
 
-      v10 = MEMORY[0x1E696AEC0];
-      v14 = CKFrameworkBundle();
-      v11 = v14;
-      v15 = @"%@_SHARED_A_NEW_PHOTO";
+      v11 = MEMORY[0x1E696AEC0];
+      v15 = CKFrameworkBundle(updateType2);
+      v12 = v15;
+      v16 = @"%@_SHARED_A_NEW_PHOTO";
     }
 
-    v12 = [v14 localizedStringForKey:v15 value:&stru_1F04268F8 table:@"ChatKit"];
-    v20 = givenName;
+    v13 = [v15 localizedStringForKey:v16 value:&stru_1F04268F8 table:@"ChatKit"];
+    v21 = givenName;
     goto LABEL_12;
   }
 
-  v8 = CKFrameworkBundle();
-  v9 = [v8 localizedStringForKey:@"THIS_PERSON_SHARED_A_NEW_PHOTO_AND_NAME" value:&stru_1F04268F8 table:@"ChatKit"];
+  v9 = CKFrameworkBundle(updateType2);
+  v10 = [v9 localizedStringForKey:@"THIS_PERSON_SHARED_A_NEW_PHOTO_AND_NAME" value:&stru_1F04268F8 table:@"ChatKit"];
 LABEL_16:
-  v13 = v9;
+  v14 = v10;
 
 LABEL_17:
 
-  return v13;
+  return v14;
 }
 
 - (id)listSubtitleText
@@ -181,28 +181,29 @@ LABEL_17:
 
   if (contact2)
   {
-    if (([(CKNicknameUpdate *)self updateType]& 2) != 0)
+    updateType = [(CKNicknameUpdate *)self updateType];
+    if ((updateType & 2) != 0)
     {
-      v8 = MEMORY[0x1E696AEC0];
-      v9 = CKFrameworkBundle();
-      v10 = [v9 localizedStringForKey:@"NAME_CHANGED_FROM_%@_TO_%@" value:&stru_1F04268F8 table:@"ChatKit"];
+      v9 = MEMORY[0x1E696AEC0];
+      v10 = CKFrameworkBundle(updateType);
+      v11 = [v10 localizedStringForKey:@"NAME_CHANGED_FROM_%@_TO_%@" value:&stru_1F04268F8 table:@"ChatKit"];
       _updatedName = [(CKNicknameUpdate *)self _updatedName];
-      v12 = [v8 stringWithFormat:v10, v5, _updatedName];
+      v13 = [v9 stringWithFormat:v11, v5, _updatedName];
 
       mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
       userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
       if (userInterfaceLayoutDirection == 1)
       {
-        v15 = @"\u200F";
+        v16 = @"\u200F";
       }
 
       else
       {
-        v15 = @"\u200E";
+        v16 = @"\u200E";
       }
 
-      _updatedName2 = [(__CFString *)v15 stringByAppendingString:v12];
+      _updatedName2 = [(__CFString *)v16 stringByAppendingString:v13];
     }
 
     else
@@ -225,7 +226,7 @@ LABEL_17:
   updateType2 = [(CKNicknameUpdate *)self updateType];
   if ((updateType & 2) != 0 && (updateType2 & 4) != 0)
   {
-    v5 = CKFrameworkBundle();
+    v5 = CKFrameworkBundle(updateType2);
     v6 = v5;
     v7 = @"NEW_CONTACT_INFORMATION";
     v8 = @"ChatKit";
@@ -235,7 +236,7 @@ LABEL_17:
   {
     if ((updateType & 2) != 0)
     {
-      v5 = CKFrameworkBundle();
+      v5 = CKFrameworkBundle(updateType2);
       v6 = v5;
       v7 = @"NEW_CONTACT_NAME";
     }
@@ -248,7 +249,7 @@ LABEL_17:
         goto LABEL_11;
       }
 
-      v5 = CKFrameworkBundle();
+      v5 = CKFrameworkBundle(updateType2);
       v6 = v5;
       v7 = @"NEW_CONTACT_PHOTO";
     }

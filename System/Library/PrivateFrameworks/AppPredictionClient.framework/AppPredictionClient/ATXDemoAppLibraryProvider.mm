@@ -45,47 +45,49 @@
 + (id)loadCategoriesFromDisk
 {
   demoAppLibraryPath = [self demoAppLibraryPath];
-  v11 = 0;
-  v3 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:demoAppLibraryPath options:0 error:&v11];
-  v4 = v11;
+  v13 = 0;
+  v3 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:demoAppLibraryPath options:0 error:&v13];
+  v4 = v13;
+  v5 = v4;
   if (v3)
   {
-    v10 = v4;
-    v5 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v3 options:0 error:&v10];
-    v6 = v10;
+    v12 = v4;
+    v6 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v3 options:0 error:&v12];
+    v7 = v12;
 
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v5 = v5;
-      v7 = v5;
+      v6 = v6;
+      v9 = v6;
     }
 
     else
     {
-      v8 = __atxlog_handle_app_library();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = __atxlog_handle_app_library(isKindOfClass);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        +[(ATXDemoAppLibraryProvider *)v6];
+        +[(ATXDemoAppLibraryProvider *)v7];
       }
 
-      v7 = 0;
+      v9 = 0;
     }
   }
 
   else
   {
-    v5 = __atxlog_handle_app_library();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = __atxlog_handle_app_library(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      +[(ATXDemoAppLibraryProvider *)v4];
+      +[(ATXDemoAppLibraryProvider *)v5];
     }
 
-    v7 = 0;
-    v6 = v4;
+    v9 = 0;
+    v7 = v5;
   }
 
-  return v7;
+  return v9;
 }
 
 + (id)bundleIdsForCategoryWithName:(id)name in:(id)in
@@ -140,43 +142,44 @@ LABEL_11:
 
 + (id)demoSuggestionsAndRecents
 {
-  v3 = __atxlog_handle_app_library();
+  v3 = __atxlog_handle_app_library(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    *v11 = 0;
-    _os_log_impl(&dword_1BF549000, v3, OS_LOG_TYPE_INFO, "[Demo] Demo suggestions and recents requested", v11, 2u);
+    *v12 = 0;
+    _os_log_impl(&dword_1BF549000, v3, OS_LOG_TYPE_INFO, "[Demo] Demo suggestions and recents requested", v12, 2u);
   }
 
   if ([self isAppLibraryDemoModeEnabled])
   {
     loadCategoriesFromDisk = [self loadCategoriesFromDisk];
-    if ([loadCategoriesFromDisk count] > 1)
+    v5 = [loadCategoriesFromDisk count];
+    if (v5 > 1)
     {
-      v7 = [ATXAppDirectoryResponse alloc];
-      v5 = [self bundleIdsForCategoryWithName:@"Recents" in:loadCategoriesFromDisk];
-      v8 = [self bundleIdsForCategoryWithName:@"Suggestions" in:loadCategoriesFromDisk];
-      v9 = [self bundleIdsForCategoryWithName:@"Hidden" in:loadCategoriesFromDisk];
-      v6 = [(ATXAppDirectoryResponse *)v7 initWithoutDedupingForRecents:v5 predictedApps:v8 hiddenApps:v9 error:0];
+      v8 = [ATXAppDirectoryResponse alloc];
+      v6 = [self bundleIdsForCategoryWithName:@"Recents" in:loadCategoriesFromDisk];
+      v9 = [self bundleIdsForCategoryWithName:@"Suggestions" in:loadCategoriesFromDisk];
+      v10 = [self bundleIdsForCategoryWithName:@"Hidden" in:loadCategoriesFromDisk];
+      v7 = [(ATXAppDirectoryResponse *)v8 initWithoutDedupingForRecents:v6 predictedApps:v9 hiddenApps:v10 error:0];
     }
 
     else
     {
-      v5 = __atxlog_handle_app_library();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = __atxlog_handle_app_library(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        +[(ATXDemoAppLibraryProvider *)v5];
+        +[(ATXDemoAppLibraryProvider *)v6];
       }
 
-      v6 = 0;
+      v7 = 0;
     }
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  return v6;
+  return v7;
 }
 
 + (id)_parseCategory:(id)category realCategories:(id)categories

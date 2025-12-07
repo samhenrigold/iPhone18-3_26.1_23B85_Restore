@@ -1,5 +1,6 @@
 @interface SCReporting
 + (id)createScreenshotReportWithScreenshotProperties:(id)properties mainBundleID:(id)d bundleID:(id)iD isSLContentStream:(BOOL)stream;
++ (void)reportAlertRTCEventWithClientBundelID:(id)d isLegacy:(BOOL)legacy didAlert:(BOOL)alert methodType:(unint64_t)type;
 - (BOOL)shouldReportBundleID:(id)d;
 - (SCReporting)initWithClientBundleID:(id)d clientMainBundleID:(id)iD streamID:(id)streamID;
 - (id)collectSummaryEventMetrics;
@@ -1510,11 +1511,43 @@ LABEL_58:
   v15 = [NSNumber numberWithInteger:level];
   [(NSMutableDictionary *)v14 setObject:v13 forKeyedSubscript:v15];
 
-  v16 = +[NSDate date];
-  thermalLevelIntervalStartTime = self->_thermalLevelIntervalStartTime;
-  self->_thermalLevelIntervalStartTime = v16;
+  self->_thermalLevelIntervalStartTime = +[NSDate date];
 
   _objc_release_x1();
+}
+
++ (void)reportAlertRTCEventWithClientBundelID:(id)d isLegacy:(BOOL)legacy didAlert:(BOOL)alert methodType:(unint64_t)type
+{
+  alertCopy = alert;
+  legacyCopy = legacy;
+  dCopy = d;
+  v10 = objc_alloc_init(NSMutableDictionary);
+  v15 = v10;
+  if (dCopy)
+  {
+    v11 = dCopy;
+  }
+
+  else
+  {
+    v11 = &stru_1000A2FB8;
+  }
+
+  [v10 setObject:v11 forKeyedSubscript:@"CBID"];
+
+  v12 = [NSNumber numberWithBool:alertCopy];
+  [v15 setObject:v12 forKeyedSubscript:@"ALT"];
+
+  v13 = [NSNumber numberWithBool:legacyCopy];
+  [v15 setObject:v13 forKeyedSubscript:@"LGC"];
+
+  v14 = [NSNumber numberWithUnsignedInteger:type];
+  [v15 setObject:v14 forKeyedSubscript:@"MTY"];
+
+  if (alertCopy)
+  {
+    [RPReportingAgent sendReportEventWithType:6 dictionary:v15 withServiceName:@"SCKCapture" clientBundleId:@"com.apple.replayd" sessionID:&stru_1000A2FB8];
+  }
 }
 
 + (id)createScreenshotReportWithScreenshotProperties:(id)properties mainBundleID:(id)d bundleID:(id)iD isSLContentStream:(BOOL)stream

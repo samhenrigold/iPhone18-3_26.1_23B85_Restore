@@ -1581,7 +1581,7 @@ LABEL_9:
   if (([v11 isEqualToDictionary:v9] & 1) == 0)
   {
     [barButtonAppearanceStorage setTextAttributes:v11 forState:0];
-    if ([v12 isEqual:v10])
+    if (objc_msgSend_isEqual_(v12))
     {
 LABEL_16:
       [(UINavigationBar *)self _applySPIAppearanceToButtons];
@@ -1593,7 +1593,7 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  if (([v12 isEqual:v10] & 1) == 0)
+  if ((objc_msgSend_isEqual_(v12) & 1) == 0)
   {
     goto LABEL_15;
   }
@@ -1655,7 +1655,7 @@ LABEL_18:
 
         [v15 setShadowOffset:{v16, v17, v18, v19}];
         [v12 setObject:v15 forKey:v13];
-        if (([v12 isEqual:v10] & 1) == 0)
+        if ((objc_msgSend_isEqual_(v12) & 1) == 0)
         {
           [barButtonAppearanceStorage setTextAttributes:v12 forState:1];
           [(UINavigationBar *)self _applySPIAppearanceToButtons];
@@ -1996,9 +1996,9 @@ LABEL_17:
 
   if (v6 && v5)
   {
-    v7 = [(UIBarAppearance *)v5 isEqual:v6];
+    isEqual = objc_msgSend_isEqual_(v5, v6, v6);
 
-    if (v7)
+    if (isEqual)
     {
       goto LABEL_17;
     }
@@ -2074,9 +2074,9 @@ LABEL_16:
 
   if (v6 && v5)
   {
-    v7 = [(UIBarAppearance *)v5 isEqual:v6];
+    isEqual = objc_msgSend_isEqual_(v5, v6, v6);
 
-    if (v7)
+    if (isEqual)
     {
       goto LABEL_16;
     }
@@ -2153,9 +2153,9 @@ LABEL_17:
 
   if (v6 && stack)
   {
-    v7 = [(UIBarAppearance *)stack isEqual:v6];
+    isEqual = objc_msgSend_isEqual_(stack, v6, v6);
 
-    if (v7)
+    if (isEqual)
     {
       goto LABEL_17;
     }
@@ -2227,9 +2227,9 @@ LABEL_18:
 
   if (v6 && stack)
   {
-    v7 = [(UIBarAppearance *)stack isEqual:v6];
+    isEqual = objc_msgSend_isEqual_(stack, v6, v6);
 
-    if (v7)
+    if (isEqual)
     {
       goto LABEL_18;
     }
@@ -2293,9 +2293,9 @@ LABEL_19:
 - (void)setBarTintColor:(UIColor *)barTintColor
 {
   v8 = barTintColor;
-  v5 = [(UIColor *)v8 isEqual:self->_barTintColor];
+  isEqual = objc_msgSend_isEqual_(v8);
   v6 = v8;
-  if (!v5 && self->_barTintColor != v8)
+  if ((isEqual & 1) == 0 && self->_barTintColor != v8)
   {
     _effectiveBarTintColor = [(UINavigationBar *)self _effectiveBarTintColor];
     objc_storeStrong(&self->_barTintColor, barTintColor);
@@ -2309,9 +2309,9 @@ LABEL_19:
 {
   colorCopy = color;
   _effectiveBarTintColor = [(UINavigationBar *)self _effectiveBarTintColor];
-  v5 = [colorCopy isEqual:_effectiveBarTintColor];
+  isEqual = objc_msgSend_isEqual_(colorCopy);
 
-  if ((v5 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     [(UINavigationBar *)self _propagateEffectiveBarTintColorWithPreviousColor:colorCopy];
   }
@@ -3000,18 +3000,19 @@ void __43__UINavigationBar_defaultHeightForMetrics___block_invoke()
 
 + (void)_initializeForIdiom:(int64_t)idiom
 {
-  v26[2] = *MEMORY[0x1E69E9840];
+  v28[2] = *MEMORY[0x1E69E9840];
   if (objc_opt_class() == self)
   {
     if (idiom == 2 || idiom == 8)
     {
-      v22 = _UIAppearanceContainerForUserInterfaceIdiom();
-      v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
-      v4 = [(UIBarItem *)UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:v19];
+      v19 = _UIAppearanceContainerForUserInterfaceIdiom(idiom);
+      v24 = v20;
+      v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:{1, v19}];
+      v4 = [(UIBarItem *)UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:v21];
 
       v5 = [off_1E70ECC18 preferredFontForTextStyle:{@"UICTFontTextStyleHeadline", *off_1E70EC918}];
-      v21 = v5;
-      v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+      v23 = v5;
+      v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
       [v4 setTitleTextAttributes:v6 forState:0];
     }
 
@@ -3031,14 +3032,14 @@ void __43__UINavigationBar_defaultHeightForMetrics___block_invoke()
       v8 = +[UIColor _externalBarBackgroundColor];
       [v5 setBackgroundColor:v8];
 
-      v25[0] = *off_1E70EC918;
-      v9 = v25[0];
+      v27[0] = *off_1E70EC918;
+      v9 = v27[0];
       v10 = [off_1E70ECC18 systemFontOfSize:17.0];
-      v26[0] = v10;
-      v25[1] = *off_1E70EC920;
+      v28[0] = v10;
+      v27[1] = *off_1E70EC920;
       v11 = +[UIColor _externalSystemWhiteColor];
-      v26[1] = v11;
-      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:2];
+      v28[1] = v11;
+      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:2];
       [v5 setTitleTextAttributes:v12];
 
       [v5 setTitleVerticalPositionAdjustment:0 forBarMetrics:0.0];
@@ -3051,10 +3052,10 @@ void __43__UINavigationBar_defaultHeightForMetrics___block_invoke()
       [v5 setBackIndicatorTransitionMaskImage:imageFlippedForRightToLeftLayoutDirection2];
 
       [v5 _setBackIndicatorLeftMargin:12.0];
-      v23 = v9;
+      v25 = v9;
       v17 = [off_1E70ECC18 systemFontOfSize:17.0];
-      v24 = v17;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+      v26 = v17;
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
       [v6 setTitleTextAttributes:v18 forState:0];
     }
   }
@@ -4570,11 +4571,11 @@ void __46__UINavigationBar__setItems_transition_reset___block_invoke(uint64_t a1
   }
 }
 
-uint64_t __48__UINavigationBar__setItemsUpToItem_transition___block_invoke(uint64_t result, uint64_t a2, _BYTE *a3)
+id *__48__UINavigationBar__setItemsUpToItem_transition___block_invoke(id *result, id a2, _BYTE *a3)
 {
-  if (*(result + 32) != a2)
+  if (result[4] != a2)
   {
-    return [*(result + 40) addObject:a2];
+    return [result[5] addObject:a2];
   }
 
   *a3 = 1;
@@ -6371,7 +6372,7 @@ LABEL_27:
   y = frame.origin.y;
   x = frame.origin.x;
   [(UIView *)self frame];
-  if ((_UIRectEquivalentToRectWithAccuracy(x, y, width, height, v8, v9, v10, v11, 0.00000011920929) & 1) == 0)
+  if (!_UIRectEquivalentToRectWithAccuracy(x, y, width, height, v8, v9, v10, v11, 0.00000011920929))
   {
     [(UIView *)self frame];
     v13 = v12;
@@ -6393,7 +6394,7 @@ LABEL_27:
   y = bounds.origin.y;
   x = bounds.origin.x;
   [(UIView *)self bounds];
-  if ((_UIRectEquivalentToRectWithAccuracy(x, y, width, height, v8, v9, v10, v11, 0.00000011920929) & 1) == 0)
+  if (!_UIRectEquivalentToRectWithAccuracy(x, y, width, height, v8, v9, v10, v11, 0.00000011920929))
   {
     [(UIView *)self bounds];
     v13 = v12;

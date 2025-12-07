@@ -33,13 +33,13 @@
 - (void)viewWillAppear:(BOOL)appear
 {
   selfCopy = self;
-  sub_10063CBC8(appear);
+  sub_10063CBC8(appear, v4);
 }
 
 - (void)viewDidLayoutSubviews
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for WorkoutDetailedMetricsViewController();
+  v5.super_class = type metadata accessor for WorkoutDetailedMetricsViewController(0);
   v2 = v5.receiver;
   [(CHWorkoutDetailedMetricsViewController *)&v5 viewDidLayoutSubviews];
   v3 = *&v2[OBJC_IVAR___CHWorkoutDetailedMetricsViewController_mapView];
@@ -67,11 +67,11 @@
   viewCopy = view;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v8 = sub_1006423D0(overlay);
+  v9 = sub_1006423D0(overlay, v8);
 
   swift_unknownObjectRelease();
 
-  return v8;
+  return v9;
 }
 
 - (id)mapView:(id)view viewForAnnotation:(id)annotation

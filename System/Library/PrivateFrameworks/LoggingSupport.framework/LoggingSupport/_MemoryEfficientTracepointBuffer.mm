@@ -1,6 +1,7 @@
 @interface _MemoryEfficientTracepointBuffer
 - (BOOL)findOversize:(id)oversize process:(unint64_t)process oversize_id:(unsigned int)oversize_id pidversion:(unsigned int)pidversion timestamp:(unint64_t)timestamp block:(id)block;
 - (BOOL)iterateChunksAndFillEvent:(tp_element *)event block:(id)block;
+- (id)init:(unsigned int)init dataCacheSize:(unsigned int)size;
 - (tp_element)insertValuesIntoIndex:(int64_t)index coffset:(int64_t)coffset fileName:(id)name sortKey:(unint64_t)key type:(unsigned __int8)type;
 - (unint64_t)addTSEntry:(os_timesync_time_entry_s *)entry;
 - (unsigned)indexOfUUID:(unsigned __int8)d[16];
@@ -247,30 +248,30 @@ LABEL_11:
 
 - (void)retireOversize:(unint64_t)oversize
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if ([(NSMutableDictionary *)self->_oversizeTable count]>= 0x64)
   {
     [(NSMutableDictionary *)self->_oversizeTable keysSortedByValueUsingSelector:sel_compareTimestamp_];
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
-    v5 = v16 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v5 = v15 = 0u;
+    v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v13 + 1) + 8 * i);
-          v11 = [(NSMutableDictionary *)self->_oversizeTable objectForKey:v10, v13];
+          v10 = *(*(&v12 + 1) + 8 * i);
+          v11 = [(NSMutableDictionary *)self->_oversizeTable objectForKey:v10, v12];
           if ([v11 timestamp] >= oversize)
           {
 
@@ -280,7 +281,7 @@ LABEL_11:
           [(NSMutableDictionary *)self->_oversizeTable removeObjectForKey:v10];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v7)
         {
           continue;
@@ -292,8 +293,6 @@ LABEL_11:
 
 LABEL_12:
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumerateEventsFromTime:(unint64_t)time to:(unint64_t)to options:(unsigned int)options usingBlock:(id)block
@@ -838,7 +837,6 @@ LABEL_17:
     }
 
     v19 = (v20 + v15);
-    traceEvents = self->_traceEvents;
     result = _os_trace_realloc_typed();
     self->_traceEvents = result;
   }
@@ -851,24 +849,24 @@ LABEL_17:
   [(_BaseTracepointBuffer *)self setSize:v19];
   if ([(_BaseTracepointBuffer *)self cursor])
   {
-    v22 = [(_BaseTracepointBuffer *)self cursor]- 1;
-    [(_BaseTracepointBuffer *)self setCursor:v22];
+    v21 = [(_BaseTracepointBuffer *)self cursor]- 1;
+    [(_BaseTracepointBuffer *)self setCursor:v21];
   }
 
   else
   {
-    v22 = [(_BaseTracepointBuffer *)self count];
-    [(_BaseTracepointBuffer *)self setCount:v22 + 1];
+    v21 = [(_BaseTracepointBuffer *)self count];
+    [(_BaseTracepointBuffer *)self setCount:v21 + 1];
   }
 
-  v23 = self->_traceEvents + 51 * v22;
-  *(v23 + 2) = index;
-  *(v23 + 10) = coffset;
-  *v23 = v17;
-  *(v23 + 18) = key;
-  v23[26] = type;
+  v22 = self->_traceEvents + 51 * v21;
+  *(v22 + 2) = index;
+  *(v22 + 10) = coffset;
+  *v22 = v17;
+  *(v22 + 18) = key;
+  v22[26] = type;
 
-  return v23;
+  return v22;
 }
 
 - (unsigned)indexOfUUID:(unsigned __int8)d[16]
@@ -1155,7 +1153,6 @@ LABEL_8:
     }
 
     v6 = v7 + v5;
-    v8 = *(self + 120);
     self = _os_trace_realloc_typed();
     selfCopy[15] = self;
   }
@@ -1170,10 +1167,10 @@ LABEL_8:
   else
   {
     selfCopy[17] = v6;
-    v9 = (selfCopy[15] + 32 * selfCopy[16]);
-    v10 = *&entry->var2;
-    *v9 = *&entry->var0.var0;
-    v9[1] = v10;
+    v8 = (selfCopy[15] + 32 * selfCopy[16]);
+    v9 = *&entry->var2;
+    *v8 = *&entry->var0.var0;
+    v8[1] = v9;
     self = selfCopy[16];
     selfCopy[16] = self + 1;
   }
@@ -1197,6 +1194,46 @@ LABEL_8:
   v6.receiver = self;
   v6.super_class = _MemoryEfficientTracepointBuffer;
   [(_BaseTracepointBuffer *)&v6 dealloc];
+}
+
+- (id)init:(unsigned int)init dataCacheSize:(unsigned int)size
+{
+  v4 = *&size;
+  v5 = *&init;
+  v19.receiver = self;
+  v19.super_class = _MemoryEfficientTracepointBuffer;
+  v6 = [(_BaseTracepointBuffer *)&v19 init];
+  v7 = v6;
+  if (v6)
+  {
+    v6->_traceEvents = 0;
+    v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    oversizeTable = v7->_oversizeTable;
+    v7->_oversizeTable = v8;
+
+    v7->_ocount = 0;
+    v7->_osize = 0;
+    v7->_tsEntries = 0;
+    v7->_tscount = 0;
+    v7->_tssize = 0;
+    v10 = objc_alloc_init(MEMORY[0x277CBEB40]);
+    uuids = v7->_uuids;
+    v7->_uuids = v10;
+
+    v12 = [[CatalogsCache alloc] init:v5 evictionHandler:&__block_literal_global_4400];
+    catalogCache = v7->catalogCache;
+    v7->catalogCache = v12;
+
+    v14 = [[DataCache alloc] init:v4 evictionHandler:&__block_literal_global_63_4402];
+    dataCache = v7->dataCache;
+    v7->dataCache = v14;
+
+    v16 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    storeArray = v7->storeArray;
+    v7->storeArray = v16;
+  }
+
+  return v7;
 }
 
 @end

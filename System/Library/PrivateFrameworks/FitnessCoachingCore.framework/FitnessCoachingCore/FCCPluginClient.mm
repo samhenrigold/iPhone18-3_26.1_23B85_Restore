@@ -107,11 +107,10 @@ void __57__FCCPluginClient__pluginMessage_data_completionHandler___block_invoke_
 
 void __57__FCCPluginClient__pluginMessage_data_completionHandler___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_24B53B000, a2, OS_LOG_TYPE_ERROR, "[FCCPluginClient] Sending message failed: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_24B53B000, a2, OS_LOG_TYPE_ERROR, "[FCCPluginClient] Sending message failed: %@", &v2, 0xCu);
 }
 
 @end

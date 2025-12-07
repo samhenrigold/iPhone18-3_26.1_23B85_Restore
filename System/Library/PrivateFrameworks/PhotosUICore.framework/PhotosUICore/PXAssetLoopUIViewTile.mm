@@ -160,7 +160,7 @@ LABEL_9:
       view = objc_alloc_init(PXVideoSessionManagerDisplayAssetOptions);
       [(PXVideoSessionManagerDisplayAssetOptions *)view setShouldStabilizeLivePhotosIfPossible:1];
       [(PXVideoSessionManagerDisplayAssetOptions *)view setShouldCrossfadeLivePhotosWhenLooping:1];
-      [(PXAssetLoopUIViewTile *)self bestPlaybackTimeRange];
+      objc_msgSend_bestPlaybackTimeRange(self);
       v18[0] = v18[3];
       v18[1] = v18[4];
       v18[2] = v18[5];
@@ -201,7 +201,7 @@ void __55__PXAssetLoopUIViewTile__reloadVideoSessionIfNecessary__block_invoke(ui
     v6 = *(a1 + 40);
     if (v6)
     {
-      [v6 bestPlaybackTimeRange];
+      objc_msgSend_bestPlaybackTimeRange(v6);
     }
 
     else

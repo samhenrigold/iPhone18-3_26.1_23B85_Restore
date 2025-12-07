@@ -11,7 +11,7 @@
   objc_opt_self();
   if (!l)
   {
-    l = [MEMORY[0x1E695DFF8] URLWithString:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"memory://%lx", self)}];
+    l = [MEMORY[0x1E695DFF8] URLWithString:{objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], self)}];
   }
 
   v16.receiver = self;

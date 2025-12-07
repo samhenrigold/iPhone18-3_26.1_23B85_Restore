@@ -248,7 +248,7 @@ uint64_t __54__PTSettingsClassStructure_structureForSettingsClass___block_invoke
         if (v13)
         {
           v14 = v13;
-          if ((PTClassIsPlistable() & 1) == 0)
+          if ((PTClassIsPlistable(v13) & 1) == 0)
           {
             v15 = PTLogObjectForTopic(0);
             if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
@@ -454,9 +454,9 @@ uint64_t __54__PTSettingsClassStructure_structureForSettingsClass___block_invoke
   v9 = [v6 setWithObjects:{v8, objc_opt_class(), 0}];
   v10 = [coderCopy decodeObjectOfClasses:v9 forKey:keyCopy];
 
-  objc_opt_class();
-  objc_opt_class();
-  if ((PTValidateDictionary(v10) & 1) == 0)
+  v11 = objc_opt_class();
+  v12 = objc_opt_class();
+  if ((PTValidateDictionary(v10, v11, v12) & 1) == 0)
   {
     [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CCA2A8] format:{@"%@ expected [String:String] dictionary for '%@'; got %@", objc_opt_class(), keyCopy, v10}];
   }
@@ -473,8 +473,8 @@ uint64_t __54__PTSettingsClassStructure_structureForSettingsClass___block_invoke
   v9 = [v6 setWithObjects:{v8, objc_opt_class(), 0}];
   v10 = [coderCopy decodeObjectOfClasses:v9 forKey:keyCopy];
 
-  objc_opt_class();
-  if ((PTValidateSet(v10) & 1) == 0)
+  v11 = objc_opt_class();
+  if ((PTValidateSet(v10, v11) & 1) == 0)
   {
     [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CCA2A8] format:{@"%@ expected set of Strings for '%@'; got %@", objc_opt_class(), keyCopy, v10}];
   }

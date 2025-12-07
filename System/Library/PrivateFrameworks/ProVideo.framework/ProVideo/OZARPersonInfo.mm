@@ -2,8 +2,8 @@
 - (OZARPersonInfo)init;
 - (__n128)simdTransform:(uint64_t)transform;
 - (id)init:(id)init;
-- (uint64_t)simdTransform;
 - (void)dealloc;
+- (void)simdTransform;
 @end
 
 @implementation OZARPersonInfo
@@ -37,11 +37,11 @@
   [(OZARPersonInfo *)&v3 dealloc];
 }
 
-- (uint64_t)simdTransform
+- (void)simdTransform
 {
-  transform = [self transform];
+  v3 = objc_msgSend_transform(self, a2);
 
-  return [transform PCSIMDFloat4x4Value];
+  return [v3 PCSIMDFloat4x4Value];
 }
 
 - (__n128)simdTransform:(uint64_t)transform

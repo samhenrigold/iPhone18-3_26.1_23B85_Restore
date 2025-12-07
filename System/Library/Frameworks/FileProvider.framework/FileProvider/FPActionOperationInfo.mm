@@ -26,49 +26,47 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   if ([(FPActionOperationInfo *)self attachSandboxExtensionsOnXPCEncoding])
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v5 = self->_roots;
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v12;
+      v8 = *v11;
       do
       {
         v9 = 0;
         do
         {
-          if (*v12 != v8)
+          if (*v11 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          [*(*(&v11 + 1) + 8 * v9++) attachSandboxExtensionOnXPCEncoding];
+          [*(*(&v10 + 1) + 8 * v9++) attachSandboxExtensionOnXPCEncoding];
         }
 
         while (v7 != v9);
-        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v7);
     }
   }
 
-  [coderCopy encodeObject:self->_operationID forKey:{@"_operationID", v11}];
+  [coderCopy encodeObject:self->_operationID forKey:{@"_operationID", v10}];
   [coderCopy encodeObject:self->_roots forKey:@"_roots"];
   [coderCopy encodeInteger:self->_qos forKey:@"_qos"];
   [coderCopy encodeInteger:self->__t_moveQueueWidth forKey:@"__t_moveQueueWidth"];
   [coderCopy encodeBool:self->__t_clientDrivenReader forKey:@"__t_clientDrivenReader"];
   [coderCopy encodeBool:self->__t_clearItemURLs forKey:@"__t_clearItemURLs"];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (FPActionOperationInfo)initWithCoder:(id)coder

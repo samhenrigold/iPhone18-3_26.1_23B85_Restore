@@ -5,7 +5,7 @@
 
 void __32___MLNetworking_startConnection__block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = [*(a1 + 32) connection];
   v7 = nw_connection_copy_endpoint(v6);
@@ -54,24 +54,24 @@ void __32___MLNetworking_startConnection__block_invoke(uint64_t a1, int a2, void
     hostname = nw_endpoint_get_hostname(v7);
     port = nw_endpoint_get_port(v7);
     v14 = [*(a1 + 32) nwOptions];
-    v25 = [v14 useUDP];
-    v26 = "tcp";
-    v27 = 138413058;
-    v28 = v11;
-    v29 = 2080;
-    if (v25)
+    v24 = [v14 useUDP];
+    v25 = "tcp";
+    v26 = 138413058;
+    v27 = v11;
+    v28 = 2080;
+    if (v24)
     {
-      v26 = "udp";
+      v25 = "udp";
     }
 
-    v30 = hostname;
-    v31 = 1024;
-    v32 = port;
-    v33 = 2080;
-    v34 = v26;
+    v29 = hostname;
+    v30 = 1024;
+    v31 = port;
+    v32 = 2080;
+    v33 = v25;
     v21 = "%@: connect to %s port %u (%s) failed";
 LABEL_28:
-    _os_log_debug_impl(&dword_261D92000, v10, OS_LOG_TYPE_DEBUG, v21, &v27, 0x26u);
+    _os_log_debug_impl(&dword_261D92000, v10, OS_LOG_TYPE_DEBUG, v21, &v26, 0x26u);
     goto LABEL_13;
   }
 
@@ -89,19 +89,19 @@ LABEL_28:
     v14 = [*(a1 + 32) nwOptions];
     v19 = [v14 useUDP];
     v20 = "tcp";
-    v27 = 138413058;
-    v28 = v11;
-    v29 = 2080;
+    v26 = 138413058;
+    v27 = v11;
+    v28 = 2080;
     if (v19)
     {
       v20 = "udp";
     }
 
-    v30 = v17;
-    v31 = 1024;
-    v32 = v18;
-    v33 = 2080;
-    v34 = v20;
+    v29 = v17;
+    v30 = 1024;
+    v31 = v18;
+    v32 = 2080;
+    v33 = v20;
     v21 = "%@: connect to %s port %u (%s) failed, is waiting";
     goto LABEL_28;
   }
@@ -122,28 +122,26 @@ LABEL_23:
     v14 = [*(a1 + 32) nwOptions];
     v15 = [v14 useUDP];
     v16 = "tcp";
-    v27 = 138413058;
-    v28 = v11;
-    v29 = 2080;
+    v26 = 138413058;
+    v27 = v11;
+    v28 = 2080;
     if (v15)
     {
       v16 = "udp";
     }
 
-    v30 = v12;
-    v31 = 1024;
-    v32 = v13;
-    v33 = 2080;
-    v34 = v16;
-    _os_log_impl(&dword_261D92000, v10, OS_LOG_TYPE_INFO, "%@: Connection to %s port %u (%s) succeeded!", &v27, 0x26u);
+    v29 = v12;
+    v30 = 1024;
+    v31 = v13;
+    v32 = 2080;
+    v33 = v16;
+    _os_log_impl(&dword_261D92000, v10, OS_LOG_TYPE_INFO, "%@: Connection to %s port %u (%s) succeeded!", &v26, 0x26u);
 LABEL_13:
 
     goto LABEL_23;
   }
 
 LABEL_24:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __48___MLNetworking_setListenerReceiveDataCallBack___block_invoke(uint64_t a1, void *a2)
@@ -216,104 +214,75 @@ void __29___MLNetworking_receiveLoop___block_invoke(uint64_t a1, void *a2, void 
 
 void __29___MLNetworking_receiveLoop___block_invoke_2(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  if (*(a1 + 72) == 1)
+  v15 = *MEMORY[0x277D85DE8];
+  if (*(a1 + 72) == 1 && (v2 = *(a1 + 32)) != 0 && nw_content_context_get_is_final(v2))
   {
-    v2 = *(a1 + 32);
-    if (v2)
+    v3 = [*(a1 + 40) logType];
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      if (nw_content_context_get_is_final(v2))
-      {
-        v3 = [*(a1 + 40) logType];
-        if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
-        {
-          v8 = NSStringFromSelector(*(a1 + 64));
-          v9 = *(a1 + 72);
-          v10 = *(a1 + 32);
-          v11 = 138412802;
-          v12 = v8;
-          v13 = 1024;
-          v14 = v9;
-          v15 = 2048;
-          v16 = v10;
-          _os_log_debug_impl(&dword_261D92000, v3, OS_LOG_TYPE_DEBUG, "%@: complete disconnect is_complete=%d ,context=%p", &v11, 0x1Cu);
-        }
-
-        goto LABEL_8;
-      }
+      v6 = NSStringFromSelector(*(a1 + 64));
+      v7 = *(a1 + 72);
+      v8 = *(a1 + 32);
+      v9 = 138412802;
+      v10 = v6;
+      v11 = 1024;
+      v12 = v7;
+      v13 = 2048;
+      v14 = v8;
+      _os_log_debug_impl(&dword_261D92000, v3, OS_LOG_TYPE_DEBUG, "%@: complete disconnect is_complete=%d ,context=%p", &v9, 0x1Cu);
     }
   }
 
-  if (*(a1 + 48))
+  else if (!*(a1 + 48))
   {
-LABEL_8:
-    v4 = *MEMORY[0x277D85DE8];
-    return;
+    v4 = *(a1 + 40);
+    v5 = *(a1 + 56);
+
+    [v4 receiveLoop:v5];
   }
-
-  v5 = *(a1 + 40);
-  v6 = *(a1 + 56);
-  v7 = *MEMORY[0x277D85DE8];
-
-  [v5 receiveLoop:v6];
 }
 
 void __32___MLNetworking_startConnection__block_invoke_cold_1(uint64_t a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_2(a1);
-  v3 = NSStringFromSelector(v2);
-  v4 = *__error();
+  v1 = OUTLINED_FUNCTION_2(a1);
+  v2 = NSStringFromSelector(v1);
+  __error();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_261D92000, v5, v6, "%@: Start connection error code=%d", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_261D92000, v3, v4, "%@: Start connection error code=%d", v5, v6, v7, v8);
 }
 
 void __32___MLNetworking_startConnection__block_invoke_cold_2(uint64_t a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_2(a1);
-  v9 = NSStringFromSelector(v2);
+  v1 = OUTLINED_FUNCTION_2(a1);
+  v7 = NSStringFromSelector(v1);
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 void __48___MLNetworking_setListenerReceiveDataCallBack___block_invoke_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = NSStringFromSelector(*(a1 + 48));
+  v6 = NSStringFromSelector(*(a1 + 48));
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __26___MLNetworking_sendData___block_invoke_cold_1(uint64_t a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_2(a1);
-  v3 = NSStringFromSelector(v2);
-  v4 = *__error();
+  v1 = OUTLINED_FUNCTION_2(a1);
+  v2 = NSStringFromSelector(v1);
+  __error();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_261D92000, v5, v6, "%@: send error code=%d.", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_261D92000, v3, v4, "%@: send error code=%d.", v5, v6, v7, v8);
 }
 
 void __26___MLNetworking_sendData___block_invoke_cold_2(uint64_t a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_2(a1);
-  v3 = NSStringFromSelector(v2);
-  v4 = *__error();
+  v1 = OUTLINED_FUNCTION_2(a1);
+  v2 = NSStringFromSelector(v1);
+  __error();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x12u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x12u);
 }
 
 @end

@@ -264,13 +264,13 @@ LABEL_6:
 
 - (id)getLifetimeStats
 {
-  v3 = [(NSMutableDictionary *)self->_lts objectForKeyedSubscript:@"LifetimeStats"];
+  v2 = [(NSMutableDictionary *)self->_lts objectForKeyedSubscript:@"LifetimeStats"];
   if (os_log_type_enabled(off_100014B00, OS_LOG_TYPE_DEBUG))
   {
-    sub_100008438(self);
+    sub_100008438();
   }
 
-  return v3;
+  return v2;
 }
 
 - (id)getLifetimeStatsForVersion:(unint64_t)version

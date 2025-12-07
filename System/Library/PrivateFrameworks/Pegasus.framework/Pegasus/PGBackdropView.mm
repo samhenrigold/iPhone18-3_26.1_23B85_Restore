@@ -18,7 +18,7 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v8 = PGLogCommon();
+  v8 = PGLogCommon(self);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [PGPictureInPictureApplication initWithProcessIdentifier:?];
@@ -52,7 +52,7 @@
 
 - (void)dealloc
 {
-  v3 = PGLogCommon();
+  v3 = PGLogCommon(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [PGPictureInPictureApplication initWithProcessIdentifier:?];

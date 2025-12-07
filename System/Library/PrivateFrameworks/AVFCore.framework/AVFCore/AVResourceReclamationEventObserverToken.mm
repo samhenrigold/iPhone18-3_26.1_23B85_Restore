@@ -30,7 +30,7 @@
 
 - (void)invalidate
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   if (dword_1ED5AC258)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -38,7 +38,7 @@
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [+[AVResourceReclamationController defaultController](AVResourceReclamationController defaultController];
+  [+[AVResourceReclamationController defaultController](AVResourceReclamationController "defaultController")];
 }
 
 @end

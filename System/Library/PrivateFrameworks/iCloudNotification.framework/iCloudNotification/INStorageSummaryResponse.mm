@@ -521,126 +521,122 @@ LABEL_10:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v6 = &MKBDeviceUnlockedSinceBoot_ptr;
     if ([v5 isEqualToString:@"ICLOUD_PLUS_CELL"])
     {
-      v7 = objc_alloc_init(ICQiCloudPlusSpecifierInfo);
-      v8 = [infoCopy objectForKeyedSubscript:@"featureList"];
+      v6 = objc_alloc_init(ICQiCloudPlusSpecifierInfo);
+      v7 = [infoCopy objectForKeyedSubscript:@"featureList"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v32[0] = _NSConcreteStackBlock;
-        v32[1] = 3221225472;
-        v32[2] = sub_10000903C;
-        v32[3] = &unk_1000553B8;
-        v33 = objc_alloc_init(NSMutableArray);
+        v30[0] = _NSConcreteStackBlock;
+        v30[1] = 3221225472;
+        v30[2] = sub_10000903C;
+        v30[3] = &unk_1000553B8;
+        v31 = objc_alloc_init(NSMutableArray);
         selfCopy = self;
-        v9 = v33;
-        [v8 enumerateObjectsUsingBlock:v32];
-        v10 = [v9 copy];
-        [v7 setFeatureList:v10];
+        v8 = v31;
+        [v7 enumerateObjectsUsingBlock:v30];
+        v9 = [v8 copy];
+        [v6 setFeatureList:v9];
       }
     }
 
     else
     {
-      v7 = objc_alloc_init(ICQSpecifierInfo);
-      [v7 setType:v5];
-      v11 = [infoCopy objectForKeyedSubscript:@"iconURLs"];
+      v6 = objc_alloc_init(ICQSpecifierInfo);
+      [v6 setType:v5];
+      v10 = [infoCopy objectForKeyedSubscript:@"iconURLs"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v12 = [[ICQImageURL alloc] initFromDictionary:v11];
-        [v7 setIconURL:v12];
+        v11 = [[ICQImageURL alloc] initFromDictionary:v10];
+        [v6 setIconURL:v11];
       }
     }
 
-    v13 = [infoCopy objectForKeyedSubscript:@"actionURL"];
+    v12 = [infoCopy objectForKeyedSubscript:@"actionURL"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v14 = [NSURL URLWithString:v13];
-      if (v14)
+      v13 = [NSURL URLWithString:v12];
+      if (v13)
       {
-        [v7 setActionURL:v14];
+        [v6 setActionURL:v13];
       }
     }
 
-    [v7 setType:{v5, v13}];
-    v15 = [infoCopy objectForKeyedSubscript:@"identifier"];
+    [v6 setType:{v5, v12}];
+    v14 = [infoCopy objectForKeyedSubscript:@"identifier"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [v7 setIdentifier:v15];
+      [v6 setIdentifier:v14];
     }
 
-    v16 = [infoCopy objectForKeyedSubscript:@"title"];
+    v15 = [infoCopy objectForKeyedSubscript:@"title"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [v7 setTitle:v16];
+      [v6 setTitle:v15];
     }
 
-    v17 = [infoCopy objectForKeyedSubscript:@"subTitle"];
+    v16 = [infoCopy objectForKeyedSubscript:@"subTitle"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [v7 setSubTitle:v17];
+      [v6 setSubTitle:v16];
     }
 
-    v18 = [infoCopy objectForKeyedSubscript:@"actionType"];
+    v17 = [infoCopy objectForKeyedSubscript:@"actionType"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      actionURL = [v7 actionURL];
+      actionURL = [v6 actionURL];
 
-      v20 = [ICQLink alloc];
-      v21 = v20;
+      v19 = [ICQLink alloc];
+      v20 = v19;
       if (actionURL)
       {
-        actionURL2 = [v7 actionURL];
-        v23 = [v21 initWithActionString:v18 url:actionURL2];
-
-        v6 = &MKBDeviceUnlockedSinceBoot_ptr;
+        actionURL2 = [v6 actionURL];
+        v22 = [v20 initWithActionString:v17 url:actionURL2];
       }
 
       else
       {
-        v23 = [v20 initWithActionString:v18];
+        v22 = [v19 initWithActionString:v17];
       }
 
-      [v7 setIcqLink:v23];
+      [v6 setIcqLink:v22];
     }
 
-    v24 = v6[439];
-    v25 = objc_opt_new();
-    v26 = [infoCopy objectForKeyedSubscript:@"actions"];
+    v23 = objc_opt_new();
+    v24 = [infoCopy objectForKeyedSubscript:@"actions"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v30[0] = _NSConcreteStackBlock;
-      v30[1] = 3221225472;
-      v30[2] = sub_1000090C0;
-      v30[3] = &unk_100055408;
-      v31 = v25;
-      [v26 enumerateObjectsUsingBlock:v30];
+      v28[0] = _NSConcreteStackBlock;
+      v28[1] = 3221225472;
+      v28[2] = sub_1000090C0;
+      v28[3] = &unk_100055408;
+      v29 = v23;
+      [v24 enumerateObjectsUsingBlock:v28];
     }
 
-    v27 = _INLogSystem();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+    v25 = _INLogSystem();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
-      sub_1000357AC(v25, v27);
+      sub_1000357AC(v23, v25);
     }
 
-    [v7 setActions:v25];
+    [v6 setActions:v23];
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  return v7;
+  return v6;
 }
 
 - (id)_parseiCloudPlusFeature:(id)feature

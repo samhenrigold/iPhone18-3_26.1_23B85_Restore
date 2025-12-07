@@ -72,10 +72,7 @@ void __58__CSLPRFReturnToAppSettingsModel_setSettings_forBundleID___block_invoke
 
 uint64_t __54__CSLPRFReturnToAppSettingsModel_settingsForBundleID___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 16) objectForKeyedSubscript:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 16) objectForKeyedSubscript:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -105,11 +102,7 @@ uint64_t __54__CSLPRFReturnToAppSettingsModel_settingsForBundleID___block_invoke
 
 uint64_t __49__CSLPRFReturnToAppSettingsModel_saveAppSettings__block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() returnToAppSettingsToDictionary:*(*(a1 + 32) + 16)];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 40) + 8) + 40) = [objc_opt_class() returnToAppSettingsToDictionary:*(*(a1 + 32) + 16)];
 
   return MEMORY[0x2821F96F8]();
 }

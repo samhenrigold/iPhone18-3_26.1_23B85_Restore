@@ -13,7 +13,7 @@
 
 - (SHMusicalFeaturesConfiguration)initWithCremaModelURL:(id)l minimumDuration:(double)duration error:(id *)p_isa
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   if ([lCopy isFileURL])
   {
@@ -25,21 +25,20 @@
   {
     v9 = MEMORY[0x277CCA9B8];
     v10 = *MEMORY[0x277CCA050];
-    v14 = *MEMORY[0x277CCA450];
-    v15[0] = @"Only file URLs are supported for model URLs.";
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v13 = *MEMORY[0x277CCA450];
+    v14[0] = @"Only file URLs are supported for model URLs.";
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     *p_isa = [v9 errorWithDomain:v10 code:262 userInfo:v11];
 
     p_isa = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return p_isa;
 }
 
 - (SHMusicalFeaturesConfiguration)initWithCrepeModelURL:(id)l minimumDuration:(double)duration error:(id *)p_isa
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   if ([lCopy isFileURL])
   {
@@ -51,21 +50,20 @@
   {
     v9 = MEMORY[0x277CCA9B8];
     v10 = *MEMORY[0x277CCA050];
-    v14 = *MEMORY[0x277CCA450];
-    v15[0] = @"Only file URLs are supported for model URLs.";
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v13 = *MEMORY[0x277CCA450];
+    v14[0] = @"Only file URLs are supported for model URLs.";
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     *p_isa = [v9 errorWithDomain:v10 code:262 userInfo:v11];
 
     p_isa = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return p_isa;
 }
 
 - (SHMusicalFeaturesConfiguration)initWithCremaModelURL:(id)l crepeModelURL:(id)rL minimumDuration:(double)duration error:(id *)p_isa
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   rLCopy = rL;
   if ([lCopy isFileURL] && (objc_msgSend(rLCopy, "isFileURL") & 1) != 0)
@@ -78,15 +76,14 @@
   {
     v12 = MEMORY[0x277CCA9B8];
     v13 = *MEMORY[0x277CCA050];
-    v17 = *MEMORY[0x277CCA450];
-    v18[0] = @"Only file URLs are supported for model URLs.";
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v16 = *MEMORY[0x277CCA450];
+    v17[0] = @"Only file URLs are supported for model URLs.";
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
     *p_isa = [v12 errorWithDomain:v13 code:262 userInfo:v14];
 
     p_isa = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return p_isa;
 }
 

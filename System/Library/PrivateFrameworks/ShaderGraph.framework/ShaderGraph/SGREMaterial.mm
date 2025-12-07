@@ -25,14 +25,12 @@
 
 - (NSArray)functionConstantInputs
 {
-  v3 = OBJC_IVAR___SGREMaterial_functionConstantInputs;
   swift_beginAccess();
-  v4 = *(self + v3);
   type metadata accessor for SGInput();
 
-  v5.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v5.super.isa;
+  return v2.super.isa;
 }
 
 - (void)setFunctionConstantInputs:(id)inputs
@@ -41,19 +39,16 @@
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = OBJC_IVAR___SGREMaterial_functionConstantInputs;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 
 - (NSDictionary)textures
 {
-  v3 = OBJC_IVAR___SGREMaterial_textures;
   swift_beginAccess();
-  v4 = *(self + v3);
 
-  v5.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
+  v2.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
-  return v5.super.isa;
+  return v2.super.isa;
 }
 
 - (void)setTextures:(id)textures
@@ -61,7 +56,6 @@
   v4 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = OBJC_IVAR___SGREMaterial_textures;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 
@@ -70,7 +64,7 @@
   v3 = OBJC_IVAR___SGREMaterial_edgeDigest;
   v4 = type metadata accessor for SHA512Digest();
   v12 = v4;
-  v13 = lazy protocol witness table accessor for type SHA512Digest and conformance SHA512Digest(&lazy protocol witness table cache variable for type SHA512Digest and conformance SHA512Digest, MEMORY[0x277CC52E8]);
+  v13 = lazy protocol witness table accessor for type SHA512Digest and conformance SHA512Digest(&lazy protocol witness table cache variable for type SHA512Digest and conformance SHA512Digest, MEMORY[0x277CC52E8], MEMORY[0x277CC52D8]);
   boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0(v11);
   (*(*(v4 - 8) + 16))(boxed_opaque_existential_0, self + v3, v4);
   __swift_project_boxed_opaque_existential_1(v11, v12);

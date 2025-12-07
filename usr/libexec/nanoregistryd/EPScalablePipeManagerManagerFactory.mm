@@ -40,7 +40,7 @@
   if (v9)
   {
     v10 = v9;
-    v11 = sub_1000A98C0();
+    v11 = sub_1000A98C0(v9);
     v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
 
     if (!v12)
@@ -48,40 +48,39 @@
       goto LABEL_10;
     }
 
-    v13 = sub_1000A98C0();
-    if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_1000A98C0(v13);
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_9;
     }
 
-    v18 = 134218242;
-    v19 = v10;
-    v20 = 2112;
-    v21 = nameCopy;
-    v14 = "EPScalablePipeManagerManagerFactory: Reusing existing EPScalablePipeManagerManager %p to manage pipe %@";
+    v20 = 134218242;
+    v21 = v10;
+    v22 = 2112;
+    v23 = nameCopy;
+    v15 = "EPScalablePipeManagerManagerFactory: Reusing existing EPScalablePipeManagerManager %p to manage pipe %@";
     goto LABEL_8;
   }
 
   v10 = [[EPScalablePipeManagerManager alloc] initWithName:nameCopy type:type priority:priority];
-  [(NSMapTable *)self->_pipeManagers setObject:v10 forKey:nameCopy];
-  v15 = sub_1000A98C0();
-  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+  v16 = sub_1000A98C0([(NSMapTable *)self->_pipeManagers setObject:v10 forKey:nameCopy]);
+  v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
 
-  if (!v16)
+  if (!v17)
   {
     goto LABEL_10;
   }
 
-  v13 = sub_1000A98C0();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = sub_1000A98C0(v18);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 134218242;
-    v19 = v10;
-    v20 = 2112;
-    v21 = nameCopy;
-    v14 = "EPScalablePipeManagerManagerFactory: Created new EPScalablePipeManagerManager %p to manage pipe %@";
+    v20 = 134218242;
+    v21 = v10;
+    v22 = 2112;
+    v23 = nameCopy;
+    v15 = "EPScalablePipeManagerManagerFactory: Created new EPScalablePipeManagerManager %p to manage pipe %@";
 LABEL_8:
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, v14, &v18, 0x16u);
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, v15, &v20, 0x16u);
   }
 
 LABEL_9:

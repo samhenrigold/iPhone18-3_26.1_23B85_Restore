@@ -502,8 +502,8 @@ LABEL_7:
 
 - (void)play
 {
-  [(NUMediaViewRenderer *)self currentTime];
-  [(NUMediaViewRenderer *)self mediaDuration];
+  objc_msgSend_currentTime(self, a2);
+  objc_msgSend_mediaDuration(self);
   if (CMTimeCompare(&time1, &time2) < 0)
   {
     [(NUMediaViewRenderer *)self setPlaybackRate:1.0];
@@ -551,7 +551,7 @@ void __27__NUMediaViewRenderer_play__block_invoke(uint64_t a1)
   if (nuAVPlayerController)
   {
     v6 = nuAVPlayerController;
-    [nuAVPlayerController currentSeekTime];
+    objc_msgSend_currentSeekTime(nuAVPlayerController);
     nuAVPlayerController = v6;
   }
 
@@ -628,7 +628,7 @@ void __27__NUMediaViewRenderer_play__block_invoke(uint64_t a1)
   if (nuAVPlayerController)
   {
     v7 = nuAVPlayerController;
-    [nuAVPlayerController currentTime];
+    objc_msgSend_currentTime(nuAVPlayerController);
     nuAVPlayerController = v7;
   }
 
@@ -694,7 +694,7 @@ void __27__NUMediaViewRenderer_play__block_invoke(uint64_t a1)
   v5 = videoAsset;
   if (videoAsset)
   {
-    [videoAsset duration];
+    objc_msgSend_duration(videoAsset);
   }
 
   else
@@ -1096,7 +1096,7 @@ void __27__NUMediaViewRenderer_play__block_invoke(uint64_t a1)
   v13 = 0;
   if (responseCopy)
   {
-    [responseCopy photoTime];
+    objc_msgSend_photoTime(responseCopy);
   }
 
   v6 = objc_alloc(NSClassFromString(&cfstr_Phlivephoto.isa));
@@ -1599,12 +1599,12 @@ LABEL_29:
       {
         if ([(NUAVPlayerController *)v57 currentlySeeking])
         {
-          [(NUAVPlayerController *)v57 currentSeekTime];
+          objc_msgSend_currentSeekTime(v57);
         }
 
         else
         {
-          [(NUAVPlayerController *)v57 currentTime];
+          objc_msgSend_currentTime(v57);
         }
       }
 
@@ -3156,7 +3156,7 @@ LABEL_23:
   v12 = player;
   if (player)
   {
-    [player currentTime];
+    objc_msgSend_currentTime(player);
   }
 
   else

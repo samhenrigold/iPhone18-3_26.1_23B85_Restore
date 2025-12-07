@@ -1,4 +1,6 @@
 @interface CADDatabaseSingleConnectionProvider
+- (BOOL)hasDatabaseAtPath:(id)path withDatabaseID:(int)d;
+- (BOOL)performWithConfiguration:(id)configuration priority:(unint64_t)priority databaseID:(int)d block:(id)block;
 - (CADDatabaseSingleConnectionProvider)initWithConfiguration:(id)configuration;
 - (id)_databases;
 - (int)databaseRestoreGeneration;
@@ -53,9 +55,36 @@
   CalDatabaseSetInMemoryChangeTrackingID();
 }
 
+- (BOOL)performWithConfiguration:(id)configuration priority:(unint64_t)priority databaseID:(int)d block:(id)block
+{
+  v7 = *&d;
+  configurationCopy = configuration;
+  blockCopy = block;
+  os_unfair_lock_lock(&self->_lock);
+  _databases = [(CADDatabaseSingleConnectionProvider *)self _databases];
+  v12 = [MEMORY[0x277CCABB0] numberWithInt:v7];
+  v13 = [_databases objectForKeyedSubscript:v12];
+
+  if (v13)
+  {
+    CFRetain(v13);
+    os_unfair_lock_unlock(&self->_lock);
+    [(CADDatabaseSingleConnectionProvider *)self _prepareDatabase:v13 withConfiguration:configurationCopy];
+    blockCopy[2](blockCopy, v13);
+    CFRelease(v13);
+  }
+
+  else
+  {
+    os_unfair_lock_unlock(&self->_lock);
+  }
+
+  return v13 != 0;
+}
+
 - (void)performWithAllDatabasesWithConfiguration:(id)configuration priority:(unint64_t)priority block:(id)block
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   blockCopy = block;
   os_unfair_lock_lock(&self->_lock);
@@ -63,40 +92,40 @@
   v10 = [_databases copy];
 
   os_unfair_lock_unlock(&self->_lock);
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v11 = v10;
-  v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v22;
+    v14 = *v21;
 LABEL_3:
     v15 = 0;
     while (1)
     {
-      if (*v22 != v14)
+      if (*v21 != v14)
       {
         objc_enumerationMutation(v11);
       }
 
-      v16 = *(*(&v21 + 1) + 8 * v15);
+      v16 = *(*(&v20 + 1) + 8 * v15);
       intValue = [v16 intValue];
       v18 = [v11 objectForKeyedSubscript:v16];
 
       [(CADDatabaseSingleConnectionProvider *)self _prepareDatabase:v18 withConfiguration:configurationCopy];
-      v20 = 0;
-      blockCopy[2](blockCopy, intValue, v18, &v20);
-      if (v20)
+      v19 = 0;
+      blockCopy[2](blockCopy, intValue, v18, &v19);
+      if (v19)
       {
         break;
       }
 
       if (v13 == ++v15)
       {
-        v13 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
         if (v13)
         {
           goto LABEL_3;
@@ -106,8 +135,6 @@ LABEL_3:
       }
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (int)databaseRestoreGeneration
@@ -133,7 +160,7 @@ LABEL_3:
 
 - (void)addCreatedAuxDatabase:(CalDatabase *)database
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   if (self->_databases)
   {
@@ -147,9 +174,9 @@ LABEL_3:
       v9 = CADLogHandle;
       if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_INFO))
       {
-        v16[0] = 67109120;
-        v16[1] = AuxilliaryDatabaseID;
-        _os_log_impl(&dword_22430B000, v9, OS_LOG_TYPE_INFO, "Ignoring attempt to add a database already known to the connection (id = %d)", v16, 8u);
+        v15[0] = 67109120;
+        v15[1] = AuxilliaryDatabaseID;
+        _os_log_impl(&dword_22430B000, v9, OS_LOG_TYPE_INFO, "Ignoring attempt to add a database already known to the connection (id = %d)", v15, 8u);
       }
     }
 
@@ -171,7 +198,6 @@ LABEL_3:
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)validateAuxDatabases
@@ -194,7 +220,7 @@ LABEL_3:
 
 - (id)_databases
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(&self->_lock);
   databases = self->_databases;
   if (!databases)
@@ -204,7 +230,7 @@ LABEL_3:
     {
       initOptions = self->_initOptions;
       *buf = 138412290;
-      *v58 = initOptions;
+      *v56 = initOptions;
       _os_log_impl(&dword_22430B000, v4, OS_LOG_TYPE_DEBUG, "Creating database with options [%@]", buf, 0xCu);
     }
 
@@ -223,8 +249,8 @@ LABEL_3:
     if (v10)
     {
       v11 = v10;
-      v46 = calendarDataContainerProvider;
-      v47 = v8;
+      v44 = calendarDataContainerProvider;
+      v45 = v8;
       self->_auxDatabaseSequence = CalDatabaseGetAuxDatabaseChangesSequence();
       v12 = CalDatabaseCopyAllAuxDatabases();
       v13 = [v12 count];
@@ -236,81 +262,80 @@ LABEL_3:
       v17 = [MEMORY[0x277CCABB0] numberWithInt:*MEMORY[0x277CF7570]];
       [(NSMutableDictionary *)v16 setObject:v11 forKeyedSubscript:v17];
 
-      v54 = 0u;
-      v55 = 0u;
       v52 = 0u;
       v53 = 0u;
+      v50 = 0u;
+      v51 = 0u;
       v18 = v12;
-      v19 = [v18 countByEnumeratingWithState:&v52 objects:v59 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v50 objects:v57 count:16];
       if (v19)
       {
         v20 = v19;
-        v21 = *v53;
+        v21 = *v51;
         do
         {
           for (i = 0; i != v20; ++i)
           {
-            if (*v53 != v21)
+            if (*v51 != v21)
             {
               objc_enumerationMutation(v18);
             }
 
-            v23 = *(*(&v52 + 1) + 8 * i);
-            [(CADDatabaseInitializationOptions *)self->_initOptions databaseInitOptions:v46];
-            v24 = CalDatabaseCreateWithAuxDatabaseRef();
-            if (v24)
+            [(CADDatabaseInitializationOptions *)self->_initOptions databaseInitOptions:v44];
+            v23 = CalDatabaseCreateWithAuxDatabaseRef();
+            if (v23)
             {
-              v25 = v24;
-              v26 = self->_databases;
-              v27 = [MEMORY[0x277CCABB0] numberWithInt:CalDatabaseGetAuxilliaryDatabaseID()];
-              [(NSMutableDictionary *)v26 setObject:v25 forKeyedSubscript:v27];
+              v24 = v23;
+              v25 = self->_databases;
+              v26 = [MEMORY[0x277CCABB0] numberWithInt:CalDatabaseGetAuxilliaryDatabaseID()];
+              [(NSMutableDictionary *)v25 setObject:v24 forKeyedSubscript:v26];
 
-              CFRelease(v25);
+              CFRelease(v24);
             }
 
             else
             {
-              v28 = CADLogHandle;
+              v27 = CADLogHandle;
               if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_ERROR))
               {
-                v29 = v28;
+                v28 = v27;
                 UID = CalAuxDatabaseGetUID();
                 databaseDirectory2 = [(CADDatabaseInitializationOptions *)self->_initOptions databaseDirectory];
                 *buf = 67109378;
-                *v58 = UID;
-                *&v58[4] = 2112;
-                *&v58[6] = databaseDirectory2;
-                _os_log_impl(&dword_22430B000, v29, OS_LOG_TYPE_ERROR, "Unable to create auxiliary database %i with main database path %@", buf, 0x12u);
+                *v56 = UID;
+                *&v56[4] = 2112;
+                *&v56[6] = databaseDirectory2;
+                _os_log_impl(&dword_22430B000, v28, OS_LOG_TYPE_ERROR, "Unable to create auxiliary database %i with main database path %@", buf, 0x12u);
               }
             }
           }
 
-          v20 = [v18 countByEnumeratingWithState:&v52 objects:v59 count:16];
+          v20 = [v18 countByEnumeratingWithState:&v50 objects:v57 count:16];
         }
 
         while (v20);
       }
 
-      v50 = 0u;
-      v51 = 0u;
       v48 = 0u;
       v49 = 0u;
-      v32 = self->_databases;
-      v33 = [(NSMutableDictionary *)v32 countByEnumeratingWithState:&v48 objects:v56 count:16];
-      if (v33)
+      v46 = 0u;
+      v47 = 0u;
+      v31 = self->_databases;
+      v32 = [(NSMutableDictionary *)v31 countByEnumeratingWithState:&v46 objects:v54 count:16];
+      if (v32)
       {
-        v34 = v33;
-        v35 = *v49;
+        v33 = v32;
+        v34 = *v47;
         do
         {
-          for (j = 0; j != v34; ++j)
+          for (j = 0; j != v33; ++j)
           {
-            if (*v49 != v35)
+            if (*v47 != v34)
             {
-              objc_enumerationMutation(v32);
+              objc_enumerationMutation(v31);
             }
 
-            [(NSMutableDictionary *)self->_databases objectForKeyedSubscript:*(*(&v48 + 1) + 8 * j), v46, v47];
+            [(NSMutableDictionary *)self->_databases objectForKeyedSubscript:*(*(&v46 + 1) + 8 * j), v44, v45];
 
             [(CADDatabaseInitializationOptions *)self->_initOptions unitTesting];
             CalDatabaseSetIsUnitTesting();
@@ -323,42 +348,40 @@ LABEL_3:
             CalDatabaseSetPropertyModificationLoggingEnabled();
           }
 
-          v34 = [(NSMutableDictionary *)v32 countByEnumeratingWithState:&v48 objects:v56 count:16];
+          v33 = [(NSMutableDictionary *)v31 countByEnumeratingWithState:&v46 objects:v54 count:16];
         }
 
-        while (v34);
+        while (v33);
       }
 
       defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
       [defaultCenter addObserver:self selector:sel_handleDatabaseChangedExternally name:*MEMORY[0x277CF7658] object:v11];
 
       CFRelease(v11);
-      v38 = MEMORY[0x277CF7518];
+      v37 = MEMORY[0x277CF7518];
       allValues = [(NSMutableDictionary *)self->_databases allValues];
-      [v38 setInterestedDatabases:allValues forContext:self];
+      [v37 setInterestedDatabases:allValues forContext:self];
 
-      calendarDataContainerProvider = v46;
-      v8 = v47;
+      calendarDataContainerProvider = v44;
+      v8 = v45;
     }
 
     else
     {
-      v40 = CADLogHandle;
+      v39 = CADLogHandle;
       if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v41 = self->_initOptions;
-        v42 = v40;
-        databaseDirectory3 = [(CADDatabaseInitializationOptions *)v41 databaseDirectory];
+        v40 = self->_initOptions;
+        v41 = v39;
+        databaseDirectory3 = [(CADDatabaseInitializationOptions *)v40 databaseDirectory];
         *buf = 138412290;
-        *v58 = databaseDirectory3;
-        _os_log_impl(&dword_22430B000, v42, OS_LOG_TYPE_ERROR, "Unable to create main database for path %@", buf, 0xCu);
+        *v56 = databaseDirectory3;
+        _os_log_impl(&dword_22430B000, v41, OS_LOG_TYPE_ERROR, "Unable to create main database for path %@", buf, 0xCu);
       }
     }
 
     databases = self->_databases;
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 
   return databases;
 }
@@ -400,7 +423,7 @@ LABEL_3:
 
 - (void)addDelegate:(id)delegate
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   v6 = WeakRetained;
@@ -411,11 +434,11 @@ LABEL_3:
       v7 = CADLogHandle;
       if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v9 = 138412546;
-        v10 = v6;
-        v11 = 2112;
-        v12 = delegateCopy;
-        _os_log_impl(&dword_22430B000, v7, OS_LOG_TYPE_ERROR, "Only a single delegate is supported by single connection pools. Current delegate = %@, new delegate = %@", &v9, 0x16u);
+        v8 = 138412546;
+        v9 = v6;
+        v10 = 2112;
+        v11 = delegateCopy;
+        _os_log_impl(&dword_22430B000, v7, OS_LOG_TYPE_ERROR, "Only a single delegate is supported by single connection pools. Current delegate = %@, new delegate = %@", &v8, 0x16u);
       }
     }
   }
@@ -424,8 +447,6 @@ LABEL_3:
   {
     objc_storeWeak(&self->_delegate, delegateCopy);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeDelegate:(id)delegate
@@ -438,6 +459,38 @@ LABEL_3:
 
     objc_storeWeak(&self->_delegate, 0);
   }
+}
+
+- (BOOL)hasDatabaseAtPath:(id)path withDatabaseID:(int)d
+{
+  v4 = *&d;
+  pathCopy = path;
+  os_unfair_lock_lock(&self->_lock);
+  databases = self->_databases;
+  v8 = [MEMORY[0x277CCABB0] numberWithInt:v4];
+  v9 = [(NSMutableDictionary *)databases objectForKeyedSubscript:v8];
+
+  if (v9)
+  {
+    v10 = CalDatabaseCopyDirectoryPathForDatabase();
+    if (([v10 hasSuffix:@"/"] & 1) == 0)
+    {
+      v11 = [v10 stringByAppendingString:@"/"];
+
+      v10 = v11;
+    }
+
+    v12 = [v10 isEqualToString:pathCopy];
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  os_unfair_lock_unlock(&self->_lock);
+
+  return v12;
 }
 
 @end

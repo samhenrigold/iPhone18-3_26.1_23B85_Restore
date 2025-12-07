@@ -79,7 +79,7 @@
   }
 
   [(CoreTelephonyClient *)self->_ctClient setDelegate:0];
-  sub_100001108();
+  sub_100001108(1u, "misCTClientSharedInstance dealloc");
   v5.receiver = self;
   v5.super_class = misCTClientSharedInstance;
   [(misCTClientSharedInstance *)&v5 dealloc];
@@ -91,15 +91,38 @@
   {
     v3 = _CTServerConnectionCreateOnTargetQueue();
     self->_ctServerConnection = v3;
-    if (!v3 || (sub_100001108(), v4 = [CoreTelephonyClient alloc], self->_ctClient = [v4 initWithQueue:qword_100034BD8], self->_ctClientDelegates = objc_alloc_init(misCTClientDelegates), ctServerConnection = self->_ctServerConnection, _CTServerConnectionRegisterForNotification() >> 32) || (v6 = self->_ctServerConnection, _CTServerConnectionRegisterForNotification() >> 32))
+    if (v3)
     {
-      sub_100001108();
-      if (self->_ctServerConnection)
+      sub_100001108(1u, "created CT server connection");
+      v4 = [CoreTelephonyClient alloc];
+      self->_ctClient = [v4 initWithQueue:qword_100034BD8];
+      self->_ctClientDelegates = objc_alloc_init(misCTClientDelegates);
+      if (_CTServerConnectionRegisterForNotification() >> 32)
       {
-        sub_100001108();
-        CFRelease(self->_ctServerConnection);
-        self->_ctServerConnection = 0;
+        sub_100001108(0, "error registering kCTConnectionInvalidatedNotification (%d, %d)");
       }
+
+      else
+      {
+        if (!(_CTServerConnectionRegisterForNotification() >> 32))
+        {
+          return;
+        }
+
+        sub_100001108(0, "error registering kCTDaemonReadyNotification (%d, %d)");
+      }
+    }
+
+    else
+    {
+      sub_100001108(0, "Unable to create CT server connection");
+    }
+
+    if (self->_ctServerConnection)
+    {
+      sub_100001108(0, "%s: closing CT server connection due to init errors", "[misCTClientSharedInstance _setupCTServerConnection]");
+      CFRelease(self->_ctServerConnection);
+      self->_ctServerConnection = 0;
     }
   }
 }
@@ -113,11 +136,10 @@
     v9 = "YES";
   }
 
-  v11 = v9;
-  sub_100001108();
+  sub_100001108(1u, "registerCellularDataStatusNotification: %s", v9);
   if (!notificationCopy)
   {
-    [(CoreTelephonyClient *)self->_ctClient setDelegate:0, v11];
+    [(CoreTelephonyClient *)self->_ctClient setDelegate:0];
     self->_eventCallback = 0;
     self->_eventCallbackArg = 0;
     return 1;
@@ -125,53 +147,77 @@
 
   if (self->_ctServerConnection)
   {
-    [(CoreTelephonyClient *)self->_ctClient setDelegate:self->_ctClientDelegates, v11];
+    [(CoreTelephonyClient *)self->_ctClient setDelegate:self->_ctClientDelegates];
     self->_eventCallback = callback;
     self->_eventCallbackArg = arg;
     return 1;
   }
 
-  sub_100001108();
+  sub_100001108(0, "registerCellularDataStatusNotification enable failed due to invalid CT server connection.");
   return 0;
 }
 
 - (void)_updateDualSimStatus
 {
-  v6 = 0;
+  v9 = 0;
   self->_isDualSim = 0;
   ctClient = self->_ctClient;
   if (ctClient)
   {
-    v4 = [(CoreTelephonyClient *)ctClient getSubscriptionInfoWithError:&v6];
-    if (!v6)
+    v4 = [(CoreTelephonyClient *)ctClient getSubscriptionInfoWithError:&v9];
+    if (v9)
     {
-      v5 = v4;
-      if (v4)
+      v5 = "%s: failed to query cellular subscription info";
+    }
+
+    else
+    {
+      v6 = v4;
+      if (v4 && [v4 subscriptionsInUse])
       {
-        if ([v4 subscriptionsInUse])
+        if ([objc_msgSend(v6 "subscriptionsInUse")] <= 1)
         {
-          if ([objc_msgSend(v5 "subscriptionsInUse")] <= 1)
+          if (self->_isDualSim)
           {
-            self->_isDualSim;
+            v7 = "true";
           }
 
           else
           {
-            self->_isDualSim = 1;
+            v7 = "false";
           }
         }
+
+        else
+        {
+          self->_isDualSim = 1;
+          v7 = "true";
+        }
+
+        v8 = v7;
+        v5 = "%s: updated dual sim status to %s";
+      }
+
+      else
+      {
+        v5 = "%s: failed to get the subscription contexts";
       }
     }
+
+    sub_100001108(0, v5, "[misCTClientSharedInstance _updateDualSimStatus]", v8);
   }
 
-  sub_100001108();
+  else
+  {
+    sub_100001108(0, "%s: CT client not initialized");
+  }
 }
 
 - (int)activateTethering:(BOOL)tethering
 {
   if (!self->_ctClient)
   {
-    sub_100001108();
+    sub_100001108(0, "%s: CT client not initialized", "[misCTClientSharedInstance activateTethering:]");
     return -1;
   }
 
@@ -183,28 +229,27 @@
 
   if (tetheringCopy)
   {
-    v9 = 0;
-    sub_100001108();
+    v8 = 0;
+    sub_100001108(1u, "%s: creating tethering assertion", "[misCTClientSharedInstance activateTethering:]");
     ctClient = self->_ctClient;
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_10001E680;
-    v8[3] = &unk_100031128;
-    v8[4] = self;
-    self->_CTAssertion = [(CoreTelephonyClient *)ctClient createAssertionForConnectionType:4 allocator:0 error:&v9 onReAssertError:v8, "[misCTClientSharedInstance activateTethering:]"];
-    result = v9;
-    if (v9)
+    v7[0] = _NSConcreteStackBlock;
+    v7[1] = 3221225472;
+    v7[2] = sub_10001E680;
+    v7[3] = &unk_100031128;
+    v7[4] = self;
+    self->_CTAssertion = [(CoreTelephonyClient *)ctClient createAssertionForConnectionType:4 allocator:0 error:&v8 onReAssertError:v7];
+    result = v8;
+    if (v8)
     {
-      v7 = [objc_msgSend(v9 "description")];
-      sub_100001108();
-      [(misCTClientSharedInstance *)self activateTethering:0, "[misCTClientSharedInstance activateTethering:]", v7];
+      sub_100001108(0, "%s: failed creating CT tethering context assertion with error '%s'", "-[misCTClientSharedInstance activateTethering:]", [objc_msgSend(v8 "description")]);
+      [(misCTClientSharedInstance *)self activateTethering:0];
       return -1;
     }
   }
 
   else if (self->_CTAssertion)
   {
-    sub_100001108();
+    sub_100001108(1u, "%s: releasing tethering assertion", "[misCTClientSharedInstance activateTethering:]");
     CFRelease(self->_CTAssertion);
     result = 0;
     self->_CTAssertion = 0;
@@ -224,8 +269,7 @@
   state = [status state];
   if (state >= 4)
   {
-    [status state];
-    sub_100001108();
+    sub_100001108(0, "%s: unknown connection state %d, ignoring", "-[misCTClientSharedInstance convertConnectionStatus:ctInterfaceConnStatus:]", [status state]);
   }
 
   else
@@ -233,10 +277,7 @@
     v8 = state + 1;
     [(NSMutableString *)v6 setString:*(&off_100031148 + state)];
     connStatus->var0 = v8;
-    uTF8String = [(NSMutableString *)v6 UTF8String];
-    v10 = [objc_msgSend(status "interfaceName")];
-    v11 = [objc_msgSend(status "pdp")];
-    sub_100001108();
+    sub_100001108(1u, "convertConnectionStatus: state: %s, ifname: %s, pdp_idx: %d", -[NSMutableString UTF8String](v6, "UTF8String"), [objc_msgSend(status "interfaceName")], objc_msgSend(objc_msgSend(status, "pdp"), "intValue"));
     if ([status interfaceName])
     {
       strncpy(connStatus->var2, [objc_msgSend(status "interfaceName")], 0xFuLL);
@@ -296,36 +337,67 @@ LABEL_11:
 
 - (int)getTetheringStatus:(mis_ctinterface_tethering_status *)status
 {
-  v9 = 0;
+  v16 = 0;
   ctClient = self->_ctClient;
   if (!ctClient)
   {
-    goto LABEL_4;
+    v13 = "[misCTClientSharedInstance getTetheringStatus:]";
+    v8 = "%s: CT client not initialized";
+    goto LABEL_5;
   }
 
-  v6 = [(CoreTelephonyClient *)ctClient getTetheringStatusSync:&v9 connectionType:4];
-  if (v9)
+  v6 = [(CoreTelephonyClient *)ctClient getTetheringStatusSync:&v16 connectionType:4];
+  if (v16)
   {
-    [objc_msgSend(v9 "domain")];
-    [v9 code];
-    [objc_msgSend(v9 "description")];
-LABEL_4:
-    sub_100001108();
+    v7 = [objc_msgSend(v16 "domain")];
+    code = [v16 code];
+    v15 = [objc_msgSend(v16 "description")];
+    v13 = v7;
+    v8 = "getTetheringStatusSync() failed, domain: [%s] code: [%ld] desc: [%s]";
+LABEL_5:
+    sub_100001108(0, v8, v13, code, v15);
     return -1;
   }
 
   if (!v6)
   {
-    goto LABEL_4;
+    v13 = "[misCTClientSharedInstance getTetheringStatus:]";
+    v8 = "%s tethering status is empty";
+    goto LABEL_5;
   }
 
   [(misCTClientSharedInstance *)self convertTetheringStatus:status CTStatus:v6];
-  status->var0;
-  status->var1;
-  status->var2;
-  var3 = status->var3;
-  [objc_msgSend(objc_msgSend(v6 "connectionStatus")];
-  sub_100001108();
+  if (status->var0)
+  {
+    v10 = "true";
+  }
+
+  else
+  {
+    v10 = "false";
+  }
+
+  if (status->var1)
+  {
+    v11 = "true";
+  }
+
+  else
+  {
+    v11 = "false";
+  }
+
+  if (status->var2)
+  {
+    v12 = "true";
+  }
+
+  else
+  {
+    v12 = "false";
+  }
+
+  sub_100001108(1u, "getTetheringStatusSync: carrier_enabled: %s, user_auth: %s, conn_avail: %s, max_hosts: %d, ifname: %s", v10, v11, v12, status->var3, [objc_msgSend(objc_msgSend(v6 "connectionStatus")]);
   return 0;
 }
 
@@ -355,7 +427,7 @@ LABEL_4:
   v4 = 0;
   if (HIDWORD(IsEnabled))
   {
-    sub_100001108();
+    sub_100001108(0, "%s: error while querying data plan status (domain %d, error %d)", "[misCTClientSharedInstance isDataPlanEnabled:]", IsEnabled, HIDWORD(IsEnabled));
     return 12;
   }
 
@@ -378,7 +450,7 @@ LABEL_4:
   else
   {
 
-    sub_100001108();
+    sub_100001108(0, "processCTTetheringStatusChangeNotification: tethering status is empty");
   }
 }
 
@@ -398,7 +470,7 @@ LABEL_4:
 
   else
   {
-    sub_100001108();
+    sub_100001108(1u, "processCTConnectionStateChangeNotification: ignoring unknown connection type %d", connection);
   }
 }
 
@@ -415,25 +487,27 @@ LABEL_4:
 {
   if (!self->_eventCallback)
   {
-    goto LABEL_4;
-  }
-
-  if (!CFEqual(notification, kCTConnectionInvalidatedNotification))
-  {
-    if (CFEqual(notification, kCTDaemonReadyNotification))
-    {
-      v7 = 5;
-      goto LABEL_7;
-    }
-
-    CFStringGetCStringPtr(notification, 0x8000100u);
-LABEL_4:
-    sub_100001108();
+    sub_100001108(0, "%s: ignoring CT notification as no service is in progress", notification);
     return;
   }
 
-  v7 = 4;
-LABEL_7:
+  if (CFEqual(notification, kCTConnectionInvalidatedNotification))
+  {
+    v7 = 4;
+  }
+
+  else
+  {
+    if (!CFEqual(notification, kCTDaemonReadyNotification))
+    {
+      CFStringGetCStringPtr(notification, 0x8000100u);
+      sub_100001108(0, "%s: received unknown notification %s", v10, v11);
+      return;
+    }
+
+    v7 = 5;
+  }
+
   eventCallback = self->_eventCallback;
   eventCallbackArg = self->_eventCallbackArg;
 

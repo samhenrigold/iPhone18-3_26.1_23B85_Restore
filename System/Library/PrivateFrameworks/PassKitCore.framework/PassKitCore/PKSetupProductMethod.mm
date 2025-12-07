@@ -128,17 +128,17 @@
 - (id)_displayNameForCardType:(id)type
 {
   typeCopy = type;
-  if ([typeCopy isEqualToString:@"credit"])
+  if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = @"CARD_TYPE_CREDIT_CARD";
   }
 
-  else if ([typeCopy isEqualToString:@"debit"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = @"CARD_TYPE_DEBIT_CARD";
   }
 
-  else if ([typeCopy isEqualToString:@"prepaid"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = @"CARD_TYPE_PREPAID_CARD";
   }
@@ -146,7 +146,7 @@
   else
   {
     v5 = typeCopy;
-    if (![typeCopy isEqualToString:@"bankcard"])
+    if (!objc_msgSend_isEqualToString_(typeCopy))
     {
       goto LABEL_10;
     }

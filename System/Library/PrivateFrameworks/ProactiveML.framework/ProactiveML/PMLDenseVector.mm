@@ -5,6 +5,7 @@
 - (PMLDenseVector)initWithData:(id)data;
 - (PMLDenseVector)initWithFloats:(const float *)floats count:(unint64_t)count;
 - (PMLDenseVector)initWithFloatsNoCopy:(float *)copy count:(unint64_t)count deallocator:(id)deallocator;
+- (PMLDenseVector)initWithFloatsNoCopy:(float *)copy count:(unint64_t)count freeWhenDone:(BOOL)done;
 - (PMLDenseVector)initWithNumbers:(id)numbers;
 - (float)cosineDistanceFrom:(id)from;
 - (float)density;
@@ -293,6 +294,22 @@
   return v9;
 }
 
+- (PMLDenseVector)initWithFloatsNoCopy:(float *)copy count:(unint64_t)count freeWhenDone:(BOOL)done
+{
+  doneCopy = done;
+  v12.receiver = self;
+  v12.super_class = PMLDenseVector;
+  v8 = [(PMLDenseVector *)&v12 init];
+  if (v8)
+  {
+    v9 = [objc_alloc(MEMORY[0x277CBEB28]) initWithBytesNoCopy:copy length:4 * count freeWhenDone:doneCopy];
+    data = v8->_data;
+    v8->_data = v9;
+  }
+
+  return v8;
+}
+
 - (PMLDenseVector)initWithFloats:(const float *)floats count:(unint64_t)count
 {
   v10.receiver = self;
@@ -310,10 +327,10 @@
 
 - (PMLDenseVector)initWithCount:(unint64_t)count
 {
-  v16[1] = *MEMORY[0x277D85DE8];
-  v14.receiver = self;
-  v14.super_class = PMLDenseVector;
-  v4 = [(PMLDenseVector *)&v14 init];
+  v15[1] = *MEMORY[0x277D85DE8];
+  v13.receiver = self;
+  v13.super_class = PMLDenseVector;
+  v4 = [(PMLDenseVector *)&v13 init];
   if (v4)
   {
     v5 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:4 * count];
@@ -322,19 +339,18 @@
 
     if (!v4->_data)
     {
-      v9 = MEMORY[0x277CBEAD8];
-      v15 = @"count";
-      v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:count];
-      v16[0] = v10;
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
-      v12 = [v9 exceptionWithName:@"PMLMutableDenseVectorAllocationFailure" reason:@"Failed to allocate NSData." userInfo:v11];
-      v13 = v12;
+      v8 = MEMORY[0x277CBEAD8];
+      v14 = @"count";
+      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:count];
+      v15[0] = v9;
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+      v11 = [v8 exceptionWithName:@"PMLMutableDenseVectorAllocationFailure" reason:@"Failed to allocate NSData." userInfo:v10];
+      v12 = v11;
 
-      objc_exception_throw(v12);
+      objc_exception_throw(v11);
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

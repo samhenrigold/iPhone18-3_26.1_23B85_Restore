@@ -7,31 +7,31 @@
 
 - (CPImageSetAssetRegistration)initWithLightImage:(id)image darkImage:(id)darkImage baseTraitCollection:(id)collection
 {
-  v31[2] = *MEMORY[0x277D85DE8];
+  v30[2] = *MEMORY[0x277D85DE8];
   imageCopy = image;
   darkImageCopy = darkImage;
   collectionCopy = collection;
-  v29.receiver = self;
-  v29.super_class = CPImageSetAssetRegistration;
-  v11 = [(CPImageSetAssetRegistration *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = CPImageSetAssetRegistration;
+  v11 = [(CPImageSetAssetRegistration *)&v28 init];
   v12 = v11;
   if (v11)
   {
     objc_storeStrong(&v11->_baseTraitCollection, collection);
     v13 = MEMORY[0x277D75C80];
-    v31[0] = collectionCopy;
+    v30[0] = collectionCopy;
     v14 = [MEMORY[0x277D75C80] traitCollectionWithUserInterfaceStyle:1];
-    v31[1] = v14;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
+    v30[1] = v14;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
     v16 = [v13 traitCollectionWithTraitsFromCollections:v15];
     lightTraitCollection = v12->_lightTraitCollection;
     v12->_lightTraitCollection = v16;
 
     v18 = MEMORY[0x277D75C80];
-    v30[0] = collectionCopy;
+    v29[0] = collectionCopy;
     v19 = [MEMORY[0x277D75C80] traitCollectionWithUserInterfaceStyle:2];
-    v30[1] = v19;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
+    v29[1] = v19;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
     v21 = [v18 traitCollectionWithTraitsFromCollections:v20];
     darkTraitCollection = v12->_darkTraitCollection;
     v12->_darkTraitCollection = v21;
@@ -53,7 +53,6 @@
     v12->_combinedImage = v25;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

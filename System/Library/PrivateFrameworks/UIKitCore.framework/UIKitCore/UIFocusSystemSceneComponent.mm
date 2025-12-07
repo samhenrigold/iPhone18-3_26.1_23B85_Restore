@@ -64,7 +64,7 @@ void __58___UIFocusSystemSceneComponent___applicationIsSpringBoard__block_invoke
   {
     v1 = [MEMORY[0x1E696AAE8] mainBundle];
     v0 = [v1 bundleIdentifier];
-    _MergedGlobals_1120 = [v0 isEqualToString:@"com.apple.springboard"];
+    _MergedGlobals_1120 = objc_msgSend_isEqualToString_(v0);
   }
 
   else

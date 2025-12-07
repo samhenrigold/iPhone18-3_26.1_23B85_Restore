@@ -15,6 +15,8 @@
 - (void)_scrollToPage:(int64_t)page;
 - (void)_showScrubberIfNeeded:(BOOL)needed reloadThumbnails:(BOOL)thumbnails;
 - (void)_updateConstraintConstants:(BOOL)constants;
+- (void)_updateScrubberForTraitCollection:(id)collection animated:(BOOL)animated reloadThumbnailsIfNeeded:(BOOL)needed;
+- (void)_updateScrubberVisibilityAnimated:(BOOL)animated reloadThumbnailsIfNeeded:(BOOL)needed;
 - (void)_webViewDidRequestPasswordForQuickLookDocument:(id)document;
 - (void)buttonPressedWithIdentifier:(id)identifier completionHandler:(id)handler;
 - (void)dealloc;
@@ -22,8 +24,11 @@
 - (void)loadView;
 - (void)numberOfPagesWithSize:(CGSize)size completionHandler:(id)handler;
 - (void)pdfDataForPageAtIndex:(int64_t)index withCompletionHandler:(id)handler;
+- (void)previewBecameFullScreen:(BOOL)screen animated:(BOOL)animated;
+- (void)previewDidAppear:(BOOL)appear;
 - (void)scrollViewDidScroll:(id)scroll;
 - (void)scrubView:(id)view thumbnailForPage:(int64_t)page size:(CGSize)size withCompletionBlock:(id)block;
+- (void)setAppearance:(id)appearance animated:(BOOL)animated;
 - (void)transitionDidStart:(BOOL)start;
 - (void)transitionWillFinish:(BOOL)finish didComplete:(BOOL)complete;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
@@ -56,23 +61,23 @@
 
 - (void)loadView
 {
-  v53[1] = *MEMORY[0x277D85DE8];
+  v52[1] = *MEMORY[0x277D85DE8];
   if (!self->_webView)
   {
     v3 = objc_opt_new();
     [(QLWKWebItemViewController *)self setView:v3];
 
-    v49 = QLFrameworkBundle();
-    v4 = [v49 URLForResource:@"QLWebKitBundle" withExtension:@"wkbundle" subdirectory:@"PlugIns" localization:0];
+    v48 = QLFrameworkBundle();
+    v4 = [v48 URLForResource:@"QLWebKitBundle" withExtension:@"wkbundle" subdirectory:@"PlugIns" localization:0];
     v5 = objc_alloc_init(MEMORY[0x277CE3890]);
-    v48 = v4;
+    v47 = v4;
     [v5 setInjectedBundleURL:v4];
     [v5 setJITEnabled:0];
     v6 = [objc_alloc(MEMORY[0x277CE3820]) _initWithConfiguration:v5];
     previewContentType = self->_previewContentType;
-    v52 = @"contentType";
-    v53[0] = previewContentType;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:&v52 count:1];
+    v51 = @"contentType";
+    v52[0] = previewContentType;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:&v51 count:1];
     [v6 _setObjectsForBundleParametersWithDictionary:v8];
 
     v9 = objc_alloc(MEMORY[0x277CE3858]);
@@ -142,14 +147,12 @@
     view4 = [(QLWKWebItemViewController *)self view];
     v43 = MEMORY[0x277CCAAD0];
     v44 = self->_webView;
-    v50 = @"webView";
-    v51 = v44;
-    v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+    v49 = @"webView";
+    v50 = v44;
+    v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
     v46 = [v43 constraintsWithVisualFormat:@"V:|[webView]|" options:0 metrics:0 views:v45];
     [view4 addConstraints:v46];
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 - (id)scrubView
@@ -229,6 +232,67 @@
 
     [(QLWKWebItemViewController *)self setGeneratedDocument:webView];
   }
+}
+
+- (void)previewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  if (![(QLItemViewController *)self didAppearOnce])
+  {
+    scrollView = [(QLWKWebItemViewController *)self scrollView];
+    scrollView2 = [(QLWKWebItemViewController *)self scrollView];
+    [scrollView2 minimumZoomScale];
+    [scrollView setZoomScale:0 animated:?];
+  }
+
+  v7.receiver = self;
+  v7.super_class = QLWKWebItemViewController;
+  [(QLItemViewController *)&v7 previewDidAppear:appearCopy];
+  [(QLWKWebItemViewController *)self _updateScrubberVisibilityAnimated:appearCopy];
+}
+
+- (void)previewBecameFullScreen:(BOOL)screen animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v7.receiver = self;
+  v7.super_class = QLWKWebItemViewController;
+  [QLItemViewController previewBecameFullScreen:sel_previewBecameFullScreen_animated_ animated:?];
+  self->_fullScreen = screen;
+  [(QLWKWebItemViewController *)self _updateScrubberVisibilityAnimated:animatedCopy];
+}
+
+- (void)setAppearance:(id)appearance animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  appearanceCopy = appearance;
+  appearance = [(QLItemViewController *)self appearance];
+  presentationMode = [appearance presentationMode];
+
+  v15.receiver = self;
+  v15.super_class = QLWKWebItemViewController;
+  [(QLItemViewController *)&v15 setAppearance:appearanceCopy animated:animatedCopy];
+  presentationMode2 = [appearanceCopy presentationMode];
+
+  if (presentationMode != presentationMode2)
+  {
+    [(QLWKWebItemViewController *)self _updateScrubberVisibilityAnimated:animatedCopy];
+  }
+
+  scrollView = [(WKWebView *)self->_webView scrollView];
+  [scrollView contentOffset];
+  self->_scrollViewTopOffset.x = v11;
+  self->_scrollViewTopOffset.y = v12;
+
+  appearance2 = [(QLItemViewController *)self appearance];
+  [appearance2 topInset];
+  [(QLScrubView *)self->_scrubView setTopOffset:?];
+
+  appearance3 = [(QLItemViewController *)self appearance];
+  [appearance3 bottomInset];
+  [(QLScrubView *)self->_scrubView setBottomOffset:?];
+
+  [(QLScrubView *)self->_scrubView setNeedsLayout];
+  [(QLWKWebItemViewController *)self _updateConstraintConstants:animatedCopy];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator
@@ -396,8 +460,49 @@ uint64_t __50__QLWKWebItemViewController__prepareThumbnailView__block_invoke(uin
   v4 = (*(a1 + 32) + 1224);
   *v4 = a3;
   v4[1] = a4;
-  v6 = *(a1 + 32);
   return QLRunInMainThread();
+}
+
+- (void)_updateScrubberVisibilityAnimated:(BOOL)animated reloadThumbnailsIfNeeded:(BOOL)needed
+{
+  neededCopy = needed;
+  animatedCopy = animated;
+  traitCollection = [(QLWKWebItemViewController *)self traitCollection];
+  [(QLWKWebItemViewController *)self _updateScrubberForTraitCollection:traitCollection animated:animatedCopy reloadThumbnailsIfNeeded:neededCopy];
+}
+
+- (void)_updateScrubberForTraitCollection:(id)collection animated:(BOOL)animated reloadThumbnailsIfNeeded:(BOOL)needed
+{
+  neededCopy = needed;
+  animatedCopy = animated;
+  collectionCopy = collection;
+  if ([(QLItemViewController *)self didAppearOnce]&& self->_thumbnailCount >= 2)
+  {
+    if ([collectionCopy horizontalSizeClass] != 2)
+    {
+LABEL_7:
+      [(QLWKWebItemViewController *)self _hideScrubberIfNeeded:animatedCopy];
+      goto LABEL_8;
+    }
+
+    appearance = [(QLItemViewController *)self appearance];
+    if ([appearance presentationMode] == 4)
+    {
+
+      goto LABEL_7;
+    }
+
+    fullScreen = self->_fullScreen;
+
+    if (fullScreen)
+    {
+      goto LABEL_7;
+    }
+
+    [(QLWKWebItemViewController *)self _showScrubberIfNeeded:animatedCopy reloadThumbnails:neededCopy];
+  }
+
+LABEL_8:
 }
 
 - (void)_showScrubberIfNeeded:(BOOL)needed reloadThumbnails:(BOOL)thumbnails
@@ -487,7 +592,7 @@ uint64_t __50__QLWKWebItemViewController__prepareThumbnailView__block_invoke(uin
 
 void __68__QLWKWebItemViewController__showScrubberIfNeeded_reloadThumbnails___block_invoke_2(uint64_t a1)
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) view];
   [v2 addSubview:*(a1 + 40)];
 
@@ -495,24 +600,24 @@ void __68__QLWKWebItemViewController__showScrubberIfNeeded_reloadThumbnails___bl
   v3 = [*(a1 + 32) view];
   v4 = MEMORY[0x277CCAAD0];
   v5 = *(a1 + 40);
-  v31 = @"scrubber";
-  v32[0] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+  v30 = @"scrubber";
+  v31[0] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
   v7 = [v4 constraintsWithVisualFormat:@"V:|[scrubber]|" options:0 metrics:0 views:v6];
   [v3 addConstraints:v7];
 
   v8 = [*(a1 + 32) view];
   v9 = MEMORY[0x277CCAAD0];
-  v29 = @"scrubberWidth";
+  v28 = @"scrubberWidth";
   v10 = MEMORY[0x277CCABB0];
   +[QLScrubView defaultWidth];
   v11 = [v10 numberWithDouble:?];
-  v30 = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+  v29 = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
   v13 = *(a1 + 40);
-  v27 = @"scrubber";
-  v28 = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+  v26 = @"scrubber";
+  v27 = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
   v15 = [v9 constraintsWithVisualFormat:@"H:[scrubber(scrubberWidth)]" options:0 metrics:v12 views:v14];
   [v8 addConstraints:v15];
 
@@ -533,8 +638,6 @@ void __68__QLWKWebItemViewController__showScrubberIfNeeded_reloadThumbnails___bl
 
   v25 = [*(a1 + 32) view];
   [v25 layoutIfNeeded];
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __68__QLWKWebItemViewController__showScrubberIfNeeded_reloadThumbnails___block_invoke_4(uint64_t a1)
@@ -643,9 +746,8 @@ void __51__QLWKWebItemViewController__hideScrubberIfNeeded___block_invoke(uint64
 
 void __43__QLWKWebItemViewController__scrollToPage___block_invoke(uint64_t a1, void *a2)
 {
-  v4 = a2;
-  v5 = *(a1 + 32);
-  v3 = v4;
+  v3 = a2;
+  v2 = v3;
   QLRunInMainThread();
 }
 
@@ -742,7 +844,7 @@ void __43__QLWKWebItemViewController__scrollToPage___block_invoke_2(uint64_t a1)
   }
 }
 
-uint64_t __57__QLWKWebItemViewController_webView_didFinishNavigation___block_invoke(uint64_t a1, void *a2)
+void *__57__QLWKWebItemViewController_webView_didFinishNavigation___block_invoke(uint64_t a1, void *a2)
 {
   v2 = (*(a1 + 32) + 1192);
   result = [a2 CGSizeValue];
@@ -782,7 +884,7 @@ uint64_t __57__QLWKWebItemViewController_webView_didFinishNavigation___block_inv
 
 - (void)webView:(id)view decidePolicyForNavigationAction:(id)action decisionHandler:(id)handler
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   handlerCopy = handler;
   if ([actionCopy navigationType] || (objc_msgSend(actionCopy, "request"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "URL"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "isSpringboardHandledURL"), v10, v9, !v11))
@@ -805,9 +907,9 @@ uint64_t __57__QLWKWebItemViewController_webView_didFinishNavigation___block_inv
       v14 = v13;
       request = [actionCopy request];
       v16 = [request URL];
-      v21 = 138412290;
-      v22 = v16;
-      _os_log_impl(&dword_23A714000, v14, OS_LOG_TYPE_DEFAULT, "Forwarding URL to client from web preview: %@ #AnyItemViewController", &v21, 0xCu);
+      v20 = 138412290;
+      v21 = v16;
+      _os_log_impl(&dword_23A714000, v14, OS_LOG_TYPE_DEFAULT, "Forwarding URL to client from web preview: %@ #AnyItemViewController", &v20, 0xCu);
     }
 
     handlerCopy[2](handlerCopy, 0);
@@ -816,8 +918,6 @@ uint64_t __57__QLWKWebItemViewController_webView_didFinishNavigation___block_inv
     v19 = [request2 URL];
     [delegate previewItemViewController:self wantsToOpenURL:v19];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)webView:(id)view startURLSchemeTask:(id)task
@@ -896,7 +996,7 @@ void __56__QLWKWebItemViewController_webView_startURLSchemeTask___block_invoke(u
 
 void __81__QLWKWebItemViewController_scrubView_thumbnailForPage_size_withCompletionBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -917,15 +1017,13 @@ void __81__QLWKWebItemViewController_scrubView_thumbnailForPage_size_withComplet
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = *(a1 + 48);
-      v9 = 134217984;
-      v10 = v7;
-      _os_log_impl(&dword_23A714000, v6, OS_LOG_TYPE_ERROR, "Did not obtain thumbnail for page at index: %ld #AnyItemViewController", &v9, 0xCu);
+      v8 = 134217984;
+      v9 = v7;
+      _os_log_impl(&dword_23A714000, v6, OS_LOG_TYPE_ERROR, "Did not obtain thumbnail for page at index: %ld #AnyItemViewController", &v8, 0xCu);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (CGSize)scrubView:(id)view pageSizeAtIndex:(unint64_t)index

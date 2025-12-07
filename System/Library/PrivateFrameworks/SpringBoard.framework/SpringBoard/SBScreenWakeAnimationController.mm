@@ -342,17 +342,17 @@ void __110__SBScreenWakeAnimationController_prepareToWakeForSource_timeAlpha_sta
   }
 }
 
-uint64_t __110__SBScreenWakeAnimationController_prepareToWakeForSource_timeAlpha_statusBarAlpha_target_dateView_completion___block_invoke_2(uint64_t a1)
+uint64_t __110__SBScreenWakeAnimationController_prepareToWakeForSource_timeAlpha_statusBarAlpha_target_dateView_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = SBLogScreenWake();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = SBLogScreenWake();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_DEFAULT, " inside _wakeCompletionBlock", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, " inside _wakeCompletionBlock", v6, 2u);
   }
 
-  v3 = [MEMORY[0x277D66010] sharedInstance];
-  [v3 wakeDidEnd];
+  v4 = [MEMORY[0x277D66010] sharedInstance];
+  [v4 wakeDidEnd];
 
   return [*(a1 + 32) signal];
 }
@@ -395,13 +395,13 @@ uint64_t __110__SBScreenWakeAnimationController_prepareToWakeForSource_timeAlpha
 - (void)_startWakeAnimationsForWaking:(BOOL)waking animationSettings:(id)settings
 {
   wakingCopy = waking;
-  v34 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   v7 = SBLogScreenWake();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v33 = wakingCopy;
+    v34 = wakingCopy;
     _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "_startWakeAnimationsForWaking: %{BOOL}d", buf, 8u);
   }
 
@@ -426,20 +426,21 @@ uint64_t __110__SBScreenWakeAnimationController_prepareToWakeForSource_timeAlpha
   }
 
   lastBacklightChangeSource = self->_lastBacklightChangeSource;
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __83__SBScreenWakeAnimationController__startWakeAnimationsForWaking_animationSettings___block_invoke;
-  v28[3] = &unk_2783A97D8;
-  v31 = wakingCopy;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __83__SBScreenWakeAnimationController__startWakeAnimationsForWaking_animationSettings___block_invoke;
+  v29[3] = &unk_2783A97D8;
+  v32 = wakingCopy;
   v14 = v9;
-  v29 = v14;
+  v30 = v14;
   selfCopy = self;
-  [v14 setBacklightState:v10 source:lastBacklightChangeSource animated:1 completion:v28];
+  backlightState = [v14 setBacklightState:v10 source:lastBacklightChangeSource animated:1 completion:v29];
   if (!wakingCopy)
   {
-    if ([v14 backlightState] != 3)
+    backlightState = [v14 backlightState];
+    if (backlightState != 3)
     {
-      v16 = 0;
+      v17 = 0;
       *&self->_animatingContent = 256;
       goto LABEL_15;
     }
@@ -448,57 +449,57 @@ uint64_t __110__SBScreenWakeAnimationController_prepareToWakeForSource_timeAlpha
   }
 
   self->_animatingBacklight = 0;
-  v15 = SBLogTelemetrySignposts();
-  if (os_signpost_enabled(v15))
+  v16 = SBLogTelemetrySignposts(backlightState);
+  if (os_signpost_enabled(v16))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_21ED4E000, v15, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SB_LOCKSCREEN_HANDLE_WAKE", " enableTelemetry=YES  isAnimation=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_21ED4E000, v16, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SB_LOCKSCREEN_HANDLE_WAKE", " enableTelemetry=YES  isAnimation=YES ", buf, 2u);
   }
 
   kdebug_trace();
-  v16 = 1;
+  v17 = 1;
   self->_animatingContent = 1;
-  v17 = MEMORY[0x277CF0D38];
+  v18 = MEMORY[0x277CF0D38];
   contentWakeSettings = [settingsCopy contentWakeSettings];
   bSAnimationSettings = [contentWakeSettings BSAnimationSettings];
-  v20 = [v17 factoryWithSettings:bSAnimationSettings];
+  v21 = [v18 factoryWithSettings:bSAnimationSettings];
 
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __83__SBScreenWakeAnimationController__startWakeAnimationsForWaking_animationSettings___block_invoke_50;
-  v27[3] = &unk_2783A8C18;
-  v27[4] = self;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __83__SBScreenWakeAnimationController__startWakeAnimationsForWaking_animationSettings___block_invoke_2;
-  v24[3] = &unk_2783B9A98;
-  v25 = v8;
-  v24[4] = self;
-  v26 = 1;
-  [MEMORY[0x277CF0D38] animateWithFactory:v20 options:6 actions:v27 completion:v24];
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __83__SBScreenWakeAnimationController__startWakeAnimationsForWaking_animationSettings___block_invoke_50;
+  v28[3] = &unk_2783A8C18;
+  v28[4] = self;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __83__SBScreenWakeAnimationController__startWakeAnimationsForWaking_animationSettings___block_invoke_2;
+  v25[3] = &unk_2783B9A98;
+  v26 = v8;
+  v25[4] = self;
+  v27 = 1;
+  [MEMORY[0x277CF0D38] animateWithFactory:v21 options:6 actions:v28 completion:v25];
 
 LABEL_15:
   self->_animatingWallpaper = 1;
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __83__SBScreenWakeAnimationController__startWakeAnimationsForWaking_animationSettings___block_invoke_57;
-  v21[3] = &unk_2783B9A98;
-  v22 = v8;
-  v21[4] = self;
-  v23 = v16;
-  [(SBScreenWakeAnimationController *)self _updateWakeEffectsForWake:v16 animated:1 completion:v21];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __83__SBScreenWakeAnimationController__startWakeAnimationsForWaking_animationSettings___block_invoke_57;
+  v22[3] = &unk_2783B9A98;
+  v23 = v8;
+  v22[4] = self;
+  v24 = v17;
+  [(SBScreenWakeAnimationController *)self _updateWakeEffectsForWake:v17 animated:1 completion:v22];
 }
 
-uint64_t __83__SBScreenWakeAnimationController__startWakeAnimationsForWaking_animationSettings___block_invoke(uint64_t result)
+id *__83__SBScreenWakeAnimationController__startWakeAnimationsForWaking_animationSettings___block_invoke(id *result)
 {
-  if ((*(result + 48) & 1) == 0)
+  if ((result[6] & 1) == 0)
   {
     v1 = result;
-    result = [*(result + 32) screenIsOn];
+    result = [result[4] screenIsOn];
     if ((result & 1) == 0)
     {
-      *(*(v1 + 40) + 82) = 0;
-      v2 = *(v1 + 40);
+      *(v1[5] + 82) = 0;
+      v2 = v1[5];
 
       return [v2 _cleanupAnimationWhenInterruptingWaking:0 force:1];
     }
@@ -575,7 +576,7 @@ void __83__SBScreenWakeAnimationController__startWakeAnimationsForWaking_animati
 
 void __83__SBScreenWakeAnimationController__startWakeAnimationsForWaking_animationSettings___block_invoke_2(uint64_t a1)
 {
-  v2 = SBLogTelemetrySignposts();
+  v2 = SBLogTelemetrySignposts(a1);
   if (os_signpost_enabled(v2))
   {
     *v6 = 0;
@@ -596,13 +597,13 @@ void __83__SBScreenWakeAnimationController__startWakeAnimationsForWaking_animati
   }
 }
 
-uint64_t __83__SBScreenWakeAnimationController__startWakeAnimationsForWaking_animationSettings___block_invoke_57(uint64_t result)
+unsigned __int8 *__83__SBScreenWakeAnimationController__startWakeAnimationsForWaking_animationSettings___block_invoke_57(unsigned __int8 *result)
 {
-  v1 = *(result + 32);
-  if (*(result + 40) == *(v1 + 56))
+  v1 = *(result + 4);
+  if (*(result + 10) == *(v1 + 56))
   {
     *(v1 + 80) = 0;
-    return [*(result + 32) _handleAnimationCompletionIfNecessaryForWaking:*(result + 44)];
+    return [*(result + 4) _handleAnimationCompletionIfNecessaryForWaking:result[44]];
   }
 
   return result;
@@ -624,19 +625,20 @@ uint64_t __83__SBScreenWakeAnimationController__startWakeAnimationsForWaking_ani
 
 - (void)sleepForSource:(int64_t)source target:(id)target completion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   targetCopy = target;
   completionCopy = completion;
   objc_storeStrong(&self->_target, target);
-  if ([(NSMutableSet *)self->_temporaryDisabledReasons count])
+  v11 = [(NSMutableSet *)self->_temporaryDisabledReasons count];
+  if (v11)
   {
-    v11 = SBLogBacklight();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = SBLogBacklight(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       temporaryDisabledReasons = self->_temporaryDisabledReasons;
-      v13 = 138543362;
-      v14 = temporaryDisabledReasons;
-      _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "Should not turn the screen off due to outstanding reasons: %{public}@", &v13, 0xCu);
+      v14 = 138543362;
+      v15 = temporaryDisabledReasons;
+      _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "Should not turn the screen off due to outstanding reasons: %{public}@", &v14, 0xCu);
     }
   }
 
@@ -690,13 +692,13 @@ uint64_t __83__SBScreenWakeAnimationController__startWakeAnimationsForWaking_ani
   [(SBScreenWakeAnimationController *)self _startWakeAnimationsForWaking:0 animationSettings:v14];
 }
 
-uint64_t __61__SBScreenWakeAnimationController_sleepForSource_completion___block_invoke(uint64_t a1)
+uint64_t __61__SBScreenWakeAnimationController_sleepForSource_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = SBLogScreenWake();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = SBLogScreenWake();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_DEFAULT, " inside _sleepCompletionBlock", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, " inside _sleepCompletionBlock", v5, 2u);
   }
 
   result = *(a1 + 32);

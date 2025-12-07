@@ -259,47 +259,47 @@ LABEL_12:
   if (axis == 1)
   {
     [(UILabel *)self->_titleLabel sizeThatFits:width - (v6 + 8.0), height - v7];
-    v8 = v8 + MRUSizeCeilToViewScale(self);
-    if (v9 < v13)
+    v8 = v8 + MRUSizeCeilToViewScale(self, v15, v16);
+    if (v9 < v17)
     {
-      v9 = v13;
+      v9 = v17;
     }
   }
 
   else if (!axis)
   {
     [(UILabel *)self->_titleLabel sizeThatFits:width - v6, height - (v7 + 8.0)];
-    v11 = MRUSizeCeilToViewScale(self);
-    if (v11 >= v8)
+    v13 = MRUSizeCeilToViewScale(self, v11, v12);
+    if (v13 >= v8)
     {
-      v8 = v11;
+      v8 = v13;
     }
 
-    v9 = v9 + v12;
+    v9 = v9 + v14;
   }
 
   if (v8 >= width)
   {
-    v14 = width;
+    v18 = width;
   }
 
   else
   {
-    v14 = v8;
+    v18 = v8;
   }
 
   if (v9 >= height)
   {
-    v15 = height;
+    v19 = height;
   }
 
   else
   {
-    v15 = v9;
+    v19 = v9;
   }
 
-  result.height = v15;
-  result.width = v14;
+  result.height = v19;
+  result.width = v18;
   return result;
 }
 

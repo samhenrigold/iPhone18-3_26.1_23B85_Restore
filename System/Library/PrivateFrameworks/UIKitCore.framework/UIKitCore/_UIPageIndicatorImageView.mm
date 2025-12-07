@@ -97,9 +97,9 @@ LABEL_8:
 {
   imageCopy = image;
   image = [(UIImageView *)self image];
-  v6 = [imageCopy isEqual:image];
+  isEqual = objc_msgSend_isEqual_(imageCopy);
 
-  if ((v6 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     __asm { FMOV            V0.2D, #-1.0 }
 
@@ -167,8 +167,8 @@ LABEL_8:
   imageCopy = image;
   traitsCopy = traits;
   image = [(UIImageView *)self image];
-  v9 = [image isEqual:imageCopy];
-  if (!v9)
+  isEqual = objc_msgSend_isEqual_(image);
+  if (!isEqual)
   {
 
 LABEL_12:
@@ -201,7 +201,7 @@ LABEL_7:
   }
 
   traitCollection2 = [(UIView *)self traitCollection];
-  v11 = [traitCollection2 isEqual:traitsCopy];
+  v11 = objc_msgSend_isEqual_(traitCollection2);
 
   if (v11)
   {
@@ -209,7 +209,7 @@ LABEL_7:
   }
 
   v12 = [(UIView *)self _contentSizeCategoryLimitedTraitCollection:traitsCopy];
-  v9 = 0;
+  isEqual = 0;
 LABEL_15:
   v17 = [(UIImageView *)self _symbolConfigurationForImage:imageCopy];
   v18 = [v17 configurationWithTraitCollection:v12];
@@ -249,7 +249,7 @@ LABEL_15:
   width = v27;
   height = v28;
 
-  if (v9)
+  if (isEqual)
   {
     self->_cachedSize.width = width;
     self->_cachedSize.height = height;
@@ -266,7 +266,7 @@ LABEL_27:
 - (BOOL)_shouldAnimatePropertyWithKey:(id)key
 {
   keyCopy = key;
-  if ([keyCopy isEqualToString:@"filters.vibrantColorMatrix.inputColorMatrix"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v5 = 1;
   }

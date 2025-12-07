@@ -8,7 +8,7 @@
 
 + (id)configAtPath:(id)path
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   if ([pathCopy length])
   {
@@ -17,20 +17,20 @@
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v18 = "+[CESRTrialConfigLoader configAtPath:]";
-      v19 = 2112;
-      v20 = pathCopy;
+      v17 = "+[CESRTrialConfigLoader configAtPath:]";
+      v18 = 2112;
+      v19 = pathCopy;
       _os_log_debug_impl(&dword_225EEB000, v5, OS_LOG_TYPE_DEBUG, "%s Trying to load trial config file at path: %@", buf, 0x16u);
     }
 
-    v16 = 0;
-    v6 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:pathCopy options:0 error:&v16];
-    v7 = v16;
+    v15 = 0;
+    v6 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:pathCopy options:0 error:&v15];
+    v7 = v15;
     if (v6)
     {
-      v15 = v7;
-      v8 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v6 options:0 error:&v15];
-      v9 = v15;
+      v14 = v7;
+      v8 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v6 options:0 error:&v14];
+      v9 = v14;
 
       if (v8)
       {
@@ -43,9 +43,9 @@
         if (os_log_type_enabled(*v4, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v18 = "+[CESRTrialConfigLoader configAtPath:]";
-          v19 = 2112;
-          v20 = v9;
+          v17 = "+[CESRTrialConfigLoader configAtPath:]";
+          v18 = 2112;
+          v19 = v9;
           _os_log_error_impl(&dword_225EEB000, v12, OS_LOG_TYPE_ERROR, "%s Failed to deserialize trial config file contents to json object: %@", buf, 0x16u);
         }
       }
@@ -57,9 +57,9 @@
       if (os_log_type_enabled(*v4, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v18 = "+[CESRTrialConfigLoader configAtPath:]";
-        v19 = 2112;
-        v20 = v7;
+        v17 = "+[CESRTrialConfigLoader configAtPath:]";
+        v18 = 2112;
+        v19 = v7;
         _os_log_error_impl(&dword_225EEB000, v11, OS_LOG_TYPE_ERROR, "%s Failed to load trial config file: %@", buf, 0x16u);
       }
 
@@ -72,8 +72,6 @@
   {
     v8 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

@@ -631,7 +631,7 @@ LABEL_23:
 
             lastObject = v45;
             [customVideoCompositor setVideoTrackID:{objc_msgSend(v45, "trackID")}];
-            [v45 preferredTransform];
+            objc_msgSend_preferredTransform(v45);
             [customVideoCompositor setVideoTransform:v50];
             [customVideoCompositor setVideoRect:{0.0, 0.0, v23, v24}];
             [customVideoCompositor setIntroImage:v42];

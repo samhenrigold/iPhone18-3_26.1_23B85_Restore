@@ -156,8 +156,8 @@
 
   v96 = MEMORY[0x1E696ACD8];
   leadingAnchor = [(EKUIListViewCellBackground *)self->_backgroundView leadingAnchor];
-  contentView = [(EKUIListViewTimedEventCell *)self contentView];
-  leadingAnchor2 = [contentView leadingAnchor];
+  v106 = objc_msgSend_contentView(self);
+  leadingAnchor2 = [v106 leadingAnchor];
   carplayMode = [(EKUIListViewCell *)self carplayMode];
   v49 = 12.0;
   v50 = 12.0;
@@ -170,8 +170,8 @@
   v104 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:v50];
   v109[0] = v104;
   trailingAnchor = [(EKUIListViewCellBackground *)self->_backgroundView trailingAnchor];
-  contentView2 = [(EKUIListViewTimedEventCell *)self contentView];
-  trailingAnchor2 = [contentView2 trailingAnchor];
+  v102 = objc_msgSend_contentView(self);
+  trailingAnchor2 = [v102 trailingAnchor];
   if ([(EKUIListViewCell *)self carplayMode])
   {
     [(EKUIListViewCell *)self carplayBackgroundViewInsets];
@@ -181,8 +181,8 @@
   v100 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-v49];
   v109[1] = v100;
   topAnchor = [(EKUIListViewCellBackground *)self->_backgroundView topAnchor];
-  contentView3 = [(EKUIListViewTimedEventCell *)self contentView];
-  topAnchor2 = [contentView3 topAnchor];
+  v98 = objc_msgSend_contentView(self);
+  topAnchor2 = [v98 topAnchor];
   carplayMode2 = [(EKUIListViewCell *)self carplayMode];
   v58 = 4.0;
   v59 = 4.0;
@@ -200,8 +200,8 @@
   v95 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:v59];
   v109[2] = v95;
   bottomAnchor = [(EKUIListViewCellBackground *)self->_backgroundView bottomAnchor];
-  contentView4 = [(EKUIListViewTimedEventCell *)self contentView];
-  bottomAnchor2 = [contentView4 bottomAnchor];
+  v94 = objc_msgSend_contentView(self);
+  bottomAnchor2 = [v94 bottomAnchor];
   if ([(EKUIListViewCell *)self carplayMode])
   {
     [(EKUIListViewCell *)self carplayBackgroundViewInsets];
@@ -307,8 +307,8 @@
 
 - (void)_hideOrShowLocationIcon
 {
-  contentView = [(EKUIListViewTimedEventCell *)self contentView];
-  traitCollection = [contentView traitCollection];
+  v5 = objc_msgSend_contentView(self, a2);
+  traitCollection = [v5 traitCollection];
   if (EKUIUsesLargeTextLayout(traitCollection))
   {
     [(UIImageView *)self->_locationImage setHidden:1];
@@ -323,8 +323,8 @@
 
 - (void)_adjustNumberOfLines
 {
-  contentView = [(EKUIListViewTimedEventCell *)self contentView];
-  traitCollection = [contentView traitCollection];
+  v3 = objc_msgSend_contentView(self, a2);
+  traitCollection = [v3 traitCollection];
   v5 = EKUIUsesLargeTextLayout(traitCollection);
 
   [(UIImageView *)self->_travelImage setHidden:v5];
@@ -811,7 +811,7 @@ LABEL_11:
 
 - (void)_updateAppEntityAnnotationIfNeeded
 {
-  if (CalendarLinkLibraryCore())
+  if (CalendarLinkLibraryCore(0))
   {
     event = [(EKUIListViewTimedEventCell *)self event];
     isNew = [event isNew];

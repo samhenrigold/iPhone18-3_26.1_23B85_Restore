@@ -1,3 +1,1322 @@
+void sub_29AE9F5B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21)
+{
+  __cxa_guard_abort(&qword_2A174F770);
+  if ((a21 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((a21 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  v23 = *(v21 - 40);
+  if ((v23 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v23 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_29AE9F66C(uint64_t a1, uint64_t a2)
+{
+  if (sub_29A00E9CC(a2, &unk_2A2099438))
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+void sub_29AE9F6B8()
+{
+  v0 = &byte_2A174F76F;
+  v1 = -168;
+  v2 = &byte_2A174F76F;
+  do
+  {
+    v3 = *v2;
+    v2 -= 24;
+    if (v3 < 0)
+    {
+      operator delete(*(v0 - 23));
+    }
+
+    v0 = v2;
+    v1 += 24;
+  }
+
+  while (v1);
+}
+
+pxrInternal__aapl__pxrReserved__::HdStStagingBuffer *pxrInternal__aapl__pxrReserved__::HdStStagingBuffer::HdStStagingBuffer(pxrInternal__aapl__pxrReserved__::HdStStagingBuffer *this, pxrInternal__aapl__pxrReserved__::HdStResourceRegistry *a2)
+{
+  *this = a2;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 13) = 0;
+  *(this + 8) = 0u;
+  *(this + 24) = 0u;
+  *(this + 40) = 0u;
+  *(this + 56) = 0u;
+  *(this + 9) = 0;
+  Hgi = pxrInternal__aapl__pxrReserved__::HdStResourceRegistry::GetHgi(a2);
+  *(this + 80) = (*((*(*Hgi + 200))(Hgi) + 48) & 8) != 0;
+  return this;
+}
+
+void sub_29AE9F784(_Unwind_Exception *exception_object)
+{
+  v3 = v2;
+  v5 = *v3;
+  if (*v3)
+  {
+    *(v1 + 96) = v5;
+    operator delete(v5);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void pxrInternal__aapl__pxrReserved__::HdStStagingBuffer::~HdStStagingBuffer(pxrInternal__aapl__pxrReserved__::HdStResourceRegistry **this)
+{
+  pxrInternal__aapl__pxrReserved__::HdStStagingBuffer::Deallocate(this);
+  v2 = this[11];
+  if (v2)
+  {
+    this[12] = v2;
+    operator delete(v2);
+  }
+}
+
+uint64_t pxrInternal__aapl__pxrReserved__::HdStStagingBuffer::Deallocate(pxrInternal__aapl__pxrReserved__::HdStResourceRegistry **this)
+{
+  v2 = this + 1;
+  result = pxrInternal__aapl__pxrReserved__::HdStResourceRegistry::GetHgi(*this);
+  v4 = result;
+  v5 = 3;
+  do
+  {
+    if (*v2)
+    {
+      result = (*(*v4 + 104))(v4, v2);
+    }
+
+    v2 += 2;
+    --v5;
+  }
+
+  while (v5);
+  this[8] = 0;
+  this[9] = 0;
+  return result;
+}
+
+void pxrInternal__aapl__pxrReserved__::HdStStagingBuffer::Resize(pxrInternal__aapl__pxrReserved__::HdStStagingBuffer *this, uint64_t a2)
+{
+  if (*(this + 7))
+  {
+    v2[0] = "hdSt/stagingBuffer.cpp";
+    v2[1] = "Resize";
+    v2[2] = 51;
+    v2[3] = "void pxrInternal__aapl__pxrReserved__::HdStStagingBuffer::Resize(size_t)";
+    v3 = 0;
+    pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(v2, 1, "Cannot change size of staging buffer during Commit");
+  }
+
+  else
+  {
+    *(this + 8) = a2;
+  }
+}
+
+void pxrInternal__aapl__pxrReserved__::HdStStagingBuffer::StageCopy(uint64_t result, void *a2)
+{
+  v2 = a2[5];
+  if (v2)
+  {
+    v3 = *a2 == 0;
+  }
+
+  else
+  {
+    v3 = 1;
+  }
+
+  if (v3)
+  {
+    return;
+  }
+
+  v5 = (a2 + 2);
+  if (!a2[2])
+  {
+    return;
+  }
+
+  if (v2 > 0x80000 && (*(result + 80) & 1) == 0)
+  {
+    v7 = *(*pxrInternal__aapl__pxrReserved__::HdStResourceRegistry::GetGlobalBlitCmds(*result) + 64);
+
+    v7();
+    return;
+  }
+
+  *v31 = *(result + 8 + 16 * *(result + 72));
+  v8 = v31[0];
+  if (!v31[0])
+  {
+    v10 = *(result + 64);
+LABEL_16:
+    __p[0] = 0;
+    __p[1] = 0;
+    v27 = 0;
+    LODWORD(v28) = 1;
+    DWORD2(v29) = 0;
+    v30 = 0;
+    *&v29 = v10;
+    Hgi = pxrInternal__aapl__pxrReserved__::HdStResourceRegistry::GetHgi(*result);
+    v13 = Hgi;
+    if (v31[0])
+    {
+      (*(*Hgi + 104))(Hgi, v31);
+    }
+
+    v14 = (*(*v13 + 96))(v13, __p);
+    v15 = (result + 8 + 16 * *(result + 72));
+    *v15 = v14;
+    v15[1] = v16;
+    *v31 = *v15;
+    if (SHIBYTE(v27) < 0)
+    {
+      operator delete(__p[0]);
+    }
+
+    v8 = v31[0];
+    goto LABEL_21;
+  }
+
+  Descriptor = pxrInternal__aapl__pxrReserved__::HgiBuffer::GetDescriptor(v31[0]);
+  v10 = *(result + 64);
+  if (*(Descriptor + 32) < v10)
+  {
+    goto LABEL_16;
+  }
+
+  v11 = pxrInternal__aapl__pxrReserved__::HgiBuffer::GetDescriptor(v31[0]);
+  v10 = *(result + 64);
+  if (*(v11 + 32) > 4 * v10)
+  {
+    goto LABEL_16;
+  }
+
+LABEL_21:
+  v17 = *(pxrInternal__aapl__pxrReserved__::HgiBuffer::GetDescriptor(v8) + 32);
+  v18 = (*(*v31[0] + 32))(v31[0]);
+  v19 = *(result + 56);
+  v20 = a2[5];
+  if (v20 + v19 > v17)
+  {
+    __p[0] = "hdSt/stagingBuffer.cpp";
+    __p[1] = "StageCopy";
+    v27 = 104;
+    v28 = "void pxrInternal__aapl__pxrReserved__::HdStStagingBuffer::StageCopy(const HgiBufferCpuToGpuOp &)";
+    LOBYTE(v29) = 0;
+    if (!pxrInternal__aapl__pxrReserved__::Tf_FailedVerifyHelper(__p, "_head + copyOp.byteSize <= capacity", 0))
+    {
+      return;
+    }
+
+    v19 = *(result + 56);
+    v20 = a2[5];
+  }
+
+  memcpy((v18 + v19), (*a2 + a2[1]), v20);
+  v21 = *(result + 96);
+  if (*(result + 88) != v21 && *(v21 - 16) == a2[3] && (v22 = *(v21 - 32), *(v21 - 8) + v22 == a2[4]))
+  {
+    v23 = a2[5];
+    *(v21 - 32) = v23 + v22;
+  }
+
+  else
+  {
+    *__p = *v31;
+    v25 = a2[4];
+    v24 = a2[5];
+    v27 = *(result + 56);
+    v28 = v24;
+    v29 = *v5;
+    v30 = v25;
+    sub_29AE9FBE0(result + 88, __p);
+    v23 = a2[5];
+  }
+
+  *(result + 56) += v23;
+}
+
+void sub_29AE9FBC4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_29AE9FBE0(uint64_t a1, __int128 *a2)
+{
+  v4 = *(a1 + 8);
+  v5 = *(a1 + 16);
+  if (v4 >= v5)
+  {
+    v10 = 0x6DB6DB6DB6DB6DB7 * ((v4 - *a1) >> 3);
+    v11 = v10 + 1;
+    if ((v10 + 1) > 0x492492492492492)
+    {
+      sub_29A00C9A4();
+    }
+
+    v12 = 0x6DB6DB6DB6DB6DB7 * ((v5 - *a1) >> 3);
+    if (2 * v12 > v11)
+    {
+      v11 = 2 * v12;
+    }
+
+    if (v12 >= 0x249249249249249)
+    {
+      v13 = 0x492492492492492;
+    }
+
+    else
+    {
+      v13 = v11;
+    }
+
+    if (v13)
+    {
+      v14 = sub_29A040BCC(a1, v13);
+    }
+
+    else
+    {
+      v14 = 0;
+    }
+
+    v15 = &v14[56 * v10];
+    v16 = &v14[56 * v13];
+    v17 = *a2;
+    v18 = a2[1];
+    v19 = a2[2];
+    *(v15 + 6) = *(a2 + 6);
+    *(v15 + 1) = v18;
+    *(v15 + 2) = v19;
+    *v15 = v17;
+    v9 = v15 + 56;
+    v20 = *(a1 + 8) - *a1;
+    v21 = &v15[-v20];
+    memcpy(&v15[-v20], *a1, v20);
+    v22 = *a1;
+    *a1 = v21;
+    *(a1 + 8) = v9;
+    *(a1 + 16) = v16;
+    if (v22)
+    {
+      operator delete(v22);
+    }
+  }
+
+  else
+  {
+    v6 = *a2;
+    v7 = a2[1];
+    v8 = a2[2];
+    *(v4 + 48) = *(a2 + 6);
+    *(v4 + 16) = v7;
+    *(v4 + 32) = v8;
+    *v4 = v6;
+    v9 = (v4 + 56);
+  }
+
+  *(a1 + 8) = v9;
+}
+
+uint64_t pxrInternal__aapl__pxrReserved__::HdStStagingBuffer::Flush(uint64_t this)
+{
+  v1 = this;
+  if (*(this + 56))
+  {
+    GlobalBlitCmds = pxrInternal__aapl__pxrReserved__::HdStResourceRegistry::GetGlobalBlitCmds(*this);
+    (*(*GlobalBlitCmds + 24))(GlobalBlitCmds, "void pxrInternal__aapl__pxrReserved__::HdStStagingBuffer::Flush()");
+    if ((*(v1 + 80) & 1) == 0)
+    {
+      v3 = v1 + 16 * *(v1 + 72);
+      v4 = *(v3 + 8);
+      v5 = *(v3 + 16);
+      v11[0] = (*(*v4 + 32))(v4);
+      v11[1] = 0;
+      v11[2] = v4;
+      v11[3] = v5;
+      v6 = *(v1 + 56);
+      v11[4] = 0;
+      v11[5] = v6;
+      (*(*GlobalBlitCmds + 64))(GlobalBlitCmds, v11);
+      (*(*GlobalBlitCmds + 112))(GlobalBlitCmds, 1);
+    }
+
+    v7 = *(v1 + 88);
+    v8 = *(v1 + 96);
+    while (v7 != v8)
+    {
+      (*(*GlobalBlitCmds + 56))(GlobalBlitCmds, v7);
+      v7 += 56;
+    }
+
+    this = (*(*GlobalBlitCmds + 32))(GlobalBlitCmds);
+    *(v1 + 96) = *(v1 + 88);
+    *(v1 + 56) = 0;
+    if (*(v1 + 80))
+    {
+      v9 = *(v1 + 72);
+      if ((v9 + 1) < 3)
+      {
+        v10 = v9 + 1;
+      }
+
+      else
+      {
+        v10 = 0;
+      }
+
+      *(v1 + 72) = v10;
+    }
+  }
+
+  else
+  {
+    *(this + 96) = *(this + 88);
+  }
+
+  return this;
+}
+
+uint64_t pxrInternal__aapl__pxrReserved__::HdStFieldBaseSubtextureIdentifier::HdStFieldBaseSubtextureIdentifier(uint64_t result, uint64_t *a2, int a3)
+{
+  v3 = *a2;
+  *result = &unk_2A20994B8;
+  *(result + 8) = v3;
+  if ((v3 & 7) != 0 && (atomic_fetch_add_explicit((v3 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
+  {
+    *(result + 8) &= 0xFFFFFFFFFFFFFFF8;
+  }
+
+  *(result + 16) = a3;
+  return result;
+}
+
+void pxrInternal__aapl__pxrReserved__::HdStFieldBaseSubtextureIdentifier::~HdStFieldBaseSubtextureIdentifier(pxrInternal__aapl__pxrReserved__::HdStFieldBaseSubtextureIdentifier *this)
+{
+  *this = &unk_2A20994B8;
+  v1 = *(this + 1);
+  if ((v1 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v1 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+}
+
+uint64_t pxrInternal__aapl__pxrReserved__::HdStAssetUvSubtextureIdentifier::HdStAssetUvSubtextureIdentifier(uint64_t result, char a2, char a3, uint64_t *a4)
+{
+  *result = &unk_2A20994E8;
+  *(result + 8) = a2;
+  *(result + 9) = a3;
+  v4 = *a4;
+  *(result + 16) = *a4;
+  if ((v4 & 7) != 0 && (atomic_fetch_add_explicit((v4 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
+  {
+    *(result + 16) &= 0xFFFFFFFFFFFFFFF8;
+  }
+
+  return result;
+}
+
+void pxrInternal__aapl__pxrReserved__::HdStAssetUvSubtextureIdentifier::~HdStAssetUvSubtextureIdentifier(pxrInternal__aapl__pxrReserved__::HdStAssetUvSubtextureIdentifier *this)
+{
+  v1 = *(this + 2);
+  if ((v1 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v1 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+}
+
+{
+  v1 = *(this + 2);
+  if ((v1 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v1 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+}
+
+void pxrInternal__aapl__pxrReserved__::HdStAssetUvSubtextureIdentifier::~HdStAssetUvSubtextureIdentifier(void *this)
+{
+  v1 = *(this + 2);
+  if ((v1 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v1 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  operator delete(this);
+}
+
+_BYTE *pxrInternal__aapl__pxrReserved__::HdStAssetUvSubtextureIdentifier::Clone@<X0>(pxrInternal__aapl__pxrReserved__::HdStAssetUvSubtextureIdentifier *this@<X0>, void *a2@<X8>)
+{
+  v3 = *(this + 8);
+  v4 = *(this + 9);
+  v5 = *(this + 2);
+  if ((v5 & 7) != 0 && (atomic_fetch_add_explicit((v5 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
+  {
+    v5 &= 0xFFFFFFFFFFFFFFF8;
+  }
+
+  result = operator new(0x18uLL);
+  *result = &unk_2A20994E8;
+  result[8] = v3;
+  result[9] = v4;
+  *(result + 2) = v5;
+  if ((v5 & 7) != 0)
+  {
+    if ((atomic_fetch_add_explicit((v5 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
+    {
+      *(result + 2) &= 0xFFFFFFFFFFFFFFF8;
+    }
+
+    *a2 = result;
+    atomic_fetch_add_explicit((v5 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  else
+  {
+    *a2 = result;
+  }
+
+  return result;
+}
+
+unint64_t pxrInternal__aapl__pxrReserved__::HdStAssetUvSubtextureIdentifier::_Hash(pxrInternal__aapl__pxrReserved__::HdStAssetUvSubtextureIdentifier *this)
+{
+  if ((atomic_load_explicit(&qword_2A174F780, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2A174F780))
+  {
+    sub_29A008E78(&__p, "HdStAssetUvSubtextureIdentifier");
+    v6 = sub_29AE4FB24(&v7, &__p);
+    if (v12 < 0)
+    {
+      operator delete(__p);
+    }
+
+    qword_2A174F778 = v6;
+    __cxa_guard_release(&qword_2A174F780);
+  }
+
+  v9 = *(this + 8);
+  v8 = *(this + 9);
+  v2 = *(this + 2);
+  v7 = v2;
+  if ((v2 & 7) != 0)
+  {
+    v3 = (v2 & 0xFFFFFFFFFFFFFFF8);
+    if ((atomic_fetch_add_explicit(v3, 2u, memory_order_relaxed) & 1) == 0)
+    {
+      v7 = v3;
+    }
+  }
+
+  __p = 0;
+  v11 = 0;
+  sub_29AEA08BC(&__p, &qword_2A174F778, &v9, &v8, &v7);
+  v4 = __p;
+  if ((v7 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v7 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  return bswap64(0x9E3779B97F4A7C55 * v4);
+}
+
+void sub_29AEA0254(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+{
+  if (a17 < 0)
+  {
+    operator delete(__p);
+  }
+
+  __cxa_guard_abort(&qword_2A174F780);
+  _Unwind_Resume(a1);
+}
+
+void *pxrInternal__aapl__pxrReserved__::HdStDynamicUvSubtextureIdentifier::HdStDynamicUvSubtextureIdentifier(void *this)
+{
+  *this = &unk_2A2099518;
+  return this;
+}
+
+{
+  *this = &unk_2A2099518;
+  return this;
+}
+
+void *pxrInternal__aapl__pxrReserved__::HdStDynamicUvSubtextureIdentifier::Clone@<X0>(void *a1@<X8>)
+{
+  result = operator new(8uLL);
+  *result = &unk_2A2099518;
+  *a1 = result;
+  return result;
+}
+
+uint64_t pxrInternal__aapl__pxrReserved__::HdStDynamicUvSubtextureIdentifier::_Hash(pxrInternal__aapl__pxrReserved__::HdStDynamicUvSubtextureIdentifier *this)
+{
+  if ((atomic_load_explicit(&qword_2A174F790, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2A174F790))
+  {
+    sub_29A008E78(__p, "HdStDynamicUvSubtextureIdentifier");
+    v2 = sub_29AE4FB24(&v5, __p);
+    if (v4 < 0)
+    {
+      operator delete(__p[0]);
+    }
+
+    qword_2A174F788 = v2;
+    __cxa_guard_release(&qword_2A174F790);
+  }
+
+  return qword_2A174F788;
+}
+
+void sub_29AEA03D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  __cxa_guard_abort(&qword_2A174F790);
+  _Unwind_Resume(a1);
+}
+
+uint64_t pxrInternal__aapl__pxrReserved__::HdStUdimSubtextureIdentifier::HdStUdimSubtextureIdentifier(uint64_t result, char a2, uint64_t *a3)
+{
+  *result = &unk_2A2099550;
+  *(result + 8) = a2;
+  v3 = *a3;
+  *(result + 16) = *a3;
+  if ((v3 & 7) != 0 && (atomic_fetch_add_explicit((v3 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
+  {
+    *(result + 16) &= 0xFFFFFFFFFFFFFFF8;
+  }
+
+  return result;
+}
+
+{
+  *result = &unk_2A2099550;
+  *(result + 8) = a2;
+  v3 = *a3;
+  *(result + 16) = *a3;
+  if ((v3 & 7) != 0 && (atomic_fetch_add_explicit((v3 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
+  {
+    *(result + 16) &= 0xFFFFFFFFFFFFFFF8;
+  }
+
+  return result;
+}
+
+void pxrInternal__aapl__pxrReserved__::HdStUdimSubtextureIdentifier::~HdStUdimSubtextureIdentifier(pxrInternal__aapl__pxrReserved__::HdStUdimSubtextureIdentifier *this)
+{
+  v1 = *(this + 2);
+  if ((v1 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v1 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+}
+
+{
+  v1 = *(this + 2);
+  if ((v1 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v1 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+}
+
+void pxrInternal__aapl__pxrReserved__::HdStUdimSubtextureIdentifier::~HdStUdimSubtextureIdentifier(void *this)
+{
+  v1 = *(this + 2);
+  if ((v1 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v1 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  operator delete(this);
+}
+
+_BYTE *pxrInternal__aapl__pxrReserved__::HdStUdimSubtextureIdentifier::Clone@<X0>(pxrInternal__aapl__pxrReserved__::HdStUdimSubtextureIdentifier *this@<X0>, void *a2@<X8>)
+{
+  v3 = *(this + 8);
+  v4 = *(this + 2);
+  if ((v4 & 7) != 0 && (atomic_fetch_add_explicit((v4 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
+  {
+    v4 &= 0xFFFFFFFFFFFFFFF8;
+  }
+
+  result = operator new(0x18uLL);
+  *result = &unk_2A2099550;
+  result[8] = v3;
+  *(result + 2) = v4;
+  if ((v4 & 7) != 0)
+  {
+    if ((atomic_fetch_add_explicit((v4 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
+    {
+      *(result + 2) &= 0xFFFFFFFFFFFFFFF8;
+    }
+
+    *a2 = result;
+    atomic_fetch_add_explicit((v4 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  else
+  {
+    *a2 = result;
+  }
+
+  return result;
+}
+
+unint64_t pxrInternal__aapl__pxrReserved__::HdStUdimSubtextureIdentifier::_Hash(pxrInternal__aapl__pxrReserved__::HdStUdimSubtextureIdentifier *this)
+{
+  if ((atomic_load_explicit(&qword_2A174F7A0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2A174F7A0))
+  {
+    sub_29A008E78(&__p, "HdStUdimSubtextureIdentifier");
+    v6 = sub_29AE4FB24(&v7, &__p);
+    if (v11 < 0)
+    {
+      operator delete(__p);
+    }
+
+    qword_2A174F798 = v6;
+    __cxa_guard_release(&qword_2A174F7A0);
+  }
+
+  v8 = *(this + 8);
+  v2 = *(this + 2);
+  v7 = v2;
+  if ((v2 & 7) != 0)
+  {
+    v3 = (v2 & 0xFFFFFFFFFFFFFFF8);
+    if ((atomic_fetch_add_explicit(v3, 2u, memory_order_relaxed) & 1) == 0)
+    {
+      v7 = v3;
+    }
+  }
+
+  __p = 0;
+  v10 = 0;
+  sub_29AEA0974(&__p, &qword_2A174F798, &v8, &v7);
+  v4 = __p;
+  if ((v7 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v7 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  return bswap64(0x9E3779B97F4A7C55 * v4);
+}
+
+void sub_29AEA06D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+{
+  if (a17 < 0)
+  {
+    operator delete(__p);
+  }
+
+  __cxa_guard_abort(&qword_2A174F7A0);
+  _Unwind_Resume(a1);
+}
+
+uint64_t pxrInternal__aapl__pxrReserved__::HdStPtexSubtextureIdentifier::HdStPtexSubtextureIdentifier(uint64_t this, char a2)
+{
+  *this = &unk_2A2099580;
+  *(this + 8) = a2;
+  return this;
+}
+
+{
+  *this = &unk_2A2099580;
+  *(this + 8) = a2;
+  return this;
+}
+
+_BYTE *pxrInternal__aapl__pxrReserved__::HdStPtexSubtextureIdentifier::Clone@<X0>(pxrInternal__aapl__pxrReserved__::HdStPtexSubtextureIdentifier *this@<X0>, void *a2@<X8>)
+{
+  v3 = *(this + 8);
+  result = operator new(0x10uLL);
+  *result = &unk_2A2099580;
+  result[8] = v3;
+  *a2 = result;
+  return result;
+}
+
+unint64_t pxrInternal__aapl__pxrReserved__::HdStPtexSubtextureIdentifier::_Hash(pxrInternal__aapl__pxrReserved__::HdStPtexSubtextureIdentifier *this)
+{
+  if ((atomic_load_explicit(&qword_2A174F7B0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2A174F7B0))
+  {
+    sub_29A008E78(__p, "HdStPtexSubtextureIdentifier");
+    v3 = sub_29AE4FB24(&v6, __p);
+    if (v5 < 0)
+    {
+      operator delete(__p[0]);
+    }
+
+    qword_2A174F7A8 = v3;
+    __cxa_guard_release(&qword_2A174F7B0);
+  }
+
+  return bswap64(0x9E3779B97F4A7C55 * (*(this + 8) + ((qword_2A174F7A8 + *(this + 8) + (qword_2A174F7A8 + *(this + 8)) * (qword_2A174F7A8 + *(this + 8))) >> 1)));
+}
+
+void sub_29AEA088C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  __cxa_guard_abort(&qword_2A174F7B0);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_29AEA08BC(uint64_t a1, uint64_t *a2, unsigned __int8 *a3, unsigned __int8 *a4, void *a5)
+{
+  v5 = *a2;
+  if (*(a1 + 8))
+  {
+    v5 += (*a1 + v5 + (*a1 + v5) * (*a1 + v5)) >> 1;
+  }
+
+  else
+  {
+    *(a1 + 8) = 1;
+  }
+
+  *a1 = v5;
+  return sub_29AEA08F8(a1, a3, a4, a5);
+}
+
+uint64_t sub_29AEA08F8(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3, void *a4)
+{
+  v4 = *a2;
+  if (*(a1 + 8))
+  {
+    v4 += (*a1 + v4 + (*a1 + v4) * (*a1 + v4)) >> 1;
+  }
+
+  else
+  {
+    *(a1 + 8) = 1;
+  }
+
+  *a1 = v4;
+  return sub_29AEA0930(a1, a3, a4);
+}
+
+uint64_t sub_29AEA0930(uint64_t result, unsigned __int8 *a2, void *a3)
+{
+  v3 = *a2;
+  if (*(result + 8))
+  {
+    v3 += (*result + v3 + (*result + v3) * (*result + v3)) >> 1;
+  }
+
+  else
+  {
+    *(result + 8) = 1;
+  }
+
+  *result = (*a3 & 0xFFFFFFFFFFFFFFF8) + (((*a3 & 0xFFFFFFFFFFFFFFF8) + v3 + ((*a3 & 0xFFFFFFFFFFFFFFF8) + v3) * ((*a3 & 0xFFFFFFFFFFFFFFF8) + v3)) >> 1);
+  return result;
+}
+
+uint64_t sub_29AEA0974(uint64_t a1, uint64_t *a2, unsigned __int8 *a3, void *a4)
+{
+  v4 = *a2;
+  if (*(a1 + 8))
+  {
+    v4 += (*a1 + v4 + (*a1 + v4) * (*a1 + v4)) >> 1;
+  }
+
+  else
+  {
+    *(a1 + 8) = 1;
+  }
+
+  *a1 = v4;
+  return sub_29AEA0930(a1, a3, a4);
+}
+
+void sub_29AEA09B0(pxrInternal__aapl__pxrReserved__::HdSceneIndexPluginRegistry *a1)
+{
+  Instance = pxrInternal__aapl__pxrReserved__::HdSceneIndexPluginRegistry::GetInstance(a1);
+  sub_29A008E78(__p, "GL");
+  v2 = atomic_load(&qword_2A174F7B8);
+  if (!v2)
+  {
+    v2 = sub_29AEA0CB0();
+  }
+
+  v3 = 0;
+  v4 = 0;
+  pxrInternal__aapl__pxrReserved__::HdSceneIndexPluginRegistry::RegisterSceneIndexForRenderer(Instance, __p, v2, &v3, 0, 0);
+  if (v4)
+  {
+    sub_29A014BEC(v4);
+  }
+
+  if (v6 < 0)
+  {
+    operator delete(__p[0]);
+  }
+}
+
+void sub_29AEA0A40(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+{
+  if (a17 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void *pxrInternal__aapl__pxrReserved__::HdSt_TetMeshConversionSceneIndexPlugin::HdSt_TetMeshConversionSceneIndexPlugin(void *this)
+{
+  *this = &unk_2A2099668;
+  return this;
+}
+
+{
+  *this = &unk_2A2099668;
+  return this;
+}
+
+void sub_29AEA0AFC(pxrInternal__aapl__pxrReserved__::HdSceneIndexPlugin *a1)
+{
+  pxrInternal__aapl__pxrReserved__::HdSceneIndexPlugin::~HdSceneIndexPlugin(a1);
+
+  operator delete(v1);
+}
+
+uint64_t sub_29AEA0B24()
+{
+  v5 = *MEMORY[0x29EDCA608];
+  v2 = nullsub_1712;
+  v3.__vftable = &unk_2A2086100;
+  v3.__type_name = pxrInternal__aapl__pxrReserved__::HfPluginRegistry::_CreatePlugin<pxrInternal__aapl__pxrReserved__::HdSt_TetMeshConversionSceneIndexPlugin>;
+  v4 = &v3;
+  pxrInternal__aapl__pxrReserved__::HfPluginRegistry::_SetFactory(&v1, &v3);
+  return sub_29AB10084(&v3);
+}
+
+void sub_29AEA0C00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+{
+  va_start(va, a7);
+  sub_29AB10084(va);
+  _Unwind_Resume(a1);
+}
+
+void *pxrInternal__aapl__pxrReserved__::HfPluginRegistry::_CreatePlugin<pxrInternal__aapl__pxrReserved__::HdSt_TetMeshConversionSceneIndexPlugin>()
+{
+  sub_29A0ECEEC(&v2, "hdSt", "static HfPluginBase *pxrInternal__aapl__pxrReserved__::HfPluginRegistry::_CreatePlugin() [T = pxrInternal__aapl__pxrReserved__::HdSt_TetMeshConversionSceneIndexPlugin]");
+  v0 = operator new(8uLL);
+  *v0 = &unk_2A2099668;
+  if (v2)
+  {
+    pxrInternal__aapl__pxrReserved__::TfMallocTag::_End(v3, v2);
+  }
+
+  return v0;
+}
+
+void *sub_29AEA0CB0()
+{
+  v6 = *MEMORY[0x29EDCA608];
+  v0 = operator new(0x20uLL);
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v0, "HdSt_TetMeshConversionSceneIndexPlugin");
+  v1 = *v0;
+  v5 = v1;
+  if ((v1 & 7) != 0)
+  {
+    v2 = (v1 & 0xFFFFFFFFFFFFFFF8);
+    if ((atomic_fetch_add_explicit(v2, 2u, memory_order_relaxed) & 1) == 0)
+    {
+      v5 = v2;
+    }
+  }
+
+  v0[1] = 0;
+  v0[2] = 0;
+  v0[3] = 0;
+  sub_29A12EF7C(v0 + 1, &v5, &v6, 1uLL);
+  if ((v5 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v5 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  v3 = 0;
+  atomic_compare_exchange_strong(&qword_2A174F7B8, &v3, v0);
+  if (v3)
+  {
+    v5 = (v0 + 1);
+    sub_29A124AB0(&v5);
+    if ((*v0 & 7) != 0)
+    {
+      atomic_fetch_add_explicit((*v0 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    }
+
+    operator delete(v0);
+    return atomic_load(&qword_2A174F7B8);
+  }
+
+  return v0;
+}
+
+void sub_29AEA0DD0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9)
+{
+  if ((a9 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((a9 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  if ((*v9 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((*v9 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  operator delete(v9);
+  _Unwind_Resume(a1);
+}
+
+uint64_t *pxrInternal__aapl__pxrReserved__::HdSt_TextureBinder::GetBufferSpecs(uint64_t *result, void *a2, int a3)
+{
+  v5 = *result;
+  v6 = result[1];
+  if (*result == v6)
+  {
+    v8 = 0;
+  }
+
+  else
+  {
+    v7 = result;
+    result = pxrInternal__aapl__pxrReserved__::HdStTextureHandle::UseBindlessHandles(*(v5 + 16));
+    v8 = result;
+    v5 = *v7;
+    v6 = v7[1];
+  }
+
+  if (v5 != v6)
+  {
+    if (a3)
+    {
+      v9 = 24;
+    }
+
+    else
+    {
+      v9 = 18;
+    }
+
+    do
+    {
+      v10 = *(v5 + 8);
+      if (v10 > 1)
+      {
+        if (v10 == 2)
+        {
+          if (v8)
+          {
+            v17 = a2[1];
+            if (v17 >= a2[2])
+            {
+              v18 = sub_29AE4CF80(a2, v5, xmmword_29B711B20);
+            }
+
+            else
+            {
+              sub_29AE4E438(a2, v5, xmmword_29B711B20);
+              v18 = v17 + 24;
+            }
+
+            a2[1] = v18;
+            v32 = atomic_load(&pxrInternal__aapl__pxrReserved__::HdSt_ResourceBindingSuffixTokens);
+            if (!v32)
+            {
+              v32 = sub_29ADC7C04(&pxrInternal__aapl__pxrReserved__::HdSt_ResourceBindingSuffixTokens);
+            }
+
+            sub_29AEA1380(v5, v32 + 2, &v39);
+            v33 = a2[1];
+            if (v33 >= a2[2])
+            {
+              v35 = sub_29AEA2BD4(a2, &v39, xmmword_29B711B20);
+            }
+
+            else
+            {
+              v34 = v39;
+              *v33 = v39;
+              if ((v34 & 7) != 0 && (atomic_fetch_add_explicit((v34 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
+              {
+                *v33 &= 0xFFFFFFFFFFFFFFF8;
+              }
+
+              *(v33 + 8) = xmmword_29B711B10;
+              v35 = v33 + 24;
+              a2[1] = v33 + 24;
+            }
+
+            a2[1] = v35;
+            if ((v39 & 7) != 0)
+            {
+              atomic_fetch_add_explicit((v39 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+            }
+          }
+
+          v36 = atomic_load(&pxrInternal__aapl__pxrReserved__::HdSt_ResourceBindingSuffixTokens);
+          if (!v36)
+          {
+            v36 = sub_29ADC7C04(&pxrInternal__aapl__pxrReserved__::HdSt_ResourceBindingSuffixTokens);
+          }
+
+          sub_29AEA1380(v5, v36 + 4, &v40);
+          LODWORD(v39) = 0;
+          *(&v39 + 1) = 1;
+          v25 = a2[1];
+          if (v25 < a2[2])
+          {
+            goto LABEL_76;
+          }
+
+LABEL_61:
+          result = sub_29AEA2AA8(a2, &v40, &v39);
+          goto LABEL_80;
+        }
+
+        if (v10 == 3)
+        {
+          if (v8)
+          {
+            v13 = a2[1];
+            if (v13 >= a2[2])
+            {
+              v14 = sub_29AE4CF80(a2, v5, xmmword_29B711B20);
+            }
+
+            else
+            {
+              sub_29AE4E438(a2, v5, xmmword_29B711B20);
+              v14 = v13 + 24;
+            }
+
+            a2[1] = v14;
+            v26 = atomic_load(&pxrInternal__aapl__pxrReserved__::HdSt_ResourceBindingSuffixTokens);
+            if (!v26)
+            {
+              v26 = sub_29ADC7C04(&pxrInternal__aapl__pxrReserved__::HdSt_ResourceBindingSuffixTokens);
+            }
+
+            sub_29AEA1380(v5, v26 + 2, &v39);
+            v27 = a2[1];
+            if (v27 >= a2[2])
+            {
+              v29 = sub_29AEA2BD4(a2, &v39, xmmword_29B711B20);
+            }
+
+            else
+            {
+              v28 = v39;
+              *v27 = v39;
+              if ((v28 & 7) != 0 && (atomic_fetch_add_explicit((v28 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
+              {
+                *v27 &= 0xFFFFFFFFFFFFFFF8;
+              }
+
+              *(v27 + 8) = xmmword_29B711B10;
+              v29 = v27 + 24;
+              a2[1] = v27 + 24;
+            }
+
+            a2[1] = v29;
+            if ((v39 & 7) != 0)
+            {
+              atomic_fetch_add_explicit((v39 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+            }
+          }
+
+          v30 = atomic_load(&pxrInternal__aapl__pxrReserved__::HdSt_ResourceBindingSuffixTokens);
+          if (!v30)
+          {
+            v30 = sub_29ADC7C04(&pxrInternal__aapl__pxrReserved__::HdSt_ResourceBindingSuffixTokens);
+          }
+
+          sub_29AEA1380(v5, v30 + 4, &v40);
+          LODWORD(v39) = 0;
+          *(&v39 + 1) = 1;
+          v25 = a2[1];
+          if (v25 >= a2[2])
+          {
+            goto LABEL_61;
+          }
+
+LABEL_76:
+          v37 = v39;
+          v38 = v40;
+          *v25 = v40;
+          if ((v38 & 7) != 0 && (atomic_fetch_add_explicit((v38 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
+          {
+            *v25 &= 0xFFFFFFFFFFFFFFF8;
+          }
+
+          v25[1] = v37;
+          v25[2] = 1;
+          result = v25 + 3;
+          a2[1] = v25 + 3;
+LABEL_80:
+          a2[1] = result;
+          if ((v40 & 7) != 0)
+          {
+            atomic_fetch_add_explicit((v40 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+          }
+        }
+      }
+
+      else
+      {
+        if (!v10)
+        {
+          if (v8)
+          {
+            v15 = a2[1];
+            if (v15 >= a2[2])
+            {
+              v16 = sub_29AE4CF80(a2, v5, xmmword_29B711B20);
+            }
+
+            else
+            {
+              sub_29AE4E438(a2, v5, xmmword_29B711B20);
+              v16 = v15 + 24;
+            }
+
+            a2[1] = v16;
+          }
+
+          v31 = atomic_load(&pxrInternal__aapl__pxrReserved__::HdSt_ResourceBindingSuffixTokens);
+          if (!v31)
+          {
+            v31 = sub_29ADC7C04(&pxrInternal__aapl__pxrReserved__::HdSt_ResourceBindingSuffixTokens);
+          }
+
+          sub_29AEA1380(v5, v31 + 4, &v40);
+          LODWORD(v39) = 0;
+          *(&v39 + 1) = 1;
+          v25 = a2[1];
+          if (v25 >= a2[2])
+          {
+            goto LABEL_61;
+          }
+
+          goto LABEL_76;
+        }
+
+        if (v10 == 1)
+        {
+          if (v8)
+          {
+            v11 = a2[1];
+            if (v11 >= a2[2])
+            {
+              v12 = sub_29AE4CF80(a2, v5, xmmword_29B711B20);
+            }
+
+            else
+            {
+              sub_29AE4E438(a2, v5, xmmword_29B711B20);
+              v12 = v11 + 24;
+            }
+
+            a2[1] = v12;
+          }
+
+          v19 = atomic_load(&pxrInternal__aapl__pxrReserved__::HdSt_ResourceBindingSuffixTokens);
+          if (!v19)
+          {
+            v19 = sub_29ADC7C04(&pxrInternal__aapl__pxrReserved__::HdSt_ResourceBindingSuffixTokens);
+          }
+
+          sub_29AEA1380(v5, v19 + 4, &v40);
+          LODWORD(v39) = 0;
+          *(&v39 + 1) = 1;
+          v20 = a2[1];
+          if (v20 >= a2[2])
+          {
+            v23 = sub_29AEA2AA8(a2, &v40, &v39);
+          }
+
+          else
+          {
+            v21 = v39;
+            v22 = v40;
+            *v20 = v40;
+            if ((v22 & 7) != 0 && (atomic_fetch_add_explicit((v22 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
+            {
+              *v20 &= 0xFFFFFFFFFFFFFFF8;
+            }
+
+            v20[1] = v21;
+            v20[2] = 1;
+            v23 = (v20 + 3);
+            a2[1] = v20 + 3;
+          }
+
+          a2[1] = v23;
+          if ((v40 & 7) != 0)
+          {
+            atomic_fetch_add_explicit((v40 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+          }
+
+          v24 = atomic_load(&pxrInternal__aapl__pxrReserved__::HdSt_ResourceBindingSuffixTokens);
+          if (!v24)
+          {
+            v24 = sub_29ADC7C04(&pxrInternal__aapl__pxrReserved__::HdSt_ResourceBindingSuffixTokens);
+          }
+
+          sub_29AEA1380(v5, v24 + 1, &v40);
+          LODWORD(v39) = v9;
+          *(&v39 + 1) = 1;
+          v25 = a2[1];
+          if (v25 >= a2[2])
+          {
+            goto LABEL_61;
+          }
+
+          goto LABEL_76;
+        }
+      }
+
+      v5 += 40;
+    }
+
+    while (v5 != v6);
+  }
+
+  return result;
+}
+
 void sub_29AEA1348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if ((a12 & 7) != 0)
@@ -8,7 +1327,7 @@ void sub_29AEA1348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_29AEA1380(pxrInternal__aapl__pxrReserved__::TfToken *EmptyString@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
+void sub_29AEA1380(pxrInternal__aapl__pxrReserved__::TfToken *EmptyString@<X0>, void *a2@<X1>, void *a3@<X8>)
 {
   if ((*EmptyString & 0xFFFFFFFFFFFFFFF8) != 0)
   {
@@ -31,11 +1350,11 @@ void sub_29AEA1380(pxrInternal__aapl__pxrReserved__::TfToken *EmptyString@<X0>, 
     v6 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(EmptyString);
   }
 
-  pxrInternal__aapl__pxrReserved__::Sdf_CreateIdentifier(v5, v6, &__p);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(a3);
+  pxrInternal__aapl__pxrReserved__::Sdf_CreateIdentifier(v5, v6, __p);
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(a3, __p);
   if (v8 < 0)
   {
-    operator delete(__p);
+    operator delete(__p[0]);
   }
 }
 
@@ -49,7 +1368,7 @@ void sub_29AEA1414(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void pxrInternal__aapl__pxrReserved__::HdSt_TextureBinder::ComputeBufferSources(uint64_t *a1, void **a2, BOOL a3)
+void pxrInternal__aapl__pxrReserved__::HdSt_TextureBinder::ComputeBufferSources(uint64_t *a1, void **a2, char a3)
 {
   v57 = *MEMORY[0x29EDCA608];
   v4 = *a1;
@@ -920,9 +2239,9 @@ uint64_t sub_29AEA2AA8(void *a1, uint64_t *a2, __int128 *a3)
   return v13;
 }
 
-void sub_29AEA2BC0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29AEA2BC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29ABC71C0(va);
   _Unwind_Resume(a1);
 }
@@ -982,9 +2301,9 @@ uint64_t sub_29AEA2BD4(void *a1, uint64_t *a2, __int128 *a3)
   return v13;
 }
 
-void sub_29AEA2CEC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29AEA2CEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29ABC71C0(va);
   _Unwind_Resume(a1);
 }
@@ -1045,7 +2364,7 @@ void sub_29AEA2E78(pxrInternal__aapl__pxrReserved__::HdBufferSource *a1)
   operator delete(v3);
 }
 
-uint64_t sub_29AEA2EDC(uint64_t *a1, void *a2)
+void *sub_29AEA2EDC(uint64_t *a1, void *a2)
 {
   v3 = a1 + 2;
   v4 = (*(*a1 + 56))(a1);
@@ -1068,7 +2387,7 @@ uint64_t sub_29AEA2EDC(uint64_t *a1, void *a2)
 
     v6[1] = v4;
     v6[2] = v5;
-    result = (v6 + 3);
+    result = v6 + 3;
   }
 
   a2[1] = result;
@@ -1106,7 +2425,7 @@ void *sub_29AEA3050(void *a1, const pxrInternal__aapl__pxrReserved__::TfToken *a
   return a1;
 }
 
-void *sub_29AEA30B4@<X0>(const pxrInternal__aapl__pxrReserved__::TfToken *a1@<X1>, const pxrInternal__aapl__pxrReserved__::VtValue *a2@<X2>, int *a3@<X3>, BOOL *a4@<X4>, void *a5@<X8>)
+void *sub_29AEA30B4@<X0>(const pxrInternal__aapl__pxrReserved__::TfToken *a1@<X1>, const pxrInternal__aapl__pxrReserved__::VtValue *a2@<X2>, int *a3@<X3>, char *a4@<X4>, void *a5@<X8>)
 {
   v10 = operator new(0x58uLL);
   result = sub_29AEA3130(v10, a1, a2, a3, a4);
@@ -1115,7 +2434,7 @@ void *sub_29AEA30B4@<X0>(const pxrInternal__aapl__pxrReserved__::TfToken *a1@<X1
   return result;
 }
 
-void *sub_29AEA3130(void *a1, const pxrInternal__aapl__pxrReserved__::TfToken *a2, const pxrInternal__aapl__pxrReserved__::VtValue *a3, int *a4, BOOL *a5)
+void *sub_29AEA3130(void *a1, const pxrInternal__aapl__pxrReserved__::TfToken *a2, const pxrInternal__aapl__pxrReserved__::VtValue *a3, int *a4, char *a5)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -1389,15 +2708,15 @@ void pxrInternal__aapl__pxrReserved__::HdSt_TextureHandleRegistry::~HdSt_Texture
   sub_29A082B84(this, *(this + 1));
 }
 
-void pxrInternal__aapl__pxrReserved__::HdSt_TextureHandleRegistry::AllocateTextureHandle(uint64_t a1@<X0>, pxrInternal__aapl__pxrReserved__ *a2@<X1>, int a3@<W2>, __int128 *a4@<X3>, uint64_t a5@<X4>, uint64_t *a6@<X5>, uint64_t *a7@<X8>)
+void pxrInternal__aapl__pxrReserved__::HdSt_TextureHandleRegistry::AllocateTextureHandle(atomic_ullong *a1@<X0>, pxrInternal__aapl__pxrReserved__ *a2@<X1>, __int128 *a3@<X3>, uint64_t a4@<X4>, uint64_t *a5@<X5>, atomic_ullong **a6@<X8>, int a7@<W2>)
 {
-  v23 = a5;
-  pxrInternal__aapl__pxrReserved__::HdSt_TextureObjectRegistry::AllocateTextureObject(a2, *(a1 + 232), a3, &v21);
+  v23 = a4;
+  pxrInternal__aapl__pxrReserved__::HdSt_TextureObjectRegistry::AllocateTextureObject(&v21, a2, a1[29], a7);
   v24 = a1;
-  sub_29AEA4EA0(&v21, a4, &v23, a6, &v24, a7);
-  v11 = *(a1 + 240);
-  v12 = a7[1];
-  v24 = *a7;
+  sub_29AEA4EA0(&v21, a3, &v23, a5, &v24, a6);
+  v11 = a1[30];
+  v12 = a6[1];
+  v24 = *a6;
   v25[0] = v12;
   if (v12)
   {
@@ -1410,15 +2729,15 @@ void pxrInternal__aapl__pxrReserved__::HdSt_TextureHandleRegistry::AllocateTextu
     std::__shared_weak_count::__release_weak(v25[0]);
   }
 
-  v15 = *a7;
-  v14 = a7[1];
+  v15 = *a6;
+  v14 = a6[1];
   if (v14)
   {
-    atomic_fetch_add_explicit((v14 + 16), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v14 + 2, 1uLL, memory_order_relaxed);
   }
 
-  v24 = a1 + 32;
-  v16 = tbb::internal::concurrent_vector_base_v3::internal_push_back((a1 + 40), 16, v25, v13);
+  v24 = a1 + 4;
+  v16 = tbb::internal::concurrent_vector_base_v3::internal_push_back(a1 + 5, 16, v25, v13);
   *v16 = v15;
   v16[1] = v14;
   v19 = v21;
@@ -1428,8 +2747,8 @@ void pxrInternal__aapl__pxrReserved__::HdSt_TextureHandleRegistry::AllocateTextu
     atomic_fetch_add_explicit(&v22->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v24 = a1 + 96;
-  v20 = tbb::internal::concurrent_vector_base_v3::internal_push_back((a1 + 104), 16, v25, v17);
+  v24 = a1 + 12;
+  v20 = tbb::internal::concurrent_vector_base_v3::internal_push_back(a1 + 13, 16, v25, v17);
   *v20 = v19;
   v20[1] = v18;
   if (v22)
@@ -1509,7 +2828,7 @@ void *sub_29AEA38D8@<X0>(uint64_t a1@<X0>, void *a2@<X1>, void *a3@<X3>, void *a
   return result;
 }
 
-void pxrInternal__aapl__pxrReserved__::HdSt_TextureHandleRegistry::_ComputeMemoryRequest(uint64_t a1, void *a2)
+void pxrInternal__aapl__pxrReserved__::HdSt_TextureHandleRegistry::_ComputeMemoryRequest(uint64_t a1, pxrInternal__aapl__pxrReserved__::HdStTextureObject **a2)
 {
   sub_29AEA3B3C(*(a1 + 240), a2, &v23);
   v4 = v23;
@@ -1683,11 +3002,11 @@ void sub_29AEA3B3C(uint64_t a1@<X0>, void *a2@<X1>, void *a3@<X8>)
   std::mutex::unlock((a1 + 8));
 }
 
-void pxrInternal__aapl__pxrReserved__::HdSt_TextureHandleRegistry::_ComputeMemoryRequests(uint64_t a1, void *a2)
+void pxrInternal__aapl__pxrReserved__::HdSt_TextureHandleRegistry::_ComputeMemoryRequests(uint64_t a1, pxrInternal__aapl__pxrReserved__::HdStTextureObject ***a2)
 {
   v2 = a2 + 1;
   v3 = *a2;
-  if (*a2 != a2 + 1)
+  if (*a2 != (a2 + 1))
   {
     do
     {
@@ -1906,19 +3225,19 @@ LABEL_6:
   return v5 & 1;
 }
 
-void pxrInternal__aapl__pxrReserved__::HdSt_TextureHandleRegistry::GarbageCollect(pxrInternal__aapl__pxrReserved__::HdSt_TextureHandleRegistry *this)
+void pxrInternal__aapl__pxrReserved__::HdSt_TextureHandleRegistry::GarbageCollect(pxrInternal__aapl__pxrReserved__::HdSt_TextureObjectRegistry **this)
 {
   if (pxrInternal__aapl__pxrReserved__::HdSt_TextureHandleRegistry::_GarbageCollectHandlesAndComputeTargetMemory(this))
   {
-    v2 = *(this + 29);
+    v2 = this[29];
 
     pxrInternal__aapl__pxrReserved__::HdSt_TextureObjectRegistry::GarbageCollect(v2);
   }
 }
 
-void pxrInternal__aapl__pxrReserved__::HdSt_TextureHandleRegistry::_Commit(pxrInternal__aapl__pxrReserved__::HdSt_TextureHandleRegistry *this@<X0>, uint64_t a2@<X8>)
+void pxrInternal__aapl__pxrReserved__::HdSt_TextureHandleRegistry::_Commit(pxrInternal__aapl__pxrReserved__::HdSt_TextureHandleRegistry *this@<X0>, void *a2@<X8>)
 {
-  pxrInternal__aapl__pxrReserved__::HdSt_TextureObjectRegistry::Commit(*(this + 29), &v29);
+  pxrInternal__aapl__pxrReserved__::HdSt_TextureObjectRegistry::Commit(&v29, *(this + 29));
   v28[0] = 0;
   v28[1] = 0;
   v27 = v28;
@@ -1969,9 +3288,9 @@ void pxrInternal__aapl__pxrReserved__::HdSt_TextureHandleRegistry::_Commit(pxrIn
     while (v6 != v30);
   }
 
-  *(a2 + 16) = 0;
-  *(a2 + 8) = 0;
-  *a2 = a2 + 8;
+  a2[2] = 0;
+  a2[1] = 0;
+  *a2 = a2 + 1;
   v8 = v27;
   if (v27 != v28)
   {
@@ -1980,7 +3299,7 @@ void pxrInternal__aapl__pxrReserved__::HdSt_TextureHandleRegistry::_Commit(pxrIn
       pxrInternal__aapl__pxrReserved__::HdStTextureHandle::ReallocateSamplerIfNecessary(v8[4]);
       v9 = v8[4];
       v25 = 0;
-      v10 = *(v9 + 88);
+      v10 = v9[11];
       if (v10)
       {
         break;
@@ -2022,7 +3341,7 @@ LABEL_21:
     v26 = v11;
     if (v11)
     {
-      v25 = *(v9 + 80);
+      v25 = v9[10];
       if (!v25)
       {
 LABEL_19:
@@ -2138,7 +3457,7 @@ LABEL_46:
   sub_29A42FCE0(&v29, v30[0]);
 }
 
-void sub_29AEA41E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, void *a12, uint64_t a13, char a14, void *a15)
+void sub_29AEA41E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, void *a15)
 {
   sub_29A42FCE0(v15, *(v15 + 8));
   sub_29A42FCE0(&a11, a12);
@@ -2146,7 +3465,7 @@ void sub_29AEA41E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_29AEA4258(void *a1, uint64_t **a2)
+void sub_29AEA4258(void *a1, uint64_t a2)
 {
   v4 = a1[3];
   __dmb(0xBu);
@@ -2244,14 +3563,14 @@ void sub_29AEA4360(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void pxrInternal__aapl__pxrReserved__::HdSt_TextureHandleRegistry::Commit(pxrInternal__aapl__pxrReserved__::HdSt_TextureObjectRegistry **this@<X0>, uint64_t a2@<X8>)
+void pxrInternal__aapl__pxrReserved__::HdSt_TextureHandleRegistry::Commit(uint64_t *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::HdSt_TextureObjectRegistry **this@<X0>)
 {
   if (pxrInternal__aapl__pxrReserved__::HdSt_TextureHandleRegistry::_GarbageCollectHandlesAndComputeTargetMemory(this))
   {
     pxrInternal__aapl__pxrReserved__::HdSt_TextureObjectRegistry::GarbageCollect(this[29]);
   }
 
-  pxrInternal__aapl__pxrReserved__::HdSt_TextureHandleRegistry::_Commit(this, a2);
+  pxrInternal__aapl__pxrReserved__::HdSt_TextureHandleRegistry::_Commit(this, a1);
   pxrInternal__aapl__pxrReserved__::HdSt_SamplerObjectRegistry::GarbageCollect(this[28]);
 }
 
@@ -2467,14 +3786,14 @@ LABEL_41:
   return i;
 }
 
-void sub_29AEA47CC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29AEA47CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29AEA47E4(va, 0);
   _Unwind_Resume(a1);
 }
 
-void sub_29AEA47E4(uint64_t a1, uint64_t a2)
+void sub_29AEA47E4(char **a1, char *a2)
 {
   v2 = *a1;
   *a1 = a2;
@@ -2960,7 +4279,7 @@ void pxrInternal__aapl__pxrReserved__::HdStTextureIdentifier::~HdStTextureIdenti
   }
 }
 
-BOOL pxrInternal__aapl__pxrReserved__::HdStTextureIdentifier::operator==(void *a1, const pxrInternal__aapl__pxrReserved__::HdStSubtextureIdentifier *a2)
+BOOL pxrInternal__aapl__pxrReserved__::HdStTextureIdentifier::operator==(void *a1, pxrInternal__aapl__pxrReserved__ **a2)
 {
   if ((*a2 ^ *a1) > 7)
   {
@@ -2980,7 +4299,7 @@ BOOL pxrInternal__aapl__pxrReserved__::HdStTextureIdentifier::operator==(void *a
     v4 = 0;
   }
 
-  v7 = *(a2 + 1);
+  v7 = a2[1];
   if (v7)
   {
     v8 = bswap64(0x9E3779B97F4A7C55 * pxrInternal__aapl__pxrReserved__::hash_value(v7, a2));
@@ -3213,11 +4532,11 @@ void pxrInternal__aapl__pxrReserved__::HdStTextureObject::~HdStTextureObject(pxr
   }
 }
 
-void pxrInternal__aapl__pxrReserved__::HdStTextureObject::_GetDebugName(pxrInternal__aapl__pxrReserved__::HdStTextureObject *this@<X0>, const pxrInternal__aapl__pxrReserved__::HdStTextureIdentifier *a2@<X1>, void *a3@<X8>)
+void pxrInternal__aapl__pxrReserved__::HdStTextureObject::_GetDebugName(void *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::HdStTextureObject *this@<X0>, const pxrInternal__aapl__pxrReserved__::HdStTextureIdentifier *a3@<X1>)
 {
-  if ((*a2 & 0xFFFFFFFFFFFFFFF8) != 0)
+  if ((*a3 & 0xFFFFFFFFFFFFFFF8) != 0)
   {
-    EmptyString = ((*a2 & 0xFFFFFFFFFFFFFFF8) + 16);
+    EmptyString = ((*a3 & 0xFFFFFFFFFFFFFFF8) + 16);
   }
 
   else
@@ -3225,7 +4544,7 @@ void pxrInternal__aapl__pxrReserved__::HdStTextureObject::_GetDebugName(pxrInter
     EmptyString = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(this);
   }
 
-  v6 = *(a2 + 1);
+  v6 = *(a3 + 1);
   if (v6)
   {
     if (v7)
@@ -3297,8 +4616,8 @@ void pxrInternal__aapl__pxrReserved__::HdStTextureObject::_GetDebugName(pxrInter
 
       v25 = std::string::append(&v111, v23, v24);
       v26 = *&v25->__r_.__value_.__l.__data_;
-      a3[2] = *(&v25->__r_.__value_.__l + 2);
-      *a3 = v26;
+      a1[2] = *(&v25->__r_.__value_.__l + 2);
+      *a1 = v26;
       v25->__r_.__value_.__l.__size_ = 0;
       v25->__r_.__value_.__r.__words[2] = 0;
       v25->__r_.__value_.__r.__words[0] = 0;
@@ -3461,8 +4780,8 @@ LABEL_41:
 
       v67 = std::string::append(&v111, v65, v66);
       v68 = *&v67->__r_.__value_.__l.__data_;
-      a3[2] = *(&v67->__r_.__value_.__l + 2);
-      *a3 = v68;
+      a1[2] = *(&v67->__r_.__value_.__l + 2);
+      *a1 = v68;
       v67->__r_.__value_.__l.__size_ = 0;
       v67->__r_.__value_.__r.__words[2] = 0;
       v67->__r_.__value_.__r.__words[0] = 0;
@@ -3650,8 +4969,8 @@ LABEL_147:
 
       v82 = std::string::append(&v111, v80, v81);
       v83 = *&v82->__r_.__value_.__l.__data_;
-      a3[2] = *(&v82->__r_.__value_.__l + 2);
-      *a3 = v83;
+      a1[2] = *(&v82->__r_.__value_.__l + 2);
+      *a1 = v83;
       v82->__r_.__value_.__l.__size_ = 0;
       v82->__r_.__value_.__r.__words[2] = 0;
       v82->__r_.__value_.__r.__words[0] = 0;
@@ -3753,8 +5072,8 @@ LABEL_147:
 
       v77 = std::string::append(&v111, v75, v76);
       v78 = *&v77->__r_.__value_.__l.__data_;
-      a3[2] = *(&v77->__r_.__value_.__l + 2);
-      *a3 = v78;
+      a1[2] = *(&v77->__r_.__value_.__l + 2);
+      *a1 = v78;
       v77->__r_.__value_.__l.__size_ = 0;
       v77->__r_.__value_.__r.__words[2] = 0;
       v77->__r_.__value_.__r.__words[0] = 0;
@@ -3877,8 +5196,8 @@ LABEL_147:
 
       v103 = std::string::append(&v111, v101, v102);
       v104 = *&v103->__r_.__value_.__l.__data_;
-      a3[2] = *(&v103->__r_.__value_.__l + 2);
-      *a3 = v104;
+      a1[2] = *(&v103->__r_.__value_.__l + 2);
+      *a1 = v104;
       v103->__r_.__value_.__l.__size_ = 0;
       v103->__r_.__value_.__r.__words[2] = 0;
       v103->__r_.__value_.__r.__words[0] = 0;
@@ -3922,10 +5241,10 @@ LABEL_149:
         v98 = EmptyString[1];
       }
 
-      sub_29A022DE0(a3, v98 + 32);
-      if (*(a3 + 23) < 0)
+      sub_29A022DE0(a1, v98 + 32);
+      if (*(a1 + 23) < 0)
       {
-        a3 = *a3;
+        a1 = *a1;
       }
 
       if (v98)
@@ -3940,10 +5259,10 @@ LABEL_149:
           v99 = *EmptyString;
         }
 
-        memmove(a3, v99, v98);
+        memmove(a1, v99, v98);
       }
 
-      strcpy(a3 + v98, " - unknown subtexture identifier");
+      strcpy(a1 + v98, " - unknown subtexture identifier");
     }
   }
 
@@ -3952,14 +5271,14 @@ LABEL_149:
     v28 = *EmptyString;
     v29 = EmptyString[1];
 
-    sub_29A008D14(a3, v28, v29);
+    sub_29A008D14(a1, v28, v29);
   }
 
   else
   {
     v14 = *EmptyString;
-    a3[2] = EmptyString[2];
-    *a3 = v14;
+    a1[2] = EmptyString[2];
+    *a1 = v14;
   }
 }
 
@@ -4159,15 +5478,15 @@ uint64_t pxrInternal__aapl__pxrReserved__::HdStUvTextureObject::_SetCpuData(uint
   return result;
 }
 
-uint64_t pxrInternal__aapl__pxrReserved__::HdStUvTextureObject::_CreateTexture(uint64_t a1, uint64_t a2)
+uint64_t pxrInternal__aapl__pxrReserved__::HdStUvTextureObject::_CreateTexture(atomic_ullong **a1, uint64_t a2)
 {
   Hgi = pxrInternal__aapl__pxrReserved__::HdStTextureObject::_GetHgi(a1);
   if (Hgi || (result = sub_29B2CB324(v7), (result & 1) != 0))
   {
     pxrInternal__aapl__pxrReserved__::HdStUvTextureObject::_DestroyTexture(a1);
-    *(a1 + 72) = (*(*Hgi + 48))(Hgi, a2);
-    *(a1 + 80) = v5;
-    return pxrInternal__aapl__pxrReserved__::HdStTextureObject::_AddToTotalTextureMemory(a1, (a1 + 72));
+    a1[9] = (*(*Hgi + 48))(Hgi, a2);
+    a1[10] = v5;
+    return pxrInternal__aapl__pxrReserved__::HdStTextureObject::_AddToTotalTextureMemory(a1, a1 + 9);
   }
 
   return result;
@@ -4424,11 +5743,11 @@ void pxrInternal__aapl__pxrReserved__::HdStFieldTextureObject::_Load(pxrInternal
     }
 
 LABEL_15:
-    __p[0] = "hdSt/textureObject.cpp";
-    __p[1] = "_ComputeFieldTexData";
-    __p[2] = 488;
-    __p[3] = "HioFieldTextureDataSharedPtr pxrInternal__aapl__pxrReserved__::_ComputeFieldTexData(const HdStTextureIdentifier &, const size_t)";
-    LOBYTE(__p[4]) = 0;
+    __p[0].__r_.__value_.__r.__words[0] = "hdSt/textureObject.cpp";
+    __p[0].__r_.__value_.__l.__size_ = "_ComputeFieldTexData";
+    __p[0].__r_.__value_.__r.__words[2] = 488;
+    __p[1].__r_.__value_.__r.__words[0] = "HioFieldTextureDataSharedPtr pxrInternal__aapl__pxrReserved__::_ComputeFieldTexData(const HdStTextureIdentifier &, const size_t)";
+    __p[1].__r_.__value_.__s.__data_[8] = 0;
     pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(__p, 1, "Unsupported field subtexture identifier");
     v56 = 0;
     v57 = 0;
@@ -4439,11 +5758,11 @@ LABEL_15:
   v8 = *(v5 + 4);
   if (v8)
   {
-    __p[0] = "hdSt/textureObject.cpp";
-    __p[1] = "_ComputeFieldTexData";
-    __p[2] = 468;
-    __p[3] = "HioFieldTextureDataSharedPtr pxrInternal__aapl__pxrReserved__::_ComputeFieldTexData(const HdStTextureIdentifier &, const size_t)";
-    LOBYTE(__p[4]) = 0;
+    __p[0].__r_.__value_.__r.__words[0] = "hdSt/textureObject.cpp";
+    __p[0].__r_.__value_.__l.__size_ = "_ComputeFieldTexData";
+    __p[0].__r_.__value_.__r.__words[2] = 468;
+    __p[1].__r_.__value_.__r.__words[0] = "HioFieldTextureDataSharedPtr pxrInternal__aapl__pxrReserved__::_ComputeFieldTexData(const HdStTextureIdentifier &, const size_t)";
+    __p[1].__r_.__value_.__s.__data_[8] = 0;
     v9 = EmptyString;
     if (EmptyString[23] < 0)
     {
@@ -4475,16 +5794,16 @@ LABEL_15:
 
   memset(__p, 0, 24);
   pxrInternal__aapl__pxrReserved__::HioFieldTextureData::New(EmptyString, &v56);
-  if (SHIBYTE(__p[2]) < 0)
+  if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p[0].__r_.__value_.__l.__data_);
   }
 
 LABEL_26:
   if (v56)
   {
     v14 = (*(*v56 + 56))(v56);
-    pxrInternal__aapl__pxrReserved__::HdStTextureObject::_GetDebugName(v14, v2, __p);
+    pxrInternal__aapl__pxrReserved__::HdStTextureObject::_GetDebugName(__p, v14, v2);
     v15 = operator new(0x80uLL);
     pxrInternal__aapl__pxrReserved__::HdSt_FieldTextureCpuData::HdSt_FieldTextureCpuData(v15, &v56, __p, 1);
     v16 = *(this + 7);
@@ -4494,20 +5813,20 @@ LABEL_26:
       (*(*v16 + 8))(v16);
     }
 
-    if (SHIBYTE(__p[2]) < 0)
+    if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(__p[0]);
+      operator delete(__p[0].__r_.__value_.__l.__data_);
     }
 
     if ((*(**(this + 7) + 32))(*(this + 7)))
     {
       if (*((*(**(this + 7) + 16))(*(this + 7)) + 48) != 2)
       {
-        __p[0] = "hdSt/textureObject.cpp";
-        __p[1] = "_Load";
-        __p[2] = 532;
-        __p[3] = "virtual void pxrInternal__aapl__pxrReserved__::HdStFieldTextureObject::_Load()";
-        LOBYTE(__p[4]) = 0;
+        __p[0].__r_.__value_.__r.__words[0] = "hdSt/textureObject.cpp";
+        __p[0].__r_.__value_.__l.__size_ = "_Load";
+        __p[0].__r_.__value_.__r.__words[2] = 532;
+        __p[1].__r_.__value_.__r.__words[0] = "virtual void pxrInternal__aapl__pxrReserved__::HdStFieldTextureObject::_Load()";
+        __p[1].__r_.__value_.__s.__data_[8] = 0;
         pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(__p, 1, "Wrong texture type for field");
       }
 
@@ -4574,17 +5893,17 @@ LABEL_26:
       memcpy(this + 64, __p, 0x132uLL);
       pxrInternal__aapl__pxrReserved__::GfMatrix4d::SetDiagonal(__p, 1.0);
       v38 = this + 376;
-      v44 = *&__p[10];
-      *(this + 440) = *&__p[8];
+      v44 = *&__p[3].__r_.__value_.__r.__words[1];
+      *(this + 440) = *&__p[2].__r_.__value_.__r.__words[2];
       *(this + 456) = v44;
-      v45 = *&__p[14];
-      *(this + 472) = *&__p[12];
+      v45 = *&__p[4].__r_.__value_.__r.__words[2];
+      *(this + 472) = *&__p[4].__r_.__value_.__l.__data_;
       *(this + 488) = v45;
-      v46 = *&__p[2];
-      *(this + 376) = *__p;
+      v46 = *&__p[0].__r_.__value_.__r.__words[2];
+      *(this + 376) = *&__p[0].__r_.__value_.__l.__data_;
       *(this + 392) = v46;
-      v42 = *&__p[4];
-      v43 = *&__p[6];
+      v42 = *&__p[1].__r_.__value_.__r.__words[1];
+      v43 = *&__p[2].__r_.__value_.__l.__data_;
     }
 
     *(v38 + 2) = v42;
@@ -4600,9 +5919,9 @@ LABEL_37:
 
 void sub_29AEA7414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  if (a68)
+  if (a65)
   {
-    sub_29A014BEC(a68);
+    sub_29A014BEC(a65);
   }
 
   _Unwind_Resume(a1);
@@ -4774,13 +6093,13 @@ LABEL_14:
   return result;
 }
 
-void pxrInternal__aapl__pxrReserved__::HdSt_TextureObjectRegistry::AllocateTextureObject(pxrInternal__aapl__pxrReserved__ *this@<X1>, uint64_t *a2@<X0>, int a3@<W2>, void *a4@<X8>)
+void pxrInternal__aapl__pxrReserved__::HdSt_TextureObjectRegistry::AllocateTextureObject(uint64_t *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__ *this@<X1>, uint64_t *a3@<X0>, int a4@<W2>)
 {
   v21 = bswap64(0x9E3779B97F4A7C55 * pxrInternal__aapl__pxrReserved__::hash_value(this, this));
-  sub_29AEA7B00((a2 + 1), &v21, v16);
+  sub_29AEA7B00((a3 + 1), &v21, v16);
   if (v20 == 1)
   {
-    pxrInternal__aapl__pxrReserved__::HdSt_TextureObjectRegistry::_MakeTextureObject(a2, this, a3, &v14);
+    pxrInternal__aapl__pxrReserved__::HdSt_TextureObjectRegistry::_MakeTextureObject(a3, this, a4, &v14);
     sub_29AEA7C54(v16, &v14);
     v10 = v14;
     v9 = v15;
@@ -4789,12 +6108,12 @@ void pxrInternal__aapl__pxrReserved__::HdSt_TextureObjectRegistry::AllocateTextu
       atomic_fetch_add_explicit(&v15->__shared_weak_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v21 = a2 + 92;
-    v11 = tbb::internal::concurrent_vector_base_v3::internal_push_back(a2 + 93, 16, &v22, v8);
+    v21 = a3 + 92;
+    v11 = tbb::internal::concurrent_vector_base_v3::internal_push_back(a3 + 93, 16, &v22, v8);
     *v11 = v10;
     v11[1] = v9;
     v21 = this;
-    v12 = sub_29AEA904C((a2 + 79), this, &unk_29B4D6118, &v21);
+    v12 = sub_29AEA904C((a3 + 79), this, &unk_29B4D6118, &v21);
     v21 = v14;
     v22 = v15;
     if (v15)
@@ -4815,8 +6134,8 @@ void pxrInternal__aapl__pxrReserved__::HdSt_TextureObjectRegistry::AllocateTextu
   }
 
   v13 = v17;
-  *a4 = v16[1];
-  a4[1] = v13;
+  *a1 = v16[1];
+  a1[1] = v13;
   if (v13)
   {
     atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -4833,7 +6152,7 @@ void pxrInternal__aapl__pxrReserved__::HdSt_TextureObjectRegistry::AllocateTextu
   }
 }
 
-void sub_29AEA7AB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, std::__shared_weak_count *a20)
+void sub_29AEA7AB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, std::__shared_weak_count *a20)
 {
   if (a20)
   {
@@ -5054,13 +6373,13 @@ double sub_29AEA7E40@<D0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X3>, ui
   return result;
 }
 
-uint64_t *pxrInternal__aapl__pxrReserved__::HdSt_TextureObjectRegistry::Commit@<X0>(pxrInternal__aapl__pxrReserved__::HdSt_TextureObjectRegistry *this@<X0>, uint64_t a2@<X8>)
+uint64_t *pxrInternal__aapl__pxrReserved__::HdSt_TextureObjectRegistry::Commit@<X0>(uint64_t *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::HdSt_TextureObjectRegistry *this@<X0>)
 {
-  v61 = *MEMORY[0x29EDCA608];
-  *(a2 + 8) = 0;
-  v4 = (a2 + 8);
-  *(a2 + 16) = 0;
-  *a2 = a2 + 8;
+  v67 = *MEMORY[0x29EDCA608];
+  a1[1] = 0;
+  v4 = a1 + 1;
+  a1[2] = 0;
+  *a1 = (a1 + 1);
   v5 = *(this + 87);
   __dmb(0xBu);
   v6 = tbb::internal::concurrent_vector_base_v3::internal_capacity((this + 680));
@@ -5122,23 +6441,23 @@ LABEL_20:
         goto LABEL_20;
       }
 
-      v54 = 0;
-      v15 = *(v13 + 8);
+      *&v61 = 0;
+      v15 = v13[1];
       if (v15)
       {
         break;
       }
 
 LABEL_19:
-      v13 += 16;
+      v13 += 2;
     }
 
     v16 = std::__shared_weak_count::lock(v15);
-    v55 = v16;
+    *(&v61 + 1) = v16;
     if (v16)
     {
-      v54 = *v13;
-      if (!v54)
+      *&v61 = *v13;
+      if (!v61)
       {
 LABEL_17:
         if (v16)
@@ -5150,13 +6469,13 @@ LABEL_17:
       }
     }
 
-    else if (!v54)
+    else if (!v61)
     {
       goto LABEL_17;
     }
 
-    sub_29A42F734(a2, &v54, &v54);
-    v16 = v55;
+    sub_29A42F734(a1, &v61, &v61);
+    v16 = *(&v61 + 1);
     goto LABEL_17;
   }
 
@@ -5186,25 +6505,25 @@ LABEL_24:
         v26 = sub_29A0EC0EC(v24);
         v27 = *(this + 96);
         __dmb(0xBu);
-        v25 = *(v27 + 8 * v26) - 32 * ((1 << v26) >> 1) + v23;
+        v25 = (*(v27 + 8 * v26) - 32 * ((1 << v26) >> 1) + v23);
       }
 
-      v54 = 0;
-      v28 = *(v25 + 8);
+      *&v61 = 0;
+      v28 = v25[1];
       if (!v28)
       {
         goto LABEL_39;
       }
 
       v29 = std::__shared_weak_count::lock(v28);
-      v55 = v29;
+      *(&v61 + 1) = v29;
       if (!v29)
       {
         break;
       }
 
-      v54 = *v25;
-      if (v54)
+      *&v61 = *v25;
+      if (v61)
       {
         goto LABEL_36;
       }
@@ -5219,7 +6538,7 @@ LABEL_39:
       v30 = v24 + 1;
       if (((v24 - 1) & (v24 + 1)) != 0)
       {
-        v25 += 16;
+        v25 += 2;
       }
 
       else
@@ -5235,108 +6554,108 @@ LABEL_39:
       }
     }
 
-    if (!v54)
+    if (!v61)
     {
       goto LABEL_37;
     }
 
 LABEL_36:
-    sub_29A42F734(a2, &v54, &v54);
-    v29 = v55;
+    sub_29A42F734(a1, &v61, &v61);
+    v29 = *(&v61 + 1);
     goto LABEL_37;
   }
 
 LABEL_43:
-  pxrInternal__aapl__pxrReserved__::TfStringPrintf("Loading %zu textures", v20, v21, *(a2 + 16));
-  v54 = "hdSt/textureObjectRegistry.cpp";
-  v55 = "Commit";
-  v56 = 166;
-  v57 = "std::set<HdStTextureObjectSharedPtr> pxrInternal__aapl__pxrReserved__::HdSt_TextureObjectRegistry::Commit()";
-  v58 = 0;
-  pxrInternal__aapl__pxrReserved__::TfScopeDescription::TfScopeDescription(v48, __p, &v54);
-  if (SHIBYTE(v52) < 0)
+  pxrInternal__aapl__pxrReserved__::TfStringPrintf("Loading %zu textures", v20, v21, a1[2]);
+  *&v61 = "hdSt/textureObjectRegistry.cpp";
+  *(&v61 + 1) = "Commit";
+  v62 = 166;
+  v63 = "std::set<HdStTextureObjectSharedPtr> pxrInternal__aapl__pxrReserved__::HdSt_TextureObjectRegistry::Commit()";
+  v64 = 0;
+  pxrInternal__aapl__pxrReserved__::TfScopeDescription::TfScopeDescription(&v53, &__p, &v61);
+  if (SHIBYTE(v59) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p);
   }
 
-  v34 = *a2;
-  LODWORD(v54) = 0;
-  v59 = 65539;
-  v60 = 55;
-  tbb::task_group_context::init(&v54, v31, v32, v33);
-  v50 = &v47;
+  v34 = *a1;
+  LODWORD(v61) = 0;
+  v65 = 65539;
+  v66 = 55;
+  tbb::task_group_context::init(&v61, v31, v32, v33);
+  v57 = &v52;
   if (v34 != v4)
   {
-    __p[0] = &unk_2A2099B90;
-    v53 = &v54;
-    v35 = tbb::internal::allocate_root_with_context_proxy::allocate(&v53, 8uLL);
-    *(v35 - 11) = 1;
-    *v35 = &unk_2A203ACB0;
-    __p[1] = &v50;
-    v52 = v35;
-    v36 = tbb::internal::allocate_child_proxy::allocate(v35, 0x20uLL);
+    *&__p = &unk_2A2099B90;
+    v60 = &v61;
+    v36 = tbb::internal::allocate_root_with_context_proxy::allocate(&v60, 8uLL);
     *(v36 - 11) = 1;
-    *v36 = &unk_2A2099C48;
-    v36[1] = v34;
-    v36[2] = v4;
-    v36[3] = __p;
-    v37 = v52;
-    *(v52 - 3) = 2;
-    (*(**(v37 - 5) + 8))(*(v37 - 5), v37, v36);
-    sub_29AEA9298(__p, v38);
+    *v36 = &unk_2A203ACB0;
+    *(&__p + 1) = &v57;
+    v59 = v36;
+    v37 = tbb::internal::allocate_child_proxy::allocate(v36, 0x20uLL);
+    *(v37 - 11) = 1;
+    *v37 = &unk_2A2099C48;
+    v37[1] = v34;
+    v37[2] = v4;
+    v37[3] = &__p;
+    v38 = v59;
+    *(v59 - 3) = 2;
+    (*(**(v38 - 5) + 8))(*(v38 - 5), v38, v37);
+    sub_29AEA9298(&__p, v39);
   }
 
-  tbb::task_group_context::~task_group_context(&v54);
-  pxrInternal__aapl__pxrReserved__::TfScopeDescription::~TfScopeDescription(v48);
-  v41 = *a2;
-  if (*a2 != v4)
+  tbb::task_group_context::~task_group_context(&v61, v35);
+  pxrInternal__aapl__pxrReserved__::TfScopeDescription::~TfScopeDescription(&v53, v40, v41);
+  v44 = *a1;
+  if (*a1 != v4)
   {
-    v42 = 1;
+    v45 = 1;
     do
     {
-      pxrInternal__aapl__pxrReserved__::TfStringPrintf("Comitting texture %zu / %zu", v39, v40, v42, *(a2 + 16));
-      v48[0] = "hdSt/textureObjectRegistry.cpp";
-      v48[1] = "Commit";
-      v48[2] = 192;
-      v48[3] = "std::set<HdStTextureObjectSharedPtr> pxrInternal__aapl__pxrReserved__::HdSt_TextureObjectRegistry::Commit()";
-      v49 = 0;
-      pxrInternal__aapl__pxrReserved__::TfScopeDescription::TfScopeDescription(&v54, __p, v48);
-      if (SHIBYTE(v52) < 0)
+      pxrInternal__aapl__pxrReserved__::TfStringPrintf("Comitting texture %zu / %zu", v42, v43, v45, a1[2]);
+      *&v53 = "hdSt/textureObjectRegistry.cpp";
+      *(&v53 + 1) = "Commit";
+      v54 = 192;
+      v55 = "std::set<HdStTextureObjectSharedPtr> pxrInternal__aapl__pxrReserved__::HdSt_TextureObjectRegistry::Commit()";
+      v56 = 0;
+      pxrInternal__aapl__pxrReserved__::TfScopeDescription::TfScopeDescription(&v61, &__p, &v53);
+      if (SHIBYTE(v59) < 0)
       {
-        operator delete(__p[0]);
+        operator delete(__p);
       }
 
-      (*(*v41[4] + 40))(v41[4]);
-      pxrInternal__aapl__pxrReserved__::TfScopeDescription::~TfScopeDescription(&v54);
-      v43 = v41[1];
-      if (v43)
+      (*(*v44[4] + 40))(v44[4]);
+      pxrInternal__aapl__pxrReserved__::TfScopeDescription::~TfScopeDescription(&v61, v46, v47);
+      v48 = v44[1];
+      if (v48)
       {
         do
         {
-          v44 = v43;
-          v43 = *v43;
+          v49 = v48;
+          v48 = *v48;
         }
 
-        while (v43);
+        while (v48);
       }
 
       else
       {
         do
         {
-          v44 = v41[2];
-          v45 = *v44 == v41;
-          v41 = v44;
+          v49 = v44[2];
+          v50 = *v49 == v44;
+          v44 = v49;
         }
 
-        while (!v45);
+        while (!v50);
       }
 
-      ++v42;
-      v41 = v44;
+      ++v45;
+      v44 = v49;
     }
 
-    while (v44 != v4);
+    while (v49 != v4);
   }
 
   tbb::internal::concurrent_vector_base_v3::internal_clear((this + 680), tbb::concurrent_vector<pxrInternal__aapl__pxrReserved__::TfToken,tbb::cache_aligned_allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::destroy_array);
@@ -5344,10 +6663,10 @@ LABEL_43:
   return pxrInternal__aapl__pxrReserved__::HdStResourceRegistry::SubmitBlitWork(*(this + 100), 0);
 }
 
-void sub_29AEA839C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, char a32)
+void sub_29AEA839C(_Unwind_Exception *a1, tbb::internal::generic_scheduler *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, char a32)
 {
-  tbb::task_group_context::~task_group_context(&a32);
-  pxrInternal__aapl__pxrReserved__::TfScopeDescription::~TfScopeDescription(&a12);
+  tbb::task_group_context::~task_group_context(&a32, a2);
+  pxrInternal__aapl__pxrReserved__::TfScopeDescription::~TfScopeDescription(&a12, v34, v35);
   sub_29A42FCE0(v32, *(v32 + 8));
   _Unwind_Resume(a1);
 }
@@ -5365,8 +6684,8 @@ void pxrInternal__aapl__pxrReserved__::HdSt_TextureObjectRegistry::GarbageCollec
   {
     while (2)
     {
-      v3 = v2 + 3;
-      v4 = v2[4] - v2[3];
+      v3 = (v2 + 24);
+      v4 = *(v2 + 32) - *(v2 + 24);
       v5 = v4 >> 4;
       if (!v4)
       {
@@ -5428,7 +6747,7 @@ LABEL_14:
 LABEL_16:
       v5 = v6;
 LABEL_17:
-      sub_29A03CC20((v2 + 3), v5);
+      sub_29A03CC20((v2 + 24), v5);
       if (!v5)
       {
         v2 = sub_29AEA8724(this + 79, v2);
@@ -5866,45 +7185,37 @@ void *sub_29AEA904C(uint64_t a1, void *a2, uint64_t a3, uint64_t **a4)
     v9 = *(*a1 + 8 * v4);
     if (v9)
     {
-      result = *v9;
-      if (*v9)
+      for (result = *v9; result; result = *result)
       {
-        do
+        v11 = result[1];
+        if (v11 == v6)
         {
-          v11 = result[1];
-          if (v11 == v6)
+          if ((result[2] ^ *a2) < 8)
           {
-            if ((result[2] ^ *a2) < 8)
+            return result;
+          }
+        }
+
+        else
+        {
+          if (v8.u32[0] > 1uLL)
+          {
+            if (v11 >= v7)
             {
-              return result;
+              v11 %= v7;
             }
           }
 
           else
           {
-            if (v8.u32[0] > 1uLL)
-            {
-              if (v11 >= v7)
-              {
-                v11 %= v7;
-              }
-            }
-
-            else
-            {
-              v11 &= v7 - 1;
-            }
-
-            if (v11 != v4)
-            {
-              break;
-            }
+            v11 &= v7 - 1;
           }
 
-          result = *result;
+          if (v11 != v4)
+          {
+            break;
+          }
         }
-
-        while (result);
       }
     }
   }
@@ -6221,7 +7532,7 @@ uint64_t sub_29AEA97FC(uint64_t a1, uint64_t a2, int a3)
     v5 = *(a1 + 32);
     if (v5)
     {
-      while ((*(v5 + 40) & 1) == 0)
+      while ((v5[5] & 1) == 0)
       {
         v5 = *v5;
         if (!v5)
@@ -6231,11 +7542,11 @@ uint64_t sub_29AEA97FC(uint64_t a1, uint64_t a2, int a3)
       }
 
       v6 = 0;
-      v8 = a1 + 16;
+      v8 = (a1 + 16);
       do
       {
-        v9 = *(v5 + 24);
-        if (v9 && !*(v9 + 8) && (v10 = *(v5 + 32), *(v5 + 32) = v10 + 1, v10 >= a3))
+        v9 = v5[3];
+        if (v9 && !*(v9 + 8) && (v10 = *(v5 + 8), *(v5 + 8) = v10 + 1, v10 >= a3))
         {
           sub_29AE974E8(a1, v5, v8, v12);
           v5 = v12[0];
@@ -6249,7 +7560,7 @@ uint64_t sub_29AEA97FC(uint64_t a1, uint64_t a2, int a3)
             v5 = *v5;
           }
 
-          while (v5 && (*(v5 + 40) & 1) == 0);
+          while (v5 && (v5[5] & 1) == 0);
           ++v6;
         }
 
@@ -6260,7 +7571,7 @@ uint64_t sub_29AEA97FC(uint64_t a1, uint64_t a2, int a3)
 
         else
         {
-          v11 = v8 == a1 + 16;
+          v11 = v8 == (a1 + 16);
         }
       }
 
@@ -6282,9 +7593,9 @@ LABEL_5:
   return v6;
 }
 
-void sub_29AEA98F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29AEA98F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_29A0E9CEC(va);
   _Unwind_Resume(a1);
 }
@@ -6462,11 +7773,12 @@ void sub_29AEA9ED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-unint64_t pxrInternal__aapl__pxrReserved__::HdStTextureUtils::ComputeDimensionsFromTargetMemory(char **a1, int a2, unint64_t a3, unint64_t a4, unint64_t *a5)
+unint64_t pxrInternal__aapl__pxrReserved__::HdStTextureUtils::ComputeDimensionsFromTargetMemory(char **a1, uint64_t a2, unint64_t a3, unint64_t a4, unint64_t *a5)
 {
   if (a4)
   {
     v7 = a3;
+    v8 = a2;
     v9 = a1[1];
     v10 = 4 * a3;
     if (v9 == *a1)
@@ -6492,7 +7804,7 @@ LABEL_12:
         v13 = (*(**&v9[v11] + 48))(*&v9[v11]);
         v28 = v13 | ((*(**&v9[v11] + 56))(*&v9[v11]) << 32);
         v29 = 1;
-        if (a4 >= v10 * pxrInternal__aapl__pxrReserved__::HgiGetDataSize(a2, &v28) / 3)
+        if (a4 >= v10 * pxrInternal__aapl__pxrReserved__::HgiGetDataSize(v8, &v28) / 3)
         {
           if (v23)
           {
@@ -6520,7 +7832,7 @@ LABEL_12:
     v17 = (*(**(v14 - 2) + 48))(*(v14 - 2));
     v26 = v17 | ((*(**(v14 - 2) + 56))(*(v14 - 2)) << 32);
     v27 = 1;
-    pxrInternal__aapl__pxrReserved__::HgiGetMipInfos(a2, &v26, v7, 0xFFFFFFFFFFFFFFFFLL, &v24);
+    pxrInternal__aapl__pxrReserved__::HgiGetMipInfos(v8, &v26, v7, 0xFFFFFFFFFFFFFFFFLL, &v24);
     if (v24 == v25)
     {
 LABEL_17:
@@ -6530,7 +7842,7 @@ LABEL_17:
     else
     {
       v18 = v24;
-      while (a4 < v10 * *(v18 + 3) / 3uLL)
+      while (a4 < v10 * *(v18 + 3) / 3)
       {
         v18 += 32;
         if (v18 == v25)
@@ -6560,7 +7872,7 @@ LABEL_17:
     }
 
     v15 = *a1;
-    v16 = (*(***a1 + 48))(**a1);
+    v16 = (*(***a1 + 48))(**a1, a2, a3);
     v28 = v16 | ((*(**v15 + 56))() << 32);
     v29 = 1;
   }
@@ -7310,24 +8622,24 @@ void pxrInternal__aapl__pxrReserved__::HdStGLSLProgramTokens_StaticTokenType::~H
 pxrInternal__aapl__pxrReserved__::HdStGLSLProgramTokens_StaticTokenType *pxrInternal__aapl__pxrReserved__::HdStGLSLProgramTokens_StaticTokenType::HdStGLSLProgramTokens_StaticTokenType(pxrInternal__aapl__pxrReserved__::HdStGLSLProgramTokens_StaticTokenType *this)
 {
   v43 = *MEMORY[0x29EDCA608];
-  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "smoothNormalsFloatToFloat", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 8, "smoothNormalsFloatToPacked", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 16, "smoothNormalsDoubleToDouble", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 24, "smoothNormalsDoubleToPacked", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 32, "flatNormalsTriFloatToFloat", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 40, "flatNormalsTriFloatToPacked", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 48, "flatNormalsTriDoubleToDouble", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 56, "flatNormalsTriDoubleToPacked", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 64, "flatNormalsQuadFloatToFloat", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 72, "flatNormalsQuadFloatToPacked", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 80, "flatNormalsQuadDoubleToDouble", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 88, "flatNormalsQuadDoubleToPacked", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 96, "flatNormalsTriQuadFloatToFloat", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 104, "flatNormalsTriQuadFloatToPacked", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 112, "flatNormalsTriQuadDoubleToDouble", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 120, "flatNormalsTriQuadDoubleToPacked", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 128, "quadrangulateFloat", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 136, "quadrangulateDouble", 0);
+  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "smoothNormalsFloatToFloat");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 1, "smoothNormalsFloatToPacked");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 2, "smoothNormalsDoubleToDouble");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 3, "smoothNormalsDoubleToPacked");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 4, "flatNormalsTriFloatToFloat");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 5, "flatNormalsTriFloatToPacked");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 6, "flatNormalsTriDoubleToDouble");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 7, "flatNormalsTriDoubleToPacked");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 8, "flatNormalsQuadFloatToFloat");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 9, "flatNormalsQuadFloatToPacked");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 10, "flatNormalsQuadDoubleToDouble");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 11, "flatNormalsQuadDoubleToPacked");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 12, "flatNormalsTriQuadFloatToFloat");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 13, "flatNormalsTriQuadFloatToPacked");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 14, "flatNormalsTriQuadDoubleToDouble");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 15, "flatNormalsTriQuadDoubleToPacked");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 16, "quadrangulateFloat");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 17, "quadrangulateDouble");
   v3 = (this + 144);
   v4 = *this;
   v25 = v4;
@@ -7760,32 +9072,32 @@ void pxrInternal__aapl__pxrReserved__::HdStTokens_StaticTokenType::~HdStTokens_S
 pxrInternal__aapl__pxrReserved__::HdStTokens_StaticTokenType *pxrInternal__aapl__pxrReserved__::HdStTokens_StaticTokenType::HdStTokens_StaticTokenType(pxrInternal__aapl__pxrReserved__::HdStTokens_StaticTokenType *this)
 {
   v59 = *MEMORY[0x29EDCA608];
-  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "constantLighting", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 8, "packedSmoothNormals", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 16, "smoothNormals", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 24, "packedFlatNormals", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 32, "flatNormals", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 40, "scale", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 48, "bias", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 56, "rotation", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 64, "translation", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 72, "sRGB", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 80, "raw", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 88, "double", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 96, "float", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 104, "int", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 112, "auto", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 120, "fvarIndices", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 128, "fvarPatchParam", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 136, "coarseFaceIndex", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 144, "processedFaceCounts", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 152, "processedFaceIndices", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 160, "geomSubsetFaceIndices", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 168, "pointSizeScale", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 176, "screenSpaceWidths", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 184, "minScreenSpaceWidths", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 192, "shadowCompareTextures", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 200, "storm", 0);
+  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "constantLighting");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 1, "packedSmoothNormals");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 2, "smoothNormals");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 3, "packedFlatNormals");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 4, "flatNormals");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 5, "scale");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 6, "bias");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 7, "rotation");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 8, "translation");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 9, "sRGB");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 10, "raw");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 11, "double");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 12, "float");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 13, "int");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 14, "auto");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 15, "fvarIndices");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 16, "fvarPatchParam");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 17, "coarseFaceIndex");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 18, "processedFaceCounts");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 19, "processedFaceIndices");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 20, "geomSubsetFaceIndices");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 21, "pointSizeScale");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 22, "screenSpaceWidths");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 23, "minScreenSpaceWidths");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 24, "shadowCompareTextures");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 25, "storm");
   v3 = (this + 208);
   v4 = *this;
   v33 = v4;
@@ -8262,22 +9574,22 @@ void pxrInternal__aapl__pxrReserved__::HdStTextureTokens_StaticTokenType::~HdStT
 pxrInternal__aapl__pxrReserved__::HdStTextureTokens_StaticTokenType *pxrInternal__aapl__pxrReserved__::HdStTextureTokens_StaticTokenType::HdStTextureTokens_StaticTokenType(pxrInternal__aapl__pxrReserved__::HdStTextureTokens_StaticTokenType *this)
 {
   v39 = *MEMORY[0x29EDCA608];
-  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "wrapS", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 8, "wrapT", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 16, "wrapR", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 24, "black", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 32, "clamp", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 40, "mirror", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 48, "repeat", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 56, "useMetadata", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 64, "minFilter", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 72, "magFilter", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 80, "linear", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 88, "nearest", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 96, "linearMipmapLinear", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 104, "linearMipmapNearest", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 112, "nearestMipmapLinear", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 120, "nearestMipmapNearest", 0);
+  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "wrapS");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 1, "wrapT");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 2, "wrapR");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 3, "black");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 4, "clamp");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 5, "mirror");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 6, "repeat");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 7, "useMetadata");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 8, "minFilter");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 9, "magFilter");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 10, "linear");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 11, "nearest");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 12, "linearMipmapLinear");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 13, "linearMipmapNearest");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 14, "nearestMipmapLinear");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 15, "nearestMipmapNearest");
   v3 = (this + 128);
   v4 = *this;
   v23 = v4;
@@ -8538,1288 +9850,4 @@ void pxrInternal__aapl__pxrReserved__::HdStRenderBufferTokens_StaticTokenType::~
   {
     atomic_fetch_add_explicit((*this & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
-}
-
-pxrInternal__aapl__pxrReserved__::HdStRenderBufferTokens_StaticTokenType *pxrInternal__aapl__pxrReserved__::HdStRenderBufferTokens_StaticTokenType::HdStRenderBufferTokens_StaticTokenType(pxrInternal__aapl__pxrReserved__::HdStRenderBufferTokens_StaticTokenType *this)
-{
-  v9 = *MEMORY[0x29EDCA608];
-  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "storm:msaaSampleCount", 0);
-  v5 = *v2;
-  v3 = v2 + 1;
-  v4 = v5;
-  v8 = v5;
-  if ((v5 & 7) != 0)
-  {
-    v6 = (v4 & 0xFFFFFFFFFFFFFFF8);
-    if ((atomic_fetch_add_explicit(v6, 2u, memory_order_relaxed) & 1) == 0)
-    {
-      v8 = v6;
-    }
-  }
-
-  *v3 = 0;
-  v3[1] = 0;
-  v3[2] = 0;
-  sub_29A12EF7C(v3, &v8, &v9, 1uLL);
-  if ((v8 & 7) != 0)
-  {
-    atomic_fetch_add_explicit((v8 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-  }
-
-  return this;
-}
-
-void pxrInternal__aapl__pxrReserved__::HdStRenderSettingsTokens_StaticTokenType::~HdStRenderSettingsTokens_StaticTokenType(pxrInternal__aapl__pxrReserved__::HdStRenderSettingsTokens_StaticTokenType *this)
-{
-  v6 = (this + 40);
-  sub_29A124AB0(&v6);
-  v2 = *(this + 4);
-  if ((v2 & 7) != 0)
-  {
-    atomic_fetch_add_explicit((v2 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-  }
-
-  v3 = *(this + 3);
-  if ((v3 & 7) != 0)
-  {
-    atomic_fetch_add_explicit((v3 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-  }
-
-  v4 = *(this + 2);
-  if ((v4 & 7) != 0)
-  {
-    atomic_fetch_add_explicit((v4 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-  }
-
-  v5 = *(this + 1);
-  if ((v5 & 7) != 0)
-  {
-    atomic_fetch_add_explicit((v5 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-  }
-
-  if ((*this & 7) != 0)
-  {
-    atomic_fetch_add_explicit((*this & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-  }
-}
-
-pxrInternal__aapl__pxrReserved__::HdStRenderSettingsTokens_StaticTokenType *pxrInternal__aapl__pxrReserved__::HdStRenderSettingsTokens_StaticTokenType::HdStRenderSettingsTokens_StaticTokenType(pxrInternal__aapl__pxrReserved__::HdStRenderSettingsTokens_StaticTokenType *this)
-{
-  v22 = *MEMORY[0x29EDCA608];
-  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "enableTinyPrimCulling", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 8, "volumeRaymarchingStepSize", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 16, "volumeRaymarchingStepSizeLighting", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 24, "volumeMaxTextureMemoryPerField", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 32, "maxLights", 0);
-  v3 = (this + 40);
-  v4 = *this;
-  v17 = v4;
-  if ((v4 & 7) != 0)
-  {
-    v5 = (v4 & 0xFFFFFFFFFFFFFFF8);
-    if ((atomic_fetch_add_explicit(v5, 2u, memory_order_relaxed) & 1) == 0)
-    {
-      v17 = v5;
-    }
-  }
-
-  v6 = *(this + 1);
-  v18 = v6;
-  if ((v6 & 7) != 0)
-  {
-    v7 = (v6 & 0xFFFFFFFFFFFFFFF8);
-    if ((atomic_fetch_add_explicit(v7, 2u, memory_order_relaxed) & 1) == 0)
-    {
-      v18 = v7;
-    }
-  }
-
-  v8 = *(this + 2);
-  v19 = v8;
-  if ((v8 & 7) != 0)
-  {
-    v9 = (v8 & 0xFFFFFFFFFFFFFFF8);
-    if ((atomic_fetch_add_explicit(v9, 2u, memory_order_relaxed) & 1) == 0)
-    {
-      v19 = v9;
-    }
-  }
-
-  v10 = *(this + 3);
-  v20 = v10;
-  if ((v10 & 7) != 0)
-  {
-    v11 = (v10 & 0xFFFFFFFFFFFFFFF8);
-    if ((atomic_fetch_add_explicit(v11, 2u, memory_order_relaxed) & 1) == 0)
-    {
-      v20 = v11;
-    }
-  }
-
-  v12 = *(this + 4);
-  v21 = v12;
-  if ((v12 & 7) != 0)
-  {
-    v13 = (v12 & 0xFFFFFFFFFFFFFFF8);
-    if ((atomic_fetch_add_explicit(v13, 2u, memory_order_relaxed) & 1) == 0)
-    {
-      v21 = v13;
-    }
-  }
-
-  *v3 = 0;
-  *(this + 6) = 0;
-  *(this + 7) = 0;
-  sub_29A12EF7C(v3, &v17, &v22, 5uLL);
-  for (i = 32; i != -8; i -= 8)
-  {
-    v15 = *(&v17 + i);
-    if ((v15 & 7) != 0)
-    {
-      atomic_fetch_add_explicit((v15 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-    }
-  }
-
-  return this;
-}
-
-void sub_29AEACEB4(_Unwind_Exception *a1)
-{
-  v3 = 32;
-  while (1)
-  {
-    v4 = *(v2 + v3);
-    if ((v4 & 7) != 0)
-    {
-      atomic_fetch_add_explicit((v4 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-    }
-
-    v3 -= 8;
-    if (v3 == -8)
-    {
-      v5 = v1[4];
-      if ((v5 & 7) != 0)
-      {
-        atomic_fetch_add_explicit((v5 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-      }
-
-      v6 = v1[3];
-      if ((v6 & 7) != 0)
-      {
-        atomic_fetch_add_explicit((v6 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-      }
-
-      v7 = v1[2];
-      if ((v7 & 7) != 0)
-      {
-        atomic_fetch_add_explicit((v7 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-      }
-
-      v8 = v1[1];
-      if ((v8 & 7) != 0)
-      {
-        atomic_fetch_add_explicit((v8 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-      }
-
-      if ((*v1 & 7) != 0)
-      {
-        atomic_fetch_add_explicit((*v1 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-      }
-
-      _Unwind_Resume(a1);
-    }
-  }
-}
-
-void pxrInternal__aapl__pxrReserved__::HdStMaterialTagTokens_StaticTokenType::~HdStMaterialTagTokens_StaticTokenType(pxrInternal__aapl__pxrReserved__::HdStMaterialTagTokens_StaticTokenType *this)
-{
-  v7 = (this + 48);
-  sub_29A124AB0(&v7);
-  v2 = *(this + 5);
-  if ((v2 & 7) != 0)
-  {
-    atomic_fetch_add_explicit((v2 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-  }
-
-  v3 = *(this + 4);
-  if ((v3 & 7) != 0)
-  {
-    atomic_fetch_add_explicit((v3 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-  }
-
-  v4 = *(this + 3);
-  if ((v4 & 7) != 0)
-  {
-    atomic_fetch_add_explicit((v4 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-  }
-
-  v5 = *(this + 2);
-  if ((v5 & 7) != 0)
-  {
-    atomic_fetch_add_explicit((v5 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-  }
-
-  v6 = *(this + 1);
-  if ((v6 & 7) != 0)
-  {
-    atomic_fetch_add_explicit((v6 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-  }
-
-  if ((*this & 7) != 0)
-  {
-    atomic_fetch_add_explicit((*this & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-  }
-}
-
-pxrInternal__aapl__pxrReserved__::HdStMaterialTagTokens_StaticTokenType *pxrInternal__aapl__pxrReserved__::HdStMaterialTagTokens_StaticTokenType::HdStMaterialTagTokens_StaticTokenType(pxrInternal__aapl__pxrReserved__::HdStMaterialTagTokens_StaticTokenType *this)
-{
-  v25 = *MEMORY[0x29EDCA608];
-  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "defaultMaterialTag", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 8, "masked", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 16, "translucentToSelection", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 24, "additive", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 32, "translucent", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 40, "volume", 0);
-  v3 = (this + 48);
-  v4 = *this;
-  v19 = v4;
-  if ((v4 & 7) != 0)
-  {
-    v5 = (v4 & 0xFFFFFFFFFFFFFFF8);
-    if ((atomic_fetch_add_explicit(v5, 2u, memory_order_relaxed) & 1) == 0)
-    {
-      v19 = v5;
-    }
-  }
-
-  v6 = *(this + 1);
-  v20 = v6;
-  if ((v6 & 7) != 0)
-  {
-    v7 = (v6 & 0xFFFFFFFFFFFFFFF8);
-    if ((atomic_fetch_add_explicit(v7, 2u, memory_order_relaxed) & 1) == 0)
-    {
-      v20 = v7;
-    }
-  }
-
-  v8 = *(this + 2);
-  v21 = v8;
-  if ((v8 & 7) != 0)
-  {
-    v9 = (v8 & 0xFFFFFFFFFFFFFFF8);
-    if ((atomic_fetch_add_explicit(v9, 2u, memory_order_relaxed) & 1) == 0)
-    {
-      v21 = v9;
-    }
-  }
-
-  v10 = *(this + 3);
-  v22 = v10;
-  if ((v10 & 7) != 0)
-  {
-    v11 = (v10 & 0xFFFFFFFFFFFFFFF8);
-    if ((atomic_fetch_add_explicit(v11, 2u, memory_order_relaxed) & 1) == 0)
-    {
-      v22 = v11;
-    }
-  }
-
-  v12 = *(this + 4);
-  v23 = v12;
-  if ((v12 & 7) != 0)
-  {
-    v13 = (v12 & 0xFFFFFFFFFFFFFFF8);
-    if ((atomic_fetch_add_explicit(v13, 2u, memory_order_relaxed) & 1) == 0)
-    {
-      v23 = v13;
-    }
-  }
-
-  v14 = *(this + 5);
-  v24 = v14;
-  if ((v14 & 7) != 0)
-  {
-    v15 = (v14 & 0xFFFFFFFFFFFFFFF8);
-    if ((atomic_fetch_add_explicit(v15, 2u, memory_order_relaxed) & 1) == 0)
-    {
-      v24 = v15;
-    }
-  }
-
-  *v3 = 0;
-  *(this + 7) = 0;
-  *(this + 8) = 0;
-  sub_29A12EF7C(v3, &v19, &v25, 6uLL);
-  for (i = 40; i != -8; i -= 8)
-  {
-    v17 = *(&v19 + i);
-    if ((v17 & 7) != 0)
-    {
-      atomic_fetch_add_explicit((v17 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-    }
-  }
-
-  return this;
-}
-
-void sub_29AEAD228(_Unwind_Exception *a1)
-{
-  v3 = 40;
-  while (1)
-  {
-    v4 = *(v2 + v3);
-    if ((v4 & 7) != 0)
-    {
-      atomic_fetch_add_explicit((v4 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-    }
-
-    v3 -= 8;
-    if (v3 == -8)
-    {
-      v5 = v1[5];
-      if ((v5 & 7) != 0)
-      {
-        atomic_fetch_add_explicit((v5 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-      }
-
-      v6 = v1[4];
-      if ((v6 & 7) != 0)
-      {
-        atomic_fetch_add_explicit((v6 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-      }
-
-      v7 = v1[3];
-      if ((v7 & 7) != 0)
-      {
-        atomic_fetch_add_explicit((v7 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-      }
-
-      v8 = v1[2];
-      if ((v8 & 7) != 0)
-      {
-        atomic_fetch_add_explicit((v8 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-      }
-
-      v9 = v1[1];
-      if ((v9 & 7) != 0)
-      {
-        atomic_fetch_add_explicit((v9 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-      }
-
-      if ((*v1 & 7) != 0)
-      {
-        atomic_fetch_add_explicit((*v1 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-      }
-
-      _Unwind_Resume(a1);
-    }
-  }
-}
-
-void pxrInternal__aapl__pxrReserved__::HdStSdrMetadataTokens_StaticTokenType::~HdStSdrMetadataTokens_StaticTokenType(pxrInternal__aapl__pxrReserved__::HdStSdrMetadataTokens_StaticTokenType *this)
-{
-  v2 = (this + 8);
-  sub_29A124AB0(&v2);
-  if ((*this & 7) != 0)
-  {
-    atomic_fetch_add_explicit((*this & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-  }
-}
-
-{
-  v2 = (this + 8);
-  sub_29A124AB0(&v2);
-  if ((*this & 7) != 0)
-  {
-    atomic_fetch_add_explicit((*this & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-  }
-}
-
-pxrInternal__aapl__pxrReserved__::HdStSdrMetadataTokens_StaticTokenType *pxrInternal__aapl__pxrReserved__::HdStSdrMetadataTokens_StaticTokenType::HdStSdrMetadataTokens_StaticTokenType(pxrInternal__aapl__pxrReserved__::HdStSdrMetadataTokens_StaticTokenType *this)
-{
-  v9 = *MEMORY[0x29EDCA608];
-  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "swizzle", 0);
-  v5 = *v2;
-  v3 = v2 + 1;
-  v4 = v5;
-  v8 = v5;
-  if ((v5 & 7) != 0)
-  {
-    v6 = (v4 & 0xFFFFFFFFFFFFFFF8);
-    if ((atomic_fetch_add_explicit(v6, 2u, memory_order_relaxed) & 1) == 0)
-    {
-      v8 = v6;
-    }
-  }
-
-  *v3 = 0;
-  v3[1] = 0;
-  v3[2] = 0;
-  sub_29A12EF7C(v3, &v8, &v9, 1uLL);
-  if ((v8 & 7) != 0)
-  {
-    atomic_fetch_add_explicit((v8 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-  }
-
-  return this;
-}
-
-void pxrInternal__aapl__pxrReserved__::HdStPerfTokens_StaticTokenType::~HdStPerfTokens_StaticTokenType(pxrInternal__aapl__pxrReserved__::HdStPerfTokens_StaticTokenType *this)
-{
-  v7 = (this + 48);
-  sub_29A124AB0(&v7);
-  v2 = *(this + 5);
-  if ((v2 & 7) != 0)
-  {
-    atomic_fetch_add_explicit((v2 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-  }
-
-  v3 = *(this + 4);
-  if ((v3 & 7) != 0)
-  {
-    atomic_fetch_add_explicit((v3 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-  }
-
-  v4 = *(this + 3);
-  if ((v4 & 7) != 0)
-  {
-    atomic_fetch_add_explicit((v4 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-  }
-
-  v5 = *(this + 2);
-  if ((v5 & 7) != 0)
-  {
-    atomic_fetch_add_explicit((v5 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-  }
-
-  v6 = *(this + 1);
-  if ((v6 & 7) != 0)
-  {
-    atomic_fetch_add_explicit((v6 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-  }
-
-  if ((*this & 7) != 0)
-  {
-    atomic_fetch_add_explicit((*this & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-  }
-}
-
-pxrInternal__aapl__pxrReserved__::HdStPerfTokens_StaticTokenType *pxrInternal__aapl__pxrReserved__::HdStPerfTokens_StaticTokenType::HdStPerfTokens_StaticTokenType(pxrInternal__aapl__pxrReserved__::HdStPerfTokens_StaticTokenType *this)
-{
-  v25 = *MEMORY[0x29EDCA608];
-  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "copyBufferGpuToGpu", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 8, "copyBufferCpuToGpu", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 16, "drawItemsCacheHit", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 24, "drawItemsCacheMiss", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 32, "drawItemsCacheStale", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 40, "drawItemsFetched", 0);
-  v3 = (this + 48);
-  v4 = *this;
-  v19 = v4;
-  if ((v4 & 7) != 0)
-  {
-    v5 = (v4 & 0xFFFFFFFFFFFFFFF8);
-    if ((atomic_fetch_add_explicit(v5, 2u, memory_order_relaxed) & 1) == 0)
-    {
-      v19 = v5;
-    }
-  }
-
-  v6 = *(this + 1);
-  v20 = v6;
-  if ((v6 & 7) != 0)
-  {
-    v7 = (v6 & 0xFFFFFFFFFFFFFFF8);
-    if ((atomic_fetch_add_explicit(v7, 2u, memory_order_relaxed) & 1) == 0)
-    {
-      v20 = v7;
-    }
-  }
-
-  v8 = *(this + 2);
-  v21 = v8;
-  if ((v8 & 7) != 0)
-  {
-    v9 = (v8 & 0xFFFFFFFFFFFFFFF8);
-    if ((atomic_fetch_add_explicit(v9, 2u, memory_order_relaxed) & 1) == 0)
-    {
-      v21 = v9;
-    }
-  }
-
-  v10 = *(this + 3);
-  v22 = v10;
-  if ((v10 & 7) != 0)
-  {
-    v11 = (v10 & 0xFFFFFFFFFFFFFFF8);
-    if ((atomic_fetch_add_explicit(v11, 2u, memory_order_relaxed) & 1) == 0)
-    {
-      v22 = v11;
-    }
-  }
-
-  v12 = *(this + 4);
-  v23 = v12;
-  if ((v12 & 7) != 0)
-  {
-    v13 = (v12 & 0xFFFFFFFFFFFFFFF8);
-    if ((atomic_fetch_add_explicit(v13, 2u, memory_order_relaxed) & 1) == 0)
-    {
-      v23 = v13;
-    }
-  }
-
-  v14 = *(this + 5);
-  v24 = v14;
-  if ((v14 & 7) != 0)
-  {
-    v15 = (v14 & 0xFFFFFFFFFFFFFFF8);
-    if ((atomic_fetch_add_explicit(v15, 2u, memory_order_relaxed) & 1) == 0)
-    {
-      v24 = v15;
-    }
-  }
-
-  *v3 = 0;
-  *(this + 7) = 0;
-  *(this + 8) = 0;
-  sub_29A12EF7C(v3, &v19, &v25, 6uLL);
-  for (i = 40; i != -8; i -= 8)
-  {
-    v17 = *(&v19 + i);
-    if ((v17 & 7) != 0)
-    {
-      atomic_fetch_add_explicit((v17 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-    }
-  }
-
-  return this;
-}
-
-void sub_29AEAD758(_Unwind_Exception *a1)
-{
-  v3 = 40;
-  while (1)
-  {
-    v4 = *(v2 + v3);
-    if ((v4 & 7) != 0)
-    {
-      atomic_fetch_add_explicit((v4 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-    }
-
-    v3 -= 8;
-    if (v3 == -8)
-    {
-      v5 = v1[5];
-      if ((v5 & 7) != 0)
-      {
-        atomic_fetch_add_explicit((v5 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-      }
-
-      v6 = v1[4];
-      if ((v6 & 7) != 0)
-      {
-        atomic_fetch_add_explicit((v6 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-      }
-
-      v7 = v1[3];
-      if ((v7 & 7) != 0)
-      {
-        atomic_fetch_add_explicit((v7 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-      }
-
-      v8 = v1[2];
-      if ((v8 & 7) != 0)
-      {
-        atomic_fetch_add_explicit((v8 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-      }
-
-      v9 = v1[1];
-      if ((v9 & 7) != 0)
-      {
-        atomic_fetch_add_explicit((v9 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-      }
-
-      if ((*v1 & 7) != 0)
-      {
-        atomic_fetch_add_explicit((*v1 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-      }
-
-      _Unwind_Resume(a1);
-    }
-  }
-}
-
-double pxrInternal__aapl__pxrReserved__::HdStUdimTextureObject::HdStUdimTextureObject(pxrInternal__aapl__pxrReserved__::HdStUdimTextureObject *this, const pxrInternal__aapl__pxrReserved__::HdStTextureIdentifier *a2, pxrInternal__aapl__pxrReserved__::HdSt_TextureObjectRegistry *a3)
-{
-  v3 = pxrInternal__aapl__pxrReserved__::HdStTextureObject::HdStTextureObject(this, a2, a3);
-  *v3 = &unk_2A2099D20;
-  v3[16] = 0;
-  result = 0.0;
-  *(v3 + 7) = 0u;
-  *(v3 + 9) = 0u;
-  *(v3 + 11) = 0u;
-  *(v3 + 100) = 0u;
-  *(v3 + 34) = -1;
-  *(v3 + 9) = 0u;
-  *(v3 + 10) = 0u;
-  return result;
-}
-
-{
-  v3 = pxrInternal__aapl__pxrReserved__::HdStTextureObject::HdStTextureObject(this, a2, a3);
-  *v3 = &unk_2A2099D20;
-  v3[16] = 0;
-  result = 0.0;
-  *(v3 + 7) = 0u;
-  *(v3 + 9) = 0u;
-  *(v3 + 11) = 0u;
-  *(v3 + 100) = 0u;
-  *(v3 + 34) = -1;
-  *(v3 + 9) = 0u;
-  *(v3 + 10) = 0u;
-  return result;
-}
-
-void pxrInternal__aapl__pxrReserved__::HdStUdimTextureObject::~HdStUdimTextureObject(pxrInternal__aapl__pxrReserved__::HdStUdimTextureObject *this)
-{
-  pxrInternal__aapl__pxrReserved__::HdStUdimTextureObject::_DestroyTextures(this);
-  v2 = *(this + 10);
-  if (v2)
-  {
-    *(this + 11) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *(this + 7);
-  if (v3)
-  {
-    *(this + 8) = v3;
-    operator delete(v3);
-  }
-
-  pxrInternal__aapl__pxrReserved__::HdStTextureObject::~HdStTextureObject(this);
-}
-
-{
-  pxrInternal__aapl__pxrReserved__::HdStUdimTextureObject::~HdStUdimTextureObject(this);
-
-  operator delete(v1);
-}
-
-uint64_t pxrInternal__aapl__pxrReserved__::HdStUdimTextureObject::_DestroyTextures(pxrInternal__aapl__pxrReserved__::HdStUdimTextureObject *this)
-{
-  result = pxrInternal__aapl__pxrReserved__::HdStTextureObject::_GetHgi(this);
-  if (result)
-  {
-    v3 = result;
-    if (*(this + 18))
-    {
-      result = (*(*result + 56))(result, this + 144);
-    }
-
-    v5 = *(this + 20);
-    v4 = this + 160;
-    if (v5)
-    {
-      v6 = *(*v3 + 56);
-
-      return v6(v3, v4);
-    }
-  }
-
-  return result;
-}
-
-void pxrInternal__aapl__pxrReserved__::HdStUdimTextureObject::_Load(pxrInternal__aapl__pxrReserved__::HdStUdimTextureObject *this, uint64_t a2, char *a3)
-{
-  v72 = *MEMORY[0x29EDCA608];
-  if ((*(this + 4) & 0xFFFFFFFFFFFFFFF8) != 0)
-  {
-    EmptyString = ((*(this + 4) & 0xFFFFFFFFFFFFFFF8) + 16);
-  }
-
-  else
-  {
-    EmptyString = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(this);
-  }
-
-  v58 = 0;
-  v59 = 0;
-  v60 = 0;
-  if ((atomic_load_explicit(&qword_2A174F7D8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2A174F7D8))
-  {
-    sub_29A008E78(&qword_2A174F7C0, "<UDIM>");
-    __cxa_atexit(MEMORY[0x29EDC9388], &qword_2A174F7C0, &dword_299FE7000);
-    __cxa_guard_release(&qword_2A174F7D8);
-  }
-
-  v5 = *(EmptyString + 23);
-  if ((v5 & 0x80u) == 0)
-  {
-    v6 = EmptyString;
-  }
-
-  else
-  {
-    v6 = *EmptyString;
-  }
-
-  if ((v5 & 0x80u) != 0)
-  {
-    v5 = EmptyString[1];
-  }
-
-  if (byte_2A174F7D7 >= 0)
-  {
-    v7 = &qword_2A174F7C0;
-  }
-
-  else
-  {
-    v7 = qword_2A174F7C0;
-  }
-
-  if (byte_2A174F7D7 >= 0)
-  {
-    v8 = byte_2A174F7D7;
-  }
-
-  else
-  {
-    v8 = qword_2A174F7C8;
-  }
-
-  if (v8)
-  {
-    if (v5 >= v8)
-    {
-      v31 = &v6[v5];
-      v32 = *v7;
-      v33 = v6;
-      do
-      {
-        v34 = v5 - v8;
-        a3 = (v34 + 1);
-        if (v34 == -1)
-        {
-          break;
-        }
-
-        v35 = memchr(v33, v32, a3);
-        if (!v35)
-        {
-          break;
-        }
-
-        v36 = v35;
-        if (!memcmp(v35, v7, v8))
-        {
-          if (v36 != v31)
-          {
-            v10 = v36 - v6;
-            if (v36 - v6 != -1)
-            {
-              goto LABEL_24;
-            }
-          }
-
-          break;
-        }
-
-        v33 = v36 + 1;
-        v5 = v31 - (v36 + 1);
-      }
-
-      while (v5 >= v8);
-    }
-
-    memset(v69, 0, 48);
-    goto LABEL_19;
-  }
-
-  v10 = 0;
-LABEL_24:
-  std::string::basic_string(&__dst, EmptyString, 0, v10, &v68);
-  v11 = qword_2A174F7C8;
-  if (byte_2A174F7D7 >= 0)
-  {
-    v11 = byte_2A174F7D7;
-  }
-
-  v12 = std::string::basic_string(&v68, EmptyString, v11 + v10, 0xFFFFFFFFFFFFFFFFLL, __p);
-  v69[0] = __dst;
-  v69[1] = v68;
-  size = HIBYTE(__dst.__r_.__value_.__r.__words[2]);
-  if ((__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-  {
-    size = v69[0].__r_.__value_.__l.__size_;
-  }
-
-  if (!size)
-  {
-    v14 = HIBYTE(v69[1].__r_.__value_.__r.__words[2]);
-    if ((v69[1].__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-    {
-      v14 = v69[1].__r_.__value_.__l.__size_;
-    }
-
-    if (!v14)
-    {
-LABEL_19:
-      __dst.__r_.__value_.__r.__words[0] = "hdSt/udimTextureObject.cpp";
-      __dst.__r_.__value_.__l.__size_ = "_FindUdimTiles";
-      __dst.__r_.__value_.__r.__words[2] = 87;
-      v66 = "std::vector<std::tuple<int, TfToken>> pxrInternal__aapl__pxrReserved__::(anonymous namespace)::_FindUdimTiles(const std::string &)";
-      LOBYTE(v67) = 0;
-      if (*(EmptyString + 23) >= 0)
-      {
-        v9 = EmptyString;
-      }
-
-      else
-      {
-        v9 = *EmptyString;
-      }
-
-      pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(&__dst, "Expected udim pattern but got '%s'.", a3, v9);
-      goto LABEL_62;
-    }
-  }
-
-  Resolver = pxrInternal__aapl__pxrReserved__::ArGetResolver(v12);
-  for (i = 0; i != 100; ++i)
-  {
-    std::to_string(&v61, i + 1001);
-    if ((v69[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v17 = v69;
-    }
-
-    else
-    {
-      v17 = v69[0].__r_.__value_.__r.__words[0];
-    }
-
-    if ((v69[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v18 = HIBYTE(v69[0].__r_.__value_.__r.__words[2]);
-    }
-
-    else
-    {
-      v18 = v69[0].__r_.__value_.__l.__size_;
-    }
-
-    v19 = std::string::insert(&v61, 0, v17, v18);
-    v20 = *&v19->__r_.__value_.__l.__data_;
-    v62.__r_.__value_.__r.__words[2] = v19->__r_.__value_.__r.__words[2];
-    *&v62.__r_.__value_.__l.__data_ = v20;
-    v19->__r_.__value_.__l.__size_ = 0;
-    v19->__r_.__value_.__r.__words[2] = 0;
-    v19->__r_.__value_.__r.__words[0] = 0;
-    if ((v69[1].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      data = &v69[1];
-    }
-
-    else
-    {
-      data = v69[1].__r_.__value_.__l.__data_;
-    }
-
-    if ((v69[1].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v22 = HIBYTE(v69[1].__r_.__value_.__r.__words[2]);
-    }
-
-    else
-    {
-      v22 = v69[1].__r_.__value_.__l.__size_;
-    }
-
-    v23 = std::string::append(&v62, data, v22);
-    v24 = *&v23->__r_.__value_.__l.__data_;
-    v64 = v23->__r_.__value_.__r.__words[2];
-    *__p = v24;
-    v23->__r_.__value_.__l.__size_ = 0;
-    v23->__r_.__value_.__r.__words[2] = 0;
-    v23->__r_.__value_.__r.__words[0] = 0;
-    pxrInternal__aapl__pxrReserved__::ArResolver::Resolve(Resolver);
-    if (SHIBYTE(v68.__r_.__value_.__r.__words[2]) < 0)
-    {
-      sub_29A008D14(&__dst, v68.__r_.__value_.__l.__data_, v68.__r_.__value_.__l.__size_);
-      if (SHIBYTE(v68.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v68.__r_.__value_.__l.__data_);
-      }
-    }
-
-    else
-    {
-      __dst = v68;
-    }
-
-    if (SHIBYTE(v64) < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    if (SHIBYTE(v62.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v62.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v61.__r_.__value_.__l.__data_);
-    }
-
-    v25 = HIBYTE(__dst.__r_.__value_.__r.__words[2]);
-    v26 = HIBYTE(__dst.__r_.__value_.__r.__words[2]);
-    if ((__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-    {
-      v25 = __dst.__r_.__value_.__l.__size_;
-    }
-
-    if (v25)
-    {
-      LODWORD(v68.__r_.__value_.__l.__data_) = i;
-      sub_29AEAE634(&v58, &v68);
-      v26 = HIBYTE(__dst.__r_.__value_.__r.__words[2]);
-    }
-
-    if (v26 < 0)
-    {
-      operator delete(__dst.__r_.__value_.__l.__data_);
-    }
-  }
-
-LABEL_62:
-  if (SHIBYTE(v69[1].__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v69[1].__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v69[0].__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v69[0].__r_.__value_.__l.__data_);
-  }
-
-  if (v58 != v59)
-  {
-    v27 = *(this + 5);
-    SourceColorSpace = pxrInternal__aapl__pxrReserved__::HdStTextureObject::_GetSourceColorSpace(this, v27);
-    v29 = SourceColorSpace;
-    LODWORD(v61.__r_.__value_.__l.__data_) = SourceColorSpace;
-    if ((*(v58 + 8) & 0xFFFFFFFFFFFFFFF8) != 0)
-    {
-      v30 = ((*(v58 + 8) & 0xFFFFFFFFFFFFFFF8) + 16);
-    }
-
-    else
-    {
-      v30 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(SourceColorSpace);
-    }
-
-    pxrInternal__aapl__pxrReserved__::HdStTextureUtils::GetAllMipImages(v30, v29, &v68);
-    if (v68.__r_.__value_.__r.__words[0] != v68.__r_.__value_.__l.__size_)
-    {
-      v37 = (*(**v68.__r_.__value_.__l.__data_ + 64))();
-      PremultiplyAlpha = pxrInternal__aapl__pxrReserved__::HdStTextureObject::_GetPremultiplyAlpha(this, v27);
-      v57 = PremultiplyAlpha;
-      HgiFormat = pxrInternal__aapl__pxrReserved__::HdStTextureUtils::GetHgiFormat(v37, PremultiplyAlpha, v39);
-      *(this + 34) = HgiFormat;
-      if (HgiFormat == -1 || pxrInternal__aapl__pxrReserved__::HgiIsCompressed(HgiFormat))
-      {
-        v69[0].__r_.__value_.__r.__words[0] = "hdSt/udimTextureObject.cpp";
-        v69[0].__r_.__value_.__l.__size_ = "_Load";
-        v69[0].__r_.__value_.__r.__words[2] = 181;
-        v69[1].__r_.__value_.__r.__words[0] = "virtual void pxrInternal__aapl__pxrReserved__::HdStUdimTextureObject::_Load()";
-        v69[1].__r_.__value_.__s.__data_[8] = 0;
-        pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(v69, "Unsupported texture format for UDIM", v41);
-      }
-
-      else
-      {
-        v42 = ((v59 - v58) >> 4);
-        *(this + 15) = v42;
-        *(this + 13) = pxrInternal__aapl__pxrReserved__::HdStTextureUtils::ComputeDimensionsFromTargetMemory(&v68.__r_.__value_.__l.__data_, *(this + 34), v42, *(this + 6), 0);
-        *(this + 28) = v43;
-        v44 = (*(v59 - 16) + 1);
-        LODWORD(v69[0].__r_.__value_.__l.__data_) = 0;
-        sub_29A0AB144(this + 10, v44, v69, v45);
-        pxrInternal__aapl__pxrReserved__::HgiGetMipInfos(*(this + 34), this + 26, *(this + 15), 0xFFFFFFFFFFFFFFFFLL, __p);
-        v46 = __p[1];
-        v47 = (this + 56);
-        v48 = *(this + 7);
-        *(this + 16) = (__p[1] - __p[0]) >> 5;
-        v49 = *(v46 - 4) + *(v46 - 1) * *(this + 15);
-        v50 = *(this + 8) - v48;
-        if (v49 <= v50)
-        {
-          if (v49 < v50)
-          {
-            *(this + 8) = v48 + v49;
-          }
-        }
-
-        else
-        {
-          sub_29A1B2C78(v47, v49 - v50);
-        }
-
-        __dst.__r_.__value_.__r.__words[0] = &v58;
-        __dst.__r_.__value_.__l.__size_ = this;
-        __dst.__r_.__value_.__r.__words[2] = &v61;
-        v66 = __p;
-        v67 = &v57;
-        if (v59 != v58)
-        {
-          v54 = (v59 - v58) >> 4;
-          if (pxrInternal__aapl__pxrReserved__::WorkHasConcurrency(v47))
-          {
-            LODWORD(v69[0].__r_.__value_.__l.__data_) = 0;
-            v70 = 65539;
-            v71 = 55;
-            tbb::task_group_context::init(v69, v51, v52, v53);
-            v62.__r_.__value_.__r.__words[0] = v69;
-            v55 = tbb::internal::allocate_root_with_context_proxy::allocate(&v62, 0x38uLL);
-            *(v55 - 11) = 1;
-            *v55 = &unk_2A2099D78;
-            *(v55 + 8) = v54;
-            *(v55 + 16) = xmmword_29B430070;
-            *(v55 + 32) = &__dst;
-            initial_auto_partitioner_divisor = tbb::internal::get_initial_auto_partitioner_divisor(v55);
-            *(v55 + 48) = 0;
-            *(v55 + 52) = 5;
-            *(v55 + 40) = (initial_auto_partitioner_divisor >> 1) & 0x7FFFFFFFFFFFFFFELL;
-            (*(**(v55 - 40) + 16))(*(v55 - 40), v55, v55 - 8);
-            tbb::task_group_context::~task_group_context(v69);
-          }
-
-          else
-          {
-            sub_29AEAECF0(&__dst, 0, v54);
-          }
-        }
-
-        if (__p[0])
-        {
-          __p[1] = __p[0];
-          operator delete(__p[0]);
-        }
-      }
-    }
-
-    v69[0].__r_.__value_.__r.__words[0] = &v68;
-    sub_29A0176E4(v69);
-  }
-
-  v69[0].__r_.__value_.__r.__words[0] = &v58;
-  sub_29AEAE870(v69);
-}
-
-void sub_29AEAE120(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, int a16, __int16 a17, char a18, char a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32, uint64_t a33, void *a34, uint64_t a35, int a36, __int16 a37, char a38, char a39, uint64_t a40, uint64_t a41, char a42, uint64_t a43, int a44, __int16 a45, char a46, char a47, void **a48)
-{
-  __cxa_guard_abort(&qword_2A174F7D8);
-  *(v48 + 64) = &a11;
-  sub_29AEAE870(&a48);
-  _Unwind_Resume(a1);
-}
-
-void pxrInternal__aapl__pxrReserved__::HdStUdimTextureObject::_Commit(int **this)
-{
-  Hgi = pxrInternal__aapl__pxrReserved__::HdStTextureObject::_GetHgi(this);
-  if (Hgi || (sub_29B2CB3D8(v32) & 1) != 0)
-  {
-    pxrInternal__aapl__pxrReserved__::HdStUdimTextureObject::_DestroyTextures(this);
-    if (*(this + 34) == -1)
-    {
-      __p[0] = 0;
-      __p[1] = 0;
-      v28 = 0;
-      *&v29[4] = xmmword_29B70A5A0;
-      *&v29[20] = xmmword_29B70A5B0;
-      *&v29[36] = 0x1000100000000;
-      *v29 = 0;
-      *&v29[44] = 1;
-      v30 = 0;
-      v31 = 0;
-      MEMORY[0x29C2C1A60](__p, "UdimTextureFallback");
-      *v29 = 0x200000008;
-      *&v29[24] = xmmword_29B710980;
-      *&v29[40] = 65537;
-      v26 = -16777216;
-      v30 = 4;
-      v31 = &v26;
-      this[18] = (*(*Hgi + 48))(Hgi, __p);
-      this[19] = v16;
-      v19[0] = 0;
-      v19[1] = 0;
-      *v21 = 0;
-      v20 = 0;
-      *&v21[4] = xmmword_29B70A5A0;
-      *v22 = xmmword_29B70A5B0;
-      *&v22[16] = 0x1000100000000;
-      v23 = 1;
-      v24 = 0;
-      v25 = 0;
-      MEMORY[0x29C2C1A60](v19, "UdimLayoutTextureFallback");
-      *&v22[4] = xmmword_29B712770;
-      *v21 = 0xA00000008;
-      *&v22[20] = 65537;
-      v18 = 1065353216;
-      v24 = 4;
-      v25 = &v18;
-      this[20] = (*(*Hgi + 48))(Hgi, v19);
-      this[21] = v17;
-      if (SHIBYTE(v20) < 0)
-      {
-        operator delete(v19[0]);
-      }
-
-      if (SHIBYTE(v28) < 0)
-      {
-        operator delete(__p[0]);
-      }
-    }
-
-    else
-    {
-      *&v29[8] = xmmword_29B6C6720;
-      *&v29[44] = 1;
-      pxrInternal__aapl__pxrReserved__::HdStTextureObject::_GetDebugName(this, (this + 4), v19);
-      v3 = *Hgi;
-      v5 = this[7];
-      v4 = this[8];
-      v6 = *(this + 34);
-      v8 = this[15];
-      v7 = this[16];
-      *__p = *v19;
-      v28 = v20;
-      *&v29[28] = this[13];
-      v9 = *(this + 28);
-      *&v29[24] = 4;
-      *&v29[36] = v9;
-      *&v29[40] = v8;
-      *v29 = 8;
-      *&v29[4] = v6;
-      *&v29[42] = v7;
-      v30 = v4 - v5;
-      v31 = v5;
-      this[18] = (*(v3 + 48))(Hgi, __p);
-      this[19] = v10;
-      if (SHIBYTE(v28) < 0)
-      {
-        operator delete(__p[0]);
-      }
-
-      *&v29[8] = xmmword_29B6C6720;
-      *&v29[40] = 0x100010001;
-      pxrInternal__aapl__pxrReserved__::HdStTextureObject::_GetDebugName(this, (this + 4), v19);
-      v11 = *Hgi;
-      v12 = this[10];
-      v13 = this[11];
-      *__p = *v19;
-      v28 = v20;
-      v14 = v13 - v12;
-      *&v29[24] = 0;
-      *&v29[28] = v14 >> 2;
-      *&v29[32] = 0x100000001;
-      *v29 = 0xA00000008;
-      v30 = v14;
-      v31 = v12;
-      this[20] = (*(v11 + 48))(Hgi, __p);
-      this[21] = v15;
-      if (SHIBYTE(v28) < 0)
-      {
-        operator delete(__p[0]);
-      }
-
-      this[8] = this[7];
-      this[11] = this[10];
-    }
-  }
-}
-
-void sub_29AEAE5CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35)
-{
-  if (a20 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a35 < 0)
-  {
-    operator delete(a30);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-_DWORD *sub_29AEAE634(uint64_t *a1, _DWORD *a2)
-{
-  v5 = a1[1];
-  v4 = a1[2];
-  if (v5 >= v4)
-  {
-    v7 = (v5 - *a1) >> 4;
-    if ((v7 + 1) >> 60)
-    {
-      sub_29A00C9A4();
-    }
-
-    v8 = v4 - *a1;
-    v9 = v8 >> 3;
-    if (v8 >> 3 <= (v7 + 1))
-    {
-      v9 = v7 + 1;
-    }
-
-    if (v8 >= 0x7FFFFFFFFFFFFFF0)
-    {
-      v10 = 0xFFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v10 = v9;
-    }
-
-    v17 = a1;
-    if (v10)
-    {
-      v11 = sub_29A017BD4(a1, v10);
-    }
-
-    else
-    {
-      v11 = 0;
-    }
-
-    v12 = &v11[16 * v7];
-    v14[0] = v11;
-    v14[1] = v12;
-    v15 = v12;
-    v16 = &v11[16 * v10];
-    *v12 = *a2;
-    pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v12 + 8);
-    v15 += 16;
-    sub_29AEAE75C(a1, v14);
-    v6 = a1[1];
-    sub_29AEAE800(v14);
-  }
-
-  else
-  {
-    *v5 = *a2;
-    pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v5 + 2);
-    v6 = v5 + 4;
-    a1[1] = (v5 + 4);
-  }
-
-  a1[1] = v6;
-  return v6 - 4;
 }

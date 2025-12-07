@@ -48,7 +48,7 @@
 
 - (void)applyChange:(id)change
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAD53820);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAD53820, &unk_190DD76C0);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_190DD55F0;
   *(inited + 32) = change;
@@ -68,7 +68,7 @@
 
 - (void)applyChange:(id)change animation:(id)animation
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAD53820);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAD53820, &unk_190DD76C0);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_190DD55F0;
   *(inited + 32) = change;

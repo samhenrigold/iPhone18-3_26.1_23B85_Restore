@@ -3,6 +3,7 @@
 - (BOOL)prepareForSyncWithHostAnchor:(id)anchor progressCallback:(id)callback error:(id *)error;
 - (BOOL)reconcileSync:(unsigned int)sync withNewAnchor:(id)anchor progressCallback:(id)callback error:(id *)error;
 - (PLSyncClient)init;
+- (id)_addAlbumNamed:(id)named uuid:(id)uuid kindValue:(int)value inLibrary:(id)library;
 - (id)_albumURIForAlbumUUID:(id)d;
 - (id)_allAssetDirectoryURLs;
 - (id)_allAssetMetricBaseURLs;
@@ -48,6 +49,7 @@
 - (void)_stopListeningToMemoryPressureEvents;
 - (void)_syncAssetTransfer:(id)transfer succeeded:(BOOL)succeeded withError:(id)error;
 - (void)_uninitializeLibrary;
+- (void)assetTransfer:(id)transfer succeeded:(BOOL)succeeded withError:(id)error;
 - (void)assetTransferEndedWithSuccess:(BOOL)success;
 - (void)dealloc;
 - (void)restoreEndedWithError:(id)error;
@@ -1352,6 +1354,82 @@ LABEL_26:
   return v4;
 }
 
+- (void)assetTransfer:(id)transfer succeeded:(BOOL)succeeded withError:(id)error
+{
+  succeededCopy = succeeded;
+  transferCopy = transfer;
+  errorCopy = error;
+  v10 = objc_autoreleasePoolPush();
+  isRestore = [transferCopy isRestore];
+  v12 = PLSyncGetLog();
+  v13 = v12;
+  if (!isRestore)
+  {
+    if (succeededCopy)
+    {
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      {
+        v22 = 138543362;
+        v23 = transferCopy;
+        v18 = "assetTransfer: successfully synced asset %{public}@";
+        v19 = v13;
+        v20 = OS_LOG_TYPE_DEFAULT;
+        v21 = 12;
+LABEL_14:
+        _os_log_impl(&dword_0, v19, v20, v18, &v22, v21);
+      }
+    }
+
+    else if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      v22 = 138543618;
+      v23 = transferCopy;
+      v24 = 2114;
+      v25 = errorCopy;
+      v18 = "assetTransfer: failed to sync asset %{public}@ error: %{public}@";
+      v19 = v13;
+      v20 = OS_LOG_TYPE_ERROR;
+      v21 = 22;
+      goto LABEL_14;
+    }
+
+    [(PLSyncClient *)self _syncAssetTransfer:transferCopy succeeded:succeededCopy withError:errorCopy];
+    goto LABEL_16;
+  }
+
+  if (succeededCopy)
+  {
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      v22 = 138543362;
+      v23 = transferCopy;
+      v14 = "assetTransfer: successfully restored asset %{public}@";
+      v15 = v13;
+      v16 = OS_LOG_TYPE_DEFAULT;
+      v17 = 12;
+LABEL_10:
+      _os_log_impl(&dword_0, v15, v16, v14, &v22, v17);
+    }
+  }
+
+  else if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  {
+    v22 = 138543618;
+    v23 = transferCopy;
+    v24 = 2114;
+    v25 = errorCopy;
+    v14 = "assetTransfer: failed to restore asset %{public}@ error: %{public}@";
+    v15 = v13;
+    v16 = OS_LOG_TYPE_ERROR;
+    v17 = 22;
+    goto LABEL_10;
+  }
+
+  [(PLSyncClient *)self _restoreAssetTransfer:transferCopy succeeded:succeededCopy withError:errorCopy];
+LABEL_16:
+  objc_autoreleasePoolPop(v10);
+}
+
 - (void)restoreEndedWithError:(id)error
 {
   v52 = 0;
@@ -1966,27 +2044,16 @@ LABEL_44:
           v45 = [v29 decodeSnapshotFromFile:v44 error:0];
           v74 = [v30 isEqualToSnapshot:v45];
           libraryUUID = [v45 libraryUUID];
-          if (!libraryUUID)
-          {
-            goto LABEL_46;
-          }
-
-          v47 = libraryUUID;
-          libraryUUID2 = [v30 libraryUUID];
-          libraryUUID3 = [v45 libraryUUID];
-          v50 = [libraryUUID2 isEqual:libraryUUID3];
-
-          if (!v50)
+          if (libraryUUID && (v47 = libraryUUID, -[NSObject libraryUUID](v30, "libraryUUID"), v48 = objc_claimAutoreleasedReturnValue(), [v45 libraryUUID], v49 = objc_claimAutoreleasedReturnValue(), v50 = objc_msgSend(v48, "isEqual:", v49), v49, v48, v47, !v50))
           {
             v52 = 1;
           }
 
           else
           {
-LABEL_46:
-            libraryUUID4 = [v45 libraryUUID];
+            libraryUUID2 = [v45 libraryUUID];
 
-            if (libraryUUID4)
+            if (libraryUUID2)
             {
               v52 = 0;
             }
@@ -2006,11 +2073,11 @@ LABEL_46:
                 v57 = PLSyncGetLog();
                 if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
                 {
-                  libraryUUID5 = [v30 libraryUUID];
+                  libraryUUID3 = [v30 libraryUUID];
                   *buf = 138543618;
                   v91 = v54;
                   v92 = 2114;
-                  v93 = libraryUUID5;
+                  v93 = libraryUUID3;
                   _os_log_impl(&dword_0, v57, OS_LOG_TYPE_DEFAULT, "Forcing resync based on CurrentLibraryUUID.plist: previous %{public}@, snapshot %{public}@", buf, 0x16u);
                 }
 
@@ -2019,8 +2086,8 @@ LABEL_46:
             }
           }
 
-          libraryUUID6 = [v30 libraryUUID];
-          v60 = [NSDictionary dictionaryWithObject:libraryUUID6 forKey:@"libraryUUID"];
+          libraryUUID4 = [v30 libraryUUID];
+          v60 = [NSDictionary dictionaryWithObject:libraryUUID4 forKey:@"libraryUUID"];
 
           v61 = [NSPropertyListSerialization dataWithPropertyList:v60 format:100 options:0 error:0];
           [v61 writeToFile:iTunesPhotosSyncCurrentLibraryUUIDPath options:1073741825 error:0];
@@ -2658,6 +2725,41 @@ LABEL_8:
   }
 }
 
+- (id)_addAlbumNamed:(id)named uuid:(id)uuid kindValue:(int)value inLibrary:(id)library
+{
+  v7 = *&value;
+  namedCopy = named;
+  uuidCopy = uuid;
+  libraryCopy = library;
+  if (v7 == 1551)
+  {
+    v12 = [PLGenericAlbum insertNewSyncedEventIntoLibrary:libraryCopy];
+  }
+
+  else
+  {
+    if (v7 == 15)
+    {
+      [PLGenericAlbum insertNewLegacyFaceAlbumIntoLibrary:libraryCopy];
+    }
+
+    else
+    {
+      [PLGenericAlbum insertNewAlbumIntoLibrary:libraryCopy];
+    }
+    v12 = ;
+  }
+
+  v13 = v12;
+  [v12 setTitle:namedCopy];
+  [v13 setUuid:uuidCopy];
+  [v13 setKindValue:v7];
+  [v13 setPendingItemsType:2];
+  [v13 setPendingItemsCount:0];
+
+  return v13;
+}
+
 - (void)_enqueueRemoteSyncCleanupJobBeforeDate:(id)date withFinishedBlock:(id)block
 {
   dateCopy = date;
@@ -3091,22 +3193,21 @@ LABEL_24:
     _photoLibrary = [(PLSyncClient *)self _photoLibrary];
     objc_initWeak(&location, _photoLibrary);
 
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = sub_159E8;
-    v9[3] = &unk_24BF0;
-    objc_copyWeak(&v10, &location);
-    v4 = objc_retainBlock(v9);
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_159E8;
+    v8[3] = &unk_24BF0;
+    objc_copyWeak(&v9, &location);
+    v4 = objc_retainBlock(v8);
     v5 = dispatch_get_global_queue(0, 0);
     v6 = dispatch_source_create(&_dispatch_source_type_memorypressure, 0, 2uLL, v5);
     memoryPressureSource = self->_memoryPressureSource;
     self->_memoryPressureSource = v6;
 
-    v8 = self->_memoryPressureSource;
     pl_dispatch_source_set_event_handler();
     dispatch_resume(self->_memoryPressureSource);
 
-    objc_destroyWeak(&v10);
+    objc_destroyWeak(&v9);
     objc_destroyWeak(&location);
   }
 }

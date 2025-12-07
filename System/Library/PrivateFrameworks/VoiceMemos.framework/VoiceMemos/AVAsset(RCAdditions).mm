@@ -112,7 +112,7 @@
   [v7 setKey:v6];
 
   v8 = objc_opt_class();
-  *&v9 = self;
+  *&v9 = a2;
   v10 = [v8 _scaledIntFromFloat:v9];
   [v7 setValue:v10];
 
@@ -157,7 +157,7 @@
 
 - (id)rc_audioTracksPreferringSpatial
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [[RCSpatialAsset alloc] initWithAsset:self];
   v3 = v2;
   if (v2)
@@ -167,22 +167,22 @@
     v6 = overdubTrack;
     if (overdubTrack)
     {
-      v14 = spatialTrack;
-      v15 = overdubTrack;
+      v13 = spatialTrack;
+      v14 = overdubTrack;
       v7 = MEMORY[0x277CBEA60];
-      v8 = &v14;
+      v8 = &v13;
       v9 = 2;
     }
 
     else
     {
-      v13 = spatialTrack;
+      v12 = spatialTrack;
       v7 = MEMORY[0x277CBEA60];
-      v8 = &v13;
+      v8 = &v12;
       v9 = 1;
     }
 
-    rc_audioTracks = [v7 arrayWithObjects:v8 count:{v9, v13, v14, v15, v16}];
+    rc_audioTracks = [v7 arrayWithObjects:v8 count:{v9, v12, v13, v14, v15}];
   }
 
   else
@@ -190,36 +190,34 @@
     rc_audioTracks = [self rc_audioTracks];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return rc_audioTracks;
 }
 
 - (id)rc_playbackFormat
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   rc_audioTracks = [self rc_audioTracks];
-  v2 = [rc_audioTracks countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v2 = [rc_audioTracks countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v2)
   {
     v3 = v2;
     v4 = 0;
-    v5 = *v17;
+    v5 = *v16;
     mSampleRate = 0.0;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v17 != v5)
+        if (*v16 != v5)
         {
           objc_enumerationMutation(rc_audioTracks);
         }
 
-        formatDescriptions = [*(*(&v16 + 1) + 8 * i) formatDescriptions];
+        formatDescriptions = [*(*(&v15 + 1) + 8 * i) formatDescriptions];
         if ([formatDescriptions count])
         {
           v9 = 0;
@@ -254,7 +252,7 @@
         }
       }
 
-      v3 = [rc_audioTracks countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v3 = [rc_audioTracks countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v3);
@@ -272,38 +270,36 @@
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (id)rc_exportFormat
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = [self rc_audioTracks];
-  v26 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
+  v25 = [obj countByEnumeratingWithState:&v26 objects:v34 count:16];
   v1 = 0;
   v2 = 0;
-  if (v26)
+  if (v25)
   {
-    v25 = *v28;
+    v24 = *v27;
     mSampleRate = 0.0;
     v4 = 0x277CCA000uLL;
     v5 = &RCAudioExportFormatRankings;
     do
     {
-      for (i = 0; i != v26; ++i)
+      for (i = 0; i != v25; ++i)
       {
-        if (*v28 != v25)
+        if (*v27 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        formatDescriptions = [*(*(&v27 + 1) + 8 * i) formatDescriptions];
+        formatDescriptions = [*(*(&v26 + 1) + 8 * i) formatDescriptions];
         if ([formatDescriptions count])
         {
           v8 = 0;
@@ -326,9 +322,9 @@
                 {
                   mFormatID = v11->mFormatID;
                   *buf = 136315394;
-                  v32 = "[AVAsset(RCAdditions) rc_exportFormat]";
-                  v33 = 1024;
-                  v34 = mFormatID;
+                  v31 = "[AVAsset(RCAdditions) rc_exportFormat]";
+                  v32 = 1024;
+                  v33 = mFormatID;
                   _os_log_error_impl(&dword_272442000, v16, OS_LOG_TYPE_ERROR, "%s -- Invalid format: %i", buf, 0x12u);
                 }
 
@@ -366,10 +362,10 @@
         }
       }
 
-      v26 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v25 = [obj countByEnumeratingWithState:&v26 objects:v34 count:16];
     }
 
-    while (v26);
+    while (v25);
   }
 
   else
@@ -380,15 +376,13 @@
   v19 = [self createExportSettingsForSampleRate:v2 channelCount:v1 formatRanking:mSampleRate];
   v20 = [objc_alloc(MEMORY[0x277CB83A8]) initWithSettings:v19];
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 - (id)createExportSettingsForSampleRate:()RCAdditions channelCount:formatRanking:
 {
   v5 = a5;
-  v18[3] = *MEMORY[0x277D85DE8];
+  v17[3] = *MEMORY[0x277D85DE8];
   if ((a5 & 0x8000000000000000) != 0 || [RCAudioExportFormatRankings count] < a5)
   {
     v8 = OSLogForCategory(@"Default");
@@ -403,108 +397,106 @@
   v9 = [RCAudioExportFormatRankings objectAtIndexedSubscript:v5];
   unsignedIntValue = [v9 unsignedIntValue];
 
-  v17[0] = *MEMORY[0x277CB82E0];
+  v16[0] = *MEMORY[0x277CB82E0];
   v11 = [MEMORY[0x277CCABB0] numberWithDouble:self];
-  v18[0] = v11;
-  v17[1] = *MEMORY[0x277CB8280];
+  v17[0] = v11;
+  v16[1] = *MEMORY[0x277CB8280];
   v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:unsignedIntValue];
-  v18[1] = v12;
-  v17[2] = *MEMORY[0x277CB82B0];
+  v17[1] = v12;
+  v16[2] = *MEMORY[0x277CB82B0];
   v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a4];
-  v18[2] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v17[2] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
 
   return v14;
 }
 
 - (id)rc_allCodecNames
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   _rc_all_audioTracks = [self _rc_all_audioTracks];
-  v4 = [_rc_all_audioTracks countByEnumeratingWithState:&v33 objects:v39 count:16];
+  v4 = [_rc_all_audioTracks countByEnumeratingWithState:&v32 objects:v38 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v34;
+    v6 = *v33;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v34 != v6)
+        if (*v33 != v6)
         {
           objc_enumerationMutation(_rc_all_audioTracks);
         }
 
-        v8 = *(*(&v33 + 1) + 8 * i);
+        v8 = *(*(&v32 + 1) + 8 * i);
+        v28 = 0u;
         v29 = 0u;
         v30 = 0u;
         v31 = 0u;
-        v32 = 0u;
         formatDescriptions = [v8 formatDescriptions];
-        v10 = [formatDescriptions countByEnumeratingWithState:&v29 objects:v38 count:16];
+        v10 = [formatDescriptions countByEnumeratingWithState:&v28 objects:v37 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v30;
+          v12 = *v29;
           do
           {
             for (j = 0; j != v11; ++j)
             {
-              if (*v30 != v12)
+              if (*v29 != v12)
               {
                 objc_enumerationMutation(formatDescriptions);
               }
 
-              if (*(*(&v29 + 1) + 8 * j))
+              if (*(*(&v28 + 1) + 8 * j))
               {
                 [array addObject:?];
               }
             }
 
-            v11 = [formatDescriptions countByEnumeratingWithState:&v29 objects:v38 count:16];
+            v11 = [formatDescriptions countByEnumeratingWithState:&v28 objects:v37 count:16];
           }
 
           while (v11);
         }
       }
 
-      v5 = [_rc_all_audioTracks countByEnumeratingWithState:&v33 objects:v39 count:16];
+      v5 = [_rc_all_audioTracks countByEnumeratingWithState:&v32 objects:v38 count:16];
     }
 
     while (v5);
   }
 
   v14 = [MEMORY[0x277CBEB58] set];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v15 = array;
-  v16 = [v15 countByEnumeratingWithState:&v25 objects:v37 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v24 objects:v36 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v26;
+    v18 = *v25;
     do
     {
       for (k = 0; k != v17; ++k)
       {
-        if (*v26 != v18)
+        if (*v25 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        StreamBasicDescription = CMAudioFormatDescriptionGetStreamBasicDescription(*(*(&v25 + 1) + 8 * k));
+        StreamBasicDescription = CMAudioFormatDescriptionGetStreamBasicDescription(*(*(&v24 + 1) + 8 * k));
         if (StreamBasicDescription)
         {
-          v21 = [self _codecNameForFormatID:{StreamBasicDescription->mFormatID, v25}];
+          v21 = [self _codecNameForFormatID:{StreamBasicDescription->mFormatID, v24}];
           if (v21)
           {
             [v14 addObject:v21];
@@ -512,15 +504,13 @@
         }
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v25 objects:v37 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v24 objects:v36 count:16];
     }
 
     while (v17);
   }
 
   allObjects = [v14 allObjects];
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return allObjects;
 }
@@ -550,7 +540,7 @@ LABEL_7:
 
 - (uint64_t)rc_trackIsSpatial:()RCAdditions
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v4 = a3;
   asset = [v4 asset];
 
@@ -559,26 +549,26 @@ LABEL_7:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v28 = 0u;
-      v29 = 0u;
-      v26 = 0u;
       v27 = 0u;
+      v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
       obj = [v4 segments];
-      v6 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v6 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
       if (v6)
       {
-        v24 = v4;
-        v7 = *v27;
+        v23 = v4;
+        v7 = *v26;
         do
         {
           for (i = 0; i != v6; ++i)
           {
-            if (*v27 != v7)
+            if (*v26 != v7)
             {
               objc_enumerationMutation(obj);
             }
 
-            v9 = *(*(&v26 + 1) + 8 * i);
+            v9 = *(*(&v25 + 1) + 8 * i);
             v10 = MEMORY[0x277CE6650];
             sourceURL = [v9 sourceURL];
             v12 = [v10 assetWithURL:sourceURL];
@@ -603,12 +593,12 @@ LABEL_7:
             }
           }
 
-          v6 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+          v6 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
         }
 
         while (v6);
 LABEL_18:
-        v4 = v24;
+        v4 = v23;
       }
     }
 
@@ -635,38 +625,37 @@ LABEL_18:
     v6 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (uint64_t)rc_hasSpatialTracks
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     tracks = [self tracks];
     v3 = [tracks na_flatMap:&__block_literal_global_90];
 
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v4 = [MEMORY[0x277CBEB98] setWithArray:{v3, 0}];
-    v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v5)
     {
-      v6 = *v14;
+      v6 = *v13;
       while (2)
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v14 != v6)
+          if (*v13 != v6)
           {
             objc_enumerationMutation(v4);
           }
 
-          v8 = [MEMORY[0x277CE6650] assetWithURL:*(*(&v13 + 1) + 8 * i)];
+          v8 = [MEMORY[0x277CE6650] assetWithURL:*(*(&v12 + 1) + 8 * i)];
           rc_hasSpatialTracks = [v8 rc_hasSpatialTracks];
 
           if (rc_hasSpatialTracks)
@@ -676,7 +665,7 @@ LABEL_18:
           }
         }
 
-        v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v5)
         {
           continue;
@@ -695,19 +684,17 @@ LABEL_13:
     v5 = v10 != 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (void)createExportSettingsForSampleRate:()RCAdditions channelCount:formatRanking:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[AVAsset(RCAdditions) createExportSettingsForSampleRate:channelCount:formatRanking:]";
-  v5 = 2048;
-  v6 = a1;
-  _os_log_error_impl(&dword_272442000, a2, OS_LOG_TYPE_ERROR, "%s -- Invalid format ranking: %ld", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[AVAsset(RCAdditions) createExportSettingsForSampleRate:channelCount:formatRanking:]";
+  v4 = 2048;
+  v5 = a1;
+  _os_log_error_impl(&dword_272442000, a2, OS_LOG_TYPE_ERROR, "%s -- Invalid format ranking: %ld", &v2, 0x16u);
 }
 
 @end

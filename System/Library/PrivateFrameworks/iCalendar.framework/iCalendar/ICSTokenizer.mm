@@ -313,7 +313,7 @@ LABEL_8:
   while (1)
   {
     peek = [(ICSPushbackStream *)self->_data peek];
-    if (![(ICSTokenizer *)self consumeEscaped:"\\""])
+    if (![(ICSTokenizer *)self consumeEscaped:"\"])
     {
       break;
     }
@@ -337,7 +337,7 @@ LABEL_33:
     }
   }
 
-  if ([(ICSTokenizer *)self consumeEscaped:"\\\\""])
+  if ([(ICSTokenizer *)self consumeEscaped:"\\\"])
   {
     if (v9)
     {

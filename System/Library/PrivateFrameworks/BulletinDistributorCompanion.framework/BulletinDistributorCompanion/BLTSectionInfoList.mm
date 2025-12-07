@@ -120,7 +120,7 @@
 - (void)reloadWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = BLTWorkQueue();
+  v5 = BLTWorkQueue(completionCopy);
   v7[0] = MEMORY[0x277D85DD0];
   v7[1] = 3221225472;
   v7[2] = __43__BLTSectionInfoList_reloadWithCompletion___block_invoke;
@@ -199,7 +199,7 @@ void __43__BLTSectionInfoList_reloadWithCompletion___block_invoke_3(uint64_t a1,
 void __43__BLTSectionInfoList_reloadWithCompletion___block_invoke_4(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = BLTWorkQueue();
+  v4 = BLTWorkQueue(v3);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __43__BLTSectionInfoList_reloadWithCompletion___block_invoke_5;
@@ -215,51 +215,51 @@ void __43__BLTSectionInfoList_reloadWithCompletion___block_invoke_4(uint64_t a1,
 
 void __43__BLTSectionInfoList_reloadWithCompletion___block_invoke_5(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __43__BLTSectionInfoList_reloadWithCompletion___block_invoke_6;
-  v19[3] = &unk_278D32550;
+  v22 = *MEMORY[0x277D85DE8];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __43__BLTSectionInfoList_reloadWithCompletion___block_invoke_6;
+  v18[3] = &unk_278D32550;
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
   v4 = *(a1 + 48);
-  v20 = v3;
-  v21 = v4;
-  [v2 enumerateObjectsUsingBlock:v19];
+  v19 = v3;
+  v20 = v4;
+  [v2 enumerateObjectsUsingBlock:v18];
   pthread_mutex_lock((*(a1 + 48) + 24));
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __43__BLTSectionInfoList_reloadWithCompletion___block_invoke_62;
-  v18[3] = &unk_278D32578;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __43__BLTSectionInfoList_reloadWithCompletion___block_invoke_62;
+  v17[3] = &unk_278D32578;
   v5 = *(a1 + 40);
-  v18[4] = *(a1 + 48);
-  [v5 enumerateKeysAndObjectsUsingBlock:v18];
+  v17[4] = *(a1 + 48);
+  [v5 enumerateKeysAndObjectsUsingBlock:v17];
   pthread_mutex_unlock((*(a1 + 48) + 24));
   *(*(a1 + 48) + 97) = 1;
   *(*(a1 + 48) + 96) = 0;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = *(*(a1 + 48) + 88);
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       v11 = 0;
       v12 = v9;
       do
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v9 = MEMORY[0x245D067A0](*(*(&v14 + 1) + 8 * v11));
+        v9 = MEMORY[0x245D067A0](*(*(&v13 + 1) + 8 * v11));
 
         v9[2](v9);
         ++v11;
@@ -267,14 +267,13 @@ void __43__BLTSectionInfoList_reloadWithCompletion___block_invoke_5(uint64_t a1)
       }
 
       while (v8 != v11);
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v22 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v21 count:16];
     }
 
     while (v8);
   }
 
   [*(*(a1 + 48) + 88) removeAllObjects];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __43__BLTSectionInfoList_reloadWithCompletion___block_invoke_6(uint64_t a1, void *a2)
@@ -289,34 +288,33 @@ void __43__BLTSectionInfoList_reloadWithCompletion___block_invoke_6(uint64_t a1,
 
   v5 = v4;
   v6 = [*(a1 + 32) objectForKeyedSubscript:v4];
+  v7 = v6;
   if (!v6)
   {
-    v6 = objc_alloc_init(BLTSectionInfoListItem);
-    [*(a1 + 32) setObject:v6 forKeyedSubscript:v5];
+    v7 = objc_alloc_init(BLTSectionInfoListItem);
+    v6 = [*(a1 + 32) setObject:v7 forKeyedSubscript:v5];
   }
 
-  v7 = blt_settings_log();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = blt_settings_log(v6);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 138412290;
     v12 = v5;
-    _os_log_impl(&dword_241FB3000, v7, OS_LOG_TYPE_DEFAULT, "On reload, retrieved section info for %@", &v11, 0xCu);
+    _os_log_impl(&dword_241FB3000, v8, OS_LOG_TYPE_DEFAULT, "On reload, retrieved section info for %@", &v11, 0xCu);
   }
 
   pthread_mutex_lock((*(a1 + 40) + 24));
   [*(*(a1 + 40) + 16) addObject:v5];
   pthread_mutex_unlock((*(a1 + 40) + 24));
-  v8 = [v3 universalSectionID];
+  v9 = [v3 universalSectionID];
 
-  if (v8)
+  if (v9)
   {
-    v9 = [v3 universalSectionID];
-    [(BLTSectionInfoListItem *)v6 setUniversalSectionID:v9];
+    v10 = [v3 universalSectionID];
+    [(BLTSectionInfoListItem *)v7 setUniversalSectionID:v10];
   }
 
-  [*(a1 + 40) _migrateFromExternalDeviceSwitchToOverrides:v6 sectionID:v5];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [*(a1 + 40) _migrateFromExternalDeviceSwitchToOverrides:v7 sectionID:v5];
 }
 
 void __43__BLTSectionInfoList_reloadWithCompletion___block_invoke_62(uint64_t a1, void *a2, void *a3)
@@ -392,7 +390,7 @@ void __43__BLTSectionInfoList_reloadWithCompletion___block_invoke_62(uint64_t a1
   v15 = v14;
   if (!v14)
   {
-    v24 = blt_settings_log();
+    v24 = blt_settings_log(0);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       [BLTSectionInfoList _lock_sectionInfoFromListItem:v13 sectionID:v24 displayName:?];
@@ -404,7 +402,7 @@ void __43__BLTSectionInfoList_reloadWithCompletion___block_invoke_62(uint64_t a1
   v16 = [(BLTSectionInfoList *)self _sectionInfoFromSectionID:v13 displayName:name];
   if (!v16)
   {
-    v24 = blt_settings_log();
+    v24 = blt_settings_log(0);
     if (os_log_type_enabled(v24, 0x90u))
     {
       [BLTSectionInfoList _lock_sectionInfoFromListItem:v13 sectionID:v24 displayName:?];
@@ -580,29 +578,29 @@ LABEL_23:
 
 - (void)updateSectionInfoForSectionIDs:(id)ds transaction:(id)transaction
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   transactionCopy = transaction;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v8 = [dsCopy countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v8 = [dsCopy countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v25;
+    v10 = *v24;
     do
     {
       v11 = 0;
       do
       {
-        if (*v25 != v10)
+        if (*v24 != v10)
         {
           objc_enumerationMutation(dsCopy);
         }
 
-        v12 = *(*(&v24 + 1) + 8 * v11);
+        v12 = *(*(&v23 + 1) + 8 * v11);
         pthread_mutex_lock(&self->_lock);
         sectionInfoListItemsBySectionID = self->_sectionInfoListItemsBySectionID;
         sectionID = [v12 sectionID];
@@ -632,13 +630,11 @@ LABEL_23:
       }
 
       while (v9 != v11);
-      v9 = [dsCopy countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v9 = [dsCopy countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v9);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removedSectionWithSectionID:(id)d transaction:(id)transaction
@@ -655,29 +651,29 @@ LABEL_23:
 
 - (id)overrides
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   pthread_mutex_lock(&self->_lock);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   allValues = [(NSMutableDictionary *)self->_sectionInfoListItemsBySectionID allValues];
-  v5 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         overrides = [v9 overrides];
 
         if (overrides)
@@ -687,129 +683,124 @@ LABEL_23:
         }
       }
 
-      v6 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
 
   pthread_mutex_unlock(&self->_lock);
-  v12 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (id)originalSettings
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   sectionIDs = [(BLTSectionInfoList *)self sectionIDs];
   array = [MEMORY[0x277CBEB18] array];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = sectionIDs;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [(BLTSectionInfoList *)self _sectionInfoFromSectionID:*(*(&v13 + 1) + 8 * i) displayName:0, v13];
+        v10 = [(BLTSectionInfoList *)self _sectionInfoFromSectionID:*(*(&v12 + 1) + 8 * i) displayName:0, v12];
         if (v10)
         {
           [array addObject:v10];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (id)overriddenSettings
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   pthread_mutex_lock(&self->_lock);
   v4 = [(NSMutableDictionary *)self->_sectionInfoListItemsBySectionID copy];
   pthread_mutex_unlock(&self->_lock);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   allKeys = [v4 allKeys];
-  v6 = [allKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [allKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v10 = [(BLTSectionInfoList *)self overriddenSectionInfoForSectionID:*(*(&v13 + 1) + 8 * i)];
+        v10 = [(BLTSectionInfoList *)self overriddenSectionInfoForSectionID:*(*(&v12 + 1) + 8 * i)];
         if (v10)
         {
           [array addObject:v10];
         }
       }
 
-      v7 = [allKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [allKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (id)settingsDescriptionForSectionIDs:(id)ds
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   string = [MEMORY[0x277CCAB68] string];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   obj = dsCopy;
-  v6 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v6 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v26;
+    v8 = *v25;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v26 != v8)
+        if (*v25 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v25 + 1) + 8 * i);
+        v10 = *(*(&v24 + 1) + 8 * i);
         v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@\n---\n", v10];
         [string appendString:v11];
 
@@ -826,9 +817,9 @@ LABEL_23:
         }
 
         pthread_mutex_unlock(&self->_lock);
-        v24 = 0;
-        v17 = [(BLTSectionInfoList *)self _overriddenSectionInfoForSectionID:v10 originalSectionInfo:&v24 displayName:0];
-        v18 = v24;
+        v23 = 0;
+        v17 = [(BLTSectionInfoList *)self _overriddenSectionInfoForSectionID:v10 originalSectionInfo:&v23 displayName:0];
+        v18 = v23;
         v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"originalSettings: %@\n", v18];
         [string appendString:v19];
 
@@ -836,13 +827,11 @@ LABEL_23:
         [string appendString:v20];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v7 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v7);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return string;
 }
@@ -1029,20 +1018,18 @@ void __42__BLTSectionInfoList_sectionOverridesOnly__block_invoke(uint64_t a1, vo
 
 - (void)_lock_sectionInfoFromListItem:(uint64_t)a1 sectionID:(NSObject *)a2 displayName:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_241FB3000, a2, 0x90u, "Section info list item contains ID but BulletinBoard does not have section info for %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_241FB3000, a2, 0x90u, "Section info list item contains ID but BulletinBoard does not have section info for %@", &v2, 0xCu);
 }
 
 - (void)_lock_sectionInfoFromListItem:(uint64_t)a1 sectionID:(NSObject *)a2 displayName:.cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "Requesting section info for unknown section %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "Requesting section info for unknown section %@", &v2, 0xCu);
 }
 
 @end

@@ -5,6 +5,7 @@
 - (void)_q_queue_queryStatusFromCLForBundleIdentifier:(id)identifier;
 - (void)_s_queue_addCallbackInfo:(id)info forBundleIdentifier:(id)identifier;
 - (void)_s_queue_scheduleUpdatedStatusForBundleIdentifier:(id)identifier;
+- (void)_s_queue_updateCacheFromCLWithStatus:(int)status forBundleIdentifier:(id)identifier;
 @end
 
 @implementation RELocationAuthorizationStatusCache
@@ -146,6 +147,61 @@ uint64_t __120__RELocationAuthorizationStatusCache_cachedAuthorizationStatusForB
   v9 = identifierCopy;
   v7 = identifierCopy;
   dispatch_async(schedulingQueue, block);
+}
+
+- (void)_s_queue_updateCacheFromCLWithStatus:(int)status forBundleIdentifier:(id)identifier
+{
+  v4 = *&status;
+  v24 = *MEMORY[0x277D85DE8];
+  identifierCopy = identifier;
+  [(NSLock *)self->_bundleToStatusCacheLock lock];
+  v7 = [MEMORY[0x277CCABB0] numberWithInt:v4];
+  [(NSMutableDictionary *)self->_bundleToStatusCache setObject:v7 forKeyedSubscript:identifierCopy];
+
+  [(NSLock *)self->_bundleToStatusCacheLock unlock];
+  selfCopy = self;
+  v16 = identifierCopy;
+  v8 = [(NSMutableDictionary *)self->_bundleToCallbackBlocks objectForKeyedSubscript:identifierCopy];
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v20;
+    do
+    {
+      for (i = 0; i != v10; ++i)
+      {
+        if (*v20 != v11)
+        {
+          objc_enumerationMutation(v8);
+        }
+
+        v13 = *(*(&v19 + 1) + 8 * i);
+        if ([v13 status] != v4)
+        {
+          queue = [v13 queue];
+          block[0] = MEMORY[0x277D85DD0];
+          block[1] = 3221225472;
+          block[2] = __95__RELocationAuthorizationStatusCache__s_queue_updateCacheFromCLWithStatus_forBundleIdentifier___block_invoke;
+          block[3] = &unk_2785FC588;
+          block[4] = v13;
+          v18 = v4;
+          dispatch_async(queue, block);
+        }
+      }
+
+      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    }
+
+    while (v10);
+  }
+
+  [(NSMutableDictionary *)selfCopy->_bundleToCallbackBlocks removeObjectForKey:v16];
+  [(NSMutableSet *)selfCopy->_bundlesAwaitingQuery removeObject:v16];
 }
 
 void __95__RELocationAuthorizationStatusCache__s_queue_updateCacheFromCLWithStatus_forBundleIdentifier___block_invoke(uint64_t a1)

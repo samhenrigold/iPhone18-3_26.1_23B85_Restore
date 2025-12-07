@@ -63,11 +63,10 @@
   v9 = *(&self->super.super.super.super.super.super.super.super.isa + v8);
   selfCopy = self;
   [v9 systemLayoutSizeFittingSize_];
-  v12 = v11;
 
-  v13 = DOCGridLayout.specIconWidth.modify(width, v12);
-  result.height = v14;
-  result.width = v13;
+  DOCGridLayout.specIconWidth.modify();
+  result.height = v12;
+  result.width = v11;
   return result;
 }
 
@@ -181,7 +180,7 @@
 
   if (v3)
   {
-    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIAccessibilityCustomAction);
+    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIAccessibilityCustomAction, 0x277D75088);
     v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 

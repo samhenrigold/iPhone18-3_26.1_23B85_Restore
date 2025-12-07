@@ -119,24 +119,25 @@
 
 - (id)deviceIconForProductID:(unsigned int)d
 {
-  v4 = [(AAUserNotificationCenter *)self _iconTypeForProductID:?];
-  if (v4)
+  v3 = *&d;
+  v5 = [(AAUserNotificationCenter *)self _iconTypeForProductID:?];
+  if (v5)
   {
     goto LABEL_6;
   }
 
   if (dword_1002F7460 <= 90 && (dword_1002F7460 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001FAA7C();
+    sub_1001FAA7C(v3);
   }
 
-  v4 = [(AAUserNotificationCenter *)self _iconTypeForProductID:8212];
-  if (v4)
+  v5 = [(AAUserNotificationCenter *)self _iconTypeForProductID:8212];
+  if (v5)
   {
 LABEL_6:
-    v5 = v4;
-    identifier = [v4 identifier];
-    v7 = [UNNotificationIcon iconWithUTI:identifier];
+    v6 = v5;
+    identifier = [v5 identifier];
+    v8 = [UNNotificationIcon iconWithUTI:identifier];
   }
 
   else
@@ -146,10 +147,10 @@ LABEL_6:
       sub_1001FAAC0();
     }
 
-    v7 = [UNNotificationIcon iconForSystemImageNamed:@"airpods.pro"];
+    v8 = [UNNotificationIcon iconForSystemImageNamed:@"airpods.pro"];
   }
 
-  return v7;
+  return v8;
 }
 
 - (void)dismissUserNotificationWithIdentifier:(id)identifier
@@ -185,57 +186,64 @@ LABEL_6:
 
 - (id)_activateAudioSession
 {
-  if ([(AAUserNotificationCenter *)self audioSessionActivated])
+  audioSessionActivated = [(AAUserNotificationCenter *)self audioSessionActivated];
+  if (audioSessionActivated)
   {
-    v3 = 0;
+    v6 = 0;
   }
 
   else
   {
-    if (dword_1002F7460 <= 30 && (dword_1002F7460 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F7460 <= 30)
     {
-      sub_1001FAB04();
+      if (dword_1002F7460 != -1 || (audioSessionActivated = _LogCategory_Initialize(), audioSessionActivated))
+      {
+        sub_1001FAB04(audioSessionActivated, v4, v5);
+      }
     }
 
-    v4 = +[AVAudioSession sharedInstance];
-    v5 = kMXSessionProperty_InterruptionStyle;
-    v6 = [NSNumber numberWithInt:32];
-    v12 = 0;
-    [v4 setMXSessionProperty:v5 value:v6 error:&v12];
-    v3 = v12;
+    v7 = +[AVAudioSession sharedInstance];
+    v8 = kMXSessionProperty_InterruptionStyle;
+    v9 = [NSNumber numberWithInt:32];
+    v14 = 0;
+    [v7 setMXSessionProperty:v8 value:v9 error:&v14];
+    v6 = v14;
 
-    if (v3 || (+[AVAudioSession sharedInstance](AVAudioSession, "sharedInstance"), v7 = objc_claimAutoreleasedReturnValue(), v11 = 0, v8 = 1, [v7 setActive:1 error:&v11], v3 = v11, v7, v3))
+    if (v6 || (+[AVAudioSession sharedInstance](AVAudioSession, "sharedInstance"), v10 = objc_claimAutoreleasedReturnValue(), v13 = 0, v11 = 1, [v10 setActive:1 error:&v13], v6 = v13, v10, v6))
     {
       if (dword_1002F7460 <= 90 && (dword_1002F7460 != -1 || _LogCategory_Initialize()))
       {
-        v10 = v3;
-        LogPrintF();
+        LogPrintF(&dword_1002F7460, "[AAUserNotificationCenter _activateAudioSession]", 90, "Failed to activate the AVAudioSession with error %@", v6);
       }
 
-      v8 = 0;
+      v11 = 0;
     }
 
-    [(AAUserNotificationCenter *)self setAudioSessionActivated:v8, v10];
+    [(AAUserNotificationCenter *)self setAudioSessionActivated:v11];
   }
 
-  return v3;
+  return v6;
 }
 
 - (void)_deactivateAudioSession
 {
-  if ([(AAUserNotificationCenter *)self audioSessionActivated])
+  audioSessionActivated = [(AAUserNotificationCenter *)self audioSessionActivated];
+  if (audioSessionActivated)
   {
-    if (dword_1002F7460 <= 30 && (dword_1002F7460 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F7460 <= 30)
     {
-      sub_1001FAB20();
+      if (dword_1002F7460 != -1 || (audioSessionActivated = _LogCategory_Initialize(), audioSessionActivated))
+      {
+        sub_1001FAB20(audioSessionActivated, v4, v5);
+      }
     }
 
-    v3 = +[AVAudioSession sharedInstance];
-    v7 = 0;
-    [v3 setDuckingFadeOutDuration:0 fadeInDuration:0 error:&v7];
-    v4 = v7;
+    v6 = +[AVAudioSession sharedInstance];
+    v10 = 0;
+    [v6 setDuckingFadeOutDuration:0 fadeInDuration:0 error:&v10];
+    v7 = v10;
 
-    if (v4)
+    if (v7)
     {
       if (dword_1002F7460 <= 90 && (dword_1002F7460 != -1 || _LogCategory_Initialize()))
       {
@@ -245,12 +253,12 @@ LABEL_6:
 
     else
     {
-      v5 = +[AVAudioSession sharedInstance];
-      v6 = 0;
-      [v5 setActive:0 withOptions:1 error:&v6];
-      v4 = v6;
+      v8 = +[AVAudioSession sharedInstance];
+      v9 = 0;
+      [v8 setActive:0 withOptions:1 error:&v9];
+      v7 = v9;
 
-      if (v4)
+      if (v7)
       {
         if (dword_1002F7460 <= 90 && (dword_1002F7460 != -1 || _LogCategory_Initialize()))
         {
@@ -287,7 +295,7 @@ LABEL_6:
 
   if ((assistantIsEnabled & 1) == 0)
   {
-    v11 = NSErrorF();
+    v11 = NSErrorF(NSOSStatusErrorDomain, 4294960591, "Siri not enabled");
     languageCode = v24[5];
     v24[5] = v11;
     goto LABEL_15;
@@ -299,12 +307,12 @@ LABEL_6:
 
   if (dword_1002F7460 <= 30 && (dword_1002F7460 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1002F7460, "[AAUserNotificationCenter requestSiriAnnounceWithNotificationContent:]", 30, "Using Siri Preferred language: %@", languageCode);
   }
 
   if (!languageCode)
   {
-    v14 = NSErrorF();
+    v14 = NSErrorF(NSOSStatusErrorDomain, 4294960591, "Siri returned invalid language code");
     uUIDString = v24[5];
     v24[5] = v14;
 LABEL_14:
@@ -338,7 +346,7 @@ LABEL_14:
 
   if (dword_1002F7460 <= 90 && (dword_1002F7460 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1002F7460, "[AAUserNotificationCenter requestSiriAnnounceWithNotificationContent:]", 90, "Failed to activate audio session for Siri announce");
   }
 
 LABEL_15:
@@ -409,7 +417,7 @@ LABEL_15:
   {
     categoryMap2 = [(AAUserNotificationCenter *)self categoryMap];
     allValues = [categoryMap2 allValues];
-    v8 = [NSSet setWithArray:allValues];
+    v11 = [NSSet setWithArray:allValues];
 
     if (dword_1002F7460 <= 30 && (dword_1002F7460 != -1 || _LogCategory_Initialize()))
     {
@@ -419,15 +427,19 @@ LABEL_15:
 
   else
   {
-    v8 = +[NSSet set];
-    if (dword_1002F7460 <= 30 && (dword_1002F7460 != -1 || _LogCategory_Initialize()))
+    v7 = +[NSSet set];
+    v11 = v7;
+    if (dword_1002F7460 <= 30)
     {
-      sub_1001FAC74();
+      if (dword_1002F7460 != -1 || (v7 = _LogCategory_Initialize(), v7))
+      {
+        sub_1001FAC74(v7, v8, v9);
+      }
     }
   }
 
   unCenter = [(AAUserNotificationCenter *)self unCenter];
-  [unCenter setNotificationCategories:v8];
+  [unCenter setNotificationCategories:v11];
 }
 
 - (void)userNotificationCenter:(id)center didReceiveNotificationResponse:(id)response withCompletionHandler:(id)handler
@@ -437,7 +449,7 @@ LABEL_15:
   handlerCopy = handler;
   if (dword_1002F7460 <= 30 && (dword_1002F7460 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001FAC90();
+    sub_1001FAC90(responseCopy);
   }
 
   dispatchQueue = [(AAUserNotificationCenter *)self dispatchQueue];

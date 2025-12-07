@@ -7,7 +7,6 @@
 - (void)_archiveURLForDSEnumeratedDestination:(id)destination service:(id)service completionHandler:(id)handler;
 - (void)_archiveURLForFPEnumeratedDestination:(id)destination targetArchiveName:(id)name service:(id)service completionHandler:(id)handler;
 - (void)_archiveURLs:(id)ls targetArchiveName:(id)name completionHandler:(id)handler;
-- (void)_checkNeedOfTemporaryDirectory;
 - (void)_coordinateArchivedItemsWithCompletionHandler:(id)handler;
 - (void)_copyArchivedItemsWithCompletionHandler:(id)handler;
 - (void)_materializeDestinationFolder:(id)folder;
@@ -155,52 +154,52 @@ LABEL_3:
 
 - (void)_coordinateArchivedItemsWithCompletionHandler:(id)handler
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
-  v19 = +[FPItemManager defaultManager];
-  v34[0] = 0;
-  v34[1] = v34;
-  v34[2] = 0x3032000000;
-  v34[3] = __Block_byref_object_copy__5;
-  v34[4] = __Block_byref_object_dispose__5;
-  v35 = 0;
+  v18 = +[FPItemManager defaultManager];
+  v33[0] = 0;
+  v33[1] = v33;
+  v33[2] = 0x3032000000;
+  v33[3] = __Block_byref_object_copy__5;
+  v33[4] = __Block_byref_object_dispose__5;
+  v34 = 0;
   v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSArray count](self->_items, "count")}];
   v4 = dispatch_group_create();
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   obj = self->_items;
-  v5 = [(NSArray *)obj countByEnumeratingWithState:&v30 objects:v36 count:16];
+  v5 = [(NSArray *)obj countByEnumeratingWithState:&v29 objects:v35 count:16];
   if (v5)
   {
-    v6 = *v31;
+    v6 = *v30;
     do
     {
       v7 = 0;
       do
       {
-        if (*v31 != v6)
+        if (*v30 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v30 + 1) + 8 * v7);
+        v8 = *(*(&v29 + 1) + 8 * v7);
         dispatch_group_enter(v4);
-        v26[0] = MEMORY[0x1E69E9820];
-        v26[1] = 3221225472;
-        v26[2] = __68__FPArchiveOperation__coordinateArchivedItemsWithCompletionHandler___block_invoke;
-        v26[3] = &unk_1E793ADA0;
-        v27 = v3;
-        v29 = v34;
-        v28 = v4;
-        [v19 fetchURLForItem:v8 completionHandler:v26];
+        v25[0] = MEMORY[0x1E69E9820];
+        v25[1] = 3221225472;
+        v25[2] = __68__FPArchiveOperation__coordinateArchivedItemsWithCompletionHandler___block_invoke;
+        v25[3] = &unk_1E793ADA0;
+        v26 = v3;
+        v28 = v33;
+        v27 = v4;
+        [v18 fetchURLForItem:v8 completionHandler:v25];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [(NSArray *)obj countByEnumeratingWithState:&v30 objects:v36 count:16];
+      v5 = [(NSArray *)obj countByEnumeratingWithState:&v29 objects:v35 count:16];
     }
 
     while (v5);
@@ -212,20 +211,19 @@ LABEL_3:
   block[1] = 3221225472;
   block[2] = __68__FPArchiveOperation__coordinateArchivedItemsWithCompletionHandler___block_invoke_2;
   block[3] = &unk_1E793AE10;
-  v25 = v34;
+  v24 = v33;
   v11 = handlerCopy;
-  v24 = v11;
+  v23 = v11;
   v12 = v3;
-  v21 = v12;
+  v20 = v12;
   selfCopy = self;
   v13 = v9;
-  v23 = v13;
+  v22 = v13;
   dispatch_group_notify(v4, queue, block);
   progress = [(FPActionOperation *)self progress];
   [progress addChild:v13 withPendingUnitCount:10];
 
-  _Block_object_dispose(v34, 8);
-  v15 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v33, 8);
 }
 
 void __68__FPArchiveOperation__coordinateArchivedItemsWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -251,103 +249,99 @@ void __68__FPArchiveOperation__coordinateArchivedItemsWithCompletionHandler___bl
 
 void __68__FPArchiveOperation__coordinateArchivedItemsWithCompletionHandler___block_invoke_2(uint64_t a1)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (*(*(*(a1 + 64) + 8) + 40))
   {
-    v2 = *(a1 + 56);
-    v3 = *(*(a1 + 56) + 16);
-    v4 = *MEMORY[0x1E69E9840];
+    v2 = *(*(a1 + 56) + 16);
 
-    v3();
+    v2();
   }
 
   else
   {
-    v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
-    v6 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
+    v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
+    v4 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
+    v23 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    v7 = *(a1 + 32);
-    v8 = [v7 countByEnumeratingWithState:&v26 objects:v30 count:16];
-    if (v8)
+    v5 = *(a1 + 32);
+    v6 = [v5 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    if (v6)
     {
-      v9 = v8;
-      v10 = *v27;
+      v7 = v6;
+      v8 = *v24;
       do
       {
-        for (i = 0; i != v9; ++i)
+        for (i = 0; i != v7; ++i)
         {
-          if (*v27 != v10)
+          if (*v24 != v8)
           {
-            objc_enumerationMutation(v7);
+            objc_enumerationMutation(v5);
           }
 
-          v12 = *(*(&v26 + 1) + 8 * i);
-          v13 = [MEMORY[0x1E696ABF0] readingIntentWithURL:v12 options:0x20000];
-          [v6 addObject:v13];
-          if ([v12 startAccessingSecurityScopedResource])
+          v10 = *(*(&v23 + 1) + 8 * i);
+          v11 = [MEMORY[0x1E696ABF0] readingIntentWithURL:v10 options:0x20000];
+          [v4 addObject:v11];
+          if ([v10 startAccessingSecurityScopedResource])
           {
-            [v5 addObject:v12];
+            [v3 addObject:v10];
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
-      while (v9);
+      while (v7);
     }
 
-    v14 = objc_opt_new();
-    v15 = *(*(a1 + 40) + 480);
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __68__FPArchiveOperation__coordinateArchivedItemsWithCompletionHandler___block_invoke_4;
-    v20[3] = &unk_1E793ADE8;
-    v21 = v5;
-    v25 = *(a1 + 56);
-    v22 = *(a1 + 48);
-    v23 = v6;
-    v24 = v14;
-    v16 = v14;
-    v17 = v6;
-    v18 = v5;
-    [v16 coordinateAccessWithIntents:v17 queue:v15 byAccessor:v20];
-
-    v19 = *MEMORY[0x1E69E9840];
+    v12 = objc_opt_new();
+    v13 = *(*(a1 + 40) + 480);
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __68__FPArchiveOperation__coordinateArchivedItemsWithCompletionHandler___block_invoke_4;
+    v17[3] = &unk_1E793ADE8;
+    v18 = v3;
+    v22 = *(a1 + 56);
+    v19 = *(a1 + 48);
+    v20 = v4;
+    v21 = v12;
+    v14 = v12;
+    v15 = v4;
+    v16 = v3;
+    [v14 coordinateAccessWithIntents:v15 queue:v13 byAccessor:v17];
   }
 }
 
 void __68__FPArchiveOperation__coordinateArchivedItemsWithCompletionHandler___block_invoke_4(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v4 = *(a1 + 32);
-    v5 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v20;
+      v7 = *v19;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v20 != v7)
+          if (*v19 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          [*(*(&v19 + 1) + 8 * i) stopAccessingSecurityScopedResource];
+          [*(*(&v18 + 1) + 8 * i) stopAccessingSecurityScopedResource];
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v6);
@@ -362,57 +356,53 @@ void __68__FPArchiveOperation__coordinateArchivedItemsWithCompletionHandler___bl
     v9 = [*(a1 + 48) fp_map:&__block_literal_global_57];
     v10 = [*(a1 + 56) retainAccess];
     v11 = *(a1 + 64);
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __68__FPArchiveOperation__coordinateArchivedItemsWithCompletionHandler___block_invoke_7;
-    v15[3] = &unk_1E7939090;
-    v16 = *(a1 + 32);
-    v17 = *(a1 + 56);
-    v18 = v10;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __68__FPArchiveOperation__coordinateArchivedItemsWithCompletionHandler___block_invoke_7;
+    v14[3] = &unk_1E7939090;
+    v15 = *(a1 + 32);
+    v16 = *(a1 + 56);
+    v17 = v10;
     v12 = *(v11 + 16);
     v13 = v10;
-    v12(v11, v9, 0, v15);
+    v12(v11, v9, 0, v14);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __68__FPArchiveOperation__coordinateArchivedItemsWithCompletionHandler___block_invoke_7(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v9 + 1) + 8 * v6++) stopAccessingSecurityScopedResource];
+        [*(*(&v8 + 1) + 8 * v6++) stopAccessingSecurityScopedResource];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
 
-  result = [*(a1 + 40) releaseAccess:*(a1 + 48)];
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) releaseAccess:*(a1 + 48)];
 }
 
 - (void)_copyArchivedItemsWithCompletionHandler:(id)handler
@@ -516,31 +506,31 @@ void __62__FPArchiveOperation__copyArchivedItemsWithCompletionHandler___block_in
 
 - (BOOL)_checkNeedOfTemporaryDirectory
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v3 = self->_items;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (!v4)
   {
     goto LABEL_10;
   }
 
   v5 = v4;
-  v6 = *v29;
+  v6 = *v28;
   obj = v3;
   while (2)
   {
     for (i = 0; i != v5; ++i)
     {
-      if (*v29 != v6)
+      if (*v28 != v6)
       {
         objc_enumerationMutation(obj);
       }
 
-      v8 = *(*(&v28 + 1) + 8 * i);
+      v8 = *(*(&v27 + 1) + 8 * i);
       providerDomainID = [v8 providerDomainID];
       firstObject = [(NSArray *)self->_items firstObject];
       providerDomainID2 = [firstObject providerDomainID];
@@ -578,7 +568,7 @@ LABEL_18:
     }
 
     v3 = obj;
-    v5 = [(NSArray *)obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v5 = [(NSArray *)obj countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v5)
     {
       continue;
@@ -606,8 +596,8 @@ LABEL_10:
     isUsingFPFS = [v20 isUsingFPFS];
     if ((isUsingFPFS & 1) == 0)
     {
-      v26 = fp_current_or_default_log();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+      v25 = fp_current_or_default_log();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
         [FPArchiveOperation _checkNeedOfTemporaryDirectory];
       }
@@ -617,7 +607,6 @@ LABEL_10:
 LABEL_19:
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -638,7 +627,7 @@ LABEL_19:
 
 void __52__FPArchiveOperation__materializeDestinationFolder___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -653,18 +642,18 @@ void __52__FPArchiveOperation__materializeDestinationFolder___block_invoke(uint6
     v9 = [v5 startAccessingSecurityScopedResource];
     v10 = objc_opt_new();
     v11 = [MEMORY[0x1E696ABF0] readingIntentWithURL:v5 options:0];
-    v21[0] = v11;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
+    v20[0] = v11;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
     v13 = *(*(a1 + 32) + 480);
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __52__FPArchiveOperation__materializeDestinationFolder___block_invoke_81;
-    v16[3] = &unk_1E793AEB0;
-    v17 = 0;
-    v20 = v9;
-    v18 = v5;
-    v19 = *(a1 + 40);
-    [v10 coordinateAccessWithIntents:v12 queue:v13 byAccessor:v16];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __52__FPArchiveOperation__materializeDestinationFolder___block_invoke_81;
+    v15[3] = &unk_1E793AEB0;
+    v16 = 0;
+    v19 = v9;
+    v17 = v5;
+    v18 = *(a1 + 40);
+    [v10 coordinateAccessWithIntents:v12 queue:v13 byAccessor:v15];
 
     goto LABEL_9;
   }
@@ -681,8 +670,6 @@ LABEL_9:
 
   (*(v14 + 16))(v14, 0, v6, &__block_literal_global_79);
 LABEL_10:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __52__FPArchiveOperation__materializeDestinationFolder___block_invoke_81(uint64_t a1, void *a2)
@@ -693,7 +680,6 @@ void __52__FPArchiveOperation__materializeDestinationFolder___block_invoke_81(ui
     if (*(a1 + 56) == 1)
     {
       [*(a1 + 40) stopAccessingSecurityScopedResource];
-      v4 = *(a1 + 32);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -701,23 +687,23 @@ void __52__FPArchiveOperation__materializeDestinationFolder___block_invoke_81(ui
 
   else
   {
-    v5 = *(a1 + 40);
-    v6 = *(a1 + 48);
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __52__FPArchiveOperation__materializeDestinationFolder___block_invoke_3;
-    v7[3] = &unk_1E793AE88;
-    v9 = *(a1 + 56);
-    v8 = v5;
-    (*(v6 + 16))(v6, v8, 0, v7);
+    v4 = *(a1 + 40);
+    v5 = *(a1 + 48);
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __52__FPArchiveOperation__materializeDestinationFolder___block_invoke_3;
+    v6[3] = &unk_1E793AE88;
+    v8 = *(a1 + 56);
+    v7 = v4;
+    (*(v5 + 16))(v5, v7, 0, v6);
   }
 }
 
-uint64_t __52__FPArchiveOperation__materializeDestinationFolder___block_invoke_3(uint64_t result)
+id *__52__FPArchiveOperation__materializeDestinationFolder___block_invoke_3(id *result)
 {
   if (*(result + 40) == 1)
   {
-    return [*(result + 32) stopAccessingSecurityScopedResource];
+    return [result[4] stopAccessingSecurityScopedResource];
   }
 
   return result;
@@ -798,7 +784,7 @@ uint64_t __52__FPArchiveOperation__materializeDestinationFolder___block_invoke_3
 
 void __104__FPArchiveOperation__archiveURLForFPEnumeratedDestination_targetArchiveName_service_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -846,42 +832,42 @@ LABEL_7:
   v19 = fp_current_or_default_log();
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
-    v29 = *(a1 + 32);
-    v30 = *(v29 + 464);
+    v28 = *(a1 + 32);
+    v29 = *(v28 + 464);
     *location = 138413058;
-    *&location[4] = v29;
-    v44 = 2112;
-    v45 = v13;
-    v46 = 2112;
-    v47 = v30;
-    v48 = 2112;
-    v49 = v14;
+    *&location[4] = v28;
+    v43 = 2112;
+    v44 = v13;
+    v45 = 2112;
+    v46 = v29;
+    v47 = 2112;
+    v48 = v14;
     _os_log_debug_impl(&dword_1AAAE1000, v19, OS_LOG_TYPE_DEBUG, "[DEBUG] %@: moving archive from temporary folder %@ to provider %@ with name %@", location, 0x2Au);
   }
 
   v20 = [FPMoveOperation alloc];
-  v42 = v13;
-  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v42 count:1];
+  v41 = v13;
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v41 count:1];
   v22 = [(FPMoveOperation *)v20 initWithURLs:v21 destinationFolder:*(*(a1 + 32) + 464)];
 
-  v40 = v13;
-  v41 = v14;
-  v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+  v39 = v13;
+  v40 = v14;
+  v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
   [(FPMoveOperation *)v22 setTargetFilenamesByURL:v23];
 
   objc_initWeak(location, v22);
-  v31 = MEMORY[0x1E69E9820];
-  v32 = 3221225472;
-  v33 = __104__FPArchiveOperation__archiveURLForFPEnumeratedDestination_targetArchiveName_service_completionHandler___block_invoke_95;
-  v34 = &unk_1E793AF00;
-  v35 = v7;
-  v39 = v12;
-  v37 = *(a1 + 48);
-  objc_copyWeak(&v38, location);
+  v30 = MEMORY[0x1E69E9820];
+  v31 = 3221225472;
+  v32 = __104__FPArchiveOperation__archiveURLForFPEnumeratedDestination_targetArchiveName_service_completionHandler___block_invoke_95;
+  v33 = &unk_1E793AF00;
+  v34 = v7;
+  v38 = v12;
+  v36 = *(a1 + 48);
+  objc_copyWeak(&v37, location);
   v24 = v13;
-  v36 = v24;
-  [(FPActionOperation *)v22 setActionCompletionBlock:&v31];
-  [(FPMoveOperation *)v22 setShouldBounceOnCollision:1, v31, v32, v33, v34];
+  v35 = v24;
+  [(FPActionOperation *)v22 setActionCompletionBlock:&v30];
+  [(FPMoveOperation *)v22 setShouldBounceOnCollision:1, v30, v31, v32, v33];
   [(FPActionOperation *)v22 setHaveStitching:0];
   v25 = [*(a1 + 32) progress];
   v26 = [(FPActionOperation *)v22 progress];
@@ -890,11 +876,10 @@ LABEL_7:
   v27 = +[FPItemManager defaultManager];
   [v27 scheduleAction:v22];
 
-  objc_destroyWeak(&v38);
+  objc_destroyWeak(&v37);
   objc_destroyWeak(location);
 
 LABEL_13:
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __104__FPArchiveOperation__archiveURLForFPEnumeratedDestination_targetArchiveName_service_completionHandler___block_invoke_95(uint64_t a1, void *a2)
@@ -943,7 +928,7 @@ void __86__FPArchiveOperation__archiveURLForDSEnumeratedDestination_service_comp
   v10 = v9;
   if (v8)
   {
-    (*(v9 + 2))(v9);
+    v9[2](v9);
     (*(*(a1 + 56) + 16))();
   }
 
@@ -1093,13 +1078,11 @@ LABEL_9:
 
 - (void)actionMain
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(self + 448);
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  v6 = 2112;
-  v7 = v2;
-  _os_log_debug_impl(&dword_1AAAE1000, v3, OS_LOG_TYPE_DEBUG, "[DEBUG] %@: preparing items for archiving: %@", v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_1AAAE1000, v1, OS_LOG_TYPE_DEBUG, "[DEBUG] %@: preparing items for archiving: %@", v2, 0x16u);
 }
 
 void __32__FPArchiveOperation_actionMain__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -1255,78 +1238,45 @@ void __32__FPArchiveOperation_actionMain__block_invoke_2(uint64_t a1, void *a2, 
   [v0 handleFailureInMethod:@"destinationFolder" object:? file:? lineNumber:? description:?];
 }
 
-- (void)_checkNeedOfTemporaryDirectory
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, v0, v1, "[DEBUG] %@: provider may (?) contain side fault, prepare by copy", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 void __52__FPArchiveOperation__materializeDestinationFolder___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x1E69E9840];
-  v3 = [OUTLINED_FUNCTION_5_3(a1 a2)];
+  v2 = [OUTLINED_FUNCTION_5_3(a1 a2)];
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_20();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_prepareItemsWithCompletionHandler:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, v0, v1, "[DEBUG] %@: downloading content of item prior to archiving", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 - (void)_archiveURLForFPEnumeratedDestination:targetArchiveName:service:completionHandler:.cold.1()
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3_3();
-  v4 = v0;
-  _os_log_debug_impl(&dword_1AAAE1000, v1, OS_LOG_TYPE_DEBUG, "[DEBUG] %@: creating archive from URLs using old SPI: %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = v0;
+  _os_log_debug_impl(&dword_1AAAE1000, v1, OS_LOG_TYPE_DEBUG, "[DEBUG] %@: creating archive from URLs using old SPI: %@", v2, 0x16u);
 }
 
 void __86__FPArchiveOperation__archiveURLForDSEnumeratedDestination_service_completionHandler___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  v4 = [a2 fp_shortDescription];
+  v2 = [a2 fp_shortDescription];
   OUTLINED_FUNCTION_3_3();
   OUTLINED_FUNCTION_20();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x20u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
 void __86__FPArchiveOperation__archiveURLForDSEnumeratedDestination_service_completionHandler___block_invoke_97_cold_1(uint64_t a1, id *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 40);
-  v3 = [*a2 fp_prettyDescription];
+  v2 = [*a2 fp_prettyDescription];
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_20();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __86__FPArchiveOperation__archiveURLForDSEnumeratedDestination_service_completionHandler___block_invoke_97_cold_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 40);
-  v3 = [a2 fp_shortDescription];
+  v2 = [a2 fp_shortDescription];
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_20();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 @end

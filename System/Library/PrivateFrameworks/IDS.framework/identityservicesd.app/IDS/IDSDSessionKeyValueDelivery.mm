@@ -109,7 +109,7 @@
 
 - (void)sendData:(NSData *)data forKey:(unsigned int)key encryption:(unsigned int)encryption capability:(NSString *)capability withCompletion:(id)completion
 {
-  v13 = sub_100706B30(&qword_100CB3410);
+  v13 = sub_100706B30(&qword_100CB3410, &qword_1009B3440);
   __chkstk_darwin(v13 - 8);
   v15 = &v24 - v14;
   v16 = _Block_copy(completion);

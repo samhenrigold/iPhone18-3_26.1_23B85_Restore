@@ -152,15 +152,15 @@
         dispatch_once(&qword_1EAFE2850, &unk_1F0E3B708);
       }
 
-      v17 = qword_1EAFE2870;
+      v16 = qword_1EAFE2870;
       if (os_log_type_enabled(qword_1EAFE2870, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_19B41C000, v17, OS_LOG_TYPE_ERROR, "App does not have NSMotionUsageDescription, do not vend relative altimeter", buf, 2u);
+        _os_log_impl(&dword_19B41C000, v16, OS_LOG_TYPE_ERROR, "App does not have NSMotionUsageDescription, do not vend relative altimeter", buf, 2u);
       }
 
-      v18 = sub_19B420058();
-      if ((*(v18 + 160) & 0x80000000) == 0 || (*(v18 + 164) & 0x80000000) == 0 || (*(v18 + 168) & 0x80000000) == 0 || *(v18 + 152))
+      v17 = sub_19B420058();
+      if ((*(v17 + 160) & 0x80000000) == 0 || (*(v17 + 164) & 0x80000000) == 0 || (*(v17 + 168) & 0x80000000) == 0 || *(v17 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE2850 != -1)
@@ -168,9 +168,10 @@
           dispatch_once(&qword_1EAFE2850, &unk_1F0E3B708);
         }
 
-        v21 = 0;
-        v19 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMAltimeter startRelativeAltitudeUpdatesToQueue:withHandler:]", "CoreLocation: %s\n", v19);
+        v21[0] = 0;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2870, 16, "App does not have NSMotionUsageDescription, do not vend relative altimeter", v21, 2);
+        v19 = v18;
+        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMAltimeter startRelativeAltitudeUpdatesToQueue:withHandler:]", "CoreLocation: %s\n", v18);
         if (v19 != buf)
         {
           free(v19);
@@ -190,8 +191,6 @@
       objc_msgSend_tccServiceMotionAccessWithBlock_(CMMotionUtils, v9, v20);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopRelativeAltitudeUpdates
@@ -206,15 +205,15 @@
         dispatch_once(&qword_1EAFE2850, &unk_1F0E3B708);
       }
 
-      v14 = qword_1EAFE2870;
+      v13 = qword_1EAFE2870;
       if (os_log_type_enabled(qword_1EAFE2870, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_19B41C000, v14, OS_LOG_TYPE_DEFAULT, "App does not have NSMotionUsageDescription, do not vend relative altimeter", buf, 2u);
+        _os_log_impl(&dword_19B41C000, v13, OS_LOG_TYPE_DEFAULT, "App does not have NSMotionUsageDescription, do not vend relative altimeter", buf, 2u);
       }
 
-      v15 = sub_19B420058();
-      if (*(v15 + 160) > 1 || *(v15 + 164) > 1 || *(v15 + 168) > 1 || *(v15 + 152))
+      v14 = sub_19B420058();
+      if (*(v14 + 160) > 1 || *(v14 + 164) > 1 || *(v14 + 168) > 1 || *(v14 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE2850 != -1)
@@ -222,9 +221,10 @@
           dispatch_once(&qword_1EAFE2850, &unk_1F0E3B708);
         }
 
-        v18 = 0;
-        v16 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMAltimeter stopRelativeAltitudeUpdates]", "CoreLocation: %s\n", v16);
+        v18[0] = 0;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2870, 0, "App does not have NSMotionUsageDescription, do not vend relative altimeter", v18, 2);
+        v16 = v15;
+        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMAltimeter stopRelativeAltitudeUpdates]", "CoreLocation: %s\n", v15);
         if (v16 != buf)
         {
           free(v16);
@@ -242,8 +242,6 @@
       objc_msgSend_tccServiceMotionAccessWithBlock_(CMMotionUtils, v6, v17);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startSignificantElevationUpdatesWithHandler:(id)handler
@@ -445,27 +443,27 @@ LABEL_8:
 {
   __p[205] = *MEMORY[0x1E69E9840];
   internal = self->_internal;
-  v5 = *(internal + 13);
+  v5 = internal[13];
   if (v5 >= 3)
   {
-    ++*(internal + 12);
-    *(internal + 13) = v5 - 1;
-    sub_19B420490((internal + 16), 1);
+    ++internal[12];
+    internal[13] = v5 - 1;
+    sub_19B420490((internal + 8), 1);
   }
 
-  sub_19B420408((internal + 16), &pressure->acceleration.x);
-  v6 = *(internal + 9);
-  if (*(internal + 10) == v6)
+  sub_19B420408(internal + 8, &pressure->acceleration.x);
+  v6 = internal[9];
+  if (internal[10] == v6)
   {
     memset(__p, 0, 24);
   }
 
   else
   {
-    v7 = *(internal + 12);
+    v7 = internal[12];
     v8 = (v7 >> 7) & 0x1FFFFFFFFFFFFF8;
     v9 = *(v6 + v8) + 4 * (v7 & 0x3FF);
-    v10 = *(internal + 13) + v7;
+    v10 = internal[13] + v7;
     v11 = (v10 >> 7) & 0x1FFFFFFFFFFFFF8;
     v12 = *(v6 + v11) + 4 * (v10 & 0x3FF);
     memset(__p, 0, 24);
@@ -481,32 +479,32 @@ LABEL_8:
   }
 
   v15 = sub_19B66BB08(0, 0);
-  internal[14] = v15;
-  if ((sub_19B421620() & 0x2000000000) == 0 && internal[14] <= 150.0)
+  *(internal + 14) = v15;
+  if ((sub_19B421620() & 0x2000000000) == 0 && *(internal + 14) <= 150.0)
   {
-    if ((internal[13] & 1) == 0)
+    if ((*(internal + 52) & 1) == 0)
     {
       *(internal + 52) = 1;
       *(internal + 2) = *&pressure->timestamp;
-      internal[12] = (1.0 - powf((v15 * 1000.0) / 101320.0, 0.19026)) * 44331.0;
+      *(internal + 12) = (1.0 - powf((v15 * 1000.0) / 101320.0, 0.19026)) * 44331.0;
     }
 
-    if (*(internal + 3) && *(internal + 2))
+    if (internal[3] && internal[2])
     {
       v16 = objc_autoreleasePoolPush();
       v17 = [CMAltitudeData alloc];
       *&v18 = v15 * 1000.0;
-      *&v19 = internal[12];
+      LODWORD(v19) = *(internal + 12);
       v22 = objc_msgSend_initWithAltitude_andTimestamp_atBaseAltitude_(v17, v20, v21, v18, pressure->timestamp, v19);
-      v24 = *(internal + 2);
-      v23 = *(internal + 3);
-      v56[0] = MEMORY[0x1E69E9820];
-      v56[1] = 3221225472;
-      v56[2] = sub_19B775C1C;
-      v56[3] = &unk_1E7532B90;
-      v56[4] = v22;
-      v56[5] = v24;
-      objc_msgSend_addOperationWithBlock_(v23, v25, v56);
+      v24 = internal[2];
+      v23 = internal[3];
+      v58[0] = MEMORY[0x1E69E9820];
+      v58[1] = 3221225472;
+      v58[2] = sub_19B775C1C;
+      v58[3] = &unk_1E7532B90;
+      v58[4] = v22;
+      v58[5] = v24;
+      objc_msgSend_addOperationWithBlock_(v23, v25, v58);
       if (qword_1ED71C820 != -1)
       {
         dispatch_once(&qword_1ED71C820, &unk_1F0E2A500);
@@ -536,74 +534,75 @@ LABEL_8:
           dispatch_once(&qword_1ED71C820, &unk_1F0E2A500);
         }
 
-        v43 = objc_msgSend_relativeAltitude(v22, v41, v42);
-        objc_msgSend_doubleValue(v43, v44, v45);
-        v47 = v46;
-        v50 = objc_msgSend_pressure(v22, v48, v49);
-        objc_msgSend_doubleValue(v50, v51, v52);
-        v57 = 134218240;
-        v58 = v47;
-        v59 = 2048;
-        v60 = v53;
-        v54 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMAltimeter onFilteredPressure:]", "CoreLocation: %s\n", v54);
-        if (v54 != __p)
+        v43 = off_1ED71C828;
+        v44 = objc_msgSend_relativeAltitude(v22, v41, v42);
+        objc_msgSend_doubleValue(v44, v45, v46);
+        v48 = v47;
+        v51 = objc_msgSend_pressure(v22, v49, v50);
+        objc_msgSend_doubleValue(v51, v52, v53);
+        v59 = 134218240;
+        v60 = v48;
+        v61 = 2048;
+        v62 = v54;
+        LODWORD(v57) = 22;
+        _os_log_send_and_compose_impl(2, 0, __p, 1628, &dword_19B41C000, v43, 2, "relativeAltitude,%f,pressure,%f", COERCE_DOUBLE(&v59), v57);
+        v56 = v55;
+        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMAltimeter onFilteredPressure:]", "CoreLocation: %s\n", v55);
+        if (v56 != __p)
         {
-          free(v54);
+          free(v56);
         }
       }
 
       objc_autoreleasePoolPop(v16);
     }
   }
-
-  v55 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)isAbsoluteAltitudeAvailable
 {
-  v8 = *MEMORY[0x1E69E9840];
-  if ((sub_19B423E34() & 0x10) != 0 && (sub_19B421798(), (sub_19B421620() & 0x10000000000000) != 0))
+  v9 = *MEMORY[0x1E69E9840];
+  if ((sub_19B423E34() & 0x10) != 0)
   {
-    result = 1;
+    sub_19B421798();
+    if ((sub_19B421620() & 0x10000000000000) != 0)
+    {
+      return 1;
+    }
   }
 
-  else
+  if (qword_1EAFE2850 != -1)
   {
+    dispatch_once(&qword_1EAFE2850, &unk_1F0E3B708);
+  }
+
+  v2 = qword_1EAFE2870;
+  if (os_log_type_enabled(qword_1EAFE2870, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_19B41C000, v2, OS_LOG_TYPE_DEFAULT, "altimeter not supported", buf, 2u);
+  }
+
+  v3 = sub_19B420058();
+  if (*(v3 + 160) > 1 || *(v3 + 164) > 1 || *(v3 + 168) > 1 || *(v3 + 152))
+  {
+    bzero(buf, 0x65CuLL);
     if (qword_1EAFE2850 != -1)
     {
       dispatch_once(&qword_1EAFE2850, &unk_1F0E3B708);
     }
 
-    v2 = qword_1EAFE2870;
-    if (os_log_type_enabled(qword_1EAFE2870, OS_LOG_TYPE_DEFAULT))
+    v7[0] = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2870, 0, "altimeter not supported", v7, 2);
+    v5 = v4;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "+[CMAltimeter isAbsoluteAltitudeAvailable]", "CoreLocation: %s\n", v4);
+    if (v5 != buf)
     {
-      *buf = 0;
-      _os_log_impl(&dword_19B41C000, v2, OS_LOG_TYPE_DEFAULT, "altimeter not supported", buf, 2u);
+      free(v5);
     }
-
-    v3 = sub_19B420058();
-    if (*(v3 + 160) > 1 || *(v3 + 164) > 1 || *(v3 + 168) > 1 || *(v3 + 152))
-    {
-      bzero(buf, 0x65CuLL);
-      if (qword_1EAFE2850 != -1)
-      {
-        dispatch_once(&qword_1EAFE2850, &unk_1F0E3B708);
-      }
-
-      v4 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "+[CMAltimeter isAbsoluteAltitudeAvailable]", "CoreLocation: %s\n", v4);
-      if (v4 != buf)
-      {
-        free(v4);
-      }
-    }
-
-    result = 0;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 - (void)startAbsoluteAltitudeUpdatesToQueue:(NSOperationQueue *)queue withHandler:(CMAbsoluteAltitudeHandler)handler
@@ -618,48 +617,48 @@ LABEL_8:
 
 + (BOOL)isCompanionRelativeElevationAvailable
 {
-  v8 = *MEMORY[0x1E69E9840];
-  if ((sub_19B423E34() & 0x10) != 0 && (sub_19B421798(), (sub_19B421620() & 0x10000000000000) != 0))
+  v9 = *MEMORY[0x1E69E9840];
+  if ((sub_19B423E34() & 0x10) != 0)
   {
-    result = 1;
+    sub_19B421798();
+    if ((sub_19B421620() & 0x10000000000000) != 0)
+    {
+      return 1;
+    }
   }
 
-  else
+  if (qword_1EAFE2850 != -1)
   {
+    dispatch_once(&qword_1EAFE2850, &unk_1F0E3B708);
+  }
+
+  v2 = qword_1EAFE2870;
+  if (os_log_type_enabled(qword_1EAFE2870, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_19B41C000, v2, OS_LOG_TYPE_ERROR, "altimeter not supported", buf, 2u);
+  }
+
+  v3 = sub_19B420058();
+  if ((*(v3 + 160) & 0x80000000) == 0 || (*(v3 + 164) & 0x80000000) == 0 || (*(v3 + 168) & 0x80000000) == 0 || *(v3 + 152))
+  {
+    bzero(buf, 0x65CuLL);
     if (qword_1EAFE2850 != -1)
     {
       dispatch_once(&qword_1EAFE2850, &unk_1F0E3B708);
     }
 
-    v2 = qword_1EAFE2870;
-    if (os_log_type_enabled(qword_1EAFE2870, OS_LOG_TYPE_ERROR))
+    v7[0] = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2870, 16, "altimeter not supported", v7, 2);
+    v5 = v4;
+    sub_19B6BB7CC("Generic", 1, 0, 0, "+[CMAltimeter isCompanionRelativeElevationAvailable]", "CoreLocation: %s\n", v4);
+    if (v5 != buf)
     {
-      *buf = 0;
-      _os_log_impl(&dword_19B41C000, v2, OS_LOG_TYPE_ERROR, "altimeter not supported", buf, 2u);
+      free(v5);
     }
-
-    v3 = sub_19B420058();
-    if ((*(v3 + 160) & 0x80000000) == 0 || (*(v3 + 164) & 0x80000000) == 0 || (*(v3 + 168) & 0x80000000) == 0 || *(v3 + 152))
-    {
-      bzero(buf, 0x65CuLL);
-      if (qword_1EAFE2850 != -1)
-      {
-        dispatch_once(&qword_1EAFE2850, &unk_1F0E3B708);
-      }
-
-      v4 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "+[CMAltimeter isCompanionRelativeElevationAvailable]", "CoreLocation: %s\n", v4);
-      if (v4 != buf)
-      {
-        free(v4);
-      }
-    }
-
-    result = 0;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 - (void)startCompanionRelativeElevationUpdatesToQueue:(id)queue withHandler:(id)handler

@@ -1,19 +1,20 @@
-id _CRKLogASM()
+id _CRKLogASM(uint64_t a1)
 {
   if (_CRKLogASM_onceToken_1 != -1)
   {
     _CRKLogASM_cold_1();
   }
 
-  v1 = _CRKLogASM_logObj_1;
+  v2 = _CRKLogASM_logObj_1;
 
-  return v1;
+  return v2;
 }
 
-void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x20u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x20u);
 }
 
 void sub_243556804(_Unwind_Exception *exception_object, int a2)
@@ -27,16 +28,16 @@ void sub_243556804(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-id _CRKLogASM_0()
+id _CRKLogASM_0(uint64_t a1)
 {
   if (_CRKLogASM_onceToken_2 != -1)
   {
     _CRKLogASM_cold_1_0();
   }
 
-  v1 = _CRKLogASM_logObj_2;
+  v2 = _CRKLogASM_logObj_2;
 
-  return v1;
+  return v2;
 }
 
 uint64_t CRKLogAddStateHandler(uint64_t a1, void *a2, void *a3)
@@ -55,94 +56,95 @@ _DWORD *__CRKLogAddStateHandler_block_invoke(uint64_t a1)
   v2 = (*(*(a1 + 40) + 16))();
   if (v2)
   {
-    v13 = 0;
-    v3 = [MEMORY[0x277CCAC58] dataWithPropertyList:v2 format:200 options:0 error:&v13];
-    v4 = v13;
+    v14 = 0;
+    v3 = [MEMORY[0x277CCAC58] dataWithPropertyList:v2 format:200 options:0 error:&v14];
+    v4 = v14;
+    v5 = v4;
     if (v4)
     {
-      v5 = _CRKLogGeneral();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = _CRKLogGeneral(v4);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        __CRKLogAddStateHandler_block_invoke_cold_1(v4, v5);
+        __CRKLogAddStateHandler_block_invoke_cold_1(v5, v6);
       }
 
-      v6 = 0;
+      v7 = 0;
     }
 
     else
     {
-      v7 = malloc_type_calloc(1uLL, [v3 length] + 200, 0x1000040BEF03554uLL);
-      v6 = v7;
-      if (!v7)
+      v8 = malloc_type_calloc(1uLL, [v3 length] + 200, 0x1000040BEF03554uLL);
+      v7 = v8;
+      if (!v8)
       {
 LABEL_15:
 
         goto LABEL_16;
       }
 
-      *v7 = 1;
-      v7[1] = [v3 length];
-      v8 = [*(a1 + 32) dataUsingEncoding:4];
-      v5 = v8;
-      if (v8)
+      *v8 = 1;
+      v8[1] = [v3 length];
+      v9 = [*(a1 + 32) dataUsingEncoding:4];
+      v6 = v9;
+      if (v9)
       {
-        v9 = [v8 bytes];
-        v10 = [v5 length];
-        if (v10 >= 0x3F)
+        v10 = [v9 bytes];
+        v11 = [v6 length];
+        if (v11 >= 0x3F)
         {
-          v11 = 63;
+          v12 = 63;
         }
 
         else
         {
-          v11 = v10;
+          v12 = v11;
         }
 
-        memcpy(v6 + 34, v9, v11);
+        memcpy(v7 + 34, v10, v12);
       }
 
-      memcpy(v6 + 50, [v3 bytes], objc_msgSend(v3, "length"));
+      memcpy(v7 + 50, [v3 bytes], objc_msgSend(v3, "length"));
     }
 
     goto LABEL_15;
   }
 
-  v6 = 0;
+  v7 = 0;
 LABEL_16:
 
-  return v6;
+  return v7;
 }
 
-id _CRKLogGeneral()
+id _CRKLogGeneral(uint64_t a1)
 {
   if (_CRKLogGeneral_onceToken != -1)
   {
     _CRKLogGeneral_cold_1();
   }
 
-  v1 = _CRKLogGeneral_logObj;
+  v2 = _CRKLogGeneral_logObj;
 
-  return v1;
+  return v2;
 }
 
 void CRTLog(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v9 = MEMORY[0x277CCACA8];
   v10 = a1;
   v11 = [[v9 alloc] initWithFormat:v10 arguments:&a9];
 
-  v12 = _CRKLogGeneral();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = _CRKLogGeneral(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v15 = v11;
-    _os_log_impl(&dword_243550000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
+    v16 = v11;
+    _os_log_impl(&dword_243550000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
   }
 
-  v13 = MEMORY[0x277D85E08];
+  v14 = MEMORY[0x277D85E08];
   fprintf(*MEMORY[0x277D85E08], "%s\n", [v11 UTF8String]);
-  fflush(*v13);
+  fflush(*v14);
 }
 
 void CRTLogError(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -151,55 +153,55 @@ void CRTLogError(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, u
   v10 = a1;
   v11 = [[v9 alloc] initWithFormat:v10 arguments:&a9];
 
-  v12 = _CRKLogGeneral();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  v13 = _CRKLogGeneral(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
-    CRTLogError_cold_1(v11, v12);
+    CRTLogError_cold_1(v11, v13);
   }
 
   fprintf(*MEMORY[0x277D85DF8], "%s\n", [v11 UTF8String]);
 }
 
-id _CRKLogASM_1()
+id _CRKLogASM_1(uint64_t a1)
 {
   if (_CRKLogASM_onceToken_3 != -1)
   {
     _CRKLogASM_cold_1_1();
   }
 
-  v1 = _CRKLogASM_logObj_3;
+  v2 = _CRKLogASM_logObj_3;
 
-  return v1;
+  return v2;
 }
 
-id _CRKLogASM_2()
+id _CRKLogASM_2(uint64_t a1)
 {
   if (_CRKLogASM_onceToken_4 != -1)
   {
     _CRKLogASM_cold_1_2();
   }
 
-  v1 = _CRKLogASM_logObj_4;
+  v2 = _CRKLogASM_logObj_4;
 
-  return v1;
+  return v2;
 }
 
-uint64_t OUTLINED_FUNCTION_1_1()
+uint64_t OUTLINED_FUNCTION_1_1(uint64_t a1, uint64_t a2)
 {
 
   return objc_opt_class();
 }
 
-id _CRKLogASM_3()
+id _CRKLogASM_3(uint64_t a1)
 {
   if (_CRKLogASM_onceToken_5 != -1)
   {
     _CRKLogASM_cold_1_3();
   }
 
-  v1 = _CRKLogASM_logObj_5;
+  v2 = _CRKLogASM_logObj_5;
 
-  return v1;
+  return v2;
 }
 
 void sub_24355AF8C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
@@ -209,22 +211,23 @@ void sub_24355AF8C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id _CRKLogGeneral_0()
+id _CRKLogGeneral_0(uint64_t a1)
 {
   if (_CRKLogGeneral_onceToken_0 != -1)
   {
     _CRKLogGeneral_cold_1_0();
   }
 
-  v1 = _CRKLogGeneral_logObj_0;
+  v2 = _CRKLogGeneral_logObj_0;
 
-  return v1;
+  return v2;
 }
 
-void OUTLINED_FUNCTION_0_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void __crk_tokenized_properties_block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -247,16 +250,16 @@ void __crk_tokenized_properties_block_invoke_0(uint64_t a1, void *a2, uint64_t a
   [*(a1 + 32) setObject:v7 atIndexedSubscript:a3];
 }
 
-id _CRKLogASM_4()
+id _CRKLogASM_4(uint64_t a1)
 {
   if (_CRKLogASM_onceToken_6 != -1)
   {
     _CRKLogASM_cold_1_4();
   }
 
-  v1 = _CRKLogASM_logObj_6;
+  v2 = _CRKLogASM_logObj_6;
 
-  return v1;
+  return v2;
 }
 
 uint64_t CRKIsClassroomBundleIdentifier(void *a1)
@@ -298,46 +301,47 @@ void __crk_tokenized_properties_block_invoke_2(uint64_t a1, void *a2, uint64_t a
   [*(a1 + 32) setObject:v7 atIndexedSubscript:a3];
 }
 
-id _CRKLogBluetooth()
+id _CRKLogBluetooth(uint64_t a1)
 {
   if (_CRKLogBluetooth_onceToken != -1)
   {
     _CRKLogBluetooth_cold_1();
   }
 
-  v1 = _CRKLogBluetooth_logObj;
+  v2 = _CRKLogBluetooth_logObj;
 
-  return v1;
+  return v2;
 }
 
-id _CRKLogASM_5()
+id _CRKLogASM_5(uint64_t a1)
 {
   if (_CRKLogASM_onceToken_7 != -1)
   {
     _CRKLogASM_cold_1_5();
   }
 
-  v1 = _CRKLogASM_logObj_7;
+  v2 = _CRKLogASM_logObj_7;
 
-  return v1;
+  return v2;
 }
 
-id _CRKLogASM_6()
+id _CRKLogASM_6(uint64_t a1)
 {
   if (_CRKLogASM_onceToken_8 != -1)
   {
     _CRKLogASM_cold_1_6();
   }
 
-  v1 = _CRKLogASM_logObj_8;
+  v2 = _CRKLogASM_logObj_8;
 
-  return v1;
+  return v2;
 }
 
-void OUTLINED_FUNCTION_2_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 id JSONStringRepresentation(uint64_t a1, unsigned int a2, int a3)
@@ -516,22 +520,23 @@ unint64_t CRKRectHash(CGFloat a1, CGFloat a2, CGFloat a3, CGFloat a4)
   return v8 ^ CGRectGetHeight(v10);
 }
 
-id _CRKLogGeneral_1()
+id _CRKLogGeneral_1(uint64_t a1)
 {
   if (_CRKLogGeneral_onceToken_5 != -1)
   {
     _CRKLogGeneral_cold_1_1();
   }
 
-  v1 = _CRKLogGeneral_logObj_5;
+  v2 = _CRKLogGeneral_logObj_5;
 
-  return v1;
+  return v2;
 }
 
-void OUTLINED_FUNCTION_1_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void __crk_tokenized_properties_block_invoke_5(uint64_t a1, void *a2, uint64_t a3)
@@ -564,52 +569,52 @@ void __crk_tokenized_properties_block_invoke_7(uint64_t a1, void *a2, uint64_t a
   [*(a1 + 32) setObject:v7 atIndexedSubscript:a3];
 }
 
-id _CRKLogASM_7()
+id _CRKLogASM_7(uint64_t a1)
 {
   if (_CRKLogASM_onceToken_13 != -1)
   {
     _CRKLogASM_cold_1_7();
   }
 
-  v1 = _CRKLogASM_logObj_13;
+  v2 = _CRKLogASM_logObj_13;
 
-  return v1;
+  return v2;
 }
 
-id _CRKLogSettings()
+id _CRKLogSettings(uint64_t a1)
 {
   if (_CRKLogSettings_onceToken != -1)
   {
     _CRKLogSettings_cold_1();
   }
 
-  v1 = _CRKLogSettings_logObj;
+  v2 = _CRKLogSettings_logObj;
 
-  return v1;
+  return v2;
 }
 
-id _CRKLogGeneral_2()
+id _CRKLogGeneral_2(uint64_t a1)
 {
   if (_CRKLogGeneral_onceToken_7 != -1)
   {
     _CRKLogGeneral_cold_1_2();
   }
 
-  v1 = _CRKLogGeneral_logObj_7;
+  v2 = _CRKLogGeneral_logObj_7;
 
-  return v1;
+  return v2;
 }
 
-id _CRKLogASM_8()
+id _CRKLogASM_8(uint64_t a1)
 {
   if (_CRKLogASM_onceToken_14 != -1)
   {
     _CRKLogASM_cold_1_8();
   }
 
-  v1 = _CRKLogASM_logObj_14;
+  v2 = _CRKLogASM_logObj_14;
 
-  return v1;
+  return v2;
 }
 
 void __crk_tokenized_properties_block_invoke_8(uint64_t a1, void *a2, uint64_t a3)
@@ -622,16 +627,16 @@ void __crk_tokenized_properties_block_invoke_8(uint64_t a1, void *a2, uint64_t a
   [*(a1 + 32) setObject:v7 atIndexedSubscript:a3];
 }
 
-id _CRKLogASM_9()
+id _CRKLogASM_9(uint64_t a1)
 {
   if (_CRKLogASM_onceToken_15 != -1)
   {
     _CRKLogASM_cold_1_9();
   }
 
-  v1 = _CRKLogASM_logObj_15;
+  v2 = _CRKLogASM_logObj_15;
 
-  return v1;
+  return v2;
 }
 
 void __crk_tokenized_properties_block_invoke_9(uint64_t a1, void *a2, uint64_t a3)
@@ -651,16 +656,16 @@ void sub_243584994(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id _CRKLogGeneral_3()
+id _CRKLogGeneral_3(uint64_t a1)
 {
   if (_CRKLogGeneral_onceToken_9 != -1)
   {
     _CRKLogGeneral_cold_1_3();
   }
 
-  v1 = _CRKLogGeneral_logObj_9;
+  v2 = _CRKLogGeneral_logObj_9;
 
-  return v1;
+  return v2;
 }
 
 void __crk_tokenized_properties_block_invoke_10(uint64_t a1, void *a2, uint64_t a3)
@@ -673,28 +678,30 @@ void __crk_tokenized_properties_block_invoke_10(uint64_t a1, void *a2, uint64_t 
   [*(a1 + 32) setObject:v7 atIndexedSubscript:a3];
 }
 
-id _CRKLogBluetooth_0()
+id _CRKLogBluetooth_0(uint64_t a1)
 {
   if (_CRKLogBluetooth_onceToken_0 != -1)
   {
     _CRKLogBluetooth_cold_1_0();
   }
 
-  v1 = _CRKLogBluetooth_logObj_0;
+  v2 = _CRKLogBluetooth_logObj_0;
 
-  return v1;
+  return v2;
 }
 
-void OUTLINED_FUNCTION_0_6(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_6(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_2_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 id extractErrorFromChange(void *a1, uint64_t a2)
@@ -756,16 +763,16 @@ LABEL_15:
   return v8;
 }
 
-id _CRKLogASM_10()
+id _CRKLogASM_10(uint64_t a1)
 {
   if (_CRKLogASM_onceToken_16 != -1)
   {
     _CRKLogASM_cold_1_10();
   }
 
-  v1 = _CRKLogASM_logObj_16;
+  v2 = _CRKLogASM_logObj_16;
 
-  return v1;
+  return v2;
 }
 
 id CRKLocalizedSwiftStringFromTable(void *a1, void *a2)
@@ -793,16 +800,16 @@ void sub_24358EBB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id _CRKLogSession()
+id _CRKLogSession(uint64_t a1)
 {
   if (_CRKLogSession_onceToken != -1)
   {
     _CRKLogSession_cold_1();
   }
 
-  v1 = _CRKLogSession_logObj;
+  v2 = _CRKLogSession_logObj;
 
-  return v1;
+  return v2;
 }
 
 void sub_243592D90(void *a1, int a2)
@@ -811,7 +818,7 @@ void sub_243592D90(void *a1, int a2)
   if (a2 == 2)
   {
     v4 = v3;
-    v5 = _CRKLogGeneral_4();
+    v5 = _CRKLogGeneral_4(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       +[(CRKMDMIdentityProvider *)v4];
@@ -824,16 +831,16 @@ void sub_243592D90(void *a1, int a2)
   JUMPOUT(0x243592D44);
 }
 
-id _CRKLogGeneral_4()
+id _CRKLogGeneral_4(uint64_t a1)
 {
   if (_CRKLogGeneral_onceToken_12 != -1)
   {
     _CRKLogGeneral_cold_1_4();
   }
 
-  v1 = _CRKLogGeneral_logObj_12;
+  v2 = _CRKLogGeneral_logObj_12;
 
-  return v1;
+  return v2;
 }
 
 void sub_2435932A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -857,47 +864,47 @@ void sub_24359416C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id _CRKLogASM_11()
+id _CRKLogASM_11(uint64_t a1)
 {
   if (_CRKLogASM_onceToken_18 != -1)
   {
     _CRKLogASM_cold_1_11();
   }
 
-  v1 = _CRKLogASM_logObj_18;
+  v2 = _CRKLogASM_logObj_18;
 
-  return v1;
+  return v2;
 }
 
-id _CRKLogASM_12()
+id _CRKLogASM_12(uint64_t a1)
 {
   if (_CRKLogASM_onceToken_19 != -1)
   {
     _CRKLogASM_cold_1_12();
   }
 
-  v1 = _CRKLogASM_logObj_19;
+  v2 = _CRKLogASM_logObj_19;
 
-  return v1;
+  return v2;
 }
 
-id _CRKLogBluetooth_1()
+id _CRKLogBluetooth_1(uint64_t a1)
 {
   if (_CRKLogBluetooth_onceToken_2 != -1)
   {
     _CRKLogBluetooth_cold_1_1();
   }
 
-  v1 = _CRKLogBluetooth_logObj_2;
+  v2 = _CRKLogBluetooth_logObj_2;
 
-  return v1;
+  return v2;
 }
 
-void sub_24359A6A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_24359A6A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 128), 8);
+  _Block_object_dispose((v20 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -946,16 +953,16 @@ uint64_t CRKIntegerCompare(uint64_t a1, uint64_t a2)
   }
 }
 
-id _CRKLogGeneral_5()
+id _CRKLogGeneral_5(uint64_t a1)
 {
   if (_CRKLogGeneral_onceToken_16 != -1)
   {
     _CRKLogGeneral_cold_1_5();
   }
 
-  v1 = _CRKLogGeneral_logObj_16;
+  v2 = _CRKLogGeneral_logObj_16;
 
-  return v1;
+  return v2;
 }
 
 void __crk_tokenized_properties_block_invoke_11(uint64_t a1, void *a2, uint64_t a3)
@@ -975,16 +982,16 @@ void sub_2435A16AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id _CRKLogGeneral_6()
+id _CRKLogGeneral_6(uint64_t a1)
 {
   if (_CRKLogGeneral_onceToken_17 != -1)
   {
     _CRKLogGeneral_cold_1_6();
   }
 
-  v1 = _CRKLogGeneral_logObj_17;
+  v2 = _CRKLogGeneral_logObj_17;
 
-  return v1;
+  return v2;
 }
 
 void sub_2435A1B58(_Unwind_Exception *a1)
@@ -1003,16 +1010,16 @@ void sub_2435A52A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id _CRKLogOperation()
+id _CRKLogOperation(uint64_t a1)
 {
   if (_CRKLogOperation_onceToken != -1)
   {
     _CRKLogOperation_cold_1();
   }
 
-  v1 = _CRKLogOperation_logObj;
+  v2 = _CRKLogOperation_logObj;
 
-  return v1;
+  return v2;
 }
 
 void sub_2435AE260(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -1022,16 +1029,16 @@ void sub_2435AE260(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id _CRKLogGeneral_7()
+id _CRKLogGeneral_7(uint64_t a1)
 {
   if (_CRKLogGeneral_onceToken_22 != -1)
   {
     _CRKLogGeneral_cold_1_7();
   }
 
-  v1 = _CRKLogGeneral_logObj_22;
+  v2 = _CRKLogGeneral_logObj_22;
 
-  return v1;
+  return v2;
 }
 
 void sub_2435AE4EC(_Unwind_Exception *a1)
@@ -1064,76 +1071,76 @@ void sub_2435AFE0C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id _CRKLogSettings_0()
+id _CRKLogSettings_0(uint64_t a1)
 {
   if (_CRKLogSettings_onceToken_0 != -1)
   {
     _CRKLogSettings_cold_1_0();
   }
 
-  v1 = _CRKLogSettings_logObj_0;
+  v2 = _CRKLogSettings_logObj_0;
 
-  return v1;
+  return v2;
 }
 
-id _CRKLogOperation_0()
+id _CRKLogOperation_0(uint64_t a1)
 {
   if (_CRKLogOperation_onceToken_0 != -1)
   {
     _CRKLogOperation_cold_1_0();
   }
 
-  v1 = _CRKLogOperation_logObj_0;
+  v2 = _CRKLogOperation_logObj_0;
 
-  return v1;
+  return v2;
 }
 
-id _CRKLogGeneral_8()
+id _CRKLogGeneral_8(uint64_t a1)
 {
   if (_CRKLogGeneral_onceToken_23 != -1)
   {
     _CRKLogGeneral_cold_1_8();
   }
 
-  v1 = _CRKLogGeneral_logObj_23;
+  v2 = _CRKLogGeneral_logObj_23;
 
-  return v1;
+  return v2;
 }
 
-id _CRKLogOperation_1()
+id _CRKLogOperation_1(uint64_t a1)
 {
   if (_CRKLogOperation_onceToken_1 != -1)
   {
     _CRKLogOperation_cold_1_1();
   }
 
-  v1 = _CRKLogOperation_logObj_1;
+  v2 = _CRKLogOperation_logObj_1;
 
-  return v1;
+  return v2;
 }
 
-id _CRKLogGeneral_9()
+id _CRKLogGeneral_9(uint64_t a1)
 {
   if (_CRKLogGeneral_onceToken_24 != -1)
   {
     _CRKLogGeneral_cold_1_9();
   }
 
-  v1 = _CRKLogGeneral_logObj_24;
+  v2 = _CRKLogGeneral_logObj_24;
 
-  return v1;
+  return v2;
 }
 
-id _CRKLogASM_13()
+id _CRKLogASM_13(uint64_t a1)
 {
   if (_CRKLogASM_onceToken_20 != -1)
   {
     _CRKLogASM_cold_1_13();
   }
 
-  v1 = _CRKLogASM_logObj_20;
+  v2 = _CRKLogASM_logObj_20;
 
-  return v1;
+  return v2;
 }
 
 void sub_2435B7208(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
@@ -1143,16 +1150,16 @@ void sub_2435B7208(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id _CRKLogASM_14()
+id _CRKLogASM_14(uint64_t a1)
 {
   if (_CRKLogASM_onceToken_21 != -1)
   {
     _CRKLogASM_cold_1_14();
   }
 
-  v1 = _CRKLogASM_logObj_21;
+  v2 = _CRKLogASM_logObj_21;
 
-  return v1;
+  return v2;
 }
 
 void sub_2435B8500(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -1162,16 +1169,16 @@ void sub_2435B8500(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id _CRKLogASM_15()
+id _CRKLogASM_15(uint64_t a1)
 {
   if (_CRKLogASM_onceToken_22 != -1)
   {
     _CRKLogASM_cold_1_15();
   }
 
-  v1 = _CRKLogASM_logObj_22;
+  v2 = _CRKLogASM_logObj_22;
 
-  return v1;
+  return v2;
 }
 
 void sub_2435B9ED8(_Unwind_Exception *a1)
@@ -1182,9 +1189,9 @@ void sub_2435B9ED8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2435BAC1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2435BAC1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1196,28 +1203,28 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-id _CRKLogGeneral_10()
+id _CRKLogGeneral_10(uint64_t a1)
 {
   if (_CRKLogGeneral_onceToken_26 != -1)
   {
     _CRKLogGeneral_cold_1_10();
   }
 
-  v1 = _CRKLogGeneral_logObj_26;
+  v2 = _CRKLogGeneral_logObj_26;
 
-  return v1;
+  return v2;
 }
 
-id _CRKLogGeneral_11()
+id _CRKLogGeneral_11(uint64_t a1)
 {
   if (_CRKLogGeneral_onceToken_27 != -1)
   {
     _CRKLogGeneral_cold_1_11();
   }
 
-  v1 = _CRKLogGeneral_logObj_27;
+  v2 = _CRKLogGeneral_logObj_27;
 
-  return v1;
+  return v2;
 }
 
 void __crk_tokenized_properties_block_invoke_12(uint64_t a1, void *a2, uint64_t a3)
@@ -1250,40 +1257,40 @@ void __crk_tokenized_properties_block_invoke_14(uint64_t a1, void *a2, uint64_t 
   [*(a1 + 32) setObject:v7 atIndexedSubscript:a3];
 }
 
-id _CRKLogBluetooth_2()
+id _CRKLogBluetooth_2(uint64_t a1)
 {
   if (_CRKLogBluetooth_onceToken_3 != -1)
   {
     _CRKLogBluetooth_cold_1_2();
   }
 
-  v1 = _CRKLogBluetooth_logObj_3;
+  v2 = _CRKLogBluetooth_logObj_3;
 
-  return v1;
+  return v2;
 }
 
-id _CRKLogASM_16()
+id _CRKLogASM_16(uint64_t a1)
 {
   if (_CRKLogASM_onceToken_23 != -1)
   {
     _CRKLogASM_cold_1_16();
   }
 
-  v1 = _CRKLogASM_logObj_23;
+  v2 = _CRKLogASM_logObj_23;
 
-  return v1;
+  return v2;
 }
 
-id _CRKLogSession_0()
+id _CRKLogSession_0(uint64_t a1)
 {
   if (_CRKLogSession_onceToken_0 != -1)
   {
     _CRKLogSession_cold_1_0();
   }
 
-  v1 = _CRKLogSession_logObj_0;
+  v2 = _CRKLogSession_logObj_0;
 
-  return v1;
+  return v2;
 }
 
 void sub_2435C305C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location)
@@ -1299,21 +1306,21 @@ void OUTLINED_FUNCTION_2_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, 
   _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, a5, 0x20u);
 }
 
-id _CRKLogGeneral_12()
+id _CRKLogGeneral_12(uint64_t a1)
 {
   if (_CRKLogGeneral_onceToken_28 != -1)
   {
     _CRKLogGeneral_cold_1_12();
   }
 
-  v1 = _CRKLogGeneral_logObj_28;
+  v2 = _CRKLogGeneral_logObj_28;
 
-  return v1;
+  return v2;
 }
 
-void sub_2435C491C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_2435C491C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1325,16 +1332,16 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-id _CRKLogASM_17()
+id _CRKLogASM_17(uint64_t a1)
 {
   if (_CRKLogASM_onceToken_24 != -1)
   {
     _CRKLogASM_cold_1_17();
   }
 
-  v1 = _CRKLogASM_logObj_24;
+  v2 = _CRKLogASM_logObj_24;
 
-  return v1;
+  return v2;
 }
 
 void __crk_tokenized_properties_block_invoke_15(uint64_t a1, void *a2, uint64_t a3)
@@ -1357,16 +1364,16 @@ void __crk_tokenized_properties_block_invoke_16(uint64_t a1, void *a2, uint64_t 
   [*(a1 + 32) setObject:v7 atIndexedSubscript:a3];
 }
 
-id _CRKLogGeneral_13()
+id _CRKLogGeneral_13(uint64_t a1)
 {
   if (_CRKLogGeneral_onceToken_29 != -1)
   {
     _CRKLogGeneral_cold_1_13();
   }
 
-  v1 = _CRKLogGeneral_logObj_29;
+  v2 = _CRKLogGeneral_logObj_29;
 
-  return v1;
+  return v2;
 }
 
 __CFString *NSStringFromCRKBookType(unint64_t a1)
@@ -1395,23 +1402,21 @@ __CFString *CRKStringForConfigurationType(unint64_t a1)
   }
 }
 
-id CRKFoundationClasses()
+id CRKFoundationClasses(uint64_t a1)
 {
   if (CRKFoundationClasses_onceToken != -1)
   {
     CRKFoundationClasses_cold_1();
   }
 
-  v1 = CRKFoundationClasses_result;
+  v2 = CRKFoundationClasses_result;
 
-  return v1;
+  return v2;
 }
 
-uint64_t __CRKFoundationClasses_block_invoke()
+uint64_t __CRKFoundationClasses_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v11 = MEMORY[0x277CBEB98];
-  v0 = objc_opt_class();
-  v1 = objc_opt_class();
+  v13 = MEMORY[0x277CBEB98];
   v2 = objc_opt_class();
   v3 = objc_opt_class();
   v4 = objc_opt_class();
@@ -1420,45 +1425,47 @@ uint64_t __CRKFoundationClasses_block_invoke()
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
-  CRKFoundationClasses_result = [v11 setWithObjects:{v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, objc_opt_class(), 0}];
+  v10 = objc_opt_class();
+  v11 = objc_opt_class();
+  CRKFoundationClasses_result = [v13 setWithObjects:{v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, objc_opt_class(), 0}];
 
   return MEMORY[0x2821F96F8]();
 }
 
-id _CRKLogASM_18()
+id _CRKLogASM_18(uint64_t a1)
 {
   if (_CRKLogASM_onceToken_27 != -1)
   {
     _CRKLogASM_cold_1_18();
   }
 
-  v1 = _CRKLogASM_logObj_27;
+  v2 = _CRKLogASM_logObj_27;
 
-  return v1;
+  return v2;
 }
 
-id _CRKLogGeneral_14()
+id _CRKLogGeneral_14(uint64_t a1)
 {
   if (_CRKLogGeneral_onceToken_30 != -1)
   {
     _CRKLogGeneral_cold_1_14();
   }
 
-  v1 = _CRKLogGeneral_logObj_30;
+  v2 = _CRKLogGeneral_logObj_30;
 
-  return v1;
+  return v2;
 }
 
-id _CRKLogASM_19()
+id _CRKLogASM_19(uint64_t a1)
 {
   if (_CRKLogASM_onceToken_28 != -1)
   {
     _CRKLogASM_cold_1_19();
   }
 
-  v1 = _CRKLogASM_logObj_28;
+  v2 = _CRKLogASM_logObj_28;
 
-  return v1;
+  return v2;
 }
 
 __CFString *NSStringFromCRKIDSAccountStateSummary(unint64_t a1)
@@ -1491,10 +1498,10 @@ void _BOMCopierDidGenerateFatalError(uint64_t a1, uint64_t a2)
   v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:a2];
   v6 = [v4 errorFromBOMCopierStatus:1 message:v5];
 
-  v7 = _CRKLogOperation_2();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = _CRKLogOperation_2(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    _BOMCopierDidGenerateFatalError_cold_1(v3, v6, v7);
+    _BOMCopierDidGenerateFatalError_cold_1(v3, v6, v8);
   }
 
   [v3 setStashedError:v6];
@@ -1505,7 +1512,7 @@ void _BOMCopierDidGenerateFatalFileError(uint64_t a1, uint64_t a2, int a3)
   v16 = *MEMORY[0x277D85DE8];
   v5 = BOMCopierUserData();
   v6 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:a3 userInfo:0];
-  v7 = _CRKLogOperation_2();
+  v7 = _CRKLogOperation_2(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:a2];
@@ -1527,7 +1534,7 @@ uint64_t _BOMCopierDidGenerateFileError(uint64_t a1, uint64_t a2, int a3)
   v17 = *MEMORY[0x277D85DE8];
   v5 = BOMCopierUserData();
   v6 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:a3 userInfo:0];
-  v7 = _CRKLogOperation_2();
+  v7 = _CRKLogOperation_2(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:a2];
@@ -1549,7 +1556,7 @@ uint64_t _BOMCopierDidGenerateFileConflictError(uint64_t a1, uint64_t a2)
 {
   v22 = *MEMORY[0x277D85DE8];
   v3 = BOMCopierUserData();
-  v4 = _CRKLogOperation_2();
+  v4 = _CRKLogOperation_2(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:a2];
@@ -1573,8 +1580,7 @@ uint64_t _BOMCopierDidGenerateFileConflictError(uint64_t a1, uint64_t a2)
 
   else
   {
-    [v3 setStashedError:v9];
-    v11 = _CRKLogOperation_2();
+    v11 = _CRKLogOperation_2([v3 setStashedError:v9]);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:a2];
@@ -1594,28 +1600,28 @@ uint64_t _BOMCopierDidGenerateFileConflictError(uint64_t a1, uint64_t a2)
   return v10;
 }
 
-id _CRKLogOperation_2()
+id _CRKLogOperation_2(uint64_t a1)
 {
   if (_CRKLogOperation_onceToken_2 != -1)
   {
     _CRKLogOperation_cold_1_2();
   }
 
-  v1 = _CRKLogOperation_logObj_2;
+  v2 = _CRKLogOperation_logObj_2;
 
-  return v1;
+  return v2;
 }
 
-id _CRKLogGeneral_15()
+id _CRKLogGeneral_15(uint64_t a1)
 {
   if (_CRKLogGeneral_onceToken_32 != -1)
   {
     _CRKLogGeneral_cold_1_15();
   }
 
-  v1 = _CRKLogGeneral_logObj_32;
+  v2 = _CRKLogGeneral_logObj_32;
 
-  return v1;
+  return v2;
 }
 
 void __crk_tokenized_properties_block_invoke_18(uint64_t a1, void *a2, uint64_t a3)
@@ -1628,16 +1634,16 @@ void __crk_tokenized_properties_block_invoke_18(uint64_t a1, void *a2, uint64_t 
   [*(a1 + 32) setObject:v7 atIndexedSubscript:a3];
 }
 
-void sub_2435D5B6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2435D5B6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2435D7C7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2435D7C7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1658,23 +1664,23 @@ void sub_2435D7E74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id _CRKLogGeneral_16()
+id _CRKLogGeneral_16(uint64_t a1)
 {
   if (_CRKLogGeneral_onceToken_35 != -1)
   {
     _CRKLogGeneral_cold_1_16();
   }
 
-  v1 = _CRKLogGeneral_logObj_35;
+  v2 = _CRKLogGeneral_logObj_35;
 
-  return v1;
+  return v2;
 }
 
-void sub_2435D8F00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2435D8F00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1685,40 +1691,40 @@ uint64_t __Block_byref_object_copy__3(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2435D9118(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2435D9118(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id _CRKLogGeneral_17()
+id _CRKLogGeneral_17(uint64_t a1)
 {
   if (_CRKLogGeneral_onceToken_36 != -1)
   {
     _CRKLogGeneral_cold_1_17();
   }
 
-  v1 = _CRKLogGeneral_logObj_36;
+  v2 = _CRKLogGeneral_logObj_36;
 
-  return v1;
+  return v2;
 }
 
-id _CRKLogGeneral_18()
+id _CRKLogGeneral_18(uint64_t a1)
 {
   if (_CRKLogGeneral_onceToken_37 != -1)
   {
     _CRKLogGeneral_cold_1_18();
   }
 
-  v1 = _CRKLogGeneral_logObj_37;
+  v2 = _CRKLogGeneral_logObj_37;
 
-  return v1;
+  return v2;
 }
 
-void sub_2435E4048(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2435E4048(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2834,7 +2840,7 @@ LABEL_253:
   return v160;
 }
 
-uint64_t __CRKErrorWithCodeAndUserInfo_block_invoke()
+uint64_t __CRKErrorWithCodeAndUserInfo_block_invoke(uint64_t a1, uint64_t a2)
 {
   CRKErrorWithCodeAndUserInfo_bundle = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
 
@@ -2853,16 +2859,16 @@ void __CRKErrorWithCodeAndUserInfo_block_invoke_2(uint64_t a1, void *a2, void *a
   }
 }
 
-id _CRKLogGeneral_19()
+id _CRKLogGeneral_19(uint64_t a1)
 {
   if (_CRKLogGeneral_onceToken_39 != -1)
   {
     _CRKLogGeneral_cold_1_19();
   }
 
-  v1 = _CRKLogGeneral_logObj_39;
+  v2 = _CRKLogGeneral_logObj_39;
 
-  return v1;
+  return v2;
 }
 
 void sub_2435E7B38(_Unwind_Exception *a1)
@@ -2879,46 +2885,53 @@ void sub_2435E9344(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id _CRKLogGeneral_20()
+id _CRKLogGeneral_20(uint64_t a1)
 {
   if (_CRKLogGeneral_onceToken_40 != -1)
   {
     _CRKLogGeneral_cold_1_20();
   }
 
-  v1 = _CRKLogGeneral_logObj_40;
+  v2 = _CRKLogGeneral_logObj_40;
 
-  return v1;
+  return v2;
 }
 
-id _CRKLogGeneral_21()
+id _CRKLogGeneral_21(uint64_t a1)
 {
   if (_CRKLogGeneral_onceToken_41 != -1)
   {
     _CRKLogGeneral_cold_1_21();
   }
 
-  v1 = _CRKLogGeneral_logObj_41;
+  v2 = _CRKLogGeneral_logObj_41;
 
-  return v1;
+  return v2;
 }
 
-id _CRKLogGeneral_22()
+id _CRKLogGeneral_22(uint64_t a1)
 {
   if (_CRKLogGeneral_onceToken_44 != -1)
   {
     _CRKLogGeneral_cold_1_22();
   }
 
-  v1 = _CRKLogGeneral_logObj_44;
+  v2 = _CRKLogGeneral_logObj_44;
 
-  return v1;
+  return v2;
 }
 
 void sub_2435F3704(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
 {
   objc_destroyWeak((v14 + 32));
   objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_2435F42A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -2929,16 +2942,16 @@ uint64_t __Block_byref_object_copy__5(uint64_t result, uint64_t a2)
   return result;
 }
 
-id _CRKLogGeneral_23()
+id _CRKLogGeneral_23(uint64_t a1)
 {
   if (_CRKLogGeneral_onceToken_47 != -1)
   {
     _CRKLogGeneral_cold_1_23();
   }
 
-  v1 = _CRKLogGeneral_logObj_47;
+  v2 = _CRKLogGeneral_logObj_47;
 
-  return v1;
+  return v2;
 }
 
 void __CRKLogAddStateHandler_block_invoke_cold_1(uint64_t a1, NSObject *a2)

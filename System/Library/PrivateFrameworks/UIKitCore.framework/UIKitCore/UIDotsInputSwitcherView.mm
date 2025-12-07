@@ -116,9 +116,9 @@ id __81__UIDotsInputSwitcherView_contextMenuInteraction_configurationForMenuAtLo
   v5 = v4;
   if (v4)
   {
-    [v4 _preferredAnchor];
+    objc_msgSend__preferredAnchor(v4);
     v6 = v17;
-    [v5 _preferredAnchor];
+    objc_msgSend__preferredAnchor(v5);
     v7 = *(&v14 + 1);
   }
 

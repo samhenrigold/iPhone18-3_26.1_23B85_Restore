@@ -10,7 +10,7 @@
   [mainScreen nativeBounds];
   v4 = v3;
   mainScreen2 = [self mainScreen];
-  [mainScreen2 scale];
+  objc_msgSend_scale(mainScreen2);
   v7 = [HKScreenHeightSizeClassUtilities screenHeightSizeClassForHeight:v4 scale:v6];
 
   return v7;

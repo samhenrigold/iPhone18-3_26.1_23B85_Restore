@@ -1,5 +1,4 @@
 @interface (String,
-- (uint64_t)ReplayData);
 - (unint64_t)ReplayData);
 @end
 
@@ -17,13 +16,6 @@
   }
 
   return v2;
-}
-
-- (uint64_t)ReplayData)
-{
-  v1 = *self;
-
-  return self;
 }
 
 @end

@@ -91,7 +91,7 @@ LABEL_15:
 
 + (id)observedDataTypesForAllWorkoutActivities
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E695DFA8]);
   v3 = [HKObjectType quantityTypeForIdentifier:@"HKQuantityTypeIdentifierHeartRate"];
   v4 = [HKObjectType quantityTypeForIdentifier:@"HKQuantityTypeIdentifierAppleMoveTime"];
@@ -116,26 +116,26 @@ LABEL_15:
   v12 = +[HKWorkoutUtilities _calorieAndEffortTypes];
   [v6 addObjectsFromArray:v12];
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v13 = +[HKWorkout _allWorkoutActivityTypes];
-  v14 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v24;
+    v16 = *v23;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v24 != v16)
+        if (*v23 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        unsignedIntegerValue = [*(*(&v23 + 1) + 8 * i) unsignedIntegerValue];
+        unsignedIntegerValue = [*(*(&v22 + 1) + 8 * i) unsignedIntegerValue];
         v19 = [HKWorkoutUtilities speedTypeForActivityType:unsignedIntegerValue];
         v20 = [HKWorkoutUtilities distanceTypeForActivityType:unsignedIntegerValue];
         if (v19)
@@ -149,13 +149,11 @@ LABEL_15:
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v15);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -485,16 +483,15 @@ LABEL_12:
 
 + (BOOL)isFirstPartyForIdentifier:(id)identifier
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v8 = @"com.apple.Fitness";
-  v9 = @"com.apple.SessionTrackerApp";
-  v10 = @"com.apple.Health";
+  v10 = *MEMORY[0x1E69E9840];
+  v7 = @"com.apple.Fitness";
+  v8 = @"com.apple.SessionTrackerApp";
+  v9 = @"com.apple.Health";
   v3 = MEMORY[0x1E695DEC8];
   identifierCopy = identifier;
-  v5 = [v3 arrayWithObjects:&v8 count:3];
-  LOBYTE(v3) = [v5 containsObject:{identifierCopy, v8, v9, v10, v11}];
+  v5 = [v3 arrayWithObjects:&v7 count:3];
+  LOBYTE(v3) = [v5 containsObject:{identifierCopy, v7, v8, v9, v10}];
 
-  v6 = *MEMORY[0x1E69E9840];
   return v3;
 }
 

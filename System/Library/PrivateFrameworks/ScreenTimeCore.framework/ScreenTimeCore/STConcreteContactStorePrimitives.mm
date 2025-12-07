@@ -10,7 +10,7 @@
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    sub_1001123E8();
+    sub_1001123E8(memberCopy);
   }
 
   v4 = memberCopy;

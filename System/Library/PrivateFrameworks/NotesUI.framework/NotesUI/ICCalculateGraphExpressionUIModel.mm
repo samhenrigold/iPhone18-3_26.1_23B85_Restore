@@ -51,8 +51,8 @@
   else
   {
     v18 = v16 - v15;
+    v19 = *MEMORY[0x1E69DB650];
     v33[0] = *MEMORY[0x1E69DB650];
-    v19 = v33[0];
     labelColor = [(ICCalculateGraphExpressionUIModel *)self labelColor];
     v34[0] = labelColor;
     v33[1] = *MEMORY[0x1E69B7960];
@@ -64,7 +64,7 @@
     v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:3];
 
     [v10 addAttributes:v23 range:{0, v18}];
-    v24 = [v6 objectForKeyedSubscript:v19];
+    v24 = objc_msgSend_objectForKeyedSubscript_(v6);
     v25 = v24;
     if (v24)
     {

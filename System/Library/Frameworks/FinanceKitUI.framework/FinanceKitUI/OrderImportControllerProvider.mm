@@ -10,9 +10,8 @@
 {
   v6 = sub_23875B940();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_23875ED50();
   sub_23875ED40();
   sub_23875ECE0();
@@ -21,17 +20,17 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  v11 = _Block_copy(competion);
+  v10 = _Block_copy(competion);
   sub_23875B8B0();
-  v12 = swift_allocObject();
-  *(v12 + 16) = v11;
-  v13 = sub_23875B950();
-  v15 = v14;
-  v17 = sub_238755270(v13, v14, sub_238756A74, v12);
-  sub_23844C954(v13, v15);
-  (*(v7 + 8))(v10, v6);
+  v11 = swift_allocObject();
+  *(v11 + 16) = v10;
+  v12 = sub_23875B950();
+  v14 = v13;
+  v16 = sub_238755270(v12, v13, sub_238756A74, v11);
+  sub_23844C954(v12, v14);
+  (*(v7 + 8))(v9, v6);
 
-  return v17;
+  return v16;
 }
 
 + (id)makeViewControllerWithOrderData:(id)data competion:(id)competion error:(id *)error

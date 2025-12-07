@@ -50,7 +50,7 @@ void __29__HMITaskService_taskService__block_invoke(uint64_t a1)
 + (id)taskServiceClient
 {
   v3 = +[HMIPreference sharedInstance];
-  v4 = [v3 BOOLPreferenceForKey:@"taskServiceRunLocally" defaultValue:0];
+  v4 = [v3 BOOLPreferenceForKey:? defaultValue:?];
 
   v7[0] = MEMORY[0x277D85DD0];
   v7[1] = 3221225472;
@@ -110,18 +110,17 @@ void __35__HMITaskService_taskServiceClient__block_invoke(uint64_t a1)
 
 + (id)allowedClasses
 {
-  v6[8] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v6[0] = objc_opt_class();
-  v6[1] = objc_opt_class();
-  v6[2] = objc_opt_class();
-  v6[3] = objc_opt_class();
-  v6[4] = objc_opt_class();
-  v6[5] = objc_opt_class();
-  v6[6] = objc_opt_class();
-  v6[7] = objc_opt_class();
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:8];
-  v4 = [v2 setWithArray:v3];
+  objc_opt_class();
+  objc_opt_class();
+  objc_opt_class();
+  objc_opt_class();
+  objc_opt_class();
+  objc_opt_class();
+  objc_opt_class();
+  objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+  v4 = [v2 setWithArray:?];
 
   return v4;
 }
@@ -139,27 +138,25 @@ void __35__HMITaskService_taskServiceClient__block_invoke(uint64_t a1)
   handlerCopy = handler;
   completionHandlerCopy = completionHandler;
   v11 = MEMORY[0x277CBEAD8];
-  v12 = *MEMORY[0x277CBE658];
-  v13 = MEMORY[0x277CCACA8];
-  v14 = NSStringFromSelector(a2);
-  v15 = [v13 stringWithFormat:@"You must override %@ in a subclass", v14];
-  v16 = [v11 exceptionWithName:v12 reason:v15 userInfo:0];
-  v17 = v16;
+  v12 = MEMORY[0x277CCACA8];
+  v13 = NSStringFromSelector(a2);
+  v14 = [v12 stringWithFormat:v13];
+  v15 = [v11 exceptionWithName:? reason:? userInfo:?];
+  v16 = v15;
 
-  objc_exception_throw(v16);
+  objc_exception_throw(v15);
 }
 
 - (BOOL)cancelTask:(int)task
 {
   v3 = MEMORY[0x277CBEAD8];
-  v4 = *MEMORY[0x277CBE658];
-  v5 = MEMORY[0x277CCACA8];
-  v6 = NSStringFromSelector(a2);
-  v7 = [v5 stringWithFormat:@"You must override %@ in a subclass", v6];
-  v8 = [v3 exceptionWithName:v4 reason:v7 userInfo:0];
-  v9 = v8;
+  v4 = MEMORY[0x277CCACA8];
+  v5 = NSStringFromSelector(a2);
+  v6 = [v4 stringWithFormat:v5];
+  v7 = [v3 exceptionWithName:? reason:? userInfo:?];
+  v8 = v7;
 
-  objc_exception_throw(v8);
+  objc_exception_throw(v7);
 }
 
 - (int)submitTask:(id)task progressHandler:(id)handler completionHander:(id)hander
@@ -168,14 +165,13 @@ void __35__HMITaskService_taskServiceClient__block_invoke(uint64_t a1)
   handlerCopy = handler;
   handerCopy = hander;
   v11 = MEMORY[0x277CBEAD8];
-  v12 = *MEMORY[0x277CBE658];
-  v13 = MEMORY[0x277CCACA8];
-  v14 = NSStringFromSelector(a2);
-  v15 = [v13 stringWithFormat:@"You must override %@ in a subclass", v14];
-  v16 = [v11 exceptionWithName:v12 reason:v15 userInfo:0];
-  v17 = v16;
+  v12 = MEMORY[0x277CCACA8];
+  v13 = NSStringFromSelector(a2);
+  v14 = [v12 stringWithFormat:v13];
+  v15 = [v11 exceptionWithName:? reason:? userInfo:?];
+  v16 = v15;
 
-  objc_exception_throw(v16);
+  objc_exception_throw(v15);
 }
 
 @end

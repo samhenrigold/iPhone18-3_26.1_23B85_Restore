@@ -81,7 +81,7 @@ uint64_t __39__ProgressTargetHandler_sharedInstance__block_invoke(uint64_t a1)
 
 void __43__ProgressTargetHandler_configureInstance___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (v4 && MEMORY[0x238389170](v4) == MEMORY[0x277D86498])
@@ -97,8 +97,8 @@ void __43__ProgressTargetHandler_configureInstance___block_invoke(uint64_t a1, u
         goto LABEL_12;
       }
 
-      v14 = 134217984;
-      v15 = v11;
+      v13 = 134217984;
+      v14 = v11;
       v7 = "Progress Target: got a 0 or negative value for new regular margin msecs (%lld), using default";
     }
 
@@ -111,8 +111,8 @@ void __43__ProgressTargetHandler_configureInstance___block_invoke(uint64_t a1, u
         goto LABEL_12;
       }
 
-      v14 = 134217984;
-      v15 = v11;
+      v13 = 134217984;
+      v14 = v11;
       v7 = "Progress Target: set to new regular margin msecs (%lld)";
     }
 
@@ -125,22 +125,20 @@ void __43__ProgressTargetHandler_configureInstance___block_invoke(uint64_t a1, u
   v6 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v14) = 0;
+    LOWORD(v13) = 0;
     v7 = "Progress Target: got a nil for new regular margin msecs, using default";
     v8 = v6;
     v9 = 2;
 LABEL_11:
-    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, v7, &v14, v9);
+    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, v7, &v13, v9);
   }
 
 LABEL_12:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __43__ProgressTargetHandler_configureInstance___block_invoke_53(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (v4 && MEMORY[0x238389170](v4) == MEMORY[0x277D86498])
@@ -156,8 +154,8 @@ void __43__ProgressTargetHandler_configureInstance___block_invoke_53(uint64_t a1
         goto LABEL_12;
       }
 
-      v14 = 134217984;
-      v15 = v11;
+      v13 = 134217984;
+      v14 = v11;
       v7 = "Progress Target: got a 0 or negative value for new expedited margin msecs (%lld), ignoring";
     }
 
@@ -170,8 +168,8 @@ void __43__ProgressTargetHandler_configureInstance___block_invoke_53(uint64_t a1
         goto LABEL_12;
       }
 
-      v14 = 134217984;
-      v15 = v11;
+      v13 = 134217984;
+      v14 = v11;
       v7 = "Progress Target: set to new expedited margin msecs (%lld)";
     }
 
@@ -184,30 +182,28 @@ void __43__ProgressTargetHandler_configureInstance___block_invoke_53(uint64_t a1
   v6 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v14) = 0;
+    LOWORD(v13) = 0;
     v7 = "Progress Target: got a nil for new expedited margin msecs, ignoring";
     v8 = v6;
     v9 = 2;
 LABEL_11:
-    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, v7, &v14, v9);
+    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, v7, &v13, v9);
   }
 
 LABEL_12:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)doActionsForNetworkType:(int64_t)type
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = rnfLogHandle;
   v5 = os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT);
   if (type == 2)
   {
     if (v5)
     {
-      LOWORD(v7) = 0;
-      _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "Progress Target: Relay info on rebuffer warning", &v7, 2u);
+      LOWORD(v6) = 0;
+      _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "Progress Target: Relay info on rebuffer warning", &v6, 2u);
     }
 
     [NetworkAnalyticsEngine relayRebufferState:1];
@@ -217,8 +213,8 @@ LABEL_12:
   {
     if (v5)
     {
-      LOWORD(v7) = 0;
-      _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "Progress Target: RNF boosted", &v7, 2u);
+      LOWORD(v6) = 0;
+      _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "Progress Target: RNF boosted", &v6, 2u);
     }
 
     [CellFallbackHandler requestBoost:1];
@@ -227,17 +223,15 @@ LABEL_12:
 
   else if (v5)
   {
-    v7 = 134217984;
+    v6 = 134217984;
     typeCopy = type;
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "Progress Target: no action for interface type (%ld)", &v7, 0xCu);
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "Progress Target: no action for interface type (%ld)", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pruneActions
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if ([connStore count] >= 0x15)
   {
     v2 = [connStore keysSortedByValueUsingComparator:&__block_literal_global_15];
@@ -249,19 +243,17 @@ LABEL_12:
     {
       v6 = connStore;
       v7 = v5;
-      v9[0] = 67109888;
-      v9[1] = 20;
-      v10 = 1024;
-      v11 = 4;
-      v12 = 2048;
-      v13 = v4;
-      v14 = 2048;
-      v15 = [v6 count];
-      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "Progress Target: limit: %d, prune size: %d, current count: %lu, new count: %lu", v9, 0x22u);
+      v8[0] = 67109888;
+      v8[1] = 20;
+      v9 = 1024;
+      v10 = 4;
+      v11 = 2048;
+      v12 = v4;
+      v13 = 2048;
+      v14 = [v6 count];
+      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "Progress Target: limit: %d, prune size: %d, current count: %lu, new count: %lu", v8, 0x22u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __37__ProgressTargetHandler_pruneActions__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -296,32 +288,32 @@ uint64_t __37__ProgressTargetHandler_pruneActions__block_invoke(uint64_t a1, voi
 
 void __37__ProgressTargetHandler_noteSymptom___block_invoke(uint64_t a1, void *a2, void *a3, int a4, uint64_t a5, void *a6, void *a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, void *a12)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   v19 = a2;
   v20 = a3;
   v21 = a6;
   v22 = a7;
-  v40 = a9;
-  v39 = a12;
+  v39 = a9;
+  v38 = a12;
   v23 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138413570;
-    v43 = v19;
-    v44 = 2112;
-    v45 = v20;
-    v46 = 1024;
-    v47 = a4;
-    v48 = 1024;
-    v49 = a5;
-    v50 = 2112;
-    v51 = v22;
-    v52 = 2048;
-    v53 = a8;
+    v42 = v19;
+    v43 = 2112;
+    v44 = v20;
+    v45 = 1024;
+    v46 = a4;
+    v47 = 1024;
+    v48 = a5;
+    v49 = 2112;
+    v50 = v22;
+    v51 = 2048;
+    v52 = a8;
     _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEFAULT, "Progress Target: symptom detail (symName/procName/ePid/ifIndex/connId/tstamp): %@/%@/%d/%d/%@/%llu", buf, 0x36u);
   }
 
-  v41 = v19;
+  v40 = v19;
   v24 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v22];
   if (v24)
   {
@@ -329,7 +321,7 @@ void __37__ProgressTargetHandler_noteSymptom___block_invoke(uint64_t a1, void *a
     v26 = v25;
     if (a8)
     {
-      v38 = v21;
+      v37 = v21;
       v27 = a8 - *(*(a1 + 32) + 8);
       v28 = mach_continuous_time();
       if (v27 <= v28)
@@ -341,13 +333,13 @@ void __37__ProgressTargetHandler_noteSymptom___block_invoke(uint64_t a1, void *a
           if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_ERROR))
           {
             *buf = 134218240;
-            v43 = a8;
-            v44 = 2048;
-            v45 = v29;
+            v42 = a8;
+            v43 = 2048;
+            v44 = v29;
             _os_log_impl(&dword_23255B000, v36, OS_LOG_TYPE_ERROR, "Progress Target: setting a target (%llu) before current time (%llu)", buf, 0x16u);
           }
 
-          v21 = v38;
+          v21 = v37;
           goto LABEL_25;
         }
       }
@@ -356,32 +348,32 @@ void __37__ProgressTargetHandler_noteSymptom___block_invoke(uint64_t a1, void *a
       {
         v26 = [[TimedAction alloc] initWithConnId:v24 interfaceIndex:a5 owner:v20 target:v27];
         v35 = rnfLogHandle;
-        v21 = v38;
+        v21 = v37;
         if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v43 = v26;
+          v42 = v26;
           _os_log_impl(&dword_23255B000, v35, OS_LOG_TYPE_DEFAULT, "Progress Target: creating target: %@", buf, 0xCu);
         }
 
-        [connStore setObject:v26 forKeyedSubscript:{v24, v38, v39, v40, v41}];
+        [connStore setObject:v26 forKeyedSubscript:{v24, v37, v38, v39, v40}];
         [*(a1 + 32) pruneActions];
         goto LABEL_25;
       }
 
       v30 = rnfLogHandle;
-      v21 = v38;
+      v21 = v37;
       if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v43 = v26;
+        v42 = v26;
         _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_DEFAULT, "Progress Target: updating target: %@", buf, 0xCu);
       }
 
       v31 = v26;
       v32 = v27;
 LABEL_18:
-      [(TimedAction *)v31 setTarget:v32, v38, v39, v40, v41];
+      [(TimedAction *)v31 setTarget:v32, v37, v38, v39, v40];
 LABEL_25:
 
       goto LABEL_26;
@@ -393,7 +385,7 @@ LABEL_25:
       if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v43 = v26;
+        v42 = v26;
         _os_log_impl(&dword_23255B000, v34, OS_LOG_TYPE_DEFAULT, "Progress Target: null target, nuking: %@", buf, 0xCu);
       }
 
@@ -414,8 +406,6 @@ LABEL_25:
   }
 
 LABEL_26:
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (int)read:(id)read returnedValues:(id)values

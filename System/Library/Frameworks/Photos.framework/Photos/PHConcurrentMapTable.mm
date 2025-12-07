@@ -91,7 +91,7 @@ void __31__PHConcurrentMapTable_allKeys__block_invoke(uint64_t a1)
   return v2;
 }
 
-uint64_t __29__PHConcurrentMapTable_count__block_invoke(uint64_t a1)
+void *__29__PHConcurrentMapTable_count__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 16) count];
   *(*(*(a1 + 40) + 8) + 24) = result;

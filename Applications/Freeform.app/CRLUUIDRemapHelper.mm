@@ -11,7 +11,7 @@
   sub_100C03F20();
 
   type metadata accessor for UUID();
-  sub_100C04A38(&qword_1019FB870);
+  sub_100C04A38(&qword_1019FB870, &protocol conformance descriptor for UUID);
   v3.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;

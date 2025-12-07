@@ -29,7 +29,7 @@
 
 - (id)keyAssetForHighlightFilter:()HighlightItem
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v2 = [self keyAssetObjectIDForKindWithFilter:?];
   if (v2)
   {
@@ -38,8 +38,8 @@
 
     [librarySpecificFetchOptions setIncludeGuestAssets:1];
     v5 = MEMORY[0x277CD97A8];
-    v11[0] = v2;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v10[0] = v2;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
     v7 = [v5 fetchAssetsWithObjectIDs:v6 options:librarySpecificFetchOptions];
 
     firstObject = [v7 firstObject];
@@ -49,8 +49,6 @@
   {
     firstObject = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }

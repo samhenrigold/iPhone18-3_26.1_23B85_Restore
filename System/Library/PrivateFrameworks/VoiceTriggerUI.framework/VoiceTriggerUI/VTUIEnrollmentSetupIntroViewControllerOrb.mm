@@ -131,12 +131,12 @@ LABEL_16:
 
 - (void)_setupContent
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v3 = VTUILogContextFacility;
   if (os_log_type_enabled(VTUILogContextFacility, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v49 = "[VTUIEnrollmentSetupIntroViewControllerOrb _setupContent]";
+    v48 = "[VTUIEnrollmentSetupIntroViewControllerOrb _setupContent]";
     _os_log_impl(&dword_2728BC000, v3, OS_LOG_TYPE_DEFAULT, "%s Setup content", buf, 0xCu);
   }
 
@@ -311,8 +311,6 @@ LABEL_21:
     [buttonTray4 setPrivacyLinkForBundles:&unk_2881EEE00];
 LABEL_45:
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_continuePressed:(id)pressed

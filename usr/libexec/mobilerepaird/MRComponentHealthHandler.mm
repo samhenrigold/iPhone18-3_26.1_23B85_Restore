@@ -12,57 +12,50 @@
 
 - (id)_init
 {
-  v27.receiver = self;
-  v27.super_class = MRComponentHealthHandler;
-  v2 = [(MRComponentHealthHandler *)&v27 init];
+  v24.receiver = self;
+  v24.super_class = MRComponentHealthHandler;
+  v2 = [(MRComponentHealthHandler *)&v24 init];
   if (v2)
   {
-    v26 = objc_opt_new();
-    v28[0] = v26;
-    v25 = objc_opt_new();
-    v28[1] = v25;
-    v24 = objc_opt_new();
-    v28[2] = v24;
     v23 = objc_opt_new();
-    v28[3] = v23;
+    v25[0] = v23;
     v22 = objc_opt_new();
-    v28[4] = v22;
+    v25[1] = v22;
     v21 = objc_opt_new();
-    v28[5] = v21;
+    v25[2] = v21;
     v20 = objc_opt_new();
-    v28[6] = v20;
+    v25[3] = v20;
     v19 = objc_opt_new();
-    v28[7] = v19;
+    v25[4] = v19;
     v18 = objc_opt_new();
-    v28[8] = v18;
+    v25[5] = v18;
+    v17 = objc_opt_new();
+    v25[6] = v17;
+    v16 = objc_opt_new();
+    v25[7] = v16;
+    v15 = objc_opt_new();
+    v25[8] = v15;
     v3 = objc_opt_new();
-    v28[9] = v3;
+    v25[9] = v3;
     v4 = objc_opt_new();
-    v28[10] = v4;
+    v25[10] = v4;
     v5 = objc_opt_new();
-    v28[11] = v5;
+    v25[11] = v5;
     v6 = objc_opt_new();
-    v28[12] = v6;
+    v25[12] = v6;
     v7 = objc_opt_new();
-    v28[13] = v7;
+    v25[13] = v7;
     v8 = objc_opt_new();
-    isSupportedIPad = [v8 isSupportedIPad];
-    v10 = CRCameraAuthUsingProperty_ptr;
-    if (!isSupportedIPad)
-    {
-      v10 = CRCameraAuth_ptr;
-    }
-
-    v11 = *v10;
-    v12 = objc_opt_new();
-    v28[14] = v12;
-    v13 = objc_opt_new();
-    v28[15] = v13;
-    v14 = objc_opt_new();
-    v28[16] = v14;
-    v15 = [NSArray arrayWithObjects:v28 count:17];
+    [v8 isSupportedIPad];
+    v9 = objc_opt_new();
+    v25[14] = v9;
+    v10 = objc_opt_new();
+    v25[15] = v10;
+    v11 = objc_opt_new();
+    v25[16] = v11;
+    v12 = [NSArray arrayWithObjects:v25 count:17];
     supportedComponentAuth = v2->supportedComponentAuth;
-    v2->supportedComponentAuth = v15;
+    v2->supportedComponentAuth = v12;
   }
 
   return v2;

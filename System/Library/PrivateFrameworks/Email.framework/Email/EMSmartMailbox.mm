@@ -89,16 +89,14 @@
 
 + (id)em_scopedSendLaterMailboxWithMailboxURL:(id)l
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
   v4 = [[EMMailboxObjectID alloc] initWithURL:lCopy];
-  v10[0] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+  v9[0] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
   v6 = [EMMailboxScope mailboxScopeForMailboxObjectIDs:v5 forExclusion:0];
 
   v7 = [EMSmartMailbox sendLaterMailboxWithMailboxScope:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -155,22 +153,20 @@
 
 id __45__EMSmartMailbox_vipMailboxWithMailboxScope___block_invoke(uint64_t a1)
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   v2 = [EMMessageListItemPredicates predicateForIsVIP:1];
   v3 = v2;
   v4 = *(a1 + 32);
   if (v4)
   {
     v5 = MEMORY[0x1E696AB28];
-    v10[0] = v2;
-    v10[1] = v4;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+    v9[0] = v2;
+    v9[1] = v4;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
     v7 = [v5 andPredicateWithSubpredicates:v6];
 
     v3 = v7;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -205,22 +201,20 @@ id __45__EMSmartMailbox_vipMailboxWithMailboxScope___block_invoke(uint64_t a1)
 
 id __49__EMSmartMailbox_flaggedMailboxWithMailboxScope___block_invoke(uint64_t a1)
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   v2 = +[EMMessageListItemPredicates predicateForFlaggedMessages];
   v3 = v2;
   v4 = *(a1 + 32);
   if (v4)
   {
     v5 = MEMORY[0x1E696AB28];
-    v10[0] = v2;
-    v10[1] = v4;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+    v9[0] = v2;
+    v9[1] = v4;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
     v7 = [v5 andPredicateWithSubpredicates:v6];
 
     v3 = v7;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -255,22 +249,20 @@ id __49__EMSmartMailbox_flaggedMailboxWithMailboxScope___block_invoke(uint64_t a
 
 id __48__EMSmartMailbox_orangeMailboxWithMailboxScope___block_invoke(uint64_t a1)
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   v2 = [EMMessageListItemPredicates predicateForFlagColor:1];
   v3 = v2;
   v4 = *(a1 + 32);
   if (v4)
   {
     v5 = MEMORY[0x1E696AB28];
-    v10[0] = v2;
-    v10[1] = v4;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+    v9[0] = v2;
+    v9[1] = v4;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
     v7 = [v5 andPredicateWithSubpredicates:v6];
 
     v3 = v7;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -305,22 +297,20 @@ id __48__EMSmartMailbox_orangeMailboxWithMailboxScope___block_invoke(uint64_t a1
 
 id __45__EMSmartMailbox_redMailboxWithMailboxScope___block_invoke(uint64_t a1)
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   v2 = [EMMessageListItemPredicates predicateForFlagColor:0];
   v3 = v2;
   v4 = *(a1 + 32);
   if (v4)
   {
     v5 = MEMORY[0x1E696AB28];
-    v10[0] = v2;
-    v10[1] = v4;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+    v9[0] = v2;
+    v9[1] = v4;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
     v7 = [v5 andPredicateWithSubpredicates:v6];
 
     v3 = v7;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -355,22 +345,20 @@ id __45__EMSmartMailbox_redMailboxWithMailboxScope___block_invoke(uint64_t a1)
 
 id __48__EMSmartMailbox_purpleMailboxWithMailboxScope___block_invoke(uint64_t a1)
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   v2 = [EMMessageListItemPredicates predicateForFlagColor:5];
   v3 = v2;
   v4 = *(a1 + 32);
   if (v4)
   {
     v5 = MEMORY[0x1E696AB28];
-    v10[0] = v2;
-    v10[1] = v4;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+    v9[0] = v2;
+    v9[1] = v4;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
     v7 = [v5 andPredicateWithSubpredicates:v6];
 
     v3 = v7;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -405,22 +393,20 @@ id __48__EMSmartMailbox_purpleMailboxWithMailboxScope___block_invoke(uint64_t a1
 
 id __46__EMSmartMailbox_blueMailboxWithMailboxScope___block_invoke(uint64_t a1)
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   v2 = [EMMessageListItemPredicates predicateForFlagColor:4];
   v3 = v2;
   v4 = *(a1 + 32);
   if (v4)
   {
     v5 = MEMORY[0x1E696AB28];
-    v10[0] = v2;
-    v10[1] = v4;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+    v9[0] = v2;
+    v9[1] = v4;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
     v7 = [v5 andPredicateWithSubpredicates:v6];
 
     v3 = v7;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -455,22 +441,20 @@ id __46__EMSmartMailbox_blueMailboxWithMailboxScope___block_invoke(uint64_t a1)
 
 id __48__EMSmartMailbox_yellowMailboxWithMailboxScope___block_invoke(uint64_t a1)
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   v2 = [EMMessageListItemPredicates predicateForFlagColor:2];
   v3 = v2;
   v4 = *(a1 + 32);
   if (v4)
   {
     v5 = MEMORY[0x1E696AB28];
-    v10[0] = v2;
-    v10[1] = v4;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+    v9[0] = v2;
+    v9[1] = v4;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
     v7 = [v5 andPredicateWithSubpredicates:v6];
 
     v3 = v7;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -505,22 +489,20 @@ id __48__EMSmartMailbox_yellowMailboxWithMailboxScope___block_invoke(uint64_t a1
 
 id __47__EMSmartMailbox_greenMailboxWithMailboxScope___block_invoke(uint64_t a1)
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   v2 = [EMMessageListItemPredicates predicateForFlagColor:3];
   v3 = v2;
   v4 = *(a1 + 32);
   if (v4)
   {
     v5 = MEMORY[0x1E696AB28];
-    v10[0] = v2;
-    v10[1] = v4;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+    v9[0] = v2;
+    v9[1] = v4;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
     v7 = [v5 andPredicateWithSubpredicates:v6];
 
     v3 = v7;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -555,22 +537,20 @@ id __47__EMSmartMailbox_greenMailboxWithMailboxScope___block_invoke(uint64_t a1)
 
 id __46__EMSmartMailbox_grayMailboxWithMailboxScope___block_invoke(uint64_t a1)
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   v2 = [EMMessageListItemPredicates predicateForFlagColor:6];
   v3 = v2;
   v4 = *(a1 + 32);
   if (v4)
   {
     v5 = MEMORY[0x1E696AB28];
-    v10[0] = v2;
-    v10[1] = v4;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+    v9[0] = v2;
+    v9[1] = v4;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
     v7 = [v5 andPredicateWithSubpredicates:v6];
 
     v3 = v7;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -605,22 +585,20 @@ id __46__EMSmartMailbox_grayMailboxWithMailboxScope___block_invoke(uint64_t a1)
 
 id __48__EMSmartMailbox_unreadMailboxWithMailboxScope___block_invoke(uint64_t a1)
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   v2 = +[EMMessageListItemPredicates predicateForUnreadMessages];
   v3 = v2;
   v4 = *(a1 + 32);
   if (v4)
   {
     v5 = MEMORY[0x1E696AB28];
-    v10[0] = v2;
-    v10[1] = v4;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+    v9[0] = v2;
+    v9[1] = v4;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
     v7 = [v5 andPredicateWithSubpredicates:v6];
 
     v3 = v7;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -655,22 +633,20 @@ id __48__EMSmartMailbox_unreadMailboxWithMailboxScope___block_invoke(uint64_t a1
 
 id __56__EMSmartMailbox_hasAttachmentsMailboxWithMailboxScope___block_invoke(uint64_t a1)
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   v2 = +[EMMessageListItemPredicates predicateForMessagesWithAttachments];
   v3 = v2;
   v4 = *(a1 + 32);
   if (v4)
   {
     v5 = MEMORY[0x1E696AB28];
-    v10[0] = v2;
-    v10[1] = v4;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+    v9[0] = v2;
+    v9[1] = v4;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
     v7 = [v5 andPredicateWithSubpredicates:v6];
 
     v3 = v7;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -705,22 +681,20 @@ id __56__EMSmartMailbox_hasAttachmentsMailboxWithMailboxScope___block_invoke(uin
 
 id __55__EMSmartMailbox_notifyThreadsMailboxWithMailboxScope___block_invoke(uint64_t a1)
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   v2 = +[EMMessageListItemPredicates predicateForNotifyMessages];
   v3 = v2;
   v4 = *(a1 + 32);
   if (v4)
   {
     v5 = MEMORY[0x1E696AB28];
-    v10[0] = v2;
-    v10[1] = v4;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+    v9[0] = v2;
+    v9[1] = v4;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
     v7 = [v5 andPredicateWithSubpredicates:v6];
 
     v3 = v7;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -755,22 +729,20 @@ id __55__EMSmartMailbox_notifyThreadsMailboxWithMailboxScope___block_invoke(uint
 
 id __47__EMSmartMailbox_todayMailboxWithMailboxScope___block_invoke(uint64_t a1)
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   v2 = +[EMMessageListItemPredicates predicateForTodayMessages];
   v3 = v2;
   v4 = *(a1 + 32);
   if (v4)
   {
     v5 = MEMORY[0x1E696AB28];
-    v10[0] = v2;
-    v10[1] = v4;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+    v9[0] = v2;
+    v9[1] = v4;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
     v7 = [v5 andPredicateWithSubpredicates:v6];
 
     v3 = v7;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -805,22 +777,20 @@ id __47__EMSmartMailbox_todayMailboxWithMailboxScope___block_invoke(uint64_t a1)
 
 id __53__EMSmartMailbox_muteThreadsMailboxWithMailboxScope___block_invoke(uint64_t a1)
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   v2 = +[EMMessageListItemPredicates predicateForMuteMessages];
   v3 = v2;
   v4 = *(a1 + 32);
   if (v4)
   {
     v5 = MEMORY[0x1E696AB28];
-    v10[0] = v2;
-    v10[1] = v4;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+    v9[0] = v2;
+    v9[1] = v4;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
     v7 = [v5 andPredicateWithSubpredicates:v6];
 
     v3 = v7;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -855,22 +825,20 @@ id __53__EMSmartMailbox_muteThreadsMailboxWithMailboxScope___block_invoke(uint64
 
 id __52__EMSmartMailbox_includesMeMailboxWithMailboxScope___block_invoke(uint64_t a1)
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   v2 = +[EMMessageListItemPredicates predicateForIncludesMeMessages];
   v3 = v2;
   v4 = *(a1 + 32);
   if (v4)
   {
     v5 = MEMORY[0x1E696AB28];
-    v10[0] = v2;
-    v10[1] = v4;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+    v9[0] = v2;
+    v9[1] = v4;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
     v7 = [v5 andPredicateWithSubpredicates:v6];
 
     v3 = v7;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -905,22 +873,20 @@ id __52__EMSmartMailbox_includesMeMailboxWithMailboxScope___block_invoke(uint64_
 
 id __51__EMSmartMailbox_readLaterMailboxWithMailboxScope___block_invoke(uint64_t a1)
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   v2 = +[EMMessageListItemPredicates predicateForReadLaterSmartMailbox];
   v3 = v2;
   v4 = *(a1 + 32);
   if (v4)
   {
     v5 = MEMORY[0x1E696AB28];
-    v10[0] = v2;
-    v10[1] = v4;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+    v9[0] = v2;
+    v9[1] = v4;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
     v7 = [v5 andPredicateWithSubpredicates:v6];
 
     v3 = v7;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -955,22 +921,20 @@ id __51__EMSmartMailbox_readLaterMailboxWithMailboxScope___block_invoke(uint64_t
 
 id __50__EMSmartMailbox_followUpMailboxWithMailboxScope___block_invoke(uint64_t a1)
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   v2 = +[EMMessageListItemPredicates predicateForMessagesWithUnfiredFollowUp];
   v3 = v2;
   v4 = *(a1 + 32);
   if (v4)
   {
     v5 = MEMORY[0x1E696AB28];
-    v10[0] = v2;
-    v10[1] = v4;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+    v9[0] = v2;
+    v9[1] = v4;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
     v7 = [v5 andPredicateWithSubpredicates:v6];
 
     v3 = v7;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -1005,22 +969,20 @@ id __50__EMSmartMailbox_followUpMailboxWithMailboxScope___block_invoke(uint64_t 
 
 id __51__EMSmartMailbox_sendLaterMailboxWithMailboxScope___block_invoke(uint64_t a1)
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   v2 = +[EMMessageListItemPredicates predicateForSendLaterMessages];
   v3 = v2;
   v4 = *(a1 + 32);
   if (v4)
   {
     v5 = MEMORY[0x1E696AB28];
-    v10[0] = v2;
-    v10[1] = v4;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+    v9[0] = v2;
+    v9[1] = v4;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
     v7 = [v5 andPredicateWithSubpredicates:v6];
 
     v3 = v7;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -1055,22 +1017,20 @@ id __51__EMSmartMailbox_sendLaterMailboxWithMailboxScope___block_invoke(uint64_t
 
 id __53__EMSmartMailbox_unsubscribeMailboxWithMailboxScope___block_invoke(uint64_t a1)
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   v2 = +[EMMessageListItemPredicates predicateForUnsubscribableMessages];
   v3 = v2;
   v4 = *(a1 + 32);
   if (v4)
   {
     v5 = MEMORY[0x1E696AB28];
-    v10[0] = v2;
-    v10[1] = v4;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+    v9[0] = v2;
+    v9[1] = v4;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
     v7 = [v5 andPredicateWithSubpredicates:v6];
 
     v3 = v7;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -1105,22 +1065,20 @@ id __53__EMSmartMailbox_unsubscribeMailboxWithMailboxScope___block_invoke(uint64
 
 id __53__EMSmartMailbox_mailCleanupMailboxWithMailboxScope___block_invoke(uint64_t a1)
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   v2 = +[EMMessageListItemPredicates predicateForTouchedByCleanupMessages];
   v3 = v2;
   v4 = *(a1 + 32);
   if (v4)
   {
     v5 = MEMORY[0x1E696AB28];
-    v10[0] = v2;
-    v10[1] = v4;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+    v9[0] = v2;
+    v9[1] = v4;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
     v7 = [v5 andPredicateWithSubpredicates:v6];
 
     v3 = v7;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -1159,22 +1117,20 @@ id __53__EMSmartMailbox_mailCleanupMailboxWithMailboxScope___block_invoke(uint64
 
 id __64__EMSmartMailbox_unifiedMailboxOfType_name_additionalPredicate___block_invoke(uint64_t a1)
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   v2 = [EMMessageListItemPredicates predicateForMessagesInMailboxWithType:*(a1 + 40)];
   v3 = v2;
   v4 = *(a1 + 32);
   if (v4)
   {
     v5 = MEMORY[0x1E696AB28];
-    v10[0] = v2;
-    v10[1] = v4;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+    v9[0] = v2;
+    v9[1] = v4;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
     v7 = [v5 andPredicateWithSubpredicates:v6];
 
     v3 = v7;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -1198,22 +1154,20 @@ id __64__EMSmartMailbox_unifiedMailboxOfType_name_additionalPredicate___block_in
 
 id __57__EMSmartMailbox_vipMailboxWithName_additionalPredicate___block_invoke(uint64_t a1)
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   v2 = [EMMessageListItemPredicates predicateForMessagesInMailboxWithType:7];
   v3 = v2;
   v4 = *(a1 + 32);
   if (v4)
   {
     v5 = MEMORY[0x1E696AB28];
-    v10[0] = v2;
-    v10[1] = v4;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+    v9[0] = v2;
+    v9[1] = v4;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
     v7 = [v5 andPredicateWithSubpredicates:v6];
 
     v3 = v7;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

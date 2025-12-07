@@ -1,6 +1,6 @@
-void sub_25ED90510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25ED90510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -56,12 +56,13 @@ void sub_25ED9341C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_25ED93838(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id location, char a25)
+void sub_25ED93838(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id location, ...)
 {
-  objc_destroyWeak((v25 + 64));
+  va_start(va, location);
+  objc_destroyWeak((v24 + 64));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a25, 8);
-  _Block_object_dispose((v26 - 128), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v25 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -79,16 +80,18 @@ void sub_25ED93FC0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 2u);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 2u);
 }
 
-void OUTLINED_FUNCTION_4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t __PFTGuardOSLog_block_invoke()
@@ -98,16 +101,16 @@ uint64_t __PFTGuardOSLog_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id PFTLogCommon()
+id PFTLogCommon(uint64_t a1)
 {
   if (PFTLogCommon_onceToken != -1)
   {
     PFTLogCommon_cold_1();
   }
 
-  v1 = PFTLogCommon___logObj;
+  v2 = PFTLogCommon___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __PFTLogCommon_block_invoke()
@@ -117,16 +120,16 @@ uint64_t __PFTLogCommon_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id PFTLogFutures()
+id PFTLogFutures(uint64_t a1)
 {
   if (PFTLogFutures_onceToken != -1)
   {
     PFTLogFutures_cold_1();
   }
 
-  v1 = PFTLogFutures___logObj;
+  v2 = PFTLogFutures___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __PFTLogFutures_block_invoke()
@@ -174,9 +177,9 @@ void PFTRunWithQueueName(void *a1, void *a2)
   [v4 setName:v6];
 }
 
-id PFTRangeDividedIntoStridesOfLength(uint64_t a1, unint64_t a2, unint64_t a3)
+id PFTRangeDividedIntoStridesOfLength(unint64_t a1, unint64_t a2, unint64_t a3)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v4 = a2;
@@ -184,8 +187,8 @@ id PFTRangeDividedIntoStridesOfLength(uint64_t a1, unint64_t a2, unint64_t a3)
     if (a2 <= a3)
     {
       v11 = [MEMORY[0x277CCAE60] valueWithRange:{a1, a2}];
-      v14[0] = v11;
-      v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+      v13[0] = v11;
+      v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
     }
 
     else
@@ -217,22 +220,20 @@ id PFTRangeDividedIntoStridesOfLength(uint64_t a1, unint64_t a2, unint64_t a3)
     v6 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
-id PFTRangeDividedIntoBalancedStridesOfLength(uint64_t a1, unint64_t a2, unint64_t a3)
+id PFTRangeDividedIntoBalancedStridesOfLength(unint64_t a1, unint64_t a2, unint64_t a3)
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v5 = a1;
     if (a2 <= a3)
     {
       v14 = [MEMORY[0x277CCAE60] valueWithRange:{a1, a2}];
-      v17[0] = v14;
-      v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+      v16[0] = v14;
+      v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
     }
 
     else
@@ -292,47 +293,45 @@ id PFTRangeDividedIntoBalancedStridesOfLength(uint64_t a1, unint64_t a2, unint64
     v6 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 id PFTArrayMapFastPath(void *a1, void *a2)
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   v5 = [v3 count];
   v6 = v5;
   if (v5 >= 0x81)
   {
-    v18 = MEMORY[0x277CBEAD8];
-    v19 = *MEMORY[0x277CBE658];
-    v25 = @"count";
-    v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v5];
-    v26[0] = v20;
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
-    v22 = [v18 exceptionWithName:v19 reason:@"FTArrayMapFastPath called with too many objects" userInfo:v21];
-    v23 = v22;
+    v17 = MEMORY[0x277CBEAD8];
+    v18 = *MEMORY[0x277CBE658];
+    v24 = @"count";
+    v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v5];
+    v25[0] = v19;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+    v21 = [v17 exceptionWithName:v18 reason:@"FTArrayMapFastPath called with too many objects" userInfo:v20];
+    v22 = v21;
 
-    objc_exception_throw(v22);
+    objc_exception_throw(v21);
   }
 
-  v24[1] = v24;
+  v23[1] = v23;
   v7 = 8 * v5;
   MEMORY[0x28223BE20]();
-  v8 = v24 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = v23 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   bzero(v8, 8 * v6);
   if (v6)
   {
     v9 = 0;
-    v24[2] = v4 + 2;
+    v23[2] = v4 + 2;
     do
     {
       [v3 objectAtIndexedSubscript:v9];
       v11 = v10 = v3;
       v12 = v4[2](v4, v11);
-      v13 = (off_2870E4280)(&__block_literal_global_2, v12);
+      v13 = off_2870E4280(&__block_literal_global_2, v12);
       v14 = *&v8[8 * v9];
       *&v8[8 * v9] = v13;
 
@@ -343,7 +342,7 @@ id PFTArrayMapFastPath(void *a1, void *a2)
     while (v6 != v9);
   }
 
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0) count:v6];
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0) count:v6];
   if (v6)
   {
     do
@@ -355,52 +354,50 @@ id PFTArrayMapFastPath(void *a1, void *a2)
     while (v7);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 id PFTArrayCompactMapFastPath(void *a1, void *a2)
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
-  v27 = v3;
+  v26 = v3;
   v5 = [v3 count];
   v6 = v5;
   if (v5 >= 0x81)
   {
-    v18 = MEMORY[0x277CBEAD8];
-    v19 = *MEMORY[0x277CBE658];
-    v28 = @"count";
-    v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v5];
-    v29[0] = v20;
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
-    v22 = [v18 exceptionWithName:v19 reason:@"FTArrayCompactMapFastPath called with too many objects" userInfo:v21];
-    v23 = v22;
+    v17 = MEMORY[0x277CBEAD8];
+    v18 = *MEMORY[0x277CBE658];
+    v27 = @"count";
+    v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v5];
+    v28[0] = v19;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+    v21 = [v17 exceptionWithName:v18 reason:@"FTArrayCompactMapFastPath called with too many objects" userInfo:v20];
+    v22 = v21;
 
-    objc_exception_throw(v22);
+    objc_exception_throw(v21);
   }
 
-  v24[1] = v24;
+  v23[1] = v23;
   v7 = 8 * v5;
   MEMORY[0x28223BE20]();
-  v25 = v24 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  bzero(v25, 8 * v6);
+  v24 = v23 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  bzero(v24, 8 * v6);
   v8 = 0;
   if (v6)
   {
     v9 = 0;
-    v26 = (v4 + 2);
+    v25 = (v4 + 2);
     do
     {
-      v10 = [v27 objectAtIndexedSubscript:v9];
+      v10 = [v26 objectAtIndexedSubscript:v9];
       v11 = v4[2](v4, v10);
-      v12 = (off_2870E42A0)(&__block_literal_global_4_0, v11);
+      v12 = off_2870E42A0(&__block_literal_global_4_0, v11);
 
       if (v12)
       {
-        objc_storeStrong(&v25[8 * v8++], v11);
+        objc_storeStrong(&v24[8 * v8++], v11);
       }
 
       ++v9;
@@ -409,8 +406,8 @@ id PFTArrayCompactMapFastPath(void *a1, void *a2)
     while (v6 != v9);
   }
 
-  v13 = v25;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:v8];
+  v13 = v24;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:v8];
   if (v6)
   {
     v15 = v13 - 8;
@@ -423,14 +420,12 @@ id PFTArrayCompactMapFastPath(void *a1, void *a2)
     while (v7);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
-void sub_25ED99114(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25ED99114(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -540,19 +535,16 @@ id pft_objectResultWithPropertyLock(void *a1, unint64_t a2, void *a3)
   return v8;
 }
 
-void sub_25ED9A4D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25ED9A4D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t __pft_objectResultWithPropertyLock_block_invoke(uint64_t a1)
 {
-  v2 = (*(*(a1 + 32) + 16))();
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = (*(*(a1 + 32) + 16))();
 
   return MEMORY[0x2821F96F8]();
 }
@@ -592,19 +584,16 @@ id pft_objectResultWithObjectLock(void *a1, void *a2)
   return v6;
 }
 
-void sub_25ED9A6C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25ED9A6C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t __pft_objectResultWithObjectLock_block_invoke(uint64_t a1)
 {
-  v2 = (*(*(a1 + 32) + 16))();
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = (*(*(a1 + 32) + 16))();
 
   return MEMORY[0x2821F96F8]();
 }
@@ -831,11 +820,11 @@ __CFString *PFTSuspendableSchedulerConditionToString(uint64_t a1)
   }
 }
 
-void sub_25ED9CF1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_25ED9CF1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 96), 8);
+  _Block_object_dispose((v18 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -855,47 +844,41 @@ void sub_25ED9DC18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_25ED9F920(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_25ED9F920(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_25ED9FB2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
   va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25ED9FB2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25ED9FCCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a6);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25ED9FCCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+uint64_t RunningBoardServicesLibraryCore(uint64_t a1)
 {
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t RunningBoardServicesLibraryCore()
-{
-  v2 = *MEMORY[0x277D85DE8];
   if (!RunningBoardServicesLibraryCore_frameworkLibrary)
   {
     RunningBoardServicesLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  result = RunningBoardServicesLibraryCore_frameworkLibrary;
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
+  return RunningBoardServicesLibraryCore_frameworkLibrary;
 }
 
 uint64_t __RunningBoardServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   RunningBoardServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -917,10 +900,19 @@ void __getRBSDomainAttributeClass_block_invoke(uint64_t a1)
 
 void RunningBoardServicesLibrary()
 {
-  if (!RunningBoardServicesLibraryCore())
+  v2 = 0;
+  v0 = RunningBoardServicesLibraryCore(&v2);
+  v1 = v2;
+  if (!v0)
   {
-    v0 = abort_report_np();
-    free(v0);
+    v1 = abort_report_np("%s", v2);
+    goto LABEL_5;
+  }
+
+  if (v2)
+  {
+LABEL_5:
+    free(v1);
   }
 }
 
@@ -974,7 +966,7 @@ _PFTConstantFutureImpl *__getRBSTargetClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __getRBSTargetClass_block_invoke_cold_1();
+    __getRBSTargetClass_block_invoke_cold_1();
     return [(_PFTConstantFutureImpl *)v3 initWithResult:v4, v5];
   }
 
@@ -1079,7 +1071,7 @@ id PFTPromiseErrorOnlyCompletionHandler(void *a1)
 
 void __PFTPromiseCompletionHandlerWithDefaultValue_block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v7 = a2;
+  v6 = a2;
   v5 = a3;
   if (v5)
   {
@@ -1088,11 +1080,6 @@ void __PFTPromiseCompletionHandlerWithDefaultValue_block_invoke(uint64_t a1, voi
 
   else
   {
-    if (!v7)
-    {
-      v6 = *(a1 + 40);
-    }
-
     [*(a1 + 32) finishWithResult:?];
   }
 }

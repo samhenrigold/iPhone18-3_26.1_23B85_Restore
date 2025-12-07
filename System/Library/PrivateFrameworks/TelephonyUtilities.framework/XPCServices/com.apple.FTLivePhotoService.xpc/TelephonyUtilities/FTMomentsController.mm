@@ -142,10 +142,11 @@ LABEL_5:
 
 - (void)startRecordingMessageWithMediaType:(int)type completion:(id)completion
 {
+  v4 = *&type;
   v6 = _Block_copy(completion);
   _Block_copy(v6);
   selfCopy = self;
-  sub_10001752C(type, selfCopy, v6);
+  sub_10001752C(v4, selfCopy, v6);
   _Block_release(v6);
 }
 
@@ -162,30 +163,29 @@ LABEL_5:
 - (void)resetVideoMessagingWithSessionUUID:(id)d completionHandler:(id)handler
 {
   v7 = sub_10000BEC0(&unk_100059160, &unk_10003F780);
-  v8 = *(*(v7 - 8) + 64);
   __chkstk_darwin(v7 - 8);
-  v10 = &v15 - v9;
-  v11 = _Block_copy(handler);
+  v9 = &v14 - v8;
+  v10 = _Block_copy(handler);
   if (d)
   {
     sub_10003960C();
-    v12 = sub_10003962C();
-    v13 = 0;
+    v11 = sub_10003962C();
+    v12 = 0;
   }
 
   else
   {
-    v12 = sub_10003962C();
-    v13 = 1;
+    v11 = sub_10003962C();
+    v12 = 1;
   }
 
-  sub_10000E998(v10, v13, 1, v12);
-  _Block_copy(v11);
+  sub_10000E998(v9, v12, 1, v11);
+  _Block_copy(v10);
   selfCopy = self;
-  sub_100019734(v10, selfCopy, v11);
-  _Block_release(v11);
+  sub_100019734(v9, selfCopy, v10);
+  _Block_release(v10);
 
-  sub_100019CD4(v10, &unk_100059160, &unk_10003F780);
+  sub_100019CD4(v9, &unk_100059160, &unk_10003F780);
 }
 
 @end

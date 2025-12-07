@@ -60,34 +60,32 @@
 
 void __42__HDSPMobileTimerBridge__checkAlarmServer__block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = HKSPLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v14 = objc_opt_class();
-    v6 = v14;
+    v13 = objc_opt_class();
+    v6 = v13;
     _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] lazily checking alarm server", buf, 0xCu);
   }
 
   v7 = [*(*(a1 + 32) + 16) sleepAlarm];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __42__HDSPMobileTimerBridge__checkAlarmServer__block_invoke_296;
-  v11[3] = &unk_279C7D490;
-  v11[4] = WeakRetained;
-  v12 = v3;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __42__HDSPMobileTimerBridge__checkAlarmServer__block_invoke_296;
+  v10[3] = &unk_279C7D490;
+  v10[4] = WeakRetained;
+  v11 = v3;
   v8 = v3;
-  v9 = [v7 addCompletionBlock:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = [v7 addCompletionBlock:v10];
 }
 
 void __42__HDSPMobileTimerBridge__checkAlarmServer__block_invoke_296(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = [v4 domain];
   if ([v5 isEqualToString:@"com.apple.mobiletimerd.MTAlarmServer"])
@@ -99,11 +97,10 @@ void __42__HDSPMobileTimerBridge__checkAlarmServer__block_invoke_296(uint64_t a1
       v7 = HKSPLogForCategory();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = *(a1 + 32);
-        v14 = 138543362;
-        v15 = objc_opt_class();
-        v9 = v15;
-        _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] alarm server not ready yet", &v14, 0xCu);
+        v11 = 138543362;
+        v12 = objc_opt_class();
+        v8 = v12;
+        _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] alarm server not ready yet", &v11, 0xCu);
       }
 
       goto LABEL_9;
@@ -114,41 +111,36 @@ void __42__HDSPMobileTimerBridge__checkAlarmServer__block_invoke_296(uint64_t a1
   {
   }
 
-  v10 = HKSPLogForCategory();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v9 = HKSPLogForCategory();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = *(a1 + 32);
-    v14 = 138543362;
-    v15 = objc_opt_class();
-    v12 = v15;
-    _os_log_impl(&dword_269B11000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] alarm server is ready", &v14, 0xCu);
+    v11 = 138543362;
+    v12 = objc_opt_class();
+    v10 = v12;
+    _os_log_impl(&dword_269B11000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] alarm server is ready", &v11, 0xCu);
   }
 
   [*(a1 + 40) finishWithNoResult];
   v7 = [MEMORY[0x277CCAB98] defaultCenter];
   [v7 removeObserver:*(a1 + 32) name:*MEMORY[0x277D295D8] object:0];
 LABEL_9:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_alarmServerReady
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = objc_opt_class();
-    v4 = v8;
-    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] received notification that alarm server is ready", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = objc_opt_class();
+    v4 = v7;
+    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] received notification that alarm server is ready", &v6, 0xCu);
   }
 
   [(NAFuture *)self->_alarmServerReady finishWithNoResult];
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter removeObserver:self name:*MEMORY[0x277D295D8] object:0];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)sleepAlarmsFutureIgnoringCache:(BOOL)cache
@@ -203,20 +195,18 @@ id __56__HDSPMobileTimerBridge_sleepAlarmsFutureIgnoringCache___block_invoke(uin
 
 void __42__HDSPMobileTimerBridge_updateSleepAlarms__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HKSPLogForCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_269B11000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] failed to update sleep alarms with error %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_269B11000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] failed to update sleep alarms with error %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetSleepAlarmSnoozeState
@@ -232,20 +222,18 @@ void __42__HDSPMobileTimerBridge_updateSleepAlarms__block_invoke(uint64_t a1, vo
 
 void __51__HDSPMobileTimerBridge_resetSleepAlarmSnoozeState__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HKSPLogForCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_269B11000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] failed to reset snooze state with error %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_269B11000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] failed to reset snooze state with error %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)sleepAlarm:(id)alarm matchesSleepScheduleModel:(id)model

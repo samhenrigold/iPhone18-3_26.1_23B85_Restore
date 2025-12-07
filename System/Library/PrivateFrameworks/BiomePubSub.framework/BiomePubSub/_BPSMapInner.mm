@@ -49,22 +49,20 @@
 
 - (void)receiveCompletion:(id)completion
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   completionCopy = completion;
   v6 = __biome_log_for_category();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v10 = 138412290;
-    v11 = objc_opt_class();
-    v7 = v11;
-    _os_log_impl(&dword_1C871B000, v6, OS_LOG_TYPE_INFO, "%@ - completion", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = objc_opt_class();
+    v7 = v10;
+    _os_log_impl(&dword_1C871B000, v6, OS_LOG_TYPE_INFO, "%@ - completion", &v9, 0xCu);
   }
 
   downstream = [(_BPSMapInner *)selfCopy downstream];
   [downstream receiveCompletion:completionCopy];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancel

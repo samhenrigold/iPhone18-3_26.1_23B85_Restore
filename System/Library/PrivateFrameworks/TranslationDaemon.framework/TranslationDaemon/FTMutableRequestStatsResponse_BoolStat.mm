@@ -3,6 +3,7 @@
 - (FTMutableRequestStatsResponse_BoolStat)init;
 - (id)copyWithZone:(_NSZone *)zone;
 - (void)setName:(id)name;
+- (void)setValue:(BOOL)value;
 @end
 
 @implementation FTMutableRequestStatsResponse_BoolStat
@@ -44,6 +45,12 @@
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setValue:(BOOL)value
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:value];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 @end

@@ -70,15 +70,15 @@
 
 - (void)deleteFromFilesystem
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = OSLogForCategory(@"Default");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v8 = 136315394;
-    v9 = "[RCCompositionFragment deleteFromFilesystem]";
-    v10 = 2112;
+    v7 = 136315394;
+    v8 = "[RCCompositionFragment deleteFromFilesystem]";
+    v9 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_272442000, v3, OS_LOG_TYPE_INFO, "%s -- deleting fragment assets %@", &v8, 0x16u);
+    _os_log_impl(&dword_272442000, v3, OS_LOG_TYPE_INFO, "%s -- deleting fragment assets %@", &v7, 0x16u);
   }
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
@@ -87,8 +87,6 @@
   defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
   waveformURL = [(RCCompositionFragment *)self waveformURL];
   [defaultManager2 removeItemAtURL:waveformURL error:0];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)fileSizeOfAssets
@@ -117,7 +115,7 @@
 {
   if (RCTimeRangeEqualToTimeRange(self->_timeRangeInContentToUse.beginTime, self->_timeRangeInContentToUse.endTime, -1.79769313e308, 1.79769313e308))
   {
-    RCTimeRangeMake(0.0, self->_contentDuration);
+    RCTimeRangeMake();
   }
 
   else

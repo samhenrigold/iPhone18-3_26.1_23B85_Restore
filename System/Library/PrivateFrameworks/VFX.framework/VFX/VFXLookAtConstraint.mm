@@ -27,16 +27,16 @@
 
 - (VFXLookAtConstraint)initWithTarget:(id)target
 {
-  v13.receiver = self;
-  v13.super_class = VFXLookAtConstraint;
-  v4 = [(VFXConstraint *)&v13 init];
+  v11.receiver = self;
+  v11.super_class = VFXLookAtConstraint;
+  v4 = [(VFXConstraint *)&v11 init];
   if (v4)
   {
     targetCopy = target;
     v4->_target = targetCopy;
     if (targetCopy)
     {
-      targetCopy = objc_msgSend_nodeRef(targetCopy, v6, v7, v8);
+      targetCopy = objc_msgSend_nodeRef(targetCopy, v6, v7);
     }
 
     v4->_gimbalLockEnabled = 0;
@@ -44,7 +44,7 @@
     *v4->_localFront = xmmword_1AFE206C0;
     *v4->_upVector = xmmword_1AFE20160;
     v4->super._constraintRef = sub_1AF14F61C(targetCopy);
-    objc_msgSend_didInitConstraintRef(v4, v9, v10, v11);
+    objc_msgSend_didInitConstraintRef(v4, v8, v9);
   }
 
   return v4;
@@ -73,15 +73,15 @@
     }
   }
 
-  objc_msgSend_enumerateAnimationReferencesUsingBlock_(self, target, block, block);
+  objc_msgSend_enumerateAnimationReferencesUsingBlock_(self, target, block);
 }
 
 + (id)lookAtConstraintWithTarget:(id)target
 {
   v4 = [VFXLookAtConstraint alloc];
-  v7 = objc_msgSend_initWithTarget_(v4, v5, target, v6);
+  v6 = objc_msgSend_initWithTarget_(v4, v5, target);
 
-  return v7;
+  return v6;
 }
 
 - (void)setGimbalLockEnabled:(BOOL)enabled
@@ -106,16 +106,16 @@
     self->_target = targetCopy;
     if (targetCopy)
     {
-      targetCopy = objc_msgSend_nodeRef(targetCopy, v7, v8, v9);
+      targetCopy = objc_msgSend_nodeRef(targetCopy, v7, v8);
     }
 
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = sub_1AF2B97F4;
-    v10[3] = &unk_1E7A7E248;
-    v10[4] = self;
-    v10[5] = targetCopy;
-    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v7, self, v10);
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = sub_1AF2B97F4;
+    v9[3] = &unk_1E7A7E248;
+    v9[4] = self;
+    v9[5] = targetCopy;
+    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v7, self, v9);
   }
 }
 
@@ -157,79 +157,79 @@
 
 - (id)valueForKey:(id)key
 {
-  if (objc_msgSend_isEqualToString_(key, a2, @"targetOffset", v3))
+  if (objc_msgSend_isEqualToString_(key, a2, @"targetOffset"))
   {
-    v9 = MEMORY[0x1E696B098];
-    objc_msgSend_targetOffset(self, v6, v7, v8);
+    v7 = MEMORY[0x1E696B098];
+    objc_msgSend_targetOffset(self, v5, v6);
   }
 
-  else if (objc_msgSend_isEqualToString_(key, v6, @"localFront", v8))
+  else if (objc_msgSend_isEqualToString_(key, v5, @"localFront"))
   {
-    v9 = MEMORY[0x1E696B098];
-    objc_msgSend_localFront(self, v13, v14, v15);
+    v7 = MEMORY[0x1E696B098];
+    objc_msgSend_localFront(self, v10, v11);
   }
 
   else
   {
-    if (!objc_msgSend_isEqualToString_(key, v13, @"worldUp", v15))
+    if (!objc_msgSend_isEqualToString_(key, v10, @"worldUp"))
     {
-      v20.receiver = self;
-      v20.super_class = VFXLookAtConstraint;
-      return [(VFXLookAtConstraint *)&v20 valueForKey:key];
+      v15.receiver = self;
+      v15.super_class = VFXLookAtConstraint;
+      return [(VFXLookAtConstraint *)&v15 valueForKey:key];
     }
 
-    v9 = MEMORY[0x1E696B098];
-    objc_msgSend_worldUp(self, v16, v17, v18);
+    v7 = MEMORY[0x1E696B098];
+    objc_msgSend_worldUp(self, v12, v13);
   }
 
-  return objc_msgSend_valueWithVFXFloat3_(v9, v10, v11, v12);
+  return objc_msgSend_valueWithVFXFloat3_(v7, v8, v9);
 }
 
 - (void)setValue:(id)value forKey:(id)key
 {
-  if (objc_msgSend_isEqualToString_(key, a2, @"targetOffset", key))
+  if (objc_msgSend_isEqualToString_(key, a2, @"targetOffset"))
   {
-    objc_msgSend_VFXFloat3Value(value, v7, v8, v9);
+    objc_msgSend_VFXFloat3Value(value, v7, v8);
 
-    objc_msgSend_setTargetOffset_(self, v10, v11, v12);
+    objc_msgSend_setTargetOffset_(self, v9, v10);
   }
 
-  else if (objc_msgSend_isEqualToString_(key, v7, @"localFront", v9))
+  else if (objc_msgSend_isEqualToString_(key, v7, @"localFront"))
   {
-    objc_msgSend_VFXFloat3Value(value, v13, v14, v15);
+    objc_msgSend_VFXFloat3Value(value, v11, v12);
 
-    objc_msgSend_setLocalFront_(self, v16, v17, v18);
+    objc_msgSend_setLocalFront_(self, v13, v14);
   }
 
-  else if (objc_msgSend_isEqualToString_(key, v13, @"worldUp", v15))
+  else if (objc_msgSend_isEqualToString_(key, v11, @"worldUp"))
   {
-    objc_msgSend_VFXFloat3Value(value, v19, v20, v21);
+    objc_msgSend_VFXFloat3Value(value, v15, v16);
 
-    MEMORY[0x1EEE66B58](self, sel_setWorldUp_, v22, v23);
+    MEMORY[0x1EEE66B58](self, sel_setWorldUp_, v17);
   }
 
   else
   {
-    v24.receiver = self;
-    v24.super_class = VFXLookAtConstraint;
-    [(VFXLookAtConstraint *)&v24 setValue:value forKey:key];
+    v18.receiver = self;
+    v18.super_class = VFXLookAtConstraint;
+    [(VFXLookAtConstraint *)&v18 setValue:value forKey:key];
   }
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  v7 = objc_msgSend_initWithTarget_(v4, v5, self->_target, v6);
-  v11 = objc_msgSend_gimbalLockEnabled(self, v8, v9, v10);
-  objc_msgSend_setGimbalLockEnabled_(v7, v12, v11, v13);
-  objc_msgSend_targetOffset(self, v14, v15, v16);
-  objc_msgSend_setTargetOffset_(v7, v17, v18, v19);
-  objc_msgSend_upVector(self, v20, v21, v22);
-  objc_msgSend_setUpVector_(v7, v23, v24, v25);
-  objc_msgSend_localFront(self, v26, v27, v28);
-  objc_msgSend_setLocalFront_(v7, v29, v30, v31);
-  objc_msgSend_copyTo_(self, v32, v7, v33);
-  return v7;
+  v6 = objc_msgSend_initWithTarget_(v4, v5, self->_target);
+  v9 = objc_msgSend_gimbalLockEnabled(self, v7, v8);
+  objc_msgSend_setGimbalLockEnabled_(v6, v10, v9);
+  objc_msgSend_targetOffset(self, v11, v12);
+  objc_msgSend_setTargetOffset_(v6, v13, v14);
+  objc_msgSend_upVector(self, v15, v16);
+  objc_msgSend_setUpVector_(v6, v17, v18);
+  objc_msgSend_localFront(self, v19, v20);
+  objc_msgSend_setLocalFront_(v6, v21, v22);
+  objc_msgSend_copyTo_(self, v23, v6);
+  return v6;
 }
 
 - (void)_customEncodingOfVFXLookAtConstraint:(id)constraint
@@ -246,19 +246,19 @@
   v5 = objc_opt_class();
   v7 = objc_msgSend_decodeObjectOfClass_forKey_(constraint, v6, v5, @"target");
   self->_target = v7;
-  v11 = objc_msgSend_nodeRef(v7, v8, v9, v10);
-  self->super._constraintRef = sub_1AF14F61C(v11);
+  v10 = objc_msgSend_nodeRef(v7, v8, v9);
+  self->super._constraintRef = sub_1AF14F61C(v10);
 
-  objc_msgSend_finalizeDecodeConstraint_(self, v12, constraint, v13);
+  objc_msgSend_finalizeDecodeConstraint_(self, v11, constraint);
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v8.receiver = self;
-  v8.super_class = VFXLookAtConstraint;
-  [(VFXConstraint *)&v8 encodeWithCoder:?];
-  objc_msgSend__customEncodingOfVFXLookAtConstraint_(self, v5, coder, v6);
-  objc_msgSend_encodeBool_forKey_(coder, v7, self->_gimbalLockEnabled, @"gimbalLockEnabled");
+  v7.receiver = self;
+  v7.super_class = VFXLookAtConstraint;
+  [(VFXConstraint *)&v7 encodeWithCoder:?];
+  objc_msgSend__customEncodingOfVFXLookAtConstraint_(self, v5, coder);
+  objc_msgSend_encodeBool_forKey_(coder, v6, self->_gimbalLockEnabled, @"gimbalLockEnabled");
   sub_1AF371A8C(coder, @"targetOffset", *self->_targetOffset);
   sub_1AF371A8C(coder, @"upVector", *self->_upVector);
   sub_1AF371A8C(coder, @"localFront", *self->_localFront);
@@ -266,153 +266,153 @@
 
 - (VFXLookAtConstraint)initWithCoder:(id)coder
 {
-  v51.receiver = self;
-  v51.super_class = VFXLookAtConstraint;
-  v7 = [(VFXConstraint *)&v51 initWithCoder:?];
-  if (v7)
+  v36.receiver = self;
+  v36.super_class = VFXLookAtConstraint;
+  v6 = [(VFXConstraint *)&v36 initWithCoder:?];
+  if (v6)
   {
-    v8 = objc_msgSend_immediateMode(VFXTransaction, v4, v5, v6);
-    objc_msgSend_setImmediateMode_(VFXTransaction, v9, 1, v10);
-    objc_msgSend__customDecodingOfVFXLookAtConstraint_(v7, v11, coder, v12);
-    v15 = objc_msgSend_decodeBoolForKey_(coder, v13, @"gimbalLockEnabled", v14);
-    objc_msgSend_setGimbalLockEnabled_(v7, v16, v15, v17);
-    if (objc_msgSend_containsValueForKey_(coder, v18, @"targetOffset", v19))
+    v7 = objc_msgSend_immediateMode(VFXTransaction, v4, v5);
+    objc_msgSend_setImmediateMode_(VFXTransaction, v8, 1);
+    objc_msgSend__customDecodingOfVFXLookAtConstraint_(v6, v9, coder);
+    v11 = objc_msgSend_decodeBoolForKey_(coder, v10, @"gimbalLockEnabled");
+    objc_msgSend_setGimbalLockEnabled_(v6, v12, v11);
+    if (objc_msgSend_containsValueForKey_(coder, v13, @"targetOffset"))
     {
-      v22 = sub_1AF371BC4(coder, @"targetOffset");
-      objc_msgSend_setTargetOffset_(v7, v23, v24, v25, v22);
+      v15 = sub_1AF371BC4(coder, @"targetOffset");
+      objc_msgSend_setTargetOffset_(v6, v16, v17, v15);
     }
 
-    if (objc_msgSend_containsValueForKey_(coder, v20, @"upVector", v21))
+    if (objc_msgSend_containsValueForKey_(coder, v14, @"upVector"))
     {
-      v29 = sub_1AF371BC4(coder, @"upVector");
-    }
-
-    else
-    {
-      v29 = 0.0078125;
-    }
-
-    objc_msgSend_setUpVector_(v7, v26, v27, v28, v29);
-    if (objc_msgSend_containsValueForKey_(coder, v30, @"localFront", v31))
-    {
-      v35 = sub_1AF371BC4(coder, @"localFront");
-      objc_msgSend_setLocalFront_(v7, v36, v37, v38, v35);
+      v20 = sub_1AF371BC4(coder, @"upVector");
     }
 
     else
     {
-      objc_msgSend_setUpVector_(v7, v32, v33, v34, 0.0);
+      v20 = 0.0078125;
     }
 
-    objc_msgSend_upVector(v7, v39, v40, v41);
-    if (VFXVector3EqualToVector3(v42, 0))
+    objc_msgSend_setUpVector_(v6, v18, v19, v20);
+    if (objc_msgSend_containsValueForKey_(coder, v21, @"localFront"))
     {
-      objc_msgSend_setUpVector_(v7, v43, v44, v45, 0.0078125);
+      v24 = sub_1AF371BC4(coder, @"localFront");
+      objc_msgSend_setLocalFront_(v6, v25, v26, v24);
     }
 
-    objc_msgSend_localFront(v7, v43, v44, v45);
-    if (VFXVector3EqualToVector3(v46, 0))
+    else
     {
-      objc_msgSend_setLocalFront_(v7, v47, v48, v49, 0.0);
+      objc_msgSend_setUpVector_(v6, v22, v23, 0.0);
     }
 
-    objc_msgSend_setImmediateMode_(VFXTransaction, v47, v8, v49);
+    objc_msgSend_upVector(v6, v27, v28);
+    if (VFXVector3EqualToVector3(v29, 0))
+    {
+      objc_msgSend_setUpVector_(v6, v30, v31, 0.0078125);
+    }
+
+    objc_msgSend_localFront(v6, v30, v31);
+    if (VFXVector3EqualToVector3(v32, 0))
+    {
+      objc_msgSend_setLocalFront_(v6, v33, v34, 0.0);
+    }
+
+    objc_msgSend_setImmediateMode_(VFXTransaction, v33, v7);
   }
 
-  return v7;
+  return v6;
 }
 
 - (id)targetOffsetValue
 {
-  v29[3] = *MEMORY[0x1E69E9840];
-  v5 = MEMORY[0x1E696AD98];
-  objc_msgSend_targetOffset(self, a2, v2, v3);
-  v9 = objc_msgSend_numberWithFloat_(v5, v6, v7, v8);
-  v10 = MEMORY[0x1E696AD98];
-  objc_msgSend_targetOffset(self, v11, v12, v13, v9);
-  LODWORD(v14) = HIDWORD(v14);
-  v29[1] = objc_msgSend_numberWithFloat_(v10, v15, v16, v17, v14);
-  v18 = MEMORY[0x1E696AD98];
-  objc_msgSend_targetOffset(self, v19, v20, v21);
-  LODWORD(v23) = v22;
-  v29[2] = objc_msgSend_numberWithFloat_(v18, v24, v25, v26, v23);
-  return objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v27, v29, 3);
+  v23[3] = *MEMORY[0x1E69E9840];
+  v4 = MEMORY[0x1E696AD98];
+  objc_msgSend_targetOffset(self, a2, v2);
+  v7 = objc_msgSend_numberWithFloat_(v4, v5, v6);
+  v8 = MEMORY[0x1E696AD98];
+  objc_msgSend_targetOffset(self, v9, v10, v7);
+  LODWORD(v11) = HIDWORD(v11);
+  v23[1] = objc_msgSend_numberWithFloat_(v8, v12, v13, v11);
+  v14 = MEMORY[0x1E696AD98];
+  objc_msgSend_targetOffset(self, v15, v16);
+  LODWORD(v18) = v17;
+  v23[2] = objc_msgSend_numberWithFloat_(v14, v19, v20, v18);
+  return objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v21, v23, 3);
 }
 
 - (void)setTargetOffsetValue:(id)value
 {
-  v6 = objc_msgSend_objectAtIndexedSubscript_(value, a2, 0, v3);
-  objc_msgSend_floatValue(v6, v7, v8, v9);
-  v28 = v10;
-  v13 = objc_msgSend_objectAtIndexedSubscript_(value, v11, 1, v12);
-  objc_msgSend_floatValue(v13, v14, v15, v16);
-  v27 = v17;
-  v20 = objc_msgSend_objectAtIndexedSubscript_(value, v18, 2, v19);
-  objc_msgSend_floatValue(v20, v21, v22, v23);
+  v5 = objc_msgSend_objectAtIndexedSubscript_(value, a2, 0);
+  objc_msgSend_floatValue(v5, v6, v7);
+  v21 = v8;
+  v10 = objc_msgSend_objectAtIndexedSubscript_(value, v9, 1);
+  objc_msgSend_floatValue(v10, v11, v12);
+  v20 = v13;
+  v15 = objc_msgSend_objectAtIndexedSubscript_(value, v14, 2);
+  objc_msgSend_floatValue(v15, v16, v17);
 
-  objc_msgSend_setTargetOffset_(self, v24, v25, v26, COERCE_DOUBLE(__PAIR64__(v27, v28)));
+  objc_msgSend_setTargetOffset_(self, v18, v19, COERCE_DOUBLE(__PAIR64__(v20, v21)));
 }
 
 - (id)localFrontValue
 {
-  v29[3] = *MEMORY[0x1E69E9840];
-  v5 = MEMORY[0x1E696AD98];
-  objc_msgSend_localFront(self, a2, v2, v3);
-  v9 = objc_msgSend_numberWithFloat_(v5, v6, v7, v8);
-  v10 = MEMORY[0x1E696AD98];
-  objc_msgSend_localFront(self, v11, v12, v13, v9);
-  LODWORD(v14) = HIDWORD(v14);
-  v29[1] = objc_msgSend_numberWithFloat_(v10, v15, v16, v17, v14);
-  v18 = MEMORY[0x1E696AD98];
-  objc_msgSend_localFront(self, v19, v20, v21);
-  LODWORD(v23) = v22;
-  v29[2] = objc_msgSend_numberWithFloat_(v18, v24, v25, v26, v23);
-  return objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v27, v29, 3);
+  v23[3] = *MEMORY[0x1E69E9840];
+  v4 = MEMORY[0x1E696AD98];
+  objc_msgSend_localFront(self, a2, v2);
+  v7 = objc_msgSend_numberWithFloat_(v4, v5, v6);
+  v8 = MEMORY[0x1E696AD98];
+  objc_msgSend_localFront(self, v9, v10, v7);
+  LODWORD(v11) = HIDWORD(v11);
+  v23[1] = objc_msgSend_numberWithFloat_(v8, v12, v13, v11);
+  v14 = MEMORY[0x1E696AD98];
+  objc_msgSend_localFront(self, v15, v16);
+  LODWORD(v18) = v17;
+  v23[2] = objc_msgSend_numberWithFloat_(v14, v19, v20, v18);
+  return objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v21, v23, 3);
 }
 
 - (void)setLocalFrontValue:(id)value
 {
-  v6 = objc_msgSend_objectAtIndexedSubscript_(value, a2, 0, v3);
-  objc_msgSend_floatValue(v6, v7, v8, v9);
-  v28 = v10;
-  v13 = objc_msgSend_objectAtIndexedSubscript_(value, v11, 1, v12);
-  objc_msgSend_floatValue(v13, v14, v15, v16);
-  v27 = v17;
-  v20 = objc_msgSend_objectAtIndexedSubscript_(value, v18, 2, v19);
-  objc_msgSend_floatValue(v20, v21, v22, v23);
+  v5 = objc_msgSend_objectAtIndexedSubscript_(value, a2, 0);
+  objc_msgSend_floatValue(v5, v6, v7);
+  v21 = v8;
+  v10 = objc_msgSend_objectAtIndexedSubscript_(value, v9, 1);
+  objc_msgSend_floatValue(v10, v11, v12);
+  v20 = v13;
+  v15 = objc_msgSend_objectAtIndexedSubscript_(value, v14, 2);
+  objc_msgSend_floatValue(v15, v16, v17);
 
-  objc_msgSend_setLocalFront_(self, v24, v25, v26, COERCE_DOUBLE(__PAIR64__(v27, v28)));
+  objc_msgSend_setLocalFront_(self, v18, v19, COERCE_DOUBLE(__PAIR64__(v20, v21)));
 }
 
 - (id)upVectorValue
 {
-  v29[3] = *MEMORY[0x1E69E9840];
-  v5 = MEMORY[0x1E696AD98];
-  objc_msgSend_upVector(self, a2, v2, v3);
-  v9 = objc_msgSend_numberWithFloat_(v5, v6, v7, v8);
-  v10 = MEMORY[0x1E696AD98];
-  objc_msgSend_upVector(self, v11, v12, v13, v9);
-  LODWORD(v14) = HIDWORD(v14);
-  v29[1] = objc_msgSend_numberWithFloat_(v10, v15, v16, v17, v14);
-  v18 = MEMORY[0x1E696AD98];
-  objc_msgSend_upVector(self, v19, v20, v21);
-  LODWORD(v23) = v22;
-  v29[2] = objc_msgSend_numberWithFloat_(v18, v24, v25, v26, v23);
-  return objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v27, v29, 3);
+  v23[3] = *MEMORY[0x1E69E9840];
+  v4 = MEMORY[0x1E696AD98];
+  objc_msgSend_upVector(self, a2, v2);
+  v7 = objc_msgSend_numberWithFloat_(v4, v5, v6);
+  v8 = MEMORY[0x1E696AD98];
+  objc_msgSend_upVector(self, v9, v10, v7);
+  LODWORD(v11) = HIDWORD(v11);
+  v23[1] = objc_msgSend_numberWithFloat_(v8, v12, v13, v11);
+  v14 = MEMORY[0x1E696AD98];
+  objc_msgSend_upVector(self, v15, v16);
+  LODWORD(v18) = v17;
+  v23[2] = objc_msgSend_numberWithFloat_(v14, v19, v20, v18);
+  return objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v21, v23, 3);
 }
 
 - (void)setUpVectorValue:(id)value
 {
-  v6 = objc_msgSend_objectAtIndexedSubscript_(value, a2, 0, v3);
-  objc_msgSend_floatValue(v6, v7, v8, v9);
-  v28 = v10;
-  v13 = objc_msgSend_objectAtIndexedSubscript_(value, v11, 1, v12);
-  objc_msgSend_floatValue(v13, v14, v15, v16);
-  v27 = v17;
-  v20 = objc_msgSend_objectAtIndexedSubscript_(value, v18, 2, v19);
-  objc_msgSend_floatValue(v20, v21, v22, v23);
+  v5 = objc_msgSend_objectAtIndexedSubscript_(value, a2, 0);
+  objc_msgSend_floatValue(v5, v6, v7);
+  v21 = v8;
+  v10 = objc_msgSend_objectAtIndexedSubscript_(value, v9, 1);
+  objc_msgSend_floatValue(v10, v11, v12);
+  v20 = v13;
+  v15 = objc_msgSend_objectAtIndexedSubscript_(value, v14, 2);
+  objc_msgSend_floatValue(v15, v16, v17);
 
-  objc_msgSend_setUpVector_(self, v24, v25, v26, COERCE_DOUBLE(__PAIR64__(v27, v28)));
+  objc_msgSend_setUpVector_(self, v18, v19, COERCE_DOUBLE(__PAIR64__(v20, v21)));
 }
 
 @end

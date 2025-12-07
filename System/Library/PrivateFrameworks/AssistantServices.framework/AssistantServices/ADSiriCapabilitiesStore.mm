@@ -16,7 +16,7 @@
 {
   v4 = 0u;
   v5 = 0u;
-  [(ADSiriCapabilitiesStore *)self currentState];
+  objc_msgSend_currentState(self, a2);
   *&v4 = 1;
   v3[0] = v4;
   v3[1] = 0u;
@@ -33,7 +33,7 @@
 - (BOOL)siriSystemAssistantExperienceEnabled
 {
   v8 = 0u;
-  [(ADSiriCapabilitiesStore *)self currentState:0];
+  objc_msgSend_currentState(self, a2, 0, 0, 0);
   v2 = BYTE8(v8) & 0x3F;
   v3 = AFSiriLogContextUtility;
   if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_DEBUG))
@@ -115,16 +115,16 @@
   v7 = +[AFPreferences sharedPreferences];
   assistantIsEnabled = [v7 assistantIsEnabled];
 
-  [(ADSiriCapabilitiesStore *)self currentState];
+  objc_msgSend_currentState(self);
   if (assistantIsEnabled)
   {
-    [(ADSiriCapabilitiesStore *)self currentState];
+    objc_msgSend_currentState(self);
     if ((~v23 & 0x27) != 0)
     {
-      [(ADSiriCapabilitiesStore *)self currentState];
+      objc_msgSend_currentState(self);
       if ((~v22 & 7) != 0)
       {
-        [(ADSiriCapabilitiesStore *)self currentState];
+        objc_msgSend_currentState(self);
         if ((~v21 & 7) != 0)
         {
           v9 = 1;

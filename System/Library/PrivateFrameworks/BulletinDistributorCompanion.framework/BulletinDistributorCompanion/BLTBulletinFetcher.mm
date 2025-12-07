@@ -107,7 +107,7 @@
   }
 }
 
-uint64_t __37__BLTBulletinFetcher__fetchBulletins__block_invoke_2(uint64_t a1)
+void *__37__BLTBulletinFetcher__fetchBulletins__block_invoke_2(uint64_t a1)
 {
   v2 = [*(a1 + 32) _incrementSection];
   v3 = *(a1 + 32);
@@ -122,7 +122,7 @@ uint64_t __37__BLTBulletinFetcher__fetchBulletins__block_invoke_2(uint64_t a1)
     result = v3[6];
     if (result)
     {
-      v5 = *(result + 16);
+      v5 = result[2];
 
       return v5();
     }

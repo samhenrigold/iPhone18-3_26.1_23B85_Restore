@@ -162,10 +162,10 @@ void __41__SFAirDropMagicHeadViewController_start__block_invoke(uint64_t a1, voi
 
 - (void)viewDidLoad
 {
-  v80[4] = *MEMORY[0x1E69E9840];
-  v79.receiver = self;
-  v79.super_class = SFAirDropMagicHeadViewController;
-  [(SFAirDropMagicHeadViewController *)&v79 viewDidLoad];
+  v82[4] = *MEMORY[0x1E69E9840];
+  v81.receiver = self;
+  v81.super_class = SFAirDropMagicHeadViewController;
+  [(SFAirDropMagicHeadViewController *)&v81 viewDidLoad];
   clearColor = [MEMORY[0x1E69DC888] clearColor];
   view = [(SFAirDropMagicHeadViewController *)self view];
   [view setBackgroundColor:clearColor];
@@ -174,160 +174,160 @@ void __41__SFAirDropMagicHeadViewController_start__block_invoke(uint64_t a1, voi
   v4 = [SFMagicHeadWheelView alloc];
   numberOfDots = [(SFAirDropMagicHeadViewController *)self numberOfDots];
   [(SFAirDropMagicHeadViewController *)self dotsRadius];
-  v76 = [(SFMagicHeadWheelView *)v4 initWithNumberOfDots:numberOfDots dotsRadius:[(SFAirDropMagicHeadViewController *)self isMagicHead] isMagicHead:v6];
-  [(SFMagicHeadWheelView *)v76 setDelegate:self];
-  [(SFMagicHeadWheelView *)v76 setEnabled:[(SFAirDropMagicHeadViewController *)self enabled]];
-  [view2 addSubview:v76];
+  v78 = [(SFMagicHeadWheelView *)v4 initWithNumberOfDots:numberOfDots dotsRadius:[(SFAirDropMagicHeadViewController *)self isMagicHead] isMagicHead:v6];
+  [(SFMagicHeadWheelView *)v78 setDelegate:self];
+  [(SFMagicHeadWheelView *)v78 setEnabled:[(SFAirDropMagicHeadViewController *)self enabled]];
+  [view2 addSubview:v78];
   if (![(SFAirDropMagicHeadViewController *)self isMagicHead])
   {
     v7 = objc_alloc(MEMORY[0x1E69DCC10]);
     v8 = MEMORY[0x1E695F058];
-    v75 = [v7 initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
-    v9 = SFFontForTextStyleWithAdditionalSymbolicTraits(*MEMORY[0x1E69DDCF8], 0x8000);
-    [v75 setFont:v9];
+    v77 = [v7 initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
+    v10 = SFFontForTextStyleWithAdditionalSymbolicTraits(v9, *MEMORY[0x1E69DDCF8], 0x8000);
+    [v77 setFont:v10];
 
     labelColor = [MEMORY[0x1E69DC888] labelColor];
-    [v75 setTextColor:labelColor];
+    [v77 setTextColor:labelColor];
 
-    [v75 setAlpha:0.0];
-    v74 = [objc_alloc(MEMORY[0x1E69DCC10]) initWithFrame:{*v8, v8[1], v8[2], v8[3]}];
-    font = [v75 font];
-    [v74 setFont:font];
+    [v77 setAlpha:0.0];
+    v76 = [objc_alloc(MEMORY[0x1E69DCC10]) initWithFrame:{*v8, v8[1], v8[2], v8[3]}];
+    font = [v77 font];
+    [v76 setFont:font];
 
-    textColor = [v75 textColor];
-    [v74 setTextColor:textColor];
+    textColor = [v77 textColor];
+    [v76 setTextColor:textColor];
 
-    [v75 alpha];
-    [v74 setAlpha:?];
-    v65 = [MEMORY[0x1E69DC730] effectWithStyle:9];
-    v70 = [MEMORY[0x1E69DD248] effectForBlurEffect:? style:?];
-    v73 = [objc_alloc(MEMORY[0x1E69DD298]) initWithEffect:v70];
-    [v73 setTranslatesAutoresizingMaskIntoConstraints:0];
-    [view2 addSubview:v73];
-    contentView = [v73 contentView];
-    [contentView addSubview:v75];
+    [v77 alpha];
+    [v76 setAlpha:?];
+    v67 = [MEMORY[0x1E69DC730] effectWithStyle:9];
+    v72 = [MEMORY[0x1E69DD248] effectForBlurEffect:? style:?];
+    v75 = [objc_alloc(MEMORY[0x1E69DD298]) initWithEffect:v72];
+    [v75 setTranslatesAutoresizingMaskIntoConstraints:0];
+    [view2 addSubview:v75];
+    contentView = [v75 contentView];
+    [contentView addSubview:v77];
 
-    contentView2 = [v73 contentView];
-    [contentView2 addSubview:v74];
+    contentView2 = [v75 contentView];
+    [contentView2 addSubview:v76];
 
-    v15 = MEMORY[0x1E696ACD8];
-    leftAnchor = [v73 leftAnchor];
+    v16 = MEMORY[0x1E696ACD8];
+    leftAnchor = [v75 leftAnchor];
     leftAnchor2 = [view2 leftAnchor];
-    v68 = [leftAnchor constraintEqualToAnchor:?];
-    v80[0] = v68;
-    rightAnchor = [v73 rightAnchor];
+    v70 = [leftAnchor constraintEqualToAnchor:?];
+    v82[0] = v70;
+    rightAnchor = [v75 rightAnchor];
     rightAnchor2 = [view2 rightAnchor];
-    v66 = [rightAnchor constraintEqualToAnchor:?];
-    v80[1] = v66;
-    topAnchor = [v73 topAnchor];
-    topAnchor2 = [v75 topAnchor];
-    v18 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v80[2] = v18;
-    bottomAnchor = [v73 bottomAnchor];
-    bottomAnchor2 = [v75 bottomAnchor];
-    v21 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v80[3] = v21;
-    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v80 count:4];
-    [v15 activateConstraints:v22];
+    v68 = [rightAnchor constraintEqualToAnchor:?];
+    v82[1] = v68;
+    topAnchor = [v75 topAnchor];
+    topAnchor2 = [v77 topAnchor];
+    v19 = [topAnchor constraintEqualToAnchor:topAnchor2];
+    v82[2] = v19;
+    bottomAnchor = [v75 bottomAnchor];
+    bottomAnchor2 = [v77 bottomAnchor];
+    v22 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+    v82[3] = v22;
+    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v82 count:4];
+    [v16 activateConstraints:v23];
 
-    [view2 addSubview:v73];
-    v23 = [objc_alloc(MEMORY[0x1E69DCC10]) initWithFrame:{*v8, v8[1], v8[2], v8[3]}];
-    v24 = SFFontForTextStyleWithAdditionalSymbolicTraits(*MEMORY[0x1E69DDD28], 0x8000);
-    [v23 setFont:v24];
+    [view2 addSubview:v75];
+    v24 = [objc_alloc(MEMORY[0x1E69DCC10]) initWithFrame:{*v8, v8[1], v8[2], v8[3]}];
+    v26 = SFFontForTextStyleWithAdditionalSymbolicTraits(v25, *MEMORY[0x1E69DDD28], 0x8000);
+    [v24 setFont:v26];
 
     secondaryLabelColor = [MEMORY[0x1E69DC888] secondaryLabelColor];
-    [v23 setTextColor:secondaryLabelColor];
+    [v24 setTextColor:secondaryLabelColor];
 
-    [view2 addSubview:v23];
-    [v75 setTranslatesAutoresizingMaskIntoConstraints:0];
-    LODWORD(v26) = 1148846080;
-    [v75 setContentCompressionResistancePriority:1 forAxis:v26];
-    LODWORD(v27) = 1148846080;
-    [v75 setContentCompressionResistancePriority:0 forAxis:v27];
-    topAnchor3 = [v75 topAnchor];
-    bottomAnchor3 = [(SFMagicHeadWheelView *)v76 bottomAnchor];
-    v30 = [topAnchor3 constraintEqualToAnchor:bottomAnchor3 constant:-14.0];
-    [v30 setActive:1];
+    [view2 addSubview:v24];
+    [v77 setTranslatesAutoresizingMaskIntoConstraints:0];
+    LODWORD(v28) = 1148846080;
+    [v77 setContentCompressionResistancePriority:1 forAxis:v28];
+    LODWORD(v29) = 1148846080;
+    [v77 setContentCompressionResistancePriority:0 forAxis:v29];
+    topAnchor3 = [v77 topAnchor];
+    bottomAnchor3 = [(SFMagicHeadWheelView *)v78 bottomAnchor];
+    v32 = [topAnchor3 constraintEqualToAnchor:bottomAnchor3 constant:-14.0];
+    [v32 setActive:1];
 
-    centerXAnchor = [v75 centerXAnchor];
-    centerXAnchor2 = [(SFMagicHeadWheelView *)v76 centerXAnchor];
-    v33 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-    [v33 setActive:1];
+    centerXAnchor = [v77 centerXAnchor];
+    centerXAnchor2 = [(SFMagicHeadWheelView *)v78 centerXAnchor];
+    v35 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+    [v35 setActive:1];
 
-    [v74 setTranslatesAutoresizingMaskIntoConstraints:0];
-    LODWORD(v34) = 1148846080;
-    [v74 setContentCompressionResistancePriority:1 forAxis:v34];
-    LODWORD(v35) = 1148846080;
-    [v74 setContentCompressionResistancePriority:0 forAxis:v35];
-    topAnchor4 = [v74 topAnchor];
-    bottomAnchor4 = [(SFMagicHeadWheelView *)v76 bottomAnchor];
-    v38 = [topAnchor4 constraintEqualToAnchor:bottomAnchor4 constant:-14.0];
-    [v38 setActive:1];
+    [v76 setTranslatesAutoresizingMaskIntoConstraints:0];
+    LODWORD(v36) = 1148846080;
+    [v76 setContentCompressionResistancePriority:1 forAxis:v36];
+    LODWORD(v37) = 1148846080;
+    [v76 setContentCompressionResistancePriority:0 forAxis:v37];
+    topAnchor4 = [v76 topAnchor];
+    bottomAnchor4 = [(SFMagicHeadWheelView *)v78 bottomAnchor];
+    v40 = [topAnchor4 constraintEqualToAnchor:bottomAnchor4 constant:-14.0];
+    [v40 setActive:1];
 
-    centerXAnchor3 = [v74 centerXAnchor];
-    centerXAnchor4 = [(SFMagicHeadWheelView *)v76 centerXAnchor];
-    v41 = [centerXAnchor3 constraintEqualToAnchor:centerXAnchor4];
-    [v41 setActive:1];
+    centerXAnchor3 = [v76 centerXAnchor];
+    centerXAnchor4 = [(SFMagicHeadWheelView *)v78 centerXAnchor];
+    v43 = [centerXAnchor3 constraintEqualToAnchor:centerXAnchor4];
+    [v43 setActive:1];
 
-    [v23 setTranslatesAutoresizingMaskIntoConstraints:0];
-    LODWORD(v42) = 1148846080;
-    [v23 setContentCompressionResistancePriority:1 forAxis:v42];
-    LODWORD(v43) = 1148846080;
-    [v23 setContentCompressionResistancePriority:0 forAxis:v43];
-    topAnchor5 = [v23 topAnchor];
-    bottomAnchor5 = [v75 bottomAnchor];
-    v46 = [topAnchor5 constraintEqualToAnchor:bottomAnchor5 constant:3.0];
-    [v46 setActive:1];
+    [v24 setTranslatesAutoresizingMaskIntoConstraints:0];
+    LODWORD(v44) = 1148846080;
+    [v24 setContentCompressionResistancePriority:1 forAxis:v44];
+    LODWORD(v45) = 1148846080;
+    [v24 setContentCompressionResistancePriority:0 forAxis:v45];
+    topAnchor5 = [v24 topAnchor];
+    bottomAnchor5 = [v77 bottomAnchor];
+    v48 = [topAnchor5 constraintEqualToAnchor:bottomAnchor5 constant:3.0];
+    [v48 setActive:1];
 
-    centerXAnchor5 = [v23 centerXAnchor];
-    centerXAnchor6 = [(SFMagicHeadWheelView *)v76 centerXAnchor];
-    v49 = [centerXAnchor5 constraintEqualToAnchor:centerXAnchor6];
-    [v49 setActive:1];
+    centerXAnchor5 = [v24 centerXAnchor];
+    centerXAnchor6 = [(SFMagicHeadWheelView *)v78 centerXAnchor];
+    v51 = [centerXAnchor5 constraintEqualToAnchor:centerXAnchor6];
+    [v51 setActive:1];
 
-    bottomAnchor6 = [v23 bottomAnchor];
+    bottomAnchor6 = [v24 bottomAnchor];
     bottomAnchor7 = [view2 bottomAnchor];
-    v52 = [bottomAnchor6 constraintEqualToAnchor:bottomAnchor7];
-    [v52 setActive:1];
+    v54 = [bottomAnchor6 constraintEqualToAnchor:bottomAnchor7];
+    [v54 setActive:1];
 
-    [(SFAirDropMagicHeadViewController *)self setNameLabel:v75];
-    [(SFAirDropMagicHeadViewController *)self setNameLabel2:v74];
-    [(SFAirDropMagicHeadViewController *)self setSecondLabel:v23];
+    [(SFAirDropMagicHeadViewController *)self setNameLabel:v77];
+    [(SFAirDropMagicHeadViewController *)self setNameLabel2:v76];
+    [(SFAirDropMagicHeadViewController *)self setSecondLabel:v24];
     [(SFAirDropMagicHeadViewController *)self resetSecondLabel];
-    [v23 setAlpha:0.0];
+    [v24 setAlpha:0.0];
   }
 
-  [(SFMagicHeadWheelView *)v76 setTranslatesAutoresizingMaskIntoConstraints:0];
-  topAnchor6 = [(SFMagicHeadWheelView *)v76 topAnchor];
+  [(SFMagicHeadWheelView *)v78 setTranslatesAutoresizingMaskIntoConstraints:0];
+  topAnchor6 = [(SFMagicHeadWheelView *)v78 topAnchor];
   topAnchor7 = [view2 topAnchor];
-  v55 = [topAnchor6 constraintEqualToAnchor:topAnchor7];
-  [v55 setActive:1];
+  v57 = [topAnchor6 constraintEqualToAnchor:topAnchor7];
+  [v57 setActive:1];
 
-  rightAnchor3 = [(SFMagicHeadWheelView *)v76 rightAnchor];
+  rightAnchor3 = [(SFMagicHeadWheelView *)v78 rightAnchor];
   rightAnchor4 = [view2 rightAnchor];
-  v58 = [rightAnchor3 constraintEqualToAnchor:rightAnchor4];
-  [v58 setActive:1];
+  v60 = [rightAnchor3 constraintEqualToAnchor:rightAnchor4];
+  [v60 setActive:1];
 
-  leftAnchor3 = [(SFMagicHeadWheelView *)v76 leftAnchor];
+  leftAnchor3 = [(SFMagicHeadWheelView *)v78 leftAnchor];
   leftAnchor4 = [view2 leftAnchor];
-  v61 = [leftAnchor3 constraintEqualToAnchor:leftAnchor4];
-  [v61 setActive:1];
+  v63 = [leftAnchor3 constraintEqualToAnchor:leftAnchor4];
+  [v63 setActive:1];
 
   if ([(SFAirDropMagicHeadViewController *)self isMagicHead])
   {
-    bottomAnchor8 = [(SFMagicHeadWheelView *)v76 bottomAnchor];
+    bottomAnchor8 = [(SFMagicHeadWheelView *)v78 bottomAnchor];
     bottomAnchor9 = [view2 bottomAnchor];
-    v64 = [bottomAnchor8 constraintEqualToAnchor:bottomAnchor9];
-    [v64 setActive:1];
+    v66 = [bottomAnchor8 constraintEqualToAnchor:bottomAnchor9];
+    [v66 setActive:1];
   }
 
   else
   {
-    bottomAnchor8 = [(SFMagicHeadWheelView *)v76 heightAnchor];
+    bottomAnchor8 = [(SFMagicHeadWheelView *)v78 heightAnchor];
     bottomAnchor9 = [bottomAnchor8 constraintEqualToConstant:189.0];
     [bottomAnchor9 setActive:1];
   }
 
-  [(SFAirDropMagicHeadViewController *)self setWheelView:v76];
+  [(SFAirDropMagicHeadViewController *)self setWheelView:v78];
 }
 
 - (void)resetSecondLabel

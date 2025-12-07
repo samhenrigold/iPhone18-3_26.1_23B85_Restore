@@ -137,21 +137,21 @@ __CFString *__34__SBPPTBlockOperation_description__block_invoke(uint64_t a1)
 
 - (void)cancelAndFailTestWithReason:(id)reason
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   v5 = +[SBApplicationTestingManager sharedInstance];
   currentTestName = [v5 currentTestName];
 
   [*MEMORY[0x277D76620] failedTest:currentTestName withFailure:reasonCopy];
-  v11.receiver = self;
-  v11.super_class = SBPPTBlockOperation;
-  [(SBPPTBlockOperation *)&v11 cancel];
+  v12.receiver = self;
+  v12.super_class = SBPPTBlockOperation;
+  cancel = [(SBPPTBlockOperation *)&v12 cancel];
   self->_cancelled = 1;
-  v7 = SBLogPPT();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = SBLogPPT(cancel);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     operationName = [(SBPPTOperation *)self operationName];
-    v9 = operationName;
+    v10 = operationName;
     if (operationName)
     {
       selfCopy = operationName;
@@ -163,10 +163,10 @@ __CFString *__34__SBPPTBlockOperation_description__block_invoke(uint64_t a1)
     }
 
     *buf = 138412546;
-    v13 = selfCopy;
-    v14 = 2112;
-    v15 = reasonCopy;
-    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "PPT Operation '%@' cancelled for reason: %@", buf, 0x16u);
+    v14 = selfCopy;
+    v15 = 2112;
+    v16 = reasonCopy;
+    _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "PPT Operation '%@' cancelled for reason: %@", buf, 0x16u);
   }
 
   [(SBPPTBlockOperation *)self finish];
@@ -175,7 +175,9 @@ __CFString *__34__SBPPTBlockOperation_description__block_invoke(uint64_t a1)
 - (void)start
 {
   operationName = [self operationName];
-  OUTLINED_FUNCTION_7(&dword_21ED4E000, v2, v3, "Skipping '%@' because it's already executing", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = operationName;
+  OUTLINED_FUNCTION_7(&dword_21ED4E000, v2, v3, "Skipping '%@' because it's already executing", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)main

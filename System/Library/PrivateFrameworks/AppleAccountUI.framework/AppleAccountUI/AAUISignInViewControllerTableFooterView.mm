@@ -15,73 +15,74 @@
 
 - (AAUISignInViewControllerTableFooterView)initWithReuseIdentifier:(id)identifier
 {
-  v34.receiver = self;
-  v34.super_class = AAUISignInViewControllerTableFooterView;
-  v3 = [(AAUISignInViewControllerTableFooterView *)&v34 initWithReuseIdentifier:identifier];
+  v35.receiver = self;
+  v35.super_class = AAUISignInViewControllerTableFooterView;
+  v3 = [(AAUISignInViewControllerTableFooterView *)&v35 initWithReuseIdentifier:identifier];
+  v4 = v3;
   if (v3)
   {
-    v4 = _AAUILogSystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _AAUILogSystem(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v33 = 0;
-      _os_log_impl(&dword_1C5355000, v4, OS_LOG_TYPE_DEFAULT, "Initializing AAUISignInViewControllerTableFooterView", v33, 2u);
+      *v34 = 0;
+      _os_log_impl(&dword_1C5355000, v5, OS_LOG_TYPE_DEFAULT, "Initializing AAUISignInViewControllerTableFooterView", v34, 2u);
     }
 
-    v5 = objc_alloc_init(MEMORY[0x1E69DCF90]);
-    mainStack = v3->_mainStack;
-    v3->_mainStack = v5;
+    v6 = objc_alloc_init(MEMORY[0x1E69DCF90]);
+    mainStack = v4->_mainStack;
+    v4->_mainStack = v6;
 
-    [(UIStackView *)v3->_mainStack setAxis:1];
-    [(UIStackView *)v3->_mainStack setAlignment:3];
-    [(UIStackView *)v3->_mainStack setDistribution:3];
-    [(UIStackView *)v3->_mainStack setTranslatesAutoresizingMaskIntoConstraints:0];
-    v7 = objc_alloc_init(MEMORY[0x1E69DD250]);
-    expandableView = v3->_expandableView;
-    v3->_expandableView = v7;
+    [(UIStackView *)v4->_mainStack setAxis:1];
+    [(UIStackView *)v4->_mainStack setAlignment:3];
+    [(UIStackView *)v4->_mainStack setDistribution:3];
+    [(UIStackView *)v4->_mainStack setTranslatesAutoresizingMaskIntoConstraints:0];
+    v8 = objc_alloc_init(MEMORY[0x1E69DD250]);
+    expandableView = v4->_expandableView;
+    v4->_expandableView = v8;
 
-    [(UIView *)v3->_expandableView setTranslatesAutoresizingMaskIntoConstraints:0];
-    [(UIStackView *)v3->_mainStack addArrangedSubview:v3->_expandableView];
-    contentView = [(AAUISignInViewControllerTableFooterView *)v3 contentView];
-    [contentView addSubview:v3->_mainStack];
+    [(UIView *)v4->_expandableView setTranslatesAutoresizingMaskIntoConstraints:0];
+    [(UIStackView *)v4->_mainStack addArrangedSubview:v4->_expandableView];
+    contentView = [(AAUISignInViewControllerTableFooterView *)v4 contentView];
+    [contentView addSubview:v4->_mainStack];
 
-    leadingAnchor = [(UIStackView *)v3->_mainStack leadingAnchor];
-    contentView2 = [(AAUISignInViewControllerTableFooterView *)v3 contentView];
+    leadingAnchor = [(UIStackView *)v4->_mainStack leadingAnchor];
+    contentView2 = [(AAUISignInViewControllerTableFooterView *)v4 contentView];
     leadingAnchor2 = [contentView2 leadingAnchor];
-    v13 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    [v13 setActive:1];
+    v14 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    [v14 setActive:1];
 
-    trailingAnchor = [(UIStackView *)v3->_mainStack trailingAnchor];
-    contentView3 = [(AAUISignInViewControllerTableFooterView *)v3 contentView];
+    trailingAnchor = [(UIStackView *)v4->_mainStack trailingAnchor];
+    contentView3 = [(AAUISignInViewControllerTableFooterView *)v4 contentView];
     trailingAnchor2 = [contentView3 trailingAnchor];
-    v17 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    [v17 setActive:1];
+    v18 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+    [v18 setActive:1];
 
-    topAnchor = [(UIStackView *)v3->_mainStack topAnchor];
-    contentView4 = [(AAUISignInViewControllerTableFooterView *)v3 contentView];
+    topAnchor = [(UIStackView *)v4->_mainStack topAnchor];
+    contentView4 = [(AAUISignInViewControllerTableFooterView *)v4 contentView];
     topAnchor2 = [contentView4 topAnchor];
-    v21 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:15.0];
-    [v21 setActive:1];
+    v22 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:15.0];
+    [v22 setActive:1];
 
-    bottomAnchor = [(UIStackView *)v3->_mainStack bottomAnchor];
-    contentView5 = [(AAUISignInViewControllerTableFooterView *)v3 contentView];
+    bottomAnchor = [(UIStackView *)v4->_mainStack bottomAnchor];
+    contentView5 = [(AAUISignInViewControllerTableFooterView *)v4 contentView];
     bottomAnchor2 = [contentView5 bottomAnchor];
-    v25 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    [v25 setActive:1];
+    v26 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+    [v26 setActive:1];
 
-    heightAnchor = [(UIView *)v3->_expandableView heightAnchor];
-    v27 = [heightAnchor constraintGreaterThanOrEqualToConstant:10.0];
-    [v27 setActive:1];
+    heightAnchor = [(UIView *)v4->_expandableView heightAnchor];
+    v28 = [heightAnchor constraintGreaterThanOrEqualToConstant:10.0];
+    [v28 setActive:1];
 
-    heightAnchor2 = [(UIView *)v3->_expandableView heightAnchor];
-    v29 = [heightAnchor2 constraintEqualToConstant:0.0];
-    expandableHeight = v3->_expandableHeight;
-    v3->_expandableHeight = v29;
+    heightAnchor2 = [(UIView *)v4->_expandableView heightAnchor];
+    v30 = [heightAnchor2 constraintEqualToConstant:0.0];
+    expandableHeight = v4->_expandableHeight;
+    v4->_expandableHeight = v30;
 
-    contentView6 = [(AAUISignInViewControllerTableFooterView *)v3 contentView];
+    contentView6 = [(AAUISignInViewControllerTableFooterView *)v4 contentView];
     [contentView6 setNeedsLayout];
   }
 
-  return v3;
+  return v4;
 }
 
 - (void)setPrivacyLinkIdentifiers:(id)identifiers

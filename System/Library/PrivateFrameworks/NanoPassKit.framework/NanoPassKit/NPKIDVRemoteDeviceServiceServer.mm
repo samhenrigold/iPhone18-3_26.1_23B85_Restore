@@ -27,22 +27,22 @@
   dCopy = d;
   contextCopy = context;
   handlerCopy = handler;
-  v13 = pk_Payment_log();
+  v13 = pk_Payment_log(handlerCopy);
   v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
 
   if (v14)
   {
-    v15 = pk_Payment_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = pk_Payment_log(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = stringsArrayFromNPKIDVRemoteDeviceServiceEvents(event);
+      v17 = stringsArrayFromNPKIDVRemoteDeviceServiceEvents(event);
       v19 = 138412802;
-      v20 = v16;
+      v20 = v17;
       v21 = 2112;
       v22 = dCopy;
       v23 = 2112;
       v24 = contextCopy;
-      _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Did Receive event: %@ from remote device with ID:%@; context: %@", &v19, 0x20u);
+      _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Did Receive event: %@ from remote device with ID:%@; context: %@", &v19, 0x20u);
     }
   }
 
@@ -50,7 +50,6 @@
   [WeakRetained identityRemoteDeviceServiceServer:self didReceiveEvent:event & 0x3F fromRemoteDeviceWithID:dCopy eventContext:contextCopy];
 
   handlerCopy[2](handlerCopy);
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (NPKIDVRemoteDeviceServiceServerDelegate)delegate

@@ -1,5 +1,6 @@
 @interface MUPlaceActionBarSectionController
 - (MUPlaceActionBarSectionController)initWithMapItem:(id)item configuration:(id)configuration primaryButtonItem:(id)buttonItem secondaryButtonItems:(id)items;
+- (id)analyticsModuleForAction:(int)action presentationOptions:(id)options;
 - (id)leadingActionBarItem;
 - (id)menuActionBarItems;
 - (id)trailingActionBarItems;
@@ -14,68 +15,66 @@
 
 - (id)trailingActionBarItems
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if ([(MUPlaceUnifiedActionRowSectionControllerConfiguration *)self->super._configuration showMoreButtonIfAvailable])
   {
     [MEMORY[0x1E695DF70] array];
-    v23 = v22 = self;
+    v20 = v19 = self;
+    v21 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
-    v26 = 0u;
-    v27 = 0u;
     actionsRowItemViewModels = [(MUPlaceUnifiedActionRowSectionController *)self actionsRowItemViewModels];
-    v4 = [actionsRowItemViewModels countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v4 = [actionsRowItemViewModels countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (!v4)
     {
       goto LABEL_19;
     }
 
     v5 = v4;
-    v6 = *v25;
-    v7 = 0x1E8216000uLL;
+    v6 = *v22;
     p_superclass = &OBJC_METACLASS___MUPlaceActionControlledItemViewModel.superclass;
     while (1)
     {
-      v9 = 0;
-      v10 = sel_leadingActionBarItem;
+      v8 = 0;
+      v9 = sel_leadingActionBarItem;
       do
       {
-        if (*v25 != v6)
+        if (*v22 != v6)
         {
           objc_enumerationMutation(actionsRowItemViewModels);
         }
 
-        v11 = *(*(&v24 + 1) + 8 * v9);
+        v10 = *(*(&v21 + 1) + 8 * v8);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v12 = *(v7 + 432);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass() & 1) == 0 && (objc_opt_respondsToSelector())
             {
-              v13 = v10;
-              v14 = p_superclass;
-              leadingActionBarItem = [v11 leadingActionBarItem];
+              v11 = v9;
+              v12 = p_superclass;
+              leadingActionBarItem = [v10 leadingActionBarItem];
               type = [leadingActionBarItem type];
               objc_opt_class();
               isKindOfClass = objc_opt_isKindOfClass();
 
               if (isKindOfClass)
               {
-                v18 = MEMORY[0x1E696F2E8];
-                mapItem = [(MUPlaceSectionController *)v22 mapItem];
-                LODWORD(v18) = [v18 shouldShowRatingsCallToActionForMapItem:mapItem];
+                v16 = MEMORY[0x1E696F2E8];
+                mapItem = [(MUPlaceSectionController *)v19 mapItem];
+                LODWORD(v16) = [v16 shouldShowRatingsCallToActionForMapItem:mapItem];
 
-                if (!v18)
+                if (!v16)
                 {
                   goto LABEL_16;
                 }
 
 LABEL_15:
-                [v23 addObject:leadingActionBarItem];
+                [v20 addObject:leadingActionBarItem];
               }
 
               else if (leadingActionBarItem)
@@ -85,18 +84,17 @@ LABEL_15:
 
 LABEL_16:
 
-              p_superclass = v14;
-              v10 = v13;
-              v7 = 0x1E8216000;
+              p_superclass = v12;
+              v9 = v11;
             }
           }
         }
 
-        ++v9;
+        ++v8;
       }
 
-      while (v5 != v9);
-      v5 = [actionsRowItemViewModels countByEnumeratingWithState:&v24 objects:v28 count:16];
+      while (v5 != v8);
+      v5 = [actionsRowItemViewModels countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (!v5)
       {
 LABEL_19:
@@ -106,11 +104,10 @@ LABEL_19:
     }
   }
 
-  v23 = 0;
+  v20 = 0;
 LABEL_21:
-  v20 = *MEMORY[0x1E69E9840];
 
-  return v23;
+  return v20;
 }
 
 - (id)menuActionBarItems
@@ -394,68 +391,68 @@ uint64_t __57__MUPlaceActionBarSectionController_leadingActionBarItem__block_inv
 
 - (void)_populateRevealedAnalyticsModule:(id)module
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   moduleCopy = module;
   v5 = objc_alloc_init(MEMORY[0x1E69A24B8]);
   v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   actionsRowItemViewModels = [(MUPlaceUnifiedActionRowSectionController *)self actionsRowItemViewModels];
-  v8 = [actionsRowItemViewModels countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v8 = [actionsRowItemViewModels countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v24;
+    v10 = *v23;
     do
     {
       v11 = 0;
       do
       {
-        if (*v24 != v10)
+        if (*v23 != v10)
         {
           objc_enumerationMutation(actionsRowItemViewModels);
         }
 
-        analyticsButtonValues = [*(*(&v23 + 1) + 8 * v11) analyticsButtonValues];
+        analyticsButtonValues = [*(*(&v22 + 1) + 8 * v11) analyticsButtonValues];
         [v6 _mapsui_addObjectsFromArrayIfNotNil:analyticsButtonValues];
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [actionsRowItemViewModels countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v9 = [actionsRowItemViewModels countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v9);
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v13 = v6;
-  v14 = [v13 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v20;
+    v16 = *v19;
     do
     {
       v17 = 0;
       do
       {
-        if (*v20 != v16)
+        if (*v19 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        [v5 addButtons:{*(*(&v19 + 1) + 8 * v17++), v19}];
+        [v5 addButtons:{*(*(&v18 + 1) + 8 * v17++), v18}];
       }
 
       while (v15 != v17);
-      v15 = [v13 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v15);
@@ -465,8 +462,14 @@ uint64_t __57__MUPlaceActionBarSectionController_leadingActionBarItem__block_inv
   {
     [moduleCopy setActionBar:v5];
   }
+}
 
-  v18 = *MEMORY[0x1E69E9840];
+- (id)analyticsModuleForAction:(int)action presentationOptions:(id)options
+{
+  v4 = MEMORY[0x1E69A1B10];
+  v5 = [(MUPlaceActionBarSectionController *)self analyticsModuleTypeForAction:*&action presentationOptions:options];
+
+  return [v4 moduleFromModuleType:v5];
 }
 
 - (int)analyticsTargetForAction:(int)action presentationOptions:(id)options
@@ -540,7 +543,7 @@ uint64_t __57__MUPlaceActionBarSectionController_leadingActionBarItem__block_inv
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = MUGetMUPlaceActionBarSectionControllerLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
@@ -549,34 +552,33 @@ uint64_t __57__MUPlaceActionBarSectionController_leadingActionBarItem__block_inv
     _os_log_impl(&dword_1C5620000, v3, OS_LOG_TYPE_INFO, "[%p] Deallocating", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = MUPlaceActionBarSectionController;
-  [(MUPlaceActionBarSectionController *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = MUPlaceActionBarSectionController;
+  [(MUPlaceActionBarSectionController *)&v4 dealloc];
 }
 
 - (MUPlaceActionBarSectionController)initWithMapItem:(id)item configuration:(id)configuration primaryButtonItem:(id)buttonItem secondaryButtonItems:(id)items
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   buttonItemCopy = buttonItem;
   itemsCopy = items;
-  v17.receiver = self;
-  v17.super_class = MUPlaceActionBarSectionController;
-  v13 = [(MUPlaceUnifiedActionRowSectionController *)&v17 initWithMapItem:item configuration:configurationCopy];
+  v16.receiver = self;
+  v16.super_class = MUPlaceActionBarSectionController;
+  v13 = [(MUPlaceUnifiedActionRowSectionController *)&v16 initWithMapItem:item configuration:configurationCopy];
   if (v13)
   {
     v14 = MUGetMUPlaceActionBarSectionControllerLog();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 134218754;
-      v19 = v13;
-      v20 = 2112;
-      v21 = configurationCopy;
-      v22 = 2112;
-      v23 = buttonItemCopy;
-      v24 = 2112;
-      v25 = itemsCopy;
+      v18 = v13;
+      v19 = 2112;
+      v20 = configurationCopy;
+      v21 = 2112;
+      v22 = buttonItemCopy;
+      v23 = 2112;
+      v24 = itemsCopy;
       _os_log_impl(&dword_1C5620000, v14, OS_LOG_TYPE_INFO, "[%p] Initializing with config: %@\nprimary button:%@\nsecondary buttons:%@", buf, 0x2Au);
     }
 
@@ -585,7 +587,6 @@ uint64_t __57__MUPlaceActionBarSectionController_leadingActionBarItem__block_inv
     v13->_alwaysSuppressPrimaryActionInActionBar = GEOConfigGetBOOL();
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v13;
 }
 

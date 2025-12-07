@@ -11,7 +11,7 @@
 {
   lCopy = l;
   pathExtension = [lCopy pathExtension];
-  v6 = [pathExtension isEqualToString:@"json"];
+  v6 = objc_msgSend_isEqualToString_(pathExtension);
 
   if (v6)
   {

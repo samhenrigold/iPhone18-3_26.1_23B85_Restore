@@ -16,11 +16,10 @@
 
 - (BOOL)isFeatureSupported
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___STASWorkoutVoiceAvailabilityProvider_bridgedValue);
   selfCopy = self;
-  LOBYTE(v2) = sub_22334();
+  v3 = sub_22334();
 
-  return v2 & 1;
+  return v3 & 1;
 }
 
 - (STASWorkoutVoiceAvailabilityProvider)init

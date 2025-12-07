@@ -45,20 +45,21 @@
 
 - (void)_updateLocked
 {
-  self->_isLocked = +[PTTraceConfig globalSettingsAreLocked];
-  v3 = sub_19B4();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v3 = +[PTTraceConfig globalSettingsAreLocked];
+  self->_isLocked = v3;
+  v4 = sub_19B4(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     isLocked = [(PerformanceTraceController *)self isLocked];
-    v5 = @"Not locked";
+    v6 = @"Not locked";
     if (isLocked)
     {
-      v5 = @"Locked";
+      v6 = @"Locked";
     }
 
-    v6 = 138412290;
-    v7 = v5;
-    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Locked state: %@", &v6, 0xCu);
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Locked state: %@", &v7, 0xCu);
   }
 }
 
@@ -114,7 +115,7 @@ LABEL_9:
   }
 
   v5 = v4;
-  v6 = sub_1BEC();
+  v6 = sub_1BEC(v4);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     sub_6BB0();
@@ -616,13 +617,13 @@ LABEL_4:
 - (id)_updateMSS:(id)s
 {
   sCopy = s;
-  v5 = sub_1BEC();
+  v5 = sub_1BEC(sCopy);
   passiveTraceConfig = v5;
   if (!sCopy)
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_6D48(passiveTraceConfig, v12, v13, v14, v15, v16, v17, v18);
+      sub_6D48(passiveTraceConfig, v14, v15, v16, v17, v18, v19, v20);
     }
 
     goto LABEL_17;
@@ -634,53 +635,55 @@ LABEL_4:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    passiveTraceConfig = sub_1BEC();
+    passiveTraceConfig = sub_1BEC(isKindOfClass);
     if (os_log_type_enabled(passiveTraceConfig, OS_LOG_TYPE_ERROR))
     {
-      sub_6D10(passiveTraceConfig, v19, v20, v21, v22, v23, v24, v25);
+      sub_6D10(passiveTraceConfig, v21, v22, v23, v24, v25, v26, v27);
     }
 
 LABEL_17:
-    v11 = 0;
+    v13 = 0;
     goto LABEL_18;
   }
 
   bOOLValue = [sCopy BOOLValue];
+  v9 = bOOLValue;
   if (bOOLValue)
   {
-    v8 = &off_CF88;
+    v10 = &off_CF88;
   }
 
   else
   {
-    v8 = 0;
+    v10 = 0;
   }
 
-  v9 = sub_1BEC();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_1BEC(bOOLValue);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = @"Default";
-    v27 = 138543874;
-    if (bOOLValue)
+    v12 = @"Default";
+    v29 = 138543874;
+    if (v9)
     {
-      v10 = @"High";
+      v12 = @"High";
     }
 
-    v28 = v10;
-    v29 = 2114;
-    v30 = v8;
+    v30 = v12;
     v31 = 2114;
-    v32 = sCopy;
-    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Updating MSS interval to: %{public}@ (new raw value: %{public}@, value: %{public}@)", &v27, 0x20u);
+    v32 = v10;
+    v33 = 2114;
+    v34 = sCopy;
+    _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Updating MSS interval to: %{public}@ (new raw value: %{public}@, value: %{public}@)", &v29, 0x20u);
   }
 
   passiveTraceConfig = [(PerformanceTraceController *)self passiveTraceConfig];
-  v11 = [passiveTraceConfig updateMSSPMICycleInterval:v8];
+  v13 = [passiveTraceConfig updateMSSPMICycleInterval:v10];
 LABEL_18:
 
-  return v11;
+  return v13;
 }
 
 - (void)instrumentationConfigSetter:(id)setter specifier:(id)specifier
@@ -690,6 +693,7 @@ LABEL_18:
   if ([@"mss" isEqualToString:identifier])
   {
     v8 = [(PerformanceTraceController *)self _updateMSS:setterCopy];
+    v9 = v8;
     if (!v8)
     {
       goto LABEL_12;
@@ -698,10 +702,11 @@ LABEL_18:
 
   else
   {
-    if (![@"logging-metal-frame-pacing" isEqualToString:identifier])
+    v10 = [@"logging-metal-frame-pacing" isEqualToString:identifier];
+    if (!v10)
     {
-      v11 = sub_1BEC();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = sub_1BEC(v10);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         sub_6D80();
       }
@@ -710,25 +715,25 @@ LABEL_18:
     }
 
     passiveTraceConfig = [(PerformanceTraceController *)self passiveTraceConfig];
-    v8 = [passiveTraceConfig updateMetalPerDrawableSignpostsEnabled:setterCopy];
+    v9 = [passiveTraceConfig updateMetalPerDrawableSignpostsEnabled:setterCopy];
 
-    if (!v8)
+    if (!v9)
     {
 LABEL_12:
-      v8 = sub_1BEC();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = sub_1BEC(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 138543362;
-        v13 = setterCopy;
-        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Update value: %{public}@", &v12, 0xCu);
+        v14 = 138543362;
+        v15 = setterCopy;
+        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Update value: %{public}@", &v14, 0xCu);
       }
 
       goto LABEL_14;
     }
   }
 
-  v10 = sub_1BEC();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v12 = sub_1BEC(v8);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     sub_6DE8();
   }
@@ -746,27 +751,27 @@ LABEL_14:
   {
     if ([v5 unsignedLongLongValue] >= 0x5F5E101)
     {
-      v6 = &__kCFBooleanFalse;
+      v7 = &__kCFBooleanFalse;
     }
 
     else
     {
-      v6 = &__kCFBooleanTrue;
+      v7 = &__kCFBooleanTrue;
     }
   }
 
   else
   {
-    v7 = sub_1BEC();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_1BEC(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_6E50(v7, v8, v9, v10, v11, v12, v13, v14);
+      sub_6E50(v8, v9, v10, v11, v12, v13, v14, v15);
     }
 
-    v6 = &__kCFBooleanFalse;
+    v7 = &__kCFBooleanFalse;
   }
 
-  return v6;
+  return v7;
 }
 
 - (id)instrumentationConfigGetter:(id)getter
@@ -774,9 +779,10 @@ LABEL_14:
   identifier = [getter identifier];
   if ([@"mss" isEqualToString:identifier])
   {
-    v12 = 0;
-    v5 = [(PerformanceTraceController *)self _highFrequencyMSSValue:&v12];
-    v6 = v12;
+    v14 = 0;
+    v5 = [(PerformanceTraceController *)self _highFrequencyMSSValue:&v14];
+    v6 = v14;
+    v7 = v6;
     if (!v6)
     {
       goto LABEL_11;
@@ -785,10 +791,11 @@ LABEL_14:
 
   else
   {
-    if (![@"logging-metal-frame-pacing" isEqualToString:identifier])
+    v8 = [@"logging-metal-frame-pacing" isEqualToString:identifier];
+    if (!v8)
     {
-      v9 = sub_1BEC();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = sub_1BEC(v8);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         sub_6D80();
       }
@@ -798,28 +805,28 @@ LABEL_14:
     }
 
     passiveTraceConfig = [(PerformanceTraceController *)self passiveTraceConfig];
-    v11 = 0;
-    v5 = [passiveTraceConfig fetchMetalPerDrawableSignpostsEnabled:&v11];
-    v6 = v11;
+    v13 = 0;
+    v5 = [passiveTraceConfig fetchMetalPerDrawableSignpostsEnabled:&v13];
+    v7 = v13;
 
-    if (!v6)
+    if (!v7)
     {
 LABEL_11:
-      v8 = sub_1BEC();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v10 = sub_1BEC(v6);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v14 = v5;
-        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Fetched: %{public}@", buf, 0xCu);
+        v16 = v5;
+        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Fetched: %{public}@", buf, 0xCu);
       }
 
-      v6 = 0;
+      v7 = 0;
       goto LABEL_14;
     }
   }
 
-  v8 = sub_1BEC();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v10 = sub_1BEC(v6);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     sub_6E88();
   }
@@ -832,23 +839,23 @@ LABEL_14:
 - (id)lookbackIntervalGetter:(id)getter
 {
   passiveTraceConfig = [(PerformanceTraceController *)self passiveTraceConfig];
-  v10 = 0;
-  v4 = [passiveTraceConfig fetchCollectLookbackInterval:&v10];
-  v5 = v10;
+  v11 = 0;
+  v4 = [passiveTraceConfig fetchCollectLookbackInterval:&v11];
+  v5 = v11;
 
   if (v5)
   {
-    v6 = sub_1BEC();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_1BEC(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_6E88();
     }
   }
 
   [v4 doubleValue];
-  v8 = [NSNumber numberWithDouble:v7 / 3600.0];
+  v9 = [NSNumber numberWithDouble:v8 / 3600.0];
 
-  return v8;
+  return v9;
 }
 
 - (void)lookbackIntervalSetter:(id)setter specifier:(id)specifier
@@ -858,17 +865,17 @@ LABEL_14:
   v7 = +[NSNumber numberWithDouble:](NSNumber, "numberWithDouble:", [setterCopy integerValue] * 3600.0);
   v8 = [passiveTraceConfig updateCollectLookbackInterval:v7];
 
-  v9 = sub_1BEC();
-  v10 = v9;
+  v10 = sub_1BEC(v9);
+  v11 = v10;
   if (v8)
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_6DE8();
     }
   }
 
-  else if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  else if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     sub_6EF0();
   }
@@ -997,24 +1004,25 @@ LABEL_14:
 {
   enabledCopy = enabled;
   bOOLValue = [enabledCopy BOOLValue];
-  if (HTDeveloperSettingsIsInternalBuild())
+  IsInternalBuild = HTDeveloperSettingsIsInternalBuild();
+  if (IsInternalBuild)
   {
-    v7 = sub_5878();
-    v8 = [NSNumber numberWithBool:bOOLValue];
-    [v7 setObject:v8 forKey:@"MonitorAnyApp"];
+    v8 = sub_5878(IsInternalBuild);
+    v9 = [NSNumber numberWithBool:bOOLValue];
+    [v8 setObject:v9 forKey:@"MonitorAnyApp"];
 
-    v9 = sub_58BC();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_58BC(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = @"disabled";
+      v12 = @"disabled";
       if (bOOLValue)
       {
-        v10 = @"enabled";
+        v12 = @"enabled";
       }
 
-      v13 = 138543362;
-      v14 = v10;
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "MonitorAnyApp set to %{public}@", &v13, 0xCu);
+      v15 = 138543362;
+      v16 = v12;
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "MonitorAnyApp set to %{public}@", &v15, 0xCu);
     }
   }
 
@@ -1089,14 +1097,14 @@ LABEL_14:
   specifierCopy = specifier;
   setterCopy = setter;
   passiveTraceConfig = [(PerformanceTraceController *)self passiveTraceConfig];
-  v19 = 0;
-  v9 = [passiveTraceConfig fetchPerfPowerMetricMonitoredProcesses:&v19];
-  v10 = v19;
+  v21 = 0;
+  v9 = [passiveTraceConfig fetchPerfPowerMetricMonitoredProcesses:&v21];
+  v10 = v21;
 
   if (v10)
   {
-    v11 = sub_47D4();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = sub_47D4(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_6F64();
     }
@@ -1107,38 +1115,38 @@ LABEL_14:
     v9 = &__NSArray0__struct;
   }
 
-  v12 = [v9 mutableCopy];
+  v13 = [v9 mutableCopy];
   bOOLValue = [setterCopy BOOLValue];
 
-  v14 = [specifierCopy objectForKeyedSubscript:@"AppBundleExecutable"];
+  v15 = [specifierCopy objectForKeyedSubscript:@"AppBundleExecutable"];
   if (bOOLValue)
   {
-    [v12 addObject:v14];
+    [v13 addObject:v15];
   }
 
   else
   {
-    [v12 removeObject:v14];
+    [v13 removeObject:v15];
   }
 
   passiveTraceConfig2 = [(PerformanceTraceController *)self passiveTraceConfig];
-  v16 = [passiveTraceConfig2 updatePerfPowerMetricMonitoredProcesses:v12];
+  v17 = [passiveTraceConfig2 updatePerfPowerMetricMonitoredProcesses:v13];
 
-  v17 = sub_47D4();
-  v18 = v17;
-  if (v16)
+  v19 = sub_47D4(v18);
+  v20 = v19;
+  if (v17)
   {
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       sub_6FCC();
     }
   }
 
-  else if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v21 = v12;
-    _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "Updated monitored process list: %{public}@", buf, 0xCu);
+    v23 = v13;
+    _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "Updated monitored process list: %{public}@", buf, 0xCu);
   }
 
   [(PerformanceTraceController *)self reloadSpecifiers];
@@ -1148,25 +1156,25 @@ LABEL_14:
 {
   getterCopy = getter;
   passiveTraceConfig = [(PerformanceTraceController *)self passiveTraceConfig];
-  v13 = 0;
-  v6 = [passiveTraceConfig fetchPerfPowerMetricMonitoredProcesses:&v13];
-  v7 = v13;
+  v14 = 0;
+  v6 = [passiveTraceConfig fetchPerfPowerMetricMonitoredProcesses:&v14];
+  v7 = v14;
 
-  v8 = sub_47D4();
-  v9 = v8;
+  v9 = sub_47D4(v8);
+  v10 = v9;
   if (v7)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_7048();
     }
   }
 
-  else if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v15 = v6;
-    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Fetched monitored process list: %{public}@", buf, 0xCu);
+    v16 = v6;
+    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Fetched monitored process list: %{public}@", buf, 0xCu);
   }
 
   if (!v6)
@@ -1174,11 +1182,11 @@ LABEL_14:
     v6 = &__NSArray0__struct;
   }
 
-  v10 = [getterCopy objectForKeyedSubscript:@"AppBundleExecutable"];
+  v11 = [getterCopy objectForKeyedSubscript:@"AppBundleExecutable"];
 
-  v11 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v6 containsObject:v10]);
+  v12 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v6 containsObject:v11]);
 
-  return v11;
+  return v12;
 }
 
 - (void)_refreshAppList

@@ -216,57 +216,57 @@ void boost::detail::sp_counted_impl_p<boost::signals2::detail::grouped_list<int,
 
 uint64_t boost::signals2::detail::slot_call_iterator_cache<boost::signals2::detail::void_type,boost::signals2::detail::variadic_slot_invoker<boost::signals2::detail::void_type,unsigned int>>::~slot_call_iterator_cache(uint64_t a1)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 288);
   if (v2)
   {
     *&v3 = 0xAAAAAAAAAAAAAAAALL;
     *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v9[8] = v3;
-    v9[9] = v3;
-    v9[6] = v3;
-    v9[7] = v3;
-    v9[4] = v3;
-    v9[5] = v3;
-    v9[2] = v3;
-    v9[3] = v3;
-    v9[0] = v3;
-    v9[1] = v3;
-    v10 = 10;
-    __p = v9;
-    v12 = 0;
-    v13 = v2;
+    v8[8] = v3;
+    v8[9] = v3;
+    v8[6] = v3;
+    v8[7] = v3;
+    v8[4] = v3;
+    v8[5] = v3;
+    v8[2] = v3;
+    v8[3] = v3;
+    v8[0] = v3;
+    v8[1] = v3;
+    v9 = 10;
+    __p = v8;
+    v11 = 0;
+    v12 = v2;
     (*(*v2 + 24))(v2);
-    boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::detail::connection_body_base>(*(a1 + 288), v9);
-    (*(*v13 + 32))(v13);
+    boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::detail::connection_body_base>(*(a1 + 288), v8);
+    (*(*v12 + 32))(v12);
     v4 = __p;
     if (__p)
     {
-      if (v12 > 0)
+      if (v11 > 0)
       {
-        v7 = __p + 16 * v12;
+        v6 = __p + 16 * v11;
         do
         {
-          v8 = *(v7 - 1);
-          if (v8)
+          v7 = *(v6 - 1);
+          if (v7)
           {
-            if (atomic_fetch_add(v8 + 2, 0xFFFFFFFF) == 1)
+            if (atomic_fetch_add(v7 + 2, 0xFFFFFFFF) == 1)
             {
-              (*(*v8 + 16))(v8);
-              if (atomic_fetch_add(v8 + 3, 0xFFFFFFFF) == 1)
+              (*(*v7 + 16))(v7);
+              if (atomic_fetch_add(v7 + 3, 0xFFFFFFFF) == 1)
               {
-                (*(*v8 + 24))(v8);
+                (*(*v7 + 24))(v7);
               }
             }
           }
 
-          v7 -= 16;
+          v6 -= 16;
         }
 
-        while (v7 > v4);
+        while (v6 > v4);
       }
 
-      if (v10 >= 0xB)
+      if (v9 >= 0xB)
       {
         operator delete(__p);
       }
@@ -279,7 +279,6 @@ uint64_t boost::signals2::detail::slot_call_iterator_cache<boost::signals2::deta
     *a1 = 0;
   }
 
-  v5 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
@@ -311,7 +310,7 @@ uint64_t boost::shared_ptr<boost::signals2::detail::signal_impl<void ()(unsigned
   return result;
 }
 
-uint64_t logs::QMICommandDriver::create@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, const void **a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X4>, void *a6@<X8>)
+uint64_t logs::QMICommandDriver::create@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, const void **a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X4>, std::__shared_weak_count ***a6@<X8>)
 {
   *a6 = 0xAAAAAAAAAAAAAAAALL;
   a6[1] = 0xAAAAAAAAAAAAAAAALL;
@@ -374,20 +373,20 @@ uint64_t logs::QMICommandDriver::create@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>,
   *a6 = v12;
   a6[1] = 0xAAAAAAAAAAAAAAAALL;
   v20 = operator new(0x20uLL);
-  v20[1] = 0;
-  v25 = v20 + 1;
-  *v20 = &unk_2A1E17590;
-  v20[2] = 0;
-  v20[3] = v12;
+  v20->__shared_owners_ = 0;
+  p_shared_owners = &v20->__shared_owners_;
+  v20->__vftable = &unk_2A1E17590;
+  v20->__shared_weak_owners_ = 0;
+  v20[1].__vftable = v12;
   a6[1] = v20;
-  v26 = *(v12 + 2);
+  v26 = v12[2];
   if (!v26)
   {
-    atomic_fetch_add_explicit(v20 + 1, 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit(v20 + 2, 1uLL, memory_order_relaxed);
-    *(v12 + 1) = v12;
-    *(v12 + 2) = v20;
-    if (!atomic_fetch_add(v25, 0xFFFFFFFFFFFFFFFFLL))
+    atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v20->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    v12[1] = v12;
+    v12[2] = v20;
+    if (!atomic_fetch_add(p_shared_owners, 0xFFFFFFFFFFFFFFFFLL))
     {
       goto LABEL_38;
     }
@@ -406,21 +405,21 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  atomic_fetch_add_explicit(v20 + 1, 1uLL, memory_order_relaxed);
-  atomic_fetch_add_explicit(v20 + 2, 1uLL, memory_order_relaxed);
-  *(v12 + 1) = v12;
-  *(v12 + 2) = v20;
+  atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
+  atomic_fetch_add_explicit(&v20->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+  v12[1] = v12;
+  v12[2] = v20;
   v27 = v20;
   std::__shared_weak_count::__release_weak(v26);
   v20 = v27;
-  if (atomic_fetch_add(v25, 0xFFFFFFFFFFFFFFFFLL))
+  if (atomic_fetch_add(p_shared_owners, 0xFFFFFFFFFFFFFFFFLL))
   {
     goto LABEL_21;
   }
 
 LABEL_38:
   v30 = v20;
-  (*(*v20 + 16))(v20, v21, v22, v23, v24);
+  (v20->__on_zero_shared)(v20, v21, v22, v23, v24);
   std::__shared_weak_count::__release_weak(v30);
   if (!v19)
   {
@@ -483,7 +482,7 @@ LABEL_29:
     _Block_release(v36);
   }
 
-  return (*(**a6 + 40))(*a6, v21);
+  return ((**a6)[1].__shared_weak_owners_)(*a6, v21);
 }
 
 void sub_296F154DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, const void *a17, __int16 a18, char a19, char a20, uint64_t a21, char a22)
@@ -557,7 +556,7 @@ uint64_t dispatch::callback<void({block_pointer})(logs::CollectionState)>::~call
   return a1;
 }
 
-uint64_t logs::QMICommandDriver::QMICommandDriver(uint64_t a1, uint64_t a2, uint64_t a3, const __CFDictionary **a4, uint64_t a5, void *a6)
+uint64_t logs::QMICommandDriver::QMICommandDriver(uint64_t a1, uint64_t a2, uint64_t a3, const __CFDictionary **a4, uint64_t a5, uint64_t *a6)
 {
   v12 = *a2;
   if (*a2)
@@ -1549,9 +1548,9 @@ void ___ZN4logs16QMICommandDriver4initEv_block_invoke_2(void *a1)
   }
 }
 
-void sub_296F16CAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_296F16CAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1610,9 +1609,9 @@ void ___ZN4logs16QMICommandDriver4initEv_block_invoke_3(void *a1)
   }
 }
 
-void sub_296F16DE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_296F16DE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1649,9 +1648,9 @@ void ___ZN4logs16QMICommandDriver4initEv_block_invoke_7(void *a1)
   }
 }
 
-void sub_296F16EF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_296F16EF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1688,127 +1687,125 @@ void ___ZN4logs16QMICommandDriver4initEv_block_invoke_12(void *a1)
   }
 }
 
-void sub_296F17008(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_296F17008(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 void ___ZN4logs16QMICommandDriver4initEv_block_invoke_16(void *a1, xpc_object_t a2)
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   v3 = a1[6];
-  if (!v3)
+  if (v3)
   {
-    goto LABEL_11;
-  }
-
-  v5 = a1[4];
-  v6 = std::__shared_weak_count::lock(v3);
-  v18 = v6;
-  if (!v6)
-  {
-    goto LABEL_11;
-  }
-
-  if (a1[5])
-  {
-    if (a2)
+    v5 = a1[4];
+    v6 = std::__shared_weak_count::lock(v3);
+    v17 = v6;
+    if (v6)
     {
-      xpc_retain(a2);
-      v7 = *(v5 + 40);
-      if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      if (!a1[5])
       {
-        goto LABEL_8;
+LABEL_9:
+        if (!atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        {
+          v8 = v6;
+          (v6->__on_zero_shared)();
+          std::__shared_weak_count::__release_weak(v8);
+        }
+
+        return;
       }
-    }
 
-    else
-    {
-      a2 = xpc_null_create();
-      v7 = *(v5 + 40);
-      if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      if (a2)
       {
-        goto LABEL_8;
-      }
-    }
-
-    v10 = MEMORY[0x29C269360](a2);
-    memset(__dst, 170, sizeof(__dst));
-    v11 = strlen(v10);
-    if (v11 >= 0x7FFFFFFFFFFFFFF8)
-    {
-      std::string::__throw_length_error[abi:ne200100]();
-    }
-
-    v12 = v11;
-    if (v11 >= 0x17)
-    {
-      if ((v11 | 7) == 0x17)
-      {
-        v14 = 25;
+        xpc_retain(a2);
+        v7 = *(v5 + 40);
+        if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_8;
+        }
       }
 
       else
       {
-        v14 = (v11 | 7) + 1;
+        a2 = xpc_null_create();
+        v7 = *(v5 + 40);
+        if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_8;
+        }
       }
 
-      v13 = operator new(v14);
-      __dst[1] = v12;
-      __dst[2] = (v14 | 0x8000000000000000);
-      __dst[0] = v13;
-    }
-
-    else
-    {
-      HIBYTE(__dst[2]) = v11;
-      v13 = __dst;
-      if (!v11)
+      v9 = MEMORY[0x29C269360](a2);
+      memset(__dst, 170, sizeof(__dst));
+      v10 = strlen(v9);
+      if (v10 >= 0x7FFFFFFFFFFFFFF8)
       {
-        goto LABEL_21;
+        std::string::__throw_length_error[abi:ne200100]();
       }
-    }
 
-    memcpy(v13, v10, v12);
+      v11 = v10;
+      if (v10 >= 0x17)
+      {
+        if ((v10 | 7) == 0x17)
+        {
+          v13 = 25;
+        }
+
+        else
+        {
+          v13 = (v10 | 7) + 1;
+        }
+
+        v12 = operator new(v13);
+        __dst[1] = v11;
+        __dst[2] = (v13 | 0x8000000000000000);
+        __dst[0] = v12;
+      }
+
+      else
+      {
+        HIBYTE(__dst[2]) = v10;
+        v12 = __dst;
+        if (!v10)
+        {
+          goto LABEL_21;
+        }
+      }
+
+      memcpy(v12, v9, v11);
 LABEL_21:
-    *(v12 + v13) = 0;
-    free(v10);
-    v15 = __dst;
-    if (SHIBYTE(__dst[2]) < 0)
-    {
-      v15 = __dst[0];
-    }
+      *(v11 + v12) = 0;
+      free(v9);
+      v14 = __dst;
+      if (SHIBYTE(__dst[2]) < 0)
+      {
+        v14 = __dst[0];
+      }
 
-    *buf = 136315138;
-    v20 = v15;
-    _os_log_error_impl(&dword_296ECF000, v7, OS_LOG_TYPE_ERROR, "Server error: %s", buf, 0xCu);
-    if (SHIBYTE(__dst[2]) < 0)
-    {
-      operator delete(__dst[0]);
-    }
+      *buf = 136315138;
+      v19 = v14;
+      _os_log_error_impl(&dword_296ECF000, v7, OS_LOG_TYPE_ERROR, "Server error: %s", buf, 0xCu);
+      if (SHIBYTE(__dst[2]) < 0)
+      {
+        operator delete(__dst[0]);
+      }
 
 LABEL_8:
-    qmi::Client::stop((v5 + 120));
-    logs::CommandDriver::notifyState_sync();
-    xpc_release(a2);
-    v6 = v18;
-    if (!v18)
-    {
-      goto LABEL_11;
+      qmi::Client::stop((v5 + 120));
+      logs::CommandDriver::notifyState_sync();
+      xpc_release(a2);
+      v6 = v17;
+      if (!v17)
+      {
+        return;
+      }
+
+      goto LABEL_9;
     }
   }
-
-  if (!atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    v8 = v6;
-    (v6->__on_zero_shared)();
-    std::__shared_weak_count::__release_weak(v8);
-  }
-
-LABEL_11:
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296F17248(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13)
@@ -1828,7 +1825,7 @@ void ___ZN4logs16QMICommandDriver4initEv_block_invoke_21(void *a1, qmi::MessageB
   {
     v5 = a1[4];
     v6 = std::__shared_weak_count::lock(v3);
-    v40 = v6;
+    v38 = v6;
     if (v6)
     {
       if (!a1[5])
@@ -1836,121 +1833,120 @@ void ___ZN4logs16QMICommandDriver4initEv_block_invoke_21(void *a1, qmi::MessageB
         goto LABEL_26;
       }
 
-      v35 = 0;
-      v36 = &v35;
-      v37 = 0x2000000000;
-      v38 = 0;
-      v31[0] = MEMORY[0x29EDCA5F8];
-      v31[1] = 0x40000000;
-      v32 = ___ZN4logs16QMICommandDriver4initEv_block_invoke_2;
-      v33 = &unk_29EE5DF18;
-      v34 = &v35;
+      v33 = 0;
+      v34 = &v33;
+      v35 = 0x2000000000;
+      v36 = 0;
+      v29[0] = MEMORY[0x29EDCA5F8];
+      v29[1] = 0x40000000;
+      v30 = ___ZN4logs16QMICommandDriver4initEv_block_invoke_2;
+      v31 = &unk_29EE5DF18;
+      v32 = &v33;
       TlvValue = qmi::MessageBase::findTlvValue(a2);
       v9 = TlvValue;
       if (TlvValue)
       {
         tlv::throwIfNotEnoughBytes(TlvValue, TlvValue + v8, 1);
-        LOBYTE(v24) = *v9;
-        v32(v31, &v24);
+        LOBYTE(v22) = *v9;
+        v30(v29, &v22);
       }
 
-      v24 = 0;
-      v25 = &v24;
-      v26 = 0x3802000000;
-      v27 = __Block_byref_object_copy__0;
-      v29 = 0;
-      v30 = 0;
-      v28 = __Block_byref_object_dispose__0;
-      v20[0] = MEMORY[0x29EDCA5F8];
-      v20[1] = 0x40000000;
-      v21 = ___ZN4logs16QMICommandDriver4initEv_block_invoke_24;
-      v22 = &unk_29EE5DF40;
-      v23 = &v24;
+      v22 = 0;
+      v23 = &v22;
+      v24 = 0x3802000000;
+      v25 = __Block_byref_object_copy__0;
+      v27 = 0;
+      v28 = 0;
+      v26 = __Block_byref_object_dispose__0;
+      v18[0] = MEMORY[0x29EDCA5F8];
+      v18[1] = 0x40000000;
+      v19 = ___ZN4logs16QMICommandDriver4initEv_block_invoke_24;
+      v20 = &unk_29EE5DF40;
+      v21 = &v22;
       v11 = qmi::MessageBase::findTlvValue(a2);
       if (v11)
       {
         *buf = 0;
-        v42 = 0;
-        v43 = 0;
+        v40 = 0;
+        v41 = 0;
         std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(buf, v11, &v11[v10], v10);
-        v21(v20, buf);
+        v19(v18, buf);
         if (*buf)
         {
-          v42 = *buf;
+          v40 = *buf;
           operator delete(*buf);
         }
       }
 
-      v12 = v25[6];
-      v18 = v25[5];
-      v19 = v12;
+      v12 = v23[6];
+      v17 = v12;
       if (v12)
       {
         atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v13 = *(v36 + 24);
       logs::CommandDriver::sendLogData_sync();
-      if (v19 && !atomic_fetch_add(&v19->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      if (v17 && !atomic_fetch_add(&v17->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
-        (v19->__on_zero_shared)(v19);
-        std::__shared_weak_count::__release_weak(v19);
+        (v17->__on_zero_shared)(v17);
+        std::__shared_weak_count::__release_weak(v17);
       }
 
-      if (*(v36 + 24) == 1)
+      if (*(v34 + 24) == 1)
       {
-        v14 = *(v5 + 160);
-        if (v14)
+        v13 = *(v5 + 160);
+        if (v13)
         {
-          dispatch_source_cancel(v14);
+          dispatch_source_cancel(v13);
           dispatch_release(*(v5 + 160));
           *(v5 + 160) = 0;
-          v15 = *(v5 + 40);
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          v14 = *(v5 + 40);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_296ECF000, v15, OS_LOG_TYPE_DEFAULT, "#I Log collection timer stopped", buf, 2u);
+            _os_log_impl(&dword_296ECF000, v14, OS_LOG_TYPE_DEFAULT, "#I Log collection timer stopped", buf, 2u);
           }
         }
       }
 
-      _Block_object_dispose(&v24, 8);
-      v16 = v30;
-      if (v30 && !atomic_fetch_add(&v30->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      _Block_object_dispose(&v22, 8);
+      v15 = v28;
+      if (v28 && !atomic_fetch_add(&v28->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
-        (v16->__on_zero_shared)(v16);
-        std::__shared_weak_count::__release_weak(v16);
+        (v15->__on_zero_shared)(v15);
+        std::__shared_weak_count::__release_weak(v15);
       }
 
-      _Block_object_dispose(&v35, 8);
-      v6 = v40;
-      if (v40)
+      _Block_object_dispose(&v33, 8);
+      v6 = v38;
+      if (v38)
       {
 LABEL_26:
         if (!atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
-          v17 = v6;
+          v16 = v6;
           (v6->__on_zero_shared)();
-          std::__shared_weak_count::__release_weak(v17);
+          std::__shared_weak_count::__release_weak(v16);
         }
       }
     }
   }
 }
 
-void sub_296F17620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_296F17620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  v32 = *(v30 - 112);
-  if (v32)
+  va_start(va, a28);
+  v31 = *(v29 - 112);
+  if (v31)
   {
-    *(v30 - 104) = v32;
-    operator delete(v32);
+    *(v29 - 104) = v31;
+    operator delete(v31);
   }
 
   _Block_object_dispose(&a17, 8);
-  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](v29 + 40);
-  _Block_object_dispose(&a29, 8);
-  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](v30 - 128);
+  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](v28 + 40);
+  _Block_object_dispose(va, 8);
+  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](v29 - 128);
   _Unwind_Resume(a1);
 }
 
@@ -2034,9 +2030,9 @@ LABEL_8:
   }
 }
 
-void sub_296F17880(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296F17880(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::vector<unsigned char>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2163,74 +2159,72 @@ void logs::QMICommandDriver::setCollectionState_sync(uint64_t a1, char a2, uint6
 
   *&v10 = 0xAAAAAAAAAAAAAAAALL;
   *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v53 = v10;
-  v54 = v10;
-  qmi::MutableMessageBase::MutableMessageBase(&v53);
-  v49[0] = MEMORY[0x29EDCA5F8];
-  v49[1] = 0x40000000;
+  v51 = v10;
+  v52 = v10;
+  qmi::MutableMessageBase::MutableMessageBase(&v51);
+  v47[0] = MEMORY[0x29EDCA5F8];
+  v47[1] = 0x40000000;
   v11 = ___ZN4logs16QMICommandDriver23setCollectionState_syncEbN8dispatch8callbackIU13block_pointerFvbEEE_block_invoke;
-  v50 = ___ZN4logs16QMICommandDriver23setCollectionState_syncEbN8dispatch8callbackIU13block_pointerFvbEEE_block_invoke;
-  v51 = &__block_descriptor_tmp_43;
-  v52 = a1;
-  v12 = *(&v53 + 1);
-  v35 = v7;
-  if (*(&v53 + 1) != v54)
+  v48 = ___ZN4logs16QMICommandDriver23setCollectionState_syncEbN8dispatch8callbackIU13block_pointerFvbEEE_block_invoke;
+  v49 = &__block_descriptor_tmp_43;
+  v50 = a1;
+  v12 = *(&v51 + 1);
+  v33 = v7;
+  if (*(&v51 + 1) != v52)
   {
     while (*(*v12 + 8) != 1)
     {
-      if (++v12 == v54)
+      if (++v12 == v52)
       {
         goto LABEL_12;
       }
     }
   }
 
-  if (v12 == v54)
+  if (v12 == v52)
   {
 LABEL_12:
-    v15 = qmi::MutableMessageBase::createTLV<bsp::tlv::abm::LogCollectionType>(&v53);
-    v11 = v50;
+    v14 = qmi::MutableMessageBase::createTLV<bsp::tlv::abm::LogCollectionType>(&v51);
+    v11 = v48;
   }
 
   else
   {
-    v13 = ***v12;
-    if (!v14)
+    if (!v13)
     {
       goto LABEL_50;
     }
 
-    v15 = v14 + 9;
+    v14 = v13 + 9;
   }
 
-  v11(v49, v15);
-  v45[0] = MEMORY[0x29EDCA5F8];
-  v45[1] = 0x40000000;
-  v16 = ___ZN4logs16QMICommandDriver23setCollectionState_syncEbN8dispatch8callbackIU13block_pointerFvbEEE_block_invoke_2;
-  v46 = ___ZN4logs16QMICommandDriver23setCollectionState_syncEbN8dispatch8callbackIU13block_pointerFvbEEE_block_invoke_2;
-  v47 = &__block_descriptor_tmp_45;
-  v48 = a2;
-  v17 = *(&v53 + 1);
-  v18 = v54;
-  v19 = *(&v53 + 1);
-  if (*(&v53 + 1) != v54)
+  v11(v47, v14);
+  v43[0] = MEMORY[0x29EDCA5F8];
+  v43[1] = 0x40000000;
+  v15 = ___ZN4logs16QMICommandDriver23setCollectionState_syncEbN8dispatch8callbackIU13block_pointerFvbEEE_block_invoke_2;
+  v44 = ___ZN4logs16QMICommandDriver23setCollectionState_syncEbN8dispatch8callbackIU13block_pointerFvbEEE_block_invoke_2;
+  v45 = &__block_descriptor_tmp_45;
+  v46 = a2;
+  v16 = *(&v51 + 1);
+  v17 = v52;
+  v18 = *(&v51 + 1);
+  if (*(&v51 + 1) != v52)
   {
-    v19 = *(&v53 + 1);
-    while (*(*v19 + 8) != 16)
+    v18 = *(&v51 + 1);
+    while (*(*v18 + 8) != 16)
     {
-      if (++v19 == v54)
+      if (++v18 == v52)
       {
         goto LABEL_21;
       }
     }
   }
 
-  if (v19 != v54)
+  if (v18 != v52)
   {
-    v20 = ***v19;
-    if (v21)
+    if (v19)
     {
-      v22 = v21 + 9;
+      v20 = v19 + 9;
       goto LABEL_36;
     }
 
@@ -2239,111 +2233,111 @@ LABEL_50:
   }
 
 LABEL_21:
-  v23 = operator new(0x10uLL);
-  v24 = v23;
-  v23[4] = 16;
-  *v23 = &unk_2A1E176D0;
-  if (v18 >= *(&v54 + 1))
+  v21 = operator new(0x10uLL);
+  v22 = v21;
+  v21[4] = 16;
+  *v21 = &unk_2A1E176D0;
+  if (v17 >= *(&v52 + 1))
   {
-    v26 = v18 - v17;
-    v27 = (v18 - v17) >> 3;
-    v28 = v27 + 1;
-    if ((v27 + 1) >> 61)
+    v24 = v17 - v16;
+    v25 = (v17 - v16) >> 3;
+    v26 = v25 + 1;
+    if ((v25 + 1) >> 61)
     {
       std::vector<std::string>::__throw_length_error[abi:ne200100]();
     }
 
-    v29 = *(&v54 + 1) - v17;
-    if ((*(&v54 + 1) - v17) >> 2 > v28)
+    v27 = *(&v52 + 1) - v16;
+    if ((*(&v52 + 1) - v16) >> 2 > v26)
     {
-      v28 = v29 >> 2;
+      v26 = v27 >> 2;
     }
 
-    if (v29 >= 0x7FFFFFFFFFFFFFF8)
+    if (v27 >= 0x7FFFFFFFFFFFFFF8)
     {
-      v30 = 0x1FFFFFFFFFFFFFFFLL;
+      v28 = 0x1FFFFFFFFFFFFFFFLL;
     }
 
     else
     {
-      v30 = v28;
+      v28 = v26;
     }
 
-    if (v30)
+    if (v28)
     {
-      if (v30 >> 61)
+      if (v28 >> 61)
       {
         std::__throw_bad_array_new_length[abi:ne200100]();
       }
 
-      v31 = operator new(8 * v30);
+      v29 = operator new(8 * v28);
     }
 
     else
     {
-      v31 = 0;
+      v29 = 0;
     }
 
-    v32 = &v31[8 * v27];
-    *v32 = v24;
-    v25 = v32 + 8;
-    memcpy(v31, v17, v26);
-    *(&v53 + 1) = v31;
-    *&v54 = v25;
-    *(&v54 + 1) = &v31[8 * v30];
-    if (v17)
+    v30 = &v29[8 * v25];
+    *v30 = v22;
+    v23 = v30 + 8;
+    memcpy(v29, v16, v24);
+    *(&v51 + 1) = v29;
+    *&v52 = v23;
+    *(&v52 + 1) = &v29[8 * v28];
+    if (v16)
     {
-      operator delete(v17);
+      operator delete(v16);
     }
   }
 
   else
   {
-    *v18 = v23;
-    v25 = v18 + 8;
+    *v17 = v21;
+    v23 = v17 + 8;
   }
 
-  v22 = v24 + 9;
-  *&v54 = v25;
-  v16 = v46;
+  v20 = v22 + 9;
+  *&v52 = v23;
+  v15 = v44;
 LABEL_36:
-  v16(v45, v22);
-  v40 = a1 + 120;
-  v41 = QMIServiceMsg::create();
-  v42 = 25000;
-  v43 = 0;
-  v44 = 0;
-  v36[0] = MEMORY[0x29EDCA5F8];
-  v36[1] = 1174405120;
-  v36[2] = ___ZN4logs16QMICommandDriver23setCollectionState_syncEbN8dispatch8callbackIU13block_pointerFvbEEE_block_invoke_3;
-  v36[3] = &__block_descriptor_tmp_46_0;
-  v36[4] = v35;
-  v37 = v9;
+  v15(v43, v20);
+  v38 = a1 + 120;
+  v39 = QMIServiceMsg::create();
+  v40 = 25000;
+  v41 = 0;
+  v42 = 0;
+  v34[0] = MEMORY[0x29EDCA5F8];
+  v34[1] = 1174405120;
+  v34[2] = ___ZN4logs16QMICommandDriver23setCollectionState_syncEbN8dispatch8callbackIU13block_pointerFvbEEE_block_invoke_3;
+  v34[3] = &__block_descriptor_tmp_46_0;
+  v34[4] = v33;
+  v35 = v9;
   atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-  v33 = *a3;
+  v31 = *a3;
   if (*a3)
   {
-    v33 = _Block_copy(v33);
+    v31 = _Block_copy(v31);
   }
 
-  v34 = *(a3 + 8);
-  v38 = v33;
-  object = v34;
-  if (v34)
+  v32 = *(a3 + 8);
+  v36 = v31;
+  object = v32;
+  if (v32)
   {
-    dispatch_retain(v34);
+    dispatch_retain(v32);
   }
 
   aBlock[0] = MEMORY[0x29EDCA5F8];
   aBlock[1] = 0x40000000;
   aBlock[2] = ___ZNO3qmi6Client9SendProxy8callbackIRKNS_12ResponseBaseEEEOS1_U13block_pointerFvT_E_block_invoke;
   aBlock[3] = &unk_29EE5E010;
-  aBlock[4] = v36;
-  v44 = _Block_copy(aBlock);
+  aBlock[4] = v34;
+  v42 = _Block_copy(aBlock);
   qmi::Client::send();
-  if (v44)
+  if (v42)
   {
-    _Block_release(v44);
+    _Block_release(v42);
   }
 
   if (object)
@@ -2351,38 +2345,40 @@ LABEL_36:
     dispatch_release(object);
   }
 
-  if (v38)
+  if (v36)
   {
-    _Block_release(v38);
+    _Block_release(v36);
   }
 
-  if (v37)
+  if (v35)
   {
-    std::__shared_weak_count::__release_weak(v37);
+    std::__shared_weak_count::__release_weak(v35);
   }
 
-  qmi::MutableMessageBase::~MutableMessageBase(&v53);
+  qmi::MutableMessageBase::~MutableMessageBase(&v51);
   std::__shared_weak_count::__release_weak(v9);
 }
 
-void sub_296F17F64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, std::__shared_weak_count *a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_296F17F64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, std::__shared_weak_count *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  dispatch::callback<void({block_pointer})(BOOL)>::~callback(v34 + 48);
+  va_start(va, a32);
+  dispatch::callback<void({block_pointer})(BOOL)>::~callback(v33 + 48);
   if (a15)
   {
     std::__shared_weak_count::__release_weak(a15);
   }
 
   qmi::Client::SendProxy::~SendProxy(&a18);
-  qmi::MutableMessageBase::~MutableMessageBase(&a33);
-  std::__shared_weak_count::__release_weak(v33);
+  qmi::MutableMessageBase::~MutableMessageBase(va);
+  std::__shared_weak_count::__release_weak(v32);
   _Unwind_Resume(a1);
 }
 
-void sub_296F17F9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_296F17F9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  qmi::MutableMessageBase::~MutableMessageBase(&a33);
-  std::__shared_weak_count::__release_weak(v33);
+  va_start(va, a32);
+  qmi::MutableMessageBase::~MutableMessageBase(va);
+  std::__shared_weak_count::__release_weak(v32);
   _Unwind_Resume(a1);
 }
 
@@ -2601,83 +2597,82 @@ void logs::QMICommandDriver::collectLog_sync(uint64_t a1, uint64_t a2)
 
   *&v8 = 0xAAAAAAAAAAAAAAAALL;
   *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v28 = v8;
   v29 = v8;
-  v30 = v8;
-  qmi::MutableMessageBase::MutableMessageBase(&v29);
-  v25[0] = MEMORY[0x29EDCA5F8];
-  v25[1] = 0x40000000;
+  qmi::MutableMessageBase::MutableMessageBase(&v28);
+  v24[0] = MEMORY[0x29EDCA5F8];
+  v24[1] = 0x40000000;
   v9 = ___ZN4logs16QMICommandDriver15collectLog_syncEN8dispatch8callbackIU13block_pointerFvbEEE_block_invoke;
-  v26 = ___ZN4logs16QMICommandDriver15collectLog_syncEN8dispatch8callbackIU13block_pointerFvbEEE_block_invoke;
-  v27 = &__block_descriptor_tmp_47;
-  v28 = a1;
-  v10 = *(&v29 + 1);
-  if (*(&v29 + 1) != v30)
+  v25 = ___ZN4logs16QMICommandDriver15collectLog_syncEN8dispatch8callbackIU13block_pointerFvbEEE_block_invoke;
+  v26 = &__block_descriptor_tmp_47;
+  v27 = a1;
+  v10 = *(&v28 + 1);
+  if (*(&v28 + 1) != v29)
   {
     while (*(*v10 + 8) != 1)
     {
-      if (++v10 == v30)
+      if (++v10 == v29)
       {
         goto LABEL_12;
       }
     }
   }
 
-  if (v10 == v30)
+  if (v10 == v29)
   {
 LABEL_12:
-    v13 = qmi::MutableMessageBase::createTLV<bsp::tlv::abm::LogCollectionType>(&v29);
-    v9 = v26;
+    v12 = qmi::MutableMessageBase::createTLV<bsp::tlv::abm::LogCollectionType>(&v28);
+    v9 = v25;
   }
 
   else
   {
-    v11 = ***v10;
-    if (!v12)
+    if (!v11)
     {
       __cxa_bad_cast();
     }
 
-    v13 = v12 + 9;
+    v12 = v11 + 9;
   }
 
-  v9(v25, v13);
-  v20 = a1 + 120;
-  v21 = QMIServiceMsg::create();
-  v22 = 25000;
+  v9(v24, v12);
+  v19 = a1 + 120;
+  v20 = QMIServiceMsg::create();
+  v21 = 25000;
+  v22 = 0;
   v23 = 0;
-  v24 = 0;
-  v16[0] = MEMORY[0x29EDCA5F8];
-  v16[1] = 1174405120;
-  v16[2] = ___ZN4logs16QMICommandDriver15collectLog_syncEN8dispatch8callbackIU13block_pointerFvbEEE_block_invoke_2;
-  v16[3] = &__block_descriptor_tmp_48_0;
-  v16[4] = a1;
-  v16[5] = v5;
-  v17 = v7;
+  v15[0] = MEMORY[0x29EDCA5F8];
+  v15[1] = 1174405120;
+  v15[2] = ___ZN4logs16QMICommandDriver15collectLog_syncEN8dispatch8callbackIU13block_pointerFvbEEE_block_invoke_2;
+  v15[3] = &__block_descriptor_tmp_48_0;
+  v15[4] = a1;
+  v15[5] = v5;
+  v16 = v7;
   atomic_fetch_add_explicit(&v7->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-  v14 = *a2;
+  v13 = *a2;
   if (*a2)
   {
-    v14 = _Block_copy(v14);
+    v13 = _Block_copy(v13);
   }
 
-  v15 = *(a2 + 8);
-  v18 = v14;
-  object = v15;
-  if (v15)
+  v14 = *(a2 + 8);
+  v17 = v13;
+  object = v14;
+  if (v14)
   {
-    dispatch_retain(v15);
+    dispatch_retain(v14);
   }
 
   aBlock[0] = MEMORY[0x29EDCA5F8];
   aBlock[1] = 0x40000000;
   aBlock[2] = ___ZNO3qmi6Client9SendProxy8callbackIRKNS_12ResponseBaseEEEOS1_U13block_pointerFvT_E_block_invoke;
   aBlock[3] = &unk_29EE5E010;
-  aBlock[4] = v16;
-  v24 = _Block_copy(aBlock);
+  aBlock[4] = v15;
+  v23 = _Block_copy(aBlock);
   qmi::Client::send();
-  if (v24)
+  if (v23)
   {
-    _Block_release(v24);
+    _Block_release(v23);
   }
 
   if (object)
@@ -2685,38 +2680,40 @@ LABEL_12:
     dispatch_release(object);
   }
 
-  if (v18)
-  {
-    _Block_release(v18);
-  }
-
   if (v17)
   {
-    std::__shared_weak_count::__release_weak(v17);
+    _Block_release(v17);
   }
 
-  qmi::MutableMessageBase::~MutableMessageBase(&v29);
+  if (v16)
+  {
+    std::__shared_weak_count::__release_weak(v16);
+  }
+
+  qmi::MutableMessageBase::~MutableMessageBase(&v28);
   std::__shared_weak_count::__release_weak(v7);
 }
 
-void sub_296F1867C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_296F1867C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  dispatch::callback<void({block_pointer})(BOOL)>::~callback(v30 + 56);
+  va_start(va, a28);
+  dispatch::callback<void({block_pointer})(BOOL)>::~callback(v29 + 56);
   if (a16)
   {
     std::__shared_weak_count::__release_weak(a16);
   }
 
   qmi::Client::SendProxy::~SendProxy(&a19);
-  qmi::MutableMessageBase::~MutableMessageBase(&a29);
-  std::__shared_weak_count::__release_weak(v29);
+  qmi::MutableMessageBase::~MutableMessageBase(va);
+  std::__shared_weak_count::__release_weak(v28);
   _Unwind_Resume(a1);
 }
 
-void sub_296F186B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_296F186B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  qmi::MutableMessageBase::~MutableMessageBase(&a29);
-  std::__shared_weak_count::__release_weak(v29);
+  va_start(va, a28);
+  qmi::MutableMessageBase::~MutableMessageBase(va);
+  std::__shared_weak_count::__release_weak(v28);
   _Unwind_Resume(a1);
 }
 
@@ -2899,7 +2896,7 @@ void ___ZN4logs16QMICommandDriver15collectLog_syncEN8dispatch8callbackIU13block_
 
 void logs::QMICommandDriver::startLogCollectionTimer_sync(logs::QMICommandDriver *this)
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   if (*(this + 39))
   {
     *(this + 20) = dispatch_source_create(MEMORY[0x29EDCA5D0], 1uLL, 0, *(this + 3));
@@ -2925,7 +2922,7 @@ void logs::QMICommandDriver::startLogCollectionTimer_sync(logs::QMICommandDriver
     handler[3] = &__block_descriptor_tmp_51_2;
     handler[4] = this;
     handler[5] = v3;
-    v14 = v5;
+    v13 = v5;
     atomic_fetch_add_explicit(p_shared_weak_owners, 1uLL, memory_order_relaxed);
     dispatch_source_set_event_handler(v7, handler);
     v8 = *(this + 20);
@@ -2936,20 +2933,18 @@ void logs::QMICommandDriver::startLogCollectionTimer_sync(logs::QMICommandDriver
     {
       v11 = *(this + 39);
       *buf = 67109120;
-      v16 = v11;
+      v15 = v11;
       _os_log_impl(&dword_296ECF000, v10, OS_LOG_TYPE_DEFAULT, "#I Log collection timer started with timeout %u sec", buf, 8u);
     }
 
     dispatch_activate(*(this + 20));
-    if (v14)
+    if (v13)
     {
-      std::__shared_weak_count::__release_weak(v14);
+      std::__shared_weak_count::__release_weak(v13);
     }
 
     std::__shared_weak_count::__release_weak(v5);
   }
-
-  v12 = *MEMORY[0x29EDCA608];
 }
 
 void __copy_helper_block_e8_40c45_ZTSNSt3__18weak_ptrIN4logs13CommandDriverEEE56c46_ZTSN8dispatch8callbackIU13block_pointerFvbEEE(void *a1, void *a2)
@@ -3156,8 +3151,8 @@ void ___ZNK3qmi6Client13setIndHandlerIRKN3bsp3abm17LogCollectionData10Indication
   {
     memset(__p, 170, sizeof(__p));
     QMIServiceMsg::serialize(__p, this);
-    qmi::MessageBase::MessageBase(v5, __p[0]);
-    qmi::MessageBase::validateMsgId(v5);
+    qmi::MessageBase::MessageBase(v4, __p[0]);
+    qmi::MessageBase::validateMsgId(v4);
     if (__p[0])
     {
       __p[1] = __p[0];
@@ -3167,14 +3162,13 @@ void ___ZNK3qmi6Client13setIndHandlerIRKN3bsp3abm17LogCollectionData10Indication
 
   else
   {
-    v4 = *(this + 6);
     QMIServiceMsg::getNewError(this);
     qmi::MessageBase::MessageBase();
-    qmi::MessageBase::validateMsgId(v5);
+    qmi::MessageBase::validateMsgId(v4);
   }
 
-  (*(v2 + 16))(v2, v5);
-  qmi::MessageBase::~MessageBase(v5);
+  (*(v2 + 16))(v2, v4);
+  qmi::MessageBase::~MessageBase(v4);
 }
 
 void sub_296F191DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13)
@@ -3397,9 +3391,9 @@ void ___ZNO3qmi6Client9SendProxy8callbackIRKNS_12ResponseBaseEEEOS1_U13block_poi
   qmi::MessageBase::~MessageBase(v3);
 }
 
-void sub_296F19728(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296F19728(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   qmi::MessageBase::~MessageBase(va);
   _Unwind_Resume(a1);
 }
@@ -3420,7 +3414,6 @@ void cast_message_type<qmi::ResponseBase const&>::cast(uint64_t a1@<X0>, qmi::Re
 
   else
   {
-    v4 = *(a1 + 12);
     QMIServiceMsg::getNewError(a1);
 
     qmi::MessageBase::MessageBase();
@@ -4005,26 +3998,25 @@ void awd::QMIAwdCommandDriver::create(uint64_t *a1@<X0>, atomic_ullong *a2@<X8>)
   *a2 = 0xAAAAAAAAAAAAAAAALL;
   a2[1] = 0xAAAAAAAAAAAAAAAALL;
   v4 = operator new(0x78uLL);
-  v5 = *a1;
-  v6 = a1[1];
-  v7 = v6;
-  if (v6)
+  v5 = a1[1];
+  v6 = v5;
+  if (v5)
   {
-    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-    v8 = v6;
-    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
+    v7 = v5;
+    atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
   awd::AwdCommandDriver::AwdCommandDriver();
-  if (v8 && !atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v7 && !atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v8->__on_zero_shared)(v8);
-    std::__shared_weak_count::__release_weak(v8);
+    (v7->__on_zero_shared)(v7);
+    std::__shared_weak_count::__release_weak(v7);
   }
 
   *v4 = &unk_2A1E17738;
@@ -4033,38 +4025,38 @@ void awd::QMIAwdCommandDriver::create(uint64_t *a1@<X0>, atomic_ullong *a2@<X8>)
   *a2 = 0xAAAAAAAAAAAAAAAALL;
   a2[1] = 0xAAAAAAAAAAAAAAAALL;
   std::shared_ptr<awd::QMIAwdCommandDriver>::shared_ptr[abi:ne200100]<awd::QMIAwdCommandDriver,std::shared_ptr<awd::QMIAwdCommandDriver> ctu::SharedSynchronizable<awd::AwdCommandDriver>::make_shared_ptr<awd::QMIAwdCommandDriver>(awd::QMIAwdCommandDriver*)::{lambda(awd::QMIAwdCommandDriver*)#1},0>(a2, v4);
-  if (v7 && !atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v6 && !atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v7->__on_zero_shared)(v7);
-    std::__shared_weak_count::__release_weak(v7);
+    (v6->__on_zero_shared)(v6);
+    std::__shared_weak_count::__release_weak(v6);
   }
 
   awd::QMIAwdCommandDriver::init(*a2);
 }
 
-void sub_296F1A59C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11)
+void sub_296F1A59C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
-  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](&a11);
+  va_start(va, a10);
+  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](&a9);
-  operator delete(v11);
+  operator delete(v10);
   _Unwind_Resume(a1);
 }
 
 uint64_t awd::QMIAwdCommandDriver::QMIAwdCommandDriver(uint64_t a1, uint64_t *a2)
 {
   v3 = a2[1];
-  v5 = *a2;
-  v6 = v3;
+  v5 = v3;
   if (v3)
   {
-    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
   }
 
   awd::AwdCommandDriver::AwdCommandDriver();
-  if (v6 && !atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v6->__on_zero_shared)(v6);
-    std::__shared_weak_count::__release_weak(v6);
+    (v5->__on_zero_shared)(v5);
+    std::__shared_weak_count::__release_weak(v5);
   }
 
   *a1 = &unk_2A1E17738;
@@ -4075,18 +4067,17 @@ uint64_t awd::QMIAwdCommandDriver::QMIAwdCommandDriver(uint64_t a1, uint64_t *a2
 
 {
   v3 = a2[1];
-  v5 = *a2;
-  v6 = v3;
+  v5 = v3;
   if (v3)
   {
-    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
   }
 
   awd::AwdCommandDriver::AwdCommandDriver();
-  if (v6 && !atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v6->__on_zero_shared)(v6);
-    std::__shared_weak_count::__release_weak(v6);
+    (v5->__on_zero_shared)(v5);
+    std::__shared_weak_count::__release_weak(v5);
   }
 
   *a1 = &unk_2A1E17738;
@@ -4113,7 +4104,7 @@ void awd::QMIAwdCommandDriver::~QMIAwdCommandDriver(awd::QMIAwdCommandDriver *th
 
 void dispatch::async<void ctu::SharedSynchronizable<awd::AwdCommandDriver>::execute_wrapped<awd::QMIAwdCommandDriver::sendEnableMetricSubmission(std::shared_ptr<awd::AppContext>,BOOL,dispatch::block<void({block_pointer})(BOOL)>)::$_0>(awd::QMIAwdCommandDriver::sendEnableMetricSubmission(std::shared_ptr<awd::AppContext>,BOOL,dispatch::block<void({block_pointer})(BOOL)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<awd::QMIAwdCommandDriver::sendEnableMetricSubmission(std::shared_ptr<awd::AppContext>,BOOL,dispatch::block<void({block_pointer})(BOOL)>)::$_0,std::default_delete<awd::QMIAwdCommandDriver::sendEnableMetricSubmission(std::shared_ptr<awd::AppContext>,BOOL,dispatch::block<void({block_pointer})(BOOL)>)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
 {
-  v59 = *MEMORY[0x29EDCA608];
+  v57 = *MEMORY[0x29EDCA608];
   v1 = *a1;
   __p = *a1;
   v2 = *(*a1 + 32);
@@ -4137,188 +4128,187 @@ void dispatch::async<void ctu::SharedSynchronizable<awd::AwdCommandDriver>::exec
 
   *&v5 = 0xAAAAAAAAAAAAAAAALL;
   *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v48 = v5;
-  v49 = v5;
-  qmi::MutableMessageBase::MutableMessageBase(&v48);
-  v47.tv_sec = 0xAAAAAAAAAAAAAAAALL;
-  *&v47.tv_usec = 0xAAAAAAAAAAAAAAAALL;
-  gettimeofday(&v47, 0);
-  v6 = 1000 * v47.tv_sec + v47.tv_usec / 1000;
-  v40[0] = MEMORY[0x29EDCA5F8];
-  v40[1] = 1174405120;
-  v41 = ___ZZNK3awd19QMIAwdCommandDriver26sendEnableMetricSubmissionENSt3__110shared_ptrINS_10AppContextEEEbN8dispatch5blockIU13block_pointerFvbEEEENK3__0clEv_block_invoke;
-  v42 = &__block_descriptor_tmp_9;
-  v43 = *v1;
+  v46 = v5;
+  v47 = v5;
+  qmi::MutableMessageBase::MutableMessageBase(&v46);
+  v45.tv_sec = 0xAAAAAAAAAAAAAAAALL;
+  *&v45.tv_usec = 0xAAAAAAAAAAAAAAAALL;
+  gettimeofday(&v45, 0);
+  v6 = 1000 * v45.tv_sec + v45.tv_usec / 1000;
+  v38[0] = MEMORY[0x29EDCA5F8];
+  v38[1] = 1174405120;
+  v39 = ___ZZNK3awd19QMIAwdCommandDriver26sendEnableMetricSubmissionENSt3__110shared_ptrINS_10AppContextEEEbN8dispatch5blockIU13block_pointerFvbEEEENK3__0clEv_block_invoke;
+  v40 = &__block_descriptor_tmp_9;
+  v41 = *v1;
   v7 = v1[1];
-  v44 = v7;
+  v42 = v7;
   if (v7)
   {
     atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v46 = *(v1 + 16);
-  v45 = v6;
-  v8 = *(&v48 + 1);
-  v9 = v49;
-  v10 = *(&v48 + 1);
-  if (*(&v48 + 1) != v49)
+  v44 = *(v1 + 16);
+  v43 = v6;
+  v8 = *(&v46 + 1);
+  v9 = v47;
+  v10 = *(&v46 + 1);
+  if (*(&v46 + 1) != v47)
   {
-    v10 = *(&v48 + 1);
+    v10 = *(&v46 + 1);
     while (*(*v10 + 8) != 68)
     {
-      if (++v10 == v49)
+      if (++v10 == v47)
       {
         goto LABEL_16;
       }
     }
   }
 
-  if (v10 == v49)
+  if (v10 == v47)
   {
 LABEL_16:
-    v14 = operator new(0x20uLL);
-    v14[8] = 68;
-    *v14 = &unk_2A1E17830;
-    *(v14 + 4) = 0;
-    v13 = v14 + 16;
-    v14[20] = 0;
-    *(v14 + 3) = 0;
-    if (v9 >= *(&v49 + 1))
+    v13 = operator new(0x20uLL);
+    v13[8] = 68;
+    *v13 = &unk_2A1E17830;
+    *(v13 + 4) = 0;
+    v12 = v13 + 16;
+    v13[20] = 0;
+    *(v13 + 3) = 0;
+    if (v9 >= *(&v47 + 1))
     {
-      v16 = v9 - v8;
-      v17 = (v9 - v8) >> 3;
-      v18 = v17 + 1;
-      if ((v17 + 1) >> 61)
+      v15 = v9 - v8;
+      v16 = (v9 - v8) >> 3;
+      v17 = v16 + 1;
+      if ((v16 + 1) >> 61)
       {
         std::vector<std::string>::__throw_length_error[abi:ne200100]();
       }
 
-      v19 = *(&v49 + 1) - v8;
-      if ((*(&v49 + 1) - v8) >> 2 > v18)
+      v18 = *(&v47 + 1) - v8;
+      if ((*(&v47 + 1) - v8) >> 2 > v17)
       {
-        v18 = v19 >> 2;
+        v17 = v18 >> 2;
       }
 
-      if (v19 >= 0x7FFFFFFFFFFFFFF8)
+      if (v18 >= 0x7FFFFFFFFFFFFFF8)
       {
-        v20 = 0x1FFFFFFFFFFFFFFFLL;
+        v19 = 0x1FFFFFFFFFFFFFFFLL;
       }
 
       else
       {
-        v20 = v18;
+        v19 = v17;
       }
 
-      if (v20)
+      if (v19)
       {
-        if (v20 >> 61)
+        if (v19 >> 61)
         {
           std::__throw_bad_array_new_length[abi:ne200100]();
         }
 
-        v21 = v14;
-        v22 = v14 + 16;
-        v23 = operator new(8 * v20);
-        v14 = v21;
+        v20 = v13;
+        v21 = v13 + 16;
+        v22 = operator new(8 * v19);
+        v13 = v20;
       }
 
       else
       {
-        v22 = v14 + 16;
-        v23 = 0;
+        v21 = v13 + 16;
+        v22 = 0;
       }
 
-      v24 = &v23[8 * v17];
-      *v24 = v14;
-      v15 = v24 + 8;
-      memcpy(v23, v8, v16);
-      *(&v48 + 1) = v23;
-      *&v49 = v15;
-      *(&v49 + 1) = &v23[8 * v20];
+      v23 = &v22[8 * v16];
+      *v23 = v13;
+      v14 = v23 + 8;
+      memcpy(v22, v8, v15);
+      *(&v46 + 1) = v22;
+      *&v47 = v14;
+      *(&v47 + 1) = &v22[8 * v19];
       if (v8)
       {
         operator delete(v8);
       }
 
-      v13 = v22;
+      v12 = v21;
     }
 
     else
     {
-      *v9 = v14;
-      v15 = v9 + 8;
+      *v9 = v13;
+      v14 = v9 + 8;
     }
 
-    *&v49 = v15;
+    *&v47 = v14;
   }
 
   else
   {
-    v11 = ***v10;
-    if (!v12)
+    if (!v11)
     {
       __cxa_bad_cast();
     }
 
-    v13 = v12 + 16;
+    v12 = v11 + 16;
   }
 
-  v41(v40, v13);
-  v25 = *(v2 + 40);
-  if (v25)
+  v39(v38, v12);
+  v24 = *(v2 + 40);
+  if (v24)
   {
-    os_retain(v25);
+    os_retain(v24);
   }
 
   QMIServiceMsg::create();
   *&buf = MEMORY[0x29EDCA5F8];
   *(&buf + 1) = 1174405120;
-  v52 = ___ZZNK3awd19QMIAwdCommandDriver26sendEnableMetricSubmissionENSt3__110shared_ptrINS_10AppContextEEEbN8dispatch5blockIU13block_pointerFvbEEEENK3__0clEv_block_invoke_7;
-  v53 = &__block_descriptor_tmp_11_2;
+  v50 = ___ZZNK3awd19QMIAwdCommandDriver26sendEnableMetricSubmissionENSt3__110shared_ptrINS_10AppContextEEEbN8dispatch5blockIU13block_pointerFvbEEEENK3__0clEv_block_invoke_7;
+  v51 = &__block_descriptor_tmp_11_2;
+  v52 = v24;
+  if (v24)
+  {
+    os_retain(v24);
+  }
+
+  v56 = *(v1 + 16);
+  v53 = *v1;
+  v25 = v1[1];
   v54 = v25;
   if (v25)
   {
-    os_retain(v25);
+    atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v58 = *(v1 + 16);
-  v55 = *v1;
-  v26 = v1[1];
-  v56 = v26;
+  v26 = v1[3];
   if (v26)
   {
-    atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
+    v26 = _Block_copy(v26);
   }
 
-  v27 = v1[3];
-  if (v27)
-  {
-    v27 = _Block_copy(v27);
-  }
-
-  v57 = v27;
+  v55 = v26;
   aBlock[0] = MEMORY[0x29EDCA5F8];
   aBlock[1] = 0x40000000;
   aBlock[2] = ___ZNO3qmi6Client9SendProxy8callbackIRKN3awd3abm24RegisterMetricIndication8ResponseEEEOS1_U13block_pointerFvT_E_block_invoke;
   aBlock[3] = &unk_29EE5E038;
   aBlock[4] = &buf;
-  v39 = _Block_copy(aBlock);
+  v37 = _Block_copy(aBlock);
   qmi::Client::send();
-  if (v39)
+  if (v37)
   {
-    _Block_release(v39);
+    _Block_release(v37);
   }
 
-  if (v57)
+  if (v55)
   {
-    _Block_release(v57);
+    _Block_release(v55);
   }
 
-  v28 = v56;
-  if (!v56 || atomic_fetch_add(&v56->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v27 = v54;
+  if (!v54 || atomic_fetch_add(&v54->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    v29 = v54;
-    if (!v54)
+    v28 = v52;
+    if (!v52)
     {
       goto LABEL_48;
     }
@@ -4326,28 +4316,28 @@ LABEL_16:
     goto LABEL_47;
   }
 
-  (v28->__on_zero_shared)(v28);
-  std::__shared_weak_count::__release_weak(v28);
-  v29 = v54;
-  if (v54)
+  (v27->__on_zero_shared)(v27);
+  std::__shared_weak_count::__release_weak(v27);
+  v28 = v52;
+  if (v52)
   {
 LABEL_47:
-    os_release(v29);
+    os_release(v28);
   }
 
 LABEL_48:
-  if (v25)
+  if (v24)
   {
-    os_release(v25);
+    os_release(v24);
   }
 
-  v30 = v44;
-  if (v44 && !atomic_fetch_add(&v44->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v29 = v42;
+  if (v42 && !atomic_fetch_add(&v42->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v30->__on_zero_shared)(v30);
-    std::__shared_weak_count::__release_weak(v30);
-    qmi::MutableMessageBase::~MutableMessageBase(&v48);
-    v31 = __p;
+    (v29->__on_zero_shared)(v29);
+    std::__shared_weak_count::__release_weak(v29);
+    qmi::MutableMessageBase::~MutableMessageBase(&v46);
+    v30 = __p;
     if (!__p)
     {
       goto LABEL_59;
@@ -4356,44 +4346,45 @@ LABEL_48:
 
   else
   {
-    qmi::MutableMessageBase::~MutableMessageBase(&v48);
-    v31 = __p;
+    qmi::MutableMessageBase::~MutableMessageBase(&v46);
+    v30 = __p;
     if (!__p)
     {
       goto LABEL_59;
     }
   }
 
-  v32 = v31[3];
-  if (v32)
+  v31 = v30[3];
+  if (v31)
   {
-    _Block_release(v32);
+    _Block_release(v31);
   }
 
-  v33 = v31[1];
-  if (v33 && !atomic_fetch_add(&v33->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v32 = v30[1];
+  if (v32 && !atomic_fetch_add(&v32->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v33->__on_zero_shared)(v33);
-    std::__shared_weak_count::__release_weak(v33);
+    (v32->__on_zero_shared)(v32);
+    std::__shared_weak_count::__release_weak(v32);
   }
 
-  operator delete(v31);
+  operator delete(v30);
 LABEL_59:
-  v34 = a1;
+  v33 = a1;
   if (a1)
   {
-    v35 = a1[2];
-    if (v35 && !atomic_fetch_add(&v35->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    v34 = a1[2];
+    if (v34)
     {
-      (v35->__on_zero_shared)(v35);
-      std::__shared_weak_count::__release_weak(v35);
-      v34 = a1;
+      if (!atomic_fetch_add(&v34->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v34->__on_zero_shared)(v34);
+        std::__shared_weak_count::__release_weak(v34);
+        v33 = a1;
+      }
     }
 
-    operator delete(v34);
+    operator delete(v33);
   }
-
-  v36 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296F1AE2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
@@ -4466,7 +4457,7 @@ void __destroy_helper_block_e8_32c44_ZTSNSt3__110shared_ptrIN3awd10AppContextEEE
 
 void ___ZZNK3awd19QMIAwdCommandDriver26sendEnableMetricSubmissionENSt3__110shared_ptrINS_10AppContextEEEbN8dispatch5blockIU13block_pointerFvbEEEENK3__0clEv_block_invoke_7(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   v3 = *(a2 + 4);
   v4 = *(a1 + 32);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
@@ -4484,27 +4475,24 @@ void ___ZZNK3awd19QMIAwdCommandDriver26sendEnableMetricSubmissionENSt3__110share
     }
 
     *buf = 136315394;
-    v12 = v5;
-    v13 = 2080;
-    v14 = v6;
+    v10 = v5;
+    v11 = 2080;
+    v12 = v6;
     _os_log_impl(&dword_296ECF000, v4, OS_LOG_TYPE_INFO, "Metric submission %s %s", buf, 0x16u);
   }
 
-  v7 = *(a1 + 40);
-  v8 = *(a1 + 56);
-  if (v8)
+  v7 = *(a1 + 56);
+  if (v7)
   {
-    v8 = _Block_copy(v8);
+    v7 = _Block_copy(v7);
   }
 
-  aBlock = v8;
+  aBlock = v7;
   awd::AppContext::operator()();
   if (aBlock)
   {
     _Block_release(aBlock);
   }
-
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296F1B15C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *aBlock)
@@ -4617,8 +4605,8 @@ void ___ZNO3qmi6Client9SendProxy8callbackIRKN3awd3abm24RegisterMetricIndication8
   {
     memset(__p, 170, sizeof(__p));
     QMIServiceMsg::serialize(__p, this);
-    qmi::ResponseBase::ResponseBase(v5, __p[0]);
-    qmi::MessageBase::validateMsgId(v5);
+    qmi::ResponseBase::ResponseBase(v4, __p[0]);
+    qmi::MessageBase::validateMsgId(v4);
     if (__p[0])
     {
       __p[1] = __p[0];
@@ -4628,14 +4616,13 @@ void ___ZNO3qmi6Client9SendProxy8callbackIRKN3awd3abm24RegisterMetricIndication8
 
   else
   {
-    v4 = *(this + 6);
     QMIServiceMsg::getNewError(this);
     qmi::MessageBase::MessageBase();
-    qmi::MessageBase::validateMsgId(v5);
+    qmi::MessageBase::validateMsgId(v4);
   }
 
-  (*(v2 + 16))(v2, v5);
-  qmi::MessageBase::~MessageBase(v5);
+  (*(v2 + 16))(v2, v4);
+  qmi::MessageBase::~MessageBase(v4);
 }
 
 void sub_296F1B420(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13)
@@ -4650,21 +4637,21 @@ void sub_296F1B420(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void dispatch::async<void ctu::SharedSynchronizable<awd::AwdCommandDriver>::execute_wrapped<awd::QMIAwdCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0>(awd::QMIAwdCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<awd::QMIAwdCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0,std::default_delete<awd::QMIAwdCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t **a1)
+void dispatch::async<void ctu::SharedSynchronizable<awd::AwdCommandDriver>::execute_wrapped<awd::QMIAwdCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0>(awd::QMIAwdCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<awd::QMIAwdCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0,std::default_delete<awd::QMIAwdCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t *a1)
 {
-  v95 = *MEMORY[0x29EDCA608];
+  v90 = *MEMORY[0x29EDCA608];
   v1 = *a1;
-  v63 = v1;
-  v2 = v1[7];
-  v82 = 0;
-  v83 = &v82;
-  v84 = 0x2000000000;
-  v85 = 1;
+  v58 = v1;
+  v2 = *(v1 + 56);
+  v77 = 0;
+  v78 = &v77;
+  v79 = 0x2000000000;
+  v80 = 1;
   v3 = *(v1 + 16);
   if (v3 < 3)
   {
-    v5 = v1[3];
-    v4 = v1[4];
+    v5 = *(v1 + 24);
+    v4 = *(v1 + 32);
     v6 = v4 - v5;
     if (v4 != v5)
     {
@@ -4672,218 +4659,216 @@ void dispatch::async<void ctu::SharedSynchronizable<awd::AwdCommandDriver>::exec
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         AppID = awd::AppContext::getAppID(*v1);
-        v9 = *(v1 + 16);
-        v10 = awd::asString();
+        v9 = awd::asString();
         *buf = 67109634;
         *&buf[4] = AppID;
-        *v87 = 2080;
-        *&v87[2] = v10;
-        *&v87[10] = 2048;
-        *&v87[12] = v6;
+        *v82 = 2080;
+        *&v82[2] = v9;
+        *&v82[10] = 2048;
+        *&v82[12] = v6;
         _os_log_impl(&dword_296ECF000, v7, OS_LOG_TYPE_DEFAULT, "#I Requesting to add configuration appId: %d, type: %s, payload size: %lu", buf, 0x1Cu);
       }
 
-      v57 = v2;
-      v11 = dispatch_group_create();
-      v12 = v11;
-      if (v11)
+      v52 = v2;
+      v10 = dispatch_group_create();
+      v11 = v10;
+      if (v10)
       {
-        dispatch_retain(v11);
-        dispatch_group_enter(v12);
+        dispatch_retain(v10);
+        dispatch_group_enter(v11);
       }
 
-      v13 = v1[4] - v1[3];
-      v14 = v13 + 1499;
-      if ((v13 + 1499) >= 0x5DC)
+      v12 = *(v1 + 32) - *(v1 + 24);
+      v13 = v12 + 1499;
+      if ((v12 + 1499) >= 0x5DC)
       {
-        LODWORD(v29) = 0;
-        v30 = v14 / 0x5DC;
-        v60 = v2 + 88;
-        v61 = v12;
-        v58 = v14 / 0x5DC;
+        LODWORD(v25) = 0;
+        v26 = v13 / 0x5DC;
+        v55 = v2 + 88;
+        v56 = v11;
+        v53 = v13 / 0x5DC;
         do
         {
-          *&v31 = 0xAAAAAAAAAAAAAAAALL;
-          *(&v31 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          v80 = v31;
-          v81 = v31;
-          qmi::MutableMessageBase::MutableMessageBase(&v80);
-          v32 = v1[3];
-          v33 = v32 + (1500 * v29);
-          v34 = v32 + v13;
-          if (v34 >= v33 + 1500)
+          *&v27 = 0xAAAAAAAAAAAAAAAALL;
+          *(&v27 + 1) = 0xAAAAAAAAAAAAAAAALL;
+          v75 = v27;
+          v76 = v27;
+          qmi::MutableMessageBase::MutableMessageBase(&v75);
+          v28 = *(v1 + 24);
+          v29 = v28 + (1500 * v25);
+          v30 = v28 + v12;
+          if (v30 >= v29 + 1500)
           {
-            v34 = v33 + 1500;
+            v30 = v29 + 1500;
           }
 
           *buf = MEMORY[0x29EDCA5F8];
-          *v87 = 1174405120;
-          *&v87[8] = ___ZZNK3awd19QMIAwdCommandDriver20sendAddConfigurationENSt3__110shared_ptrINS_10AppContextEEENS_11PayloadTypeERKNS1_6vectorIhNS1_9allocatorIhEEEEN8dispatch5blockIU13block_pointerFvbEEEENK3__0clEv_block_invoke;
-          *&v87[16] = &__block_descriptor_tmp_18_1;
-          v88 = *v1;
-          v35 = v1[1];
-          v89 = v35;
-          if (v35)
+          *v82 = 1174405120;
+          *&v82[8] = ___ZZNK3awd19QMIAwdCommandDriver20sendAddConfigurationENSt3__110shared_ptrINS_10AppContextEEENS_11PayloadTypeERKNS1_6vectorIhNS1_9allocatorIhEEEEN8dispatch5blockIU13block_pointerFvbEEEENK3__0clEv_block_invoke;
+          *&v82[16] = &__block_descriptor_tmp_18_1;
+          v83 = *v1;
+          v31 = *(v1 + 8);
+          v84 = v31;
+          if (v31)
           {
-            atomic_fetch_add_explicit(&v35->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v31->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          v93 = v3;
-          v94 = v29;
-          v90 = v30;
-          v91 = v33;
-          v92 = v34;
-          v36 = *(&v80 + 1);
-          v37 = v81;
-          v38 = *(&v80 + 1);
-          if (*(&v80 + 1) != v81)
+          v88 = v3;
+          v89 = v25;
+          v85 = v26;
+          v86 = v29;
+          v87 = v30;
+          v32 = *(&v75 + 1);
+          v33 = v76;
+          v34 = *(&v75 + 1);
+          if (*(&v75 + 1) != v76)
           {
-            v38 = *(&v80 + 1);
-            while (*(*v38 + 8) != 64)
+            v34 = *(&v75 + 1);
+            while (*(*v34 + 8) != 64)
             {
-              if (++v38 == v81)
+              if (++v34 == v76)
               {
                 goto LABEL_57;
               }
             }
           }
 
-          if (v38 == v81)
+          if (v34 == v76)
           {
 LABEL_57:
-            v42 = operator new(0x38uLL);
-            v42[8] = 64;
-            *v42 = &unk_2A1E17920;
-            *(v42 + 2) = 0;
-            v41 = v42 + 16;
-            *(v42 + 5) = 0;
-            *(v42 + 6) = 0;
-            *(v42 + 4) = 0;
-            *(v42 + 22) = 0;
-            if (v37 >= *(&v81 + 1))
+            v37 = operator new(0x38uLL);
+            v37[8] = 64;
+            *v37 = &unk_2A1E17920;
+            *(v37 + 2) = 0;
+            v36 = v37 + 16;
+            *(v37 + 5) = 0;
+            *(v37 + 6) = 0;
+            *(v37 + 4) = 0;
+            *(v37 + 22) = 0;
+            if (v33 >= *(&v76 + 1))
             {
-              v44 = v37 - v36;
-              v45 = (v37 - v36) >> 3;
-              v46 = v45 + 1;
-              if ((v45 + 1) >> 61)
+              v39 = v33 - v32;
+              v40 = (v33 - v32) >> 3;
+              v41 = v40 + 1;
+              if ((v40 + 1) >> 61)
               {
                 std::vector<std::string>::__throw_length_error[abi:ne200100]();
               }
 
-              v47 = *(&v81 + 1) - v36;
-              if ((*(&v81 + 1) - v36) >> 2 > v46)
+              v42 = *(&v76 + 1) - v32;
+              if ((*(&v76 + 1) - v32) >> 2 > v41)
               {
-                v46 = v47 >> 2;
+                v41 = v42 >> 2;
               }
 
-              if (v47 >= 0x7FFFFFFFFFFFFFF8)
+              if (v42 >= 0x7FFFFFFFFFFFFFF8)
               {
-                v48 = 0x1FFFFFFFFFFFFFFFLL;
+                v43 = 0x1FFFFFFFFFFFFFFFLL;
               }
 
               else
               {
-                v48 = v46;
+                v43 = v41;
               }
 
-              v59 = v42 + 16;
-              if (v48)
+              v54 = v37 + 16;
+              if (v43)
               {
-                if (v48 >> 61)
+                if (v43 >> 61)
                 {
                   std::__throw_bad_array_new_length[abi:ne200100]();
                 }
 
-                v49 = v1;
-                v50 = v13;
-                v51 = v3;
-                v52 = v42;
-                v53 = operator new(8 * v48);
-                v42 = v52;
-                v3 = v51;
-                v13 = v50;
-                v1 = v49;
-                v30 = v58;
+                v44 = v1;
+                v45 = v12;
+                v46 = v3;
+                v47 = v37;
+                v48 = operator new(8 * v43);
+                v37 = v47;
+                v3 = v46;
+                v12 = v45;
+                v1 = v44;
+                v26 = v53;
               }
 
               else
               {
-                v53 = 0;
+                v48 = 0;
               }
 
-              v54 = &v53[8 * v45];
-              *v54 = v42;
-              v43 = v54 + 8;
-              memcpy(v53, v36, v44);
-              *(&v80 + 1) = v53;
-              *&v81 = v43;
-              *(&v81 + 1) = &v53[8 * v48];
-              if (v36)
+              v49 = &v48[8 * v40];
+              *v49 = v37;
+              v38 = v49 + 8;
+              memcpy(v48, v32, v39);
+              *(&v75 + 1) = v48;
+              *&v76 = v38;
+              *(&v76 + 1) = &v48[8 * v43];
+              if (v32)
               {
-                operator delete(v36);
+                operator delete(v32);
               }
 
-              v41 = v59;
+              v36 = v54;
             }
 
             else
             {
-              *v37 = v42;
-              v43 = v37 + 8;
+              *v33 = v37;
+              v38 = v33 + 8;
             }
 
-            *&v81 = v43;
+            *&v76 = v38;
           }
 
           else
           {
-            v39 = ***v38;
-            if (!v40)
+            if (!v35)
             {
               __cxa_bad_cast();
             }
 
-            v41 = v40 + 16;
+            v36 = v35 + 16;
           }
 
-          (*&v87[8])(buf, v41);
-          v75 = v60;
-          v76 = QMIServiceMsg::create();
-          v77 = 25000;
-          v78 = 0;
-          v79 = 0;
-          v73[0] = MEMORY[0x29EDCA5F8];
-          v73[1] = 1174405120;
-          v73[2] = ___ZZNK3awd19QMIAwdCommandDriver20sendAddConfigurationENSt3__110shared_ptrINS_10AppContextEEENS_11PayloadTypeERKNS1_6vectorIhNS1_9allocatorIhEEEEN8dispatch5blockIU13block_pointerFvbEEEENK3__0clEv_block_invoke_19;
-          v73[3] = &unk_2A1E17890;
-          v12 = v61;
-          group = v61;
-          if (v61)
+          (*&v82[8])(buf, v36);
+          v70 = v55;
+          v71 = QMIServiceMsg::create();
+          v72 = 25000;
+          v73 = 0;
+          v74 = 0;
+          v68[0] = MEMORY[0x29EDCA5F8];
+          v68[1] = 1174405120;
+          v68[2] = ___ZZNK3awd19QMIAwdCommandDriver20sendAddConfigurationENSt3__110shared_ptrINS_10AppContextEEENS_11PayloadTypeERKNS1_6vectorIhNS1_9allocatorIhEEEEN8dispatch5blockIU13block_pointerFvbEEEENK3__0clEv_block_invoke_19;
+          v68[3] = &unk_2A1E17890;
+          v11 = v56;
+          group = v56;
+          if (v56)
           {
-            dispatch_retain(v61);
+            dispatch_retain(v56);
             if (group)
             {
               dispatch_group_enter(group);
             }
           }
 
-          v73[4] = &v82;
+          v68[4] = &v77;
           block = MEMORY[0x29EDCA5F8];
-          v65 = 0x40000000;
-          v66 = ___ZNO3qmi6Client9SendProxy8callbackIRKN3awd3abm9SetConfig8ResponseEEEOS1_U13block_pointerFvT_E_block_invoke;
-          v67 = &unk_29EE5E060;
-          v68 = v73;
-          v55 = _Block_copy(&block);
-          v79 = v55;
-          if (v76)
+          v60 = 0x40000000;
+          v61 = ___ZNO3qmi6Client9SendProxy8callbackIRKN3awd3abm9SetConfig8ResponseEEEOS1_U13block_pointerFvT_E_block_invoke;
+          v62 = &unk_29EE5E060;
+          v63 = v68;
+          v50 = _Block_copy(&block);
+          v74 = v50;
+          if (v71)
           {
             qmi::Client::send();
-            v55 = v79;
+            v50 = v74;
           }
 
-          if (v55)
+          if (v50)
           {
-            _Block_release(v55);
+            _Block_release(v50);
           }
 
           if (group)
@@ -4895,64 +4880,64 @@ LABEL_57:
             }
           }
 
-          v56 = v89;
-          if (v89 && !atomic_fetch_add(&v89->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          v51 = v84;
+          if (v84 && !atomic_fetch_add(&v84->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
-            (v56->__on_zero_shared)(v56);
-            std::__shared_weak_count::__release_weak(v56);
+            (v51->__on_zero_shared)(v51);
+            std::__shared_weak_count::__release_weak(v51);
           }
 
-          qmi::MutableMessageBase::~MutableMessageBase(&v80);
-          v29 = (v29 + 1);
+          qmi::MutableMessageBase::~MutableMessageBase(&v75);
+          v25 = (v25 + 1);
         }
 
-        while (v30 > v29);
+        while (v26 > v25);
       }
 
-      v15 = *(v57 + 40);
-      if (v15)
+      v14 = *(v52 + 40);
+      if (v14)
       {
-        os_retain(*(v57 + 40));
+        os_retain(*(v52 + 40));
       }
 
       block = MEMORY[0x29EDCA5F8];
-      v65 = 1174405120;
-      v66 = ___ZZNK3awd19QMIAwdCommandDriver20sendAddConfigurationENSt3__110shared_ptrINS_10AppContextEEENS_11PayloadTypeERKNS1_6vectorIhNS1_9allocatorIhEEEEN8dispatch5blockIU13block_pointerFvbEEEENK3__0clEv_block_invoke_21;
-      v67 = &unk_2A1E178C8;
-      object = v15;
+      v60 = 1174405120;
+      v61 = ___ZZNK3awd19QMIAwdCommandDriver20sendAddConfigurationENSt3__110shared_ptrINS_10AppContextEEENS_11PayloadTypeERKNS1_6vectorIhNS1_9allocatorIhEEEEN8dispatch5blockIU13block_pointerFvbEEEENK3__0clEv_block_invoke_21;
+      v62 = &unk_2A1E178C8;
+      object = v14;
+      if (v14)
+      {
+        os_retain(v14);
+      }
+
+      v63 = &v77;
+      v65 = *v1;
+      v15 = *(v1 + 8);
+      v66 = v15;
       if (v15)
       {
-        os_retain(v15);
+        atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v68 = &v82;
-      v70 = *v1;
-      v16 = v1[1];
-      v71 = v16;
+      v16 = *(v1 + 48);
       if (v16)
       {
-        atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
+        v16 = _Block_copy(v16);
       }
 
-      v17 = v1[6];
-      if (v17)
-      {
-        v17 = _Block_copy(v17);
-      }
-
-      aBlock = v17;
-      dispatch_group_notify(v12, *(v57 + 24), &block);
+      aBlock = v16;
+      dispatch_group_notify(v11, *(v52 + 24), &block);
       if (aBlock)
       {
         _Block_release(aBlock);
       }
 
-      v18 = v71;
-      if (v71 && !atomic_fetch_add(&v71->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      v17 = v66;
+      if (v66 && !atomic_fetch_add(&v66->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
-        (v18->__on_zero_shared)(v18);
-        std::__shared_weak_count::__release_weak(v18);
-        v19 = object;
+        (v17->__on_zero_shared)(v17);
+        std::__shared_weak_count::__release_weak(v17);
+        v18 = object;
         if (!object)
         {
           goto LABEL_22;
@@ -4961,44 +4946,43 @@ LABEL_57:
 
       else
       {
-        v19 = object;
+        v18 = object;
         if (!object)
         {
 LABEL_22:
-          if (v15)
+          if (v14)
           {
-            os_release(v15);
+            os_release(v14);
           }
 
-          if (v12)
+          if (v11)
           {
-            dispatch_group_leave(v12);
-            dispatch_release(v12);
-            dispatch_release(v12);
+            dispatch_group_leave(v11);
+            dispatch_release(v11);
+            dispatch_release(v11);
           }
 
           goto LABEL_37;
         }
       }
 
-      os_release(v19);
+      os_release(v18);
       goto LABEL_22;
     }
 
-    v21 = &v82;
+    v20 = &v77;
 LABEL_31:
-    v24 = *(v2 + 40);
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v22 = *(v2 + 40);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_296ECF000, v24, OS_LOG_TYPE_DEFAULT, "#E Empty payload", buf, 2u);
-      v21 = v83;
+      _os_log_impl(&dword_296ECF000, v22, OS_LOG_TYPE_DEFAULT, "#E Empty payload", buf, 2u);
+      v20 = v78;
     }
 
-    *(v21 + 24) = 0;
-    v25 = *v1;
-    v23 = v1[6];
-    if (!v23)
+    *(v20 + 24) = 0;
+    v21 = *(v1 + 48);
+    if (!v21)
     {
       goto LABEL_35;
     }
@@ -5006,15 +4990,15 @@ LABEL_31:
     goto LABEL_34;
   }
 
-  v20 = *(v2 + 40);
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+  v19 = *(v2 + 40);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
     *buf = 67109120;
     *&buf[4] = v3;
-    _os_log_error_impl(&dword_296ECF000, v20, OS_LOG_TYPE_ERROR, "Illegal payload type: %hhu", buf, 8u);
-    v21 = v83;
-    *(v83 + 24) = 0;
-    if (v1[4] == v1[3])
+    _os_log_error_impl(&dword_296ECF000, v19, OS_LOG_TYPE_ERROR, "Illegal payload type: %hhu", buf, 8u);
+    v20 = v78;
+    *(v78 + 24) = 0;
+    if (*(v1 + 32) == *(v1 + 24))
     {
       goto LABEL_31;
     }
@@ -5022,24 +5006,23 @@ LABEL_31:
 
   else
   {
-    v21 = &v82;
-    v85 = 0;
-    if (v1[4] == v1[3])
+    v20 = &v77;
+    v80 = 0;
+    if (*(v1 + 32) == *(v1 + 24))
     {
       goto LABEL_31;
     }
   }
 
-  v22 = *v1;
-  v23 = v1[6];
-  if (v23)
+  v21 = *(v1 + 48);
+  if (v21)
   {
 LABEL_34:
-    v23 = _Block_copy(v23);
+    v21 = _Block_copy(v21);
   }
 
 LABEL_35:
-  *buf = v23;
+  *buf = v21;
   awd::AppContext::operator()();
   if (*buf)
   {
@@ -5047,23 +5030,24 @@ LABEL_35:
   }
 
 LABEL_37:
-  _Block_object_dispose(&v82, 8);
-  std::unique_ptr<awd::QMIAwdCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0,std::default_delete<awd::QMIAwdCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0>>::~unique_ptr[abi:ne200100](&v63);
-  v26 = a1;
+  _Block_object_dispose(&v77, 8);
+  std::unique_ptr<awd::QMIAwdCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0,std::default_delete<awd::QMIAwdCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0>>::~unique_ptr[abi:ne200100](&v58);
+  v23 = a1;
   if (a1)
   {
-    v27 = a1[2];
-    if (v27 && !atomic_fetch_add(&v27->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    v24 = a1[2];
+    if (v24)
     {
-      (v27->__on_zero_shared)(v27);
-      std::__shared_weak_count::__release_weak(v27);
-      v26 = a1;
+      if (!atomic_fetch_add(&v24->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v24->__on_zero_shared)(v24);
+        std::__shared_weak_count::__release_weak(v24);
+        v23 = a1;
+      }
     }
 
-    operator delete(v26);
+    operator delete(v23);
   }
-
-  v28 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296F1BCB8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, dispatch_group_t group, uint64_t a16, char a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, dispatch_group_t object, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42)
@@ -5134,7 +5118,7 @@ uint64_t ___ZZNK3awd19QMIAwdCommandDriver20sendAddConfigurationENSt3__110shared_
 
 void ___ZZNK3awd19QMIAwdCommandDriver20sendAddConfigurationENSt3__110shared_ptrINS_10AppContextEEENS_11PayloadTypeERKNS1_6vectorIhNS1_9allocatorIhEEEEN8dispatch5blockIU13block_pointerFvbEEEENK3__0clEv_block_invoke_21(void *a1)
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v8 = *MEMORY[0x29EDCA608];
   v2 = a1[5];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
@@ -5149,26 +5133,22 @@ void ___ZZNK3awd19QMIAwdCommandDriver20sendAddConfigurationENSt3__110shared_ptrI
     }
 
     *buf = 136315138;
-    v10 = v3;
+    v7 = v3;
     _os_log_impl(&dword_296ECF000, v2, OS_LOG_TYPE_INFO, "Add configuration %s", buf, 0xCu);
   }
 
-  v4 = a1[6];
-  v5 = a1[8];
-  if (v5)
+  v4 = a1[8];
+  if (v4)
   {
-    v5 = _Block_copy(v5);
+    v4 = _Block_copy(v4);
   }
 
-  aBlock = v5;
-  v6 = *(*(a1[4] + 8) + 24);
+  aBlock = v4;
   awd::AppContext::operator()();
   if (aBlock)
   {
     _Block_release(aBlock);
   }
-
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296F1BFC0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *aBlock)
@@ -5344,8 +5324,8 @@ void ___ZNO3qmi6Client9SendProxy8callbackIRKN3awd3abm9SetConfig8ResponseEEEOS1_U
   {
     memset(__p, 170, sizeof(__p));
     QMIServiceMsg::serialize(__p, this);
-    qmi::ResponseBase::ResponseBase(v5, __p[0]);
-    qmi::MessageBase::validateMsgId(v5);
+    qmi::ResponseBase::ResponseBase(v4, __p[0]);
+    qmi::MessageBase::validateMsgId(v4);
     if (__p[0])
     {
       __p[1] = __p[0];
@@ -5355,14 +5335,13 @@ void ___ZNO3qmi6Client9SendProxy8callbackIRKN3awd3abm9SetConfig8ResponseEEEOS1_U
 
   else
   {
-    v4 = *(this + 6);
     QMIServiceMsg::getNewError(this);
     qmi::MessageBase::MessageBase();
-    qmi::MessageBase::validateMsgId(v5);
+    qmi::MessageBase::validateMsgId(v4);
   }
 
-  (*(v2 + 16))(v2, v5);
-  qmi::MessageBase::~MessageBase(v5);
+  (*(v2 + 16))(v2, v4);
+  qmi::MessageBase::~MessageBase(v4);
 }
 
 void sub_296F1C40C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13)
@@ -5379,7 +5358,7 @@ void sub_296F1C40C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void dispatch::async<void ctu::SharedSynchronizable<awd::AwdCommandDriver>::execute_wrapped<awd::QMIAwdCommandDriver::sendClearConfiguration(std::shared_ptr<awd::AppContext>,dispatch::block<void({block_pointer})(BOOL)>)::$_0>(awd::QMIAwdCommandDriver::sendClearConfiguration(std::shared_ptr<awd::AppContext>,dispatch::block<void({block_pointer})(BOOL)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<awd::QMIAwdCommandDriver::sendClearConfiguration(std::shared_ptr<awd::AppContext>,dispatch::block<void({block_pointer})(BOOL)>)::$_0,std::default_delete<awd::QMIAwdCommandDriver::sendClearConfiguration(std::shared_ptr<awd::AppContext>,dispatch::block<void({block_pointer})(BOOL)>)::$_0>>)::{lambda(void *)#1}::__invoke(awd::AppContext ***a1)
 {
-  v55 = *MEMORY[0x29EDCA608];
+  v53 = *MEMORY[0x29EDCA608];
   v1 = *a1;
   __p = *a1;
   v2 = (*a1)[3];
@@ -5394,180 +5373,179 @@ void dispatch::async<void ctu::SharedSynchronizable<awd::AwdCommandDriver>::exec
 
   *&v5 = 0xAAAAAAAAAAAAAAAALL;
   *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v44 = v5;
-  v45 = v5;
-  qmi::MutableMessageBase::MutableMessageBase(&v44);
-  v39[0] = MEMORY[0x29EDCA5F8];
-  v39[1] = 1174405120;
-  v40 = ___ZZNK3awd19QMIAwdCommandDriver22sendClearConfigurationENSt3__110shared_ptrINS_10AppContextEEEN8dispatch5blockIU13block_pointerFvbEEEENK3__0clEv_block_invoke;
-  v41 = &__block_descriptor_tmp_28_1;
-  v42 = *v1;
+  v42 = v5;
+  v43 = v5;
+  qmi::MutableMessageBase::MutableMessageBase(&v42);
+  v37[0] = MEMORY[0x29EDCA5F8];
+  v37[1] = 1174405120;
+  v38 = ___ZZNK3awd19QMIAwdCommandDriver22sendClearConfigurationENSt3__110shared_ptrINS_10AppContextEEEN8dispatch5blockIU13block_pointerFvbEEEENK3__0clEv_block_invoke;
+  v39 = &__block_descriptor_tmp_28_1;
+  v40 = *v1;
   v6 = v1[1];
-  v43 = v6;
+  v41 = v6;
   if (v6)
   {
     atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v7 = *(&v44 + 1);
-  v8 = v45;
-  v9 = *(&v44 + 1);
-  if (*(&v44 + 1) != v45)
+  v7 = *(&v42 + 1);
+  v8 = v43;
+  v9 = *(&v42 + 1);
+  if (*(&v42 + 1) != v43)
   {
-    v9 = *(&v44 + 1);
+    v9 = *(&v42 + 1);
     while (*(*v9 + 8) != 65)
     {
-      if (++v9 == v45)
+      if (++v9 == v43)
       {
         goto LABEL_13;
       }
     }
   }
 
-  if (v9 == v45)
+  if (v9 == v43)
   {
 LABEL_13:
-    v13 = operator new(0x18uLL);
-    v13[8] = 65;
-    *v13 = &unk_2A1E179D0;
-    *(v13 + 3) = 0;
-    v12 = v13 + 12;
-    *(v13 + 4) = 0;
-    if (v8 >= *(&v45 + 1))
+    v12 = operator new(0x18uLL);
+    v12[8] = 65;
+    *v12 = &unk_2A1E179D0;
+    *(v12 + 3) = 0;
+    v11 = v12 + 12;
+    *(v12 + 4) = 0;
+    if (v8 >= *(&v43 + 1))
     {
-      v15 = v8 - v7;
-      v16 = (v8 - v7) >> 3;
-      v17 = v16 + 1;
-      if ((v16 + 1) >> 61)
+      v14 = v8 - v7;
+      v15 = (v8 - v7) >> 3;
+      v16 = v15 + 1;
+      if ((v15 + 1) >> 61)
       {
         std::vector<std::string>::__throw_length_error[abi:ne200100]();
       }
 
-      v18 = *(&v45 + 1) - v7;
-      if ((*(&v45 + 1) - v7) >> 2 > v17)
+      v17 = *(&v43 + 1) - v7;
+      if ((*(&v43 + 1) - v7) >> 2 > v16)
       {
-        v17 = v18 >> 2;
+        v16 = v17 >> 2;
       }
 
-      if (v18 >= 0x7FFFFFFFFFFFFFF8)
+      if (v17 >= 0x7FFFFFFFFFFFFFF8)
       {
-        v19 = 0x1FFFFFFFFFFFFFFFLL;
+        v18 = 0x1FFFFFFFFFFFFFFFLL;
       }
 
       else
       {
-        v19 = v17;
+        v18 = v16;
       }
 
-      if (v19)
+      if (v18)
       {
-        if (v19 >> 61)
+        if (v18 >> 61)
         {
           std::__throw_bad_array_new_length[abi:ne200100]();
         }
 
-        v20 = v13;
-        v21 = v13 + 12;
-        v22 = operator new(8 * v19);
-        v13 = v20;
+        v19 = v12;
+        v20 = v12 + 12;
+        v21 = operator new(8 * v18);
+        v12 = v19;
       }
 
       else
       {
-        v21 = v13 + 12;
-        v22 = 0;
+        v20 = v12 + 12;
+        v21 = 0;
       }
 
-      v23 = &v22[8 * v16];
-      *v23 = v13;
-      v14 = v23 + 8;
-      memcpy(v22, v7, v15);
-      *(&v44 + 1) = v22;
-      *&v45 = v14;
-      *(&v45 + 1) = &v22[8 * v19];
+      v22 = &v21[8 * v15];
+      *v22 = v12;
+      v13 = v22 + 8;
+      memcpy(v21, v7, v14);
+      *(&v42 + 1) = v21;
+      *&v43 = v13;
+      *(&v43 + 1) = &v21[8 * v18];
       if (v7)
       {
         operator delete(v7);
       }
 
-      v12 = v21;
+      v11 = v20;
     }
 
     else
     {
-      *v8 = v13;
-      v14 = v8 + 8;
+      *v8 = v12;
+      v13 = v8 + 8;
     }
 
-    *&v45 = v14;
+    *&v43 = v13;
   }
 
   else
   {
-    v10 = ***v9;
-    if (!v11)
+    if (!v10)
     {
       __cxa_bad_cast();
     }
 
-    v12 = v11 + 12;
+    v11 = v10 + 12;
   }
 
-  v40(v39, v12);
-  v24 = *(v2 + 5);
-  if (v24)
+  v38(v37, v11);
+  v23 = *(v2 + 5);
+  if (v23)
   {
-    os_retain(v24);
+    os_retain(v23);
   }
 
   QMIServiceMsg::create();
   *buf = MEMORY[0x29EDCA5F8];
-  v48 = 1174405120;
-  v49 = ___ZZNK3awd19QMIAwdCommandDriver22sendClearConfigurationENSt3__110shared_ptrINS_10AppContextEEEN8dispatch5blockIU13block_pointerFvbEEEENK3__0clEv_block_invoke_29;
-  v50 = &__block_descriptor_tmp_32_2;
+  v46 = 1174405120;
+  v47 = ___ZZNK3awd19QMIAwdCommandDriver22sendClearConfigurationENSt3__110shared_ptrINS_10AppContextEEEN8dispatch5blockIU13block_pointerFvbEEEENK3__0clEv_block_invoke_29;
+  v48 = &__block_descriptor_tmp_32_2;
+  v49 = v23;
+  if (v23)
+  {
+    os_retain(v23);
+  }
+
+  v50 = *v1;
+  v24 = v1[1];
   v51 = v24;
   if (v24)
   {
-    os_retain(v24);
+    atomic_fetch_add_explicit(&v24->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v52 = *v1;
-  v25 = v1[1];
-  v53 = v25;
+  v25 = v1[2];
   if (v25)
   {
-    atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
+    v25 = _Block_copy(v25);
   }
 
-  v26 = v1[2];
-  if (v26)
-  {
-    v26 = _Block_copy(v26);
-  }
-
-  v54 = v26;
+  v52 = v25;
   aBlock[0] = MEMORY[0x29EDCA5F8];
   aBlock[1] = 0x40000000;
   aBlock[2] = ___ZNO3qmi6Client9SendProxy8callbackIRKN3awd3abm9SetConfig8ResponseEEEOS1_U13block_pointerFvT_E_block_invoke;
   aBlock[3] = &unk_29EE5E060;
   aBlock[4] = buf;
-  v38 = _Block_copy(aBlock);
+  v36 = _Block_copy(aBlock);
   qmi::Client::send();
-  if (v38)
+  if (v36)
   {
-    _Block_release(v38);
+    _Block_release(v36);
   }
 
-  if (v54)
+  if (v52)
   {
-    _Block_release(v54);
+    _Block_release(v52);
   }
 
-  v27 = v53;
-  if (!v53 || atomic_fetch_add(&v53->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v26 = v51;
+  if (!v51 || atomic_fetch_add(&v51->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    v28 = v51;
-    if (!v51)
+    v27 = v49;
+    if (!v49)
     {
       goto LABEL_45;
     }
@@ -5575,28 +5553,28 @@ LABEL_13:
     goto LABEL_44;
   }
 
-  (v27->__on_zero_shared)(v27);
-  std::__shared_weak_count::__release_weak(v27);
-  v28 = v51;
-  if (v51)
+  (v26->__on_zero_shared)(v26);
+  std::__shared_weak_count::__release_weak(v26);
+  v27 = v49;
+  if (v49)
   {
 LABEL_44:
-    os_release(v28);
+    os_release(v27);
   }
 
 LABEL_45:
-  if (v24)
+  if (v23)
   {
-    os_release(v24);
+    os_release(v23);
   }
 
-  v29 = v43;
-  if (v43 && !atomic_fetch_add(&v43->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v28 = v41;
+  if (v41 && !atomic_fetch_add(&v41->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v29->__on_zero_shared)(v29);
-    std::__shared_weak_count::__release_weak(v29);
-    qmi::MutableMessageBase::~MutableMessageBase(&v44);
-    v30 = __p;
+    (v28->__on_zero_shared)(v28);
+    std::__shared_weak_count::__release_weak(v28);
+    qmi::MutableMessageBase::~MutableMessageBase(&v42);
+    v29 = __p;
     if (!__p)
     {
       goto LABEL_56;
@@ -5605,44 +5583,45 @@ LABEL_45:
 
   else
   {
-    qmi::MutableMessageBase::~MutableMessageBase(&v44);
-    v30 = __p;
+    qmi::MutableMessageBase::~MutableMessageBase(&v42);
+    v29 = __p;
     if (!__p)
     {
       goto LABEL_56;
     }
   }
 
-  v31 = v30[2];
-  if (v31)
+  v30 = v29[2];
+  if (v30)
   {
-    _Block_release(v31);
+    _Block_release(v30);
   }
 
-  v32 = v30[1];
-  if (v32 && !atomic_fetch_add(&v32->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v31 = v29[1];
+  if (v31 && !atomic_fetch_add(&v31->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v32->__on_zero_shared)(v32);
-    std::__shared_weak_count::__release_weak(v32);
+    (v31->__on_zero_shared)(v31);
+    std::__shared_weak_count::__release_weak(v31);
   }
 
-  operator delete(v30);
+  operator delete(v29);
 LABEL_56:
-  v33 = a1;
+  v32 = a1;
   if (a1)
   {
-    v34 = a1[2];
-    if (v34 && !atomic_fetch_add(&v34->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    v33 = a1[2];
+    if (v33)
     {
-      (v34->__on_zero_shared)(v34);
-      std::__shared_weak_count::__release_weak(v34);
-      v33 = a1;
+      if (!atomic_fetch_add(&v33->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v33->__on_zero_shared)(v33);
+        std::__shared_weak_count::__release_weak(v33);
+        v32 = a1;
+      }
     }
 
-    operator delete(v33);
+    operator delete(v32);
   }
-
-  v35 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296F1CA0C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
@@ -5689,7 +5668,7 @@ uint64_t ___ZZNK3awd19QMIAwdCommandDriver22sendClearConfigurationENSt3__110share
 
 void ___ZZNK3awd19QMIAwdCommandDriver22sendClearConfigurationENSt3__110shared_ptrINS_10AppContextEEEN8dispatch5blockIU13block_pointerFvbEEEENK3__0clEv_block_invoke_29(void *a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   v3 = *(a2 + 4);
   v4 = a1[4];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
@@ -5701,25 +5680,22 @@ void ___ZZNK3awd19QMIAwdCommandDriver22sendClearConfigurationENSt3__110shared_pt
     }
 
     *buf = 136315138;
-    v11 = v5;
+    v9 = v5;
     _os_log_impl(&dword_296ECF000, v4, OS_LOG_TYPE_INFO, "Clear configuration %s", buf, 0xCu);
   }
 
-  v6 = a1[5];
-  v7 = a1[7];
-  if (v7)
+  v6 = a1[7];
+  if (v6)
   {
-    v7 = _Block_copy(v7);
+    v6 = _Block_copy(v6);
   }
 
-  aBlock = v7;
+  aBlock = v6;
   awd::AppContext::operator()();
   if (aBlock)
   {
     _Block_release(aBlock);
   }
-
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296F1CC68(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *aBlock)
@@ -5767,187 +5743,186 @@ void dispatch::async<void ctu::SharedSynchronizable<awd::AwdCommandDriver>::exec
 
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v57 = v4;
   v58 = v4;
-  v59 = v4;
-  qmi::MutableMessageBase::MutableMessageBase(&v58);
+  qmi::MutableMessageBase::MutableMessageBase(&v57);
   Properties = awd::AppContext::getProperties(*v1);
-  v51[0] = MEMORY[0x29EDCA5F8];
-  v51[1] = 1174405120;
-  v52 = ___ZZNK3awd19QMIAwdCommandDriver20sendUpdatePropertiesENSt3__110shared_ptrINS_10AppContextEEEN8dispatch5blockIU13block_pointerFvbEEEENK3__0clEv_block_invoke;
-  v53 = &__block_descriptor_tmp_36_1;
-  v54 = *v1;
+  v50[0] = MEMORY[0x29EDCA5F8];
+  v50[1] = 1174405120;
+  v51 = ___ZZNK3awd19QMIAwdCommandDriver20sendUpdatePropertiesENSt3__110shared_ptrINS_10AppContextEEEN8dispatch5blockIU13block_pointerFvbEEEENK3__0clEv_block_invoke;
+  v52 = &__block_descriptor_tmp_36_1;
+  v53 = *v1;
   v6 = v1[1];
-  v55 = v6;
+  v54 = v6;
   if (v6)
   {
     atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v56 = Properties;
-  v57 = BYTE2(Properties);
-  v7 = *(&v58 + 1);
-  v8 = v59;
-  v9 = *(&v58 + 1);
-  if (*(&v58 + 1) != v59)
+  v55 = Properties;
+  v56 = BYTE2(Properties);
+  v7 = *(&v57 + 1);
+  v8 = v58;
+  v9 = *(&v57 + 1);
+  if (*(&v57 + 1) != v58)
   {
-    v9 = *(&v58 + 1);
+    v9 = *(&v57 + 1);
     while (*(*v9 + 8) != 69)
     {
-      if (++v9 == v59)
+      if (++v9 == v58)
       {
         goto LABEL_13;
       }
     }
   }
 
-  if (v9 == v59)
+  if (v9 == v58)
   {
 LABEL_13:
-    v13 = operator new(0x18uLL);
-    v13[8] = 69;
-    *v13 = &unk_2A1E17A80;
-    *(v13 + 3) = 0;
-    v12 = v13 + 12;
-    *(v13 + 8) = 0;
-    if (v8 >= *(&v59 + 1))
+    v12 = operator new(0x18uLL);
+    v12[8] = 69;
+    *v12 = &unk_2A1E17A80;
+    *(v12 + 3) = 0;
+    v11 = v12 + 12;
+    *(v12 + 8) = 0;
+    if (v8 >= *(&v58 + 1))
     {
-      v15 = v8 - v7;
-      v16 = (v8 - v7) >> 3;
-      v17 = v16 + 1;
-      if ((v16 + 1) >> 61)
+      v14 = v8 - v7;
+      v15 = (v8 - v7) >> 3;
+      v16 = v15 + 1;
+      if ((v15 + 1) >> 61)
       {
         std::vector<std::string>::__throw_length_error[abi:ne200100]();
       }
 
-      v18 = *(&v59 + 1) - v7;
-      if ((*(&v59 + 1) - v7) >> 2 > v17)
+      v17 = *(&v58 + 1) - v7;
+      if ((*(&v58 + 1) - v7) >> 2 > v16)
       {
-        v17 = v18 >> 2;
+        v16 = v17 >> 2;
       }
 
-      if (v18 >= 0x7FFFFFFFFFFFFFF8)
+      if (v17 >= 0x7FFFFFFFFFFFFFF8)
       {
-        v19 = 0x1FFFFFFFFFFFFFFFLL;
+        v18 = 0x1FFFFFFFFFFFFFFFLL;
       }
 
       else
       {
-        v19 = v17;
+        v18 = v16;
       }
 
-      if (v19)
+      if (v18)
       {
-        if (v19 >> 61)
+        if (v18 >> 61)
         {
           std::__throw_bad_array_new_length[abi:ne200100]();
         }
 
-        v20 = v13;
-        v21 = v13 + 12;
-        v22 = operator new(8 * v19);
-        v13 = v20;
+        v19 = v12;
+        v20 = v12 + 12;
+        v21 = operator new(8 * v18);
+        v12 = v19;
       }
 
       else
       {
-        v21 = v13 + 12;
-        v22 = 0;
+        v20 = v12 + 12;
+        v21 = 0;
       }
 
-      v23 = &v22[8 * v16];
-      *v23 = v13;
-      v14 = v23 + 8;
-      memcpy(v22, v7, v15);
-      *(&v58 + 1) = v22;
-      *&v59 = v14;
-      *(&v59 + 1) = &v22[8 * v19];
+      v22 = &v21[8 * v15];
+      *v22 = v12;
+      v13 = v22 + 8;
+      memcpy(v21, v7, v14);
+      *(&v57 + 1) = v21;
+      *&v58 = v13;
+      *(&v58 + 1) = &v21[8 * v18];
       if (v7)
       {
         operator delete(v7);
       }
 
-      v12 = v21;
+      v11 = v20;
     }
 
     else
     {
-      *v8 = v13;
-      v14 = v8 + 8;
+      *v8 = v12;
+      v13 = v8 + 8;
     }
 
-    *&v59 = v14;
+    *&v58 = v13;
   }
 
   else
   {
-    v10 = ***v9;
-    if (!v11)
+    if (!v10)
     {
       __cxa_bad_cast();
     }
 
-    v12 = v11 + 12;
+    v11 = v10 + 12;
   }
 
-  v52(v51, v12);
-  v24 = *(v2 + 5);
-  v50 = v24;
-  if (v24)
+  v51(v50, v11);
+  v23 = *(v2 + 5);
+  v49 = v23;
+  if (v23)
   {
-    os_retain(v24);
+    os_retain(v23);
   }
 
-  v45 = v2 + 88;
-  v46 = QMIServiceMsg::create();
-  v47 = 25000;
+  v44 = v2 + 88;
+  v45 = QMIServiceMsg::create();
+  v46 = 25000;
+  v47 = 0;
   v48 = 0;
-  v49 = 0;
   *buf = MEMORY[0x29EDCA5F8];
-  v38 = 1174405120;
-  v39 = ___ZZNK3awd19QMIAwdCommandDriver20sendUpdatePropertiesENSt3__110shared_ptrINS_10AppContextEEEN8dispatch5blockIU13block_pointerFvbEEEENK3__0clEv_block_invoke_37;
-  v40 = &__block_descriptor_tmp_40_1;
-  object = v24;
-  if (v24)
+  v37 = 1174405120;
+  v38 = ___ZZNK3awd19QMIAwdCommandDriver20sendUpdatePropertiesENSt3__110shared_ptrINS_10AppContextEEEN8dispatch5blockIU13block_pointerFvbEEEENK3__0clEv_block_invoke_37;
+  v39 = &__block_descriptor_tmp_40_1;
+  object = v23;
+  if (v23)
   {
-    os_retain(v24);
+    os_retain(v23);
   }
 
-  v42 = *v1;
-  v25 = v1[1];
-  v43 = v25;
+  v41 = *v1;
+  v24 = v1[1];
+  v42 = v24;
+  if (v24)
+  {
+    atomic_fetch_add_explicit(&v24->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v25 = v1[2];
   if (v25)
   {
-    atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
+    v25 = _Block_copy(v25);
   }
 
-  v26 = v1[2];
-  if (v26)
-  {
-    v26 = _Block_copy(v26);
-  }
-
-  v44 = v26;
+  v43 = v25;
   aBlock[0] = MEMORY[0x29EDCA5F8];
   aBlock[1] = 0x40000000;
   aBlock[2] = ___ZNO3qmi6Client9SendProxy8callbackIRKN3awd3abm24RegisterMetricIndication8ResponseEEEOS1_U13block_pointerFvT_E_block_invoke;
   aBlock[3] = &unk_29EE5E038;
   aBlock[4] = buf;
-  v49 = _Block_copy(aBlock);
+  v48 = _Block_copy(aBlock);
   qmi::Client::send();
-  if (v49)
+  if (v48)
   {
-    _Block_release(v49);
+    _Block_release(v48);
   }
 
-  if (v44)
+  if (v43)
   {
-    _Block_release(v44);
+    _Block_release(v43);
   }
 
-  v27 = v43;
-  if (!v43 || atomic_fetch_add(&v43->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v26 = v42;
+  if (!v42 || atomic_fetch_add(&v42->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    v28 = object;
+    v27 = object;
     if (!object)
     {
       goto LABEL_45;
@@ -5956,28 +5931,28 @@ LABEL_13:
     goto LABEL_44;
   }
 
-  (v27->__on_zero_shared)(v27);
-  std::__shared_weak_count::__release_weak(v27);
-  v28 = object;
+  (v26->__on_zero_shared)(v26);
+  std::__shared_weak_count::__release_weak(v26);
+  v27 = object;
   if (object)
   {
 LABEL_44:
-    os_release(v28);
+    os_release(v27);
   }
 
 LABEL_45:
-  if (v50)
+  if (v49)
   {
-    os_release(v50);
+    os_release(v49);
   }
 
-  v29 = v55;
-  if (v55 && !atomic_fetch_add(&v55->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v28 = v54;
+  if (v54 && !atomic_fetch_add(&v54->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v29->__on_zero_shared)(v29);
-    std::__shared_weak_count::__release_weak(v29);
-    qmi::MutableMessageBase::~MutableMessageBase(&v58);
-    v30 = __p;
+    (v28->__on_zero_shared)(v28);
+    std::__shared_weak_count::__release_weak(v28);
+    qmi::MutableMessageBase::~MutableMessageBase(&v57);
+    v29 = __p;
     if (!__p)
     {
       goto LABEL_56;
@@ -5986,48 +5961,48 @@ LABEL_45:
 
   else
   {
-    qmi::MutableMessageBase::~MutableMessageBase(&v58);
-    v30 = __p;
+    qmi::MutableMessageBase::~MutableMessageBase(&v57);
+    v29 = __p;
     if (!__p)
     {
       goto LABEL_56;
     }
   }
 
-  v31 = v30[2];
-  if (v31)
+  v30 = v29[2];
+  if (v30)
   {
-    _Block_release(v31);
+    _Block_release(v30);
   }
 
-  v32 = v30[1];
-  if (v32 && !atomic_fetch_add(&v32->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v31 = v29[1];
+  if (v31 && !atomic_fetch_add(&v31->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v32->__on_zero_shared)(v32);
-    std::__shared_weak_count::__release_weak(v32);
+    (v31->__on_zero_shared)(v31);
+    std::__shared_weak_count::__release_weak(v31);
   }
 
-  operator delete(v30);
+  operator delete(v29);
 LABEL_56:
-  v33 = a1;
+  v32 = a1;
   if (a1)
   {
-    v34 = a1[2];
-    if (v34)
+    v33 = a1[2];
+    if (v33)
     {
-      if (!atomic_fetch_add(&v34->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      if (!atomic_fetch_add(&v33->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
-        (v34->__on_zero_shared)(v34);
-        std::__shared_weak_count::__release_weak(v34);
-        v33 = a1;
+        (v33->__on_zero_shared)(v33);
+        std::__shared_weak_count::__release_weak(v33);
+        v32 = a1;
       }
     }
 
-    operator delete(v33);
+    operator delete(v32);
   }
 }
 
-void sub_296F1D2D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *aBlock, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32)
+void sub_296F1D2D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *aBlock, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32)
 {
   if (aBlock)
   {
@@ -6080,14 +6055,13 @@ uint64_t ___ZZNK3awd19QMIAwdCommandDriver20sendUpdatePropertiesENSt3__110shared_
 
 void ___ZZNK3awd19QMIAwdCommandDriver20sendUpdatePropertiesENSt3__110shared_ptrINS_10AppContextEEEN8dispatch5blockIU13block_pointerFvbEEEENK3__0clEv_block_invoke_37(void *a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   v3 = *(a2 + 4);
   v4 = a1[4];
   if (!os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v5 = a1[5];
-    v6 = a1[7];
-    if (!v6)
+    v5 = a1[7];
+    if (!v5)
     {
       goto LABEL_4;
     }
@@ -6095,32 +6069,29 @@ void ___ZZNK3awd19QMIAwdCommandDriver20sendUpdatePropertiesENSt3__110shared_ptrI
     goto LABEL_3;
   }
 
-  v8 = "error";
+  v6 = "error";
   if (!v3)
   {
-    v8 = "success";
+    v6 = "success";
   }
 
   *buf = 136315138;
-  v12 = v8;
+  v9 = v6;
   _os_log_debug_impl(&dword_296ECF000, v4, OS_LOG_TYPE_DEBUG, "Update properties %s", buf, 0xCu);
-  v9 = a1[5];
-  v6 = a1[7];
-  if (v6)
+  v5 = a1[7];
+  if (v5)
   {
 LABEL_3:
-    v6 = _Block_copy(v6);
+    v5 = _Block_copy(v5);
   }
 
 LABEL_4:
-  aBlock = v6;
+  aBlock = v5;
   awd::AppContext::operator()();
   if (aBlock)
   {
     _Block_release(aBlock);
   }
-
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296F1D544(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *aBlock)
@@ -6157,129 +6128,128 @@ char *qmi::MutableMessageBase::TlvWrapper<awd::tlv::abm::PIILocationExt>::clone(
 
 void dispatch::async<void ctu::SharedSynchronizable<awd::AwdCommandDriver>::execute_wrapped<awd::QMIAwdCommandDriver::sendQueriableMetric(std::shared_ptr<awd::AppContext>,awd::MetricInfo const&,awd::TriggerInfo const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0>(awd::QMIAwdCommandDriver::sendQueriableMetric(std::shared_ptr<awd::AppContext>,awd::MetricInfo const&,awd::TriggerInfo const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<awd::QMIAwdCommandDriver::sendQueriableMetric(std::shared_ptr<awd::AppContext>,awd::MetricInfo const&,awd::TriggerInfo const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0,std::default_delete<awd::QMIAwdCommandDriver::sendQueriableMetric(std::shared_ptr<awd::AppContext>,awd::MetricInfo const&,awd::TriggerInfo const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
 {
-  v47 = *MEMORY[0x29EDCA608];
+  v45 = *MEMORY[0x29EDCA608];
   v1 = *a1;
   __p = *a1;
   v2 = *(*a1 + 40);
   v3 = *(v2 + 40);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v22 = *(v1 + 4);
-    v23 = *(v1 + 5);
-    v24 = *(v1 + 6);
+    v20 = *(v1 + 4);
+    v21 = *(v1 + 5);
+    v22 = *(v1 + 6);
     *buf = 67109632;
-    *&buf[4] = v22;
-    LOWORD(v40) = 1024;
-    *(&v40 + 2) = v23;
-    HIWORD(v40) = 1024;
-    LODWORD(v41) = v24;
+    *&buf[4] = v20;
+    LOWORD(v38) = 1024;
+    *(&v38 + 2) = v21;
+    HIWORD(v38) = 1024;
+    LODWORD(v39) = v22;
     _os_log_debug_impl(&dword_296ECF000, v3, OS_LOG_TYPE_DEBUG, "#D Querying metric, component: 0x%x, submissionId: 0x%x, triggerId: 0x%x", buf, 0x14u);
   }
 
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v36 = v4;
-  v37 = v4;
-  qmi::MutableMessageBase::MutableMessageBase(&v36);
-  v28[0] = MEMORY[0x29EDCA5F8];
-  v28[1] = 1174405120;
-  v29 = ___ZZNK3awd19QMIAwdCommandDriver19sendQueriableMetricENSt3__110shared_ptrINS_10AppContextEEERKNS_10MetricInfoERKNS_11TriggerInfoEN8dispatch5blockIU13block_pointerFvbEEEENK3__0clEv_block_invoke;
-  v30 = &__block_descriptor_tmp_44_2;
-  v31 = *v1;
+  v34 = v4;
+  v35 = v4;
+  qmi::MutableMessageBase::MutableMessageBase(&v34);
+  v26[0] = MEMORY[0x29EDCA5F8];
+  v26[1] = 1174405120;
+  v27 = ___ZZNK3awd19QMIAwdCommandDriver19sendQueriableMetricENSt3__110shared_ptrINS_10AppContextEEERKNS_10MetricInfoERKNS_11TriggerInfoEN8dispatch5blockIU13block_pointerFvbEEEENK3__0clEv_block_invoke;
+  v28 = &__block_descriptor_tmp_44_2;
+  v29 = *v1;
   v5 = v1[1];
-  v32 = v5;
+  v30 = v5;
   if (v5)
   {
     atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v33 = *(v1 + 5);
-  v34 = *(v1 + 4);
-  v35 = *(v1 + 6);
-  v6 = *(&v36 + 1);
-  if (*(&v36 + 1) != v37)
+  v31 = *(v1 + 5);
+  v32 = *(v1 + 4);
+  v33 = *(v1 + 6);
+  v6 = *(&v34 + 1);
+  if (*(&v34 + 1) != v35)
   {
     while (*(*v6 + 8) != 66)
     {
-      if (++v6 == v37)
+      if (++v6 == v35)
       {
         goto LABEL_12;
       }
     }
   }
 
-  if (v6 == v37)
+  if (v6 == v35)
   {
 LABEL_12:
-    v9 = qmi::MutableMessageBase::createTLV<awd::tlv::abm::MetricsExt>(&v36);
+    v8 = qmi::MutableMessageBase::createTLV<awd::tlv::abm::MetricsExt>(&v34);
   }
 
   else
   {
-    v7 = ***v6;
-    if (!v8)
+    if (!v7)
     {
       __cxa_bad_cast();
     }
 
-    v9 = v8 + 12;
+    v8 = v7 + 12;
   }
 
-  v29(v28, v9);
-  v10 = *(v2 + 40);
-  if (v10)
+  v27(v26, v8);
+  v9 = *(v2 + 40);
+  if (v9)
   {
-    os_retain(v10);
+    os_retain(v9);
   }
 
   QMIServiceMsg::create();
   *buf = MEMORY[0x29EDCA5F8];
-  v40 = 1174405120;
-  v41 = ___ZZNK3awd19QMIAwdCommandDriver19sendQueriableMetricENSt3__110shared_ptrINS_10AppContextEEERKNS_10MetricInfoERKNS_11TriggerInfoEN8dispatch5blockIU13block_pointerFvbEEEENK3__0clEv_block_invoke_45;
-  v42 = &__block_descriptor_tmp_48_1;
+  v38 = 1174405120;
+  v39 = ___ZZNK3awd19QMIAwdCommandDriver19sendQueriableMetricENSt3__110shared_ptrINS_10AppContextEEERKNS_10MetricInfoERKNS_11TriggerInfoEN8dispatch5blockIU13block_pointerFvbEEEENK3__0clEv_block_invoke_45;
+  v40 = &__block_descriptor_tmp_48_1;
+  v41 = v9;
+  if (v9)
+  {
+    os_retain(v9);
+  }
+
+  v42 = *v1;
+  v10 = v1[1];
   v43 = v10;
   if (v10)
   {
-    os_retain(v10);
+    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v44 = *v1;
-  v11 = v1[1];
-  v45 = v11;
+  v11 = v1[4];
   if (v11)
   {
-    atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
+    v11 = _Block_copy(v11);
   }
 
-  v12 = v1[4];
-  if (v12)
-  {
-    v12 = _Block_copy(v12);
-  }
-
-  v46 = v12;
+  v44 = v11;
   aBlock[0] = MEMORY[0x29EDCA5F8];
   aBlock[1] = 0x40000000;
   aBlock[2] = ___ZNO3qmi6Client9SendProxy8callbackIRKN3awd3abm19SetQueriableMetrics8ResponseEEEOS1_U13block_pointerFvT_E_block_invoke;
   aBlock[3] = &unk_29EE5E088;
   aBlock[4] = buf;
-  v27 = _Block_copy(aBlock);
+  v25 = _Block_copy(aBlock);
   qmi::Client::send();
-  if (v27)
+  if (v25)
   {
-    _Block_release(v27);
+    _Block_release(v25);
   }
 
-  if (v46)
+  if (v44)
   {
-    _Block_release(v46);
+    _Block_release(v44);
   }
 
-  v13 = v45;
-  if (!v45 || atomic_fetch_add(&v45->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v12 = v43;
+  if (!v43 || atomic_fetch_add(&v43->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    v14 = v43;
-    if (!v43)
+    v13 = v41;
+    if (!v41)
     {
       goto LABEL_29;
     }
@@ -6287,28 +6257,28 @@ LABEL_12:
     goto LABEL_28;
   }
 
-  (v13->__on_zero_shared)(v13);
-  std::__shared_weak_count::__release_weak(v13);
-  v14 = v43;
-  if (v43)
+  (v12->__on_zero_shared)(v12);
+  std::__shared_weak_count::__release_weak(v12);
+  v13 = v41;
+  if (v41)
   {
 LABEL_28:
-    os_release(v14);
+    os_release(v13);
   }
 
 LABEL_29:
-  if (v10)
+  if (v9)
   {
-    os_release(v10);
+    os_release(v9);
   }
 
-  v15 = v32;
-  if (v32 && !atomic_fetch_add(&v32->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v14 = v30;
+  if (v30 && !atomic_fetch_add(&v30->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v15->__on_zero_shared)(v15);
-    std::__shared_weak_count::__release_weak(v15);
-    qmi::MutableMessageBase::~MutableMessageBase(&v36);
-    v16 = __p;
+    (v14->__on_zero_shared)(v14);
+    std::__shared_weak_count::__release_weak(v14);
+    qmi::MutableMessageBase::~MutableMessageBase(&v34);
+    v15 = __p;
     if (!__p)
     {
       goto LABEL_40;
@@ -6317,44 +6287,45 @@ LABEL_29:
 
   else
   {
-    qmi::MutableMessageBase::~MutableMessageBase(&v36);
-    v16 = __p;
+    qmi::MutableMessageBase::~MutableMessageBase(&v34);
+    v15 = __p;
     if (!__p)
     {
       goto LABEL_40;
     }
   }
 
-  v17 = v16[4];
-  if (v17)
+  v16 = v15[4];
+  if (v16)
   {
-    _Block_release(v17);
+    _Block_release(v16);
   }
 
-  v18 = v16[1];
-  if (v18 && !atomic_fetch_add(&v18->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v17 = v15[1];
+  if (v17 && !atomic_fetch_add(&v17->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v18->__on_zero_shared)(v18);
-    std::__shared_weak_count::__release_weak(v18);
+    (v17->__on_zero_shared)(v17);
+    std::__shared_weak_count::__release_weak(v17);
   }
 
-  operator delete(v16);
+  operator delete(v15);
 LABEL_40:
-  v19 = a1;
+  v18 = a1;
   if (a1)
   {
-    v20 = a1[2];
-    if (v20 && !atomic_fetch_add(&v20->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    v19 = a1[2];
+    if (v19)
     {
-      (v20->__on_zero_shared)(v20);
-      std::__shared_weak_count::__release_weak(v20);
-      v19 = a1;
+      if (!atomic_fetch_add(&v19->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v19->__on_zero_shared)(v19);
+        std::__shared_weak_count::__release_weak(v19);
+        v18 = a1;
+      }
     }
 
-    operator delete(v19);
+    operator delete(v18);
   }
-
-  v21 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296F1DAEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
@@ -6404,14 +6375,13 @@ uint64_t ___ZZNK3awd19QMIAwdCommandDriver19sendQueriableMetricENSt3__110shared_p
 
 void ___ZZNK3awd19QMIAwdCommandDriver19sendQueriableMetricENSt3__110shared_ptrINS_10AppContextEEERKNS_10MetricInfoERKNS_11TriggerInfoEN8dispatch5blockIU13block_pointerFvbEEEENK3__0clEv_block_invoke_45(void *a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   v3 = *(a2 + 4);
   v4 = a1[4];
   if (!os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v5 = a1[5];
-    v6 = a1[7];
-    if (!v6)
+    v5 = a1[7];
+    if (!v5)
     {
       goto LABEL_4;
     }
@@ -6419,32 +6389,29 @@ void ___ZZNK3awd19QMIAwdCommandDriver19sendQueriableMetricENSt3__110shared_ptrIN
     goto LABEL_3;
   }
 
-  v8 = "error";
+  v6 = "error";
   if (!v3)
   {
-    v8 = "success";
+    v6 = "success";
   }
 
   *buf = 136315138;
-  v12 = v8;
+  v9 = v6;
   _os_log_debug_impl(&dword_296ECF000, v4, OS_LOG_TYPE_DEBUG, "Metric query %s", buf, 0xCu);
-  v9 = a1[5];
-  v6 = a1[7];
-  if (v6)
+  v5 = a1[7];
+  if (v5)
   {
 LABEL_3:
-    v6 = _Block_copy(v6);
+    v5 = _Block_copy(v5);
   }
 
 LABEL_4:
-  aBlock = v6;
+  aBlock = v5;
   awd::AppContext::operator()();
   if (aBlock)
   {
     _Block_release(aBlock);
   }
-
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296F1DD70(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *aBlock)
@@ -6565,8 +6532,8 @@ void ___ZNO3qmi6Client9SendProxy8callbackIRKN3awd3abm19SetQueriableMetrics8Respo
   {
     memset(__p, 170, sizeof(__p));
     QMIServiceMsg::serialize(__p, this);
-    qmi::ResponseBase::ResponseBase(v5, __p[0]);
-    qmi::MessageBase::validateMsgId(v5);
+    qmi::ResponseBase::ResponseBase(v4, __p[0]);
+    qmi::MessageBase::validateMsgId(v4);
     if (__p[0])
     {
       __p[1] = __p[0];
@@ -6576,14 +6543,13 @@ void ___ZNO3qmi6Client9SendProxy8callbackIRKN3awd3abm19SetQueriableMetrics8Respo
 
   else
   {
-    v4 = *(this + 6);
     QMIServiceMsg::getNewError(this);
     qmi::MessageBase::MessageBase();
-    qmi::MessageBase::validateMsgId(v5);
+    qmi::MessageBase::validateMsgId(v4);
   }
 
-  (*(v2 + 16))(v2, v5);
-  qmi::MessageBase::~MessageBase(v5);
+  (*(v2 + 16))(v2, v4);
+  qmi::MessageBase::~MessageBase(v4);
 }
 
 void sub_296F1E034(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13)
@@ -6600,129 +6566,128 @@ void sub_296F1E034(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void dispatch::async<void ctu::SharedSynchronizable<awd::AwdCommandDriver>::execute_wrapped<awd::QMIAwdCommandDriver::sendQueriableMetric(std::shared_ptr<awd::AppContext>,awd::MetricInfo const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0>(awd::QMIAwdCommandDriver::sendQueriableMetric(std::shared_ptr<awd::AppContext>,awd::MetricInfo const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<awd::QMIAwdCommandDriver::sendQueriableMetric(std::shared_ptr<awd::AppContext>,awd::MetricInfo const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0,std::default_delete<awd::QMIAwdCommandDriver::sendQueriableMetric(std::shared_ptr<awd::AppContext>,awd::MetricInfo const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
 {
-  v47 = *MEMORY[0x29EDCA608];
+  v45 = *MEMORY[0x29EDCA608];
   v1 = *a1;
   __p = *a1;
   v2 = *(*a1 + 40);
   v3 = *(v2 + 40);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v22 = *(v1 + 4);
-    v23 = *(v1 + 5);
-    v24 = *(v1 + 6);
+    v20 = *(v1 + 4);
+    v21 = *(v1 + 5);
+    v22 = *(v1 + 6);
     *buf = 67109632;
-    *&buf[4] = v22;
-    LOWORD(v40) = 1024;
-    *(&v40 + 2) = v23;
-    HIWORD(v40) = 1024;
-    LODWORD(v41) = v24;
+    *&buf[4] = v20;
+    LOWORD(v38) = 1024;
+    *(&v38 + 2) = v21;
+    HIWORD(v38) = 1024;
+    LODWORD(v39) = v22;
     _os_log_debug_impl(&dword_296ECF000, v3, OS_LOG_TYPE_DEBUG, "#D Querying metric, component: 0x%x, submissionId: 0x%x, triggerId: 0x%x", buf, 0x14u);
   }
 
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v36 = v4;
-  v37 = v4;
-  qmi::MutableMessageBase::MutableMessageBase(&v36);
-  v28[0] = MEMORY[0x29EDCA5F8];
-  v28[1] = 1174405120;
-  v29 = ___ZZNK3awd19QMIAwdCommandDriver19sendQueriableMetricENSt3__110shared_ptrINS_10AppContextEEERKNS_10MetricInfoEN8dispatch5blockIU13block_pointerFvbEEEENK3__0clEv_block_invoke;
-  v30 = &__block_descriptor_tmp_52_1;
-  v31 = *v1;
+  v34 = v4;
+  v35 = v4;
+  qmi::MutableMessageBase::MutableMessageBase(&v34);
+  v26[0] = MEMORY[0x29EDCA5F8];
+  v26[1] = 1174405120;
+  v27 = ___ZZNK3awd19QMIAwdCommandDriver19sendQueriableMetricENSt3__110shared_ptrINS_10AppContextEEERKNS_10MetricInfoEN8dispatch5blockIU13block_pointerFvbEEEENK3__0clEv_block_invoke;
+  v28 = &__block_descriptor_tmp_52_1;
+  v29 = *v1;
   v5 = v1[1];
-  v32 = v5;
+  v30 = v5;
   if (v5)
   {
     atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v33 = *(v1 + 5);
-  v34 = *(v1 + 4);
-  v35 = *(v1 + 6);
-  v6 = *(&v36 + 1);
-  if (*(&v36 + 1) != v37)
+  v31 = *(v1 + 5);
+  v32 = *(v1 + 4);
+  v33 = *(v1 + 6);
+  v6 = *(&v34 + 1);
+  if (*(&v34 + 1) != v35)
   {
     while (*(*v6 + 8) != 66)
     {
-      if (++v6 == v37)
+      if (++v6 == v35)
       {
         goto LABEL_12;
       }
     }
   }
 
-  if (v6 == v37)
+  if (v6 == v35)
   {
 LABEL_12:
-    v9 = qmi::MutableMessageBase::createTLV<awd::tlv::abm::MetricsExt>(&v36);
+    v8 = qmi::MutableMessageBase::createTLV<awd::tlv::abm::MetricsExt>(&v34);
   }
 
   else
   {
-    v7 = ***v6;
-    if (!v8)
+    if (!v7)
     {
       __cxa_bad_cast();
     }
 
-    v9 = v8 + 12;
+    v8 = v7 + 12;
   }
 
-  v29(v28, v9);
-  v10 = *(v2 + 40);
-  if (v10)
+  v27(v26, v8);
+  v9 = *(v2 + 40);
+  if (v9)
   {
-    os_retain(v10);
+    os_retain(v9);
   }
 
   QMIServiceMsg::create();
   *buf = MEMORY[0x29EDCA5F8];
-  v40 = 1174405120;
-  v41 = ___ZZNK3awd19QMIAwdCommandDriver19sendQueriableMetricENSt3__110shared_ptrINS_10AppContextEEERKNS_10MetricInfoEN8dispatch5blockIU13block_pointerFvbEEEENK3__0clEv_block_invoke_53;
-  v42 = &__block_descriptor_tmp_56_0;
+  v38 = 1174405120;
+  v39 = ___ZZNK3awd19QMIAwdCommandDriver19sendQueriableMetricENSt3__110shared_ptrINS_10AppContextEEERKNS_10MetricInfoEN8dispatch5blockIU13block_pointerFvbEEEENK3__0clEv_block_invoke_53;
+  v40 = &__block_descriptor_tmp_56_0;
+  v41 = v9;
+  if (v9)
+  {
+    os_retain(v9);
+  }
+
+  v42 = *v1;
+  v10 = v1[1];
   v43 = v10;
   if (v10)
   {
-    os_retain(v10);
+    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v44 = *v1;
-  v11 = v1[1];
-  v45 = v11;
+  v11 = v1[4];
   if (v11)
   {
-    atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
+    v11 = _Block_copy(v11);
   }
 
-  v12 = v1[4];
-  if (v12)
-  {
-    v12 = _Block_copy(v12);
-  }
-
-  v46 = v12;
+  v44 = v11;
   aBlock[0] = MEMORY[0x29EDCA5F8];
   aBlock[1] = 0x40000000;
   aBlock[2] = ___ZNO3qmi6Client9SendProxy8callbackIRKN3awd3abm19SetQueriableMetrics8ResponseEEEOS1_U13block_pointerFvT_E_block_invoke;
   aBlock[3] = &unk_29EE5E088;
   aBlock[4] = buf;
-  v27 = _Block_copy(aBlock);
+  v25 = _Block_copy(aBlock);
   qmi::Client::send();
-  if (v27)
+  if (v25)
   {
-    _Block_release(v27);
+    _Block_release(v25);
   }
 
-  if (v46)
+  if (v44)
   {
-    _Block_release(v46);
+    _Block_release(v44);
   }
 
-  v13 = v45;
-  if (!v45 || atomic_fetch_add(&v45->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v12 = v43;
+  if (!v43 || atomic_fetch_add(&v43->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    v14 = v43;
-    if (!v43)
+    v13 = v41;
+    if (!v41)
     {
       goto LABEL_29;
     }
@@ -6730,28 +6695,28 @@ LABEL_12:
     goto LABEL_28;
   }
 
-  (v13->__on_zero_shared)(v13);
-  std::__shared_weak_count::__release_weak(v13);
-  v14 = v43;
-  if (v43)
+  (v12->__on_zero_shared)(v12);
+  std::__shared_weak_count::__release_weak(v12);
+  v13 = v41;
+  if (v41)
   {
 LABEL_28:
-    os_release(v14);
+    os_release(v13);
   }
 
 LABEL_29:
-  if (v10)
+  if (v9)
   {
-    os_release(v10);
+    os_release(v9);
   }
 
-  v15 = v32;
-  if (v32 && !atomic_fetch_add(&v32->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v14 = v30;
+  if (v30 && !atomic_fetch_add(&v30->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v15->__on_zero_shared)(v15);
-    std::__shared_weak_count::__release_weak(v15);
-    qmi::MutableMessageBase::~MutableMessageBase(&v36);
-    v16 = __p;
+    (v14->__on_zero_shared)(v14);
+    std::__shared_weak_count::__release_weak(v14);
+    qmi::MutableMessageBase::~MutableMessageBase(&v34);
+    v15 = __p;
     if (!__p)
     {
       goto LABEL_40;
@@ -6760,44 +6725,45 @@ LABEL_29:
 
   else
   {
-    qmi::MutableMessageBase::~MutableMessageBase(&v36);
-    v16 = __p;
+    qmi::MutableMessageBase::~MutableMessageBase(&v34);
+    v15 = __p;
     if (!__p)
     {
       goto LABEL_40;
     }
   }
 
-  v17 = v16[4];
-  if (v17)
+  v16 = v15[4];
+  if (v16)
   {
-    _Block_release(v17);
+    _Block_release(v16);
   }
 
-  v18 = v16[1];
-  if (v18 && !atomic_fetch_add(&v18->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v17 = v15[1];
+  if (v17 && !atomic_fetch_add(&v17->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v18->__on_zero_shared)(v18);
-    std::__shared_weak_count::__release_weak(v18);
+    (v17->__on_zero_shared)(v17);
+    std::__shared_weak_count::__release_weak(v17);
   }
 
-  operator delete(v16);
+  operator delete(v15);
 LABEL_40:
-  v19 = a1;
+  v18 = a1;
   if (a1)
   {
-    v20 = a1[2];
-    if (v20 && !atomic_fetch_add(&v20->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    v19 = a1[2];
+    if (v19)
     {
-      (v20->__on_zero_shared)(v20);
-      std::__shared_weak_count::__release_weak(v20);
-      v19 = a1;
+      if (!atomic_fetch_add(&v19->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v19->__on_zero_shared)(v19);
+        std::__shared_weak_count::__release_weak(v19);
+        v18 = a1;
+      }
     }
 
-    operator delete(v19);
+    operator delete(v18);
   }
-
-  v21 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296F1E560(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
@@ -6847,14 +6813,13 @@ uint64_t ___ZZNK3awd19QMIAwdCommandDriver19sendQueriableMetricENSt3__110shared_p
 
 void ___ZZNK3awd19QMIAwdCommandDriver19sendQueriableMetricENSt3__110shared_ptrINS_10AppContextEEERKNS_10MetricInfoEN8dispatch5blockIU13block_pointerFvbEEEENK3__0clEv_block_invoke_53(void *a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   v3 = *(a2 + 4);
   v4 = a1[4];
   if (!os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v5 = a1[5];
-    v6 = a1[7];
-    if (!v6)
+    v5 = a1[7];
+    if (!v5)
     {
       goto LABEL_4;
     }
@@ -6862,32 +6827,29 @@ void ___ZZNK3awd19QMIAwdCommandDriver19sendQueriableMetricENSt3__110shared_ptrIN
     goto LABEL_3;
   }
 
-  v8 = "error";
+  v6 = "error";
   if (!v3)
   {
-    v8 = "success";
+    v6 = "success";
   }
 
   *buf = 136315138;
-  v12 = v8;
+  v9 = v6;
   _os_log_debug_impl(&dword_296ECF000, v4, OS_LOG_TYPE_DEBUG, "Metric query %s", buf, 0xCu);
-  v9 = a1[5];
-  v6 = a1[7];
-  if (v6)
+  v5 = a1[7];
+  if (v5)
   {
 LABEL_3:
-    v6 = _Block_copy(v6);
+    v5 = _Block_copy(v5);
   }
 
 LABEL_4:
-  aBlock = v6;
+  aBlock = v5;
   awd::AppContext::operator()();
   if (aBlock)
   {
     _Block_release(aBlock);
   }
-
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296F1E7E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *aBlock)
@@ -7574,7 +7536,7 @@ void *BudgetData::BudgetData(void *result, uint64_t a2)
   return result;
 }
 
-void **BudgetData::operator=(void **result, void **a2)
+void *BudgetData::operator=(void *result, void *a2)
 {
   if (a2 != result)
   {
@@ -7586,10 +7548,10 @@ void **BudgetData::operator=(void **result, void **a2)
   return result;
 }
 
-uint64_t BudgetData::get(uint64_t **a1, unsigned int a2)
+uint64_t *BudgetData::get(uint64_t ***a1, unsigned int a2)
 {
   v2 = a2;
-  v5 = a1 + 1;
+  v5 = (a1 + 1);
   v4 = a1[1];
   if (v4)
   {
@@ -8234,18 +8196,17 @@ void sub_296F2013C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 uint64_t desense::QMICommandDriver::QMICommandDriver(uint64_t a1, uint64_t *a2)
 {
   v3 = a2[1];
-  v5 = *a2;
-  v6 = v3;
+  v5 = v3;
   if (v3)
   {
-    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
   }
 
   desense::CommandDriver::CommandDriver();
-  if (v6 && !atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v6->__on_zero_shared)(v6);
-    std::__shared_weak_count::__release_weak(v6);
+    (v5->__on_zero_shared)(v5);
+    std::__shared_weak_count::__release_weak(v5);
   }
 
   *a1 = &unk_2A1E17C18;
@@ -8407,23 +8368,23 @@ void desense::QMICommandDriver::init(desense::QMICommandDriver *this)
 
 void ___ZN7desense16QMICommandDriver4initEv_block_invoke(uint64_t a1)
 {
-  v36 = *MEMORY[0x29EDCA608];
+  v35 = *MEMORY[0x29EDCA608];
   v1 = *(a1 + 32);
+  v22 = 0xAAAAAAAAAAAAAAAALL;
   v23 = 0xAAAAAAAAAAAAAAAALL;
-  v24 = 0xAAAAAAAAAAAAAAAALL;
-  Registry::getServerConnection(&v23, *(v1 + 96));
-  v2 = v23;
-  v32 = v1;
+  Registry::getServerConnection(&v22, *(v1 + 96));
+  v2 = v22;
+  v31 = v1;
+  v32 = v22;
   v33 = v23;
-  v34 = v24;
-  if (v24)
+  if (v23)
   {
-    atomic_fetch_add_explicit((v24 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v23 + 8), 1uLL, memory_order_relaxed);
   }
 
   if (v2)
   {
-    v27 = 3;
+    v26 = 3;
     v3 = *(v1 + 16);
     if (!v3)
     {
@@ -8437,8 +8398,8 @@ void ___ZN7desense16QMICommandDriver4initEv_block_invoke(uint64_t a1)
       goto LABEL_48;
     }
 
-    v25 = v4;
-    v26 = v5;
+    v24 = v4;
+    v25 = v5;
     atomic_fetch_add_explicit(&v5->__shared_weak_owners_, 1uLL, memory_order_relaxed);
     if (!atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
@@ -8447,12 +8408,12 @@ void ___ZN7desense16QMICommandDriver4initEv_block_invoke(uint64_t a1)
       std::__shared_weak_count::__release_weak(v6);
     }
 
-    qmi::ClientRouter::addLocal<char const*,qmi::ServiceType,dispatch::queue const&,char const(&)[13],std::weak_ptr<desense::CommandDriver>,std::shared_ptr<BBServerConnection> const&>(v1 + 136, 1, "Desense.1", &v27, (v1 + 24), &v25, &v33);
+    qmi::ClientRouter::addLocal<char const*,qmi::ServiceType,dispatch::queue const&,char const(&)[13],std::weak_ptr<desense::CommandDriver>,std::shared_ptr<BBServerConnection> const&>(v1 + 136, 1, "Desense.1", &v26, (v1 + 24), &v24, &v32);
   }
 
   else
   {
-    v27 = 3;
+    v26 = 3;
     v7 = *(v1 + 16);
     if (!v7)
     {
@@ -8466,8 +8427,8 @@ void ___ZN7desense16QMICommandDriver4initEv_block_invoke(uint64_t a1)
       goto LABEL_48;
     }
 
-    v25 = v8;
-    v26 = v9;
+    v24 = v8;
+    v25 = v9;
     atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
     if (!atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
@@ -8476,27 +8437,27 @@ void ___ZN7desense16QMICommandDriver4initEv_block_invoke(uint64_t a1)
       std::__shared_weak_count::__release_weak(v10);
     }
 
-    qmi::ClientRouter::add<char const*,qmi::ServiceType,dispatch::queue const&,char const(&)[13],std::weak_ptr<desense::CommandDriver>>(v1 + 136, 1, "Desense.1", &v27, (v1 + 24), &v25);
+    qmi::ClientRouter::add<char const*,qmi::ServiceType,dispatch::queue const&,char const(&)[13],std::weak_ptr<desense::CommandDriver>>(v1 + 136, 1, "Desense.1", &v26, (v1 + 24), &v24);
   }
 
-  if (v26)
+  if (v25)
   {
-    std::__shared_weak_count::__release_weak(v26);
+    std::__shared_weak_count::__release_weak(v25);
   }
 
-  v11 = v32;
-  if (v33)
+  v11 = v31;
+  if (v32)
   {
-    v27 = 3;
-    v12 = *(v32 + 2);
+    v26 = 3;
+    v12 = *(v31 + 2);
     if (v12)
     {
-      v13 = *(v32 + 1);
+      v13 = *(v31 + 1);
       v14 = std::__shared_weak_count::lock(v12);
       if (v14)
       {
-        v25 = v13;
-        v26 = v14;
+        v24 = v13;
+        v25 = v14;
         atomic_fetch_add_explicit(&v14->__shared_weak_owners_, 1uLL, memory_order_relaxed);
         if (!atomic_fetch_add(&v14->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
@@ -8505,7 +8466,7 @@ void ___ZN7desense16QMICommandDriver4initEv_block_invoke(uint64_t a1)
           std::__shared_weak_count::__release_weak(v15);
         }
 
-        qmi::ClientRouter::addLocal<char const*,qmi::ServiceType,dispatch::queue const&,char const(&)[13],std::weak_ptr<desense::CommandDriver>,std::shared_ptr<BBServerConnection> const&>(v11 + 136, 2, "Desense.2", &v27, v11 + 3, &v25, &v33);
+        qmi::ClientRouter::addLocal<char const*,qmi::ServiceType,dispatch::queue const&,char const(&)[13],std::weak_ptr<desense::CommandDriver>,std::shared_ptr<BBServerConnection> const&>((v11 + 17), 2, "Desense.2", &v26, v11 + 3, &v24, &v32);
         goto LABEL_27;
       }
     }
@@ -8514,22 +8475,22 @@ LABEL_48:
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
-  v27 = 3;
-  v16 = *(v32 + 2);
+  v26 = 3;
+  v16 = *(v31 + 2);
   if (!v16)
   {
     goto LABEL_48;
   }
 
-  v17 = *(v32 + 1);
+  v17 = *(v31 + 1);
   v18 = std::__shared_weak_count::lock(v16);
   if (!v18)
   {
     goto LABEL_48;
   }
 
-  v25 = v17;
-  v26 = v18;
+  v24 = v17;
+  v25 = v18;
   atomic_fetch_add_explicit(&v18->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   if (!atomic_fetch_add(&v18->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -8538,71 +8499,72 @@ LABEL_48:
     std::__shared_weak_count::__release_weak(v19);
   }
 
-  qmi::ClientRouter::add<char const*,qmi::ServiceType,dispatch::queue const&,char const(&)[13],std::weak_ptr<desense::CommandDriver>>(v11 + 136, 2, "Desense.2", &v27, v11 + 3, &v25);
+  qmi::ClientRouter::add<char const*,qmi::ServiceType,dispatch::queue const&,char const(&)[13],std::weak_ptr<desense::CommandDriver>>((v11 + 17), 2, "Desense.2", &v26, v11 + 3, &v24);
 LABEL_27:
-  if (v26)
+  if (v25)
   {
-    std::__shared_weak_count::__release_weak(v26);
+    std::__shared_weak_count::__release_weak(v25);
   }
 
-  v20 = v34;
-  if (v34 && !atomic_fetch_add(&v34->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v20 = v33;
+  if (v33 && !atomic_fetch_add(&v33->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v20->__on_zero_shared)(v20);
     std::__shared_weak_count::__release_weak(v20);
   }
 
-  v30[0] = &unk_2A1E17EB8;
-  v30[1] = v1;
-  v31 = v30;
+  v29[0] = &unk_2A1E17EB8;
+  v29[1] = v1;
+  v30 = v29;
   qmi::ClientRouter::setHandler();
-  if (v31 == v30)
+  if (v30 == v29)
   {
-    (*(*v31 + 32))(v31);
+    (*(*v30 + 32))(v30);
   }
 
-  else if (v31)
+  else if (v30)
   {
-    (*(*v31 + 40))();
+    (*(*v30 + 40))();
   }
 
-  v28[0] = &unk_2A1E18008;
-  v28[1] = v1;
-  v29 = v28;
+  v27[0] = &unk_2A1E18008;
+  v27[1] = v1;
+  v28 = v27;
   qmi::ClientRouter::setHandler();
-  if (v29 == v28)
+  if (v28 == v27)
   {
-    (*(*v29 + 32))(v29);
+    (*(*v28 + 32))(v28);
   }
 
-  else if (v29)
+  else if (v28)
   {
-    (*(*v29 + 40))();
+    (*(*v28 + 40))();
   }
 
-  v32 = &unk_2A1E18088;
-  v33 = v1;
-  v35 = &v32;
+  v31 = &unk_2A1E18088;
+  v32 = v1;
+  v34 = &v31;
   qmi::ClientRouter::setIndHandlerInternal();
-  if (v35 == &v32)
+  if (v34 == &v31)
   {
-    (*(*v35 + 4))(v35);
+    (*(*v34 + 4))(v34);
   }
 
-  else if (v35)
+  else if (v34)
   {
-    (*(*v35 + 5))(v35);
+    (*(*v34 + 5))(v34);
   }
 
   qmi::ClientRouter::start();
-  v21 = v24;
-  if (v24 && !atomic_fetch_add((v24 + 8), 0xFFFFFFFFFFFFFFFFLL))
+  v21 = v23;
+  if (v23)
   {
-    (v21->__on_zero_shared)(v21);
-    std::__shared_weak_count::__release_weak(v21);
+    if (!atomic_fetch_add((v23 + 8), 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (v21->__on_zero_shared)(v21);
+      std::__shared_weak_count::__release_weak(v21);
+    }
   }
-
-  v22 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296F20CEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18)
@@ -8670,7 +8632,7 @@ void desense::QMICommandDriver::registerFrequencyReporting(uint64_t a1, int a2)
 
 void ___ZN7desense16QMICommandDriver26registerFrequencyReportingEN4coex5SubIdE_block_invoke(uint64_t a1)
 {
-  v42 = *MEMORY[0x29EDCA608];
+  v39 = *MEMORY[0x29EDCA608];
   v1 = *(a1 + 32);
   v2 = *(a1 + 40);
   if (v2)
@@ -8693,490 +8655,43 @@ void ___ZN7desense16QMICommandDriver26registerFrequencyReportingEN4coex5SubIdE_b
 
   *&v5 = 0xAAAAAAAAAAAAAAAALL;
   *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v31 = v5;
-  v32 = v5;
-  qmi::MutableMessageBase::MutableMessageBase(&v31);
-  v6 = *(&v31 + 1);
-  v7 = v32;
-  v8 = *(&v31 + 1);
-  if (*(&v31 + 1) != v32)
+  v28 = v5;
+  v29 = v5;
+  qmi::MutableMessageBase::MutableMessageBase(&v28);
+  v6 = *(&v28 + 1);
+  v7 = v29;
+  v8 = *(&v28 + 1);
+  if (*(&v28 + 1) != v29)
   {
-    v8 = *(&v31 + 1);
+    v8 = *(&v28 + 1);
     while (*(*v8 + 8) != 176)
     {
-      if (++v8 == v32)
+      if (++v8 == v29)
       {
         goto LABEL_14;
       }
     }
   }
 
-  if (v8 == v32)
+  if (v8 == v29)
   {
 LABEL_14:
-    v12 = operator new(0x10uLL);
-    v13 = v12;
-    v12[4] = 176;
-    *v12 = &unk_2A1E18168;
-    if (v7 >= *(&v32 + 1))
-    {
-      v15 = v7 - v6;
-      v16 = (v7 - v6) >> 3;
-      v17 = v16 + 1;
-      if ((v16 + 1) >> 61)
-      {
-        std::vector<std::string>::__throw_length_error[abi:ne200100]();
-      }
-
-      v18 = *(&v32 + 1) - v6;
-      if ((*(&v32 + 1) - v6) >> 2 > v17)
-      {
-        v17 = v18 >> 2;
-      }
-
-      if (v18 >= 0x7FFFFFFFFFFFFFF8)
-      {
-        v19 = 0x1FFFFFFFFFFFFFFFLL;
-      }
-
-      else
-      {
-        v19 = v17;
-      }
-
-      if (v19)
-      {
-        if (v19 >> 61)
-        {
-          std::__throw_bad_array_new_length[abi:ne200100]();
-        }
-
-        v20 = operator new(8 * v19);
-      }
-
-      else
-      {
-        v20 = 0;
-      }
-
-      v21 = &v20[8 * v16];
-      *v21 = v13;
-      v14 = v21 + 8;
-      memcpy(v20, v6, v15);
-      *(&v31 + 1) = v20;
-      *&v32 = v14;
-      *(&v32 + 1) = &v20[8 * v19];
-      if (v6)
-      {
-        operator delete(v6);
-      }
-    }
-
-    else
-    {
-      *v7 = v12;
-      v14 = v7 + 8;
-    }
-
-    v11 = v13 + 9;
-    *&v32 = v14;
-  }
-
-  else
-  {
-    v9 = ***v8;
-    if (!v10)
-    {
-      __cxa_bad_cast();
-    }
-
-    v11 = v10 + 9;
-  }
-
-  *v11 = 2;
-  v22 = qmi::ClientRouter::get();
-  v23 = operator new(0x28uLL);
-  *v23 = v22;
-  v23[1] = QMIServiceMsg::create();
-  *(v23 + 4) = 25000;
-  v23[3] = 0;
-  v23[4] = 0;
-  v24 = operator new(0x28uLL);
-  v24[1] = 0;
-  v24[2] = 0;
-  *v24 = &unk_2A1E181D0;
-  v24[3] = v1;
-  *(v24 + 8) = v3;
-  v33 = (v24 + 3);
-  v34 = v24;
-  *buf = MEMORY[0x29EDCA5F8];
-  v37 = 1174405120;
-  v38 = ___ZNO3qmi12ClientRouter9SendProxy8callbackIZZN7desense16QMICommandDriver26registerFrequencyReportingEN4coex5SubIdEEUb0_E3__6EEOS1_OT__block_invoke;
-  v39 = &__block_descriptor_tmp_62_3;
-  v40 = (v24 + 3);
-  v41 = v24;
-  atomic_fetch_add_explicit(v24 + 1, 1uLL, memory_order_relaxed);
-  aBlock[0] = MEMORY[0x29EDCA5F8];
-  aBlock[1] = 0x40000000;
-  aBlock[2] = ___ZNO3qmi6Client9SendProxy8callbackIRKNS_12ResponseBaseEEEOS1_U13block_pointerFvT_E_block_invoke_0;
-  aBlock[3] = &unk_29EE5E438;
-  aBlock[4] = buf;
-  v23[4] = _Block_copy(aBlock);
-  v25 = v41;
-  if (v41 && !atomic_fetch_add(&v41->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v25->__on_zero_shared)(v25);
-    std::__shared_weak_count::__release_weak(v25);
-  }
-
-  v26 = v34;
-  if (v34 && !atomic_fetch_add(&v34->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v26->__on_zero_shared)(v26);
-    std::__shared_weak_count::__release_weak(v26);
-    v27 = v23;
-    if (!v23)
-    {
-      goto LABEL_40;
-    }
-  }
-
-  else
-  {
-    v27 = v23;
-    if (!v23)
-    {
-      goto LABEL_40;
-    }
-  }
-
-  if (v27[1])
-  {
-    v28 = *v27;
-    qmi::Client::send();
-  }
-
-  v29 = v27[4];
-  if (v29)
-  {
-    _Block_release(v29);
-  }
-
-  operator delete(v27);
-LABEL_40:
-  qmi::MutableMessageBase::~MutableMessageBase(&v31);
-  v30 = *MEMORY[0x29EDCA608];
-}
-
-void sub_296F2138C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16)
-{
-  if (a2)
-  {
-    __clang_call_terminate(exception_object);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_296F213F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  qmi::MutableMessageBase::~MutableMessageBase(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_296F2140C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  qmi::MutableMessageBase::~MutableMessageBase(va);
-  _Unwind_Resume(a1);
-}
-
-void qmi::ClientRouter::SendProxy::~SendProxy(qmi::ClientRouter::SendProxy *this)
-{
-  v1 = *(this + 1);
-  *(this + 1) = 0;
-  if (v1)
-  {
-    if (v1[1])
-    {
-      v2 = *v1;
-      qmi::Client::send();
-    }
-
-    v3 = v1[4];
-    if (v3)
-    {
-      _Block_release(v3);
-    }
-
-    operator delete(v1);
-  }
-}
-
-void desense::QMICommandDriver::setFrequencyReportingMode(uint64_t a1, int a2, char a3)
-{
-  v44 = *MEMORY[0x29EDCA608];
-  v6 = *(a1 + 40);
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-  {
-    LODWORD(buf) = 136315138;
-    *(&buf + 4) = desense::asString();
-    _os_log_impl(&dword_296ECF000, v6, OS_LOG_TYPE_DEFAULT, "#I Set Frequency reporting mode: %s", &buf, 0xCu);
-  }
-
-  *&v7 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v34 = v7;
-  v35 = v7;
-  qmi::MutableMessageBase::MutableMessageBase(&v34);
-  v8 = *(&v34 + 1);
-  v9 = v35;
-  v10 = *(&v34 + 1);
-  if (*(&v34 + 1) != v35)
-  {
-    v10 = *(&v34 + 1);
-    while (*(*v10 + 8) != 176)
-    {
-      if (++v10 == v35)
-      {
-        goto LABEL_11;
-      }
-    }
-  }
-
-  if (v10 == v35)
-  {
-LABEL_11:
-    v14 = operator new(0x10uLL);
-    v15 = v14;
-    v14[4] = 176;
-    *v14 = &unk_2A1E18238;
-    if (v9 >= *(&v35 + 1))
-    {
-      v17 = v9 - v8;
-      v18 = (v9 - v8) >> 3;
-      v19 = v18 + 1;
-      if ((v18 + 1) >> 61)
-      {
-        std::vector<std::string>::__throw_length_error[abi:ne200100]();
-      }
-
-      v20 = *(&v35 + 1) - v8;
-      if ((*(&v35 + 1) - v8) >> 2 > v19)
-      {
-        v19 = v20 >> 2;
-      }
-
-      if (v20 >= 0x7FFFFFFFFFFFFFF8)
-      {
-        v21 = 0x1FFFFFFFFFFFFFFFLL;
-      }
-
-      else
-      {
-        v21 = v19;
-      }
-
-      if (v21)
-      {
-        if (v21 >> 61)
-        {
-          std::__throw_bad_array_new_length[abi:ne200100]();
-        }
-
-        v22 = operator new(8 * v21);
-      }
-
-      else
-      {
-        v22 = 0;
-      }
-
-      v23 = &v22[8 * v18];
-      *v23 = v15;
-      v16 = v23 + 8;
-      memcpy(v22, v8, v17);
-      *(&v34 + 1) = v22;
-      *&v35 = v16;
-      *(&v35 + 1) = &v22[8 * v21];
-      if (v8)
-      {
-        operator delete(v8);
-      }
-    }
-
-    else
-    {
-      *v9 = v14;
-      v16 = v9 + 8;
-    }
-
-    v13 = v15 + 9;
-    *&v35 = v16;
-  }
-
-  else
-  {
-    v11 = ***v10;
-    if (!v12)
-    {
-      __cxa_bad_cast();
-    }
-
-    v13 = v12 + 9;
-  }
-
-  *v13 = a3;
-  if (a2)
-  {
-    v24 = 2 * (a2 == 1);
-  }
-
-  else
-  {
-    v24 = 1;
-  }
-
-  v25 = qmi::ClientRouter::get();
-  v26 = operator new(0x28uLL);
-  *v26 = v25;
-  v26[1] = QMIServiceMsg::create();
-  *(v26 + 4) = 25000;
-  v26[3] = 0;
-  v26[4] = 0;
-  v27 = operator new(0x28uLL);
-  v27[1] = 0;
-  v27[2] = 0;
-  *v27 = &unk_2A1E182A0;
-  v27[3] = a1;
-  *(v27 + 8) = v24;
-  v36 = (v27 + 3);
-  v37 = v27;
-  *&buf = MEMORY[0x29EDCA5F8];
-  *(&buf + 1) = 1174405120;
-  v40 = ___ZNO3qmi12ClientRouter9SendProxy8callbackIZN7desense16QMICommandDriver25setFrequencyReportingModeEN4coex5SubIdENS3_22FrequencyReportingModeEE3__1EEOS1_OT__block_invoke;
-  v41 = &__block_descriptor_tmp_65_0;
-  v42 = (v27 + 3);
-  v43 = v27;
-  atomic_fetch_add_explicit(v27 + 1, 1uLL, memory_order_relaxed);
-  aBlock[0] = MEMORY[0x29EDCA5F8];
-  aBlock[1] = 0x40000000;
-  aBlock[2] = ___ZNO3qmi6Client9SendProxy8callbackIRKNS_12ResponseBaseEEEOS1_U13block_pointerFvT_E_block_invoke_0;
-  aBlock[3] = &unk_29EE5E438;
-  aBlock[4] = &buf;
-  v26[4] = _Block_copy(aBlock);
-  v28 = v43;
-  if (v43 && !atomic_fetch_add(&v43->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v28->__on_zero_shared)(v28);
-    std::__shared_weak_count::__release_weak(v28);
-  }
-
-  v29 = v37;
-  if (v37 && !atomic_fetch_add(&v37->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v29->__on_zero_shared)(v29);
-    std::__shared_weak_count::__release_weak(v29);
-    v30 = v26;
-    if (!v26)
-    {
-      goto LABEL_40;
-    }
-  }
-
-  else
-  {
-    v30 = v26;
-    if (!v26)
-    {
-      goto LABEL_40;
-    }
-  }
-
-  if (v30[1])
-  {
-    v31 = *v30;
-    qmi::Client::send();
-  }
-
-  v32 = v30[4];
-  if (v32)
-  {
-    _Block_release(v32);
-  }
-
-  operator delete(v30);
-LABEL_40:
-  qmi::MutableMessageBase::~MutableMessageBase(&v34);
-  v33 = *MEMORY[0x29EDCA608];
-}
-
-void sub_296F218F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16)
-{
-  if (a2)
-  {
-    __clang_call_terminate(exception_object);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_296F21960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  qmi::MutableMessageBase::~MutableMessageBase(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_296F21974(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  qmi::MutableMessageBase::~MutableMessageBase(va);
-  _Unwind_Resume(a1);
-}
-
-void desense::QMICommandDriver::bindSubscription_sync(uint64_t a1, int a2)
-{
-  *&v4 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v29 = v4;
-  v30 = v4;
-  qmi::MutableMessageBase::MutableMessageBase(&v29);
-  v5 = *(&v29 + 1);
-  v6 = v30;
-  v7 = *(&v29 + 1);
-  if (*(&v29 + 1) != v30)
-  {
-    v7 = *(&v29 + 1);
-    while (*(*v7 + 8) != 1)
-    {
-      if (++v7 == v30)
-      {
-        goto LABEL_9;
-      }
-    }
-  }
-
-  if (v7 == v30)
-  {
-LABEL_9:
     v11 = operator new(0x10uLL);
     v12 = v11;
-    v11[4] = 1;
-    *v11 = &unk_2A1E18308;
-    if (v6 >= *(&v30 + 1))
+    v11[4] = 176;
+    *v11 = &unk_2A1E18168;
+    if (v7 >= *(&v29 + 1))
     {
-      v14 = v6 - v5;
-      v15 = (v6 - v5) >> 3;
+      v14 = v7 - v6;
+      v15 = (v7 - v6) >> 3;
       v16 = v15 + 1;
       if ((v15 + 1) >> 61)
       {
         std::vector<std::string>::__throw_length_error[abi:ne200100]();
       }
 
-      v17 = *(&v30 + 1) - v5;
-      if ((*(&v30 + 1) - v5) >> 2 > v16)
+      v17 = *(&v29 + 1) - v6;
+      if ((*(&v29 + 1) - v6) >> 2 > v16)
       {
         v16 = v17 >> 2;
       }
@@ -9209,38 +8724,37 @@ LABEL_9:
       v20 = &v19[8 * v15];
       *v20 = v12;
       v13 = v20 + 8;
-      memcpy(v19, v5, v14);
-      *(&v29 + 1) = v19;
-      *&v30 = v13;
-      *(&v30 + 1) = &v19[8 * v18];
-      if (v5)
+      memcpy(v19, v6, v14);
+      *(&v28 + 1) = v19;
+      *&v29 = v13;
+      *(&v29 + 1) = &v19[8 * v18];
+      if (v6)
       {
-        operator delete(v5);
+        operator delete(v6);
       }
     }
 
     else
     {
-      *v6 = v11;
-      v13 = v6 + 8;
+      *v7 = v11;
+      v13 = v7 + 8;
     }
 
     v10 = v12 + 9;
-    *&v30 = v13;
+    *&v29 = v13;
   }
 
   else
   {
-    v8 = ***v7;
     if (!v9)
     {
       __cxa_bad_cast();
     }
 
-    v10 = (v9 + 9);
+    v10 = v9 + 9;
   }
 
-  *v10 = a2 == 2;
+  *v10 = 2;
   v21 = qmi::ClientRouter::get();
   v22 = operator new(0x28uLL);
   *v22 = v21;
@@ -9251,40 +8765,40 @@ LABEL_9:
   v23 = operator new(0x28uLL);
   v23[1] = 0;
   v23[2] = 0;
-  *v23 = &unk_2A1E18370;
-  v23[3] = a1;
-  *(v23 + 8) = a2;
-  v33 = (v23 + 3);
-  v34 = v23;
-  v31[0] = MEMORY[0x29EDCA5F8];
-  v31[1] = 1174405120;
-  v31[2] = ___ZNO3qmi12ClientRouter9SendProxy8callbackIZN7desense16QMICommandDriver21bindSubscription_syncENS_16SubscriptionTypeEE3__0EEOS1_OT__block_invoke;
-  v31[3] = &__block_descriptor_tmp_67_1;
-  v31[4] = v23 + 3;
-  v32 = v23;
+  *v23 = &unk_2A1E181D0;
+  v23[3] = v1;
+  *(v23 + 8) = v3;
+  v30 = (v23 + 3);
+  v31 = v23;
+  *buf = MEMORY[0x29EDCA5F8];
+  v34 = 1174405120;
+  v35 = ___ZNO3qmi12ClientRouter9SendProxy8callbackIZZN7desense16QMICommandDriver26registerFrequencyReportingEN4coex5SubIdEEUb0_E3__6EEOS1_OT__block_invoke;
+  v36 = &__block_descriptor_tmp_62_3;
+  v37 = (v23 + 3);
+  v38 = v23;
   atomic_fetch_add_explicit(v23 + 1, 1uLL, memory_order_relaxed);
   aBlock[0] = MEMORY[0x29EDCA5F8];
   aBlock[1] = 0x40000000;
-  aBlock[2] = ___ZNO3qmi6Client9SendProxy8callbackIRKN3nas3abm16BindSubscription8ResponseEEEOS1_U13block_pointerFvT_E_block_invoke;
-  aBlock[3] = &unk_29EE5E460;
-  aBlock[4] = v31;
+  aBlock[2] = ___ZNO3qmi6Client9SendProxy8callbackIRKNS_12ResponseBaseEEEOS1_U13block_pointerFvT_E_block_invoke_0;
+  aBlock[3] = &unk_29EE5E438;
+  aBlock[4] = buf;
   v22[4] = _Block_copy(aBlock);
-  v24 = v32;
-  if (v32 && !atomic_fetch_add(&v32->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v24 = v38;
+  if (v38 && !atomic_fetch_add(&v38->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v24->__on_zero_shared)(v24);
     std::__shared_weak_count::__release_weak(v24);
   }
 
-  v25 = v34;
-  if (v34 && !atomic_fetch_add(&v34->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v25 = v31;
+  if (v31 && !atomic_fetch_add(&v31->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v25->__on_zero_shared)(v25);
     std::__shared_weak_count::__release_weak(v25);
     v26 = v22;
     if (!v22)
     {
-      goto LABEL_35;
+      goto LABEL_40;
     }
   }
 
@@ -9293,53 +8807,496 @@ LABEL_9:
     v26 = v22;
     if (!v22)
     {
-      goto LABEL_35;
+      goto LABEL_40;
     }
   }
 
   if (v26[1])
   {
-    v27 = *v26;
     qmi::Client::send();
   }
 
-  v28 = v26[4];
-  if (v28)
+  v27 = v26[4];
+  if (v27)
   {
-    _Block_release(v28);
+    _Block_release(v27);
   }
 
   operator delete(v26);
-LABEL_35:
-  qmi::MutableMessageBase::~MutableMessageBase(&v29);
+LABEL_40:
+  qmi::MutableMessageBase::~MutableMessageBase(&v28);
 }
 
-void sub_296F21D6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22)
+void sub_296F2138C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16)
 {
-  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](v22 + 32);
-  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](&a22);
+  if (a2)
+  {
+    __clang_call_terminate(exception_object);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_296F213F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  qmi::MutableMessageBase::~MutableMessageBase(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_296F2140C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  qmi::MutableMessageBase::~MutableMessageBase(va);
+  _Unwind_Resume(a1);
+}
+
+void qmi::ClientRouter::SendProxy::~SendProxy(qmi::ClientRouter::SendProxy *this)
+{
+  v1 = *(this + 1);
+  *(this + 1) = 0;
+  if (v1)
+  {
+    if (v1[1])
+    {
+      qmi::Client::send();
+    }
+
+    v2 = v1[4];
+    if (v2)
+    {
+      _Block_release(v2);
+    }
+
+    operator delete(v1);
+  }
+}
+
+void desense::QMICommandDriver::setFrequencyReportingMode(uint64_t a1, int a2, uint64_t a3)
+{
+  v3 = a3;
+  v41 = *MEMORY[0x29EDCA608];
+  v6 = *(a1 + 40);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    LODWORD(buf) = 136315138;
+    *(&buf + 4) = desense::asString();
+    _os_log_impl(&dword_296ECF000, v6, OS_LOG_TYPE_DEFAULT, "#I Set Frequency reporting mode: %s", &buf, 0xCu);
+  }
+
+  *&v7 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v31 = v7;
+  v32 = v7;
+  qmi::MutableMessageBase::MutableMessageBase(&v31);
+  v8 = *(&v31 + 1);
+  v9 = v32;
+  v10 = *(&v31 + 1);
+  if (*(&v31 + 1) != v32)
+  {
+    v10 = *(&v31 + 1);
+    while (*(*v10 + 8) != 176)
+    {
+      if (++v10 == v32)
+      {
+        goto LABEL_11;
+      }
+    }
+  }
+
+  if (v10 == v32)
+  {
+LABEL_11:
+    v13 = operator new(0x10uLL);
+    v14 = v13;
+    v13[4] = 176;
+    *v13 = &unk_2A1E18238;
+    if (v9 >= *(&v32 + 1))
+    {
+      v16 = v9 - v8;
+      v17 = (v9 - v8) >> 3;
+      v18 = v17 + 1;
+      if ((v17 + 1) >> 61)
+      {
+        std::vector<std::string>::__throw_length_error[abi:ne200100]();
+      }
+
+      v19 = *(&v32 + 1) - v8;
+      if ((*(&v32 + 1) - v8) >> 2 > v18)
+      {
+        v18 = v19 >> 2;
+      }
+
+      if (v19 >= 0x7FFFFFFFFFFFFFF8)
+      {
+        v20 = 0x1FFFFFFFFFFFFFFFLL;
+      }
+
+      else
+      {
+        v20 = v18;
+      }
+
+      if (v20)
+      {
+        if (v20 >> 61)
+        {
+          std::__throw_bad_array_new_length[abi:ne200100]();
+        }
+
+        v21 = operator new(8 * v20);
+      }
+
+      else
+      {
+        v21 = 0;
+      }
+
+      v22 = &v21[8 * v17];
+      *v22 = v14;
+      v15 = v22 + 8;
+      memcpy(v21, v8, v16);
+      *(&v31 + 1) = v21;
+      *&v32 = v15;
+      *(&v32 + 1) = &v21[8 * v20];
+      if (v8)
+      {
+        operator delete(v8);
+      }
+    }
+
+    else
+    {
+      *v9 = v13;
+      v15 = v9 + 8;
+    }
+
+    v12 = v14 + 9;
+    *&v32 = v15;
+  }
+
+  else
+  {
+    if (!v11)
+    {
+      __cxa_bad_cast();
+    }
+
+    v12 = v11 + 9;
+  }
+
+  *v12 = v3;
+  if (a2)
+  {
+    v23 = 2 * (a2 == 1);
+  }
+
+  else
+  {
+    v23 = 1;
+  }
+
+  v24 = qmi::ClientRouter::get();
+  v25 = operator new(0x28uLL);
+  *v25 = v24;
+  v25[1] = QMIServiceMsg::create();
+  *(v25 + 4) = 25000;
+  v25[3] = 0;
+  v25[4] = 0;
+  v26 = operator new(0x28uLL);
+  v26[1] = 0;
+  v26[2] = 0;
+  *v26 = &unk_2A1E182A0;
+  v26[3] = a1;
+  *(v26 + 8) = v23;
+  v33 = (v26 + 3);
+  v34 = v26;
+  *&buf = MEMORY[0x29EDCA5F8];
+  *(&buf + 1) = 1174405120;
+  v37 = ___ZNO3qmi12ClientRouter9SendProxy8callbackIZN7desense16QMICommandDriver25setFrequencyReportingModeEN4coex5SubIdENS3_22FrequencyReportingModeEE3__1EEOS1_OT__block_invoke;
+  v38 = &__block_descriptor_tmp_65_0;
+  v39 = (v26 + 3);
+  v40 = v26;
+  atomic_fetch_add_explicit(v26 + 1, 1uLL, memory_order_relaxed);
+  aBlock[0] = MEMORY[0x29EDCA5F8];
+  aBlock[1] = 0x40000000;
+  aBlock[2] = ___ZNO3qmi6Client9SendProxy8callbackIRKNS_12ResponseBaseEEEOS1_U13block_pointerFvT_E_block_invoke_0;
+  aBlock[3] = &unk_29EE5E438;
+  aBlock[4] = &buf;
+  v25[4] = _Block_copy(aBlock);
+  v27 = v40;
+  if (v40 && !atomic_fetch_add(&v40->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v27->__on_zero_shared)(v27);
+    std::__shared_weak_count::__release_weak(v27);
+  }
+
+  v28 = v34;
+  if (v34 && !atomic_fetch_add(&v34->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v28->__on_zero_shared)(v28);
+    std::__shared_weak_count::__release_weak(v28);
+    v29 = v25;
+    if (!v25)
+    {
+      goto LABEL_40;
+    }
+  }
+
+  else
+  {
+    v29 = v25;
+    if (!v25)
+    {
+      goto LABEL_40;
+    }
+  }
+
+  if (v29[1])
+  {
+    qmi::Client::send();
+  }
+
+  v30 = v29[4];
+  if (v30)
+  {
+    _Block_release(v30);
+  }
+
+  operator delete(v29);
+LABEL_40:
+  qmi::MutableMessageBase::~MutableMessageBase(&v31);
+}
+
+void sub_296F218F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16)
+{
+  if (a2)
+  {
+    __clang_call_terminate(exception_object);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_296F21960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  qmi::MutableMessageBase::~MutableMessageBase(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_296F21974(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  qmi::MutableMessageBase::~MutableMessageBase(va);
+  _Unwind_Resume(a1);
+}
+
+void desense::QMICommandDriver::bindSubscription_sync(uint64_t a1, uint64_t a2)
+{
+  v2 = a2;
+  *&v4 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v27 = v4;
+  v28 = v4;
+  qmi::MutableMessageBase::MutableMessageBase(&v27);
+  v5 = *(&v27 + 1);
+  v6 = v28;
+  v7 = *(&v27 + 1);
+  if (*(&v27 + 1) != v28)
+  {
+    v7 = *(&v27 + 1);
+    while (*(*v7 + 8) != 1)
+    {
+      if (++v7 == v28)
+      {
+        goto LABEL_9;
+      }
+    }
+  }
+
+  if (v7 == v28)
+  {
+LABEL_9:
+    v10 = operator new(0x10uLL);
+    v11 = v10;
+    v10[4] = 1;
+    *v10 = &unk_2A1E18308;
+    if (v6 >= *(&v28 + 1))
+    {
+      v13 = v6 - v5;
+      v14 = (v6 - v5) >> 3;
+      v15 = v14 + 1;
+      if ((v14 + 1) >> 61)
+      {
+        std::vector<std::string>::__throw_length_error[abi:ne200100]();
+      }
+
+      v16 = *(&v28 + 1) - v5;
+      if ((*(&v28 + 1) - v5) >> 2 > v15)
+      {
+        v15 = v16 >> 2;
+      }
+
+      if (v16 >= 0x7FFFFFFFFFFFFFF8)
+      {
+        v17 = 0x1FFFFFFFFFFFFFFFLL;
+      }
+
+      else
+      {
+        v17 = v15;
+      }
+
+      if (v17)
+      {
+        if (v17 >> 61)
+        {
+          std::__throw_bad_array_new_length[abi:ne200100]();
+        }
+
+        v18 = operator new(8 * v17);
+      }
+
+      else
+      {
+        v18 = 0;
+      }
+
+      v19 = &v18[8 * v14];
+      *v19 = v11;
+      v12 = v19 + 8;
+      memcpy(v18, v5, v13);
+      *(&v27 + 1) = v18;
+      *&v28 = v12;
+      *(&v28 + 1) = &v18[8 * v17];
+      if (v5)
+      {
+        operator delete(v5);
+      }
+    }
+
+    else
+    {
+      *v6 = v10;
+      v12 = v6 + 8;
+    }
+
+    v9 = v11 + 9;
+    *&v28 = v12;
+  }
+
+  else
+  {
+    if (!v8)
+    {
+      __cxa_bad_cast();
+    }
+
+    v9 = (v8 + 9);
+  }
+
+  *v9 = v2 == 2;
+  v20 = qmi::ClientRouter::get();
+  v21 = operator new(0x28uLL);
+  *v21 = v20;
+  v21[1] = QMIServiceMsg::create();
+  *(v21 + 4) = 25000;
+  v21[3] = 0;
+  v21[4] = 0;
+  v22 = operator new(0x28uLL);
+  v22[1] = 0;
+  v22[2] = 0;
+  *v22 = &unk_2A1E18370;
+  v22[3] = a1;
+  *(v22 + 8) = v2;
+  v31 = (v22 + 3);
+  v32 = v22;
+  v29[0] = MEMORY[0x29EDCA5F8];
+  v29[1] = 1174405120;
+  v29[2] = ___ZNO3qmi12ClientRouter9SendProxy8callbackIZN7desense16QMICommandDriver21bindSubscription_syncENS_16SubscriptionTypeEE3__0EEOS1_OT__block_invoke;
+  v29[3] = &__block_descriptor_tmp_67_1;
+  v29[4] = v22 + 3;
+  v30 = v22;
+  atomic_fetch_add_explicit(v22 + 1, 1uLL, memory_order_relaxed);
+  aBlock[0] = MEMORY[0x29EDCA5F8];
+  aBlock[1] = 0x40000000;
+  aBlock[2] = ___ZNO3qmi6Client9SendProxy8callbackIRKN3nas3abm16BindSubscription8ResponseEEEOS1_U13block_pointerFvT_E_block_invoke;
+  aBlock[3] = &unk_29EE5E460;
+  aBlock[4] = v29;
+  v21[4] = _Block_copy(aBlock);
+  v23 = v30;
+  if (v30 && !atomic_fetch_add(&v30->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v23->__on_zero_shared)(v23);
+    std::__shared_weak_count::__release_weak(v23);
+  }
+
+  v24 = v32;
+  if (v32 && !atomic_fetch_add(&v32->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v24->__on_zero_shared)(v24);
+    std::__shared_weak_count::__release_weak(v24);
+    v25 = v21;
+    if (!v21)
+    {
+      goto LABEL_35;
+    }
+  }
+
+  else
+  {
+    v25 = v21;
+    if (!v21)
+    {
+      goto LABEL_35;
+    }
+  }
+
+  if (v25[1])
+  {
+    qmi::Client::send();
+  }
+
+  v26 = v25[4];
+  if (v26)
+  {
+    _Block_release(v26);
+  }
+
+  operator delete(v25);
+LABEL_35:
+  qmi::MutableMessageBase::~MutableMessageBase(&v27);
+}
+
+void sub_296F21D6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
+{
+  va_start(va, a21);
+  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](v21 + 32);
+  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
   qmi::ClientRouter::SendProxy::~SendProxy(&a9);
   qmi::MutableMessageBase::~MutableMessageBase(&a11);
   _Unwind_Resume(a1);
 }
 
-void sub_296F21DA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_296F21DA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
-  operator delete(v11);
-  qmi::MutableMessageBase::~MutableMessageBase(&a11);
-  _Unwind_Resume(a1);
-}
-
-void sub_296F21DBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
+  va_start(va, a10);
+  operator delete(v10);
   qmi::MutableMessageBase::~MutableMessageBase(va);
   _Unwind_Resume(a1);
 }
 
-void sub_296F21DD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_296F21DBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
+  qmi::MutableMessageBase::~MutableMessageBase(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_296F21DD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
   qmi::MutableMessageBase::~MutableMessageBase(va);
   _Unwind_Resume(a1);
 }
@@ -9745,4 +9702,159 @@ uint64_t std::shared_ptr<desense::QMICommandDriver> ctu::SharedSynchronizable<de
   }
 
   return result;
+}
+
+void qmi::ClientRouter::addLocal<char const*,qmi::ServiceType,dispatch::queue const&,char const(&)[13],std::weak_ptr<desense::CommandDriver>,std::shared_ptr<BBServerConnection> const&>(uint64_t a1, uint64_t a2, char *__s, unsigned __int8 *a4, NSObject **a5, uint64_t *a6, uint64_t *a7)
+{
+  *&v11 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v36 = v11;
+  v35 = v11;
+  v12 = strlen(__s);
+  if (v12 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::string::__throw_length_error[abi:ne200100]();
+  }
+
+  v13 = v12;
+  if (v12 >= 0x17)
+  {
+    if ((v12 | 7) == 0x17)
+    {
+      v22 = 25;
+    }
+
+    else
+    {
+      v22 = (v12 | 7) + 1;
+    }
+
+    v14 = operator new(v22);
+    __dst[1] = v13;
+    v34 = v22 | 0x8000000000000000;
+    __dst[0] = v14;
+  }
+
+  else
+  {
+    HIBYTE(v34) = v12;
+    v14 = __dst;
+    if (!v12)
+    {
+      LOBYTE(__dst[0]) = 0;
+      v15 = *a5;
+      object = v15;
+      if (!v15)
+      {
+        goto LABEL_6;
+      }
+
+      goto LABEL_5;
+    }
+  }
+
+  memcpy(v14, __s, v13);
+  *(v13 + v14) = 0;
+  v15 = *a5;
+  object = v15;
+  if (v15)
+  {
+LABEL_5:
+    dispatch_retain(v15);
+  }
+
+LABEL_6:
+  v31 = 12;
+  v29 = 0;
+  strcpy(__p, "registration");
+  v28 = 0;
+  v16 = a6[1];
+  if (!v16)
+  {
+    *a6 = 0;
+    a6[1] = 0;
+    goto LABEL_21;
+  }
+
+  v17 = std::__shared_weak_count::lock(v16);
+  if (!v17)
+  {
+    v28 = 0;
+    v29 = 0;
+    v21 = a6[1];
+    *a6 = 0;
+    a6[1] = 0;
+    if (!v21)
+    {
+      goto LABEL_21;
+    }
+
+    goto LABEL_20;
+  }
+
+  v18 = v17;
+  v19 = *a6;
+  atomic_fetch_add_explicit(&v17->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+  v28 = v19;
+  v29 = v17;
+  v20 = a6[1];
+  *a6 = 0;
+  a6[1] = 0;
+  if (v20)
+  {
+    std::__shared_weak_count::__release_weak(v20);
+  }
+
+  if (!atomic_fetch_add(v18 + 1, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (*(*v18 + 16))(v18);
+    v21 = v18;
+LABEL_20:
+    std::__shared_weak_count::__release_weak(v21);
+  }
+
+LABEL_21:
+  v23 = a7[1];
+  v26 = *a7;
+  v27 = v23;
+  if (v23)
+  {
+    atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  qmi::Client::createWithQueueLocal();
+  if (v27 && !atomic_fetch_add(&v27->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v27->__on_zero_shared)(v27);
+    std::__shared_weak_count::__release_weak(v27);
+  }
+
+  if (v29)
+  {
+    std::__shared_weak_count::__release_weak(v29);
+  }
+
+  if (v31 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  if (object)
+  {
+    dispatch_release(object);
+  }
+
+  if (SHIBYTE(v34) < 0)
+  {
+    operator delete(__dst[0]);
+  }
+
+  v24[0] = 0;
+  v24[1] = 0;
+  v25 = v36;
+  v36 = 0uLL;
+  qmi::ClientRouter::addClient();
+  qmi::Client::~Client(v24);
+  qmi::ClientRouter::get();
+  qmi::Client::~Client(&v35);
 }

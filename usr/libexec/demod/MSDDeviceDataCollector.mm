@@ -50,7 +50,7 @@
 
   else
   {
-    v8 = sub_100063A54();
+    v8 = sub_100063A54(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *v9 = 0;
@@ -81,7 +81,7 @@
   sessionCopy = session;
   startCopy = start;
   endCopy = end;
-  v10 = sub_100063A54();
+  v10 = sub_100063A54(endCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     toString = [startCopy toString];
@@ -123,7 +123,7 @@
 
     else
     {
-      v18 = sub_100063A54();
+      v18 = sub_100063A54(0);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;

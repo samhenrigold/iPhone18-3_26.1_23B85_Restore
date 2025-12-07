@@ -107,11 +107,10 @@
 
 - (MusicKit_SoftLinking_MPLibraryActiveKeepLocalStatus)currentStatus
 {
-  currentStatus = [(MPLibraryKeepLocalStatusObserver *)self->_underlyingLibraryKeepLocalStatusObserver currentStatus];
-  v6 = v5;
-  downloadPausedReason = [(MPLibraryKeepLocalStatusObserver *)self->_underlyingLibraryKeepLocalStatusObserver downloadPausedReason];
+  [(MPLibraryKeepLocalStatusObserver *)self->_underlyingLibraryKeepLocalStatusObserver currentStatus];
+  [(MPLibraryKeepLocalStatusObserver *)self->_underlyingLibraryKeepLocalStatusObserver downloadPausedReason];
 
-  return [(MusicKit_SoftLinking_MPLibraryKeepLocalStatusObserver *)self _activeKeepLocalStatusFromUnderlyingStatus:currentStatus underlyingDownloadPauseReasons:v6, downloadPausedReason];
+  return objc_msgSend__activeKeepLocalStatusFromUnderlyingStatus_underlyingDownloadPauseReasons_(self);
 }
 
 - (void)calculateDownloadProgressWithIdentifyingModelObject:(id)object children:(id)children
@@ -151,19 +150,17 @@
 
 - (void)_handleUpdatedUnderlyingActiveKeepLocalStatus:(MPLibraryActiveKeepLocalStatus)status
 {
-  var1 = status.var1;
-  var0 = status.var0;
-  downloadPausedReason = [(MPLibraryKeepLocalStatusObserver *)self->_underlyingLibraryKeepLocalStatusObserver downloadPausedReason];
-  v11 = 0uLL;
-  v12 = 0;
-  [(MusicKit_SoftLinking_MPLibraryKeepLocalStatusObserver *)self _activeKeepLocalStatusFromUnderlyingStatus:var0 underlyingDownloadPauseReasons:*&var1, downloadPausedReason];
+  [(MPLibraryKeepLocalStatusObserver *)self->_underlyingLibraryKeepLocalStatusObserver downloadPausedReason];
+  v8 = 0uLL;
+  v9 = 0;
+  objc_msgSend__activeKeepLocalStatusFromUnderlyingStatus_underlyingDownloadPauseReasons_(self);
   statusBlock = self->_statusBlock;
   if (statusBlock)
   {
-    v8 = statusBlock[2];
-    v9 = v11;
-    v10 = v12;
-    v8(statusBlock, &v9);
+    v5 = statusBlock[2];
+    v6 = v8;
+    v7 = v9;
+    v5(statusBlock, &v6);
   }
 }
 

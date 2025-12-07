@@ -9,7 +9,7 @@
 {
   if (MEMORY[0x1E69E7CC0] >> 62 && sub_1D13910DC())
   {
-    v3 = sub_1D1265DD4(MEMORY[0x1E69E7CC0]);
+    sub_1D1265DD4(MEMORY[0x1E69E7CC0]);
   }
 
   else

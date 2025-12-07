@@ -5,6 +5,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)errorTypeAsString:(int)string;
+- (id)triggerSourceTypeAsString:(int)string;
 - (int)StringAsErrorType:(id)type;
 - (int)StringAsTriggerSourceType:(id)type;
 - (int)errorType;
@@ -388,7 +390,6 @@ LABEL_25:
       goto LABEL_89;
     }
 
-    v15 = *(equalCopy + 126);
     if (self->_hasResponseContext)
     {
       if ((*(equalCopy + 126) & 1) == 0)
@@ -415,7 +416,6 @@ LABEL_25:
       goto LABEL_89;
     }
 
-    v16 = *(equalCopy + 128);
     if (self->_isResponseContextBlacklisted)
     {
       if ((*(equalCopy + 128) & 1) == 0)
@@ -442,7 +442,6 @@ LABEL_25:
       goto LABEL_89;
     }
 
-    v17 = *(equalCopy + 127);
     if (self->_isDocumentEmpty)
     {
       if ((*(equalCopy + 127) & 1) == 0)
@@ -533,7 +532,6 @@ LABEL_25:
       goto LABEL_89;
     }
 
-    v19 = *(equalCopy + 124);
     if (self->_hasContextBeforeInput)
     {
       if ((*(equalCopy + 124) & 1) == 0)
@@ -574,7 +572,7 @@ LABEL_25:
     }
 
 LABEL_89:
-    v25 = 0;
+    v20 = 0;
     goto LABEL_90;
   }
 
@@ -583,7 +581,6 @@ LABEL_89:
     goto LABEL_89;
   }
 
-  v20 = *(equalCopy + 125);
   if (self->_hasRecipientNames)
   {
     if ((*(equalCopy + 125) & 1) == 0)
@@ -638,17 +635,17 @@ LABEL_69:
   triggerAttributeField = self->_triggerAttributeField;
   if (triggerAttributeField | *(equalCopy + 11))
   {
-    v25 = [(NSString *)triggerAttributeField isEqual:?];
+    v20 = [(NSString *)triggerAttributeField isEqual:?];
   }
 
   else
   {
-    v25 = 1;
+    v20 = 1;
   }
 
 LABEL_90:
 
-  return v25;
+  return v20;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -978,38 +975,36 @@ LABEL_30:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v18 = toCopy;
+  v8 = toCopy;
   if (*&self->_has)
   {
-    errorType = self->_errorType;
     PBDataWriterWriteInt32Field();
-    toCopy = v18;
+    toCopy = v8;
   }
 
   if (self->_experimentId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v18;
+    toCopy = v8;
   }
 
   if (self->_treatmentId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v18;
+    toCopy = v8;
   }
 
   if (self->_treatmentName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v18;
+    toCopy = v8;
   }
 
   has = self->_has;
   if ((has & 0x80) != 0)
   {
-    hasResponseContext = self->_hasResponseContext;
     PBDataWriterWriteBOOLField();
-    toCopy = v18;
+    toCopy = v8;
     has = self->_has;
     if ((has & 0x200) == 0)
     {
@@ -1028,69 +1023,64 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  isResponseContextBlacklisted = self->_isResponseContextBlacklisted;
   PBDataWriterWriteBOOLField();
-  toCopy = v18;
+  toCopy = v8;
   if ((*&self->_has & 0x100) != 0)
   {
 LABEL_12:
-    isDocumentEmpty = self->_isDocumentEmpty;
     PBDataWriterWriteBOOLField();
-    toCopy = v18;
+    toCopy = v8;
   }
 
 LABEL_13:
   if (self->_textContentType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v18;
+    toCopy = v8;
   }
 
   if (self->_localeIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v18;
+    toCopy = v8;
   }
 
   if (self->_bundleIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v18;
+    toCopy = v8;
   }
 
-  v8 = self->_has;
-  if ((v8 & 8) != 0)
+  v6 = self->_has;
+  if ((v6 & 8) != 0)
   {
-    maxTextualResponseItems = self->_maxTextualResponseItems;
     PBDataWriterWriteUint32Field();
-    toCopy = v18;
-    v8 = self->_has;
+    toCopy = v8;
+    v6 = self->_has;
   }
 
-  if ((v8 & 4) != 0)
+  if ((v6 & 4) != 0)
   {
-    maxStructuredInfoItems = self->_maxStructuredInfoItems;
     PBDataWriterWriteUint32Field();
-    toCopy = v18;
+    toCopy = v8;
   }
 
   if (self->_initiatingProcess)
   {
     PBDataWriterWriteStringField();
-    toCopy = v18;
+    toCopy = v8;
   }
 
-  v11 = self->_has;
-  if ((v11 & 0x20) != 0)
+  v7 = self->_has;
+  if ((v7 & 0x20) != 0)
   {
-    hasContextBeforeInput = self->_hasContextBeforeInput;
     PBDataWriterWriteBOOLField();
-    toCopy = v18;
-    v11 = self->_has;
-    if ((v11 & 2) == 0)
+    toCopy = v8;
+    v7 = self->_has;
+    if ((v7 & 2) == 0)
     {
 LABEL_27:
-      if ((v11 & 0x40) == 0)
+      if ((v7 & 0x40) == 0)
       {
         goto LABEL_28;
       }
@@ -1099,19 +1089,18 @@ LABEL_27:
     }
   }
 
-  else if ((v11 & 2) == 0)
+  else if ((v7 & 2) == 0)
   {
     goto LABEL_27;
   }
 
-  maxPredictionItems = self->_maxPredictionItems;
   PBDataWriterWriteUint32Field();
-  toCopy = v18;
-  v11 = self->_has;
-  if ((v11 & 0x40) == 0)
+  toCopy = v8;
+  v7 = self->_has;
+  if ((v7 & 0x40) == 0)
   {
 LABEL_28:
-    if ((v11 & 0x10) == 0)
+    if ((v7 & 0x10) == 0)
     {
       goto LABEL_30;
     }
@@ -1120,40 +1109,38 @@ LABEL_28:
   }
 
 LABEL_46:
-  hasRecipientNames = self->_hasRecipientNames;
   PBDataWriterWriteBOOLField();
-  toCopy = v18;
+  toCopy = v8;
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_29:
-    triggerSourceType = self->_triggerSourceType;
     PBDataWriterWriteInt32Field();
-    toCopy = v18;
+    toCopy = v8;
   }
 
 LABEL_30:
   if (self->_triggerCategory)
   {
     PBDataWriterWriteStringField();
-    toCopy = v18;
+    toCopy = v8;
   }
 
   if (self->_triggerAttributeType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v18;
+    toCopy = v8;
   }
 
   if (self->_triggerAttributeSubtype)
   {
     PBDataWriterWriteStringField();
-    toCopy = v18;
+    toCopy = v8;
   }
 
   if (self->_triggerAttributeField)
   {
     PBDataWriterWriteStringField();
-    toCopy = v18;
+    toCopy = v8;
   }
 }
 
@@ -1395,6 +1382,21 @@ LABEL_25:
   return v4;
 }
 
+- (id)errorTypeAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279ABE368[string];
+  }
+
+  return v4;
+}
+
 - (int)errorType
 {
   if (*&self->_has)
@@ -1475,6 +1477,21 @@ LABEL_25:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)triggerSourceTypeAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279ABE330[string];
   }
 
   return v4;

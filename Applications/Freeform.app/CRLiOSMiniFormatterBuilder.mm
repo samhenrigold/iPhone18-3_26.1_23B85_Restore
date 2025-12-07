@@ -11,15 +11,15 @@
   foregroundColorCopy2 = foregroundColor;
   if (title)
   {
-    v26 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v27 = static String._unconditionallyBridgeFromObjectiveC(_:)();
     foregroundColorCopy2 = foregroundColor;
-    v27 = v17;
+    v28 = v18;
   }
 
   else
   {
-    v26 = 0;
     v27 = 0;
+    v28 = 0;
   }
 
   swift_getObjCClassMetadata();
@@ -27,11 +27,11 @@
   actionCopy = action;
   colorCopy = color;
   backgroundColorCopy = backgroundColor;
-  v21 = foregroundColorCopy2;
+  v22 = foregroundColorCopy2;
   pressedForegroundColorCopy = pressedForegroundColor;
-  v23 = sub_1005D48C8(with, v26, v27, action, color, backgroundColor, v21, pressedForegroundColorCopy, italicTitle);
+  v24 = sub_1005D48C8(with, v27, v28, action, color, backgroundColor, v22, pressedForegroundColorCopy, radius, italicTitle);
 
-  return v23;
+  return v24;
 }
 
 - (id)viewControllerForLargeContentViewerInteraction:(id)interaction

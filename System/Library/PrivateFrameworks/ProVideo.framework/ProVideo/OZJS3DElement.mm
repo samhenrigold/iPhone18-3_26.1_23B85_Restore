@@ -34,7 +34,7 @@
 {
   y = path.y;
   z = path.z;
-  OZ3DEngineSceneElement::buildAndApplyMeshContourToMotionPath(self->_tdElement, vertically, start, end, *&path.x, direction, rotation);
+  OZ3DEngineSceneElement::buildAndApplyMeshContourToMotionPath(self->_tdElement, *&path.x, direction, rotation, vertically, start, end);
 }
 
 - (void)setPosition:(SCNVector3)position forShaderParameterWithName:(id)name

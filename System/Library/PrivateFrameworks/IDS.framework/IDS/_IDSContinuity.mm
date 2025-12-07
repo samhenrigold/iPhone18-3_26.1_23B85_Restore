@@ -18,7 +18,9 @@
 - (void)dealloc;
 - (void)startAdvertisingOfType:(int64_t)type withData:(id)data withOptions:(id)options;
 - (void)startScanningForType:(int64_t)type withData:(id)data mask:(id)mask;
+- (void)startScanningForType:(int64_t)type withData:(id)data mask:(id)mask boostedScan:(BOOL)scan duplicates:(BOOL)duplicates;
 - (void)startScanningForType:(int64_t)type withData:(id)data mask:(id)mask peers:(id)peers;
+- (void)startScanningForType:(int64_t)type withData:(id)data mask:(id)mask peers:(id)peers boostedScan:(BOOL)scan duplicates:(BOOL)duplicates;
 - (void)startTrackingPeer:(id)peer forType:(int64_t)type;
 - (void)stopAdvertisingOfType:(int64_t)type;
 - (void)stopScanningForType:(int64_t)type;
@@ -49,7 +51,7 @@
     v14 = +[IDSLogging continuity];
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      sub_195B26A7C();
+      sub_195B26A7C(self, v14);
     }
 
     selfCopy = 0;
@@ -183,6 +185,53 @@
 
   v12 = +[IDSDaemonController sharedInstance];
   [v12 continuityStartScanningForType:type withData:dataCopy mask:maskCopy];
+}
+
+- (void)startScanningForType:(int64_t)type withData:(id)data mask:(id)mask peers:(id)peers boostedScan:(BOOL)scan duplicates:(BOOL)duplicates
+{
+  duplicatesCopy = duplicates;
+  scanCopy = scan;
+  peersCopy = peers;
+  maskCopy = mask;
+  dataCopy = data;
+  v16 = +[IDSInternalQueueController sharedInstance];
+  assertQueueIsCurrent = [v16 assertQueueIsCurrent];
+
+  if (assertQueueIsCurrent)
+  {
+    utilities = [MEMORY[0x1E69A5270] utilities];
+    if (os_log_type_enabled(utilities, OS_LOG_TYPE_ERROR))
+    {
+      sub_195B41D6C();
+    }
+  }
+
+  v19 = [peersCopy __imArrayByApplyingBlock:&unk_1F09E7460];
+
+  v20 = +[IDSDaemonController sharedInstance];
+  [v20 continuityStartScanningForType:type withData:dataCopy mask:maskCopy peers:v19 boostedScan:scanCopy duplicates:duplicatesCopy];
+}
+
+- (void)startScanningForType:(int64_t)type withData:(id)data mask:(id)mask boostedScan:(BOOL)scan duplicates:(BOOL)duplicates
+{
+  duplicatesCopy = duplicates;
+  scanCopy = scan;
+  maskCopy = mask;
+  dataCopy = data;
+  v13 = +[IDSInternalQueueController sharedInstance];
+  assertQueueIsCurrent = [v13 assertQueueIsCurrent];
+
+  if (assertQueueIsCurrent)
+  {
+    utilities = [MEMORY[0x1E69A5270] utilities];
+    if (os_log_type_enabled(utilities, OS_LOG_TYPE_ERROR))
+    {
+      sub_195B41E0C();
+    }
+  }
+
+  v16 = +[IDSDaemonController sharedInstance];
+  [v16 continuityStartScanningForType:type withData:dataCopy mask:maskCopy boostedScan:scanCopy duplicates:duplicatesCopy];
 }
 
 - (void)stopScanningForType:(int64_t)type

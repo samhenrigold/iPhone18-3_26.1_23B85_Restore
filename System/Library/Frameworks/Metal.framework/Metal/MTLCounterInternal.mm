@@ -34,12 +34,10 @@
 
 - (unint64_t)hash
 {
-  v5[2] = *MEMORY[0x1E69E9840];
-  v5[0] = [(NSString *)self->_name hash];
-  v5[1] = [(NSString *)self->_description hash];
-  LODWORD(result) = _MTLHashState(v5, 0x10uLL);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  v4[2] = *MEMORY[0x1E69E9840];
+  v4[0] = [(NSString *)self->_name hash];
+  v4[1] = [(NSString *)self->_description hash];
+  return _MTLHashState(v4, 0x10uLL);
 }
 
 - (BOOL)isEqual:(id)equal

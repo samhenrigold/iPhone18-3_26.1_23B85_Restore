@@ -1,6 +1,7 @@
 @interface NSTask
 + (BOOL)runTaskWithLaunchPath:(id)path arguments:(id)arguments timeout:(double)timeout outputData:(id)data errorData:(id)errorData launchHandler:(id)handler didLaunch:(BOOL *)launch error:(id *)self0;
 + (BOOL)runTaskWithLaunchPath:(id)path arguments:(id)arguments timeout:(double)timeout outputFileHandle:(id)handle errorFileHandle:(id)fileHandle launchHandler:(id)handler didLaunch:(BOOL *)launch error:(id *)self0;
++ (BOOL)runTaskWithLaunchPath:(id)path arguments:(id)arguments timeout:(double)timeout outputFilePath:(id)filePath errorFilePath:(id)errorFilePath redirectErrorToOutput:(BOOL)output launchHandler:(id)handler didLaunch:(BOOL *)self0 error:(id *)self1;
 + (void)runTaskWithLaunchPath:(id)path arguments:(id)arguments outputData:(id)data reply:(id)reply;
 + (void)runTaskWithLaunchPath:(id)path arguments:(id)arguments outputFileHandle:(id)handle reply:(id)reply;
 + (void)runTaskWithLaunchPath:(id)path arguments:(id)arguments outputFilePath:(id)filePath reply:(id)reply;
@@ -91,24 +92,22 @@
       v19 = sub_100098A04();
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v31 = 136316162;
-        v32 = "+[NSTask(WiFiVelocity) runTaskWithLaunchPath:arguments:timeout:outputFilePath:errorFilePath:redirectErrorToOutput:launchHandler:reply:]";
-        v33 = 2080;
-        v34 = "W5TaskUtil.m";
-        v35 = 1024;
-        v36 = 146;
-        v37 = 2114;
+        v30 = 136316162;
+        v31 = "+[NSTask(WiFiVelocity) runTaskWithLaunchPath:arguments:timeout:outputFilePath:errorFilePath:redirectErrorToOutput:launchHandler:reply:]";
+        v32 = 2080;
+        v33 = "W5TaskUtil.m";
+        v34 = 1024;
+        v35 = 146;
+        v36 = 2114;
         lastPathComponent = [path lastPathComponent];
-        v39 = 2114;
+        v38 = 2114;
         errorFilePathCopy = filePathCopy;
-        LODWORD(v25) = 48;
-        v24 = &v31;
-        _os_log_send_and_compose_impl();
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v19, 0, "[wifivelocity] %s (%s:%u) <%{public}@> FAILED to create file handle for output path '%{public}@'", &v30, 48);
       }
 
-      v29 = NSLocalizedFailureReasonErrorKey;
-      v30 = @"W5ResourceErr";
-      filePathCopy = [NSError errorWithDomain:@"com.apple.wifivelocity.error" code:7 userInfo:[NSDictionary dictionaryWithObjects:&v30 forKeys:&v29 count:1, v24, v25]];
+      v28 = NSLocalizedFailureReasonErrorKey;
+      v29 = @"W5ResourceErr";
+      filePathCopy = [NSError errorWithDomain:@"com.apple.wifivelocity.error" code:7 userInfo:[NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1]];
     }
 
     v18 = 0;
@@ -126,10 +125,10 @@ LABEL_13:
       if (!filePathCopy)
       {
 LABEL_21:
-        v26[0] = _NSConcreteStackBlock;
-        v26[1] = 3221225472;
-        v26[2] = sub_10001977C;
-        v26[3] = &unk_1000E18D0;
+        v25[0] = _NSConcreteStackBlock;
+        v25[1] = 3221225472;
+        v25[2] = sub_10001977C;
+        v25[3] = &unk_1000E18D0;
         if (outputCopy)
         {
           v23 = v18;
@@ -140,10 +139,10 @@ LABEL_21:
           v23 = v20;
         }
 
-        v26[4] = v18;
-        v26[5] = v20;
-        v26[6] = reply;
-        [NSTask runTaskWithLaunchPath:path arguments:arguments timeout:v18 outputFileHandle:v23 errorFileHandle:handler launchHandler:v26 reply:timeout];
+        v25[4] = v18;
+        v25[5] = v20;
+        v25[6] = reply;
+        [NSTask runTaskWithLaunchPath:path arguments:arguments timeout:v18 outputFileHandle:v23 errorFileHandle:handler launchHandler:v25 reply:timeout];
         return;
       }
 
@@ -154,24 +153,23 @@ LABEL_21:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       lastPathComponent2 = [path lastPathComponent];
-      v31 = 136316162;
-      v32 = "+[NSTask(WiFiVelocity) runTaskWithLaunchPath:arguments:timeout:outputFilePath:errorFilePath:redirectErrorToOutput:launchHandler:reply:]";
-      v33 = 2080;
-      v34 = "W5TaskUtil.m";
-      v35 = 1024;
-      v36 = 160;
-      v37 = 2114;
+      v30 = 136316162;
+      v31 = "+[NSTask(WiFiVelocity) runTaskWithLaunchPath:arguments:timeout:outputFilePath:errorFilePath:redirectErrorToOutput:launchHandler:reply:]";
+      v32 = 2080;
+      v33 = "W5TaskUtil.m";
+      v34 = 1024;
+      v35 = 160;
+      v36 = 2114;
       lastPathComponent = lastPathComponent2;
-      v39 = 2114;
+      v38 = 2114;
       errorFilePathCopy = errorFilePath;
-      LODWORD(v25) = 48;
-      v24 = &v31;
-      _os_log_send_and_compose_impl();
+      LODWORD(v24) = 48;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v21, 0, "[wifivelocity] %s (%s:%u) <%{public}@> FAILED to create file handle for error path '%{public}@'", &v30, v24);
     }
 
-    v27 = NSLocalizedFailureReasonErrorKey;
-    v28 = @"W5ResourceErr";
-    filePathCopy = [NSError errorWithDomain:@"com.apple.wifivelocity.error" code:7 userInfo:[NSDictionary dictionaryWithObjects:&v28 forKeys:&v27 count:1, v24, v25]];
+    v26 = NSLocalizedFailureReasonErrorKey;
+    v27 = @"W5ResourceErr";
+    filePathCopy = [NSError errorWithDomain:@"com.apple.wifivelocity.error" code:7 userInfo:[NSDictionary dictionaryWithObjects:&v27 forKeys:&v26 count:1]];
 LABEL_20:
     v20 = 0;
     if (!filePathCopy)
@@ -271,7 +269,7 @@ LABEL_15:
     v92 = @"W5NoMemErr";
     v36 = [NSDictionary dictionaryWithObjects:&v92 forKeys:&v91 count:1];
     v35 = 2;
-LABEL_33:
+LABEL_32:
     v37 = [NSError errorWithDomain:@"com.apple.wifivelocity.error" code:v35 userInfo:v36];
     v26 = 0;
     v24 = 0;
@@ -279,7 +277,7 @@ LABEL_33:
     v21 = 0;
     v30 = 0;
     v48 = 0;
-    goto LABEL_34;
+    goto LABEL_33;
   }
 
   pathCopy = path;
@@ -302,7 +300,7 @@ LABEL_33:
     v90 = @"W5NotPermittedErr";
     v36 = [NSDictionary dictionaryWithObjects:&v90 forKeys:&v89 count:1];
     v35 = 5;
-    goto LABEL_33;
+    goto LABEL_32;
   }
 
   if (!path || ![+[NSFileManager isExecutableFileAtPath:"isExecutableFileAtPath:"]
@@ -319,7 +317,7 @@ LABEL_33:
     v88 = @"W5ParamErr";
     v35 = 1;
     v36 = [NSDictionary dictionaryWithObjects:&v88 forKeys:&v87 count:1];
-    goto LABEL_33;
+    goto LABEL_32;
   }
 
   v48 = objc_alloc_init(NSTask);
@@ -350,18 +348,10 @@ LABEL_33:
       v81 = 335;
       v82 = 1024;
       v83 = v39;
-LABEL_25:
-      _os_log_send_and_compose_impl();
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v38, 0, "[wifivelocity] %s (%s:%u) Failed to open pseduo-terminal for stdout, returned error %d", buf, 34);
     }
 
-LABEL_26:
-    v26 = 0;
-    v24 = 0;
-    v45 = 0;
-    v21 = 0;
-LABEL_28:
-    v30 = 0;
-    goto LABEL_34;
+    goto LABEL_25;
   }
 
   memset(&v86, 0, sizeof(v86));
@@ -383,10 +373,17 @@ LABEL_28:
       v81 = 339;
       v82 = 1024;
       v83 = v41;
-      goto LABEL_25;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v40, 0, "[wifivelocity] %s (%s:%u) Failed to open pseduo-terminal for stderr, returned error %d", buf, 34);
     }
 
-    goto LABEL_26;
+LABEL_25:
+    v26 = 0;
+    v24 = 0;
+    v45 = 0;
+    v21 = 0;
+LABEL_27:
+    v30 = 0;
+    goto LABEL_33;
   }
 
   v20 = [NSFileHandle alloc];
@@ -410,7 +407,7 @@ LABEL_28:
     v72 = NSLocalizedFailureReasonErrorKey;
     v73 = @"W5NoMemErr";
     v37 = [NSError errorWithDomain:@"com.apple.wifivelocity.error" code:2 userInfo:[NSDictionary dictionaryWithObjects:&v73 forKeys:&v72 count:1]];
-    goto LABEL_28;
+    goto LABEL_27;
   }
 
   v30 = v29;
@@ -498,7 +495,7 @@ LABEL_28:
   v71 = @"W5NoMemErr";
   v16 = &off_1000B2000;
   v37 = [NSError errorWithDomain:@"com.apple.wifivelocity.error" code:2 userInfo:[NSDictionary dictionaryWithObjects:&v71 forKeys:&v70 count:1]];
-LABEL_34:
+LABEL_33:
 
   if (v30)
   {
@@ -587,6 +584,58 @@ LABEL_16:
   _Block_object_dispose(&v25, 8);
   _Block_object_dispose(&v29, 8);
   return v22;
+}
+
++ (BOOL)runTaskWithLaunchPath:(id)path arguments:(id)arguments timeout:(double)timeout outputFilePath:(id)filePath errorFilePath:(id)errorFilePath redirectErrorToOutput:(BOOL)output launchHandler:(id)handler didLaunch:(BOOL *)self0 error:(id *)self1
+{
+  outputCopy = output;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x3052000000;
+  v33 = sub_10001A8C4;
+  v34 = sub_10001A8D4;
+  v35 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 0;
+  v18 = dispatch_semaphore_create(0);
+  v25[0] = _NSConcreteStackBlock;
+  v25[1] = 3221225472;
+  v25[2] = sub_10001C088;
+  v25[3] = &unk_1000E1A38;
+  v25[5] = &v30;
+  v25[6] = &v26;
+  v25[4] = v18;
+  [NSTask runTaskWithLaunchPath:path arguments:arguments timeout:filePath outputFilePath:errorFilePath errorFilePath:outputCopy redirectErrorToOutput:handler launchHandler:timeout reply:v25];
+  v19 = dispatch_time(0, 600000000000);
+  if (dispatch_semaphore_wait(v18, v19) >= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 134349056;
+    v37 = 0x4082C00000000000;
+    _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "[wifivelocity] FAILED to complete operation within %{public}.1fs, continuing", buf, 0xCu);
+  }
+
+  v20 = v31[5];
+  if (launch)
+  {
+    *launch = *(v27 + 24);
+  }
+
+  v21 = v31;
+  if (error)
+  {
+    v22 = v31[5];
+    if (v22)
+    {
+      *error = v22;
+    }
+  }
+
+  v23 = v21[5] == 0;
+  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v30, 8);
+  return v23;
 }
 
 + (BOOL)runTaskWithLaunchPath:(id)path arguments:(id)arguments timeout:(double)timeout outputFileHandle:(id)handle errorFileHandle:(id)fileHandle launchHandler:(id)handler didLaunch:(BOOL *)launch error:(id *)self0

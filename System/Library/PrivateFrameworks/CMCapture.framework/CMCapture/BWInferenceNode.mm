@@ -222,7 +222,7 @@
 - (id)inputVideoFormatForAttachedMediaKey:(id)key
 {
   v5 = [-[BWNodeInput mediaPropertiesForAttachedMediaKey:](self->super._input "mediaPropertiesForAttachedMediaKey:"resolvedVideoFormat"")];
-  if ([key isEqualToString:@"PrimaryFormat"])
+  if (objc_msgSend_isEqualToString_(key))
   {
     p_maxInputDimensions = &self->_maxInputDimensions;
     dimensions = [v5 dimensions];
@@ -270,7 +270,7 @@
 
   v9[3] = v3;
   v9[4] = v4;
-  if (![key isEqualToString:@"PrimaryFormat"])
+  if (!objc_msgSend_isEqualToString_(key, a2, @"PrimaryFormat"))
   {
     return 0;
   }
@@ -395,7 +395,7 @@
   if ([input mediaType] == 1986618469 && -[BWNodeOutput mediaType](output, "mediaType") == 1986618469)
   {
     formatCopy3 = format;
-    if ([key isEqualToString:@"PrimaryFormat"])
+    if (objc_msgSend_isEqualToString_(key))
     {
       p_maxInputDimensions = &selfCopy->_maxInputDimensions;
       v9 = selfCopy->_maxInputDimensions.width < 1 || selfCopy->_maxInputDimensions.height < 1;
@@ -448,7 +448,7 @@
 
     else
     {
-      if ([key isEqualToString:@"PrimaryFormat"])
+      if (objc_msgSend_isEqualToString_(key))
       {
         [(BWInferenceEngine *)selfCopy->_inferenceEngine prepareForReconfigurationWithInputFormat:formatCopy3];
       }
@@ -642,19 +642,19 @@ LABEL_43:
         if (AttachedMedia)
         {
           bufferCopy = AttachedMedia;
-          v16 = [CMGetAttachment(AttachedMedia *off_1E798A3C8];
-          v17 = CMGetAttachment(buffer, @"RecommendedMasterPortType", 0);
-          if (v17)
+          [CMGetAttachment(AttachedMedia *off_1E798A3C8];
+          v16 = CMGetAttachment(buffer, @"RecommendedMasterPortType", 0);
+          if (v16)
           {
-            recommendedMasterPortType = v17;
+            recommendedMasterPortType = v16;
           }
 
           else
           {
-            v18 = CMGetAttachment(bufferCopy, @"RecommendedMasterPortType", 0);
-            if (v18)
+            v17 = CMGetAttachment(bufferCopy, @"RecommendedMasterPortType", 0);
+            if (v17)
             {
-              recommendedMasterPortType = v18;
+              recommendedMasterPortType = v17;
             }
 
             else
@@ -663,15 +663,15 @@ LABEL_43:
             }
           }
 
-          v20 = self->_recommendedMasterPortType;
-          if (recommendedMasterPortType != v20)
+          v19 = self->_recommendedMasterPortType;
+          if (recommendedMasterPortType != v19)
           {
 
-            v20 = recommendedMasterPortType;
-            self->_recommendedMasterPortType = v20;
+            v19 = recommendedMasterPortType;
+            self->_recommendedMasterPortType = v19;
           }
 
-          if ([(NSString *)v20 isEqualToString:v16])
+          if (objc_msgSend_isEqualToString_(v19))
           {
             goto LABEL_35;
           }
@@ -691,58 +691,58 @@ LABEL_35:
       inferenceEngine = self->_inferenceEngine;
       if (inferenceEngine && [(BWInferenceEngine *)inferenceEngine isConfiguredForInference])
       {
-        v22 = [MEMORY[0x1E695DFD8] set];
+        v21 = [MEMORY[0x1E695DFD8] set];
         inferenceTypesToSkipResolver = self->_inferenceTypesToSkipResolver;
         if (inferenceTypesToSkipResolver)
         {
-          v22 = [v22 setByAddingObjectsFromSet:{inferenceTypesToSkipResolver[2](inferenceTypesToSkipResolver, bufferCopy)}];
+          v21 = [v21 setByAddingObjectsFromSet:{inferenceTypesToSkipResolver[2](inferenceTypesToSkipResolver, bufferCopy)}];
         }
 
         os_unfair_lock_lock(&self->_inferenceTypesToSkipLock);
-        v24 = [v22 setByAddingObjectsFromSet:self->_inferenceTypesToSkip];
+        v23 = [v21 setByAddingObjectsFromSet:self->_inferenceTypesToSkip];
         os_unfair_lock_unlock(&self->_inferenceTypesToSkipLock);
-        [v24 count];
-        if (![(BWInferenceEngine *)self->_inferenceEngine performInferencesOnSampleBuffer:bufferCopy attachingResultsToSampleBuffer:v8 skippingInferencesWithTypes:v24])
+        [v23 count];
+        if (![(BWInferenceEngine *)self->_inferenceEngine performInferencesOnSampleBuffer:bufferCopy attachingResultsToSampleBuffer:v8 skippingInferencesWithTypes:v23])
         {
           if (self->_awaitAsynchronousOutputs)
           {
-            v38 = 0u;
-            v39 = 0u;
-            v36 = 0u;
             v37 = 0u;
+            v38 = 0u;
+            v35 = 0u;
+            v36 = 0u;
             providedVideoRequirementsByAttachedMediaKey = [(BWInferenceEngine *)self->_inferenceEngine providedVideoRequirementsByAttachedMediaKey];
-            v26 = [(NSDictionary *)providedVideoRequirementsByAttachedMediaKey countByEnumeratingWithState:&v36 objects:v35 count:16];
-            if (v26)
+            v25 = [(NSDictionary *)providedVideoRequirementsByAttachedMediaKey countByEnumeratingWithState:&v35 objects:v34 count:16];
+            if (v25)
             {
-              v27 = v26;
-              v28 = *v37;
+              v26 = v25;
+              v27 = *v36;
               do
               {
-                for (i = 0; i != v27; ++i)
+                for (i = 0; i != v26; ++i)
                 {
-                  if (*v37 != v28)
+                  if (*v36 != v27)
                   {
                     objc_enumerationMutation(providedVideoRequirementsByAttachedMediaKey);
                   }
 
-                  v30 = BWSampleBufferGetAttachedMedia(v8, *(*(&v36 + 1) + 8 * i));
-                  ImageBuffer = CMSampleBufferGetImageBuffer(v30);
+                  v29 = BWSampleBufferGetAttachedMedia(v8, *(*(&v35 + 1) + 8 * i));
+                  ImageBuffer = CMSampleBufferGetImageBuffer(v29);
                   if (ImageBuffer)
                   {
                     IOSurface = CVPixelBufferGetIOSurface(ImageBuffer);
                     if (IOSurface)
                     {
-                      v33 = IOSurface;
+                      v32 = IOSurface;
                       IOSurfaceLock(IOSurface, 5u, 0);
-                      IOSurfaceUnlock(v33, 5u, 0);
+                      IOSurfaceUnlock(v32, 5u, 0);
                     }
                   }
                 }
 
-                v27 = [(NSDictionary *)providedVideoRequirementsByAttachedMediaKey countByEnumeratingWithState:&v36 objects:v35 count:16];
+                v26 = [(NSDictionary *)providedVideoRequirementsByAttachedMediaKey countByEnumeratingWithState:&v35 objects:v34 count:16];
               }
 
-              while (v27);
+              while (v26);
             }
           }
 

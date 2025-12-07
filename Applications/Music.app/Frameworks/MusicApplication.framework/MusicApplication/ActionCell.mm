@@ -45,7 +45,7 @@
 - (void)setHighlighted:(BOOL)highlighted
 {
   highlightedCopy = highlighted;
-  v5 = type metadata accessor for ActionCell();
+  v5 = type metadata accessor for ActionCell(0);
   v9.receiver = self;
   v9.super_class = v5;
   selfCopy = self;
@@ -68,7 +68,7 @@
 - (void)tintColorDidChange
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for ActionCell();
+  v3.super_class = type metadata accessor for ActionCell(0);
   v2 = v3.receiver;
   [(ActionCell *)&v3 tintColorDidChange];
   sub_419980();

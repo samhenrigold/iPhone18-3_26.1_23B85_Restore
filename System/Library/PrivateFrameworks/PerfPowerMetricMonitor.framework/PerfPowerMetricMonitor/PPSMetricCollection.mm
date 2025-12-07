@@ -28,20 +28,18 @@
 
 void __38__PPSMetricCollection_allPropertyKeys__block_invoke()
 {
-  v7[4] = *MEMORY[0x277D85DE8];
+  v6[4] = *MEMORY[0x277D85DE8];
   v0 = +[PPSMetricCollection _metricSamplePropertyKeys];
   v1 = MEMORY[0x277CBEB98];
-  v7[0] = @"isSystemPowerAvailableWhileCharging";
-  v7[1] = @"thermalPressure";
-  v7[2] = @"inducedThermalPressure";
-  v7[3] = @"sampleTime";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:4];
+  v6[0] = @"isSystemPowerAvailableWhileCharging";
+  v6[1] = @"thermalPressure";
+  v6[2] = @"inducedThermalPressure";
+  v6[3] = @"sampleTime";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:4];
   v3 = [v1 setWithArray:v2];
   v4 = [v0 setByAddingObjectsFromSet:v3];
   v5 = allPropertyKeys_keys;
   allPropertyKeys_keys = v4;
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_metricSamplePropertyKeys
@@ -80,34 +78,34 @@ uint64_t __48__PPSMetricCollection__metricSamplePropertyKeys__block_invoke()
 
 - (PPSMetricCollection)initWithCoder:(id)coder
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v29.receiver = self;
-  v29.super_class = PPSMetricCollection;
-  v5 = [(PPSMetricCollection *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = PPSMetricCollection;
+  v5 = [(PPSMetricCollection *)&v28 init];
   if (v5)
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v6 = +[PPSMetricCollection _metricSamplePropertyKeys];
-    v7 = [v6 countByEnumeratingWithState:&v25 objects:v30 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v26;
+      v9 = *v25;
       do
       {
         v10 = 0;
         do
         {
-          if (*v26 != v9)
+          if (*v25 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v25 + 1) + 8 * v10);
+          v11 = *(*(&v24 + 1) + 8 * v10);
           v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:v11];
           [(PPSMetricCollection *)v5 setValue:v12 forKey:v11];
 
@@ -115,7 +113,7 @@ uint64_t __48__PPSMetricCollection__metricSamplePropertyKeys__block_invoke()
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
       }
 
       while (v8);
@@ -142,39 +140,38 @@ uint64_t __48__PPSMetricCollection__metricSamplePropertyKeys__block_invoke()
     v5->_processMetrics = v21;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v5 = +[PPSMetricCollection _metricSamplePropertyKeys];
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         v11 = [(PPSMetricCollection *)self valueForKey:v10];
         [coderCopy encodeObject:v11 forKey:v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
@@ -194,40 +191,38 @@ uint64_t __48__PPSMetricCollection__metricSamplePropertyKeys__block_invoke()
 
   processMetrics = [(PPSMetricCollection *)self processMetrics];
   [coderCopy encodeObject:processMetrics forKey:@"processMetrics"];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = [+[PPSMetricCollection allocWithZone:](PPSMetricCollection init];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v6 = +[PPSMetricCollection _metricSamplePropertyKeys];
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         v12 = [(PPSMetricCollection *)self valueForKey:v11];
         v13 = [v12 copyWithZone:zone];
         [(PPSMetricCollection *)v5 setValue:v13 forKey:v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
@@ -241,7 +236,6 @@ uint64_t __48__PPSMetricCollection__metricSamplePropertyKeys__block_invoke()
   processMetrics = v5->_processMetrics;
   v5->_processMetrics = v14;
 
-  v16 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -1337,18 +1331,16 @@ void __63__PPSMetricCollection_combineWithMetricCollection_trackedPids___block_i
 
 void __63__PPSMetricCollection_combineWithMetricCollection_trackedPids___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  [a1 intValue];
-  OUTLINED_FUNCTION_0_1(&dword_22E4FA000, v1, v2, "Combining process metrics for monitored PID (%d)", v3, v4, v5, v6, 0);
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v7) = 67109120;
+  HIDWORD(v7) = [a1 intValue];
+  OUTLINED_FUNCTION_0_1(&dword_22E4FA000, v1, v2, "Combining process metrics for monitored PID (%d)", v3, v4, v5, v6, v7);
 }
 
 void __63__PPSMetricCollection_combineWithMetricCollection_trackedPids___block_invoke_cold_2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  [a1 intValue];
-  OUTLINED_FUNCTION_0_1(&dword_22E4FA000, v1, v2, "No process metrics found for PID (%d).", v3, v4, v5, v6, 0);
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v7) = 67109120;
+  HIDWORD(v7) = [a1 intValue];
+  OUTLINED_FUNCTION_0_1(&dword_22E4FA000, v1, v2, "No process metrics found for PID (%d).", v3, v4, v5, v6, v7);
 }
 
 @end

@@ -6,6 +6,7 @@
 - (void)_defaultsDidChange;
 - (void)dealloc;
 - (void)locationManagerDidChangeAuthorization:(id)authorization;
+- (void)setHomeSensingEnabled:(BOOL)enabled;
 @end
 
 @implementation HFLocationSensingCoordinator
@@ -69,7 +70,7 @@ void __49__HFLocationSensingCoordinator_initWithDelegate___block_invoke(uint64_t
 
 void __49__HFLocationSensingCoordinator_initWithDelegate___block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) readHomeSensingDefault];
   v3 = HFLogForCategory(0x2DuLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
@@ -80,16 +81,14 @@ void __49__HFLocationSensingCoordinator_initWithDelegate___block_invoke_2(uint64
       v4 = "enabled";
     }
 
-    v8 = 136446210;
-    v9 = v4;
-    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "Home Sensing is %{public}s", &v8, 0xCu);
+    v7 = 136446210;
+    v8 = v4;
+    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "Home Sensing is %{public}s", &v7, 0xCu);
   }
 
   v5 = [*(a1 + 32) homeSensingFirstFuture];
   v6 = [MEMORY[0x277CCABB0] numberWithBool:v2];
   [v5 finishWithResult:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -160,6 +159,45 @@ id __62__HFLocationSensingCoordinator_locationSensingAvailableFuture__block_invo
   return bOOLValue;
 }
 
+- (void)setHomeSensingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v11 = *MEMORY[0x277D85DE8];
+  if (+[HFExecutionEnvironment isHomeApp](HFExecutionEnvironment, "isHomeApp") || +[HFExecutionEnvironment isWatchApp])
+  {
+    v5 = HFLogForCategory(0x2DuLL);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      v6 = "Disabling";
+      if (enabledCopy)
+      {
+        v6 = "Enabling";
+      }
+
+      v9 = 136446210;
+      v10 = v6;
+      _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s Home Sensing", &v9, 0xCu);
+    }
+
+    defaults = [(HFLocationSensingCoordinator *)self defaults];
+    [defaults setBool:enabledCopy forKey:@"HFHomeSensingEnabled"];
+
+    self->_cachedHomeSensingValue = enabledCopy;
+    self->_cachedHomeSensingValueSet = 1;
+    notify_post(HFHomeSensingDefaultsChangedNotification);
+  }
+
+  else
+  {
+    v8 = HFLogForCategory(0x2DuLL);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(v9) = 0;
+      _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "Ignoring request to set Home Sensing pref - process is not Home", &v9, 2u);
+    }
+  }
+}
+
 - (void)locationManagerDidChangeAuthorization:(id)authorization
 {
   authorizationStatus = [authorization authorizationStatus];
@@ -175,14 +213,14 @@ id __62__HFLocationSensingCoordinator_locationSensingAvailableFuture__block_invo
 
 - (void)_defaultsDidChange
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   readHomeSensingDefault = [(HFLocationSensingCoordinator *)self readHomeSensingDefault];
   v4 = HFLogForCategory(0x2DuLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v9[0] = 67109120;
-    v9[1] = readHomeSensingDefault;
-    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "Home Sensing preferences changed - state is now %{BOOL}d", v9, 8u);
+    v8[0] = 67109120;
+    v8[1] = readHomeSensingDefault;
+    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "Home Sensing preferences changed - state is now %{BOOL}d", v8, 8u);
   }
 
   delegate = [(HFLocationSensingCoordinator *)self delegate];
@@ -193,8 +231,6 @@ id __62__HFLocationSensingCoordinator_locationSensingAvailableFuture__block_invo
     delegate2 = [(HFLocationSensingCoordinator *)self delegate];
     [delegate2 coordinator:self homeSensingStatusDidChange:readHomeSensingDefault];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (HFLocationSensingCoordinatorDelegate)delegate

@@ -5,7 +5,7 @@
 
 id __80___ATXUnifiedActivityStreamConversions_transitionPublisherFromSessionPublisher___block_invoke(uint64_t a1, void *a2)
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [ATXUnifiedInferredActivityTransition alloc];
   [v2 startTime];
@@ -14,7 +14,7 @@ id __80___ATXUnifiedActivityStreamConversions_transitionPublisherFromSessionPubl
   v7 = [v2 inferredActivityType];
   [v2 confidence];
   v9 = [(ATXUnifiedInferredActivityTransition *)v3 initFromTransitionTime:1 isEntryEvent:v6 source:v7 activityType:v5 confidence:v8];
-  v22[0] = v9;
+  v21[0] = v9;
   v10 = [ATXUnifiedInferredActivityTransition alloc];
   [v2 endTime];
   v12 = v11;
@@ -24,12 +24,10 @@ id __80___ATXUnifiedActivityStreamConversions_transitionPublisherFromSessionPubl
   v16 = v15;
 
   v17 = [(ATXUnifiedInferredActivityTransition *)v10 initFromTransitionTime:0 isEntryEvent:v13 source:v14 activityType:v12 confidence:v16];
-  v22[1] = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+  v21[1] = v17;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
 
   v19 = [v18 bpsPublisher];
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

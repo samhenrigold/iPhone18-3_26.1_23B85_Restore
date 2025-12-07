@@ -71,10 +71,10 @@
     if ([(VNObservation *)&v13 isEqual:equalCopy]&& (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
       v5 = equalCopy;
-      [(VNHorizonObservation *)self transform];
+      objc_msgSend_transform(self);
       if (v5)
       {
-        [(VNHorizonObservation *)v5 transform];
+        objc_msgSend_transform(v5);
       }
 
       else
@@ -110,7 +110,7 @@
   v9.receiver = self;
   v9.super_class = VNHorizonObservation;
   v3 = [(VNObservation *)&v9 hash];
-  [(VNHorizonObservation *)self transform];
+  objc_msgSend_transform(self);
   v4 = VNHashCGAffineTransform(&v8) ^ __ROR8__(v3, 51);
   [(VNHorizonObservation *)self angle];
   v6 = v5;
@@ -167,7 +167,7 @@
     v5->_angle = v6;
     if (coderCopy)
     {
-      [coderCopy vn_decodeCGAffineTransformForKey:@"transform"];
+      objc_msgSend_vn_decodeCGAffineTransformForKey_(coderCopy);
     }
 
     else

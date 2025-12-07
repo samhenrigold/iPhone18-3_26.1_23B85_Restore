@@ -186,11 +186,11 @@
 
 - (id)hf_characteristicTypeDescription
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
   characteristicType = [self characteristicType];
-  v4 = [v2 hf_descriptionForCharacteristicType:characteristicType];
+  v5 = [v3 hf_descriptionForCharacteristicType:characteristicType];
 
-  return v4;
+  return v5;
 }
 
 + (id)hf_descriptionForCharacteristicType:()Additions
@@ -272,11 +272,11 @@
 
 - (id)hf_associatedCharacteristicType
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
   characteristicType = [self characteristicType];
-  v4 = [v2 hf_associatedCharacteristicTypeForCharacteristicType:characteristicType];
+  v5 = [v3 hf_associatedCharacteristicTypeForCharacteristicType:characteristicType];
 
-  return v4;
+  return v5;
 }
 
 + (id)hf_associatedCharacteristicTypeForCharacteristicType:()Additions
@@ -347,11 +347,11 @@
 
 - (uint64_t)hf_sortPriority
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
   characteristicType = [self characteristicType];
-  v4 = [v2 hf_sortPriorityForCharacteristicType:characteristicType];
+  v5 = [v3 hf_sortPriorityForCharacteristicType:characteristicType];
 
-  return v4;
+  return v5;
 }
 
 + (id)hf_characteristicSortComparator
@@ -484,11 +484,11 @@ LABEL_14:
 
 - (id)hf_home
 {
-  service = [self service];
-  accessory = [service accessory];
-  home = [accessory home];
+  v1 = objc_msgSend_service(self);
+  accessory = [v1 accessory];
+  v3 = objc_msgSend_home(accessory);
 
-  return home;
+  return v3;
 }
 
 - (id)hf_eventTriggers
@@ -1077,14 +1077,14 @@ LABEL_18:
 - (id)_hf_lightLevelVisibleTriggerValues
 {
   _hf_visibleLightLevelTriggerValues = [objc_opt_class() _hf_visibleLightLevelTriggerValues];
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __65__HMCharacteristic_Additions___hf_lightLevelVisibleTriggerValues__block_invoke;
-  v5[3] = &unk_277DF5910;
-  v5[4] = self;
-  v3 = [_hf_visibleLightLevelTriggerValues na_map:v5];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __65__HMCharacteristic_Additions___hf_lightLevelVisibleTriggerValues__block_invoke;
+  v6[3] = &unk_277DF5910;
+  v6[4] = self;
+  v4 = [_hf_visibleLightLevelTriggerValues na_map:v6];
 
-  return v3;
+  return v4;
 }
 
 - (id)_hf_triggerValuesWithMinStepValue:()Additions

@@ -1,6 +1,6 @@
 uint64_t CA::OGL::MetalContext::load_pipeline_state(CA::OGL::MetalContext *this, NSString *a2)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (byte_1ED4E9829)
   {
     return 0;
@@ -34,19 +34,19 @@ uint64_t CA::OGL::MetalContext::load_pipeline_state(CA::OGL::MetalContext *this,
   }
 
   v6 = mach_continuous_time();
-  v25 = 0u;
   v26 = 0u;
-  CA::OGL::MetalContext::Pipeline::Spec::decode_name(&v25, [(NSString *)a2 UTF8String]);
-  if (BYTE7(v26))
+  v27 = 0u;
+  CA::OGL::MetalContext::Pipeline::Spec::decode_name(&v26, [(NSString *)a2 UTF8String]);
+  if (BYTE7(v27))
   {
     return 0;
   }
 
-  v19 = 0;
-  pipeline_descriptor = CA::OGL::MetalContext::get_pipeline_descriptor(this, &v25, 1, 0);
-  v24 = *(this + 494);
-  [pipeline_descriptor setBinaryArchives:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", &v24, 1)}];
-  v10 = [*(this + 438) newRenderPipelineStateWithDescriptor:pipeline_descriptor options:4 reflection:0 error:&v19];
+  v20 = 0;
+  pipeline_descriptor = CA::OGL::MetalContext::get_pipeline_descriptor(this, &v26, 1, 0);
+  v25 = *(this + 494);
+  [pipeline_descriptor setBinaryArchives:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", &v25, 1)}];
+  v10 = [*(this + 438) newRenderPipelineStateWithDescriptor:pipeline_descriptor options:4 reflection:0 error:&v20];
   if (!v10)
   {
     if (dyld_shared_cache_some_image_overridden())
@@ -56,19 +56,19 @@ uint64_t CA::OGL::MetalContext::load_pipeline_state(CA::OGL::MetalContext *this,
         dispatch_once(&x_log_get_ogl_metal(void)::once, &__block_literal_global_8312);
       }
 
-      v11 = x_log_get_ogl_metal(void)::log;
+      v12 = x_log_get_ogl_metal(void)::log;
       if (os_log_type_enabled(x_log_get_ogl_metal(void)::log, OS_LOG_TYPE_ERROR))
       {
-        v12 = [(NSString *)a2 UTF8String];
-        v13 = [@"23B72" UTF8String];
-        v14 = [objc_msgSend(v19 "localizedDescription")];
+        v13 = [(NSString *)a2 UTF8String];
+        v14 = [@"23B72" UTF8String];
+        v15 = [objc_msgSend(v20 "localizedDescription")];
         *buf = 136315650;
-        v21 = v12;
-        v22 = 2080;
-        *v23 = v13;
-        *&v23[8] = 2080;
-        *&v23[10] = v14;
-        _os_log_error_impl(&dword_183AA6000, v11, OS_LOG_TYPE_ERROR, "Metal failed to load render pipeline\npipeline=%s sdk=%s\n%s", buf, 0x20u);
+        v22 = v13;
+        v23 = 2080;
+        *v24 = v14;
+        *&v24[8] = 2080;
+        *&v24[10] = v15;
+        _os_log_error_impl(&dword_183AA6000, v12, OS_LOG_TYPE_ERROR, "Metal failed to load render pipeline\npipeline=%s sdk=%s\n%s", buf, 0x20u);
       }
     }
 
@@ -79,19 +79,19 @@ uint64_t CA::OGL::MetalContext::load_pipeline_state(CA::OGL::MetalContext *this,
         dispatch_once(&x_log_get_ogl_metal(void)::once, &__block_literal_global_8312);
       }
 
-      v15 = x_log_get_ogl_metal(void)::log;
+      v16 = x_log_get_ogl_metal(void)::log;
       if (os_log_type_enabled(x_log_get_ogl_metal(void)::log, OS_LOG_TYPE_FAULT))
       {
-        v16 = [(NSString *)a2 UTF8String];
-        v17 = [@"23B72" UTF8String];
-        v18 = [objc_msgSend(v19 "localizedDescription")];
+        v17 = [(NSString *)a2 UTF8String];
+        v18 = [@"23B72" UTF8String];
+        v19 = [objc_msgSend(v20 "localizedDescription")];
         *buf = 136315650;
-        v21 = v16;
-        v22 = 2080;
-        *v23 = v17;
-        *&v23[8] = 2080;
-        *&v23[10] = v18;
-        _os_log_fault_impl(&dword_183AA6000, v15, OS_LOG_TYPE_FAULT, "Metal failed to load render pipeline\npipeline=%s sdk=%s\n%s", buf, 0x20u);
+        v22 = v17;
+        v23 = 2080;
+        *v24 = v18;
+        *&v24[8] = 2080;
+        *&v24[10] = v19;
+        _os_log_fault_impl(&dword_183AA6000, v16, OS_LOG_TYPE_FAULT, "Metal failed to load render pipeline\npipeline=%s sdk=%s\n%s", buf, 0x20u);
       }
     }
 
@@ -104,15 +104,16 @@ uint64_t CA::OGL::MetalContext::load_pipeline_state(CA::OGL::MetalContext *this,
     dispatch_once(&x_log_get_ogl_metal(void)::once, &__block_literal_global_8312);
   }
 
+  v11 = x_log_get_ogl_metal(void)::log;
   if (os_signpost_enabled(x_log_get_ogl_metal(void)::log))
   {
     *buf = 138543874;
-    v21 = a2;
-    v22 = 1026;
-    *v23 = 1;
-    *&v23[4] = 2050;
-    *&v23[6] = v6;
-    _os_signpost_emit_unreliably_with_name_impl();
+    v22 = a2;
+    v23 = 1026;
+    *v24 = 1;
+    *&v24[4] = 2050;
+    *&v24[6] = v6;
+    _os_signpost_emit_unreliably_with_name_impl(&dword_183AA6000, v11, 0, 0xEEEEB0B5B2B2EEEELL, "CompileShader", "pipeline=%{public, name=pipeline}@ precompiled=%{public, name=precompiled}u %{public, signpost.description:begin_time}llu", buf, 28);
   }
 
   return v7;
@@ -121,7 +122,7 @@ uint64_t CA::OGL::MetalContext::load_pipeline_state(CA::OGL::MetalContext *this,
 uint64_t CA::OGL::MetalContext::Pipeline::Spec::get_generic(uint64_t result, uint64_t a2)
 {
   v2 = *(a2 + 14);
-  if ((CA::OGL::MetalContext::texture_function_info[8 * (v2 & 0x7F)] & 0x3F) != 0)
+  if ((CA::OGL::MetalContext::texture_function_info[4 * (v2 & 0x7F)] & 0x3F) != 0)
   {
     __assert_rtn("get_generic", "ogl-metal.mm", 6512, "texture_function_info[texture_function].is_fixed ()");
   }
@@ -755,7 +756,7 @@ LABEL_112:
     LODWORD(v63) = *(a2 + 14);
   }
 
-  if ((*&CA::OGL::MetalContext::texture_function_info[8 * (v63 & 0x7F) + 6] & 0x10) != 0)
+  if ((CA::OGL::MetalContext::texture_function_info[4 * (v63 & 0x7F) + 3] & 0x10) != 0)
   {
     v80 = [v8 colorAttachments];
     v81 = v80;
@@ -995,7 +996,7 @@ uint64_t CA::OGL::MetalContext::FragmentShader::Spec::get_config(uint64_t this, 
   v13 = CA::OGL::tex_image_count[v12];
   *(this + 36) = v13;
   *(this + 37) = HIBYTE(v11) & 3;
-  if ((v11 & 0x3F00) != 0x3E00 || (*&CA::OGL::MetalContext::texture_function_info[8 * v12 + 6] & 2) != 0)
+  if ((v11 & 0x3F00) != 0x3E00 || (CA::OGL::MetalContext::texture_function_info[4 * v12 + 3] & 2) != 0)
   {
     goto LABEL_11;
   }
@@ -1105,7 +1106,7 @@ os_signpost_id_t CA::OGL::MetalContext::begin_new_render_pipeline(CA::OGL::Metal
       v18 = add;
       v19 = 2050;
       v20 = a3;
-      _os_signpost_emit_unreliably_with_name_impl();
+      _os_signpost_emit_unreliably_with_name_impl(&dword_183AA6000, v7, 1, add, "NewRenderPipeline", "pipeline=%{public, name=pipeline, signpost.telemetry:string1}@ order=%{public, name=order, signpost.telemetry:number1}u %{public, signpost.description:begin_time}llu enableTelemetry=YES ", &v15, 28);
     }
   }
 
@@ -1572,33 +1573,33 @@ uint64_t CA::OGL::MetalContext::FragmentShader::Spec::Image::encode_segment(CA::
   return [MEMORY[0x1E696AEC0] stringWithUTF8String:&v22];
 }
 
-void *std::__hash_table<std::__hash_value_type<CA::OGL::MetalContext::Pipeline::Spec,CA::OGL::MetalContext::Pipeline*>,std::__unordered_map_hasher<CA::OGL::MetalContext::Pipeline::Spec,std::__hash_value_type<CA::OGL::MetalContext::Pipeline::Spec,CA::OGL::MetalContext::Pipeline*>,CA::OGL::MetalContext::StructHasher<CA::OGL::MetalContext::Pipeline::Spec>,std::equal_to<CA::OGL::MetalContext::Pipeline::Spec>,true>,std::__unordered_map_equal<CA::OGL::MetalContext::Pipeline::Spec,std::__hash_value_type<CA::OGL::MetalContext::Pipeline::Spec,CA::OGL::MetalContext::Pipeline*>,std::equal_to<CA::OGL::MetalContext::Pipeline::Spec>,CA::OGL::MetalContext::StructHasher<CA::OGL::MetalContext::Pipeline::Spec>,true>,std::allocator<std::__hash_value_type<CA::OGL::MetalContext::Pipeline::Spec,CA::OGL::MetalContext::Pipeline*>>>::__emplace_unique_key_args<CA::OGL::MetalContext::Pipeline::Spec,std::piecewise_construct_t const&,std::tuple<CA::OGL::MetalContext::Pipeline::Spec const&>,std::tuple<>>(void *a1, CA::Hasher64 *this)
+void *std::__hash_table<std::__hash_value_type<CA::OGL::MetalContext::Pipeline::Spec,CA::OGL::MetalContext::Pipeline*>,std::__unordered_map_hasher<CA::OGL::MetalContext::Pipeline::Spec,std::__hash_value_type<CA::OGL::MetalContext::Pipeline::Spec,CA::OGL::MetalContext::Pipeline*>,CA::OGL::MetalContext::StructHasher<CA::OGL::MetalContext::Pipeline::Spec>,std::equal_to<CA::OGL::MetalContext::Pipeline::Spec>,true>,std::__unordered_map_equal<CA::OGL::MetalContext::Pipeline::Spec,std::__hash_value_type<CA::OGL::MetalContext::Pipeline::Spec,CA::OGL::MetalContext::Pipeline*>,std::equal_to<CA::OGL::MetalContext::Pipeline::Spec>,CA::OGL::MetalContext::StructHasher<CA::OGL::MetalContext::Pipeline::Spec>,true>,std::allocator<std::__hash_value_type<CA::OGL::MetalContext::Pipeline::Spec,CA::OGL::MetalContext::Pipeline*>>>::__emplace_unique_key_args<CA::OGL::MetalContext::Pipeline::Spec,std::piecewise_construct_t const&,std::tuple<CA::OGL::MetalContext::Pipeline::Spec const&>,std::tuple<>>(float *a1, CA::Hasher64 *this, _OWORD **a3)
 {
-  v4 = CA::Hasher64::hash(this, 0x20uLL);
-  v5 = a1[1];
-  if (!*&v5)
+  v5 = CA::Hasher64::hash(this, 0x20uLL);
+  v6 = *(a1 + 2);
+  if (!*&v6)
   {
     goto LABEL_28;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = v4;
-    if (v4 >= *&v5)
+    v8 = v5;
+    if (v5 >= *&v6)
     {
-      v7 = v4 % *&v5;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v7 = (*&v5 - 1) & v4;
+    v8 = (*&v6 - 1) & v5;
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_28:
     operator new();
@@ -1606,44 +1607,44 @@ LABEL_28:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_28;
     }
 
 LABEL_27:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_28;
     }
   }
 
-  if (v9[2] != *this || v9[3] != *(this + 1) || v9[4] != *(this + 2) || v9[5] != *(this + 3))
+  if (v10[2] != *this || v10[3] != *(this + 1) || v10[4] != *(this + 2) || v10[5] != *(this + 3))
   {
     goto LABEL_27;
   }
 
-  return v9;
+  return v10;
 }
 
 uint64_t CA::OGL::MetalContext::encode_asg77_weights(CA::OGL::MetalContext *this, const CA::OGL::MetalContext::FragmentShader::Spec *a2)
@@ -1758,7 +1759,7 @@ uint64_t CA::OGL::MetalContext::encode_asg77_weights(CA::OGL::MetalContext *this
 
 uint64_t CA::OGL::MetalContext::encode_lut_texture(CA::OGL::MetalContext *this, const CA::OGL::MetalContext::FragmentShader::Spec *a2)
 {
-  if ((a2 & 0x4000000) != 0 || (*&CA::OGL::MetalContext::texture_function_info[8 * (a2 & 0x7F) + 6] & 0x200) != 0)
+  if ((a2 & 0x4000000) != 0 || (CA::OGL::MetalContext::texture_function_info[4 * (a2 & 0x7F) + 3] & 0x200) != 0)
   {
     v4 = *(*(this + 2) + 8 * *(*(this + 2) + 324) + 176) & 0xFFFFFFFFFFFFFFFCLL;
     v5 = atomic_load(this + 593);
@@ -1902,7 +1903,7 @@ void CA::Display::DisplayLink::refresh_item_properties_locked(CA::Display::Displ
   }
 }
 
-void CA::Context::commit_command(CA::Context *this, CA::Render::Object *a2, __CFString *a3, const void *a4, void *a5)
+void CA::Context::commit_command(CA::Context *this, CA::Render::Encoder *a2, __CFString *a3, const void *a4, void *a5)
 {
   v241 = *MEMORY[0x1E69E9840];
   switch(this)
@@ -2978,7 +2979,7 @@ void CA::Transaction::free_command_list(void *a1)
   }
 }
 
-uint64_t CA::Transaction::add_command(CA::Transaction *this, int a2, uint64_t a3, const void *a4, const void *a5)
+CFTypeRef CA::Transaction::add_command(CA::Transaction *this, int a2, uint64_t a3, const void *a4, const void *a5)
 {
   v8 = this;
   v9 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 576);
@@ -3253,8 +3254,7 @@ float64x2_t *CA::Render::Updater::RasterizationOp::map_bounds(CA::Render::Update
       result[1].f64[1] = v9;
       if (v8 <= 0.0 || v9 <= 0.0)
       {
-        result[1].f64[0] = 0.0;
-        result[1].f64[1] = 0.0;
+        result[1] = 0uLL;
       }
     }
   }
@@ -3432,7 +3432,7 @@ char *CA::Context::remove_animation(char *this, __CFString *a2, const __CFString
   return this;
 }
 
-void *CA::Render::encode_remove_animation(CA::Render *this, CA::Render::Encoder *a2, void *a3, const __CFString *a4)
+CA::Render::Encoder *CA::Render::encode_remove_animation(CA::Render *this, CA::Render::Encoder *a2, void *a3, const __CFString *a4)
 {
   v7 = *(this + 4);
   if ((v7 + 1) > *(this + 5))
@@ -4098,7 +4098,7 @@ _DWORD *CA::OGL::CacheNode::retain_surface(CA::OGL::CacheNode *this, float *a2, 
   }
 }
 
-uint64_t CA::OGL::compute_contents_dod(uint64_t result, uint64_t a2, uint64_t a3, int32x2_t *a4)
+int32x2_t *CA::OGL::compute_contents_dod(int32x2_t *result, uint64_t a2, uint64_t a3, int32x2_t *a4)
 {
   v4 = result;
   v15 = *MEMORY[0x1E69E9840];
@@ -4140,25 +4140,25 @@ uint64_t CA::OGL::compute_contents_dod(uint64_t result, uint64_t a2, uint64_t a3
   return result;
 }
 
-uint64_t CA::OGL::CacheNode::compute_dod(CA::OGL::CacheNode *this, CA::Bounds *a2)
+char *CA::OGL::CacheNode::compute_dod(CA::OGL::CacheNode *this, CA::Bounds *a2)
 {
   result = CA::OGL::Context::cache_fetch(**(this + 1), this + 62);
   if (result)
   {
     v7 = result;
-    v8 = *(result + 36);
-    v9 = *(result + 40);
+    v8 = *(result + 9);
+    v9 = *(result + 10);
     if (v8 <= v9)
     {
-      v10 = *(result + 40);
+      v10 = *(result + 10);
     }
 
     else
     {
-      v10 = *(result + 36);
+      v10 = *(result + 9);
     }
 
-    if (v10 > 1073741822 || (v8 >= v9 ? (v11 = *(result + 40)) : (v11 = *(result + 36)), v11 <= 0 && (*(this + 240) & 1) != 0))
+    if (v10 > 1073741822 || (v8 >= v9 ? (v11 = *(result + 10)) : (v11 = *(result + 9)), v11 <= 0 && (*(this + 240) & 1) != 0))
     {
       v12 = *(this + 3);
       v8 = *(v12 + 152);
@@ -4171,8 +4171,8 @@ uint64_t CA::OGL::CacheNode::compute_dod(CA::OGL::CacheNode *this, CA::Bounds *a
       v13 = *(v12 + 144);
       *(v7 + 28) = v13;
       v9 = *(v12 + 156);
-      *(v7 + 36) = v8;
-      *(v7 + 40) = v9;
+      *(v7 + 9) = v8;
+      *(v7 + 10) = v9;
     }
 
     else
@@ -4275,7 +4275,7 @@ uint64_t CA::OGL::CacheNode::compute_dod(CA::OGL::CacheNode *this, CA::Bounds *a
   return result;
 }
 
-uint64_t CA::OGL::Context::cache_fetch(uint64_t a1, _DWORD *a2)
+char *CA::OGL::Context::cache_fetch(uint64_t a1, _DWORD *a2)
 {
   if (!*a2)
   {
@@ -4350,7 +4350,7 @@ void CA::OGL::QuadNode::compute_dod(CA::OGL::QuadNode *this, CA::Bounds *a2, dou
   v8 = *(v7 + 152);
   if (v8 < 0)
   {
-    (*(*v7 + 40))(*(this + 3), v7 + 144);
+    (*(*v7 + 40))(*(this + 3), v7 + 144, a3, a4, a5);
     v8 = *(v7 + 152);
   }
 
@@ -4398,7 +4398,7 @@ void CA::OGL::QuadNode::compute_dod(CA::OGL::QuadNode *this, CA::Bounds *a2, dou
   }
 }
 
-uint64_t CA::OGL::QuadNode::propagate_roi(float64x2_t **this, const CA::Bounds *a2, const double *a3, int32x4_t a4, int32x4_t a5)
+uint64_t CA::OGL::QuadNode::propagate_roi(const CA::Transform **this, const CA::Bounds *a2, const double *a3, int32x4_t a4, int32x4_t a5)
 {
   v20 = *MEMORY[0x1E69E9840];
   v6 = *(a2 + 2);
@@ -4442,17 +4442,17 @@ uint64_t CA::OGL::QuadNode::propagate_roi(float64x2_t **this, const CA::Bounds *
     v17 = vuzp1q_s32(v15, vsubq_s64(vcvtpq_s64_f64(vminnmq_f64(vaddq_f64(v18, v19), vdupq_n_s64(0x41C0000000000000uLL))), v15));
   }
 
-  result = (*(*&this[3]->f64[0] + 56))(this[3], &v17);
-  *(this[3][14].f64 + 4) |= 0x200uLL;
+  result = (*(*this[3] + 56))(this[3], &v17);
+  *(this[3] + 228) |= 0x200uLL;
   if ((this[30] & 0xF) == 2)
   {
-    *(this[3][14].f64 + 4) |= 0x4000000000uLL;
+    *(this[3] + 228) |= 0x4000000000uLL;
   }
 
   return result;
 }
 
-uint64_t CA::OGL::QuadNode::propagate_soft_roi(float64x2_t **this, const CA::Bounds *a2, const double *a3, int32x4_t a4, int32x4_t a5)
+uint64_t CA::OGL::QuadNode::propagate_soft_roi(const CA::Transform **this, const CA::Bounds *a2, const double *a3, int32x4_t a4, int32x4_t a5)
 {
   v23 = *MEMORY[0x1E69E9840];
   v6 = *(a2 + 2);
@@ -4498,24 +4498,24 @@ uint64_t CA::OGL::QuadNode::propagate_soft_roi(float64x2_t **this, const CA::Bou
   }
 
   v18 = vextq_s8(v15, v15, 8uLL).u64[0];
-  v19 = &this[3][13];
+  v19 = (this[3] + 208);
 
   return CA::BoundsImpl::Union(v19, *v15.i8, v18);
 }
 
-uint64_t CA::OGL::CacheNode::grow_roi(uint64_t this, int32x2_t *a2)
+char *CA::OGL::CacheNode::grow_roi(char *this, int32x2_t *a2)
 {
-  v2 = **(this + 8);
+  v2 = **(this + 1);
   if ((*(v2 + 873) & 0x10) != 0)
   {
     return this;
   }
 
   v4 = this;
-  if (*(this + 240))
+  if (this[240])
   {
     v5 = *a2->i8;
-    if ((*(this + 152) & 0x80000000) != 0)
+    if ((*(this + 38) & 0x80000000) != 0)
     {
       v29 = *a2->i8;
       (*(*this + 40))(this, this + 144);
@@ -4535,7 +4535,7 @@ uint64_t CA::OGL::CacheNode::grow_roi(uint64_t this, int32x2_t *a2)
         goto LABEL_11;
       }
 
-      v5.i64[0] = *(v4 + 144);
+      v5.i64[0] = *(v4 + 18);
     }
 
     else
@@ -4554,7 +4554,7 @@ uint64_t CA::OGL::CacheNode::grow_roi(uint64_t this, int32x2_t *a2)
     v5.u64[1] = v7;
 LABEL_11:
     v30 = v5;
-    this = (*(***(v4 + 8) + 232))(**(v4 + 8), 7);
+    this = (*(***(v4 + 1) + 232))(**(v4 + 1), 7);
     if (v30.i32[2] <= this && v30.i32[3] <= this)
     {
       *a2->i8 = v30;
@@ -4562,8 +4562,8 @@ LABEL_11:
     }
   }
 
-  this = CA::OGL::Context::cache_fetch(v2, (v4 + 248));
-  if (this && (v15 = *(this + 48)) != 0)
+  this = CA::OGL::Context::cache_fetch(v2, v4 + 62);
+  if (this && (v15 = *(this + 6)) != 0)
   {
     v16 = v15[3];
     v17 = vextq_s8(v16, v16, 8uLL).u64[0];
@@ -4590,17 +4590,17 @@ LABEL_11:
     v20 = 64;
   }
 
-  v22 = *(v4 + 152);
+  v22 = *(v4 + 38);
   if (v22 < 0)
   {
     this = (*(*v4 + 40))(v4, v4 + 144);
-    v22 = *(v4 + 152);
+    v22 = *(v4 + 38);
   }
 
   v23 = a2[1].i32[0];
   if (v22 - v23 <= v20)
   {
-    v24 = *(v4 + 144);
+    v24 = *(v4 + 36);
   }
 
   else
@@ -4611,11 +4611,11 @@ LABEL_11:
 
   a2->i32[0] = v24;
   a2[1].i32[0] = v22;
-  v25 = *(v4 + 156);
+  v25 = *(v4 + 39);
   v26 = a2[1].i32[1];
   if (v25 - v26 <= v20)
   {
-    a2->i32[1] = *(v4 + 148);
+    a2->i32[1] = *(v4 + 37);
   }
 
   else
@@ -5405,7 +5405,7 @@ void CA::OGL::Context::cache_set_surface(uint64_t a1, uint64_t a2, uint64_t a3)
 
 void CA::OGL::BlurState::downsample_box_2(float32x2_t *this, float a2, float a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v6 = *this;
   if (this[15].i8[0])
   {
@@ -5430,8 +5430,8 @@ void CA::OGL::BlurState::downsample_box_2(float32x2_t *this, float a2, float a3)
     v11 = *v10;
     v12 = *(*v10 + 48);
     v13 = *(*v10 + 52);
-    v19[0] = v12;
-    v19[1] = v13;
+    v26[0] = v12;
+    v26[1] = v13;
     CA::OGL::Context::bind_surface(*this, v11, 0, 1u, 1, 0.0);
     v14 = 32.0;
     if (this[15].i8[0])
@@ -5439,25 +5439,25 @@ void CA::OGL::BlurState::downsample_box_2(float32x2_t *this, float a2, float a3)
       v14 = 16.0;
     }
 
-    CA::OGL::BlurState::process_edges(this, v14, a2, a3, v19);
+    CA::OGL::BlurState::process_edges(this, v14, a2, a3, v26);
     *(*(v6 + 16) + 16) = 1;
     *(v6 + 144) = 0;
     *(v6 + 112) = v6 + 1386;
     *(v6 + 120) = xmmword_183E20E50;
-    v18 = 0;
-    CA::OGL::PingPongState::render_pass(this, v12, v13, 0, &v18, a2, a3, 0.0, 0.0);
+    v25 = 0;
+    CA::OGL::PingPongState::render_pass(this, v12, v13, 0, &v25, a2, a3, 0.0, 0.0);
     CA::OGL::Context::array_flush(v6);
     v15 = this[4].i16[0];
     v16 = v15;
     v17 = &this[(v15 & 1) + 11];
     if (v16 < 0)
     {
-      v17 = &this[1];
+      v17 = this + 1;
     }
 
     CA::OGL::Context::unbind_surface(*this, *v17, 0);
     *(*(v6 + 16) + 16) = 0;
-    CA::OGL::Context::pop_surface(*this);
+    CA::OGL::Context::pop_surface(*this, v18, v19, v20, v21, v22, v23, v24);
     ++this[4].i16[0];
   }
 }
@@ -5675,18 +5675,18 @@ LABEL_23:
           v61 = vmlaq_f64(_Q2, _Q2, v59);
           v62 = vbslq_s8(vcgtq_f64(v61, v54), v54, v61);
           this[22] = vcvt_f32_f64(vmulq_f64(v62, v56));
-          *v61.f64 = 1.0 / *(v42 + 120);
+          *v61.f64 = 1.0 / v42[7].f64[1];
           v63 = vcvtq_f64_f32(vcvt_f32_f64(v62));
-          v57.f64[0] = *v42;
-          v64.f64[0] = *(v42 + 32);
+          v57.f64[0] = v42->f64[0];
+          v64.f64[0] = v42[2].f64[0];
           v65 = *v61.f64;
-          v64.f64[1] = *(v42 + 8);
+          v64.f64[1] = v42->f64[1];
           v66 = vdupq_lane_s64(COERCE__INT64(*v61.f64), 0);
           v67 = vmulq_n_f64(v64, v65);
-          v70.i64[1] = *(v42 + 40);
+          v70.f64[1] = v42[2].f64[1];
           v68 = vmulq_n_f64(v70, v65);
           v69 = 0x7F0000007FLL;
-          *v70.i8 = vneg_f32(0x7F0000007FLL);
+          *&v70.f64[0] = vneg_f32(0x7F0000007FLL);
           do
           {
             if (v51)
@@ -5705,7 +5705,7 @@ LABEL_23:
             v74 = vandq_s8(v63, vcgezq_s64(vshlq_n_s64(v73, 0x3FuLL)));
             *&v74.f64[0] = vcvt_f32_f64(vmlaq_f64(vmulq_f64(v67, vextq_s8(v74, v74, 8uLL)), v74, v68));
             this[v51 + 1] = *&v74.f64[0];
-            *v70.i8 = vbsl_s8(vcgt_f32(*&v74.f64[0], *v70.i8), *v70.i8, *&v74.f64[0]);
+            *&v70.f64[0] = vbsl_s8(vcgt_f32(*&v74.f64[0], *&v70.f64[0]), *&v70.f64[0], *&v74.f64[0]);
             v69 = vbsl_s8(vcgt_f32(v69, *&v74.f64[0]), v69, *&v74.f64[0]);
             ++v51;
           }
@@ -5713,21 +5713,21 @@ LABEL_23:
           while (v51 != 4);
           v75 = 0;
           v76 = 0;
-          v77 = vsub_s32(vcvt_s32_f32(vrndp_f32(v69)), vcvt_s32_f32(vrndm_f32(*v70.i8)));
+          v77 = vsub_s32(vcvt_s32_f32(vrndp_f32(v69)), vcvt_s32_f32(vrndm_f32(*&v70.f64[0])));
           *this = v77;
           v78 = this + 23;
           v79 = *(v43 + 72);
           v80 = vsubq_f64(v79, v62);
           v81 = *(v43 + 80);
           v82 = *v42;
-          v83 = *(v42 + 32);
-          v84 = *(v42 + 96);
+          v83 = v42[2];
+          v84 = v42[6];
           v85 = vclez_s32(v77);
           v86 = vpmax_u32(v85, v85).u32[0];
           v87 = vclez_s32(v45);
           *v33.i8 = vadd_s32(v39, v45);
           v88 = vaddq_f64(v80, v59);
-          v89 = &this[14];
+          v89 = this + 14;
           v90 = vnegq_f64(vcvtq_f64_f32(this[1]));
           v91 = vpmax_u32(v87, v87).u32[0];
           do
@@ -5756,7 +5756,7 @@ LABEL_23:
             v95 = v94;
             v96 = vcvt_f32_f64(vmlaq_f64(v90, v66, vmlaq_n_f64(vmlaq_n_f64(v84, v82, v93), v83, v95)));
             this[v75 + 5] = v96;
-            v97 = vcvt_s32_f32(vrndm_f32(vadd_f32(*v70.i8, v96)));
+            v97 = vcvt_s32_f32(vrndm_f32(vadd_f32(*&v70.f64[0], v96)));
             v89[-1] = v97;
             *v89 = v77;
             if ((v86 & 0x80000000) != 0 || (v91 & 0x80000000) != 0)
@@ -5796,7 +5796,7 @@ LABEL_23:
               v102 = v45.i32[0];
             }
 
-            v70.i32[0] = 1073741822;
+            LODWORD(v70.f64[0]) = 1073741822;
             v33.i32[0] = v102;
             v103 = v101 * 0.9;
             v104.i64[0] = v39.i32[0];
@@ -5948,40 +5948,40 @@ LABEL_89:
   }
 }
 
-void CA::OGL::Context::copy_destination(CA::OGL::Context *this, uint64_t a2, int *a3, uint64_t a4, int32x2_t *a5, int32x2_t *a6, _BYTE *a7)
+void CA::OGL::Context::copy_destination(float16x4_t *this, uint64_t a2, int *a3, uint64_t a4, int32x2_t *a5, int32x2_t *a6, _BYTE *a7)
 {
-  v40 = *MEMORY[0x1E69E9840];
-  v13 = *(this + 85);
-  v14 = *(this + 84);
-  if (v13 != v14 || (!v13 ? (v15 = 0) : (v15 = (*(v14 + 144) >> 1) & 0x1F), *(this + 167) != v15))
+  v47 = *MEMORY[0x1E69E9840];
+  v13 = this[85];
+  v14 = this[84];
+  if (*&v13 != *&v14 || (!*&v13 ? (v15 = 0) : (v15 = (*(*&v14 + 144) >> 1) & 0x1F), this[83].i32[1] != v15))
   {
     CA::OGL::Context::prepare_destination_(this);
   }
 
-  if ((*(this + 692) & 0x200) != 0)
+  if ((this[173].i16[0] & 0x200) != 0)
   {
     CA::OGL::Context::flatten_detached_layers_(this);
   }
 
-  v16 = *(this + 84);
+  v16 = this[84];
   if (v16)
   {
     if ((a3[23] & 0x4800) == 0x4000 && (*(*this + 232))(this, 36))
     {
-      v36 = 0u;
-      v37 = 0u;
-      v38 = 0u;
-      v39 = 0u;
-      v17 = *(this + 82);
-      *(&v36 + 1) = 0x3C003C003C003C00;
-      v37 = 0uLL;
-      *&v38 = 0;
-      v35[0] = 0;
+      v43 = 0u;
+      v44 = 0u;
+      v45 = 0u;
+      v46 = 0u;
+      v17 = this[82];
+      *(&v43 + 1) = 0x3C003C003C003C00;
+      v44 = 0uLL;
+      *&v45 = 0;
+      v42[0] = 0;
       if (v17)
       {
-        *&v36 = *(v17 + 24);
-        v18 = *(v17 + 64);
-        v19 = *(v17 + 80) & 0x500 | 1;
+        *&v43 = *(*&v17 + 24);
+        v18 = *(*&v17 + 64);
+        v19 = *(*&v17 + 80) & 0x500 | 1;
       }
 
       else
@@ -5990,68 +5990,68 @@ void CA::OGL::Context::copy_destination(CA::OGL::Context *this, uint64_t a2, int
         v18 = 1.0;
       }
 
-      *(&v38 + 2) = v18;
-      WORD4(v39) = v19;
-      memset(v34, 0, sizeof(v34));
-      CA::Shape::operator=(v34, a3 + 12);
-      v35[1] = v34;
-      v35[2] = 0;
-      v35[0] = CA::OGL::Context::set_gstate(this, v35);
-      *(*(this + 2) + 16) = 117;
+      *(&v45 + 2) = v18;
+      WORD4(v46) = v19;
+      memset(v41, 0, sizeof(v41));
+      CA::Shape::operator=(v41, a3 + 12);
+      v42[1] = v41;
+      v42[2] = 0;
+      v42[0] = CA::OGL::Context::set_gstate(this, v42);
+      *(*&this[2] + 16) = 117;
       a3[36] = a3[36] & 0x3FFFFFFF | 0x80000000;
       CA::OGL::Context::bind_surface(this, a3, 0, 0, 0, 0.0);
-      v20 = *(this + 2);
-      *(v20 + 96) = xmmword_183E21110;
-      v21 = *(v20 + 497);
-      if (v21)
+      v27 = this[2];
+      *(*&v27 + 96) = xmmword_183E21110;
+      v28 = *(*&v27 + 497);
+      if (v28)
       {
-        *(v20 + 497) = v21 & 0xFE;
+        *(*&v27 + 497) = v28 & 0xFE;
       }
 
-      v33 = v21;
-      *(this + 18) = 0;
-      *(this + 14) = this + 1386;
-      *(this + 120) = xmmword_183E20E50;
+      v40 = v28;
+      this[18] = 0;
+      this[14] = (&this[173] + 2);
+      *this[15].i8 = xmmword_183E20E50;
       if (a4)
       {
-        v22 = 0;
-        v23 = a5 + 1;
+        v29 = 0;
+        v30 = a5 + 1;
         do
         {
-          v24 = *a6;
-          v25 = *(a3 + 12);
-          if (*(this + 27))
+          v31 = *a6;
+          v32 = *(a3 + 12);
+          if (this[13].i32[1])
           {
-            v26 = 6;
+            v33 = 6;
           }
 
           else
           {
-            v26 = 4;
+            v33 = 4;
           }
 
-          if ((v22 + 4) > *(this + 19) || (v27 = *(this + 16)) != 0 && *(this + 15) + v26 > v27)
+          if ((*&v29 + 4) > *&this[19] || (v34 = this[16], *&v34) && (*&this[15] + v33) > *&v34)
           {
-            *(this + 692) |= 0x20u;
+            this[173].i16[0] |= 0x20u;
             CA::OGL::Context::array_flush(this);
-            *(this + 18) = 0;
-            *(this + 14) = this + 1386;
-            *(this + 120) = xmmword_183E20E50;
+            this[18] = 0;
+            this[14] = (&this[173] + 2);
+            *this[15].i8 = xmmword_183E20E50;
           }
 
-          v28 = vsub_s32(v24, v25);
-          CA::OGL::Context::array_rect(this, v23[-1].i32[0], v23[-1].i32[1], (v23->i32[0] + v23[-1].i32[0]), (v23->i32[1] + v23[-1].i32[1]));
-          v29 = vcvt_f32_s32(v28);
-          v22 = *(this + 18);
-          v30 = *(this + 17) + 48 * v22;
-          *(v30 - 176) = v29;
-          v31 = *v23;
-          v23 += 2;
-          v32 = vcvt_f32_s32(vadd_s32(v31, v28));
-          *(v30 - 128) = __PAIR64__(v29.u32[1], v32.u32[0]);
-          *(v30 - 80) = v32;
-          v29.i32[1] = v32.i32[1];
-          *(v30 - 32) = v29;
+          v35 = vsub_s32(v31, v32);
+          CA::OGL::Context::array_rect(this, v30[-1].i32[0], v30[-1].i32[1], (v30->i32[0] + v30[-1].i32[0]), (v30->i32[1] + v30[-1].i32[1]));
+          v36 = vcvt_f32_s32(v35);
+          v29 = this[18];
+          v37 = *&this[17] + 48 * *&v29;
+          *(v37 - 176) = v36;
+          v38 = *v30;
+          v30 += 2;
+          v39 = vcvt_f32_s32(vadd_s32(v38, v35));
+          *(v37 - 128) = __PAIR64__(v36.u32[1], v39.u32[0]);
+          *(v37 - 80) = v39;
+          v36.i32[1] = v39.i32[1];
+          *(v37 - 32) = v36;
           ++a6;
           --a4;
         }
@@ -6060,22 +6060,22 @@ void CA::OGL::Context::copy_destination(CA::OGL::Context *this, uint64_t a2, int
       }
 
       CA::OGL::Context::array_flush(this);
-      if (v33)
+      if (v40)
       {
-        *(*(this + 2) + 497) |= 1u;
+        *(*&this[2] + 497) |= 1u;
       }
 
       CA::OGL::Context::unbind_surface(this, a3, 0);
-      *(*(this + 2) + 16) = 0;
-      CA::OGL::Context::set_gstate(this, **(this + 82));
-      a3[22] = *(*(this + 84) + 88);
+      *(*&this[2] + 16) = 0;
+      CA::OGL::Context::set_gstate(this, **&this[82]);
+      a3[22] = *(*&this[84] + 88);
     }
 
     else
     {
       CA::OGL::Context::push_surface(this, a3, 0, 0x8000, 0);
       CA::OGL::emit_copy_surface(this, v16, a4, a5, a6);
-      CA::OGL::Context::pop_surface(this);
+      CA::OGL::Context::pop_surface(this, v20, v21, v22, v23, v24, v25, v26);
     }
 
     *a7 = 0;
@@ -6287,7 +6287,7 @@ void *CA::OGL::MetalBufferPool::create_external_buffer(CA::OGL::MetalBufferPool 
   {
     if (!*(v19 + 6))
     {
-      CA::OGL::MetalBufferPool::retire_metal_buffer(this);
+      CA::OGL::MetalBufferPool::retire_metal_buffer(this, *v19);
     }
 
     if (x_malloc_get_zone::once != -1)
@@ -6360,7 +6360,7 @@ void CA::OGL::MetalBufferPool::release_external_buffer(uint64_t a1, uint64_t a2)
     *(v3 + 24) = v4;
     if (!v4 && *(a1 + 48) != v3)
     {
-      CA::OGL::MetalBufferPool::retire_metal_buffer(a1);
+      CA::OGL::MetalBufferPool::retire_metal_buffer(a1, *v3);
     }
   }
 
@@ -6376,7 +6376,7 @@ void CA::OGL::MetalBufferPool::release_external_buffer(uint64_t a1, uint64_t a2)
 
 void CA::OGL::BlurState::single_pass_blur(float32x2_t *this, float a2, float a3, int a4)
 {
-  v48[1] = *MEMORY[0x1E69E9840];
+  v55[1] = *MEMORY[0x1E69E9840];
   v8 = *this;
   v9 = *(*(*this + 16) + 16);
   v10 = *this;
@@ -6396,7 +6396,7 @@ void CA::OGL::BlurState::single_pass_blur(float32x2_t *this, float a2, float a3,
   v14 = &this[(v11 & 1) + 11];
   if (v12 < 0)
   {
-    v14 = &this[1];
+    v14 = this + 1;
   }
 
   v16 = *(*v14 + 48);
@@ -6427,11 +6427,11 @@ void CA::OGL::BlurState::single_pass_blur(float32x2_t *this, float a2, float a3,
     if (v23 >= 4)
     {
 LABEL_11:
-      v46 = v20.f64[0];
-      v47 = v19.f64[0];
+      v53 = v20.f64[0];
+      v54 = v19.f64[0];
       v24 = exp(-0.5 / a3);
-      v20.f64[0] = v46;
-      v19.f64[0] = v47;
+      v20.f64[0] = v53;
+      v19.f64[0] = v54;
       v25 = v24 * 2.0 + 1.0;
       v22 = v24 / v25;
       v21 = 1.0 / v25;
@@ -6477,8 +6477,8 @@ LABEL_11:
   if (a4)
   {
     v39 = (this[15].u8[0] >> 2) & 1;
-    v48[0] = 0;
-    CA::OGL::PingPongState::render_pass_final_dest(*this, v16, v15, v39, v48);
+    v55[0] = 0;
+    CA::OGL::PingPongState::render_pass_final_dest(*this, v16, v15, v39, v55);
   }
 
   else
@@ -6486,8 +6486,8 @@ LABEL_11:
     *(v8 + 144) = 0;
     *(v8 + 112) = v8 + 1386;
     *(v8 + 120) = xmmword_183E20E50;
-    v48[0] = 0;
-    CA::OGL::PingPongState::render_pass(this, v16, v15, 0, v48, 1.0, 1.0, 0.0, 0.0);
+    v55[0] = 0;
+    CA::OGL::PingPongState::render_pass(this, v16, v15, 0, v55, 1.0, 1.0, 0.0, 0.0);
     CA::OGL::Context::array_flush(v8);
   }
 
@@ -6505,18 +6505,18 @@ LABEL_11:
   {
     if ((*(v8 + 1384) & 0x7000) != 0)
     {
-      v43 = this[4].i16[0];
-      v44 = v43;
-      v45 = &v13[v43 & 1];
-      if (v44 < 0)
+      v50 = this[4].i16[0];
+      v51 = v50;
+      v52 = &v13[v50 & 1];
+      if (v51 < 0)
       {
-        v45 = this + 1;
+        v52 = this + 1;
       }
 
-      *(*(v8 + 672) + 144) = *(*(v8 + 672) + 144) & 0xFFFFC0FF | (((*(*v45 + 144) >> 8) & 0x3F) << 8);
+      *(*(v8 + 672) + 144) = *(*(v8 + 672) + 144) & 0xFFFFC0FF | (((*(*v52 + 144) >> 8) & 0x3F) << 8);
     }
 
-    CA::OGL::Context::pop_surface(*this);
+    CA::OGL::Context::pop_surface(*this, v43, v44, v45, v46, v47, v48, v49);
     ++this[4].i16[0];
   }
 }
@@ -6987,7 +6987,7 @@ uint64_t CA::OGL::QuadNode::apply(uint64_t result, uint64_t *a2, float *a3, int3
       v41.i64[0] = 1.0;
       v46 = CA::OGL::transform_filter_bits(v45, v39, v40, v41, v42);
       v47.i64[0] = 1.0;
-      LODWORD(v73) = CA::OGL::rect_filter_bits(v45, v46, v48, v75, v76, v47, 1.0);
+      LODWORD(v73) = CA::OGL::rect_filter_bits(v45, v46, v75, v76, v47, 1.0, v48);
       DWORD1(v73) = v44;
       v74 = 0uLL;
       *(&v73 + 1) = 0;
@@ -7177,12 +7177,12 @@ char *intern_struct_name(char *a1)
   result = strchr(a1 + 1, 61);
   if (result)
   {
-    v3 = result - v1;
+    v3 = (result - v1);
     MEMORY[0x1EEE9AC00](result);
     v5 = v6 - v4;
-    bzero(v6 - v4, v3 + 1);
+    bzero(v6 - v4, (v3 + 1));
     memcpy(v5, v1, v3);
-    v5[v3] = 0;
+    v3[v5] = 0;
     return unique_name(v5);
   }
 
@@ -7442,7 +7442,7 @@ LABEL_38:
   }
 }
 
-void *CA::Render::TransitionAnimation::encode(CA::Render::TransitionAnimation *this, CA::Render::Encoder *a2)
+CA::Render::Encoder *CA::Render::TransitionAnimation::encode(CA::Render::TransitionAnimation *this, CA::Render::Encoder *a2)
 {
   CA::Render::Animation::encode(this, a2);
   CA::Render::Encoder::encode_atom(a2, *(this + 24));
@@ -7481,19 +7481,19 @@ void CA::Render::TransitionAnimation::~TransitionAnimation(CA::Render::Transitio
   v3 = *(this + 16);
   if (v3 && atomic_fetch_add(v3 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v3 + 16))(v3);
+    (*(*v3 + 16))(v3, a2);
   }
 
   v4 = *(this + 15);
   if (v4 && atomic_fetch_add(v4 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v4 + 16))(v4);
+    (*(*v4 + 16))(v4, a2);
   }
 
   v5 = *(this + 14);
   if (v5 && atomic_fetch_add(v5 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v5 + 16))(v5);
+    (*(*v5 + 16))(v5, a2);
   }
 
   --dword_1ED4EAB2C;
@@ -7513,19 +7513,19 @@ void CA::Render::TransitionAnimation::~TransitionAnimation(CA::Render::Transitio
   v3 = *(this + 16);
   if (v3 && atomic_fetch_add(v3 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v3 + 16))(v3);
+    (*(*v3 + 16))(v3, a2);
   }
 
   v4 = *(this + 15);
   if (v4 && atomic_fetch_add(v4 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v4 + 16))(v4);
+    (*(*v4 + 16))(v4, a2);
   }
 
   v5 = *(this + 14);
   if (v5 && atomic_fetch_add(v5 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v5 + 16))(v5);
+    (*(*v5 + 16))(v5, a2);
   }
 
   --dword_1ED4EAB2C;
@@ -7696,7 +7696,7 @@ uint64_t (***CA::Render::Transition::lookup_transition(CA::Render::Transition *t
   return result;
 }
 
-BOOL CA::Context::synchronize(CA::Context *this, mach_port_name_t a2, int a3, int a4)
+BOOL CA::Context::synchronize(CA::Context *this, mach_port_name_t a2, unsigned int a3, int a4)
 {
   v64 = *MEMORY[0x1E69E9840];
   name = 0;
@@ -8134,7 +8134,7 @@ uint64_t CA::Render::Context::wait_for_synchronize(mach_port_name_t rcv_name, _D
   return v10;
 }
 
-uint64_t CASSynchronize(CA::Render::Context *a1, mach_port_name_t a2, int a3, int a4, uint32_t a5, int a6, int a7)
+uint64_t CASSynchronize(CA::Render::Context *a1, mach_port_name_t a2, unsigned int a3, int a4, uint32_t a5, int a6, int a7)
 {
   v17[1] = *MEMORY[0x1E69E9840];
   if (a2 - 1 > 0xFFFFFFFD)
@@ -8219,7 +8219,7 @@ uint64_t _XSynchronize(uint64_t result, uint64_t a2)
   return result;
 }
 
-void CA::Render::Context::request_synchronize(os_unfair_lock_s *this, mach_port_name_t name, int a3, int a4, uint32_t a5, int a6)
+void CA::Render::Context::request_synchronize(os_unfair_lock_s *this, mach_port_name_t name, unsigned int a3, int a4, uint32_t a5, int a6)
 {
   block[6] = *MEMORY[0x1E69E9840];
   if (name + 1 <= 1)
@@ -8599,7 +8599,7 @@ LABEL_5:
   return v13;
 }
 
-void *CA::Render::MatchAnimation::encode(void **this, CA::Render::Encoder *a2)
+CA::Render::Encoder *CA::Render::MatchAnimation::encode(void **this, CA::Render::Encoder *a2)
 {
   CA::Render::Animation::encode(this, a2);
   v4 = this[12];
@@ -8641,7 +8641,7 @@ void *CA::Render::MatchAnimation::encode(void **this, CA::Render::Encoder *a2)
   return CA::Render::Encoder::encode_sanity_check(a2);
 }
 
-void *CA::Render::MatchMoveAnimation::encode(CA::Render::MatchMoveAnimation *this, CA::Render::Encoder *a2)
+CA::Render::Encoder *CA::Render::MatchMoveAnimation::encode(CA::Render::MatchMoveAnimation *this, CA::Render::Encoder *a2)
 {
   CA::Render::MatchAnimation::encode(this, a2);
   CA::Render::Encoder::encode_object(a2, *(this + 17));
@@ -8655,7 +8655,7 @@ void CA::Render::MatchMoveAnimation::~MatchMoveAnimation(CA::Render::MatchMoveAn
   v3 = *(this + 17);
   if (v3 && atomic_fetch_add(v3 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v3 + 16))(v3);
+    (*(*v3 + 16))(v3, a2);
   }
 
   --dword_1ED4EAAB8;
@@ -8677,7 +8677,7 @@ void CA::Render::MatchMoveAnimation::~MatchMoveAnimation(CA::Render::MatchMoveAn
   v3 = *(this + 17);
   if (v3 && atomic_fetch_add(v3 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v3 + 16))(v3);
+    (*(*v3 + 16))(v3, a2);
   }
 
   --dword_1ED4EAAB8;
@@ -8830,19 +8830,19 @@ void CA::Render::Transition::~Transition(CA::Render::Transition *this, const CA:
   v3 = *(this + 5);
   if (v3 && atomic_fetch_add(v3 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v3 + 16))(v3);
+    (*(*v3 + 16))(v3, a2);
   }
 
   v4 = *(this + 4);
   if (v4 && atomic_fetch_add(v4 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v4 + 16))(v4);
+    (*(*v4 + 16))(v4, a2);
   }
 
   v5 = *(this + 3);
   if (v5 && atomic_fetch_add(v5 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v5 + 16))(v5);
+    (*(*v5 + 16))(v5, a2);
   }
 
   --dword_1ED4EAB28;
@@ -8867,19 +8867,19 @@ void CA::Render::Transition::~Transition(CA::Render::Transition *this, const CA:
   v3 = *(this + 5);
   if (v3 && atomic_fetch_add(v3 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v3 + 16))(v3);
+    (*(*v3 + 16))(v3, a2);
   }
 
   v4 = *(this + 4);
   if (v4 && atomic_fetch_add(v4 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v4 + 16))(v4);
+    (*(*v4 + 16))(v4, a2);
   }
 
   v5 = *(this + 3);
   if (v5 && atomic_fetch_add(v5 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v5 + 16))(v5);
+    (*(*v5 + 16))(v5, a2);
   }
 
   --dword_1ED4EAB28;
@@ -9095,7 +9095,7 @@ void CA::OGL::render_home_affordance_base(float32x4_t *a1, uint64_t a2, int32x2_
   if ((v12 & 0x80000000) == 0 && *(v13 + 24))
   {
     v34 = 0uLL;
-    float_color_key = CA::Render::KeyValueArray::get_float_color_key(v8, 360, &v34);
+    float_color_key = CA::Render::KeyValueArray::get_float_color_key(v8, 0x168, &v34);
     v15 = vcvt_f16_f32(v34);
     if (float_color_key)
     {
@@ -9206,7 +9206,7 @@ void CA::Context::set_objc_context(id *this, void *a2)
 
 BOOL CA::Context::connect_remote(CA::Context *this)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = *(this + 15);
   if (!v2)
   {
@@ -9227,9 +9227,9 @@ BOOL CA::Context::connect_remote(CA::Context *this)
         if (!CStringPtr)
         {
           MEMORY[0x1EEE9AC00](0);
-          CStringPtr = v13;
-          bzero(v13, 0x400uLL);
-          if (!CFStringGetCString(v8, v13, 1024, 0x8000100u))
+          CStringPtr = v14;
+          bzero(v14, 0x400uLL);
+          if (!CFStringGetCString(v8, v14, 1024, 0x8000100u))
           {
             if (x_log_get_api::once[0] != -1)
             {
@@ -9249,8 +9249,9 @@ BOOL CA::Context::connect_remote(CA::Context *this)
 
 LABEL_16:
         ServerPort = CARenderServerGetServerPort(CStringPtr);
+        v13 = ServerPort;
         v11 = CA::Context::connect_remote(this, ServerPort);
-        mach_port_deallocate(*MEMORY[0x1E69E9A60], ServerPort);
+        mach_port_deallocate(*MEMORY[0x1E69E9A60], v13);
         return v11;
       }
     }
@@ -9265,11 +9266,12 @@ LABEL_15:
   return CA::Context::connect_remote(this, v4);
 }
 
-BOOL CA::Context::connect_remote(CA::Context *this, mach_port_t a2)
+BOOL CA::Context::connect_remote(CA::Context *this, uint64_t a2)
 {
   uu2[2] = *MEMORY[0x1E69E9840];
   if (a2)
   {
+    v2 = a2;
     if (CARenderServerGetServerPort(0) == a2)
     {
       *(this + 257) |= 0x80u;
@@ -9368,7 +9370,7 @@ LABEL_23:
         *(&v54 + 1) = *MEMORY[0x1E69E99E0];
         *&v55 = __PAIR64__(Length, v38);
         reply_port = mig_get_reply_port();
-        *&msg[8] = a2;
+        *&msg[8] = v2;
         *&msg[12] = reply_port;
         *msg = -2147478253;
         *&msg[16] = 0x9D0A00000000;
@@ -9488,12 +9490,12 @@ LABEL_59:
                     if ((CA::Context::connect_remote::image_requirements_set & 1) == 0)
                     {
                       CA::Context::connect_remote::image_requirements_set = 1;
-                      NeededAlignment = CARenderServerGetNeededAlignment(a2);
+                      NeededAlignment = CARenderServerGetNeededAlignment(v2);
                       CADeviceSetMinimumAlignment(NeededAlignment);
                       *msg = 0;
                       LODWORD(uu2[0]) = 0;
                       v39 = 0;
-                      if (CARenderServerGetMaxRenderableIOSurfaceSize(a2, msg, uu2, &v39))
+                      if (CARenderServerGetMaxRenderableIOSurfaceSize(v2, msg, uu2, &v39))
                       {
                         CADeviceSetMaxRenderableIOSurfaceSize(*msg, LODWORD(uu2[0]), v39);
                       }

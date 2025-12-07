@@ -139,35 +139,35 @@ LABEL_21:
 
 - (id)rtKitKeyFromBuildIdentityDict:(id)dict
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   dictCopy = dict;
-  v4 = [dictCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [dictCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(dictCopy);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
-        if ([v8 hasPrefix:{@"Timer, RTKitOS", v12}])
+        v8 = *(*(&v11 + 1) + 8 * i);
+        if ([v8 hasPrefix:{@"Timer, RTKitOS", v11}])
         {
           v9 = v8;
           goto LABEL_11;
         }
       }
 
-      v5 = [dictCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [dictCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
         continue;
@@ -179,8 +179,6 @@ LABEL_21:
 
   v9 = 0;
 LABEL_11:
-
-  v10 = *MEMORY[0x29EDCA608];
 
   return v9;
 }

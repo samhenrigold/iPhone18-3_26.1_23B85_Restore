@@ -244,7 +244,7 @@
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       v23 = [NSNumber numberWithInteger:self->_totalClients];
-      v24 = [NSNumber numberWithInteger:v36[3] - [(NSMutableArray *)self->_clientsWithErrors count]];
+      v24 = [NSNumber numberWithInteger:v36[3] - objc_msgSend_count(self->_clientsWithErrors)];
       v26 = self->_backupTasks;
       clientsWithErrors = self->_clientsWithErrors;
       *buf = 138413058;
@@ -261,7 +261,7 @@
     currentClient = [(_DASUserRequestedBackupTaskManager *)self currentClient];
     totalClients = self->_totalClients;
     v29 = v36[3];
-    v30 = [(NSMutableArray *)self->_clientsWithErrors count];
+    v30 = objc_msgSend_count(self->_clientsWithErrors);
     v31 = [(NSMutableArray *)self->_clientsWithErrors copy];
     [currentClient cloudSyncProgressUpdate:totalClients completedClients:v29 - v30 errors:v31];
 
@@ -383,9 +383,9 @@
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Pending tasks are %@", &v15, 0xCu);
     }
 
-    self->_totalClients = [(NSMutableDictionary *)self->_backupTasks count];
+    self->_totalClients = objc_msgSend_count(self->_backupTasks);
     self->_syncInProgress = 1;
-    if (![(NSMutableDictionary *)self->_backupTasks count])
+    if (!objc_msgSend_count(self->_backupTasks))
     {
       v11 = self->_log;
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))

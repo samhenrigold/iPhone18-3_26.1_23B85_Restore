@@ -213,37 +213,37 @@ LABEL_6:
 
 + (id)createRecordFromManagedObject:(id)object
 {
-  v35[4] = *MEMORY[0x277D85DE8];
+  v33[4] = *MEMORY[0x277D85DE8];
   objectCopy = object;
-  v35[0] = objc_opt_class();
-  v35[1] = objc_opt_class();
-  v35[2] = objc_opt_class();
-  v35[3] = objc_opt_class();
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:4];
+  v33[0] = objc_opt_class();
+  v33[1] = objc_opt_class();
+  v33[2] = objc_opt_class();
+  v33[3] = objc_opt_class();
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:4];
   entity = [objectCopy entity];
   name = [entity name];
 
   v7 = [MEMORY[0x277CBEBF8] mutableCopy];
+  v27 = 0u;
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
-  v32 = 0u;
   v8 = v4;
-  v9 = [v8 countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v30;
+    v11 = *v28;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v30 != v11)
+        if (*v28 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v29 + 1) + 8 * i);
+        v13 = *(*(&v27 + 1) + 8 * i);
         entityName = [v13 entityName];
         v15 = [entityName isEqualToString:name];
 
@@ -253,41 +253,40 @@ LABEL_6:
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v10);
   }
 
-  v27 = 0u;
-  v28 = 0u;
   v25 = 0u;
   v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v16 = v7;
-  v17 = [v16 countByEnumeratingWithState:&v25 objects:v33 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v26;
+    v19 = *v24;
 LABEL_12:
     v20 = 0;
     while (1)
     {
-      if (*v26 != v19)
+      if (*v24 != v19)
       {
         objc_enumerationMutation(v16);
       }
 
-      v21 = *(*(&v25 + 1) + 8 * v20);
-      v22 = objc_opt_new();
-      if ([v22 copyFromManagedObject:{objectCopy, v25}])
+      v21 = objc_opt_new();
+      if ([v21 copyFromManagedObject:{objectCopy, v23}])
       {
         break;
       }
 
       if (v18 == ++v20)
       {
-        v18 = [v16 countByEnumeratingWithState:&v25 objects:v33 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v23 objects:v31 count:16];
         if (v18)
         {
           goto LABEL_12;
@@ -301,12 +300,10 @@ LABEL_12:
   else
   {
 LABEL_18:
-    v22 = 0;
+    v21 = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
-  return v22;
+  return v21;
 }
 
 - (id)entityName

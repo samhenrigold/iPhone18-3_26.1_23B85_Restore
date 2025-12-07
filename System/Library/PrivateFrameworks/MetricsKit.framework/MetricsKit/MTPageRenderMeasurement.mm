@@ -3,8 +3,11 @@
 - (void)mark:(id)mark;
 - (void)mark:(id)mark date:(id)date;
 - (void)mark:(id)mark time:(int64_t)time;
+- (void)setAppLaunch:(BOOL)launch;
 - (void)setLaunchCorrelationKey:(id)key;
 - (void)setPreloadStatus:(id)status;
+- (void)setPrimaryDataResponseCached:(BOOL)cached;
+- (void)setXpSamplingForced:(BOOL)forced;
 - (void)setXpSamplingPercentageUsers:(double)users;
 - (void)setXpSessionDuration:(unint64_t)duration;
 @end
@@ -66,6 +69,20 @@
   [measurementSpecificData setObject:keyCopy forKeyedSubscript:@"launchCorrelationKey"];
 }
 
+- (void)setPrimaryDataResponseCached:(BOOL)cached
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:cached];
+  measurementSpecificData = [(MTPerfBaseMeasurement *)self measurementSpecificData];
+  [measurementSpecificData setObject:v5 forKeyedSubscript:@"isPrimaryDataResponseCached"];
+}
+
+- (void)setAppLaunch:(BOOL)launch
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:launch];
+  measurementSpecificData = [(MTPerfBaseMeasurement *)self measurementSpecificData];
+  [measurementSpecificData setObject:v5 forKeyedSubscript:@"isAppLaunch"];
+}
+
 - (void)setPreloadStatus:(id)status
 {
   statusCopy = status;
@@ -78,6 +95,13 @@
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:duration];
   measurementSpecificData = [(MTPerfBaseMeasurement *)self measurementSpecificData];
   [measurementSpecificData setObject:v5 forKeyedSubscript:@"xpSessionDuration"];
+}
+
+- (void)setXpSamplingForced:(BOOL)forced
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:forced];
+  measurementSpecificData = [(MTPerfBaseMeasurement *)self measurementSpecificData];
+  [measurementSpecificData setObject:v5 forKeyedSubscript:@"xpSamplingForced"];
 }
 
 - (void)setXpSamplingPercentageUsers:(double)users

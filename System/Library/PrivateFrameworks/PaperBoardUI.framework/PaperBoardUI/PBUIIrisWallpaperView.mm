@@ -296,7 +296,7 @@ LABEL_8:
   if (WeakRetained == changeCopy)
   {
     v6 = PBUIIrisWallpaperPlaybackStateForISPlaybackState([changeCopy playbackState]);
-    v7 = PBUILogCommon();
+    v7 = PBUILogCommon(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = PBUIIrisWallpaperPlaybackStateDescription(self->_playbackState);

@@ -13,11 +13,11 @@
 
 - (SFMediaItem)initWithProtobuf:(id)protobuf
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v62.receiver = self;
-  v62.super_class = SFMediaItem;
-  v5 = [(SFMediaItem *)&v62 init];
+  v61.receiver = self;
+  v61.super_class = SFMediaItem;
+  v5 = [(SFMediaItem *)&v61 init];
   if (v5)
   {
     title = [protobufCopy title];
@@ -97,32 +97,32 @@
       v31 = 0;
     }
 
-    v60 = 0u;
-    v61 = 0u;
-    v58 = 0u;
     v59 = 0u;
+    v60 = 0u;
+    v57 = 0u;
+    v58 = 0u;
     subtitleCustomLineBreakings2 = [protobufCopy subtitleCustomLineBreakings];
-    v33 = [subtitleCustomLineBreakings2 countByEnumeratingWithState:&v58 objects:v64 count:16];
+    v33 = [subtitleCustomLineBreakings2 countByEnumeratingWithState:&v57 objects:v63 count:16];
     if (v33)
     {
       v34 = v33;
-      v35 = *v59;
+      v35 = *v58;
       do
       {
         for (i = 0; i != v34; ++i)
         {
-          if (*v59 != v35)
+          if (*v58 != v35)
           {
             objc_enumerationMutation(subtitleCustomLineBreakings2);
           }
 
-          if (*(*(&v58 + 1) + 8 * i))
+          if (*(*(&v57 + 1) + 8 * i))
           {
             [v31 addObject:?];
           }
         }
 
-        v34 = [subtitleCustomLineBreakings2 countByEnumeratingWithState:&v58 objects:v64 count:16];
+        v34 = [subtitleCustomLineBreakings2 countByEnumeratingWithState:&v57 objects:v63 count:16];
       }
 
       while (v34);
@@ -140,33 +140,33 @@
       v38 = 0;
     }
 
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
     v55 = 0u;
+    v56 = 0u;
+    v53 = 0u;
+    v54 = 0u;
     buyOptions2 = [protobufCopy buyOptions];
-    v40 = [buyOptions2 countByEnumeratingWithState:&v54 objects:v63 count:16];
+    v40 = [buyOptions2 countByEnumeratingWithState:&v53 objects:v62 count:16];
     if (v40)
     {
       v41 = v40;
-      v42 = *v55;
+      v42 = *v54;
       do
       {
         for (j = 0; j != v41; ++j)
         {
-          if (*v55 != v42)
+          if (*v54 != v42)
           {
             objc_enumerationMutation(buyOptions2);
           }
 
-          v44 = [[SFMediaOffer alloc] initWithProtobuf:*(*(&v54 + 1) + 8 * j)];
+          v44 = [[SFMediaOffer alloc] initWithProtobuf:*(*(&v53 + 1) + 8 * j)];
           if (v44)
           {
             [v38 addObject:v44];
           }
         }
 
-        v41 = [buyOptions2 countByEnumeratingWithState:&v54 objects:v63 count:16];
+        v41 = [buyOptions2 countByEnumeratingWithState:&v53 objects:v62 count:16];
       }
 
       while (v41);
@@ -194,7 +194,6 @@
     v51 = v5;
   }
 
-  v52 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

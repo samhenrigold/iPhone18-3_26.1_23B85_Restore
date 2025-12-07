@@ -13,18 +13,16 @@
 
 - (id)attributeDescriptions
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   significantEvent = [(HMDSunriseSunsetTimePeriodElement *)self significantEvent];
   v5 = [v3 initWithName:@"Significant Event" value:significantEvent];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   offset = [(HMDSunriseSunsetTimePeriodElement *)self offset];
   v8 = [v6 initWithName:@"Offset" value:offset];
-  v12[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
 
   return v9;
 }
@@ -116,7 +114,7 @@
 
 - (HMDSunriseSunsetTimePeriodElement)initWithDictionary:(id)dictionary
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v5 = objc_opt_class();
   type = [objc_opt_class() type];
@@ -125,8 +123,8 @@
   if (v5)
   {
     v7 = [dictionaryCopy objectForKeyedSubscript:@"HMDSSTPE.ck.se"];
-    v13[0] = objc_opt_class();
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = objc_opt_class();
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
     v9 = [dictionaryCopy hmf_unarchivedObjectForKey:@"HMDSSTPE.ck.o" ofClasses:v8];
 
     self = [(HMDSunriseSunsetTimePeriodElement *)self initWithSignificantEvent:v7 offset:v9];
@@ -138,7 +136,6 @@
     selfCopy = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

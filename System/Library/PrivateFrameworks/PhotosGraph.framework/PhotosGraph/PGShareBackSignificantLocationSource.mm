@@ -30,37 +30,37 @@
 
 void __92__PGShareBackSignificantLocationSource_suggesterResultsForInputs_momentNodes_inGraph_error___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v5 = a2;
   [v5 coordinate];
-  v30 = v6;
-  v31 = v7;
+  v29 = v6;
+  v30 = v7;
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v8 = *(a1 + 32);
-  v9 = [v8 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v27;
+    v11 = *v26;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v27 != v11)
+        if (*v26 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [*(*(&v26 + 1) + 8 * i) location];
+        v13 = [*(*(&v25 + 1) + 8 * i) location];
         v14 = v13;
         if (v13)
         {
           [v13 coordinate];
-          v24 = v15;
-          v25 = v16;
+          v23 = v15;
+          v24 = v16;
           CLLocationCoordinate2DGetDistanceFrom();
           if (v17 <= 200.0)
           {
@@ -68,7 +68,7 @@ void __92__PGShareBackSignificantLocationSource_suggesterResultsForInputs_moment
             if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v33 = v5;
+              v32 = v5;
               _os_log_impl(&dword_22F0FC000, v18, OS_LOG_TYPE_INFO, "[PGShareBackSignificantLocationSource] Matched home %@", buf, 0xCu);
             }
 
@@ -85,7 +85,7 @@ void __92__PGShareBackSignificantLocationSource_suggesterResultsForInputs_moment
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v25 objects:v33 count:16];
       if (v10)
       {
         continue;
@@ -96,8 +96,6 @@ void __92__PGShareBackSignificantLocationSource_suggesterResultsForInputs_moment
   }
 
 LABEL_14:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)prepareSourceWithGraph:(id)graph

@@ -81,45 +81,43 @@
 
 - (id)dictionary
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = self->_cameraCalibrations;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v14 objects:v20 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        dictionary = [*(*(&v14 + 1) + 8 * i) dictionary];
+        dictionary = [*(*(&v13 + 1) + 8 * i) dictionary];
         [v3 addObject:dictionary];
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v14 objects:v20 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v19 count:16];
     }
 
     while (v6);
   }
 
-  v18[0] = @"ccl";
-  v18[1] = @"imui";
-  v19[0] = v3;
+  v17[0] = @"ccl";
+  v17[1] = @"imui";
+  v18[0] = v3;
   dictionary2 = [(CVAIMUCalibration *)self->_imuCalibration dictionary];
-  v19[1] = dictionary2;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v18[1] = dictionary2;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
 
   return v11;
 }

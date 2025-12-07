@@ -10,6 +10,7 @@
 - (unsigned)currentDrawableZOrder;
 - (void)addCachedStyle:(__CFString *)style;
 - (void)addStyle:(__CFString *)style className:(__CFString *)name srcStyle:(id)srcStyle;
+- (void)addedDrawableWithBounds:(CGRect)bounds;
 - (void)beginNewSheet:(const char *)sheet processorState:(id)state;
 - (void)cacheAnchorForIndexPage:(char *)page;
 - (void)dealloc;
@@ -468,6 +469,14 @@ LABEL_5:
   return result;
 }
 
+- (void)addedDrawableWithBounds:(CGRect)bounds
+{
+  y = bounds.origin.y;
+  height = bounds.size.height;
+  v5 = vaddq_f64(bounds.origin, bounds.size);
+  self->mMaxCanvasPoint = vbslq_s8(vcgtq_f64(v5, self->mMaxCanvasPoint), v5, self->mMaxCanvasPoint);
+}
+
 - (__CFString)cssZOrderClassForDrawableUid:(const char *)uid
 {
   Value = CFDictionaryGetValue(self->mDrawableUidToCssZOrderClassMap, uid);
@@ -538,15 +547,14 @@ LABEL_5:
   [(GQHXML *)self->mIndex startElement:"link"];
   [(GQHXML *)self->mIndex setAttribute:"rel" value:"stylesheet"];
   [(GQHXML *)self->mIndex setAttribute:"type" value:"text/css"];
-  mCssUri = self->mCssUri;
   [GQHXML setAttribute:"setAttribute:cfStringValue:" cfStringValue:?];
   [(GQHXML *)self->mIndex endElement];
   filename = [(GQSDocument *)self->super.mProcessorState filename];
   if (filename)
   {
-    v7 = filename;
+    v6 = filename;
     [(GQHXML *)self->mIndex startElement:"title"];
-    [(GQHXML *)self->mIndex addContent:v7];
+    [(GQHXML *)self->mIndex addContent:v6];
     [(GQHXML *)self->mIndex endElement];
   }
 
@@ -557,19 +565,19 @@ LABEL_5:
   [(GQHXML *)self->mIndex setAttribute:"type" value:"text/css"];
   [(GQHXML *)self->mIndex startElement:"style"];
   [(GQHLassoState *)self maxCanvasPoint];
-  if (v8)
+  if (v7)
   {
-    v9 = v8;
+    v8 = v7;
   }
 
   else
   {
-    v9 = 900;
+    v8 = 900;
   }
 
-  v10 = CFStringCreateWithFormat(0, 0, @"body {margin: 0;}\n.navpane-sheet {display:inline-block; padding-left:%dpx; width:%d; height:%d; font-size:20; font-family:Helvetica; color:black; text-decoration:none; line-height: 1; white-space: nowrap; overflow:hidden; text-overflow:ellipsis; background-color: RGB(210,216,226); cursor: pointer;}\n.navpane-sheet:hover {text-overflow:visible;}\n.navpane-sheet.selected {background-color:RGB(156,172,198);}\nimg {vertical-align: middle;}\n", 4, 170, 30);
-  [(GQHXML *)self->mIndex addContent:v10];
-  CFRelease(v10);
+  v9 = CFStringCreateWithFormat(0, 0, @"body {margin: 0;}\n.navpane-sheet {display:inline-block; padding-left:%dpx; width:%d; height:%d; font-size:20; font-family:Helvetica; color:black; text-decoration:none; line-height: 1; white-space: nowrap; overflow:hidden; text-overflow:ellipsis; background-color: RGB(210,216,226); cursor: pointer;}\n.navpane-sheet:hover {text-overflow:visible;}\n.navpane-sheet.selected {background-color:RGB(156,172,198);}\nimg {vertical-align: middle;}\n", 4, 170, 30);
+  [(GQHXML *)self->mIndex addContent:v9];
+  CFRelease(v9);
   [(GQHXML *)self->mIndex endElement];
   [(GQHXML *)self->mIndex endElement];
   [(GQHXML *)self->mIndex endElement];
@@ -577,18 +585,18 @@ LABEL_5:
   [(GQHXML *)self->mIndex startElement:"div"];
   [(GQHXML *)self->mIndex setAttribute:"id" cfStringValue:@"wrapper"];
   Count = CFArrayGetCount(self->mSheetFilenameList);
-  v12 = Count;
-  v13 = v9 / 170.0;
-  v14 = ceilf(v13);
-  if (v13 > v13)
+  v11 = Count;
+  v12 = v8 / 170.0;
+  v13 = ceilf(v12);
+  if (v12 > v12)
   {
-    v13 = v14;
-    v9 = (v14 * 170.0);
+    v12 = v13;
+    v8 = (v13 * 170.0);
   }
 
-  v15 = CFStringCreateWithFormat(0, 0, @"position:absolute; top:%d; left:0; right:0;", 30 * vcvtps_s32_f32(Count / v13) + 2);
-  [(GQHXML *)self->mIndex setAttribute:"style" cfStringValue:v15];
-  CFRelease(v15);
+  v14 = CFStringCreateWithFormat(0, 0, @"position:absolute; top:%d; left:0; right:0;", 30 * vcvtps_s32_f32(Count / v12) + 2);
+  [(GQHXML *)self->mIndex setAttribute:"style" cfStringValue:v14];
+  CFRelease(v14);
   [(GQHXML *)self->mIndex startElement:"iframe"];
   [(GQHXML *)self->mIndex setAttribute:"id" cfStringValue:@"SheetFrame"];
   [(GQHXML *)self->mIndex setAttribute:"src" cfStringValue:CFArrayGetValueAtIndex(self->mSheetUriList, 0)];
@@ -596,47 +604,47 @@ LABEL_5:
   [(GQHXML *)self->mIndex setAttribute:"name" value:"sheetPane"];
   [(GQHXML *)self->mIndex endElement];
   [(GQHXML *)self->mIndex endElement];
-  if (v12 >= 1)
+  if (v11 >= 1)
   {
-    v33 = v9;
+    v32 = v8;
     if (CFArrayGetCount(self->mSheetUriList) < 1)
     {
-      v17 = 0;
       v16 = 0;
+      v15 = 0;
     }
 
     else
     {
+      v15 = 0;
       v16 = 0;
-      v17 = 0;
-      v18 = 1;
+      v17 = 1;
       do
       {
         ValueAtIndex = CFArrayGetValueAtIndex(self->mSheetFilenameList, 0);
-        v20 = CFArrayGetValueAtIndex(self->mSheetUriList, 0);
+        v19 = CFArrayGetValueAtIndex(self->mSheetUriList, 0);
         [(GQHXML *)self->mIndex startElement:"div"];
-        v21 = CFStringCreateWithFormat(0, 0, @"javascript:SelectSheet(%d, '%@');", v18, v20);
-        [(GQHXML *)self->mIndex setAttribute:"onclick" cfStringValue:v21];
+        v20 = CFStringCreateWithFormat(0, 0, @"javascript:SelectSheet(%d, '%@');", v17, v19);
+        [(GQHXML *)self->mIndex setAttribute:"onclick" cfStringValue:v20];
+        CFRelease(v20);
+        v21 = CFStringCreateWithFormat(0, 0, @"Tab%d", v17);
+        [(GQHXML *)self->mIndex setAttribute:"id" cfStringValue:v21];
         CFRelease(v21);
-        v22 = CFStringCreateWithFormat(0, 0, @"Tab%d", v18);
-        [(GQHXML *)self->mIndex setAttribute:"id" cfStringValue:v22];
-        CFRelease(v22);
         [(GQHXML *)self->mIndex setAttribute:"href" value:"#"];
         [(GQHXML *)self->mIndex setAttribute:"title" cfStringValue:ValueAtIndex];
-        if (v18 == 1)
+        if (v17 == 1)
         {
-          v23 = "navpane-sheet selected";
+          v22 = "navpane-sheet selected";
         }
 
         else
         {
-          v23 = "navpane-sheet";
+          v22 = "navpane-sheet";
         }
 
-        [(GQHXML *)self->mIndex setAttribute:"class" value:v23];
-        v24 = CFStringCreateWithFormat(0, 0, @"position:absolute; overflow:hidden; top:%d; left:%d;", v17, v16);
-        [(GQHXML *)self->mIndex setAttribute:"style" cfStringValue:v24];
-        CFRelease(v24);
+        [(GQHXML *)self->mIndex setAttribute:"class" value:v22];
+        v23 = CFStringCreateWithFormat(0, 0, @"position:absolute; overflow:hidden; top:%d; left:%d;", v16, v15);
+        [(GQHXML *)self->mIndex setAttribute:"style" cfStringValue:v23];
+        CFRelease(v23);
         [(GQHXML *)self->mIndex startElement:"span"];
         [(GQHXML *)self->mIndex startElement:"img"];
         [(GQHXML *)self->mIndex setAttribute:"src" cfStringValue:[(GQSDocument *)self->super.mProcessorState uriForBundleResource:@"sl-icon_sheet" ofType:@"tiff"]];
@@ -644,57 +652,57 @@ LABEL_5:
         [(GQHXML *)self->mIndex endElement];
         [(GQHXML *)self->mIndex endElement];
         [(GQHXML *)self->mIndex startElement:"span"];
-        v25 = CFStringCreateWithFormat(0, 0, @"text-overflow: ellipsis; display: inline-block; overflow: hidden; white-space: nowrap; width: %d; padding-left: 2px;", 131);
-        [(GQHXML *)self->mIndex setAttribute:"style" cfStringValue:v25];
-        v26 = v25;
-        v9 = v33;
-        CFRelease(v26);
+        v24 = CFStringCreateWithFormat(0, 0, @"text-overflow: ellipsis; display: inline-block; overflow: hidden; white-space: nowrap; width: %d; padding-left: 2px;", 131);
+        [(GQHXML *)self->mIndex setAttribute:"style" cfStringValue:v24];
+        v25 = v24;
+        v8 = v32;
+        CFRelease(v25);
         [(GQHXML *)self->mIndex addContent:ValueAtIndex];
         [(GQHXML *)self->mIndex endElement];
         [(GQHXML *)self->mIndex endElement];
-        v27 = v16 + 170;
-        if (v16 + 170 >= v33)
+        v26 = v15 + 170;
+        if (v15 + 170 >= v32)
         {
-          v16 = 0;
+          v15 = 0;
         }
 
         else
         {
-          v16 = v27;
+          v15 = v26;
         }
 
-        if (v27 >= v33)
+        if (v26 >= v32)
         {
-          v17 = (v17 + 29);
+          v16 = (v16 + 29);
         }
 
         else
         {
-          v17 = v17;
+          v16 = v16;
         }
 
         CFArrayRemoveValueAtIndex(self->mSheetFilenameList, 0);
         CFArrayRemoveValueAtIndex(self->mSheetUriList, 0);
-        v18 = (v18 + 1);
+        v17 = (v17 + 1);
       }
 
       while (CFArrayGetCount(self->mSheetUriList) > 0);
     }
 
-    if (v16 >= 1 && v16 < v9)
+    if (v15 >= 1 && v15 < v8)
     {
       do
       {
         [(GQHXML *)self->mIndex startElement:"div"];
         [(GQHXML *)self->mIndex setAttribute:"class" value:"navpane-sheet"];
-        v28 = CFStringCreateWithFormat(0, 0, @"position:absolute; overflow:hidden;  top:%d; left:%d; width:%d; height:%d;", v17, v16, 170, 30);
-        [(GQHXML *)self->mIndex setAttribute:"style" cfStringValue:v28];
-        CFRelease(v28);
+        v27 = CFStringCreateWithFormat(0, 0, @"position:absolute; overflow:hidden;  top:%d; left:%d; width:%d; height:%d;", v16, v15, 170, 30);
+        [(GQHXML *)self->mIndex setAttribute:"style" cfStringValue:v27];
+        CFRelease(v27);
         [(GQHXML *)self->mIndex endElement];
-        v16 = (v16 + 170);
+        v15 = (v15 + 170);
       }
 
-      while (v16 < v33);
+      while (v15 < v32);
     }
   }
 

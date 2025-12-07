@@ -1,4 +1,5 @@
 @interface _IDSService
++ (_IDSService)serviceWithIdentifier:(id)identifier commands:(id)commands manuallyAckMessages:(BOOL)messages delegateContext:(id)context completion:(id)completion;
 + (id)deviceForFromID:(id)d fromDevices:(id)devices;
 - (BOOL)_canAccount:(id)account sendWithFromID:(id)d;
 - (BOOL)canSend;
@@ -36,6 +37,7 @@
 - (NSSet)accounts;
 - (NSSet)internalAccounts;
 - (NSString)serviceDomain;
+- (SEL)protobufActionForType:(unsigned __int16)type isResponse:(BOOL)response;
 - (_IDSService)initWithService:(id)service commands:(id)commands manuallyAckMessages:(BOOL)messages delegateContext:(id)context;
 - (id)_accountWithURI:(id)i orPseudonym:(id)pseudonym;
 - (id)_acknowledgementBlockWithDelegateIdentifier:(id)identifier;
@@ -50,6 +52,7 @@
 - (id)datagramChannelForSessionDestination:(id)destination options:(id)options error:(id *)error;
 - (id)datagramChannelForSocketDescriptor:(int)descriptor error:(id *)error;
 - (id)datagramConnectionForSessionDestination:(id)destination error:(id *)error;
+- (id)datagramConnectionForSessionDestination:(id)destination uid:(unsigned int)uid error:(id *)error;
 - (id)datagramConnectionForSocketDescriptor:(int)descriptor error:(id *)error;
 - (id)deviceForFromID:(id)d;
 - (id)deviceForUniqueID:(id)d;
@@ -152,7 +155,10 @@
 - (void)service:(id)service tinkerDeviceRemoved:(id)removed;
 - (void)service:(id)service tinkerDeviceUpdated:(id)updated;
 - (void)setLinkPreferences:(id)preferences;
+- (void)setNeedsLaunchOnNearbyDevicesChanged:(BOOL)changed;
+- (void)setPreferInfraWiFi:(BOOL)fi;
 - (void)setPretendingToBeFull:(BOOL)full;
+- (void)setProtobufAction:(SEL)action forProtobufType:(unsigned __int16)type isResponse:(BOOL)response;
 - (void)setWantsPseudonymUpdates:(BOOL)updates;
 - (void)signData:(id)data withAlgorithm:(int64_t)algorithm options:(id)options completion:(id)completion;
 - (void)startOTRTest:(int64_t)test;
@@ -165,7 +171,7 @@
 
 - (NSArray)devices
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   v3 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v3 assertQueueIsCurrent];
 
@@ -180,55 +186,55 @@
 
   v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v60 = 0u;
   v61 = 0u;
   v62 = 0u;
   v63 = 0u;
-  v64 = 0u;
   obj = [(_IDSService *)self accounts];
-  v44 = [obj countByEnumeratingWithState:&v61 objects:v67 count:16];
-  if (v44)
+  v43 = [obj countByEnumeratingWithState:&v60 objects:v66 count:16];
+  if (v43)
   {
-    v43 = *v62;
-    v46 = v7;
-    v47 = v6;
+    v42 = *v61;
+    v45 = v7;
+    v46 = v6;
     do
     {
       v8 = 0;
       do
       {
-        if (*v62 != v43)
+        if (*v61 != v42)
         {
           objc_enumerationMutation(obj);
         }
 
-        v45 = v8;
-        v9 = *(*(&v61 + 1) + 8 * v8);
+        v44 = v8;
+        v9 = *(*(&v60 + 1) + 8 * v8);
         _internal = [v9 _internal];
         lastGDRDate = [_internal lastGDRDate];
 
-        v59 = 0u;
-        v60 = 0u;
-        v57 = 0u;
         v58 = 0u;
+        v59 = 0u;
+        v56 = 0u;
+        v57 = 0u;
         _internal2 = [v9 _internal];
         devices = [_internal2 devices];
 
-        v49 = devices;
-        v51 = [devices countByEnumeratingWithState:&v57 objects:v66 count:16];
-        if (v51)
+        v48 = devices;
+        v50 = [devices countByEnumeratingWithState:&v56 objects:v65 count:16];
+        if (v50)
         {
-          v50 = *v58;
-          v48 = lastGDRDate;
+          v49 = *v57;
+          v47 = lastGDRDate;
           do
           {
-            for (i = 0; i != v51; ++i)
+            for (i = 0; i != v50; ++i)
             {
-              if (*v58 != v50)
+              if (*v57 != v49)
               {
-                objc_enumerationMutation(v49);
+                objc_enumerationMutation(v48);
               }
 
-              v15 = *(*(&v57 + 1) + 8 * i);
+              v15 = *(*(&v56 + 1) + 8 * i);
               _internal3 = [v15 _internal];
               uniqueIDOverride = [_internal3 uniqueIDOverride];
 
@@ -278,14 +284,14 @@
                 goto LABEL_27;
               }
 
-              v52 = v21;
+              v51 = v21;
               v26 = [lastGDRDate laterDate:v21];
               v27 = [v26 isEqualToDate:lastGDRDate];
 
               if (v27)
               {
 
-                v21 = v52;
+                v21 = v51;
 LABEL_27:
                 if ([uniqueIDOverride length])
                 {
@@ -322,65 +328,63 @@ LABEL_45:
                 goto LABEL_47;
               }
 
-              v55 = 0u;
-              v56 = 0u;
-              v53 = 0u;
               v54 = 0u;
+              v55 = 0u;
+              v52 = 0u;
+              v53 = 0u;
               _internal6 = [v15 _internal];
               identities = [_internal6 identities];
 
-              v32 = [identities countByEnumeratingWithState:&v53 objects:v65 count:16];
+              v32 = [identities countByEnumeratingWithState:&v52 objects:v64 count:16];
               if (v32)
               {
                 v33 = v32;
-                v34 = *v54;
+                v34 = *v53;
                 do
                 {
                   for (j = 0; j != v33; ++j)
                   {
-                    if (*v54 != v34)
+                    if (*v53 != v34)
                     {
                       objc_enumerationMutation(identities);
                     }
 
-                    v36 = *(*(&v53 + 1) + 8 * j);
+                    v36 = *(*(&v52 + 1) + 8 * j);
                     _internal7 = [v20 _internal];
                     [_internal7 _addIdentity:v36];
                   }
 
-                  v33 = [identities countByEnumeratingWithState:&v53 objects:v65 count:16];
+                  v33 = [identities countByEnumeratingWithState:&v52 objects:v64 count:16];
                 }
 
                 while (v33);
               }
 
-              v7 = v46;
-              v6 = v47;
-              lastGDRDate = v48;
-              v21 = v52;
+              v7 = v45;
+              v6 = v46;
+              lastGDRDate = v47;
+              v21 = v51;
 LABEL_47:
             }
 
-            v51 = [v49 countByEnumeratingWithState:&v57 objects:v66 count:16];
+            v50 = [v48 countByEnumeratingWithState:&v56 objects:v65 count:16];
           }
 
-          while (v51);
+          while (v50);
         }
 
-        v8 = v45 + 1;
+        v8 = v44 + 1;
       }
 
-      while (v45 + 1 != v44);
-      v44 = [obj countByEnumeratingWithState:&v61 objects:v67 count:16];
+      while (v44 + 1 != v43);
+      v43 = [obj countByEnumeratingWithState:&v60 objects:v66 count:16];
     }
 
-    while (v44);
+    while (v43);
   }
 
   allValues = [v6 allValues];
   v39 = [allValues copy];
-
-  v40 = *MEMORY[0x1E69E9840];
 
   return v39;
 }
@@ -409,12 +413,12 @@ LABEL_47:
 
 - (void)_enforceSandboxPolicy
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = +[IDSLogging _IDSService];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v14) = 0;
-    _os_log_impl(&dword_1959FF000, v3, OS_LOG_TYPE_DEFAULT, "Enforcing sandbox policy...", &v14, 2u);
+    LOWORD(v13) = 0;
+    _os_log_impl(&dword_1959FF000, v3, OS_LOG_TYPE_DEFAULT, "Enforcing sandbox policy...", &v13, 2u);
   }
 
   getpid();
@@ -426,13 +430,13 @@ LABEL_47:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       serviceName = [(IDSServiceProperties *)self->_serviceProperties serviceName];
-      v14 = 138412546;
-      v15 = v5;
-      v16 = 2112;
-      v17 = serviceName;
+      v13 = 138412546;
+      v14 = v5;
+      v15 = 2112;
+      v16 = serviceName;
       v8 = "%@ (initializing service %@) is sandboxed";
 LABEL_11:
-      _os_log_impl(&dword_1959FF000, v6, OS_LOG_TYPE_DEFAULT, v8, &v14, 0x16u);
+      _os_log_impl(&dword_1959FF000, v6, OS_LOG_TYPE_DEFAULT, v8, &v13, 0x16u);
 
       goto LABEL_12;
     }
@@ -456,10 +460,10 @@ LABEL_11:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       serviceName = [(IDSServiceProperties *)self->_serviceProperties serviceName];
-      v14 = 138412546;
-      v15 = v10;
-      v16 = 2112;
-      v17 = serviceName;
+      v13 = 138412546;
+      v14 = v10;
+      v15 = 2112;
+      v16 = serviceName;
       v8 = "%@ (initializing service %@) is not sandboxed but is in the sandbox allowlist.  Not enforcing sandbox policy.";
       goto LABEL_11;
     }
@@ -481,8 +485,6 @@ LABEL_12:
 
   throwsIDSAbortException();
 LABEL_17:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_logConnectionMap
@@ -519,19 +521,19 @@ LABEL_17:
 
 - (void)dealloc
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   state.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
-  v9 = _os_activity_create(&dword_1959FF000, "Framework init with service commands", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  v8 = _os_activity_create(&dword_1959FF000, "Framework init with service commands", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
-  os_activity_scope_enter(v9, &state);
+  os_activity_scope_enter(v8, &state);
   v3 = +[IDSLogging _IDSService];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     serviceName = [(IDSServiceProperties *)self->_serviceProperties serviceName];
     *buf = 134218242;
     selfCopy = self;
-    v12 = 2112;
-    v13 = serviceName;
+    v11 = 2112;
+    v12 = serviceName;
     _os_log_impl(&dword_1959FF000, v3, OS_LOG_TYPE_DEFAULT, "_IDSService - deallocing {self: %p, serviceName: %@}", buf, 0x16u);
   }
 
@@ -541,36 +543,35 @@ LABEL_17:
   os_activity_scope_leave(&state);
   cut_arc_os_release();
 
-  v7.receiver = self;
-  v7.super_class = _IDSService;
-  [(_IDSService *)&v7 dealloc];
-  v6 = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = _IDSService;
+  [(_IDSService *)&v6 dealloc];
 }
 
 - (void)daemonDisconnected
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = self->_completionBlocksByRequestID;
-  v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [(NSMutableDictionary *)self->_completionBlocksByRequestID objectForKeyedSubscript:*(*(&v11 + 1) + 8 * v7), v11];
+        v8 = [(NSMutableDictionary *)self->_completionBlocksByRequestID objectForKeyedSubscript:*(*(&v10 + 1) + 8 * v7), v10];
         second = [v8 second];
 
         if (second)
@@ -582,14 +583,13 @@ LABEL_17:
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
 
   [(NSMutableDictionary *)self->_completionBlocksByRequestID removeAllObjects];
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_loadCachedLinkedDevices
@@ -625,7 +625,7 @@ LABEL_17:
 
 - (IDSAccount)iCloudAccount
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v3 assertQueueIsCurrent];
 
@@ -641,25 +641,25 @@ LABEL_17:
   _internal = [(IDSAccountController *)self->_accountController _internal];
   accounts = [_internal accounts];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v8 = accounts;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
-    v10 = *v18;
+    v10 = *v17;
     while (2)
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
+        v12 = *(*(&v16 + 1) + 8 * i);
         _internal2 = [v12 _internal];
         accountType = [_internal2 accountType];
 
@@ -670,7 +670,7 @@ LABEL_17:
         }
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v9)
       {
         continue;
@@ -681,8 +681,6 @@ LABEL_17:
   }
 
 LABEL_15:
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -708,11 +706,11 @@ LABEL_15:
 
 - (void)daemonConnected
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   state.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
-  v9 = _os_activity_create(&dword_1959FF000, "Framework Daemon Connected", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  v8 = _os_activity_create(&dword_1959FF000, "Framework Daemon Connected", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
-  os_activity_scope_enter(v9, &state);
+  os_activity_scope_enter(v8, &state);
   v3 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v3 assertQueueIsCurrent];
 
@@ -727,12 +725,12 @@ LABEL_15:
     }
   }
 
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = sub_195AB4B54;
-  v7[3] = &unk_1E7441CD8;
-  v7[4] = self;
-  [(_IDSService *)self _callDelegatesWithBlock:v7];
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = sub_195AB4B54;
+  v6[3] = &unk_1E7441CD8;
+  v6[4] = self;
+  [(_IDSService *)self _callDelegatesWithBlock:v6];
   if (self->_subServices)
   {
     [(_IDSService *)self resendSubServicesToDaemonForCurrentDevice];
@@ -740,13 +738,11 @@ LABEL_15:
 
   os_activity_scope_leave(&state);
   cut_arc_os_release();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_callIsActiveChanged
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   v3 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v3 assertQueueIsCurrent];
 
@@ -761,31 +757,31 @@ LABEL_15:
 
   accounts = [(_IDSService *)self accounts];
   v7 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   v8 = accounts;
-  v9 = [v8 countByEnumeratingWithState:&v39 objects:v48 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v38 objects:v47 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v40;
+    v11 = *v39;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v40 != v11)
+        if (*v39 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        _internal = [*(*(&v39 + 1) + 8 * i) _internal];
+        _internal = [*(*(&v38 + 1) + 8 * i) _internal];
         uniqueID = [_internal uniqueID];
         [v7 addObject:uniqueID];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v39 objects:v48 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v38 objects:v47 count:16];
     }
 
     while (v10);
@@ -796,9 +792,9 @@ LABEL_15:
   {
     lastIsActiveSet = self->_lastIsActiveSet;
     *buf = 138412546;
-    v45 = lastIsActiveSet;
-    v46 = 2112;
-    v47 = v7;
+    v44 = lastIsActiveSet;
+    v45 = 2112;
+    v46 = v7;
     _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "activeAccountsChanged, oldSet: %@  newSet: %@", buf, 0x16u);
   }
 
@@ -806,13 +802,13 @@ LABEL_15:
   v17 = self->_lastIsActiveSet;
   if (v17 && ([(NSMutableSet *)v17 isEqual:v7]& 1) == 0)
   {
-    v36[0] = MEMORY[0x1E69E9820];
-    v36[1] = 3221225472;
-    v36[2] = sub_195AB7D50;
-    v36[3] = &unk_1E7441E18;
-    v37 = v8;
+    v35[0] = MEMORY[0x1E69E9820];
+    v35[1] = 3221225472;
+    v35[2] = sub_195AB7D50;
+    v35[3] = &unk_1E7441E18;
+    v36 = v8;
     selfCopy = self;
-    [(_IDSService *)self _callDelegatesWithBlock:v36];
+    [(_IDSService *)self _callDelegatesWithBlock:v35];
   }
 
   v19 = *p_lastIsActiveSet;
@@ -824,30 +820,30 @@ LABEL_15:
     accounts2 = [_internal2 accounts];
 
     v23 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
     v24 = accounts2;
-    v25 = [v24 countByEnumeratingWithState:&v32 objects:v43 count:16];
+    v25 = [v24 countByEnumeratingWithState:&v31 objects:v42 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v33;
+      v27 = *v32;
       do
       {
         for (j = 0; j != v26; ++j)
         {
-          if (*v33 != v27)
+          if (*v32 != v27)
           {
             objc_enumerationMutation(v24);
           }
 
-          _internal3 = [*(*(&v32 + 1) + 8 * j) _internal];
+          _internal3 = [*(*(&v31 + 1) + 8 * j) _internal];
           [v23 addObject:_internal3];
         }
 
-        v26 = [v24 countByEnumeratingWithState:&v32 objects:v43 count:16];
+        v26 = [v24 countByEnumeratingWithState:&v31 objects:v42 count:16];
       }
 
       while (v26);
@@ -868,8 +864,6 @@ LABEL_15:
       [(_IDSService *)self _callDelegatesForDevicesChanged];
     }
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_callDelegatesForDevicesChanged
@@ -918,19 +912,73 @@ LABEL_15:
   return [(_IDSService *)&v3 init];
 }
 
++ (_IDSService)serviceWithIdentifier:(id)identifier commands:(id)commands manuallyAckMessages:(BOOL)messages delegateContext:(id)context completion:(id)completion
+{
+  messagesCopy = messages;
+  v26 = *MEMORY[0x1E69E9840];
+  identifierCopy = identifier;
+  commandsCopy = commands;
+  contextCopy = context;
+  completionCopy = completion;
+  if (completionCopy)
+  {
+    if (_IDSRunningInDaemon())
+    {
+      v16 = +[IDSLogging _IDSService];
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      {
+        sub_195B3816C(self, v16);
+      }
+
+      (*(completionCopy + 2))(completionCopy, 0, 0);
+    }
+
+    else
+    {
+      v17 = +[IDSInternalQueueController sharedInstance];
+      assertQueueIsCurrent = [v17 assertQueueIsCurrent];
+
+      if (assertQueueIsCurrent)
+      {
+        utilities = [MEMORY[0x1E69A5270] utilities];
+        if (os_log_type_enabled(utilities, OS_LOG_TYPE_ERROR))
+        {
+          sub_195B380CC();
+        }
+      }
+
+      v20 = [[_IDSService alloc] initWithService:identifierCopy commands:commandsCopy manuallyAckMessages:messagesCopy delegateContext:contextCopy];
+      v21 = +[IDSDaemonController sharedInstance];
+      [v21 blockUntilConnected];
+
+      v22 = +[IDSLogging _IDSService];
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      {
+        v24 = 134217984;
+        v25 = v20;
+        _os_log_impl(&dword_1959FF000, v22, OS_LOG_TYPE_DEFAULT, "_IDSService - serviceWithIdentifier finished {serviceObject: %p}", &v24, 0xCu);
+      }
+
+      (*(completionCopy + 2))(completionCopy, v20, 0);
+    }
+  }
+
+  return result;
+}
+
 - (_IDSService)initWithService:(id)service commands:(id)commands manuallyAckMessages:(BOOL)messages delegateContext:(id)context
 {
   messagesCopy = messages;
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
   commandsCopy = commands;
   contextCopy = context;
   if (!_IDSRunningInDaemon())
   {
     state.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
-    v48 = _os_activity_create(&dword_1959FF000, "Framework init with service, commands", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+    v47 = _os_activity_create(&dword_1959FF000, "Framework init with service, commands", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
     state.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
-    os_activity_scope_enter(v48, &state);
+    os_activity_scope_enter(v47, &state);
     v15 = +[IDSInternalQueueController sharedInstance];
     assertQueueIsCurrent = [v15 assertQueueIsCurrent];
 
@@ -945,9 +993,9 @@ LABEL_15:
       }
     }
 
-    v46.receiver = self;
-    v46.super_class = _IDSService;
-    self = [(_IDSService *)&v46 init];
+    v45.receiver = self;
+    v45.super_class = _IDSService;
+    self = [(_IDSService *)&v45 init];
     if (!self)
     {
       goto LABEL_22;
@@ -964,12 +1012,12 @@ LABEL_15:
         v19 = @"YES";
       }
 
-      v51 = 2112;
-      v52 = serviceCopy;
-      v53 = 2112;
-      v54 = commandsCopy;
-      v55 = 2112;
-      v56 = v19;
+      v50 = 2112;
+      v51 = serviceCopy;
+      v52 = 2112;
+      v53 = commandsCopy;
+      v54 = 2112;
+      v55 = v19;
       _os_log_impl(&dword_1959FF000, v18, OS_LOG_TYPE_DEFAULT, "_IDSService - initing {self: %p, service: %@, commands: %@, manualAck: %@}", buf, 0x2Au);
     }
 
@@ -992,9 +1040,9 @@ LABEL_15:
     mEMORY[0x1E69A60F0] = [MEMORY[0x1E69A60F0] sharedInstance];
     if ([mEMORY[0x1E69A60F0] isInternalInstall] && (_os_feature_enabled_impl() & 1) == 0)
     {
-      v45 = [serviceCopy containsString:@"com.apple.private.alloy.accessibility.local"];
+      v44 = [serviceCopy containsString:@"com.apple.private.alloy.accessibility.local"];
 
-      if ((v45 & 1) == 0)
+      if ((v44 & 1) == 0)
       {
         getpid();
         self->_clientIsSandboxed = sandbox_check() != 0;
@@ -1064,13 +1112,12 @@ LABEL_26:
   v13 = +[IDSLogging _IDSService];
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
-    sub_195B382BC();
+    sub_195B382BC(self, v13);
   }
 
   selfCopy2 = 0;
 LABEL_27:
 
-  v43 = *MEMORY[0x1E69E9840];
   return selfCopy2;
 }
 
@@ -1124,7 +1171,7 @@ LABEL_27:
 
 - (void)removeDelegate:(id)delegate
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
   if (delegateCopy)
   {
@@ -1145,28 +1192,26 @@ LABEL_27:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       serviceName = [(IDSServiceProperties *)self->_serviceProperties serviceName];
-      v10 = 134218498;
+      v9 = 134218498;
       selfCopy = self;
-      v12 = 2112;
-      v13 = serviceName;
-      v14 = 2048;
-      v15 = delegateCopy;
-      _os_log_impl(&dword_1959FF000, v7, OS_LOG_TYPE_DEFAULT, "_IDSService - removed delegate {self: %p, serviceName %@, delegate: %p}", &v10, 0x20u);
+      v11 = 2112;
+      v12 = serviceName;
+      v13 = 2048;
+      v14 = delegateCopy;
+      _os_log_impl(&dword_1959FF000, v7, OS_LOG_TYPE_DEFAULT, "_IDSService - removed delegate {self: %p, serviceName %@, delegate: %p}", &v9, 0x20u);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_callDelegatesRespondingToSelector:(SEL)selector withPreCallbacksBlock:(id)block callbackBlock:(id)callbackBlock postCallbacksBlock:(id)callbacksBlock group:(id)group
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   callbackBlockCopy = callbackBlock;
   callbacksBlockCopy = callbacksBlock;
   groupCopy = group;
   groupCopy6 = groupCopy;
-  v51 = callbackBlockCopy;
+  v50 = callbackBlockCopy;
   if (callbackBlockCopy)
   {
     group = groupCopy;
@@ -1185,26 +1230,26 @@ LABEL_27:
     v18 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v19 = objc_alloc_init(MEMORY[0x1E695DF70]);
     context = objc_autoreleasePoolPush();
+    v61 = 0u;
     v62 = 0u;
     v63 = 0u;
     v64 = 0u;
-    v65 = 0u;
     v20 = self->_delegateToInfo;
-    v21 = [(NSMapTable *)v20 countByEnumeratingWithState:&v62 objects:v66 count:16];
+    v21 = [(NSMapTable *)v20 countByEnumeratingWithState:&v61 objects:v65 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v63;
+      v23 = *v62;
       do
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v63 != v23)
+          if (*v62 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          v25 = *(*(&v62 + 1) + 8 * i);
+          v25 = *(*(&v61 + 1) + 8 * i);
           v26 = [(NSMapTable *)self->_delegateToInfo objectForKey:v25];
           v27 = v26;
           if (v25)
@@ -1224,7 +1269,7 @@ LABEL_27:
           }
         }
 
-        v22 = [(NSMapTable *)v20 countByEnumeratingWithState:&v62 objects:v66 count:16];
+        v22 = [(NSMapTable *)v20 countByEnumeratingWithState:&v61 objects:v65 count:16];
       }
 
       while (v22);
@@ -1263,7 +1308,7 @@ LABEL_27:
               blockCopy[2](blockCopy, 1);
             }
 
-            (v51)[2](v51, v31);
+            (v50)[2](v50, v31);
             if (callbacksBlockCopy && !v33)
             {
               callbacksBlockCopy[2](callbacksBlockCopy, 1);
@@ -1272,7 +1317,7 @@ LABEL_27:
 
           else
           {
-            (v51)[2](v51, v31);
+            (v50)[2](v50, v31);
             groupCopy6 = group;
           }
 
@@ -1286,19 +1331,19 @@ LABEL_27:
 
         else if (queue)
         {
-          v53[0] = MEMORY[0x1E69E9820];
-          v53[1] = 3221225472;
-          v53[2] = sub_195AB4A98;
-          v53[3] = &unk_1E7440E10;
+          v52[0] = MEMORY[0x1E69E9820];
+          v52[1] = 3221225472;
+          v52[2] = sub_195AB4A98;
+          v52[3] = &unk_1E7440E10;
           selectorCopy = selector;
-          v60 = v29 & 1;
-          v56 = blockCopy;
-          v57 = v51;
-          v54 = v31;
-          v61 = v33 == 0;
-          v58 = callbacksBlockCopy;
-          v55 = v32;
-          v37 = MEMORY[0x19A8BBEF0](v53);
+          v59 = v29 & 1;
+          v55 = blockCopy;
+          v56 = v50;
+          v53 = v31;
+          v60 = v33 == 0;
+          v57 = callbacksBlockCopy;
+          v54 = v32;
+          v37 = MEMORY[0x19A8BBEF0](v52);
           v38 = v37;
           if (queue == MEMORY[0x1E69E96A0])
           {
@@ -1352,13 +1397,11 @@ LABEL_42:
     v45 = objc_opt_self();
     v46 = objc_opt_self();
   }
-
-  v47 = *MEMORY[0x1E69E9840];
 }
 
 - (void)OTRTestCallback:(id)callback time:(double)time error:(id)error
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   callbackCopy = callback;
   errorCopy = error;
   v10 = +[IDSInternalQueueController sharedInstance];
@@ -1378,34 +1421,32 @@ LABEL_42:
   {
     *buf = 138413058;
     selfCopy = self;
-    v23 = 2112;
-    v24 = callbackCopy;
-    v25 = 2048;
+    v22 = 2112;
+    v23 = callbackCopy;
+    v24 = 2048;
     timeCopy = time;
-    v27 = 1024;
-    v28 = errorCopy == 0;
+    v26 = 1024;
+    v27 = errorCopy == 0;
     _os_log_impl(&dword_1959FF000, v13, OS_LOG_TYPE_DEFAULT, "%@: OTRTestCallback: token is %@, setupTime is %.6f, error==nil is %d", buf, 0x26u);
   }
 
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = sub_195AB4DAC;
-  v17[3] = &unk_1E7441D00;
-  v17[4] = self;
-  v18 = callbackCopy;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = sub_195AB4DAC;
+  v16[3] = &unk_1E7441D00;
+  v16[4] = self;
+  v17 = callbackCopy;
   timeCopy2 = time;
-  v19 = errorCopy;
+  v18 = errorCopy;
   v14 = errorCopy;
   v15 = callbackCopy;
-  [(_IDSService *)self _callDelegatesWithBlock:v17];
-
-  v16 = *MEMORY[0x1E69E9840];
+  [(_IDSService *)self _callDelegatesWithBlock:v16];
 }
 
 - (void)connection:(id)connection didCancelMessageWithSuccess:(BOOL)success error:(id)error identifier:(id)identifier
 {
   successCopy = success;
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   identifierCopy = identifier;
   v11 = +[IDSInternalQueueController sharedInstance];
@@ -1431,33 +1472,31 @@ LABEL_42:
       v15 = @"YES";
     }
 
-    v25 = 2112;
-    v26 = v15;
-    v27 = 2112;
-    v28 = errorCopy;
-    v29 = 2112;
-    v30 = identifierCopy;
+    v24 = 2112;
+    v25 = v15;
+    v26 = 2112;
+    v27 = errorCopy;
+    v28 = 2112;
+    v29 = identifierCopy;
     _os_log_impl(&dword_1959FF000, v14, OS_LOG_TYPE_DEFAULT, "%@: didCancelMessageWithSuccess: %@ error: %@ identifier %@", buf, 0x2Au);
   }
 
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = sub_195AB500C;
-  v19[3] = &unk_1E7441D28;
-  v22 = successCopy;
-  v19[4] = self;
-  v20 = errorCopy;
-  v21 = identifierCopy;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = sub_195AB500C;
+  v18[3] = &unk_1E7441D28;
+  v21 = successCopy;
+  v18[4] = self;
+  v19 = errorCopy;
+  v20 = identifierCopy;
   v16 = identifierCopy;
   v17 = errorCopy;
-  [(_IDSService *)self _callDelegatesWithBlock:v19];
-
-  v18 = *MEMORY[0x1E69E9840];
+  [(_IDSService *)self _callDelegatesWithBlock:v18];
 }
 
 - (void)didSwitchActivePairedDevice:(id)device forService:(id)service wasHandled:(BOOL *)handled
 {
-  v117 = *MEMORY[0x1E69E9840];
+  v116 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   serviceCopy = service;
   v8 = +[IDSInternalQueueController sharedInstance];
@@ -1483,7 +1522,7 @@ LABEL_42:
     *&buf[12] = 2112;
     *&buf[14] = serviceCopy;
     *&buf[22] = 2112;
-    v114 = deviceCopy;
+    v113 = deviceCopy;
     _os_log_impl(&dword_1959FF000, aCKTracker, OS_LOG_TYPE_DEFAULT, "%@ Switched active paired device for service name %@. deviceUniqueID: %@", buf, 0x20u);
   }
 
@@ -1496,141 +1535,141 @@ LABEL_42:
 
     [(IDSQuickSwitchAcknowledgementTracker *)self->_acknowledgementTracker stopAwaitingAcknowledgementFromAllServiceDelegates];
     object = [self->_delegateContext object];
-    v111[0] = 0;
-    v111[1] = v111;
-    v111[2] = 0x2020000000;
-    v112 = 0;
+    v110[0] = 0;
+    v110[1] = v110;
+    v110[2] = 0x2020000000;
+    v111 = 0;
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v114 = sub_195A007B4;
-    v115 = sub_195A03D80;
-    v116 = objc_alloc_init(MEMORY[0x1E696AD10]);
-    v104[0] = MEMORY[0x1E69E9820];
-    v104[1] = 3221225472;
-    v104[2] = sub_195AB5A84;
-    v104[3] = &unk_1E7441D50;
-    v109 = buf;
-    v110 = v111;
+    v113 = sub_195A007B4;
+    v114 = sub_195A03D80;
+    v115 = objc_alloc_init(MEMORY[0x1E696AD10]);
+    v103[0] = MEMORY[0x1E69E9820];
+    v103[1] = 3221225472;
+    v103[2] = sub_195AB5A84;
+    v103[3] = &unk_1E7441D50;
+    v108 = buf;
+    v109 = v110;
     v14 = serviceName;
-    v105 = v14;
+    v104 = v14;
     v15 = object;
-    v106 = v15;
+    v105 = v15;
     selfCopy = self;
-    v108 = serviceCopy;
-    v16 = MEMORY[0x19A8BBEF0](v104);
+    v107 = serviceCopy;
+    v16 = MEMORY[0x19A8BBEF0](v103);
     v17 = dispatch_group_create();
     dispatch_group_enter(v17);
-    v102[0] = 0;
-    v102[1] = v102;
-    v102[2] = 0x2020000000;
-    v103 = 0;
-    v100[0] = 0;
-    v100[1] = v100;
-    v100[2] = 0x3032000000;
-    v100[3] = sub_195A007B4;
-    v100[4] = sub_195A03D80;
-    v101 = 0;
-    v93[0] = MEMORY[0x1E69E9820];
-    v93[1] = 3221225472;
-    v93[2] = sub_195AB5C94;
-    v93[3] = &unk_1E7441D78;
+    v101[0] = 0;
+    v101[1] = v101;
+    v101[2] = 0x2020000000;
+    v102 = 0;
+    v99[0] = 0;
+    v99[1] = v99;
+    v99[2] = 0x3032000000;
+    v99[3] = sub_195A007B4;
+    v99[4] = sub_195A03D80;
+    v100 = 0;
+    v92[0] = MEMORY[0x1E69E9820];
+    v92[1] = 3221225472;
+    v92[2] = sub_195AB5C94;
+    v92[3] = &unk_1E7441D78;
     v18 = v14;
-    v94 = v18;
+    v93 = v18;
     v19 = v16;
-    v97 = v19;
+    v96 = v19;
     v20 = deviceCopy;
-    v98 = v102;
-    v99 = v100;
-    v95 = v20;
+    v97 = v101;
+    v98 = v99;
+    v94 = v20;
     selfCopy2 = self;
-    v44 = MEMORY[0x19A8BBEF0](v93);
+    v43 = MEMORY[0x19A8BBEF0](v92);
     v21 = [MEMORY[0x1E6995700] weakRefWithObject:self];
-    v88[0] = MEMORY[0x1E69E9820];
-    v88[1] = 3221225472;
-    v88[2] = sub_195AB5E68;
-    v88[3] = &unk_1E7441DA0;
-    v88[4] = self;
-    v43 = v21;
-    v89 = v43;
+    v87[0] = MEMORY[0x1E69E9820];
+    v87[1] = 3221225472;
+    v87[2] = sub_195AB5E68;
+    v87[3] = &unk_1E7441DA0;
+    v87[4] = self;
+    v42 = v21;
+    v88 = v42;
     v22 = v18;
-    v90 = v22;
-    v92 = v100;
+    v89 = v22;
+    v91 = v99;
     v23 = v15;
-    v91 = v23;
-    v45 = MEMORY[0x19A8BBEF0](v88);
-    [(_IDSService *)self _callDelegatesRespondingToSelector:sel_service_didSwitchActivePairedDevice_acknowledgementBlock_ withPreCallbacksBlock:v44 callbackBlock:v45 postCallbacksBlock:0 group:v17];
-    v86[0] = 0;
-    v86[1] = v86;
-    v86[2] = 0x2020000000;
-    v87 = 0;
-    v84[0] = 0;
-    v84[1] = v84;
-    v84[2] = 0x3032000000;
-    v84[3] = sub_195A007B4;
-    v84[4] = sub_195A03D80;
-    v85 = 0;
-    v77[0] = MEMORY[0x1E69E9820];
-    v77[1] = 3221225472;
-    v77[2] = sub_195AB5FBC;
-    v77[3] = &unk_1E7441D78;
+    v90 = v23;
+    v44 = MEMORY[0x19A8BBEF0](v87);
+    [(_IDSService *)self _callDelegatesRespondingToSelector:sel_service_didSwitchActivePairedDevice_acknowledgementBlock_ withPreCallbacksBlock:v43 callbackBlock:v44 postCallbacksBlock:0 group:v17];
+    v85[0] = 0;
+    v85[1] = v85;
+    v85[2] = 0x2020000000;
+    v86 = 0;
+    v83[0] = 0;
+    v83[1] = v83;
+    v83[2] = 0x3032000000;
+    v83[3] = sub_195A007B4;
+    v83[4] = sub_195A03D80;
+    v84 = 0;
+    v76[0] = MEMORY[0x1E69E9820];
+    v76[1] = 3221225472;
+    v76[2] = sub_195AB5FBC;
+    v76[3] = &unk_1E7441D78;
     v24 = v22;
-    v78 = v24;
+    v77 = v24;
     v25 = v19;
-    v81 = v25;
+    v80 = v25;
     v26 = v20;
-    v79 = v26;
-    v82 = v86;
-    v83 = v84;
+    v78 = v26;
+    v81 = v85;
+    v82 = v83;
     v27 = v23;
-    v80 = v27;
-    v46 = MEMORY[0x19A8BBEF0](v77);
-    v73[0] = MEMORY[0x1E69E9820];
-    v73[1] = 3221225472;
-    v73[2] = sub_195AB60C0;
-    v73[3] = &unk_1E7441DC8;
+    v79 = v27;
+    v45 = MEMORY[0x19A8BBEF0](v76);
+    v72[0] = MEMORY[0x1E69E9820];
+    v72[1] = 3221225472;
+    v72[2] = sub_195AB60C0;
+    v72[3] = &unk_1E7441DC8;
     v28 = v24;
-    v74 = v28;
-    v76 = v84;
+    v73 = v28;
+    v75 = v83;
     v29 = v27;
-    v75 = v29;
-    v47 = MEMORY[0x19A8BBEF0](v73);
-    [(_IDSService *)self _callDelegatesRespondingToSelector:sel_service_devicesChanged_ withPreCallbacksBlock:v46 callbackBlock:v47 postCallbacksBlock:0 group:v17];
-    v71[0] = 0;
-    v71[1] = v71;
-    v71[2] = 0x2020000000;
-    v72 = 0;
-    v69[0] = 0;
-    v69[1] = v69;
-    v69[2] = 0x3032000000;
-    v69[3] = sub_195A007B4;
-    v69[4] = sub_195A03D80;
-    v70 = 0;
-    v62[0] = MEMORY[0x1E69E9820];
-    v62[1] = 3221225472;
-    v62[2] = sub_195AB61BC;
-    v62[3] = &unk_1E7441D78;
+    v74 = v29;
+    v46 = MEMORY[0x19A8BBEF0](v72);
+    [(_IDSService *)self _callDelegatesRespondingToSelector:sel_service_devicesChanged_ withPreCallbacksBlock:v45 callbackBlock:v46 postCallbacksBlock:0 group:v17];
+    v70[0] = 0;
+    v70[1] = v70;
+    v70[2] = 0x2020000000;
+    v71 = 0;
+    v68[0] = 0;
+    v68[1] = v68;
+    v68[2] = 0x3032000000;
+    v68[3] = sub_195A007B4;
+    v68[4] = sub_195A03D80;
+    v69 = 0;
+    v61[0] = MEMORY[0x1E69E9820];
+    v61[1] = 3221225472;
+    v61[2] = sub_195AB61BC;
+    v61[3] = &unk_1E7441D78;
     v30 = v28;
-    v63 = v30;
+    v62 = v30;
     v31 = v25;
-    v66 = v31;
+    v65 = v31;
     v32 = v26;
-    v64 = v32;
-    v67 = v71;
-    v68 = v69;
+    v63 = v32;
+    v66 = v70;
+    v67 = v68;
     v33 = v29;
-    v65 = v33;
-    v34 = MEMORY[0x19A8BBEF0](v62);
-    v58[0] = MEMORY[0x1E69E9820];
-    v58[1] = 3221225472;
-    v58[2] = sub_195AB62C4;
-    v58[3] = &unk_1E7441DC8;
+    v64 = v33;
+    v34 = MEMORY[0x19A8BBEF0](v61);
+    v57[0] = MEMORY[0x1E69E9820];
+    v57[1] = 3221225472;
+    v57[2] = sub_195AB62C4;
+    v57[3] = &unk_1E7441DC8;
     v35 = v30;
-    v59 = v35;
-    v61 = v69;
+    v58 = v35;
+    v60 = v68;
     v36 = v33;
-    v60 = v36;
-    v37 = MEMORY[0x19A8BBEF0](v58);
+    v59 = v36;
+    v37 = MEMORY[0x19A8BBEF0](v57);
     [(_IDSService *)self _callDelegatesRespondingToSelector:sel_service_linkedDevicesChanged_ withPreCallbacksBlock:v34 callbackBlock:v37 postCallbacksBlock:0 group:v17];
     v38 = +[IDSInternalQueueController sharedInstance];
     queue = [v38 queue];
@@ -1638,28 +1677,28 @@ LABEL_42:
     block[1] = 3221225472;
     block[2] = sub_195AB63C0;
     block[3] = &unk_1E7441DF0;
-    v52 = v35;
-    v54 = v31;
-    v53 = v32;
-    v55 = v100;
-    v56 = v84;
-    v57 = buf;
+    v51 = v35;
+    v53 = v31;
+    v52 = v32;
+    v54 = v99;
+    v55 = v83;
+    v56 = buf;
     v40 = v31;
     dispatch_group_notify(v17, queue, block);
 
     dispatch_group_leave(v17);
-    _Block_object_dispose(v69, 8);
+    _Block_object_dispose(v68, 8);
 
-    _Block_object_dispose(v71, 8);
-    _Block_object_dispose(v84, 8);
+    _Block_object_dispose(v70, 8);
+    _Block_object_dispose(v83, 8);
 
-    _Block_object_dispose(v86, 8);
-    _Block_object_dispose(v100, 8);
+    _Block_object_dispose(v85, 8);
+    _Block_object_dispose(v99, 8);
 
-    _Block_object_dispose(v102, 8);
+    _Block_object_dispose(v101, 8);
     _Block_object_dispose(buf, 8);
 
-    _Block_object_dispose(v111, 8);
+    _Block_object_dispose(v110, 8);
   }
 
   else
@@ -1679,13 +1718,11 @@ LABEL_42:
       *handled = 0;
     }
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_activeDeviceForUniqueID:(id)d
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v5 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v5 assertQueueIsCurrent];
@@ -1702,25 +1739,25 @@ LABEL_42:
   if (dCopy)
   {
     [(_IDSService *)self linkedDevicesWithRelationship:3];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
-    v8 = v23 = 0u;
-    v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v8 = v22 = 0u;
+    v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v21;
+      v11 = *v20;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v21 != v11)
+          if (*v20 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v20 + 1) + 8 * i);
+          v13 = *(*(&v19 + 1) + 8 * i);
           uniqueID = [v13 uniqueID];
           if ([uniqueID isEqualToIgnoringCase:dCopy])
           {
@@ -1739,7 +1776,7 @@ LABEL_19:
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
         v17 = 0;
         if (v10)
         {
@@ -1762,8 +1799,6 @@ LABEL_20:
   {
     v17 = 0;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -1813,7 +1848,7 @@ LABEL_20:
 
 - (void)service:(id)service tinkerDeviceAdded:(id)added
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
   accounts = [(_IDSService *)self accounts];
   anyObject = [accounts anyObject];
@@ -1826,11 +1861,11 @@ LABEL_20:
     if (os_log_type_enabled(accountEnabled, OS_LOG_TYPE_DEFAULT))
     {
       v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[NSMutableArray count](self->_linkedDevices, "count")}];
-      v17 = 138412546;
-      v18 = serviceCopy;
-      v19 = 2112;
-      v20 = v11;
-      _os_log_impl(&dword_1959FF000, accountEnabled, OS_LOG_TYPE_DEFAULT, "Service received %@ tinkerDeviceAdded (linkedDevices count: %@)", &v17, 0x16u);
+      v16 = 138412546;
+      v17 = serviceCopy;
+      v18 = 2112;
+      v19 = v11;
+      _os_log_impl(&dword_1959FF000, accountEnabled, OS_LOG_TYPE_DEFAULT, "Service received %@ tinkerDeviceAdded (linkedDevices count: %@)", &v16, 0x16u);
     }
 
     daemonListener = [(_IDSService *)self daemonListener];
@@ -1842,18 +1877,16 @@ LABEL_20:
     if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
     {
       v15 = [(NSMutableArray *)self->_linkedDevices __imArrayByApplyingBlock:&unk_1F09E6A80];
-      v17 = 138412290;
-      v18 = v15;
-      _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "Linked devices updated %@", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = v15;
+      _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "Linked devices updated %@", &v16, 0xCu);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)service:(id)service tinkerDeviceRemoved:(id)removed
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
   accounts = [(_IDSService *)self accounts];
   anyObject = [accounts anyObject];
@@ -1866,11 +1899,11 @@ LABEL_20:
     if (os_log_type_enabled(accountEnabled, OS_LOG_TYPE_DEFAULT))
     {
       v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[NSMutableArray count](self->_linkedDevices, "count")}];
-      v17 = 138412546;
-      v18 = serviceCopy;
-      v19 = 2112;
-      v20 = v11;
-      _os_log_impl(&dword_1959FF000, accountEnabled, OS_LOG_TYPE_DEFAULT, "Service received %@ tinkerDeviceRemoved (linkedDevices count: %@)", &v17, 0x16u);
+      v16 = 138412546;
+      v17 = serviceCopy;
+      v18 = 2112;
+      v19 = v11;
+      _os_log_impl(&dword_1959FF000, accountEnabled, OS_LOG_TYPE_DEFAULT, "Service received %@ tinkerDeviceRemoved (linkedDevices count: %@)", &v16, 0x16u);
     }
 
     daemonListener = [(_IDSService *)self daemonListener];
@@ -1882,18 +1915,16 @@ LABEL_20:
     if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
     {
       v15 = [(NSMutableArray *)self->_linkedDevices __imArrayByApplyingBlock:&unk_1F09E6AA0];
-      v17 = 138412290;
-      v18 = v15;
-      _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "Linked devices updated %@", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = v15;
+      _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "Linked devices updated %@", &v16, 0xCu);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)service:(id)service tinkerDeviceUpdated:(id)updated
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
   accounts = [(_IDSService *)self accounts];
   anyObject = [accounts anyObject];
@@ -1906,11 +1937,11 @@ LABEL_20:
     if (os_log_type_enabled(accountEnabled, OS_LOG_TYPE_DEFAULT))
     {
       v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[NSMutableArray count](self->_linkedDevices, "count")}];
-      v17 = 138412546;
-      v18 = serviceCopy;
-      v19 = 2112;
-      v20 = v11;
-      _os_log_impl(&dword_1959FF000, accountEnabled, OS_LOG_TYPE_DEFAULT, "Service received %@ tinkerDeviceUpdated (linkedDevices count: %@)", &v17, 0x16u);
+      v16 = 138412546;
+      v17 = serviceCopy;
+      v18 = 2112;
+      v19 = v11;
+      _os_log_impl(&dword_1959FF000, accountEnabled, OS_LOG_TYPE_DEFAULT, "Service received %@ tinkerDeviceUpdated (linkedDevices count: %@)", &v16, 0x16u);
     }
 
     daemonListener = [(_IDSService *)self daemonListener];
@@ -1922,18 +1953,16 @@ LABEL_20:
     if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
     {
       v15 = [(NSMutableArray *)self->_linkedDevices __imArrayByApplyingBlock:&unk_1F09E6AC0];
-      v17 = 138412290;
-      v18 = v15;
-      _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "Linked devices updated %@", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = v15;
+      _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "Linked devices updated %@", &v16, 0xCu);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)service:(id)service linkedDevicesUpdated:(id)updated
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
   accounts = [(_IDSService *)self accounts];
   anyObject = [accounts anyObject];
@@ -1946,11 +1975,11 @@ LABEL_20:
     if (os_log_type_enabled(accountEnabled, OS_LOG_TYPE_DEFAULT))
     {
       v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[NSMutableArray count](self->_linkedDevices, "count")}];
-      v17 = 138412546;
-      v18 = serviceCopy;
-      v19 = 2112;
-      v20 = v11;
-      _os_log_impl(&dword_1959FF000, accountEnabled, OS_LOG_TYPE_DEFAULT, "Service received %@ linkedDevicesUpdated (linkedDevices count: %@)", &v17, 0x16u);
+      v16 = 138412546;
+      v17 = serviceCopy;
+      v18 = 2112;
+      v19 = v11;
+      _os_log_impl(&dword_1959FF000, accountEnabled, OS_LOG_TYPE_DEFAULT, "Service received %@ linkedDevicesUpdated (linkedDevices count: %@)", &v16, 0x16u);
     }
 
     daemonListener = [(_IDSService *)self daemonListener];
@@ -1962,13 +1991,11 @@ LABEL_20:
     if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
     {
       v15 = [(NSMutableArray *)self->_linkedDevices __imArrayByApplyingBlock:&unk_1F09E6AE0];
-      v17 = 138412290;
-      v18 = v15;
-      _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "Linked devices updated %@", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = v15;
+      _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "Linked devices updated %@", &v16, 0xCu);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)service:(id)service restrictionReasonChanged:(unint64_t)changed
@@ -1992,7 +2019,7 @@ LABEL_20:
 
 - (void)_setupNewConnectionForAccount:(id)account
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   mEMORY[0x1E69A60F0] = [MEMORY[0x1E69A60F0] sharedInstance];
   isNonUIInstall = [mEMORY[0x1E69A60F0] isNonUIInstall];
@@ -2023,9 +2050,9 @@ LABEL_20:
         if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
         {
           _internal2 = [v12 _internal];
-          v26 = 138412290;
-          v27 = _internal2;
-          _os_log_impl(&dword_1959FF000, v13, OS_LOG_TYPE_INFO, "We have an existing connection for this unique ID: %@", &v26, 0xCu);
+          v25 = 138412290;
+          v26 = _internal2;
+          _os_log_impl(&dword_1959FF000, v13, OS_LOG_TYPE_INFO, "We have an existing connection for this unique ID: %@", &v25, 0xCu);
         }
       }
 
@@ -2046,9 +2073,9 @@ LABEL_20:
         v18 = +[IDSLogging _IDSService];
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
-          v26 = 138412290;
-          v27 = uniqueID;
-          _os_log_impl(&dword_1959FF000, v18, OS_LOG_TYPE_DEFAULT, "Setting up new connection for %@", &v26, 0xCu);
+          v25 = 138412290;
+          v26 = uniqueID;
+          _os_log_impl(&dword_1959FF000, v18, OS_LOG_TYPE_DEFAULT, "Setting up new connection for %@", &v25, 0xCu);
         }
 
         [(_IDSService *)self _logConnectionMap];
@@ -2058,9 +2085,9 @@ LABEL_20:
           if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
           {
             listenerCaps = self->_listenerCaps;
-            v26 = 67109120;
-            LODWORD(v27) = listenerCaps;
-            _os_log_impl(&dword_1959FF000, v19, OS_LOG_TYPE_INFO, "Setting up new connection with caps %d", &v26, 8u);
+            v25 = 67109120;
+            LODWORD(v26) = listenerCaps;
+            _os_log_impl(&dword_1959FF000, v19, OS_LOG_TYPE_INFO, "Setting up new connection with caps %d", &v25, 8u);
           }
 
           _internal3 = [v13 _internal];
@@ -2076,13 +2103,11 @@ LABEL_20:
       }
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_tearDownConnectionForUniqueID:(id)d
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v5 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v5 assertQueueIsCurrent];
@@ -2112,20 +2137,18 @@ LABEL_20:
     v11 = +[IDSLogging _IDSService];
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412290;
-      v14 = dCopy;
-      _os_log_impl(&dword_1959FF000, v11, OS_LOG_TYPE_DEFAULT, "Tearing down connection for %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = dCopy;
+      _os_log_impl(&dword_1959FF000, v11, OS_LOG_TYPE_DEFAULT, "Tearing down connection for %@", &v12, 0xCu);
     }
 
     [(_IDSService *)self _logConnectionMap];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_processAccountSet:(id)set
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   setCopy = set;
   mEMORY[0x1E69A60F0] = [MEMORY[0x1E69A60F0] sharedInstance];
   isNonUIInstall = [mEMORY[0x1E69A60F0] isNonUIInstall];
@@ -2163,33 +2186,33 @@ LABEL_20:
       }
     }
 
-    v45 = setCopy;
+    v44 = setCopy;
     v16 = MEMORY[0x1E695DFD8];
     allKeys = [(NSMutableDictionary *)self->_uniqueIDToConnection allKeys];
-    v46 = [v16 setWithArray:allKeys];
+    v45 = [v16 setWithArray:allKeys];
 
     v18 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v10, "count")}];
     v19 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(v10, "count")}];
+    v55 = 0u;
     v56 = 0u;
     v57 = 0u;
     v58 = 0u;
-    v59 = 0u;
     v20 = v10;
-    v21 = [v20 countByEnumeratingWithState:&v56 objects:v62 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v55 objects:v61 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v57;
+      v23 = *v56;
       do
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v57 != v23)
+          if (*v56 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          v25 = *(*(&v56 + 1) + 8 * i);
+          v25 = *(*(&v55 + 1) + 8 * i);
           _internal3 = [v25 _internal];
           uniqueID = [_internal3 uniqueID];
 
@@ -2200,37 +2223,37 @@ LABEL_20:
           }
         }
 
-        v22 = [v20 countByEnumeratingWithState:&v56 objects:v62 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v55 objects:v61 count:16];
       }
 
       while (v22);
     }
 
-    v28 = [v46 mutableCopy];
+    v28 = [v45 mutableCopy];
     [v28 minusSet:v19];
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
     v53 = 0u;
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
     v29 = v28;
-    v30 = [v29 countByEnumeratingWithState:&v52 objects:v61 count:16];
+    v30 = [v29 countByEnumeratingWithState:&v51 objects:v60 count:16];
     if (v30)
     {
       v31 = v30;
-      v32 = *v53;
+      v32 = *v52;
       do
       {
         for (j = 0; j != v31; ++j)
         {
-          if (*v53 != v32)
+          if (*v52 != v32)
           {
             objc_enumerationMutation(v29);
           }
 
-          [(_IDSService *)self _tearDownConnectionForUniqueID:*(*(&v52 + 1) + 8 * j)];
+          [(_IDSService *)self _tearDownConnectionForUniqueID:*(*(&v51 + 1) + 8 * j)];
         }
 
-        v31 = [v29 countByEnumeratingWithState:&v52 objects:v61 count:16];
+        v31 = [v29 countByEnumeratingWithState:&v51 objects:v60 count:16];
       }
 
       while (v31);
@@ -2243,31 +2266,31 @@ LABEL_20:
     }
 
     v35 = [v19 mutableCopy];
-    [v35 minusSet:v46];
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
+    [v35 minusSet:v45];
     v49 = 0u;
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
     v36 = v35;
-    v37 = [v36 countByEnumeratingWithState:&v48 objects:v60 count:16];
+    v37 = [v36 countByEnumeratingWithState:&v47 objects:v59 count:16];
     if (v37)
     {
       v38 = v37;
-      v39 = *v49;
+      v39 = *v48;
       do
       {
         for (k = 0; k != v38; ++k)
         {
-          if (*v49 != v39)
+          if (*v48 != v39)
           {
             objc_enumerationMutation(v36);
           }
 
-          v41 = [v18 objectForKey:*(*(&v48 + 1) + 8 * k)];
+          v41 = [v18 objectForKey:*(*(&v47 + 1) + 8 * k)];
           [(_IDSService *)self _setupNewConnectionForAccount:v41];
         }
 
-        v38 = [v36 countByEnumeratingWithState:&v48 objects:v60 count:16];
+        v38 = [v36 countByEnumeratingWithState:&v47 objects:v59 count:16];
       }
 
       while (v38);
@@ -2282,10 +2305,8 @@ LABEL_20:
 
     [(_IDSService *)self _logConnectionMap];
     objc_autoreleasePoolPop(context);
-    setCopy = v45;
+    setCopy = v44;
   }
-
-  v43 = *MEMORY[0x1E69E9840];
 }
 
 - (void)accountController:(id)controller accountAdded:(id)added
@@ -2384,7 +2405,7 @@ LABEL_20:
 
 - (void)connection:(id)connection incomingOpportunisticData:(id)data withIdentifier:(id)identifier fromURI:(id)i context:(id)context
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   dataCopy = data;
   identifierCopy = identifier;
@@ -2425,16 +2446,16 @@ LABEL_20:
 
     v28 = [(NSMapTable *)self->_delegateToInfo count];
     *buf = 138412802;
-    v65 = outgoingResponseIdentifier;
-    v66 = 2112;
-    v67 = v27;
+    v64 = outgoingResponseIdentifier;
+    v65 = 2112;
+    v66 = v27;
     connectionCopy = v26;
     identifierCopy = v25;
     dataCopy = v24;
     iCopy = v23;
     v19 = v22;
-    v68 = 2048;
-    v69 = v28;
+    v67 = 2048;
+    v68 = v28;
     _os_log_impl(&dword_1959FF000, v20, OS_LOG_TYPE_DEFAULT, "incomingOpportunisticData on connection guid %@ using engram %@ delegateCount %ld", buf, 0x20u);
   }
 
@@ -2445,63 +2466,61 @@ LABEL_20:
   _internal = [connectionCopy _internal];
   account = [_internal account];
 
-  v57[0] = MEMORY[0x1E69E9820];
-  v57[1] = 3221225472;
-  v57[2] = sub_195AB8568;
-  v57[3] = &unk_1E7441E88;
+  v56[0] = MEMORY[0x1E69E9820];
+  v56[1] = 3221225472;
+  v56[2] = sub_195AB8568;
+  v56[3] = &unk_1E7441E88;
   v32 = contextCopy;
-  v58 = v32;
+  v57 = v32;
   selfCopy = self;
   v33 = account;
-  v60 = v33;
+  v59 = v33;
   v34 = dataCopy;
-  v61 = v34;
+  v60 = v34;
   v35 = identifierCopy;
-  v62 = v35;
+  v61 = v35;
   v36 = iCopy;
-  v63 = v36;
-  [(_IDSService *)self _callDelegatesWithBlock:v57 group:v19];
+  v62 = v36;
+  [(_IDSService *)self _callDelegatesWithBlock:v56 group:v19];
   if (!self->_manuallyAckMessages)
   {
-    v47 = v35;
+    v46 = v35;
     wantsAppAck = [v32 wantsAppAck];
     [v32 storageGuid];
-    v38 = v48 = v34;
+    v38 = v47 = v34;
     outgoingResponseIdentifier2 = [v32 outgoingResponseIdentifier];
     +[IDSInternalQueueController sharedInstance];
-    v46 = v33;
+    v45 = v33;
     v41 = v40 = connectionCopy;
     queue = [v41 queue];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = sub_195AB8774;
     block[3] = &unk_1E7441038;
-    v56 = wantsAppAck;
-    v35 = v47;
-    v50 = v32;
+    v55 = wantsAppAck;
+    v35 = v46;
+    v49 = v32;
     selfCopy2 = self;
-    v52 = outgoingResponseIdentifier2;
-    v53 = v36;
-    v54 = v40;
-    v55 = v38;
+    v51 = outgoingResponseIdentifier2;
+    v52 = v36;
+    v53 = v40;
+    v54 = v38;
     v43 = v38;
     v44 = outgoingResponseIdentifier2;
     dispatch_group_notify(v19, queue, block);
 
     connectionCopy = v40;
-    v33 = v46;
+    v33 = v45;
 
-    v34 = v48;
+    v34 = v47;
   }
 
   dispatch_group_leave(v19);
-
-  v45 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connection:(id)connection incomingData:(id)data fromURI:(id)i context:(id)context
 {
-  v92 = *MEMORY[0x1E69E9840];
+  v91 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   dataCopy = data;
   iCopy = i;
@@ -2538,17 +2557,17 @@ LABEL_20:
 
     v21 = [(NSMapTable *)self->_delegateToInfo count];
     *buf = 138412802;
-    v83 = outgoingResponseIdentifier;
-    v84 = 2112;
-    v85 = v20;
+    v82 = outgoingResponseIdentifier;
+    v83 = 2112;
+    v84 = v20;
     dataCopy = v19;
-    v86 = 2048;
-    v87 = v21;
+    v85 = 2048;
+    v86 = v21;
     _os_log_impl(&dword_1959FF000, v17, OS_LOG_TYPE_DEFAULT, "incomingData on connection guid %@ using engram %@ delegateCount %ld", buf, 0x20u);
   }
 
   v22 = +[IDSTransportLog IDSService];
-  v64 = connectionCopy;
+  v63 = connectionCopy;
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     selfCopy = self;
@@ -2559,23 +2578,23 @@ LABEL_20:
     account2 = [_internal3 account];
     _internal4 = [account2 _internal];
     [contextCopy outgoingResponseIdentifier];
-    v30 = v60 = dataCopy;
+    v30 = v59 = dataCopy;
     *buf = 134219010;
-    v83 = v25;
+    v82 = v25;
     iCopy = v24;
     self = selfCopy;
-    v84 = 2112;
-    v85 = _internal2;
-    v86 = 2112;
-    v87 = _internal4;
-    v88 = 2112;
-    v89 = iCopy;
-    v90 = 2112;
-    v91 = v30;
+    v83 = 2112;
+    v84 = _internal2;
+    v85 = 2112;
+    v86 = _internal4;
+    v87 = 2112;
+    v88 = iCopy;
+    v89 = 2112;
+    v90 = v30;
     _os_log_impl(&dword_1959FF000, v22, OS_LOG_TYPE_DEFAULT, "incomingData of size %lu on connection %@ account %@ from ID %@ sender-side-identifier %@", buf, 0x34u);
 
-    connectionCopy = v64;
-    dataCopy = v60;
+    connectionCopy = v63;
+    dataCopy = v59;
   }
 
   v31 = dispatch_group_create();
@@ -2584,24 +2603,24 @@ LABEL_20:
   prefixedURI = [iCopy prefixedURI];
   [contextCopy setFromID:prefixedURI];
 
-  v76[0] = MEMORY[0x1E69E9820];
-  v76[1] = 3221225472;
-  v76[2] = sub_195AB8F80;
-  v76[3] = &unk_1E7441EB0;
+  v75[0] = MEMORY[0x1E69E9820];
+  v75[1] = 3221225472;
+  v75[2] = sub_195AB8F80;
+  v75[3] = &unk_1E7441EB0;
   v33 = contextCopy;
-  v77 = v33;
+  v76 = v33;
   selfCopy2 = self;
   v34 = account;
-  v79 = v34;
+  v78 = v34;
   v35 = dataCopy;
-  v80 = v35;
+  v79 = v35;
   v36 = iCopy;
-  v81 = v36;
-  [(_IDSService *)self _callDelegatesWithBlock:v76 group:v31];
+  v80 = v36;
+  [(_IDSService *)self _callDelegatesWithBlock:v75 group:v31];
   if (!self->_manuallyAckMessages)
   {
-    v59 = v36;
-    v63 = v34;
+    v58 = v36;
+    v62 = v34;
     wantsAppAck = [v33 wantsAppAck];
     isDirectMessage = [v33 isDirectMessage];
     outgoingResponseIdentifier2 = [v33 outgoingResponseIdentifier];
@@ -2615,33 +2634,33 @@ LABEL_20:
       v43 = v42;
       broadcastTime2 = [v33 broadcastTime];
       [broadcastTime2 doubleValue];
-      v55 = [v41 numberWithDouble:v43 - v45];
+      v54 = [v41 numberWithDouble:v43 - v45];
     }
 
     else
     {
-      v55 = 0;
+      v54 = 0;
     }
 
-    v61 = v35;
+    v60 = v35;
     v46 = +[IDSLogging _IDSService];
     v47 = wantsAppAck;
     if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
     {
       v48 = @"NO";
       *buf = 138413058;
-      v83 = v33;
+      v82 = v33;
       if (wantsAppAck)
       {
         v48 = @"YES";
       }
 
-      v84 = 2112;
-      v85 = v48;
-      v86 = 2112;
-      v87 = outgoingResponseIdentifier2;
-      v88 = 2112;
-      v89 = storageGuid;
+      v83 = 2112;
+      v84 = v48;
+      v85 = 2112;
+      v86 = outgoingResponseIdentifier2;
+      v87 = 2112;
+      v88 = storageGuid;
       _os_log_impl(&dword_1959FF000, v46, OS_LOG_TYPE_DEFAULT, "Context %@ WantsAppAck %@ AppAckGuid %@ storageGuid %@", buf, 0x2Au);
     }
 
@@ -2652,35 +2671,33 @@ LABEL_20:
     block[1] = 3221225472;
     block[2] = sub_195AB9188;
     block[3] = &unk_1E7441ED8;
-    v66 = v33;
-    v74 = v47;
-    v75 = isDirectMessage;
-    connectionCopy = v64;
-    v67 = v64;
-    v68 = outgoingResponseIdentifier2;
+    v65 = v33;
+    v73 = v47;
+    v74 = isDirectMessage;
+    connectionCopy = v63;
+    v66 = v63;
+    v67 = outgoingResponseIdentifier2;
     selfCopy3 = self;
-    v36 = v59;
-    v70 = v59;
-    v71 = storageGuid;
-    v72 = v56;
-    v35 = v61;
-    v73 = v61;
-    v58 = v56;
+    v36 = v58;
+    v69 = v58;
+    v70 = storageGuid;
+    v71 = v55;
+    v35 = v60;
+    v72 = v60;
+    v57 = v55;
     v52 = storageGuid;
     v53 = v50;
     dispatch_group_notify(v31, v51, block);
 
-    v34 = v63;
+    v34 = v62;
   }
 
   dispatch_group_leave(v31);
-
-  v54 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connection:(id)connection incomingGroupData:(id)data fromURI:(id)i context:(id)context
 {
-  v77 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   dataCopy = data;
   iCopy = i;
@@ -2698,7 +2715,7 @@ LABEL_20:
   }
 
   v16 = +[IDSTransportLog IDSService];
-  v54 = iCopy;
+  v53 = iCopy;
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     outgoingResponseIdentifier = [contextCopy outgoingResponseIdentifier];
@@ -2714,12 +2731,12 @@ LABEL_20:
 
     v19 = [(NSMapTable *)self->_delegateToInfo count];
     *buf = 138412802;
-    v68 = outgoingResponseIdentifier;
-    v69 = 2112;
-    v70 = v18;
-    iCopy = v54;
-    v71 = 2048;
-    v72 = v19;
+    v67 = outgoingResponseIdentifier;
+    v68 = 2112;
+    v69 = v18;
+    iCopy = v53;
+    v70 = 2048;
+    v71 = v19;
     _os_log_impl(&dword_1959FF000, v16, OS_LOG_TYPE_DEFAULT, "incomingGroupData on connection guid %@ using engram %@ delegateCount %ld", buf, 0x20u);
   }
 
@@ -2736,16 +2753,16 @@ LABEL_20:
     v27 = v26 = connectionCopy;
     outgoingResponseIdentifier2 = [contextCopy outgoingResponseIdentifier];
     *buf = 134219010;
-    v68 = v21;
-    iCopy = v54;
-    v69 = 2112;
-    v70 = _internal;
-    v71 = 2112;
-    v72 = v27;
-    v73 = 2112;
-    v74 = v54;
-    v75 = 2112;
-    v76 = outgoingResponseIdentifier2;
+    v67 = v21;
+    iCopy = v53;
+    v68 = 2112;
+    v69 = _internal;
+    v70 = 2112;
+    v71 = v27;
+    v72 = 2112;
+    v73 = v53;
+    v74 = 2112;
+    v75 = outgoingResponseIdentifier2;
     _os_log_impl(&dword_1959FF000, v20, OS_LOG_TYPE_DEFAULT, "incomingGroupData of size %lu on connection %@ account %@ from ID %@ sender-side-identifier %@", buf, 0x34u);
 
     connectionCopy = v26;
@@ -2767,12 +2784,12 @@ LABEL_20:
   block[3] = &unk_1E743EA30;
   block[4] = self;
   v33 = dataCopy;
-  v66 = v33;
+  v65 = v33;
   dispatch_group_async(v29, queue, block);
 
   if (!self->_manuallyAckMessages)
   {
-    v53 = connectionCopy;
+    v52 = connectionCopy;
     wantsAppAck = [contextCopy wantsAppAck];
     outgoingResponseIdentifier3 = [contextCopy outgoingResponseIdentifier];
     storageGuid = [contextCopy storageGuid];
@@ -2798,53 +2815,51 @@ LABEL_20:
     {
       v45 = @"NO";
       *buf = 138413058;
-      v68 = contextCopy;
+      v67 = contextCopy;
       if (wantsAppAck)
       {
         v45 = @"YES";
       }
 
-      v69 = 2112;
-      v70 = v45;
-      v71 = 2112;
-      v72 = outgoingResponseIdentifier3;
-      v73 = 2112;
-      v74 = storageGuid;
+      v68 = 2112;
+      v69 = v45;
+      v70 = 2112;
+      v71 = outgoingResponseIdentifier3;
+      v72 = 2112;
+      v73 = storageGuid;
       _os_log_impl(&dword_1959FF000, v44, OS_LOG_TYPE_DEFAULT, "Context %@ WantsAppAck %@ AppAckGuid %@ storageGuid %@", buf, 0x2Au);
     }
 
     v46 = +[IDSInternalQueueController sharedInstance];
     queue2 = [v46 queue];
-    v55[0] = MEMORY[0x1E69E9820];
-    v55[1] = 3221225472;
-    v55[2] = sub_195AB9DAC;
-    v55[3] = &unk_1E7441F28;
-    v64 = wantsAppAck;
-    v56 = contextCopy;
+    v54[0] = MEMORY[0x1E69E9820];
+    v54[1] = 3221225472;
+    v54[2] = sub_195AB9DAC;
+    v54[3] = &unk_1E7441F28;
+    v63 = wantsAppAck;
+    v55 = contextCopy;
     selfCopy2 = self;
-    v58 = outgoingResponseIdentifier3;
-    v59 = v54;
-    connectionCopy = v53;
-    v60 = v53;
-    v61 = storageGuid;
-    v62 = v43;
-    v63 = v33;
-    v51 = v43;
+    v57 = outgoingResponseIdentifier3;
+    v58 = v53;
+    connectionCopy = v52;
+    v59 = v52;
+    v60 = storageGuid;
+    v61 = v43;
+    v62 = v33;
+    v50 = v43;
     v48 = storageGuid;
     v49 = outgoingResponseIdentifier3;
-    dispatch_group_notify(v29, queue2, v55);
+    dispatch_group_notify(v29, queue2, v54);
 
-    iCopy = v54;
+    iCopy = v53;
   }
 
   dispatch_group_leave(v29);
-
-  v50 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connection:(id)connection incomingAccessoryData:(id)data fromURI:(id)i context:(id)context
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   dataCopy = data;
   iCopy = i;
@@ -2870,25 +2885,25 @@ LABEL_20:
   prefixedURI = [iCopy prefixedURI];
   [contextCopy setFromID:prefixedURI];
 
-  v58[0] = MEMORY[0x1E69E9820];
-  v58[1] = 3221225472;
-  v58[2] = sub_195ABA46C;
-  v58[3] = &unk_1E7441EB0;
+  v57[0] = MEMORY[0x1E69E9820];
+  v57[1] = 3221225472;
+  v57[2] = sub_195ABA46C;
+  v57[3] = &unk_1E7441EB0;
   v20 = contextCopy;
-  v59 = v20;
+  v58 = v20;
   selfCopy = self;
   v21 = account;
-  v61 = v21;
+  v60 = v21;
   v22 = dataCopy;
-  v62 = v22;
+  v61 = v22;
   v23 = iCopy;
-  v63 = v23;
-  [(_IDSService *)self _callDelegatesWithBlock:v58 group:v18];
+  v62 = v23;
+  [(_IDSService *)self _callDelegatesWithBlock:v57 group:v18];
   if (!self->_manuallyAckMessages)
   {
-    v44 = v23;
-    v46 = v21;
-    v47 = connectionCopy;
+    v43 = v23;
+    v45 = v21;
+    v46 = connectionCopy;
     wantsAppAck = [v20 wantsAppAck];
     outgoingResponseIdentifier = [v20 outgoingResponseIdentifier];
     storageGuid = [v20 storageGuid];
@@ -2901,33 +2916,33 @@ LABEL_20:
       v30 = v29;
       broadcastTime2 = [v20 broadcastTime];
       [broadcastTime2 doubleValue];
-      v42 = [v28 numberWithDouble:v30 - v32];
+      v41 = [v28 numberWithDouble:v30 - v32];
     }
 
     else
     {
-      v42 = 0;
+      v41 = 0;
     }
 
-    v45 = v22;
+    v44 = v22;
     v33 = +[IDSLogging _IDSService];
     v34 = wantsAppAck;
     if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
     {
       v35 = @"NO";
       *buf = 138413058;
-      v65 = v20;
+      v64 = v20;
       if (wantsAppAck)
       {
         v35 = @"YES";
       }
 
-      v66 = 2112;
-      v67 = v35;
-      v68 = 2112;
-      v69 = outgoingResponseIdentifier;
-      v70 = 2112;
-      v71 = storageGuid;
+      v65 = 2112;
+      v66 = v35;
+      v67 = 2112;
+      v68 = outgoingResponseIdentifier;
+      v69 = 2112;
+      v70 = storageGuid;
       _os_log_impl(&dword_1959FF000, v33, OS_LOG_TYPE_INFO, "Context %@ WantsAppAck %@ AppAckGuid %@ storageGuid %@", buf, 0x2Au);
     }
 
@@ -2938,34 +2953,32 @@ LABEL_20:
     block[1] = 3221225472;
     block[2] = sub_195ABA674;
     block[3] = &unk_1E7441F28;
-    v57 = v34;
-    v49 = v20;
+    v56 = v34;
+    v48 = v20;
     selfCopy2 = self;
-    v51 = outgoingResponseIdentifier;
-    v23 = v44;
-    v52 = v44;
-    connectionCopy = v47;
-    v53 = v47;
-    v54 = storageGuid;
-    v55 = v42;
-    v22 = v45;
-    v56 = v45;
-    v43 = v42;
+    v50 = outgoingResponseIdentifier;
+    v23 = v43;
+    v51 = v43;
+    connectionCopy = v46;
+    v52 = v46;
+    v53 = storageGuid;
+    v54 = v41;
+    v22 = v44;
+    v55 = v44;
+    v42 = v41;
     v39 = storageGuid;
     v40 = v37;
     dispatch_group_notify(v18, v38, block);
 
-    v21 = v46;
+    v21 = v45;
   }
 
   dispatch_group_leave(v18);
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connection:(id)connection incomingAccessoryReportMessage:(id)message accessoryID:(id)d controllerID:(id)iD context:(id)context
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   messageCopy = message;
   dCopy = d;
@@ -2988,28 +3001,28 @@ LABEL_20:
 
   v22 = dispatch_group_create();
   dispatch_group_enter(v22);
-  v57[0] = MEMORY[0x1E69E9820];
-  v57[1] = 3221225472;
-  v57[2] = sub_195ABACB8;
-  v57[3] = &unk_1E7441E88;
+  v56[0] = MEMORY[0x1E69E9820];
+  v56[1] = 3221225472;
+  v56[2] = sub_195ABACB8;
+  v56[3] = &unk_1E7441E88;
   v23 = contextCopy;
-  v58 = v23;
+  v57 = v23;
   selfCopy = self;
   v24 = account;
-  v60 = v24;
+  v59 = v24;
   v25 = messageCopy;
-  v61 = v25;
+  v60 = v25;
   v26 = iDCopy;
-  v62 = v26;
+  v61 = v26;
   v27 = dCopy;
-  v63 = v27;
-  [(_IDSService *)self _callDelegatesWithBlock:v57 group:v22];
+  v62 = v27;
+  [(_IDSService *)self _callDelegatesWithBlock:v56 group:v22];
   [v23 setWantsManualAck:self->_manuallyAckMessages];
   [v23 setFromID:v27];
   if (!self->_manuallyAckMessages)
   {
-    v45 = v25;
-    v46 = connectionCopy;
+    v44 = v25;
+    v45 = connectionCopy;
     wantsAppAck = [v23 wantsAppAck];
     outgoingResponseIdentifier = [v23 outgoingResponseIdentifier];
     storageGuid = [v23 storageGuid];
@@ -3025,24 +3038,24 @@ LABEL_20:
       broadcastTime = [v31 numberWithDouble:v33 - v35];
     }
 
-    v44 = v24;
+    v43 = v24;
     v36 = +[IDSLogging _IDSService];
     if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
     {
       v37 = @"NO";
       *buf = 138413058;
-      v65 = v23;
+      v64 = v23;
       if (wantsAppAck)
       {
         v37 = @"YES";
       }
 
-      v66 = 2112;
-      v67 = v37;
-      v68 = 2112;
-      v69 = outgoingResponseIdentifier;
-      v70 = 2112;
-      v71 = storageGuid;
+      v65 = 2112;
+      v66 = v37;
+      v67 = 2112;
+      v68 = outgoingResponseIdentifier;
+      v69 = 2112;
+      v70 = storageGuid;
       _os_log_impl(&dword_1959FF000, v36, OS_LOG_TYPE_INFO, "Context %@ WantsAppAck %@ AppAckGuid %@ storageGuid %@", buf, 0x2Au);
     }
 
@@ -3052,32 +3065,30 @@ LABEL_20:
     block[1] = 3221225472;
     block[2] = sub_195ABAE9C;
     block[3] = &unk_1E7441010;
-    v56 = wantsAppAck;
-    v49 = v23;
+    v55 = wantsAppAck;
+    v48 = v23;
     selfCopy2 = self;
-    v51 = outgoingResponseIdentifier;
-    v52 = v27;
-    v53 = v46;
-    v54 = storageGuid;
-    v55 = broadcastTime;
+    v50 = outgoingResponseIdentifier;
+    v51 = v27;
+    v52 = v45;
+    v53 = storageGuid;
+    v54 = broadcastTime;
     v40 = broadcastTime;
     v41 = storageGuid;
     v42 = outgoingResponseIdentifier;
     dispatch_group_notify(v22, queue, block);
 
-    connectionCopy = v46;
-    v24 = v44;
-    v25 = v45;
+    connectionCopy = v45;
+    v24 = v43;
+    v25 = v44;
   }
 
   dispatch_group_leave(v22);
-
-  v43 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connection:(id)connection incomingInvitation:(id)invitation fromURI:(id)i context:(id)context
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   invitationCopy = invitation;
   iCopy = i;
@@ -3094,7 +3105,7 @@ LABEL_20:
     }
   }
 
-  v46 = connectionCopy;
+  v45 = connectionCopy;
   _internal = [connectionCopy _internal];
   account = [_internal account];
 
@@ -3148,45 +3159,43 @@ LABEL_20:
     if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v54 = v37;
+      v53 = v37;
       _os_log_impl(&dword_1959FF000, v40, OS_LOG_TYPE_DEFAULT, "incomingInvitation: created invitation object from incoming message : {%@}", buf, 0xCu);
     }
 
-    v48[0] = MEMORY[0x1E69E9820];
-    v48[1] = 3221225472;
-    v48[2] = sub_195ABB5B8;
-    v48[3] = &unk_1E7441F50;
-    v49 = contextCopy;
+    v47[0] = MEMORY[0x1E69E9820];
+    v47[1] = 3221225472;
+    v47[2] = sub_195ABB5B8;
+    v47[3] = &unk_1E7441F50;
+    v48 = contextCopy;
     selfCopy = self;
-    v51 = account;
-    v52 = v37;
+    v50 = account;
+    v51 = v37;
     v41 = v37;
-    [(_IDSService *)self _callDelegatesWithBlock:v48];
+    [(_IDSService *)self _callDelegatesWithBlock:v47];
 
-    v42 = v46;
+    v42 = v45;
   }
 
   else
   {
     v34 = +[IDSLogging _IDSService];
-    v42 = v46;
+    v42 = v45;
     if (os_log_type_enabled(&v34->super, OS_LOG_TYPE_DEFAULT))
     {
       uUIDString = [v19 UUIDString];
       *buf = 134218242;
-      v54 = v31;
-      v55 = 2112;
-      v56 = uUIDString;
+      v53 = v31;
+      v54 = 2112;
+      v55 = uUIDString;
       _os_log_impl(&dword_1959FF000, &v34->super, OS_LOG_TYPE_DEFAULT, "Invalid state {%ld} received in incomingInvitation. Dropping invitation %@", buf, 0x16u);
     }
   }
-
-  v43 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connection:(id)connection incomingInvitationUpdate:(id)update fromURI:(id)i context:(id)context
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   updateCopy = update;
   iCopy = i;
@@ -3216,7 +3225,7 @@ LABEL_20:
   v22 = *MEMORY[0x1E69A49C0];
   v23 = [updateCopy objectForKey:*MEMORY[0x1E69A49C0]];
 
-  v47 = connectionCopy;
+  v46 = connectionCopy;
   if (v23)
   {
     v24 = objc_alloc(MEMORY[0x1E695DF00]);
@@ -3258,45 +3267,43 @@ LABEL_20:
     if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v55 = v38;
+      v54 = v38;
       _os_log_impl(&dword_1959FF000, v41, OS_LOG_TYPE_DEFAULT, "incomingInvitationUpdate: created invitation object from incoming message : {%@}", buf, 0xCu);
     }
 
-    v49[0] = MEMORY[0x1E69E9820];
-    v49[1] = 3221225472;
-    v49[2] = sub_195ABBC50;
-    v49[3] = &unk_1E7441F50;
-    v50 = contextCopy;
+    v48[0] = MEMORY[0x1E69E9820];
+    v48[1] = 3221225472;
+    v48[2] = sub_195ABBC50;
+    v48[3] = &unk_1E7441F50;
+    v49 = contextCopy;
     selfCopy = self;
-    v52 = account;
-    v53 = v38;
+    v51 = account;
+    v52 = v38;
     v42 = v38;
-    [(_IDSService *)self _callDelegatesWithBlock:v49];
+    [(_IDSService *)self _callDelegatesWithBlock:v48];
 
-    v43 = v47;
+    v43 = v46;
   }
 
   else
   {
     v36 = +[IDSLogging _IDSService];
-    v43 = v47;
+    v43 = v46;
     if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
       uUIDString = [v19 UUIDString];
       *buf = 134218242;
-      v55 = v31;
-      v56 = 2112;
-      v57 = uUIDString;
+      v54 = v31;
+      v55 = 2112;
+      v56 = uUIDString;
       _os_log_impl(&dword_1959FF000, v36, OS_LOG_TYPE_DEFAULT, "Invalid state {%ld} received in incomingInvitationUpdate. Dropping invitation %@", buf, 0x16u);
     }
   }
-
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connection:(id)connection incomingMessage:(id)message fromURI:(id)i context:(id)context
 {
-  v138 = *MEMORY[0x1E69E9840];
+  v137 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   messageCopy = message;
   iCopy = i;
@@ -3314,14 +3321,14 @@ LABEL_20:
   }
 
   state.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
-  v126 = _os_activity_create(&dword_1959FF000, "Service recieved message", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  v125 = _os_activity_create(&dword_1959FF000, "Service recieved message", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
-  os_activity_scope_enter(v126, &state);
+  os_activity_scope_enter(v125, &state);
   _internal = [connectionCopy _internal];
   account = [_internal account];
 
   prefixedURI = [iCopy prefixedURI];
-  v79 = [(_IDSService *)self deviceForFromID:prefixedURI];
+  v78 = [(_IDSService *)self deviceForFromID:prefixedURI];
 
   v14 = +[IDSTransportLog IDSService];
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
@@ -3330,18 +3337,18 @@ LABEL_20:
     _internal3 = [connectionCopy _internal];
     account2 = [_internal3 account];
     _internal4 = [account2 _internal];
-    _internal5 = [v79 _internal];
+    _internal5 = [v78 _internal];
     outgoingResponseIdentifier = [contextCopy outgoingResponseIdentifier];
     *buf = 138413314;
-    v129 = _internal2;
-    v130 = 2112;
-    v131 = _internal4;
-    v132 = 2112;
-    v133 = iCopy;
-    v134 = 2112;
-    v135 = _internal5;
-    v136 = 2112;
-    v137 = outgoingResponseIdentifier;
+    v128 = _internal2;
+    v129 = 2112;
+    v130 = _internal4;
+    v131 = 2112;
+    v132 = iCopy;
+    v133 = 2112;
+    v134 = _internal5;
+    v135 = 2112;
+    v136 = outgoingResponseIdentifier;
     _os_log_impl(&dword_1959FF000, v14, OS_LOG_TYPE_DEFAULT, "incomingMessage on connection %@ account %@ from ID %@  from device: %@  sender-side-identifier: %@", buf, 0x34u);
   }
 
@@ -3353,16 +3360,16 @@ LABEL_20:
     v24 = [(NSMapTable *)self->_delegateToInfo count];
     v25 = @"NO";
     *buf = 138412802;
-    v129 = outgoingResponseIdentifier2;
+    v128 = outgoingResponseIdentifier2;
     if (usedEngram)
     {
       v25 = @"YES";
     }
 
-    v130 = 2112;
-    v131 = v25;
-    v132 = 2048;
-    v133 = v24;
+    v129 = 2112;
+    v130 = v25;
+    v131 = 2048;
+    v132 = v24;
     _os_log_impl(&dword_1959FF000, v21, OS_LOG_TYPE_DEFAULT, "incomingMessage on connection guid %@ using engram %@ delegateCount %ld", buf, 0x20u);
   }
 
@@ -3376,33 +3383,33 @@ LABEL_20:
   v29 = resourceTransferURLString;
   if (!resourceTransferURLString)
   {
-    v100[0] = MEMORY[0x1E69E9820];
-    v100[1] = 3221225472;
-    v100[2] = sub_195ABCFFC;
-    v100[3] = &unk_1E7441EB0;
+    v99[0] = MEMORY[0x1E69E9820];
+    v99[1] = 3221225472;
+    v99[2] = sub_195ABCFFC;
+    v99[3] = &unk_1E7441EB0;
     v33 = contextCopy;
-    v101 = v33;
+    v100 = v33;
     selfCopy = self;
     v34 = account;
-    v103 = v34;
+    v102 = v34;
     v35 = messageCopy;
-    v104 = v35;
+    v103 = v35;
     v36 = iCopy;
-    v105 = v36;
-    [(_IDSService *)self _callDelegatesWithBlock:v100 group:v26];
-    v94[0] = MEMORY[0x1E69E9820];
-    v94[1] = 3221225472;
-    v94[2] = sub_195ABD200;
-    v94[3] = &unk_1E7441EB0;
-    v95 = v33;
+    v104 = v36;
+    [(_IDSService *)self _callDelegatesWithBlock:v99 group:v26];
+    v93[0] = MEMORY[0x1E69E9820];
+    v93[1] = 3221225472;
+    v93[2] = sub_195ABD200;
+    v93[3] = &unk_1E7441EB0;
+    v94 = v33;
     selfCopy2 = self;
-    v97 = v34;
-    v98 = v35;
-    v99 = v36;
-    [(_IDSService *)self _callDelegatesWithBlock:v94 group:v26];
+    v96 = v34;
+    v97 = v35;
+    v98 = v36;
+    [(_IDSService *)self _callDelegatesWithBlock:v93 group:v26];
 
     v37 = 0;
-    v32 = v101;
+    v32 = v100;
     goto LABEL_34;
   }
 
@@ -3437,7 +3444,7 @@ LABEL_20:
           if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
           {
             v45 = __error();
-            sub_195B39324(v45, v127, v42);
+            sub_195B39324(v45, v126, v42);
           }
 
           goto LABEL_24;
@@ -3450,59 +3457,59 @@ LABEL_20:
         if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v129 = v32;
+          v128 = v32;
           _os_log_impl(&dword_1959FF000, v46, OS_LOG_TYPE_DEFAULT, "No sandbox extension for received resource [%@]", buf, 0xCu);
         }
 
         v44 = 0;
       }
 
-      v75 = resourceTransferMetadata;
-      v76 = v29;
+      v74 = resourceTransferMetadata;
+      v75 = v29;
       v47 = [MEMORY[0x1E695DFF8] fileURLWithPath:v32];
       v48 = [IDSAutoCleanup alloc];
-      v121[0] = MEMORY[0x1E69E9820];
-      v121[1] = 3221225472;
-      v121[2] = sub_195ABC9D4;
-      v121[3] = &unk_1E7441F78;
+      v120[0] = MEMORY[0x1E69E9820];
+      v120[1] = 3221225472;
+      v120[2] = sub_195ABC9D4;
+      v120[3] = &unk_1E7441F78;
       v49 = v47;
-      v122 = v49;
-      v123 = resourceTransferSandboxExtension;
-      v124 = v44;
-      v50 = [(IDSAutoCleanup *)v48 initWithBlock:v121];
-      v114[0] = MEMORY[0x1E69E9820];
-      v114[1] = 3221225472;
-      v114[2] = sub_195ABCBD8;
-      v114[3] = &unk_1E7441E88;
+      v121 = v49;
+      v122 = resourceTransferSandboxExtension;
+      v123 = v44;
+      v50 = [(IDSAutoCleanup *)v48 initWithBlock:v120];
+      v113[0] = MEMORY[0x1E69E9820];
+      v113[1] = 3221225472;
+      v113[2] = sub_195ABCBD8;
+      v113[3] = &unk_1E7441E88;
       v51 = contextCopy;
-      v115 = v51;
+      v114 = v51;
       selfCopy3 = self;
       v52 = account;
-      v117 = v52;
+      v116 = v52;
       v53 = v49;
-      v118 = v53;
+      v117 = v53;
       v54 = iCopy;
-      v119 = v54;
+      v118 = v54;
       v55 = v50;
-      v120 = v55;
-      [(_IDSService *)self _callDelegatesWithBlock:v114 group:v26];
-      v106[0] = MEMORY[0x1E69E9820];
-      v106[1] = 3221225472;
-      v106[2] = sub_195ABCDE8;
-      v106[3] = &unk_1E7441FA0;
-      v107 = v51;
+      v119 = v55;
+      [(_IDSService *)self _callDelegatesWithBlock:v113 group:v26];
+      v105[0] = MEMORY[0x1E69E9820];
+      v105[1] = 3221225472;
+      v105[2] = sub_195ABCDE8;
+      v105[3] = &unk_1E7441FA0;
+      v106 = v51;
       selfCopy4 = self;
-      v109 = v52;
+      v108 = v52;
       v42 = v53;
-      v110 = v42;
-      v111 = v75;
-      v112 = v54;
+      v109 = v42;
+      v110 = v74;
+      v111 = v54;
       v56 = v55;
-      v113 = v56;
-      [(_IDSService *)self _callDelegatesWithBlock:v106 group:v26];
+      v112 = v56;
+      [(_IDSService *)self _callDelegatesWithBlock:v105 group:v26];
 
-      resourceTransferMetadata = v75;
-      v29 = v76;
+      resourceTransferMetadata = v74;
+      v29 = v75;
 
       v37 = 0;
       goto LABEL_33;
@@ -3525,7 +3532,7 @@ LABEL_34:
     wantsAppAck = [contextCopy wantsAppAck];
     isDirectMessage = [contextCopy isDirectMessage];
     outgoingResponseIdentifier3 = [contextCopy outgoingResponseIdentifier];
-    v77 = v29;
+    v76 = v29;
     storageGuid = [contextCopy storageGuid];
     broadcastTime = [contextCopy broadcastTime];
 
@@ -3544,18 +3551,18 @@ LABEL_34:
     {
       v68 = @"NO";
       *buf = 138413058;
-      v129 = contextCopy;
+      v128 = contextCopy;
       if (wantsAppAck)
       {
         v68 = @"YES";
       }
 
-      v130 = 2112;
-      v131 = v68;
-      v132 = 2112;
-      v133 = outgoingResponseIdentifier3;
-      v134 = 2112;
-      v135 = storageGuid;
+      v129 = 2112;
+      v130 = v68;
+      v131 = 2112;
+      v132 = outgoingResponseIdentifier3;
+      v133 = 2112;
+      v134 = storageGuid;
       _os_log_impl(&dword_1959FF000, v67, OS_LOG_TYPE_INFO, "Context %@ WantsAppAck %@ AppAckGuid %@ storageGuid %@", buf, 0x2Au);
     }
 
@@ -3565,34 +3572,32 @@ LABEL_34:
     block[1] = 3221225472;
     block[2] = sub_195ABD408;
     block[3] = &unk_1E7440FE8;
-    v92 = wantsAppAck;
-    v93 = isDirectMessage;
-    v85 = connectionCopy;
-    v86 = outgoingResponseIdentifier3;
-    v87 = contextCopy;
+    v91 = wantsAppAck;
+    v92 = isDirectMessage;
+    v84 = connectionCopy;
+    v85 = outgoingResponseIdentifier3;
+    v86 = contextCopy;
     selfCopy5 = self;
-    v89 = iCopy;
-    v90 = storageGuid;
-    v91 = broadcastTime;
+    v88 = iCopy;
+    v89 = storageGuid;
+    v90 = broadcastTime;
     v71 = broadcastTime;
     v72 = storageGuid;
     v73 = outgoingResponseIdentifier3;
     dispatch_group_notify(v26, queue, block);
 
-    v29 = v77;
+    v29 = v76;
   }
 
   dispatch_group_leave(v26);
 
   os_activity_scope_leave(&state);
   cut_arc_os_release();
-
-  v74 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connection:(id)connection incomingProtobuf:(id)protobuf fromURI:(id)i context:(id)context
 {
-  v97 = *MEMORY[0x1E69E9840];
+  v96 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   protobufCopy = protobuf;
   iCopy = i;
@@ -3614,9 +3619,9 @@ LABEL_34:
   {
     outgoingResponseIdentifier = [contextCopy outgoingResponseIdentifier];
     *buf = 138412546;
-    *v92 = protobufCopy;
-    *&v92[8] = 2112;
-    *v93 = outgoingResponseIdentifier;
+    *v91 = protobufCopy;
+    *&v91[8] = 2112;
+    *v92 = outgoingResponseIdentifier;
     _os_log_impl(&dword_1959FF000, v13, OS_LOG_TYPE_DEFAULT, "Incoming protobuf %@, routing to selector/delegate. sender-side-identifier %@", buf, 0x16u);
   }
 
@@ -3636,33 +3641,33 @@ LABEL_34:
 
     v18 = [(NSMapTable *)self->_delegateToInfo count];
     *buf = 138412802;
-    *v92 = outgoingResponseIdentifier2;
-    *&v92[8] = 2112;
-    *v93 = v17;
-    *&v93[8] = 2048;
-    v94 = v18;
+    *v91 = outgoingResponseIdentifier2;
+    *&v91[8] = 2112;
+    *v92 = v17;
+    *&v92[8] = 2048;
+    v93 = v18;
     _os_log_impl(&dword_1959FF000, v15, OS_LOG_TYPE_DEFAULT, "Incoming protobuf on connection guid %@ using engram %@ delegateCount %ld", buf, 0x20u);
   }
 
   context = objc_autoreleasePoolPush();
-  v58 = [MEMORY[0x1E69A5388] keyRepresentationForType:objc_msgSend(protobufCopy isResponse:{"type"), objc_msgSend(protobufCopy, "isResponse")}];
-  v56 = [(NSMutableDictionary *)self->_protobufSelectors objectForKey:v58];
+  v57 = [MEMORY[0x1E69A5388] keyRepresentationForType:objc_msgSend(protobufCopy isResponse:{"type"), objc_msgSend(protobufCopy, "isResponse")}];
+  v55 = [(NSMutableDictionary *)self->_protobufSelectors objectForKey:v57];
   _internal = [connectionCopy _internal];
   account = [_internal account];
 
-  v89[0] = 0;
-  v89[1] = v89;
-  v89[2] = 0x2020000000;
-  v90 = 0;
+  v88[0] = 0;
+  v88[1] = v88;
+  v88[2] = 0x2020000000;
+  v89 = 0;
   v20 = dispatch_group_create();
   dispatch_group_enter(v20);
   [contextCopy setWantsManualAck:self->_manuallyAckMessages];
   prefixedURI = [iCopy prefixedURI];
   [contextCopy setFromID:prefixedURI];
 
-  if (v56)
+  if (v55)
   {
-    pointerValue = [v56 pointerValue];
+    pointerValue = [v55 pointerValue];
     v23 = NSStringFromSelector(pointerValue);
     v24 = v23;
     if (![(NSString *)v23 hasSuffix:@"service:account:fromID:context:"])
@@ -3674,29 +3679,29 @@ LABEL_34:
     v26 = +[IDSLogging _IDSService];
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
-      unsignedIntValue = [v58 unsignedIntValue];
+      unsignedIntValue = [v57 unsignedIntValue];
       *buf = 138412802;
-      *v92 = v23;
-      *&v92[8] = 2112;
-      *v93 = v24;
-      *&v93[8] = 1024;
-      LODWORD(v94) = unsignedIntValue;
+      *v91 = v23;
+      *&v91[8] = 2112;
+      *v92 = v24;
+      *&v92[8] = 1024;
+      LODWORD(v93) = unsignedIntValue;
       _os_log_impl(&dword_1959FF000, v26, OS_LOG_TYPE_DEFAULT, "Found selector %@ fullSelector %@ for key 0x%x", buf, 0x1Cu);
     }
 
-    v80[0] = MEMORY[0x1E69E9820];
-    v80[1] = 3221225472;
-    v80[2] = sub_195ABDF48;
-    v80[3] = &unk_1E7441FC8;
-    v87 = v25;
-    v81 = protobufCopy;
-    v82 = iCopy;
-    v83 = account;
+    v79[0] = MEMORY[0x1E69E9820];
+    v79[1] = 3221225472;
+    v79[2] = sub_195ABDF48;
+    v79[3] = &unk_1E7441FC8;
+    v86 = v25;
+    v80 = protobufCopy;
+    v81 = iCopy;
+    v82 = account;
     selfCopy = self;
-    v85 = contextCopy;
-    v86 = v89;
-    v88 = pointerValue;
-    [(_IDSService *)self _callDelegatesWithBlock:v80 group:v20];
+    v84 = contextCopy;
+    v85 = v88;
+    v87 = pointerValue;
+    [(_IDSService *)self _callDelegatesWithBlock:v79 group:v20];
   }
 
   else
@@ -3704,21 +3709,21 @@ LABEL_34:
     v28 = +[IDSLogging _IDSService];
     if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
-      unsignedIntValue2 = [v58 unsignedIntValue];
+      unsignedIntValue2 = [v57 unsignedIntValue];
       type = [protobufCopy type];
       isResponse = [protobufCopy isResponse];
       v32 = @"NO";
       *buf = 67109634;
-      *v92 = unsignedIntValue2;
+      *v91 = unsignedIntValue2;
       if (isResponse)
       {
         v32 = @"YES";
       }
 
-      *&v92[4] = 1024;
-      *&v92[6] = type;
-      *v93 = 2112;
-      *&v93[2] = v32;
+      *&v91[4] = 1024;
+      *&v91[6] = type;
+      *v92 = 2112;
+      *&v92[2] = v32;
       _os_log_impl(&dword_1959FF000, v28, OS_LOG_TYPE_INFO, "No selector for key 0x%x = type(%u) isResponse(%@), notifying delegates", buf, 0x18u);
     }
 
@@ -3726,19 +3731,19 @@ LABEL_34:
     [messageSequenceNumber unsignedIntegerValue];
     kdebug_trace();
 
-    v73[0] = MEMORY[0x1E69E9820];
-    v73[1] = 3221225472;
-    v73[2] = sub_195ABE284;
-    v73[3] = &unk_1E7441FF0;
-    v74 = protobufCopy;
+    v72[0] = MEMORY[0x1E69E9820];
+    v72[1] = 3221225472;
+    v72[2] = sub_195ABE284;
+    v72[3] = &unk_1E7441FF0;
+    v73 = protobufCopy;
     selfCopy2 = self;
-    v76 = account;
-    v77 = iCopy;
-    v78 = contextCopy;
-    v79 = v89;
-    [(_IDSService *)self _callDelegatesWithBlock:v73 group:v20];
+    v75 = account;
+    v76 = iCopy;
+    v77 = contextCopy;
+    v78 = v88;
+    [(_IDSService *)self _callDelegatesWithBlock:v72 group:v20];
 
-    v23 = v74;
+    v23 = v73;
   }
 
   if (!self->_manuallyAckMessages)
@@ -3746,7 +3751,7 @@ LABEL_34:
     wantsAppAck = [contextCopy wantsAppAck];
     isDirectMessage = [contextCopy isDirectMessage];
     outgoingResponseIdentifier3 = [contextCopy outgoingResponseIdentifier];
-    v53 = isDirectMessage;
+    v52 = isDirectMessage;
     storageGuid = [contextCopy storageGuid];
     broadcastTime = [contextCopy broadcastTime];
 
@@ -3770,18 +3775,18 @@ LABEL_34:
     {
       v46 = @"NO";
       *buf = 138413058;
-      *v92 = contextCopy;
+      *v91 = contextCopy;
       if (wantsAppAck)
       {
         v46 = @"YES";
       }
 
+      *&v91[8] = 2112;
+      *v92 = v46;
       *&v92[8] = 2112;
-      *v93 = v46;
-      *&v93[8] = 2112;
-      v94 = outgoingResponseIdentifier3;
-      v95 = 2112;
-      v96 = storageGuid;
+      v93 = outgoingResponseIdentifier3;
+      v94 = 2112;
+      v95 = storageGuid;
       _os_log_impl(&dword_1959FF000, v45, OS_LOG_TYPE_INFO, "Context %@ WantsAppAck %@ AppAckGuid %@ storageGuid %@", buf, 0x2Au);
     }
 
@@ -3791,17 +3796,17 @@ LABEL_34:
     block[1] = 3221225472;
     block[2] = sub_195ABE44C;
     block[3] = &unk_1E7442018;
-    v70 = v89;
-    v62 = outgoingResponseIdentifier3;
-    v71 = wantsAppAck;
-    v72 = v53;
-    v63 = connectionCopy;
-    v64 = contextCopy;
+    v69 = v88;
+    v61 = outgoingResponseIdentifier3;
+    v70 = wantsAppAck;
+    v71 = v52;
+    v62 = connectionCopy;
+    v63 = contextCopy;
     selfCopy3 = self;
-    v66 = iCopy;
-    v67 = storageGuid;
-    v68 = v44;
-    v69 = protobufCopy;
+    v65 = iCopy;
+    v66 = storageGuid;
+    v67 = v44;
+    v68 = protobufCopy;
     v49 = v44;
     v50 = storageGuid;
     v51 = outgoingResponseIdentifier3;
@@ -3810,15 +3815,13 @@ LABEL_34:
 
   dispatch_group_leave(v20);
 
-  _Block_object_dispose(v89, 8);
+  _Block_object_dispose(v88, 8);
   objc_autoreleasePoolPop(context);
-
-  v52 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connection:(id)connection incomingTopLevelMessage:(id)message fromURI:(id)i messageContext:(id)context
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   messageCopy = message;
   iCopy = i;
@@ -3854,12 +3857,12 @@ LABEL_34:
 
     v22 = [(NSMapTable *)self->_delegateToInfo count];
     *buf = 138412802;
-    v63 = outgoingResponseIdentifier;
-    v64 = 2112;
-    v65 = v21;
+    v62 = outgoingResponseIdentifier;
+    v63 = 2112;
+    v64 = v21;
     v17 = v20;
-    v66 = 2048;
-    v67 = v22;
+    v65 = 2048;
+    v66 = v22;
     _os_log_impl(&dword_1959FF000, v19, OS_LOG_TYPE_DEFAULT, "incomingTopLevelMessage on connection guid %@ using engram %@ delegateCount %ld", buf, 0x20u);
   }
 
@@ -3877,7 +3880,7 @@ LABEL_34:
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v63 = outgoingResponseIdentifier;
+      v62 = outgoingResponseIdentifier;
       _os_log_impl(&dword_1959FF000, v25, OS_LOG_TYPE_DEFAULT, "No delegates for incoming madrid message. Sending 115 for guid %@", buf, 0xCu);
     }
 
@@ -3897,41 +3900,41 @@ LABEL_16:
   _internal = [connectionCopy _internal];
   account = [_internal account];
 
-  v55[0] = MEMORY[0x1E69E9820];
-  v55[1] = 3221225472;
-  v55[2] = sub_195ABEB74;
-  v55[3] = &unk_1E7441E88;
+  v54[0] = MEMORY[0x1E69E9820];
+  v54[1] = 3221225472;
+  v54[2] = sub_195ABEB74;
+  v54[3] = &unk_1E7441E88;
   v32 = v28;
-  v56 = v32;
+  v55 = v32;
   selfCopy = self;
   v33 = account;
-  v58 = v33;
+  v57 = v33;
   v34 = messageCopy;
-  v59 = v34;
+  v58 = v34;
   v35 = iCopy;
-  v60 = v35;
+  v59 = v35;
   v36 = outgoingResponseIdentifier;
-  v61 = v36;
-  [(_IDSService *)self _callDelegatesWithBlock:v55 group:v17];
+  v60 = v36;
+  [(_IDSService *)self _callDelegatesWithBlock:v54 group:v17];
   if (!self->_manuallyAckMessages)
   {
     [v32 storageGuid];
     v38 = v37 = connectionCopy;
     [v32 outgoingResponseIdentifier];
-    v39 = v48 = v34;
+    v39 = v47 = v34;
     v40 = +[IDSInternalQueueController sharedInstance];
     [v40 queue];
-    v47 = v35;
+    v46 = v35;
     v42 = v41 = v17;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = sub_195ABED58;
     block[3] = &unk_1E743EF38;
-    v50 = v38;
-    v51 = v39;
+    v49 = v38;
+    v50 = v39;
     selfCopy2 = self;
-    v53 = v37;
-    v54 = v32;
+    v52 = v37;
+    v53 = v32;
     v43 = v39;
     v44 = v38;
     connectionCopy = v37;
@@ -3939,14 +3942,12 @@ LABEL_16:
     dispatch_group_notify(v41, v42, block);
 
     v17 = v41;
-    v35 = v47;
+    v35 = v46;
 
-    v34 = v48;
+    v34 = v47;
   }
 
   dispatch_group_leave(v17);
-
-  v46 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connection:(id)connection incomingBatchMessage:(id)message
@@ -4266,7 +4267,7 @@ LABEL_16:
 - (void)connection:(id)connection isActiveChanged:(BOOL)changed
 {
   changedCopy = changed;
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   v7 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v7 assertQueueIsCurrent];
@@ -4291,20 +4292,19 @@ LABEL_16:
       v13 = @"YES";
     }
 
-    v15 = 138412546;
-    v16 = _internal;
-    v17 = 2112;
-    v18 = v13;
-    _os_log_impl(&dword_1959FF000, v10, OS_LOG_TYPE_INFO, "isActiveChanged on connection %@ isActive %@", &v15, 0x16u);
+    v14 = 138412546;
+    v15 = _internal;
+    v16 = 2112;
+    v17 = v13;
+    _os_log_impl(&dword_1959FF000, v10, OS_LOG_TYPE_INFO, "isActiveChanged on connection %@ isActive %@", &v14, 0x16u);
   }
 
   [(_IDSService *)self _callIsActiveChanged];
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connection:(id)connection devicesChanged:(id)changed
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   changedCopy = changed;
   v8 = +[IDSInternalQueueController sharedInstance];
@@ -4331,15 +4331,15 @@ LABEL_16:
     v17 = [devices count];
     v18 = [(NSMapTable *)self->_delegateToInfo count];
     *buf = 138413314;
-    v29 = connectionCopy;
-    v30 = 2112;
-    v31 = _internal2;
-    v32 = 2112;
-    v33 = v16;
-    v34 = 2050;
-    v35 = v17;
-    v36 = 2048;
-    v37 = v18;
+    v28 = connectionCopy;
+    v29 = 2112;
+    v30 = _internal2;
+    v31 = 2112;
+    v32 = v16;
+    v33 = 2050;
+    v34 = v17;
+    v35 = 2048;
+    v36 = v18;
     _os_log_impl(&dword_1959FF000, iDSService_oversized, OS_LOG_TYPE_DEFAULT, "devicesChanged on connection %@ account %@ all devices %@ num devices %{public}lu num delegates: %lu", buf, 0x34u);
   }
 
@@ -4371,12 +4371,10 @@ LABEL_16:
       block[2] = sub_195AC15A0;
       block[3] = &unk_1E743E878;
       iDSService = iDSService;
-      v27 = iDSService;
+      v26 = iDSService;
       dispatch_after(v22, queue, block);
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connection:(id)connection nearbyDevicesChanged:(id)changed
@@ -4406,7 +4404,7 @@ LABEL_16:
 
 - (void)connection:(id)connection connectedDevicesChanged:(id)changed
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   changedCopy = changed;
   v8 = +[IDSInternalQueueController sharedInstance];
@@ -4428,32 +4426,30 @@ LABEL_16:
     account = [_internal account];
     _internal2 = [account _internal];
     *buf = 138413058;
-    v20 = connectionCopy;
-    v21 = 2112;
-    v22 = _internal2;
-    v23 = 2112;
-    v24 = changedCopy;
-    v25 = 2050;
-    v26 = [changedCopy count];
+    v19 = connectionCopy;
+    v20 = 2112;
+    v21 = _internal2;
+    v22 = 2112;
+    v23 = changedCopy;
+    v24 = 2050;
+    v25 = [changedCopy count];
     _os_log_impl(&dword_1959FF000, iDSService_oversized, OS_LOG_TYPE_DEFAULT, "connectedDevicesChanged on connection %@ account %@ devices %@ num devices %{public}lu", buf, 0x2Au);
   }
 
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = sub_195AC1948;
-  v17[3] = &unk_1E7441E18;
-  v17[4] = self;
-  v18 = changedCopy;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = sub_195AC1948;
+  v16[3] = &unk_1E7441E18;
+  v16[4] = self;
+  v17 = changedCopy;
   v15 = changedCopy;
-  [(_IDSService *)self _callDelegatesWithBlock:v17];
-
-  v16 = *MEMORY[0x1E69E9840];
+  [(_IDSService *)self _callDelegatesWithBlock:v16];
 }
 
 - (void)connection:(id)connection messageIdentifier:(id)identifier alternateCallbackID:(id)d updatedWithResponseCode:(int64_t)code error:(id)error lastCall:(BOOL)call messageContext:(id)context
 {
   LODWORD(v9) = call;
-  v78 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   identifierCopy = identifier;
   dCopy = d;
@@ -4480,7 +4476,7 @@ LABEL_16:
     if (v23)
     {
       v24 = v9 == 0;
-      v45 = v9;
+      v44 = v9;
       v9 = connectionCopy;
       if (v24)
       {
@@ -4496,22 +4492,22 @@ LABEL_16:
       totalBytes = [contextCopy totalBytes];
       *buf = 138414082;
       selfCopy2 = self;
-      v64 = 2112;
-      v65 = identifierCopy;
-      v66 = 2112;
-      v67 = dCopy;
-      v68 = 2048;
+      v63 = 2112;
+      v64 = identifierCopy;
+      v65 = 2112;
+      v66 = dCopy;
+      v67 = 2048;
       codeCopy2 = code;
-      v70 = 2112;
-      v71 = errorCopy;
-      v72 = 2112;
-      v73 = v25;
+      v69 = 2112;
+      v70 = errorCopy;
+      v71 = 2112;
+      v72 = v25;
       connectionCopy = v9;
-      LOBYTE(v9) = v45;
-      v74 = 2112;
-      v75 = bytesSent2;
-      v76 = 2112;
-      v77 = totalBytes;
+      LOBYTE(v9) = v44;
+      v73 = 2112;
+      v74 = bytesSent2;
+      v75 = 2112;
+      v76 = totalBytes;
       _os_log_impl(&dword_1959FF000, v22, OS_LOG_TYPE_DEFAULT, "%@ got messageIdentifier %@ callbackID %@ updatedWithResponseCode: %ld error %@ lastCall %@ sentBytes %@ totalBytes %@", buf, 0x52u);
     }
   }
@@ -4521,21 +4517,21 @@ LABEL_16:
     v28 = @"NO";
     *buf = 138413570;
     selfCopy2 = self;
-    v64 = 2112;
+    v63 = 2112;
     if (v9)
     {
       v28 = @"YES";
     }
 
-    v65 = identifierCopy;
-    v66 = 2112;
-    v67 = dCopy;
-    v68 = 2048;
+    v64 = identifierCopy;
+    v65 = 2112;
+    v66 = dCopy;
+    v67 = 2048;
     codeCopy2 = code;
-    v70 = 2112;
-    v71 = errorCopy;
-    v72 = 2112;
-    v73 = v28;
+    v69 = 2112;
+    v70 = errorCopy;
+    v71 = 2112;
+    v72 = v28;
     _os_log_impl(&dword_1959FF000, v22, OS_LOG_TYPE_DEFAULT, "%@ got messageIdentifier %@ callbackID %@ updatedWithResponseCode: %ld error %@ lastCall %@", buf, 0x3Eu);
   }
 
@@ -4563,17 +4559,17 @@ LABEL_16:
           totalBytes3 = [contextCopy totalBytes];
           integerValue2 = [totalBytes3 integerValue];
 
-          v57[0] = MEMORY[0x1E69E9820];
-          v57[1] = 3221225472;
-          v57[2] = sub_195AC1EB0;
-          v57[3] = &unk_1E74421A8;
-          v57[4] = self;
-          v58 = account;
+          v56[0] = MEMORY[0x1E69E9820];
+          v56[1] = 3221225472;
+          v56[2] = sub_195AC1EB0;
+          v56[3] = &unk_1E74421A8;
+          v56[4] = self;
+          v57 = account;
           v39 = identifierCopy;
-          v59 = v39;
-          v60 = integerValue;
-          v61 = integerValue2;
-          [(_IDSService *)self _callDelegatesWithBlock:v57];
+          v58 = v39;
+          v59 = integerValue;
+          v60 = integerValue2;
+          [(_IDSService *)self _callDelegatesWithBlock:v56];
           uniqueIDToProgress = self->_uniqueIDToProgress;
           if (uniqueIDToProgress)
           {
@@ -4589,28 +4585,26 @@ LABEL_16:
       }
     }
 
-    v49[0] = MEMORY[0x1E69E9820];
-    v49[1] = 3221225472;
-    v49[2] = sub_195AC1F30;
-    v49[3] = &unk_1E74421D0;
-    v49[4] = self;
-    v50 = account;
-    v51 = identifierCopy;
-    v52 = dCopy;
+    v48[0] = MEMORY[0x1E69E9820];
+    v48[1] = 3221225472;
+    v48[2] = sub_195AC1F30;
+    v48[3] = &unk_1E74421D0;
+    v48[4] = self;
+    v49 = account;
+    v50 = identifierCopy;
+    v51 = dCopy;
     codeCopy3 = code;
-    v53 = errorCopy;
-    v56 = v9;
-    v54 = contextCopy;
+    v52 = errorCopy;
+    v55 = v9;
+    v53 = contextCopy;
     v43 = account;
-    [(_IDSService *)self _callDelegatesWithBlock:v49];
+    [(_IDSService *)self _callDelegatesWithBlock:v48];
   }
-
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connection:(id)connection identifier:(id)identifier alternateCallbackID:(id)d willSendToDestinations:(id)destinations skippedDestinations:(id)skippedDestinations registrationPropertyToDestinations:(id)toDestinations
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   dCopy = d;
   destinationsCopy = destinations;
@@ -4635,69 +4629,67 @@ LABEL_16:
     serviceProperties = [(_IDSService *)self serviceProperties];
     identifier = [serviceProperties identifier];
     IDSLoggableDescriptionForHandlesOnService();
-    v23 = v41 = connectionCopy;
+    v23 = v40 = connectionCopy;
     [(_IDSService *)self serviceProperties];
-    v24 = v44 = destinationsCopy;
+    v24 = v43 = destinationsCopy;
     [v24 identifier];
     v25 = toDestinationsCopy;
     v26 = dCopy;
     v28 = v27 = identifierCopy;
     v29 = IDSLoggableDescriptionForHandlesOnService();
-    v43 = skippedDestinationsCopy;
+    v42 = skippedDestinationsCopy;
     v30 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v25, "count")}];
     *buf = 138413570;
     selfCopy = self;
-    v54 = 2112;
-    v55 = v27;
-    v56 = 2112;
-    v57 = v26;
-    v58 = 2112;
-    v59 = v23;
-    v60 = 2112;
-    v61 = v29;
-    v62 = 2112;
-    v63 = v30;
+    v53 = 2112;
+    v54 = v27;
+    v55 = 2112;
+    v56 = v26;
+    v57 = 2112;
+    v58 = v23;
+    v59 = 2112;
+    v60 = v29;
+    v61 = 2112;
+    v62 = v30;
     _os_log_impl(&dword_1959FF000, v22, OS_LOG_TYPE_DEFAULT, "%@ got identifier %@ callbackID %@ willSendToDestinations %@ skippedDests %@ regPropsToDests (count) %@", buf, 0x3Eu);
 
-    skippedDestinationsCopy = v43;
+    skippedDestinationsCopy = v42;
     identifierCopy = v27;
     dCopy = v26;
     toDestinationsCopy = v25;
 
-    destinationsCopy = v44;
-    connectionCopy = v41;
+    destinationsCopy = v43;
+    connectionCopy = v40;
   }
 
   _internal = [connectionCopy _internal];
 
   account = [_internal account];
 
-  v45[0] = MEMORY[0x1E69E9820];
-  v45[1] = 3221225472;
-  v45[2] = sub_195AC237C;
-  v45[3] = &unk_1E7441FA0;
-  v45[4] = self;
-  v46 = account;
-  v47 = identifierCopy;
-  v48 = dCopy;
-  v49 = destinationsCopy;
-  v50 = skippedDestinationsCopy;
-  v51 = toDestinationsCopy;
+  v44[0] = MEMORY[0x1E69E9820];
+  v44[1] = 3221225472;
+  v44[2] = sub_195AC237C;
+  v44[3] = &unk_1E7441FA0;
+  v44[4] = self;
+  v45 = account;
+  v46 = identifierCopy;
+  v47 = dCopy;
+  v48 = destinationsCopy;
+  v49 = skippedDestinationsCopy;
+  v50 = toDestinationsCopy;
   v33 = toDestinationsCopy;
   v34 = skippedDestinationsCopy;
   v35 = destinationsCopy;
   v36 = dCopy;
   v37 = identifierCopy;
   v38 = account;
-  [(_IDSService *)self _callDelegatesWithBlock:v45];
-
-  v39 = *MEMORY[0x1E69E9840];
+  [(_IDSService *)self _callDelegatesWithBlock:v44];
 }
 
 - (void)connection:(id)connection identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error context:(id)context
 {
   successCopy = success;
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   errorCopy = error;
   contextCopy = context;
@@ -4730,14 +4722,14 @@ LABEL_16:
     v21 = [(NSMapTable *)self->_delegateToInfo count];
     *buf = 138413314;
     selfCopy = self;
-    v46 = 2112;
-    v47 = identifierCopy;
-    v48 = 2112;
-    v49 = v20;
-    v50 = 2112;
-    v51 = errorCopy;
-    v52 = 2048;
-    v53 = v21;
+    v45 = 2112;
+    v46 = identifierCopy;
+    v47 = 2112;
+    v48 = v20;
+    v49 = 2112;
+    v50 = errorCopy;
+    v51 = 2048;
+    v52 = v21;
     _os_log_impl(&dword_1959FF000, v19, OS_LOG_TYPE_DEFAULT, "%@ got identifier %@ didSendWithSuccess %@  error %@ num delegates: %lu", buf, 0x34u);
   }
 
@@ -4745,24 +4737,24 @@ LABEL_16:
 
   account = [_internal account];
 
-  v34 = MEMORY[0x1E69E9820];
-  v35 = 3221225472;
-  v36 = sub_195AC26F0;
-  v37 = &unk_1E74421F8;
+  v33 = MEMORY[0x1E69E9820];
+  v34 = 3221225472;
+  v35 = sub_195AC26F0;
+  v36 = &unk_1E74421F8;
   selfCopy2 = self;
   v24 = account;
-  v39 = v24;
+  v38 = v24;
   v25 = identifierCopy;
-  v40 = v25;
-  v43 = successCopy;
+  v39 = v25;
+  v42 = successCopy;
   v26 = errorCopy;
-  v41 = v26;
+  v40 = v26;
   v27 = contextCopy;
-  v42 = v27;
-  [(_IDSService *)self _callDelegatesWithBlock:&v34];
+  v41 = v27;
+  [(_IDSService *)self _callDelegatesWithBlock:&v33];
   if (v25)
   {
-    v28 = [(NSMutableDictionary *)self->_completionBlocksByRequestID objectForKey:v25, v34, v35, v36, v37, selfCopy2, v39, v40, v41];
+    v28 = [(NSMutableDictionary *)self->_completionBlocksByRequestID objectForKey:v25, v33, v34, v35, v36, selfCopy2, v38, v39, v40];
     v29 = v28;
     if (v28)
     {
@@ -4783,13 +4775,11 @@ LABEL_16:
       self->_uniqueIDToProgress = 0;
     }
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connection:(id)connection identifier:(id)identifier fromURI:(id)i hasBeenDeliveredWithContext:(id)context
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   iCopy = i;
   contextCopy = context;
@@ -4811,10 +4801,10 @@ LABEL_16:
   {
     *buf = 138412802;
     selfCopy = self;
-    v32 = 2112;
-    v33 = identifierCopy;
-    v34 = 2112;
-    v35 = contextCopy;
+    v31 = 2112;
+    v32 = identifierCopy;
+    v33 = 2112;
+    v34 = contextCopy;
     _os_log_impl(&dword_1959FF000, v17, OS_LOG_TYPE_DEFAULT, "%@ got identifier %@ hasBeenDeliveredWithContext %@", buf, 0x20u);
   }
 
@@ -4822,27 +4812,25 @@ LABEL_16:
 
   account = [_internal account];
 
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = sub_195AC29E8;
-  v25[3] = &unk_1E7441EB0;
-  v25[4] = self;
-  v26 = account;
-  v27 = identifierCopy;
-  v28 = contextCopy;
-  v29 = iCopy;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = sub_195AC29E8;
+  v24[3] = &unk_1E7441EB0;
+  v24[4] = self;
+  v25 = account;
+  v26 = identifierCopy;
+  v27 = contextCopy;
+  v28 = iCopy;
   v20 = iCopy;
   v21 = contextCopy;
   v22 = identifierCopy;
   v23 = account;
-  [(_IDSService *)self _callDelegatesWithBlock:v25];
-
-  v24 = *MEMORY[0x1E69E9840];
+  [(_IDSService *)self _callDelegatesWithBlock:v24];
 }
 
 - (void)connection:(id)connection didFlushCacheForRemoteURI:(id)i fromURI:(id)rI guid:(id)guid
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   iCopy = i;
   rICopy = rI;
   guidCopy = guid;
@@ -4863,34 +4851,32 @@ LABEL_16:
   {
     *buf = 138413058;
     selfCopy = self;
-    v26 = 2112;
-    v27 = iCopy;
-    v28 = 2112;
-    v29 = rICopy;
-    v30 = 2112;
-    v31 = guidCopy;
+    v25 = 2112;
+    v26 = iCopy;
+    v27 = 2112;
+    v28 = rICopy;
+    v29 = 2112;
+    v30 = guidCopy;
     _os_log_impl(&dword_1959FF000, v15, OS_LOG_TYPE_DEFAULT, "%@ didFlushCacheForRemoteURI %@ fromURI %@ guid %@", buf, 0x2Au);
   }
 
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = sub_195AC2CB8;
-  v20[3] = &unk_1E7441F50;
-  v20[4] = self;
-  v21 = iCopy;
-  v22 = rICopy;
-  v23 = guidCopy;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = sub_195AC2CB8;
+  v19[3] = &unk_1E7441F50;
+  v19[4] = self;
+  v20 = iCopy;
+  v21 = rICopy;
+  v22 = guidCopy;
   v16 = guidCopy;
   v17 = rICopy;
   v18 = iCopy;
-  [(_IDSService *)self _callDelegatesWithBlock:v20];
-
-  v19 = *MEMORY[0x1E69E9840];
+  [(_IDSService *)self _callDelegatesWithBlock:v19];
 }
 
 - (void)connection:(id)connection didFlushCacheForKTPeerURI:(id)i
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   iCopy = i;
   v6 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v6 assertQueueIsCurrent];
@@ -4909,26 +4895,24 @@ LABEL_16:
   {
     *buf = 138412546;
     selfCopy = self;
-    v16 = 2112;
-    v17 = iCopy;
+    v15 = 2112;
+    v16 = iCopy;
     _os_log_impl(&dword_1959FF000, v9, OS_LOG_TYPE_DEFAULT, "%@ didFlushCacheForKTPeerURI %@", buf, 0x16u);
   }
 
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = sub_195AC2EBC;
-  v12[3] = &unk_1E7441E18;
-  v12[4] = self;
-  v13 = iCopy;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = sub_195AC2EBC;
+  v11[3] = &unk_1E7441E18;
+  v11[4] = self;
+  v12 = iCopy;
   v10 = iCopy;
-  [(_IDSService *)self _callDelegatesWithBlock:v12];
-
-  v11 = *MEMORY[0x1E69E9840];
+  [(_IDSService *)self _callDelegatesWithBlock:v11];
 }
 
 - (void)connection:(id)connection account:(id)account sessionInviteReceived:(id)received fromID:(id)d transportType:(id)type options:(id)options context:(id)context messageContext:(id)self0
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   dCopy = d;
   optionsCopy = options;
@@ -4958,33 +4942,31 @@ LABEL_16:
   if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v42 = optionsCopy;
+    v41 = optionsCopy;
     _os_log_impl(&dword_1959FF000, v28, OS_LOG_TYPE_INFO, "Sending up options to client: %@", buf, 0xCu);
   }
 
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3221225472;
-  v35[2] = sub_195AC31C4;
-  v35[3] = &unk_1E7441E88;
-  v35[4] = self;
-  v36 = accountCopy;
-  v37 = v26;
-  v38 = dCopy;
-  v39 = optionsCopy;
-  v40 = contextCopy;
+  v34[0] = MEMORY[0x1E69E9820];
+  v34[1] = 3221225472;
+  v34[2] = sub_195AC31C4;
+  v34[3] = &unk_1E7441E88;
+  v34[4] = self;
+  v35 = accountCopy;
+  v36 = v26;
+  v37 = dCopy;
+  v38 = optionsCopy;
+  v39 = contextCopy;
   v29 = contextCopy;
   v30 = optionsCopy;
   v31 = dCopy;
   v32 = v26;
   v33 = accountCopy;
-  [(_IDSService *)self _callDelegatesWithBlock:v35];
-
-  v34 = *MEMORY[0x1E69E9840];
+  [(_IDSService *)self _callDelegatesWithBlock:v34];
 }
 
 - (void)connection:(id)connection account:(id)account inviteDroppedForSessionID:(id)d fromID:(id)iD context:(id)context error:(id)error
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   dCopy = d;
   iDCopy = iD;
@@ -5006,37 +4988,35 @@ LABEL_16:
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v35 = dCopy;
-    v36 = 2112;
-    v37 = iDCopy;
-    v38 = 2112;
-    v39 = errorCopy;
+    v34 = dCopy;
+    v35 = 2112;
+    v36 = iDCopy;
+    v37 = 2112;
+    v38 = errorCopy;
     _os_log_impl(&dword_1959FF000, v21, OS_LOG_TYPE_DEFAULT, "Received invitation but dropped for sessionID %@ fromID %@ with %@", buf, 0x20u);
   }
 
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = sub_195AC34EC;
-  v28[3] = &unk_1E7441E88;
-  v28[4] = self;
-  v29 = accountCopy;
-  v30 = dCopy;
-  v31 = iDCopy;
-  v32 = contextCopy;
-  v33 = errorCopy;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = sub_195AC34EC;
+  v27[3] = &unk_1E7441E88;
+  v27[4] = self;
+  v28 = accountCopy;
+  v29 = dCopy;
+  v30 = iDCopy;
+  v31 = contextCopy;
+  v32 = errorCopy;
   v22 = errorCopy;
   v23 = contextCopy;
   v24 = iDCopy;
   v25 = dCopy;
   v26 = accountCopy;
-  [(_IDSService *)self _callDelegatesWithBlock:v28];
-
-  v27 = *MEMORY[0x1E69E9840];
+  [(_IDSService *)self _callDelegatesWithBlock:v27];
 }
 
 - (void)connection:(id)connection account:(id)account receivedGroupSessionParticipantUpdate:(id)update context:(id)context
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   updateCopy = update;
   contextCopy = context;
@@ -5057,27 +5037,25 @@ LABEL_16:
   {
     *buf = 138412802;
     selfCopy = self;
-    v26 = 2112;
-    v27 = updateCopy;
-    v28 = 2112;
-    v29 = contextCopy;
+    v25 = 2112;
+    v26 = updateCopy;
+    v27 = 2112;
+    v28 = contextCopy;
     _os_log_impl(&dword_1959FF000, v15, OS_LOG_TYPE_DEFAULT, "Received group session participant update {service: %@, update: %@, context: %@}", buf, 0x20u);
   }
 
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = sub_195AC3748;
-  v20[3] = &unk_1E7441F50;
-  v20[4] = self;
-  v21 = accountCopy;
-  v22 = updateCopy;
-  v23 = contextCopy;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = sub_195AC3748;
+  v19[3] = &unk_1E7441F50;
+  v19[4] = self;
+  v20 = accountCopy;
+  v21 = updateCopy;
+  v22 = contextCopy;
   v16 = contextCopy;
   v17 = updateCopy;
   v18 = accountCopy;
-  [(_IDSService *)self _callDelegatesWithBlock:v20];
-
-  v19 = *MEMORY[0x1E69E9840];
+  [(_IDSService *)self _callDelegatesWithBlock:v19];
 }
 
 - (void)connection:(id)connection account:(id)account receivedGroupSessionParticipantDataUpdate:(id)update
@@ -5110,7 +5088,7 @@ LABEL_16:
 
 - (void)connection:(id)connection didSendOpportunisticDataWithIdentifier:(id)identifier toIDs:(id)ds
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   dsCopy = ds;
   v9 = +[IDSInternalQueueController sharedInstance];
@@ -5130,25 +5108,23 @@ LABEL_16:
   {
     *buf = 138412802;
     selfCopy = self;
-    v21 = 2112;
-    v22 = identifierCopy;
-    v23 = 2112;
-    v24 = dsCopy;
+    v20 = 2112;
+    v21 = identifierCopy;
+    v22 = 2112;
+    v23 = dsCopy;
     _os_log_impl(&dword_1959FF000, v12, OS_LOG_TYPE_DEFAULT, "Recieved did send opportunistic data {service: %@, identifier: %@, toIDs: %@}", buf, 0x20u);
   }
 
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = sub_195AC3B58;
-  v16[3] = &unk_1E7442068;
-  v16[4] = self;
-  v17 = identifierCopy;
-  v18 = dsCopy;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = sub_195AC3B58;
+  v15[3] = &unk_1E7442068;
+  v15[4] = self;
+  v16 = identifierCopy;
+  v17 = dsCopy;
   v13 = dsCopy;
   v14 = identifierCopy;
-  [(_IDSService *)self _callDelegatesWithBlock:v16];
-
-  v15 = *MEMORY[0x1E69E9840];
+  [(_IDSService *)self _callDelegatesWithBlock:v15];
 }
 
 - (BOOL)isPretendingToBeFull
@@ -5240,7 +5216,7 @@ LABEL_16:
 
 - (id)_filteredAccountsFrom:(id)from
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   v4 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v4 assertQueueIsCurrent];
@@ -5255,30 +5231,30 @@ LABEL_16:
   }
 
   v7 = [MEMORY[0x1E695DFA8] set];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   v8 = fromCopy;
-  v9 = [v8 countByEnumeratingWithState:&v35 objects:v47 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v34 objects:v46 count:16];
   if (v9)
   {
     v11 = v9;
-    v12 = *v36;
+    v12 = *v35;
     v13 = 0x1E743D000uLL;
     *&v10 = 138413058;
-    v31 = v10;
-    v32 = v8;
+    v30 = v10;
+    v31 = v8;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v36 != v12)
+        if (*v35 != v12)
         {
           objc_enumerationMutation(v8);
         }
 
-        v15 = *(*(&v35 + 1) + 8 * i);
+        v15 = *(*(&v34 + 1) + 8 * i);
         _internal = [v15 _internal];
         isTransientAllowlistedAccount = [_internal isTransientAllowlistedAccount];
 
@@ -5293,7 +5269,7 @@ LABEL_16:
           if (os_log_type_enabled(_IDSService, OS_LOG_TYPE_INFO))
           {
             _internal2 = [v15 _internal];
-            v33 = _internal2;
+            v32 = _internal2;
             _internal3 = [v15 _internal];
             aliases = [_internal3 aliases];
             _internal4 = [v15 _internal];
@@ -5310,36 +5286,34 @@ LABEL_16:
 
             _internal5 = [v15 _internal];
             canSend = [_internal5 canSend];
-            *buf = v31;
+            *buf = v30;
             v28 = @"NO";
             if (canSend)
             {
               v28 = @"YES";
             }
 
-            v40 = _internal2;
-            v41 = 2112;
-            v42 = aliases;
-            v43 = 2112;
-            v44 = v25;
+            v39 = _internal2;
+            v40 = 2112;
+            v41 = aliases;
+            v42 = 2112;
+            v43 = v25;
             v7 = v24;
-            v45 = 2112;
-            v46 = v28;
+            v44 = 2112;
+            v45 = v28;
             _os_log_impl(&dword_1959FF000, _IDSService, OS_LOG_TYPE_INFO, "Filtering account %@ with aliases %@  isActive? %@  canSend? %@", buf, 0x2Au);
 
-            v8 = v32;
+            v8 = v31;
             v13 = 0x1E743D000;
           }
         }
       }
 
-      v11 = [v8 countByEnumeratingWithState:&v35 objects:v47 count:16];
+      v11 = [v8 countByEnumeratingWithState:&v34 objects:v46 count:16];
     }
 
     while (v11);
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -5368,7 +5342,7 @@ LABEL_16:
 
 - (BOOL)canSend
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v3 assertQueueIsCurrent];
 
@@ -5381,27 +5355,27 @@ LABEL_16:
     }
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   _internal = [(IDSAccountController *)self->_accountController _internal];
   accounts = [_internal accounts];
 
-  v8 = [accounts countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [accounts countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
-    v9 = *v16;
+    v9 = *v15;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(accounts);
         }
 
-        _internal2 = [*(*(&v15 + 1) + 8 * i) _internal];
+        _internal2 = [*(*(&v14 + 1) + 8 * i) _internal];
         canSend = [_internal2 canSend];
 
         if (canSend)
@@ -5411,7 +5385,7 @@ LABEL_16:
         }
       }
 
-      v8 = [accounts countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [accounts countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v8)
       {
         continue;
@@ -5423,7 +5397,6 @@ LABEL_16:
 
 LABEL_15:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -5440,7 +5413,7 @@ LABEL_15:
 
 - (void)_updateLinkedDevicesWithDevicesInfo:(id)info
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   v5 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v5 assertQueueIsCurrent];
@@ -5458,26 +5431,26 @@ LABEL_15:
   linkedDevices = self->_linkedDevices;
   self->_linkedDevices = v8;
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   obj = infoCopy;
-  v10 = [obj countByEnumeratingWithState:&v24 objects:v30 count:16];
+  v10 = [obj countByEnumeratingWithState:&v23 objects:v29 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v25;
+    v12 = *v24;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v25 != v12)
+        if (*v24 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = [[IDSDevice alloc] _initWithDictionary:*(*(&v24 + 1) + 8 * i)];
+        v14 = [[IDSDevice alloc] _initWithDictionary:*(*(&v23 + 1) + 8 * i)];
         object = [self->_delegateContext object];
         [v14 _setService:object];
 
@@ -5487,14 +5460,14 @@ LABEL_15:
           _internal = [v14 _internal];
           compactDescription = [_internal compactDescription];
           *buf = 138412290;
-          v29 = compactDescription;
+          v28 = compactDescription;
           _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "Adding linked IDSDevice %@", buf, 0xCu);
         }
 
         [(NSMutableArray *)self->_linkedDevices addObject:v14];
       }
 
-      v11 = [obj countByEnumeratingWithState:&v24 objects:v30 count:16];
+      v11 = [obj countByEnumeratingWithState:&v23 objects:v29 count:16];
     }
 
     while (v11);
@@ -5506,16 +5479,14 @@ LABEL_15:
     v20 = [(NSMutableArray *)self->_linkedDevices __imArrayByApplyingBlock:&unk_1F09E6B60];
     v21 = [v20 count];
     *buf = 67109120;
-    LODWORD(v29) = v21;
+    LODWORD(v28) = v21;
     _os_log_impl(&dword_1959FF000, registration2, OS_LOG_TYPE_DEFAULT, "Linked devices updated with count %d", buf, 8u);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (id)linkedDevicesWithRelationship:(int64_t)relationship
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v5 assertQueueIsCurrent];
 
@@ -5541,26 +5512,26 @@ LABEL_15:
   if (v11)
   {
     [(_IDSService *)self _loadCachedLinkedDevices];
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v12 = self->_linkedDevices;
-    v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v22;
+      v15 = *v21;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v22 != v15)
+          if (*v21 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v21 + 1) + 8 * i);
+          v17 = *(*(&v20 + 1) + 8 * i);
           relationship = [v17 relationship];
           if (relationship != 1 && (relationship & relationship) != 0 && [v17 relationship] != 1)
           {
@@ -5568,64 +5539,62 @@ LABEL_15:
           }
         }
 
-        v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v14);
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
 - (NSArray)URIs
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   obj = [(_IDSService *)self accounts];
-  v22 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
-  if (v22)
+  v21 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+  if (v21)
   {
-    v21 = *v29;
+    v20 = *v28;
     v4 = *MEMORY[0x1E69A5630];
     do
     {
       v5 = 0;
       do
       {
-        if (*v29 != v21)
+        if (*v28 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = v5;
-        v6 = *(*(&v28 + 1) + 8 * v5);
+        v22 = v5;
+        v6 = *(*(&v27 + 1) + 8 * v5);
+        v23 = 0u;
         v24 = 0u;
         v25 = 0u;
         v26 = 0u;
-        v27 = 0u;
         handles = [v6 handles];
-        v8 = [handles countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v8 = [handles countByEnumeratingWithState:&v23 objects:v31 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v25;
+          v10 = *v24;
           do
           {
             for (i = 0; i != v9; ++i)
             {
-              if (*v25 != v10)
+              if (*v24 != v10)
               {
                 objc_enumerationMutation(handles);
               }
 
-              v12 = *(*(&v24 + 1) + 8 * i);
+              v12 = *(*(&v23 + 1) + 8 * i);
               v13 = [v12 URI];
               unprefixedURI = [v13 unprefixedURI];
               v15 = [unprefixedURI isEqualToIgnoringCase:v4];
@@ -5637,25 +5606,23 @@ LABEL_15:
               }
             }
 
-            v9 = [handles countByEnumeratingWithState:&v24 objects:v32 count:16];
+            v9 = [handles countByEnumeratingWithState:&v23 objects:v31 count:16];
           }
 
           while (v9);
         }
 
-        v5 = v23 + 1;
+        v5 = v22 + 1;
       }
 
-      while (v23 + 1 != v22);
-      v22 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+      while (v22 + 1 != v21);
+      v21 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
-    while (v22);
+    while (v21);
   }
 
   allObjects = [v3 allObjects];
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return allObjects;
 }
@@ -5675,89 +5642,88 @@ LABEL_15:
 
 - (NSDictionary)pseudonymURIMap
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   accounts = [(_IDSService *)self accounts];
-  v5 = [accounts countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [accounts countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(accounts);
         }
 
-        pseudonymURIMap = [*(*(&v13 + 1) + 8 * i) pseudonymURIMap];
+        pseudonymURIMap = [*(*(&v12 + 1) + 8 * i) pseudonymURIMap];
         [v3 addEntriesFromDictionary:pseudonymURIMap];
       }
 
-      v6 = [accounts countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [accounts countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
 
   v10 = [v3 copy];
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 - (id)pseudonymForPseudonymURI:(id)i
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   iCopy = i;
   if (iCopy)
   {
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     accounts = [(_IDSService *)self accounts];
-    v21 = [accounts countByEnumeratingWithState:&v26 objects:v31 count:16];
-    if (v21)
+    v20 = [accounts countByEnumeratingWithState:&v25 objects:v30 count:16];
+    if (v20)
     {
-      v6 = *v27;
-      v20 = *v27;
+      v6 = *v26;
+      v19 = *v26;
       do
       {
-        for (i = 0; i != v21; ++i)
+        for (i = 0; i != v20; ++i)
         {
-          if (*v27 != v6)
+          if (*v26 != v6)
           {
             objc_enumerationMutation(accounts);
           }
 
-          v8 = *(*(&v26 + 1) + 8 * i);
+          v8 = *(*(&v25 + 1) + 8 * i);
+          v21 = 0u;
           v22 = 0u;
           v23 = 0u;
           v24 = 0u;
-          v25 = 0u;
           pseudonyms = [v8 pseudonyms];
-          v10 = [pseudonyms countByEnumeratingWithState:&v22 objects:v30 count:16];
+          v10 = [pseudonyms countByEnumeratingWithState:&v21 objects:v29 count:16];
           if (v10)
           {
             v11 = v10;
-            v12 = *v23;
+            v12 = *v22;
             while (2)
             {
               for (j = 0; j != v11; ++j)
               {
-                if (*v23 != v12)
+                if (*v22 != v12)
                 {
                   objc_enumerationMutation(pseudonyms);
                 }
 
-                v14 = *(*(&v22 + 1) + 8 * j);
+                v14 = *(*(&v21 + 1) + 8 * j);
                 v15 = [v14 URI];
                 v16 = [v15 isEqualToURI:iCopy];
 
@@ -5769,7 +5735,7 @@ LABEL_15:
                 }
               }
 
-              v11 = [pseudonyms countByEnumeratingWithState:&v22 objects:v30 count:16];
+              v11 = [pseudonyms countByEnumeratingWithState:&v21 objects:v29 count:16];
               if (v11)
               {
                 continue;
@@ -5779,14 +5745,14 @@ LABEL_15:
             }
           }
 
-          v6 = v20;
+          v6 = v19;
         }
 
         v17 = 0;
-        v21 = [accounts countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v20 = [accounts countByEnumeratingWithState:&v25 objects:v30 count:16];
       }
 
-      while (v21);
+      while (v20);
     }
 
     else
@@ -5801,8 +5767,6 @@ LABEL_21:
   {
     v17 = 0;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -5857,66 +5821,66 @@ LABEL_21:
 
 - (id)_accountWithURI:(id)i orPseudonym:(id)pseudonym
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   iCopy = i;
   pseudonymCopy = pseudonym;
   if (iCopy | pseudonymCopy)
   {
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     accounts = [(_IDSService *)self accounts];
-    v31 = [accounts countByEnumeratingWithState:&v41 objects:v47 count:16];
-    if (v31)
+    v30 = [accounts countByEnumeratingWithState:&v40 objects:v46 count:16];
+    if (v30)
     {
-      v9 = *v42;
-      v30 = *v42;
+      v9 = *v41;
+      v29 = *v41;
       do
       {
-        for (i = 0; i != v31; ++i)
+        for (i = 0; i != v30; ++i)
         {
-          if (*v42 != v9)
+          if (*v41 != v9)
           {
             objc_enumerationMutation(accounts);
           }
 
-          v11 = *(*(&v41 + 1) + 8 * i);
-          v32 = v11;
+          v11 = *(*(&v40 + 1) + 8 * i);
+          v31 = v11;
           if (iCopy)
           {
-            v39 = 0u;
-            v40 = 0u;
-            v37 = 0u;
             v38 = 0u;
+            v39 = 0u;
+            v36 = 0u;
+            v37 = 0u;
             handles = [v11 handles];
-            v13 = [handles countByEnumeratingWithState:&v37 objects:v46 count:16];
+            v13 = [handles countByEnumeratingWithState:&v36 objects:v45 count:16];
             if (v13)
             {
               v14 = v13;
-              v15 = *v38;
+              v15 = *v37;
               while (2)
               {
                 for (j = 0; j != v14; ++j)
                 {
-                  if (*v38 != v15)
+                  if (*v37 != v15)
                   {
                     objc_enumerationMutation(handles);
                   }
 
-                  v17 = [*(*(&v37 + 1) + 8 * j) URI];
+                  v17 = [*(*(&v36 + 1) + 8 * j) URI];
                   v18 = [v17 isEqualToURI:iCopy];
 
                   if (v18)
                   {
 LABEL_33:
-                    v26 = v32;
+                    v26 = v31;
 
                     goto LABEL_34;
                   }
                 }
 
-                v14 = [handles countByEnumeratingWithState:&v37 objects:v46 count:16];
+                v14 = [handles countByEnumeratingWithState:&v36 objects:v45 count:16];
                 if (v14)
                 {
                   continue;
@@ -5926,43 +5890,43 @@ LABEL_33:
               }
             }
 
-            v11 = v32;
+            v11 = v31;
           }
 
           if (pseudonymCopy)
           {
-            v29 = accounts;
-            v35 = 0u;
-            v36 = 0u;
-            v33 = 0u;
+            v28 = accounts;
             v34 = 0u;
+            v35 = 0u;
+            v32 = 0u;
+            v33 = 0u;
             handles = [v11 pseudonyms];
-            v19 = [handles countByEnumeratingWithState:&v33 objects:v45 count:16];
+            v19 = [handles countByEnumeratingWithState:&v32 objects:v44 count:16];
             if (v19)
             {
               v20 = v19;
-              v21 = *v34;
+              v21 = *v33;
               while (2)
               {
                 for (k = 0; k != v20; ++k)
                 {
-                  if (*v34 != v21)
+                  if (*v33 != v21)
                   {
                     objc_enumerationMutation(handles);
                   }
 
-                  v23 = [*(*(&v33 + 1) + 8 * k) URI];
+                  v23 = [*(*(&v32 + 1) + 8 * k) URI];
                   v24 = [pseudonymCopy URI];
                   v25 = [v23 isEqualToURI:v24];
 
                   if (v25)
                   {
-                    accounts = v29;
+                    accounts = v28;
                     goto LABEL_33;
                   }
                 }
 
-                v20 = [handles countByEnumeratingWithState:&v33 objects:v45 count:16];
+                v20 = [handles countByEnumeratingWithState:&v32 objects:v44 count:16];
                 if (v20)
                 {
                   continue;
@@ -5972,17 +5936,17 @@ LABEL_33:
               }
             }
 
-            accounts = v29;
+            accounts = v28;
           }
 
-          v9 = v30;
+          v9 = v29;
         }
 
         v26 = 0;
-        v31 = [accounts countByEnumeratingWithState:&v41 objects:v47 count:16];
+        v30 = [accounts countByEnumeratingWithState:&v40 objects:v46 count:16];
       }
 
-      while (v31);
+      while (v30);
     }
 
     else
@@ -5997,8 +5961,6 @@ LABEL_34:
   {
     v26 = 0;
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return v26;
 }
@@ -6037,31 +5999,31 @@ LABEL_34:
 
 - (void)account:(id)account pseudonymsChanged:(id)changed
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   if ([(_IDSService *)self wantsPseudonymUpdates])
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     accounts = [(_IDSService *)self accounts];
-    v7 = [accounts countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [accounts countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v16;
+      v9 = *v15;
       while (2)
       {
         v10 = 0;
         do
         {
-          if (*v16 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(accounts);
           }
 
-          _internal = [*(*(&v15 + 1) + 8 * v10) _internal];
+          _internal = [*(*(&v14 + 1) + 8 * v10) _internal];
           uniqueID = [_internal uniqueID];
           v13 = [uniqueID isEqualToString:accountCopy];
 
@@ -6076,7 +6038,7 @@ LABEL_34:
         }
 
         while (v8 != v10);
-        v8 = [accounts countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [accounts countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v8)
         {
           continue;
@@ -6088,8 +6050,6 @@ LABEL_34:
   }
 
 LABEL_12:
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_calloutPseudonymsDidUpdate
@@ -6115,7 +6075,7 @@ LABEL_12:
 
 - (void)provisionPseudonymWithProperties:(id)properties requestProperties:(id)requestProperties completion:(id)completion
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   requestPropertiesCopy = requestProperties;
   completionCopy = completion;
@@ -6146,21 +6106,19 @@ LABEL_6:
   if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
   {
     accounts = [(_IDSService *)self accounts];
-    v18 = 138412290;
-    v19 = accounts;
-    _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "No URI found on any account -- returning nil {accounts: %@}", &v18, 0xCu);
+    v17 = 138412290;
+    v18 = accounts;
+    _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "No URI found on any account -- returning nil {accounts: %@}", &v17, 0xCu);
   }
 
   firstObject = sub_195AC667C(400);
   completionCopy[2](completionCopy, 0, firstObject);
 LABEL_7:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)provisionPseudonymForURI:(id)i withProperties:(id)properties requestProperties:(id)requestProperties completion:(id)completion
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   iCopy = i;
   propertiesCopy = properties;
   requestPropertiesCopy = requestProperties;
@@ -6173,15 +6131,15 @@ LABEL_7:
   v14 = [(_IDSService *)self _accountWithURI:iCopy orPseudonym:0];
   if (v14)
   {
-    v32 = requestPropertiesCopy;
-    v33 = propertiesCopy;
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = sub_195AC6D6C;
-    v34[3] = &unk_1E743E850;
+    v31 = requestPropertiesCopy;
+    v32 = propertiesCopy;
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = sub_195AC6D6C;
+    v33[3] = &unk_1E743E850;
     v15 = completionCopy;
-    v35 = v15;
-    v16 = MEMORY[0x19A8BBEF0](v34);
+    v34 = v15;
+    v16 = MEMORY[0x19A8BBEF0](v33);
     stringGUID = [MEMORY[0x1E696AEC0] stringGUID];
     completionBlocksByRequestID = self->_completionBlocksByRequestID;
     if (!completionBlocksByRequestID)
@@ -6200,26 +6158,26 @@ LABEL_7:
     [(NSMutableDictionary *)completionBlocksByRequestID setObject:v24 forKey:stringGUID];
 
     registration = [MEMORY[0x1E69A6138] registration];
-    propertiesCopy = v33;
+    propertiesCopy = v32;
     if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138413058;
-      v37 = iCopy;
-      v38 = 2112;
-      v39 = v33;
-      v40 = 2112;
-      v41 = stringGUID;
-      v42 = 2112;
+      v36 = iCopy;
+      v37 = 2112;
+      v38 = v32;
+      v39 = 2112;
+      v40 = stringGUID;
+      v41 = 2112;
       selfCopy = self;
       _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "provisionPseudonymForURI called {URI: %@, properties: %@, requestUUID: %@, self: %@}", buf, 0x2Au);
     }
 
     daemonController = [(_IDSService *)self daemonController];
     uniqueID = [v14 uniqueID];
-    requestPropertiesCopy = v32;
-    [daemonController provisionPseudonymForURI:iCopy onAccount:uniqueID withProperties:v33 requestProperties:v32 requestUUID:stringGUID];
+    requestPropertiesCopy = v31;
+    [daemonController provisionPseudonymForURI:iCopy onAccount:uniqueID withProperties:v32 requestProperties:v31 requestUUID:stringGUID];
 
-    v28 = v35;
+    v28 = v34;
   }
 
   else
@@ -6229,22 +6187,20 @@ LABEL_7:
     {
       accounts = [(_IDSService *)self accounts];
       *buf = 138412546;
-      v37 = iCopy;
-      v38 = 2112;
-      v39 = accounts;
+      v36 = iCopy;
+      v37 = 2112;
+      v38 = accounts;
       _os_log_impl(&dword_1959FF000, registration2, OS_LOG_TYPE_DEFAULT, "No account matched URI -- returning nil {URI: %@, accounts: %@}", buf, 0x16u);
     }
 
     v28 = sub_195AC667C(400);
     (*(completionCopy + 2))(completionCopy, 0, v28);
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (void)renewPseudonym:(id)pseudonym forUpdatedExpiryEpoch:(double)epoch requestProperties:(id)properties completion:(id)completion
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   pseudonymCopy = pseudonym;
   propertiesCopy = properties;
   completionCopy = completion;
@@ -6256,14 +6212,14 @@ LABEL_7:
   v13 = [(_IDSService *)self _accountWithURI:0 orPseudonym:pseudonymCopy];
   if (v13)
   {
-    v31 = propertiesCopy;
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = sub_195AC7120;
-    v32[3] = &unk_1E743E850;
+    v30 = propertiesCopy;
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = sub_195AC7120;
+    v31[3] = &unk_1E743E850;
     v14 = completionCopy;
-    v33 = v14;
-    v15 = MEMORY[0x19A8BBEF0](v32);
+    v32 = v14;
+    v15 = MEMORY[0x19A8BBEF0](v31);
     stringGUID = [MEMORY[0x1E696AEC0] stringGUID];
     completionBlocksByRequestID = self->_completionBlocksByRequestID;
     if (!completionBlocksByRequestID)
@@ -6285,22 +6241,22 @@ LABEL_7:
     if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138413058;
-      v35 = pseudonymCopy;
-      v36 = 2048;
+      v34 = pseudonymCopy;
+      v35 = 2048;
       epochCopy = epoch;
-      v38 = 2112;
-      v39 = stringGUID;
-      v40 = 2112;
+      v37 = 2112;
+      v38 = stringGUID;
+      v39 = 2112;
       selfCopy = self;
       _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "renewPseudonym called {pseudonym: %@, expiry: %f, requestUUID: %@, self: %@}", buf, 0x2Au);
     }
 
     daemonController = [(_IDSService *)self daemonController];
     uniqueID = [v13 uniqueID];
-    propertiesCopy = v31;
-    [daemonController renewPseudonym:pseudonymCopy onAccount:uniqueID forUpdatedExpiryEpoch:v31 requestProperties:stringGUID requestUUID:epoch];
+    propertiesCopy = v30;
+    [daemonController renewPseudonym:pseudonymCopy onAccount:uniqueID forUpdatedExpiryEpoch:v30 requestProperties:stringGUID requestUUID:epoch];
 
-    v27 = v33;
+    v27 = v32;
   }
 
   else
@@ -6310,8 +6266,8 @@ LABEL_7:
     {
       accounts = [(_IDSService *)self accounts];
       *buf = 138412546;
-      v35 = pseudonymCopy;
-      v36 = 2112;
+      v34 = pseudonymCopy;
+      v35 = 2112;
       epochCopy = *&accounts;
       _os_log_impl(&dword_1959FF000, registration2, OS_LOG_TYPE_DEFAULT, "No account matched pseudonym -- returning nil {pseudonym: %@, accounts: %@}", buf, 0x16u);
     }
@@ -6319,13 +6275,11 @@ LABEL_7:
     v27 = sub_195AC667C(400);
     (*(completionCopy + 2))(completionCopy, 0, v27);
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)revokePseudonym:(id)pseudonym requestProperties:(id)properties completion:(id)completion
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   pseudonymCopy = pseudonym;
   propertiesCopy = properties;
   completionCopy = completion;
@@ -6337,14 +6291,14 @@ LABEL_7:
   v11 = [(_IDSService *)self _accountWithURI:0 orPseudonym:pseudonymCopy];
   if (v11)
   {
-    v29 = propertiesCopy;
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = sub_195AC74B8;
-    v30[3] = &unk_1E743E850;
+    v28 = propertiesCopy;
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = sub_195AC74B8;
+    v29[3] = &unk_1E743E850;
     v12 = completionCopy;
-    v31 = v12;
-    v13 = MEMORY[0x19A8BBEF0](v30);
+    v30 = v12;
+    v13 = MEMORY[0x19A8BBEF0](v29);
     stringGUID = [MEMORY[0x1E696AEC0] stringGUID];
     completionBlocksByRequestID = self->_completionBlocksByRequestID;
     if (!completionBlocksByRequestID)
@@ -6366,20 +6320,20 @@ LABEL_7:
     if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v33 = pseudonymCopy;
-      v34 = 2112;
-      v35 = stringGUID;
-      v36 = 2112;
+      v32 = pseudonymCopy;
+      v33 = 2112;
+      v34 = stringGUID;
+      v35 = 2112;
       selfCopy = self;
       _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "revokePseudonym called {pseudonym: %@, requestUUID: %@, self: %@}", buf, 0x20u);
     }
 
     daemonController = [(_IDSService *)self daemonController];
     uniqueID = [v11 uniqueID];
-    propertiesCopy = v29;
-    [daemonController revokePseudonym:pseudonymCopy onAccount:uniqueID requestProperties:v29 requestUUID:stringGUID];
+    propertiesCopy = v28;
+    [daemonController revokePseudonym:pseudonymCopy onAccount:uniqueID requestProperties:v28 requestUUID:stringGUID];
 
-    v25 = v31;
+    v25 = v30;
   }
 
   else
@@ -6389,22 +6343,20 @@ LABEL_7:
     {
       accounts = [(_IDSService *)self accounts];
       *buf = 138412546;
-      v33 = pseudonymCopy;
-      v34 = 2112;
-      v35 = accounts;
+      v32 = pseudonymCopy;
+      v33 = 2112;
+      v34 = accounts;
       _os_log_impl(&dword_1959FF000, registration2, OS_LOG_TYPE_DEFAULT, "No account matched pseudonym -- returning nil {pseudonym: %@, accounts: %@}", buf, 0x16u);
     }
 
     v25 = sub_195AC667C(400);
     (*(completionCopy + 2))(completionCopy, 0, v25);
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (id)pseudonymPropertiesWithFeatureID:(id)d scopeID:(id)iD expiryDurationInSeconds:(double)seconds
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   v8 = MEMORY[0x1E69A5398];
   iDCopy = iD;
   dCopy = d;
@@ -6413,11 +6365,9 @@ LABEL_7:
   [date timeIntervalSince1970];
   v14 = v13 + seconds;
   identifier = [(IDSServiceProperties *)self->_serviceProperties identifier];
-  v20[0] = identifier;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
+  v19[0] = identifier;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
   v17 = [v11 initWithFeatureID:dCopy scopeID:iDCopy expiryEpoch:v16 allowedServices:v14];
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -6425,7 +6375,7 @@ LABEL_7:
 - (void)finishedProvisioningPseudonym:(id)pseudonym success:(BOOL)success error:(id)error forRequestUUID:(id)d
 {
   successCopy = success;
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   pseudonymCopy = pseudonym;
   dCopy = d;
   v12 = sub_195AC78FC(error);
@@ -6440,36 +6390,36 @@ LABEL_7:
     {
       v16 = @"NO";
       *buf = 138413314;
-      v28 = pseudonymCopy;
+      v27 = pseudonymCopy;
       if (successCopy)
       {
         v16 = @"YES";
       }
 
-      v29 = 2112;
-      v30 = v16;
-      v31 = 2112;
-      v32 = dCopy;
-      v33 = 2112;
-      v34 = v12;
-      v35 = 2112;
+      v28 = 2112;
+      v29 = v16;
+      v30 = 2112;
+      v31 = dCopy;
+      v32 = 2112;
+      v33 = v12;
+      v34 = 2112;
       selfCopy2 = self;
       _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "finishedProvisioningPseudonym called {pseudonym: %@, success:%@, requestUUID: %@, error:%@, self: %@}", buf, 0x34u);
     }
 
     v17 = +[IDSInternalQueueController sharedInstance];
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = sub_195AC79FC;
-    v21[3] = &unk_1E7442268;
-    v22 = pseudonymCopy;
-    v26 = successCopy;
-    v23 = dCopy;
-    v24 = v12;
-    v25 = first;
-    [v17 performBlock:v21];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = sub_195AC79FC;
+    v20[3] = &unk_1E7442268;
+    v21 = pseudonymCopy;
+    v25 = successCopy;
+    v22 = dCopy;
+    v23 = v12;
+    v24 = first;
+    [v17 performBlock:v20];
 
-    registration2 = v22;
+    registration2 = v21;
   }
 
   else
@@ -6479,31 +6429,29 @@ LABEL_7:
     {
       v19 = @"NO";
       *buf = 138413314;
-      v28 = pseudonymCopy;
-      v29 = 2112;
+      v27 = pseudonymCopy;
+      v28 = 2112;
       if (successCopy)
       {
         v19 = @"YES";
       }
 
-      v30 = v19;
-      v31 = 2112;
-      v32 = dCopy;
-      v33 = 2112;
-      v34 = v12;
-      v35 = 2112;
+      v29 = v19;
+      v30 = 2112;
+      v31 = dCopy;
+      v32 = 2112;
+      v33 = v12;
+      v34 = 2112;
       selfCopy2 = self;
       _os_log_impl(&dword_1959FF000, registration2, OS_LOG_TYPE_INFO, "finishedProvisioningPseudonym called but no block! {pseudonym: %@, success:%@, requestUUID: %@, error:%@, self: %@}", buf, 0x34u);
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)finishedRenewingPseudonym:(id)pseudonym success:(BOOL)success error:(id)error requestUUID:(id)d
 {
   successCopy = success;
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   pseudonymCopy = pseudonym;
   dCopy = d;
   v12 = sub_195AC78FC(error);
@@ -6518,36 +6466,36 @@ LABEL_7:
     {
       v16 = @"NO";
       *buf = 138413314;
-      v28 = pseudonymCopy;
+      v27 = pseudonymCopy;
       if (successCopy)
       {
         v16 = @"YES";
       }
 
-      v29 = 2112;
-      v30 = v16;
-      v31 = 2112;
-      v32 = dCopy;
-      v33 = 2112;
-      v34 = v12;
-      v35 = 2112;
+      v28 = 2112;
+      v29 = v16;
+      v30 = 2112;
+      v31 = dCopy;
+      v32 = 2112;
+      v33 = v12;
+      v34 = 2112;
       selfCopy2 = self;
       _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "finishedRenewingPseudonym called {pseudonym: %@, success:%@, requestUUID: %@, error:%@, self: %@}", buf, 0x34u);
     }
 
     v17 = +[IDSInternalQueueController sharedInstance];
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = sub_195AC7DAC;
-    v21[3] = &unk_1E7442268;
-    v22 = pseudonymCopy;
-    v26 = successCopy;
-    v23 = dCopy;
-    v24 = v12;
-    v25 = first;
-    [v17 performBlock:v21];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = sub_195AC7DAC;
+    v20[3] = &unk_1E7442268;
+    v21 = pseudonymCopy;
+    v25 = successCopy;
+    v22 = dCopy;
+    v23 = v12;
+    v24 = first;
+    [v17 performBlock:v20];
 
-    registration2 = v22;
+    registration2 = v21;
   }
 
   else
@@ -6557,31 +6505,29 @@ LABEL_7:
     {
       v19 = @"NO";
       *buf = 138413314;
-      v28 = pseudonymCopy;
-      v29 = 2112;
+      v27 = pseudonymCopy;
+      v28 = 2112;
       if (successCopy)
       {
         v19 = @"YES";
       }
 
-      v30 = v19;
-      v31 = 2112;
-      v32 = dCopy;
-      v33 = 2112;
-      v34 = v12;
-      v35 = 2112;
+      v29 = v19;
+      v30 = 2112;
+      v31 = dCopy;
+      v32 = 2112;
+      v33 = v12;
+      v34 = 2112;
       selfCopy2 = self;
       _os_log_impl(&dword_1959FF000, registration2, OS_LOG_TYPE_INFO, "finishedRenewingPseudonym called but no block! {pseudonym: %@, success:%@, requestUUID: %@, error:%@, self: %@}", buf, 0x34u);
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)finishedRevokingPseudonymWithSuccess:(BOOL)success error:(id)error requestUUID:(id)d
 {
   successCopy = success;
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v9 = sub_195AC78FC(error);
   v10 = [(NSMutableDictionary *)self->_completionBlocksByRequestID objectForKey:dCopy];
@@ -6600,28 +6546,28 @@ LABEL_7:
         v13 = @"YES";
       }
 
-      v24 = v13;
-      v25 = 2112;
-      v26 = dCopy;
-      v27 = 2112;
-      v28 = v9;
-      v29 = 2112;
+      v23 = v13;
+      v24 = 2112;
+      v25 = dCopy;
+      v26 = 2112;
+      v27 = v9;
+      v28 = 2112;
       selfCopy2 = self;
       _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "finishedRevokingPseudonymWithSuccess called {success:%@, requestUUID: %@, error:%@, self: %@}", buf, 0x2Au);
     }
 
     v14 = +[IDSInternalQueueController sharedInstance];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = sub_195AC8124;
-    v18[3] = &unk_1E7441988;
-    v22 = successCopy;
-    v19 = dCopy;
-    v20 = v9;
-    v21 = first;
-    [v14 performBlock:v18];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = sub_195AC8124;
+    v17[3] = &unk_1E7441988;
+    v21 = successCopy;
+    v18 = dCopy;
+    v19 = v9;
+    v20 = first;
+    [v14 performBlock:v17];
 
-    registration2 = v19;
+    registration2 = v18;
   }
 
   else
@@ -6636,23 +6582,21 @@ LABEL_7:
         v16 = @"YES";
       }
 
-      v24 = v16;
-      v25 = 2112;
-      v26 = dCopy;
-      v27 = 2112;
-      v28 = v9;
-      v29 = 2112;
+      v23 = v16;
+      v24 = 2112;
+      v25 = dCopy;
+      v26 = 2112;
+      v27 = v9;
+      v28 = 2112;
       selfCopy2 = self;
       _os_log_impl(&dword_1959FF000, registration2, OS_LOG_TYPE_INFO, "finishedRevokingPseudonymWithSuccess called but no block {success:%@, requestUUID: %@, error:%@, self: %@}", buf, 0x2Au);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)signData:(id)data withAlgorithm:(int64_t)algorithm options:(id)options completion:(id)completion
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   optionsCopy = options;
   completionCopy = completion;
@@ -6701,13 +6645,13 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  v42[0] = MEMORY[0x1E69E9820];
-  v42[1] = 3221225472;
-  v42[2] = sub_195AC8C30;
-  v42[3] = &unk_1E743E850;
+  v41[0] = MEMORY[0x1E69E9820];
+  v41[1] = 3221225472;
+  v41[2] = sub_195AC8C30;
+  v41[3] = &unk_1E743E850;
   v19 = completionCopy;
-  v43 = v19;
-  v20 = MEMORY[0x19A8BBEF0](v42);
+  v42 = v19;
+  v20 = MEMORY[0x19A8BBEF0](v41);
   stringGUID = [MEMORY[0x1E696AEC0] stringGUID];
   completionBlocksByRequestID = self->_completionBlocksByRequestID;
   if (!completionBlocksByRequestID)
@@ -6721,7 +6665,7 @@ LABEL_14:
 
   v25 = MEMORY[0x1E69A6128];
   v26 = MEMORY[0x19A8BBEF0](v19);
-  v35 = v20;
+  v34 = v20;
   v27 = MEMORY[0x19A8BBEF0](v20);
   v28 = [v25 pairWithFirst:v26 second:v27];
   [(NSMutableDictionary *)completionBlocksByRequestID setObject:v28 forKey:stringGUID];
@@ -6730,38 +6674,37 @@ LABEL_14:
   if (os_log_type_enabled(registration2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138413314;
-    v45 = stringGUID;
-    v46 = 2112;
-    v47 = dataCopy;
-    v48 = 2048;
+    v44 = stringGUID;
+    v45 = 2112;
+    v46 = dataCopy;
+    v47 = 2048;
     algorithmCopy = algorithm;
-    v50 = 2112;
-    v51 = optionsCopy;
-    v52 = 2112;
+    v49 = 2112;
+    v50 = optionsCopy;
+    v51 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1959FF000, registration2, OS_LOG_TYPE_DEFAULT, "signData called {requestID: %@, data: %@, algo: %ld, options: %@, self: %@}", buf, 0x34u);
   }
 
   daemonController = [(_IDSService *)self daemonController];
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = sub_195AC8C94;
-  v36[3] = &unk_1E7442290;
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = sub_195AC8C94;
+  v35[3] = &unk_1E7442290;
   algorithmCopy2 = algorithm;
-  v37 = dataCopy;
+  v36 = dataCopy;
   selfCopy2 = self;
-  v39 = optionsCopy;
-  v40 = stringGUID;
+  v38 = optionsCopy;
+  v39 = stringGUID;
   v31 = stringGUID;
-  [daemonController forwardMethodWithReplyIsSync:0 block:v36];
+  [daemonController forwardMethodWithReplyIsSync:0 block:v35];
 
 LABEL_15:
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (void)verifySignedData:(id)data matchesExpectedData:(id)expectedData withTokenURI:(id)i forAlgorithm:(int64_t)algorithm options:(id)options completion:(id)completion
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   expectedDataCopy = expectedData;
   iCopy = i;
@@ -6820,13 +6763,13 @@ LABEL_3:
     goto LABEL_18;
   }
 
-  v51[0] = MEMORY[0x1E69E9820];
-  v51[1] = 3221225472;
-  v51[2] = sub_195AC9184;
-  v51[3] = &unk_1E743E850;
+  v50[0] = MEMORY[0x1E69E9820];
+  v50[1] = 3221225472;
+  v50[2] = sub_195AC9184;
+  v50[3] = &unk_1E743E850;
   v25 = completionCopy;
-  v52 = v25;
-  v26 = MEMORY[0x19A8BBEF0](v51);
+  v51 = v25;
+  v26 = MEMORY[0x19A8BBEF0](v50);
   stringGUID = [MEMORY[0x1E696AEC0] stringGUID];
   completionBlocksByRequestID = self->_completionBlocksByRequestID;
   if (!completionBlocksByRequestID)
@@ -6838,55 +6781,54 @@ LABEL_3:
     completionBlocksByRequestID = self->_completionBlocksByRequestID;
   }
 
-  v39 = MEMORY[0x1E69A6128];
-  v40 = MEMORY[0x19A8BBEF0](v25);
-  v42 = v26;
+  v38 = MEMORY[0x1E69A6128];
+  v39 = MEMORY[0x19A8BBEF0](v25);
+  v41 = v26;
   v30 = MEMORY[0x19A8BBEF0](v26);
-  v31 = [v39 pairWithFirst:v40 second:v30];
+  v31 = [v38 pairWithFirst:v39 second:v30];
   [(NSMutableDictionary *)completionBlocksByRequestID setObject:v31 forKey:stringGUID];
 
   registration2 = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138413826;
-    v54 = stringGUID;
-    v55 = 2112;
-    v56 = dataCopy;
-    v57 = 2112;
-    v58 = expectedDataCopy;
-    v59 = 2112;
-    v60 = iCopy;
-    v61 = 2048;
+    v53 = stringGUID;
+    v54 = 2112;
+    v55 = dataCopy;
+    v56 = 2112;
+    v57 = expectedDataCopy;
+    v58 = 2112;
+    v59 = iCopy;
+    v60 = 2048;
     algorithmCopy = algorithm;
-    v63 = 2112;
-    v64 = optionsCopy;
-    v65 = 2112;
+    v62 = 2112;
+    v63 = optionsCopy;
+    v64 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1959FF000, registration2, OS_LOG_TYPE_DEFAULT, "verifySignedData called {requestID: %@, signedData: %@, data: %@, uri: %@, algo: %ld, options: %@, self: %@}", buf, 0x48u);
   }
 
   daemonController = [(_IDSService *)self daemonController];
-  v43[0] = MEMORY[0x1E69E9820];
-  v43[1] = 3221225472;
-  v43[2] = sub_195AC91E8;
-  v43[3] = &unk_1E74422B8;
-  v44 = dataCopy;
+  v42[0] = MEMORY[0x1E69E9820];
+  v42[1] = 3221225472;
+  v42[2] = sub_195AC91E8;
+  v42[3] = &unk_1E74422B8;
+  v43 = dataCopy;
   algorithmCopy2 = algorithm;
-  v45 = expectedDataCopy;
+  v44 = expectedDataCopy;
   selfCopy2 = self;
-  v47 = iCopy;
-  v48 = optionsCopy;
-  v49 = stringGUID;
+  v46 = iCopy;
+  v47 = optionsCopy;
+  v48 = stringGUID;
   v34 = stringGUID;
-  [daemonController forwardMethodWithReplyIsSync:0 block:v43];
+  [daemonController forwardMethodWithReplyIsSync:0 block:v42];
 
 LABEL_19:
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 - (void)verifySignedPayloads:(id)payloads forAlgorithm:(int64_t)algorithm options:(id)options completion:(id)completion
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   payloadsCopy = payloads;
   optionsCopy = options;
   completionCopy = completion;
@@ -6936,13 +6878,13 @@ LABEL_3:
   }
 
   algorithmCopy = algorithm;
-  v57[0] = MEMORY[0x1E69E9820];
-  v57[1] = 3221225472;
-  v57[2] = sub_195AC9754;
-  v57[3] = &unk_1E743E850;
+  v56[0] = MEMORY[0x1E69E9820];
+  v56[1] = 3221225472;
+  v56[2] = sub_195AC9754;
+  v56[3] = &unk_1E743E850;
   v19 = completionCopy;
-  v58 = v19;
-  v20 = MEMORY[0x19A8BBEF0](v57);
+  v57 = v19;
+  v20 = MEMORY[0x19A8BBEF0](v56);
   stringGUID = [MEMORY[0x1E696AEC0] stringGUID];
   completionBlocksByRequestID = self->_completionBlocksByRequestID;
   if (!completionBlocksByRequestID)
@@ -6957,40 +6899,40 @@ LABEL_3:
   selfCopy = self;
   v25 = MEMORY[0x1E69A6128];
   v26 = MEMORY[0x19A8BBEF0](v19);
-  v44 = v20;
+  v43 = v20;
   v27 = MEMORY[0x19A8BBEF0](v20);
   v28 = [v25 pairWithFirst:v26 second:v27];
-  v43 = stringGUID;
+  v42 = stringGUID;
   [(NSMutableDictionary *)completionBlocksByRequestID setObject:v28 forKey:stringGUID];
 
   v29 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v52 = 0u;
   v53 = 0u;
   v54 = 0u;
   v55 = 0u;
-  v56 = 0u;
   v30 = payloadsCopy;
-  v31 = [v30 countByEnumeratingWithState:&v53 objects:v67 count:16];
+  v31 = [v30 countByEnumeratingWithState:&v52 objects:v66 count:16];
   if (v31)
   {
     v32 = v31;
-    v33 = *v54;
+    v33 = *v53;
     do
     {
       for (i = 0; i != v32; ++i)
       {
-        if (*v54 != v33)
+        if (*v53 != v33)
         {
           objc_enumerationMutation(v30);
         }
 
-        v35 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:*(*(&v53 + 1) + 8 * i) requiringSecureCoding:1 error:0];
+        v35 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:*(*(&v52 + 1) + 8 * i) requiringSecureCoding:1 error:0];
         if (v35)
         {
           [v29 addObject:v35];
         }
       }
 
-      v32 = [v30 countByEnumeratingWithState:&v53 objects:v67 count:16];
+      v32 = [v30 countByEnumeratingWithState:&v52 objects:v66 count:16];
     }
 
     while (v32);
@@ -7000,37 +6942,36 @@ LABEL_3:
   if (os_log_type_enabled(registration2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138413058;
-    v60 = v43;
-    v61 = 2048;
-    v62 = algorithmCopy;
-    v63 = 2112;
-    v64 = optionsCopy;
-    v65 = 2112;
-    v66 = selfCopy;
+    v59 = v42;
+    v60 = 2048;
+    v61 = algorithmCopy;
+    v62 = 2112;
+    v63 = optionsCopy;
+    v64 = 2112;
+    v65 = selfCopy;
     _os_log_impl(&dword_1959FF000, registration2, OS_LOG_TYPE_DEFAULT, "verifySignedPayloads called {requestID: %@, algo: %ld, options: %@, self: %@}", buf, 0x2Au);
   }
 
   daemonController = [(_IDSService *)selfCopy daemonController];
-  v47[0] = MEMORY[0x1E69E9820];
-  v47[1] = 3221225472;
-  v47[2] = sub_195AC97BC;
-  v47[3] = &unk_1E7442290;
-  v52 = algorithmCopy;
-  v48 = v29;
-  v49 = selfCopy;
-  v50 = optionsCopy;
-  v51 = v43;
-  v38 = v43;
+  v46[0] = MEMORY[0x1E69E9820];
+  v46[1] = 3221225472;
+  v46[2] = sub_195AC97BC;
+  v46[3] = &unk_1E7442290;
+  v51 = algorithmCopy;
+  v47 = v29;
+  v48 = selfCopy;
+  v49 = optionsCopy;
+  v50 = v42;
+  v38 = v42;
   v39 = v29;
-  [daemonController forwardMethodWithReplyIsSync:0 block:v47];
+  [daemonController forwardMethodWithReplyIsSync:0 block:v46];
 
 LABEL_25:
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (void)finishedSigningForRequest:(id)request signedData:(id)data error:(id)error
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   dataCopy = data;
   v10 = sub_195AC78FC(error);
@@ -7044,27 +6985,27 @@ LABEL_25:
     if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138413058;
-      v22 = requestCopy;
-      v23 = 2112;
-      v24 = dataCopy;
-      v25 = 2112;
-      v26 = v10;
-      v27 = 2112;
+      v21 = requestCopy;
+      v22 = 2112;
+      v23 = dataCopy;
+      v24 = 2112;
+      v25 = v10;
+      v26 = 2112;
       selfCopy2 = self;
       _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "finishedSigningForRequest called {requestUUID: %@, signedData: %@, error: %@, self: %@}", buf, 0x2Au);
     }
 
     v14 = +[IDSInternalQueueController sharedInstance];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = sub_195AC9AB8;
-    v17[3] = &unk_1E743F1D8;
-    v20 = first;
-    v18 = dataCopy;
-    v19 = v10;
-    [v14 performBlock:v17];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = sub_195AC9AB8;
+    v16[3] = &unk_1E743F1D8;
+    v19 = first;
+    v17 = dataCopy;
+    v18 = v10;
+    [v14 performBlock:v16];
 
-    registration2 = v20;
+    registration2 = v19;
   }
 
   else
@@ -7073,24 +7014,22 @@ LABEL_25:
     if (os_log_type_enabled(registration2, OS_LOG_TYPE_ERROR))
     {
       *buf = 138413058;
-      v22 = requestCopy;
-      v23 = 2112;
-      v24 = dataCopy;
-      v25 = 2112;
-      v26 = v10;
-      v27 = 2112;
+      v21 = requestCopy;
+      v22 = 2112;
+      v23 = dataCopy;
+      v24 = 2112;
+      v25 = v10;
+      v26 = 2112;
       selfCopy2 = self;
       _os_log_error_impl(&dword_1959FF000, registration2, OS_LOG_TYPE_ERROR, "finishedSigningForRequest called but no block! {requestUUID: %@, signedData: %@, error: %@, self: %@}", buf, 0x2Au);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)finishedVerifyingSignedDataForRequest:(id)request success:(BOOL)success error:(id)error
 {
   successCopy = success;
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   v9 = sub_195AC78FC(error);
   v10 = [(NSMutableDictionary *)self->_completionBlocksByRequestID objectForKey:requestCopy];
@@ -7104,32 +7043,32 @@ LABEL_25:
     {
       v13 = @"NO";
       *buf = 138413058;
-      v23 = requestCopy;
+      v22 = requestCopy;
       if (successCopy)
       {
         v13 = @"YES";
       }
 
-      v24 = 2112;
-      v25 = v13;
-      v26 = 2112;
-      v27 = v9;
-      v28 = 2112;
+      v23 = 2112;
+      v24 = v13;
+      v25 = 2112;
+      v26 = v9;
+      v27 = 2112;
       selfCopy2 = self;
       _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "finishedVerifyingSignedDataForRequest called {requestUUID: %@, sucess: %@, error: %@, self: %@}", buf, 0x2Au);
     }
 
     v14 = +[IDSInternalQueueController sharedInstance];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = sub_195AC9D3C;
-    v18[3] = &unk_1E743F160;
-    v20 = first;
-    v21 = successCopy;
-    v19 = v9;
-    [v14 performBlock:v18];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = sub_195AC9D3C;
+    v17[3] = &unk_1E743F160;
+    v19 = first;
+    v20 = successCopy;
+    v18 = v9;
+    [v14 performBlock:v17];
 
-    registration2 = v20;
+    registration2 = v19;
   }
 
   else
@@ -7137,30 +7076,28 @@ LABEL_25:
     registration2 = [MEMORY[0x1E69A6138] registration];
     if (os_log_type_enabled(registration2, OS_LOG_TYPE_ERROR))
     {
-      v17 = @"NO";
+      v16 = @"NO";
       *buf = 138413058;
-      v23 = requestCopy;
-      v24 = 2112;
+      v22 = requestCopy;
+      v23 = 2112;
       if (successCopy)
       {
-        v17 = @"YES";
+        v16 = @"YES";
       }
 
-      v25 = v17;
-      v26 = 2112;
-      v27 = v9;
-      v28 = 2112;
+      v24 = v16;
+      v25 = 2112;
+      v26 = v9;
+      v27 = 2112;
       selfCopy2 = self;
       _os_log_error_impl(&dword_1959FF000, registration2, OS_LOG_TYPE_ERROR, "finishedVerifyingSignedDataForRequest called but no block! {requestUUID: %@, sucess: %@, error: %@, self: %@}", buf, 0x2Au);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)finishedVerifyingBatchedSignedDataForRequest:(id)request results:(id)results error:(id)error
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   resultsCopy = results;
   v10 = sub_195AC78FC(error);
@@ -7169,42 +7106,42 @@ LABEL_25:
 
   if (first)
   {
-    v28 = first;
+    v27 = first;
     [(NSMutableDictionary *)self->_completionBlocksByRequestID removeObjectForKey:requestCopy];
     registration = [MEMORY[0x1E69A6138] registration];
     if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v41 = requestCopy;
-      v42 = 2112;
-      v43 = v10;
-      v44 = 2112;
+      v40 = requestCopy;
+      v41 = 2112;
+      v42 = v10;
+      v43 = 2112;
       selfCopy2 = self;
       _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "finishedVerifyingSignedDataForRequest called {requestUUID: %@, error: %@, self: %@}", buf, 0x20u);
     }
 
-    v30 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v29 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
-    v29 = resultsCopy;
+    v28 = resultsCopy;
     v14 = resultsCopy;
-    v15 = [v14 countByEnumeratingWithState:&v35 objects:v39 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v34 objects:v38 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v36;
+      v17 = *v35;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v36 != v17)
+          if (*v35 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v35 + 1) + 8 * i);
+          v19 = *(*(&v34 + 1) + 8 * i);
           v20 = [objc_alloc(MEMORY[0x1E69A5428]) initWithPrefixedURI:v19];
           v21 = [v14 objectForKeyedSubscript:v19];
           if (v21)
@@ -7223,7 +7160,7 @@ LABEL_25:
 
             if (!v24)
             {
-              [v30 setObject:v22 forKeyedSubscript:v20];
+              [v29 setObject:v22 forKeyedSubscript:v20];
             }
           }
 
@@ -7233,25 +7170,25 @@ LABEL_25:
           }
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v35 objects:v39 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v34 objects:v38 count:16];
       }
 
       while (v16);
     }
 
     v25 = +[IDSInternalQueueController sharedInstance];
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = sub_195ACA0F4;
-    v31[3] = &unk_1E743F1D8;
-    first = v28;
-    v34 = v28;
-    v32 = v30;
-    v33 = v10;
-    registration2 = v30;
-    [v25 performBlock:v31];
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = sub_195ACA0F4;
+    v30[3] = &unk_1E743F1D8;
+    first = v27;
+    v33 = v27;
+    v31 = v29;
+    v32 = v10;
+    registration2 = v29;
+    [v25 performBlock:v30];
 
-    resultsCopy = v29;
+    resultsCopy = v28;
   }
 
   else
@@ -7260,21 +7197,19 @@ LABEL_25:
     if (os_log_type_enabled(registration2, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v41 = requestCopy;
-      v42 = 2112;
-      v43 = v10;
-      v44 = 2112;
+      v40 = requestCopy;
+      v41 = 2112;
+      v42 = v10;
+      v43 = 2112;
       selfCopy2 = self;
       _os_log_error_impl(&dword_1959FF000, registration2, OS_LOG_TYPE_ERROR, "finishedVerifyingSignedDataForRequest called but no block! {requestUUID: %@, error: %@, self: %@}", buf, 0x20u);
     }
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reportAction:(int64_t)action ofTempURI:(id)i fromURI:(id)rI withCompletion:(id)completion
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   iCopy = i;
   rICopy = rI;
   completionCopy = completion;
@@ -7311,13 +7246,13 @@ LABEL_25:
     if (rICopy)
     {
       actionCopy = action;
-      v36[0] = MEMORY[0x1E69E9820];
-      v36[1] = 3221225472;
-      v36[2] = sub_195ACA778;
-      v36[3] = &unk_1E743E850;
+      v35[0] = MEMORY[0x1E69E9820];
+      v35[1] = 3221225472;
+      v35[2] = sub_195ACA778;
+      v35[3] = &unk_1E743E850;
       v17 = completionCopy;
-      v37 = v17;
-      v18 = MEMORY[0x19A8BBEF0](v36);
+      v36 = v17;
+      v18 = MEMORY[0x19A8BBEF0](v35);
       stringGUID = [MEMORY[0x1E696AEC0] stringGUID];
       completionBlocksByRequestID = self->_completionBlocksByRequestID;
       if (!completionBlocksByRequestID)
@@ -7331,7 +7266,7 @@ LABEL_25:
 
       v23 = MEMORY[0x1E69A6128];
       v24 = MEMORY[0x19A8BBEF0](v17);
-      v34 = v18;
+      v33 = v18;
       v25 = MEMORY[0x19A8BBEF0](v18);
       v26 = [v23 pairWithFirst:v24 second:v25];
       [(NSMutableDictionary *)completionBlocksByRequestID setObject:v26 forKey:stringGUID];
@@ -7340,12 +7275,12 @@ LABEL_25:
       if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138413058;
-        v39 = iCopy;
-        v40 = 2112;
-        v41 = rICopy;
-        v42 = 2112;
-        v43 = stringGUID;
-        v44 = 2112;
+        v38 = iCopy;
+        v39 = 2112;
+        v40 = rICopy;
+        v41 = 2112;
+        v42 = stringGUID;
+        v43 = 2112;
         selfCopy = self;
         _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "reportApprovalOfURI called {tempURI: %@, fromURI: %@, requestID: %@, self: %@}", buf, 0x2Au);
       }
@@ -7354,7 +7289,7 @@ LABEL_25:
       uniqueID = [v14 uniqueID];
       [daemonController reportAction:actionCopy ofTempURI:iCopy fromURI:rICopy onAccount:uniqueID requestUUID:stringGUID];
 
-      v30 = v37;
+      v30 = v36;
       goto LABEL_18;
     }
 
@@ -7364,9 +7299,9 @@ LABEL_15:
     {
       accounts = [(_IDSService *)self accounts];
       *buf = 138412546;
-      v39 = rICopy;
-      v40 = 2112;
-      v41 = accounts;
+      v38 = rICopy;
+      v39 = 2112;
+      v40 = accounts;
       _os_log_impl(&dword_1959FF000, registration2, OS_LOG_TYPE_DEFAULT, "No account matched to report with -- returning nil {fromURI: %@, accounts: %@}", buf, 0x16u);
     }
 
@@ -7380,13 +7315,11 @@ LABEL_18:
   v14 = sub_195ACA530(400);
   (*(completionCopy + 2))(completionCopy, v14);
 LABEL_19:
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (void)finishedReportingRequestUUID:(id)d withError:(id)error
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v7 = sub_195AC78FC(error);
   v8 = [(NSMutableDictionary *)self->_completionBlocksByRequestID objectForKey:dCopy];
@@ -7398,13 +7331,13 @@ LABEL_19:
     registration = [MEMORY[0x1E69A6138] registration];
     if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412802;
-      v14 = dCopy;
-      v15 = 2112;
-      v16 = v7;
-      v17 = 2112;
+      v12 = 138412802;
+      v13 = dCopy;
+      v14 = 2112;
+      v15 = v7;
+      v16 = 2112;
       selfCopy2 = self;
-      _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "finishedReportingRequestUUID called {requestUUID: %@, error:%@, self: %@}", &v13, 0x20u);
+      _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "finishedReportingRequestUUID called {requestUUID: %@, error:%@, self: %@}", &v12, 0x20u);
     }
 
     (first)[2](first, v7);
@@ -7415,22 +7348,20 @@ LABEL_19:
     registration2 = [MEMORY[0x1E69A6138] registration];
     if (os_log_type_enabled(registration2, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412802;
-      v14 = dCopy;
-      v15 = 2112;
-      v16 = v7;
-      v17 = 2112;
+      v12 = 138412802;
+      v13 = dCopy;
+      v14 = 2112;
+      v15 = v7;
+      v16 = 2112;
       selfCopy2 = self;
-      _os_log_impl(&dword_1959FF000, registration2, OS_LOG_TYPE_DEFAULT, "finishedReportingRequestUUID called but no block {requestUUID: %@, error:%@, self: %@}", &v13, 0x20u);
+      _os_log_impl(&dword_1959FF000, registration2, OS_LOG_TYPE_DEFAULT, "finishedReportingRequestUUID called but no block {requestUUID: %@, error:%@, self: %@}", &v12, 0x20u);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)updateSubServices:(id)services forDevice:(id)device
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   servicesCopy = services;
   deviceCopy = device;
   v8 = +[IDSInternalQueueController sharedInstance];
@@ -7453,25 +7384,25 @@ LABEL_19:
   devices = [(_IDSService *)self devices];
   _copyForEnumerating = [devices _copyForEnumerating];
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v13 = _copyForEnumerating;
-  deviceCopy = [v13 countByEnumeratingWithState:&v34 objects:v38 count:16];
+  deviceCopy = [v13 countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (deviceCopy)
   {
-    v14 = *v35;
+    v14 = *v34;
     while (2)
     {
       for (i = 0; i != deviceCopy; i = (i + 1))
       {
-        if (*v35 != v14)
+        if (*v34 != v14)
         {
           objc_enumerationMutation(v13);
         }
 
-        v16 = *(*(&v34 + 1) + 8 * i);
+        v16 = *(*(&v33 + 1) + 8 * i);
         _internal = [v16 _internal];
         isActive = [_internal isActive];
 
@@ -7482,7 +7413,7 @@ LABEL_19:
         }
       }
 
-      deviceCopy = [v13 countByEnumeratingWithState:&v34 objects:v38 count:16];
+      deviceCopy = [v13 countByEnumeratingWithState:&v33 objects:v37 count:16];
       if (deviceCopy)
       {
         continue;
@@ -7559,13 +7490,12 @@ LABEL_28:
   v31 = 0;
 LABEL_29:
 
-  v32 = *MEMORY[0x1E69E9840];
   return v31;
 }
 
 - (void)resendSubServicesToDaemonForCurrentDevice
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v3 assertQueueIsCurrent];
 
@@ -7587,25 +7517,25 @@ LABEL_29:
   devices = [(_IDSService *)self devices];
   _copyForEnumerating = [devices _copyForEnumerating];
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v9 = _copyForEnumerating;
-  v10 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v10)
   {
-    v11 = *v26;
+    v11 = *v25;
     while (2)
     {
       for (i = 0; i != v10; i = i + 1)
       {
-        if (*v26 != v11)
+        if (*v25 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v25 + 1) + 8 * i);
+        v13 = *(*(&v24 + 1) + 8 * i);
         _internal = [v13 _internal];
         isActive = [_internal isActive];
 
@@ -7616,7 +7546,7 @@ LABEL_29:
         }
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
       if (v10)
       {
         continue;
@@ -7668,22 +7598,99 @@ LABEL_17:
       sub_195B3AF7C();
     }
   }
+}
 
-  v24 = *MEMORY[0x1E69E9840];
+- (void)setProtobufAction:(SEL)action forProtobufType:(unsigned __int16)type isResponse:(BOOL)response
+{
+  responseCopy = response;
+  typeCopy = type;
+  v19 = *MEMORY[0x1E69E9840];
+  state.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
+  v18 = _os_activity_create(&dword_1959FF000, "Framework Set Protobuf Action", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  state.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
+  os_activity_scope_enter(v18, &state);
+  v9 = +[IDSInternalQueueController sharedInstance];
+  assertQueueIsCurrent = [v9 assertQueueIsCurrent];
+
+  if (assertQueueIsCurrent)
+  {
+    utilities = [MEMORY[0x1E69A5270] utilities];
+    if (os_log_type_enabled(utilities, OS_LOG_TYPE_ERROR))
+    {
+      [MEMORY[0x1E696AF00] callStackSymbols];
+      objc_claimAutoreleasedReturnValue();
+      sub_195B3B084();
+    }
+  }
+
+  if (action)
+  {
+    if (!self->_protobufSelectors)
+    {
+      Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+      protobufSelectors = self->_protobufSelectors;
+      self->_protobufSelectors = Mutable;
+    }
+
+    v14 = objc_autoreleasePoolPush();
+    v15 = [MEMORY[0x1E69A5388] keyRepresentationForType:typeCopy isResponse:responseCopy];
+    v16 = [MEMORY[0x1E696B098] valueWithPointer:action];
+    [(NSMutableDictionary *)self->_protobufSelectors setObject:v16 forKey:v15];
+
+    objc_autoreleasePoolPop(v14);
+  }
+
+  os_activity_scope_leave(&state);
+  cut_arc_os_release();
+}
+
+- (SEL)protobufActionForType:(unsigned __int16)type isResponse:(BOOL)response
+{
+  responseCopy = response;
+  typeCopy = type;
+  v17 = *MEMORY[0x1E69E9840];
+  state.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
+  v16 = _os_activity_create(&dword_1959FF000, "Framework Get Protobuf Action", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  state.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
+  os_activity_scope_enter(v16, &state);
+  v7 = +[IDSInternalQueueController sharedInstance];
+  assertQueueIsCurrent = [v7 assertQueueIsCurrent];
+
+  if (assertQueueIsCurrent)
+  {
+    utilities = [MEMORY[0x1E69A5270] utilities];
+    if (os_log_type_enabled(utilities, OS_LOG_TYPE_ERROR))
+    {
+      [MEMORY[0x1E696AF00] callStackSymbols];
+      objc_claimAutoreleasedReturnValue();
+      sub_195B3B0D4();
+    }
+  }
+
+  v10 = objc_autoreleasePoolPush();
+  v11 = [MEMORY[0x1E69A5388] keyRepresentationForType:typeCopy isResponse:responseCopy];
+  v12 = [(NSMutableDictionary *)self->_protobufSelectors objectForKey:v11];
+  pointerValue = [v12 pointerValue];
+
+  objc_autoreleasePoolPop(v10);
+  os_activity_scope_leave(&state);
+  cut_arc_os_release();
+
+  return pointerValue;
 }
 
 - (BOOL)canSendMessageWithAccount:(id)account toDestination:(id)destination
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   destinationCopy = destination;
   v8 = +[IDSLogging _IDSService];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v31 = accountCopy;
-    v32 = 2112;
-    v33 = destinationCopy;
+    v30 = accountCopy;
+    v31 = 2112;
+    v32 = destinationCopy;
     _os_log_impl(&dword_1959FF000, v8, OS_LOG_TYPE_DEFAULT, "Attempting To Send message from account %@ to destinations %@", buf, 0x16u);
   }
 
@@ -7723,9 +7730,9 @@ LABEL_17:
       {
         destinationURIs3 = [destinationCopy destinationURIs];
         [destinationURIs3 allObjects];
-        v20 = v29 = allObjects;
+        v20 = v28 = allObjects;
         [v20 __imFirstObject];
-        v21 = v28 = destinationURIs2;
+        v21 = v27 = destinationURIs2;
         _stripFZIDPrefix2 = [v21 _stripFZIDPrefix];
         _appearsToBePhoneNumber = [_stripFZIDPrefix2 _appearsToBePhoneNumber];
 
@@ -7774,7 +7781,6 @@ LABEL_22:
   LOBYTE(v23) = 1;
 LABEL_23:
 
-  v24 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
@@ -7796,7 +7802,7 @@ LABEL_23:
 
 - (id)_sendingAccountForAccount:(id)account destination:(id)destination fromID:(id)d
 {
-  v99 = *MEMORY[0x1E69E9840];
+  v98 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   destinationCopy = destination;
   dCopy = d;
@@ -7832,38 +7838,38 @@ LABEL_9:
       goto LABEL_10;
     }
 
-    v82 = serviceName3;
-    v87 = _internal3;
+    v81 = serviceName3;
+    v86 = _internal3;
     _internal4 = [accountCopy _internal];
     serviceName4 = [_internal4 serviceName];
     if ([serviceName4 isEqualToString:@"com.apple.private.alloy.biz"])
     {
 LABEL_8:
 
-      _internal3 = v87;
-      serviceName3 = v82;
+      _internal3 = v86;
+      serviceName3 = v81;
       goto LABEL_9;
     }
 
-    v78 = serviceName4;
-    v79 = _internal4;
+    v77 = serviceName4;
+    v78 = _internal4;
     _internal5 = [accountCopy _internal];
     serviceName5 = [_internal5 serviceName];
     if ([serviceName5 isEqualToString:@"com.apple.private.alloy.sms"])
     {
 
-      serviceName4 = v78;
-      _internal4 = v79;
+      serviceName4 = v77;
+      _internal4 = v78;
       goto LABEL_8;
     }
 
-    v76 = serviceName5;
-    v77 = _internal5;
+    v75 = serviceName5;
+    v76 = _internal5;
     _internal6 = [accountCopy _internal];
     serviceName6 = [_internal6 serviceName];
     if ([serviceName6 isEqualToString:@"com.apple.private.alloy.facetime.multi"])
     {
-      v64 = 1;
+      v63 = 1;
     }
 
     else
@@ -7872,7 +7878,7 @@ LABEL_8:
       serviceName7 = [_internal7 serviceName];
       if ([serviceName7 isEqualToString:@"com.apple.private.alloy.facetime.audio"])
       {
-        v64 = 1;
+        v63 = 1;
       }
 
       else
@@ -7881,7 +7887,7 @@ LABEL_8:
         serviceName8 = [_internal8 serviceName];
         if ([serviceName8 isEqualToString:@"com.apple.private.alloy.facetime.video"])
         {
-          v64 = 1;
+          v63 = 1;
         }
 
         else
@@ -7890,7 +7896,7 @@ LABEL_8:
           serviceName9 = [_internal9 serviceName];
           if ([serviceName9 isEqualToString:@"com.apple.private.alloy.maps.eta"])
           {
-            v64 = 1;
+            v63 = 1;
           }
 
           else
@@ -7899,35 +7905,35 @@ LABEL_8:
             serviceName10 = [_internal10 serviceName];
             if ([serviceName10 isEqualToString:@"com.apple.private.alloy.nearby"])
             {
-              v64 = 1;
+              v63 = 1;
             }
 
             else
             {
               _internal11 = [accountCopy _internal];
               [_internal11 serviceName];
-              v65 = v86 = v11;
-              v64 = [v65 isEqualToString:@"com.apple.private.alloy.willow"];
+              v64 = v85 = v11;
+              v63 = [v64 isEqualToString:@"com.apple.private.alloy.willow"];
 
-              v11 = v86;
+              v11 = v85;
             }
           }
         }
       }
     }
 
-    if (v64)
+    if (v63)
     {
       goto LABEL_12;
     }
 
-    v85 = v11;
+    v84 = v11;
     anyObject = accountCopy;
   }
 
   else
   {
-    v85 = dCopy;
+    v84 = dCopy;
     accounts = [(_IDSService *)self accounts];
     anyObject = [accounts anyObject];
   }
@@ -7939,48 +7945,48 @@ LABEL_8:
   v29 = [v28 sortedArrayUsingComparator:&unk_1F09E6BC0];
 
   iCloudAccount = [(_IDSService *)self iCloudAccount];
-  v88 = iCloudAccount;
+  v87 = iCloudAccount;
   if (destinationCopy && (v31 = iCloudAccount, [accountCopy accountType] != 2))
   {
-    v80 = destinationCopy;
-    v83 = v29;
+    v79 = destinationCopy;
+    v82 = v29;
     destinationURIs = [destinationCopy destinationURIs];
     v34 = [destinationURIs __imSetByApplyingBlock:&unk_1F09E6BE0];
     v35 = [v34 mutableCopy];
 
-    v95 = 0u;
-    v96 = 0u;
-    v93 = 0u;
     v94 = 0u;
+    v95 = 0u;
+    v92 = 0u;
+    v93 = 0u;
     handles = [v31 handles];
-    v37 = [handles countByEnumeratingWithState:&v93 objects:v98 count:16];
+    v37 = [handles countByEnumeratingWithState:&v92 objects:v97 count:16];
     if (v37)
     {
       v38 = v37;
-      v39 = *v94;
+      v39 = *v93;
       do
       {
         for (i = 0; i != v38; ++i)
         {
-          if (*v94 != v39)
+          if (*v93 != v39)
           {
             objc_enumerationMutation(handles);
           }
 
-          v41 = [*(*(&v93 + 1) + 8 * i) URI];
+          v41 = [*(*(&v92 + 1) + 8 * i) URI];
           unprefixedURI = [v41 unprefixedURI];
           [v35 removeObject:unprefixedURI];
         }
 
-        v38 = [handles countByEnumeratingWithState:&v93 objects:v98 count:16];
+        v38 = [handles countByEnumeratingWithState:&v92 objects:v97 count:16];
       }
 
       while (v38);
     }
 
     v32 = [v35 count] != 0;
-    destinationCopy = v80;
-    v29 = v83;
+    destinationCopy = v79;
+    v29 = v82;
   }
 
   else
@@ -7996,15 +8002,15 @@ LABEL_8:
   if (v46 && [v43 count])
   {
     firstObject = [v43 firstObject];
-    v11 = v85;
+    v11 = v84;
 LABEL_38:
-    v48 = v88;
+    v48 = v87;
     goto LABEL_39;
   }
 
-  v11 = v85;
-  v48 = v88;
-  if (!v88 || v32 && ([v88 isUsableForOuterMessaging] & 1) == 0 && objc_msgSend(v43, "count"))
+  v11 = v84;
+  v48 = v87;
+  if (!v87 || v32 && ([v87 isUsableForOuterMessaging] & 1) == 0 && objc_msgSend(v43, "count"))
   {
     if (![v29 count])
     {
@@ -8031,7 +8037,7 @@ LABEL_38:
     goto LABEL_38;
   }
 
-  firstObject = v88;
+  firstObject = v87;
 LABEL_39:
 
   anyObject = firstObject;
@@ -8040,30 +8046,30 @@ LABEL_40:
   {
     if (anyObject == v48 || ![(_IDSService *)self _canAccount:v48 sendWithFromID:v11])
     {
-      v91 = 0u;
-      v92 = 0u;
-      v89 = 0u;
       v90 = 0u;
-      v84 = v29;
+      v91 = 0u;
+      v88 = 0u;
+      v89 = 0u;
+      v83 = v29;
       v53 = v29;
-      v54 = [v53 countByEnumeratingWithState:&v89 objects:v97 count:16];
+      v54 = [v53 countByEnumeratingWithState:&v88 objects:v96 count:16];
       if (v54)
       {
         v55 = v54;
         v56 = v11;
-        v81 = destinationCopy;
-        v57 = *v90;
+        v80 = destinationCopy;
+        v57 = *v89;
         while (2)
         {
           for (j = 0; j != v55; ++j)
           {
-            if (*v90 != v57)
+            if (*v89 != v57)
             {
               objc_enumerationMutation(v53);
             }
 
-            v59 = *(*(&v89 + 1) + 8 * j);
-            if (anyObject != v59 && [(_IDSService *)self _canAccount:*(*(&v89 + 1) + 8 * j) sendWithFromID:v56])
+            v59 = *(*(&v88 + 1) + 8 * j);
+            if (anyObject != v59 && [(_IDSService *)self _canAccount:*(*(&v88 + 1) + 8 * j) sendWithFromID:v56])
             {
               v60 = v59;
 
@@ -8072,7 +8078,7 @@ LABEL_40:
             }
           }
 
-          v55 = [v53 countByEnumeratingWithState:&v89 objects:v97 count:16];
+          v55 = [v53 countByEnumeratingWithState:&v88 objects:v96 count:16];
           if (v55)
           {
             continue;
@@ -8082,10 +8088,10 @@ LABEL_40:
         }
 
 LABEL_56:
-        destinationCopy = v81;
-        v29 = v84;
+        destinationCopy = v80;
+        v29 = v83;
         v11 = v56;
-        v48 = v88;
+        v48 = v87;
       }
     }
 
@@ -8099,37 +8105,36 @@ LABEL_56:
   v22 = anyObject;
 
 LABEL_59:
-  v61 = *MEMORY[0x1E69E9840];
 
   return v22;
 }
 
 - (BOOL)_canAccount:(id)account sendWithFromID:(id)d
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   dCopy = d;
   v7 = IDSCopyRawAddressForDestination(dCopy);
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   aliasStrings = [accountCopy aliasStrings];
-  v9 = [aliasStrings countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v9 = [aliasStrings countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v28;
+    v11 = *v27;
 LABEL_3:
     v12 = 0;
     while (1)
     {
-      if (*v28 != v11)
+      if (*v27 != v11)
       {
         objc_enumerationMutation(aliasStrings);
       }
 
-      _stripFZIDPrefix = [*(*(&v27 + 1) + 8 * v12) _stripFZIDPrefix];
+      _stripFZIDPrefix = [*(*(&v26 + 1) + 8 * v12) _stripFZIDPrefix];
       v14 = [v7 isEqualToString:_stripFZIDPrefix];
 
       if (v14)
@@ -8139,7 +8144,7 @@ LABEL_3:
 
       if (v10 == ++v12)
       {
-        v10 = [aliasStrings countByEnumeratingWithState:&v27 objects:v32 count:16];
+        v10 = [aliasStrings countByEnumeratingWithState:&v26 objects:v31 count:16];
         if (v10)
         {
           goto LABEL_3;
@@ -8156,25 +8161,25 @@ LABEL_3:
     goto LABEL_21;
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   aliasStrings = [accountCopy pseudonyms];
-  v15 = [aliasStrings countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v15 = [aliasStrings countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (v15)
   {
-    v16 = *v24;
+    v16 = *v23;
 LABEL_12:
     v17 = 0;
     while (1)
     {
-      if (*v24 != v16)
+      if (*v23 != v16)
       {
         objc_enumerationMutation(aliasStrings);
       }
 
-      v18 = [*(*(&v23 + 1) + 8 * v17) URI];
+      v18 = [*(*(&v22 + 1) + 8 * v17) URI];
       prefixedURI = [v18 prefixedURI];
       v20 = [v7 isEqualToString:prefixedURI];
 
@@ -8185,7 +8190,7 @@ LABEL_12:
 
       if (v15 == ++v17)
       {
-        v15 = [aliasStrings countByEnumeratingWithState:&v23 objects:v31 count:16];
+        v15 = [aliasStrings countByEnumeratingWithState:&v22 objects:v30 count:16];
         if (v15)
         {
           goto LABEL_12;
@@ -8202,13 +8207,12 @@ LABEL_19:
 LABEL_20:
 
 LABEL_21:
-  v21 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (BOOL)sendOpportunisticData:(id)data options:(id)options identifier:(id)identifier error:(id *)error
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   optionsCopy = options;
   identifierCopy = identifier;
@@ -8241,13 +8245,13 @@ LABEL_21:
   opportunistic = [MEMORY[0x1E69A5270] opportunistic];
   if (os_log_type_enabled(opportunistic, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = 138412802;
-    v26 = identifierCopy;
-    v27 = 2112;
-    v28 = optionsCopy;
-    v29 = 2048;
-    v30 = [dataCopy length];
-    _os_log_impl(&dword_1959FF000, opportunistic, OS_LOG_TYPE_DEFAULT, "Client request to send opportunistic data {identifier: %@, options: %@, dataLength: %llu}", &v25, 0x20u);
+    v24 = 138412802;
+    v25 = identifierCopy;
+    v26 = 2112;
+    v27 = optionsCopy;
+    v28 = 2048;
+    v29 = [dataCopy length];
+    _os_log_impl(&dword_1959FF000, opportunistic, OS_LOG_TYPE_DEFAULT, "Client request to send opportunistic data {identifier: %@, options: %@, dataLength: %llu}", &v24, 0x20u);
   }
 
   if (!dictionaryRepresentation)
@@ -8260,13 +8264,12 @@ LABEL_21:
   serviceName = [_internal serviceName];
   [daemonController sendOpportunisticData:dataCopy onService:serviceName usingAccountWithUniqueID:uniqueID withIdentifier:identifierCopy options:dictionaryRepresentation];
 
-  v23 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (BOOL)cancelOpportunisticDataWithIdentifier:(id)identifier error:(id *)error
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (identifierCopy)
   {
@@ -8289,23 +8292,22 @@ LABEL_21:
   opportunistic = [MEMORY[0x1E69A5270] opportunistic];
   if (os_log_type_enabled(opportunistic, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412546;
-    v15 = v7;
-    v16 = 2112;
-    v17 = serviceName;
-    _os_log_impl(&dword_1959FF000, opportunistic, OS_LOG_TYPE_DEFAULT, "Client request to cancel opportunistic data {identifier: %@, serviceName: %@}", &v14, 0x16u);
+    v13 = 138412546;
+    v14 = v7;
+    v15 = 2112;
+    v16 = serviceName;
+    _os_log_impl(&dword_1959FF000, opportunistic, OS_LOG_TYPE_DEFAULT, "Client request to cancel opportunistic data {identifier: %@, serviceName: %@}", &v13, 0x16u);
   }
 
   daemonController = [(_IDSService *)self daemonController];
   [daemonController cancelOpportunisticDataOnService:serviceName withIdentifier:v7];
 
-  v12 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (void)sendEncryptedOffGridMessage:(id)message options:(id)options completion:(id)completion
 {
-  v102[1] = *MEMORY[0x1E69E9840];
+  v101[1] = *MEMORY[0x1E69E9840];
   messageCopy = message;
   optionsCopy = options;
   completionCopy = completion;
@@ -8333,15 +8335,15 @@ LABEL_21:
   if (prefixedURI2)
   {
     v17 = [v13 setByAddingObject:prefixedURI2];
-    v77 = [v16 destinationWithDestinations:v17];
+    v76 = [v16 destinationWithDestinations:v17];
   }
 
   else
   {
-    v77 = [MEMORY[0x1E69A5240] destinationWithDestinations:v13];
+    v76 = [MEMORY[0x1E69A5240] destinationWithDestinations:v13];
   }
 
-  v18 = [(_IDSService *)self _sendingAccountForAccount:0 destination:v77 fromID:prefixedURI2];
+  v18 = [(_IDSService *)self _sendingAccountForAccount:0 destination:v76 fromID:prefixedURI2];
   _internal = [v18 _internal];
   uniqueID = [_internal uniqueID];
 
@@ -8371,7 +8373,7 @@ LABEL_21:
     CFDictionarySetValue(theDict, *MEMORY[0x1E69A5190], totalSegments);
   }
 
-  v71 = v13;
+  v70 = v13;
 
   originalUUID = [optionsCopy originalUUID];
   if (originalUUID)
@@ -8380,7 +8382,7 @@ LABEL_21:
   }
 
   v27 = MEMORY[0x1E695DF90];
-  v72 = optionsCopy;
+  v71 = optionsCopy;
   dictionaryRepresentation = [optionsCopy dictionaryRepresentation];
   v29 = [v27 dictionaryWithDictionary:dictionaryRepresentation];
 
@@ -8394,8 +8396,8 @@ LABEL_21:
   CFDictionarySetValue(v29, @"IDSSendMessageOptionWantsResponse", MEMORY[0x1E695E118]);
   CFDictionarySetValue(v29, @"IDSSendMessageOptionWantsDeliveryStatus", v30);
   v31 = MEMORY[0x1E695DFD8];
-  v102[0] = *MEMORY[0x1E69A5088];
-  v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:v102 count:1];
+  v101[0] = *MEMORY[0x1E69A5088];
+  v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:v101 count:1];
   v33 = [v31 setWithArray:v32];
 
   if (v33)
@@ -8404,7 +8406,7 @@ LABEL_21:
   }
 
   v34 = +[IDSLogging _IDSService];
-  v74 = v18;
+  v73 = v18;
   if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
   {
     payload2 = [messageCopy payload];
@@ -8415,22 +8417,22 @@ LABEL_21:
     v40 = v39 = prefixedURI2;
     totalSegments2 = [v40 totalSegments];
     *buf = 138413314;
-    v93 = identifier;
-    v94 = 2112;
-    v95 = v77;
-    v96 = 2112;
-    v97 = v36;
-    v98 = 2112;
-    v99 = segmentNumber2;
-    v100 = 2112;
-    v101 = totalSegments2;
+    v92 = identifier;
+    v93 = 2112;
+    v94 = v76;
+    v95 = 2112;
+    v96 = v36;
+    v97 = 2112;
+    v98 = segmentNumber2;
+    v99 = 2112;
+    v100 = totalSegments2;
     _os_log_impl(&dword_1959FF000, v34, OS_LOG_TYPE_DEFAULT, "sendMessageLite with identifier: %@ destination: %@ - Message {pn: %@, tp: %@, p: %@}", buf, 0x34u);
 
     prefixedURI2 = v39;
-    v18 = v74;
+    v18 = v73;
   }
 
-  if ([(_IDSService *)self canSendMessageWithAccount:v18 toDestination:v77])
+  if ([(_IDSService *)self canSendMessageWithAccount:v18 toDestination:v76])
   {
     if (uniqueID)
     {
@@ -8439,12 +8441,12 @@ LABEL_21:
       {
         v43 = v42;
         _internal2 = [v42 _internal];
-        v91 = identifier;
-        v90 = 0;
-        [_internal2 sendMessage:theDict toDestinations:v77 priority:300 options:v29 identifier:&v91 error:&v90];
-        v45 = v91;
+        v90 = identifier;
+        v89 = 0;
+        [_internal2 sendMessage:theDict toDestinations:v76 priority:300 options:v29 identifier:&v90 error:&v89];
+        v45 = v90;
 
-        v46 = v90;
+        v46 = v89;
         identifier = v45;
         goto LABEL_33;
       }
@@ -8455,7 +8457,7 @@ LABEL_21:
     {
       _internal3 = [v18 _internal];
       *buf = 138412290;
-      v93 = _internal3;
+      v92 = _internal3;
       _os_log_impl(&dword_1959FF000, v48, OS_LOG_TYPE_DEFAULT, "sendMessageLite - Could not find connection for account %@", buf, 0xCu);
     }
 
@@ -8466,7 +8468,7 @@ LABEL_21:
       _internal4 = [(IDSAccountController *)self->_accountController _internal];
       accounts = [_internal4 accounts];
       *buf = 138412290;
-      v93 = accounts;
+      v92 = accounts;
       _os_log_impl(&dword_1959FF000, v43, OS_LOG_TYPE_DEFAULT, "sendMessageLite - All accounts %@", buf, 0xCu);
     }
   }
@@ -8478,7 +8480,7 @@ LABEL_21:
     {
       _internal5 = [v18 _internal];
       *buf = 138412290;
-      v93 = _internal5;
+      v92 = _internal5;
       _os_log_impl(&dword_1959FF000, v43, OS_LOG_TYPE_DEFAULT, "sendMessageLite - Unable to send message to this destination from this account %@", buf, 0xCu);
     }
   }
@@ -8486,28 +8488,28 @@ LABEL_21:
   v46 = 0;
 LABEL_33:
 
-  v86[0] = MEMORY[0x1E69E9820];
-  v86[1] = 3221225472;
-  v86[2] = sub_195ACCF0C;
-  v86[3] = &unk_1E743F1D8;
+  v85[0] = MEMORY[0x1E69E9820];
+  v85[1] = 3221225472;
+  v85[2] = sub_195ACCF0C;
+  v85[3] = &unk_1E743F1D8;
   v52 = completionCopy;
-  v89 = v52;
+  v88 = v52;
   v53 = messageCopy;
-  v87 = v53;
+  v86 = v53;
   v54 = identifier;
-  v88 = v54;
-  v55 = MEMORY[0x19A8BBEF0](v86);
-  v82[0] = MEMORY[0x1E69E9820];
-  v82[1] = 3221225472;
-  v82[2] = sub_195ACCF98;
-  v82[3] = &unk_1E7442320;
+  v87 = v54;
+  v55 = MEMORY[0x19A8BBEF0](v85);
+  v81[0] = MEMORY[0x1E69E9820];
+  v81[1] = 3221225472;
+  v81[2] = sub_195ACCF98;
+  v81[3] = &unk_1E7442320;
   v56 = v52;
-  v85 = v56;
+  v84 = v56;
   v57 = v53;
-  v83 = v57;
+  v82 = v57;
   v58 = v54;
-  v84 = v58;
-  v59 = MEMORY[0x19A8BBEF0](v82);
+  v83 = v58;
+  v59 = MEMORY[0x19A8BBEF0](v81);
   if (!self->_completionBlocksByRequestID)
   {
     Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
@@ -8520,8 +8522,8 @@ LABEL_33:
     v62 = self->_completionBlocksByRequestID;
     v63 = prefixedURI2;
     v64 = MEMORY[0x1E69A6128];
-    v79 = v46;
-    v81 = v57;
+    v78 = v46;
+    v80 = v57;
     v65 = v29;
     v66 = MEMORY[0x19A8BBEF0](v59);
     v67 = MEMORY[0x19A8BBEF0](v55);
@@ -8530,16 +8532,14 @@ LABEL_33:
 
     prefixedURI2 = v63;
     v29 = v65;
-    v46 = v79;
-    v57 = v81;
+    v46 = v78;
+    v57 = v80;
   }
-
-  v69 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendServiceUpdateMessage:(id)message options:(id)options completion:(id)completion
 {
-  v85 = *MEMORY[0x1E69E9840];
+  v84 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   completionCopy = completion;
   optionsCopy = options;
@@ -8575,8 +8575,8 @@ LABEL_33:
     v20 = [MEMORY[0x1E69A5240] destinationWithDestinations:v15];
   }
 
-  v66 = [(_IDSService *)self _sendingAccountForAccount:0 destination:v20 fromID:prefixedURI2];
-  _internal = [v66 _internal];
+  v65 = [(_IDSService *)self _sendingAccountForAccount:0 destination:v20 fromID:prefixedURI2];
+  _internal = [v65 _internal];
   uniqueID = [_internal uniqueID];
 
   v22 = MEMORY[0x1E695DF90];
@@ -8595,28 +8595,28 @@ LABEL_33:
   CFDictionarySetValue(v24, @"IDSSendMessageOptionForceEncryptionOff", v25);
   CFDictionarySetValue(v24, @"IDSSendMessageOptionWantsResponse", v25);
   CFDictionarySetValue(v24, @"IDSSendMessageOptionWantsCertifiedDelivery", v25);
-  v63 = v24;
+  v62 = v24;
   CFDictionarySetValue(v24, @"IDSSendMessageOptionCommand", &unk_1F0A299F0);
   v26 = +[IDSLogging _IDSService];
-  v65 = v20;
+  v64 = v20;
   if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
     senderURI2 = [messageCopy senderURI];
     recipientURI2 = [messageCopy recipientURI];
     *buf = 138413058;
-    v78 = v65;
-    v79 = 2112;
-    v80 = senderURI2;
-    v81 = 2112;
-    v82 = recipientURI2;
-    v83 = 2048;
+    v77 = v64;
+    v78 = 2112;
+    v79 = senderURI2;
+    v80 = 2112;
+    v81 = recipientURI2;
+    v82 = 2048;
     preferredServiceType = [messageCopy preferredServiceType];
     _os_log_impl(&dword_1959FF000, v26, OS_LOG_TYPE_DEFAULT, "sendServiceUpdateMessage with destination: %@ - Message {senderURI: %@, recipientURI: %@, preferredServiceType: %ld}", buf, 0x2Au);
 
-    v20 = v65;
+    v20 = v64;
   }
 
-  if ([(_IDSService *)self canSendMessageWithAccount:v66 toDestination:v20])
+  if ([(_IDSService *)self canSendMessageWithAccount:v65 toDestination:v20])
   {
     if (uniqueID)
     {
@@ -8625,11 +8625,11 @@ LABEL_33:
       {
         v30 = v29;
         _internal2 = [v29 _internal];
+        v74 = 0;
         v75 = 0;
-        v76 = 0;
-        [_internal2 sendMessage:0 toDestinations:v20 priority:300 options:v24 identifier:&v76 error:&v75];
-        v32 = v76;
-        v33 = v75;
+        [_internal2 sendMessage:0 toDestinations:v20 priority:300 options:v24 identifier:&v75 error:&v74];
+        v32 = v75;
+        v33 = v74;
 
         goto LABEL_23;
       }
@@ -8638,9 +8638,9 @@ LABEL_33:
     v35 = +[IDSLogging _IDSService];
     if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
-      _internal3 = [v66 _internal];
+      _internal3 = [v65 _internal];
       *buf = 138412290;
-      v78 = _internal3;
+      v77 = _internal3;
       _os_log_impl(&dword_1959FF000, v35, OS_LOG_TYPE_DEFAULT, "sendServiceUpdateMessage - Could not find connection for account %@", buf, 0xCu);
     }
 
@@ -8651,7 +8651,7 @@ LABEL_33:
       _internal4 = [(IDSAccountController *)self->_accountController _internal];
       accounts = [_internal4 accounts];
       *buf = 138412290;
-      v78 = accounts;
+      v77 = accounts;
       _os_log_impl(&dword_1959FF000, v30, OS_LOG_TYPE_DEFAULT, "sendServiceUpdateMessage - All accounts %@", buf, 0xCu);
     }
   }
@@ -8661,9 +8661,9 @@ LABEL_33:
     v30 = +[IDSLogging _IDSService];
     if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
-      _internal5 = [v66 _internal];
+      _internal5 = [v65 _internal];
       *buf = 138412290;
-      v78 = _internal5;
+      v77 = _internal5;
       _os_log_impl(&dword_1959FF000, v30, OS_LOG_TYPE_DEFAULT, "sendServiceUpdateMessage - Unable to send message to this destination from this account %@", buf, 0xCu);
     }
   }
@@ -8672,28 +8672,28 @@ LABEL_33:
   v33 = 0;
 LABEL_23:
 
-  v71[0] = MEMORY[0x1E69E9820];
-  v71[1] = 3221225472;
-  v71[2] = sub_195ACD720;
-  v71[3] = &unk_1E743F1D8;
+  v70[0] = MEMORY[0x1E69E9820];
+  v70[1] = 3221225472;
+  v70[2] = sub_195ACD720;
+  v70[3] = &unk_1E743F1D8;
   v39 = completionCopy;
-  v74 = v39;
+  v73 = v39;
   v40 = messageCopy;
-  v72 = v40;
+  v71 = v40;
   v41 = v32;
-  v73 = v41;
-  v42 = MEMORY[0x19A8BBEF0](v71);
-  v67[0] = MEMORY[0x1E69E9820];
-  v67[1] = 3221225472;
-  v67[2] = sub_195ACD7AC;
-  v67[3] = &unk_1E7442320;
+  v72 = v41;
+  v42 = MEMORY[0x19A8BBEF0](v70);
+  v66[0] = MEMORY[0x1E69E9820];
+  v66[1] = 3221225472;
+  v66[2] = sub_195ACD7AC;
+  v66[3] = &unk_1E7442320;
   v43 = v39;
-  v70 = v43;
+  v69 = v43;
   v44 = v40;
-  v68 = v44;
+  v67 = v44;
   v45 = v41;
-  v69 = v45;
-  v46 = MEMORY[0x19A8BBEF0](v67);
+  v68 = v45;
+  v46 = MEMORY[0x19A8BBEF0](v66);
   if (!self->_completionBlocksByRequestID)
   {
     Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
@@ -8705,8 +8705,8 @@ LABEL_23:
   {
     v49 = self->_completionBlocksByRequestID;
     v50 = MEMORY[0x1E69A6128];
-    v60 = v43;
-    v62 = v44;
+    v59 = v43;
+    v61 = v44;
     v51 = prefixedURI2;
     v52 = v15;
     v53 = MEMORY[0x19A8BBEF0](v46);
@@ -8722,16 +8722,14 @@ LABEL_23:
 
     v15 = v52;
     prefixedURI2 = v51;
-    v43 = v60;
-    v44 = v62;
+    v43 = v59;
+    v44 = v61;
   }
-
-  v59 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendServerMessage:(id)message options:(id)options completion:(id)completion
 {
-  v91 = *MEMORY[0x1E69E9840];
+  v90 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   optionsCopy = options;
   completionCopy = completion;
@@ -8767,8 +8765,8 @@ LABEL_23:
     v20 = [MEMORY[0x1E69A5240] destinationWithDestinations:v15];
   }
 
-  v72 = [(_IDSService *)self _sendingAccountForAccount:0 destination:v20 fromID:prefixedURI2];
-  _internal = [v72 _internal];
+  v71 = [(_IDSService *)self _sendingAccountForAccount:0 destination:v20 fromID:prefixedURI2];
+  _internal = [v71 _internal];
   uniqueID = [_internal uniqueID];
 
   v22 = MEMORY[0x1E695DF90];
@@ -8798,29 +8796,29 @@ LABEL_23:
   CFDictionarySetValue(v24, @"IDSSendMessageOptionTopLevelDictionary", MEMORY[0x1E695E118]);
   CFDictionarySetValue(v24, @"IDSSendMessageOptionSkipPayloadCheck", v28);
   CFDictionarySetValue(v24, @"IDSSendMessageOptionForceEncryptionOff", v28);
-  v70 = v24;
+  v69 = v24;
   CFDictionarySetValue(v24, @"IDSSendMessageOptionWantsResponse", v28);
   v29 = +[IDSLogging _IDSService];
-  v71 = v20;
+  v70 = v20;
   if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
   {
     senderURI2 = [messageCopy senderURI];
     recipientURI2 = [messageCopy recipientURI];
     *buf = 138413058;
-    v84 = v71;
-    v85 = 2112;
-    v86 = senderURI2;
-    v87 = 2112;
-    v88 = recipientURI2;
-    v89 = 2048;
+    v83 = v70;
+    v84 = 2112;
+    v85 = senderURI2;
+    v86 = 2112;
+    v87 = recipientURI2;
+    v88 = 2048;
     command = [optionsCopy command];
     _os_log_impl(&dword_1959FF000, v29, OS_LOG_TYPE_DEFAULT, "sendServerMessage with destination: %@ - Message {senderURI: %@, recipientURI: %@, command: %ld}", buf, 0x2Au);
 
-    v20 = v71;
+    v20 = v70;
   }
 
-  v68 = prefixedURI2;
-  if ([(_IDSService *)self canSendMessageWithAccount:v72 toDestination:v20])
+  v67 = prefixedURI2;
+  if ([(_IDSService *)self canSendMessageWithAccount:v71 toDestination:v20])
   {
     if (uniqueID)
     {
@@ -8831,11 +8829,11 @@ LABEL_23:
         _internal2 = [v32 _internal];
         v35 = v20;
         v36 = _internal2;
+        v80 = 0;
         v81 = 0;
-        v82 = 0;
-        [_internal2 sendMessage:0 toDestinations:v35 priority:300 options:v24 identifier:&v82 error:&v81];
-        v37 = v82;
-        v38 = v81;
+        [_internal2 sendMessage:0 toDestinations:v35 priority:300 options:v24 identifier:&v81 error:&v80];
+        v37 = v81;
+        v38 = v80;
 
         goto LABEL_27;
       }
@@ -8844,9 +8842,9 @@ LABEL_23:
     v40 = +[IDSLogging _IDSService];
     if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
-      _internal3 = [v72 _internal];
+      _internal3 = [v71 _internal];
       *buf = 138412290;
-      v84 = _internal3;
+      v83 = _internal3;
       _os_log_impl(&dword_1959FF000, v40, OS_LOG_TYPE_DEFAULT, "sendServerMessage - Could not find connection for account %@", buf, 0xCu);
     }
 
@@ -8857,7 +8855,7 @@ LABEL_23:
       _internal4 = [(IDSAccountController *)self->_accountController _internal];
       accounts = [_internal4 accounts];
       *buf = 138412290;
-      v84 = accounts;
+      v83 = accounts;
       _os_log_impl(&dword_1959FF000, v33, OS_LOG_TYPE_DEFAULT, "sendServerMessage - All accounts %@", buf, 0xCu);
     }
   }
@@ -8867,9 +8865,9 @@ LABEL_23:
     v33 = +[IDSLogging _IDSService];
     if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
-      _internal5 = [v72 _internal];
+      _internal5 = [v71 _internal];
       *buf = 138412290;
-      v84 = _internal5;
+      v83 = _internal5;
       _os_log_impl(&dword_1959FF000, v33, OS_LOG_TYPE_DEFAULT, "sendServiceUpdateMessage - Unable to send message to this destination from this account %@", buf, 0xCu);
     }
   }
@@ -8878,28 +8876,28 @@ LABEL_23:
   v38 = 0;
 LABEL_27:
 
-  v77[0] = MEMORY[0x1E69E9820];
-  v77[1] = 3221225472;
-  v77[2] = sub_195ACDF8C;
-  v77[3] = &unk_1E743F1D8;
+  v76[0] = MEMORY[0x1E69E9820];
+  v76[1] = 3221225472;
+  v76[2] = sub_195ACDF8C;
+  v76[3] = &unk_1E743F1D8;
   v44 = completionCopy;
-  v80 = v44;
+  v79 = v44;
   v45 = messageCopy;
-  v78 = v45;
+  v77 = v45;
   v46 = v37;
-  v79 = v46;
-  v47 = MEMORY[0x19A8BBEF0](v77);
-  v73[0] = MEMORY[0x1E69E9820];
-  v73[1] = 3221225472;
-  v73[2] = sub_195ACE018;
-  v73[3] = &unk_1E7442320;
+  v78 = v46;
+  v47 = MEMORY[0x19A8BBEF0](v76);
+  v72[0] = MEMORY[0x1E69E9820];
+  v72[1] = 3221225472;
+  v72[2] = sub_195ACE018;
+  v72[3] = &unk_1E7442320;
   v48 = v44;
-  v76 = v48;
+  v75 = v48;
   v49 = v45;
-  v74 = v49;
+  v73 = v49;
   v50 = v46;
-  v75 = v50;
-  v51 = MEMORY[0x19A8BBEF0](v73);
+  v74 = v50;
+  v51 = MEMORY[0x19A8BBEF0](v72);
   if (!self->_completionBlocksByRequestID)
   {
     Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
@@ -8911,10 +8909,10 @@ LABEL_27:
   {
     v54 = self->_completionBlocksByRequestID;
     v55 = MEMORY[0x1E69A6128];
-    v67 = v38;
+    v66 = v38;
     v56 = MEMORY[0x19A8BBEF0](v51);
     v57 = MEMORY[0x19A8BBEF0](v47);
-    v65 = v47;
+    v64 = v47;
     v58 = v48;
     v59 = v49;
     v60 = v15;
@@ -8923,22 +8921,20 @@ LABEL_27:
     v63 = [v55 pairWithFirst:v56 second:v57];
     [(NSMutableDictionary *)v54 setObject:v63 forKey:v50];
 
-    v24 = v70;
+    v24 = v69;
     optionsCopy = v61;
     v15 = v60;
     v49 = v59;
     v48 = v58;
-    v47 = v65;
+    v47 = v64;
 
-    v38 = v67;
+    v38 = v66;
   }
-
-  v64 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)sendMessage:(id)message fromAccount:(id)account toDestinations:(id)destinations priority:(int64_t)priority options:(id)options identifier:(id *)identifier error:(id *)error
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   accountCopy = account;
   destinationsCopy = destinations;
@@ -8958,30 +8954,30 @@ LABEL_27:
   if (!self->_pretendingToBeFull)
   {
     priorityCopy = priority;
-    v51 = messageCopy;
-    v52 = optionsCopy;
-    v50 = destinationsCopy;
+    v50 = messageCopy;
+    v51 = optionsCopy;
+    v49 = destinationsCopy;
     [MEMORY[0x1E69A5240] destinationWithDestinations:destinationsCopy];
+    v53 = 0u;
     v54 = 0u;
     v55 = 0u;
-    v56 = 0u;
-    v53 = v57 = 0u;
-    destinationURIs = [v53 destinationURIs];
-    v24 = [destinationURIs countByEnumeratingWithState:&v54 objects:v68 count:16];
+    v52 = v56 = 0u;
+    destinationURIs = [v52 destinationURIs];
+    v24 = [destinationURIs countByEnumeratingWithState:&v53 objects:v67 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v55;
+      v26 = *v54;
 LABEL_9:
       v27 = 0;
       while (1)
       {
-        if (*v55 != v26)
+        if (*v54 != v26)
         {
           objc_enumerationMutation(destinationURIs);
         }
 
-        v28 = *(*(&v54 + 1) + 8 * v27);
+        v28 = *(*(&v53 + 1) + 8 * v27);
         if (![v28 _FZIDType])
         {
           serviceProperties = [(_IDSService *)self serviceProperties];
@@ -8995,7 +8991,7 @@ LABEL_9:
 
         if (v25 == ++v27)
         {
-          v25 = [destinationURIs countByEnumeratingWithState:&v54 objects:v68 count:16];
+          v25 = [destinationURIs countByEnumeratingWithState:&v53 objects:v67 count:16];
           if (v25)
           {
             goto LABEL_9;
@@ -9011,19 +9007,19 @@ LABEL_9:
         serviceProperties2 = [(_IDSService *)self serviceProperties];
         identifier = [serviceProperties2 identifier];
         *buf = 138412546;
-        v65 = v28;
-        v66 = 2112;
-        v67 = identifier;
+        v64 = v28;
+        v65 = 2112;
+        v66 = identifier;
         _os_log_impl(&dword_1959FF000, v37, OS_LOG_TYPE_DEFAULT, "sendMessage - Unable to send message to %@ on service %@ since phone number accounts are disabled", buf, 0x16u);
       }
 
-      destinationsCopy = v50;
-      optionsCopy = v52;
+      destinationsCopy = v49;
+      optionsCopy = v51;
       if (error)
       {
-        v62 = *MEMORY[0x1E696A578];
-        v63 = @"Sending to a phone number when service does not support phone numbers. File a radar to IDS | New Bugs to request phone number access.";
-        uniqueID = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
+        v61 = *MEMORY[0x1E696A578];
+        v62 = @"Sending to a phone number when service does not support phone numbers. File a radar to IDS | New Bugs to request phone number access.";
+        uniqueID = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
         [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.identityservices.error" code:44 userInfo:uniqueID];
         *error = v22 = 0;
         v31 = accountCopy;
@@ -9036,13 +9032,13 @@ LABEL_9:
 
 LABEL_16:
 
-    destinationURIs = [v52 objectForKeyedSubscript:@"IDSSendMessageOptionFromID"];
-    v31 = [(_IDSService *)self _sendingAccountForAccount:accountCopy destination:v53 fromID:destinationURIs];
+    destinationURIs = [v51 objectForKeyedSubscript:@"IDSSendMessageOptionFromID"];
+    v31 = [(_IDSService *)self _sendingAccountForAccount:accountCopy destination:v52 fromID:destinationURIs];
 
     _internal = [v31 _internal];
     uniqueID = [_internal uniqueID];
 
-    if ([(_IDSService *)self canSendMessageWithAccount:v31 toDestination:v53])
+    if ([(_IDSService *)self canSendMessageWithAccount:v31 toDestination:v52])
     {
       if (uniqueID)
       {
@@ -9051,17 +9047,17 @@ LABEL_16:
         {
           v35 = v34;
           _internal2 = [v34 _internal];
-          v22 = [_internal2 sendMessage:v51 toDestinations:v53 priority:priorityCopy options:v52 identifier:identifier error:error];
+          v22 = [_internal2 sendMessage:v50 toDestinations:v52 priority:priorityCopy options:v51 identifier:identifier error:error];
 
-          optionsCopy = v52;
-          destinationsCopy = v50;
+          optionsCopy = v51;
+          destinationsCopy = v49;
 LABEL_36:
 
 LABEL_38:
           accountCopy = v31;
 LABEL_39:
 
-          messageCopy = v51;
+          messageCopy = v50;
           goto LABEL_40;
         }
       }
@@ -9071,7 +9067,7 @@ LABEL_39:
       {
         _internal3 = [v31 _internal];
         *buf = 138412290;
-        v65 = _internal3;
+        v64 = _internal3;
         _os_log_impl(&dword_1959FF000, v42, OS_LOG_TYPE_DEFAULT, "sendMessage - Could not find connection for account %@", buf, 0xCu);
       }
 
@@ -9082,16 +9078,16 @@ LABEL_39:
         _internal4 = [(IDSAccountController *)self->_accountController _internal];
         accounts = [_internal4 accounts];
         *buf = 138412290;
-        v65 = accounts;
+        v64 = accounts;
         _os_log_impl(&dword_1959FF000, v44, OS_LOG_TYPE_DEFAULT, "sendMessage - All accounts %@", buf, 0xCu);
       }
 
-      destinationsCopy = v50;
+      destinationsCopy = v49;
       if (error)
       {
-        v60 = *MEMORY[0x1E696A578];
-        v61 = @"Could not find valid account";
-        v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
+        v59 = *MEMORY[0x1E696A578];
+        v60 = @"Could not find valid account";
+        v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
         [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.identityservices.error" code:7 userInfo:v35];
         *error = v22 = 0;
         goto LABEL_35;
@@ -9105,26 +9101,26 @@ LABEL_39:
       {
         _internal5 = [v31 _internal];
         *buf = 138412290;
-        v65 = _internal5;
+        v64 = _internal5;
         _os_log_impl(&dword_1959FF000, v40, OS_LOG_TYPE_DEFAULT, "sendMessage - Unable to send message to this destination from this account %@", buf, 0xCu);
       }
 
-      destinationsCopy = v50;
+      destinationsCopy = v49;
       if (error)
       {
-        v58 = *MEMORY[0x1E696A578];
-        v59 = @"Destination device is not active for this account";
-        v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
+        v57 = *MEMORY[0x1E696A578];
+        v58 = @"Destination device is not active for this account";
+        v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
         [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.identityservices.error" code:37 userInfo:v35];
         *error = v22 = 0;
 LABEL_35:
-        optionsCopy = v52;
+        optionsCopy = v51;
         goto LABEL_36;
       }
     }
 
     v22 = 0;
-    optionsCopy = v52;
+    optionsCopy = v51;
     goto LABEL_38;
   }
 
@@ -9132,13 +9128,12 @@ LABEL_35:
   v22 = 1;
 LABEL_40:
 
-  v47 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
 - (BOOL)cancelMessageWithOptions:(id)options identifier:(id *)identifier error:(id *)error
 {
-  v36[1] = *MEMORY[0x1E69E9840];
+  v35[1] = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   v9 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v9 assertQueueIsCurrent];
@@ -9172,17 +9167,17 @@ LABEL_40:
     v20 = +[IDSLogging _IDSService];
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = 138413314;
-      v26 = pushTopic;
-      v27 = 2112;
-      v28 = v12;
-      v29 = 2112;
-      v30 = v13;
-      v31 = 2112;
-      v32 = v15;
-      v33 = 2112;
-      v34 = uniqueID;
-      _os_log_impl(&dword_1959FF000, v20, OS_LOG_TYPE_DEFAULT, "cancelMessageWithOptions { service: %@  fromID: %@  queueOneIdentifier: %@  guid: %@ accountUniqueID: %@ }", &v25, 0x34u);
+      v24 = 138413314;
+      v25 = pushTopic;
+      v26 = 2112;
+      v27 = v12;
+      v28 = 2112;
+      v29 = v13;
+      v30 = 2112;
+      v31 = v15;
+      v32 = 2112;
+      v33 = uniqueID;
+      _os_log_impl(&dword_1959FF000, v20, OS_LOG_TYPE_DEFAULT, "cancelMessageWithOptions { service: %@  fromID: %@  queueOneIdentifier: %@  guid: %@ accountUniqueID: %@ }", &v24, 0x34u);
     }
 
     daemonController = [(_IDSService *)self daemonController];
@@ -9194,14 +9189,13 @@ LABEL_40:
   if (error)
   {
     v22 = MEMORY[0x1E696ABC0];
-    v35 = *MEMORY[0x1E696A578];
-    v36[0] = @"Cannot cancel message without a queue one identifier.";
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+    v34 = *MEMORY[0x1E696A578];
+    v35[0] = @"Cannot cancel message without a queue one identifier.";
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:&v34 count:1];
     *error = [v22 errorWithDomain:@"com.apple.identityservices.error" code:28 userInfo:v15];
 LABEL_13:
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v13 != 0;
 }
 
@@ -9217,7 +9211,7 @@ LABEL_13:
 
 - (BOOL)cancelMessageWithOptions:(id)options destinations:(id)destinations identifier:(id *)identifier error:(id *)error
 {
-  v56[1] = *MEMORY[0x1E69E9840];
+  v55[1] = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   destinationsCopy = destinations;
   v12 = +[IDSInternalQueueController sharedInstance];
@@ -9263,25 +9257,25 @@ LABEL_13:
 
         v22 = [v19 destinationWithDestinations:destinationsCopy];
 LABEL_21:
-        v40 = [(_IDSService *)self _sendingAccountForAccount:0 destination:v22 fromID:v15];
-        _internal = [v40 _internal];
+        v39 = [(_IDSService *)self _sendingAccountForAccount:0 destination:v22 fromID:v15];
+        _internal = [v39 _internal];
         uniqueID = [_internal uniqueID];
 
         v29 = +[IDSLogging _IDSService];
         if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138413058;
-          v46 = pushTopic;
-          v47 = 2112;
-          v48 = v15;
-          v49 = 2112;
-          v50 = v16;
-          v51 = 2112;
-          v52 = v22;
+          v45 = pushTopic;
+          v46 = 2112;
+          v47 = v15;
+          v48 = 2112;
+          v49 = v16;
+          v50 = 2112;
+          v51 = v22;
           _os_log_impl(&dword_1959FF000, v29, OS_LOG_TYPE_DEFAULT, "cancelMessageWithOptions { service: %@  fromID: %@  queueOneIdentifier: %@  idsDestination: %@ }", buf, 0x2Au);
         }
 
-        v41 = v22;
+        v40 = v22;
 
         v30 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:optionsCopy];
         v31 = MEMORY[0x1E695E118];
@@ -9295,7 +9289,7 @@ LABEL_21:
         {
           v34 = v33;
           _internal2 = [v33 _internal];
-          v23 = [_internal2 sendMessage:0 toDestinations:v41 priority:300 options:v30 identifier:identifier error:error];
+          v23 = [_internal2 sendMessage:0 toDestinations:v40 priority:300 options:v30 identifier:identifier error:error];
         }
 
         else
@@ -9303,19 +9297,19 @@ LABEL_21:
           if (!error)
           {
             v23 = 0;
-            v37 = v41;
+            v37 = v40;
             goto LABEL_30;
           }
 
           v36 = MEMORY[0x1E696ABC0];
-          v43 = *MEMORY[0x1E696A578];
-          v44 = @"Could not find valid account to cancel message.";
-          v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
+          v42 = *MEMORY[0x1E696A578];
+          v43 = @"Could not find valid account to cancel message.";
+          v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
           [v36 errorWithDomain:@"com.apple.identityservices.error" code:7 userInfo:v34];
           *error = v23 = 0;
         }
 
-        v37 = v41;
+        v37 = v40;
         v32 = uniqueID;
 LABEL_30:
 
@@ -9325,11 +9319,11 @@ LABEL_30:
       if (error)
       {
         v24 = MEMORY[0x1E696ABC0];
-        v53 = *MEMORY[0x1E696A578];
-        v54 = @"Cannot cancel message without a destination.";
+        v52 = *MEMORY[0x1E696A578];
+        v53 = @"Cannot cancel message without a destination.";
         v25 = MEMORY[0x1E695DF20];
-        v26 = &v54;
-        v27 = &v53;
+        v26 = &v53;
+        v27 = &v52;
 LABEL_17:
         pushTopic = [v25 dictionaryWithObjects:v26 forKeys:v27 count:1];
         [v24 errorWithDomain:@"com.apple.identityservices.error" code:28 userInfo:pushTopic];
@@ -9343,11 +9337,11 @@ LABEL_31:
     else if (error)
     {
       v24 = MEMORY[0x1E696ABC0];
-      v55 = *MEMORY[0x1E696A578];
-      v56[0] = @"Cannot cancel message without a queue one identifier.";
+      v54 = *MEMORY[0x1E696A578];
+      v55[0] = @"Cannot cancel message without a queue one identifier.";
       v25 = MEMORY[0x1E695DF20];
-      v26 = v56;
-      v27 = &v55;
+      v26 = v55;
+      v27 = &v54;
       goto LABEL_17;
     }
 
@@ -9360,29 +9354,28 @@ LABEL_32:
   v23 = [(_IDSService *)self cancelMessageWithOptions:optionsCopy identifier:identifier error:error];
 LABEL_33:
 
-  v38 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
 - (BOOL)sendProtobuf:(id)protobuf fromAccount:(id)account toDestinations:(id)destinations priority:(int64_t)priority options:(id)options identifier:(id *)identifier error:(id *)error
 {
-  v85 = *MEMORY[0x1E69E9840];
+  v84 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
   accountCopy = account;
   destinationsCopy = destinations;
   optionsCopy = options;
   state.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
-  v74 = _os_activity_create(&dword_1959FF000, "Framework Send Protobuf", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  v73 = _os_activity_create(&dword_1959FF000, "Framework Send Protobuf", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
-  os_activity_scope_enter(v74, &state);
+  os_activity_scope_enter(v73, &state);
   v15 = OSLogHandleForTransportCategory();
   selfCopy = self;
-  v61 = accountCopy;
+  v60 = accountCopy;
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     v16 = [MEMORY[0x1E696AD98] numberWithInteger:priority];
     *buf = 138412290;
-    v83 = v16;
+    v82 = v16;
     _os_log_impl(&dword_1959FF000, v15, OS_LOG_TYPE_DEFAULT, "!setState priority=%@", buf, 0xCu);
   }
 
@@ -9393,40 +9386,40 @@ LABEL_33:
     {
       v18 = *identifier;
       *buf = 138412290;
-      v83 = v18;
+      v82 = v18;
       _os_log_impl(&dword_1959FF000, v17, OS_LOG_TYPE_DEFAULT, "!setState guid=%@", buf, 0xCu);
     }
   }
 
-  v71 = 0u;
-  v72 = 0u;
-  v69 = 0u;
   v70 = 0u;
+  v71 = 0u;
+  v68 = 0u;
+  v69 = 0u;
   v19 = destinationsCopy;
-  v20 = [v19 countByEnumeratingWithState:&v69 objects:v84 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v68 objects:v83 count:16];
   if (v20)
   {
-    v21 = *v70;
+    v21 = *v69;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v70 != v21)
+        if (*v69 != v21)
         {
           objc_enumerationMutation(v19);
         }
 
-        v23 = *(*(&v69 + 1) + 8 * i);
+        v23 = *(*(&v68 + 1) + 8 * i);
         v24 = OSLogHandleForTransportCategory();
         if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v83 = v23;
+          v82 = v23;
           _os_log_impl(&dword_1959FF000, v24, OS_LOG_TYPE_DEFAULT, "!setState destination=%@", buf, 0xCu);
         }
       }
 
-      v20 = [v19 countByEnumeratingWithState:&v69 objects:v84 count:16];
+      v20 = [v19 countByEnumeratingWithState:&v68 objects:v83 count:16];
     }
 
     while (v20);
@@ -9449,25 +9442,25 @@ LABEL_33:
   if (!self->_pretendingToBeFull)
   {
     [MEMORY[0x1E69A5240] destinationWithDestinations:v19];
+    v66 = 0u;
     v67 = 0u;
-    v68 = 0u;
-    v65 = 0u;
-    v64 = v66 = 0u;
-    destinationURIs = [v64 destinationURIs];
-    v30 = [destinationURIs countByEnumeratingWithState:&v65 objects:v81 count:16];
+    v64 = 0u;
+    v63 = v65 = 0u;
+    destinationURIs = [v63 destinationURIs];
+    v30 = [destinationURIs countByEnumeratingWithState:&v64 objects:v80 count:16];
     if (v30)
     {
-      v31 = *v66;
+      v31 = *v65;
 LABEL_24:
       v32 = 0;
       while (1)
       {
-        if (*v66 != v31)
+        if (*v65 != v31)
         {
           objc_enumerationMutation(destinationURIs);
         }
 
-        v33 = *(*(&v65 + 1) + 8 * v32);
+        v33 = *(*(&v64 + 1) + 8 * v32);
         if (![v33 _FZIDType])
         {
           serviceProperties = [(_IDSService *)selfCopy serviceProperties];
@@ -9481,7 +9474,7 @@ LABEL_24:
 
         if (v30 == ++v32)
         {
-          v30 = [destinationURIs countByEnumeratingWithState:&v65 objects:v81 count:16];
+          v30 = [destinationURIs countByEnumeratingWithState:&v64 objects:v80 count:16];
           if (v30)
           {
             goto LABEL_24;
@@ -9496,18 +9489,18 @@ LABEL_24:
       {
         serviceProperties2 = [(_IDSService *)selfCopy serviceProperties];
         identifier = [serviceProperties2 identifier];
-        *v77 = 138412546;
-        v78 = v33;
-        v79 = 2112;
-        v80 = identifier;
-        _os_log_impl(&dword_1959FF000, v42, OS_LOG_TYPE_DEFAULT, "sendProtobuf - Unable to send message to %@ on service %@ since phone number accounts are disabled", v77, 0x16u);
+        *v76 = 138412546;
+        v77 = v33;
+        v78 = 2112;
+        v79 = identifier;
+        _os_log_impl(&dword_1959FF000, v42, OS_LOG_TYPE_DEFAULT, "sendProtobuf - Unable to send message to %@ on service %@ since phone number accounts are disabled", v76, 0x16u);
       }
 
       if (error)
       {
-        v75 = *MEMORY[0x1E696A578];
-        v76 = @"Sending to a phone number when service does not support phone numbers. File a radar to IDS | New Bugs to request phone number access.";
-        uniqueID = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
+        v74 = *MEMORY[0x1E696A578];
+        v75 = @"Sending to a phone number when service does not support phone numbers. File a radar to IDS | New Bugs to request phone number access.";
+        uniqueID = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
         [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.identityservices.error" code:44 userInfo:uniqueID];
         *error = v28 = 0;
         goto LABEL_52;
@@ -9520,12 +9513,12 @@ LABEL_24:
 LABEL_31:
 
     destinationURIs = [optionsCopy objectForKeyedSubscript:@"IDSSendMessageOptionFromID"];
-    v36 = [(_IDSService *)selfCopy _sendingAccountForAccount:v61 destination:v64 fromID:destinationURIs];
+    v36 = [(_IDSService *)selfCopy _sendingAccountForAccount:v60 destination:v63 fromID:destinationURIs];
 
     _internal = [v36 _internal];
     uniqueID = [_internal uniqueID];
 
-    if ([(_IDSService *)selfCopy canSendMessageWithAccount:v36 toDestination:v64])
+    if ([(_IDSService *)selfCopy canSendMessageWithAccount:v36 toDestination:v63])
     {
       if (uniqueID)
       {
@@ -9534,7 +9527,7 @@ LABEL_31:
         if (v39)
         {
           _internal2 = [v39 _internal];
-          v28 = [_internal2 sendProtobuf:protobufCopy toDestinations:v64 priority:priority options:optionsCopy identifier:identifier error:error];
+          v28 = [_internal2 sendProtobuf:protobufCopy toDestinations:v63 priority:priority options:optionsCopy identifier:identifier error:error];
           goto LABEL_51;
         }
       }
@@ -9543,9 +9536,9 @@ LABEL_31:
       if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
       {
         _internal3 = [v36 _internal];
-        *v77 = 138412290;
-        v78 = _internal3;
-        _os_log_impl(&dword_1959FF000, v49, OS_LOG_TYPE_DEFAULT, "sendProtobuf - Could not find connection for account %@", v77, 0xCu);
+        *v76 = 138412290;
+        v77 = _internal3;
+        _os_log_impl(&dword_1959FF000, v49, OS_LOG_TYPE_DEFAULT, "sendProtobuf - Could not find connection for account %@", v76, 0xCu);
       }
 
       [(_IDSService *)selfCopy _logConnectionMap];
@@ -9554,9 +9547,9 @@ LABEL_31:
       {
         _internal4 = [(IDSAccountController *)selfCopy->_accountController _internal];
         accounts = [_internal4 accounts];
-        *v77 = 138412290;
-        v78 = accounts;
-        _os_log_impl(&dword_1959FF000, v51, OS_LOG_TYPE_DEFAULT, "sendProtobuf - All accounts %@", v77, 0xCu);
+        *v76 = 138412290;
+        v77 = accounts;
+        _os_log_impl(&dword_1959FF000, v51, OS_LOG_TYPE_DEFAULT, "sendProtobuf - All accounts %@", v76, 0xCu);
       }
 
       v54 = objc_alloc(MEMORY[0x1E695DF20]);
@@ -9570,9 +9563,9 @@ LABEL_31:
       if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
       {
         _internal5 = [v36 _internal];
-        *v77 = 138412290;
-        v78 = _internal5;
-        _os_log_impl(&dword_1959FF000, v45, OS_LOG_TYPE_DEFAULT, "sendProtobuf - Unable to send protobuf to this destination from this account %@", v77, 0xCu);
+        *v76 = 138412290;
+        v77 = _internal5;
+        _os_log_impl(&dword_1959FF000, v45, OS_LOG_TYPE_DEFAULT, "sendProtobuf - Unable to send protobuf to this destination from this account %@", v76, 0xCu);
       }
 
       v47 = objc_alloc(MEMORY[0x1E695DF20]);
@@ -9595,7 +9588,7 @@ LABEL_31:
 
 LABEL_51:
 
-    v61 = v36;
+    v60 = v36;
 LABEL_52:
 
 LABEL_53:
@@ -9608,7 +9601,6 @@ LABEL_54:
   os_activity_scope_leave(&state);
   cut_arc_os_release();
 
-  v56 = *MEMORY[0x1E69E9840];
   return v28;
 }
 
@@ -9635,23 +9627,23 @@ LABEL_54:
 
 - (BOOL)sendData:(id)data fromAccount:(id)account toDestinations:(id)destinations priority:(int64_t)priority options:(id)options identifier:(id *)identifier error:(id *)error
 {
-  v87 = *MEMORY[0x1E69E9840];
+  v86 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   accountCopy = account;
   destinationsCopy = destinations;
   optionsCopy = options;
   state.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
-  v76 = _os_activity_create(&dword_1959FF000, "Framework Send Data", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  v75 = _os_activity_create(&dword_1959FF000, "Framework Send Data", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
-  os_activity_scope_enter(v76, &state);
+  os_activity_scope_enter(v75, &state);
   v15 = OSLogHandleForTransportCategory();
-  v64 = accountCopy;
+  v63 = accountCopy;
   selfCopy = self;
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     serviceName = [accountCopy serviceName];
     *buf = 138412290;
-    v85 = serviceName;
+    v84 = serviceName;
     _os_log_impl(&dword_1959FF000, v15, OS_LOG_TYPE_DEFAULT, "!setState service=%@", buf, 0xCu);
   }
 
@@ -9660,7 +9652,7 @@ LABEL_54:
   {
     v18 = [MEMORY[0x1E696AD98] numberWithInteger:priority];
     *buf = 138412290;
-    v85 = v18;
+    v84 = v18;
     _os_log_impl(&dword_1959FF000, v17, OS_LOG_TYPE_DEFAULT, "!setState priority=%@", buf, 0xCu);
   }
 
@@ -9671,40 +9663,40 @@ LABEL_54:
     {
       v20 = *identifier;
       *buf = 138412290;
-      v85 = v20;
+      v84 = v20;
       _os_log_impl(&dword_1959FF000, v19, OS_LOG_TYPE_DEFAULT, "!setState guid=%@", buf, 0xCu);
     }
   }
 
-  v73 = 0u;
-  v74 = 0u;
-  v71 = 0u;
   v72 = 0u;
+  v73 = 0u;
+  v70 = 0u;
+  v71 = 0u;
   v21 = destinationsCopy;
-  v22 = [v21 countByEnumeratingWithState:&v71 objects:v86 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v70 objects:v85 count:16];
   if (v22)
   {
-    v23 = *v72;
+    v23 = *v71;
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v72 != v23)
+        if (*v71 != v23)
         {
           objc_enumerationMutation(v21);
         }
 
-        v25 = *(*(&v71 + 1) + 8 * i);
+        v25 = *(*(&v70 + 1) + 8 * i);
         v26 = OSLogHandleForTransportCategory();
         if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v85 = v25;
+          v84 = v25;
           _os_log_impl(&dword_1959FF000, v26, OS_LOG_TYPE_DEFAULT, "!setState destination=%@", buf, 0xCu);
         }
       }
 
-      v22 = [v21 countByEnumeratingWithState:&v71 objects:v86 count:16];
+      v22 = [v21 countByEnumeratingWithState:&v70 objects:v85 count:16];
     }
 
     while (v22);
@@ -9727,25 +9719,25 @@ LABEL_54:
   if (!selfCopy->_pretendingToBeFull)
   {
     [MEMORY[0x1E69A5240] destinationWithDestinations:v21];
+    v68 = 0u;
     v69 = 0u;
-    v70 = 0u;
-    v67 = 0u;
-    v66 = v68 = 0u;
-    destinationURIs = [v66 destinationURIs];
-    v32 = [destinationURIs countByEnumeratingWithState:&v67 objects:v83 count:16];
+    v66 = 0u;
+    v65 = v67 = 0u;
+    destinationURIs = [v65 destinationURIs];
+    v32 = [destinationURIs countByEnumeratingWithState:&v66 objects:v82 count:16];
     if (v32)
     {
-      v33 = *v68;
+      v33 = *v67;
 LABEL_26:
       v34 = 0;
       while (1)
       {
-        if (*v68 != v33)
+        if (*v67 != v33)
         {
           objc_enumerationMutation(destinationURIs);
         }
 
-        v35 = *(*(&v67 + 1) + 8 * v34);
+        v35 = *(*(&v66 + 1) + 8 * v34);
         if (![v35 _FZIDType])
         {
           serviceProperties = [(_IDSService *)selfCopy serviceProperties];
@@ -9759,7 +9751,7 @@ LABEL_26:
 
         if (v32 == ++v34)
         {
-          v32 = [destinationURIs countByEnumeratingWithState:&v67 objects:v83 count:16];
+          v32 = [destinationURIs countByEnumeratingWithState:&v66 objects:v82 count:16];
           if (v32)
           {
             goto LABEL_26;
@@ -9774,18 +9766,18 @@ LABEL_26:
       {
         serviceProperties2 = [(_IDSService *)selfCopy serviceProperties];
         identifier = [serviceProperties2 identifier];
-        *v79 = 138412546;
-        v80 = v35;
-        v81 = 2112;
-        v82 = identifier;
-        _os_log_impl(&dword_1959FF000, v44, OS_LOG_TYPE_DEFAULT, "sendData - Unable to send message to %@ on service %@ since phone number accounts are disabled", v79, 0x16u);
+        *v78 = 138412546;
+        v79 = v35;
+        v80 = 2112;
+        v81 = identifier;
+        _os_log_impl(&dword_1959FF000, v44, OS_LOG_TYPE_DEFAULT, "sendData - Unable to send message to %@ on service %@ since phone number accounts are disabled", v78, 0x16u);
       }
 
       if (error)
       {
-        v77 = *MEMORY[0x1E696A578];
-        v78 = @"Sending to a phone number when service does not support phone numbers. File a radar to IDS | New Bugs to request phone number access.";
-        uniqueID = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
+        v76 = *MEMORY[0x1E696A578];
+        v77 = @"Sending to a phone number when service does not support phone numbers. File a radar to IDS | New Bugs to request phone number access.";
+        uniqueID = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
         [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.identityservices.error" code:44 userInfo:uniqueID];
         *error = v30 = 0;
         goto LABEL_54;
@@ -9798,12 +9790,12 @@ LABEL_26:
 LABEL_33:
 
     destinationURIs = [optionsCopy objectForKeyedSubscript:@"IDSSendMessageOptionFromID"];
-    v38 = [(_IDSService *)selfCopy _sendingAccountForAccount:v64 destination:v66 fromID:destinationURIs];
+    v38 = [(_IDSService *)selfCopy _sendingAccountForAccount:v63 destination:v65 fromID:destinationURIs];
 
     _internal = [v38 _internal];
     uniqueID = [_internal uniqueID];
 
-    if ([(_IDSService *)selfCopy canSendMessageWithAccount:v38 toDestination:v66])
+    if ([(_IDSService *)selfCopy canSendMessageWithAccount:v38 toDestination:v65])
     {
       if (uniqueID)
       {
@@ -9812,7 +9804,7 @@ LABEL_33:
         if (v41)
         {
           _internal2 = [v41 _internal];
-          v30 = [_internal2 sendData:dataCopy toDestinations:v66 priority:priority options:optionsCopy identifier:identifier error:error];
+          v30 = [_internal2 sendData:dataCopy toDestinations:v65 priority:priority options:optionsCopy identifier:identifier error:error];
           goto LABEL_53;
         }
       }
@@ -9821,9 +9813,9 @@ LABEL_33:
       if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
       {
         _internal3 = [v38 _internal];
-        *v79 = 138412290;
-        v80 = _internal3;
-        _os_log_impl(&dword_1959FF000, v51, OS_LOG_TYPE_DEFAULT, "sendData - Could not find connection for account %@", v79, 0xCu);
+        *v78 = 138412290;
+        v79 = _internal3;
+        _os_log_impl(&dword_1959FF000, v51, OS_LOG_TYPE_DEFAULT, "sendData - Could not find connection for account %@", v78, 0xCu);
       }
 
       [(_IDSService *)selfCopy _logConnectionMap];
@@ -9832,9 +9824,9 @@ LABEL_33:
       {
         _internal4 = [(IDSAccountController *)selfCopy->_accountController _internal];
         accounts = [_internal4 accounts];
-        *v79 = 138412290;
-        v80 = accounts;
-        _os_log_impl(&dword_1959FF000, v53, OS_LOG_TYPE_DEFAULT, "sendData - All accounts %@", v79, 0xCu);
+        *v78 = 138412290;
+        v79 = accounts;
+        _os_log_impl(&dword_1959FF000, v53, OS_LOG_TYPE_DEFAULT, "sendData - All accounts %@", v78, 0xCu);
       }
 
       v56 = objc_alloc(MEMORY[0x1E695DF20]);
@@ -9848,9 +9840,9 @@ LABEL_33:
       if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
       {
         _internal5 = [v38 _internal];
-        *v79 = 138412290;
-        v80 = _internal5;
-        _os_log_impl(&dword_1959FF000, v47, OS_LOG_TYPE_DEFAULT, "sendData - Unable to send data to this destination from this account %@", v79, 0xCu);
+        *v78 = 138412290;
+        v79 = _internal5;
+        _os_log_impl(&dword_1959FF000, v47, OS_LOG_TYPE_DEFAULT, "sendData - Unable to send data to this destination from this account %@", v78, 0xCu);
       }
 
       v49 = objc_alloc(MEMORY[0x1E695DF20]);
@@ -9873,7 +9865,7 @@ LABEL_33:
 
 LABEL_53:
 
-    v64 = v38;
+    v63 = v38;
 LABEL_54:
 
 LABEL_55:
@@ -9886,26 +9878,25 @@ LABEL_56:
   os_activity_scope_leave(&state);
   cut_arc_os_release();
 
-  v58 = *MEMORY[0x1E69E9840];
   return v30;
 }
 
 - (BOOL)sendAccessoryData:(id)data toAccessoryID:(id)d accessToken:(id)token options:(id)options identifier:(id *)identifier error:(id *)error
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   dCopy = d;
   tokenCopy = token;
   optionsCopy = options;
   state.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
-  v48 = _os_activity_create(&dword_1959FF000, "Framework Send Accessory Data", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  v47 = _os_activity_create(&dword_1959FF000, "Framework Send Accessory Data", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
-  os_activity_scope_enter(v48, &state);
+  os_activity_scope_enter(v47, &state);
   v15 = OSLogHandleForTransportCategory();
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v52 = dCopy;
+    v51 = dCopy;
     _os_log_impl(&dword_1959FF000, v15, OS_LOG_TYPE_DEFAULT, "!setState accessoryID=%@", buf, 0xCu);
   }
 
@@ -9916,7 +9907,7 @@ LABEL_56:
     {
       v17 = *identifier;
       *buf = 138412290;
-      v52 = v17;
+      v51 = v17;
       _os_log_impl(&dword_1959FF000, v16, OS_LOG_TYPE_DEFAULT, "!setState guid=%@", buf, 0xCu);
     }
   }
@@ -9938,13 +9929,13 @@ LABEL_56:
   v21 = +[IDSLogging _IDSService];
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
-    *v49 = 0;
-    _os_log_impl(&dword_1959FF000, v21, OS_LOG_TYPE_DEFAULT, "Sending AccessoryData Now", v49, 2u);
+    *v48 = 0;
+    _os_log_impl(&dword_1959FF000, v21, OS_LOG_TYPE_DEFAULT, "Sending AccessoryData Now", v48, 2u);
   }
 
   v22 = [optionsCopy objectForKeyedSubscript:@"IDSSendMessageOptionFromID"];
   v23 = [(_IDSService *)self _sendingAccountForAccount:0 destination:0 fromID:v22];
-  v43 = v22;
+  v42 = v22;
   _internal = [v23 _internal];
   uniqueID = [_internal uniqueID];
 
@@ -9980,9 +9971,9 @@ LABEL_56:
     if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       _internal3 = [v23 _internal];
-      *v49 = 138412290;
-      v50 = _internal3;
-      _os_log_impl(&dword_1959FF000, v34, OS_LOG_TYPE_DEFAULT, "sendAccessoryData - Could not find connection for account %@", v49, 0xCu);
+      *v48 = 138412290;
+      v49 = _internal3;
+      _os_log_impl(&dword_1959FF000, v34, OS_LOG_TYPE_DEFAULT, "sendAccessoryData - Could not find connection for account %@", v48, 0xCu);
     }
 
     [(_IDSService *)self _logConnectionMap];
@@ -9991,9 +9982,9 @@ LABEL_56:
     {
       _internal4 = [(IDSAccountController *)self->_accountController _internal];
       accounts = [_internal4 accounts];
-      *v49 = 138412290;
-      v50 = accounts;
-      _os_log_impl(&dword_1959FF000, v36, OS_LOG_TYPE_DEFAULT, "sendAccessoryData - All accounts %@", v49, 0xCu);
+      *v48 = 138412290;
+      v49 = accounts;
+      _os_log_impl(&dword_1959FF000, v36, OS_LOG_TYPE_DEFAULT, "sendAccessoryData - All accounts %@", v48, 0xCu);
     }
 
     v39 = objc_alloc(MEMORY[0x1E695DF20]);
@@ -10011,13 +10002,12 @@ LABEL_56:
   os_activity_scope_leave(&state);
   cut_arc_os_release();
 
-  v41 = *MEMORY[0x1E69E9840];
   return v33;
 }
 
 - (BOOL)sendInvitation:(id)invitation fromAccount:(id)account toDestination:(id)destination options:(id)options identifier:(id *)identifier error:(id *)error
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   invitationCopy = invitation;
   v14 = MEMORY[0x1E69A5240];
   v15 = MEMORY[0x1E695DFD8];
@@ -10042,7 +10032,7 @@ LABEL_56:
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v49 = _bestGuessURI;
+        v48 = _bestGuessURI;
         _os_log_impl(&dword_1959FF000, v25, OS_LOG_TYPE_DEFAULT, "sendInvitationUpdate - overriding fromID to %@", buf, 0xCu);
       }
     }
@@ -10064,7 +10054,7 @@ LABEL_13:
       {
         _internal2 = [v27 _internal];
         *buf = 138412290;
-        v49 = _internal2;
+        v48 = _internal2;
         _os_log_impl(&dword_1959FF000, v34, OS_LOG_TYPE_DEFAULT, "sendInvitation - Could not find connection for account %@", buf, 0xCu);
       }
 
@@ -10075,7 +10065,7 @@ LABEL_13:
         _internal3 = [(IDSAccountController *)self->_accountController _internal];
         accounts = [_internal3 accounts];
         *buf = 138412290;
-        v49 = accounts;
+        v48 = accounts;
         _os_log_impl(&dword_1959FF000, v36, OS_LOG_TYPE_DEFAULT, "sendInvitation - All accounts %@", buf, 0xCu);
       }
 
@@ -10132,9 +10122,9 @@ LABEL_20:
   if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v49 = invitationCopy;
-    v50 = 2112;
-    v51 = v20;
+    v48 = invitationCopy;
+    v49 = 2112;
+    v50 = v20;
     _os_log_impl(&dword_1959FF000, v31, OS_LOG_TYPE_DEFAULT, "sendInvitation - Attempting to send invitation: %@ with options %@", buf, 0x16u);
   }
 
@@ -10142,13 +10132,12 @@ LABEL_20:
   v33 = [_internal4 sendInvitation:invitationCopy toDestination:v19 priority:300 options:v20 identifier:identifier error:error];
 LABEL_26:
 
-  v45 = *MEMORY[0x1E69E9840];
   return v33;
 }
 
 - (BOOL)sendInvitationUpdate:(id)update fromAccount:(id)account toDestination:(id)destination options:(id)options identifier:(id *)identifier error:(id *)error
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   updateCopy = update;
   v14 = MEMORY[0x1E69A5240];
   v15 = MEMORY[0x1E695DFD8];
@@ -10173,7 +10162,7 @@ LABEL_26:
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v49 = _bestGuessURI;
+        v48 = _bestGuessURI;
         _os_log_impl(&dword_1959FF000, v25, OS_LOG_TYPE_DEFAULT, "sendInvitationUpdate - overriding fromID to %@", buf, 0xCu);
       }
     }
@@ -10195,7 +10184,7 @@ LABEL_13:
       {
         _internal2 = [v27 _internal];
         *buf = 138412290;
-        v49 = _internal2;
+        v48 = _internal2;
         _os_log_impl(&dword_1959FF000, v34, OS_LOG_TYPE_DEFAULT, "sendInvitationUpdate - Could not find connection for account %@", buf, 0xCu);
       }
 
@@ -10206,7 +10195,7 @@ LABEL_13:
         _internal3 = [(IDSAccountController *)self->_accountController _internal];
         accounts = [_internal3 accounts];
         *buf = 138412290;
-        v49 = accounts;
+        v48 = accounts;
         _os_log_impl(&dword_1959FF000, v36, OS_LOG_TYPE_DEFAULT, "sendInvitationUpdate - All accounts %@", buf, 0xCu);
       }
 
@@ -10263,9 +10252,9 @@ LABEL_20:
   if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v49 = updateCopy;
-    v50 = 2112;
-    v51 = v20;
+    v48 = updateCopy;
+    v49 = 2112;
+    v50 = v20;
     _os_log_impl(&dword_1959FF000, v31, OS_LOG_TYPE_DEFAULT, "sendInvitationUpdate - Attempting to send invitation: %@ with options %@", buf, 0x16u);
   }
 
@@ -10273,21 +10262,20 @@ LABEL_20:
   v33 = [_internal4 sendInvitationUpdate:updateCopy toDestination:v19 priority:300 options:v20 identifier:identifier error:error];
 LABEL_26:
 
-  v45 = *MEMORY[0x1E69E9840];
   return v33;
 }
 
 - (BOOL)setWakingPushPriority:(int64_t)priority error:(id *)error
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v7 = +[IDSLogging _IDSService];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     pushTopic = [(IDSServiceProperties *)self->_serviceProperties pushTopic];
     *buf = 134218242;
     priorityCopy = priority;
-    v21 = 2112;
-    v22 = pushTopic;
+    v20 = 2112;
+    v21 = pushTopic;
     _os_log_impl(&dword_1959FF000, v7, OS_LOG_TYPE_DEFAULT, "Setting waking priority %ld on topic %@", buf, 0x16u);
   }
 
@@ -10307,9 +10295,9 @@ LABEL_26:
       sub_195B3B6A8();
     }
 
-    v17 = *MEMORY[0x1E696A578];
-    v18 = @"Invalid priority";
-    daemonController = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+    v16 = *MEMORY[0x1E696A578];
+    v17 = @"Invalid priority";
+    daemonController = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
     v13 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"com.apple.identityservices.error" code:56 userInfo:daemonController];
     pushTopic2 = v13;
     if (error)
@@ -10319,7 +10307,6 @@ LABEL_26:
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return valid;
 }
 
@@ -10342,7 +10329,7 @@ LABEL_26:
 
 - (BOOL)sendServerMessage:(id)message command:(id)command fromAccount:(id)account
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   commandCopy = command;
   accountCopy = account;
@@ -10376,9 +10363,9 @@ LABEL_26:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       _internal3 = [v14 _internal];
-      v27 = 138412290;
-      v28 = _internal3;
-      _os_log_impl(&dword_1959FF000, v21, OS_LOG_TYPE_DEFAULT, "sendServerMessage - Could not find connection for account %@", &v27, 0xCu);
+      v26 = 138412290;
+      v27 = _internal3;
+      _os_log_impl(&dword_1959FF000, v21, OS_LOG_TYPE_DEFAULT, "sendServerMessage - Could not find connection for account %@", &v26, 0xCu);
     }
 
     [(_IDSService *)self _logConnectionMap];
@@ -10387,15 +10374,14 @@ LABEL_26:
     {
       _internal4 = [(IDSAccountController *)self->_accountController _internal];
       accounts = [_internal4 accounts];
-      v27 = 138412290;
-      v28 = accounts;
-      _os_log_impl(&dword_1959FF000, v18, OS_LOG_TYPE_DEFAULT, "sendServerMessage - All accounts %@", &v27, 0xCu);
+      v26 = 138412290;
+      v27 = accounts;
+      _os_log_impl(&dword_1959FF000, v18, OS_LOG_TYPE_DEFAULT, "sendServerMessage - All accounts %@", &v26, 0xCu);
     }
 
     v20 = 0;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -10511,7 +10497,7 @@ LABEL_26:
 
 + (id)deviceForFromID:(id)d fromDevices:(id)devices
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   dCopy = d;
   devicesCopy = devices;
   v7 = +[IDSInternalQueueController sharedInstance];
@@ -10530,26 +10516,26 @@ LABEL_26:
   {
     if ([dCopy isEqualToString:*MEMORY[0x1E69A4B50]])
     {
-      v55 = 0u;
-      v56 = 0u;
-      v53 = 0u;
       v54 = 0u;
+      v55 = 0u;
+      v52 = 0u;
+      v53 = 0u;
       _stripFZIDPrefix = devicesCopy;
-      v11 = [_stripFZIDPrefix countByEnumeratingWithState:&v53 objects:v65 count:16];
+      v11 = [_stripFZIDPrefix countByEnumeratingWithState:&v52 objects:v64 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v54;
+        v13 = *v53;
         while (2)
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v54 != v13)
+            if (*v53 != v13)
             {
               objc_enumerationMutation(_stripFZIDPrefix);
             }
 
-            v15 = *(*(&v53 + 1) + 8 * i);
+            v15 = *(*(&v52 + 1) + 8 * i);
             _internal = [v15 _internal];
             isDefaultPairedDevice = [_internal isDefaultPairedDevice];
 
@@ -10560,7 +10546,7 @@ LABEL_26:
             }
           }
 
-          v12 = [_stripFZIDPrefix countByEnumeratingWithState:&v53 objects:v65 count:16];
+          v12 = [_stripFZIDPrefix countByEnumeratingWithState:&v52 objects:v64 count:16];
           if (v12)
           {
             continue;
@@ -10575,26 +10561,26 @@ LABEL_26:
     {
       v18 = dCopy;
       _stripFZIDPrefix = [dCopy _stripFZIDPrefix];
+      v48 = 0u;
       v49 = 0u;
       v50 = 0u;
       v51 = 0u;
-      v52 = 0u;
       v19 = devicesCopy;
-      v20 = [v19 countByEnumeratingWithState:&v49 objects:v64 count:16];
+      v20 = [v19 countByEnumeratingWithState:&v48 objects:v63 count:16];
       if (v20)
       {
         v21 = v20;
-        v22 = *v50;
+        v22 = *v49;
         while (2)
         {
           for (j = 0; j != v21; ++j)
           {
-            if (*v50 != v22)
+            if (*v49 != v22)
             {
               objc_enumerationMutation(v19);
             }
 
-            v24 = *(*(&v49 + 1) + 8 * j);
+            v24 = *(*(&v48 + 1) + 8 * j);
             uniqueIDOverride = [v24 uniqueIDOverride];
             v26 = [uniqueIDOverride isEqualToIgnoringCase:_stripFZIDPrefix];
 
@@ -10607,7 +10593,7 @@ LABEL_26:
             }
           }
 
-          v21 = [v19 countByEnumeratingWithState:&v49 objects:v64 count:16];
+          v21 = [v19 countByEnumeratingWithState:&v48 objects:v63 count:16];
           if (v21)
           {
             continue;
@@ -10620,47 +10606,47 @@ LABEL_26:
       dCopy = v18;
     }
 
-    v48 = 0;
-    v27 = [dCopy _stripPotentialTokenURIWithToken:&v48];
-    _stripFZIDPrefix = v48;
+    v47 = 0;
+    v27 = [dCopy _stripPotentialTokenURIWithToken:&v47];
+    _stripFZIDPrefix = v47;
     registration = [MEMORY[0x1E69A6138] registration];
     if (os_log_type_enabled(registration, OS_LOG_TYPE_INFO))
     {
       *buf = 138412802;
-      v59 = dCopy;
-      v60 = 2112;
-      v61 = v27;
-      v62 = 2112;
-      v63 = _stripFZIDPrefix;
+      v58 = dCopy;
+      v59 = 2112;
+      v60 = v27;
+      v61 = 2112;
+      v62 = _stripFZIDPrefix;
       _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_INFO, "FromID %@, strippedURI %@, token %@", buf, 0x20u);
     }
 
     v29 = 0;
     if (_stripFZIDPrefix && v27)
     {
-      v41 = dCopy;
-      v42 = v27;
-      v46 = 0u;
-      v47 = 0u;
-      v44 = 0u;
+      v40 = dCopy;
+      v41 = v27;
       v45 = 0u;
-      v43 = devicesCopy;
+      v46 = 0u;
+      v43 = 0u;
+      v44 = 0u;
+      v42 = devicesCopy;
       registration3 = devicesCopy;
-      v31 = [registration3 countByEnumeratingWithState:&v44 objects:v57 count:16];
+      v31 = [registration3 countByEnumeratingWithState:&v43 objects:v56 count:16];
       if (v31)
       {
         v32 = v31;
-        v33 = *v45;
+        v33 = *v44;
         while (2)
         {
           for (k = 0; k != v32; ++k)
           {
-            if (*v45 != v33)
+            if (*v44 != v33)
             {
               objc_enumerationMutation(registration3);
             }
 
-            v35 = *(*(&v44 + 1) + 8 * k);
+            v35 = *(*(&v43 + 1) + 8 * k);
             _internal2 = [v35 _internal];
             pushToken = [_internal2 pushToken];
 
@@ -10668,9 +10654,9 @@ LABEL_26:
             if (os_log_type_enabled(registration2, OS_LOG_TYPE_INFO))
             {
               *buf = 138412546;
-              v59 = pushToken;
-              v60 = 2112;
-              v61 = _stripFZIDPrefix;
+              v58 = pushToken;
+              v59 = 2112;
+              v60 = _stripFZIDPrefix;
               _os_log_impl(&dword_1959FF000, registration2, OS_LOG_TYPE_INFO, "Comparing device token %@ to token %@", buf, 0x16u);
             }
 
@@ -10682,7 +10668,7 @@ LABEL_26:
             }
           }
 
-          v32 = [registration3 countByEnumeratingWithState:&v44 objects:v57 count:16];
+          v32 = [registration3 countByEnumeratingWithState:&v43 objects:v56 count:16];
           if (v32)
           {
             continue;
@@ -10696,15 +10682,15 @@ LABEL_26:
       if (os_log_type_enabled(registration3, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v59 = _stripFZIDPrefix;
+        v58 = _stripFZIDPrefix;
         _os_log_impl(&dword_1959FF000, registration3, OS_LOG_TYPE_DEFAULT, "Did not find a device matching the token %@", buf, 0xCu);
       }
 
       v29 = 0;
 LABEL_47:
-      v27 = v42;
-      devicesCopy = v43;
-      dCopy = v41;
+      v27 = v41;
+      devicesCopy = v42;
+      dCopy = v40;
     }
 
 LABEL_49:
@@ -10715,14 +10701,12 @@ LABEL_49:
     v29 = 0;
   }
 
-  v39 = *MEMORY[0x1E69E9840];
-
   return v29;
 }
 
 - (id)deviceForFromID:(id)d
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v5 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v5 assertQueueIsCurrent];
@@ -10737,66 +10721,64 @@ LABEL_49:
   }
 
   v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   accounts = [(_IDSService *)self accounts];
-  v10 = [accounts countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v10 = [accounts countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v29;
+    v12 = *v28;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v29 != v12)
+        if (*v28 != v12)
         {
           objc_enumerationMutation(accounts);
         }
 
-        v14 = *(*(&v28 + 1) + 8 * i);
+        v14 = *(*(&v27 + 1) + 8 * i);
+        v23 = 0u;
         v24 = 0u;
         v25 = 0u;
         v26 = 0u;
-        v27 = 0u;
         _internal = [v14 _internal];
         devices = [_internal devices];
 
-        v17 = [devices countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v17 = [devices countByEnumeratingWithState:&v23 objects:v31 count:16];
         if (v17)
         {
           v18 = v17;
-          v19 = *v25;
+          v19 = *v24;
           do
           {
             for (j = 0; j != v18; ++j)
             {
-              if (*v25 != v19)
+              if (*v24 != v19)
               {
                 objc_enumerationMutation(devices);
               }
 
-              [v8 addObject:*(*(&v24 + 1) + 8 * j)];
+              [v8 addObject:*(*(&v23 + 1) + 8 * j)];
             }
 
-            v18 = [devices countByEnumeratingWithState:&v24 objects:v32 count:16];
+            v18 = [devices countByEnumeratingWithState:&v23 objects:v31 count:16];
           }
 
           while (v18);
         }
       }
 
-      v11 = [accounts countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v11 = [accounts countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v11);
   }
 
   v21 = [_IDSService deviceForFromID:dCopy fromDevices:v8];
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
@@ -10854,17 +10836,18 @@ LABEL_49:
             loginID = [v7 loginID];
             _appearsToBeEmail = [loginID _appearsToBeEmail];
             loginID2 = [v7 loginID];
+            v13 = loginID2;
             if (_appearsToBeEmail)
             {
-              v13 = IDSCopyIDForEmailAddress();
+              v14 = IDSCopyIDForEmailAddress(loginID2);
             }
 
             else
             {
-              v13 = IDSCopyIDForPhoneNumber();
+              v14 = IDSCopyIDForPhoneNumber(loginID2);
             }
 
-            v14 = v13;
+            v15 = v14;
 
             pushToken2 = [v7 pushToken];
             v9 = IDSCopyIDForTokenWithID();
@@ -10887,14 +10870,12 @@ LABEL_49:
   v9 = 0;
 LABEL_16:
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (id)devicesForBTUUID:(id)d
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v5 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v5 assertQueueIsCurrent];
@@ -10911,26 +10892,26 @@ LABEL_16:
   if (dCopy)
   {
     v8 = [(_IDSService *)self linkedDevicesWithRelationship:3];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
-    v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v9)
     {
       v10 = v9;
       v11 = 0;
-      v12 = *v20;
+      v12 = *v19;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v20 != v12)
+          if (*v19 != v12)
           {
             objc_enumerationMutation(v8);
           }
 
-          v14 = *(*(&v19 + 1) + 8 * i);
+          v14 = *(*(&v18 + 1) + 8 * i);
           nsuuid = [v14 nsuuid];
           v16 = [nsuuid isEqual:dCopy];
 
@@ -10945,7 +10926,7 @@ LABEL_16:
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v10);
@@ -10962,14 +10943,12 @@ LABEL_16:
     v11 = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
 - (id)deviceForUniqueID:(id)d
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v5 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v5 assertQueueIsCurrent];
@@ -10985,26 +10964,26 @@ LABEL_16:
 
   if (dCopy)
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     devices = [(_IDSService *)self devices];
-    v9 = [devices countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v9 = [devices countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v21;
+      v11 = *v20;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v21 != v11)
+          if (*v20 != v11)
           {
             objc_enumerationMutation(devices);
           }
 
-          v13 = *(*(&v20 + 1) + 8 * i);
+          v13 = *(*(&v19 + 1) + 8 * i);
           uniqueID = [v13 uniqueID];
           if ([uniqueID isEqualToIgnoringCase:dCopy])
           {
@@ -11023,7 +11002,7 @@ LABEL_19:
           }
         }
 
-        v10 = [devices countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v10 = [devices countByEnumeratingWithState:&v19 objects:v23 count:16];
         v17 = 0;
         if (v10)
         {
@@ -11047,9 +11026,94 @@ LABEL_20:
     v17 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return v17;
+}
+
+- (void)setPreferInfraWiFi:(BOOL)fi
+{
+  fiCopy = fi;
+  v15 = *MEMORY[0x1E69E9840];
+  v5 = +[IDSInternalQueueController sharedInstance];
+  assertQueueIsCurrent = [v5 assertQueueIsCurrent];
+
+  if (assertQueueIsCurrent)
+  {
+    utilities = [MEMORY[0x1E69A5270] utilities];
+    if (os_log_type_enabled(utilities, OS_LOG_TYPE_ERROR))
+    {
+      sub_195B3BD1C();
+    }
+  }
+
+  v8 = +[IDSTransportLog IDSService];
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = @"NO";
+    if (fiCopy)
+    {
+      v9 = @"YES";
+    }
+
+    v13 = 138412290;
+    v14 = v9;
+    _os_log_impl(&dword_1959FF000, v8, OS_LOG_TYPE_DEFAULT, "setPreferInfraWiFi: %@", &v13, 0xCu);
+  }
+
+  daemonController = [(_IDSService *)self daemonController];
+  _internal = [(IDSAccountController *)self->_accountController _internal];
+  serviceName = [_internal serviceName];
+  [daemonController setPreferInfraWiFi:fiCopy service:serviceName];
+}
+
+- (void)setNeedsLaunchOnNearbyDevicesChanged:(BOOL)changed
+{
+  changedCopy = changed;
+  v17 = *MEMORY[0x1E69E9840];
+  v5 = +[IDSInternalQueueController sharedInstance];
+  assertQueueIsCurrent = [v5 assertQueueIsCurrent];
+
+  if (assertQueueIsCurrent)
+  {
+    utilities = [MEMORY[0x1E69A5270] utilities];
+    if (os_log_type_enabled(utilities, OS_LOG_TYPE_ERROR))
+    {
+      sub_195B3BDBC();
+    }
+  }
+
+  v8 = +[IDSTransportLog IDSService];
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = @"NO";
+    if (changedCopy)
+    {
+      v9 = @"YES";
+    }
+
+    v13 = 136315394;
+    v14 = "[_IDSService setNeedsLaunchOnNearbyDevicesChanged:]";
+    v15 = 2112;
+    v16 = v9;
+    _os_log_impl(&dword_1959FF000, v8, OS_LOG_TYPE_DEFAULT, "%s: %@", &v13, 0x16u);
+  }
+
+  serviceProperties = [(_IDSService *)self serviceProperties];
+  allowLaunchOnNearbyDevicesChanged = [serviceProperties allowLaunchOnNearbyDevicesChanged];
+
+  if (allowLaunchOnNearbyDevicesChanged)
+  {
+    serviceProperties2 = [(_IDSService *)self serviceProperties];
+    [serviceProperties2 setNeedsLaunchOnNearbyDevicesChanged:changedCopy];
+  }
+
+  else
+  {
+    serviceProperties2 = [MEMORY[0x1E69A60E0] daemon];
+    if (os_log_type_enabled(serviceProperties2, OS_LOG_TYPE_ERROR))
+    {
+      sub_195B3BE5C();
+    }
+  }
 }
 
 - (BOOL)needsLaunchOnNearbyDevicesChanged
@@ -11062,7 +11126,7 @@ LABEL_20:
 
 - (void)setLinkPreferences:(id)preferences
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   preferencesCopy = preferences;
   v5 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v5 assertQueueIsCurrent];
@@ -11079,9 +11143,9 @@ LABEL_20:
   v8 = +[IDSTransportLog IDSService];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138543362;
-    v18 = preferencesCopy;
-    _os_log_impl(&dword_1959FF000, v8, OS_LOG_TYPE_DEFAULT, "setLinkPreferences: %{public}@", &v17, 0xCu);
+    v16 = 138543362;
+    v17 = preferencesCopy;
+    _os_log_impl(&dword_1959FF000, v8, OS_LOG_TYPE_DEFAULT, "setLinkPreferences: %{public}@", &v16, 0xCu);
   }
 
   v9 = [preferencesCopy objectForKey:@"LinkType"];
@@ -11093,8 +11157,8 @@ LABEL_20:
     daemonController = +[IDSTransportLog IDSService];
     if (os_log_type_enabled(daemonController, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v17) = 0;
-      _os_log_impl(&dword_1959FF000, daemonController, OS_LOG_TYPE_DEFAULT, "Received invalid link preferences", &v17, 2u);
+      LOWORD(v16) = 0;
+      _os_log_impl(&dword_1959FF000, daemonController, OS_LOG_TYPE_DEFAULT, "Received invalid link preferences", &v16, 2u);
     }
   }
 
@@ -11105,8 +11169,6 @@ LABEL_20:
     serviceName = [_internal serviceName];
     [daemonController setLinkPreferences:preferencesCopy service:serviceName];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startOTRTest:(int64_t)test
@@ -11158,21 +11220,21 @@ LABEL_20:
 
 - (BOOL)sendResourceAtURL:(id)l metadata:(id)metadata fromAccount:(id)account toDestinations:(id)destinations priority:(int64_t)priority options:(id)options identifier:(id *)identifier error:(id *)self0
 {
-  v121 = *MEMORY[0x1E69E9840];
+  v120 = *MEMORY[0x1E69E9840];
   lCopy = l;
   metadataCopy = metadata;
   accountCopy = account;
   destinationsCopy = destinations;
   optionsCopy = options;
   state.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
-  v106 = _os_activity_create(&dword_1959FF000, "Framework Send Resource At URL", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  v105 = _os_activity_create(&dword_1959FF000, "Framework Send Resource At URL", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
-  os_activity_scope_enter(v106, &state);
+  os_activity_scope_enter(v105, &state);
   v16 = OSLogHandleForTransportCategory();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v111 = lCopy;
+    v110 = lCopy;
     _os_log_impl(&dword_1959FF000, v16, OS_LOG_TYPE_DEFAULT, "!setState ResourceURL=%@", buf, 0xCu);
   }
 
@@ -11181,7 +11243,7 @@ LABEL_20:
   {
     serviceName = [accountCopy serviceName];
     *buf = 138412290;
-    v111 = serviceName;
+    v110 = serviceName;
     _os_log_impl(&dword_1959FF000, v17, OS_LOG_TYPE_DEFAULT, "!setState serviceName=%@", buf, 0xCu);
   }
 
@@ -11192,7 +11254,7 @@ LABEL_20:
     {
       v20 = *identifier;
       *buf = 138412290;
-      v111 = v20;
+      v110 = v20;
       _os_log_impl(&dword_1959FF000, v19, OS_LOG_TYPE_DEFAULT, "!setState guid=%@", buf, 0xCu);
     }
   }
@@ -11200,25 +11262,25 @@ LABEL_20:
   if (!self->_pretendingToBeFull)
   {
     [MEMORY[0x1E69A5240] destinationWithDestinations:destinationsCopy];
+    v102 = 0u;
     v103 = 0u;
-    v104 = 0u;
-    v101 = 0u;
-    v95 = v102 = 0u;
-    destinationURIs = [v95 destinationURIs];
-    v23 = [destinationURIs countByEnumeratingWithState:&v101 objects:v120 count:16];
+    v100 = 0u;
+    v94 = v101 = 0u;
+    destinationURIs = [v94 destinationURIs];
+    v23 = [destinationURIs countByEnumeratingWithState:&v100 objects:v119 count:16];
     if (v23)
     {
-      v24 = *v102;
+      v24 = *v101;
       while (2)
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v102 != v24)
+          if (*v101 != v24)
           {
             objc_enumerationMutation(destinationURIs);
           }
 
-          v26 = *(*(&v101 + 1) + 8 * i);
+          v26 = *(*(&v100 + 1) + 8 * i);
           if (![v26 _FZIDType])
           {
             serviceProperties = [(_IDSService *)self serviceProperties];
@@ -11232,17 +11294,17 @@ LABEL_20:
                 serviceProperties2 = [(_IDSService *)self serviceProperties];
                 identifier = [serviceProperties2 identifier];
                 *buf = 138412546;
-                v111 = v26;
-                v112 = 2112;
-                v113 = identifier;
+                v110 = v26;
+                v111 = 2112;
+                v112 = identifier;
                 _os_log_impl(&dword_1959FF000, v48, OS_LOG_TYPE_DEFAULT, "sendResourceAtURL - Unable to send message to %@ on service %@ since phone number accounts are disabled", buf, 0x16u);
               }
 
               if (error)
               {
-                v118 = *MEMORY[0x1E696A578];
-                v119 = @"Sending to a phone number when service does not support phone numbers. File a radar to IDS | New Bugs to request phone number access.";
-                v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v119 forKeys:&v118 count:1];
+                v117 = *MEMORY[0x1E696A578];
+                v118 = @"Sending to a phone number when service does not support phone numbers. File a radar to IDS | New Bugs to request phone number access.";
+                v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v118 forKeys:&v117 count:1];
                 *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.identityservices.error" code:44 userInfo:v51];
               }
 
@@ -11251,7 +11313,7 @@ LABEL_20:
           }
         }
 
-        v23 = [destinationURIs countByEnumeratingWithState:&v101 objects:v120 count:16];
+        v23 = [destinationURIs countByEnumeratingWithState:&v100 objects:v119 count:16];
         if (v23)
         {
           continue;
@@ -11267,7 +11329,7 @@ LABEL_20:
       if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v111 = lCopy;
+        v110 = lCopy;
         _os_log_impl(&dword_1959FF000, v52, OS_LOG_TYPE_DEFAULT, "sendResourceAtURL - resourceURL not a file %@", buf, 0xCu);
       }
 
@@ -11289,19 +11351,19 @@ LABEL_37:
     }
 
     destinationURIs = [MEMORY[0x1E695DF90] dictionaryWithDictionary:optionsCopy];
-    v92 = NSTemporaryDirectory();
+    v91 = NSTemporaryDirectory();
     v29 = lCopy;
     path = [v29 path];
     lastPathComponent = [v29 lastPathComponent];
 
-    v31 = [v92 stringByAppendingString:lastPathComponent];
+    v31 = [v91 stringByAppendingString:lastPathComponent];
 
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    v109 = 0;
-    v91 = [defaultManager attributesOfItemAtPath:v31 error:&v109];
-    v90 = v109;
+    v108 = 0;
+    v90 = [defaultManager attributesOfItemAtPath:v31 error:&v108];
+    v89 = v108;
 
-    if (v91)
+    if (v90)
     {
       v33 = [(__CFString *)v31 stringByAppendingString:@".XXXX"];
 
@@ -11313,11 +11375,11 @@ LABEL_37:
         if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          v111 = MaximumSizeOfFileSystemRepresentation;
+          v110 = MaximumSizeOfFileSystemRepresentation;
           _os_log_impl(&dword_1959FF000, v54, OS_LOG_TYPE_DEFAULT, "sendResourceAtURL - can't allocate %ld bytes for new file path", buf, 0xCu);
         }
 
-        v93 = 0;
+        v92 = 0;
         goto LABEL_45;
       }
 
@@ -11341,26 +11403,26 @@ LABEL_37:
       if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412802;
-        v111 = path;
-        v112 = 2112;
-        v113 = v31;
-        v114 = 1024;
-        LODWORD(v115) = v41;
+        v110 = path;
+        v111 = 2112;
+        v112 = v31;
+        v113 = 1024;
+        LODWORD(v114) = v41;
         _os_log_impl(&dword_1959FF000, v42, OS_LOG_TYPE_DEFAULT, "sendResourceAtURL - failed to clone file %@ => %@ (error %d). Will try hard link.", buf, 0x1Cu);
       }
 
       defaultManager3 = [MEMORY[0x1E696AC08] defaultManager];
-      v108 = 0;
-      v44 = [defaultManager3 linkItemAtPath:path toPath:v31 error:&v108];
-      v90 = v108;
+      v107 = 0;
+      v44 = [defaultManager3 linkItemAtPath:path toPath:v31 error:&v107];
+      v89 = v107;
 
       if ((v44 & 1) == 0)
       {
 
         defaultManager4 = [MEMORY[0x1E696AC08] defaultManager];
-        v107 = 0;
-        v46 = [defaultManager4 copyItemAtPath:path toPath:v31 error:&v107];
-        v90 = v107;
+        v106 = 0;
+        v46 = [defaultManager4 copyItemAtPath:path toPath:v31 error:&v106];
+        v89 = v106;
 
         if ((v46 & 1) == 0)
         {
@@ -11368,11 +11430,11 @@ LABEL_37:
           if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412802;
-            v111 = path;
-            v112 = 2112;
-            v113 = v31;
-            v114 = 2112;
-            v115 = v90;
+            v110 = path;
+            v111 = 2112;
+            v112 = v31;
+            v113 = 2112;
+            v114 = v89;
             _os_log_impl(&dword_1959FF000, v47, OS_LOG_TYPE_DEFAULT, "sendResourceAtURL - failed to link and failed to copy file %@ => %@ (error %@)", buf, 0x20u);
           }
 
@@ -11382,7 +11444,7 @@ LABEL_37:
     }
 
     v33 = v31;
-    v93 = v33;
+    v92 = v33;
 LABEL_45:
 
     v55 = +[IDSLogging _IDSService];
@@ -11392,17 +11454,17 @@ LABEL_45:
       v57 = v29;
       fileSystemRepresentation = [v29 fileSystemRepresentation];
       *buf = 138413058;
-      v111 = v29;
-      v112 = 2112;
-      v113 = v56;
-      v114 = 2080;
-      v115 = fileSystemRepresentation;
-      v116 = 2112;
-      v117 = v93;
+      v110 = v29;
+      v111 = 2112;
+      v112 = v56;
+      v113 = 2080;
+      v114 = fileSystemRepresentation;
+      v115 = 2112;
+      v116 = v92;
       _os_log_impl(&dword_1959FF000, v55, OS_LOG_TYPE_DEFAULT, "Attempted to link or copy file %@ destination %@ (%s to %@)", buf, 0x2Au);
     }
 
-    if ([(__CFString *)v93 length])
+    if ([(__CFString *)v92 length])
     {
       v59 = +[IDSLogging _IDSService];
       if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
@@ -11412,21 +11474,21 @@ LABEL_45:
         v62 = v61;
         v63 = @"NO";
         *buf = 138412802;
-        v111 = v29;
-        v112 = 2112;
+        v110 = v29;
+        v111 = 2112;
         if (isFileURL)
         {
           v63 = @"YES";
         }
 
-        v113 = v63;
-        v114 = 2112;
-        v115 = v61;
+        v112 = v63;
+        v113 = 2112;
+        v114 = v61;
         _os_log_impl(&dword_1959FF000, v59, OS_LOG_TYPE_INFO, "sendResourceAtURL - resourceURL %@  isFileURL %@  localDelivery %@", buf, 0x20u);
       }
 
       dictionary = [MEMORY[0x1E695DF90] dictionary];
-      v65 = v93;
+      v65 = v92;
       if (v65)
       {
         CFDictionarySetValue(dictionary, *MEMORY[0x1E69A4EB8], v65);
@@ -11469,7 +11531,7 @@ LABEL_45:
         if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v111 = v65;
+          v110 = v65;
           _os_log_impl(&dword_1959FF000, v73, OS_LOG_TYPE_DEFAULT, "Failed to issue sandbox extension for linked/copied file [%@]", buf, 0xCu);
         }
       }
@@ -11496,7 +11558,7 @@ LABEL_45:
         if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v111 = v29;
+          v110 = v29;
           _os_log_impl(&dword_1959FF000, v78, OS_LOG_TYPE_DEFAULT, "Failed to issue sandbox extension for original file [%@]", buf, 0xCu);
         }
       }
@@ -11548,7 +11610,7 @@ LABEL_45:
       if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v111 = v29;
+        v110 = v29;
         _os_log_impl(&dword_1959FF000, v66, OS_LOG_TYPE_DEFAULT, "sendResourceAtURL - unable to link or copy file %@", buf, 0xCu);
       }
 
@@ -11571,13 +11633,12 @@ LABEL_90:
   os_activity_scope_leave(&state);
   cut_arc_os_release();
 
-  v88 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
 - (BOOL)sendAheadGroup:(id)group priority:(int64_t)priority options:(id)options identifier:(id *)identifier completion:(id)completion
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   groupCopy = group;
   optionsCopy = options;
   completionCopy = completion;
@@ -11598,26 +11659,25 @@ LABEL_90:
   {
     groupID = [groupCopy groupID];
     *buf = 138543362;
-    v33 = groupID;
+    v32 = groupID;
     _os_log_impl(&dword_1959FF000, groupCrypto, OS_LOG_TYPE_DEFAULT, "Sending Ahead group {groupID: %{public}@}", buf, 0xCu);
   }
 
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = sub_195AD41A0;
-  v25[3] = &unk_1E7442370;
-  v26 = optionsCopy;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = sub_195AD41A0;
+  v24[3] = &unk_1E7442370;
+  v25 = optionsCopy;
   selfCopy = self;
-  v28 = groupCopy;
-  v29 = completionCopy;
+  v27 = groupCopy;
+  v28 = completionCopy;
   priorityCopy = priority;
   identifierCopy = identifier;
   v20 = groupCopy;
   v21 = optionsCopy;
   v22 = completionCopy;
-  [(_IDSService *)self performGroupTask:v25];
+  [(_IDSService *)self performGroupTask:v24];
 
-  v23 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -11708,7 +11768,7 @@ LABEL_18:
 
 - (void)sendAckForMessageWithContext:(id)context
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v5 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v5 assertQueueIsCurrent];
@@ -11729,12 +11789,12 @@ LABEL_18:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v42 = storageGuid;
+      v41 = storageGuid;
       _os_log_impl(&dword_1959FF000, v9, OS_LOG_TYPE_DEFAULT, "Received call made to manually ack a message using storageGuid: %@", buf, 0xCu);
     }
 
-    v38 = [(_IDSService *)self _sendingAccountForAccount:0];
-    _internal = [v38 _internal];
+    v37 = [(_IDSService *)self _sendingAccountForAccount:0];
+    _internal = [v37 _internal];
     uniqueID = [_internal uniqueID];
 
     if (uniqueID)
@@ -11770,14 +11830,14 @@ LABEL_16:
           _internal2 = [v12 _internal];
           account = [_internal2 account];
           [account _internal];
-          v29 = v37 = uniqueID;
+          v29 = v36 = uniqueID;
           [v29 uniqueID];
           v31 = v30 = v12;
           priority = [contextCopy priority];
           [daemonController acknowledgeMessageWithStorageGUID:storageGuid realGUID:outgoingResponseIdentifier forAccountWithUniqueID:v31 broadcastTime:v20 messageSize:0 priority:priority broadcastID:objc_msgSend(contextCopy connectionType:{"broadcastID"), objc_msgSend(contextCopy, "connectionType")}];
 
           v12 = v30;
-          uniqueID = v37;
+          uniqueID = v36;
         }
 
         goto LABEL_19;
@@ -11797,14 +11857,14 @@ LABEL_16:
     daemonController2 = [(_IDSService *)self daemonController];
     _internal3 = [v12 _internal];
     [_internal3 account];
-    v23 = v36 = v12;
+    v23 = v35 = v12;
     _internal4 = [v23 _internal];
     [_internal4 uniqueID];
     v26 = v25 = uniqueID;
     [daemonController2 sendAppAckWithGUID:outgoingResponseIdentifier toDestination:fromID forAccountWithUniqueID:v26 connectionType:connectionType];
 
     uniqueID = v25;
-    v12 = v36;
+    v12 = v35;
 
     goto LABEL_16;
   }
@@ -11816,13 +11876,11 @@ LABEL_16:
   }
 
 LABEL_19:
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)sendCertifiedDeliveryReceipt:(id)receipt
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   receiptCopy = receipt;
   if (receiptCopy)
   {
@@ -11839,9 +11897,9 @@ LABEL_19:
     {
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 138412290;
-        v16 = receiptCopy;
-        _os_log_impl(&dword_1959FF000, daemonController, OS_LOG_TYPE_DEFAULT, "sendCertifiedDeliveryReceipt passing context to daemon { context: %@ }", &v15, 0xCu);
+        v14 = 138412290;
+        v15 = receiptCopy;
+        _os_log_impl(&dword_1959FF000, daemonController, OS_LOG_TYPE_DEFAULT, "sendCertifiedDeliveryReceipt passing context to daemon { context: %@ }", &v14, 0xCu);
       }
 
       daemonController = [(_IDSService *)self daemonController];
@@ -11866,13 +11924,12 @@ LABEL_19:
     LOBYTE(v9) = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (BOOL)sendBatchMessageProcessedContext:(id)context
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v5 = +[IDSLogging _IDSService];
   v6 = v5;
@@ -11880,9 +11937,9 @@ LABEL_19:
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412290;
-      v13 = contextCopy;
-      _os_log_impl(&dword_1959FF000, v6, OS_LOG_TYPE_DEFAULT, "sendBatchMessageProcessedContext given context: %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = contextCopy;
+      _os_log_impl(&dword_1959FF000, v6, OS_LOG_TYPE_DEFAULT, "sendBatchMessageProcessedContext given context: %@", &v11, 0xCu);
     }
 
     v6 = [(_IDSService *)self _sendingAccountForAccount:0];
@@ -11898,7 +11955,6 @@ LABEL_19:
     sub_195B3C578();
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return contextCopy != 0;
 }
 
@@ -11994,6 +12050,35 @@ LABEL_16:
   return v7;
 }
 
+- (id)datagramConnectionForSessionDestination:(id)destination uid:(unsigned int)uid error:(id *)error
+{
+  v6 = *&uid;
+  v7 = [MEMORY[0x1E6977E28] endpointWithHostname:destination port:@"0"];
+  v8 = objc_alloc_init(MEMORY[0x1E6977E40]);
+  [v8 setDataMode:1];
+  v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%u", *MEMORY[0x1E69A4EC8], v6];
+  [v8 requireNetworkAgentWithDomain:v9 type:*MEMORY[0x1E69A4EC0]];
+
+  v10 = [MEMORY[0x1E6977E18] connectionWithEndpoint:v7 parameters:v8];
+  v11 = v10;
+  if (v10)
+  {
+    v12 = v10;
+  }
+
+  else
+  {
+    v13 = objc_alloc(MEMORY[0x1E695DF20]);
+    v14 = [v13 initWithObjectsAndKeys:{@"Unable to create datagram connection with destination", *MEMORY[0x1E696A578], 0}];
+    if (error)
+    {
+      *error = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"com.apple.identityservices.error" code:20 userInfo:v14];
+    }
+  }
+
+  return v11;
+}
+
 - (id)datagramConnectionForSocketDescriptor:(int)descriptor error:(id *)error
 {
   v5 = dup(descriptor);
@@ -12044,7 +12129,7 @@ LABEL_16:
 
 - (id)datagramChannelForSessionDestination:(id)destination options:(id)options error:(id *)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   destinationCopy = destination;
   optionsCopy = options;
   v9 = [[IDSDatagramChannel alloc] initWithDestination:destinationCopy options:optionsCopy];
@@ -12053,9 +12138,9 @@ LABEL_16:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v17 = destinationCopy;
-    v18 = 2112;
-    v19 = v9;
+    v16 = destinationCopy;
+    v17 = 2112;
+    v18 = v9;
     _os_log_impl(&dword_1959FF000, v10, OS_LOG_TYPE_DEFAULT, "Creating datagram channel with destination %@ => %@", buf, 0x16u);
   }
 
@@ -12074,14 +12159,12 @@ LABEL_16:
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (id)datagramChannelForSocketDescriptor:(int)descriptor error:(id *)error
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v6 = dup(descriptor);
   if (v6 == -1)
   {
@@ -12094,8 +12177,8 @@ LABEL_16:
   {
     *buf = 67109378;
     descriptorCopy = descriptor;
-    v15 = 2112;
-    v16 = v7;
+    v14 = 2112;
+    v15 = v7;
     _os_log_impl(&dword_1959FF000, v8, OS_LOG_TYPE_DEFAULT, "Creating datagram channel with socket %d => %@", buf, 0x12u);
   }
 
@@ -12111,8 +12194,6 @@ LABEL_5:
 
     v7 = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -12139,7 +12220,7 @@ LABEL_5:
 
 - (void)connection:(id)connection didHintCheckingTransportLogWithReason:(int64_t)reason
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v6 = +[IDSLogging _IDSService];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
@@ -12148,14 +12229,13 @@ LABEL_5:
     _os_log_impl(&dword_1959FF000, v6, OS_LOG_TYPE_DEFAULT, "checkTransportLog {reason: %ld}", buf, 0xCu);
   }
 
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = sub_195AD5BD0;
-  v8[3] = &unk_1E7441E40;
-  v8[4] = self;
-  v8[5] = reason;
-  [(_IDSService *)self _callDelegatesWithBlock:v8];
-  v7 = *MEMORY[0x1E69E9840];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = sub_195AD5BD0;
+  v7[3] = &unk_1E7441E40;
+  v7[4] = self;
+  v7[5] = reason;
+  [(_IDSService *)self _callDelegatesWithBlock:v7];
 }
 
 - (void)groupContextController:(id)controller didCreateGroup:(id)group
@@ -12187,7 +12267,7 @@ LABEL_5:
 
 - (id)groupContextController:(id)controller accountsForAlises:(id)alises
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   alisesCopy = alises;
   v5 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v5 assertQueueIsCurrent];
@@ -12202,45 +12282,45 @@ LABEL_5:
   }
 
   v8 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(alisesCopy, "count")}];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   obj = alisesCopy;
-  v24 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
-  if (v24)
+  v23 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+  if (v23)
   {
-    v22 = *v30;
+    v21 = *v29;
     do
     {
-      for (i = 0; i != v24; ++i)
+      for (i = 0; i != v23; ++i)
       {
-        if (*v30 != v22)
+        if (*v29 != v21)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v29 + 1) + 8 * i);
+        v10 = *(*(&v28 + 1) + 8 * i);
+        v24 = 0u;
         v25 = 0u;
         v26 = 0u;
         v27 = 0u;
-        v28 = 0u;
         accounts = [(_IDSService *)self accounts];
-        v12 = [accounts countByEnumeratingWithState:&v25 objects:v33 count:16];
+        v12 = [accounts countByEnumeratingWithState:&v24 objects:v32 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v26;
+          v14 = *v25;
           do
           {
             for (j = 0; j != v13; ++j)
             {
-              if (*v26 != v14)
+              if (*v25 != v14)
               {
                 objc_enumerationMutation(accounts);
               }
 
-              v16 = *(*(&v25 + 1) + 8 * j);
+              v16 = *(*(&v24 + 1) + 8 * j);
               aliasStrings = [v16 aliasStrings];
               v18 = [aliasStrings containsObject:v10];
 
@@ -12250,20 +12330,18 @@ LABEL_5:
               }
             }
 
-            v13 = [accounts countByEnumeratingWithState:&v25 objects:v33 count:16];
+            v13 = [accounts countByEnumeratingWithState:&v24 objects:v32 count:16];
           }
 
           while (v13);
         }
       }
 
-      v24 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v23 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
-    while (v24);
+    while (v23);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

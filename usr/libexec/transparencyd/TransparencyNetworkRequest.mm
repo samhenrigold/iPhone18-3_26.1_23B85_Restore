@@ -8,6 +8,8 @@
 - (id)initPOSTWithURL:(id)l data:(id)data uuid:(id)uuid;
 - (id)initPUSHWithURL:(id)l data:(id)data uuid:(id)uuid;
 - (void)createRequestForAuthentication:(id)authentication completionHandler:(id)handler;
+- (void)createRequestForAuthentication:(id)authentication fetchAuthNow:(BOOL)now timeShift:(double)shift additionalHeaders:(id)headers completionHandler:(id)handler;
+- (void)createRequestForAuthentication:(id)authentication fetchAuthNow:(BOOL)now timeShift:(double)shift completionHandler:(id)handler;
 - (void)createRequestForURL:(id)l timeout:(double)timeout contents:(id)contents additionalHeaders:(id)headers completionHandler:(id)handler;
 - (void)createRequestForURL:(id)l timeout:(double)timeout contents:(id)contents authentication:(id)authentication fetchAuthNow:(BOOL)now timeShift:(double)shift additionalHeaders:(id)headers completionHandler:(id)self0;
 @end
@@ -256,6 +258,49 @@ LABEL_25:
   }
 
   return v9;
+}
+
+- (void)createRequestForAuthentication:(id)authentication fetchAuthNow:(BOOL)now timeShift:(double)shift additionalHeaders:(id)headers completionHandler:(id)handler
+{
+  nowCopy = now;
+  authenticationCopy = authentication;
+  headersCopy = headers;
+  handlerCopy = handler;
+  httpMethod = [(TransparencyNetworkRequest *)self httpMethod];
+  if (httpMethod - 1 < 2)
+  {
+    v16 = [(TransparencyNetworkRequest *)self url];
+    +[TransparencySettings defaultNetworkTimeout];
+    v18 = v17;
+    data = [(TransparencyNetworkRequest *)self data];
+    [(TransparencyNetworkRequest *)self createRequestForURL:v16 timeout:data contents:authenticationCopy authentication:nowCopy fetchAuthNow:headersCopy timeShift:handlerCopy additionalHeaders:v18 completionHandler:shift];
+
+LABEL_5:
+    goto LABEL_6;
+  }
+
+  if (!httpMethod)
+  {
+    v20 = [(TransparencyNetworkRequest *)self url];
+    +[TransparencySettings defaultNetworkTimeout];
+    v22 = 0;
+    v21 = [(TransparencyNetworkRequest *)self createGETRequestForURL:v20 timeout:headersCopy additionalHeaders:&v22 error:?];
+    v16 = v22;
+
+    handlerCopy[2](handlerCopy, v21, v16);
+    goto LABEL_5;
+  }
+
+LABEL_6:
+}
+
+- (void)createRequestForAuthentication:(id)authentication fetchAuthNow:(BOOL)now timeShift:(double)shift completionHandler:(id)handler
+{
+  nowCopy = now;
+  handlerCopy = handler;
+  authenticationCopy = authentication;
+  additionalHeaders = [(TransparencyNetworkRequest *)self additionalHeaders];
+  [(TransparencyNetworkRequest *)self createRequestForAuthentication:authenticationCopy fetchAuthNow:nowCopy timeShift:additionalHeaders additionalHeaders:handlerCopy completionHandler:shift];
 }
 
 - (void)createRequestForAuthentication:(id)authentication completionHandler:(id)handler

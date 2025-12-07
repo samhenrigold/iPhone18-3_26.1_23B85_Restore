@@ -36,7 +36,7 @@
       objc_copyWeak(&v15, &location);
       notify_register_dispatch("com.apple.appstored.emulatenetwork", &v2->_emulationToken, v8, handler);
 
-      v9 = sub_100296A50();
+      v9 = sub_100296A50(NetworkEmulation);
       sub_10032C690(v2, v9);
 
       objc_destroyWeak(&v15);
@@ -146,7 +146,7 @@
         _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "[Network] Cellular data subscription became: %{public}@", buf, 0xCu);
       }
 
-      v21 = sub_1002B0154();
+      v21 = sub_1002B0154(XDCDeviceManager);
       v22 = sub_1002B0280(v21);
 
       if (v22 && (v22[18] & 1) != 0)

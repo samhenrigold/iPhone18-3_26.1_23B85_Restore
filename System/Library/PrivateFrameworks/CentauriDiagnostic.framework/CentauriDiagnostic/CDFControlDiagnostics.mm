@@ -11,7 +11,7 @@
 
 - (BOOL)collectStateSnapshotsFrom:(id)from to:(id)to runtimeFlags:(unint64_t)flags
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   toCopy = to;
   v10 = [&unk_28561CD88 objectAtIndexedSubscript:4];
@@ -20,9 +20,9 @@
   v12 = [&unk_28561CD88 objectAtIndexedSubscript:4];
   v13 = [toCopy URLByAppendingPathComponent:v12 isDirectory:1];
 
-  v26.receiver = self;
-  v26.super_class = CDFControlDiagnostics;
-  v14 = [(CDFSubsystemDiagnostics *)&v26 collectStateSnapshotsFrom:v11 to:v13 runtimeFlags:flags];
+  v25.receiver = self;
+  v25.super_class = CDFControlDiagnostics;
+  v14 = [(CDFSubsystemDiagnostics *)&v25 collectStateSnapshotsFrom:v11 to:v13 runtimeFlags:flags];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v15 = "in";
@@ -32,9 +32,9 @@
     }
 
     *buf = 136315394;
-    v28 = "[CDFControlDiagnostics collectStateSnapshotsFrom:to:runtimeFlags:]";
-    v29 = 2082;
-    v30 = v15;
+    v27 = "[CDFControlDiagnostics collectStateSnapshotsFrom:to:runtimeFlags:]";
+    v28 = 2082;
+    v29 = v15;
     _os_log_impl(&dword_2433AC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "CDF: %s: transfer %{public}scomplete for subsystem logs", buf, 0x16u);
   }
 
@@ -48,9 +48,9 @@
     }
 
     *buf = 136315394;
-    v28 = "[CDFControlDiagnostics collectStateSnapshotsFrom:to:runtimeFlags:]";
-    v29 = 2082;
-    v30 = v17;
+    v27 = "[CDFControlDiagnostics collectStateSnapshotsFrom:to:runtimeFlags:]";
+    v28 = 2082;
+    v29 = v17;
     _os_log_impl(&dword_2433AC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "CDF: %s: transfer %{public}scomplete for control snapshots", buf, 0x16u);
   }
 
@@ -69,9 +69,9 @@
       }
 
       *buf = 136315394;
-      v28 = "[CDFControlDiagnostics collectStateSnapshotsFrom:to:runtimeFlags:]";
-      v29 = 2082;
-      v30 = v21;
+      v27 = "[CDFControlDiagnostics collectStateSnapshotsFrom:to:runtimeFlags:]";
+      v28 = 2082;
+      v29 = v21;
       _os_log_impl(&dword_2433AC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "CDF: %s: transfer %{public}scomplete for control crashlogs", buf, 0x16u);
     }
 
@@ -87,9 +87,9 @@
         }
 
         *buf = 136315394;
-        v28 = "[CDFControlDiagnostics collectStateSnapshotsFrom:to:runtimeFlags:]";
-        v29 = 2082;
-        v30 = v23;
+        v27 = "[CDFControlDiagnostics collectStateSnapshotsFrom:to:runtimeFlags:]";
+        v28 = 2082;
+        v29 = v23;
         _os_log_impl(&dword_2433AC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "CDF: %s: transfer %{public}scomplete for control coredumps", buf, 0x16u);
       }
     }
@@ -100,7 +100,6 @@
     }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -172,7 +171,7 @@
 
 - (BOOL)collectLogsFrom:(id)from to:(id)to runtimeFlags:(unint64_t)flags
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   toCopy = to;
   if (!([(CDFSubsystemDiagnostics *)self buildEnv]| flags & 3))
@@ -194,21 +193,20 @@ LABEL_4:
   v10 = 0;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 136315138;
-    v14 = "[CDFControlDiagnostics collectLogsFrom:to:runtimeFlags:]";
-    _os_log_impl(&dword_2433AC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "CDF: %s: Failed to create subdirectories", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[CDFControlDiagnostics collectLogsFrom:to:runtimeFlags:]";
+    _os_log_impl(&dword_2433AC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "CDF: %s: Failed to create subdirectories", &v12, 0xCu);
     v10 = 0;
   }
 
 LABEL_5:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (void)collectLPMDebugDataFrom:(id)from to:(id)to
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   toCopy = to;
   lastPathComponent = [fromCopy lastPathComponent];
@@ -230,11 +228,11 @@ LABEL_5:
           v13 = &unk_2433B42E6;
         }
 
-        v17 = 136315394;
-        v18 = "[CDFControlDiagnostics collectLPMDebugDataFrom:to:]";
-        v19 = 2082;
-        v20 = v13;
-        _os_log_impl(&dword_2433AC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "CDF: %s: transfer %{public}scomplete for lpm related beta crashlogs", &v17, 0x16u);
+        v16 = 136315394;
+        v17 = "[CDFControlDiagnostics collectLPMDebugDataFrom:to:]";
+        v18 = 2082;
+        v19 = v13;
+        _os_log_impl(&dword_2433AC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "CDF: %s: transfer %{public}scomplete for lpm related beta crashlogs", &v16, 0x16u);
       }
 
       if ([(CDFSubsystemDiagnostics *)self collectCoredumps])
@@ -248,11 +246,11 @@ LABEL_5:
             v15 = &unk_2433B42E6;
           }
 
-          v17 = 136315394;
-          v18 = "[CDFControlDiagnostics collectLPMDebugDataFrom:to:]";
-          v19 = 2082;
-          v20 = v15;
-          _os_log_impl(&dword_2433AC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "CDF: %s: transfer %{public}scomplete for beta coredumps", &v17, 0x16u);
+          v16 = 136315394;
+          v17 = "[CDFControlDiagnostics collectLPMDebugDataFrom:to:]";
+          v18 = 2082;
+          v19 = v15;
+          _os_log_impl(&dword_2433AC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "CDF: %s: transfer %{public}scomplete for beta coredumps", &v16, 0x16u);
         }
       }
     }
@@ -267,34 +265,28 @@ LABEL_5:
   {
     [CDFControlDiagnostics collectLPMDebugDataFrom:to:];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)collectLPMDebugDataFrom:to:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v1 = 136315138;
-    v2 = "[CDFControlDiagnostics collectLPMDebugDataFrom:to:]";
-    _os_log_impl(&dword_2433AC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "CDF: %s: invalid src dir", &v1, 0xCu);
+    v0 = 136315138;
+    v1 = "[CDFControlDiagnostics collectLPMDebugDataFrom:to:]";
+    _os_log_impl(&dword_2433AC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "CDF: %s: invalid src dir", &v0, 0xCu);
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)collectLPMDebugDataFrom:to:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v1 = 136315138;
-    v2 = "[CDFControlDiagnostics collectLPMDebugDataFrom:to:]";
-    _os_log_impl(&dword_2433AC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "CDF: %s: invalid dest dir", &v1, 0xCu);
+    v0 = 136315138;
+    v1 = "[CDFControlDiagnostics collectLPMDebugDataFrom:to:]";
+    _os_log_impl(&dword_2433AC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "CDF: %s: invalid dest dir", &v0, 0xCu);
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -265,7 +265,7 @@ uint64_t __63__AASetupAssistantService_createAppleIDWithParameters_handler___blo
 {
   parametersCopy = parameters;
   responseCopy = response;
-  v8 = _AALogSystem();
+  v8 = _AALogSystem(responseCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -329,81 +329,81 @@ void __75__AASetupAssistantService_createAppleIDWithParameters_handlerWithRespon
   v26 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
-  if ([v6 statusCode] != 401)
+  v8 = [v6 statusCode];
+  if (v8 != 401)
   {
     if (!v6)
     {
-      v9 = 0;
       v10 = 0;
       v11 = 0;
-      v8 = v7;
+      v12 = 0;
+      v9 = v7;
       goto LABEL_13;
     }
 
-    v12 = v6;
-    v13 = [v12 status];
-    if (v13 && (v14 = v13, [v12 status], v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "intValue"), v15, v14, !v16))
+    v13 = v6;
+    v14 = [v13 status];
+    if (v14 && (v15 = v14, [v13 status], v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "intValue"), v16, v15, !v17))
     {
-      v10 = [v12 personID];
-      v9 = [v12 appleID];
-      v11 = 1;
+      v11 = [v13 personID];
+      v10 = [v13 appleID];
+      v12 = 1;
     }
 
     else
     {
-      v10 = [v12 statusMessage];
+      v11 = [v13 statusMessage];
 
-      if (v10)
+      if (v11)
       {
-        v17 = [MEMORY[0x1E695DF90] dictionary];
-        v18 = [v12 statusMessage];
-        [v17 setObject:v18 forKey:*MEMORY[0x1E696A578]];
+        v18 = [MEMORY[0x1E695DF90] dictionary];
+        v19 = [v13 statusMessage];
+        [v18 setObject:v19 forKey:*MEMORY[0x1E696A578]];
 
-        v19 = MEMORY[0x1E696ABC0];
-        v20 = [v12 status];
-        v8 = [v19 errorWithDomain:@"com.apple.appleaccount" code:objc_msgSend(v20 userInfo:{"intValue"), v17}];
+        v20 = MEMORY[0x1E696ABC0];
+        v21 = [v13 status];
+        v9 = [v20 errorWithDomain:@"com.apple.appleaccount" code:objc_msgSend(v21 userInfo:{"intValue"), v18}];
 
-        v9 = 0;
         v10 = 0;
         v11 = 0;
+        v12 = 0;
         goto LABEL_12;
       }
 
-      v9 = 0;
-      v11 = 0;
+      v10 = 0;
+      v12 = 0;
     }
 
-    v8 = v7;
+    v9 = v7;
     goto LABEL_12;
   }
 
-  v8 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.appleaccount" code:401 userInfo:0];
-  v9 = 0;
+  v9 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.appleaccount" code:401 userInfo:0];
   v10 = 0;
   v11 = 0;
-  v12 = v7;
+  v12 = 0;
+  v13 = v7;
 LABEL_12:
 
 LABEL_13:
-  v21 = _AALogSystem();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v22 = _AALogSystem(v8);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     v23[0] = 67109378;
-    v23[1] = v11;
+    v23[1] = v12;
     v24 = 2112;
-    v25 = v8;
-    _os_log_impl(&dword_1B6F6A000, v21, OS_LOG_TYPE_DEFAULT, "createAppleIDWithParameters calling handler with success %d error %@", v23, 0x12u);
+    v25 = v9;
+    _os_log_impl(&dword_1B6F6A000, v22, OS_LOG_TYPE_DEFAULT, "createAppleIDWithParameters calling handler with success %d error %@", v23, 0x12u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateAppleIDWithParameters:(id)parameters handler:(id)handler
 {
   parametersCopy = parameters;
   handlerCopy = handler;
-  v8 = _AALogSystem();
+  v8 = _AALogSystem(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -461,7 +461,7 @@ void __63__AASetupAssistantService_updateAppleIDWithParameters_handler___block_i
 
 void __63__AASetupAssistantService_updateAppleIDWithParameters_handler___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -517,25 +517,24 @@ LABEL_9:
 LABEL_10:
 
 LABEL_11:
-  v24 = _AALogSystem();
+  v24 = _AALogSystem(v9);
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
-    v26[0] = 67109378;
-    v26[1] = v23;
-    v27 = 2112;
-    v28 = v21;
-    _os_log_impl(&dword_1B6F6A000, v24, OS_LOG_TYPE_DEFAULT, "updateAppleIDWithParameters calling handler with success %d error %@", v26, 0x12u);
+    v25[0] = 67109378;
+    v25[1] = v23;
+    v26 = 2112;
+    v27 = v21;
+    _os_log_impl(&dword_1B6F6A000, v24, OS_LOG_TYPE_DEFAULT, "updateAppleIDWithParameters calling handler with success %d error %@", v25, 0x12u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setupDelegateAccountsWithParameters:(id)parameters handler:(id)handler
 {
   parametersCopy = parameters;
   handlerCopy = handler;
-  v8 = _AALogSystem();
+  v8 = _AALogSystem(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -597,7 +596,7 @@ void __71__AASetupAssistantService_setupDelegateAccountsWithParameters_handler__
 
 void __71__AASetupAssistantService_setupDelegateAccountsWithParameters_handler___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -646,23 +645,22 @@ LABEL_9:
 LABEL_10:
 
 LABEL_11:
-  v23 = _AALogSystem();
+  v23 = _AALogSystem(v9);
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = 138412290;
-    v26 = v21;
-    _os_log_impl(&dword_1B6F6A000, v23, OS_LOG_TYPE_DEFAULT, "setupDelegateAccountsWithParameters calling handler with error %@", &v25, 0xCu);
+    v24 = 138412290;
+    v25 = v21;
+    _os_log_impl(&dword_1B6F6A000, v23, OS_LOG_TYPE_DEFAULT, "setupDelegateAccountsWithParameters calling handler with error %@", &v24, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)loginDelegatesWithParameters:(id)parameters completion:(id)completion
 {
   parametersCopy = parameters;
   completionCopy = completion;
-  v8 = _AALogSystem();
+  v8 = _AALogSystem(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -731,38 +729,38 @@ void __67__AASetupAssistantService_loginDelegatesWithParameters_completion___blo
   v10 = v8;
   v11 = v9;
   v12 = v11;
+  v13 = v11;
   if (v10)
   {
-    v13 = [v10 status];
-    if (!v13 || (v14 = v13, [v10 status], v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "intValue"), v15, v14, v12 = v11, v16))
+    v14 = [v10 status];
+    if (!v14 || (v15 = v14, [v10 status], v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "intValue"), v16, v15, v13 = v12, v17))
     {
-      v17 = [v10 statusMessage];
+      v18 = [v10 statusMessage];
 
-      v12 = v11;
-      if (v17)
+      v13 = v12;
+      if (v18)
       {
         v26 = *MEMORY[0x1E696A578];
-        v18 = [v10 statusMessage];
-        v27[0] = v18;
-        v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+        v19 = [v10 statusMessage];
+        v27[0] = v19;
+        v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
 
-        v20 = MEMORY[0x1E696ABC0];
-        v21 = [v10 status];
-        v12 = [v20 errorWithDomain:@"com.apple.appleaccount" code:objc_msgSend(v21 userInfo:{"intValue"), v19}];
+        v21 = MEMORY[0x1E696ABC0];
+        v22 = [v10 status];
+        v13 = [v21 errorWithDomain:@"com.apple.appleaccount" code:objc_msgSend(v22 userInfo:{"intValue"), v20}];
       }
     }
   }
 
-  v22 = _AALogSystem();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v23 = _AALogSystem(v11);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     v24 = 138412290;
-    v25 = v12;
-    _os_log_impl(&dword_1B6F6A000, v22, OS_LOG_TYPE_DEFAULT, "loginDelegatesWithParameters calling completion handler with error %@", &v24, 0xCu);
+    v25 = v13;
+    _os_log_impl(&dword_1B6F6A000, v23, OS_LOG_TYPE_DEFAULT, "loginDelegatesWithParameters calling completion handler with error %@", &v24, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)upgradeiCloudTermsIfNecessaryWithHandler:(id)handler
@@ -781,30 +779,31 @@ void __67__AASetupAssistantService_loginDelegatesWithParameters_completion___blo
 {
   headersCopy = headers;
   handlerCopy = handler;
+  v8 = handlerCopy;
   if (self->_account)
   {
-    v8 = dispatch_queue_create("upgradeTermsQueue", 0);
+    v9 = dispatch_queue_create("upgradeTermsQueue", 0);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __82__AASetupAssistantService_upgradeiCloudTermsIfNecessaryWithCustomHeaders_handler___block_invoke;
     block[3] = &unk_1E7C9A898;
     block[4] = self;
-    v12 = headersCopy;
-    v13 = handlerCopy;
-    dispatch_async(v8, block);
+    v13 = headersCopy;
+    v14 = v8;
+    dispatch_async(v9, block);
   }
 
   else
   {
-    v9 = _AALogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _AALogSystem(handlerCopy);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_1B6F6A000, v9, OS_LOG_TYPE_DEFAULT, "Error: No AppleAccount set on AASetupAssistant Service", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_1B6F6A000, v10, OS_LOG_TYPE_DEFAULT, "Error: No AppleAccount set on AASetupAssistant Service", v11, 2u);
     }
 
-    v8 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.appleaccount" code:0 userInfo:0];
-    (*(handlerCopy + 2))(handlerCopy, 0, 0, v8);
+    v9 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.appleaccount" code:0 userInfo:0];
+    (v8)[2](v8, 0, 0, v9);
   }
 }
 
@@ -836,25 +835,26 @@ void __82__AASetupAssistantService_upgradeiCloudTermsIfNecessaryWithCustomHeader
   v15 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
+  v8 = v7;
   if (v6)
   {
-    v8 = [v6 xmlUIData];
-    v9 = _AALogSystem();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-    if (v8)
+    v9 = [v6 xmlUIData];
+    v10 = _AALogSystem(v9);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+    if (v9)
     {
-      if (v10)
+      if (v11)
       {
         LOWORD(v13) = 0;
-        _os_log_impl(&dword_1B6F6A000, v9, OS_LOG_TYPE_DEFAULT, "We got the new iCloud Terms from the server", &v13, 2u);
+        _os_log_impl(&dword_1B6F6A000, v10, OS_LOG_TYPE_DEFAULT, "We got the new iCloud Terms from the server", &v13, 2u);
       }
     }
 
-    else if (v10)
+    else if (v11)
     {
       v13 = 138412290;
-      v14 = v7;
-      _os_log_impl(&dword_1B6F6A000, v9, OS_LOG_TYPE_DEFAULT, "Fetching iCloud Terms failed with error: %@", &v13, 0xCu);
+      v14 = v8;
+      _os_log_impl(&dword_1B6F6A000, v10, OS_LOG_TYPE_DEFAULT, "Fetching iCloud Terms failed with error: %@", &v13, 0xCu);
     }
 
     (*(*(a1 + 32) + 16))();
@@ -862,24 +862,22 @@ void __82__AASetupAssistantService_upgradeiCloudTermsIfNecessaryWithCustomHeader
 
   else
   {
-    v11 = _AALogSystem();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = _AALogSystem(v7);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v13 = 138412290;
-      v14 = v7;
-      _os_log_impl(&dword_1B6F6A000, v11, OS_LOG_TYPE_DEFAULT, "Fetching iCloud Terms failed with error: %@", &v13, 0xCu);
+      v14 = v8;
+      _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, "Fetching iCloud Terms failed with error: %@", &v13, 0xCu);
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)shouldPresentUpgradeFlowWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = _AALogSystem();
+  v5 = _AALogSystem(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -918,58 +916,57 @@ void __66__AASetupAssistantService_shouldPresentUpgradeFlowWithCompletion___bloc
   v19 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
+  v8 = v7;
   if (v6)
   {
-    v8 = v6;
-    v9 = [v8 upgradeStatus];
-    v10 = _AALogSystem();
-    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
-    if (v9)
+    v9 = v6;
+    v10 = [v9 upgradeStatus];
+    v11 = _AALogSystem(v10);
+    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+    if (v10)
     {
-      if (v11)
+      if (v12)
       {
         LOWORD(v15) = 0;
-        _os_log_impl(&dword_1B6F6A000, v10, OS_LOG_TYPE_DEFAULT, "We got the upgrade status from the server", &v15, 2u);
+        _os_log_impl(&dword_1B6F6A000, v11, OS_LOG_TYPE_DEFAULT, "We got the upgrade status from the server", &v15, 2u);
       }
 
-      (*(*(a1 + 32) + 16))(*(a1 + 32), [v9 BOOLValue], v7);
+      (*(*(a1 + 32) + 16))(*(a1 + 32), [v10 BOOLValue], v8);
     }
 
     else
     {
-      if (v11)
+      if (v12)
       {
-        v13 = [v8 responseDictionary];
+        v14 = [v9 responseDictionary];
         v15 = 138412546;
-        v16 = v7;
+        v16 = v8;
         v17 = 2112;
-        v18 = v13;
-        _os_log_impl(&dword_1B6F6A000, v10, OS_LOG_TYPE_DEFAULT, "Fetching upgrade status failed with error: %@ response: %@", &v15, 0x16u);
+        v18 = v14;
+        _os_log_impl(&dword_1B6F6A000, v11, OS_LOG_TYPE_DEFAULT, "Fetching upgrade status failed with error: %@ response: %@", &v15, 0x16u);
       }
 
-      (*(*(a1 + 32) + 16))(*(a1 + 32), 1, v7);
+      (*(*(a1 + 32) + 16))(*(a1 + 32), 1, v8);
     }
   }
 
   else
   {
-    v12 = _AALogSystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = _AALogSystem(v7);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v15 = 138412290;
-      v16 = v7;
-      _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, "Fetching upgrade status got no response and error: %@", &v15, 0xCu);
+      v16 = v8;
+      _os_log_impl(&dword_1B6F6A000, v13, OS_LOG_TYPE_DEFAULT, "Fetching upgrade status got no response and error: %@", &v15, 0xCu);
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_signingSession
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (!self->_signingSession)
   {
     goto LABEL_7;
@@ -981,11 +978,11 @@ void __66__AASetupAssistantService_shouldPresentUpgradeFlowWithCompletion___bloc
 
   if (v5 > 540.0)
   {
-    v6 = _AALogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _AALogSystem(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B6F6A000, v6, OS_LOG_TYPE_DEFAULT, "shared signing session expired. creating a new signing session.", buf, 2u);
+      _os_log_impl(&dword_1B6F6A000, v7, OS_LOG_TYPE_DEFAULT, "shared signing session expired. creating a new signing session.", buf, 2u);
     }
 
     signingSession = self->_signingSession;
@@ -999,41 +996,40 @@ LABEL_7:
     signingSessionCreationDate = self->_signingSessionCreationDate;
     self->_signingSessionCreationDate = date2;
 
-    v10 = +[AASetupAssistantService urlConfiguration];
-    signingSessionCertURL = [v10 signingSessionCertURL];
-    v12 = +[AASetupAssistantService urlConfiguration];
-    signingSessionURL = [v12 signingSessionURL];
-    v23 = 0;
-    v14 = [AASigningSession establishedSessionWithCertURL:signingSessionCertURL sessionURL:signingSessionURL error:&v23];
-    v15 = v23;
-    v16 = self->_signingSession;
-    self->_signingSession = v14;
+    v11 = +[AASetupAssistantService urlConfiguration];
+    signingSessionCertURL = [v11 signingSessionCertURL];
+    v13 = +[AASetupAssistantService urlConfiguration];
+    signingSessionURL = [v13 signingSessionURL];
+    v24 = 0;
+    v15 = [AASigningSession establishedSessionWithCertURL:signingSessionCertURL sessionURL:signingSessionURL error:&v24];
+    v16 = v24;
+    v17 = self->_signingSession;
+    self->_signingSession = v15;
 
-    if (v15)
+    if (v16)
     {
-      v17 = _AALogSystem();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v19 = _AALogSystem(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v25 = v15;
-        _os_log_impl(&dword_1B6F6A000, v17, OS_LOG_TYPE_DEFAULT, "Failed to create a shared signing session: %@", buf, 0xCu);
+        v26 = v16;
+        _os_log_impl(&dword_1B6F6A000, v19, OS_LOG_TYPE_DEFAULT, "Failed to create a shared signing session: %@", buf, 0xCu);
       }
     }
   }
 
-  v18 = _AALogSystem();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v20 = _AALogSystem(v6);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = self->_signingSession;
+    v21 = self->_signingSession;
     *buf = 138412290;
-    v25 = v19;
-    _os_log_impl(&dword_1B6F6A000, v18, OS_LOG_TYPE_DEFAULT, "using shared signing session %@", buf, 0xCu);
+    v26 = v21;
+    _os_log_impl(&dword_1B6F6A000, v20, OS_LOG_TYPE_DEFAULT, "using shared signing session %@", buf, 0xCu);
   }
 
-  v20 = self->_signingSession;
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = self->_signingSession;
 
-  return v20;
+  return v22;
 }
 
 - (void)_doHSADeviceProvisioningWithDSID:(id)d data:(id)data
@@ -1063,25 +1059,26 @@ LABEL_3:
   v9 = [[AADeviceProvisioningSession alloc] initWithDSID:dCopy];
   [(AADeviceProvisioningSession *)v9 setCookieStorageRef:self->_cookieStorage];
   v10 = [(AADeviceProvisioningSession *)v9 provisionDeviceWithData:v8];
-  v11 = _AALogSystem();
-  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-  if (v10)
+  v11 = v10;
+  v12 = _AALogSystem(v10);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+  if (v11)
   {
-    if (v12)
+    if (v13)
     {
-      v16 = 0;
-      v13 = "Device provisioning failed";
-      v14 = &v16;
+      v17 = 0;
+      v14 = "Device provisioning failed";
+      v15 = &v17;
 LABEL_8:
-      _os_log_impl(&dword_1B6F6A000, v11, OS_LOG_TYPE_DEFAULT, v13, v14, 2u);
+      _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, v14, v15, 2u);
     }
   }
 
-  else if (v12)
+  else if (v13)
   {
-    v15 = 0;
-    v13 = "Device provisioning completed sucessfully";
-    v14 = &v15;
+    v16 = 0;
+    v14 = "Device provisioning completed sucessfully";
+    v15 = &v16;
     goto LABEL_8;
   }
 }
@@ -1113,32 +1110,33 @@ LABEL_3:
   v9 = [[AADeviceProvisioningSession alloc] initWithDSID:dCopy];
   [(AADeviceProvisioningSession *)v9 setCookieStorageRef:self->_cookieStorage];
   v10 = [(AADeviceProvisioningSession *)v9 synchronizeProvisioningWithData:v8];
-  v11 = _AALogSystem();
-  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-  if (v10)
+  v11 = v10;
+  v12 = _AALogSystem(v10);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+  if (v11)
   {
-    if (v12)
+    if (v13)
     {
-      v16 = 0;
-      v13 = "Device provisioning sync failed";
-      v14 = &v16;
+      v17 = 0;
+      v14 = "Device provisioning sync failed";
+      v15 = &v17;
 LABEL_8:
-      _os_log_impl(&dword_1B6F6A000, v11, OS_LOG_TYPE_DEFAULT, v13, v14, 2u);
+      _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, v14, v15, 2u);
     }
   }
 
-  else if (v12)
+  else if (v13)
   {
-    v15 = 0;
-    v13 = "Device provisioning sync completed successfully";
-    v14 = &v15;
+    v16 = 0;
+    v14 = "Device provisioning sync completed successfully";
+    v15 = &v16;
     goto LABEL_8;
   }
 }
 
 - (void)_doHSADeviceReprovisioningWithDSID:(id)d
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (!dCopy)
   {
@@ -1150,16 +1148,14 @@ LABEL_8:
   if (eraseProvisioning)
   {
     v6 = eraseProvisioning;
-    v7 = _AALogSystem();
+    v7 = _AALogSystem(eraseProvisioning);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9[0] = 67109120;
-      v9[1] = v6;
-      _os_log_impl(&dword_1B6F6A000, v7, OS_LOG_TYPE_DEFAULT, "Something went wrong when trying to erase the device provisioning: %d", v9, 8u);
+      v8[0] = 67109120;
+      v8[1] = v6;
+      _os_log_impl(&dword_1B6F6A000, v7, OS_LOG_TYPE_DEFAULT, "Something went wrong when trying to erase the device provisioning: %d", v8, 8u);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_doHSADeviceProvisioningWithDSID:data:.cold.1()

@@ -46,8 +46,8 @@
 
 - (id)toDict
 {
-  v43[12] = *MEMORY[0x277D85DE8];
-  v42[0] = @"totalCountOfSmartFoldersWithTagsFilter";
+  v42[12] = *MEMORY[0x277D85DE8];
+  v41[0] = @"totalCountOfSmartFoldersWithTagsFilter";
   totalCountOfSmartFoldersWithTagsFilter = [(ICASSmartFoldersItemData *)self totalCountOfSmartFoldersWithTagsFilter];
   if (totalCountOfSmartFoldersWithTagsFilter)
   {
@@ -59,9 +59,9 @@
     totalCountOfSmartFoldersWithTagsFilter2 = objc_opt_new();
   }
 
-  v40 = totalCountOfSmartFoldersWithTagsFilter2;
-  v43[0] = totalCountOfSmartFoldersWithTagsFilter2;
-  v42[1] = @"totalCountOfSmartFoldersWithDateCreatedFilter";
+  v39 = totalCountOfSmartFoldersWithTagsFilter2;
+  v42[0] = totalCountOfSmartFoldersWithTagsFilter2;
+  v41[1] = @"totalCountOfSmartFoldersWithDateCreatedFilter";
   totalCountOfSmartFoldersWithDateCreatedFilter = [(ICASSmartFoldersItemData *)self totalCountOfSmartFoldersWithDateCreatedFilter];
   if (totalCountOfSmartFoldersWithDateCreatedFilter)
   {
@@ -73,9 +73,9 @@
     totalCountOfSmartFoldersWithDateCreatedFilter2 = objc_opt_new();
   }
 
-  v38 = totalCountOfSmartFoldersWithDateCreatedFilter2;
-  v43[1] = totalCountOfSmartFoldersWithDateCreatedFilter2;
-  v42[2] = @"totalCountOfSmartFoldersWithDateModifiedFilter";
+  v37 = totalCountOfSmartFoldersWithDateCreatedFilter2;
+  v42[1] = totalCountOfSmartFoldersWithDateCreatedFilter2;
+  v41[2] = @"totalCountOfSmartFoldersWithDateModifiedFilter";
   totalCountOfSmartFoldersWithDateModifiedFilter = [(ICASSmartFoldersItemData *)self totalCountOfSmartFoldersWithDateModifiedFilter];
   if (totalCountOfSmartFoldersWithDateModifiedFilter)
   {
@@ -87,9 +87,9 @@
     totalCountOfSmartFoldersWithDateModifiedFilter2 = objc_opt_new();
   }
 
-  v36 = totalCountOfSmartFoldersWithDateModifiedFilter2;
-  v43[2] = totalCountOfSmartFoldersWithDateModifiedFilter2;
-  v42[3] = @"totalCountOfSmartFoldersWithSharedFilter";
+  v35 = totalCountOfSmartFoldersWithDateModifiedFilter2;
+  v42[2] = totalCountOfSmartFoldersWithDateModifiedFilter2;
+  v41[3] = @"totalCountOfSmartFoldersWithSharedFilter";
   totalCountOfSmartFoldersWithSharedFilter = [(ICASSmartFoldersItemData *)self totalCountOfSmartFoldersWithSharedFilter];
   if (totalCountOfSmartFoldersWithSharedFilter)
   {
@@ -101,9 +101,9 @@
     totalCountOfSmartFoldersWithSharedFilter2 = objc_opt_new();
   }
 
-  v34 = totalCountOfSmartFoldersWithSharedFilter2;
-  v43[3] = totalCountOfSmartFoldersWithSharedFilter2;
-  v42[4] = @"totalCountOfSmartFoldersWithMentionsFilter";
+  v33 = totalCountOfSmartFoldersWithSharedFilter2;
+  v42[3] = totalCountOfSmartFoldersWithSharedFilter2;
+  v41[4] = @"totalCountOfSmartFoldersWithMentionsFilter";
   totalCountOfSmartFoldersWithMentionsFilter = [(ICASSmartFoldersItemData *)self totalCountOfSmartFoldersWithMentionsFilter];
   if (totalCountOfSmartFoldersWithMentionsFilter)
   {
@@ -115,9 +115,9 @@
     totalCountOfSmartFoldersWithMentionsFilter2 = objc_opt_new();
   }
 
-  v32 = totalCountOfSmartFoldersWithMentionsFilter2;
-  v43[4] = totalCountOfSmartFoldersWithMentionsFilter2;
-  v42[5] = @"totalCountOfSmartFoldersWithChecklistsFilter";
+  v31 = totalCountOfSmartFoldersWithMentionsFilter2;
+  v42[4] = totalCountOfSmartFoldersWithMentionsFilter2;
+  v41[5] = @"totalCountOfSmartFoldersWithChecklistsFilter";
   totalCountOfSmartFoldersWithChecklistsFilter = [(ICASSmartFoldersItemData *)self totalCountOfSmartFoldersWithChecklistsFilter];
   if (totalCountOfSmartFoldersWithChecklistsFilter)
   {
@@ -129,9 +129,9 @@
     totalCountOfSmartFoldersWithChecklistsFilter2 = objc_opt_new();
   }
 
-  v30 = totalCountOfSmartFoldersWithChecklistsFilter2;
-  v43[5] = totalCountOfSmartFoldersWithChecklistsFilter2;
-  v42[6] = @"totalCountOfSmartFoldersWithAttachmentsFilter";
+  v29 = totalCountOfSmartFoldersWithChecklistsFilter2;
+  v42[5] = totalCountOfSmartFoldersWithChecklistsFilter2;
+  v41[6] = @"totalCountOfSmartFoldersWithAttachmentsFilter";
   totalCountOfSmartFoldersWithAttachmentsFilter = [(ICASSmartFoldersItemData *)self totalCountOfSmartFoldersWithAttachmentsFilter];
   if (totalCountOfSmartFoldersWithAttachmentsFilter)
   {
@@ -143,9 +143,9 @@
     totalCountOfSmartFoldersWithAttachmentsFilter2 = objc_opt_new();
   }
 
-  v28 = totalCountOfSmartFoldersWithAttachmentsFilter2;
-  v43[6] = totalCountOfSmartFoldersWithAttachmentsFilter2;
-  v42[7] = @"totalCountOfSmartFoldersWithFoldersFilter";
+  v27 = totalCountOfSmartFoldersWithAttachmentsFilter2;
+  v42[6] = totalCountOfSmartFoldersWithAttachmentsFilter2;
+  v41[7] = @"totalCountOfSmartFoldersWithFoldersFilter";
   totalCountOfSmartFoldersWithFoldersFilter = [(ICASSmartFoldersItemData *)self totalCountOfSmartFoldersWithFoldersFilter];
   if (totalCountOfSmartFoldersWithFoldersFilter)
   {
@@ -158,8 +158,8 @@
   }
 
   v11 = totalCountOfSmartFoldersWithFoldersFilter2;
-  v43[7] = totalCountOfSmartFoldersWithFoldersFilter2;
-  v42[8] = @"totalCountOfSmartFoldersWithQuickNotesFilter";
+  v42[7] = totalCountOfSmartFoldersWithFoldersFilter2;
+  v41[8] = @"totalCountOfSmartFoldersWithQuickNotesFilter";
   totalCountOfSmartFoldersWithQuickNotesFilter = [(ICASSmartFoldersItemData *)self totalCountOfSmartFoldersWithQuickNotesFilter];
   if (totalCountOfSmartFoldersWithQuickNotesFilter)
   {
@@ -172,8 +172,8 @@
   }
 
   v14 = totalCountOfSmartFoldersWithQuickNotesFilter2;
-  v43[8] = totalCountOfSmartFoldersWithQuickNotesFilter2;
-  v42[9] = @"totalCountOfSmartFoldersWithPinnedNotesFilter";
+  v42[8] = totalCountOfSmartFoldersWithQuickNotesFilter2;
+  v41[9] = @"totalCountOfSmartFoldersWithPinnedNotesFilter";
   totalCountOfSmartFoldersWithPinnedNotesFilter = [(ICASSmartFoldersItemData *)self totalCountOfSmartFoldersWithPinnedNotesFilter];
   if (totalCountOfSmartFoldersWithPinnedNotesFilter)
   {
@@ -186,8 +186,8 @@
   }
 
   v17 = totalCountOfSmartFoldersWithPinnedNotesFilter2;
-  v43[9] = totalCountOfSmartFoldersWithPinnedNotesFilter2;
-  v42[10] = @"totalCountOfSmartFoldersWithLockedNotesFilter";
+  v42[9] = totalCountOfSmartFoldersWithPinnedNotesFilter2;
+  v41[10] = @"totalCountOfSmartFoldersWithLockedNotesFilter";
   totalCountOfSmartFoldersWithLockedNotesFilter = [(ICASSmartFoldersItemData *)self totalCountOfSmartFoldersWithLockedNotesFilter];
   if (totalCountOfSmartFoldersWithLockedNotesFilter)
   {
@@ -200,8 +200,8 @@
   }
 
   v20 = totalCountOfSmartFoldersWithLockedNotesFilter2;
-  v43[10] = totalCountOfSmartFoldersWithLockedNotesFilter2;
-  v42[11] = @"totalCountOfSmartFoldersWithUnknownFilter";
+  v42[10] = totalCountOfSmartFoldersWithLockedNotesFilter2;
+  v41[11] = @"totalCountOfSmartFoldersWithUnknownFilter";
   totalCountOfSmartFoldersWithUnknownFilter = [(ICASSmartFoldersItemData *)self totalCountOfSmartFoldersWithUnknownFilter];
   if (totalCountOfSmartFoldersWithUnknownFilter)
   {
@@ -214,10 +214,8 @@
   }
 
   v23 = totalCountOfSmartFoldersWithUnknownFilter2;
-  v43[11] = totalCountOfSmartFoldersWithUnknownFilter2;
-  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:12];
-
-  v25 = *MEMORY[0x277D85DE8];
+  v42[11] = totalCountOfSmartFoldersWithUnknownFilter2;
+  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:12];
 
   return v24;
 }

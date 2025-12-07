@@ -31,7 +31,7 @@
 
 - (id)transformedDataForData:(id)data domain:(unint64_t)domain
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
@@ -46,26 +46,26 @@
     activeStatusItems = [v8 activeStatusItems];
     v12 = [(STStatusItemsManager *)statusItemsManager validStatusItemsForStatusItems:activeStatusItems];
 
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
     attributions = [v8 attributions];
-    v14 = [attributions countByEnumeratingWithState:&v47 objects:v53 count:16];
+    v14 = [attributions countByEnumeratingWithState:&v46 objects:v52 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v48;
+      v16 = *v47;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v48 != v16)
+          if (*v47 != v16)
           {
             objc_enumerationMutation(attributions);
           }
 
-          v18 = *(*(&v47 + 1) + 8 * i);
+          v18 = *(*(&v46 + 1) + 8 * i);
           statusItemIdentifier = [v18 statusItemIdentifier];
           v20 = [v12 containsObject:statusItemIdentifier];
 
@@ -75,32 +75,32 @@
           }
         }
 
-        v15 = [attributions countByEnumeratingWithState:&v47 objects:v53 count:16];
+        v15 = [attributions countByEnumeratingWithState:&v46 objects:v52 count:16];
       }
 
       while (v15);
     }
 
     activeStatusItems2 = [v9 activeStatusItems];
+    v42 = 0u;
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
-    v22 = [activeStatusItems2 countByEnumeratingWithState:&v43 objects:v52 count:16];
+    v22 = [activeStatusItems2 countByEnumeratingWithState:&v42 objects:v51 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v44;
+      v24 = *v43;
       do
       {
         for (j = 0; j != v23; ++j)
         {
-          if (*v44 != v24)
+          if (*v43 != v24)
           {
             objc_enumerationMutation(activeStatusItems2);
           }
 
-          v26 = *(*(&v43 + 1) + 8 * j);
+          v26 = *(*(&v42 + 1) + 8 * j);
           v27 = [v8 visualDescriptorForStatusItemWithIdentifier:v26];
 
           if (!v27)
@@ -110,7 +110,7 @@
           }
         }
 
-        v23 = [activeStatusItems2 countByEnumeratingWithState:&v43 objects:v52 count:16];
+        v23 = [activeStatusItems2 countByEnumeratingWithState:&v42 objects:v51 count:16];
       }
 
       while (v23);
@@ -120,36 +120,34 @@
     v30 = [statusItemsWithVisualDescriptors mutableCopy];
 
     [v30 minusSet:activeStatusItems2];
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     v31 = v30;
-    v32 = [v31 countByEnumeratingWithState:&v39 objects:v51 count:16];
+    v32 = [v31 countByEnumeratingWithState:&v38 objects:v50 count:16];
     if (v32)
     {
       v33 = v32;
-      v34 = *v40;
+      v34 = *v39;
       do
       {
         for (k = 0; k != v33; ++k)
         {
-          if (*v40 != v34)
+          if (*v39 != v34)
           {
             objc_enumerationMutation(v31);
           }
 
-          [v9 setVisualDescriptor:0 forStatusItemWithIdentifier:*(*(&v39 + 1) + 8 * k)];
+          [v9 setVisualDescriptor:0 forStatusItemWithIdentifier:*(*(&v38 + 1) + 8 * k)];
         }
 
-        v33 = [v31 countByEnumeratingWithState:&v39 objects:v51 count:16];
+        v33 = [v31 countByEnumeratingWithState:&v38 objects:v50 count:16];
       }
 
       while (v33);
     }
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

@@ -194,57 +194,52 @@
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    duration = self->_duration;
     PBDataWriterWriteUint32Field();
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v8 = self->_histPerBands;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
-  if (v9)
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v6 = self->_histPerBands;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v7)
   {
-    v10 = v9;
-    v11 = *v19;
+    v8 = v7;
+    v9 = *v13;
     do
     {
-      for (i = 0; i != v10; i = i + 1)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v11)
+        if (*v13 != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v10);
+    while (v8);
   }
 
-  v14 = self->_has;
-  if ((v14 & 4) != 0)
+  v11 = self->_has;
+  if ((v11 & 4) != 0)
   {
-    numSubs = self->_numSubs;
     PBDataWriterWriteUint32Field();
-    v14 = self->_has;
+    v11 = self->_has;
   }
 
-  if ((v14 & 8) != 0)
+  if ((v11 & 8) != 0)
   {
-    psPref = self->_psPref;
     PBDataWriterWriteUint32Field();
   }
 
@@ -255,7 +250,6 @@
 
   if ((*&self->_has & 0x10) != 0)
   {
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 }
@@ -404,7 +398,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 56);
   if (has)
   {
     if ((*(equalCopy + 56) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -442,7 +435,6 @@
     has = self->_has;
   }
 
-  v8 = *(equalCopy + 56);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 56) & 4) == 0 || self->_numSubs != *(equalCopy + 8))
@@ -479,12 +471,12 @@
     }
 
 LABEL_32:
-    v10 = 0;
+    v8 = 0;
     goto LABEL_33;
   }
 
 LABEL_28:
-  v10 = (*(equalCopy + 56) & 0x10) == 0;
+  v8 = (*(equalCopy + 56) & 0x10) == 0;
   if ((has & 0x10) != 0)
   {
     if ((*(equalCopy + 56) & 0x10) == 0 || self->_subsId != *(equalCopy + 13))
@@ -492,12 +484,12 @@ LABEL_28:
       goto LABEL_32;
     }
 
-    v10 = 1;
+    v8 = 1;
   }
 
 LABEL_33:
 
-  return v10;
+  return v8;
 }
 
 - (unint64_t)hash

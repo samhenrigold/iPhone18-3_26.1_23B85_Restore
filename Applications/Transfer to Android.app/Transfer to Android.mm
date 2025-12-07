@@ -1,8 +1,8 @@
-id sub_100001484()
+id sub_100001484(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for AppDelegate();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for AppDelegate();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 int main(int argc, const char **argv, const char **envp)
@@ -41,7 +41,6 @@ LABEL_3:
 
   else
   {
-    v11 = -1 << *(a1 + 32);
     v3 = _HashTable.startBucket.getter();
     v5 = *(a1 + 36);
     if (v3 == 1 << *(a1 + 32))
@@ -51,12 +50,12 @@ LABEL_3:
   }
 
   sub_100001C58(v3, v5, v2 != 0, a1);
-  v13 = v12;
+  v12 = v11;
   sub_100001C4C(v3, v5, v2 != 0);
-  return v13;
+  return v12;
 }
 
-uint64_t sub_100001940()
+uint64_t sub_100001940(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   type metadata accessor for MainActor();
   static MainActor.shared.getter();
@@ -67,11 +66,11 @@ uint64_t sub_100001940()
   }
 }
 
-id sub_100001B40()
+id sub_100001B40(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for SceneDelegate();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for SceneDelegate();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 unint64_t sub_100001BA8()
@@ -100,16 +99,16 @@ unint64_t sub_100001BF4()
   return result;
 }
 
-uint64_t sub_100001C4C(uint64_t a1, uint64_t a2, char a3)
+uint64_t sub_100001C4C(uint64_t result, uint64_t a2, char a3)
 {
   if (a3)
   {
   }
 
-  return result;
+  return v3;
 }
 
-void sub_100001C58(unint64_t a1, int a2, char a3, uint64_t a4)
+void sub_100001C58(unint64_t a1, uint64_t a2, char a3, uint64_t a4)
 {
   if ((a4 & 0xC000000000000001) != 0)
   {

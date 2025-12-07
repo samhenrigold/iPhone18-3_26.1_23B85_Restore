@@ -38,7 +38,7 @@ float SKCParticleSystemNode::update(SKCParticleSystemNode *this, double a2, floa
   SKCNode::update(this, a2, 1.0);
   v5 = CACurrentMediaTime();
   _perfBeginEmitters(v5);
-  if ((atomic_load_explicit(&qword_27CDDD2B8, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_27CDDD2B8, memory_order_acquire) & 1) == 0)
   {
     SKCParticleSystemNode::update(a2);
   }
@@ -75,9 +75,9 @@ BOOL SKCParticleSystemNode::getNeedsUpdate(SKCParticleSystemNode *this)
   return v4;
 }
 
-void sub_21C489D90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21C489D90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -112,10 +112,10 @@ void sub_21C48A670(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_21C48A794(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_21C48A794(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = SKMutableTexture;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -137,7 +137,7 @@ void sub_21C48FF60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     std::__shared_weak_count::__release_shared[abi:ne200100](a10);
   }
 
-  MEMORY[0x21CF0A160](v13, 0x10A0C40B78ACC54);
+  MEMORY[0x21CF0A160](v13, 0x10A0C40B78ACC54, a3, a4, a5, a6, a7, a8);
   if (a12)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](a12);
@@ -380,7 +380,7 @@ void setSKPhysicsDefaults(PKPhysicsBody *a1)
   [(PKPhysicsBody *)v1 setCategoryBitMask:0xFFFFFFFFLL];
 }
 
-void sub_21C4931B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_21C4931B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -394,19 +394,19 @@ uint64_t __Block_byref_object_copy__5(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_21C4936E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_21C4936E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 48), 8);
+  _Block_object_dispose((v16 - 48), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21C493A80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_21C493A80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 48), 8);
+  _Block_object_dispose((v16 - 48), 8);
   _Unwind_Resume(a1);
 }
 
@@ -486,7 +486,7 @@ void sub_21C49902C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_21C49913C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, std::__shared_weak_count *a24)
+void sub_21C49913C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, std::__shared_weak_count *a24)
 {
   _Block_object_dispose(&a17, 8);
   if (a24)
@@ -501,8 +501,7 @@ __n128 __Block_byref_object_copy__6(__n128 *a1, __n128 *a2)
 {
   result = a2[3];
   a1[3] = result;
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   return result;
 }
 
@@ -531,13 +530,13 @@ void sub_21C499C70(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-std::string *jet_command_buffer::set_fragment_constant_value(uint64_t a1, std::string *__str, double a3)
+std::string *jet_command_buffer::set_fragment_constant_value(unint64_t *a1, std::string *__str, double a3)
 {
   v9 = 23;
-  v6 = *(a1 + 16);
-  if (v6 >= *(a1 + 24))
+  v6 = a1[2];
+  if (v6 >= a1[3])
   {
-    v7 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(a1 + 8, &v9);
+    v7 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(a1 + 1, &v9);
   }
 
   else
@@ -552,19 +551,19 @@ std::string *jet_command_buffer::set_fragment_constant_value(uint64_t a1, std::s
     *(v6 + 96) = 0;
   }
 
-  *(a1 + 16) = v7;
+  a1[2] = v7;
   result = std::string::operator=((v7 - 176), __str);
   *(v7 - 64) = a3;
   return result;
 }
 
-std::string *jet_command_buffer::set_fragment_constant_value(uint64_t a1, std::string *__str, double a3, double a4)
+std::string *jet_command_buffer::set_fragment_constant_value(unint64_t *a1, std::string *__str, double a3, double a4)
 {
   v11 = 26;
-  v8 = *(a1 + 16);
-  if (v8 >= *(a1 + 24))
+  v8 = a1[2];
+  if (v8 >= a1[3])
   {
-    v9 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(a1 + 8, &v11);
+    v9 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(a1 + 1, &v11);
   }
 
   else
@@ -579,20 +578,20 @@ std::string *jet_command_buffer::set_fragment_constant_value(uint64_t a1, std::s
     *(v8 + 96) = 0;
   }
 
-  *(a1 + 16) = v9;
+  a1[2] = v9;
   result = std::string::operator=((v9 - 176), __str);
   *(v9 - 64) = a3;
   *(v9 - 56) = a4;
   return result;
 }
 
-__n128 jet_command_buffer::set_fragment_constant_value(uint64_t a1, std::string *__str, __n128 a3, __n128 a4, __n128 a5)
+__n128 jet_command_buffer::set_fragment_constant_value(unint64_t *a1, std::string *__str, __n128 a3, __n128 a4, __n128 a5)
 {
   v13 = 27;
-  v7 = *(a1 + 16);
-  if (v7 >= *(a1 + 24))
+  v7 = a1[2];
+  if (v7 >= a1[3])
   {
-    v8 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(a1 + 8, &v13);
+    v8 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(a1 + 1, &v13);
   }
 
   else
@@ -607,7 +606,7 @@ __n128 jet_command_buffer::set_fragment_constant_value(uint64_t a1, std::string 
     *(v7 + 96) = 0;
   }
 
-  *(a1 + 16) = v8;
+  a1[2] = v8;
   std::string::operator=((v8 - 176), __str);
   *(v8 - 64) = a3;
   *(v8 - 48) = a4;
@@ -616,13 +615,13 @@ __n128 jet_command_buffer::set_fragment_constant_value(uint64_t a1, std::string 
   return result;
 }
 
-__n128 jet_command_buffer::set_fragment_constant_value(uint64_t a1, std::string *__str, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+__n128 jet_command_buffer::set_fragment_constant_value(unint64_t *a1, std::string *__str, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
 {
   v15 = 28;
-  v8 = *(a1 + 16);
-  if (v8 >= *(a1 + 24))
+  v8 = a1[2];
+  if (v8 >= a1[3])
   {
-    v9 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(a1 + 8, &v15);
+    v9 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(a1 + 1, &v15);
   }
 
   else
@@ -637,7 +636,7 @@ __n128 jet_command_buffer::set_fragment_constant_value(uint64_t a1, std::string 
     *(v8 + 96) = 0;
   }
 
-  *(a1 + 16) = v9;
+  a1[2] = v9;
   std::string::operator=((v9 - 176), __str);
   *(v9 - 64) = a3;
   *(v9 - 48) = a4;
@@ -675,15 +674,15 @@ void std::__tree<std::__value_type<std::string,std::shared_ptr<jet_buffer_pool>>
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::shared_ptr<jet_buffer_pool>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<jet_buffer_pool>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<jet_buffer_pool>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::shared_ptr<jet_buffer_pool>>>(uint64_t a1, const void **a2)
+uint64_t std::__tree<std::__value_type<std::string,std::shared_ptr<jet_buffer_pool>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<jet_buffer_pool>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<jet_buffer_pool>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::shared_ptr<jet_buffer_pool>>>(char *a1, const void **a2, uint64_t a3)
 {
-  v2 = *std::__tree<std::__value_type<std::string,std::shared_ptr<jet_buffer_pool>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<jet_buffer_pool>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<jet_buffer_pool>>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::__value_type<std::string,std::shared_ptr<jet_buffer_pool>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<jet_buffer_pool>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<jet_buffer_pool>>>>::__find_equal<std::string>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
 void sub_21C49BE08(_Unwind_Exception *exception_object)
@@ -819,7 +818,7 @@ void SKCTransformNode::~SKCTransformNode(id *this)
   JUMPOUT(0x21CF0A160);
 }
 
-void SKCTransformNode::setQuaternion(SKCNode *this, simd_quatf a2)
+void SKCTransformNode::setQuaternion(void *this, simd_quatf a2)
 {
   *(this + 40) = a2;
   *(this + 560) = 1;
@@ -1049,7 +1048,7 @@ void SKCLabelNode::setText(SKCLabelNode *this, NSString *a2)
   }
 }
 
-void SKCLabelNode::setNumberOfLines(SKCNode *this, int a2)
+void SKCLabelNode::setNumberOfLines(void *this, int a2)
 {
   v2 = a2 & ~(a2 >> 31);
   if (v2 != *(this + 166))
@@ -1060,16 +1059,16 @@ void SKCLabelNode::setNumberOfLines(SKCNode *this, int a2)
   }
 }
 
-void SKCLabelNode::setLineBreakNode(SKCNode *this, NSLineBreakMode a2)
+void SKCLabelNode::setLineBreakNode(void *this, NSLineBreakMode a2)
 {
-  if (*(this + 84) != a2)
+  if (this[84] != a2)
   {
-    *(this + 84) = a2;
+    this[84] = a2;
     SKCNode::setDirty(this);
   }
 }
 
-void SKCLabelNode::setPreferredMaxLayoutWidth(SKCNode *this, float a2)
+void SKCLabelNode::setPreferredMaxLayoutWidth(void *this, float a2)
 {
   if (a2 < 0.0)
   {
@@ -1097,9 +1096,9 @@ void SKCLabelNode::setAttributedString(SKCLabelNode *this, NSAttributedString *a
   }
 }
 
-char *SKCLabelNode::addRenderableChildren(uint64_t a1, uint64_t a2, uint64_t a3)
+char *SKCLabelNode::addRenderableChildren(char *a1, uint64_t a2, uint64_t a3)
 {
-  v6 = *(a1 + 744);
+  v6 = *(a1 + 93);
   v10[0] = MEMORY[0x277D85DD0];
   v10[1] = 3221225472;
   v10[2] = ___ZN12SKCLabelNode12rebuildLabelEP13SKCRenderInfo_block_invoke;
@@ -1107,8 +1106,8 @@ char *SKCLabelNode::addRenderableChildren(uint64_t a1, uint64_t a2, uint64_t a3)
   v10[4] = a1;
   v10[5] = a2;
   dispatch_sync(v6, v10);
-  v7 = *(a1 + 728);
-  v8 = *(a1 + 720);
+  v7 = *(a1 + 91);
+  v8 = *(a1 + 90);
   if (v8 != v7)
   {
     std::vector<SKCNode *>::__insert_with_size[abi:ne200100]<std::__wrap_iter<SKCSpriteNode **>,std::__wrap_iter<SKCSpriteNode **>>(a3, *(a3 + 8), v8, v7, v7 - v8);
@@ -1685,11 +1684,12 @@ char *std::vector<SKCNode *>::__insert_with_size[abi:ne200100]<std::__wrap_iter<
     if (v16 >= a5)
     {
       v20 = &__src[8 * a5];
-      v21 = &v10[-a5];
+      v21 = &v10[-8 * a5];
       v22 = a1[1];
       while (v21 < v10)
       {
-        v23 = *v21++;
+        v23 = *v21;
+        v21 += 8;
         *v22++ = v23;
       }
 
@@ -1704,7 +1704,8 @@ char *std::vector<SKCNode *>::__insert_with_size[abi:ne200100]<std::__wrap_iter<
       do
       {
         v26 = *v7++;
-        *v25++ = v26;
+        *v25 = v26;
+        v25 += 8;
       }
 
       while (v7 != v24);
@@ -1726,8 +1727,7 @@ char *std::vector<SKCNode *>::__insert_with_size[abi:ne200100]<std::__wrap_iter<
         do
         {
           v37 = *v36++;
-          *v19 = v37;
-          v19 += 8;
+          *v19++ = v37;
           ++v18;
         }
 
@@ -1742,7 +1742,8 @@ char *std::vector<SKCNode *>::__insert_with_size[abi:ne200100]<std::__wrap_iter<
         v40 = v18;
         while (v39 < v10)
         {
-          v41 = *v39++;
+          v41 = *v39;
+          v39 += 8;
           *v40++ = v41;
         }
 
@@ -1758,7 +1759,8 @@ char *std::vector<SKCNode *>::__insert_with_size[abi:ne200100]<std::__wrap_iter<
           do
           {
             v43 = *v7++;
-            *v42++ = v43;
+            *v42 = v43;
+            v42 += 8;
           }
 
           while (v7 != v17);
@@ -1770,7 +1772,7 @@ char *std::vector<SKCNode *>::__insert_with_size[abi:ne200100]<std::__wrap_iter<
   }
 
   v11 = *a1;
-  v12 = a5 + ((v10 - *a1) >> 3);
+  v12 = a5 + (&v10[-*a1] >> 3);
   if (v12 >> 61)
   {
     std::vector<jet_render_op>::__throw_length_error[abi:ne200100]();
@@ -1878,7 +1880,7 @@ uint64_t SKCRendererEnsureBufferCapacity(void *a1, int a2, int a3)
   return 1;
 }
 
-void SKCRendererSetup(void)
+void SKCRendererSetup(uint64_t result, uint64_t a2)
 {
   if (SKCRendererSetup(void)::onceToken != -1)
   {
@@ -1888,13 +1890,13 @@ void SKCRendererSetup(void)
 
 void ___Z16SKCRendererSetupv_block_invoke()
 {
-  v3[2] = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
   jet_setClientLabel(&cfstr_ComAppleSprite_9.isa);
   v0 = dispatch_queue_create("SKCRenderer_resource_queue", 0);
   v1 = SKCRenderer_resource_queue;
   SKCRenderer_resource_queue = v0;
 
-  if (SKGetShouldEnableMetal())
+  if (SKGetShouldEnableMetal(v2, v3))
   {
     SKGetGlobalMetalDevice();
     if (objc_claimAutoreleasedReturnValue())
@@ -1903,7 +1905,7 @@ void ___Z16SKCRendererSetupv_block_invoke()
     }
 
     Context = jet_createContext();
-    std::shared_ptr<jet_context>::shared_ptr[abi:ne200100]<jet_context,0>(v3, Context);
+    std::shared_ptr<jet_context>::shared_ptr[abi:ne200100]<jet_context,0>(v5, Context);
   }
 
   SKEnsureGlobalGLShareContext();
@@ -2230,29 +2232,28 @@ void sub_21C4A19CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t SKCRenderer::commitBuffers(SKCRenderer *this)
+void SKCRenderer::commitBuffers(SKCRenderer *this, const char *a2)
 {
-  result = SKCRenderer::flushRenderOps(this);
+  SKCRenderer::flushRenderOps(this, a2);
   *(this + 8) = 0;
   *(this + 20) = 0;
-  return result;
 }
 
-uint64_t SKCRenderer::flushRenderOps(SKCRenderer *this)
+void SKCRenderer::flushRenderOps(SKCRenderer *this, const char *a2)
 {
-  SKCRenderer::flushCurrentBatch(this);
-  v2 = *(this + 51);
-  v3 = *(this + 20);
-  element_size = jet_buffer::get_element_size(v2);
-  (*(*v2 + 24))(v2, (v3 * element_size), 0);
-  v5 = *(this + 53);
-  v6 = *(this + 20);
-  v7 = jet_buffer::get_element_size(v5);
-  (*(*v5 + 24))(v5, (v6 * v7), 0);
-  v8 = *(this + 52);
-  v9 = *(this + 20);
-  v10 = jet_buffer::get_element_size(v8);
-  result = (*(*v8 + 24))(v8, (v9 * v10), 0);
+  SKCRenderer::flushCurrentBatch(this, a2);
+  v3 = *(this + 51);
+  v4 = *(this + 20);
+  element_size = jet_buffer::get_element_size(v3);
+  (*(*v3 + 24))(v3, (v4 * element_size), 0);
+  v6 = *(this + 53);
+  v7 = *(this + 20);
+  v8 = jet_buffer::get_element_size(v6);
+  (*(*v6 + 24))(v6, (v7 * v8), 0);
+  v9 = *(this + 52);
+  v10 = *(this + 20);
+  v11 = jet_buffer::get_element_size(v9);
+  (*(*v9 + 24))(v9, (v10 * v11), 0);
   v12 = *(*(this + 5) + 16) - *(*(this + 5) + 8);
   if (v12)
   {
@@ -2277,7 +2278,6 @@ uint64_t SKCRenderer::flushRenderOps(SKCRenderer *this)
   *(this + 51) = 0;
   *(this + 52) = 0;
   *(this + 53) = 0;
-  return result;
 }
 
 uint64_t SKCRenderer::ensureBuffers(uint64_t this)
@@ -2313,18 +2313,18 @@ uint64_t SKCRenderer::ensureBuffers(uint64_t this)
   return this;
 }
 
-void SKCRenderer::flushCurrentBatch(SKCRenderer *this)
+void SKCRenderer::flushCurrentBatch(SKCRenderer *this, const char *a2)
 {
   if (*(this + 167) < 1)
   {
     goto LABEL_61;
   }
 
-  v2 = *(this + 85);
-  if (!v2)
+  v3 = *(this + 85);
+  if (!v3)
   {
-    v5 = *(this + 183);
-    if (v5 && SKCRenderer::requireLighting(this, v5))
+    v6 = *(this + 183);
+    if (v6 && SKCRenderer::requireLighting(this, v6))
     {
       command_buffer = jet_context::create_command_buffer(*(this + 126));
       std::shared_ptr<jet_command_buffer>::shared_ptr[abi:ne200100]<jet_command_buffer,0>(&__p, command_buffer);
@@ -2334,112 +2334,112 @@ void SKCRenderer::flushCurrentBatch(SKCRenderer *this)
     goto LABEL_9;
   }
 
-  [v2 _backingProgram];
+  objc_msgSend__backingProgram(v3, a2);
   size = __p.__r_.__value_.__l.__size_;
   if (!__p.__r_.__value_.__r.__words[0])
   {
 LABEL_9:
-    v4 = 1;
+    v5 = 1;
     goto LABEL_10;
   }
 
-  v4 = 0;
+  v5 = 0;
   *(this + 86) = __p.__r_.__value_.__r.__words[0];
 LABEL_10:
-  v7 = *(this + 86);
-  if (*(this + 656) == 1 && v7 == *(this + 31))
+  v8 = *(this + 86);
+  if (*(this + 656) == 1 && v8 == *(this + 31))
   {
-    v23 = *(this + 5);
-    v7 = *(this + 33);
+    v24 = *(this + 5);
+    v8 = *(this + 33);
     LODWORD(__p.__r_.__value_.__l.__data_) = 31;
-    v24 = *(v23 + 16);
-    if (v24 >= *(v23 + 24))
+    v25 = v24[2];
+    if (v25 >= v24[3])
     {
-      v11 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v23 + 8, &__p);
+      v12 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v24 + 1, &__p);
     }
 
     else
     {
-      *v24 = &unk_282E15828;
-      *(v24 + 8) = 31;
-      *(v24 + 24) = 0;
-      *(v24 + 32) = 0;
-      *(v24 + 16) = 0;
-      *(v24 + 64) = 0;
-      v11 = v24 + 192;
-      *(v24 + 96) = 0;
+      *v25 = &unk_282E15828;
+      *(v25 + 8) = 31;
+      *(v25 + 24) = 0;
+      *(v25 + 32) = 0;
+      *(v25 + 16) = 0;
+      *(v25 + 64) = 0;
+      v12 = v25 + 192;
+      *(v25 + 96) = 0;
     }
 
-    *(v23 + 16) = v11;
-    v9 = 1;
+    v24[2] = v12;
+    v10 = 1;
   }
 
   else
   {
-    v8 = *(this + 5);
-    v9 = *(this + 169);
+    v9 = *(this + 5);
+    v10 = *(this + 169);
     LODWORD(__p.__r_.__value_.__l.__data_) = 31;
-    v10 = *(v8 + 16);
-    if (v10 >= *(v8 + 24))
+    v11 = v9[2];
+    if (v11 >= v9[3])
     {
-      v11 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v8 + 8, &__p);
+      v12 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v9 + 1, &__p);
     }
 
     else
     {
-      *v10 = &unk_282E15828;
-      *(v10 + 8) = 31;
-      *(v10 + 24) = 0;
-      *(v10 + 32) = 0;
-      *(v10 + 16) = 0;
-      *(v10 + 64) = 0;
-      v11 = v10 + 192;
-      *(v10 + 96) = 0;
+      *v11 = &unk_282E15828;
+      *(v11 + 8) = 31;
+      *(v11 + 24) = 0;
+      *(v11 + 32) = 0;
+      *(v11 + 16) = 0;
+      *(v11 + 64) = 0;
+      v12 = v11 + 192;
+      *(v11 + 96) = 0;
     }
 
-    *(v8 + 16) = v11;
+    v9[2] = v12;
   }
 
-  *(v11 - 80) = v7;
-  *(v11 - 64) = v9;
-  *(v11 - 60) = xmmword_21C4B9130;
-  *(v11 - 44) = 3;
-  v12 = *(this + 5);
+  *(v12 - 80) = v8;
+  *(v12 - 64) = v10;
+  *(v12 - 60) = xmmword_21C4B9130;
+  *(v12 - 44) = 3;
+  v13 = *(this + 5);
   if (*(this + 87))
   {
     std::string::basic_string[abi:ne200100]<0>(&__p, "u_texture");
-    jet_command_buffer::set_fragment_texture(v12, &__p, *(this + 87));
-    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(__p.__r_.__value_.__l.__data_);
-    }
-
-    v13 = *(this + 5);
-    if (*(this + 89))
-    {
-      std::string::basic_string[abi:ne200100]<0>(&__p, "u_texture");
-      jet_command_buffer::set_fragment_sampler(v13, &__p, *(this + 89));
-    }
-
-    else
-    {
-      std::string::basic_string[abi:ne200100]<0>(&__p, "u_texture");
-      jet_command_buffer::set_fragment_sampler(v13, &__p, *(this + 70));
-    }
-  }
-
-  else
-  {
-    std::string::basic_string[abi:ne200100]<0>(&__p, "u_texture");
-    jet_command_buffer::set_fragment_texture(v12, &__p, qword_27CDDCFA0);
+    jet_command_buffer::set_fragment_texture(v13, &__p, *(this + 87));
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
     v14 = *(this + 5);
+    if (*(this + 89))
+    {
+      std::string::basic_string[abi:ne200100]<0>(&__p, "u_texture");
+      jet_command_buffer::set_fragment_sampler(v14, &__p, *(this + 89));
+    }
+
+    else
+    {
+      std::string::basic_string[abi:ne200100]<0>(&__p, "u_texture");
+      jet_command_buffer::set_fragment_sampler(v14, &__p, *(this + 70));
+    }
+  }
+
+  else
+  {
     std::string::basic_string[abi:ne200100]<0>(&__p, "u_texture");
-    jet_command_buffer::set_fragment_sampler(v14, &__p, *(this + 70));
+    jet_command_buffer::set_fragment_texture(v13, &__p, qword_27CDDCFA0);
+    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(__p.__r_.__value_.__l.__data_);
+    }
+
+    v15 = *(this + 5);
+    std::string::basic_string[abi:ne200100]<0>(&__p, "u_texture");
+    jet_command_buffer::set_fragment_sampler(v15, &__p, *(this + 70));
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -2449,25 +2449,25 @@ LABEL_10:
 
   if (*(this + 88))
   {
-    v15 = *(this + 5);
+    v16 = *(this + 5);
     std::string::basic_string[abi:ne200100]<0>(&__p, "u_texture2");
-    jet_command_buffer::set_fragment_texture(v15, &__p, *(this + 88));
+    jet_command_buffer::set_fragment_texture(v16, &__p, *(this + 88));
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    v16 = *(this + 5);
+    v17 = *(this + 5);
     if (*(this + 90))
     {
       std::string::basic_string[abi:ne200100]<0>(&__p, "u_texture2");
-      jet_command_buffer::set_fragment_sampler(v16, &__p, *(this + 90));
+      jet_command_buffer::set_fragment_sampler(v17, &__p, *(this + 90));
     }
 
     else
     {
       std::string::basic_string[abi:ne200100]<0>(&__p, "u_texture2");
-      jet_command_buffer::set_fragment_sampler(v16, &__p, *(this + 70));
+      jet_command_buffer::set_fragment_sampler(v17, &__p, *(this + 70));
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -2476,48 +2476,48 @@ LABEL_10:
     }
   }
 
-  v17 = *(this + 5);
-  std::string::basic_string[abi:ne200100]<0>(&__p, "a_position");
-  jet_command_buffer::set_vertex_buffer(v17, &__p, *(this + 51));
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
   v18 = *(this + 5);
-  std::string::basic_string[abi:ne200100]<0>(&__p, "a_color");
-  jet_command_buffer::set_vertex_buffer(v18, &__p, *(this + 52));
+  std::string::basic_string[abi:ne200100]<0>(&__p, "a_position");
+  jet_command_buffer::set_vertex_buffer(v18, &__p, *(this + 51));
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   v19 = *(this + 5);
+  std::string::basic_string[abi:ne200100]<0>(&__p, "a_color");
+  jet_command_buffer::set_vertex_buffer(v19, &__p, *(this + 52));
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+
+  v20 = *(this + 5);
   std::string::basic_string[abi:ne200100]<0>(&__p, "a_tex_coord");
-  jet_command_buffer::set_vertex_buffer(v19, &__p, *(this + 53));
+  jet_command_buffer::set_vertex_buffer(v20, &__p, *(this + 53));
   if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
-    if (v4)
+    if (v5)
     {
       goto LABEL_53;
     }
 
 LABEL_43:
-    v20 = *(this + 5);
-    v21 = *(this + 85);
-    if (v21)
+    v21 = *(this + 5);
+    v22 = *(this + 85);
+    if (v22)
     {
-      [v21 _commandsForBatchOffset:*(this + 8) count:*(this + 167)];
-      v22 = __p.__r_.__value_.__r.__words[0];
+      objc_msgSend__commandsForBatchOffset_count_(v22);
+      v23 = __p.__r_.__value_.__r.__words[0];
     }
 
     else
     {
-      v22 = 0;
+      v23 = 0;
       *&__p.__r_.__value_.__l.__data_ = 0uLL;
     }
 
-    jet_command_buffer::add_command_buffer(v20, v22);
+    jet_command_buffer::add_command_buffer(v21, v23);
     if (__p.__r_.__value_.__l.__size_)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](__p.__r_.__value_.__l.__size_);
@@ -2527,13 +2527,13 @@ LABEL_43:
       SKCRenderer::flushCurrentBatch(void)::baseTime = skCurrentTime();
     }
 
-    v25 = skCurrentTime();
-    v26 = *&SKCRenderer::flushCurrentBatch(void)::baseTime;
-    v27 = *(this + 5);
+    v26 = skCurrentTime();
+    v27 = *&SKCRenderer::flushCurrentBatch(void)::baseTime;
+    v28 = *(this + 5);
     std::string::basic_string[abi:ne200100]<0>(&__p, "u_time");
-    v28 = v25 - v26;
-    v29 = fmodf(v28, 43200.0);
-    jet_command_buffer::set_fragment_constant_value(v27, &__p, v29);
+    v29 = v26 - v27;
+    v30 = fmodf(v29, 43200.0);
+    jet_command_buffer::set_fragment_constant_value(v28, &__p, v30);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -2543,39 +2543,39 @@ LABEL_43:
   }
 
   operator delete(__p.__r_.__value_.__l.__data_);
-  if ((v4 & 1) == 0)
+  if ((v5 & 1) == 0)
   {
     goto LABEL_43;
   }
 
 LABEL_53:
-  v30 = 3 * (*(this + 8) >> 2);
-  v31 = 6 * (*(this + 8) >> 2);
-  v32 = 6 * (*(this + 167) / 4);
-  v33 = *(this + 93);
-  ++v33[41];
-  v33[37] += v32 / 6;
-  v34 = v32 + 2 * v30;
-  if (v33[43] > v34)
+  v31 = 3 * (*(this + 8) >> 2);
+  v32 = 6 * (*(this + 8) >> 2);
+  v33 = 6 * (*(this + 167) / 4);
+  v34 = *(this + 93);
+  ++v34[41];
+  v34[37] += v33 / 6;
+  v35 = v33 + 2 * v31;
+  if (v34[43] > v35)
   {
-    v34 = v33[43];
+    v35 = v34[43];
   }
 
-  v33[43] = v34;
-  jet_command_buffer::draw_indexed(*(this + 5), *(this + 168), *(this + 60), v31, v32);
+  v34[43] = v35;
+  jet_command_buffer::draw_indexed(*(this + 5), *(this + 168), *(this + 60), v32, v33);
   if ((*(this + 661) & 0x10) != 0)
   {
     NSLog(&cfstr_SkcrendererPPa.isa, this, *(*(this + 93) + 168), (*(*(this + 93) + 164) - 1), (*(this + 167) / 4), *(this + 86), *(this + 87), *(this + 88), *(this + 169));
   }
 
-  v35 = [*(this + 159) objectForKey:@"debugDrawSpriteBounds"];
-  v36 = [v35 BOOLValue];
+  v36 = [*(this + 159) objectForKey:@"debugDrawSpriteBounds"];
+  v37 = [v36 BOOLValue];
 
-  if (v36)
+  if (v37)
   {
     __asm { FMOV            V0.4S, #1.0 }
 
-    SKCRenderer::addDebugStroke(this, v31, v32, _Q0);
+    SKCRenderer::addDebugStroke(this, v32, v33, _Q0);
   }
 
   *(this + 167) = 0;
@@ -2734,7 +2734,7 @@ uint64_t SKCRenderer::requireLighting(SKCRenderer *this, unsigned int a2)
   }
 
   *&v35 = v41;
-  v30 = std::__tree<std::__value_type<unsigned int,SKCLightMaskUniforms>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,SKCLightMaskUniforms>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,SKCLightMaskUniforms>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 1064, v41);
+  v30 = std::__tree<std::__value_type<unsigned int,SKCLightMaskUniforms>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,SKCLightMaskUniforms>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,SKCLightMaskUniforms>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 1064, v41, &std::piecewise_construct, &v35);
   v31 = *v37;
   *(v30 + 3) = v36;
   *(v30 + 4) = v31;
@@ -2766,14 +2766,14 @@ uint64_t SKCRenderer::requireLighting(SKCRenderer *this, unsigned int a2)
   return 1;
 }
 
-void sub_21C4A29D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_21C4A29D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   SKCLightMaskUniforms::~SKCLightMaskUniforms(va);
   _Unwind_Resume(a1);
 }
 
-void SKCRenderer::setLightingUniforms(SKCRenderer *a1, unsigned int a2, uint64_t *a3, float a4)
+void SKCRenderer::setLightingUniforms(SKCRenderer *a1, unsigned int a2, unint64_t **a3, float a4)
 {
   v47 = a2;
   v4 = *a3;
@@ -2862,7 +2862,7 @@ void SKCRenderer::setLightingUniforms(SKCRenderer *a1, unsigned int a2, uint64_t
     if (SKCRenderer::requireLighting(a1, v47))
     {
       __str.__r_.__value_.__r.__words[0] = &v47;
-      v24 = std::__tree<std::__value_type<unsigned int,SKCLightMaskUniforms>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,SKCLightMaskUniforms>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,SKCLightMaskUniforms>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 1064, &v47);
+      v24 = std::__tree<std::__value_type<unsigned int,SKCLightMaskUniforms>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,SKCLightMaskUniforms>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,SKCLightMaskUniforms>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 1064, &v47, &std::piecewise_construct, &__str);
       v25 = *(v24 + 4);
       *__p = *(v24 + 3);
       *v40 = v25;
@@ -2968,10 +2968,10 @@ void SKCRenderer::addDebugStroke(uint64_t *a1, int a2, unsigned int a3, __n128 a
   v7 = a1[5];
   v8 = a1[29];
   LODWORD(__p.__r_.__value_.__l.__data_) = 31;
-  v9 = *(v7 + 16);
-  if (v9 >= *(v7 + 24))
+  v9 = v7[2];
+  if (v9 >= v7[3])
   {
-    v10 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v7 + 8, &__p);
+    v10 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v7 + 1, &__p);
   }
 
   else
@@ -2986,7 +2986,7 @@ void SKCRenderer::addDebugStroke(uint64_t *a1, int a2, unsigned int a3, __n128 a
     *(v9 + 96) = 0;
   }
 
-  *(v7 + 16) = v10;
+  v7[2] = v10;
   *(v10 - 80) = v8;
   *(v10 - 64) = xmmword_21C4B8530;
   *(v10 - 48) = 0x30000000FLL;
@@ -3050,13 +3050,13 @@ void SKCLightMaskUniforms::~SKCLightMaskUniforms(SKCLightMaskUniforms *this)
   }
 }
 
-std::string *jet_command_buffer::set_vertex_constant_value(uint64_t a1, std::string *__str, double a3, double a4)
+std::string *jet_command_buffer::set_vertex_constant_value(unint64_t *a1, std::string *__str, double a3, double a4)
 {
   v11 = 19;
-  v8 = *(a1 + 16);
-  if (v8 >= *(a1 + 24))
+  v8 = a1[2];
+  if (v8 >= a1[3])
   {
-    v9 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(a1 + 8, &v11);
+    v9 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(a1 + 1, &v11);
   }
 
   else
@@ -3071,20 +3071,20 @@ std::string *jet_command_buffer::set_vertex_constant_value(uint64_t a1, std::str
     *(v8 + 96) = 0;
   }
 
-  *(a1 + 16) = v9;
+  a1[2] = v9;
   result = std::string::operator=((v9 - 176), __str);
   *(v9 - 64) = a3;
   *(v9 - 56) = a4;
   return result;
 }
 
-std::string *jet_command_buffer::set_fragment_constant_value(uint64_t a1, std::string *__str, int a3)
+std::string *jet_command_buffer::set_fragment_constant_value(unint64_t *a1, std::string *__str, int a3)
 {
   v9 = 38;
-  v6 = *(a1 + 16);
-  if (v6 >= *(a1 + 24))
+  v6 = a1[2];
+  if (v6 >= a1[3])
   {
-    v7 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(a1 + 8, &v9);
+    v7 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(a1 + 1, &v9);
   }
 
   else
@@ -3099,19 +3099,19 @@ std::string *jet_command_buffer::set_fragment_constant_value(uint64_t a1, std::s
     *(v6 + 96) = 0;
   }
 
-  *(a1 + 16) = v7;
+  a1[2] = v7;
   result = std::string::operator=((v7 - 176), __str);
   *(v7 - 64) = a3;
   return result;
 }
 
-std::string *jet_command_buffer::set_fragment_constant(uint64_t a1, std::string *__str, uint64_t a3)
+std::string *jet_command_buffer::set_fragment_constant(unint64_t *a1, std::string *__str, uint64_t a3)
 {
   v9 = 9;
-  v6 = *(a1 + 16);
-  if (v6 >= *(a1 + 24))
+  v6 = a1[2];
+  if (v6 >= a1[3])
   {
-    v7 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(a1 + 8, &v9);
+    v7 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(a1 + 1, &v9);
   }
 
   else
@@ -3126,7 +3126,7 @@ std::string *jet_command_buffer::set_fragment_constant(uint64_t a1, std::string 
     *(v6 + 96) = 0;
   }
 
-  *(a1 + 16) = v7;
+  a1[2] = v7;
   *(v7 - 80) = a3;
   return std::string::operator=((v7 - 176), __str);
 }
@@ -3238,7 +3238,7 @@ void SKCRenderer::addPerNodeDebugOverlays(SKCRenderer *this, void *lpsrc, uint64
     if (v11)
     {
       v12 = v11;
-      SKCRenderer::flushCurrentBatch(this);
+      SKCRenderer::flushCurrentBatch(this, lpsrc);
       if (SKCEffectNode::getEnableEffects(v12))
       {
         if (SKCEffectNode::getShouldRasterize(v12))
@@ -3259,11 +3259,11 @@ void SKCRenderer::addPerNodeDebugOverlays(SKCRenderer *this, void *lpsrc, uint64
         v15 = xmmword_21C4BA050;
       }
 
-      v34 = v15;
+      v35 = v15;
       __asm { FMOV            V0.4S, #0.25 }
 
       SKCRenderer::addDebugFill(this, 6 * (a4 >> 2), 6 * (a5 >> 2), vmulq_f32(v15, _Q0));
-      SKCRenderer::addDebugStroke(this, 6 * (a4 >> 2), 6 * (a5 >> 2), v34);
+      SKCRenderer::addDebugStroke(this, 6 * (a4 >> 2), 6 * (a5 >> 2), v35);
       v10 = *(this + 165);
     }
   }
@@ -3275,14 +3275,14 @@ void SKCRenderer::addPerNodeDebugOverlays(SKCRenderer *this, void *lpsrc, uint64
       if (v21)
       {
         v22 = v21;
-        SKCRenderer::flushCurrentBatch(this);
+        SKCRenderer::flushCurrentBatch(this, lpsrc);
         v23.i64[0] = 0;
         v24.i64[0] = v22[71];
-        v35 = vbslq_s8(vdupq_lane_s64(vceqq_s64(v24, v23).i64[0], 0), xmmword_21C4BA050, xmmword_21C4B9CD0);
+        v36 = vbslq_s8(vdupq_lane_s64(vceqq_s64(v24, v23).i64[0], 0), xmmword_21C4BA050, xmmword_21C4B9CD0);
         __asm { FMOV            V0.4S, #0.25 }
 
-        SKCRenderer::addDebugFill(this, 6 * (a4 >> 2), 6 * (a5 >> 2), vmulq_f32(v35, _Q0));
-        SKCRenderer::addDebugStroke(this, 6 * (a4 >> 2), 6 * (a5 >> 2), v35);
+        SKCRenderer::addDebugFill(this, 6 * (a4 >> 2), 6 * (a5 >> 2), vmulq_f32(v36, _Q0));
+        SKCRenderer::addDebugStroke(this, 6 * (a4 >> 2), 6 * (a5 >> 2), v36);
         v10 = *(this + 165);
       }
     }
@@ -3291,7 +3291,7 @@ void SKCRenderer::addPerNodeDebugOverlays(SKCRenderer *this, void *lpsrc, uint64
 LABEL_14:
   if ((v10 & 8) != 0 && *(a3 + 16))
   {
-    SKCRenderer::flushCurrentBatch(this);
+    SKCRenderer::flushCurrentBatch(this, lpsrc);
     SKCRenderer::addDebugFill(this, 6 * (a4 >> 2), 6 * (a5 >> 2), xmmword_21C4BA070);
     SKCRenderer::addDebugStroke(this, 6 * (a4 >> 2), 6 * (a5 >> 2), xmmword_21C4BA050);
     v10 = *(this + 165);
@@ -3304,34 +3304,34 @@ LABEL_14:
     {
       if ([v26 _backingProgramIsDirty])
       {
-        SKCRenderer::flushCurrentBatch(this);
-        v27 = *(a3 + 16);
-        if (v27)
+        SKCRenderer::flushCurrentBatch(this, v27);
+        v28 = *(a3 + 16);
+        if (v28)
         {
-          [v27 _backingProgram];
-          v28.i64[0] = 0;
-          v29.i64[0] = v38;
-          v30 = vbslq_s8(vdupq_lane_s64(vceqq_s64(v29, v28).i64[0], 0), xmmword_21C4BA080, xmmword_21C4B8500);
-          if (v39)
+          objc_msgSend__backingProgram(v28);
+          v29.i64[0] = 0;
+          v30.i64[0] = v39;
+          v31 = vbslq_s8(vdupq_lane_s64(vceqq_s64(v30, v29).i64[0], 0), xmmword_21C4BA080, xmmword_21C4B8500);
+          if (v40)
           {
-            v36 = v30;
-            std::__shared_weak_count::__release_shared[abi:ne200100](v39);
-            v30 = v36;
+            v37 = v31;
+            std::__shared_weak_count::__release_shared[abi:ne200100](v40);
+            v31 = v37;
           }
         }
 
         else
         {
-          v30 = xmmword_21C4BA080;
+          v31 = xmmword_21C4BA080;
         }
 
-        v37 = v30;
+        v38 = v31;
         __asm { FMOV            V0.4S, #0.25 }
 
-        v32 = 6 * (a4 >> 2);
-        v33 = 6 * (a5 >> 2);
-        SKCRenderer::addDebugFill(this, v32, v33, vmulq_f32(v30, _Q0));
-        SKCRenderer::addDebugStroke(this, v32, v33, v37);
+        v33 = 6 * (a4 >> 2);
+        v34 = 6 * (a5 >> 2);
+        SKCRenderer::addDebugFill(this, v33, v34, vmulq_f32(v31, _Q0));
+        SKCRenderer::addDebugStroke(this, v33, v34, v38);
       }
     }
   }
@@ -3342,10 +3342,10 @@ uint64_t SKCRenderer::addDebugFill(uint64_t *a1, int a2, int a3, __n128 a4)
   v7 = a1[5];
   v8 = a1[29];
   LODWORD(__p.__r_.__value_.__l.__data_) = 31;
-  v9 = *(v7 + 16);
-  if (v9 >= *(v7 + 24))
+  v9 = v7[2];
+  if (v9 >= v7[3])
   {
-    v10 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v7 + 8, &__p);
+    v10 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v7 + 1, &__p);
   }
 
   else
@@ -3360,7 +3360,7 @@ uint64_t SKCRenderer::addDebugFill(uint64_t *a1, int a2, int a3, __n128 a4)
     *(v9 + 96) = 0;
   }
 
-  *(v7 + 16) = v10;
+  v7[2] = v10;
   *(v10 - 80) = v8;
   *(v10 - 64) = xmmword_21C4B8530;
   *(v10 - 48) = 0x30000000FLL;
@@ -3393,64 +3393,64 @@ void sub_21C4A39C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void SKCRenderer::render(uint64_t a1, _OWORD *a2, uint64_t *a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7, void *a8)
+void SKCRenderer::render(uint64_t a1, _OWORD *a2, unint64_t *a3, int a4, void *a5, uint64_t a6, uint64_t a7, void *a8)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   a5;
   a8;
   objc_storeStrong((a1 + 1272), a5);
-  v14 = [*(a1 + 1272) objectForKeyedSubscript:@"ignoresSiblingOrder"];
-  *(a1 + 1000) = [v14 BOOLValue];
+  v22 = [*(a1 + 1272) objectForKeyedSubscript:@"ignoresSiblingOrder"];
+  *(a1 + 1000) = [v22 BOOLValue];
 
-  v15 = [*(a1 + 1272) objectForKeyedSubscript:@"cullNonVisibleNodes"];
-  *(a1 + 1001) = [v15 BOOLValue];
+  v23 = [*(a1 + 1272) objectForKeyedSubscript:@"cullNonVisibleNodes"];
+  *(a1 + 1001) = [v23 BOOLValue];
 
-  v16 = [*(a1 + 1272) objectForKeyedSubscript:@"doNotRenderChildNodes"];
-  *(a1 + 1002) = [v16 BOOLValue];
+  v24 = [*(a1 + 1272) objectForKeyedSubscript:@"doNotRenderChildNodes"];
+  *(a1 + 1002) = [v24 BOOLValue];
 
-  v17 = [*(a1 + 1272) objectForKeyedSubscript:@"debugDisablePresentationTime"];
-  [v17 BOOLValue];
+  v25 = [*(a1 + 1272) objectForKeyedSubscript:@"debugDisablePresentationTime"];
+  [v25 BOOLValue];
 
-  v18 = [*(a1 + 1272) objectForKeyedSubscript:@"_client"];
-  *(a1 + 992) = [v18 pointerValue];
+  v26 = [*(a1 + 1272) objectForKeyedSubscript:@"_client"];
+  *(a1 + 992) = [v26 pointerValue];
 
-  SKCStats::SKCStats(&v30);
-  v19 = *&v30.constraints.constraintCount;
-  v20 = *&v30.render.nodeTraversalCount;
-  *(a1 + 944) = *&v30.render.duration;
-  *(a1 + 960) = v20;
-  *(a1 + 976) = *&v30.render.passCount;
-  v21 = *&v30.clientUpdate.duration;
-  v22 = *&v30.physics.duration;
-  *(a1 + 880) = *&v30.update.duration;
-  *(a1 + 896) = v22;
-  *(a1 + 912) = *&v30.constraints.beginTime;
-  *(a1 + 928) = v19;
-  v23 = *&v30.baseTime;
-  *(a1 + 816) = *&v30.frameBeginTime;
-  *(a1 + 832) = v23;
-  *(a1 + 848) = *&v30.frameCount;
-  *(a1 + 864) = v21;
-  SKCStats::~SKCStats(&v30);
+  SKCStats::SKCStats(&v38);
+  v27 = *&v38.constraints.constraintCount;
+  v28 = *&v38.render.nodeTraversalCount;
+  *(a1 + 944) = *&v38.render.duration;
+  *(a1 + 960) = v28;
+  *(a1 + 976) = *&v38.render.passCount;
+  v29 = *&v38.clientUpdate.duration;
+  v30 = *&v38.physics.duration;
+  *(a1 + 880) = *&v38.update.duration;
+  *(a1 + 896) = v30;
+  *(a1 + 912) = *&v38.constraints.beginTime;
+  *(a1 + 928) = v27;
+  v31 = *&v38.baseTime;
+  *(a1 + 816) = *&v38.frameBeginTime;
+  *(a1 + 832) = v31;
+  *(a1 + 848) = *&v38.frameCount;
+  *(a1 + 864) = v29;
+  SKCStats::~SKCStats(&v38);
   if (a6)
   {
     *(a1 + 744) = a6;
   }
 
-  v24 = *(a1 + 744);
+  v32 = *(a1 + 744);
   if (a7)
   {
-    v25 = a7;
+    v33 = a7;
   }
 
   else
   {
-    v25 = *(a1 + 744);
+    v33 = *(a1 + 744);
   }
 
-  *(a1 + 800) = v25;
-  v26 = CACurrentMediaTime();
-  SKCStats::beginRender(v24, v26);
+  *(a1 + 800) = v33;
+  v34 = CACurrentMediaTime();
+  SKCStats::beginRender(v32, v34);
   dispatch_semaphore_wait(*a1, 0xFFFFFFFFFFFFFFFFLL);
   std::__tree<std::__value_type<unsigned short,double>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,double>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,double>>>::destroy(a1 + 1040, *(a1 + 1048));
   *(a1 + 1040) = a1 + 1048;
@@ -3462,14 +3462,14 @@ void SKCRenderer::render(uint64_t a1, _OWORD *a2, uint64_t *a3, uint64_t a4, voi
   *(a1 + 1112) = a1 + 1120;
   *(a1 + 1120) = 0u;
   *(a1 + 1096) = *(a1 + 1088);
-  v27 = *a3;
+  v35 = *a3;
   if (*a3)
   {
-    *(v27 + 216) = 0;
+    *(v35 + 216) = 0;
     if (a2)
     {
       {
-        v28 = a2[19];
+        v36 = a2[19];
       }
 
       else
@@ -3478,16 +3478,16 @@ void SKCRenderer::render(uint64_t a1, _OWORD *a2, uint64_t *a3, uint64_t a4, voi
           goto LABEL_14;
         }
 
-        v28 = xmmword_21C4B84C0;
+        v36 = xmmword_21C4B84C0;
       }
     }
 
     else
     {
-      v28 = xmmword_21C4BA090;
+      v36 = xmmword_21C4BA090;
     }
 
-    *(v27 + 32) = v28;
+    *(v35 + 32) = v36;
   }
 
 LABEL_14:
@@ -3583,7 +3583,7 @@ void SKCRenderer::generateShadowGeometery(SKCRenderer *this)
     do
     {
       v6 = *v2;
-      v24 = *v2;
+      v27 = *v2;
       v7 = *(this + 130);
       if (v7 != v4)
       {
@@ -3591,6 +3591,7 @@ void SKCRenderer::generateShadowGeometery(SKCRenderer *this)
         do
         {
           v9 = *(v7 + 4);
+          v26 = v9;
           if ((*(v9 + 644) & v8) != 0)
           {
             v10 = *v5;
@@ -3620,7 +3621,7 @@ LABEL_14:
               operator new();
             }
 
-            std::vector<PKCLineSeg *>::push_back[abi:ne200100](v11[5], &v24);
+            std::vector<PKCLineSeg *>::push_back[abi:ne200100](v11[5], &v27);
           }
 
           v15 = *(v7 + 1);
@@ -3673,11 +3674,12 @@ LABEL_14:
         atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v25 = v19;
-      _ZNSt3__16__treeINS_12__value_typeIP12SKCLightNodeDv4_fEENS_19__map_value_compareIS3_S5_NS_4lessIS3_EELb1EEENS_9allocatorIS5_EEE25__emplace_unique_key_argsIS3_JRKNS_21piecewise_construct_tENS_5tupleIJRKS3_EEENSH_IJEEEEEENS_4pairINS_15__tree_iteratorIS5_PNS_11__tree_nodeIS5_PvEElEEbEERKT_DpOT0_(this + 1040, &v25);
-      if (*v20 != v20[1])
+      v28 = v19;
+      *&v25 = &v28;
+      v22 = _ZNSt3__16__treeINS_12__value_typeIP12SKCLightNodeDv4_fEENS_19__map_value_compareIS3_S5_NS_4lessIS3_EELb1EEENS_9allocatorIS5_EEE25__emplace_unique_key_argsIS3_JRKNS_21piecewise_construct_tENS_5tupleIJRKS3_EEENSH_IJEEEEEENS_4pairINS_15__tree_iteratorIS5_PNS_11__tree_nodeIS5_PvEElEEbEERKT_DpOT0_(this + 1040, &v28, &std::piecewise_construct, &v25);
+      if (*v20 != *(v20 + 8))
       {
-        SKCLightNode::generateShadowGeometry(v25);
+        SKCLightNode::generateShadowGeometry(v28, v20, v22[3]);
       }
 
       if (v21)
@@ -3686,34 +3688,34 @@ LABEL_14:
         std::__shared_weak_count::__release_shared[abi:ne200100](v21);
       }
 
-      v22 = *(v18 + 1);
-      if (v22)
+      v23 = *(v18 + 1);
+      if (v23)
       {
         do
         {
-          v23 = v22;
-          v22 = *v22;
+          v24 = v23;
+          v23 = *v23;
         }
 
-        while (v22);
+        while (v23);
       }
 
       else
       {
         do
         {
-          v23 = *(v18 + 2);
-          v17 = *v23 == v18;
-          v18 = v23;
+          v24 = *(v18 + 2);
+          v17 = *v24 == v18;
+          v18 = v24;
         }
 
         while (!v17);
       }
 
-      v18 = v23;
+      v18 = v24;
     }
 
-    while (v23 != (this + 1120));
+    while (v24 != (this + 1120));
   }
 }
 
@@ -3734,7 +3736,7 @@ uint64_t jet_command_buffer::set_viewport(jet_command_buffer *this, int a2, int 
   v10 = *(this + 2);
   if (v10 >= *(this + 3))
   {
-    result = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(this + 8, &v12);
+    result = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(this + 1, &v12);
   }
 
   else
@@ -3763,7 +3765,7 @@ uint64_t jet_command_buffer::set_scissor_rect(jet_command_buffer *this, int a2, 
   v10 = *(this + 2);
   if (v10 >= *(this + 3))
   {
-    result = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(this + 8, &v12);
+    result = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(this + 1, &v12);
   }
 
   else
@@ -3831,13 +3833,13 @@ void sub_21C4A4C24(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *jet_command_buffer::add_schedule_handler(uint64_t a1, uint64_t a2)
+void *jet_command_buffer::add_schedule_handler(unint64_t *a1, uint64_t a2)
 {
   v7 = 43;
-  v4 = *(a1 + 16);
-  if (v4 >= *(a1 + 24))
+  v4 = a1[2];
+  if (v4 >= a1[3])
   {
-    v5 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(a1 + 8, &v7);
+    v5 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(a1 + 1, &v7);
   }
 
   else
@@ -3852,230 +3854,230 @@ void *jet_command_buffer::add_schedule_handler(uint64_t a1, uint64_t a2)
     *(v4 + 96) = 0;
   }
 
-  *(a1 + 16) = v5;
+  a1[2] = v5;
   return std::function<void ()(void)>::operator=((v5 - 120), a2);
 }
 
-void SKCRenderer::addDebugGroup(uint64_t a1, __n128 a2)
+void SKCRenderer::addDebugGroup(uint64_t a1, uint64_t a2, int8x16_t a3)
 {
-  v68 = a2.n128_u64[1];
-  v109 = *MEMORY[0x277D85DE8];
-  v2 = [*(a1 + 1272) valueForKey:@"highlightNodes"];
-  v3 = *(a1 + 984);
-  *(a1 + 984) = v2;
+  v69 = a3.i64[1];
+  v110 = *MEMORY[0x277D85DE8];
+  v3 = [*(a1 + 1272) valueForKey:@"highlightNodes"];
+  v4 = *(a1 + 984);
+  *(a1 + 984) = v3;
 
   if (*(a1 + 984))
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v97 = 0u;
       v98 = 0u;
-      v95 = 0u;
+      v99 = 0u;
       v96 = 0u;
+      v97 = 0u;
       obj = *(a1 + 984);
-      v71 = [obj countByEnumeratingWithState:&v95 objects:v108 count:16];
-      if (v71)
+      v72 = [obj countByEnumeratingWithState:&v96 objects:v109 count:16];
+      if (v72)
       {
-        v70 = *v96;
+        v71 = *v97;
         __asm { FMOV            V0.4S, #1.0 }
 
-        v72 = HIDWORD(_Q0);
+        v73 = HIDWORD(_Q0);
         do
         {
-          for (i = 0; i != v71; ++i)
+          for (i = 0; i != v72; ++i)
           {
-            if (*v96 != v70)
+            if (*v97 != v71)
             {
               objc_enumerationMutation(obj);
             }
 
-            v9 = *(*(&v95 + 1) + 8 * i);
-            v77 = [v9 objectForKey:@"color"];
-            *&v80 = [v9 objectForKey:@"fillColor"];
-            *(&v80 + 1) = [v9 objectForKey:@"strokeColor"];
-            v78 = [v9 objectForKey:@"accumulated_bounds_fillColor"];
-            v79 = [v9 objectForKey:@"accumulated_bounds_strokeColor"];
-            v75 = [v9 objectForKey:@"node_bounds_fillColor"];
-            v76 = [v9 objectForKey:@"node_bounds_strokeColor"];
-            v73 = [v9 objectForKey:@"nodeList"];
-            if (!v77)
-            {
-              v77 = [MEMORY[0x277D75348] cyanColor];
-            }
-
-            if (v80 == 0)
-            {
-              v10 = v77;
-              v11 = MEMORY[0x277D75348];
-              *&v80 = v10;
-              [v10 red];
-              v13 = v12;
-              [v80 green];
-              v15 = v14;
-              [v80 blue];
-              v17 = v16;
-              [v80 alpha];
-              *(&v80 + 1) = [v11 colorWithRed:v13 green:v15 blue:v17 alpha:v18 * 0.25];
-            }
-
+            v10 = *(*(&v96 + 1) + 8 * i);
+            v78 = [v10 objectForKey:@"color"];
+            *&v81 = [v10 objectForKey:@"fillColor"];
+            *(&v81 + 1) = [v10 objectForKey:@"strokeColor"];
+            v79 = [v10 objectForKey:@"accumulated_bounds_fillColor"];
+            v80 = [v10 objectForKey:@"accumulated_bounds_strokeColor"];
+            v76 = [v10 objectForKey:@"node_bounds_fillColor"];
+            v77 = [v10 objectForKey:@"node_bounds_strokeColor"];
+            v74 = [v10 objectForKey:@"nodeList"];
             if (!v78)
             {
-              v78 = v80;
+              v78 = [MEMORY[0x277D75348] cyanColor];
+            }
+
+            if (v81 == 0)
+            {
+              v11 = v78;
+              v12 = MEMORY[0x277D75348];
+              *&v81 = v11;
+              [v11 red];
+              v14 = v13;
+              [v81 green];
+              v16 = v15;
+              [v81 blue];
+              v18 = v17;
+              [v81 alpha];
+              *(&v81 + 1) = [v12 colorWithRed:v14 green:v16 blue:v18 alpha:v19 * 0.25];
             }
 
             if (!v79)
             {
-              v79 = *(&v80 + 1);
+              v79 = v81;
             }
 
-            v83 = 0u;
-            v84 = 0u;
-            if (v78)
+            if (!v80)
             {
-              [v78 componentRGBA];
-              v21.i64[0] = __PAIR64__(v20, v19);
-              v21.i64[1] = __PAIR64__(v72, v22);
-              v83 = vmulq_n_f32(v21, v23);
+              v80 = *(&v81 + 1);
             }
 
+            v84 = 0u;
+            v85 = 0u;
             if (v79)
             {
               [v79 componentRGBA];
-              v26.i64[0] = __PAIR64__(v25, v24);
-              v26.i64[1] = __PAIR64__(v72, v27);
-              v84 = vmulq_n_f32(v26, v28);
+              v22.i64[0] = __PAIR64__(v21, v20);
+              v22.i64[1] = __PAIR64__(v73, v23);
+              v84 = vmulq_n_f32(v22, v24);
             }
 
-            v81 = 0u;
-            v82 = 0u;
-            if (v75)
+            if (v80)
             {
-              [v75 componentRGBA];
-              v31.i64[0] = __PAIR64__(v30, v29);
-              v31.i64[1] = __PAIR64__(v72, v32);
-              v81 = vmulq_n_f32(v31, v33);
+              [v80 componentRGBA];
+              v27.i64[0] = __PAIR64__(v26, v25);
+              v27.i64[1] = __PAIR64__(v73, v28);
+              v85 = vmulq_n_f32(v27, v29);
             }
 
+            v82 = 0u;
+            v83 = 0u;
             if (v76)
             {
               [v76 componentRGBA];
-              v36.i64[0] = __PAIR64__(v35, v34);
-              v36.i64[1] = __PAIR64__(v72, v37);
-              v82 = vmulq_n_f32(v36, v38);
+              v32.i64[0] = __PAIR64__(v31, v30);
+              v32.i64[1] = __PAIR64__(v73, v33);
+              v82 = vmulq_n_f32(v32, v34);
             }
 
-            v39 = v73;
-            if (v73)
+            if (v77)
             {
-              v40 = [v73 count];
-              v39 = v73;
-              if (v40)
+              [v77 componentRGBA];
+              v37.i64[0] = __PAIR64__(v36, v35);
+              v37.i64[1] = __PAIR64__(v73, v38);
+              v83 = vmulq_n_f32(v37, v39);
+            }
+
+            v40 = v74;
+            if (v74)
+            {
+              v41 = [v74 count];
+              v40 = v74;
+              if (v41)
               {
-                v93 = 0u;
                 v94 = 0u;
-                v91 = 0u;
+                v95 = 0u;
                 v92 = 0u;
-                v85 = v73;
-                v41 = [v85 countByEnumeratingWithState:&v91 objects:v107 count:16];
-                if (v41)
+                v93 = 0u;
+                v86 = v74;
+                v42 = [v86 countByEnumeratingWithState:&v92 objects:v108 count:16];
+                if (v42)
                 {
-                  v42 = *v92;
-                  v43 = fmaxf(v84.n128_f32[3], v83.n128_f32[3]) > 0.0;
-                  v44 = fmaxf(v82.n128_f32[3], v81.n128_f32[3]) > 0.0;
+                  v43 = *v93;
+                  v44 = fmaxf(v85.n128_f32[3], v84.n128_f32[3]) > 0.0;
+                  v45 = fmaxf(v83.n128_f32[3], v82.n128_f32[3]) > 0.0;
                   do
                   {
-                    for (j = 0; j != v41; ++j)
+                    for (j = 0; j != v42; ++j)
                     {
-                      if (*v92 != v42)
+                      if (*v93 != v43)
                       {
-                        objc_enumerationMutation(v85);
+                        objc_enumerationMutation(v86);
                       }
 
-                      v46 = *(*(&v91 + 1) + 8 * j);
-                      v47 = [v46 scene];
-                      v48 = [v47 _backingNode];
-
-                      if (v43)
-                      {
-                        v89 = 0u;
-                        v90 = 0u;
-                        v87 = 0u;
-                        v88 = 0u;
-                        [v46 globalAccumulatedBoundingVerts];
-                        v87 = v49;
-                        v88 = v50;
-                        v89 = v51;
-                        v90 = v52;
-                        v49.n128_u32[0] = v68;
-                        SKCSceneNode::matrixForDestination(v48, v49, *(&v68 + 1));
-                        v57 = 0;
-                        v99 = v87;
-                        v100 = v88;
-                        v101 = v89;
-                        v102 = v90;
-                        do
-                        {
-                          *(&v103 + v57) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v53, COERCE_FLOAT(*(&v99 + v57))), v54, v99.n128_u64[v57 / 8], 1), v55, *(&v99 + v57), 2), v56, *(&v99 + v57), 3);
-                          v57 += 16;
-                        }
-
-                        while (v57 != 64);
-                        v87 = v103;
-                        v88 = v104;
-                        v89 = v105;
-                        v90 = v106;
-                        SKCRenderer::drawSolidColorQuads(a1, &v87, 1, 0, v83, v84);
-                      }
+                      v47 = *(*(&v92 + 1) + 8 * j);
+                      v48 = [v47 scene];
+                      v49 = [v48 _backingNode];
 
                       if (v44)
                       {
-                        v89 = 0u;
                         v90 = 0u;
-                        v87 = 0u;
+                        v91 = 0u;
                         v88 = 0u;
-                        [v46 globalBoundingVerts];
-                        v87 = v58;
-                        v88 = v59;
-                        v89 = v60;
-                        v90 = v61;
-                        v58.n128_u32[0] = v68;
-                        SKCSceneNode::matrixForDestination(v48, v58, *(&v68 + 1));
-                        v66 = 0;
-                        v99 = v87;
+                        v89 = 0u;
+                        [v47 globalAccumulatedBoundingVerts];
+                        v88 = v50;
+                        v89 = v51;
+                        v90 = v52;
+                        v91 = v53;
+                        v50.n128_u32[0] = v69;
+                        SKCSceneNode::matrixForDestination(v49, v50, *(&v69 + 1));
+                        v58 = 0;
                         v100 = v88;
                         v101 = v89;
                         v102 = v90;
+                        v103 = v91;
                         do
                         {
-                          *(&v103 + v66) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v62, COERCE_FLOAT(*(&v99 + v66))), v63, v99.n128_u64[v66 / 8], 1), v64, *(&v99 + v66), 2), v65, *(&v99 + v66), 3);
-                          v66 += 16;
+                          *(&v104 + v58) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v54, COERCE_FLOAT(*(&v100 + v58))), v55, v100.n128_u64[v58 / 8], 1), v56, *(&v100 + v58), 2), v57, *(&v100 + v58), 3);
+                          v58 += 16;
                         }
 
-                        while (v66 != 64);
-                        v87 = v103;
+                        while (v58 != 64);
                         v88 = v104;
                         v89 = v105;
                         v90 = v106;
-                        SKCRenderer::drawSolidColorQuads(a1, &v87, 1, 0, v81, v82);
+                        v91 = v107;
+                        SKCRenderer::drawSolidColorQuads(a1, &v88, 1, 0, v84, v85);
+                      }
+
+                      if (v45)
+                      {
+                        v90 = 0u;
+                        v91 = 0u;
+                        v88 = 0u;
+                        v89 = 0u;
+                        [v47 globalBoundingVerts];
+                        v88 = v59;
+                        v89 = v60;
+                        v90 = v61;
+                        v91 = v62;
+                        v59.n128_u32[0] = v69;
+                        SKCSceneNode::matrixForDestination(v49, v59, *(&v69 + 1));
+                        v67 = 0;
+                        v100 = v88;
+                        v101 = v89;
+                        v102 = v90;
+                        v103 = v91;
+                        do
+                        {
+                          *(&v104 + v67) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v63, COERCE_FLOAT(*(&v100 + v67))), v64, v100.n128_u64[v67 / 8], 1), v65, *(&v100 + v67), 2), v66, *(&v100 + v67), 3);
+                          v67 += 16;
+                        }
+
+                        while (v67 != 64);
+                        v88 = v104;
+                        v89 = v105;
+                        v90 = v106;
+                        v91 = v107;
+                        SKCRenderer::drawSolidColorQuads(a1, &v88, 1, 0, v82, v83);
                       }
                     }
 
-                    v41 = [v85 countByEnumeratingWithState:&v91 objects:v107 count:16];
+                    v42 = [v86 countByEnumeratingWithState:&v92 objects:v108 count:16];
                   }
 
-                  while (v41);
+                  while (v42);
                 }
 
-                v39 = v73;
+                v40 = v74;
               }
             }
           }
 
-          v71 = [obj countByEnumeratingWithState:&v95 objects:v108 count:16];
+          v72 = [obj countByEnumeratingWithState:&v96 objects:v109 count:16];
         }
 
-        while (v71);
+        while (v72);
       }
     }
   }
@@ -4088,9 +4090,9 @@ void SKCRenderer::addDebugGroup(uint64_t a1, __n128 a2)
 
 void sub_21C4A61C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, void *a31, uint64_t a32, void *a33, uint64_t a34, void *a35, uint64_t a36, void *a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  if (a72)
+  if (a65)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a72);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a65);
   }
 
   _Unwind_Resume(a1);
@@ -4134,9 +4136,9 @@ uint64_t SKCRenderer::resizeBatchBufferCapacity(SKCRenderer *this, unsigned int 
   return result;
 }
 
-void SKCRenderer::drawSolidColorQuads(uint64_t a1, const void *a2, uint64_t a3, int a4, __n128 a5, __n128 a6)
+void SKCRenderer::drawSolidColorQuads(uint64_t a1, const char *a2, uint64_t a3, int a4, __n128 a5, __n128 a6)
 {
-  SKCRenderer::flushCurrentBatch(a1);
+  SKCRenderer::flushCurrentBatch(a1, a2);
   if (a2)
   {
     memcpy((*(a1 + 104) + 16 * *(a1 + 80)), a2, a3 << 6);
@@ -4146,10 +4148,10 @@ void SKCRenderer::drawSolidColorQuads(uint64_t a1, const void *a2, uint64_t a3, 
   v10 = *(a1 + 40);
   v11 = *(a1 + 232);
   LODWORD(__p.__r_.__value_.__l.__data_) = 31;
-  v12 = *(v10 + 16);
-  if (v12 >= *(v10 + 24))
+  v12 = v10[2];
+  if (v12 >= v10[3])
   {
-    v13 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v10 + 8, &__p);
+    v13 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v10 + 1, &__p);
   }
 
   else
@@ -4164,7 +4166,7 @@ void SKCRenderer::drawSolidColorQuads(uint64_t a1, const void *a2, uint64_t a3, 
     *(v12 + 96) = 0;
   }
 
-  *(v10 + 16) = v13;
+  v10[2] = v13;
   *(v13 - 80) = v11;
   *(v13 - 64) = a4;
   *(v13 - 60) = xmmword_21C4B9130;
@@ -4245,13 +4247,13 @@ uint64_t SKCRenderer::buildRenderGroup(uint64_t a1, uint64_t *a2)
   v10 = *(v4 + 144);
   v11 = *(v4 + 160);
   v12 = *(v4 + 176);
-  v44 = *(v4 + 128);
-  v45 = v10;
-  v46 = v11;
-  v47 = v12;
+  v43 = *(v4 + 128);
+  v44 = v10;
+  v45 = v11;
+  v46 = v12;
   do
   {
-    *(&v48 + v3) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v6, COERCE_FLOAT(*(&v44 + v3))), v7, *&v44.f32[v3 / 4], 1), v8, *(&v44 + v3), 2), v9, *(&v44 + v3), 3);
+    *(&v47 + v3) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v6, COERCE_FLOAT(*(&v43 + v3))), v7, *&v43.f32[v3 / 4], 1), v8, *(&v43 + v3), 2), v9, *(&v43 + v3), 3);
     v3 += 16;
   }
 
@@ -4260,12 +4262,12 @@ uint64_t SKCRenderer::buildRenderGroup(uint64_t a1, uint64_t *a2)
   v14 = *(v4 + 16);
   if (v13 != v14)
   {
-    v41 = v49;
-    v42 = v48;
-    v15 = v51;
-    v40 = v50;
+    v40 = v48;
+    v41 = v47;
+    v15 = v50;
+    v39 = v49;
     v16 = MEMORY[0x277D860B8];
-    v43 = v51;
+    v42 = v50;
     do
     {
       v17 = *v13;
@@ -4274,13 +4276,12 @@ uint64_t SKCRenderer::buildRenderGroup(uint64_t a1, uint64_t *a2)
         v20 = *(a1 + 16);
         if (v18)
         {
-          v21 = v18;
           v19.n128_u32[0] = v20[4].u32[2];
           SKCSceneNode::matrixForDestination(v18, v19, v20[4].f32[3]);
-          SKCSceneNode::getCropGroup(v21);
+          SKCSceneNode::getCropGroup();
         }
 
-        v15 = v43;
+        v15 = v42;
       }
 
       else
@@ -4288,60 +4289,60 @@ uint64_t SKCRenderer::buildRenderGroup(uint64_t a1, uint64_t *a2)
         v20 = *(a1 + 16);
       }
 
-      v22 = v20[4];
+      v21 = v20[4];
       if (v20[14].i8[0] == 1)
       {
-        v23 = vnegq_f32(v22);
-        v22.f32[1] = v22.f32[1] + v22.f32[3];
-        v22.i32[3] = v23.i32[3];
+        v22 = vnegq_f32(v21);
+        v21.f32[1] = v21.f32[1] + v21.f32[3];
+        v21.i32[3] = v22.i32[3];
       }
 
-      v24 = 0;
-      v25 = *v16;
-      v26 = v16[1];
-      v35 = v16[2];
-      v36 = v16[3];
-      v27 = v35;
-      v27.i32[2] = -1174203793;
-      v28 = vadd_f32(*v22.f32, *&vextq_s8(v22, v22, 8uLL));
-      v29 = vsub_f32(v28, *v22.f32);
-      v30 = *v16;
-      v30.f32[0] = 2.0 / v29.f32[0];
-      v31 = v26;
-      v31.f32[1] = 2.0 / v29.f32[1];
-      v32 = vneg_f32(vadd_f32(*v22.f32, v28));
-      v33 = v36;
-      v33.i32[2] = 0x80000000;
-      *v34.f32 = vdiv_f32(v32, v29);
-      v34.i64[1] = vextq_s8(v33, v33, 8uLL).u64[0];
+      v23 = 0;
+      v24 = *v16;
+      v25 = v16[1];
+      v34 = v16[2];
+      v35 = v16[3];
+      v26 = v34;
+      v26.i32[2] = -1174203793;
+      v27 = vadd_f32(*v21.f32, *&vextq_s8(v21, v21, 8uLL));
+      v28 = vsub_f32(v27, *v21.f32);
+      v29 = *v16;
+      v29.f32[0] = 2.0 / v28.f32[0];
+      v30 = v25;
+      v30.f32[1] = 2.0 / v28.f32[1];
+      v31 = vneg_f32(vadd_f32(*v21.f32, v27));
+      v32 = v35;
+      v32.i32[2] = 0x80000000;
+      *v33.f32 = vdiv_f32(v31, v28);
+      v33.i64[1] = vextq_s8(v32, v32, 8uLL).u64[0];
+      v34.i32[2] = 0.5;
       v35.i32[2] = 0.5;
-      v36.i32[2] = 0.5;
+      v43 = v29;
       v44 = v30;
-      v45 = v31;
-      v46 = v27;
-      v47 = v34;
+      v45 = v26;
+      v46 = v33;
       do
       {
-        *(&v48 + v24) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v25, COERCE_FLOAT(*(&v44 + v24))), v26, *&v44.f32[v24 / 4], 1), v35, *(&v44 + v24), 2), v36, *(&v44 + v24), 3);
-        v24 += 16;
+        *(&v47 + v23) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v24, COERCE_FLOAT(*(&v43 + v23))), v25, *&v43.f32[v23 / 4], 1), v34, *(&v43 + v23), 2), v35, *(&v43 + v23), 3);
+        v23 += 16;
       }
 
-      while (v24 != 64);
-      v37 = 0;
+      while (v23 != 64);
+      v36 = 0;
+      v43 = v47;
       v44 = v48;
       v45 = v49;
       v46 = v50;
-      v47 = v51;
       do
       {
-        *(&v48 + v37) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v42, COERCE_FLOAT(*(&v44 + v37))), v41, *&v44.f32[v37 / 4], 1), v40, *(&v44 + v37), 2), v15, *(&v44 + v37), 3);
-        v37 += 16;
+        *(&v47 + v36) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v41, COERCE_FLOAT(*(&v43 + v36))), v40, *&v43.f32[v36 / 4], 1), v39, *(&v43 + v36), 2), v15, *(&v43 + v36), 3);
+        v36 += 16;
       }
 
-      while (v37 != 64);
-      SKCRenderer::doBuildRenderGroup(a1, v17, 1.0, 0.0, v48, v49, v50, v51);
+      while (v36 != 64);
+      SKCRenderer::doBuildRenderGroup(a1, v17, 1.0, 0.0, v47, v48, v49, v50);
       ++v13;
-      v15 = v43;
+      v15 = v42;
     }
 
     while (v13 != v14);
@@ -4365,11 +4366,11 @@ void SKCRenderer::expandRenderGroup(uint64_t a1, void *a2, uint64_t a3)
 {
   v4 = a2;
   v6 = *a2;
-  v63[0] = compare_node_sort;
-  std::list<SKCRenderSortInfo *>::__sort<BOOL (*)(SKCRenderSortInfo *,SKCRenderSortInfo *)>(*(v6 + 40), (v6 + 32), *(v6 + 48), v63);
-  v68 = &v68;
-  v69 = &v68;
-  v70 = 0;
+  v65[0] = compare_node_sort;
+  std::list<SKCRenderSortInfo *>::__sort<BOOL (*)(SKCRenderSortInfo *,SKCRenderSortInfo *)>(*(v6 + 40), (v6 + 32), *(v6 + 48), v65);
+  v70 = &v70;
+  v71 = &v70;
+  v72 = 0;
   v7 = *v4;
   v8 = *(*v4 + 80);
   if (v8)
@@ -4379,14 +4380,14 @@ void SKCRenderer::expandRenderGroup(uint64_t a1, void *a2, uint64_t a3)
   }
 
   v9 = *(v7 + 40);
-  v51 = v7 + 32;
+  v53 = v7 + 32;
   if (v9 != v7 + 32)
   {
-    v50 = v4;
-    v53 = 0;
+    v52 = v4;
+    v55 = 0;
     while (1)
     {
-      v52 = v9;
+      v54 = v9;
       v10 = *(v9 + 16);
       v11 = *v10;
       v12 = *(v10 + 2);
@@ -4401,36 +4402,36 @@ void SKCRenderer::expandRenderGroup(uint64_t a1, void *a2, uint64_t a3)
       if (v15)
       {
         SKCRenderer::ensureBatchBufferCapacity(a1, v15);
-        ++v53;
+        ++v55;
         if ((*(a1 + 80) + v15) > *(a1 + 84))
         {
           v16 = (*(**(*(a1 + 16) + 80) + 16))(*(*(a1 + 16) + 80));
-          std::shared_ptr<jet_framebuffer>::shared_ptr[abi:ne200100]<jet_framebuffer,0>(v63, v16);
+          std::shared_ptr<jet_framebuffer>::shared_ptr[abi:ne200100]<jet_framebuffer,0>(v65, v16);
         }
       }
 
       if ((*(*v11 + 8))(v11, a1 + 80))
       {
-        v17 = v53;
+        v18 = v55;
         if (!v15)
         {
-          v17 = v53 + 1;
+          v18 = v55 + 1;
         }
 
-        v53 = v17;
+        v55 = v18;
         if ((*(a1 + 661) & 0x10) != 0 && *(*(a1 + 744) + 164) >= 1)
         {
-          v18 = *(v11 + 8);
-          for (i = *(v11 + 80); !v18 && i != 0; i = *(i + 80))
+          v19 = *(v11 + 8);
+          for (i = *(v11 + 80); !v19 && i != 0; i = *(i + 80))
           {
-            v18 = *(i + 8);
+            v19 = *(i + 8);
           }
 
-          v21 = v18;
-          NSLog(&cfstr_SkcrendererPPa_0.isa, a1, *(*(a1 + 744) + 168), *(*(a1 + 744) + 164), v18);
+          v22 = v19;
+          NSLog(&cfstr_SkcrendererPPa_0.isa, a1, *(*(a1 + 744) + 168), *(*(a1 + 744) + 164), v19);
         }
 
-        SKCRenderer::flushCurrentBatch(a1);
+        SKCRenderer::flushCurrentBatch(a1, v17);
         (*(*v11 + 72))(v11, a1 + 80, a1 + 40);
       }
 
@@ -4452,184 +4453,184 @@ void SKCRenderer::expandRenderGroup(uint64_t a1, void *a2, uint64_t a3)
 LABEL_33:
       if ((*(a1 + 661) & 0x10) != 0)
       {
-        v26 = *(v11 + 8);
-        if (!v26)
+        v27 = *(v11 + 8);
+        if (!v27)
         {
-          v27 = *(v11 + 80);
-          if (v27)
+          v28 = *(v11 + 80);
+          if (v28)
           {
             do
             {
-              v28 = *(v27 + 8);
-              v27 = *(v27 + 80);
-              if (v28)
+              v29 = *(v28 + 8);
+              v28 = *(v28 + 80);
+              if (v29)
               {
-                v29 = 1;
+                v30 = 1;
               }
 
               else
               {
-                v29 = v27 == 0;
+                v30 = v28 == 0;
               }
             }
 
-            while (!v29);
-            v26 = v28;
+            while (!v30);
+            v27 = v29;
           }
         }
 
-        NSLog(&cfstr_SkcrendererPPa_2.isa, a1, *(*(a1 + 744) + 168), *(*(a1 + 744) + 164), v26);
+        NSLog(&cfstr_SkcrendererPPa_2.isa, a1, *(*(a1 + 744) + 168), *(*(a1 + 744) + 164), v27);
       }
 
-      v30 = (*(*v11 + 32))(v11, a1 + 80);
-      v31 = *(a1 + 680);
-      if (v31)
+      v31 = (*(*v11 + 32))(v11, a1 + 80);
+      v32 = *(a1 + 680);
+      if (v32)
       {
-        v32 = [v31 attributes];
-        v33 = [v32 count];
+        v33 = [v32 attributes];
+        v34 = [v33 count];
 
-        if (v33)
+        if (v34)
         {
-          (*(*v11 + 40))(v11, a1 + 80, *(a1 + 680), v30, *(a1 + 80));
+          (*(*v11 + 40))(v11, a1 + 80, *(a1 + 680), v31, *(a1 + 80));
         }
       }
 
-      v34 = *(a1 + 80);
-      *(a1 + 668) += v30;
-      *(a1 + 80) = v34 + v30;
+      v35 = *(a1 + 80);
+      *(a1 + 668) += v31;
+      *(a1 + 80) = v35 + v31;
       if ((*(a1 + 660) & 0x1E) != 0)
       {
-        (*(*v11 + 24))(v63, v11, a1 + 80);
-        SKCRenderer::addPerNodeDebugOverlays(a1, v11, v63, v34, v30);
+        (*(*v11 + 24))(v65, v11, a1 + 80);
+        SKCRenderer::addPerNodeDebugOverlays(a1, v11, v65, v35, v31);
       }
 
 LABEL_48:
-      (*(*v11 + 56))(v11, a1 + 80, &v68);
-      if (v70)
+      (*(*v11 + 56))(v11, a1 + 80, &v70);
+      if (v72)
       {
-        SKCRenderer::flushCurrentBatch(a1);
-        v35 = *(a1 + 176);
-        v56 = *(a1 + 128);
-        v57 = *(a1 + 112);
-        v54 = *(a1 + 160);
-        v55 = *(a1 + 144);
-        for (j = v69; j != &v68; j = j[1])
+        SKCRenderer::flushCurrentBatch(a1, v36);
+        v37 = *(a1 + 176);
+        v58 = *(a1 + 128);
+        v59 = *(a1 + 112);
+        v56 = *(a1 + 160);
+        v57 = *(a1 + 144);
+        for (j = v71; j != &v70; j = j[1])
         {
-          v38 = j[2];
-          v37 = j[3];
-          v62[0] = v38;
-          v62[1] = v37;
-          if (v37)
+          v40 = j[2];
+          v39 = j[3];
+          v64[0] = v40;
+          v64[1] = v39;
+          if (v39)
           {
-            atomic_fetch_add_explicit(&v37->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v39->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          v39 = 0;
-          *(a1 + 1160) = v38;
+          v41 = 0;
+          *(a1 + 1160) = v40;
           *(a1 + 1168) = 0;
-          v40 = *(a1 + 656);
-          *(a1 + 656) = *(v38 + 192);
-          v41 = *(v38 + 144);
-          v42 = *(v38 + 160);
-          v43 = *(v38 + 176);
-          v71[0] = *(v38 + 128);
-          v71[1] = v41;
-          v71[2] = v42;
-          v71[3] = v43;
+          v42 = *(a1 + 656);
+          *(a1 + 656) = *(v40 + 192);
+          v43 = *(v40 + 144);
+          v44 = *(v40 + 160);
+          v45 = *(v40 + 176);
+          v73[0] = *(v40 + 128);
+          v73[1] = v43;
+          v73[2] = v44;
+          v73[3] = v45;
           do
           {
-            *&v63[v39 / 8] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v57, COERCE_FLOAT(v71[v39 / 0x10])), v56, *&v71[v39 / 0x10], 1), v55, v71[v39 / 0x10], 2), v54, v71[v39 / 0x10], 3);
-            v39 += 16;
+            *&v65[v41 / 8] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v59, COERCE_FLOAT(v73[v41 / 0x10])), v58, *&v73[v41 / 0x10], 1), v57, v73[v41 / 0x10], 2), v56, v73[v41 / 0x10], 3);
+            v41 += 16;
           }
 
-          while (v39 != 64);
-          v44 = *(v38 + 8);
-          v45 = *(v38 + 16);
-          if (v44 != v45)
+          while (v41 != 64);
+          v46 = *(v40 + 8);
+          v47 = *(v40 + 16);
+          if (v46 != v47)
           {
-            v60 = v64;
-            v61 = *v63;
-            v58 = v66;
-            v59 = v65;
+            v62 = v66;
+            v63 = *v65;
+            v60 = v68;
+            v61 = v67;
             do
             {
-              SKCRenderer::doBuildRenderGroup(a1, *v44++, v35, 0.0, v61, v60, v59, v58);
+              SKCRenderer::doBuildRenderGroup(a1, *v46++, v37, 0.0, v63, v62, v61, v60);
             }
 
-            while (v44 != v45);
+            while (v46 != v47);
           }
 
-          std::list<SKCAction *>::splice(v38 + 32, *(v38 + 40), a1 + 1200, *(a1 + 1208), *(a1 + 1224));
-          SKCRenderer::expandRenderGroup(a1, v62, a3);
-          *(a1 + 656) = v40;
-          if (v37)
+          std::list<SKCAction *>::splice(v40 + 32, *(v40 + 40), a1 + 1200, *(a1 + 1208), *(a1 + 1224));
+          SKCRenderer::expandRenderGroup(a1, v64, a3);
+          *(a1 + 656) = v42;
+          if (v39)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v37);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v39);
           }
         }
 
-        *(a1 + 112) = v57;
-        *(a1 + 128) = v56;
-        *(a1 + 144) = v55;
-        *(a1 + 160) = v54;
-        *(a1 + 176) = v35;
+        *(a1 + 112) = v59;
+        *(a1 + 128) = v58;
+        *(a1 + 144) = v57;
+        *(a1 + 160) = v56;
+        *(a1 + 176) = v37;
       }
 
-      std::__list_imp<std::shared_ptr<SKCRenderSortGroup>>::clear(&v68);
-      v9 = *(v52 + 8);
-      if (v9 == v51)
+      std::__list_imp<std::shared_ptr<SKCRenderSortGroup>>::clear(&v70);
+      v9 = *(v54 + 8);
+      if (v9 == v53)
       {
-        v4 = v50;
-        v7 = *v50;
-        v46 = v53;
+        v4 = v52;
+        v7 = *v52;
+        v48 = v55;
         goto LABEL_65;
       }
     }
 
     if ((*(a1 + 661) & 0x10) != 0)
     {
-      v22 = *(v11 + 8);
-      for (k = *(v11 + 80); !v22 && k != 0; k = *(k + 80))
+      v23 = *(v11 + 8);
+      for (k = *(v11 + 80); !v23 && k != 0; k = *(k + 80))
       {
-        v22 = *(k + 8);
+        v23 = *(k + 8);
       }
 
-      v25 = v22;
-      NSLog(&cfstr_SkcrendererPPa_1.isa, a1, *(*(a1 + 744) + 168), *(*(a1 + 744) + 164), v22);
+      v26 = v23;
+      NSLog(&cfstr_SkcrendererPPa_1.isa, a1, *(*(a1 + 744) + 168), *(*(a1 + 744) + 164), v23);
     }
 
 LABEL_32:
-    SKCRenderer::flushCurrentBatch(a1);
-    (*(*v11 + 24))(v67, v11, a1 + 80);
-    SKCRenderBatch::operator=(a1 + 664, v67);
+    SKCRenderer::flushCurrentBatch(a1, v17);
+    (*(*v11 + 24))(v69, v11, a1 + 80);
+    SKCRenderBatch::operator=(a1 + 664, v69);
     *(a1 + 668) = 0;
     goto LABEL_33;
   }
 
-  v46 = 0;
+  v48 = 0;
 LABEL_65:
-  v47 = *(a1 + 744);
-  *(v47 + 152) += *(v7 + 48);
-  *(v47 + 160) += v46;
-  SKCRenderer::flushCurrentBatch(a1);
-  v48 = *v4;
-  v49 = *(*v4 + 96);
-  if (v49)
+  v49 = *(a1 + 744);
+  *(v49 + 152) += *(v7 + 48);
+  *(v49 + 160) += v48;
+  SKCRenderer::flushCurrentBatch(a1, v8);
+  v50 = *v4;
+  v51 = *(*v4 + 96);
+  if (v51)
   {
-    jet_command_buffer::add_command_buffer(*(a1 + 40), v49);
-    v48 = *v4;
+    jet_command_buffer::add_command_buffer(*(a1 + 40), v51);
+    v50 = *v4;
   }
 
-  std::list<SKCAction *>::splice(a1 + 1200, *(a1 + 1208), v48 + 32, *(v48 + 40), (v48 + 32));
+  std::list<SKCAction *>::splice(a1 + 1200, *(a1 + 1208), v50 + 32, *(v50 + 40), (v50 + 32));
   *(a1 + 1224) = *(a1 + 1208);
-  std::__list_imp<std::shared_ptr<SKCRenderSortGroup>>::clear(&v68);
+  std::__list_imp<std::shared_ptr<SKCRenderSortGroup>>::clear(&v70);
 }
 
-uint64_t SKCRenderer::getBackingContext@<X0>(uint64_t this@<X0>, void *a2@<X8>)
+uint64_t *SKCRenderer::getBackingContext@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
-  v2 = *(this + 1016);
-  *a2 = *(this + 1008);
-  a2[1] = v2;
+  v2 = this[127];
+  *a1 = this[126];
+  a1[1] = v2;
   if (v2)
   {
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
@@ -4655,7 +4656,7 @@ double SKCRenderer::doBuildRenderGroup(uint64_t a1, uint64_t a2, float a3, float
       {
         Translation = SKCNode::getTranslation(a2);
         *&v49[0] = v48;
-        *(_ZNSt3__16__treeINS_12__value_typeIP12SKCLightNodeDv4_fEENS_19__map_value_compareIS3_S5_NS_4lessIS3_EELb1EEENS_9allocatorIS5_EEE25__emplace_unique_key_argsIS3_JRKNS_21piecewise_construct_tENS_5tupleIJRKS3_EEENSH_IJEEEEEENS_4pairINS_15__tree_iteratorIS5_PNS_11__tree_nodeIS5_PvEElEEbEERKT_DpOT0_(a1 + 1040, v48) + 3) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(a5, Translation.n128_f32[0]), a6, Translation.n128_u64[0], 1), a7, Translation, 2), a8, Translation, 3);
+        *(_ZNSt3__16__treeINS_12__value_typeIP12SKCLightNodeDv4_fEENS_19__map_value_compareIS3_S5_NS_4lessIS3_EELb1EEENS_9allocatorIS5_EEE25__emplace_unique_key_argsIS3_JRKNS_21piecewise_construct_tENS_5tupleIJRKS3_EEENSH_IJEEEEEENS_4pairINS_15__tree_iteratorIS5_PNS_11__tree_nodeIS5_PvEElEEbEERKT_DpOT0_(a1 + 1040, v48, &std::piecewise_construct, v49) + 3) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(a5, Translation.n128_f32[0]), a6, Translation.n128_u64[0], 1), a7, Translation, 2), a8, Translation, 3);
       }
     }
 
@@ -4690,7 +4691,7 @@ double SKCRenderer::doBuildRenderGroup(uint64_t a1, uint64_t a2, float a3, float
     v20 = a4 + ZTranslation;
     if (*(a1 + 1001) != 1 || (*(*a2 + 128))(a2, v44, v19))
     {
-      Info = SKCRenderer::{unnamed type#1}::nextInfo(a1 + 1152);
+      Info = SKCRenderer::{unnamed type#1}::nextInfo((a1 + 1152));
       *&v48[0] = Info;
       *Info = a2;
       *(Info + 32) = v43;
@@ -4709,7 +4710,7 @@ double SKCRenderer::doBuildRenderGroup(uint64_t a1, uint64_t a2, float a3, float
           v27 = v26;
           if (v26)
           {
-            [v26 _backingTexture];
+            objc_msgSend__backingTexture(v26);
             v28 = 32 * (*&v49[0] & 0x7FFFFLL);
             if (*(&v49[0] + 1))
             {
@@ -4727,7 +4728,7 @@ double SKCRenderer::doBuildRenderGroup(uint64_t a1, uint64_t a2, float a3, float
           v30 = v29;
           if (v29)
           {
-            [v29 _backingTexture];
+            objc_msgSend__backingTexture(v29);
             v31 = (*&v49[0] & 0x7FFFFLL) << 25;
             if (*(&v49[0] + 1))
             {
@@ -4767,7 +4768,7 @@ double SKCRenderer::doBuildRenderGroup(uint64_t a1, uint64_t a2, float a3, float
       {
         do
         {
-          SKCRenderer::doBuildRenderGroup(a1, *v33++, v10, v20, v43, v41, v39, v37);
+          result = SKCRenderer::doBuildRenderGroup(a1, *v33++, v10, v20, v43, v41, v39, v37);
         }
 
         while (v33 != v34);
@@ -4795,16 +4796,16 @@ void sub_21C4A79CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t SKCRenderer::{unnamed type#1}::nextInfo(uint64_t a1)
+uint64_t SKCRenderer::{unnamed type#1}::nextInfo(void *a1)
 {
-  v1 = *(a1 + 72);
-  if (v1 == a1 + 48)
+  v1 = a1[9];
+  if (v1 == a1 + 6)
   {
     operator new();
   }
 
-  v2 = *(v1 + 16);
-  *(a1 + 72) = *(v1 + 8);
+  v2 = v1[2];
+  a1[9] = v1[1];
   return v2;
 }
 
@@ -4878,7 +4879,7 @@ void sub_21C4A7E1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id SKCRenderer::textureFromNode(SKCRenderer *this, char **a2, float a3, NSDictionary *a4)
+SKTexture *SKCRenderer::textureFromNode(SKCRenderer *this, char **a2, float a3, NSDictionary *a4)
 {
   v7 = a4;
   v8 = v7;
@@ -4997,7 +4998,7 @@ uint64_t jet_command_buffer::begin_render_pass(jet_command_buffer *this, jet_fra
   v4 = *(this + 2);
   if (v4 >= *(this + 3))
   {
-    result = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(this + 8, &v6);
+    result = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(this + 1, &v6);
   }
 
   else
@@ -5324,10 +5325,10 @@ void SKCRenderInfo::~SKCRenderInfo(id *this)
   }
 }
 
-uint64_t std::vector<jet_render_op>::emplace_back<jet_render_opcode>(uint64_t a1, int *a2)
+uint64_t std::vector<jet_render_op>::emplace_back<jet_render_opcode>(unint64_t *a1, int *a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     result = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(a1, a2);
   }
@@ -5345,7 +5346,7 @@ uint64_t std::vector<jet_render_op>::emplace_back<jet_render_opcode>(uint64_t a1
     result = v3 + 192;
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
@@ -5633,41 +5634,41 @@ uint64_t std::__shared_ptr_pointer<jet_constant *,std::shared_ptr<jet_constant>:
   }
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,SKCLightMaskUniforms>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,SKCLightMaskUniforms>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,SKCLightMaskUniforms>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<std::__value_type<unsigned int,SKCLightMaskUniforms>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,SKCLightMaskUniforms>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,SKCLightMaskUniforms>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -5707,41 +5708,41 @@ uint64_t _ZNKSt3__110__function6__funcIZN11SKCRenderer6renderEP7SKCNodeDv4_fRKNS
   }
 }
 
-void *std::__tree<std::__value_type<SKCLightNode *,std::shared_ptr<std::vector<SKCRenderSortInfo *>>>,std::__map_value_compare<SKCLightNode *,std::__value_type<SKCLightNode *,std::shared_ptr<std::vector<SKCRenderSortInfo *>>>,std::less<SKCLightNode *>,true>,std::allocator<std::__value_type<SKCLightNode *,std::shared_ptr<std::vector<SKCRenderSortInfo *>>>>>::__emplace_unique_key_args<SKCLightNode *,std::piecewise_construct_t const&,std::tuple<SKCLightNode * const&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<SKCLightNode *,std::shared_ptr<std::vector<SKCRenderSortInfo *>>>,std::__map_value_compare<SKCLightNode *,std::__value_type<SKCLightNode *,std::shared_ptr<std::vector<SKCRenderSortInfo *>>>,std::less<SKCLightNode *>,true>,std::allocator<std::__value_type<SKCLightNode *,std::shared_ptr<std::vector<SKCRenderSortInfo *>>>>>::__emplace_unique_key_args<SKCLightNode *,std::piecewise_construct_t const&,std::tuple<SKCLightNode * const&>,std::tuple<>>(uint64_t a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -5793,48 +5794,48 @@ void std::default_delete<std::vector<SKCRenderSortInfo *>>::operator()[abi:ne200
   }
 }
 
-void *_ZNSt3__16__treeINS_12__value_typeIP12SKCLightNodeDv4_fEENS_19__map_value_compareIS3_S5_NS_4lessIS3_EELb1EEENS_9allocatorIS5_EEE25__emplace_unique_key_argsIS3_JRKNS_21piecewise_construct_tENS_5tupleIJRKS3_EEENSH_IJEEEEEENS_4pairINS_15__tree_iteratorIS5_PNS_11__tree_nodeIS5_PvEElEEbEERKT_DpOT0_(uint64_t a1, unint64_t *a2)
+void *_ZNSt3__16__treeINS_12__value_typeIP12SKCLightNodeDv4_fEENS_19__map_value_compareIS3_S5_NS_4lessIS3_EELb1EEENS_9allocatorIS5_EEE25__emplace_unique_key_argsIS3_JRKNS_21piecewise_construct_tENS_5tupleIJRKS3_EEENSH_IJEEEEEENS_4pairINS_15__tree_iteratorIS5_PNS_11__tree_nodeIS5_PvEElEEbEERKT_DpOT0_(uint64_t a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t std::vector<std::shared_ptr<jet_buffer_pool>>::emplace_back<std::shared_ptr<jet_buffer_pool> const&>(uint64_t a1, uint64_t a2)
+_OWORD *std::vector<std::shared_ptr<jet_buffer_pool>>::emplace_back<std::shared_ptr<jet_buffer_pool> const&>(uint64_t a1, __int128 *a2)
 {
   v3 = *(a1 + 8);
   if (v3 >= *(a1 + 16))
@@ -5844,7 +5845,7 @@ uint64_t std::vector<std::shared_ptr<jet_buffer_pool>>::emplace_back<std::shared
 
   else
   {
-    v4 = *(a2 + 8);
+    v4 = *(a2 + 1);
     *v3 = *a2;
     v3[1] = v4;
     if (v4)
@@ -5852,14 +5853,14 @@ uint64_t std::vector<std::shared_ptr<jet_buffer_pool>>::emplace_back<std::shared
       atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
     }
 
-    result = (v3 + 2);
+    result = v3 + 2;
   }
 
   *(a1 + 8) = result;
   return result;
 }
 
-uint64_t std::vector<std::shared_ptr<jet_buffer_pool>>::__emplace_back_slow_path<std::shared_ptr<jet_buffer_pool> const&>(const void **a1, __int128 *a2)
+_OWORD *std::vector<std::shared_ptr<jet_buffer_pool>>::__emplace_back_slow_path<std::shared_ptr<jet_buffer_pool> const&>(const void **a1, __int128 *a2)
 {
   v2 = (a1[1] - *a1) >> 4;
   v3 = v2 + 1;
@@ -5898,9 +5899,9 @@ uint64_t std::vector<std::shared_ptr<jet_buffer_pool>>::__emplace_back_slow_path
     atomic_fetch_add_explicit((*(&v9 + 1) + 8), 1uLL, memory_order_relaxed);
   }
 
-  v10 = v8 + 16;
+  v10 = (v8 + 16);
   v11 = a1[1] - *a1;
-  v12 = v8 - v11;
+  v12 = (v8 - v11);
   memcpy((v8 - v11), *a1, v11);
   v13 = *a1;
   *a1 = v12;
@@ -5930,7 +5931,7 @@ uint64_t *std::list<SKCRenderSortInfo *>::__sort<BOOL (*)(SKCRenderSortInfo *,SK
         *(v10 + 8) = v9;
         *v9 = v10;
         v11 = *v4;
-        v11[1] = v8;
+        *(v11 + 8) = v8;
         *v8 = v11;
         *v4 = v8;
         v8[1] = v4;
@@ -5958,13 +5959,13 @@ uint64_t *std::list<SKCRenderSortInfo *>::__sort<BOOL (*)(SKCRenderSortInfo *,SK
         }
 
         v19 = *i;
-        v20 = *(*i + 8);
+        v20 = (*i)[1];
         v21 = *v4;
-        v21[1] = v20;
+        *(v21 + 8) = v20;
         *v20 = v21;
         v22 = *v16;
         v18 = v16[1];
-        v22[1] = v4;
+        *(v22 + 8) = v4;
         *v4 = v22;
         *v16 = v19;
         v19[1] = v16;
@@ -5990,7 +5991,7 @@ uint64_t *std::list<SKCRenderSortInfo *>::__sort<BOOL (*)(SKCRenderSortInfo *,SK
             v26 = *j;
             v27 = *(*j + 8);
             v28 = *i;
-            *(v28 + 8) = v27;
+            v28[1] = v27;
             *v27 = v28;
             if (v23 == i)
             {
@@ -5999,10 +6000,10 @@ uint64_t *std::list<SKCRenderSortInfo *>::__sort<BOOL (*)(SKCRenderSortInfo *,SK
 
             v29 = *v18;
             v25 = v18[1];
-            *(v29 + 8) = i;
+            v29[1] = i;
             *i = v29;
             *v18 = v26;
-            *(v26 + 8) = v18;
+            v26[1] = v18;
             i = j;
           }
 
@@ -6023,8 +6024,10 @@ uint64_t *std::list<SKCRenderSortInfo *>::__sort<BOOL (*)(SKCRenderSortInfo *,SK
   return v4;
 }
 
-BOOL SKGenerateNormalMapWithMultiSampling(int a1, int a2, unsigned int *a3, unint64_t a4, double a5, double a6)
+BOOL SKGenerateNormalMapWithMultiSampling(uint64_t a1, uint64_t a2, unsigned int *a3, unint64_t a4, double a5, double a6)
 {
+  v8 = a2;
+  v9 = a1;
   if (a4 >= 4)
   {
     v11 = 4;
@@ -6040,22 +6043,22 @@ BOOL SKGenerateNormalMapWithMultiSampling(int a1, int a2, unsigned int *a3, unin
     v12 = [MEMORY[0x277CBEB18] arrayWithCapacity:v11];
     if (v12)
     {
-      size = 4 * a1 * a2;
+      size = 4 * v9 * v8;
       v63 = [MEMORY[0x277CBEA90] dataWithBytes:a3 length:?];
       v54 = v12;
       v55 = a3;
-      SKGenerateNormalMap(a1, a2, a3, a5, a6);
+      SKGenerateNormalMap(v9, v8, a3, a5, a6);
       v13 = 0;
-      v67 = a2;
-      v68 = a1;
-      v62 = 4 * a1;
+      v67 = v8;
+      v68 = v9;
+      v62 = 4 * v9;
       v61 = *MEMORY[0x277CBF9C8];
       v60 = *MEMORY[0x277CBFAF0];
       v59 = *MEMORY[0x277CBFB50];
       v56 = a6 + a6;
-      v57 = a1;
-      v58 = a2;
-      v64 = a2 * a1;
+      v57 = v9;
+      v58 = v8;
+      v64 = v8 * v9;
       do
       {
         DeviceRGB = CGColorSpaceCreateDeviceRGB();
@@ -6169,9 +6172,9 @@ BOOL SKGenerateNormalMapWithMultiSampling(int a1, int a2, unsigned int *a3, unin
   }
 }
 
-BOOL SKGenerateNormalMap(int a1, int a2, unsigned int *a3, double a4, double a5)
+BOOL SKGenerateNormalMap(unsigned int a1, int a2, unsigned int *a3, double a4, double a5)
 {
-  v10 = malloc_type_malloc(4 * a2 * a1, 0x100004052888210uLL);
+  v10 = malloc_type_malloc(4 * (a2 * a1), 0x100004052888210uLL);
   v11 = v10;
   if (v10)
   {
@@ -6867,14 +6870,14 @@ void SKCEffectNode::setWarpGeometry(id *this, SKWarpGeometry *a2)
   SKCNode::setDirty(this);
 }
 
-void SKCEffectNode::setShouldRasterize(SKCNode *this, char a2)
+void SKCEffectNode::setShouldRasterize(void *this, char a2)
 {
   *(this + 705) = a2;
   *(this + 672) = 1;
   SKCNode::setDirty(this);
 }
 
-void SKCEffectNode::setEnableEffects(SKCNode *this, char a2)
+void SKCEffectNode::setEnableEffects(void *this, char a2)
 {
   *(this + 704) = a2;
   *(this + 672) = 1;
@@ -7061,7 +7064,7 @@ uint64_t SKCEffectNode::addBatchRenderElements(SKCEffectNode *this, float32x4_t 
               v45 = vmlaq_f32(v63, v62, v35);
               v46 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v37, v45.f32[0]), v38, *v45.f32, 1), v39, v45, 2), v40, v45, 3);
               v47 = vmlaq_f32(v63, v62, v36);
-              add_subdivs(&v65, &v64, *(this + 180), v42, v44, v46, vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v37, v47.f32[0]), v38, *v47.f32, 1), v39, v47, 2), v40, v47, 3), vmla_lane_f32(vmla_n_f32(0, 1065353216, COERCE_FLOAT(*&v29[-1])), 0x3F80000000000000, v29[-1], 1), vmla_lane_f32(vmla_n_f32(0, 1065353216, COERCE_FLOAT(*v29)), 0x3F80000000000000, *v29, 1), vmla_lane_f32(vmla_n_f32(0, 1065353216, COERCE_FLOAT(*v27)), 0x3F80000000000000, *v27, 1), COERCE_DOUBLE(vmla_lane_f32(vmla_n_f32(0, 1065353216, COERCE_FLOAT(*&v27[-1])), 0x3F80000000000000, v27[-1], 1)));
+              add_subdivs(&v65, &v64, *(this + 180), v42, v44, v46, vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v37, v47.f32[0]), v38, *v47.f32, 1), v39, v47, 2), v40, v47, 3), COERCE_DOUBLE(vmla_lane_f32(vmla_n_f32(0, 1065353216, COERCE_FLOAT(*&v29[-1])), 0x3F80000000000000, v29[-1], 1)), COERCE_DOUBLE(vmla_lane_f32(vmla_n_f32(0, 1065353216, COERCE_FLOAT(*v29)), 0x3F80000000000000, *v29, 1)), COERCE_DOUBLE(vmla_lane_f32(vmla_n_f32(0, 1065353216, COERCE_FLOAT(*v27)), 0x3F80000000000000, *v27, 1)), COERCE_DOUBLE(vmla_lane_f32(vmla_n_f32(0, 1065353216, COERCE_FLOAT(*&v27[-1])), 0x3F80000000000000, v27[-1], 1)));
               v23 = (v48 + v23);
               ++v27;
               ++v29;
@@ -7134,14 +7137,12 @@ uint64_t SKCEffectNode::addBatchRenderElements(SKCEffectNode *this, float32x4_t 
   }
 }
 
-uint64_t SKCEffectNode::addRenderOps(uint64_t result, uint64_t a2)
+void SKCEffectNode::addRenderOps(uint64_t a1, uint64_t a2)
 {
-  if (*(result + 704) != 1 || (*(a2 + 580) & 0x20) != 0 || *(result + 88) == *(result + 96) && *(result + 112) == *(result + 120))
+  if (*(a1 + 704) != 1 || (*(a2 + 580) & 0x20) != 0 || *(a1 + 88) == *(a1 + 96) && *(a1 + 112) == *(a1 + 120))
   {
-    return SKCNode::addRenderOps();
+    SKCNode::addRenderOps();
   }
-
-  return result;
 }
 
 char *SKCEffectNode::addRenderableChildren(char *result, uint64_t a2, uint64_t a3)
@@ -7222,7 +7223,7 @@ void SKCEffectNode::ensure_framebuffers(float32x4_t *lpsrc, uint64_t a2)
   v49 = vmaxnm_f32(*&vextq_s8(AABB, AABB, 8uLL), vdup_n_s32(0x3DCCCCCDu));
   *&AABB.u32[2] = v49;
   lpsrc[43] = AABB;
-  SKCRenderer::getBackingContext(*(a2 + 104), &v53);
+  SKCRenderer::getBackingContext(&v53, *(a2 + 104));
   v24 = (*(*v53.columns[0].i64[0] + 152))(v53.columns[0].i64[0], 0);
   v25.n128_u64[0] = vmaxnm_f32(vadd_f32(v49, v49), 0x4000000040000000);
   v26 = v24;
@@ -7237,7 +7238,7 @@ void SKCEffectNode::ensure_framebuffers(float32x4_t *lpsrc, uint64_t a2)
     lpsrc[43] = v29;
   }
 
-  v30 = &lpsrc[36].i64[1];
+  v30 = &lpsrc[36].i8[8];
   v31 = v25.n128_f32[1];
   if (v25.n128_f32[1] > v26)
   {
@@ -7328,6 +7329,14 @@ LABEL_21:
   _Block_object_dispose(&v54, 8);
 }
 
+void sub_21C4AC17C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 __n128 __Block_byref_object_copy__7(uint64_t a1, uint64_t a2)
 {
   result = *(a2 + 48);
@@ -7355,20 +7364,20 @@ void ___ZN13SKCEffectNode19ensure_framebuffersEP13SKCRenderInfoDv4_j_block_invok
   *(v8 + 96) = v11;
 }
 
-uint64_t SKCEffectNode::addRequistePasses(uint64_t a1, uint64_t a2)
+void SKCEffectNode::addRequistePasses(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
   if (*(a1 + 704) != 1 || (*(a2 + 580) & 0x20) != 0 || *(a1 + 88) == *(a1 + 96) && *(a1 + 112) == *(a1 + 120))
   {
 
-    return SKCNode::addRequistePasses();
+    SKCNode::addRequistePasses();
   }
 
   else
   {
-    v4 = *(a1 + 680);
+    v5 = *(a1 + 680);
     *(a1 + 680) = 0;
 
-    if (*(a1 + 705) != 1 || (*(a1 + 672) & 1) != 0 || (result = SKCNode::matchesAnyFlags(a1, 2, 2), (result & 1) != 0) || (*(a2 + 580) & 0x40) != 0)
+    if (*(a1 + 705) != 1 || (*(a1 + 672) & 1) != 0 || SKCNode::matchesAnyFlags(a1, 2, 2) || (*(a2 + 580) & 0x40) != 0)
     {
       *(a1 + 676) = 0;
       SKCEffectNode::ensure_framebuffers(a1, a2);
@@ -7376,7 +7385,7 @@ uint64_t SKCEffectNode::addRequistePasses(uint64_t a1, uint64_t a2)
       (*(**(a1 + 600) + 8))(*(a1 + 600));
       if (*(a1 + 560) && (*(a2 + 581) & 8) == 0)
       {
-        SKCRenderer::getBackingContext(*(a2 + 104), &v27);
+        SKCRenderer::getBackingContext(&v27, *(a2 + 104));
         v6 = (*(*v27 + 48))(v27, *(a1 + 600));
         if (v28)
         {
@@ -7436,7 +7445,7 @@ uint64_t SKCEffectNode::addRequistePasses(uint64_t a1, uint64_t a2)
         }
 
         [*(a1 + 680) extent];
-        SKCRenderer::getBackingContext(*(a2 + 104), &v26);
+        SKCRenderer::getBackingContext(&v26, *(a2 + 104));
         texture_2d = jet_context::create_texture_2d();
         std::shared_ptr<jet_texture>::shared_ptr[abi:ne200100]<jet_texture,0>(&v27, texture_2d);
       }
@@ -7446,18 +7455,16 @@ uint64_t SKCEffectNode::addRequistePasses(uint64_t a1, uint64_t a2)
 
     ++*(a1 + 676);
   }
-
-  return result;
 }
 
-uint64_t jet_command_buffer::render_CIImage_to_texture(uint64_t a1, uint64_t a2, uint64_t a3, __n128 a4)
+uint64_t jet_command_buffer::render_CIImage_to_texture(unint64_t *a1, uint64_t a2, uint64_t a3, __n128 a4)
 {
   v10 = 42;
-  v7 = *(a1 + 16);
-  if (v7 >= *(a1 + 24))
+  v7 = a1[2];
+  if (v7 >= a1[3])
   {
     v9 = a4;
-    result = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(a1 + 8, &v10);
+    result = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(a1 + 1, &v10);
     a4 = v9;
   }
 
@@ -7473,7 +7480,7 @@ uint64_t jet_command_buffer::render_CIImage_to_texture(uint64_t a1, uint64_t a2,
     *(v7 + 96) = 0;
   }
 
-  *(a1 + 16) = result;
+  a1[2] = result;
   *(result - 80) = a2;
   *(result - 72) = a3;
   *(result - 64) = a4;
@@ -7531,21 +7538,21 @@ void sub_21C4AD48C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t _sortedNodesAtPoint(uint64_t result, float32x4_t a2)
+uint64_t _sortedNodesAtPoint(uint64_t result, uint64_t *a2, int *a3, float32x4_t a4, float a5)
 {
   if ((*(result + 280) & 1) == 0)
   {
-    v2 = result;
+    v5 = result;
     if (*(result + 324) > 0.0)
     {
-      v7[0] = SKCNode::getAccumulatedBoundingBox(result);
-      v7[1] = v3;
-      v7[2] = v4;
-      v7[3] = v5;
-      result = SKCBoundingBoxIntersectsPoint(v7, *a2.i64);
+      v10[0] = SKCNode::getAccumulatedBoundingBox(result);
+      v10[1] = v6;
+      v10[2] = v7;
+      v10[3] = v8;
+      result = SKCBoundingBoxIntersectsPoint(v10, *a4.i64);
       if (result)
       {
-        SKCNode::containsPoint(v2, a2);
+        SKCNode::containsPoint(v5, a4);
         operator new();
       }
     }
@@ -7593,7 +7600,7 @@ void SKCEmitterNode::advanceSimulationTime(uint64_t a1, float a2)
 
 void _SKStartCollectingPerformanceStatisticsForPid_cold_1()
 {
-  if (__cxa_guard_acquire(&_MergedGlobals))
+  if (__cxa_guard_acquire(_MergedGlobals))
   {
     v0 = OUTLINED_FUNCTION_0();
     __cxa_guard_release(v0);
@@ -7602,7 +7609,7 @@ void _SKStartCollectingPerformanceStatisticsForPid_cold_1()
 
 void _SKStopCollectingPerformanceStatisticsForPid_cold_1()
 {
-  if (__cxa_guard_acquire(&_MergedGlobals))
+  if (__cxa_guard_acquire(_MergedGlobals))
   {
     v0 = OUTLINED_FUNCTION_0();
 
@@ -7612,11 +7619,11 @@ void _SKStopCollectingPerformanceStatisticsForPid_cold_1()
 
 void SKCParticleSystemNode::update(double a1)
 {
-  if (__cxa_guard_acquire(&qword_27CDDD2B8))
+  if (__cxa_guard_acquire(byte_27CDDD2B8))
   {
     _MergedGlobals_0 = *&a1;
 
-    __cxa_guard_release(&qword_27CDDD2B8);
+    __cxa_guard_release(byte_27CDDD2B8);
   }
 }
 

@@ -25,6 +25,8 @@
 - (id)tapToRadarMetadata;
 - (int64_t)_activityGoalTypeForCurrentPage;
 - (void)_activityLevelPresetChanged:(id)changed;
+- (void)_displayExerciseGoalViewAnimated:(BOOL)animated;
+- (void)_displayStandGoalViewAnimated:(BOOL)animated;
 - (void)_fetchActiveExerciseGoalSampleWithCompletion:(id)completion;
 - (void)_fetchActiveMoveGoalSampleWithCompletion:(id)completion;
 - (void)_fetchActiveSampleForQuantityType:(id)type completion:(id)completion;
@@ -919,49 +921,49 @@ LABEL_11:
     {
       if (!self->_defaultDailyMoveGoalQuantity)
       {
-        v7 = @"SET_MOVE_GOAL";
+        v6 = @"SET_MOVE_GOAL";
         goto LABEL_45;
       }
 
       if (self->_editTodayOnly)
       {
-        v12 = @"_FOR_TODAY";
+        v11 = @"_FOR_TODAY";
       }
 
       else
       {
-        v12 = &stru_35FD0;
+        v11 = &stru_35FD0;
       }
 
-      [NSString stringWithFormat:@"CHANGE_MOVE_GOAL%@", v12, v19];
+      [NSString stringWithFormat:@"CHANGE_MOVE_GOAL%@", v11, v18];
     }
 
     else if (_activityGoalTypeForCurrentPage == 2)
     {
       if (!self->_defaultDailyExerciseGoalQuantity)
       {
-        v7 = @"SET_EXERCISE_GOAL";
+        v6 = @"SET_EXERCISE_GOAL";
         goto LABEL_45;
       }
 
       if (self->_editTodayOnly)
       {
-        v14 = @"_FOR_TODAY";
+        v13 = @"_FOR_TODAY";
       }
 
       else
       {
-        v14 = &stru_35FD0;
+        v13 = &stru_35FD0;
       }
 
-      [NSString stringWithFormat:@"CHANGE_EXERCISE_GOAL%@", v14, v19];
+      [NSString stringWithFormat:@"CHANGE_EXERCISE_GOAL%@", v13, v18];
     }
 
     else
     {
       if (_activityGoalTypeForCurrentPage != 3)
       {
-        v7 = 0;
+        v6 = 0;
         goto LABEL_45;
       }
 
@@ -969,46 +971,46 @@ LABEL_11:
       {
         if (self->_isWheelchairUser)
         {
-          v16 = @"SET_ROLL_GOAL";
+          v15 = @"SET_ROLL_GOAL";
         }
 
         else
         {
-          v16 = @"SET_STAND_GOAL";
+          v15 = @"SET_STAND_GOAL";
         }
 
-        v15 = v16;
+        v14 = v15;
         goto LABEL_34;
       }
 
       if (self->_isWheelchairUser)
       {
-        v9 = @"ROLL";
+        v8 = @"ROLL";
       }
 
       else
       {
-        v9 = @"STAND";
+        v8 = @"STAND";
       }
 
       if (self->_editTodayOnly)
       {
-        v10 = @"_FOR_TODAY";
+        v9 = @"_FOR_TODAY";
       }
 
       else
       {
-        v10 = &stru_35FD0;
+        v9 = &stru_35FD0;
       }
 
-      [NSString stringWithFormat:@"CHANGE_%@_GOAL%@", v9, v10];
+      [NSString stringWithFormat:@"CHANGE_%@_GOAL%@", v8, v9];
     }
-    v15 = ;
+    v14 = ;
 LABEL_34:
-    v7 = v15;
+    v6 = v14;
 LABEL_45:
-    v17 = [NSBundle bundleForClass:objc_opt_class()];
-    v2 = [v17 localizedStringForKey:v7 value:&stru_35FD0 table:@"ActivitySetup"];
+    v16 = [NSBundle bundleForClass:objc_opt_class()];
+    v2 = [v16 localizedStringForKey:v6 value:&stru_35FD0 table:@"ActivitySetup"];
 
     goto LABEL_46;
   }
@@ -1016,30 +1018,30 @@ LABEL_45:
   if (_activityGoalTypeForCurrentPage < 2)
   {
     hasMoveGoalSchedule = self->_hasMoveGoalSchedule;
-    v7 = [NSBundle bundleForClass:objc_opt_class()];
+    v6 = [NSBundle bundleForClass:objc_opt_class()];
     if (hasMoveGoalSchedule)
     {
-      v8 = @"CHANGE_MOVE_GOAL_SCHEDULE";
+      v7 = @"CHANGE_MOVE_GOAL_SCHEDULE";
     }
 
     else
     {
-      v8 = @"SET_MOVE_GOAL_SCHEDULE";
+      v7 = @"SET_MOVE_GOAL_SCHEDULE";
     }
   }
 
   else if (_activityGoalTypeForCurrentPage == 2)
   {
     hasExerciseGoalSchedule = self->_hasExerciseGoalSchedule;
-    v7 = [NSBundle bundleForClass:objc_opt_class()];
+    v6 = [NSBundle bundleForClass:objc_opt_class()];
     if (hasExerciseGoalSchedule)
     {
-      v8 = @"CHANGE_EXERCISE_GOAL_SCHEDULE";
+      v7 = @"CHANGE_EXERCISE_GOAL_SCHEDULE";
     }
 
     else
     {
-      v8 = @"SET_EXERCISE_GOAL_SCHEDULE";
+      v7 = @"SET_EXERCISE_GOAL_SCHEDULE";
     }
   }
 
@@ -1050,21 +1052,20 @@ LABEL_45:
       goto LABEL_47;
     }
 
-    hasStandGoalSchedule = self->_hasStandGoalSchedule;
     isWheelchairUser = self->_isWheelchairUser;
-    v7 = [NSBundle bundleForClass:objc_opt_class()];
+    v6 = [NSBundle bundleForClass:objc_opt_class()];
     if (isWheelchairUser)
     {
-      v8 = @"CHANGE_ROLL_GOAL_SCHEDULE";
+      v7 = @"CHANGE_ROLL_GOAL_SCHEDULE";
     }
 
     else
     {
-      v8 = @"SET_STAND_GOAL_SCHEDULE";
+      v7 = @"SET_STAND_GOAL_SCHEDULE";
     }
   }
 
-  v2 = [(__CFString *)v7 localizedStringForKey:v8 value:&stru_35FD0 table:@"ActivitySetup"];
+  v2 = [(__CFString *)v6 localizedStringForKey:v7 value:&stru_35FD0 table:@"ActivitySetup"];
 LABEL_46:
 
 LABEL_47:
@@ -1443,6 +1444,144 @@ LABEL_47:
   }
 
   return healthStore;
+}
+
+- (void)_displayExerciseGoalViewAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  scrollView = self->_scrollView;
+  contentView = [(CHASActivitySetupViewController *)self contentView];
+  LOBYTE(scrollView) = [(UIScrollView *)scrollView isDescendantOfView:contentView];
+
+  if ((scrollView & 1) == 0)
+  {
+    contentView2 = [(CHASActivitySetupViewController *)self contentView];
+    [contentView2 addSubview:self->_scrollView];
+
+    contentView3 = [(CHASActivitySetupViewController *)self contentView];
+    topAnchor = [contentView3 topAnchor];
+    topAnchor2 = [(UIScrollView *)self->_scrollView topAnchor];
+    v11 = [topAnchor constraintEqualToAnchor:topAnchor2];
+    [v11 setActive:1];
+
+    contentView4 = [(CHASActivitySetupViewController *)self contentView];
+    bottomAnchor = [contentView4 bottomAnchor];
+    bottomAnchor2 = [(UIScrollView *)self->_scrollView bottomAnchor];
+    v15 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+    [v15 setActive:1];
+  }
+
+  view = [(CHASActivitySetupViewController *)self view];
+  [view bounds];
+  v18 = v17;
+
+  [(CHASActivitySetupGoalView *)self->_exerciseGoalView becomeFirstResponder];
+  v19 = self->_scrollView;
+  if (self->_isRTL)
+  {
+    [(UIScrollView *)v19 setContentOffset:animatedCopy animated:-v18, 0.0];
+    [(UIScrollView *)self->_scrollView setContentInset:0.0, v18, 0.0, v18];
+  }
+
+  else
+  {
+    [(UIScrollView *)v19 setContentOffset:animatedCopy animated:v18, 0.0];
+  }
+
+  self->_currentPageIndex = 1;
+  [(CHASActivitySetupViewController *)self updateHeaderViewContent];
+  [(CHASActivitySetupViewController *)self updateContinueButton];
+  [(CHASActivitySetupLevelView *)self->_activityLevelView setHidden:1];
+  activityMoveMode = self->_activityMoveMode;
+  v21 = +[HKUnit minuteUnit];
+  v22 = &_HKDefaultTinkerDailyBriskMinutesGoal;
+  if (activityMoveMode != 2)
+  {
+    v22 = &_HKDefaultDailyBriskMinutesGoal;
+  }
+
+  v23 = [HKQuantity quantityWithUnit:v21 doubleValue:*v22];
+
+  [(CHASActivitySetupViewController *)self _setGoalQuantity:v23 goalView:self->_exerciseGoalView];
+  objc_initWeak(&location, self);
+  v24[0] = _NSConcreteStackBlock;
+  v24[1] = 3221225472;
+  v24[2] = sub_934C;
+  v24[3] = &unk_357A0;
+  objc_copyWeak(&v25, &location);
+  [(CHASActivitySetupViewController *)self _fetchMostRecentDailyExerciseGoalSampleWithCompletion:v24];
+  objc_storeStrong(&self->_currentlyPresentedView, self->_exerciseGoalView);
+  objc_destroyWeak(&v25);
+  objc_destroyWeak(&location);
+}
+
+- (void)_displayStandGoalViewAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  scrollView = self->_scrollView;
+  contentView = [(CHASActivitySetupViewController *)self contentView];
+  LOBYTE(scrollView) = [(UIScrollView *)scrollView isDescendantOfView:contentView];
+
+  if ((scrollView & 1) == 0)
+  {
+    contentView2 = [(CHASActivitySetupViewController *)self contentView];
+    [contentView2 addSubview:self->_scrollView];
+
+    contentView3 = [(CHASActivitySetupViewController *)self contentView];
+    topAnchor = [contentView3 topAnchor];
+    topAnchor2 = [(UIScrollView *)self->_scrollView topAnchor];
+    v11 = [topAnchor constraintEqualToAnchor:topAnchor2];
+    [v11 setActive:1];
+
+    contentView4 = [(CHASActivitySetupViewController *)self contentView];
+    bottomAnchor = [contentView4 bottomAnchor];
+    bottomAnchor2 = [(UIScrollView *)self->_scrollView bottomAnchor];
+    v15 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+    [v15 setActive:1];
+  }
+
+  view = [(CHASActivitySetupViewController *)self view];
+  [view bounds];
+  v18 = v17;
+
+  [(CHASActivitySetupGoalView *)self->_standGoalView becomeFirstResponder];
+  v19 = self->_scrollView;
+  if (self->_isRTL)
+  {
+    [(UIScrollView *)v19 setContentOffset:animatedCopy animated:v18 * -2.0, 0.0];
+    [(UIScrollView *)self->_scrollView setContentInset:0.0, v18 + v18, 0.0, v18];
+  }
+
+  else
+  {
+    [(UIScrollView *)v19 setContentOffset:animatedCopy animated:v18 + v18, 0.0];
+  }
+
+  self->_currentPageIndex = 2;
+  [(CHASActivitySetupViewController *)self updateHeaderViewContent];
+  [(CHASActivitySetupViewController *)self updateContinueButton];
+  [(CHASActivitySetupLevelView *)self->_activityLevelView setHidden:1];
+  activityMoveMode = self->_activityMoveMode;
+  v21 = +[HKUnit countUnit];
+  v22 = &_HKDefaultTinkerDailyActiveHoursGoal;
+  if (activityMoveMode != 2)
+  {
+    v22 = &_HKDefaultDailyActiveHoursGoal;
+  }
+
+  v23 = [HKQuantity quantityWithUnit:v21 doubleValue:*v22];
+
+  [(CHASActivitySetupViewController *)self _setGoalQuantity:v23 goalView:self->_standGoalView];
+  objc_initWeak(&location, self);
+  v24[0] = _NSConcreteStackBlock;
+  v24[1] = 3221225472;
+  v24[2] = sub_98C0;
+  v24[3] = &unk_357A0;
+  objc_copyWeak(&v25, &location);
+  [(CHASActivitySetupViewController *)self _fetchMostRecentDailyStandGoalSampleWithCompletion:v24];
+  objc_storeStrong(&self->_currentlyPresentedView, self->_standGoalView);
+  objc_destroyWeak(&v25);
+  objc_destroyWeak(&location);
 }
 
 - (void)_saveGoalsAndDismiss
@@ -2012,8 +2151,7 @@ LABEL_9:
 - (void)_setGoalQuantityForGoalView:(id)view
 {
   viewCopy = view;
-  editTodayOnly = self->_editTodayOnly;
-  v9 = viewCopy;
+  v8 = viewCopy;
   if (self->_moveGoalView == viewCopy)
   {
     if (self->_hasMoveGoalSchedule)
@@ -2027,11 +2165,11 @@ LABEL_9:
 
     else if (!self->_editTodayOnly)
     {
-      v8 = 136;
+      v7 = 136;
       goto LABEL_22;
     }
 
-    v8 = 144;
+    v7 = 144;
   }
 
   else if (self->_exerciseGoalView == viewCopy)
@@ -2047,11 +2185,11 @@ LABEL_9:
 
     else if (!self->_editTodayOnly)
     {
-      v8 = 152;
+      v7 = 152;
       goto LABEL_22;
     }
 
-    v8 = 160;
+    v7 = 160;
   }
 
   else
@@ -2062,8 +2200,8 @@ LABEL_9:
       {
         _moveQuantityForToday = [(CHASActivitySetupViewController *)self _standQuantityForToday];
 LABEL_12:
-        v7 = _moveQuantityForToday;
-        [(CHASActivitySetupViewController *)self _setGoalQuantity:_moveQuantityForToday goalView:v9];
+        v6 = _moveQuantityForToday;
+        [(CHASActivitySetupViewController *)self _setGoalQuantity:_moveQuantityForToday goalView:v8];
 
         goto LABEL_23;
       }
@@ -2071,15 +2209,15 @@ LABEL_12:
 
     else if (!self->_editTodayOnly)
     {
-      v8 = 168;
+      v7 = 168;
       goto LABEL_22;
     }
 
-    v8 = 176;
+    v7 = 176;
   }
 
 LABEL_22:
-  [(CHASActivitySetupViewController *)self _setGoalQuantity:*&self->OBTableWelcomeController_opaque[v8] goalView:viewCopy];
+  [(CHASActivitySetupViewController *)self _setGoalQuantity:*&self->OBTableWelcomeController_opaque[v7] goalView:viewCopy];
 LABEL_23:
 }
 

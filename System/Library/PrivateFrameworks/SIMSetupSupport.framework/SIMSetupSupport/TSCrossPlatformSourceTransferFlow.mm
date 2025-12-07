@@ -34,7 +34,7 @@
 
 - (id)firstViewController
 {
-  v2 = _TSLogDomain();
+  v2 = _TSLogDomain(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     [(TSCrossPlatformSourceTransferFlow *)v2 firstViewController:v3];
@@ -66,31 +66,32 @@ void __57__TSCrossPlatformSourceTransferFlow_firstViewController___block_invoke(
   v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v5 = WeakRetained;
   if (!WeakRetained)
   {
-    v5 = _TSLogDomain();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _TSLogDomain(0);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v11 = 136315138;
       v12 = "[TSCrossPlatformSourceTransferFlow firstViewController:]_block_invoke";
-      _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "invalid TSCrossPlatformSourceTransferFlow @%s", &v11, 0xCu);
+      _os_log_impl(&dword_262AA8000, v6, OS_LOG_TYPE_DEFAULT, "invalid TSCrossPlatformSourceTransferFlow @%s", &v11, 0xCu);
     }
 
     goto LABEL_7;
   }
 
-  v5 = _TSLogDomain();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  v6 = _TSLogDomain(WeakRetained);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (v3)
   {
-    if (v6)
+    if (v7)
     {
-      v7 = [v3 localizedDescription];
+      v8 = [v3 localizedDescription];
       v11 = 138412546;
-      v12 = v7;
+      v12 = v8;
       v13 = 2080;
       v14 = "[TSCrossPlatformSourceTransferFlow firstViewController:]_block_invoke";
-      _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "unable to query start session request: %@ @%s", &v11, 0x16u);
+      _os_log_impl(&dword_262AA8000, v6, OS_LOG_TYPE_DEFAULT, "unable to query start session request: %@ @%s", &v11, 0x16u);
     }
 
 LABEL_7:
@@ -99,19 +100,18 @@ LABEL_7:
     goto LABEL_11;
   }
 
-  if (v6)
+  if (v7)
   {
     v11 = 136315138;
     v12 = "[TSCrossPlatformSourceTransferFlow firstViewController:]_block_invoke";
-    _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "Wait for launchSimSetupForTransferPlanSelection call from CT @%s", &v11, 0xCu);
+    _os_log_impl(&dword_262AA8000, v6, OS_LOG_TYPE_DEFAULT, "Wait for launchSimSetupForTransferPlanSelection call from CT @%s", &v11, 0xCu);
   }
 
-  v8 = MEMORY[0x2667315D0](*(a1 + 32));
-  v9 = WeakRetained[13];
-  WeakRetained[13] = v8;
+  v9 = MEMORY[0x2667315D0](*(a1 + 32));
+  v10 = v5[13];
+  v5[13] = v9;
 
 LABEL_11:
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)nextViewControllerFrom:(id)from
@@ -201,21 +201,22 @@ LABEL_16:
   location[3] = *MEMORY[0x277D85DE8];
   selectionCopy = selection;
   completionCopy = completion;
+  v8 = completionCopy;
   if (self->_firstViewControllerCallback)
   {
     if ([selectionCopy count])
     {
       objc_initWeak(location, self);
-      v8 = +[TSCellularPlanManagerCache sharedInstance];
+      v9 = +[TSCellularPlanManagerCache sharedInstance];
       v21[0] = MEMORY[0x277D85DD0];
       v21[1] = 3221225472;
       v21[2] = __87__TSCrossPlatformSourceTransferFlow_launchSimSetupForTransferPlanSelection_completion___block_invoke;
       v21[3] = &unk_279B45F70;
       objc_copyWeak(&v25, location);
-      v24 = completionCopy;
+      v24 = v8;
       v22 = selectionCopy;
       selfCopy = self;
-      [v8 planItemsWithCompletion:v21];
+      [v9 planItemsWithCompletion:v21];
 
       objc_destroyWeak(&v25);
       objc_destroyWeak(location);
@@ -223,45 +224,43 @@ LABEL_16:
 
     else
     {
-      v18 = _TSLogDomain();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v19 = _TSLogDomain(0);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         LODWORD(location[0]) = 136315138;
         *(location + 4) = "[TSCrossPlatformSourceTransferFlow launchSimSetupForTransferPlanSelection:completion:]";
-        _os_log_impl(&dword_262AA8000, v18, OS_LOG_TYPE_DEFAULT, "no SIMs to support transfer @%s", location, 0xCu);
+        _os_log_impl(&dword_262AA8000, v19, OS_LOG_TYPE_DEFAULT, "no SIMs to support transfer @%s", location, 0xCu);
       }
 
-      v19 = getpid();
-      (*(completionCopy + 2))(completionCopy, 1, v19);
+      v20 = getpid();
+      v8[2](v8, 1, v20);
       (*(self->_firstViewControllerCallback + 2))();
     }
   }
 
   else
   {
-    v9 = _TSLogDomain();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _TSLogDomain(completionCopy);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(TSCrossPlatformSourceTransferFlow *)v9 launchSimSetupForTransferPlanSelection:v10 completion:v11, v12, v13, v14, v15, v16];
+      [(TSCrossPlatformSourceTransferFlow *)v10 launchSimSetupForTransferPlanSelection:v11 completion:v12, v13, v14, v15, v16, v17];
     }
 
-    v17 = getpid();
-    (*(completionCopy + 2))(completionCopy, 0, v17);
+    v18 = getpid();
+    v8[2](v8, 0, v18);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __87__TSCrossPlatformSourceTransferFlow_launchSimSetupForTransferPlanSelection_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (WeakRetained)
   {
     if ([v3 indexOfObjectPassingTest:&__block_literal_global_32] == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v5 = _TSLogDomain();
+      v5 = _TSLogDomain(0x7FFFFFFFFFFFFFFFLL);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         __87__TSCrossPlatformSourceTransferFlow_launchSimSetupForTransferPlanSelection_completion___block_invoke_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
@@ -283,15 +282,14 @@ void __87__TSCrossPlatformSourceTransferFlow_launchSimSetupForTransferPlanSelect
         v26 = [v23 objectAtIndexedSubscript:1];
         v27 = [(SSCrossPlatformTransferSourceSelectionViewController *)v24 initWithPlans:v25 planItems:v26 fromDataTransferSession:*(*(a1 + 40) + 112)];
 
-        [WeakRetained setTopViewController:v27];
-        v28 = _TSLogDomain();
+        v28 = _TSLogDomain([WeakRetained setTopViewController:v27]);
         if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
-          v34 = 138412546;
-          v35 = v27;
-          v36 = 2080;
-          v37 = "[TSCrossPlatformSourceTransferFlow launchSimSetupForTransferPlanSelection:completion:]_block_invoke";
-          _os_log_impl(&dword_262AA8000, v28, OS_LOG_TYPE_DEFAULT, "first view controller : %@ @%s", &v34, 0x16u);
+          v33 = 138412546;
+          v34 = v27;
+          v35 = 2080;
+          v36 = "[TSCrossPlatformSourceTransferFlow launchSimSetupForTransferPlanSelection:completion:]_block_invoke";
+          _os_log_impl(&dword_262AA8000, v28, OS_LOG_TYPE_DEFAULT, "first view controller : %@ @%s", &v33, 0x16u);
         }
 
         (*(WeakRetained[13] + 16))();
@@ -312,27 +310,25 @@ void __87__TSCrossPlatformSourceTransferFlow_launchSimSetupForTransferPlanSelect
 
   else
   {
-    v15 = _TSLogDomain();
+    v15 = _TSLogDomain(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       __87__TSCrossPlatformSourceTransferFlow_launchSimSetupForTransferPlanSelection_completion___block_invoke_cold_2(v15, v16, v17, v18, v19, v20, v21, v22);
     }
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transferEventUpdate:(id)update
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   updateCopy = update;
-  v5 = _TSLogDomain();
+  v5 = _TSLogDomain(updateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v57 = updateCopy;
-    v58 = 2080;
-    v59 = "[TSCrossPlatformSourceTransferFlow transferEventUpdate:]";
+    v58 = updateCopy;
+    v59 = 2080;
+    v60 = "[TSCrossPlatformSourceTransferFlow transferEventUpdate:]";
     _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "transfer event : %@ @%s", buf, 0x16u);
   }
 
@@ -362,12 +358,12 @@ void __87__TSCrossPlatformSourceTransferFlow_launchSimSetupForTransferPlanSelect
     v16 = MEMORY[0x277D750F8];
     v17 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v18 = [v17 localizedStringForKey:@"ERROR_OK" value:&stru_28753DF48 table:@"Localizable"];
-    v54[0] = MEMORY[0x277D85DD0];
-    v54[1] = 3221225472;
-    v54[2] = __57__TSCrossPlatformSourceTransferFlow_transferEventUpdate___block_invoke;
-    v54[3] = &unk_279B44B38;
-    v54[4] = self;
-    v19 = [v16 actionWithTitle:v18 style:1 handler:v54];
+    v55[0] = MEMORY[0x277D85DD0];
+    v55[1] = 3221225472;
+    v55[2] = __57__TSCrossPlatformSourceTransferFlow_transferEventUpdate___block_invoke;
+    v55[3] = &unk_279B44B38;
+    v55[4] = self;
+    v19 = [v16 actionWithTitle:v18 style:1 handler:v55];
     [v15 addAction:v19];
 
     block[0] = MEMORY[0x277D85DD0];
@@ -375,7 +371,7 @@ void __87__TSCrossPlatformSourceTransferFlow_launchSimSetupForTransferPlanSelect
     block[2] = __57__TSCrossPlatformSourceTransferFlow_transferEventUpdate___block_invoke_2;
     block[3] = &unk_279B44490;
     block[4] = self;
-    v53 = v15;
+    v54 = v15;
     topViewController4 = v15;
     dispatch_async(MEMORY[0x277D85CD0], block);
 
@@ -385,94 +381,95 @@ void __87__TSCrossPlatformSourceTransferFlow_launchSimSetupForTransferPlanSelect
   v21 = [updateCopy objectForKeyedSubscript:@"kCrossTransferEndSession"];
   bOOLValue = [v21 BOOLValue];
 
-  v47 = bOOLValue;
+  v48 = bOOLValue;
   if (!bOOLValue || !self->_isFromDataTransferSession || ([(TSSIMSetupFlow *)self topViewController], v23 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v24 = objc_opt_isKindOfClass(), v23, (v24 & 1) == 0))
   {
     topViewController4 = [updateCopy objectForKeyedSubscript:@"kMultiplePlanInstallStatus"];
-    if (![topViewController4 count])
+    v27 = [topViewController4 count];
+    if (!v27)
     {
       goto LABEL_47;
     }
 
-    if (v47)
+    if (v48)
     {
-      v26 = [updateCopy objectForKey:@"kCrossTransferSecureIntentRejected"];
+      v28 = [updateCopy objectForKey:@"kCrossTransferSecureIntentRejected"];
 
-      if (v26)
+      if (v28)
       {
         self->_isSecureIntentRejected = 1;
       }
     }
 
-    v46 = updateCopy;
-    v27 = _TSLogDomain();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v47 = updateCopy;
+    v29 = _TSLogDomain(v27);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
-      v28 = @"False";
+      v30 = @"False";
       *buf = 138412802;
-      v57 = topViewController4;
-      if (v47)
+      v58 = topViewController4;
+      if (v48)
       {
-        v28 = @"True";
+        v30 = @"True";
       }
 
-      v58 = 2112;
-      v59 = v28;
-      v60 = 2080;
-      v61 = "[TSCrossPlatformSourceTransferFlow transferEventUpdate:]";
-      _os_log_impl(&dword_262AA8000, v27, OS_LOG_TYPE_DEFAULT, "handle multi plan install status : %@ isEndSession %@ @%s", buf, 0x20u);
+      v59 = 2112;
+      v60 = v30;
+      v61 = 2080;
+      v62 = "[TSCrossPlatformSourceTransferFlow transferEventUpdate:]";
+      _os_log_impl(&dword_262AA8000, v29, OS_LOG_TYPE_DEFAULT, "handle multi plan install status : %@ isEndSession %@ @%s", buf, 0x20u);
     }
 
-    v50 = 0u;
     v51 = 0u;
-    v48 = 0u;
+    v52 = 0u;
     v49 = 0u;
+    v50 = 0u;
     topViewController4 = topViewController4;
-    v29 = [topViewController4 countByEnumeratingWithState:&v48 objects:v55 count:16];
-    if (!v29)
+    v31 = [topViewController4 countByEnumeratingWithState:&v49 objects:v56 count:16];
+    if (!v31)
     {
 LABEL_46:
 
-      updateCopy = v46;
+      updateCopy = v47;
       goto LABEL_47;
     }
 
-    v30 = v29;
-    v31 = *v49;
+    v32 = v31;
+    v33 = *v50;
 LABEL_24:
-    v32 = 0;
+    v34 = 0;
     while (1)
     {
-      if (*v49 != v31)
+      if (*v50 != v33)
       {
         objc_enumerationMutation(topViewController4);
       }
 
-      v33 = *(*(&v48 + 1) + 8 * v32);
-      v34 = [v33 objectForKeyedSubscript:@"kSourceIccid"];
-      if ([v34 length] && !-[CTDisplayPlan isPlanWithIccid:](self->_selectedTransferPlan, "isPlanWithIccid:", v34))
+      v35 = *(*(&v49 + 1) + 8 * v34);
+      v36 = [v35 objectForKeyedSubscript:@"kSourceIccid"];
+      if ([v36 length] && !-[CTDisplayPlan isPlanWithIccid:](self->_selectedTransferPlan, "isPlanWithIccid:", v36))
       {
         goto LABEL_44;
       }
 
-      v35 = [v33 objectForKeyedSubscript:@"kInstallStatus"];
-      v36 = v35;
-      if (!v35)
+      v37 = [v35 objectForKeyedSubscript:@"kInstallStatus"];
+      v38 = v37;
+      if (!v37)
       {
-        topViewController3 = _TSLogDomain();
+        topViewController3 = _TSLogDomain(0);
         if (os_log_type_enabled(topViewController3, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v57 = v33;
-          v58 = 2080;
-          v59 = "[TSCrossPlatformSourceTransferFlow transferEventUpdate:]";
+          v58 = v35;
+          v59 = 2080;
+          v60 = "[TSCrossPlatformSourceTransferFlow transferEventUpdate:]";
           _os_log_impl(&dword_262AA8000, topViewController3, OS_LOG_TYPE_DEFAULT, "missing state : %@ @%s", buf, 0x16u);
         }
 
         goto LABEL_42;
       }
 
-      if ((v37 = [v35 unsignedIntegerValue], self->_selectedPlanTransferStatus = v37, isTerminalState(v37)) || (selectedPlanTransferStatus = self->_selectedPlanTransferStatus, selectedPlanTransferStatus == 4) || (selectedPlanTransferStatus == 8 ? (v39 = v47 == 0) : (v39 = 1), !v39))
+      if ((v39 = [v37 unsignedIntegerValue], self->_selectedPlanTransferStatus = v39, isTerminalState(v39)) || (selectedPlanTransferStatus = self->_selectedPlanTransferStatus, selectedPlanTransferStatus == 4) || (selectedPlanTransferStatus == 8 ? (v41 = v48 == 0) : (v41 = 1), !v41))
       {
         topViewController = [(TSSIMSetupFlow *)self topViewController];
         objc_opt_class();
@@ -486,9 +483,9 @@ LABEL_24:
 
       topViewController2 = [(TSSIMSetupFlow *)self topViewController];
       objc_opt_class();
-      v44 = objc_opt_isKindOfClass();
+      v46 = objc_opt_isKindOfClass();
 
-      if (v44)
+      if (v46)
       {
         topViewController3 = [(TSSIMSetupFlow *)self topViewController];
         [topViewController3 setTransferStarted];
@@ -499,10 +496,10 @@ LABEL_24:
 LABEL_43:
 
 LABEL_44:
-      if (v30 == ++v32)
+      if (v32 == ++v34)
       {
-        v30 = [topViewController4 countByEnumeratingWithState:&v48 objects:v55 count:16];
-        if (!v30)
+        v32 = [topViewController4 countByEnumeratingWithState:&v49 objects:v56 count:16];
+        if (!v32)
         {
           goto LABEL_46;
         }
@@ -518,19 +515,17 @@ LABEL_42:
     goto LABEL_43;
   }
 
-  v25 = _TSLogDomain();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+  v26 = _TSLogDomain(v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v57 = "[TSCrossPlatformSourceTransferFlow transferEventUpdate:]";
-    _os_log_impl(&dword_262AA8000, v25, OS_LOG_TYPE_DEFAULT, "Data+eSIM case,topview is SSCrossPlatformTransferSourceSelectionViewController and source received end session(skip or carrier lock on target case), exit flow @%s", buf, 0xCu);
+    v58 = "[TSCrossPlatformSourceTransferFlow transferEventUpdate:]";
+    _os_log_impl(&dword_262AA8000, v26, OS_LOG_TYPE_DEFAULT, "Data+eSIM case,topview is SSCrossPlatformTransferSourceSelectionViewController and source received end session(skip or carrier lock on target case), exit flow @%s", buf, 0xCu);
   }
 
   topViewController4 = [(TSSIMSetupFlow *)self topViewController];
   [(TSSIMSetupFlow *)self viewControllerDidComplete:topViewController4];
 LABEL_47:
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 void __57__TSCrossPlatformSourceTransferFlow_transferEventUpdate___block_invoke_2(uint64_t a1)
@@ -553,57 +548,57 @@ void __57__TSCrossPlatformSourceTransferFlow_transferEventUpdate___block_invoke_
 
 - (id)_prepareDisplayItems:(id)items withPlanItems:(id)planItems
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   planItemsCopy = planItems;
   if ([planItemsCopy count])
   {
     array = [MEMORY[0x277CBEB18] array];
-    v24 = planItemsCopy;
+    v23 = planItemsCopy;
     v7 = [planItemsCopy sortedArrayUsingComparator:&__block_literal_global_83_0];
     array2 = [MEMORY[0x277CBEB18] array];
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
     obj = v7;
-    v8 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+    v8 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v32;
+      v10 = *v31;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v32 != v10)
+          if (*v31 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          iccid = [*(*(&v31 + 1) + 8 * i) iccid];
+          iccid = [*(*(&v30 + 1) + 8 * i) iccid];
           v13 = [iccid copy];
 
-          v29 = 0u;
-          v30 = 0u;
-          v27 = 0u;
           v28 = 0u;
+          v29 = 0u;
+          v26 = 0u;
+          v27 = 0u;
           v14 = itemsCopy;
-          v15 = [v14 countByEnumeratingWithState:&v27 objects:v35 count:16];
+          v15 = [v14 countByEnumeratingWithState:&v26 objects:v34 count:16];
           if (v15)
           {
             v16 = v15;
-            v17 = *v28;
+            v17 = *v27;
             while (2)
             {
               for (j = 0; j != v16; ++j)
               {
-                if (*v28 != v17)
+                if (*v27 != v17)
                 {
                   objc_enumerationMutation(v14);
                 }
 
-                v19 = *(*(&v27 + 1) + 8 * j);
+                v19 = *(*(&v26 + 1) + 8 * j);
                 if ([v19 isPlanWithIccid:v13])
                 {
                   [array2 addObject:v19];
@@ -611,7 +606,7 @@ void __57__TSCrossPlatformSourceTransferFlow_transferEventUpdate___block_invoke_
                 }
               }
 
-              v16 = [v14 countByEnumeratingWithState:&v27 objects:v35 count:16];
+              v16 = [v14 countByEnumeratingWithState:&v26 objects:v34 count:16];
               if (v16)
               {
                 continue;
@@ -624,7 +619,7 @@ void __57__TSCrossPlatformSourceTransferFlow_transferEventUpdate___block_invoke_
 LABEL_17:
         }
 
-        v9 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+        v9 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
       }
 
       while (v9);
@@ -634,15 +629,13 @@ LABEL_17:
     [array addObject:array2];
     [array addObject:obj];
 
-    planItemsCopy = v24;
+    planItemsCopy = v23;
   }
 
   else
   {
     v20 = MEMORY[0x277CBEBF8];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -704,19 +697,17 @@ uint64_t __72__TSCrossPlatformSourceTransferFlow__prepareDisplayItems_withPlanIt
 
 void __57__TSCrossPlatformSourceTransferFlow__startBackgroundTask__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = _TSLogDomain();
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = _TSLogDomain(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[TSCrossPlatformSourceTransferFlow _startBackgroundTask]_block_invoke";
-    _os_log_impl(&dword_262AA8000, v2, OS_LOG_TYPE_DEFAULT, "background task expired @%s", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[TSCrossPlatformSourceTransferFlow _startBackgroundTask]_block_invoke";
+    _os_log_impl(&dword_262AA8000, v2, OS_LOG_TYPE_DEFAULT, "background task expired @%s", &v4, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _stopBackgroundTask];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopBackgroundTask
@@ -741,30 +732,30 @@ void __57__TSCrossPlatformSourceTransferFlow__startBackgroundTask__block_invoke(
 
 - (void)firstViewController
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, self, a3, "[E]unimplemented - please use async version @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSCrossPlatformSourceTransferFlow firstViewController]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, self, a3, "[E]unimplemented - please use async version @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)launchSimSetupForTransferPlanSelection:(uint64_t)a3 completion:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]invalid callback @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSCrossPlatformSourceTransferFlow launchSimSetupForTransferPlanSelection:completion:]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]invalid callback @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __87__TSCrossPlatformSourceTransferFlow_launchSimSetupForTransferPlanSelection_completion___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]don't have eligible plan to transfer @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSCrossPlatformSourceTransferFlow launchSimSetupForTransferPlanSelection:completion:]_block_invoke_2";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]don't have eligible plan to transfer @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __87__TSCrossPlatformSourceTransferFlow_launchSimSetupForTransferPlanSelection_completion___block_invoke_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]invalid self @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSCrossPlatformSourceTransferFlow launchSimSetupForTransferPlanSelection:completion:]_block_invoke";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]invalid self @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -85,9 +85,7 @@
 - (void)setSender:(id)sender
 {
   *&self->_hasSet |= 1u;
-  v4 = [sender copy];
-  sender = self->_sender;
-  self->_sender = v4;
+  self->_sender = [sender copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -95,9 +93,7 @@
 - (void)setDateReceived:(id)received
 {
   *&self->_hasSet |= 2u;
-  v4 = [received copy];
-  dateReceived = self->_dateReceived;
-  self->_dateReceived = v4;
+  self->_dateReceived = [received copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -105,9 +101,7 @@
 - (void)setAudioFileURL:(id)l
 {
   *&self->_hasSet |= 4u;
-  v4 = [l copy];
-  audioFileURL = self->_audioFileURL;
-  self->_audioFileURL = v4;
+  self->_audioFileURL = [l copy];
 
   MEMORY[0x1EEE66BB8]();
 }

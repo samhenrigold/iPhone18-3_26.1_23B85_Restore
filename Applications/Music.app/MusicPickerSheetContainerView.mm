@@ -14,7 +14,7 @@
   v5[1] = 0;
   *(&self->super.super.super.isa + OBJC_IVAR____TtC5Music29MusicPickerSheetContainerView_sourceTracks) = _swiftEmptyArrayStorage;
   v6 = OBJC_IVAR____TtC5Music29MusicPickerSheetContainerView_dataSource;
-  type metadata accessor for PickerDataSource();
+  type metadata accessor for PickerDataSource(0);
   swift_allocObject();
   *(&self->super.super.super.isa + v6) = sub_100650034();
   result = _assertionFailure(_:_:file:line:flags:)();

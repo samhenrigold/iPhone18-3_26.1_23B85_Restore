@@ -40,7 +40,7 @@
   lumaHistogramData = [object lumaHistogramData];
   if (object)
   {
-    [object time];
+    objc_msgSend_time(object);
   }
 
   else
@@ -65,8 +65,8 @@
   v5 = NSStringFromClass(v4);
   lumaHistogramData = self->_lumaHistogramData;
   lumaHistogramBinCount = [(AVMetadataVideoPreviewHistogramObject *)self lumaHistogramBinCount];
-  [(AVMetadataObject *)self time];
-  return [v3 stringWithFormat:@"<%@: %p, lumaHistogramData: %@, lumaHistogramBinCount: %lu, time=%lld>", v5, self, lumaHistogramData, lumaHistogramBinCount, v9];
+  objc_msgSend_time(self);
+  return [v3 stringWithFormat:@"<%@: %p, lumaHistogramData: %@, lumaHistogramBinCount: %lu, time=%lld>", v5, self, lumaHistogramData, lumaHistogramBinCount, v9[0]];
 }
 
 @end

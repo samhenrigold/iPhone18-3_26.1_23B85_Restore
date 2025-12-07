@@ -32,7 +32,7 @@
 
 - (BOOL)isManagedAppleID
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECEBBA70);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECEBBA70, &qword_1E1B1AE80);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v12 - v4;
   selfCopy = self;
@@ -42,7 +42,7 @@
   if ((*(v8 + 48))(v5, 1, v7) == 1)
   {
 
-    sub_1E1308058(v5, &qword_1ECEBBA70);
+    sub_1E1308058(v5, &qword_1ECEBBA70, &qword_1E1B1AE80);
     return 0;
   }
 

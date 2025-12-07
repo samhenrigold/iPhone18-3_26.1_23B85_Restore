@@ -152,12 +152,12 @@ LABEL_21:
 
 - (void)saveToArchive:(void *)archive
 {
-  v6 = *MEMORY[0x1E69E9840];
-  memset(v4, 0, sizeof(v4));
+  v7 = *MEMORY[0x1E69E9840];
+  memset(v5, 0, sizeof(v5));
   obj = [(PKVectorMultiTimestamp *)self sortedUUIDs];
-  if ([obj countByEnumeratingWithState:v4 objects:v5 count:16])
+  if ([obj countByEnumeratingWithState:v5 objects:v6 count:16])
   {
-    PB::PtrVector<legacy_drawing::VectorTimestampClock>::emplace_back<>();
+    PB::PtrVector<legacy_drawing::VectorTimestampClock>::emplace_back<>(archive + 1);
   }
 }
 

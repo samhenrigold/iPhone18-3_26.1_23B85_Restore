@@ -37,20 +37,20 @@
 
 - (FCTodayMarkAsReadTransaction)initWithArticleID:(id)d articleVersion:(int64_t)version readDate:(id)date
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dCopy = d;
   dateCopy = date;
   if (!dCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "articleID"];
+    v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "articleID"];
     *buf = 136315906;
-    v21 = "[FCTodayMarkAsReadTransaction initWithArticleID:articleVersion:readDate:]";
-    v22 = 2080;
-    v23 = "FCTodayMarkAsReadTransaction.m";
-    v24 = 1024;
-    v25 = 34;
-    v26 = 2114;
-    v27 = v17;
+    v20 = "[FCTodayMarkAsReadTransaction initWithArticleID:articleVersion:readDate:]";
+    v21 = 2080;
+    v22 = "FCTodayMarkAsReadTransaction.m";
+    v23 = 1024;
+    v24 = 34;
+    v25 = 2114;
+    v26 = v16;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (dateCopy)
@@ -66,22 +66,22 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "readDate"];
+    v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "readDate"];
     *buf = 136315906;
-    v21 = "[FCTodayMarkAsReadTransaction initWithArticleID:articleVersion:readDate:]";
-    v22 = 2080;
-    v23 = "FCTodayMarkAsReadTransaction.m";
-    v24 = 1024;
-    v25 = 35;
-    v26 = 2114;
-    v27 = v18;
+    v20 = "[FCTodayMarkAsReadTransaction initWithArticleID:articleVersion:readDate:]";
+    v21 = 2080;
+    v22 = "FCTodayMarkAsReadTransaction.m";
+    v23 = 1024;
+    v24 = 35;
+    v25 = 2114;
+    v26 = v17;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
-  v19.receiver = self;
-  v19.super_class = FCTodayMarkAsReadTransaction;
-  v10 = [(FCTodayMarkAsReadTransaction *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = FCTodayMarkAsReadTransaction;
+  v10 = [(FCTodayMarkAsReadTransaction *)&v18 init];
   if (v10)
   {
     v11 = [dCopy copy];
@@ -94,13 +94,12 @@ LABEL_6:
     v10->_readDate = v13;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (void)performWithPrivateDataContext:(id)context
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E696AF00];
   contextCopy = context;
   [v4 isMainThread];
@@ -109,9 +108,9 @@ LABEL_6:
   {
     v7 = v6;
     articleID = [(FCTodayMarkAsReadTransaction *)self articleID];
-    v14 = 138543362;
-    v15 = articleID;
-    _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "Will apply mark-as-read transaction to reading history, articleID=%{public}@", &v14, 0xCu);
+    v13 = 138543362;
+    v14 = articleID;
+    _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "Will apply mark-as-read transaction to reading history, articleID=%{public}@", &v13, 0xCu);
   }
 
   readingHistory = [contextCopy readingHistory];
@@ -120,8 +119,6 @@ LABEL_6:
   articleVersion = [(FCTodayMarkAsReadTransaction *)self articleVersion];
   readDate = [(FCTodayMarkAsReadTransaction *)self readDate];
   [readingHistory markArticleAsReadWithArticleID:articleID2 articleVersion:articleVersion readDate:readDate];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performWithTodayPrivateData:(id)data

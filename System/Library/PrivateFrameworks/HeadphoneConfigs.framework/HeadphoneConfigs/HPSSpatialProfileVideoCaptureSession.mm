@@ -24,17 +24,15 @@
 
 - (id)_frontCamera
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_captureQueue);
   v2 = MEMORY[0x277CE5AD0];
-  v9[0] = *MEMORY[0x277CE5878];
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = *MEMORY[0x277CE5878];
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   v4 = [v2 discoverySessionWithDeviceTypes:v3 mediaType:*MEMORY[0x277CE5EA8] position:2];
 
   devices = [v4 devices];
   firstObject = [devices firstObject];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }

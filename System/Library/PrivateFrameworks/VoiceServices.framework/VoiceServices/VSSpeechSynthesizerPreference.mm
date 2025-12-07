@@ -60,9 +60,8 @@ LABEL_8:
   return v9;
 }
 
-void __61__VSSpeechSynthesizerPreference_fallbackLanguageForLanguage___block_invoke(uint64_t a1)
+void __61__VSSpeechSynthesizerPreference_fallbackLanguageForLanguage___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
   v2 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v5 = [v2 pathForResource:@"tts_language_fallbacks" ofType:@"plist"];
 
@@ -88,9 +87,8 @@ void __61__VSSpeechSynthesizerPreference_fallbackLanguageForLanguage___block_inv
   return v2;
 }
 
-void __51__VSSpeechSynthesizerPreference_availableLanguages__block_invoke(uint64_t a1)
+void __51__VSSpeechSynthesizerPreference_availableLanguages__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
   v2 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v6 = [v2 pathForResource:@"tts_languages" ofType:@"plist"];
 

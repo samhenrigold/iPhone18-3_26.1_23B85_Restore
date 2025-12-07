@@ -9,7 +9,7 @@
 - (_TtC15ActivityRingsUI17SparksCelebration)init
 {
   *(&self->super.super.isa + OBJC_IVAR____TtC15ActivityRingsUI17SparksCelebration_duration) = 0x4014000000000000;
-  type metadata accessor for Sparks();
+  type metadata accessor for Sparks(0);
   *(&self->super.super.isa + OBJC_IVAR____TtC15ActivityRingsUI17SparksCelebration_scene) = sub_1CFD8865C();
   v4.receiver = self;
   v4.super_class = type metadata accessor for SparksCelebration();

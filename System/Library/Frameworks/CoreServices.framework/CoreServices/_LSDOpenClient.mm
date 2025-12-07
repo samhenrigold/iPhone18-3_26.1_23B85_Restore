@@ -1,4 +1,5 @@
 @interface _LSDOpenClient
+- (void)canOpenURL:(id)l publicSchemes:(BOOL)schemes privateSchemes:(BOOL)privateSchemes completionHandler:(id)handler;
 - (void)failedToOpenApplication:(id)application withURL:(id)l completionHandler:(id)handler;
 - (void)getURLOverrideForURL:(id)l completionHandler:(id)handler;
 - (void)getiCloudHostNamesWithCompletionHandler:(id)handler;
@@ -9,9 +10,24 @@
 - (void)openUserActivityWithUniqueIdentifier:(id)identifier activityData:(id)data activityType:(id)type bundleIdentifier:(id)bundleIdentifier options:(id)options completionHandler:(id)handler;
 - (void)performOpenOperationWithURL:(id)l fileHandle:(id)handle bundleIdentifier:(id)identifier documentIdentifier:(id)documentIdentifier isContentManaged:(BOOL)managed sourceAuditToken:(id *)token userInfo:(id)info options:(id)self0 delegate:(id)self1 completionHandler:(id)self2;
 - (void)updateRestrictionKnowledgeWithCompletionHandler:(id)handler;
+- (void)willHandleInvocation:(id)invocation isReply:(BOOL)reply;
 @end
 
 @implementation _LSDOpenClient
+
+- (void)willHandleInvocation:(id)invocation isReply:(BOOL)reply
+{
+  replyCopy = reply;
+  invocationCopy = invocation;
+  v10.receiver = self;
+  v10.super_class = _LSDOpenClient;
+  v7 = [(_LSDClient *)&v10 willHandleInvocation:invocationCopy isReply:replyCopy];
+  if (!replyCopy)
+  {
+    v9 = _LSDatabaseGetSeedingGroup(v7, v8);
+    dispatch_group_wait(v9, 0xFFFFFFFFFFFFFFFFLL);
+  }
+}
 
 - (void)invokeServiceInvocation:(id)invocation isReply:(BOOL)reply
 {
@@ -36,7 +52,7 @@
 
 - (void)performOpenOperationWithURL:(id)l fileHandle:(id)handle bundleIdentifier:(id)identifier documentIdentifier:(id)documentIdentifier isContentManaged:(BOOL)managed sourceAuditToken:(id *)token userInfo:(id)info options:(id)self0 delegate:(id)self1 completionHandler:(id)self2
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   lCopy = l;
   handleCopy = handle;
   identifierCopy = identifier;
@@ -45,36 +61,36 @@
   optionsCopy = options;
   delegateCopy = delegate;
   handlerCopy = handler;
-  _LSAssertRunningInServer("[_LSDOpenClient performOpenOperationWithURL:fileHandle:bundleIdentifier:documentIdentifier:isContentManaged:sourceAuditToken:userInfo:options:delegate:completionHandler:]");
-  v22 = _LSOpenLog();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  _LSAssertRunningInServer("[_LSDOpenClient performOpenOperationWithURL:fileHandle:bundleIdentifier:documentIdentifier:isContentManaged:sourceAuditToken:userInfo:options:delegate:completionHandler:]", v22);
+  v24 = _LSOpenLog(v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     xPCConnection = [(_LSDClient *)self XPCConnection];
     processIdentifier = [xPCConnection processIdentifier];
     if (token)
     {
-      v25 = *&token->var0[4];
+      v27 = *&token->var0[4];
       *atoken.val = *token->var0;
-      *&atoken.val[4] = v25;
-      v26 = audit_token_to_pid(&atoken);
+      *&atoken.val[4] = v27;
+      v28 = audit_token_to_pid(&atoken);
     }
 
     else
     {
-      v26 = 0;
+      v28 = 0;
     }
 
     *buf = 134219010;
-    v44 = processIdentifier;
-    v45 = 2112;
-    v46 = lCopy;
-    v47 = 2112;
-    v48 = identifierCopy;
-    v49 = 2112;
-    v50 = documentIdentifierCopy;
-    v51 = 2048;
-    v52 = v26;
-    _os_log_impl(&dword_18162D000, v22, OS_LOG_TYPE_DEFAULT, "pid %ld issuing open of %@ by %@, doc %@ on behalf of %ld", buf, 0x34u);
+    v45 = processIdentifier;
+    v46 = 2112;
+    v47 = lCopy;
+    v48 = 2112;
+    v49 = identifierCopy;
+    v50 = 2112;
+    v51 = documentIdentifierCopy;
+    v52 = 2048;
+    v53 = v28;
+    _os_log_impl(&dword_18162D000, v24, OS_LOG_TYPE_DEFAULT, "pid %ld issuing open of %@ by %@, doc %@ on behalf of %ld", buf, 0x34u);
   }
 
   if (!lCopy)
@@ -83,23 +99,23 @@
   }
 
   scheme = [lCopy scheme];
-  v28 = scheme != 0;
+  v30 = scheme != 0;
 
-  v29 = v28 ^ 1;
+  v31 = v30 ^ 1;
   if (!infoCopy)
   {
-    v29 = 1;
+    v31 = 1;
   }
 
-  if ((v29 & 1) == 0)
+  if ((v31 & 1) == 0)
   {
-    v30 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-    v28 = _LSIsDictionaryWithKeysAndValuesOfClasses(infoCopy, v30, 0);
+    v32 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
+    v30 = _LSIsDictionaryWithKeysAndValuesOfClasses(infoCopy, v32, 0);
   }
 
-  if (!optionsCopy || !v28)
+  if (!optionsCopy || !v30)
   {
-    if (!v28)
+    if (!v30)
     {
       goto LABEL_14;
     }
@@ -110,95 +126,92 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  v31 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  v32 = _LSIsDictionaryWithKeysAndValuesOfClasses(optionsCopy, v31, 0);
+  v33 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
+  v34 = _LSIsDictionaryWithKeysAndValuesOfClasses(optionsCopy, v33, 0);
 
-  if (v32)
+  if (v34)
   {
     goto LABEL_16;
   }
 
 LABEL_14:
-  v41 = *MEMORY[0x1E696A278];
-  v42 = @"invalid input parameters";
-  xPCConnection2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
-  v34 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, xPCConnection2, "[_LSDOpenClient performOpenOperationWithURL:fileHandle:bundleIdentifier:documentIdentifier:isContentManaged:sourceAuditToken:userInfo:options:delegate:completionHandler:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Server/LSDOpenService.mm", 213);
-  (*(handlerCopy + 2))(handlerCopy, 0, v34);
+  v42 = *MEMORY[0x1E696A278];
+  v43 = @"invalid input parameters";
+  xPCConnection2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+  v36 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, xPCConnection2, "[_LSDOpenClient performOpenOperationWithURL:fileHandle:bundleIdentifier:documentIdentifier:isContentManaged:sourceAuditToken:userInfo:options:delegate:completionHandler:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Server/LSDOpenService.mm", 213);
+  (*(handlerCopy + 2))(handlerCopy, 0, v36);
 
 LABEL_17:
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (void)openApplicationWithIdentifier:(id)identifier options:(id)options useClientProcessHandle:(BOOL)handle completionHandler:(id)handler
 {
   handleCopy = handle;
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   optionsCopy = options;
   handlerCopy = handler;
-  _LSAssertRunningInServer("[_LSDOpenClient openApplicationWithIdentifier:options:useClientProcessHandle:completionHandler:]");
-  v13 = _LSOpenLog();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  _LSAssertRunningInServer("[_LSDOpenClient openApplicationWithIdentifier:options:useClientProcessHandle:completionHandler:]", v13);
+  v15 = _LSOpenLog(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     xPCConnection = [(_LSDClient *)self XPCConnection];
     *buf = 134218242;
     processIdentifier = [xPCConnection processIdentifier];
-    v25 = 2112;
-    v26 = identifierCopy;
-    _os_log_impl(&dword_18162D000, v13, OS_LOG_TYPE_DEFAULT, "pid %ld requests to open application with identifier %@", buf, 0x16u);
+    v26 = 2112;
+    v27 = identifierCopy;
+    _os_log_impl(&dword_18162D000, v15, OS_LOG_TYPE_DEFAULT, "pid %ld requests to open application with identifier %@", buf, 0x16u);
   }
 
-  v15 = _os_feature_enabled_impl();
-  v16 = v15 | handleCopy;
-  if (v15 && !handleCopy)
+  v17 = _os_feature_enabled_impl();
+  v18 = v17 | handleCopy;
+  if (v17 && !handleCopy)
   {
-    v17 = _LSOpenLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    v19 = _LSOpenLog(v17);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_18162D000, v17, OS_LOG_TYPE_INFO, "using client process handle even though the client asked not to", buf, 2u);
+      _os_log_impl(&dword_18162D000, v19, OS_LOG_TYPE_INFO, "using client process handle even though the client asked not to", buf, 2u);
     }
 
-    v16 = 1;
+    v18 = 1;
   }
 
   if (identifierCopy)
   {
     xPCConnection2 = [(_LSDClient *)self XPCConnection];
-    _LSServer_OpenApplication(identifierCopy, optionsCopy, xPCConnection2, v16, handlerCopy);
+    _LSServer_OpenApplication(identifierCopy, optionsCopy, xPCConnection2, v18, handlerCopy);
   }
 
   else
   {
-    v21 = *MEMORY[0x1E696A278];
-    v22 = @"identifier";
-    xPCConnection2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
-    v19 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, xPCConnection2, "[_LSDOpenClient openApplicationWithIdentifier:options:useClientProcessHandle:completionHandler:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Server/LSDOpenService.mm", 237);
-    (*(handlerCopy + 2))(handlerCopy, 0, v19);
+    v22 = *MEMORY[0x1E696A278];
+    v23 = @"identifier";
+    xPCConnection2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+    v21 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, xPCConnection2, "[_LSDOpenClient openApplicationWithIdentifier:options:useClientProcessHandle:completionHandler:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Server/LSDOpenService.mm", 237);
+    (*(handlerCopy + 2))(handlerCopy, 0, v21);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)openURL:(id)l fileHandle:(id)handle options:(id)options completionHandler:(id)handler
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   lCopy = l;
   handleCopy = handle;
   optionsCopy = options;
   handlerCopy = handler;
-  _LSAssertRunningInServer("[_LSDOpenClient openURL:fileHandle:options:completionHandler:]");
-  v14 = _LSOpenLog();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  _LSAssertRunningInServer("[_LSDOpenClient openURL:fileHandle:options:completionHandler:]", v14);
+  v16 = _LSOpenLog(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     xPCConnection = [(_LSDClient *)self XPCConnection];
     processIdentifier = [xPCConnection processIdentifier];
     scheme = [lCopy scheme];
     *buf = 134349315;
-    v38 = processIdentifier;
-    v39 = 2113;
-    v40 = scheme;
-    _os_log_impl(&dword_18162D000, v14, OS_LOG_TYPE_DEFAULT, "pid %{public}ld requests to open URL with scheme %{private}@", buf, 0x16u);
+    v42 = processIdentifier;
+    v43 = 2113;
+    v44 = scheme;
+    _os_log_impl(&dword_18162D000, v16, OS_LOG_TYPE_DEFAULT, "pid %{public}ld requests to open URL with scheme %{private}@", buf, 0x16u);
   }
 
   if (!lCopy)
@@ -210,15 +223,15 @@ LABEL_17:
 
   if (optionsCopy)
   {
-    v19 = scheme2 == 0;
+    v22 = scheme2 == 0;
   }
 
   else
   {
-    v19 = 1;
+    v22 = 1;
   }
 
-  if (v19)
+  if (v22)
   {
     if (!scheme2)
     {
@@ -228,23 +241,23 @@ LABEL_17:
 
   else
   {
-    v20 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-    v21 = _LSIsDictionaryWithKeysAndValuesOfClasses(optionsCopy, v20, 0);
+    v23 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
+    v24 = _LSIsDictionaryWithKeysAndValuesOfClasses(optionsCopy, v23, 0);
 
-    if ((v21 & 1) == 0)
+    if ((v24 & 1) == 0)
     {
 LABEL_9:
-      v22 = _LSOpenLog();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v25 = _LSOpenLog(v20);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v38 = lCopy;
-        _os_log_impl(&dword_18162D000, v22, OS_LOG_TYPE_DEFAULT, "ERROR: paramError, cannot open URL %@", buf, 0xCu);
+        v42 = lCopy;
+        _os_log_impl(&dword_18162D000, v25, OS_LOG_TYPE_DEFAULT, "ERROR: paramError, cannot open URL %@", buf, 0xCu);
       }
 
-      v35 = *MEMORY[0x1E696A278];
-      v36 = @"invalid input parameters";
-      xPCConnection3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+      v39 = *MEMORY[0x1E696A278];
+      v40 = @"invalid input parameters";
+      xPCConnection3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
       xPCConnection2 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, xPCConnection3, "[_LSDOpenClient openURL:fileHandle:options:completionHandler:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Server/LSDOpenService.mm", 288);
       handlerCopy[2](handlerCopy, 0, xPCConnection2);
 LABEL_12:
@@ -253,33 +266,34 @@ LABEL_12:
     }
   }
 
-  if (![lCopy isFileURL])
+  isFileURL = [lCopy isFileURL];
+  if (!isFileURL)
   {
-    v27 = objc_opt_class();
-    v28 = [optionsCopy objectForKey:@"LSOpenSensitiveURLOption"];
-    v29 = v28;
-    if (v27 && v28 && (objc_opt_isKindOfClass() & 1) == 0)
+    v30 = objc_opt_class();
+    v31 = [optionsCopy objectForKey:@"LSOpenSensitiveURLOption"];
+    v32 = v31;
+    if (v30 && v31 && (objc_opt_isKindOfClass() & 1) == 0)
     {
 
-      v29 = 0;
+      v32 = 0;
     }
 
-    bOOLValue = [v29 BOOLValue];
+    bOOLValue = [v32 BOOLValue];
 
-    v31 = +[LSApplicationWorkspace defaultWorkspace];
-    LOBYTE(bOOLValue) = [v31 isApplicationAvailableToOpenURL:lCopy includePrivateURLSchemes:bOOLValue error:0];
+    v34 = +[LSApplicationWorkspace defaultWorkspace];
+    LOBYTE(bOOLValue) = [v34 isApplicationAvailableToOpenURL:lCopy includePrivateURLSchemes:bOOLValue error:0];
 
     scheme3 = [lCopy scheme];
     xPCConnection3 = scheme3;
-    if ((bOOLValue & 1) == 0 && [scheme3 caseInsensitiveCompare:@"search"] && objc_msgSend(xPCConnection3, "caseInsensitiveCompare:", @"com-apple-audiounit"))
+    if ((bOOLValue & 1) == 0 && [scheme3 caseInsensitiveCompare:@"search"] && (v36 = objc_msgSend(xPCConnection3, "caseInsensitiveCompare:", @"com-apple-audiounit")) != 0)
     {
-      v33 = _LSOpenLog();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+      v37 = _LSOpenLog(v36);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
       {
         scheme4 = [lCopy scheme];
         *buf = 138412290;
-        v38 = scheme4;
-        _os_log_impl(&dword_18162D000, v33, OS_LOG_TYPE_DEFAULT, "ERROR: There is no registered handler for URL scheme %@", buf, 0xCu);
+        v42 = scheme4;
+        _os_log_impl(&dword_18162D000, v37, OS_LOG_TYPE_DEFAULT, "ERROR: There is no registered handler for URL scheme %@", buf, 0xCu);
       }
 
       xPCConnection2 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -10814, 0, "[_LSDOpenClient openURL:fileHandle:options:completionHandler:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Server/LSDOpenService.mm", 282);
@@ -295,58 +309,56 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  v26 = _LSOpenLog();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+  v29 = _LSOpenLog(isFileURL);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_18162D000, v26, OS_LOG_TYPE_DEFAULT, "opening file: URL via simple openURL: path.", buf, 2u);
+    _os_log_impl(&dword_18162D000, v29, OS_LOG_TYPE_DEFAULT, "opening file: URL via simple openURL: path.", buf, 2u);
   }
 
   xPCConnection3 = [(_LSDClient *)self XPCConnection];
   _LSServer_PerformOpenOperation(lCopy, handleCopy, 0, 0, 0, 0, 0, optionsCopy, 0, xPCConnection3, handlerCopy);
 LABEL_13:
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)openUserActivityWithUniqueIdentifier:(id)identifier activityData:(id)data activityType:(id)type bundleIdentifier:(id)bundleIdentifier options:(id)options completionHandler:(id)handler
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   dataCopy = data;
   typeCopy = type;
   bundleIdentifierCopy = bundleIdentifier;
   optionsCopy = options;
   handlerCopy = handler;
-  _LSAssertRunningInServer("[_LSDOpenClient openUserActivityWithUniqueIdentifier:activityData:activityType:bundleIdentifier:options:completionHandler:]");
-  v19 = _LSOpenLog();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  _LSAssertRunningInServer("[_LSDOpenClient openUserActivityWithUniqueIdentifier:activityData:activityType:bundleIdentifier:options:completionHandler:]", v19);
+  v21 = _LSOpenLog(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     xPCConnection = [(_LSDClient *)self XPCConnection];
     *buf = 134218498;
     processIdentifier = [xPCConnection processIdentifier];
-    v40 = 2112;
-    v41 = identifierCopy;
-    v42 = 2112;
-    v43 = typeCopy;
-    _os_log_impl(&dword_18162D000, v19, OS_LOG_TYPE_DEFAULT, "pid %ld opening user activity %@ of type %@", buf, 0x20u);
+    v41 = 2112;
+    v42 = identifierCopy;
+    v43 = 2112;
+    v44 = typeCopy;
+    _os_log_impl(&dword_18162D000, v21, OS_LOG_TYPE_DEFAULT, "pid %ld opening user activity %@ of type %@", buf, 0x20u);
   }
 
   if (identifierCopy | dataCopy)
   {
-    v21 = typeCopy == 0;
+    v23 = typeCopy == 0;
   }
 
   else
   {
-    v21 = 1;
+    v23 = 1;
   }
 
-  v22 = v21 || bundleIdentifierCopy == 0;
-  v23 = !v22;
-  if (v22 || !optionsCopy)
+  v24 = v23 || bundleIdentifierCopy == 0;
+  v25 = !v24;
+  if (v24 || !optionsCopy)
   {
-    if (!v23)
+    if (!v25)
     {
       goto LABEL_15;
     }
@@ -354,17 +366,17 @@ LABEL_13:
 
   else
   {
-    v24 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-    v25 = _LSIsDictionaryWithKeysAndValuesOfClasses(optionsCopy, v24, 0);
+    v26 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
+    v27 = _LSIsDictionaryWithKeysAndValuesOfClasses(optionsCopy, v26, 0);
 
-    if ((v25 & 1) == 0)
+    if ((v27 & 1) == 0)
     {
 LABEL_15:
-      v34 = *MEMORY[0x1E696A278];
-      v35 = @"invalid input parameters";
-      xPCConnection3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
-      v27 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, xPCConnection3, "[_LSDOpenClient openUserActivityWithUniqueIdentifier:activityData:activityType:bundleIdentifier:options:completionHandler:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Server/LSDOpenService.mm", 333);
-      handlerCopy[2](handlerCopy, 0, v27);
+      v35 = *MEMORY[0x1E696A278];
+      v36 = @"invalid input parameters";
+      xPCConnection3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+      v29 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, xPCConnection3, "[_LSDOpenClient openUserActivityWithUniqueIdentifier:activityData:activityType:bundleIdentifier:options:completionHandler:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Server/LSDOpenService.mm", 333);
+      handlerCopy[2](handlerCopy, 0, v29);
 LABEL_23:
 
       goto LABEL_24;
@@ -373,33 +385,60 @@ LABEL_23:
 
   xPCConnection2 = [(_LSDClient *)self XPCConnection];
   _xpcConnection = [xPCConnection2 _xpcConnection];
-  v30 = _LSCheckEntitlementForXPCConnection(_xpcConnection, @"com.apple.private.coreservices.canopenactivity") == 0;
+  v32 = _LSCheckEntitlementForXPCConnection(_xpcConnection, @"com.apple.private.coreservices.canopenactivity") == 0;
 
-  if (v30)
+  if (v32)
   {
     if (@"com.apple.private.coreservices.canopenactivity")
     {
-      v31 = @"com.apple.private.coreservices.canopenactivity";
+      v33 = @"com.apple.private.coreservices.canopenactivity";
     }
 
     else
     {
-      v31 = @"unknown entitlement";
+      v33 = @"unknown entitlement";
     }
 
-    v36 = *MEMORY[0x1E696A278];
-    v37 = v31;
-    xPCConnection3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
-    v27 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -54, xPCConnection3, "[_LSDOpenClient openUserActivityWithUniqueIdentifier:activityData:activityType:bundleIdentifier:options:completionHandler:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Server/LSDOpenService.mm", 329);
-    handlerCopy[2](handlerCopy, 0, v27);
+    v37 = *MEMORY[0x1E696A278];
+    v38 = v33;
+    xPCConnection3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+    v29 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -54, xPCConnection3, "[_LSDOpenClient openUserActivityWithUniqueIdentifier:activityData:activityType:bundleIdentifier:options:completionHandler:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Server/LSDOpenService.mm", 329);
+    handlerCopy[2](handlerCopy, 0, v29);
     goto LABEL_23;
   }
 
   xPCConnection3 = [(_LSDClient *)self XPCConnection];
   _LSServer_OpenUserActivity(identifierCopy, dataCopy, typeCopy, 0, bundleIdentifierCopy, 0, 0, optionsCopy, xPCConnection3, handlerCopy);
 LABEL_24:
+}
 
-  v32 = *MEMORY[0x1E69E9840];
+- (void)canOpenURL:(id)l publicSchemes:(BOOL)schemes privateSchemes:(BOOL)privateSchemes completionHandler:(id)handler
+{
+  privateSchemesCopy = privateSchemes;
+  schemesCopy = schemes;
+  v20[1] = *MEMORY[0x1E69E9840];
+  lCopy = l;
+  handlerCopy = handler;
+  _LSAssertRunningInServer("[_LSDOpenClient canOpenURL:publicSchemes:privateSchemes:completionHandler:]", v12);
+  if (lCopy && ([lCopy scheme], v13 = objc_claimAutoreleasedReturnValue(), v13, v13))
+  {
+    v14 = +[_LSCanOpenURLManager sharedManager];
+    xPCConnection = [(_LSDClient *)self XPCConnection];
+    v18 = 0;
+    v16 = [v14 canOpenURL:lCopy publicSchemes:schemesCopy privateSchemes:privateSchemesCopy XPCConnection:xPCConnection error:&v18];
+    v17 = v18;
+
+    handlerCopy[2](handlerCopy, v16, v17);
+  }
+
+  else
+  {
+    v19 = *MEMORY[0x1E696A278];
+    v20[0] = @"url";
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v17 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v14, "[_LSDOpenClient canOpenURL:publicSchemes:privateSchemes:completionHandler:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Server/LSDOpenService.mm", 353);
+    handlerCopy[2](handlerCopy, 0, v17);
+  }
 }
 
 - (void)getURLOverrideForURL:(id)l completionHandler:(id)handler
@@ -407,14 +446,14 @@ LABEL_24:
   v14[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
   handlerCopy = handler;
-  _LSAssertRunningInServer("[_LSDOpenClient getURLOverrideForURL:completionHandler:]");
+  _LSAssertRunningInServer("[_LSDOpenClient getURLOverrideForURL:completionHandler:]", v7);
   if (lCopy)
   {
-    v7 = [[_LSURLOverride alloc] initWithOriginalURL:lCopy];
-    v8 = v7;
-    if (v7)
+    v8 = [[_LSURLOverride alloc] initWithOriginalURL:lCopy];
+    v9 = v8;
+    if (v8)
     {
-      overrideURL = [(_LSURLOverride *)v7 overrideURL];
+      overrideURL = [(_LSURLOverride *)v8 overrideURL];
     }
 
     else
@@ -429,64 +468,62 @@ LABEL_24:
   {
     v13 = *MEMORY[0x1E696A278];
     v14[0] = @"invalid input URL";
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
-    v11 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v10, "[_LSDOpenClient getURLOverrideForURL:completionHandler:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Server/LSDOpenService.mm", 371);
-    (handlerCopy)[2](handlerCopy, 0, v11);
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v12 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v11, "[_LSDOpenClient getURLOverrideForURL:completionHandler:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Server/LSDOpenService.mm", 371);
+    (handlerCopy)[2](handlerCopy, 0, v12);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getiCloudHostNamesWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  _LSAssertRunningInServer("[_LSDOpenClient getiCloudHostNamesWithCompletionHandler:]");
-  v4 = _LSServer_GetIOQueue();
+  _LSAssertRunningInServer("[_LSDOpenClient getiCloudHostNamesWithCompletionHandler:]", v4);
+  v6 = _LSServer_GetIOQueue(v5);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __58___LSDOpenClient_getiCloudHostNamesWithCompletionHandler___block_invoke;
   block[3] = &unk_1E6A1C820;
+  v9 = handlerCopy;
   v7 = handlerCopy;
-  v5 = handlerCopy;
-  dispatch_async(v4, block);
+  dispatch_async(v6, block);
 }
 
 - (void)openAppLink:(id)link state:(id)state completionHandler:(id)handler
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   linkCopy = link;
   stateCopy = state;
   handlerCopy = handler;
-  _LSAssertRunningInServer("[_LSDOpenClient openAppLink:state:completionHandler:]");
-  v11 = _LSOpenLog();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  _LSAssertRunningInServer("[_LSDOpenClient openAppLink:state:completionHandler:]", v11);
+  v13 = _LSOpenLog(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     xPCConnection = [(_LSDClient *)self XPCConnection];
     *buf = 134218498;
     processIdentifier = [xPCConnection processIdentifier];
-    v34 = 2112;
-    v35 = linkCopy;
-    v36 = 2112;
-    v37 = stateCopy;
-    _os_log_impl(&dword_18162D000, v11, OS_LOG_TYPE_DEFAULT, "pid %ld opening app link %@ %@", buf, 0x20u);
+    v35 = 2112;
+    v36 = linkCopy;
+    v37 = 2112;
+    v38 = stateCopy;
+    _os_log_impl(&dword_18162D000, v13, OS_LOG_TYPE_DEFAULT, "pid %ld opening app link %@ %@", buf, 0x20u);
   }
 
-  if (linkCopy && (-[_LSDClient XPCConnection](self, "XPCConnection"), v13 = objc_claimAutoreleasedReturnValue(), [v13 _xpcConnection], v14 = objc_claimAutoreleasedReturnValue(), v15 = _LSXPCConnectionMayMapDatabase(v14) == 0, v14, v13, v15))
+  if (linkCopy && (-[_LSDClient XPCConnection](self, "XPCConnection"), v15 = objc_claimAutoreleasedReturnValue(), [v15 _xpcConnection], v16 = objc_claimAutoreleasedReturnValue(), v17 = _LSXPCConnectionMayMapDatabase(v16) == 0, v16, v15, v17))
   {
-    v30 = *MEMORY[0x1E696A278];
-    v31 = @"process may not map database";
-    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
-    v22 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -54, v20, "[_LSDOpenClient openAppLink:state:completionHandler:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Server/LSDOpenService.mm", 398);
-    handlerCopy[2](handlerCopy, 0, v22);
+    v31 = *MEMORY[0x1E696A278];
+    v32 = @"process may not map database";
+    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+    v24 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -54, v22, "[_LSDOpenClient openAppLink:state:completionHandler:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Server/LSDOpenService.mm", 398);
+    handlerCopy[2](handlerCopy, 0, v24);
   }
 
-  else if (!stateCopy || ([stateCopy URL], v16 = objc_claimAutoreleasedReturnValue(), v17 = v16 == 0, v16, v17))
+  else if (!stateCopy || ([stateCopy URL], v18 = objc_claimAutoreleasedReturnValue(), v19 = v18 == 0, v18, v19))
   {
-    v28 = *MEMORY[0x1E696A278];
-    v29 = @"openState";
-    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
-    v21 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v20, "[_LSDOpenClient openAppLink:state:completionHandler:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Server/LSDOpenService.mm", 410);
-    handlerCopy[2](handlerCopy, 0, v21);
+    v29 = *MEMORY[0x1E696A278];
+    v30 = @"openState";
+    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+    v23 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v22, "[_LSDOpenClient openAppLink:state:completionHandler:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Server/LSDOpenService.mm", 410);
+    handlerCopy[2](handlerCopy, 0, v23);
   }
 
   else
@@ -494,101 +531,97 @@ LABEL_24:
     xPCConnection2 = [(_LSDClient *)self XPCConnection];
     [stateCopy setXPCConnection:xPCConnection2];
 
-    v19 = +[LSAppLink _dispatchQueue];
+    v21 = +[LSAppLink _dispatchQueue];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __54___LSDOpenClient_openAppLink_state_completionHandler___block_invoke;
     block[3] = &unk_1E6A193B8;
-    v25 = linkCopy;
-    v26 = stateCopy;
-    v27 = handlerCopy;
-    dispatch_async(v19, block);
+    v26 = linkCopy;
+    v27 = stateCopy;
+    v28 = handlerCopy;
+    dispatch_async(v21, block);
 
-    v20 = v25;
+    v22 = v26;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)failedToOpenApplication:(id)application withURL:(id)l completionHandler:(id)handler
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   applicationCopy = application;
   lCopy = l;
   handlerCopy = handler;
-  _LSAssertRunningInServer("[_LSDOpenClient failedToOpenApplication:withURL:completionHandler:]");
+  _LSAssertRunningInServer("[_LSDOpenClient failedToOpenApplication:withURL:completionHandler:]", v11);
   xPCConnection = [(_LSDClient *)self XPCConnection];
   _xpcConnection = [xPCConnection _xpcConnection];
-  v13 = _LSXPCConnectionMayMapDatabase(_xpcConnection);
+  MayMapDatabase = _LSXPCConnectionMayMapDatabase(_xpcConnection);
 
-  if (v13)
+  if (MayMapDatabase)
   {
-    v29 = 0;
-    v26 = 0;
+    v30 = 0;
     v27 = 0;
     v28 = 0;
-    v14 = +[_LSDServiceDomain defaultServiceDomain];
-    v15 = LaunchServices::Database::Context::_get(&v26, v14, 0);
+    v29 = 0;
+    v16 = +[_LSDServiceDomain defaultServiceDomain];
+    v17 = LaunchServices::Database::Context::_get(&v27, v16, 0);
 
-    if (v15)
+    if (v17)
     {
-      _LSServer_DisplayRemovedAppPrompt(v15, applicationCopy, lCopy, handlerCopy);
+      _LSServer_DisplayRemovedAppPrompt(v17, applicationCopy, lCopy, handlerCopy);
     }
 
     else
     {
-      v20 = +[_LSDServiceDomain defaultServiceDomain];
-      v21 = LaunchServices::Database::Context::_get(&v26, v20, 0);
+      v22 = +[_LSDServiceDomain defaultServiceDomain];
+      v23 = LaunchServices::Database::Context::_get(&v27, v22, 0);
 
-      if (v21)
+      if (v23)
       {
-        v22 = 0;
+        v24 = 0;
       }
 
       else
       {
-        v22 = v29;
+        v24 = v30;
       }
 
-      (*(handlerCopy + 2))(handlerCopy, 0, v22);
+      (*(handlerCopy + 2))(handlerCopy, 0, v24);
     }
 
-    if (v26 && v28 == 1)
+    if (v27 && v29 == 1)
     {
-      _LSContextDestroy(v26);
+      _LSContextDestroy(v27);
     }
 
-    v23 = v27;
-    v26 = 0;
+    v25 = v28;
     v27 = 0;
-
     v28 = 0;
-    v24 = v29;
+
     v29 = 0;
+    v26 = v30;
+    v30 = 0;
   }
 
   else
   {
-    v16 = _LSOpenLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = _LSOpenLog(v15);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       xPCConnection2 = [(_LSDClient *)self XPCConnection];
-      -[_LSDOpenClient failedToOpenApplication:withURL:completionHandler:].cold.1([xPCConnection2 processIdentifier], &v26, v16, xPCConnection2);
+      -[_LSDOpenClient failedToOpenApplication:withURL:completionHandler:].cold.1([xPCConnection2 processIdentifier], &v27, v18, xPCConnection2);
     }
 
-    v30 = *MEMORY[0x1E696A278];
-    v31[0] = @"process may not map database";
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
-    v19 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -54, v18, "[_LSDOpenClient failedToOpenApplication:withURL:completionHandler:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Server/LSDOpenService.mm", 422);
-    (*(handlerCopy + 2))(handlerCopy, 0, v19);
+    v31 = *MEMORY[0x1E696A278];
+    v32[0] = @"process may not map database";
+    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+    v21 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -54, v20, "[_LSDOpenClient failedToOpenApplication:withURL:completionHandler:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Server/LSDOpenService.mm", 422);
+    (*(handlerCopy + 2))(handlerCopy, 0, v21);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateRestrictionKnowledgeWithCompletionHandler:(id)handler
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   xPCConnection = [(_LSDClient *)self XPCConnection];
   v6 = _LSCheckEntitlementForNSXPCConnection(xPCConnection, @"com.apple.lsapplicationworkspace.restrictions");
@@ -598,45 +631,43 @@ LABEL_24:
     v7 = +[LSDBExecutionContext sharedServerInstance];
     [(LSDBExecutionContext *)v7 assertNotActiveForThisThread];
 
-    v8 = _LSDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _LSDefaultLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       xPCConnection2 = [(_LSDClient *)self XPCConnection];
       *buf = 134217984;
       processIdentifier = [xPCConnection2 processIdentifier];
-      _os_log_impl(&dword_18162D000, v8, OS_LOG_TYPE_DEFAULT, "Pid %ld is forcing restriction knowledge update!", buf, 0xCu);
+      _os_log_impl(&dword_18162D000, v9, OS_LOG_TYPE_DEFAULT, "Pid %ld is forcing restriction knowledge update!", buf, 0xCu);
     }
 
-    v10 = +[LSApplicationRestrictionsManager sharedInstance];
-    v11 = [LSApplicationRestrictionsManager forceUpdateRestrictionKnowledgeWithError:v10];
-    v12 = 0;
+    v11 = +[LSApplicationRestrictionsManager sharedInstance];
+    v12 = [LSApplicationRestrictionsManager forceUpdateRestrictionKnowledgeWithError:v11];
+    v13 = 0;
 
-    if (v11)
+    if (v12)
     {
-      v13 = 0;
+      v15 = 0;
     }
 
     else
     {
-      v15 = _LSDefaultLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v17 = _LSDefaultLog(v14);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        [(_LSDOpenClient *)v12 updateRestrictionKnowledgeWithCompletionHandler:v15];
+        [(_LSDOpenClient *)v13 updateRestrictionKnowledgeWithCompletionHandler:v17];
       }
 
-      v13 = v12;
+      v15 = v13;
     }
 
-    (handlerCopy)[2](handlerCopy, v11, v13);
+    (handlerCopy)[2](handlerCopy, v12, v15);
   }
 
   else
   {
-    v14 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -54, 0, "[_LSDOpenClient updateRestrictionKnowledgeWithCompletionHandler:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Server/LSDOpenService.mm", 451);
-    (handlerCopy)[2](handlerCopy, 0, v14);
+    v16 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -54, 0, "[_LSDOpenClient updateRestrictionKnowledgeWithCompletionHandler:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Server/LSDOpenService.mm", 451);
+    (handlerCopy)[2](handlerCopy, 0, v16);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)failedToOpenApplication:(os_log_t)log withURL:(void *)a4 completionHandler:.cold.1(int a1, uint8_t *buf, os_log_t log, void *a4)
@@ -648,11 +679,10 @@ LABEL_24:
 
 - (void)updateRestrictionKnowledgeWithCompletionHandler:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "error forcing restriction knowledge update: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "error forcing restriction knowledge update: %@", &v2, 0xCu);
 }
 
 @end

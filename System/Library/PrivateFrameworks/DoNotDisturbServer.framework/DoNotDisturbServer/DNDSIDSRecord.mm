@@ -115,15 +115,13 @@ LABEL_17:
 
 - (id)dictionaryRepresentationWithContext:(id)context
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  v8[0] = @"metadata";
+  v8[2] = *MEMORY[0x277D85DE8];
+  v7[0] = @"metadata";
   v4 = [(DNDSIDSRecordMetadata *)self->_metadata dictionaryRepresentationWithContext:context];
-  v8[1] = @"data";
-  v9[0] = v4;
-  v9[1] = self->_data;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7[1] = @"data";
+  v8[0] = v4;
+  v8[1] = self->_data;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }

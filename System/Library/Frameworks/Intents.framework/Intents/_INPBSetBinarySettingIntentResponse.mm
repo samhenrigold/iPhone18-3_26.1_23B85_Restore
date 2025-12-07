@@ -3,6 +3,8 @@
 - (_INPBSetBinarySettingIntentResponse)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)oldValueAsString:(int)string;
+- (id)updatedValueAsString:(int)string;
 - (int)StringAsOldValue:(id)value;
 - (int)StringAsUpdatedValue:(id)value;
 - (unint64_t)hash;
@@ -197,19 +199,16 @@ LABEL_14:
 
   if (errorDetail)
   {
-    errorDetail = self->_errorDetail;
     PBDataWriterWriteStringField();
   }
 
   if ([(_INPBSetBinarySettingIntentResponse *)self hasOldValue])
   {
-    oldValue = self->_oldValue;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBSetBinarySettingIntentResponse *)self hasUpdatedValue])
   {
-    updatedValue = self->_updatedValue;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -235,6 +234,21 @@ LABEL_14:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)updatedValueAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E7287BE0 + (string - 1));
   }
 
   return v4;
@@ -291,6 +305,21 @@ LABEL_14:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)oldValueAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E7287BE0 + (string - 1));
   }
 
   return v4;

@@ -416,7 +416,7 @@
   [v8 setAllowsPictureInPictureMediaPlayback:0];
   v9 = objc_alloc_init(WKWebpagePreferences);
   [v9 _setMouseEventPolicy:1];
-  v37 = v9;
+  v38 = v9;
   [v8 setDefaultWebpagePreferences:v9];
   v10 = objc_opt_new();
   [v10 _setDeveloperExtrasEnabled:{+[BCDevice isInternalInstall](BCDevice, "isInternalInstall")}];
@@ -424,83 +424,83 @@
   [v10 _setLogsPageMessagesToSystemConsoleEnabled:0];
   [v10 _setLargeImageAsyncDecodingEnabled:0];
   [v8 setPreferences:v10];
-  v39 = scopeCopy;
+  v40 = scopeCopy;
   v11 = [[PFDUrlSchemeHandler alloc] initWithRequestScope:scopeCopy];
-  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
+  v49 = 0u;
   supportedSchemes = [(PFDUrlSchemeHandler *)v11 supportedSchemes];
-  v13 = [supportedSchemes countByEnumeratingWithState:&v45 objects:v49 count:16];
+  v13 = [supportedSchemes countByEnumeratingWithState:&v46 objects:v50 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v46;
+    v15 = *v47;
     do
     {
       for (i = 0; i != v14; i = i + 1)
       {
-        if (*v46 != v15)
+        if (*v47 != v15)
         {
           objc_enumerationMutation(supportedSchemes);
         }
 
-        [v8 setURLSchemeHandler:v11 forURLScheme:{*(*(&v45 + 1) + 8 * i), completionCopy}];
+        [v8 setURLSchemeHandler:v11 forURLScheme:{*(*(&v46 + 1) + 8 * i), completionCopy}];
       }
 
-      v14 = [supportedSchemes countByEnumeratingWithState:&v45 objects:v49 count:16];
+      v14 = [supportedSchemes countByEnumeratingWithState:&v46 objects:v50 count:16];
     }
 
     while (v14);
   }
 
   userContentController = [v8 userContentController];
-  v18 = THBundle();
-  v19 = [v18 pathForResource:@"AppleWidgetController" ofType:@"js"];
+  v19 = THBundle(userContentController, v18);
+  v20 = [v19 pathForResource:@"AppleWidgetController" ofType:@"js"];
 
-  if (![v19 length])
+  if (![v20 length])
   {
-    v20 = +[TSUAssertionHandler currentHandler];
-    v21 = [NSString stringWithUTF8String:"[THWWebView _createConfigurationWithfilteredOutURLSchemes:requestScope:completion:]"];
-    v22 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Alder/bliss/Classes/Widgets/Web/THWWebView.m"];
-    [v20 handleFailureInFunction:v21 file:v22 lineNumber:438 description:@"Could not find AppleWidgetController.js!"];
+    v21 = +[TSUAssertionHandler currentHandler];
+    v22 = [NSString stringWithUTF8String:"[THWWebView _createConfigurationWithfilteredOutURLSchemes:requestScope:completion:]"];
+    v23 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Alder/bliss/Classes/Widgets/Web/THWWebView.m"];
+    [v21 handleFailureInFunction:v22 file:v23 lineNumber:438 description:@"Could not find AppleWidgetController.js!"];
   }
 
-  if ([v19 length])
+  if ([v20 length])
   {
-    v23 = [NSData dataWithContentsOfFile:v19];
-    if (![v23 length])
+    v24 = [NSData dataWithContentsOfFile:v20];
+    if (![v24 length])
     {
-      v24 = +[TSUAssertionHandler currentHandler];
-      v25 = [NSString stringWithUTF8String:"[THWWebView _createConfigurationWithfilteredOutURLSchemes:requestScope:completion:]"];
-      v26 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Alder/bliss/Classes/Widgets/Web/THWWebView.m"];
-      [v24 handleFailureInFunction:v25 file:v26 lineNumber:441 description:@"Could not load AppleWidgetController.js!"];
+      v25 = +[TSUAssertionHandler currentHandler];
+      v26 = [NSString stringWithUTF8String:"[THWWebView _createConfigurationWithfilteredOutURLSchemes:requestScope:completion:]"];
+      v27 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Alder/bliss/Classes/Widgets/Web/THWWebView.m"];
+      [v25 handleFailureInFunction:v26 file:v27 lineNumber:441 description:@"Could not load AppleWidgetController.js!"];
     }
 
-    if ([v23 length])
+    if ([v24 length])
     {
-      v27 = [WKUserScript alloc];
-      v28 = [[NSString alloc] initWithData:v23 encoding:4];
-      v29 = [v27 initWithSource:v28 injectionTime:0 forMainFrameOnly:1];
+      v28 = [WKUserScript alloc];
+      v29 = [[NSString alloc] initWithData:v24 encoding:4];
+      v30 = [v28 initWithSource:v29 injectionTime:0 forMainFrameOnly:1];
 
-      [userContentController addUserScript:v29];
+      [userContentController addUserScript:v30];
     }
   }
 
-  v30 = [[_WKUserStyleSheet alloc] initWithSource:@"@media (inverted-colors) {   img:not(picture>img) forMainFrameOnly:{picture { filter: invert(0); }   video { filter: invert(0) !important; }}", 0}];
-  [userContentController _addUserStyleSheet:v30];
-  v31 = +[WKContentRuleListStore defaultStore];
-  v41[0] = _NSConcreteStackBlock;
-  v41[1] = 3221225472;
-  v41[2] = sub_64E9C;
-  v41[3] = &unk_45BF40;
-  v43 = v8;
-  v44 = v36;
-  v42 = userContentController;
-  v32 = v8;
-  v33 = v36;
-  v34 = userContentController;
-  [(THWWebView *)self _createContentBlockingRulesWithfilteredOutURLSchemes:schemesCopy toRuleListStore:v31 completion:v41];
+  v31 = [[_WKUserStyleSheet alloc] initWithSource:@"@media (inverted-colors) {   img:not(picture>img) forMainFrameOnly:{picture { filter: invert(0); }   video { filter: invert(0) !important; }}", 0}];
+  [userContentController _addUserStyleSheet:v31];
+  v32 = +[WKContentRuleListStore defaultStore];
+  v42[0] = _NSConcreteStackBlock;
+  v42[1] = 3221225472;
+  v42[2] = sub_64E9C;
+  v42[3] = &unk_45BF40;
+  v44 = v8;
+  v45 = v37;
+  v43 = userContentController;
+  v33 = v8;
+  v34 = v37;
+  v35 = userContentController;
+  [(THWWebView *)self _createContentBlockingRulesWithfilteredOutURLSchemes:schemesCopy toRuleListStore:v32 completion:v42];
 }
 
 - (THPageAffordanceHosting)canvasPageAffordanceHost

@@ -72,16 +72,16 @@ _PSSuggestion *__64___PSFTZKWOrchestrator__getBlendingLayerSuggestionsWithContex
 
 void __69___PSFTZKWOrchestrator__getDirectSuggestionsWithContext_withTimeout___block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) count])
   {
     v3 = 0;
     v4 = 0.0;
     *&v2 = 138413058;
-    v22 = v2;
+    v21 = v2;
     do
     {
-      v5 = [*(a1 + 32) objectAtIndexedSubscript:{v3, v22}];
+      v5 = [*(a1 + 32) objectAtIndexedSubscript:{v3, v21}];
       v6 = [v5 unsignedIntegerValue];
 
       v7 = [MEMORY[0x1E695DF00] now];
@@ -107,14 +107,14 @@ void __69___PSFTZKWOrchestrator__getDirectSuggestionsWithContext_withTimeout___b
       {
         v19 = objc_opt_class();
         v20 = NSStringFromClass(v19);
-        *buf = v22;
-        v24 = v20;
-        v25 = 2048;
-        v26 = v16;
-        v27 = 2048;
-        v28 = v4;
-        v29 = 1024;
-        v30 = v4 > v17;
+        *buf = v21;
+        v23 = v20;
+        v24 = 2048;
+        v25 = v16;
+        v26 = 2048;
+        v27 = v4;
+        v28 = 1024;
+        v29 = v4 > v17;
         _os_log_impl(&dword_1B5ED1000, v18, OS_LOG_TYPE_DEFAULT, "ZKW FaceTime default route %@ took %f seconds, cummulative seconds %f, timed out %d", buf, 0x26u);
       }
 
@@ -128,8 +128,6 @@ void __69___PSFTZKWOrchestrator__getDirectSuggestionsWithContext_withTimeout___b
 
     while (v3 < [*(a1 + 32) count]);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __69___PSFTZKWOrchestrator__getDirectSuggestionsWithContext_withTimeout___block_invoke_53()
@@ -144,7 +142,7 @@ void __69___PSFTZKWOrchestrator__getDirectSuggestionsWithContext_withTimeout___b
 
 void __60___PSFTZKWOrchestrator_getSuggestionsWithPredictionContext___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 56) useBlendingLayer];
   v3 = +[_PSLogging suggestionSignpost];
   v4 = os_signpost_enabled(v3);
@@ -152,8 +150,8 @@ void __60___PSFTZKWOrchestrator_getSuggestionsWithPredictionContext___block_invo
   {
     if (v4)
     {
-      LOWORD(v18) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1B5ED1000, v3, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "_PSZKWFaceTimeBlendingRouteTotalTime", " enableTelemetry=YES ", &v18, 2u);
+      LOWORD(v17) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1B5ED1000, v3, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "_PSZKWFaceTimeBlendingRouteTotalTime", " enableTelemetry=YES ", &v17, 2u);
     }
 
     v5 = [*(a1 + 32) _getBlendingLayerSuggestionsWithContext:*(a1 + 40)];
@@ -164,19 +162,19 @@ void __60___PSFTZKWOrchestrator_getSuggestionsWithPredictionContext___block_invo
     v8 = +[_PSLogging suggestionSignpost];
     if (os_signpost_enabled(v8))
     {
-      LOWORD(v18) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1B5ED1000, v8, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "_PSZKWFaceTimeBlendingRouteTotalTime", &unk_1B5FD970D, &v18, 2u);
+      LOWORD(v17) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1B5ED1000, v8, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "_PSZKWFaceTimeBlendingRouteTotalTime", &unk_1B5FD970D, &v17, 2u);
     }
 
     v9 = +[_PSLogging generalChannel];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(*(*(a1 + 48) + 8) + 40);
-      v18 = 138412290;
-      v19 = v10;
+      v17 = 138412290;
+      v18 = v10;
       v11 = "ZKW FaceTime suggestions going through blending layer route: %@";
 LABEL_14:
-      _os_log_impl(&dword_1B5ED1000, v9, OS_LOG_TYPE_DEFAULT, v11, &v18, 0xCu);
+      _os_log_impl(&dword_1B5ED1000, v9, OS_LOG_TYPE_DEFAULT, v11, &v17, 0xCu);
     }
   }
 
@@ -184,8 +182,8 @@ LABEL_14:
   {
     if (v4)
     {
-      LOWORD(v18) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1B5ED1000, v3, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "_PSZKWFaceTimeDefaultRouteTotalTime", " enableTelemetry=YES ", &v18, 2u);
+      LOWORD(v17) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1B5ED1000, v3, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "_PSZKWFaceTimeDefaultRouteTotalTime", " enableTelemetry=YES ", &v17, 2u);
     }
 
     v12 = [*(a1 + 32) _getDirectSuggestionsWithContext:*(a1 + 40)];
@@ -196,55 +194,51 @@ LABEL_14:
     v15 = +[_PSLogging suggestionSignpost];
     if (os_signpost_enabled(v15))
     {
-      LOWORD(v18) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1B5ED1000, v15, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "_PSZKWFaceTimeDefaultRouteTotalTime", &unk_1B5FD970D, &v18, 2u);
+      LOWORD(v17) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1B5ED1000, v15, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "_PSZKWFaceTimeDefaultRouteTotalTime", &unk_1B5FD970D, &v17, 2u);
     }
 
     v9 = +[_PSLogging generalChannel];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v16 = *(*(*(a1 + 48) + 8) + 40);
-      v18 = 138412290;
-      v19 = v16;
+      v17 = 138412290;
+      v18 = v16;
       v11 = "ZKW FaceTime suggestions going through default route: %@";
       goto LABEL_14;
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __38___PSFTZKWOrchestrator_populateCaches__block_invoke(uint64_t a1)
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
     v3 = +[_PSLogging suggestionSignpost];
     if (os_signpost_enabled(v3))
     {
-      *v13 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1B5ED1000, v3, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "_PSZKWFaceTimeCacheTotalTime", " enableTelemetry=YES ", v13, 2u);
+      *v12 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1B5ED1000, v3, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "_PSZKWFaceTimeCacheTotalTime", " enableTelemetry=YES ", v12, 2u);
     }
 
     v4 = [WeakRetained _getDirectSuggestionsWithContext:*(a1 + 32) withTimeout:0.2];
     v5 = [[_PSFTZKWSuggestionsTransformerFactory alloc] initWithInteractionStore:WeakRetained[8]];
     v6 = MEMORY[0x1E695DF70];
     v7 = [(_PSFTZKWSuggestionsTransformerFactory *)v5 mapRecipientsToContactsWithUnmapped:0];
-    v14[0] = v7;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+    v13[0] = v7;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
     v9 = [v6 arrayWithArray:v8];
     v10 = [_PSFTZKWSuggestionsTransformerFactory getResultsFromTransformers:v9 suggestions:v4];
 
     v11 = +[_PSLogging suggestionSignpost];
     if (os_signpost_enabled(v11))
     {
-      *v13 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1B5ED1000, v11, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "_PSZKWFaceTimeCacheTotalTime", &unk_1B5FD970D, v13, 2u);
+      *v12 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1B5ED1000, v11, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "_PSZKWFaceTimeCacheTotalTime", &unk_1B5FD970D, v12, 2u);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

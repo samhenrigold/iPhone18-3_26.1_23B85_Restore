@@ -185,7 +185,7 @@ void __53__SBKeyboardFocusSceneSettingPolicyEnforcer_enforce___block_invoke(uint
       uiSettings = [bAncestorCopy uiSettings];
       targetOfEventDeferringEnvironments = [uiSettings targetOfEventDeferringEnvironments];
 
-      if (([targetOfEventDeferringEnvironments containsObject:keyboardFocusEnvironment] & 1) == 0)
+      if ((objc_msgSend_containsObject_(targetOfEventDeferringEnvironments) & 1) == 0)
       {
         if (targetOfEventDeferringEnvironments)
         {

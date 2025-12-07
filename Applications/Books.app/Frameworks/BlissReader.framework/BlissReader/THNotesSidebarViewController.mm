@@ -458,33 +458,33 @@ LABEL_14:
   searchBar = [(THNotesSidebarViewController *)self searchBar];
   [searchBar setAutocorrectionType:1];
 
-  v17 = THBundle();
-  v18 = [v17 localizedStringForKey:@"Search" value:&stru_471858 table:0];
+  v19 = THBundle(v17, v18);
+  v20 = [v19 localizedStringForKey:@"Search" value:&stru_471858 table:0];
   searchBar2 = [(THNotesSidebarViewController *)self searchBar];
-  [searchBar2 setPlaceholder:v18];
+  [searchBar2 setPlaceholder:v20];
 
-  v20 = objc_alloc_init(NSMutableIndexSet);
+  v22 = objc_alloc_init(NSMutableIndexSet);
   mVisibleSectionProviderIndicies = self->mVisibleSectionProviderIndicies;
-  self->mVisibleSectionProviderIndicies = v20;
+  self->mVisibleSectionProviderIndicies = v22;
 
   TSUScreenScale();
-  v23 = 1.0 / v22;
+  v25 = 1.0 / v24;
   searchBarSeparator = [(THNotesSidebarViewController *)self searchBarSeparator];
-  [(THNotesSidebarViewController *)self p_setConstraint:@"SearchBarSeparatorHeight" onView:searchBarSeparator toValue:v23];
+  [(THNotesSidebarViewController *)self p_setConstraint:@"SearchBarSeparatorHeight" onView:searchBarSeparator toValue:v25];
 
   searchBarSeparator2 = [(THNotesSidebarViewController *)self searchBarSeparator];
-  [(THNotesSidebarViewController *)self p_setConstraint:@"SearchBarSeparatorVerticalSpace" onView:searchBarSeparator2 toValue:-v23];
+  [(THNotesSidebarViewController *)self p_setConstraint:@"SearchBarSeparatorVerticalSpace" onView:searchBarSeparator2 toValue:-v25];
 
-  v30 = [[UIView alloc] initWithFrame:{CGRectZero.origin.x, CGRectZero.origin.y, CGRectZero.size.width, CGRectZero.size.height}];
-  v26 = +[UIColor clearColor];
-  [v30 setBackgroundColor:v26];
+  v32 = [[UIView alloc] initWithFrame:{CGRectZero.origin.x, CGRectZero.origin.y, CGRectZero.size.width, CGRectZero.size.height}];
+  v28 = +[UIColor clearColor];
+  [v32 setBackgroundColor:v28];
 
   tableView6 = [(THNotesSidebarViewController *)self tableView];
-  [tableView6 setTableFooterView:v30];
+  [tableView6 setTableFooterView:v32];
 
-  v28 = +[UIColor bc_booksSeparatorColor];
+  v30 = +[UIColor bc_booksSeparatorColor];
   searchBarSeparator3 = [(THNotesSidebarViewController *)self searchBarSeparator];
-  [searchBarSeparator3 setBackgroundColor:v28];
+  [searchBarSeparator3 setBackgroundColor:v30];
 }
 
 - (double)p_cellHeight
@@ -606,45 +606,45 @@ LABEL_14:
 {
   viewCopy = view;
   pathCopy = path;
-  if (-[THNotesSidebarViewController p_numberOfNotes](self, "p_numberOfNotes") || (-[THNotesSidebarViewController searchText](self, "searchText"), v21 = objc_claimAutoreleasedReturnValue(), v22 = [v21 length], v21, !v22))
+  if (-[THNotesSidebarViewController p_numberOfNotes](self, "p_numberOfNotes") || (-[THNotesSidebarViewController searchText](self, "searchText"), v22 = objc_claimAutoreleasedReturnValue(), v23 = [v22 length], v22, !v23))
   {
     section = [pathCopy section];
     if (section >= [(NSMutableIndexSet *)self->mVisibleSectionProviderIndicies count])
     {
-      v9 = [(THNotesSidebarViewController *)self emptyCellForTable:viewCopy];
+      v10 = [(THNotesSidebarViewController *)self emptyCellForTable:viewCopy];
       goto LABEL_15;
     }
 
-    v9 = [viewCopy dequeueReusableCellWithIdentifier:@"notesViewCell"];
-    if (!v9)
+    v10 = [viewCopy dequeueReusableCellWithIdentifier:@"notesViewCell"];
+    if (!v10)
     {
-      v10 = THBundle();
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
-      v13 = [v10 loadNibNamed:v12 owner:self options:0];
+      v11 = THBundle(0, v9);
+      v12 = objc_opt_class();
+      v13 = NSStringFromClass(v12);
+      v14 = [v11 loadNibNamed:v13 owner:self options:0];
 
-      v9 = [v13 objectAtIndex:0];
-      v14 = [UIView alloc];
-      [(THNotesSidebarTableCell *)v9 frame];
-      v15 = [v14 initWithFrame:?];
-      [(THNotesSidebarTableCell *)v9 setSelectedBackgroundView:v15];
+      v10 = [v14 objectAtIndex:0];
+      v15 = [UIView alloc];
+      [(THNotesSidebarTableCell *)v10 frame];
+      v16 = [v15 initWithFrame:?];
+      [(THNotesSidebarTableCell *)v10 setSelectedBackgroundView:v16];
 
-      v16 = +[UIColor bc_booksTableSelectionColor];
-      selectedBackgroundView = [(THNotesSidebarTableCell *)v9 selectedBackgroundView];
-      [selectedBackgroundView setBackgroundColor:v16];
+      v17 = +[UIColor bc_booksTableSelectionColor];
+      selectedBackgroundView = [(THNotesSidebarTableCell *)v10 selectedBackgroundView];
+      [selectedBackgroundView setBackgroundColor:v17];
 
-      v18 = +[UIColor bc_booksBackground];
-      [(THNotesSidebarTableCell *)v9 setBackgroundColor:v18];
+      v19 = +[UIColor bc_booksBackground];
+      [(THNotesSidebarTableCell *)v10 setBackgroundColor:v19];
 
-      [(THNotesSidebarTableCell *)v9 setClipsToBounds:1];
-      [(THNotesSidebarTableCell *)v9 setImageBorderVisible:1];
-      [(THNotesSidebarTableCell *)v9 setTopBorderVisible:0];
-      [(THNotesSidebarTableCell *)v9 setBottomBorderVisible:0];
+      [(THNotesSidebarTableCell *)v10 setClipsToBounds:1];
+      [(THNotesSidebarTableCell *)v10 setImageBorderVisible:1];
+      [(THNotesSidebarTableCell *)v10 setTopBorderVisible:0];
+      [(THNotesSidebarTableCell *)v10 setBottomBorderVisible:0];
     }
 
     sectionProviders = [(THNotesSidebarViewController *)self sectionProviders];
-    v20 = [sectionProviders objectAtIndex:{-[THNotesSidebarViewController p_visibleSectionProviderIndexForIndexPath:](self, "p_visibleSectionProviderIndexForIndexPath:", pathCopy)}];
-    [(THNotesSidebarTableCell *)v9 setSectionProvider:v20];
+    v21 = [sectionProviders objectAtIndex:{-[THNotesSidebarViewController p_visibleSectionProviderIndexForIndexPath:](self, "p_visibleSectionProviderIndexForIndexPath:", pathCopy)}];
+    [(THNotesSidebarTableCell *)v10 setSectionProvider:v21];
   }
 
   else
@@ -657,62 +657,62 @@ LABEL_14:
 
     if ([pathCopy section])
     {
-      v9 = [(THNotesSidebarViewController *)self emptyCellForTable:viewCopy];
+      v10 = [(THNotesSidebarViewController *)self emptyCellForTable:viewCopy];
       goto LABEL_14;
     }
 
-    v9 = [viewCopy dequeueReusableCellWithIdentifier:@"noResultCell"];
-    if (v9)
+    v10 = [viewCopy dequeueReusableCellWithIdentifier:@"noResultCell"];
+    if (v10)
     {
       goto LABEL_14;
     }
 
-    v9 = [[THNotesSidebarTableCell alloc] initWithStyle:0 reuseIdentifier:@"noResultCell"];
-    v24 = +[UIColor clearColor];
-    [(THNotesSidebarTableCell *)v9 setBackgroundColor:v24];
+    v10 = [[THNotesSidebarTableCell alloc] initWithStyle:0 reuseIdentifier:@"noResultCell"];
+    v25 = +[UIColor clearColor];
+    [(THNotesSidebarTableCell *)v10 setBackgroundColor:v25];
 
-    v20 = objc_alloc_init(UILabel);
-    v25 = THBundle();
-    v26 = [v25 localizedStringForKey:@"No Results" value:&stru_471858 table:0];
-    [v20 setText:v26];
+    v21 = objc_alloc_init(UILabel);
+    v27 = THBundle(v21, v26);
+    v28 = [v27 localizedStringForKey:@"No Results" value:&stru_471858 table:0];
+    [v21 setText:v28];
 
-    [v20 setTextAlignment:1];
+    [v21 setTextAlignment:1];
     p_cellFontTextStyle = [(THNotesSidebarViewController *)self p_cellFontTextStyle];
-    v28 = [UIFont preferredFontForTextStyle:p_cellFontTextStyle];
-    [v20 setFont:v28];
+    v30 = [UIFont preferredFontForTextStyle:p_cellFontTextStyle];
+    [v21 setFont:v30];
 
-    v29 = +[UIColor bc_booksSecondaryLabelColor];
-    [v20 setTextColor:v29];
+    v31 = +[UIColor bc_booksSecondaryLabelColor];
+    [v21 setTextColor:v31];
 
-    v30 = +[UIColor bc_booksBackground];
-    [v20 setBackgroundColor:v30];
+    v32 = +[UIColor bc_booksBackground];
+    [v21 setBackgroundColor:v32];
 
-    [v20 sizeToFit];
-    [v20 frame];
-    v32 = v31;
+    [v21 sizeToFit];
+    [v21 frame];
     v34 = v33;
+    v36 = v35;
     tableView = [(THNotesSidebarViewController *)self tableView];
     [tableView frame];
-    v37 = (v36 - v32) * 0.5;
-    v38 = ceilf(v37);
+    v39 = (v38 - v34) * 0.5;
+    v40 = ceilf(v39);
 
     [(THNotesSidebarViewController *)self p_cellHeight];
-    *&v39 = (v39 - v34) * 0.5;
-    [v20 setFrame:{v38, ceilf(*&v39), v32, v34}];
-    [(THNotesSidebarTableCell *)v9 setNoResultsLabel:v20];
-    contentView = [(THNotesSidebarTableCell *)v9 contentView];
-    [contentView addSubview:v20];
+    *&v41 = (v41 - v36) * 0.5;
+    [v21 setFrame:{v40, ceilf(*&v41), v34, v36}];
+    [(THNotesSidebarTableCell *)v10 setNoResultsLabel:v21];
+    contentView = [(THNotesSidebarTableCell *)v10 contentView];
+    [contentView addSubview:v21];
 
-    [(THNotesSidebarTableCell *)v9 setImageBorderVisible:0];
-    [(THNotesSidebarTableCell *)v9 setTopBorderVisible:0];
-    [(THNotesSidebarTableCell *)v9 setBottomBorderVisible:1];
+    [(THNotesSidebarTableCell *)v10 setImageBorderVisible:0];
+    [(THNotesSidebarTableCell *)v10 setTopBorderVisible:0];
+    [(THNotesSidebarTableCell *)v10 setBottomBorderVisible:1];
   }
 
 LABEL_14:
 LABEL_15:
-  [(THNotesSidebarTableCell *)v9 setDelegate:self];
+  [(THNotesSidebarTableCell *)v10 setDelegate:self];
 
-  return v9;
+  return v10;
 }
 
 - (void)tableView:(id)view willDisplayCell:(id)cell forRowAtIndexPath:(id)path

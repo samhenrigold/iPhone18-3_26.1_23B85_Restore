@@ -50,7 +50,7 @@
     UIKBClipTwoPieceBackground(v9, v10 | 0xC, x, y, width, height, v12, v14, v16, height, v17, v18, v19, height);
   }
 
-  v20 = +[UIColor blackColor];
+  v20 = objc_msgSend_blackColor(UIColor);
   [v20 set];
 
   v22.origin.x = x;

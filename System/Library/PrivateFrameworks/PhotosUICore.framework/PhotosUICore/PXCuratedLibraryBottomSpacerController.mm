@@ -71,8 +71,8 @@ LABEL_4:
 
 - (void)_updateSpacer
 {
-  layout = [(PXCuratedLibraryBottomSpacerController *)self layout];
-  [layout padding];
+  v12 = objc_msgSend_layout(self, a2);
+  [v12 padding];
   v4 = v3;
   v6 = v5;
   v8 = v7;
@@ -83,16 +83,16 @@ LABEL_4:
   if (wantsSpacer)
   {
     [scrollViewController scrollViewContentSize];
-    [layout presentedPadding];
-    [layout safeAreaInsets];
+    [v12 presentedPadding];
+    [v12 safeAreaInsets];
     [scrollViewController visibleRect];
     [scrollViewController contentInset];
     [scrollViewController contentInset];
-    [layout padding];
+    [v12 padding];
     PXEdgeInsetsEqualToEdgeInsets();
   }
 
-  [layout setPadding:{v4, v6, 0.0, v8}];
+  [v12 setPadding:{v4, v6, 0.0, v8}];
   [(PXCuratedLibraryBottomSpacerController *)self setHasSpacer:wantsSpacer];
 }
 
@@ -109,8 +109,8 @@ LABEL_4:
     viewModel = [(PXCuratedLibraryBottomSpacerController *)self viewModel];
     if ([viewModel zoomLevel] == 4)
     {
-      layout = [(PXCuratedLibraryBottomSpacerController *)self layout];
-      allPhotosLayout = [layout allPhotosLayout];
+      v4 = objc_msgSend_layout(self);
+      allPhotosLayout = [v4 allPhotosLayout];
       fillSafeAreaBottomInset = [allPhotosLayout fillSafeAreaBottomInset];
 
       if (fillSafeAreaBottomInset)
@@ -130,7 +130,7 @@ LABEL_10:
           v9 = zoomablePhotosViewModel;
           if (zoomablePhotosViewModel)
           {
-            [zoomablePhotosViewModel zoomState];
+            objc_msgSend_zoomState(zoomablePhotosViewModel);
             v7 = BYTE8(v13);
           }
 
@@ -181,13 +181,13 @@ LABEL_10:
   v8 = v7;
   v10 = v9;
   v12 = v11;
-  layout = [(PXCuratedLibraryBottomSpacerController *)self layout];
+  v13 = objc_msgSend_layout(self);
   [scrollViewController scrollViewContentSize];
   v15 = v14;
   v17 = v16;
-  [layout presentedPadding];
+  [v13 presentedPadding];
   v19 = v17 - v18;
-  [layout safeAreaInsets];
+  [v13 safeAreaInsets];
   v21 = v20;
   v23 = v22;
   v24 = v22 + v19;

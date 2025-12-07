@@ -77,12 +77,12 @@
   return 0;
 }
 
-void __97__WFContactPickerCoordinator_contactViewController_shouldPerformDefaultActionForContactProperty___block_invoke(uint64_t a1)
+void __97__WFContactPickerCoordinator_contactViewController_shouldPerformDefaultActionForContactProperty___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v3 = WFContactFromCNContactProperty();
-  [*(a1 + 40) finishWithContact:v3];
-  v2 = [*(a1 + 48) navigationController];
-  [v2 dismissViewControllerAnimated:1 completion:0];
+  v5 = WFContactFromCNContactProperty();
+  [*(a1 + 40) finishWithContact:v5];
+  v4 = [*(a1 + 48) navigationController];
+  [v4 dismissViewControllerAnimated:1 completion:0];
 }
 
 - (id)supportedContactProperties

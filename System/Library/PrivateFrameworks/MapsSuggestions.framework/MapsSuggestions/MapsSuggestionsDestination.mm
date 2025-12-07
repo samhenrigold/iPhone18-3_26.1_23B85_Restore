@@ -588,21 +588,21 @@ LABEL_21:
   entryCopy = entry;
   if (!entryCopy)
   {
-    v8 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v10 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       *buf = 136446978;
-      v24 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsDestination.mm";
-      v25 = 1024;
-      v26 = 357;
-      v27 = 2082;
-      v28 = "[MapsSuggestionsDestination couldContainEntry:]";
-      v29 = 2082;
-      v30 = "nil == (entry)";
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_FAULT, "At %{public}s:%d, %{public}s forbids: %{public}s. requires an entry", buf, 0x26u);
+      v32 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsDestination.mm";
+      v33 = 1024;
+      v34 = 357;
+      v35 = 2082;
+      v36 = "[MapsSuggestionsDestination couldContainEntry:]";
+      v37 = 2082;
+      v38 = "nil == (entry)";
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_FAULT, "At %{public}s:%d, %{public}s forbids: %{public}s. requires an entry", buf, 0x26u);
     }
 
-    v7 = MapsSuggestionsConfidenceDefinitelyFalse();
+    v9 = MapsSuggestionsConfidenceDefinitelyFalse(v11, v12);
     goto LABEL_7;
   }
 
@@ -611,46 +611,47 @@ LABEL_21:
 
   if (v6)
   {
-    v7 = MapsSuggestionsConfidenceDefinitelyTrue();
+    v9 = MapsSuggestionsConfidenceDefinitelyTrue(v7, v8);
 LABEL_7:
-    v9 = v7;
+    v13 = v9;
     goto LABEL_21;
   }
 
   geoMapItem = [entryCopy geoMapItem];
+  v16 = geoMapItem;
   if (geoMapItem)
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
-    v19 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     entries2 = [(MapsSuggestionsDestination *)self entries];
-    v12 = [entries2 countByEnumeratingWithState:&v18 objects:v22 count:16];
-    if (v12)
+    v18 = [entries2 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    if (v18)
     {
-      v13 = *v19;
+      v19 = *v27;
       while (2)
       {
-        for (i = 0; i != v12; i = i + 1)
+        for (i = 0; i != v18; i = i + 1)
         {
-          if (*v19 != v13)
+          if (*v27 != v19)
           {
             objc_enumerationMutation(entries2);
           }
 
-          geoMapItem2 = [*(*(&v18 + 1) + 8 * i) geoMapItem];
-          v16 = [geoMapItem isEqualToMapItem:geoMapItem2];
+          geoMapItem2 = [*(*(&v26 + 1) + 8 * i) geoMapItem];
+          v22 = [v16 isEqualToMapItem:geoMapItem2];
 
-          if (v16)
+          if (v22)
           {
-            v9 = MapsSuggestionsConfidenceDefinitelyTrue();
+            v13 = MapsSuggestionsConfidenceDefinitelyTrue(v23, v24);
 
             goto LABEL_20;
           }
         }
 
-        v12 = [entries2 countByEnumeratingWithState:&v18 objects:v22 count:16];
-        if (v12)
+        v18 = [entries2 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        if (v18)
         {
           continue;
         }
@@ -660,11 +661,11 @@ LABEL_7:
     }
   }
 
-  v9 = MapsSuggestionsConfidenceDefinitelyFalse();
+  v13 = MapsSuggestionsConfidenceDefinitelyFalse(geoMapItem, v15);
 LABEL_20:
 
 LABEL_21:
-  return v9;
+  return v13;
 }
 
 - (double)couldContainLocation:(id)location
@@ -676,47 +677,47 @@ LABEL_21:
     if (likelyLocation)
     {
       [(CLLocation *)likelyLocation distanceFromLocation:locationCopy];
-      v7 = v6;
-      [(MapsSuggestionsDestination *)self radius];
-      if (v7 <= v8)
+      v8 = v7;
+      radius = [(MapsSuggestionsDestination *)self radius];
+      if (v8 <= v11)
       {
-        v9 = MapsSuggestionsConfidenceDefinitelyTrue();
+        v12 = MapsSuggestionsConfidenceDefinitelyTrue(radius, v10);
       }
 
       else
       {
-        v9 = MapsSuggestionsConfidenceDefinitelyFalse();
+        v12 = MapsSuggestionsConfidenceDefinitelyFalse(radius, v10);
       }
     }
 
     else
     {
-      v9 = MapsSuggestionsConfidenceDontKnow();
+      v12 = MapsSuggestionsConfidenceDontKnow(0, v4);
     }
   }
 
   else
   {
-    v10 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v13 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
-      v13 = 136446978;
-      v14 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsDestination.mm";
-      v15 = 1024;
-      v16 = 381;
-      v17 = 2082;
-      v18 = "[MapsSuggestionsDestination couldContainLocation:]";
-      v19 = 2082;
-      v20 = "nil == (location)";
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_FAULT, "At %{public}s:%d, %{public}s forbids: %{public}s. requires a location", &v13, 0x26u);
+      v18 = 136446978;
+      v19 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsDestination.mm";
+      v20 = 1024;
+      v21 = 381;
+      v22 = 2082;
+      v23 = "[MapsSuggestionsDestination couldContainLocation:]";
+      v24 = 2082;
+      v25 = "nil == (location)";
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_FAULT, "At %{public}s:%d, %{public}s forbids: %{public}s. requires a location", &v18, 0x26u);
     }
 
-    v9 = MapsSuggestionsConfidenceDefinitelyFalse();
+    v12 = MapsSuggestionsConfidenceDefinitelyFalse(v14, v15);
   }
 
-  v11 = v9;
+  v16 = v12;
 
-  return v11;
+  return v16;
 }
 
 - (double)couldContainTime:(id)time
@@ -724,38 +725,38 @@ LABEL_21:
   timeCopy = time;
   if (!timeCopy)
   {
-    v18 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+    v25 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
     {
       *buf = 136446978;
-      v28 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsDestination.mm";
-      v29 = 1024;
-      v30 = 398;
-      v31 = 2082;
-      v32 = "[MapsSuggestionsDestination couldContainTime:]";
-      v33 = 2082;
-      v34 = "nil == (time)";
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_FAULT, "At %{public}s:%d, %{public}s forbids: %{public}s. requires a time", buf, 0x26u);
+      v37 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsDestination.mm";
+      v38 = 1024;
+      v39 = 398;
+      v40 = 2082;
+      v41 = "[MapsSuggestionsDestination couldContainTime:]";
+      v42 = 2082;
+      v43 = "nil == (time)";
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_FAULT, "At %{public}s:%d, %{public}s forbids: %{public}s. requires a time", buf, 0x26u);
     }
 
-    v19 = MapsSuggestionsConfidenceDefinitelyFalse();
+    v28 = MapsSuggestionsConfidenceDefinitelyFalse(v26, v27);
     goto LABEL_25;
   }
 
   if (!sub_100017140(&self->super.isa))
   {
-    v19 = MapsSuggestionsConfidenceDontKnow();
+    v28 = MapsSuggestionsConfidenceDontKnow(0, v5);
 LABEL_25:
-    v20 = v19;
+    v29 = v28;
     goto LABEL_31;
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v23 = 0u;
-  v5 = [(MapsSuggestionsDestination *)self entries:0];
-  v6 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
-  if (!v6)
+  v33 = 0u;
+  v34 = 0u;
+  v32 = 0u;
+  v6 = [(MapsSuggestionsDestination *)self entries:0];
+  v7 = [v6 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  if (!v7)
   {
 
     endDate2 = 0;
@@ -765,23 +766,24 @@ LABEL_25:
 
   startDate2 = 0;
   endDate2 = 0;
-  v9 = *v23;
+  v10 = *v32;
   while (2)
   {
-    for (i = 0; i != v6; ++i)
+    for (i = 0; i != v7; ++i)
     {
-      if (*v23 != v9)
+      if (*v32 != v10)
       {
-        objc_enumerationMutation(v5);
+        objc_enumerationMutation(v6);
       }
 
-      v11 = MapsSuggestionsPeriodFromEntry();
-      v12 = v11;
-      if (v11)
+      v12 = MapsSuggestionsPeriodFromEntry();
+      v13 = v12;
+      if (v12)
       {
-        if ([v11 containsDate:timeCopy])
+        v14 = [v12 containsDate:timeCopy];
+        if (v14)
         {
-          v20 = MapsSuggestionsConfidenceDefinitelyTrue();
+          v29 = MapsSuggestionsConfidenceDefinitelyTrue(v14, v15);
 
 LABEL_27:
           goto LABEL_30;
@@ -789,10 +791,10 @@ LABEL_27:
 
         if (startDate2)
         {
-          startDate = [v12 startDate];
-          v14 = [startDate earlierDate:startDate2];
+          startDate = [v13 startDate];
+          v17 = [startDate earlierDate:startDate2];
 
-          startDate2 = v14;
+          startDate2 = v17;
           if (endDate2)
           {
             goto LABEL_12;
@@ -801,26 +803,26 @@ LABEL_27:
 
         else
         {
-          startDate2 = [v12 startDate];
+          startDate2 = [v13 startDate];
           if (endDate2)
           {
 LABEL_12:
-            endDate = [v12 endDate];
-            v16 = [endDate laterDate:endDate2];
+            endDate = [v13 endDate];
+            v19 = [endDate laterDate:endDate2];
 
-            endDate2 = v16;
+            endDate2 = v19;
             goto LABEL_15;
           }
         }
 
-        endDate2 = [v12 endDate];
+        endDate2 = [v13 endDate];
       }
 
 LABEL_15:
     }
 
-    v6 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
-    if (v6)
+    v7 = [v6 countByEnumeratingWithState:&v31 objects:v35 count:16];
+    if (v7)
     {
       continue;
     }
@@ -830,27 +832,28 @@ LABEL_15:
 
   if (startDate2 && endDate2)
   {
-    v5 = [[NSDateInterval alloc] initWithStartDate:startDate2 endDate:endDate2];
-    if ([v5 containsDate:timeCopy])
+    v6 = [[NSDateInterval alloc] initWithStartDate:startDate2 endDate:endDate2];
+    v22 = [v6 containsDate:timeCopy];
+    if (v22)
     {
-      v17 = MapsSuggestionsConfidenceDontKnow();
+      v24 = MapsSuggestionsConfidenceDontKnow(v22, v23);
     }
 
     else
     {
-      v17 = MapsSuggestionsConfidenceDefinitelyFalse();
+      v24 = MapsSuggestionsConfidenceDefinitelyFalse(v22, v23);
     }
 
-    v20 = v17;
+    v29 = v24;
     goto LABEL_27;
   }
 
 LABEL_29:
-  v20 = MapsSuggestionsConfidenceDontKnow();
+  v29 = MapsSuggestionsConfidenceDontKnow(v20, v21);
 LABEL_30:
 
 LABEL_31:
-  return v20;
+  return v29;
 }
 
 - (unint64_t)removeExpiredEntries

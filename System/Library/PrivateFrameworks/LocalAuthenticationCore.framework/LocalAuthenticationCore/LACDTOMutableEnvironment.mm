@@ -17,7 +17,7 @@
 - (BOOL)allowsAuthenticationFallbacks
 {
   locationState = [(LACDTOMutableEnvironment *)self locationState];
-  v4 = [locationState rawValue] == 1 || !-[LACDTOMutableEnvironment isDTOActive](self, "isDTOActive") || -[LACDTOMutableEnvironment hasExpiredBiometry](self, "hasExpiredBiometry");
+  v4 = objc_msgSend_rawValue(locationState) == 1 || ![(LACDTOMutableEnvironment *)self isDTOActive]|| [(LACDTOMutableEnvironment *)self hasExpiredBiometry];
 
   return v4;
 }
@@ -43,7 +43,7 @@
 - (BOOL)hasExpiredBiometry
 {
   ratchetState = [(LACDTOMutableEnvironment *)self ratchetState];
-  v3 = [ratchetState rawValue] == 4;
+  v3 = objc_msgSend_rawValue(ratchetState) == 4;
 
   return v3;
 }
@@ -125,10 +125,10 @@
 
 - (NSString)description
 {
-  v53[14] = *MEMORY[0x1E69E9840];
+  v52[14] = *MEMORY[0x1E69E9840];
   v3 = os_variant_allows_internal_security_policies();
-  v48 = MEMORY[0x1E696AEC0];
-  v47 = objc_opt_class();
+  v47 = MEMORY[0x1E696AEC0];
+  v46 = objc_opt_class();
   v4 = MEMORY[0x1E696AEC0];
   if ([(LACDTOMutableEnvironment *)self isConfirmed])
   {
@@ -140,8 +140,8 @@
     v5 = @"NO";
   }
 
-  v52 = [v4 stringWithFormat:@"confirmed: %@", v5];
-  v53[0] = v52;
+  v51 = [v4 stringWithFormat:@"confirmed: %@", v5];
+  v52[0] = v51;
   v6 = MEMORY[0x1E696AEC0];
   if ([(LACDTOMutableEnvironment *)self isDTOEnabled])
   {
@@ -153,8 +153,8 @@
     v7 = @"NO";
   }
 
-  v51 = [v6 stringWithFormat:@"isDTOEnabled: %@", v7];
-  v53[1] = v51;
+  v50 = [v6 stringWithFormat:@"isDTOEnabled: %@", v7];
+  v52[1] = v50;
   v8 = MEMORY[0x1E696AEC0];
   if ([(LACDTOMutableEnvironment *)self isDTOActive])
   {
@@ -166,8 +166,8 @@
     v9 = @"NO";
   }
 
-  v50 = [v8 stringWithFormat:@"isDTOActive: %@", v9];
-  v53[2] = v50;
+  v49 = [v8 stringWithFormat:@"isDTOActive: %@", v9];
+  v52[2] = v49;
   v10 = MEMORY[0x1E696AEC0];
   if ([(LACDTOMutableEnvironment *)self isGracePeriodActive])
   {
@@ -179,8 +179,8 @@
     v11 = @"NO";
   }
 
-  v49 = [v10 stringWithFormat:@"isGracePeriodActive: %@", v11];
-  v53[3] = v49;
+  v48 = [v10 stringWithFormat:@"isGracePeriodActive: %@", v11];
+  v52[3] = v48;
   v12 = MEMORY[0x1E696AEC0];
   if ([(LACDTOMutableEnvironment *)self isStrictModeEnabled])
   {
@@ -192,8 +192,8 @@
     v13 = @"NO";
   }
 
-  v46 = [v12 stringWithFormat:@"isStrictModeEnabled: %@", v13];
-  v53[4] = v46;
+  v45 = [v12 stringWithFormat:@"isStrictModeEnabled: %@", v13];
+  v52[4] = v45;
   v14 = MEMORY[0x1E696AEC0];
   if ([(LACDTOMutableEnvironment *)self hasExpiredBiometry])
   {
@@ -205,8 +205,8 @@
     v15 = @"NO";
   }
 
-  v45 = [v14 stringWithFormat:@"hasExpiredBiometry: %@", v15];
-  v53[5] = v45;
+  v44 = [v14 stringWithFormat:@"hasExpiredBiometry: %@", v15];
+  v52[5] = v44;
   v16 = MEMORY[0x1E696AEC0];
   if (v3)
   {
@@ -226,8 +226,8 @@
     v17 = @"<private>";
   }
 
-  v44 = [v16 stringWithFormat:@"allowsAuthenticationFallbacks: %@", v17];
-  v53[6] = v44;
+  v43 = [v16 stringWithFormat:@"allowsAuthenticationFallbacks: %@", v17];
+  v52[6] = v43;
   v18 = MEMORY[0x1E696AEC0];
   if (v3)
   {
@@ -247,37 +247,35 @@
     v19 = @"<private>";
   }
 
-  v43 = [v18 stringWithFormat:@"allowsGracePeriodUI: %@", v19];
-  v53[7] = v43;
+  v42 = [v18 stringWithFormat:@"allowsGracePeriodUI: %@", v19];
+  v52[7] = v42;
   v20 = MEMORY[0x1E696AEC0];
   biometryWatchdogPack = [(LACDTOMutableEnvironment *)self biometryWatchdogPack];
-  v41 = [v20 stringWithFormat:@"biometryWatchdogPack: %@", biometryWatchdogPack];
-  v53[8] = v41;
+  v40 = [v20 stringWithFormat:@"biometryWatchdogPack: %@", biometryWatchdogPack];
+  v52[8] = v40;
   v21 = MEMORY[0x1E696AEC0];
   locationState = [(LACDTOMutableEnvironment *)self locationState];
-  v39 = [v21 stringWithFormat:@"locationState: %@", locationState];
-  v53[9] = v39;
+  v38 = [v21 stringWithFormat:@"locationState: %@", locationState];
+  v52[9] = v38;
   v22 = MEMORY[0x1E696AEC0];
   lostModeState = [(LACDTOMutableEnvironment *)self lostModeState];
   v23 = [v22 stringWithFormat:@"lostModeState: %@", lostModeState];
-  v53[10] = v23;
+  v52[10] = v23;
   v24 = MEMORY[0x1E696AEC0];
   featureState = [(LACDTOMutableEnvironment *)self featureState];
   v26 = [v24 stringWithFormat:@"featureState: %@", featureState];
-  v53[11] = v26;
+  v52[11] = v26;
   v27 = MEMORY[0x1E696AEC0];
   ratchetState = [(LACDTOMutableEnvironment *)self ratchetState];
   v29 = [v27 stringWithFormat:@"ratchetState: %@", ratchetState];
-  v53[12] = v29;
+  v52[12] = v29;
   v30 = MEMORY[0x1E696AEC0];
   gracePeriodState = [(LACDTOMutableEnvironment *)self gracePeriodState];
   v32 = [v30 stringWithFormat:@"gracePeriodState: %@", gracePeriodState];
-  v53[13] = v32;
-  v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:14];
+  v52[13] = v32;
+  v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v52 count:14];
   v34 = [v33 componentsJoinedByString:@" "];;
-  v35 = [v48 stringWithFormat:@"<%@ %p %@>", v47, self, v34];;
-
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = [v47 stringWithFormat:@"<%@ %p %@>", v46, self, v34];;
 
   return v35;
 }

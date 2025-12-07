@@ -25,7 +25,7 @@
   v3(v4, &off_1010AA668);
 
   v5.receiver = v4;
-  v5.super_class = _s3TabCMa();
+  v5.super_class = _s3TabCMa(0);
   [(Library.Tab *)&v5 dealloc];
 }
 
@@ -67,7 +67,7 @@
   {
 
     swift_unknownObjectRelease();
-    sub_1000095E8(&v16, &unk_10119E610);
+    sub_1000095E8(&v16, &unk_10119E610, &unk_100EC71A0);
     return 0;
   }
 
@@ -112,7 +112,7 @@
 
 - (void)tabBarController:(id)controller visibilityDidChangeForTabs:(id)tabs
 {
-  sub_100009F78(0, &qword_101181F70);
+  sub_100009F78(0, &qword_101181F70, UITab_ptr);
   v5 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   sub_1003DCE8C(v5);
@@ -137,7 +137,7 @@
 
 - (id)tabBarController:(id)controller displayedViewControllersForTab:(id)tab proposedViewControllers:(id)controllers
 {
-  sub_100009F78(0, &qword_101183D40);
+  sub_100009F78(0, &qword_101183D40, UIViewController_ptr);
   v8 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   controllerCopy = controller;
   tabCopy = tab;

@@ -54,48 +54,49 @@
 
 - (PTSettings)initWithDefaultValues
 {
-  v10.receiver = self;
-  v10.super_class = PTSettings;
-  v2 = [(PTSettings *)&v10 init];
+  v12.receiver = self;
+  v12.super_class = PTSettings;
+  v2 = [(PTSettings *)&v12 init];
+  v4 = v2;
   if (v2)
   {
-    IsAppleInternal = PTInstallIsAppleInternal();
-    suppressesIntrospectionOnCustomerInstalls = [(PTSettings *)v2 suppressesIntrospectionOnCustomerInstalls];
+    IsAppleInternal = PTInstallIsAppleInternal(v2, v3);
+    suppressesIntrospectionOnCustomerInstalls = [(PTSettings *)v4 suppressesIntrospectionOnCustomerInstalls];
     if (!suppressesIntrospectionOnCustomerInstalls || IsAppleInternal != 0)
     {
-      v6 = objc_opt_class();
-      v7 = [PTSettingsClassStructure structureForSettingsClass:v6];
-      classStructure = v2->__classStructure;
-      v2->__classStructure = v7;
+      v8 = objc_opt_class();
+      v9 = [PTSettingsClassStructure structureForSettingsClass:v8];
+      classStructure = v4->__classStructure;
+      v4->__classStructure = v9;
     }
 
     if (suppressesIntrospectionOnCustomerInstalls)
     {
-      [(PTSettings *)v2 createChildren];
+      [(PTSettings *)v4 createChildren];
     }
 
     else
     {
-      [(PTSettings *)v2 _createChildren];
+      [(PTSettings *)v4 _createChildren];
     }
 
     if (IsAppleInternal)
     {
-      [(PTSettings *)v2 _createOutlets];
-      [(PTSettings *)v2 setDefaultValues];
+      [(PTSettings *)v4 _createOutlets];
+      [(PTSettings *)v4 setDefaultValues];
       if (suppressesIntrospectionOnCustomerInstalls)
       {
-        [(PTSettings *)v2 _validateChildren];
+        [(PTSettings *)v4 _validateChildren];
       }
     }
 
     else
     {
-      [(PTSettings *)v2 setDefaultValues];
+      [(PTSettings *)v4 setDefaultValues];
     }
   }
 
-  return v2;
+  return v4;
 }
 
 - (void)_createChildren
@@ -342,56 +343,56 @@ LABEL_12:
 
 - (void)_applyArchiveDictionary:(id)dictionary
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v22 = 0u;
-  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   allKeys = [dictionaryCopy allKeys];
-  v6 = [allKeys countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v6 = [allKeys countByEnumeratingWithState:&v24 objects:v32 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v23;
+    v9 = *v25;
     *&v7 = 138412546;
-    v21 = v7;
+    v23 = v7;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v23 != v9)
+        if (*v25 != v9)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * i);
-        v12 = [dictionaryCopy objectForKey:{v11, v21}];
+        v11 = *(*(&v24 + 1) + 8 * i);
+        v12 = [dictionaryCopy objectForKey:{v11, v23}];
         childKeys = [(PTSettingsClassStructure *)self->__classStructure childKeys];
         v14 = [childKeys containsObject:v11];
 
         if (v14)
         {
-          objc_opt_class();
-          objc_opt_class();
-          if (PTValidateDictionary(v12))
+          v15 = objc_opt_class();
+          v16 = objc_opt_class();
+          if (PTValidateDictionary(v12, v15, v16))
           {
-            v15 = [(PTSettings *)self _ensureChildForKey:v11];
-            [v15 _applyArchiveDictionary:v12];
+            v17 = [(PTSettings *)self _ensureChildForKey:v11];
+            [v17 _applyArchiveDictionary:v12];
           }
 
           else
           {
-            v18 = PTLogObjectForTopic(0);
-            if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+            v20 = PTLogObjectForTopic(0);
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
             {
-              v19 = objc_opt_class();
-              *buf = v21;
-              v27 = v11;
-              v28 = 2112;
-              v29 = v19;
-              v20 = v19;
-              _os_log_impl(&dword_21E61D000, v18, OS_LOG_TYPE_DEFAULT, "PTSettings can't apply archive for child settings key %@ (expected NSDictionary, found %@)", buf, 0x16u);
+              v21 = objc_opt_class();
+              *buf = v23;
+              v29 = v11;
+              v30 = 2112;
+              v31 = v21;
+              v22 = v21;
+              _os_log_impl(&dword_21E61D000, v20, OS_LOG_TYPE_DEFAULT, "PTSettings can't apply archive for child settings key %@ (expected NSDictionary, found %@)", buf, 0x16u);
             }
           }
         }
@@ -399,16 +400,16 @@ LABEL_12:
         else
         {
           leafKeys = [(PTSettingsClassStructure *)self->__classStructure leafKeys];
-          v17 = [leafKeys containsObject:v11];
+          v19 = [leafKeys containsObject:v11];
 
-          if (v17)
+          if (v19)
           {
             [(PTSettings *)self applyArchiveValue:v12 forKey:v11];
           }
         }
       }
 
-      v8 = [allKeys countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v8 = [allKeys countByEnumeratingWithState:&v24 objects:v32 count:16];
     }
 
     while (v8);
@@ -657,14 +658,14 @@ LABEL_7:
 - (void)addKeyObserver:(id)observer
 {
   observerCopy = observer;
-  if (PTInstallIsAppleInternal())
+  if (PTInstallIsAppleInternal(observerCopy, v4))
   {
     keyObservers = self->__keyObservers;
     if (!keyObservers)
     {
-      v5 = [MEMORY[0x277CCAA50] hashTableWithOptions:517];
-      v6 = self->__keyObservers;
-      self->__keyObservers = v5;
+      v6 = [MEMORY[0x277CCAA50] hashTableWithOptions:517];
+      v7 = self->__keyObservers;
+      self->__keyObservers = v6;
 
       keyObservers = self->__keyObservers;
     }
@@ -677,7 +678,7 @@ LABEL_7:
 - (void)removeKeyObserver:(id)observer
 {
   observerCopy = observer;
-  if (PTInstallIsAppleInternal())
+  if (PTInstallIsAppleInternal(observerCopy, v4))
   {
     [(NSHashTable *)self->__keyObservers removeObject:observerCopy];
     [(PTSettings *)self _startOrStopObservingPropertiesAndChildren];
@@ -687,14 +688,14 @@ LABEL_7:
 - (void)addKeyPathObserver:(id)observer
 {
   observerCopy = observer;
-  if (PTInstallIsAppleInternal())
+  if (PTInstallIsAppleInternal(observerCopy, v4))
   {
     keyPathObservers = self->__keyPathObservers;
     if (!keyPathObservers)
     {
-      v5 = [MEMORY[0x277CCAA50] hashTableWithOptions:517];
-      v6 = self->__keyPathObservers;
-      self->__keyPathObservers = v5;
+      v6 = [MEMORY[0x277CCAA50] hashTableWithOptions:517];
+      v7 = self->__keyPathObservers;
+      self->__keyPathObservers = v6;
 
       keyPathObservers = self->__keyPathObservers;
     }
@@ -707,7 +708,7 @@ LABEL_7:
 - (void)removeKeyPathObserver:(id)observer
 {
   observerCopy = observer;
-  if (PTInstallIsAppleInternal())
+  if (PTInstallIsAppleInternal(observerCopy, v4))
   {
     [(NSHashTable *)self->__keyPathObservers removeObject:observerCopy];
     [(PTSettings *)self _startOrStopObservingPropertiesAndChildren];
@@ -765,7 +766,7 @@ LABEL_7:
 {
   enabledCopy = enabled;
   v15 = *MEMORY[0x277D85DE8];
-  if (PTInstallIsAppleInternal() && self->__observationEnabled != enabledCopy)
+  if (PTInstallIsAppleInternal(self, a2) && self->__observationEnabled != enabledCopy)
   {
     v5 = PTLogObjectForTopic(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))

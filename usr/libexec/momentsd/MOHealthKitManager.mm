@@ -1193,22 +1193,21 @@ void __66__MOHealthKitManager__rehydrateStoredEvents_fromWorkouts_handler___bloc
     v3 = [*(*(*(a1 + 48) + 8) + 40) count];
     v4 = [*(a1 + 32) count];
     *buf = 134218240;
-    v13 = v3;
-    v14 = 2048;
-    v15 = v4;
+    v12 = v3;
+    v13 = 2048;
+    v14 = v4;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "rehydrated workout count, %lu, stored workout count, %lu", buf, 0x16u);
   }
 
-  v5 = *(*(*(a1 + 48) + 8) + 40);
   (*(*(a1 + 40) + 16))();
-  v6 = [MORehydrationMetrics alloc];
-  v7 = [*(a1 + 32) firstObject];
-  v8 = [v7 category];
-  v9 = [*(a1 + 32) firstObject];
-  v10 = -[MORehydrationMetrics initWithCategory:provider:spiSuccess:spiError:failCount:successAfterPreFailCount:totalCount:rehydrationTrigger:](v6, "initWithCategory:provider:spiSuccess:spiError:failCount:successAfterPreFailCount:totalCount:rehydrationTrigger:", v8, [v9 provider], 1, 0, objc_msgSend(*(a1 + 32), "count"), 3, (objc_msgSend(*(a1 + 32), "count") - objc_msgSend(*(*(*(a1 + 48) + 8) + 40), "count")), objc_msgSend(*(*(*(a1 + 56) + 8) + 40), "count"));
+  v5 = [MORehydrationMetrics alloc];
+  v6 = [*(a1 + 32) firstObject];
+  v7 = [v6 category];
+  v8 = [*(a1 + 32) firstObject];
+  v9 = -[MORehydrationMetrics initWithCategory:provider:spiSuccess:spiError:failCount:successAfterPreFailCount:totalCount:rehydrationTrigger:](v5, "initWithCategory:provider:spiSuccess:spiError:failCount:successAfterPreFailCount:totalCount:rehydrationTrigger:", v7, [v8 provider], 1, 0, objc_msgSend(*(a1 + 32), "count"), 3, (objc_msgSend(*(a1 + 32), "count") - objc_msgSend(*(*(*(a1 + 48) + 8) + 40), "count")), objc_msgSend(*(*(*(a1 + 56) + 8) + 40), "count"));
 
-  v11 = 0;
-  [(MORehydrationMetrics *)v10 submitMetricsWithError:&v11];
+  v10 = 0;
+  [(MORehydrationMetrics *)v9 submitMetricsWithError:&v10];
 }
 
 - (void)_rehydrateStoredEvents:(id)events fromStateOfMind:(id)mind handler:(id)handler
@@ -1593,15 +1592,14 @@ uint64_t __50__MOHealthKitManager__fetchLocationsFrom_handler___block_invoke_457
       __50__MOHealthKitManager__fetchLocationsFrom_handler___block_invoke_457_cold_1(v2, a1);
     }
 
-    v4 = *(*(*(a1 + 56) + 8) + 40);
     return (*(*(a1 + 48) + 16))();
   }
 
   else
   {
-    v6 = *(*(a1 + 48) + 16);
+    v5 = *(*(a1 + 48) + 16);
 
-    return v6();
+    return v5();
   }
 }
 
@@ -2094,19 +2092,19 @@ void __91__MOHealthKitManager__fetchWorkoutEventsBetweenStartDate_endDate_withSt
     v7 = [*(*(*(a1 + 96) + 8) + 40) count];
     v8 = [v2 count];
     v9 = [*(a1 + 40) count];
-    v13 = 138413570;
-    v14 = v4;
-    v15 = 2112;
-    v16 = v5;
-    v17 = 2048;
-    v18 = v6;
-    v19 = 2048;
-    v20 = v7;
-    v21 = 2048;
-    v22 = v8;
-    v23 = 2048;
-    v24 = v9;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "start date, %@, end date, %@, rehydrated workout events count, %lu, new workout events counts, %lu, unrehydrated workout events count, %lu, stored workout events count, %lu", &v13, 0x3Eu);
+    v12 = 138413570;
+    v13 = v4;
+    v14 = 2112;
+    v15 = v5;
+    v16 = 2048;
+    v17 = v6;
+    v18 = 2048;
+    v19 = v7;
+    v20 = 2048;
+    v21 = v8;
+    v22 = 2048;
+    v23 = v9;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "start date, %@, end date, %@, rehydrated workout events count, %lu, new workout events counts, %lu, unrehydrated workout events count, %lu, stored workout events count, %lu", &v12, 0x3Eu);
   }
 
   if (v2)
@@ -2126,7 +2124,6 @@ void __91__MOHealthKitManager__fetchWorkoutEventsBetweenStartDate_endDate_withSt
     [*(a1 + 72) setObject:v11 forKey:@"rehydratedEvents"];
   }
 
-  v12 = *(a1 + 72);
   (*(*(a1 + 80) + 16))();
 }
 
@@ -2292,19 +2289,19 @@ void __95__MOHealthKitManager__fetchStateOfMindEventsBetweenStartDate_endDate_wi
     v7 = [*(*(*(a1 + 96) + 8) + 40) count];
     v8 = [v2 count];
     v9 = [*(a1 + 40) count];
-    v13 = 138413570;
-    v14 = v4;
-    v15 = 2112;
-    v16 = v5;
-    v17 = 2048;
-    v18 = v6;
-    v19 = 2048;
-    v20 = v7;
-    v21 = 2048;
-    v22 = v8;
-    v23 = 2048;
-    v24 = v9;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "start date, %@, end date, %@, rehydrated state of mind events count, %lu, new state of mind events counts, %lu, unrehydrated state of mind events count, %lu, stored state of mind events count, %lu", &v13, 0x3Eu);
+    v12 = 138413570;
+    v13 = v4;
+    v14 = 2112;
+    v15 = v5;
+    v16 = 2048;
+    v17 = v6;
+    v18 = 2048;
+    v19 = v7;
+    v20 = 2048;
+    v21 = v8;
+    v22 = 2048;
+    v23 = v9;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "start date, %@, end date, %@, rehydrated state of mind events count, %lu, new state of mind events counts, %lu, unrehydrated state of mind events count, %lu, stored state of mind events count, %lu", &v12, 0x3Eu);
   }
 
   if (v2)
@@ -2324,7 +2321,6 @@ void __95__MOHealthKitManager__fetchStateOfMindEventsBetweenStartDate_endDate_wi
     [*(a1 + 72) setObject:v11 forKey:@"rehydratedEvents"];
   }
 
-  v12 = *(a1 + 72);
   (*(*(a1 + 80) + 16))();
 }
 
@@ -2433,12 +2429,11 @@ uint64_t __55__MOHealthKitManager__createEventsFromWorkout_handler___block_invok
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = [*(*(*(a1 + 40) + 8) + 40) count];
-    v6 = 134217984;
-    v7 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "health: new workout count, %lu", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = v3;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "health: new workout count, %lu", &v5, 0xCu);
   }
 
-  v4 = *(*(*(a1 + 40) + 8) + 40);
   return (*(*(a1 + 32) + 16))();
 }
 

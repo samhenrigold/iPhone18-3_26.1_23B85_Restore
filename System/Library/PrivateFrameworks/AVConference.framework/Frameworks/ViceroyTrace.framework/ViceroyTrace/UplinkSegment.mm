@@ -1,4 +1,5 @@
 @interface UplinkSegment
+- (UplinkSegment)initWithSegmentName:(id)name previousSegmentName:(id)segmentName segmentStreamGroups:(unsigned int)groups previousSegmentStreamGroups:(unsigned int)streamGroups nwActivity:(id)activity localSwitches:(unsigned int)switches sessionSwitches:(unint64_t)sessionSwitches conversationTimeBase:(id)self0 delegate:(id)self1;
 - (id)calculateAverageWithCounter:(id)counter sumKey:(id)key counterKey:(id)counterKey;
 - (id)calculateBitrate:(id)bitrate sumKey:(id)key counterKey:(id)counterKey;
 - (id)calculateFramerate:(id)framerate sumKey:(id)key counterKey:(id)counterKey;
@@ -20,6 +21,8 @@
 - (void)processAudioTransmitterStreamData:(id)data;
 - (void)processAverageEvent:(id)event forMetrics:(id)metrics withStreamGroup:(id)group withQuality:(id)quality sumKey:(id)key counterKey:(id)counterKey;
 - (void)processCountEvent:(id)event forMetrics:(id)metrics withStreamGroup:(id)group withQuality:(id)quality counterKey:(id)key;
+- (void)processKeyFrameReceived:(unsigned int)received withTime:(double)time;
+- (void)processKeyFrameRequestSent:(unsigned int)sent withTime:(double)time;
 - (void)processLateSmartBrakeEvent:(id)event;
 - (void)processMediaQueueEgressIngressTelemetry:(id)telemetry;
 - (void)processMediaQueueTelemetry:(id)telemetry;
@@ -35,6 +38,7 @@
 - (void)updateAdaptiveLearningSegment;
 - (void)updateAudioCodecAndMediaBitrateWithPayload:(id)payload andCurrentTime:(double)time andStats:(const tagVCAudioCodecAndMediaBitrateStats *)stats;
 - (void)updateLastValuesForMediaQueueEgressIngressTelemetry:(id)telemetry;
+- (void)updateMediaBitratesWithTimeElapsed:(unsigned int)elapsed andStats:(const tagVCAudioCodecAndMediaBitrateStats *)stats;
 - (void)updateNetworkSendResultStats:(id)stats;
 - (void)updateSegmentStatsWifiTx:(id)tx withSegmentBytes:(tagVCAggregatorFaceTimeSegmentStatsBytes *)bytes;
 - (void)updateUplinkSegmentStats:(id)stats withSegmentBytes:(tagVCAggregatorFaceTimeSegmentStatsBytes *)bytes;
@@ -42,12 +46,81 @@
 
 @implementation UplinkSegment
 
+- (UplinkSegment)initWithSegmentName:(id)name previousSegmentName:(id)segmentName segmentStreamGroups:(unsigned int)groups previousSegmentStreamGroups:(unsigned int)streamGroups nwActivity:(id)activity localSwitches:(unsigned int)switches sessionSwitches:(unint64_t)sessionSwitches conversationTimeBase:(id)self0 delegate:(id)self1
+{
+  v15.receiver = self;
+  v15.super_class = UplinkSegment;
+  v11 = [(MultiwaySegment *)&v15 initWithSegmentName:name previousSegmentName:segmentName segmentStreamGroups:*&groups previousSegmentStreamGroups:*&streamGroups nwActivity:activity localSwitches:*&switches sessionSwitches:sessionSwitches conversationTimeBase:base delegate:delegate];
+  if (v11)
+  {
+    v11->_streamQualityAggregator = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v11->_streamGroupStats = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:11];
+    v12 = 1;
+    do
+    {
+      v13 = objc_alloc_init(StreamGroupStats);
+      -[NSMutableDictionary setObject:forKeyedSubscript:](v11->_streamGroupStats, "setObject:forKeyedSubscript:", v13, [MEMORY[0x277CCABA8] numberWithInt:v12]);
+
+      v12 = (v12 + 1);
+    }
+
+    while (v12 != 11);
+    v11->_smartBrakeDuration = [[VCReportingHistogram alloc] initWithType:1 bucketValues:0];
+    v11->_smartBrakeTargetBitrateStart = [[VCReportingHistogram alloc] initWithType:6 bucketValues:0];
+    v11->_smartBrakeBandwidthStart = [[VCReportingHistogram alloc] initWithType:6 bucketValues:0];
+    v11->_smartBrakeBandwidthEnd = [[VCReportingHistogram alloc] initWithType:6 bucketValues:0];
+    v11->_smartBrakeTargetBitrateAfter5 = [[VCReportingHistogram alloc] initWithType:80 bucketValues:0];
+    v11->_smartBrakeTargetBitrateAfter15 = [[VCReportingHistogram alloc] initWithType:80 bucketValues:0];
+    v11->_smartBrakeTargetBitrateAfter30 = [[VCReportingHistogram alloc] initWithType:80 bucketValues:0];
+    v11->_firResponseTime = [[VCReportingDistribution alloc] initWithHistogramType:52 reportingKeys:VCReportingDistributionKeys_FIRResponseTime()];
+    v11->_studioLightDuration = [(VCReportingHistogram *)[VCDurationHistogram alloc] initWithType:88 bucketValues:0];
+    v11->_centerStageDuration = [(VCReportingHistogram *)[VCDurationHistogram alloc] initWithType:88 bucketValues:0];
+    v11->_portraitModeDuration = [(VCReportingHistogram *)[VCDurationHistogram alloc] initWithType:88 bucketValues:0];
+    v11->_eyeContactDuration = [(VCReportingHistogram *)[VCDurationHistogram alloc] initWithType:88 bucketValues:0];
+    v11->_reactionActiveDuration = [(VCReportingHistogram *)[VCDurationHistogram alloc] initWithType:88 bucketValues:0];
+    v11->_backgroundReplacementDuration = [(VCReportingHistogram *)[VCDurationHistogram alloc] initWithType:88 bucketValues:0];
+    v11->_cellStrengthRawBars = [[VCReportingHistogram alloc] initWithType:91 bucketValues:0];
+    v11->_SBR = [[VCReportingHistogram alloc] initWithType:8 bucketValues:0];
+    v11->_videoEncodingBitrate = [[VCReportingHistogram alloc] initWithType:20 bucketValues:0];
+    v11->_audioMediaBitrate = [[VCReportingHistogram alloc] initWithType:64 bucketValues:0];
+    v11->_redPayloadBitrate = [[VCReportingHistogram alloc] initWithType:64 bucketValues:0];
+    v11->_audioCodecPayload = [[VCReportingHistogram alloc] initWithType:66 bucketValues:0];
+    v11->_audioFrameBundling = [[VCReportingHistogram alloc] initWithType:67 bucketValues:0];
+    v11->_videoMediaBitrate = [[VCReportingHistogram alloc] initWithType:61 bucketValues:0];
+    v11->_videoCodecPayload = [[VCReportingHistogram alloc] initWithType:63 bucketValues:0];
+    v11->_redNumPayloadsUsed = [[VCReportingHistogram alloc] initWithType:27 bucketValues:0];
+    v11->_redMaxDelay = [[VCReportingHistogram alloc] initWithType:28 bucketValues:0];
+    v11->_wifiQualityScoreDelayTx = [[VCReportingHistogram alloc] initWithType:90 bucketValues:0];
+    v11->_wifiQualityScoreLossTx = [[VCReportingHistogram alloc] initWithType:90 bucketValues:0];
+    v11->_wifiQualityScoreChannel = [[VCReportingHistogram alloc] initWithType:90 bucketValues:0];
+    v11->_cameraCaptureData = [[VCReportingDistribution alloc] initWithHistogramType:81 reportingKeys:VCReportingDistributionKeys_CameraCaptureFrameRate() histogramIncrementFactor:1000];
+    v11->_audioStreamTimestampJumpDuration = [[VCReportingHistogram alloc] initWithType:89 bucketValues:0];
+    v11->_thermalDataCollectors = +[VCAggregator newThermalDataCollectors];
+  }
+
+  return v11;
+}
+
 - (void)dealloc
 {
   [(UplinkSegment *)self releaseWRMMetrics];
   v3.receiver = self;
   v3.super_class = UplinkSegment;
   [(MultiwaySegment *)&v3 dealloc];
+}
+
+- (void)processKeyFrameRequestSent:(unsigned int)sent withTime:(double)time
+{
+  v5 = -[NSMutableDictionary objectForKeyedSubscript:](self->_streamGroupStats, "objectForKeyedSubscript:", [MEMORY[0x277CCABA8] numberWithUnsignedInt:*&sent]);
+
+  [v5 processKeyFrameRequestSent:time];
+}
+
+- (void)processKeyFrameReceived:(unsigned int)received withTime:(double)time
+{
+  v5 = -[NSMutableDictionary objectForKeyedSubscript:](self->_streamGroupStats, "objectForKeyedSubscript:", [MEMORY[0x277CCABA8] numberWithUnsignedInt:*&received]);
+
+  [v5 processKeyFrameReceived:time];
 }
 
 - (void)updateLastValuesForMediaQueueEgressIngressTelemetry:(id)telemetry
@@ -252,29 +325,67 @@
   }
 }
 
+- (void)updateMediaBitratesWithTimeElapsed:(unsigned int)elapsed andStats:(const tagVCAudioCodecAndMediaBitrateStats *)stats
+{
+  if (stats)
+  {
+    v5 = *&elapsed;
+    if (stats->var2)
+    {
+      if (![(VCHistogram *)[(UplinkSegment *)self audioMediaBitrate] addOnlyExactMatchingValue:stats->var2 increment:*&elapsed]&& VRTraceGetErrorLogLevelForModule("") >= 3)
+      {
+        VRTraceErrorLogLevelToCSTR(3u);
+        if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
+        {
+          [UplinkSegment updateMediaBitratesWithTimeElapsed:andStats:];
+        }
+      }
+    }
+
+    var3 = stats->var3;
+    p_var3 = &stats->var3;
+    if (var3 && ![(VCHistogram *)[(UplinkSegment *)self redPayloadBitrate] addOnlyExactMatchingValue:*p_var3 increment:v5]&& VRTraceGetErrorLogLevelForModule("") >= 3)
+    {
+      VRTraceErrorLogLevelToCSTR(3u);
+      if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
+      {
+        [UplinkSegment updateMediaBitratesWithTimeElapsed:andStats:];
+      }
+    }
+  }
+
+  else if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
+    {
+      [UplinkSegment updateMediaBitratesWithTimeElapsed:andStats:];
+    }
+  }
+}
+
 - (void)updateAudioCodecAndMediaBitrateWithPayload:(id)payload andCurrentTime:(double)time andStats:(const tagVCAudioCodecAndMediaBitrateStats *)stats
 {
   if (stats)
   {
     LODWORD(v5) = vcvtad_u64_f64(time - stats->var0);
-    p_var1 = &stats->var1;
     if (stats->var1)
     {
-      if (![(VCHistogram *)[(UplinkSegment *)self audioCodecPayload] addOnlyExactMatchingValue:*p_var1 increment:v5]&& VRTraceGetErrorLogLevelForModule("") >= 3)
+      if (![(VCHistogram *)[(UplinkSegment *)self audioCodecPayload] addOnlyExactMatchingValue:stats->var1 increment:v5]&& VRTraceGetErrorLogLevelForModule("") >= 3)
       {
-        v10 = VRTraceErrorLogLevelToCSTR(3u);
+        VRTraceErrorLogLevelToCSTR(3u);
         if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
         {
-          [UplinkSegment updateAudioCodecAndMediaBitrateWithPayload:v10 andCurrentTime:p_var1 andStats:?];
+          [UplinkSegment updateAudioCodecAndMediaBitrateWithPayload:andCurrentTime:andStats:];
         }
       }
     }
 
     [(UplinkSegment *)self updateMediaBitratesWithTimeElapsed:v5 andStats:stats];
-    v11 = [payload objectForKeyedSubscript:@"Bundle"];
-    if (v11)
+    v9 = [payload objectForKeyedSubscript:@"Bundle"];
+    if (v9)
     {
-      -[VCHistogram addValue:](-[UplinkSegment audioFrameBundling](self, "audioFrameBundling"), "addValue:", [v11 unsignedLongValue]);
+      -[VCHistogram addValue:](-[UplinkSegment audioFrameBundling](self, "audioFrameBundling"), "addValue:", [v9 unsignedLongValue]);
     }
 
     if ([payload objectForKeyedSubscript:@"RedPayloads"])
@@ -300,7 +411,7 @@
 
 - (void)processTransmitterStats:(id)stats
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v5 = [stats objectForKeyedSubscript:@"VCSActiveStreamsList"];
   if (v5)
   {
@@ -309,28 +420,28 @@
     if (v7)
     {
       v8 = v7;
-      v23 = 0u;
-      v24 = 0u;
-      v21 = 0u;
       v22 = 0u;
-      v9 = [v7 countByEnumeratingWithState:&v21 objects:v35 count:16];
+      v23 = 0u;
+      v20 = 0u;
+      v21 = 0u;
+      v9 = [v7 countByEnumeratingWithState:&v20 objects:v34 count:16];
       if (v9)
       {
         v11 = v9;
-        v12 = *v22;
+        v12 = *v21;
         *&v10 = 136316162;
-        v20 = v10;
+        v19 = v10;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v22 != v12)
+            if (*v21 != v12)
             {
               objc_enumerationMutation(v8);
             }
 
-            v14 = *(*(&v21 + 1) + 8 * i);
-            if ([v6 containsString:{v14, v20}])
+            v14 = *(*(&v20 + 1) + 8 * i);
+            if ([v6 containsString:{v14, v19}])
             {
               v15 = [v8 objectForKeyedSubscript:v14];
               if ([objc_msgSend(v15 objectForKeyedSubscript:{@"VCMSDirection", "intValue"}] == 1)
@@ -356,38 +467,38 @@
               {
                 if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
                 {
-                  *buf = v20;
-                  v26 = v17;
-                  v27 = 2080;
-                  v28 = "[UplinkSegment processTransmitterStats:]";
-                  v29 = 1024;
-                  v30 = 4149;
-                  v31 = 2112;
-                  v32 = v14;
-                  v33 = 2112;
-                  v34 = v6;
+                  *buf = v19;
+                  v25 = v17;
+                  v26 = 2080;
+                  v27 = "[UplinkSegment processTransmitterStats:]";
+                  v28 = 1024;
+                  v29 = 4149;
+                  v30 = 2112;
+                  v31 = v14;
+                  v32 = 2112;
+                  v33 = v6;
                   _os_log_impl(&dword_23D4DF000, v18, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d streamKey=%@, is not in list of activeStreams=%@. Ignoring its telemetry...", buf, 0x30u);
                 }
               }
 
               else if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEBUG))
               {
-                *buf = v20;
-                v26 = v17;
-                v27 = 2080;
-                v28 = "[UplinkSegment processTransmitterStats:]";
-                v29 = 1024;
-                v30 = 4149;
-                v31 = 2112;
-                v32 = v14;
-                v33 = 2112;
-                v34 = v6;
+                *buf = v19;
+                v25 = v17;
+                v26 = 2080;
+                v27 = "[UplinkSegment processTransmitterStats:]";
+                v28 = 1024;
+                v29 = 4149;
+                v30 = 2112;
+                v31 = v14;
+                v32 = 2112;
+                v33 = v6;
                 _os_log_debug_impl(&dword_23D4DF000, v18, OS_LOG_TYPE_DEBUG, " [%s] %s:%d streamKey=%@, is not in list of activeStreams=%@. Ignoring its telemetry...", buf, 0x30u);
               }
             }
           }
 
-          v11 = [v8 countByEnumeratingWithState:&v21 objects:v35 count:16];
+          v11 = [v8 countByEnumeratingWithState:&v20 objects:v34 count:16];
         }
 
         while (v11);
@@ -404,8 +515,6 @@
   {
     [UplinkSegment processTransmitterStats:];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processUplinkRTXMetricsFromStreamData:(id)data
@@ -930,7 +1039,7 @@
 
 - (void)collectStreamQualityAggregator:(id)aggregator
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v5 = [VCAggregatorUtils validBitmapIndices:self->super._segmentStreamGroups size:11];
   if (VRTraceGetErrorLogLevelForModule("") >= 7)
   {
@@ -940,60 +1049,60 @@
     {
       segmentStreamGroups = self->super._segmentStreamGroups;
       *buf = 136316162;
-      v34 = v6;
-      v35 = 2080;
-      v36 = "[UplinkSegment collectStreamQualityAggregator:]";
-      v37 = 1024;
-      v38 = 4529;
-      v39 = 1024;
-      v40 = segmentStreamGroups;
-      v41 = 2112;
-      v42 = [v5 componentsJoinedByString:{@", "}];
+      v33 = v6;
+      v34 = 2080;
+      v35 = "[UplinkSegment collectStreamQualityAggregator:]";
+      v36 = 1024;
+      v37 = 4529;
+      v38 = 1024;
+      v39 = segmentStreamGroups;
+      v40 = 2112;
+      v41 = [v5 componentsJoinedByString:{@", "}];
       _os_log_impl(&dword_23D4DF000, v7, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d segmentStreamGroups=%u streamGroups=%@", buf, 0x2Cu);
     }
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   obj = v5;
-  v19 = [v5 countByEnumeratingWithState:&v27 objects:v32 count:16];
-  if (v19)
+  v18 = [v5 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  if (v18)
   {
-    v18 = *v28;
+    v17 = *v27;
     do
     {
       v9 = 0;
       do
       {
-        if (*v28 != v18)
+        if (*v27 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = v9;
-        v10 = *(*(&v27 + 1) + 8 * v9);
+        v19 = v9;
+        v10 = *(*(&v26 + 1) + 8 * v9);
+        v22 = 0u;
         v23 = 0u;
         v24 = 0u;
         v25 = 0u;
-        v26 = 0u;
-        v21 = [(NSMutableDictionary *)self->_streamQualityAggregator objectForKeyedSubscript:v10];
-        v11 = [v21 countByEnumeratingWithState:&v23 objects:v31 count:16];
+        v20 = [(NSMutableDictionary *)self->_streamQualityAggregator objectForKeyedSubscript:v10];
+        v11 = [v20 countByEnumeratingWithState:&v22 objects:v30 count:16];
         if (v11)
         {
           v12 = v11;
-          v22 = *v24;
+          v21 = *v23;
           do
           {
             for (i = 0; i != v12; ++i)
             {
-              if (*v24 != v22)
+              if (*v23 != v21)
               {
-                objc_enumerationMutation(v21);
+                objc_enumerationMutation(v20);
               }
 
-              v14 = *(*(&v23 + 1) + 8 * i);
+              v14 = *(*(&v22 + 1) + 8 * i);
               v15 = [-[NSMutableDictionary objectForKeyedSubscript:](self->_streamQualityAggregator objectForKeyedSubscript:{v10), "objectForKeyedSubscript:", v14}];
               [aggregator setObject:-[UplinkSegment calculateFramerate:sumKey:counterKey:](self forKeyedSubscript:{"calculateFramerate:sumKey:counterKey:", v15, @"encodedVideoFrameSum", @"encodedVideoFrameCounter", objc_msgSend(MEMORY[0x277CCACA0], "stringWithFormat:", @"%@_%@_%@", @"VTEFR", v10, v14)}];
               [aggregator setObject:-[UplinkSegment calculateFramerate:sumKey:counterKey:](self forKeyedSubscript:{"calculateFramerate:sumKey:counterKey:", v15, @"capturedVideoFrameSum", @"capturedVideoFrameCounter", objc_msgSend(MEMORY[0x277CCACA0], "stringWithFormat:", @"%@_%@_%@", @"VTCFR", v10, v14)}];
@@ -1006,28 +1115,26 @@
               [aggregator setObject:-[UplinkSegment calculateAverageWithCounter:sumKey:counterKey:](self forKeyedSubscript:{"calculateAverageWithCounter:sumKey:counterKey:", v15, @"VPS", @"videoPacketSentCounter", objc_msgSend(MEMORY[0x277CCACA0], "stringWithFormat:", @"%@_%@_%@", @"PPS", v10, v14)}];
             }
 
-            v12 = [v21 countByEnumeratingWithState:&v23 objects:v31 count:16];
+            v12 = [v20 countByEnumeratingWithState:&v22 objects:v30 count:16];
           }
 
           while (v12);
         }
 
-        v9 = v20 + 1;
+        v9 = v19 + 1;
       }
 
-      while (v20 + 1 != v19);
-      v19 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+      while (v19 + 1 != v18);
+      v18 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
-    while (v19);
+    while (v18);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)collectStreamTemporalStats:(id)stats
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = [VCAggregatorUtils validBitmapIndices:self->super._segmentStreamGroups size:11];
   if (VRTraceGetErrorLogLevelForModule("") >= 7)
   {
@@ -1037,47 +1144,45 @@
     {
       segmentStreamGroups = self->super._segmentStreamGroups;
       *buf = 136316162;
-      v20 = v4;
-      v21 = 2080;
-      v22 = "[UplinkSegment collectStreamTemporalStats:]";
-      v23 = 1024;
-      v24 = 4566;
-      v25 = 1024;
-      v26 = segmentStreamGroups;
-      v27 = 2112;
-      v28 = [v3 componentsJoinedByString:{@", "}];
+      v19 = v4;
+      v20 = 2080;
+      v21 = "[UplinkSegment collectStreamTemporalStats:]";
+      v22 = 1024;
+      v23 = 4566;
+      v24 = 1024;
+      v25 = segmentStreamGroups;
+      v26 = 2112;
+      v27 = [v3 componentsJoinedByString:{@", "}];
       _os_log_impl(&dword_23D4DF000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d segmentStreamGroups=%u streamGroups=%@", buf, 0x2Cu);
     }
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
-  v7 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v7 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v3);
         }
 
-        [stats setObject:-[NSMutableDictionary objectForKeyedSubscript:](self->super._activeTemporalTiersBitmapStreams forKeyedSubscript:{"objectForKeyedSubscript:", *(*(&v14 + 1) + 8 * i)), objc_msgSend(MEMORY[0x277CCACA0], "stringWithFormat:", @"%@_%@", @"VTXTT", *(*(&v14 + 1) + 8 * i))}];
+        [stats setObject:-[NSMutableDictionary objectForKeyedSubscript:](self->super._activeTemporalTiersBitmapStreams forKeyedSubscript:{"objectForKeyedSubscript:", *(*(&v13 + 1) + 8 * i)), objc_msgSend(MEMORY[0x277CCACA0], "stringWithFormat:", @"%@_%@", @"VTXTT", *(*(&v13 + 1) + 8 * i))}];
       }
 
-      v8 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addCellByteCountStats:(id)stats
@@ -1092,7 +1197,7 @@
 
 - (void)addSegmentWRMReportStats:(id)stats
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   wrmLinkTypeSuggestion = self->_wrmLinkTypeSuggestion;
   if (wrmLinkTypeSuggestion)
   {
@@ -1165,77 +1270,75 @@
         v23 = self->_wrmLinkTypeCellSignalBar;
         v24 = self->_wrmLinkTypeCellServingCellType;
         *buf = 136318210;
-        v36 = v14;
-        v37 = 2080;
-        v38 = "[UplinkSegment addSegmentWRMReportStats:]";
-        v39 = 1024;
-        v40 = 4608;
-        v41 = 2112;
+        v35 = v14;
+        v36 = 2080;
+        v37 = "[UplinkSegment addSegmentWRMReportStats:]";
+        v38 = 1024;
+        v39 = 4608;
+        v40 = 2112;
         selfCopy2 = self;
-        v43 = 2112;
-        v44 = v16;
-        v45 = 2112;
-        v46 = v17;
-        v47 = 2112;
-        v48 = v18;
-        v49 = 2112;
-        v50 = v19;
-        v51 = 2112;
-        v52 = v20;
-        v53 = 2112;
-        v54 = v21;
-        v55 = 2112;
-        v56 = v22;
-        v57 = 2112;
-        v58 = v23;
-        v59 = 2112;
-        v60 = v24;
+        v42 = 2112;
+        v43 = v16;
+        v44 = 2112;
+        v45 = v17;
+        v46 = 2112;
+        v47 = v18;
+        v48 = 2112;
+        v49 = v19;
+        v50 = 2112;
+        v51 = v20;
+        v52 = 2112;
+        v53 = v21;
+        v54 = 2112;
+        v55 = v22;
+        v56 = 2112;
+        v57 = v23;
+        v58 = 2112;
+        v59 = v24;
         _os_log_impl(&dword_23D4DF000, v15, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Adding WRM metrics to uplink segment report=%@ wrmLinkTypeSuggestion=%@ wrmLinkTypeChangeReasonCode=%@ wrmLinkTypeWifiRSSI=%@  wrmLinkTypeWifiSNR=%@ _currentSegment.wrmLinkTypeWifiCCA=%@ wrmLinkTypeWifiPacketLoss=%@ wrmLinkTypeCellSignalStrength=%@ wrmLinkTypeCellSignalBar=%@ wrmLinkTypeCellServingCellType=%@", buf, 0x80u);
       }
     }
 
     else if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEBUG))
     {
-      v26 = self->_wrmLinkTypeSuggestion;
-      v27 = self->_wrmLinkTypeChangeReasonCode;
-      v28 = self->_wrmLinkTypeWifiRSSI;
-      v29 = self->_wrmLinkTypeWifiSNR;
-      v30 = self->_wrmLinkTypeWifiCCA;
-      v31 = self->_wrmLinkTypeWifiPacketLoss;
-      v32 = self->_wrmLinkTypeCellSignalStrength;
-      v33 = self->_wrmLinkTypeCellSignalBar;
-      v34 = self->_wrmLinkTypeCellServingCellType;
+      v25 = self->_wrmLinkTypeSuggestion;
+      v26 = self->_wrmLinkTypeChangeReasonCode;
+      v27 = self->_wrmLinkTypeWifiRSSI;
+      v28 = self->_wrmLinkTypeWifiSNR;
+      v29 = self->_wrmLinkTypeWifiCCA;
+      v30 = self->_wrmLinkTypeWifiPacketLoss;
+      v31 = self->_wrmLinkTypeCellSignalStrength;
+      v32 = self->_wrmLinkTypeCellSignalBar;
+      v33 = self->_wrmLinkTypeCellServingCellType;
       *buf = 136318210;
-      v36 = v14;
-      v37 = 2080;
-      v38 = "[UplinkSegment addSegmentWRMReportStats:]";
-      v39 = 1024;
-      v40 = 4608;
-      v41 = 2112;
+      v35 = v14;
+      v36 = 2080;
+      v37 = "[UplinkSegment addSegmentWRMReportStats:]";
+      v38 = 1024;
+      v39 = 4608;
+      v40 = 2112;
       selfCopy2 = self;
-      v43 = 2112;
-      v44 = v26;
-      v45 = 2112;
-      v46 = v27;
-      v47 = 2112;
-      v48 = v28;
-      v49 = 2112;
-      v50 = v29;
-      v51 = 2112;
-      v52 = v30;
-      v53 = 2112;
-      v54 = v31;
-      v55 = 2112;
-      v56 = v32;
-      v57 = 2112;
-      v58 = v33;
-      v59 = 2112;
-      v60 = v34;
+      v42 = 2112;
+      v43 = v25;
+      v44 = 2112;
+      v45 = v26;
+      v46 = 2112;
+      v47 = v27;
+      v48 = 2112;
+      v49 = v28;
+      v50 = 2112;
+      v51 = v29;
+      v52 = 2112;
+      v53 = v30;
+      v54 = 2112;
+      v55 = v31;
+      v56 = 2112;
+      v57 = v32;
+      v58 = 2112;
+      v59 = v33;
       _os_log_debug_impl(&dword_23D4DF000, v15, OS_LOG_TYPE_DEBUG, " [%s] %s:%d Adding WRM metrics to uplink segment report=%@ wrmLinkTypeSuggestion=%@ wrmLinkTypeChangeReasonCode=%@ wrmLinkTypeWifiRSSI=%@  wrmLinkTypeWifiSNR=%@ _currentSegment.wrmLinkTypeWifiCCA=%@ wrmLinkTypeWifiPacketLoss=%@ wrmLinkTypeCellSignalStrength=%@ wrmLinkTypeCellSignalBar=%@ wrmLinkTypeCellServingCellType=%@", buf, 0x80u);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addSmartBrakeStats:(id)stats
@@ -1272,7 +1375,7 @@
 
 - (void)addPerStreamGroupStatsToDictionary:(id)dictionary
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   v5 = [VCAggregatorUtils validBitmapIndices:self->super._segmentStreamGroups size:11];
   if (VRTraceGetErrorLogLevelForModule("") >= 7)
   {
@@ -1282,38 +1385,38 @@
     {
       segmentStreamGroups = self->super._segmentStreamGroups;
       *buf = 136316162;
-      v58 = v6;
-      v59 = 2080;
-      v60 = "[UplinkSegment addPerStreamGroupStatsToDictionary:]";
-      v61 = 1024;
-      v62 = 4638;
-      v63 = 1024;
-      v64 = segmentStreamGroups;
-      v65 = 2112;
-      v66 = [v5 componentsJoinedByString:{@", "}];
+      v57 = v6;
+      v58 = 2080;
+      v59 = "[UplinkSegment addPerStreamGroupStatsToDictionary:]";
+      v60 = 1024;
+      v61 = 4638;
+      v62 = 1024;
+      v63 = segmentStreamGroups;
+      v64 = 2112;
+      v65 = [v5 componentsJoinedByString:{@", "}];
       _os_log_impl(&dword_23D4DF000, v7, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d segmentStreamGroups=%u streamGroups=%@", buf, 0x2Cu);
     }
   }
 
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
-  v50 = [v5 countByEnumeratingWithState:&v52 objects:v56 count:16];
-  if (v50)
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
+  v49 = [v5 countByEnumeratingWithState:&v51 objects:v55 count:16];
+  if (v49)
   {
-    v49 = *v53;
+    v48 = *v52;
     do
     {
-      for (i = 0; i != v50; ++i)
+      for (i = 0; i != v49; ++i)
       {
-        if (*v53 != v49)
+        if (*v52 != v48)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v52 + 1) + 8 * i);
-        v51 = [(NSMutableDictionary *)self->_streamGroupStats objectForKeyedSubscript:v10];
+        v10 = *(*(&v51 + 1) + 8 * i);
+        v50 = [(NSMutableDictionary *)self->_streamGroupStats objectForKeyedSubscript:v10];
         if ([v10 unsignedIntValue] != 2 && objc_msgSend(v10, "unsignedIntValue") != 4 && objc_msgSend(v10, "unsignedIntValue") != 6)
         {
           goto LABEL_47;
@@ -1620,10 +1723,10 @@ LABEL_96:
         }
 
 LABEL_99:
-        if ([v51 videoFrameCaptureReportCount])
+        if ([v50 videoFrameCaptureReportCount])
         {
-          v41 = [v51 videoFrameCapturedCounter] * 1000.0;
-          videoFrameCaptureReportCount = [v51 videoFrameCaptureReportCount];
+          v41 = [v50 videoFrameCapturedCounter] * 1000.0;
+          videoFrameCaptureReportCount = [v50 videoFrameCaptureReportCount];
           v43 = (v41 / (videoFrameCaptureReportCount * [(MultiwaySegment *)self RTPeriod]));
         }
 
@@ -1647,10 +1750,10 @@ LABEL_103:
 
         v44 = @"VTEFR";
 LABEL_106:
-        if ([v51 encodedFrameReportedCount])
+        if ([v50 encodedFrameReportedCount])
         {
-          v45 = [v51 encodedFrameSum] * 1000.0;
-          encodedFrameReportedCount = [v51 encodedFrameReportedCount];
+          v45 = [v50 encodedFrameSum] * 1000.0;
+          encodedFrameReportedCount = [v50 encodedFrameReportedCount];
           v47 = (v45 / (encodedFrameReportedCount * [(MultiwaySegment *)self RTPeriod]));
         }
 
@@ -1664,13 +1767,11 @@ LABEL_110:
         [(UplinkSegment *)self addPerStreamGroupRTXStatsToDictionary:dictionary streamGroup:v10];
       }
 
-      v50 = [v5 countByEnumeratingWithState:&v52 objects:v56 count:16];
+      v49 = [v5 countByEnumeratingWithState:&v51 objects:v55 count:16];
     }
 
-    while (v50);
+    while (v49);
   }
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addPerStreamGroupRTXStatsToDictionary:(id)dictionary streamGroup:(id)group
@@ -1898,13 +1999,12 @@ LABEL_47:
 
 - (void)updateAdaptiveLearningSegment
 {
-  OUTLINED_FUNCTION_50(a2, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_50(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4_2();
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_8_1();
   OUTLINED_FUNCTION_4_3();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x26u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x26u);
 }
 
 - (unsigned)audioFlushPercent
@@ -1976,7 +2076,7 @@ LABEL_47:
 
 - (id)segmentReport
 {
-  v110[88] = *MEMORY[0x277D85DE8];
+  v108[88] = *MEMORY[0x277D85DE8];
   if (self->super._hasReported)
   {
     if (VRTraceGetErrorLogLevelForModule("") >= 7)
@@ -1991,27 +2091,25 @@ LABEL_47:
         *&buf[12] = 2080;
         *&buf[14] = "[UplinkSegment segmentReport]";
         *&buf[22] = 1024;
-        LODWORD(v102) = 4798;
-        WORD2(v102) = 2112;
-        *(&v102 + 6) = segmentName;
+        LODWORD(v100) = 4798;
+        WORD2(v100) = 2112;
+        *(&v100 + 6) = segmentName;
         _os_log_impl(&dword_23D4DF000, v4, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Uplink segment=%@ has already been reported. Ignoring request...", buf, 0x26u);
       }
     }
 
-    goto LABEL_7;
+    return 0;
   }
 
   if (self->super._duration <= 1)
   {
     [(MultiwaySegment *)self complete_and_release_nw_activity:2];
-LABEL_7:
-    dispatchedAggregatedReportCommon = 0;
-    goto LABEL_91;
+    return 0;
   }
 
-  v99.receiver = self;
-  v99.super_class = UplinkSegment;
-  dispatchedAggregatedReportCommon = [(VCReportingCommon *)&v99 dispatchedAggregatedReportCommon];
+  v97.receiver = self;
+  v97.super_class = UplinkSegment;
+  dispatchedAggregatedReportCommon = [(VCReportingCommon *)&v97 dispatchedAggregatedReportCommon];
   [dispatchedAggregatedReportCommon setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithUnsignedChar:", -[UplinkSegment segmentReportingMode](self, "segmentReportingMode")), @"SSOPMODE"}];
   dynamicDupeLinkCount = self->super._dynamicDupeLinkCount;
   if (dynamicDupeLinkCount)
@@ -2033,7 +2131,7 @@ LABEL_7:
     v11 = (v12 * 10000.0 / v10);
   }
 
-  v90 = v11;
+  v88 = v11;
   delegate = self->super._delegate;
   v14 = [(NSString *)self->super._segmentName substringToIndex:3];
   [(UplinkSegment *)self updateAdaptiveLearningSegment];
@@ -2056,8 +2154,8 @@ LABEL_7:
     BBRateTooLowCount = rTPeriod * adjustedDuration;
   }
 
-  v88 = BBQueueTooLargeCount;
-  v89 = BBRateTooLowCount;
+  v86 = BBQueueTooLargeCount;
+  v87 = BBRateTooLowCount;
   totalAudioPauseTime = self->_totalAudioPauseTime;
   v21 = self->super._adjustedDuration;
   v22 = ([(MultiwaySegment *)self RTPeriod]* v21);
@@ -2079,14 +2177,14 @@ LABEL_7:
     videoFlushPacketCount = self->_videoSentPacketCount;
   }
 
-  v85 = videoFlushPacketCount;
+  v83 = videoFlushPacketCount;
   videoBasebandDropPacketCount = self->_videoBasebandDropPacketCount;
   if (videoBasebandDropPacketCount >= videoSentPacketCount)
   {
     videoBasebandDropPacketCount = self->_videoSentPacketCount;
   }
 
-  v86 = videoBasebandDropPacketCount;
+  v84 = videoBasebandDropPacketCount;
   if (self->_audioBasebandDropPacketCount >= self->_audioSentPacketCount)
   {
     audioSentPacketCount = self->_audioSentPacketCount;
@@ -2097,13 +2195,13 @@ LABEL_7:
     audioSentPacketCount = self->_audioBasebandDropPacketCount;
   }
 
-  v87 = audioSentPacketCount;
+  v85 = audioSentPacketCount;
   v29 = self->super._adjustedDuration;
   if (v29)
   {
     LODWORD(v22) = self->_totalExtraTargetBitrate;
     *&v30 = *&v22 * 1000.0 / v29;
-    v84 = *&v30;
+    v82 = *&v30;
     LODWORD(v30) = self->_overshootSendBitrate;
     *&v31 = v30 * 1000.0 / v29;
     v32 = *&v31;
@@ -2112,22 +2210,22 @@ LABEL_7:
     v34 = *&v33;
     LODWORD(v33) = self->_overUtilizedBandwidth;
     *&v35 = v33 * 1000.0 / v29;
-    LODWORD(v94) = v32;
-    HIDWORD(v94) = *&v35;
+    LODWORD(v92) = v32;
+    HIDWORD(v92) = *&v35;
     LODWORD(v35) = self->_underUtilizedBandwidth;
-    LODWORD(v93) = v34;
-    HIDWORD(v93) = (v35 * 1000.0 / v29);
+    LODWORD(v91) = v34;
+    HIDWORD(v91) = (v35 * 1000.0 / v29);
     v36 = 10000 * self->super._ecnEnabledCount / v29;
-    v91 = 10000 * self->super._networkCongestedCount / v29;
+    v89 = 10000 * self->super._networkCongestedCount / v29;
   }
 
   else
   {
     v36 = 0;
-    v93 = 0;
-    v94 = 0;
-    v84 = 0;
     v91 = 0;
+    v92 = 0;
+    v82 = 0;
+    v89 = 0;
   }
 
   v37 = v19;
@@ -2146,124 +2244,124 @@ LABEL_7:
   if (averageWireSendCounter)
   {
     v41 = self->_averageWireSendBytes * 8.0;
-    v92 = (v41 / (averageWireSendCounter * [(MultiwaySegment *)self RTPeriod]));
+    v90 = (v41 / (averageWireSendCounter * [(MultiwaySegment *)self RTPeriod]));
   }
 
   else
   {
-    v92 = 0;
+    v90 = 0;
   }
 
   totalBaseBandTxRate = self->_totalBaseBandTxRate;
-  v109[0] = @"RVER";
-  v109[1] = @"CONFIG";
+  v107[0] = @"RVER";
+  v107[1] = @"CONFIG";
   v43 = self->super._segmentName;
   if (!v43)
   {
     v43 = &stru_284F80940;
   }
 
-  v110[0] = &unk_284FA5480;
-  v110[1] = v43;
+  v108[0] = &unk_284FA5480;
+  v108[1] = v43;
   previousSegmentName = self->super._previousSegmentName;
   if (!previousSegmentName)
   {
     previousSegmentName = &stru_284F80940;
   }
 
-  v110[2] = previousSegmentName;
-  v109[2] = @"PREVCONFIG";
-  v109[3] = @"STRMGRPS";
-  v110[3] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->super._segmentStreamGroups];
-  v109[4] = @"PREVSTRMGRPS";
-  v110[4] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->super._previousSegmentStreamGroups];
-  v109[5] = @"DRTN";
-  v110[5] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:{-[MultiwaySegment RTPeriod](self, "RTPeriod") * self->super._duration}];
-  v109[6] = @"ATBR";
+  v108[2] = previousSegmentName;
+  v107[2] = @"PREVCONFIG";
+  v107[3] = @"STRMGRPS";
+  v108[3] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->super._segmentStreamGroups];
+  v107[4] = @"PREVSTRMGRPS";
+  v108[4] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->super._previousSegmentStreamGroups];
+  v107[5] = @"DRTN";
+  v108[5] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:{-[MultiwaySegment RTPeriod](self, "RTPeriod") * self->super._duration}];
+  v107[6] = @"ATBR";
   v45 = MEMORY[0x277CCABA8];
   [(MultiwaySegment *)self averageTargetBitrate];
-  v110[6] = [v45 numberWithUnsignedInt:v46];
-  v109[7] = @"TSBTS";
-  v110[7] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->super._totalBytesSent];
-  v109[8] = @"ARTT";
+  v108[6] = [v45 numberWithUnsignedInt:v46];
+  v107[7] = @"TSBTS";
+  v108[7] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->super._totalBytesSent];
+  v107[8] = @"ARTT";
   v47 = MEMORY[0x277CCABA8];
   [(MultiwaySegment *)self averageRoundTripTime];
-  v110[8] = [v47 numberWithUnsignedInt:v48];
-  v109[9] = @"TPSSCNT";
-  v110[9] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:{-[MultiwaySegment totalPacketsSent](self, "totalPacketsSent")}];
-  v109[10] = @"TPRSCNT";
-  v110[10] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:{-[MultiwaySegment totalPacketsReceived](self, "totalPacketsReceived")}];
-  v109[11] = @"NUMPARTS";
-  v110[11] = [MEMORY[0x277CCABA8] numberWithDouble:v10];
-  v109[12] = @"GNDLUP";
-  v110[12] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v90];
-  v109[13] = @"GNDLUCNT";
-  v110[13] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:{objc_msgSend(-[MultiwaySegment delegate](self, "delegate"), "numberOfWebParticipants")}];
-  v109[14] = @"APLR";
+  v108[8] = [v47 numberWithUnsignedInt:v48];
+  v107[9] = @"TPSSCNT";
+  v108[9] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:{-[MultiwaySegment totalPacketsSent](self, "totalPacketsSent")}];
+  v107[10] = @"TPRSCNT";
+  v108[10] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:{-[MultiwaySegment totalPacketsReceived](self, "totalPacketsReceived")}];
+  v107[11] = @"NUMPARTS";
+  v108[11] = [MEMORY[0x277CCABA8] numberWithDouble:v10];
+  v107[12] = @"GNDLUP";
+  v108[12] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v88];
+  v107[13] = @"GNDLUCNT";
+  v108[13] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:{objc_msgSend(-[MultiwaySegment delegate](self, "delegate"), "numberOfWebParticipants")}];
+  v107[14] = @"APLR";
   v49 = MEMORY[0x277CCABA8];
   [(MultiwaySegment *)self packetLossRate];
-  v110[14] = [v49 numberWithUnsignedInt:v50];
-  v109[15] = @"STATBR";
-  v110[15] = [MEMORY[0x277CCABA8] numberWithInt:{-[SegmentStatsDelegate shortTermAverageTBRForSegment:](delegate, "shortTermAverageTBRForSegment:", v14)}];
-  v109[16] = @"LTATBR";
-  v110[16] = [MEMORY[0x277CCABA8] numberWithInt:{-[SegmentStatsDelegate longTermAverageTBRForSegment:](delegate, "longTermAverageTBRForSegment:", v14)}];
-  v109[17] = @"LTAISBR";
-  v110[17] = [MEMORY[0x277CCABA8] numberWithInt:{-[SegmentStatsDelegate longTermAverageISBRForSegment:](delegate, "longTermAverageISBRForSegment:", v14)}];
-  v109[18] = @"STAISBR";
-  v110[18] = [MEMORY[0x277CCABA8] numberWithInt:{-[SegmentStatsDelegate shortTermAverageISBRForSegment:](delegate, "shortTermAverageISBRForSegment:", v14)}];
-  v109[19] = @"PISBR";
-  v110[19] = [MEMORY[0x277CCABA8] numberWithInt:{-[SegmentStatsDelegate previousISBRForSegment:](delegate, "previousISBRForSegment:", v14)}];
-  v109[20] = @"LTASATXBR";
-  v110[20] = [MEMORY[0x277CCABA8] numberWithInt:{-[SegmentStatsDelegate longTermAverageSATXBRForSegment:](delegate, "longTermAverageSATXBRForSegment:", v14)}];
-  v109[21] = @"STASATXBR";
-  v110[21] = [MEMORY[0x277CCABA8] numberWithInt:{-[SegmentStatsDelegate shortTermAverageSATXBRForSegment:](delegate, "shortTermAverageSATXBRForSegment:", v14)}];
-  v109[22] = @"LTASARBR";
-  v110[22] = [MEMORY[0x277CCABA8] numberWithInt:{-[SegmentStatsDelegate longTermAverageSARBRForSegment:](delegate, "longTermAverageSARBRForSegment:", v14)}];
-  v109[23] = @"SRASARBR";
-  v110[23] = [MEMORY[0x277CCABA8] numberWithInt:{-[SegmentStatsDelegate shortTermAverageSARBRForSegment:](delegate, "shortTermAverageSARBRForSegment:", v14)}];
-  v109[24] = @"LTABWE";
-  v110[24] = [MEMORY[0x277CCABA8] numberWithInt:{-[SegmentStatsDelegate longTermAverageBWEForSegment:](delegate, "longTermAverageBWEForSegment:", v14)}];
-  v109[25] = @"STABWE";
-  v110[25] = [MEMORY[0x277CCABA8] numberWithInt:{-[SegmentStatsDelegate shortTermAverageBWEForSegment:](delegate, "shortTermAverageBWEForSegment:", v14)}];
-  v109[26] = @"SMLRN";
-  v110[26] = [MEMORY[0x277CCABA8] numberWithInt:{-[SegmentStatsDelegate adaptiveLearningState](delegate, "adaptiveLearningState")}];
-  v109[27] = @"ECNP";
-  v110[27] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v36];
-  v109[28] = @"ECT1Cnt";
-  v110[28] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->super._ecnECT1Count];
-  v109[29] = @"CECnt";
-  v110[29] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->super._ecnCECount];
-  v109[30] = @"NWCngP";
-  v110[30] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v91];
-  v109[31] = @"RTT";
-  v110[31] = [(VCHistogram *)self->super._RTT description];
-  v109[32] = @"PLR";
-  v110[32] = [(VCHistogram *)self->super._PLR description];
-  v109[33] = @"TBR";
-  v110[33] = [(VCHistogram *)self->super._TBR description];
-  v109[34] = @"LOCSW";
-  v110[34] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:{-[MultiwaySegment localSwitches](self, "localSwitches")}];
-  v109[35] = @"SESSW";
-  v110[35] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:{-[MultiwaySegment sessionSwitches](self, "sessionSwitches")}];
-  v109[36] = @"CAMCENSTAGE";
-  v110[36] = [MEMORY[0x277CCABA8] numberWithBool:self->_isCenterStageEnabled];
-  v109[37] = @"CAMB";
-  v110[37] = [MEMORY[0x277CCABA8] numberWithBool:self->_isPortraitBlurEnabled];
-  v109[38] = @"TPSSCTR";
-  v110[38] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_packetSendSuccessCounter];
-  v109[39] = @"TPSFCTR";
-  v110[39] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_packetSendFailureCounter];
-  v109[40] = @"CMAV";
-  v110[40] = [MEMORY[0x277CCABA8] numberWithUnsignedChar:{-[MultiwaySegment coreMotionActivityValue](self, "coreMotionActivityValue")}];
-  v109[41] = @"CMAC";
-  v110[41] = [MEMORY[0x277CCABA8] numberWithUnsignedChar:{-[MultiwaySegment coreMotionActivityConfidence](self, "coreMotionActivityConfidence")}];
-  v109[42] = @"AFP";
-  v110[42] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:{-[UplinkSegment audioFlushPercent](self, "audioFlushPercent")}];
-  v109[43] = @"SARTT";
+  v108[14] = [v49 numberWithUnsignedInt:v50];
+  v107[15] = @"STATBR";
+  v108[15] = [MEMORY[0x277CCABA8] numberWithInt:{-[SegmentStatsDelegate shortTermAverageTBRForSegment:](delegate, "shortTermAverageTBRForSegment:", v14)}];
+  v107[16] = @"LTATBR";
+  v108[16] = [MEMORY[0x277CCABA8] numberWithInt:{-[SegmentStatsDelegate longTermAverageTBRForSegment:](delegate, "longTermAverageTBRForSegment:", v14)}];
+  v107[17] = @"LTAISBR";
+  v108[17] = [MEMORY[0x277CCABA8] numberWithInt:{-[SegmentStatsDelegate longTermAverageISBRForSegment:](delegate, "longTermAverageISBRForSegment:", v14)}];
+  v107[18] = @"STAISBR";
+  v108[18] = [MEMORY[0x277CCABA8] numberWithInt:{-[SegmentStatsDelegate shortTermAverageISBRForSegment:](delegate, "shortTermAverageISBRForSegment:", v14)}];
+  v107[19] = @"PISBR";
+  v108[19] = [MEMORY[0x277CCABA8] numberWithInt:{-[SegmentStatsDelegate previousISBRForSegment:](delegate, "previousISBRForSegment:", v14)}];
+  v107[20] = @"LTASATXBR";
+  v108[20] = [MEMORY[0x277CCABA8] numberWithInt:{-[SegmentStatsDelegate longTermAverageSATXBRForSegment:](delegate, "longTermAverageSATXBRForSegment:", v14)}];
+  v107[21] = @"STASATXBR";
+  v108[21] = [MEMORY[0x277CCABA8] numberWithInt:{-[SegmentStatsDelegate shortTermAverageSATXBRForSegment:](delegate, "shortTermAverageSATXBRForSegment:", v14)}];
+  v107[22] = @"LTASARBR";
+  v108[22] = [MEMORY[0x277CCABA8] numberWithInt:{-[SegmentStatsDelegate longTermAverageSARBRForSegment:](delegate, "longTermAverageSARBRForSegment:", v14)}];
+  v107[23] = @"SRASARBR";
+  v108[23] = [MEMORY[0x277CCABA8] numberWithInt:{-[SegmentStatsDelegate shortTermAverageSARBRForSegment:](delegate, "shortTermAverageSARBRForSegment:", v14)}];
+  v107[24] = @"LTABWE";
+  v108[24] = [MEMORY[0x277CCABA8] numberWithInt:{-[SegmentStatsDelegate longTermAverageBWEForSegment:](delegate, "longTermAverageBWEForSegment:", v14)}];
+  v107[25] = @"STABWE";
+  v108[25] = [MEMORY[0x277CCABA8] numberWithInt:{-[SegmentStatsDelegate shortTermAverageBWEForSegment:](delegate, "shortTermAverageBWEForSegment:", v14)}];
+  v107[26] = @"SMLRN";
+  v108[26] = [MEMORY[0x277CCABA8] numberWithInt:{-[SegmentStatsDelegate adaptiveLearningState](delegate, "adaptiveLearningState")}];
+  v107[27] = @"ECNP";
+  v108[27] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v36];
+  v107[28] = @"ECT1Cnt";
+  v108[28] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->super._ecnECT1Count];
+  v107[29] = @"CECnt";
+  v108[29] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->super._ecnCECount];
+  v107[30] = @"NWCngP";
+  v108[30] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v89];
+  v107[31] = @"RTT";
+  v108[31] = [(VCHistogram *)self->super._RTT description];
+  v107[32] = @"PLR";
+  v108[32] = [(VCHistogram *)self->super._PLR description];
+  v107[33] = @"TBR";
+  v108[33] = [(VCHistogram *)self->super._TBR description];
+  v107[34] = @"LOCSW";
+  v108[34] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:{-[MultiwaySegment localSwitches](self, "localSwitches")}];
+  v107[35] = @"SESSW";
+  v108[35] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:{-[MultiwaySegment sessionSwitches](self, "sessionSwitches")}];
+  v107[36] = @"CAMCENSTAGE";
+  v108[36] = [MEMORY[0x277CCABA8] numberWithBool:self->_isCenterStageEnabled];
+  v107[37] = @"CAMB";
+  v108[37] = [MEMORY[0x277CCABA8] numberWithBool:self->_isPortraitBlurEnabled];
+  v107[38] = @"TPSSCTR";
+  v108[38] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_packetSendSuccessCounter];
+  v107[39] = @"TPSFCTR";
+  v108[39] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_packetSendFailureCounter];
+  v107[40] = @"CMAV";
+  v108[40] = [MEMORY[0x277CCABA8] numberWithUnsignedChar:{-[MultiwaySegment coreMotionActivityValue](self, "coreMotionActivityValue")}];
+  v107[41] = @"CMAC";
+  v108[41] = [MEMORY[0x277CCABA8] numberWithUnsignedChar:{-[MultiwaySegment coreMotionActivityConfidence](self, "coreMotionActivityConfidence")}];
+  v107[42] = @"AFP";
+  v108[42] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:{-[UplinkSegment audioFlushPercent](self, "audioFlushPercent")}];
+  v107[43] = @"SARTT";
   v51 = MEMORY[0x277CCABA8];
   [(MultiwaySegment *)self averageRoundTripTime];
-  v110[43] = [v51 numberWithUnsignedInt:(v52 * 100.0)];
-  v109[44] = @"SASBR";
+  v108[43] = [v51 numberWithUnsignedInt:(v52 * 100.0)];
+  v107[44] = @"SASBR";
   v53 = self->super._adjustedDuration;
   if (v53)
   {
@@ -2275,20 +2373,20 @@ LABEL_7:
     v54 = 0;
   }
 
-  v110[44] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v54];
-  v109[45] = @"SBR";
-  v110[45] = [(VCHistogram *)self->_SBR description];
-  v109[46] = @"SATXBR";
+  v108[44] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v54];
+  v107[45] = @"SBR";
+  v108[45] = [(VCHistogram *)self->_SBR description];
+  v107[46] = @"SATXBR";
   v55 = MEMORY[0x277CCABA8];
   [(MultiwaySegment *)self averageTargetBitrate];
-  v110[46] = [v55 numberWithUnsignedInt:v56];
-  v109[47] = @"PCHADEL";
-  v110[47] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithDouble:self->super._primaryConnHealthAllowedDelay], 2);
-  v109[48] = @"PLRTIERDLT";
-  v110[48] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithDouble:v8], 3);
-  v109[49] = @"VEBR";
-  v110[49] = [(VCHistogram *)self->_videoEncodingBitrate description];
-  v109[50] = @"TASP";
+  v108[46] = [v55 numberWithUnsignedInt:v56];
+  v107[47] = @"PCHADEL";
+  v108[47] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithDouble:self->super._primaryConnHealthAllowedDelay], 2);
+  v107[48] = @"PLRTIERDLT";
+  v108[48] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithDouble:v8], 3);
+  v107[49] = @"VEBR";
+  v108[49] = [(VCHistogram *)self->_videoEncodingBitrate description];
+  v107[50] = @"TASP";
   v57 = self->super._adjustedDuration;
   if (v57)
   {
@@ -2300,12 +2398,12 @@ LABEL_7:
     v58 = 0;
   }
 
-  v110[50] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v58];
-  v109[51] = @"VFP";
+  v108[50] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v58];
+  v107[51] = @"VFP";
   v59 = self->_videoSentPacketCount;
   if (v59)
   {
-    v60 = (v85 / v59 * 10000.0);
+    v60 = (v83 / v59 * 10000.0);
   }
 
   else
@@ -2313,12 +2411,12 @@ LABEL_7:
     v60 = 0;
   }
 
-  v110[51] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v60];
-  v109[52] = @"VBBDP";
+  v108[51] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v60];
+  v107[52] = @"VBBDP";
   v61 = self->_videoSentPacketCount;
   if (v61)
   {
-    v62 = (v86 / v61 * 10000.0);
+    v62 = (v84 / v61 * 10000.0);
   }
 
   else
@@ -2326,12 +2424,12 @@ LABEL_7:
     v62 = 0;
   }
 
-  v110[52] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v62];
-  v109[53] = @"ABBDP";
+  v108[52] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v62];
+  v107[53] = @"ABBDP";
   v63 = self->_audioSentPacketCount;
   if (v63)
   {
-    v64 = (v87 / v63 * 10000.0);
+    v64 = (v85 / v63 * 10000.0);
   }
 
   else
@@ -2339,8 +2437,8 @@ LABEL_7:
     v64 = 0;
   }
 
-  v110[53] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v64];
-  v109[54] = @"BBNWP";
+  v108[53] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v64];
+  v107[54] = @"BBNWP";
   v65 = self->super._adjustedDuration;
   if (v65)
   {
@@ -2353,11 +2451,11 @@ LABEL_7:
   }
 
   v67 = v37;
-  v110[54] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v66];
-  v109[55] = @"BBQTL";
+  v108[54] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v66];
+  v107[55] = @"BBQTL";
   if (v37)
   {
-    v68 = (v88 / v67 * 10000.0);
+    v68 = (v86 / v67 * 10000.0);
   }
 
   else
@@ -2365,11 +2463,11 @@ LABEL_7:
     v68 = 0;
   }
 
-  v110[55] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v68];
-  v109[56] = @"BBRTL";
+  v108[55] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v68];
+  v107[56] = @"BBRTL";
   if (v37)
   {
-    v69 = (v89 / v67 * 10000.0);
+    v69 = (v87 / v67 * 10000.0);
   }
 
   else
@@ -2377,100 +2475,100 @@ LABEL_7:
     v69 = 0;
   }
 
-  v110[56] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v69];
-  v109[57] = @"MASI";
-  v110[57] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:(self->_maxAudioStallInterval * 100.0)];
-  v109[58] = @"SRDMBL";
-  v110[58] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithUnsignedInt:{-[MultiwaySegment totalMBLRampDownCount](self, "totalMBLRampDownCount")}], 3);
-  v109[59] = @"SSBWD";
-  v110[59] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithUnsignedInt:{-[MultiwaySegment totalSuddenBandwidthDropCount](self, "totalSuddenBandwidthDropCount")}], 3);
-  v109[60] = @"TAPAY";
-  v110[60] = [(VCHistogram *)self->_audioCodecPayload description];
-  v109[61] = @"AATBH";
-  v110[61] = [(VCHistogram *)self->_audioFrameBundling description];
-  v109[62] = @"TAMBR";
-  v110[62] = [(VCHistogram *)self->_audioMediaBitrate description];
-  v109[63] = @"TRPBR";
-  v110[63] = [(VCHistogram *)self->_redPayloadBitrate description];
-  v109[64] = @"TVPAY";
-  v110[64] = [(VCHistogram *)self->_videoCodecPayload description];
-  v109[65] = @"TVMBR";
-  v110[65] = [(VCHistogram *)self->_videoMediaBitrate description];
-  v109[66] = @"AOVSBR";
-  v110[66] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v94];
-  v109[67] = @"AUNSBR";
-  v110[67] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v93];
-  v109[68] = @"AOVBWE";
-  v110[68] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:HIDWORD(v94)];
-  v109[69] = @"AUNBWE";
-  v110[69] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:HIDWORD(v93)];
-  v109[70] = @"RTTMEANDLT";
-  v110[70] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithDouble:v39], 3);
-  v109[71] = @"BSIDX";
-  v110[71] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->super._bootstrapSampleIndex];
-  v109[72] = @"REDMD";
-  v110[72] = [(VCHistogram *)self->_redMaxDelay description];
-  v109[73] = @"REDNPU";
-  v110[73] = [(VCHistogram *)self->_redNumPayloadsUsed description];
-  v109[74] = @"AWSB";
-  v110[74] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v92];
-  v109[75] = @"VTPULEP";
-  v110[75] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalVTPUplinkEgressMediaPackets];
-  v109[76] = @"VTPULIP";
-  v110[76] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalVTPUplinkIngressMediaPackets];
-  v109[77] = @"ATJC";
-  v110[77] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_audioStreamTimestampJumpCount];
-  v109[78] = @"ATJD";
-  v110[78] = [(VCHistogram *)self->_audioStreamTimestampJumpDuration description];
-  v109[79] = @"ATJM";
-  v110[79] = [MEMORY[0x277CCABA8] numberWithUnsignedLong:self->_audioStreamTimestampJumpMax];
-  v109[80] = @"WLTA";
-  v110[80] = [(VCHistogram *)self->_wifiQualityScoreLossTx description];
-  v109[81] = @"WDTA";
-  v110[81] = [(VCHistogram *)self->_wifiQualityScoreDelayTx description];
-  v109[82] = @"WCSA";
-  v110[82] = [(VCHistogram *)self->_wifiQualityScoreChannel description];
-  v109[83] = @"ABBR";
-  v110[83] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithDouble:totalBaseBandTxRate / v67], 2);
-  v109[84] = @"MAXBBR";
-  v110[84] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithDouble:self->_maxBaseBandTxRate], 2);
-  v109[85] = @"MINBBR";
-  v110[85] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithDouble:self->_minBaseBandTxRate], 2);
-  v109[86] = @"ACSR";
-  v110[86] = [(VCHistogram *)self->_cellStrengthRawBars description];
-  v109[87] = @"FECHDRVER";
-  v110[87] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->super._fecHeaderVersion];
-  [dispatchedAggregatedReportCommon addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v110, v109, 88)}];
+  v108[56] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v69];
+  v107[57] = @"MASI";
+  v108[57] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:(self->_maxAudioStallInterval * 100.0)];
+  v107[58] = @"SRDMBL";
+  v108[58] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithUnsignedInt:{-[MultiwaySegment totalMBLRampDownCount](self, "totalMBLRampDownCount")}], 3);
+  v107[59] = @"SSBWD";
+  v108[59] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithUnsignedInt:{-[MultiwaySegment totalSuddenBandwidthDropCount](self, "totalSuddenBandwidthDropCount")}], 3);
+  v107[60] = @"TAPAY";
+  v108[60] = [(VCHistogram *)self->_audioCodecPayload description];
+  v107[61] = @"AATBH";
+  v108[61] = [(VCHistogram *)self->_audioFrameBundling description];
+  v107[62] = @"TAMBR";
+  v108[62] = [(VCHistogram *)self->_audioMediaBitrate description];
+  v107[63] = @"TRPBR";
+  v108[63] = [(VCHistogram *)self->_redPayloadBitrate description];
+  v107[64] = @"TVPAY";
+  v108[64] = [(VCHistogram *)self->_videoCodecPayload description];
+  v107[65] = @"TVMBR";
+  v108[65] = [(VCHistogram *)self->_videoMediaBitrate description];
+  v107[66] = @"AOVSBR";
+  v108[66] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v92];
+  v107[67] = @"AUNSBR";
+  v108[67] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v91];
+  v107[68] = @"AOVBWE";
+  v108[68] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:HIDWORD(v92)];
+  v107[69] = @"AUNBWE";
+  v108[69] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:HIDWORD(v91)];
+  v107[70] = @"RTTMEANDLT";
+  v108[70] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithDouble:v39], 3);
+  v107[71] = @"BSIDX";
+  v108[71] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->super._bootstrapSampleIndex];
+  v107[72] = @"REDMD";
+  v108[72] = [(VCHistogram *)self->_redMaxDelay description];
+  v107[73] = @"REDNPU";
+  v108[73] = [(VCHistogram *)self->_redNumPayloadsUsed description];
+  v107[74] = @"AWSB";
+  v108[74] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v90];
+  v107[75] = @"VTPULEP";
+  v108[75] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalVTPUplinkEgressMediaPackets];
+  v107[76] = @"VTPULIP";
+  v108[76] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalVTPUplinkIngressMediaPackets];
+  v107[77] = @"ATJC";
+  v108[77] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_audioStreamTimestampJumpCount];
+  v107[78] = @"ATJD";
+  v108[78] = [(VCHistogram *)self->_audioStreamTimestampJumpDuration description];
+  v107[79] = @"ATJM";
+  v108[79] = [MEMORY[0x277CCABA8] numberWithUnsignedLong:self->_audioStreamTimestampJumpMax];
+  v107[80] = @"WLTA";
+  v108[80] = [(VCHistogram *)self->_wifiQualityScoreLossTx description];
+  v107[81] = @"WDTA";
+  v108[81] = [(VCHistogram *)self->_wifiQualityScoreDelayTx description];
+  v107[82] = @"WCSA";
+  v108[82] = [(VCHistogram *)self->_wifiQualityScoreChannel description];
+  v107[83] = @"ABBR";
+  v108[83] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithDouble:totalBaseBandTxRate / v67], 2);
+  v107[84] = @"MAXBBR";
+  v108[84] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithDouble:self->_maxBaseBandTxRate], 2);
+  v107[85] = @"MINBBR";
+  v108[85] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithDouble:self->_minBaseBandTxRate], 2);
+  v107[86] = @"ACSR";
+  v108[86] = [(VCHistogram *)self->_cellStrengthRawBars description];
+  v107[87] = @"FECHDRVER";
+  v108[87] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->super._fecHeaderVersion];
+  [dispatchedAggregatedReportCommon addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v108, v107, 88)}];
   [(VCReportingDistribution *)self->_cameraCaptureData updateReport:dispatchedAggregatedReportCommon];
   if (self->super._isOneToOneMode)
   {
-    v107[0] = @"VCMQIAP";
-    v108[0] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalVCMQIngressAudioPackets];
-    v107[1] = @"VCMQIVP";
-    v108[1] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalVCMQIngressVideoPackets];
-    v107[2] = @"VCMQIP";
-    v108[2] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalVCMQIngressPackets];
-    v107[3] = @"VCMQEAP";
-    v108[3] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalVCMQEgressAudioPackets];
-    v107[4] = @"VCMQEVP";
-    v108[4] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalVCMQEgressVideoPackets];
-    v107[5] = @"VCMQEP";
-    v108[5] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalVCMQEgressPackets];
-    v107[6] = @"VCMQENDAP";
-    v108[6] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalVCMQEgressNonDupAudioPackets];
-    v107[7] = @"VCMQENDVP";
-    v108[7] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalVCMQEgressNonDupVideoPackets];
-    v107[8] = @"VCMQENDP";
-    v108[8] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalVCMQEgressNonDupPackets];
-    v107[9] = @"VCMQIQP";
-    v108[9] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalVCMQIngressQueuedPackets];
-    v107[10] = @"VCMQFP";
-    v108[10] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalVCMQFlushedPackets];
-    v107[11] = @"AExTXBR";
-    v108[11] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v84];
-    v107[12] = @"VCSECNLinkType";
-    v108[12] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_ecnLinkType];
-    [dispatchedAggregatedReportCommon addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v108, v107, 13)}];
+    v105[0] = @"VCMQIAP";
+    v106[0] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalVCMQIngressAudioPackets];
+    v105[1] = @"VCMQIVP";
+    v106[1] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalVCMQIngressVideoPackets];
+    v105[2] = @"VCMQIP";
+    v106[2] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalVCMQIngressPackets];
+    v105[3] = @"VCMQEAP";
+    v106[3] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalVCMQEgressAudioPackets];
+    v105[4] = @"VCMQEVP";
+    v106[4] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalVCMQEgressVideoPackets];
+    v105[5] = @"VCMQEP";
+    v106[5] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalVCMQEgressPackets];
+    v105[6] = @"VCMQENDAP";
+    v106[6] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalVCMQEgressNonDupAudioPackets];
+    v105[7] = @"VCMQENDVP";
+    v106[7] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalVCMQEgressNonDupVideoPackets];
+    v105[8] = @"VCMQENDP";
+    v106[8] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalVCMQEgressNonDupPackets];
+    v105[9] = @"VCMQIQP";
+    v106[9] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalVCMQIngressQueuedPackets];
+    v105[10] = @"VCMQFP";
+    v106[10] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalVCMQFlushedPackets];
+    v105[11] = @"AExTXBR";
+    v106[11] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v82];
+    v105[12] = @"VCSECNLinkType";
+    v106[12] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_ecnLinkType];
+    [dispatchedAggregatedReportCommon addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v106, v105, 13)}];
     if ([(MultiwaySegment *)self linksWithMaxPacketHistory])
     {
       [dispatchedAggregatedReportCommon setObject:-[MultiwaySegment linksWithMaxPacketHistory](self forKeyedSubscript:{"linksWithMaxPacketHistory"), @"ULPH"}];
@@ -2507,9 +2605,9 @@ LABEL_7:
 
   if ([[(NSString *)self->super._segmentName substringFromIndex:2] hasPrefix:@"W"])
   {
-    v105 = @"WiFi5GHz";
-    v106 = [MEMORY[0x277CCABA8] numberWithInt:self->super._is5GHz];
-    [dispatchedAggregatedReportCommon addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v106, &v105, 1)}];
+    v103 = @"WiFi5GHz";
+    v104 = [MEMORY[0x277CCABA8] numberWithInt:self->super._is5GHz];
+    [dispatchedAggregatedReportCommon addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v104, &v103, 1)}];
   }
 
   lossPattern = self->super._lossPattern;
@@ -2517,9 +2615,9 @@ LABEL_7:
   *&buf[8] = lossPattern;
   lossFecHistogram = self->super._lossFecHistogram;
   *&buf[16] = self->super._lossHistogram;
-  v102 = lossFecHistogram;
-  v103 = self->super._adjustedDuration;
-  v104 = 0;
+  v100 = lossFecHistogram;
+  v101 = self->super._adjustedDuration;
+  v102 = 0;
   [(SegmentStatsDelegate *)self->super._delegate addFECStats:dispatchedAggregatedReportCommon parameters:buf reportFrameSizeTelemetry:0 reportLevels:1];
   [(MultiwaySegment *)self addRateControlExperimentInfoToSegmentReport:dispatchedAggregatedReportCommon];
   [(MultiwaySegment *)self reportVCRCMLStats:dispatchedAggregatedReportCommon];
@@ -2528,7 +2626,6 @@ LABEL_7:
     if (self->super._useNwActivitySubmitMetrics && self->super._isNWActivityReportingEnabled)
     {
       v75 = _CFXPCCreateXPCObjectFromCFObject();
-      nwActivity = self->super._nwActivity;
       nw_activity_submit_metrics();
       xpc_release(v75);
     }
@@ -2548,37 +2645,35 @@ LABEL_7:
   [(UplinkSegment *)self addPerStreamGroupStatsToDictionary:dispatchedAggregatedReportCommon];
   [(UplinkSegment *)self addVideoFeatureStatus:dispatchedAggregatedReportCommon];
   [(UplinkSegment *)self reportSpatialAudioSupport:dispatchedAggregatedReportCommon];
-  v97 = 0u;
-  v98 = 0u;
   v95 = 0u;
   v96 = 0u;
+  v93 = 0u;
+  v94 = 0u;
   thermalDataCollectors = self->_thermalDataCollectors;
-  v78 = [(NSSet *)thermalDataCollectors countByEnumeratingWithState:&v95 objects:v100 count:16];
-  if (v78)
+  v77 = [(NSSet *)thermalDataCollectors countByEnumeratingWithState:&v93 objects:v98 count:16];
+  if (v77)
   {
-    v79 = v78;
-    v80 = *v96;
+    v78 = v77;
+    v79 = *v94;
     do
     {
-      for (i = 0; i != v79; ++i)
+      for (i = 0; i != v78; ++i)
       {
-        if (*v96 != v80)
+        if (*v94 != v79)
         {
           objc_enumerationMutation(thermalDataCollectors);
         }
 
-        [*(*(&v95 + 1) + 8 * i) updateReport:dispatchedAggregatedReportCommon];
+        [*(*(&v93 + 1) + 8 * i) updateReport:dispatchedAggregatedReportCommon];
       }
 
-      v79 = [(NSSet *)thermalDataCollectors countByEnumeratingWithState:&v95 objects:v100 count:16];
+      v78 = [(NSSet *)thermalDataCollectors countByEnumeratingWithState:&v93 objects:v98 count:16];
     }
 
-    while (v79);
+    while (v78);
   }
 
   self->super._hasReported = 1;
-LABEL_91:
-  v82 = *MEMORY[0x277D85DE8];
   return dispatchedAggregatedReportCommon;
 }
 
@@ -2587,8 +2682,8 @@ LABEL_91:
   [VCAggregator addVideoFeatureStatus:self->super._centerStageStatus histogramKey:@"CSDUR" histogram:self->_centerStageDuration statusKey:@"CSFENB" report:status];
   [VCAggregator addVideoFeatureStatus:self->super._portraitModeStatus histogramKey:@"PMDUR" histogram:self->_portraitModeDuration statusKey:@"PMFENB" report:status];
   [VCAggregator addVideoFeatureStatus:self->super._studioLightStatus histogramKey:@"SLDUR" histogram:self->_studioLightDuration statusKey:@"SLFENB" report:status];
-  [VCAggregator addVideoFeatureStatus:self->super._reactionsStatus histogramKey:@"REACDUR" histogram:self->_reactionActiveDuration statusKey:@"REFENB" report:status];
-  [(VCDurationHistogram *)self->_eyeContactDuration finalize:micro()];
+  v5 = [VCAggregator addVideoFeatureStatus:self->super._reactionsStatus histogramKey:@"REACDUR" histogram:self->_reactionActiveDuration statusKey:@"REFENB" report:status];
+  [(VCDurationHistogram *)self->_eyeContactDuration finalize:micro(v5, v6)];
   [VCAggregator addVideoFeatureStatus:self->super._eyeContactStatus histogramKey:@"ECDUR" histogram:self->_eyeContactDuration statusKey:@"ECFENB" report:status];
   backgroundReplacementStatus = self->super._backgroundReplacementStatus;
   backgroundReplacementDuration = self->_backgroundReplacementDuration;
@@ -2610,7 +2705,7 @@ LABEL_91:
 
 - (void)calculateUplinkTelemetry:(id)telemetry lastReportedAudioPauseTime:(double)time lastReportedVideoPacketSentCount:(double)count
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v7 = [telemetry objectForKeyedSubscript:sRTCReportingStreamCollection];
   if ([v7 count])
   {
@@ -2619,21 +2714,21 @@ LABEL_91:
     if (v12)
     {
       v13 = v12;
-      v30 = 0;
       v29 = 0;
+      v28 = 0;
       v14 = 0;
-      v15 = *v33;
+      v15 = *v32;
       v16 = 0.0;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v33 != v15)
+          if (*v32 != v15)
           {
             objc_enumerationMutation(v7);
           }
 
-          v18 = [v7 objectForKeyedSubscript:*(v32 + 8 * i)];
+          v18 = [v7 objectForKeyedSubscript:*(v31 + 8 * i)];
           v19 = [objc_msgSend(v18 objectForKeyedSubscript:{@"VCMSDirection", "integerValue"}];
           if (v19 == 1)
           {
@@ -2645,7 +2740,7 @@ LABEL_91:
 
             if ([OUTLINED_FUNCTION_36() objectForKeyedSubscript:?])
             {
-              HIDWORD(v30) += [objc_msgSend(OUTLINED_FUNCTION_36() "objectForKeyedSubscript:"integerValue"")];
+              HIDWORD(v29) += [objc_msgSend(OUTLINED_FUNCTION_36() "objectForKeyedSubscript:"integerValue"")];
             }
 
             if ([v18 objectForKeyedSubscript:@"APT"])
@@ -2656,12 +2751,12 @@ LABEL_91:
 
             if (OUTLINED_FUNCTION_44())
             {
-              v29 += [OUTLINED_FUNCTION_44() integerValue];
+              v28 += [OUTLINED_FUNCTION_44() integerValue];
             }
 
             if (OUTLINED_FUNCTION_59())
             {
-              LODWORD(v30) = v30 + [OUTLINED_FUNCTION_59() integerValue];
+              LODWORD(v29) = v29 + [OUTLINED_FUNCTION_59() integerValue];
             }
 
             if ([v18 objectForKeyedSubscript:@"ATxR"])
@@ -2682,13 +2777,13 @@ LABEL_91:
           }
         }
 
-        v13 = OUTLINED_FUNCTION_56(v19, v20, v31, v34);
+        v13 = OUTLINED_FUNCTION_56(v19, v20, v30, v33);
       }
 
       while (v13);
-      v22 = v29;
-      v23 = v30;
-      v24 = HIDWORD(v30);
+      v22 = v28;
+      v23 = v29;
+      v24 = HIDWORD(v29);
     }
 
     else
@@ -2710,156 +2805,141 @@ LABEL_91:
     [(UplinkSegment *)self setAverageSendBitrate:v26 + v14];
     [(UplinkSegment *)self setIdrSentCount:[(UplinkSegment *)self idrSentCount]+ v23];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)calculateUplinkAudioTimestampJumps:(id)jumps
 {
   OUTLINED_FUNCTION_58();
-  v30 = v5;
-  v40 = *MEMORY[0x277D85DE8];
+  v24 = v5;
   v7 = [v6 objectForKeyedSubscript:sRTCReportingStreamCollection];
   if ([v7 count])
   {
-    v8 = [v7 countByEnumeratingWithState:OUTLINED_FUNCTION_27() objects:? count:?];
-    if (v8)
+    if ([v7 countByEnumeratingWithState:OUTLINED_FUNCTION_27() objects:? count:?])
     {
-      OUTLINED_FUNCTION_54(v8, v9, v10, v11, v12, v13, v14, v15, v29, v30, v31, v33, v35, v36, v38);
-      v16 = @"VCMSDirection";
+      OUTLINED_FUNCTION_54();
+      v8 = @"VCMSDirection";
       do
       {
-        v17 = 0;
+        v9 = 0;
         do
         {
-          if (*v39 != v4)
+          if (*v28 != v4)
           {
             objc_enumerationMutation(v7);
           }
 
-          v18 = [v7 objectForKeyedSubscript:*(v37 + 8 * v17)];
-          v19 = [objc_msgSend(v18 objectForKeyedSubscript:{v16), "integerValue"}];
-          if (v19 == 1)
+          v10 = [v7 objectForKeyedSubscript:*(v27 + 8 * v9)];
+          v11 = [objc_msgSend(v10 objectForKeyedSubscript:{v8), "integerValue"}];
+          if (v11 == 1)
           {
             if (OUTLINED_FUNCTION_68())
             {
-              [objc_msgSend(v18 objectForKeyedSubscript:{v16), "integerValue"}];
+              [objc_msgSend(v10 objectForKeyedSubscript:{v8), "integerValue"}];
               OUTLINED_FUNCTION_46();
             }
 
-            v16 = @"VCASTimestampJumpMax";
+            v8 = @"VCASTimestampJumpMax";
             if (OUTLINED_FUNCTION_71())
             {
-              v34 += [OUTLINED_FUNCTION_71() unsignedLongValue];
+              v26 += [OUTLINED_FUNCTION_71() unsignedLongValue];
             }
 
-            if ([v18 objectForKeyedSubscript:@"VCASTimestampJumpMax"])
+            if ([v10 objectForKeyedSubscript:@"VCASTimestampJumpMax"])
             {
-              v23 = [objc_msgSend(v18 objectForKeyedSubscript:{@"VCASTimestampJumpMax", "unsignedLongValue"}];
+              v19 = [objc_msgSend(v10 objectForKeyedSubscript:{@"VCASTimestampJumpMax", "unsignedLongValue"}];
             }
 
             else
             {
-              v23 = 0;
+              v19 = 0;
             }
 
-            audioStreamTimestampJumpMax = [v30 audioStreamTimestampJumpMax];
-            if (audioStreamTimestampJumpMax <= v23)
+            audioStreamTimestampJumpMax = [v24 audioStreamTimestampJumpMax];
+            if (audioStreamTimestampJumpMax <= v19)
             {
-              v25 = v23;
+              v21 = v19;
             }
 
             else
             {
-              v25 = audioStreamTimestampJumpMax;
+              v21 = audioStreamTimestampJumpMax;
             }
 
-            v19 = [v30 setAudioStreamTimestampJumpMax:v25];
+            v11 = [v24 setAudioStreamTimestampJumpMax:v21];
           }
 
-          ++v17;
+          ++v9;
         }
 
-        while (v3 != v17);
-        v3 = OUTLINED_FUNCTION_32(v19, v20, v21, v22);
+        while (v3 != v9);
+        v3 = OUTLINED_FUNCTION_32(v11, v12, v13, v14, v15, v16, v17, v18);
       }
 
       while (v3);
-      v26 = v34;
-      v27 = v32;
+      v22 = v26;
+      v23 = v25;
     }
 
     else
     {
-      v26 = 0;
-      v27 = 0;
+      v22 = 0;
+      v23 = 0;
     }
 
-    [v30 setAudioStreamTimestampJumpCount:{objc_msgSend(v30, "audioStreamTimestampJumpCount") + v27}];
-    [objc_msgSend(v30 "audioStreamTimestampJumpDuration")];
+    [v24 setAudioStreamTimestampJumpCount:{objc_msgSend(v24, "audioStreamTimestampJumpCount") + v23}];
+    [objc_msgSend(v24 "audioStreamTimestampJumpDuration")];
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_57();
 }
 
-- (void)updateMediaBitratesWithTimeElapsed:(uint64_t)a1 andStats:(unsigned int *)a2 .cold.1(uint64_t a1, unsigned int *a2)
+- (void)updateMediaBitratesWithTimeElapsed:andStats:.cold.1()
 {
-  OUTLINED_FUNCTION_51(a2, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_51(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4_2();
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_6_3();
   OUTLINED_FUNCTION_13_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x22u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
 }
 
-- (void)updateMediaBitratesWithTimeElapsed:(uint64_t)a1 andStats:(unsigned int *)a2 .cold.2(uint64_t a1, unsigned int *a2)
+- (void)updateMediaBitratesWithTimeElapsed:andStats:.cold.2()
 {
-  OUTLINED_FUNCTION_51(a2, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_51(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4_2();
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_6_3();
   OUTLINED_FUNCTION_13_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x22u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
 }
 
 - (void)updateMediaBitratesWithTimeElapsed:andStats:.cold.3()
 {
-  v7 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_24();
   _os_log_error_impl(v0, v1, v2, v3, v4, v5);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-- (void)updateAudioCodecAndMediaBitrateWithPayload:(uint64_t)a1 andCurrentTime:(unsigned __int16 *)a2 andStats:.cold.1(uint64_t a1, unsigned __int16 *a2)
+- (void)updateAudioCodecAndMediaBitrateWithPayload:andCurrentTime:andStats:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
   OUTLINED_FUNCTION_4_2();
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_6_3();
   OUTLINED_FUNCTION_13_1();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x22u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
 }
 
 - (void)updateAudioCodecAndMediaBitrateWithPayload:andCurrentTime:andStats:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_24();
   _os_log_error_impl(v0, v1, v2, v3, v4, v5);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processTransmitterStats:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -2868,16 +2948,13 @@ LABEL_91:
       OUTLINED_FUNCTION_3_3();
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_1();
-      _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+      _os_log_error_impl(v0, v1, v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processTransmitterStats:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -2886,16 +2963,13 @@ LABEL_91:
       OUTLINED_FUNCTION_3_3();
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_1();
-      _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+      _os_log_error_impl(v0, v1, v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processUplinkRTXMetricsFromStreamData:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -2904,16 +2978,13 @@ LABEL_91:
       OUTLINED_FUNCTION_3_3();
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_1();
-      _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+      _os_log_error_impl(v0, v1, v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processVideoTransmitterStreamData:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -2922,16 +2993,13 @@ LABEL_91:
       OUTLINED_FUNCTION_3_3();
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_1();
-      _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+      _os_log_error_impl(v0, v1, v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processVideoTransmitterStreamData:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -2940,16 +3008,13 @@ LABEL_91:
       OUTLINED_FUNCTION_3_3();
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_1();
-      _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+      _os_log_error_impl(v0, v1, v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processAudioTransmitterStreamData:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -2958,16 +3023,13 @@ LABEL_91:
       OUTLINED_FUNCTION_3_3();
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_1();
-      _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+      _os_log_error_impl(v0, v1, v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processAudioTransmitterStreamData:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -2976,16 +3038,13 @@ LABEL_91:
       OUTLINED_FUNCTION_3_3();
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_1();
-      _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+      _os_log_error_impl(v0, v1, v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addPerStreamGroupRTXStatsToDictionary:streamGroup:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -2994,11 +3053,9 @@ LABEL_91:
       OUTLINED_FUNCTION_3_3();
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_1();
-      _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+      _os_log_error_impl(v0, v1, v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 @end

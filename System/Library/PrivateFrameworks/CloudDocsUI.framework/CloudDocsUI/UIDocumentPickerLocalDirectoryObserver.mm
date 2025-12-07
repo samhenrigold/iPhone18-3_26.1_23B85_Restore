@@ -3,18 +3,18 @@
 
 @implementation UIDocumentPickerLocalDirectoryObserver
 
-uint64_t __61___UIDocumentPickerLocalDirectoryObserver_setQueryPredicate___block_invoke(uint64_t result)
+void *__61___UIDocumentPickerLocalDirectoryObserver_setQueryPredicate___block_invoke(void *result)
 {
-  v2 = *(result + 32);
-  v1 = *(result + 40);
+  v2 = result[4];
+  v1 = result[5];
   if (*(v2 + 72) != v1)
   {
     v3 = result;
     objc_storeStrong((v2 + 72), v1);
-    result = [*(*(v3 + 32) + 96) count];
+    result = [*(v3[4] + 96) count];
     if (result)
     {
-      v4 = *(v3 + 32);
+      v4 = v3[4];
 
       return [v4 updateResultsForSource:0];
     }

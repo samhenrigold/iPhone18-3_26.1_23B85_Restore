@@ -232,7 +232,7 @@ LABEL_13:
 
 - (BOOL)expandFieldData:(id)data withOffset:(unint64_t)offset inCoreAnalytics:(id)analytics
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   analyticsCopy = analytics;
   fieldLength = self->_fieldLength;
@@ -254,11 +254,11 @@ LABEL_13:
       v12 = log;
       v13 = [dataCopy length];
       v14 = self->_fieldLength + offset;
-      v19 = 134218240;
-      v20 = v13;
-      v21 = 2048;
-      v22 = v14;
-      _os_log_error_impl(&dword_247AA7000, v12, OS_LOG_TYPE_ERROR, "Length of MTIC Data(%lu) and Expected TMAP Data(%lu) do not match ", &v19, 0x16u);
+      v18 = 134218240;
+      v19 = v13;
+      v20 = 2048;
+      v21 = v14;
+      _os_log_error_impl(&dword_247AA7000, v12, OS_LOG_TYPE_ERROR, "Length of MTIC Data(%lu) and Expected TMAP Data(%lu) do not match ", &v18, 0x16u);
     }
 
 LABEL_15:
@@ -290,7 +290,6 @@ LABEL_15:
   v16 = [(TmapFieldTLV *)self expandFieldData:v15 inCoreAnalytics:analyticsCopy];
 
 LABEL_16:
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -824,25 +823,23 @@ LABEL_13:
 
 - (void)initWithDictionary:(uint64_t)a3 endian:(uint64_t)a4 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, a1, a3, "%s: Field Type is not type String", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TmapFieldTLV initWithDictionary:endian:]";
+  OUTLINED_FUNCTION_0_0(&dword_247AA7000, a1, a3, "%s: Field Type is not type String", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)expandInteger:(uint64_t)a3 inCoreAnalytics:(uint64_t)a4 .cold.1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, a2, a3, "Integer must be length: 1, 2, 4, or 8; not: %lu", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_0(&dword_247AA7000, a2, a3, "Integer must be length: 1, 2, 4, or 8; not: %lu", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)expandUnsignedInteger:(uint64_t)a3 inCoreAnalytics:(uint64_t)a4 .cold.1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, a2, a3, "Unsigned Integer must be length: 1, 2, 4, or 8; not: %lu", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_0(&dword_247AA7000, a2, a3, "Unsigned Integer must be length: 1, 2, 4, or 8; not: %lu", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

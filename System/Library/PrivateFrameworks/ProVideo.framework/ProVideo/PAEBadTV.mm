@@ -239,14 +239,14 @@ LABEL_29:
   memset(&v54[16], 0, 64);
   if (input)
   {
-    [input imageInfo];
+    objc_msgSend_imageInfo(input, a2);
   }
 
   if (self)
   {
-    [(PAESharedDefaultBase *)self getPixelTransformForImage:output];
-    [(PAESharedDefaultBase *)self getPixelTransformForImage:input];
-    [(PAESharedDefaultBase *)self getImageBoundary:input];
+    objc_msgSend_getPixelTransformForImage_(self, a2, output);
+    objc_msgSend_getPixelTransformForImage_(self);
+    objc_msgSend_getImageBoundary_(self);
     v9 = vcvtq_f64_f32(v42[0]);
     v10 = vcvtq_f64_f32(v42[1]);
   }
@@ -291,7 +291,7 @@ LABEL_29:
       versionAtCreation = [v15 versionAtCreation];
       v52 = 0;
       [v14 getFloatValue:&v52 fromParm:1 atFxTime:info->var0.var1];
-      v21 = HGRectMake4i(0, 0, 1u, 0x438u);
+      v21 = HGRectMake4i(0, 0, 1, 1080);
       v23 = v22;
       v24 = HGObject::operator new(0x80uLL);
       HGBitmap::HGBitmap(v24, v21, v23, 22);
@@ -344,14 +344,14 @@ LABEL_29:
         v31 = v45;
         if (v45 > 0.0)
         {
-          [(PAESharedDefaultBase *)self getInversePixelTransformForImage:input, v45];
+          objc_msgSend_getInversePixelTransformForImage_(self, v45);
           [(PAESharedDefaultBase *)self frameFromFxTime:info->var0.var1 forPlugIn:self];
-          PAEGenerateNoise(v45, v32, v26, v27, 0, 0, 1, 0);
+          PAEGenerateNoise(v26, v27, 0, 0, 1, 0, v45, v32);
         }
 
         if (input)
         {
-          [input heliumRef];
+          objc_msgSend_heliumRef(input, v45);
           v43 = v44;
           if (v44)
           {
@@ -365,7 +365,7 @@ LABEL_29:
           v44 = 0;
         }
 
-        [(PAESharedDefaultBase *)self changeDOD:&v43 withRect:v53, v31];
+        objc_msgSend_changeDOD_withRect_(self, v31);
         v33 = v42[0];
         if (*&v44 == *v42)
         {

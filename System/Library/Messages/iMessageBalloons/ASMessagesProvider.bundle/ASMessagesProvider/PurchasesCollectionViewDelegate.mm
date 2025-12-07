@@ -17,12 +17,13 @@
   v3 = *(&self->super.isa + OBJC_IVAR____TtC18ASMessagesProvider31PurchasesCollectionViewDelegate_didScrollHandler);
   if (v3)
   {
+    v5 = *&self->objectGraph[OBJC_IVAR____TtC18ASMessagesProvider31PurchasesCollectionViewDelegate_didScrollHandler];
     scrollCopy = scroll;
     selfCopy = self;
-    sub_F714(v3);
-    v3(scrollCopy);
+    v8 = sub_F714(v3, v5);
+    v3(scrollCopy, v8);
 
-    sub_F704(v3);
+    sub_F704(v3, v5);
   }
 }
 
@@ -141,16 +142,16 @@
   v8 = sub_757640();
   v9 = *(v8 - 8);
   __chkstk_darwin(v8);
-  v11 = &v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v18 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_757590();
   viewCopy = view;
   layoutCopy = layout;
   selfCopy = self;
-  v15 = sub_5C771C(v11);
+  v16 = sub_5C771C(v11, v15);
 
   (*(v9 + 8))(v11, v8);
 
-  return v15;
+  return v16;
 }
 
 @end

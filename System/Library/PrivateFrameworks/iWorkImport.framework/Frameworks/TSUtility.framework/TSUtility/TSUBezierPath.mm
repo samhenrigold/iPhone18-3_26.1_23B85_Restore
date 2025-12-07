@@ -1708,7 +1708,7 @@ LABEL_13:
 
 - (BOOL)isRectangular
 {
-  v30[11] = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   LODWORD(elementCount) = [(TSUBezierPath *)self isFlat];
   if (elementCount)
   {
@@ -1802,11 +1802,11 @@ LABEL_19:
             if (v20 > v10)
             {
               v23 = 0;
-              v24 = v30;
+              v24 = v29 + 1;
               v25 = 1;
               while (1)
               {
-                v26 = &v29[16 * (v25 % (v10 + 1))];
+                v26 = &v29[v25 % (v10 + 1)];
                 v27 = vabdd_f64(*v26, *(v24 - 1));
                 if (v27 > 0.01 != vabdd_f64(v26[1], *v24) <= 0.01 || v25 != 1 && ((v23 ^ (v27 > 0.01)) & 1) == 0)
                 {

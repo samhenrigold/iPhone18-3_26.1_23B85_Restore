@@ -191,14 +191,13 @@
 {
   v4 = sub_1C584EA90();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x1EEE9AC00](v4, v7);
-  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v4, v6);
+  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1C584EA50();
   selfCopy = self;
-  sub_1C5726794(v9);
+  sub_1C5726794(v8);
 
-  (*(v5 + 8))(v9, v4);
+  (*(v5 + 8))(v8, v4);
 }
 
 - (void)webViewFinishedLoading
@@ -230,42 +229,39 @@
 
 - (void)callBridgeMethodForExpansionProgressWithProgress:(float)progress
 {
-  v3 = *(self + OBJC_IVAR____TtC6MapsUI36MUWebBasedPlacecardSectionController_bridge);
+  v4 = *(self + OBJC_IVAR____TtC6MapsUI36MUWebBasedPlacecardSectionController_bridge);
   selfCopy = self;
-  v4 = v3;
-  sub_1C566C6D4();
+  v5 = v4;
+  sub_1C566C6D4(progress);
 }
 
 - (void)updatePlacecard
 {
   v3 = type metadata accessor for WebPlacecardBridgeReply.MUNativeWebCall(0);
-  v4 = *(*(v3 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v3 - 8, v5);
-  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v3 - 8, v4);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
-  sub_1C569789C(v7);
+  sub_1C569789C(v6);
   sub_1C569A8D8(8);
-  v9 = *(selfCopy + OBJC_IVAR____TtC6MapsUI36MUWebBasedPlacecardSectionController_bridge);
-  sub_1C566BB7C(v7, 0, 0);
+  v8 = *(selfCopy + OBJC_IVAR____TtC6MapsUI36MUWebBasedPlacecardSectionController_bridge);
+  sub_1C566BB7C(v6, 0, 0);
 
-  v10 = *(selfCopy + OBJC_IVAR____TtC6MapsUI36MUWebBasedPlacecardSectionController_webContentViewController);
   sub_1C5718EA0();
-  sub_1C57439F8(v7, type metadata accessor for WebPlacecardBridgeReply.MUNativeWebCall);
+  sub_1C57439F8(v6, type metadata accessor for WebPlacecardBridgeReply.MUNativeWebCall);
 }
 
 - (void)cleanPlacecard
 {
   v3 = type metadata accessor for WebPlacecardBridgeReply.MUNativeWebCall(0);
-  v4 = *(*(v3 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v3 - 8, v5);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v3 - 8, v4);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
-  sub_1C569789C(v7);
+  sub_1C569789C(v6);
   sub_1C569A8D8(9);
-  v9 = *(selfCopy + OBJC_IVAR____TtC6MapsUI36MUWebBasedPlacecardSectionController_bridge);
-  sub_1C566BB7C(v7, 0, 0);
+  v8 = *(selfCopy + OBJC_IVAR____TtC6MapsUI36MUWebBasedPlacecardSectionController_bridge);
+  sub_1C566BB7C(v6, 0, 0);
 
-  sub_1C57439F8(v7, type metadata accessor for WebPlacecardBridgeReply.MUNativeWebCall);
+  sub_1C57439F8(v6, type metadata accessor for WebPlacecardBridgeReply.MUNativeWebCall);
 }
 
 - (void)handleNativeUITapFor:(int64_t)for
@@ -356,13 +352,12 @@
 
 - (void)didTapCloseButtonIn:(id)in
 {
-  v4 = *(self + OBJC_IVAR____TtC6MapsUI36MUWebBasedPlacecardSectionController_actionDispatcher);
   type metadata accessor for MUPlaceActionDispatcher.CloseAction();
   selfCopy = self;
-  v6 = MUPlaceActionDispatcher.CloseAction.__allocating_init()();
+  v5 = MUPlaceActionDispatcher.CloseAction.__allocating_init()();
   type metadata accessor for MUPlaceActionFeedbackEnvironment();
-  v7 = sub_1C56433CC(0);
-  MUPlaceActionDispatcher.performAction(for:environment:completion:)(v6, v7, 0, 0);
+  v6 = sub_1C56433CC(0);
+  MUPlaceActionDispatcher.performAction(for:environment:completion:)();
 }
 
 - (void)didUpdateHeight
@@ -488,14 +483,13 @@
 {
   v4 = sub_1C584E7C0();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x1EEE9AC00](v4, v7);
-  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v4, v6);
+  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1C584E790();
   selfCopy = self;
-  sub_1C577CF90(v9);
+  sub_1C577CF90(v8);
 
-  (*(v5 + 8))(v9, v4);
+  (*(v5 + 8))(v8, v4);
 }
 
 - (void)fetchWebScrollFPSWithCompletion:(id)completion
@@ -517,7 +511,7 @@
 
   selfCopy = self;
   sub_1C577DBE8(v7, v6);
-  sub_1C5632FA8(v7);
+  sub_1C5632FA8(v7, v6);
 }
 
 - (id)generateReportWithResult:(id)result testName:(id)name

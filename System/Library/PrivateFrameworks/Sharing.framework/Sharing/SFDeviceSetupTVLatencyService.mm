@@ -6,29 +6,30 @@
 - (void)_handleTVLatencyProgressEvent:(unint64_t)event info:(id)info;
 - (void)_handleTVLatencyRequest:(id)request responseHandler:(id)handler;
 - (void)_invalidate;
+- (void)_reportProgress:(unsigned int)progress info:(id)info;
 - (void)_sfServiceStart;
 - (void)activate;
 - (void)invalidate;
+- (void)sendSetupAction:(unsigned int)action info:(id)info responseHandler:(id)handler;
 @end
 
 @implementation SFDeviceSetupTVLatencyService
 
 - (SFDeviceSetupTVLatencyService)init
 {
-  v8.receiver = self;
-  v8.super_class = SFDeviceSetupTVLatencyService;
-  v2 = [(SFDeviceSetupTVLatencyService *)&v8 init];
-  v3 = v2;
+  v7.receiver = self;
+  v7.super_class = SFDeviceSetupTVLatencyService;
+  v2 = [(SFDeviceSetupTVLatencyService *)&v7 init];
   if (v2)
   {
-    v4 = SFMainQueue(v2);
-    dispatchQueue = v3->_dispatchQueue;
-    v3->_dispatchQueue = v4;
+    v3 = SFMainQueue();
+    dispatchQueue = v2->_dispatchQueue;
+    v2->_dispatchQueue = v3;
 
-    v6 = v3;
+    v5 = v2;
   }
 
-  return v3;
+  return v2;
 }
 
 - (void)activate
@@ -42,16 +43,20 @@
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __41__SFDeviceSetupTVLatencyService_activate__block_invoke(uint64_t a1)
+uint64_t __41__SFDeviceSetupTVLatencyService_activate__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (gLogCategory_SFDeviceSetupTVLatencyService <= 30 && (gLogCategory_SFDeviceSetupTVLatencyService != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (gLogCategory_SFDeviceSetupTVLatencyService <= 30)
   {
-    __41__SFDeviceSetupTVLatencyService_activate__block_invoke_cold_1();
+    if (gLogCategory_SFDeviceSetupTVLatencyService != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __41__SFDeviceSetupTVLatencyService_activate__block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  v2 = *(a1 + 32);
+  v4 = *(v3 + 32);
 
-  return [v2 _sfServiceStart];
+  return [v4 _sfServiceStart];
 }
 
 - (void)invalidate
@@ -65,20 +70,23 @@ uint64_t __41__SFDeviceSetupTVLatencyService_activate__block_invoke(uint64_t a1)
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __43__SFDeviceSetupTVLatencyService_invalidate__block_invoke(uint64_t result)
+void *__43__SFDeviceSetupTVLatencyService_invalidate__block_invoke(void *result, uint64_t a2, uint64_t a3)
 {
-  if ((*(*(result + 32) + 10) & 1) == 0)
+  if ((*(result[4] + 10) & 1) == 0)
   {
-    v2 = result;
-    if (gLogCategory_SFDeviceSetupTVLatencyService <= 30 && (gLogCategory_SFDeviceSetupTVLatencyService != -1 || _LogCategory_Initialize()))
+    v4 = result;
+    if (gLogCategory_SFDeviceSetupTVLatencyService <= 30)
     {
-      __43__SFDeviceSetupTVLatencyService_invalidate__block_invoke_cold_1();
+      if (gLogCategory_SFDeviceSetupTVLatencyService != -1 || (result = _LogCategory_Initialize(), result))
+      {
+        __43__SFDeviceSetupTVLatencyService_invalidate__block_invoke_cold_1(result, a2, a3);
+      }
     }
 
-    *(*(v2 + 32) + 10) = 1;
-    v3 = *(v2 + 32);
+    *(v4[4] + 10) = 1;
+    v5 = v4[4];
 
-    return [v3 _invalidate];
+    return [v5 _invalidate];
   }
 
   return result;
@@ -98,73 +106,842 @@ uint64_t __43__SFDeviceSetupTVLatencyService_invalidate__block_invoke(uint64_t r
     progressHandler = self->_progressHandler;
     self->_progressHandler = 0;
 
-    if (gLogCategory_SFDeviceSetupTVLatencyService <= 30 && (gLogCategory_SFDeviceSetupTVLatencyService != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFDeviceSetupTVLatencyService <= 30)
     {
-      [SFDeviceSetupTVLatencyService _invalidate];
+      if (gLogCategory_SFDeviceSetupTVLatencyService != -1 || (v5 = _LogCategory_Initialize(), v5))
+      {
+        [(SFDeviceSetupTVLatencyService *)v5 _invalidate];
+      }
     }
   }
 }
 
-- (void)_sfServiceStart
+- (void)_reportProgress:(unsigned int)progress info:(id)info
 {
+  v4 = *&progress;
+  infoCopy = info;
   if (gLogCategory_SFDeviceSetupTVLatencyService <= 30 && (gLogCategory_SFDeviceSetupTVLatencyService != -1 || _LogCategory_Initialize()))
   {
-    [SFDeviceSetupTVLatencyService _sfServiceStart];
+    if (v4 > 279)
+    {
+      if (v4 > 709)
+      {
+        if (v4 <= 899)
+        {
+          v6 = infoCopy;
+          if (v4 <= 802)
+          {
+            if (v4 == 710)
+            {
+              v7 = "AudioPasscodeEnded";
+              goto LABEL_215;
+            }
+
+            if (v4 == 800)
+            {
+              v7 = "AuthAccountsStart";
+              goto LABEL_215;
+            }
+
+            goto LABEL_214;
+          }
+
+          if (v4 == 803)
+          {
+            v7 = "AuthAccountsiCloudProgress";
+            goto LABEL_215;
+          }
+
+          if (v4 == 804)
+          {
+            v7 = "AuthAccountsStoreProgress";
+            goto LABEL_215;
+          }
+
+          if (v4 != 805)
+          {
+            goto LABEL_214;
+          }
+
+          v7 = "AuthAccountsGameCenterProgress";
+        }
+
+        else
+        {
+          v6 = infoCopy;
+          if (v4 <= 999)
+          {
+            switch(v4)
+            {
+              case 900:
+                v7 = "SU-No-SetupScanAttempt";
+                break;
+              case 901:
+                v7 = "SU-No-SetupStatusUpdate";
+                break;
+              case 902:
+                v7 = "SU-No-SetupWipeWifi";
+                break;
+              case 903:
+                v7 = "SU-No-SetupCancelled";
+                break;
+              case 904:
+                v7 = "SU-No-SetupObliterate";
+                break;
+              case 905:
+                v7 = "SU-No-SetupCannotCancel";
+                break;
+              case 906:
+                v7 = "SysDrop AirDrop Event";
+                break;
+              case 907:
+                v7 = "SysDrop Sysdiagnose Event";
+                break;
+              case 908:
+                v7 = "SysDrop Cancel Event";
+                break;
+              case 909:
+                v7 = "File Transfer Progress Event";
+                break;
+              case 910:
+                v7 = "File Transfer Completed Event";
+                break;
+              case 911:
+                v7 = "iOSWiFiSetup";
+                break;
+              case 912:
+                v7 = "HKPrimaryResidentSSIDFetchStart";
+                break;
+              case 913:
+                v7 = "LoggingProfileTransfer";
+                break;
+              default:
+                goto LABEL_214;
+            }
+
+            goto LABEL_215;
+          }
+
+          if (v4 <= 1099)
+          {
+            if (v4 == 1000)
+            {
+              v7 = "SecureIntentStart";
+              goto LABEL_215;
+            }
+
+            if (v4 == 1001)
+            {
+              v7 = "SecureIntentFinish";
+              goto LABEL_215;
+            }
+
+            goto LABEL_214;
+          }
+
+          if (v4 == 1100)
+          {
+            v7 = "OneTimeCodeDetected";
+            goto LABEL_215;
+          }
+
+          if (v4 == 2000)
+          {
+            v7 = "DependentStart";
+            goto LABEL_215;
+          }
+
+          if (v4 != 2001)
+          {
+            goto LABEL_214;
+          }
+
+          v7 = "DependentEnd";
+        }
+      }
+
+      else if (v4 <= 499)
+      {
+        v6 = infoCopy;
+        if (v4 > 400)
+        {
+          if (v4 > 419)
+          {
+            switch(v4)
+            {
+              case 0x1A4:
+                v7 = "FileTransferReady";
+                goto LABEL_215;
+              case 0x1AE:
+                v7 = "eSimExternal2FAStart";
+                goto LABEL_215;
+              case 0x1AF:
+                v7 = "eSimExternal2FAStop";
+                goto LABEL_215;
+            }
+
+            goto LABEL_214;
+          }
+
+          if (v4 == 401)
+          {
+            v7 = "PINPair";
+            goto LABEL_215;
+          }
+
+          if (v4 == 410)
+          {
+            v7 = "MigrateStart";
+            goto LABEL_215;
+          }
+
+          if (v4 != 411)
+          {
+            goto LABEL_214;
+          }
+
+          v7 = "MigrateStop";
+        }
+
+        else
+        {
+          if (v4 > 299)
+          {
+            switch(v4)
+            {
+              case 0x12C:
+                v7 = "BackupProgress";
+                goto LABEL_215;
+              case 0x136:
+                v7 = "SyncProgress";
+                goto LABEL_215;
+              case 0x190:
+                v7 = "StopSetup";
+                goto LABEL_215;
+            }
+
+            goto LABEL_214;
+          }
+
+          if (v4 == 280)
+          {
+            v7 = "TVLCalFailed";
+            goto LABEL_215;
+          }
+
+          if (v4 == 281)
+          {
+            v7 = "TVLCalTryAgain";
+            goto LABEL_215;
+          }
+
+          if (v4 != 282)
+          {
+            goto LABEL_214;
+          }
+
+          v7 = "TVLCalFinal";
+        }
+      }
+
+      else
+      {
+        v6 = infoCopy;
+        if (v4 <= 554)
+        {
+          if (v4 > 529)
+          {
+            if (v4 == 530)
+            {
+              v7 = "SiriDialogBHome";
+              goto LABEL_215;
+            }
+
+            if (v4 == 540)
+            {
+              v7 = "SiriDialogBNews";
+              goto LABEL_215;
+            }
+
+            if (v4 != 550)
+            {
+              goto LABEL_214;
+            }
+
+            v7 = "SiriDialogBWeather";
+          }
+
+          else
+          {
+            if (v4 == 500)
+            {
+              v7 = "SiriWelcome";
+              goto LABEL_215;
+            }
+
+            if (v4 == 510)
+            {
+              v7 = "SiriDialogA";
+              goto LABEL_215;
+            }
+
+            if (v4 != 520)
+            {
+              goto LABEL_214;
+            }
+
+            v7 = "SiriDialogBStart";
+          }
+        }
+
+        else
+        {
+          if (v4 <= 569)
+          {
+            switch(v4)
+            {
+              case 0x22B:
+                v7 = "SiriDialogBClock";
+                goto LABEL_215;
+              case 0x22E:
+                v7 = "SiriDialogBMusic";
+                goto LABEL_215;
+              case 0x230:
+                v7 = "SiriDialogCMusic";
+                goto LABEL_215;
+            }
+
+            goto LABEL_214;
+          }
+
+          if (v4 > 599)
+          {
+            if (v4 == 600)
+            {
+              v7 = "SiriSkipDemo";
+              goto LABEL_215;
+            }
+
+            if (v4 == 700)
+            {
+              v7 = "StopSetupLEDs";
+              goto LABEL_215;
+            }
+
+            goto LABEL_214;
+          }
+
+          if (v4 == 570)
+          {
+            v7 = "SiriDialogCNews";
+            goto LABEL_215;
+          }
+
+          if (v4 != 580)
+          {
+            goto LABEL_214;
+          }
+
+          v7 = "SiriDialogCWeather";
+        }
+      }
+    }
+
+    else if (v4 <= 121)
+    {
+      if (v4 > 69)
+      {
+        v6 = infoCopy;
+        if (v4 > 95)
+        {
+          if (v4 <= 98)
+          {
+            if (v4 == 96)
+            {
+              v7 = "SetupFinished";
+            }
+
+            else if (v4 == 97)
+            {
+              v7 = "SetupResumed";
+            }
+
+            else
+            {
+              v7 = "SetupSuspend";
+            }
+
+            goto LABEL_215;
+          }
+
+          if (v4 == 99)
+          {
+            v7 = "SetupPeerSWUpdate";
+            goto LABEL_215;
+          }
+
+          if (v4 == 100)
+          {
+            v7 = "Finished";
+            goto LABEL_215;
+          }
+
+          if (v4 != 120)
+          {
+            goto LABEL_214;
+          }
+
+          v7 = "CheckingiCloud";
+        }
+
+        else if (v4 > 91)
+        {
+          if (v4 == 92)
+          {
+            v7 = "StepStart";
+            goto LABEL_215;
+          }
+
+          if (v4 == 94)
+          {
+            v7 = "StepFinish";
+            goto LABEL_215;
+          }
+
+          if (v4 != 95)
+          {
+            goto LABEL_214;
+          }
+
+          v7 = "PreFinish";
+        }
+
+        else
+        {
+          if (v4 == 70)
+          {
+            v7 = "SecurityFinish";
+            goto LABEL_215;
+          }
+
+          if (v4 == 80)
+          {
+            v7 = "BasicConfigStart";
+            goto LABEL_215;
+          }
+
+          if (v4 != 90)
+          {
+            goto LABEL_214;
+          }
+
+          v7 = "BasicConfigFinish";
+        }
+      }
+
+      else
+      {
+        v6 = infoCopy;
+        if (v4 > 32)
+        {
+          if (v4 > 49)
+          {
+            if (v4 == 50)
+            {
+              v7 = "PreAuthFinish";
+              goto LABEL_215;
+            }
+
+            if (v4 == 60)
+            {
+              v7 = "SecurityStart";
+              goto LABEL_215;
+            }
+
+            if (v4 != 65)
+            {
+              goto LABEL_214;
+            }
+
+            v7 = "SecurityAPCLoopStart";
+          }
+
+          else
+          {
+            if (v4 == 33)
+            {
+              v7 = "SessionSecured";
+              goto LABEL_215;
+            }
+
+            if (v4 == 35)
+            {
+              v7 = "ConnectStart";
+              goto LABEL_215;
+            }
+
+            if (v4 != 40)
+            {
+              goto LABEL_214;
+            }
+
+            v7 = "PreAuthStart";
+          }
+        }
+
+        else
+        {
+          if (v4 > 29)
+          {
+            if (v4 == 30)
+            {
+              v7 = "Error";
+            }
+
+            else if (v4 == 31)
+            {
+              v7 = "SessionStarted";
+            }
+
+            else
+            {
+              v7 = "SessionEnded";
+            }
+
+            goto LABEL_215;
+          }
+
+          if (!v4)
+          {
+            v7 = "Invalid";
+            goto LABEL_215;
+          }
+
+          if (v4 == 10)
+          {
+            v7 = "Start";
+            goto LABEL_215;
+          }
+
+          if (v4 != 20)
+          {
+            goto LABEL_214;
+          }
+
+          v7 = "Final";
+        }
+      }
+    }
+
+    else if (v4 <= 239)
+    {
+      v6 = infoCopy;
+      if (v4 > 209)
+      {
+        if (v4 > 229)
+        {
+          switch(v4)
+          {
+            case 0xE6:
+              v7 = "HomeKitStart";
+              goto LABEL_215;
+            case 0xEA:
+              v7 = "HomeKitSetupStart";
+              goto LABEL_215;
+            case 0xEC:
+              v7 = "CDPSetupStart";
+              goto LABEL_215;
+          }
+
+          goto LABEL_214;
+        }
+
+        if (v4 == 210)
+        {
+          v7 = "ActivationStart";
+          goto LABEL_215;
+        }
+
+        if (v4 == 220)
+        {
+          v7 = "iCloudStart";
+          goto LABEL_215;
+        }
+
+        if (v4 != 224)
+        {
+          goto LABEL_214;
+        }
+
+        v7 = "AppleIDSetupStart";
+      }
+
+      else
+      {
+        if (v4 > 139)
+        {
+          switch(v4)
+          {
+            case 0x8C:
+              v7 = "RecognizeVoice";
+              goto LABEL_215;
+            case 0x96:
+              v7 = "SiriForEveryone";
+              goto LABEL_215;
+            case 0xC8:
+              v7 = "WiFiStart";
+              goto LABEL_215;
+          }
+
+          goto LABEL_214;
+        }
+
+        if (v4 == 122)
+        {
+          v7 = "CheckingAppleMusic";
+          goto LABEL_215;
+        }
+
+        if (v4 == 124)
+        {
+          v7 = "CheckingAccount";
+          goto LABEL_215;
+        }
+
+        if (v4 != 130)
+        {
+          goto LABEL_214;
+        }
+
+        v7 = "WiFiPoweredOff";
+      }
+    }
+
+    else
+    {
+      v6 = infoCopy;
+      if (v4 > 269)
+      {
+        if (v4 > 275)
+        {
+          if (v4 > 277)
+          {
+            if (v4 == 278)
+            {
+              v7 = "TVLCalStart";
+            }
+
+            else
+            {
+              v7 = "TVLCalStep";
+            }
+          }
+
+          else if (v4 == 276)
+          {
+            v7 = "TVLSTryAgain";
+          }
+
+          else
+          {
+            v7 = "TVLSToneBegan";
+          }
+
+          goto LABEL_215;
+        }
+
+        switch(v4)
+        {
+          case 0x10E:
+            v7 = "TVLSEstimateStart";
+            goto LABEL_215;
+          case 0x110:
+            v7 = "TVLSEstimateFinal";
+            goto LABEL_215;
+          case 0x112:
+            v7 = "TVLSEstimateFailed";
+            goto LABEL_215;
+        }
+
+LABEL_214:
+        v7 = "?";
+        goto LABEL_215;
+      }
+
+      if (v4 > 249)
+      {
+        if (v4 == 250)
+        {
+          v7 = "ReportSuccess";
+          goto LABEL_215;
+        }
+
+        if (v4 == 260)
+        {
+          v7 = "TVLSStart";
+          goto LABEL_215;
+        }
+
+        if (v4 != 264)
+        {
+          goto LABEL_214;
+        }
+
+        v7 = "TVLSFinish";
+      }
+
+      else
+      {
+        if (v4 == 240)
+        {
+          v7 = "BuddyStarting";
+          goto LABEL_215;
+        }
+
+        if (v4 == 241)
+        {
+          v7 = "BuddyProgress";
+          goto LABEL_215;
+        }
+
+        if (v4 != 242)
+        {
+          goto LABEL_214;
+        }
+
+        v7 = "BuddyFinished";
+      }
+    }
+
+LABEL_215:
+    LogPrintF(&gLogCategory_SFDeviceSetupTVLatencyService, "[SFDeviceSetupTVLatencyService _reportProgress:info:]", 30, "Progress: %s, %##@\n", v7, v6);
   }
 
-  [(SFService *)self->_sfService invalidate];
-  v3 = objc_alloc_init(SFService);
-  sfService = self->_sfService;
-  self->_sfService = v3;
+  v8 = _Block_copy(self->_progressHandler);
+  v9 = v8;
+  if (v8)
+  {
+    (*(v8 + 2))(v8, v4, infoCopy);
+  }
+}
 
-  [(SFService *)self->_sfService setAdvertiseRate:50];
-  [(SFService *)self->_sfService setDeviceActionType:25];
-  [(SFService *)self->_sfService setDispatchQueue:self->_dispatchQueue];
-  [(SFService *)self->_sfService setIdentifier:@"com.apple.sharing.AppleTVSetup"];
-  [(SFService *)self->_sfService setLabel:@"TVLatency"];
-  [(SFService *)self->_sfService setNeedsSetup:1];
-  [(SFService *)self->_sfService setPinType:1];
-  [(SFService *)self->_sfService setSessionFlags:33];
+- (void)sendSetupAction:(unsigned int)action info:(id)info responseHandler:(id)handler
+{
+  v6 = *&action;
+  infoCopy = info;
+  handlerCopy = handler;
+  v9 = handlerCopy;
+  if (self->_sfSession)
+  {
+    v10 = _Block_copy(handlerCopy);
+    if (v10)
+    {
+      v11 = v10;
+    }
+
+    else
+    {
+      v11 = &__block_literal_global_55;
+    }
+
+    if (infoCopy)
+    {
+      v12 = [infoCopy mutableCopy];
+    }
+
+    else
+    {
+      v12 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    }
+
+    v13 = v12;
+    v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v6];
+    [v13 setObject:v14 forKeyedSubscript:@"sa"];
+
+    if (gLogCategory_SFDeviceSetupTVLatencyService <= 30 && (gLogCategory_SFDeviceSetupTVLatencyService != -1 || _LogCategory_Initialize()))
+    {
+      [SFDeviceSetupTVLatencyService sendSetupAction:v6 info:v13 responseHandler:?];
+    }
+
+    [(SFSession *)self->_sfSession sendRequestID:@"_sa" options:0 request:v13 responseHandler:v11];
+  }
+
+  else
+  {
+    if (!handlerCopy)
+    {
+      goto LABEL_15;
+    }
+
+    v11 = NSErrorWithOSStatusF(4294960551, "No session");
+    (v9)[2](v9, v11, 0, 0);
+  }
+
+LABEL_15:
+}
+
+- (void)_sfServiceStart
+{
+  selfCopy = self;
+  if (gLogCategory_SFDeviceSetupTVLatencyService <= 30)
+  {
+    if (gLogCategory_SFDeviceSetupTVLatencyService != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(SFDeviceSetupTVLatencyService *)self _sfServiceStart];
+    }
+  }
+
+  [(SFService *)selfCopy->_sfService invalidate];
+  v4 = objc_alloc_init(SFService);
+  sfService = selfCopy->_sfService;
+  selfCopy->_sfService = v4;
+
+  [(SFService *)selfCopy->_sfService setAdvertiseRate:50];
+  [(SFService *)selfCopy->_sfService setDeviceActionType:25];
+  [(SFService *)selfCopy->_sfService setDispatchQueue:selfCopy->_dispatchQueue];
+  [(SFService *)selfCopy->_sfService setIdentifier:@"com.apple.sharing.AppleTVSetup"];
+  [(SFService *)selfCopy->_sfService setLabel:@"TVLatency"];
+  [(SFService *)selfCopy->_sfService setNeedsSetup:1];
+  [(SFService *)selfCopy->_sfService setPinType:1];
+  [(SFService *)selfCopy->_sfService setSessionFlags:33];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __48__SFDeviceSetupTVLatencyService__sfServiceStart__block_invoke;
+  v9[3] = &unk_1E788CA68;
+  v9[4] = selfCopy;
+  [(SFService *)selfCopy->_sfService setSessionStartedHandler:v9];
   v8[0] = MEMORY[0x1E69E9820];
   v8[1] = 3221225472;
-  v8[2] = __48__SFDeviceSetupTVLatencyService__sfServiceStart__block_invoke;
-  v8[3] = &unk_1E788CA68;
-  v8[4] = self;
-  [(SFService *)self->_sfService setSessionStartedHandler:v8];
+  v8[2] = __48__SFDeviceSetupTVLatencyService__sfServiceStart__block_invoke_2;
+  v8[3] = &unk_1E788CA90;
+  v8[4] = selfCopy;
+  [(SFService *)selfCopy->_sfService setSessionEndedHandler:v8];
+  v6 = selfCopy->_sfService;
   v7[0] = MEMORY[0x1E69E9820];
   v7[1] = 3221225472;
-  v7[2] = __48__SFDeviceSetupTVLatencyService__sfServiceStart__block_invoke_2;
-  v7[3] = &unk_1E788CA90;
-  v7[4] = self;
-  [(SFService *)self->_sfService setSessionEndedHandler:v7];
-  v5 = self->_sfService;
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __48__SFDeviceSetupTVLatencyService__sfServiceStart__block_invoke_3;
-  v6[3] = &unk_1E788B238;
-  v6[4] = self;
-  [(SFService *)v5 activateWithCompletion:v6];
+  v7[2] = __48__SFDeviceSetupTVLatencyService__sfServiceStart__block_invoke_3;
+  v7[3] = &unk_1E788B238;
+  v7[4] = selfCopy;
+  [(SFService *)v6 activateWithCompletion:v7];
 }
 
 void __48__SFDeviceSetupTVLatencyService__sfServiceStart__block_invoke_3(uint64_t a1, void *a2)
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     if (gLogCategory_SFDeviceSetupTVLatencyService <= 90 && (gLogCategory_SFDeviceSetupTVLatencyService != -1 || _LogCategory_Initialize()))
     {
-      __48__SFDeviceSetupTVLatencyService__sfServiceStart__block_invoke_3_cold_1();
+      __48__SFDeviceSetupTVLatencyService__sfServiceStart__block_invoke_3_cold_1(v3);
     }
 
     v4 = *(a1 + 32);
-    v7 = @"eo";
-    v8[0] = v3;
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    v6 = @"eo";
+    v7[0] = v3;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
     [v4 _reportProgress:30 info:v5];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleSessionStarted:(id)started
@@ -213,7 +990,7 @@ void __48__SFDeviceSetupTVLatencyService__sfServiceStart__block_invoke_3(uint64_
     goto LABEL_15;
   }
 
-  v9 = endedCopy;
+  v11 = endedCopy;
   if (endedCopy && gLogCategory_SFDeviceSetupTVLatencyService <= 30)
   {
     if (gLogCategory_SFDeviceSetupTVLatencyService == -1)
@@ -227,34 +1004,37 @@ void __48__SFDeviceSetupTVLatencyService__sfServiceStart__block_invoke_3(uint64_
     }
 
     peer = [(SFSession *)sfSession peer];
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFDeviceSetupTVLatencyService, "[SFDeviceSetupTVLatencyService _handleSessionEnded:]", 30, "Ending session with %@\n", peer);
   }
 
 LABEL_7:
-  [(SFDeviceSetupTVLatencyService *)self _reportProgress:32 info:0, peer];
+  [(SFDeviceSetupTVLatencyService *)self _reportProgress:32 info:0];
   [(TVLAudioLatencyEstimator *)self->_tvLatencyEstimator invalidate];
   tvLatencyEstimator = self->_tvLatencyEstimator;
   self->_tvLatencyEstimator = 0;
 
-  v7 = self->_sfSession;
+  v8 = self->_sfSession;
   self->_sfSession = 0;
 
   if (!self->_finished)
   {
     [(SFService *)self->_sfService setDeviceActionType:25];
-    [(SFService *)self->_sfService setNeedsSetup:1];
+    v9 = [(SFService *)self->_sfService setNeedsSetup:1];
   }
 
-  endedCopy = v9;
+  endedCopy = v11;
   if (self->_invalidateCalled && !self->_invalidateDone)
   {
-    if (gLogCategory_SFDeviceSetupTVLatencyService <= 30 && (gLogCategory_SFDeviceSetupTVLatencyService != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFDeviceSetupTVLatencyService <= 30)
     {
-      [SFDeviceSetupTVLatencyService _handleSessionEnded:];
+      if (gLogCategory_SFDeviceSetupTVLatencyService != -1 || (v9 = _LogCategory_Initialize(), v9))
+      {
+        [(SFDeviceSetupTVLatencyService *)v9 _handleSessionEnded:endedCopy, v10];
+      }
     }
 
     [(SFDeviceSetupTVLatencyService *)self _invalidate];
-    endedCopy = v9;
+    endedCopy = v11;
   }
 
 LABEL_15:
@@ -266,7 +1046,7 @@ LABEL_15:
   handlerCopy = handler;
   if (gLogCategory_SFDeviceSetupTVLatencyService <= 30 && (gLogCategory_SFDeviceSetupTVLatencyService != -1 || _LogCategory_Initialize()))
   {
-    [SFDeviceSetupTVLatencyService _handleTVLatencyRequest:responseHandler:];
+    [SFDeviceSetupTVLatencyService _handleTVLatencyRequest:requestCopy responseHandler:?];
   }
 
   if (self->_tvLatencyEstimator)
@@ -277,25 +1057,28 @@ LABEL_15:
   messageSessionTemplate = [(SFSession *)self->_sfSession messageSessionTemplate];
   if (messageSessionTemplate)
   {
-    v9 = messageSessionTemplate;
-    if (gLogCategory_SFDeviceSetupTVLatencyService <= 30 && (gLogCategory_SFDeviceSetupTVLatencyService != -1 || _LogCategory_Initialize()))
+    v11 = messageSessionTemplate;
+    if (gLogCategory_SFDeviceSetupTVLatencyService <= 30)
     {
-      [SFDeviceSetupTVLatencyService _handleTVLatencyRequest:responseHandler:];
+      if (gLogCategory_SFDeviceSetupTVLatencyService != -1 || (messageSessionTemplate = _LogCategory_Initialize(), messageSessionTemplate))
+      {
+        [(SFDeviceSetupTVLatencyService *)messageSessionTemplate _handleTVLatencyRequest:v9 responseHandler:v10];
+      }
     }
 
-    v10 = [objc_alloc(getTVLAudioLatencyEstimatorClass_1()) initWithMessageSession:v9];
+    v12 = [objc_alloc(getTVLAudioLatencyEstimatorClass_1()) initWithMessageSession:v11];
     tvLatencyEstimator = self->_tvLatencyEstimator;
-    self->_tvLatencyEstimator = v10;
+    self->_tvLatencyEstimator = v12;
 
-    v14 = MEMORY[0x1E69E9820];
-    v15 = 3221225472;
-    v16 = __73__SFDeviceSetupTVLatencyService__handleTVLatencyRequest_responseHandler___block_invoke;
-    v17 = &unk_1E788B598;
+    v16 = MEMORY[0x1E69E9820];
+    v17 = 3221225472;
+    v18 = __73__SFDeviceSetupTVLatencyService__handleTVLatencyRequest_responseHandler___block_invoke;
+    v19 = &unk_1E788B598;
     selfCopy = self;
-    v19 = v10;
-    v12 = v10;
-    [(TVLAudioLatencyEstimator *)v12 setProgressEventHandler:&v14];
-    [(TVLAudioLatencyEstimator *)v12 activate:v14];
+    v21 = v12;
+    v14 = v12;
+    [(TVLAudioLatencyEstimator *)v14 setProgressEventHandler:&v16];
+    [(TVLAudioLatencyEstimator *)v14 activate:v16];
     [(SFDeviceSetupTVLatencyService *)self _reportProgress:260 info:requestCopy];
 
 LABEL_10:
@@ -308,13 +1091,13 @@ LABEL_10:
     goto LABEL_14;
   }
 
-  v13 = NSErrorWithOSStatusF();
+  v15 = NSErrorWithOSStatusF(4294960534, "No message session");
   if (gLogCategory_SFDeviceSetupTVLatencyService <= 90 && (gLogCategory_SFDeviceSetupTVLatencyService != -1 || _LogCategory_Initialize()))
   {
-    [SFDeviceSetupTVLatencyService _handleTVLatencyRequest:responseHandler:];
+    [SFDeviceSetupTVLatencyService _handleTVLatencyRequest:v15 responseHandler:?];
   }
 
-  (*(handlerCopy + 2))(handlerCopy, v13, 0, 0);
+  (*(handlerCopy + 2))(handlerCopy, v15, 0, 0);
 
 LABEL_14:
 }
@@ -337,11 +1120,11 @@ void __73__SFDeviceSetupTVLatencyService__handleTVLatencyRequest_responseHandler
   dispatch_async(v6, v10);
 }
 
-uint64_t __73__SFDeviceSetupTVLatencyService__handleTVLatencyRequest_responseHandler___block_invoke_2(uint64_t result)
+id *__73__SFDeviceSetupTVLatencyService__handleTVLatencyRequest_responseHandler___block_invoke_2(id *result)
 {
-  if (*(result + 32) == *(*(result + 40) + 32))
+  if (result[4] == *(result[5] + 4))
   {
-    return [*(result + 40) _handleTVLatencyProgressEvent:*(result + 56) info:*(result + 48)];
+    return [result[5] _handleTVLatencyProgressEvent:result[7] info:result[6]];
   }
 
   return result;
@@ -351,14 +1134,12 @@ uint64_t __73__SFDeviceSetupTVLatencyService__handleTVLatencyRequest_responseHan
 {
   infoCopy = info;
   v7 = infoCopy;
-  v12 = infoCopy;
+  v10 = infoCopy;
   if (gLogCategory_SFDeviceSetupTVLatencyService <= 30)
   {
-    if (gLogCategory_SFDeviceSetupTVLatencyService != -1 || (infoCopy = _LogCategory_Initialize(), v7 = v12, infoCopy))
+    if (gLogCategory_SFDeviceSetupTVLatencyService != -1 || (infoCopy = _LogCategory_Initialize(), v7 = v10, infoCopy))
     {
-      eventCopy = event;
-      v11 = v7;
-      infoCopy = LogPrintF();
+      infoCopy = LogPrintF(&gLogCategory_SFDeviceSetupTVLatencyService, "[SFDeviceSetupTVLatencyService _handleTVLatencyProgressEvent:info:]", 30, "TVLatency progress: %d, %##.32@\n", event, v7);
     }
   }
 
@@ -389,7 +1170,7 @@ uint64_t __73__SFDeviceSetupTVLatencyService__handleTVLatencyRequest_responseHan
     selfCopy4 = self;
     v9 = 274;
 LABEL_17:
-    infoCopy = [(SFDeviceSetupTVLatencyService *)selfCopy4 _reportProgress:v9 info:v12, eventCopy, v11];
+    infoCopy = [(SFDeviceSetupTVLatencyService *)selfCopy4 _reportProgress:v9 info:v10];
     goto LABEL_18;
   }
 
@@ -407,7 +1188,7 @@ LABEL_17:
 
   if (!self->_eventFinalDelivered)
   {
-    infoCopy = [(SFDeviceSetupTVLatencyService *)self _reportProgress:272 info:v12];
+    infoCopy = [(SFDeviceSetupTVLatencyService *)self _reportProgress:272 info:v10];
     self->_eventFinalDelivered = 1;
   }
 
@@ -420,34 +1201,46 @@ LABEL_18:
 {
   requestCopy = request;
   handlerCopy = handler;
-  if (gLogCategory_SFDeviceSetupTVLatencyService <= 30 && (gLogCategory_SFDeviceSetupTVLatencyService != -1 || _LogCategory_Initialize()))
+  v9 = handlerCopy;
+  if (gLogCategory_SFDeviceSetupTVLatencyService <= 30)
   {
-    [SFDeviceSetupTVLatencyService _handleFinishRequest:responseHandler:];
+    if (gLogCategory_SFDeviceSetupTVLatencyService != -1 || (handlerCopy = _LogCategory_Initialize(), handlerCopy))
+    {
+      handlerCopy = [SFDeviceSetupTVLatencyService _handleFinishRequest:requestCopy responseHandler:?];
+    }
   }
 
   if (!self->_eventFinalDelivered)
   {
-    [(SFDeviceSetupTVLatencyService *)self _reportProgress:272 info:MEMORY[0x1E695E0F8]];
+    handlerCopy = [(SFDeviceSetupTVLatencyService *)self _reportProgress:272 info:MEMORY[0x1E695E0F8]];
     self->_eventFinalDelivered = 1;
   }
 
-  if (gLogCategory_SFDeviceSetupTVLatencyService <= 30 && (gLogCategory_SFDeviceSetupTVLatencyService != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_SFDeviceSetupTVLatencyService <= 30)
   {
-    [SFDeviceSetupTVLatencyService _handleFinishRequest:responseHandler:];
+    if (gLogCategory_SFDeviceSetupTVLatencyService != -1 || (handlerCopy = _LogCategory_Initialize(), handlerCopy))
+    {
+      [(SFDeviceSetupTVLatencyService *)handlerCopy _handleFinishRequest:v7 responseHandler:v8];
+    }
   }
 
-  (*(handlerCopy + 2))(handlerCopy, 0, 0, MEMORY[0x1E695E0F8]);
+  v9[2](v9, 0, 0, MEMORY[0x1E695E0F8]);
   self->_finished = 1;
 }
 
-- (uint64_t)sendSetupAction:(unsigned int)a1 info:responseHandler:.cold.1(unsigned int a1)
+- (uint64_t)sendSetupAction:(unsigned int)a1 info:(uint64_t)a2 responseHandler:.cold.1(unsigned int a1, uint64_t a2)
 {
-  if (a1 <= 0xA)
+  if (a1 > 0xA)
   {
-    v1 = off_1E7890088[a1];
+    v4 = "?";
   }
 
-  return LogPrintF();
+  else
+  {
+    v4 = off_1E7890088[a1];
+  }
+
+  return LogPrintF(&gLogCategory_SFDeviceSetupTVLatencyService, "[SFDeviceSetupTVLatencyService sendSetupAction:info:responseHandler:]", 30, "SetupActionRequest: %s, %##.32@\n", v4, a2, v2, v3);
 }
 
 - (void)_handleSessionStarted:(void *)a3 .cold.1(int a1, void **a2, void *a3, void *a4)
@@ -465,15 +1258,15 @@ LABEL_18:
     }
 
     v7 = [a3 peer];
-    v6 = [a4 peer];
-    LogPrintF();
+    v5 = [a4 peer];
+    LogPrintF(&gLogCategory_SFDeviceSetupTVLatencyService, "[SFDeviceSetupTVLatencyService _handleSessionStarted:]", 60, "### Ignoring session when already active: existing peer %@, new peer %@\n", v7, v5);
   }
 }
 
 - (void)_handleSessionStarted:(void *)a1 .cold.2(void *a1)
 {
   v1 = [a1 peer];
-  LogPrintF();
+  LogPrintF(&gLogCategory_SFDeviceSetupTVLatencyService, "[SFDeviceSetupTVLatencyService _handleSessionStarted:]", 30, "Starting session with %@\n", v1);
 }
 
 @end

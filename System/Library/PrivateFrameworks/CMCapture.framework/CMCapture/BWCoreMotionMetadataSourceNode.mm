@@ -22,9 +22,9 @@
   return 1;
 }
 
-uint64_t __40__BWCoreMotionMetadataSourceNode_start___block_invoke(uint64_t result)
+void *__40__BWCoreMotionMetadataSourceNode_start___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if ((*(v1 + 144) & 1) == 0)
   {
     v2 = result;
@@ -41,7 +41,7 @@ uint64_t __40__BWCoreMotionMetadataSourceNode_start___block_invoke(uint64_t resu
         v5[2] = *v6;
         *(v5 + 44) = *&v6[12];
         ++v4;
-        v1 = *(result + 32);
+        v1 = result[4];
         v3 += 60;
       }
 
@@ -49,9 +49,9 @@ uint64_t __40__BWCoreMotionMetadataSourceNode_start___block_invoke(uint64_t resu
     }
 
     *(v1 + 160) = 0;
-    [*(*(result + 32) + 16) makeConfiguredFormatLive];
-    *(*(v2 + 32) + 144) = 1;
-    return [*(*(v2 + 32) + 128) setDeviceMotionCallback:cmmsn_deviceMotionCallback info:*(v2 + 32) interval:1 fsync:1.0 / (*(*(v2 + 32) + 140) * *(*(v2 + 32) + 136))];
+    [*(result[4] + 16) makeConfiguredFormatLive];
+    *(v2[4] + 144) = 1;
+    return [*(v2[4] + 128) setDeviceMotionCallback:cmmsn_deviceMotionCallback info:v2[4] interval:1 fsync:1.0 / (*(v2[4] + 140) * *(v2[4] + 136))];
   }
 
   return result;
@@ -76,7 +76,7 @@ uint64_t __40__BWCoreMotionMetadataSourceNode_start___block_invoke(uint64_t resu
   return 1;
 }
 
-uint64_t __39__BWCoreMotionMetadataSourceNode_stop___block_invoke(uint64_t a1)
+void *__39__BWCoreMotionMetadataSourceNode_stop___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   if (*(v2 + 160))
@@ -216,105 +216,99 @@ LABEL_13:
 
 - (void)_emitMetadataSampleBuffer
 {
-  if (!self)
+  if (self)
   {
-    return;
-  }
-
-  sampleBufferOut = 0;
-  blockBufferOut = 0;
-  v2 = 68 * *(self + 160);
-  v3 = malloc_type_malloc(v2, 0x68D099D8uLL);
-  if (*(self + 160) < 1)
-  {
-    v6 = 0;
-  }
-
-  else
-  {
-    v4 = 0;
-    v5 = 0;
-    v6 = 0;
-    v7 = v3 + 8;
-    do
+    sampleBufferOut = 0;
+    v25 = 0;
+    v2 = 68 * *(self + 160);
+    v3 = malloc_type_malloc(v2, 0x68D099D8uLL);
+    if (*(self + 160) < 1)
     {
-      *(v7 - 2) = 1140850688;
-      *(v7 - 1) = *(self + 176);
-      v8 = (*(self + 152) + v4);
-      v10 = v8[1];
-      v9 = v8[2];
-      v11 = *v8;
-      *(v7 + 44) = *(v8 + 44);
-      v7[1] = v10;
-      v7[2] = v9;
-      *v7 = v11;
-      v7 = (v7 + 68);
-      v6 += 68;
-      ++v5;
-      v4 += 60;
+      v6 = 0;
     }
 
-    while (v5 < *(self + 160));
+    else
+    {
+      v4 = 0;
+      v5 = 0;
+      v6 = 0;
+      v7 = v3 + 8;
+      do
+      {
+        *(v7 - 2) = 1140850688;
+        *(v7 - 1) = *(self + 176);
+        v8 = (*(self + 152) + v4);
+        v10 = v8[1];
+        v9 = v8[2];
+        v11 = *v8;
+        *(v7 + 44) = *(v8 + 44);
+        v7[1] = v10;
+        v7[2] = v9;
+        *v7 = v11;
+        v7 = (v7 + 68);
+        v6 += 68;
+        ++v5;
+        v4 += 60;
+      }
+
+      while (v5 < *(self + 160));
+    }
+
+    *(self + 160) = 0;
+    v12 = *MEMORY[0x1E695E480];
+    v13 = CMBlockBufferCreateWithMemoryBlock(*MEMORY[0x1E695E480], v3, v2, *MEMORY[0x1E695E488], 0, 0, v6, 0, &v25);
+    if (v13)
+    {
+      v18 = v13;
+      fig_log_get_emitter();
+      OUTLINED_FUNCTION_1_6();
+      LODWORD(blockBufferOut) = v18;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", blockBufferOut);
+    }
+
+    else
+    {
+      memcpy(&__dst, MEMORY[0x1E6960CF0], sizeof(__dst));
+      CMTimeMakeWithSeconds(&__dst.presentationTimeStamp, *(*(self + 152) + 8), 1000000000);
+      DataLength = CMBlockBufferGetDataLength(v25);
+      v15 = *(self + 168);
+      v22 = DataLength;
+      v16 = CMSampleBufferCreate(v12, v25, 1u, 0, 0, v15, 1, 1, &__dst, 1, &v22, &sampleBufferOut);
+      if (v16)
+      {
+        v19 = v16;
+        fig_log_get_emitter();
+        OUTLINED_FUNCTION_1_6();
+        LODWORD(blockBufferOuta) = v19;
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", blockBufferOuta);
+      }
+
+      else
+      {
+        output = [self output];
+        [output emitSampleBuffer:sampleBufferOut];
+      }
+    }
+
+    if (v25)
+    {
+      CFRelease(v25);
+    }
+
+    if (sampleBufferOut)
+    {
+      CFRelease(sampleBufferOut);
+    }
   }
-
-  *(self + 160) = 0;
-  v12 = *MEMORY[0x1E695E480];
-  if (CMBlockBufferCreateWithMemoryBlock(*MEMORY[0x1E695E480], v3, v2, *MEMORY[0x1E695E488], 0, 0, v6, 0, &blockBufferOut))
-  {
-    fig_log_get_emitter();
-    OUTLINED_FUNCTION_1_6();
-LABEL_17:
-    FigDebugAssert3();
-    goto LABEL_10;
-  }
-
-  memcpy(&__dst, MEMORY[0x1E6960CF0], sizeof(__dst));
-  CMTimeMakeWithSeconds(&__dst.presentationTimeStamp, *(*(self + 152) + 8), 1000000000);
-  DataLength = CMBlockBufferGetDataLength(blockBufferOut);
-  v14 = *(self + 168);
-  v16 = DataLength;
-  if (CMSampleBufferCreate(v12, blockBufferOut, 1u, 0, 0, v14, 1, 1, &__dst, 1, &v16, &sampleBufferOut))
-  {
-    fig_log_get_emitter();
-    OUTLINED_FUNCTION_1_6();
-    goto LABEL_17;
-  }
-
-  output = [self output];
-  [output emitSampleBuffer:sampleBufferOut];
-LABEL_10:
-  if (blockBufferOut)
-  {
-    CFRelease(blockBufferOut);
-  }
-
-  if (sampleBufferOut)
-  {
-    CFRelease(sampleBufferOut);
-  }
-}
-
-+ (uint64_t)extractBWCoreMotionMetadataFromBlockBuffer:intoNativeEndianSampleData:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-+ (uint64_t)extractBWCoreMotionMetadataFromBlockBuffer:intoNativeEndianSampleData:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
 }
 
 + (uint64_t)extractBWCoreMotionMetadataFromBlockBuffer:(_DWORD *)a1 intoNativeEndianSampleData:.cold.3(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE14, "<<<< BWCoreMotionMetadataSourceNode >>>>", 0x95, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -323,9 +317,9 @@ LABEL_10:
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE14, "<<<< BWCoreMotionMetadataSourceNode >>>>", 0x94, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }

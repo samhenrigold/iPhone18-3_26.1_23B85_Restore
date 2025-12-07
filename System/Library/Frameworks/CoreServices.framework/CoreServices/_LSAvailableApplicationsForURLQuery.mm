@@ -81,7 +81,7 @@ LABEL_7:
 
       if (v14)
       {
-        [_LSCanOpenURLManager bindingEvaluatorForScheme:scheme];
+        objc_msgSend_bindingEvaluatorForScheme_(_LSCanOpenURLManager);
         v41 = 0;
         LaunchServices::BindingEvaluator::evaluateBindings(v50, v14, &v41, &v42);
         v15 = v41;
@@ -90,10 +90,11 @@ LABEL_7:
         v18 = v43;
         if (v42 == v43)
         {
-          if (_LSGetOSStatusFromNSError(v15) == -10814)
+          v26 = _LSGetOSStatusFromNSError(v15);
+          if (v26 == -10814)
           {
-            v26 = _LSDefaultLog();
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+            v27 = _LSDefaultLog(v26);
+            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
             {
               [_LSAvailableApplicationsForURLQuery _enumerateWithXPCConnection:block:];
             }
@@ -210,12 +211,12 @@ LABEL_7:
         _LSContextDestroy(v44);
       }
 
-      v27 = v45;
+      v28 = v45;
       v44 = 0;
       v45 = 0;
 
       v46 = 0;
-      v28 = v47;
+      v29 = v47;
       v47 = 0;
     }
   }
@@ -228,8 +229,6 @@ LABEL_7:
     v12 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v11, "[_LSAvailableApplicationsForURLQuery _enumerateWithXPCConnection:block:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Server/LSCanOpenURLManager.mm", 666);
     (blockCopy)[2](blockCopy, 0, v12);
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -259,10 +258,9 @@ LABEL_7:
 
 - (void)_enumerateWithXPCConnection:block:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
-  _os_log_debug_impl(&dword_18162D000, v0, OS_LOG_TYPE_DEBUG, "No bindings found for scheme %{private}@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_18162D000, v0, OS_LOG_TYPE_DEBUG, "No bindings found for scheme %{private}@", v1, 0xCu);
 }
 
 @end

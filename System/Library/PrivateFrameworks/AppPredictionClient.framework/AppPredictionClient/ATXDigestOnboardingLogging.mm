@@ -82,12 +82,12 @@
     {
       v14 = [rankedAppsCopy objectAtIndexedSubscript:v13];
       bundleId = [v14 bundleId];
-      v16 = [appsCopy containsObject:bundleId];
+      v16 = objc_msgSend_containsObject_(appsCopy);
 
       if (v16)
       {
         bundleId2 = [v14 bundleId];
-        v18 = [digestCopy containsObject:bundleId2];
+        v18 = objc_msgSend_containsObject_(digestCopy);
       }
 
       else

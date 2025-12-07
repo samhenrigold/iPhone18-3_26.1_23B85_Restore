@@ -28,7 +28,7 @@
 
 - (void)handleCommand:(id)command withContext:(id)context taskTracker:(id)tracker completion:(id)completion
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   contextCopy = context;
   trackerCopy = tracker;
@@ -53,15 +53,15 @@
       v20 = *MEMORY[0x277CEF098];
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEBUG))
       {
-        v24 = v20;
+        v23 = v20;
         requestHandlingStatus2 = [v16 requestHandlingStatus];
         *buf = 136315650;
-        v28 = "[SVXServiceCommandHandlerUIShowRequestHandlingStatus handleCommand:withContext:taskTracker:completion:]";
-        v29 = 2112;
-        v30 = requestHandlingStatus2;
-        v31 = 2112;
-        v32 = v19;
-        _os_log_debug_impl(&dword_2695B9000, v24, OS_LOG_TYPE_DEBUG, "%s Handling requestHandlingStatus [%@] with command [%@]", buf, 0x20u);
+        v27 = "[SVXServiceCommandHandlerUIShowRequestHandlingStatus handleCommand:withContext:taskTracker:completion:]";
+        v28 = 2112;
+        v29 = requestHandlingStatus2;
+        v30 = 2112;
+        v31 = v19;
+        _os_log_debug_impl(&dword_2695B9000, v23, OS_LOG_TYPE_DEBUG, "%s Handling requestHandlingStatus [%@] with command [%@]", buf, 0x20u);
       }
 
       [(SBSDebugInterface *)self->_debugInterface sendLEDCommand:v19];
@@ -79,8 +79,6 @@
     v22 = +[SVXServiceCommandResult resultSuccess];
     (v15)[2](v15, v22);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (SVXServiceCommandHandlerUIShowRequestHandlingStatus)initWithSessionManager:(id)manager performer:(id)performer afPreferencesProvider:(id)provider

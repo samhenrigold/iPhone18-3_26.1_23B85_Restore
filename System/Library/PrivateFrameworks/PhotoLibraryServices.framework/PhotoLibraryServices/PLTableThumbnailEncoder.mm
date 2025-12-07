@@ -17,7 +17,7 @@
   v50 = *MEMORY[0x1E69E9840];
   formatsCopy = formats;
   v7 = formatsCopy;
-  if (image && [formatsCopy count] >= 2)
+  if (image && objc_msgSend_count(formatsCopy) >= 2)
   {
     v8 = [MEMORY[0x1E696AB50] setWithCapacity:5];
     v45 = 0u;
@@ -53,7 +53,7 @@
       while (v11);
     }
 
-    if ([v8 count] == 1)
+    if (objc_msgSend_count(v8) == 1)
     {
       v15 = [v9 objectAtIndexedSubscript:0];
       [v15 size];
@@ -106,7 +106,7 @@ LABEL_26:
     }
 
     v33 = [v9 objectAtIndexedSubscript:0];
-    if ([v9 count] < 2)
+    if (objc_msgSend_count(v9) < 2)
     {
 LABEL_23:
       v35 = 0;
@@ -123,7 +123,7 @@ LABEL_23:
           break;
         }
 
-        if ([v9 count] <= ++v34)
+        if (objc_msgSend_count(v9) <= ++v34)
         {
           goto LABEL_23;
         }
@@ -325,7 +325,7 @@ LABEL_12:
   v33 = *MEMORY[0x1E69E9840];
   formatsCopy = formats;
   dCopy = d;
-  v12 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(formatsCopy, "count")}];
+  v12 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:objc_msgSend_count(formatsCopy)];
   v13 = [self createCascadeSeedImageFromSourceImage:image toFormats:formatsCopy];
   v28 = 0u;
   v29 = 0u;
@@ -480,7 +480,7 @@ LABEL_13:
   dCopy = d;
   if (source)
   {
-    if ([formatsCopy count])
+    if (objc_msgSend_count(formatsCopy))
     {
       PrimaryImageIndex = CGImageSourceGetPrimaryImageIndex(source);
       v20 = *MEMORY[0x1E696E138];

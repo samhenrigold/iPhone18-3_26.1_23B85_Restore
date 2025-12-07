@@ -147,11 +147,11 @@ LABEL_9:
 
 - (MAAutoAssetSetInfoInstance)initWithCoder:(id)coder
 {
-  v32[3] = *MEMORY[0x1E69E9840];
+  v31[3] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v30.receiver = self;
-  v30.super_class = MAAutoAssetSetInfoInstance;
-  v5 = [(MAAutoAssetSetInfoInstance *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = MAAutoAssetSetInfoInstance;
+  v5 = [(MAAutoAssetSetInfoInstance *)&v29 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"clientDomainName"];
@@ -176,21 +176,21 @@ LABEL_9:
     v5->_atomicInstance = v14;
 
     v16 = objc_alloc(MEMORY[0x1E695DFD8]);
-    v32[0] = objc_opt_class();
-    v32[1] = objc_opt_class();
-    v32[2] = objc_opt_class();
-    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:3];
+    v31[0] = objc_opt_class();
+    v31[1] = objc_opt_class();
+    v31[2] = objc_opt_class();
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:3];
     v18 = [v16 initWithArray:v17];
     v19 = [coderCopy decodeObjectOfClasses:v18 forKey:@"autoAssetEntries"];
     autoAssetEntries = v5->_autoAssetEntries;
     v5->_autoAssetEntries = v19;
 
     v21 = objc_alloc(MEMORY[0x1E695DFD8]);
-    v31[0] = objc_opt_class();
-    v31[1] = objc_opt_class();
-    v31[2] = objc_opt_class();
-    v31[3] = objc_opt_class();
-    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:4];
+    v30[0] = objc_opt_class();
+    v30[1] = objc_opt_class();
+    v30[2] = objc_opt_class();
+    v30[3] = objc_opt_class();
+    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:4];
     v23 = [v21 initWithArray:v22];
     v24 = [coderCopy decodeObjectOfClasses:v23 forKey:@"entriesWhenTargeting"];
     entriesWhenTargeting = v5->_entriesWhenTargeting;
@@ -201,7 +201,6 @@ LABEL_9:
     v5->_frameworkInstanceUUID = v26;
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

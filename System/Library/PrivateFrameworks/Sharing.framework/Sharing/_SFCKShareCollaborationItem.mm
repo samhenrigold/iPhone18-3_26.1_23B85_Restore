@@ -24,29 +24,29 @@
   if (v10)
   {
     [(SFCollaborationItem *)v10 setType:1];
-    v10->_isServiceManatee = [SFCollaborationUtilities isServiceManateeCKShareItemProvider:providerCopy];
-    v11 = share_sheet_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v11 = [SFCollaborationUtilities isServiceManateeCKShareItemProvider:providerCopy];
+    v10->_isServiceManatee = v11;
+    v12 = share_sheet_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       if (v10->_isServiceManatee)
       {
-        v12 = "yes";
+        v13 = "yes";
       }
 
       else
       {
-        v12 = "no";
+        v13 = "no";
       }
 
       *buf = 138412546;
       v17 = v10;
       v18 = 2080;
-      v19 = v12;
-      _os_log_impl(&dword_1A9662000, v11, OS_LOG_TYPE_DEFAULT, "%@: isServiceManatee:%s", buf, 0x16u);
+      v19 = v13;
+      _os_log_impl(&dword_1A9662000, v12, OS_LOG_TYPE_DEFAULT, "%@: isServiceManatee:%s", buf, 0x16u);
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

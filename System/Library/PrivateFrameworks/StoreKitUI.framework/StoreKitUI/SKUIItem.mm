@@ -84,7 +84,7 @@ LABEL_15:
 
 - (SKUIItem)initWithLookupDictionary:(id)dictionary
 {
-  v142 = *MEMORY[0x277D85DE8];
+  v141 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   if (os_variant_has_internal_content() && _os_feature_enabled_impl())
   {
@@ -96,9 +96,9 @@ LABEL_15:
     }
   }
 
-  v136.receiver = self;
-  v136.super_class = SKUIItem;
-  v7 = [(SKUIItem *)&v136 init];
+  v135.receiver = self;
+  v135.super_class = SKUIItem;
+  v7 = [(SKUIItem *)&v135 init];
 
   if (!v7)
   {
@@ -210,7 +210,7 @@ LABEL_22:
   v23 = [dictionaryCopy objectForKey:*MEMORY[0x277D6A3A0]];
 
   objc_opt_class();
-  v119 = v7;
+  v118 = v7;
   if (objc_opt_isKindOfClass())
   {
     v24 = v23;
@@ -227,41 +227,41 @@ LABEL_47:
     v26 = dictionaryCopy;
     requiredCapabilities = objc_alloc_init(MEMORY[0x277CBEB18]);
     [v23 componentsSeparatedByString:@" "];
+    v131 = 0u;
     v132 = 0u;
     v133 = 0u;
-    v134 = 0u;
-    v27 = v135 = 0u;
-    v28 = [v27 countByEnumeratingWithState:&v132 objects:v141 count:16];
+    v27 = v134 = 0u;
+    v28 = [v27 countByEnumeratingWithState:&v131 objects:v140 count:16];
     if (v28)
     {
       v29 = v28;
-      v30 = *v133;
+      v30 = *v132;
       do
       {
         for (i = 0; i != v29; ++i)
         {
-          if (*v133 != v30)
+          if (*v132 != v30)
           {
             objc_enumerationMutation(v27);
           }
 
-          v32 = *(*(&v132 + 1) + 8 * i);
+          v32 = *(*(&v131 + 1) + 8 * i);
           if ([v32 length])
           {
             [(NSArray *)requiredCapabilities addObject:v32];
           }
         }
 
-        v29 = [v27 countByEnumeratingWithState:&v132 objects:v141 count:16];
+        v29 = [v27 countByEnumeratingWithState:&v131 objects:v140 count:16];
       }
 
       while (v29);
     }
 
     v33 = [(NSArray *)requiredCapabilities copy];
-    v7 = v119;
-    v34 = v119->_requiredCapabilities;
-    v119->_requiredCapabilities = v33;
+    v7 = v118;
+    v34 = v118->_requiredCapabilities;
+    v118->_requiredCapabilities = v33;
 
     dictionaryCopy = v26;
     goto LABEL_47;
@@ -282,260 +282,259 @@ LABEL_48:
   if (objc_opt_isKindOfClass())
   {
     objc_storeStrong(&v7->_itemKindString, v36);
-    itemKindString = v7->_itemKindString;
-    v38 = &off_2781F9EA0;
-    v39 = 25;
-    while (![*v38 isEqualToString:itemKindString])
+    v37 = &off_2781F9EA0;
+    v38 = 25;
+    while (!objc_msgSend_isEqualToString_(*v37))
     {
-      v38 += 2;
-      if (!--v39)
+      v37 += 2;
+      if (!--v38)
       {
-        v40 = 0;
+        v39 = 0;
         goto LABEL_56;
       }
     }
 
-    v40 = *(v38 - 1);
+    v39 = *(v37 - 1);
 LABEL_56:
-    v7 = v119;
-    v119->_itemKind = v40;
+    v7 = v118;
+    v118->_itemKind = v39;
   }
 
-  v41 = [dictionaryCopy objectForKey:*MEMORY[0x277D6A300]];
+  v40 = [dictionaryCopy objectForKey:*MEMORY[0x277D6A300]];
 
-  v42 = [SKUIArtworkProvidingFactory artworkProviderForStoreResponse:v41];
+  v41 = [SKUIArtworkProvidingFactory artworkProviderForStoreResponse:v40];
   artworksProvider = v7->_artworksProvider;
-  v7->_artworksProvider = v42;
+  v7->_artworksProvider = v41;
 
-  v44 = [dictionaryCopy objectForKey:*MEMORY[0x277D6A378]];
+  v43 = [dictionaryCopy objectForKey:*MEMORY[0x277D6A378]];
 
-  v45 = [SKUIArtworkProvidingFactory artworkProviderForStoreResponse:v44];
+  v44 = [SKUIArtworkProvidingFactory artworkProviderForStoreResponse:v43];
   newsstandArtworks = v7->_newsstandArtworks;
-  v7->_newsstandArtworks = v45;
+  v7->_newsstandArtworks = v44;
 
   if (v7->_newsstandArtworks)
   {
     v7->_newsstandApp = 1;
   }
 
-  v47 = [dictionaryCopy objectForKey:@"hasMessagesExtension"];
+  v46 = [dictionaryCopy objectForKey:@"hasMessagesExtension"];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v7->_hasMessagesExtension = [v47 BOOLValue];
+    v7->_hasMessagesExtension = [v46 BOOLValue];
   }
 
-  v48 = [dictionaryCopy objectForKey:@"isHiddenFromSpringBoard"];
+  v47 = [dictionaryCopy objectForKey:@"isHiddenFromSpringBoard"];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v7->_isHiddenFromSpringBoard = [v48 BOOLValue];
+    v7->_isHiddenFromSpringBoard = [v47 BOOLValue];
   }
 
-  v49 = [dictionaryCopy objectForKey:@"isGameControllerSupported"];
+  v48 = [dictionaryCopy objectForKey:@"isGameControllerSupported"];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v7->_gameControllerSupported = [v49 BOOLValue];
+    v7->_gameControllerSupported = [v48 BOOLValue];
   }
 
-  v50 = [dictionaryCopy objectForKey:@"requiresGameController"];
+  v49 = [dictionaryCopy objectForKey:@"requiresGameController"];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v7->_requiresGameController = [v50 BOOLValue];
+    v7->_requiresGameController = [v49 BOOLValue];
   }
 
-  v51 = [dictionaryCopy objectForKey:@"ageBand"];
+  v50 = [dictionaryCopy objectForKey:@"ageBand"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v52 = [v51 objectForKey:@"maxAge"];
-    v109 = [v51 objectForKey:@"minAge"];
+    v51 = [v50 objectForKey:@"maxAge"];
+    v108 = [v50 objectForKey:@"minAge"];
   }
 
   else
   {
-    v109 = 0;
-    v52 = 0;
+    v108 = 0;
+    v51 = 0;
   }
 
   if (objc_opt_respondsToSelector() & 1) != 0 && (objc_opt_respondsToSelector())
   {
-    v7->_ageBandRange.location = [v109 integerValue];
-    v53 = [v52 integerValue] - v7->_ageBandRange.location;
+    v7->_ageBandRange.location = [v108 integerValue];
+    v52 = [v51 integerValue] - v7->_ageBandRange.location;
   }
 
   else
   {
-    v53 = 0;
+    v52 = 0;
     v7->_ageBandRange.location = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  v7->_ageBandRange.length = v53;
-  v54 = [dictionaryCopy objectForKey:*MEMORY[0x277D6A310]];
+  v7->_ageBandRange.length = v52;
+  v53 = [dictionaryCopy objectForKey:*MEMORY[0x277D6A310]];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v55 = [v54 objectForKey:@"value"];
+    v54 = [v53 objectForKey:@"value"];
 
-    v113 = v55;
+    v112 = v54;
     if (objc_opt_respondsToSelector())
     {
-      v7->_parentalControlsRank = [v55 integerValue];
+      v7->_parentalControlsRank = [v54 integerValue];
     }
   }
 
   else
   {
-    v113 = v50;
+    v112 = v49;
   }
 
-  v56 = [dictionaryCopy objectForKey:*MEMORY[0x277D6A380]];
+  v55 = [dictionaryCopy objectForKey:*MEMORY[0x277D6A380]];
   objc_opt_class();
-  v112 = v56;
-  v108 = v54;
-  if ((objc_opt_isKindOfClass() & 1) != 0 && [v56 count])
+  v111 = v55;
+  v107 = v53;
+  if ((objc_opt_isKindOfClass() & 1) != 0 && [v55 count])
   {
-    v57 = [v56 objectAtIndex:0];
+    v56 = [v55 objectAtIndex:0];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v58 = [v57 objectForKey:@"version"];
+      v57 = [v56 objectForKey:@"version"];
       objc_opt_class();
-      v59 = v52;
+      v58 = v51;
       if (objc_opt_isKindOfClass())
       {
-        v60 = [v58 objectForKey:@"display"];
+        v59 = [v57 objectForKey:@"display"];
 
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          objc_storeStrong(&v7->_versionString, v60);
+          objc_storeStrong(&v7->_versionString, v59);
         }
 
-        v61 = [v58 objectForKey:@"externalId"];
+        v60 = [v57 objectForKey:@"externalId"];
 
-        v113 = v61;
+        v112 = v60;
         if (objc_opt_respondsToSelector())
         {
-          v7->_versionIdentifier = [v61 longLongValue];
+          v7->_versionIdentifier = [v60 longLongValue];
         }
       }
 
-      v62 = [[SKUIItemOffer alloc] initWithLookupDictionary:v57];
+      v61 = [[SKUIItemOffer alloc] initWithLookupDictionary:v56];
       itemOffer = v7->_itemOffer;
-      v7->_itemOffer = v62;
+      v7->_itemOffer = v61;
 
-      v64 = [dictionaryCopy objectForKey:@"fileSizeByDevice"];
+      v63 = [dictionaryCopy objectForKey:@"fileSizeByDevice"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        [(SKUIItemOffer *)v7->_itemOffer _setFileSizeWithDeviceSizes:v64];
+        [(SKUIItemOffer *)v7->_itemOffer _setFileSizeWithDeviceSizes:v63];
       }
 
-      v52 = v59;
-      v54 = v108;
+      v51 = v58;
+      v53 = v107;
     }
 
-    v56 = v112;
+    v55 = v111;
   }
 
-  v65 = [dictionaryCopy objectForKey:@"deviceFamilies"];
-  if (!v65)
+  v64 = [dictionaryCopy objectForKey:@"deviceFamilies"];
+  if (!v64)
   {
-    v66 = [dictionaryCopy objectForKey:*MEMORY[0x277D6A3E0]];
+    v65 = [dictionaryCopy objectForKey:*MEMORY[0x277D6A3E0]];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v65 = [v66 objectForKey:@"deviceFamilies"];
+      v64 = [v65 objectForKey:@"deviceFamilies"];
     }
 
     else
     {
-      v65 = 0;
+      v64 = 0;
     }
 
-    v56 = v112;
+    v55 = v111;
   }
 
   objc_opt_class();
-  v117 = v65;
-  v106 = v52;
-  v107 = v51;
+  v116 = v64;
+  v105 = v51;
+  v106 = v50;
   if (objc_opt_isKindOfClass())
   {
-    v67 = dictionaryCopy;
-    v130 = 0u;
-    v131 = 0u;
-    v128 = 0u;
+    v66 = dictionaryCopy;
     v129 = 0u;
-    v68 = v65;
-    v69 = [v68 countByEnumeratingWithState:&v128 objects:v140 count:16];
-    if (!v69)
+    v130 = 0u;
+    v127 = 0u;
+    v128 = 0u;
+    v67 = v64;
+    v68 = [v67 countByEnumeratingWithState:&v127 objects:v139 count:16];
+    if (!v68)
     {
       goto LABEL_113;
     }
 
-    v70 = v69;
-    v71 = *v129;
+    v69 = v68;
+    v70 = *v128;
     while (1)
     {
-      for (j = 0; j != v70; ++j)
+      for (j = 0; j != v69; ++j)
       {
-        if (*v129 != v71)
+        if (*v128 != v70)
         {
-          objc_enumerationMutation(v68);
+          objc_enumerationMutation(v67);
         }
 
-        v73 = *(*(&v128 + 1) + 8 * j);
+        v72 = *(*(&v127 + 1) + 8 * j);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          if ([v73 isEqualToString:@"ipad"])
+          if (objc_msgSend_isEqualToString_(v72))
           {
-            v74 = 1;
+            v73 = 1;
           }
 
-          else if ([v73 isEqualToString:@"iphone"])
+          else if (objc_msgSend_isEqualToString_(v72))
           {
-            v74 = 2;
+            v73 = 2;
           }
 
-          else if ([v73 isEqualToString:@"ipod"])
+          else if (objc_msgSend_isEqualToString_(v72))
           {
-            v74 = 4;
+            v73 = 4;
           }
 
           else
           {
-            if (![v73 isEqualToString:@"tvos"])
+            if (!objc_msgSend_isEqualToString_(v72))
             {
               continue;
             }
 
-            v74 = 8;
+            v73 = 8;
           }
 
-          v119->_deviceFamilies |= v74;
+          v118->_deviceFamilies |= v73;
         }
       }
 
-      v70 = [v68 countByEnumeratingWithState:&v128 objects:v140 count:16];
-      if (!v70)
+      v69 = [v67 countByEnumeratingWithState:&v127 objects:v139 count:16];
+      if (!v69)
       {
 LABEL_113:
 
-        dictionaryCopy = v67;
-        v7 = v119;
-        v65 = v117;
-        v51 = v107;
-        v54 = v108;
-        v56 = v112;
+        dictionaryCopy = v66;
+        v7 = v118;
+        v64 = v116;
+        v50 = v106;
+        v53 = v107;
+        v55 = v111;
         goto LABEL_115;
       }
     }
@@ -543,126 +542,126 @@ LABEL_113:
 
   v7->_deviceFamilies = 15;
 LABEL_115:
-  v75 = [dictionaryCopy objectForKey:@"editorialBadgeInfo"];
+  v74 = [dictionaryCopy objectForKey:@"editorialBadgeInfo"];
   objc_opt_class();
-  v110 = v75;
+  v109 = v74;
   if (objc_opt_isKindOfClass())
   {
-    v76 = [v75 objectForKey:@"nameForDisplay"];
+    v75 = [v74 objectForKey:@"nameForDisplay"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      objc_storeStrong(&v7->_editorialBadge, v76);
+      objc_storeStrong(&v7->_editorialBadge, v75);
     }
 
-    v56 = v112;
+    v55 = v111;
   }
 
   if (!v7->_versionIdentifier)
   {
-    v77 = [dictionaryCopy objectForKey:@"version"];
+    v76 = [dictionaryCopy objectForKey:@"version"];
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      objc_storeStrong(&v7->_versionString, v77);
+      objc_storeStrong(&v7->_versionString, v76);
     }
 
-    v78 = [dictionaryCopy objectForKey:@"versionId"];
+    v77 = [dictionaryCopy objectForKey:@"versionId"];
 
-    v113 = v78;
+    v112 = v77;
     if (objc_opt_respondsToSelector())
     {
-      v7->_versionIdentifier = [v78 longLongValue];
+      v7->_versionIdentifier = [v77 longLongValue];
     }
 
-    v56 = v112;
+    v55 = v111;
   }
 
-  v79 = [dictionaryCopy objectForKey:*MEMORY[0x277D6A418]];
+  v78 = [dictionaryCopy objectForKey:*MEMORY[0x277D6A418]];
   objc_opt_class();
-  v111 = v79;
+  v110 = v78;
   if (objc_opt_isKindOfClass())
   {
     itemKind = v7->_itemKind;
     if (itemKind == 17 || itemKind == 12)
     {
-      v81 = [v79 objectForKey:*MEMORY[0x277D6A410]];
+      v80 = [v78 objectForKey:*MEMORY[0x277D6A410]];
 
       if (objc_opt_respondsToSelector())
       {
-        v7->_numberOfUserRatings = [v81 integerValue];
+        v7->_numberOfUserRatings = [v80 integerValue];
       }
 
-      v82 = MEMORY[0x277D6A428];
+      v81 = MEMORY[0x277D6A428];
     }
 
     else
     {
-      v81 = [v79 objectForKey:*MEMORY[0x277D6A408]];
+      v80 = [v78 objectForKey:*MEMORY[0x277D6A408]];
 
       if (objc_opt_respondsToSelector())
       {
-        v7->_numberOfUserRatings = [v81 integerValue];
+        v7->_numberOfUserRatings = [v80 integerValue];
       }
 
-      v82 = MEMORY[0x277D6A420];
+      v81 = MEMORY[0x277D6A420];
     }
 
-    v83 = [v79 objectForKey:*v82];
+    v82 = [v78 objectForKey:*v81];
 
-    v113 = v83;
-    v56 = v112;
+    v112 = v82;
+    v55 = v111;
     if (objc_opt_respondsToSelector())
     {
-      [v83 floatValue];
-      v7->_userRating = v84;
+      [v82 floatValue];
+      v7->_userRating = v83;
     }
   }
 
-  v85 = [dictionaryCopy objectForKey:@"videoPreviewByType"];
+  v84 = [dictionaryCopy objectForKey:@"videoPreviewByType"];
   objc_opt_class();
-  v118 = v85;
+  v117 = v84;
   if (objc_opt_isKindOfClass())
   {
-    v105 = dictionaryCopy;
+    v104 = dictionaryCopy;
     currentDevice = [MEMORY[0x277D75418] currentDevice];
     userInterfaceIdiom = [currentDevice userInterfaceIdiom];
 
     if (userInterfaceIdiom == 1)
     {
-      v88 = &unk_2828D2F18;
+      v87 = &unk_2828D2F18;
     }
 
     else
     {
-      v88 = &unk_2828D2F30;
+      v87 = &unk_2828D2F30;
     }
 
-    v89 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v88 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v123 = 0u;
     v124 = 0u;
     v125 = 0u;
     v126 = 0u;
-    v127 = 0u;
-    obj = v88;
-    v116 = [v88 countByEnumeratingWithState:&v124 objects:v139 count:16];
-    if (v116)
+    obj = v87;
+    v115 = [v87 countByEnumeratingWithState:&v123 objects:v138 count:16];
+    if (v115)
     {
-      v115 = *v125;
+      v114 = *v124;
 LABEL_142:
-      v90 = 0;
+      v89 = 0;
       while (1)
       {
-        if (*v125 != v115)
+        if (*v124 != v114)
         {
           objc_enumerationMutation(obj);
         }
 
-        v91 = [v118 objectForKey:*(*(&v124 + 1) + 8 * v90)];
+        v90 = [v117 objectForKey:*(*(&v123 + 1) + 8 * v89)];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v92 = v91;
+          v91 = v90;
         }
 
         else
@@ -670,64 +669,64 @@ LABEL_142:
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v138 = v91;
-            v92 = [MEMORY[0x277CBEA60] arrayWithObjects:&v138 count:1];
+            v137 = v90;
+            v91 = [MEMORY[0x277CBEA60] arrayWithObjects:&v137 count:1];
           }
 
           else
           {
-            v92 = 0;
+            v91 = 0;
           }
         }
 
-        v122 = 0u;
-        v123 = 0u;
-        v120 = 0u;
         v121 = 0u;
-        v93 = v92;
-        v94 = [v93 countByEnumeratingWithState:&v120 objects:v137 count:16];
-        if (v94)
+        v122 = 0u;
+        v119 = 0u;
+        v120 = 0u;
+        v92 = v91;
+        v93 = [v92 countByEnumeratingWithState:&v119 objects:v136 count:16];
+        if (v93)
         {
-          v95 = v94;
-          v96 = *v121;
+          v94 = v93;
+          v95 = *v120;
           do
           {
-            for (k = 0; k != v95; ++k)
+            for (k = 0; k != v94; ++k)
             {
-              if (*v121 != v96)
+              if (*v120 != v95)
               {
-                objc_enumerationMutation(v93);
+                objc_enumerationMutation(v92);
               }
 
-              v98 = *(*(&v120 + 1) + 8 * k);
+              v97 = *(*(&v119 + 1) + 8 * k);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v99 = [[SKUIVideo alloc] initWithVideoDictionary:v98];
-                if (v99)
+                v98 = [[SKUIVideo alloc] initWithVideoDictionary:v97];
+                if (v98)
                 {
-                  [v89 addObject:v99];
+                  [v88 addObject:v98];
                 }
               }
             }
 
-            v95 = [v93 countByEnumeratingWithState:&v120 objects:v137 count:16];
+            v94 = [v92 countByEnumeratingWithState:&v119 objects:v136 count:16];
           }
 
-          while (v95);
+          while (v94);
         }
 
-        v100 = [v89 count];
-        v65 = v117;
-        if (v100)
+        v99 = [v88 count];
+        v64 = v116;
+        if (v99)
         {
           break;
         }
 
-        if (++v90 == v116)
+        if (++v89 == v115)
         {
-          v116 = [obj countByEnumeratingWithState:&v124 objects:v139 count:16];
-          if (v116)
+          v115 = [obj countByEnumeratingWithState:&v123 objects:v138 count:16];
+          if (v115)
           {
             goto LABEL_142;
           }
@@ -737,22 +736,22 @@ LABEL_142:
       }
     }
 
-    v101 = [v89 copy];
-    v7 = v119;
-    videos = v119->_videos;
-    v119->_videos = v101;
+    v100 = [v88 copy];
+    v7 = v118;
+    videos = v118->_videos;
+    v118->_videos = v100;
 
-    dictionaryCopy = v105;
-    v52 = v106;
-    v51 = v107;
-    v54 = v108;
-    v56 = v112;
+    dictionaryCopy = v104;
+    v51 = v105;
+    v50 = v106;
+    v53 = v107;
+    v55 = v111;
   }
 
 LABEL_166:
-  v103 = v7;
+  v102 = v7;
 
-  return v103;
+  return v102;
 }
 
 - (SKUIItem)initWithIdentifier:(id)identifier mediaResultDictionary:(id)dictionary
@@ -979,24 +978,24 @@ LABEL_32:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          if ([v46 isEqualToString:@"ipad"])
+          if (objc_msgSend_isEqualToString_(v46))
           {
             v47 = 1;
           }
 
-          else if ([v46 isEqualToString:@"iphone"])
+          else if (objc_msgSend_isEqualToString_(v46))
           {
             v47 = 2;
           }
 
-          else if ([v46 isEqualToString:@"ipod"])
+          else if (objc_msgSend_isEqualToString_(v46))
           {
             v47 = 4;
           }
 
           else
           {
-            if (![v46 isEqualToString:@"tvos"])
+            if (!objc_msgSend_isEqualToString_(v46))
             {
               continue;
             }
@@ -1390,9 +1389,9 @@ LABEL_66:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v59.receiver = self;
-    v59.super_class = SKUIItem;
-    v5 = [(SKUIItem *)&v59 init];
+    v58.receiver = self;
+    v58.super_class = SKUIItem;
+    v5 = [(SKUIItem *)&v58 init];
     if (v5)
     {
       v6 = [representationCopy objectForKey:@"artistName"];
@@ -1543,60 +1542,59 @@ LABEL_66:
         itemKindString = v5->_itemKindString;
         v5->_itemKindString = v42;
 
-        v44 = v5->_itemKindString;
-        v45 = &off_2781F9EA0;
-        v46 = 25;
-        while (![*v45 isEqualToString:v44])
+        v44 = &off_2781F9EA0;
+        v45 = 25;
+        while (!objc_msgSend_isEqualToString_(*v44))
         {
-          v45 += 2;
-          if (!--v46)
+          v44 += 2;
+          if (!--v45)
           {
-            v47 = 0;
+            v46 = 0;
             goto LABEL_43;
           }
         }
 
-        v47 = *(v45 - 1);
+        v46 = *(v44 - 1);
 LABEL_43:
-        v5->_itemKind = v47;
+        v5->_itemKind = v46;
       }
 
       else
       {
-        v48 = v5->_itemKindString;
+        v47 = v5->_itemKindString;
         v5->_itemKind = 12;
         v5->_itemKindString = @"iosSoftware";
       }
 
-      v49 = [representationCopy objectForKey:@"artwork"];
+      v48 = [representationCopy objectForKey:@"artwork"];
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v50 = [representationCopy objectForKey:@"artworkProvider"];
+        v49 = [representationCopy objectForKey:@"artworkProvider"];
         objc_opt_class();
-        if (objc_opt_isKindOfClass() & 1) != 0 && ([v50 isEqualToString:@"artworkTemplate"])
+        if (objc_opt_isKindOfClass() & 1) != 0 && (objc_msgSend_isEqualToString_(v49))
         {
-          v51 = off_2781F61E0;
+          v50 = off_2781F61E0;
         }
 
         else
         {
-          v51 = off_2781F61C8;
+          v50 = off_2781F61C8;
         }
 
-        v52 = [objc_alloc(*v51) initWithCacheRepresentation:v49];
+        v51 = [objc_alloc(*v50) initWithCacheRepresentation:v48];
         artworksProvider = v5->_artworksProvider;
-        v5->_artworksProvider = v52;
+        v5->_artworksProvider = v51;
       }
 
-      v54 = [representationCopy objectForKey:@"ageblen"];
-      v55 = [representationCopy objectForKey:@"agebloc"];
+      v53 = [representationCopy objectForKey:@"ageblen"];
+      v54 = [representationCopy objectForKey:@"agebloc"];
       objc_opt_class();
       if (objc_opt_isKindOfClass() & 1) != 0 && (objc_opt_class(), (objc_opt_isKindOfClass()))
       {
-        integerValue = [v55 integerValue];
-        integerValue2 = [v54 integerValue];
+        integerValue = [v54 integerValue];
+        integerValue2 = [v53 integerValue];
         v5->_ageBandRange.location = integerValue;
       }
 
@@ -1742,7 +1740,7 @@ LABEL_28:
 - (id)valueForMetricsField:(id)field
 {
   fieldCopy = field;
-  if ([fieldCopy isEqualToString:*MEMORY[0x277D6A490]])
+  if (objc_msgSend_isEqualToString_(fieldCopy))
   {
     title = [MEMORY[0x277CCABB0] numberWithLongLong:self->_itemIdentifier];
 LABEL_6:
@@ -1750,13 +1748,13 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  if (([fieldCopy isEqualToString:*MEMORY[0x277D6A4A8]] & 1) != 0 || objc_msgSend(fieldCopy, "isEqualToString:", *MEMORY[0x277D6A4A0]))
+  if ((objc_msgSend_isEqualToString_(fieldCopy) & 1) != 0 || objc_msgSend_isEqualToString_(fieldCopy))
   {
     title = [(SKUIItem *)self title];
     goto LABEL_6;
   }
 
-  if ([fieldCopy isEqualToString:*MEMORY[0x277D6A4B0]])
+  if (objc_msgSend_isEqualToString_(fieldCopy))
   {
     title = [(SKUIItem *)self itemKindString];
     goto LABEL_6;

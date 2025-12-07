@@ -1,9 +1,12 @@
 @interface MLCDevice
 + (MLCDevice)deviceWithGPUDevices:(NSArray *)gpus;
++ (MLCDevice)deviceWithType:(MLCDeviceType)type;
++ (MLCDevice)deviceWithType:(MLCDeviceType)type selectsMultipleComputeDevices:(BOOL)selectsMultipleComputeDevices;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToDevice:(id)device;
 - (MLCDevice)initWithGPUs:(id)us;
 - (MLCDevice)initWithType:(int)type engine:(id)engine;
+- (MLCDevice)initWithType:(int)type selectsMultipleComputeDevices:(BOOL)devices;
 - (MLCDeviceType)actualDeviceType;
 - (NSArray)gpuDevices;
 - (id)copyWithZone:(_NSZone *)zone;
@@ -12,6 +15,20 @@
 @end
 
 @implementation MLCDevice
+
++ (MLCDevice)deviceWithType:(MLCDeviceType)type
+{
+  v3 = [[self alloc] initWithType:*&type selectsMultipleComputeDevices:0];
+
+  return v3;
+}
+
++ (MLCDevice)deviceWithType:(MLCDeviceType)type selectsMultipleComputeDevices:(BOOL)selectsMultipleComputeDevices
+{
+  v4 = [[self alloc] initWithType:*&type selectsMultipleComputeDevices:selectsMultipleComputeDevices];
+
+  return v4;
+}
 
 + (MLCDevice)deviceWithGPUDevices:(NSArray *)gpus
 {
@@ -33,6 +50,54 @@
   }
 
   return v6;
+}
+
+- (MLCDevice)initWithType:(int)type selectsMultipleComputeDevices:(BOOL)devices
+{
+  if (type == 2)
+  {
+    typeCopy = 0;
+  }
+
+  else
+  {
+    typeCopy = type;
+  }
+
+  if (typeCopy == 3)
+  {
+    v6 = [[MLCDeviceANE alloc] initWithType:3];
+    if (v6)
+    {
+      goto LABEL_8;
+    }
+
+LABEL_10:
+    selfCopy = 0;
+    goto LABEL_11;
+  }
+
+  if (typeCopy)
+  {
+    v6 = [[MLCDeviceGPU alloc] initWithType:typeCopy selectsMultipleComputeDevices:devices];
+    deviceList = [(MLCDeviceANE *)v6 deviceList];
+    v9 = [deviceList count];
+
+    if (v9)
+    {
+      goto LABEL_8;
+    }
+
+    goto LABEL_10;
+  }
+
+  v6 = [[MLCDeviceCPU alloc] initWithType:0];
+LABEL_8:
+  self = [(MLCDevice *)self initWithType:typeCopy engine:v6];
+  selfCopy = self;
+LABEL_11:
+
+  return selfCopy;
 }
 
 - (MLCDevice)initWithGPUs:(id)us
@@ -188,13 +253,11 @@
 
 + (void)deviceWithGPUDevices:(const char *)a1 .cold.1(const char *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = NSStringFromSelector(a1);
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_238C1D000, a2, OS_LOG_TYPE_ERROR, "%@: No GPUs specified", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_238C1D000, a2, OS_LOG_TYPE_ERROR, "%@: No GPUs specified", &v4, 0xCu);
 }
 
 @end

@@ -1,9 +1,1542 @@
-void sub_10020FF10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10020C968(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, const void *a11, const void *a12, const void *a13, const void *a14, const void *a15, const void *a16, const void *a17, const void *a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24)
 {
+  v26 = *(v24 - 80);
+  if (v26)
+  {
+    sub_100004A34(v26);
+  }
+
+  sub_10000A1EC(&a11);
+  sub_100005978(&a12);
+  sub_100005978(&a13);
+  sub_10000A1EC(&a14);
+  sub_100005978(&a15);
+  sub_100005978(&a16);
+  sub_100029A48(&a17);
+  sub_100005978(&a18);
+  if (a24 < 0)
+  {
+    operator delete(a19);
+  }
+
+  sub_100005978((v24 - 96));
+  _Unwind_Resume(a1);
+}
+
+void sub_10020CBB4()
+{
+  v1 = *(v0 - 80);
+  if (v1)
+  {
+    sub_100004A34(v1);
+  }
+
+  JUMPOUT(0x10020CBACLL);
+}
+
+void sub_10020CBC8(Registry *a1@<X0>, void *a2@<X8>)
+{
+  ServiceMap = Registry::getServiceMap(a1);
+  v4 = ServiceMap;
+  if ((v5 & 0x8000000000000000) != 0)
+  {
+    v6 = (v5 & 0x7FFFFFFFFFFFFFFFLL);
+    v7 = 5381;
+    do
+    {
+      v5 = v7;
+      v8 = *v6++;
+      v7 = (33 * v7) ^ v8;
+    }
+
+    while (v8);
+  }
+
+  std::mutex::lock(ServiceMap);
+  v12 = v5;
+  v9 = sub_100009510(&v4[1].__m_.__sig, &v12);
+  if (v9)
+  {
+    v11 = v9[3];
+    v10 = v9[4];
+    if (v10)
+    {
+      atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+  }
+
+  else
+  {
+    v11 = 0;
+    v10 = 0;
+  }
+
+  std::mutex::unlock(v4);
+  *a2 = v11;
+  a2[1] = v10;
+  if (v10)
+  {
+    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+    sub_100004A34(v10);
+  }
+}
+
+void sub_10020CC90(uint64_t a1)
+{
+  sub_10020BFDC(a1);
+  v2 = **(a1 + 80);
+  if ((*(v2 + 95) & 0x8000000000000000) != 0)
+  {
+    if (!*(v2 + 80))
+    {
+      goto LABEL_8;
+    }
+  }
+
+  else if (!*(v2 + 95))
+  {
+    goto LABEL_8;
+  }
+
+  std::string::operator=((a1 + 144), (v2 + 72));
+  sub_1009F7FB4((a1 + 144));
+  if (*(a1 + 143) < 0)
+  {
+    operator delete(*(a1 + 120));
+  }
+
+  *(a1 + 120) = *buf;
+  *(a1 + 136) = *&buf[16];
+LABEL_8:
+  v3 = *(a1 + 48);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    v4 = PersonalityInfo::logPrefix(**(a1 + 80));
+    v5 = (a1 + 144);
+    if (*(a1 + 167) < 0)
+    {
+      v5 = *v5;
+    }
+
+    v6 = (a1 + 120);
+    if (*(a1 + 143) < 0)
+    {
+      v6 = *v6;
+    }
+
+    *buf = 136315906;
+    *&buf[4] = v4;
+    *&buf[12] = 2080;
+    *&buf[14] = " ";
+    *&buf[22] = 2080;
+    *&buf[24] = v5;
+    v38 = 2080;
+    v39 = v6;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "#I %s%sinitializing, mdn:'%s', thumperId:'%s'", buf, 0x2Au);
+  }
+
+  sub_10080FDE4(a1);
+  v7 = sub_10020E1E4(a1);
+  sub_10020E0D4(a1, v7);
+  sub_10020E500(a1);
+  sub_100004AA0(buf, (a1 + 16));
+  v9 = *buf;
+  v8 = *&buf[8];
+  if (*&buf[8])
+  {
+    atomic_fetch_add_explicit((*&buf[8] + 16), 1uLL, memory_order_relaxed);
+    sub_100004A34(v8);
+  }
+
+  sub_100004AA0(v11, (a1 + 16));
+  v10 = *(a1 + 32);
+  v11[2] = v10;
+  v11[3] = a1;
+  v11[4] = v9;
+  v11[5] = v8;
+  if (v8)
+  {
+    atomic_fetch_add_explicit(&v8->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  dispatch_retain(v10);
+  memset(buf, 0, sizeof(buf));
+  v11[6] = v10;
+  v11[7] = a1;
+  v11[8] = v9;
+  v11[9] = v8;
+  if (v8)
+  {
+    atomic_fetch_add_explicit(&v8->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    dispatch_retain(v10);
+    v12 = v10;
+    v13 = a1;
+    v14 = v9;
+    v15 = v8;
+    atomic_fetch_add_explicit(&v8->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    dispatch_retain(v10);
+    v17 = v10;
+    v19 = v9;
+    v20 = v8;
+    atomic_fetch_add_explicit(&v8->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    dispatch_retain(v10);
+    v23 = v9;
+    v24 = v8;
+    atomic_fetch_add_explicit(&v8->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    dispatch_retain(v10);
+    v27 = v9;
+    v28 = v8;
+    atomic_fetch_add_explicit(&v8->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  else
+  {
+    dispatch_retain(v10);
+    v12 = v10;
+    v13 = a1;
+    v14 = v9;
+    v15 = 0;
+    dispatch_retain(v10);
+    v17 = v10;
+    v19 = v9;
+    v20 = 0;
+    dispatch_retain(v10);
+    v23 = v9;
+    v24 = 0;
+    dispatch_retain(v10);
+    v27 = v9;
+    v28 = 0;
+  }
+
+  v18 = a1;
+  v16 = 0;
+  v21 = v10;
+  v22 = a1;
+  v25 = v10;
+  v26 = a1;
+  dispatch_retain(v10);
+  v29 = v10;
+  v30 = a1;
+  v31 = v9;
+  v32 = v8;
+  if (v8)
+  {
+    atomic_fetch_add_explicit(&v8->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    dispatch_retain(v10);
+    v35 = v9;
+    v36 = v8;
+    atomic_fetch_add_explicit(&v8->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  else
+  {
+    dispatch_retain(v10);
+    v35 = v9;
+    v36 = 0;
+  }
+
+  v33 = v10;
+  v34 = a1;
+  dispatch_retain(v10);
+  operator new();
+}
+
+void sub_10020DD90(_Unwind_Exception *a1)
+{
+  sub_1000062D4(v1 - 128);
+  if (*(v1 - 137) < 0)
+  {
+    operator delete(*(v1 - 160));
+  }
+
+  _Unwind_Resume(a1);
+}
+
+BOOL sub_10020E0D4(uint64_t a1, int a2)
+{
+  v3 = *(a1 + 192);
+  if (v3 != a2)
+  {
+    *(a1 + 192) = a2;
+    v5 = *(a1 + 48);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      v6 = PersonalityInfo::logPrefix(**(a1 + 80));
+      v7 = sub_10060FFC0(v3);
+      v8 = sub_10060FFC0(*(a1 + 192));
+      v10 = 136315906;
+      v11 = v6;
+      v12 = 2080;
+      v13 = " ";
+      v14 = 2080;
+      v15 = v7;
+      v16 = 2080;
+      v17 = v8;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#I %s%suser switch state changed %s -> %s", &v10, 0x2Au);
+    }
+  }
+
+  return v3 != a2;
+}
+
+uint64_t sub_10020E1E4(uint64_t a1)
+{
+  *type = 0;
+  ServiceMap = Registry::getServiceMap(*(a1 + 56));
+  v3 = ServiceMap;
+  if (v4 < 0)
+  {
+    v5 = (v4 & 0x7FFFFFFFFFFFFFFFLL);
+    v6 = 5381;
+    do
+    {
+      v4 = v6;
+      v7 = *v5++;
+      v6 = (33 * v6) ^ v7;
+    }
+
+    while (v7);
+  }
+
+  std::mutex::lock(ServiceMap);
+  *buf = v4;
+  v8 = sub_100009510(&v3[1].__m_.__sig, buf);
+  if (v8)
+  {
+    v10 = v8[3];
+    v9 = v8[4];
+    if (v9)
+    {
+      atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+      std::mutex::unlock(v3);
+      atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+      sub_100004A34(v9);
+      v11 = 0;
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  std::mutex::unlock(v3);
+  v9 = 0;
+  v11 = 1;
+LABEL_9:
+  (*(*v10 + 64))(&v21, v10, **(a1 + 80) + 24, @"thumper.switch.status", kPhoneServicesWalletDomain, 0, 1);
+  sub_10010B240(type, &v21);
+  sub_10000A1EC(&v21);
+  if ((v11 & 1) == 0)
+  {
+    sub_100004A34(v9);
+  }
+
+  if (*type)
+  {
+    *buf = 0;
+    ctu::cf::assign(buf, *type, v12);
+    v13 = *buf;
+    v14 = *(a1 + 48);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = PersonalityInfo::logPrefix(**(a1 + 80));
+      v16 = sub_10060FFC0(v13);
+      *buf = 136315650;
+      *&buf[4] = v15;
+      v24 = 2080;
+      v25 = " ";
+      v26 = 2080;
+      v27 = v16;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "#I %s%slast known user switch state is: %s", buf, 0x20u);
+    }
+  }
+
+  else
+  {
+    v17 = *(a1 + 48);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    {
+      v18 = PersonalityInfo::logPrefix(**(a1 + 80));
+      v19 = (a1 + 120);
+      if (*(a1 + 143) < 0)
+      {
+        v19 = *v19;
+      }
+
+      *buf = 136315650;
+      *&buf[4] = v18;
+      v24 = 2080;
+      v25 = " ";
+      v26 = 2080;
+      v27 = v19;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "#I %s%sno saved user switch state for account '%s'", buf, 0x20u);
+    }
+
+    if ((sub_10020B2C0(a1) & 1) != 0 || !sub_1005D6590(*(a1 + 104), 0, (a1 + 120)))
+    {
+      v13 = 0;
+    }
+
+    else
+    {
+      v13 = 2;
+      sub_10020ED5C(a1, 2u);
+    }
+  }
+
+  sub_100029A48(type);
+  return v13;
+}
+
+void sub_10020E4B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  sub_100029A48(va);
+  _Unwind_Resume(a1);
+}
+
+const void **sub_10020E500(uint64_t a1)
+{
+  v18 = 0;
+  ServiceMap = Registry::getServiceMap(*(a1 + 56));
+  v3 = ServiceMap;
+  if (v4 < 0)
+  {
+    v5 = (v4 & 0x7FFFFFFFFFFFFFFFLL);
+    v6 = 5381;
+    do
+    {
+      v4 = v6;
+      v7 = *v5++;
+      v6 = (33 * v6) ^ v7;
+    }
+
+    while (v7);
+  }
+
+  std::mutex::lock(ServiceMap);
+  *buf = v4;
+  v8 = sub_100009510(&v3[1].__m_.__sig, buf);
+  if (v8)
+  {
+    v10 = v8[3];
+    v9 = v8[4];
+    if (v9)
+    {
+      atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+      std::mutex::unlock(v3);
+      atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+      sub_100004A34(v9);
+      v11 = 0;
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  std::mutex::unlock(v3);
+  v9 = 0;
+  v11 = 1;
+LABEL_9:
+  (*(*v10 + 64))(&v17, v10, **(a1 + 80) + 24, @"last.icloud.ver", kPhoneServicesWalletDomain, 0, 1);
+  sub_10010B240(&v18, &v17);
+  sub_10000A1EC(&v17);
+  if ((v11 & 1) == 0)
+  {
+    sub_100004A34(v9);
+  }
+
+  if (v18)
+  {
+    *buf = 0;
+    ctu::cf::assign(buf, v18, v12);
+    *(a1 + 768) = *buf;
+    v13 = *(a1 + 48);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      v14 = PersonalityInfo::logPrefix(**(a1 + 80));
+      v15 = *(a1 + 768);
+      *buf = 136315650;
+      *&buf[4] = v14;
+      v20 = 2080;
+      v21 = " ";
+      v22 = 1024;
+      v23 = v15;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "#I %s%sRestored fLastICloudVer %u", buf, 0x1Cu);
+    }
+  }
+
+  return sub_100029A48(&v18);
+}
+
+void sub_10020E710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  sub_100029A48(va);
+  _Unwind_Resume(a1);
+}
+
+const void **sub_10020E768(uint64_t a1)
+{
+  v2 = *(a1 + 48);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  {
+    v3 = PersonalityInfo::logPrefix(**(a1 + 80));
+    *buf = 136315394;
+    *&buf[4] = v3;
+    v38 = 2080;
+    v39 = " ";
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "#I %s%sstarting", buf, 0x16u);
+  }
+
+  v36 = 0;
+  ServiceMap = Registry::getServiceMap(*(a1 + 56));
+  v5 = ServiceMap;
+  v7 = v6;
+  if (v6 < 0)
+  {
+    v8 = (v6 & 0x7FFFFFFFFFFFFFFFLL);
+    v9 = 5381;
+    do
+    {
+      v7 = v9;
+      v10 = *v8++;
+      v9 = (33 * v9) ^ v10;
+    }
+
+    while (v10);
+  }
+
+  std::mutex::lock(ServiceMap);
+  *buf = v7;
+  v11 = sub_100009510(&v5[1].__m_.__sig, buf);
+  if (v11)
+  {
+    v13 = v11[3];
+    v12 = v11[4];
+    if (v12)
+    {
+      atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
+      std::mutex::unlock(v5);
+      atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
+      sub_100004A34(v12);
+      v14 = 0;
+      goto LABEL_11;
+    }
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  std::mutex::unlock(v5);
+  v12 = 0;
+  v14 = 1;
+LABEL_11:
+  v15 = kPhoneServicesWalletDomain;
+  (*(*v13 + 24))(__p, v13, **(a1 + 80) + 24, @"NeedAccountInvalidation", kPhoneServicesWalletDomain, 0, 1);
+  sub_10002FE1C(&v36, __p);
+  sub_10000A1EC(__p);
+  if ((v14 & 1) == 0)
+  {
+    sub_100004A34(v12);
+  }
+
+  if (v36)
+  {
+    buf[0] = 0;
+    ctu::cf::assign(buf, v36, v16);
+    v17 = buf[0];
+    *(a1 + 779) = buf[0];
+    if (v17 != 1)
+    {
+      goto LABEL_19;
+    }
+  }
+
+  else if ((*(a1 + 779) & 1) == 0)
+  {
+    goto LABEL_19;
+  }
+
+  v18 = *(a1 + 48);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  {
+    v19 = PersonalityInfo::logPrefix(**(a1 + 80));
+    *buf = 136315394;
+    *&buf[4] = v19;
+    v38 = 2080;
+    v39 = " ";
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "#I %s%sfAccountInvalidationForced is true at bootup!", buf, 0x16u);
+  }
+
+LABEL_19:
+  v35 = 0;
+  v20 = Registry::getServiceMap(*(a1 + 56));
+  v21 = v20;
+  if (v6 < 0)
+  {
+    v22 = (v6 & 0x7FFFFFFFFFFFFFFFLL);
+    v23 = 5381;
+    do
+    {
+      v6 = v23;
+      v24 = *v22++;
+      v23 = (33 * v23) ^ v24;
+    }
+
+    while (v24);
+  }
+
+  std::mutex::lock(v20);
+  *buf = v6;
+  v25 = sub_100009510(&v21[1].__m_.__sig, buf);
+  if (v25)
+  {
+    v27 = v25[3];
+    v26 = v25[4];
+    if (v26)
+    {
+      atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
+      std::mutex::unlock(v21);
+      atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
+      sub_100004A34(v26);
+      v28 = 0;
+      goto LABEL_27;
+    }
+  }
+
+  else
+  {
+    v27 = 0;
+  }
+
+  std::mutex::unlock(v21);
+  v26 = 0;
+  v28 = 1;
+LABEL_27:
+  (*(*v27 + 24))(&v35, v27, **(a1 + 80) + 24, @"ps.device.list", v15, 0, 1);
+  if ((v28 & 1) == 0)
+  {
+    sub_100004A34(v26);
+  }
+
+  if (v35)
+  {
+    v34 = 0;
+    sub_1005D63F0(*(a1 + 104), @"ps.device.list", v35, (a1 + 120));
+    sub_100010180(&v34, buf);
+    sub_10000A1EC(buf);
+    if (v34)
+    {
+      sub_100A40E90(v34);
+    }
+
+    sub_10001021C(&v34);
+  }
+
+  v29 = *(a1 + 48);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+  {
+    v30 = PersonalityInfo::logPrefix(**(a1 + 80));
+    v31 = sub_100A38E08(*(a1 + 200));
+    *buf = 136315650;
+    *&buf[4] = v30;
+    v38 = 2080;
+    v39 = " ";
+    v40 = 2080;
+    v41 = v31;
+    _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "#I %s%sStarted, status:%s", buf, 0x20u);
+  }
+
+  sub_10000A1EC(&v35);
+  return sub_100045C8C(&v36);
+}
+
+void sub_10020EC60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+{
+  va_start(va2, a7);
   va_start(va1, a7);
   va_start(va, a7);
   v8 = va_arg(va1, const void *);
-  v10 = va_arg(va1, void);
+  va_copy(va2, va1);
+  v10 = va_arg(va2, const void *);
+  sub_10001021C(va);
+  sub_10000A1EC(va1);
+  sub_100045C8C(va2);
+  _Unwind_Resume(a1);
+}
+
+const void **sub_10020ED5C(uint64_t a1, unsigned int a2)
+{
+  v41 = 0;
+  ServiceMap = Registry::getServiceMap(*(a1 + 56));
+  v5 = ServiceMap;
+  v7 = v6;
+  if ((v6 & 0x8000000000000000) != 0)
+  {
+    v8 = (v6 & 0x7FFFFFFFFFFFFFFFLL);
+    v9 = 5381;
+    do
+    {
+      v7 = v9;
+      v10 = *v8++;
+      v9 = (33 * v9) ^ v10;
+    }
+
+    while (v10);
+  }
+
+  std::mutex::lock(ServiceMap);
+  valuePtr = v7;
+  v11 = sub_100009510(&v5[1].__m_.__sig, &valuePtr);
+  if (v11)
+  {
+    v13 = v11[3];
+    v12 = v11[4];
+    if (v12)
+    {
+      atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
+      std::mutex::unlock(v5);
+      atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
+      sub_100004A34(v12);
+      v14 = 0;
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  std::mutex::unlock(v5);
+  v12 = 0;
+  v14 = 1;
+LABEL_9:
+  v15 = kPhoneServicesWalletDomain;
+  (*(*v13 + 64))(&v42, v13, **(a1 + 80) + 24, @"thumper.switch.status", kPhoneServicesWalletDomain, 0, 1);
+  sub_10010B240(&v41, &v42);
+  sub_10000A1EC(&v42);
+  if ((v14 & 1) == 0)
+  {
+    sub_100004A34(v12);
+  }
+
+  if (v41)
+  {
+    LODWORD(valuePtr) = 0;
+    ctu::cf::assign(&valuePtr, v41, v16);
+    v17 = valuePtr;
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+  if (v17 == a2)
+  {
+    return sub_100029A48(&v41);
+  }
+
+  v18 = *(a1 + 56);
+  if (!a2)
+  {
+    v28 = Registry::getServiceMap(v18);
+    v29 = v28;
+    if ((v6 & 0x8000000000000000) != 0)
+    {
+      v30 = (v6 & 0x7FFFFFFFFFFFFFFFLL);
+      v31 = 5381;
+      do
+      {
+        v6 = v31;
+        v32 = *v30++;
+        v31 = (33 * v31) ^ v32;
+      }
+
+      while (v32);
+    }
+
+    std::mutex::lock(v28);
+    valuePtr = v6;
+    v33 = sub_100009510(&v29[1].__m_.__sig, &valuePtr);
+    if (v33)
+    {
+      v34 = v33[3];
+      v25 = v33[4];
+      if (v25)
+      {
+        atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
+        std::mutex::unlock(v29);
+        atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
+        sub_100004A34(v25);
+        v35 = 0;
+        goto LABEL_38;
+      }
+    }
+
+    else
+    {
+      v34 = 0;
+    }
+
+    std::mutex::unlock(v29);
+    v25 = 0;
+    v35 = 1;
+LABEL_38:
+    (*(*v34 + 72))(v34, **(a1 + 80) + 24, @"thumper.switch.status", v15, 0, 1);
+    if (v35)
+    {
+      return sub_100029A48(&v41);
+    }
+
+    goto LABEL_34;
+  }
+
+  v19 = Registry::getServiceMap(v18);
+  v20 = v19;
+  if ((v6 & 0x8000000000000000) != 0)
+  {
+    v21 = (v6 & 0x7FFFFFFFFFFFFFFFLL);
+    v22 = 5381;
+    do
+    {
+      v6 = v22;
+      v23 = *v21++;
+      v22 = (33 * v22) ^ v23;
+    }
+
+    while (v23);
+  }
+
+  std::mutex::lock(v19);
+  valuePtr = v6;
+  v24 = sub_100009510(&v20[1].__m_.__sig, &valuePtr);
+  if (v24)
+  {
+    v26 = v24[3];
+    v25 = v24[4];
+    if (v25)
+    {
+      atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
+      std::mutex::unlock(v20);
+      atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
+      sub_100004A34(v25);
+      v27 = 0;
+      goto LABEL_30;
+    }
+  }
+
+  else
+  {
+    v26 = 0;
+  }
+
+  std::mutex::unlock(v20);
+  v25 = 0;
+  v27 = 1;
+LABEL_30:
+  v36 = **(a1 + 80);
+  v42 = 0;
+  valuePtr = a2;
+  v37 = CFNumberCreate(kCFAllocatorDefault, kCFNumberLongLongType, &valuePtr);
+  if (v37)
+  {
+    v42 = v37;
+    valuePtr = 0;
+    sub_100029A48(&valuePtr);
+    v38 = v42;
+  }
+
+  else
+  {
+    v38 = 0;
+  }
+
+  v42 = 0;
+  sub_100029A48(&v42);
+  (*(*v26 + 48))(v26, v36 + 24, @"thumper.switch.status", v38, v15, 0, 1, 0, v38);
+  sub_100029A48(&v40);
+  if ((v27 & 1) == 0)
+  {
+LABEL_34:
+    sub_100004A34(v25);
+  }
+
+  return sub_100029A48(&v41);
+}
+
+void sub_10020F104(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  if ((v3 & 1) == 0)
+  {
+    sub_100004A34(v4);
+  }
+
+  sub_100029A48(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_10020F184(uint64_t a1, uint64_t a2)
+{
+  v2 = a2;
+  v4 = *(a1 + 48);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = PersonalityInfo::logPrefix(**(a1 + 80));
+    v10 = 136315650;
+    v11 = v5;
+    v12 = 2080;
+    v13 = " ";
+    v14 = 2080;
+    v15 = sub_100A38E08(v2);
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "#I %s%sThumper Entitlement:%s", &v10, 0x20u);
+  }
+
+  if (*(a1 + 200) != v2)
+  {
+    v6 = *(a1 + 48);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = PersonalityInfo::logPrefix(**(a1 + 80));
+      v8 = sub_100A38E08(*(a1 + 200));
+      v9 = sub_100A38E08(v2);
+      v10 = 136315906;
+      v11 = v7;
+      v12 = 2080;
+      v13 = " ";
+      v14 = 2080;
+      v15 = v8;
+      v16 = 2080;
+      v17 = v9;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "#I %s%sThumper entitlement is changing from %s to %s", &v10, 0x2Au);
+    }
+
+    *(a1 + 200) = v2;
+    sub_10020F318(a1, 0, 0);
+  }
+}
+
+const void **sub_10020F318(const void **result, uint64_t a2, _BOOL4 a3)
+{
+  if (*(result[12] + 354))
+  {
+    return result;
+  }
+
+  v4 = a2;
+  v5 = result;
+  result = (*(*result[13] + 16))(result[13]);
+  if (!result)
+  {
+    return result;
+  }
+
+  v6 = v5[6];
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = PersonalityInfo::logPrefix(*v5[10]);
+    *buf = 136315906;
+    *&buf[4] = v7;
+    *&buf[12] = 2080;
+    *&buf[14] = " ";
+    v85 = 2080;
+    v86 = asStringBool(v4);
+    v87 = 2080;
+    v88 = asStringBool(a3);
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "#I %s%suserAction = %s, reprovisioning = %s", buf, 0x2Au);
+  }
+
+  v81 = 0;
+  cf = 0;
+  v8 = (v5 + 15);
+  sub_1005D67F8(v5[13], 0, v5 + 15, 0, &v81);
+  v79 = 0;
+  v80 = 0;
+  sub_1005D67F8(v5[13], 1, v5 + 15, 0, &v79);
+  v9 = cf;
+  if (!cf)
+  {
+    goto LABEL_12;
+  }
+
+  if (*(v5 + 192))
+  {
+    goto LABEL_160;
+  }
+
+  v10 = v79;
+  if (v81 > v79)
+  {
+    v10 = v81;
+  }
+
+  *(v5 + 192) = v10;
+  sub_100212250(v5);
+  v9 = cf;
+  if (cf)
+  {
+LABEL_160:
+    if (!a3)
+    {
+      if ((v5[97] & 1) != 0 || (v17 = sub_100212ECC(v5, v9), *(v5 + 777) = HIBYTE(v17), (v17 & 1) == 0))
+      {
+        v12 = 0;
+        goto LABEL_24;
+      }
+    }
+
+    v11 = 1;
+  }
+
+  else
+  {
+LABEL_12:
+    v11 = 0;
+    v12 = 0;
+    v13 = 0;
+    if (!a3)
+    {
+      goto LABEL_25;
+    }
+  }
+
+  if ((v5[97] & 1) == 0)
+  {
+    *(v5 + 776) = 1;
+    v14 = v5[6];
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = PersonalityInfo::logPrefix(*v5[10]);
+      *buf = 136315394;
+      *&buf[4] = v15;
+      *&buf[12] = 2080;
+      *&buf[14] = " ";
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "#I %s%scredentials flushed to force reprovisioning with entitlement server", buf, 0x16u);
+    }
+
+    v16 = v5[93];
+    *(v5 + 46) = 0u;
+    if (v16)
+    {
+      sub_100004A34(v16);
+      v12 = 1;
+      if (v11)
+      {
+        goto LABEL_24;
+      }
+
+LABEL_20:
+      v13 = 0;
+      goto LABEL_25;
+    }
+  }
+
+  v12 = 1;
+  if (!v11)
+  {
+    goto LABEL_20;
+  }
+
+LABEL_24:
+  *(v5 + 778) = 0;
+  v13 = 1;
+LABEL_25:
+  v72 = v13;
+  v74 = sub_1005DCD74(v5[13]);
+  v18 = sub_1002106E4(v5);
+  v19 = *(v5 + 48);
+  if (v19)
+  {
+    *v73 = v19 == 2;
+  }
+
+  else
+  {
+    *v73 = sub_10020B2C0(v5);
+  }
+
+  if (v18 == 1)
+  {
+    v75 = sub_10034B458(v5[12], v12 | v4, 0);
+  }
+
+  else
+  {
+    v75 = -1;
+  }
+
+  v20 = sub_10020B624(v5);
+  v21 = sub_1002128B8(v5);
+  v22 = v5[6];
+  v76 = v18;
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  {
+    v71 = v4;
+    v23 = PersonalityInfo::logPrefix(*v5[10]);
+    v24 = sub_10060FF94(*(v5 + 49));
+    v25 = "indeterminate";
+    if (!v76)
+    {
+      v25 = "false";
+    }
+
+    if (v76 == 1)
+    {
+      v26 = "true";
+    }
+
+    else
+    {
+      v26 = v25;
+    }
+
+    v27 = asStringBool(v73[0]);
+    if (v74)
+    {
+      v28 = "signed-in";
+    }
+
+    else
+    {
+      v28 = "signed-out";
+    }
+
+    v29 = sub_10060FFE4(v75);
+    v30 = "missing";
+    if (*(v5 + 143) < 0)
+    {
+      if (v5[16])
+      {
+        v31 = *v8;
+      }
+
+      else
+      {
+        v31 = "missing";
+      }
+    }
+
+    else if (*(v5 + 143))
+    {
+      v31 = (v5 + 15);
+    }
+
+    else
+    {
+      v31 = "missing";
+    }
+
+    if (cf)
+    {
+      v30 = "present";
+    }
+
+    *buf = 136317186;
+    *&buf[4] = v23;
+    *&buf[12] = 2080;
+    *&buf[14] = " ";
+    v85 = 2080;
+    v86 = v24;
+    v87 = 2080;
+    v88 = v26;
+    v89 = 2080;
+    v90 = v27;
+    v91 = 2080;
+    v92 = v28;
+    v93 = 2080;
+    v94 = v29;
+    v95 = 2080;
+    v96 = v31;
+    v97 = 2080;
+    v98 = v30;
+    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "#I %s%s+ fServiceStatus:%s, serviceAllowed:%s, switchIsON:%s, iCloud:%s accountState:%s, accountId:%s, mainCfg:%s", buf, 0x5Cu);
+    v22 = v5[6];
+    v4 = v71;
+    v18 = v76;
+  }
+
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  {
+    v32 = PersonalityInfo::logPrefix(*v5[10]);
+    v33 = sub_10034B81C(v5[12]);
+    v34 = asStringBool(v33);
+    v35 = asStringBool(*(v5 + 772));
+    v36 = asStringBool(*(v5 + 773));
+    v37 = asStringBool(*(v5 + 776));
+    *buf = 136316418;
+    *&buf[4] = v32;
+    *&buf[12] = 2080;
+    *&buf[14] = " ";
+    v85 = 2080;
+    v86 = v34;
+    v87 = 2080;
+    v88 = v35;
+    v89 = 2080;
+    v90 = v36;
+    v91 = 2080;
+    v92 = v37;
+    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "#I %s%s+ isInGetPSASProcess:%s, fAwaitingGetProvisioning:%s, fAwaitingSetProvisioning:%s, fReprovisioningRequested:%s", buf, 0x3Eu);
+    v22 = v5[6];
+    v18 = v76;
+  }
+
+  v38 = v20 & v21;
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  {
+    v39 = PersonalityInfo::logPrefix(*v5[10]);
+    v40 = "not ";
+    *buf = 136315906;
+    *&buf[4] = v39;
+    if (v20)
+    {
+      v40 = "";
+    }
+
+    *&buf[14] = " ";
+    *&buf[12] = 2080;
+    v85 = 2080;
+    v86 = v40;
+    if (v38)
+    {
+      v41 = "";
+    }
+
+    else
+    {
+      v41 = " not";
+    }
+
+    v87 = 2080;
+    v88 = v41;
+    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "#I %s%s+ stealthMode %sallowed and%s justified", buf, 0x2Au);
+  }
+
+  v42 = v74 & *v73 | v38;
+  if (*(*v5[10] + 48) != 1)
+  {
+    goto LABEL_88;
+  }
+
+  ServiceMap = Registry::getServiceMap(v5[7]);
+  v44 = ServiceMap;
+  if (v45 < 0)
+  {
+    v46 = (v45 & 0x7FFFFFFFFFFFFFFFLL);
+    v47 = 5381;
+    do
+    {
+      v45 = v47;
+      v48 = *v46++;
+      v47 = (33 * v47) ^ v48;
+    }
+
+    while (v48);
+  }
+
+  std::mutex::lock(ServiceMap);
+  v83 = v45;
+  v49 = sub_100009510(&v44[1].__m_.__sig, &v83);
+  v50 = v4;
+  if (v49)
+  {
+    v51 = v49[3];
+    v52 = v49[4];
+    if (v52)
+    {
+      atomic_fetch_add_explicit(&v52->__shared_owners_, 1uLL, memory_order_relaxed);
+      std::mutex::unlock(v44);
+      atomic_fetch_add_explicit(&v52->__shared_owners_, 1uLL, memory_order_relaxed);
+      v18 = v76;
+      v8 = (v5 + 15);
+      sub_100004A34(v52);
+      goto LABEL_68;
+    }
+  }
+
+  else
+  {
+    v51 = 0;
+  }
+
+  std::mutex::unlock(v44);
+  v52 = 0;
+LABEL_68:
+  (**v51)(buf, v51, *v5[10] + 24);
+  v53 = (*(**buf + 536))(*buf);
+  if (*&buf[8])
+  {
+    sub_100004A34(*&buf[8]);
+  }
+
+  if (v52)
+  {
+    sub_100004A34(v52);
+  }
+
+  v4 = v50;
+  if (v53)
+  {
+    v54 = *(v5 + 143);
+    if ((v54 & 0x8000000000000000) != 0)
+    {
+      v54 = v5[16];
+    }
+
+    v55 = *(v5 + 779);
+    if ((sub_10020B3EC(v5) & v55) == 1 && v54 && v18 == 1)
+    {
+      v56 = v5[6];
+      if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
+      {
+        v57 = PersonalityInfo::logPrefix(*v5[10]);
+        *buf = 136315394;
+        *&buf[4] = v57;
+        *&buf[12] = 2080;
+        *&buf[14] = " ";
+        _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_DEFAULT, "#I %s%scredentials invalidation forced", buf, 0x16u);
+      }
+
+      sub_10021482C(v5, 0, 0, 0);
+      v58 = v5[93];
+      *(v5 + 46) = 0u;
+      if (v58)
+      {
+        sub_100004A34(v58);
+      }
+    }
+
+    v78 = cf;
+    if (cf)
+    {
+      CFRetain(cf);
+    }
+
+    if ((*(v5 + 772) & 1) != 0 || *(v5 + 773) == 1)
+    {
+      if (v42)
+      {
+        goto LABEL_112;
+      }
+
+      v59 = 0;
+    }
+
+    else
+    {
+      v59 = 0;
+      if (v18 && ((v42 ^ 1) & 1) == 0 && v75 != -1)
+      {
+        v59 = v78 != 0;
+      }
+    }
+
+    if (*(v5 + 49) == 1)
+    {
+      if (v59)
+      {
+        goto LABEL_106;
+      }
+    }
+
+    else if (v78 == 0 || v59)
+    {
+LABEL_106:
+      sub_100211444(v5, v59);
+      v63 = v72;
+      if (*(v5 + 49) != 1)
+      {
+        v63 = 1;
+      }
+
+      if ((v63 & 1) == 0)
+      {
+        sub_100210B30(v5);
+      }
+
+      if (v59)
+      {
+        sub_10021B98C(v5);
+      }
+
+LABEL_112:
+      sub_10001021C(&v78);
+      if (*(v5 + 772))
+      {
+        v64 = 0;
+      }
+
+      else if (*(v5 + 773))
+      {
+        v64 = 0;
+      }
+
+      else
+      {
+        v64 = v18;
+      }
+
+      if ((v42 & 1) == 0)
+      {
+        v64 = 0;
+      }
+
+      if ((!cf && v75 == 1 || cf && v75 != -1 && ((v5[97] & 1) != 0 || *(v5 + 777) == 1)) && v64 == 1)
+      {
+        sub_100214D88(v5);
+        if ((*(v5 + 772) & 1) == 0 && (*(v5 + 773) & 1) == 0)
+        {
+          sub_1005D67F8(v5[13], 0, v8, 0, buf);
+          LODWORD(v81) = *buf;
+          v65 = cf;
+          cf = *&buf[8];
+          v83 = v65;
+          *&buf[8] = 0;
+          sub_10001021C(&v83);
+          sub_10001021C(&buf[8]);
+        }
+      }
+
+      v77 = cf;
+      if (cf)
+      {
+        CFRetain(cf);
+      }
+
+      if ((*(v5 + 772) & 1) != 0 || *(v5 + 773) == 1)
+      {
+        if (v42)
+        {
+LABEL_150:
+          sub_10001021C(&v77);
+          goto LABEL_151;
+        }
+
+        v66 = 0;
+      }
+
+      else
+      {
+        v66 = 0;
+        if (v18 && ((v42 ^ 1) & 1) == 0 && v75 != -1)
+        {
+          v66 = v77 != 0;
+        }
+      }
+
+      if (*(v5 + 49) == 1)
+      {
+        if (v66)
+        {
+          goto LABEL_144;
+        }
+      }
+
+      else if (v77 == 0 || v66)
+      {
+LABEL_144:
+        sub_100211444(v5, v66);
+        v67 = v72;
+        if (*(v5 + 49) != 1)
+        {
+          v67 = 1;
+        }
+
+        if ((v67 & 1) == 0)
+        {
+          sub_100210B30(v5);
+        }
+
+        if (v66)
+        {
+          sub_10021B98C(v5);
+        }
+
+        goto LABEL_150;
+      }
+
+      sub_10021014C(v5);
+      goto LABEL_144;
+    }
+
+    sub_10021014C(v5);
+    goto LABEL_106;
+  }
+
+LABEL_88:
+  v60 = v5[6];
+  if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
+  {
+    v61 = PersonalityInfo::logPrefix(*v5[10]);
+    *buf = 136315394;
+    *&buf[4] = v61;
+    *&buf[12] = 2080;
+    *&buf[14] = " ";
+    _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_DEFAULT, "#I %s%sNo SIM or SIM is not authorized to touch account configuration - wait getPSAS replied, if issued", buf, 0x16u);
+  }
+
+  if (v18 != 2)
+  {
+    v62 = 0;
+    if (((v18 != 0) & v42) != 1 || v75 == -1)
+    {
+      goto LABEL_96;
+    }
+
+    goto LABEL_95;
+  }
+
+  if ((v42 & (v75 != -1)) == 1)
+  {
+LABEL_95:
+    v62 = cf != 0;
+    goto LABEL_96;
+  }
+
+  v62 = 0;
+LABEL_96:
+  sub_100211444(v5, v62);
+LABEL_151:
+  v68 = v5[6];
+  if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
+  {
+    v69 = PersonalityInfo::logPrefix(*v5[10]);
+    v70 = sub_10060FF94(*(v5 + 49));
+    *buf = 136315650;
+    *&buf[4] = v69;
+    *&buf[12] = 2080;
+    *&buf[14] = " ";
+    v85 = 2080;
+    v86 = v70;
+    _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_DEFAULT, "#I %s%s- fServiceStatus:%s", buf, 0x20u);
+  }
+
+  if ((sub_10034B81C(v5[12]) & 1) == 0 && (*(v5 + 772) & 1) == 0 && (*(v5 + 773) & 1) == 0)
+  {
+    *(v5 + 388) = 0;
+    sub_10034CC54(v5[12], 1);
+  }
+
+  sub_10034CD9C(v5[12], 1, v4);
+  sub_10001021C(&v80);
+  return sub_10001021C(&cf);
+}
+
+void sub_10020FF10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, const void *);
+  v16 = va_arg(va1, void);
   sub_10001021C(va);
   sub_10001021C(va1);
   _Unwind_Resume(a1);
@@ -94,7 +1627,7 @@ void sub_10021014C(uint64_t a1)
       *(a1 + 778) = 1;
       if (sub_10020B3EC(a1))
       {
-        sub_10021482C(a1);
+        sub_10021482C(a1, 0, 0, 0);
       }
     }
   }
@@ -551,7 +2084,7 @@ uint64_t sub_100210B30(uint64_t a1)
   return result;
 }
 
-const void **sub_100210B98@<X0>(uint64_t a1@<X0>, int a2@<W1>, uint64_t a3@<X8>)
+const void **sub_100210B98@<X0>(uint64_t a1@<X0>, int a2@<W1>, char *a3@<X8>)
 {
   if ((sub_1005DCD74(*(a1 + 104)) & 1) == 0)
   {
@@ -838,9 +2371,9 @@ LABEL_75:
   }
 
   *a3 = v13;
-  *(a3 + 1) = v10;
-  *(a3 + 2) = v14;
-  sub_100010180((a3 + 8), &__p[1]);
+  a3[1] = v10;
+  a3[2] = v14;
+  sub_100010180(a3 + 1, &__p[1]);
   sub_1000296E0(&__p[1]);
   return sub_1000296E0(&theDict);
 }
@@ -1079,14 +2612,14 @@ void sub_100211754(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_100211778(uint64_t a1)
+void sub_100211778(uint64_t result)
 {
-  if (*(**(a1 + 80) + 48) == 1)
+  if (*(**(result + 80) + 48) == 1)
   {
-    (*(*a1 + 200))(&v6);
+    (*(*result + 200))(&v6);
     v2 = v6;
     sub_10001021C(&v7);
-    if (sub_1002106E4(a1) == 1)
+    if (sub_1002106E4(result) == 1)
     {
       v3 = v2;
     }
@@ -1096,7 +2629,7 @@ void sub_100211778(uint64_t a1)
       v3 = 2;
     }
 
-    v4 = **(a1 + 80);
+    v4 = **(result + 80);
     v5 = *(v4 + 13);
     if (v5 > 1)
     {
@@ -1108,7 +2641,7 @@ void sub_100211778(uint64_t a1)
         v9 = &unk_101E32DA8;
         v10 = v3;
         v11 = 2;
-        sub_10022CD30(0x80119);
+        sub_10022CD30(0x80119, &v6);
         return;
       }
 
@@ -1128,13 +2661,13 @@ void sub_100211778(uint64_t a1)
         v9 = &unk_101E32D88;
         v10 = v3;
         v11 = 1;
-        sub_10022CB3C(0x800F2);
+        sub_10022CB3C(0x800F2, &v6);
       }
 
       return;
     }
 
-    if (os_log_type_enabled(*(a1 + 48), OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(*(result + 48), OS_LOG_TYPE_ERROR))
     {
       sub_101766004(v4);
     }
@@ -1658,13 +3191,13 @@ LABEL_9:
   }
 }
 
-void sub_1002123D8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1002123D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_100029A48(va);
-  if ((v3 & 1) == 0)
+  if ((v4 & 1) == 0)
   {
-    sub_100004A34(v2);
+    sub_100004A34(v3);
   }
 
   _Unwind_Resume(a1);
@@ -1699,7 +3232,7 @@ BOOL sub_100212408(uint64_t a1, const __CFString *a2)
   return v3;
 }
 
-void sub_1002124D4(uint64_t a1@<X0>, void *a2@<X8>)
+void sub_1002124D4(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   memset(v27, 0, sizeof(v27));
   memset(v26, 0, sizeof(v26));
@@ -3352,94 +4885,94 @@ void sub_100214660(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_10021482C(uint64_t a1)
+void sub_10021482C(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  if (*(a1 + 773) == 1 && (*(a1 + 775) & 1) != 0)
+  if (*(result + 773) == 1 && (*(result + 775) & 1) != 0)
   {
     return;
   }
 
-  if (sub_100347EC0(*(a1 + 96) + 360))
+  if (sub_100347EC0(*(result + 96) + 360))
   {
-    v2 = *(a1 + 48);
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v5 = *(result + 48);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = PersonalityInfo::logPrefix(**(a1 + 80));
+      v6 = PersonalityInfo::logPrefix(**(result + 80));
       *buf = 136315394;
-      *&buf[4] = v3;
-      v17 = 2080;
-      v18 = " ";
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "#I %s%s================================ Call Set Provisiong (to disable) ================================", buf, 0x16u);
+      *&buf[4] = v6;
+      v20 = 2080;
+      v21 = " ";
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#I %s%s================================ Call Set Provisiong (to disable) ================================", buf, 0x16u);
     }
 
     operator new();
   }
 
-  *(a1 + 779) = 1;
-  ServiceMap = Registry::getServiceMap(*(a1 + 56));
-  v5 = ServiceMap;
-  if (v6 < 0)
+  *(result + 779) = 1;
+  ServiceMap = Registry::getServiceMap(*(result + 56));
+  v8 = ServiceMap;
+  if (v9 < 0)
   {
-    v7 = (v6 & 0x7FFFFFFFFFFFFFFFLL);
-    v8 = 5381;
+    v10 = (v9 & 0x7FFFFFFFFFFFFFFFLL);
+    v11 = 5381;
     do
     {
-      v6 = v8;
-      v9 = *v7++;
-      v8 = (33 * v8) ^ v9;
+      v9 = v11;
+      v12 = *v10++;
+      v11 = (33 * v11) ^ v12;
     }
 
-    while (v9);
+    while (v12);
   }
 
   std::mutex::lock(ServiceMap);
-  *buf = v6;
-  v10 = sub_100009510(&v5[1].__m_.__sig, buf);
-  if (!v10)
+  *buf = v9;
+  v13 = sub_100009510(&v8[1].__m_.__sig, buf);
+  if (!v13)
   {
-    v12 = 0;
+    v15 = 0;
     goto LABEL_14;
   }
 
-  v12 = v10[3];
-  v11 = v10[4];
-  if (!v11)
+  v15 = v13[3];
+  v14 = v13[4];
+  if (!v14)
   {
 LABEL_14:
-    std::mutex::unlock(v5);
-    v11 = 0;
-    v13 = 1;
+    std::mutex::unlock(v8);
+    v14 = 0;
+    v16 = 1;
     goto LABEL_15;
   }
 
-  atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
-  std::mutex::unlock(v5);
-  atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
-  sub_100004A34(v11);
-  v13 = 0;
+  atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+  std::mutex::unlock(v8);
+  atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+  sub_100004A34(v14);
+  v16 = 0;
 LABEL_15:
-  (*(*v12 + 16))(v12, **(a1 + 80) + 24, @"NeedAccountInvalidation", kCFBooleanTrue, kPhoneServicesWalletDomain, 0, 1, 0);
-  if ((v13 & 1) == 0)
+  (*(*v15 + 16))(v15, **(result + 80) + 24, @"NeedAccountInvalidation", kCFBooleanTrue, kPhoneServicesWalletDomain, 0, 1, 0);
+  if ((v16 & 1) == 0)
   {
-    sub_100004A34(v11);
+    sub_100004A34(v14);
   }
 
-  v14 = *(a1 + 48);
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v17 = *(result + 48);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = PersonalityInfo::logPrefix(**(a1 + 80));
+    v18 = PersonalityInfo::logPrefix(**(result + 80));
     *buf = 136315394;
-    *&buf[4] = v15;
-    v17 = 2080;
-    v18 = " ";
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "#I %s%sRequest throttled, scheduling service refresh", buf, 0x16u);
+    *&buf[4] = v18;
+    v20 = 2080;
+    v21 = " ";
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "#I %s%sRequest throttled, scheduling service refresh", buf, 0x16u);
   }
 
-  sub_1003486A4(*(a1 + 96) + 360);
-  sub_100215448(a1, 1);
+  sub_1003486A4(*(result + 96) + 360);
+  sub_100215448(result, 1);
 }
 
-void sub_100214D00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, void *a16)
+void sub_100214D00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16)
 {
   if (a10)
   {
@@ -3490,7 +5023,7 @@ LABEL_19:
       _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "#I %s%saccount invalidation required - defer Thumper configuration", buf, 0x16u);
     }
 
-    sub_10021482C(a1);
+    sub_10021482C(a1, 0, 0, 0);
     v4 = *(a1 + 744);
     *(a1 + 736) = 0u;
     if (v4)
@@ -3698,7 +5231,7 @@ void sub_1002153D8(uint64_t a1, int a2, uint64_t *a3)
     atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  sub_10022C634(a1, &v4);
+  sub_10022C634(a1, &v4, &v4);
   if (v6)
   {
     sub_100004A34(v6);
@@ -4129,8 +5662,9 @@ void sub_100215C78(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_100215CCC(uint64_t a1, void *a2, int a3, void *a4)
+void sub_100215CCC(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
+  v5 = a3;
   if (!sub_10112CDBC(a2, (**(a1 + 80) + 24)))
   {
     v7 = *(a1 + 96);
@@ -4142,7 +5676,7 @@ void sub_100215CCC(uint64_t a1, void *a2, int a3, void *a4)
       atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v9 = sub_10034BFF4(v7, a3, &v72);
+    v9 = sub_10034BFF4(v7, v5, &v72);
     if (v73)
     {
       sub_100004A34(v73);
@@ -4154,7 +5688,7 @@ void sub_100215CCC(uint64_t a1, void *a2, int a3, void *a4)
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         v11 = PersonalityInfo::logPrefix(**(a1 + 80));
-        v12 = sub_100A38E30(a3);
+        v12 = sub_100A38E30(v5);
         *buf = 136315650;
         *&buf[4] = v11;
         *&buf[12] = 2080;
@@ -4486,21 +6020,21 @@ void sub_100216300(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1002163C0(uint64_t a1@<X1>, uint64_t *a2@<X2>, void *a3@<X8>)
+void sub_1002163C0(const __CFDictionary *a2@<X1>, uint64_t *a3@<X2>, void *a4@<X8>)
 {
-  *a3 = 0;
-  a3[1] = 0;
-  v3 = *a2;
-  if (*a2)
+  *a4 = 0;
+  a4[1] = 0;
+  v4 = *a3;
+  if (*a3)
   {
-    if (*(v3 + 32) == 1)
+    if (*(v4 + 32) == 1)
     {
-      v6 = v3 + 8;
-      v4 = *(v3 + 8);
-      v5 = *(v6 + 8);
-      if (a1)
+      v7 = v4 + 8;
+      v5 = *(v4 + 8);
+      v6 = *(v7 + 8);
+      if (a2)
       {
-        if (v5 != v4)
+        if (v6 != v5)
         {
           operator new();
         }
@@ -4538,10 +6072,10 @@ void sub_100216710(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 const void **sub_1002167DC(uint64_t a1, void **cf, const void *a3)
 {
-  v70 = 0;
+  v73 = 0;
   if (cf)
   {
-    v70 = cf;
+    v73 = cf;
     CFRetain(cf);
   }
 
@@ -4555,10 +6089,10 @@ const void **sub_1002167DC(uint64_t a1, void **cf, const void *a3)
     else
     {
       __p = *(a1 + 120);
-      v69 = *(a1 + 136);
+      v72 = *(a1 + 136);
     }
 
-    if (SHIBYTE(v69) < 0)
+    if (SHIBYTE(v72) < 0)
     {
       sub_100005F2C(&__dst, __p, *(&__p + 1));
     }
@@ -4566,11 +6100,11 @@ const void **sub_1002167DC(uint64_t a1, void **cf, const void *a3)
     else
     {
       __dst = __p;
-      v73 = v69;
+      v76 = v72;
     }
 
     values[0] = 0;
-    if (SHIBYTE(v73) < 0)
+    if (SHIBYTE(v76) < 0)
     {
       sub_100005F2C(buf, __dst, *(&__dst + 1));
     }
@@ -4578,16 +6112,16 @@ const void **sub_1002167DC(uint64_t a1, void **cf, const void *a3)
     else
     {
       *buf = __dst;
-      *&buf[16] = v73;
+      *&buf[16] = v76;
     }
 
-    v64[0] = 0;
+    v67[0] = 0;
     if (ctu::cf::convert_copy())
     {
       v5 = values[0];
-      values[0] = v64[0];
-      *&v66 = v5;
-      sub_100005978(&v66);
+      values[0] = v67[0];
+      *&v69 = v5;
+      sub_100005978(&v69);
     }
 
     if (buf[23] < 0)
@@ -4595,33 +6129,33 @@ const void **sub_1002167DC(uint64_t a1, void **cf, const void *a3)
       operator delete(*buf);
     }
 
-    v70 = values[0];
+    v73 = values[0];
     values[0] = 0;
     sub_100005978(values);
-    if (SHIBYTE(v73) < 0)
+    if (SHIBYTE(v76) < 0)
     {
       operator delete(__dst);
     }
 
-    if (SHIBYTE(v69) < 0)
+    if (SHIBYTE(v72) < 0)
     {
       operator delete(__p);
     }
   }
 
-  v66 = 0uLL;
-  v67 = 0;
+  v69 = 0uLL;
+  v70 = 0;
   memset(buf, 0, sizeof(buf));
   ctu::cf::assign();
-  v66 = *buf;
-  v67 = *&buf[16];
-  v64[0] = 0;
-  v64[1] = 0;
-  v65 = 0;
+  v69 = *buf;
+  v70 = *&buf[16];
+  v67[0] = 0;
+  v67[1] = 0;
+  v68 = 0;
   memset(buf, 0, sizeof(buf));
   ctu::cf::assign();
   __dst = *buf;
-  v73 = *&buf[16];
+  v76 = *&buf[16];
   if ((buf[23] & 0x80u) == 0)
   {
     p_dst = &__dst;
@@ -4632,8 +6166,8 @@ const void **sub_1002167DC(uint64_t a1, void **cf, const void *a3)
     p_dst = __dst;
   }
 
-  sub_10000501C(v64, p_dst);
-  if (SHIBYTE(v73) < 0)
+  sub_10000501C(v67, p_dst);
+  if (SHIBYTE(v76) < 0)
   {
     operator delete(__dst);
   }
@@ -4642,16 +6176,16 @@ const void **sub_1002167DC(uint64_t a1, void **cf, const void *a3)
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = PersonalityInfo::logPrefix(**(a1 + 80));
-    v9 = v64;
-    if (v65 < 0)
+    v9 = v67;
+    if (v68 < 0)
     {
-      v9 = v64[0];
+      v9 = v67[0];
     }
 
-    v10 = &v66;
-    if (v67 < 0)
+    v10 = &v69;
+    if (v70 < 0)
     {
-      v10 = v66;
+      v10 = v69;
     }
 
     *buf = 136315906;
@@ -4659,15 +6193,15 @@ const void **sub_1002167DC(uint64_t a1, void **cf, const void *a3)
     *&buf[12] = 2080;
     *&buf[14] = " ";
     *&buf[22] = 2080;
-    v77 = v9;
-    v78 = 2080;
-    v79 = v10;
+    v80 = v9;
+    v81 = 2080;
+    v82 = v10;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "#I %s%sremoving dev:%s from account:%s", buf, 0x2Au);
   }
 
-  v62 = 0;
+  v65 = 0;
   theDict = 0;
-  sub_1005D67F8(*(a1 + 104), 1, (a1 + 120), 0, &v62);
+  sub_1005D67F8(*(a1 + 104), 1, (a1 + 120), 0, &v65);
   if (theDict)
   {
     v11 = CFDictionaryGetValue(theDict, @"assignments");
@@ -4676,11 +6210,11 @@ const void **sub_1002167DC(uint64_t a1, void **cf, const void *a3)
       MutableCopy = CFDictionaryCreateMutableCopy(kCFAllocatorDefault, 0, v11);
       Count = CFDictionaryGetCount(MutableCopy);
       __dst = 0uLL;
-      v73 = 0;
+      v76 = 0;
       sub_100222418(&__dst, Count);
       values[0] = 0;
       values[1] = 0;
-      v61 = 0;
+      v64 = 0;
       sub_10007D780(values, Count);
       CFDictionaryGetKeysAndValues(MutableCopy, __dst, values[0]);
       if (Count)
@@ -4715,24 +6249,24 @@ const void **sub_1002167DC(uint64_t a1, void **cf, const void *a3)
 
         memset(buf, 0, sizeof(buf));
         ctu::cf::assign();
-        v59 = *&buf[16];
-        *v58 = *buf;
+        v62 = *&buf[16];
+        *v61 = *buf;
         if (buf[23] < 0)
         {
-          v19 = atoi(v58[0]);
-          operator delete(v58[0]);
+          v19 = atoi(v61[0]);
+          operator delete(v61[0]);
         }
 
         else
         {
-          v19 = atoi(v58);
+          v19 = atoi(v61);
         }
 
         CFDictionaryRemoveValue(MutableCopy, *(__dst + 8 * v13));
         *buf = 0;
         *buf = CFDictionaryCreateMutableCopy(0, 0, theDict);
         CFDictionarySetValue(*buf, @"assignments", MutableCopy);
-        sub_100810310(a1, 1u, *buf, 1, 0);
+        sub_100810310(a1, 1, *buf, 1, 0);
         v18 = v19;
         sub_1000296E0(buf);
       }
@@ -4760,158 +6294,192 @@ LABEL_42:
       if (v14)
       {
         MutableCopy = 0;
-        v57 = 0;
+        v60 = 0;
         sub_1005D67F8(*(a1 + 104), 2, (a1 + 120), a3, &MutableCopy);
-        if (!v57)
+        if (!v60)
         {
-LABEL_104:
-          v44 = *(a1 + 48);
-          if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+LABEL_113:
+          v47 = *(a1 + 48);
+          if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
           {
-            v45 = PersonalityInfo::logPrefix(**(a1 + 80));
-            v46 = v64;
-            if (v65 < 0)
+            v48 = PersonalityInfo::logPrefix(**(a1 + 80));
+            v49 = v67;
+            if (v68 < 0)
             {
-              v46 = v64[0];
+              v49 = v67[0];
             }
 
-            v47 = &v66;
-            if (v67 < 0)
+            v50 = &v69;
+            if (v70 < 0)
             {
-              v47 = v66;
+              v50 = v69;
             }
 
             *buf = 136315906;
-            *&buf[4] = v45;
+            *&buf[4] = v48;
             *&buf[12] = 2080;
             *&buf[14] = " ";
             *&buf[22] = 2080;
-            v77 = v46;
-            v78 = 2080;
-            v79 = v47;
-            _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "#I %s%sdev:%s removed from account:%s", buf, 0x2Au);
+            v80 = v49;
+            v81 = 2080;
+            v82 = v50;
+            _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "#I %s%sdev:%s removed from account:%s", buf, 0x2Au);
           }
 
-          sub_10001021C(&v57);
-          goto LABEL_111;
+          sub_10001021C(&v60);
+          goto LABEL_120;
         }
 
-        v20 = CFDictionaryGetValue(v57, @"impi");
-        v21 = CFDictionaryGetValue(v57, @"impu");
-        v55 = 0;
-        *buf = CFDictionaryGetValue(v57, @"imsi");
-        sub_100060DE8(&v55, buf);
+        v20 = CFDictionaryGetValue(v60, @"impi");
+        v21 = CFDictionaryGetValue(v60, @"impu");
+        v58 = 0;
+        *buf = CFDictionaryGetValue(v60, @"imsi");
+        sub_100060DE8(&v58, buf);
         if (!v21 || !v20 || !sub_10020B3EC(a1))
         {
-          goto LABEL_103;
+          goto LABEL_112;
         }
 
         memset(buf, 0, sizeof(buf));
         ctu::cf::assign();
         __dst = *buf;
-        v73 = *&buf[16];
+        v76 = *&buf[16];
+        if ((buf[23] & 0x80u) == 0)
+        {
+          v22 = &__dst;
+        }
+
+        else
+        {
+          v22 = __dst;
+        }
+
         memset(buf, 0, sizeof(buf));
         ctu::cf::assign();
         *values = *buf;
-        v61 = *&buf[16];
-        v22 = v55;
-        if (v55)
+        v64 = *&buf[16];
+        v23 = v58;
+        if ((buf[23] & 0x80u) == 0)
+        {
+          v24 = values;
+        }
+
+        else
+        {
+          v24 = values[0];
+        }
+
+        if (v58)
         {
           memset(buf, 0, sizeof(buf));
           ctu::cf::assign();
-          *v58 = *buf;
-          v59 = *&buf[16];
+          *v61 = *buf;
+          v62 = *&buf[16];
+          if ((buf[23] & 0x80u) == 0)
+          {
+            v25 = v61;
+          }
+
+          else
+          {
+            v25 = v61[0];
+          }
         }
 
-        sub_10021482C(a1);
-        if (v22 && SHIBYTE(v59) < 0)
+        else
         {
-          operator delete(v58[0]);
+          v25 = 0;
         }
 
-        if (SHIBYTE(v61) < 0)
+        sub_10021482C(a1, v22, v24, v25);
+        if (v23 && SHIBYTE(v62) < 0)
+        {
+          operator delete(v61[0]);
+        }
+
+        if (SHIBYTE(v64) < 0)
         {
           operator delete(values[0]);
         }
 
-        if (SHIBYTE(v73) < 0)
+        if (SHIBYTE(v76) < 0)
         {
           operator delete(__dst);
         }
 
         if (sub_10020B7A4(a1))
         {
-LABEL_103:
-          sub_100005978(&v55);
-          goto LABEL_104;
+LABEL_112:
+          sub_100005978(&v58);
+          goto LABEL_113;
         }
 
         theArray = 0;
         ServiceMap = Registry::getServiceMap(*(a1 + 56));
-        v28 = ServiceMap;
-        if (v29 < 0)
+        v31 = ServiceMap;
+        if (v32 < 0)
         {
-          v30 = (v29 & 0x7FFFFFFFFFFFFFFFLL);
-          v31 = 5381;
+          v33 = (v32 & 0x7FFFFFFFFFFFFFFFLL);
+          v34 = 5381;
           do
           {
-            v29 = v31;
-            v32 = *v30++;
-            v31 = (33 * v31) ^ v32;
+            v32 = v34;
+            v35 = *v33++;
+            v34 = (33 * v34) ^ v35;
           }
 
-          while (v32);
+          while (v35);
         }
 
         std::mutex::lock(ServiceMap);
-        *buf = v29;
-        v33 = sub_100009510(&v28[1].__m_.__sig, buf);
-        if (v33)
+        *buf = v32;
+        v36 = sub_100009510(&v31[1].__m_.__sig, buf);
+        if (v36)
         {
-          v35 = v33[3];
-          v34 = v33[4];
-          if (v34)
+          v38 = v36[3];
+          v37 = v36[4];
+          if (v37)
           {
-            atomic_fetch_add_explicit(&v34->__shared_owners_, 1uLL, memory_order_relaxed);
-            std::mutex::unlock(v28);
-            atomic_fetch_add_explicit(&v34->__shared_owners_, 1uLL, memory_order_relaxed);
-            sub_100004A34(v34);
-            v36 = 0;
-LABEL_80:
-            v37 = kPhoneServicesWalletDomain;
-            (*(*v35 + 24))(&__dst, v35, **(a1 + 80) + 24, @"individual.keys", kPhoneServicesWalletDomain, 0, 4);
+            atomic_fetch_add_explicit(&v37->__shared_owners_, 1uLL, memory_order_relaxed);
+            std::mutex::unlock(v31);
+            atomic_fetch_add_explicit(&v37->__shared_owners_, 1uLL, memory_order_relaxed);
+            sub_100004A34(v37);
+            v39 = 0;
+LABEL_89:
+            v40 = kPhoneServicesWalletDomain;
+            (*(*v38 + 24))(&__dst, v38, **(a1 + 80) + 24, @"individual.keys", kPhoneServicesWalletDomain, 0, 4);
             sub_10006DD00(&theArray, &__dst);
             sub_10000A1EC(&__dst);
-            if ((v36 & 1) == 0)
+            if ((v39 & 1) == 0)
             {
-              sub_100004A34(v34);
+              sub_100004A34(v37);
             }
 
             if (theArray && v18 < CFArrayGetCount(theArray))
             {
               values[0] = 0;
               values[1] = 0;
-              v61 = 0;
+              v64 = 0;
               sub_1009F83B4(values);
-              v38 = CFArrayCreateMutableCopy(kCFAllocatorDefault, 0, theArray);
-              v53 = v38;
-              v50 = 0;
-              v51 = 0;
-              v49 = 0;
-              sub_100034C50(&v49, values[0], values[1], values[1] - values[0]);
-              v73 = 0;
+              v41 = CFArrayCreateMutableCopy(kCFAllocatorDefault, 0, theArray);
+              v56 = v41;
+              v53 = 0;
+              v54 = 0;
+              v52 = 0;
+              sub_100034C50(&v52, values[0], values[1], values[1] - values[0]);
+              v76 = 0;
               __dst = 0uLL;
-              sub_100034C50(&__dst, v49, v50, v50 - v49);
-              v71 = 0;
+              sub_100034C50(&__dst, v52, v53, v53 - v52);
+              v74 = 0;
               memset(buf, 0, sizeof(buf));
               sub_100034C50(buf, __dst, *(&__dst + 1), *(&__dst + 1) - __dst);
-              v74 = 0;
+              v77 = 0;
               if (ctu::cf::convert_copy())
               {
-                v39 = v71;
-                v71 = v74;
-                v75 = v39;
-                sub_10002D760(&v75);
+                v42 = v74;
+                v74 = v77;
+                v78 = v42;
+                sub_10002D760(&v78);
               }
 
               if (*buf)
@@ -4920,32 +6488,32 @@ LABEL_80:
                 operator delete(*buf);
               }
 
-              value = v71;
-              v71 = 0;
-              sub_10002D760(&v71);
+              value = v74;
+              v74 = 0;
+              sub_10002D760(&v74);
               if (__dst)
               {
                 *(&__dst + 1) = __dst;
                 operator delete(__dst);
               }
 
-              CFArraySetValueAtIndex(v38, v18, value);
+              CFArraySetValueAtIndex(v41, v18, value);
               sub_10002D760(&value);
-              if (v49)
+              if (v52)
               {
-                v50 = v49;
-                operator delete(v49);
+                v53 = v52;
+                operator delete(v52);
               }
 
               sub_10020CBC8(*(a1 + 56), buf);
-              (*(**buf + 16))(*buf, **(a1 + 80) + 24, @"individual.keys", v53, v37, 0, 4, 0);
+              (*(**buf + 16))(*buf, **(a1 + 80) + 24, @"individual.keys", v56, v40, 0, 4, 0);
               if (*&buf[8])
               {
                 sub_100004A34(*&buf[8]);
               }
 
               *(a1 + 912) = *(a1 + 904);
-              sub_1000279DC(&v53);
+              sub_1000279DC(&v56);
               if (values[0])
               {
                 values[1] = values[0];
@@ -4955,92 +6523,92 @@ LABEL_80:
 
             else
             {
-              v40 = *(a1 + 48);
-              if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+              v43 = *(a1 + 48);
+              if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
               {
-                v41 = PersonalityInfo::logPrefix(**(a1 + 80));
-                v42 = v64;
-                if (v65 < 0)
+                v44 = PersonalityInfo::logPrefix(**(a1 + 80));
+                v45 = v67;
+                if (v68 < 0)
                 {
-                  v42 = v64[0];
+                  v45 = v67[0];
                 }
 
-                v43 = &v66;
-                if (v67 < 0)
+                v46 = &v69;
+                if (v70 < 0)
                 {
-                  v43 = v66;
+                  v46 = v69;
                 }
 
                 *buf = 136315906;
-                *&buf[4] = v41;
+                *&buf[4] = v44;
                 *&buf[12] = 2080;
                 *&buf[14] = " ";
                 *&buf[22] = 2080;
-                v77 = v42;
-                v78 = 2080;
-                v79 = v43;
-                _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "#I %s%sdev:%s removed from account:%s. Individual key not found", buf, 0x2Au);
+                v80 = v45;
+                v81 = 2080;
+                v82 = v46;
+                _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "#I %s%sdev:%s removed from account:%s. Individual key not found", buf, 0x2Au);
               }
             }
 
             sub_100010250(&theArray);
-            goto LABEL_103;
+            goto LABEL_112;
           }
         }
 
         else
         {
-          v35 = 0;
+          v38 = 0;
         }
 
-        std::mutex::unlock(v28);
-        v34 = 0;
-        v36 = 1;
-        goto LABEL_80;
+        std::mutex::unlock(v31);
+        v37 = 0;
+        v39 = 1;
+        goto LABEL_89;
       }
     }
   }
 
-  v23 = *(a1 + 48);
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  v26 = *(a1 + 48);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = PersonalityInfo::logPrefix(**(a1 + 80));
-    v25 = v64;
-    if (v65 < 0)
+    v27 = PersonalityInfo::logPrefix(**(a1 + 80));
+    v28 = v67;
+    if (v68 < 0)
     {
-      v25 = v64[0];
+      v28 = v67[0];
     }
 
-    v26 = &v66;
-    if (v67 < 0)
+    v29 = &v69;
+    if (v70 < 0)
     {
-      v26 = v66;
+      v29 = v69;
     }
 
     *buf = 136315906;
-    *&buf[4] = v24;
+    *&buf[4] = v27;
     *&buf[12] = 2080;
     *&buf[14] = " ";
     *&buf[22] = 2080;
-    v77 = v25;
-    v78 = 2080;
-    v79 = v26;
-    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "#I %s%sdev:%s not found within account:%s", buf, 0x2Au);
+    v80 = v28;
+    v81 = 2080;
+    v82 = v29;
+    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "#I %s%sdev:%s not found within account:%s", buf, 0x2Au);
   }
 
-LABEL_111:
+LABEL_120:
   sub_10001021C(&theDict);
-  if (SHIBYTE(v65) < 0)
+  if (SHIBYTE(v68) < 0)
   {
-    operator delete(v64[0]);
+    operator delete(v67[0]);
   }
 
-  if (SHIBYTE(v67) < 0)
+  if (SHIBYTE(v70) < 0)
   {
-    operator delete(v66);
+    operator delete(v69);
   }
 
-  return sub_100005978(&v70);
+  return sub_100005978(&v73);
 }
 
 void sub_1002172FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, const void *a14, const void *a15, const void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24, uint64_t a25, uint64_t a26, const void *a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, void *a34, uint64_t a35, int a36, __int16 a37, char a38, char a39)
@@ -5316,8 +6884,9 @@ LABEL_19:
   sub_10020F318(a1, 0, 1);
 }
 
-void sub_100217D2C(uint64_t a1, void *a2, int a3, void *a4)
+void sub_100217D2C(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
+  v5 = a3;
   if (!sub_10112CDBC(a2, (**(a1 + 80) + 24)))
   {
     v7 = *(a1 + 96);
@@ -5329,7 +6898,7 @@ void sub_100217D2C(uint64_t a1, void *a2, int a3, void *a4)
       atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v9 = sub_10034BFF4(v7, a3, &v20);
+    v9 = sub_10034BFF4(v7, v5, &v20);
     if (v21)
     {
       sub_100004A34(v21);
@@ -5341,7 +6910,7 @@ void sub_100217D2C(uint64_t a1, void *a2, int a3, void *a4)
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         v11 = PersonalityInfo::logPrefix(**(a1 + 80));
-        v12 = sub_100A38E30(a3);
+        v12 = sub_100A38E30(v5);
         *buf = 136315650;
         v23 = v11;
         v24 = 2080;
@@ -5419,8 +6988,9 @@ LABEL_18:
   }
 }
 
-void sub_10021815C(uint64_t a1, void *a2, int a3, void *a4)
+void sub_10021815C(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
+  v5 = a3;
   if (!sub_10112CDBC(a2, (**(a1 + 80) + 24)))
   {
     v7 = *(a1 + 96);
@@ -5432,7 +7002,7 @@ void sub_10021815C(uint64_t a1, void *a2, int a3, void *a4)
       atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v9 = sub_10034BFF4(v7, a3, &v35);
+    v9 = sub_10034BFF4(v7, v5, &v35);
     if (v36)
     {
       sub_100004A34(v36);
@@ -5482,7 +7052,7 @@ LABEL_14:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         v18 = PersonalityInfo::logPrefix(**(a1 + 80));
-        v19 = sub_100A38E30(a3);
+        v19 = sub_100A38E30(v5);
         *buf = 136315650;
         *&buf[4] = v18;
         *&buf[12] = 2080;
@@ -5654,9 +7224,9 @@ unint64_t sub_1002185C8(uint64_t a1)
   return v2 | v4 | v3;
 }
 
-void sub_1002186A0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1002186A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_100029A48(va);
   _Unwind_Resume(a1);
 }
@@ -6381,7 +7951,7 @@ LABEL_154:
       if (os_log_type_enabled(v99, OS_LOG_TYPE_DEFAULT))
       {
         v100 = PersonalityInfo::logPrefix(**(a1 + 80));
-        sub_100A3C768(__p);
+        sub_100A3C768(v95, __p);
         v101 = __p;
         if (SHIBYTE(__p[2]) < 0)
         {
@@ -6476,7 +8046,7 @@ LABEL_154:
 
       *v244 = *__p;
       v245 = __p[2];
-      sub_1009F8058(v105, v244, &v259);
+      sub_1009F8058(&v259, v105, v244);
       CFArrayAppendValue(v104, v259);
       sub_10002D760(&v259);
       if (v244[0])
@@ -7645,9 +9215,9 @@ LABEL_421:
 
 void sub_10021AF10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *a45, uint64_t a46, uint64_t a47, uint64_t a48, void *a49, uint64_t a50, uint64_t a51, uint64_t a52, void *a53, uint64_t a54, uint64_t a55, const void *a56, void *a57, uint64_t a58, uint64_t a59, void *a60, uint64_t a61, uint64_t a62, void *a63)
 {
-  if (v71)
+  if (v65)
   {
-    sub_100004A34(v71);
+    sub_100004A34(v65);
   }
 
   sub_1000296E0(&a23);
@@ -7660,16 +9230,16 @@ void sub_10021AF10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(__p);
   }
 
-  if (v72)
+  if (v66)
   {
-    sub_100004A34(v72);
+    sub_100004A34(v66);
   }
 
   sub_1000296E0(&STACK[0x210]);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_10021B890(void *a1, const void **a2)
+const void **sub_10021B890(void *a1, const void **a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -7717,16 +9287,16 @@ uint64_t sub_10021B890(void *a1, const void **a2)
   else
   {
     result = sub_10005C7A4(v4, a2);
-    v7 = result + 8;
+    v7 = result + 1;
   }
 
   a1[1] = v7;
   return result;
 }
 
-void sub_10021B978(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10021B978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_100222180(va);
   _Unwind_Resume(a1);
 }
@@ -7813,7 +9383,7 @@ const void **sub_10021B98C(uint64_t a1)
 
   if (!theDict || !CFEqual(theDict, v40))
   {
-    sub_100810310(a1, 1u, v40, 1, 0);
+    sub_100810310(a1, 1, v40, 1, 0);
   }
 
   if (sub_100210B30(a1))
@@ -8045,7 +9615,7 @@ LABEL_52:
   return sub_10001021C(&theDict);
 }
 
-void sub_10021BF1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15, int a16, __int16 a17, char a18, char a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25, void *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, const void *a36, uint64_t a37, uint64_t a38, const void *a39)
+void sub_10021BF1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15, int a16, __int16 a17, char a18, char a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, const void *a36, uint64_t a37, uint64_t a38, const void *a39)
 {
   sub_100005978(&a39);
   if (*(v40 - 137) < 0)
@@ -8069,7 +9639,7 @@ void sub_10021BF1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_10021C024(uint64_t a1, uint64_t a2)
+uint64_t sub_10021C024(uint64_t a1, const __CFDictionary *a2)
 {
   v12 = 0;
   v13 = 0;
@@ -8595,7 +10165,7 @@ LABEL_85:
         sub_100004A34(v54);
       }
 
-      sub_100810310(a1, 1u, v64[0], 1, 1);
+      sub_100810310(a1, 1, v64[0], 1, 1);
       v55 = *(a1 + 48);
       if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
       {
@@ -8708,1516 +10278,4 @@ LABEL_127:
   }
 
   return sub_100005978(&v79);
-}
-
-void sub_10021CCFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, uint64_t a20, char a21, uint64_t a22, const void *a23, const void *a24, __int16 a25, char a26, char a27, uint64_t a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, uint64_t a41, void *a42, uint64_t a43, int a44, __int16 a45, char a46, char a47, const void *a48)
-{
-  if (*(v48 - 137) < 0)
-  {
-    operator delete(*(v48 - 160));
-  }
-
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  v50 = *(v48 - 192);
-  if (v50)
-  {
-    *(v48 - 184) = v50;
-    operator delete(v50);
-  }
-
-  sub_10001021C(&a22);
-  sub_100005978(&a23);
-  sub_100005978(&a24);
-  sub_10001021C(&a28);
-  if (a34 < 0)
-  {
-    operator delete(a29);
-  }
-
-  if (a40 < 0)
-  {
-    operator delete(a35);
-  }
-
-  sub_100005978(&a48);
-  _Unwind_Resume(a1);
-}
-
-uint64_t sub_10021CF1C(uint64_t a1)
-{
-  v1 = *(a1 + 752);
-  if (!v1 || *(v1 + 4) != 1)
-  {
-    return 0;
-  }
-
-  if (*(v1 + 32) == 1)
-  {
-    v3 = (*(v1 + 16) - *(v1 + 8)) >> 7;
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  v5 = *v1 - v3;
-  if (v5 < 0)
-  {
-    v6 = *(a1 + 48);
-    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-    v5 = 0;
-    if (v7)
-    {
-      v8 = PersonalityInfo::logPrefix(**(a1 + 80));
-      v9 = **(a1 + 752);
-      v10 = 136315906;
-      v11 = v8;
-      v12 = 2080;
-      v13 = " ";
-      v14 = 1024;
-      v15 = v9;
-      v16 = 2048;
-      v17 = v3;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "#W %s%sIncorrect PS device list: max=%u, used=%zu", &v10, 0x26u);
-      return 0;
-    }
-  }
-
-  return v5;
-}
-
-BOOL sub_10021D09C(char *a1, void *a2)
-{
-  if (a1[24] != 1)
-  {
-    return 0;
-  }
-
-  v2 = a1[23];
-  if (v2 >= 0)
-  {
-    v3 = a1[23];
-  }
-
-  else
-  {
-    v3 = *(a1 + 1);
-  }
-
-  v4 = *(a2 + 23);
-  v5 = v4;
-  if ((v4 & 0x80u) != 0)
-  {
-    v4 = a2[1];
-  }
-
-  if (v3 != v4)
-  {
-    return 0;
-  }
-
-  if (v2 < 0)
-  {
-    a1 = *a1;
-  }
-
-  if (v5 < 0)
-  {
-    a2 = *a2;
-  }
-
-  return memcmp(a1, a2, v3) == 0;
-}
-
-const void **sub_10021D11C(const void **a1, CFTypeRef *a2)
-{
-  v3 = *a2;
-  if (*a2)
-  {
-    CFRetain(*a2);
-  }
-
-  v4 = *a1;
-  *a1 = v3;
-  v6 = v4;
-  sub_100005978(&v6);
-  return a1;
-}
-
-uint64_t sub_10021D170(uint64_t a1, uint64_t a2)
-{
-  if (*(a1 + 256) == 1)
-  {
-    sub_10012BF3C(a1, a2);
-    sub_10012BF3C((a1 + 32), (a2 + 32));
-    sub_10012BF3C((a1 + 64), (a2 + 64));
-    sub_10012BF3C((a1 + 96), (a2 + 96));
-    sub_10012BF3C((a1 + 128), (a2 + 128));
-    sub_10012BF3C((a1 + 160), (a2 + 160));
-    sub_10012BF3C((a1 + 192), (a2 + 192));
-    sub_10012BF3C((a1 + 224), (a2 + 224));
-  }
-
-  else
-  {
-    sub_100221DCC(a1, a2);
-    *(a1 + 256) = 1;
-  }
-
-  return a1;
-}
-
-void sub_10021D214(uint64_t a1@<X0>, void *a2@<X8>)
-{
-  ServiceMap = Registry::getServiceMap(*(a1 + 56));
-  v5 = ServiceMap;
-  if (v6 < 0)
-  {
-    v7 = (v6 & 0x7FFFFFFFFFFFFFFFLL);
-    v8 = 5381;
-    do
-    {
-      v6 = v8;
-      v9 = *v7++;
-      v8 = (33 * v8) ^ v9;
-    }
-
-    while (v9);
-  }
-
-  std::mutex::lock(ServiceMap);
-  *buf = v6;
-  v10 = sub_100009510(&v5[1].__m_.__sig, buf);
-  if (v10)
-  {
-    v12 = v10[3];
-    v11 = v10[4];
-    if (v11)
-    {
-      atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
-      std::mutex::unlock(v5);
-      atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
-      sub_100004A34(v11);
-      v13 = 0;
-      goto LABEL_9;
-    }
-  }
-
-  else
-  {
-    v12 = 0;
-  }
-
-  std::mutex::unlock(v5);
-  v11 = 0;
-  v13 = 1;
-LABEL_9:
-  propertyList = 0;
-  (*(*v12 + 96))(buf, v12, *(**(a1 + 80) + 52), 1, kIWLANSettingsKey, 0, 0);
-  sub_100010180(&propertyList, buf);
-  sub_10000A1EC(buf);
-  v20 = 0;
-  (*(*v12 + 96))(buf, v12, *(**(a1 + 80) + 52), 1, @"TechSettingsSecondaryOverlay", 0, 0);
-  sub_100010180(&v20, buf);
-  sub_10000A1EC(buf);
-  v14 = v20;
-  if (!v20)
-  {
-    v15 = *(a1 + 48);
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-    {
-      v16 = PersonalityInfo::logPrefix(**(a1 + 80));
-      v22 = 0uLL;
-      v23 = 0;
-      ctu::cf::assign();
-      *__p = v22;
-      v19 = v23;
-      v17 = __p;
-      if (v23 < 0)
-      {
-        v17 = v22;
-      }
-
-      *buf = 136315650;
-      *&buf[4] = v16;
-      v25 = 2080;
-      v26 = " ";
-      v27 = 2080;
-      v28 = v17;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "#I %s%sNo overlay dictionary %s", buf, 0x20u);
-      if (SHIBYTE(v19) < 0)
-      {
-        operator delete(__p[0]);
-      }
-
-      v14 = v20;
-    }
-
-    else
-    {
-      v14 = 0;
-    }
-  }
-
-  sub_10080F7B4(propertyList, v14, a1, a2);
-  sub_10001021C(&v20);
-  sub_10001021C(&propertyList);
-  if ((v13 & 1) == 0)
-  {
-    sub_100004A34(v11);
-  }
-}
-
-void sub_10021D4E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, const void *a12, const void *a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, char a20)
-{
-  if (a19 < 0)
-  {
-    operator delete(__p);
-  }
-
-  sub_10001021C(&a12);
-  sub_10001021C(&a13);
-  if ((v21 & 1) == 0)
-  {
-    sub_100004A34(v20);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void sub_10021D55C(void *a1, int a2)
-{
-  if (a2)
-  {
-    sub_10004F058(a1);
-  }
-
-  JUMPOUT(0x10021D554);
-}
-
-void sub_10021D56C(uint64_t a1@<X0>, void *a2@<X8>)
-{
-  ServiceMap = Registry::getServiceMap(*(a1 + 56));
-  v5 = ServiceMap;
-  if (v6 < 0)
-  {
-    v7 = (v6 & 0x7FFFFFFFFFFFFFFFLL);
-    v8 = 5381;
-    do
-    {
-      v6 = v8;
-      v9 = *v7++;
-      v8 = (33 * v8) ^ v9;
-    }
-
-    while (v9);
-  }
-
-  std::mutex::lock(ServiceMap);
-  *buf = v6;
-  v10 = sub_100009510(&v5[1].__m_.__sig, buf);
-  if (v10)
-  {
-    v12 = v10[3];
-    v11 = v10[4];
-    if (v11)
-    {
-      atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
-      std::mutex::unlock(v5);
-      atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
-      sub_100004A34(v11);
-      v13 = 0;
-      goto LABEL_9;
-    }
-  }
-
-  else
-  {
-    v12 = 0;
-  }
-
-  std::mutex::unlock(v5);
-  v11 = 0;
-  v13 = 1;
-LABEL_9:
-  propertyList = 0;
-  (*(*v12 + 96))(buf, v12, *(**(a1 + 80) + 52), 1, @"IMSConfig", 0, 0);
-  sub_100010180(&propertyList, buf);
-  sub_10000A1EC(buf);
-  v20 = 0;
-  (*(*v12 + 96))(buf, v12, *(**(a1 + 80) + 52), 1, @"IMSConfigSecondaryOverlay", 0, 0);
-  sub_100010180(&v20, buf);
-  sub_10000A1EC(buf);
-  v14 = v20;
-  if (!v20)
-  {
-    v15 = *(a1 + 48);
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-    {
-      v16 = PersonalityInfo::logPrefix(**(a1 + 80));
-      v22 = 0uLL;
-      v23 = 0;
-      ctu::cf::assign();
-      *__p = v22;
-      v19 = v23;
-      v17 = __p;
-      if (v23 < 0)
-      {
-        v17 = v22;
-      }
-
-      *buf = 136315650;
-      *&buf[4] = v16;
-      v25 = 2080;
-      v26 = " ";
-      v27 = 2080;
-      v28 = v17;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "#I %s%sNo overlay dictionary %s", buf, 0x20u);
-      if (SHIBYTE(v19) < 0)
-      {
-        operator delete(__p[0]);
-      }
-
-      v14 = v20;
-    }
-
-    else
-    {
-      v14 = 0;
-    }
-  }
-
-  sub_10080F7B4(propertyList, v14, a1, a2);
-  sub_10001021C(&v20);
-  sub_10001021C(&propertyList);
-  if ((v13 & 1) == 0)
-  {
-    sub_100004A34(v11);
-  }
-}
-
-void sub_10021D840(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, const void *a12, const void *a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, char a20)
-{
-  if (a19 < 0)
-  {
-    operator delete(__p);
-  }
-
-  sub_10001021C(&a12);
-  sub_10001021C(&a13);
-  if ((v21 & 1) == 0)
-  {
-    sub_100004A34(v20);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void sub_10021D8B4(void *a1, int a2)
-{
-  if (a2)
-  {
-    sub_10004F058(a1);
-  }
-
-  JUMPOUT(0x10021D8ACLL);
-}
-
-void sub_10021D8C4(uint64_t a1@<X0>, void *a2@<X8>)
-{
-  ServiceMap = Registry::getServiceMap(*(a1 + 56));
-  v5 = ServiceMap;
-  if (v6 < 0)
-  {
-    v7 = (v6 & 0x7FFFFFFFFFFFFFFFLL);
-    v8 = 5381;
-    do
-    {
-      v6 = v8;
-      v9 = *v7++;
-      v8 = (33 * v8) ^ v9;
-    }
-
-    while (v9);
-  }
-
-  std::mutex::lock(ServiceMap);
-  *buf = v6;
-  v10 = sub_100009510(&v5[1].__m_.__sig, buf);
-  if (v10)
-  {
-    v12 = v10[3];
-    v11 = v10[4];
-    if (v11)
-    {
-      atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
-      std::mutex::unlock(v5);
-      atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
-      sub_100004A34(v11);
-      v13 = 0;
-      goto LABEL_9;
-    }
-  }
-
-  else
-  {
-    v12 = 0;
-  }
-
-  std::mutex::unlock(v5);
-  v11 = 0;
-  v13 = 1;
-LABEL_9:
-  propertyList = 0;
-  (*(*v12 + 96))(buf, v12, *(**(a1 + 80) + 52), 1, @"CarrierEntitlements", 0, 0);
-  sub_100010180(&propertyList, buf);
-  sub_10000A1EC(buf);
-  v20 = 0;
-  (*(*v12 + 96))(buf, v12, *(**(a1 + 80) + 52), 1, @"CarrierEntitlementsSecondaryOverlay", 0, 0);
-  sub_100010180(&v20, buf);
-  sub_10000A1EC(buf);
-  v14 = v20;
-  if (!v20)
-  {
-    v15 = *(a1 + 48);
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-    {
-      v16 = PersonalityInfo::logPrefix(**(a1 + 80));
-      v22 = 0uLL;
-      v23 = 0;
-      ctu::cf::assign();
-      *__p = v22;
-      v19 = v23;
-      v17 = __p;
-      if (v23 < 0)
-      {
-        v17 = v22;
-      }
-
-      *buf = 136315650;
-      *&buf[4] = v16;
-      v25 = 2080;
-      v26 = " ";
-      v27 = 2080;
-      v28 = v17;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "#I %s%sNo overlay dictionary %s", buf, 0x20u);
-      if (SHIBYTE(v19) < 0)
-      {
-        operator delete(__p[0]);
-      }
-
-      v14 = v20;
-    }
-
-    else
-    {
-      v14 = 0;
-    }
-  }
-
-  sub_10080F7B4(propertyList, v14, a1, a2);
-  sub_10001021C(&v20);
-  sub_10001021C(&propertyList);
-  if ((v13 & 1) == 0)
-  {
-    sub_100004A34(v11);
-  }
-}
-
-void sub_10021DB98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, const void *a12, const void *a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, char a20)
-{
-  if (a19 < 0)
-  {
-    operator delete(__p);
-  }
-
-  sub_10001021C(&a12);
-  sub_10001021C(&a13);
-  if ((v21 & 1) == 0)
-  {
-    sub_100004A34(v20);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void sub_10021DC0C(void *a1, int a2)
-{
-  if (a2)
-  {
-    sub_10004F058(a1);
-  }
-
-  JUMPOUT(0x10021DC04);
-}
-
-void sub_10021DC1C(uint64_t a1@<X0>, void *a2@<X8>)
-{
-  ServiceMap = Registry::getServiceMap(*(a1 + 56));
-  v5 = ServiceMap;
-  if (v6 < 0)
-  {
-    v7 = (v6 & 0x7FFFFFFFFFFFFFFFLL);
-    v8 = 5381;
-    do
-    {
-      v6 = v8;
-      v9 = *v7++;
-      v8 = (33 * v8) ^ v9;
-    }
-
-    while (v9);
-  }
-
-  std::mutex::lock(ServiceMap);
-  *buf = v6;
-  v10 = sub_100009510(&v5[1].__m_.__sig, buf);
-  if (v10)
-  {
-    v12 = v10[3];
-    v11 = v10[4];
-    if (v11)
-    {
-      atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
-      std::mutex::unlock(v5);
-      atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
-      sub_100004A34(v11);
-      v13 = 0;
-      goto LABEL_9;
-    }
-  }
-
-  else
-  {
-    v12 = 0;
-  }
-
-  std::mutex::unlock(v5);
-  v11 = 0;
-  v13 = 1;
-LABEL_9:
-  propertyList = 0;
-  (*(*v12 + 96))(buf, v12, *(**(a1 + 80) + 52), 1, @"PushSettings", 0, 0);
-  sub_100010180(&propertyList, buf);
-  sub_10000A1EC(buf);
-  v20 = 0;
-  (*(*v12 + 96))(buf, v12, *(**(a1 + 80) + 52), 1, @"PushSettingsSecondaryOverlay", 0, 0);
-  sub_100010180(&v20, buf);
-  sub_10000A1EC(buf);
-  v14 = v20;
-  if (!v20)
-  {
-    v15 = *(a1 + 48);
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-    {
-      v16 = PersonalityInfo::logPrefix(**(a1 + 80));
-      v22 = 0uLL;
-      v23 = 0;
-      ctu::cf::assign();
-      *__p = v22;
-      v19 = v23;
-      v17 = __p;
-      if (v23 < 0)
-      {
-        v17 = v22;
-      }
-
-      *buf = 136315650;
-      *&buf[4] = v16;
-      v25 = 2080;
-      v26 = " ";
-      v27 = 2080;
-      v28 = v17;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "#I %s%sNo overlay dictionary %s", buf, 0x20u);
-      if (SHIBYTE(v19) < 0)
-      {
-        operator delete(__p[0]);
-      }
-
-      v14 = v20;
-    }
-
-    else
-    {
-      v14 = 0;
-    }
-  }
-
-  sub_10080F7B4(propertyList, v14, a1, a2);
-  sub_10001021C(&v20);
-  sub_10001021C(&propertyList);
-  if ((v13 & 1) == 0)
-  {
-    sub_100004A34(v11);
-  }
-}
-
-void sub_10021DEF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, const void *a12, const void *a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, char a20)
-{
-  if (a19 < 0)
-  {
-    operator delete(__p);
-  }
-
-  sub_10001021C(&a12);
-  sub_10001021C(&a13);
-  if ((v21 & 1) == 0)
-  {
-    sub_100004A34(v20);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void sub_10021DF64(void *a1, int a2)
-{
-  if (a2)
-  {
-    sub_10004F058(a1);
-  }
-
-  JUMPOUT(0x10021DF5CLL);
-}
-
-void sub_10021DF74(uint64_t a1@<X0>, void *a2@<X8>)
-{
-  ServiceMap = Registry::getServiceMap(*(a1 + 56));
-  v5 = ServiceMap;
-  if (v6 < 0)
-  {
-    v7 = (v6 & 0x7FFFFFFFFFFFFFFFLL);
-    v8 = 5381;
-    do
-    {
-      v6 = v8;
-      v9 = *v7++;
-      v8 = (33 * v8) ^ v9;
-    }
-
-    while (v9);
-  }
-
-  std::mutex::lock(ServiceMap);
-  *buf = v6;
-  v10 = sub_100009510(&v5[1].__m_.__sig, buf);
-  if (v10)
-  {
-    v12 = v10[3];
-    v11 = v10[4];
-    if (v11)
-    {
-      atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
-      std::mutex::unlock(v5);
-      atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
-      sub_100004A34(v11);
-      v13 = 0;
-      goto LABEL_9;
-    }
-  }
-
-  else
-  {
-    v12 = 0;
-  }
-
-  std::mutex::unlock(v5);
-  v11 = 0;
-  v13 = 1;
-LABEL_9:
-  propertyList = 0;
-  (*(*v12 + 96))(buf, v12, *(**(a1 + 80) + 52), 1, @"Location", 0, 0);
-  sub_100010180(&propertyList, buf);
-  sub_10000A1EC(buf);
-  v20 = 0;
-  (*(*v12 + 96))(buf, v12, *(**(a1 + 80) + 52), 1, @"LocationSecondaryOverlay", 0, 0);
-  sub_100010180(&v20, buf);
-  sub_10000A1EC(buf);
-  v14 = v20;
-  if (!v20)
-  {
-    v15 = *(a1 + 48);
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-    {
-      v16 = PersonalityInfo::logPrefix(**(a1 + 80));
-      v22 = 0uLL;
-      v23 = 0;
-      ctu::cf::assign();
-      *__p = v22;
-      v19 = v23;
-      v17 = __p;
-      if (v23 < 0)
-      {
-        v17 = v22;
-      }
-
-      *buf = 136315650;
-      *&buf[4] = v16;
-      v25 = 2080;
-      v26 = " ";
-      v27 = 2080;
-      v28 = v17;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "#I %s%sNo overlay dictionary %s", buf, 0x20u);
-      if (SHIBYTE(v19) < 0)
-      {
-        operator delete(__p[0]);
-      }
-
-      v14 = v20;
-    }
-
-    else
-    {
-      v14 = 0;
-    }
-  }
-
-  sub_10080F7B4(propertyList, v14, a1, a2);
-  sub_10001021C(&v20);
-  sub_10001021C(&propertyList);
-  if ((v13 & 1) == 0)
-  {
-    sub_100004A34(v11);
-  }
-}
-
-void sub_10021E244(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, const void *a12, const void *a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, char a20)
-{
-  if (a19 < 0)
-  {
-    operator delete(__p);
-  }
-
-  sub_10001021C(&a12);
-  sub_10001021C(&a13);
-  if ((v21 & 1) == 0)
-  {
-    sub_100004A34(v20);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void sub_10021E2B8(void *a1, int a2)
-{
-  if (a2)
-  {
-    sub_10004F058(a1);
-  }
-
-  JUMPOUT(0x10021E2B0);
-}
-
-const void **sub_10021E2C8@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
-{
-  v31 = 0;
-  v32 = 0;
-  v29 = &v30;
-  v30 = 0;
-  ServiceMap = Registry::getServiceMap(*(a1 + 56));
-  v4 = ServiceMap;
-  if (v5 < 0)
-  {
-    v6 = (v5 & 0x7FFFFFFFFFFFFFFFLL);
-    v7 = 5381;
-    do
-    {
-      v5 = v7;
-      v8 = *v6++;
-      v7 = (33 * v7) ^ v8;
-    }
-
-    while (v8);
-  }
-
-  std::mutex::lock(ServiceMap);
-  v33 = v5;
-  v9 = sub_100009510(&v4[1].__m_.__sig, &v33);
-  v23 = a2;
-  if (v9)
-  {
-    v11 = v9[3];
-    v10 = v9[4];
-    if (v10)
-    {
-      atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
-      std::mutex::unlock(v4);
-      atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
-      sub_100004A34(v10);
-      v12 = 0;
-      goto LABEL_9;
-    }
-  }
-
-  else
-  {
-    v11 = 0;
-  }
-
-  std::mutex::unlock(v4);
-  v10 = 0;
-  v12 = 1;
-LABEL_9:
-  (*(*v11 + 112))(v11, &v29, 1);
-  if ((v12 & 1) == 0)
-  {
-    sub_100004A34(v10);
-  }
-
-  if (v31)
-  {
-    Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-    v14 = v32;
-    v32 = Mutable;
-    v33 = v14;
-    sub_1000296E0(&v33);
-    v15 = v29;
-    if (v29 != &v30)
-    {
-      do
-      {
-        v33 = 0;
-        v33 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%d", *(v15 + 8));
-        value = 0;
-        v16 = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
-        v27 = v16;
-        value = v16;
-        v18 = v15[5];
-        v17 = v15[6];
-        v24[0] = _NSConcreteStackBlock;
-        v24[1] = 1174405120;
-        v25 = sub_10021F2D4;
-        v26 = &unk_101E31FF0;
-        if (v16)
-        {
-          CFRetain(v16);
-        }
-
-        while (v18 != v17)
-        {
-          v25(v24, v18);
-          v18 += 24;
-        }
-
-        CFDictionaryAddValue(v32, v33, value);
-        sub_1000279DC(&v27);
-        sub_1000279DC(&value);
-        sub_100005978(&v33);
-        v19 = v15[1];
-        if (v19)
-        {
-          do
-          {
-            v20 = v19;
-            v19 = *v19;
-          }
-
-          while (v19);
-        }
-
-        else
-        {
-          do
-          {
-            v20 = v15[2];
-            v21 = *v20 == v15;
-            v15 = v20;
-          }
-
-          while (!v21);
-        }
-
-        v15 = v20;
-      }
-
-      while (v20 != &v30);
-    }
-  }
-
-  sub_100010180(v23, &v32);
-  sub_1001A918C(&v29, v30);
-  return sub_1000296E0(&v32);
-}
-
-void sub_10021E580(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
-{
-  va_start(va1, a10);
-  va_start(va, a10);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, char *);
-  v14 = va_arg(va1, void);
-  sub_1001A918C(va, v13);
-  sub_1000296E0(va1);
-  _Unwind_Resume(a1);
-}
-
-uint64_t sub_10021E5F4(uint64_t a1, uint64_t a2)
-{
-  if (!a2)
-  {
-    return a2;
-  }
-
-  v4 = *(a1 + 48);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-  {
-    v5 = PersonalityInfo::logPrefix(**(a1 + 80));
-    v6 = (a1 + 120);
-    if (*(a1 + 143) < 0)
-    {
-      v6 = *v6;
-    }
-
-    *v23 = 136315650;
-    *&v23[4] = v5;
-    v24 = 2080;
-    v25 = " ";
-    v26 = 2080;
-    v27 = v6;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "#I %s%sreceived iCloud info on my account:'%s'", v23, 0x20u);
-  }
-
-  *(a1 + 779) = 1;
-  ServiceMap = Registry::getServiceMap(*(a1 + 56));
-  v8 = ServiceMap;
-  if (v9 < 0)
-  {
-    v10 = (v9 & 0x7FFFFFFFFFFFFFFFLL);
-    v11 = 5381;
-    do
-    {
-      v9 = v11;
-      v12 = *v10++;
-      v11 = (33 * v11) ^ v12;
-    }
-
-    while (v12);
-  }
-
-  std::mutex::lock(ServiceMap);
-  *v23 = v9;
-  v13 = sub_100009510(&v8[1].__m_.__sig, v23);
-  if (!v13)
-  {
-    v15 = 0;
-    goto LABEL_13;
-  }
-
-  v15 = v13[3];
-  v14 = v13[4];
-  if (!v14)
-  {
-LABEL_13:
-    std::mutex::unlock(v8);
-    v14 = 0;
-    v16 = 1;
-    goto LABEL_14;
-  }
-
-  atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
-  std::mutex::unlock(v8);
-  atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
-  sub_100004A34(v14);
-  v16 = 0;
-LABEL_14:
-  (*(*v15 + 16))(v15, **(a1 + 80) + 24, @"NeedAccountInvalidation", kCFBooleanTrue, kPhoneServicesWalletDomain, 0, 1, 0);
-  if ((v16 & 1) == 0)
-  {
-    sub_100004A34(v14);
-  }
-
-  *(a1 + 168) = 1;
-  v17 = *(a1 + 784);
-  *(a1 + 784) = v17 + 1;
-  if (v17)
-  {
-    v18 = *(a1 + 48);
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
-    {
-      v20 = PersonalityInfo::logPrefix(**(a1 + 80));
-      v21 = *(a1 + 784);
-      *v23 = 136315650;
-      *&v23[4] = v20;
-      v24 = 2080;
-      v25 = " ";
-      v26 = 1024;
-      LODWORD(v27) = v21;
-      _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "#E %s%s|| cloud updated configuration for my own Thumper account. Collision number %u.", v23, 0x1Cu);
-      v18 = *(a1 + 48);
-    }
-
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
-    {
-      v22 = PersonalityInfo::logPrefix(**(a1 + 80));
-      *v23 = 136315394;
-      *&v23[4] = v22;
-      v24 = 2080;
-      v25 = " ";
-      _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "#E %s%s|| Potentially another iPhone with the same phone number is present and active, and pretend it owns the number.", v23, 0x16u);
-      v18 = *(a1 + 48);
-    }
-
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
-    {
-      sub_101766200((a1 + 80));
-    }
-
-    sub_100347EF8(*(a1 + 96) + 360, 0);
-    sub_1003486A4(*(a1 + 96) + 360);
-  }
-
-  return a2;
-}
-
-void sub_10021E938(_Unwind_Exception *exception_object)
-{
-  if ((v2 & 1) == 0)
-  {
-    sub_100004A34(v1);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t sub_10021E970(uint64_t a1, int a2, CFStringRef theString, const __CFDictionary *a4)
-{
-  v4 = a4;
-  v63 = 0;
-  v7 = *(a1 + 143);
-  if (v7 < 0)
-  {
-    v7 = *(a1 + 128);
-  }
-
-  v8 = 0;
-  if (a4 && v7)
-  {
-    v9 = (a1 + 120);
-    if (CFStringHasPrefix(theString, @"dev."))
-    {
-      Value = CFDictionaryGetValue(v4, @"accounts");
-      v11 = Value;
-      if (!Value)
-      {
-        goto LABEL_102;
-      }
-
-      v12 = CFGetTypeID(Value);
-      if (v12 != CFDictionaryGetTypeID())
-      {
-        goto LABEL_102;
-      }
-
-      if (*(a1 + 143) < 0)
-      {
-        sub_100005F2C(__dst, *(a1 + 120), *(a1 + 128));
-      }
-
-      else
-      {
-        *__dst = *v9;
-        v61 = *(a1 + 136);
-      }
-
-      if (SHIBYTE(v61) < 0)
-      {
-        sub_100005F2C(theDict, __dst[0], __dst[1]);
-      }
-
-      else
-      {
-        *theDict = *__dst;
-        v66 = v61;
-      }
-
-      theArray = 0;
-      if (SHIBYTE(v66) < 0)
-      {
-        sub_100005F2C(__p, theDict[0], theDict[1]);
-      }
-
-      else
-      {
-        *__p = *theDict;
-        __p[2] = v66;
-      }
-
-      v67 = 0;
-      if (ctu::cf::convert_copy())
-      {
-        v13 = theArray;
-        theArray = v67;
-        v68 = v13;
-        sub_100005978(&v68);
-      }
-
-      if (SHIBYTE(__p[2]) < 0)
-      {
-        operator delete(__p[0]);
-      }
-
-      key = theArray;
-      theArray = 0;
-      sub_100005978(&theArray);
-      if (SHIBYTE(v66) < 0)
-      {
-        operator delete(theDict[0]);
-      }
-
-      v14 = CFDictionaryGetValue(v11, key);
-      v15 = v14;
-      if (v14)
-      {
-        v16 = CFGetTypeID(v14);
-        if (v16 != CFDictionaryGetTypeID())
-        {
-          v15 = 0;
-        }
-      }
-
-      sub_100005978(&key);
-      if (SHIBYTE(v61) < 0)
-      {
-        operator delete(__dst[0]);
-      }
-
-      if (!v15)
-      {
-        goto LABEL_102;
-      }
-
-      sub_1005D72A4(theString, *(a1 + 104), 2u, a1 + 120, 0, v15, __p);
-      theDict[0] = v63;
-      v63 = __p[1];
-      __p[1] = 0;
-      sub_10001021C(theDict);
-      sub_10001021C(&__p[1]);
-      v4 = v63;
-      if (!v63)
-      {
-        goto LABEL_102;
-      }
-    }
-
-    v17 = CFDictionaryGetValue(v4, @"account");
-    if (!v17)
-    {
-      goto LABEL_49;
-    }
-
-    v18 = CFGetTypeID(v17);
-    if (v18 != CFStringGetTypeID())
-    {
-      goto LABEL_49;
-    }
-
-    memset(__p, 0, 24);
-    ctu::cf::assign();
-    v66 = __p[2];
-    *theDict = *__p;
-    v19 = *(a1 + 143);
-    if (v19 >= 0)
-    {
-      v20 = *(a1 + 143);
-    }
-
-    else
-    {
-      v20 = *(a1 + 128);
-    }
-
-    v21 = HIBYTE(v66);
-    v22 = SHIBYTE(v66);
-    if (SHIBYTE(v66) < 0)
-    {
-      v21 = theDict[1];
-    }
-
-    if (v20 == v21)
-    {
-      if (v19 >= 0)
-      {
-        v23 = (a1 + 120);
-      }
-
-      else
-      {
-        v23 = *v9;
-      }
-
-      if (SHIBYTE(v66) >= 0)
-      {
-        v24 = theDict;
-      }
-
-      else
-      {
-        v24 = theDict[0];
-      }
-
-      v25 = memcmp(v23, v24, v20) == 0;
-      if ((v22 & 0x80000000) == 0)
-      {
-LABEL_48:
-        if (!v25)
-        {
-          goto LABEL_102;
-        }
-
-LABEL_49:
-        v26 = CFDictionaryGetValue(v4, @"last-expired-token");
-        v27 = v26;
-        if (!v26)
-        {
-          goto LABEL_102;
-        }
-
-        v28 = CFGetTypeID(v26);
-        if (v28 != CFStringGetTypeID())
-        {
-          goto LABEL_102;
-        }
-
-        theDict[0] = 0;
-        theDict[1] = 0;
-        sub_1005D67F8(*(a1 + 104), 0, (a1 + 120), 0, theDict);
-        if (theDict[1])
-        {
-          if (sub_10020B7A4(a1))
-          {
-            v29 = CFDictionaryGetValue(theDict[1], @"masterToken");
-            v30 = v29;
-            if (v29)
-            {
-              v31 = CFGetTypeID(v29);
-              if (v31 == CFStringGetTypeID())
-              {
-                v32 = CFStringCompare(v30, v27, 0);
-                sub_10001021C(&theDict[1]);
-                if (v32 == kCFCompareEqualTo)
-                {
-LABEL_56:
-                  memset(__p, 0, 24);
-                  ctu::cf::assign();
-                  *theDict = *__p;
-                  v66 = __p[2];
-                  if ((*(a1 + 664) & 1) == 0 || *(a1 + 264) != 1)
-                  {
-LABEL_104:
-                    v54 = *(a1 + 48);
-                    if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
-                    {
-                      v55 = PersonalityInfo::logPrefix(**(a1 + 80));
-                      v56 = theDict;
-                      if (SHIBYTE(v66) < 0)
-                      {
-                        v56 = theDict[0];
-                      }
-
-                      LODWORD(__p[0]) = 136315650;
-                      *(__p + 4) = v55;
-                      WORD2(__p[1]) = 2080;
-                      *(&__p[1] + 6) = " ";
-                      HIWORD(__p[2]) = 2080;
-                      __p[3] = v56;
-                      _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "#I %s%sRequest to refresh token %s", __p, 0x20u);
-                    }
-
-                    *(a1 + 168) = 1;
-                    if (SHIBYTE(v66) < 0)
-                    {
-                      operator delete(theDict[0]);
-                    }
-
-                    v8 = 1;
-                    goto LABEL_103;
-                  }
-
-                  v33 = *(a1 + 240);
-                  v34 = *(a1 + 248);
-                  v35 = HIBYTE(v66);
-                  if (v33 != v34)
-                  {
-                    if (SHIBYTE(v66) >= 0)
-                    {
-                      v36 = HIBYTE(v66);
-                    }
-
-                    else
-                    {
-                      v36 = theDict[1];
-                    }
-
-                    if (SHIBYTE(v66) >= 0)
-                    {
-                      v37 = theDict;
-                    }
-
-                    else
-                    {
-                      v37 = theDict[0];
-                    }
-
-                    do
-                    {
-                      v38 = *(v33 + 23);
-                      v39 = v38;
-                      if ((v38 & 0x80u) != 0)
-                      {
-                        v38 = *(v33 + 8);
-                      }
-
-                      if (v38 == v36)
-                      {
-                        v40 = v39 >= 0 ? v33 : *v33;
-                        if (!memcmp(v40, v37, v36))
-                        {
-                          goto LABEL_104;
-                        }
-                      }
-
-                      v33 += 24;
-                    }
-
-                    while (v33 != v34);
-                  }
-
-                  if (v35 < 0)
-                  {
-                    operator delete(theDict[0]);
-                  }
-                }
-
-LABEL_102:
-                v8 = 0;
-                goto LABEL_103;
-              }
-            }
-          }
-
-          else
-          {
-            v41 = CFDictionaryGetValue(theDict[1], @"cfgSlots");
-            v42 = v41;
-            if (v41)
-            {
-              v43 = CFGetTypeID(v41);
-              if (v43 == CFArrayGetTypeID())
-              {
-                theArray = 0;
-                sub_10020CBC8(*(a1 + 56), __p);
-                (*(*__p[0] + 24))(&v68);
-                sub_10006DD00(&theArray, &v68);
-                sub_10000A1EC(&v68);
-                if (__p[1])
-                {
-                  sub_100004A34(__p[1]);
-                }
-
-                if (theArray)
-                {
-                  for (i = 0; i < CFArrayGetCount(v42) && i < CFArrayGetCount(theArray); ++i)
-                  {
-                    ValueAtIndex = CFArrayGetValueAtIndex(v42, i);
-                    v46 = ValueAtIndex;
-                    if (ValueAtIndex)
-                    {
-                      v47 = CFGetTypeID(ValueAtIndex);
-                      if (v47 == CFDataGetTypeID())
-                      {
-                        key = 0;
-                        v48 = CFArrayGetValueAtIndex(theArray, i);
-                        memset(__p, 0, 24);
-                        if (v48)
-                        {
-                          v49 = CFGetTypeID(v48);
-                          if (v49 == CFDataGetTypeID())
-                          {
-                            ctu::cf::assign();
-                          }
-                        }
-
-                        *v57 = *__p;
-                        v58 = __p[2];
-                        sub_1009F8218(v46, v57, &cf);
-                        v68 = cf;
-                        if (cf)
-                        {
-                          CFRetain(cf);
-                        }
-
-                        v67 = 0;
-                        __p[0] = 0;
-                        sub_100010180(__p, &v68);
-                        if (__p[0])
-                        {
-                          sub_1000676D4(&v67, __p);
-                        }
-
-                        sub_10001021C(__p);
-                        key = v67;
-                        v67 = 0;
-                        sub_10001021C(&v67);
-                        sub_10000A1EC(&v68);
-                        sub_10000A1EC(&cf);
-                        if (v57[0])
-                        {
-                          v57[1] = v57[0];
-                          operator delete(v57[0]);
-                        }
-
-                        if (key)
-                        {
-                          v50 = CFDictionaryGetValue(key, @"token");
-                          v51 = v50;
-                          if (v50)
-                          {
-                            v52 = CFGetTypeID(v50);
-                            if (v52 == CFStringGetTypeID() && CFStringCompare(v51, v27, 0) == kCFCompareEqualTo)
-                            {
-                              sub_10001021C(&key);
-                              sub_100010250(&theArray);
-                              sub_10001021C(&theDict[1]);
-                              goto LABEL_56;
-                            }
-                          }
-                        }
-
-                        sub_10001021C(&key);
-                      }
-                    }
-                  }
-                }
-
-                sub_100010250(&theArray);
-              }
-            }
-          }
-        }
-
-        sub_10001021C(&theDict[1]);
-        goto LABEL_102;
-      }
-    }
-
-    else
-    {
-      v25 = 0;
-      if ((SHIBYTE(v66) & 0x80000000) == 0)
-      {
-        goto LABEL_48;
-      }
-    }
-
-    operator delete(theDict[0]);
-    goto LABEL_48;
-  }
-
-LABEL_103:
-  sub_10001021C(&v63);
-  return v8;
 }

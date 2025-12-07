@@ -588,7 +588,7 @@ void __85__HKRouteMapGenerator_snapshotWithSize_lineWidth_traitCollection_offset
   v17 = v16;
   v19 = v18;
   mainScreen = [MEMORY[0x1E69DCEB0] mainScreen];
-  [mainScreen scale];
+  objc_msgSend_scale(mainScreen);
   v22 = v21;
   v48.width = v17;
   v48.height = v19;

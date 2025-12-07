@@ -1195,10 +1195,11 @@ void RoundToSignificantDigits(int a1, double a2)
   }
 }
 
-void sub_133B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, char a17)
+void sub_133B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, ...)
 {
+  va_start(va, location);
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a17, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1707,9 +1708,9 @@ void sub_16050(uint64_t a1)
   dispatch_after(v5, &_dispatch_main_q, block);
 }
 
-void sub_163CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_163CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1837,9 +1838,9 @@ void sub_16544(uint64_t a1)
   [v56 setProperty:v57 forKey:@"buttonColor"];
 }
 
-void sub_16B90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_16B90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2170,167 +2171,163 @@ void sub_1A6C0(uint64_t a1)
 {
   v1 = a1;
   v2 = [*(a1 + 32) tips];
-  v30 = v2;
+  v28 = v2;
   if (![v2 count])
   {
-    v28 = [*(v1 + 40) tipsByPluginID];
-    v29 = [*(v1 + 32) identifier];
-    [v28 removeObjectForKey:v29];
+    v26 = [*(v1 + 40) tipsByPluginID];
+    v27 = [*(v1 + 32) identifier];
+    [v26 removeObjectForKey:v27];
     goto LABEL_34;
   }
 
-  v39 = 0u;
-  v40 = 0u;
   v37 = 0u;
   v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   obj = v2;
-  v3 = [obj countByEnumeratingWithState:&v37 objects:v45 count:16];
+  v3 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
   if (!v3)
   {
     goto LABEL_32;
   }
 
   v4 = v3;
-  v5 = *v38;
-  v6 = &__objc_personality_v0_ptr;
-  v31 = *v38;
-  v32 = v1;
+  v5 = *v36;
+  v29 = *v36;
+  v30 = v1;
   do
   {
-    v7 = 0;
-    v33 = v4;
+    v6 = 0;
+    v31 = v4;
     do
     {
-      if (*v38 != v5)
+      if (*v36 != v5)
       {
         objc_enumerationMutation(obj);
       }
 
-      v8 = *(*(&v37 + 1) + 8 * v7);
-      v9 = [*(v1 + 32) identifier];
-      [v8 setProperty:v9 forKey:@"_stPluginID"];
+      v7 = *(*(&v35 + 1) + 8 * v6);
+      v8 = [*(v1 + 32) identifier];
+      [v7 setProperty:v8 forKey:@"_stPluginID"];
 
-      v10 = [v8 propertyForKey:@"_stTipID"];
+      v9 = [v7 propertyForKey:@"_stTipID"];
 
-      if (!v10)
+      if (!v9)
       {
-        v11 = [v8 title];
-        [v8 setProperty:v11 forKey:@"_stTipID"];
+        v10 = [v7 title];
+        [v7 setProperty:v10 forKey:@"_stTipID"];
       }
 
-      v12 = v6[284];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v36 = v7;
-        v13 = v8;
-        v14 = [v13 significantItems];
+        v34 = v6;
+        v11 = v7;
+        v12 = [v11 significantItems];
+        v39 = 0u;
+        v40 = 0u;
         v41 = 0u;
         v42 = 0u;
-        v43 = 0u;
-        v44 = 0u;
-        v15 = [v14 countByEnumeratingWithState:&v41 objects:v46 count:16];
-        if (v15)
+        v13 = [v12 countByEnumeratingWithState:&v39 objects:v44 count:16];
+        if (v13)
         {
-          v16 = v15;
-          v35 = v13;
+          v14 = v13;
+          v33 = v11;
+          v15 = 0;
+          v16 = 0;
           v17 = 0;
           v18 = 0;
-          v19 = 0;
-          v20 = 0;
-          v21 = *v42;
+          v19 = *v40;
           do
           {
-            for (i = 0; i != v16; i = i + 1)
+            for (i = 0; i != v14; i = i + 1)
             {
-              if (*v42 != v21)
+              if (*v40 != v19)
               {
-                objc_enumerationMutation(v14);
+                objc_enumerationMutation(v12);
               }
 
-              v23 = *(*(&v41 + 1) + 8 * i);
-              v24 = [v23 isRecoverable];
-              v25 = [v23 size];
-              if (v24)
+              v21 = *(*(&v39 + 1) + 8 * i);
+              v22 = [v21 isRecoverable];
+              v23 = [v21 size];
+              if (v22)
               {
-                ++v19;
+                ++v17;
               }
 
               else
               {
-                v17 += v25;
-                ++v18;
+                v15 += v23;
+                ++v16;
               }
 
-              if (v24)
+              if (v22)
               {
-                v20 += v25;
+                v18 += v23;
               }
             }
 
-            v16 = [v14 countByEnumeratingWithState:&v41 objects:v46 count:16];
+            v14 = [v12 countByEnumeratingWithState:&v39 objects:v44 count:16];
           }
 
-          while (v16);
-          if (v19)
+          while (v14);
+          if (v17)
           {
-            v26 = [NSNumber numberWithLongLong:v20 / v19];
-            v13 = v35;
-            [v35 setProperty:v26 forKey:@"_stRecAvg"];
+            v24 = [NSNumber numberWithLongLong:v18 / v17];
+            v11 = v33;
+            [v33 setProperty:v24 forKey:@"_stRecAvg"];
 
-            v5 = v31;
-            v1 = v32;
-            v6 = &__objc_personality_v0_ptr;
-            if (!v18)
+            v5 = v29;
+            v1 = v30;
+            if (!v16)
             {
               goto LABEL_24;
             }
 
 LABEL_28:
-            v27 = [NSNumber numberWithLongLong:v17 / v18];
-            [v13 setProperty:v27 forKey:@"_stNonRecAvg"];
+            v25 = [NSNumber numberWithLongLong:v15 / v16];
+            [v11 setProperty:v25 forKey:@"_stNonRecAvg"];
 
             goto LABEL_29;
           }
 
-          v5 = v31;
-          v1 = v32;
-          v6 = &__objc_personality_v0_ptr;
-          v13 = v35;
+          v5 = v29;
+          v1 = v30;
+          v11 = v33;
         }
 
         else
         {
-          v18 = 0;
-          v17 = 0;
+          v16 = 0;
+          v15 = 0;
         }
 
-        [v13 setProperty:0 forKey:@"_stRecAvg"];
-        if (v18)
+        [v11 setProperty:0 forKey:@"_stRecAvg"];
+        if (v16)
         {
           goto LABEL_28;
         }
 
 LABEL_24:
-        [v13 setProperty:0 forKey:@"_stNonRecAvg"];
+        [v11 setProperty:0 forKey:@"_stNonRecAvg"];
 LABEL_29:
-        v4 = v33;
-        v7 = v36;
+        v4 = v31;
+        v6 = v34;
       }
 
-      v7 = v7 + 1;
+      v6 = v6 + 1;
     }
 
-    while (v7 != v4);
-    v4 = [obj countByEnumeratingWithState:&v37 objects:v45 count:16];
+    while (v6 != v4);
+    v4 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
   }
 
   while (v4);
 LABEL_32:
 
-  v28 = [*(v1 + 40) tipsByPluginID];
-  v29 = [*(v1 + 32) identifier];
-  [v28 setObject:obj forKey:v29];
+  v26 = [*(v1 + 40) tipsByPluginID];
+  v27 = [*(v1 + 32) identifier];
+  [v26 setObject:obj forKey:v27];
 LABEL_34:
 }
 
@@ -2564,32 +2561,8 @@ int64_t sub_1B634(id a1, STStorageTip *a2, STStorageTip *a3)
   objc_opt_class();
   if ((isKindOfClass & 1) == (objc_opt_isKindOfClass() & 1))
   {
-    if (isKindOfClass)
+    if ((isKindOfClass & 1) != 0 || ((v8 = v4, v9 = v5, -[STStorageTip propertyForKey:](v8, "propertyForKey:", @"_stRecAvg"), v10 = objc_claimAutoreleasedReturnValue(), -[STStorageTip propertyForKey:](v9, "propertyForKey:", @"_stRecAvg"), v11 = objc_claimAutoreleasedReturnValue(), !(v10 | v11)) && (v7 = @"_stNonRecAvg", -[STStorageTip propertyForKey:](v8, "propertyForKey:", @"_stNonRecAvg"), v10 = objc_claimAutoreleasedReturnValue(), -[STStorageTip propertyForKey:](v9, "propertyForKey:", @"_stNonRecAvg"), v11 = objc_claimAutoreleasedReturnValue(), !(v10 | v11)) ? (v14 = 1) : ((v12 = v11, v13 = [v10 longLongValue], v13 > objc_msgSend(v12, "longLongValue")) ? (v7 = -1) : (v7 = 1), v12, v10, v14 = 0), v9, v8, v14))
     {
-      goto LABEL_14;
-    }
-
-    v8 = v4;
-    v9 = v5;
-    v10 = [(STStorageTip *)v8 propertyForKey:@"_stRecAvg"];
-    v11 = [(STStorageTip *)v9 propertyForKey:@"_stRecAvg"];
-    if (v10 | v11 || (v7 = @"_stNonRecAvg", [(STStorageTip *)v8 propertyForKey:@"_stNonRecAvg"], v10 = objc_claimAutoreleasedReturnValue(), [(STStorageTip *)v9 propertyForKey:@"_stNonRecAvg"], v11 = objc_claimAutoreleasedReturnValue(), v10 | v11))
-    {
-      v12 = v11;
-      v13 = [v10 longLongValue];
-      v7 = v13 > [v12 longLongValue] ? -1 : 1;
-
-      v14 = 0;
-    }
-
-    else
-    {
-      v14 = 1;
-    }
-
-    if (v14)
-    {
-LABEL_14:
       v15 = [(STStorageTip *)v4 sortSize];
       v16 = [(STStorageTip *)v5 sortSize];
       if (v15 | v16)

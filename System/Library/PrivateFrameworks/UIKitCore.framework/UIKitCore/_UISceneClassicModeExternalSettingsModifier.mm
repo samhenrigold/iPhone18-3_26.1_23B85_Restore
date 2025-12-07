@@ -103,9 +103,9 @@ LABEL_19:
   if ((v10 | v8))
   {
     cornerRadiusConfiguration = [settingsCopy cornerRadiusConfiguration];
-    v26 = [cornerRadiusConfiguration isEqual:self->_cornerRadiusConfiguration];
+    isEqual = objc_msgSend_isEqual_(cornerRadiusConfiguration);
     v27 = 0;
-    if (cornerRadiusConfiguration && (v26 & 1) == 0)
+    if (cornerRadiusConfiguration && (isEqual & 1) == 0)
     {
       if ([cornerRadiusConfiguration isCongruent] && (objc_msgSend(cornerRadiusConfiguration, "topLeft"), v28 == 0.0))
       {

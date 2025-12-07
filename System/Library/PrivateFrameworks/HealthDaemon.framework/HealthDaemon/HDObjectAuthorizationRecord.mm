@@ -53,11 +53,11 @@
 
 - (HDObjectAuthorizationRecord)initWithCoder:(id)coder
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v29.receiver = self;
-  v29.super_class = HDObjectAuthorizationRecord;
-  v5 = [(HDObjectAuthorizationRecord *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = HDObjectAuthorizationRecord;
+  v5 = [(HDObjectAuthorizationRecord *)&v28 init];
   if (!v5)
   {
     goto LABEL_5;
@@ -88,11 +88,11 @@
       v19 = v5->_objectUUID;
       v18 = v5->_sourceUUID;
       *buf = 138543874;
-      v31 = v17;
-      v32 = 2114;
-      v33 = v18;
-      v34 = 2114;
-      v35 = v19;
+      v30 = v17;
+      v31 = 2114;
+      v32 = v18;
+      v33 = 2114;
+      v34 = v19;
       v20 = v17;
       v21 = "Decoded %{public}@ has incomplete source and object IDs: %{public}@, %{public}@";
       v22 = v16;
@@ -118,9 +118,9 @@ LABEL_11:
       v25 = objc_opt_class();
       status = v5->_status;
       *buf = 138543618;
-      v31 = v25;
-      v32 = 2048;
-      v33 = status;
+      v30 = v25;
+      v31 = 2048;
+      v32 = status;
       v20 = v25;
       v21 = "Decoded %{public}@ has invalid authorization status: %ld";
       v22 = v16;
@@ -135,7 +135,6 @@ LABEL_5:
   v14 = v5;
 LABEL_12:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

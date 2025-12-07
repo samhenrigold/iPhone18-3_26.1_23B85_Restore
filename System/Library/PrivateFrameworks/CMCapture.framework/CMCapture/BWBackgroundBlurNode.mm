@@ -1,14 +1,14 @@
 @interface BWBackgroundBlurNode
 - (BWBackgroundBlurNode)initWithStillImageCaptureEnabled:(BOOL)enabled maxLossyCompressionLevel:(int)level fastSwitchEnabled:(BOOL)switchEnabled availableEffects:(unint64_t)effects activeEffect:(unint64_t)effect isHighQualitySupported:(BOOL)supported upstreamDeviceOrientationCorrectionEnabled:(BOOL)correctionEnabled deviceType:(int)self0 captureDevice:(id)self1;
 - (CVPixelBufferRef)_savePixelBufferForStillImageCaptureRequests:(__int128 *)requests withPts:;
-- (uint64_t)_reportBackgroundBlurCoreAnalyticsData;
-- (uint64_t)_updateActiveReactions:(__int128 *)reactions currentRenderPTS:(uint64_t)s requestedTriggers:;
-- (uint64_t)_updateOutputRequirements;
+- (id)_updateOutputRequirements;
 - (unint64_t)_getActivePTEffectTypes;
+- (unsigned)_reportBackgroundBlurCoreAnalyticsData;
 - (void)_createMatchingPixelBufferFromSavedVideoBuffersWithTargetPts:(uint64_t)pts;
 - (void)_newStillImageOutputPixelBufferFromVideoPixelBuffer:(uint64_t)buffer;
 - (void)_supportedInputPixelFormats;
 - (void)_supportedOutputPixelFormats;
+- (void)_updateActiveReactions:(__int128 *)reactions currentRenderPTS:(uint64_t)s requestedTriggers:;
 - (void)configurationWithID:(int64_t)d updatedFormat:(id)format didBecomeLiveForInput:(id)input;
 - (void)dealloc;
 - (void)didChangeBackgroundBlurAperture:(float)aperture;
@@ -271,7 +271,7 @@ void __31__BWBackgroundBlurNode_dealloc__block_invoke(uint64_t a1)
 
 LABEL_7:
 
-  [(BWBackgroundBlurNode *)self _updateOutputRequirements];
+  [(BWBackgroundBlurNode *)&self->super.super.isa _updateOutputRequirements];
 }
 
 - (void)configurationWithID:(int64_t)d updatedFormat:(id)format didBecomeLiveForInput:(id)input
@@ -344,7 +344,7 @@ LABEL_9:
 - (void)renderSampleBuffer:(opaqueCMSampleBuffer *)buffer forInput:(id)input
 {
   os_unfair_lock_lock(&self->_bufferServicingLock);
-  v86 = 0;
+  v86[0] = 0;
   if (self->_stillImageInput == input)
   {
     v7 = &OBJC_IVAR___BWBackgroundBlurNode__stillImageOutput;
@@ -611,7 +611,7 @@ LABEL_21:
     *&time[16] = v53;
     if (FigCFDictionaryGetCGRectIfPresent())
     {
-      [(PTEffectRenderRequest *)self->_ptEffectRenderRequest setOutColorROI:*time, *&time[16], *&time[24]];
+      [(PTEffectRenderRequest *)self->_ptEffectRenderRequest setOutColorROI:*time, *&time[8], *&time[16], *&time[24]];
     }
 
     v54 = [(PTEffect *)self->_ptEffect render:self->_ptEffectRenderRequest];
@@ -650,7 +650,7 @@ LABEL_72:
 
       v55 = v70;
 LABEL_68:
-      v86 = CFRetain(buffer);
+      v86[0] = CFRetain(buffer);
       CFRetain(ImageBuffer);
       if (v55)
       {
@@ -691,7 +691,7 @@ LABEL_30:
   }
 
   inputCopy3 = input;
-  v86 = CFRetain(buffer);
+  v86[0] = CFRetain(buffer);
   ImageBuffer = CFRetain(ImageBuffer);
   [(NSMutableArray *)self->_pendingPTEffectReactions removeAllObjects];
   v13 = 0;
@@ -724,10 +724,10 @@ LABEL_12:
   }
 
 LABEL_24:
-  if (!v86)
+  if (!v86[0])
   {
-    BWCMSampleBufferCreateCopyWithNewPixelBuffer(buffer, ImageBuffer, &self->_outputFormatDescription, &v86);
-    if (!v86)
+    BWCMSampleBufferCreateCopyWithNewPixelBuffer(buffer, ImageBuffer, &self->_outputFormatDescription, v86);
+    if (!v86[0])
     {
       v59 = 4294954516;
       goto LABEL_83;
@@ -747,9 +747,9 @@ LABEL_24:
   }
 
 LABEL_31:
-  if (v86)
+  if (v86[0])
   {
-    CFRelease(v86);
+    CFRelease(v86[0]);
   }
 
   if (ImageBuffer)
@@ -768,7 +768,7 @@ LABEL_31:
   os_unfair_lock_unlock(&self->_bufferServicingLock);
 }
 
-uint64_t __82__BWBackgroundBlurNode__updateActiveReactions_currentRenderPTS_requestedTriggers___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void *__82__BWBackgroundBlurNode__updateActiveReactions_currentRenderPTS_requestedTriggers___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   [*(*(a1 + 32) + 480) removeObjectForKey:a2];
   result = bbn_StringForPTEffectReactionType([a3 effectType]);
@@ -784,7 +784,7 @@ uint64_t __82__BWBackgroundBlurNode__updateActiveReactions_currentRenderPTS_requ
   return result;
 }
 
-uint64_t __82__BWBackgroundBlurNode__updateActiveReactions_currentRenderPTS_requestedTriggers___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
+void *__82__BWBackgroundBlurNode__updateActiveReactions_currentRenderPTS_requestedTriggers___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   result = bbn_StringForPTEffectReactionType([a3 effectType]);
   if (result)
@@ -951,13 +951,12 @@ uint64_t __82__BWBackgroundBlurNode__updateActiveReactions_currentRenderPTS_requ
 
 - (void)lowPowerModeChanged:(id)changed
 {
-  name = [changed name];
-  if ([name isEqualToString:*MEMORY[0x1E696A7D8]])
+  if (objc_msgSend_isEqualToString_([changed name]))
   {
     if ([objc_msgSend(MEMORY[0x1E696AE30] "processInfo")])
     {
       selfCopy2 = self;
-      v6 = 100;
+      v5 = 100;
     }
 
     else
@@ -968,10 +967,10 @@ uint64_t __82__BWBackgroundBlurNode__updateActiveReactions_currentRenderPTS_requ
       }
 
       selfCopy2 = self;
-      v6 = 110;
+      v5 = 110;
     }
 
-    [(BWBackgroundBlurNode *)selfCopy2 setEffectQuality:v6];
+    [(BWBackgroundBlurNode *)selfCopy2 setEffectQuality:v5];
   }
 }
 
@@ -1010,12 +1009,12 @@ uint64_t __82__BWBackgroundBlurNode__updateActiveReactions_currentRenderPTS_requ
   return v2;
 }
 
-- (uint64_t)_updateOutputRequirements
+- (id)_updateOutputRequirements
 {
   if (result)
   {
     v1 = result;
-    v2 = [objc_msgSend(*(result + 176) "videoFormat")];
+    v2 = [objc_msgSend(result[22] "videoFormat")];
     if (v2)
     {
       v6 = [MEMORY[0x1E696AD98] numberWithInt:v2];
@@ -1185,21 +1184,21 @@ LABEL_28:
   return result;
 }
 
-- (uint64_t)_reportBackgroundBlurCoreAnalyticsData
+- (unsigned)_reportBackgroundBlurCoreAnalyticsData
 {
   if (result)
   {
     v1 = result;
     v2 = objc_alloc_init(BWBackgroundBlurSessionAnalyticsPayload);
-    [(BWBackgroundBlurSessionAnalyticsPayload *)v2 setClientApplicationID:*(v1 + 304)];
-    [(BWBackgroundBlurSessionAnalyticsPayload *)v2 setEffectQuality:*(v1 + 544)];
-    [*(v1 + 320) average];
+    [(BWBackgroundBlurSessionAnalyticsPayload *)v2 setClientApplicationID:*(v1 + 38)];
+    [(BWBackgroundBlurSessionAnalyticsPayload *)v2 setEffectQuality:*(v1 + 68)];
+    [*(v1 + 40) average];
     [(BWBackgroundBlurSessionAnalyticsPayload *)v2 setAverageProcessingTime:?];
-    [*(v1 + 320) max];
+    [*(v1 + 40) max];
     [(BWBackgroundBlurSessionAnalyticsPayload *)v2 setMaxProcessingTime:?];
-    -[BWBackgroundBlurSessionAnalyticsPayload setNumberOfFrames:](v2, "setNumberOfFrames:", [*(v1 + 320) numberOfSamples]);
-    [(BWBackgroundBlurSessionAnalyticsPayload *)v2 setNumberOfFrameDrops:*(v1 + 328)];
-    [(BWBackgroundBlurSessionAnalyticsPayload *)v2 setMaxThermalSystemPressureLevel:*(v1 + 332)];
+    -[BWBackgroundBlurSessionAnalyticsPayload setNumberOfFrames:](v2, "setNumberOfFrames:", [*(v1 + 40) numberOfSamples]);
+    [(BWBackgroundBlurSessionAnalyticsPayload *)v2 setNumberOfFrameDrops:v1[82]];
+    [(BWBackgroundBlurSessionAnalyticsPayload *)v2 setMaxThermalSystemPressureLevel:v1[83]];
     v3 = +[BWCoreAnalyticsReporter sharedInstance];
 
     return [(BWCoreAnalyticsReporter *)v3 sendEvent:v2];
@@ -1208,7 +1207,7 @@ LABEL_28:
   return result;
 }
 
-- (uint64_t)_updateActiveReactions:(__int128 *)reactions currentRenderPTS:(uint64_t)s requestedTriggers:
+- (void)_updateActiveReactions:(__int128 *)reactions currentRenderPTS:(uint64_t)s requestedTriggers:
 {
   if (result)
   {
@@ -1234,14 +1233,14 @@ LABEL_28:
       v11[5] = v6;
       [v9 enumerateKeysAndObjectsUsingBlock:v11];
       [v8 sortUsingComparator:&__block_literal_global_52];
-      v10 = *(v6 + 496);
+      v10 = *(v6 + 62);
       if (v10)
       {
         (*(v10 + 16))(v10, v8);
       }
 
       result = [a2 mutableCopy];
-      *(v6 + 480) = result;
+      *(v6 + 60) = result;
     }
   }
 
@@ -1400,13 +1399,6 @@ LABEL_28:
   os_unfair_lock_unlock(&self->_bufferServicingLock);
 }
 
-- (uint64_t)renderSampleBuffer:forInput:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
 - (__n128)renderSampleBuffer:(uint64_t)a1 forInput:.cold.2(uint64_t a1)
 {
   v1 = MEMORY[0x1E6960C70];
@@ -1426,13 +1418,6 @@ LABEL_28:
   *(a1 + 320) = v2;
   [(BWStats *)v2 setMultiplier:0.000001];
   return [*(a1 + 320) setUnitDesignator:@"ms"];
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
 }
 
 @end

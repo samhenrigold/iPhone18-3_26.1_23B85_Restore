@@ -19,58 +19,71 @@
 
 + (id)sessionRequiringAuthorization:(int64_t)authorization
 {
-  v3 = [[CLServiceSession alloc] initWithLocationManager:+[CLLocationManager weakSharedInstance](CLLocationManager authorizationRequirement:"weakSharedInstance") fullAccuracyPurposeKey:authorization queue:0 handler:+[CLLocationManager sharedQueue], 0];
+  v4 = [CLServiceSession alloc];
+  v8 = objc_msgSend_weakSharedInstance(CLLocationManager, v5, v6, v7);
+  v12 = objc_msgSend_sharedQueue(CLLocationManager, v9, v10, v11);
+  v14 = objc_msgSend_initWithLocationManager_authorizationRequirement_fullAccuracyPurposeKey_queue_handler_(v4, v13, v8, authorization, 0, v12, 0);
 
-  return v3;
+  return v14;
 }
 
 + (id)disconnectedSessionRequiringAuthorization:(int64_t)authorization
 {
-  v3 = [[CLServiceSession alloc] initDisconnectedSessionWithAuthorizationRequirement:authorization fullAccuracyPurposeKey:0];
+  v4 = [CLServiceSession alloc];
+  inited = objc_msgSend_initDisconnectedSessionWithAuthorizationRequirement_fullAccuracyPurposeKey_(v4, v5, authorization, 0);
 
-  return v3;
+  return inited;
 }
 
 + (id)sessionRequiringAuthorization:(int64_t)authorization queue:(id)queue handler:(id)handler
 {
-  handler = [[CLServiceSession alloc] initWithLocationManager:+[CLLocationManager authorizationRequirement:"weakSharedInstance"]fullAccuracyPurposeKey:authorization queue:0 handler:queue, handler];
+  v8 = [CLServiceSession alloc];
+  v12 = objc_msgSend_weakSharedInstance(CLLocationManager, v9, v10, v11);
+  v14 = objc_msgSend_initWithLocationManager_authorizationRequirement_fullAccuracyPurposeKey_queue_handler_(v8, v13, v12, authorization, 0, queue, handler);
 
-  return handler;
+  return v14;
 }
 
 + (id)sessionRequiringAuthorization:(int64_t)authorization fullAccuracyPurposeKey:(id)key
 {
-  v4 = [[CLServiceSession alloc] initWithLocationManager:+[CLLocationManager weakSharedInstance](CLLocationManager authorizationRequirement:"weakSharedInstance") fullAccuracyPurposeKey:authorization queue:key handler:+[CLLocationManager sharedQueue], 0];
+  v6 = [CLServiceSession alloc];
+  v10 = objc_msgSend_weakSharedInstance(CLLocationManager, v7, v8, v9);
+  v14 = objc_msgSend_sharedQueue(CLLocationManager, v11, v12, v13);
+  v16 = objc_msgSend_initWithLocationManager_authorizationRequirement_fullAccuracyPurposeKey_queue_handler_(v6, v15, v10, authorization, key, v14, 0);
 
-  return v4;
+  return v16;
 }
 
 + (id)disconnectedSessionRequiringAuthorization:(int64_t)authorization fullAccuracyPurposeKey:(id)key
 {
-  v4 = [[CLServiceSession alloc] initDisconnectedSessionWithAuthorizationRequirement:authorization fullAccuracyPurposeKey:key];
+  v6 = [CLServiceSession alloc];
+  inited = objc_msgSend_initDisconnectedSessionWithAuthorizationRequirement_fullAccuracyPurposeKey_(v6, v7, authorization, key);
 
-  return v4;
+  return inited;
 }
 
 + (id)sessionRequiringAuthorization:(int64_t)authorization fullAccuracyPurposeKey:(id)key queue:(id)queue handler:(id)handler
 {
-  handler = [[CLServiceSession alloc] initWithLocationManager:+[CLLocationManager authorizationRequirement:"weakSharedInstance"]fullAccuracyPurposeKey:authorization queue:key handler:queue, handler];
+  v10 = [CLServiceSession alloc];
+  v14 = objc_msgSend_weakSharedInstance(CLLocationManager, v11, v12, v13);
+  v16 = objc_msgSend_initWithLocationManager_authorizationRequirement_fullAccuracyPurposeKey_queue_handler_(v10, v15, v14, authorization, key, queue, handler);
 
-  return handler;
+  return v16;
 }
 
 + (id)sessionWithLocationManager:(id)manager authorizationRequirement:(int64_t)requirement fullAccuracyPurposeKey:(id)key queue:(id)queue handler:(id)handler
 {
-  v7 = [[CLServiceSession alloc] initWithLocationManager:manager authorizationRequirement:requirement fullAccuracyPurposeKey:key queue:queue handler:handler];
+  v12 = [CLServiceSession alloc];
+  v14 = objc_msgSend_initWithLocationManager_authorizationRequirement_fullAccuracyPurposeKey_queue_handler_(v12, v13, manager, requirement, key, queue, handler);
 
-  return v7;
+  return v14;
 }
 
 - (void)setupSessionInternalWithLocationManager:(id)manager authorizationRequirement:(int64_t)requirement fullAccuracyPurposeKey:(id)key queue:(id)queue
 {
   queueCopy = queue;
   managerCopy = manager;
-  v26 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   if (manager)
   {
     if (queue)
@@ -81,40 +94,40 @@
 
   else
   {
-    managerCopy = +[CLLocationManager weakSharedInstance];
+    managerCopy = objc_msgSend_weakSharedInstance(CLLocationManager, a2, 0, requirement);
     if (queueCopy)
     {
       goto LABEL_3;
     }
   }
 
-  queueCopy = +[CLLocationManager sharedQueue];
+  queueCopy = objc_msgSend_sharedQueue(CLLocationManager, a2, manager, requirement);
 LABEL_3:
   switch(requirement)
   {
     case 2:
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = sub_19B995AC0;
-      v18[3] = &unk_1E753E1D0;
-      v18[4] = self;
-      v11 = [CLServiceSessionInternal alwaysSessionWithLocationManager:managerCopy queue:queueCopy handler:v18];
+      v21[0] = MEMORY[0x1E69E9820];
+      v21[1] = 3221225472;
+      v21[2] = sub_19B995AC0;
+      v21[3] = &unk_1E753E1D0;
+      v21[4] = self;
+      v11 = objc_msgSend_alwaysSessionWithLocationManager_queue_handler_(CLServiceSessionInternal, a2, managerCopy, queueCopy, v21);
       goto LABEL_11;
     case 1:
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = sub_19B995AB0;
-      v19[3] = &unk_1E753E1D0;
-      v19[4] = self;
-      v11 = [CLServiceSessionInternal whenInUseSessionWithLocationManager:managerCopy queue:queueCopy handler:v19];
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = sub_19B995AB0;
+      v22[3] = &unk_1E753E1D0;
+      v22[4] = self;
+      v11 = objc_msgSend_whenInUseSessionWithLocationManager_queue_handler_(CLServiceSessionInternal, a2, managerCopy, queueCopy, v22);
       goto LABEL_11;
     case 0:
-      v20[0] = MEMORY[0x1E69E9820];
-      v20[1] = 3221225472;
-      v20[2] = sub_19B995AA0;
-      v20[3] = &unk_1E753E1D0;
-      v20[4] = self;
-      v11 = [CLServiceSessionInternal passiveSessionWithLocationManager:managerCopy queue:queueCopy handler:v20];
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 3221225472;
+      v23[2] = sub_19B995AA0;
+      v23[3] = &unk_1E753E1D0;
+      v23[4] = self;
+      v11 = objc_msgSend_passiveSessionWithLocationManager_queue_handler_(CLServiceSessionInternal, a2, managerCopy, queueCopy, v23);
 LABEL_11:
       self->_serviceSessionInternal = v11;
       goto LABEL_12;
@@ -125,46 +138,45 @@ LABEL_11:
     dispatch_once(&qword_1ED519088, &unk_1F0E6E048);
   }
 
-  v15 = qword_1ED519090;
+  v18 = qword_1ED519090;
   if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_FAULT))
   {
     buf = 68289282;
-    v22 = 2082;
-    v23 = "";
-    v24 = 1026;
+    v25 = 2082;
+    v26 = "";
+    v27 = 1026;
     requirementCopy2 = requirement;
-    _os_log_impl(&dword_19B873000, v15, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Invalid AuthorizationRequirementType for CLServiceSession, authorizationRequirement:%{public}d}", &buf, 0x18u);
+    _os_log_impl(&dword_19B873000, v18, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Invalid AuthorizationRequirementType for CLServiceSession, authorizationRequirement:%{public}d}", &buf, 0x18u);
     if (qword_1ED519088 != -1)
     {
       dispatch_once(&qword_1ED519088, &unk_1F0E6E048);
     }
   }
 
-  v16 = qword_1ED519090;
+  v19 = qword_1ED519090;
   if (os_signpost_enabled(qword_1ED519090))
   {
     buf = 68289282;
-    v22 = 2082;
-    v23 = "";
-    v24 = 1026;
+    v25 = 2082;
+    v26 = "";
+    v27 = 1026;
     requirementCopy2 = requirement;
-    _os_signpost_emit_with_name_impl(&dword_19B873000, v16, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Invalid AuthorizationRequirementType for CLServiceSession", "{msg%{public}.0s:Invalid AuthorizationRequirementType for CLServiceSession, authorizationRequirement:%{public}d}", &buf, 0x18u);
+    _os_signpost_emit_with_name_impl(&dword_19B873000, v19, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Invalid AuthorizationRequirementType for CLServiceSession", "{msg%{public}.0s:Invalid AuthorizationRequirementType for CLServiceSession, authorizationRequirement:%{public}d}", &buf, 0x18u);
   }
 
 LABEL_12:
-  if ([key length])
+  if (objc_msgSend_length(key, v12, v13, v14))
   {
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = sub_19B995AD0;
-    v17[3] = &unk_1E753E1D0;
-    v17[4] = self;
-    self->_fullAccuracySession = [CLFullAccuracySession fullAccuracySessionWithLocationManager:managerCopy purposeKey:key queue:queueCopy handler:v17];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = sub_19B995AD0;
+    v20[3] = &unk_1E753E1D0;
+    v20[4] = self;
+    self->_fullAccuracySession = objc_msgSend_fullAccuracySessionWithLocationManager_purposeKey_queue_handler_(CLFullAccuracySession, v15, managerCopy, key, queueCopy, v20);
   }
 
-  v12 = self->_serviceSessionInternal;
-  v13 = self->_fullAccuracySession;
-  v14 = *MEMORY[0x1E69E9840];
+  v16 = self->_serviceSessionInternal;
+  v17 = self->_fullAccuracySession;
 }
 
 - (id)initDisconnectedSessionWithAuthorizationRequirement:(int64_t)requirement fullAccuracyPurposeKey:(id)key
@@ -185,10 +197,10 @@ LABEL_12:
 
 - (CLServiceSession)initWithLocationManager:(id)manager authorizationRequirement:(int64_t)requirement fullAccuracyPurposeKey:(id)key queue:(id)queue handler:(id)handler
 {
-  v15.receiver = self;
-  v15.super_class = CLServiceSession;
-  v12 = [(CLServiceSession *)&v15 init];
-  v13 = v12;
+  v16.receiver = self;
+  v16.super_class = CLServiceSession;
+  v12 = [(CLServiceSession *)&v16 init];
+  v14 = v12;
   if (v12)
   {
     v12->_aggregatedDiagnosticMask = -1;
@@ -197,15 +209,15 @@ LABEL_12:
       v12->_clientCallback = _Block_copy(handler);
     }
 
-    [(CLServiceSession *)v13 setupSessionInternalWithLocationManager:manager authorizationRequirement:requirement fullAccuracyPurposeKey:key queue:queue];
+    objc_msgSend_setupSessionInternalWithLocationManager_authorizationRequirement_fullAccuracyPurposeKey_queue_(v14, v13, manager, requirement, key, queue);
   }
 
-  return v13;
+  return v14;
 }
 
 - (void)setHandler:(id)handler
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   if (self->_clientCallback)
   {
     if (qword_1ED519088 != -1)
@@ -213,64 +225,65 @@ LABEL_12:
       dispatch_once(&qword_1ED519088, &unk_1F0E6E048);
     }
 
-    v9 = qword_1ED519090;
+    v15 = qword_1ED519090;
     if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289795;
-      v16 = 0;
-      v17 = 2082;
-      v18 = "";
-      v19 = 2050;
+      v22 = 0;
+      v23 = 2082;
+      v24 = "";
+      v25 = 2050;
       selfCopy6 = self;
-      v21 = 2082;
-      v22 = "assert";
-      v23 = 2081;
-      v24 = "_clientCallback == nullptr";
-      _os_log_impl(&dword_19B873000, v9, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#serviceSession should initially be nil, self:%{public}p, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x30u);
+      v27 = 2082;
+      v28 = "assert";
+      v29 = 2081;
+      v30 = "_clientCallback == nullptr";
+      _os_log_impl(&dword_19B873000, v15, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#serviceSession should initially be nil, self:%{public}p, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x30u);
       if (qword_1ED519088 != -1)
       {
         dispatch_once(&qword_1ED519088, &unk_1F0E6E048);
       }
     }
 
-    v10 = qword_1ED519090;
+    v16 = qword_1ED519090;
     if (os_signpost_enabled(qword_1ED519090))
     {
       *buf = 68289795;
-      v16 = 0;
-      v17 = 2082;
-      v18 = "";
-      v19 = 2050;
+      v22 = 0;
+      v23 = 2082;
+      v24 = "";
+      v25 = 2050;
       selfCopy6 = self;
-      v21 = 2082;
-      v22 = "assert";
-      v23 = 2081;
-      v24 = "_clientCallback == nullptr";
-      _os_signpost_emit_with_name_impl(&dword_19B873000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#serviceSession should initially be nil", "{msg%{public}.0s:#serviceSession should initially be nil, self:%{public}p, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x30u);
+      v27 = 2082;
+      v28 = "assert";
+      v29 = 2081;
+      v30 = "_clientCallback == nullptr";
+      _os_signpost_emit_with_name_impl(&dword_19B873000, v16, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#serviceSession should initially be nil", "{msg%{public}.0s:#serviceSession should initially be nil, self:%{public}p, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x30u);
       if (qword_1ED519088 != -1)
       {
         dispatch_once(&qword_1ED519088, &unk_1F0E6E048);
       }
     }
 
-    v11 = qword_1ED519090;
+    v17 = qword_1ED519090;
     if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_INFO))
     {
       *buf = 68289795;
-      v16 = 0;
-      v17 = 2082;
-      v18 = "";
-      v19 = 2050;
+      v22 = 0;
+      v23 = 2082;
+      v24 = "";
+      v25 = 2050;
       selfCopy6 = self;
-      v21 = 2082;
-      v22 = "assert";
-      v23 = 2081;
-      v24 = "_clientCallback == nullptr";
-      _os_log_impl(&dword_19B873000, v11, OS_LOG_TYPE_INFO, "{msg%{public}.0s:#serviceSession should initially be nil, self:%{public}p, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x30u);
+      v27 = 2082;
+      v28 = "assert";
+      v29 = 2081;
+      v30 = "_clientCallback == nullptr";
+      _os_log_impl(&dword_19B873000, v17, OS_LOG_TYPE_INFO, "{msg%{public}.0s:#serviceSession should initially be nil, self:%{public}p, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x30u);
     }
 
-LABEL_27:
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Framework/CoreLocation/CLServiceSession.mm", 225, "[CLServiceSession setHandler:]");
+LABEL_28:
+    __asm { BL              ___stack_chk_fail }
   }
 
   if (!handler)
@@ -280,78 +293,78 @@ LABEL_27:
       dispatch_once(&qword_1ED519088, &unk_1F0E6E048);
     }
 
-    v12 = qword_1ED519090;
+    v18 = qword_1ED519090;
     if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289795;
-      v16 = 0;
-      v17 = 2082;
-      v18 = "";
-      v19 = 2050;
+      v22 = 0;
+      v23 = 2082;
+      v24 = "";
+      v25 = 2050;
       selfCopy6 = self;
-      v21 = 2082;
-      v22 = "assert";
-      v23 = 2081;
-      v24 = "handler != nullptr";
-      _os_log_impl(&dword_19B873000, v12, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#serviceSession can't set a nil handler, self:%{public}p, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x30u);
+      v27 = 2082;
+      v28 = "assert";
+      v29 = 2081;
+      v30 = "handler != nullptr";
+      _os_log_impl(&dword_19B873000, v18, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#serviceSession can't set a nil handler, self:%{public}p, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x30u);
       if (qword_1ED519088 != -1)
       {
         dispatch_once(&qword_1ED519088, &unk_1F0E6E048);
       }
     }
 
-    v13 = qword_1ED519090;
+    v19 = qword_1ED519090;
     if (os_signpost_enabled(qword_1ED519090))
     {
       *buf = 68289795;
-      v16 = 0;
-      v17 = 2082;
-      v18 = "";
-      v19 = 2050;
+      v22 = 0;
+      v23 = 2082;
+      v24 = "";
+      v25 = 2050;
       selfCopy6 = self;
-      v21 = 2082;
-      v22 = "assert";
-      v23 = 2081;
-      v24 = "handler != nullptr";
-      _os_signpost_emit_with_name_impl(&dword_19B873000, v13, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#serviceSession can't set a nil handler", "{msg%{public}.0s:#serviceSession can't set a nil handler, self:%{public}p, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x30u);
+      v27 = 2082;
+      v28 = "assert";
+      v29 = 2081;
+      v30 = "handler != nullptr";
+      _os_signpost_emit_with_name_impl(&dword_19B873000, v19, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#serviceSession can't set a nil handler", "{msg%{public}.0s:#serviceSession can't set a nil handler, self:%{public}p, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x30u);
       if (qword_1ED519088 != -1)
       {
         dispatch_once(&qword_1ED519088, &unk_1F0E6E048);
       }
     }
 
-    v14 = qword_1ED519090;
+    v20 = qword_1ED519090;
     if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_INFO))
     {
       *buf = 68289795;
-      v16 = 0;
-      v17 = 2082;
-      v18 = "";
-      v19 = 2050;
+      v22 = 0;
+      v23 = 2082;
+      v24 = "";
+      v25 = 2050;
       selfCopy6 = self;
-      v21 = 2082;
-      v22 = "assert";
-      v23 = 2081;
-      v24 = "handler != nullptr";
-      _os_log_impl(&dword_19B873000, v14, OS_LOG_TYPE_INFO, "{msg%{public}.0s:#serviceSession can't set a nil handler, self:%{public}p, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x30u);
+      v27 = 2082;
+      v28 = "assert";
+      v29 = 2081;
+      v30 = "handler != nullptr";
+      _os_log_impl(&dword_19B873000, v20, OS_LOG_TYPE_INFO, "{msg%{public}.0s:#serviceSession can't set a nil handler, self:%{public}p, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x30u);
     }
 
-    goto LABEL_27;
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Framework/CoreLocation/CLServiceSession.mm", 226, "[CLServiceSession setHandler:]");
+    goto LABEL_28;
   }
 
   self->_clientCallback = _Block_copy(handler);
-  v4 = +[CLLocationManager weakSharedInstance];
+  v7 = objc_msgSend_weakSharedInstance(CLLocationManager, v4, v5, v6);
   authorizationRequirement = self->_authorizationRequirement;
   fullAccuracyPurposeKey = self->_fullAccuracyPurposeKey;
-  v7 = +[CLLocationManager sharedQueue];
-  v8 = *MEMORY[0x1E69E9840];
+  v14 = objc_msgSend_sharedQueue(CLLocationManager, v10, v11, v12);
 
-  [(CLServiceSession *)self setupSessionInternalWithLocationManager:v4 authorizationRequirement:authorizationRequirement fullAccuracyPurposeKey:fullAccuracyPurposeKey queue:v7];
+  objc_msgSend_setupSessionInternalWithLocationManager_authorizationRequirement_fullAccuracyPurposeKey_queue_(self, v13, v7, authorizationRequirement, fullAccuracyPurposeKey, v14);
 }
 
 - (void)handleDiagnosticUpdate
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = self->_fullAccuracySessionDiagnosticMask | self->_serviceSessionDiagnosticMask;
   if (self->_aggregatedDiagnosticMask == v3)
   {
@@ -361,67 +374,66 @@ LABEL_27:
     }
 
     v4 = qword_1ED519090;
-    if (!os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_15;
-    }
-
-    aggregatedDiagnosticMask = self->_aggregatedDiagnosticMask;
-    *buf = 68289538;
-    v14 = 0;
-    v15 = 2082;
-    v16 = "";
-    v17 = 2050;
-    selfCopy2 = self;
-    v19 = 1026;
-    v20 = aggregatedDiagnosticMask;
-    v6 = "{msg%{public}.0s:#serviceSession skip diagnosticUpdate delivery - new and old aggregatedMask are same, self:%{public}p, aggregatedDiagnosticMask:%{public}d}";
-    v7 = v4;
-    v8 = 34;
+      aggregatedDiagnosticMask = self->_aggregatedDiagnosticMask;
+      *buf = 68289538;
+      v15 = 0;
+      v16 = 2082;
+      v17 = "";
+      v18 = 2050;
+      selfCopy2 = self;
+      v20 = 1026;
+      v21 = aggregatedDiagnosticMask;
+      v6 = "{msg%{public}.0s:#serviceSession skip diagnosticUpdate delivery - new and old aggregatedMask are same, self:%{public}p, aggregatedDiagnosticMask:%{public}d}";
+      v7 = v4;
+      v8 = 34;
 LABEL_14:
-    _os_log_impl(&dword_19B873000, v7, OS_LOG_TYPE_DEFAULT, v6, buf, v8);
-LABEL_15:
-    v11 = *MEMORY[0x1E69E9840];
-    return;
+      _os_log_impl(&dword_19B873000, v7, OS_LOG_TYPE_DEFAULT, v6, buf, v8);
+    }
   }
 
-  self->_aggregatedDiagnosticMask = v3;
-  if (!self->_clientCallback)
+  else
   {
-    if (qword_1ED519088 != -1)
+    self->_aggregatedDiagnosticMask = v3;
+    if (self->_clientCallback)
     {
-      dispatch_once(&qword_1ED519088, &unk_1F0E6E048);
+      v9 = [CLServiceSessionDiagnostic alloc];
+      v13 = objc_msgSend_initWithDiagnostics_(v9, v10, v3, v11);
+      (*(self->_clientCallback + 2))();
     }
 
-    v10 = qword_1ED519090;
-    if (!os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
+    else
     {
-      goto LABEL_15;
-    }
+      if (qword_1ED519088 != -1)
+      {
+        dispatch_once(&qword_1ED519088, &unk_1F0E6E048);
+      }
 
-    *buf = 68289282;
-    v14 = 0;
-    v15 = 2082;
-    v16 = "";
-    v17 = 2050;
-    selfCopy2 = self;
-    v6 = "{msg%{public}.0s:#serviceSession skip diagnosticUpdate delivery - no callback handler, self:%{public}p}";
-    v7 = v10;
-    v8 = 28;
-    goto LABEL_14;
+      v12 = qword_1ED519090;
+      if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 68289282;
+        v15 = 0;
+        v16 = 2082;
+        v17 = "";
+        v18 = 2050;
+        selfCopy2 = self;
+        v6 = "{msg%{public}.0s:#serviceSession skip diagnosticUpdate delivery - no callback handler, self:%{public}p}";
+        v7 = v12;
+        v8 = 28;
+        goto LABEL_14;
+      }
+    }
   }
-
-  v12 = [[CLServiceSessionDiagnostic alloc] initWithDiagnostics:v3];
-  (*(self->_clientCallback + 2))();
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidate
 {
-  [(CLServiceSessionInternal *)self->_serviceSessionInternal invalidate];
+  objc_msgSend_invalidate(self->_serviceSessionInternal, a2, v2, v3);
   fullAccuracySession = self->_fullAccuracySession;
 
-  [(CLFullAccuracySession *)fullAccuracySession invalidate];
+  objc_msgSend_invalidate(fullAccuracySession, v5, v6, v7);
 }
 
 - (void)dealloc

@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)settingValueEventAsString:(int)string;
 - (int)StringAsSettingValueEvent:(id)event;
 - (int)settingValueEvent;
 - (unint64_t)hash;
@@ -155,7 +156,6 @@ LABEL_27:
     goto LABEL_15;
   }
 
-  v5 = *(equalCopy + 48);
   if (*&self->_has)
   {
     if ((*(equalCopy + 48) & 1) == 0 || self->_settingValueEvent != *(equalCopy + 8))
@@ -167,7 +167,7 @@ LABEL_27:
   else if (*(equalCopy + 48))
   {
 LABEL_15:
-    v10 = 0;
+    v9 = 0;
     goto LABEL_16;
   }
 
@@ -198,17 +198,17 @@ LABEL_15:
   languageValueEvent = self->_languageValueEvent;
   if (languageValueEvent | *(equalCopy + 3))
   {
-    v10 = [(HMImmutableSettingsProtoLanguageValueEvent *)languageValueEvent isEqual:?];
+    v9 = [(HMImmutableSettingsProtoLanguageValueEvent *)languageValueEvent isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v9 = 1;
   }
 
 LABEL_16:
 
-  return v10;
+  return v9;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -414,6 +414,21 @@ LABEL_16:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)settingValueEventAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E754C840[string];
   }
 
   return v4;

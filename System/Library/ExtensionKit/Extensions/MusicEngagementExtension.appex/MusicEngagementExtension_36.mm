@@ -1,647 +1,3 @@
-id outlined copy of NowPlaying.TrackTitleStackView.Label.Attributes.Action?(id result, void *a2, void *a3)
-{
-  if (result != 1)
-  {
-    v4 = result;
-    v5 = a3;
-    v6 = v4;
-
-    return a2;
-  }
-
-  return result;
-}
-
-uint64_t sub_10038BA64@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = *a1;
-  v4 = OBJC_IVAR___NowPlayingTrackTitleStackView_metadata;
-  swift_beginAccess();
-  return outlined init with copy of NowPlaying.TrackMetadata(v3 + v4, a2, type metadata accessor for NowPlaying.TrackMetadata);
-}
-
-uint64_t type metadata completion function for NowPlaying.TrackTitleStackView()
-{
-  result = type metadata accessor for NowPlaying.TrackMetadata(319);
-  if (v1 <= 0x3F)
-  {
-    result = swift_updateClassMetadata2();
-    if (!result)
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t get_enum_tag_for_layout_string_9MusicCore10NowPlayingO0aB2UIE19TrackTitleStackViewC17TransitionContextV7Content33_8F7564099BF3006270956A38774C94CALLVSg(uint64_t *a1)
-{
-  v1 = *a1;
-  if (*a1 >= 0xFFFFFFFF)
-  {
-    LODWORD(v1) = -1;
-  }
-
-  return (v1 + 1);
-}
-
-void type metadata completion function for NowPlaying.TrackTitleStackView.Label()
-{
-  _s9MusicCore10NowPlayingO13TrackMetadataV10StringKindOSgMa_0();
-  if (v0 <= 0x3F)
-  {
-    swift_updateClassMetadata2();
-  }
-}
-
-void _s9MusicCore10NowPlayingO13TrackMetadataV10StringKindOSgMa_0()
-{
-  if (!_s9MusicCore10NowPlayingO13TrackMetadataV10StringKindOSgML_0)
-  {
-    type metadata accessor for NowPlaying.TrackMetadata.StringKind(255);
-    v0 = type metadata accessor for Optional();
-    if (!v1)
-    {
-      atomic_store(v0, &_s9MusicCore10NowPlayingO13TrackMetadataV10StringKindOSgML_0);
-    }
-  }
-}
-
-uint64_t get_enum_tag_for_layout_string_9MusicCore10NowPlayingO0aB2UIE19TrackTitleStackViewC5LabelC10AttributesV6ActionVSg(uint64_t *a1)
-{
-  v1 = *a1;
-  if (*a1 >= 0xFFFFFFFF)
-  {
-    LODWORD(v1) = -1;
-  }
-
-  v2 = v1 - 1;
-  if (v2 < 0)
-  {
-    v2 = -1;
-  }
-
-  return (v2 + 1);
-}
-
-__n128 __swift_memcpy96_8_0(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 16);
-  *a1 = *a2;
-  *(a1 + 16) = v2;
-  result = *(a2 + 32);
-  v4 = *(a2 + 48);
-  v5 = *(a2 + 80);
-  *(a1 + 64) = *(a2 + 64);
-  *(a1 + 80) = v5;
-  *(a1 + 32) = result;
-  *(a1 + 48) = v4;
-  return result;
-}
-
-uint64_t getEnumTagSinglePayload for NowPlaying.TrackTitleStackView.Label.Attributes(uint64_t *a1, int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 < 0 && *(a1 + 96))
-  {
-    return *a1 + 0x80000000;
-  }
-
-  v2 = *a1;
-  if (*a1 >= 0xFFFFFFFF)
-  {
-    LODWORD(v2) = -1;
-  }
-
-  return (v2 + 1);
-}
-
-uint64_t storeEnumTagSinglePayload for NowPlaying.TrackTitleStackView.Label.Attributes(uint64_t result, int a2, int a3)
-{
-  if (a2 < 0)
-  {
-    *(result + 88) = 0;
-    *(result + 72) = 0u;
-    *(result + 56) = 0u;
-    *(result + 40) = 0u;
-    *(result + 24) = 0u;
-    *(result + 8) = 0u;
-    *result = a2 & 0x7FFFFFFF;
-    if (a3 < 0)
-    {
-      *(result + 96) = 1;
-    }
-  }
-
-  else
-  {
-    if ((a3 & 0x80000000) == 0)
-    {
-      if (!a2)
-      {
-        return result;
-      }
-
-LABEL_8:
-      *result = (a2 - 1);
-      return result;
-    }
-
-    *(result + 96) = 0;
-    if (a2)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  return result;
-}
-
-uint64_t getEnumTagSinglePayload for NowPlaying.TrackTitleStackView.Label.Attributes.Marquee(unsigned __int8 *a1, unsigned int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 >= 0xFF && a1[48])
-  {
-    return (*a1 + 255);
-  }
-
-  v3 = *a1;
-  v4 = v3 >= 2;
-  v5 = (v3 + 2147483646) & 0x7FFFFFFF;
-  if (!v4)
-  {
-    v5 = -1;
-  }
-
-  return (v5 + 1);
-}
-
-uint64_t storeEnumTagSinglePayload for NowPlaying.TrackTitleStackView.Label.Attributes.Marquee(uint64_t result, unsigned int a2, unsigned int a3)
-{
-  if (a2 > 0xFE)
-  {
-    *(result + 40) = 0;
-    *(result + 24) = 0u;
-    *(result + 8) = 0u;
-    *result = a2 - 255;
-    if (a3 >= 0xFF)
-    {
-      *(result + 48) = 1;
-    }
-  }
-
-  else
-  {
-    if (a3 >= 0xFF)
-    {
-      *(result + 48) = 0;
-    }
-
-    if (a2)
-    {
-      *result = a2 + 1;
-    }
-  }
-
-  return result;
-}
-
-uint64_t type metadata instantiation function for Gliss.Transition<>.Output()
-{
-  GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
-  swift_cvw_instantiateLayoutString();
-  return GenericValueMetadataWithLayoutString;
-}
-
-__n128 __swift_memcpy152_8_0(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 16);
-  *a1 = *a2;
-  *(a1 + 16) = v2;
-  v3 = *(a2 + 32);
-  v4 = *(a2 + 48);
-  v5 = *(a2 + 80);
-  *(a1 + 64) = *(a2 + 64);
-  *(a1 + 80) = v5;
-  *(a1 + 32) = v3;
-  *(a1 + 48) = v4;
-  result = *(a2 + 96);
-  v7 = *(a2 + 112);
-  v8 = *(a2 + 128);
-  *(a1 + 144) = *(a2 + 144);
-  *(a1 + 112) = v7;
-  *(a1 + 128) = v8;
-  *(a1 + 96) = result;
-  return result;
-}
-
-uint64_t getEnumTagSinglePayload for Gliss.Transition<>.Output(uint64_t a1, int a2)
-{
-  if (a2 && *(a1 + 152))
-  {
-    return (*a1 + 1);
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t storeEnumTagSinglePayload for Gliss.Transition<>.Output(uint64_t result, int a2, int a3)
-{
-  if (a2)
-  {
-    *(result + 136) = 0u;
-    *(result + 120) = 0u;
-    *(result + 104) = 0u;
-    *(result + 88) = 0u;
-    *(result + 72) = 0u;
-    *(result + 56) = 0u;
-    *(result + 40) = 0u;
-    *(result + 24) = 0u;
-    *(result + 8) = 0u;
-    *result = (a2 - 1);
-    if (!a3)
-    {
-      return result;
-    }
-
-    v3 = 1;
-  }
-
-  else
-  {
-    if (!a3)
-    {
-      return result;
-    }
-
-    v3 = 0;
-  }
-
-  *(result + 152) = v3;
-  return result;
-}
-
-uint64_t sub_10038BFDC()
-{
-  v1 = *(v0 + 88);
-  if (v1 != 1)
-  {
-  }
-
-  return swift_deallocObject();
-}
-
-unint64_t lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.FontAttribute and conformance AttributeScopes.UIKitAttributes.FontAttribute()
-{
-  result = lazy protocol witness table cache variable for type AttributeScopes.UIKitAttributes.FontAttribute and conformance AttributeScopes.UIKitAttributes.FontAttribute;
-  if (!lazy protocol witness table cache variable for type AttributeScopes.UIKitAttributes.FontAttribute and conformance AttributeScopes.UIKitAttributes.FontAttribute)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AttributeScopes.UIKitAttributes.FontAttribute and conformance AttributeScopes.UIKitAttributes.FontAttribute);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.UnderlineStyleAttribute and conformance AttributeScopes.UIKitAttributes.UnderlineStyleAttribute()
-{
-  result = lazy protocol witness table cache variable for type AttributeScopes.UIKitAttributes.UnderlineStyleAttribute and conformance AttributeScopes.UIKitAttributes.UnderlineStyleAttribute;
-  if (!lazy protocol witness table cache variable for type AttributeScopes.UIKitAttributes.UnderlineStyleAttribute and conformance AttributeScopes.UIKitAttributes.UnderlineStyleAttribute)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AttributeScopes.UIKitAttributes.UnderlineStyleAttribute and conformance AttributeScopes.UIKitAttributes.UnderlineStyleAttribute);
-  }
-
-  return result;
-}
-
-uint64_t outlined copy of NowPlaying.TrackTitleStackView.TransitionContext?(uint64_t result, uint64_t a2, uint64_t a3)
-{
-  if (result)
-  {
-
-    return outlined copy of NowPlaying.TrackTitleStackView.TransitionContext.Content?(a3);
-  }
-
-  return result;
-}
-
-uint64_t outlined consume of NowPlaying.TrackTitleStackView.TransitionContext?(uint64_t result, uint64_t a2, uint64_t a3)
-{
-  if (result)
-  {
-
-    return outlined consume of NowPlaying.TrackTitleStackView.TransitionContext.Content?(a3);
-  }
-
-  return result;
-}
-
-id PassthroughView.hitTest(_:with:)(uint64_t a1, double a2, double a3)
-{
-  if (UIViewIgnoresTouchEvents())
-  {
-    return 0;
-  }
-
-  v12.receiver = v3;
-  v12.super_class = type metadata accessor for PassthroughView();
-  v7 = objc_msgSendSuper2(&v12, "hitTest:withEvent:", a1, a2, a3);
-  if (v7)
-  {
-    type metadata accessor for UIView();
-    v8 = v7;
-    v9 = v3;
-    v10 = static NSObject.== infix(_:_:)();
-
-    if (v10)
-    {
-
-      return 0;
-    }
-  }
-
-  return v7;
-}
-
-id PassthroughView.init(frame:)(double a1, double a2, double a3, double a4)
-{
-  v10.receiver = v4;
-  v10.super_class = type metadata accessor for PassthroughView();
-  return objc_msgSendSuper2(&v10, "initWithFrame:", a1, a2, a3, a4);
-}
-
-id PassthroughView.init(coder:)(void *a1)
-{
-  v5.receiver = v1;
-  v5.super_class = type metadata accessor for PassthroughView();
-  v3 = objc_msgSendSuper2(&v5, "initWithCoder:", a1);
-
-  if (v3)
-  {
-  }
-
-  return v3;
-}
-
-id PassthroughView.__deallocating_deinit()
-{
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for PassthroughView();
-  return objc_msgSendSuper2(&v2, "dealloc");
-}
-
-char *SymbolButton.__allocating_init(intent:)(int a1)
-{
-  v2 = type metadata accessor for SymbolButton.Configuration(0);
-  __chkstk_darwin(v2 - 8);
-  v4 = &v14 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  SymbolButton.Configuration.init(intent:materialColor:)(a1, 2, v4);
-  v5 = objc_allocWithZone(type metadata accessor for SymbolButton(0));
-  v6 = specialized SymbolButton.init(configuration:handler:)(v4, 0, 0);
-  v7 = &v6[OBJC_IVAR____TtC11MusicCoreUI12SymbolButton_configurationProvider];
-  swift_beginAccess();
-  v8 = *v7;
-  *v7 = closure #1 in SymbolButton.init(intent:);
-  v7[1] = 0;
-  v9 = v6;
-  outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v8);
-  if (a1)
-  {
-    if (a1 == 1)
-    {
-      v10 = AccessibilityIdentifier.shuffleIntentButton.unsafeMutableAddressor();
-    }
-
-    else
-    {
-      v10 = AccessibilityIdentifier.startSingingIntentButton.unsafeMutableAddressor();
-    }
-  }
-
-  else
-  {
-    v10 = AccessibilityIdentifier.playIntentButton.unsafeMutableAddressor();
-  }
-
-  v11 = *v10;
-  v12 = v10[1];
-
-  UIAccessibilityIdentification.musicAccessibilityIdentifier.setter(v11, v12);
-
-  return v9;
-}
-
-uint64_t SymbolButton.Configuration.init(intent:materialColor:)@<X0>(int a1@<W0>, int a2@<W1>, uint64_t a3@<X8>)
-{
-  v27 = a1;
-  v28 = a2;
-  v4 = type metadata accessor for UIViewConfigurationState();
-  v5 = *(v4 - 8);
-  __chkstk_darwin(v4);
-  v7 = &v27 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for SymbolButton.Configuration(0);
-  v9 = (v8 - 8);
-  __chkstk_darwin(v8);
-  v11 = &v27 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  specialized SymbolButton.Symbol.init()(v29);
-  v12 = v29[5];
-  *(a3 + 64) = v29[4];
-  *(a3 + 80) = v12;
-  *(a3 + 96) = v29[6];
-  v13 = v30;
-  v14 = v29[1];
-  *a3 = v29[0];
-  *(a3 + 16) = v14;
-  v15 = v29[3];
-  *(a3 + 32) = v29[2];
-  *(a3 + 48) = v15;
-  *(a3 + 112) = v13;
-  *(a3 + 120) = 0;
-  *(a3 + 128) = 0;
-  *(a3 + 136) = UIFontTextStyleSubheadline;
-  *(a3 + 144) = UIFontWeightSemibold;
-  *(a3 + 152) = 0;
-  *(a3 + 160) = 0;
-  *(a3 + 168) = 0x3FF0000000000000;
-  *(a3 + 176) = 0;
-  *(a3 + 184) = 0;
-  *(a3 + 192) = 0;
-  *(a3 + 200) = 0;
-  *(a3 + 208) = 1;
-  *(a3 + 216) = 0;
-  *(a3 + 224) = 0;
-  *(a3 + 232) = 1;
-  *(a3 + 240) = 0u;
-  *(a3 + 256) = 0u;
-  *(a3 + 272) = 0u;
-  *(a3 + 288) = 0u;
-  v16 = v9[11];
-  v17 = type metadata accessor for UIView.Corner();
-  (*(*(v17 - 8) + 56))(a3 + v16, 1, 1, v17);
-  v18 = a3 + v9[12];
-  *(v18 + 48) = 0;
-  *(v18 + 16) = 0u;
-  *(v18 + 32) = 0u;
-  *v18 = 0u;
-  v19 = (a3 + v9[13]);
-  *v19 = 0;
-  v19[1] = 0;
-  v19[2] = 1;
-  *(a3 + v9[14]) = 0x4010000000000000;
-  *(a3 + v9[15]) = vdupq_n_s64(0x4040000000000000uLL);
-  v20 = a3 + v9[16];
-  *v20 = 0;
-  *(v20 + 8) = 0;
-  *(v20 + 16) = 1;
-  v21 = (a3 + v9[17]);
-  v22 = *&NSDirectionalEdgeInsetsZero.bottom;
-  *v21 = *&NSDirectionalEdgeInsetsZero.top;
-  v21[1] = v22;
-  v23 = a3 + v9[18];
-  *v23 = 1;
-  *(v23 + 8) = 0;
-  *(v23 + 16) = 0;
-  *(v23 + 24) = 0;
-  *(a3 + v9[19]) = 0x3FF0000000000000;
-  *(a3 + v9[20]) = 0;
-  *(a3 + v9[21]) = 2;
-  v24 = UIFontTextStyleSubheadline;
-  SymbolButton.Configuration.init()(v11);
-  closure #1 in SymbolButton.Configuration.init(intent:materialColor:)(v11, v27, v28);
-  outlined destroy of SymbolButton.Configuration(a3, type metadata accessor for SymbolButton.Configuration);
-  outlined init with take of SymbolButton.Configuration(v11, a3);
-  v25 = [objc_opt_self() currentTraitCollection];
-  UIViewConfigurationState.init(traitCollection:)();
-  SymbolButton.Configuration.update(for:)();
-  return (*(v5 + 8))(v7, v4);
-}
-
-void SymbolButton.Configuration.update(for:)()
-{
-  v1 = v0;
-  v2 = UIViewConfigurationState.traitCollection.getter();
-  v3 = [v2 userInterfaceIdiom];
-
-  if (v3 != 6)
-  {
-    if (*(v0 + 232) == 1 || (v4 = *(v0 + 256), v4 == 2))
-    {
-      if (UIViewConfigurationState.isHighlighted.getter() & 1) != 0 || (UIViewConfigurationState.isSelected.getter())
-      {
-        if (one-time initialization token for pressed != -1)
-        {
-          swift_once();
-        }
-
-        v5 = static UIColor.MusicTint.pressed;
-        v6 = *(v1 + 112);
-        v7 = static UIColor.MusicTint.pressed;
-
-        *(v1 + 112) = v5;
-        *(v1 + 176) = v5;
-      }
-
-      else
-      {
-
-        *(v0 + 112) = 0;
-        *(v0 + 176) = 0;
-      }
-    }
-
-    else
-    {
-      v8 = objc_opt_self();
-      if (v4)
-      {
-        v9 = v8;
-        v10 = [v8 blackColor];
-
-        *(v0 + 112) = v10;
-        v11 = [v9 blackColor];
-
-        *(v0 + 176) = v11;
-        [objc_allocWithZone(UIColor) initWithWhite:0.0 alpha:0.05];
-        UIView.Border.init(thickness:color:)();
-        v13 = v12;
-        v15 = v14;
-        v17 = v16 & 1;
-
-        *(v0 + 280) = v13;
-        *(v0 + 288) = v17;
-        *(v0 + 296) = v15;
-        LOBYTE(v13) = UIViewConfigurationState.isHighlighted.getter();
-        type metadata accessor for UIColor();
-        v18 = UIColor.init(decimalRed:decimalGreen:decimalBlue:alpha:)(19, 19, 20, 1.0);
-        if (v13)
-        {
-          v19 = 0x3FD5C28F5C28F5C3;
-        }
-
-        else
-        {
-          v19 = 0x3FD3333333333333;
-        }
-
-        outlined consume of SymbolButton.Background?(*(v1 + 200), *(v1 + 208));
-        *(v1 + 200) = v19;
-        *(v1 + 208) = v18;
-      }
-
-      else
-      {
-        v20 = v8;
-        v21 = [v8 whiteColor];
-
-        *(v0 + 112) = v21;
-        v22 = [v20 whiteColor];
-
-        *(v0 + 176) = v22;
-        [objc_allocWithZone(UIColor) initWithWhite:1.0 alpha:0.05];
-        UIView.Border.init(thickness:color:)();
-        v24 = v23;
-        v26 = v25;
-        v28 = v27 & 1;
-
-        *(v0 + 280) = v24;
-        *(v0 + 288) = v28;
-        *(v0 + 296) = v26;
-        v29 = UIViewConfigurationState.isHighlighted.getter();
-        v30 = [v20 whiteColor];
-        if (v29)
-        {
-          v31 = 0x3FD0A3D70A3D70A4;
-        }
-
-        else
-        {
-          v31 = 0x3FCC28F5C28F5C29;
-        }
-
-        outlined consume of SymbolButton.Background?(*(v1 + 200), *(v1 + 208));
-        *(v1 + 200) = v31;
-        *(v1 + 208) = v30;
-      }
-
-      *(v1 + 216) = 0;
-      *(v1 + 224) = 0;
-    }
-  }
-}
-
 uint64_t SymbolButton.Intent.accessibilityIdentifier.getter(char a1)
 {
   if (a1)
@@ -667,153 +23,155 @@ uint64_t SymbolButton.Intent.accessibilityIdentifier.getter(char a1)
   return v2;
 }
 
-void SymbolButton.update(to:)(int a1)
+void SymbolButton.update(to:)(unsigned int a1)
 {
-  v3 = type metadata accessor for SymbolButton.Configuration(0);
-  __chkstk_darwin(v3 - 8);
-  v5 = &v15 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v6);
-  v8 = &v15 - v7;
-  v9 = OBJC_IVAR____TtC11MusicCoreUI12SymbolButton__configuration;
+  type metadata accessor for SymbolButton.Configuration(0);
+  __chkstk_darwin();
+  v4 = &v16 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v6 = (&v16 - v5);
+  v7 = OBJC_IVAR____TtC11MusicCoreUI12SymbolButton__configuration;
   swift_beginAccess();
-  outlined init with copy of SymbolButton.Configuration(v1 + v9, v5);
-  if (*(v5 + 29) == 1)
+  outlined init with copy of SymbolButton.Configuration(v1 + v7, v4);
+  if (*(v4 + 29) == 1)
   {
-    outlined destroy of SymbolButton.Configuration(v5, type metadata accessor for SymbolButton.Configuration);
-    v10 = 2;
+    outlined destroy of SymbolButton.Configuration(v4, type metadata accessor for SymbolButton.Configuration);
+    v8 = 2;
   }
 
   else
   {
-    v11 = v5[256];
-    outlined destroy of SymbolButton.Configuration(v5, type metadata accessor for SymbolButton.Configuration);
-    if (v11 == 2)
+    v9 = v4[256];
+    outlined destroy of SymbolButton.Configuration(v4, type metadata accessor for SymbolButton.Configuration);
+    if (v9 == 2)
     {
-      v10 = 2;
+      v8 = 2;
     }
 
     else
     {
-      v10 = (v11 & 1) == 0;
+      v8 = (v9 & 1) == 0;
     }
   }
 
-  SymbolButton.Configuration.init(intent:materialColor:)(a1, v10, v8);
-  SymbolButton.setConfiguration(_:animation:updates:)(v8, 0, 0, 0, 1, _swiftEmptyArrayStorage);
-  outlined destroy of SymbolButton.Configuration(v8, type metadata accessor for SymbolButton.Configuration);
+  SymbolButton.Configuration.init(intent:materialColor:)(a1, v8, v6);
+  SymbolButton.setConfiguration(_:animation:updates:)(v6, 0, 0, 0, 1, _swiftEmptyArrayStorage);
+  outlined destroy of SymbolButton.Configuration(v6, type metadata accessor for SymbolButton.Configuration);
   if (a1)
   {
     if (a1 == 1)
     {
-      v12 = AccessibilityIdentifier.shuffleIntentButton.unsafeMutableAddressor();
+      v10 = AccessibilityIdentifier.shuffleIntentButton.unsafeMutableAddressor();
     }
 
     else
     {
-      v12 = AccessibilityIdentifier.startSingingIntentButton.unsafeMutableAddressor();
+      v10 = AccessibilityIdentifier.startSingingIntentButton.unsafeMutableAddressor();
     }
   }
 
   else
   {
-    v12 = AccessibilityIdentifier.playIntentButton.unsafeMutableAddressor();
+    v10 = AccessibilityIdentifier.playIntentButton.unsafeMutableAddressor();
   }
 
-  v13 = *v12;
-  v14 = v12[1];
+  v11 = *v10;
+  v12 = v10[1];
+  v13 = v10[2];
+  v14 = v10[3];
 
   type metadata accessor for SymbolButton(0);
-  UIAccessibilityIdentification.musicAccessibilityIdentifier.setter(v13, v14);
+  UIAccessibilityIdentification.musicAccessibilityIdentifier.setter(v15, v11, v12, v13, v14);
 }
 
 uint64_t SymbolButton.materialColor.getter()
 {
-  v1 = type metadata accessor for SymbolButton.Configuration(0);
-  __chkstk_darwin(v1 - 8);
-  v3 = &v7 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = OBJC_IVAR____TtC11MusicCoreUI12SymbolButton__configuration;
+  type metadata accessor for SymbolButton.Configuration(0);
+  __chkstk_darwin();
+  v2 = &v6 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = OBJC_IVAR____TtC11MusicCoreUI12SymbolButton__configuration;
   swift_beginAccess();
-  outlined init with copy of SymbolButton.Configuration(v0 + v4, v3);
-  if (*(v3 + 29) == 1)
+  outlined init with copy of SymbolButton.Configuration(v0 + v3, v2);
+  if (*(v2 + 29) == 1)
   {
-    outlined destroy of SymbolButton.Configuration(v3, type metadata accessor for SymbolButton.Configuration);
+    outlined destroy of SymbolButton.Configuration(v2, type metadata accessor for SymbolButton.Configuration);
     return 2;
   }
 
   else
   {
-    v6 = v3[256];
-    outlined destroy of SymbolButton.Configuration(v3, type metadata accessor for SymbolButton.Configuration);
-    if (v6 == 2)
+    v5 = v2[256];
+    outlined destroy of SymbolButton.Configuration(v2, type metadata accessor for SymbolButton.Configuration);
+    if (v5 == 2)
     {
       return 2;
     }
 
     else
     {
-      return (v6 & 1) == 0;
+      return (v5 & 1) == 0;
     }
   }
 }
 
 void SymbolButton.materialColor.setter(char a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MusicCoreUI12SymbolButtonC13ConfigurationVSgMd);
-  __chkstk_darwin(v3 - 8);
-  v5 = &v20 - v4;
-  v6 = type metadata accessor for SymbolButton.Configuration(0);
-  v7 = *(v6 - 8);
-  *&v8 = __chkstk_darwin(v6).n128_u64[0];
-  v10 = (&v20 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v11 = [v1 traitCollection];
-  v12 = [v11 userInterfaceIdiom];
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MusicCoreUI12SymbolButtonC13ConfigurationVSgMd, &_s11MusicCoreUI12SymbolButtonC13ConfigurationVSgMR);
+  __chkstk_darwin();
+  v4 = &v19 - v3;
+  v5 = type metadata accessor for SymbolButton.Configuration(0);
+  v6 = *(v5 - 8);
+  *&v7 = __chkstk_darwin().n128_u64[0];
+  v9 = (&v19 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v10 = [v1 traitCollection];
+  v11 = [v10 userInterfaceIdiom];
 
-  if (v12 != 6)
+  if (v11 != 6)
   {
     if (a1 == 2)
     {
+      v19 = 0;
       v20 = 0;
-      v21 = 0;
+      v12 = 0;
       v13 = 0;
       v14 = 0;
-      v15 = 0;
-      v16 = 1;
+      v15 = 1;
     }
 
     else
     {
+      v21 = 0;
       v22 = 0;
       v23 = 0;
-      v24 = 0;
-      v25 = 2;
+      v24 = 2;
+      v25 = 0;
       v26 = 0;
-      v27 = 0;
-      closure #1 in SymbolButton.Material.init(materialColor:)(&v22, a1 & 1);
-      v16 = v22;
-      v20 = v24;
-      v21 = v23;
+      closure #1 in SymbolButton.Material.init(materialColor:)(&v21, a1 & 1);
+      v15 = v21;
+      v19 = v23;
+      v20 = v22;
+      v12 = v24;
       v13 = v25;
       v14 = v26;
-      v15 = v27;
     }
 
-    v17 = OBJC_IVAR____TtC11MusicCoreUI12SymbolButton__configuration;
+    v16 = OBJC_IVAR____TtC11MusicCoreUI12SymbolButton__configuration;
     swift_beginAccess();
-    outlined init with copy of SymbolButton.Configuration(v1 + v17, v10);
-    outlined consume of SymbolButton.Material?(v10[29], v10[30], v10[31]);
+    outlined init with copy of SymbolButton.Configuration(v1 + v16, v9);
+    outlined consume of SymbolButton.Material?(v9[29], v9[30], v9[31]);
+    v17 = v19;
     v18 = v20;
-    v19 = v21;
-    v10[29] = v16;
-    v10[30] = v19;
-    v10[31] = v18;
-    v10[32] = v13;
-    v10[33] = v14;
-    v10[34] = v15;
-    SymbolButton.setConfiguration(_:animation:updates:)(v10, 0, 0, 0, 1, _swiftEmptyArrayStorage);
-    outlined destroy of SymbolButton.Configuration(v10, type metadata accessor for SymbolButton.Configuration);
-    (*(v7 + 56))(v5, 1, 1, v6);
-    SymbolButton.updateConfigurationIfNeeded(_:animation:)(v5, 0, 0, 0, 1);
-    outlined destroy of TaskPriority?(v5, &_s11MusicCoreUI12SymbolButtonC13ConfigurationVSgMd);
+    v9[29] = v15;
+    v9[30] = v18;
+    v9[31] = v17;
+    v9[32] = v12;
+    v9[33] = v13;
+    v9[34] = v14;
+    SymbolButton.setConfiguration(_:animation:updates:)(v9, 0, 0, 0, 1, _swiftEmptyArrayStorage);
+    outlined destroy of SymbolButton.Configuration(v9, type metadata accessor for SymbolButton.Configuration);
+    (*(v6 + 56))(v4, 1, 1, v5);
+    SymbolButton.updateConfigurationIfNeeded(_:animation:)(v4, 0, 0, 0, 1);
+    outlined destroy of TaskPriority?(v4, &_s11MusicCoreUI12SymbolButtonC13ConfigurationVSgMd, &_s11MusicCoreUI12SymbolButtonC13ConfigurationVSgMR);
   }
 }
 
@@ -883,28 +241,28 @@ void SymbolButton.materialColor.modify(uint64_t a1)
   free(v1);
 }
 
-uint64_t SymbolButton.Intent.title.getter()
+uint64_t SymbolButton.Intent.title.getter(char a1)
 {
-  v0 = type metadata accessor for Locale();
-  __chkstk_darwin(v0 - 8);
+  type metadata accessor for Locale();
+  __chkstk_darwin();
   v1 = type metadata accessor for String.LocalizationValue();
   v2 = *(v1 - 8);
-  v3 = __chkstk_darwin(v1);
-  v5 = &v11[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  __chkstk_darwin(v3);
-  v7 = &v11[-v6];
+  __chkstk_darwin();
+  v4 = &v10[-((v3 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  __chkstk_darwin();
+  v6 = &v10[-v5];
   String.LocalizationValue.init(stringLiteral:)();
-  (*(v2 + 16))(v5, v7, v1);
+  (*(v2 + 16))(v4, v6, v1);
   if (one-time initialization token for module != -1)
   {
     swift_once();
   }
 
-  v8 = static NSBundle.module;
+  v7 = static NSBundle.module;
   static Locale.current.getter();
-  v9 = String.init(localized:table:bundle:locale:comment:)();
-  (*(v2 + 8))(v7, v1);
-  return v9;
+  v8 = String.init(localized:table:bundle:locale:comment:)();
+  (*(v2 + 8))(v6, v1);
+  return v8;
 }
 
 uint64_t SymbolButton.Intent.symbolName.getter(char a1)
@@ -967,7 +325,7 @@ unint64_t protocol witness for Identifiable.id.getter in conformance SymbolButto
   return result;
 }
 
-uint64_t closure #1 in SymbolButton.Material.init(materialColor:)(uint64_t a1, char a2)
+void closure #1 in SymbolButton.Material.init(materialColor:)(uint64_t a1, char a2)
 {
   *(a1 + 24) = (a2 & 1) == 0;
   v3 = [objc_opt_self() effectWithBlurRadius:50.0];
@@ -983,66 +341,65 @@ uint64_t closure #1 in SymbolButton.Material.init(materialColor:)(uint64_t a1, c
 
   *(a1 + 32) = 0xD000000000000011;
   *(a1 + 40) = 0x80000001004D32D0;
-  return result;
 }
 
 double closure #1 in SymbolButton.Configuration.init(intent:materialColor:)(uint64_t a1, char a2, int a3)
 {
-  v38 = a3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo6UIViewC11MediaCoreUIE6CornerVSgMd);
-  __chkstk_darwin(v5 - 8);
-  v7 = &v37 - v6;
-  specialized SymbolButton.Symbol.init()(&v48);
-  v56 = v48;
-  v8 = v49;
-  v9 = v52;
-  outlined destroy of TaskPriority?(&v56, &_sSSSgMd_0);
-  v10 = a2;
-  v11 = *&aPlayFilshuffle[8 * a2];
-  v12 = *&aAppleSil[8 * a2 + 8];
-  v55 = v50;
-  v13 = UIFontTextStyleSubheadline;
-  outlined destroy of SymbolButton.Configuration(&v55, type metadata accessor for UIFontTextStyle);
-  v14 = *(a1 + 80);
-  v45[4] = *(a1 + 64);
-  v45[5] = v14;
-  v45[6] = *(a1 + 96);
-  v46 = *(a1 + 112);
-  v15 = *(a1 + 16);
-  v45[0] = *a1;
-  v45[1] = v15;
-  v16 = *(a1 + 48);
-  v45[2] = *(a1 + 32);
-  v45[3] = v16;
-  outlined destroy of SymbolButton.Symbol(v45);
-  *a1 = v11;
-  *(a1 + 8) = v12;
-  *(a1 + 16) = v8;
-  *(a1 + 24) = v13;
-  *(a1 + 32) = v51;
+  v37 = a3;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo6UIViewC11MediaCoreUIE6CornerVSgMd, &_sSo6UIViewC11MediaCoreUIE6CornerVSgMR);
+  __chkstk_darwin();
+  v6 = &v36 - v5;
+  specialized SymbolButton.Symbol.init()(&v47);
+  v55 = v47;
+  v7 = v48;
+  v8 = v51;
+  outlined destroy of TaskPriority?(&v55, &_sSSSgMd_0, &_sSSSgMR_0);
+  v9 = a2;
+  v10 = *&aPlayFilshuffle[8 * a2];
+  v11 = *&aAppleSil[8 * a2 + 8];
+  v54 = v49;
+  v12 = UIFontTextStyleSubheadline;
+  outlined destroy of SymbolButton.Configuration(&v54, type metadata accessor for UIFontTextStyle);
+  v13 = *(a1 + 80);
+  v44[4] = *(a1 + 64);
+  v44[5] = v13;
+  v44[6] = *(a1 + 96);
+  v45 = *(a1 + 112);
+  v14 = *(a1 + 16);
+  v44[0] = *a1;
+  v44[1] = v14;
+  v15 = *(a1 + 48);
+  v44[2] = *(a1 + 32);
+  v44[3] = v15;
+  outlined destroy of SymbolButton.Symbol(v44);
+  *a1 = v10;
+  *(a1 + 8) = v11;
+  *(a1 + 16) = v7;
+  *(a1 + 24) = v12;
+  *(a1 + 32) = v50;
   *(a1 + 48) = 6;
-  *(a1 + 56) = v9;
+  *(a1 + 56) = v8;
   *(a1 + 64) = xmmword_100507AA0;
   *(a1 + 80) = 1;
-  *(a1 + 81) = v53;
-  *(a1 + 97) = *v54;
-  *(a1 + 112) = *&v54[15];
-  v17 = SymbolButton.Intent.title.getter();
-  v19 = v18;
+  *(a1 + 81) = v52;
+  *(a1 + 97) = *v53;
+  *(a1 + 112) = *&v53[15];
+  v16 = SymbolButton.Intent.title.getter(a2);
+  v18 = v17;
 
-  v20 = UIFontTextStyleBody;
+  v19 = UIFontTextStyleBody;
 
-  v21 = *(a1 + 136);
-  v22 = *(a1 + 168);
-  v47[2] = *(a1 + 152);
-  v47[3] = v22;
-  v47[4] = *(a1 + 184);
-  v47[0] = *(a1 + 120);
-  v47[1] = v21;
-  outlined destroy of SymbolButton.Title(v47);
-  *(a1 + 120) = v17;
-  *(a1 + 128) = v19;
-  *(a1 + 136) = v20;
+  v20 = *(a1 + 136);
+  v21 = *(a1 + 168);
+  v46[2] = *(a1 + 152);
+  v46[3] = v21;
+  v46[4] = *(a1 + 184);
+  v46[0] = *(a1 + 120);
+  v46[1] = v20;
+  outlined destroy of SymbolButton.Title(v46);
+  *(a1 + 120) = v16;
+  *(a1 + 128) = v18;
+  *(a1 + 136) = v19;
   *(a1 + 144) = UIFontWeightSemibold;
   *(a1 + 152) = 0;
   *(a1 + 160) = 0;
@@ -1050,45 +407,45 @@ double closure #1 in SymbolButton.Configuration.init(intent:materialColor:)(uint
   *(a1 + 176) = 0;
   *(a1 + 184) = 0;
   *(a1 + 192) = 0;
-  v23 = [objc_opt_self() currentTraitCollection];
-  v24 = [v23 userInterfaceIdiom];
+  v22 = [objc_opt_self() currentTraitCollection];
+  v23 = [v22 userInterfaceIdiom];
 
-  if (v24 != 6)
+  if (v23 != 6)
   {
-    if (v38 == 2)
+    if (v37 == 2)
     {
+      v24 = 0;
       v25 = 0;
       v26 = 0;
       v27 = 0;
       v28 = 0;
-      v29 = 0;
-      v30 = 1;
+      v29 = 1;
     }
 
     else
     {
+      v38 = 0;
       v39 = 0;
       v40 = 0;
-      v41 = 0;
-      v42 = 2;
+      v41 = 2;
+      v42 = 0;
       v43 = 0;
-      v44 = 0;
-      closure #1 in SymbolButton.Material.init(materialColor:)(&v39, v38 & 1);
-      v30 = v39;
+      closure #1 in SymbolButton.Material.init(materialColor:)(&v38, v37 & 1);
+      v29 = v38;
+      v24 = v39;
       v25 = v40;
       v26 = v41;
       v27 = v42;
       v28 = v43;
-      v29 = v44;
     }
 
     outlined consume of SymbolButton.Material?(*(a1 + 232), *(a1 + 240), *(a1 + 248));
-    *(a1 + 232) = v30;
-    *(a1 + 240) = v25;
-    *(a1 + 248) = v26;
-    *(a1 + 256) = v27;
-    *(a1 + 264) = v28;
-    *(a1 + 272) = v29;
+    *(a1 + 232) = v29;
+    *(a1 + 240) = v24;
+    *(a1 + 248) = v25;
+    *(a1 + 256) = v26;
+    *(a1 + 264) = v27;
+    *(a1 + 272) = v28;
   }
 
   if (one-time initialization token for capsule != -1)
@@ -1096,19 +453,19 @@ double closure #1 in SymbolButton.Configuration.init(intent:materialColor:)(uint
     swift_once();
   }
 
-  v31 = type metadata accessor for UIView.Corner();
-  v32 = __swift_project_value_buffer(v31, static UIView.Corner.capsule);
-  v33 = *(v31 - 8);
-  (*(v33 + 16))(v7, v32, v31);
-  (*(v33 + 56))(v7, 0, 1, v31);
-  v34 = type metadata accessor for SymbolButton.Configuration(0);
-  outlined assign with take of UIView.Corner?(v7, a1 + v34[9]);
-  *(a1 + v34[12]) = qword_1005123E8[v10];
-  *(a1 + v34[13]) = vdupq_n_s64(0x4048000000000000uLL);
-  v35 = (a1 + v34[15]);
+  v30 = type metadata accessor for UIView.Corner();
+  v31 = __swift_project_value_buffer(v30, static UIView.Corner.capsule);
+  v32 = *(v30 - 8);
+  (*(v32 + 16))(v6, v31, v30);
+  (*(v32 + 56))(v6, 0, 1, v30);
+  v33 = type metadata accessor for SymbolButton.Configuration(0);
+  outlined assign with take of UIView.Corner?(v6, a1 + v33[9]);
+  *(a1 + v33[12]) = qword_1005123E8[v9];
+  *(a1 + v33[13]) = vdupq_n_s64(0x4048000000000000uLL);
+  v34 = (a1 + v33[15]);
   result = 0.0;
-  *v35 = xmmword_100507AB0;
-  v35[1] = xmmword_100507AB0;
+  *v34 = xmmword_100507AB0;
+  v34[1] = xmmword_100507AB0;
   return result;
 }
 
@@ -1128,7 +485,7 @@ Swift::Int static PlayIntentButtonStack.sing(_:)()
 
 Swift::Int PlayIntentButtonStack.init(_:handler:)(char a1)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11MusicCoreUI12SymbolButtonC6IntentOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11MusicCoreUI12SymbolButtonC6IntentOGMd, &_ss23_ContiguousArrayStorageCy11MusicCoreUI12SymbolButtonC6IntentOGMR);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_1004F2400;
   *(inited + 32) = a1;
@@ -1139,90 +496,94 @@ Swift::Int PlayIntentButtonStack.init(_:handler:)(char a1)
 
 uint64_t PlayIntentButtonStack.body.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, _BYTE *a4@<X8>)
 {
-  v8 = static Axis.Set.horizontal.getter();
-  v9 = Axis.Set.init(rawValue:)();
+  v9 = static Axis.Set.horizontal.getter();
+  v10 = Axis.Set.init(rawValue:)();
   Axis.Set.init(rawValue:)();
-  if (Axis.Set.init(rawValue:)() != v8)
+  if (Axis.Set.init(rawValue:)() != v9)
   {
-    v9 = Axis.Set.init(rawValue:)();
+    v10 = Axis.Set.init(rawValue:)();
   }
 
-  *a4 = v9;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA16_SizeFittingRootVAA05TupleD0VyAA0D0PAAE011dynamicTypeF0yQrqd__SXRd__AA07DynamickF0O5BoundRtd__lFQOyAA15ModifiedContentVyAEy_AA07_LayoutH0Vy09MusicCoreB021PlayIntentButtonStackV11SmartHStack33_2727121886EA4678BFC0296976ECCDEBLLVGAA7ForEachVySayAU06SymbolU0C0T0OGSSAU0stU7WrapperVGGAA06_FixedfP0VG_SNyANGQo__A15_tGGMd);
-  return closure #1 in PlayIntentButtonStack.body.getter(a1, a2, a3, &a4[*(v10 + 44)]);
+  *a4 = v10;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA16_SizeFittingRootVAA05TupleD0VyAA0D0PAAE011dynamicTypeF0yQrqd__SXRd__AA07DynamickF0O5BoundRtd__lFQOyAA15ModifiedContentVyAEy_AA07_LayoutH0Vy09MusicCoreB021PlayIntentButtonStackV11SmartHStack33_2727121886EA4678BFC0296976ECCDEBLLVGAA7ForEachVySayAU06SymbolU0C0T0OGSSAU0stU7WrapperVGGAA06_FixedfP0VG_SNyANGQo__A15_tGGMd, &_s7SwiftUI13_VariadicViewO4TreeVy_AA16_SizeFittingRootVAA05TupleD0VyAA0D0PAAE011dynamicTypeF0yQrqd__SXRd__AA07DynamickF0O5BoundRtd__lFQOyAA15ModifiedContentVyAEy_AA07_LayoutH0Vy09MusicCoreB021PlayIntentButtonStackV11SmartHStack33_2727121886EA4678BFC0296976ECCDEBLLVGAA7ForEachVySayAU06SymbolU0C0T0OGSSAU0stU7WrapperVGGAA06_FixedfP0VG_SNyANGQo__A15_tGGMR);
+  return closure #1 in PlayIntentButtonStack.body.getter(a1, a2, a3, &a4[*(v11 + 44)]);
 }
 
 uint64_t closure #1 in PlayIntentButtonStack.body.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char *a4@<X8>)
 {
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE15dynamicTypeSizeyQrqd__SXRd__AA07DynamiceF0O5BoundRtd__lFQOyAA15ModifiedContentVyAA09_VariadicC0O4TreeVy_AA11_LayoutRootVy09MusicCoreB021PlayIntentButtonStackV11SmartHStack33_2727121886EA4678BFC0296976ECCDEBLLVGAA7ForEachVySayAQ06SymbolS0C0R0OGSSAQ0qrS7WrapperVGGAA06_FixedfM0VG_SNyAFGQo_Md);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE15dynamicTypeSizeyQrqd__SXRd__AA07DynamiceF0O5BoundRtd__lFQOyAA15ModifiedContentVyAA09_VariadicC0O4TreeVy_AA11_LayoutRootVy09MusicCoreB021PlayIntentButtonStackV11SmartHStack33_2727121886EA4678BFC0296976ECCDEBLLVGAA7ForEachVySayAQ06SymbolS0C0R0OGSSAQ0qrS7WrapperVGGAA06_FixedfM0VG_SNyAFGQo_Md, &_s7SwiftUI4ViewPAAE15dynamicTypeSizeyQrqd__SXRd__AA07DynamiceF0O5BoundRtd__lFQOyAA15ModifiedContentVyAA09_VariadicC0O4TreeVy_AA11_LayoutRootVy09MusicCoreB021PlayIntentButtonStackV11SmartHStack33_2727121886EA4678BFC0296976ECCDEBLLVGAA7ForEachVySayAQ06SymbolS0C0R0OGSSAQ0qrS7WrapperVGGAA06_FixedfM0VG_SNyAFGQo_MR);
   v9 = *(v8 - 8);
-  __chkstk_darwin(v8);
-  v11 = &v25 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v12);
-  v14 = &v25 - v13;
-  __chkstk_darwin(v15);
-  v17 = &v25 - v16;
-  __chkstk_darwin(v18);
-  v20 = &v25 - v19;
-  PlayIntentButtonStack.stack(iconOnly:)(0, a1, a2, a3, &v25 - v19);
-  PlayIntentButtonStack.stack(iconOnly:)(1, a1, a2, a3, v17);
-  v21 = *(v9 + 16);
-  v21(v14, v20, v8);
-  v21(v11, v17, v8);
-  v21(a4, v14, v8);
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE15dynamicTypeSizeyQrqd__SXRd__AA07DynamiceF0O5BoundRtd__lFQOyAA15ModifiedContentVyAA09_VariadicC0O4TreeVy_AA11_LayoutRootVy09MusicCoreB021PlayIntentButtonStackV11SmartHStack33_2727121886EA4678BFC0296976ECCDEBLLVGAA7ForEachVySayAQ06SymbolS0C0R0OGSSAQ0qrS7WrapperVGGAA06_FixedfM0VG_SNyAFGQo__A11_tMd);
-  v21(&a4[*(v22 + 48)], v11, v8);
-  v23 = *(v9 + 8);
-  v23(v17, v8);
-  v23(v20, v8);
-  v23(v11, v8);
-  return (v23)(v14, v8);
+  __chkstk_darwin();
+  v11 = &v22 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v13 = &v22 - v12;
+  __chkstk_darwin();
+  v15 = &v22 - v14;
+  __chkstk_darwin();
+  v17 = &v22 - v16;
+  PlayIntentButtonStack.stack(iconOnly:)(0, a1, a2, a3, &v22 - v16);
+  PlayIntentButtonStack.stack(iconOnly:)(1, a1, a2, a3, v15);
+  v18 = *(v9 + 16);
+  v18(v13, v17, v8);
+  v18(v11, v15, v8);
+  v18(a4, v13, v8);
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE15dynamicTypeSizeyQrqd__SXRd__AA07DynamiceF0O5BoundRtd__lFQOyAA15ModifiedContentVyAA09_VariadicC0O4TreeVy_AA11_LayoutRootVy09MusicCoreB021PlayIntentButtonStackV11SmartHStack33_2727121886EA4678BFC0296976ECCDEBLLVGAA7ForEachVySayAQ06SymbolS0C0R0OGSSAQ0qrS7WrapperVGGAA06_FixedfM0VG_SNyAFGQo__A11_tMd, &_s7SwiftUI4ViewPAAE15dynamicTypeSizeyQrqd__SXRd__AA07DynamiceF0O5BoundRtd__lFQOyAA15ModifiedContentVyAA09_VariadicC0O4TreeVy_AA11_LayoutRootVy09MusicCoreB021PlayIntentButtonStackV11SmartHStack33_2727121886EA4678BFC0296976ECCDEBLLVGAA7ForEachVySayAQ06SymbolS0C0R0OGSSAQ0qrS7WrapperVGGAA06_FixedfM0VG_SNyAFGQo__A11_tMR);
+  v18(&a4[*(v19 + 48)], v11, v8);
+  v20 = *(v9 + 8);
+  v20(v15, v8);
+  v20(v17, v8);
+  v20(v11, v8);
+  return (v20)(v13, v8);
 }
 
-uint64_t PlayIntentButtonStack.stack(iconOnly:)@<X0>(int a1@<W0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+void PlayIntentButtonStack.stack(iconOnly:)(int a1@<W0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
   v52 = a5;
-  v51 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15DynamicTypeSizeO5lower_AC5uppertMd);
-  __chkstk_darwin(v51);
+  v51 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15DynamicTypeSizeO5lower_AC5uppertMd, &_s7SwiftUI15DynamicTypeSizeO5lower_AC5uppertMR);
+  __chkstk_darwin();
   v50 = &v43[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  __chkstk_darwin(v10);
-  v48 = &v43[-v11];
-  v12 = type metadata accessor for DynamicTypeSize();
-  v57 = *(v12 - 8);
-  __chkstk_darwin(v12);
-  v56 = &v43[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  __chkstk_darwin(v14);
-  v55 = &v43[-v15];
-  v49 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSNy7SwiftUI15DynamicTypeSizeOGMd);
-  __chkstk_darwin(v49);
-  v47 = &v43[-v16];
-  v53 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA11_LayoutRootVy09MusicCoreB021PlayIntentButtonStackV11SmartHStack33_2727121886EA4678BFC0296976ECCDEBLLVGAA7ForEachVySayAH06SymbolL0C0K0OGSSAH0jkL7WrapperVGGMd);
-  __chkstk_darwin(v53);
-  v18 = &v43[-v17];
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA13_VariadicViewO4TreeVy_AA11_LayoutRootVy09MusicCoreB021PlayIntentButtonStackV11SmartHStack33_2727121886EA4678BFC0296976ECCDEBLLVGAA7ForEachVySayAJ06SymbolN0C0M0OGSSAJ0lmN7WrapperVGGAA010_FixedSizeH0VGMd);
-  __chkstk_darwin(v19);
-  v21 = &v43[-v20];
-  v54 = v18;
-  *v18 = 0x4030000000000000;
-  v22 = *(a2 + 16);
-  v58 = v23;
-  v59 = &v43[-v20];
-  if (v22)
+  __chkstk_darwin();
+  v48 = &v43[-v10];
+  v11 = type metadata accessor for DynamicTypeSize();
+  v57 = *(v11 - 8);
+  __chkstk_darwin();
+  v56 = &v43[-((v12 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  __chkstk_darwin();
+  v55 = &v43[-v13];
+  v49 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSNy7SwiftUI15DynamicTypeSizeOGMd, &_sSNy7SwiftUI15DynamicTypeSizeOGMR);
+  __chkstk_darwin();
+  v47 = &v43[-v14];
+  v53 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA11_LayoutRootVy09MusicCoreB021PlayIntentButtonStackV11SmartHStack33_2727121886EA4678BFC0296976ECCDEBLLVGAA7ForEachVySayAH06SymbolL0C0K0OGSSAH0jkL7WrapperVGGMd, &_s7SwiftUI13_VariadicViewO4TreeVy_AA11_LayoutRootVy09MusicCoreB021PlayIntentButtonStackV11SmartHStack33_2727121886EA4678BFC0296976ECCDEBLLVGAA7ForEachVySayAH06SymbolL0C0K0OGSSAH0jkL7WrapperVGGMR);
+  __chkstk_darwin();
+  v16 = &v43[-v15];
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA13_VariadicViewO4TreeVy_AA11_LayoutRootVy09MusicCoreB021PlayIntentButtonStackV11SmartHStack33_2727121886EA4678BFC0296976ECCDEBLLVGAA7ForEachVySayAJ06SymbolN0C0M0OGSSAJ0lmN7WrapperVGGAA010_FixedSizeH0VGMd, &_s7SwiftUI15ModifiedContentVyAA13_VariadicViewO4TreeVy_AA11_LayoutRootVy09MusicCoreB021PlayIntentButtonStackV11SmartHStack33_2727121886EA4678BFC0296976ECCDEBLLVGAA7ForEachVySayAJ06SymbolN0C0M0OGSSAJ0lmN7WrapperVGGAA010_FixedSizeH0VGMR);
+  __chkstk_darwin();
+  v19 = &v43[-v18];
+  v54 = v16;
+  *v16 = 0x4030000000000000;
+  v20 = *(a2 + 16);
+  v58 = v21;
+  v59 = &v43[-v18];
+  if (v20)
   {
     v44 = a1;
     v45 = a3;
     v46 = a4;
-    v24 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC11MusicCoreUI12SymbolButtonC6IntentO_Tt1g5(v22, 0);
-    v25 = specialized Sequence._copySequenceContents(initializing:)(&v60, v24 + 32, v22, a2);
+    v22 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC11MusicCoreUI12SymbolButtonC6IntentO_Tt1g5(v20, 0);
+    v23 = specialized Sequence._copySequenceContents(initializing:)(&v60, v22 + 32, v20, a2);
+    v24 = a2;
+    v25 = v60;
+    v26 = v24;
 
-    outlined consume of Set<Library.Menu.Identifier>.Iterator._Variant();
-    if (v25 != v22)
+    outlined consume of Set<Library.Menu.Identifier>.Iterator._Variant(v25);
+    if (v23 != v20)
     {
       goto LABEL_8;
     }
 
-    v19 = v58;
-    v21 = v59;
+    v17 = v58;
+    v19 = v59;
+    a2 = v26;
     a3 = v45;
     a4 = v46;
     LOBYTE(a1) = v44;
@@ -1230,58 +591,59 @@ uint64_t PlayIntentButtonStack.stack(iconOnly:)@<X0>(int a1@<W0>, uint64_t a2@<X
 
   else
   {
-    v24 = _swiftEmptyArrayStorage;
+    v22 = _swiftEmptyArrayStorage;
   }
 
-  v60 = v24;
+  v60 = v22;
   specialized MutableCollection<>.sort(by:)(&v60);
-  v26 = swift_allocObject();
-  *(v26 + 16) = a1 & 1;
-  *(v26 + 24) = a2;
-  *(v26 + 32) = a3;
-  *(v26 + 40) = a4;
+  v27 = swift_allocObject();
+  *(v27 + 16) = a1 & 1;
+  *(v27 + 24) = a2;
+  *(v27 + 32) = a3;
+  *(v27 + 40) = a4;
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay11MusicCoreUI12SymbolButtonC6IntentOGMd);
-  lazy protocol witness table accessor for type Publishers.Autoconnect<NSTimer.TimerPublisher> and conformance Publishers.Autoconnect<A>(&lazy protocol witness table cache variable for type [SymbolButton.Intent] and conformance [A], &_sSay11MusicCoreUI12SymbolButtonC6IntentOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay11MusicCoreUI12SymbolButtonC6IntentOGMd, &_sSay11MusicCoreUI12SymbolButtonC6IntentOGMR);
+  lazy protocol witness table accessor for type Publishers.Autoconnect<NSTimer.TimerPublisher> and conformance Publishers.Autoconnect<A>(&lazy protocol witness table cache variable for type [SymbolButton.Intent] and conformance [A], &_sSay11MusicCoreUI12SymbolButtonC6IntentOGMd, &_sSay11MusicCoreUI12SymbolButtonC6IntentOGMR, &protocol conformance descriptor for [A]);
   lazy protocol witness table accessor for type PlayIntentButtonWrapper and conformance PlayIntentButtonWrapper();
   lazy protocol witness table accessor for type SymbolButton.Intent and conformance SymbolButton.Intent();
-  v27 = v54;
+  v28 = v54;
   ForEach<>.init(_:content:)();
-  v28 = *(a2 + 16) < 2uLL;
-  outlined init with take of URL?(v27, v21, &_s7SwiftUI13_VariadicViewO4TreeVy_AA11_LayoutRootVy09MusicCoreB021PlayIntentButtonStackV11SmartHStack33_2727121886EA4678BFC0296976ECCDEBLLVGAA7ForEachVySayAH06SymbolL0C0K0OGSSAH0jkL7WrapperVGGMd);
-  v29 = &v21[*(v19 + 36)];
-  *v29 = v28;
-  v29[1] = 1;
-  v30 = v57;
-  v31 = *(v57 + 104);
-  v32 = v55;
-  v31(v55, enum case for DynamicTypeSize.xSmall(_:), v12);
-  v33 = v56;
-  v31(v56, enum case for DynamicTypeSize.accessibility2(_:), v12);
-  lazy protocol witness table accessor for type LayoutSubviews and conformance LayoutSubviews(&lazy protocol witness table cache variable for type DynamicTypeSize and conformance DynamicTypeSize, &type metadata accessor for DynamicTypeSize);
+  v29 = *(a2 + 16) < 2uLL;
+  outlined init with take of URL?(v28, v19, &_s7SwiftUI13_VariadicViewO4TreeVy_AA11_LayoutRootVy09MusicCoreB021PlayIntentButtonStackV11SmartHStack33_2727121886EA4678BFC0296976ECCDEBLLVGAA7ForEachVySayAH06SymbolL0C0K0OGSSAH0jkL7WrapperVGGMd, &_s7SwiftUI13_VariadicViewO4TreeVy_AA11_LayoutRootVy09MusicCoreB021PlayIntentButtonStackV11SmartHStack33_2727121886EA4678BFC0296976ECCDEBLLVGAA7ForEachVySayAH06SymbolL0C0K0OGSSAH0jkL7WrapperVGGMR);
+  v30 = &v19[*(v17 + 36)];
+  *v30 = v29;
+  v30[1] = 1;
+  v31 = v57;
+  v32 = *(v57 + 104);
+  v33 = v55;
+  v32(v55, enum case for DynamicTypeSize.xSmall(_:), v11);
+  v34 = v56;
+  v32(v56, enum case for DynamicTypeSize.accessibility2(_:), v11);
+  lazy protocol witness table accessor for type LayoutSubviews and conformance LayoutSubviews(&lazy protocol witness table cache variable for type DynamicTypeSize and conformance DynamicTypeSize, &type metadata accessor for DynamicTypeSize, &protocol conformance descriptor for DynamicTypeSize);
   if (dispatch thunk of static Comparable.<= infix(_:_:)())
   {
-    v34 = *(v30 + 32);
-    v35 = v48;
-    v34(v48, v32, v12);
-    v36 = v51;
-    v34((v35 + *(v51 + 48)), v33, v12);
-    v37 = v50;
-    outlined init with copy of TaskPriority?(v35, v50, &_s7SwiftUI15DynamicTypeSizeO5lower_AC5uppertMd);
-    v38 = *(v36 + 48);
-    v39 = v47;
-    v34(v47, v37, v12);
-    v40 = *(v30 + 8);
-    v40(&v37[v38], v12);
-    outlined init with take of URL?(v35, v37, &_s7SwiftUI15DynamicTypeSizeO5lower_AC5uppertMd);
-    v34((v39 + *(v49 + 36)), &v37[*(v36 + 48)], v12);
-    v40(v37, v12);
+    v35 = *(v31 + 32);
+    v36 = v48;
+    v35(v48, v33, v11);
+    v37 = v51;
+    v35((v36 + *(v51 + 48)), v34, v11);
+    v38 = v50;
+    outlined init with copy of TaskPriority?(v36, v50, &_s7SwiftUI15DynamicTypeSizeO5lower_AC5uppertMd, &_s7SwiftUI15DynamicTypeSizeO5lower_AC5uppertMR);
+    v39 = *(v37 + 48);
+    v40 = v47;
+    v35(v47, v38, v11);
+    v41 = *(v31 + 8);
+    v41(&v38[v39], v11);
+    outlined init with take of URL?(v36, v38, &_s7SwiftUI15DynamicTypeSizeO5lower_AC5uppertMd, &_s7SwiftUI15DynamicTypeSizeO5lower_AC5uppertMR);
+    v35((v40 + *(v49 + 36)), &v38[*(v37 + 48)], v11);
+    v41(v38, v11);
     lazy protocol witness table accessor for type ModifiedContent<_VariadicView.Tree<_LayoutRoot<PlayIntentButtonStack.SmartHStack>, ForEach<[SymbolButton.Intent], String, PlayIntentButtonWrapper>>, _FixedSizeLayout> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type Publishers.Autoconnect<NSTimer.TimerPublisher> and conformance Publishers.Autoconnect<A>(&lazy protocol witness table cache variable for type ClosedRange<DynamicTypeSize> and conformance ClosedRange<A>, &_sSNy7SwiftUI15DynamicTypeSizeOGMd);
-    v41 = v59;
+    lazy protocol witness table accessor for type Publishers.Autoconnect<NSTimer.TimerPublisher> and conformance Publishers.Autoconnect<A>(&lazy protocol witness table cache variable for type ClosedRange<DynamicTypeSize> and conformance ClosedRange<A>, &_sSNy7SwiftUI15DynamicTypeSizeOGMd, &_sSNy7SwiftUI15DynamicTypeSizeOGMR, &protocol conformance descriptor for ClosedRange<A>);
+    v42 = v59;
     View.dynamicTypeSize<A>(_:)();
-    outlined destroy of TaskPriority?(v39, &_sSNy7SwiftUI15DynamicTypeSizeOGMd);
-    return outlined destroy of TaskPriority?(v41, &_s7SwiftUI15ModifiedContentVyAA13_VariadicViewO4TreeVy_AA11_LayoutRootVy09MusicCoreB021PlayIntentButtonStackV11SmartHStack33_2727121886EA4678BFC0296976ECCDEBLLVGAA7ForEachVySayAJ06SymbolN0C0M0OGSSAJ0lmN7WrapperVGGAA010_FixedSizeH0VGMd);
+    outlined destroy of TaskPriority?(v40, &_sSNy7SwiftUI15DynamicTypeSizeOGMd, &_sSNy7SwiftUI15DynamicTypeSizeOGMR);
+    outlined destroy of TaskPriority?(v42, &_s7SwiftUI15ModifiedContentVyAA13_VariadicViewO4TreeVy_AA11_LayoutRootVy09MusicCoreB021PlayIntentButtonStackV11SmartHStack33_2727121886EA4678BFC0296976ECCDEBLLVGAA7ForEachVySayAJ06SymbolN0C0M0OGSSAJ0lmN7WrapperVGGAA010_FixedSizeH0VGMd, &_s7SwiftUI15ModifiedContentVyAA13_VariadicViewO4TreeVy_AA11_LayoutRootVy09MusicCoreB021PlayIntentButtonStackV11SmartHStack33_2727121886EA4678BFC0296976ECCDEBLLVGAA7ForEachVySayAJ06SymbolN0C0M0OGSSAJ0lmN7WrapperVGGAA010_FixedSizeH0VGMR);
+    return;
   }
 
   __break(1u);
@@ -1289,7 +651,6 @@ LABEL_8:
   __break(1u);
 
   __break(1u);
-  return result;
 }
 
 uint64_t PlayIntentButtonWrapper.init(intent:iconOnly:handler:)@<X0>(char a1@<W0>, char a2@<W1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
@@ -1306,70 +667,69 @@ uint64_t PlayIntentButtonWrapper.init(intent:iconOnly:handler:)@<X0>(char a1@<W0
 
 uint64_t PlayIntentButtonStack.SmartHStack.sizeThatFits(proposal:subviews:cache:)(uint64_t a1, int a2, uint64_t a3, int a4, uint64_t a5, double *a6, double a7)
 {
-  v42 = a6;
-  v41 = a4;
-  v40 = a3;
-  v39 = a2;
-  v38[1] = a1;
+  v41 = a6;
+  v40 = a4;
+  v39 = a3;
+  v38 = a2;
+  v37[1] = a1;
   v9 = type metadata accessor for LayoutSubview();
   v10 = *(v9 - 8);
-  __chkstk_darwin(v9);
-  v12 = v38 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v12 = v37 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   v13 = type metadata accessor for LayoutSubviews();
   v14 = *(v13 - 8);
-  __chkstk_darwin(v13);
-  v16 = v38 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVy7SwiftUI14LayoutSubviewsVGMd);
-  v18 = v17 - 8;
-  v19 = __chkstk_darwin(v17);
-  v21 = v38 - v20;
-  v22 = *(v14 + 16);
-  v43 = a5;
-  v22(v16, a5, v13, v19);
-  lazy protocol witness table accessor for type LayoutSubviews and conformance LayoutSubviews(&lazy protocol witness table cache variable for type LayoutSubviews and conformance LayoutSubviews, &type metadata accessor for LayoutSubviews);
+  __chkstk_darwin();
+  v16 = v37 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVy7SwiftUI14LayoutSubviewsVGMd, &_ss16IndexingIteratorVy7SwiftUI14LayoutSubviewsVGMR) - 8;
+  v18 = __chkstk_darwin();
+  v20 = v37 - v19;
+  v21 = *(v14 + 16);
+  v42 = a5;
+  v21(v16, a5, v13, v18);
+  lazy protocol witness table accessor for type LayoutSubviews and conformance LayoutSubviews(&lazy protocol witness table cache variable for type LayoutSubviews and conformance LayoutSubviews, &type metadata accessor for LayoutSubviews, &protocol conformance descriptor for LayoutSubviews);
   dispatch thunk of Sequence.makeIterator()();
-  v23 = *(v18 + 44);
-  lazy protocol witness table accessor for type LayoutSubviews and conformance LayoutSubviews(&lazy protocol witness table cache variable for type LayoutSubviews and conformance LayoutSubviews, &type metadata accessor for LayoutSubviews);
+  v22 = *(v17 + 44);
+  lazy protocol witness table accessor for type LayoutSubviews and conformance LayoutSubviews(&lazy protocol witness table cache variable for type LayoutSubviews and conformance LayoutSubviews, &type metadata accessor for LayoutSubviews, &protocol conformance descriptor for LayoutSubviews);
   dispatch thunk of Collection.endIndex.getter();
+  v23 = 0.0;
   v24 = 0.0;
-  v25 = 0.0;
-  if (*&v21[v23] != v45[0])
+  if (*&v20[v22] != v44[0])
   {
-    v26 = (v10 + 16);
-    v27 = (v10 + 8);
+    v25 = (v10 + 16);
+    v26 = (v10 + 8);
     do
     {
-      v28 = dispatch thunk of Collection.subscript.read();
-      (*v26)(v12);
-      v28(v45, 0);
+      v27 = dispatch thunk of Collection.subscript.read();
+      (*v25)(v12);
+      v27(v44, 0);
       dispatch thunk of Collection.formIndex(after:)();
       static ProposedViewSize.zero.getter();
-      LOBYTE(v45[0]) = v29 & 1;
-      v44 = v30 & 1;
+      LOBYTE(v44[0]) = v28 & 1;
+      LOBYTE(v43) = v29 & 1;
       LayoutSubview.sizeThatFits(_:)();
-      v32 = v31;
-      v34 = v33;
-      (*v27)(v12, v9);
-      if (v25 <= v32)
+      v31 = v30;
+      v33 = v32;
+      (*v26)(v12, v9);
+      if (v24 <= v31)
       {
-        v25 = v32;
+        v24 = v31;
       }
 
-      if (v24 <= v34)
+      if (v23 <= v33)
       {
-        v24 = v34;
+        v23 = v33;
       }
 
       dispatch thunk of Collection.endIndex.getter();
     }
 
-    while (*&v21[v23] != v45[0]);
+    while (*&v20[v22] != v44[0]);
   }
 
-  outlined destroy of TaskPriority?(v21, &_ss16IndexingIteratorVy7SwiftUI14LayoutSubviewsVGMd);
+  outlined destroy of TaskPriority?(v20, &_ss16IndexingIteratorVy7SwiftUI14LayoutSubviewsVGMd, &_ss16IndexingIteratorVy7SwiftUI14LayoutSubviewsVGMR);
   dispatch thunk of Collection.startIndex.getter();
   dispatch thunk of Collection.endIndex.getter();
-  v35 = dispatch thunk of Collection.distance(from:to:)();
+  v34 = dispatch thunk of Collection.distance(from:to:)();
   dispatch thunk of Collection.startIndex.getter();
   dispatch thunk of Collection.endIndex.getter();
   result = dispatch thunk of Collection.distance(from:to:)();
@@ -1380,9 +740,9 @@ uint64_t PlayIntentButtonStack.SmartHStack.sizeThatFits(proposal:subviews:cache:
 
   else
   {
-    v37 = v42;
-    *v42 = v25;
-    v37[1] = v25 * v35 + (result - 1) * a7;
+    v36 = v41;
+    *v41 = v24;
+    v36[1] = v24 * v34 + (result - 1) * a7;
   }
 
   return result;
@@ -1416,20 +776,20 @@ void (*protocol witness for Animatable.animatableData.modify in conformance Play
 
 uint64_t protocol witness for View.body.getter in conformance PlayIntentButtonStack@<X0>(_BYTE *a1@<X8>)
 {
-  v3 = *v1;
-  v4 = v1[1];
-  v5 = v1[2];
-  v6 = static Axis.Set.horizontal.getter();
-  v7 = Axis.Set.init(rawValue:)();
+  v4 = *v2;
+  v5 = v2[1];
+  v6 = v2[2];
+  v7 = static Axis.Set.horizontal.getter();
+  v8 = Axis.Set.init(rawValue:)();
   Axis.Set.init(rawValue:)();
-  if (Axis.Set.init(rawValue:)() != v6)
+  if (Axis.Set.init(rawValue:)() != v7)
   {
-    v7 = Axis.Set.init(rawValue:)();
+    v8 = Axis.Set.init(rawValue:)();
   }
 
-  *a1 = v7;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA16_SizeFittingRootVAA05TupleD0VyAA0D0PAAE011dynamicTypeF0yQrqd__SXRd__AA07DynamickF0O5BoundRtd__lFQOyAA15ModifiedContentVyAEy_AA07_LayoutH0Vy09MusicCoreB021PlayIntentButtonStackV11SmartHStack33_2727121886EA4678BFC0296976ECCDEBLLVGAA7ForEachVySayAU06SymbolU0C0T0OGSSAU0stU7WrapperVGGAA06_FixedfP0VG_SNyANGQo__A15_tGGMd);
-  return closure #1 in PlayIntentButtonStack.body.getter(v3, v4, v5, &a1[*(v8 + 44)]);
+  *a1 = v8;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA16_SizeFittingRootVAA05TupleD0VyAA0D0PAAE011dynamicTypeF0yQrqd__SXRd__AA07DynamickF0O5BoundRtd__lFQOyAA15ModifiedContentVyAEy_AA07_LayoutH0Vy09MusicCoreB021PlayIntentButtonStackV11SmartHStack33_2727121886EA4678BFC0296976ECCDEBLLVGAA7ForEachVySayAU06SymbolU0C0T0OGSSAU0stU7WrapperVGGAA06_FixedfP0VG_SNyANGQo__A15_tGGMd, &_s7SwiftUI13_VariadicViewO4TreeVy_AA16_SizeFittingRootVAA05TupleD0VyAA0D0PAAE011dynamicTypeF0yQrqd__SXRd__AA07DynamickF0O5BoundRtd__lFQOyAA15ModifiedContentVyAEy_AA07_LayoutH0Vy09MusicCoreB021PlayIntentButtonStackV11SmartHStack33_2727121886EA4678BFC0296976ECCDEBLLVGAA7ForEachVySayAU06SymbolU0C0T0OGSSAU0stU7WrapperVGGAA06_FixedfP0VG_SNyANGQo__A15_tGGMR);
+  return closure #1 in PlayIntentButtonStack.body.getter(v4, v5, v6, &a1[*(v9 + 44)]);
 }
 
 uint64_t EnvironmentValues.playIntentButtonMaterial.getter()
@@ -1458,57 +818,59 @@ char *PlayIntentButtonWrapper.makeUIView(context:)()
 uint64_t PlayIntentButtonWrapper.updateUIView(_:context:)(uint64_t a1)
 {
   v2 = v1;
-  v4 = type metadata accessor for SymbolButton.Configuration(0);
-  __chkstk_darwin(v4 - 8);
-  v6 = &v21[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v7 = type metadata accessor for EnvironmentValues();
-  v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
-  v10 = &v21[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  type metadata accessor for SymbolButton.Configuration(0);
+  __chkstk_darwin();
+  v5 = &v23[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v6 = type metadata accessor for EnvironmentValues();
+  v7 = *(v6 - 8);
+  __chkstk_darwin();
+  v9 = &v23[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
   SymbolButton.update(to:)(*v2);
-  v23 = v2[32];
-  v11 = *(v2 + 3);
-  v22 = v11;
-  if (v23 != 1)
+  v25 = v2[32];
+  v10 = *(v2 + 3);
+  v24 = v10;
+  if (v25 != 1)
   {
 
-    static os_log_type_t.fault.getter();
+    v11 = static os_log_type_t.fault.getter();
     v12 = static Log.runtimeIssuesLog.getter();
-    os_log(_:dso:log:_:_:)();
+    os_log(_:dso:log:_:_:)(v11, &_mh_execute_header, v12, "Accessing Environment's value outside of being installed on a View. This will always read the default value and will not update.", 128, 2, _swiftEmptyArrayStorage);
 
     EnvironmentValues.init()();
     swift_getAtKeyPath();
-    outlined destroy of TaskPriority?(&v22, &_s7SwiftUI11EnvironmentVy09MusicCoreB012SymbolButtonC13MaterialColorOSgGMd);
-    (*(v8 + 8))(v10, v7);
-    LOBYTE(v11) = v21[40];
+    outlined destroy of TaskPriority?(&v24, &_s7SwiftUI11EnvironmentVy09MusicCoreB012SymbolButtonC13MaterialColorOSgGMd, &_s7SwiftUI11EnvironmentVy09MusicCoreB012SymbolButtonC13MaterialColorOSgGMR);
+    (*(v7 + 8))(v9, v6);
+    LOBYTE(v10) = v23[40];
   }
 
-  SymbolButton.materialColor.setter(v11);
+  SymbolButton.materialColor.setter(v10);
   v13 = v2[1];
   v14 = OBJC_IVAR____TtC11MusicCoreUI12SymbolButton__configuration;
   swift_beginAccess();
-  outlined init with copy of SymbolButton.Configuration(a1 + v14, v6);
-  v6[184] = v13;
-  SymbolButton.setConfiguration(_:animation:updates:)(v6, 0, 0, 0, 1, _swiftEmptyArrayStorage);
-  outlined destroy of SymbolButton.Configuration(v6, type metadata accessor for SymbolButton.Configuration);
-  outlined init with copy of SymbolButton.Configuration(a1 + v14, v6);
-  *(v6 + 24) = 1;
-  SymbolButton.setConfiguration(_:animation:updates:)(v6, 0, 0, 0, 1, _swiftEmptyArrayStorage);
-  outlined destroy of SymbolButton.Configuration(v6, type metadata accessor for SymbolButton.Configuration);
+  outlined init with copy of SymbolButton.Configuration(a1 + v14, v5);
+  *(v5 + 184) = v13;
+  SymbolButton.setConfiguration(_:animation:updates:)(v5, 0, 0, 0, 1, _swiftEmptyArrayStorage);
+  outlined destroy of SymbolButton.Configuration(v5, type metadata accessor for SymbolButton.Configuration);
+  outlined init with copy of SymbolButton.Configuration(a1 + v14, v5);
+  *(v5 + 24) = 1;
+  SymbolButton.setConfiguration(_:animation:updates:)(v5, 0, 0, 0, 1, _swiftEmptyArrayStorage);
+  outlined destroy of SymbolButton.Configuration(v5, type metadata accessor for SymbolButton.Configuration);
   v15 = *(v2 + 1);
-  v16 = swift_allocObject();
-  v17 = *(v2 + 1);
-  *(v16 + 16) = *v2;
-  *(v16 + 32) = v17;
-  *(v16 + 48) = v2[32];
-  v18 = (a1 + OBJC_IVAR____TtC11MusicCoreUI12SymbolButton_handler);
+  v16 = *(v2 + 2);
+  v17 = swift_allocObject();
+  v18 = *(v2 + 1);
+  *(v17 + 16) = *v2;
+  *(v17 + 32) = v18;
+  *(v17 + 48) = v2[32];
+  v19 = (a1 + OBJC_IVAR____TtC11MusicCoreUI12SymbolButton_handler);
   swift_beginAccess();
-  v19 = *v18;
-  *v18 = partial apply for closure #1 in PlayIntentButtonWrapper.updateUIView(_:context:);
-  v18[1] = v16;
-  outlined init with copy of TaskPriority?(&v22, v21, &_s7SwiftUI11EnvironmentVy09MusicCoreB012SymbolButtonC13MaterialColorOSgGMd);
-  outlined copy of (@escaping @callee_guaranteed () -> ())?(v15);
-  return outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v19);
+  v20 = *v19;
+  v21 = v19[1];
+  *v19 = partial apply for closure #1 in PlayIntentButtonWrapper.updateUIView(_:context:);
+  v19[1] = v17;
+  outlined init with copy of TaskPriority?(&v24, v23, &_s7SwiftUI11EnvironmentVy09MusicCoreB012SymbolButtonC13MaterialColorOSgGMd, &_s7SwiftUI11EnvironmentVy09MusicCoreB012SymbolButtonC13MaterialColorOSgGMR);
+  outlined copy of (@escaping @callee_guaranteed () -> ())?(v15, v16);
+  return outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v20, v21);
 }
 
 double PlayIntentButtonWrapper.sizeThatFits(_:uiView:context:)(uint64_t a1, char a2, int a3, int a4, id a5)
@@ -1558,17 +920,19 @@ uint64_t protocol witness for static View._makeViewList(view:inputs:) in conform
   return static UIViewRepresentable._makeViewList(view:inputs:)(a1, a2, a3, v6);
 }
 
-void protocol witness for View.body.getter in conformance PlayIntentButtonWrapper()
+void protocol witness for View.body.getter in conformance PlayIntentButtonWrapper(uint64_t a1)
 {
   lazy protocol witness table accessor for type PlayIntentButtonWrapper and conformance PlayIntentButtonWrapper();
   UIViewRepresentable.body.getter();
   __break(1u);
 }
 
-uint64_t View.playIntentButtonMaterial(_:)()
+double View.playIntentButtonMaterial(_:)(char a1, uint64_t a2, uint64_t a3)
 {
   swift_getKeyPath();
   View.environment<A>(_:_:)();
+
+  return result;
 }
 
 uint64_t protocol witness for static EnvironmentKey._valuesEqual(_:_:) in conformance PlayIntentButtonMaterialKey(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -1609,16 +973,17 @@ char *PlayIntentLayoutHelper.init()()
   return v0;
 }
 
-uint64_t PlayIntentLayoutHelper.layout(in:rect:)(void *a1, double *a2, void *a3, void *a4, int a5, double a6)
+uint64_t PlayIntentLayoutHelper.layout(in:rect:)(void *a1, double *a2, void *a3, void *a4, uint64_t a5, double a6)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd_0);
+  v7 = a5;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd_0, &_ss23_ContiguousArrayStorageCyyXlGMR_0);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_1004F2FF0;
   *(inited + 32) = a3;
   *(inited + 40) = a4;
   v13 = a3;
   v14 = a4;
-  specialized static PlayIntentLayoutHelper.layout(_:in:rect:configuration:)(inited, a1, a2, a5, a6);
+  specialized static PlayIntentLayoutHelper.layout(_:in:rect:configuration:)(inited, a1, a2, v7, a6);
   swift_setDeallocating();
   return swift_arrayDestroy();
 }
@@ -1642,7 +1007,7 @@ id MPCPlaybackIntent.configure(for:)(char a1)
   return [v1 setRepeatMode:0];
 }
 
-id *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC11MusicCoreUI12SymbolButtonC6IntentO_Tt1g5(uint64_t a1, uint64_t a2)
+void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC11MusicCoreUI12SymbolButtonC6IntentO_Tt1g5(uint64_t a1, uint64_t a2)
 {
   if (a2 <= a1)
   {
@@ -1659,7 +1024,7 @@ id *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_Si
     return _swiftEmptyArrayStorage;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11MusicCoreUI12SymbolButtonC6IntentOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11MusicCoreUI12SymbolButtonC6IntentOGMd, &_ss23_ContiguousArrayStorageCy11MusicCoreUI12SymbolButtonC6IntentOGMR);
   v4 = swift_allocObject();
   v5 = _swift_stdlib_malloc_size(v4);
   result = v4;
@@ -1668,7 +1033,998 @@ id *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_Si
   return result;
 }
 
-uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(unsigned __int8 *__dst, unsigned __int8 *__src, unint64_t a3, unsigned __int8 *a4)
+void specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(unsigned __int8 *a1, uint64_t a2, uint64_t *a3, uint64_t a4)
+{
+  v6 = a3[1];
+  if (v6 < 1)
+  {
+    NewAByxGyFSnySiG_Tgq5_0 = _swiftEmptyArrayStorage;
+LABEL_88:
+    a1 = *a1;
+    if (!a1)
+    {
+      goto LABEL_126;
+    }
+
+    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+    {
+LABEL_120:
+      NewAByxGyFSnySiG_Tgq5_0 = _ss12_ArrayBufferV20_consumeAndCreateNewAByxGyFSnySiG_Tgq5_0(NewAByxGyFSnySiG_Tgq5_0);
+    }
+
+    v77 = NewAByxGyFSnySiG_Tgq5_0 + 16;
+    v78 = *(NewAByxGyFSnySiG_Tgq5_0 + 2);
+    if (v78 >= 2)
+    {
+      while (*a3)
+      {
+        v79 = &NewAByxGyFSnySiG_Tgq5_0[16 * v78];
+        v80 = *v79;
+        v81 = &v77[2 * v78];
+        v82 = v81[1];
+        specialized _merge<A>(low:mid:high:buffer:by:)((*a3 + *v79), (*a3 + *v81), (*a3 + v82), a1);
+        if (v4)
+        {
+          goto LABEL_97;
+        }
+
+        if (v82 < v80)
+        {
+          goto LABEL_112;
+        }
+
+        if (v78 - 2 >= *v77)
+        {
+          goto LABEL_113;
+        }
+
+        *v79 = v80;
+        *(v79 + 1) = v82;
+        v83 = *v77 - v78;
+        if (*v77 < v78)
+        {
+          goto LABEL_114;
+        }
+
+        v78 = *v77 - 1;
+        memmove(v81, v81 + 2, 16 * v83);
+        *v77 = v78;
+        if (v78 <= 1)
+        {
+          goto LABEL_97;
+        }
+      }
+
+      goto LABEL_124;
+    }
+
+LABEL_97:
+
+    return;
+  }
+
+  v7 = a4;
+  v8 = 0;
+  NewAByxGyFSnySiG_Tgq5_0 = _swiftEmptyArrayStorage;
+  while (1)
+  {
+    v10 = v8++;
+    if (v8 < v6)
+    {
+      v11 = *(*a3 + v8);
+      v12 = *(*a3 + v10);
+      v13 = v10 + 2;
+      v14 = v11;
+      while (v6 != v13)
+      {
+        v15 = *(*a3 + v13);
+        v16 = (v11 < v12) ^ (v15 >= v14);
+        ++v13;
+        v14 = v15;
+        if ((v16 & 1) == 0)
+        {
+          v8 = v13 - 1;
+          if (v11 >= v12)
+          {
+            goto LABEL_20;
+          }
+
+          goto LABEL_11;
+        }
+      }
+
+      v8 = v6;
+      if (v11 >= v12)
+      {
+        goto LABEL_20;
+      }
+
+LABEL_11:
+      if (v8 < v10)
+      {
+        goto LABEL_117;
+      }
+
+      if (v10 < v8)
+      {
+        v17 = v8 - 1;
+        v18 = v10;
+        do
+        {
+          if (v18 != v17)
+          {
+            v21 = *a3;
+            if (!*a3)
+            {
+              goto LABEL_123;
+            }
+
+            v19 = *(v21 + v18);
+            *(v21 + v18) = *(v21 + v17);
+            *(v21 + v17) = v19;
+          }
+        }
+
+        while (++v18 < v17--);
+        v6 = a3[1];
+      }
+    }
+
+LABEL_20:
+    if (v8 < v6)
+    {
+      if (__OFSUB__(v8, v10))
+      {
+        goto LABEL_116;
+      }
+
+      if (v8 - v10 < v7)
+      {
+        if (__OFADD__(v10, v7))
+        {
+          goto LABEL_118;
+        }
+
+        if (v10 + v7 < v6)
+        {
+          v6 = v10 + v7;
+        }
+
+        if (v6 < v10)
+        {
+LABEL_119:
+          __break(1u);
+          goto LABEL_120;
+        }
+
+        if (v8 != v6)
+        {
+          break;
+        }
+      }
+    }
+
+LABEL_37:
+    if (v8 < v10)
+    {
+      goto LABEL_115;
+    }
+
+    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+    {
+      NewAByxGyFSnySiG_Tgq5_0 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(NewAByxGyFSnySiG_Tgq5_0 + 2) + 1, 1, NewAByxGyFSnySiG_Tgq5_0);
+    }
+
+    v31 = *(NewAByxGyFSnySiG_Tgq5_0 + 2);
+    v30 = *(NewAByxGyFSnySiG_Tgq5_0 + 3);
+    v32 = v31 + 1;
+    if (v31 >= v30 >> 1)
+    {
+      NewAByxGyFSnySiG_Tgq5_0 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v30 > 1), v31 + 1, 1, NewAByxGyFSnySiG_Tgq5_0);
+    }
+
+    *(NewAByxGyFSnySiG_Tgq5_0 + 2) = v32;
+    v33 = &NewAByxGyFSnySiG_Tgq5_0[16 * v31];
+    *(v33 + 4) = v10;
+    *(v33 + 5) = v8;
+    v34 = *a1;
+    if (!*a1)
+    {
+      goto LABEL_125;
+    }
+
+    if (v31)
+    {
+      while (1)
+      {
+        v35 = v32 - 1;
+        if (v32 >= 4)
+        {
+          break;
+        }
+
+        if (v32 == 3)
+        {
+          v36 = *(NewAByxGyFSnySiG_Tgq5_0 + 4);
+          v37 = *(NewAByxGyFSnySiG_Tgq5_0 + 5);
+          v46 = __OFSUB__(v37, v36);
+          v38 = v37 - v36;
+          v39 = v46;
+LABEL_57:
+          if (v39)
+          {
+            goto LABEL_103;
+          }
+
+          v52 = &NewAByxGyFSnySiG_Tgq5_0[16 * v32];
+          v54 = *v52;
+          v53 = *(v52 + 1);
+          v55 = __OFSUB__(v53, v54);
+          v56 = v53 - v54;
+          v57 = v55;
+          if (v55)
+          {
+            goto LABEL_106;
+          }
+
+          v58 = &NewAByxGyFSnySiG_Tgq5_0[16 * v35 + 32];
+          v60 = *v58;
+          v59 = *(v58 + 1);
+          v46 = __OFSUB__(v59, v60);
+          v61 = v59 - v60;
+          if (v46)
+          {
+            goto LABEL_109;
+          }
+
+          if (__OFADD__(v56, v61))
+          {
+            goto LABEL_110;
+          }
+
+          if (v56 + v61 >= v38)
+          {
+            if (v38 < v61)
+            {
+              v35 = v32 - 2;
+            }
+
+            goto LABEL_78;
+          }
+
+          goto LABEL_71;
+        }
+
+        v62 = &NewAByxGyFSnySiG_Tgq5_0[16 * v32];
+        v64 = *v62;
+        v63 = *(v62 + 1);
+        v46 = __OFSUB__(v63, v64);
+        v56 = v63 - v64;
+        v57 = v46;
+LABEL_71:
+        if (v57)
+        {
+          goto LABEL_105;
+        }
+
+        v65 = &NewAByxGyFSnySiG_Tgq5_0[16 * v35];
+        v67 = *(v65 + 4);
+        v66 = *(v65 + 5);
+        v46 = __OFSUB__(v66, v67);
+        v68 = v66 - v67;
+        if (v46)
+        {
+          goto LABEL_108;
+        }
+
+        if (v68 < v56)
+        {
+          goto LABEL_3;
+        }
+
+LABEL_78:
+        v73 = v35 - 1;
+        if (v35 - 1 >= v32)
+        {
+          __break(1u);
+LABEL_99:
+          __break(1u);
+LABEL_100:
+          __break(1u);
+LABEL_101:
+          __break(1u);
+LABEL_102:
+          __break(1u);
+LABEL_103:
+          __break(1u);
+LABEL_104:
+          __break(1u);
+LABEL_105:
+          __break(1u);
+LABEL_106:
+          __break(1u);
+LABEL_107:
+          __break(1u);
+LABEL_108:
+          __break(1u);
+LABEL_109:
+          __break(1u);
+LABEL_110:
+          __break(1u);
+LABEL_111:
+          __break(1u);
+LABEL_112:
+          __break(1u);
+LABEL_113:
+          __break(1u);
+LABEL_114:
+          __break(1u);
+LABEL_115:
+          __break(1u);
+LABEL_116:
+          __break(1u);
+LABEL_117:
+          __break(1u);
+LABEL_118:
+          __break(1u);
+          goto LABEL_119;
+        }
+
+        if (!*a3)
+        {
+          goto LABEL_122;
+        }
+
+        v74 = *&NewAByxGyFSnySiG_Tgq5_0[16 * v73 + 32];
+        v75 = *&NewAByxGyFSnySiG_Tgq5_0[16 * v35 + 40];
+        specialized _merge<A>(low:mid:high:buffer:by:)((*a3 + v74), (*a3 + *&NewAByxGyFSnySiG_Tgq5_0[16 * v35 + 32]), (*a3 + v75), v34);
+        if (v4)
+        {
+          goto LABEL_97;
+        }
+
+        if (v75 < v74)
+        {
+          goto LABEL_99;
+        }
+
+        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+        {
+          NewAByxGyFSnySiG_Tgq5_0 = _ss12_ArrayBufferV20_consumeAndCreateNewAByxGyFSnySiG_Tgq5_0(NewAByxGyFSnySiG_Tgq5_0);
+        }
+
+        if (v73 >= *(NewAByxGyFSnySiG_Tgq5_0 + 2))
+        {
+          goto LABEL_100;
+        }
+
+        v76 = &NewAByxGyFSnySiG_Tgq5_0[16 * v73];
+        *(v76 + 4) = v74;
+        *(v76 + 5) = v75;
+        _sSa6remove2atxSi_tFSnySiG_Tgq5_0(v35);
+        v32 = *(NewAByxGyFSnySiG_Tgq5_0 + 2);
+        if (v32 <= 1)
+        {
+          goto LABEL_3;
+        }
+      }
+
+      v40 = &NewAByxGyFSnySiG_Tgq5_0[16 * v32 + 32];
+      v41 = *(v40 - 64);
+      v42 = *(v40 - 56);
+      v46 = __OFSUB__(v42, v41);
+      v43 = v42 - v41;
+      if (v46)
+      {
+        goto LABEL_101;
+      }
+
+      v45 = *(v40 - 48);
+      v44 = *(v40 - 40);
+      v46 = __OFSUB__(v44, v45);
+      v38 = v44 - v45;
+      v39 = v46;
+      if (v46)
+      {
+        goto LABEL_102;
+      }
+
+      v47 = &NewAByxGyFSnySiG_Tgq5_0[16 * v32];
+      v49 = *v47;
+      v48 = *(v47 + 1);
+      v46 = __OFSUB__(v48, v49);
+      v50 = v48 - v49;
+      if (v46)
+      {
+        goto LABEL_104;
+      }
+
+      v46 = __OFADD__(v38, v50);
+      v51 = v38 + v50;
+      if (v46)
+      {
+        goto LABEL_107;
+      }
+
+      if (v51 >= v43)
+      {
+        v69 = &NewAByxGyFSnySiG_Tgq5_0[16 * v35 + 32];
+        v71 = *v69;
+        v70 = *(v69 + 1);
+        v46 = __OFSUB__(v70, v71);
+        v72 = v70 - v71;
+        if (v46)
+        {
+          goto LABEL_111;
+        }
+
+        if (v38 < v72)
+        {
+          v35 = v32 - 2;
+        }
+
+        goto LABEL_78;
+      }
+
+      goto LABEL_57;
+    }
+
+LABEL_3:
+    v6 = a3[1];
+    v7 = a4;
+    if (v8 >= v6)
+    {
+      goto LABEL_88;
+    }
+  }
+
+  v22 = *a3;
+  v23 = (*a3 + v8);
+  v24 = v10 - v8;
+LABEL_30:
+  v25 = *(v22 + v8);
+  v26 = v24;
+  v27 = v23;
+  while (1)
+  {
+    v28 = *(v27 - 1);
+    if (v25 >= v28)
+    {
+LABEL_29:
+      ++v8;
+      ++v23;
+      --v24;
+      if (v8 != v6)
+      {
+        goto LABEL_30;
+      }
+
+      v8 = v6;
+      goto LABEL_37;
+    }
+
+    if (!v22)
+    {
+      break;
+    }
+
+    *v27 = v28;
+    *--v27 = v25;
+    if (__CFADD__(v26++, 1))
+    {
+      goto LABEL_29;
+    }
+  }
+
+  __break(1u);
+LABEL_122:
+  __break(1u);
+LABEL_123:
+  __break(1u);
+LABEL_124:
+  __break(1u);
+LABEL_125:
+  __break(1u);
+LABEL_126:
+  __break(1u);
+}
+
+{
+  v6 = a3[1];
+  if (v6 < 1)
+  {
+    NewAByxGyFSnySiG_Tgq5_1 = _swiftEmptyArrayStorage;
+LABEL_88:
+    a1 = *a1;
+    if (!a1)
+    {
+      goto LABEL_126;
+    }
+
+    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+    {
+LABEL_120:
+      NewAByxGyFSnySiG_Tgq5_1 = _ss12_ArrayBufferV20_consumeAndCreateNewAByxGyFSnySiG_Tgq5_1(NewAByxGyFSnySiG_Tgq5_1);
+    }
+
+    v77 = NewAByxGyFSnySiG_Tgq5_1 + 16;
+    v78 = *(NewAByxGyFSnySiG_Tgq5_1 + 2);
+    if (v78 >= 2)
+    {
+      while (*a3)
+      {
+        v79 = &NewAByxGyFSnySiG_Tgq5_1[16 * v78];
+        v80 = *v79;
+        v81 = &v77[2 * v78];
+        v82 = v81[1];
+        specialized _merge<A>(low:mid:high:buffer:by:)((*a3 + *v79), (*a3 + *v81), (*a3 + v82), a1);
+        if (v4)
+        {
+          goto LABEL_97;
+        }
+
+        if (v82 < v80)
+        {
+          goto LABEL_112;
+        }
+
+        if (v78 - 2 >= *v77)
+        {
+          goto LABEL_113;
+        }
+
+        *v79 = v80;
+        *(v79 + 1) = v82;
+        v83 = *v77 - v78;
+        if (*v77 < v78)
+        {
+          goto LABEL_114;
+        }
+
+        v78 = *v77 - 1;
+        memmove(v81, v81 + 2, 16 * v83);
+        *v77 = v78;
+        if (v78 <= 1)
+        {
+          goto LABEL_97;
+        }
+      }
+
+      goto LABEL_124;
+    }
+
+LABEL_97:
+
+    return;
+  }
+
+  v7 = a4;
+  v8 = 0;
+  NewAByxGyFSnySiG_Tgq5_1 = _swiftEmptyArrayStorage;
+  while (1)
+  {
+    v10 = v8++;
+    if (v8 < v6)
+    {
+      v11 = *(*a3 + v8);
+      v12 = *(*a3 + v10);
+      v13 = v10 + 2;
+      v14 = v11;
+      while (v6 != v13)
+      {
+        v15 = *(*a3 + v13);
+        v16 = (v11 < v12) ^ (v15 >= v14);
+        ++v13;
+        v14 = v15;
+        if ((v16 & 1) == 0)
+        {
+          v8 = v13 - 1;
+          if (v11 >= v12)
+          {
+            goto LABEL_20;
+          }
+
+          goto LABEL_11;
+        }
+      }
+
+      v8 = v6;
+      if (v11 >= v12)
+      {
+        goto LABEL_20;
+      }
+
+LABEL_11:
+      if (v8 < v10)
+      {
+        goto LABEL_117;
+      }
+
+      if (v10 < v8)
+      {
+        v17 = v8 - 1;
+        v18 = v10;
+        do
+        {
+          if (v18 != v17)
+          {
+            v21 = *a3;
+            if (!*a3)
+            {
+              goto LABEL_123;
+            }
+
+            v19 = *(v21 + v18);
+            *(v21 + v18) = *(v21 + v17);
+            *(v21 + v17) = v19;
+          }
+        }
+
+        while (++v18 < v17--);
+        v6 = a3[1];
+      }
+    }
+
+LABEL_20:
+    if (v8 < v6)
+    {
+      if (__OFSUB__(v8, v10))
+      {
+        goto LABEL_116;
+      }
+
+      if (v8 - v10 < v7)
+      {
+        if (__OFADD__(v10, v7))
+        {
+          goto LABEL_118;
+        }
+
+        if (v10 + v7 < v6)
+        {
+          v6 = v10 + v7;
+        }
+
+        if (v6 < v10)
+        {
+LABEL_119:
+          __break(1u);
+          goto LABEL_120;
+        }
+
+        if (v8 != v6)
+        {
+          break;
+        }
+      }
+    }
+
+LABEL_37:
+    if (v8 < v10)
+    {
+      goto LABEL_115;
+    }
+
+    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+    {
+      NewAByxGyFSnySiG_Tgq5_1 = _ss12_ArrayBufferV20_consumeAndCreateNew14bufferIsUnique15minimumCapacity13growForAppendAByxGSb_SiSbtFSnySiG_Tg5_0(0, *(NewAByxGyFSnySiG_Tgq5_1 + 2) + 1, 1, NewAByxGyFSnySiG_Tgq5_1);
+    }
+
+    v31 = *(NewAByxGyFSnySiG_Tgq5_1 + 2);
+    v30 = *(NewAByxGyFSnySiG_Tgq5_1 + 3);
+    v32 = v31 + 1;
+    if (v31 >= v30 >> 1)
+    {
+      NewAByxGyFSnySiG_Tgq5_1 = _ss12_ArrayBufferV20_consumeAndCreateNew14bufferIsUnique15minimumCapacity13growForAppendAByxGSb_SiSbtFSnySiG_Tg5_0((v30 > 1), v31 + 1, 1, NewAByxGyFSnySiG_Tgq5_1);
+    }
+
+    *(NewAByxGyFSnySiG_Tgq5_1 + 2) = v32;
+    v33 = &NewAByxGyFSnySiG_Tgq5_1[16 * v31];
+    *(v33 + 4) = v10;
+    *(v33 + 5) = v8;
+    v34 = *a1;
+    if (!*a1)
+    {
+      goto LABEL_125;
+    }
+
+    if (v31)
+    {
+      while (1)
+      {
+        v35 = v32 - 1;
+        if (v32 >= 4)
+        {
+          break;
+        }
+
+        if (v32 == 3)
+        {
+          v36 = *(NewAByxGyFSnySiG_Tgq5_1 + 4);
+          v37 = *(NewAByxGyFSnySiG_Tgq5_1 + 5);
+          v46 = __OFSUB__(v37, v36);
+          v38 = v37 - v36;
+          v39 = v46;
+LABEL_57:
+          if (v39)
+          {
+            goto LABEL_103;
+          }
+
+          v52 = &NewAByxGyFSnySiG_Tgq5_1[16 * v32];
+          v54 = *v52;
+          v53 = *(v52 + 1);
+          v55 = __OFSUB__(v53, v54);
+          v56 = v53 - v54;
+          v57 = v55;
+          if (v55)
+          {
+            goto LABEL_106;
+          }
+
+          v58 = &NewAByxGyFSnySiG_Tgq5_1[16 * v35 + 32];
+          v60 = *v58;
+          v59 = *(v58 + 1);
+          v46 = __OFSUB__(v59, v60);
+          v61 = v59 - v60;
+          if (v46)
+          {
+            goto LABEL_109;
+          }
+
+          if (__OFADD__(v56, v61))
+          {
+            goto LABEL_110;
+          }
+
+          if (v56 + v61 >= v38)
+          {
+            if (v38 < v61)
+            {
+              v35 = v32 - 2;
+            }
+
+            goto LABEL_78;
+          }
+
+          goto LABEL_71;
+        }
+
+        v62 = &NewAByxGyFSnySiG_Tgq5_1[16 * v32];
+        v64 = *v62;
+        v63 = *(v62 + 1);
+        v46 = __OFSUB__(v63, v64);
+        v56 = v63 - v64;
+        v57 = v46;
+LABEL_71:
+        if (v57)
+        {
+          goto LABEL_105;
+        }
+
+        v65 = &NewAByxGyFSnySiG_Tgq5_1[16 * v35];
+        v67 = *(v65 + 4);
+        v66 = *(v65 + 5);
+        v46 = __OFSUB__(v66, v67);
+        v68 = v66 - v67;
+        if (v46)
+        {
+          goto LABEL_108;
+        }
+
+        if (v68 < v56)
+        {
+          goto LABEL_3;
+        }
+
+LABEL_78:
+        v73 = v35 - 1;
+        if (v35 - 1 >= v32)
+        {
+          __break(1u);
+LABEL_99:
+          __break(1u);
+LABEL_100:
+          __break(1u);
+LABEL_101:
+          __break(1u);
+LABEL_102:
+          __break(1u);
+LABEL_103:
+          __break(1u);
+LABEL_104:
+          __break(1u);
+LABEL_105:
+          __break(1u);
+LABEL_106:
+          __break(1u);
+LABEL_107:
+          __break(1u);
+LABEL_108:
+          __break(1u);
+LABEL_109:
+          __break(1u);
+LABEL_110:
+          __break(1u);
+LABEL_111:
+          __break(1u);
+LABEL_112:
+          __break(1u);
+LABEL_113:
+          __break(1u);
+LABEL_114:
+          __break(1u);
+LABEL_115:
+          __break(1u);
+LABEL_116:
+          __break(1u);
+LABEL_117:
+          __break(1u);
+LABEL_118:
+          __break(1u);
+          goto LABEL_119;
+        }
+
+        if (!*a3)
+        {
+          goto LABEL_122;
+        }
+
+        v74 = *&NewAByxGyFSnySiG_Tgq5_1[16 * v73 + 32];
+        v75 = *&NewAByxGyFSnySiG_Tgq5_1[16 * v35 + 40];
+        specialized _merge<A>(low:mid:high:buffer:by:)((*a3 + v74), (*a3 + *&NewAByxGyFSnySiG_Tgq5_1[16 * v35 + 32]), (*a3 + v75), v34);
+        if (v4)
+        {
+          goto LABEL_97;
+        }
+
+        if (v75 < v74)
+        {
+          goto LABEL_99;
+        }
+
+        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+        {
+          NewAByxGyFSnySiG_Tgq5_1 = _ss12_ArrayBufferV20_consumeAndCreateNewAByxGyFSnySiG_Tgq5_1(NewAByxGyFSnySiG_Tgq5_1);
+        }
+
+        if (v73 >= *(NewAByxGyFSnySiG_Tgq5_1 + 2))
+        {
+          goto LABEL_100;
+        }
+
+        v76 = &NewAByxGyFSnySiG_Tgq5_1[16 * v73];
+        *(v76 + 4) = v74;
+        *(v76 + 5) = v75;
+        _sSa6remove2atxSi_tFSnySiG_Tgq5_1(v35);
+        v32 = *(NewAByxGyFSnySiG_Tgq5_1 + 2);
+        if (v32 <= 1)
+        {
+          goto LABEL_3;
+        }
+      }
+
+      v40 = &NewAByxGyFSnySiG_Tgq5_1[16 * v32 + 32];
+      v41 = *(v40 - 64);
+      v42 = *(v40 - 56);
+      v46 = __OFSUB__(v42, v41);
+      v43 = v42 - v41;
+      if (v46)
+      {
+        goto LABEL_101;
+      }
+
+      v45 = *(v40 - 48);
+      v44 = *(v40 - 40);
+      v46 = __OFSUB__(v44, v45);
+      v38 = v44 - v45;
+      v39 = v46;
+      if (v46)
+      {
+        goto LABEL_102;
+      }
+
+      v47 = &NewAByxGyFSnySiG_Tgq5_1[16 * v32];
+      v49 = *v47;
+      v48 = *(v47 + 1);
+      v46 = __OFSUB__(v48, v49);
+      v50 = v48 - v49;
+      if (v46)
+      {
+        goto LABEL_104;
+      }
+
+      v46 = __OFADD__(v38, v50);
+      v51 = v38 + v50;
+      if (v46)
+      {
+        goto LABEL_107;
+      }
+
+      if (v51 >= v43)
+      {
+        v69 = &NewAByxGyFSnySiG_Tgq5_1[16 * v35 + 32];
+        v71 = *v69;
+        v70 = *(v69 + 1);
+        v46 = __OFSUB__(v70, v71);
+        v72 = v70 - v71;
+        if (v46)
+        {
+          goto LABEL_111;
+        }
+
+        if (v38 < v72)
+        {
+          v35 = v32 - 2;
+        }
+
+        goto LABEL_78;
+      }
+
+      goto LABEL_57;
+    }
+
+LABEL_3:
+    v6 = a3[1];
+    v7 = a4;
+    if (v8 >= v6)
+    {
+      goto LABEL_88;
+    }
+  }
+
+  v22 = *a3;
+  v23 = (*a3 + v8);
+  v24 = v10 - v8;
+LABEL_30:
+  v25 = *(v22 + v8);
+  v26 = v24;
+  v27 = v23;
+  while (1)
+  {
+    v28 = *(v27 - 1);
+    if (v25 >= v28)
+    {
+LABEL_29:
+      ++v8;
+      ++v23;
+      --v24;
+      if (v8 != v6)
+      {
+        goto LABEL_30;
+      }
+
+      v8 = v6;
+      goto LABEL_37;
+    }
+
+    if (!v22)
+    {
+      break;
+    }
+
+    *v27 = v28;
+    *--v27 = v25;
+    if (__CFADD__(v26++, 1))
+    {
+      goto LABEL_29;
+    }
+  }
+
+  __break(1u);
+LABEL_122:
+  __break(1u);
+LABEL_123:
+  __break(1u);
+LABEL_124:
+  __break(1u);
+LABEL_125:
+  __break(1u);
+LABEL_126:
+  __break(1u);
+}
+
+uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(unsigned __int8 *__dst, unsigned __int8 *__src, unsigned __int8 *a3, unsigned __int8 *a4)
 {
   v4 = a4;
   v5 = a3;
@@ -1676,7 +2032,7 @@ uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(unsigned __int8 *__dst, 
   v7 = __dst;
   v8 = __src - __dst;
   v9 = a3 - __src;
-  if (__src - __dst >= (a3 - __src))
+  if (__src - __dst >= a3 - __src)
   {
     if (a4 != __src || a4 >= a3)
     {
@@ -1961,9 +2317,9 @@ uint64_t outlined init with copy of SymbolButton.Configuration(uint64_t a1, uint
   return a2;
 }
 
-void *outlined consume of SymbolButton.Material?(void *result, void *a2, void *a3)
+double outlined consume of SymbolButton.Material?(void *a1, void *a2, void *a3)
 {
-  if (result != 1)
+  if (a1 != 1)
   {
   }
 
@@ -2012,97 +2368,96 @@ uint64_t partial apply for closure #1 in PlayIntentButtonWrapper.updateUIView(_:
   return result;
 }
 
-uint64_t specialized PlayIntentButtonStack.SmartHStack.placeSubviews(in:proposal:subviews:cache:)(uint64_t a1, uint64_t a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6, double a7)
+uint64_t specialized PlayIntentButtonStack.SmartHStack.placeSubviews(in:proposal:subviews:cache:)(uint64_t a1, double *a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6, double a7)
 {
-  v40 = type metadata accessor for ViewDimensions();
-  v37 = *(v40 - 8);
-  __chkstk_darwin(v40);
-  v39 = &v36 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v39 = type metadata accessor for ViewDimensions();
+  v36 = *(v39 - 8);
+  __chkstk_darwin();
+  v38 = &v35 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   v15 = type metadata accessor for LayoutSubview();
-  v36 = *(v15 - 8);
-  __chkstk_darwin(v15);
-  v17 = &v36 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v35 = *(v15 - 8);
+  __chkstk_darwin();
+  v17 = &v35 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   v18 = type metadata accessor for LayoutSubviews();
   v19 = *(v18 - 8);
-  __chkstk_darwin(v18);
-  v21 = &v36 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVy7SwiftUI14LayoutSubviewsVGMd);
-  v23 = v22 - 8;
-  __chkstk_darwin(v22);
-  v25 = &v36 - v24;
-  v44.origin.x = a3;
-  v44.origin.y = a4;
-  v44.size.width = a5;
-  v44.size.height = a6;
-  CGRectGetWidth(v44);
-  v41 = a2;
-  lazy protocol witness table accessor for type LayoutSubviews and conformance LayoutSubviews(&lazy protocol witness table cache variable for type LayoutSubviews and conformance LayoutSubviews, &type metadata accessor for LayoutSubviews);
+  __chkstk_darwin();
+  v21 = &v35 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVy7SwiftUI14LayoutSubviewsVGMd, &_ss16IndexingIteratorVy7SwiftUI14LayoutSubviewsVGMR) - 8;
+  __chkstk_darwin();
+  v24 = &v35 - v23;
+  v43.origin.x = a3;
+  v43.origin.y = a4;
+  v43.size.width = a5;
+  v43.size.height = a6;
+  CGRectGetWidth(v43);
+  v40 = a2;
+  lazy protocol witness table accessor for type LayoutSubviews and conformance LayoutSubviews(&lazy protocol witness table cache variable for type LayoutSubviews and conformance LayoutSubviews, &type metadata accessor for LayoutSubviews, &protocol conformance descriptor for LayoutSubviews);
   dispatch thunk of Collection.startIndex.getter();
   dispatch thunk of Collection.endIndex.getter();
-  v38 = dispatch thunk of Collection.distance(from:to:)();
+  v37 = dispatch thunk of Collection.distance(from:to:)();
   (*(v19 + 16))(v21, a1, v18);
-  lazy protocol witness table accessor for type LayoutSubviews and conformance LayoutSubviews(&lazy protocol witness table cache variable for type LayoutSubviews and conformance LayoutSubviews, &type metadata accessor for LayoutSubviews);
+  lazy protocol witness table accessor for type LayoutSubviews and conformance LayoutSubviews(&lazy protocol witness table cache variable for type LayoutSubviews and conformance LayoutSubviews, &type metadata accessor for LayoutSubviews, &protocol conformance descriptor for LayoutSubviews);
   dispatch thunk of Sequence.makeIterator()();
-  v26 = *(v23 + 44);
+  v25 = *(v22 + 44);
   dispatch thunk of Collection.endIndex.getter();
-  if (*&v25[v26] != v42[0])
+  if (*&v24[v25] != v41[0])
   {
-    ++v37;
-    v38 = (v36 + 2);
     ++v36;
-    v27 = a3;
+    v37 = (v35 + 2);
+    ++v35;
+    v26 = a3;
     do
     {
-      v28 = dispatch thunk of Collection.subscript.read();
-      (*v38)(v17);
-      v28(v42, 0);
+      v27 = dispatch thunk of Collection.subscript.read();
+      (*v37)(v17);
+      v27(v41, 0);
       dispatch thunk of Collection.formIndex(after:)();
-      v45.origin.x = a3;
-      v45.origin.y = a4;
-      v45.size.width = a5;
-      v45.size.height = a6;
-      CGRectGetHeight(v45);
+      v44.origin.x = a3;
+      v44.origin.y = a4;
+      v44.size.width = a5;
+      v44.size.height = a6;
+      CGRectGetHeight(v44);
       static UnitPoint.topLeading.getter();
-      LOBYTE(v42[0]) = 0;
-      v43 = 0;
+      LOBYTE(v41[0]) = 0;
+      v42 = 0;
       LayoutSubview.place(at:anchor:proposal:)();
-      LOBYTE(v42[0]) = 0;
-      v43 = 0;
-      v29 = v18;
-      v30 = v15;
-      v31 = v39;
+      LOBYTE(v41[0]) = 0;
+      v42 = 0;
+      v28 = v18;
+      v29 = v15;
+      v30 = v38;
       LayoutSubview.dimensions(in:)();
       ViewDimensions.width.getter();
-      v33 = v32;
-      v34 = v31;
-      v15 = v30;
-      v18 = v29;
-      (*v37)(v34, v40);
-      (*v36)(v17, v15);
-      v27 = v27 + v33 + a7;
+      v32 = v31;
+      v33 = v30;
+      v15 = v29;
+      v18 = v28;
+      (*v36)(v33, v39);
+      (*v35)(v17, v15);
+      v26 = v26 + v32 + a7;
       dispatch thunk of Collection.endIndex.getter();
     }
 
-    while (*&v25[v26] != v42[0]);
+    while (*&v24[v25] != v41[0]);
   }
 
-  return outlined destroy of TaskPriority?(v25, &_ss16IndexingIteratorVy7SwiftUI14LayoutSubviewsVGMd);
+  return outlined destroy of TaskPriority?(v24, &_ss16IndexingIteratorVy7SwiftUI14LayoutSubviewsVGMd, &_ss16IndexingIteratorVy7SwiftUI14LayoutSubviewsVGMR);
 }
 
-char *specialized static PlayIntentLayoutHelper.layout(_:in:rect:configuration:)(unint64_t a1, void *a2, double *a3, int a4, double a5)
+void specialized static PlayIntentLayoutHelper.layout(_:in:rect:configuration:)(unint64_t a1, void *a2, double *a3, int a4, double a5)
 {
-  v77 = a5;
-  LODWORD(v75) = a4;
+  v76 = a5;
+  LODWORD(v74) = a4;
   v5 = a3;
-  v82 = a2;
+  v81 = a2;
   v8 = *a3;
   v7 = a3[1];
   v10 = a3[2];
   v9 = a3[3];
-  v11 = type metadata accessor for SymbolButton.Configuration(0);
-  __chkstk_darwin(v11 - 8);
-  v13 = &v72 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v83 = _swiftEmptyArrayStorage;
+  type metadata accessor for SymbolButton.Configuration(0);
+  __chkstk_darwin();
+  v12 = (&v71 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v82 = _swiftEmptyArrayStorage;
   if (a1 >> 62)
   {
     goto LABEL_16;
@@ -2110,35 +2465,35 @@ char *specialized static PlayIntentLayoutHelper.layout(_:in:rect:configuration:)
 
   for (i = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10); i; i = _CocoaArrayWrapper.endIndex.getter())
   {
-    v15 = 0;
-    v16 = a1 & 0xFFFFFFFFFFFFFF8;
-    v80 = *&v5;
-    v81 = a1 & 0xFFFFFFFFFFFFFF8;
+    v14 = 0;
+    v15 = a1 & 0xFFFFFFFFFFFFFF8;
+    v79 = *&v5;
+    v80 = a1 & 0xFFFFFFFFFFFFFF8;
     while (1)
     {
       if ((a1 & 0xC000000000000001) != 0)
       {
-        v17 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+        v16 = specialized _ArrayBuffer._getElementSlowPath(_:)();
       }
 
       else
       {
-        if (v15 >= *(v16 + 16))
+        if (v14 >= *(v15 + 16))
         {
           goto LABEL_15;
         }
 
-        v17 = *(a1 + 8 * v15 + 32);
+        v16 = *(a1 + 8 * v14 + 32);
       }
 
-      v18 = v17;
-      v5 = v15 + 1;
-      if (__OFADD__(v15, 1))
+      v17 = v16;
+      v5 = (v14 + 1);
+      if (__OFADD__(v14, 1))
       {
         break;
       }
 
-      if ([v17 isHidden])
+      if ([v16 isHidden])
       {
       }
 
@@ -2148,14 +2503,14 @@ char *specialized static PlayIntentLayoutHelper.layout(_:in:rect:configuration:)
         specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
         specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
         specialized ContiguousArray._endMutation()();
-        v16 = v81;
+        v15 = v80;
       }
 
-      ++v15;
+      ++v14;
       if (v5 == i)
       {
-        v19 = v83;
-        *&v5 = v80;
+        v18 = v82;
+        *&v5 = v79;
         goto LABEL_18;
       }
     }
@@ -2167,100 +2522,100 @@ LABEL_16:
     ;
   }
 
-  v19 = _swiftEmptyArrayStorage;
+  v18 = _swiftEmptyArrayStorage;
 LABEL_18:
-  v20 = v82;
-  [v82 bounds];
-  v80 = v22;
-  v81 = v21;
-  v78 = v24;
-  v79 = v23;
-  v25 = [v20 traitCollection];
-  [v25 displayScale];
+  v19 = v81;
+  [v81 bounds];
+  v79 = v21;
+  v80 = v20;
+  v77 = v23;
+  v78 = v22;
+  v24 = [v19 traitCollection];
+  [v24 displayScale];
 
-  v76 = [v20 effectiveUserInterfaceLayoutDirection];
-  result = [v20 layoutMargins];
-  v28 = v27;
-  Width = v29;
-  v32 = v31;
-  LODWORD(v33) = v19 < 0 || (v19 & 0x4000000000000000) != 0;
-  if (v33 == 1)
+  v75 = [v19 effectiveUserInterfaceLayoutDirection];
+  [v19 layoutMargins];
+  v26 = v25;
+  Width = v27;
+  v30 = v29;
+  LODWORD(v31) = v18 < 0 || (v18 & 0x4000000000000000) != 0;
+  if (v31 == 1)
   {
     goto LABEL_90;
   }
 
-  v34 = *(v19 + 16);
-  v35 = v34 - 1;
-  if (!__OFSUB__(v34, 1))
+  v32 = *(v18 + 16);
+  v33 = v32 - 1;
+  if (!__OFSUB__(v32, 1))
   {
     while (1)
     {
-      v73 = v35;
-      if (*(v5 + 32))
+      v72 = v33;
+      if (v5[4])
       {
-        v8 = UIEdgeInsetsInsetRect(*&v81, v80, v79, v78, v28, Width);
-        v7 = v36;
-        v10 = v37;
-        v9 = v38;
+        v8 = UIEdgeInsetsInsetRect(*&v80, v79, v78, v77, v26, Width);
+        v7 = v34;
+        v10 = v35;
+        v9 = v36;
       }
 
-      if (v33)
+      if (v31)
       {
         *&v5 = COERCE_DOUBLE(_CocoaArrayWrapper.endIndex.getter());
       }
 
       else
       {
-        v5 = *(v19 + 16);
+        v5 = *(v18 + 16);
       }
 
-      v74 = v34;
+      v73 = v32;
       if (*&v5 == 0.0)
       {
         break;
       }
 
-      v39 = 0;
+      v37 = 0;
       Width = 0.0;
       while (1)
       {
-        if ((v19 & 0xC000000000000001) != 0)
+        if ((v18 & 0xC000000000000001) != 0)
         {
-          v40 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+          v38 = specialized _ArrayBuffer._getElementSlowPath(_:)();
         }
 
         else
         {
-          if (v39 >= *(v19 + 16))
+          if (v37 >= *(v18 + 16))
           {
             goto LABEL_85;
           }
 
-          v40 = *(v19 + 8 * v39 + 32);
+          v38 = *(v18 + 8 * v37 + 32);
         }
 
-        v33 = v40;
-        v41 = v39 + 1;
-        if (__OFADD__(v39, 1))
+        v31 = v38;
+        v39 = (v37 + 1);
+        if (__OFADD__(v37, 1))
         {
           break;
         }
 
-        v42 = OBJC_IVAR____TtC11MusicCoreUI12SymbolButton__configuration;
+        v40 = OBJC_IVAR____TtC11MusicCoreUI12SymbolButton__configuration;
         swift_beginAccess();
-        outlined init with copy of SymbolButton.Configuration(v33 + v42, v13);
-        v13[184] = 0;
-        SymbolButton.setConfiguration(_:animation:updates:)(v13, 0, 0, 0, 1, _swiftEmptyArrayStorage);
-        outlined destroy of SymbolButton.Configuration(v13, type metadata accessor for SymbolButton.Configuration);
-        [v33 intrinsicContentSize];
-        v28 = v43;
+        outlined init with copy of SymbolButton.Configuration(v31 + v40, v12);
+        *(v12 + 184) = 0;
+        SymbolButton.setConfiguration(_:animation:updates:)(v12, 0, 0, 0, 1, _swiftEmptyArrayStorage);
+        outlined destroy of SymbolButton.Configuration(v12, type metadata accessor for SymbolButton.Configuration);
+        [v31 intrinsicContentSize];
+        v26 = v41;
         CGFloat.ceilingValue(scale:)();
-        Width = Width + v44;
+        Width = Width + v42;
         CGFloat.ceilingValue(scale:)();
-        v46 = v45;
+        v44 = v43;
 
-        ++v39;
-        if (v41 == v5)
+        ++v37;
+        if (v39 == v5)
         {
           goto LABEL_38;
         }
@@ -2278,249 +2633,257 @@ LABEL_88:
 LABEL_89:
       __break(1u);
 LABEL_90:
-      v74 = v32;
-      result = _CocoaArrayWrapper.endIndex.getter();
-      v32 = v74;
-      v34 = result;
-      v35 = result - 1;
-      if (__OFSUB__(result, 1))
+      v73 = v30;
+      v70 = _CocoaArrayWrapper.endIndex.getter();
+      v30 = v73;
+      v32 = v70;
+      v33 = v70 - 1;
+      if (__OFSUB__(v70, 1))
       {
         goto LABEL_92;
       }
     }
 
     Width = 0.0;
-    v46 = 0.0;
+    v44 = 0.0;
 LABEL_38:
-    v47 = LOBYTE(v75);
-    v48 = BYTE1(v75);
-    v49 = (v73 & ~(v73 >> 63)) * v77;
-    if (BYTE1(v75))
+    v45 = LOBYTE(v74);
+    v46 = BYTE1(v74);
+    v47 = (v72 & ~(v72 >> 63)) * v76;
+    if (BYTE1(v74))
     {
-      v50 = v74;
-      if (BYTE1(v75) == 1)
+      v48 = v73;
+      if (BYTE1(v74) == 1)
       {
-        v51 = 0;
-        Width = v49 + v46 * v74;
+        v49 = 0;
+        Width = v47 + v44 * v73;
       }
 
       else
       {
+        v83.origin.x = v8;
+        v83.origin.y = v7;
+        v83.size.width = v10;
+        v83.size.height = v9;
+        CGRectGetWidth(v83);
+        CGFloat.ceilingValue(scale:)();
+        v44 = v50;
         v84.origin.x = v8;
         v84.origin.y = v7;
         v84.size.width = v10;
         v84.size.height = v9;
-        CGRectGetWidth(v84);
-        CGFloat.ceilingValue(scale:)();
-        v46 = v52;
-        v85.origin.x = v8;
-        v85.origin.y = v7;
-        v85.size.width = v10;
-        v85.size.height = v9;
-        Width = CGRectGetWidth(v85);
-        v51 = 0;
+        Width = CGRectGetWidth(v84);
+        v49 = 0;
       }
     }
 
     else
     {
-      Width = v49 + Width;
-      v51 = 1;
-      v46 = 0.0;
-      v50 = v74;
+      Width = v47 + Width;
+      v49 = 1;
+      v44 = 0.0;
+      v48 = v73;
     }
 
-    v86.origin.x = v8;
-    v86.origin.y = v7;
-    v86.size.width = v10;
-    v86.size.height = v9;
-    v53 = Width - CGRectGetWidth(v86);
-    if (v53 < 0.0)
+    v85.origin.x = v8;
+    v85.origin.y = v7;
+    v85.size.width = v10;
+    v85.size.height = v9;
+    v51 = Width - CGRectGetWidth(v85);
+    if (v51 < 0.0)
     {
-      v28 = 0.0;
+      v26 = 0.0;
     }
 
     else
     {
-      v28 = v53;
+      v26 = v51;
     }
 
-    if ((v51 & 1) == 0 && v28 > 0.0)
+    if ((v49 & 1) == 0 && v26 > 0.0)
     {
       CGFloat.ceilingValue(scale:)();
-      v46 = v46 - v54;
-      v87.origin.x = v8;
-      v87.origin.y = v7;
-      v87.size.width = v10;
-      v87.size.height = v9;
-      Width = CGRectGetWidth(v87);
+      v44 = v44 - v52;
+      v86.origin.x = v8;
+      v86.origin.y = v7;
+      v86.size.width = v10;
+      v86.size.height = v9;
+      Width = CGRectGetWidth(v86);
     }
 
-    if (v48 != 2 && v47)
+    if (v46 != 2 && v45)
     {
-      if (v47 != 1)
+      if (v45 != 1)
       {
-        v92.origin.x = v8;
-        v92.origin.y = v7;
-        v92.size.width = v10;
-        v92.size.height = v9;
-        v8 = CGRectGetMaxX(v92) - Width;
+        v91.origin.x = v8;
+        v91.origin.y = v7;
+        v91.size.width = v10;
+        v91.size.height = v9;
+        v8 = CGRectGetMaxX(v91) - Width;
         if (*&v5 != 0.0)
         {
           goto LABEL_54;
         }
+
+LABEL_83:
+
+        return;
       }
 
-      v88.origin.x = v8;
-      v88.origin.y = v7;
-      v88.size.width = v10;
-      v88.size.height = v9;
-      CGRectGetWidth(v88);
+      v87.origin.x = v8;
+      v87.origin.y = v7;
+      v87.size.width = v10;
+      v87.size.height = v9;
+      CGRectGetWidth(v87);
       CGFloat.floorValue(scale:)();
-      v8 = v8 + v55;
+      v8 = v8 + v53;
     }
 
     if (*&v5 != 0.0)
     {
 LABEL_54:
-      v33 = 0;
-      v56 = v50;
-      v57 = 0;
-      v58 = v19 & 0xC000000000000001;
-      v75 = v28 / v56;
+      v31 = 0;
+      v54 = v48;
+      v55 = 0;
+      v56 = v18 & 0xC000000000000001;
+      v74 = v26 / v54;
       while (1)
       {
-        if (v58)
+        if (v56)
         {
-          v60 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+          v58 = specialized _ArrayBuffer._getElementSlowPath(_:)();
         }
 
         else
         {
-          if (v33 >= *(v19 + 16))
+          if (v31 >= *(v18 + 16))
           {
             goto LABEL_87;
           }
 
-          v60 = *(v19 + 8 * v33 + 32);
+          v58 = *(v18 + 8 * v31 + 32);
         }
 
-        v61 = v60;
-        v62 = (v33 + 1);
-        if (__OFADD__(v33, 1))
+        v59 = v58;
+        v60 = (v31 + 1);
+        if (__OFADD__(v31, 1))
         {
           goto LABEL_86;
         }
 
-        v63 = [v60 superview];
-        if (!v63 || (v64 = v63, v63, v64 != v82))
+        v61 = [v58 superview];
+        if (!v61 || (v62 = v61, v61, v62 != v81))
         {
-          [v82 addSubview:v61];
+          [v81 addSubview:v59];
         }
 
-        v28 = v46;
-        if (v51)
+        v26 = v44;
+        if (v49)
         {
-          [v61 intrinsicContentSize];
-          v66 = v65;
+          [v59 intrinsicContentSize];
+          v64 = v63;
           CGFloat.ceilingValue(scale:)();
-          v28 = v66 - v67;
+          v26 = v64 - v65;
         }
 
         CGRect.applyingLayoutDirection(_:inBounds:)();
-        [v61 setFrame:?];
+        [v59 setFrame:?];
+        v89.origin.x = v8;
+        v89.origin.y = v7;
+        v89.size.width = v26;
+        v89.size.height = v9;
+        CGRectGetWidth(v89);
         v90.origin.x = v8;
         v90.origin.y = v7;
-        v90.size.width = v28;
+        v90.size.width = v26;
         v90.size.height = v9;
-        CGRectGetWidth(v90);
-        v91.origin.x = v8;
-        v91.origin.y = v7;
-        v91.size.width = v28;
-        v91.size.height = v9;
-        v10 = CGRectGetWidth(v91);
-        if (v57)
+        v10 = CGRectGetWidth(v90);
+        if (v55)
         {
 
-          if (v62 == v5)
+          if (v60 == v5)
           {
-            if (v74 < 2)
+            if (v73 < 2)
             {
+              goto LABEL_83;
             }
 
 LABEL_74:
-            for (j = 0; ; ++j)
+            v66 = 0;
+            while (1)
             {
-              if (v58)
+              if (v56)
               {
-                v69 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+                v67 = specialized _ArrayBuffer._getElementSlowPath(_:)();
               }
 
               else
               {
-                if (j >= *(v19 + 16))
+                if (v66 >= *(v18 + 16))
                 {
                   goto LABEL_89;
                 }
 
-                v69 = *(v19 + 8 * j + 32);
+                v67 = *(v18 + 8 * v66 + 32);
               }
 
-              v33 = v69;
-              v70 = j + 1;
-              if (__OFADD__(j, 1))
+              v31 = v67;
+              v68 = (v66 + 1);
+              if (__OFADD__(v66, 1))
               {
-                break;
+                goto LABEL_88;
               }
 
-              v71 = OBJC_IVAR____TtC11MusicCoreUI12SymbolButton__configuration;
+              v69 = OBJC_IVAR____TtC11MusicCoreUI12SymbolButton__configuration;
               swift_beginAccess();
-              outlined init with copy of SymbolButton.Configuration(v33 + v71, v13);
-              v13[184] = 1;
-              SymbolButton.setConfiguration(_:animation:updates:)(v13, 0, 0, 0, 1, _swiftEmptyArrayStorage);
+              outlined init with copy of SymbolButton.Configuration(v31 + v69, v12);
+              *(v12 + 184) = 1;
+              SymbolButton.setConfiguration(_:animation:updates:)(v12, 0, 0, 0, 1, _swiftEmptyArrayStorage);
 
-              outlined destroy of SymbolButton.Configuration(v13, type metadata accessor for SymbolButton.Configuration);
-              if (v70 == v5)
+              outlined destroy of SymbolButton.Configuration(v12, type metadata accessor for SymbolButton.Configuration);
+              ++v66;
+              if (v68 == v5)
               {
+                goto LABEL_83;
               }
             }
-
-            goto LABEL_88;
           }
 
-          v57 = 1;
+          v55 = 1;
         }
 
         else
         {
-          [v61 intrinsicContentSize];
-          Width = v59;
-          v89.origin.x = v8;
-          v89.origin.y = v7;
-          v89.size.width = v28;
-          v89.size.height = v9;
-          v28 = CGRectGetWidth(v89);
+          [v59 intrinsicContentSize];
+          Width = v57;
+          v88.origin.x = v8;
+          v88.origin.y = v7;
+          v88.size.width = v26;
+          v88.size.height = v9;
+          v26 = CGRectGetWidth(v88);
 
-          v57 = v28 < Width;
-          if (v62 == v5)
+          v55 = v26 < Width;
+          if (v60 == v5)
           {
-            if (v28 >= Width || v74 <= 1)
+            if (v26 >= Width || v73 <= 1)
             {
+              goto LABEL_83;
             }
 
             goto LABEL_74;
           }
         }
 
-        v8 = v8 + v10 + v77;
-        ++v33;
+        v8 = v8 + v10 + v76;
+        ++v31;
       }
     }
+
+    goto LABEL_83;
   }
 
 LABEL_92:
   __break(1u);
-  return result;
 }
 
 unint64_t lazy protocol witness table accessor for type SymbolButton.Intent and conformance SymbolButton.Intent()
@@ -2605,7 +2968,7 @@ unint64_t lazy protocol witness table accessor for type PlayIntentLayoutHelper.D
   return result;
 }
 
-uint64_t get_enum_tag_for_layout_string_11MusicCoreUI12SymbolButtonC6IntentOIegy_Sg(uint64_t *a1)
+uint64_t get_enum_tag_for_layout_string_11MusicCoreUI12SymbolButtonC6IntentOIegy_Sg(unint64_t *a1)
 {
   v1 = *a1;
   if (*a1 >= 0xFFFFFFFF)
@@ -2697,11 +3060,11 @@ uint64_t getEnumTagSinglePayload for PlayIntentLayoutHelper.Configuration(unsign
   return (v5 + 1);
 }
 
-uint64_t sub_10039167C()
+uint64_t sub_10039167C(uint64_t *a1)
 {
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI30_EnvironmentKeyWritingModifierVy09MusicCoreB012SymbolButtonC13MaterialColorOSgGMd);
+  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI30_EnvironmentKeyWritingModifierVy09MusicCoreB012SymbolButtonC13MaterialColorOSgGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVy09MusicCoreB012SymbolButtonC13MaterialColorOSgGMR);
   type metadata accessor for ModifiedContent();
-  lazy protocol witness table accessor for type Publishers.Autoconnect<NSTimer.TimerPublisher> and conformance Publishers.Autoconnect<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<SymbolButton.MaterialColor?> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVy09MusicCoreB012SymbolButtonC13MaterialColorOSgGMd);
+  lazy protocol witness table accessor for type Publishers.Autoconnect<NSTimer.TimerPublisher> and conformance Publishers.Autoconnect<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<SymbolButton.MaterialColor?> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVy09MusicCoreB012SymbolButtonC13MaterialColorOSgGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVy09MusicCoreB012SymbolButtonC13MaterialColorOSgGMR, &protocol conformance descriptor for _EnvironmentKeyWritingModifier<A>);
   return swift_getWitnessTable();
 }
 
@@ -2722,7 +3085,7 @@ unint64_t lazy protocol witness table accessor for type SymbolButton.MaterialCol
   result = lazy protocol witness table cache variable for type SymbolButton.MaterialColor? and conformance <A> A?;
   if (!lazy protocol witness table cache variable for type SymbolButton.MaterialColor? and conformance <A> A?)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s11MusicCoreUI12SymbolButtonC13MaterialColorOSgMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s11MusicCoreUI12SymbolButtonC13MaterialColorOSgMd, &_s11MusicCoreUI12SymbolButtonC13MaterialColorOSgMR);
     lazy protocol witness table accessor for type SymbolButton.MaterialColor and conformance SymbolButton.MaterialColor();
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type SymbolButton.MaterialColor? and conformance <A> A?);
@@ -2752,7 +3115,7 @@ uint64_t partial apply for closure #1 in closure #1 in PlayIntentButtonStack.sta
   *(a2 + 32) = 0;
 }
 
-uint64_t lazy protocol witness table accessor for type LayoutSubviews and conformance LayoutSubviews(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type LayoutSubviews and conformance LayoutSubviews(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -2770,7 +3133,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<_Variadi
   result = lazy protocol witness table cache variable for type ModifiedContent<_VariadicView.Tree<_LayoutRoot<PlayIntentButtonStack.SmartHStack>, ForEach<[SymbolButton.Intent], String, PlayIntentButtonWrapper>>, _FixedSizeLayout> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<_VariadicView.Tree<_LayoutRoot<PlayIntentButtonStack.SmartHStack>, ForEach<[SymbolButton.Intent], String, PlayIntentButtonWrapper>>, _FixedSizeLayout> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA13_VariadicViewO4TreeVy_AA11_LayoutRootVy09MusicCoreB021PlayIntentButtonStackV11SmartHStack33_2727121886EA4678BFC0296976ECCDEBLLVGAA7ForEachVySayAJ06SymbolN0C0M0OGSSAJ0lmN7WrapperVGGAA010_FixedSizeH0VGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA13_VariadicViewO4TreeVy_AA11_LayoutRootVy09MusicCoreB021PlayIntentButtonStackV11SmartHStack33_2727121886EA4678BFC0296976ECCDEBLLVGAA7ForEachVySayAJ06SymbolN0C0M0OGSSAJ0lmN7WrapperVGGAA010_FixedSizeH0VGMd, &_s7SwiftUI15ModifiedContentVyAA13_VariadicViewO4TreeVy_AA11_LayoutRootVy09MusicCoreB021PlayIntentButtonStackV11SmartHStack33_2727121886EA4678BFC0296976ECCDEBLLVGAA7ForEachVySayAJ06SymbolN0C0M0OGSSAJ0lmN7WrapperVGGAA010_FixedSizeH0VGMR);
     lazy protocol witness table accessor for type _VariadicView.Tree<_LayoutRoot<PlayIntentButtonStack.SmartHStack>, ForEach<[SymbolButton.Intent], String, PlayIntentButtonWrapper>> and conformance <> _VariadicView.Tree<A, B>();
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<_VariadicView.Tree<_LayoutRoot<PlayIntentButtonStack.SmartHStack>, ForEach<[SymbolButton.Intent], String, PlayIntentButtonWrapper>>, _FixedSizeLayout> and conformance <> ModifiedContent<A, B>);
@@ -2784,8 +3147,8 @@ unint64_t lazy protocol witness table accessor for type _VariadicView.Tree<_Layo
   result = lazy protocol witness table cache variable for type _VariadicView.Tree<_LayoutRoot<PlayIntentButtonStack.SmartHStack>, ForEach<[SymbolButton.Intent], String, PlayIntentButtonWrapper>> and conformance <> _VariadicView.Tree<A, B>;
   if (!lazy protocol witness table cache variable for type _VariadicView.Tree<_LayoutRoot<PlayIntentButtonStack.SmartHStack>, ForEach<[SymbolButton.Intent], String, PlayIntentButtonWrapper>> and conformance <> _VariadicView.Tree<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA11_LayoutRootVy09MusicCoreB021PlayIntentButtonStackV11SmartHStack33_2727121886EA4678BFC0296976ECCDEBLLVGAA7ForEachVySayAH06SymbolL0C0K0OGSSAH0jkL7WrapperVGGMd);
-    lazy protocol witness table accessor for type Publishers.Autoconnect<NSTimer.TimerPublisher> and conformance Publishers.Autoconnect<A>(&lazy protocol witness table cache variable for type _LayoutRoot<PlayIntentButtonStack.SmartHStack> and conformance _LayoutRoot<A>, &_s7SwiftUI11_LayoutRootVy09MusicCoreB021PlayIntentButtonStackV11SmartHStack33_2727121886EA4678BFC0296976ECCDEBLLVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA11_LayoutRootVy09MusicCoreB021PlayIntentButtonStackV11SmartHStack33_2727121886EA4678BFC0296976ECCDEBLLVGAA7ForEachVySayAH06SymbolL0C0K0OGSSAH0jkL7WrapperVGGMd, &_s7SwiftUI13_VariadicViewO4TreeVy_AA11_LayoutRootVy09MusicCoreB021PlayIntentButtonStackV11SmartHStack33_2727121886EA4678BFC0296976ECCDEBLLVGAA7ForEachVySayAH06SymbolL0C0K0OGSSAH0jkL7WrapperVGGMR);
+    lazy protocol witness table accessor for type Publishers.Autoconnect<NSTimer.TimerPublisher> and conformance Publishers.Autoconnect<A>(&lazy protocol witness table cache variable for type _LayoutRoot<PlayIntentButtonStack.SmartHStack> and conformance _LayoutRoot<A>, &_s7SwiftUI11_LayoutRootVy09MusicCoreB021PlayIntentButtonStackV11SmartHStack33_2727121886EA4678BFC0296976ECCDEBLLVGMd, &_s7SwiftUI11_LayoutRootVy09MusicCoreB021PlayIntentButtonStackV11SmartHStack33_2727121886EA4678BFC0296976ECCDEBLLVGMR, &protocol conformance descriptor for _LayoutRoot<A>);
     lazy protocol witness table accessor for type ForEach<[SymbolButton.Intent], String, PlayIntentButtonWrapper> and conformance <> ForEach<A, B, C>();
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type _VariadicView.Tree<_LayoutRoot<PlayIntentButtonStack.SmartHStack>, ForEach<[SymbolButton.Intent], String, PlayIntentButtonWrapper>> and conformance <> _VariadicView.Tree<A, B>);
@@ -2799,7 +3162,7 @@ unint64_t lazy protocol witness table accessor for type ForEach<[SymbolButton.In
   result = lazy protocol witness table cache variable for type ForEach<[SymbolButton.Intent], String, PlayIntentButtonWrapper> and conformance <> ForEach<A, B, C>;
   if (!lazy protocol witness table cache variable for type ForEach<[SymbolButton.Intent], String, PlayIntentButtonWrapper> and conformance <> ForEach<A, B, C>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI7ForEachVySay09MusicCoreB012SymbolButtonC6IntentOGSSAD04PlayiH7WrapperVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI7ForEachVySay09MusicCoreB012SymbolButtonC6IntentOGSSAD04PlayiH7WrapperVGMd, &_s7SwiftUI7ForEachVySay09MusicCoreB012SymbolButtonC6IntentOGSSAD04PlayiH7WrapperVGMR);
     lazy protocol witness table accessor for type PlayIntentButtonWrapper and conformance PlayIntentButtonWrapper();
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ForEach<[SymbolButton.Intent], String, PlayIntentButtonWrapper> and conformance <> ForEach<A, B, C>);
@@ -2874,44 +3237,44 @@ __n128 PlaylistCovers.CarouselItem.init(itemType:pageIndicatorImage:)@<Q0>(__n12
 uint64_t static PlaylistCovers.CarouselItem.CarouselItemType.__derived_enum_equals(_:_:)(__int128 *a1, __int128 *a2)
 {
   v3 = a1[5];
-  v32 = a1[4];
-  v33 = v3;
+  v39 = a1[4];
+  v40 = v3;
   v4 = a1[7];
-  v34 = a1[6];
-  v35 = v4;
+  v41 = a1[6];
+  v42 = v4;
   v5 = a1[1];
-  v28 = *a1;
-  v29 = v5;
+  v35 = *a1;
+  v36 = v5;
   v6 = a1[3];
-  v30 = a1[2];
-  v31 = v6;
-  if (_s9MusicCore14PlaylistCoversO0aB2UIE12CarouselItemV0fG4TypeOWOg(&v28) == 1)
+  v37 = a1[2];
+  v38 = v6;
+  if (_s9MusicCore14PlaylistCoversO0aB2UIE12CarouselItemV0fG4TypeOWOg(&v35) == 1)
   {
     v7 = a2[5];
-    v40 = a2[4];
-    v41 = v7;
+    v47 = a2[4];
+    v48 = v7;
     v8 = a2[7];
-    v42 = a2[6];
-    v43 = v8;
+    v49 = a2[6];
+    v50 = v8;
     v9 = a2[1];
-    v36 = *a2;
-    v37 = v9;
+    v43 = *a2;
+    v44 = v9;
     v10 = a2[3];
-    v38 = a2[2];
-    v39 = v10;
-    v11 = _s9MusicCore14PlaylistCoversO0aB2UIE12CarouselItemV0fG4TypeOWOg(&v36) == 1;
+    v45 = a2[2];
+    v46 = v10;
+    v11 = _s9MusicCore14PlaylistCoversO0aB2UIE12CarouselItemV0fG4TypeOWOg(&v43) == 1;
   }
 
   else
   {
-    v40 = v32;
-    v41 = v33;
-    v42 = v34;
+    v47 = v39;
+    v48 = v40;
+    v49 = v41;
+    v50 = v42;
     v43 = v35;
-    v36 = v28;
-    v37 = v29;
-    v38 = v30;
-    v39 = v31;
+    v44 = v36;
+    v45 = v37;
+    v46 = v38;
     v12 = *a2;
     v13 = a2[1];
     v14 = a2[3];
@@ -2933,15 +3296,15 @@ uint64_t static PlaylistCovers.CarouselItem.CarouselItemType.__derived_enum_equa
 
     else
     {
-      v27[4] = v23;
-      v27[5] = v24;
-      v27[6] = v25;
-      v27[7] = v26;
-      v27[0] = v19;
-      v27[1] = v20;
-      v27[2] = v21;
-      v27[3] = v22;
-      v11 = static PlaylistCovers.Cover.__derived_struct_equals(_:_:)(&v36, v27);
+      v31 = v23;
+      v32 = v24;
+      v33 = v25;
+      v34 = v26;
+      v27 = v19;
+      v28 = v20;
+      v29 = v21;
+      v30 = v22;
+      v11 = static PlaylistCovers.Cover.__derived_struct_equals(_:_:)();
     }
   }
 
@@ -2951,44 +3314,44 @@ uint64_t static PlaylistCovers.CarouselItem.CarouselItemType.__derived_enum_equa
 uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance PlaylistCovers.CarouselItem.CarouselItemType(__int128 *a1, __int128 *a2)
 {
   v3 = a1[5];
-  v38 = a1[4];
-  v39 = v3;
+  v45 = a1[4];
+  v46 = v3;
   v4 = a1[7];
-  v40 = a1[6];
-  v41 = v4;
+  v47 = a1[6];
+  v48 = v4;
   v5 = a1[1];
-  v34 = *a1;
-  v35 = v5;
+  v41 = *a1;
+  v42 = v5;
   v6 = a1[3];
-  v36 = a1[2];
-  v37 = v6;
-  if (_s9MusicCore14PlaylistCoversO0aB2UIE12CarouselItemV0fG4TypeOWOg(&v34) == 1)
+  v43 = a1[2];
+  v44 = v6;
+  if (_s9MusicCore14PlaylistCoversO0aB2UIE12CarouselItemV0fG4TypeOWOg(&v41) == 1)
   {
     v7 = a2[5];
-    v30 = a2[4];
-    v31 = v7;
+    v37 = a2[4];
+    v38 = v7;
     v8 = a2[7];
-    v32 = a2[6];
-    v33 = v8;
+    v39 = a2[6];
+    v40 = v8;
     v9 = a2[1];
-    v26 = *a2;
-    v27 = v9;
+    v33 = *a2;
+    v34 = v9;
     v10 = a2[3];
-    v28 = a2[2];
-    v29 = v10;
-    v11 = _s9MusicCore14PlaylistCoversO0aB2UIE12CarouselItemV0fG4TypeOWOg(&v26) == 1;
+    v35 = a2[2];
+    v36 = v10;
+    v11 = _s9MusicCore14PlaylistCoversO0aB2UIE12CarouselItemV0fG4TypeOWOg(&v33) == 1;
   }
 
   else
   {
-    v25[4] = v38;
-    v25[5] = v39;
-    v25[6] = v40;
-    v25[7] = v41;
-    v25[0] = v34;
-    v25[1] = v35;
-    v25[2] = v36;
-    v25[3] = v37;
+    v29 = v45;
+    v30 = v46;
+    v31 = v47;
+    v32 = v48;
+    v25 = v41;
+    v26 = v42;
+    v27 = v43;
+    v28 = v44;
     v12 = a2[7];
     v23 = a2[6];
     v24 = v12;
@@ -3008,15 +3371,15 @@ uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Pla
 
     else
     {
-      v30 = v21;
-      v31 = v22;
-      v32 = v23;
-      v33 = v24;
-      v26 = v17;
-      v27 = v18;
-      v28 = v19;
-      v29 = v20;
-      v11 = static PlaylistCovers.Cover.__derived_struct_equals(_:_:)(v25, &v26);
+      v37 = v21;
+      v38 = v22;
+      v39 = v23;
+      v40 = v24;
+      v33 = v17;
+      v34 = v18;
+      v35 = v19;
+      v36 = v20;
+      v11 = static PlaylistCovers.Cover.__derived_struct_equals(_:_:)();
     }
   }
 
@@ -3047,98 +3410,84 @@ uint64_t PlaylistCovers.CarouselItem.id.getter()
   return v5;
 }
 
-uint64_t PlaylistCovers.CarouselItem.hash(into:)()
+double PlaylistCovers.CarouselItem.hash(into:)(uint64_t a1)
 {
-  v1 = v0[5];
-  v6[4] = v0[4];
-  v6[5] = v1;
-  v2 = v0[7];
-  v6[6] = v0[6];
-  v6[7] = v2;
-  v3 = v0[1];
-  v6[0] = *v0;
-  v6[1] = v3;
-  v4 = v0[3];
-  v6[2] = v0[2];
-  v6[3] = v4;
-  if (_s9MusicCore14PlaylistCoversO0aB2UIE12CarouselItemV0fG4TypeOWOg(v6) != 1)
+  v2 = v1[5];
+  v7[4] = v1[4];
+  v7[5] = v2;
+  v3 = v1[7];
+  v7[6] = v1[6];
+  v7[7] = v3;
+  v4 = v1[1];
+  v7[0] = *v1;
+  v7[1] = v4;
+  v5 = v1[3];
+  v7[2] = v1[2];
+  v7[3] = v5;
+  if (_s9MusicCore14PlaylistCoversO0aB2UIE12CarouselItemV0fG4TypeOWOg(v7) != 1)
   {
   }
 
   String.hash(into:)();
+
+  return result;
 }
 
-uint64_t static PlaylistCovers.CarouselItem.== infix(_:_:)(__int128 *a1, __int128 *a2)
+uint64_t static PlaylistCovers.CarouselItem.== infix(_:_:)(_OWORD *a1, __int128 *a2)
 {
   v3 = a1[5];
-  v25 = a1[4];
-  v26 = v3;
+  v19[4] = a1[4];
+  v19[5] = v3;
   v4 = a1[7];
-  v27 = a1[6];
-  v28 = v4;
+  v19[6] = a1[6];
+  v19[7] = v4;
   v5 = a1[1];
-  v21 = *a1;
-  v22 = v5;
+  v19[0] = *a1;
+  v19[1] = v5;
   v6 = a1[3];
-  v23 = a1[2];
-  v24 = v6;
-  if (_s9MusicCore14PlaylistCoversO0aB2UIE12CarouselItemV0fG4TypeOWOg(&v21) == 1)
+  v19[2] = a1[2];
+  v19[3] = v6;
+  if (_s9MusicCore14PlaylistCoversO0aB2UIE12CarouselItemV0fG4TypeOWOg(v19) == 1)
   {
     v7 = a2[5];
-    v33 = a2[4];
-    v34 = v7;
+    v24 = a2[4];
+    v25 = v7;
     v8 = a2[7];
-    v35 = a2[6];
-    v36 = v8;
+    v26 = a2[6];
+    v27 = v8;
     v9 = a2[1];
-    v29 = *a2;
-    v30 = v9;
+    v20 = *a2;
+    v21 = v9;
     v10 = a2[3];
-    v31 = a2[2];
-    v32 = v10;
-    v11 = _s9MusicCore14PlaylistCoversO0aB2UIE12CarouselItemV0fG4TypeOWOg(&v29) == 1;
+    v22 = a2[2];
+    v23 = v10;
+    v11 = _s9MusicCore14PlaylistCoversO0aB2UIE12CarouselItemV0fG4TypeOWOg(&v20) == 1;
   }
 
   else
   {
-    v19[4] = v25;
-    v19[5] = v26;
-    v19[6] = v27;
-    v19[7] = v28;
-    v19[0] = v21;
-    v19[1] = v22;
-    v19[2] = v23;
-    v19[3] = v24;
     v12 = *a2;
     v13 = a2[1];
     v14 = a2[3];
-    v31 = a2[2];
-    v32 = v14;
-    v29 = v12;
-    v30 = v13;
+    v22 = a2[2];
+    v23 = v14;
+    v20 = v12;
+    v21 = v13;
     v15 = a2[4];
     v16 = a2[5];
     v17 = a2[7];
-    v35 = a2[6];
-    v36 = v17;
-    v33 = v15;
-    v34 = v16;
-    if (_s9MusicCore14PlaylistCoversO0aB2UIE12CarouselItemV0fG4TypeOWOg(&v29) == 1)
+    v26 = a2[6];
+    v27 = v17;
+    v24 = v15;
+    v25 = v16;
+    if (_s9MusicCore14PlaylistCoversO0aB2UIE12CarouselItemV0fG4TypeOWOg(&v20) == 1)
     {
       v11 = 0;
     }
 
     else
     {
-      v20[4] = v33;
-      v20[5] = v34;
-      v20[6] = v35;
-      v20[7] = v36;
-      v20[0] = v29;
-      v20[1] = v30;
-      v20[2] = v31;
-      v20[3] = v32;
-      v11 = static PlaylistCovers.Cover.__derived_struct_equals(_:_:)(v19, v20);
+      v11 = static PlaylistCovers.Cover.__derived_struct_equals(_:_:)();
     }
   }
 
@@ -3255,64 +3604,64 @@ __n128 static PlaylistCovers.CarouselItem.picker.getter@<Q0>(__n128 *a1@<X8>)
 
 __n128 static PlaylistCovers.CarouselItem.tracksTiled(image:)@<Q0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v4 = type metadata accessor for Locale();
-  __chkstk_darwin(v4 - 8);
-  v5 = type metadata accessor for String.LocalizationValue();
-  v6 = *(v5 - 8);
-  __chkstk_darwin(v5);
-  v8 = &v23[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  __chkstk_darwin(v9);
-  v11 = &v23[-v10];
-  v12 = a1;
+  type metadata accessor for Locale();
+  __chkstk_darwin();
+  v4 = type metadata accessor for String.LocalizationValue();
+  v5 = *(v4 - 8);
+  __chkstk_darwin();
+  v7 = &v21[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  __chkstk_darwin();
+  v9 = &v21[-v8];
+  v10 = a1;
   String.LocalizationValue.init(stringLiteral:)();
-  (*(v6 + 16))(v8, v11, v5);
+  (*(v5 + 16))(v7, v9, v4);
   if (one-time initialization token for module != -1)
   {
     swift_once();
   }
 
-  v13 = static NSBundle.module;
+  v11 = static NSBundle.module;
   static Locale.current.getter();
-  v14 = String.init(localized:table:bundle:locale:comment:)();
-  v16 = v15;
-  (*(v6 + 8))(v11, v5);
-  v17 = AccessibilityIdentifier.playlistEditorMetadataArtwork4Up.unsafeMutableAddressor();
-  PlaylistCovers.Cover.init(image:id:accessibilityLabel:accessibilityIdentifier:)(v12, 0x6954736B63617254, 0xEB0000000064656CLL, v14, v16, *v17, v17[1], v17[2], &v24, v17[3]);
-  v18.location = &v24;
-  CFRange.init(_:)(v18);
-  v41[4] = v28;
-  v41[5] = v29;
-  v41[6] = v30;
-  v41[7] = v31;
-  v41[0] = v24;
-  v41[1] = v25;
-  v41[2] = v26;
-  v41[3] = v27;
+  v12 = String.init(localized:table:bundle:locale:comment:)();
+  v14 = v13;
+  (*(v5 + 8))(v9, v4);
+  v15 = AccessibilityIdentifier.playlistEditorMetadataArtwork4Up.unsafeMutableAddressor();
+  PlaylistCovers.Cover.init(image:id:accessibilityLabel:accessibilityIdentifier:)(v10, 0x6954736B63617254, 0xEB0000000064656CLL, v12, v14, *v15, v15[1], v15[2], &v22, v15[3]);
+  v16.location = &v22;
+  CFRange.init(_:)(v16);
+  v39[4] = v26;
+  v39[5] = v27;
+  v39[6] = v28;
+  v39[7] = v29;
+  v39[0] = v22;
+  v39[1] = v23;
+  v39[2] = v24;
+  v39[3] = v25;
+  v30 = v22;
+  v31 = v23;
   v32 = v24;
   v33 = v25;
   v34 = v26;
   v35 = v27;
   v36 = v28;
   v37 = v29;
-  v38 = v30;
-  v39 = v31;
+  v38 = 0;
   v40 = 0;
-  v42 = 0;
 
-  outlined init with copy of PlaylistCovers.CarouselItem(&v32, v23);
-  outlined destroy of PlaylistCovers.CarouselItem(v41);
-  v19 = v39;
-  *(a2 + 96) = v38;
-  *(a2 + 112) = v19;
-  *(a2 + 128) = v40;
-  v20 = v35;
-  *(a2 + 32) = v34;
-  *(a2 + 48) = v20;
-  v21 = v37;
-  *(a2 + 64) = v36;
-  *(a2 + 80) = v21;
-  result = v33;
-  *a2 = v32;
+  outlined init with copy of PlaylistCovers.CarouselItem(&v30, v21);
+  outlined destroy of PlaylistCovers.CarouselItem(v39);
+  v17 = v37;
+  *(a2 + 96) = v36;
+  *(a2 + 112) = v17;
+  *(a2 + 128) = v38;
+  v18 = v33;
+  *(a2 + 32) = v32;
+  *(a2 + 48) = v18;
+  v19 = v35;
+  *(a2 + 64) = v34;
+  *(a2 + 80) = v19;
+  result = v31;
+  *a2 = v30;
   *(a2 + 16) = result;
   return result;
 }
@@ -3341,7 +3690,7 @@ Swift::Int PlaylistCovers.CarouselItem.hashValue.getter()
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Identifiable.id.getter in conformance PlaylistCovers.CarouselItem@<X0>(uint64_t *a1@<X8>)
+void protocol witness for Identifiable.id.getter in conformance PlaylistCovers.CarouselItem(uint64_t *a1@<X8>)
 {
   v3 = v1[5];
   v9[4] = v1[4];
@@ -3357,7 +3706,7 @@ uint64_t protocol witness for Identifiable.id.getter in conformance PlaylistCove
   v9[3] = v6;
   if (_s9MusicCore14PlaylistCoversO0aB2UIE12CarouselItemV0fG4TypeOWOg(v9) == 1)
   {
-    result = 0xEB0000000072656BLL;
+    v7 = 0xEB0000000072656BLL;
     v8 = 0x6369506F746F6850;
   }
 
@@ -3367,26 +3716,25 @@ uint64_t protocol witness for Identifiable.id.getter in conformance PlaylistCove
   }
 
   *a1 = v8;
-  a1[1] = result;
-  return result;
+  a1[1] = v7;
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance PlaylistCovers.CarouselItem()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance PlaylistCovers.CarouselItem(uint64_t a1)
 {
   Hasher.init(_seed:)();
-  v1 = v0[5];
-  v6[4] = v0[4];
-  v6[5] = v1;
-  v2 = v0[7];
-  v6[6] = v0[6];
-  v6[7] = v2;
-  v3 = v0[1];
-  v6[0] = *v0;
-  v6[1] = v3;
-  v4 = v0[3];
-  v6[2] = v0[2];
-  v6[3] = v4;
-  if (_s9MusicCore14PlaylistCoversO0aB2UIE12CarouselItemV0fG4TypeOWOg(v6) != 1)
+  v2 = v1[5];
+  v7[4] = v1[4];
+  v7[5] = v2;
+  v3 = v1[7];
+  v7[6] = v1[6];
+  v7[7] = v3;
+  v4 = v1[1];
+  v7[0] = *v1;
+  v7[1] = v4;
+  v5 = v1[3];
+  v7[2] = v1[2];
+  v7[3] = v5;
+  if (_s9MusicCore14PlaylistCoversO0aB2UIE12CarouselItemV0fG4TypeOWOg(v7) != 1)
   {
   }
 
@@ -3412,7 +3760,7 @@ uint64_t static PlaylistCovers.carouselItems(from:playlistTitle:size:)()
   v4 = v0[4];
   v3 = v0[5];
   v5 = v0[3];
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore14PlaylistCoversO5CoverV14RepresentationV_So7UIImageCtMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore14PlaylistCoversO5CoverV14RepresentationV_So7UIImageCtMd, &_s9MusicCore14PlaylistCoversO5CoverV14RepresentationV_So7UIImageCtMR);
   v7 = swift_task_alloc();
   v0[8] = v7;
   v7[2] = v5;
@@ -3420,7 +3768,7 @@ uint64_t static PlaylistCovers.carouselItems(from:playlistTitle:size:)()
   v7[4] = v1;
   v7[5] = v4;
   v7[6] = v3;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay9MusicCore14PlaylistCoversO0aB2UIE12CarouselItemVGMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay9MusicCore14PlaylistCoversO0aB2UIE12CarouselItemVGMd, &_sSay9MusicCore14PlaylistCoversO0aB2UIE12CarouselItemVGMR);
   v9 = swift_task_alloc();
   v0[9] = v9;
   *v9 = v0;
@@ -3443,10 +3791,10 @@ uint64_t closure #1 in static PlaylistCovers.carouselItems(from:playlistTitle:si
   *(v7 + 1696) = a3;
   *(v7 + 1688) = a2;
   *(v7 + 1680) = a1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_1);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_1, &_sScPSgMR_1);
   *(v7 + 1736) = swift_task_alloc();
   *(v7 + 1744) = swift_task_alloc();
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScG8IteratorVy9MusicCore14PlaylistCoversO5CoverV14RepresentationV_So7UIImageCt_GMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScG8IteratorVy9MusicCore14PlaylistCoversO5CoverV14RepresentationV_So7UIImageCt_GMd, &_sScG8IteratorVy9MusicCore14PlaylistCoversO5CoverV14RepresentationV_So7UIImageCt_GMR);
   *(v7 + 1752) = v8;
   *(v7 + 1760) = *(v8 - 8);
   *(v7 + 1768) = swift_task_alloc();
@@ -3507,7 +3855,7 @@ uint64_t closure #1 in static PlaylistCovers.carouselItems(from:playlistTitle:si
         break;
       }
 
-      outlined destroy of TaskPriority?(v19, &_sScPSgMd_1);
+      outlined destroy of TaskPriority?(v19, &_sScPSgMd_1, &_sScPSgMR_1);
 
       outlined destroy of PlaylistCovers.Cover.Representation(v0 + 1280);
 LABEL_4:
@@ -3524,7 +3872,7 @@ LABEL_4:
     v22 = *(v0 + 1736);
     if (v21 == 1)
     {
-      outlined destroy of TaskPriority?(*(v0 + 1736), &_sScPSgMd_1);
+      outlined destroy of TaskPriority?(*(v0 + 1736), &_sScPSgMd_1, &_sScPSgMR_1);
       if (*v16)
       {
 LABEL_8:
@@ -3538,7 +3886,7 @@ LABEL_11:
         *(v26 + 16) = &async function pointer to partial apply for closure #1 in closure #1 in static PlaylistCovers.carouselItems(from:playlistTitle:size:);
         *(v26 + 24) = v15;
 
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore14PlaylistCoversO5CoverV14RepresentationV_So7UIImageCtMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore14PlaylistCoversO5CoverV14RepresentationV_So7UIImageCtMd, &_s9MusicCore14PlaylistCoversO5CoverV14RepresentationV_So7UIImageCtMR);
         v27 = v25 | v23;
         if (v25 | v23)
         {
@@ -3556,7 +3904,7 @@ LABEL_11:
         swift_task_create();
 
         outlined destroy of PlaylistCovers.Cover.Representation(v0 + 1280);
-        outlined destroy of TaskPriority?(v28, &_sScPSgMd_1);
+        outlined destroy of TaskPriority?(v28, &_sScPSgMd_1, &_sScPSgMR_1);
         goto LABEL_4;
       }
     }
@@ -3577,7 +3925,7 @@ LABEL_11:
   }
 
 LABEL_14:
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore14PlaylistCoversO5CoverV14RepresentationV_So7UIImageCtMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore14PlaylistCoversO5CoverV14RepresentationV_So7UIImageCtMd, &_s9MusicCore14PlaylistCoversO5CoverV14RepresentationV_So7UIImageCtMR);
   TaskGroup.makeAsyncIterator()();
   *(v0 + 1784) = _swiftEmptyDictionarySingleton;
   v29 = lazy protocol witness table accessor for type TaskGroup<(PlaylistCovers.Cover.Representation, UIImage)>.Iterator and conformance TaskGroup<A>.Iterator();
@@ -3764,7 +4112,7 @@ LABEL_25:
           *(v72 + 80) = v82;
           outlined destroy of PlaylistCovers.CarouselItem(v0 + 696);
 
-          outlined destroy of TaskPriority?(v110, &_s9MusicCore14PlaylistCoversO5CoverV14RepresentationV_So7UIImageCtSgMd);
+          outlined destroy of TaskPriority?(v110, &_s9MusicCore14PlaylistCoversO5CoverV14RepresentationV_So7UIImageCtSgMd, &_s9MusicCore14PlaylistCoversO5CoverV14RepresentationV_So7UIImageCtSgMR);
           goto LABEL_36;
         }
 
@@ -3796,7 +4144,7 @@ LABEL_34:
         *(v93 + 112) = v99;
         *(v93 + 80) = v97;
 
-        v100 = outlined destroy of TaskPriority?(v110, &_s9MusicCore14PlaylistCoversO5CoverV14RepresentationV_So7UIImageCtSgMd);
+        v100 = outlined destroy of TaskPriority?(v110, &_s9MusicCore14PlaylistCoversO5CoverV14RepresentationV_So7UIImageCtSgMd, &_s9MusicCore14PlaylistCoversO5CoverV14RepresentationV_So7UIImageCtSgMR);
         v103 = v71[2];
         v40 = __OFADD__(v103, 1);
         v104 = v103 + 1;
@@ -3848,7 +4196,7 @@ LABEL_36:
   v46 = *(v0 + 1136);
   *(v0 + 1184) = *(v0 + 1120);
   *(v0 + 1200) = v46;
-  v36 = outlined destroy of TaskPriority?(v0 + 1152, &_s9MusicCore14PlaylistCoversO5CoverV14RepresentationV_So7UIImageCtSgMd);
+  v36 = outlined destroy of TaskPriority?(v0 + 1152, &_s9MusicCore14PlaylistCoversO5CoverV14RepresentationV_So7UIImageCtSgMd, &_s9MusicCore14PlaylistCoversO5CoverV14RepresentationV_So7UIImageCtSgMR);
   if (!v44)
   {
     v21 = _swiftEmptyArrayStorage;
@@ -3946,7 +4294,7 @@ LABEL_11:
     }
 
     v63 = *(v0 + 1776);
-    v21[2] = (v62 + 1);
+    v21[2] = v62 + 1;
     v64 = &v21[17 * v62];
     *(v64 + 2) = *(v0 + 16);
     v65 = *(v0 + 32);
@@ -4014,7 +4362,7 @@ uint64_t get_enum_tag_for_layout_string_9MusicCore14PlaylistCoversO5CoverV14Repr
   return (v1 + 1);
 }
 
-uint64_t get_enum_tag_for_layout_string_9MusicCore14PlaylistCoversO0aB2UIE12CarouselItemV0fG4TypeO(uint64_t *a1)
+uint64_t get_enum_tag_for_layout_string_9MusicCore14PlaylistCoversO0aB2UIE12CarouselItemV0fG4TypeO(unint64_t *a1)
 {
   v1 = *a1;
   if (*a1 >= 0xFFFFFFFF)
@@ -4232,12 +4580,13 @@ uint64_t closure #1 in closure #1 in static PlaylistCovers.carouselItems(from:pl
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
   outlined init with copy of PlaylistCovers.Cover.Representation(v5, (v0 + 2));
   v13 = [ObjCClassFromMetadata preferredFormat];
-  v14 = static PlaylistCovers.playlistCoverImage(size:backgroundImage:textColor:title:graphicsFormat:)(v10, v11, v1, v2, v13, v4, v3);
+  static PlaylistCovers.playlistCoverImage(size:backgroundImage:textColor:title:graphicsFormat:)(v10, v11, v1, v2, v13, v4, v3);
+  v15 = v14;
 
-  *(v6 + 56) = v14;
-  v15 = *(v0 + 1);
+  *(v6 + 56) = v15;
+  v16 = *(v0 + 1);
 
-  return v15();
+  return v16();
 }
 
 uint64_t sub_100393EA0()
@@ -4268,7 +4617,7 @@ unint64_t lazy protocol witness table accessor for type TaskGroup<(PlaylistCover
   result = lazy protocol witness table cache variable for type TaskGroup<(PlaylistCovers.Cover.Representation, UIImage)>.Iterator and conformance TaskGroup<A>.Iterator;
   if (!lazy protocol witness table cache variable for type TaskGroup<(PlaylistCovers.Cover.Representation, UIImage)>.Iterator and conformance TaskGroup<A>.Iterator)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sScG8IteratorVy9MusicCore14PlaylistCoversO5CoverV14RepresentationV_So7UIImageCt_GMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sScG8IteratorVy9MusicCore14PlaylistCoversO5CoverV14RepresentationV_So7UIImageCt_GMd, &_sScG8IteratorVy9MusicCore14PlaylistCoversO5CoverV14RepresentationV_So7UIImageCt_GMR);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type TaskGroup<(PlaylistCovers.Cover.Representation, UIImage)>.Iterator and conformance TaskGroup<A>.Iterator);
   }
@@ -4278,7 +4627,7 @@ unint64_t lazy protocol witness table accessor for type TaskGroup<(PlaylistCover
 
 uint64_t _sScPSgWOc_0(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_1);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_1, &_sScPSgMR_1);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -4313,7 +4662,7 @@ unint64_t _sSo29UIGraphicsImageRendererFormatCMa_0()
   return result;
 }
 
-uint64_t ProgressiveBlur.makeUIView(context:)(double a1, uint64_t a2, char a3)
+void ProgressiveBlur.makeUIView(context:)(double a1, uint64_t a2, char a3)
 {
   v5 = [objc_opt_self() functionWithName:kCAMediaTimingFunctionLinear];
   v6 = type metadata accessor for ProgressiveBlurView();
@@ -4323,11 +4672,11 @@ uint64_t ProgressiveBlur.makeUIView(context:)(double a1, uint64_t a2, char a3)
   *&v7[OBJC_IVAR____TtC11MusicCoreUI19ProgressiveBlurView_cutoff] = 0x3FD3333333333333;
   *&v7[OBJC_IVAR____TtC11MusicCoreUI19ProgressiveBlurView_interpolation] = v5;
   v8 = v5;
-  v26.origin.x = 0.0;
-  v26.origin.y = 0.0;
-  v26.size.width = 1.0;
-  v26.size.height = 1.0;
-  if (CGRectIsEmpty(v26))
+  v24.origin.x = 0.0;
+  v24.origin.y = 0.0;
+  v24.size.width = 1.0;
+  v24.size.height = 1.0;
+  if (CGRectIsEmpty(v24))
   {
     goto LABEL_5;
   }
@@ -4366,26 +4715,25 @@ uint64_t ProgressiveBlur.makeUIView(context:)(double a1, uint64_t a2, char a3)
   {
     if (v20)
     {
-      v22 = [objc_opt_self() _effectWithVariableBlurRadius:v20 imageMask:a1 scale:1.0];
+      v21 = [objc_opt_self() _effectWithVariableBlurRadius:v20 imageMask:a1 scale:1.0];
 
 LABEL_6:
-      v24.receiver = v7;
-      v24.super_class = v6;
-      v23 = objc_msgSendSuper2(&v24, "initWithEffect:", v22);
+      v22.receiver = v7;
+      v22.super_class = v6;
+      objc_msgSendSuper2(&v22, "initWithEffect:", v21);
 
-      return v23;
+      return;
     }
 
 LABEL_5:
-    v22 = 0;
+    v21 = 0;
     goto LABEL_6;
   }
 
   __break(1u);
-  return result;
 }
 
-uint64_t ProgressiveBlurView.__allocating_init(blurRadius:edge:cutoff:interpolation:)(char a1, void *a2, double a3, double a4)
+void ProgressiveBlurView.__allocating_init(blurRadius:edge:cutoff:interpolation:)(char a1, void *a2, double a3, double a4)
 {
   v9 = objc_allocWithZone(v4);
   *&v9[OBJC_IVAR____TtC11MusicCoreUI19ProgressiveBlurView_blurRadius] = a3;
@@ -4393,11 +4741,11 @@ uint64_t ProgressiveBlurView.__allocating_init(blurRadius:edge:cutoff:interpolat
   *&v9[OBJC_IVAR____TtC11MusicCoreUI19ProgressiveBlurView_cutoff] = a4;
   *&v9[OBJC_IVAR____TtC11MusicCoreUI19ProgressiveBlurView_interpolation] = a2;
   v10 = a2;
-  v28.origin.x = 0.0;
-  v28.origin.y = 0.0;
-  v28.size.width = 1.0;
-  v28.size.height = 1.0;
-  if (CGRectIsEmpty(v28))
+  v26.origin.x = 0.0;
+  v26.origin.y = 0.0;
+  v26.size.width = 1.0;
+  v26.size.height = 1.0;
+  if (CGRectIsEmpty(v26))
   {
     goto LABEL_5;
   }
@@ -4436,23 +4784,22 @@ uint64_t ProgressiveBlurView.__allocating_init(blurRadius:edge:cutoff:interpolat
   {
     if (v22)
     {
-      v24 = [objc_opt_self() _effectWithVariableBlurRadius:v22 imageMask:a3 scale:1.0];
+      v23 = [objc_opt_self() _effectWithVariableBlurRadius:v22 imageMask:a3 scale:1.0];
 
 LABEL_6:
-      v26.receiver = v9;
-      v26.super_class = v4;
-      v25 = objc_msgSendSuper2(&v26, "initWithEffect:", v24);
+      v24.receiver = v9;
+      v24.super_class = v4;
+      objc_msgSendSuper2(&v24, "initWithEffect:", v23);
 
-      return v25;
+      return;
     }
 
 LABEL_5:
-    v24 = 0;
+    v23 = 0;
     goto LABEL_6;
   }
 
   __break(1u);
-  return result;
 }
 
 void ProgressiveBlur.updateUIView(_:context:)(uint64_t a1, double a2, uint64_t a3, char a4)
@@ -4484,7 +4831,7 @@ uint64_t protocol witness for static View._makeViewList(view:inputs:) in conform
   return static UIViewRepresentable._makeViewList(view:inputs:)(a1, a2, a3, v6);
 }
 
-void protocol witness for View.body.getter in conformance ProgressiveBlur()
+void protocol witness for View.body.getter in conformance ProgressiveBlur(uint64_t a1)
 {
   lazy protocol witness table accessor for type ProgressiveBlur and conformance ProgressiveBlur();
   UIViewRepresentable.body.getter();
@@ -4521,18 +4868,18 @@ double ProgressiveBlurView.Edge.startPoint.getter(unsigned __int8 a1, uint64_t (
   return *v6;
 }
 
-uint64_t ProgressiveBlurView.init(blurRadius:edge:cutoff:interpolation:)(char a1, void *a2, double a3, double a4)
+void ProgressiveBlurView.init(blurRadius:edge:cutoff:interpolation:)(char a1, void *a2, double a3, double a4)
 {
   *&v4[OBJC_IVAR____TtC11MusicCoreUI19ProgressiveBlurView_blurRadius] = a3;
   v4[OBJC_IVAR____TtC11MusicCoreUI19ProgressiveBlurView_edge] = a1;
   *&v4[OBJC_IVAR____TtC11MusicCoreUI19ProgressiveBlurView_cutoff] = a4;
   *&v4[OBJC_IVAR____TtC11MusicCoreUI19ProgressiveBlurView_interpolation] = a2;
   v8 = a2;
-  v26.origin.x = 0.0;
-  v26.origin.y = 0.0;
-  v26.size.width = 1.0;
-  v26.size.height = 1.0;
-  if (CGRectIsEmpty(v26))
+  v24.origin.x = 0.0;
+  v24.origin.y = 0.0;
+  v24.size.width = 1.0;
+  v24.size.height = 1.0;
+  if (CGRectIsEmpty(v24))
   {
     goto LABEL_5;
   }
@@ -4571,23 +4918,22 @@ uint64_t ProgressiveBlurView.init(blurRadius:edge:cutoff:interpolation:)(char a1
   {
     if (v20)
     {
-      v22 = [objc_opt_self() _effectWithVariableBlurRadius:v20 imageMask:a3 scale:1.0];
+      v21 = [objc_opt_self() _effectWithVariableBlurRadius:v20 imageMask:a3 scale:1.0];
 
 LABEL_6:
-      v24.receiver = v4;
-      v24.super_class = type metadata accessor for ProgressiveBlurView();
-      v23 = objc_msgSendSuper2(&v24, "initWithEffect:", v22);
+      v22.receiver = v4;
+      v22.super_class = type metadata accessor for ProgressiveBlurView();
+      objc_msgSendSuper2(&v22, "initWithEffect:", v21);
 
-      return v23;
+      return;
     }
 
 LABEL_5:
-    v22 = 0;
+    v21 = 0;
     goto LABEL_6;
   }
 
   __break(1u);
-  return result;
 }
 
 Swift::Void __swiftcall ProgressiveBlurView.layoutSubviews()()
@@ -4674,7 +5020,7 @@ void closure #1 in static ProgressiveBlurView.maskImage(bounds:edge:cutoff:inter
   [v16 setBounds:{a4, a5, a6, a7}];
   [v16 setStartPoint:{ProgressiveBlurView.Edge.startPoint.getter(a2, CGPoint.topCenter.unsafeMutableAddressor, CGPoint.centerLeft.unsafeMutableAddressor, CGPoint.centerRight.unsafeMutableAddressor, CGPoint.bottomCenter.unsafeMutableAddressor)}];
   [v16 setEndPoint:{ProgressiveBlurView.Edge.startPoint.getter(a2, CGPoint.bottomCenter.unsafeMutableAddressor, CGPoint.centerRight.unsafeMutableAddressor, CGPoint.centerLeft.unsafeMutableAddressor, CGPoint.topCenter.unsafeMutableAddressor)}];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd_0, &_ss23_ContiguousArrayStorageCyypGMR_0);
   v17 = swift_allocObject();
   *(v17 + 16) = xmmword_1004F2EF0;
   v18 = objc_opt_self();
@@ -4696,7 +5042,7 @@ void closure #1 in static ProgressiveBlurView.maskImage(bounds:edge:cutoff:inter
 
   [v16 setColors:isa];
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd_0, &_ss23_ContiguousArrayStorageCyyXlGMR_0);
   v28 = swift_allocObject();
   *(v28 + 16) = xmmword_1004F2F10;
   *(v28 + 32) = a3;
@@ -4924,19 +5270,19 @@ char *QRCodeOverlayViewController.init(qrCode:title:subtitle:)(void *a1)
   v37.receiver = v2;
   v37.super_class = v26;
   v27 = objc_msgSendSuper2(&v37, "initWithNibName:bundle:", 0, 0);
-  v28 = *&v27[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_titleLabel];
+  v28 = *(v27 + OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_titleLabel);
   v29 = v27;
   v30 = v28;
   v31 = String._bridgeToObjectiveC()();
 
   [v30 setText:v31];
 
-  v32 = *&v29[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_subtitleLabel];
+  v32 = *(v29 + OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_subtitleLabel);
   v33 = String._bridgeToObjectiveC()();
 
   [v32 setText:v33];
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy5UIKit17UITraitDefinition_pXpGMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy5UIKit17UITraitDefinition_pXpGMd_0, &_ss23_ContiguousArrayStorageCy5UIKit17UITraitDefinition_pXpGMR_0);
   v34 = swift_allocObject();
   *(v34 + 16) = xmmword_1004F2400;
   *(v34 + 32) = type metadata accessor for UITraitPreferredContentSizeCategory();
@@ -4977,8 +5323,8 @@ Swift::Void __swiftcall QRCodeOverlayViewController.viewDidLoad()()
   [v6 setBackgroundColor:v8];
 
   v9 = [v1 navigationItem];
-  type metadata accessor for UIAction(0, &_sSo15UIBarButtonItemCML_0);
-  type metadata accessor for UIAction(0, &_sSo8UIActionCML_0);
+  type metadata accessor for UIAction(0, &_sSo15UIBarButtonItemCML_0, UIBarButtonItem_ptr);
+  type metadata accessor for UIAction(0, &_sSo8UIActionCML_0, UIAction_ptr);
   v10 = swift_allocObject();
   swift_unknownObjectWeakInit();
   v44.value.super.super.isa = UIAction.init(title:subtitle:image:selectedImage:identifier:discoverabilityTitle:attributes:state:handler:)();
@@ -5015,7 +5361,7 @@ LABEL_10:
   [*&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_logoView] setContentMode:1];
   v21 = OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_titleLabel;
   v22 = *&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_titleLabel];
-  type metadata accessor for UIAction(0, &_sSo6UIFontCML_0);
+  type metadata accessor for UIAction(0, &_sSo6UIFontCML_0, UIFont_ptr);
   v23 = v22;
   v24 = static UIFont.preferredFont(forTextStyle:weight:)();
   [v23 setFont:v24];
@@ -5068,13 +5414,13 @@ LABEL_11:
   __break(1u);
 }
 
-void closure #1 in QRCodeOverlayViewController.viewDidLoad()()
+void closure #1 in QRCodeOverlayViewController.viewDidLoad()(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v3 = Strong;
     QRCodeOverlayViewController.dismissAnimated()();
   }
 }
@@ -5082,106 +5428,106 @@ void closure #1 in QRCodeOverlayViewController.viewDidLoad()()
 Swift::Void __swiftcall QRCodeOverlayViewController.viewIsAppearing(_:)(Swift::Bool a1)
 {
   v2 = v1;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo6UIViewC11MediaCoreUIE6CornerVSgMd);
-  __chkstk_darwin(v4 - 8);
-  v6 = aBlock - v5;
-  v7 = type metadata accessor for QRCodeOverlayViewController();
-  v46.receiver = v2;
-  v46.super_class = v7;
-  objc_msgSendSuper2(&v46, "viewIsAppearing:", a1);
-  v8 = [objc_allocWithZone(UIView) init];
-  v9 = [v2 traitCollection];
-  [v9 userInterfaceIdiom];
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo6UIViewC11MediaCoreUIE6CornerVSgMd, &_sSo6UIViewC11MediaCoreUIE6CornerVSgMR);
+  __chkstk_darwin();
+  v5 = aBlock - v4;
+  v6 = type metadata accessor for QRCodeOverlayViewController();
+  v45.receiver = v2;
+  v45.super_class = v6;
+  objc_msgSendSuper2(&v45, "viewIsAppearing:", a1);
+  v7 = [objc_allocWithZone(UIView) init];
+  v8 = [v2 traitCollection];
+  [v8 userInterfaceIdiom];
 
   static UIView.Corner.value(_:continuous:)();
-  v10 = type metadata accessor for UIView.Corner();
-  (*(*(v10 - 8) + 56))(v6, 0, 1, v10);
+  v9 = type metadata accessor for UIView.Corner();
+  (*(*(v9 - 8) + 56))(v5, 0, 1, v9);
   UIView.corner.setter();
-  v11 = [v8 layer];
-  [v11 setCornerCurve:kCACornerCurveContinuous];
+  v10 = [v7 layer];
+  [v10 setCornerCurve:kCACornerCurveContinuous];
 
-  [v8 setClipsToBounds:1];
-  [v8 setAlpha:0.0];
-  v12 = OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCodeView;
-  [v8 addSubview:*&v2[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCodeView]];
-  v13 = *&v2[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCodeBackgroundView];
-  *&v2[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCodeBackgroundView] = v8;
-  v14 = v8;
+  [v7 setClipsToBounds:1];
+  [v7 setAlpha:0.0];
+  v11 = OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCodeView;
+  [v7 addSubview:*&v2[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCodeView]];
+  v12 = *&v2[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCodeBackgroundView];
+  *&v2[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCodeBackgroundView] = v7;
+  v13 = v7;
 
-  v15 = [v2 traitCollection];
-  v16 = [v15 userInterfaceIdiom];
+  v14 = [v2 traitCollection];
+  v15 = [v14 userInterfaceIdiom];
 
-  if (v16 != 3)
+  if (v15 != 3)
   {
-    v33 = objc_opt_self();
-    v34 = [v33 whiteColor];
-    [v14 setBackgroundColor:v34];
+    v32 = objc_opt_self();
+    v33 = [v32 whiteColor];
+    [v13 setBackgroundColor:v33];
 
-    v35 = [*&v2[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_backgroundView] contentView];
-    v36 = OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_scrollView;
-    [v35 addSubview:*&v2[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_scrollView]];
+    v34 = [*&v2[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_backgroundView] contentView];
+    v35 = OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_scrollView;
+    [v34 addSubview:*&v2[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_scrollView]];
 
-    v37 = OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_scrollContentView;
-    [*&v2[v36] addSubview:*&v2[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_scrollContentView]];
-    [*&v2[v37] addSubview:v14];
-    [*&v2[v37] addSubview:*&v2[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_titleLabel]];
-    v38 = *&v2[v37];
-    v39 = OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_subtitleLabelEffectView;
-    [v38 addSubview:*&v2[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_subtitleLabelEffectView]];
-    v40 = [*&v2[v39] contentView];
-    [v40 addSubview:*&v2[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_subtitleLabel]];
+    v36 = OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_scrollContentView;
+    [*&v2[v35] addSubview:*&v2[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_scrollContentView]];
+    [*&v2[v36] addSubview:v13];
+    [*&v2[v36] addSubview:*&v2[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_titleLabel]];
+    v37 = *&v2[v36];
+    v38 = OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_subtitleLabelEffectView;
+    [v37 addSubview:*&v2[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_subtitleLabelEffectView]];
+    v39 = [*&v2[v38] contentView];
+    [v39 addSubview:*&v2[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_subtitleLabel]];
 
-    v41 = *&v2[v12];
-    v42 = [v33 blackColor];
-    v43 = *&v41[OBJC_IVAR____TtCC11MusicCoreUI27QRCodeOverlayViewController13ContainerView_overlayColor];
-    *&v41[OBJC_IVAR____TtCC11MusicCoreUI27QRCodeOverlayViewController13ContainerView_overlayColor] = v42;
-    v44 = v42;
+    v40 = *&v2[v11];
+    v41 = [v32 blackColor];
+    v42 = *&v40[OBJC_IVAR____TtCC11MusicCoreUI27QRCodeOverlayViewController13ContainerView_overlayColor];
+    *&v40[OBJC_IVAR____TtCC11MusicCoreUI27QRCodeOverlayViewController13ContainerView_overlayColor] = v41;
+    v43 = v41;
 
     QRCodeOverlayViewController.ContainerView.updateColor()();
-    v31 = *&v2[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_logoView];
-    v32 = [v33 blackColor];
-    [v31 setTintColor:v32];
+    v30 = *&v2[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_logoView];
+    v31 = [v32 blackColor];
+    [v30 setTintColor:v31];
     goto LABEL_6;
   }
 
-  v17 = *&v2[v12];
-  v18 = objc_opt_self();
-  v19 = v17;
-  v20 = [v18 labelColor];
-  v21 = *&v19[OBJC_IVAR____TtCC11MusicCoreUI27QRCodeOverlayViewController13ContainerView_overlayColor];
-  *&v19[OBJC_IVAR____TtCC11MusicCoreUI27QRCodeOverlayViewController13ContainerView_overlayColor] = v20;
-  v22 = v20;
+  v16 = *&v2[v11];
+  v17 = objc_opt_self();
+  v18 = v16;
+  v19 = [v17 labelColor];
+  v20 = *&v18[OBJC_IVAR____TtCC11MusicCoreUI27QRCodeOverlayViewController13ContainerView_overlayColor];
+  *&v18[OBJC_IVAR____TtCC11MusicCoreUI27QRCodeOverlayViewController13ContainerView_overlayColor] = v19;
+  v21 = v19;
 
   QRCodeOverlayViewController.ContainerView.updateColor()();
-  v23 = *&v2[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_logoView];
-  v24 = [v18 labelColor];
-  [v23 setTintColor:v24];
+  v22 = *&v2[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_logoView];
+  v23 = [v17 labelColor];
+  [v22 setTintColor:v23];
 
-  v25 = objc_allocWithZone(UIColor);
+  v24 = objc_allocWithZone(UIColor);
   aBlock[4] = closure #1 in QRCodeOverlayViewController.viewIsAppearing(_:);
   aBlock[5] = 0;
   aBlock[0] = _NSConcreteStackBlock;
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed (@guaranteed UITraitCollection) -> (@owned UIColor);
   aBlock[3] = &block_descriptor_61;
-  v26 = _Block_copy(aBlock);
-  v27 = [v25 initWithDynamicProvider:v26];
-  _Block_release(v26);
+  v25 = _Block_copy(aBlock);
+  v26 = [v24 initWithDynamicProvider:v25];
+  _Block_release(v25);
 
-  [v14 setBackgroundColor:v27];
+  [v13 setBackgroundColor:v26];
 
-  v28 = [v2 view];
-  if (v28)
+  v27 = [v2 view];
+  if (v27)
   {
-    v29 = v28;
-    [v28 addSubview:v14];
+    v28 = v27;
+    [v27 addSubview:v13];
 
-    v30 = [v2 view];
-    if (v30)
+    v29 = [v2 view];
+    if (v29)
     {
-      v31 = v30;
-      v32 = *&v2[v12];
-      [v31 addSubview:v32];
+      v30 = v29;
+      v31 = *&v2[v11];
+      [v30 addSubview:v31];
 LABEL_6:
 
       return;
@@ -5262,7 +5608,7 @@ LABEL_2:
   __break(1u);
 }
 
-void closure #1 in QRCodeOverlayViewController.viewDidAppear(_:)(char *a1)
+double closure #1 in QRCodeOverlayViewController.viewDidAppear(_:)(char *a1)
 {
   [*&a1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCodeView] setAlpha:1.0];
   [*&a1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCodeBackgroundView] setAlpha:1.0];
@@ -5299,14 +5645,16 @@ void closure #1 in QRCodeOverlayViewController.viewDidAppear(_:)(char *a1)
 
     BrightnessManager.increaseBrightnessIfNeeded()();
   }
+
+  return result;
 }
 
 Swift::Void __swiftcall QRCodeOverlayViewController.viewDidLayoutSubviews()()
 {
   v1 = v0;
-  v183.receiver = v0;
-  v183.super_class = type metadata accessor for QRCodeOverlayViewController();
-  objc_msgSendSuper2(&v183, "viewDidLayoutSubviews");
+  v224.receiver = v0;
+  v224.super_class = type metadata accessor for QRCodeOverlayViewController();
+  objc_msgSendSuper2(&v224, "viewDidLayoutSubviews");
   v2 = [v0 traitCollection];
   v3 = [v2 userInterfaceIdiom];
 
@@ -5316,228 +5664,262 @@ Swift::Void __swiftcall QRCodeOverlayViewController.viewDidLayoutSubviews()()
   {
     if (!v4)
     {
-LABEL_43:
+LABEL_56:
       __break(1u);
-LABEL_44:
+LABEL_57:
       __break(1u);
-      goto LABEL_45;
+      goto LABEL_58;
     }
 
     [v4 bounds];
-    v27 = v26;
-    v29 = v28;
-    v31 = v30;
-    v33 = v32;
+    v49 = v48;
+    v51 = v50;
+    v53 = v52;
+    v55 = v54;
 
     if (one-time initialization token for qrCodeHorizontalPadding != -1)
     {
       swift_once();
     }
 
+    v56 = *&static QRCodeOverlayViewController.Specs.qrCodeHorizontalPadding;
     if (one-time initialization token for qrCodeBackgroundPadding != -1)
     {
       swift_once();
     }
 
-    v34 = *&static QRCodeOverlayViewController.Specs.qrCodeBackgroundPadding;
-    v35 = *&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCode + 16];
-    v186 = *&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCode];
-    v187 = v35;
-    v188 = *&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCode + 32];
-    outlined init with copy of QRCode(&v186, &v182);
+    v57 = *&static QRCodeOverlayViewController.Specs.qrCodeBackgroundPadding;
+    v58 = v56 + *&static QRCodeOverlayViewController.Specs.qrCodeBackgroundPadding;
+    v59 = *&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCode + 16];
+    v227 = *&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCode];
+    v228 = v59;
+    v229 = *&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCode + 32];
+    outlined init with copy of QRCode(&v227, &v223);
     if (one-time initialization token for qrCodeMaxWidth != -1)
     {
       swift_once();
     }
 
-    v203.origin.x = v27;
-    v203.origin.y = v29;
-    v203.size.width = v31;
-    v203.size.height = v33;
-    CGRectGetWidth(v203);
-    v204.origin.x = v27;
-    v204.origin.y = v29;
-    v204.size.width = v31;
-    v204.size.height = v33;
-    CGRectGetHeight(v204);
-    v36 = [v1 traitCollection];
-    [v36 displayScale];
-
-    v37 = QRCode.dotAdjustedWidth(with:scale:)();
-    outlined destroy of QRCode(&v186);
-    v205.origin.x = v27;
-    v205.origin.y = v29;
-    v205.size.width = v31;
-    v205.size.height = v33;
-    Width = CGRectGetWidth(v205);
-    v39 = [v1 view];
-    if (!v39)
+    v60 = *&static QRCodeOverlayViewController.Specs.qrCodeMaxWidth;
+    v244.origin.x = v49;
+    v244.origin.y = v51;
+    v244.size.width = v53;
+    v244.size.height = v55;
+    Width = CGRectGetWidth(v244);
+    v245.origin.x = v49;
+    v245.origin.y = v51;
+    v245.size.width = v53;
+    v245.size.height = v55;
+    Height = CGRectGetHeight(v245);
+    if (Height >= Width)
     {
-      goto LABEL_44;
+      Height = Width;
     }
 
-    v40 = v39;
-    [v39 safeAreaInsets];
-    v42 = v41;
-
-    v43 = [v1 view];
-    if (!v43)
+    v63 = Height - (v58 + v58);
+    if (v63 >= v60)
     {
-LABEL_45:
+      v64 = v60;
+    }
+
+    else
+    {
+      v64 = v63;
+    }
+
+    v65 = [v1 traitCollection];
+    [v65 displayScale];
+    v67 = v66;
+
+    v68 = QRCode.dotAdjustedWidth(with:scale:)(v64, v67);
+    outlined destroy of QRCode(&v227);
+    v246.origin.x = v49;
+    v246.origin.y = v51;
+    v246.size.width = v53;
+    v246.size.height = v55;
+    v69 = CGRectGetWidth(v246);
+    v70 = [v1 view];
+    if (!v70)
+    {
+      goto LABEL_57;
+    }
+
+    v71 = v70;
+    [v70 safeAreaInsets];
+    v73 = v72;
+
+    v74 = [v1 view];
+    if (!v74)
+    {
+LABEL_58:
       __break(1u);
       return;
     }
 
-    v44 = v43;
-    v181 = v37;
-    v45 = v34 + v34 + v37;
-    [v43 safeAreaInsets];
+    v75 = v74;
+    v222 = v68;
+    v76 = v57 + v57 + v68;
+    [v74 safeAreaInsets];
 
-    v46 = UIEdgeInsetsInsetRect(v27, v29, v31, v33, v42, (Width - v45) * 0.5);
-    v48 = v47;
-    v50 = v49;
-    v52 = v51;
-    v179 = OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_titleLabel;
-    [*&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_titleLabel] sizeThatFits:{v49, v51}];
-    v54 = v53;
-    v55 = OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_subtitleLabel;
-    [*&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_subtitleLabel] sizeThatFits:{v50, v52}];
+    v77 = UIEdgeInsetsInsetRect(v49, v51, v53, v55, v73, (v69 - v76) * 0.5);
+    v79 = v78;
+    v81 = v80;
+    v83 = v82;
+    v217 = OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_titleLabel;
+    [*&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_titleLabel] sizeThatFits:{v80, v82}];
+    v218 = v84;
+    v86 = v85;
+    v87 = OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_subtitleLabel;
+    [*&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_subtitleLabel] sizeThatFits:{v81, v83}];
+    v221 = v89;
     if (one-time initialization token for titleTopPadding != -1)
     {
-      v174 = v56;
+      v212 = v88;
       swift_once();
-      v56 = v174;
+      v88 = v212;
     }
 
-    v176 = v45 + *&static QRCodeOverlayViewController.Specs.titleTopPadding;
-    v57 = v54 + v45 + *&static QRCodeOverlayViewController.Specs.titleTopPadding;
+    v214 = v76 + *&static QRCodeOverlayViewController.Specs.titleTopPadding;
+    v90 = v86 + v76 + *&static QRCodeOverlayViewController.Specs.titleTopPadding;
     if (one-time initialization token for subtitleTopPadding != -1)
     {
-      v175 = v56;
+      v213 = v88;
       swift_once();
-      v56 = v175;
+      v88 = v213;
     }
 
-    v180 = v54;
-    v178 = *&static QRCodeOverlayViewController.Specs.subtitleTopPadding;
-    v58 = v56 + v57 + *&static QRCodeOverlayViewController.Specs.subtitleTopPadding;
+    v219 = v86;
+    v220 = v88;
+    v216 = *&static QRCodeOverlayViewController.Specs.subtitleTopPadding;
+    v91 = v88 + v90 + *&static QRCodeOverlayViewController.Specs.subtitleTopPadding;
     if (one-time initialization token for scrollContentViewVerticalPadding != -1)
     {
       swift_once();
     }
 
-    v59 = v58 + *&static QRCodeOverlayViewController.Specs.scrollContentViewVerticalPadding + *&static QRCodeOverlayViewController.Specs.scrollContentViewVerticalPadding;
-    v206.origin.x = v46;
-    v206.origin.y = v48;
-    v206.size.width = v50;
-    v206.size.height = v52;
-    v60 = CGRectGetWidth(v206);
-    v61 = OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_scrollView;
-    [*&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_scrollView] setFrame:{v46, v48, v50, v52}];
-    [*&v1[v61] setContentSize:{v60, v59}];
-    v207.origin.x = v46;
-    v207.origin.y = v48;
-    v207.size.width = v50;
-    v207.size.height = v52;
-    CGRectGetHeight(v207);
-    v62 = *&v1[v61];
-    v63 = *&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_scrollContentView];
-    v64 = v62;
-    CGRect.centeringAlong(axes:in:)();
-    v66 = v65;
-    v68 = v67;
-    v70 = v69;
-    v72 = v71;
-
-    [v63 setFrame:{v66, v68, v70, v72}];
-    v73 = OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_scrollContentView;
-    [*&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_scrollContentView] bounds];
-    v77 = v76;
-    v78 = v74;
-    v79 = v75;
-    v80 = OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCodeBackgroundView;
-    v81 = *&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCodeBackgroundView];
-    v177 = v82;
-    if (v81)
+    v92 = *&static QRCodeOverlayViewController.Specs.scrollContentViewVerticalPadding;
+    v93 = v91 + v92 + v92;
+    v247.origin.x = v77;
+    v247.origin.y = v79;
+    v247.size.width = v81;
+    v247.size.height = v83;
+    v94 = CGRectGetWidth(v247);
+    v95 = OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_scrollView;
+    [*&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_scrollView] setFrame:{v77, v79, v81, v83}];
+    [*&v1[v95] setContentSize:{v94, v93}];
+    v248.origin.x = v77;
+    v248.origin.y = v79;
+    v248.size.width = v81;
+    v248.size.height = v83;
+    v96 = CGRectGetHeight(v248);
+    v97 = *&v1[v95];
+    v98 = *&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_scrollContentView];
+    v99 = v97;
+    if (v96 >= v93)
     {
-      v83 = *&v1[v73];
-      v84 = v81;
-      v85 = v83;
-      CGRect.centeringAlong(axes:in:)();
-      v87 = v86;
-      v89 = v88;
-      v91 = v90;
-      v93 = v92;
+      v100 = 0.0;
+    }
 
-      [v84 setFrame:{v87, v89, v91, v93}];
-      v94 = *&v1[v80];
-      v95 = v79 - v176;
-      v96 = v176 + v78;
-      v97 = *&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCodeView];
-      if (v94)
+    else
+    {
+      v100 = v92;
+    }
+
+    CGRect.centeringAlong(axes:in:)(0.0, v100, v94, v93);
+    v102 = v101;
+    v104 = v103;
+    v106 = v105;
+    v108 = v107;
+
+    [v98 setFrame:{v102, v104, v106, v108}];
+    v109 = OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_scrollContentView;
+    [*&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_scrollContentView] bounds];
+    v113 = v112;
+    v114 = v110;
+    v115 = v111;
+    v116 = OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCodeBackgroundView;
+    v117 = *&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCodeBackgroundView];
+    v215 = v118;
+    if (v117)
+    {
+      v119 = *&v1[v109];
+      v120 = v117;
+      v121 = v119;
+      CGRect.centeringAlong(axes:in:)(0.0, 0.0, v76, v76);
+      v123 = v122;
+      v125 = v124;
+      v127 = v126;
+      v129 = v128;
+
+      [v120 setFrame:{v123, v125, v127, v129}];
+      v130 = *&v1[v116];
+      v131 = v115 - v214;
+      v132 = v214 + v114;
+      v133 = *&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCodeView];
+      if (v130)
       {
-        v98 = v97;
-        [v94 bounds];
-LABEL_31:
-        v99 = v55;
-        v100 = [v1 traitCollection];
-        [v100 displayScale];
+        v134 = v133;
+        [v130 bounds];
+LABEL_44:
+        v135 = v87;
+        v136 = [v1 traitCollection];
+        [v136 displayScale];
 
         CGRect.centeringAlong(axes:bounds:scale:)();
-        [v98 setFrame:*&v181];
+        [v134 setFrame:*&v222];
 
-        v101 = *&v1[v179];
-        v208.origin.x = v77;
-        v208.origin.y = v96;
-        v208.size.width = v177;
-        v208.size.height = v95;
-        CGRectGetMinY(v208);
-        v102 = *&v1[v73];
-        CGRect.centeringAlong(axes:in:)();
-        v104 = v103;
-        v106 = v105;
-        v108 = v107;
-        v110 = v109;
+        v137 = *&v1[v217];
+        v249.origin.x = v113;
+        v249.origin.y = v132;
+        v249.size.width = v215;
+        v249.size.height = v131;
+        MinY = CGRectGetMinY(v249);
+        v139 = *&v1[v109];
+        CGRect.centeringAlong(axes:in:)(0.0, MinY, v218, v219);
+        v141 = v140;
+        v143 = v142;
+        v145 = v144;
+        v147 = v146;
 
-        [v101 setFrame:{v104, v106, v108, v110}];
-        v111 = OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_subtitleLabelEffectView;
-        v112 = *&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_subtitleLabelEffectView];
-        v209.origin.x = v77;
-        v209.origin.y = v180 + v178 + v96;
-        v209.size.width = v177;
-        v209.size.height = v95 - (v180 + v178);
-        CGRectGetMinY(v209);
-        v113 = *&v1[v73];
-        CGRect.centeringAlong(axes:in:)();
-        v115 = v114;
-        v117 = v116;
-        v119 = v118;
-        v121 = v120;
+        [v137 setFrame:{v141, v143, v145, v147}];
+        v148 = OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_subtitleLabelEffectView;
+        v149 = *&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_subtitleLabelEffectView];
+        v250.origin.x = v113;
+        v250.origin.y = v219 + v216 + v132;
+        v250.size.width = v215;
+        v250.size.height = v131 - (v219 + v216);
+        v150 = CGRectGetMinY(v250);
+        v151 = *&v1[v109];
+        CGRect.centeringAlong(axes:in:)(0.0, v150, v221, v220);
+        v153 = v152;
+        v155 = v154;
+        v157 = v156;
+        v159 = v158;
 
-        [v112 setFrame:{v115, v117, v119, v121}];
-        v122 = *&v1[v111];
-        v24 = *&v1[v99];
-        [v122 bounds];
-        goto LABEL_32;
+        [v149 setFrame:{v153, v155, v157, v159}];
+        v160 = *&v1[v148];
+        v33 = *&v1[v135];
+        [v160 bounds];
+        goto LABEL_45;
       }
     }
 
     else
     {
-      v95 = v75 - v176;
-      v96 = v176 + v74;
-      v97 = *&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCodeView];
+      v131 = v111 - v214;
+      v132 = v214 + v110;
+      v133 = *&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCodeView];
     }
 
-    v98 = v97;
-    goto LABEL_31;
+    v134 = v133;
+    goto LABEL_44;
   }
 
   if (!v4)
   {
-LABEL_42:
+LABEL_55:
     __break(1u);
-    goto LABEL_43;
+    goto LABEL_56;
   }
 
   v6 = [v4 safeAreaLayoutGuide];
@@ -5553,241 +5935,265 @@ LABEL_42:
     swift_once();
   }
 
+  v15 = *&static QRCodeOverlayViewController.Specs.carPlayQRCodePadding;
   if (one-time initialization token for qrCodeBackgroundPaddingCarPlay != -1)
   {
     swift_once();
   }
 
-  v15 = *&static QRCodeOverlayViewController.Specs.qrCodeBackgroundPaddingCarPlay;
-  v16 = *&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCode + 16];
-  v186 = *&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCode];
-  v187 = v16;
-  v188 = *&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCode + 32];
-  outlined init with copy of QRCode(&v186, &v182);
+  v16 = *&static QRCodeOverlayViewController.Specs.qrCodeBackgroundPaddingCarPlay;
+  v17 = v15 + *&static QRCodeOverlayViewController.Specs.qrCodeBackgroundPaddingCarPlay;
+  v18 = *&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCode + 16];
+  v227 = *&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCode];
+  v228 = v18;
+  v229 = *&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCode + 32];
+  outlined init with copy of QRCode(&v227, &v223);
   if (one-time initialization token for qrCodeMaxWidth != -1)
   {
     swift_once();
   }
 
-  v201.origin.x = v8;
-  v201.origin.y = v10;
-  v201.size.width = v12;
-  v201.size.height = v14;
-  CGRectGetWidth(v201);
-  v202.origin.x = v8;
-  v202.origin.y = v10;
-  v202.size.width = v12;
-  v202.size.height = v14;
-  CGRectGetHeight(v202);
-  v17 = [v1 traitCollection];
-  [v17 displayScale];
+  v19 = *&static QRCodeOverlayViewController.Specs.qrCodeMaxWidth;
+  v242.origin.x = v8;
+  v242.origin.y = v10;
+  v242.size.width = v12;
+  v242.size.height = v14;
+  v20 = CGRectGetWidth(v242);
+  v243.origin.x = v8;
+  v243.origin.y = v10;
+  v243.size.width = v12;
+  v243.size.height = v14;
+  v21 = CGRectGetHeight(v243);
+  if (v21 >= v20)
+  {
+    v21 = v20;
+  }
 
-  v18 = QRCode.dotAdjustedWidth(with:scale:)();
-  outlined destroy of QRCode(&v186);
-  v19 = OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCodeView;
-  v20 = *&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCodeView];
-  v21 = [v1 traitCollection];
-  [v21 displayScale];
+  v22 = v21 - (v17 + v17);
+  if (v22 >= v19)
+  {
+    v23 = v19;
+  }
+
+  else
+  {
+    v23 = v22;
+  }
+
+  v24 = [v1 traitCollection];
+  [v24 displayScale];
+  v26 = v25;
+
+  v27 = QRCode.dotAdjustedWidth(with:scale:)(v23, v26);
+  outlined destroy of QRCode(&v227);
+  v28 = OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCodeView;
+  v29 = *&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCodeView];
+  v30 = [v1 traitCollection];
+  [v30 displayScale];
 
   CGRect.centeringAlong(axes:bounds:scale:)();
-  [v20 setFrame:*&v18];
+  [v29 setFrame:*&v27];
 
-  v22 = *&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCodeBackgroundView];
-  if (v22)
+  v31 = *&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCodeBackgroundView];
+  if (v31)
   {
-    v23 = *&v1[v19];
-    v24 = v22;
-    [v23 frame];
+    v32 = *&v1[v28];
+    v33 = v31;
+    [v32 frame];
+    v35 = v34;
+    v37 = v36;
+    v39 = v38;
+    v41 = v40;
     NSDirectionalEdgeInsets.Edge.all.unsafeMutableAddressor();
 
-    NSDirectionalEdgeInsets.init(edge:length:)(v25, v15);
-    CGRect.outset(by:for:)();
-LABEL_32:
-    [v24 setFrame:?];
+    v43 = NSDirectionalEdgeInsets.init(edge:length:)(v42, v16);
+    v47 = CGRect.outset(by:for:)(0, v43, v44, v45, v46, v35, v37, v39, v41);
+LABEL_45:
+    [v33 setFrame:v47];
   }
 
-  v123 = *&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_backgroundView];
-  v124 = [v1 view];
-  if (!v124)
+  v161 = *&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_backgroundView];
+  v162 = [v1 view];
+  if (!v162)
   {
     __break(1u);
-    goto LABEL_42;
+    goto LABEL_55;
   }
 
-  v125 = v124;
-  [v124 bounds];
-  v127 = v126;
-  v129 = v128;
-  v131 = v130;
-  v133 = v132;
+  v163 = v162;
+  [v162 bounds];
+  v165 = v164;
+  v167 = v166;
+  v169 = v168;
+  v171 = v170;
 
-  [v123 setFrame:{v127, v129, v131, v133}];
-  v134 = &v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCode];
+  [v161 setFrame:{v165, v167, v169, v171}];
+  v172 = &v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCode];
   if (*&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCode + 32] != 76)
   {
-    v135 = OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCodeView;
+    v173 = OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCodeView;
     [*&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCodeView] frame];
-    v136 = CGRectGetWidth(v210) * 0.3;
+    v174 = CGRectGetWidth(v251) * 0.3;
     if (one-time initialization token for logoMaxWidth != -1)
     {
       swift_once();
     }
 
-    v137 = *&static QRCodeOverlayViewController.Specs.logoMaxWidth;
-    if (*&static QRCodeOverlayViewController.Specs.logoMaxWidth < v136)
+    v175 = *&static QRCodeOverlayViewController.Specs.logoMaxWidth;
+    if (*&static QRCodeOverlayViewController.Specs.logoMaxWidth < v174)
     {
-      v136 = *&static QRCodeOverlayViewController.Specs.logoMaxWidth;
+      v174 = *&static QRCodeOverlayViewController.Specs.logoMaxWidth;
     }
 
-    v138 = *&v1[v135];
-    CGRect.centeringAlong(axes:in:)();
-    v140 = v139;
-    v142 = v141;
-    v144 = v143;
-    v146 = v145;
+    v176 = *&v1[v173];
+    CGRect.centeringAlong(axes:in:)(0.0, 0.0, v174, v174);
+    v178 = v177;
+    v180 = v179;
+    v182 = v181;
+    v184 = v183;
 
-    v147 = OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_logoView;
-    [*&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_logoView] setFrame:{v140, v142, v144, v146}];
-    CGAffineTransformMakeScale(&v182, v136 / v137, v136 / v137);
-    a = v182.a;
-    b = v182.b;
-    c = v182.c;
-    d = v182.d;
-    tx = v182.tx;
-    ty = v182.ty;
-    v154 = *(v134 + 1);
-    v184[0] = *v134;
-    v184[1] = v154;
-    v185 = *(v134 + 4);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo7CGPointVGMd_0);
+    v185 = OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_logoView;
+    [*&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_logoView] setFrame:{v178, v180, v182, v184}];
+    CGAffineTransformMakeScale(&v223, v174 / v175, v174 / v175);
+    a = v223.a;
+    b = v223.b;
+    c = v223.c;
+    d = v223.d;
+    tx = v223.tx;
+    ty = v223.ty;
+    v192 = *(v172 + 1);
+    v225[0] = *v172;
+    v225[1] = v192;
+    v226 = *(v172 + 4);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo7CGPointVGMd_0, &_ss23_ContiguousArrayStorageCySo7CGPointVGMR_0);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_100507AC0;
-    v182.a = a;
-    v182.b = b;
-    v182.c = c;
-    v182.d = d;
-    v182.tx = tx;
-    v182.ty = ty;
-    v189.x = 12.0;
-    v189.y = 15.0;
-    *(inited + 32) = CGPointApplyAffineTransform(v189, &v182);
-    v182.a = a;
-    v182.b = b;
-    v182.c = c;
-    v182.d = d;
-    v182.tx = tx;
-    v182.ty = ty;
-    v190.x = 12.0;
-    v190.y = 6.0;
-    *(inited + 48) = CGPointApplyAffineTransform(v190, &v182);
-    v182.a = a;
-    v182.b = b;
-    v182.c = c;
-    v182.d = d;
-    v182.tx = tx;
-    v182.ty = ty;
-    v191.y = 6.0;
-    v191.x = 36.0;
-    *(inited + 64) = CGPointApplyAffineTransform(v191, &v182);
-    v182.a = a;
-    v182.b = b;
-    v182.c = c;
-    v182.d = d;
-    v182.tx = tx;
-    v182.ty = ty;
-    v192.y = 0.0;
-    v192.x = 36.0;
-    *(inited + 80) = CGPointApplyAffineTransform(v192, &v182);
-    v182.a = a;
-    v182.b = b;
-    v182.c = c;
-    v182.d = d;
-    v182.tx = tx;
-    v182.ty = ty;
-    v193.y = 0.0;
-    v193.x = 85.0;
-    *(inited + 96) = CGPointApplyAffineTransform(v193, &v182);
-    v182.a = a;
-    v182.b = b;
-    v182.c = c;
-    v182.d = d;
-    v182.tx = tx;
-    v182.ty = ty;
-    v194.x = 85.0;
-    v194.y = 90.0;
-    *(inited + 112) = CGPointApplyAffineTransform(v194, &v182);
-    v182.a = a;
-    v182.b = b;
-    v182.c = c;
-    v182.d = d;
-    v182.tx = tx;
-    v182.ty = ty;
-    v195.x = 36.0;
-    v195.y = 90.0;
-    *(inited + 128) = CGPointApplyAffineTransform(v195, &v182);
-    v182.a = a;
-    v182.b = b;
-    v182.c = c;
-    v182.d = d;
-    v182.tx = tx;
-    v182.ty = ty;
-    v196.x = 36.0;
-    v196.y = 95.0;
-    *(inited + 144) = CGPointApplyAffineTransform(v196, &v182);
-    v182.a = a;
-    v182.b = b;
-    v182.c = c;
-    v182.d = d;
-    v182.tx = tx;
-    v182.ty = ty;
-    v197.x = 0.0;
-    v197.y = 95.0;
-    *(inited + 160) = CGPointApplyAffineTransform(v197, &v182);
-    v182.a = a;
-    v182.b = b;
-    v182.c = c;
-    v182.d = d;
-    v182.tx = tx;
-    v182.ty = ty;
-    v198.x = 0.0;
-    v198.y = 57.0;
-    *(inited + 176) = CGPointApplyAffineTransform(v198, &v182);
-    v182.a = a;
-    v182.b = b;
-    v182.c = c;
-    v182.d = d;
-    v182.tx = tx;
-    v182.ty = ty;
-    v199.x = 12.0;
-    v199.y = 57.0;
-    *(inited + 192) = CGPointApplyAffineTransform(v199, &v182);
-    v182.a = a;
-    v182.b = b;
-    v182.c = c;
-    v182.d = d;
-    v182.tx = tx;
-    v182.ty = ty;
-    v200.x = 12.0;
-    v200.y = 15.0;
-    *(inited + 208) = CGPointApplyAffineTransform(v200, &v182);
-    v156 = *&v1[v147];
-    outlined init with copy of QRCode(v184, &v182);
-    [v156 frame];
-    v158 = v157;
-    v160 = v159;
-    v162 = v161;
-    v164 = v163;
-    [*&v1[v135] bounds];
-    v169 = QRCode.dotAlignedPath(with:in:imageBounds:)(inited, v158, v160, v162, v164, v165, v166, v167, v168);
-    outlined destroy of QRCode(v184);
+    v223.a = a;
+    v223.b = b;
+    v223.c = c;
+    v223.d = d;
+    v223.tx = tx;
+    v223.ty = ty;
+    v230.x = 12.0;
+    v230.y = 15.0;
+    *(inited + 32) = CGPointApplyAffineTransform(v230, &v223);
+    v223.a = a;
+    v223.b = b;
+    v223.c = c;
+    v223.d = d;
+    v223.tx = tx;
+    v223.ty = ty;
+    v231.x = 12.0;
+    v231.y = 6.0;
+    *(inited + 48) = CGPointApplyAffineTransform(v231, &v223);
+    v223.a = a;
+    v223.b = b;
+    v223.c = c;
+    v223.d = d;
+    v223.tx = tx;
+    v223.ty = ty;
+    v232.y = 6.0;
+    v232.x = 36.0;
+    *(inited + 64) = CGPointApplyAffineTransform(v232, &v223);
+    v223.a = a;
+    v223.b = b;
+    v223.c = c;
+    v223.d = d;
+    v223.tx = tx;
+    v223.ty = ty;
+    v233.y = 0.0;
+    v233.x = 36.0;
+    *(inited + 80) = CGPointApplyAffineTransform(v233, &v223);
+    v223.a = a;
+    v223.b = b;
+    v223.c = c;
+    v223.d = d;
+    v223.tx = tx;
+    v223.ty = ty;
+    v234.y = 0.0;
+    v234.x = 85.0;
+    *(inited + 96) = CGPointApplyAffineTransform(v234, &v223);
+    v223.a = a;
+    v223.b = b;
+    v223.c = c;
+    v223.d = d;
+    v223.tx = tx;
+    v223.ty = ty;
+    v235.x = 85.0;
+    v235.y = 90.0;
+    *(inited + 112) = CGPointApplyAffineTransform(v235, &v223);
+    v223.a = a;
+    v223.b = b;
+    v223.c = c;
+    v223.d = d;
+    v223.tx = tx;
+    v223.ty = ty;
+    v236.x = 36.0;
+    v236.y = 90.0;
+    *(inited + 128) = CGPointApplyAffineTransform(v236, &v223);
+    v223.a = a;
+    v223.b = b;
+    v223.c = c;
+    v223.d = d;
+    v223.tx = tx;
+    v223.ty = ty;
+    v237.x = 36.0;
+    v237.y = 95.0;
+    *(inited + 144) = CGPointApplyAffineTransform(v237, &v223);
+    v223.a = a;
+    v223.b = b;
+    v223.c = c;
+    v223.d = d;
+    v223.tx = tx;
+    v223.ty = ty;
+    v238.x = 0.0;
+    v238.y = 95.0;
+    *(inited + 160) = CGPointApplyAffineTransform(v238, &v223);
+    v223.a = a;
+    v223.b = b;
+    v223.c = c;
+    v223.d = d;
+    v223.tx = tx;
+    v223.ty = ty;
+    v239.x = 0.0;
+    v239.y = 57.0;
+    *(inited + 176) = CGPointApplyAffineTransform(v239, &v223);
+    v223.a = a;
+    v223.b = b;
+    v223.c = c;
+    v223.d = d;
+    v223.tx = tx;
+    v223.ty = ty;
+    v240.x = 12.0;
+    v240.y = 57.0;
+    *(inited + 192) = CGPointApplyAffineTransform(v240, &v223);
+    v223.a = a;
+    v223.b = b;
+    v223.c = c;
+    v223.d = d;
+    v223.tx = tx;
+    v223.ty = ty;
+    v241.x = 12.0;
+    v241.y = 15.0;
+    *(inited + 208) = CGPointApplyAffineTransform(v241, &v223);
+    v194 = *&v1[v185];
+    outlined init with copy of QRCode(v225, &v223);
+    [v194 frame];
+    v196 = v195;
+    v198 = v197;
+    v200 = v199;
+    v202 = v201;
+    [*&v1[v173] bounds];
+    v207 = QRCode.dotAlignedPath(with:in:imageBounds:)(inited, v196, v198, v200, v202, v203, v204, v205, v206);
+    outlined destroy of QRCode(v225);
     swift_setDeallocating();
-    v170 = OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_destOutLayer;
-    [*&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_destOutLayer] setPath:v169];
-    v171 = *&v1[v170];
-    v172 = *&v1[v135];
-    v173 = v171;
-    [v172 bounds];
-    [v173 setFrame:?];
+    v208 = OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_destOutLayer;
+    [*&v1[OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_destOutLayer] setPath:v207];
+    v209 = *&v1[v208];
+    v210 = *&v1[v173];
+    v211 = v209;
+    [v210 bounds];
+    [v211 setFrame:?];
   }
 }
 
@@ -5821,13 +6227,13 @@ Swift::Void __swiftcall QRCodeOverlayViewController.dismissAnimated()()
   _Block_release(v3);
 }
 
-id closure #1 in QRCodeOverlayViewController.dismissAnimated()(uint64_t a1)
+double closure #1 in QRCodeOverlayViewController.dismissAnimated()(uint64_t a1)
 {
   [*(a1 + OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCodeView) setAlpha:0.0];
   [*(a1 + OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_qrCodeBackgroundView) setAlpha:0.0];
   [*(a1 + OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_titleLabel) setAlpha:0.0];
   [*(a1 + OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_subtitleLabel) setAlpha:0.0];
-  result = [*(a1 + OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_backgroundView) setEffect:0];
+  [*(a1 + OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_backgroundView) setEffect:0];
   if (*(a1 + OBJC_IVAR____TtC11MusicCoreUI27QRCodeOverlayViewController_brightnessManager))
   {
 
@@ -5837,11 +6243,13 @@ id closure #1 in QRCodeOverlayViewController.dismissAnimated()(uint64_t a1)
   return result;
 }
 
-uint64_t thunk for @escaping @callee_guaranteed (@unowned Bool) -> ()(uint64_t a1, uint64_t a2)
+double thunk for @escaping @callee_guaranteed (@unowned Bool) -> ()(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 32);
 
   v3(a2);
+
+  return result;
 }
 
 char *QRCodeOverlayViewController.ContainerView.init(frame:)(double a1, double a2, double a3, double a4)
@@ -5865,7 +6273,7 @@ char *QRCodeOverlayViewController.ContainerView.init(frame:)(double a1, double a
   v18 = v15;
   [v18 addSubview:v17];
   v19 = objc_opt_self();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd_0, &_ss23_ContiguousArrayStorageCyyXlGMR_0);
   v20 = swift_allocObject();
   *(v20 + 16) = xmmword_1004F3040;
   v21 = [*&v15[v16] leadingAnchor];
@@ -5888,12 +6296,12 @@ char *QRCodeOverlayViewController.ContainerView.init(frame:)(double a1, double a
   v32 = [v30 constraintEqualToAnchor:v31];
 
   *(v20 + 56) = v32;
-  type metadata accessor for UIAction(0, &lazy cache variable for type metadata for NSLayoutConstraint);
+  type metadata accessor for UIAction(0, &lazy cache variable for type metadata for NSLayoutConstraint, NSLayoutConstraint_ptr);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   [v19 activateConstraints:isa];
 
-  type metadata accessor for UIAction(0, &lazy cache variable for type metadata for UITraitCollection);
+  type metadata accessor for UIAction(0, &lazy cache variable for type metadata for UITraitCollection, UITraitCollection_ptr);
   static UITraitCollection.systemTraitsAffectingColorAppearance.getter();
   v35[3] = v14;
   v35[0] = v18;
@@ -5909,7 +6317,7 @@ Swift::Void __swiftcall QRCodeOverlayViewController.ContainerView.layoutSubviews
   v2.receiver = v0;
   v2.super_class = type metadata accessor for QRCodeOverlayViewController.ContainerView();
   objc_msgSendSuper2(&v2, "layoutSubviews");
-  type metadata accessor for UIAction(0, &lazy cache variable for type metadata for CATransaction);
+  type metadata accessor for UIAction(0, &lazy cache variable for type metadata for CATransaction, CATransaction_ptr);
   *(swift_allocObject() + 16) = v0;
   v1 = v0;
   static CATransaction.performWithoutAnimation(_:)(partial apply for closure #1 in QRCodeOverlayViewController.ContainerView.layoutSubviews());
@@ -5977,8 +6385,8 @@ char *QRCodeOverlayViewController.ImageViewRepresentable.makeUIView(context:)(ui
 {
   v7 = type metadata accessor for EnvironmentValues();
   v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
-  v10 = v19 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v10 = v21 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   type metadata accessor for QRCodeOverlayViewController.ContainerView();
   v11 = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
   v12 = *&v11[OBJC_IVAR____TtCC11MusicCoreUI27QRCodeOverlayViewController13ContainerView_image];
@@ -5989,25 +6397,25 @@ char *QRCodeOverlayViewController.ImageViewRepresentable.makeUIView(context:)(ui
 
   if ((a3 & 1) == 0)
   {
-    static os_log_type_t.fault.getter();
-    v14 = static Log.runtimeIssuesLog.getter();
-    os_log(_:dso:log:_:_:)();
+    v14 = static os_log_type_t.fault.getter();
+    v15 = static Log.runtimeIssuesLog.getter();
+    os_log(_:dso:log:_:_:)(v14, &_mh_execute_header, v15, "Accessing Environment's value outside of being installed on a View. This will always read the default value and will not update.", 128, 2, _swiftEmptyArrayStorage);
 
     EnvironmentValues.init()();
     swift_getAtKeyPath();
-    outlined consume of Environment<Color?>.Content(a2, 0);
-    (*(v8 + 8))(v10, v7);
-    a2 = v19[1];
+    v16 = outlined consume of Environment<Color?>.Content(a2);
+    (*(v8 + 8))(v10, v7, v16);
+    a2 = v21[1];
   }
 
   if (a2)
   {
-    type metadata accessor for UIAction(0, &_sSo7UIColorCML_0);
+    type metadata accessor for UIAction(0, &_sSo7UIColorCML_0, UIColor_ptr);
 
-    v15 = UIColor.init(_:)();
-    v16 = *&v11[OBJC_IVAR____TtCC11MusicCoreUI27QRCodeOverlayViewController13ContainerView_overlayColor];
-    *&v11[OBJC_IVAR____TtCC11MusicCoreUI27QRCodeOverlayViewController13ContainerView_overlayColor] = v15;
-    v17 = v15;
+    v17 = UIColor.init(_:)();
+    v18 = *&v11[OBJC_IVAR____TtCC11MusicCoreUI27QRCodeOverlayViewController13ContainerView_overlayColor];
+    *&v11[OBJC_IVAR____TtCC11MusicCoreUI27QRCodeOverlayViewController13ContainerView_overlayColor] = v17;
+    v19 = v17;
 
     QRCodeOverlayViewController.ContainerView.updateColor()();
   }
@@ -6019,8 +6427,8 @@ void QRCodeOverlayViewController.ImageViewRepresentable.updateUIView(_:context:)
 {
   v9 = type metadata accessor for EnvironmentValues();
   v10 = *(v9 - 8);
-  __chkstk_darwin(v9);
-  v12 = v19 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v12 = v21 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   v13 = *(a1 + OBJC_IVAR____TtCC11MusicCoreUI27QRCodeOverlayViewController13ContainerView_image);
   *(a1 + OBJC_IVAR____TtCC11MusicCoreUI27QRCodeOverlayViewController13ContainerView_image) = a5;
   v14 = a5;
@@ -6029,25 +6437,25 @@ void QRCodeOverlayViewController.ImageViewRepresentable.updateUIView(_:context:)
 
   if ((a4 & 1) == 0)
   {
-    static os_log_type_t.fault.getter();
-    v15 = static Log.runtimeIssuesLog.getter();
-    os_log(_:dso:log:_:_:)();
+    v15 = static os_log_type_t.fault.getter();
+    v16 = static Log.runtimeIssuesLog.getter();
+    os_log(_:dso:log:_:_:)(v15, &_mh_execute_header, v16, "Accessing Environment's value outside of being installed on a View. This will always read the default value and will not update.", 128, 2, _swiftEmptyArrayStorage);
 
     EnvironmentValues.init()();
     swift_getAtKeyPath();
-    outlined consume of Environment<Color?>.Content(a3, 0);
-    (*(v10 + 8))(v12, v9);
-    a3 = v19[1];
+    v17 = outlined consume of Environment<Color?>.Content(a3);
+    (*(v10 + 8))(v12, v9, v17);
+    a3 = v21[1];
   }
 
   if (a3)
   {
-    type metadata accessor for UIAction(0, &_sSo7UIColorCML_0);
+    type metadata accessor for UIAction(0, &_sSo7UIColorCML_0, UIColor_ptr);
 
-    v16 = UIColor.init(_:)();
-    v17 = *(a1 + OBJC_IVAR____TtCC11MusicCoreUI27QRCodeOverlayViewController13ContainerView_overlayColor);
-    *(a1 + OBJC_IVAR____TtCC11MusicCoreUI27QRCodeOverlayViewController13ContainerView_overlayColor) = v16;
-    v18 = v16;
+    v18 = UIColor.init(_:)();
+    v19 = *(a1 + OBJC_IVAR____TtCC11MusicCoreUI27QRCodeOverlayViewController13ContainerView_overlayColor);
+    *(a1 + OBJC_IVAR____TtCC11MusicCoreUI27QRCodeOverlayViewController13ContainerView_overlayColor) = v18;
+    v20 = v18;
 
     QRCodeOverlayViewController.ContainerView.updateColor()();
   }
@@ -6067,7 +6475,7 @@ uint64_t protocol witness for static View._makeViewList(view:inputs:) in conform
   return static UIViewRepresentable._makeViewList(view:inputs:)(a1, a2, a3, v6);
 }
 
-void protocol witness for View.body.getter in conformance QRCodeOverlayViewController.ImageViewRepresentable()
+void protocol witness for View.body.getter in conformance QRCodeOverlayViewController.ImageViewRepresentable(uint64_t a1)
 {
   lazy protocol witness table accessor for type QRCodeOverlayViewController.ImageViewRepresentable and conformance QRCodeOverlayViewController.ImageViewRepresentable();
   UIViewRepresentable.body.getter();
@@ -6259,7 +6667,7 @@ uint64_t Radiosity.ViewModifier.body(content:)@<X0>(uint64_t a1@<X0>, uint64_t a
 {
   v3 = v2;
   v25[0] = v2[8];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySbGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySbGMd, &_s7SwiftUI5StateVySbGMR);
   State.wrappedValue.getter();
   v6 = v26[0];
   v7 = v3[5];
@@ -6274,7 +6682,7 @@ uint64_t Radiosity.ViewModifier.body(content:)@<X0>(uint64_t a1@<X0>, uint64_t a
   v10 = v3[3];
   v26[2] = v3[2];
   v26[3] = v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MusicCoreUI9RadiosityO4View33_1A6CDAF725D6EF4D9F4D12F451DF0EBBLLVy_05SwiftC001_E16Modifier_ContentVyAC0eQ0VGGMd);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MusicCoreUI9RadiosityO4View33_1A6CDAF725D6EF4D9F4D12F451DF0EBBLLVy_05SwiftC001_E16Modifier_ContentVyAC0eQ0VGGMd, &_s11MusicCoreUI9RadiosityO4View33_1A6CDAF725D6EF4D9F4D12F451DF0EBBLLVy_05SwiftC001_E16Modifier_ContentVyAC0eQ0VGGMR);
   *(a2 + *(v11 + 40)) = v6;
   v12 = (a2 + *(v11 + 36));
   v13 = v3[5];
@@ -6289,7 +6697,7 @@ uint64_t Radiosity.ViewModifier.body(content:)@<X0>(uint64_t a1@<X0>, uint64_t a
   v16 = v3[3];
   v12[2] = v3[2];
   v12[3] = v16;
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI21_ViewModifier_ContentVy09MusicCoreB09RadiosityO0cD0VGMd);
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI21_ViewModifier_ContentVy09MusicCoreB09RadiosityO0cD0VGMd, &_s7SwiftUI21_ViewModifier_ContentVy09MusicCoreB09RadiosityO0cD0VGMR);
   (*(*(v17 - 8) + 16))(a2, a1, v17);
   v18 = swift_allocObject();
   v19 = v3[7];
@@ -6305,7 +6713,7 @@ uint64_t Radiosity.ViewModifier.body(content:)@<X0>(uint64_t a1@<X0>, uint64_t a
   v22 = v3[1];
   v18[1] = *v3;
   v18[2] = v22;
-  v23 = (a2 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVy09MusicCoreB09RadiosityO4View33_1A6CDAF725D6EF4D9F4D12F451DF0EBBLLVy_AA01_h9Modifier_D0VyAF0hS0VGGAA017_PreferenceActionS0VyAD0g7EnabledT3KeyVGGMd) + 36));
+  v23 = (a2 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVy09MusicCoreB09RadiosityO4View33_1A6CDAF725D6EF4D9F4D12F451DF0EBBLLVy_AA01_h9Modifier_D0VyAF0hS0VGGAA017_PreferenceActionS0VyAD0g7EnabledT3KeyVGGMd, &_s7SwiftUI15ModifiedContentVy09MusicCoreB09RadiosityO4View33_1A6CDAF725D6EF4D9F4D12F451DF0EBBLLVy_AA01_h9Modifier_D0VyAF0hS0VGGAA017_PreferenceActionS0VyAD0g7EnabledT3KeyVGGMR) + 36));
   *v23 = partial apply for closure #2 in Radiosity.ViewModifier.body(content:);
   v23[1] = v18;
   outlined init with copy of Radiosity.Specs(v26, v25);
@@ -6328,7 +6736,7 @@ uint64_t protocol witness for ViewModifier.body(content:) in conformance Radiosi
   v25 = *v2;
   v26 = v8;
   v24[0] = v2[8];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySbGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySbGMd, &_s7SwiftUI5StateVySbGMR);
   State.wrappedValue.getter();
   v9 = v34[0];
   v34[4] = v29;
@@ -6339,7 +6747,7 @@ uint64_t protocol witness for ViewModifier.body(content:) in conformance Radiosi
   v34[1] = v26;
   v34[2] = v27;
   v34[3] = v28;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MusicCoreUI9RadiosityO4View33_1A6CDAF725D6EF4D9F4D12F451DF0EBBLLVy_05SwiftC001_E16Modifier_ContentVyAC0eQ0VGGMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MusicCoreUI9RadiosityO4View33_1A6CDAF725D6EF4D9F4D12F451DF0EBBLLVy_05SwiftC001_E16Modifier_ContentVyAC0eQ0VGGMd, &_s11MusicCoreUI9RadiosityO4View33_1A6CDAF725D6EF4D9F4D12F451DF0EBBLLVy_05SwiftC001_E16Modifier_ContentVyAC0eQ0VGGMR);
   *(a2 + *(v10 + 40)) = v9;
   v11 = (a2 + *(v10 + 36));
   v12 = v30;
@@ -6354,7 +6762,7 @@ uint64_t protocol witness for ViewModifier.body(content:) in conformance Radiosi
   v15 = v28;
   v11[2] = v27;
   v11[3] = v15;
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI21_ViewModifier_ContentVy09MusicCoreB09RadiosityO0cD0VGMd);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI21_ViewModifier_ContentVy09MusicCoreB09RadiosityO0cD0VGMd, &_s7SwiftUI21_ViewModifier_ContentVy09MusicCoreB09RadiosityO0cD0VGMR);
   (*(*(v16 - 8) + 16))(a2, a1, v16);
   v17 = swift_allocObject();
   v18 = v32;
@@ -6370,11 +6778,18 @@ uint64_t protocol witness for ViewModifier.body(content:) in conformance Radiosi
   v21 = v26;
   v17[1] = v25;
   v17[2] = v21;
-  v22 = (a2 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVy09MusicCoreB09RadiosityO4View33_1A6CDAF725D6EF4D9F4D12F451DF0EBBLLVy_AA01_h9Modifier_D0VyAF0hS0VGGAA017_PreferenceActionS0VyAD0g7EnabledT3KeyVGGMd) + 36));
+  v22 = (a2 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVy09MusicCoreB09RadiosityO4View33_1A6CDAF725D6EF4D9F4D12F451DF0EBBLLVy_AA01_h9Modifier_D0VyAF0hS0VGGAA017_PreferenceActionS0VyAD0g7EnabledT3KeyVGGMd, &_s7SwiftUI15ModifiedContentVy09MusicCoreB09RadiosityO4View33_1A6CDAF725D6EF4D9F4D12F451DF0EBBLLVy_AA01_h9Modifier_D0VyAF0hS0VGGAA017_PreferenceActionS0VyAD0g7EnabledT3KeyVGGMR) + 36));
   *v22 = closure #2 in Radiosity.ViewModifier.body(content:)partial apply;
   v22[1] = v17;
   outlined init with copy of Radiosity.Specs(v34, v24);
   return outlined init with copy of Radiosity.ViewModifier(&v25, v24);
+}
+
+id Radiosity.UIView.__allocating_init(content:isRadiosityEnabled:specs:)(void *a1, uint64_t a2, uint64_t a3)
+{
+  v5 = a2;
+  v7 = objc_allocWithZone(v3);
+  return Radiosity.UIView.init(content:isRadiosityEnabled:specs:)(a1, v5, a3);
 }
 
 uint64_t protocol witness for static View._makeView(view:inputs:) in conformance Radiosity.View<A>(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -6391,34 +6806,32 @@ uint64_t protocol witness for static View._makeViewList(view:inputs:) in conform
   return static UIViewRepresentable._makeViewList(view:inputs:)(a1, a2, a3, WitnessTable);
 }
 
-void protocol witness for View.body.getter in conformance Radiosity.View<A>()
+void protocol witness for View.body.getter in conformance Radiosity.View<A>(uint64_t a1)
 {
   swift_getWitnessTable();
   UIViewRepresentable.body.getter();
   __break(1u);
 }
 
-id Radiosity.UIView.isRadiosityEnabled.didset(char a1)
+void Radiosity.UIView.isRadiosityEnabled.didset(char a1)
 {
   v2 = a1 & 1;
   v3 = direct field offset for Radiosity.UIView.isRadiosityEnabled;
-  result = swift_beginAccess();
+  swift_beginAccess();
   if (v1[v3] != v2)
   {
     if (v1[v3])
     {
       [v1 addSubview:*&v1[direct field offset for Radiosity.UIView.dropShadow]];
-      return [v1 addSubview:*&v1[direct field offset for Radiosity.UIView.radiosity]];
+      [v1 addSubview:*&v1[direct field offset for Radiosity.UIView.radiosity]];
     }
 
     else
     {
       [*&v1[direct field offset for Radiosity.UIView.dropShadow] removeFromSuperview];
-      return [*&v1[direct field offset for Radiosity.UIView.radiosity] removeFromSuperview];
+      [*&v1[direct field offset for Radiosity.UIView.radiosity] removeFromSuperview];
     }
   }
-
-  return result;
 }
 
 uint64_t Radiosity.UIView.isRadiosityEnabled.getter()
@@ -6428,13 +6841,13 @@ uint64_t Radiosity.UIView.isRadiosityEnabled.getter()
   return *(v0 + v1);
 }
 
-id Radiosity.UIView.isRadiosityEnabled.setter(char a1)
+void Radiosity.UIView.isRadiosityEnabled.setter(char a1)
 {
   v3 = direct field offset for Radiosity.UIView.isRadiosityEnabled;
   swift_beginAccess();
   v4 = *(v1 + v3);
   *(v1 + v3) = a1;
-  return Radiosity.UIView.isRadiosityEnabled.didset(v4);
+  Radiosity.UIView.isRadiosityEnabled.didset(v4);
 }
 
 void (*Radiosity.UIView.isRadiosityEnabled.modify(uint64_t *a1))(uint64_t a1)
@@ -6643,70 +7056,72 @@ id Radiosity.UIView.init(content:isRadiosityEnabled:specs:)(void *a1, char a2, u
 {
   v4 = v3;
   ObjectType = swift_getObjectType();
-  *&v4[direct field offset for Radiosity.UIView.content] = a1;
-  v9 = &v4[direct field offset for Radiosity.UIView.specs];
-  v10 = *(a3 + 80);
-  v9[4] = *(a3 + 64);
-  v9[5] = v10;
-  v11 = *(a3 + 112);
-  v9[6] = *(a3 + 96);
-  v9[7] = v11;
-  v12 = *(a3 + 16);
-  *v9 = *a3;
-  v9[1] = v12;
-  v13 = *(a3 + 48);
-  v9[2] = *(a3 + 32);
-  v9[3] = v13;
-  v4[direct field offset for Radiosity.UIView.isRadiosityEnabled] = a2;
+  v9 = swift_isaMask & *v4;
+  *(v4 + direct field offset for Radiosity.UIView.content) = a1;
+  v10 = (v4 + direct field offset for Radiosity.UIView.specs);
+  v11 = *(a3 + 80);
+  v10[4] = *(a3 + 64);
+  v10[5] = v11;
+  v12 = *(a3 + 112);
+  v10[6] = *(a3 + 96);
+  v10[7] = v12;
+  v13 = *(a3 + 16);
+  *v10 = *a3;
+  v10[1] = v13;
+  v14 = *(a3 + 48);
+  v10[2] = *(a3 + 32);
+  v10[3] = v14;
+  *(v4 + direct field offset for Radiosity.UIView.isRadiosityEnabled) = a2;
   if (*(a3 + 72))
   {
-    v14 = objc_allocWithZone(UIView);
-    v15 = a1;
-    outlined init with copy of Radiosity.Specs(a3, v31);
-    v16 = [v14 init];
+    v15 = objc_allocWithZone(UIView);
+    v16 = a1;
+    outlined init with copy of Radiosity.Specs(a3, v35);
+    v17 = [v15 init];
   }
 
   else
   {
-    v17 = objc_allocWithZone(_UIPortalView);
-    v18 = a1;
-    outlined init with copy of Radiosity.Specs(a3, v31);
-    v16 = [v17 initWithSourceView:v18];
+    v18 = objc_allocWithZone(_UIPortalView);
+    v19 = a1;
+    outlined init with copy of Radiosity.Specs(a3, v35);
+    v17 = [v18 initWithSourceView:v19];
   }
 
-  v19 = v16;
-  *&v4[direct field offset for Radiosity.UIView.dropShadow] = v16;
-  v20 = objc_allocWithZone(_UIPortalView);
-  v21 = a1;
-  v22 = v19;
-  v23 = [v20 initWithSourceView:v21];
-  *&v4[direct field offset for Radiosity.UIView.radiosity] = v23;
-  v30.receiver = v4;
-  v30.super_class = type metadata accessor for Radiosity.UIView();
-  v24 = v23;
-  v25 = objc_msgSendSuper2(&v30, "initWithFrame:", 0.0, 0.0, 0.0, 0.0);
-  [v25 addSubview:{v21, v30.receiver, v30.super_class}];
+  v20 = v17;
+  *(v4 + direct field offset for Radiosity.UIView.dropShadow) = v17;
+  v21 = objc_allocWithZone(_UIPortalView);
+  v22 = a1;
+  v23 = v20;
+  v24 = [v21 initWithSourceView:v22];
+  *(v4 + direct field offset for Radiosity.UIView.radiosity) = v24;
+  v27 = type metadata accessor for Radiosity.UIView(0, *(v9 + 80), v25, v26);
+  v34.receiver = v4;
+  v34.super_class = v27;
+  v28 = v24;
+  v29 = objc_msgSendSuper2(&v34, "initWithFrame:", 0.0, 0.0, 0.0, 0.0);
+  [v29 addSubview:{v22, v34.receiver, v34.super_class}];
   if (a2)
   {
-    [v25 addSubview:v22];
-    [v25 addSubview:v24];
+    [v29 addSubview:v23];
+    [v29 addSubview:v28];
   }
 
-  [v25 bounds];
-  [v21 setFrame:?];
-  [v21 setAutoresizingMask:18];
+  [v29 bounds];
+  [v22 setFrame:?];
+  [v22 setAutoresizingMask:18];
 
   Radiosity.UIView.updateDropShadow(requireReinstallation:)(0);
   Radiosity.UIView.updateRadiosity()();
-  v26 = [v25 traitCollection];
-  v27 = [v26 userInterfaceStyle];
+  v30 = [v29 traitCollection];
+  v31 = [v30 userInterfaceStyle];
 
-  Radiosity.UIView.updateUserInterfaceStyle(userInterfaceStyle:)(v27);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy5UIKit17UITraitDefinition_pXpGMd_0);
-  v28 = swift_allocObject();
-  *(v28 + 16) = xmmword_1004F2400;
-  *(v28 + 32) = type metadata accessor for UITraitUserInterfaceStyle();
-  *(v28 + 40) = &protocol witness table for UITraitUserInterfaceStyle;
+  Radiosity.UIView.updateUserInterfaceStyle(userInterfaceStyle:)(v31);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy5UIKit17UITraitDefinition_pXpGMd_0, &_ss23_ContiguousArrayStorageCy5UIKit17UITraitDefinition_pXpGMR_0);
+  v32 = swift_allocObject();
+  *(v32 + 16) = xmmword_1004F2400;
+  *(v32 + 32) = type metadata accessor for UITraitUserInterfaceStyle();
+  *(v32 + 40) = &protocol witness table for UITraitUserInterfaceStyle;
   *(swift_allocObject() + 16) = ObjectType;
   UIView.registerForTraitChanges<A>(_:handler:)();
 
@@ -6714,7 +7129,7 @@ id Radiosity.UIView.init(content:isRadiosityEnabled:specs:)(void *a1, char a2, u
 
   outlined destroy of Radiosity.Specs(a3);
 
-  return v25;
+  return v29;
 }
 
 double @objc Radiosity.UIView.intrinsicContentSize.getter(void *a1)
@@ -6728,9 +7143,10 @@ double @objc Radiosity.UIView.intrinsicContentSize.getter(void *a1)
 
 Swift::Void __swiftcall Radiosity.UIView.layoutSubviews()()
 {
-  v1.receiver = v0;
-  v1.super_class = type metadata accessor for Radiosity.UIView();
-  objc_msgSendSuper2(&v1, "layoutSubviews");
+  v3 = type metadata accessor for Radiosity.UIView(0, *((swift_isaMask & *v2) + 0x50), v0, v1);
+  v4.receiver = v2;
+  v4.super_class = v3;
+  objc_msgSendSuper2(&v4, "layoutSubviews");
   Radiosity.UIView.updateDropShadow(requireReinstallation:)(0);
   Radiosity.UIView.updateRadiosity()();
 }
@@ -6909,7 +7325,7 @@ id closure #1 in Radiosity.UIView.updateDropShadow(requireReinstallation:)(uint6
   v17 = v16;
   v18 = &a3[direct field offset for Radiosity.UIView.specs];
   v19 = swift_beginAccess();
-  v20 = a1(v19, v11, v13, v15, v17, v18[8]);
+  v20 = a1(v19, v11, v13, v15, v17, *(v18 + 8));
   v22 = v21;
 
   [v7 setPath:v22];
@@ -6924,55 +7340,57 @@ void Radiosity.UIView.updateRadiosity()()
   v2 = &v0[direct field offset for Radiosity.UIView.specs];
   swift_beginAccess();
   v3 = *(v2 + 5);
-  v44 = *(v2 + 4);
-  v45 = v3;
+  v46 = *(v2 + 4);
+  v47 = v3;
   v4 = *(v2 + 7);
-  v46 = *(v2 + 6);
-  v47 = v4;
+  v48 = *(v2 + 6);
+  v49 = v4;
   v5 = *(v2 + 1);
-  *&v42.a = *v2;
-  *&v42.c = v5;
+  v42 = *v2;
+  v43 = v5;
   v6 = *(v2 + 3);
-  *&v42.tx = *(v2 + 2);
-  v43 = v6;
+  v44 = *(v2 + 2);
+  v45 = v6;
   outlined init with copy of Radiosity.Specs(&v42, &rect[3]);
   [v1 bounds];
-  x = v48.origin.x;
-  y = v48.origin.y;
-  width = v48.size.width;
-  height = v48.size.height;
+  x = v50.origin.x;
+  y = v50.origin.y;
+  width = v50.size.width;
+  height = v50.size.height;
   *&rect[3] = v42;
-  v49 = CGRectApplyAffineTransform(v48, &rect[3]);
-  v11 = v49.origin.x;
-  rect[0] = *&v49.origin.x;
-  rect[2] = *&v49.origin.y;
-  v12 = v49.size.width;
-  v13 = v49.size.height;
-  v49.origin.x = x;
-  v49.origin.y = y;
-  v49.size.width = width;
-  v49.size.height = height;
-  rect[1] = COERCE_ID(CGRectGetMinX(v49));
-  v50.origin.x = x;
-  v50.origin.y = y;
-  v50.size.width = width;
-  v50.size.height = height;
-  v14 = CGRectGetWidth(v50);
-  v51.origin.x = v11;
-  *&v51.origin.y = rect[2];
-  v51.size.width = v12;
-  v51.size.height = v13;
-  v15 = *&rect[1] + (v14 - CGRectGetWidth(v51)) * 0.5;
+  *&rect[5] = v43;
+  *&rect[7] = v44;
+  v51 = CGRectApplyAffineTransform(v50, &rect[3]);
+  v11 = v51.origin.x;
+  rect[0] = *&v51.origin.x;
+  rect[2] = *&v51.origin.y;
+  v12 = v51.size.width;
+  v13 = v51.size.height;
+  v51.origin.x = x;
+  v51.origin.y = y;
+  v51.size.width = width;
+  v51.size.height = height;
+  rect[1] = COERCE_ID(CGRectGetMinX(v51));
   v52.origin.x = x;
   v52.origin.y = y;
   v52.size.width = width;
   v52.size.height = height;
-  v16 = CGRectGetHeight(v52);
-  *&v53.origin.x = rect[0];
+  v14 = CGRectGetWidth(v52);
+  v53.origin.x = v11;
   *&v53.origin.y = rect[2];
   v53.size.width = v12;
   v53.size.height = v13;
-  v17 = CGRectGetHeight(v53);
+  v15 = *&rect[1] + (v14 - CGRectGetWidth(v53)) * 0.5;
+  v54.origin.x = x;
+  v54.origin.y = y;
+  v54.size.width = width;
+  v54.size.height = height;
+  v16 = CGRectGetHeight(v54);
+  *&v55.origin.x = rect[0];
+  *&v55.origin.y = rect[2];
+  v55.size.width = v12;
+  v55.size.height = v13;
+  v17 = CGRectGetHeight(v55);
   outlined destroy of Radiosity.Specs(&v42);
   v18 = *&v1[direct field offset for Radiosity.UIView.radiosity];
   [v18 setFrame:{v15, v16 - v17, v12, v13}];
@@ -6984,7 +7402,7 @@ void Radiosity.UIView.updateRadiosity()()
   *&rect[7] = *(v19 + 2);
   [v18 setTransform:&rect[3]];
   rect[2] = [v18 layer];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd_0, &_ss23_ContiguousArrayStorageCyypGMR_0);
   v21 = swift_allocObject();
   *(v21 + 16) = xmmword_1004F2EF0;
   v22 = &v1[direct field offset for Radiosity.UIView.specs];
@@ -7064,11 +7482,12 @@ void Radiosity.UIView.updateUserInterfaceStyle(userInterfaceStyle:)(uint64_t a1)
   [v7 setZPosition:v6];
 }
 
-id Radiosity.UIView.__deallocating_deinit()
+id Radiosity.UIView.__deallocating_deinit(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for Radiosity.UIView();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v5 = type metadata accessor for Radiosity.UIView(0, *((swift_isaMask & *v4) + 0x50), a3, a4);
+  v7.receiver = v4;
+  v7.super_class = v5;
+  return objc_msgSendSuper2(&v7, "dealloc");
 }
 
 void @objc Radiosity.UIView.__ivar_destroyer(uint64_t a1)
@@ -7116,7 +7535,7 @@ uint64_t Radiosity.Specs.shadow.getter@<X0>(uint64_t a1@<X8>)
   v7 = *(v1 + 72);
   v6 = *(v1 + 80);
   v8 = v4;
-  result = outlined copy of (@escaping @callee_guaranteed () -> ())?(v7);
+  result = outlined copy of (@escaping @callee_guaranteed () -> ())?(v7, v6);
   *a1 = v3;
   *(a1 + 8) = v8;
   *(a1 + 16) = v5;
@@ -7127,7 +7546,7 @@ uint64_t Radiosity.Specs.shadow.getter@<X0>(uint64_t a1@<X8>)
 
 __n128 Radiosity.Specs.shadow.setter(uint64_t a1)
 {
-  outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(*(v1 + 72));
+  outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(*(v1 + 72), *(v1 + 80));
   result = *a1;
   v4 = *(a1 + 16);
   *(v1 + 48) = *a1;
@@ -7171,31 +7590,31 @@ __n128 Radiosity.Specs.radiosity.setter(uint64_t a1)
   return result;
 }
 
-uint64_t View.radiosity(specs:)(__int128 *a1)
+uint64_t View.radiosity(specs:)(__int128 *a1, uint64_t a2, uint64_t a3)
 {
-  v8 = a1[4];
-  v9 = a1[5];
-  v10 = a1[6];
-  v11 = a1[7];
-  v4 = *a1;
-  v5 = a1[1];
-  v6 = a1[2];
-  v7 = a1[3];
+  v10 = a1[4];
+  v11 = a1[5];
+  v12 = a1[6];
+  v13 = a1[7];
+  v6 = *a1;
+  v7 = a1[1];
+  v8 = a1[2];
+  v9 = a1[3];
   State.init(wrappedValue:)();
-  LOBYTE(v3) = v12[0];
-  *(&v3 + 1) = *(&v12[0] + 1);
-  outlined init with copy of Radiosity.Specs(a1, v12);
+  LOBYTE(v5) = v14[0];
+  *(&v5 + 1) = *(&v14[0] + 1);
+  outlined init with copy of Radiosity.Specs(a1, v14);
   View.modifier<A>(_:)();
-  v12[6] = v10;
-  v12[7] = v11;
-  v12[8] = v3;
-  v12[2] = v6;
-  v12[3] = v7;
-  v12[4] = v8;
-  v12[5] = v9;
-  v12[0] = v4;
-  v12[1] = v5;
-  return outlined destroy of Radiosity.ViewModifier(v12);
+  v14[6] = v12;
+  v14[7] = v13;
+  v14[8] = v5;
+  v14[2] = v8;
+  v14[3] = v9;
+  v14[4] = v10;
+  v14[5] = v11;
+  v14[0] = v6;
+  v14[1] = v7;
+  return outlined destroy of Radiosity.ViewModifier(v14);
 }
 
 double Radiosity.Specs.with(_:)@<D0>(void (*a1)(__int128 *)@<X0>, _OWORD *a2@<X8>)
@@ -7334,16 +7753,16 @@ __int128 *Radiosity.Specs.nowPlaying.unsafeMutableAddressor()
   return &static Radiosity.Specs.nowPlaying;
 }
 
-uint64_t static Radiosity.Specs.containerDetailHeaderArtwork.getter@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t static Radiosity.Specs.containerDetailHeaderArtwork.getter@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a4@<X8>)
 {
-  v4 = a3;
+  v5 = a4;
   if (*a1 != -1)
   {
     swift_once();
-    v4 = a3;
+    v5 = a4;
   }
 
-  return outlined init with copy of Radiosity.Specs(a2, v4);
+  return outlined init with copy of Radiosity.Specs(a2, v5);
 }
 
 double Radiosity.Specs.pathShadow(for:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X8>)
@@ -7453,38 +7872,38 @@ __n128 specialized Radiosity.UIView.specs.getter@<Q0>(uint64_t a1@<X8>)
   return result;
 }
 
-id specialized Radiosity.View.makeUIView(context:)(uint64_t a1)
+id specialized Radiosity.View.makeUIView(context:)(uint64_t a1, uint64_t a2)
 {
-  v2 = v1;
-  v3 = a1;
-  v4 = *(a1 + 16);
-  v5 = *(v4 - 8);
-  __chkstk_darwin(a1);
-  v7 = &v17[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  type metadata accessor for _UIHostingView();
-  v8 = type metadata accessor for Radiosity.UIView();
-  (*(v5 + 16))(v7, v2, v4);
-  v9 = _UIHostingView.__allocating_init(rootView:)();
-  v10 = *(v3 + 36);
-  LOBYTE(v3) = *(v2 + *(v3 + 40));
-  v11 = *(v2 + v10 + 80);
-  v18[4] = *(v2 + v10 + 64);
-  v18[5] = v11;
-  v12 = *(v2 + v10 + 112);
-  v18[6] = *(v2 + v10 + 96);
-  v18[7] = v12;
-  v13 = *(v2 + v10 + 16);
-  v18[0] = *(v2 + v10);
-  v18[1] = v13;
-  v14 = *(v2 + v10 + 48);
-  v18[2] = *(v2 + v10 + 32);
-  v18[3] = v14;
-  outlined init with copy of Radiosity.Specs(v18, v17);
-  v15 = objc_allocWithZone(v8);
-  return Radiosity.UIView.init(content:isRadiosityEnabled:specs:)(v9, v3, v18);
+  v3 = v2;
+  v4 = a1;
+  v5 = *(a1 + 16);
+  v6 = *(v5 - 8);
+  __chkstk_darwin();
+  v8 = &v21[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v9 = type metadata accessor for _UIHostingView();
+  v12 = type metadata accessor for Radiosity.UIView(0, v9, v10, v11);
+  (*(v6 + 16))(v8, v3, v5);
+  v13 = _UIHostingView.__allocating_init(rootView:)();
+  v14 = *(v4 + 36);
+  LOBYTE(v4) = *(v3 + *(v4 + 40));
+  v15 = *(v3 + v14 + 80);
+  v22[4] = *(v3 + v14 + 64);
+  v22[5] = v15;
+  v16 = *(v3 + v14 + 112);
+  v22[6] = *(v3 + v14 + 96);
+  v22[7] = v16;
+  v17 = *(v3 + v14 + 16);
+  v22[0] = *(v3 + v14);
+  v22[1] = v17;
+  v18 = *(v3 + v14 + 48);
+  v22[2] = *(v3 + v14 + 32);
+  v22[3] = v18;
+  outlined init with copy of Radiosity.Specs(v22, v21);
+  v19 = objc_allocWithZone(v12);
+  return Radiosity.UIView.init(content:isRadiosityEnabled:specs:)(v13, v4, v22);
 }
 
-uint64_t specialized Radiosity.UIView.specs.setter(_OWORD *a1)
+double specialized Radiosity.UIView.specs.setter(_OWORD *a1)
 {
   v3 = (v1 + direct field offset for Radiosity.UIView.specs);
   swift_beginAccess();
@@ -7524,32 +7943,33 @@ uint64_t specialized Radiosity.UIView.specs.setter(_OWORD *a1)
   outlined init with copy of Radiosity.Specs(a1, v13);
   outlined destroy of Radiosity.Specs(v21);
   Radiosity.UIView.specs.didset(v14);
-  return outlined destroy of Radiosity.Specs(v14);
+  outlined destroy of Radiosity.Specs(v14);
+  return result;
 }
 
-id specialized Radiosity.View.updateUIView(_:context:)(void *a1, uint64_t a2)
+void specialized Radiosity.View.updateUIView(_:context:)(void *a1, uint64_t a2)
 {
-  v5 = __chkstk_darwin(a1);
-  (*(v7 + 16))(&v14[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)], v2, v5);
+  v5 = __chkstk_darwin();
+  (*(v7 + 16))(&v13[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)], v2, v5);
   dispatch thunk of _UIHostingView.rootView.setter();
   [a1 invalidateIntrinsicContentSize];
   v8 = (v2 + *(a2 + 36));
   v9 = v8[5];
-  v15[4] = v8[4];
-  v15[5] = v9;
+  v14[4] = v8[4];
+  v14[5] = v9;
   v10 = v8[7];
-  v15[6] = v8[6];
-  v15[7] = v10;
+  v14[6] = v8[6];
+  v14[7] = v10;
   v11 = v8[1];
-  v15[0] = *v8;
-  v15[1] = v11;
+  v14[0] = *v8;
+  v14[1] = v11;
   v12 = v8[3];
-  v15[2] = v8[2];
-  v15[3] = v12;
-  outlined init with copy of Radiosity.Specs(v15, v14);
-  specialized Radiosity.UIView.specs.setter(v15);
-  outlined destroy of Radiosity.Specs(v15);
-  return Radiosity.UIView.isRadiosityEnabled.setter(*(v2 + *(a2 + 40)));
+  v14[2] = v8[2];
+  v14[3] = v12;
+  outlined init with copy of Radiosity.Specs(v14, v13);
+  specialized Radiosity.UIView.specs.setter(v14);
+  outlined destroy of Radiosity.Specs(v14);
+  Radiosity.UIView.isRadiosityEnabled.setter(*(v2 + *(a2 + 40)));
 }
 
 void specialized closure #1 in Radiosity.UIView.init(content:isRadiosityEnabled:specs:)(void *a1)
@@ -7560,7 +7980,7 @@ void specialized closure #1 in Radiosity.UIView.init(content:isRadiosityEnabled:
   Radiosity.UIView.updateUserInterfaceStyle(userInterfaceStyle:)(v2);
 }
 
-uint64_t get_enum_tag_for_layout_string_11MusicCoreUI9RadiosityO5SpecsV6ShadowV8DrawModeO(uint64_t *a1)
+uint64_t get_enum_tag_for_layout_string_11MusicCoreUI9RadiosityO5SpecsV6ShadowV8DrawModeO(unint64_t *a1)
 {
   v1 = *a1;
   if (*a1 >= 0xFFFFFFFF)
@@ -7863,9 +8283,9 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Radiosit
   result = lazy protocol witness table cache variable for type ModifiedContent<Radiosity.View<_ViewModifier_Content<Radiosity.ViewModifier>>, _PreferenceActionModifier<RadiosityEnabledPreferenceKey>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<Radiosity.View<_ViewModifier_Content<Radiosity.ViewModifier>>, _PreferenceActionModifier<RadiosityEnabledPreferenceKey>> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVy09MusicCoreB09RadiosityO4View33_1A6CDAF725D6EF4D9F4D12F451DF0EBBLLVy_AA01_h9Modifier_D0VyAF0hS0VGGAA017_PreferenceActionS0VyAD0g7EnabledT3KeyVGGMd);
-    lazy protocol witness table accessor for type Publishers.Autoconnect<NSTimer.TimerPublisher> and conformance Publishers.Autoconnect<A>(&lazy protocol witness table cache variable for type Radiosity.View<_ViewModifier_Content<Radiosity.ViewModifier>> and conformance Radiosity.View<A>, &_s11MusicCoreUI9RadiosityO4View33_1A6CDAF725D6EF4D9F4D12F451DF0EBBLLVy_05SwiftC001_E16Modifier_ContentVyAC0eQ0VGGMd);
-    lazy protocol witness table accessor for type Publishers.Autoconnect<NSTimer.TimerPublisher> and conformance Publishers.Autoconnect<A>(&lazy protocol witness table cache variable for type _PreferenceActionModifier<RadiosityEnabledPreferenceKey> and conformance _PreferenceActionModifier<A>, &_s7SwiftUI25_PreferenceActionModifierVy09MusicCoreB0016RadiosityEnabledC3KeyVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVy09MusicCoreB09RadiosityO4View33_1A6CDAF725D6EF4D9F4D12F451DF0EBBLLVy_AA01_h9Modifier_D0VyAF0hS0VGGAA017_PreferenceActionS0VyAD0g7EnabledT3KeyVGGMd, &_s7SwiftUI15ModifiedContentVy09MusicCoreB09RadiosityO4View33_1A6CDAF725D6EF4D9F4D12F451DF0EBBLLVy_AA01_h9Modifier_D0VyAF0hS0VGGAA017_PreferenceActionS0VyAD0g7EnabledT3KeyVGGMR);
+    lazy protocol witness table accessor for type Publishers.Autoconnect<NSTimer.TimerPublisher> and conformance Publishers.Autoconnect<A>(&lazy protocol witness table cache variable for type Radiosity.View<_ViewModifier_Content<Radiosity.ViewModifier>> and conformance Radiosity.View<A>, &_s11MusicCoreUI9RadiosityO4View33_1A6CDAF725D6EF4D9F4D12F451DF0EBBLLVy_05SwiftC001_E16Modifier_ContentVyAC0eQ0VGGMd, &_s11MusicCoreUI9RadiosityO4View33_1A6CDAF725D6EF4D9F4D12F451DF0EBBLLVy_05SwiftC001_E16Modifier_ContentVyAC0eQ0VGGMR, &protocol conformance descriptor for Radiosity.View<A>);
+    lazy protocol witness table accessor for type Publishers.Autoconnect<NSTimer.TimerPublisher> and conformance Publishers.Autoconnect<A>(&lazy protocol witness table cache variable for type _PreferenceActionModifier<RadiosityEnabledPreferenceKey> and conformance _PreferenceActionModifier<A>, &_s7SwiftUI25_PreferenceActionModifierVy09MusicCoreB0016RadiosityEnabledC3KeyVGMd, &_s7SwiftUI25_PreferenceActionModifierVy09MusicCoreB0016RadiosityEnabledC3KeyVGMR, &protocol conformance descriptor for _PreferenceActionModifier<A>);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<Radiosity.View<_ViewModifier_Content<Radiosity.ViewModifier>>, _PreferenceActionModifier<RadiosityEnabledPreferenceKey>> and conformance <> ModifiedContent<A, B>);
   }
@@ -7873,7 +8293,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Radiosit
   return result;
 }
 
-uint64_t sub_10039C9E4()
+uint64_t sub_10039C9E4(void *a1)
 {
   type metadata accessor for ModifiedContent();
   lazy protocol witness table accessor for type Radiosity.ViewModifier and conformance Radiosity.ViewModifier();
@@ -7892,10 +8312,10 @@ unint64_t lazy protocol witness table accessor for type Radiosity.ViewModifier a
   return result;
 }
 
-uint64_t type metadata completion function for Radiosity.View()
+uint64_t type metadata completion function for Radiosity.View(uint64_t a1)
 {
   result = swift_checkMetadataState();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -7992,7 +8412,7 @@ uint64_t getEnumTagSinglePayload for Radiosity.View(unsigned __int8 *a1, unsigne
 LABEL_28:
     if (v5 >= 0x7FFFFFFF)
     {
-      return (*(v4 + 48))();
+      return (*(v4 + 48))(a1);
     }
 
     v17 = *((&a1[v6 + 7] & 0xFFFFFFFFFFFFFFF8) + 56);
@@ -8225,9 +8645,9 @@ unint64_t type metadata accessor for CAFilter()
 
 uint64_t key path setter for EnvironmentValues.colorScheme : EnvironmentValues(uint64_t a1)
 {
-  v2 = type metadata accessor for ColorScheme();
-  v3 = __chkstk_darwin(v2);
-  (*(v5 + 16))(&v7 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0), a1, v3);
+  type metadata accessor for ColorScheme();
+  v2 = __chkstk_darwin();
+  (*(v4 + 16))(&v6 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), a1, v2);
   return EnvironmentValues.colorScheme.setter();
 }
 
@@ -8240,18 +8660,18 @@ uint64_t Reactions.StackView.Model.reaction.getter()
   return v1;
 }
 
-double key path getter for Reactions.StackView.Model.reaction : Reactions.StackView.Model@<D0>(_OWORD *a1@<X8>)
+double key path getter for Reactions.StackView.Model.reaction : Reactions.StackView.Model@<D0>(_OWORD *a2@<X8>)
 {
   swift_getKeyPath();
   swift_getKeyPath();
   static Published.subscript.getter();
 
-  result = *&v3;
-  *a1 = v3;
+  result = *&v4;
+  *a2 = v4;
   return result;
 }
 
-uint64_t key path setter for Reactions.StackView.Model.reaction : Reactions.StackView.Model()
+uint64_t key path setter for Reactions.StackView.Model.reaction : Reactions.StackView.Model(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
   swift_getKeyPath();
@@ -8259,7 +8679,7 @@ uint64_t key path setter for Reactions.StackView.Model.reaction : Reactions.Stac
   return static Published.subscript.setter();
 }
 
-uint64_t Reactions.StackView.Model.reaction.setter()
+uint64_t Reactions.StackView.Model.reaction.setter(uint64_t a1, uint64_t a2)
 {
   swift_getKeyPath();
   swift_getKeyPath();
@@ -8267,7 +8687,7 @@ uint64_t Reactions.StackView.Model.reaction.setter()
   return static Published.subscript.setter();
 }
 
-uint64_t (*Reactions.StackView.Model.reaction.modify(uint64_t *a1))()
+void (*Reactions.StackView.Model.reaction.modify(uint64_t *a1))(void *a1)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -8289,12 +8709,12 @@ uint64_t (*Reactions.StackView.Model.reaction.modify(uint64_t *a1))()
 
 uint64_t Reactions.StackView.Model.$reaction.setter(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySSSg_GMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySSSg_GMd, &_s7Combine9PublishedV9PublisherVySSSg_GMR);
   v3 = *(v2 - 8);
-  v4 = __chkstk_darwin(v2);
+  v4 = __chkstk_darwin();
   (*(v3 + 16))(&v7 - v5, a1, v2, v4);
   swift_beginAccess();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySSSgGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySSSgGMd, &_s7Combine9PublishedVySSSgGMR);
   Published.projectedValue.setter();
   swift_endAccess();
   return (*(v3 + 8))(a1, v2);
@@ -8315,7 +8735,7 @@ uint64_t (*Reactions.StackView.Model.$reaction.modify(uint64_t *a1))()
   v4 = v3;
   *a1 = v3;
   *(v3 + 72) = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySSSg_GMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySSSg_GMd, &_s7Combine9PublishedV9PublisherVySSSg_GMR);
   v4[10] = v5;
   v6 = *(v5 - 8);
   v4[11] = v6;
@@ -8338,7 +8758,7 @@ uint64_t (*Reactions.StackView.Model.$reaction.modify(uint64_t *a1))()
   v4[14] = v8;
   v4[15] = v9;
   swift_beginAccess();
-  v4[16] = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySSSgGMd);
+  v4[16] = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySSSgGMd, &_s7Combine9PublishedVySSSgGMR);
   Published.projectedValue.getter();
   swift_endAccess();
   return MPCPlayerResponse.VideoContext.$isReadyForDisplay.modify;
@@ -8353,17 +8773,16 @@ uint64_t Reactions.StackView.Model.count.getter()
   return v1;
 }
 
-uint64_t key path getter for Reactions.StackView.Model.count : Reactions.StackView.Model@<X0>(void *a1@<X8>)
+void key path getter for Reactions.StackView.Model.count : Reactions.StackView.Model(void *a2@<X8>)
 {
   swift_getKeyPath();
   swift_getKeyPath();
   static Published.subscript.getter();
 
-  *a1 = v3;
-  return result;
+  *a2 = v3;
 }
 
-uint64_t key path setter for Reactions.StackView.Model.count : Reactions.StackView.Model()
+uint64_t key path setter for Reactions.StackView.Model.count : Reactions.StackView.Model(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
   swift_getKeyPath();
@@ -8371,7 +8790,7 @@ uint64_t key path setter for Reactions.StackView.Model.count : Reactions.StackVi
   return static Published.subscript.setter();
 }
 
-uint64_t Reactions.StackView.Model.count.setter()
+uint64_t Reactions.StackView.Model.count.setter(uint64_t a1)
 {
   swift_getKeyPath();
   swift_getKeyPath();
@@ -8379,7 +8798,7 @@ uint64_t Reactions.StackView.Model.count.setter()
   return static Published.subscript.setter();
 }
 
-uint64_t (*Reactions.StackView.Model.count.modify(uint64_t *a1))()
+void (*Reactions.StackView.Model.count.modify(uint64_t *a1))(void *a1)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -8401,12 +8820,12 @@ uint64_t (*Reactions.StackView.Model.count.modify(uint64_t *a1))()
 
 uint64_t Reactions.StackView.Model.$count.setter(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySi_GMd_0);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySi_GMd_0, &_s7Combine9PublishedV9PublisherVySi_GMR_0);
   v3 = *(v2 - 8);
-  v4 = __chkstk_darwin(v2);
+  v4 = __chkstk_darwin();
   (*(v3 + 16))(&v7 - v5, a1, v2, v4);
   swift_beginAccess();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySiGMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySiGMd_0, &_s7Combine9PublishedVySiGMR_0);
   Published.projectedValue.setter();
   swift_endAccess();
   return (*(v3 + 8))(a1, v2);
@@ -8427,7 +8846,7 @@ uint64_t (*Reactions.StackView.Model.$count.modify(uint64_t *a1))()
   v4 = v3;
   *a1 = v3;
   *(v3 + 72) = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySi_GMd_0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySi_GMd_0, &_s7Combine9PublishedV9PublisherVySi_GMR_0);
   v4[10] = v5;
   v6 = *(v5 - 8);
   v4[11] = v6;
@@ -8450,7 +8869,7 @@ uint64_t (*Reactions.StackView.Model.$count.modify(uint64_t *a1))()
   v4[14] = v8;
   v4[15] = v9;
   swift_beginAccess();
-  v4[16] = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySiGMd_0);
+  v4[16] = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySiGMd_0, &_s7Combine9PublishedVySiGMR_0);
   Published.projectedValue.getter();
   swift_endAccess();
   return MPCPlayerResponse.VideoContext.$isReadyForDisplay.modify;
@@ -8465,27 +8884,26 @@ uint64_t Reactions.StackView.Model.userImage.getter()
   return v1;
 }
 
-uint64_t key path getter for Reactions.StackView.Model.userImage : Reactions.StackView.Model@<X0>(void *a1@<X8>)
+void key path getter for Reactions.StackView.Model.userImage : Reactions.StackView.Model(void *a2@<X8>)
 {
   swift_getKeyPath();
   swift_getKeyPath();
   static Published.subscript.getter();
 
-  *a1 = v3;
-  return result;
+  *a2 = v3;
 }
 
-uint64_t key path setter for Reactions.StackView.Model.userImage : Reactions.StackView.Model(void **a1)
+uint64_t key path setter for Reactions.StackView.Model.userImage : Reactions.StackView.Model(void **a1, uint64_t *a2)
 {
-  v1 = *a1;
+  v2 = *a1;
   swift_getKeyPath();
   swift_getKeyPath();
-  v2 = v1;
+  v3 = v2;
 
   return static Published.subscript.setter();
 }
 
-uint64_t Reactions.StackView.Model.userImage.setter()
+uint64_t Reactions.StackView.Model.userImage.setter(uint64_t a1)
 {
   swift_getKeyPath();
   swift_getKeyPath();
@@ -8493,7 +8911,7 @@ uint64_t Reactions.StackView.Model.userImage.setter()
   return static Published.subscript.setter();
 }
 
-uint64_t (*Reactions.StackView.Model.userImage.modify(uint64_t *a1))()
+void (*Reactions.StackView.Model.userImage.modify(uint64_t *a1))(void *a1)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -8515,12 +8933,12 @@ uint64_t (*Reactions.StackView.Model.userImage.modify(uint64_t *a1))()
 
 uint64_t Reactions.StackView.Model.$userImage.setter(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo7UIImageCSg_GMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo7UIImageCSg_GMd, &_s7Combine9PublishedV9PublisherVySo7UIImageCSg_GMR);
   v3 = *(v2 - 8);
-  v4 = __chkstk_darwin(v2);
+  v4 = __chkstk_darwin();
   (*(v3 + 16))(&v7 - v5, a1, v2, v4);
   swift_beginAccess();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo7UIImageCSgGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo7UIImageCSgGMd, &_s7Combine9PublishedVySo7UIImageCSgGMR);
   Published.projectedValue.setter();
   swift_endAccess();
   return (*(v3 + 8))(a1, v2);
@@ -8541,7 +8959,7 @@ uint64_t (*Reactions.StackView.Model.$userImage.modify(uint64_t *a1))()
   v4 = v3;
   *a1 = v3;
   *(v3 + 72) = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo7UIImageCSg_GMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo7UIImageCSg_GMd, &_s7Combine9PublishedV9PublisherVySo7UIImageCSg_GMR);
   v4[10] = v5;
   v6 = *(v5 - 8);
   v4[11] = v6;
@@ -8564,25 +8982,13 @@ uint64_t (*Reactions.StackView.Model.$userImage.modify(uint64_t *a1))()
   v4[14] = v8;
   v4[15] = v9;
   swift_beginAccess();
-  v4[16] = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo7UIImageCSgGMd);
+  v4[16] = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo7UIImageCSgGMd, &_s7Combine9PublishedVySo7UIImageCSgGMR);
   Published.projectedValue.getter();
   swift_endAccess();
   return MPCPlayerResponse.VideoContext.$videoBounds.modify;
 }
 
-uint64_t Reactions.StackView.Model.isReacting.setter()
-{
-  return Reactions.StackView.Model.isReacting.setter();
-}
-
-{
-  swift_getKeyPath();
-  swift_getKeyPath();
-
-  return static Published.subscript.setter();
-}
-
-uint64_t (*Reactions.StackView.Model.isReacting.modify(uint64_t *a1))()
+void (*Reactions.StackView.Model.isReacting.modify(uint64_t *a1))(void *a1)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -8604,12 +9010,12 @@ uint64_t (*Reactions.StackView.Model.isReacting.modify(uint64_t *a1))()
 
 uint64_t Reactions.StackView.Model.$isReacting.setter(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySb_GMd_0);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySb_GMd_0, &_s7Combine9PublishedV9PublisherVySb_GMR_0);
   v3 = *(v2 - 8);
-  v4 = __chkstk_darwin(v2);
+  v4 = __chkstk_darwin();
   (*(v3 + 16))(&v7 - v5, a1, v2, v4);
   swift_beginAccess();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd_0, &_s7Combine9PublishedVySbGMR_0);
   Published.projectedValue.setter();
   swift_endAccess();
   return (*(v3 + 8))(a1, v2);
@@ -8630,7 +9036,7 @@ uint64_t (*Reactions.StackView.Model.$isReacting.modify(uint64_t *a1))()
   v4 = v3;
   *a1 = v3;
   *(v3 + 72) = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySb_GMd_0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySb_GMd_0, &_s7Combine9PublishedV9PublisherVySb_GMR_0);
   v4[10] = v5;
   v6 = *(v5 - 8);
   v4[11] = v6;
@@ -8653,13 +9059,21 @@ uint64_t (*Reactions.StackView.Model.$isReacting.modify(uint64_t *a1))()
   v4[14] = v8;
   v4[15] = v9;
   swift_beginAccess();
-  v4[16] = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd_0);
+  v4[16] = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd_0, &_s7Combine9PublishedVySbGMR_0);
   Published.projectedValue.getter();
   swift_endAccess();
   return MPCPlayerResponse.VideoContext.$isReadyForDisplay.modify;
 }
 
-uint64_t (*Reactions.StackView.Model.hasAnimatedBackground.modify(uint64_t *a1))()
+uint64_t Reactions.StackView.Model.isReacting.setter(char a1, uint64_t a2, uint64_t a3)
+{
+  swift_getKeyPath();
+  swift_getKeyPath();
+
+  return static Published.subscript.setter();
+}
+
+void (*Reactions.StackView.Model.hasAnimatedBackground.modify(uint64_t *a1))(void *a1)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -8681,12 +9095,12 @@ uint64_t (*Reactions.StackView.Model.hasAnimatedBackground.modify(uint64_t *a1))
 
 uint64_t Reactions.StackView.Model.$hasAnimatedBackground.setter(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySb_GMd_0);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySb_GMd_0, &_s7Combine9PublishedV9PublisherVySb_GMR_0);
   v3 = *(v2 - 8);
-  v4 = __chkstk_darwin(v2);
+  v4 = __chkstk_darwin();
   (*(v3 + 16))(&v7 - v5, a1, v2, v4);
   swift_beginAccess();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd_0, &_s7Combine9PublishedVySbGMR_0);
   Published.projectedValue.setter();
   swift_endAccess();
   return (*(v3 + 8))(a1, v2);
@@ -8707,7 +9121,7 @@ uint64_t (*Reactions.StackView.Model.$hasAnimatedBackground.modify(uint64_t *a1)
   v4 = v3;
   *a1 = v3;
   *(v3 + 72) = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySb_GMd_0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySb_GMd_0, &_s7Combine9PublishedV9PublisherVySb_GMR_0);
   v4[10] = v5;
   v6 = *(v5 - 8);
   v4[11] = v6;
@@ -8730,7 +9144,7 @@ uint64_t (*Reactions.StackView.Model.$hasAnimatedBackground.modify(uint64_t *a1)
   v4[14] = v8;
   v4[15] = v9;
   swift_beginAccess();
-  v4[16] = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd_0);
+  v4[16] = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd_0, &_s7Combine9PublishedVySbGMR_0);
   Published.projectedValue.getter();
   swift_endAccess();
   return MPCPlayerResponse.VideoContext.$isReadyForDisplay.modify;
@@ -8743,28 +9157,28 @@ uint64_t Reactions.StackView.Model.__allocating_init(reaction:count:userImage:is
   v30 = a4;
   v27 = a1;
   v28 = a2;
-  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd_0);
+  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd_0, &_s7Combine9PublishedVySbGMR_0);
   v5 = *(v26 - 8);
-  __chkstk_darwin(v26);
+  __chkstk_darwin();
   v7 = v24 - v6;
-  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo7UIImageCSgGMd);
+  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo7UIImageCSgGMd, &_s7Combine9PublishedVySo7UIImageCSgGMR);
   v8 = *(v25 - 8);
-  __chkstk_darwin(v25);
+  __chkstk_darwin();
   v10 = v24 - v9;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySSSgGMd);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySSSgGMd, &_s7Combine9PublishedVySSSgGMR);
   v12 = *(v11 - 8);
-  __chkstk_darwin(v11);
+  __chkstk_darwin();
   v14 = v24 - v13;
   v15 = swift_allocObject();
   v16 = OBJC_IVAR____TtCVO11MusicCoreUI9Reactions9StackView5Model__reaction;
   v34 = 0;
   v35 = 0;
-  v24[1] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSgMd_0);
+  v24[1] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSgMd_0, &_sSSSgMR_0);
   Published.init(initialValue:)();
   (*(v12 + 32))(v15 + v16, v14, v11);
   v17 = OBJC_IVAR____TtCVO11MusicCoreUI9Reactions9StackView5Model__userImage;
   v34 = 0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7UIImageCSgMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7UIImageCSgMd_0, &_sSo7UIImageCSgMR_0);
   Published.init(initialValue:)();
   (*(v8 + 32))(v15 + v17, v10, v25);
   v18 = OBJC_IVAR____TtCVO11MusicCoreUI9Reactions9StackView5Model__isReacting;
@@ -8805,27 +9219,27 @@ uint64_t Reactions.StackView.Model.init(reaction:count:userImage:isVibrant:)(uin
   v30 = a4;
   v27 = a1;
   v28 = a2;
-  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd_0);
+  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd_0, &_s7Combine9PublishedVySbGMR_0);
   v6 = *(v26 - 8);
-  __chkstk_darwin(v26);
+  __chkstk_darwin();
   v8 = &v25 - v7;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo7UIImageCSgGMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo7UIImageCSgGMd, &_s7Combine9PublishedVySo7UIImageCSgGMR);
   v10 = *(v9 - 8);
-  __chkstk_darwin(v9);
+  __chkstk_darwin();
   v12 = &v25 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySSSgGMd);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySSSgGMd, &_s7Combine9PublishedVySSSgGMR);
   v14 = *(v13 - 8);
-  __chkstk_darwin(v13);
+  __chkstk_darwin();
   v16 = &v25 - v15;
   v17 = OBJC_IVAR____TtCVO11MusicCoreUI9Reactions9StackView5Model__reaction;
   v34 = 0;
   v35 = 0;
-  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSgMd_0);
+  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSgMd_0, &_sSSSgMR_0);
   Published.init(initialValue:)();
   (*(v14 + 32))(v5 + v17, v16, v13);
   v18 = OBJC_IVAR____TtCVO11MusicCoreUI9Reactions9StackView5Model__userImage;
   v34 = 0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7UIImageCSgMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7UIImageCSgMd_0, &_sSo7UIImageCSgMR_0);
   Published.init(initialValue:)();
   (*(v10 + 32))(v5 + v18, v12, v9);
   v19 = OBJC_IVAR____TtCVO11MusicCoreUI9Reactions9StackView5Model__isReacting;
@@ -8862,16 +9276,16 @@ uint64_t Reactions.StackView.Model.init(reaction:count:userImage:isVibrant:)(uin
 uint64_t Reactions.StackView.Model.deinit()
 {
   v1 = OBJC_IVAR____TtCVO11MusicCoreUI9Reactions9StackView5Model__reaction;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySSSgGMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySSSgGMd, &_s7Combine9PublishedVySSSgGMR);
   (*(*(v2 - 8) + 8))(v0 + v1, v2);
   v3 = OBJC_IVAR____TtCVO11MusicCoreUI9Reactions9StackView5Model__count;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySiGMd_0);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySiGMd_0, &_s7Combine9PublishedVySiGMR_0);
   (*(*(v4 - 8) + 8))(v0 + v3, v4);
   v5 = OBJC_IVAR____TtCVO11MusicCoreUI9Reactions9StackView5Model__userImage;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo7UIImageCSgGMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo7UIImageCSgGMd, &_s7Combine9PublishedVySo7UIImageCSgGMR);
   (*(*(v6 - 8) + 8))(v0 + v5, v6);
   v7 = OBJC_IVAR____TtCVO11MusicCoreUI9Reactions9StackView5Model__isReacting;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd_0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd_0, &_s7Combine9PublishedVySbGMR_0);
   v9 = *(*(v8 - 8) + 8);
   v9(v0 + v7, v8);
   v9(v0 + OBJC_IVAR____TtCVO11MusicCoreUI9Reactions9StackView5Model__hasAnimatedBackground, v8);
@@ -8881,16 +9295,16 @@ uint64_t Reactions.StackView.Model.deinit()
 uint64_t Reactions.StackView.Model.__deallocating_deinit()
 {
   v1 = OBJC_IVAR____TtCVO11MusicCoreUI9Reactions9StackView5Model__reaction;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySSSgGMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySSSgGMd, &_s7Combine9PublishedVySSSgGMR);
   (*(*(v2 - 8) + 8))(v0 + v1, v2);
   v3 = OBJC_IVAR____TtCVO11MusicCoreUI9Reactions9StackView5Model__count;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySiGMd_0);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySiGMd_0, &_s7Combine9PublishedVySiGMR_0);
   (*(*(v4 - 8) + 8))(v0 + v3, v4);
   v5 = OBJC_IVAR____TtCVO11MusicCoreUI9Reactions9StackView5Model__userImage;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo7UIImageCSgGMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo7UIImageCSgGMd, &_s7Combine9PublishedVySo7UIImageCSgGMR);
   (*(*(v6 - 8) + 8))(v0 + v5, v6);
   v7 = OBJC_IVAR____TtCVO11MusicCoreUI9Reactions9StackView5Model__isReacting;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd_0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd_0, &_s7Combine9PublishedVySbGMR_0);
   v9 = *(*(v8 - 8) + 8);
   v9(v0 + v7, v8);
   v9(v0 + OBJC_IVAR____TtCVO11MusicCoreUI9Reactions9StackView5Model__hasAnimatedBackground, v8);
@@ -8898,33 +9312,26 @@ uint64_t Reactions.StackView.Model.__deallocating_deinit()
   return swift_deallocClassInstance();
 }
 
-uint64_t protocol witness for ObservableObject.objectWillChange.getter in conformance Reactions.StackView.Model@<X0>(uint64_t *a1@<X8>)
+uint64_t protocol witness for ObservableObject.objectWillChange.getter in conformance Reactions.StackView.Model@<X0>(uint64_t *a2@<X8>)
 {
   type metadata accessor for Reactions.StackView.Model(0);
   result = ObservableObject<>.objectWillChange.getter();
-  *a1 = result;
+  *a2 = result;
   return result;
 }
 
-uint64_t property wrapper backing initializer of Reactions.StackView.model()
+uint64_t property wrapper backing initializer of Reactions.StackView.model(uint64_t a1)
 {
   type metadata accessor for Reactions.StackView.Model(0);
-  lazy protocol witness table accessor for type Reactions.StackView.Model and conformance Reactions.StackView.Model(&lazy protocol witness table cache variable for type Reactions.StackView.Model and conformance Reactions.StackView.Model, type metadata accessor for Reactions.StackView.Model);
+  lazy protocol witness table accessor for type Reactions.StackView.Model and conformance Reactions.StackView.Model(&lazy protocol witness table cache variable for type Reactions.StackView.Model and conformance Reactions.StackView.Model, type metadata accessor for Reactions.StackView.Model, &protocol conformance descriptor for Reactions.StackView.Model);
 
   return ObservedObject.init(wrappedValue:)();
-}
-
-uint64_t Reactions.StackView.model.setter(uint64_t a1)
-{
-
-  *(v1 + 8) = a1;
-  return result;
 }
 
 uint64_t Reactions.StackView.$model.getter()
 {
   type metadata accessor for Reactions.StackView.Model(0);
-  lazy protocol witness table accessor for type Reactions.StackView.Model and conformance Reactions.StackView.Model(&lazy protocol witness table cache variable for type Reactions.StackView.Model and conformance Reactions.StackView.Model, type metadata accessor for Reactions.StackView.Model);
+  lazy protocol witness table accessor for type Reactions.StackView.Model and conformance Reactions.StackView.Model(&lazy protocol witness table cache variable for type Reactions.StackView.Model and conformance Reactions.StackView.Model, type metadata accessor for Reactions.StackView.Model, &protocol conformance descriptor for Reactions.StackView.Model);
 
   return ObservedObject.projectedValue.getter();
 }
@@ -8940,515 +9347,509 @@ double Reactions.StackView.specs.getter@<D0>(uint64_t a1@<X8>)
   return result;
 }
 
-__n128 Reactions.StackView.init(model:specs:)@<Q0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
+__n128 Reactions.StackView.init(model:specs:)@<Q0>(uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v4 = type metadata accessor for Reactions.StackView(0);
-  v5 = v4[6];
-  *(a2 + v5) = swift_getKeyPath();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMd);
+  v5 = type metadata accessor for Reactions.StackView(0);
+  v6 = v5[6];
+  *(a3 + v6) = swift_getKeyPath();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMR);
   swift_storeEnumTagMultiPayload();
-  v6 = v4[7];
-  *(a2 + v6) = swift_getKeyPath();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA19ColorSchemeContrastO_GMd);
+  v7 = v5[7];
+  *(a3 + v7) = swift_getKeyPath();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA19ColorSchemeContrastO_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA19ColorSchemeContrastO_GMR);
   swift_storeEnumTagMultiPayload();
-  v7 = v4[8];
-  *(a2 + v7) = swift_getKeyPath();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA15DynamicTypeSizeO_GMd_0);
+  v8 = v5[8];
+  *(a3 + v8) = swift_getKeyPath();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA15DynamicTypeSizeO_GMd_0, &_s7SwiftUI11EnvironmentV7ContentOyAA15DynamicTypeSizeO_GMR_0);
   swift_storeEnumTagMultiPayload();
   type metadata accessor for Reactions.StackView.Model(0);
-  lazy protocol witness table accessor for type Reactions.StackView.Model and conformance Reactions.StackView.Model(&lazy protocol witness table cache variable for type Reactions.StackView.Model and conformance Reactions.StackView.Model, type metadata accessor for Reactions.StackView.Model);
-  *a2 = ObservedObject.init(wrappedValue:)();
-  *(a2 + 8) = v8;
-  result = *a1;
-  v10 = *(a1 + 16);
-  *(a2 + 16) = *a1;
-  *(a2 + 32) = v10;
-  *(a2 + 48) = *(a1 + 32);
+  lazy protocol witness table accessor for type Reactions.StackView.Model and conformance Reactions.StackView.Model(&lazy protocol witness table cache variable for type Reactions.StackView.Model and conformance Reactions.StackView.Model, type metadata accessor for Reactions.StackView.Model, &protocol conformance descriptor for Reactions.StackView.Model);
+  *a3 = ObservedObject.init(wrappedValue:)();
+  *(a3 + 8) = v9;
+  result = *a2;
+  v11 = *(a2 + 16);
+  *(a3 + 16) = *a2;
+  *(a3 + 32) = v11;
+  *(a3 + 48) = *(a2 + 32);
   return result;
 }
 
-uint64_t Reactions.StackView.body.getter@<X0>(uint64_t a1@<X8>)
+void Reactions.StackView.body.getter(uint64_t a1@<X8>)
 {
-  v113 = a1;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6ZStackVyAA9TupleViewVyAA15ModifiedContentVyAGyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeM5StyleVyAIGAA6CircleVGG_AGyAGyAGyAA5GroupVyAA012_ConditionalG0VyAGyAA010_AnimationE0VyAA4TextVGAA013_TraitWritingN0VyAA010TransitionW3KeyVGGAGyAGyAA5ImageVAA011_ForegroundqN0VyAIGGAA012_EnvironmentzxN0VyAA4FontVSgGGGGA20_GAKGANyAPyAA03AnymQ0VGASGGAGyAGyAGyAGyAGyAGyA10_AA012_AspectRatioJ0VGAA20_MaskAlignmentEffectVyASGG09MusicCoreB006BordereN033_F5ED3014321945F1E2BE58A044A15282LLVGA4_yAA06ZIndexwZ0VGGA7_GAKGSgtGGMd);
-  __chkstk_darwin(v2 - 8);
-  v99 = &v90 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v4);
-  v100 = (&v90 - v5);
-  v6 = type metadata accessor for Reactions.StackView(0);
-  v103 = *(v6 - 8);
-  __chkstk_darwin(v6);
-  v104 = v7;
-  v105 = &v90 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7ForEachVys18ReversedCollectionVySnySiGGSiAA15ModifiedContentVyAA6ZStackVyAA9TupleViewVyAIyAIyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeQ5StyleVyAOGAA6CircleVGG_AIyArTyAVyAA03AnyqU0VGAYGGtGGAA013_TraitWritingR0VyAA010TransitionX3KeyVGGGMd);
-  v108 = *(v8 - 8);
-  v109 = v8;
-  __chkstk_darwin(v8);
-  v107 = &v90 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v10);
-  v106 = &v90 - v11;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15DynamicTypeSizeOSgMd);
-  __chkstk_darwin(v12 - 8);
-  v14 = &v90 - v13;
-  v98 = type metadata accessor for DynamicTypeSize();
-  v15 = *(v98 - 8);
-  __chkstk_darwin(v98);
-  v17 = &v90 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = type metadata accessor for BlendMode();
-  v19 = *(v18 - 8);
-  __chkstk_darwin(v18);
-  v102 = &v90 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v101 = v20;
-  v22 = __chkstk_darwin(v21);
-  v23 = *(v19 + 104);
-  v112 = &v90 - v24;
-  v23(v22);
+  v106 = a1;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6ZStackVyAA9TupleViewVyAA15ModifiedContentVyAGyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeM5StyleVyAIGAA6CircleVGG_AGyAGyAGyAA5GroupVyAA012_ConditionalG0VyAGyAA010_AnimationE0VyAA4TextVGAA013_TraitWritingN0VyAA010TransitionW3KeyVGGAGyAGyAA5ImageVAA011_ForegroundqN0VyAIGGAA012_EnvironmentzxN0VyAA4FontVSgGGGGA20_GAKGANyAPyAA03AnymQ0VGASGGAGyAGyAGyAGyAGyAGyA10_AA012_AspectRatioJ0VGAA20_MaskAlignmentEffectVyASGG09MusicCoreB006BordereN033_F5ED3014321945F1E2BE58A044A15282LLVGA4_yAA06ZIndexwZ0VGGA7_GAKGSgtGGMd, &_s7SwiftUI6ZStackVyAA9TupleViewVyAA15ModifiedContentVyAGyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeM5StyleVyAIGAA6CircleVGG_AGyAGyAGyAA5GroupVyAA012_ConditionalG0VyAGyAA010_AnimationE0VyAA4TextVGAA013_TraitWritingN0VyAA010TransitionW3KeyVGGAGyAGyAA5ImageVAA011_ForegroundqN0VyAIGGAA012_EnvironmentzxN0VyAA4FontVSgGGGGA20_GAKGANyAPyAA03AnymQ0VGASGGAGyAGyAGyAGyAGyAGyA10_AA012_AspectRatioJ0VGAA20_MaskAlignmentEffectVyASGG09MusicCoreB006BordereN033_F5ED3014321945F1E2BE58A044A15282LLVGA4_yAA06ZIndexwZ0VGGA7_GAKGSgtGGMR);
+  __chkstk_darwin();
+  v92 = &v83 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v93 = (&v83 - v3);
+  v96 = *(type metadata accessor for Reactions.StackView(0) - 8);
+  __chkstk_darwin();
+  v97 = v4;
+  v98 = &v83 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7ForEachVys18ReversedCollectionVySnySiGGSiAA15ModifiedContentVyAA6ZStackVyAA9TupleViewVyAIyAIyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeQ5StyleVyAOGAA6CircleVGG_AIyArTyAVyAA03AnyqU0VGAYGGtGGAA013_TraitWritingR0VyAA010TransitionX3KeyVGGGMd, &_s7SwiftUI7ForEachVys18ReversedCollectionVySnySiGGSiAA15ModifiedContentVyAA6ZStackVyAA9TupleViewVyAIyAIyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeQ5StyleVyAOGAA6CircleVGG_AIyArTyAVyAA03AnyqU0VGAYGGtGGAA013_TraitWritingR0VyAA010TransitionX3KeyVGGGMR);
+  v101 = *(v5 - 8);
+  v102 = v5;
+  __chkstk_darwin();
+  v100 = &v83 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v99 = &v83 - v7;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15DynamicTypeSizeOSgMd, &_s7SwiftUI15DynamicTypeSizeOSgMR);
+  __chkstk_darwin();
+  v9 = &v83 - v8;
+  v91 = type metadata accessor for DynamicTypeSize();
+  v10 = *(v91 - 8);
+  __chkstk_darwin();
+  v12 = &v83 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = type metadata accessor for BlendMode();
+  v14 = *(v13 - 8);
+  __chkstk_darwin();
+  v95 = &v83 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v94 = v15;
+  v16 = __chkstk_darwin();
+  v17 = *(v14 + 104);
+  v105 = &v83 - v18;
+  v17(v16);
   swift_getKeyPath();
   swift_getKeyPath();
   static Published.subscript.getter();
 
-  v26 = v114;
-  v27 = *(v1 + 16);
-  if (v27 < v114)
+  v19 = v107;
+  v20 = *(v1 + 16);
+  if (v20 < v107)
   {
-    v26 = *(v1 + 16);
+    v19 = *(v1 + 16);
   }
 
-  v28 = __OFSUB__(v26, 1);
-  v29 = v26 - 1;
-  if (v28)
+  v21 = __OFSUB__(v19, 1);
+  v22 = v19 - 1;
+  if (v21)
   {
     __break(1u);
   }
 
   else
   {
-    v97 = v1;
-    v95 = *(v1 + 48);
-    v30 = *(v1 + 24);
-    v31 = *(v1 + 32);
-    v32 = *(v1 + 40);
-    KeyPath = v29;
-    v92 = v17;
-    v94 = v27;
-    _s7SwiftUI11EnvironmentV12wrappedValuexvgAA15DynamicTypeSizeO_Tg5_0(v17);
-    v110 = v19;
-    v93 = *(v15 + 16);
-    v33 = v17;
-    v34 = v98;
-    v93(v14, v33, v98);
-    v111 = v18;
-    v91 = *(v15 + 56);
-    v91(v14, 0, 1, v34);
-    v35 = UIContentSizeCategory.init(_:)();
-    v36 = objc_opt_self();
-    v37 = [v36 traitCollectionWithPreferredContentSizeCategory:v35];
-    v38 = objc_opt_self();
-    v39 = [v38 defaultMetrics];
-    [v39 scaledValueForValue:v37 compatibleWithTraitCollection:v30];
-    v41 = v40;
+    v90 = v1;
+    v88 = *(v1 + 48);
+    v23 = *(v1 + 24);
+    v24 = *(v1 + 32);
+    v25 = *(v1 + 40);
+    KeyPath = v22;
+    v85 = v12;
+    v87 = v20;
+    _s7SwiftUI11EnvironmentV12wrappedValuexvgAA15DynamicTypeSizeO_Tg5_0(v12);
+    v103 = v14;
+    v86 = *(v10 + 16);
+    v26 = v12;
+    v27 = v91;
+    v86(v9, v26, v91);
+    v104 = v13;
+    v84 = *(v10 + 56);
+    v84(v9, 0, 1, v27);
+    v28 = UIContentSizeCategory.init(_:)();
+    v29 = objc_opt_self();
+    v30 = [v29 traitCollectionWithPreferredContentSizeCategory:v28];
+    v31 = objc_opt_self();
+    v32 = [v31 defaultMetrics];
+    [v32 scaledValueForValue:v30 compatibleWithTraitCollection:v23];
+    v34 = v33;
 
-    v42 = v14;
-    v43 = v14;
-    v44 = v92;
-    v93(v42, v92, v34);
-    v45 = v110;
-    v46 = v113;
-    v91(v43, 0, 1, v34);
-    v47 = v111;
-    v48 = UIContentSizeCategory.init(_:)();
-    v49 = [v36 traitCollectionWithPreferredContentSizeCategory:v48];
-    v50 = [v38 defaultMetrics];
-    [v50 scaledValueForValue:v49 compatibleWithTraitCollection:v32];
-    v52 = v51;
+    v35 = v9;
+    v36 = v9;
+    v37 = v85;
+    v86(v35, v85, v27);
+    v38 = v103;
+    v39 = v106;
+    v84(v36, 0, 1, v27);
+    v40 = v104;
+    v41 = UIContentSizeCategory.init(_:)();
+    v42 = [v29 traitCollectionWithPreferredContentSizeCategory:v41];
+    v43 = [v31 defaultMetrics];
+    [v43 scaledValueForValue:v42 compatibleWithTraitCollection:v25];
+    v45 = v44;
 
-    (*(v15 + 8))(v44, v34);
-    v53 = v94;
-    *&v117 = v94;
-    *(&v117 + 1) = v41;
-    *&v118 = v31;
-    *(&v118 + 1) = v52;
-    LODWORD(v49) = v95;
-    v119 = v95;
-    *v46 = static VerticalAlignment.center.getter();
-    *(v46 + 8) = v31 - v41;
-    *(v46 + 16) = 0;
-    v93 = (v46 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_HStackLayoutVAA05TupleD0VyAA6SpacerV_AA7ForEachVys18ReversedCollectionVySnySiGGSiAA15ModifiedContentVyAA6ZStackVyAIyASyASyAA5ColorVAA06_FrameG0VGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeU5StyleVyAWGAA6CircleVGG_ASyAZA0_yA2_yAA03AnyuY0VGA5_GGtGGAA013_TraitWritingV0VyAA18TransitionTraitKeyVGGGAUyAIyA7__ASyASyASyAA5GroupVyAA012_ConditionalO0VyASyAA010_AnimationD0VyAA4TextVGA19_GASyASyAA5ImageVAA011_ForegroundyV0VyAWGGAA022_EnvironmentKeyWritingV0VyAA4FontVSgGGGGA43_GAYGA11_GASyASyASyASyASyASyA33_AA012_AspectRatioG0VGAA20_MaskAlignmentEffectVyA5_GG09MusicCoreB006BorderdV033_F5ED3014321945F1E2BE58A044A15282LLVGA16_yAA14ZIndexTraitKeyVGGA19_GAYGSgtGGtGGMd) + 44));
-    if (v49)
+    (*(v10 + 8))(v37, v27);
+    v46 = v87;
+    *&v110 = v87;
+    *(&v110 + 1) = v34;
+    *&v111 = v24;
+    *(&v111 + 1) = v45;
+    LODWORD(v42) = v88;
+    v112 = v88;
+    *v39 = static VerticalAlignment.center.getter();
+    *(v39 + 8) = v24 - v34;
+    *(v39 + 16) = 0;
+    v86 = (v39 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_HStackLayoutVAA05TupleD0VyAA6SpacerV_AA7ForEachVys18ReversedCollectionVySnySiGGSiAA15ModifiedContentVyAA6ZStackVyAIyASyASyAA5ColorVAA06_FrameG0VGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeU5StyleVyAWGAA6CircleVGG_ASyAZA0_yA2_yAA03AnyuY0VGA5_GGtGGAA013_TraitWritingV0VyAA18TransitionTraitKeyVGGGAUyAIyA7__ASyASyASyAA5GroupVyAA012_ConditionalO0VyASyAA010_AnimationD0VyAA4TextVGA19_GASyASyAA5ImageVAA011_ForegroundyV0VyAWGGAA022_EnvironmentKeyWritingV0VyAA4FontVSgGGGGA43_GAYGA11_GASyASyASyASyASyASyA33_AA012_AspectRatioG0VGAA20_MaskAlignmentEffectVyA5_GG09MusicCoreB006BorderdV033_F5ED3014321945F1E2BE58A044A15282LLVGA16_yAA14ZIndexTraitKeyVGGA19_GAYGSgtGGtGGMd, &_s7SwiftUI13_VariadicViewO4TreeVy_AA13_HStackLayoutVAA05TupleD0VyAA6SpacerV_AA7ForEachVys18ReversedCollectionVySnySiGGSiAA15ModifiedContentVyAA6ZStackVyAIyASyASyAA5ColorVAA06_FrameG0VGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeU5StyleVyAWGAA6CircleVGG_ASyAZA0_yA2_yAA03AnyuY0VGA5_GGtGGAA013_TraitWritingV0VyAA18TransitionTraitKeyVGGGAUyAIyA7__ASyASyASyAA5GroupVyAA012_ConditionalO0VyASyAA010_AnimationD0VyAA4TextVGA19_GASyASyAA5ImageVAA011_ForegroundyV0VyAWGGAA022_EnvironmentKeyWritingV0VyAA4FontVSgGGGGA43_GAYGA11_GASyASyASyASyASyASyA33_AA012_AspectRatioG0VGAA20_MaskAlignmentEffectVyA5_GG09MusicCoreB006BorderdV033_F5ED3014321945F1E2BE58A044A15282LLVGA16_yAA14ZIndexTraitKeyVGGA19_GAYGSgtGGtGGMR) + 44));
+    if (v42)
     {
-      v54 = KeyPath & ~(KeyPath >> 63);
+      v47 = KeyPath & ~(KeyPath >> 63);
     }
 
     else
     {
-      v54 = v53;
+      v47 = v46;
     }
 
-    v98 = v54;
-    *&v114 = 0;
-    *(&v114 + 1) = KeyPath & ~(KeyPath >> 63);
+    v91 = v47;
+    *&v107 = 0;
+    *(&v107 + 1) = KeyPath & ~(KeyPath >> 63);
     KeyPath = swift_getKeyPath();
-    v55 = v97;
-    v56 = v105;
-    outlined init with copy of Reactions.StackView(v97, v105);
-    v57 = v102;
-    v58 = v112;
-    (*(v45 + 16))(v102, v112, v47);
-    v59 = (*(v103 + 80) + 49) & ~*(v103 + 80);
-    v60 = (v104 + *(v45 + 80) + v59) & ~*(v45 + 80);
-    v61 = swift_allocObject();
-    v62 = v118;
-    *(v61 + 16) = v117;
-    *(v61 + 32) = v62;
-    *(v61 + 48) = v119;
-    outlined init with take of Reactions.StackView(v56, v61 + v59);
-    (*(v45 + 32))(v61 + v60, v57, v47);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18ReversedCollectionVySnySiGGMd);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA9TupleViewVyACyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeM5StyleVyAIGAA6CircleVGG_ACyAlNyAPyAA03AnymQ0VGASGGtGGAA013_TraitWritingN0VyAA010TransitionT3KeyVGGMd);
+    v48 = v90;
+    v49 = v98;
+    outlined init with copy of Reactions.StackView(v90, v98);
+    v50 = v95;
+    v51 = v105;
+    (*(v38 + 16))(v95, v105, v40);
+    v52 = (*(v96 + 80) + 49) & ~*(v96 + 80);
+    v53 = (v97 + *(v38 + 80) + v52) & ~*(v38 + 80);
+    v54 = swift_allocObject();
+    v55 = v111;
+    *(v54 + 16) = v110;
+    *(v54 + 32) = v55;
+    *(v54 + 48) = v112;
+    outlined init with take of Reactions.StackView(v49, v54 + v52);
+    (*(v38 + 32))(v54 + v53, v50, v40);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18ReversedCollectionVySnySiGGMd, &_ss18ReversedCollectionVySnySiGGMR);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA9TupleViewVyACyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeM5StyleVyAIGAA6CircleVGG_ACyAlNyAPyAA03AnymQ0VGASGGtGGAA013_TraitWritingN0VyAA010TransitionT3KeyVGGMd, &_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA9TupleViewVyACyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeM5StyleVyAIGAA6CircleVGG_ACyAlNyAPyAA03AnymQ0VGASGGtGGAA013_TraitWritingN0VyAA010TransitionT3KeyVGGMR);
     lazy protocol witness table accessor for type ReversedCollection<Range<Int>> and conformance <> ReversedCollection<A>();
     lazy protocol witness table accessor for type ModifiedContent<ZStack<TupleView<(ModifiedContent<ModifiedContent<Color, _FrameLayout>, _InsettableBackgroundShapeModifier<_BlendModeShapeStyle<Color>, Circle>>, ModifiedContent<ModifiedContent<Color, _FrameLayout>, _InsettableBackgroundShapeModifier<_BlendModeShapeStyle<AnyShapeStyle>, Circle>>)>>, _TraitWritingModifier<TransitionTraitKey>> and conformance <> ModifiedContent<A, B>();
-    v63 = v106;
+    v56 = v99;
     ForEach<>.init(_:id:content:)();
-    v64 = static Alignment.center.getter();
-    v65 = v100;
-    *v100 = v64;
-    *(v65 + 8) = v66;
-    v67 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_ZStackLayoutVAA05TupleD0VyAA15ModifiedContentVyAKyAA5ColorVAA06_FrameG0VGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeO5StyleVyAMGAA6CircleVGG_AKyAKyAKyAA5GroupVyAA012_ConditionalJ0VyAKyAA010_AnimationD0VyAA4TextVGAA013_TraitWritingP0VyAA010TransitionY3KeyVGGAKyAKyAA5ImageVAA011_ForegroundsP0VyAMGGAA015_EnvironmentKeyzP0VyAA4FontVSgGGGGA24_GAOGARyATyAA03AnyoS0VGAWGGAKyAKyAKyAKyAKyAKyA14_AA012_AspectRatioG0VGAA20_MaskAlignmentEffectVyAWGG09MusicCoreB006BorderdP033_F5ED3014321945F1E2BE58A044A15282LLVGA8_yAA06ZIndexY3KeyVGGA11_GAOGSgtGGMd);
-    closure #2 in closure #1 in Reactions.StackView.body.getter(&v117, v55, v58, v65 + *(v67 + 44));
-    v69 = v108;
-    v68 = v109;
-    v70 = *(v108 + 16);
-    v71 = v107;
-    v70(v107, v63, v109);
-    v72 = v99;
-    outlined init with copy of TaskPriority?(v65, v99, &_s7SwiftUI6ZStackVyAA9TupleViewVyAA15ModifiedContentVyAGyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeM5StyleVyAIGAA6CircleVGG_AGyAGyAGyAA5GroupVyAA012_ConditionalG0VyAGyAA010_AnimationE0VyAA4TextVGAA013_TraitWritingN0VyAA010TransitionW3KeyVGGAGyAGyAA5ImageVAA011_ForegroundqN0VyAIGGAA012_EnvironmentzxN0VyAA4FontVSgGGGGA20_GAKGANyAPyAA03AnymQ0VGASGGAGyAGyAGyAGyAGyAGyA10_AA012_AspectRatioJ0VGAA20_MaskAlignmentEffectVyASGG09MusicCoreB006BordereN033_F5ED3014321945F1E2BE58A044A15282LLVGA4_yAA06ZIndexwZ0VGGA7_GAKGSgtGGMd);
-    v73 = v93;
-    *v93 = 0;
-    *(v73 + 8) = 1;
-    v74 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6SpacerV_AA7ForEachVys18ReversedCollectionVySnySiGGSiAA15ModifiedContentVyAA6ZStackVyAA9TupleViewVyAKyAKyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeR5StyleVyAQGAA6CircleVGG_AKyAtVyAXyAA03AnyrV0VGA_GGtGGAA013_TraitWritingS0VyAA010TransitionY3KeyVGGGAMyAOyA1__AKyAKyAKyAA5GroupVyAA012_ConditionalI0VyAKyAA010_AnimationL0VyAA4TextVGA13_GAKyAKyAA5ImageVAA011_ForegroundvS0VyAQGGAA015_EnvironmentKeyzS0VyAA4FontVSgGGGGA37_GASGA5_GAKyAKyAKyAKyAKyAKyA27_AA012_AspectRatioO0VGAA20_MaskAlignmentEffectVyA_GG09MusicCoreB006BorderlS033_F5ED3014321945F1E2BE58A044A15282LLVGA10_yAA06ZIndexY3KeyVGGA13_GASGSgtGGtMd);
-    v70(v73 + *(v74 + 48), v71, v68);
-    outlined init with copy of TaskPriority?(v72, v73 + *(v74 + 64), &_s7SwiftUI6ZStackVyAA9TupleViewVyAA15ModifiedContentVyAGyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeM5StyleVyAIGAA6CircleVGG_AGyAGyAGyAA5GroupVyAA012_ConditionalG0VyAGyAA010_AnimationE0VyAA4TextVGAA013_TraitWritingN0VyAA010TransitionW3KeyVGGAGyAGyAA5ImageVAA011_ForegroundqN0VyAIGGAA012_EnvironmentzxN0VyAA4FontVSgGGGGA20_GAKGANyAPyAA03AnymQ0VGASGGAGyAGyAGyAGyAGyAGyA10_AA012_AspectRatioJ0VGAA20_MaskAlignmentEffectVyASGG09MusicCoreB006BordereN033_F5ED3014321945F1E2BE58A044A15282LLVGA4_yAA06ZIndexwZ0VGGA7_GAKGSgtGGMd);
-    outlined destroy of TaskPriority?(v65, &_s7SwiftUI6ZStackVyAA9TupleViewVyAA15ModifiedContentVyAGyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeM5StyleVyAIGAA6CircleVGG_AGyAGyAGyAA5GroupVyAA012_ConditionalG0VyAGyAA010_AnimationE0VyAA4TextVGAA013_TraitWritingN0VyAA010TransitionW3KeyVGGAGyAGyAA5ImageVAA011_ForegroundqN0VyAIGGAA012_EnvironmentzxN0VyAA4FontVSgGGGGA20_GAKGANyAPyAA03AnymQ0VGASGGAGyAGyAGyAGyAGyAGyA10_AA012_AspectRatioJ0VGAA20_MaskAlignmentEffectVyASGG09MusicCoreB006BordereN033_F5ED3014321945F1E2BE58A044A15282LLVGA4_yAA06ZIndexwZ0VGGA7_GAKGSgtGGMd);
-    v75 = *(v69 + 8);
-    v75(v63, v68);
-    outlined destroy of TaskPriority?(v72, &_s7SwiftUI6ZStackVyAA9TupleViewVyAA15ModifiedContentVyAGyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeM5StyleVyAIGAA6CircleVGG_AGyAGyAGyAA5GroupVyAA012_ConditionalG0VyAGyAA010_AnimationE0VyAA4TextVGAA013_TraitWritingN0VyAA010TransitionW3KeyVGGAGyAGyAA5ImageVAA011_ForegroundqN0VyAIGGAA012_EnvironmentzxN0VyAA4FontVSgGGGGA20_GAKGANyAPyAA03AnymQ0VGASGGAGyAGyAGyAGyAGyAGyA10_AA012_AspectRatioJ0VGAA20_MaskAlignmentEffectVyASGG09MusicCoreB006BordereN033_F5ED3014321945F1E2BE58A044A15282LLVGA4_yAA06ZIndexwZ0VGGA7_GAKGSgtGGMd);
-    v75(v71, v68);
-    result = v98 + 1;
-    if (!__OFADD__(v98, 1))
+    v57 = static Alignment.center.getter();
+    v58 = v93;
+    *v93 = v57;
+    *(v58 + 8) = v59;
+    v60 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_ZStackLayoutVAA05TupleD0VyAA15ModifiedContentVyAKyAA5ColorVAA06_FrameG0VGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeO5StyleVyAMGAA6CircleVGG_AKyAKyAKyAA5GroupVyAA012_ConditionalJ0VyAKyAA010_AnimationD0VyAA4TextVGAA013_TraitWritingP0VyAA010TransitionY3KeyVGGAKyAKyAA5ImageVAA011_ForegroundsP0VyAMGGAA015_EnvironmentKeyzP0VyAA4FontVSgGGGGA24_GAOGARyATyAA03AnyoS0VGAWGGAKyAKyAKyAKyAKyAKyA14_AA012_AspectRatioG0VGAA20_MaskAlignmentEffectVyAWGG09MusicCoreB006BorderdP033_F5ED3014321945F1E2BE58A044A15282LLVGA8_yAA06ZIndexY3KeyVGGA11_GAOGSgtGGMd, &_s7SwiftUI13_VariadicViewO4TreeVy_AA13_ZStackLayoutVAA05TupleD0VyAA15ModifiedContentVyAKyAA5ColorVAA06_FrameG0VGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeO5StyleVyAMGAA6CircleVGG_AKyAKyAKyAA5GroupVyAA012_ConditionalJ0VyAKyAA010_AnimationD0VyAA4TextVGAA013_TraitWritingP0VyAA010TransitionY3KeyVGGAKyAKyAA5ImageVAA011_ForegroundsP0VyAMGGAA015_EnvironmentKeyzP0VyAA4FontVSgGGGGA24_GAOGARyATyAA03AnyoS0VGAWGGAKyAKyAKyAKyAKyAKyA14_AA012_AspectRatioG0VGAA20_MaskAlignmentEffectVyAWGG09MusicCoreB006BorderdP033_F5ED3014321945F1E2BE58A044A15282LLVGA8_yAA06ZIndexY3KeyVGGA11_GAOGSgtGGMR);
+    closure #2 in closure #1 in Reactions.StackView.body.getter(&v110, v48, v51, v58 + *(v60 + 44));
+    v62 = v101;
+    v61 = v102;
+    v63 = *(v101 + 16);
+    v64 = v100;
+    v63(v100, v56, v102);
+    v65 = v92;
+    outlined init with copy of TaskPriority?(v58, v92, &_s7SwiftUI6ZStackVyAA9TupleViewVyAA15ModifiedContentVyAGyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeM5StyleVyAIGAA6CircleVGG_AGyAGyAGyAA5GroupVyAA012_ConditionalG0VyAGyAA010_AnimationE0VyAA4TextVGAA013_TraitWritingN0VyAA010TransitionW3KeyVGGAGyAGyAA5ImageVAA011_ForegroundqN0VyAIGGAA012_EnvironmentzxN0VyAA4FontVSgGGGGA20_GAKGANyAPyAA03AnymQ0VGASGGAGyAGyAGyAGyAGyAGyA10_AA012_AspectRatioJ0VGAA20_MaskAlignmentEffectVyASGG09MusicCoreB006BordereN033_F5ED3014321945F1E2BE58A044A15282LLVGA4_yAA06ZIndexwZ0VGGA7_GAKGSgtGGMd, &_s7SwiftUI6ZStackVyAA9TupleViewVyAA15ModifiedContentVyAGyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeM5StyleVyAIGAA6CircleVGG_AGyAGyAGyAA5GroupVyAA012_ConditionalG0VyAGyAA010_AnimationE0VyAA4TextVGAA013_TraitWritingN0VyAA010TransitionW3KeyVGGAGyAGyAA5ImageVAA011_ForegroundqN0VyAIGGAA012_EnvironmentzxN0VyAA4FontVSgGGGGA20_GAKGANyAPyAA03AnymQ0VGASGGAGyAGyAGyAGyAGyAGyA10_AA012_AspectRatioJ0VGAA20_MaskAlignmentEffectVyASGG09MusicCoreB006BordereN033_F5ED3014321945F1E2BE58A044A15282LLVGA4_yAA06ZIndexwZ0VGGA7_GAKGSgtGGMR);
+    v66 = v86;
+    *v86 = 0;
+    *(v66 + 8) = 1;
+    v67 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6SpacerV_AA7ForEachVys18ReversedCollectionVySnySiGGSiAA15ModifiedContentVyAA6ZStackVyAA9TupleViewVyAKyAKyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeR5StyleVyAQGAA6CircleVGG_AKyAtVyAXyAA03AnyrV0VGA_GGtGGAA013_TraitWritingS0VyAA010TransitionY3KeyVGGGAMyAOyA1__AKyAKyAKyAA5GroupVyAA012_ConditionalI0VyAKyAA010_AnimationL0VyAA4TextVGA13_GAKyAKyAA5ImageVAA011_ForegroundvS0VyAQGGAA015_EnvironmentKeyzS0VyAA4FontVSgGGGGA37_GASGA5_GAKyAKyAKyAKyAKyAKyA27_AA012_AspectRatioO0VGAA20_MaskAlignmentEffectVyA_GG09MusicCoreB006BorderlS033_F5ED3014321945F1E2BE58A044A15282LLVGA10_yAA06ZIndexY3KeyVGGA13_GASGSgtGGtMd, &_s7SwiftUI6SpacerV_AA7ForEachVys18ReversedCollectionVySnySiGGSiAA15ModifiedContentVyAA6ZStackVyAA9TupleViewVyAKyAKyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeR5StyleVyAQGAA6CircleVGG_AKyAtVyAXyAA03AnyrV0VGA_GGtGGAA013_TraitWritingS0VyAA010TransitionY3KeyVGGGAMyAOyA1__AKyAKyAKyAA5GroupVyAA012_ConditionalI0VyAKyAA010_AnimationL0VyAA4TextVGA13_GAKyAKyAA5ImageVAA011_ForegroundvS0VyAQGGAA015_EnvironmentKeyzS0VyAA4FontVSgGGGGA37_GASGA5_GAKyAKyAKyAKyAKyAKyA27_AA012_AspectRatioO0VGAA20_MaskAlignmentEffectVyA_GG09MusicCoreB006BorderlS033_F5ED3014321945F1E2BE58A044A15282LLVGA10_yAA06ZIndexY3KeyVGGA13_GASGSgtGGtMR);
+    v63(v66 + *(v67 + 48), v64, v61);
+    outlined init with copy of TaskPriority?(v65, v66 + *(v67 + 64), &_s7SwiftUI6ZStackVyAA9TupleViewVyAA15ModifiedContentVyAGyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeM5StyleVyAIGAA6CircleVGG_AGyAGyAGyAA5GroupVyAA012_ConditionalG0VyAGyAA010_AnimationE0VyAA4TextVGAA013_TraitWritingN0VyAA010TransitionW3KeyVGGAGyAGyAA5ImageVAA011_ForegroundqN0VyAIGGAA012_EnvironmentzxN0VyAA4FontVSgGGGGA20_GAKGANyAPyAA03AnymQ0VGASGGAGyAGyAGyAGyAGyAGyA10_AA012_AspectRatioJ0VGAA20_MaskAlignmentEffectVyASGG09MusicCoreB006BordereN033_F5ED3014321945F1E2BE58A044A15282LLVGA4_yAA06ZIndexwZ0VGGA7_GAKGSgtGGMd, &_s7SwiftUI6ZStackVyAA9TupleViewVyAA15ModifiedContentVyAGyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeM5StyleVyAIGAA6CircleVGG_AGyAGyAGyAA5GroupVyAA012_ConditionalG0VyAGyAA010_AnimationE0VyAA4TextVGAA013_TraitWritingN0VyAA010TransitionW3KeyVGGAGyAGyAA5ImageVAA011_ForegroundqN0VyAIGGAA012_EnvironmentzxN0VyAA4FontVSgGGGGA20_GAKGANyAPyAA03AnymQ0VGASGGAGyAGyAGyAGyAGyAGyA10_AA012_AspectRatioJ0VGAA20_MaskAlignmentEffectVyASGG09MusicCoreB006BordereN033_F5ED3014321945F1E2BE58A044A15282LLVGA4_yAA06ZIndexwZ0VGGA7_GAKGSgtGGMR);
+    outlined destroy of TaskPriority?(v58, &_s7SwiftUI6ZStackVyAA9TupleViewVyAA15ModifiedContentVyAGyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeM5StyleVyAIGAA6CircleVGG_AGyAGyAGyAA5GroupVyAA012_ConditionalG0VyAGyAA010_AnimationE0VyAA4TextVGAA013_TraitWritingN0VyAA010TransitionW3KeyVGGAGyAGyAA5ImageVAA011_ForegroundqN0VyAIGGAA012_EnvironmentzxN0VyAA4FontVSgGGGGA20_GAKGANyAPyAA03AnymQ0VGASGGAGyAGyAGyAGyAGyAGyA10_AA012_AspectRatioJ0VGAA20_MaskAlignmentEffectVyASGG09MusicCoreB006BordereN033_F5ED3014321945F1E2BE58A044A15282LLVGA4_yAA06ZIndexwZ0VGGA7_GAKGSgtGGMd, &_s7SwiftUI6ZStackVyAA9TupleViewVyAA15ModifiedContentVyAGyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeM5StyleVyAIGAA6CircleVGG_AGyAGyAGyAA5GroupVyAA012_ConditionalG0VyAGyAA010_AnimationE0VyAA4TextVGAA013_TraitWritingN0VyAA010TransitionW3KeyVGGAGyAGyAA5ImageVAA011_ForegroundqN0VyAIGGAA012_EnvironmentzxN0VyAA4FontVSgGGGGA20_GAKGANyAPyAA03AnymQ0VGASGGAGyAGyAGyAGyAGyAGyA10_AA012_AspectRatioJ0VGAA20_MaskAlignmentEffectVyASGG09MusicCoreB006BordereN033_F5ED3014321945F1E2BE58A044A15282LLVGA4_yAA06ZIndexwZ0VGGA7_GAKGSgtGGMR);
+    v68 = *(v62 + 8);
+    v68(v56, v61);
+    outlined destroy of TaskPriority?(v65, &_s7SwiftUI6ZStackVyAA9TupleViewVyAA15ModifiedContentVyAGyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeM5StyleVyAIGAA6CircleVGG_AGyAGyAGyAA5GroupVyAA012_ConditionalG0VyAGyAA010_AnimationE0VyAA4TextVGAA013_TraitWritingN0VyAA010TransitionW3KeyVGGAGyAGyAA5ImageVAA011_ForegroundqN0VyAIGGAA012_EnvironmentzxN0VyAA4FontVSgGGGGA20_GAKGANyAPyAA03AnymQ0VGASGGAGyAGyAGyAGyAGyAGyA10_AA012_AspectRatioJ0VGAA20_MaskAlignmentEffectVyASGG09MusicCoreB006BordereN033_F5ED3014321945F1E2BE58A044A15282LLVGA4_yAA06ZIndexwZ0VGGA7_GAKGSgtGGMd, &_s7SwiftUI6ZStackVyAA9TupleViewVyAA15ModifiedContentVyAGyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeM5StyleVyAIGAA6CircleVGG_AGyAGyAGyAA5GroupVyAA012_ConditionalG0VyAGyAA010_AnimationE0VyAA4TextVGAA013_TraitWritingN0VyAA010TransitionW3KeyVGGAGyAGyAA5ImageVAA011_ForegroundqN0VyAIGGAA012_EnvironmentzxN0VyAA4FontVSgGGGGA20_GAKGANyAPyAA03AnymQ0VGASGGAGyAGyAGyAGyAGyAGyA10_AA012_AspectRatioJ0VGAA20_MaskAlignmentEffectVyASGG09MusicCoreB006BordereN033_F5ED3014321945F1E2BE58A044A15282LLVGA4_yAA06ZIndexwZ0VGGA7_GAKGSgtGGMR);
+    v68(v64, v61);
+    if (!__OFADD__(v91, 1))
     {
-      Int.seconds.getter(result);
+      Int.seconds.getter(v91 + 1);
       static Alignment.center.getter();
       _FrameLayout.init(width:height:alignment:)();
-      v76 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyAA6SpacerV_AA7ForEachVys18ReversedCollectionVySnySiGGSiACyAA6ZStackVyAGyACyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeS5StyleVyASGAA6CircleVGG_ACyAvXyAZyAA03AnysW0VGA1_GGtGGAA013_TraitWritingT0VyAA010TransitionZ3KeyVGGGAQyAGyA3__ACyACyACyAA5GroupVyAA012_ConditionalD0VyACyAA010_AnimationG0VyAA4TextVGA15_GACyACyAA5ImageVAA011_ForegroundwT0VyASGGAA022_EnvironmentKeyWritingT0VyAA4FontVSgGGGGA39_GAUGA7_GACyACyACyACyACyACyA29_AA012_AspectRatioP0VGAA20_MaskAlignmentEffectVyA1_GG09MusicCoreB006BordergT033_F5ED3014321945F1E2BE58A044A15282LLVGA12_yAA06ZIndexZ3KeyVGGA15_GAUGSgtGGtGGAUGMd);
-      v77 = v113;
-      v78 = (v113 + *(v76 + 36));
-      v79 = v115;
-      *v78 = v114;
-      v78[1] = v79;
-      v78[2] = v116;
-      v80 = static Edge.Set.all.getter();
+      v69 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyAA6SpacerV_AA7ForEachVys18ReversedCollectionVySnySiGGSiACyAA6ZStackVyAGyACyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeS5StyleVyASGAA6CircleVGG_ACyAvXyAZyAA03AnysW0VGA1_GGtGGAA013_TraitWritingT0VyAA010TransitionZ3KeyVGGGAQyAGyA3__ACyACyACyAA5GroupVyAA012_ConditionalD0VyACyAA010_AnimationG0VyAA4TextVGA15_GACyACyAA5ImageVAA011_ForegroundwT0VyASGGAA022_EnvironmentKeyWritingT0VyAA4FontVSgGGGGA39_GAUGA7_GACyACyACyACyACyACyA29_AA012_AspectRatioP0VGAA20_MaskAlignmentEffectVyA1_GG09MusicCoreB006BordergT033_F5ED3014321945F1E2BE58A044A15282LLVGA12_yAA06ZIndexZ3KeyVGGA15_GAUGSgtGGtGGAUGMd, &_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyAA6SpacerV_AA7ForEachVys18ReversedCollectionVySnySiGGSiACyAA6ZStackVyAGyACyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeS5StyleVyASGAA6CircleVGG_ACyAvXyAZyAA03AnysW0VGA1_GGtGGAA013_TraitWritingT0VyAA010TransitionZ3KeyVGGGAQyAGyA3__ACyACyACyAA5GroupVyAA012_ConditionalD0VyACyAA010_AnimationG0VyAA4TextVGA15_GACyACyAA5ImageVAA011_ForegroundwT0VyASGGAA022_EnvironmentKeyWritingT0VyAA4FontVSgGGGGA39_GAUGA7_GACyACyACyACyACyACyA29_AA012_AspectRatioP0VGAA20_MaskAlignmentEffectVyA1_GG09MusicCoreB006BordergT033_F5ED3014321945F1E2BE58A044A15282LLVGA12_yAA06ZIndexZ3KeyVGGA15_GAUGSgtGGtGGAUGMR);
+      v70 = v106;
+      v71 = (v106 + *(v69 + 36));
+      v72 = v108;
+      *v71 = v107;
+      v71[1] = v72;
+      v71[2] = v109;
+      v73 = static Edge.Set.all.getter();
       EdgeInsets.init(_all:)();
-      v82 = v81;
-      v84 = v83;
-      v86 = v85;
-      v88 = v87;
-      v89 = v77 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6HStackVyAA9TupleViewVyAA6SpacerV_AA7ForEachVys18ReversedCollectionVySnySiGGSiACyAA6ZStackVyAGyACyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeS5StyleVyASGAA6CircleVGG_ACyAvXyAZyAA03AnysW0VGA1_GGtGGAA013_TraitWritingT0VyAA010TransitionZ3KeyVGGGAQyAGyA3__ACyACyACyAA5GroupVyAA012_ConditionalD0VyACyAA010_AnimationG0VyAA4TextVGA15_GACyACyAA5ImageVAA011_ForegroundwT0VyASGGAA022_EnvironmentKeyWritingT0VyAA4FontVSgGGGGA39_GAUGA7_GACyACyACyACyACyACyA29_AA012_AspectRatioP0VGAA20_MaskAlignmentEffectVyA1_GG09MusicCoreB006BordergT033_F5ED3014321945F1E2BE58A044A15282LLVGA12_yAA06ZIndexZ3KeyVGGA15_GAUGSgtGGtGGAUGAA08_PaddingP0VGMd) + 36);
-      *v89 = v80;
-      *(v89 + 8) = v82;
-      *(v89 + 16) = v84;
-      *(v89 + 24) = v86;
-      *(v89 + 32) = v88;
-      *(v89 + 40) = 0;
-      return (*(v110 + 8))(v112, v111);
+      v75 = v74;
+      v77 = v76;
+      v79 = v78;
+      v81 = v80;
+      v82 = v70 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6HStackVyAA9TupleViewVyAA6SpacerV_AA7ForEachVys18ReversedCollectionVySnySiGGSiACyAA6ZStackVyAGyACyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeS5StyleVyASGAA6CircleVGG_ACyAvXyAZyAA03AnysW0VGA1_GGtGGAA013_TraitWritingT0VyAA010TransitionZ3KeyVGGGAQyAGyA3__ACyACyACyAA5GroupVyAA012_ConditionalD0VyACyAA010_AnimationG0VyAA4TextVGA15_GACyACyAA5ImageVAA011_ForegroundwT0VyASGGAA022_EnvironmentKeyWritingT0VyAA4FontVSgGGGGA39_GAUGA7_GACyACyACyACyACyACyA29_AA012_AspectRatioP0VGAA20_MaskAlignmentEffectVyA1_GG09MusicCoreB006BordergT033_F5ED3014321945F1E2BE58A044A15282LLVGA12_yAA06ZIndexZ3KeyVGGA15_GAUGSgtGGtGGAUGAA08_PaddingP0VGMd, &_s7SwiftUI15ModifiedContentVyACyAA6HStackVyAA9TupleViewVyAA6SpacerV_AA7ForEachVys18ReversedCollectionVySnySiGGSiACyAA6ZStackVyAGyACyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeS5StyleVyASGAA6CircleVGG_ACyAvXyAZyAA03AnysW0VGA1_GGtGGAA013_TraitWritingT0VyAA010TransitionZ3KeyVGGGAQyAGyA3__ACyACyACyAA5GroupVyAA012_ConditionalD0VyACyAA010_AnimationG0VyAA4TextVGA15_GACyACyAA5ImageVAA011_ForegroundwT0VyASGGAA022_EnvironmentKeyWritingT0VyAA4FontVSgGGGGA39_GAUGA7_GACyACyACyACyACyACyA29_AA012_AspectRatioP0VGAA20_MaskAlignmentEffectVyA1_GG09MusicCoreB006BordergT033_F5ED3014321945F1E2BE58A044A15282LLVGA12_yAA06ZIndexZ3KeyVGGA15_GAUGSgtGGtGGAUGAA08_PaddingP0VGMR) + 36);
+      *v82 = v73;
+      *(v82 + 8) = v75;
+      *(v82 + 16) = v77;
+      *(v82 + 24) = v79;
+      *(v82 + 32) = v81;
+      *(v82 + 40) = 0;
+      (*(v103 + 8))(v105, v104);
+      return;
     }
   }
 
   __break(1u);
-  return result;
 }
 
-uint64_t closure #1 in closure #1 in Reactions.StackView.body.getter@<X0>(uint64_t a1@<X2>, uint64_t a2@<X3>, uint64_t *a3@<X8>)
+uint64_t closure #1 in closure #1 in Reactions.StackView.body.getter@<X0>(uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t *a4@<X8>)
 {
-  v22 = a2;
-  v5 = type metadata accessor for ScaleTransition();
-  v6 = *(v5 - 8);
-  __chkstk_darwin(v5);
-  v8 = &v21 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI10TransitionPAAE9animationyQrAA9AnimationVSgFQOyAA05ScaleC0V_Qo_Md);
-  v10 = *(v9 - 8);
-  __chkstk_darwin(v9);
-  v12 = &v21 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v13);
+  v22 = a3;
+  v6 = type metadata accessor for ScaleTransition();
+  v7 = *(v6 - 8);
+  __chkstk_darwin();
+  v9 = &v21 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI10TransitionPAAE9animationyQrAA9AnimationVSgFQOyAA05ScaleC0V_Qo_Md, &_s7SwiftUI10TransitionPAAE9animationyQrAA9AnimationVSgFQOyAA05ScaleC0V_Qo_MR);
+  v11 = *(v10 - 8);
+  __chkstk_darwin();
+  v13 = &v21 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
   v15 = &v21 - v14;
-  *a3 = static Alignment.center.getter();
-  a3[1] = v16;
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_ZStackLayoutVAA05TupleD0VyAA15ModifiedContentVyAKyAA5ColorVAA06_FrameG0VGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeO5StyleVyAMGAA6CircleVGG_AKyApRyATyAA03AnyoS0VGAWGGtGGMd);
-  closure #1 in closure #1 in closure #1 in Reactions.StackView.body.getter(a1, v22, a3 + *(v17 + 44));
+  *a4 = static Alignment.center.getter();
+  a4[1] = v16;
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_ZStackLayoutVAA05TupleD0VyAA15ModifiedContentVyAKyAA5ColorVAA06_FrameG0VGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeO5StyleVyAMGAA6CircleVGG_AKyApRyATyAA03AnyoS0VGAWGGtGGMd, &_s7SwiftUI13_VariadicViewO4TreeVy_AA13_ZStackLayoutVAA05TupleD0VyAA15ModifiedContentVyAKyAA5ColorVAA06_FrameG0VGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeO5StyleVyAMGAA6CircleVGG_AKyApRyATyAA03AnyoS0VGAWGGtGGMR);
+  closure #1 in closure #1 in closure #1 in Reactions.StackView.body.getter(a2, v22, a4 + *(v17 + 44));
   static UnitPoint.center.getter();
   ScaleTransition.init(_:anchor:)();
   static Animation.easeInOut(duration:)();
-  v18 = lazy protocol witness table accessor for type Reactions.StackView.Model and conformance Reactions.StackView.Model(&lazy protocol witness table cache variable for type ScaleTransition and conformance ScaleTransition, &type metadata accessor for ScaleTransition);
+  v18 = lazy protocol witness table accessor for type Reactions.StackView.Model and conformance Reactions.StackView.Model(&lazy protocol witness table cache variable for type ScaleTransition and conformance ScaleTransition, &type metadata accessor for ScaleTransition, &protocol conformance descriptor for ScaleTransition);
   Transition.animation(_:)();
 
-  (*(v6 + 8))(v8, v5);
-  (*(v10 + 16))(v12, v15, v9);
-  v23 = v5;
+  (*(v7 + 8))(v9, v6);
+  (*(v11 + 16))(v13, v15, v10);
+  v23 = v6;
   v24 = v18;
   swift_getOpaqueTypeConformance2();
   v19 = AnyTransition.init<A>(_:)();
-  (*(v10 + 8))(v15, v9);
-  result = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA9TupleViewVyACyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeM5StyleVyAIGAA6CircleVGG_ACyAlNyAPyAA03AnymQ0VGASGGtGGAA013_TraitWritingN0VyAA010TransitionT3KeyVGGMd);
-  *(a3 + *(result + 36)) = v19;
+  (*(v11 + 8))(v15, v10);
+  result = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA9TupleViewVyACyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeM5StyleVyAIGAA6CircleVGG_ACyAlNyAPyAA03AnymQ0VGASGGtGGAA013_TraitWritingN0VyAA010TransitionT3KeyVGGMd, &_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA9TupleViewVyACyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeM5StyleVyAIGAA6CircleVGG_ACyAlNyAPyAA03AnymQ0VGASGGtGGAA013_TraitWritingN0VyAA010TransitionT3KeyVGGMR);
+  *(a4 + *(result + 36)) = v19;
   return result;
 }
 
-uint64_t closure #1 in closure #1 in closure #1 in Reactions.StackView.body.getter@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X8>)
+uint64_t closure #1 in closure #1 in closure #1 in Reactions.StackView.body.getter@<X0>(uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
-  v43 = a1;
-  v44 = a2;
-  v46 = a3;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAA03AnyjN0VGAA6CircleVGGMd);
-  v4 = v3 - 8;
-  __chkstk_darwin(v3);
-  v45 = &v35 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v6);
-  v8 = &v35 - v7;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAEGAA6CircleVGGMd);
-  v10 = v9 - 8;
-  __chkstk_darwin(v9);
-  v42 = &v35 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v12);
-  v14 = &v35 - v13;
-  v41 = static Color.clear.getter();
+  v40 = a2;
+  v41 = a3;
+  v43 = a4;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAA03AnyjN0VGAA6CircleVGGMd, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAA03AnyjN0VGAA6CircleVGGMR) - 8;
+  __chkstk_darwin();
+  v42 = &v32 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v7 = &v32 - v6;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAEGAA6CircleVGGMd, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAEGAA6CircleVGGMR) - 8;
+  __chkstk_darwin();
+  v39 = &v32 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v11 = &v32 - v10;
+  v38 = static Color.clear.getter();
   static Alignment.center.getter();
   _FrameLayout.init(width:height:alignment:)();
-  v40 = v47[1];
-  LODWORD(v39) = v48;
-  v15 = v49;
-  v38 = v50;
-  v37 = v51;
-  v36 = v52;
-  v16 = static Color.white.getter();
-  v17 = &v14[*(v10 + 44)];
-  v18 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI20_BlendModeShapeStyleVyAA5ColorVGMd) + 36);
-  v19 = enum case for BlendMode.destinationOut(_:);
-  v20 = type metadata accessor for BlendMode();
-  v21 = *(v20 - 8);
-  (*(v21 + 104))(v17 + v18, v19, v20);
-  *v17 = v16;
-  *(v17 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI34_InsettableBackgroundShapeModifierVyAA010_BlendModeE5StyleVyAA5ColorVGAA6CircleVGMd) + 56)) = 256;
-  v22 = v40;
-  *v14 = v41;
-  *(v14 + 1) = v22;
-  v14[16] = v39;
-  *(v14 + 3) = v15;
-  v14[32] = v38;
-  v23 = v36;
-  *(v14 + 5) = v37;
-  *(v14 + 6) = v23;
-  v41 = static Color.clear.getter();
+  v37 = v44[1];
+  LODWORD(v36) = v45;
+  v12 = v46;
+  v35 = v47;
+  v34 = v48;
+  v33 = v49;
+  v13 = static Color.white.getter();
+  v14 = &v11[*(v8 + 44)];
+  v15 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI20_BlendModeShapeStyleVyAA5ColorVGMd, &_s7SwiftUI20_BlendModeShapeStyleVyAA5ColorVGMR) + 36);
+  v16 = enum case for BlendMode.destinationOut(_:);
+  v17 = type metadata accessor for BlendMode();
+  v18 = *(v17 - 8);
+  (*(v18 + 104))(v14 + v15, v16, v17);
+  *v14 = v13;
+  *(v14 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI34_InsettableBackgroundShapeModifierVyAA010_BlendModeE5StyleVyAA5ColorVGAA6CircleVGMd, &_s7SwiftUI34_InsettableBackgroundShapeModifierVyAA010_BlendModeE5StyleVyAA5ColorVGAA6CircleVGMR) + 56)) = 256;
+  v19 = v37;
+  *v11 = v38;
+  *(v11 + 1) = v19;
+  v11[16] = v36;
+  *(v11 + 3) = v12;
+  v11[32] = v35;
+  v20 = v33;
+  *(v11 + 5) = v34;
+  *(v11 + 6) = v20;
+  v38 = static Color.clear.getter();
   static Alignment.center.getter();
   _FrameLayout.init(width:height:alignment:)();
-  v24 = v53;
-  LOBYTE(v15) = v54;
-  v25 = v55;
-  LOBYTE(v19) = v56;
-  v40 = v57;
-  v39 = v58;
-  Reactions.StackView.backgroundColor.getter(v47);
-  v26 = v47[0];
-  v27 = &v8[*(v4 + 44)];
-  v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI20_BlendModeShapeStyleVyAA03AnyeF0VGMd);
-  (*(v21 + 16))(v27 + *(v28 + 36), v44, v20);
-  *v27 = v26;
-  *(v27 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI34_InsettableBackgroundShapeModifierVyAA010_BlendModeE5StyleVyAA03AnyeI0VGAA6CircleVGMd) + 56)) = 256;
-  v29 = v42;
-  *v8 = v41;
-  *(v8 + 1) = v24;
-  v8[16] = v15;
-  *(v8 + 3) = v25;
-  v8[32] = v19;
-  v30 = v39;
-  *(v8 + 5) = v40;
-  *(v8 + 6) = v30;
-  outlined init with copy of TaskPriority?(v14, v29, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAEGAA6CircleVGGMd);
-  v31 = v45;
-  outlined init with copy of TaskPriority?(v8, v45, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAA03AnyjN0VGAA6CircleVGGMd);
-  v32 = v46;
-  outlined init with copy of TaskPriority?(v29, v46, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAEGAA6CircleVGGMd);
-  v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAEGAA6CircleVGG_ACyAhJyALyAA03AnyjN0VGAOGGtMd);
-  outlined init with copy of TaskPriority?(v31, v32 + *(v33 + 48), &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAA03AnyjN0VGAA6CircleVGGMd);
-  outlined destroy of TaskPriority?(v8, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAA03AnyjN0VGAA6CircleVGGMd);
-  outlined destroy of TaskPriority?(v14, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAEGAA6CircleVGGMd);
-  outlined destroy of TaskPriority?(v31, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAA03AnyjN0VGAA6CircleVGGMd);
-  return outlined destroy of TaskPriority?(v29, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAEGAA6CircleVGGMd);
+  v21 = v50;
+  LOBYTE(v12) = v51;
+  v22 = v52;
+  LOBYTE(v16) = v53;
+  v37 = v54;
+  v36 = v55;
+  Reactions.StackView.backgroundColor.getter(v44);
+  v23 = v44[0];
+  v24 = &v7[*(v4 + 44)];
+  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI20_BlendModeShapeStyleVyAA03AnyeF0VGMd, &_s7SwiftUI20_BlendModeShapeStyleVyAA03AnyeF0VGMR);
+  (*(v18 + 16))(v24 + *(v25 + 36), v41, v17);
+  *v24 = v23;
+  *(v24 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI34_InsettableBackgroundShapeModifierVyAA010_BlendModeE5StyleVyAA03AnyeI0VGAA6CircleVGMd, &_s7SwiftUI34_InsettableBackgroundShapeModifierVyAA010_BlendModeE5StyleVyAA03AnyeI0VGAA6CircleVGMR) + 56)) = 256;
+  v26 = v39;
+  *v7 = v38;
+  *(v7 + 1) = v21;
+  v7[16] = v12;
+  *(v7 + 3) = v22;
+  v7[32] = v16;
+  v27 = v36;
+  *(v7 + 5) = v37;
+  *(v7 + 6) = v27;
+  outlined init with copy of TaskPriority?(v11, v26, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAEGAA6CircleVGGMd, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAEGAA6CircleVGGMR);
+  v28 = v42;
+  outlined init with copy of TaskPriority?(v7, v42, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAA03AnyjN0VGAA6CircleVGGMd, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAA03AnyjN0VGAA6CircleVGGMR);
+  v29 = v43;
+  outlined init with copy of TaskPriority?(v26, v43, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAEGAA6CircleVGGMd, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAEGAA6CircleVGGMR);
+  v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAEGAA6CircleVGG_ACyAhJyALyAA03AnyjN0VGAOGGtMd, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAEGAA6CircleVGG_ACyAhJyALyAA03AnyjN0VGAOGGtMR);
+  outlined init with copy of TaskPriority?(v28, v29 + *(v30 + 48), &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAA03AnyjN0VGAA6CircleVGGMd, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAA03AnyjN0VGAA6CircleVGGMR);
+  outlined destroy of TaskPriority?(v7, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAA03AnyjN0VGAA6CircleVGGMd, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAA03AnyjN0VGAA6CircleVGGMR);
+  outlined destroy of TaskPriority?(v11, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAEGAA6CircleVGGMd, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAEGAA6CircleVGGMR);
+  outlined destroy of TaskPriority?(v28, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAA03AnyjN0VGAA6CircleVGGMd, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAA03AnyjN0VGAA6CircleVGGMR);
+  return outlined destroy of TaskPriority?(v26, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAEGAA6CircleVGGMd, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAEGAA6CircleVGGMR);
 }
 
 uint64_t Reactions.StackView.backgroundColor.getter@<X0>(uint64_t *a1@<X8>)
 {
   v2 = v1;
-  v23 = a1;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11ColorSchemeO_AA0cD8ContrastOtMd);
-  v4 = v3 - 8;
-  __chkstk_darwin(v3);
-  v22 = &v21 - v5;
-  v6 = type metadata accessor for ColorSchemeContrast();
-  v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
-  v9 = &v21 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for ColorScheme();
-  v11 = *(v10 - 8);
-  __chkstk_darwin(v10);
-  v13 = &v21 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v22 = a1;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11ColorSchemeO_AA0cD8ContrastOtMd, &_s7SwiftUI11ColorSchemeO_AA0cD8ContrastOtMR) - 8;
+  __chkstk_darwin();
+  v21 = &v20 - v4;
+  v5 = type metadata accessor for ColorSchemeContrast();
+  v6 = *(v5 - 8);
+  __chkstk_darwin();
+  v8 = &v20 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = type metadata accessor for ColorScheme();
+  v10 = *(v9 - 8);
+  __chkstk_darwin();
+  v12 = &v20 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   type metadata accessor for Reactions.StackView(0);
-  specialized Environment.wrappedValue.getter(v13);
-  specialized Environment.wrappedValue.getter(v9);
-  v14 = *(v4 + 56);
-  v15 = v11;
-  v16 = v22;
-  (*(v15 + 32))(v22, v13, v10);
-  (*(v7 + 32))(v16 + v14, v9, v6);
-  v17 = (*(v15 + 88))(v16, v10);
-  if (v17 == enum case for ColorScheme.light(_:))
+  specialized Environment.wrappedValue.getter(v12);
+  specialized Environment.wrappedValue.getter(v8);
+  v13 = *(v3 + 56);
+  v14 = v10;
+  v15 = v21;
+  (*(v14 + 32))(v21, v12, v9);
+  (*(v6 + 32))(v15 + v13, v8, v5);
+  v16 = (*(v14 + 88))(v15, v9);
+  if (v16 == enum case for ColorScheme.light(_:))
   {
-    if ((*(v7 + 88))(v16 + v14, v6) == enum case for ColorSchemeContrast.increased(_:))
+    if ((*(v6 + 88))(v15 + v13, v5) == enum case for ColorSchemeContrast.increased(_:))
     {
-      v18 = [objc_opt_self() secondarySystemFillColor];
-      v24 = Color.init(_:)();
+      v17 = [objc_opt_self() secondarySystemFillColor];
+      v23 = Color.init(_:)();
 LABEL_7:
-      *v23 = AnyShapeStyle.init<A>(_:)();
-      return (*(v15 + 8))(v16, v10);
+      *v22 = AnyShapeStyle.init<A>(_:)();
+      return (*(v14 + 8))(v15, v9);
     }
   }
 
-  else if (v17 == enum case for ColorScheme.dark(_:) && (*(v7 + 88))(v16 + v14, v6) == enum case for ColorSchemeContrast.increased(_:))
+  else if (v16 == enum case for ColorScheme.dark(_:) && (*(v6 + 88))(v15 + v13, v5) == enum case for ColorSchemeContrast.increased(_:))
   {
-    LODWORD(v24) = static HierarchicalShapeStyle.quinary.getter();
+    LODWORD(v23) = static HierarchicalShapeStyle.quinary.getter();
     goto LABEL_7;
   }
 
   if (*(*(v2 + 8) + OBJC_IVAR____TtCVO11MusicCoreUI9Reactions9StackView5Model_isVibrant) == 1)
   {
-    LODWORD(v24) = static HierarchicalShapeStyle.quaternary.getter();
+    LODWORD(v23) = static HierarchicalShapeStyle.quaternary.getter();
   }
 
   else
   {
-    v20 = [objc_opt_self() secondarySystemFillColor];
-    v24 = Color.init(_:)();
+    v19 = [objc_opt_self() secondarySystemFillColor];
+    v23 = Color.init(_:)();
   }
 
-  *v23 = AnyShapeStyle.init<A>(_:)();
-  return outlined destroy of TaskPriority?(v16, &_s7SwiftUI11ColorSchemeO_AA0cD8ContrastOtMd);
+  *v22 = AnyShapeStyle.init<A>(_:)();
+  return outlined destroy of TaskPriority?(v15, &_s7SwiftUI11ColorSchemeO_AA0cD8ContrastOtMd, &_s7SwiftUI11ColorSchemeO_AA0cD8ContrastOtMR);
 }
 
 uint64_t closure #2 in closure #1 in Reactions.StackView.body.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
-  v90 = a2;
-  v91 = a3;
-  v85 = a1;
-  v94 = a4;
-  v81 = type metadata accessor for ScaleTransition();
-  v78 = *(v81 - 8);
-  __chkstk_darwin(v81);
-  v75 = &v71 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI10TransitionPAAE9animationyQrAA9AnimationVSgFQOyAA05ScaleC0V_Qo_Md);
-  v79 = *(v6 - 8);
-  v80 = v6;
-  __chkstk_darwin(v6);
-  v76 = &v71 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v8);
-  v77 = &v71 - v9;
-  v10 = type metadata accessor for Image.ResizingMode();
-  v73 = *(v10 - 8);
-  v74 = v10;
-  __chkstk_darwin(v10);
-  v72 = &v71 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4FontV6DesignOSgMd);
-  __chkstk_darwin(v12 - 8);
-  v88 = &v71 - v13;
-  v89 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyAA5GroupVyAA012_ConditionalD0VyACyAA14_AnimationViewVyAA4TextVGAA21_TraitWritingModifierVyAA010TransitionJ3KeyVGGACyACyAA5ImageVAA016_ForegroundStyleL0VyAA5ColorVGGAA012_EnvironmentnkL0VyAA4FontVSgGGGGA4_GAA12_FrameLayoutVGAA026_InsettableBackgroundShapeL0VyAA010_BlendModeyQ0VyAA03AnyyQ0VGAA6CircleVGGMd) - 8;
-  __chkstk_darwin(v89);
-  v93 = &v71 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v15);
-  v17 = &v71 - v16;
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAEGAA6CircleVGGMd);
-  v19 = v18 - 8;
-  __chkstk_darwin(v18);
-  v95 = &v71 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v21);
-  v23 = &v71 - v22;
-  v92 = static Color.clear.getter();
-  v24 = *(a1 + 8);
+  v85 = a2;
+  v86 = a3;
+  v80 = a1;
+  v89 = a4;
+  v76 = type metadata accessor for ScaleTransition();
+  v73 = *(v76 - 8);
+  __chkstk_darwin();
+  v70 = &v66 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI10TransitionPAAE9animationyQrAA9AnimationVSgFQOyAA05ScaleC0V_Qo_Md, &_s7SwiftUI10TransitionPAAE9animationyQrAA9AnimationVSgFQOyAA05ScaleC0V_Qo_MR);
+  v74 = *(v6 - 8);
+  v75 = v6;
+  __chkstk_darwin();
+  v71 = &v66 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v72 = &v66 - v8;
+  v9 = type metadata accessor for Image.ResizingMode();
+  v68 = *(v9 - 8);
+  v69 = v9;
+  __chkstk_darwin();
+  v67 = &v66 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4FontV6DesignOSgMd, &_s7SwiftUI4FontV6DesignOSgMR);
+  __chkstk_darwin();
+  v83 = &v66 - v11;
+  v84 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyAA5GroupVyAA012_ConditionalD0VyACyAA14_AnimationViewVyAA4TextVGAA21_TraitWritingModifierVyAA010TransitionJ3KeyVGGACyACyAA5ImageVAA016_ForegroundStyleL0VyAA5ColorVGGAA012_EnvironmentnkL0VyAA4FontVSgGGGGA4_GAA12_FrameLayoutVGAA026_InsettableBackgroundShapeL0VyAA010_BlendModeyQ0VyAA03AnyyQ0VGAA6CircleVGGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA5GroupVyAA012_ConditionalD0VyACyAA14_AnimationViewVyAA4TextVGAA21_TraitWritingModifierVyAA010TransitionJ3KeyVGGACyACyAA5ImageVAA016_ForegroundStyleL0VyAA5ColorVGGAA012_EnvironmentnkL0VyAA4FontVSgGGGGA4_GAA12_FrameLayoutVGAA026_InsettableBackgroundShapeL0VyAA010_BlendModeyQ0VyAA03AnyyQ0VGAA6CircleVGGMR) - 8;
+  __chkstk_darwin();
+  v88 = &v66 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v14 = &v66 - v13;
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAEGAA6CircleVGGMd, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAEGAA6CircleVGGMR) - 8;
+  __chkstk_darwin();
+  v90 = &v66 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v18 = &v66 - v17;
+  v87 = static Color.clear.getter();
+  v19 = *(a1 + 8);
   static Alignment.center.getter();
   _FrameLayout.init(width:height:alignment:)();
-  v25 = v123;
-  LODWORD(v87) = v124;
-  v86 = v125;
-  LODWORD(v84) = v126;
-  v82 = v128;
-  *&v83 = v127;
-  v26 = static Color.white.getter();
-  v27 = &v23[*(v19 + 44)];
-  v28 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI20_BlendModeShapeStyleVyAA5ColorVGMd) + 36);
-  v29 = enum case for BlendMode.destinationOut(_:);
-  v30 = type metadata accessor for BlendMode();
-  v31 = *(v30 - 8);
-  (*(v31 + 104))(v27 + v28, v29, v30);
-  *v27 = v26;
-  *(v27 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI34_InsettableBackgroundShapeModifierVyAA010_BlendModeE5StyleVyAA5ColorVGAA6CircleVGMd) + 56)) = 256;
-  *v23 = v92;
-  *(v23 + 1) = v25;
-  v23[16] = v87;
-  *(v23 + 3) = v86;
-  v23[32] = v84;
-  v32 = v82;
-  *(v23 + 5) = v83;
-  *(v23 + 6) = v32;
-  v92 = v23;
-  closure #1 in closure #2 in closure #1 in Reactions.StackView.body.getter(&v129);
-  v86 = *(&v131 + 1);
-  v87 = v131;
-  LOBYTE(v27) = v132;
-  v33 = type metadata accessor for Font.Design();
-  v83 = v130;
-  v84 = v129;
-  v34 = v88;
-  (*(*(v33 - 8) + 56))(v88, 1, 1, v33);
-  v35 = static Font.system(size:weight:design:)();
-  outlined destroy of TaskPriority?(v34, &_s7SwiftUI4FontV6DesignOSgMd);
+  v20 = v118;
+  LODWORD(v82) = v119;
+  v81 = v120;
+  LODWORD(v79) = v121;
+  v77 = v123;
+  *&v78 = v122;
+  v21 = static Color.white.getter();
+  v22 = &v18[*(v15 + 44)];
+  v23 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI20_BlendModeShapeStyleVyAA5ColorVGMd, &_s7SwiftUI20_BlendModeShapeStyleVyAA5ColorVGMR) + 36);
+  v24 = enum case for BlendMode.destinationOut(_:);
+  v25 = type metadata accessor for BlendMode();
+  v26 = *(v25 - 8);
+  (*(v26 + 104))(v22 + v23, v24, v25);
+  *v22 = v21;
+  *(v22 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI34_InsettableBackgroundShapeModifierVyAA010_BlendModeE5StyleVyAA5ColorVGAA6CircleVGMd, &_s7SwiftUI34_InsettableBackgroundShapeModifierVyAA010_BlendModeE5StyleVyAA5ColorVGAA6CircleVGMR) + 56)) = 256;
+  *v18 = v87;
+  *(v18 + 1) = v20;
+  v18[16] = v82;
+  *(v18 + 3) = v81;
+  v18[32] = v79;
+  v27 = v77;
+  *(v18 + 5) = v78;
+  *(v18 + 6) = v27;
+  v87 = v18;
+  closure #1 in closure #2 in closure #1 in Reactions.StackView.body.getter(&v124);
+  v81 = *(&v126 + 1);
+  v82 = v126;
+  LOBYTE(v22) = v127;
+  v28 = type metadata accessor for Font.Design();
+  v78 = v125;
+  v79 = v124;
+  v29 = v83;
+  (*(*(v28 - 8) + 56))(v83, 1, 1, v28);
+  v30 = static Font.system(size:weight:design:)();
+  outlined destroy of TaskPriority?(v29, &_s7SwiftUI4FontV6DesignOSgMd, &_s7SwiftUI4FontV6DesignOSgMR);
   KeyPath = swift_getKeyPath();
-  LOBYTE(v129) = v27;
+  LOBYTE(v124) = v22;
   static Alignment.center.getter();
-  v88 = v24;
+  v83 = v19;
   _FrameLayout.init(width:height:alignment:)();
-  Reactions.StackView.backgroundColor.getter(&v129);
-  v37 = v129;
-  v38 = &v17[*(v89 + 44)];
-  v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI20_BlendModeShapeStyleVyAA03AnyeF0VGMd);
-  (*(v31 + 16))(&v38[*(v39 + 36)], v91, v30);
-  *v38 = v37;
-  *&v38[*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI34_InsettableBackgroundShapeModifierVyAA010_BlendModeE5StyleVyAA03AnyeI0VGAA6CircleVGMd) + 56)] = 256;
-  v40 = v83;
-  *v17 = v84;
-  *(v17 + 1) = v40;
-  v41 = v86;
-  *(v17 + 4) = v87;
-  *(v17 + 5) = v41;
-  v17[48] = v27;
-  *(v17 + 7) = KeyPath;
-  *(v17 + 8) = v35;
-  v42 = v140;
-  *(v17 + 72) = v139;
-  *(v17 + 88) = v42;
-  v43 = v17;
-  *(v17 + 104) = v141;
+  Reactions.StackView.backgroundColor.getter(&v124);
+  v32 = v124;
+  v33 = &v14[*(v84 + 44)];
+  v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI20_BlendModeShapeStyleVyAA03AnyeF0VGMd, &_s7SwiftUI20_BlendModeShapeStyleVyAA03AnyeF0VGMR);
+  (*(v26 + 16))(&v33[*(v34 + 36)], v86, v25);
+  *v33 = v32;
+  *&v33[*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI34_InsettableBackgroundShapeModifierVyAA010_BlendModeE5StyleVyAA03AnyeI0VGAA6CircleVGMd, &_s7SwiftUI34_InsettableBackgroundShapeModifierVyAA010_BlendModeE5StyleVyAA03AnyeI0VGAA6CircleVGMR) + 56)] = 256;
+  v35 = v78;
+  *v14 = v79;
+  *(v14 + 1) = v35;
+  v36 = v81;
+  *(v14 + 4) = v82;
+  *(v14 + 5) = v36;
+  v14[48] = v22;
+  *(v14 + 7) = KeyPath;
+  *(v14 + 8) = v30;
+  v37 = v134[1];
+  *(v14 + 72) = v134[0];
+  *(v14 + 88) = v37;
+  v38 = v14;
+  *(v14 + 104) = v134[2];
   swift_getKeyPath();
   swift_getKeyPath();
   static Published.subscript.getter();
 
-  v44 = v129;
-  if (!v129)
+  v39 = v124;
+  if (!v124)
   {
     goto LABEL_5;
   }
@@ -9457,412 +9858,136 @@ uint64_t closure #2 in closure #1 in Reactions.StackView.body.getter@<X0>(uint64
   swift_getKeyPath();
   static Published.subscript.getter();
 
-  if (v129 != 1)
+  if (v124 != 1)
   {
 
 LABEL_5:
-    _s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA20_MaskAlignmentEffectVyAA6CircleVGG09MusicCoreB018BorderViewModifier33_F5ED3014321945F1E2BE58A044A15282LLVGAA013_TraitWritingQ0VyAA06ZIndexY3KeyVGGAUyAA010TransitionY3KeyVGGAA06_FrameH0VGSgWOi0_(&v129);
+    _s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA20_MaskAlignmentEffectVyAA6CircleVGG09MusicCoreB018BorderViewModifier33_F5ED3014321945F1E2BE58A044A15282LLVGAA013_TraitWritingQ0VyAA06ZIndexY3KeyVGGAUyAA010TransitionY3KeyVGGAA06_FrameH0VGSgWOi0_(&v124);
     goto LABEL_6;
   }
 
-  v45 = v44;
+  v40 = v39;
   Image.init(uiImage:)();
-  v47 = v72;
-  v46 = v73;
-  v48 = v74;
-  (*(v73 + 104))(v72, enum case for Image.ResizingMode.stretch(_:), v74);
-  v91 = Image.resizable(capInsets:resizingMode:)();
+  v42 = v67;
+  v41 = v68;
+  v43 = v69;
+  (*(v68 + 104))(v67, enum case for Image.ResizingMode.stretch(_:), v69);
+  v86 = Image.resizable(capInsets:resizingMode:)();
 
-  (*(v46 + 8))(v47, v48);
-  v49 = static Alignment.center.getter();
-  v89 = v50;
-  v90 = v49;
+  (*(v41 + 8))(v42, v43);
+  v44 = static Alignment.center.getter();
+  v84 = v45;
+  v85 = v44;
   static Color.black.getter();
-  v87 = Color.opacity(_:)();
+  v82 = Color.opacity(_:)();
 
   static UnitPoint.center.getter();
-  v51 = v75;
+  v46 = v70;
   ScaleTransition.init(_:anchor:)();
   static Animation.easeInOut(duration:)();
-  v52 = lazy protocol witness table accessor for type Reactions.StackView.Model and conformance Reactions.StackView.Model(&lazy protocol witness table cache variable for type ScaleTransition and conformance ScaleTransition, &type metadata accessor for ScaleTransition);
-  v53 = v77;
-  v54 = v81;
+  v47 = lazy protocol witness table accessor for type Reactions.StackView.Model and conformance Reactions.StackView.Model(&lazy protocol witness table cache variable for type ScaleTransition and conformance ScaleTransition, &type metadata accessor for ScaleTransition, &protocol conformance descriptor for ScaleTransition);
+  v48 = v72;
+  v49 = v76;
   Transition.animation(_:)();
 
-  (*(v78 + 8))(v51, v54);
-  v55 = v79;
-  v56 = v80;
-  (*(v79 + 16))(v76, v53, v80);
-  *&v129 = v54;
-  *(&v129 + 1) = v52;
+  (*(v73 + 8))(v46, v49);
+  v50 = v74;
+  v51 = v75;
+  (*(v74 + 16))(v71, v48, v75);
+  *&v124 = v49;
+  *(&v124 + 1) = v47;
   swift_getOpaqueTypeConformance2();
-  v57 = AnyTransition.init<A>(_:)();
-  (*(v55 + 8))(v53, v56);
+  v52 = AnyTransition.init<A>(_:)();
+  (*(v50 + 8))(v48, v51);
   static Alignment.center.getter();
   _FrameLayout.init(width:height:alignment:)();
 
-  *(v122 + 8) = v106;
-  v116 = v91;
-  LOWORD(v117) = 257;
-  *(&v117 + 1) = v90;
-  *&v118 = v89;
-  *(&v118 + 1) = v87;
-  *&v119 = 0x3FE0000000000000;
-  BYTE8(v119) = 0;
-  v120 = 0uLL;
-  LOBYTE(v121) = 2;
-  *(&v121 + 1) = 0x3FF0000000000000;
-  *&v122[0] = v57;
-  *(&v122[1] + 8) = v107;
-  *(&v122[2] + 8) = v108;
-  v58.location = &v116;
-  CFRange.init(_:)(v58);
-  v135 = v122[0];
-  v136 = v122[1];
-  v137 = v122[2];
-  v138 = *&v122[3];
-  v131 = v118;
-  v132 = v119;
-  v133 = v120;
-  v134 = v121;
+  *(v117 + 8) = v101;
+  v111 = v86;
+  LOWORD(v112) = 257;
+  *(&v112 + 1) = v85;
+  *&v113 = v84;
+  *(&v113 + 1) = v82;
+  *&v114 = 0x3FE0000000000000;
+  BYTE8(v114) = 0;
+  v115 = 0uLL;
+  LOBYTE(v116) = 2;
+  *(&v116 + 1) = 0x3FF0000000000000;
+  *&v117[0] = v52;
+  *(&v117[1] + 8) = v102;
+  *(&v117[2] + 8) = v103;
+  v53.location = &v111;
+  CFRange.init(_:)(v53);
+  v130 = v117[0];
+  v131 = v117[1];
+  v132 = v117[2];
+  v133 = *&v117[3];
+  v126 = v113;
+  v127 = v114;
+  v128 = v115;
   v129 = v116;
-  v130 = v117;
+  v124 = v111;
+  v125 = v112;
 LABEL_6:
-  v59 = v92;
-  v60 = v95;
-  outlined init with copy of TaskPriority?(v92, v95, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAEGAA6CircleVGGMd);
-  v61 = v93;
-  outlined init with copy of TaskPriority?(v43, v93, &_s7SwiftUI15ModifiedContentVyACyACyAA5GroupVyAA012_ConditionalD0VyACyAA14_AnimationViewVyAA4TextVGAA21_TraitWritingModifierVyAA010TransitionJ3KeyVGGACyACyAA5ImageVAA016_ForegroundStyleL0VyAA5ColorVGGAA012_EnvironmentnkL0VyAA4FontVSgGGGGA4_GAA12_FrameLayoutVGAA026_InsettableBackgroundShapeL0VyAA010_BlendModeyQ0VyAA03AnyyQ0VGAA6CircleVGGMd);
-  v102 = v135;
-  v103 = v136;
-  v104 = v137;
-  v105 = v138;
+  v54 = v87;
+  v55 = v90;
+  outlined init with copy of TaskPriority?(v87, v90, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAEGAA6CircleVGGMd, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAEGAA6CircleVGGMR);
+  v56 = v88;
+  outlined init with copy of TaskPriority?(v38, v88, &_s7SwiftUI15ModifiedContentVyACyACyAA5GroupVyAA012_ConditionalD0VyACyAA14_AnimationViewVyAA4TextVGAA21_TraitWritingModifierVyAA010TransitionJ3KeyVGGACyACyAA5ImageVAA016_ForegroundStyleL0VyAA5ColorVGGAA012_EnvironmentnkL0VyAA4FontVSgGGGGA4_GAA12_FrameLayoutVGAA026_InsettableBackgroundShapeL0VyAA010_BlendModeyQ0VyAA03AnyyQ0VGAA6CircleVGGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA5GroupVyAA012_ConditionalD0VyACyAA14_AnimationViewVyAA4TextVGAA21_TraitWritingModifierVyAA010TransitionJ3KeyVGGACyACyAA5ImageVAA016_ForegroundStyleL0VyAA5ColorVGGAA012_EnvironmentnkL0VyAA4FontVSgGGGGA4_GAA12_FrameLayoutVGAA026_InsettableBackgroundShapeL0VyAA010_BlendModeyQ0VyAA03AnyyQ0VGAA6CircleVGGMR);
+  v97 = v130;
   v98 = v131;
   v99 = v132;
   v100 = v133;
-  v101 = v134;
+  v93 = v126;
+  v94 = v127;
+  v95 = v128;
   v96 = v129;
-  v97 = v130;
-  v62 = v60;
-  v63 = v94;
-  outlined init with copy of TaskPriority?(v62, v94, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAEGAA6CircleVGGMd);
-  v64 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAEGAA6CircleVGG_ACyACyACyAA5GroupVyAA012_ConditionalD0VyACyAA14_AnimationViewVyAA4TextVGAA013_TraitWritingK0VyAA010TransitionU3KeyVGGACyACyAA5ImageVAA011_ForegroundnK0VyAEGGAA012_EnvironmentxvK0VyAA4FontVSgGGGGA16_GAGGAJyALyAA03AnyjN0VGAOGGACyACyACyACyACyACyA6_AA012_AspectRatioG0VGAA20_MaskAlignmentEffectVyAOGG09MusicCoreB006BordersK033_F5ED3014321945F1E2BE58A044A15282LLVGA0_yAA06ZIndexuX0VGGA3_GAGGSgtMd);
-  outlined init with copy of TaskPriority?(v61, v63 + *(v64 + 48), &_s7SwiftUI15ModifiedContentVyACyACyAA5GroupVyAA012_ConditionalD0VyACyAA14_AnimationViewVyAA4TextVGAA21_TraitWritingModifierVyAA010TransitionJ3KeyVGGACyACyAA5ImageVAA016_ForegroundStyleL0VyAA5ColorVGGAA012_EnvironmentnkL0VyAA4FontVSgGGGGA4_GAA12_FrameLayoutVGAA026_InsettableBackgroundShapeL0VyAA010_BlendModeyQ0VyAA03AnyyQ0VGAA6CircleVGGMd);
-  v65 = v63 + *(v64 + 64);
-  v112 = v102;
-  v113 = v103;
-  v114 = v104;
-  v115 = v105;
-  v110 = v100;
-  v111 = v101;
+  v91 = v124;
+  v92 = v125;
+  v57 = v55;
+  v58 = v89;
+  outlined init with copy of TaskPriority?(v57, v89, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAEGAA6CircleVGGMd, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAEGAA6CircleVGGMR);
+  v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAEGAA6CircleVGG_ACyACyACyAA5GroupVyAA012_ConditionalD0VyACyAA14_AnimationViewVyAA4TextVGAA013_TraitWritingK0VyAA010TransitionU3KeyVGGACyACyAA5ImageVAA011_ForegroundnK0VyAEGGAA012_EnvironmentxvK0VyAA4FontVSgGGGGA16_GAGGAJyALyAA03AnyjN0VGAOGGACyACyACyACyACyACyA6_AA012_AspectRatioG0VGAA20_MaskAlignmentEffectVyAOGG09MusicCoreB006BordersK033_F5ED3014321945F1E2BE58A044A15282LLVGA0_yAA06ZIndexuX0VGGA3_GAGGSgtMd, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAEGAA6CircleVGG_ACyACyACyAA5GroupVyAA012_ConditionalD0VyACyAA14_AnimationViewVyAA4TextVGAA013_TraitWritingK0VyAA010TransitionU3KeyVGGACyACyAA5ImageVAA011_ForegroundnK0VyAEGGAA012_EnvironmentxvK0VyAA4FontVSgGGGGA16_GAGGAJyALyAA03AnyjN0VGAOGGACyACyACyACyACyACyA6_AA012_AspectRatioG0VGAA20_MaskAlignmentEffectVyAOGG09MusicCoreB006BordersK033_F5ED3014321945F1E2BE58A044A15282LLVGA0_yAA06ZIndexuX0VGGA3_GAGGSgtMR);
+  outlined init with copy of TaskPriority?(v56, v58 + *(v59 + 48), &_s7SwiftUI15ModifiedContentVyACyACyAA5GroupVyAA012_ConditionalD0VyACyAA14_AnimationViewVyAA4TextVGAA21_TraitWritingModifierVyAA010TransitionJ3KeyVGGACyACyAA5ImageVAA016_ForegroundStyleL0VyAA5ColorVGGAA012_EnvironmentnkL0VyAA4FontVSgGGGGA4_GAA12_FrameLayoutVGAA026_InsettableBackgroundShapeL0VyAA010_BlendModeyQ0VyAA03AnyyQ0VGAA6CircleVGGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA5GroupVyAA012_ConditionalD0VyACyAA14_AnimationViewVyAA4TextVGAA21_TraitWritingModifierVyAA010TransitionJ3KeyVGGACyACyAA5ImageVAA016_ForegroundStyleL0VyAA5ColorVGGAA012_EnvironmentnkL0VyAA4FontVSgGGGGA4_GAA12_FrameLayoutVGAA026_InsettableBackgroundShapeL0VyAA010_BlendModeyQ0VyAA03AnyyQ0VGAA6CircleVGGMR);
+  v60 = v58 + *(v59 + 64);
+  v107 = v97;
   v108 = v98;
   v109 = v99;
+  v110 = v100;
+  v105 = v95;
   v106 = v96;
-  v107 = v97;
-  outlined init with copy of TaskPriority?(&v106, &v116, &_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA20_MaskAlignmentEffectVyAA6CircleVGG09MusicCoreB018BorderViewModifier33_F5ED3014321945F1E2BE58A044A15282LLVGAA013_TraitWritingQ0VyAA06ZIndexY3KeyVGGAUyAA010TransitionY3KeyVGGAA06_FrameH0VGSgMd);
-  outlined destroy of TaskPriority?(v43, &_s7SwiftUI15ModifiedContentVyACyACyAA5GroupVyAA012_ConditionalD0VyACyAA14_AnimationViewVyAA4TextVGAA21_TraitWritingModifierVyAA010TransitionJ3KeyVGGACyACyAA5ImageVAA016_ForegroundStyleL0VyAA5ColorVGGAA012_EnvironmentnkL0VyAA4FontVSgGGGGA4_GAA12_FrameLayoutVGAA026_InsettableBackgroundShapeL0VyAA010_BlendModeyQ0VyAA03AnyyQ0VGAA6CircleVGGMd);
-  outlined destroy of TaskPriority?(v59, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAEGAA6CircleVGGMd);
-  v66 = v113;
-  *(v65 + 96) = v112;
-  *(v65 + 112) = v66;
-  *(v65 + 128) = v114;
-  *(v65 + 144) = v115;
-  v67 = v109;
-  *(v65 + 32) = v108;
-  *(v65 + 48) = v67;
-  v68 = v111;
-  *(v65 + 64) = v110;
-  *(v65 + 80) = v68;
-  v69 = v107;
-  *v65 = v106;
-  *(v65 + 16) = v69;
-  v122[0] = v102;
-  v122[1] = v103;
-  v122[2] = v104;
-  *&v122[3] = v105;
-  v118 = v98;
-  v119 = v99;
-  v120 = v100;
-  v121 = v101;
+  v103 = v93;
+  v104 = v94;
+  v101 = v91;
+  v102 = v92;
+  outlined init with copy of TaskPriority?(&v101, &v111, &_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA20_MaskAlignmentEffectVyAA6CircleVGG09MusicCoreB018BorderViewModifier33_F5ED3014321945F1E2BE58A044A15282LLVGAA013_TraitWritingQ0VyAA06ZIndexY3KeyVGGAUyAA010TransitionY3KeyVGGAA06_FrameH0VGSgMd, &_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA20_MaskAlignmentEffectVyAA6CircleVGG09MusicCoreB018BorderViewModifier33_F5ED3014321945F1E2BE58A044A15282LLVGAA013_TraitWritingQ0VyAA06ZIndexY3KeyVGGAUyAA010TransitionY3KeyVGGAA06_FrameH0VGSgMR);
+  outlined destroy of TaskPriority?(v38, &_s7SwiftUI15ModifiedContentVyACyACyAA5GroupVyAA012_ConditionalD0VyACyAA14_AnimationViewVyAA4TextVGAA21_TraitWritingModifierVyAA010TransitionJ3KeyVGGACyACyAA5ImageVAA016_ForegroundStyleL0VyAA5ColorVGGAA012_EnvironmentnkL0VyAA4FontVSgGGGGA4_GAA12_FrameLayoutVGAA026_InsettableBackgroundShapeL0VyAA010_BlendModeyQ0VyAA03AnyyQ0VGAA6CircleVGGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA5GroupVyAA012_ConditionalD0VyACyAA14_AnimationViewVyAA4TextVGAA21_TraitWritingModifierVyAA010TransitionJ3KeyVGGACyACyAA5ImageVAA016_ForegroundStyleL0VyAA5ColorVGGAA012_EnvironmentnkL0VyAA4FontVSgGGGGA4_GAA12_FrameLayoutVGAA026_InsettableBackgroundShapeL0VyAA010_BlendModeyQ0VyAA03AnyyQ0VGAA6CircleVGGMR);
+  outlined destroy of TaskPriority?(v54, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAEGAA6CircleVGGMd, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAEGAA6CircleVGGMR);
+  v61 = v108;
+  *(v60 + 96) = v107;
+  *(v60 + 112) = v61;
+  *(v60 + 128) = v109;
+  *(v60 + 144) = v110;
+  v62 = v104;
+  *(v60 + 32) = v103;
+  *(v60 + 48) = v62;
+  v63 = v106;
+  *(v60 + 64) = v105;
+  *(v60 + 80) = v63;
+  v64 = v102;
+  *v60 = v101;
+  *(v60 + 16) = v64;
+  v117[0] = v97;
+  v117[1] = v98;
+  v117[2] = v99;
+  *&v117[3] = v100;
+  v113 = v93;
+  v114 = v94;
+  v115 = v95;
   v116 = v96;
-  v117 = v97;
-  outlined destroy of TaskPriority?(&v116, &_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA20_MaskAlignmentEffectVyAA6CircleVGG09MusicCoreB018BorderViewModifier33_F5ED3014321945F1E2BE58A044A15282LLVGAA013_TraitWritingQ0VyAA06ZIndexY3KeyVGGAUyAA010TransitionY3KeyVGGAA06_FrameH0VGSgMd);
-  outlined destroy of TaskPriority?(v61, &_s7SwiftUI15ModifiedContentVyACyACyAA5GroupVyAA012_ConditionalD0VyACyAA14_AnimationViewVyAA4TextVGAA21_TraitWritingModifierVyAA010TransitionJ3KeyVGGACyACyAA5ImageVAA016_ForegroundStyleL0VyAA5ColorVGGAA012_EnvironmentnkL0VyAA4FontVSgGGGGA4_GAA12_FrameLayoutVGAA026_InsettableBackgroundShapeL0VyAA010_BlendModeyQ0VyAA03AnyyQ0VGAA6CircleVGGMd);
-  return outlined destroy of TaskPriority?(v95, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAEGAA6CircleVGGMd);
-}
-
-double closure #1 in closure #2 in closure #1 in Reactions.StackView.body.getter@<D0>(uint64_t a1@<X8>)
-{
-  v2 = type metadata accessor for ScaleTransition();
-  v3 = *(v2 - 8);
-  __chkstk_darwin(v2);
-  v5 = &v27 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v6);
-  v8 = &v27 - v7;
-  swift_getKeyPath();
-  swift_getKeyPath();
-  static Published.subscript.getter();
-
-  if (*(&v35 + 1))
-  {
-    _sS2SSysWl_0();
-    v9 = Text.init<A>(_:)();
-    v11 = v10;
-    v13 = v12;
-    v15 = v14;
-    v16 = static Animation.easeInOut(duration:)();
-    static UnitPoint.center.getter();
-    ScaleTransition.init(_:anchor:)();
-    (*(v3 + 16))(v5, v8, v2);
-    lazy protocol witness table accessor for type Reactions.StackView.Model and conformance Reactions.StackView.Model(&lazy protocol witness table cache variable for type ScaleTransition and conformance ScaleTransition, &type metadata accessor for ScaleTransition);
-    v17 = AnyTransition.init<A>(_:)();
-    (*(v3 + 8))(v8, v2);
-    v28 = v9;
-    v29 = v11;
-    v30 = v13 & 1;
-    v31 = v15;
-    v32 = v16;
-    v33 = v17;
-    v34 = 0;
-  }
-
-  else
-  {
-    v18 = Image.init(_internalSystemName:)();
-    swift_getKeyPath();
-    swift_getKeyPath();
-    static Published.subscript.getter();
-
-    if (v35 == 1)
-    {
-      v19 = static Color.primary.getter();
-    }
-
-    else
-    {
-      v19 = static Color.accentColor.getter();
-    }
-
-    v20 = v19;
-    v21 = static Font.callout.getter();
-    KeyPath = swift_getKeyPath();
-    v28 = v18;
-    v29 = v20;
-    v30 = KeyPath;
-    v31 = v21;
-    v32 = 0;
-    v33 = 0;
-    v34 = 1;
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA14_AnimationViewVyAA4TextVGAA21_TraitWritingModifierVyAA010TransitionH3KeyVGGMd);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA5ImageVAA24_ForegroundStyleModifierVyAA5ColorVGGAA022_EnvironmentKeyWritingH0VyAA4FontVSgGGMd);
-  lazy protocol witness table accessor for type ModifiedContent<_AnimationView<Text>, _TraitWritingModifier<TransitionTraitKey>> and conformance <> ModifiedContent<A, B>();
-  lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Image, _ForegroundStyleModifier<Color>>, _EnvironmentKeyWritingModifier<Font?>> and conformance <> ModifiedContent<A, B>();
-  _ConditionalContent<>.init(storage:)();
-  result = *&v35;
-  v24 = v36;
-  v25 = v37;
-  v26 = v38;
-  *a1 = v35;
-  *(a1 + 16) = v24;
-  *(a1 + 32) = v25;
-  *(a1 + 48) = v26;
-  return result;
-}
-
-uint64_t Reactions.StackView.Specs.init(maxItemCount:platterLength:stackSpacing:fontSize:sizingMode:)@<X0>(uint64_t result@<X0>, char a2@<W1>, uint64_t a3@<X8>, double a4@<D0>, double a5@<D1>, double a6@<D2>)
-{
-  *a3 = result;
-  *(a3 + 8) = a4;
-  *(a3 + 16) = a5;
-  *(a3 + 24) = a6;
-  *(a3 + 32) = a2 & 1;
-  return result;
-}
-
-uint64_t outlined init with copy of Reactions.StackView(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for Reactions.StackView(0);
-  (*(*(v4 - 8) + 16))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t sub_1003A1C0C()
-{
-  v1 = type metadata accessor for Reactions.StackView(0);
-  v2 = *(*(v1 - 1) + 80);
-  v3 = (v2 + 49) & ~v2;
-  v15 = *(*(v1 - 1) + 64);
-  v4 = type metadata accessor for BlendMode();
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 80);
-  v7 = v0 + v3;
-
-  v8 = v1[6];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMd);
-  if (swift_getEnumCaseMultiPayload() == 1)
-  {
-    v9 = type metadata accessor for ColorScheme();
-    (*(*(v9 - 8) + 8))(v7 + v8, v9);
-  }
-
-  else
-  {
-  }
-
-  v10 = v1[7];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA19ColorSchemeContrastO_GMd);
-  if (swift_getEnumCaseMultiPayload() == 1)
-  {
-    v11 = type metadata accessor for ColorSchemeContrast();
-    (*(*(v11 - 8) + 8))(v7 + v10, v11);
-  }
-
-  else
-  {
-  }
-
-  v12 = v1[8];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA15DynamicTypeSizeO_GMd_0);
-  if (swift_getEnumCaseMultiPayload() == 1)
-  {
-    v13 = type metadata accessor for DynamicTypeSize();
-    (*(*(v13 - 8) + 8))(v7 + v12, v13);
-  }
-
-  else
-  {
-  }
-
-  (*(v5 + 8))(v0 + ((v3 + v15 + v6) & ~v6), v4);
-
-  return swift_deallocObject();
-}
-
-uint64_t outlined init with take of Reactions.StackView(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for Reactions.StackView(0);
-  (*(*(v4 - 8) + 32))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t partial apply for closure #1 in closure #1 in Reactions.StackView.body.getter@<X0>(uint64_t *a1@<X8>)
-{
-  v3 = *(type metadata accessor for Reactions.StackView(0) - 8);
-  v4 = (*(v3 + 80) + 49) & ~*(v3 + 80);
-  v5 = *(v3 + 64);
-  v6 = *(type metadata accessor for BlendMode() - 8);
-  v7 = v1 + ((v4 + v5 + *(v6 + 80)) & ~*(v6 + 80));
-
-  return closure #1 in closure #1 in Reactions.StackView.body.getter(v1 + v4, v7, a1);
-}
-
-unint64_t lazy protocol witness table accessor for type ReversedCollection<Range<Int>> and conformance <> ReversedCollection<A>()
-{
-  result = lazy protocol witness table cache variable for type ReversedCollection<Range<Int>> and conformance <> ReversedCollection<A>;
-  if (!lazy protocol witness table cache variable for type ReversedCollection<Range<Int>> and conformance <> ReversedCollection<A>)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss18ReversedCollectionVySnySiGGMd);
-    lazy protocol witness table accessor for type Range<Int> and conformance <> Range<A>();
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ReversedCollection<Range<Int>> and conformance <> ReversedCollection<A>);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type Range<Int> and conformance <> Range<A>()
-{
-  result = lazy protocol witness table cache variable for type Range<Int> and conformance <> Range<A>;
-  if (!lazy protocol witness table cache variable for type Range<Int> and conformance <> Range<A>)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSnySiGMd);
-    lazy protocol witness table accessor for type Int and conformance Int();
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Range<Int> and conformance <> Range<A>);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Range<Int> and conformance <> Range<A>;
-  if (!lazy protocol witness table cache variable for type Range<Int> and conformance <> Range<A>)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSnySiGMd_0);
-    _sS2iSZsWl_0();
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Range<Int> and conformance <> Range<A>);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type ModifiedContent<ZStack<TupleView<(ModifiedContent<ModifiedContent<Color, _FrameLayout>, _InsettableBackgroundShapeModifier<_BlendModeShapeStyle<Color>, Circle>>, ModifiedContent<ModifiedContent<Color, _FrameLayout>, _InsettableBackgroundShapeModifier<_BlendModeShapeStyle<AnyShapeStyle>, Circle>>)>>, _TraitWritingModifier<TransitionTraitKey>> and conformance <> ModifiedContent<A, B>()
-{
-  result = lazy protocol witness table cache variable for type ModifiedContent<ZStack<TupleView<(ModifiedContent<ModifiedContent<Color, _FrameLayout>, _InsettableBackgroundShapeModifier<_BlendModeShapeStyle<Color>, Circle>>, ModifiedContent<ModifiedContent<Color, _FrameLayout>, _InsettableBackgroundShapeModifier<_BlendModeShapeStyle<AnyShapeStyle>, Circle>>)>>, _TraitWritingModifier<TransitionTraitKey>> and conformance <> ModifiedContent<A, B>;
-  if (!lazy protocol witness table cache variable for type ModifiedContent<ZStack<TupleView<(ModifiedContent<ModifiedContent<Color, _FrameLayout>, _InsettableBackgroundShapeModifier<_BlendModeShapeStyle<Color>, Circle>>, ModifiedContent<ModifiedContent<Color, _FrameLayout>, _InsettableBackgroundShapeModifier<_BlendModeShapeStyle<AnyShapeStyle>, Circle>>)>>, _TraitWritingModifier<TransitionTraitKey>> and conformance <> ModifiedContent<A, B>)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA9TupleViewVyACyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeM5StyleVyAIGAA6CircleVGG_ACyAlNyAPyAA03AnymQ0VGASGGtGGAA013_TraitWritingN0VyAA010TransitionT3KeyVGGMd);
-    lazy protocol witness table accessor for type Publishers.Autoconnect<NSTimer.TimerPublisher> and conformance Publishers.Autoconnect<A>(&lazy protocol witness table cache variable for type ZStack<TupleView<(ModifiedContent<ModifiedContent<Color, _FrameLayout>, _InsettableBackgroundShapeModifier<_BlendModeShapeStyle<Color>, Circle>>, ModifiedContent<ModifiedContent<Color, _FrameLayout>, _InsettableBackgroundShapeModifier<_BlendModeShapeStyle<AnyShapeStyle>, Circle>>)>> and conformance ZStack<A>, &_s7SwiftUI6ZStackVyAA9TupleViewVyAA15ModifiedContentVyAGyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeM5StyleVyAIGAA6CircleVGG_AGyAlNyAPyAA03AnymQ0VGASGGtGGMd);
-    lazy protocol witness table accessor for type Publishers.Autoconnect<NSTimer.TimerPublisher> and conformance Publishers.Autoconnect<A>(&lazy protocol witness table cache variable for type _TraitWritingModifier<TransitionTraitKey> and conformance _TraitWritingModifier<A>, &_s7SwiftUI21_TraitWritingModifierVyAA010TransitionC3KeyVGMd);
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ZStack<TupleView<(ModifiedContent<ModifiedContent<Color, _FrameLayout>, _InsettableBackgroundShapeModifier<_BlendModeShapeStyle<Color>, Circle>>, ModifiedContent<ModifiedContent<Color, _FrameLayout>, _InsettableBackgroundShapeModifier<_BlendModeShapeStyle<AnyShapeStyle>, Circle>>)>>, _TraitWritingModifier<TransitionTraitKey>> and conformance <> ModifiedContent<A, B>);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type Reactions.StackView.Specs.SizingMode and conformance Reactions.StackView.Specs.SizingMode()
-{
-  result = lazy protocol witness table cache variable for type Reactions.StackView.Specs.SizingMode and conformance Reactions.StackView.Specs.SizingMode;
-  if (!lazy protocol witness table cache variable for type Reactions.StackView.Specs.SizingMode and conformance Reactions.StackView.Specs.SizingMode)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Reactions.StackView.Specs.SizingMode and conformance Reactions.StackView.Specs.SizingMode);
-  }
-
-  return result;
-}
-
-uint64_t sub_1003A22F4(uint64_t a1, uint64_t a2, int *a3)
-{
-  if (a2 == 0x7FFFFFFF)
-  {
-    v4 = *(a1 + 8);
-    if (v4 >= 0xFFFFFFFF)
-    {
-      LODWORD(v4) = -1;
-    }
-
-    return (v4 + 1);
-  }
-
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMd);
-  if (*(*(v8 - 8) + 84) == a2)
-  {
-    v9 = v8;
-    v10 = *(v8 - 8);
-    v11 = a3[6];
-LABEL_9:
-    v13 = *(v10 + 48);
-
-    return v13(a1 + v11, a2, v9);
-  }
-
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA19ColorSchemeContrastOGMd);
-  if (*(*(v12 - 8) + 84) == a2)
-  {
-    v9 = v12;
-    v10 = *(v12 - 8);
-    v11 = a3[7];
-    goto LABEL_9;
-  }
-
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA15DynamicTypeSizeOGMd_0);
-  v15 = *(*(v14 - 8) + 48);
-  v16 = a1 + a3[8];
-
-  return v15(v16, a2, v14);
+  v111 = v91;
+  v112 = v92;
+  outlined destroy of TaskPriority?(&v111, &_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA20_MaskAlignmentEffectVyAA6CircleVGG09MusicCoreB018BorderViewModifier33_F5ED3014321945F1E2BE58A044A15282LLVGAA013_TraitWritingQ0VyAA06ZIndexY3KeyVGGAUyAA010TransitionY3KeyVGGAA06_FrameH0VGSgMd, &_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA20_MaskAlignmentEffectVyAA6CircleVGG09MusicCoreB018BorderViewModifier33_F5ED3014321945F1E2BE58A044A15282LLVGAA013_TraitWritingQ0VyAA06ZIndexY3KeyVGGAUyAA010TransitionY3KeyVGGAA06_FrameH0VGSgMR);
+  outlined destroy of TaskPriority?(v56, &_s7SwiftUI15ModifiedContentVyACyACyAA5GroupVyAA012_ConditionalD0VyACyAA14_AnimationViewVyAA4TextVGAA21_TraitWritingModifierVyAA010TransitionJ3KeyVGGACyACyAA5ImageVAA016_ForegroundStyleL0VyAA5ColorVGGAA012_EnvironmentnkL0VyAA4FontVSgGGGGA4_GAA12_FrameLayoutVGAA026_InsettableBackgroundShapeL0VyAA010_BlendModeyQ0VyAA03AnyyQ0VGAA6CircleVGGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA5GroupVyAA012_ConditionalD0VyACyAA14_AnimationViewVyAA4TextVGAA21_TraitWritingModifierVyAA010TransitionJ3KeyVGGACyACyAA5ImageVAA016_ForegroundStyleL0VyAA5ColorVGGAA012_EnvironmentnkL0VyAA4FontVSgGGGGA4_GAA12_FrameLayoutVGAA026_InsettableBackgroundShapeL0VyAA010_BlendModeyQ0VyAA03AnyyQ0VGAA6CircleVGGMR);
+  return outlined destroy of TaskPriority?(v90, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAEGAA6CircleVGGMd, &_s7SwiftUI15ModifiedContentVyACyAA5ColorVAA12_FrameLayoutVGAA34_InsettableBackgroundShapeModifierVyAA010_BlendModeJ5StyleVyAEGAA6CircleVGGMR);
 }

@@ -17,6 +17,8 @@
 - (void)navigationSessionManager:(id)manager currentStepIndex:(unint64_t)index didUpdateDistanceUntilManeuver:(double)maneuver timeUntilManeuver:(double)untilManeuver;
 - (void)navigationSessionManager:(id)manager currentStepIndex:(unint64_t)index didUpdateDistanceUntilSign:(double)sign timeUntilSign:(double)untilSign;
 - (void)navigationSessionManager:(id)manager didArriveAtWaypoint:(id)waypoint endOfLegIndex:(unint64_t)index;
+- (void)navigationSessionManager:(id)manager didChangeNavigationState:(int)state;
+- (void)navigationSessionManager:(id)manager didEnableGuidancePrompts:(BOOL)prompts;
 - (void)navigationSessionManager:(id)manager didEnterPreArrivalStateForWaypoint:(id)waypoint endOfLegIndex:(unint64_t)index;
 - (void)navigationSessionManager:(id)manager didFailRerouteWithError:(id)error;
 - (void)navigationSessionManager:(id)manager didFailWithError:(id)error;
@@ -28,6 +30,7 @@
 - (void)navigationSessionManager:(id)manager didResumeNavigatingFromWaypoint:(id)waypoint endOfLegIndex:(unint64_t)index reason:(unint64_t)reason;
 - (void)navigationSessionManager:(id)manager didSendNavigationServiceCallback:(id)callback;
 - (void)navigationSessionManager:(id)manager didStartSpeakingPrompt:(id)prompt;
+- (void)navigationSessionManager:(id)manager didSwitchToNewTransportType:(int)type newRoute:(id)route;
 - (void)navigationSessionManager:(id)manager didUpdateAlternateRoutes:(id)routes;
 - (void)navigationSessionManager:(id)manager didUpdateDisplayedStepIndex:(unint64_t)index segmentIndex:(unint64_t)segmentIndex;
 - (void)navigationSessionManager:(id)manager didUpdateETAResponseForRoute:(id)route;
@@ -37,6 +40,8 @@
 - (void)navigationSessionManager:(id)manager didUpdateRouteWithNewRideSelection:(id)selection;
 - (void)navigationSessionManager:(id)manager didUpdateTracePlaybackDetails:(id)details;
 - (void)navigationSessionManager:(id)manager displayManeuverAlertForAnnouncementStage:(unint64_t)stage;
+- (void)navigationSessionManager:(id)manager displayPrimaryStep:(id)step instructions:(id)instructions shieldType:(int)type shieldText:(id)text drivingSide:(int)side maneuverStepIndex:(unint64_t)index isSynthetic:(BOOL)self0;
+- (void)navigationSessionManager:(id)manager displaySecondaryStep:(id)step instructions:(id)instructions shieldType:(int)type shieldText:(id)text drivingSide:(int)side;
 - (void)navigationSessionManager:(id)manager hideJunctionViewForId:(id)id;
 - (void)navigationSessionManager:(id)manager hideLaneDirectionsForId:(id)id;
 - (void)navigationSessionManager:(id)manager isApproachingEndOfLeg:(unint64_t)leg;
@@ -45,9 +50,11 @@
 - (void)navigationSessionManager:(id)manager shouldEndWithReason:(unint64_t)reason;
 - (void)navigationSessionManager:(id)manager showJunctionView:(id)view;
 - (void)navigationSessionManager:(id)manager showLaneDirections:(id)directions;
+- (void)navigationSessionManager:(id)manager triggerHaptics:(int)haptics;
 - (void)navigationSessionManager:(id)manager updateSignsWithARInfo:(id)info;
 - (void)navigationSessionManager:(id)manager updateSignsWithInfo:(id)info;
 - (void)navigationSessionManager:(id)manager updatedGuidanceEventFeedback:(id)feedback;
+- (void)navigationSessionManager:(id)manager usePersistentDisplay:(BOOL)display;
 - (void)navigationSessionManager:(id)manager willAnnounce:(unint64_t)announce inSeconds:(double)seconds;
 - (void)navigationSessionManager:(id)manager willProcessSpeechEvent:(id)event;
 - (void)navigationSessionManager:(id)manager willSendTransitUpdateRequestForRouteIDs:(id)ds;
@@ -148,6 +155,14 @@
   [WeakRetained navigationServiceProxy:self didUpdateTracePlaybackDetails:detailsCopy];
 }
 
+- (void)navigationSessionManager:(id)manager triggerHaptics:(int)haptics
+{
+  v4 = *&haptics;
+  [(MNNavigationServiceLocalProxy *)self logXPCCall:"[MNNavigationServiceLocalProxy navigationSessionManager:triggerHaptics:]"];
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained navigationServiceProxy:self triggerHaptics:v4];
+}
+
 - (void)navigationSessionManager:(id)manager didProcessSpeechEvent:(id)event
 {
   eventCopy = event;
@@ -188,6 +203,14 @@
   [WeakRetained navigationServiceProxy:self newGuidanceEventFeedback:feedbackCopy];
 }
 
+- (void)navigationSessionManager:(id)manager didEnableGuidancePrompts:(BOOL)prompts
+{
+  promptsCopy = prompts;
+  [(MNNavigationServiceLocalProxy *)self logXPCCall:"[MNNavigationServiceLocalProxy navigationSessionManager:didEnableGuidancePrompts:]"];
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained navigationServiceProxy:self didEnableGuidancePrompts:promptsCopy];
+}
+
 - (void)navigationSessionManager:(id)manager hideJunctionViewForId:(id)id
 {
   idCopy = id;
@@ -218,6 +241,14 @@
   [(MNNavigationServiceLocalProxy *)self logXPCCall:"[MNNavigationServiceLocalProxy navigationSessionManager:showLaneDirections:]"];
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained navigationServiceProxy:self showLaneDirections:directionsCopy];
+}
+
+- (void)navigationSessionManager:(id)manager usePersistentDisplay:(BOOL)display
+{
+  displayCopy = display;
+  [(MNNavigationServiceLocalProxy *)self logXPCCall:"[MNNavigationServiceLocalProxy navigationSessionManager:usePersistentDisplay:]"];
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained navigationServiceProxy:self usePersistentDisplay:displayCopy];
 }
 
 - (void)navigationSessionManager:(id)manager updateSignsWithARInfo:(id)info
@@ -257,11 +288,36 @@
   [WeakRetained navigationServiceProxyHideSecondaryStep:self];
 }
 
+- (void)navigationSessionManager:(id)manager displaySecondaryStep:(id)step instructions:(id)instructions shieldType:(int)type shieldText:(id)text drivingSide:(int)side
+{
+  v8 = *&side;
+  v9 = *&type;
+  textCopy = text;
+  instructionsCopy = instructions;
+  stepCopy = step;
+  [(MNNavigationServiceLocalProxy *)self logXPCCall:"[MNNavigationServiceLocalProxy navigationSessionManager:displaySecondaryStep:instructions:shieldType:shieldText:drivingSide:]"];
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained navigationServiceProxy:self displaySecondaryStep:stepCopy instructions:instructionsCopy shieldType:v9 shieldText:textCopy drivingSide:v8];
+}
+
 - (void)navigationSessionManager:(id)manager displayManeuverAlertForAnnouncementStage:(unint64_t)stage
 {
   [(MNNavigationServiceLocalProxy *)self logXPCCall:"[MNNavigationServiceLocalProxy navigationSessionManager:displayManeuverAlertForAnnouncementStage:]"];
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained navigationServiceProxy:self displayManeuverAlertForAnnouncementStage:stage];
+}
+
+- (void)navigationSessionManager:(id)manager displayPrimaryStep:(id)step instructions:(id)instructions shieldType:(int)type shieldText:(id)text drivingSide:(int)side maneuverStepIndex:(unint64_t)index isSynthetic:(BOOL)self0
+{
+  v10 = *&side;
+  v11 = *&type;
+  textCopy = text;
+  instructionsCopy = instructions;
+  stepCopy = step;
+  [(MNNavigationServiceLocalProxy *)self logXPCCall:"[MNNavigationServiceLocalProxy navigationSessionManager:displayPrimaryStep:instructions:shieldType:shieldText:drivingSide:maneuverStepIndex:isSynthetic:]"];
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  LOBYTE(v18) = synthetic;
+  [WeakRetained navigationServiceProxy:self displayPrimaryStep:stepCopy instructions:instructionsCopy shieldType:v11 shieldText:textCopy drivingSide:v10 maneuverStepIndex:index isSynthetic:v18];
 }
 
 - (void)navigationSessionManager:(id)manager willAnnounce:(unint64_t)announce inSeconds:(double)seconds
@@ -300,6 +356,15 @@
   [(MNNavigationServiceLocalProxy *)self logXPCCall:"[MNNavigationServiceLocalProxy navigationSessionManager:didFailRerouteWithError:]"];
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained navigationServiceProxy:self didFailRerouteWithError:errorCopy];
+}
+
+- (void)navigationSessionManager:(id)manager didSwitchToNewTransportType:(int)type newRoute:(id)route
+{
+  v5 = *&type;
+  routeCopy = route;
+  [(MNNavigationServiceLocalProxy *)self logXPCCall:"[MNNavigationServiceLocalProxy navigationSessionManager:didSwitchToNewTransportType:newRoute:]"];
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained navigationServiceProxy:self didSwitchToNewTransportType:v5 newRoute:routeCopy];
 }
 
 - (void)navigationSessionManager:(id)manager didUpdateRouteWithNewRideSelection:(id)selection
@@ -451,24 +516,31 @@
   [WeakRetained navigationServiceProxy:self didUpdateDisplayedStepIndex:index segmentIndex:segmentIndex];
 }
 
+- (void)navigationSessionManager:(id)manager didChangeNavigationState:(int)state
+{
+  v4 = *&state;
+  [(MNNavigationServiceLocalProxy *)self logXPCCall:"[MNNavigationServiceLocalProxy navigationSessionManager:didChangeNavigationState:]"];
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained navigationServiceProxy:self didChangeNavigationState:v4];
+}
+
 - (void)navigationSessionManager:(id)manager didFailWithError:(id)error
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   [(MNNavigationServiceLocalProxy *)self logXPCCall:"[MNNavigationServiceLocalProxy navigationSessionManager:didFailWithError:]"];
-  v6 = *MEMORY[0x1E69A15D8];
-  v7 = GEOFindOrCreateLog();
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
+  v6 = GEOFindOrCreateLog();
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
 
-  if (v8)
+  if (v7)
   {
-    v9 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v8 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       _navigation_errorCodeAsString = [errorCopy _navigation_errorCodeAsString];
-      v14 = 138543362;
-      v15 = _navigation_errorCodeAsString;
-      _os_log_impl(&dword_1D311E000, v9, OS_LOG_TYPE_ERROR, "Navigation service encountered an unrecoverable error: %{public}@", &v14, 0xCu);
+      v12 = 138543362;
+      v13 = _navigation_errorCodeAsString;
+      _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_ERROR, "Navigation service encountered an unrecoverable error: %{public}@", &v12, 0xCu);
     }
 
     userInfo = [errorCopy userInfo];
@@ -477,26 +549,22 @@
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained navigationServiceProxy:self didFailWithError:errorCopy];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __75__MNNavigationServiceLocalProxy_navigationSessionManager_didFailWithError___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = a3;
   v6 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138543618;
-    v9 = v4;
-    v10 = 2114;
-    v11 = v5;
-    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "%{public}@: %{public}@", &v8, 0x16u);
+    v7 = 138543618;
+    v8 = v4;
+    v9 = 2114;
+    v10 = v5;
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "%{public}@: %{public}@", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationSessionManager:(id)manager shouldEndWithReason:(unint64_t)reason
@@ -521,7 +589,7 @@ void __75__MNNavigationServiceLocalProxy_navigationSessionManager_didFailWithErr
 
 - (void)stateManager:(id)manager didChangeFromState:(unint64_t)state toState:(unint64_t)toState
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   [(MNNavigationServiceLocalProxy *)self logXPCCall:"[MNNavigationServiceLocalProxy stateManager:didChangeFromState:toState:]"];
   v8 = [(MNNavigationServiceLocalProxy *)self _serviceStateForStateType:state];
   v9 = [(MNNavigationServiceLocalProxy *)self _serviceStateForStateType:toState];
@@ -550,11 +618,11 @@ void __75__MNNavigationServiceLocalProxy_navigationSessionManager_didFailWithErr
     }
 
     v14 = v13;
-    v17 = 138412546;
-    v18 = v12;
-    v19 = 2112;
-    v20 = v14;
-    _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_DEFAULT, "MNNavigationServiceLocalProxy didChangeFromState: '%@' toState: '%@'", &v17, 0x16u);
+    v16 = 138412546;
+    v17 = v12;
+    v18 = 2112;
+    v19 = v14;
+    _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_DEFAULT, "MNNavigationServiceLocalProxy didChangeFromState: '%@' toState: '%@'", &v16, 0x16u);
   }
 
   if (v8 != v9)
@@ -562,13 +630,11 @@ void __75__MNNavigationServiceLocalProxy_navigationSessionManager_didFailWithErr
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     [WeakRetained navigationServiceProxy:self didChangeFromState:v8 toState:v9];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stateManager:(id)manager willChangeFromState:(unint64_t)state toState:(unint64_t)toState
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   [(MNNavigationServiceLocalProxy *)self logXPCCall:"[MNNavigationServiceLocalProxy stateManager:willChangeFromState:toState:]"];
   v8 = [(MNNavigationServiceLocalProxy *)self _serviceStateForStateType:state];
   v9 = [(MNNavigationServiceLocalProxy *)self _serviceStateForStateType:toState];
@@ -597,11 +663,11 @@ void __75__MNNavigationServiceLocalProxy_navigationSessionManager_didFailWithErr
     }
 
     v14 = v13;
-    v17 = 138412546;
-    v18 = v12;
-    v19 = 2112;
-    v20 = v14;
-    _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_DEFAULT, "MNNavigationServiceLocalProxy willChangeFromState: '%@' toState: '%@'", &v17, 0x16u);
+    v16 = 138412546;
+    v17 = v12;
+    v18 = 2112;
+    v19 = v14;
+    _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_DEFAULT, "MNNavigationServiceLocalProxy willChangeFromState: '%@' toState: '%@'", &v16, 0x16u);
   }
 
   if (v8 != v9)
@@ -609,8 +675,6 @@ void __75__MNNavigationServiceLocalProxy_navigationSessionManager_didFailWithErr
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     [WeakRetained navigationServiceProxy:self willChangeFromState:v8 toState:v9];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resumeRealtimeUpdatesForSubscriber:(id)subscriber
@@ -653,7 +717,7 @@ void __67__MNNavigationServiceLocalProxy_pauseRealtimeUpdatesForSubscriber___blo
 
 - (void)checkinForNavigationService:(id)service
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
   [(MNNavigationServiceLocalProxy *)self logXPCCall:"[MNNavigationServiceLocalProxy checkinForNavigationService:]"];
   BOOL = GEOConfigGetBOOL();
@@ -666,16 +730,14 @@ void __67__MNNavigationServiceLocalProxy_pauseRealtimeUpdatesForSubscriber___blo
     v8 = MNGetMNNavigationServiceLog();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315138;
-      v11 = v7;
-      _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEFAULT, "Sandbox extension (%s) issued.", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = v7;
+      _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEFAULT, "Sandbox extension (%s) issued.", &v9, 0xCu);
     }
 
     serviceCopy[2](serviceCopy, v7);
     free(v7);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)interfaceHashesWithHandler:(id)handler
@@ -1334,7 +1396,7 @@ void __54__MNNavigationServiceLocalProxy_rerouteWithWaypoints___block_invoke(uin
 
 - (void)stopNavigationWithReason:(unint64_t)reason
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   [(MNNavigationServiceLocalProxy *)self logXPCCall:"[MNNavigationServiceLocalProxy stopNavigationWithReason:]"];
   v5 = MNGetMNNavigationXPCLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -1350,18 +1412,17 @@ void __54__MNNavigationServiceLocalProxy_rerouteWithWaypoints___block_invoke(uin
     }
 
     *buf = 138412290;
-    v10 = v6;
+    v9 = v6;
     _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "MNNavigationServiceLocalProxy stopNavigationWithReason: %@", buf, 0xCu);
   }
 
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __58__MNNavigationServiceLocalProxy_stopNavigationWithReason___block_invoke;
-  v8[3] = &unk_1E8430A10;
-  v8[4] = self;
-  v8[5] = reason;
-  MNRunAsyncOnNavigationQueue(v8);
-  v7 = *MEMORY[0x1E69E9840];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __58__MNNavigationServiceLocalProxy_stopNavigationWithReason___block_invoke;
+  v7[3] = &unk_1E8430A10;
+  v7[4] = self;
+  v7[5] = reason;
+  MNRunAsyncOnNavigationQueue(v7);
 }
 
 void __58__MNNavigationServiceLocalProxy_stopNavigationWithReason___block_invoke(uint64_t a1)
@@ -1381,7 +1442,7 @@ void __58__MNNavigationServiceLocalProxy_stopNavigationWithReason___block_invoke
 
 - (void)startNavigationWithDetails:(id)details activeBlock:(id)block
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   detailsCopy = details;
   blockCopy = block;
   [(MNNavigationServiceLocalProxy *)self logXPCCall:"[MNNavigationServiceLocalProxy startNavigationWithDetails:activeBlock:]"];
@@ -1393,18 +1454,16 @@ void __58__MNNavigationServiceLocalProxy_stopNavigationWithReason___block_invoke
     _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEFAULT, "MNNavigationServiceLocalProxy startNavigationWithType: %u", buf, 8u);
   }
 
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __72__MNNavigationServiceLocalProxy_startNavigationWithDetails_activeBlock___block_invoke;
-  v12[3] = &unk_1E842F448;
-  v13 = detailsCopy;
-  v14 = blockCopy;
-  v12[4] = self;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __72__MNNavigationServiceLocalProxy_startNavigationWithDetails_activeBlock___block_invoke;
+  v11[3] = &unk_1E842F448;
+  v12 = detailsCopy;
+  v13 = blockCopy;
+  v11[4] = self;
   v9 = detailsCopy;
   v10 = blockCopy;
-  MNRunAsyncOnNavigationQueue(v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  MNRunAsyncOnNavigationQueue(v11);
 }
 
 void __72__MNNavigationServiceLocalProxy_startNavigationWithDetails_activeBlock___block_invoke(uint64_t a1)

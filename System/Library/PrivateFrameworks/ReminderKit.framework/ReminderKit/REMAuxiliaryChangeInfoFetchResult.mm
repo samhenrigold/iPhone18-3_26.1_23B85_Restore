@@ -44,7 +44,7 @@
 
 - (id)auxiliaryChangeInfoFromData:(id)data withObjectID:(id)d fromChangeObject:(id)object error:(id *)error
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   dCopy = d;
   objectCopy = object;
@@ -55,11 +55,11 @@
   v16 = [v15 initWithREMObjectID:dCopy];
   if (v16)
   {
-    v33 = objectCopy;
-    v34 = 0;
-    v32 = dataCopy;
-    v17 = [MEMORY[0x1E696AE40] propertyListWithData:dataCopy options:0 format:0 error:&v34];
-    v18 = v34;
+    v32 = objectCopy;
+    v33 = 0;
+    v31 = dataCopy;
+    v17 = [MEMORY[0x1E696AE40] propertyListWithData:dataCopy options:0 format:0 error:&v33];
+    v18 = v33;
     v19 = v18;
     if (!v17 || v18)
     {
@@ -70,11 +70,11 @@
         v25 = NSStringFromClass([(REMAuxiliaryChangeInfoFetchResult *)self typedKlass]);
         localizedDescription = [v19 localizedDescription];
         *buf = 138543874;
-        v36 = v25;
-        v37 = 2114;
-        v38 = dCopy;
-        v39 = 2114;
-        v40 = localizedDescription;
+        v35 = v25;
+        v36 = 2114;
+        v37 = dCopy;
+        v38 = 2114;
+        v39 = localizedDescription;
         _os_log_error_impl(&dword_19A0DB000, v20, OS_LOG_TYPE_ERROR, "REMChangeTracking+AuxiliaryChgInfo: Failed to decode data to plist dictionary for {class: %{public}@, remObjectID: %{public}@, plistError: %{public}@}", buf, 0x20u);
       }
     }
@@ -95,7 +95,7 @@
         {
           [v16 setStorage:v17];
           changeObjectForAuxiliaryChangeInfoMap = [(REMAuxiliaryChangeInfoFetchResult *)self changeObjectForAuxiliaryChangeInfoMap];
-          [changeObjectForAuxiliaryChangeInfoMap setObject:v33 forKeyedSubscript:dCopy];
+          [changeObjectForAuxiliaryChangeInfoMap setObject:v32 forKeyedSubscript:dCopy];
           v24 = 0;
         }
 
@@ -105,13 +105,13 @@
           changeObjectForAuxiliaryChangeInfoMap = +[REMLog changeTracking];
           if (os_log_type_enabled(changeObjectForAuxiliaryChangeInfoMap, OS_LOG_TYPE_ERROR))
           {
-            v30 = NSStringFromClass([(REMAuxiliaryChangeInfoFetchResult *)self typedKlass]);
+            v29 = NSStringFromClass([(REMAuxiliaryChangeInfoFetchResult *)self typedKlass]);
             *buf = 138543874;
-            v36 = v30;
-            v37 = 2114;
-            v38 = dCopy;
-            v39 = 2114;
-            v40 = v31;
+            v35 = v29;
+            v36 = 2114;
+            v37 = dCopy;
+            v38 = 2114;
+            v39 = v30;
             _os_log_error_impl(&dword_19A0DB000, changeObjectForAuxiliaryChangeInfoMap, OS_LOG_TYPE_ERROR, "REMChangeTracking+AuxiliaryChgInfo: Decoded object identifier from the plist dictionary does not match with input object ID for {class: %{public}@, remObjectID: %{public}@, decodedObjID: %{public}@}", buf, 0x20u);
           }
         }
@@ -128,8 +128,8 @@
       }
     }
 
-    dataCopy = v32;
-    objectCopy = v33;
+    dataCopy = v31;
+    objectCopy = v32;
   }
 
   else
@@ -147,8 +147,6 @@
     v27 = v24;
     *error = v24;
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

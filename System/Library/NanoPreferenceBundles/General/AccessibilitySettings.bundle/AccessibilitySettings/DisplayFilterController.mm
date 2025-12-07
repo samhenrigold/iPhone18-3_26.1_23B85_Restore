@@ -9,6 +9,7 @@
 - (unint64_t)_selectedFilter;
 - (void)setGlobalColorFilterEnabled:(id)enabled;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation DisplayFilterController
@@ -16,7 +17,7 @@
 - (id)specifiers
 {
   selfCopy = self;
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D3FC48];
   v4 = *(&self->super.super.super.super.super.super.isa + v3);
   if (!v4)
@@ -29,11 +30,11 @@
     v9 = [v7 preferenceSpecifierNamed:v8 target:selfCopy set:sel_setGlobalColorFilterEnabled_ get:sel_globalColorFilterEnabled detail:0 cell:6 edit:0];
 
     v10 = MEMORY[0x277CBEC38];
-    v46 = *MEMORY[0x277D3FFE0];
+    v45 = *MEMORY[0x277D3FFE0];
     [v9 setProperty:MEMORY[0x277CBEC38] forKey:?];
-    v45 = *MEMORY[0x277D40068];
+    v44 = *MEMORY[0x277D40068];
     [v9 setProperty:v10 forKey:?];
-    v44 = *MEMORY[0x277D3FEF8];
+    v43 = *MEMORY[0x277D3FEF8];
     [v9 setProperty:@"com.apple.Accessibility" forKey:?];
     [array addObject:v9];
     globalColorFilterEnabled = [(DisplayFilterController *)selfCopy globalColorFilterEnabled];
@@ -49,43 +50,43 @@ LABEL_32:
       goto LABEL_33;
     }
 
-    v39 = v9;
-    v40 = array;
-    v41 = emptyGroupSpecifier;
-    v42 = v3;
-    v47 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{-[DisplayFilterController _selectedFilter](selfCopy, "_selectedFilter")}];
+    v38 = v9;
+    v39 = array;
+    v40 = emptyGroupSpecifier;
+    v41 = v3;
+    v46 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{-[DisplayFilterController _selectedFilter](selfCopy, "_selectedFilter")}];
     array2 = [MEMORY[0x277CBEB18] array];
+    v48 = 0u;
     v49 = 0u;
     v50 = 0u;
     v51 = 0u;
-    v52 = 0u;
     v12 = selfCopy;
     obj = [(DisplayFilterController *)selfCopy _supportedDisplayFilters];
-    v13 = [obj countByEnumeratingWithState:&v49 objects:v53 count:16];
+    v13 = [obj countByEnumeratingWithState:&v48 objects:v52 count:16];
     if (v13)
     {
       v14 = v13;
       v15 = 0;
-      v16 = *v50;
+      v16 = *v49;
       v17 = *MEMORY[0x277D401A8];
       v18 = MEMORY[0x277CBEC38];
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v50 != v16)
+          if (*v49 != v16)
           {
             objc_enumerationMutation(obj);
           }
 
-          v20 = *(*(&v49 + 1) + 8 * i);
+          v20 = *(*(&v48 + 1) + 8 * i);
           v21 = -[DisplayFilterController _titleForFilter:](v12, "_titleForFilter:", [v20 unsignedIntegerValue]);
           v22 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v21 target:v12 set:0 get:0 detail:0 cell:3 edit:0];
           [v22 setProperty:v20 forKey:v17];
-          [v22 setProperty:v18 forKey:v46];
           [v22 setProperty:v18 forKey:v45];
-          [v22 setProperty:@"com.apple.Accessibility" forKey:v44];
-          if ([v20 isEqualToNumber:v47])
+          [v22 setProperty:v18 forKey:v44];
+          [v22 setProperty:@"com.apple.Accessibility" forKey:v43];
+          if ([v20 isEqualToNumber:v46])
           {
             v23 = v22;
 
@@ -95,7 +96,7 @@ LABEL_32:
           [array2 addObject:v22];
         }
 
-        v14 = [obj countByEnumeratingWithState:&v49 objects:v53 count:16];
+        v14 = [obj countByEnumeratingWithState:&v48 objects:v52 count:16];
       }
 
       while (v14);
@@ -107,27 +108,27 @@ LABEL_32:
     }
 
     selfCopy = v12;
-    array = v40;
-    emptyGroupSpecifier = v41;
-    v9 = v39;
+    array = v39;
+    emptyGroupSpecifier = v40;
+    v9 = v38;
     if ([array2 count])
     {
       v24 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:0 target:selfCopy set:0 get:0 detail:0 cell:0 edit:0];
       [v24 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FFE8]];
-      [v40 addObject:v24];
+      [v39 addObject:v24];
       if (v15)
       {
         [v24 setProperty:v15 forKey:*MEMORY[0x277D40090]];
       }
 
-      [v40 addObjectsFromArray:array2];
+      [v39 addObjectsFromArray:array2];
     }
 
     if (![(DisplayFilterController *)selfCopy _shouldShowColorIntensitySlider])
     {
 LABEL_31:
 
-      v3 = v42;
+      v3 = v41;
       goto LABEL_32;
     }
 
@@ -174,7 +175,7 @@ LABEL_30:
     v31 = settingsLocString(@"COLOR_INTENSITY_TITLE", @"AccessibilitySettings");
     v32 = [v30 groupSpecifierWithName:v31];
 
-    [v40 addObject:v32];
+    [v39 addObject:v32];
     v33 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:0 target:selfCopy set:v28 get:v29 detail:0 cell:5 edit:0];
     v34 = [MEMORY[0x277CCABB0] numberWithDouble:0.25];
     [v33 setProperty:v34 forKey:*MEMORY[0x277D3FEC0]];
@@ -182,14 +183,37 @@ LABEL_30:
     v35 = [MEMORY[0x277CCABB0] numberWithDouble:1.0];
     [v33 setProperty:v35 forKey:*MEMORY[0x277D3FEB8]];
 
-    [v40 addObject:v33];
+    [v39 addObject:v33];
     goto LABEL_30;
   }
 
 LABEL_33:
-  v37 = *MEMORY[0x277D85DE8];
 
   return v4;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v16[1] = *MEMORY[0x277D85DE8];
+  v15.receiver = self;
+  v15.super_class = DisplayFilterController;
+  [(AccessibilityBridgeBaseController *)&v15 viewWillAppear:appear];
+  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v4 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL = [v3 bundleURL];
+  v7 = [v4 initWithKey:@"COLOR_FILTERS_ROW_TITLE" table:@"AccessibilitySettings" locale:currentLocale bundleURL:bundleURL];
+
+  v8 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL2 = [v3 bundleURL];
+  v11 = [v8 initWithKey:@"ACCESSIBILITY_TITLE" table:@"AccessibilitySettings" locale:currentLocale2 bundleURL:bundleURL2];
+
+  v12 = MEMORY[0x277CF3470];
+  v16[0] = v11;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  v14 = [MEMORY[0x277CBEBC0] URLWithString:@"bridge:root=ACCESSIBILITY_ID&path=COLOR_FILTERS_ROW_TITLE"];
+  [v12 emitNavigationEventForSystemSettingWithIconSpecifierIdentifier:@"ACCESSIBILITY_ID" title:v7 localizedNavigationComponents:v13 deepLink:v14];
 }
 
 - (void)setGlobalColorFilterEnabled:(id)enabled

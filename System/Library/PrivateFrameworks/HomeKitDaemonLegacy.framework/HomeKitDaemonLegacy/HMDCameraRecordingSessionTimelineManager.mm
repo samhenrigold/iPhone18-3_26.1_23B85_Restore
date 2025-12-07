@@ -15,7 +15,7 @@
 
 - (id)attributeDescriptions
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   logIdentifier = [(HMDCameraRecordingSessionTimelineManager *)self logIdentifier];
   v5 = [v3 initWithName:@"Identifier" value:logIdentifier];
@@ -24,14 +24,12 @@
   [(HMDCameraRecordingSessionTimelineManager *)self fragmentDuration];
   v8 = [v7 numberWithDouble:?];
   v9 = [v6 initWithName:@"Fragment Duration" value:v8];
-  v16[1] = v9;
+  v15[1] = v9;
   v10 = objc_alloc(MEMORY[0x277D0F778]);
   fragmentCreationReferenceDate = [(HMDCameraRecordingSessionTimelineManager *)self fragmentCreationReferenceDate];
   v12 = [v10 initWithName:@"Fragment Creation Reference Date" value:fragmentCreationReferenceDate];
-  v16[2] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v15[2] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
 
   return v13;
 }
@@ -74,7 +72,7 @@
 
 - (void)handleDoorbellDidActivateAtDate:(id)date
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   workQueue = [(HMDCameraRecordingSessionTimelineManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -95,11 +93,11 @@
     startDate = [v11 startDate];
     fragmentCreationReferenceDate = [(HMDCameraRecordingSessionTimelineManager *)selfCopy fragmentCreationReferenceDate];
     [startDate timeIntervalSinceDate:fragmentCreationReferenceDate];
-    v28 = 138543618;
-    v29 = v15;
-    v30 = 2048;
-    v31 = v18;
-    _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@Doorbell trigger activated at time offset: %f", &v28, 0x16u);
+    v27 = 138543618;
+    v28 = v15;
+    v29 = 2048;
+    v30 = v18;
+    _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@Doorbell trigger activated at time offset: %f", &v27, 0x16u);
   }
 
   objc_autoreleasePoolPop(v12);
@@ -112,24 +110,22 @@
     endDate = [v11 endDate];
     fragmentCreationReferenceDate2 = [(HMDCameraRecordingSessionTimelineManager *)v20 fragmentCreationReferenceDate];
     [endDate timeIntervalSinceDate:fragmentCreationReferenceDate2];
-    v28 = 138543618;
-    v29 = v22;
-    v30 = 2048;
-    v31 = v25;
-    _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@Doorbell trigger will be deactivated at time offset: %f", &v28, 0x16u);
+    v27 = 138543618;
+    v28 = v22;
+    v29 = 2048;
+    v30 = v25;
+    _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@Doorbell trigger will be deactivated at time offset: %f", &v27, 0x16u);
   }
 
   objc_autoreleasePoolPop(v19);
   doorbellActiveDateIntervals2 = [(HMDCameraRecordingSessionTimelineManager *)v20 doorbellActiveDateIntervals];
   [doorbellActiveDateIntervals2 addObject:v11];
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleMotionActive:(BOOL)active didChangeAtDate:(id)date
 {
   activeCopy = active;
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   workQueue = [(HMDCameraRecordingSessionTimelineManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -165,13 +161,13 @@
         v22 = HMFGetLogIdentifier();
         fragmentCreationReferenceDate = [(HMDCameraRecordingSessionTimelineManager *)selfCopy fragmentCreationReferenceDate];
         [dateCopy timeIntervalSinceDate:fragmentCreationReferenceDate];
-        v35 = 138543618;
-        v36 = v22;
-        v37 = 2048;
-        v38 = v24;
+        v34 = 138543618;
+        v35 = v22;
+        v36 = 2048;
+        v37 = v24;
         v25 = "%{public}@Motion trigger activated at time offset: %f";
 LABEL_12:
-        _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, v25, &v35, 0x16u);
+        _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, v25, &v34, 0x16u);
 
         goto LABEL_13;
       }
@@ -205,10 +201,10 @@ LABEL_12:
         v22 = HMFGetLogIdentifier();
         fragmentCreationReferenceDate = [(HMDCameraRecordingSessionTimelineManager *)selfCopy2 fragmentCreationReferenceDate];
         [dateCopy timeIntervalSinceDate:fragmentCreationReferenceDate];
-        v35 = 138543618;
-        v36 = v22;
-        v37 = 2048;
-        v38 = v33;
+        v34 = 138543618;
+        v35 = v22;
+        v36 = 2048;
+        v37 = v33;
         v25 = "%{public}@Motion trigger deactivated at time offset: %f";
         goto LABEL_12;
       }
@@ -218,13 +214,11 @@ LABEL_13:
       objc_autoreleasePoolPop(v19);
     }
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isDoorbellTriggerActiveAtAnyTimeAfterOffset:(double)offset forDuration:(double)duration
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraRecordingSessionTimelineManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -233,32 +227,32 @@ LABEL_13:
   v10 = [v8 dateByAddingTimeInterval:duration];
   v11 = [v9 initWithStartDate:v8 endDate:v10];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   doorbellActiveDateIntervals = [(HMDCameraRecordingSessionTimelineManager *)self doorbellActiveDateIntervals];
-  v13 = [doorbellActiveDateIntervals countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v13 = [doorbellActiveDateIntervals countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v13)
   {
-    v14 = *v19;
+    v14 = *v18;
     while (2)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v19 != v14)
+        if (*v18 != v14)
         {
           objc_enumerationMutation(doorbellActiveDateIntervals);
         }
 
-        if ([*(*(&v18 + 1) + 8 * i) intersectsDateInterval:v11])
+        if ([*(*(&v17 + 1) + 8 * i) intersectsDateInterval:v11])
         {
           LOBYTE(v13) = 1;
           goto LABEL_11;
         }
       }
 
-      v13 = [doorbellActiveDateIntervals countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v13 = [doorbellActiveDateIntervals countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v13)
       {
         continue;
@@ -270,13 +264,12 @@ LABEL_13:
 
 LABEL_11:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (BOOL)isMotionTriggerActiveAtAnyTimeAfterOffset:(double)offset forDuration:(double)duration
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraRecordingSessionTimelineManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -285,32 +278,32 @@ LABEL_11:
   v10 = [v8 dateByAddingTimeInterval:duration];
   v11 = [v9 initWithStartDate:v8 endDate:v10];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   motionActiveDateIntervals = [(HMDCameraRecordingSessionTimelineManager *)self motionActiveDateIntervals];
-  v13 = [motionActiveDateIntervals countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v13 = [motionActiveDateIntervals countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v13)
   {
-    v14 = *v19;
+    v14 = *v18;
     while (2)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v19 != v14)
+        if (*v18 != v14)
         {
           objc_enumerationMutation(motionActiveDateIntervals);
         }
 
-        if ([*(*(&v18 + 1) + 8 * i) intersectsDateInterval:v11])
+        if ([*(*(&v17 + 1) + 8 * i) intersectsDateInterval:v11])
         {
           LOBYTE(v13) = 1;
           goto LABEL_11;
         }
       }
 
-      v13 = [motionActiveDateIntervals countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v13 = [motionActiveDateIntervals countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v13)
       {
         continue;
@@ -322,7 +315,6 @@ LABEL_11:
 
 LABEL_11:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -378,7 +370,7 @@ LABEL_11:
   {
     objc_storeStrong(&v15->_workQueue, queue);
     v16->_fragmentDuration = duration;
-    v17 = [dateCopy copy];
+    v17 = objc_msgSend_copy(dateCopy);
     fragmentCreationReferenceDate = v16->_fragmentCreationReferenceDate;
     v16->_fragmentCreationReferenceDate = v17;
 
@@ -410,12 +402,11 @@ LABEL_11:
 
 uint64_t __55__HMDCameraRecordingSessionTimelineManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v5_63880;
-  logCategory__hmf_once_v5_63880 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v5_63880;
+  logCategory__hmf_once_v5_63880 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

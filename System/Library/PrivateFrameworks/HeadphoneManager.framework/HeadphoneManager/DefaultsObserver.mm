@@ -12,33 +12,48 @@
   MEMORY[0x1E69E5928](self);
   if (path)
   {
-    static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v9 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v10 = v6;
     MEMORY[0x1E69E5920](path);
+    v11 = v9;
+    v12 = v10;
+  }
+
+  else
+  {
+    v11 = 0;
+    v12 = 0;
   }
 
   if (object)
   {
     _bridgeAnyObjectToAny(_:)();
-    outlined init with take of Any(v10, v11);
+    outlined init with take of Any(v18, v19);
     swift_unknownObjectRelease();
   }
 
   else
   {
-    memset(v11, 0, sizeof(v11));
+    memset(v19, 0, sizeof(v19));
   }
 
   if (change)
   {
-    type metadata accessor for NSKeyValueChangeKey();
+    type metadata accessor for NSKeyValueChangeKey(0);
     lazy protocol witness table accessor for type NSKeyValueChangeKey and conformance NSKeyValueChangeKey();
-    static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+    v7 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
     MEMORY[0x1E69E5920](change);
+    v8 = v7;
   }
 
-  DefaultsObserver.observeValue(forKeyPath:of:change:context:)();
+  else
+  {
+    v8 = 0;
+  }
 
-  outlined destroy of Any?(v11);
+  DefaultsObserver.observeValue(forKeyPath:of:change:context:)(v11, v12, v19, v8, context);
+
+  outlined destroy of Any?(v19);
 
   MEMORY[0x1E69E5920](self);
 }

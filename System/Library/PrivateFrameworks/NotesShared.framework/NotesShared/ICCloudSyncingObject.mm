@@ -1315,7 +1315,7 @@ LABEL_12:
   v14 = os_log_create("com.apple.notes", "Cloud");
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    [(ICCloudSyncingObject *)self unsafelyUpdateChangeCountWithReason:reasonCopy, v14];
+    [ICCloudSyncingObject unsafelyUpdateChangeCountWithReason:];
   }
 }
 
@@ -1757,20 +1757,20 @@ void __59__ICCloudSyncingObject_setNumberOfPushAttemptsToWaitCount___block_invok
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x1Cu);
 }
 
-void __51__ICCloudSyncingObject_deleteChangeTokensAndReSync__block_invoke(uint64_t a1)
+void __51__ICCloudSyncingObject_deleteChangeTokensAndReSync__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = [objc_opt_class() numberOfPushAttemptsToWaitByIdentifier];
-  [v2 removeAllObjects];
-
-  v3 = [objc_opt_class() failedToSyncCountsByIdentifier];
+  v3 = [objc_opt_class() numberOfPushAttemptsToWaitByIdentifier];
   [v3 removeAllObjects];
 
-  v4 = [*(a1 + 32) cloudContext];
-  [v4 deleteAllServerChangeTokens];
+  v4 = [objc_opt_class() failedToSyncCountsByIdentifier];
+  [v4 removeAllObjects];
+
+  v5 = [*(a1 + 32) cloudContext];
+  [v5 deleteAllServerChangeTokens];
 
   [MEMORY[0x277D36278] postBasicEvent:2];
-  v5 = [*(a1 + 32) cloudContext];
-  [v5 syncWithReason:@"DeletedChangeTokensDueToFailures" completionHandler:0];
+  v6 = [*(a1 + 32) cloudContext];
+  [v6 syncWithReason:@"DeletedChangeTokensDueToFailures" completionHandler:0];
 }
 
 - (void)resetFailureCounts
@@ -1911,7 +1911,7 @@ LABEL_17:
   return selfCopy;
 }
 
-uint64_t __37__ICCloudSyncingObject_isValidObject__block_invoke(uint64_t a1)
+void *__37__ICCloudSyncingObject_isValidObject__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   *(*(*(a1 + 40) + 8) + 24) = result ^ 1;
@@ -5870,7 +5870,7 @@ LABEL_14:
       v7 = os_log_create("com.apple.notes", "Collaboration");
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
-        [(ICCloudSyncingObject *)self setServerShareIfNewer:newerCopy, v7];
+        [ICCloudSyncingObject setServerShareIfNewer:];
       }
 
       goto LABEL_18;
@@ -5895,7 +5895,7 @@ LABEL_14:
     {
       if (v17)
       {
-        [(ICCloudSyncingObject *)self setServerShareIfNewer:newerCopy, v7];
+        [ICCloudSyncingObject setServerShareIfNewer:];
       }
 
       goto LABEL_15;
@@ -5903,7 +5903,7 @@ LABEL_14:
 
     if (v17)
     {
-      [(ICCloudSyncingObject *)self setServerShareIfNewer:newerCopy, v7];
+      [ICCloudSyncingObject setServerShareIfNewer:];
     }
 
 LABEL_18:
@@ -5915,7 +5915,7 @@ LABEL_18:
   v7 = os_log_create("com.apple.notes", "Collaboration");
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    [(ICCloudSyncingObject *)self setServerShareIfNewer:newerCopy, v7];
+    [ICCloudSyncingObject setServerShareIfNewer:];
   }
 
 LABEL_15:
@@ -7268,7 +7268,7 @@ LABEL_14:
   }
 }
 
-uint64_t __61__ICCloudSyncingObject_authenticationStateDidDeauthenticate___block_invoke(uint64_t a1)
+void *__61__ICCloudSyncingObject_authenticationStateDidDeauthenticate___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) ic_isTransitioning];
   if ((result & 1) == 0)
@@ -7350,15 +7350,15 @@ void __53__ICCloudSyncingObject_versionsByRecordIDByOperation__block_invoke()
   return v9;
 }
 
-void __44__ICCloudSyncingObject_versionForOperation___block_invoke(void *a1)
+void __44__ICCloudSyncingObject_versionForOperation___block_invoke(void *a1, uint64_t a2)
 {
-  v2 = [objc_opt_class() versionsByRecordIDByOperation];
-  v4 = [v2 objectForKey:a1[5]];
+  v3 = [objc_opt_class() versionsByRecordIDByOperation];
+  v5 = [v3 objectForKey:a1[5]];
 
   if (a1[6])
   {
-    v3 = [v4 objectForKeyedSubscript:?];
-    *(*(a1[7] + 8) + 24) = [v3 longLongValue];
+    v4 = [v5 objectForKeyedSubscript:?];
+    *(*(a1[7] + 8) + 24) = [v4 longLongValue];
   }
 }
 
@@ -7377,21 +7377,21 @@ void __44__ICCloudSyncingObject_versionForOperation___block_invoke(void *a1)
   dispatch_sync(versionsByOperationQueue, block);
 }
 
-void __48__ICCloudSyncingObject_setVersion_forOperation___block_invoke(uint64_t a1)
+void __48__ICCloudSyncingObject_setVersion_forOperation___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v5 = [objc_opt_class() versionsByRecordIDByOperation];
-  v2 = [v5 objectForKey:*(a1 + 40)];
-  if (!v2)
+  v6 = [objc_opt_class() versionsByRecordIDByOperation];
+  v3 = [v6 objectForKey:*(a1 + 40)];
+  if (!v3)
   {
-    v2 = [MEMORY[0x277CBEB38] dictionary];
-    [v5 setObject:v2 forKey:*(a1 + 40)];
+    v3 = [MEMORY[0x277CBEB38] dictionary];
+    [v6 setObject:v3 forKey:*(a1 + 40)];
   }
 
-  v3 = [*(a1 + 32) recordID];
-  if (v3)
+  v4 = [*(a1 + 32) recordID];
+  if (v4)
   {
-    v4 = [MEMORY[0x277CCABB0] numberWithLongLong:*(a1 + 48)];
-    [v2 setObject:v4 forKeyedSubscript:v3];
+    v5 = [MEMORY[0x277CCABB0] numberWithLongLong:*(a1 + 48)];
+    [v3 setObject:v5 forKeyedSubscript:v4];
   }
 }
 
@@ -7519,19 +7519,19 @@ void __46__ICCloudSyncingObject_deletedByThisDeviceSet__block_invoke()
   dispatch_sync(deletedByThisDeviceOperationQueue, v6);
 }
 
-void __58__ICCloudSyncingObject_setWasRecentlyDeletedByThisDevice___block_invoke(uint64_t a1)
+void __58__ICCloudSyncingObject_setWasRecentlyDeletedByThisDevice___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 40);
-  v4 = [objc_opt_class() deletedByThisDeviceSet];
-  v3 = [*(a1 + 32) objectID];
-  if (v2 == 1)
+  v3 = *(a1 + 40);
+  v5 = [objc_opt_class() deletedByThisDeviceSet];
+  v4 = [*(a1 + 32) objectID];
+  if (v3 == 1)
   {
-    [v4 addObject:v3];
+    [v5 addObject:v4];
   }
 
   else
   {
-    [v4 removeObject:v3];
+    [v5 removeObject:v4];
   }
 }
 
@@ -7557,11 +7557,11 @@ void __58__ICCloudSyncingObject_setWasRecentlyDeletedByThisDevice___block_invoke
   return selfCopy;
 }
 
-void __54__ICCloudSyncingObject_wasRecentlyDeletedByThisDevice__block_invoke(uint64_t a1)
+void __54__ICCloudSyncingObject_wasRecentlyDeletedByThisDevice__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = [objc_opt_class() deletedByThisDeviceSet];
-  v2 = [*(a1 + 32) objectID];
-  *(*(*(a1 + 40) + 8) + 24) = [v3 containsObject:v2];
+  v4 = [objc_opt_class() deletedByThisDeviceSet];
+  v3 = [*(a1 + 32) objectID];
+  *(*(*(a1 + 40) + 8) + 24) = [v4 containsObject:v3];
 }
 
 + (void)resetAllDeletedByThisDeviceProperties
@@ -7575,10 +7575,10 @@ void __54__ICCloudSyncingObject_wasRecentlyDeletedByThisDevice__block_invoke(uin
   dispatch_sync(deletedByThisDeviceOperationQueue, block);
 }
 
-void __61__ICCloudSyncingObject_resetAllDeletedByThisDeviceProperties__block_invoke()
+void __61__ICCloudSyncingObject_resetAllDeletedByThisDeviceProperties__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = [objc_opt_class() deletedByThisDeviceSet];
-  [v0 removeAllObjects];
+  v2 = [objc_opt_class() deletedByThisDeviceSet];
+  [v2 removeAllObjects];
 }
 
 - (void)setInCloud:(BOOL)cloud
@@ -8177,48 +8177,48 @@ void __40__ICCloudSyncingObject_ic_loggingValues__block_invoke(uint64_t a1)
 
 - (NSDate)objc_shareTimestamp
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA41DD0);
-  MEMORY[0x28223BE20](v3 - 8);
-  v5 = &v13 - v4;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA41DD0, &unk_2150C2740);
+  MEMORY[0x28223BE20](v3 - 8, v4);
+  v6 = &v14 - v5;
   selfCopy = self;
-  ICCloudSyncingObject.shareTimestamp.getter(v5);
+  ICCloudSyncingObject.shareTimestamp.getter(v6);
 
-  v7 = sub_2150A3960();
-  v8 = *(v7 - 8);
-  v9 = (*(v8 + 48))(v5, 1, v7);
-  v10 = 0;
-  if (v9 != 1)
+  v8 = sub_2150A3960();
+  v9 = *(v8 - 8);
+  v10 = (*(v9 + 48))(v6, 1, v8);
+  v11 = 0;
+  if (v10 != 1)
   {
-    v11 = sub_2150A38F0();
-    (*(v8 + 8))(v5, v7);
-    v10 = v11;
+    v12 = sub_2150A38F0();
+    (*(v9 + 8))(v6, v8);
+    v11 = v12;
   }
 
-  return v10;
+  return v11;
 }
 
 - (id)objc_timestampForChecklistItemWithIdentifier:(id)identifier
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA41DD0);
-  MEMORY[0x28223BE20](v4 - 8);
-  v6 = &v17 - v5;
-  v7 = sub_2150A4AD0();
-  v9 = v8;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA41DD0, &unk_2150C2740);
+  MEMORY[0x28223BE20](v4 - 8, v5);
+  v7 = &v18 - v6;
+  v8 = sub_2150A4AD0();
+  v10 = v9;
   selfCopy = self;
-  ICCloudSyncingObject.timestampForChecklistItem(identifier:)(v7, v9, v6);
+  ICCloudSyncingObject.timestampForChecklistItem(identifier:)(v8, v10, v7);
 
-  v11 = sub_2150A3960();
-  v12 = *(v11 - 8);
-  v13 = (*(v12 + 48))(v6, 1, v11);
-  v14 = 0;
-  if (v13 != 1)
+  v12 = sub_2150A3960();
+  v13 = *(v12 - 8);
+  v14 = (*(v13 + 48))(v7, 1, v12);
+  v15 = 0;
+  if (v14 != 1)
   {
-    v15 = sub_2150A38F0();
-    (*(v12 + 8))(v6, v11);
-    v14 = v15;
+    v16 = sub_2150A38F0();
+    (*(v13 + 8))(v7, v12);
+    v15 = v16;
   }
 
-  return v14;
+  return v15;
 }
 
 - (id)objc_userIDForChecklistItemWithIdentifier:(id)identifier
@@ -8270,21 +8270,21 @@ void __40__ICCloudSyncingObject_ic_loggingValues__block_invoke(uint64_t a1)
 {
   v5 = sub_2150A3960();
   v6 = *(v5 - 8);
-  MEMORY[0x28223BE20](v5);
-  v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for PersistedActivityEvent.Activities();
-  MEMORY[0x28223BE20](v9);
-  v11 = &v16 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v5, v7);
+  v9 = &v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for PersistedActivityEvent.Activities(0);
+  MEMORY[0x28223BE20](v10, v10);
+  v12 = &v17 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_storeEnumTagMultiPayload();
   objectCopy = object;
   selfCopy = self;
   sub_2150A3950();
-  v14 = ICCloudSyncingObject.persist(activity:for:timestamp:)(v11, object, v8);
+  v15 = ICCloudSyncingObject.persist(activity:for:timestamp:)(v12, object, v9);
 
-  (*(v6 + 8))(v8, v5);
-  sub_2150742A4(v11, type metadata accessor for PersistedActivityEvent.Activities);
+  (*(v6 + 8))(v9, v5);
+  sub_2150742A4(v12, type metadata accessor for PersistedActivityEvent.Activities);
 
-  return v14;
+  return v15;
 }
 
 - (id)persistAddParticipantActivityEventForObject:(id)object participant:(id)participant
@@ -8311,32 +8311,32 @@ void __40__ICCloudSyncingObject_ic_loggingValues__block_invoke(uint64_t a1)
 {
   v7 = sub_2150A3960();
   v8 = *(v7 - 8);
-  MEMORY[0x28223BE20](v7);
-  v10 = &v21 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = type metadata accessor for PersistedActivityEvent.Activities();
-  MEMORY[0x28223BE20](v11);
-  v13 = &v21 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA44B20) + 48);
+  MEMORY[0x28223BE20](v7, v9);
+  v11 = &v23 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for PersistedActivityEvent.Activities(0);
+  MEMORY[0x28223BE20](v12, v13);
+  v15 = &v23 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA44B20, &qword_2150CD880) + 48);
   objectCopy = object;
   todoCopy = todo;
   selfCopy = self;
   uuid = [todoCopy uuid];
   sub_2150A39C0();
 
-  v13[v14] = [todoCopy done];
+  v15[v16] = [todoCopy done];
   swift_storeEnumTagMultiPayload();
   sub_2150A3950();
-  v19 = ICCloudSyncingObject.persist(activity:for:timestamp:)(v13, objectCopy, v10);
+  v21 = ICCloudSyncingObject.persist(activity:for:timestamp:)(v15, objectCopy, v11);
 
-  (*(v8 + 8))(v10, v7);
-  sub_2150742A4(v13, type metadata accessor for PersistedActivityEvent.Activities);
+  (*(v8 + 8))(v11, v7);
+  sub_2150742A4(v15, type metadata accessor for PersistedActivityEvent.Activities);
 
-  return v19;
+  return v21;
 }
 
 - (id)persistMentionActivityEventForObject:(id)object mentionAttachments:(id)attachments
 {
-  sub_214D55670(0, &qword_27CA44B48);
+  sub_214D55670(0, &qword_27CA44B48, off_278192D28);
   v6 = sub_2150A4ED0();
   objectCopy = object;
   selfCopy = self;
@@ -8439,6 +8439,21 @@ void __40__ICCloudSyncingObject_ic_loggingValues__block_invoke(uint64_t a1)
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
+}
+
+- (void)unsafelyUpdateChangeCountWithReason:.cold.2()
+{
+  OUTLINED_FUNCTION_22();
+  OUTLINED_FUNCTION_15();
+  v2 = [v1 shortLoggingDescription];
+  v3 = MEMORY[0x277CCABB0];
+  v4 = [v0 cloudState];
+  v5 = [v3 numberWithLongLong:{objc_msgSend(v4, "currentLocalVersion")}];
+  OUTLINED_FUNCTION_5();
+  OUTLINED_FUNCTION_16();
+  OUTLINED_FUNCTION_14(&dword_214D51000, v6, v7, "Updated change count {object: %@, reason: %@, count: %@}", v8, v9, v10, v11);
+
+  OUTLINED_FUNCTION_23();
 }
 
 - (void)clearChangeCountWithReason:.cold.1()
@@ -8799,6 +8814,70 @@ void __40__ICCloudSyncingObject_ic_loggingValues__block_invoke(uint64_t a1)
   v7 = [a2 shortLoggingDescription];
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x12u);
+}
+
+- (void)setServerShareIfNewer:.cold.1()
+{
+  OUTLINED_FUNCTION_22();
+  OUTLINED_FUNCTION_15();
+  [v2 shortLoggingDescription];
+  objc_claimAutoreleasedReturnValue();
+  v3 = [OUTLINED_FUNCTION_27() serverShare];
+  [v3 ic_loggingDescription];
+  objc_claimAutoreleasedReturnValue();
+  v4 = [OUTLINED_FUNCTION_19() ic_loggingDescription];
+  OUTLINED_FUNCTION_7_2();
+  OUTLINED_FUNCTION_14(&dword_214D51000, v5, v6, "Replacing server share without metadata for %@ %@ with %@", v7, v8, v9, v10);
+
+  OUTLINED_FUNCTION_23();
+}
+
+- (void)setServerShareIfNewer:.cold.2()
+{
+  OUTLINED_FUNCTION_22();
+  OUTLINED_FUNCTION_15();
+  [v2 shortLoggingDescription];
+  objc_claimAutoreleasedReturnValue();
+  v3 = [OUTLINED_FUNCTION_27() serverShare];
+  [v3 ic_loggingDescription];
+  objc_claimAutoreleasedReturnValue();
+  v4 = [OUTLINED_FUNCTION_19() ic_loggingDescription];
+  OUTLINED_FUNCTION_7_2();
+  OUTLINED_FUNCTION_14(&dword_214D51000, v5, v6, "Replacing old server share for %@ %@ with %@", v7, v8, v9, v10);
+
+  OUTLINED_FUNCTION_23();
+}
+
+- (void)setServerShareIfNewer:.cold.3()
+{
+  OUTLINED_FUNCTION_22();
+  OUTLINED_FUNCTION_15();
+  [v2 shortLoggingDescription];
+  objc_claimAutoreleasedReturnValue();
+  v3 = [OUTLINED_FUNCTION_27() serverShare];
+  [v3 ic_loggingDescription];
+  objc_claimAutoreleasedReturnValue();
+  v4 = [OUTLINED_FUNCTION_19() ic_loggingDescription];
+  OUTLINED_FUNCTION_7_2();
+  OUTLINED_FUNCTION_14(&dword_214D51000, v5, v6, "Existing server share for %@ %@ is newer than %@", v7, v8, v9, v10);
+
+  OUTLINED_FUNCTION_23();
+}
+
+- (void)setServerShareIfNewer:.cold.4()
+{
+  OUTLINED_FUNCTION_22();
+  OUTLINED_FUNCTION_15();
+  [v2 shortLoggingDescription];
+  objc_claimAutoreleasedReturnValue();
+  v3 = [OUTLINED_FUNCTION_27() serverShare];
+  [v3 ic_loggingDescription];
+  objc_claimAutoreleasedReturnValue();
+  v4 = [OUTLINED_FUNCTION_19() ic_loggingDescription];
+  OUTLINED_FUNCTION_7_2();
+  OUTLINED_FUNCTION_14(&dword_214D51000, v5, v6, "Existing server share for %@ %@ has the same change tag as %@", v7, v8, v9, v10);
+
+  OUTLINED_FUNCTION_23();
 }
 
 - (void)setServerShareIfNewer:.cold.5()

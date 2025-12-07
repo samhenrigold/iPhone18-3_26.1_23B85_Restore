@@ -175,7 +175,7 @@ void __43__MKOverlayView_overlay_drawKey_inContext___block_invoke_2(uint64_t a1,
   return v13;
 }
 
-uint64_t __36__MKOverlayView_overlay_canDrawKey___block_invoke(uint64_t a1, double a2, double a3, double a4, double a5)
+void *__36__MKOverlayView_overlay_canDrawKey___block_invoke(uint64_t a1, double a2, double a3, double a4, double a5)
 {
   v10 = INFINITY;
   v11 = a2 == INFINITY && a3 == INFINITY;
@@ -256,7 +256,7 @@ uint64_t __36__MKOverlayView_overlay_canDrawKey___block_invoke(uint64_t a1, doub
   return key;
 }
 
-uint64_t __44__MKOverlayView_overlay_canPossiblyDrawKey___block_invoke(uint64_t a1, double a2, double a3, double a4, double a5)
+void *__44__MKOverlayView_overlay_canPossiblyDrawKey___block_invoke(uint64_t a1, double a2, double a3, double a4, double a5)
 {
   if ([*(a1 + 32) _mayExtendOutsideBounds])
   {

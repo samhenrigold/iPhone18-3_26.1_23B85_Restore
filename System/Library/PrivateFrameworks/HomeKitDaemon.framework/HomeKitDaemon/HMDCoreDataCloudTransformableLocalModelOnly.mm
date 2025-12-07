@@ -16,7 +16,7 @@
 
 + (void)addToUpdates:(id)updates objectID:(id)d properties:(id)properties
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   updatesCopy = updates;
   dCopy = d;
   propertiesCopy = properties;
@@ -30,27 +30,27 @@
   entity = [dCopy entity];
   propertiesByName = [entity propertiesByName];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v13 = propertiesCopy;
-  v14 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v21;
+    v16 = *v20;
     do
     {
       v17 = 0;
       do
       {
-        if (*v21 != v16)
+        if (*v20 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = [propertiesByName objectForKeyedSubscript:{*(*(&v20 + 1) + 8 * v17), v20}];
+        v18 = [propertiesByName objectForKeyedSubscript:{*(*(&v19 + 1) + 8 * v17), v19}];
         if (v18)
         {
           [v10 addObject:v18];
@@ -60,13 +60,11 @@
       }
 
       while (v15 != v17);
-      v15 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v15);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)exportUpdateWithObjectID:(id)d updatedProperties:(id)properties additionalUpdates:(id)updates context:(id)context

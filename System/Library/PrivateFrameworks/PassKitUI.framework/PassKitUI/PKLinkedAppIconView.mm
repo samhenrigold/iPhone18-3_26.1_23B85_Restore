@@ -94,48 +94,56 @@
 
 - (void)layoutSubviews
 {
-  v28.receiver = self;
-  v28.super_class = PKLinkedAppIconView;
-  [(PKLinkedAppIconView *)&v28 layoutSubviews];
+  v41.receiver = self;
+  v41.super_class = PKLinkedAppIconView;
+  [(PKLinkedAppIconView *)&v41 layoutSubviews];
   [(PKLinkedAppIconView *)self bounds];
-  [(UIImage *)self->_iconImage size];
   v4 = v3;
   v6 = v5;
-  PKSizeAspectFit();
-  v9 = 1.0;
-  v10 = 1.0;
-  if (v4 != 0.0)
-  {
-    v10 = fmin(v7 / v4, 1.0);
-  }
-
-  if (v6 != 0.0)
-  {
-    v9 = fmin(v8 / v6, 1.0);
-  }
-
-  v24 = v8;
-  v25 = v7;
-  PKSizeAlignedInRect();
+  v8 = v7;
+  v10 = v9;
+  [(UIImage *)self->_iconImage size];
   v12 = v11;
   v14 = v13;
+  PKSizeAspectFit();
+  v22 = 1.0;
+  v23 = 1.0;
+  if (v12 != 0.0)
+  {
+    v23 = fmin(v15.n128_f64[0] / v12, 1.0);
+  }
+
+  if (v14 != 0.0)
+  {
+    v22 = fmin(v16.n128_f64[0] / v14, 1.0);
+  }
+
+  v37 = v16.n128_f64[0];
+  v38 = v15.n128_f64[0];
+  v17.n128_u64[0] = v4;
+  v18.n128_u64[0] = v6;
+  v19.n128_u64[0] = v8;
+  v20.n128_u64[0] = v10;
+  PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v15, v16, v17, v18, v19, v20, v21);
+  v25 = v24;
+  v27 = v26;
   layer = [(WLEasyToHitCustomButton *)self->_iconButton layer];
   [layer anchorPoint];
-  v17 = v16;
-  v19 = v18;
+  v30 = v29;
+  v32 = v31;
   [layer bounds];
-  if (v21 != v4 || v20 != v6)
+  if (v34 != v12 || v33 != v14)
   {
-    [layer setBounds:{*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), v4, v6}];
+    [layer setBounds:{*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), v12, v14}];
     [(WLEasyToHitCustomButton *)self->_iconButton setNeedsLayout];
   }
 
-  memset(&v27, 0, sizeof(v27));
-  v23 = fmin(v10, v9);
-  CATransform3DMakeScale(&v27, v23, v23, 1.0);
-  v26 = v27;
-  [layer setTransform:&v26];
-  [layer setPosition:{v12 + v17 * v25, v14 + v19 * v24}];
+  memset(&v40, 0, sizeof(v40));
+  v36 = fmin(v23, v22);
+  CATransform3DMakeScale(&v40, v36, v36, 1.0);
+  v39 = v40;
+  [layer setTransform:&v39];
+  [layer setPosition:{v25 + v30 * v38, v27 + v32 * v37}];
 }
 
 - (void)_updateWithIconImage:(id)image animated:(BOOL)animated

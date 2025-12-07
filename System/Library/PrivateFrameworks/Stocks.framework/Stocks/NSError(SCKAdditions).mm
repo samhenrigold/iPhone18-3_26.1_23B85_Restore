@@ -1,10 +1,10 @@
 @interface NSError(SCKAdditions)
-- (uint64_t)sck_hasUnderlyingErrorCode:()SCKAdditions;
+- (BOOL)sck_hasUnderlyingErrorCode:()SCKAdditions;
 @end
 
 @implementation NSError(SCKAdditions)
 
-- (uint64_t)sck_hasUnderlyingErrorCode:()SCKAdditions
+- (BOOL)sck_hasUnderlyingErrorCode:()SCKAdditions
 {
   domain = [self domain];
   v6 = [domain isEqualToString:*MEMORY[0x277CBBF50]];

@@ -40,7 +40,7 @@
 
     else
     {
-      LOBYTE(v11) = 0;
+      LOBYTE(isEqual) = 0;
       v12 = v9;
       v13 = v8;
       if (!v8 || !v9)
@@ -51,9 +51,9 @@ LABEL_16:
         goto LABEL_17;
       }
 
-      v11 = [v8 isEqual:v9];
+      isEqual = objc_msgSend_isEqual_(v8);
 
-      if (!v11)
+      if (!isEqual)
       {
         goto LABEL_16;
       }
@@ -66,25 +66,25 @@ LABEL_16:
     v12 = v16;
     if (v13 == v16)
     {
-      LOBYTE(v11) = 1;
+      LOBYTE(isEqual) = 1;
     }
 
     else
     {
-      LOBYTE(v11) = 0;
+      LOBYTE(isEqual) = 0;
       if (v13 && v16)
       {
-        LOBYTE(v11) = [v13 isEqual:v16];
+        LOBYTE(isEqual) = objc_msgSend_isEqual_(v13);
       }
     }
 
     goto LABEL_15;
   }
 
-  LOBYTE(v11) = 0;
+  LOBYTE(isEqual) = 0;
 LABEL_17:
 
-  return v11;
+  return isEqual;
 }
 
 - (void)setLeadingAccessories:(id)accessories

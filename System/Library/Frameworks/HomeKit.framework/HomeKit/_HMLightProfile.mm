@@ -40,7 +40,7 @@
 
 - (void)handleSettingsDidUpdate:(id)update
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   updateCopy = update;
   lightProfile = [(_HMLightProfile *)self lightProfile];
   if (lightProfile)
@@ -52,17 +52,17 @@
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v26 = v9;
-      v27 = 2112;
-      v28 = updateCopy;
-      v29 = 2112;
-      v30 = lightProfile;
+      v25 = v9;
+      v26 = 2112;
+      v27 = updateCopy;
+      v28 = 2112;
+      v29 = lightProfile;
       _os_log_impl(&dword_19BB39000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling message for light profile %@:%@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v6);
-    v24 = objc_opt_class();
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
+    v23 = objc_opt_class();
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1];
     accessory = [(_HMLightProfile *)updateCopy unarchivedObjectForKey:@"hmlp.sck" ofClasses:v10];
 
     if (accessory)
@@ -81,11 +81,11 @@
         v21 = HMFGetLogIdentifier();
         messagePayload = [(_HMLightProfile *)updateCopy messagePayload];
         *buf = 138543874;
-        v26 = v21;
-        v27 = 2112;
-        v28 = updateCopy;
-        v29 = 2112;
-        v30 = messagePayload;
+        v25 = v21;
+        v26 = 2112;
+        v27 = updateCopy;
+        v28 = 2112;
+        v29 = messagePayload;
         _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode light profile settings from message: %@ with payload: %@", buf, 0x20u);
       }
 
@@ -105,18 +105,16 @@
       v16 = HMFGetLogIdentifier();
       lightProfiles = [accessory lightProfiles];
       *buf = 138543874;
-      v26 = v16;
-      v27 = 2112;
-      v28 = selfCopy2;
-      v29 = 2112;
-      v30 = lightProfiles;
+      v25 = v16;
+      v26 = 2112;
+      v27 = selfCopy2;
+      v28 = 2112;
+      v29 = lightProfiles;
       _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_ERROR, "%{public}@Skipping settings update, light profile not found in accessory light profiles %@:%@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v13);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_registerNotificationHandlers

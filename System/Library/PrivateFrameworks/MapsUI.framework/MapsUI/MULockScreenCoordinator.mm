@@ -33,21 +33,20 @@ void __68__MULockScreenCoordinator_performActionIfSuccessfullyAuthenticated___bl
     if (WeakRetained)
     {
       v5 = *(WeakRetained + 1);
-      v8[0] = MEMORY[0x1E69E9820];
-      v8[1] = 3221225472;
-      v8[2] = __68__MULockScreenCoordinator_performActionIfSuccessfullyAuthenticated___block_invoke_2;
-      v8[3] = &unk_1E821A730;
-      v9 = *(a1 + 32);
-      (*(v5 + 16))(v5, v8);
+      v7[0] = MEMORY[0x1E69E9820];
+      v7[1] = 3221225472;
+      v7[2] = __68__MULockScreenCoordinator_performActionIfSuccessfullyAuthenticated___block_invoke_2;
+      v7[3] = &unk_1E821A730;
+      v8 = *(a1 + 32);
+      (*(v5 + 16))(v5, v7);
     }
   }
 
   else
   {
-    v6 = *(a1 + 32);
-    v7 = *(*(a1 + 32) + 16);
+    v6 = *(*(a1 + 32) + 16);
 
-    v7();
+    v6();
   }
 }
 

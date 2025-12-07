@@ -2,7 +2,6 @@
 - (BOOL)acquireWithError:(id *)error;
 - (_DASAssertionGroup)initWithActivity:(id)activity assertions:(id)assertions delegate:(id)delegate;
 - (_DASAssertionGroupDelegate)delegate;
-- (id)description;
 - (void)dealloc;
 - (void)invalidate;
 - (void)setInvalidationHandler:(id)handler;
@@ -298,13 +297,6 @@
   v3.receiver = self;
   v3.super_class = _DASAssertionGroup;
   [(_DASAssertionGroup *)&v3 dealloc];
-}
-
-- (id)description
-{
-  v3 = objc_opt_class();
-  assertions = self->_assertions;
-  return [NSString stringWithFormat:@"<%@: assertions: %@, activity: %@>", v3, assertions, self->_activity];
 }
 
 - (_DASAssertionGroupDelegate)delegate

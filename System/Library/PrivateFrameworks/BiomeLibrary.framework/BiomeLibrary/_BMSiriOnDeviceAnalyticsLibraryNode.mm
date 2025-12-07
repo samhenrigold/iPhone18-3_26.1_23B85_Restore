@@ -14,48 +14,44 @@
 
 + (id)AttentionAndInvocationSampling
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForAttentionAndInvocationSampling = [self configurationForAttentionAndInvocationSampling];
   v3 = +[BMSiriAttentionAndInvocationSampling columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Siri.OnDeviceAnalytics.AttentionAndInvocationSampling" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Siri.OnDeviceAnalytics.AttentionAndInvocationSampling" schema:v9 configuration:configurationForAttentionAndInvocationSampling];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)configurationForAttentionAndInvocationSampling
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   storeConfigurationForAttentionAndInvocationSampling = [self storeConfigurationForAttentionAndInvocationSampling];
   syncPolicyForAttentionAndInvocationSampling = [self syncPolicyForAttentionAndInvocationSampling];
   v5 = objc_alloc(MEMORY[0x1E698F330]);
   v6 = [MEMORY[0x1E696AE18] predicateWithFormat:@"TRUEPREDICATE" argumentArray:0];
   v7 = [v5 initWithIdentifier:@"delete-siri-dictation-history" predicate:v6];
-  v18[0] = v7;
+  v17[0] = v7;
   v8 = objc_alloc(MEMORY[0x1E698F330]);
   v9 = [MEMORY[0x1E696AE18] predicateWithFormat:@"TRUEPREDICATE" argumentArray:0];
   v10 = [v8 initWithIdentifier:@"disable-siri" predicate:v9];
-  v18[1] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
+  v17[1] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
 
   v12 = MEMORY[0x1E698F338];
   v13 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:@"A6F68C23-942F-4B5B-8F96-DA14463BCC48"];
-  BYTE2(v17) = 0;
-  LOWORD(v17) = 1;
-  v14 = [v12 _libraryStreamConfigurationWithUUID:v13 streamIdentifier:@"Siri.OnDeviceAnalytics.AttentionAndInvocationSampling" eventClass:objc_opt_class() storeConfig:storeConfigurationForAttentionAndInvocationSampling syncPolicy:syncPolicyForAttentionAndInvocationSampling legacyNames:0 internalMetadata:0 enableSubscriptions:v17 enableSubscriptionSubstream:0 enableTombstoneSubstream:v11 allowedClients:0 pruningTriggers:v18[0] spaceAttributionOwner:?];
-
-  v15 = *MEMORY[0x1E69E9840];
+  BYTE2(v16) = 0;
+  LOWORD(v16) = 1;
+  v14 = [v12 _libraryStreamConfigurationWithUUID:v13 streamIdentifier:@"Siri.OnDeviceAnalytics.AttentionAndInvocationSampling" eventClass:objc_opt_class() storeConfig:storeConfigurationForAttentionAndInvocationSampling syncPolicy:syncPolicyForAttentionAndInvocationSampling legacyNames:0 internalMetadata:0 enableSubscriptions:v16 enableSubscriptionSubstream:0 enableTombstoneSubstream:v11 allowedClients:0 pruningTriggers:v17[0] spaceAttributionOwner:?];
 
   return v14;
 }
@@ -71,76 +67,70 @@
 
 + (id)syncPolicyForAttentionAndInvocationSampling
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F340]) initWithTransportType:2 direction:3];
-  v17[0] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+  v16[0] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
   v4 = [objc_alloc(MEMORY[0x1E698F340]) initWithTransportType:2 direction:2];
-  v16 = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v16 count:1];
+  v15 = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:1];
   v6 = BMDevicePlatformAsKeyString();
-  v14[0] = v6;
-  v15[0] = v3;
+  v13[0] = v6;
+  v14[0] = v3;
   v7 = BMDevicePlatformAsKeyString();
-  v14[1] = v7;
-  v15[1] = v3;
+  v13[1] = v7;
+  v14[1] = v3;
   v8 = BMDevicePlatformAsKeyString();
-  v14[2] = v8;
-  v15[2] = v5;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:3];
+  v13[2] = v8;
+  v14[2] = v5;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:3];
 
   v10 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:@"A6F68C23-942F-4B5B-8F96-DA14463BCC48"];
   v11 = [objc_alloc(MEMORY[0x1E698F348]) initWithPolicyDictionary:v9 syncUUID:v10 legacySyncID:0 eventClass:objc_opt_class()];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 + (id)SpeakerIdSampling
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForSpeakerIdSampling = [self configurationForSpeakerIdSampling];
   v3 = +[BMSiriSpeakerIdSampling columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Siri.OnDeviceAnalytics.SpeakerIdSampling" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Siri.OnDeviceAnalytics.SpeakerIdSampling" schema:v9 configuration:configurationForSpeakerIdSampling];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)configurationForSpeakerIdSampling
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   storeConfigurationForSpeakerIdSampling = [self storeConfigurationForSpeakerIdSampling];
   syncPolicyForSpeakerIdSampling = [self syncPolicyForSpeakerIdSampling];
   v5 = objc_alloc(MEMORY[0x1E698F330]);
   v6 = [MEMORY[0x1E696AE18] predicateWithFormat:@"TRUEPREDICATE" argumentArray:0];
   v7 = [v5 initWithIdentifier:@"delete-siri-dictation-history" predicate:v6];
-  v18[0] = v7;
+  v17[0] = v7;
   v8 = objc_alloc(MEMORY[0x1E698F330]);
   v9 = [MEMORY[0x1E696AE18] predicateWithFormat:@"TRUEPREDICATE" argumentArray:0];
   v10 = [v8 initWithIdentifier:@"disable-siri" predicate:v9];
-  v18[1] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
+  v17[1] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
 
   v12 = MEMORY[0x1E698F338];
   v13 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:@"A055E9EC-BE22-44EF-AE89-71DB3294A7EC"];
-  BYTE2(v17) = 1;
-  LOWORD(v17) = 1;
-  v14 = [v12 _libraryStreamConfigurationWithUUID:v13 streamIdentifier:@"Siri.OnDeviceAnalytics.SpeakerIdSampling" eventClass:objc_opt_class() storeConfig:storeConfigurationForSpeakerIdSampling syncPolicy:syncPolicyForSpeakerIdSampling legacyNames:0 internalMetadata:0 enableSubscriptions:v17 enableSubscriptionSubstream:0 enableTombstoneSubstream:v11 allowedClients:0 pruningTriggers:v18[0] spaceAttributionOwner:?];
-
-  v15 = *MEMORY[0x1E69E9840];
+  BYTE2(v16) = 1;
+  LOWORD(v16) = 1;
+  v14 = [v12 _libraryStreamConfigurationWithUUID:v13 streamIdentifier:@"Siri.OnDeviceAnalytics.SpeakerIdSampling" eventClass:objc_opt_class() storeConfig:storeConfigurationForSpeakerIdSampling syncPolicy:syncPolicyForSpeakerIdSampling legacyNames:0 internalMetadata:0 enableSubscriptions:v16 enableSubscriptionSubstream:0 enableTombstoneSubstream:v11 allowedClients:0 pruningTriggers:v17[0] spaceAttributionOwner:?];
 
   return v14;
 }

@@ -129,14 +129,14 @@
   castViewController = [(TVRUINowPlayingViewController *)self castViewController];
   [castViewController setMetadata:metadata];
 
-  v17 = _TVRUINowPlayingLog();
-  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+  v18 = _TVRUINowPlayingLog(v17);
+  v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
   if (metadata)
   {
-    if (v18)
+    if (v19)
     {
       *buf = 0;
-      _os_log_impl(&dword_26CFEB000, v17, OS_LOG_TYPE_DEFAULT, "NowPlayingInfo update: metadata is not nil, try updating playback info", buf, 2u);
+      _os_log_impl(&dword_26CFEB000, v18, OS_LOG_TYPE_DEFAULT, "NowPlayingInfo update: metadata is not nil, try updating playback info", buf, 2u);
     }
 
     timedMetadataViewController = [(TVRUINowPlayingViewController *)self timedMetadataViewController];
@@ -149,10 +149,10 @@
 
   else
   {
-    if (v18)
+    if (v19)
     {
-      *v21 = 0;
-      _os_log_impl(&dword_26CFEB000, v17, OS_LOG_TYPE_DEFAULT, "NowPlayingInfo update: metadata is nil, retain the last known content", v21, 2u);
+      *v22 = 0;
+      _os_log_impl(&dword_26CFEB000, v18, OS_LOG_TYPE_DEFAULT, "NowPlayingInfo update: metadata is nil, retain the last known content", v22, 2u);
     }
 
     [(TVRUINowPlayingViewController *)self configureSegControlOrDividerViewVisibility];
@@ -675,7 +675,7 @@ void __51__TVRUINowPlayingViewController_configureHierarchy__block_invoke_2(uint
 
 - (void)panRecognizerDidFire:(id)fire
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   state = [fireCopy state];
   view = [(TVRUINowPlayingViewController *)self view];
@@ -684,7 +684,7 @@ void __51__TVRUINowPlayingViewController_configureHierarchy__block_invoke_2(uint
 
   view2 = [(TVRUINowPlayingViewController *)self view];
   [view2 bounds];
-  Width = CGRectGetWidth(v82);
+  Width = CGRectGetWidth(v86);
 
   v11 = fabs(v8) / Width;
   if (Width > 0.0)
@@ -775,30 +775,30 @@ void __51__TVRUINowPlayingViewController_configureHierarchy__block_invoke_2(uint
     {
       if ([(TVRUINowPlayingViewController *)self interactiveSwipeGestureIsApplyingRubberbandingTransform])
       {
-        v49 = objc_alloc(MEMORY[0x277D75D40]);
-        v50 = [objc_alloc(MEMORY[0x277D753D0]) initWithAnimationCurve:2];
-        v51 = [v49 initWithDuration:v50 timingParameters:0.3];
+        v52 = objc_alloc(MEMORY[0x277D75D40]);
+        v53 = [objc_alloc(MEMORY[0x277D753D0]) initWithAnimationCurve:2];
+        v54 = [v52 initWithDuration:v53 timingParameters:0.3];
 
-        v52 = [(TVRUINowPlayingViewController *)self viewControllerForIndex:selectedIndex];
-        v77[0] = MEMORY[0x277D85DD0];
-        v77[1] = 3221225472;
-        v77[2] = __54__TVRUINowPlayingViewController_panRecognizerDidFire___block_invoke;
-        v77[3] = &unk_279D87C20;
-        v78 = v52;
-        v53 = v52;
-        [v51 addAnimations:v77];
-        v76[0] = MEMORY[0x277D85DD0];
-        v76[1] = 3221225472;
-        v76[2] = __54__TVRUINowPlayingViewController_panRecognizerDidFire___block_invoke_2;
-        v76[3] = &unk_279D88A20;
-        v76[4] = self;
-        v76[5] = selectedIndex;
-        [v51 addCompletion:v76];
-        v54 = [_TVRUIAnimationState animationStateWithIndex:selectedIndex previousIndex:0x7FFFFFFFFFFFFFFFLL toViewController:v53 fromViewController:0 isInteractive:0];
-        [(TVRUINowPlayingViewController *)self setCurrentAnimationState:v54];
+        v55 = [(TVRUINowPlayingViewController *)self viewControllerForIndex:selectedIndex];
+        v81[0] = MEMORY[0x277D85DD0];
+        v81[1] = 3221225472;
+        v81[2] = __54__TVRUINowPlayingViewController_panRecognizerDidFire___block_invoke;
+        v81[3] = &unk_279D87C20;
+        v82 = v55;
+        v56 = v55;
+        [v54 addAnimations:v81];
+        v80[0] = MEMORY[0x277D85DD0];
+        v80[1] = 3221225472;
+        v80[2] = __54__TVRUINowPlayingViewController_panRecognizerDidFire___block_invoke_2;
+        v80[3] = &unk_279D88A20;
+        v80[4] = self;
+        v80[5] = selectedIndex;
+        [v54 addCompletion:v80];
+        v57 = [_TVRUIAnimationState animationStateWithIndex:selectedIndex previousIndex:0x7FFFFFFFFFFFFFFFLL toViewController:v56 fromViewController:0 isInteractive:0];
+        [(TVRUINowPlayingViewController *)self setCurrentAnimationState:v57];
 
-        [(TVRUINowPlayingViewController *)self setCurrentTabSelectionAnimator:v51];
-        [v51 startAnimation];
+        [(TVRUINowPlayingViewController *)self setCurrentTabSelectionAnimator:v54];
+        [v54 startAnimation];
       }
 
       goto LABEL_70;
@@ -808,15 +808,15 @@ void __51__TVRUINowPlayingViewController_configureHierarchy__block_invoke_2(uint
     {
       if (state == 3)
       {
-        v36 = v26;
+        v38 = v26;
       }
 
       else
       {
-        v36 = 1;
+        v38 = 1;
       }
 
-      if ((v36 & 1) == 0)
+      if ((v38 & 1) == 0)
       {
         currentAnimationState = [(TVRUINowPlayingViewController *)self currentAnimationState];
         if ([currentAnimationState index] == v18)
@@ -834,26 +834,26 @@ void __51__TVRUINowPlayingViewController_configureHierarchy__block_invoke_2(uint
         {
         }
 
-        v72 = _TVRUINowPlayingLog();
-        if (os_log_type_enabled(v72, OS_LOG_TYPE_INFO))
+        v76 = _TVRUINowPlayingLog(v42);
+        if (os_log_type_enabled(v76, OS_LOG_TYPE_INFO))
         {
-          v73 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:selectedIndex];
-          v74 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v18];
+          v77 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:selectedIndex];
+          v78 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v18];
           LODWORD(buf.a) = 138412546;
-          *(&buf.a + 4) = v73;
+          *(&buf.a + 4) = v77;
           WORD2(buf.b) = 2112;
-          *(&buf.b + 6) = v74;
-          _os_log_impl(&dword_26CFEB000, v72, OS_LOG_TYPE_INFO, "ANIM: pan gesture ended with animation in flight: performing interruption from: %@ -> %@", &buf, 0x16u);
+          *(&buf.b + 6) = v78;
+          _os_log_impl(&dword_26CFEB000, v76, OS_LOG_TYPE_INFO, "ANIM: pan gesture ended with animation in flight: performing interruption from: %@ -> %@", &buf, 0x16u);
         }
 
         tabSelectorControl3 = [(TVRUINowPlayingViewController *)self tabSelectorControl];
         [tabSelectorControl3 setSelectedIndex:v18];
 
-        v48 = 0.0;
+        v51 = 0.0;
         selfCopy2 = self;
-        v45 = selectedIndex;
-        v46 = v18;
-        v47 = 0;
+        v48 = selectedIndex;
+        v49 = v18;
+        v50 = 0;
         goto LABEL_69;
       }
 
@@ -862,22 +862,22 @@ void __51__TVRUINowPlayingViewController_configureHierarchy__block_invoke_2(uint
 
     view3 = [(TVRUINowPlayingViewController *)self view];
     [fireCopy velocityInView:view3];
-    v57 = v56;
+    v60 = v59;
 
-    if (v57 != 0.0)
+    if (v60 != 0.0)
     {
       currentAnimationState3 = [(TVRUINowPlayingViewController *)self currentAnimationState];
       index = [currentAnimationState3 index];
       currentAnimationState4 = [(TVRUINowPlayingViewController *)self currentAnimationState];
       LODWORD(index) = index < [currentAnimationState4 previousIndex];
 
-      if (v57 > 0.0 != index)
+      if (v60 > 0.0 != index)
       {
-        v61 = _TVRUINowPlayingLog();
-        if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
+        v65 = _TVRUINowPlayingLog(v61);
+        if (os_log_type_enabled(v65, OS_LOG_TYPE_INFO))
         {
           LOWORD(buf.a) = 0;
-          _os_log_impl(&dword_26CFEB000, v61, OS_LOG_TYPE_INFO, "ANIM: pan gesture ended with interactive animator, but user changed directions midway through so reverting in-progress interactive tab selection.", &buf, 2u);
+          _os_log_impl(&dword_26CFEB000, v65, OS_LOG_TYPE_INFO, "ANIM: pan gesture ended with interactive animator, but user changed directions midway through so reverting in-progress interactive tab selection.", &buf, 2u);
         }
 
         currentAnimationState5 = [(TVRUINowPlayingViewController *)self currentAnimationState];
@@ -889,20 +889,20 @@ void __51__TVRUINowPlayingViewController_configureHierarchy__block_invoke_2(uint
         tabSelectorControl4 = [(TVRUINowPlayingViewController *)self tabSelectorControl];
         [tabSelectorControl4 setSelectedIndex:previousIndex2];
 
-        v67 = objc_alloc(MEMORY[0x277D75D40]);
-        v68 = [objc_alloc(MEMORY[0x277D753D0]) initWithAnimationCurve:2];
-        v69 = [v67 initWithDuration:v68 timingParameters:0.3];
+        v71 = objc_alloc(MEMORY[0x277D75D40]);
+        v72 = [objc_alloc(MEMORY[0x277D753D0]) initWithAnimationCurve:2];
+        v73 = [v71 initWithDuration:v72 timingParameters:0.3];
 
-        [(TVRUINowPlayingViewController *)self _performTabAnimationFromIndex:index2 toIndex:previousIndex2 isInteractive:0 interactivePercentage:v69 animator:0.0];
+        [(TVRUINowPlayingViewController *)self _performTabAnimationFromIndex:index2 toIndex:previousIndex2 isInteractive:0 interactivePercentage:v73 animator:0.0];
         goto LABEL_70;
       }
     }
 
-    v70 = _TVRUINowPlayingLog();
-    if (os_log_type_enabled(v70, OS_LOG_TYPE_INFO))
+    v74 = _TVRUINowPlayingLog(v61);
+    if (os_log_type_enabled(v74, OS_LOG_TYPE_INFO))
     {
       LOWORD(buf.a) = 0;
-      _os_log_impl(&dword_26CFEB000, v70, OS_LOG_TYPE_INFO, "ANIM: pan gesture ended with interactive animator: start animation...", &buf, 2u);
+      _os_log_impl(&dword_26CFEB000, v74, OS_LOG_TYPE_INFO, "ANIM: pan gesture ended with interactive animator: start animation...", &buf, 2u);
     }
 
     currentTabSelectionAnimator3 = [(TVRUINowPlayingViewController *)self currentTabSelectionAnimator];
@@ -924,13 +924,13 @@ LABEL_60:
       goto LABEL_70;
     }
 
-    v30 = _TVRUINowPlayingLog();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+    v32 = _TVRUINowPlayingLog(v31);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
     {
-      v31 = [MEMORY[0x277CCABB0] numberWithDouble:v12];
+      v33 = [MEMORY[0x277CCABB0] numberWithDouble:v12];
       LODWORD(buf.a) = 138412290;
-      *(&buf.a + 4) = v31;
-      _os_log_impl(&dword_26CFEB000, v30, OS_LOG_TYPE_INFO, "ANIM: updating interactive animator with fractionComplete: %@", &buf, 0xCu);
+      *(&buf.a + 4) = v33;
+      _os_log_impl(&dword_26CFEB000, v32, OS_LOG_TYPE_INFO, "ANIM: updating interactive animator with fractionComplete: %@", &buf, 0xCu);
     }
 
     currentTabSelectionAnimator3 = [(TVRUINowPlayingViewController *)self currentTabSelectionAnimator];
@@ -940,25 +940,25 @@ LABEL_60:
 
   if ((v26 & 1) == 0)
   {
-    v41 = _TVRUINowPlayingLog();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+    v44 = _TVRUINowPlayingLog(v28);
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
     {
-      v42 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:selectedIndex];
-      v43 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v18];
+      v45 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:selectedIndex];
+      v46 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v18];
       LODWORD(buf.a) = 138412546;
-      *(&buf.a + 4) = v42;
+      *(&buf.a + 4) = v45;
       WORD2(buf.b) = 2112;
-      *(&buf.b + 6) = v43;
-      _os_log_impl(&dword_26CFEB000, v41, OS_LOG_TYPE_INFO, "ANIM: pan fired and no animator present -- calling performTabAnimationFrom: %@ to: %@", &buf, 0x16u);
+      *(&buf.b + 6) = v46;
+      _os_log_impl(&dword_26CFEB000, v44, OS_LOG_TYPE_INFO, "ANIM: pan fired and no animator present -- calling performTabAnimationFrom: %@ to: %@", &buf, 0x16u);
     }
 
     selfCopy2 = self;
-    v45 = selectedIndex;
-    v46 = v18;
-    v47 = 1;
-    v48 = v12;
+    v48 = selectedIndex;
+    v49 = v18;
+    v50 = 1;
+    v51 = v12;
 LABEL_69:
-    [(TVRUINowPlayingViewController *)selfCopy2 _performTabAnimationFromIndex:v45 toIndex:v46 isInteractive:v47 interactivePercentage:v48];
+    [(TVRUINowPlayingViewController *)selfCopy2 _performTabAnimationFromIndex:v48 toIndex:v49 isInteractive:v50 interactivePercentage:v51];
     goto LABEL_70;
   }
 
@@ -966,30 +966,30 @@ LABEL_69:
   {
     if (v24 && v18 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v40 = 0.0;
+      v43 = 0.0;
       if (v8 > 0.0)
       {
-        v40 = v8;
+        v43 = v8;
       }
     }
 
     else
     {
-      v40 = 0.0;
+      v43 = 0.0;
       if (v23 && v8 < 0.0)
       {
-        v40 = v8;
+        v43 = v8;
       }
     }
 
-    v71 = v40 * 0.5;
-    if (v40 * 0.5 != 0.0)
+    v75 = v43 * 0.5;
+    if (v43 * 0.5 != 0.0)
     {
       [(TVRUINowPlayingViewController *)self setInteractiveSwipeGestureIsApplyingRubberbandingTransform:1];
       memset(&buf, 0, sizeof(buf));
-      CGAffineTransformMakeTranslation(&buf, v71, 0.0);
-      v79 = buf;
-      [(TVRUINowPlayingViewController *)self _applyTransform:&v79 toChildViewControllerAtIndex:selectedIndex];
+      CGAffineTransformMakeTranslation(&buf, v75, 0.0);
+      v83 = buf;
+      [(TVRUINowPlayingViewController *)self _applyTransform:&v83 toChildViewControllerAtIndex:selectedIndex];
     }
   }
 
@@ -1097,7 +1097,7 @@ LABEL_6:
 
 - (void)configureTimedMetadata
 {
-  v3 = _TVRUINowPlayingLog();
+  v3 = _TVRUINowPlayingLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(v9[0]) = 0;
@@ -1131,24 +1131,24 @@ LABEL_6:
 
 - (id)makeTimedMetadataPlaybackInfo
 {
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x2050000000;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x2050000000;
   v3 = getVUITimedMetadataPlaybackInfoClass_softClass;
-  v37 = getVUITimedMetadataPlaybackInfoClass_softClass;
+  v38 = getVUITimedMetadataPlaybackInfoClass_softClass;
   if (!getVUITimedMetadataPlaybackInfoClass_softClass)
   {
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __getVUITimedMetadataPlaybackInfoClass_block_invoke;
-    v33[3] = &unk_279D88AE0;
-    v33[4] = &v34;
-    __getVUITimedMetadataPlaybackInfoClass_block_invoke(v33);
-    v3 = v35[3];
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __getVUITimedMetadataPlaybackInfoClass_block_invoke;
+    v34[3] = &unk_279D88AE0;
+    v34[4] = &v35;
+    __getVUITimedMetadataPlaybackInfoClass_block_invoke(v34);
+    v3 = v36[3];
   }
 
   v4 = v3;
-  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(&v35, 8);
   v5 = objc_alloc_init(v3);
   nowPlayingInfo = [(TVRUINowPlayingViewController *)self nowPlayingInfo];
   metadata = [nowPlayingInfo metadata];
@@ -1192,25 +1192,25 @@ LABEL_6:
 
   if (timestamp)
   {
-    v28 = MEMORY[0x277CBEAA8];
+    v29 = MEMORY[0x277CBEAA8];
     [timestamp doubleValue];
-    v29 = [v28 dateWithTimeIntervalSinceReferenceDate:?];
+    v30 = [v29 dateWithTimeIntervalSinceReferenceDate:?];
   }
 
   else
   {
-    v30 = _TVRUINowPlayingLog();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    v31 = _TVRUINowPlayingLog(v28);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v33[0]) = 0;
-      _os_log_impl(&dword_26CFEB000, v30, OS_LOG_TYPE_DEFAULT, "timestamp is nil, use current date", v33, 2u);
+      LOWORD(v34[0]) = 0;
+      _os_log_impl(&dword_26CFEB000, v31, OS_LOG_TYPE_DEFAULT, "timestamp is nil, use current date", v34, 2u);
     }
 
-    v29 = [MEMORY[0x277CBEAA8] now];
+    v30 = [MEMORY[0x277CBEAA8] now];
   }
 
-  v31 = v29;
-  [v5 setTimeStamp:v29];
+  v32 = v30;
+  [v5 setTimeStamp:v30];
 
   return v5;
 }
@@ -1352,7 +1352,7 @@ LABEL_6:
       if (_appearState != 3 && _appearState || !appearingCopy)
       {
 LABEL_10:
-        v10 = _TVRUINowPlayingLog();
+        v10 = _TVRUINowPlayingLog(_appearState);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
           v11 = [MEMORY[0x277CCABB0] numberWithBool:appearingCopy];
@@ -1374,8 +1374,7 @@ LABEL_10:
     }
 
     [v8 beginAppearanceTransition:appearingCopy animated:0];
-    [v8 endAppearanceTransition];
-    v10 = _TVRUINowPlayingLog();
+    v10 = _TVRUINowPlayingLog([v8 endAppearanceTransition]);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = [MEMORY[0x277CCABB0] numberWithBool:appearingCopy];
@@ -1394,8 +1393,8 @@ LABEL_13:
 
 - (void)configureTimedMetadataView
 {
-  v29[4] = *MEMORY[0x277D85DE8];
-  v3 = _TVRUINowPlayingLog();
+  v30[4] = *MEMORY[0x277D85DE8];
+  v3 = _TVRUINowPlayingLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1409,11 +1408,11 @@ LABEL_13:
 
   if (superview != view2)
   {
-    v8 = _TVRUINowPlayingLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _TVRUINowPlayingLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_26CFEB000, v8, OS_LOG_TYPE_DEFAULT, "Add timed metadata view to view hierarchy", buf, 2u);
+      _os_log_impl(&dword_26CFEB000, v9, OS_LOG_TYPE_DEFAULT, "Add timed metadata view to view hierarchy", buf, 2u);
     }
 
     timedMetadataViewController2 = [(TVRUINowPlayingViewController *)self timedMetadataViewController];
@@ -1428,25 +1427,25 @@ LABEL_13:
     view5 = [backgroundEffectViewController view];
     [view4 bringSubviewToFront:view5];
 
-    v21 = MEMORY[0x277CCAAD0];
+    v22 = MEMORY[0x277CCAAD0];
     topAnchor = [view3 topAnchor];
     topAnchor2 = [view4 topAnchor];
-    v24 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v29[0] = v24;
+    v25 = [topAnchor constraintEqualToAnchor:topAnchor2];
+    v30[0] = v25;
     leadingAnchor = [view3 leadingAnchor];
     leadingAnchor2 = [view4 leadingAnchor];
-    v13 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:0.0];
-    v29[1] = v13;
+    v14 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:0.0];
+    v30[1] = v14;
     trailingAnchor = [view3 trailingAnchor];
     trailingAnchor2 = [view4 trailingAnchor];
-    v16 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:0.0];
-    v29[2] = v16;
+    v17 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:0.0];
+    v30[2] = v17;
     bottomAnchor = [view3 bottomAnchor];
     bottomAnchor2 = [view4 bottomAnchor];
-    v19 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v29[3] = v19;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:4];
-    [v21 activateConstraints:v20];
+    v20 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+    v30[3] = v20;
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:4];
+    [v22 activateConstraints:v21];
   }
 }
 
@@ -1656,7 +1655,7 @@ LABEL_13:
 - (void)_performTabAnimationFromIndex:(unint64_t)index toIndex:(unint64_t)toIndex isInteractive:(BOOL)interactive interactivePercentage:(double)percentage animator:(id)animator
 {
   interactiveCopy = interactive;
-  v82 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   animatorCopy = animator;
   v12 = [(TVRUINowPlayingViewController *)self viewControllerForIndex:toIndex];
   v13 = [(TVRUINowPlayingViewController *)self viewControllerForIndex:index];
@@ -1683,9 +1682,9 @@ LABEL_13:
   aBlock[3] = &unk_279D88230;
   aBlock[4] = self;
   v20 = v18;
-  v79 = v20;
+  v83 = v20;
   v21 = _Block_copy(aBlock);
-  v60 = interactiveCopy;
+  v64 = interactiveCopy;
   if (interactiveCopy)
   {
     tabSelectorControl = [(TVRUINowPlayingViewController *)self tabSelectorControl];
@@ -1694,12 +1693,12 @@ LABEL_13:
 
   if (v17)
   {
-    v55 = v21;
+    v59 = v21;
     currentAnimationState = [(TVRUINowPlayingViewController *)self currentAnimationState];
-    v59 = [_TVRUIAnimationState animationStateWithIndex:toIndex previousIndex:index toViewController:v12 fromViewController:v14 isInteractive:v60];
+    v63 = [_TVRUIAnimationState animationStateWithIndex:toIndex previousIndex:index toViewController:v12 fromViewController:v14 isInteractive:v64];
     [(TVRUINowPlayingViewController *)self _callChildViewControllerAppearanceForAppearingIdentifier:v20];
     currentTabSelectionAnimator = [(TVRUINowPlayingViewController *)self currentTabSelectionAnimator];
-    v56 = v20;
+    v60 = v20;
     if ([currentTabSelectionAnimator isRunning])
     {
       currentTabSelectionAnimator2 = [(TVRUINowPlayingViewController *)self currentTabSelectionAnimator];
@@ -1723,20 +1722,21 @@ LABEL_13:
 
     view = [(TVRUINowPlayingViewController *)self view];
     [view bounds];
-    Width = CGRectGetWidth(v83);
+    Width = CGRectGetWidth(v87);
 
     LOBYTE(view) = [currentAnimationState isParticpantViewController:v12];
-    v33 = [currentAnimationState isParticpantViewController:v14];
-    v58 = v12;
-    v53 = toIndex < index;
+    v34 = [currentAnimationState isParticpantViewController:v14];
+    v35 = v34;
+    v62 = v12;
+    v57 = toIndex < index;
     if (view)
     {
-      view3 = _TVRUINowPlayingLog();
+      view3 = _TVRUINowPlayingLog(v34);
       if (os_log_type_enabled(view3, OS_LOG_TYPE_INFO))
       {
-        v35 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:toIndex];
+        v37 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:toIndex];
         LODWORD(buf.a) = 138412290;
-        *(&buf.a + 4) = v35;
+        *(&buf.a + 4) = v37;
         _os_log_impl(&dword_26CFEB000, view3, OS_LOG_TYPE_INFO, "ANIM: viewController @ index=%@ is currently animating, not setting transform.", &buf, 0xCu);
       }
     }
@@ -1746,28 +1746,28 @@ LABEL_13:
       view2 = [v12 view];
       [view2 setHidden:0];
 
-      v37 = -Width;
+      v39 = -Width;
       if (toIndex >= index)
       {
-        v37 = Width;
+        v39 = Width;
       }
 
-      CGAffineTransformMakeTranslation(&v77, v37, 0.0);
+      CGAffineTransformMakeTranslation(&v81, v39, 0.0);
       view3 = [v12 view];
-      buf = v77;
+      buf = v81;
       [view3 setTransform:&buf];
     }
 
-    v38 = MEMORY[0x277CBF2C0];
-    v57 = v14;
-    if (v33)
+    v41 = MEMORY[0x277CBF2C0];
+    v61 = v14;
+    if (v35)
     {
-      view5 = _TVRUINowPlayingLog();
+      view5 = _TVRUINowPlayingLog(v40);
       if (os_log_type_enabled(view5, OS_LOG_TYPE_INFO))
       {
-        v40 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:index];
+        v43 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:index];
         LODWORD(buf.a) = 138412290;
-        *(&buf.a + 4) = v40;
+        *(&buf.a + 4) = v43;
         _os_log_impl(&dword_26CFEB000, view5, OS_LOG_TYPE_INFO, "ANIM: previous VC @ index=%@ is currently animating, not resetting hidden state = NO", &buf, 0xCu);
       }
     }
@@ -1778,83 +1778,83 @@ LABEL_13:
       [view4 setHidden:0];
 
       view5 = [v14 view];
-      v42 = v38[1];
-      *&buf.a = *v38;
-      *&buf.c = v42;
-      *&buf.tx = v38[2];
+      v45 = v41[1];
+      *&buf.a = *v41;
+      *&buf.c = v45;
+      *&buf.tx = v41[2];
       [view5 setTransform:&buf];
     }
 
-    v54 = currentAnimationState;
-    v43 = [currentAnimationState viewControllersNoLongerAnimatingForDestinationAnimationState:v59];
-    v73 = 0u;
-    v74 = 0u;
-    v75 = 0u;
-    v76 = 0u;
-    v44 = [v43 countByEnumeratingWithState:&v73 objects:v80 count:16];
-    if (v44)
+    v58 = currentAnimationState;
+    v46 = [currentAnimationState viewControllersNoLongerAnimatingForDestinationAnimationState:v63];
+    v77 = 0u;
+    v78 = 0u;
+    v79 = 0u;
+    v80 = 0u;
+    v47 = [v46 countByEnumeratingWithState:&v77 objects:v84 count:16];
+    if (v47)
     {
-      v45 = v44;
-      v46 = *v74;
-      v63 = v38[1];
-      v64 = *v38;
-      v62 = v38[2];
+      v48 = v47;
+      v49 = *v78;
+      v67 = v41[1];
+      v68 = *v41;
+      v66 = v41[2];
       do
       {
-        for (i = 0; i != v45; ++i)
+        for (i = 0; i != v48; ++i)
         {
-          if (*v74 != v46)
+          if (*v78 != v49)
           {
-            objc_enumerationMutation(v43);
+            objc_enumerationMutation(v46);
           }
 
-          v48 = *(*(&v73 + 1) + 8 * i);
-          view6 = [v48 view];
+          v51 = *(*(&v77 + 1) + 8 * i);
+          view6 = [v51 view];
           [view6 setHidden:1];
 
-          view7 = [v48 view];
-          *&buf.a = v64;
-          *&buf.c = v63;
-          *&buf.tx = v62;
+          view7 = [v51 view];
+          *&buf.a = v68;
+          *&buf.c = v67;
+          *&buf.tx = v66;
           [view7 setTransform:&buf];
 
-          v51 = _TVRUINowPlayingLog();
-          if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
+          v55 = _TVRUINowPlayingLog(v54);
+          if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
           {
             LODWORD(buf.a) = 138412290;
-            *(&buf.a + 4) = v48;
-            _os_log_impl(&dword_26CFEB000, v51, OS_LOG_TYPE_INFO, "ANIM: resetting VC (which is no longering in animation) %@", &buf, 0xCu);
+            *(&buf.a + 4) = v51;
+            _os_log_impl(&dword_26CFEB000, v55, OS_LOG_TYPE_INFO, "ANIM: resetting VC (which is no longering in animation) %@", &buf, 0xCu);
           }
         }
 
-        v45 = [v43 countByEnumeratingWithState:&v73 objects:v80 count:16];
+        v48 = [v46 countByEnumeratingWithState:&v77 objects:v84 count:16];
       }
 
-      while (v45);
+      while (v48);
     }
 
-    v68[0] = MEMORY[0x277D85DD0];
-    v68[1] = 3221225472;
-    v68[2] = __116__TVRUINowPlayingViewController__performTabAnimationFromIndex_toIndex_isInteractive_interactivePercentage_animator___block_invoke_46;
-    v68[3] = &unk_279D88A48;
-    v12 = v58;
-    v69 = v58;
-    v14 = v57;
-    v52 = v57;
-    v70 = v52;
-    v72 = v53;
-    v71 = Width;
-    v30 = animatorCopy;
-    [animatorCopy addAnimations:v68];
-    v65[0] = MEMORY[0x277D85DD0];
-    v65[1] = 3221225472;
-    v65[2] = __116__TVRUINowPlayingViewController__performTabAnimationFromIndex_toIndex_isInteractive_interactivePercentage_animator___block_invoke_47;
-    v65[3] = &unk_279D88A70;
-    v66 = v52;
-    v21 = v55;
-    v67 = v55;
-    [animatorCopy addCompletion:v65];
-    if (v60)
+    v72[0] = MEMORY[0x277D85DD0];
+    v72[1] = 3221225472;
+    v72[2] = __116__TVRUINowPlayingViewController__performTabAnimationFromIndex_toIndex_isInteractive_interactivePercentage_animator___block_invoke_46;
+    v72[3] = &unk_279D88A48;
+    v12 = v62;
+    v73 = v62;
+    v14 = v61;
+    v56 = v61;
+    v74 = v56;
+    v76 = v57;
+    v75 = Width;
+    v31 = animatorCopy;
+    [animatorCopy addAnimations:v72];
+    v69[0] = MEMORY[0x277D85DD0];
+    v69[1] = 3221225472;
+    v69[2] = __116__TVRUINowPlayingViewController__performTabAnimationFromIndex_toIndex_isInteractive_interactivePercentage_animator___block_invoke_47;
+    v69[3] = &unk_279D88A70;
+    v70 = v56;
+    v21 = v59;
+    v71 = v59;
+    [animatorCopy addCompletion:v69];
+    if (v64)
     {
       [animatorCopy setScrubsLinearly:1];
       [animatorCopy setFractionComplete:percentage];
@@ -1866,24 +1866,24 @@ LABEL_13:
       [animatorCopy startAnimation];
     }
 
-    v20 = v56;
-    [(TVRUINowPlayingViewController *)self setCurrentAnimationState:v59];
+    v20 = v60;
+    [(TVRUINowPlayingViewController *)self setCurrentAnimationState:v63];
     [(TVRUINowPlayingViewController *)self setCurrentTabSelectionAnimator:animatorCopy];
 
-    v29 = v54;
+    v30 = v58;
   }
 
   else
   {
-    v21[2](v21);
-    v29 = _TVRUINowPlayingLog();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+    v29 = v21[2](v21);
+    v30 = _TVRUINowPlayingLog(v29);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
     {
       LOWORD(buf.a) = 0;
-      _os_log_impl(&dword_26CFEB000, v29, OS_LOG_TYPE_INFO, "ANIM: not possible to animate, commiting immediately to final state.", &buf, 2u);
+      _os_log_impl(&dword_26CFEB000, v30, OS_LOG_TYPE_INFO, "ANIM: not possible to animate, commiting immediately to final state.", &buf, 2u);
     }
 
-    v30 = animatorCopy;
+    v31 = animatorCopy;
   }
 }
 
@@ -1913,22 +1913,22 @@ void __116__TVRUINowPlayingViewController__performTabAnimationFromIndex_toIndex_
     v4 = -v4;
   }
 
-  CGAffineTransformMakeTranslation(&v7, v4, 0.0);
+  CGAffineTransformMakeTranslation(&v8, v4, 0.0);
   v5 = [*(a1 + 40) view];
-  buf = v7;
+  buf = v8;
   [v5 setTransform:&buf];
 
-  v6 = _TVRUINowPlayingLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v7 = _TVRUINowPlayingLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     LOWORD(buf.a) = 0;
-    _os_log_impl(&dword_26CFEB000, v6, OS_LOG_TYPE_INFO, "ANIM: animations firing...", &buf, 2u);
+    _os_log_impl(&dword_26CFEB000, v7, OS_LOG_TYPE_INFO, "ANIM: animations firing...", &buf, 2u);
   }
 }
 
 void __116__TVRUINowPlayingViewController__performTabAnimationFromIndex_toIndex_isInteractive_interactivePercentage_animator___block_invoke_47(uint64_t a1, uint64_t a2)
 {
-  v4 = _TVRUINowPlayingLog();
+  v4 = _TVRUINowPlayingLog(a1);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_INFO);
   if (a2)
   {

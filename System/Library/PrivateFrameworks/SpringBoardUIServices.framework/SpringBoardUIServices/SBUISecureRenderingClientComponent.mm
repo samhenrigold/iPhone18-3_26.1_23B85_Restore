@@ -33,8 +33,8 @@
     self->_secureRenderingEnabled = [(SBUISecureRenderingClientComponent *)self _isSecureRenderingEnabledForSceneSettings:settings];
 
     v10 = [MEMORY[0x1E69DD2F0] _sceneForFBSScene:sceneCopy];
-    transitionContext = [settingsCopy transitionContext];
-    animationFence = [transitionContext animationFence];
+    v11 = objc_msgSend_transitionContext(settingsCopy);
+    animationFence = [v11 animationFence];
 
     if (animationFence)
     {

@@ -16,7 +16,7 @@
   selfCopy = self;
 
   v4.receiver = selfCopy;
-  v4.super_class = type metadata accessor for VirtualEventService();
+  v4.super_class = type metadata accessor for VirtualEventService(0);
   [(VirtualEventService *)&v4 dealloc];
 }
 
@@ -51,29 +51,28 @@
   selfCopy = self;
   _bridgeAnyObjectToAny(_:)();
   swift_unknownObjectRelease();
-  sub_1001D46A4(v5, v7, v18);
+  sub_1001D46A4(v5, v7, &v17);
 
-  sub_100095808(v17);
-  v9 = v19;
-  if (v19)
+  sub_100095808(v16);
+  v9 = v18;
+  if (v18)
   {
-    v10 = sub_1000A09E0(v18, v19);
+    v10 = sub_1000A09E0(&v17, v18);
     v11 = *(v9 - 8);
-    v12 = *(v11 + 64);
     __chkstk_darwin(v10);
-    v14 = v17 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v11 + 16))(v14);
-    v15 = _bridgeAnythingToObjectiveC<A>(_:)();
-    (*(v11 + 8))(v14, v9);
-    sub_100095808(v18);
+    v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v11 + 16))(v13);
+    v14 = _bridgeAnythingToObjectiveC<A>(_:)();
+    (*(v11 + 8))(v13, v9);
+    sub_100095808(&v17);
   }
 
   else
   {
-    v15 = 0;
+    v14 = 0;
   }
 
-  return v15;
+  return v14;
 }
 
 - (id)copyEventMatching:(id)matching forService:(id)service
@@ -105,7 +104,7 @@
   selfCopy = self;
   _bridgeAnyObjectToAny(_:)();
   swift_unknownObjectRelease();
-  sub_1001D4AD8(notification);
+  sub_1001D4AD8(notification, v8);
 
   sub_100095808(v8);
 }

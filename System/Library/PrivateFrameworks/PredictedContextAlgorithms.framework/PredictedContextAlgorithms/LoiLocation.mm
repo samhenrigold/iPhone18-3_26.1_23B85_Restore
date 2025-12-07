@@ -72,21 +72,7 @@
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  if (!equalCopy)
-  {
-    goto LABEL_7;
-  }
-
-  objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    goto LABEL_7;
-  }
-
-  [equalCopy locationLatitudeDeg];
-  v6 = v5;
-  [(LoiLocation *)self locationLatitudeDeg];
-  if (v6 - v7 < 0.0001 && ([equalCopy locationLongitudeDeg], v9 = v8, -[LoiLocation locationLongitudeDeg](self, "locationLongitudeDeg"), v9 - v10 < 0.0001) && (v11 = objc_msgSend(equalCopy, "locationReferenceFrame"), v11 == -[LoiLocation locationReferenceFrame](self, "locationReferenceFrame")))
+  if (equalCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && ([equalCopy locationLatitudeDeg], v6 = v5, -[LoiLocation locationLatitudeDeg](self, "locationLatitudeDeg"), v6 - v7 < 0.0001) && (objc_msgSend(equalCopy, "locationLongitudeDeg"), v9 = v8, -[LoiLocation locationLongitudeDeg](self, "locationLongitudeDeg"), v9 - v10 < 0.0001) && (v11 = objc_msgSend(equalCopy, "locationReferenceFrame"), v11 == -[LoiLocation locationReferenceFrame](self, "locationReferenceFrame")))
   {
     [equalCopy locationHorizontalUncertaintyMeters];
     v13 = v12;
@@ -96,7 +82,6 @@
 
   else
   {
-LABEL_7:
     v15 = 0;
   }
 

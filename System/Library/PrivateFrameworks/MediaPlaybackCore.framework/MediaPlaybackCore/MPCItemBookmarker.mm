@@ -362,7 +362,7 @@ LABEL_6:
     v15 = playerItem;
     if (playerItem)
     {
-      [playerItem currentTime];
+      objc_msgSend_currentTime(playerItem);
     }
 
     else

@@ -35,7 +35,7 @@
 
 + (id)knownFactorsFromPaths:(id)paths
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   pathsCopy = paths;
   v5 = objc_alloc(MEMORY[0x277CBEBC0]);
   allowEnvVarDefaultLevelsDir = [pathsCopy allowEnvVarDefaultLevelsDir];
@@ -43,32 +43,32 @@
 
   if (v7)
   {
-    v25 = pathsCopy;
+    v24 = pathsCopy;
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v24 = v7;
+    v23 = v7;
     v9 = [defaultManager enumeratorAtURL:v7 includingPropertiesForKeys:MEMORY[0x277CBEBF8] options:0 errorHandler:&__block_literal_global_23];
 
     v10 = objc_opt_new();
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
     v11 = v9;
-    v12 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v27;
+      v14 = *v26;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v27 != v14)
+          if (*v26 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v26 + 1) + 8 * i);
+          v16 = *(*(&v25 + 1) + 8 * i);
           pathExtension = [v16 pathExtension];
           v18 = [pathExtension isEqualToString:@"plist"];
 
@@ -82,23 +82,21 @@
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
       while (v13);
     }
 
     v21 = [v10 copy];
-    v7 = v24;
-    pathsCopy = v25;
+    v7 = v23;
+    pathsCopy = v24;
   }
 
   else
   {
     v21 = MEMORY[0x277CBEBF8];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }

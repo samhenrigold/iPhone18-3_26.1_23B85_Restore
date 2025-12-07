@@ -9,7 +9,7 @@
   selfCopy = self;
   sub_1E3FA5484();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECF31D30);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECF31D30, &unk_1E42B7150);
   v3 = sub_1E42062A4();
 
   return v3;

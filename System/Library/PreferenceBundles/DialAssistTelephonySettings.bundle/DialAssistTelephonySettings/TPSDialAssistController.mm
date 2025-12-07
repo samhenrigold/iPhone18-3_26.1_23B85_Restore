@@ -24,25 +24,25 @@
 {
   contextCopy = context;
   carrierBundleController = [(TPSDialAssistController *)self carrierBundleController];
-  v15 = 0;
-  v7 = [carrierBundleController objectForKey:@"ShowDialAssist" subscriptionContext:contextCopy error:&v15];
+  v17 = 0;
+  v7 = [carrierBundleController objectForKey:@"ShowDialAssist" subscriptionContext:contextCopy error:&v17];
 
-  v8 = v15;
+  v8 = v17;
   if (v8)
   {
-    v9 = TPSDialAssistLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = TPSDialAssistLog(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v12 = objc_opt_class();
-      v13 = v12;
-      v14 = NSStringFromSelector(a2);
+      v14 = objc_opt_class();
+      v15 = v14;
+      v16 = NSStringFromSelector(a2);
       *buf = 138412802;
-      v17 = v12;
-      v18 = 2112;
       v19 = v14;
       v20 = 2112;
-      v21 = v8;
-      _os_log_error_impl(&dword_0, v9, OS_LOG_TYPE_ERROR, "[%@ %@] failed with error %@.", buf, 0x20u);
+      v21 = v16;
+      v22 = 2112;
+      v23 = v8;
+      _os_log_error_impl(&dword_0, v11, OS_LOG_TYPE_ERROR, "[%@ %@] failed with error %@.", buf, 0x20u);
     }
   }
 

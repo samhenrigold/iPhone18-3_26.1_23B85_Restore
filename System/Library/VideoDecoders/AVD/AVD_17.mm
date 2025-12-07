@@ -3450,11 +3450,11 @@ LABEL_88:
 
     v48 = a3[15];
     v49 = a2[5718];
-    v50 = (a3 + 37);
+    v50 = a3 + 37;
     v52 = *(v26 + 2644) == 1 && v47 != 0;
     do
     {
-      v53 = v49 + v49 * *&v50[4 * v36];
+      v53 = v49 + v49 * v50[v36];
       if (v53 + v37 > v44)
       {
         v53 = v44 - v37;
@@ -4024,7 +4024,7 @@ uint64_t CAHDecLotusAvc::populateSlices(CAHDecLotusAvc *this, unsigned int a2)
   return 0;
 }
 
-uint64_t CAHDecLotusAvc::populateSliceRegisters(uint64_t a1, uint64_t a2, signed int a3)
+uint64_t CAHDecLotusAvc::populateSliceRegisters(uint64_t a1, uint64_t a2, unsigned int a3)
 {
   v6 = 0;
   v108 = *MEMORY[0x277D85DE8];
@@ -6872,52 +6872,52 @@ void hevc_createSupportedPropertyDictionary()
   }
 }
 
-uint64_t AppleAVDWrapperHEVCDecoderInvalidate()
+uint64_t AppleAVDWrapperHEVCDecoderInvalidate(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (DerivedStorage)
   {
-    v1 = DerivedStorage;
+    v3 = DerivedStorage;
     pthread_mutex_lock((DerivedStorage + 5648));
-    v2 = *(v1 + 5204);
-    if ((v2 - 1) >= 2)
+    v4 = *(v3 + 5204);
+    if ((v4 - 1) >= 2)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v8 = 136315394;
-        v9 = "AppleAVDWrapperHEVCDecoderInvalidate";
-        v10 = 1024;
-        v11 = v2;
-        _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: %s called but plugin state is %d", &v8, 0x12u);
+        v10 = 136315394;
+        v11 = "AppleAVDWrapperHEVCDecoderInvalidate";
+        v12 = 1024;
+        v13 = v4;
+        _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: %s called but plugin state is %d", &v10, 0x12u);
       }
     }
 
     else
     {
-      *(v1 + 5204) = 3;
-      AppleAVDWrapperHEVCDecoderCleanUp();
+      *(v3 + 5204) = 3;
+      AppleAVDWrapperHEVCDecoderCleanUp(a1);
     }
 
-    pthread_mutex_unlock((v1 + 5648));
-    v4 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
+    pthread_mutex_unlock((v3 + 5648));
+    v6 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
     result = 0;
-    if (v4)
+    if (v6)
     {
-      v5 = *(v1 + 5832);
-      v6 = *(v1 + 5212);
-      v7 = *(v1 + 5216);
-      v8 = 136316162;
-      v9 = "AppleAVDWrapperHEVCDecoderInvalidate";
-      v10 = 1024;
-      v11 = v5;
+      v7 = *(v3 + 5832);
+      v8 = *(v3 + 5212);
+      v9 = *(v3 + 5216);
+      v10 = 136316162;
+      v11 = "AppleAVDWrapperHEVCDecoderInvalidate";
       v12 = 1024;
-      v13 = v6;
+      v13 = v7;
       v14 = 1024;
-      v15 = v7;
-      v16 = 2048;
-      v17 = v1;
-      _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: %s() codecType: HEVC, encryptionScheme %d, %d x %d, session: %p", &v8, 0x28u);
+      v15 = v8;
+      v16 = 1024;
+      v17 = v9;
+      v18 = 2048;
+      v19 = v3;
+      _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: %s() codecType: HEVC, encryptionScheme %d, %d x %d, session: %p", &v10, 0x28u);
       return 0;
     }
   }
@@ -6926,9 +6926,9 @@ uint64_t AppleAVDWrapperHEVCDecoderInvalidate()
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315138;
-      v9 = "AppleAVDWrapperHEVCDecoderInvalidate";
-      _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: %s called with invalid storage", &v8, 0xCu);
+      v10 = 136315138;
+      v11 = "AppleAVDWrapperHEVCDecoderInvalidate";
+      _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: %s called with invalid storage", &v10, 0xCu);
     }
 
     return 4294954393;
@@ -6937,9 +6937,9 @@ uint64_t AppleAVDWrapperHEVCDecoderInvalidate()
   return result;
 }
 
-void AppleAVDWrapperHEVCDecoderFinalize()
+void AppleAVDWrapperHEVCDecoderFinalize(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (!DerivedStorage)
   {
@@ -6948,56 +6948,56 @@ void AppleAVDWrapperHEVCDecoderFinalize()
       return;
     }
 
-    v9 = 136315138;
-    v10 = "AppleAVDWrapperHEVCDecoderFinalize";
-    v3 = MEMORY[0x277D86220];
-    v4 = "AppleAVD: %s called with invalid storage";
-    v5 = 12;
+    v11 = 136315138;
+    v12 = "AppleAVDWrapperHEVCDecoderFinalize";
+    v5 = MEMORY[0x277D86220];
+    v6 = "AppleAVD: %s called with invalid storage";
+    v7 = 12;
     goto LABEL_11;
   }
 
-  v1 = DerivedStorage;
+  v3 = DerivedStorage;
   pthread_mutex_lock((DerivedStorage + 5648));
-  v2 = *(v1 + 5204);
-  if ((v2 - 1) >= 3)
+  v4 = *(v3 + 5204);
+  if ((v4 - 1) >= 3)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315394;
-      v10 = "AppleAVDWrapperHEVCDecoderFinalize";
-      v11 = 1024;
-      v12 = v2;
-      _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: %s called but plugin state is %d", &v9, 0x12u);
+      v11 = 136315394;
+      v12 = "AppleAVDWrapperHEVCDecoderFinalize";
+      v13 = 1024;
+      v14 = v4;
+      _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: %s called but plugin state is %d", &v11, 0x12u);
     }
   }
 
-  else if (v2 != 3)
+  else if (v4 != 3)
   {
-    AppleAVDWrapperHEVCDecoderCleanUp();
+    AppleAVDWrapperHEVCDecoderCleanUp(a1);
   }
 
-  pthread_mutex_unlock((v1 + 5648));
-  pthread_mutex_destroy((v1 + 5648));
+  pthread_mutex_unlock((v3 + 5648));
+  pthread_mutex_destroy((v3 + 5648));
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = *(v1 + 5832);
-    v7 = *(v1 + 5212);
-    v8 = *(v1 + 5216);
-    v9 = 136316162;
-    v10 = "AppleAVDWrapperHEVCDecoderFinalize";
-    v11 = 1024;
-    v12 = v6;
+    v8 = *(v3 + 5832);
+    v9 = *(v3 + 5212);
+    v10 = *(v3 + 5216);
+    v11 = 136316162;
+    v12 = "AppleAVDWrapperHEVCDecoderFinalize";
     v13 = 1024;
-    v14 = v7;
+    v14 = v8;
     v15 = 1024;
-    v16 = v8;
-    v17 = 2048;
-    v18 = v1;
-    v3 = MEMORY[0x277D86220];
-    v4 = "AppleAVD: %s() codecType: HEVC, encryptionScheme %d, %d x %d, session: %p";
-    v5 = 40;
+    v16 = v9;
+    v17 = 1024;
+    v18 = v10;
+    v19 = 2048;
+    v20 = v3;
+    v5 = MEMORY[0x277D86220];
+    v6 = "AppleAVD: %s() codecType: HEVC, encryptionScheme %d, %d x %d, session: %p";
+    v7 = 40;
 LABEL_11:
-    _os_log_impl(&dword_277606000, v3, OS_LOG_TYPE_DEFAULT, v4, &v9, v5);
+    _os_log_impl(&dword_277606000, v5, OS_LOG_TYPE_DEFAULT, v6, &v11, v7);
   }
 }
 
@@ -7693,22 +7693,22 @@ LABEL_102:
   return result;
 }
 
-void AppleAVDWrapperHEVCDecoderCleanUp()
+void AppleAVDWrapperHEVCDecoderCleanUp(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v1 = CMBaseObjectGetDerivedStorage();
-  v2 = *(v1 + 5184);
-  if (!v2)
+  v2 = CMBaseObjectGetDerivedStorage();
+  v3 = *(v2 + 5184);
+  if (!v3)
   {
     goto LABEL_12;
   }
 
-  v3 = AppleAVDTerminateDecoder(v2);
-  if (!v3)
+  v4 = AppleAVDTerminateDecoder(v3);
+  if (!v4)
   {
-    v5 = AppleAVDCloseConnection((v1 + 5184));
-    if (!v5)
+    v6 = AppleAVDCloseConnection((v2 + 5184));
+    if (!v6)
     {
       goto LABEL_12;
     }
@@ -7716,75 +7716,75 @@ void AppleAVDWrapperHEVCDecoderCleanUp()
     goto LABEL_8;
   }
 
-  v4 = v3;
+  v5 = v4;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v12) = 0;
-    _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: AppleAVD_HEVCDecoder - ERROR terminate decoder", &v12, 2u);
+    LOWORD(v13) = 0;
+    _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: AppleAVD_HEVCDecoder - ERROR terminate decoder", &v13, 2u);
   }
 
-  v5 = AppleAVDCloseConnection((v1 + 5184));
-  if (v5)
+  v6 = AppleAVDCloseConnection((v2 + 5184));
+  if (v6)
   {
 LABEL_8:
-    v6 = v5;
+    v7 = v6;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v12) = 0;
-      _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: AppleAVD_HEVCDecoder - ERROR closing connection", &v12, 2u);
+      LOWORD(v13) = 0;
+      _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: AppleAVD_HEVCDecoder - ERROR closing connection", &v13, 2u);
     }
 
     goto LABEL_10;
   }
 
-  v6 = v4;
+  v7 = v5;
 LABEL_10:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136315394;
-    v13 = "AppleAVDWrapperHEVCDecoderCleanUp";
-    v14 = 1024;
-    v15 = v6;
-    _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: %s(): ERROR :: closeAppleAVDHW_HEVCDecoderInstance returned error %d", &v12, 0x12u);
+    v13 = 136315394;
+    v14 = "AppleAVDWrapperHEVCDecoderCleanUp";
+    v15 = 1024;
+    v16 = v7;
+    _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: %s(): ERROR :: closeAppleAVDHW_HEVCDecoderInstance returned error %d", &v13, 0x12u);
   }
 
 LABEL_12:
   ReleaseHeaderBufferAndCloseFileIO(DerivedStorage);
-  v7 = DerivedStorage[4];
-  if (v7)
-  {
-    CVPixelBufferPoolRelease(v7);
-  }
-
-  DerivedStorage[4] = 0;
-  v8 = DerivedStorage[5];
+  v8 = DerivedStorage[4];
   if (v8)
   {
     CVPixelBufferPoolRelease(v8);
   }
 
-  DerivedStorage[5] = 0;
-  v9 = DerivedStorage[6];
+  DerivedStorage[4] = 0;
+  v9 = DerivedStorage[5];
   if (v9)
   {
-    CFRelease(v9);
-    DerivedStorage[6] = 0;
+    CVPixelBufferPoolRelease(v9);
   }
 
-  v10 = DerivedStorage[7];
+  DerivedStorage[5] = 0;
+  v10 = DerivedStorage[6];
   if (v10)
   {
     CFRelease(v10);
+    DerivedStorage[6] = 0;
+  }
+
+  v11 = DerivedStorage[7];
+  if (v11)
+  {
+    CFRelease(v11);
     DerivedStorage[7] = 0;
   }
 
   *DerivedStorage = 0;
   FigFormatDescriptionRelease();
   DerivedStorage[3] = 0;
-  v11 = DerivedStorage[649];
-  if (v11)
+  v12 = DerivedStorage[649];
+  if (v12)
   {
-    CFRelease(v11);
+    CFRelease(v12);
     DerivedStorage[649] = 0;
   }
 
@@ -7940,7 +7940,7 @@ LABEL_7:
     v81 = 0u;
     memset(buf, 0, sizeof(buf));
     readPreferences(buf);
-    v14 = buf[12];
+    v14 = *&buf[12];
     *(v6 + 16872) = DWORD1(v83);
     pthread_mutex_init((v6 + 5648), 0);
     pthread_mutex_lock((v6 + 5648));
@@ -8583,13 +8583,13 @@ LABEL_23:
   return v4;
 }
 
-uint64_t InitPixelBufferCompressionNotSupported_0(uint64_t a1)
+uint64_t InitPixelBufferCompressionNotSupported_0(void *a1)
 {
-  v2 = (a1 + 5744);
-  result = InitDisplayPixelBufferCompressionNotSupported(*a1, *(a1 + 5184), *(a1 + 5220), *(a1 + 5212), *(a1 + 5216), *(a1 + 5224), *(a1 + 5228), *(a1 + 5745), *(a1 + 5744), *(a1 + 5801), *(a1 + 8008), (a1 + 32), (a1 + 48), *(a1 + 16848), *(a1 + 16852));
+  v2 = (a1 + 718);
+  result = InitDisplayPixelBufferCompressionNotSupported(*a1, a1[648], *(a1 + 1305), *(a1 + 1303), *(a1 + 1304), *(a1 + 1306), *(a1 + 1307), *(a1 + 5745), *(a1 + 5744), *(a1 + 5801), a1[1001], a1 + 4, a1 + 6, *(a1 + 16848), *(a1 + 4213));
   if (!result)
   {
-    return InitReferencePixelBufferCompressionNotSupported(*a1, *(a1 + 5184), *(a1 + 5220), *(a1 + 5212), *(a1 + 5216), *(a1 + 5224), *(a1 + 5228), *(a1 + 5745), *v2, *(a1 + 5801), *(a1 + 8008), *(a1 + 5816), 5, 4, 2, 2, (a1 + 40), (a1 + 56));
+    return InitReferencePixelBufferCompressionNotSupported(*a1, a1[648], *(a1 + 1305), *(a1 + 1303), *(a1 + 1304), *(a1 + 1306), *(a1 + 1307), *(a1 + 5745), *v2, *(a1 + 5801), a1[1001], *(a1 + 5816), 5, 4, 2, 2, a1 + 5, a1 + 7);
   }
 
   return result;
@@ -8608,9 +8608,9 @@ uint64_t PostEmitCleanUpCallBack_0(uint64_t a1)
   }
 }
 
-uint64_t AppleAVDHEVCDecoderEmitErrorToVT(uint64_t a1)
+uint64_t AppleAVDHEVCDecoderEmitErrorToVT(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
-  if (*(a1 + 16816))
+  if (a1[2102])
   {
     return VTDecoderSessionEmitDecodedMultiImageFrame();
   }

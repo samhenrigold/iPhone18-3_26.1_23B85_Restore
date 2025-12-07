@@ -47,25 +47,25 @@
 
 - (id)_dictionaryRepresentation
 {
-  v61[16] = *MEMORY[0x1E69E9840];
-  v60[0] = @"code";
+  v60[16] = *MEMORY[0x1E69E9840];
+  v59[0] = @"code";
   code = [(INRunVoiceCommandIntentResponse *)self code];
-  v59 = code;
+  v58 = code;
   if (code < 0x16)
   {
     null = off_1E727E168[code];
-    v58 = null;
+    v57 = null;
   }
 
   else
   {
     null = [MEMORY[0x1E695DFB0] null];
-    v58 = 0;
+    v57 = 0;
   }
 
-  v48 = null;
-  v61[0] = null;
-  v60[1] = @"appBundleId";
+  v47 = null;
+  v60[0] = null;
+  v59[1] = @"appBundleId";
   appBundleId = [(INRunVoiceCommandIntentResponse *)self appBundleId];
   v6 = appBundleId;
   if (!appBundleId)
@@ -73,9 +73,9 @@
     appBundleId = [MEMORY[0x1E695DFB0] null];
   }
 
-  v47 = appBundleId;
-  v61[1] = appBundleId;
-  v60[2] = @"intentCategory";
+  v46 = appBundleId;
+  v60[1] = appBundleId;
+  v59[2] = @"intentCategory";
   intentCategory = [(INRunVoiceCommandIntentResponse *)self intentCategory];
   if ((intentCategory - 1) > 0x13)
   {
@@ -87,9 +87,9 @@
     v8 = off_1E7286400[intentCategory - 1];
   }
 
-  v56 = v8;
-  v61[2] = v56;
-  v60[3] = @"customResponsesDisabled";
+  v55 = v8;
+  v60[2] = v55;
+  v59[3] = @"customResponsesDisabled";
   customResponsesDisabled = [(INRunVoiceCommandIntentResponse *)self customResponsesDisabled];
   v10 = customResponsesDisabled;
   if (!customResponsesDisabled)
@@ -97,9 +97,9 @@
     customResponsesDisabled = [MEMORY[0x1E695DFB0] null];
   }
 
-  v46 = customResponsesDisabled;
-  v61[3] = customResponsesDisabled;
-  v60[4] = @"responseTemplate";
+  v45 = customResponsesDisabled;
+  v60[3] = customResponsesDisabled;
+  v59[4] = @"responseTemplate";
   responseTemplate = [(INRunVoiceCommandIntentResponse *)self responseTemplate];
   v12 = responseTemplate;
   if (!responseTemplate)
@@ -107,9 +107,9 @@
     responseTemplate = [MEMORY[0x1E695DFB0] null];
   }
 
-  v45 = responseTemplate;
-  v61[4] = responseTemplate;
-  v60[5] = @"parameters";
+  v44 = responseTemplate;
+  v60[4] = responseTemplate;
+  v59[5] = @"parameters";
   parameters = [(INRunVoiceCommandIntentResponse *)self parameters];
   v14 = parameters;
   if (!parameters)
@@ -117,9 +117,9 @@
     parameters = [MEMORY[0x1E695DFB0] null];
   }
 
-  v44 = parameters;
-  v61[5] = parameters;
-  v60[6] = @"verb";
+  v43 = parameters;
+  v60[5] = parameters;
+  v59[6] = @"verb";
   verb = [(INRunVoiceCommandIntentResponse *)self verb];
   v16 = verb;
   if (!verb)
@@ -127,9 +127,9 @@
     verb = [MEMORY[0x1E695DFB0] null];
   }
 
-  v43 = verb;
-  v61[6] = verb;
-  v60[7] = @"underlyingIntent";
+  v42 = verb;
+  v60[6] = verb;
+  v59[7] = @"underlyingIntent";
   underlyingIntent = [(INRunVoiceCommandIntentResponse *)self underlyingIntent];
   v18 = underlyingIntent;
   if (!underlyingIntent)
@@ -137,9 +137,9 @@
     underlyingIntent = [MEMORY[0x1E695DFB0] null];
   }
 
-  v42 = underlyingIntent;
-  v61[7] = underlyingIntent;
-  v60[8] = @"localizedAppName";
+  v41 = underlyingIntent;
+  v60[7] = underlyingIntent;
+  v59[8] = @"localizedAppName";
   localizedAppName = [(INRunVoiceCommandIntentResponse *)self localizedAppName];
   v20 = localizedAppName;
   if (!localizedAppName)
@@ -147,10 +147,10 @@
     localizedAppName = [MEMORY[0x1E695DFB0] null];
   }
 
-  v52 = v18;
-  v41 = localizedAppName;
-  v61[8] = localizedAppName;
-  v60[9] = @"underlyingIntentResponse";
+  v51 = v18;
+  v40 = localizedAppName;
+  v60[8] = localizedAppName;
+  v59[9] = @"underlyingIntentResponse";
   underlyingIntentResponse = [(INRunVoiceCommandIntentResponse *)self underlyingIntentResponse];
   v22 = underlyingIntentResponse;
   if (!underlyingIntentResponse)
@@ -158,9 +158,9 @@
     underlyingIntentResponse = [MEMORY[0x1E695DFB0] null];
   }
 
-  v40 = underlyingIntentResponse;
-  v61[9] = underlyingIntentResponse;
-  v60[10] = @"toggleState";
+  v39 = underlyingIntentResponse;
+  v60[9] = underlyingIntentResponse;
+  v59[10] = @"toggleState";
   toggleState = [(INRunVoiceCommandIntentResponse *)self toggleState];
   v24 = @"unknown";
   if (toggleState == 2)
@@ -173,9 +173,9 @@
     v24 = @"on";
   }
 
-  v50 = v24;
-  v61[10] = v50;
-  v60[11] = @"continueRunning";
+  v49 = v24;
+  v60[10] = v49;
+  v59[11] = @"continueRunning";
   continueRunning = [(INRunVoiceCommandIntentResponse *)self continueRunning];
   v26 = continueRunning;
   if (!continueRunning)
@@ -183,11 +183,11 @@
     continueRunning = [MEMORY[0x1E695DFB0] null];
   }
 
-  v51 = v20;
-  v57 = v6;
-  v39 = continueRunning;
-  v61[11] = continueRunning;
-  v60[12] = @"interstitialDisabled";
+  v50 = v20;
+  v56 = v6;
+  v38 = continueRunning;
+  v60[11] = continueRunning;
+  v59[12] = @"interstitialDisabled";
   interstitialDisabled = [(INRunVoiceCommandIntentResponse *)self interstitialDisabled];
   v28 = interstitialDisabled;
   if (!interstitialDisabled)
@@ -195,11 +195,11 @@
     interstitialDisabled = [MEMORY[0x1E695DFB0] null];
   }
 
-  v53 = v16;
-  v54 = v14;
-  v55 = v12;
-  v61[12] = interstitialDisabled;
-  v60[13] = @"underlyingIntentTitle";
+  v52 = v16;
+  v53 = v14;
+  v54 = v12;
+  v60[12] = interstitialDisabled;
+  v59[13] = @"underlyingIntentTitle";
   underlyingIntentTitle = [(INRunVoiceCommandIntentResponse *)self underlyingIntentTitle];
   null2 = underlyingIntentTitle;
   if (!underlyingIntentTitle)
@@ -208,8 +208,8 @@
   }
 
   v31 = v10;
-  v61[13] = null2;
-  v60[14] = @"steps";
+  v60[13] = null2;
+  v59[14] = @"steps";
   steps = [(INRunVoiceCommandIntentResponse *)self steps];
   null3 = steps;
   if (!steps)
@@ -217,8 +217,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v61[14] = null3;
-  v60[15] = @"prefersExecutionOnCompanion";
+  v60[14] = null3;
+  v59[15] = @"prefersExecutionOnCompanion";
   prefersExecutionOnCompanion = [(INRunVoiceCommandIntentResponse *)self prefersExecutionOnCompanion];
   null4 = prefersExecutionOnCompanion;
   if (!prefersExecutionOnCompanion)
@@ -226,8 +226,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v61[15] = null4;
-  v49 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v61 forKeys:v60 count:16];
+  v60[15] = null4;
+  v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v60 forKeys:v59 count:16];
   if (!prefersExecutionOnCompanion)
   {
   }
@@ -252,6 +252,10 @@
   {
   }
 
+  if (!v50)
+  {
+  }
+
   if (!v51)
   {
   }
@@ -268,25 +272,19 @@
   {
   }
 
-  if (!v55)
-  {
-  }
-
   if (!v31)
   {
   }
 
-  if (!v57)
+  if (!v56)
   {
   }
 
-  if (v59 >= 0x16)
+  if (v58 >= 0x16)
   {
   }
 
-  v36 = *MEMORY[0x1E69E9840];
-
-  return v49;
+  return v48;
 }
 
 - (void)setPrefersExecutionOnCompanion:(id)companion
@@ -898,7 +896,7 @@
 
 - (INRunVoiceCommandIntentResponse)initWithCode:(int64_t)code userActivity:(id)activity
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   v7 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
@@ -916,21 +914,20 @@
 
     v10 = v9;
     *buf = 136315906;
-    v16 = "[INRunVoiceCommandIntentResponse initWithCode:userActivity:]";
-    v17 = 2048;
+    v15 = "[INRunVoiceCommandIntentResponse initWithCode:userActivity:]";
+    v16 = 2048;
     codeCopy = code;
-    v19 = 2112;
-    v20 = v10;
-    v21 = 2112;
-    v22 = activityCopy;
+    v18 = 2112;
+    v19 = v10;
+    v20 = 2112;
+    v21 = activityCopy;
     _os_log_impl(&dword_18E991000, v8, OS_LOG_TYPE_INFO, "%s code = %zd (%@), userActivity = %@", buf, 0x2Au);
   }
 
-  v14.receiver = self;
-  v14.super_class = INRunVoiceCommandIntentResponse;
-  v11 = [(INIntentResponse *)&v14 _initWithCode:code userActivity:activityCopy];
+  v13.receiver = self;
+  v13.super_class = INRunVoiceCommandIntentResponse;
+  v11 = [(INIntentResponse *)&v13 _initWithCode:code userActivity:activityCopy];
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

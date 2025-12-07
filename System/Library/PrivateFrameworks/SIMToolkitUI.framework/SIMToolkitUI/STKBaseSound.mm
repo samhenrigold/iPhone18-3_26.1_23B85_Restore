@@ -19,9 +19,10 @@
   if (v4)
   {
     v4->_duration = duration;
-    v4->_playsOnce = BSFloatLessThanOrEqualToFloat();
-    v6 = STKCommonLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v6 = BSFloatLessThanOrEqualToFloat();
+    v5->_playsOnce = v6;
+    v7 = STKCommonLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       playsOnce = v5->_playsOnce;
       *buf = 134218496;
@@ -30,18 +31,17 @@
       durationCopy = duration;
       v15 = 1024;
       v16 = playsOnce;
-      _os_log_impl(&dword_262BB4000, v6, OS_LOG_TYPE_DEFAULT, "<STKSound:%p> - Created sound with duration: %f, playsOnce: %d", buf, 0x1Cu);
+      _os_log_impl(&dword_262BB4000, v7, OS_LOG_TYPE_DEFAULT, "<STKSound:%p> - Created sound with duration: %f, playsOnce: %d", buf, 0x1Cu);
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = STKCommonLog();
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = STKCommonLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
@@ -50,10 +50,9 @@
   }
 
   [(STKBaseSound *)self stopSound];
-  v5.receiver = self;
-  v5.super_class = STKBaseSound;
-  [(STKBaseSound *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = STKBaseSound;
+  [(STKBaseSound *)&v4 dealloc];
 }
 
 - (void)playSound
@@ -74,84 +73,80 @@
 
 - (void)_sync_playSound
 {
-  v18 = *MEMORY[0x277D85DE8];
-  [(STKBaseSound *)self _sync_stopSound];
+  v19 = *MEMORY[0x277D85DE8];
+  _sync_stopSound = [(STKBaseSound *)self _sync_stopSound];
   if (!self->_isPlaying)
   {
-    v3 = STKCommonLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = STKCommonLog(_sync_stopSound);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
       selfCopy2 = self;
-      _os_log_impl(&dword_262BB4000, v3, OS_LOG_TYPE_DEFAULT, "<STKSound:%p> - Playing sound.", buf, 0xCu);
+      _os_log_impl(&dword_262BB4000, v4, OS_LOG_TYPE_DEFAULT, "<STKSound:%p> - Playing sound.", buf, 0xCu);
     }
 
     self->_isPlaying = 1;
-    [(STKBaseSound *)self _reallyPlaySound];
+    _reallyPlaySound = [(STKBaseSound *)self _reallyPlaySound];
     if (!self->_playsOnce)
     {
-      v4 = STKCommonLog();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v6 = STKCommonLog(_reallyPlaySound);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         duration = self->_duration;
         *buf = 134218240;
         selfCopy2 = self;
-        v16 = 2048;
-        v17 = duration;
-        _os_log_impl(&dword_262BB4000, v4, OS_LOG_TYPE_DEFAULT, "<STKSound:%p> - Scheduling sound stop timer with interval duration: %f.", buf, 0x16u);
+        v17 = 2048;
+        v18 = duration;
+        _os_log_impl(&dword_262BB4000, v6, OS_LOG_TYPE_DEFAULT, "<STKSound:%p> - Scheduling sound stop timer with interval duration: %f.", buf, 0x16u);
       }
 
       objc_initWeak(buf, self);
-      v6 = MEMORY[0x277CF0D00];
-      v7 = self->_duration;
-      v8 = dispatch_get_global_queue(33, 0);
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __31__STKBaseSound__sync_playSound__block_invoke;
-      v12[3] = &unk_279B4C958;
-      v12[4] = self;
-      objc_copyWeak(&v13, buf);
-      v9 = [v6 scheduledTimerWithFireInterval:v8 queue:v12 handler:v7];
+      v8 = MEMORY[0x277CF0D00];
+      v9 = self->_duration;
+      v10 = dispatch_get_global_queue(33, 0);
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __31__STKBaseSound__sync_playSound__block_invoke;
+      v13[3] = &unk_279B4C958;
+      v13[4] = self;
+      objc_copyWeak(&v14, buf);
+      v11 = [v8 scheduledTimerWithFireInterval:v10 queue:v13 handler:v9];
       timer = self->_timer;
-      self->_timer = v9;
+      self->_timer = v11;
 
-      objc_destroyWeak(&v13);
+      objc_destroyWeak(&v14);
       objc_destroyWeak(buf);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __31__STKBaseSound__sync_playSound__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = STKCommonLog();
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = STKCommonLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 134217984;
-    v7 = v3;
-    _os_log_impl(&dword_262BB4000, v2, OS_LOG_TYPE_DEFAULT, "<STKSound:%p> - Stop timer fired!.", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = v3;
+    _os_log_impl(&dword_262BB4000, v2, OS_LOG_TYPE_DEFAULT, "<STKSound:%p> - Stop timer fired!.", &v5, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained stopSound];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sync_stopSound
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (self->_isPlaying)
   {
-    v3 = STKCommonLog();
+    v3 = STKCommonLog(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 134217984;
+      v5 = 134217984;
       selfCopy = self;
-      _os_log_impl(&dword_262BB4000, v3, OS_LOG_TYPE_DEFAULT, "<STKSound:%p> - Stopping sound explicitly.", &v6, 0xCu);
+      _os_log_impl(&dword_262BB4000, v3, OS_LOG_TYPE_DEFAULT, "<STKSound:%p> - Stopping sound explicitly.", &v5, 0xCu);
     }
 
     [(STKBaseSound *)self _reallyStopSound];
@@ -160,8 +155,6 @@ void __31__STKBaseSound__sync_playSound__block_invoke(uint64_t a1)
     timer = self->_timer;
     self->_timer = 0;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

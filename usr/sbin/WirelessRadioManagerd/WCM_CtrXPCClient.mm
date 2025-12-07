@@ -1,6 +1,7 @@
 @interface WCM_CtrXPCClient
 - (BOOL)getListenCoexLoadChange;
 - (BOOL)getRCU2Status;
+- (BOOL)sendFullWirelessLoad:(unsigned int)load wifiBandInfo:(unsigned __int8)info AWDLRealTimeModeInfo:(BOOL)modeInfo wifiChannelInfo:(int64_t)channelInfo;
 - (BOOL)storeListenCoexLoadChange:(BOOL)change;
 - (BOOL)storeRCU2Status:(BOOL)status;
 - (BOOL)threadCOEXStatus;
@@ -9,7 +10,12 @@
 - (void)HandleThreadStop:(id)stop;
 - (void)RCU2Init;
 - (void)setCellScanFreqTable:(id)table;
+- (void)setWirelessLoad:(unsigned int)load;
+- (void)updateAWDLRealTimeMode:(BOOL)mode;
+- (void)updateAccessoryCoexCellularBand:(unsigned __int16)band CellularRat:(unsigned __int8)rat AccessoryType:(unsigned __int8)type;
+- (void)updateAntennaPreference:(unsigned __int16)preference;
 - (void)updateCellScanFreqTable;
+- (void)updateWiFiBand:(unsigned __int8)band;
 - (void)updateWiFiChannel:(int64_t)channel;
 @end
 
@@ -140,7 +146,8 @@ LABEL_14:
       {
         if (self->threadRadioUp)
         {
-          [CtrClientPtr setProperty:"vendor:coex:scanFreqTable" prperty_val:[(NSString *)self->cellScanFreqTableStr UTF8String]];
+          [(NSString *)self->cellScanFreqTableStr UTF8String];
+          objc_msgSend_setProperty_prperty_val_(CtrClientPtr);
           if (v9)
           {
             [WCM_Logging logLevel:2 message:@"RCU2 Controller - updateCellScanFreqTable failed! "];
@@ -304,6 +311,100 @@ LABEL_11:
   return 1;
 }
 
+- (void)setWirelessLoad:(unsigned int)load
+{
+  v3 = *&load;
+  v5 = +[WCM_PolicyManager singleton];
+  activeCoexFeatures = [v5 activeCoexFeatures];
+  v7 = [activeCoexFeatures containsObject:@"RCU2SupportIntegrated"];
+
+  if (v7)
+  {
+    v8 = +[WCM_PolicyManager singleton];
+    [v8 sendWirelessBtLoad:v3];
+
+    [WCM_Logging logLevel:2 message:@"RCU2 Controller updating btWirelessLoad from %d to %d", self->btWirelessLoad, v3];
+    self->btWirelessLoad = v3;
+    wifiBandLoad = self->wifiBandLoad;
+    AWDLRealTimeModeEnabled = self->AWDLRealTimeModeEnabled;
+    wifiChannelLoad = self->wifiChannelLoad;
+
+    [(WCM_CtrXPCClient *)self sendFullWirelessLoad:v3 wifiBandInfo:wifiBandLoad AWDLRealTimeModeInfo:AWDLRealTimeModeEnabled wifiChannelInfo:wifiChannelLoad];
+  }
+}
+
+- (void)updateAntennaPreference:(unsigned __int16)preference
+{
+  preferenceCopy = preference;
+  [WCM_Logging logLevel:2 message:@"RCU2 Controller - sendAntennaPreference: %d", preference];
+  v5 = [NSNumber numberWithUnsignedShort:preferenceCopy];
+  stringValue = [v5 stringValue];
+
+  [stringValue UTF8String];
+  if (!self->CtrClientPtr)
+  {
+    [WCM_Logging logLevel:2 message:@"RCU2 Controller - CtrClientPtr is nil"];
+  }
+
+  if (self->threadRadioUp)
+  {
+    CtrClientPtr = self->CtrClientPtr;
+    if (CtrClientPtr)
+    {
+      objc_msgSend_setProperty_prperty_val_(CtrClientPtr);
+      if (LODWORD(__p[0]))
+      {
+        v8 = @"RCU2 Controller - sendAntennaPreference Failure - preference set to %hu ";
+      }
+
+      else
+      {
+        v8 = @"RCU2 Controller - sendAntennaPreference Success - preference set to %hu";
+      }
+    }
+
+    else
+    {
+      *__p = 0u;
+      v10 = 0u;
+      v8 = @"RCU2 Controller - sendAntennaPreference Success - preference set to %hu";
+    }
+
+    [WCM_Logging logLevel:2 message:v8, preferenceCopy];
+    if (SHIBYTE(v10) < 0)
+    {
+      operator delete(__p[1]);
+    }
+  }
+
+  else
+  {
+    [WCM_Logging logLevel:2 message:@"RCU2 Controller - Thread radio not enabled"];
+  }
+}
+
+- (void)updateWiFiBand:(unsigned __int8)band
+{
+  wifiBandLoad = self->wifiBandLoad;
+  if (wifiBandLoad == band)
+  {
+
+    [WCM_Logging logLevel:2 message:@"RCU2 Controller No Change in WiFi Band - Not Updataing"];
+  }
+
+  else
+  {
+    bandCopy = band;
+    [WCM_Logging logLevel:2 message:@"RCU2 Controller WiFi band changed from %d to %d", wifiBandLoad, band];
+    self->wifiBandLoad = bandCopy;
+    btWirelessLoad = self->btWirelessLoad;
+    AWDLRealTimeModeEnabled = self->AWDLRealTimeModeEnabled;
+    wifiChannelLoad = self->wifiChannelLoad;
+
+    [(WCM_CtrXPCClient *)self sendFullWirelessLoad:btWirelessLoad wifiBandInfo:bandCopy AWDLRealTimeModeInfo:AWDLRealTimeModeEnabled wifiChannelInfo:wifiChannelLoad];
+  }
+}
+
 - (void)updateWiFiChannel:(int64_t)channel
 {
   wifiChannelLoad = self->wifiChannelLoad;
@@ -323,6 +424,125 @@ LABEL_11:
 
     [(WCM_CtrXPCClient *)self sendFullWirelessLoad:btWirelessLoad wifiBandInfo:wifiBandLoad AWDLRealTimeModeInfo:AWDLRealTimeModeEnabled wifiChannelInfo:channel];
   }
+}
+
+- (void)updateAWDLRealTimeMode:(BOOL)mode
+{
+  AWDLRealTimeModeEnabled = self->AWDLRealTimeModeEnabled;
+  if (mode == AWDLRealTimeModeEnabled)
+  {
+
+    [WCM_Logging logLevel:2 message:@"RCU2 Controller No Change in AWDLRealTime state - not updating"];
+  }
+
+  else
+  {
+    modeCopy = mode;
+    [WCM_Logging logLevel:2 message:@"RCU2 Controller AWDLRealTime status changed from %d to %d", AWDLRealTimeModeEnabled, mode];
+    self->AWDLRealTimeModeEnabled = modeCopy;
+    btWirelessLoad = self->btWirelessLoad;
+    wifiBandLoad = self->wifiBandLoad;
+    wifiChannelLoad = self->wifiChannelLoad;
+
+    [(WCM_CtrXPCClient *)self sendFullWirelessLoad:btWirelessLoad wifiBandInfo:wifiBandLoad AWDLRealTimeModeInfo:modeCopy wifiChannelInfo:wifiChannelLoad];
+  }
+}
+
+- (void)updateAccessoryCoexCellularBand:(unsigned __int16)band CellularRat:(unsigned __int8)rat AccessoryType:(unsigned __int8)type
+{
+  typeCopy = type;
+  ratCopy = rat;
+  bandCopy = band;
+  [WCM_Logging logLevel:2 message:@"RCU2 Controller - updateAccessoryCoexCellularBand with CellBand: %d, CellRat: %d AccessoryType:%d", band, rat, type];
+  bandCopy = [NSNumber numberWithUnsignedInt:(ratCopy << 16) | (typeCopy << 24) | bandCopy];
+  stringValue = [bandCopy stringValue];
+  [stringValue UTF8String];
+
+  CtrClientPtr = self->CtrClientPtr;
+  if (CtrClientPtr && self->threadRadioUp)
+  {
+    objc_msgSend_setProperty_prperty_val_(CtrClientPtr);
+    if (v12)
+    {
+      [WCM_Logging logLevel:0 message:@"RCU2 Controller - updateAccessoryCoexCellularBand failed to update Thread driver"];
+    }
+
+    if (v14 < 0)
+    {
+      operator delete(__p);
+    }
+  }
+
+  else
+  {
+
+    [WCM_Logging logLevel:2 message:@"RCU2 Controller - updateAccessoryCoexCellularBand: Thread radio not enabled"];
+  }
+}
+
+- (BOOL)sendFullWirelessLoad:(unsigned int)load wifiBandInfo:(unsigned __int8)info AWDLRealTimeModeInfo:(BOOL)modeInfo wifiChannelInfo:(int64_t)channelInfo
+{
+  v7 = 0x800000000;
+  if (!modeInfo)
+  {
+    v7 = 0;
+  }
+
+  self->wifi_bt_cellular_load = (load | ((info & 7) << 32) | v7) & 0xFF00FFFFFFFFFFFFLL | (channelInfo << 48);
+  [WCM_Logging logLevel:2 message:@"RCU2 Controller - sendFullWirelessLoad with BT load %d WiFiBand %d AWDLRealTime:%d wifiChannel:%ld FullValue: %llu", *&load, info, modeInfo, channelInfo, (load | ((info & 7) << 32) | v7) & 0xFF00FFFFFFFFFFFFLL | (channelInfo << 48)];
+  v8 = [NSNumber numberWithUnsignedLongLong:self->wifi_bt_cellular_load];
+  stringValue = [v8 stringValue];
+
+  [stringValue UTF8String];
+  CtrClientPtr = self->CtrClientPtr;
+  if (CtrClientPtr)
+  {
+    if (self->threadListenCoexLoadChange)
+    {
+      objc_msgSend_setProperty_prperty_val_(CtrClientPtr);
+      if (v14)
+      {
+        v11 = @"RCU2 Controller - setWirelessLoad Failure - Load set to %llu ";
+      }
+
+      else
+      {
+        v11 = @"RCU2 Controller - setWirelessLoad Success - Load set to %llu";
+      }
+
+      [WCM_Logging logLevel:2 message:v11, self->wifi_bt_cellular_load];
+      if (v16 < 0)
+      {
+        operator delete(__p);
+        if (!v14)
+        {
+LABEL_16:
+          v12 = 1;
+          goto LABEL_14;
+        }
+      }
+
+      else if (!v14)
+      {
+        goto LABEL_16;
+      }
+    }
+
+    else
+    {
+      [WCM_Logging logLevel:2 message:@"RCU2 Controller - Thread radio not listening"];
+    }
+  }
+
+  else
+  {
+    [WCM_Logging logLevel:2 message:@"RCU2 Controller - CtrClientPtr is nil"];
+  }
+
+  v12 = 0;
+LABEL_14:
+
+  return v12;
 }
 
 - (void)HandleThreadStart:(id)start

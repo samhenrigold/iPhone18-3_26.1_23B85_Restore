@@ -52,7 +52,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  v16 = CAFUITileDataSource.collectionView(_:viewForSupplementaryElementOfKind:at:)(viewCopy, v11, v13);
+  v16 = CAFUITileDataSource.collectionView(_:viewForSupplementaryElementOfKind:at:)(viewCopy, v11, v13, v10);
 
   (*(v8 + 8))(v10, v7);
 

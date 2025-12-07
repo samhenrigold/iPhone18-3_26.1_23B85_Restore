@@ -9,7 +9,7 @@
 {
   notificationCopy = notification;
   v10.receiver = self;
-  v10.super_class = type metadata accessor for PhotosSearchNavigationBarPalette();
+  v10.super_class = type metadata accessor for PhotosSearchNavigationBarPalette(self, a2);
   subviewCopy = subview;
   v7 = [(PXNavigationBarPalette *)&v10 initWithArrangedSubview:subviewCopy isNotification:notificationCopy];
   v8 = [(_UINavigationBarPalette *)v7 contentView:v10.receiver];

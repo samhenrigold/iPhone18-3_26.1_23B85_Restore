@@ -50,13 +50,11 @@
 
 - (int64_t)hash
 {
-  v2 = *(&self->super.isa + OBJC_IVAR____TtC21ProximityAppleIDSetup20PASExtensionManifest_isAccountPickerAvailable);
   selfCopy = self;
+  v3 = sub_2610BCBE4();
   v4 = sub_2610BCBE4();
-  v5 = *(&selfCopy->super.isa + OBJC_IVAR____TtC21ProximityAppleIDSetup20PASExtensionManifest_wantsFullScreenPresentation);
-  v6 = sub_2610BCBE4();
 
-  return v6 ^ v4;
+  return v4 ^ v3;
 }
 
 - (void)encodeWithCoder:(id)coder

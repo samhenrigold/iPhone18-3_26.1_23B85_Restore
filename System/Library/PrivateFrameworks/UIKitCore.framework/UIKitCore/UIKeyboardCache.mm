@@ -45,7 +45,7 @@
     store = v2->_store;
     v2->_store = v3;
 
-    if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UIKeyboardCachingLockOnRead, @"UIKeyboardCachingLockOnRead") & 1) == 0 && byte_1ED48B2BC)
+    if (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UIKeyboardCachingLockOnRead, @"UIKeyboardCachingLockOnRead") && byte_1ED48B2BC)
     {
       -[TIImageCacheClient setLockOnRead:](v2->_store, "setLockOnRead:", [UIApp launchedToTest]);
     }

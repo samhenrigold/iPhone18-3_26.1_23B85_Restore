@@ -64,19 +64,19 @@ LABEL_7:
 
   if (!v11)
   {
-    v12 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = VUIDefaultLogObject(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(VUIUniversalAssetController *)playableCopy initWithVideosPlayable:v12];
+      [(VUIUniversalAssetController *)playableCopy initWithVideosPlayable:v13];
     }
 
     goto LABEL_7;
   }
 
 LABEL_8:
-  v13 = [(VUIUniversalAssetController *)self initWithVideoManagedObject:v8 mpMediaItem:v11 videosPlayable:playableCopy];
+  v14 = [(VUIUniversalAssetController *)self initWithVideoManagedObject:v8 mpMediaItem:v11 videosPlayable:playableCopy];
 
-  return v13;
+  return v14;
 }
 
 - (VUIUniversalAssetController)initWithMPMediaItem:(id)item
@@ -102,13 +102,13 @@ LABEL_8:
 
 - (VUIUniversalAssetController)initWithVideoManagedObject:(id)object mpMediaItem:(id)item videosPlayable:(id)playable
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   itemCopy = item;
   playableCopy = playable;
-  v31.receiver = self;
-  v31.super_class = VUIUniversalAssetController;
-  v11 = [(VUIUniversalAssetController *)&v31 init];
+  v32.receiver = self;
+  v32.super_class = VUIUniversalAssetController;
+  v11 = [(VUIUniversalAssetController *)&v32 init];
   if (v11)
   {
     if (objectCopy)
@@ -156,14 +156,14 @@ LABEL_8:
 
       if (v25)
       {
-        v26 = VUIDefaultLogObject();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        v27 = VUIDefaultLogObject(v26);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v33 = v11;
-          v34 = 2112;
-          v35 = v25;
-          _os_log_impl(&dword_1E323F000, v26, OS_LOG_TYPE_DEFAULT, "%@ Setting store download to: %@", buf, 0x16u);
+          v34 = v11;
+          v35 = 2112;
+          v36 = v25;
+          _os_log_impl(&dword_1E323F000, v27, OS_LOG_TYPE_DEFAULT, "%@ Setting store download to: %@", buf, 0x16u);
         }
 
         objc_storeStrong(&v11->_storeDownload, v25);
@@ -173,17 +173,16 @@ LABEL_8:
     defaultCenter3 = [MEMORY[0x1E696AD88] defaultCenter];
     [defaultCenter3 addObserver:v11 selector:sel__videoManagedObjectWasCreated_ name:@"VUIUniversalAssetControllerDidCreateVideoManagedObject" object:0];
 
-    v28 = +[VUIDownloadManager sharedInstance];
-    [v28 addDelegate:v11];
+    v29 = +[VUIDownloadManager sharedInstance];
+    [v29 addDelegate:v11];
 
     [(VUIUniversalAssetController *)v11 _updateObservedDownload];
-    [(VUIUniversalAssetController *)v11 _updateDownloadStateAndNotifyListeners];
-    v29 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v30 = VUIDefaultLogObject([(VUIUniversalAssetController *)v11 _updateDownloadStateAndNotifyListeners]);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v33 = v11;
-      _os_log_impl(&dword_1E323F000, v29, OS_LOG_TYPE_DEFAULT, "%@ created ", buf, 0xCu);
+      v34 = v11;
+      _os_log_impl(&dword_1E323F000, v30, OS_LOG_TYPE_DEFAULT, "%@ created ", buf, 0xCu);
     }
   }
 
@@ -221,7 +220,7 @@ LABEL_6:
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   [(VUIVideoManagedObject *)self->_videoManagedObject removeObserver:self forKeyPath:@"downloadState" context:__VideoManagedObjectDownloadStateKVOContext];
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   [defaultCenter removeObserver:self];
@@ -232,17 +231,17 @@ LABEL_6:
     [mEMORY[0x1E69709A8] removeObserver:self forDownloads:0];
   }
 
-  v5 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = VUIDefaultLogObject(v4);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_DEFAULT, "%@ deallocated ", buf, 0xCu);
+    _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_DEFAULT, "%@ deallocated ", buf, 0xCu);
   }
 
-  v6.receiver = self;
-  v6.super_class = VUIUniversalAssetController;
-  [(VUIUniversalAssetController *)&v6 dealloc];
+  v7.receiver = self;
+  v7.super_class = VUIUniversalAssetController;
+  [(VUIUniversalAssetController *)&v7 dealloc];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
@@ -387,9 +386,10 @@ LABEL_9:
   downloadCopy = download;
   failureCopy = failure;
   cellularCopy = cellular;
-  v41[1] = *MEMORY[0x1E69E9840];
+  v43[1] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  if ([(VUIUniversalAssetController *)self supportsStartingDownload])
+  supportsStartingDownload = [(VUIUniversalAssetController *)self supportsStartingDownload];
+  if (supportsStartingDownload)
   {
     standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
     if ([standardUserDefaults BOOLForKey:@"UseLegacyDownloader"])
@@ -398,23 +398,23 @@ LABEL_9:
 
       if (mpMediaItem)
       {
-        v17 = VUIDefaultLogObject();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v19 = VUIDefaultLogObject(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1E323F000, v17, OS_LOG_TYPE_DEFAULT, "Using legacy download path for transactional content because UseLegacyDownloader is set", buf, 2u);
+          _os_log_impl(&dword_1E323F000, v19, OS_LOG_TYPE_DEFAULT, "Using legacy download path for transactional content because UseLegacyDownloader is set", buf, 2u);
         }
 
-        v18 = MEMORY[0x1E69709A0];
+        v20 = MEMORY[0x1E69709A0];
         mpMediaItem2 = [(VUIUniversalAssetController *)self mpMediaItem];
-        videoManagedObject = [v18 storeDownloadForMediaItem:mpMediaItem2 type:1 attributes:0];
+        videoManagedObject = [v20 storeDownloadForMediaItem:mpMediaItem2 type:1 attributes:0];
 
         if (videoManagedObject)
         {
           mEMORY[0x1E69709A8] = [MEMORY[0x1E69709A8] sharedManager];
-          v41[0] = videoManagedObject;
-          v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:1];
-          v23 = [mEMORY[0x1E69709A8] addDownloads:v22];
+          v43[0] = videoManagedObject;
+          v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:1];
+          v25 = [mEMORY[0x1E69709A8] addDownloads:v24];
         }
 
         completionDispatchQueue = [(VUIUniversalAssetController *)self completionDispatchQueue];
@@ -422,10 +422,10 @@ LABEL_9:
         block[1] = 3221225472;
         block[2] = __163__VUIUniversalAssetController_startDownloadAllowingCellular_quality_shouldMarkAsDeletedOnCancellationOrFailure_prefer3DOrImmersiveDownload_isAutomatic_completion___block_invoke_34;
         block[3] = &unk_1E872D7E0;
-        v36 = completionCopy;
+        v38 = completionCopy;
         dispatch_async(completionDispatchQueue, block);
 
-        v25 = v36;
+        v27 = v38;
 LABEL_18:
 
         goto LABEL_19;
@@ -440,20 +440,20 @@ LABEL_18:
     videoManagedObject = [(VUIUniversalAssetController *)self videoManagedObject];
     if (videoManagedObject)
     {
-      v28 = +[VUIInterfaceFactory sharedInstance];
-      downloadQueueManager = [v28 downloadQueueManager];
+      v30 = +[VUIInterfaceFactory sharedInstance];
+      downloadQueueManager = [v30 downloadQueueManager];
 
-      v40 = videoManagedObject;
-      v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v40 count:1];
-      [downloadQueueManager enqueueDownloadsForVideoManagedObjects:v30];
+      v42 = videoManagedObject;
+      v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v42 count:1];
+      [downloadQueueManager enqueueDownloadsForVideoManagedObjects:v32];
 
-      v31 = +[VUIDownloadManager sharedInstance];
-      [v31 loadImageForVideoManagedObject:videoManagedObject];
+      v33 = +[VUIDownloadManager sharedInstance];
+      [v33 loadImageForVideoManagedObject:videoManagedObject];
     }
 
     else
     {
-      downloadQueueManager = VUIDefaultLogObject();
+      downloadQueueManager = VUIDefaultLogObject(0);
       if (os_log_type_enabled(downloadQueueManager, OS_LOG_TYPE_ERROR))
       {
         [VUIUniversalAssetController startDownloadAllowingCellular:quality:shouldMarkAsDeletedOnCancellationOrFailure:prefer3DOrImmersiveDownload:isAutomatic:completion:];
@@ -461,32 +461,32 @@ LABEL_18:
     }
 
     completionDispatchQueue2 = [(VUIUniversalAssetController *)self completionDispatchQueue];
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = __163__VUIUniversalAssetController_startDownloadAllowingCellular_quality_shouldMarkAsDeletedOnCancellationOrFailure_prefer3DOrImmersiveDownload_isAutomatic_completion___block_invoke_36;
-    v33[3] = &unk_1E872D7E0;
-    v34 = completionCopy;
-    dispatch_async(completionDispatchQueue2, v33);
+    v35[0] = MEMORY[0x1E69E9820];
+    v35[1] = 3221225472;
+    v35[2] = __163__VUIUniversalAssetController_startDownloadAllowingCellular_quality_shouldMarkAsDeletedOnCancellationOrFailure_prefer3DOrImmersiveDownload_isAutomatic_completion___block_invoke_36;
+    v35[3] = &unk_1E872D7E0;
+    v36 = completionCopy;
+    dispatch_async(completionDispatchQueue2, v35);
 
-    v25 = v34;
+    v27 = v36;
     goto LABEL_18;
   }
 
-  v26 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+  v28 = VUIDefaultLogObject(supportsStartingDownload);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
   {
     [VUIUniversalAssetController startDownloadAllowingCellular:quality:shouldMarkAsDeletedOnCancellationOrFailure:prefer3DOrImmersiveDownload:isAutomatic:completion:];
   }
 
   completionDispatchQueue3 = [(VUIUniversalAssetController *)self completionDispatchQueue];
-  v38[0] = MEMORY[0x1E69E9820];
-  v38[1] = 3221225472;
-  v38[2] = __163__VUIUniversalAssetController_startDownloadAllowingCellular_quality_shouldMarkAsDeletedOnCancellationOrFailure_prefer3DOrImmersiveDownload_isAutomatic_completion___block_invoke;
-  v38[3] = &unk_1E872D7E0;
-  v39 = completionCopy;
-  dispatch_async(completionDispatchQueue3, v38);
+  v40[0] = MEMORY[0x1E69E9820];
+  v40[1] = 3221225472;
+  v40[2] = __163__VUIUniversalAssetController_startDownloadAllowingCellular_quality_shouldMarkAsDeletedOnCancellationOrFailure_prefer3DOrImmersiveDownload_isAutomatic_completion___block_invoke;
+  v40[3] = &unk_1E872D7E0;
+  v41 = completionCopy;
+  dispatch_async(completionDispatchQueue3, v40);
 
-  videoManagedObject = v39;
+  videoManagedObject = v41;
 LABEL_19:
 }
 
@@ -572,7 +572,7 @@ uint64_t __163__VUIUniversalAssetController_startDownloadAllowingCellular_qualit
 
 - (void)cancelAndRemoveDownload
 {
-  v45[1] = *MEMORY[0x1E69E9840];
+  v47[1] = *MEMORY[0x1E69E9840];
   mpMediaItem = [(VUIUniversalAssetController *)self mpMediaItem];
 
   if (mpMediaItem)
@@ -583,29 +583,30 @@ uint64_t __163__VUIUniversalAssetController_startDownloadAllowingCellular_qualit
     {
       mEMORY[0x1E69709A8] = [MEMORY[0x1E69709A8] sharedManager];
       storeDownload2 = [(VUIUniversalAssetController *)self storeDownload];
-      v45[0] = storeDownload2;
-      v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:1];
+      v47[0] = storeDownload2;
+      v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:1];
       [mEMORY[0x1E69709A8] cancelDownloads:v7];
     }
 
-    if ([(VUIUniversalAssetController *)self _isVideoFullyDownloadedCheckingSidebandLibrary:0])
+    v8 = [(VUIUniversalAssetController *)self _isVideoFullyDownloadedCheckingSidebandLibrary:0];
+    if (v8)
     {
-      v8 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = VUIDefaultLogObject(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
         selfCopy = self;
-        _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "%@ Removing download from MP library", buf, 0xCu);
+        _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_DEFAULT, "%@ Removing download from MP library", buf, 0xCu);
       }
 
       mpMediaItem2 = [(VUIUniversalAssetController *)self mpMediaItem];
       mediaLibrary = [mpMediaItem2 mediaLibrary];
       mpMediaItem3 = [(VUIUniversalAssetController *)self mpMediaItem];
-      v42 = mpMediaItem3;
-      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v42 count:1];
-      v13 = [mediaLibrary removeItems:v12];
+      v44 = mpMediaItem3;
+      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v44 count:1];
+      v14 = [mediaLibrary removeItems:v13];
 
-      if (v13)
+      if (v14)
       {
         mpMediaItem4 = [(VUIUniversalAssetController *)self mpMediaItem];
         [mpMediaItem4 invalidateCachedProperties];
@@ -615,8 +616,8 @@ uint64_t __163__VUIUniversalAssetController_startDownloadAllowingCellular_qualit
 
       else
       {
-        v15 = VUIDefaultLogObject();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v17 = VUIDefaultLogObject(v15);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           [VUIUniversalAssetController cancelAndRemoveDownload];
         }
@@ -652,7 +653,7 @@ uint64_t __163__VUIUniversalAssetController_startDownloadAllowingCellular_qualit
     mpMediaItem7 = [(VUIUniversalAssetController *)self videoManagedObject];
     [mpMediaItem7 rentalID];
   }
-  v21 = ;
+  v23 = ;
 
   mpMediaItem8 = [(VUIUniversalAssetController *)self mpMediaItem];
   if (mpMediaItem8)
@@ -666,20 +667,20 @@ uint64_t __163__VUIUniversalAssetController_startDownloadAllowingCellular_qualit
     mpMediaItem9 = [(VUIUniversalAssetController *)self videoManagedObject];
     [mpMediaItem9 dsid];
   }
-  v24 = ;
+  v26 = ;
 
   objc_initWeak(buf, self);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __54__VUIUniversalAssetController_cancelAndRemoveDownload__block_invoke;
   block[3] = &unk_1E8730F50;
-  v38 = v21;
-  v39 = v24;
-  v25 = v24;
-  v26 = v21;
-  objc_copyWeak(&v40, buf);
+  v40 = v23;
+  v41 = v26;
+  v27 = v26;
+  v28 = v23;
+  objc_copyWeak(&v42, buf);
   dispatch_async(MEMORY[0x1E69E96A0], block);
-  objc_destroyWeak(&v40);
+  objc_destroyWeak(&v42);
 
   objc_destroyWeak(buf);
 LABEL_22:
@@ -688,26 +689,26 @@ LABEL_22:
   downloadState = [videoManagedObject2 downloadState];
   if (!videoManagedObject2)
   {
-    v35 = +[VUIDownloadManager sharedInstance];
-    [v35 cancelDownloadForAdamID:adamID];
+    v37 = +[VUIDownloadManager sharedInstance];
+    [v37 cancelDownloadForAdamID:adamID];
     goto LABEL_27;
   }
 
-  v30 = downloadState;
-  v31 = +[VUIInterfaceFactory sharedInstance];
-  downloadQueueManager = [v31 downloadQueueManager];
+  v32 = downloadState;
+  v33 = +[VUIInterfaceFactory sharedInstance];
+  downloadQueueManager = [v33 downloadQueueManager];
 
-  v41 = videoManagedObject2;
-  v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v41 count:1];
-  [downloadQueueManager removeDownloadsForVideoManagedObjects:v33];
+  v43 = videoManagedObject2;
+  v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v43 count:1];
+  [downloadQueueManager removeDownloadsForVideoManagedObjects:v35];
 
-  v34 = +[VUIDownloadManager sharedInstance];
-  [v34 cancelDownloadForAdamID:adamID];
+  v36 = +[VUIDownloadManager sharedInstance];
+  [v36 cancelDownloadForAdamID:adamID];
 
-  if (v30 <= 3 && v30 != 1)
+  if (v32 <= 3 && v32 != 1)
   {
-    v35 = +[VUIMediaLibraryManager defaultManager];
-    sidebandMediaLibrary = [v35 sidebandMediaLibrary];
+    v37 = +[VUIMediaLibraryManager defaultManager];
+    sidebandMediaLibrary = [v37 sidebandMediaLibrary];
     [sidebandMediaLibrary removeDownloadedMediaForVideoManagedObject:videoManagedObject2 markAsDeleted:1 invalidateImmediately:1];
 
 LABEL_27:
@@ -734,7 +735,7 @@ void __54__VUIUniversalAssetController_cancelAndRemoveDownload__block_invoke_2(u
   v15 = *MEMORY[0x1E69E9840];
   v4 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v6 = VUIDefaultLogObject();
+  v6 = VUIDefaultLogObject(WeakRetained);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = VUIBoolLogString();
@@ -894,42 +895,43 @@ LABEL_10:
 
 void __79__VUIUniversalAssetController_downloadManager_didAddDownloads_removeDownloads___block_invoke(id *a1)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v2 = [a1[4] mpMediaItem];
   v3 = [v2 valueForProperty:*MEMORY[0x1E696FB60]];
   v4 = [v3 unsignedLongLongValue];
 
-  v34 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v32 = 0u;
-  v33 = 0u;
+  v36 = 0u;
   v5 = a1[5];
-  v6 = [v5 countByEnumeratingWithState:&v32 objects:v41 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v35 objects:v44 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v33;
+    v8 = *v36;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v33 != v8)
+        if (*v36 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v32 + 1) + 8 * i);
-        if ([v10 storeItemIdentifier] == v4)
+        v10 = *(*(&v35 + 1) + 8 * i);
+        v11 = [v10 storeItemIdentifier];
+        if (v11 == v4)
         {
-          v11 = VUIDefaultLogObject();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+          v12 = VUIDefaultLogObject(v11);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
-            v12 = a1[4];
+            v13 = a1[4];
             *buf = 138412546;
-            v38 = v12;
-            v39 = 2112;
-            v40 = v10;
-            _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_DEFAULT, "%@ Store download added: %@", buf, 0x16u);
+            v41 = v13;
+            v42 = 2112;
+            v43 = v10;
+            _os_log_impl(&dword_1E323F000, v12, OS_LOG_TYPE_DEFAULT, "%@ Store download added: %@", buf, 0x16u);
           }
 
           [a1[4] setStoreDownload:v10];
@@ -937,63 +939,64 @@ void __79__VUIUniversalAssetController_downloadManager_didAddDownloads_removeDow
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v32 objects:v41 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v35 objects:v44 count:16];
     }
 
     while (v7);
   }
 
-  v30 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v13 = a1[6];
-  v14 = [v13 countByEnumeratingWithState:&v28 objects:v36 count:16];
-  if (v14)
+  v32 = 0u;
+  v14 = a1[6];
+  v15 = [v14 countByEnumeratingWithState:&v31 objects:v39 count:16];
+  if (v15)
   {
-    v16 = v14;
-    v17 = *v29;
-    *&v15 = 138412290;
-    v27 = v15;
+    v17 = v15;
+    v18 = *v32;
+    *&v16 = 138412290;
+    v30 = v16;
     do
     {
-      for (j = 0; j != v16; ++j)
+      for (j = 0; j != v17; ++j)
       {
-        if (*v29 != v17)
+        if (*v32 != v18)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v28 + 1) + 8 * j);
-        if ([v19 storeItemIdentifier] == v4)
+        v20 = *(*(&v31 + 1) + 8 * j);
+        v21 = [v20 storeItemIdentifier];
+        if (v21 == v4)
         {
-          v20 = VUIDefaultLogObject();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+          v22 = VUIDefaultLogObject(v21);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
-            v21 = a1[4];
+            v23 = a1[4];
             *buf = 138412546;
-            v38 = v21;
-            v39 = 2112;
-            v40 = v19;
-            _os_log_impl(&dword_1E323F000, v20, OS_LOG_TYPE_DEFAULT, "%@ Store download removed: %@", buf, 0x16u);
+            v41 = v23;
+            v42 = 2112;
+            v43 = v20;
+            _os_log_impl(&dword_1E323F000, v22, OS_LOG_TYPE_DEFAULT, "%@ Store download removed: %@", buf, 0x16u);
           }
 
-          v22 = [a1[4] storeDownload];
-          v23 = [v22 isFinished];
+          v24 = [a1[4] storeDownload];
+          v25 = [v24 isFinished];
 
-          if ((v23 & 1) == 0)
+          if ((v25 & 1) == 0)
           {
-            v24 = [a1[4] storeDownload];
+            v26 = [a1[4] storeDownload];
 
-            if (v24)
+            if (v26)
             {
-              v25 = VUIDefaultLogObject();
-              if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+              v28 = VUIDefaultLogObject(v27);
+              if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
               {
-                v26 = a1[4];
-                *buf = v27;
-                v38 = v26;
-                _os_log_impl(&dword_1E323F000, v25, OS_LOG_TYPE_DEFAULT, "%@ Setting store download to nil", buf, 0xCu);
+                v29 = a1[4];
+                *buf = v30;
+                v41 = v29;
+                _os_log_impl(&dword_1E323F000, v28, OS_LOG_TYPE_DEFAULT, "%@ Setting store download to nil", buf, 0xCu);
               }
 
               [a1[4] setStoreDownload:0];
@@ -1003,10 +1006,10 @@ void __79__VUIUniversalAssetController_downloadManager_didAddDownloads_removeDow
         }
       }
 
-      v16 = [v13 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v17 = [v14 countByEnumeratingWithState:&v31 objects:v39 count:16];
     }
 
-    while (v16);
+    while (v17);
   }
 }
 
@@ -1082,7 +1085,7 @@ void __65__VUIUniversalAssetController_downloadManager_downloadDidFinish___block
 
 - (void)_updateDownloadStateAndNotifyListeners
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   videoManagedObject = [(VUIUniversalAssetController *)self videoManagedObject];
   queue = [(VUIUniversalAssetController *)self completionDispatchQueueInternal];
   download = [(VUIUniversalAssetController *)self download];
@@ -1092,18 +1095,18 @@ void __65__VUIUniversalAssetController_downloadManager_downloadDidFinish___block
 
     if (storeDownload)
     {
-      v6 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = VUIDefaultLogObject(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
         selfCopy = self;
-        _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_DEFAULT, "%@ Setting store download to nil", buf, 0xCu);
+        _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "%@ Setting store download to nil", buf, 0xCu);
       }
 
       [(VUIUniversalAssetController *)self setStoreDownload:0];
     }
 
-    v7 = 4;
+    v8 = 4;
     if (videoManagedObject)
     {
       goto LABEL_7;
@@ -1115,11 +1118,11 @@ LABEL_10:
     availabilityEndDate = 0;
     offlineKeyRenewalPolicy = 0;
     expirationDate = 0;
-    v8 = -1.0;
+    v9 = -1.0;
     goto LABEL_17;
   }
 
-  v7 = 0;
+  v8 = 0;
   if (!videoManagedObject)
   {
     goto LABEL_10;
@@ -1128,8 +1131,8 @@ LABEL_10:
 LABEL_7:
   if ([videoManagedObject downloadState] == 2)
   {
-    v8 = -1.0;
-    v7 = 4;
+    v9 = -1.0;
+    v8 = 4;
   }
 
   else
@@ -1137,17 +1140,17 @@ LABEL_7:
     downloadState = [videoManagedObject downloadState];
     if (downloadState == 3)
     {
-      v8 = 0.0;
+      v9 = 0.0;
     }
 
     else
     {
-      v8 = -1.0;
+      v9 = -1.0;
     }
 
     if (downloadState == 3)
     {
-      v7 = 5;
+      v8 = 5;
     }
   }
 
@@ -1157,7 +1160,7 @@ LABEL_7:
   allowsCellular = [videoManagedObject allowsCellular];
   downloadFailedDueToError = [videoManagedObject downloadFailedDueToError];
 LABEL_17:
-  if (v7 == 4)
+  if (v8 == 4)
   {
     goto LABEL_18;
   }
@@ -1173,18 +1176,18 @@ LABEL_17:
 
     storeDownload3 = [(VUIUniversalAssetController *)self storeDownload];
     [storeDownload3 percentComplete];
-    v8 = v21;
+    v9 = v22;
 
     storeDownload4 = [(VUIUniversalAssetController *)self storeDownload];
     phaseIdentifier = [storeDownload4 phaseIdentifier];
 
-    v36 = phaseIdentifier;
+    v37 = phaseIdentifier;
     if (([phaseIdentifier isEqualToString:*MEMORY[0x1E69703B8]] & 1) != 0 || (objc_msgSend(phaseIdentifier, "isEqualToString:", *MEMORY[0x1E69703E0]) & 1) != 0 || (objc_msgSend(phaseIdentifier, "isEqualToString:", *MEMORY[0x1E69703E8]) & 1) != 0 || objc_msgSend(phaseIdentifier, "isEqualToString:", *MEMORY[0x1E69703D0]))
     {
-      v24 = 1;
-      if (v8 > 0.00000011920929)
+      v25 = 1;
+      if (v9 > 0.00000011920929)
       {
-        v24 = 2;
+        v25 = 2;
       }
     }
 
@@ -1192,14 +1195,14 @@ LABEL_17:
     {
       if ([phaseIdentifier isEqualToString:*MEMORY[0x1E69703C0]])
       {
-        v34 = 0;
+        v35 = 0;
         downloadFailedDueToError = 1;
         goto LABEL_39;
       }
 
       if ([phaseIdentifier isEqualToString:*MEMORY[0x1E69703B0]])
       {
-        v34 = 0;
+        v35 = 0;
         goto LABEL_39;
       }
 
@@ -1207,7 +1210,7 @@ LABEL_17:
       {
         storeDownload5 = [(VUIUniversalAssetController *)self storeDownload];
         failureError = [storeDownload5 failureError];
-        v30 = failureError;
+        v31 = failureError;
         if (failureError)
         {
           purchaseError = failureError;
@@ -1219,33 +1222,33 @@ LABEL_17:
           purchaseError = [storeDownload6 purchaseError];
         }
 
-        v34 = 4 * (purchaseError == 0);
+        v35 = 4 * (purchaseError == 0);
         downloadFailedDueToError |= purchaseError != 0;
 
         goto LABEL_39;
       }
 
-      v32 = [phaseIdentifier isEqualToString:*MEMORY[0x1E69703D8]];
-      v24 = 3;
-      if (!v32)
+      v33 = [phaseIdentifier isEqualToString:*MEMORY[0x1E69703D8]];
+      v25 = 3;
+      if (!v33)
       {
-        v24 = 1;
+        v25 = 1;
       }
     }
 
-    v34 = v24;
+    v35 = v25;
 LABEL_39:
     storeDownload7 = [(VUIUniversalAssetController *)self storeDownload];
     isCanceled = [storeDownload7 isCanceled];
 
     if (isCanceled)
     {
-      v7 = 0;
+      v8 = 0;
     }
 
     else
     {
-      v7 = v34;
+      v8 = v35;
     }
 
     goto LABEL_18;
@@ -1259,20 +1262,20 @@ LABEL_39:
       if (state == 1)
       {
         [download progress];
-        v8 = v28;
-        v7 = 2;
+        v9 = v29;
+        v8 = 2;
       }
 
       else if (state == 2)
       {
-        v7 = 3;
+        v8 = 3;
       }
 
       goto LABEL_18;
     }
 
 LABEL_49:
-    v7 = 0;
+    v8 = 0;
     goto LABEL_18;
   }
 
@@ -1281,49 +1284,49 @@ LABEL_49:
     goto LABEL_49;
   }
 
-  v27 = 1;
+  v28 = 1;
   if (state != 6)
   {
-    v27 = v7;
+    v28 = v8;
   }
 
   if (state == 3)
   {
-    v7 = 4;
+    v8 = 4;
   }
 
   else
   {
-    v7 = v27;
+    v8 = v28;
   }
 
 LABEL_18:
-  v15 = objc_alloc_init(VUIMediaEntityAssetControllerState);
-  [(VUIMediaEntityAssetControllerState *)v15 setStatus:v7];
-  [(VUIMediaEntityAssetControllerState *)v15 setDownloadProgress:v8];
-  [(VUIMediaEntityAssetControllerState *)v15 setDownloadFailedDueToError:downloadFailedDueToError & 1];
-  [(VUIMediaEntityAssetControllerState *)v15 setSupportsCancellation:1];
-  [(VUIMediaEntityAssetControllerState *)v15 setSupportsPausing:1];
-  [(VUIMediaEntityAssetControllerState *)v15 setDownloadExpirationDate:expirationDate];
-  -[VUIMediaEntityAssetControllerState setRenewsOfflineKeysAutomatically:](v15, "setRenewsOfflineKeysAutomatically:", [offlineKeyRenewalPolicy integerValue] == 1);
-  [(VUIMediaEntityAssetControllerState *)v15 setAvailabilityEndDate:availabilityEndDate];
-  [(VUIMediaEntityAssetControllerState *)v15 setAllowsCellular:allowsCellular];
+  v16 = objc_alloc_init(VUIMediaEntityAssetControllerState);
+  [(VUIMediaEntityAssetControllerState *)v16 setStatus:v8];
+  [(VUIMediaEntityAssetControllerState *)v16 setDownloadProgress:v9];
+  [(VUIMediaEntityAssetControllerState *)v16 setDownloadFailedDueToError:downloadFailedDueToError & 1];
+  [(VUIMediaEntityAssetControllerState *)v16 setSupportsCancellation:1];
+  [(VUIMediaEntityAssetControllerState *)v16 setSupportsPausing:1];
+  [(VUIMediaEntityAssetControllerState *)v16 setDownloadExpirationDate:expirationDate];
+  -[VUIMediaEntityAssetControllerState setRenewsOfflineKeysAutomatically:](v16, "setRenewsOfflineKeysAutomatically:", [offlineKeyRenewalPolicy integerValue] == 1);
+  [(VUIMediaEntityAssetControllerState *)v16 setAvailabilityEndDate:availabilityEndDate];
+  [(VUIMediaEntityAssetControllerState *)v16 setAllowsCellular:allowsCellular];
   if (download)
   {
-    -[VUIMediaEntityAssetControllerState setPerformsKeyFetchOnly:](v15, "setPerformsKeyFetchOnly:", [download performKeyFetchOnly]);
+    -[VUIMediaEntityAssetControllerState setPerformsKeyFetchOnly:](v16, "setPerformsKeyFetchOnly:", [download performKeyFetchOnly]);
   }
 
-  [(VUIUniversalAssetController *)self setStateInternal:v15];
-  if (v15)
+  [(VUIUniversalAssetController *)self setStateInternal:v16];
+  if (v16)
   {
-    v41 = @"VUIMediaEntityAssetControllerStateKey";
-    v42 = v15;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+    v42 = @"VUIMediaEntityAssetControllerStateKey";
+    v43 = v16;
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
   }
 
   else
   {
-    v16 = 0;
+    v17 = 0;
   }
 
   objc_initWeak(buf, self);
@@ -1331,12 +1334,12 @@ LABEL_18:
   block[1] = 3221225472;
   block[2] = __69__VUIUniversalAssetController__updateDownloadStateAndNotifyListeners__block_invoke;
   block[3] = &unk_1E872F038;
-  objc_copyWeak(&v40, buf);
-  v39 = v16;
-  v18 = v16;
+  objc_copyWeak(&v41, buf);
+  v40 = v17;
+  v19 = v17;
   dispatch_async(queue, block);
 
-  objc_destroyWeak(&v40);
+  objc_destroyWeak(&v41);
   objc_destroyWeak(buf);
 }
 
@@ -1408,7 +1411,7 @@ void __69__VUIUniversalAssetController__updateDownloadStateAndNotifyListeners__b
 
 - (void)_videoManagedObjectWasCreated:(id)created
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   createdCopy = created;
   object = [createdCopy object];
 
@@ -1446,22 +1449,26 @@ void __69__VUIUniversalAssetController__updateDownloadStateAndNotifyListeners__b
 
       v12 = vui_adamIDString;
 
-      if (v12 && [v12 isEqualToString:v7])
+      if (v12)
       {
-        v13 = VUIDefaultLogObject();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v13 = [v12 isEqualToString:v7];
+        if (v13)
         {
-          v16 = 138412546;
-          selfCopy = self;
-          v18 = 2112;
-          v19 = v7;
-          _os_log_impl(&dword_1E323F000, v13, OS_LOG_TYPE_DEFAULT, "%@ updating videoManagedObject with adam ID %@", &v16, 0x16u);
+          v14 = VUIDefaultLogObject(v13);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          {
+            v17 = 138412546;
+            selfCopy = self;
+            v19 = 2112;
+            v20 = v7;
+            _os_log_impl(&dword_1E323F000, v14, OS_LOG_TYPE_DEFAULT, "%@ updating videoManagedObject with adam ID %@", &v17, 0x16u);
+          }
+
+          userInfo2 = [createdCopy userInfo];
+          v16 = [userInfo2 objectForKey:@"VUIUniversalAssetControllerVideoManagedObjectkey"];
+
+          [(VUIUniversalAssetController *)self setVideoManagedObject:v16];
         }
-
-        userInfo2 = [createdCopy userInfo];
-        v15 = [userInfo2 objectForKey:@"VUIUniversalAssetControllerVideoManagedObjectkey"];
-
-        [(VUIUniversalAssetController *)self setVideoManagedObject:v15];
       }
     }
   }
@@ -1473,7 +1480,7 @@ void __69__VUIUniversalAssetController__updateDownloadStateAndNotifyListeners__b
   downloadCopy = download;
   failureCopy = failure;
   cellularCopy = cellular;
-  v45[2] = *MEMORY[0x1E69E9840];
+  v46[2] = *MEMORY[0x1E69E9840];
   mpMediaItem = [(VUIUniversalAssetController *)self mpMediaItem];
 
   if (mpMediaItem)
@@ -1515,8 +1522,8 @@ void __69__VUIUniversalAssetController__updateDownloadStateAndNotifyListeners__b
 
     if (!videosPlayable4)
     {
-      v24 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v25 = VUIDefaultLogObject(v24);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         [VUIUniversalAssetController _createAndSaveVideoManagedObjectForDownloadInitiationAllowingCellular:quality:shouldMarkAsDeletedOnCancellationOrFailure:prefer3DOrImmersiveDownload:isAutomatic:];
       }
@@ -1526,7 +1533,7 @@ void __69__VUIUniversalAssetController__updateDownloadStateAndNotifyListeners__b
   if (mpMediaItem)
   {
     objc_opt_class();
-    v25 = 0x1E8728000;
+    v26 = 0x1E8728000;
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
 LABEL_17:
@@ -1539,28 +1546,28 @@ LABEL_17:
         [mpMediaItem setTriggerType:automaticCopy];
       }
 
-      defaultManager = [*(v25 + 1136) defaultManager];
+      defaultManager = [*(v26 + 1136) defaultManager];
       sidebandMediaLibrary = [defaultManager sidebandMediaLibrary];
       [sidebandMediaLibrary saveChangesToManagedObjects];
 
       [(VUIUniversalAssetController *)self setVideoManagedObject:mpMediaItem];
       if (vui_adamIDString)
       {
-        v44[0] = @"VUIUniversalAssetControllerAdamIDStringKey";
-        v44[1] = @"VUIUniversalAssetControllerVideoManagedObjectkey";
-        v45[0] = vui_adamIDString;
-        v45[1] = mpMediaItem;
-        v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:v44 count:2];
+        v45[0] = @"VUIUniversalAssetControllerAdamIDStringKey";
+        v45[1] = @"VUIUniversalAssetControllerVideoManagedObjectkey";
+        v46[0] = vui_adamIDString;
+        v46[1] = mpMediaItem;
+        v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:v45 count:2];
         defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-        [defaultCenter postNotificationName:@"VUIUniversalAssetControllerDidCreateVideoManagedObject" object:self userInfo:v30];
+        [defaultCenter postNotificationName:@"VUIUniversalAssetControllerDidCreateVideoManagedObject" object:self userInfo:v31];
       }
 
       goto LABEL_21;
     }
 
-    v43 = automaticCopy;
-    v26 = mpMediaItem;
-    season = [v26 season];
+    v44 = automaticCopy;
+    v27 = mpMediaItem;
+    season = [v27 season];
     if (!season)
     {
       mpMediaItem5 = [(VUIUniversalAssetController *)self mpMediaItem];
@@ -1569,7 +1576,7 @@ LABEL_17:
         goto LABEL_16;
       }
 
-      v33 = mpMediaItem5;
+      v34 = mpMediaItem5;
       mpMediaItemCollection = [(VUIUniversalAssetController *)self mpMediaItemCollection];
 
       if (!mpMediaItemCollection)
@@ -1580,47 +1587,47 @@ LABEL_17:
       season = [(MPMediaItemCollection *)self->_mpMediaItemCollection valueForProperty:*MEMORY[0x1E696F8E0]];
       if (season)
       {
-        v40 = +[VUIMediaLibraryManager defaultManager];
-        sidebandMediaLibrary2 = [v40 sidebandMediaLibrary];
-        v42 = [sidebandMediaLibrary2 seasonForCanonicalIDOrAdamID:season createIfNeeded:1];
+        v41 = +[VUIMediaLibraryManager defaultManager];
+        sidebandMediaLibrary2 = [v41 sidebandMediaLibrary];
+        v43 = [sidebandMediaLibrary2 seasonForCanonicalIDOrAdamID:season createIfNeeded:1];
 
-        canonicalID = [v42 canonicalID];
+        canonicalID = [v43 canonicalID];
 
         if (!canonicalID)
         {
-          [v42 setCanonicalID:season];
+          [v43 setCanonicalID:season];
           representativeItem = [(MPMediaItemCollection *)self->_mpMediaItemCollection representativeItem];
-          v41 = [representativeItem valueForProperty:*MEMORY[0x1E696FB10]];
+          v42 = [representativeItem valueForProperty:*MEMORY[0x1E696FB10]];
 
-          if (v41)
+          if (v42)
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              [v42 setSeasonNumber:v41];
+              [v43 setSeasonNumber:v42];
             }
           }
 
           representativeItem2 = [(MPMediaItemCollection *)self->_mpMediaItemCollection representativeItem];
-          v39 = [representativeItem2 valueForProperty:*MEMORY[0x1E696FB08]];
+          v40 = [representativeItem2 valueForProperty:*MEMORY[0x1E696FB08]];
 
-          if (v39)
+          if (v40)
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              [v42 setTitle:v39];
+              [v43 setTitle:v40];
             }
           }
         }
 
-        [v26 setSeason:v42];
+        [v27 setSeason:v43];
       }
     }
 
 LABEL_16:
-    automaticCopy = v43;
-    v25 = 0x1E8728000uLL;
+    automaticCopy = v44;
+    v26 = 0x1E8728000uLL;
     goto LABEL_17;
   }
 

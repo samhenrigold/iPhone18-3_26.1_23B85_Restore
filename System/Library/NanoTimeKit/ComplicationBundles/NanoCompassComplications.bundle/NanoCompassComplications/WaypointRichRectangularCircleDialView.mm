@@ -28,18 +28,18 @@
 
 - (id)_symbolSizeAdjustmentsForDevice:(id)device
 {
-  v4 = objc_msgSend_sizeClass(device, a2, device, v3);
-  if ((v4 - 2) >= 8)
+  v3 = objc_msgSend_sizeClass(device, a2, device);
+  if ((v3 - 2) >= 8)
   {
-    v8 = objc_msgSend_dictionary(MEMORY[0x277CBEAC0], v5, v6, v7);
+    v6 = objc_msgSend_dictionary(MEMORY[0x277CBEAC0], v4, v5);
   }
 
   else
   {
-    v8 = qword_278B941D8[v4 - 2];
+    v6 = qword_278B941D8[v3 - 2];
   }
 
-  return v8;
+  return v6;
 }
 
 @end

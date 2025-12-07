@@ -37,18 +37,16 @@
 {
   if (*&self->aPSUserPayloadHttpHeaders[OBJC_IVAR___BlastDoorAPSUserPayloadHttpHeaders_aPSUserPayloadHttpHeaders + 80])
   {
-    v2 = *&self->aPSUserPayloadHttpHeaders[OBJC_IVAR___BlastDoorAPSUserPayloadHttpHeaders_aPSUserPayloadHttpHeaders + 72];
-    v3 = *&self->aPSUserPayloadHttpHeaders[OBJC_IVAR___BlastDoorAPSUserPayloadHttpHeaders_aPSUserPayloadHttpHeaders + 80];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (BlastDoorAPSUserPayloadHttpHeaders)init

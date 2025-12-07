@@ -74,7 +74,7 @@ uint64_t __AX_CGPathGetPointForElementAtIndex_block_invoke(uint64_t result, uint
   return result;
 }
 
-void __AX_CGCreatePathPathWithUniformInset_block_invoke(double *a1, int a2, double *a3)
+void __AX_CGCreatePathPathWithUniformInset_block_invoke(double *a1, unsigned int a2, double *a3)
 {
   if (a2 >= 4)
   {
@@ -131,7 +131,7 @@ void __AX_CGCreatePathPathWithUniformInset_block_invoke(double *a1, int a2, doub
   }
 }
 
-uint64_t __AX_CGPathGetDescription_block_invoke(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4)
+void *__AX_CGPathGetDescription_block_invoke(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4)
 {
   if (a2 > 4)
   {

@@ -5,12 +5,12 @@
 - (double)daysSinceLastExposureLevelValueWithDays:(int64_t)days;
 - (double)durationLevelValueWithDuration:(double)duration;
 - (double)infectiousnessWeightWithDaysSinceOnsetOfSymptoms:(int64_t)symptoms skip:(BOOL *)skip;
+- (double)reportTypeWeightWithReportType:(unsigned int)type skip:(BOOL *)skip;
 - (double)transmissionLevelValueWithTransmissionRiskLevel:(unsigned __int8)level;
 - (double)weightedDurationWithExposureInfo:(id)info;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
-- (unsigned)infectiousnessWithDaysSinceOnsetOfSymptoms:(int64_t)symptoms;
 - (unsigned)mappedDiagnosisReportType:(unsigned int)type;
 - (void)encodeWithXPCObject:(id)object;
 @end
@@ -62,17 +62,21 @@
 
 - (ENExposureConfiguration)initWithDictionary:(id)dictionary error:(id *)error
 {
-  v104 = *MEMORY[0x277D85DE8];
+  v111 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v6 = [(ENExposureConfiguration *)self init];
   if (!v6)
   {
-    if (error)
+    if (!error)
     {
-      goto LABEL_148;
+      goto LABEL_155;
     }
 
-    goto LABEL_149;
+    v66 = ENErrorF(2, "init failed");
+LABEL_154:
+    v12 = 0;
+    *error = v66;
+    goto LABEL_108;
   }
 
   v6->_flags = CFDictionaryGetInt64Ranged();
@@ -80,36 +84,39 @@
   v6->_immediateDurationWeight = v7;
   if (v7 < 0.0 || v7 > 250.0)
   {
-    if (error)
+    if (!error)
     {
-      goto LABEL_148;
+      goto LABEL_155;
     }
 
-    goto LABEL_149;
+    v66 = ENErrorF(2, "Out-of-range immediateDurationWeight: %f", v7);
+    goto LABEL_154;
   }
 
   CFDictionaryGetDouble();
   v6->_nearDurationWeight = v8;
   if (v8 < 0.0 || v8 > 250.0)
   {
-    if (error)
+    if (!error)
     {
-      goto LABEL_148;
+      goto LABEL_155;
     }
 
-    goto LABEL_149;
+    v66 = ENErrorF(2, "Out-of-range nearDurationWeight: %f", v8);
+    goto LABEL_154;
   }
 
   CFDictionaryGetDouble();
   v6->_mediumDurationWeight = v9;
   if (v9 < 0.0 || v9 > 250.0)
   {
-    if (error)
+    if (!error)
     {
-      goto LABEL_148;
+      goto LABEL_155;
     }
 
-    goto LABEL_149;
+    v66 = ENErrorF(2, "Out-of-range mediumDurationWeight: %f", v9);
+    goto LABEL_154;
   }
 
   CFDictionaryGetDouble();
@@ -118,13 +125,11 @@
   {
     if (error)
     {
-LABEL_148:
-      ENErrorF(2);
-      *error = v12 = 0;
-      goto LABEL_108;
+      v66 = ENErrorF(2, "Out-of-range otherDurationWeight: %f", v10);
+      goto LABEL_154;
     }
 
-LABEL_149:
+LABEL_155:
     v12 = 0;
     goto LABEL_108;
   }
@@ -133,24 +138,24 @@ LABEL_149:
   obj = CFDictionaryGetTypedValue();
   if (obj)
   {
-    v93 = 0;
-    v94 = &v93;
-    v95 = 0x3032000000;
-    v96 = __Block_byref_object_copy_;
-    v97 = __Block_byref_object_dispose_;
-    v98 = 0;
-    v92[0] = MEMORY[0x277D85DD0];
-    v92[1] = 3221225472;
-    v92[2] = __52__ENExposureConfiguration_initWithDictionary_error___block_invoke;
-    v92[3] = &unk_278A4B170;
-    v92[4] = &v93;
-    [obj enumerateKeysAndObjectsUsingBlock:v92];
-    v11 = v94[5];
+    v100 = 0;
+    v101 = &v100;
+    v102 = 0x3032000000;
+    v103 = __Block_byref_object_copy_;
+    v104 = __Block_byref_object_dispose_;
+    v105 = 0;
+    v99[0] = MEMORY[0x277D85DD0];
+    v99[1] = 3221225472;
+    v99[2] = __52__ENExposureConfiguration_initWithDictionary_error___block_invoke;
+    v99[3] = &unk_278A4B170;
+    v99[4] = &v100;
+    [obj enumerateKeysAndObjectsUsingBlock:v99];
+    v11 = v101[5];
     if (v11)
     {
       if (error)
       {
-        v57 = v11;
+        v67 = v11;
         *error = v11;
       }
     }
@@ -160,7 +165,7 @@ LABEL_149:
       objc_storeStrong(&v6->_infectiousnessForDaysSinceOnsetOfSymptoms, obj);
     }
 
-    _Block_object_dispose(&v93, 8);
+    _Block_object_dispose(&v100, 8);
 
     if (v11)
     {
@@ -172,72 +177,81 @@ LABEL_149:
   v6->_infectiousnessStandardWeight = v13;
   if (v13 < 0.0 || v13 > 250.0)
   {
-    if (error)
+    if (!error)
     {
-      goto LABEL_165;
+      goto LABEL_14;
     }
 
-    goto LABEL_14;
+    v68 = ENErrorF(2, "Out-of-range infectiousnessStandardWeight: %f", v13);
+LABEL_172:
+    v12 = 0;
+    *error = v68;
+    goto LABEL_107;
   }
 
   CFDictionaryGetDouble();
   v6->_infectiousnessHighWeight = v14;
   if (v14 < 0.0 || v14 > 250.0)
   {
-    if (error)
+    if (!error)
     {
-      goto LABEL_165;
+      goto LABEL_14;
     }
 
-    goto LABEL_14;
+    v68 = ENErrorF(2, "Out-of-range infectiousnessHighWeight: %f", v14);
+    goto LABEL_172;
   }
 
   CFDictionaryGetDouble();
   v6->_reportTypeConfirmedTestWeight = v15;
   if (v15 < 0.0 || v15 > 250.0)
   {
-    if (error)
+    if (!error)
     {
-      goto LABEL_165;
+      goto LABEL_14;
     }
 
-    goto LABEL_14;
+    v68 = ENErrorF(2, "Out-of-range reportTypeConfirmedTestWeight: %f", v15);
+    goto LABEL_172;
   }
 
   CFDictionaryGetDouble();
   v6->_reportTypeConfirmedClinicalDiagnosisWeight = v16;
   if (v16 < 0.0 || v16 > 250.0)
   {
-    if (error)
+    if (!error)
     {
-      goto LABEL_165;
+      goto LABEL_14;
     }
 
-    goto LABEL_14;
+    v68 = ENErrorF(2, "Out-of-range reportTypeConfirmedClinicalDiagnosisWeight: %f", v16);
+    goto LABEL_172;
   }
 
   CFDictionaryGetDouble();
   v6->_reportTypeSelfReportedWeight = v17;
   if (v17 < 0.0 || v17 > 250.0)
   {
-    if (error)
+    if (!error)
     {
-      goto LABEL_165;
+      goto LABEL_14;
     }
 
-    goto LABEL_14;
+    v68 = ENErrorF(2, "Out-of-range reportTypeSelfReportedWeight: %f", v17);
+    goto LABEL_172;
   }
 
   CFDictionaryGetDouble();
   v6->_reportTypeRecursiveWeight = v18;
   if (v18 < 0.0 || v18 > 250.0)
   {
-    if (error)
+    if (!error)
     {
-      goto LABEL_165;
+      goto LABEL_14;
     }
 
-    goto LABEL_14;
+    v68 = ENErrorF(2, "Out-of-range reportTypeRecursiveWeight: %f", v18);
+    goto LABEL_172;
   }
 
   Int64Ranged = CFDictionaryGetInt64Ranged();
@@ -246,10 +260,8 @@ LABEL_149:
   {
     if (error)
     {
-LABEL_165:
-      ENErrorF(2);
-      *error = v12 = 0;
-      goto LABEL_107;
+      v68 = ENErrorF(2, "Out-of-range reportTypeNoneMap: %d", Int64Ranged);
+      goto LABEL_172;
     }
 
 LABEL_14:
@@ -258,66 +270,69 @@ LABEL_14:
   }
 
   CFArrayGetTypeID();
-  v70 = CFDictionaryGetTypedValue();
-  if (v70)
+  v77 = CFDictionaryGetTypedValue();
+  if (v77)
   {
-    if (([v70 count] & 0xFFFFFFFFFFFFFFFELL) == 2)
+    if (([v77 count] & 0xFFFFFFFFFFFFFFFELL) == 2)
     {
-      v90 = 0u;
-      v91 = 0u;
-      v88 = 0u;
-      v89 = 0u;
-      v20 = v70;
-      v21 = [v20 countByEnumeratingWithState:&v88 objects:v103 count:16];
+      v97 = 0u;
+      v98 = 0u;
+      v95 = 0u;
+      v96 = 0u;
+      v20 = v77;
+      v21 = [v20 countByEnumeratingWithState:&v95 objects:v110 count:16];
       if (!v21)
       {
         goto LABEL_39;
       }
 
-      v22 = *v89;
+      v22 = *v96;
       while (1)
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v89 != v22)
+          if (*v96 != v22)
           {
             objc_enumerationMutation(v20);
           }
 
-          v24 = *(*(&v88 + 1) + 8 * i);
+          v24 = *(*(&v95 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             if (error)
             {
-LABEL_112:
-              *error = ENErrorF(2);
+              v61 = ENErrorF(2, "Non-number attenuation threshold item");
+              goto LABEL_113;
             }
 
-LABEL_113:
-
 LABEL_114:
+
+LABEL_115:
             v12 = 0;
             goto LABEL_106;
           }
 
-          if ([v24 longLongValue] >= 0x100)
+          longLongValue = [v24 longLongValue];
+          if (longLongValue >= 0x100)
           {
             if (error)
             {
-              goto LABEL_112;
+              v61 = ENErrorF(2, "Out-of-range attenuation threshold: %lld", longLongValue);
+LABEL_113:
+              *error = v61;
             }
 
-            goto LABEL_113;
+            goto LABEL_114;
           }
         }
 
-        v21 = [v20 countByEnumeratingWithState:&v88 objects:v103 count:16];
+        v21 = [v20 countByEnumeratingWithState:&v95 objects:v110 count:16];
         if (!v21)
         {
 LABEL_39:
 
-          objc_storeStrong(&v6->_attenuationDurationThresholds, v70);
+          objc_storeStrong(&v6->_attenuationDurationThresholds, v77);
           goto LABEL_40;
         }
       }
@@ -325,93 +340,95 @@ LABEL_39:
 
     if (!error)
     {
-      goto LABEL_114;
+      goto LABEL_115;
     }
 
-    [v70 count];
-    v58 = ENErrorF(2);
-LABEL_172:
+    v69 = ENErrorF(2, "Bad attenuationDurationThresholds count: %d vs %d-%d", [v77 count], 2, 3);
+LABEL_179:
     v12 = 0;
-    *error = v58;
+    *error = v69;
     goto LABEL_106;
   }
 
 LABEL_40:
   v6->_daysSinceLastExposureThreshold = CFDictionaryGetInt64Ranged();
   CFDictionaryGetDouble();
-  v6->_minimumRiskScoreFullRange = v25;
-  if (v25 < 0.0 || v25 > 4096.0)
+  v6->_minimumRiskScoreFullRange = v26;
+  if (v26 < 0.0 || v26 > 4096.0)
   {
     if (!error)
     {
-      goto LABEL_114;
+      goto LABEL_115;
     }
 
-    v58 = ENErrorF(2);
-    goto LABEL_172;
+    v69 = ENErrorF(2, "Out-of-range minimumRiskScoreFullRange: %f", v26);
+    goto LABEL_179;
   }
 
   CFArrayGetTypeID();
-  v69 = CFDictionaryGetTypedValue();
-  if (v69)
+  v76 = CFDictionaryGetTypedValue();
+  if (v76)
   {
-    if ([v69 count] == 8)
+    if ([v76 count] == 8)
     {
-      v86 = 0u;
-      v87 = 0u;
-      v84 = 0u;
-      v85 = 0u;
-      v26 = v69;
-      v27 = [v26 countByEnumeratingWithState:&v84 objects:v102 count:16];
-      if (!v27)
+      v93 = 0u;
+      v94 = 0u;
+      v91 = 0u;
+      v92 = 0u;
+      v27 = v76;
+      v28 = [v27 countByEnumeratingWithState:&v91 objects:v109 count:16];
+      if (!v28)
       {
         goto LABEL_53;
       }
 
-      v28 = *v85;
+      v29 = *v92;
       while (1)
       {
-        for (j = 0; j != v27; ++j)
+        for (j = 0; j != v28; ++j)
         {
-          if (*v85 != v28)
+          if (*v92 != v29)
           {
-            objc_enumerationMutation(v26);
+            objc_enumerationMutation(v27);
           }
 
-          v30 = *(*(&v84 + 1) + 8 * j);
+          v31 = *(*(&v91 + 1) + 8 * j);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             if (error)
             {
-LABEL_118:
-              *error = ENErrorF(2);
+              v62 = ENErrorF(2, "Non-number attenuation item");
+              goto LABEL_120;
             }
 
-LABEL_119:
+LABEL_121:
 
-LABEL_120:
+LABEL_122:
             v12 = 0;
             goto LABEL_105;
           }
 
-          if ([v30 longLongValue] >= 9)
+          longLongValue2 = [v31 longLongValue];
+          if (longLongValue2 >= 9)
           {
             if (error)
             {
-              goto LABEL_118;
+              v62 = ENErrorF(2, "Out-of-range attenuation level value: %lld", longLongValue2);
+LABEL_120:
+              *error = v62;
             }
 
-            goto LABEL_119;
+            goto LABEL_121;
           }
         }
 
-        v27 = [v26 countByEnumeratingWithState:&v84 objects:v102 count:16];
-        if (!v27)
+        v28 = [v27 countByEnumeratingWithState:&v91 objects:v109 count:16];
+        if (!v28)
         {
 LABEL_53:
 
-          objc_storeStrong(&v6->_attenuationLevelValues, v69);
+          objc_storeStrong(&v6->_attenuationLevelValues, v76);
           goto LABEL_54;
         }
       }
@@ -419,14 +436,13 @@ LABEL_53:
 
     if (!error)
     {
-      goto LABEL_120;
+      goto LABEL_122;
     }
 
-    [v69 count];
-    v59 = ENErrorF(2);
-LABEL_177:
+    v70 = ENErrorF(2, "Bad attenuation array: %d vs %zu", [v76 count], 8uLL);
+LABEL_184:
     v12 = 0;
-    *error = v59;
+    *error = v70;
     goto LABEL_105;
   }
 
@@ -436,75 +452,77 @@ LABEL_54:
   {
     if (!error)
     {
-      goto LABEL_120;
+      goto LABEL_122;
     }
 
-    v63 = v6->_attenuationWeight;
-    v59 = ENErrorF(2);
-    goto LABEL_177;
+    v70 = ENErrorF(2, "Out-of-range attenuationWeight: %f", v6->_attenuationWeight);
+    goto LABEL_184;
   }
 
   CFArrayGetTypeID();
-  v68 = CFDictionaryGetTypedValue();
-  if (v68)
+  v75 = CFDictionaryGetTypedValue();
+  if (v75)
   {
-    if ([v68 count] == 8)
+    if ([v75 count] == 8)
     {
-      v82 = 0u;
-      v83 = 0u;
-      v80 = 0u;
-      v81 = 0u;
-      v32 = v68;
-      v33 = [v32 countByEnumeratingWithState:&v80 objects:v101 count:16];
-      if (!v33)
+      v89 = 0u;
+      v90 = 0u;
+      v87 = 0u;
+      v88 = 0u;
+      v34 = v75;
+      v35 = [v34 countByEnumeratingWithState:&v87 objects:v108 count:16];
+      if (!v35)
       {
         goto LABEL_67;
       }
 
-      v34 = *v81;
+      v36 = *v88;
       while (1)
       {
-        for (k = 0; k != v33; ++k)
+        for (k = 0; k != v35; ++k)
         {
-          if (*v81 != v34)
+          if (*v88 != v36)
           {
-            objc_enumerationMutation(v32);
+            objc_enumerationMutation(v34);
           }
 
-          v36 = *(*(&v80 + 1) + 8 * k);
+          v38 = *(*(&v87 + 1) + 8 * k);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             if (error)
             {
-LABEL_124:
-              *error = ENErrorF(2);
+              v63 = ENErrorF(2, "Non-number days item");
+              goto LABEL_127;
             }
 
-LABEL_125:
+LABEL_128:
 
-LABEL_126:
+LABEL_129:
             v12 = 0;
             goto LABEL_104;
           }
 
-          if ([v36 longLongValue] >= 9)
+          longLongValue3 = [v38 longLongValue];
+          if (longLongValue3 >= 9)
           {
             if (error)
             {
-              goto LABEL_124;
+              v63 = ENErrorF(2, "Out-of-range days level value: %lld", longLongValue3);
+LABEL_127:
+              *error = v63;
             }
 
-            goto LABEL_125;
+            goto LABEL_128;
           }
         }
 
-        v33 = [v32 countByEnumeratingWithState:&v80 objects:v101 count:16];
-        if (!v33)
+        v35 = [v34 countByEnumeratingWithState:&v87 objects:v108 count:16];
+        if (!v35)
         {
 LABEL_67:
 
-          objc_storeStrong(&v6->_daysSinceLastExposureLevelValues, v68);
+          objc_storeStrong(&v6->_daysSinceLastExposureLevelValues, v75);
           goto LABEL_68;
         }
       }
@@ -512,14 +530,13 @@ LABEL_67:
 
     if (!error)
     {
-      goto LABEL_126;
+      goto LABEL_129;
     }
 
-    [v68 count];
-    v60 = ENErrorF(2);
-LABEL_182:
+    v71 = ENErrorF(2, "Bad days array: %d vs %zu", [v75 count], 8uLL);
+LABEL_189:
     v12 = 0;
-    *error = v60;
+    *error = v71;
     goto LABEL_104;
   }
 
@@ -529,83 +546,84 @@ LABEL_68:
   {
     if (!error)
     {
-      goto LABEL_126;
+      goto LABEL_129;
     }
 
-    v64 = v6->_daysSinceLastExposureWeight;
-    v60 = ENErrorF(2);
-    goto LABEL_182;
+    v71 = ENErrorF(2, "Out-of-range daysSinceLastExposureWeight: %f", v6->_daysSinceLastExposureWeight);
+    goto LABEL_189;
   }
 
   CFArrayGetTypeID();
-  v38 = CFDictionaryGetTypedValue();
-  v39 = v38;
-  if (!v38)
+  v41 = CFDictionaryGetTypedValue();
+  v42 = v41;
+  if (!v41)
   {
     goto LABEL_82;
   }
 
-  if ([v38 count] != 8)
+  if ([v41 count] != 8)
   {
     if (!error)
     {
-      goto LABEL_132;
+      goto LABEL_136;
     }
 
-    [v39 count];
-    v61 = ENErrorF(2);
-    goto LABEL_192;
+    v72 = ENErrorF(2, "Bad duration array: %d vs %zu", [v42 count], 8uLL);
+    goto LABEL_199;
   }
 
-  v78 = 0u;
-  v79 = 0u;
-  v76 = 0u;
-  v77 = 0u;
-  v40 = v39;
-  v41 = [v40 countByEnumeratingWithState:&v76 objects:v100 count:16];
-  if (!v41)
+  v85 = 0u;
+  v86 = 0u;
+  v83 = 0u;
+  v84 = 0u;
+  v43 = v42;
+  v44 = [v43 countByEnumeratingWithState:&v83 objects:v107 count:16];
+  if (!v44)
   {
     goto LABEL_81;
   }
 
-  v42 = *v77;
+  v45 = *v84;
   while (2)
   {
-    for (m = 0; m != v41; ++m)
+    for (m = 0; m != v44; ++m)
     {
-      if (*v77 != v42)
+      if (*v84 != v45)
       {
-        objc_enumerationMutation(v40);
+        objc_enumerationMutation(v43);
       }
 
-      v44 = *(*(&v76 + 1) + 8 * m);
+      v47 = *(*(&v83 + 1) + 8 * m);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
         if (error)
         {
-          goto LABEL_130;
+          v64 = ENErrorF(2, "Non-number duration item");
+LABEL_134:
+          *error = v64;
         }
 
-        goto LABEL_131;
+LABEL_135:
+
+        goto LABEL_136;
       }
 
-      if ([v44 longLongValue] >= 9)
+      longLongValue4 = [v47 longLongValue];
+      if (longLongValue4 >= 9)
       {
         if (error)
         {
-LABEL_130:
-          *error = ENErrorF(2);
+          v64 = ENErrorF(2, "Out-of-range duration level value: %lld", longLongValue4);
+          goto LABEL_134;
         }
 
-LABEL_131:
-
-        goto LABEL_132;
+        goto LABEL_135;
       }
     }
 
-    v41 = [v40 countByEnumeratingWithState:&v76 objects:v100 count:16];
-    if (v41)
+    v44 = [v43 countByEnumeratingWithState:&v83 objects:v107 count:16];
+    if (v44)
     {
       continue;
     }
@@ -615,27 +633,26 @@ LABEL_131:
 
 LABEL_81:
 
-  objc_storeStrong(&v6->_durationLevelValues, v39);
+  objc_storeStrong(&v6->_durationLevelValues, v42);
 LABEL_82:
   durationWeight = v6->_durationWeight;
   if (durationWeight < 0.0 || durationWeight > 100.0)
   {
     if (!error)
     {
-      goto LABEL_132;
+      goto LABEL_136;
     }
 
-    v65 = v6->_durationWeight;
-    v61 = ENErrorF(2);
-LABEL_192:
+    v72 = ENErrorF(2, "Out-of-range durationWeight: %f", v6->_durationWeight);
+LABEL_199:
     v12 = 0;
-    *error = v61;
+    *error = v72;
     goto LABEL_103;
   }
 
-  LODWORD(v93) = 0;
+  LODWORD(v100) = 0;
   Int64 = CFDictionaryGetInt64();
-  if (v93)
+  if (v100)
   {
     goto LABEL_87;
   }
@@ -644,11 +661,11 @@ LABEL_192:
   {
     if (error)
     {
-      v61 = ENErrorF(2);
-      goto LABEL_192;
+      v72 = ENErrorF(2, "Out-of-range minimumRiskScore: %lld", Int64);
+      goto LABEL_199;
     }
 
-LABEL_132:
+LABEL_136:
     v12 = 0;
     goto LABEL_103;
   }
@@ -656,64 +673,67 @@ LABEL_132:
   v6->_minimumRiskScore = Int64;
 LABEL_87:
   CFArrayGetTypeID();
-  v47 = CFDictionaryGetTypedValue();
-  v48 = v47;
-  if (!v47)
+  v51 = CFDictionaryGetTypedValue();
+  v52 = v51;
+  if (!v51)
   {
     goto LABEL_99;
   }
 
-  if ([v47 count] == 8)
+  if ([v51 count] == 8)
   {
-    v74 = 0u;
-    v75 = 0u;
-    v72 = 0u;
-    v73 = 0u;
-    v49 = v48;
-    v50 = [v49 countByEnumeratingWithState:&v72 objects:v99 count:16];
-    if (!v50)
+    v81 = 0u;
+    v82 = 0u;
+    v79 = 0u;
+    v80 = 0u;
+    v53 = v52;
+    v54 = [v53 countByEnumeratingWithState:&v79 objects:v106 count:16];
+    if (!v54)
     {
       goto LABEL_98;
     }
 
-    v51 = *v73;
+    v55 = *v80;
 LABEL_91:
-    v52 = 0;
+    v56 = 0;
     while (1)
     {
-      if (*v73 != v51)
+      if (*v80 != v55)
       {
-        objc_enumerationMutation(v49);
+        objc_enumerationMutation(v53);
       }
 
-      v53 = *(*(&v72 + 1) + 8 * v52);
+      v57 = *(*(&v79 + 1) + 8 * v56);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
         break;
       }
 
-      if ([v53 longLongValue] >= 9)
+      longLongValue5 = [v57 longLongValue];
+      if (longLongValue5 >= 9)
       {
         if (error)
         {
-          goto LABEL_136;
+          v65 = ENErrorF(2, "Out-of-range transmissionRisk level value: %lld", longLongValue5);
+LABEL_141:
+          *error = v65;
         }
 
-        goto LABEL_137;
+        goto LABEL_142;
       }
 
-      if (v50 == ++v52)
+      if (v54 == ++v56)
       {
-        v50 = [v49 countByEnumeratingWithState:&v72 objects:v99 count:16];
-        if (v50)
+        v54 = [v53 countByEnumeratingWithState:&v79 objects:v106 count:16];
+        if (v54)
         {
           goto LABEL_91;
         }
 
 LABEL_98:
 
-        objc_storeStrong(&v6->_transmissionRiskLevelValues, v48);
+        objc_storeStrong(&v6->_transmissionRiskLevelValues, v52);
 LABEL_99:
         transmissionRiskWeight = v6->_transmissionRiskWeight;
         if (transmissionRiskWeight >= 0.0 && transmissionRiskWeight <= 100.0)
@@ -724,12 +744,11 @@ LABEL_99:
 
         if (error)
         {
-          v66 = v6->_transmissionRiskWeight;
-          v62 = ENErrorF(2);
-          goto LABEL_189;
+          v73 = ENErrorF(2, "Out-of-range transmissionRiskWeight: %f", v6->_transmissionRiskWeight);
+          goto LABEL_196;
         }
 
-LABEL_138:
+LABEL_143:
         v12 = 0;
         goto LABEL_102;
       }
@@ -737,25 +756,24 @@ LABEL_138:
 
     if (error)
     {
-LABEL_136:
-      *error = ENErrorF(2);
+      v65 = ENErrorF(2, "Non-number transmissionRisk item");
+      goto LABEL_141;
     }
 
-LABEL_137:
+LABEL_142:
 
-    goto LABEL_138;
+    goto LABEL_143;
   }
 
   if (!error)
   {
-    goto LABEL_138;
+    goto LABEL_143;
   }
 
-  [v48 count];
-  v62 = ENErrorF(2);
-LABEL_189:
+  v73 = ENErrorF(2, "Bad transmissionRisk array: %d vs %zu", [v52 count], 8uLL);
+LABEL_196:
   v12 = 0;
-  *error = v62;
+  *error = v73;
 LABEL_102:
 
 LABEL_103:
@@ -767,7 +785,6 @@ LABEL_106:
 LABEL_107:
 LABEL_108:
 
-  v55 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -778,15 +795,36 @@ void __52__ENExposureConfiguration_initWithDictionary_error___block_invoke(uint6
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
 
-  if ((isKindOfClass & 1) == 0 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || [v12 unsignedIntValue] >= 3)
+  if (isKindOfClass)
   {
-    v9 = ENErrorF(2);
-    v10 = *(*(a1 + 32) + 8);
-    v11 = *(v10 + 40);
-    *(v10 + 40) = v9;
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      if ([v12 unsignedIntValue] < 3)
+      {
+        goto LABEL_8;
+      }
 
-    *a4 = 1;
+      ENErrorF(2, "Bad infectiousness value: %u");
+    }
+
+    else
+    {
+      ENErrorF(2, "Non-number infectiousness value");
+    }
   }
+
+  else
+  {
+    ENErrorF(2, "Non-number infectiousness key");
+  }
+  v9 = ;
+  v10 = *(*(a1 + 32) + 8);
+  v11 = *(v10 + 40);
+  *(v10 + 40) = v9;
+
+  *a4 = 1;
+LABEL_8:
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -883,29 +921,33 @@ void __52__ENExposureConfiguration_initWithDictionary_error___block_invoke(uint6
   v7 = [(ENExposureConfiguration *)self init];
   if (!v7)
   {
-    if (error)
+    if (!error)
     {
-      goto LABEL_108;
+      goto LABEL_109;
     }
 
-    goto LABEL_109;
+    ENErrorF(2, "super init failed");
+LABEL_108:
+    *error = v16 = 0;
+    goto LABEL_93;
   }
 
   if (MEMORY[0x2383EE9C0](objectCopy) != MEMORY[0x277D86468])
   {
-    if (error)
+    if (!error)
     {
-      goto LABEL_108;
+      goto LABEL_109;
     }
 
-    goto LABEL_109;
+    ENErrorF(2, "XPC non-dict");
+    goto LABEL_108;
   }
 
-  v64 = 0;
+  v50 = 0;
   v8 = CUXPCDecodeUInt64RangedEx();
   if (v8 == 6)
   {
-    v7->_flags = v64;
+    v7->_flags = v50;
   }
 
   else if (v8 == 5)
@@ -920,12 +962,13 @@ void __52__ENExposureConfiguration_initWithDictionary_error___block_invoke(uint6
 
   if (([(NSArray *)v7->_attenuationDurationThresholds count]& 0xFFFFFFFFFFFFFFFELL) != 2)
   {
-    if (error)
+    if (!error)
     {
-      goto LABEL_108;
+      goto LABEL_109;
     }
 
-    goto LABEL_109;
+    ENErrorF(2, "Bad attenuationDurationThresholds count");
+    goto LABEL_108;
   }
 
   if (!CUXPCDecodeDouble())
@@ -941,11 +984,8 @@ void __52__ENExposureConfiguration_initWithDictionary_error___block_invoke(uint6
       goto LABEL_109;
     }
 
-    v49 = v7->_immediateDurationWeight;
-LABEL_108:
-    ENErrorF(2);
-    *error = v16 = 0;
-    goto LABEL_93;
+    ENErrorF(2, "Out-of-range immediateDurationWeight: %f");
+    goto LABEL_108;
   }
 
   if (!CUXPCDecodeDouble())
@@ -961,7 +1001,7 @@ LABEL_108:
       goto LABEL_109;
     }
 
-    v50 = v7->_nearDurationWeight;
+    ENErrorF(2, "Out-of-range nearDurationWeight: %f");
     goto LABEL_108;
   }
 
@@ -978,7 +1018,7 @@ LABEL_108:
       goto LABEL_109;
     }
 
-    v51 = v7->_mediumDurationWeight;
+    ENErrorF(2, "Out-of-range mediumDurationWeight: %f");
     goto LABEL_108;
   }
 
@@ -992,7 +1032,7 @@ LABEL_108:
   {
     if (error)
     {
-      v52 = v7->_otherDurationWeight;
+      ENErrorF(2, "Out-of-range otherDurationWeight: %f");
       goto LABEL_108;
     }
 
@@ -1005,20 +1045,20 @@ LABEL_109:
   if (v13)
   {
     v14 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v64 = 0;
-    v65 = &v64;
-    v66 = 0x3032000000;
-    v67 = __Block_byref_object_copy_;
-    v68 = __Block_byref_object_dispose_;
-    v69 = 0;
+    v50 = 0;
+    v51 = &v50;
+    v52 = 0x3032000000;
+    v53 = __Block_byref_object_copy_;
+    v54 = __Block_byref_object_dispose_;
+    v55 = 0;
     applier[0] = MEMORY[0x277D85DD0];
     applier[1] = 3221225472;
     applier[2] = __51__ENExposureConfiguration_initWithXPCObject_error___block_invoke;
     applier[3] = &unk_278A4B198;
     applier[4] = v14;
-    applier[5] = &v64;
+    applier[5] = &v50;
     xpc_dictionary_apply(v13, applier);
-    v15 = v65[5];
+    v15 = v51[5];
     if (v15)
     {
       if (error)
@@ -1033,7 +1073,7 @@ LABEL_109:
       objc_storeStrong(&v7->_infectiousnessForDaysSinceOnsetOfSymptoms, v14);
     }
 
-    _Block_object_dispose(&v64, 8);
+    _Block_object_dispose(&v50, 8);
 
     if (v15)
     {
@@ -1054,9 +1094,8 @@ LABEL_109:
       goto LABEL_24;
     }
 
-    v53 = v7->_infectiousnessStandardWeight;
-LABEL_141:
-    ENErrorF(2);
+    ENErrorF(2, "Out-of-range infectiousnessStandardWeight: %f");
+LABEL_142:
     *error = v16 = 0;
     goto LABEL_92;
   }
@@ -1074,8 +1113,8 @@ LABEL_141:
       goto LABEL_24;
     }
 
-    v54 = v7->_infectiousnessHighWeight;
-    goto LABEL_141;
+    ENErrorF(2, "Out-of-range infectiousnessHighWeight: %f");
+    goto LABEL_142;
   }
 
   if (!CUXPCDecodeDouble())
@@ -1091,8 +1130,8 @@ LABEL_141:
       goto LABEL_24;
     }
 
-    v55 = v7->_reportTypeConfirmedTestWeight;
-    goto LABEL_141;
+    ENErrorF(2, "Out-of-range reportTypeConfirmedTestWeight: %f");
+    goto LABEL_142;
   }
 
   if (!CUXPCDecodeDouble())
@@ -1108,8 +1147,8 @@ LABEL_141:
       goto LABEL_24;
     }
 
-    v56 = v7->_reportTypeConfirmedClinicalDiagnosisWeight;
-    goto LABEL_141;
+    ENErrorF(2, "Out-of-range reportTypeConfirmedClinicalDiagnosisWeight: %f");
+    goto LABEL_142;
   }
 
   if (!CUXPCDecodeDouble())
@@ -1125,8 +1164,8 @@ LABEL_141:
       goto LABEL_24;
     }
 
-    v57 = v7->_reportTypeSelfReportedWeight;
-    goto LABEL_141;
+    ENErrorF(2, "Out-of-range reportTypeSelfReportedWeight: %f");
+    goto LABEL_142;
   }
 
   if (!CUXPCDecodeDouble())
@@ -1142,16 +1181,16 @@ LABEL_141:
       goto LABEL_24;
     }
 
-    v58 = v7->_reportTypeRecursiveWeight;
-    goto LABEL_141;
+    ENErrorF(2, "Out-of-range reportTypeRecursiveWeight: %f");
+    goto LABEL_142;
   }
 
-  v64 = 0;
+  v50 = 0;
   v23 = CUXPCDecodeUInt64RangedEx();
   if (v23 == 6)
   {
-    reportTypeNoneMap = v64;
-    v7->_reportTypeNoneMap = v64;
+    reportTypeNoneMap = v50;
+    v7->_reportTypeNoneMap = v50;
   }
 
   else
@@ -1166,19 +1205,20 @@ LABEL_141:
 
   if (reportTypeNoneMap >= 5)
   {
-    if (error)
+    if (!error)
     {
-      goto LABEL_141;
+      goto LABEL_24;
     }
 
-    goto LABEL_24;
+    ENErrorF(2, "Out-of-range reportTypeNoneMap: %d");
+    goto LABEL_142;
   }
 
-  v64 = 0;
+  v50 = 0;
   v25 = CUXPCDecodeUInt64RangedEx();
   if (v25 == 6)
   {
-    v7->_minimumRiskScore = v64;
+    v7->_minimumRiskScore = v50;
   }
 
   else if (v25 == 5)
@@ -1191,11 +1231,11 @@ LABEL_141:
     goto LABEL_24;
   }
 
-  v64 = 0;
+  v50 = 0;
   v26 = CUXPCDecodeSInt64RangedEx();
   if (v26 == 6)
   {
-    v7->_daysSinceLastExposureThreshold = v64;
+    v7->_daysSinceLastExposureThreshold = v50;
   }
 
   else if (v26 == 5)
@@ -1215,7 +1255,8 @@ LABEL_141:
     {
       if (error)
       {
-        goto LABEL_141;
+        ENErrorF(2, "Bad attenuation level value count");
+        goto LABEL_142;
       }
 
       goto LABEL_24;
@@ -1236,8 +1277,8 @@ LABEL_141:
       goto LABEL_24;
     }
 
-    v59 = v7->_attenuationWeight;
-    goto LABEL_141;
+    ENErrorF(2, "Out-of-range attenuationWeight: %f");
+    goto LABEL_142;
   }
 
   if (!CUXPCDecodeNSArrayOfInteger())
@@ -1252,7 +1293,8 @@ LABEL_141:
     {
       if (error)
       {
-        goto LABEL_141;
+        ENErrorF(2, "Bad duration level value count");
+        goto LABEL_142;
       }
 
       goto LABEL_24;
@@ -1277,7 +1319,8 @@ LABEL_141:
     {
       if (error)
       {
-        goto LABEL_141;
+        ENErrorF(2, "Bad daysSinceLastExposure level value count");
+        goto LABEL_142;
       }
 
       goto LABEL_24;
@@ -1298,8 +1341,8 @@ LABEL_141:
       goto LABEL_24;
     }
 
-    v60 = v7->_daysSinceLastExposureWeight;
-    goto LABEL_141;
+    ENErrorF(2, "Out-of-range daysSinceLastExposureWeight: %f");
+    goto LABEL_142;
   }
 
   durationWeight = v7->_durationWeight;
@@ -1310,8 +1353,8 @@ LABEL_141:
       goto LABEL_24;
     }
 
-    v61 = v7->_durationWeight;
-    goto LABEL_141;
+    ENErrorF(2, "Out-of-range durationWeight: %f");
+    goto LABEL_142;
   }
 
   if (!CUXPCDecodeNSArrayOfInteger())
@@ -1326,7 +1369,8 @@ LABEL_141:
     {
       if (error)
       {
-        goto LABEL_141;
+        ENErrorF(2, "Bad transmissionRisk level value count");
+        goto LABEL_142;
       }
 
       goto LABEL_24;
@@ -1348,8 +1392,8 @@ LABEL_141:
 
   if (error)
   {
-    v62 = v7->_transmissionRiskWeight;
-    goto LABEL_141;
+    ENErrorF(2, "Out-of-range transmissionRiskWeight: %f");
+    goto LABEL_142;
   }
 
 LABEL_24:
@@ -1364,24 +1408,31 @@ uint64_t __51__ENExposureConfiguration_initWithXPCObject_error___block_invoke(ui
 {
   v5 = a3;
   v6 = atoll(a2);
-  if (MEMORY[0x2383EE9C0](v5) == MEMORY[0x277D86498] && (value = xpc_int64_get_value(v5), value < 3))
+  if (MEMORY[0x2383EE9C0](v5) != MEMORY[0x277D86498])
   {
-    v8 = [MEMORY[0x277CCABB0] numberWithLongLong:value];
-    v9 = *(a1 + 32);
-    v10 = [MEMORY[0x277CCABB0] numberWithLongLong:v6];
-    [v9 setObject:v8 forKeyedSubscript:v10];
-
-    v11 = 1;
-  }
-
-  else
-  {
-    v12 = ENErrorF(2);
+    ENErrorF(2, "Non-number infectiousness");
+    v12 = LABEL_6:;
     v11 = 0;
     v13 = *(*(a1 + 40) + 8);
     v8 = *(v13 + 40);
     *(v13 + 40) = v12;
+    goto LABEL_7;
   }
+
+  value = xpc_int64_get_value(v5);
+  if (value >= 3)
+  {
+    ENErrorF(2, "Bad infectiousness value: %lld");
+    goto LABEL_6;
+  }
+
+  v8 = [MEMORY[0x277CCABB0] numberWithLongLong:value];
+  v9 = *(a1 + 32);
+  v10 = [MEMORY[0x277CCABB0] numberWithLongLong:v6];
+  [v9 setObject:v8 forKeyedSubscript:v10];
+
+  v11 = 1;
+LABEL_7:
 
   return v11;
 }
@@ -1404,12 +1455,12 @@ uint64_t __51__ENExposureConfiguration_initWithXPCObject_error___block_invoke(ui
   if (v7)
   {
     v8 = xpc_dictionary_create(0, 0, 0);
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __47__ENExposureConfiguration_encodeWithXPCObject___block_invoke;
-    v19[3] = &unk_278A4B1C0;
-    v19[4] = v8;
-    [(NSDictionary *)v7 enumerateKeysAndObjectsUsingBlock:v19];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __47__ENExposureConfiguration_encodeWithXPCObject___block_invoke;
+    v12[3] = &unk_278A4B1C0;
+    v12[4] = v8;
+    [(NSDictionary *)v7 enumerateKeysAndObjectsUsingBlock:v12];
     xpc_dictionary_set_value(v5, "infectLV", v8);
   }
 
@@ -1420,14 +1471,8 @@ uint64_t __51__ENExposureConfiguration_initWithXPCObject_error___block_invoke(ui
   xpc_dictionary_set_double(v5, "rtWSelfR", self->_reportTypeSelfReportedWeight);
   xpc_dictionary_set_double(v5, "rtWRecurs", self->_reportTypeRecursiveWeight);
   xpc_dictionary_set_uint64(v5, "rtNM", self->_reportTypeNoneMap);
-  metadata = self->_metadata;
   CFArrayGetTypeID();
-  v10 = CFDictionaryGetTypedValue();
-  if (!v10)
-  {
-    attenuationDurationThresholds = self->_attenuationDurationThresholds;
-  }
-
+  v9 = CFDictionaryGetTypedValue();
   CUXPCEncodeNSArrayOfNSNumber();
   daysSinceLastExposureThreshold = self->_daysSinceLastExposureThreshold;
   if (daysSinceLastExposureThreshold)
@@ -1438,7 +1483,6 @@ uint64_t __51__ENExposureConfiguration_initWithXPCObject_error___block_invoke(ui
   minimumRiskScoreFullRange = self->_minimumRiskScoreFullRange;
   if (minimumRiskScoreFullRange == 0.0)
   {
-    v14 = self->_metadata;
     CFDictionaryGetDouble();
   }
 
@@ -1452,102 +1496,95 @@ uint64_t __51__ENExposureConfiguration_initWithXPCObject_error___block_invoke(ui
     xpc_dictionary_set_uint64(v5, "mnRS", self->_minimumRiskScore);
   }
 
-  attenuationLevelValues = self->_attenuationLevelValues;
   CUXPCEncodeNSArrayOfNSNumber();
   xpc_dictionary_set_double(v5, "attW", self->_attenuationWeight);
-  durationLevelValues = self->_durationLevelValues;
   CUXPCEncodeNSArrayOfNSNumber();
   xpc_dictionary_set_double(v5, "durW", self->_durationWeight);
-  daysSinceLastExposureLevelValues = self->_daysSinceLastExposureLevelValues;
   CUXPCEncodeNSArrayOfNSNumber();
   xpc_dictionary_set_double(v5, "dleW", self->_daysSinceLastExposureWeight);
-  transmissionRiskLevelValues = self->_transmissionRiskLevelValues;
   CUXPCEncodeNSArrayOfNSNumber();
   xpc_dictionary_set_double(v5, "trRW", self->_transmissionRiskWeight);
 }
 
 void __47__ENExposureConfiguration_encodeWithXPCObject___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   *__str = 0u;
-  v10 = 0u;
+  v9 = 0u;
   v5 = a3;
   snprintf(__str, 0x20uLL, "%lld", [a2 longLongValue]);
   v6 = *(a1 + 32);
   v7 = [v5 longLongValue];
 
   xpc_dictionary_set_int64(v6, __str, v7);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description
 {
-  NSAppendPrintF_safe();
-  v27 = 0;
-  flags = self->_flags;
-  NSAppendPrintF();
-  v3 = v27;
+  v34 = 0;
+  NSAppendPrintF_safe(&v34, "ENConfig");
+  v3 = v34;
+  v33 = v3;
+  NSAppendPrintF(&v33, ", Flags %#{flags}", self->_flags, &unk_2382C8908);
+  v4 = v33;
 
-  mediumDurationWeight = self->_mediumDurationWeight;
-  otherDurationWeight = self->_otherDurationWeight;
-  v19 = *&self->_immediateDurationWeight;
-  NSAppendPrintF_safe();
-  v4 = v3;
+  v32 = v4;
+  NSAppendPrintF_safe(&v32, ", DurW { I %.0f, N %.0f, M %.0f, O %.0f }", self->_immediateDurationWeight, self->_nearDurationWeight, self->_mediumDurationWeight, self->_otherDurationWeight);
+  v5 = v32;
 
-  v5 = self->_infectiousnessForDaysSinceOnsetOfSymptoms;
-  if (v5)
+  v6 = self->_infectiousnessForDaysSinceOnsetOfSymptoms;
+  v7 = v6;
+  if (v6)
   {
-    NSAppendPrintF();
-    v6 = v4;
+    v31 = v5;
+    NSAppendPrintF(&v31, ", InfDays %##@", v6);
+    v8 = v31;
 
-    v4 = v6;
+    v5 = v8;
   }
 
-  infectiousnessStandardWeight = self->_infectiousnessStandardWeight;
-  infectiousnessHighWeight = self->_infectiousnessHighWeight;
-  NSAppendPrintF_safe();
-  v7 = v4;
+  v30 = v5;
+  NSAppendPrintF_safe(&v30, ", InfW { S %.0f, H %.0f }", self->_infectiousnessStandardWeight, self->_infectiousnessHighWeight);
+  v9 = v30;
 
-  reportTypeSelfReportedWeight = self->_reportTypeSelfReportedWeight;
-  reportTypeRecursiveWeight = self->_reportTypeRecursiveWeight;
-  v21 = *&self->_reportTypeConfirmedTestWeight;
-  NSAppendPrintF_safe();
-  v8 = v7;
+  v29 = v9;
+  NSAppendPrintF_safe(&v29, ", RpTyW { CTest %.0f, CClin %.0f, SelfR %.0f, Recurs %.0f }", self->_reportTypeConfirmedTestWeight, self->_reportTypeConfirmedClinicalDiagnosisWeight, self->_reportTypeSelfReportedWeight, self->_reportTypeRecursiveWeight);
+  v10 = v29;
 
-  *&v21 = self->_reportTypeNoneMap;
-  NSAppendPrintF_safe();
-  v9 = v8;
+  v28 = v10;
+  NSAppendPrintF_safe(&v28, ", RpTyNM %u", self->_reportTypeNoneMap);
+  v11 = v28;
 
-  *&v21 = self->_attenuationDurationThresholds;
-  NSAppendPrintF();
-  v10 = v9;
+  v27 = v11;
+  NSAppendPrintF(&v27, ", AttnDurThres %##@", self->_attenuationDurationThresholds);
+  v12 = v27;
 
-  *&v21 = self->_daysSinceLastExposureThreshold;
-  NSAppendPrintF_safe();
-  v11 = v10;
+  v26 = v12;
+  NSAppendPrintF_safe(&v26, ", DaysTh %d", self->_daysSinceLastExposureThreshold);
+  v13 = v26;
 
-  *(&v21 + 1) = *&self->_minimumRiskScoreFullRange;
-  *&v21 = self->_minimumRiskScore;
-  NSAppendPrintF_safe();
-  v12 = v11;
+  v25 = v13;
+  NSAppendPrintF_safe(&v25, ", MinScore %d (%.3f)", self->_minimumRiskScore, self->_minimumRiskScoreFullRange);
+  v14 = v25;
 
-  *&v21 = self->_attenuationLevelValues;
-  NSAppendPrintF();
-  v13 = v12;
+  v24 = v14;
+  NSAppendPrintF(&v24, ", AttnLV %##@", self->_attenuationLevelValues);
+  v15 = v24;
 
-  *&v21 = self->_daysSinceLastExposureLevelValues;
-  NSAppendPrintF();
-  v14 = v13;
+  v23 = v15;
+  NSAppendPrintF(&v23, ", DaysLV %##@", self->_daysSinceLastExposureLevelValues);
+  v16 = v23;
 
-  *&v21 = self->_durationLevelValues;
-  NSAppendPrintF();
-  v15 = v14;
+  v22 = v16;
+  NSAppendPrintF(&v22, ", DurLV %##@", self->_durationLevelValues);
+  v17 = v22;
 
-  *&v21 = self->_transmissionRiskLevelValues;
-  NSAppendPrintF();
-  v16 = v15;
+  v21 = v17;
+  NSAppendPrintF(&v21, ", TRskLV %##@", self->_transmissionRiskLevelValues);
+  v18 = v21;
+  v19 = v21;
 
-  return v15;
+  return v18;
 }
 
 - (double)daysSinceLastExposureLevelValueWithDays:(int64_t)days
@@ -1644,13 +1681,6 @@ void __47__ENExposureConfiguration_encodeWithXPCObject___block_invoke(uint64_t a
   return self->_durationWeight * *&v3;
 }
 
-- (unsigned)infectiousnessWithDaysSinceOnsetOfSymptoms:(int64_t)symptoms
-{
-  infectiousnessForDaysSinceOnsetOfSymptoms = self->_infectiousnessForDaysSinceOnsetOfSymptoms;
-  [MEMORY[0x277CCABB0] numberWithInteger:symptoms];
-  return CFDictionaryGetInt64Ranged();
-}
-
 - (double)infectiousnessWeightWithDaysSinceOnsetOfSymptoms:(int64_t)symptoms skip:(BOOL *)skip
 {
   v6 = [(ENExposureConfiguration *)self infectiousnessWithDaysSinceOnsetOfSymptoms:symptoms];
@@ -1676,6 +1706,44 @@ void __47__ENExposureConfiguration_encodeWithXPCObject___block_invoke(uint64_t a
   }
 
   return type;
+}
+
+- (double)reportTypeWeightWithReportType:(unsigned int)type skip:(BOOL *)skip
+{
+  v6 = [(ENExposureConfiguration *)self mappedDiagnosisReportType:*&type];
+  *skip = v6 == 0;
+  if (v6 <= 1)
+  {
+    result = 0.0;
+    if (!v6)
+    {
+      return result;
+    }
+
+    if (v6 == 1)
+    {
+      return self->_reportTypeConfirmedTestWeight;
+    }
+
+    return 100.0;
+  }
+
+  if (v6 == 2)
+  {
+    return self->_reportTypeConfirmedClinicalDiagnosisWeight;
+  }
+
+  if (v6 != 3)
+  {
+    if (v6 == 4)
+    {
+      return self->_reportTypeConfirmedTestWeight;
+    }
+
+    return 100.0;
+  }
+
+  return self->_reportTypeSelfReportedWeight;
 }
 
 - (double)transmissionLevelValueWithTransmissionRiskLevel:(unsigned __int8)level

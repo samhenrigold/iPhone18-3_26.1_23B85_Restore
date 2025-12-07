@@ -94,7 +94,7 @@
 
 - (void)generateFirstRunObjectsForDemoPerson:(id)person firstDate:(id)date objectCollection:(id)collection
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   personCopy = person;
   dateCopy = date;
   if (self)
@@ -107,27 +107,27 @@
       profile = [(HDDemoDataBaseSampleGenerator *)self profile];
       v12 = [profile profileExtensionsConformingToProtocol:&unk_283D71258];
 
-      v63 = 0u;
-      v64 = 0u;
-      v61 = 0u;
       v62 = 0u;
+      v63 = 0u;
+      v60 = 0u;
+      v61 = 0u;
       v13 = v12;
-      v14 = [v13 countByEnumeratingWithState:&v61 objects:v69 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v60 objects:v68 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v62;
+        v16 = *v61;
         v17 = *MEMORY[0x277CCC110];
 LABEL_5:
         v18 = 0;
         while (1)
         {
-          if (*v62 != v16)
+          if (*v61 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v19 = [*(*(&v61 + 1) + 8 * v18) featureAvailabilityExtensionForFeatureIdentifier:v17];
+          v19 = [*(*(&v60 + 1) + 8 * v18) featureAvailabilityExtensionForFeatureIdentifier:v17];
           if (v19)
           {
             break;
@@ -135,7 +135,7 @@ LABEL_5:
 
           if (v15 == ++v18)
           {
-            v15 = [v13 countByEnumeratingWithState:&v61 objects:v69 count:16];
+            v15 = [v13 countByEnumeratingWithState:&v60 objects:v68 count:16];
             if (v15)
             {
               goto LABEL_5;
@@ -150,15 +150,15 @@ LABEL_5:
         currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
         countryCode = [currentLocale countryCode];
 
-        v60 = 0;
-        v24 = [v21 onboardingEligibilityForCountryCode:countryCode error:&v60];
-        v25 = v60;
+        v59 = 0;
+        v24 = [v21 onboardingEligibilityForCountryCode:countryCode error:&v59];
+        v25 = v59;
         if (v25 && (_HKInitializeLogging(), v26 = *MEMORY[0x277CCC2B8], os_log_type_enabled(*MEMORY[0x277CCC2B8], OS_LOG_TYPE_ERROR)))
         {
           *buf = 138543618;
           selfCopy = self;
-          v67 = 2114;
-          v68 = v25;
+          v66 = 2114;
+          v67 = v25;
           _os_log_error_impl(&dword_228986000, v26, OS_LOG_TYPE_ERROR, "[%{public}@] Error while determining onboarding eligibility for Walking Steadiness %{public}@", buf, 0x16u);
           if (!v24)
           {
@@ -173,19 +173,19 @@ LABEL_5:
 
         if (([v24 ineligibilityReasons] & 8) == 0)
         {
-          v53 = v24;
-          v55 = v25;
+          v52 = v24;
+          v54 = v25;
           v27 = objc_alloc(MEMORY[0x277CCD740]);
           date = [MEMORY[0x277CBEAA8] date];
-          v56 = countryCode;
+          v55 = countryCode;
           v29 = [v27 initWithFeatureIdentifier:v17 version:1 completionDate:date countryCode:countryCode countryCodeProvenance:102];
 
           profile2 = [(HDDemoDataBaseSampleGenerator *)self profile];
           onboardingCompletionManager = [profile2 onboardingCompletionManager];
-          v59 = 0;
-          v54 = v29;
-          LOBYTE(v29) = [onboardingCompletionManager insertOnboardingCompletion:v29 error:&v59];
-          v32 = v59;
+          v58 = 0;
+          v53 = v29;
+          LOBYTE(v29) = [onboardingCompletionManager insertOnboardingCompletion:v29 error:&v58];
+          v32 = v58;
 
           if ((v29 & 1) == 0)
           {
@@ -197,62 +197,62 @@ LABEL_5:
               v41 = v32;
               selfCopy = v32;
               _os_log_impl(&dword_228986000, v48, OS_LOG_TYPE_DEFAULT, "Failed to insert Walking Steadiness onboarding completion: %{public}@", buf, 0xCu);
-              v25 = v55;
-              countryCode = v56;
+              v25 = v54;
+              countryCode = v55;
             }
 
             else
             {
-              v25 = v55;
-              countryCode = v56;
+              v25 = v54;
+              countryCode = v55;
               v41 = v32;
             }
 
-            v24 = v53;
-            v50 = v54;
+            v24 = v52;
+            v50 = v53;
             goto LABEL_33;
           }
 
           profile3 = [(HDDemoDataBaseSampleGenerator *)self profile];
           featureSettingsManager = [profile3 featureSettingsManager];
           v35 = *MEMORY[0x277CCC120];
-          v58 = v32;
-          v36 = [featureSettingsManager setFeatureSettingsNumber:MEMORY[0x277CBEC38] forKey:v35 featureIdentifier:v17 suppressNotificationsToObserver:0 error:&v58];
-          v52 = v58;
+          v57 = v32;
+          v36 = [featureSettingsManager setFeatureSettingsNumber:MEMORY[0x277CBEC38] forKey:v35 featureIdentifier:v17 suppressNotificationsToObserver:0 error:&v57];
+          v51 = v57;
 
           if ((v36 & 1) == 0)
           {
-            v41 = v52;
+            v41 = v51;
             _HKInitializeLogging();
             v49 = *MEMORY[0x277CCC2B8];
-            v24 = v53;
+            v24 = v52;
             if (os_log_type_enabled(*MEMORY[0x277CCC2B8], OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
-              selfCopy = v52;
+              selfCopy = v51;
               _os_log_impl(&dword_228986000, v49, OS_LOG_TYPE_DEFAULT, "Failed to update feature settings enablement key for Walking Steadiness: %{public}@", buf, 0xCu);
             }
 
-            v25 = v55;
-            countryCode = v56;
+            v25 = v54;
+            countryCode = v55;
             goto LABEL_32;
           }
 
           profile4 = [(HDDemoDataBaseSampleGenerator *)self profile];
           featureSettingsManager2 = [profile4 featureSettingsManager];
           v39 = *MEMORY[0x277CCC130];
-          v57 = v52;
-          v40 = [featureSettingsManager2 setFeatureSettingsNumber:MEMORY[0x277CBEC38] forKey:v39 featureIdentifier:v17 suppressNotificationsToObserver:0 error:&v57];
-          v41 = v57;
+          v56 = v51;
+          v40 = [featureSettingsManager2 setFeatureSettingsNumber:MEMORY[0x277CBEC38] forKey:v39 featureIdentifier:v17 suppressNotificationsToObserver:0 error:&v56];
+          v41 = v56;
 
           _HKInitializeLogging();
           v42 = *MEMORY[0x277CCC2B8];
-          v24 = v53;
+          v24 = v52;
           v43 = *MEMORY[0x277CCC2B8];
           if (v40)
           {
-            v25 = v55;
-            countryCode = v56;
+            v25 = v54;
+            countryCode = v55;
             if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
@@ -267,8 +267,8 @@ LABEL_31:
 
           else
           {
-            v25 = v55;
-            countryCode = v56;
+            v25 = v54;
+            countryCode = v55;
             if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
@@ -282,7 +282,7 @@ LABEL_31:
           }
 
 LABEL_32:
-          v50 = v54;
+          v50 = v53;
 LABEL_33:
         }
 
@@ -304,8 +304,6 @@ LABEL_11:
 LABEL_35:
     }
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 - (void)generateObjectsForDemoPerson:(id)person fromTime:(double)time toTime:(double)toTime currentDate:(id)date objectCollection:(id)collection

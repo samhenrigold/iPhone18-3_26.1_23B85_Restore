@@ -174,4 +174,22 @@ LABEL_15:
   return result;
 }
 
++ (void)consumerWithConstraintSize:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUISizeToFitImageDataConsumer consumerWithConstraintSize:]";
+}
+
++ (void)consumerWithConstraintSize2:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUISizeToFitImageDataConsumer consumerWithConstraintSize2:]";
+}
+
+- (void)imageForImage:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISizeToFitImageDataConsumer imageForImage:]";
+}
+
 @end

@@ -42,7 +42,7 @@
   [image size];
   v5 = v4;
   v7 = v6;
-  [(JFXEffectsPreviewGenerationRequest *)self userSourceTransform];
+  objc_msgSend_userSourceTransform(self);
   CGSizeApplyAffineTransformWithPositiveResult(&v11, v5, v7);
 
   v14 = 0;
@@ -53,7 +53,7 @@
   [(JFXEffectsPreviewGenerationRequest *)self outputSize];
   if (v8)
   {
-    [v8 centerAnimationInfoForOutputSize:? imageRect:?];
+    objc_msgSend_centerAnimationInfoForOutputSize_imageRect_(v8);
   }
 
   else
@@ -249,8 +249,8 @@ void __68__JFXEffectsPreviewGenerationRequest_placeholderGeneratorBackground__bl
       [placeholderGeneratorBackground size];
       v15 = v14;
       v17 = v16;
-      [(JFXEffectsPreviewGenerationRequest *)self userSourceTransform];
-      [(JFXEffectsPreviewGenerationRequest *)self JFX_scaleToFitSize:v24 withTransform:v15, v17];
+      objc_msgSend_userSourceTransform(self);
+      objc_msgSend_JFX_scaleToFitSize_withTransform_(self, v15, v17);
     }
   }
 
@@ -265,8 +265,8 @@ void __68__JFXEffectsPreviewGenerationRequest_placeholderGeneratorBackground__bl
       v21 = v20;
       v23 = v22;
 
-      [(JFXEffectsPreviewGenerationRequest *)self userSourceTransform];
-      return [(JFXEffectsPreviewGenerationRequest *)self JFX_scaleToFitSize:v24 withTransform:v21, v23];
+      objc_msgSend_userSourceTransform(self);
+      return objc_msgSend_JFX_scaleToFitSize_withTransform_(self, v21, v23);
     }
   }
 
@@ -301,7 +301,7 @@ void __68__JFXEffectsPreviewGenerationRequest_placeholderGeneratorBackground__bl
       v63 = 0u;
       v64 = 0u;
       v62 = 0u;
-      [(JFXEffectsPreviewGenerationRequest *)self sourceTransform];
+      objc_msgSend_sourceTransform(self);
       placeholderGeneratorBackground = [(JFXEffectsPreviewGenerationRequest *)self placeholderGeneratorBackground];
       v59 = v62;
       v60 = v63;
@@ -327,7 +327,7 @@ void __68__JFXEffectsPreviewGenerationRequest_placeholderGeneratorBackground__bl
       v63 = 0uLL;
       v64 = 0uLL;
       v62 = 0uLL;
-      [(JFXEffectsPreviewGenerationRequest *)self sourceTransform];
+      objc_msgSend_sourceTransform(self);
       v15 = objc_alloc(MEMORY[0x277D41630]);
       image2 = [(JFXEffectsPreviewGenerationRequest *)self image];
       v59 = v62;
@@ -388,7 +388,7 @@ void __68__JFXEffectsPreviewGenerationRequest_placeholderGeneratorBackground__bl
           v52 = *MEMORY[0x277CBF2C0];
           v53 = v36;
           v54 = *(MEMORY[0x277CBF2C0] + 32);
-          [(JFXEffectsPreviewGenerationRequest *)self JFX_scaleToFitSize:&v52 withTransform:v27, v28];
+          objc_msgSend_JFX_scaleToFitSize_withTransform_(self, v27, v28);
           v52 = v55;
           v53 = v56;
           v54 = v57;
@@ -426,7 +426,7 @@ void __68__JFXEffectsPreviewGenerationRequest_placeholderGeneratorBackground__bl
       v63 = 0uLL;
       v64 = 0uLL;
       v62 = 0uLL;
-      [(JFXEffectsPreviewGenerationRequest *)self sourceTransform];
+      objc_msgSend_sourceTransform(self);
       placeholderGeneratorBackground2 = [(JFXEffectsPreviewGenerationRequest *)self placeholderGeneratorBackground];
       v59 = v62;
       v60 = v63;
@@ -576,8 +576,8 @@ void __67__JFXEffectsPreviewGenerationRequest_generatorJobWithGraphBuilder___blo
   *&retstr->c = 0u;
   *&retstr->tx = 0u;
   *&retstr->a = 0u;
-  [(JFXEffectsPreviewGenerationRequest *)self userSourceTransform];
-  return [(JFXEffectsPreviewGenerationRequest *)self JFX_scaleToFitSize:&v8 withTransform:width, height];
+  objc_msgSend_userSourceTransform(self, size);
+  return objc_msgSend_JFX_scaleToFitSize_withTransform_(self, width, height);
 }
 
 - (CGAffineTransform)JFX_scaleToFitSize:(SEL)size withTransform:(CGSize)transform
@@ -611,7 +611,7 @@ void __67__JFXEffectsPreviewGenerationRequest_generatorJobWithGraphBuilder___blo
   *&t2.c = v16;
   *&t2.tx = *&a5->tx;
   CGAffineTransformConcat(retstr, &t1, &t2);
-  [(JFXEffectsPreviewGenerationRequest *)self animationTransformInfo];
+  objc_msgSend_animationTransformInfo(self);
   CGAffineTransformFromPVAnimInfo();
   v17 = *&retstr->c;
   *&v25.a = *&retstr->a;

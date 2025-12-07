@@ -112,24 +112,24 @@
   if (v9)
   {
     v10 = v9;
-    v24 = 150.0;
-    [v9 getFloatValue:&v24 fromParm:2 atFxTime:info->var0.var1];
-    if (v24 == 0.0)
+    v23 = 150.0;
+    [v9 getFloatValue:&v23 fromParm:2 atFxTime:info->var0.var1];
+    if (v23 == 0.0)
     {
       if (input)
       {
-        [input heliumRef];
+        objc_msgSend_heliumRef(input, v23);
       }
 
       else
       {
-        v23 = 0;
+        v22 = 0;
       }
 
-      [output setHeliumRef:&v23];
-      if (v23)
+      [output setHeliumRef:&v22];
+      if (v22)
       {
-        (*(*v23 + 24))(v23);
+        (*(*v22 + 24))(v22);
       }
 
       LOBYTE(v9) = 1;
@@ -137,18 +137,18 @@
 
     else
     {
-      [(PAESharedDefaultBase *)self getScaleForImage:input, v24];
+      objc_msgSend_getScaleForImage_(self, v23);
+      v20 = 0.5;
       v21 = 0.5;
-      v22 = 0.5;
-      [v10 getXValue:&v22 YValue:&v21 fromParm:1 atFxTime:info->var0.var1];
+      [v10 getXValue:&v21 YValue:&v20 fromParm:1 atFxTime:info->var0.var1];
       width = [input width];
-      v22 = v22 * width;
+      v21 = v21 * width;
       height = [input height];
-      v21 = v21 * height;
-      v20 = 0x3FE0000000000000;
-      [v10 getFloatValue:&v20 fromParm:3 atFxTime:info->var0.var1];
-      v19 = 0;
-      [v10 getBoolValue:&v19 fromParm:4 atFxTime:info->var0.var1];
+      v20 = v20 * height;
+      v19 = 0x3FE0000000000000;
+      [v10 getFloatValue:&v19 fromParm:3 atFxTime:info->var0.var1];
+      v18 = 0;
+      [v10 getBoolValue:&v18 fromParm:4 atFxTime:info->var0.var1];
       LODWORD(v9) = [(PAESharedDefaultBase *)self getRenderMode:info->var0.var1];
       if (v9)
       {
@@ -156,52 +156,43 @@
         {
           if (input)
           {
-            [input heliumRef];
+            objc_msgSend_heliumRef(input);
           }
 
           else
           {
-            v18 = 0;
+            v17 = 0;
           }
 
-          if (v19 == 1)
+          if (v18 == 1)
           {
-            v16 = v18;
-            if (v18)
+            if (v17)
             {
-              (*(*v18 + 16))(v18);
+              (*(*v17 + 16))(v17);
             }
 
-            [(PAESharedDefaultBase *)self smear:&v16 fromImage:input toImage:input];
-            v13 = v17;
-            if (v18 == v17)
+            objc_msgSend_smear_fromImage_toImage_(self, v17);
+            if (v17 == v16)
             {
-              if (v18)
+              if (v17)
               {
-                (*(*v17 + 24))(v17);
+                (*(*v16 + 24))();
               }
             }
 
-            else
+            else if (v17)
             {
-              if (v18)
-              {
-                (*(*v18 + 24))();
-                v13 = v17;
-              }
-
-              v17 = 0;
-              v18 = v13;
+              (*(*v17 + 24))();
             }
 
-            if (v16)
+            if (v15)
             {
-              (*(*v16 + 24))(v16);
+              (*(*v15 + 24))(v15);
             }
           }
 
-          v14 = HGObject::operator new(0x1A0uLL);
-          HgcBulge::HgcBulge(v14);
+          v13 = HGObject::operator new(0x1A0uLL);
+          HgcBulge::HgcBulge(v13);
         }
 
         LOBYTE(v9) = 0;

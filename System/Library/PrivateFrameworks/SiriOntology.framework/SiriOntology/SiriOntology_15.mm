@@ -1,3531 +1,3 @@
-uint64_t UsoTaskBuilder_noVerb_common_NumberSign.init()()
-{
-  *(v0 + 40) = 0xD000000000000011;
-  *(v0 + 48) = 0x80000001C09CE210;
-  *(v0 + 56) = xmmword_1C0975340;
-  *(v0 + 72) = xmmword_1C0975350;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C09761B0;
-  *(v0 + 120) = 0x80000001C09CE210;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_action_common_Utilities.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_action_common_Utilities.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_action_common_Utilities.init()()
-{
-  *(v0 + 40) = 0xD000000000000010;
-  *(v0 + 48) = 0x80000001C09CE230;
-  *(v0 + 56) = xmmword_1C0982ED0;
-  *(v0 + 72) = xmmword_1C0982EE0;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0976090;
-  *(v0 + 120) = 0x80000001C09CE230;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_PersonName.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_noVerb_common_PersonName.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_PersonName.init()()
-{
-  *(v0 + 40) = 0xD000000000000011;
-  *(v0 + 48) = 0x80000001C09CE250;
-  *(v0 + 56) = xmmword_1C0975340;
-  *(v0 + 72) = xmmword_1C0975350;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C09761B0;
-  *(v0 + 120) = 0x80000001C09CE250;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_commonNotification_NotificationAttribute.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_noVerb_commonNotification_NotificationAttribute.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_commonNotification_NotificationAttribute.init()()
-{
-  *(v0 + 40) = 0xD000000000000028;
-  *(v0 + 48) = 0x80000001C09CE270;
-  *(v0 + 56) = xmmword_1C0975340;
-  *(v0 + 72) = xmmword_1C0975350;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C09761D0;
-  *(v0 + 120) = 0x80000001C09CE270;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_commonPhoneCall_PhoneCallAttribute.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_noVerb_commonPhoneCall_PhoneCallAttribute.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_commonPhoneCall_PhoneCallAttribute.init()()
-{
-  *(v0 + 40) = 0xD000000000000022;
-  *(v0 + 48) = 0x80000001C09CE2A0;
-  *(v0 + 56) = xmmword_1C0975340;
-  *(v0 + 72) = xmmword_1C0975350;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0976070;
-  *(v0 + 120) = 0x80000001C09CE2A0;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_SettingValue.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_noVerb_common_SettingValue.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_SettingValue.init()()
-{
-  *(v0 + 40) = 0xD000000000000013;
-  *(v0 + 48) = 0x80000001C09CE2D0;
-  *(v0 + 56) = xmmword_1C0975340;
-  *(v0 + 72) = xmmword_1C0975350;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0976140;
-  *(v0 + 120) = 0x80000001C09CE2D0;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_learnNameCorrection_common_PersonContact.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_learnNameCorrection_common_PersonContact.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_learnNameCorrection_common_PersonContact.init()()
-{
-  *(v0 + 40) = 0xD000000000000014;
-  *(v0 + 48) = 0x80000001C09CE320;
-  *(v0 + 56) = 0xD000000000000013;
-  *(v0 + 64) = 0x80000001C09D96F0;
-  *(v0 + 72) = 0xD000000000000023;
-  *(v0 + 80) = 0x80000001C09CE2F0;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0976150;
-  *(v0 + 120) = 0x80000001C09CE320;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_read_common_PersonContact.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_read_common_PersonContact.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_create_common_PersonContact.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_create_common_PersonContact.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_forgetNameCorrection_common_PersonContact.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_forgetNameCorrection_common_PersonContact.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_forgetNameCorrection_common_PersonContact.init()()
-{
-  *(v0 + 40) = 0xD000000000000014;
-  *(v0 + 48) = 0x80000001C09CE320;
-  *(v0 + 56) = 0xD000000000000014;
-  *(v0 + 64) = 0x80000001C09D96D0;
-  *(v0 + 72) = 0xD00000000000001ELL;
-  *(v0 + 80) = 0x80000001C09CE340;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0976150;
-  *(v0 + 120) = 0x80000001C09CE320;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_delete_common_PersonContact.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_delete_common_PersonContact.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_delete_common_PersonContact.init()()
-{
-  *(v0 + 40) = 0xD000000000000014;
-  *(v0 + 48) = 0x80000001C09CE320;
-  *(v0 + 56) = xmmword_1C0982B10;
-  *(v0 + 72) = 0xD000000000000010;
-  *(v0 + 80) = 0x80000001C09CDB40;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0976150;
-  *(v0 + 120) = 0x80000001C09CE320;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_PersonContact.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_noVerb_common_PersonContact.init()();
-  return v0;
-}
-
-uint64_t sub_1C0686E54(__n128 a1, __n128 a2)
-{
-  *(v2 + 40) = 0xD000000000000014;
-  *(v2 + 48) = 0x80000001C09CE320;
-  *(v2 + 56) = a1;
-  *(v2 + 72) = a2;
-  *(v2 + 88) = xmmword_1C0975360;
-  *(v2 + 104) = xmmword_1C0976150;
-  *(v2 + 120) = 0x80000001C09CE320;
-  *(v2 + 128) = xmmword_1C0982A00;
-  *(v2 + 144) = 0;
-
-  v3 = MEMORY[0x1E69E7CC0];
-  *(v2 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v2 + 16) = v3;
-  *(v2 + 24) = v3;
-
-  *(v2 + 32) = v3;
-  return v2;
-}
-
-uint64_t UsoTaskBuilder_summarise_common_PersonContact.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_summarise_common_PersonContact.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_summarise_common_PersonContact.init()()
-{
-  *(v0 + 40) = 0xD000000000000014;
-  *(v0 + 48) = 0x80000001C09CE320;
-  *(v0 + 56) = xmmword_1C0982A50;
-  *(v0 + 72) = 0xD000000000000013;
-  *(v0 + 80) = 0x80000001C09CDA80;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0976150;
-  *(v0 + 120) = 0x80000001C09CE320;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_update_common_PersonContact.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_update_common_PersonContact.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_update_common_PersonContact.init()()
-{
-  *(v0 + 40) = 0xD000000000000014;
-  *(v0 + 48) = 0x80000001C09CE320;
-  *(v0 + 56) = xmmword_1C0982A60;
-  *(v0 + 72) = 0xD000000000000016;
-  *(v0 + 80) = 0x80000001C09CDAA0;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0976150;
-  *(v0 + 120) = 0x80000001C09CE320;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_SportsItem.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_noVerb_common_SportsItem.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_SportsItem.init()()
-{
-  *(v0 + 40) = 0xD000000000000011;
-  *(v0 + 48) = 0x80000001C09CE360;
-  *(v0 + 56) = xmmword_1C0975340;
-  *(v0 + 72) = xmmword_1C0975350;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C09761B0;
-  *(v0 + 120) = 0x80000001C09CE360;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_reset_common_Timer.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_reset_common_Timer.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_reset_common_Timer.init()()
-{
-  *(v0 + 40) = xmmword_1C0982EF0;
-  *(v0 + 56) = xmmword_1C0982D90;
-  *(v0 + 72) = 0xD000000000000015;
-  *(v0 + 80) = 0x80000001C09CE380;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0977340;
-  *(v0 + 120) = xmmword_1C0982F00;
-  *(v0 + 136) = xmmword_1C0982D00;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_create_common_Timer.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_create_common_Timer.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_create_common_Timer.init()()
-{
-  *(v0 + 40) = xmmword_1C0982EF0;
-  *(v0 + 56) = xmmword_1C0982A20;
-  *(v0 + 72) = xmmword_1C0982A30;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0977340;
-  *(v0 + 120) = xmmword_1C0982F00;
-  *(v0 + 136) = xmmword_1C0982D00;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_start_common_Timer.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_start_common_Timer.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_start_common_Timer.init()()
-{
-  *(v0 + 40) = xmmword_1C0982EF0;
-  *(v0 + 56) = xmmword_1C0982F10;
-  *(v0 + 72) = xmmword_1C0982F20;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0977340;
-  *(v0 + 120) = xmmword_1C0982F00;
-  *(v0 + 136) = xmmword_1C0982D00;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_delete_common_Timer.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_delete_common_Timer.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_update_common_Timer.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_update_common_Timer.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_checkExistence_common_Timer.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_checkExistence_common_Timer.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_pause_common_Timer.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_pause_common_Timer.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_pause_common_Timer.init()()
-{
-  *(v0 + 40) = xmmword_1C0982EF0;
-  *(v0 + 56) = xmmword_1C0982CA0;
-  *(v0 + 72) = xmmword_1C0982CB0;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0977340;
-  *(v0 + 120) = xmmword_1C0982F00;
-  *(v0 + 136) = xmmword_1C0982D00;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_resume_common_Timer.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_resume_common_Timer.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_resume_common_Timer.init()()
-{
-  *(v0 + 40) = xmmword_1C0982EF0;
-  *(v0 + 56) = xmmword_1C0982CC0;
-  *(v0 + 72) = 0xD000000000000010;
-  *(v0 + 80) = 0x80000001C09CDD60;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0977340;
-  *(v0 + 120) = xmmword_1C0982F00;
-  *(v0 + 136) = xmmword_1C0982D00;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_Timer.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_noVerb_common_Timer.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_Timer.init()()
-{
-  *(v0 + 40) = xmmword_1C0982EF0;
-  *(v0 + 56) = xmmword_1C0975340;
-  *(v0 + 72) = xmmword_1C0975350;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0977340;
-  *(v0 + 120) = xmmword_1C0982F00;
-  *(v0 + 136) = xmmword_1C0982D00;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_summarise_common_Timer.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_summarise_common_Timer.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_stop_common_Timer.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_stop_common_Timer.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_stop_common_Timer.init()()
-{
-  *(v0 + 40) = xmmword_1C0982EF0;
-  *(v0 + 56) = xmmword_1C0982BF0;
-  *(v0 + 72) = xmmword_1C0982C00;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0977340;
-  *(v0 + 120) = xmmword_1C0982F00;
-  *(v0 + 136) = xmmword_1C0982D00;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_request_common_Timer.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_request_common_Timer.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_SearchQualifier.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_noVerb_common_SearchQualifier.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_SearchQualifier.init()()
-{
-  *(v0 + 40) = 0xD000000000000016;
-  *(v0 + 48) = 0x80000001C09CE3A0;
-  *(v0 + 56) = xmmword_1C0975340;
-  *(v0 + 72) = xmmword_1C0975350;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0976120;
-  *(v0 + 120) = 0x80000001C09CE3A0;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_checkExistence_common_Reaction.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_checkExistence_common_Reaction.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_Reaction.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_noVerb_common_Reaction.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_Reaction.init()()
-{
-  *(v0 + 40) = xmmword_1C0982F30;
-  *(v0 + 56) = xmmword_1C0975340;
-  *(v0 + 72) = xmmword_1C0975350;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0977C40;
-  *(v0 + 120) = xmmword_1C0982F40;
-  *(v0 + 136) = xmmword_1C0982D00;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_summarise_common_Reaction.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_summarise_common_Reaction.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_request_common_Reaction.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_request_common_Reaction.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_action_common_CrisisSupport.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_action_common_CrisisSupport.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_action_common_CrisisSupport.init()()
-{
-  *(v0 + 40) = 0xD000000000000014;
-  *(v0 + 48) = 0x80000001C09CE3C0;
-  *(v0 + 56) = xmmword_1C0982ED0;
-  *(v0 + 72) = xmmword_1C0982EE0;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0976150;
-  *(v0 + 120) = 0x80000001C09CE3C0;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_summarise_common_DateTimeRange.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_summarise_common_DateTimeRange.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_summarise_common_DateTimeRange.init()()
-{
-  *(v0 + 40) = 0xD000000000000014;
-  *(v0 + 48) = 0x80000001C09CE3E0;
-  *(v0 + 56) = xmmword_1C0982A50;
-  *(v0 + 72) = 0xD000000000000013;
-  *(v0 + 80) = 0x80000001C09CDA80;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0976150;
-  *(v0 + 120) = 0x80000001C09CE3E0;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_request_common_DateTimeRange.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_request_common_DateTimeRange.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_request_common_DateTimeRange.init()()
-{
-  *(v0 + 40) = 0xD000000000000014;
-  *(v0 + 48) = 0x80000001C09CE3E0;
-  *(v0 + 56) = xmmword_1C0982C40;
-  *(v0 + 72) = 0xD000000000000017;
-  *(v0 + 80) = 0x80000001C09CDD20;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0976150;
-  *(v0 + 120) = 0x80000001C09CE3E0;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_convert_common_DateTimeRange.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_convert_common_DateTimeRange.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_convert_common_DateTimeRange.init()()
-{
-  *(v0 + 40) = 0xD000000000000014;
-  *(v0 + 48) = 0x80000001C09CE3E0;
-  *(v0 + 56) = xmmword_1C0982CD0;
-  *(v0 + 72) = 0xD00000000000001DLL;
-  *(v0 + 80) = 0x80000001C09CDDA0;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0976150;
-  *(v0 + 120) = 0x80000001C09CE3E0;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_DateTimeRange.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_noVerb_common_DateTimeRange.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_checkExistence_common_DateTimeRange.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_checkExistence_common_DateTimeRange.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_checkExistence_common_DateTimeRange.init()()
-{
-  *(v0 + 40) = 0xD000000000000014;
-  *(v0 + 48) = 0x80000001C09CE3E0;
-  *(v0 + 56) = xmmword_1C0982B80;
-  *(v0 + 72) = 0xD000000000000018;
-  *(v0 + 80) = 0x80000001C09CDC20;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0976150;
-  *(v0 + 120) = 0x80000001C09CE3E0;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_read_common_DateTimeRange.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_read_common_DateTimeRange.init()();
-  return v0;
-}
-
-uint64_t sub_1C06890E4(__n128 a1, __n128 a2)
-{
-  *(v2 + 40) = 0xD000000000000014;
-  *(v2 + 48) = 0x80000001C09CE3E0;
-  *(v2 + 56) = a1;
-  *(v2 + 72) = a2;
-  *(v2 + 88) = xmmword_1C0975360;
-  *(v2 + 104) = xmmword_1C0976150;
-  *(v2 + 120) = 0x80000001C09CE3E0;
-  *(v2 + 128) = xmmword_1C0982A00;
-  *(v2 + 144) = 0;
-
-  v3 = MEMORY[0x1E69E7CC0];
-  *(v2 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v2 + 16) = v3;
-  *(v2 + 24) = v3;
-
-  *(v2 + 32) = v3;
-  return v2;
-}
-
-uint64_t UsoTaskBuilder_noVerb_appleWriting_WritingAttribute.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_noVerb_appleWriting_WritingAttribute.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_appleWriting_WritingAttribute.init()()
-{
-  *(v0 + 40) = 0xD00000000000001DLL;
-  *(v0 + 48) = 0x80000001C09CE400;
-  *(v0 + 56) = xmmword_1C0975340;
-  *(v0 + 72) = xmmword_1C0975350;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C09760C0;
-  *(v0 + 120) = 0x80000001C09CE400;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_TimeZone.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_noVerb_common_TimeZone.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_TimeZone.init()()
-{
-  *(v0 + 40) = xmmword_1C0982F50;
-  *(v0 + 56) = xmmword_1C0975340;
-  *(v0 + 72) = xmmword_1C0975350;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0977340;
-  *(v0 + 120) = xmmword_1C0982F60;
-  *(v0 + 136) = xmmword_1C0982D00;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_update_common_PersonRelationship.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_update_common_PersonRelationship.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_update_common_PersonRelationship.init()()
-{
-  *(v0 + 40) = 0xD000000000000019;
-  *(v0 + 48) = 0x80000001C09CE420;
-  *(v0 + 56) = xmmword_1C0982A60;
-  *(v0 + 72) = 0xD000000000000016;
-  *(v0 + 80) = 0x80000001C09CDAA0;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C09760D0;
-  *(v0 + 120) = 0x80000001C09CE420;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_PersonRelationship.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_noVerb_common_PersonRelationship.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_PersonRelationship.init()()
-{
-  *(v0 + 40) = 0xD000000000000019;
-  *(v0 + 48) = 0x80000001C09CE420;
-  *(v0 + 56) = xmmword_1C0975340;
-  *(v0 + 72) = xmmword_1C0975350;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C09760D0;
-  *(v0 + 120) = 0x80000001C09CE420;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_ActivationValue.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_noVerb_common_ActivationValue.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_ActivationValue.init()()
-{
-  *(v0 + 40) = 0xD000000000000016;
-  *(v0 + 48) = 0x80000001C09CE440;
-  *(v0 + 56) = xmmword_1C0975340;
-  *(v0 + 72) = xmmword_1C0975350;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0976120;
-  *(v0 + 120) = 0x80000001C09CE440;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_Color.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_noVerb_common_Color.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_Color.init()()
-{
-  *(v0 + 40) = xmmword_1C0982F70;
-  *(v0 + 56) = xmmword_1C0975340;
-  *(v0 + 72) = xmmword_1C0975350;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0977360;
-  *(v0 + 120) = xmmword_1C0982F80;
-  *(v0 + 136) = xmmword_1C0982D00;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_delete_common_Email.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_delete_common_Email.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_cc_common_Email.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_cc_common_Email.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_send_common_Email.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_send_common_Email.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_send_common_Email.init()()
-{
-  *(v0 + 40) = xmmword_1C0982F90;
-  *(v0 + 56) = xmmword_1C0982FB0;
-  *(v0 + 72) = xmmword_1C0982FC0;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0977450;
-  *(v0 + 120) = xmmword_1C0982FA0;
-  *(v0 + 136) = xmmword_1C0982D00;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_save_common_Email.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_save_common_Email.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_forward_common_Email.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_forward_common_Email.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_update_common_Email.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_update_common_Email.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_reply_common_Email.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_reply_common_Email.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_previous_common_Email.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_previous_common_Email.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_read_common_Email.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_read_common_Email.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_read_common_Email.init()()
-{
-  *(v0 + 40) = xmmword_1C0982F90;
-  *(v0 + 56) = xmmword_1C0982C70;
-  *(v0 + 72) = xmmword_1C0982C80;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0977450;
-  *(v0 + 120) = xmmword_1C0982FA0;
-  *(v0 + 136) = xmmword_1C0982D00;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_continue_common_Email.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_continue_common_Email.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_stop_common_Email.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_stop_common_Email.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_stop_common_Email.init()()
-{
-  *(v0 + 40) = xmmword_1C0982F90;
-  *(v0 + 56) = xmmword_1C0982BF0;
-  *(v0 + 72) = xmmword_1C0982C00;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0977450;
-  *(v0 + 120) = xmmword_1C0982FA0;
-  *(v0 + 136) = xmmword_1C0982D00;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_skip_common_Email.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_skip_common_Email.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_skip_common_Email.init()()
-{
-  *(v0 + 40) = xmmword_1C0982F90;
-  *(v0 + 56) = xmmword_1C0982C50;
-  *(v0 + 72) = xmmword_1C0982C60;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0977450;
-  *(v0 + 120) = xmmword_1C0982FA0;
-  *(v0 + 136) = xmmword_1C0982D00;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_checkExistence_common_Email.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_checkExistence_common_Email.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_summarise_common_Email.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_summarise_common_Email.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_Email.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_noVerb_common_Email.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_Email.init()()
-{
-  *(v0 + 40) = xmmword_1C0982F90;
-  *(v0 + 56) = xmmword_1C0975340;
-  *(v0 + 72) = xmmword_1C0975350;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0977450;
-  *(v0 + 120) = xmmword_1C0982FA0;
-  *(v0 + 136) = xmmword_1C0982D00;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_request_common_Email.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_request_common_Email.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_DeviceCategory.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_noVerb_common_DeviceCategory.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_DeviceCategory.init()()
-{
-  *(v0 + 40) = 0xD000000000000015;
-  *(v0 + 48) = 0x80000001C09CE4E0;
-  *(v0 + 56) = xmmword_1C0975340;
-  *(v0 + 72) = xmmword_1C0975350;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0976160;
-  *(v0 + 120) = 0x80000001C09CE4E0;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_checkExistence_common_DateTime.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_checkExistence_common_DateTime.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_DateTime.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_noVerb_common_DateTime.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_DateTime.init()()
-{
-  *(v0 + 40) = xmmword_1C0982FD0;
-  *(v0 + 56) = xmmword_1C0975340;
-  *(v0 + 72) = xmmword_1C0975350;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0977330;
-  *(v0 + 120) = xmmword_1C0982FE0;
-  *(v0 + 136) = xmmword_1C0982D00;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_convert_common_DateTime.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_convert_common_DateTime.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_convert_common_DateTime.init()()
-{
-  *(v0 + 40) = xmmword_1C0982FD0;
-  *(v0 + 56) = xmmword_1C0982CD0;
-  *(v0 + 72) = 0xD00000000000001DLL;
-  *(v0 + 80) = 0x80000001C09CDDA0;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0977330;
-  *(v0 + 120) = xmmword_1C0982FE0;
-  *(v0 + 136) = xmmword_1C0982D00;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_request_common_DateTime.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_request_common_DateTime.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_read_common_DateTime.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_read_common_DateTime.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_read_common_DateTime.init()()
-{
-  *(v0 + 40) = xmmword_1C0982FD0;
-  *(v0 + 56) = xmmword_1C0982C70;
-  *(v0 + 72) = xmmword_1C0982C80;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0977330;
-  *(v0 + 120) = xmmword_1C0982FE0;
-  *(v0 + 136) = xmmword_1C0982D00;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_summarise_common_DateTime.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_summarise_common_DateTime.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_removeFilter_apple_PhotoMemory.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_removeFilter_apple_PhotoMemory.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_removeFilter_apple_PhotoMemory.init()()
-{
-  *(v0 + 40) = 0xD000000000000011;
-  *(v0 + 48) = 0x80000001C09CE530;
-  *(v0 + 56) = xmmword_1C0982FF0;
-  *(v0 + 72) = 0xD000000000000027;
-  *(v0 + 80) = 0x80000001C09CE500;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C09761B0;
-  *(v0 + 120) = 0x80000001C09CE530;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_removeTag_apple_PhotoMemory.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_removeTag_apple_PhotoMemory.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_removeTag_apple_PhotoMemory.init()()
-{
-  *(v0 + 40) = 0xD000000000000011;
-  *(v0 + 48) = 0x80000001C09CE530;
-  *(v0 + 56) = xmmword_1C0983000;
-  *(v0 + 72) = 0xD00000000000001BLL;
-  *(v0 + 80) = 0x80000001C09CE550;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C09761B0;
-  *(v0 + 120) = 0x80000001C09CE530;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_create_apple_PhotoMemory.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_create_apple_PhotoMemory.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_summarise_apple_PhotoMemory.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_summarise_apple_PhotoMemory.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_summarise_apple_PhotoMemory.init()()
-{
-  *(v0 + 40) = 0xD000000000000011;
-  *(v0 + 48) = 0x80000001C09CE530;
-  *(v0 + 56) = xmmword_1C0982A50;
-  *(v0 + 72) = 0xD000000000000013;
-  *(v0 + 80) = 0x80000001C09CDA80;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C09761B0;
-  *(v0 + 120) = 0x80000001C09CE530;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_removeFromAlbum_apple_PhotoMemory.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_removeFromAlbum_apple_PhotoMemory.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_removeFromAlbum_apple_PhotoMemory.init()()
-{
-  *(v0 + 40) = 0xD000000000000011;
-  *(v0 + 48) = 0x80000001C09CE530;
-  *(v0 + 56) = xmmword_1C0983010;
-  *(v0 + 72) = 0xD000000000000028;
-  *(v0 + 80) = 0x80000001C09CE570;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C09761B0;
-  *(v0 + 120) = 0x80000001C09CE530;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_checkExistence_apple_PhotoMemory.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_checkExistence_apple_PhotoMemory.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_checkExistence_apple_PhotoMemory.init()()
-{
-  *(v0 + 40) = 0xD000000000000011;
-  *(v0 + 48) = 0x80000001C09CE530;
-  *(v0 + 56) = xmmword_1C0982B80;
-  *(v0 + 72) = 0xD000000000000018;
-  *(v0 + 80) = 0x80000001C09CDC20;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C09761B0;
-  *(v0 + 120) = 0x80000001C09CE530;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_applyTag_apple_PhotoMemory.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_applyTag_apple_PhotoMemory.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_applyTag_apple_PhotoMemory.init()()
-{
-  *(v0 + 40) = 0xD000000000000011;
-  *(v0 + 48) = 0x80000001C09CE530;
-  *(v0 + 56) = xmmword_1C0983020;
-  *(v0 + 72) = 0xD00000000000001ALL;
-  *(v0 + 80) = 0x80000001C09CE5A0;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C09761B0;
-  *(v0 + 120) = 0x80000001C09CE530;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_like_apple_PhotoMemory.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_like_apple_PhotoMemory.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_delete_apple_PhotoMemory.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_delete_apple_PhotoMemory.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_delete_apple_PhotoMemory.init()()
-{
-  *(v0 + 40) = 0xD000000000000011;
-  *(v0 + 48) = 0x80000001C09CE530;
-  *(v0 + 56) = xmmword_1C0982B10;
-  *(v0 + 72) = 0xD000000000000010;
-  *(v0 + 80) = 0x80000001C09CDB40;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C09761B0;
-  *(v0 + 120) = 0x80000001C09CE530;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_addToAlbum_apple_PhotoMemory.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_addToAlbum_apple_PhotoMemory.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_addToAlbum_apple_PhotoMemory.init()()
-{
-  *(v0 + 40) = 0xD000000000000011;
-  *(v0 + 48) = 0x80000001C09CE530;
-  *(v0 + 56) = xmmword_1C0983030;
-  *(v0 + 72) = 0xD000000000000023;
-  *(v0 + 80) = 0x80000001C09CE5C0;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C09761B0;
-  *(v0 + 120) = 0x80000001C09CE530;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_play_apple_PhotoMemory.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_play_apple_PhotoMemory.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_apple_PhotoMemory.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_noVerb_apple_PhotoMemory.init()();
-  return v0;
-}
-
-uint64_t sub_1C068C2B4(__n128 a1, __n128 a2)
-{
-  *(v2 + 40) = 0xD000000000000011;
-  *(v2 + 48) = 0x80000001C09CE530;
-  *(v2 + 56) = a1;
-  *(v2 + 72) = a2;
-  *(v2 + 88) = xmmword_1C0975360;
-  *(v2 + 104) = xmmword_1C09761B0;
-  *(v2 + 120) = 0x80000001C09CE530;
-  *(v2 + 128) = xmmword_1C0982A00;
-  *(v2 + 144) = 0;
-
-  v3 = MEMORY[0x1E69E7CC0];
-  *(v2 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v2 + 16) = v3;
-  *(v2 + 24) = v3;
-
-  *(v2 + 32) = v3;
-  return v2;
-}
-
-uint64_t UsoTaskBuilder_unlike_apple_PhotoMemory.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_unlike_apple_PhotoMemory.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_unlike_apple_PhotoMemory.init()()
-{
-  *(v0 + 40) = 0xD000000000000011;
-  *(v0 + 48) = 0x80000001C09CE530;
-  *(v0 + 56) = xmmword_1C0982AE0;
-  *(v0 + 72) = 0xD000000000000010;
-  *(v0 + 80) = 0x80000001C09CDB20;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C09761B0;
-  *(v0 + 120) = 0x80000001C09CE530;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_applyFilter_apple_PhotoMemory.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_applyFilter_apple_PhotoMemory.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_applyFilter_apple_PhotoMemory.init()()
-{
-  *(v0 + 40) = 0xD000000000000011;
-  *(v0 + 48) = 0x80000001C09CE530;
-  *(v0 + 56) = xmmword_1C0983040;
-  *(v0 + 72) = 0xD000000000000026;
-  *(v0 + 80) = 0x80000001C09CE5F0;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C09761B0;
-  *(v0 + 120) = 0x80000001C09CE530;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_request_common_SiriPossession.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_request_common_SiriPossession.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_request_common_SiriPossession.init()()
-{
-  *(v0 + 40) = 0xD000000000000015;
-  *(v0 + 48) = 0x80000001C09CE620;
-  *(v0 + 56) = xmmword_1C0982C40;
-  *(v0 + 72) = 0xD000000000000017;
-  *(v0 + 80) = 0x80000001C09CDD20;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0976160;
-  *(v0 + 120) = 0x80000001C09CE620;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_state_common_SiriPossession.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_state_common_SiriPossession.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_deny_common_SiriPossession.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_deny_common_SiriPossession.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_SiriPossession.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_noVerb_common_SiriPossession.init()();
-  return v0;
-}
-
-uint64_t sub_1C068CA54(__n128 a1, __n128 a2)
-{
-  *(v2 + 40) = 0xD000000000000015;
-  *(v2 + 48) = 0x80000001C09CE620;
-  *(v2 + 56) = a1;
-  *(v2 + 72) = a2;
-  *(v2 + 88) = xmmword_1C0975360;
-  *(v2 + 104) = xmmword_1C0976160;
-  *(v2 + 120) = 0x80000001C09CE620;
-  *(v2 + 128) = xmmword_1C0982A00;
-  *(v2 + 144) = 0;
-
-  v3 = MEMORY[0x1E69E7CC0];
-  *(v2 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v2 + 16) = v3;
-  *(v2 + 24) = v3;
-
-  *(v2 + 32) = v3;
-  return v2;
-}
-
-uint64_t UsoTaskBuilder_summarise_common_SiriPossession.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_summarise_common_SiriPossession.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_summarise_common_SiriPossession.init()()
-{
-  *(v0 + 40) = 0xD000000000000015;
-  *(v0 + 48) = 0x80000001C09CE620;
-  *(v0 + 56) = xmmword_1C0982A50;
-  *(v0 + 72) = 0xD000000000000013;
-  *(v0 + 80) = 0x80000001C09CDA80;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0976160;
-  *(v0 + 120) = 0x80000001C09CE620;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_checkExistence_common_SiriPossession.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_checkExistence_common_SiriPossession.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_checkExistence_common_SiriPossession.init()()
-{
-  *(v0 + 40) = 0xD000000000000015;
-  *(v0 + 48) = 0x80000001C09CE620;
-  *(v0 + 56) = xmmword_1C0982B80;
-  *(v0 + 72) = 0xD000000000000018;
-  *(v0 + 80) = 0x80000001C09CDC20;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0976160;
-  *(v0 + 120) = 0x80000001C09CE620;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_PersonSocialAction.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_noVerb_common_PersonSocialAction.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_summarise_common_PersonSocialAction.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_summarise_common_PersonSocialAction.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_summarise_common_PersonSocialAction.init()()
-{
-  *(v0 + 40) = 0xD000000000000019;
-  *(v0 + 48) = 0x80000001C09CE640;
-  *(v0 + 56) = xmmword_1C0982A50;
-  *(v0 + 72) = 0xD000000000000013;
-  *(v0 + 80) = 0x80000001C09CDA80;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C09760D0;
-  *(v0 + 120) = 0x80000001C09CE640;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_state_common_PersonSocialAction.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_state_common_PersonSocialAction.init()();
-  return v0;
-}
-
-uint64_t sub_1C068D138(__n128 a1, __n128 a2)
-{
-  *(v2 + 40) = 0xD000000000000019;
-  *(v2 + 48) = 0x80000001C09CE640;
-  *(v2 + 56) = a1;
-  *(v2 + 72) = a2;
-  *(v2 + 88) = xmmword_1C0975360;
-  *(v2 + 104) = xmmword_1C09760D0;
-  *(v2 + 120) = 0x80000001C09CE640;
-  *(v2 + 128) = xmmword_1C0982A00;
-  *(v2 + 144) = 0;
-
-  v3 = MEMORY[0x1E69E7CC0];
-  *(v2 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v2 + 16) = v3;
-  *(v2 + 24) = v3;
-
-  *(v2 + 32) = v3;
-  return v2;
-}
-
-uint64_t UsoTaskBuilder_pause_common_Journey.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_pause_common_Journey.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_start_common_Journey.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_start_common_Journey.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_request_common_Journey.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_request_common_Journey.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_update_common_Journey.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_update_common_Journey.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_stop_common_Journey.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_stop_common_Journey.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_Journey.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_noVerb_common_Journey.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_Journey.init()()
-{
-  *(v0 + 40) = xmmword_1C0983070;
-  *(v0 + 56) = xmmword_1C0975340;
-  *(v0 + 72) = xmmword_1C0975350;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0978480;
-  *(v0 + 120) = xmmword_1C0983080;
-  *(v0 + 136) = xmmword_1C0982D00;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_Photo.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_noVerb_common_Photo.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_Photo.init()()
-{
-  *(v0 + 40) = xmmword_1C0983090;
-  *(v0 + 56) = xmmword_1C0975340;
-  *(v0 + 72) = xmmword_1C0975350;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0977390;
-  *(v0 + 120) = xmmword_1C09830A0;
-  *(v0 + 136) = xmmword_1C0982D00;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_unlike_common_Photo.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_unlike_common_Photo.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_unhide_common_Photo.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_unhide_common_Photo.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_applyTag_common_Photo.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_applyTag_common_Photo.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_applyTag_common_Photo.init()()
-{
-  *(v0 + 40) = xmmword_1C0983090;
-  *(v0 + 56) = xmmword_1C0983020;
-  *(v0 + 72) = 0xD00000000000001ALL;
-  *(v0 + 80) = 0x80000001C09CE5A0;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0977390;
-  *(v0 + 120) = xmmword_1C09830A0;
-  *(v0 + 136) = xmmword_1C0982D00;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_addToAlbum_common_Photo.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_addToAlbum_common_Photo.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_addToAlbum_common_Photo.init()()
-{
-  *(v0 + 40) = xmmword_1C0983090;
-  *(v0 + 56) = xmmword_1C0983030;
-  *(v0 + 72) = 0xD000000000000023;
-  *(v0 + 80) = 0x80000001C09CE5C0;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0977390;
-  *(v0 + 120) = xmmword_1C09830A0;
-  *(v0 + 136) = xmmword_1C0982D00;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_skipBackward_common_Photo.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_skipBackward_common_Photo.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_summarise_common_Photo.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_summarise_common_Photo.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_create_common_Photo.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_create_common_Photo.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_create_common_Photo.init()()
-{
-  *(v0 + 40) = xmmword_1C0983090;
-  *(v0 + 56) = xmmword_1C0982A20;
-  *(v0 + 72) = xmmword_1C0982A30;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0977390;
-  *(v0 + 120) = xmmword_1C09830A0;
-  *(v0 + 136) = xmmword_1C0982D00;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_removeTag_common_Photo.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_removeTag_common_Photo.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_removeTag_common_Photo.init()()
-{
-  *(v0 + 40) = xmmword_1C0983090;
-  *(v0 + 56) = xmmword_1C0983000;
-  *(v0 + 72) = 0xD00000000000001BLL;
-  *(v0 + 80) = 0x80000001C09CE550;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0977390;
-  *(v0 + 120) = xmmword_1C09830A0;
-  *(v0 + 136) = xmmword_1C0982D00;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_delete_common_Photo.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_delete_common_Photo.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_checkExistence_common_Photo.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_checkExistence_common_Photo.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_like_common_Photo.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_like_common_Photo.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_like_common_Photo.init()()
-{
-  *(v0 + 40) = xmmword_1C0983090;
-  *(v0 + 56) = xmmword_1C0982AC0;
-  *(v0 + 72) = xmmword_1C0982AD0;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0977390;
-  *(v0 + 120) = xmmword_1C09830A0;
-  *(v0 + 136) = xmmword_1C0982D00;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_play_common_Photo.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_play_common_Photo.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_play_common_Photo.init()()
-{
-  *(v0 + 40) = xmmword_1C0983090;
-  *(v0 + 56) = xmmword_1C0982C10;
-  *(v0 + 72) = xmmword_1C0982C20;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0977390;
-  *(v0 + 120) = xmmword_1C09830A0;
-  *(v0 + 136) = xmmword_1C0982D00;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_applyFilter_common_Photo.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_applyFilter_common_Photo.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_applyFilter_common_Photo.init()()
-{
-  *(v0 + 40) = xmmword_1C0983090;
-  *(v0 + 56) = xmmword_1C0983040;
-  *(v0 + 72) = 0xD000000000000020;
-  *(v0 + 80) = 0x80000001C09CE6C0;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0977390;
-  *(v0 + 120) = xmmword_1C09830A0;
-  *(v0 + 136) = xmmword_1C0982D00;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_hide_common_Photo.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_hide_common_Photo.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_removeFilter_common_Photo.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_removeFilter_common_Photo.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_removeFilter_common_Photo.init()()
-{
-  *(v0 + 40) = xmmword_1C0983090;
-  *(v0 + 56) = xmmword_1C0982FF0;
-  *(v0 + 72) = 0xD000000000000021;
-  *(v0 + 80) = 0x80000001C09CE710;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0977390;
-  *(v0 + 120) = xmmword_1C09830A0;
-  *(v0 + 136) = xmmword_1C0982D00;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_skipForward_common_Photo.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_skipForward_common_Photo.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_removeFromAlbum_common_Photo.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_removeFromAlbum_common_Photo.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_removeFromAlbum_common_Photo.init()()
-{
-  *(v0 + 40) = xmmword_1C0983090;
-  *(v0 + 56) = xmmword_1C0983010;
-  *(v0 + 72) = 0xD000000000000028;
-  *(v0 + 80) = 0x80000001C09CE570;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0977390;
-  *(v0 + 120) = xmmword_1C09830A0;
-  *(v0 + 136) = xmmword_1C0982D00;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_commonMessage_MessageAttribute.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_noVerb_commonMessage_MessageAttribute.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_commonMessage_MessageAttribute.init()()
-{
-  *(v0 + 40) = 0xD00000000000001ELL;
-  *(v0 + 48) = 0x80000001C09CE760;
-  *(v0 + 56) = xmmword_1C0975340;
-  *(v0 + 72) = xmmword_1C0975350;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0976080;
-  *(v0 + 120) = 0x80000001C09CE760;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_Salutation.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_noVerb_common_Salutation.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_tell_common_Salutation.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_tell_common_Salutation.init()();
-  return v0;
-}
-
-uint64_t sub_1C068EFEC(__n128 a1, __n128 a2)
-{
-  *(v2 + 40) = 0xD000000000000011;
-  *(v2 + 48) = 0x80000001C09CE780;
-  *(v2 + 56) = a1;
-  *(v2 + 72) = a2;
-  *(v2 + 88) = xmmword_1C0975360;
-  *(v2 + 104) = xmmword_1C09761B0;
-  *(v2 + 120) = 0x80000001C09CE780;
-  *(v2 + 128) = xmmword_1C0982A00;
-  *(v2 + 144) = 0;
-
-  v3 = MEMORY[0x1E69E7CC0];
-  *(v2 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v2 + 16) = v3;
-  *(v2 + 24) = v3;
-
-  *(v2 + 32) = v3;
-  return v2;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_Organization.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_noVerb_common_Organization.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_create_common_Organization.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_create_common_Organization.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_read_common_Organization.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_read_common_Organization.init()();
-  return v0;
-}
-
-uint64_t sub_1C068F2F4(__n128 a1, __n128 a2)
-{
-  *(v2 + 40) = 0xD000000000000013;
-  *(v2 + 48) = 0x80000001C09CE7A0;
-  *(v2 + 56) = a1;
-  *(v2 + 72) = a2;
-  *(v2 + 88) = xmmword_1C0975360;
-  *(v2 + 104) = xmmword_1C0976140;
-  *(v2 + 120) = 0x80000001C09CE7A0;
-  *(v2 + 128) = xmmword_1C0982A00;
-  *(v2 + 144) = 0;
-
-  v3 = MEMORY[0x1E69E7CC0];
-  *(v2 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v2 + 16) = v3;
-  *(v2 + 24) = v3;
-
-  *(v2 + 32) = v3;
-  return v2;
-}
-
-uint64_t UsoTaskBuilder_update_common_Organization.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_update_common_Organization.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_update_common_Organization.init()()
-{
-  *(v0 + 40) = 0xD000000000000013;
-  *(v0 + 48) = 0x80000001C09CE7A0;
-  *(v0 + 56) = xmmword_1C0982A60;
-  *(v0 + 72) = 0xD000000000000016;
-  *(v0 + 80) = 0x80000001C09CDAA0;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0976140;
-  *(v0 + 120) = 0x80000001C09CE7A0;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_request_common_Organization.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_request_common_Organization.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_request_common_Organization.init()()
-{
-  *(v0 + 40) = 0xD000000000000013;
-  *(v0 + 48) = 0x80000001C09CE7A0;
-  *(v0 + 56) = xmmword_1C0982C40;
-  *(v0 + 72) = 0xD000000000000017;
-  *(v0 + 80) = 0x80000001C09CDD20;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0976140;
-  *(v0 + 120) = 0x80000001C09CE7A0;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_summarise_common_Organization.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_summarise_common_Organization.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_summarise_common_Organization.init()()
-{
-  *(v0 + 40) = 0xD000000000000013;
-  *(v0 + 48) = 0x80000001C09CE7A0;
-  *(v0 + 56) = xmmword_1C0982A50;
-  *(v0 + 72) = 0xD000000000000013;
-  *(v0 + 80) = 0x80000001C09CDA80;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0976140;
-  *(v0 + 120) = 0x80000001C09CE7A0;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_delete_common_Organization.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_delete_common_Organization.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_delete_common_Organization.init()()
-{
-  *(v0 + 40) = 0xD000000000000013;
-  *(v0 + 48) = 0x80000001C09CE7A0;
-  *(v0 + 56) = xmmword_1C0982B10;
-  *(v0 + 72) = 0xD000000000000010;
-  *(v0 + 80) = 0x80000001C09CDB40;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0976140;
-  *(v0 + 120) = 0x80000001C09CE7A0;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_checkExistence_common_Organization.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_checkExistence_common_Organization.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_checkExistence_common_Organization.init()()
-{
-  *(v0 + 40) = 0xD000000000000013;
-  *(v0 + 48) = 0x80000001C09CE7A0;
-  *(v0 + 56) = xmmword_1C0982B80;
-  *(v0 + 72) = 0xD000000000000018;
-  *(v0 + 80) = 0x80000001C09CDC20;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0976140;
-  *(v0 + 120) = 0x80000001C09CE7A0;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_commonArithmetic_ArithmeticAttribute.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_noVerb_commonArithmetic_ArithmeticAttribute.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_commonArithmetic_ArithmeticAttribute.init()()
-{
-  *(v0 + 40) = 0xD000000000000024;
-  *(v0 + 48) = 0x80000001C09CE7C0;
-  *(v0 + 56) = xmmword_1C0975340;
-  *(v0 + 72) = xmmword_1C0975350;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0976200;
-  *(v0 + 120) = 0x80000001C09CE7C0;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_MultipliedNumber.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_noVerb_common_MultipliedNumber.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_MultipliedNumber.init()()
-{
-  *(v0 + 40) = 0xD000000000000017;
-  *(v0 + 48) = 0x80000001C09CE7F0;
-  *(v0 + 56) = xmmword_1C0975340;
-  *(v0 + 72) = xmmword_1C0975350;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0976050;
-  *(v0 + 120) = 0x80000001C09CE7F0;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_setDateTimeRange_common_CarSetting.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_setDateTimeRange_common_CarSetting.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_setDateTimeRange_common_CarSetting.init()()
-{
-  *(v0 + 40) = 0xD000000000000011;
-  *(v0 + 48) = 0x80000001C09CE840;
-  *(v0 + 56) = 0xD000000000000010;
-  *(v0 + 64) = 0x80000001C09D9710;
-  *(v0 + 72) = 0xD00000000000002ELL;
-  *(v0 + 80) = 0x80000001C09CE810;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C09761B0;
-  *(v0 + 120) = 0x80000001C09CE840;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_checkExistence_common_CarSetting.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_checkExistence_common_CarSetting.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_checkExistence_common_CarSetting.init()()
-{
-  *(v0 + 40) = 0xD000000000000011;
-  *(v0 + 48) = 0x80000001C09CE840;
-  *(v0 + 56) = xmmword_1C0982B80;
-  *(v0 + 72) = 0xD000000000000018;
-  *(v0 + 80) = 0x80000001C09CDC20;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C09761B0;
-  *(v0 + 120) = 0x80000001C09CE840;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_setDuration_common_CarSetting.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_setDuration_common_CarSetting.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_setDuration_common_CarSetting.init()()
-{
-  *(v0 + 40) = 0xD000000000000011;
-  *(v0 + 48) = 0x80000001C09CE840;
-  *(v0 + 56) = xmmword_1C09830B0;
-  *(v0 + 72) = 0xD000000000000024;
-  *(v0 + 80) = 0x80000001C09CE860;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C09761B0;
-  *(v0 + 120) = 0x80000001C09CE840;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_setNumber_common_CarSetting.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_setNumber_common_CarSetting.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_setNumber_common_CarSetting.init()()
-{
-  *(v0 + 40) = 0xD000000000000011;
-  *(v0 + 48) = 0x80000001C09CE840;
-  *(v0 + 56) = xmmword_1C09830C0;
-  *(v0 + 72) = 0xD000000000000020;
-  *(v0 + 80) = 0x80000001C09CE890;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C09761B0;
-  *(v0 + 120) = 0x80000001C09CE840;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_increaseBy_common_CarSetting.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_increaseBy_common_CarSetting.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_increaseBy_common_CarSetting.init()()
-{
-  *(v0 + 40) = 0xD000000000000011;
-  *(v0 + 48) = 0x80000001C09CE840;
-  *(v0 + 56) = xmmword_1C09830D0;
-  *(v0 + 72) = 0xD000000000000021;
-  *(v0 + 80) = 0x80000001C09CE8C0;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C09761B0;
-  *(v0 + 120) = 0x80000001C09CE840;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_decreaseByMeasurement_common_CarSetting.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_decreaseByMeasurement_common_CarSetting.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_decreaseByMeasurement_common_CarSetting.init()()
-{
-  *(v0 + 40) = 0xD000000000000011;
-  *(v0 + 48) = 0x80000001C09CE840;
-  *(v0 + 56) = 0xD000000000000015;
-  *(v0 + 64) = 0x80000001C09DDCF0;
-  *(v0 + 72) = 0xD000000000000031;
-  *(v0 + 80) = 0x80000001C09CE8F0;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C09761B0;
-  *(v0 + 120) = 0x80000001C09CE840;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_open_common_CarSetting.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_open_common_CarSetting.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_toggle_common_CarSetting.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_toggle_common_CarSetting.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_toggle_common_CarSetting.init()()
-{
-  *(v0 + 40) = 0xD000000000000011;
-  *(v0 + 48) = 0x80000001C09CE840;
-  *(v0 + 56) = xmmword_1C09830E0;
-  *(v0 + 72) = 0xD000000000000017;
-  *(v0 + 80) = 0x80000001C09CE930;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C09761B0;
-  *(v0 + 120) = 0x80000001C09CE840;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_disable_common_CarSetting.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_disable_common_CarSetting.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_disable_common_CarSetting.init()()
-{
-  *(v0 + 40) = 0xD000000000000011;
-  *(v0 + 48) = 0x80000001C09CE840;
-  *(v0 + 56) = xmmword_1C09830F0;
-  *(v0 + 72) = 0xD000000000000018;
-  *(v0 + 80) = 0x80000001C09CE950;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C09761B0;
-  *(v0 + 120) = 0x80000001C09CE840;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_set_common_CarSetting.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_set_common_CarSetting.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_set_common_CarSetting.init()()
-{
-  *(v0 + 40) = 0xD000000000000011;
-  *(v0 + 48) = 0x80000001C09CE840;
-  *(v0 + 56) = xmmword_1C0983100;
-  *(v0 + 72) = 0xD000000000000014;
-  *(v0 + 80) = 0x80000001C09CE970;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C09761B0;
-  *(v0 + 120) = 0x80000001C09CE840;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_setMeasurement_common_CarSetting.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_setMeasurement_common_CarSetting.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_setMeasurement_common_CarSetting.init()()
-{
-  *(v0 + 40) = 0xD000000000000011;
-  *(v0 + 48) = 0x80000001C09CE840;
-  *(v0 + 56) = xmmword_1C0983110;
-  *(v0 + 72) = 0xD00000000000002ALL;
-  *(v0 + 80) = 0x80000001C09CE990;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C09761B0;
-  *(v0 + 120) = 0x80000001C09CE840;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_summarise_common_CarSetting.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_summarise_common_CarSetting.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_summarise_common_CarSetting.init()()
-{
-  *(v0 + 40) = 0xD000000000000011;
-  *(v0 + 48) = 0x80000001C09CE840;
-  *(v0 + 56) = xmmword_1C0982A50;
-  *(v0 + 72) = 0xD000000000000013;
-  *(v0 + 80) = 0x80000001C09CDA80;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C09761B0;
-  *(v0 + 120) = 0x80000001C09CE840;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_setLabel_common_CarSetting.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_setLabel_common_CarSetting.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_setLabel_common_CarSetting.init()()
-{
-  *(v0 + 40) = 0xD000000000000011;
-  *(v0 + 48) = 0x80000001C09CE840;
-  *(v0 + 56) = xmmword_1C0983120;
-  *(v0 + 72) = 0xD00000000000001FLL;
-  *(v0 + 80) = 0x80000001C09CE9C0;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C09761B0;
-  *(v0 + 120) = 0x80000001C09CE840;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_setProfile_common_CarSetting.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_setProfile_common_CarSetting.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_setProfile_common_CarSetting.init()()
-{
-  *(v0 + 40) = 0xD000000000000011;
-  *(v0 + 48) = 0x80000001C09CE840;
-  *(v0 + 56) = xmmword_1C0983130;
-  *(v0 + 72) = 0xD00000000000001BLL;
-  *(v0 + 80) = 0x80000001C09CE9E0;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C09761B0;
-  *(v0 + 120) = 0x80000001C09CE840;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_request_common_CarSetting.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_request_common_CarSetting.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_request_common_CarSetting.init()()
-{
-  *(v0 + 40) = 0xD000000000000011;
-  *(v0 + 48) = 0x80000001C09CE840;
-  *(v0 + 56) = xmmword_1C0982C40;
-  *(v0 + 72) = 0xD000000000000017;
-  *(v0 + 80) = 0x80000001C09CDD20;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C09761B0;
-  *(v0 + 120) = 0x80000001C09CE840;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_CarSetting.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_noVerb_common_CarSetting.init()();
-  return v0;
-}
-
-uint64_t sub_1C0691588(__n128 a1, __n128 a2)
-{
-  *(v2 + 40) = 0xD000000000000011;
-  *(v2 + 48) = 0x80000001C09CE840;
-  *(v2 + 56) = a1;
-  *(v2 + 72) = a2;
-  *(v2 + 88) = xmmword_1C0975360;
-  *(v2 + 104) = xmmword_1C09761B0;
-  *(v2 + 120) = 0x80000001C09CE840;
-  *(v2 + 128) = xmmword_1C0982A00;
-  *(v2 + 144) = 0;
-
-  v3 = MEMORY[0x1E69E7CC0];
-  *(v2 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v2 + 16) = v3;
-  *(v2 + 24) = v3;
-
-  *(v2 + 32) = v3;
-  return v2;
-}
-
-uint64_t UsoTaskBuilder_decreaseBy_common_CarSetting.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_decreaseBy_common_CarSetting.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_decreaseBy_common_CarSetting.init()()
-{
-  *(v0 + 40) = 0xD000000000000011;
-  *(v0 + 48) = 0x80000001C09CE840;
-  *(v0 + 56) = xmmword_1C0983140;
-  *(v0 + 72) = 0xD000000000000021;
-  *(v0 + 80) = 0x80000001C09CEA00;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C09761B0;
-  *(v0 + 120) = 0x80000001C09CE840;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_increaseByMeasurement_common_CarSetting.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_increaseByMeasurement_common_CarSetting.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_increaseByMeasurement_common_CarSetting.init()()
-{
-  *(v0 + 40) = 0xD000000000000011;
-  *(v0 + 48) = 0x80000001C09CE840;
-  *(v0 + 56) = 0xD000000000000015;
-  *(v0 + 64) = 0x80000001C09DDCD0;
-  *(v0 + 72) = 0xD000000000000031;
-  *(v0 + 80) = 0x80000001C09CEA30;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C09761B0;
-  *(v0 + 120) = 0x80000001C09CE840;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_enable_common_CarSetting.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_enable_common_CarSetting.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_enable_common_CarSetting.init()()
-{
-  *(v0 + 40) = 0xD000000000000011;
-  *(v0 + 48) = 0x80000001C09CE840;
-  *(v0 + 56) = xmmword_1C0983150;
-  *(v0 + 72) = 0xD000000000000017;
-  *(v0 + 80) = 0x80000001C09CEA70;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C09761B0;
-  *(v0 + 120) = 0x80000001C09CE840;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_TimeUnit.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_noVerb_common_TimeUnit.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_TimeUnit.init()()
-{
-  *(v0 + 40) = xmmword_1C0983160;
-  *(v0 + 56) = xmmword_1C0975340;
-  *(v0 + 72) = xmmword_1C0975350;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0977340;
-  *(v0 + 120) = xmmword_1C0983170;
-  *(v0 + 136) = xmmword_1C0982D00;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_OffsetDirection.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_noVerb_common_OffsetDirection.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_OffsetDirection.init()()
-{
-  *(v0 + 40) = 0xD000000000000016;
-  *(v0 + 48) = 0x80000001C09CEA90;
-  *(v0 + 56) = xmmword_1C0975340;
-  *(v0 + 72) = xmmword_1C0975350;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0976120;
-  *(v0 + 120) = 0x80000001C09CEA90;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_Interjection.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_noVerb_common_Interjection.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_Interjection.init()()
-{
-  *(v0 + 40) = 0xD000000000000013;
-  *(v0 + 48) = 0x80000001C09CEAB0;
-  *(v0 + 56) = xmmword_1C0975340;
-  *(v0 + 72) = xmmword_1C0975350;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0976140;
-  *(v0 + 120) = 0x80000001C09CEAB0;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_checkExistence_common_Event.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_checkExistence_common_Event.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_summarise_common_Event.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_summarise_common_Event.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_Event.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_noVerb_common_Event.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_Event.init()()
-{
-  *(v0 + 40) = xmmword_1C0983180;
-  *(v0 + 56) = xmmword_1C0975340;
-  *(v0 + 72) = xmmword_1C0975350;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0977450;
-  *(v0 + 120) = xmmword_1C0983190;
-  *(v0 + 136) = xmmword_1C0982D00;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_request_common_Event.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_request_common_Event.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_MedicationEvent.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_noVerb_common_MedicationEvent.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_request_common_MedicationEvent.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_request_common_MedicationEvent.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_request_common_MedicationEvent.init()()
-{
-  *(v0 + 40) = 0xD000000000000016;
-  *(v0 + 48) = 0x80000001C09CEAD0;
-  *(v0 + 56) = xmmword_1C0982C40;
-  *(v0 + 72) = 0xD000000000000017;
-  *(v0 + 80) = 0x80000001C09CDD20;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0976120;
-  *(v0 + 120) = 0x80000001C09CEAD0;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_snooze_common_MedicationEvent.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_snooze_common_MedicationEvent.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_snooze_common_MedicationEvent.init()()
-{
-  *(v0 + 40) = 0xD000000000000016;
-  *(v0 + 48) = 0x80000001C09CEAD0;
-  *(v0 + 56) = xmmword_1C09831A0;
-  *(v0 + 72) = 0xD000000000000017;
-  *(v0 + 80) = 0x80000001C09CEAF0;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0976120;
-  *(v0 + 120) = 0x80000001C09CEAD0;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_checkExistence_common_MedicationEvent.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_checkExistence_common_MedicationEvent.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_checkExistence_common_MedicationEvent.init()()
-{
-  *(v0 + 40) = 0xD000000000000016;
-  *(v0 + 48) = 0x80000001C09CEAD0;
-  *(v0 + 56) = xmmword_1C0982B80;
-  *(v0 + 72) = 0xD000000000000018;
-  *(v0 + 80) = 0x80000001C09CDC20;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0976120;
-  *(v0 + 120) = 0x80000001C09CEAD0;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_create_common_MedicationEvent.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_create_common_MedicationEvent.init()();
-  return v0;
-}
-
-uint64_t sub_1C0692984(__n128 a1, __n128 a2)
-{
-  *(v2 + 40) = 0xD000000000000016;
-  *(v2 + 48) = 0x80000001C09CEAD0;
-  *(v2 + 56) = a1;
-  *(v2 + 72) = a2;
-  *(v2 + 88) = xmmword_1C0975360;
-  *(v2 + 104) = xmmword_1C0976120;
-  *(v2 + 120) = 0x80000001C09CEAD0;
-  *(v2 + 128) = xmmword_1C0982A00;
-  *(v2 + 144) = 0;
-
-  v3 = MEMORY[0x1E69E7CC0];
-  *(v2 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v2 + 16) = v3;
-  *(v2 + 24) = v3;
-
-  *(v2 + 32) = v3;
-  return v2;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_RecurringDateTime.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_noVerb_common_RecurringDateTime.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_RecurringDateTime.init()()
-{
-  *(v0 + 40) = 0xD000000000000018;
-  *(v0 + 48) = 0x80000001C09CEB10;
-  *(v0 + 56) = xmmword_1C0975340;
-  *(v0 + 72) = xmmword_1C0975350;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0976170;
-  *(v0 + 120) = 0x80000001C09CEB10;
-  *(v0 + 128) = xmmword_1C0982A00;
-  *(v0 + 144) = 0;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_Date.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_noVerb_common_Date.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_Date.init()()
-{
-  *(v0 + 40) = xmmword_1C09831B0;
-  *(v0 + 56) = xmmword_1C0975340;
-  *(v0 + 72) = xmmword_1C0975350;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0977330;
-  *(v0 + 120) = xmmword_1C09831C0;
-  *(v0 + 136) = xmmword_1C0982D00;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_summarise_common_Message.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_summarise_common_Message.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_open_common_Message.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_open_common_Message.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_open_common_Message.init()()
-{
-  *(v0 + 40) = xmmword_1C09831D0;
-  *(v0 + 56) = xmmword_1C0982B60;
-  *(v0 + 72) = xmmword_1C0982B70;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0977350;
-  *(v0 + 120) = xmmword_1C09831E0;
-  *(v0 + 136) = xmmword_1C0982D00;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_previous_common_Message.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_previous_common_Message.init()();
-  return v0;
-}
-
-uint64_t sub_1C0693088(__n128 a1, __n128 a2, __n128 a3)
-{
-  *(v3 + 40) = a1;
-  *(v3 + 56) = xmmword_1C0982BE0;
-  *(v3 + 72) = 0xD000000000000012;
-  *(v3 + 80) = 0x80000001C09CDCE0;
-  *(v3 + 88) = xmmword_1C0975360;
-  *(v3 + 104) = a2;
-  *(v3 + 120) = a3;
-  *(v3 + 136) = xmmword_1C0982D00;
-
-  v4 = MEMORY[0x1E69E7CC0];
-  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v3 + 16) = v4;
-  *(v3 + 24) = v4;
-
-  *(v3 + 32) = v4;
-  return v3;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_Message.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_noVerb_common_Message.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_noVerb_common_Message.init()()
-{
-  *(v0 + 40) = xmmword_1C09831D0;
-  *(v0 + 56) = xmmword_1C0975340;
-  *(v0 + 72) = xmmword_1C0975350;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0977350;
-  *(v0 + 120) = xmmword_1C09831E0;
-  *(v0 + 136) = xmmword_1C0982D00;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_unreact_common_Message.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_unreact_common_Message.init()();
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_unreact_common_Message.init()()
-{
-  *(v0 + 40) = xmmword_1C09831D0;
-  *(v0 + 56) = xmmword_1C09831F0;
-  *(v0 + 72) = 0xD00000000000001DLL;
-  *(v0 + 80) = 0x80000001C09CEB30;
-  *(v0 + 88) = xmmword_1C0975360;
-  *(v0 + 104) = xmmword_1C0977350;
-  *(v0 + 120) = xmmword_1C09831E0;
-  *(v0 + 136) = xmmword_1C0982D00;
-
-  v1 = MEMORY[0x1E69E7CC0];
-  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v0 + 16) = v1;
-  *(v0 + 24) = v1;
-
-  *(v0 + 32) = v1;
-  return v0;
-}
-
-uint64_t UsoTaskBuilder_check_common_Message.__allocating_init()()
-{
-  v0 = swift_allocObject();
-  UsoTaskBuilder_check_common_Message.init()();
-  return v0;
-}
-
 uint64_t UsoTaskBuilder_check_common_Message.init()()
 {
   *(v0 + 40) = xmmword_1C09831D0;
@@ -3553,24 +25,24 @@ uint64_t UsoTaskBuilder_cc_common_Message.__allocating_init()()
   return v0;
 }
 
-uint64_t sub_1C06936D0(__n128 a1, __n128 a2, __n128 a3)
+uint64_t sub_1C06936D0(uint64_t a1, __n128 a2, __n128 a3, __n128 a4)
 {
-  *(v3 + 40) = a1;
-  *(v3 + 56) = xmmword_1C0983210;
-  *(v3 + 72) = 0xD000000000000012;
-  *(v3 + 80) = 0x80000001C09CE460;
-  *(v3 + 88) = xmmword_1C0975360;
-  *(v3 + 104) = a2;
-  *(v3 + 120) = a3;
-  *(v3 + 136) = xmmword_1C0982D00;
+  *(v4 + 40) = a2;
+  *(v4 + 56) = xmmword_1C0983210;
+  *(v4 + 72) = 0xD000000000000012;
+  *(v4 + 80) = 0x80000001C09CE460;
+  *(v4 + 88) = xmmword_1C0975360;
+  *(v4 + 104) = a3;
+  *(v4 + 120) = a4;
+  *(v4 + 136) = xmmword_1C0982D00;
 
-  v4 = MEMORY[0x1E69E7CC0];
-  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v3 + 16) = v4;
-  *(v3 + 24) = v4;
+  v5 = MEMORY[0x1E69E7CC0];
+  *(v4 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v4 + 16) = v5;
+  *(v4 + 24) = v5;
 
-  *(v3 + 32) = v4;
-  return v3;
+  *(v4 + 32) = v5;
+  return v4;
 }
 
 uint64_t UsoTaskBuilder_unshare_common_Message.__allocating_init()()
@@ -3680,24 +152,24 @@ uint64_t UsoTaskBuilder_forward_common_Message.__allocating_init()()
   return v0;
 }
 
-uint64_t sub_1C0693F0C(__n128 a1, __n128 a2, __n128 a3)
+uint64_t sub_1C0693F0C(uint64_t a1, __n128 a2, __n128 a3, __n128 a4)
 {
-  *(v3 + 40) = a1;
-  *(v3 + 56) = xmmword_1C0983230;
-  *(v3 + 72) = 0xD000000000000017;
-  *(v3 + 80) = 0x80000001C09CE4A0;
-  *(v3 + 88) = xmmword_1C0975360;
-  *(v3 + 104) = a2;
-  *(v3 + 120) = a3;
-  *(v3 + 136) = xmmword_1C0982D00;
+  *(v4 + 40) = a2;
+  *(v4 + 56) = xmmword_1C0983230;
+  *(v4 + 72) = 0xD000000000000017;
+  *(v4 + 80) = 0x80000001C09CE4A0;
+  *(v4 + 88) = xmmword_1C0975360;
+  *(v4 + 104) = a3;
+  *(v4 + 120) = a4;
+  *(v4 + 136) = xmmword_1C0982D00;
 
-  v4 = MEMORY[0x1E69E7CC0];
-  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v3 + 16) = v4;
-  *(v3 + 24) = v4;
+  v5 = MEMORY[0x1E69E7CC0];
+  *(v4 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v4 + 16) = v5;
+  *(v4 + 24) = v5;
 
-  *(v3 + 32) = v4;
-  return v3;
+  *(v4 + 32) = v5;
+  return v4;
 }
 
 uint64_t UsoTaskBuilder_request_common_Message.__allocating_init()()
@@ -3714,24 +186,24 @@ uint64_t UsoTaskBuilder_continue_common_Message.__allocating_init()()
   return v0;
 }
 
-uint64_t sub_1C0694168(__n128 a1, __n128 a2, __n128 a3)
+uint64_t sub_1C0694168(uint64_t a1, __n128 a2, __n128 a3, __n128 a4)
 {
-  *(v3 + 40) = a1;
-  *(v3 + 56) = xmmword_1C0982C30;
-  *(v3 + 72) = 0xD000000000000012;
-  *(v3 + 80) = 0x80000001C09CDD00;
-  *(v3 + 88) = xmmword_1C0975360;
-  *(v3 + 104) = a2;
-  *(v3 + 120) = a3;
-  *(v3 + 136) = xmmword_1C0982D00;
+  *(v4 + 40) = a2;
+  *(v4 + 56) = xmmword_1C0982C30;
+  *(v4 + 72) = 0xD000000000000012;
+  *(v4 + 80) = 0x80000001C09CDD00;
+  *(v4 + 88) = xmmword_1C0975360;
+  *(v4 + 104) = a3;
+  *(v4 + 120) = a4;
+  *(v4 + 136) = xmmword_1C0982D00;
 
-  v4 = MEMORY[0x1E69E7CC0];
-  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v3 + 16) = v4;
-  *(v3 + 24) = v4;
+  v5 = MEMORY[0x1E69E7CC0];
+  *(v4 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v4 + 16) = v5;
+  *(v4 + 24) = v5;
 
-  *(v3 + 32) = v4;
-  return v3;
+  *(v4 + 32) = v5;
+  return v4;
 }
 
 uint64_t UsoTaskBuilder_stop_common_Message.__allocating_init()()
@@ -3861,24 +333,24 @@ uint64_t UsoTaskBuilder_save_common_Message.__allocating_init()()
   return v0;
 }
 
-uint64_t sub_1C0694AC4(__n128 a1, __n128 a2, __n128 a3)
+uint64_t sub_1C0694AC4(uint64_t a1, __n128 a2, __n128 a3, __n128 a4)
 {
-  *(v3 + 40) = a1;
-  *(v3 + 56) = xmmword_1C0983280;
-  *(v3 + 72) = 0xD000000000000014;
-  *(v3 + 80) = 0x80000001C09CE480;
-  *(v3 + 88) = xmmword_1C0975360;
-  *(v3 + 104) = a2;
-  *(v3 + 120) = a3;
-  *(v3 + 136) = xmmword_1C0982D00;
+  *(v4 + 40) = a2;
+  *(v4 + 56) = xmmword_1C0983280;
+  *(v4 + 72) = 0xD000000000000014;
+  *(v4 + 80) = 0x80000001C09CE480;
+  *(v4 + 88) = xmmword_1C0975360;
+  *(v4 + 104) = a3;
+  *(v4 + 120) = a4;
+  *(v4 + 136) = xmmword_1C0982D00;
 
-  v4 = MEMORY[0x1E69E7CC0];
-  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v3 + 16) = v4;
-  *(v3 + 24) = v4;
+  v5 = MEMORY[0x1E69E7CC0];
+  *(v4 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v4 + 16) = v5;
+  *(v4 + 24) = v5;
 
-  *(v3 + 32) = v4;
-  return v3;
+  *(v4 + 32) = v5;
+  return v4;
 }
 
 uint64_t UsoTaskBuilder_unsend_common_Message.__allocating_init()()
@@ -4038,25 +510,25 @@ uint64_t UsoTaskBuilder_create_common_MedicationSchedule.__allocating_init()()
   return v0;
 }
 
-uint64_t sub_1C06954C0(__n128 a1, __n128 a2)
+uint64_t sub_1C06954C0(uint64_t a1, __n128 a2, __n128 a3)
 {
-  *(v2 + 40) = 0xD000000000000019;
-  *(v2 + 48) = 0x80000001C09CEC10;
-  *(v2 + 56) = a1;
-  *(v2 + 72) = a2;
-  *(v2 + 88) = xmmword_1C0975360;
-  *(v2 + 104) = xmmword_1C09760D0;
-  *(v2 + 120) = 0x80000001C09CEC10;
-  *(v2 + 128) = xmmword_1C0982A00;
-  *(v2 + 144) = 0;
+  *(v3 + 40) = 0xD000000000000019;
+  *(v3 + 48) = 0x80000001C09CEC10;
+  *(v3 + 56) = a2;
+  *(v3 + 72) = a3;
+  *(v3 + 88) = xmmword_1C0975360;
+  *(v3 + 104) = xmmword_1C09760D0;
+  *(v3 + 120) = 0x80000001C09CEC10;
+  *(v3 + 128) = xmmword_1C0982A00;
+  *(v3 + 144) = 0;
 
-  v3 = MEMORY[0x1E69E7CC0];
-  *(v2 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v2 + 16) = v3;
-  *(v2 + 24) = v3;
+  v4 = MEMORY[0x1E69E7CC0];
+  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v3 + 16) = v4;
+  *(v3 + 24) = v4;
 
-  *(v2 + 32) = v3;
-  return v2;
+  *(v3 + 32) = v4;
+  return v3;
 }
 
 uint64_t UsoTaskBuilder_delete_common_MedicationSchedule.__allocating_init()()
@@ -4297,24 +769,24 @@ uint64_t UsoTaskBuilder_cancel_common_Payment.__allocating_init()()
   return v0;
 }
 
-uint64_t sub_1C0696388(__n128 a1, __n128 a2, __n128 a3)
+uint64_t sub_1C0696388(uint64_t a1, __n128 a2, __n128 a3, __n128 a4)
 {
-  *(v3 + 40) = a1;
-  *(v3 + 56) = xmmword_1C0983310;
-  *(v3 + 72) = 0xD000000000000010;
-  *(v3 + 80) = 0x80000001C09CDDC0;
-  *(v3 + 88) = xmmword_1C0975360;
-  *(v3 + 104) = a2;
-  *(v3 + 120) = a3;
-  *(v3 + 136) = xmmword_1C0982D00;
+  *(v4 + 40) = a2;
+  *(v4 + 56) = xmmword_1C0983310;
+  *(v4 + 72) = 0xD000000000000010;
+  *(v4 + 80) = 0x80000001C09CDDC0;
+  *(v4 + 88) = xmmword_1C0975360;
+  *(v4 + 104) = a3;
+  *(v4 + 120) = a4;
+  *(v4 + 136) = xmmword_1C0982D00;
 
-  v4 = MEMORY[0x1E69E7CC0];
-  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v3 + 16) = v4;
-  *(v3 + 24) = v4;
+  v5 = MEMORY[0x1E69E7CC0];
+  *(v4 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v4 + 16) = v5;
+  *(v4 + 24) = v5;
 
-  *(v3 + 32) = v4;
-  return v3;
+  *(v4 + 32) = v5;
+  return v4;
 }
 
 uint64_t UsoTaskBuilder_request_common_Payment.__allocating_init()()
@@ -4613,25 +1085,25 @@ uint64_t UsoTaskBuilder_create_common_VoiceCommand.__allocating_init()()
   return v0;
 }
 
-uint64_t sub_1C06976B0(__n128 a1, __n128 a2)
+uint64_t sub_1C06976B0(uint64_t a1, __n128 a2, __n128 a3)
 {
-  *(v2 + 40) = 0xD000000000000013;
-  *(v2 + 48) = 0x80000001C09CED50;
-  *(v2 + 56) = a1;
-  *(v2 + 72) = a2;
-  *(v2 + 88) = xmmword_1C0975360;
-  *(v2 + 104) = xmmword_1C0976140;
-  *(v2 + 120) = 0x80000001C09CED50;
-  *(v2 + 128) = xmmword_1C0982A00;
-  *(v2 + 144) = 0;
+  *(v3 + 40) = 0xD000000000000013;
+  *(v3 + 48) = 0x80000001C09CED50;
+  *(v3 + 56) = a2;
+  *(v3 + 72) = a3;
+  *(v3 + 88) = xmmword_1C0975360;
+  *(v3 + 104) = xmmword_1C0976140;
+  *(v3 + 120) = 0x80000001C09CED50;
+  *(v3 + 128) = xmmword_1C0982A00;
+  *(v3 + 144) = 0;
 
-  v3 = MEMORY[0x1E69E7CC0];
-  *(v2 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v2 + 16) = v3;
-  *(v2 + 24) = v3;
+  v4 = MEMORY[0x1E69E7CC0];
+  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v3 + 16) = v4;
+  *(v3 + 24) = v4;
 
-  *(v2 + 32) = v3;
-  return v2;
+  *(v3 + 32) = v4;
+  return v3;
 }
 
 uint64_t UsoTaskBuilder_park_common_Car.__allocating_init()()
@@ -5149,25 +1621,25 @@ uint64_t UsoTaskBuilder_create_common_PointOfInterest.__allocating_init()()
   return v0;
 }
 
-uint64_t sub_1C0699578(__n128 a1, __n128 a2)
+uint64_t sub_1C0699578(uint64_t a1, __n128 a2, __n128 a3)
 {
-  *(v2 + 40) = 0xD000000000000016;
-  *(v2 + 48) = 0x80000001C09CEF40;
-  *(v2 + 56) = a1;
-  *(v2 + 72) = a2;
-  *(v2 + 88) = xmmword_1C0975360;
-  *(v2 + 104) = xmmword_1C0976120;
-  *(v2 + 120) = 0x80000001C09CEF40;
-  *(v2 + 128) = xmmword_1C0982A00;
-  *(v2 + 144) = 0;
+  *(v3 + 40) = 0xD000000000000016;
+  *(v3 + 48) = 0x80000001C09CEF40;
+  *(v3 + 56) = a2;
+  *(v3 + 72) = a3;
+  *(v3 + 88) = xmmword_1C0975360;
+  *(v3 + 104) = xmmword_1C0976120;
+  *(v3 + 120) = 0x80000001C09CEF40;
+  *(v3 + 128) = xmmword_1C0982A00;
+  *(v3 + 144) = 0;
 
-  v3 = MEMORY[0x1E69E7CC0];
-  *(v2 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v2 + 16) = v3;
-  *(v2 + 24) = v3;
+  v4 = MEMORY[0x1E69E7CC0];
+  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v3 + 16) = v4;
+  *(v3 + 24) = v4;
 
-  *(v2 + 32) = v3;
-  return v2;
+  *(v3 + 32) = v4;
+  return v3;
 }
 
 uint64_t UsoTaskBuilder_delete_common_PointOfInterest.__allocating_init()()
@@ -5329,25 +1801,25 @@ uint64_t UsoTaskBuilder_noVerb_common_SocialInterjection.__allocating_init()()
   return v0;
 }
 
-uint64_t sub_1C0699F68(__n128 a1, __n128 a2)
+uint64_t sub_1C0699F68(uint64_t a1, __n128 a2, __n128 a3)
 {
-  *(v2 + 40) = 0xD000000000000019;
-  *(v2 + 48) = 0x80000001C09CEF60;
-  *(v2 + 56) = a1;
-  *(v2 + 72) = a2;
-  *(v2 + 88) = xmmword_1C0975360;
-  *(v2 + 104) = xmmword_1C09760D0;
-  *(v2 + 120) = 0x80000001C09CEF60;
-  *(v2 + 128) = xmmword_1C0982A00;
-  *(v2 + 144) = 0;
+  *(v3 + 40) = 0xD000000000000019;
+  *(v3 + 48) = 0x80000001C09CEF60;
+  *(v3 + 56) = a2;
+  *(v3 + 72) = a3;
+  *(v3 + 88) = xmmword_1C0975360;
+  *(v3 + 104) = xmmword_1C09760D0;
+  *(v3 + 120) = 0x80000001C09CEF60;
+  *(v3 + 128) = xmmword_1C0982A00;
+  *(v3 + 144) = 0;
 
-  v3 = MEMORY[0x1E69E7CC0];
-  *(v2 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v2 + 16) = v3;
-  *(v2 + 24) = v3;
+  v4 = MEMORY[0x1E69E7CC0];
+  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v3 + 16) = v4;
+  *(v3 + 24) = v4;
 
-  *(v2 + 32) = v3;
-  return v2;
+  *(v3 + 32) = v4;
+  return v3;
 }
 
 uint64_t UsoTaskBuilder_summarise_common_SafetySession.__allocating_init()()
@@ -5487,25 +1959,25 @@ uint64_t UsoTaskBuilder_pause_common_SafetySession.__allocating_init()()
   return v0;
 }
 
-uint64_t sub_1C069A890(__n128 a1, __n128 a2)
+uint64_t sub_1C069A890(uint64_t a1, __n128 a2, __n128 a3)
 {
-  *(v2 + 40) = 0xD000000000000014;
-  *(v2 + 48) = 0x80000001C09CEF80;
-  *(v2 + 56) = a1;
-  *(v2 + 72) = a2;
-  *(v2 + 88) = xmmword_1C0975360;
-  *(v2 + 104) = xmmword_1C0976150;
-  *(v2 + 120) = 0x80000001C09CEF80;
-  *(v2 + 128) = xmmword_1C0982A00;
-  *(v2 + 144) = 0;
+  *(v3 + 40) = 0xD000000000000014;
+  *(v3 + 48) = 0x80000001C09CEF80;
+  *(v3 + 56) = a2;
+  *(v3 + 72) = a3;
+  *(v3 + 88) = xmmword_1C0975360;
+  *(v3 + 104) = xmmword_1C0976150;
+  *(v3 + 120) = 0x80000001C09CEF80;
+  *(v3 + 128) = xmmword_1C0982A00;
+  *(v3 + 144) = 0;
 
-  v3 = MEMORY[0x1E69E7CC0];
-  *(v2 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v2 + 16) = v3;
-  *(v2 + 24) = v3;
+  v4 = MEMORY[0x1E69E7CC0];
+  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v3 + 16) = v4;
+  *(v3 + 24) = v4;
 
-  *(v2 + 32) = v3;
-  return v2;
+  *(v3 + 32) = v4;
+  return v3;
 }
 
 uint64_t UsoTaskBuilder_delete_common_SafetySession.__allocating_init()()
@@ -5580,25 +2052,25 @@ uint64_t UsoTaskBuilder_ask_common_KnowledgeQuestion.__allocating_init()()
   return v0;
 }
 
-uint64_t sub_1C069ADE4(__n128 a1, __n128 a2)
+uint64_t sub_1C069ADE4(uint64_t a1, __n128 a2, __n128 a3)
 {
-  *(v2 + 40) = 0xD000000000000018;
-  *(v2 + 48) = 0x80000001C09CEFA0;
-  *(v2 + 56) = a1;
-  *(v2 + 72) = a2;
-  *(v2 + 88) = xmmword_1C0975360;
-  *(v2 + 104) = xmmword_1C0976170;
-  *(v2 + 120) = 0x80000001C09CEFA0;
-  *(v2 + 128) = xmmword_1C0982A00;
-  *(v2 + 144) = 0;
+  *(v3 + 40) = 0xD000000000000018;
+  *(v3 + 48) = 0x80000001C09CEFA0;
+  *(v3 + 56) = a2;
+  *(v3 + 72) = a3;
+  *(v3 + 88) = xmmword_1C0975360;
+  *(v3 + 104) = xmmword_1C0976170;
+  *(v3 + 120) = 0x80000001C09CEFA0;
+  *(v3 + 128) = xmmword_1C0982A00;
+  *(v3 + 144) = 0;
 
-  v3 = MEMORY[0x1E69E7CC0];
-  *(v2 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v2 + 16) = v3;
-  *(v2 + 24) = v3;
+  v4 = MEMORY[0x1E69E7CC0];
+  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v3 + 16) = v4;
+  *(v3 + 24) = v4;
 
-  *(v2 + 32) = v3;
-  return v2;
+  *(v3 + 32) = v4;
+  return v3;
 }
 
 uint64_t UsoTaskBuilder_noVerb_common_DateTimeRangeQualifier.__allocating_init()()
@@ -6035,25 +2507,25 @@ uint64_t UsoTaskBuilder_create_common_LocalBusiness.__allocating_init()()
   return v0;
 }
 
-uint64_t sub_1C069CCB8(__n128 a1, __n128 a2)
+uint64_t sub_1C069CCB8(uint64_t a1, __n128 a2, __n128 a3)
 {
-  *(v2 + 40) = 0xD000000000000014;
-  *(v2 + 48) = 0x80000001C09CF0D0;
-  *(v2 + 56) = a1;
-  *(v2 + 72) = a2;
-  *(v2 + 88) = xmmword_1C0975360;
-  *(v2 + 104) = xmmword_1C0976150;
-  *(v2 + 120) = 0x80000001C09CF0D0;
-  *(v2 + 128) = xmmword_1C0982A00;
-  *(v2 + 144) = 0;
+  *(v3 + 40) = 0xD000000000000014;
+  *(v3 + 48) = 0x80000001C09CF0D0;
+  *(v3 + 56) = a2;
+  *(v3 + 72) = a3;
+  *(v3 + 88) = xmmword_1C0975360;
+  *(v3 + 104) = xmmword_1C0976150;
+  *(v3 + 120) = 0x80000001C09CF0D0;
+  *(v3 + 128) = xmmword_1C0982A00;
+  *(v3 + 144) = 0;
 
-  v3 = MEMORY[0x1E69E7CC0];
-  *(v2 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v2 + 16) = v3;
-  *(v2 + 24) = v3;
+  v4 = MEMORY[0x1E69E7CC0];
+  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v3 + 16) = v4;
+  *(v3 + 24) = v4;
 
-  *(v2 + 32) = v3;
-  return v2;
+  *(v3 + 32) = v4;
+  return v3;
 }
 
 uint64_t UsoTaskBuilder_checkExistence_common_LocalBusiness.__allocating_init()()
@@ -6164,25 +2636,25 @@ uint64_t UsoTaskBuilder_redo_common_AppAction.__allocating_init()()
   return v0;
 }
 
-uint64_t sub_1C069D458(__n128 a1, __n128 a2)
+uint64_t sub_1C069D458(uint64_t a1, __n128 a2, __n128 a3)
 {
-  *(v2 + 40) = 0xD000000000000010;
-  *(v2 + 48) = 0x80000001C09CF0F0;
-  *(v2 + 56) = a1;
-  *(v2 + 72) = a2;
-  *(v2 + 88) = xmmword_1C0975360;
-  *(v2 + 104) = xmmword_1C0976090;
-  *(v2 + 120) = 0x80000001C09CF0F0;
-  *(v2 + 128) = xmmword_1C0982A00;
-  *(v2 + 144) = 0;
+  *(v3 + 40) = 0xD000000000000010;
+  *(v3 + 48) = 0x80000001C09CF0F0;
+  *(v3 + 56) = a2;
+  *(v3 + 72) = a3;
+  *(v3 + 88) = xmmword_1C0975360;
+  *(v3 + 104) = xmmword_1C0976090;
+  *(v3 + 120) = 0x80000001C09CF0F0;
+  *(v3 + 128) = xmmword_1C0982A00;
+  *(v3 + 144) = 0;
 
-  v3 = MEMORY[0x1E69E7CC0];
-  *(v2 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v2 + 16) = v3;
-  *(v2 + 24) = v3;
+  v4 = MEMORY[0x1E69E7CC0];
+  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v3 + 16) = v4;
+  *(v3 + 24) = v4;
 
-  *(v2 + 32) = v3;
-  return v2;
+  *(v3 + 32) = v4;
+  return v3;
 }
 
 uint64_t UsoTaskBuilder_runCommand_common_AppAction.__allocating_init()()
@@ -6940,24 +3412,24 @@ uint64_t UsoTaskBuilder_unhide_uso_NoEntity.__allocating_init()()
   return v0;
 }
 
-uint64_t sub_1C06A0194(__n128 a1, __n128 a2, __n128 a3)
+uint64_t sub_1C06A0194(uint64_t a1, __n128 a2, __n128 a3, __n128 a4)
 {
-  *(v3 + 40) = a1;
-  *(v3 + 56) = xmmword_1C09834E0;
-  *(v3 + 72) = 0xD000000000000017;
-  *(v3 + 80) = 0x80000001C09CE680;
-  *(v3 + 88) = xmmword_1C0975360;
-  *(v3 + 104) = a2;
-  *(v3 + 120) = a3;
-  *(v3 + 136) = xmmword_1C0982D00;
+  *(v4 + 40) = a2;
+  *(v4 + 56) = xmmword_1C09834E0;
+  *(v4 + 72) = 0xD000000000000017;
+  *(v4 + 80) = 0x80000001C09CE680;
+  *(v4 + 88) = xmmword_1C0975360;
+  *(v4 + 104) = a3;
+  *(v4 + 120) = a4;
+  *(v4 + 136) = xmmword_1C0982D00;
 
-  v4 = MEMORY[0x1E69E7CC0];
-  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v3 + 16) = v4;
-  *(v3 + 24) = v4;
+  v5 = MEMORY[0x1E69E7CC0];
+  *(v4 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v4 + 16) = v5;
+  *(v4 + 24) = v5;
 
-  *(v3 + 32) = v4;
-  return v3;
+  *(v4 + 32) = v5;
+  return v4;
 }
 
 uint64_t UsoTaskBuilder_pause_uso_NoEntity.__allocating_init()()
@@ -7033,24 +3505,24 @@ uint64_t UsoTaskBuilder_hide_uso_NoEntity.__allocating_init()()
   return v0;
 }
 
-uint64_t sub_1C06A07C0(__n128 a1, __n128 a2, __n128 a3)
+uint64_t sub_1C06A07C0(uint64_t a1, __n128 a2, __n128 a3, __n128 a4)
 {
-  *(v3 + 40) = a1;
-  *(v3 + 56) = xmmword_1C09834D0;
-  *(v3 + 72) = 0xD000000000000015;
-  *(v3 + 80) = 0x80000001C09CE6F0;
-  *(v3 + 88) = xmmword_1C0975360;
-  *(v3 + 104) = a2;
-  *(v3 + 120) = a3;
-  *(v3 + 136) = xmmword_1C0982D00;
+  *(v4 + 40) = a2;
+  *(v4 + 56) = xmmword_1C09834D0;
+  *(v4 + 72) = 0xD000000000000015;
+  *(v4 + 80) = 0x80000001C09CE6F0;
+  *(v4 + 88) = xmmword_1C0975360;
+  *(v4 + 104) = a3;
+  *(v4 + 120) = a4;
+  *(v4 + 136) = xmmword_1C0982D00;
 
-  v4 = MEMORY[0x1E69E7CC0];
-  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v3 + 16) = v4;
-  *(v3 + 24) = v4;
+  v5 = MEMORY[0x1E69E7CC0];
+  *(v4 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v4 + 16) = v5;
+  *(v4 + 24) = v5;
 
-  *(v3 + 32) = v4;
-  return v3;
+  *(v4 + 32) = v5;
+  return v4;
 }
 
 uint64_t UsoTaskBuilder_close_uso_NoEntity.__allocating_init()()
@@ -7408,24 +3880,24 @@ uint64_t UsoTaskBuilder_unlike_uso_NoEntity.__allocating_init()()
   return v0;
 }
 
-uint64_t sub_1C06A2058(__n128 a1, __n128 a2, __n128 a3)
+uint64_t sub_1C06A2058(uint64_t a1, __n128 a2, __n128 a3, __n128 a4)
 {
-  *(v3 + 40) = a1;
-  *(v3 + 56) = xmmword_1C0982AE0;
-  *(v3 + 72) = 0xD000000000000010;
-  *(v3 + 80) = 0x80000001C09CDB20;
-  *(v3 + 88) = xmmword_1C0975360;
-  *(v3 + 104) = a2;
-  *(v3 + 120) = a3;
-  *(v3 + 136) = xmmword_1C0982D00;
+  *(v4 + 40) = a2;
+  *(v4 + 56) = xmmword_1C0982AE0;
+  *(v4 + 72) = 0xD000000000000010;
+  *(v4 + 80) = 0x80000001C09CDB20;
+  *(v4 + 88) = xmmword_1C0975360;
+  *(v4 + 104) = a3;
+  *(v4 + 120) = a4;
+  *(v4 + 136) = xmmword_1C0982D00;
 
-  v4 = MEMORY[0x1E69E7CC0];
-  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v3 + 16) = v4;
-  *(v3 + 24) = v4;
+  v5 = MEMORY[0x1E69E7CC0];
+  *(v4 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v4 + 16) = v5;
+  *(v4 + 24) = v5;
 
-  *(v3 + 32) = v4;
-  return v3;
+  *(v4 + 32) = v5;
+  return v4;
 }
 
 uint64_t UsoTaskBuilder_stop_uso_NoEntity.__allocating_init()()
@@ -7504,25 +3976,25 @@ uint64_t UsoTaskBuilder_noVerb_common_UserSocialAction.__allocating_init()()
   return v0;
 }
 
-uint64_t sub_1C06A2678(__n128 a1, __n128 a2)
+uint64_t sub_1C06A2678(uint64_t a1, __n128 a2, __n128 a3)
 {
-  *(v2 + 40) = 0xD000000000000017;
-  *(v2 + 48) = 0x80000001C09CF2F0;
-  *(v2 + 56) = a1;
-  *(v2 + 72) = a2;
-  *(v2 + 88) = xmmword_1C0975360;
-  *(v2 + 104) = xmmword_1C0976050;
-  *(v2 + 120) = 0x80000001C09CF2F0;
-  *(v2 + 128) = xmmword_1C0982A00;
-  *(v2 + 144) = 0;
+  *(v3 + 40) = 0xD000000000000017;
+  *(v3 + 48) = 0x80000001C09CF2F0;
+  *(v3 + 56) = a2;
+  *(v3 + 72) = a3;
+  *(v3 + 88) = xmmword_1C0975360;
+  *(v3 + 104) = xmmword_1C0976050;
+  *(v3 + 120) = 0x80000001C09CF2F0;
+  *(v3 + 128) = xmmword_1C0982A00;
+  *(v3 + 144) = 0;
 
-  v3 = MEMORY[0x1E69E7CC0];
-  *(v2 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v2 + 16) = v3;
-  *(v2 + 24) = v3;
+  v4 = MEMORY[0x1E69E7CC0];
+  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v3 + 16) = v4;
+  *(v3 + 24) = v4;
 
-  *(v2 + 32) = v3;
-  return v2;
+  *(v3 + 32) = v4;
+  return v3;
 }
 
 uint64_t UsoTaskBuilder_summarise_common_Alarm.__allocating_init()()
@@ -7598,24 +4070,24 @@ uint64_t UsoTaskBuilder_disable_common_Alarm.__allocating_init()()
   return v0;
 }
 
-uint64_t sub_1C06A2CA4(__n128 a1, __n128 a2, __n128 a3)
+uint64_t sub_1C06A2CA4(uint64_t a1, __n128 a2, __n128 a3, __n128 a4)
 {
-  *(v3 + 40) = a1;
-  *(v3 + 56) = xmmword_1C09830F0;
-  *(v3 + 72) = 0xD000000000000011;
-  *(v3 + 80) = 0x80000001C09CEDA0;
-  *(v3 + 88) = xmmword_1C0975360;
-  *(v3 + 104) = a2;
-  *(v3 + 120) = a3;
-  *(v3 + 136) = xmmword_1C0982D00;
+  *(v4 + 40) = a2;
+  *(v4 + 56) = xmmword_1C09830F0;
+  *(v4 + 72) = 0xD000000000000011;
+  *(v4 + 80) = 0x80000001C09CEDA0;
+  *(v4 + 88) = xmmword_1C0975360;
+  *(v4 + 104) = a3;
+  *(v4 + 120) = a4;
+  *(v4 + 136) = xmmword_1C0982D00;
 
-  v4 = MEMORY[0x1E69E7CC0];
-  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v3 + 16) = v4;
-  *(v3 + 24) = v4;
+  v5 = MEMORY[0x1E69E7CC0];
+  *(v4 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v4 + 16) = v5;
+  *(v4 + 24) = v5;
 
-  *(v3 + 32) = v4;
-  return v3;
+  *(v4 + 32) = v5;
+  return v4;
 }
 
 uint64_t UsoTaskBuilder_snooze_common_Alarm.__allocating_init()()
@@ -7762,25 +4234,25 @@ uint64_t UsoTaskBuilder_state_common_UserProperty.__allocating_init()()
   return v0;
 }
 
-uint64_t sub_1C06A375C(__n128 a1, __n128 a2)
+uint64_t sub_1C06A375C(uint64_t a1, __n128 a2, __n128 a3)
 {
-  *(v2 + 40) = 0xD000000000000013;
-  *(v2 + 48) = 0x80000001C09CF350;
-  *(v2 + 56) = a1;
-  *(v2 + 72) = a2;
-  *(v2 + 88) = xmmword_1C0975360;
-  *(v2 + 104) = xmmword_1C0976140;
-  *(v2 + 120) = 0x80000001C09CF350;
-  *(v2 + 128) = xmmword_1C0982A00;
-  *(v2 + 144) = 0;
+  *(v3 + 40) = 0xD000000000000013;
+  *(v3 + 48) = 0x80000001C09CF350;
+  *(v3 + 56) = a2;
+  *(v3 + 72) = a3;
+  *(v3 + 88) = xmmword_1C0975360;
+  *(v3 + 104) = xmmword_1C0976140;
+  *(v3 + 120) = 0x80000001C09CF350;
+  *(v3 + 128) = xmmword_1C0982A00;
+  *(v3 + 144) = 0;
 
-  v3 = MEMORY[0x1E69E7CC0];
-  *(v2 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v2 + 16) = v3;
-  *(v2 + 24) = v3;
+  v4 = MEMORY[0x1E69E7CC0];
+  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v3 + 16) = v4;
+  *(v3 + 24) = v4;
 
-  *(v2 + 32) = v3;
-  return v2;
+  *(v3 + 32) = v4;
+  return v3;
 }
 
 uint64_t UsoTaskBuilder_summarise_common_UserProperty.__allocating_init()()
@@ -7883,25 +4355,25 @@ uint64_t UsoTaskBuilder_start_common_StopWatch.__allocating_init()()
   return v0;
 }
 
-uint64_t sub_1C06A3FA4(__n128 a1, __n128 a2)
+uint64_t sub_1C06A3FA4(uint64_t a1, __n128 a2, __n128 a3)
 {
-  *(v2 + 40) = 0xD000000000000010;
-  *(v2 + 48) = 0x80000001C09CF370;
-  *(v2 + 56) = a1;
-  *(v2 + 72) = a2;
-  *(v2 + 88) = xmmword_1C0975360;
-  *(v2 + 104) = xmmword_1C0976090;
-  *(v2 + 120) = 0x80000001C09CF370;
-  *(v2 + 128) = xmmword_1C0982A00;
-  *(v2 + 144) = 0;
+  *(v3 + 40) = 0xD000000000000010;
+  *(v3 + 48) = 0x80000001C09CF370;
+  *(v3 + 56) = a2;
+  *(v3 + 72) = a3;
+  *(v3 + 88) = xmmword_1C0975360;
+  *(v3 + 104) = xmmword_1C0976090;
+  *(v3 + 120) = 0x80000001C09CF370;
+  *(v3 + 128) = xmmword_1C0982A00;
+  *(v3 + 144) = 0;
 
-  v3 = MEMORY[0x1E69E7CC0];
-  *(v2 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v2 + 16) = v3;
-  *(v2 + 24) = v3;
+  v4 = MEMORY[0x1E69E7CC0];
+  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v3 + 16) = v4;
+  *(v3 + 24) = v4;
 
-  *(v2 + 32) = v3;
-  return v2;
+  *(v3 + 32) = v4;
+  return v3;
 }
 
 uint64_t UsoTaskBuilder_disableSetting_common_Note.__allocating_init()()
@@ -7911,24 +4383,24 @@ uint64_t UsoTaskBuilder_disableSetting_common_Note.__allocating_init()()
   return v0;
 }
 
-uint64_t sub_1C06A4138(__n128 a1, __n128 a2, __n128 a3)
+uint64_t sub_1C06A4138(uint64_t a1, __n128 a2, __n128 a3, __n128 a4)
 {
-  *(v3 + 40) = a1;
-  *(v3 + 56) = xmmword_1C0983640;
-  *(v3 + 72) = 0xD00000000000001FLL;
-  *(v3 + 80) = 0x80000001C09CF070;
-  *(v3 + 88) = xmmword_1C0975360;
-  *(v3 + 104) = a2;
-  *(v3 + 120) = a3;
-  *(v3 + 136) = xmmword_1C0982D00;
+  *(v4 + 40) = a2;
+  *(v4 + 56) = xmmword_1C0983640;
+  *(v4 + 72) = 0xD00000000000001FLL;
+  *(v4 + 80) = 0x80000001C09CF070;
+  *(v4 + 88) = xmmword_1C0975360;
+  *(v4 + 104) = a3;
+  *(v4 + 120) = a4;
+  *(v4 + 136) = xmmword_1C0982D00;
 
-  v4 = MEMORY[0x1E69E7CC0];
-  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v3 + 16) = v4;
-  *(v3 + 24) = v4;
+  v5 = MEMORY[0x1E69E7CC0];
+  *(v4 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v4 + 16) = v5;
+  *(v4 + 24) = v5;
 
-  *(v3 + 32) = v4;
-  return v3;
+  *(v4 + 32) = v5;
+  return v4;
 }
 
 uint64_t UsoTaskBuilder_read_common_Note.__allocating_init()()
@@ -8023,24 +4495,24 @@ uint64_t UsoTaskBuilder_enableSetting_common_Note.__allocating_init()()
   return v0;
 }
 
-uint64_t sub_1C06A4830(__n128 a1, __n128 a2, __n128 a3)
+uint64_t sub_1C06A4830(uint64_t a1, __n128 a2, __n128 a3, __n128 a4)
 {
-  *(v3 + 40) = a1;
-  *(v3 + 56) = xmmword_1C0983650;
-  *(v3 + 72) = 0xD00000000000001ELL;
-  *(v3 + 80) = 0x80000001C09CF0B0;
-  *(v3 + 88) = xmmword_1C0975360;
-  *(v3 + 104) = a2;
-  *(v3 + 120) = a3;
-  *(v3 + 136) = xmmword_1C0982D00;
+  *(v4 + 40) = a2;
+  *(v4 + 56) = xmmword_1C0983650;
+  *(v4 + 72) = 0xD00000000000001ELL;
+  *(v4 + 80) = 0x80000001C09CF0B0;
+  *(v4 + 88) = xmmword_1C0975360;
+  *(v4 + 104) = a3;
+  *(v4 + 120) = a4;
+  *(v4 + 136) = xmmword_1C0982D00;
 
-  v4 = MEMORY[0x1E69E7CC0];
-  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v3 + 16) = v4;
-  *(v3 + 24) = v4;
+  v5 = MEMORY[0x1E69E7CC0];
+  *(v4 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v4 + 16) = v5;
+  *(v4 + 24) = v5;
 
-  *(v3 + 32) = v4;
-  return v3;
+  *(v4 + 32) = v5;
+  return v4;
 }
 
 uint64_t UsoTaskBuilder_request_common_Note.__allocating_init()()
@@ -8320,25 +4792,25 @@ uint64_t UsoTaskBuilder_create_common_CalendarEvent.__allocating_init()()
   return v0;
 }
 
-uint64_t sub_1C06A5A80(__n128 a1, __n128 a2)
+uint64_t sub_1C06A5A80(uint64_t a1, __n128 a2, __n128 a3)
 {
-  *(v2 + 40) = 0xD000000000000014;
-  *(v2 + 48) = 0x80000001C09CF3B0;
-  *(v2 + 56) = a1;
-  *(v2 + 72) = a2;
-  *(v2 + 88) = xmmword_1C0975360;
-  *(v2 + 104) = xmmword_1C0976150;
-  *(v2 + 120) = 0x80000001C09CF3B0;
-  *(v2 + 128) = xmmword_1C0982A00;
-  *(v2 + 144) = 0;
+  *(v3 + 40) = 0xD000000000000014;
+  *(v3 + 48) = 0x80000001C09CF3B0;
+  *(v3 + 56) = a2;
+  *(v3 + 72) = a3;
+  *(v3 + 88) = xmmword_1C0975360;
+  *(v3 + 104) = xmmword_1C0976150;
+  *(v3 + 120) = 0x80000001C09CF3B0;
+  *(v3 + 128) = xmmword_1C0982A00;
+  *(v3 + 144) = 0;
 
-  v3 = MEMORY[0x1E69E7CC0];
-  *(v2 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v2 + 16) = v3;
-  *(v2 + 24) = v3;
+  v4 = MEMORY[0x1E69E7CC0];
+  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v3 + 16) = v4;
+  *(v3 + 24) = v4;
 
-  *(v2 + 32) = v3;
-  return v2;
+  *(v3 + 32) = v4;
+  return v3;
 }
 
 uint64_t UsoTaskBuilder_play_common_DailyBriefing.__allocating_init()()
@@ -8471,25 +4943,25 @@ uint64_t UsoTaskBuilder_noVerb_common_DailyBriefing.__allocating_init()()
   return v0;
 }
 
-uint64_t sub_1C06A62EC(__n128 a1, __n128 a2)
+uint64_t sub_1C06A62EC(uint64_t a1, __n128 a2, __n128 a3)
 {
-  *(v2 + 40) = 0xD000000000000014;
-  *(v2 + 48) = 0x80000001C09CF3F0;
-  *(v2 + 56) = a1;
-  *(v2 + 72) = a2;
-  *(v2 + 88) = xmmword_1C0975360;
-  *(v2 + 104) = xmmword_1C0976150;
-  *(v2 + 120) = 0x80000001C09CF3F0;
-  *(v2 + 128) = xmmword_1C0982A00;
-  *(v2 + 144) = 0;
+  *(v3 + 40) = 0xD000000000000014;
+  *(v3 + 48) = 0x80000001C09CF3F0;
+  *(v3 + 56) = a2;
+  *(v3 + 72) = a3;
+  *(v3 + 88) = xmmword_1C0975360;
+  *(v3 + 104) = xmmword_1C0976150;
+  *(v3 + 120) = 0x80000001C09CF3F0;
+  *(v3 + 128) = xmmword_1C0982A00;
+  *(v3 + 144) = 0;
 
-  v3 = MEMORY[0x1E69E7CC0];
-  *(v2 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v2 + 16) = v3;
-  *(v2 + 24) = v3;
+  v4 = MEMORY[0x1E69E7CC0];
+  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v3 + 16) = v4;
+  *(v3 + 24) = v4;
 
-  *(v2 + 32) = v3;
-  return v2;
+  *(v3 + 32) = v4;
+  return v3;
 }
 
 uint64_t UsoTaskBuilder_checkExistence_common_DailyBriefing.__allocating_init()()
@@ -8723,25 +5195,25 @@ uint64_t UsoTaskBuilder_undo_common_NotebookItem.__allocating_init()()
   return v0;
 }
 
-uint64_t sub_1C06A7164(__n128 a1, __n128 a2)
+uint64_t sub_1C06A7164(uint64_t a1, __n128 a2, __n128 a3)
 {
-  *(v2 + 40) = 0xD000000000000013;
-  *(v2 + 48) = 0x80000001C09CF410;
-  *(v2 + 56) = a1;
-  *(v2 + 72) = a2;
-  *(v2 + 88) = xmmword_1C0975360;
-  *(v2 + 104) = xmmword_1C0976140;
-  *(v2 + 120) = 0x80000001C09CF410;
-  *(v2 + 128) = xmmword_1C0982A00;
-  *(v2 + 144) = 0;
+  *(v3 + 40) = 0xD000000000000013;
+  *(v3 + 48) = 0x80000001C09CF410;
+  *(v3 + 56) = a2;
+  *(v3 + 72) = a3;
+  *(v3 + 88) = xmmword_1C0975360;
+  *(v3 + 104) = xmmword_1C0976140;
+  *(v3 + 120) = 0x80000001C09CF410;
+  *(v3 + 128) = xmmword_1C0982A00;
+  *(v3 + 144) = 0;
 
-  v3 = MEMORY[0x1E69E7CC0];
-  *(v2 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v2 + 16) = v3;
-  *(v2 + 24) = v3;
+  v4 = MEMORY[0x1E69E7CC0];
+  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v3 + 16) = v4;
+  *(v3 + 24) = v4;
 
-  *(v2 + 32) = v3;
-  return v2;
+  *(v3 + 32) = v4;
+  return v3;
 }
 
 uint64_t UsoTaskBuilder_update_common_NotebookItem.__allocating_init()()
@@ -9013,25 +5485,25 @@ uint64_t UsoTaskBuilder_read_common_OffsetDateTime.__allocating_init()()
   return v0;
 }
 
-uint64_t sub_1C06A8330(__n128 a1, __n128 a2)
+uint64_t sub_1C06A8330(uint64_t a1, __n128 a2, __n128 a3)
 {
-  *(v2 + 40) = 0xD000000000000015;
-  *(v2 + 48) = 0x80000001C09CF490;
-  *(v2 + 56) = a1;
-  *(v2 + 72) = a2;
-  *(v2 + 88) = xmmword_1C0975360;
-  *(v2 + 104) = xmmword_1C0976160;
-  *(v2 + 120) = 0x80000001C09CF490;
-  *(v2 + 128) = xmmword_1C0982A00;
-  *(v2 + 144) = 0;
+  *(v3 + 40) = 0xD000000000000015;
+  *(v3 + 48) = 0x80000001C09CF490;
+  *(v3 + 56) = a2;
+  *(v3 + 72) = a3;
+  *(v3 + 88) = xmmword_1C0975360;
+  *(v3 + 104) = xmmword_1C0976160;
+  *(v3 + 120) = 0x80000001C09CF490;
+  *(v3 + 128) = xmmword_1C0982A00;
+  *(v3 + 144) = 0;
 
-  v3 = MEMORY[0x1E69E7CC0];
-  *(v2 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v2 + 16) = v3;
-  *(v2 + 24) = v3;
+  v4 = MEMORY[0x1E69E7CC0];
+  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v3 + 16) = v4;
+  *(v3 + 24) = v4;
 
-  *(v2 + 32) = v3;
-  return v2;
+  *(v3 + 32) = v4;
+  return v3;
 }
 
 uint64_t UsoTaskBuilder_convert_common_OffsetDateTime.__allocating_init()()
@@ -9322,25 +5794,25 @@ uint64_t UsoTaskBuilder_read_common_Translation.__allocating_init()()
   return v0;
 }
 
-uint64_t sub_1C06A94F4(__n128 a1, __n128 a2)
+uint64_t sub_1C06A94F4(uint64_t a1, __n128 a2, __n128 a3)
 {
-  *(v2 + 40) = 0xD000000000000012;
-  *(v2 + 48) = 0x80000001C09CF4D0;
-  *(v2 + 56) = a1;
-  *(v2 + 72) = a2;
-  *(v2 + 88) = xmmword_1C0975360;
-  *(v2 + 104) = xmmword_1C09760F0;
-  *(v2 + 120) = 0x80000001C09CF4D0;
-  *(v2 + 128) = xmmword_1C0982A00;
-  *(v2 + 144) = 0;
+  *(v3 + 40) = 0xD000000000000012;
+  *(v3 + 48) = 0x80000001C09CF4D0;
+  *(v3 + 56) = a2;
+  *(v3 + 72) = a3;
+  *(v3 + 88) = xmmword_1C0975360;
+  *(v3 + 104) = xmmword_1C09760F0;
+  *(v3 + 120) = 0x80000001C09CF4D0;
+  *(v3 + 128) = xmmword_1C0982A00;
+  *(v3 + 144) = 0;
 
-  v3 = MEMORY[0x1E69E7CC0];
-  *(v2 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
-  *(v2 + 16) = v3;
-  *(v2 + 24) = v3;
+  v4 = MEMORY[0x1E69E7CC0];
+  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v3 + 16) = v4;
+  *(v3 + 24) = v4;
 
-  *(v2 + 32) = v3;
-  return v2;
+  *(v3 + 32) = v4;
+  return v3;
 }
 
 uint64_t UsoTaskBuilder_stopTranslation_common_Translation.__allocating_init()()
@@ -10009,5 +6481,3520 @@ uint64_t UsoTaskBuilder_read_common_MediaItem.init()()
   *(v0 + 24) = v1;
 
   *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_resume_common_MediaItem.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_resume_common_MediaItem.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_resume_common_MediaItem.init()()
+{
+  *(v0 + 40) = 0xD000000000000010;
+  *(v0 + 48) = 0x80000001C09CF590;
+  *(v0 + 56) = xmmword_1C0982CC0;
+  *(v0 + 72) = 0xD000000000000017;
+  *(v0 + 80) = 0x80000001C09CDE20;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976090;
+  *(v0 + 120) = 0x80000001C09CF590;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_seekBackward_common_MediaItem.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_seekBackward_common_MediaItem.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_seekBackward_common_MediaItem.init()()
+{
+  *(v0 + 40) = 0xD000000000000010;
+  *(v0 + 48) = 0x80000001C09CF590;
+  *(v0 + 56) = xmmword_1C09837B0;
+  *(v0 + 72) = 0xD000000000000025;
+  *(v0 + 80) = 0x80000001C09CF680;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976090;
+  *(v0 + 120) = 0x80000001C09CF590;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_skipBackward_common_MediaItem.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_skipBackward_common_MediaItem.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_skipBackward_common_MediaItem.init()()
+{
+  *(v0 + 40) = 0xD000000000000010;
+  *(v0 + 48) = 0x80000001C09CF590;
+  *(v0 + 56) = xmmword_1C0982A80;
+  *(v0 + 72) = 0xD00000000000001DLL;
+  *(v0 + 80) = 0x80000001C09CE6A0;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976090;
+  *(v0 + 120) = 0x80000001C09CF590;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_transfer_common_MediaItem.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_transfer_common_MediaItem.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_transfer_common_MediaItem.init()()
+{
+  *(v0 + 40) = 0xD000000000000010;
+  *(v0 + 48) = 0x80000001C09CF590;
+  *(v0 + 56) = xmmword_1C09837C0;
+  *(v0 + 72) = 0xD000000000000012;
+  *(v0 + 80) = 0x80000001C09CF6B0;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976090;
+  *(v0 + 120) = 0x80000001C09CF590;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_play_common_MediaItem.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_play_common_MediaItem.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_play_common_MediaItem.init()()
+{
+  *(v0 + 40) = 0xD000000000000010;
+  *(v0 + 48) = 0x80000001C09CF590;
+  *(v0 + 56) = xmmword_1C0982C10;
+  *(v0 + 72) = 0xD000000000000015;
+  *(v0 + 80) = 0x80000001C09CF270;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976090;
+  *(v0 + 120) = 0x80000001C09CF590;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_seekForward_common_MediaItem.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_seekForward_common_MediaItem.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_seekForward_common_MediaItem.init()()
+{
+  *(v0 + 40) = 0xD000000000000010;
+  *(v0 + 48) = 0x80000001C09CF590;
+  *(v0 + 56) = xmmword_1C09837D0;
+  *(v0 + 72) = 0xD000000000000024;
+  *(v0 + 80) = 0x80000001C09CF6D0;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976090;
+  *(v0 + 120) = 0x80000001C09CF590;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_checkExistence_common_MediaItem.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_checkExistence_common_MediaItem.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_checkExistence_common_MediaItem.init()()
+{
+  *(v0 + 40) = 0xD000000000000010;
+  *(v0 + 48) = 0x80000001C09CF590;
+  *(v0 + 56) = xmmword_1C0982B80;
+  *(v0 + 72) = 0xD00000000000001FLL;
+  *(v0 + 80) = 0x80000001C09CF700;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976090;
+  *(v0 + 120) = 0x80000001C09CF590;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_enableSetting_common_MediaItem.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_enableSetting_common_MediaItem.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_enableSetting_common_MediaItem.init()()
+{
+  *(v0 + 40) = 0xD000000000000010;
+  *(v0 + 48) = 0x80000001C09CF590;
+  *(v0 + 56) = xmmword_1C0983650;
+  *(v0 + 72) = 0xD00000000000001ELL;
+  *(v0 + 80) = 0x80000001C09CF0B0;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976090;
+  *(v0 + 120) = 0x80000001C09CF590;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_unlike_common_MediaItem.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_unlike_common_MediaItem.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_unlike_common_MediaItem.init()()
+{
+  *(v0 + 40) = 0xD000000000000010;
+  *(v0 + 48) = 0x80000001C09CF590;
+  *(v0 + 56) = xmmword_1C0982AE0;
+  *(v0 + 72) = 0xD000000000000010;
+  *(v0 + 80) = 0x80000001C09CDB20;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976090;
+  *(v0 + 120) = 0x80000001C09CF590;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_request_common_MediaItem.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_request_common_MediaItem.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_request_common_MediaItem.init()()
+{
+  *(v0 + 40) = 0xD000000000000010;
+  *(v0 + 48) = 0x80000001C09CF590;
+  *(v0 + 56) = xmmword_1C0982C40;
+  *(v0 + 72) = 0xD000000000000017;
+  *(v0 + 80) = 0x80000001C09CDD20;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976090;
+  *(v0 + 120) = 0x80000001C09CF590;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_repeat_common_MediaItem.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_repeat_common_MediaItem.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_repeat_common_MediaItem.init()()
+{
+  *(v0 + 40) = 0xD000000000000010;
+  *(v0 + 48) = 0x80000001C09CF590;
+  *(v0 + 56) = xmmword_1C0982C90;
+  *(v0 + 72) = 0xD000000000000017;
+  *(v0 + 80) = 0x80000001C09CF290;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976090;
+  *(v0 + 120) = 0x80000001C09CF590;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_skipForward_common_MediaItem.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_skipForward_common_MediaItem.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_skipForward_common_MediaItem.init()()
+{
+  *(v0 + 40) = 0xD000000000000010;
+  *(v0 + 48) = 0x80000001C09CF590;
+  *(v0 + 56) = xmmword_1C0982A70;
+  *(v0 + 72) = 0xD00000000000001CLL;
+  *(v0 + 80) = 0x80000001C09CE740;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976090;
+  *(v0 + 120) = 0x80000001C09CF590;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_open_common_MediaItem.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_open_common_MediaItem.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_unrequest_common_MediaItem.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_unrequest_common_MediaItem.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_unrequest_common_MediaItem.init()()
+{
+  *(v0 + 40) = 0xD000000000000010;
+  *(v0 + 48) = 0x80000001C09CF590;
+  *(v0 + 56) = xmmword_1C09837E0;
+  *(v0 + 72) = 0xD000000000000019;
+  *(v0 + 80) = 0x80000001C09CF720;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976090;
+  *(v0 + 120) = 0x80000001C09CF590;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_disableSetting_common_MediaItem.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_disableSetting_common_MediaItem.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_disableSetting_common_MediaItem.init()()
+{
+  *(v0 + 40) = 0xD000000000000010;
+  *(v0 + 48) = 0x80000001C09CF590;
+  *(v0 + 56) = xmmword_1C0983640;
+  *(v0 + 72) = 0xD00000000000001FLL;
+  *(v0 + 80) = 0x80000001C09CF070;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976090;
+  *(v0 + 120) = 0x80000001C09CF590;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_like_common_MediaItem.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_like_common_MediaItem.init()();
+  return v0;
+}
+
+uint64_t sub_1C06AD0E4(uint64_t a1, __n128 a2, __n128 a3)
+{
+  *(v3 + 40) = 0xD000000000000010;
+  *(v3 + 48) = 0x80000001C09CF590;
+  *(v3 + 56) = a2;
+  *(v3 + 72) = a3;
+  *(v3 + 88) = xmmword_1C0975360;
+  *(v3 + 104) = xmmword_1C0976090;
+  *(v3 + 120) = 0x80000001C09CF590;
+  *(v3 + 128) = xmmword_1C0982A00;
+  *(v3 + 144) = 0;
+
+  v4 = MEMORY[0x1E69E7CC0];
+  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v3 + 16) = v4;
+  *(v3 + 24) = v4;
+
+  *(v3 + 32) = v4;
+  return v3;
+}
+
+uint64_t UsoTaskBuilder_noVerb_common_Meridiem.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_noVerb_common_Meridiem.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_common_Meridiem.init()()
+{
+  *(v0 + 40) = xmmword_1C09837F0;
+  *(v0 + 56) = xmmword_1C0975340;
+  *(v0 + 72) = xmmword_1C0975350;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0977350;
+  *(v0 + 120) = xmmword_1C0983800;
+  *(v0 + 136) = xmmword_1C0982D00;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_appleNotebook_NotebookAttribute.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_noVerb_appleNotebook_NotebookAttribute.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_appleNotebook_NotebookAttribute.init()()
+{
+  *(v0 + 40) = 0xD00000000000001FLL;
+  *(v0 + 48) = 0x80000001C09CF740;
+  *(v0 + 56) = xmmword_1C0975340;
+  *(v0 + 72) = xmmword_1C0975350;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976210;
+  *(v0 + 120) = 0x80000001C09CF740;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_common_QRCode.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_noVerb_common_QRCode.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_common_QRCode.init()()
+{
+  *(v0 + 40) = xmmword_1C0983810;
+  *(v0 + 56) = xmmword_1C0975340;
+  *(v0 + 72) = xmmword_1C0975350;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0978660;
+  *(v0 + 120) = xmmword_1C0983820;
+  *(v0 + 136) = xmmword_1C0982D00;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_scan_common_QRCode.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_scan_common_QRCode.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_scan_common_QRCode.init()()
+{
+  *(v0 + 40) = xmmword_1C0983810;
+  *(v0 + 56) = xmmword_1C0983830;
+  *(v0 + 72) = xmmword_1C0983840;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0978660;
+  *(v0 + 120) = xmmword_1C0983820;
+  *(v0 + 136) = xmmword_1C0982D00;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_show_common_QRCode.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_show_common_QRCode.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_show_common_QRCode.init()()
+{
+  *(v0 + 40) = xmmword_1C0983810;
+  *(v0 + 56) = xmmword_1C09835F0;
+  *(v0 + 72) = xmmword_1C0983600;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0978660;
+  *(v0 + 120) = xmmword_1C0983820;
+  *(v0 + 136) = xmmword_1C0982D00;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_appleEmail_EmailAttribute.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_noVerb_appleEmail_EmailAttribute.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_appleEmail_EmailAttribute.init()()
+{
+  *(v0 + 40) = 0xD000000000000019;
+  *(v0 + 48) = 0x80000001C09CF760;
+  *(v0 + 56) = xmmword_1C0975340;
+  *(v0 + 72) = xmmword_1C0975350;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C09760D0;
+  *(v0 + 120) = 0x80000001C09CF760;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_enable_common_UserProfile.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_enable_common_UserProfile.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_enable_common_UserProfile.init()()
+{
+  *(v0 + 40) = 0xD000000000000012;
+  *(v0 + 48) = 0x80000001C09CF780;
+  *(v0 + 56) = xmmword_1C0983150;
+  *(v0 + 72) = 0xD000000000000010;
+  *(v0 + 80) = 0x80000001C09CF330;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C09760F0;
+  *(v0 + 120) = 0x80000001C09CF780;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_open_common_UserProfile.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_open_common_UserProfile.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_summarise_common_UserProfile.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_summarise_common_UserProfile.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_summarise_common_UserProfile.init()()
+{
+  *(v0 + 40) = 0xD000000000000012;
+  *(v0 + 48) = 0x80000001C09CF780;
+  *(v0 + 56) = xmmword_1C0982A50;
+  *(v0 + 72) = 0xD000000000000013;
+  *(v0 + 80) = 0x80000001C09CDA80;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C09760F0;
+  *(v0 + 120) = 0x80000001C09CF780;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_disable_common_UserProfile.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_disable_common_UserProfile.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_disable_common_UserProfile.init()()
+{
+  *(v0 + 40) = 0xD000000000000012;
+  *(v0 + 48) = 0x80000001C09CF780;
+  *(v0 + 56) = xmmword_1C09830F0;
+  *(v0 + 72) = 0xD000000000000011;
+  *(v0 + 80) = 0x80000001C09CEDA0;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C09760F0;
+  *(v0 + 120) = 0x80000001C09CF780;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_checkExistence_common_UserProfile.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_checkExistence_common_UserProfile.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_checkExistence_common_UserProfile.init()()
+{
+  *(v0 + 40) = 0xD000000000000012;
+  *(v0 + 48) = 0x80000001C09CF780;
+  *(v0 + 56) = xmmword_1C0982B80;
+  *(v0 + 72) = 0xD000000000000018;
+  *(v0 + 80) = 0x80000001C09CDC20;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C09760F0;
+  *(v0 + 120) = 0x80000001C09CF780;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_common_UserProfile.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_noVerb_common_UserProfile.init()();
+  return v0;
+}
+
+uint64_t sub_1C06AE2A8(uint64_t a1, __n128 a2, __n128 a3)
+{
+  *(v3 + 40) = 0xD000000000000012;
+  *(v3 + 48) = 0x80000001C09CF780;
+  *(v3 + 56) = a2;
+  *(v3 + 72) = a3;
+  *(v3 + 88) = xmmword_1C0975360;
+  *(v3 + 104) = xmmword_1C09760F0;
+  *(v3 + 120) = 0x80000001C09CF780;
+  *(v3 + 128) = xmmword_1C0982A00;
+  *(v3 + 144) = 0;
+
+  v4 = MEMORY[0x1E69E7CC0];
+  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v3 + 16) = v4;
+  *(v3 + 24) = v4;
+
+  *(v3 + 32) = v4;
+  return v3;
+}
+
+uint64_t UsoTaskBuilder_previous_common_Communication.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_previous_common_Communication.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_previous_common_Communication.init()()
+{
+  *(v0 + 40) = 0xD000000000000014;
+  *(v0 + 48) = 0x80000001C09CF7A0;
+  *(v0 + 56) = xmmword_1C0982BE0;
+  *(v0 + 72) = 0xD000000000000012;
+  *(v0 + 80) = 0x80000001C09CDCE0;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976150;
+  *(v0 + 120) = 0x80000001C09CF7A0;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_common_Communication.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_noVerb_common_Communication.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_request_common_Communication.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_request_common_Communication.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_request_common_Communication.init()()
+{
+  *(v0 + 40) = 0xD000000000000014;
+  *(v0 + 48) = 0x80000001C09CF7A0;
+  *(v0 + 56) = xmmword_1C0982C40;
+  *(v0 + 72) = 0xD000000000000017;
+  *(v0 + 80) = 0x80000001C09CDD20;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976150;
+  *(v0 + 120) = 0x80000001C09CF7A0;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_skip_common_Communication.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_skip_common_Communication.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_delete_common_Communication.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_delete_common_Communication.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_delete_common_Communication.init()()
+{
+  *(v0 + 40) = 0xD000000000000014;
+  *(v0 + 48) = 0x80000001C09CF7A0;
+  *(v0 + 56) = xmmword_1C0982B10;
+  *(v0 + 72) = 0xD000000000000010;
+  *(v0 + 80) = 0x80000001C09CDB40;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976150;
+  *(v0 + 120) = 0x80000001C09CF7A0;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_continue_common_Communication.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_continue_common_Communication.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_continue_common_Communication.init()()
+{
+  *(v0 + 40) = 0xD000000000000014;
+  *(v0 + 48) = 0x80000001C09CF7A0;
+  *(v0 + 56) = xmmword_1C0982C30;
+  *(v0 + 72) = 0xD000000000000012;
+  *(v0 + 80) = 0x80000001C09CDD00;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976150;
+  *(v0 + 120) = 0x80000001C09CF7A0;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_stop_common_Communication.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_stop_common_Communication.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_summarise_common_Communication.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_summarise_common_Communication.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_summarise_common_Communication.init()()
+{
+  *(v0 + 40) = 0xD000000000000014;
+  *(v0 + 48) = 0x80000001C09CF7A0;
+  *(v0 + 56) = xmmword_1C0982A50;
+  *(v0 + 72) = 0xD000000000000013;
+  *(v0 + 80) = 0x80000001C09CDA80;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976150;
+  *(v0 + 120) = 0x80000001C09CF7A0;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_update_common_Communication.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_update_common_Communication.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_update_common_Communication.init()()
+{
+  *(v0 + 40) = 0xD000000000000014;
+  *(v0 + 48) = 0x80000001C09CF7A0;
+  *(v0 + 56) = xmmword_1C0982A60;
+  *(v0 + 72) = 0xD000000000000016;
+  *(v0 + 80) = 0x80000001C09CDAA0;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976150;
+  *(v0 + 120) = 0x80000001C09CF7A0;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_read_common_Communication.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_read_common_Communication.init()();
+  return v0;
+}
+
+uint64_t sub_1C06AEF9C(uint64_t a1, __n128 a2, __n128 a3)
+{
+  *(v3 + 40) = 0xD000000000000014;
+  *(v3 + 48) = 0x80000001C09CF7A0;
+  *(v3 + 56) = a2;
+  *(v3 + 72) = a3;
+  *(v3 + 88) = xmmword_1C0975360;
+  *(v3 + 104) = xmmword_1C0976150;
+  *(v3 + 120) = 0x80000001C09CF7A0;
+  *(v3 + 128) = xmmword_1C0982A00;
+  *(v3 + 144) = 0;
+
+  v4 = MEMORY[0x1E69E7CC0];
+  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v3 + 16) = v4;
+  *(v3 + 24) = v4;
+
+  *(v3 + 32) = v4;
+  return v3;
+}
+
+uint64_t UsoTaskBuilder_show_common_DigitalFace.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_show_common_DigitalFace.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_set_common_DigitalFace.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_set_common_DigitalFace.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_set_common_DigitalFace.init()()
+{
+  *(v0 + 40) = 0xD000000000000012;
+  *(v0 + 48) = 0x80000001C09CF7C0;
+  *(v0 + 56) = xmmword_1C0983100;
+  *(v0 + 72) = 0xD000000000000014;
+  *(v0 + 80) = 0x80000001C09CE970;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C09760F0;
+  *(v0 + 120) = 0x80000001C09CF7C0;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_common_DigitalFace.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_noVerb_common_DigitalFace.init()();
+  return v0;
+}
+
+uint64_t sub_1C06AF370(uint64_t a1, __n128 a2, __n128 a3)
+{
+  *(v3 + 40) = 0xD000000000000012;
+  *(v3 + 48) = 0x80000001C09CF7C0;
+  *(v3 + 56) = a2;
+  *(v3 + 72) = a3;
+  *(v3 + 88) = xmmword_1C0975360;
+  *(v3 + 104) = xmmword_1C09760F0;
+  *(v3 + 120) = 0x80000001C09CF7C0;
+  *(v3 + 128) = xmmword_1C0982A00;
+  *(v3 + 144) = 0;
+
+  v4 = MEMORY[0x1E69E7CC0];
+  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v3 + 16) = v4;
+  *(v3 + 24) = v4;
+
+  *(v3 + 32) = v4;
+  return v3;
+}
+
+uint64_t UsoTaskBuilder_skipBackward_common_DigitalFace.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_skipBackward_common_DigitalFace.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_skipBackward_common_DigitalFace.init()()
+{
+  *(v0 + 40) = 0xD000000000000012;
+  *(v0 + 48) = 0x80000001C09CF7C0;
+  *(v0 + 56) = xmmword_1C0982A80;
+  *(v0 + 72) = 0xD00000000000001DLL;
+  *(v0 + 80) = 0x80000001C09CE6A0;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C09760F0;
+  *(v0 + 120) = 0x80000001C09CF7C0;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_skipForward_common_DigitalFace.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_skipForward_common_DigitalFace.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_skipForward_common_DigitalFace.init()()
+{
+  *(v0 + 40) = 0xD000000000000012;
+  *(v0 + 48) = 0x80000001C09CF7C0;
+  *(v0 + 56) = xmmword_1C0982A70;
+  *(v0 + 72) = 0xD00000000000001CLL;
+  *(v0 + 80) = 0x80000001C09CE740;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C09760F0;
+  *(v0 + 120) = 0x80000001C09CF7C0;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_appleNotification_NotificationAttribute.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_noVerb_appleNotification_NotificationAttribute.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_appleNotification_NotificationAttribute.init()()
+{
+  *(v0 + 40) = 0xD000000000000027;
+  *(v0 + 48) = 0x80000001C09CF7E0;
+  *(v0 + 56) = xmmword_1C0975340;
+  *(v0 + 72) = xmmword_1C0975350;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976180;
+  *(v0 + 120) = 0x80000001C09CF7E0;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_ping_common_Device.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_ping_common_Device.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_ping_common_Device.init()()
+{
+  *(v0 + 40) = xmmword_1C0983850;
+  *(v0 + 56) = xmmword_1C0982D70;
+  *(v0 + 72) = xmmword_1C0982D80;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0977330;
+  *(v0 + 120) = xmmword_1C0983860;
+  *(v0 + 136) = xmmword_1C0982D00;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_find_common_Device.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_find_common_Device.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_find_common_Device.init()()
+{
+  *(v0 + 40) = xmmword_1C0983850;
+  *(v0 + 56) = xmmword_1C0982D30;
+  *(v0 + 72) = xmmword_1C0982D40;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0977330;
+  *(v0 + 120) = xmmword_1C0983860;
+  *(v0 + 136) = xmmword_1C0982D00;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_common_Device.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_noVerb_common_Device.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_common_Device.init()()
+{
+  *(v0 + 40) = xmmword_1C0983850;
+  *(v0 + 56) = xmmword_1C0975340;
+  *(v0 + 72) = xmmword_1C0975350;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0977330;
+  *(v0 + 120) = xmmword_1C0983860;
+  *(v0 + 136) = xmmword_1C0982D00;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_tell_common_HolidayPhrase.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_tell_common_HolidayPhrase.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_common_HolidayPhrase.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_noVerb_common_HolidayPhrase.init()();
+  return v0;
+}
+
+uint64_t sub_1C06AFF08(uint64_t a1, __n128 a2, __n128 a3)
+{
+  *(v3 + 40) = 0xD000000000000014;
+  *(v3 + 48) = 0x80000001C09CF810;
+  *(v3 + 56) = a2;
+  *(v3 + 72) = a3;
+  *(v3 + 88) = xmmword_1C0975360;
+  *(v3 + 104) = xmmword_1C0976150;
+  *(v3 + 120) = 0x80000001C09CF810;
+  *(v3 + 128) = xmmword_1C0982A00;
+  *(v3 + 144) = 0;
+
+  v4 = MEMORY[0x1E69E7CC0];
+  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v3 + 16) = v4;
+  *(v3 + 24) = v4;
+
+  *(v3 + 32) = v4;
+  return v3;
+}
+
+uint64_t UsoTaskBuilder_repeat_common_Announcement.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_repeat_common_Announcement.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_repeat_common_Announcement.init()()
+{
+  *(v0 + 40) = 0xD000000000000013;
+  *(v0 + 48) = 0x80000001C09CF830;
+  *(v0 + 56) = xmmword_1C0982C90;
+  *(v0 + 72) = 0xD000000000000017;
+  *(v0 + 80) = 0x80000001C09CF290;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976140;
+  *(v0 + 120) = 0x80000001C09CF830;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_send_common_Announcement.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_send_common_Announcement.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_common_Announcement.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_noVerb_common_Announcement.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_summarise_common_Announcement.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_summarise_common_Announcement.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_summarise_common_Announcement.init()()
+{
+  *(v0 + 40) = 0xD000000000000013;
+  *(v0 + 48) = 0x80000001C09CF830;
+  *(v0 + 56) = xmmword_1C0982A50;
+  *(v0 + 72) = 0xD000000000000013;
+  *(v0 + 80) = 0x80000001C09CDA80;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976140;
+  *(v0 + 120) = 0x80000001C09CF830;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_reply_common_Announcement.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_reply_common_Announcement.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_reply_common_Announcement.init()()
+{
+  *(v0 + 40) = 0xD000000000000013;
+  *(v0 + 48) = 0x80000001C09CF830;
+  *(v0 + 56) = xmmword_1C0983570;
+  *(v0 + 72) = 0xD000000000000015;
+  *(v0 + 80) = 0x80000001C09CE4C0;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976140;
+  *(v0 + 120) = 0x80000001C09CF830;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_skipBackward_common_Announcement.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_skipBackward_common_Announcement.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_skipBackward_common_Announcement.init()()
+{
+  *(v0 + 40) = 0xD000000000000013;
+  *(v0 + 48) = 0x80000001C09CF830;
+  *(v0 + 56) = xmmword_1C0982A80;
+  *(v0 + 72) = 0xD00000000000001DLL;
+  *(v0 + 80) = 0x80000001C09CE6A0;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976140;
+  *(v0 + 120) = 0x80000001C09CF830;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_stop_common_Announcement.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_stop_common_Announcement.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_skipForward_common_Announcement.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_skipForward_common_Announcement.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_skipForward_common_Announcement.init()()
+{
+  *(v0 + 40) = 0xD000000000000013;
+  *(v0 + 48) = 0x80000001C09CF830;
+  *(v0 + 56) = xmmword_1C0982A70;
+  *(v0 + 72) = 0xD00000000000001CLL;
+  *(v0 + 80) = 0x80000001C09CE740;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976140;
+  *(v0 + 120) = 0x80000001C09CF830;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_play_common_Announcement.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_play_common_Announcement.init()();
+  return v0;
+}
+
+uint64_t sub_1C06B0A6C(uint64_t a1, __n128 a2, __n128 a3)
+{
+  *(v3 + 40) = 0xD000000000000013;
+  *(v3 + 48) = 0x80000001C09CF830;
+  *(v3 + 56) = a2;
+  *(v3 + 72) = a3;
+  *(v3 + 88) = xmmword_1C0975360;
+  *(v3 + 104) = xmmword_1C0976140;
+  *(v3 + 120) = 0x80000001C09CF830;
+  *(v3 + 128) = xmmword_1C0982A00;
+  *(v3 + 144) = 0;
+
+  v4 = MEMORY[0x1E69E7CC0];
+  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v3 + 16) = v4;
+  *(v3 + 24) = v4;
+
+  *(v3 + 32) = v4;
+  return v3;
+}
+
+uint64_t UsoTaskBuilder_noVerb_common_GeographicArea.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_noVerb_common_GeographicArea.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_common_GeographicArea.init()()
+{
+  *(v0 + 40) = 0xD000000000000015;
+  *(v0 + 48) = 0x80000001C09CF850;
+  *(v0 + 56) = xmmword_1C0975340;
+  *(v0 + 72) = xmmword_1C0975350;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976160;
+  *(v0 + 120) = 0x80000001C09CF850;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_getPerson_common_GeographicArea.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_getPerson_common_GeographicArea.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_getPerson_common_GeographicArea.init()()
+{
+  *(v0 + 40) = 0xD000000000000015;
+  *(v0 + 48) = 0x80000001C09CF850;
+  *(v0 + 56) = xmmword_1C0983870;
+  *(v0 + 72) = 0xD000000000000013;
+  *(v0 + 80) = 0x80000001C09CF870;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976160;
+  *(v0 + 120) = 0x80000001C09CF850;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_create_common_Agent.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_create_common_Agent.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_create_common_Agent.init()()
+{
+  *(v0 + 40) = xmmword_1C0983880;
+  *(v0 + 56) = xmmword_1C0982A20;
+  *(v0 + 72) = xmmword_1C0982A30;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0977320;
+  *(v0 + 120) = xmmword_1C0983890;
+  *(v0 + 136) = xmmword_1C0982D00;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_delete_common_Agent.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_delete_common_Agent.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_checkExistence_common_Agent.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_checkExistence_common_Agent.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_read_common_Agent.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_read_common_Agent.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_read_common_Agent.init()()
+{
+  *(v0 + 40) = xmmword_1C0983880;
+  *(v0 + 56) = xmmword_1C0982C70;
+  *(v0 + 72) = xmmword_1C0982C80;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0977320;
+  *(v0 + 120) = xmmword_1C0983890;
+  *(v0 + 136) = xmmword_1C0982D00;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_update_common_Agent.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_update_common_Agent.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_request_common_Agent.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_request_common_Agent.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_summarise_common_Agent.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_summarise_common_Agent.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_common_Agent.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_noVerb_common_Agent.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_common_Agent.init()()
+{
+  *(v0 + 40) = xmmword_1C0983880;
+  *(v0 + 56) = xmmword_1C0975340;
+  *(v0 + 72) = xmmword_1C0975350;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0977320;
+  *(v0 + 120) = xmmword_1C0983890;
+  *(v0 + 136) = xmmword_1C0982D00;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_read_common_RecipeStep.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_read_common_RecipeStep.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_seekTo_common_RecipeStep.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_seekTo_common_RecipeStep.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_seekTo_common_RecipeStep.init()()
+{
+  *(v0 + 40) = 0xD000000000000011;
+  *(v0 + 48) = 0x80000001C09CF890;
+  *(v0 + 56) = xmmword_1C09837A0;
+  *(v0 + 72) = 0xD000000000000017;
+  *(v0 + 80) = 0x80000001C09CF8B0;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C09761B0;
+  *(v0 + 120) = 0x80000001C09CF890;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_skipBackward_common_RecipeStep.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_skipBackward_common_RecipeStep.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_skipBackward_common_RecipeStep.init()()
+{
+  *(v0 + 40) = 0xD000000000000011;
+  *(v0 + 48) = 0x80000001C09CF890;
+  *(v0 + 56) = xmmword_1C0982A80;
+  *(v0 + 72) = 0xD00000000000001DLL;
+  *(v0 + 80) = 0x80000001C09CE6A0;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C09761B0;
+  *(v0 + 120) = 0x80000001C09CF890;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_skipForward_common_RecipeStep.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_skipForward_common_RecipeStep.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_skipForward_common_RecipeStep.init()()
+{
+  *(v0 + 40) = 0xD000000000000011;
+  *(v0 + 48) = 0x80000001C09CF890;
+  *(v0 + 56) = xmmword_1C0982A70;
+  *(v0 + 72) = 0xD00000000000001CLL;
+  *(v0 + 80) = 0x80000001C09CE740;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C09761B0;
+  *(v0 + 120) = 0x80000001C09CF890;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_checkExistence_common_RecipeStep.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_checkExistence_common_RecipeStep.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_checkExistence_common_RecipeStep.init()()
+{
+  *(v0 + 40) = 0xD000000000000011;
+  *(v0 + 48) = 0x80000001C09CF890;
+  *(v0 + 56) = xmmword_1C0982B80;
+  *(v0 + 72) = 0xD000000000000018;
+  *(v0 + 80) = 0x80000001C09CDC20;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C09761B0;
+  *(v0 + 120) = 0x80000001C09CF890;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_stop_common_RecipeStep.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_stop_common_RecipeStep.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_stop_common_RecipeStep.init()()
+{
+  *(v0 + 40) = 0xD000000000000011;
+  *(v0 + 48) = 0x80000001C09CF890;
+  *(v0 + 56) = xmmword_1C0982BF0;
+  *(v0 + 72) = 0xD000000000000015;
+  *(v0 + 80) = 0x80000001C09CDDE0;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C09761B0;
+  *(v0 + 120) = 0x80000001C09CF890;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_repeat_common_RecipeStep.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_repeat_common_RecipeStep.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_repeat_common_RecipeStep.init()()
+{
+  *(v0 + 40) = 0xD000000000000011;
+  *(v0 + 48) = 0x80000001C09CF890;
+  *(v0 + 56) = xmmword_1C0982C90;
+  *(v0 + 72) = 0xD000000000000017;
+  *(v0 + 80) = 0x80000001C09CF290;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C09761B0;
+  *(v0 + 120) = 0x80000001C09CF890;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_summarise_common_RecipeStep.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_summarise_common_RecipeStep.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_summarise_common_RecipeStep.init()()
+{
+  *(v0 + 40) = 0xD000000000000011;
+  *(v0 + 48) = 0x80000001C09CF890;
+  *(v0 + 56) = xmmword_1C0982A50;
+  *(v0 + 72) = 0xD000000000000013;
+  *(v0 + 80) = 0x80000001C09CDA80;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C09761B0;
+  *(v0 + 120) = 0x80000001C09CF890;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_start_common_RecipeStep.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_start_common_RecipeStep.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_start_common_RecipeStep.init()()
+{
+  *(v0 + 40) = 0xD000000000000011;
+  *(v0 + 48) = 0x80000001C09CF890;
+  *(v0 + 56) = xmmword_1C0982F10;
+  *(v0 + 72) = 0xD000000000000016;
+  *(v0 + 80) = 0x80000001C09CE660;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C09761B0;
+  *(v0 + 120) = 0x80000001C09CF890;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_common_RecipeStep.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_noVerb_common_RecipeStep.init()();
+  return v0;
+}
+
+uint64_t sub_1C06B2470(uint64_t a1, __n128 a2, __n128 a3)
+{
+  *(v3 + 40) = 0xD000000000000011;
+  *(v3 + 48) = 0x80000001C09CF890;
+  *(v3 + 56) = a2;
+  *(v3 + 72) = a3;
+  *(v3 + 88) = xmmword_1C0975360;
+  *(v3 + 104) = xmmword_1C09761B0;
+  *(v3 + 120) = 0x80000001C09CF890;
+  *(v3 + 128) = xmmword_1C0982A00;
+  *(v3 + 144) = 0;
+
+  v4 = MEMORY[0x1E69E7CC0];
+  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v3 + 16) = v4;
+  *(v3 + 24) = v4;
+
+  *(v3 + 32) = v4;
+  return v3;
+}
+
+uint64_t UsoTaskBuilder_request_common_RecipeStep.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_request_common_RecipeStep.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_request_common_RecipeStep.init()()
+{
+  *(v0 + 40) = 0xD000000000000011;
+  *(v0 + 48) = 0x80000001C09CF890;
+  *(v0 + 56) = xmmword_1C0982C40;
+  *(v0 + 72) = 0xD000000000000017;
+  *(v0 + 80) = 0x80000001C09CDD20;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C09761B0;
+  *(v0 + 120) = 0x80000001C09CF890;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_pause_common_RecipeStep.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_pause_common_RecipeStep.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_pause_common_RecipeStep.init()()
+{
+  *(v0 + 40) = 0xD000000000000011;
+  *(v0 + 48) = 0x80000001C09CF890;
+  *(v0 + 56) = xmmword_1C0982CA0;
+  *(v0 + 72) = 0xD000000000000016;
+  *(v0 + 80) = 0x80000001C09CDE00;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C09761B0;
+  *(v0 + 120) = 0x80000001C09CF890;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_resume_common_RecipeStep.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_resume_common_RecipeStep.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_resume_common_RecipeStep.init()()
+{
+  *(v0 + 40) = 0xD000000000000011;
+  *(v0 + 48) = 0x80000001C09CF890;
+  *(v0 + 56) = xmmword_1C0982CC0;
+  *(v0 + 72) = 0xD000000000000017;
+  *(v0 + 80) = 0x80000001C09CDE20;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C09761B0;
+  *(v0 + 120) = 0x80000001C09CF890;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_getPerson_common_MicroGeographicArea.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_getPerson_common_MicroGeographicArea.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_getPerson_common_MicroGeographicArea.init()()
+{
+  *(v0 + 40) = 0xD00000000000001ALL;
+  *(v0 + 48) = 0x80000001C09CF8D0;
+  *(v0 + 56) = xmmword_1C0983870;
+  *(v0 + 72) = 0xD000000000000013;
+  *(v0 + 80) = 0x80000001C09CF870;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976110;
+  *(v0 + 120) = 0x80000001C09CF8D0;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_common_MicroGeographicArea.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_noVerb_common_MicroGeographicArea.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_common_MicroGeographicArea.init()()
+{
+  *(v0 + 40) = 0xD00000000000001ALL;
+  *(v0 + 48) = 0x80000001C09CF8D0;
+  *(v0 + 56) = xmmword_1C0975340;
+  *(v0 + 72) = xmmword_1C0975350;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976110;
+  *(v0 + 120) = 0x80000001C09CF8D0;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_commonStock_StockType.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_noVerb_commonStock_StockType.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_commonStock_StockType.init()()
+{
+  *(v0 + 40) = 0xD000000000000015;
+  *(v0 + 48) = 0x80000001C09CF8F0;
+  *(v0 + 56) = xmmword_1C0975340;
+  *(v0 + 72) = xmmword_1C0975350;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976160;
+  *(v0 + 120) = 0x80000001C09CF8F0;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_common_UserPossession.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_noVerb_common_UserPossession.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_checkExistence_common_UserPossession.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_checkExistence_common_UserPossession.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_checkExistence_common_UserPossession.init()()
+{
+  *(v0 + 40) = 0xD000000000000015;
+  *(v0 + 48) = 0x80000001C09CF910;
+  *(v0 + 56) = xmmword_1C0982B80;
+  *(v0 + 72) = 0xD000000000000018;
+  *(v0 + 80) = 0x80000001C09CDC20;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976160;
+  *(v0 + 120) = 0x80000001C09CF910;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_request_common_UserPossession.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_request_common_UserPossession.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_request_common_UserPossession.init()()
+{
+  *(v0 + 40) = 0xD000000000000015;
+  *(v0 + 48) = 0x80000001C09CF910;
+  *(v0 + 56) = xmmword_1C0982C40;
+  *(v0 + 72) = 0xD000000000000017;
+  *(v0 + 80) = 0x80000001C09CDD20;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976160;
+  *(v0 + 120) = 0x80000001C09CF910;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_deny_common_UserPossession.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_deny_common_UserPossession.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_state_common_UserPossession.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_state_common_UserPossession.init()();
+  return v0;
+}
+
+uint64_t sub_1C06B33C0(uint64_t a1, __n128 a2, __n128 a3)
+{
+  *(v3 + 40) = 0xD000000000000015;
+  *(v3 + 48) = 0x80000001C09CF910;
+  *(v3 + 56) = a2;
+  *(v3 + 72) = a3;
+  *(v3 + 88) = xmmword_1C0975360;
+  *(v3 + 104) = xmmword_1C0976160;
+  *(v3 + 120) = 0x80000001C09CF910;
+  *(v3 + 128) = xmmword_1C0982A00;
+  *(v3 + 144) = 0;
+
+  v4 = MEMORY[0x1E69E7CC0];
+  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v3 + 16) = v4;
+  *(v3 + 24) = v4;
+
+  *(v3 + 32) = v4;
+  return v3;
+}
+
+uint64_t UsoTaskBuilder_summarise_common_UserPossession.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_summarise_common_UserPossession.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_summarise_common_UserPossession.init()()
+{
+  *(v0 + 40) = 0xD000000000000015;
+  *(v0 + 48) = 0x80000001C09CF910;
+  *(v0 + 56) = xmmword_1C0982A50;
+  *(v0 + 72) = 0xD000000000000013;
+  *(v0 + 80) = 0x80000001C09CDA80;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976160;
+  *(v0 + 120) = 0x80000001C09CF910;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_common_CalendarEra.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_noVerb_common_CalendarEra.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_common_CalendarEra.init()()
+{
+  *(v0 + 40) = 0xD000000000000012;
+  *(v0 + 48) = 0x80000001C09CF930;
+  *(v0 + 56) = xmmword_1C0975340;
+  *(v0 + 72) = xmmword_1C0975350;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C09760F0;
+  *(v0 + 120) = 0x80000001C09CF930;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_common_Time12HourClock.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_noVerb_common_Time12HourClock.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_common_Time12HourClock.init()()
+{
+  *(v0 + 40) = 0xD000000000000016;
+  *(v0 + 48) = 0x80000001C09CF950;
+  *(v0 + 56) = xmmword_1C0975340;
+  *(v0 + 72) = xmmword_1C0975350;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976120;
+  *(v0 + 120) = 0x80000001C09CF950;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_appleArithmetic_ArithmeticAttribute.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_noVerb_appleArithmetic_ArithmeticAttribute.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_appleArithmetic_ArithmeticAttribute.init()()
+{
+  *(v0 + 40) = 0xD000000000000023;
+  *(v0 + 48) = 0x80000001C09CF970;
+  *(v0 + 56) = xmmword_1C0975340;
+  *(v0 + 72) = xmmword_1C0975350;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C09760E0;
+  *(v0 + 120) = 0x80000001C09CF970;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_summarise_common_PaymentAccount.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_summarise_common_PaymentAccount.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_summarise_common_PaymentAccount.init()()
+{
+  *(v0 + 40) = 0xD000000000000015;
+  *(v0 + 48) = 0x80000001C09CF9A0;
+  *(v0 + 56) = xmmword_1C0982A50;
+  *(v0 + 72) = 0xD000000000000013;
+  *(v0 + 80) = 0x80000001C09CDA80;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976160;
+  *(v0 + 120) = 0x80000001C09CF9A0;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_checkExistence_common_PaymentAccount.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_checkExistence_common_PaymentAccount.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_checkExistence_common_PaymentAccount.init()()
+{
+  *(v0 + 40) = 0xD000000000000015;
+  *(v0 + 48) = 0x80000001C09CF9A0;
+  *(v0 + 56) = xmmword_1C0982B80;
+  *(v0 + 72) = 0xD000000000000018;
+  *(v0 + 80) = 0x80000001C09CDC20;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976160;
+  *(v0 + 120) = 0x80000001C09CF9A0;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_request_common_PaymentAccount.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_request_common_PaymentAccount.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_request_common_PaymentAccount.init()()
+{
+  *(v0 + 40) = 0xD000000000000015;
+  *(v0 + 48) = 0x80000001C09CF9A0;
+  *(v0 + 56) = xmmword_1C0982C40;
+  *(v0 + 72) = 0xD000000000000017;
+  *(v0 + 80) = 0x80000001C09CDD20;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976160;
+  *(v0 + 120) = 0x80000001C09CF9A0;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_submitApplication_common_PaymentAccount.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_submitApplication_common_PaymentAccount.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_submitApplication_common_PaymentAccount.init()()
+{
+  *(v0 + 40) = 0xD000000000000015;
+  *(v0 + 48) = 0x80000001C09CF9A0;
+  *(v0 + 56) = 0xD000000000000011;
+  *(v0 + 64) = 0x80000001C09D9DD0;
+  *(v0 + 72) = 0xD000000000000018;
+  *(v0 + 80) = 0x80000001C09CF9C0;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976160;
+  *(v0 + 120) = 0x80000001C09CF9A0;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_summariseHighest_common_PaymentAccount.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_summariseHighest_common_PaymentAccount.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_summariseHighest_common_PaymentAccount.init()()
+{
+  *(v0 + 40) = 0xD000000000000015;
+  *(v0 + 48) = 0x80000001C09CF9A0;
+  *(v0 + 56) = 0xD000000000000010;
+  *(v0 + 64) = 0x80000001C09D9EB0;
+  *(v0 + 72) = 0xD000000000000028;
+  *(v0 + 80) = 0x80000001C09CECD0;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976160;
+  *(v0 + 120) = 0x80000001C09CF9A0;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_summariseLowest_common_PaymentAccount.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_summariseLowest_common_PaymentAccount.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_summariseLowest_common_PaymentAccount.init()()
+{
+  *(v0 + 40) = 0xD000000000000015;
+  *(v0 + 48) = 0x80000001C09CF9A0;
+  *(v0 + 56) = xmmword_1C0983350;
+  *(v0 + 72) = 0xD000000000000027;
+  *(v0 + 80) = 0x80000001C09CED20;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976160;
+  *(v0 + 120) = 0x80000001C09CF9A0;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_common_PaymentAccount.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_noVerb_common_PaymentAccount.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_create_common_PaymentAccount.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_create_common_PaymentAccount.init()();
+  return v0;
+}
+
+uint64_t sub_1C06B4584(uint64_t a1, __n128 a2, __n128 a3)
+{
+  *(v3 + 40) = 0xD000000000000015;
+  *(v3 + 48) = 0x80000001C09CF9A0;
+  *(v3 + 56) = a2;
+  *(v3 + 72) = a3;
+  *(v3 + 88) = xmmword_1C0975360;
+  *(v3 + 104) = xmmword_1C0976160;
+  *(v3 + 120) = 0x80000001C09CF9A0;
+  *(v3 + 128) = xmmword_1C0982A00;
+  *(v3 + 144) = 0;
+
+  v4 = MEMORY[0x1E69E7CC0];
+  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v3 + 16) = v4;
+  *(v3 + 24) = v4;
+
+  *(v3 + 32) = v4;
+  return v3;
+}
+
+uint64_t UsoTaskBuilder_noVerb_commonWriting_WritingAttribute.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_noVerb_commonWriting_WritingAttribute.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_commonWriting_WritingAttribute.init()()
+{
+  *(v0 + 40) = 0xD00000000000001ELL;
+  *(v0 + 48) = 0x80000001C09CF9E0;
+  *(v0 + 56) = xmmword_1C0975340;
+  *(v0 + 72) = xmmword_1C0975350;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976080;
+  *(v0 + 120) = 0x80000001C09CF9E0;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_find_common_Arithmetic.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_find_common_Arithmetic.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_common_Arithmetic.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_noVerb_common_Arithmetic.init()();
+  return v0;
+}
+
+uint64_t sub_1C06B495C(uint64_t a1, __n128 a2, __n128 a3)
+{
+  *(v3 + 40) = 0xD000000000000011;
+  *(v3 + 48) = 0x80000001C09CFA00;
+  *(v3 + 56) = a2;
+  *(v3 + 72) = a3;
+  *(v3 + 88) = xmmword_1C0975360;
+  *(v3 + 104) = xmmword_1C09761B0;
+  *(v3 + 120) = 0x80000001C09CFA00;
+  *(v3 + 128) = xmmword_1C0982A00;
+  *(v3 + 144) = 0;
+
+  v4 = MEMORY[0x1E69E7CC0];
+  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v3 + 16) = v4;
+  *(v3 + 24) = v4;
+
+  *(v3 + 32) = v4;
+  return v3;
+}
+
+uint64_t UsoTaskBuilder_unlike_common_UserFavorite.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_unlike_common_UserFavorite.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_unlike_common_UserFavorite.init()()
+{
+  *(v0 + 40) = 0xD000000000000013;
+  *(v0 + 48) = 0x80000001C09CFA20;
+  *(v0 + 56) = xmmword_1C0982AE0;
+  *(v0 + 72) = 0xD000000000000010;
+  *(v0 + 80) = 0x80000001C09CDB20;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976140;
+  *(v0 + 120) = 0x80000001C09CFA20;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_like_common_UserFavorite.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_like_common_UserFavorite.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_checkLike_common_UserFavorite.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_checkLike_common_UserFavorite.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_checkLike_common_UserFavorite.init()()
+{
+  *(v0 + 40) = 0xD000000000000013;
+  *(v0 + 48) = 0x80000001C09CFA20;
+  *(v0 + 56) = xmmword_1C09838A0;
+  *(v0 + 72) = 0xD000000000000013;
+  *(v0 + 80) = 0x80000001C09CFA40;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976140;
+  *(v0 + 120) = 0x80000001C09CFA20;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_guess_common_UserFavorite.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_guess_common_UserFavorite.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_guess_common_UserFavorite.init()()
+{
+  *(v0 + 40) = 0xD000000000000013;
+  *(v0 + 48) = 0x80000001C09CFA20;
+  *(v0 + 56) = xmmword_1C09838B0;
+  *(v0 + 72) = 0xD000000000000015;
+  *(v0 + 80) = 0x80000001C09CFA60;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976140;
+  *(v0 + 120) = 0x80000001C09CFA20;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_common_UserFavorite.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_noVerb_common_UserFavorite.init()();
+  return v0;
+}
+
+uint64_t sub_1C06B503C(uint64_t a1, __n128 a2, __n128 a3)
+{
+  *(v3 + 40) = 0xD000000000000013;
+  *(v3 + 48) = 0x80000001C09CFA20;
+  *(v3 + 56) = a2;
+  *(v3 + 72) = a3;
+  *(v3 + 88) = xmmword_1C0975360;
+  *(v3 + 104) = xmmword_1C0976140;
+  *(v3 + 120) = 0x80000001C09CFA20;
+  *(v3 + 128) = xmmword_1C0982A00;
+  *(v3 + 144) = 0;
+
+  v4 = MEMORY[0x1E69E7CC0];
+  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v3 + 16) = v4;
+  *(v3 + 24) = v4;
+
+  *(v3 + 32) = v4;
+  return v3;
+}
+
+uint64_t UsoTaskBuilder_checkUnlike_common_UserFavorite.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_checkUnlike_common_UserFavorite.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_checkUnlike_common_UserFavorite.init()()
+{
+  *(v0 + 40) = 0xD000000000000013;
+  *(v0 + 48) = 0x80000001C09CFA20;
+  *(v0 + 56) = xmmword_1C09838C0;
+  *(v0 + 72) = 0xD000000000000015;
+  *(v0 + 80) = 0x80000001C09CFA80;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976140;
+  *(v0 + 120) = 0x80000001C09CFA20;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_request_common_UserFavorite.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_request_common_UserFavorite.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_request_common_UserFavorite.init()()
+{
+  *(v0 + 40) = 0xD000000000000013;
+  *(v0 + 48) = 0x80000001C09CFA20;
+  *(v0 + 56) = xmmword_1C0982C40;
+  *(v0 + 72) = 0xD000000000000017;
+  *(v0 + 80) = 0x80000001C09CDD20;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976140;
+  *(v0 + 120) = 0x80000001C09CFA20;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_summarise_common_SiriFavorite.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_summarise_common_SiriFavorite.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_summarise_common_SiriFavorite.init()()
+{
+  *(v0 + 40) = 0xD000000000000013;
+  *(v0 + 48) = 0x80000001C09CFAA0;
+  *(v0 + 56) = xmmword_1C0982A50;
+  *(v0 + 72) = 0xD000000000000013;
+  *(v0 + 80) = 0x80000001C09CDA80;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976140;
+  *(v0 + 120) = 0x80000001C09CFAA0;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_unlike_common_SiriFavorite.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_unlike_common_SiriFavorite.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_unlike_common_SiriFavorite.init()()
+{
+  *(v0 + 40) = 0xD000000000000013;
+  *(v0 + 48) = 0x80000001C09CFAA0;
+  *(v0 + 56) = xmmword_1C0982AE0;
+  *(v0 + 72) = 0xD000000000000010;
+  *(v0 + 80) = 0x80000001C09CDB20;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976140;
+  *(v0 + 120) = 0x80000001C09CFAA0;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_like_common_SiriFavorite.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_like_common_SiriFavorite.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_checkLike_common_SiriFavorite.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_checkLike_common_SiriFavorite.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_checkLike_common_SiriFavorite.init()()
+{
+  *(v0 + 40) = 0xD000000000000013;
+  *(v0 + 48) = 0x80000001C09CFAA0;
+  *(v0 + 56) = xmmword_1C09838A0;
+  *(v0 + 72) = 0xD000000000000013;
+  *(v0 + 80) = 0x80000001C09CFA40;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976140;
+  *(v0 + 120) = 0x80000001C09CFAA0;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_common_SiriFavorite.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_noVerb_common_SiriFavorite.init()();
+  return v0;
+}
+
+uint64_t sub_1C06B5A28(uint64_t a1, __n128 a2, __n128 a3)
+{
+  *(v3 + 40) = 0xD000000000000013;
+  *(v3 + 48) = 0x80000001C09CFAA0;
+  *(v3 + 56) = a2;
+  *(v3 + 72) = a3;
+  *(v3 + 88) = xmmword_1C0975360;
+  *(v3 + 104) = xmmword_1C0976140;
+  *(v3 + 120) = 0x80000001C09CFAA0;
+  *(v3 + 128) = xmmword_1C0982A00;
+  *(v3 + 144) = 0;
+
+  v4 = MEMORY[0x1E69E7CC0];
+  *(v3 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v3 + 16) = v4;
+  *(v3 + 24) = v4;
+
+  *(v3 + 32) = v4;
+  return v3;
+}
+
+uint64_t UsoTaskBuilder_request_common_SiriFavorite.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_request_common_SiriFavorite.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_request_common_SiriFavorite.init()()
+{
+  *(v0 + 40) = 0xD000000000000013;
+  *(v0 + 48) = 0x80000001C09CFAA0;
+  *(v0 + 56) = xmmword_1C0982C40;
+  *(v0 + 72) = 0xD000000000000017;
+  *(v0 + 80) = 0x80000001C09CDD20;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976140;
+  *(v0 + 120) = 0x80000001C09CFAA0;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_checkUnlike_common_SiriFavorite.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_checkUnlike_common_SiriFavorite.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_checkUnlike_common_SiriFavorite.init()()
+{
+  *(v0 + 40) = 0xD000000000000013;
+  *(v0 + 48) = 0x80000001C09CFAA0;
+  *(v0 + 56) = xmmword_1C09838C0;
+  *(v0 + 72) = 0xD000000000000015;
+  *(v0 + 80) = 0x80000001C09CFA80;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976140;
+  *(v0 + 120) = 0x80000001C09CFAA0;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_common_Time24HourClock.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_noVerb_common_Time24HourClock.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_common_Time24HourClock.init()()
+{
+  *(v0 + 40) = 0xD000000000000016;
+  *(v0 + 48) = 0x80000001C09CFAC0;
+  *(v0 + 56) = xmmword_1C0975340;
+  *(v0 + 72) = xmmword_1C0975350;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0976120;
+  *(v0 + 120) = 0x80000001C09CFAC0;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_uninstall_common_App.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_uninstall_common_App.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_uninstall_common_App.init()()
+{
+  *(v0 + 40) = xmmword_1C09838D0;
+  *(v0 + 56) = xmmword_1C09838E0;
+  *(v0 + 72) = 0xD000000000000013;
+  *(v0 + 80) = 0x80000001C09CFAE0;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0977320;
+  *(v0 + 120) = xmmword_1C09838F0;
+  *(v0 + 136) = xmmword_1C0982D00;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_delete_common_App.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_delete_common_App.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_authorise_common_App.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_authorise_common_App.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_authorise_common_App.init()()
+{
+  *(v0 + 40) = xmmword_1C09838D0;
+  *(v0 + 56) = xmmword_1C0983900;
+  *(v0 + 72) = 0xD00000000000001ALL;
+  *(v0 + 80) = 0x80000001C09CFB00;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0977320;
+  *(v0 + 120) = xmmword_1C09838F0;
+  *(v0 + 136) = xmmword_1C0982D00;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_common_App.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_noVerb_common_App.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_common_App.init()()
+{
+  *(v0 + 40) = xmmword_1C09838D0;
+  *(v0 + 56) = xmmword_1C0975340;
+  *(v0 + 72) = xmmword_1C0975350;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0977320;
+  *(v0 + 120) = xmmword_1C09838F0;
+  *(v0 + 136) = xmmword_1C0982D00;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_updateApp_common_App.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_updateApp_common_App.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_updateApp_common_App.init()()
+{
+  *(v0 + 40) = xmmword_1C09838D0;
+  *(v0 + 56) = xmmword_1C0983910;
+  *(v0 + 72) = 0xD000000000000013;
+  *(v0 + 80) = 0x80000001C09CFB20;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0977320;
+  *(v0 + 120) = xmmword_1C09838F0;
+  *(v0 + 136) = xmmword_1C0982D00;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_install_common_App.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_install_common_App.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_install_common_App.init()()
+{
+  *(v0 + 40) = xmmword_1C09838D0;
+  *(v0 + 56) = xmmword_1C0983920;
+  *(v0 + 72) = 0xD000000000000011;
+  *(v0 + 80) = 0x80000001C09CFB40;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0977320;
+  *(v0 + 120) = xmmword_1C09838F0;
+  *(v0 + 136) = xmmword_1C0982D00;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_discoverCapabilities_common_App.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_discoverCapabilities_common_App.init()();
+  return v0;
+}
+
+uint64_t sub_1C06B68B8(uint64_t a1, __n128 a2, __n128 a3, __n128 a4)
+{
+  *(v4 + 40) = a2;
+  *(v4 + 56) = 0xD000000000000014;
+  *(v4 + 64) = 0x80000001C09DE280;
+  *(v4 + 72) = 0xD00000000000001ELL;
+  *(v4 + 80) = 0x80000001C09CDF00;
+  *(v4 + 88) = xmmword_1C0975360;
+  *(v4 + 104) = a3;
+  *(v4 + 120) = a4;
+  *(v4 + 136) = xmmword_1C0982D00;
+
+  v5 = MEMORY[0x1E69E7CC0];
+  *(v4 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v4 + 16) = v5;
+  *(v4 + 24) = v5;
+
+  *(v4 + 32) = v5;
+  return v4;
+}
+
+uint64_t UsoTaskBuilder_deauthorise_common_App.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_deauthorise_common_App.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_deauthorise_common_App.init()()
+{
+  *(v0 + 40) = xmmword_1C09838D0;
+  *(v0 + 56) = xmmword_1C0983930;
+  *(v0 + 72) = 0xD00000000000001CLL;
+  *(v0 + 80) = 0x80000001C09CFB60;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0977320;
+  *(v0 + 120) = xmmword_1C09838F0;
+  *(v0 + 136) = xmmword_1C0982D00;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_summarise_common_App.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_summarise_common_App.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_offload_common_App.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_offload_common_App.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_offload_common_App.init()()
+{
+  *(v0 + 40) = xmmword_1C09838D0;
+  *(v0 + 56) = xmmword_1C0983940;
+  *(v0 + 72) = 0xD000000000000011;
+  *(v0 + 80) = 0x80000001C09CFB80;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0977320;
+  *(v0 + 120) = xmmword_1C09838F0;
+  *(v0 + 136) = xmmword_1C0982D00;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_quit_common_App.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_quit_common_App.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_quit_common_App.init()()
+{
+  *(v0 + 40) = xmmword_1C09838D0;
+  *(v0 + 56) = xmmword_1C0983590;
+  *(v0 + 72) = xmmword_1C09835A0;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0977320;
+  *(v0 + 120) = xmmword_1C09838F0;
+  *(v0 + 136) = xmmword_1C0982D00;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_restart_common_App.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_restart_common_App.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_restart_common_App.init()()
+{
+  *(v0 + 40) = xmmword_1C09838D0;
+  *(v0 + 56) = xmmword_1C0982DC0;
+  *(v0 + 72) = 0xD000000000000011;
+  *(v0 + 80) = 0x80000001C09CDF50;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0977320;
+  *(v0 + 120) = xmmword_1C09838F0;
+  *(v0 + 136) = xmmword_1C0982D00;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_close_common_App.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_close_common_App.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_close_common_App.init()()
+{
+  *(v0 + 40) = xmmword_1C09838D0;
+  *(v0 + 56) = xmmword_1C0982AF0;
+  *(v0 + 72) = xmmword_1C0982B00;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0977320;
+  *(v0 + 120) = xmmword_1C09838F0;
+  *(v0 + 136) = xmmword_1C0982D00;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_open_common_App.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_open_common_App.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_open_common_App.init()()
+{
+  *(v0 + 40) = xmmword_1C09838D0;
+  *(v0 + 56) = xmmword_1C0982B60;
+  *(v0 + 72) = xmmword_1C0982B70;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0977320;
+  *(v0 + 120) = xmmword_1C09838F0;
+  *(v0 + 136) = xmmword_1C0982D00;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_appleTimer_TimerAttribute.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_noVerb_appleTimer_TimerAttribute.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_appleTimer_TimerAttribute.init()()
+{
+  *(v0 + 40) = 0xD000000000000019;
+  *(v0 + 48) = 0x80000001C09CFBA0;
+  *(v0 + 56) = xmmword_1C0975340;
+  *(v0 + 72) = xmmword_1C0975350;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C09760D0;
+  *(v0 + 120) = 0x80000001C09CFBA0;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_commonNotebook_NotebookAttribute.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_noVerb_commonNotebook_NotebookAttribute.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_commonNotebook_NotebookAttribute.init()()
+{
+  *(v0 + 40) = 0xD000000000000020;
+  *(v0 + 48) = 0x80000001C09CFBC0;
+  *(v0 + 56) = xmmword_1C0975340;
+  *(v0 + 72) = xmmword_1C0975350;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C09761E0;
+  *(v0 + 120) = 0x80000001C09CFBC0;
+  *(v0 + 128) = xmmword_1C0982A00;
+  *(v0 + 144) = 0;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_common_Integer.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_noVerb_common_Integer.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_noVerb_common_Integer.init()()
+{
+  *(v0 + 40) = xmmword_1C0983950;
+  *(v0 + 56) = xmmword_1C0975340;
+  *(v0 + 72) = xmmword_1C0975350;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0977380;
+  *(v0 + 120) = xmmword_1C0983960;
+  *(v0 + 136) = xmmword_1C0982D00;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_delete_common_Recipe.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_delete_common_Recipe.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_update_common_Recipe.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_update_common_Recipe.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_switch_common_Recipe.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_switch_common_Recipe.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_switch_common_Recipe.init()()
+{
+  *(v0 + 40) = xmmword_1C0983970;
+  *(v0 + 56) = xmmword_1C0983990;
+  *(v0 + 72) = 0xD000000000000016;
+  *(v0 + 80) = 0x80000001C09CFBF0;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0977C40;
+  *(v0 + 120) = xmmword_1C0983980;
+  *(v0 + 136) = xmmword_1C0982D00;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_start_common_Recipe.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_start_common_Recipe.init()();
+  return v0;
+}
+
+uint64_t sub_1C06B7C0C(uint64_t a1, __n128 a2, __n128 a3, __n128 a4)
+{
+  *(v4 + 40) = a2;
+  *(v4 + 56) = xmmword_1C0982F10;
+  *(v4 + 72) = 0xD000000000000016;
+  *(v4 + 80) = 0x80000001C09CE660;
+  *(v4 + 88) = xmmword_1C0975360;
+  *(v4 + 104) = a3;
+  *(v4 + 120) = a4;
+  *(v4 + 136) = xmmword_1C0982D00;
+
+  v5 = MEMORY[0x1E69E7CC0];
+  *(v4 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v4 + 16) = v5;
+  *(v4 + 24) = v5;
+
+  *(v4 + 32) = v5;
+  return v4;
+}
+
+uint64_t UsoTaskBuilder_create_common_Recipe.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_create_common_Recipe.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_create_common_Recipe.init()()
+{
+  *(v0 + 40) = xmmword_1C0983970;
+  *(v0 + 56) = xmmword_1C0982A20;
+  *(v0 + 72) = xmmword_1C0982A30;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0977C40;
+  *(v0 + 120) = xmmword_1C0983980;
+  *(v0 + 136) = xmmword_1C0982D00;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_like_common_Recipe.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_like_common_Recipe.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_like_common_Recipe.init()()
+{
+  *(v0 + 40) = xmmword_1C0983970;
+  *(v0 + 56) = xmmword_1C0982AC0;
+  *(v0 + 72) = 0xD000000000000015;
+  *(v0 + 80) = 0x80000001C09CFC10;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0977C40;
+  *(v0 + 120) = xmmword_1C0983980;
+  *(v0 + 136) = xmmword_1C0982D00;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_stop_common_Recipe.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_stop_common_Recipe.init()();
+  return v0;
+}
+
+uint64_t sub_1C06B80C4(uint64_t a1, __n128 a2, __n128 a3, __n128 a4)
+{
+  *(v4 + 40) = a2;
+  *(v4 + 56) = xmmword_1C0982BF0;
+  *(v4 + 72) = 0xD000000000000015;
+  *(v4 + 80) = 0x80000001C09CDDE0;
+  *(v4 + 88) = xmmword_1C0975360;
+  *(v4 + 104) = a3;
+  *(v4 + 120) = a4;
+  *(v4 + 136) = xmmword_1C0982D00;
+
+  v5 = MEMORY[0x1E69E7CC0];
+  *(v4 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v4 + 16) = v5;
+  *(v4 + 24) = v5;
+
+  *(v4 + 32) = v5;
+  return v4;
+}
+
+uint64_t UsoTaskBuilder_save_common_Recipe.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_save_common_Recipe.init()();
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_save_common_Recipe.init()()
+{
+  *(v0 + 40) = xmmword_1C0983970;
+  *(v0 + 56) = xmmword_1C0983280;
+  *(v0 + 72) = 0xD000000000000015;
+  *(v0 + 80) = 0x80000001C09CFC30;
+  *(v0 + 88) = xmmword_1C0975360;
+  *(v0 + 104) = xmmword_1C0977C40;
+  *(v0 + 120) = xmmword_1C0983980;
+  *(v0 + 136) = xmmword_1C0982D00;
+
+  v1 = MEMORY[0x1E69E7CC0];
+  *(v0 + 152) = sub_1C0517888(MEMORY[0x1E69E7CC0]);
+  *(v0 + 16) = v1;
+  *(v0 + 24) = v1;
+
+  *(v0 + 32) = v1;
+  return v0;
+}
+
+uint64_t UsoTaskBuilder_checkExistence_common_Recipe.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  UsoTaskBuilder_checkExistence_common_Recipe.init()();
   return v0;
 }

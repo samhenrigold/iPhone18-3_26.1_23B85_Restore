@@ -137,12 +137,11 @@ LABEL_6:
 {
   toCopy = to;
   has = self->_has;
-  v10 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -161,9 +160,8 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  totalBlockedHandles = self->_totalBlockedHandles;
   PBDataWriterWriteUint32Field();
-  toCopy = v10;
+  toCopy = v6;
   has = self->_has;
   if ((has & 4) == 0)
   {
@@ -177,22 +175,20 @@ LABEL_4:
   }
 
 LABEL_13:
-  totalIdentifiedHandles = self->_totalIdentifiedHandles;
   PBDataWriterWriteUint32Field();
-  toCopy = v10;
+  toCopy = v6;
   if ((*&self->_has & 8) != 0)
   {
 LABEL_5:
-    isEnabled = self->_isEnabled;
     PBDataWriterWriteBOOLField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_6:
   if (self->_providerBundleId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 }
 
@@ -322,7 +318,6 @@ LABEL_6:
     goto LABEL_22;
   }
 
-  v5 = *(equalCopy + 36);
   if (*&self->_has)
   {
     if ((*(equalCopy + 36) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -370,7 +365,7 @@ LABEL_6:
     }
 
 LABEL_22:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_23;
   }
 
@@ -379,7 +374,6 @@ LABEL_22:
     goto LABEL_22;
   }
 
-  v9 = *(equalCopy + 32);
   if (self->_isEnabled)
   {
     if ((*(equalCopy + 32) & 1) == 0)
@@ -397,17 +391,17 @@ LABEL_19:
   providerBundleId = self->_providerBundleId;
   if (providerBundleId | *(equalCopy + 2))
   {
-    v7 = [(NSString *)providerBundleId isEqual:?];
+    v6 = [(NSString *)providerBundleId isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_23:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

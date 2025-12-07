@@ -94,7 +94,7 @@
     v2 = qword_100314600;
     if (!qword_100314600)
     {
-      v5 = sub_100002880();
+      v5 = sub_100002880(0);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         sub_100227CF8(v5);

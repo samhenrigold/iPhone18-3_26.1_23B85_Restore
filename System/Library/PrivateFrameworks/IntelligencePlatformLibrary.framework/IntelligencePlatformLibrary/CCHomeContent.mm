@@ -607,9 +607,9 @@ LABEL_21:
           {
             v69 = [CCHomeRoom alloc];
             v70 = CCPBReaderReadDataNoCopy();
-            v104 = 0;
-            v71 = [(CCItemMessage *)v69 initWithData:v70 error:&v104];
-            v10 = v104;
+            v102 = 0;
+            v71 = [(CCItemMessage *)v69 initWithData:v70 error:&v102];
+            v10 = v102;
             room = self->_room;
             self->_room = v71;
 
@@ -632,9 +632,9 @@ LABEL_21:
           {
             v37 = [CCHomeService alloc];
             v38 = CCPBReaderReadDataNoCopy();
-            v103 = 0;
-            v39 = [(CCItemMessage *)v37 initWithData:v38 error:&v103];
-            v10 = v103;
+            v101 = 0;
+            v39 = [(CCItemMessage *)v37 initWithData:v38 error:&v101];
+            v10 = v101;
             service = self->_service;
             self->_service = v39;
 
@@ -663,9 +663,9 @@ LABEL_21:
           {
             v55 = [CCHome alloc];
             v56 = CCPBReaderReadDataNoCopy();
-            v106 = 0;
-            v57 = [(CCItemMessage *)v55 initWithData:v56 error:&v106];
-            v10 = v106;
+            v104 = 0;
+            v57 = [(CCItemMessage *)v55 initWithData:v56 error:&v104];
+            v10 = v104;
             v58 = self->_home;
             self->_home = v57;
 
@@ -685,9 +685,9 @@ LABEL_21:
           {
             v23 = [CCHomeZone alloc];
             v24 = CCPBReaderReadDataNoCopy();
-            v105 = 0;
-            v25 = [(CCItemMessage *)v23 initWithData:v24 error:&v105];
-            v10 = v105;
+            v103 = 0;
+            v25 = [(CCItemMessage *)v23 initWithData:v24 error:&v103];
+            v10 = v103;
             v26 = self->_zone;
             self->_zone = v25;
 
@@ -737,9 +737,9 @@ LABEL_51:
         {
           v61 = [CCHomeServiceGroup alloc];
           v62 = CCPBReaderReadDataNoCopy();
-          v102 = 0;
-          v63 = [(CCItemMessage *)v61 initWithData:v62 error:&v102];
-          v10 = v102;
+          v100 = 0;
+          v63 = [(CCItemMessage *)v61 initWithData:v62 error:&v100];
+          v10 = v100;
           v64 = self->_serviceGroup;
           self->_serviceGroup = v63;
 
@@ -768,9 +768,9 @@ LABEL_51:
         {
           v28 = [CCHomeScene alloc];
           v29 = CCPBReaderReadDataNoCopy();
-          v101 = 0;
-          v30 = [(CCItemMessage *)v28 initWithData:v29 error:&v101];
-          v10 = v101;
+          v99 = 0;
+          v30 = [(CCItemMessage *)v28 initWithData:v29 error:&v99];
+          v10 = v99;
           v31 = self->_scene;
           self->_scene = v30;
 
@@ -805,9 +805,9 @@ LABEL_51:
       {
         v80 = [CCHomeTrigger alloc];
         v81 = CCPBReaderReadDataNoCopy();
-        v100 = 0;
-        v82 = [(CCItemMessage *)v80 initWithData:v81 error:&v100];
-        v10 = v100;
+        v98 = 0;
+        v82 = [(CCItemMessage *)v80 initWithData:v81 error:&v98];
+        v10 = v98;
         v83 = self->_trigger;
         self->_trigger = v82;
 
@@ -850,7 +850,6 @@ LABEL_56:
           {
             v90 = objc_opt_class();
             v91 = NSStringFromClass(v90);
-            v92 = *&v6[*v9];
             v10 = CCSkipFieldErrorForMessage();
           }
 
@@ -859,9 +858,9 @@ LABEL_56:
 
         v44 = [CCHomeAccessory alloc];
         v45 = CCPBReaderReadDataNoCopy();
-        v99 = 0;
-        v46 = [(CCItemMessage *)v44 initWithData:v45 error:&v99];
-        v10 = v99;
+        v97 = 0;
+        v46 = [(CCItemMessage *)v44 initWithData:v45 error:&v97];
+        v10 = v97;
         v47 = self->_accessory;
         self->_accessory = v46;
 
@@ -912,23 +911,22 @@ LABEL_61:
   if (!*&v6[*v9])
   {
     v10 = 0;
-    v97 = 1;
+    v95 = 1;
     goto LABEL_65;
   }
 
 LABEL_62:
-  v93 = objc_opt_class();
-  v94 = NSStringFromClass(v93);
-  v95 = *&v6[*v9];
-  v96 = CCInvalidBufferErrorForMessage();
+  v92 = objc_opt_class();
+  v93 = NSStringFromClass(v92);
+  v94 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
   v10 = 0;
 LABEL_63:
-  v97 = 0;
+  v95 = 0;
 LABEL_65:
 
-  return v97;
+  return v95;
 }
 
 - (CCHomeContent)initWithEntity:(id)entity entityType:(unsigned int)type error:(id *)error

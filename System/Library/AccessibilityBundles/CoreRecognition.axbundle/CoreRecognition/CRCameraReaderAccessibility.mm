@@ -25,48 +25,48 @@
 
 - (void)sendDidFindTarget:(id)target frameTime:(id *)time
 {
-  v54 = *MEMORY[0x29EDCA608];
+  v53 = *MEMORY[0x29EDCA608];
   targetCopy = target;
-  v52.receiver = self;
-  v52.super_class = CRCameraReaderAccessibility;
-  v44 = *time;
-  [(CRCameraReaderAccessibility *)&v52 sendDidFindTarget:targetCopy frameTime:&v44];
+  v51.receiver = self;
+  v51.super_class = CRCameraReaderAccessibility;
+  v43 = *time;
+  [(CRCameraReaderAccessibility *)&v51 sendDidFindTarget:targetCopy frameTime:&v43];
   v7 = [(CRCameraReaderAccessibility *)self safeValueForKey:@"sessionManager"];
   v8 = [v7 safeValueForKey:@"previewLayer"];
   array = [MEMORY[0x29EDB8DE8] array];
   v10 = [v8 safeValueForKey:@"bounds"];
   [v10 CGRectValue];
-  v42 = v12;
-  v43 = v11;
+  v41 = v12;
+  v42 = v11;
   v14 = v13;
   v16 = v15;
 
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   obj = targetCopy;
-  v17 = [obj countByEnumeratingWithState:&v48 objects:v53 count:16];
+  v17 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
   if (v17)
   {
-    v18 = *v49;
+    v18 = *v48;
     v19 = 1;
     v20 = 2.22507386e-308;
     v21 = 1.79769313e308;
-    v39 = *(MEMORY[0x29EDB90B8] + 8);
-    v40 = *MEMORY[0x29EDB90B8];
+    v38 = *(MEMORY[0x29EDB90B8] + 8);
+    v39 = *MEMORY[0x29EDB90B8];
     v22 = 1.79769313e308;
     v23 = 2.22507386e-308;
     while (1)
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v49 != v18)
+        if (*v48 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v25 = *(*(&v48 + 1) + 8 * i);
+        v25 = *(*(&v47 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -78,8 +78,8 @@
         else
         {
           objc_opt_class();
-          v29 = v39;
-          v30 = v40;
+          v29 = v38;
+          v30 = v39;
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             goto LABEL_11;
@@ -95,13 +95,13 @@ LABEL_11:
         v33 = [MEMORY[0x29EDBA168] valueWithCGPoint:{v30, v29}];
         [array addObject:v33];
 
-        v56.origin.y = v42;
-        v56.origin.x = v43;
-        v56.size.width = v14;
-        v56.size.height = v16;
-        v55.x = v30;
-        v55.y = v29;
-        v19 &= CGRectContainsPoint(v56, v55);
+        v55.origin.y = v41;
+        v55.origin.x = v42;
+        v55.size.width = v14;
+        v55.size.height = v16;
+        v54.x = v30;
+        v54.y = v29;
+        v19 &= CGRectContainsPoint(v55, v54);
         if (v30 < v22)
         {
           v22 = v30;
@@ -123,7 +123,7 @@ LABEL_11:
         }
       }
 
-      v17 = [obj countByEnumeratingWithState:&v48 objects:v53 count:16];
+      v17 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
       if (!v17)
       {
 
@@ -142,17 +142,17 @@ LABEL_11:
   v20 = 2.22507386e-308;
   v21 = 1.79769313e308;
 LABEL_24:
-  v44.var0 = 0;
-  *&v44.var1 = &v44;
-  v44.var3 = 0x4010000000;
-  v45 = &unk_29BD6D12D;
+  v43.var0 = 0;
+  *&v43.var1 = &v43;
+  v43.var3 = 0x4010000000;
+  v44 = &unk_29BD6D12D;
+  v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
   AXPerformSafeBlock();
   v34 = (v23 - v22) * (v20 - v21);
-  v35 = *(*&v44.var1 + 48);
-  v36 = *(*&v44.var1 + 56);
-  _Block_object_dispose(&v44, 8);
+  v35 = *(*&v43.var1 + 48);
+  v36 = *(*&v43.var1 + 56);
+  _Block_object_dispose(&v43, 8);
   if (v34 > v35 * v36 * 0.5 && v34 < v35 * v36 * 1.2)
   {
     UIAccessibilityPostNotification(0x40Bu, 0);
@@ -160,8 +160,6 @@ LABEL_24:
 
 LABEL_30:
   ++sendDidFindTarget_frameTime__counter;
-
-  v38 = *MEMORY[0x29EDCA608];
 }
 
 void __59__CRCameraReaderAccessibility_sendDidFindTarget_frameTime___block_invoke(uint64_t a1)

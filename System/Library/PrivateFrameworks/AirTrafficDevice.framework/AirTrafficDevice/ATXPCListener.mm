@@ -20,7 +20,7 @@
   v29 = 0u;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
     v9 = DWORD1(v29);
   }
 

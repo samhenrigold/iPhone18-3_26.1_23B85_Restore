@@ -468,9 +468,9 @@ void __68__SUUIClientContext_getDefaultMetricsControllerWithCompletionBlock___bl
 
   mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
   bundleIdentifier = [mainBundle bundleIdentifier];
-  v6 = [bundleIdentifier isEqualToString:@"com.apple.Music"];
+  isEqualToString = objc_msgSend_isEqualToString_(bundleIdentifier);
 
-  return v6;
+  return isEqualToString;
 }
 
 - (id)tabBarItemsForStyle:(int64_t)style
@@ -1060,7 +1060,7 @@ void __67__SUUIClientContext_loadValueForConfigurationKeys_completionBlock___blo
 
 - (Class)moviePlayerViewControllerClass
 {
-  v2 = SUUIMediaPlayerFramework();
+  v2 = SUUIMediaPlayerFramework(self, a2);
 
   return SUUIWeakLinkedClassForString(&cfstr_Mpmovieplayerv.isa, v2);
 }

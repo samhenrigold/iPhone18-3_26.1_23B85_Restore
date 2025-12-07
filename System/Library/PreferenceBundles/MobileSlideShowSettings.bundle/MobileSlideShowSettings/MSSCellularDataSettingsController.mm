@@ -8,6 +8,8 @@
 - (id)unlimitedUpdatesForSpecifier:(id)specifier;
 - (void)_validateUnlimitedUpdatesSpecifiers;
 - (void)setUnlimitedUpdates:(id)updates forSpecifier:(id)specifier;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation MSSCellularDataSettingsController
@@ -94,6 +96,25 @@
   v8 = [v3 initWithKey:_labelForCellularData table:@"Photos" locale:v5 bundleURL:bundleURL];
 
   return v8;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = MSSCellularDataSettingsController;
+  [(MSSCellularDataSettingsController *)&v7 viewDidAppear:appear];
+  paneTitleLocalizedResource = [(MSSCellularDataSettingsController *)self paneTitleLocalizedResource];
+  pathComponentsLocalizedResource = [(MSSCellularDataSettingsController *)self pathComponentsLocalizedResource];
+  deepLinkURL = [(MSSCellularDataSettingsController *)self deepLinkURL];
+  [(MSSCellularDataSettingsController *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:@"com.apple.mobileslideshow" title:paneTitleLocalizedResource localizedNavigationComponents:pathComponentsLocalizedResource deepLink:deepLinkURL];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = MSSCellularDataSettingsController;
+  [(MSSCellularDataSettingsController *)&v4 viewWillAppear:appear];
+  [(MSSCellularDataSettingsController *)self _validateUnlimitedUpdatesSpecifiers];
 }
 
 - (id)specifiers

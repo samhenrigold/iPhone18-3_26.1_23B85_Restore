@@ -25,7 +25,7 @@
   managerCopy = manager;
   selfCopy = self;
   sub_100696F30(workoutCopy, contextCopy, managerCopy, count, v12, v13);
-  sub_1000245E0(v12);
+  sub_1000245E0(v12, v13);
 }
 
 - (double)preferredHeightForWidth:(double)width

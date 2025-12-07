@@ -7,9 +7,41 @@
 - (void)_setShowAlerts:(id)alerts withSpecifier:(id)specifier;
 - (void)_setSound:(id)sound withSpecifier:(id)specifier;
 - (void)_setVibration:(id)vibration withSpecifier:(id)specifier;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation NCALSubsectionSettingsController
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v23.receiver = self;
+  v23.super_class = NCALSubsectionSettingsController;
+  [(NCALSubsectionSettingsController *)&v23 viewWillAppear:appear];
+  specifier = [(NCALSubsectionSettingsController *)self specifier];
+  v22 = [specifier propertyForKey:PSTitleKey];
+
+  v5 = [NSBundle bundleForClass:objc_opt_class()];
+  v6 = [_NSLocalizedStringResource alloc];
+  v7 = +[NSLocale currentLocale];
+  bundleURL = [v5 bundleURL];
+  v21 = [v6 initWithKey:v22 table:@"NanoCalendarBridgeSettings" locale:v7 bundleURL:bundleURL];
+
+  v9 = [_NSLocalizedStringResource alloc];
+  v10 = +[NSLocale currentLocale];
+  bundleURL2 = [v5 bundleURL];
+  v20 = [v9 initWithKey:@"PANE_TITLE" table:@"NanoCalendarBridgeSettings" locale:v10 bundleURL:bundleURL2];
+
+  bundleIdentifier = [v5 bundleIdentifier];
+  v24 = v20;
+  v13 = [NSArray arrayWithObjects:&v24 count:1];
+  bundleIdentifier2 = [v5 bundleIdentifier];
+  specifier2 = [(NCALSubsectionSettingsController *)self specifier];
+  identifier = [specifier2 identifier];
+  v17 = [identifier stringByAddingPercentEscapesUsingEncoding:4];
+  v18 = [NSString stringWithFormat:@"bridge:root=%@&path=%@", bundleIdentifier2, v17];
+  v19 = [NSURL URLWithString:v18];
+  [BPSWatchSettingsNavigationDonation emitNavigationEventForApplicationSettingWithIconSpecifierIdentifier:bundleIdentifier title:v21 localizedNavigationComponents:v13 deepLink:v19];
+}
 
 - (id)specifiers
 {

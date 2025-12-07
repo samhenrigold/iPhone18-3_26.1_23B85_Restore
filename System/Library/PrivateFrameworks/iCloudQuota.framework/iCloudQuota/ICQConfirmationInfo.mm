@@ -15,14 +15,14 @@
   v5 = [(ICQConfirmationInfo *)&v19 init];
   if (v5)
   {
-    v6 = [dictionaryCopy objectForKeyedSubscript:@"title"];
+    v6 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       [(ICQConfirmationInfo *)v5 setTitle:v6];
     }
 
-    v7 = [dictionaryCopy objectForKeyedSubscript:@"subTitle"];
+    v7 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     v8 = v7;
     if (v7)
     {
@@ -31,7 +31,7 @@
 
     else
     {
-      v9 = [dictionaryCopy objectForKeyedSubscript:@"subtitle"];
+      v9 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     }
 
     v10 = v9;
@@ -42,7 +42,7 @@
       [(ICQConfirmationInfo *)v5 setSubtitle:v10];
     }
 
-    v11 = [dictionaryCopy objectForKeyedSubscript:@"iconURLs"];
+    v11 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -50,7 +50,7 @@
       [(ICQConfirmationInfo *)v5 setIconURL:v12];
     }
 
-    v13 = [dictionaryCopy objectForKeyedSubscript:@"actions"];
+    v13 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -103,11 +103,11 @@ void __42__ICQConfirmationInfo_initFromDictionary___block_invoke(uint64_t a1, vo
 
 - (ICQConfirmationInfo)initWithCoder:(id)coder
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v19.receiver = self;
-  v19.super_class = ICQConfirmationInfo;
-  v5 = [(ICQConfirmationInfo *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = ICQConfirmationInfo;
+  v5 = [(ICQConfirmationInfo *)&v18 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"title"];
@@ -123,9 +123,9 @@ void __42__ICQConfirmationInfo_initFromDictionary___block_invoke(uint64_t a1, vo
     v5->_iconURL = v10;
 
     v12 = MEMORY[0x277CBEB98];
-    v20[0] = objc_opt_class();
-    v20[1] = objc_opt_class();
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+    v19[0] = objc_opt_class();
+    v19[1] = objc_opt_class();
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
     v14 = [v12 setWithArray:v13];
 
     v15 = [coderCopy decodeObjectOfClasses:v14 forKey:@"actions"];
@@ -133,7 +133,6 @@ void __42__ICQConfirmationInfo_initFromDictionary___block_invoke(uint64_t a1, vo
     v5->_actions = v15;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

@@ -53,10 +53,9 @@
 
 + (id)requiredEntitlements
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = *MEMORY[0x277CCC8B0];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = *MEMORY[0x277CCC8B0];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -83,7 +82,7 @@
 
 void __84__HDSHPluginServer_remote_updateCurrentSleepSchedules_sleepDurationGoal_completion___block_invoke(void *a1)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v4 = MEMORY[0x277CCC320];
@@ -93,25 +92,24 @@ void __84__HDSHPluginServer_remote_updateCurrentSleepSchedules_sleepDurationGoal
     v5 = *v4;
     if (os_log_type_enabled(*v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = a1[5];
-      v7 = v5;
-      v8 = objc_opt_class();
-      v9 = a1[4];
+      v6 = v5;
+      v7 = objc_opt_class();
+      v8 = a1[4];
       *buf = 138543618;
-      v41 = v8;
-      v42 = 2112;
-      v43 = v9;
-      v10 = v8;
-      _os_log_impl(&dword_269C02000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updating current sleep schedules: %@", buf, 0x16u);
+      v37 = v7;
+      v38 = 2112;
+      v39 = v8;
+      v9 = v7;
+      _os_log_impl(&dword_269C02000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updating current sleep schedules: %@", buf, 0x16u);
     }
 
-    v12 = a1[4];
-    v11 = a1[5];
-    v39 = 0;
-    v13 = [v11 _populateSamplesToInsert:v2 samplesToDelete:v3 forSleepSchedules:v12 error:&v39];
-    v14 = v39;
-    v15 = v14;
-    if ((v13 & 1) == 0)
+    v11 = a1[4];
+    v10 = a1[5];
+    v35 = 0;
+    v12 = [v10 _populateSamplesToInsert:v2 samplesToDelete:v3 forSleepSchedules:v11 error:&v35];
+    v13 = v35;
+    v14 = v13;
+    if ((v12 & 1) == 0)
     {
       goto LABEL_14;
     }
@@ -120,172 +118,167 @@ void __84__HDSHPluginServer_remote_updateCurrentSleepSchedules_sleepDurationGoal
   if (a1[6])
   {
     _HKInitializeLogging();
-    v16 = *v4;
+    v15 = *v4;
     if (os_log_type_enabled(*v4, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = a1[5];
-      v18 = v16;
-      v19 = objc_opt_class();
-      v20 = a1[6];
+      v16 = v15;
+      v17 = objc_opt_class();
+      v18 = a1[6];
       *buf = 138543618;
-      v41 = v19;
-      v42 = 2112;
-      v43 = v20;
-      v21 = v19;
-      _os_log_impl(&dword_269C02000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updating sleep duration goal: %@", buf, 0x16u);
+      v37 = v17;
+      v38 = 2112;
+      v39 = v18;
+      v19 = v17;
+      _os_log_impl(&dword_269C02000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updating sleep duration goal: %@", buf, 0x16u);
     }
 
-    v22 = a1[5];
-    v23 = a1[6];
-    v38 = 0;
-    v24 = [v22 _populateSamplesToInsert:v2 samplesToDelete:v3 forSleepDurationGoal:v23 error:&v38];
-    v25 = v38;
-    v15 = v25;
-    if (v24)
+    v20 = a1[5];
+    v21 = a1[6];
+    v34 = 0;
+    v22 = [v20 _populateSamplesToInsert:v2 samplesToDelete:v3 forSleepDurationGoal:v21 error:&v34];
+    v23 = v34;
+    v14 = v23;
+    if (v22)
     {
 
       goto LABEL_11;
     }
 
 LABEL_14:
-    v35 = *(a1[7] + 16);
+    v32 = *(a1[7] + 16);
     goto LABEL_15;
   }
 
 LABEL_11:
-  v26 = a1[5];
-  v37 = 0;
-  v27 = [v26 _replaceSamples:v3 withSamples:v2 error:&v37];
-  v15 = v37;
+  v24 = a1[5];
+  v33 = 0;
+  v25 = [v24 _replaceSamples:v3 withSamples:v2 error:&v33];
+  v14 = v33;
   _HKInitializeLogging();
-  v28 = *v4;
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+  v26 = *v4;
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
-    v29 = a1[5];
+    v27 = v26;
+    v28 = objc_opt_class();
+    v29 = MEMORY[0x277CCABB0];
     v30 = v28;
-    v31 = objc_opt_class();
-    v32 = MEMORY[0x277CCABB0];
-    v33 = v31;
-    v34 = [v32 numberWithBool:v27];
+    v31 = [v29 numberWithBool:v25];
     *buf = 138543618;
-    v41 = v31;
-    v42 = 2112;
-    v43 = v34;
-    _os_log_impl(&dword_269C02000, v30, OS_LOG_TYPE_DEFAULT, "[%{public}@] Finished replace with success: %@", buf, 0x16u);
+    v37 = v28;
+    v38 = 2112;
+    v39 = v31;
+    _os_log_impl(&dword_269C02000, v27, OS_LOG_TYPE_DEFAULT, "[%{public}@] Finished replace with success: %@", buf, 0x16u);
   }
 
-  v35 = *(a1[7] + 16);
+  v32 = *(a1[7] + 16);
 LABEL_15:
-  v35();
-
-  v36 = *MEMORY[0x277D85DE8];
+  v32();
 }
 
 - (BOOL)_populateSamplesToInsert:(id)insert samplesToDelete:(id)delete forSleepSchedules:(id)schedules error:(id *)error
 {
-  v134 = *MEMORY[0x277D85DE8];
+  v132 = *MEMORY[0x277D85DE8];
   insertCopy = insert;
   deleteCopy = delete;
   schedulesCopy = schedules;
   firstObject = [schedulesCopy firstObject];
   startDate = [firstObject startDate];
 
-  v10 = *MEMORY[0x277CCCDD0];
-  v11 = HKSleepScheduleWeekdayArrayFromWeekdays();
-  v12 = [v11 arrayByAddingObject:&unk_287A9AD68];
+  v10 = HKSleepScheduleWeekdayArrayFromWeekdays();
+  v11 = [v10 arrayByAddingObject:&unk_287A9AD68];
 
-  v13 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v12 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v119 = 0u;
+  v120 = 0u;
   v121 = 0u;
   v122 = 0u;
-  v123 = 0u;
-  v124 = 0u;
-  v14 = v12;
-  v15 = [v14 countByEnumeratingWithState:&v121 objects:v133 count:16];
-  v97 = v13;
-  obj = v14;
-  if (!v15)
+  v13 = v11;
+  v14 = [v13 countByEnumeratingWithState:&v119 objects:v131 count:16];
+  v95 = v12;
+  obj = v13;
+  if (!v14)
   {
-    v96 = 0;
+    v94 = 0;
     goto LABEL_19;
   }
 
-  v16 = v15;
+  v15 = v14;
   errorCopy = error;
-  v96 = 0;
-  v17 = *v122;
+  v94 = 0;
+  v16 = *v120;
   while (2)
   {
-    for (i = 0; i != v16; ++i)
+    for (i = 0; i != v15; ++i)
     {
-      if (*v122 != v17)
+      if (*v120 != v16)
       {
         objc_enumerationMutation(obj);
       }
 
-      v19 = *(*(&v121 + 1) + 8 * i);
-      v20 = MEMORY[0x277D10870];
-      integerValue = [v19 integerValue];
+      v18 = *(*(&v119 + 1) + 8 * i);
+      v19 = MEMORY[0x277D10870];
+      integerValue = [v18 integerValue];
       WeakRetained = objc_loadWeakRetained(&self->_profile);
       hk_timeZoneEncodingOptions = [MEMORY[0x277D10690] hk_timeZoneEncodingOptions];
-      v120 = v96;
-      v24 = [v20 mostRecentSleepScheduleForWeekday:integerValue beforeDate:0 profile:WeakRetained encodingOptions:hk_timeZoneEncodingOptions error:&v120];
-      v25 = v120;
+      v118 = v94;
+      v23 = [v19 mostRecentSleepScheduleForWeekday:integerValue beforeDate:0 profile:WeakRetained encodingOptions:hk_timeZoneEncodingOptions error:&v118];
+      v24 = v118;
 
-      v13 = v97;
-      [v97 setObject:v24 forKeyedSubscript:v19];
-      v96 = v25;
-      if (v24)
+      v12 = v95;
+      [v95 setObject:v23 forKeyedSubscript:v18];
+      v94 = v24;
+      if (v23)
       {
-        v26 = 1;
+        v25 = 1;
       }
 
       else
       {
-        v26 = v25 == 0;
+        v25 = v24 == 0;
       }
 
-      if (!v26)
+      if (!v25)
       {
-        if (![v25 hk_isDatabaseAccessibilityError])
+        if (![v24 hk_isDatabaseAccessibilityError])
         {
-          v31 = v25;
+          v30 = v24;
           if (errorCopy)
           {
-            v32 = v25;
-            v33 = 0;
-            *errorCopy = v25;
+            v31 = v24;
+            v32 = 0;
+            *errorCopy = v24;
           }
 
           else
           {
             _HKLogDroppedError();
-            v33 = 0;
+            v32 = 0;
           }
 
-          v79 = obj;
-          v35 = obj;
+          v78 = obj;
+          v34 = obj;
           goto LABEL_75;
         }
 
         _HKInitializeLogging();
-        v27 = *MEMORY[0x277CCC320];
+        v26 = *MEMORY[0x277CCC320];
         if (os_log_type_enabled(*MEMORY[0x277CCC320], OS_LOG_TYPE_DEFAULT))
         {
-          v28 = v27;
-          v29 = objc_opt_class();
+          v27 = v26;
+          v28 = objc_opt_class();
           *buf = 138543618;
-          v130 = v29;
-          v131 = 2112;
-          v132 = v25;
-          v30 = v29;
-          _os_log_impl(&dword_269C02000, v28, OS_LOG_TYPE_DEFAULT, "[%{public}@] Cannot retrieve most recent sample for weekday, protected data unavailable: %@", buf, 0x16u);
+          v128 = v28;
+          v129 = 2112;
+          v130 = v24;
+          v29 = v28;
+          _os_log_impl(&dword_269C02000, v27, OS_LOG_TYPE_DEFAULT, "[%{public}@] Cannot retrieve most recent sample for weekday, protected data unavailable: %@", buf, 0x16u);
         }
       }
     }
 
-    v14 = obj;
-    v16 = [obj countByEnumeratingWithState:&v121 objects:v133 count:16];
-    if (v16)
+    v13 = obj;
+    v15 = [obj countByEnumeratingWithState:&v119 objects:v131 count:16];
+    if (v15)
     {
       continue;
     }
@@ -296,149 +289,149 @@ LABEL_15:
 LABEL_19:
 
   _HKInitializeLogging();
-  v34 = *MEMORY[0x277CCC320];
+  v33 = *MEMORY[0x277CCC320];
   if (os_log_type_enabled(*MEMORY[0x277CCC320], OS_LOG_TYPE_DEBUG))
   {
-    v82 = v34;
-    v83 = objc_opt_class();
+    v80 = v33;
+    v81 = objc_opt_class();
     *buf = 138543618;
-    v130 = v83;
-    v131 = 2112;
-    v132 = v13;
-    v84 = v83;
-    _os_log_debug_impl(&dword_269C02000, v82, OS_LOG_TYPE_DEBUG, "[%{public}@] Old schedules: %@", buf, 0x16u);
+    v128 = v81;
+    v129 = 2112;
+    v130 = v12;
+    v82 = v81;
+    _os_log_debug_impl(&dword_269C02000, v80, OS_LOG_TYPE_DEBUG, "[%{public}@] Old schedules: %@", buf, 0x16u);
   }
 
-  v35 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v34 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v114 = 0u;
+  v115 = 0u;
   v116 = 0u;
   v117 = 0u;
-  v118 = 0u;
-  v119 = 0u;
-  v100 = schedulesCopy;
-  v36 = [v100 countByEnumeratingWithState:&v116 objects:v128 count:16];
-  if (v36)
+  v98 = schedulesCopy;
+  v35 = [v98 countByEnumeratingWithState:&v114 objects:v126 count:16];
+  if (v35)
   {
-    v37 = v36;
-    v102 = *v117;
+    v36 = v35;
+    v100 = *v115;
     do
     {
-      for (j = 0; j != v37; ++j)
+      for (j = 0; j != v36; ++j)
       {
-        if (*v117 != v102)
+        if (*v115 != v100)
         {
-          objc_enumerationMutation(v100);
+          objc_enumerationMutation(v98);
         }
 
-        v39 = *(*(&v116 + 1) + 8 * j);
+        v38 = *(*(&v114 + 1) + 8 * j);
+        v110 = 0u;
+        v111 = 0u;
         v112 = 0u;
         v113 = 0u;
-        v114 = 0u;
-        v115 = 0u;
-        [v39 weekdays];
-        v40 = HKSleepScheduleWeekdayArrayFromWeekdays();
-        v41 = [v40 countByEnumeratingWithState:&v112 objects:v127 count:16];
-        if (v41)
+        [v38 weekdays];
+        v39 = HKSleepScheduleWeekdayArrayFromWeekdays();
+        v40 = [v39 countByEnumeratingWithState:&v110 objects:v125 count:16];
+        if (v40)
         {
-          v42 = v41;
-          v43 = *v113;
+          v41 = v40;
+          v42 = *v111;
           do
           {
-            for (k = 0; k != v42; ++k)
+            for (k = 0; k != v41; ++k)
             {
-              if (*v113 != v43)
+              if (*v111 != v42)
               {
-                objc_enumerationMutation(v40);
+                objc_enumerationMutation(v39);
               }
 
-              v45 = *(*(&v112 + 1) + 8 * k);
-              v46 = [v35 objectForKeyedSubscript:v45];
+              v44 = *(*(&v110 + 1) + 8 * k);
+              v45 = [v34 objectForKeyedSubscript:v44];
 
-              if (v46)
+              if (v45)
               {
                 currentHandler = [MEMORY[0x277CCA890] currentHandler];
                 [currentHandler handleFailureInMethod:a2 object:self file:@"HDSHPluginServer.m" lineNumber:138 description:{@"Invalid parameter not satisfying: %@", @"newSchedulesByWeekday[weekdayNumber] == nil"}];
               }
 
-              [v35 setObject:v39 forKeyedSubscript:v45];
+              [v34 setObject:v38 forKeyedSubscript:v44];
             }
 
-            v42 = [v40 countByEnumeratingWithState:&v112 objects:v127 count:16];
+            v41 = [v39 countByEnumeratingWithState:&v110 objects:v125 count:16];
           }
 
-          while (v42);
+          while (v41);
         }
       }
 
-      v37 = [v100 countByEnumeratingWithState:&v116 objects:v128 count:16];
+      v36 = [v98 countByEnumeratingWithState:&v114 objects:v126 count:16];
     }
 
-    while (v37);
+    while (v36);
   }
 
   _HKInitializeLogging();
-  v48 = *MEMORY[0x277CCC320];
+  v47 = *MEMORY[0x277CCC320];
   if (os_log_type_enabled(*MEMORY[0x277CCC320], OS_LOG_TYPE_DEBUG))
   {
-    v85 = v48;
-    v86 = objc_opt_class();
+    v83 = v47;
+    v84 = objc_opt_class();
     *buf = 138543618;
-    v130 = v86;
-    v131 = 2112;
-    v132 = v35;
-    v87 = v86;
-    _os_log_debug_impl(&dword_269C02000, v85, OS_LOG_TYPE_DEBUG, "[%{public}@] New schedules: %@", buf, 0x16u);
+    v128 = v84;
+    v129 = 2112;
+    v130 = v34;
+    v85 = v84;
+    _os_log_debug_impl(&dword_269C02000, v83, OS_LOG_TYPE_DEBUG, "[%{public}@] New schedules: %@", buf, 0x16u);
   }
 
-  v49 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v48 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v106 = 0u;
+  v107 = 0u;
   v108 = 0u;
   v109 = 0u;
-  v110 = 0u;
-  v111 = 0u;
-  v50 = obj;
-  v51 = [v50 countByEnumeratingWithState:&v108 objects:v126 count:16];
-  v13 = v97;
-  if (v51)
+  v49 = obj;
+  v50 = [v49 countByEnumeratingWithState:&v106 objects:v124 count:16];
+  v12 = v95;
+  if (v50)
   {
-    v52 = v51;
-    v53 = *v109;
+    v51 = v50;
+    v52 = *v107;
     do
     {
-      for (m = 0; m != v52; ++m)
+      for (m = 0; m != v51; ++m)
       {
-        if (*v109 != v53)
+        if (*v107 != v52)
         {
-          objc_enumerationMutation(v50);
+          objc_enumerationMutation(v49);
         }
 
-        v55 = *(*(&v108 + 1) + 8 * m);
-        if (([v49 containsObject:v55] & 1) == 0)
+        v54 = *(*(&v106 + 1) + 8 * m);
+        if (([v48 containsObject:v54] & 1) == 0)
         {
-          v56 = [v97 objectForKeyedSubscript:v55];
-          v57 = [v35 objectForKeyedSubscript:v55];
-          v58 = [v56 hasEquivalentTimesToSleepSchedule:v57];
-          if (v57 && (v58 & 1) == 0)
+          v55 = [v95 objectForKeyedSubscript:v54];
+          v56 = [v34 objectForKeyedSubscript:v54];
+          v57 = [v55 hasEquivalentTimesToSleepSchedule:v56];
+          if (v56 && (v57 & 1) == 0)
           {
-            if (v56)
+            if (v55)
             {
               goto LABEL_51;
             }
 
-            bedTimeComponents = [v57 bedTimeComponents];
+            bedTimeComponents = [v56 bedTimeComponents];
             if (bedTimeComponents)
             {
 
               goto LABEL_51;
             }
 
-            wakeTimeComponents = [v57 wakeTimeComponents];
+            wakeTimeComponents = [v56 wakeTimeComponents];
 
             if (wakeTimeComponents)
             {
 LABEL_51:
-              [insertCopy addObject:v57];
-              [v57 weekdays];
-              v61 = HKSleepScheduleWeekdayArrayFromWeekdays();
-              [v49 addObjectsFromArray:v61];
+              [insertCopy addObject:v56];
+              [v56 weekdays];
+              v60 = HKSleepScheduleWeekdayArrayFromWeekdays();
+              [v48 addObjectsFromArray:v60];
             }
           }
 
@@ -446,107 +439,106 @@ LABEL_51:
         }
       }
 
-      v52 = [v50 countByEnumeratingWithState:&v108 objects:v126 count:16];
+      v51 = [v49 countByEnumeratingWithState:&v106 objects:v124 count:16];
     }
 
-    while (v52);
+    while (v51);
   }
 
   _HKInitializeLogging();
-  v62 = *MEMORY[0x277CCC320];
+  v61 = *MEMORY[0x277CCC320];
   if (os_log_type_enabled(*MEMORY[0x277CCC320], OS_LOG_TYPE_DEBUG))
   {
-    v88 = v62;
-    v89 = objc_opt_class();
+    v86 = v61;
+    v87 = objc_opt_class();
     *buf = 138543618;
-    v130 = v89;
-    v131 = 2112;
-    v132 = v49;
-    v90 = v89;
-    _os_log_debug_impl(&dword_269C02000, v88, OS_LOG_TYPE_DEBUG, "[%{public}@] Changed schedules: %@", buf, 0x16u);
+    v128 = v87;
+    v129 = 2112;
+    v130 = v48;
+    v88 = v87;
+    _os_log_debug_impl(&dword_269C02000, v86, OS_LOG_TYPE_DEBUG, "[%{public}@] Changed schedules: %@", buf, 0x16u);
   }
 
-  v106 = 0u;
-  v107 = 0u;
   v104 = 0u;
   v105 = 0u;
-  v103 = v49;
-  v63 = [v103 countByEnumeratingWithState:&v104 objects:v125 count:16];
-  if (v63)
+  v102 = 0u;
+  v103 = 0u;
+  v101 = v48;
+  v62 = [v101 countByEnumeratingWithState:&v102 objects:v123 count:16];
+  if (v62)
   {
-    v64 = v63;
-    v65 = *v105;
+    v63 = v62;
+    v64 = *v103;
     do
     {
-      v66 = 0;
+      v65 = 0;
       do
       {
-        if (*v105 != v65)
+        if (*v103 != v64)
         {
-          objc_enumerationMutation(v103);
+          objc_enumerationMutation(v101);
         }
 
-        v67 = *(*(&v104 + 1) + 8 * v66);
-        v68 = [v13 objectForKeyedSubscript:v67];
-        v69 = [v35 objectForKeyedSubscript:v67];
-        if (v68)
+        v66 = *(*(&v102 + 1) + 8 * v65);
+        v67 = [v12 objectForKeyedSubscript:v66];
+        v68 = [v34 objectForKeyedSubscript:v66];
+        if (v67)
         {
-          if (([deleteCopy containsObject:v68] & 1) == 0)
+          if (([deleteCopy containsObject:v67] & 1) == 0)
           {
-            v70 = MEMORY[0x277CBEB98];
-            [v68 weekdays];
-            v71 = HKSleepScheduleWeekdayArrayFromWeekdays();
-            v72 = [v70 setWithArray:v71];
-            v73 = [v72 hk_minus:v103];
-            v74 = [v73 count];
+            v69 = MEMORY[0x277CBEB98];
+            [v67 weekdays];
+            v70 = HKSleepScheduleWeekdayArrayFromWeekdays();
+            v71 = [v69 setWithArray:v70];
+            v72 = [v71 hk_minus:v101];
+            v73 = [v72 count];
 
-            v13 = v97;
-            if (!v74 && ([v68 weekdays] || objc_msgSend(v68, "hasEquivalentOverrideDayToSleepSchedule:", v69)))
+            v12 = v95;
+            if (!v73 && ([v67 weekdays] || objc_msgSend(v67, "hasEquivalentOverrideDayToSleepSchedule:", v68)))
             {
-              startDate2 = [v68 startDate];
+              startDate2 = [v67 startDate];
               [startDate2 timeIntervalSinceDate:startDate];
-              v77 = v76;
+              v76 = v75;
 
-              if (v77 > -3600.0)
+              if (v76 > -3600.0)
               {
-                [deleteCopy addObject:v68];
+                [deleteCopy addObject:v67];
               }
             }
           }
         }
 
-        ++v66;
+        ++v65;
       }
 
-      while (v64 != v66);
-      v78 = [v103 countByEnumeratingWithState:&v104 objects:v125 count:16];
-      v64 = v78;
+      while (v63 != v65);
+      v77 = [v101 countByEnumeratingWithState:&v102 objects:v123 count:16];
+      v63 = v77;
     }
 
-    while (v78);
+    while (v77);
   }
 
-  v33 = 1;
-  v79 = obj;
-  v31 = v96;
+  v32 = 1;
+  v78 = obj;
+  v30 = v94;
 LABEL_75:
 
-  v80 = *MEMORY[0x277D85DE8];
-  return v33;
+  return v32;
 }
 
 - (BOOL)_populateSamplesToInsert:(id)insert samplesToDelete:(id)delete forSleepDurationGoal:(id)goal error:(id *)error
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   insertCopy = insert;
   deleteCopy = delete;
   goalCopy = goal;
   v13 = MEMORY[0x277D10810];
   sleepDurationGoalType = [MEMORY[0x277CCD720] sleepDurationGoalType];
   WeakRetained = objc_loadWeakRetained(&self->_profile);
-  v39 = 0;
-  v16 = [v13 mostRecentSampleWithType:sleepDurationGoalType profile:WeakRetained encodingOptions:0 predicate:0 anchor:0 error:&v39];
-  v17 = v39;
+  v38 = 0;
+  v16 = [v13 mostRecentSampleWithType:sleepDurationGoalType profile:WeakRetained encodingOptions:0 predicate:0 anchor:0 error:&v38];
+  v17 = v38;
 
   if (v16)
   {
@@ -574,7 +566,7 @@ LABEL_75:
         v24 = v23;
         v25 = objc_opt_class();
         *buf = 138543362;
-        v41 = v25;
+        v40 = v25;
         v26 = v25;
         _os_log_impl(&dword_269C02000, v24, OS_LOG_TYPE_DEFAULT, "[%{public}@] Skipping saving unchanged sleep duration goal", buf, 0xCu);
       }
@@ -604,14 +596,14 @@ LABEL_75:
     v27 = *MEMORY[0x277CCC320];
     if (os_log_type_enabled(*MEMORY[0x277CCC320], OS_LOG_TYPE_ERROR))
     {
-      v36 = v27;
-      v37 = objc_opt_class();
+      v35 = v27;
+      v36 = objc_opt_class();
       *buf = 138543618;
-      v41 = v37;
-      v42 = 2114;
-      v43 = v17;
-      v38 = v37;
-      _os_log_error_impl(&dword_269C02000, v36, OS_LOG_TYPE_ERROR, "[%{public}@] Error retrieving latest sleep duration goal: %{public}@", buf, 0x16u);
+      v40 = v36;
+      v41 = 2114;
+      v42 = v17;
+      v37 = v36;
+      _os_log_error_impl(&dword_269C02000, v35, OS_LOG_TYPE_ERROR, "[%{public}@] Error retrieving latest sleep duration goal: %{public}@", buf, 0x16u);
     }
 
     if (error)
@@ -626,11 +618,28 @@ LABEL_75:
     }
   }
 
-  v34 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 - (void)remote_startSleepTrackingSession
+{
+  v8 = *MEMORY[0x277D85DE8];
+  _HKInitializeLogging();
+  v3 = *MEMORY[0x277CCC320];
+  if (os_log_type_enabled(*MEMORY[0x277CCC320], OS_LOG_TYPE_DEFAULT))
+  {
+    v4 = v3;
+    *v7 = 138543362;
+    *&v7[4] = objc_opt_class();
+    v5 = *&v7[4];
+    _os_log_impl(&dword_269C02000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] sleep tracking session started", v7, 0xCu);
+  }
+
+  v6 = [(HDSHProfileExtension *)self->_profileExtension accessibilityAssertionManager:*v7];
+  [v6 beginObservingContentProtectionState];
+}
+
+- (void)remote_stopSleepTrackingSession
 {
   v9 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
@@ -641,36 +650,14 @@ LABEL_75:
     *v8 = 138543362;
     *&v8[4] = objc_opt_class();
     v5 = *&v8[4];
-    _os_log_impl(&dword_269C02000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] sleep tracking session started", v8, 0xCu);
+    _os_log_impl(&dword_269C02000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] sleep tracking session stopped", v8, 0xCu);
   }
 
-  accessibilityAssertionManager = [(HDSHProfileExtension *)self->_profileExtension accessibilityAssertionManager];
-  [accessibilityAssertionManager beginObservingContentProtectionState];
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)remote_stopSleepTrackingSession
-{
-  v10 = *MEMORY[0x277D85DE8];
-  _HKInitializeLogging();
-  v3 = *MEMORY[0x277CCC320];
-  if (os_log_type_enabled(*MEMORY[0x277CCC320], OS_LOG_TYPE_DEFAULT))
-  {
-    v4 = v3;
-    *v9 = 138543362;
-    *&v9[4] = objc_opt_class();
-    v5 = *&v9[4];
-    _os_log_impl(&dword_269C02000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] sleep tracking session stopped", v9, 0xCu);
-  }
+  v6 = [(HDSHProfileExtension *)self->_profileExtension accessibilityAssertionManager:*v8];
+  [v6 stopObservingContentProtectionState];
 
   accessibilityAssertionManager = [(HDSHProfileExtension *)self->_profileExtension accessibilityAssertionManager];
-  [accessibilityAssertionManager stopObservingContentProtectionState];
-
-  accessibilityAssertionManager2 = [(HDSHProfileExtension *)self->_profileExtension accessibilityAssertionManager];
-  [accessibilityAssertionManager2 invalidateAccessibilityAssertion];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [accessibilityAssertionManager invalidateAccessibilityAssertion];
 }
 
 - (void)remote_saveSleepTrackingSamples:(id)samples replacingSamplesInDateInterval:(id)interval completion:(id)completion
@@ -696,7 +683,7 @@ LABEL_75:
 
 - (void)_saveSleepTrackingSamplesAfterFirstUnlock:(id)unlock replacingSamplesInDateInterval:(id)interval completion:(id)completion
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   unlockCopy = unlock;
   intervalCopy = interval;
   completionCopy = completion;
@@ -709,12 +696,12 @@ LABEL_75:
     {
       v13 = v11;
       *buf = 138543874;
-      v28 = objc_opt_class();
-      v29 = 2112;
-      v30 = intervalCopy;
-      v31 = 2112;
-      v32 = unlockCopy;
-      v14 = v28;
+      v27 = objc_opt_class();
+      v28 = 2112;
+      v29 = intervalCopy;
+      v30 = 2112;
+      v31 = unlockCopy;
+      v14 = v27;
       v15 = "[%{public}@] replacing sleep tracking samples in %@ with %@";
       v16 = v13;
       v17 = 32;
@@ -727,10 +714,10 @@ LABEL_6:
   {
     v13 = v11;
     *buf = 138543618;
-    v28 = objc_opt_class();
-    v29 = 2112;
-    v30 = unlockCopy;
-    v14 = v28;
+    v27 = objc_opt_class();
+    v28 = 2112;
+    v29 = unlockCopy;
+    v14 = v27;
     v15 = "[%{public}@] saving sleep tracking samples %@";
     v16 = v13;
     v17 = 22;
@@ -743,17 +730,16 @@ LABEL_6:
   v20 = [MEMORY[0x277CCDA00] hd_sourceForClient:self->_client bundleIdentifier:0];
   v21 = [[HDSHReplaceSleepSamplesOperation alloc] initWithSleepSamplesToInsert:unlockCopy source:v20 replacementInterval:intervalCopy accessibilityAssertion:accessibilityAssertion];
   WeakRetained = objc_loadWeakRetained(&self->_profile);
-  v26 = 0;
-  v23 = [(HDJournalableOperation *)v21 performOrJournalWithProfile:WeakRetained error:&v26];
-  v24 = v26;
+  v25 = 0;
+  v23 = [(HDJournalableOperation *)v21 performOrJournalWithProfile:WeakRetained error:&v25];
+  v24 = v25;
 
   completionCopy[2](completionCopy, v23, v24);
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_replaceSamples:(id)samples withSamples:(id)withSamples error:(id *)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   samplesCopy = samples;
   withSamplesCopy = withSamples;
   _HKInitializeLogging();
@@ -762,24 +748,24 @@ LABEL_6:
   {
     v11 = v10;
     *buf = 138543874;
-    v25 = objc_opt_class();
-    v26 = 2112;
-    v27 = samplesCopy;
-    v28 = 2112;
-    v29 = withSamplesCopy;
-    v12 = v25;
+    v24 = objc_opt_class();
+    v25 = 2112;
+    v26 = samplesCopy;
+    v27 = 2112;
+    v28 = withSamplesCopy;
+    v12 = v24;
     _os_log_impl(&dword_269C02000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] Replacing old samples: %@ with new samples: %@", buf, 0x20u);
   }
 
-  v23 = 0;
-  v13 = [(HDSHPluginServer *)self _insertSamplesWithClientSource:withSamplesCopy error:&v23];
-  v14 = v23;
+  v22 = 0;
+  v13 = [(HDSHPluginServer *)self _insertSamplesWithClientSource:withSamplesCopy error:&v22];
+  v14 = v22;
   v15 = v14;
   if (v13)
   {
-    v22 = v14;
-    v16 = [(HDSHPluginServer *)self _deleteSamples:samplesCopy error:&v22];
-    v17 = v22;
+    v21 = v14;
+    v16 = [(HDSHPluginServer *)self _deleteSamples:samplesCopy error:&v21];
+    v17 = v21;
 
     v15 = v17;
   }
@@ -804,39 +790,37 @@ LABEL_6:
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (BOOL)_deleteSamples:(id)samples error:(id *)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = [samples hk_map:&__block_literal_global];
   _HKInitializeLogging();
   v7 = *MEMORY[0x277CCC320];
   if (os_log_type_enabled(*MEMORY[0x277CCC320], OS_LOG_TYPE_DEFAULT))
   {
     v8 = v7;
-    *v16 = 138543618;
-    *&v16[4] = objc_opt_class();
-    *&v16[12] = 2112;
-    *&v16[14] = v6;
-    v9 = *&v16[4];
-    _os_log_impl(&dword_269C02000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Deleting UUIDs: %@", v16, 0x16u);
+    *v15 = 138543618;
+    *&v15[4] = objc_opt_class();
+    *&v15[12] = 2112;
+    *&v15[14] = v6;
+    v9 = *&v15[4];
+    _os_log_impl(&dword_269C02000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Deleting UUIDs: %@", v15, 0x16u);
   }
 
-  v10 = [(HDStandardTaskServer *)self profile:*v16];
+  v10 = [(HDStandardTaskServer *)self profile:*v15];
   dataManager = [v10 dataManager];
   v12 = objc_alloc_init(MEMORY[0x277D10688]);
   v13 = [dataManager deleteObjectsWithUUIDCollection:v6 configuration:v12 error:error];
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (BOOL)_insertSamplesWithClientSource:(id)source error:(id *)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   sourceManager = [WeakRetained sourceManager];
@@ -850,14 +834,14 @@ LABEL_6:
     v12 = v11;
     v13 = objc_opt_class();
     client = self->_client;
-    v30 = 138543874;
-    v31 = v13;
-    v32 = 2112;
-    v33 = client;
-    v34 = 2112;
-    v35 = v9;
+    v29 = 138543874;
+    v30 = v13;
+    v31 = 2112;
+    v32 = client;
+    v33 = 2112;
+    v34 = v9;
     v15 = v13;
-    _os_log_impl(&dword_269C02000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Inserting for client: %@, source: %@", &v30, 0x20u);
+    _os_log_impl(&dword_269C02000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Inserting for client: %@, source: %@", &v29, 0x20u);
   }
 
   if (v9)
@@ -879,11 +863,11 @@ LABEL_6:
       v25 = MEMORY[0x277CCABB0];
       v26 = v24;
       v27 = [v25 numberWithBool:v21];
-      v30 = 138543618;
-      v31 = v24;
-      v32 = 2112;
-      v33 = v27;
-      _os_log_impl(&dword_269C02000, v23, OS_LOG_TYPE_DEFAULT, "[%{public}@] Success inserting: %@", &v30, 0x16u);
+      v29 = 138543618;
+      v30 = v24;
+      v31 = 2112;
+      v32 = v27;
+      _os_log_impl(&dword_269C02000, v23, OS_LOG_TYPE_DEFAULT, "[%{public}@] Success inserting: %@", &v29, 0x16u);
     }
   }
 
@@ -892,7 +876,6 @@ LABEL_6:
     LOBYTE(v21) = 0;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v21;
 }
 

@@ -13,6 +13,7 @@
 - (void)_loadCornerOverlayView;
 - (void)_loadSnapshotContentViews;
 - (void)_prepareForEditing;
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group;
 - (void)_setupScene;
 - (void)_tappedWithSender:(id)sender;
 - (void)_unloadCornerOverlayView;
@@ -156,6 +157,16 @@
   }
 }
 
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group
+{
+  discardCopy = discard;
+  v7.receiver = self;
+  v7.super_class = NTKSnowglobeFaceView;
+  groupCopy = group;
+  [(NTKSnowglobeFaceView *)&v7 _renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy];
+  [(CLKUIQuadView *)self->_quadView renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy, v7.receiver, v7.super_class];
+}
+
 - (void)setOverrideDate:(id)date duration:(double)duration
 {
   v7.receiver = self;
@@ -287,14 +298,13 @@
   if (mode == 15)
   {
     background = [optionCopy background];
-    sceneController = self->_sceneController;
-    v13 = 0.0;
+    v12 = 0.0;
     if (!background)
     {
-      v13 = 1.0;
+      v12 = 1.0;
     }
 
-    [(NTKSnowglobeSceneController *)self->_sceneController setBackgroundObjectOpacity:v13];
+    [(NTKSnowglobeSceneController *)self->_sceneController setBackgroundObjectOpacity:v12];
   }
 
   else if (mode == 10)

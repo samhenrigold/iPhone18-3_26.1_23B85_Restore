@@ -47,18 +47,18 @@ LABEL_7:
 
 - (id)_treeNodeWithPropertyList:(id)list error:(id *)error itemCreation:(id)creation
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   listCopy = list;
   creationCopy = creation;
   v10 = objc_alloc_init(AFDictionarySchema);
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __84__AFTreeNodePropertyListSerialization__treeNodeWithPropertyList_error_itemCreation___block_invoke;
-  v36[3] = &unk_1E73462F8;
-  v36[4] = self;
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __84__AFTreeNodePropertyListSerialization__treeNodeWithPropertyList_error_itemCreation___block_invoke;
+  v35[3] = &unk_1E73462F8;
+  v35[4] = self;
   v11 = creationCopy;
-  v37 = v11;
-  v12 = [AFCoercion coercionWithBlock:v36];
+  v36 = v11;
+  v12 = [AFCoercion coercionWithBlock:v35];
   [(AFDictionarySchema *)v10 setObjectCoercion:v12 forKey:@"ChildNodes"];
 
   v13 = objc_alloc_init(AFTreeNode);
@@ -68,8 +68,8 @@ LABEL_7:
   {
     v16 = [v14 objectForKey:@"Item"];
     v17 = 0;
-    v30 = v16;
-    v31 = listCopy;
+    v29 = v16;
+    v30 = listCopy;
     if (v11)
     {
       v18 = v16;
@@ -92,29 +92,29 @@ LABEL_7:
       }
     }
 
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     v22 = [v15 objectForKey:@"ChildNodes"];
-    v23 = [v22 countByEnumeratingWithState:&v32 objects:v38 count:16];
+    v23 = [v22 countByEnumeratingWithState:&v31 objects:v37 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v33;
+      v25 = *v32;
       do
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v33 != v25)
+          if (*v32 != v25)
           {
             objc_enumerationMutation(v22);
           }
 
-          [(AFTreeNode *)v13 addChildNode:*(*(&v32 + 1) + 8 * i)];
+          [(AFTreeNode *)v13 addChildNode:*(*(&v31 + 1) + 8 * i)];
         }
 
-        v24 = [v22 countByEnumeratingWithState:&v32 objects:v38 count:16];
+        v24 = [v22 countByEnumeratingWithState:&v31 objects:v37 count:16];
       }
 
       while (v24);
@@ -129,15 +129,13 @@ LABEL_7:
     v13 = v13;
 
     v20 = v13;
-    listCopy = v31;
+    listCopy = v30;
   }
 
   else
   {
     v20 = 0;
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
@@ -225,7 +223,7 @@ void __84__AFTreeNodePropertyListSerialization__treeNodeWithPropertyList_error_i
 
 - (id)_propertyListWithTreeNode:(id)node itemPropertyListCreation:(id)creation
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   nodeCopy = node;
   creationCopy = creation;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
@@ -245,28 +243,26 @@ void __84__AFTreeNodePropertyListSerialization__treeNodeWithPropertyList_error_i
       if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v22 = "[AFTreeNodePropertyListSerialization _propertyListWithTreeNode:itemPropertyListCreation:]";
-        v23 = 2112;
-        v24 = v10;
+        v21 = "[AFTreeNodePropertyListSerialization _propertyListWithTreeNode:itemPropertyListCreation:]";
+        v22 = 2112;
+        v23 = v10;
         _os_log_impl(&dword_1912FE000, v12, OS_LOG_TYPE_INFO, "%s item property list creation block returned nil for item %@", buf, 0x16u);
       }
     }
   }
 
   v13 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(nodeCopy, "numberOfChildNodes")}];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __90__AFTreeNodePropertyListSerialization__propertyListWithTreeNode_itemPropertyListCreation___block_invoke;
-  v18[3] = &unk_1E73462A8;
-  v19 = v13;
-  v20 = creationCopy;
-  v18[4] = self;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __90__AFTreeNodePropertyListSerialization__propertyListWithTreeNode_itemPropertyListCreation___block_invoke;
+  v17[3] = &unk_1E73462A8;
+  v18 = v13;
+  v19 = creationCopy;
+  v17[4] = self;
   v14 = v13;
   v15 = creationCopy;
-  [nodeCopy enumerateChildNodesUsingBlock:v18];
+  [nodeCopy enumerateChildNodesUsingBlock:v17];
   [dictionary setObject:v14 forKey:@"ChildNodes"];
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }

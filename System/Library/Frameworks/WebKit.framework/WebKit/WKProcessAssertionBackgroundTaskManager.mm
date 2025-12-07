@@ -96,13 +96,13 @@ uint64_t __47__WKProcessAssertionBackgroundTaskManager_init__block_invoke(uint64
   return [v2 _updateBackgroundTask];
 }
 
-uint64_t __47__WKProcessAssertionBackgroundTaskManager_init__block_invoke_2(uint64_t a1)
+WebKit::WebProcessPool *__47__WKProcessAssertionBackgroundTaskManager_init__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) _hasBackgroundTask];
   if ((result & 1) == 0)
   {
 
-    return WebKit::WebProcessPool::notifyProcessPoolsApplicationIsAboutToSuspend(result);
+    return WebKit::WebProcessPool::notifyProcessPoolsApplicationIsAboutToSuspend(result, v2);
   }
 
   return result;
@@ -118,43 +118,43 @@ uint64_t __47__WKProcessAssertionBackgroundTaskManager_init__block_invoke_2(uint
 
 - (void)addAssertionNeedingBackgroundTask:(void *)task
 {
-  v5 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::NetworkDataTask,(WTF::DestructionThread)1>::controlBlock(task + 1);
-  if (WTF::ThreadSafeWeakPtrControlBlock::objectHasStartedDeletion(v5))
+  v6 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::NetworkDataTask,(WTF::DestructionThread)1>::controlBlock(task + 1, v3);
+  if (WTF::ThreadSafeWeakPtrControlBlock::objectHasStartedDeletion(v6))
   {
     __break(0xC471u);
     return;
   }
 
-  v6 = 0;
-  atomic_compare_exchange_strong_explicit(&self->_assertionsNeedingBackgroundTask.m_lock, &v6, 1u, memory_order_acquire, memory_order_acquire);
-  if (v6)
+  v7 = 0;
+  atomic_compare_exchange_strong_explicit(&self->_assertionsNeedingBackgroundTask.m_lock, &v7, 1u, memory_order_acquire, memory_order_acquire);
+  if (v7)
   {
     MEMORY[0x19EB01E30](&self->_assertionsNeedingBackgroundTask.m_lock);
   }
 
-  v7 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::NetworkDataTask,(WTF::DestructionThread)1>::controlBlock(task + 1);
-  v8 = WTF::ThreadSafeWeakPtrControlBlock::weakRef(v7);
+  v8 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::NetworkDataTask,(WTF::DestructionThread)1>::controlBlock(task + 1, v7);
+  v9 = WTF::ThreadSafeWeakPtrControlBlock::weakRef(v8);
   m_maxOperationCountWithoutCleanup = self->_assertionsNeedingBackgroundTask.m_maxOperationCountWithoutCleanup;
-  v10 = self->_assertionsNeedingBackgroundTask.m_operationCountSinceLastCleanup + 1;
-  self->_assertionsNeedingBackgroundTask.m_operationCountSinceLastCleanup = v10;
+  v11 = self->_assertionsNeedingBackgroundTask.m_operationCountSinceLastCleanup + 1;
+  self->_assertionsNeedingBackgroundTask.m_operationCountSinceLastCleanup = v11;
   m_table = self->_assertionsNeedingBackgroundTask.m_set.m_impl.m_table;
-  if (v10 > m_maxOperationCountWithoutCleanup)
+  if (v11 > m_maxOperationCountWithoutCleanup)
   {
     if (m_table)
     {
-      v12 = *(m_table - 1);
-      if (!v12)
+      v13 = *(m_table - 1);
+      if (!v13)
       {
 LABEL_18:
-        v18 = *(m_table - 1);
-        if (6 * *(m_table - 3) < v18 && v18 > 8)
+        v19 = *(m_table - 1);
+        if (6 * *(m_table - 3) < v19 && v19 > 8)
         {
           WTF::HashTable<std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebCore::RealtimeMediaSource const*>,std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebCore::RealtimeMediaSource const*>,WTF::IdentityExtractor,WTF::DefaultHash<std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebCore::RealtimeMediaSource const*>>,WTF::HashTraits<std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebCore::RealtimeMediaSource const*>>,WTF::HashTraits<std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebCore::RealtimeMediaSource const*>>,WTF::FastMalloc>::shrinkToBestSize(&self->_assertionsNeedingBackgroundTask);
           m_table = self->_assertionsNeedingBackgroundTask.m_set.m_impl.m_table;
           self->_assertionsNeedingBackgroundTask.m_operationCountSinceLastCleanup = 0;
           if (!m_table)
           {
-            v20 = 0;
+            v21 = 0;
             goto LABEL_28;
           }
         }
@@ -164,49 +164,49 @@ LABEL_18:
           self->_assertionsNeedingBackgroundTask.m_operationCountSinceLastCleanup = 0;
         }
 
-        v20 = *(m_table - 3);
-        if (v20 > 0x7FFFFFFE)
+        v21 = *(m_table - 3);
+        if (v21 > 0x7FFFFFFE)
         {
-          v21 = -2;
+          v22 = -2;
 LABEL_29:
-          self->_assertionsNeedingBackgroundTask.m_maxOperationCountWithoutCleanup = v21;
+          self->_assertionsNeedingBackgroundTask.m_maxOperationCountWithoutCleanup = v22;
           m_table = self->_assertionsNeedingBackgroundTask.m_set.m_impl.m_table;
           goto LABEL_30;
         }
 
 LABEL_28:
-        v21 = 2 * v20;
+        v22 = 2 * v21;
         goto LABEL_29;
       }
 
-      v13 = 0;
-      v14 = &m_table[4 * v12 - 4];
+      v14 = 0;
+      v15 = &m_table[4 * v13 - 4];
       do
       {
-        if (*v14 != -1 && *v14 != 0 && WTF::ThreadSafeWeakPtrControlBlock::objectHasStartedDeletion(*v14))
+        if (*v15 != -1 && *v15 != 0 && WTF::ThreadSafeWeakPtrControlBlock::objectHasStartedDeletion(*v15))
         {
-          v16 = *v14;
-          *v14 = 0;
-          if (v16)
+          v17 = *v15;
+          *v15 = 0;
+          if (v17)
           {
-            WTF::ThreadSafeWeakPtrControlBlock::weakDeref(v16, v15);
+            WTF::ThreadSafeWeakPtrControlBlock::weakDeref(v17, v16);
           }
 
-          *v14 = -1;
-          ++v13;
+          *v15 = -1;
+          ++v14;
         }
 
-        v14 -= 2;
-        --v12;
+        v15 -= 2;
+        --v13;
       }
 
-      while (v12);
+      while (v13);
       m_table = self->_assertionsNeedingBackgroundTask.m_set.m_impl.m_table;
-      if (v13)
+      if (v14)
       {
-        v17 = *(m_table - 3) - v13;
-        *(m_table - 4) += v13;
-        *(m_table - 3) = v17;
+        v18 = *(m_table - 3) - v14;
+        *(m_table - 4) += v14;
+        *(m_table - 3) = v18;
         goto LABEL_18;
       }
 
@@ -216,7 +216,7 @@ LABEL_28:
       }
     }
 
-    v20 = 0;
+    v21 = 0;
     self->_assertionsNeedingBackgroundTask.m_operationCountSinceLastCleanup = 0;
     goto LABEL_28;
   }
@@ -228,69 +228,69 @@ LABEL_30:
     m_table = self->_assertionsNeedingBackgroundTask.m_set.m_impl.m_table;
   }
 
-  v22 = *(m_table - 2);
-  v23 = WTF::PairHash<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebCore::RealtimeMediaSource const*>::hash(v8, task) & v22;
-  v24 = &m_table[4 * v23];
-  v25 = *v24;
-  v26 = v24[1];
-  if (*v24 != 0)
+  v23 = *(m_table - 2);
+  v24 = WTF::PairHash<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebCore::RealtimeMediaSource const*>::hash(v9, task) & v23;
+  v25 = &m_table[4 * v24];
+  v26 = *v25;
+  v27 = v25[1];
+  if (*v25 != 0)
   {
-    v27 = 0;
-    v28 = 1;
-    while (v25 != v8 || v26 != task)
+    v28 = 0;
+    v29 = 1;
+    while (v26 != v9 || v27 != task)
     {
-      if (v25 == -1)
+      if (v26 == -1)
       {
-        v27 = v24;
+        v28 = v25;
       }
 
-      v23 = (v23 + v28) & v22;
-      v24 = &m_table[4 * v23];
-      v25 = *v24;
-      v26 = v24[1];
-      ++v28;
-      if (*v24 == 0)
+      v24 = (v24 + v29) & v23;
+      v25 = &m_table[4 * v24];
+      v26 = *v25;
+      v27 = v25[1];
+      ++v29;
+      if (*v25 == 0)
       {
-        if (v27)
+        if (v28)
         {
-          *v27 = 0;
-          v27[1] = 0;
+          *v28 = 0;
+          v28[1] = 0;
           --*(self->_assertionsNeedingBackgroundTask.m_set.m_impl.m_table - 4);
-          v24 = v27;
+          v25 = v28;
         }
 
         goto LABEL_41;
       }
     }
 
-    if (v8)
+    if (v9)
     {
-      WTF::ThreadSafeWeakPtrControlBlock::weakDeref(v8, v24);
+      WTF::ThreadSafeWeakPtrControlBlock::weakDeref(v9, v25);
     }
 
     goto LABEL_49;
   }
 
 LABEL_41:
-  *v24 = v8;
-  v29 = self->_assertionsNeedingBackgroundTask.m_set.m_impl.m_table;
-  v24[1] = task;
-  if (v29)
+  *v25 = v9;
+  v30 = self->_assertionsNeedingBackgroundTask.m_set.m_impl.m_table;
+  v25[1] = task;
+  if (v30)
   {
-    v30 = *(v29 - 3) + 1;
+    v31 = *(v30 - 3) + 1;
   }
 
   else
   {
-    v30 = 1;
+    v31 = 1;
   }
 
-  *(v29 - 3) = v30;
-  v31 = (*(v29 - 4) + v30);
-  v32 = *(v29 - 1);
-  if (v32 > 0x400)
+  *(v30 - 3) = v31;
+  v32 = (*(v30 - 4) + v31);
+  v33 = *(v30 - 1);
+  if (v33 > 0x400)
   {
-    if (v32 > 2 * v31)
+    if (v33 > 2 * v32)
     {
       goto LABEL_49;
     }
@@ -298,16 +298,16 @@ LABEL_41:
     goto LABEL_46;
   }
 
-  if (3 * v32 <= 4 * v31)
+  if (3 * v33 <= 4 * v32)
   {
 LABEL_46:
     WTF::HashTable<std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebCore::RealtimeMediaSource const*>,std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebCore::RealtimeMediaSource const*>,WTF::IdentityExtractor,WTF::DefaultHash<std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebCore::RealtimeMediaSource const*>>,WTF::HashTraits<std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebCore::RealtimeMediaSource const*>>,WTF::HashTraits<std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebCore::RealtimeMediaSource const*>>,WTF::FastMalloc>::expand(&self->_assertionsNeedingBackgroundTask);
   }
 
 LABEL_49:
-  v33 = 1;
-  atomic_compare_exchange_strong_explicit(&self->_assertionsNeedingBackgroundTask.m_lock, &v33, 0, memory_order_release, memory_order_relaxed);
-  if (v33 != 1)
+  v34 = 1;
+  atomic_compare_exchange_strong_explicit(&self->_assertionsNeedingBackgroundTask.m_lock, &v34, 0, memory_order_release, memory_order_relaxed);
+  if (v34 != 1)
   {
     WTF::Lock::unlockSlow(&self->_assertionsNeedingBackgroundTask.m_lock);
   }
@@ -411,36 +411,37 @@ LABEL_27:
   }
 
 LABEL_28:
-  if (*(task + 1))
+  v19 = *(task + 1);
+  if (v19)
   {
     goto LABEL_64;
   }
 
-  v19 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::NetworkDataTask,(WTF::DestructionThread)1>::controlBlock(task + 1);
-  if (!WTF::ThreadSafeWeakPtrControlBlock::weakRefCount(v19))
+  v20 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::NetworkDataTask,(WTF::DestructionThread)1>::controlBlock(task + 1, v19);
+  if (!WTF::ThreadSafeWeakPtrControlBlock::weakRefCount(v20))
   {
     goto LABEL_64;
   }
 
-  v20 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::NetworkDataTask,(WTF::DestructionThread)1>::controlBlock(task + 1);
-  v21 = WTF::ThreadSafeWeakPtrControlBlock::weakRef(v20);
-  v23 = v21;
-  v24 = self->_assertionsNeedingBackgroundTask.m_set.m_impl.m_table;
-  if (!v24)
+  v22 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::NetworkDataTask,(WTF::DestructionThread)1>::controlBlock(task + 1, v21);
+  v23 = WTF::ThreadSafeWeakPtrControlBlock::weakRef(v22);
+  v25 = v23;
+  v26 = self->_assertionsNeedingBackgroundTask.m_set.m_impl.m_table;
+  if (!v26)
   {
-    v27 = 0;
+    v29 = 0;
     goto LABEL_44;
   }
 
-  v25 = *(v24 - 2);
-  v26 = WTF::PairHash<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebCore::RealtimeMediaSource const*>::hash(v21, task) & v25;
-  v27 = &v24[4 * v26];
-  v28 = *v27;
-  v29 = *(v27 + 1);
-  if (*v27 == v23 && v29 == task)
+  v27 = *(v26 - 2);
+  v28 = WTF::PairHash<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebCore::RealtimeMediaSource const*>::hash(v23, task) & v27;
+  v29 = &v26[4 * v28];
+  v30 = *v29;
+  v31 = *(v29 + 1);
+  if (*v29 == v25 && v31 == task)
   {
 LABEL_44:
-    if (!v23)
+    if (!v25)
     {
       goto LABEL_46;
     }
@@ -448,47 +449,47 @@ LABEL_44:
     goto LABEL_45;
   }
 
-  v31 = 1;
-  while (v28 | v29)
+  v33 = 1;
+  while (v30 | v31)
   {
-    v26 = (v26 + v31) & v25;
-    v27 = &v24[4 * v26];
-    v28 = *v27;
-    v29 = *(v27 + 1);
-    ++v31;
-    if (*v27 == v23 && v29 == task)
+    v28 = (v28 + v33) & v27;
+    v29 = &v26[4 * v28];
+    v30 = *v29;
+    v31 = *(v29 + 1);
+    ++v33;
+    if (*v29 == v25 && v31 == task)
     {
       goto LABEL_44;
     }
   }
 
-  v27 = &v24[4 * *(v24 - 1)];
-  if (v23)
+  v29 = &v26[4 * *(v26 - 1)];
+  if (v25)
   {
 LABEL_45:
-    WTF::ThreadSafeWeakPtrControlBlock::weakDeref(v23, v22);
-    v24 = self->_assertionsNeedingBackgroundTask.m_set.m_impl.m_table;
+    WTF::ThreadSafeWeakPtrControlBlock::weakDeref(v25, v24);
+    v26 = self->_assertionsNeedingBackgroundTask.m_set.m_impl.m_table;
   }
 
 LABEL_46:
-  if (v24)
+  if (v26)
   {
-    v33 = &v24[4 * *(v24 - 1)];
+    v35 = &v26[4 * *(v26 - 1)];
   }
 
   else
   {
-    v33 = 0;
+    v35 = 0;
   }
 
-  if (v33 != v27)
+  if (v35 != v29)
   {
-    WTF::ThreadSafeWeakPtrControlBlock::objectHasStartedDeletion(*v27);
-    v35 = self->_assertionsNeedingBackgroundTask.m_set.m_impl.m_table;
-    if (v35)
+    WTF::ThreadSafeWeakPtrControlBlock::objectHasStartedDeletion(*v29);
+    v37 = self->_assertionsNeedingBackgroundTask.m_set.m_impl.m_table;
+    if (v37)
     {
-      v36 = &v35[16 * *(v35 - 1)];
-      if (v36 == v27)
+      v38 = &v37[16 * *(v37 - 1)];
+      if (v38 == v29)
       {
         goto LABEL_64;
       }
@@ -496,39 +497,39 @@ LABEL_46:
 
     else
     {
-      if (!v27)
+      if (!v29)
       {
         goto LABEL_64;
       }
 
-      v36 = 0;
+      v38 = 0;
     }
 
-    if (v36 != v27)
+    if (v38 != v29)
     {
-      v37 = *v27;
-      *v27 = 0;
-      if (v37)
+      v39 = *v29;
+      *v29 = 0;
+      if (v39)
       {
-        WTF::ThreadSafeWeakPtrControlBlock::weakDeref(v37, v34);
+        WTF::ThreadSafeWeakPtrControlBlock::weakDeref(v39, v36);
       }
 
-      *v27 = -1;
-      v38 = self->_assertionsNeedingBackgroundTask.m_set.m_impl.m_table;
-      v39 = vadd_s32(v38[-2], 0xFFFFFFFF00000001);
-      v38[-2] = v39;
-      v40 = v38[-1].u32[1];
-      if (6 * v39.i32[1] < v40 && v40 >= 9)
+      *v29 = -1;
+      v40 = self->_assertionsNeedingBackgroundTask.m_set.m_impl.m_table;
+      v41 = vadd_s32(v40[-2], 0xFFFFFFFF00000001);
+      v40[-2] = v41;
+      v42 = v40[-1].u32[1];
+      if (6 * v41.i32[1] < v42 && v42 >= 9)
       {
-        WTF::HashTable<std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebCore::RealtimeMediaSource const*>,std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebCore::RealtimeMediaSource const*>,WTF::IdentityExtractor,WTF::DefaultHash<std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebCore::RealtimeMediaSource const*>>,WTF::HashTraits<std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebCore::RealtimeMediaSource const*>>,WTF::HashTraits<std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebCore::RealtimeMediaSource const*>>,WTF::FastMalloc>::rehash(&self->_assertionsNeedingBackgroundTask, v40 >> 1);
+        WTF::HashTable<std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebCore::RealtimeMediaSource const*>,std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebCore::RealtimeMediaSource const*>,WTF::IdentityExtractor,WTF::DefaultHash<std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebCore::RealtimeMediaSource const*>>,WTF::HashTraits<std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebCore::RealtimeMediaSource const*>>,WTF::HashTraits<std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebCore::RealtimeMediaSource const*>>,WTF::FastMalloc>::rehash(&self->_assertionsNeedingBackgroundTask, v42 >> 1);
       }
     }
   }
 
 LABEL_64:
-  v42 = 1;
-  atomic_compare_exchange_strong_explicit(p_m_lock, &v42, 0, memory_order_release, memory_order_relaxed);
-  if (v42 != 1)
+  v44 = 1;
+  atomic_compare_exchange_strong_explicit(p_m_lock, &v44, 0, memory_order_release, memory_order_relaxed);
+  if (v44 != 1)
   {
 
     WTF::Lock::unlockSlow(p_m_lock);
@@ -538,8 +539,8 @@ LABEL_64:
 - (void)_notifyAssertionsOfImminentSuspension
 {
   v3 = 0;
-  v39 = 0;
   v40 = 0;
+  v41 = 0;
   p_m_lock = &self->_assertionsNeedingBackgroundTask.m_lock;
   atomic_compare_exchange_strong_explicit(&self->_assertionsNeedingBackgroundTask.m_lock, &v3, 1u, memory_order_acquire, memory_order_acquire);
   if (v3)
@@ -547,8 +548,8 @@ LABEL_64:
     MEMORY[0x19EB01E30](&self->_assertionsNeedingBackgroundTask.m_lock, a2);
   }
 
-  v41 = 0;
   v42 = 0;
+  v43 = 0;
   m_table = self->_assertionsNeedingBackgroundTask.m_set.m_impl.m_table;
   if (!m_table)
   {
@@ -558,23 +559,24 @@ LABEL_64:
   v6 = *(m_table - 3);
   if (v6)
   {
-    if (v6 >> 29)
+    v7 = (v6 >> 29);
+    if (v7)
     {
       __break(0xC471u);
       return;
     }
 
-    v7 = WTF::fastMalloc((8 * v6));
-    LODWORD(v42) = v6;
-    v41 = v7;
-    v8 = self->_assertionsNeedingBackgroundTask.m_set.m_impl.m_table;
-    v9 = WTF::HashTable<std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebKit::ProcessAndUIAssertion const*>,std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebKit::ProcessAndUIAssertion const*>,WTF::IdentityExtractor,WTF::DefaultHash<std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebKit::ProcessAndUIAssertion const*>>,WTF::HashTraits<std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebKit::ProcessAndUIAssertion const*>>,WTF::HashTraits<std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebKit::ProcessAndUIAssertion const*>>,WTF::FastMalloc>::begin(v8);
-    v10 = v9;
-    v11 = a2;
-    if (v8)
+    v8 = WTF::fastMalloc(v7, (8 * v6));
+    LODWORD(v43) = v6;
+    v42 = v8;
+    v9 = self->_assertionsNeedingBackgroundTask.m_set.m_impl.m_table;
+    v10 = WTF::HashTable<std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebKit::ProcessAndUIAssertion const*>,std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebKit::ProcessAndUIAssertion const*>,WTF::IdentityExtractor,WTF::DefaultHash<std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebKit::ProcessAndUIAssertion const*>>,WTF::HashTraits<std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebKit::ProcessAndUIAssertion const*>>,WTF::HashTraits<std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebKit::ProcessAndUIAssertion const*>>,WTF::FastMalloc>::begin(v9);
+    v11 = v10;
+    v12 = a2;
+    if (v9)
     {
-      v12 = &v8[2 * *(v8 - 1)];
-      if (v12 == v9)
+      v13 = &v9[2 * *(v9 - 1)];
+      if (v13 == v10)
       {
         goto LABEL_32;
       }
@@ -582,145 +584,145 @@ LABEL_64:
 
     else
     {
-      if (!v9)
+      if (!v10)
       {
 LABEL_32:
-        v14 = 0;
+        v15 = 0;
 LABEL_34:
-        v41 = 0;
-        LODWORD(v42) = 0;
-        WTF::fastFree(v7, a2);
+        v42 = 0;
+        LODWORD(v43) = 0;
+        WTF::fastFree(v8, a2);
         goto LABEL_35;
       }
 
-      v12 = 0;
+      v13 = 0;
     }
 
     goto LABEL_14;
   }
 
-  v13 = WTF::HashTable<std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebKit::ProcessAndUIAssertion const*>,std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebKit::ProcessAndUIAssertion const*>,WTF::IdentityExtractor,WTF::DefaultHash<std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebKit::ProcessAndUIAssertion const*>>,WTF::HashTraits<std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebKit::ProcessAndUIAssertion const*>>,WTF::HashTraits<std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebKit::ProcessAndUIAssertion const*>>,WTF::FastMalloc>::begin(self->_assertionsNeedingBackgroundTask.m_set.m_impl.m_table);
-  v12 = &m_table[4 * *(m_table - 1)];
-  if (v12 == v13)
+  v14 = WTF::HashTable<std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebKit::ProcessAndUIAssertion const*>,std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebKit::ProcessAndUIAssertion const*>,WTF::IdentityExtractor,WTF::DefaultHash<std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebKit::ProcessAndUIAssertion const*>>,WTF::HashTraits<std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebKit::ProcessAndUIAssertion const*>>,WTF::HashTraits<std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebKit::ProcessAndUIAssertion const*>>,WTF::FastMalloc>::begin(self->_assertionsNeedingBackgroundTask.m_set.m_impl.m_table);
+  v13 = &m_table[4 * *(m_table - 1)];
+  if (v13 == v14)
   {
 LABEL_11:
-    v14 = 0;
+    v15 = 0;
     goto LABEL_35;
   }
 
-  v10 = v13;
-  v11 = a2;
-  v7 = 0;
+  v11 = v14;
+  v12 = a2;
+  v8 = 0;
 LABEL_14:
-  v14 = 0;
-  LODWORD(v15) = 0;
+  v15 = 0;
+  LODWORD(v16) = 0;
   do
   {
-    WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::LibWebRTCCodecsProxy>(&v44, *v10, *(v10 + 1));
-    if (v44)
+    WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::LibWebRTCCodecsProxy>(&v45, *v11, *(v11 + 1));
+    if (v45)
     {
-      v43 = v44;
-      if (v15 == v42)
+      v44 = v45;
+      if (v16 == v43)
       {
-        v16 = WTF::Vector<WTF::Ref<WebCore::ApplePayError,WTF::RawPtrTraits<WebCore::ApplePayError>,WTF::DefaultRefDerefTraits<WebCore::ApplePayError>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v41, v15 + 1, &v43);
-        v15 = HIDWORD(v42);
-        v7 = v41;
-        v17 = *v16;
-        *v16 = 0;
-        *(v7 + v15) = v17;
+        v17 = WTF::Vector<WTF::Ref<WebCore::ApplePayError,WTF::RawPtrTraits<WebCore::ApplePayError>,WTF::DefaultRefDerefTraits<WebCore::ApplePayError>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v42, v16 + 1, &v44);
+        v16 = HIDWORD(v43);
+        v8 = v42;
+        v18 = *v17;
+        *v17 = 0;
+        v8[v16] = v18;
       }
 
       else
       {
-        v43 = 0;
-        *(v7 + v15) = v44;
+        v44 = 0;
+        v8[v16] = v45;
       }
 
-      LODWORD(v15) = v15 + 1;
-      HIDWORD(v42) = v15;
-      v18 = v43;
-      v43 = 0;
-      if (v18)
+      LODWORD(v16) = v16 + 1;
+      HIDWORD(v43) = v16;
+      v19 = v44;
+      v44 = 0;
+      if (v19)
       {
-        WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::ProcessAssertion,(WTF::DestructionThread)0>::deref((v18 + 8), a2);
+        WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::ProcessAssertion,(WTF::DestructionThread)0>::deref((v19 + 8), a2);
       }
     }
 
     else
     {
-      v14 = 1;
+      v15 = 1;
     }
 
     do
     {
-      v10 += 4;
-      if (v10 == v11)
+      v11 += 4;
+      if (v11 == v12)
       {
         break;
       }
     }
 
-    while (*v10 == -1 || *v10 == 0);
+    while (*v11 == -1 || *v11 == 0);
   }
 
-  while (v10 != v12);
-  if (v42 <= v15)
+  while (v11 != v13);
+  if (v43 <= v16)
   {
     goto LABEL_35;
   }
 
-  if (v15)
+  if (v16)
   {
-    LODWORD(v42) = v15;
-    v41 = WTF::fastRealloc(v7, (8 * v15));
+    LODWORD(v43) = v16;
+    v42 = WTF::fastRealloc(v8, (8 * v16));
   }
 
-  else if (v7)
+  else if (v8)
   {
     goto LABEL_34;
   }
 
 LABEL_35:
-  v20 = v39;
-  if (HIDWORD(v40))
+  v21 = v40;
+  if (HIDWORD(v41))
   {
-    v21 = 8 * HIDWORD(v40);
-    v22 = v39;
+    v22 = 8 * HIDWORD(v41);
+    v23 = v40;
     do
     {
-      v23 = *v22;
-      *v22 = 0;
-      if (v23)
+      v24 = *v23;
+      *v23 = 0;
+      if (v24)
       {
-        WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::ProcessAssertion,(WTF::DestructionThread)0>::deref((v23 + 8), a2);
+        WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::ProcessAssertion,(WTF::DestructionThread)0>::deref((v24 + 8), a2);
       }
 
-      v22 = (v22 + 8);
-      v21 -= 8;
+      v23 = (v23 + 8);
+      v22 -= 8;
     }
 
-    while (v21);
+    while (v22);
   }
 
-  if (v20)
+  if (v21)
   {
-    v39 = 0;
-    LODWORD(v40) = 0;
-    WTF::fastFree(v20, a2);
+    v40 = 0;
+    LODWORD(v41) = 0;
+    WTF::fastFree(v21, a2);
   }
 
-  v39 = v41;
-  v24 = v42;
-  v41 = 0;
+  v40 = v42;
+  v25 = v43;
   v42 = 0;
-  v40 = v24;
-  WTF::Vector<WTF::Ref<WebKit::ProcessAndUIAssertion,WTF::RawPtrTraits<WebKit::ProcessAndUIAssertion>,WTF::DefaultRefDerefTraits<WebKit::ProcessAndUIAssertion>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v41, a2);
-  v26 = self->_assertionsNeedingBackgroundTask.m_set.m_impl.m_table;
-  if ((v14 & 1) == 0)
+  v43 = 0;
+  v41 = v25;
+  WTF::Vector<WTF::Ref<WebKit::ProcessAndUIAssertion,WTF::RawPtrTraits<WebKit::ProcessAndUIAssertion>,WTF::DefaultRefDerefTraits<WebKit::ProcessAndUIAssertion>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v42, a2);
+  v27 = self->_assertionsNeedingBackgroundTask.m_set.m_impl.m_table;
+  if ((v15 & 1) == 0)
   {
 LABEL_63:
     self->_assertionsNeedingBackgroundTask.m_operationCountSinceLastCleanup = 0;
-    if (!v26)
+    if (!v27)
     {
       goto LABEL_65;
     }
@@ -728,105 +730,105 @@ LABEL_63:
     goto LABEL_64;
   }
 
-  if (!v26)
+  if (!v27)
   {
     goto LABEL_61;
   }
 
-  v27 = *(v26 - 1);
-  if (!v27)
+  v28 = *(v27 - 1);
+  if (!v28)
   {
     goto LABEL_56;
   }
 
-  v28 = 0;
-  v29 = &v26[4 * v27 - 4];
+  v29 = 0;
+  v30 = &v27[4 * v28 - 4];
   do
   {
-    if (*v29 != -1 && *v29 != 0 && WTF::ThreadSafeWeakPtrControlBlock::objectHasStartedDeletion(*v29))
+    if (*v30 != -1 && *v30 != 0 && WTF::ThreadSafeWeakPtrControlBlock::objectHasStartedDeletion(*v30))
     {
-      v30 = *v29;
-      *v29 = 0;
-      if (v30)
+      v31 = *v30;
+      *v30 = 0;
+      if (v31)
       {
-        WTF::ThreadSafeWeakPtrControlBlock::weakDeref(v30, v25);
+        WTF::ThreadSafeWeakPtrControlBlock::weakDeref(v31, v26);
       }
 
-      *v29 = -1;
-      ++v28;
+      *v30 = -1;
+      ++v29;
     }
 
-    v29 -= 2;
-    --v27;
+    v30 -= 2;
+    --v28;
   }
 
-  while (v27);
-  v26 = self->_assertionsNeedingBackgroundTask.m_set.m_impl.m_table;
-  if (v28)
+  while (v28);
+  v27 = self->_assertionsNeedingBackgroundTask.m_set.m_impl.m_table;
+  if (v29)
   {
-    v31 = *(v26 - 3) - v28;
-    *(v26 - 4) += v28;
-    *(v26 - 3) = v31;
+    v32 = *(v27 - 3) - v29;
+    *(v27 - 4) += v29;
+    *(v27 - 3) = v32;
     goto LABEL_56;
   }
 
-  if (!v26)
+  if (!v27)
   {
 LABEL_61:
-    LODWORD(v26) = 0;
+    LODWORD(v27) = 0;
     self->_assertionsNeedingBackgroundTask.m_operationCountSinceLastCleanup = 0;
     goto LABEL_65;
   }
 
 LABEL_56:
-  v32 = *(v26 - 1);
-  if (6 * *(v26 - 3) < v32 && v32 > 8)
+  v33 = *(v27 - 1);
+  if (6 * *(v27 - 3) < v33 && v33 > 8)
   {
     WTF::HashTable<std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebCore::RealtimeMediaSource const*>,std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebCore::RealtimeMediaSource const*>,WTF::IdentityExtractor,WTF::DefaultHash<std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebCore::RealtimeMediaSource const*>>,WTF::HashTraits<std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebCore::RealtimeMediaSource const*>>,WTF::HashTraits<std::pair<WTF::RefPtr<WTF::ThreadSafeWeakPtrControlBlock,WTF::RawPtrTraits<WTF::ThreadSafeWeakPtrControlBlock>,WTF::ThreadSafeWeakPtrControlBlockRefDerefTraits>,WebCore::RealtimeMediaSource const*>>,WTF::FastMalloc>::shrinkToBestSize(&self->_assertionsNeedingBackgroundTask);
-    v26 = self->_assertionsNeedingBackgroundTask.m_set.m_impl.m_table;
+    v27 = self->_assertionsNeedingBackgroundTask.m_set.m_impl.m_table;
     goto LABEL_63;
   }
 
   self->_assertionsNeedingBackgroundTask.m_operationCountSinceLastCleanup = 0;
 LABEL_64:
-  LODWORD(v26) = *(v26 - 3);
-  if (v26 > 0x7FFFFFFE)
+  LODWORD(v27) = *(v27 - 3);
+  if (v27 > 0x7FFFFFFE)
   {
-    v34 = -2;
+    v35 = -2;
     goto LABEL_67;
   }
 
 LABEL_65:
-  v34 = 2 * v26;
+  v35 = 2 * v27;
 LABEL_67:
-  self->_assertionsNeedingBackgroundTask.m_maxOperationCountWithoutCleanup = v34;
-  v35 = 1;
-  atomic_compare_exchange_strong_explicit(&self->_assertionsNeedingBackgroundTask.m_lock, &v35, 0, memory_order_release, memory_order_relaxed);
-  if (v35 != 1)
+  self->_assertionsNeedingBackgroundTask.m_maxOperationCountWithoutCleanup = v35;
+  v36 = 1;
+  atomic_compare_exchange_strong_explicit(&self->_assertionsNeedingBackgroundTask.m_lock, &v36, 0, memory_order_release, memory_order_relaxed);
+  if (v36 != 1)
   {
     WTF::Lock::unlockSlow(p_m_lock);
   }
 
-  if (HIDWORD(v40))
+  if (HIDWORD(v41))
   {
-    v36 = v39;
-    v37 = 8 * HIDWORD(v40);
+    v37 = v40;
+    v38 = 8 * HIDWORD(v41);
     do
     {
-      v38 = *(*v36 + 176);
-      if (v38)
+      v39 = *(*v37 + 176);
+      if (v39)
       {
-        (*(*v38 + 16))(v38);
+        (*(*v39 + 16))(v39);
       }
 
-      v36 = (v36 + 8);
-      v37 -= 8;
+      v37 = (v37 + 8);
+      v38 -= 8;
     }
 
-    while (v37);
+    while (v38);
   }
 
-  WTF::Vector<WTF::Ref<WebKit::ProcessAndUIAssertion,WTF::RawPtrTraits<WebKit::ProcessAndUIAssertion>,WTF::DefaultRefDerefTraits<WebKit::ProcessAndUIAssertion>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v39, v25);
+  WTF::Vector<WTF::Ref<WebKit::ProcessAndUIAssertion,WTF::RawPtrTraits<WebKit::ProcessAndUIAssertion>,WTF::DefaultRefDerefTraits<WebKit::ProcessAndUIAssertion>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v40, v26);
 }
 
 - (void)_scheduleReleaseTask
@@ -877,29 +879,29 @@ LABEL_67:
 
 - (void)_handleBackgroundTaskExpiration
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   [objc_msgSend(objc_msgSend(MEMORY[0x1E69C75D0] "currentProcess")];
   v4 = v3;
   v5 = qword_1ED641030;
   v6 = os_log_type_enabled(qword_1ED641030, OS_LOG_TYPE_DEFAULT);
   if (v6)
   {
-    v7 = WTF::RunLoop::mainSingleton(v6);
-    LODWORD(v9) = 67109376;
-    HIDWORD(v9) = WTF::RunLoop::isCurrent(v7);
-    v10 = 2048;
-    v11 = v4;
-    _os_log_impl(&dword_19D52D000, v5, OS_LOG_TYPE_DEFAULT, "WKProcessAssertionBackgroundTaskManager: Background task expired while holding WebKit ProcessAssertion (isMainThread=%d, remainingTime=%g).", &v9, 0x12u);
+    v8 = WTF::RunLoop::mainSingleton(v6);
+    LODWORD(v10) = 67109376;
+    HIDWORD(v10) = WTF::RunLoop::isCurrent(v8);
+    v11 = 2048;
+    v12 = v4;
+    _os_log_impl(&dword_19D52D000, v5, OS_LOG_TYPE_DEFAULT, "WKProcessAssertionBackgroundTaskManager: Background task expired while holding WebKit ProcessAssertion (isMainThread=%d, remainingTime=%g).", &v10, 0x12u);
   }
 
-  v8 = WTF::fastMalloc(0x10);
-  *v8 = &unk_1F1100BD0;
-  v8[1] = self;
-  v9 = v8;
+  v9 = WTF::fastMalloc(v7, 0x10);
+  *v9 = &unk_1F1100BD0;
+  v9[1] = self;
+  v10 = v9;
   WTF::callOnMainRunLoopAndWait();
-  if (v9)
+  if (v10)
   {
-    (*(*v9 + 8))(v9);
+    (*(*v10 + 8))(v10);
   }
 }
 
@@ -917,36 +919,36 @@ LABEL_67:
 
 - (void)_releaseBackgroundTask
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if ([(WKProcessAssertionBackgroundTaskManager *)self _hasBackgroundTask])
   {
     v3 = qword_1ED641030;
     if (os_log_type_enabled(qword_1ED641030, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 134217984;
+      v10 = 134217984;
       selfCopy = self;
-      _os_log_impl(&dword_19D52D000, v3, OS_LOG_TYPE_DEFAULT, "%p - WKProcessAssertionBackgroundTaskManager: endBackgroundTask", &v9, 0xCu);
+      _os_log_impl(&dword_19D52D000, v3, OS_LOG_TYPE_DEFAULT, "%p - WKProcessAssertionBackgroundTaskManager: endBackgroundTask", &v10, 0xCu);
     }
 
     v4 = [objc_msgSend(objc_msgSend(MEMORY[0x1E69C75D0] "currentProcess")];
-    if (v5 != *MEMORY[0x1E69C7698])
+    if (v6 != *MEMORY[0x1E69C7698])
     {
-      WebKit::WebProcessPool::notifyProcessPoolsApplicationIsAboutToSuspend(v4);
+      WebKit::WebProcessPool::notifyProcessPoolsApplicationIsAboutToSuspend(v4, v5);
       m_ptr = self->m_processStateMonitor.m_ptr;
       if (m_ptr)
       {
-        v7 = (m_ptr + 8);
+        v8 = (m_ptr + 8);
         ++*(m_ptr + 2);
         WebKit::ProcessStateMonitor::processWillBeSuspendedImmediately(m_ptr);
-        WTF::RefCounted<WebKit::ProcessStateMonitor>::deref(v7);
+        WTF::RefCounted<WebKit::ProcessStateMonitor>::deref(v8);
       }
     }
 
     [(RBSAssertion *)self->_backgroundTask.m_ptr removeObserver:self];
     [(RBSAssertion *)self->_backgroundTask.m_ptr invalidate];
-    v8 = self->_backgroundTask.m_ptr;
+    v9 = self->_backgroundTask.m_ptr;
     self->_backgroundTask.m_ptr = 0;
-    if (v8)
+    if (v9)
     {
     }
   }
@@ -959,7 +961,7 @@ LABEL_67:
   {
     if (!m_ptr)
     {
-      v5 = WTF::fastMalloc(0x10);
+      v5 = WTF::fastMalloc(0, 0x10);
       *v5 = &unk_1F1100C20;
       v10 = v5;
       if (WebKit::ProcessStateMonitor::s_heapRef)
@@ -1013,7 +1015,7 @@ LABEL_67:
 
 - (uint64_t)_updateBackgroundTask
 {
-  result = WTF::ThreadSafeWeakHashSet<WebKit::ProcessAndUIAssertion>::isEmptyIgnoringNullReferences(*(self + 8) + 24);
+  result = WTF::ThreadSafeWeakHashSet<WebKit::ProcessAndUIAssertion>::isEmptyIgnoringNullReferences((*(self + 8) + 24));
   if (result)
   {
     v3 = *(self + 8);
@@ -1038,6 +1040,7 @@ LABEL_67:
 
 - (uint64_t)setProcessStateMonitorEnabled:(uint64_t)enabled
 {
+  v2 = a2;
   WebKit::WebProcessPool::allProcessPools(&v7);
   if (v8)
   {
@@ -1045,7 +1048,7 @@ LABEL_67:
     v5 = 8 * v8;
     do
     {
-      WebKit::WebProcessPool::setProcessesShouldSuspend(*v4++, a2);
+      WebKit::WebProcessPool::setProcessesShouldSuspend(*v4++, v2);
       v5 -= 8;
     }
 

@@ -6,7 +6,7 @@
 
 - (AMSUIWebMetricsEvent)initWithJSObject:(id)object context:(id)context
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   contextCopy = context;
   v8 = [objectCopy objectForKeyedSubscript:@"topic"];
@@ -23,9 +23,9 @@
 
   if (v9)
   {
-    v30.receiver = self;
-    v30.super_class = AMSUIWebMetricsEvent;
-    v10 = [(AMSUIWebMetricsEvent *)&v30 initWithTopic:v9];
+    v29.receiver = self;
+    v29.super_class = AMSUIWebMetricsEvent;
+    v10 = [(AMSUIWebMetricsEvent *)&v29 initWithTopic:v9];
     if (v10)
     {
       v11 = [objectCopy objectForKeyedSubscript:@"account"];
@@ -112,18 +112,17 @@
       v17 = objc_opt_class();
       v18 = AMSLogKey();
       *buf = 138543874;
-      v32 = v17;
-      v33 = 2114;
-      v34 = v18;
-      v35 = 2112;
-      v36 = objectCopy;
+      v31 = v17;
+      v32 = 2114;
+      v33 = v18;
+      v34 = 2112;
+      v35 = objectCopy;
       _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Metrics event does not contain topic: %@", buf, 0x20u);
     }
 
     selfCopy = 0;
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

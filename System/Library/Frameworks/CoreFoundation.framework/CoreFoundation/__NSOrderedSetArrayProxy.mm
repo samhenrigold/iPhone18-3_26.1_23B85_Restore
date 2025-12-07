@@ -7,12 +7,11 @@
 
 - (void)dealloc
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
 
-  v4.receiver = self;
-  v4.super_class = __NSOrderedSetArrayProxy;
-  [(__NSOrderedSetArrayProxy *)&v4 dealloc];
-  v3 = *MEMORY[0x1E69E9840];
+  v3.receiver = self;
+  v3.super_class = __NSOrderedSetArrayProxy;
+  [(__NSOrderedSetArrayProxy *)&v3 dealloc];
 }
 
 - (id)copyWithZone:(_NSZone *)zone

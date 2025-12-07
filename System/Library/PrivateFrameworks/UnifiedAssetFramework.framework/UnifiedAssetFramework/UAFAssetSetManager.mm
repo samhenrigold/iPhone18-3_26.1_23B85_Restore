@@ -21,6 +21,7 @@
 + (void)autoAssetDetailsForAssetNamed:(id)named assetSet:(id)set usages:(id)usages autoAssetType:(id *)type autoAssetSpecifier:(id *)specifier;
 + (void)configureAssetDelivery:(id)delivery configurationManager:(id)manager;
 + (void)configureAssetDelivery:(id)delivery configurationManager:(id)manager lockIfUnchanged:(BOOL)unchanged;
++ (void)configureAssetDelivery:(id)delivery configurationManager:(id)manager lockIfUnchanged:(BOOL)unchanged oldSubscriptions:(id)subscriptions newSubscriptions:(id)newSubscriptions userInitiated:(BOOL)initiated;
 + (void)disableCacheDelete:(BOOL)delete forAutoAssetType:(id)type autoAssetSpecifier:(id)specifier;
 + (void)processAssetSet:(id)set allAssets:(id)assets;
 - (BOOL)cacheDeleteDisabledForAssetNamed:(id)named assetSet:(id)set usages:(id)usages;
@@ -40,6 +41,7 @@
 - (id)subscriptionsForSubscriber:(id)subscriber;
 - (unint64_t)downloadStatusForSubscriber:(id)subscriber subscriptionName:(id)name;
 - (unint64_t)downloadStatusForSubscribers:(id)subscribers;
+- (void)disableCacheDelete:(BOOL)delete forAssetNamed:(id)named assetSet:(id)set usages:(id)usages queue:(id)queue completion:(id)completion;
 - (void)downloadStatusForSubscriber:(id)subscriber subscriptionName:(id)name queue:(id)queue completion:(id)completion;
 - (void)downloadStatusForSubscribers:(id)subscribers queue:(id)queue completion:(id)completion;
 - (void)markAssetsExpired:(id)expired completion:(id)completion;
@@ -50,6 +52,7 @@
 - (void)subscribe:(id)subscribe subscriptions:(id)subscriptions queue:(id)queue completion:(id)completion;
 - (void)subscribe:(id)subscribe subscriptions:(id)subscriptions user:(id)user userInitiated:(BOOL)initiated queue:(id)queue completion:(id)completion;
 - (void)unsubscribe:(id)unsubscribe subscriptionNames:(id)names queue:(id)queue completion:(id)completion;
+- (void)unsubscribe:(id)unsubscribe subscriptionNames:(id)names user:(id)user userInitiated:(BOOL)initiated queue:(id)queue completion:(id)completion;
 - (void)updateAssetsForSubscriber:(id)subscriber subscriptionName:(id)name policies:(id)policies queue:(id)queue detailedProgress:(id)progress completion:(id)completion;
 - (void)updateAssetsForSubscriber:(id)subscriber subscriptionName:(id)name policies:(id)policies queue:(id)queue progress:(id)progress completion:(id)completion;
 - (void)updateAssetsForSubscriber:(id)subscriber subscriptionName:(id)name policies:(id)policies queue:(id)queue progress:(id)progress detailedProgress:(id)detailedProgress completion:(id)completion storeManager:(id)self0 configurationManager:(id)self1;
@@ -170,40 +173,40 @@ void __36__UAFAssetSetManager_getSerialQueue__block_invoke()
 
 + (id)_subscriptionDiffersFromDB:(id)b subscriber:(id)subscriber user:(id)user error:(id *)error
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   bCopy = b;
   subscriberCopy = subscriber;
   userCopy = user;
   v11 = +[UAFSubscriptionStoreManager defaultManager];
-  v30 = objc_opt_new();
+  v29 = objc_opt_new();
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   obj = bCopy;
-  v12 = [obj countByEnumeratingWithState:&v33 objects:v45 count:16];
+  v12 = [obj countByEnumeratingWithState:&v32 objects:v44 count:16];
   if (v12)
   {
     v13 = v12;
     errorCopy = error;
     v14 = 0;
-    v15 = *v34;
+    v15 = *v33;
     while (2)
     {
       v16 = 0;
       v17 = v14;
       do
       {
-        if (*v34 != v15)
+        if (*v33 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v33 + 1) + 8 * v16);
+        v18 = *(*(&v32 + 1) + 8 * v16);
         v19 = objc_autoreleasePoolPush();
-        v32 = v17;
-        v20 = [v18 isValid:0 error:&v32];
-        v14 = v32;
+        v31 = v17;
+        v20 = [v18 isValid:0 error:&v31];
+        v14 = v31;
 
         if ((v20 & 1) == 0)
         {
@@ -211,18 +214,18 @@ void __36__UAFAssetSetManager_getSerialQueue__block_invoke()
           if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315906;
-            v38 = "+[UAFAssetSetManager _subscriptionDiffersFromDB:subscriber:user:error:]";
-            v39 = 2114;
-            v40 = subscriberCopy;
-            v41 = 2114;
-            v42 = v18;
-            v43 = 2114;
-            v44 = v14;
+            v37 = "+[UAFAssetSetManager _subscriptionDiffersFromDB:subscriber:user:error:]";
+            v38 = 2114;
+            v39 = subscriberCopy;
+            v40 = 2114;
+            v41 = v18;
+            v42 = 2114;
+            v43 = v14;
             _os_log_error_impl(&dword_1BCF2C000, v23, OS_LOG_TYPE_ERROR, "%s Subscription invalid for subscriber %{public}@, subscription:%{public}@: %{public}@", buf, 0x2Au);
           }
 
           objc_autoreleasePoolPop(v19);
-          v30 = 0;
+          v29 = 0;
           goto LABEL_16;
         }
 
@@ -231,7 +234,7 @@ void __36__UAFAssetSetManager_getSerialQueue__block_invoke()
 
         if (!v22 || ([v18 isEqual:v22] & 1) == 0)
         {
-          [v30 addObject:v18];
+          [v29 addObject:v18];
         }
 
         objc_autoreleasePoolPop(v19);
@@ -240,7 +243,7 @@ void __36__UAFAssetSetManager_getSerialQueue__block_invoke()
       }
 
       while (v13 != v16);
-      v13 = [obj countByEnumeratingWithState:&v33 objects:v45 count:16];
+      v13 = [obj countByEnumeratingWithState:&v32 objects:v44 count:16];
       if (v13)
       {
         continue;
@@ -264,9 +267,7 @@ LABEL_16:
     *error = v14;
   }
 
-  allObjects = [v30 allObjects];
-
-  v26 = *MEMORY[0x1E69E9840];
+  allObjects = [v29 allObjects];
 
   return allObjects;
 }
@@ -337,13 +338,13 @@ void __42__UAFAssetSetManager_getComparableUsages___block_invoke(uint64_t a1, vo
 
 void __99__UAFAssetSetManager_subscribe_subscriptions_user_storeManager_configurationManager_userInitiated___block_invoke(uint64_t a1)
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
   v4 = *(a1 + 48);
-  v53 = 0;
-  v5 = [UAFAssetSetManager _subscriptionDiffersFromDB:v2 subscriber:v3 user:v4 error:&v53];
-  v6 = v53;
+  v52 = 0;
+  v5 = [UAFAssetSetManager _subscriptionDiffersFromDB:v2 subscriber:v3 user:v4 error:&v52];
+  v6 = v52;
   if (v5)
   {
     v7 = v6 == 0;
@@ -359,18 +360,18 @@ void __99__UAFAssetSetManager_subscribe_subscriptions_user_storeManager_configur
     if ([v5 count])
     {
       v10 = *(a1 + 56);
-      v52 = 0;
-      v11 = [v10 getAllSubscriptions:&v52];
-      v8 = v52;
+      v51 = 0;
+      v11 = [v10 getAllSubscriptions:&v51];
+      v8 = v51;
       if (v8)
       {
         v12 = UAFGetLogCategory(&UAFLogContextSubscription);
         if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v55 = "+[UAFAssetSetManager subscribe:subscriptions:user:storeManager:configurationManager:userInitiated:]_block_invoke";
-          v56 = 2114;
-          v57 = v8;
+          v54 = "+[UAFAssetSetManager subscribe:subscriptions:user:storeManager:configurationManager:userInitiated:]_block_invoke";
+          v55 = 2114;
+          v56 = v8;
           _os_log_error_impl(&dword_1BCF2C000, v12, OS_LOG_TYPE_ERROR, "%s Could not read subscriptions from database: %{public}@", buf, 0x16u);
         }
 
@@ -380,16 +381,16 @@ void __99__UAFAssetSetManager_subscribe_subscriptions_user_storeManager_configur
       else
       {
         v17 = [MEMORY[0x1E695DF90] dictionary];
-        v49[0] = MEMORY[0x1E69E9820];
-        v49[1] = 3221225472;
-        v49[2] = __99__UAFAssetSetManager_subscribe_subscriptions_user_storeManager_configurationManager_userInitiated___block_invoke_319;
-        v49[3] = &unk_1E7FFE450;
+        v48[0] = MEMORY[0x1E69E9820];
+        v48[1] = 3221225472;
+        v48[2] = __99__UAFAssetSetManager_subscribe_subscriptions_user_storeManager_configurationManager_userInitiated___block_invoke_319;
+        v48[3] = &unk_1E7FFE450;
         v18 = v17;
-        v50 = v18;
-        v38 = v11;
+        v49 = v18;
+        v37 = v11;
         v19 = v11;
-        v51 = v19;
-        [v19 enumerateKeysAndObjectsUsingBlock:v49];
+        v50 = v19;
+        [v19 enumerateKeysAndObjectsUsingBlock:v48];
         v20 = [v19 objectForKeyedSubscript:*(a1 + 48)];
 
         if (!v20 || ([v19 objectForKeyedSubscript:*(a1 + 48)], v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v21, "objectForKeyedSubscript:", *(a1 + 40)), v22 = objc_claimAutoreleasedReturnValue(), v21, !v22))
@@ -397,22 +398,22 @@ void __99__UAFAssetSetManager_subscribe_subscriptions_user_storeManager_configur
           v22 = [MEMORY[0x1E695DEC8] array];
         }
 
-        v37 = v22;
+        v36 = v22;
         v23 = objc_opt_new();
-        v47[0] = MEMORY[0x1E69E9820];
-        v47[1] = 3221225472;
-        v47[2] = __99__UAFAssetSetManager_subscribe_subscriptions_user_storeManager_configurationManager_userInitiated___block_invoke_2;
-        v47[3] = &unk_1E7FFDEF0;
+        v46[0] = MEMORY[0x1E69E9820];
+        v46[1] = 3221225472;
+        v46[2] = __99__UAFAssetSetManager_subscribe_subscriptions_user_storeManager_configurationManager_userInitiated___block_invoke_2;
+        v46[3] = &unk_1E7FFDEF0;
         v24 = v23;
-        v48 = v24;
-        [v22 enumerateObjectsUsingBlock:v47];
-        v45[0] = MEMORY[0x1E69E9820];
-        v45[1] = 3221225472;
-        v45[2] = __99__UAFAssetSetManager_subscribe_subscriptions_user_storeManager_configurationManager_userInitiated___block_invoke_3;
-        v45[3] = &unk_1E7FFDEF0;
+        v47 = v24;
+        [v22 enumerateObjectsUsingBlock:v46];
+        v44[0] = MEMORY[0x1E69E9820];
+        v44[1] = 3221225472;
+        v44[2] = __99__UAFAssetSetManager_subscribe_subscriptions_user_storeManager_configurationManager_userInitiated___block_invoke_3;
+        v44[3] = &unk_1E7FFDEF0;
         v25 = v24;
-        v46 = v25;
-        [v5 enumerateObjectsUsingBlock:v45];
+        v45 = v25;
+        [v5 enumerateObjectsUsingBlock:v44];
         v26 = [v18 objectForKeyedSubscript:*(a1 + 48)];
 
         if (!v26)
@@ -426,21 +427,21 @@ void __99__UAFAssetSetManager_subscribe_subscriptions_user_storeManager_configur
         [v29 setObject:v28 forKeyedSubscript:*(a1 + 40)];
 
         v30 = [UAFSubscriptionStoreManager flattenSubscriptions:v18];
-        v39[0] = MEMORY[0x1E69E9820];
-        v39[1] = 3221225472;
-        v39[2] = __99__UAFAssetSetManager_subscribe_subscriptions_user_storeManager_configurationManager_userInitiated___block_invoke_4;
-        v39[3] = &unk_1E7FFE478;
-        v40 = *(a1 + 48);
-        v41 = *(a1 + 56);
-        v42 = *(a1 + 40);
-        v43 = v5;
-        v44 = *(a1 + 32);
-        v31 = MEMORY[0x1BFB33950](v39);
+        v38[0] = MEMORY[0x1E69E9820];
+        v38[1] = 3221225472;
+        v38[2] = __99__UAFAssetSetManager_subscribe_subscriptions_user_storeManager_configurationManager_userInitiated___block_invoke_4;
+        v38[3] = &unk_1E7FFE478;
+        v39 = *(a1 + 48);
+        v40 = *(a1 + 56);
+        v41 = *(a1 + 40);
+        v42 = v5;
+        v43 = *(a1 + 32);
+        v31 = MEMORY[0x1BFB33950](v38);
         v32 = [UAFSubscriptionStoreManager flattenSubscriptions:v19];
         [UAFAssetSetManager configureAssetDelivery:*(a1 + 56) configurationManager:*(a1 + 64) lockIfUnchanged:0 oldSubscriptions:v32 newSubscriptions:v30 userInitiated:*(a1 + 80)];
         *(*(*(a1 + 72) + 8) + 24) = v31[2](v31);
 
-        v11 = v38;
+        v11 = v37;
       }
     }
 
@@ -453,13 +454,13 @@ void __99__UAFAssetSetManager_subscribe_subscriptions_user_storeManager_configur
         v15 = *(a1 + 40);
         v16 = *(a1 + 48);
         *buf = 136315906;
-        v55 = "+[UAFAssetSetManager subscribe:subscriptions:user:storeManager:configurationManager:userInitiated:]_block_invoke";
-        v56 = 2114;
-        v57 = v14;
-        v58 = 2114;
-        v59 = v15;
-        v60 = 2112;
-        v61 = v16;
+        v54 = "+[UAFAssetSetManager subscribe:subscriptions:user:storeManager:configurationManager:userInitiated:]_block_invoke";
+        v55 = 2114;
+        v56 = v14;
+        v57 = 2114;
+        v58 = v15;
+        v59 = 2112;
+        v60 = v16;
         _os_log_impl(&dword_1BCF2C000, v13, OS_LOG_TYPE_DEFAULT, "%s No subscription changes for subscriptions %{public}@ for subscriber %{public}@ and user: %@", buf, 0x2Au);
       }
 
@@ -474,26 +475,24 @@ void __99__UAFAssetSetManager_subscribe_subscriptions_user_storeManager_configur
     v9 = UAFGetLogCategory(&UAFLogContextSubscription);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v34 = *(a1 + 32);
-      v35 = *(a1 + 40);
-      v36 = *(a1 + 48);
+      v33 = *(a1 + 32);
+      v34 = *(a1 + 40);
+      v35 = *(a1 + 48);
       *buf = 136316162;
-      v55 = "+[UAFAssetSetManager subscribe:subscriptions:user:storeManager:configurationManager:userInitiated:]_block_invoke";
-      v56 = 2114;
-      v57 = v34;
-      v58 = 2114;
-      v59 = v35;
-      v60 = 2112;
-      v61 = v36;
-      v62 = 2114;
-      v63 = v8;
+      v54 = "+[UAFAssetSetManager subscribe:subscriptions:user:storeManager:configurationManager:userInitiated:]_block_invoke";
+      v55 = 2114;
+      v56 = v33;
+      v57 = 2114;
+      v58 = v34;
+      v59 = 2112;
+      v60 = v35;
+      v61 = 2114;
+      v62 = v8;
       _os_log_error_impl(&dword_1BCF2C000, v9, OS_LOG_TYPE_ERROR, "%s Not attempting to update subscriptions for subscriptions %{public}@ for subscriber %{public}@ and user: %@: %{public}@", buf, 0x34u);
     }
 
     *(*(*(a1 + 72) + 8) + 24) = 0;
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 void __99__UAFAssetSetManager_subscribe_subscriptions_user_storeManager_configurationManager_userInitiated___block_invoke_319(uint64_t a1, void *a2)
@@ -524,11 +523,11 @@ void __99__UAFAssetSetManager_subscribe_subscriptions_user_storeManager_configur
 
 uint64_t __99__UAFAssetSetManager_subscribe_subscriptions_user_storeManager_configurationManager_userInitiated___block_invoke_4(uint64_t a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v23 = 0;
-  v3 = [UAFUser nodeForUser:v2 error:&v23];
-  v4 = v23;
+  v22 = 0;
+  v3 = [UAFUser nodeForUser:v2 error:&v22];
+  v4 = v22;
   v5 = v4;
   if (v3)
   {
@@ -547,11 +546,11 @@ uint64_t __99__UAFAssetSetManager_subscribe_subscriptions_user_storeManager_conf
     {
       v8 = *(a1 + 32);
       *buf = 136315650;
-      v25 = "+[UAFAssetSetManager subscribe:subscriptions:user:storeManager:configurationManager:userInitiated:]_block_invoke_4";
-      v26 = 2112;
-      v27 = v8;
-      v28 = 2114;
-      v29 = v5;
+      v24 = "+[UAFAssetSetManager subscribe:subscriptions:user:storeManager:configurationManager:userInitiated:]_block_invoke_4";
+      v25 = 2112;
+      v26 = v8;
+      v27 = 2114;
+      v28 = v5;
       v9 = "%s Failed to determine node for user '%@': %{public}@";
       v10 = v7;
       v11 = 32;
@@ -570,17 +569,17 @@ LABEL_15:
   {
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v20 = *(a1 + 64);
-      v21 = *(a1 + 48);
-      v22 = *(a1 + 32);
+      v19 = *(a1 + 64);
+      v20 = *(a1 + 48);
+      v21 = *(a1 + 32);
       *buf = 136315906;
-      v25 = "+[UAFAssetSetManager subscribe:subscriptions:user:storeManager:configurationManager:userInitiated:]_block_invoke";
-      v26 = 2114;
-      v27 = v20;
-      v28 = 2114;
-      v29 = v21;
-      v30 = 2112;
-      v31 = v22;
+      v24 = "+[UAFAssetSetManager subscribe:subscriptions:user:storeManager:configurationManager:userInitiated:]_block_invoke";
+      v25 = 2114;
+      v26 = v19;
+      v27 = 2114;
+      v28 = v20;
+      v29 = 2112;
+      v30 = v21;
       v9 = "%s Failed to update storage to reflect subscriptions %{public}@ for subscriber %{public}@ and user: %@";
       v10 = v7;
       v11 = 42;
@@ -599,13 +598,13 @@ LABEL_12:
     v15 = *(a1 + 48);
     v16 = *(a1 + 32);
     *buf = 136315906;
-    v25 = "+[UAFAssetSetManager subscribe:subscriptions:user:storeManager:configurationManager:userInitiated:]_block_invoke";
-    v26 = 2114;
-    v27 = v14;
-    v28 = 2114;
-    v29 = v15;
-    v30 = 2112;
-    v31 = v16;
+    v24 = "+[UAFAssetSetManager subscribe:subscriptions:user:storeManager:configurationManager:userInitiated:]_block_invoke";
+    v25 = 2114;
+    v26 = v14;
+    v27 = 2114;
+    v28 = v15;
+    v29 = 2112;
+    v30 = v16;
     _os_log_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_DEFAULT, "%s Updated storage to reflect subscriptions %{public}@ for subscriber %{public}@ and user: %@", buf, 0x2Au);
   }
 
@@ -613,7 +612,6 @@ LABEL_12:
   v17 = 1;
 LABEL_13:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -659,29 +657,29 @@ LABEL_13:
 
 void __101__UAFAssetSetManager_unsubscribe_subscriptions_user_storeManager_configurationManager_userInitiated___block_invoke(uint64_t a1)
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   v2 = objc_opt_new();
   v3 = objc_opt_new();
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v42 objects:v54 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v41 objects:v53 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v43;
+    v7 = *v42;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v43 != v7)
+        if (*v42 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v42 + 1) + 8 * i);
+        v9 = *(*(&v41 + 1) + 8 * i);
         v10 = [*(a1 + 40) getSubscription:v9 subscriber:*(a1 + 48) user:*(a1 + 56) error:0];
         if (v10)
         {
@@ -690,7 +688,7 @@ void __101__UAFAssetSetManager_unsubscribe_subscriptions_user_storeManager_confi
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v42 objects:v54 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v41 objects:v53 count:16];
     }
 
     while (v6);
@@ -699,18 +697,18 @@ void __101__UAFAssetSetManager_unsubscribe_subscriptions_user_storeManager_confi
   if ([v3 count])
   {
     v11 = *(a1 + 40);
-    v41 = 0;
-    v12 = [v11 getAllSubscriptions:&v41];
-    v13 = v41;
+    v40 = 0;
+    v12 = [v11 getAllSubscriptions:&v40];
+    v13 = v40;
     if (v13)
     {
       v14 = UAFGetLogCategory(&UAFLogContextSubscription);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v47 = "+[UAFAssetSetManager unsubscribe:subscriptions:user:storeManager:configurationManager:userInitiated:]_block_invoke";
-        v48 = 2114;
-        v49 = v13;
+        v46 = "+[UAFAssetSetManager unsubscribe:subscriptions:user:storeManager:configurationManager:userInitiated:]_block_invoke";
+        v47 = 2114;
+        v48 = v13;
         _os_log_error_impl(&dword_1BCF2C000, v14, OS_LOG_TYPE_ERROR, "%s Could not read subscriptions from database: %{public}@", buf, 0x16u);
       }
 
@@ -720,16 +718,16 @@ void __101__UAFAssetSetManager_unsubscribe_subscriptions_user_storeManager_confi
     else
     {
       v19 = [MEMORY[0x1E695DF90] dictionary];
-      v38[0] = MEMORY[0x1E69E9820];
-      v38[1] = 3221225472;
-      v38[2] = __101__UAFAssetSetManager_unsubscribe_subscriptions_user_storeManager_configurationManager_userInitiated___block_invoke_327;
-      v38[3] = &unk_1E7FFE450;
+      v37[0] = MEMORY[0x1E69E9820];
+      v37[1] = 3221225472;
+      v37[2] = __101__UAFAssetSetManager_unsubscribe_subscriptions_user_storeManager_configurationManager_userInitiated___block_invoke_327;
+      v37[3] = &unk_1E7FFE450;
       v20 = v19;
-      v39 = v20;
-      v31 = v12;
+      v38 = v20;
+      v30 = v12;
       v21 = v12;
-      v40 = v21;
-      [v21 enumerateKeysAndObjectsUsingBlock:v38];
+      v39 = v21;
+      [v21 enumerateKeysAndObjectsUsingBlock:v37];
       v22 = [v21 objectForKeyedSubscript:*(a1 + 56)];
 
       if (!v22 || ([v21 objectForKeyedSubscript:*(a1 + 56)], v23 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v23, "objectForKeyedSubscript:", *(a1 + 48)), v24 = objc_claimAutoreleasedReturnValue(), v23, !v24))
@@ -743,21 +741,21 @@ void __101__UAFAssetSetManager_unsubscribe_subscriptions_user_storeManager_confi
       [v26 setObject:v25 forKeyedSubscript:*(a1 + 48)];
 
       v27 = [UAFSubscriptionStoreManager flattenSubscriptions:v20];
-      v32[0] = MEMORY[0x1E69E9820];
-      v32[1] = 3221225472;
-      v32[2] = __101__UAFAssetSetManager_unsubscribe_subscriptions_user_storeManager_configurationManager_userInitiated___block_invoke_2;
-      v32[3] = &unk_1E7FFE478;
-      v33 = *(a1 + 40);
-      v34 = *(a1 + 56);
-      v35 = *(a1 + 48);
-      v36 = v2;
-      v37 = *(a1 + 32);
-      v28 = MEMORY[0x1BFB33950](v32);
+      v31[0] = MEMORY[0x1E69E9820];
+      v31[1] = 3221225472;
+      v31[2] = __101__UAFAssetSetManager_unsubscribe_subscriptions_user_storeManager_configurationManager_userInitiated___block_invoke_2;
+      v31[3] = &unk_1E7FFE478;
+      v32 = *(a1 + 40);
+      v33 = *(a1 + 56);
+      v34 = *(a1 + 48);
+      v35 = v2;
+      v36 = *(a1 + 32);
+      v28 = MEMORY[0x1BFB33950](v31);
       v29 = [UAFSubscriptionStoreManager flattenSubscriptions:v21];
       [UAFAssetSetManager configureAssetDelivery:*(a1 + 40) configurationManager:*(a1 + 64) lockIfUnchanged:0 oldSubscriptions:v29 newSubscriptions:v27 userInitiated:*(a1 + 80)];
       *(*(*(a1 + 72) + 8) + 24) = v28[2](v28);
 
-      v12 = v31;
+      v12 = v30;
     }
   }
 
@@ -770,21 +768,19 @@ void __101__UAFAssetSetManager_unsubscribe_subscriptions_user_storeManager_confi
       v17 = *(a1 + 48);
       v18 = *(a1 + 56);
       *buf = 136315906;
-      v47 = "+[UAFAssetSetManager unsubscribe:subscriptions:user:storeManager:configurationManager:userInitiated:]_block_invoke";
-      v48 = 2114;
-      v49 = v16;
-      v50 = 2114;
-      v51 = v17;
-      v52 = 2112;
-      v53 = v18;
+      v46 = "+[UAFAssetSetManager unsubscribe:subscriptions:user:storeManager:configurationManager:userInitiated:]_block_invoke";
+      v47 = 2114;
+      v48 = v16;
+      v49 = 2114;
+      v50 = v17;
+      v51 = 2112;
+      v52 = v18;
       _os_log_impl(&dword_1BCF2C000, v15, OS_LOG_TYPE_DEFAULT, "%s No changes found for subscriptions %{public}@ for subscriber %{public}@ and user: %@", buf, 0x2Au);
     }
 
     v13 = 0;
     *(*(*(a1 + 72) + 8) + 24) = 1;
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void __101__UAFAssetSetManager_unsubscribe_subscriptions_user_storeManager_configurationManager_userInitiated___block_invoke_327(uint64_t a1, void *a2)
@@ -799,12 +795,12 @@ void __101__UAFAssetSetManager_unsubscribe_subscriptions_user_storeManager_confi
 
 uint64_t __101__UAFAssetSetManager_unsubscribe_subscriptions_user_storeManager_configurationManager_userInitiated___block_invoke_2(uint64_t a1)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v26 = 0;
-  v4 = [v2 getUserNodeName:v3 error:&v26];
-  v5 = v26;
+  v25 = 0;
+  v4 = [v2 getUserNodeName:v3 error:&v25];
+  v5 = v25;
   v6 = v5;
   if (v4)
   {
@@ -823,11 +819,11 @@ uint64_t __101__UAFAssetSetManager_unsubscribe_subscriptions_user_storeManager_c
     {
       v9 = *(a1 + 40);
       *buf = 136315650;
-      v28 = "+[UAFAssetSetManager unsubscribe:subscriptions:user:storeManager:configurationManager:userInitiated:]_block_invoke_2";
-      v29 = 2112;
-      v30 = v9;
-      v31 = 2114;
-      v32 = v6;
+      v27 = "+[UAFAssetSetManager unsubscribe:subscriptions:user:storeManager:configurationManager:userInitiated:]_block_invoke_2";
+      v28 = 2112;
+      v29 = v9;
+      v30 = 2114;
+      v31 = v6;
       v10 = "%s Failed to determine node for user '%@': %{public}@";
       v11 = v8;
       v12 = 32;
@@ -850,17 +846,17 @@ LABEL_15:
   {
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v23 = *(a1 + 64);
-      v25 = *(a1 + 40);
-      v24 = *(a1 + 48);
+      v22 = *(a1 + 64);
+      v24 = *(a1 + 40);
+      v23 = *(a1 + 48);
       *buf = 136315906;
-      v28 = "+[UAFAssetSetManager unsubscribe:subscriptions:user:storeManager:configurationManager:userInitiated:]_block_invoke";
-      v29 = 2114;
-      v30 = v23;
-      v31 = 2114;
-      v32 = v24;
-      v33 = 2112;
-      v34 = v25;
+      v27 = "+[UAFAssetSetManager unsubscribe:subscriptions:user:storeManager:configurationManager:userInitiated:]_block_invoke";
+      v28 = 2114;
+      v29 = v22;
+      v30 = 2114;
+      v31 = v23;
+      v32 = 2112;
+      v33 = v24;
       v10 = "%s Failed to update storage to reflect subscriptions %{public}@ for subscriber %{public}@ and user: %@";
       v11 = v8;
       v12 = 42;
@@ -878,31 +874,30 @@ LABEL_12:
     v19 = *(a1 + 40);
     v18 = *(a1 + 48);
     *buf = 136315906;
-    v28 = "+[UAFAssetSetManager unsubscribe:subscriptions:user:storeManager:configurationManager:userInitiated:]_block_invoke";
-    v29 = 2114;
-    v30 = v17;
-    v31 = 2114;
-    v32 = v18;
-    v33 = 2112;
-    v34 = v19;
+    v27 = "+[UAFAssetSetManager unsubscribe:subscriptions:user:storeManager:configurationManager:userInitiated:]_block_invoke";
+    v28 = 2114;
+    v29 = v17;
+    v30 = 2114;
+    v31 = v18;
+    v32 = 2112;
+    v33 = v19;
     _os_log_impl(&dword_1BCF2C000, v8, OS_LOG_TYPE_DEFAULT, "%s Updated storage to reflect removal of subscriptions %{public}@ for subscriber %{public}@ and user: %@", buf, 0x2Au);
   }
 
   v20 = 1;
 LABEL_13:
 
-  v21 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
 + (id)getSubscriptions:(id)subscriptions storeManager:(id)manager
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   subscriptionsCopy = subscriptions;
   managerCopy = manager;
-  v13 = 0;
-  v7 = [UAFUser currentUserWithNode:0 error:&v13];
-  v8 = v13;
+  v12 = 0;
+  v7 = [UAFUser currentUserWithNode:0 error:&v12];
+  v8 = v12;
   if (v7)
   {
     v9 = [UAFAssetSetSubscriptionManager getSubscriptions:subscriptionsCopy user:v7 storeManager:managerCopy error:0];
@@ -914,16 +909,14 @@ LABEL_13:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v15 = "+[UAFAssetSetManager getSubscriptions:storeManager:]";
-      v16 = 2112;
-      v17 = v8;
+      v14 = "+[UAFAssetSetManager getSubscriptions:storeManager:]";
+      v15 = 2112;
+      v16 = v8;
       _os_log_error_impl(&dword_1BCF2C000, v10, OS_LOG_TYPE_ERROR, "%s Unable to identify current user: %@", buf, 0x16u);
     }
 
     v9 = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -944,72 +937,72 @@ LABEL_13:
 
 - (id)assetSetUsagesForSubscribers:(id)subscribers storeManager:(id)manager configurationManager:(id)configurationManager anyUnknown:(BOOL *)unknown error:(id *)error
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   subscribersCopy = subscribers;
   managerCopy = manager;
   configurationManagerCopy = configurationManager;
+  v53 = 0u;
   v54 = 0u;
   v55 = 0u;
   v56 = 0u;
-  v57 = 0u;
   v13 = subscribersCopy;
-  v14 = [v13 countByEnumeratingWithState:&v54 objects:v65 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v53 objects:v64 count:16];
   if (v14)
   {
     v15 = v14;
-    v47 = 0;
-    v16 = *v55;
-    v43 = *v55;
-    v44 = v13;
+    v46 = 0;
+    v16 = *v54;
+    v42 = *v54;
+    v43 = v13;
 LABEL_3:
     v17 = 0;
-    v45 = v15;
+    v44 = v15;
     while (1)
     {
-      if (*v55 != v16)
+      if (*v54 != v16)
       {
         objc_enumerationMutation(v13);
       }
 
-      v46 = v17;
-      v18 = *(*(&v54 + 1) + 8 * v17);
+      v45 = v17;
+      v18 = *(*(&v53 + 1) + 8 * v17);
       v19 = [v13 objectForKeyedSubscript:v18];
       v20 = [v19 count];
 
       if (v20)
       {
-        v51 = 0u;
-        v52 = 0u;
-        v49 = 0u;
         v50 = 0u;
+        v51 = 0u;
+        v48 = 0u;
+        v49 = 0u;
         v21 = [v13 objectForKeyedSubscript:v18];
-        v22 = [v21 countByEnumeratingWithState:&v49 objects:v58 count:16];
+        v22 = [v21 countByEnumeratingWithState:&v48 objects:v57 count:16];
         if (v22)
         {
           v23 = v22;
           v24 = 0;
-          v25 = *v50;
+          v25 = *v49;
           do
           {
             for (i = 0; i != v23; ++i)
             {
               v27 = v24;
-              if (*v50 != v25)
+              if (*v49 != v25)
               {
                 objc_enumerationMutation(v21);
               }
 
-              v24 = [(UAFAssetSetManager *)self subscriptions:*(*(&v49 + 1) + 8 * i) subscriber:v18 user:0 storeManager:managerCopy error:error];
+              v24 = [(UAFAssetSetManager *)self subscriptions:*(*(&v48 + 1) + 8 * i) subscriber:v18 user:0 storeManager:managerCopy error:error];
 
               if (v24 && [v24 count])
               {
-                v28 = v47;
-                if (!v47)
+                v28 = v46;
+                if (!v46)
                 {
                   v28 = objc_opt_new();
                 }
 
-                v47 = v28;
+                v46 = v28;
                 [v28 addObjectsFromArray:v24];
               }
 
@@ -1019,22 +1012,22 @@ LABEL_3:
               }
             }
 
-            v23 = [v21 countByEnumeratingWithState:&v49 objects:v58 count:16];
+            v23 = [v21 countByEnumeratingWithState:&v48 objects:v57 count:16];
           }
 
           while (v23);
 
-          v16 = v43;
-          v13 = v44;
-          v15 = v45;
+          v16 = v42;
+          v13 = v43;
+          v15 = v44;
         }
       }
 
       else
       {
-        v53 = 0;
-        v21 = [(UAFAssetSetManager *)self subscriptions:0 subscriber:v18 user:0 storeManager:managerCopy error:&v53];
-        v29 = v53;
+        v52 = 0;
+        v21 = [(UAFAssetSetManager *)self subscriptions:0 subscriber:v18 user:0 storeManager:managerCopy error:&v52];
+        v29 = v52;
         if (v29)
         {
           v32 = v29;
@@ -1043,15 +1036,15 @@ LABEL_3:
           {
             v34 = geteuid();
             *buf = 136316162;
-            v60 = "[UAFAssetSetManager assetSetUsagesForSubscribers:storeManager:configurationManager:anyUnknown:error:]";
-            v61 = 1024;
-            *v62 = v34;
-            *&v62[4] = 2114;
-            *&v62[6] = v18;
-            *&v62[14] = 2114;
-            *&v62[16] = 0;
-            v63 = 2114;
-            v64 = v32;
+            v59 = "[UAFAssetSetManager assetSetUsagesForSubscribers:storeManager:configurationManager:anyUnknown:error:]";
+            v60 = 1024;
+            *v61 = v34;
+            *&v61[4] = 2114;
+            *&v61[6] = v18;
+            *&v61[14] = 2114;
+            *&v61[16] = 0;
+            v62 = 2114;
+            v63 = v32;
             _os_log_impl(&dword_1BCF2C000, v33, OS_LOG_TYPE_DEFAULT, "%s Unable to get subscriptions for uid: %d Subscriber: '%{public}@' Subscription Name: '%{public}@': %{public}@", buf, 0x30u);
           }
 
@@ -1063,7 +1056,7 @@ LABEL_3:
 
           v36 = 0;
           v37 = configurationManagerCopy;
-          v38 = v47;
+          v38 = v46;
           goto LABEL_43;
         }
 
@@ -1077,21 +1070,21 @@ LABEL_3:
           goto LABEL_28;
         }
 
-        v30 = v47;
-        if (!v47)
+        v30 = v46;
+        if (!v46)
         {
           v30 = objc_opt_new();
         }
 
-        v47 = v30;
+        v46 = v30;
         [v30 addObjectsFromArray:v21];
       }
 
 LABEL_28:
-      v17 = v46 + 1;
-      if (v46 + 1 == v15)
+      v17 = v45 + 1;
+      if (v45 + 1 == v15)
       {
-        v31 = [v13 countByEnumeratingWithState:&v54 objects:v65 count:16];
+        v31 = [v13 countByEnumeratingWithState:&v53 objects:v64 count:16];
         v15 = v31;
         if (v31)
         {
@@ -1103,34 +1096,32 @@ LABEL_28:
     }
   }
 
-  v47 = 0;
+  v46 = 0;
 LABEL_40:
 
   v39 = UAFGetLogCategory(&UAFLogContextClient);
   if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315650;
-    v60 = "[UAFAssetSetManager assetSetUsagesForSubscribers:storeManager:configurationManager:anyUnknown:error:]";
-    v61 = 2114;
-    *v62 = v13;
-    *&v62[8] = 2114;
-    *&v62[10] = v47;
+    v59 = "[UAFAssetSetManager assetSetUsagesForSubscribers:storeManager:configurationManager:anyUnknown:error:]";
+    v60 = 2114;
+    *v61 = v13;
+    *&v61[8] = 2114;
+    *&v61[10] = v46;
     _os_log_debug_impl(&dword_1BCF2C000, v39, OS_LOG_TYPE_DEBUG, "%s Subscriptions for %{public}@: %{public}@", buf, 0x20u);
   }
 
   v37 = configurationManagerCopy;
-  v38 = v47;
-  v36 = [configurationManagerCopy applySubscriptions:v47];
+  v38 = v46;
+  v36 = [configurationManagerCopy applySubscriptions:v46];
 LABEL_43:
-
-  v40 = *MEMORY[0x1E69E9840];
 
   return v36;
 }
 
 - (void)updateAssetsForSubscribers:(id)subscribers policies:(id)policies queue:(id)queue progress:(id)progress detailedProgress:(id)detailedProgress internalProgress:(id)internalProgress completion:(id)completion storeManager:(id)self0 configurationManager:(id)self1
 {
-  v85 = *MEMORY[0x1E69E9840];
+  v84 = *MEMORY[0x1E69E9840];
   subscribersCopy = subscribers;
   policiesCopy = policies;
   queueCopy = queue;
@@ -1178,41 +1169,41 @@ LABEL_4:
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v81 = "[UAFAssetSetManager updateAssetsForSubscribers:policies:queue:progress:detailedProgress:internalProgress:completion:storeManager:configurationManager:]";
-    v82 = 2114;
-    *v83 = v22;
-    *&v83[8] = 2114;
-    *&v83[10] = subscribersCopy;
+    v80 = "[UAFAssetSetManager updateAssetsForSubscribers:policies:queue:progress:detailedProgress:internalProgress:completion:storeManager:configurationManager:]";
+    v81 = 2114;
+    *v82 = v22;
+    *&v82[8] = 2114;
+    *&v82[10] = subscribersCopy;
     _os_log_impl(&dword_1BCF2C000, v23, OS_LOG_TYPE_DEFAULT, "%s %{public}@: updateAssets for subscribers '%{public}@'", buf, 0x20u);
   }
 
-  v55 = queueCopy;
-  v56 = v22;
+  v54 = queueCopy;
+  v55 = v22;
 
-  v78 = 0u;
-  v79 = 0u;
-  v76 = 0u;
   v77 = 0u;
+  v78 = 0u;
+  v75 = 0u;
+  v76 = 0u;
   v24 = policiesCopy;
-  v25 = [v24 countByEnumeratingWithState:&v76 objects:v84 count:16];
+  v25 = [v24 countByEnumeratingWithState:&v75 objects:v83 count:16];
   if (v25)
   {
     v26 = v25;
     v27 = 0;
-    v28 = *v77;
+    v28 = *v76;
     do
     {
       for (i = 0; i != v26; ++i)
       {
-        if (*v77 != v28)
+        if (*v76 != v28)
         {
           objc_enumerationMutation(v24);
         }
 
-        v27 |= [*(*(&v76 + 1) + 8 * i) isEqualToString:@"UseCellular"];
+        v27 |= [*(*(&v75 + 1) + 8 * i) isEqualToString:@"UseCellular"];
       }
 
-      v26 = [v24 countByEnumeratingWithState:&v76 objects:v84 count:16];
+      v26 = [v24 countByEnumeratingWithState:&v75 objects:v83 count:16];
     }
 
     while (v26);
@@ -1225,16 +1216,16 @@ LABEL_4:
 
   if ([subscribersCopy count])
   {
-    v74 = 0;
-    v30 = &v74;
-    v31 = [(UAFAssetSetManager *)self assetSetUsagesForSubscribers:subscribersCopy storeManager:managerCopy configurationManager:v21 anyUnknown:0 error:&v74];
+    v73 = 0;
+    v30 = &v73;
+    v31 = [(UAFAssetSetManager *)self assetSetUsagesForSubscribers:subscribersCopy storeManager:managerCopy configurationManager:v21 anyUnknown:0 error:&v73];
   }
 
   else
   {
-    v75 = 0;
-    v30 = &v75;
-    v31 = [managerCopy getAllSystemAssetSetUsages:&v75];
+    v74 = 0;
+    v30 = &v74;
+    v31 = [managerCopy getAllSystemAssetSetUsages:&v74];
   }
 
   v32 = v31;
@@ -1247,21 +1238,21 @@ LABEL_4:
     {
       v36 = geteuid();
       *buf = 136315906;
-      v81 = "[UAFAssetSetManager updateAssetsForSubscribers:policies:queue:progress:detailedProgress:internalProgress:completion:storeManager:configurationManager:]";
-      v82 = 1024;
-      *v83 = v36;
-      *&v83[4] = 2114;
-      *&v83[6] = subscribersCopy;
-      *&v83[14] = 2114;
-      *&v83[16] = v33;
+      v80 = "[UAFAssetSetManager updateAssetsForSubscribers:policies:queue:progress:detailedProgress:internalProgress:completion:storeManager:configurationManager:]";
+      v81 = 1024;
+      *v82 = v36;
+      *&v82[4] = 2114;
+      *&v82[6] = subscribersCopy;
+      *&v82[14] = 2114;
+      *&v82[16] = v33;
       _os_log_impl(&dword_1BCF2C000, v35, OS_LOG_TYPE_DEFAULT, "%s Unable to get asset set usages for uid: %d Subscribers: '%{public}@': %{public}@", buf, 0x26u);
     }
 
     v38 = completionCopy;
-    v37 = v55;
+    v37 = v54;
     if (completionCopy)
     {
-      dispatch_async(v55, completionCopy);
+      dispatch_async(v54, completionCopy);
     }
   }
 
@@ -1270,37 +1261,37 @@ LABEL_4:
     if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v81 = "[UAFAssetSetManager updateAssetsForSubscribers:policies:queue:progress:detailedProgress:internalProgress:completion:storeManager:configurationManager:]";
-      v82 = 2114;
-      *v83 = v32;
+      v80 = "[UAFAssetSetManager updateAssetsForSubscribers:policies:queue:progress:detailedProgress:internalProgress:completion:storeManager:configurationManager:]";
+      v81 = 2114;
+      *v82 = v32;
       _os_log_debug_impl(&dword_1BCF2C000, v35, OS_LOG_TYPE_DEBUG, "%s All asset set usages now %{public}@", buf, 0x16u);
     }
 
-    v53 = managerCopy;
+    v52 = managerCopy;
 
     subscribersCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@", subscribersCopy];
+    v49 = subscribersCopy;
     v50 = subscribersCopy;
-    v51 = subscribersCopy;
     if (progressCopy || detailedProgressCopy || internalProgressCopy)
     {
       v40 = v32;
       v43 = [UAFAssetSetProgress alloc];
-      v69[0] = MEMORY[0x1E69E9820];
-      v69[1] = 3221225472;
-      v69[2] = __152__UAFAssetSetManager_updateAssetsForSubscribers_policies_queue_progress_detailedProgress_internalProgress_completion_storeManager_configurationManager___block_invoke;
-      v69[3] = &unk_1E7FFE4F0;
-      v70 = v55;
-      v71 = internalProgressCopy;
-      v72 = progressCopy;
-      v73 = detailedProgressCopy;
-      v44 = [(UAFAssetSetProgress *)v43 initWithName:subscribersCopy maxProgressBeforeComplete:100 progressWithStatus:v69];
-      v67[0] = MEMORY[0x1E69E9820];
-      v67[1] = 3221225472;
-      v67[2] = __152__UAFAssetSetManager_updateAssetsForSubscribers_policies_queue_progress_detailedProgress_internalProgress_completion_storeManager_configurationManager___block_invoke_3;
-      v67[3] = &unk_1E7FFE518;
+      v68[0] = MEMORY[0x1E69E9820];
+      v68[1] = 3221225472;
+      v68[2] = __152__UAFAssetSetManager_updateAssetsForSubscribers_policies_queue_progress_detailedProgress_internalProgress_completion_storeManager_configurationManager___block_invoke;
+      v68[3] = &unk_1E7FFE4F0;
+      v69 = v54;
+      v70 = internalProgressCopy;
+      v71 = progressCopy;
+      v72 = detailedProgressCopy;
+      v44 = [(UAFAssetSetProgress *)v43 initWithName:subscribersCopy maxProgressBeforeComplete:100 progressWithStatus:v68];
+      v66[0] = MEMORY[0x1E69E9820];
+      v66[1] = 3221225472;
+      v66[2] = __152__UAFAssetSetManager_updateAssetsForSubscribers_policies_queue_progress_detailedProgress_internalProgress_completion_storeManager_configurationManager___block_invoke_3;
+      v66[3] = &unk_1E7FFE518;
       v41 = v44;
-      v68 = v41;
-      v42 = MEMORY[0x1BFB33950](v67);
+      v67 = v41;
+      v42 = MEMORY[0x1BFB33950](v66);
     }
 
     else
@@ -1312,35 +1303,33 @@ LABEL_4:
 
     v45 = dispatch_group_create();
     dispatch_group_enter(v45);
-    v65[0] = MEMORY[0x1E69E9820];
-    v65[1] = 3221225472;
-    v65[2] = __152__UAFAssetSetManager_updateAssetsForSubscribers_policies_queue_progress_detailedProgress_internalProgress_completion_storeManager_configurationManager___block_invoke_4;
-    v65[3] = &unk_1E7FFCFD0;
-    v66 = v45;
+    v64[0] = MEMORY[0x1E69E9820];
+    v64[1] = 3221225472;
+    v64[2] = __152__UAFAssetSetManager_updateAssetsForSubscribers_policies_queue_progress_detailedProgress_internalProgress_completion_storeManager_configurationManager___block_invoke_4;
+    v64[3] = &unk_1E7FFCFD0;
+    v65 = v45;
     v46 = v45;
-    [UAFAutoAssetManager updateAutoAssetsFromAssetSetUsages:v40 configurationManager:v21 expensiveNetworking:v27 & 1 progress:v42 requestId:v56 completion:v65];
+    [UAFAutoAssetManager updateAutoAssetsFromAssetSetUsages:v40 configurationManager:v21 expensiveNetworking:v27 & 1 progress:v42 requestId:v55 completion:v64];
     v47 = +[UAFAssetSetManager getConcurrentQueue];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __152__UAFAssetSetManager_updateAssetsForSubscribers_policies_queue_progress_detailedProgress_internalProgress_completion_storeManager_configurationManager___block_invoke_5;
     block[3] = &unk_1E7FFD670;
-    v61 = v41;
-    v64 = completionCopy;
-    v62 = v56;
-    v37 = v55;
-    v63 = v55;
+    v60 = v41;
+    v63 = completionCopy;
+    v61 = v55;
+    v37 = v54;
+    v62 = v54;
     v48 = v41;
     dispatch_group_notify(v46, v47, block);
 
     v32 = v40;
     v38 = completionCopy;
 
-    subscribersCopy = v51;
-    managerCopy = v53;
+    subscribersCopy = v50;
+    managerCopy = v52;
     v33 = 0;
   }
-
-  v49 = *MEMORY[0x1E69E9840];
 }
 
 void __152__UAFAssetSetManager_updateAssetsForSubscribers_policies_queue_progress_detailedProgress_internalProgress_completion_storeManager_configurationManager___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, void *a6, double a7)
@@ -1391,18 +1380,18 @@ void __152__UAFAssetSetManager_updateAssetsForSubscribers_policies_queue_progres
 
 void __152__UAFAssetSetManager_updateAssetsForSubscribers_policies_queue_progress_detailedProgress_internalProgress_completion_storeManager_configurationManager___block_invoke_5(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2)
   {
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = __152__UAFAssetSetManager_updateAssetsForSubscribers_policies_queue_progress_detailedProgress_internalProgress_completion_storeManager_configurationManager___block_invoke_6;
-    v6[3] = &unk_1E7FFE540;
-    v9 = *(a1 + 56);
-    v7 = *(a1 + 40);
-    v8 = *(a1 + 48);
-    [v2 updateFinished:v6];
+    v5[0] = MEMORY[0x1E69E9820];
+    v5[1] = 3221225472;
+    v5[2] = __152__UAFAssetSetManager_updateAssetsForSubscribers_policies_queue_progress_detailedProgress_internalProgress_completion_storeManager_configurationManager___block_invoke_6;
+    v5[3] = &unk_1E7FFE540;
+    v8 = *(a1 + 56);
+    v6 = *(a1 + 40);
+    v7 = *(a1 + 48);
+    [v2 updateFinished:v5];
   }
 
   else if (*(a1 + 56))
@@ -1412,38 +1401,34 @@ void __152__UAFAssetSetManager_updateAssetsForSubscribers_policies_queue_progres
     {
       v4 = *(a1 + 40);
       *buf = 136315394;
-      v11 = "[UAFAssetSetManager updateAssetsForSubscribers:policies:queue:progress:detailedProgress:internalProgress:completion:storeManager:configurationManager:]_block_invoke";
-      v12 = 2114;
-      v13 = v4;
+      v10 = "[UAFAssetSetManager updateAssetsForSubscribers:policies:queue:progress:detailedProgress:internalProgress:completion:storeManager:configurationManager:]_block_invoke";
+      v11 = 2114;
+      v12 = v4;
       _os_log_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEFAULT, "%s Dispatching completion method for Request ID %{public}@", buf, 0x16u);
     }
 
     dispatch_async(*(a1 + 48), *(a1 + 56));
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __152__UAFAssetSetManager_updateAssetsForSubscribers_policies_queue_progress_detailedProgress_internalProgress_completion_storeManager_configurationManager___block_invoke_6(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (*(a1 + 48))
   {
     v2 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = *(a1 + 32);
-      v5 = 136315394;
-      v6 = "[UAFAssetSetManager updateAssetsForSubscribers:policies:queue:progress:detailedProgress:internalProgress:completion:storeManager:configurationManager:]_block_invoke_6";
-      v7 = 2114;
-      v8 = v3;
-      _os_log_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_DEFAULT, "%s Dispatching completion method for Request ID %{public}@", &v5, 0x16u);
+      v4 = 136315394;
+      v5 = "[UAFAssetSetManager updateAssetsForSubscribers:policies:queue:progress:detailedProgress:internalProgress:completion:storeManager:configurationManager:]_block_invoke_6";
+      v6 = 2114;
+      v7 = v3;
+      _os_log_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_DEFAULT, "%s Dispatching completion method for Request ID %{public}@", &v4, 0x16u);
     }
 
     dispatch_async(*(a1 + 40), *(a1 + 48));
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateAssetsForSubscriber:(id)subscriber subscriptionName:(id)name policies:(id)policies queue:(id)queue progress:(id)progress detailedProgress:(id)detailedProgress completion:(id)completion storeManager:(id)self0 configurationManager:(id)self1
@@ -1451,12 +1436,12 @@ void __152__UAFAssetSetManager_updateAssetsForSubscribers_policies_queue_progres
   managerCopy3 = manager;
   configurationManagerCopy3 = configurationManager;
   completionCopy3 = completion;
-  v50[1] = *MEMORY[0x1E69E9840];
+  v49[1] = *MEMORY[0x1E69E9840];
   if (name)
   {
     nameCopy = name;
     subscriberCopy = subscriber;
-    v44 = MEMORY[0x1E695DEC8];
+    v43 = MEMORY[0x1E695DEC8];
     configurationManagerCopy2 = configurationManager;
     managerCopy2 = manager;
     completionCopy2 = completion;
@@ -1470,9 +1455,9 @@ void __152__UAFAssetSetManager_updateAssetsForSubscribers_policies_queue_progres
     policiesCopy2 = policies;
     nameCopy2 = name;
     subscriberCopy2 = subscriber;
-    subscriberCopy4 = [v44 arrayWithObjects:&nameCopy count:1];
-    v50[0] = subscriberCopy4;
-    v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:&subscriberCopy count:1];
+    subscriberCopy4 = [v43 arrayWithObjects:&nameCopy count:1];
+    v49[0] = subscriberCopy4;
+    v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:&subscriberCopy count:1];
 
     policies = policiesCopy2;
     queue = queueCopy2;
@@ -1486,7 +1471,7 @@ void __152__UAFAssetSetManager_updateAssetsForSubscribers_policies_queue_progres
   else
   {
     subscriberCopy3 = subscriber;
-    v47 = MEMORY[0x1E695E0F0];
+    v46 = MEMORY[0x1E695E0F0];
     v35 = MEMORY[0x1E695DF20];
     configurationManagerCopy4 = configurationManager;
     managerCopy4 = manager;
@@ -1496,17 +1481,16 @@ void __152__UAFAssetSetManager_updateAssetsForSubscribers_policies_queue_progres
     queueCopy3 = queue;
     policiesCopy3 = policies;
     subscriberCopy4 = subscriber;
-    v34 = [v35 dictionaryWithObjects:&v47 forKeys:&subscriberCopy3 count:1];
+    v34 = [v35 dictionaryWithObjects:&v46 forKeys:&subscriberCopy3 count:1];
     subscriberCopy2 = 0;
   }
 
   [(UAFAssetSetManager *)self updateAssetsForSubscribers:v34 policies:policies queue:queue progress:progress detailedProgress:detailedProgress internalProgress:0 completion:completionCopy3 storeManager:managerCopy3 configurationManager:configurationManagerCopy3];
-  v43 = *MEMORY[0x1E69E9840];
 }
 
 - (id)diskSpaceNeededForSubscribers:(id)subscribers storeManager:(id)manager configurationManager:(id)configurationManager error:(id *)error
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   subscribersCopy = subscribers;
   managerCopy = manager;
   configurationManagerCopy = configurationManager;
@@ -1531,9 +1515,9 @@ void __152__UAFAssetSetManager_updateAssetsForSubscribers_policies_queue_progres
   v13 = +[UAFConfigurationManager defaultManager];
 LABEL_3:
   v14 = &unk_1F3B731D0;
-  v25 = 0;
-  v15 = [(UAFAssetSetManager *)self assetSetUsagesForSubscribers:subscribersCopy storeManager:managerCopy configurationManager:v13 anyUnknown:0 error:&v25];
-  v16 = v25;
+  v24 = 0;
+  v15 = [(UAFAssetSetManager *)self assetSetUsagesForSubscribers:subscribersCopy storeManager:managerCopy configurationManager:v13 anyUnknown:0 error:&v24];
+  v16 = v24;
   v17 = UAFGetLogCategory(&UAFLogContextClient);
   v18 = v17;
   if (v16)
@@ -1542,13 +1526,13 @@ LABEL_3:
     {
       v19 = geteuid();
       *buf = 136315906;
-      v27 = "[UAFAssetSetManager diskSpaceNeededForSubscribers:storeManager:configurationManager:error:]";
-      v28 = 1024;
-      *v29 = v19;
-      *&v29[4] = 2114;
-      *&v29[6] = subscribersCopy;
-      v30 = 2114;
-      v31 = v16;
+      v26 = "[UAFAssetSetManager diskSpaceNeededForSubscribers:storeManager:configurationManager:error:]";
+      v27 = 1024;
+      *v28 = v19;
+      *&v28[4] = 2114;
+      *&v28[6] = subscribersCopy;
+      v29 = 2114;
+      v30 = v16;
       _os_log_impl(&dword_1BCF2C000, v18, OS_LOG_TYPE_DEFAULT, "%s Unable to get asset set usages for uid: %d Subscribers: '%{public}@': %{public}@", buf, 0x26u);
     }
 
@@ -1564,9 +1548,9 @@ LABEL_3:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v27 = "[UAFAssetSetManager diskSpaceNeededForSubscribers:storeManager:configurationManager:error:]";
-      v28 = 2114;
-      *v29 = v15;
+      v26 = "[UAFAssetSetManager diskSpaceNeededForSubscribers:storeManager:configurationManager:error:]";
+      v27 = 2114;
+      *v28 = v15;
       _os_log_debug_impl(&dword_1BCF2C000, v18, OS_LOG_TYPE_DEBUG, "%s All asset set usages now %{public}@", buf, 0x16u);
     }
 
@@ -1577,7 +1561,6 @@ LABEL_3:
 
   v22 = v14;
 
-  v23 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -1618,7 +1601,7 @@ void __58__UAFAssetSetManager_diskSpaceNeededForSubscribers_error___block_invoke
 
 - (id)diskSpaceNeededForSubscriber:(id)subscriber subscriptionName:(id)name error:(id *)error
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   if (name)
   {
     nameCopy = name;
@@ -1627,23 +1610,21 @@ void __58__UAFAssetSetManager_diskSpaceNeededForSubscribers_error___block_invoke
     nameCopy2 = name;
     subscriberCopy2 = subscriber;
     subscriberCopy4 = [v8 arrayWithObjects:&nameCopy count:1];
-    v21[0] = subscriberCopy4;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&subscriberCopy count:1];
+    v20[0] = subscriberCopy4;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&subscriberCopy count:1];
   }
 
   else
   {
     subscriberCopy3 = subscriber;
-    v18 = MEMORY[0x1E695E0F0];
+    v17 = MEMORY[0x1E695E0F0];
     v13 = MEMORY[0x1E695DF20];
     subscriberCopy4 = subscriber;
-    v12 = [v13 dictionaryWithObjects:&v18 forKeys:&subscriberCopy3 count:1];
+    v12 = [v13 dictionaryWithObjects:&v17 forKeys:&subscriberCopy3 count:1];
     subscriberCopy2 = 0;
   }
 
   v14 = [(UAFAssetSetManager *)self diskSpaceNeededForSubscribers:v12 storeManager:0 configurationManager:0 error:error];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -1720,7 +1701,7 @@ void __54__UAFAssetSetManager_sysdiagnoseInformationWithError___block_invoke(uin
 
 + (void)processAssetSet:(id)set allAssets:(id)assets
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   setCopy = set;
   assetsCopy = assets;
   assets = [setCopy assets];
@@ -1728,77 +1709,77 @@ void __54__UAFAssetSetManager_sysdiagnoseInformationWithError___block_invoke(uin
   name = [setCopy name];
   v8 = [v6 getAssetSet:name];
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
   v55 = 0u;
-  v34 = v8;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
+  v33 = v8;
   obj = [v8 assets];
-  v39 = [obj countByEnumeratingWithState:&v54 objects:v60 count:16];
-  if (v39)
+  v38 = [obj countByEnumeratingWithState:&v53 objects:v59 count:16];
+  if (v38)
   {
-    v37 = *v55;
+    v36 = *v54;
     do
     {
-      for (i = 0; i != v39; ++i)
+      for (i = 0; i != v38; ++i)
       {
-        if (*v55 != v37)
+        if (*v54 != v36)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v54 + 1) + 8 * i);
+        v10 = *(*(&v53 + 1) + 8 * i);
         name2 = [v10 name];
         v12 = [assets objectForKey:name2];
 
         if (v12)
         {
-          v40 = v12;
-          v41 = i;
+          v39 = v12;
+          v40 = i;
           metadata = [v12 metadata];
           v14 = [metadata mutableCopy];
 
-          v52 = 0u;
-          v53 = 0u;
-          v50 = 0u;
           v51 = 0u;
+          v52 = 0u;
+          v49 = 0u;
+          v50 = 0u;
           expansions = [v10 expansions];
-          v44 = [expansions countByEnumeratingWithState:&v50 objects:v59 count:16];
-          if (v44)
+          v43 = [expansions countByEnumeratingWithState:&v49 objects:v58 count:16];
+          if (v43)
           {
-            v43 = *v51;
+            v42 = *v50;
             do
             {
               v15 = 0;
               do
               {
-                if (*v51 != v43)
+                if (*v50 != v42)
                 {
                   objc_enumerationMutation(expansions);
                 }
 
-                v45 = v15;
-                v16 = *(*(&v50 + 1) + 8 * v15);
+                v44 = v15;
+                v16 = *(*(&v49 + 1) + 8 * v15);
+                v45 = 0u;
                 v46 = 0u;
                 v47 = 0u;
                 v48 = 0u;
-                v49 = 0u;
                 requiredUsageTypes = [v16 requiredUsageTypes];
-                v18 = [requiredUsageTypes countByEnumeratingWithState:&v46 objects:v58 count:16];
+                v18 = [requiredUsageTypes countByEnumeratingWithState:&v45 objects:v57 count:16];
                 if (v18)
                 {
                   v19 = v18;
-                  v20 = *v47;
+                  v20 = *v46;
                   do
                   {
                     for (j = 0; j != v19; ++j)
                     {
-                      if (*v47 != v20)
+                      if (*v46 != v20)
                       {
                         objc_enumerationMutation(requiredUsageTypes);
                       }
 
-                      v22 = *(*(&v46 + 1) + 8 * j);
+                      v22 = *(*(&v45 + 1) + 8 * j);
                       usages = [setCopy usages];
                       v24 = [usages objectForKey:v22];
 
@@ -1809,52 +1790,50 @@ void __54__UAFAssetSetManager_sysdiagnoseInformationWithError___block_invoke(uin
                       }
                     }
 
-                    v19 = [requiredUsageTypes countByEnumeratingWithState:&v46 objects:v58 count:16];
+                    v19 = [requiredUsageTypes countByEnumeratingWithState:&v45 objects:v57 count:16];
                   }
 
                   while (v19);
                 }
 
-                v15 = v45 + 1;
+                v15 = v44 + 1;
               }
 
-              while (v45 + 1 != v44);
-              v44 = [expansions countByEnumeratingWithState:&v50 objects:v59 count:16];
+              while (v44 + 1 != v43);
+              v43 = [expansions countByEnumeratingWithState:&v49 objects:v58 count:16];
             }
 
-            while (v44);
+            while (v43);
           }
 
           v26 = [v14 count];
-          v12 = v40;
-          metadata2 = [v40 metadata];
+          v12 = v39;
+          metadata2 = [v39 metadata];
           v28 = [metadata2 count];
 
           if (v26 <= v28)
           {
-            [assetsCopy addObject:v40];
+            [assetsCopy addObject:v39];
           }
 
           else
           {
             v29 = [UAFAsset alloc];
-            name3 = [v40 name];
-            location = [v40 location];
+            name3 = [v39 name];
+            location = [v39 location];
             v32 = [(UAFAsset *)v29 initWithName:name3 location:location metadata:v14];
             [assetsCopy addObject:v32];
           }
 
-          i = v41;
+          i = v40;
         }
       }
 
-      v39 = [obj countByEnumeratingWithState:&v54 objects:v60 count:16];
+      v38 = [obj countByEnumeratingWithState:&v53 objects:v59 count:16];
     }
 
-    while (v39);
+    while (v38);
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 + (id)getSystemUsageAssets:(id)assets
@@ -1885,7 +1864,7 @@ void __54__UAFAssetSetManager_sysdiagnoseInformationWithError___block_invoke(uin
 
 void __43__UAFAssetSetManager_getSystemUsageAssets___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [[UAFAssetSet alloc] initWithAssetSet:v5 usages:v6];
@@ -1894,13 +1873,13 @@ void __43__UAFAssetSetManager_getSystemUsageAssets___block_invoke(uint64_t a1, v
     p_super = UAFGetLogCategory(&UAFLogContextConfiguration);
     if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
     {
-      v14 = 136315650;
-      v15 = "+[UAFAssetSetManager getSystemUsageAssets:]_block_invoke";
-      v16 = 2114;
-      v17 = v5;
-      v18 = 2114;
-      v19 = v6;
-      _os_log_error_impl(&dword_1BCF2C000, p_super, OS_LOG_TYPE_ERROR, "%s failed to init assetSet with assetSetName '%{public}@' and usages '%{public}@'", &v14, 0x20u);
+      v13 = 136315650;
+      v14 = "+[UAFAssetSetManager getSystemUsageAssets:]_block_invoke";
+      v15 = 2114;
+      v16 = v5;
+      v17 = 2114;
+      v18 = v6;
+      _os_log_error_impl(&dword_1BCF2C000, p_super, OS_LOG_TYPE_ERROR, "%s failed to init assetSet with assetSetName '%{public}@' and usages '%{public}@'", &v13, 0x20u);
     }
 
     goto LABEL_10;
@@ -1924,13 +1903,13 @@ void __43__UAFAssetSetManager_getSystemUsageAssets___block_invoke(uint64_t a1, v
       v12 = UAFGetLogCategory(&UAFLogContextConfiguration);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v14 = 136315650;
-        v15 = "+[UAFAssetSetManager getSystemUsageAssets:]_block_invoke";
-        v16 = 2114;
-        v17 = v5;
-        v18 = 2114;
-        v19 = v6;
-        _os_log_error_impl(&dword_1BCF2C000, v12, OS_LOG_TYPE_ERROR, "%s failed to init assetSetWithoutExperimentation with assetSetName '%{public}@' and usages '%{public}@'", &v14, 0x20u);
+        v13 = 136315650;
+        v14 = "+[UAFAssetSetManager getSystemUsageAssets:]_block_invoke";
+        v15 = 2114;
+        v16 = v5;
+        v17 = 2114;
+        v18 = v6;
+        _os_log_error_impl(&dword_1BCF2C000, v12, OS_LOG_TYPE_ERROR, "%s failed to init assetSetWithoutExperimentation with assetSetName '%{public}@' and usages '%{public}@'", &v13, 0x20u);
       }
 
       p_super = 0;
@@ -1938,44 +1917,41 @@ void __43__UAFAssetSetManager_getSystemUsageAssets___block_invoke(uint64_t a1, v
 
 LABEL_10:
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __43__UAFAssetSetManager_getSystemUsageAssets___block_invoke_350(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if ([v6 count])
   {
-    v16 = 0u;
-    v17 = 0u;
     v14 = 0u;
     v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v7 = v6;
-    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v15;
+      v10 = *v13;
       do
       {
         v11 = 0;
         do
         {
-          if (*v15 != v10)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v14 + 1) + 8 * v11);
           (*(*(a1 + 32) + 16))(*(a1 + 32));
           ++v11;
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v9);
@@ -1986,49 +1962,47 @@ void __43__UAFAssetSetManager_getSystemUsageAssets___block_invoke_350(uint64_t a
   {
     (*(*(a1 + 32) + 16))();
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 + (id)generateInformationWithError:(id *)error
 {
-  v127 = *MEMORY[0x1E69E9840];
+  v126 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v5 = UAFGetLogCategory(&UAFLogContextClient);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v122 = "+[UAFAssetSetManager generateInformationWithError:]";
+    v121 = "+[UAFAssetSetManager generateInformationWithError:]";
     _os_log_impl(&dword_1BCF2C000, v5, OS_LOG_TYPE_DEFAULT, "%s Generating subscription log", buf, 0xCu);
   }
 
   v6 = +[UAFSubscriptionStoreManager defaultManager];
   v7 = objc_autoreleasePoolPush();
-  v84 = v6;
+  v83 = v6;
   v8 = [v6 getAllSubscriptions:0];
   v9 = objc_opt_new();
-  v113[0] = MEMORY[0x1E69E9820];
-  v113[1] = 3221225472;
-  v113[2] = __51__UAFAssetSetManager_generateInformationWithError___block_invoke;
-  v113[3] = &unk_1E7FFE050;
+  v112[0] = MEMORY[0x1E69E9820];
+  v112[1] = 3221225472;
+  v112[2] = __51__UAFAssetSetManager_generateInformationWithError___block_invoke;
+  v112[3] = &unk_1E7FFE050;
   v10 = v9;
-  v114 = v10;
-  [v8 enumerateKeysAndObjectsUsingBlock:v113];
+  v113 = v10;
+  [v8 enumerateKeysAndObjectsUsingBlock:v112];
 
   objc_autoreleasePoolPop(v7);
-  v80 = v10;
+  v79 = v10;
   [dictionary setObject:v10 forKeyedSubscript:@"Subscriptions"];
   v11 = UAFGetLogCategory(&UAFLogContextClient);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v122 = "+[UAFAssetSetManager generateInformationWithError:]";
+    v121 = "+[UAFAssetSetManager generateInformationWithError:]";
     _os_log_impl(&dword_1BCF2C000, v11, OS_LOG_TYPE_DEFAULT, "%s Generating asset usages log", buf, 0xCu);
   }
 
-  v112 = 0;
-  v12 = [v84 getAllSystemAssetSetUsages:&v112];
-  v13 = v112;
+  v111 = 0;
+  v12 = [v83 getAllSystemAssetSetUsages:&v111];
+  v13 = v111;
   if (v13)
   {
     dictionary2 = [MEMORY[0x1E695DF90] dictionary];
@@ -2052,49 +2026,49 @@ void __43__UAFAssetSetManager_getSystemUsageAssets___block_invoke_350(uint64_t a
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v122 = "+[UAFAssetSetManager generateInformationWithError:]";
-    v123 = 2114;
-    v124 = v12;
-    v125 = 2114;
-    v126 = v13;
+    v121 = "+[UAFAssetSetManager generateInformationWithError:]";
+    v122 = 2114;
+    v123 = v12;
+    v124 = 2114;
+    v125 = v13;
     _os_log_impl(&dword_1BCF2C000, v17, OS_LOG_TYPE_DEFAULT, "%s System AssetSetUsages: %{public}@, error = %{public}@", buf, 0x20u);
   }
 
   errorCopy = error;
-  v82 = dictionary2;
-  v85 = dictionary;
+  v81 = dictionary2;
+  v84 = dictionary;
 
   v18 = UAFGetLogCategory(&UAFLogContextClient);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v122 = "+[UAFAssetSetManager generateInformationWithError:]";
+    v121 = "+[UAFAssetSetManager generateInformationWithError:]";
     _os_log_impl(&dword_1BCF2C000, v18, OS_LOG_TYPE_DEFAULT, "%s Generating system asset log", buf, 0xCu);
   }
 
   dictionary3 = [MEMORY[0x1E695DF90] dictionary];
   dictionary4 = [MEMORY[0x1E695DF90] dictionary];
   context = objc_autoreleasePoolPush();
+  v107 = 0u;
   v108 = 0u;
   v109 = 0u;
   v110 = 0u;
-  v111 = 0u;
   obj = v12;
-  v19 = [obj countByEnumeratingWithState:&v108 objects:v120 count:16];
+  v19 = [obj countByEnumeratingWithState:&v107 objects:v119 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v109;
+    v21 = *v108;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v109 != v21)
+        if (*v108 != v21)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = *(*(&v108 + 1) + 8 * i);
+        v23 = *(*(&v107 + 1) + 8 * i);
         v24 = [[UAFAssetSet alloc] initWithAssetSet:v23 usages:0];
         v25 = v24;
         if (v24)
@@ -2116,11 +2090,11 @@ void __43__UAFAssetSetManager_getSystemUsageAssets___block_invoke_350(uint64_t a
           {
             assetSetId3 = [(UAFAssetSet *)v25 assetSetId];
             *buf = 136315650;
-            v122 = "+[UAFAssetSetManager generateInformationWithError:]";
-            v123 = 2114;
-            v124 = v23;
-            v125 = 2114;
-            v126 = assetSetId3;
+            v121 = "+[UAFAssetSetManager generateInformationWithError:]";
+            v122 = 2114;
+            v123 = v23;
+            v124 = 2114;
+            v125 = assetSetId3;
             _os_log_impl(&dword_1BCF2C000, v28, OS_LOG_TYPE_DEFAULT, "%s AssetSet Identifier: %{public}@: %{public}@", buf, 0x20u);
           }
 
@@ -2133,57 +2107,57 @@ void __43__UAFAssetSetManager_getSystemUsageAssets___block_invoke_350(uint64_t a
           {
             consistencyToken2 = [(UAFAssetSet *)v25 consistencyToken];
             *buf = 136315650;
-            v122 = "+[UAFAssetSetManager generateInformationWithError:]";
-            v123 = 2114;
-            v124 = v23;
-            v125 = 2114;
-            v126 = consistencyToken2;
+            v121 = "+[UAFAssetSetManager generateInformationWithError:]";
+            v122 = 2114;
+            v123 = v23;
+            v124 = 2114;
+            v125 = consistencyToken2;
             _os_log_impl(&dword_1BCF2C000, v32, OS_LOG_TYPE_DEFAULT, "%s AssetSet Token: %{public}@: %{public}@", buf, 0x20u);
           }
         }
       }
 
-      v20 = [obj countByEnumeratingWithState:&v108 objects:v120 count:16];
+      v20 = [obj countByEnumeratingWithState:&v107 objects:v119 count:16];
     }
 
     while (v20);
   }
 
   objc_autoreleasePoolPop(context);
-  [v85 setObject:dictionary3 forKeyedSubscript:@"AssetSetIdentifiers"];
-  [v85 setObject:dictionary4 forKeyedSubscript:@"AssetSetTokens"];
+  [v84 setObject:dictionary3 forKeyedSubscript:@"AssetSetIdentifiers"];
+  [v84 setObject:dictionary4 forKeyedSubscript:@"AssetSetTokens"];
   v34 = UAFGetLogCategory(&UAFLogContextClient);
   if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v122 = "+[UAFAssetSetManager generateInformationWithError:]";
+    v121 = "+[UAFAssetSetManager generateInformationWithError:]";
     _os_log_impl(&dword_1BCF2C000, v34, OS_LOG_TYPE_DEFAULT, "%s Generating expired asset set tokens", buf, 0xCu);
   }
 
   array = [MEMORY[0x1E695DF70] array];
-  v107 = 0;
-  v35 = [UAFExpiredAssets expiredTokens:&v107];
-  v79 = v107;
+  v106 = 0;
+  v35 = [UAFExpiredAssets expiredTokens:&v106];
+  v78 = v106;
+  v102 = 0u;
   v103 = 0u;
   v104 = 0u;
   v105 = 0u;
-  v106 = 0u;
   contexta = v35;
-  v36 = [contexta countByEnumeratingWithState:&v103 objects:v119 count:16];
+  v36 = [contexta countByEnumeratingWithState:&v102 objects:v118 count:16];
   if (v36)
   {
     v37 = v36;
-    v38 = *v104;
+    v38 = *v103;
     do
     {
       for (j = 0; j != v37; ++j)
       {
-        if (*v104 != v38)
+        if (*v103 != v38)
         {
           objc_enumerationMutation(contexta);
         }
 
-        v40 = *(*(&v103 + 1) + 8 * j);
+        v40 = *(*(&v102 + 1) + 8 * j);
         jsonDictionary2 = [v40 jsonDictionary];
         [array addObject:jsonDictionary2];
 
@@ -2191,66 +2165,66 @@ void __43__UAFAssetSetManager_getSystemUsageAssets___block_invoke_350(uint64_t a
         if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v122 = "+[UAFAssetSetManager generateInformationWithError:]";
-          v123 = 2114;
-          v124 = v40;
+          v121 = "+[UAFAssetSetManager generateInformationWithError:]";
+          v122 = 2114;
+          v123 = v40;
           _os_log_impl(&dword_1BCF2C000, v42, OS_LOG_TYPE_DEFAULT, "%s Expired Asset Set Token: %{public}@", buf, 0x16u);
         }
       }
 
-      v37 = [contexta countByEnumeratingWithState:&v103 objects:v119 count:16];
+      v37 = [contexta countByEnumeratingWithState:&v102 objects:v118 count:16];
     }
 
     while (v37);
   }
 
-  [v85 setObject:array forKeyedSubscript:@"ExpiredAssetSetTokens"];
+  [v84 setObject:array forKeyedSubscript:@"ExpiredAssetSetTokens"];
   v43 = objc_alloc_init(MEMORY[0x1E695DF70]);
   [UAFAssetSetManager getSystemUsageAssets:obj];
+  v98 = 0u;
   v99 = 0u;
   v100 = 0u;
-  v101 = 0u;
-  v44 = v102 = 0u;
-  v45 = [v44 countByEnumeratingWithState:&v99 objects:v118 count:16];
-  dictionary5 = v82;
+  v44 = v101 = 0u;
+  v45 = [v44 countByEnumeratingWithState:&v98 objects:v117 count:16];
+  dictionary5 = v81;
   if (v45)
   {
     v47 = v45;
-    v48 = *v100;
+    v48 = *v99;
     do
     {
       for (k = 0; k != v47; ++k)
       {
-        if (*v100 != v48)
+        if (*v99 != v48)
         {
           objc_enumerationMutation(v44);
         }
 
-        v50 = [*(*(&v99 + 1) + 8 * k) propertiesAsDictionary:1];
+        v50 = [*(*(&v98 + 1) + 8 * k) propertiesAsDictionary:1];
         [v43 addObject:v50];
       }
 
-      v47 = [v44 countByEnumeratingWithState:&v99 objects:v118 count:16];
+      v47 = [v44 countByEnumeratingWithState:&v98 objects:v117 count:16];
     }
 
     while (v47);
   }
 
-  [v85 setObject:v43 forKeyedSubscript:@"SystemAssets"];
+  [v84 setObject:v43 forKeyedSubscript:@"SystemAssets"];
   v51 = UAFGetLogCategory(&UAFLogContextClient);
   if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v122 = "+[UAFAssetSetManager generateInformationWithError:]";
+    v121 = "+[UAFAssetSetManager generateInformationWithError:]";
     _os_log_impl(&dword_1BCF2C000, v51, OS_LOG_TYPE_DEFAULT, "%s Generating system configuration log", buf, 0xCu);
   }
 
-  v98 = 0;
-  v52 = [v84 getAllSystemConfiguration:&v98];
-  v53 = v98;
+  v97 = 0;
+  v52 = [v83 getAllSystemConfiguration:&v97];
+  v53 = v97;
   if (v53)
   {
-    if (!v82)
+    if (!v81)
     {
       dictionary5 = [MEMORY[0x1E695DF90] dictionary];
     }
@@ -2267,74 +2241,74 @@ void __43__UAFAssetSetManager_getSystemUsageAssets___block_invoke_350(uint64_t a
 
   else
   {
-    [v85 setObject:v52 forKeyedSubscript:@"SystemConfigKey"];
+    [v84 setObject:v52 forKeyedSubscript:@"SystemConfigKey"];
   }
 
-  v83 = dictionary5;
+  v82 = dictionary5;
   v56 = UAFGetLogCategory(&UAFLogContextClient);
   if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v122 = "+[UAFAssetSetManager generateInformationWithError:]";
-    v123 = 2114;
-    v124 = v52;
-    v125 = 2114;
-    v126 = v53;
+    v121 = "+[UAFAssetSetManager generateInformationWithError:]";
+    v122 = 2114;
+    v123 = v52;
+    v124 = 2114;
+    v125 = v53;
     _os_log_impl(&dword_1BCF2C000, v56, OS_LOG_TYPE_DEFAULT, "%s System Configuration: %{public}@, error = %{public}@", buf, 0x20u);
   }
 
-  v86 = v52;
+  v85 = v52;
 
   v57 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v58 = +[UAFAssetSetManager sharedManager];
   v59 = [v58 assetSetInfo:0];
 
-  v96 = 0u;
-  v97 = 0u;
-  v94 = 0u;
   v95 = 0u;
+  v96 = 0u;
+  v93 = 0u;
+  v94 = 0u;
   v60 = v59;
-  v61 = [v60 countByEnumeratingWithState:&v94 objects:v117 count:16];
+  v61 = [v60 countByEnumeratingWithState:&v93 objects:v116 count:16];
   if (v61)
   {
     v62 = v61;
-    v63 = *v95;
+    v63 = *v94;
     do
     {
       for (m = 0; m != v62; ++m)
       {
-        if (*v95 != v63)
+        if (*v94 != v63)
         {
           objc_enumerationMutation(v60);
         }
 
-        v115 = *(*(&v94 + 1) + 8 * m);
+        v114 = *(*(&v93 + 1) + 8 * m);
         v65 = [v60 objectForKeyedSubscript:?];
-        v116 = v65;
-        v66 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v116 forKeys:&v115 count:1];
+        v115 = v65;
+        v66 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v115 forKeys:&v114 count:1];
         [v57 addObject:v66];
       }
 
-      v62 = [v60 countByEnumeratingWithState:&v94 objects:v117 count:16];
+      v62 = [v60 countByEnumeratingWithState:&v93 objects:v116 count:16];
     }
 
     while (v62);
   }
 
-  [v85 setObject:v57 forKeyedSubscript:@"AssetSetConfiguration"];
+  [v84 setObject:v57 forKeyedSubscript:@"AssetSetConfiguration"];
   v67 = objc_autoreleasePoolPush();
   v68 = +[UAFAutoAssetHistory getPersistedAssetInfo];
   objc_autoreleasePoolPop(v67);
-  [v85 setObject:v68 forKeyedSubscript:@"PersistedAssetInfo"];
+  [v84 setObject:v68 forKeyedSubscript:@"PersistedAssetInfo"];
   v69 = objc_autoreleasePoolPush();
   v70 = +[UAFAssetSetManager defaults];
   dictionaryRepresentation = [v70 dictionaryRepresentation];
 
   objc_autoreleasePoolPop(v69);
-  [v85 setObject:0 forKeyedSubscript:@"Preferences"];
-  if (v83)
+  [v84 setObject:0 forKeyedSubscript:@"Preferences"];
+  if (v82)
   {
-    v72 = v83;
+    v72 = v82;
   }
 
   else
@@ -2342,19 +2316,17 @@ void __43__UAFAssetSetManager_getSystemUsageAssets___block_invoke_350(uint64_t a
     v72 = &unk_1F3B732C0;
   }
 
-  [v85 setObject:v72 forKeyedSubscript:@"Errors"];
+  [v84 setObject:v72 forKeyedSubscript:@"Errors"];
   v73 = objc_autoreleasePoolPush();
-  v93 = 0;
-  v74 = [UAFCommonUtilities bestEffortSerializeDictToJSONStr:v85 error:&v93];
-  v75 = v93;
+  v92 = 0;
+  v74 = [UAFCommonUtilities bestEffortSerializeDictToJSONStr:v84 error:&v92];
+  v75 = v92;
   objc_autoreleasePoolPop(v73);
   if (errorCopy)
   {
     v76 = v75;
     *errorCopy = v75;
   }
-
-  v77 = *MEMORY[0x1E69E9840];
 
   return v74;
 }
@@ -2400,6 +2372,88 @@ void __51__UAFAssetSetManager_generateInformationWithError___block_invoke_3(uint
   [v2 addObject:v3];
 }
 
++ (void)configureAssetDelivery:(id)delivery configurationManager:(id)manager lockIfUnchanged:(BOOL)unchanged oldSubscriptions:(id)subscriptions newSubscriptions:(id)newSubscriptions userInitiated:(BOOL)initiated
+{
+  initiatedCopy = initiated;
+  unchangedCopy = unchanged;
+  v29 = *MEMORY[0x1E69E9840];
+  deliveryCopy = delivery;
+  managerCopy = manager;
+  subscriptionsCopy = subscriptions;
+  newSubscriptionsCopy = newSubscriptions;
+  v17 = UAFGetLogCategory(&UAFLogContextClient);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315138;
+    v26 = "+[UAFAssetSetManager configureAssetDelivery:configurationManager:lockIfUnchanged:oldSubscriptions:newSubscriptions:userInitiated:]";
+    _os_log_impl(&dword_1BCF2C000, v17, OS_LOG_TYPE_DEFAULT, "%s Configuring asset delivery systems", buf, 0xCu);
+  }
+
+  v18 = +[UAFAssetSetManager getSerialQueue];
+  dispatch_assert_queue_V2(v18);
+
+  if (deliveryCopy)
+  {
+    if (managerCopy)
+    {
+      goto LABEL_5;
+    }
+  }
+
+  else
+  {
+    deliveryCopy = +[UAFSubscriptionStoreManager writeManager];
+    if (managerCopy)
+    {
+LABEL_5:
+      if (newSubscriptionsCopy)
+      {
+        goto LABEL_12;
+      }
+
+      goto LABEL_9;
+    }
+  }
+
+  managerCopy = +[UAFConfigurationManager defaultManager];
+  if (newSubscriptionsCopy)
+  {
+    goto LABEL_12;
+  }
+
+LABEL_9:
+  v24 = 0;
+  v19 = [deliveryCopy getAllSubscriptions:&v24];
+  v20 = v24;
+  v21 = v20;
+  if (v19 && !v20)
+  {
+    newSubscriptionsCopy = [UAFSubscriptionStoreManager flattenSubscriptions:v19];
+
+LABEL_12:
+    [UAFAutoAssetManager configureAutoAssetsFromNewSubscriptions:newSubscriptionsCopy oldSubscriptions:subscriptionsCopy configurationManager:managerCopy lockIfUnchanged:unchangedCopy userInitiated:initiatedCopy];
+    if (!subscriptionsCopy)
+    {
+      v22 = [deliveryCopy updateSystemAssetSetUsages:0];
+    }
+
+    goto LABEL_17;
+  }
+
+  v23 = UAFGetLogCategory(&UAFLogContextClient);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 136315394;
+    v26 = "+[UAFAssetSetManager configureAssetDelivery:configurationManager:lockIfUnchanged:oldSubscriptions:newSubscriptions:userInitiated:]";
+    v27 = 2114;
+    v28 = v21;
+    _os_log_error_impl(&dword_1BCF2C000, v23, OS_LOG_TYPE_ERROR, "%s Could not get subscriptions: %{public}@", buf, 0x16u);
+  }
+
+  newSubscriptionsCopy = 0;
+LABEL_17:
+}
+
 + (void)configureAssetDelivery:(id)delivery configurationManager:(id)manager lockIfUnchanged:(BOOL)unchanged
 {
   deliveryCopy = delivery;
@@ -2435,29 +2489,29 @@ void __51__UAFAssetSetManager_generateInformationWithError___block_invoke_3(uint
 
 + (unint64_t)coalesceDownloadStatus:(id)status
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   statusCopy = status;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v4 = [statusCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v4 = [statusCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v4)
   {
     v5 = 0;
     v6 = 4;
-    v7 = *v19;
+    v7 = *v18;
     while (1)
     {
       v8 = 0;
       do
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(statusCopy);
         }
 
-        v9 = [statusCopy objectForKeyedSubscript:*(*(&v18 + 1) + 8 * v8)];
+        v9 = [statusCopy objectForKeyedSubscript:*(*(&v17 + 1) + 8 * v8)];
         unsignedIntValue = [v9 unsignedIntValue];
 
         if (unsignedIntValue > 4)
@@ -2550,7 +2604,7 @@ LABEL_36:
       }
 
       while (v4 != v8);
-      v14 = [statusCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v14 = [statusCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
       v4 = v14;
       if (!v14)
       {
@@ -2572,7 +2626,6 @@ LABEL_47:
     v15 = v6;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -2646,38 +2699,37 @@ void __63__UAFAssetSetManager_retrieveAssetSet_usages_consistencyToken___block_i
 
 void __80__UAFAssetSetManager_retrieveAssetSet_usages_consistencyToken_queue_completion___block_invoke(uint64_t a1)
 {
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy__9;
-  v17 = __Block_byref_object_dispose__9;
-  v18 = [[UAFAssetSet alloc] initWithAssetSet:*(a1 + 32) usages:*(a1 + 40) configurationDirURLs:0 disableExperimentation:0 consistencyToken:*(a1 + 48)];
-  v2 = [v14[5] autoAssetSetError];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__9;
+  v16 = __Block_byref_object_dispose__9;
+  v17 = [[UAFAssetSet alloc] initWithAssetSet:*(a1 + 32) usages:*(a1 + 40) configurationDirURLs:0 disableExperimentation:0 consistencyToken:*(a1 + 48)];
+  v2 = [v13[5] autoAssetSetError];
   v3 = [UAFAutoAssetManager shouldWaitForMobileAssetStart:v2];
 
   if (v3)
   {
     v4 = *(a1 + 32);
     v5 = *(a1 + 56);
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __80__UAFAssetSetManager_retrieveAssetSet_usages_consistencyToken_queue_completion___block_invoke_2;
-    v7[3] = &unk_1E7FFE630;
-    v12 = &v13;
-    v8 = v4;
-    v9 = *(a1 + 40);
-    v10 = *(a1 + 48);
-    v11 = *(a1 + 64);
-    [UAFAutoAssetManager waitForMobileAssetStart:v8 queue:v5 completion:v7];
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __80__UAFAssetSetManager_retrieveAssetSet_usages_consistencyToken_queue_completion___block_invoke_2;
+    v6[3] = &unk_1E7FFE630;
+    v11 = &v12;
+    v7 = v4;
+    v8 = *(a1 + 40);
+    v9 = *(a1 + 48);
+    v10 = *(a1 + 64);
+    [UAFAutoAssetManager waitForMobileAssetStart:v7 queue:v5 completion:v6];
   }
 
   else
   {
-    v6 = v14[5];
     (*(*(a1 + 64) + 16))();
   }
 
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v12, 8);
 }
 
 uint64_t __80__UAFAssetSetManager_retrieveAssetSet_usages_consistencyToken_queue_completion___block_invoke_2(void *a1)
@@ -2687,10 +2739,9 @@ uint64_t __80__UAFAssetSetManager_retrieveAssetSet_usages_consistencyToken_queue
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  v5 = *(*(a1[8] + 8) + 40);
-  v6 = *(a1[7] + 16);
+  v5 = *(a1[7] + 16);
 
-  return v6();
+  return v5();
 }
 
 - (void)retrieveAssetSet:(id)set usages:(id)usages queue:(id)queue completion:(id)completion
@@ -2786,24 +2837,23 @@ void __51__UAFAssetSetManager_markAssetsExpired_completion___block_invoke(uint64
 
 void __51__UAFAssetSetManager_markAssetsExpired_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   [*(a1 + 32) invalidate];
   v4 = UAFGetLogCategory(&UAFLogContextClient);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 40);
-    v7 = 136315650;
-    v8 = "[UAFAssetSetManager markAssetsExpired:completion:]_block_invoke_2";
-    v9 = 2114;
-    v10 = v5;
-    v11 = 2114;
-    v12 = v3;
-    _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s Marking token %{public}@ expired completed (error = %{public}@)", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = "[UAFAssetSetManager markAssetsExpired:completion:]_block_invoke_2";
+    v8 = 2114;
+    v9 = v5;
+    v10 = 2114;
+    v11 = v3;
+    _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s Marking token %{public}@ expired completed (error = %{public}@)", &v6, 0x20u);
   }
 
   (*(*(a1 + 48) + 16))();
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)observeAssetSet:(id)set policies:(id)policies queue:(id)queue handler:(id)handler
@@ -2843,32 +2893,32 @@ void __51__UAFAssetSetManager_markAssetsExpired_completion___block_invoke_2(uint
 
 void __61__UAFAssetSetManager_observeAssetSet_policies_queue_handler___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v2 = *(a1 + 32);
   v3 = 0;
-  v4 = [v2 countByEnumeratingWithState:&v13 objects:v21 count:16];
+  v4 = [v2 countByEnumeratingWithState:&v12 objects:v20 count:16];
   if (v4)
   {
-    v5 = *v14;
+    v5 = *v13;
     do
     {
       v6 = 0;
       do
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v3 |= [*(*(&v13 + 1) + 8 * v6++) isEqualToString:{@"IgnoreMobileAssetStartup", v13}];
+        v3 |= [*(*(&v12 + 1) + 8 * v6++) isEqualToString:{@"IgnoreMobileAssetStartup", v12}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v13 objects:v21 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v12 objects:v20 count:16];
     }
 
     while (v4);
@@ -2892,16 +2942,14 @@ void __61__UAFAssetSetManager_observeAssetSet_policies_queue_handler___block_inv
     v10 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v12 = *(a1 + 40);
+      v11 = *(a1 + 40);
       *buf = 136315394;
-      v18 = "[UAFAssetSetManager observeAssetSet:policies:queue:handler:]_block_invoke";
-      v19 = 2114;
-      v20 = v12;
+      v17 = "[UAFAssetSetManager observeAssetSet:policies:queue:handler:]_block_invoke";
+      v18 = 2114;
+      v19 = v11;
       _os_log_error_impl(&dword_1BCF2C000, v10, OS_LOG_TYPE_ERROR, "%s Failed to create UAFAssetSetObserver for %{public}@'", buf, 0x16u);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeObserver:(id)observer
@@ -2920,32 +2968,27 @@ void __61__UAFAssetSetManager_observeAssetSet_policies_queue_handler___block_inv
 
 void __37__UAFAssetSetManager_removeObserver___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
+  v7 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v7 = *(a1 + 32);
-    v3 = *(*(a1 + 40) + 8);
-    objc_sync_enter(v3);
-    [*(*(a1 + 40) + 8) removeObject:v7];
-    [v7 invalidate];
-    objc_sync_exit(v3);
-
-    v4 = *MEMORY[0x1E69E9840];
+    v4 = *(a1 + 32);
+    v2 = *(*(a1 + 40) + 8);
+    objc_sync_enter(v2);
+    [*(*(a1 + 40) + 8) removeObject:v4];
+    [v4 invalidate];
+    objc_sync_exit(v2);
   }
 
   else
   {
-    v5 = UAFGetLogCategory(&UAFLogContextClient);
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v3 = UAFGetLogCategory(&UAFLogContextClient);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v9 = "[UAFAssetSetManager removeObserver:]_block_invoke";
-      _os_log_error_impl(&dword_1BCF2C000, v5, OS_LOG_TYPE_ERROR, "%s Unexpected token is not of kind UAFAssetSetObserver'", buf, 0xCu);
+      v6 = "[UAFAssetSetManager removeObserver:]_block_invoke";
+      _os_log_error_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_ERROR, "%s Unexpected token is not of kind UAFAssetSetObserver'", buf, 0xCu);
     }
-
-    v6 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -2974,7 +3017,7 @@ void __37__UAFAssetSetManager_removeObserver___block_invoke(uint64_t a1)
 
 - (void)subscribe:(id)subscribe subscriptions:(id)subscriptions user:(id)user userInitiated:(BOOL)initiated queue:(id)queue completion:(id)completion
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   subscribeCopy = subscribe;
   subscriptionsCopy = subscriptions;
   userCopy = user;
@@ -2985,28 +3028,28 @@ void __37__UAFAssetSetManager_removeObserver___block_invoke(uint64_t a1)
     queueCopy = +[UAFAssetSetManager getConcurrentQueue];
   }
 
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x3032000000;
-  v52 = __Block_byref_object_copy__9;
-  v53 = __Block_byref_object_dispose__9;
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x3032000000;
+  v51 = __Block_byref_object_copy__9;
+  v52 = __Block_byref_object_dispose__9;
   v18 = subscriptionsCopy;
-  v54 = v18;
-  v42[0] = MEMORY[0x1E69E9820];
-  v42[1] = 3221225472;
-  v42[2] = __82__UAFAssetSetManager_subscribe_subscriptions_user_userInitiated_queue_completion___block_invoke;
-  v42[3] = &unk_1E7FFE6F8;
+  v53 = v18;
+  v41[0] = MEMORY[0x1E69E9820];
+  v41[1] = 3221225472;
+  v41[2] = __82__UAFAssetSetManager_subscribe_subscriptions_user_userInitiated_queue_completion___block_invoke;
+  v41[3] = &unk_1E7FFE6F8;
   v19 = userCopy;
-  v43 = v19;
+  v42 = v19;
   v20 = subscribeCopy;
-  v44 = v20;
-  v47 = &v49;
+  v43 = v20;
+  v46 = &v48;
   initiatedCopy = initiated;
   v21 = completionCopy;
-  v46 = v21;
+  v45 = v21;
   v22 = queueCopy;
-  v45 = v22;
-  v23 = MEMORY[0x1BFB33950](v42);
+  v44 = v22;
+  v23 = MEMORY[0x1BFB33950](v41);
   if (v19)
   {
     goto LABEL_4;
@@ -3014,9 +3057,9 @@ void __37__UAFAssetSetManager_removeObserver___block_invoke(uint64_t a1)
 
   if (!+[UAFUser isSystemUserUsingUID:](UAFUser, "isSystemUserUsingUID:", +[UAFCommonUtilities geteuid]))
   {
-    v41 = 0;
-    v19 = [UAFUser currentUserWithNode:0 error:&v41];
-    v24 = v41;
+    v40 = 0;
+    v19 = [UAFUser currentUserWithNode:0 error:&v40];
+    v24 = v40;
     if (v19)
     {
       goto LABEL_5;
@@ -3026,9 +3069,9 @@ void __37__UAFAssetSetManager_removeObserver___block_invoke(uint64_t a1)
     if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v56 = "[UAFAssetSetManager subscribe:subscriptions:user:userInitiated:queue:completion:]";
-      v57 = 2114;
-      v58 = v24;
+      v55 = "[UAFAssetSetManager subscribe:subscriptions:user:userInitiated:queue:completion:]";
+      v56 = 2114;
+      v57 = v24;
       _os_log_error_impl(&dword_1BCF2C000, v32, OS_LOG_TYPE_ERROR, "%s Could not determine current user: %{public}@", buf, 0x16u);
     }
 
@@ -3045,7 +3088,7 @@ LABEL_23:
     if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v56 = "[UAFAssetSetManager subscribe:subscriptions:user:userInitiated:queue:completion:]";
+      v55 = "[UAFAssetSetManager subscribe:subscriptions:user:userInitiated:queue:completion:]";
       _os_log_impl(&dword_1BCF2C000, v31, OS_LOG_TYPE_DEFAULT, "%s Could not determine console user, trying with XPC", buf, 0xCu);
     }
 
@@ -3057,27 +3100,27 @@ LABEL_23:
 LABEL_4:
   v24 = 0;
 LABEL_5:
-  v40 = v24;
-  v25 = [UAFAssetSetManager _subscriptionDiffersFromDB:v18 subscriber:v20 user:v19 error:&v40];
-  v26 = v40;
+  v39 = v24;
+  v25 = [UAFAssetSetManager _subscriptionDiffersFromDB:v18 subscriber:v20 user:v19 error:&v39];
+  v26 = v39;
 
-  v27 = v50[5];
-  v50[5] = v25;
+  v27 = v49[5];
+  v49[5] = v25;
 
-  v28 = v50[5];
+  v28 = v49[5];
   if (!v28 || v26)
   {
     v29 = UAFGetLogCategory(&UAFLogContextSubscription);
     if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315906;
-      v56 = "[UAFAssetSetManager subscribe:subscriptions:user:userInitiated:queue:completion:]";
-      v57 = 2112;
-      v58 = v19;
-      v59 = 2114;
-      v60 = v20;
-      v61 = 2114;
-      v62 = v26;
+      v55 = "[UAFAssetSetManager subscribe:subscriptions:user:userInitiated:queue:completion:]";
+      v56 = 2112;
+      v57 = v19;
+      v58 = 2114;
+      v59 = v20;
+      v60 = 2114;
+      v61 = v26;
       _os_log_error_impl(&dword_1BCF2C000, v29, OS_LOG_TYPE_ERROR, "%s Not attempting to update subscriptions for user '%@' subscriptions: %{public}@: %{public}@", buf, 0x2Au);
     }
 
@@ -3091,12 +3134,12 @@ LABEL_5:
     block[1] = 3221225472;
     block[2] = __82__UAFAssetSetManager_subscribe_subscriptions_user_userInitiated_queue_completion___block_invoke_403;
     block[3] = &unk_1E7FFD940;
-    v39 = v21;
+    v38 = v21;
     v24 = v26;
-    v38 = v24;
+    v37 = v24;
     dispatch_async(v22, block);
 
-    v30 = &v39;
+    v30 = &v38;
     goto LABEL_28;
   }
 
@@ -3106,13 +3149,13 @@ LABEL_5:
     if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v56 = "[UAFAssetSetManager subscribe:subscriptions:user:userInitiated:queue:completion:]";
-      v57 = 2114;
-      v58 = v20;
-      v59 = 2114;
-      v60 = v18;
-      v61 = 2112;
-      v62 = v19;
+      v55 = "[UAFAssetSetManager subscribe:subscriptions:user:userInitiated:queue:completion:]";
+      v56 = 2114;
+      v57 = v20;
+      v58 = 2114;
+      v59 = v18;
+      v60 = 2112;
+      v61 = v19;
       _os_log_impl(&dword_1BCF2C000, v33, OS_LOG_TYPE_DEFAULT, "%s No subscription changes for subscriber '%{public}@' and subscriptions '%{public}@' user: '%@'", buf, 0x2Au);
     }
 
@@ -3121,13 +3164,13 @@ LABEL_5:
       goto LABEL_9;
     }
 
-    v35[0] = MEMORY[0x1E69E9820];
-    v35[1] = 3221225472;
-    v35[2] = __82__UAFAssetSetManager_subscribe_subscriptions_user_userInitiated_queue_completion___block_invoke_404;
-    v35[3] = &unk_1E7FFD4E8;
-    v30 = &v36;
-    v36 = v21;
-    dispatch_async(v22, v35);
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = __82__UAFAssetSetManager_subscribe_subscriptions_user_userInitiated_queue_completion___block_invoke_404;
+    v34[3] = &unk_1E7FFD4E8;
+    v30 = &v35;
+    v35 = v21;
+    dispatch_async(v22, v34);
     v24 = 0;
 LABEL_28:
 
@@ -3139,13 +3182,12 @@ LABEL_9:
   v24 = 0;
 LABEL_30:
 
-  _Block_object_dispose(&v49, 8);
-  v34 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v48, 8);
 }
 
 void __82__UAFAssetSetManager_subscribe_subscriptions_user_userInitiated_queue_completion___block_invoke(uint64_t a1)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v2 = UAFGetLogCategory(&UAFLogContextSubscription);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -3153,28 +3195,28 @@ void __82__UAFAssetSetManager_subscribe_subscriptions_user_userInitiated_queue_c
     v4 = *(a1 + 40);
     v5 = *(*(*(a1 + 64) + 8) + 40);
     *buf = 136315906;
-    v32 = "[UAFAssetSetManager subscribe:subscriptions:user:userInitiated:queue:completion:]_block_invoke";
-    v33 = 2112;
-    v34 = v3;
-    v35 = 2114;
-    v36 = v4;
-    v37 = 2114;
-    v38 = v5;
+    v31 = "[UAFAssetSetManager subscribe:subscriptions:user:userInitiated:queue:completion:]_block_invoke";
+    v32 = 2112;
+    v33 = v3;
+    v34 = 2114;
+    v35 = v4;
+    v36 = 2114;
+    v37 = v5;
     _os_log_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_DEFAULT, "%s Changing subscriptions for user: '%@', subscriber: '%{public}@': '%{public}@'", buf, 0x2Au);
   }
 
   v6 = MEMORY[0x1E695DF90];
-  v29[0] = @"Operation";
-  v29[1] = @"Subscriber";
+  v28[0] = @"Operation";
+  v28[1] = @"Subscriber";
   v7 = *(a1 + 40);
-  v30[0] = @"Subscribe";
-  v30[1] = v7;
-  v29[2] = @"Subscriptions";
-  v30[2] = *(*(*(a1 + 64) + 8) + 40);
-  v29[3] = @"UserInitiated";
+  v29[0] = @"Subscribe";
+  v29[1] = v7;
+  v28[2] = @"Subscriptions";
+  v29[2] = *(*(*(a1 + 64) + 8) + 40);
+  v28[3] = @"UserInitiated";
   v8 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 72)];
-  v30[3] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:4];
+  v29[3] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:4];
   v10 = [v6 dictionaryWithDictionary:v9];
 
   v11 = *(a1 + 32);
@@ -3184,11 +3226,11 @@ void __82__UAFAssetSetManager_subscribe_subscriptions_user_userInitiated_queue_c
   }
 
   v12 = +[UAFAssetSetManager createXPCConnection];
-  v21 = MEMORY[0x1E69E9820];
-  v22 = 3221225472;
-  v23 = __82__UAFAssetSetManager_subscribe_subscriptions_user_userInitiated_queue_completion___block_invoke_402;
-  v24 = &unk_1E7FFE6D0;
-  v25 = v12;
+  v20 = MEMORY[0x1E69E9820];
+  v21 = 3221225472;
+  v22 = __82__UAFAssetSetManager_subscribe_subscriptions_user_userInitiated_queue_completion___block_invoke_402;
+  v23 = &unk_1E7FFE6D0;
+  v24 = v12;
   v13 = *(a1 + 56);
   v14 = *(a1 + 48);
   v15 = *(a1 + 32);
@@ -3196,32 +3238,30 @@ void __82__UAFAssetSetManager_subscribe_subscriptions_user_userInitiated_queue_c
   *(&v16 + 1) = v13;
   *&v17 = v14;
   *(&v17 + 1) = v15;
-  v26 = v17;
-  v27 = v16;
-  v28 = *(a1 + 64);
+  v25 = v17;
+  v26 = v16;
+  v27 = *(a1 + 64);
   v18 = v12;
-  v19 = MEMORY[0x1BFB33950](&v21);
-  [v18 operationWithConfig:v10 completion:{v19, v21, v22, v23, v24}];
-
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = MEMORY[0x1BFB33950](&v20);
+  [v18 operationWithConfig:v10 completion:{v19, v20, v21, v22, v23}];
 }
 
 void __82__UAFAssetSetManager_subscribe_subscriptions_user_userInitiated_queue_completion___block_invoke_402(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
   [*(a1 + 32) invalidate];
   v4 = *(a1 + 64);
   if (v4)
   {
     v5 = *(a1 + 40);
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __82__UAFAssetSetManager_subscribe_subscriptions_user_userInitiated_queue_completion___block_invoke_2;
-    v11[3] = &unk_1E7FFD940;
-    v13 = v4;
-    v12 = v3;
-    dispatch_async(v5, v11);
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __82__UAFAssetSetManager_subscribe_subscriptions_user_userInitiated_queue_completion___block_invoke_2;
+    v10[3] = &unk_1E7FFD940;
+    v12 = v4;
+    v11 = v3;
+    dispatch_async(v5, v10);
   }
 
   v6 = UAFGetLogCategory(&UAFLogContextSubscription);
@@ -3231,17 +3271,15 @@ void __82__UAFAssetSetManager_subscribe_subscriptions_user_userInitiated_queue_c
     v8 = *(a1 + 56);
     v9 = *(*(*(a1 + 72) + 8) + 40);
     *buf = 136315906;
-    v15 = "[UAFAssetSetManager subscribe:subscriptions:user:userInitiated:queue:completion:]_block_invoke";
-    v16 = 2112;
-    v17 = v7;
-    v18 = 2114;
-    v19 = v8;
-    v20 = 2114;
-    v21 = v9;
+    v14 = "[UAFAssetSetManager subscribe:subscriptions:user:userInitiated:queue:completion:]_block_invoke";
+    v15 = 2112;
+    v16 = v7;
+    v17 = 2114;
+    v18 = v8;
+    v19 = 2114;
+    v20 = v9;
     _os_log_impl(&dword_1BCF2C000, v6, OS_LOG_TYPE_DEFAULT, "%s Changed subscriptions for user: '%@', subscriber: '%{public}@': '%{public}@'", buf, 0x2Au);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unsubscribe:(id)unsubscribe subscriptionNames:(id)names queue:(id)queue completion:(id)completion
@@ -3267,22 +3305,262 @@ void __82__UAFAssetSetManager_subscribe_subscriptions_user_userInitiated_queue_c
   os_activity_apply(v14, block);
 }
 
+- (void)unsubscribe:(id)unsubscribe subscriptionNames:(id)names user:(id)user userInitiated:(BOOL)initiated queue:(id)queue completion:(id)completion
+{
+  initiatedCopy = initiated;
+  v73 = *MEMORY[0x1E69E9840];
+  unsubscribeCopy = unsubscribe;
+  namesCopy = names;
+  userCopy = user;
+  queueCopy = queue;
+  completionCopy = completion;
+  if (!queueCopy)
+  {
+    queueCopy = +[UAFAssetSetManager getConcurrentQueue];
+  }
+
+  v43 = completionCopy;
+  if (userCopy)
+  {
+    goto LABEL_4;
+  }
+
+  if (+[UAFUser isSystemUserUsingUID:](UAFUser, "isSystemUserUsingUID:", +[UAFCommonUtilities geteuid]))
+  {
+    v27 = [UAFUser currentConsoleUserWithUID:0];
+    if (v27)
+    {
+      userCopy = v27;
+LABEL_4:
+      v41 = queueCopy;
+      v17 = 0;
+LABEL_5:
+      v18 = +[UAFSubscriptionStoreManager defaultManager];
+      v55 = 0u;
+      v56 = 0u;
+      v57 = 0u;
+      v58 = 0u;
+      v42 = namesCopy;
+      v19 = namesCopy;
+      v20 = [v19 countByEnumeratingWithState:&v55 objects:v72 count:16];
+      if (!v20)
+      {
+        v26 = v17;
+        goto LABEL_19;
+      }
+
+      v21 = v20;
+      v40 = initiatedCopy;
+      v22 = *v56;
+LABEL_7:
+      v23 = 0;
+      while (1)
+      {
+        if (*v56 != v22)
+        {
+          objc_enumerationMutation(v19);
+        }
+
+        v24 = *(*(&v55 + 1) + 8 * v23);
+        v54 = v17;
+        v25 = [v18 getSubscription:v24 subscriber:unsubscribeCopy user:userCopy error:&v54];
+        v26 = v54;
+
+        if (v26)
+        {
+          break;
+        }
+
+        if (v25)
+        {
+
+          v32 = 0;
+          v26 = 0;
+          queueCopy = v41;
+          namesCopy = v42;
+LABEL_27:
+          initiatedCopy = v40;
+          goto LABEL_37;
+        }
+
+        v17 = 0;
+        if (v21 == ++v23)
+        {
+          v21 = [v19 countByEnumeratingWithState:&v55 objects:v72 count:16];
+          v17 = 0;
+          v26 = 0;
+          if (v21)
+          {
+            goto LABEL_7;
+          }
+
+LABEL_19:
+
+          v28 = UAFGetLogCategory(&UAFLogContextSubscription);
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 136315906;
+            v63 = "[UAFAssetSetManager unsubscribe:subscriptionNames:user:userInitiated:queue:completion:]";
+            v64 = 2112;
+            v65 = userCopy;
+            v66 = 2114;
+            v67 = unsubscribeCopy;
+            v68 = 2114;
+            v69 = v19;
+            _os_log_impl(&dword_1BCF2C000, v28, OS_LOG_TYPE_DEFAULT, "%s Already unsubscribed for user '%@', subscriber '%{public}@', subscriptions '%{public}@'", buf, 0x2Au);
+          }
+
+          queueCopy = v41;
+          namesCopy = v42;
+          v29 = v43;
+          if (v43)
+          {
+            block[0] = MEMORY[0x1E69E9820];
+            block[1] = 3221225472;
+            block[2] = __88__UAFAssetSetManager_unsubscribe_subscriptionNames_user_userInitiated_queue_completion___block_invoke;
+            block[3] = &unk_1E7FFD4E8;
+            v53 = v43;
+            dispatch_async(v41, block);
+            v30 = v53;
+            goto LABEL_42;
+          }
+
+          goto LABEL_43;
+        }
+      }
+
+      v31 = UAFGetLogCategory(&UAFLogContextClient);
+      queueCopy = v41;
+      namesCopy = v42;
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 136316162;
+        v63 = "[UAFAssetSetManager unsubscribe:subscriptionNames:user:userInitiated:queue:completion:]";
+        v64 = 2112;
+        v65 = userCopy;
+        v66 = 2114;
+        v67 = unsubscribeCopy;
+        v68 = 2114;
+        v69 = v24;
+        v70 = 2114;
+        v71 = v26;
+        _os_log_impl(&dword_1BCF2C000, v31, OS_LOG_TYPE_DEFAULT, "%s Could not retrieve subscription for user '%@', subscriber '%{public}@', subscription '%{public}@': %{public}@", buf, 0x34u);
+      }
+
+      v32 = 0;
+      goto LABEL_27;
+    }
+
+    v18 = UAFGetLogCategory(&UAFLogContextClient);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315138;
+      v63 = "[UAFAssetSetManager unsubscribe:subscriptionNames:user:userInitiated:queue:completion:]";
+      _os_log_impl(&dword_1BCF2C000, v18, OS_LOG_TYPE_DEFAULT, "%s Could not determine console user, trying via XPC", buf, 0xCu);
+    }
+
+    userCopy = 0;
+    v26 = 0;
+  }
+
+  else
+  {
+    v59 = 0;
+    userCopy = [UAFUser currentUserWithNode:0 error:&v59];
+    v33 = v59;
+    v26 = v33;
+    if (userCopy)
+    {
+      v41 = queueCopy;
+      v17 = v33;
+      goto LABEL_5;
+    }
+
+    v18 = UAFGetLogCategory(&UAFLogContextClient);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315394;
+      v63 = "[UAFAssetSetManager unsubscribe:subscriptionNames:user:userInitiated:queue:completion:]";
+      v64 = 2114;
+      v65 = v26;
+      _os_log_impl(&dword_1BCF2C000, v18, OS_LOG_TYPE_DEFAULT, "%s Could not determine current user, falling back to XPC: %{public}@", buf, 0x16u);
+    }
+
+    userCopy = 0;
+  }
+
+  v32 = 1;
+LABEL_37:
+
+  v34 = UAFGetLogCategory(&UAFLogContextSubscription);
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315906;
+    v63 = "[UAFAssetSetManager unsubscribe:subscriptionNames:user:userInitiated:queue:completion:]";
+    v64 = 2112;
+    v65 = userCopy;
+    v66 = 2114;
+    v67 = unsubscribeCopy;
+    v68 = 2114;
+    v69 = namesCopy;
+    _os_log_impl(&dword_1BCF2C000, v34, OS_LOG_TYPE_DEFAULT, "%s Unsubscribing for user '%@', subscriber '%{public}@', subscription '%{public}@'", buf, 0x2Au);
+  }
+
+  v35 = MEMORY[0x1E695DF90];
+  v60[0] = @"Operation";
+  v60[1] = @"Subscriber";
+  v61[0] = @"Unsubscribe";
+  v61[1] = unsubscribeCopy;
+  v61[2] = namesCopy;
+  v60[2] = @"Subscriptions";
+  v60[3] = @"UserInitiated";
+  v36 = [MEMORY[0x1E696AD98] numberWithBool:initiatedCopy];
+  v61[3] = v36;
+  v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v61 forKeys:v60 count:4];
+  v18 = [v35 dictionaryWithDictionary:v37];
+
+  if ((v32 & 1) == 0)
+  {
+    [v18 setObject:userCopy forKeyedSubscript:@"SubscriptionUser"];
+  }
+
+  v38 = +[UAFAssetSetManager createXPCConnection];
+  v45[0] = MEMORY[0x1E69E9820];
+  v45[1] = 3221225472;
+  v45[2] = __88__UAFAssetSetManager_unsubscribe_subscriptionNames_user_userInitiated_queue_completion___block_invoke_405;
+  v45[3] = &unk_1E7FFE720;
+  v46 = v38;
+  v29 = v43;
+  v51 = v43;
+  v47 = queueCopy;
+  userCopy = userCopy;
+  v48 = userCopy;
+  v49 = unsubscribeCopy;
+  v50 = namesCopy;
+  v30 = v38;
+  v39 = MEMORY[0x1BFB33950](v45);
+  [v30 operationWithConfig:v18 completion:v39];
+
+LABEL_42:
+LABEL_43:
+}
+
 void __88__UAFAssetSetManager_unsubscribe_subscriptionNames_user_userInitiated_queue_completion___block_invoke_405(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   [*(a1 + 32) invalidate];
   v4 = *(a1 + 72);
   if (v4)
   {
     v5 = *(a1 + 40);
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __88__UAFAssetSetManager_unsubscribe_subscriptionNames_user_userInitiated_queue_completion___block_invoke_2;
-    v11[3] = &unk_1E7FFD940;
-    v13 = v4;
-    v12 = v3;
-    dispatch_async(v5, v11);
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __88__UAFAssetSetManager_unsubscribe_subscriptionNames_user_userInitiated_queue_completion___block_invoke_2;
+    v10[3] = &unk_1E7FFD940;
+    v12 = v4;
+    v11 = v3;
+    dispatch_async(v5, v10);
   }
 
   v6 = UAFGetLogCategory(&UAFLogContextSubscription);
@@ -3292,94 +3570,92 @@ void __88__UAFAssetSetManager_unsubscribe_subscriptionNames_user_userInitiated_q
     v8 = *(a1 + 56);
     v9 = *(a1 + 64);
     *buf = 136316162;
-    v15 = "[UAFAssetSetManager unsubscribe:subscriptionNames:user:userInitiated:queue:completion:]_block_invoke";
-    v16 = 2112;
-    v17 = v7;
-    v18 = 2114;
-    v19 = v8;
-    v20 = 2114;
-    v21 = v9;
-    v22 = 2114;
-    v23 = v3;
+    v14 = "[UAFAssetSetManager unsubscribe:subscriptionNames:user:userInitiated:queue:completion:]_block_invoke";
+    v15 = 2112;
+    v16 = v7;
+    v17 = 2114;
+    v18 = v8;
+    v19 = 2114;
+    v20 = v9;
+    v21 = 2114;
+    v22 = v3;
     _os_log_impl(&dword_1BCF2C000, v6, OS_LOG_TYPE_DEFAULT, "%s Unsubscribed for user '%@', subscriber '%{public}@', subscription '%{public}@' with error: %{public}@", buf, 0x34u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)subscriptions:(id)subscriptions subscriber:(id)subscriber user:(id)user storeManager:(id)manager error:(id *)error
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   subscriptionsCopy = subscriptions;
   subscriberCopy = subscriber;
   userCopy = user;
   managerCopy = manager;
-  v51 = 0;
-  v52 = &v51;
-  v53 = 0x3032000000;
-  v54 = __Block_byref_object_copy__9;
-  v55 = __Block_byref_object_dispose__9;
-  v56 = 0;
-  v45 = 0;
-  v46 = &v45;
-  v47 = 0x3032000000;
-  v48 = __Block_byref_object_copy__9;
-  v49 = __Block_byref_object_dispose__9;
   v50 = 0;
+  v51 = &v50;
+  v52 = 0x3032000000;
+  v53 = __Block_byref_object_copy__9;
+  v54 = __Block_byref_object_dispose__9;
+  v55 = 0;
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x3032000000;
+  v47 = __Block_byref_object_copy__9;
+  v48 = __Block_byref_object_dispose__9;
+  v49 = 0;
   if (!managerCopy)
   {
     managerCopy = +[UAFSubscriptionStoreManager defaultManager];
   }
 
   v15 = managerCopy;
-  v43[0] = 0;
-  v43[1] = v43;
-  v43[2] = 0x3032000000;
-  v43[3] = __Block_byref_object_copy__9;
-  v43[4] = __Block_byref_object_dispose__9;
-  v44 = 0;
-  v42[0] = MEMORY[0x1E69E9820];
-  v42[1] = 3221225472;
-  v42[2] = __71__UAFAssetSetManager_subscriptions_subscriber_user_storeManager_error___block_invoke;
-  v42[3] = &unk_1E7FFE748;
-  v42[4] = &v51;
-  v42[5] = v43;
-  v42[6] = &v45;
-  v16 = MEMORY[0x1BFB33950](v42);
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __71__UAFAssetSetManager_subscriptions_subscriber_user_storeManager_error___block_invoke_2;
-  v36[3] = &unk_1E7FFE630;
-  v41 = v43;
+  v42[0] = 0;
+  v42[1] = v42;
+  v42[2] = 0x3032000000;
+  v42[3] = __Block_byref_object_copy__9;
+  v42[4] = __Block_byref_object_dispose__9;
+  v43 = 0;
+  v41[0] = MEMORY[0x1E69E9820];
+  v41[1] = 3221225472;
+  v41[2] = __71__UAFAssetSetManager_subscriptions_subscriber_user_storeManager_error___block_invoke;
+  v41[3] = &unk_1E7FFE748;
+  v41[4] = &v50;
+  v41[5] = v42;
+  v41[6] = &v44;
+  v16 = MEMORY[0x1BFB33950](v41);
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __71__UAFAssetSetManager_subscriptions_subscriber_user_storeManager_error___block_invoke_2;
+  v35[3] = &unk_1E7FFE630;
+  v40 = v42;
   v17 = subscriptionsCopy;
-  v37 = v17;
+  v36 = v17;
   v18 = subscriberCopy;
-  v38 = v18;
+  v37 = v18;
   v19 = userCopy;
-  v39 = v19;
+  v38 = v19;
   v20 = v16;
-  v40 = v20;
-  v21 = MEMORY[0x1BFB33950](v36);
+  v39 = v20;
+  v21 = MEMORY[0x1BFB33950](v35);
   if (v19)
   {
 LABEL_4:
-    v22 = v52;
-    obj = v52[5];
+    v22 = v51;
+    obj = v51[5];
     v23 = [UAFAssetSetSubscriptionManager getSubscription:v17 subscriber:v18 user:v19 storeManager:v15 error:&obj];
     objc_storeStrong(v22 + 5, obj);
-    v24 = v46[5];
-    v46[5] = v23;
+    v24 = v45[5];
+    v45[5] = v23;
 
-    if (!v46[5] && v52[5])
+    if (!v45[5] && v51[5])
     {
       v25 = UAFGetLogCategory(&UAFLogContextClient);
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
-        v26 = v52[5];
+        v26 = v51[5];
         *buf = 136315394;
-        v58 = "[UAFAssetSetManager subscriptions:subscriber:user:storeManager:error:]";
-        v59 = 2114;
-        v60 = v26;
+        v57 = "[UAFAssetSetManager subscriptions:subscriber:user:storeManager:error:]";
+        v58 = 2114;
+        v59 = v26;
         _os_log_impl(&dword_1BCF2C000, v25, OS_LOG_TYPE_DEFAULT, "%s Could not retrieve subscriptions, falling back to XPC: %{public}@", buf, 0x16u);
       }
 
@@ -3402,12 +3678,12 @@ LABEL_4:
       goto LABEL_4;
     }
 
-    v30 = UAFGetLogCategory(&UAFLogContextClient);
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    v29 = UAFGetLogCategory(&UAFLogContextClient);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v58 = "[UAFAssetSetManager subscriptions:subscriber:user:storeManager:error:]";
-      _os_log_impl(&dword_1BCF2C000, v30, OS_LOG_TYPE_DEFAULT, "%s Could not determine console user, trying via XPC", buf, 0xCu);
+      v57 = "[UAFAssetSetManager subscriptions:subscriber:user:storeManager:error:]";
+      _os_log_impl(&dword_1BCF2C000, v29, OS_LOG_TYPE_DEFAULT, "%s Could not determine console user, trying via XPC", buf, 0xCu);
     }
 
     v21[2](v21);
@@ -3415,24 +3691,24 @@ LABEL_4:
 
   else
   {
-    v31 = v52;
-    v35 = v52[5];
-    v19 = [UAFUser currentUserWithNode:0 error:&v35];
-    objc_storeStrong(v31 + 5, v35);
+    v30 = v51;
+    v34 = v51[5];
+    v19 = [UAFUser currentUserWithNode:0 error:&v34];
+    objc_storeStrong(v30 + 5, v34);
     if (v19)
     {
       goto LABEL_4;
     }
 
-    v32 = UAFGetLogCategory(&UAFLogContextClient);
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v31 = UAFGetLogCategory(&UAFLogContextClient);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
-      v33 = v52[5];
+      v32 = v51[5];
       *buf = 136315394;
-      v58 = "[UAFAssetSetManager subscriptions:subscriber:user:storeManager:error:]";
-      v59 = 2112;
-      v60 = v33;
-      _os_log_impl(&dword_1BCF2C000, v32, OS_LOG_TYPE_DEFAULT, "%s Unable to identify current user, falling back to daemon determing user: %@", buf, 0x16u);
+      v57 = "[UAFAssetSetManager subscriptions:subscriber:user:storeManager:error:]";
+      v58 = 2112;
+      v59 = v32;
+      _os_log_impl(&dword_1BCF2C000, v31, OS_LOG_TYPE_DEFAULT, "%s Unable to identify current user, falling back to daemon determing user: %@", buf, 0x16u);
     }
 
     v21[2](v21);
@@ -3442,17 +3718,16 @@ LABEL_4:
   if (error)
   {
 LABEL_10:
-    *error = v52[5];
+    *error = v51[5];
   }
 
 LABEL_11:
-  v27 = v46[5];
+  v27 = v45[5];
 
-  _Block_object_dispose(v43, 8);
-  _Block_object_dispose(&v45, 8);
+  _Block_object_dispose(v42, 8);
+  _Block_object_dispose(&v44, 8);
 
-  _Block_object_dispose(&v51, 8);
-  v28 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v50, 8);
 
   return v27;
 }
@@ -3581,7 +3856,7 @@ void __50__UAFAssetSetManager_subscribedUsagesForAssetSet___block_invoke(uint64_
 
 void __55__UAFAssetSetManager_knownUsagesForAssetSet_usageType___block_invoke(void *a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = +[UAFConfigurationManager defaultManager];
   v3 = [v2 getAssetSet:a1[4]];
   v4 = v3;
@@ -3600,20 +3875,18 @@ void __55__UAFAssetSetManager_knownUsagesForAssetSet_usageType___block_invoke(vo
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v9 = a1[4];
-      v11 = 136315394;
-      v12 = "[UAFAssetSetManager knownUsagesForAssetSet:usageType:]_block_invoke";
-      v13 = 2114;
-      v14 = v9;
-      _os_log_impl(&dword_1BCF2C000, v5, OS_LOG_TYPE_DEFAULT, "%s Unable to get assetset for '%{public}@'", &v11, 0x16u);
+      v10 = 136315394;
+      v11 = "[UAFAssetSetManager knownUsagesForAssetSet:usageType:]_block_invoke";
+      v12 = 2114;
+      v13 = v9;
+      _os_log_impl(&dword_1BCF2C000, v5, OS_LOG_TYPE_DEFAULT, "%s Unable to get assetset for '%{public}@'", &v10, 0x16u);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)assetNamesForAssetSet:(id)set usages:(id)usages
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   setCopy = set;
   usagesCopy = usages;
   v7 = +[UAFConfigurationManager defaultManager];
@@ -3625,9 +3898,9 @@ void __55__UAFAssetSetManager_knownUsagesForAssetSet_usageType___block_invoke(vo
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v33 = "[UAFAssetSetManager assetNamesForAssetSet:usages:]";
-      v34 = 2114;
-      v35 = setCopy;
+      v32 = "[UAFAssetSetManager assetNamesForAssetSet:usages:]";
+      v33 = 2114;
+      v34 = setCopy;
       _os_log_impl(&dword_1BCF2C000, v13, OS_LOG_TYPE_DEFAULT, "%s No configuration for asset set: %{public}@", buf, 0x16u);
     }
 
@@ -3641,11 +3914,11 @@ void __55__UAFAssetSetManager_knownUsagesForAssetSet_usageType___block_invoke(vo
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v33 = "[UAFAssetSetManager assetNamesForAssetSet:usages:]";
-      v34 = 2114;
-      v35 = setCopy;
-      v36 = 2114;
-      v37 = usagesCopy;
+      v32 = "[UAFAssetSetManager assetNamesForAssetSet:usages:]";
+      v33 = 2114;
+      v34 = setCopy;
+      v35 = 2114;
+      v36 = usagesCopy;
       _os_log_impl(&dword_1BCF2C000, v21, OS_LOG_TYPE_DEFAULT, "%s Error retrieving assets for %{public}@ with usages: %{public}@", buf, 0x20u);
     }
 
@@ -3656,30 +3929,30 @@ LABEL_18:
   }
 
   v11 = v10;
-  v24 = v7;
-  v25 = usagesCopy;
-  v26 = setCopy;
+  v23 = v7;
+  v24 = usagesCopy;
+  v25 = setCopy;
   array = [MEMORY[0x1E695DF70] array];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   v13 = v11;
-  v14 = [v13 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v28;
+    v16 = *v27;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v28 != v16)
+        if (*v27 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v27 + 1) + 8 * i);
+        v18 = *(*(&v26 + 1) + 8 * i);
         v19 = [v13 objectForKeyedSubscript:v18];
         v20 = [v19 objectForKeyedSubscript:@"AssetSpecifier"];
 
@@ -3689,18 +3962,16 @@ LABEL_18:
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v15);
   }
 
-  usagesCopy = v25;
-  setCopy = v26;
-  v7 = v24;
+  usagesCopy = v24;
+  setCopy = v25;
+  v7 = v23;
 LABEL_19:
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -3791,7 +4062,7 @@ LABEL_19:
 
 - (void)downloadStatusForSubscribers:(id)subscribers queue:(id)queue completion:(id)completion
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   subscribersCopy = subscribers;
   queueCopy = queue;
   completionCopy = completion;
@@ -3810,12 +4081,12 @@ LABEL_19:
     queueCopy = +[UAFAssetSetManager getConcurrentQueue];
   }
 
-  v32 = 0;
+  v31 = 0;
   v12 = +[UAFSubscriptionStoreManager defaultManager];
   v13 = +[UAFConfigurationManager defaultManager];
-  v31 = 0;
-  v14 = [(UAFAssetSetManager *)self assetSetUsagesForSubscribers:subscribersCopy storeManager:v12 configurationManager:v13 anyUnknown:&v32 error:&v31];
-  v15 = v31;
+  v30 = 0;
+  v14 = [(UAFAssetSetManager *)self assetSetUsagesForSubscribers:subscribersCopy storeManager:v12 configurationManager:v13 anyUnknown:&v31 error:&v30];
+  v15 = v30;
 
   if (v15)
   {
@@ -3838,7 +4109,7 @@ LABEL_19:
     block[1] = 3221225472;
     block[2] = __68__UAFAssetSetManager_downloadStatusForSubscribers_queue_completion___block_invoke;
     block[3] = &unk_1E7FFD4E8;
-    v30 = completionCopy;
+    v29 = completionCopy;
     dispatch_async(queueCopy, block);
   }
 
@@ -3848,7 +4119,7 @@ LABEL_19:
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
     v18 = 4;
-    if (v32)
+    if (v31)
     {
       v18 = 0;
     }
@@ -3857,15 +4128,15 @@ LABEL_19:
     if (v14)
     {
       v19 = +[UAFConfigurationManager defaultManager];
-      v24[0] = MEMORY[0x1E69E9820];
-      v24[1] = 3221225472;
-      v24[2] = __68__UAFAssetSetManager_downloadStatusForSubscribers_queue_completion___block_invoke_2;
-      v24[3] = &unk_1E7FFE7E8;
-      v25 = subscribersCopy;
-      v26 = completionCopy;
-      [UAFAutoAssetManager getDownloadStatusFromAssetSetUsages:v14 configurationManager:v19 queue:queueCopy completion:v24];
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 3221225472;
+      v23[2] = __68__UAFAssetSetManager_downloadStatusForSubscribers_queue_completion___block_invoke_2;
+      v23[3] = &unk_1E7FFE7E8;
+      v24 = subscribersCopy;
+      v25 = completionCopy;
+      [UAFAutoAssetManager getDownloadStatusFromAssetSetUsages:v14 configurationManager:v19 queue:queueCopy completion:v23];
 
-      v20 = &v25;
+      v20 = &v24;
     }
 
     else
@@ -3874,50 +4145,46 @@ LABEL_19:
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         v22 = *(*&buf[8] + 24);
-        *v33 = 136315650;
-        v34 = "[UAFAssetSetManager downloadStatusForSubscribers:queue:completion:]";
-        v35 = 2048;
-        v36 = v22;
-        v37 = 2114;
-        v38 = subscribersCopy;
-        _os_log_impl(&dword_1BCF2C000, v21, OS_LOG_TYPE_DEFAULT, "%s Returning status: %lu for subscribers: %{public}@ as the asset set usages are nil", v33, 0x20u);
+        *v32 = 136315650;
+        v33 = "[UAFAssetSetManager downloadStatusForSubscribers:queue:completion:]";
+        v34 = 2048;
+        v35 = v22;
+        v36 = 2114;
+        v37 = subscribersCopy;
+        _os_log_impl(&dword_1BCF2C000, v21, OS_LOG_TYPE_DEFAULT, "%s Returning status: %lu for subscribers: %{public}@ as the asset set usages are nil", v32, 0x20u);
       }
 
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = __68__UAFAssetSetManager_downloadStatusForSubscribers_queue_completion___block_invoke_407;
-      v27[3] = &unk_1E7FFE7C0;
-      v20 = v28;
-      v28[0] = completionCopy;
-      v28[1] = buf;
-      dispatch_async(queueCopy, v27);
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = __68__UAFAssetSetManager_downloadStatusForSubscribers_queue_completion___block_invoke_407;
+      v26[3] = &unk_1E7FFE7C0;
+      v20 = v27;
+      v27[0] = completionCopy;
+      v27[1] = buf;
+      dispatch_async(queueCopy, v26);
     }
 
     _Block_object_dispose(buf, 8);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __68__UAFAssetSetManager_downloadStatusForSubscribers_queue_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = UAFGetLogCategory(&UAFLogContextClient);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v8 = 136315650;
-    v9 = "[UAFAssetSetManager downloadStatusForSubscribers:queue:completion:]_block_invoke_2";
-    v10 = 2048;
-    v11 = a2;
-    v12 = 2114;
-    v13 = v5;
-    _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s Returning asset download status: %lu for subscribers: %{public}@", &v8, 0x20u);
+    v7 = 136315650;
+    v8 = "[UAFAssetSetManager downloadStatusForSubscribers:queue:completion:]_block_invoke_2";
+    v9 = 2048;
+    v10 = a2;
+    v11 = 2114;
+    v12 = v5;
+    _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s Returning asset download status: %lu for subscribers: %{public}@", &v7, 0x20u);
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 - (void)downloadStatusForSubscriber:(id)subscriber subscriptionName:(id)name queue:(id)queue completion:(id)completion
@@ -3945,17 +4212,15 @@ uint64_t __68__UAFAssetSetManager_downloadStatusForSubscribers_queue_completion_
 
 void __84__UAFAssetSetManager_downloadStatusForSubscriber_subscriptionName_queue_completion___block_invoke(void *a1)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v3 = a1[4];
   v2 = a1[5];
-  v7 = a1[6];
-  v8 = v2;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v7 count:1];
-  v9[0] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v6 = a1[6];
+  v7 = v2;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v6 count:1];
+  v8[0] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   [v3 downloadStatusForSubscribers:v5 queue:a1[7] completion:a1[8]];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)downloadStatusForSubscribers:(id)subscribers
@@ -3983,31 +4248,31 @@ void __84__UAFAssetSetManager_downloadStatusForSubscriber_subscriptionName_queue
 
 void __51__UAFAssetSetManager_downloadStatusForSubscribers___block_invoke(void *a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v2 = UAFGetLogCategory(&UAFLogContextClient);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = a1[4];
     *buf = 136315394;
-    v25 = "[UAFAssetSetManager downloadStatusForSubscribers:]_block_invoke";
-    v26 = 2114;
-    *v27 = v3;
+    v24 = "[UAFAssetSetManager downloadStatusForSubscribers:]_block_invoke";
+    v25 = 2114;
+    *v26 = v3;
     _os_log_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_DEFAULT, "%s Download status of assets for subscribers: %{public}@", buf, 0x16u);
   }
 
-  v23 = 0;
+  v22 = 0;
   v5 = a1[4];
   v4 = a1[5];
   v6 = +[UAFSubscriptionStoreManager defaultManager];
   v7 = +[UAFConfigurationManager defaultManager];
-  v22 = 0;
-  v8 = [v4 assetSetUsagesForSubscribers:v5 storeManager:v6 configurationManager:v7 anyUnknown:&v23 error:&v22];
-  v9 = v22;
+  v21 = 0;
+  v8 = [v4 assetSetUsagesForSubscribers:v5 storeManager:v6 configurationManager:v7 anyUnknown:&v22 error:&v21];
+  v9 = v21;
 
   if (!v9)
   {
     v13 = 4;
-    if (v23)
+    if (v22)
     {
       v13 = 0;
     }
@@ -4024,11 +4289,11 @@ void __51__UAFAssetSetManager_downloadStatusForSubscribers___block_invoke(void *
         v16 = *(*(a1[6] + 8) + 24);
         v17 = a1[4];
         *buf = 136315650;
-        v25 = "[UAFAssetSetManager downloadStatusForSubscribers:]_block_invoke";
-        v26 = 2048;
-        *v27 = v16;
-        *&v27[8] = 2114;
-        *&v27[10] = v17;
+        v24 = "[UAFAssetSetManager downloadStatusForSubscribers:]_block_invoke";
+        v25 = 2048;
+        *v26 = v16;
+        *&v26[8] = 2114;
+        *&v26[10] = v17;
         v18 = "%s Returning asset download status: %lu for subscribers: %{public}@";
 LABEL_14:
         _os_log_impl(&dword_1BCF2C000, v15, OS_LOG_TYPE_DEFAULT, v18, buf, 0x20u);
@@ -4043,11 +4308,11 @@ LABEL_14:
         v19 = *(*(a1[6] + 8) + 24);
         v20 = a1[4];
         *buf = 136315650;
-        v25 = "[UAFAssetSetManager downloadStatusForSubscribers:]_block_invoke";
-        v26 = 2048;
-        *v27 = v19;
-        *&v27[8] = 2114;
-        *&v27[10] = v20;
+        v24 = "[UAFAssetSetManager downloadStatusForSubscribers:]_block_invoke";
+        v25 = 2048;
+        *v26 = v19;
+        *&v26[8] = 2114;
+        *&v26[10] = v20;
         v18 = "%s Returning status: %lu for subscribers: %{public}@ as the asset set usages are nil";
         goto LABEL_14;
       }
@@ -4062,36 +4327,33 @@ LABEL_14:
     v11 = geteuid();
     v12 = a1[4];
     *buf = 136315906;
-    v25 = "[UAFAssetSetManager downloadStatusForSubscribers:]_block_invoke";
-    v26 = 1024;
-    *v27 = v11;
-    *&v27[4] = 2114;
-    *&v27[6] = v12;
-    *&v27[14] = 2114;
-    *&v27[16] = v9;
+    v24 = "[UAFAssetSetManager downloadStatusForSubscribers:]_block_invoke";
+    v25 = 1024;
+    *v26 = v11;
+    *&v26[4] = 2114;
+    *&v26[6] = v12;
+    *&v26[14] = 2114;
+    *&v26[16] = v9;
     _os_log_impl(&dword_1BCF2C000, v10, OS_LOG_TYPE_DEFAULT, "%s Unable to get asset set usages for uid: %d Subscribers: '%{public}@': %{public}@", buf, 0x26u);
   }
 
   *(*(a1[6] + 8) + 24) = 0;
 LABEL_16:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)downloadStatusForSubscriber:(id)subscriber subscriptionName:(id)name
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   nameCopy = name;
   subscriberCopy = subscriber;
   v6 = MEMORY[0x1E695DEC8];
   nameCopy2 = name;
   subscriberCopy2 = subscriber;
   v9 = [v6 arrayWithObjects:&nameCopy count:1];
-  v16[0] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&subscriberCopy count:{1, nameCopy}];
+  v15[0] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&subscriberCopy count:{1, nameCopy}];
 
   v11 = [(UAFAssetSetManager *)self downloadStatusForSubscribers:v10];
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -4121,7 +4383,7 @@ void __30__UAFAssetSetManager_defaults__block_invoke()
 
 void __77__UAFAssetSetManager_disableCacheDelete_forAutoAssetType_autoAssetSpecifier___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = [UAFAssetSetManager cacheDeleteDefaultsKeyForAutoAssetType:*(a1 + 32) autoAssetSpecifier:*(a1 + 40)];
   v3 = *(a1 + 48);
   v4 = UAFGetLogCategory(&UAFLogContextClient);
@@ -4132,13 +4394,13 @@ void __77__UAFAssetSetManager_disableCacheDelete_forAutoAssetType_autoAssetSpeci
     {
       v6 = *(a1 + 32);
       v7 = *(a1 + 40);
-      v14 = 136315650;
-      v15 = "+[UAFAssetSetManager disableCacheDelete:forAutoAssetType:autoAssetSpecifier:]_block_invoke";
-      v16 = 2114;
-      v17 = v6;
-      v18 = 2114;
-      v19 = v7;
-      _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s Cache delete disabled for type %{public}@ specifier %{public}@", &v14, 0x20u);
+      v13 = 136315650;
+      v14 = "+[UAFAssetSetManager disableCacheDelete:forAutoAssetType:autoAssetSpecifier:]_block_invoke";
+      v15 = 2114;
+      v16 = v6;
+      v17 = 2114;
+      v18 = v7;
+      _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s Cache delete disabled for type %{public}@ specifier %{public}@", &v13, 0x20u);
     }
 
     v8 = +[UAFAssetSetManager defaults];
@@ -4151,13 +4413,13 @@ void __77__UAFAssetSetManager_disableCacheDelete_forAutoAssetType_autoAssetSpeci
     {
       v9 = *(a1 + 32);
       v10 = *(a1 + 40);
-      v14 = 136315650;
-      v15 = "+[UAFAssetSetManager disableCacheDelete:forAutoAssetType:autoAssetSpecifier:]_block_invoke";
-      v16 = 2114;
-      v17 = v9;
-      v18 = 2114;
-      v19 = v10;
-      _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s Cache delete enabled for type %{public}@ specifier %{public}@", &v14, 0x20u);
+      v13 = 136315650;
+      v14 = "+[UAFAssetSetManager disableCacheDelete:forAutoAssetType:autoAssetSpecifier:]_block_invoke";
+      v15 = 2114;
+      v16 = v9;
+      v17 = 2114;
+      v18 = v10;
+      _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s Cache delete enabled for type %{public}@ specifier %{public}@", &v13, 0x20u);
     }
 
     v8 = +[UAFAssetSetManager defaults];
@@ -4167,13 +4429,11 @@ void __77__UAFAssetSetManager_disableCacheDelete_forAutoAssetType_autoAssetSpeci
   v11 = +[UAFSubscriptionStoreManager writeManager];
   v12 = +[UAFConfigurationManager defaultManager];
   [UAFAssetSetManager configureAssetDelivery:v11 configurationManager:v12 lockIfUnchanged:0 oldSubscriptions:0 newSubscriptions:0 userInitiated:0];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 + (void)autoAssetDetailsForAssetNamed:(id)named assetSet:(id)set usages:(id)usages autoAssetType:(id *)type autoAssetSpecifier:(id *)specifier
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   namedCopy = named;
   setCopy = set;
   usagesCopy = usages;
@@ -4189,9 +4449,9 @@ void __77__UAFAssetSetManager_disableCacheDelete_forAutoAssetType_autoAssetSpeci
     }
 
     *buf = 136315394;
-    v31 = "+[UAFAssetSetManager autoAssetDetailsForAssetNamed:assetSet:usages:autoAssetType:autoAssetSpecifier:]";
-    v32 = 2114;
-    v33 = setCopy;
+    v30 = "+[UAFAssetSetManager autoAssetDetailsForAssetNamed:assetSet:usages:autoAssetType:autoAssetSpecifier:]";
+    v31 = 2114;
+    v32 = setCopy;
     v26 = "%s Failed to find configuration for asset set %{public}@'";
 LABEL_15:
     _os_log_error_impl(&dword_1BCF2C000, v18, OS_LOG_TYPE_ERROR, v26, buf, 0x16u);
@@ -4209,54 +4469,40 @@ LABEL_15:
     }
 
     *buf = 136315394;
-    v31 = "+[UAFAssetSetManager autoAssetDetailsForAssetNamed:assetSet:usages:autoAssetType:autoAssetSpecifier:]";
-    v32 = 2114;
-    v33 = setCopy;
+    v30 = "+[UAFAssetSetManager autoAssetDetailsForAssetNamed:assetSet:usages:autoAssetType:autoAssetSpecifier:]";
+    v31 = 2114;
+    v32 = setCopy;
     v26 = "%s Failed to find auto asset type for asset set %{public}@'";
     goto LABEL_15;
   }
 
-  v29 = usagesCopy;
+  v28 = usagesCopy;
   v18 = [v16 getAutoAssets:usagesCopy];
   v19 = [v18 objectForKeyedSubscript:namedCopy];
-  if (!v19)
+  if (v19 && (v20 = v19, -[NSObject objectForKeyedSubscript:](v18, "objectForKeyedSubscript:", namedCopy), v21 = type, v22 = specifier, v23 = objc_claimAutoreleasedReturnValue(), [v23 objectForKeyedSubscript:?], v24 = objc_claimAutoreleasedReturnValue(), v24, v23, v20, v24))
   {
-    goto LABEL_8;
-  }
-
-  v20 = v19;
-  [v18 objectForKeyedSubscript:namedCopy];
-  typeCopy = type;
-  v23 = v22 = specifier;
-  v24 = [v23 objectForKeyedSubscript:?];
-
-  if (v24)
-  {
-    *typeCopy = [v16 autoAssetType];
+    *v21 = [v16 autoAssetType];
     v25 = [v18 objectForKeyedSubscript:namedCopy];
     *v22 = [v25 objectForKeyedSubscript:@"AssetSpecifier"];
   }
 
   else
   {
-LABEL_8:
     v27 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v31 = "+[UAFAssetSetManager autoAssetDetailsForAssetNamed:assetSet:usages:autoAssetType:autoAssetSpecifier:]";
-      v32 = 2114;
-      v33 = namedCopy;
-      v34 = 2114;
-      v35 = setCopy;
+      v30 = "+[UAFAssetSetManager autoAssetDetailsForAssetNamed:assetSet:usages:autoAssetType:autoAssetSpecifier:]";
+      v31 = 2114;
+      v32 = namedCopy;
+      v33 = 2114;
+      v34 = setCopy;
       _os_log_error_impl(&dword_1BCF2C000, v27, OS_LOG_TYPE_ERROR, "%s Failed to find auto asset specifier for asset %{public}@ in asset set %{public}@'", buf, 0x20u);
     }
   }
 
-  usagesCopy = v29;
+  usagesCopy = v28;
 LABEL_13:
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)cacheDeleteDisabledForAutoAssetType:(id)type autoAssetSpecifier:(id)specifier
@@ -4268,18 +4514,113 @@ LABEL_13:
   return v6;
 }
 
+- (void)disableCacheDelete:(BOOL)delete forAssetNamed:(id)named assetSet:(id)set usages:(id)usages queue:(id)queue completion:(id)completion
+{
+  deleteCopy = delete;
+  v54 = *MEMORY[0x1E69E9840];
+  namedCopy = named;
+  setCopy = set;
+  usagesCopy = usages;
+  queueCopy = queue;
+  completionCopy = completion;
+  if (!queueCopy)
+  {
+    queueCopy = +[UAFAssetSetManager getConcurrentQueue];
+  }
+
+  v42 = 0;
+  v43 = 0;
+  [UAFAssetSetManager autoAssetDetailsForAssetNamed:namedCopy assetSet:setCopy usages:usagesCopy autoAssetType:&v43 autoAssetSpecifier:&v42];
+  v18 = v43;
+  v19 = v42;
+  v20 = v19;
+  if (v18 && v19)
+  {
+    if ([UAFAssetSetManager cacheDeleteDisabledForAutoAssetType:v18 autoAssetSpecifier:v19]== deleteCopy)
+    {
+      v26 = UAFGetLogCategory(&UAFLogContextClient);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      {
+        v27 = @"NO";
+        *buf = 136315906;
+        v47 = "[UAFAssetSetManager disableCacheDelete:forAssetNamed:assetSet:usages:queue:completion:]";
+        v48 = 2114;
+        v49 = namedCopy;
+        if (deleteCopy)
+        {
+          v27 = @"YES";
+        }
+
+        v50 = 2114;
+        v51 = setCopy;
+        v52 = 2114;
+        v53 = v27;
+        _os_log_impl(&dword_1BCF2C000, v26, OS_LOG_TYPE_DEFAULT, "%s Not changing cache delete disabled for asset %{public}@ in asset set %{public}@ as it is already %{public}@", buf, 0x2Au);
+      }
+
+      v35[0] = MEMORY[0x1E69E9820];
+      v35[1] = 3221225472;
+      v35[2] = __88__UAFAssetSetManager_disableCacheDelete_forAssetNamed_assetSet_usages_queue_completion___block_invoke_425;
+      v35[3] = &unk_1E7FFD4E8;
+      v36 = completionCopy;
+      dispatch_async(queueCopy, v35);
+      v22 = v36;
+    }
+
+    else
+    {
+      v45[0] = @"ConfigureCacheDelete";
+      v44[0] = @"Operation";
+      v44[1] = @"CacheDeleteDisabled";
+      v21 = [MEMORY[0x1E696AD98] numberWithBool:deleteCopy];
+      v45[1] = v21;
+      v45[2] = v18;
+      v44[2] = @"AutoAssetType";
+      v44[3] = @"AssetSpecifier";
+      v45[3] = v20;
+      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:v44 count:4];
+
+      v23 = +[UAFAssetSetManager createXPCConnection];
+      v28 = MEMORY[0x1E69E9820];
+      v29 = 3221225472;
+      v30 = __88__UAFAssetSetManager_disableCacheDelete_forAssetNamed_assetSet_usages_queue_completion___block_invoke_2;
+      v31 = &unk_1E7FFE348;
+      v32 = v23;
+      v34 = completionCopy;
+      v33 = queueCopy;
+      v24 = v23;
+      v25 = MEMORY[0x1BFB33950](&v28);
+      [v24 operationWithConfig:v22 completion:{v25, v28, v29, v30, v31}];
+    }
+  }
+
+  else
+  {
+    block[0] = MEMORY[0x1E69E9820];
+    block[1] = 3221225472;
+    block[2] = __88__UAFAssetSetManager_disableCacheDelete_forAssetNamed_assetSet_usages_queue_completion___block_invoke;
+    block[3] = &unk_1E7FFE810;
+    v38 = namedCopy;
+    v39 = setCopy;
+    v40 = usagesCopy;
+    v41 = completionCopy;
+    dispatch_async(queueCopy, block);
+
+    v22 = v38;
+  }
+}
+
 void __88__UAFAssetSetManager_disableCacheDelete_forAssetNamed_assetSet_usages_queue_completion___block_invoke(void *a1)
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to get auto asset configuration for asset %@ in asset set %@ with usages %@", a1[4], a1[5], a1[6]];
   v3 = MEMORY[0x1E696ABC0];
-  v7 = *MEMORY[0x1E696A588];
-  v8[0] = v2;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = *MEMORY[0x1E696A588];
+  v7[0] = v2;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v5 = [v3 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v4];
 
   (*(a1[7] + 16))();
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __88__UAFAssetSetManager_disableCacheDelete_forAssetNamed_assetSet_usages_queue_completion___block_invoke_2(uint64_t a1, void *a2)
@@ -4359,31 +4700,31 @@ void __88__UAFAssetSetManager_disableCacheDelete_forAssetNamed_assetSet_usages_q
 
 void __37__UAFAssetSetManager_resetAssetSets___block_invoke(uint64_t a1)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
     v2 = objc_opt_new();
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
     obj = *(a1 + 32);
-    v3 = [obj countByEnumeratingWithState:&v27 objects:v34 count:16];
+    v3 = [obj countByEnumeratingWithState:&v26 objects:v33 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v28;
-      v21 = *MEMORY[0x1E696A588];
+      v5 = *v27;
+      v20 = *MEMORY[0x1E696A588];
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v28 != v5)
+          if (*v27 != v5)
           {
             objc_enumerationMutation(obj);
           }
 
-          v7 = *(*(&v27 + 1) + 8 * i);
+          v7 = *(*(&v26 + 1) + 8 * i);
           v8 = +[UAFConfigurationManager defaultManager];
           v9 = [v8 getAssetSet:v7];
 
@@ -4395,9 +4736,9 @@ void __37__UAFAssetSetManager_resetAssetSets___block_invoke(uint64_t a1)
           else
           {
             v10 = MEMORY[0x1E696ABC0];
-            v32 = v21;
-            v33 = @"Could not get config";
-            [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+            v31 = v20;
+            v32 = @"Could not get config";
+            [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
             v12 = v11 = v2;
             v13 = [v10 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v12];
             [*(*(*(a1 + 40) + 8) + 40) setObject:v13 forKeyedSubscript:v7];
@@ -4406,7 +4747,7 @@ void __37__UAFAssetSetManager_resetAssetSets___block_invoke(uint64_t a1)
           }
         }
 
-        v4 = [obj countByEnumeratingWithState:&v27 objects:v34 count:16];
+        v4 = [obj countByEnumeratingWithState:&v26 objects:v33 count:16];
       }
 
       while (v4);
@@ -4419,40 +4760,38 @@ void __37__UAFAssetSetManager_resetAssetSets___block_invoke(uint64_t a1)
     v2 = [v14 getAllAssetSets];
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v15 = v2;
-  v16 = [v15 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v24;
+    v18 = *v23;
     do
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v24 != v18)
+        if (*v23 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        [UAFCommonUtilities resetAutoAsset:*(*(&v23 + 1) + 8 * j) userInfo:*(*(*(a1 + 40) + 8) + 40)];
+        [UAFCommonUtilities resetAutoAsset:*(*(&v22 + 1) + 8 * j) userInfo:*(*(*(a1 + 40) + 8) + 40)];
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v22 objects:v30 count:16];
     }
 
     while (v17);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetAssetSets:(id)sets queue:(id)queue completion:(id)completion
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   setsCopy = sets;
   queueCopy = queue;
   completionCopy = completion;
@@ -4462,9 +4801,9 @@ void __37__UAFAssetSetManager_resetAssetSets___block_invoke(uint64_t a1)
   }
 
   v10 = MEMORY[0x1E695DF90];
-  v25 = @"Operation";
-  v26[0] = @"ResetAssetSets";
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+  v24 = @"Operation";
+  v25[0] = @"ResetAssetSets";
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
   v12 = [v10 dictionaryWithDictionary:v11];
 
   if (setsCopy)
@@ -4473,40 +4812,38 @@ void __37__UAFAssetSetManager_resetAssetSets___block_invoke(uint64_t a1)
   }
 
   v13 = +[UAFAssetSetManager createXPCConnection];
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __54__UAFAssetSetManager_resetAssetSets_queue_completion___block_invoke;
-  v20[3] = &unk_1E7FFE2F8;
-  v21 = v13;
-  v22 = queueCopy;
-  v23 = setsCopy;
-  v24 = completionCopy;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __54__UAFAssetSetManager_resetAssetSets_queue_completion___block_invoke;
+  v19[3] = &unk_1E7FFE2F8;
+  v20 = v13;
+  v21 = queueCopy;
+  v22 = setsCopy;
+  v23 = completionCopy;
   v14 = setsCopy;
   v15 = queueCopy;
   v16 = completionCopy;
   v17 = v13;
-  v18 = MEMORY[0x1BFB33950](v20);
+  v18 = MEMORY[0x1BFB33950](v19);
   [v17 operationWithConfig:v12 completion:v18];
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __54__UAFAssetSetManager_resetAssetSets_queue_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   [*(a1 + 32) invalidate];
   v4 = *(a1 + 56);
   if (v4)
   {
     v5 = *(a1 + 40);
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __54__UAFAssetSetManager_resetAssetSets_queue_completion___block_invoke_2;
-    v9[3] = &unk_1E7FFD940;
-    v11 = v4;
-    v10 = v3;
-    dispatch_async(v5, v9);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __54__UAFAssetSetManager_resetAssetSets_queue_completion___block_invoke_2;
+    v8[3] = &unk_1E7FFD940;
+    v10 = v4;
+    v9 = v3;
+    dispatch_async(v5, v8);
   }
 
   v6 = UAFGetLogCategory(&UAFLogContextClient);
@@ -4519,44 +4856,42 @@ void __54__UAFAssetSetManager_resetAssetSets_queue_completion___block_invoke(uin
     }
 
     *buf = 136315394;
-    v13 = "[UAFAssetSetManager resetAssetSets:queue:completion:]_block_invoke";
-    v14 = 2114;
-    v15 = v7;
+    v12 = "[UAFAssetSetManager resetAssetSets:queue:completion:]_block_invoke";
+    v13 = 2114;
+    v14 = v7;
     _os_log_impl(&dword_1BCF2C000, v6, OS_LOG_TYPE_DEFAULT, "%s reset asset sets '%{public}@'", buf, 0x16u);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)assetSetInfo:(id)info
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   v5 = +[UAFConfigurationManager defaultManager];
   v6 = v5;
   if (infoCopy)
   {
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     v7 = infoCopy;
-    v8 = [v7 countByEnumeratingWithState:&v38 objects:v45 count:{16, infoCopy}];
+    v8 = [v7 countByEnumeratingWithState:&v37 objects:v44 count:{16, infoCopy}];
     if (v8)
     {
       v9 = v8;
       getAllAssetSets = 0;
-      v11 = *v39;
+      v11 = *v38;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v39 != v11)
+          if (*v38 != v11)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = [v6 getAssetSet:*(*(&v38 + 1) + 8 * i)];
+          v12 = [v6 getAssetSet:*(*(&v37 + 1) + 8 * i)];
           if (v12)
           {
             if (!getAllAssetSets)
@@ -4568,7 +4903,7 @@ void __54__UAFAssetSetManager_resetAssetSets_queue_completion___block_invoke(uin
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v38 objects:v45 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v37 objects:v44 count:16];
       }
 
       while (v9);
@@ -4585,27 +4920,27 @@ void __54__UAFAssetSetManager_resetAssetSets_queue_completion___block_invoke(uin
     getAllAssetSets = [v5 getAllAssetSets];
   }
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   obj = getAllAssetSets;
-  v33 = [obj countByEnumeratingWithState:&v34 objects:v44 count:16];
+  v32 = [obj countByEnumeratingWithState:&v33 objects:v43 count:16];
   v13 = 0;
-  if (v33)
+  if (v32)
   {
-    v32 = *v35;
-    v30 = v6;
+    v31 = *v34;
+    v29 = v6;
     do
     {
-      for (j = 0; j != v33; ++j)
+      for (j = 0; j != v32; ++j)
       {
-        if (*v35 != v32)
+        if (*v34 != v31)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v34 + 1) + 8 * j);
+        v15 = *(*(&v33 + 1) + 8 * j);
         name = [v15 name];
 
         if (name)
@@ -4615,7 +4950,7 @@ void __54__UAFAssetSetManager_resetAssetSets_queue_completion___block_invoke(uin
             v13 = objc_opt_new();
           }
 
-          v42[0] = @"FileURL";
+          v41[0] = @"FileURL";
           originatingURL = [v15 originatingURL];
           if (originatingURL)
           {
@@ -4629,16 +4964,16 @@ void __54__UAFAssetSetManager_resetAssetSets_queue_completion___block_invoke(uin
             v18 = &stru_1F3B6B510;
           }
 
-          v43[0] = v18;
-          v42[1] = @"PallasURL";
+          v42[0] = v18;
+          v41[1] = @"PallasURL";
           name2 = [v15 name];
           v20 = [UAFCommonUtilities getUAFPallasURLForAssetSet:name2];
-          v43[1] = v20;
-          v42[2] = @"Population";
+          v42[1] = v20;
+          v41[2] = @"Population";
           name3 = [v15 name];
           v22 = [UAFCommonUtilities getUAFPopulationForAssetSet:name3];
-          v43[2] = v22;
-          v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:v42 count:3];
+          v42[2] = v22;
+          v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:v41 count:3];
 
           if (originatingURL)
           {
@@ -4647,18 +4982,17 @@ void __54__UAFAssetSetManager_resetAssetSets_queue_completion___block_invoke(uin
           name4 = [v15 name];
           [v13 setObject:v23 forKeyedSubscript:name4];
 
-          v6 = v30;
+          v6 = v29;
         }
       }
 
-      v33 = [obj countByEnumeratingWithState:&v34 objects:v44 count:16];
+      v32 = [obj countByEnumeratingWithState:&v33 objects:v43 count:16];
     }
 
-    while (v33);
+    while (v32);
   }
 
   v25 = v13;
-  v26 = *MEMORY[0x1E69E9840];
   return v13;
 }
 

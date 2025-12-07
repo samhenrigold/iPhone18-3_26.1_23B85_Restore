@@ -178,16 +178,12 @@ void __43__WiFiLexicon_stringContainsUnwantedWords___block_invoke(uint64_t a1, v
 void __43__WiFiLexicon_stringContainsUnwantedWords___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(*(a1 + 32) + 8);
-  v5 = v3;
-  v9 = *(a1 + 40);
-  v10 = *(a1 + 48);
+  v6 = *(a1 + 40);
   LXLexiconEnumerateEntriesForString();
   if (*(*(a1 + 32) + 16))
   {
-    v6 = v5;
-    v7 = *(a1 + 40);
-    v8 = *(a1 + 48);
+    v4 = v3;
+    v5 = *(a1 + 40);
     LXLexiconEnumerateEntriesForString();
   }
 }

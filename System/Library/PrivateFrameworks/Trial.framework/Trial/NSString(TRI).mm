@@ -8,30 +8,38 @@
 - (id)triSanitizedPathComponentWithMaxLength:()TRI addHash:error:;
 - (id)triStringByResolvingSymlinksInPath;
 - (id)triTrim;
-- (uint64_t)triIsPathSafe;
-- (uint64_t)triIsPathSafePlausibleUniqueId;
 - (uint64_t)triJavaHash;
+- (void)triIsPathSafe;
+- (void)triIsPathSafePlausibleUniqueId;
 @end
 
 @implementation NSString(TRI)
 
-- (uint64_t)triIsPathSafePlausibleUniqueId
+- (void)triIsPathSafePlausibleUniqueId
 {
   result = [self triIsPathSafe];
   if (result)
   {
-    return [self length] > 5;
+    return ([self length] > 5);
   }
 
   return result;
 }
 
-- (uint64_t)triIsPathSafe
+- (void)triIsPathSafe
 {
   result = [self length];
   if (result)
   {
-    return ([self containsString:@"/"] & 1) == 0 && (objc_msgSend(self, "containsString:", &stru_2843623F8) & 1) == 0 && objc_msgSend(self, "UTF8String") != 0;
+    if ([self containsString:@"/"] & 1) != 0 || (objc_msgSend(self, "containsString:", &stru_2843623F8))
+    {
+      return 0;
+    }
+
+    else
+    {
+      return ([self UTF8String] != 0);
+    }
   }
 
   return result;
@@ -39,29 +47,27 @@
 
 - (id)triStringByResolvingSymlinksInPath
 {
-  v11[3] = *MEMORY[0x277D85DE8];
+  v10[3] = *MEMORY[0x277D85DE8];
   stringByResolvingSymlinksInPath = [self stringByResolvingSymlinksInPath];
   if ([stringByResolvingSymlinksInPath hasPrefix:@"/var/"])
   {
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v10 = 0;
-    v3 = [defaultManager destinationOfSymbolicLinkAtPath:@"/var" error:&v10];
-    v4 = v10;
+    v9 = 0;
+    v3 = [defaultManager destinationOfSymbolicLinkAtPath:@"/var" error:&v9];
+    v4 = v9;
 
     if (v3)
     {
       v5 = [stringByResolvingSymlinksInPath substringFromIndex:{objc_msgSend(@"/var/", "length")}];
 
       v6 = MEMORY[0x277CCACA8];
-      v11[0] = @"/";
-      v11[1] = v3;
-      v11[2] = v5;
-      v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:3];
+      v10[0] = @"/";
+      v10[1] = v3;
+      v10[2] = v5;
+      v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:3];
       stringByResolvingSymlinksInPath = [v6 pathWithComponents:v7];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return stringByResolvingSymlinksInPath;
 }
@@ -131,7 +137,7 @@
 
 + (id)triHashStrings:()TRI withDataSalt:
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   if (!v7)
@@ -148,26 +154,26 @@
     CC_SHA256_Update(&c, [v8 bytes], objc_msgSend(v8, "length"));
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v10 = v7;
-  v11 = [v10 countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v25;
+    v13 = *v24;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v25 != v13)
+        if (*v24 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v24 + 1) + 8 * i);
+        v15 = *(*(&v23 + 1) + 8 * i);
         v16 = objc_autoreleasePoolPush();
         v17 = [v15 dataUsingEncoding:4];
         v18 = v17;
@@ -179,7 +185,7 @@
         objc_autoreleasePoolPop(v16);
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v12);
@@ -188,21 +194,19 @@
   v19 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:32];
   if (![v19 mutableBytes])
   {
-    v23 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE728] reason:@"malloc failed" userInfo:0];
-    objc_exception_throw(v23);
+    v22 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE728] reason:@"malloc failed" userInfo:0];
+    objc_exception_throw(v22);
   }
 
   CC_SHA256_Final([v19 mutableBytes], &c);
   objc_autoreleasePoolPop(v9);
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
 
 - (id)triSanitizedPathComponentWithMaxLength:()TRI addHash:error:
 {
-  v45[1] = *MEMORY[0x277D85DE8];
+  v44[1] = *MEMORY[0x277D85DE8];
   v10 = objc_autoreleasePoolPush();
   v11 = [self dataUsingEncoding:1 allowLossyConversion:1];
   if (v11)
@@ -237,13 +241,13 @@ LABEL_32:
             goto LABEL_10;
           }
 
-          v41 = a2;
+          v40 = a2;
           v29 = MEMORY[0x277CCACA8];
           v30 = [0xFFFFFFF substringToIndex:a3 - 1];
           v31 = [v29 stringWithFormat:@"%@#", v30];
 
           0xFFFFFFF = v31;
-          a2 = v41;
+          a2 = v40;
         }
 
 LABEL_26:
@@ -262,16 +266,16 @@ LABEL_26:
         if (v32 > v33)
         {
           currentHandler = [MEMORY[0x277CCA890] currentHandler];
-          v37 = a2;
-          v38 = currentHandler;
-          [currentHandler handleFailureInMethod:v37 object:self file:@"NSString+TRI.m" lineNumber:125 description:@"sanitized string is longer than expected"];
+          v36 = a2;
+          v37 = currentHandler;
+          [currentHandler handleFailureInMethod:v36 object:self file:@"NSString+TRI.m" lineNumber:125 description:@"sanitized string is longer than expected"];
         }
 
         goto LABEL_32;
       }
 
 LABEL_10:
-      v40 = a2;
+      v39 = a2;
       triJavaHash = [self triJavaHash];
       v16 = 0xFFFFFFF;
       v17 = v16;
@@ -302,7 +306,7 @@ LABEL_10:
 
       0xFFFFFFF = [MEMORY[0x277CCACA8] stringWithFormat:@"%@#%07x", v18, triJavaHash & 0xFFFFFFF];
 
-      a2 = v40;
+      a2 = v39;
       if (!a3)
       {
         goto LABEL_32;
@@ -314,11 +318,11 @@ LABEL_10:
     if (a5)
     {
       v21 = MEMORY[0x277CCA9B8];
-      v42 = *MEMORY[0x277CCA450];
-      v43 = @"could not create string from ASCII encoded data";
+      v41 = *MEMORY[0x277CCA450];
+      v42 = @"could not create string from ASCII encoded data";
       v22 = MEMORY[0x277CBEAC0];
-      v23 = &v43;
-      v24 = &v42;
+      v23 = &v42;
+      v24 = &v41;
       goto LABEL_20;
     }
 
@@ -333,11 +337,11 @@ LABEL_21:
   }
 
   v21 = MEMORY[0x277CCA9B8];
-  v44 = *MEMORY[0x277CCA450];
-  v45[0] = @"could not get data from string";
+  v43 = *MEMORY[0x277CCA450];
+  v44[0] = @"could not get data from string";
   v22 = MEMORY[0x277CBEAC0];
-  v23 = v45;
-  v24 = &v44;
+  v23 = v44;
+  v24 = &v43;
 LABEL_20:
   v25 = [v22 dictionaryWithObjects:v23 forKeys:v24 count:1];
   v26 = [v21 errorWithDomain:@"TRIGeneralErrorDomain" code:2 userInfo:v25];
@@ -349,7 +353,6 @@ LABEL_33:
 
 LABEL_34:
   objc_autoreleasePoolPop(v10);
-  v34 = *MEMORY[0x277D85DE8];
 
   return v28;
 }

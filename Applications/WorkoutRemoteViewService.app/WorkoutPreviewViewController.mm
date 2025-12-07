@@ -66,16 +66,14 @@
   v8 = v7;
 
   type metadata accessor for WorkoutConfiguration();
-  v9 = type metadata accessor for BlastDoorConfigurationValidator();
-  v10 = *(v9 + 48);
-  v11 = *(v9 + 52);
+  type metadata accessor for BlastDoorConfigurationValidator();
   swift_allocObject();
   BlastDoorConfigurationValidator.init()();
   type metadata accessor for Occurrence();
-  v12 = Occurrence.__allocating_init(count:)();
-  v13 = static WorkoutConfiguration.importFromData(_:with:validator:)();
+  v9 = Occurrence.__allocating_init(count:)();
+  v10 = static WorkoutConfiguration.importFromData(_:with:validator:)();
 
-  WorkoutPreviewViewController.presentConfigurationViewer(for:)(v13);
+  WorkoutPreviewViewController.presentConfigurationViewer(for:)(v10);
   outlined consume of Data._Representation(v6, v8);
 }
 

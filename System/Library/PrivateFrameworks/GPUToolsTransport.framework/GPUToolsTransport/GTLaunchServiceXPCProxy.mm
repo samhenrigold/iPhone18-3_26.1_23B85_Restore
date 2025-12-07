@@ -189,10 +189,9 @@ void __68__GTLaunchServiceXPCProxy_symbolicatorForService_completionHandler___bl
 
   else
   {
-    v3 = *(a1 + 32);
-    v4 = *(*(a1 + 32) + 16);
+    v3 = *(*(a1 + 32) + 16);
 
-    v4();
+    v3();
   }
 }
 
@@ -215,7 +214,7 @@ void __68__GTLaunchServiceXPCProxy_symbolicatorForService_completionHandler___bl
 
 void __68__GTLaunchServiceXPCProxy_processStateForService_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (v3)
@@ -239,8 +238,8 @@ void __68__GTLaunchServiceXPCProxy_processStateForService_completionHandler___bl
       {
         v8 = MEMORY[0x277CCA9B8];
         v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"Deserialization failed for %@", @"processState", *MEMORY[0x277CCA450]];
-        v13[0] = v9;
-        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+        v12[0] = v9;
+        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
         v7 = [v8 errorWithDomain:@"com.apple.gputools.transport" code:10 userInfo:v10];
       }
 
@@ -252,8 +251,6 @@ void __68__GTLaunchServiceXPCProxy_processStateForService_completionHandler___bl
   {
     (*(*(a1 + 32) + 16))();
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

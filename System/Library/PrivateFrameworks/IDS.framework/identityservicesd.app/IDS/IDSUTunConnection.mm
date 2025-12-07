@@ -1493,11 +1493,11 @@ LABEL_11:
   }
 
   v17 = [dictCopy objectForKey:@"localDeliveryQueueStatsLastDeliveredTime"];
-  [v17 doubleValue];
+  objc_msgSend_doubleValue(v17);
   v19 = v18;
 
   v20 = [aggregateCopy objectForKey:@"localDeliveryQueueStatsLastDeliveredTime"];
-  [v20 doubleValue];
+  objc_msgSend_doubleValue(v20);
   v22 = v21;
 
   if (v19 > v22)
@@ -3031,7 +3031,7 @@ LABEL_44:
 
           v11 = *(*(&v29 + 1) + 8 * i);
           messageUUID = [v11 messageUUID];
-          v13 = [messageUUID isEqualToIgnoringCase:dCopy];
+          v13 = objc_msgSend_isEqualToIgnoringCase_(messageUUID);
 
           if (v13)
           {
@@ -3141,7 +3141,7 @@ LABEL_44:
 
         v11 = *(*(&v14 + 1) + 8 * i);
         messageUUID = [v11 messageUUID];
-        v13 = [messageUUID isEqualToIgnoringCase:dCopy];
+        v13 = objc_msgSend_isEqualToIgnoringCase_(messageUUID);
 
         if (v13)
         {
@@ -3245,7 +3245,7 @@ LABEL_44:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [v7 doubleValue];
+      objc_msgSend_doubleValue(v7);
       v4 = v8;
       v9 = OSLogHandleForTransportCategory();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
@@ -3294,7 +3294,7 @@ LABEL_44:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [v7 doubleValue];
+      objc_msgSend_doubleValue(v7);
       v4 = v8;
       v9 = OSLogHandleForTransportCategory();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
@@ -3377,7 +3377,7 @@ LABEL_44:
 
     if (v12)
     {
-      [v12 doubleValue];
+      objc_msgSend_doubleValue(v12);
       if (v13 >= 0.0)
       {
         v9 = v13;

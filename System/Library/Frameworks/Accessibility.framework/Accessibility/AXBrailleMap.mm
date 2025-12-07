@@ -7,6 +7,7 @@
 - (id)description;
 - (void)encodeWithCoder:(id)coder;
 - (void)presentImage:(CGImageRef)image;
+- (void)setHeight:(float)status atPoint:(CGPoint)point;
 @end
 
 @implementation AXBrailleMap
@@ -43,23 +44,43 @@
   return v3;
 }
 
+- (void)setHeight:(float)status atPoint:(CGPoint)point
+{
+  y = point.y;
+  x = point.x;
+  values = self->_values;
+  if (!values)
+  {
+    v9 = objc_opt_new();
+    v10 = self->_values;
+    self->_values = v9;
+
+    values = self->_values;
+  }
+
+  *&v11 = status;
+  v15 = [MEMORY[0x1E696AD98] numberWithFloat:v11];
+  v12 = MEMORY[0x1E696AD98];
+  [(AXBrailleMap *)self dimensions];
+  v14 = [v12 numberWithDouble:x + y * v13];
+  [(NSMutableDictionary *)values setObject:v15 forKey:v14];
+}
+
 - (void)presentImage:(CGImageRef)image
 {
   if (image)
   {
-    v4 = [objc_alloc(getCIImageClass()) initWithCGImage:image];
-    presentedImage = self->_presentedImage;
-    self->_presentedImage = v4;
+    self->_presentedImage = [objc_alloc(getCIImageClass()) initWithCGImage:image];
 
     MEMORY[0x1EEE66BB8]();
   }
 
   else
   {
-    v6 = AXLogCommon();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v3 = AXLogCommon();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      [AXBrailleMap presentImage:v6];
+      [AXBrailleMap presentImage:v3];
     }
   }
 }
@@ -91,21 +112,21 @@
 
 - (AXBrailleMap)initWithCoder:(id)coder
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = objc_opt_new();
   v6 = MEMORY[0x1E695DFD8];
-  v24[0] = objc_opt_class();
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
+  v23[0] = objc_opt_class();
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
   v8 = [v6 setWithArray:v7];
   v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"dimensions"];
   [v9 sizeValue];
   [(AXBrailleMap *)v5 setDimensions:?];
 
   v10 = MEMORY[0x1E695DFD8];
-  v23[0] = objc_opt_class();
-  v23[1] = objc_opt_class();
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
+  v22[0] = objc_opt_class();
+  v22[1] = objc_opt_class();
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
   v12 = [v10 setWithArray:v11];
   v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"values"];
   values = v5->_values;
@@ -120,7 +141,6 @@
   presentedImage = v5->_presentedImage;
   v5->_presentedImage = v18;
 
-  v20 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

@@ -52,17 +52,17 @@
 
     if (v22)
     {
-      v29 = PLMigrationGetLog();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      v30 = PLMigrationGetLog();
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
-        v30 = objc_opt_class();
-        v31 = NSStringFromClass(v30);
-        v32 = v41[3];
+        v31 = objc_opt_class();
+        v32 = NSStringFromClass(v31);
+        v33 = v41[3];
         LODWORD(buf[0]) = 138543618;
-        *(buf + 4) = v31;
+        *(buf + 4) = v32;
         WORD6(buf[0]) = 2048;
-        *(buf + 14) = v32;
-        _os_log_impl(&dword_19BF1F000, v29, OS_LOG_TYPE_DEFAULT, "%{public}@: summary - countOfAssetsWithoutParticipant: %ld", buf, 0x16u);
+        *(buf + 14) = v33;
+        _os_log_impl(&dword_19BF1F000, v30, OS_LOG_TYPE_DEFAULT, "%{public}@: summary - countOfAssetsWithoutParticipant: %ld", buf, 0x16u);
       }
     }
 
@@ -70,34 +70,42 @@
     {
       memset(buf, 0, sizeof(buf));
       v23 = PLMigrationGetLog();
-      os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
-      v24 = objc_opt_class();
-      v25 = NSStringFromClass(v24);
-      v26 = v41[3];
-      v44 = 138543618;
-      v45 = v25;
-      v46 = 2048;
-      v47 = v26;
-      LODWORD(v37) = 22;
-      v27 = _os_log_send_and_compose_impl();
-
-      v28 = [(PLModelMigrationActionCore *)self logger:&v44];
-      [v28 logWithMessage:v27 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{1488, 0}];
-
-      if (v27 != buf)
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        free(v27);
+        v24 = 3;
+      }
+
+      else
+      {
+        v24 = 2;
+      }
+
+      v25 = objc_opt_class();
+      v26 = NSStringFromClass(v25);
+      v27 = v41[3];
+      v44 = 138543618;
+      v45 = v26;
+      v46 = 2048;
+      v47 = v27;
+      v28 = _os_log_send_and_compose_impl(v24, 0, buf, 512, &dword_19BF1F000, v23, 0, "%{public}@: summary - countOfAssetsWithoutParticipant: %ld", &v44, 22);
+
+      logger2 = [(PLModelMigrationActionCore *)self logger];
+      [logger2 logWithMessage:v28 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{1488, 0}];
+
+      if (v28 != buf)
+      {
+        free(v28);
       }
     }
   }
 
   [(PLModelMigrationActionCore *)self finalizeProgress];
-  v33 = v16;
-  v34 = v33;
+  v34 = v16;
+  v35 = v34;
   if (v15 != 1 && error)
   {
-    v35 = v33;
-    *error = v34;
+    v36 = v34;
+    *error = v35;
   }
 
   _Block_object_dispose(&v40, 8);

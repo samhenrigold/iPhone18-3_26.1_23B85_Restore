@@ -1,4 +1,5 @@
 @interface EventID:
+- (double)PanEvent;
 - (uint64_t)A;
 - (uint64_t)PanEvent;
 - (uint64_t)TouchEvent;
@@ -13,23 +14,19 @@
 {
   if (!lazy cache variable for type metadata for Attribute<[EventID : EventType]>)
   {
-    type metadata accessor for [EventID : EventType]();
-    v0 = type metadata accessor for Attribute();
-    if (!v1)
+    type metadata accessor for [EventID : EventType](255);
+    v1 = type metadata accessor for Attribute();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for Attribute<[EventID : EventType]>);
+      atomic_store(v1, &lazy cache variable for type metadata for Attribute<[EventID : EventType]>);
     }
   }
 }
 
-- (uint64_t)PanEvent
+- (double)PanEvent
 {
-  result = *self;
-  if (!result)
+  if (a2 <= 2u)
   {
-    a2(255);
-    result = swift_getWitnessTable();
-    atomic_store(result, self);
   }
 
   return result;
@@ -40,12 +37,25 @@
   if (!lazy cache variable for type metadata for [EventID : PanEvent])
   {
     lazy protocol witness table accessor for type EventID and conformance EventID();
-    v0 = type metadata accessor for Dictionary();
-    if (!v1)
+    v1 = type metadata accessor for Dictionary();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for [EventID : PanEvent]);
+      atomic_store(v1, &lazy cache variable for type metadata for [EventID : PanEvent]);
     }
   }
+}
+
+- (uint64_t)PanEvent
+{
+  result = *self;
+  if (!result)
+  {
+    v6 = a2(255);
+    result = swift_getWitnessTable(a3, v6);
+    atomic_store(result, self);
+  }
+
+  return result;
 }
 
 - (uint64_t)A
@@ -61,11 +71,11 @@
 {
   if (!lazy cache variable for type metadata for MapGesture<[EventID : TouchEvent], SpatialEventCollection>)
   {
-    type metadata accessor for [EventID : TouchEvent]();
-    v0 = type metadata accessor for MapGesture();
-    if (!v1)
+    type metadata accessor for [EventID : TouchEvent](255);
+    v1 = type metadata accessor for MapGesture();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for MapGesture<[EventID : TouchEvent], SpatialEventCollection>);
+      atomic_store(v1, &lazy cache variable for type metadata for MapGesture<[EventID : TouchEvent], SpatialEventCollection>);
     }
   }
 }
@@ -75,8 +85,8 @@
   result = *self;
   if (!result)
   {
-    a2(255);
-    result = swift_getWitnessTable();
+    v6 = a2(255);
+    result = swift_getWitnessTable(a3, v6);
     atomic_store(result, self);
   }
 

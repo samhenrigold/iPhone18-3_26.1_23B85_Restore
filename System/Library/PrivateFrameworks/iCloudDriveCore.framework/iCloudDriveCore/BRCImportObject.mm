@@ -10,6 +10,7 @@
 - (BRCImportObject)initWithURL:(id)l packageRoot:(id)root error:(id *)error;
 - (id)initAsNewDirectoryWithLogicalName:(id)name parentItem:(id)item;
 - (id)initAsSymlinkWithTarget:(id)target parentItem:(id)item logicalName:(id)name error:(id *)error;
+- (int)_resolveAgainstFileDescriptor:(int)descriptor;
 - (void)_resolveParentBasedPropertiesWithParent:(id)parent logicalName:(id)name;
 @end
 
@@ -101,13 +102,13 @@
 
 - (id)initAsSymlinkWithTarget:(id)target parentItem:(id)item logicalName:(id)name error:(id *)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   targetCopy = target;
   itemCopy = item;
   nameCopy = name;
-  v24.receiver = self;
-  v24.super_class = BRCImportObject;
-  v14 = [(BRCImportObject *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = BRCImportObject;
+  v14 = [(BRCImportObject *)&v23 init];
   v15 = v14;
   if (!v14)
   {
@@ -133,20 +134,20 @@ LABEL_4:
     v19 = brc_default_log();
     if (os_log_type_enabled(v19, 0x90u))
     {
-      v23 = "(passed to caller)";
+      v22 = "(passed to caller)";
       *buf = 136315906;
-      v26 = "[BRCImportObject initAsSymlinkWithTarget:parentItem:logicalName:error:]";
-      v27 = 2080;
+      v25 = "[BRCImportObject initAsSymlinkWithTarget:parentItem:logicalName:error:]";
+      v26 = 2080;
       if (!error)
       {
-        v23 = "(ignored by caller)";
+        v22 = "(ignored by caller)";
       }
 
-      v28 = v23;
-      v29 = 2112;
-      v30 = v17;
-      v31 = 2112;
-      v32 = v18;
+      v27 = v22;
+      v28 = 2112;
+      v29 = v17;
+      v30 = 2112;
+      v31 = v18;
       _os_log_error_impl(&dword_223E7A000, v19, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
     }
   }
@@ -160,18 +161,17 @@ LABEL_4:
   v16 = 0;
 LABEL_11:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (BRCImportObject)initWithURL:(id)l existingItem:(id)item quarantineInfo:(id)info error:(id *)error
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   lCopy = l;
   itemCopy = item;
-  v39.receiver = self;
-  v39.super_class = BRCImportObject;
-  v12 = [(BRCImportObject *)&v39 init];
+  v38.receiver = self;
+  v38.super_class = BRCImportObject;
+  v12 = [(BRCImportObject *)&v38 init];
   if (!v12)
   {
 LABEL_22:
@@ -224,9 +224,9 @@ LABEL_14:
       {
         path = [(NSURL *)v12->_fileURL path];
         *buf = 138412546;
-        v41 = path;
-        v42 = 2112;
-        v43 = v27;
+        v40 = path;
+        v41 = 2112;
+        v42 = v27;
         _os_log_impl(&dword_223E7A000, v28, OS_LOG_TYPE_DEFAULT, "[WARNING] fileURL is excluded at %@%@", buf, 0x16u);
       }
 
@@ -264,20 +264,20 @@ LABEL_7:
     v24 = brc_default_log();
     if (os_log_type_enabled(v24, 0x90u))
     {
-      v38 = "(passed to caller)";
+      v37 = "(passed to caller)";
       *buf = 136315906;
-      v41 = "[BRCImportObject initWithURL:existingItem:quarantineInfo:error:]";
-      v42 = 2080;
+      v40 = "[BRCImportObject initWithURL:existingItem:quarantineInfo:error:]";
+      v41 = 2080;
       if (!error)
       {
-        v38 = "(ignored by caller)";
+        v37 = "(ignored by caller)";
       }
 
-      v43 = v38;
-      v44 = 2112;
-      v45 = v22;
-      v46 = 2112;
-      v47 = v23;
+      v42 = v37;
+      v43 = 2112;
+      v44 = v22;
+      v45 = 2112;
+      v46 = v23;
       _os_log_error_impl(&dword_223E7A000, v24, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
     }
   }
@@ -291,7 +291,6 @@ LABEL_7:
   v26 = 0;
 LABEL_23:
 
-  v36 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
@@ -423,14 +422,14 @@ LABEL_13:
 
 - (BRCImportObject)initWithURL:(id)l logicalName:(id)name quarantineInfo:(id)info parentItem:(id)item error:(id *)error
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   lCopy = l;
   nameCopy = name;
   infoCopy = info;
   itemCopy = item;
-  v36.receiver = self;
-  v36.super_class = BRCImportObject;
-  v17 = [(BRCImportObject *)&v36 init];
+  v35.receiver = self;
+  v35.super_class = BRCImportObject;
+  v17 = [(BRCImportObject *)&v35 init];
   if (!v17)
   {
 LABEL_15:
@@ -442,7 +441,7 @@ LABEL_15:
   objc_storeStrong(&v17->_fileURL, l);
   objc_storeStrong(&v17->_logicalName, name);
   objc_storeStrong(&v17->_quarantineInfo, info);
-  v24 = BRCOpenAt(0xFFFFFFFFLL, fileSystemRepresentation, 32772, v19, v20, v21, v22, v23, v36.receiver);
+  v24 = BRCOpenAt(0xFFFFFFFFLL, fileSystemRepresentation, 32772, v19, v20, v21, v22, v23, v35.receiver);
   if ((v24 & 0x80000000) != 0)
   {
     v26 = *__error();
@@ -483,20 +482,20 @@ LABEL_4:
     v29 = brc_default_log();
     if (os_log_type_enabled(v29, 0x90u))
     {
-      v35 = "(passed to caller)";
+      v34 = "(passed to caller)";
       *buf = 136315906;
-      v38 = "[BRCImportObject initWithURL:logicalName:quarantineInfo:parentItem:error:]";
-      v39 = 2080;
+      v37 = "[BRCImportObject initWithURL:logicalName:quarantineInfo:parentItem:error:]";
+      v38 = 2080;
       if (!error)
       {
-        v35 = "(ignored by caller)";
+        v34 = "(ignored by caller)";
       }
 
-      v40 = v35;
-      v41 = 2112;
-      v42 = v27;
-      v43 = 2112;
-      v44 = v28;
+      v39 = v34;
+      v40 = 2112;
+      v41 = v27;
+      v42 = 2112;
+      v43 = v28;
       _os_log_error_impl(&dword_223E7A000, v29, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
     }
   }
@@ -510,18 +509,464 @@ LABEL_4:
   v31 = 0;
 LABEL_16:
 
-  v33 = *MEMORY[0x277D85DE8];
   return v31;
+}
+
+- (int)_resolveAgainstFileDescriptor:(int)descriptor
+{
+  v99 = *MEMORY[0x277D85DE8];
+  if (descriptor < 0)
+  {
+    return *__error();
+  }
+
+  v3 = *&descriptor;
+  v78 = xmmword_2241ABE80;
+  v79 = 513;
+  v98 = 0;
+  memset(v97, 0, sizeof(v97));
+  if (fgetattrlist(descriptor, &v78, v97, 0x68uLL, 0x20u) < 0)
+  {
+    v17 = *__error();
+    v18 = brc_bread_crumbs();
+    v19 = brc_default_log();
+    if (os_log_type_enabled(v19, 0x90u))
+    {
+      path = [(NSURL *)self->_fileURL path];
+      *buf = 67109890;
+      *v84 = v3;
+      *&v84[4] = 2112;
+      *&v84[6] = path;
+      *&v84[14] = 1024;
+      *&v84[16] = v17;
+      *&v84[20] = 2112;
+      *&v84[22] = v18;
+      _os_log_error_impl(&dword_223E7A000, v19, 0x90u, "[ERROR] fgetattrlist(%d) at '%@' failed %{errno}d%@", buf, 0x22u);
+    }
+
+    *__error() = v17;
+    return *__error();
+  }
+
+  v5 = v97[9];
+  v6 = v97[9] & 0xF000;
+  if (v6 != 0x4000 && v6 != 0x8000 && v6 != 40960)
+  {
+    v7 = brc_bread_crumbs();
+    v8 = brc_default_log();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    {
+      v65 = aPcDBLSW[LOWORD(v97[9]) >> 12];
+      *buf = 67111938;
+      if ((v97[9] & 0x100) != 0)
+      {
+        v66 = 114;
+      }
+
+      else
+      {
+        v66 = 45;
+      }
+
+      *v84 = v65;
+      *&v84[4] = 1024;
+      if ((v97[9] & 0x80) != 0)
+      {
+        v67 = 119;
+      }
+
+      else
+      {
+        v67 = 45;
+      }
+
+      *&v84[6] = v66;
+      *&v84[10] = 1024;
+      if ((v97[9] & 0x40) != 0)
+      {
+        v68 = 120;
+      }
+
+      else
+      {
+        v68 = 45;
+      }
+
+      *&v84[12] = v67;
+      if ((v97[9] & 0x20) != 0)
+      {
+        v69 = 114;
+      }
+
+      else
+      {
+        v69 = 45;
+      }
+
+      *&v84[16] = 1024;
+      if ((v97[9] & 0x10) != 0)
+      {
+        v70 = 119;
+      }
+
+      else
+      {
+        v70 = 45;
+      }
+
+      *&v84[18] = v68;
+      if ((v97[9] & 8) != 0)
+      {
+        v71 = 120;
+      }
+
+      else
+      {
+        v71 = 45;
+      }
+
+      *&v84[22] = 1024;
+      if ((v97[9] & 4) != 0)
+      {
+        v72 = 114;
+      }
+
+      else
+      {
+        v72 = 45;
+      }
+
+      *&v84[24] = v69;
+      if ((v97[9] & 2) != 0)
+      {
+        v73 = 119;
+      }
+
+      else
+      {
+        v73 = 45;
+      }
+
+      *&v84[28] = 1024;
+      if (v97[9])
+      {
+        v74 = 120;
+      }
+
+      else
+      {
+        v74 = 45;
+      }
+
+      *&v84[30] = v70;
+      v85 = 1024;
+      v86 = v71;
+      v87 = 1024;
+      v88 = v72;
+      v89 = 1024;
+      v90 = v73;
+      v91 = 1024;
+      v92 = v74;
+      v93 = 2112;
+      selfCopy = self;
+      v95 = 2112;
+      v96 = v7;
+      _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] Inappropriate file type %c%c%c%c%c%c%c%c%c%c for %@%@", buf, 0x52u);
+    }
+
+    *(self + 161) |= 1u;
+    v5 = v97[9];
+  }
+
+  v9 = BRCIsLegacyUbiquityFault(v3, SBYTE4(v97[9]), v5, &v97[5]);
+  if (v9)
+  {
+    v10 = v9;
+    path2 = [(NSURL *)self->_fileURL path];
+    v12 = BRCUnlinkAt(-1, path2, ((v97[9] & 0xF000) == 0x4000) << 7);
+
+    if (v12 < 0)
+    {
+      v28 = *__error();
+      v29 = brc_bread_crumbs();
+      v30 = brc_default_log();
+      if (os_log_type_enabled(v30, 0x90u))
+      {
+        if (v10 == 2)
+        {
+          v75 = "brok";
+        }
+
+        else
+        {
+          v75 = "UF_COMPRESSED";
+        }
+
+        path3 = [(NSURL *)self->_fileURL path];
+        *buf = 136315906;
+        *v84 = v75;
+        *&v84[8] = 2112;
+        *&v84[10] = path3;
+        *&v84[18] = 1024;
+        *&v84[20] = v28;
+        *&v84[24] = 2112;
+        *&v84[26] = v29;
+        _os_log_error_impl(&dword_223E7A000, v30, 0x90u, "[ERROR] failed to unlink legacy ubiquity %s fault at '%@' %{errno}d%@", buf, 0x26u);
+      }
+
+      *__error() = v28;
+    }
+
+    else
+    {
+      v13 = brc_bread_crumbs();
+      v14 = brc_default_log();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      {
+        if (v10 == 2)
+        {
+          v15 = "brok";
+        }
+
+        else
+        {
+          v15 = "UF_COMPRESSED";
+        }
+
+        path4 = [(NSURL *)self->_fileURL path];
+        *buf = 136315650;
+        *v84 = v15;
+        *&v84[8] = 2112;
+        *&v84[10] = path4;
+        *&v84[18] = 2112;
+        *&v84[20] = v13;
+        _os_log_impl(&dword_223E7A000, v14, OS_LOG_TYPE_DEFAULT, "[NOTICE] cleaned up legacy ubiquity %s fault at '%@'%@", buf, 0x20u);
+      }
+    }
+
+    return 14;
+  }
+
+  self->_fileID = *(&v97[10] + 4);
+  *&self->_fsGenerationID = vrev64_s32(*(&v97[9] + 4));
+  self->_mode = v97[9];
+  if (BRCIsBusyDate(v97[1]))
+  {
+    v21 = time(0);
+    v22 = v97[3];
+    if (v21 < v97[3])
+    {
+      v22 = v21;
+    }
+
+    v97[1] = v22;
+  }
+
+  v23 = *&v97[3];
+  self->_birthtime = *&v97[1];
+  self->_mtime = v23;
+  if ((v97[9] & 0xF000) == 0x8000)
+  {
+    v24 = v98;
+  }
+
+  else
+  {
+    v24 = 0;
+  }
+
+  self->_size = v24;
+  v25 = *&v97[7];
+  *self->_finderInfo = *&v97[5];
+  *&self->_finderInfo[16] = v25;
+  v26 = *(self + 161) & 0xDF | (32 * ((LOBYTE(v97[6]) >> 7) & 1));
+  *(self + 161) = *(self + 161) & 0xDF | (32 * (LOBYTE(v97[6]) >> 7));
+  if ((v97[6] & 0xE00) != 0)
+  {
+    v27 = v26 | 0x10;
+  }
+
+  else
+  {
+    v27 = *(self + 161) & 0xEF | (16 * (fgetxattr(v3, "com.apple.metadata:_kMDItemUserTags", 0, 0, 0, 0) > 0));
+  }
+
+  *(self + 161) = v27;
+  if ((v27 & 0x20) != 0)
+  {
+    if ((v27 & 2) != 0)
+    {
+      v31 = brc_bread_crumbs();
+      v32 = brc_default_log();
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+      {
+        [BRCImportObject _resolveAgainstFileDescriptor:];
+      }
+
+      *(self + 161) |= 1u;
+    }
+
+    if ((v97[9] & 0xF000) == 0x4000)
+    {
+      v33 = brc_bread_crumbs();
+      v34 = brc_default_log();
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+      {
+        [BRCImportObject _resolveAgainstFileDescriptor:];
+      }
+
+      *(self + 161) |= 1u;
+    }
+
+    if (fgetxattr(v3, "com.apple.clouddocs.security", 0, 0, 0, 0) != -1)
+    {
+      *(self + 161) |= 0x40u;
+      v35 = brc_bread_crumbs();
+      v36 = brc_default_log();
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+      {
+        [(BRCImportObject *)self _resolveAgainstFileDescriptor:v35, v36];
+      }
+
+      return 45;
+    }
+
+    if (*__error() == 93)
+    {
+      v37 = *(self + 161);
+    }
+
+    else
+    {
+      v39 = brc_bread_crumbs();
+      v40 = brc_default_log();
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+      {
+        v41 = *__error();
+        *buf = 138412802;
+        *v84 = self;
+        *&v84[8] = 1024;
+        *&v84[10] = v41;
+        *&v84[14] = 2112;
+        *&v84[16] = v39;
+        _os_log_impl(&dword_223E7A000, v40, OS_LOG_TYPE_DEFAULT, "[WARNING] Can't read xattr for '%@' %{errno}d%@", buf, 0x1Cu);
+      }
+
+      v37 = *(self + 161) | 1;
+    }
+
+    *(self + 161) = v37 & 0xBF;
+  }
+
+  if (_CFURLIsPromiseName() && ((self->_mode & 0xF000) != 0x8000 || (*(self + 161) & 0x40) != 0))
+  {
+    v42 = brc_bread_crumbs();
+    v43 = brc_default_log();
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+    {
+      logicalName = self->_logicalName;
+      *buf = 138412546;
+      *v84 = logicalName;
+      *&v84[8] = 2112;
+      *&v84[10] = v42;
+      _os_log_impl(&dword_223E7A000, v43, OS_LOG_TYPE_DEFAULT, "[WARNING] Excluding item with promise name that isn't a promise '%@'%@", buf, 0x16u);
+    }
+
+    *(self + 161) |= 1u;
+  }
+
+  if (![(BRCImportObject *)self isSymLink])
+  {
+    goto LABEL_66;
+  }
+
+  if ((BRCReadlinkAt(-1, [(NSURL *)self->_fileURL fileSystemRepresentation], buf, 1025) & 0x80000000) == 0)
+  {
+    v45 = [MEMORY[0x277CCACA8] br_pathWithFileSystemRepresentation:buf];
+    symlinkContent = self->_symlinkContent;
+    self->_symlinkContent = v45;
+
+    v47 = self->_symlinkContent;
+    if (!v47)
+    {
+      [(BRCImportObject *)&self->_symlinkContent _resolveAgainstFileDescriptor:v80];
+      v47 = *v80;
+    }
+
+    if (![(NSString *)v47 br_pathSafeFileSystemRepresentation])
+    {
+      v48 = brc_bread_crumbs();
+      v49 = brc_default_log();
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+      {
+        v50 = self->_symlinkContent;
+        *v80 = 138412546;
+        *&v80[4] = v50;
+        v81 = 2112;
+        v82 = v48;
+        _os_log_impl(&dword_223E7A000, v49, OS_LOG_TYPE_DEFAULT, "[WARNING] invalid symlink content: %@%@", v80, 0x16u);
+      }
+    }
+
+LABEL_66:
+    appLibrary = [(BRCImportObject *)self appLibrary];
+    mangledID = [appLibrary mangledID];
+    v53 = [BRCUserDefaults defaultsForMangledID:mangledID];
+    maxXattrBlobSize = [v53 maxXattrBlobSize];
+
+    v77 = 0;
+    v55 = [BRFieldXattrBlob loadXattrsFromFD:v3 withMaximumSize:maxXattrBlobSize error:&v77];
+    v56 = v77;
+    xattrs = self->_xattrs;
+    self->_xattrs = v55;
+
+    if (v56)
+    {
+      v58 = brc_bread_crumbs();
+      v59 = brc_default_log();
+      if (os_log_type_enabled(v59, 0x90u))
+      {
+        [(BRCImportObject *)self _resolveAgainstFileDescriptor:v58, v59];
+      }
+    }
+
+    return 0;
+  }
+
+  v61 = *__error();
+  if (v61)
+  {
+    v20 = v61;
+  }
+
+  else
+  {
+    v20 = 22;
+  }
+
+  v62 = brc_bread_crumbs();
+  v63 = brc_default_log();
+  if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+  {
+    fileSystemRepresentation = [(NSURL *)self->_fileURL fileSystemRepresentation];
+    *v80 = 136315394;
+    *&v80[4] = fileSystemRepresentation;
+    v81 = 2112;
+    v82 = v62;
+    _os_log_impl(&dword_223E7A000, v63, OS_LOG_TYPE_DEFAULT, "[WARNING] Can't read symlink at '%s'%@", v80, 0x16u);
+  }
+
+  return v20;
 }
 
 - (BRCImportObject)initWithURL:(id)l packageRoot:(id)root error:(id *)error
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   lCopy = l;
   rootCopy = root;
-  v35.receiver = self;
-  v35.super_class = BRCImportObject;
-  v11 = [(BRCImportObject *)&v35 init];
+  v34.receiver = self;
+  v34.super_class = BRCImportObject;
+  v11 = [(BRCImportObject *)&v34 init];
   if (!v11)
   {
     goto LABEL_18;
@@ -549,9 +994,9 @@ LABEL_16:
     {
       path = [(NSURL *)v11->_fileURL path];
       *buf = 138412546;
-      v37 = path;
-      v38 = 2112;
-      *v39 = v18;
+      v36 = path;
+      v37 = 2112;
+      *v38 = v18;
       _os_log_impl(&dword_223E7A000, v19, OS_LOG_TYPE_DEFAULT, "[WARNING] Package item is excluded at %@%@", buf, 0x16u);
     }
 
@@ -580,11 +1025,11 @@ LABEL_16:
   {
     path2 = [(NSURL *)v11->_fileURL path];
     *buf = 138412802;
-    v37 = path2;
-    v38 = 1024;
-    *v39 = v24;
-    *&v39[4] = 2112;
-    *&v39[6] = v25;
+    v36 = path2;
+    v37 = 1024;
+    *v38 = v24;
+    *&v38[4] = 2112;
+    *&v38[6] = v25;
     _os_log_error_impl(&dword_223E7A000, v26, 0x90u, "[ERROR] Failed opening %@ %{errno}d%@", buf, 0x1Cu);
   }
 
@@ -599,20 +1044,20 @@ LABEL_12:
       v29 = brc_default_log();
       if (os_log_type_enabled(v29, 0x90u))
       {
-        v33 = "(passed to caller)";
+        v32 = "(passed to caller)";
         *buf = 136315906;
-        v37 = "[BRCImportObject(BRCPackageAdditions) initWithURL:packageRoot:error:]";
-        v38 = 2080;
+        v36 = "[BRCImportObject(BRCPackageAdditions) initWithURL:packageRoot:error:]";
+        v37 = 2080;
         if (!error)
         {
-          v33 = "(ignored by caller)";
+          v32 = "(ignored by caller)";
         }
 
-        *v39 = v33;
-        *&v39[8] = 2112;
-        *&v39[10] = v27;
-        v40 = 2112;
-        v41 = v28;
+        *v38 = v32;
+        *&v38[8] = 2112;
+        *&v38[10] = v27;
+        v39 = 2112;
+        v40 = v28;
         _os_log_error_impl(&dword_223E7A000, v29, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       }
     }
@@ -628,61 +1073,40 @@ LABEL_12:
 
 LABEL_18:
 
-  v31 = *MEMORY[0x277D85DE8];
   return v11;
-}
-
-- (void)_resolveAgainstFileDescriptor:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Inappropriate location or an alias for '%@'%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_resolveAgainstFileDescriptor:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Directory is marked as alias, ignoring '%@'%@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resolveAgainstFileDescriptor:(NSObject *)a3 .cold.3(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v5 = [*(a1 + 8) path];
   OUTLINED_FUNCTION_1_0();
-  v8 = a2;
-  _os_log_debug_impl(&dword_223E7A000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] BR alias is ignored at '%@'%@", v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = a2;
+  _os_log_debug_impl(&dword_223E7A000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] BR alias is ignored at '%@'%@", v6, 0x16u);
 }
 
 - (void)_resolveAgainstFileDescriptor:(void *)a1 .cold.4(void *a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = brc_bread_crumbs();
   v5 = brc_default_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_fault_impl(&dword_223E7A000, v5, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: _symlinkContent%@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_fault_impl(&dword_223E7A000, v5, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: _symlinkContent%@", &v6, 0xCu);
   }
 
   *a2 = *a1;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resolveAgainstFileDescriptor:(NSObject *)a3 .cold.5(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   [*(a1 + 8) fileSystemRepresentation];
   OUTLINED_FUNCTION_1_0();
-  v7 = a2;
-  _os_log_error_impl(&dword_223E7A000, a3, 0x90u, "[ERROR] Recieved an error while reading xattrs at '%s'%@", v6, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = a2;
+  _os_log_error_impl(&dword_223E7A000, a3, 0x90u, "[ERROR] Recieved an error while reading xattrs at '%s'%@", v5, 0x16u);
 }
 
 @end

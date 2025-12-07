@@ -526,138 +526,135 @@ LABEL_36:
   dsCopy = ds;
   iDsCopy = iDs;
   v10 = [NSMutableSet alloc];
-  v51 = iDsCopy;
+  v48 = iDsCopy;
   allKeys = [iDsCopy allKeys];
-  v58 = [v10 initWithArray:allKeys];
+  v55 = [v10 initWithArray:allKeys];
 
-  v66 = objc_alloc_init(NSMutableDictionary);
-  v53 = documentCopy;
+  v63 = objc_alloc_init(NSMutableDictionary);
+  v50 = documentCopy;
   calendar = [documentCopy calendar];
-  v50 = componentsWithPhantomMasterForICSCalendar();
+  v47 = componentsWithPhantomMasterForICSCalendar();
   [calendar setComponents:? options:?];
-  v81 = 0u;
-  v82 = 0u;
+  v78 = 0u;
   v79 = 0u;
-  v80 = 0u;
+  v76 = 0u;
+  v77 = 0u;
   componentKeys = [calendar componentKeys];
-  v14 = [componentKeys countByEnumeratingWithState:&v79 objects:v87 count:16];
+  v14 = [componentKeys countByEnumeratingWithState:&v76 objects:v84 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v80;
+    v16 = *v77;
     v17 = &SBSSetStatusBarShowsActivityForApplication_ptr;
-    v55 = componentKeys;
-    v56 = calendar;
-    v54 = *v80;
+    v52 = componentKeys;
+    v53 = calendar;
+    v51 = *v77;
     type = _CPLog_to_os_log_type[4];
     do
     {
       v18 = 0;
-      v57 = v15;
+      v54 = v15;
       do
       {
-        if (*v80 != v16)
+        if (*v77 != v16)
         {
           objc_enumerationMutation(componentKeys);
         }
 
-        v67 = *(*(&v79 + 1) + 8 * v18);
+        v64 = *(*(&v76 + 1) + 8 * v18);
         v19 = [calendar componentForKey:?];
         if (v19)
         {
-          v20 = v17[142];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v62 = v19;
-            v63 = v18;
-            v21 = v19;
-            v22 = [calendar componentOccurrencesForKey:v67];
-            v23 = [[NSMutableSet alloc] initWithCapacity:{objc_msgSend(v22, "count") + 1}];
-            v64 = v21;
-            [SubCalICSDataActor externalIDForICSEvent:v21];
-            v61 = v69 = v23;
-            [v23 addObject:?];
-            v77 = 0u;
-            v78 = 0u;
+            v59 = v19;
+            v60 = v18;
+            v20 = v19;
+            v21 = [calendar componentOccurrencesForKey:v64];
+            v22 = [[NSMutableSet alloc] initWithCapacity:{objc_msgSend(v21, "count") + 1}];
+            v61 = v20;
+            [SubCalICSDataActor externalIDForICSEvent:v20];
+            v58 = v66 = v22;
+            [v22 addObject:?];
+            v74 = 0u;
             v75 = 0u;
-            v76 = 0u;
-            obj = v22;
-            v24 = [obj countByEnumeratingWithState:&v75 objects:v86 count:16];
-            if (v24)
+            v72 = 0u;
+            v73 = 0u;
+            obj = v21;
+            v23 = [obj countByEnumeratingWithState:&v72 objects:v83 count:16];
+            if (v23)
             {
-              v25 = v24;
-              v26 = *v76;
+              v24 = v23;
+              v25 = *v73;
               do
               {
-                for (i = 0; i != v25; i = i + 1)
+                for (i = 0; i != v24; i = i + 1)
                 {
-                  if (*v76 != v26)
+                  if (*v73 != v25)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v28 = *(*(&v75 + 1) + 8 * i);
-                  v29 = v17[142];
+                  v27 = *(*(&v72 + 1) + 8 * i);
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v30 = [SubCalICSDataActor externalIDForICSEvent:v28];
-                    [v69 addObject:v30];
+                    v28 = [SubCalICSDataActor externalIDForICSEvent:v27];
+                    [v66 addObject:v28];
                   }
                 }
 
-                v25 = [obj countByEnumeratingWithState:&v75 objects:v86 count:16];
+                v24 = [obj countByEnumeratingWithState:&v72 objects:v83 count:16];
               }
 
-              while (v25);
+              while (v24);
             }
 
-            v31 = [dsCopy objectForKeyedSubscript:v67];
-            v32 = v31;
-            if (!v31 || ([v31 isEqualToSet:v69] & 1) == 0)
+            v29 = [dsCopy objectForKeyedSubscript:v64];
+            v30 = v29;
+            if (!v29 || ([v29 isEqualToSet:v66] & 1) == 0)
             {
-              v60 = v32;
-              v33 = [SubCalICSDataActor externalIDForICSEvent:v64];
-              [v66 setObject:v33 forKeyedSubscript:v67];
+              v57 = v30;
+              v31 = [SubCalICSDataActor externalIDForICSEvent:v61];
+              [v63 setObject:v31 forKeyedSubscript:v64];
 
-              v73 = 0u;
-              v74 = 0u;
+              v70 = 0u;
               v71 = 0u;
-              v72 = 0u;
-              v68 = obj;
-              v34 = [v68 countByEnumeratingWithState:&v71 objects:v85 count:16];
-              if (v34)
+              v68 = 0u;
+              v69 = 0u;
+              v65 = obj;
+              v32 = [v65 countByEnumeratingWithState:&v68 objects:v82 count:16];
+              if (v32)
               {
-                v35 = v34;
-                v36 = *v72;
+                v33 = v32;
+                v34 = *v69;
                 do
                 {
-                  for (j = 0; j != v35; j = j + 1)
+                  for (j = 0; j != v33; j = j + 1)
                   {
-                    if (*v72 != v36)
+                    if (*v69 != v34)
                     {
-                      objc_enumerationMutation(v68);
+                      objc_enumerationMutation(v65);
                     }
 
-                    v38 = *(*(&v71 + 1) + 8 * j);
-                    v39 = v17[142];
+                    v36 = *(*(&v68 + 1) + 8 * j);
                     objc_opt_class();
                     if (objc_opt_isKindOfClass())
                     {
-                      v40 = v38;
-                      recurrence_id = [v40 recurrence_id];
+                      v37 = v36;
+                      recurrence_id = [v37 recurrence_id];
                       value = [recurrence_id value];
-                      v43 = value;
+                      v40 = value;
                       if (recurrence_id)
                       {
                         icsString = [value icsString];
-                        [NSString stringWithFormat:@"%@/%@", v67, icsString];
-                        v46 = v45 = v17;
-                        v47 = [SubCalICSDataActor externalIDForICSEvent:v40];
-                        [v66 setObject:v47 forKeyedSubscript:v46];
+                        [NSString stringWithFormat:@"%@/%@", v64, icsString];
+                        v43 = v42 = v17;
+                        v44 = [SubCalICSDataActor externalIDForICSEvent:v37];
+                        [v63 setObject:v44 forKeyedSubscript:v43];
 
-                        v17 = v45;
+                        v17 = v42;
                       }
 
                       else
@@ -666,30 +663,30 @@ LABEL_36:
                         if (os_log_type_enabled(icsString, type))
                         {
                           *buf = 138543362;
-                          v84 = v67;
+                          v81 = v64;
                           _os_log_impl(&dword_0, icsString, type, "Dropping detached occurrence of %{public}@ without recurrence id", buf, 0xCu);
                         }
                       }
                     }
                   }
 
-                  v35 = [v68 countByEnumeratingWithState:&v71 objects:v85 count:16];
+                  v33 = [v65 countByEnumeratingWithState:&v68 objects:v82 count:16];
                 }
 
-                while (v35);
+                while (v33);
               }
 
-              componentKeys = v55;
-              calendar = v56;
-              v16 = v54;
-              v15 = v57;
-              v32 = v60;
+              componentKeys = v52;
+              calendar = v53;
+              v16 = v51;
+              v15 = v54;
+              v30 = v57;
             }
 
-            [v58 removeObject:v67];
+            [v55 removeObject:v64];
 
-            v19 = v62;
-            v18 = v63;
+            v19 = v59;
+            v18 = v60;
           }
         }
 
@@ -697,16 +694,16 @@ LABEL_36:
       }
 
       while (v18 != v15);
-      v15 = [componentKeys countByEnumeratingWithState:&v79 objects:v87 count:16];
+      v15 = [componentKeys countByEnumeratingWithState:&v76 objects:v84 count:16];
     }
 
     while (v15);
   }
 
-  v48 = v58;
-  *remove = v58;
+  v45 = v55;
+  *remove = v55;
 
-  return v66;
+  return v63;
 }
 
 - (id)_processICSDocument:(id)document icsData:(id)data calendar:(id)calendar digestPair:(id)pair

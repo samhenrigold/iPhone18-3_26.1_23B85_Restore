@@ -45,21 +45,20 @@
 {
   v8 = sub_1C4EF9CD8();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   MEMORY[0x1EEE9AC00](v8);
-  v12 = &v21 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = _Block_copy(completion);
-  v14 = sub_1C4F01138();
-  v16 = v15;
-  v17 = sub_1C4F01138();
-  v19 = v18;
+  v11 = &v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = _Block_copy(completion);
+  v13 = sub_1C4F01138();
+  v15 = v14;
+  v16 = sub_1C4F01138();
+  v18 = v17;
   sub_1C4EF9C78();
-  _Block_copy(v13);
+  _Block_copy(v12);
   selfCopy = self;
-  sub_1C4960E88(v14, v16, v17, v19, v12, selfCopy, v13);
-  _Block_release(v13);
+  sub_1C4960E88(v13, v15, v16, v18, v11, selfCopy, v12);
+  _Block_release(v12);
 
-  (*(v9 + 8))(v12, v8);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (void)behaviorUnderstandingHistogramsOfKind:(id)kind behaviorType:(id)type viewName:(id)name completion:(id)completion
@@ -104,22 +103,21 @@
   firstCopy = first;
   v11 = sub_1C4EF9CD8();
   v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  v14 = MEMORY[0x1EEE9AC00](v11);
-  v16 = &v22 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v14);
-  v18 = &v22 - v17;
-  v19 = _Block_copy(completion);
+  MEMORY[0x1EEE9AC00](v11);
+  v14 = &v21 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v15);
+  v17 = &v21 - v16;
+  v18 = _Block_copy(completion);
   sub_1C4EF9C78();
   sub_1C4EF9C78();
-  _Block_copy(v19);
+  _Block_copy(v18);
   selfCopy = self;
-  sub_1C4965B50(v18, v16, events, firstCopy, selfCopy, v19);
-  _Block_release(v19);
+  sub_1C4965B50(v17, v14, events, firstCopy, selfCopy, v18);
+  _Block_release(v18);
 
-  v21 = *(v12 + 8);
-  v21(v16, v11);
-  v21(v18, v11);
+  v20 = *(v12 + 8);
+  v20(v14, v11);
+  v20(v17, v11);
 }
 
 - (void)behaviorUnderstandingEvaluateForBehaviorType:(NSString *)type queryName:(NSString *)name inferenceServiceInstanceId:(NSString *)id completion:(id)completion

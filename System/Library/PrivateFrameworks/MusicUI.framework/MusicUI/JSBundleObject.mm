@@ -15,11 +15,12 @@
 
 - (id)loadResource:(id)resource
 {
-  sub_21700E514();
+  v4 = sub_21700E514();
+  v6 = v5;
   selfCopy = self;
-  v5 = sub_216C38F88();
+  v8 = sub_216C38F88(v4, v6);
 
-  return v5;
+  return v8;
 }
 
 @end

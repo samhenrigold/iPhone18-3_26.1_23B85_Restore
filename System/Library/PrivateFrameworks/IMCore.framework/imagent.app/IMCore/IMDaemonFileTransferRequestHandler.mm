@@ -2,12 +2,14 @@
 - (void)createItemForPHAssetWithUUID:(id)d parentChatItemGUID:(id)iD chatGUID:(id)uID;
 - (void)deleteFileTransferWithGUID:(id)d;
 - (void)downloadHighQualityVariantOfFileTransferWithGUID:(id)d;
+- (void)fileTransfer:(id)transfer acceptedWithPath:(id)path autoRename:(BOOL)rename overwrite:(BOOL)overwrite options:(int64_t)options;
 - (void)fileTransfer:(id)transfer createdWithProperties:(id)properties;
 - (void)fileTransfer:(id)transfer rejectedWithProperties:(id)properties;
 - (void)fileTransfer:(id)transfer updatedWithProperties:(id)properties;
 - (void)fileTransferRemoved:(id)removed;
 - (void)fileTransferStopped:(id)stopped;
 - (void)fileTransfersRecoverablyDeleted:(id)deleted;
+- (void)markAttachment:(id)attachment sender:(id)sender recipients:(id)recipients isIncoming:(BOOL)incoming;
 - (void)successfullyGeneratedPreviewForTransfer:(id)transfer withPreviewSize:(CGSize)size;
 @end
 
@@ -59,7 +61,7 @@
     v9 = v8;
     if (v8)
     {
-      [v8 auditToken];
+      objc_msgSend_auditToken(v8);
     }
 
     else
@@ -110,6 +112,29 @@
   }
 
 LABEL_4:
+}
+
+- (void)fileTransfer:(id)transfer acceptedWithPath:(id)path autoRename:(BOOL)rename overwrite:(BOOL)overwrite options:(int64_t)options
+{
+  overwriteCopy = overwrite;
+  renameCopy = rename;
+  transferCopy = transfer;
+  pathCopy = path;
+  if ([transferCopy length])
+  {
+    v13 = +[IMDFileTransferCenter sharedInstance];
+    [v13 _handleFileTransfer:transferCopy acceptedWithPath:pathCopy autoRename:renameCopy overwrite:overwriteCopy options:options postNotification:1];
+  }
+
+  else if (IMOSLoggingEnabled())
+  {
+    v14 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    {
+      *v15 = 0;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Empty guid passed to: acceptedWithPath:", v15, 2u);
+    }
+  }
 }
 
 - (void)fileTransferStopped:(id)stopped
@@ -189,6 +214,27 @@ LABEL_4:
     {
       *v8 = 0;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Empty guid passed to: fileTransfersRecoverabyDeleted:", v8, 2u);
+    }
+  }
+}
+
+- (void)markAttachment:(id)attachment sender:(id)sender recipients:(id)recipients isIncoming:(BOOL)incoming
+{
+  incomingCopy = incoming;
+  attachmentCopy = attachment;
+  senderCopy = sender;
+  recipientsCopy = recipients;
+  v12 = +[IMDFileTransferCenter sharedInstance];
+  LOBYTE(incomingCopy) = [v12 markAttachment:attachmentCopy sender:senderCopy recipients:recipientsCopy isIncoming:incomingCopy];
+
+  if ((incomingCopy & 1) == 0 && IMOSLoggingEnabled())
+  {
+    v13 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    {
+      v14 = 138412290;
+      v15 = attachmentCopy;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Failed to mark attachment %@", &v14, 0xCu);
     }
   }
 }
@@ -274,9 +320,9 @@ LABEL_4:
 {
   v5 = sub_100054164();
   v7 = v6;
-  sub_100054134();
+  v8 = sub_100054134();
   selfCopy = self;
-  _sSo34IMDaemonFileTransferRequestHandlerC7imagentE04fileC0_22rejectedWithPropertiesySS_SDys11AnyHashableVypGtF_0(v5, v7);
+  _sSo34IMDaemonFileTransferRequestHandlerC7imagentE04fileC0_22rejectedWithPropertiesySS_SDys11AnyHashableVypGtF_0(v5, v7, v8);
 }
 
 @end

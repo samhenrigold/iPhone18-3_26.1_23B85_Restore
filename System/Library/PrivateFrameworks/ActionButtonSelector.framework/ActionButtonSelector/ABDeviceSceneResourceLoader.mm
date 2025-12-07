@@ -7,6 +7,7 @@
 - (double)sceneModel;
 - (uint64_t)sceneView;
 - (void)_didCancelWithToken:(id)token completion:(id)completion;
+- (void)_didCompleteWithSuccess:(BOOL)success;
 - (void)_doCleanup;
 - (void)releaseResources;
 @end
@@ -28,9 +29,11 @@
 
 uint64_t __43__ABDeviceSceneResourceLoader_sharedLoader__block_invoke()
 {
-  sharedLoader_loader = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = sharedLoader_loader;
+  sharedLoader_loader = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (ABDeviceSceneResourceLoader)init
@@ -78,7 +81,7 @@ uint64_t __43__ABDeviceSceneResourceLoader_sharedLoader__block_invoke()
 
 - (ABDeviceSceneResourceLoadingCancellable)loadResourcesWithCompletion:(uint64_t)completion
 {
-  v37[2] = *MEMORY[0x277D85DE8];
+  v36[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (!completion)
   {
@@ -124,19 +127,19 @@ LABEL_10:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3042000000;
-  v35 = __Block_byref_object_copy_;
-  v36 = __Block_byref_object_dispose_;
-  v37[0] = 0;
+  v34 = __Block_byref_object_copy_;
+  v35 = __Block_byref_object_dispose_;
+  v36[0] = 0;
   v9 = [ABDeviceSceneResourceLoadingCancellable alloc];
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __59__ABDeviceSceneResourceLoader_loadResourcesWithCompletion___block_invoke;
-  v27[3] = &unk_278BFFCD0;
-  objc_copyWeak(&v30, &location);
-  v29 = buf;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __59__ABDeviceSceneResourceLoader_loadResourcesWithCompletion___block_invoke;
+  v26[3] = &unk_278BFFCD0;
+  objc_copyWeak(&v29, &location);
+  v28 = buf;
   v3 = v8;
-  v28 = v3;
-  v7 = [(ABDeviceSceneResourceLoadingCancellable *)v9 initWithCancelBlock:v27];
+  v27 = v3;
+  v7 = [(ABDeviceSceneResourceLoadingCancellable *)v9 initWithCancelBlock:v26];
   objc_storeWeak((*&buf[8] + 40), v7);
   if (v3)
   {
@@ -150,9 +153,9 @@ LABEL_10:
     v12 = ABLogger();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      *v32 = 138543362;
+      *v31 = 138543362;
       completionCopy = completion;
-      _os_log_impl(&dword_23DE18000, v12, OS_LOG_TYPE_DEFAULT, "(%{public}@) begin loading scene resources", v32, 0xCu);
+      _os_log_impl(&dword_23DE18000, v12, OS_LOG_TYPE_DEFAULT, "(%{public}@) begin loading scene resources", v31, 0xCu);
     }
 
     v14 = (completion + 32);
@@ -180,16 +183,14 @@ LABEL_10:
 
     layer = [*(completion + 48) layer];
     [layer setAllowsDisplayCompositing:0];
-    [(ABDeviceSceneResourceLoader *)layer loadResourcesWithCompletion:v14, &v26, &location];
+    [(ABDeviceSceneResourceLoader *)layer loadResourcesWithCompletion:v14, v25, &location];
   }
 
-  objc_destroyWeak(&v30);
+  objc_destroyWeak(&v29);
   _Block_object_dispose(buf, 8);
-  objc_destroyWeak(v37);
+  objc_destroyWeak(v36);
   objc_destroyWeak(&location);
 LABEL_20:
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -224,7 +225,7 @@ void __59__ABDeviceSceneResourceLoader_loadResourcesWithCompletion___block_invok
 
 - (void)releaseResources
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (self)
   {
     v2 = ABLogger();
@@ -233,8 +234,8 @@ void __59__ABDeviceSceneResourceLoader_loadResourcesWithCompletion___block_invok
       v3 = [MEMORY[0x277CCABB0] numberWithInteger:self[3]];
       *buf = 138543618;
       selfCopy = self;
-      v12 = 2114;
-      v13 = v3;
+      v11 = 2114;
+      v12 = v3;
       _os_log_impl(&dword_23DE18000, v2, OS_LOG_TYPE_DEFAULT, "(%{public}@) release scene resource, current state is (%{public}@)", buf, 0x16u);
     }
 
@@ -249,20 +250,18 @@ void __59__ABDeviceSceneResourceLoader_loadResourcesWithCompletion___block_invok
       [self setShouldAbortLoading:1];
       objc_initWeak(buf, self);
       v5 = self[1];
-      v8[0] = MEMORY[0x277D85DD0];
-      v8[1] = 3221225472;
-      v8[2] = __47__ABDeviceSceneResourceLoader_releaseResources__block_invoke;
-      v8[3] = &unk_278BFFD48;
-      objc_copyWeak(&v9, buf);
-      v6 = MEMORY[0x23EF01A70](v8);
+      v7[0] = MEMORY[0x277D85DD0];
+      v7[1] = 3221225472;
+      v7[2] = __47__ABDeviceSceneResourceLoader_releaseResources__block_invoke;
+      v7[3] = &unk_278BFFD48;
+      objc_copyWeak(&v8, buf);
+      v6 = MEMORY[0x23EF01A70](v7);
       [v5 addObject:v6];
 
-      objc_destroyWeak(&v9);
+      objc_destroyWeak(&v8);
       objc_destroyWeak(buf);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __47__ABDeviceSceneResourceLoader_releaseResources__block_invoke(uint64_t a1)
@@ -288,9 +287,70 @@ uint64_t __45__ABDeviceSceneResourceLoader__loadResources__block_invoke(uint64_t
   return v3;
 }
 
+- (void)_didCompleteWithSuccess:(BOOL)success
+{
+  successCopy = success;
+  v25 = *MEMORY[0x277D85DE8];
+  v5 = ABLogger();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = @"failure";
+    if (successCopy)
+    {
+      v6 = @"success";
+    }
+
+    *buf = 138543618;
+    selfCopy = self;
+    v23 = 2114;
+    v24 = v6;
+    _os_log_impl(&dword_23DE18000, v5, OS_LOG_TYPE_DEFAULT, "(%{public}@) finished loading scene resources: (%{public}@)", buf, 0x16u);
+  }
+
+  v7 = 2;
+  if (!successCopy)
+  {
+    v7 = 3;
+  }
+
+  self->_state = v7;
+  [(ABDeviceSceneResourceLoader *)self setShouldAbortLoading:0];
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v8 = [(NSMutableOrderedSet *)self->_completions copy];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v17;
+    do
+    {
+      for (i = 0; i != v10; ++i)
+      {
+        if (*v17 != v11)
+        {
+          objc_enumerationMutation(v8);
+        }
+
+        v13 = *(*(&v16 + 1) + 8 * i);
+        (*(v13 + 16))(v13, successCopy);
+        completions = self->_completions;
+        v15 = MEMORY[0x23EF01A70](v13);
+        [(NSMutableOrderedSet *)completions removeObject:v15];
+      }
+
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    }
+
+    while (v10);
+  }
+}
+
 - (void)_didCancelWithToken:(id)token completion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   completionCopy = completion;
   v8 = completionCopy;
@@ -318,17 +378,15 @@ uint64_t __45__ABDeviceSceneResourceLoader__loadResources__block_invoke(uint64_t
         v13 = off_278BFFD90[v12];
       }
 
-      v15 = 138543618;
+      v14 = 138543618;
       selfCopy = self;
-      v17 = 2114;
-      v18 = v13;
-      _os_log_impl(&dword_23DE18000, v11, OS_LOG_TYPE_DEFAULT, "(%{public}@) cancel scene resource loading, current state is (%{public}@)", &v15, 0x16u);
+      v16 = 2114;
+      v17 = v13;
+      _os_log_impl(&dword_23DE18000, v11, OS_LOG_TYPE_DEFAULT, "(%{public}@) cancel scene resource loading, current state is (%{public}@)", &v14, 0x16u);
     }
 
     [(ABDeviceSceneResourceLoader *)self setShouldAbortLoading:1];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_doCleanup
@@ -350,14 +408,14 @@ uint64_t __45__ABDeviceSceneResourceLoader__loadResources__block_invoke(uint64_t
   }
 
   result = 0.0;
-  *(a2 + 112) = 0u;
-  *(a2 + 128) = 0u;
-  *(a2 + 80) = 0u;
-  *(a2 + 96) = 0u;
-  *(a2 + 48) = 0u;
-  *(a2 + 64) = 0u;
-  *(a2 + 16) = 0u;
-  *(a2 + 32) = 0u;
+  a2[7] = 0u;
+  a2[8] = 0u;
+  a2[5] = 0u;
+  a2[6] = 0u;
+  a2[3] = 0u;
+  a2[4] = 0u;
+  a2[1] = 0u;
+  a2[2] = 0u;
   *a2 = 0u;
   return result;
 }

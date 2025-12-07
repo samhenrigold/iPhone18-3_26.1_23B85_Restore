@@ -233,23 +233,21 @@ uint64_t __36__CBIndicatorAnalyticsModule_submit__block_invoke(uint64_t a1, uint
 
 uint64_t __36__CBIndicatorAnalyticsModule_submit__block_invoke_2(void *a1)
 {
-  v6[6] = *MEMORY[0x1E69E9840];
-  v5[0] = @"luxEdge";
-  v6[0] = [*(a1[4] + 64) valueForKey:a1[5]];
-  v5[1] = @"nitsEdge";
-  v6[1] = [*(a1[4] + 72) valueForKey:a1[6]];
-  v5[2] = @"ddEdge";
-  v6[2] = [*(a1[4] + 56) valueForKey:a1[7]];
-  v5[3] = @"value";
-  v6[3] = a1[8];
-  v5[4] = @"sessionTime";
+  v5[6] = *MEMORY[0x1E69E9840];
+  v4[0] = @"luxEdge";
+  v5[0] = [*(a1[4] + 64) valueForKey:a1[5]];
+  v4[1] = @"nitsEdge";
+  v5[1] = [*(a1[4] + 72) valueForKey:a1[6]];
+  v4[2] = @"ddEdge";
+  v5[2] = [*(a1[4] + 56) valueForKey:a1[7]];
+  v4[3] = @"value";
+  v5[3] = a1[8];
+  v4[4] = @"sessionTime";
   LODWORD(v1) = *(a1[4] + 100);
-  v6[4] = [MEMORY[0x1E696AD98] numberWithFloat:v1];
-  v5[5] = @"sessionID";
-  v6[5] = a1[9];
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:6];
-  *MEMORY[0x1E69E9840];
-  return v4;
+  v5[4] = [MEMORY[0x1E696AD98] numberWithFloat:v1];
+  v4[5] = @"sessionID";
+  v5[5] = a1[9];
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:6];
 }
 
 - (BOOL)setProperty:(id)property forKey:(id)key

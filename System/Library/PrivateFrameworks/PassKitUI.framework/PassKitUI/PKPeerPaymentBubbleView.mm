@@ -1890,23 +1890,23 @@ LABEL_25:
   }
 }
 
-uint64_t __42__PKPeerPaymentBubbleView_didMoveToWindow__block_invoke_2(uint64_t result)
+void *__42__PKPeerPaymentBubbleView_didMoveToWindow__block_invoke_2(void *result, uint64_t a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v1 = *(result + 32);
-  if (*(v1 + 408))
+  v7 = *MEMORY[0x1E69E9840];
+  v2 = result[4];
+  if (*(v2 + 408))
   {
-    v2 = result;
-    v3 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v3 = result;
+    v4 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = 134217984;
-      v5 = v1;
-      _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "PKPeerPaymentBubbleView %p: Bubble view no longer has a window and we have a render view. Discarding render view.", &v4, 0xCu);
+      v5 = 134217984;
+      v6 = v2;
+      _os_log_impl(&dword_1BD026000, v4, OS_LOG_TYPE_DEFAULT, "PKPeerPaymentBubbleView %p: Bubble view no longer has a window and we have a render view. Discarding render view.", &v5, 0xCu);
     }
 
-    *(*(v2 + 32) + 416) = 1;
-    return [*(v2 + 32) _updateContent];
+    *(v3[4] + 416) = 1;
+    return [v3[4] _updateContent];
   }
 
   return result;

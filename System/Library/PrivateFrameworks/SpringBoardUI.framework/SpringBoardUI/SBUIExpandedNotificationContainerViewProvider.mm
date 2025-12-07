@@ -11,7 +11,7 @@
 
 - (SBUIExpandedNotificationContainerViewProvider)initWithRequester:(id)requester containerView:(id)view reason:(id)reason invalidationBlock:(id)block
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   requesterCopy = requester;
   viewCopy = view;
   reasonCopy = reason;
@@ -40,9 +40,9 @@ LABEL_3:
     [SBUIExpandedNotificationContainerViewProvider initWithRequester:containerView:reason:invalidationBlock:];
   }
 
-  v24.receiver = self;
-  v24.super_class = SBUIExpandedNotificationContainerViewProvider;
-  v14 = [(SBUIExpandedNotificationContainerViewProvider *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = SBUIExpandedNotificationContainerViewProvider;
+  v14 = [(SBUIExpandedNotificationContainerViewProvider *)&v23 init];
   v15 = v14;
   if (v14)
   {
@@ -61,18 +61,17 @@ LABEL_3:
     {
       v21 = [(SBUIExpandedNotificationContainerViewProvider *)v15 description];
       *buf = 138543362;
-      v26 = v21;
+      v25 = v21;
       _os_log_impl(&dword_21E74E000, v20, OS_LOG_TYPE_DEFAULT, "Instantiated new expanded notification container view assertion: %{public}@", buf, 0xCu);
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if ([(SBUIExpandedNotificationContainerViewProvider *)self isValid])
   {
     v3 = SBLogNotifications();
@@ -80,17 +79,16 @@ LABEL_3:
     {
       v4 = [(SBUIExpandedNotificationContainerViewProvider *)self description];
       *buf = 138543362;
-      v8 = v4;
+      v7 = v4;
       _os_log_impl(&dword_21E74E000, v3, OS_LOG_TYPE_DEFAULT, "Implicitly invalidating expanded notification container view assertion due to deallocation: %{public}@", buf, 0xCu);
     }
 
     [(SBUIExpandedNotificationContainerViewProvider *)self invalidate];
   }
 
-  v6.receiver = self;
-  v6.super_class = SBUIExpandedNotificationContainerViewProvider;
-  [(SBUIExpandedNotificationContainerViewProvider *)&v6 dealloc];
-  v5 = *MEMORY[0x277D85DE8];
+  v5.receiver = self;
+  v5.super_class = SBUIExpandedNotificationContainerViewProvider;
+  [(SBUIExpandedNotificationContainerViewProvider *)&v5 dealloc];
 }
 
 - (NSString)description

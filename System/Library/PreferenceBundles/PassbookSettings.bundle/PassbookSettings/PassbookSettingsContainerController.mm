@@ -9,6 +9,7 @@
 - (void)_fadeView:(id)view visible:(BOOL)visible completion:(id)completion;
 - (void)_handleDeepLinkResourceDictionaryIfNecessary;
 - (void)_loadCurrentScreen;
+- (void)_resetToRootAnimated:(BOOL)animated;
 - (void)_restrictToShield;
 - (void)dealloc;
 - (void)handleURL:(id)l withCompletion:(id)completion;
@@ -16,6 +17,10 @@
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
 - (void)setCurrentScreen:(unint64_t)screen;
 - (void)setSpecifier:(id)specifier;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)viewWillLayoutSubviews;
 @end
 
@@ -103,6 +108,39 @@
   view4 = [(PassbookSettingsContainerController *)self view];
   [view4 bounds];
   [view3 setFrame:?];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = PassbookSettingsContainerController;
+  [(PassbookSettingsContainerController *)&v4 viewWillAppear:appear];
+  self->_visibility = 1;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = PassbookSettingsContainerController;
+  [(PassbookSettingsContainerController *)&v4 viewDidAppear:appear];
+  self->_visibility = 2;
+  [(PassbookSettingsContainerController *)self _handleDeepLinkResourceDictionaryIfNecessary];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = PassbookSettingsContainerController;
+  [(PassbookSettingsContainerController *)&v4 viewWillDisappear:disappear];
+  self->_visibility = 3;
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = PassbookSettingsContainerController;
+  [(PassbookSettingsContainerController *)&v4 viewDidDisappear:disappear];
+  self->_visibility = 0;
 }
 
 - (void)setSpecifier:(id)specifier
@@ -352,6 +390,41 @@ LABEL_33:
     }
 
     goto LABEL_21;
+  }
+}
+
+- (void)_resetToRootAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  navigationController = [(PassbookSettingsContainerController *)self navigationController];
+  presentedViewController = [(PassbookSettingsListController *)self->_listSettingsController presentedViewController];
+  v6 = presentedViewController;
+  if (presentedViewController)
+  {
+    [presentedViewController dismissViewControllerAnimated:animatedCopy completion:0];
+  }
+
+  presentedViewController2 = [navigationController presentedViewController];
+
+  if (presentedViewController2)
+  {
+    [presentedViewController2 dismissViewControllerAnimated:animatedCopy completion:0];
+  }
+
+  if ([navigationController pk_settings_useStateDrivenNavigation])
+  {
+    [navigationController pk_settings_popToRootViewController];
+  }
+
+  else
+  {
+    v8 = [navigationController popToViewController:self animated:1];
+  }
+
+  if (!self->_isInAppSwitcher)
+  {
+    v9 = +[UIApplication sharedApplication];
+    [v9 _updateSnapshotForBackgroundApplication:1];
   }
 }
 

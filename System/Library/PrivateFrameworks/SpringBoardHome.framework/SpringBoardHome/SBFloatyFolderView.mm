@@ -39,7 +39,7 @@
 
 - (CGRect)_frameForScalingView
 {
-  [(SBFloatyFolderView *)self bounds];
+  objc_msgSend_bounds(self, a2);
 
   [(SBFloatyFolderView *)self _pageBackgroundFrameForPageRect:?];
   result.size.height = v6;
@@ -246,7 +246,7 @@
 - (void)_layoutSubviews
 {
   floatyFolderConfiguration = [(SBFloatyFolderView *)self floatyFolderConfiguration];
-  [(SBFloatyFolderView *)self bounds];
+  objc_msgSend_bounds(self);
   v59 = v5;
   v60 = v4;
   v61 = v6;
@@ -256,7 +256,7 @@
   v64 = v9;
 
   scalingView = [(SBFolderView *)self scalingView];
-  [scalingView bounds];
+  objc_msgSend_bounds(scalingView);
   v12 = v11;
   v14 = v13;
   v16 = v15;
@@ -499,7 +499,7 @@
   viewCopy = view;
   [viewCopy contentSize];
   v14 = v13;
-  [viewCopy bounds];
+  objc_msgSend_bounds(viewCopy);
   v16 = v15;
 
   if (x >= 0.0)

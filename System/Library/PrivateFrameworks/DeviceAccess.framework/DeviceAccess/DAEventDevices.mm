@@ -47,11 +47,10 @@
 
 - (void)encodeWithXPCObject:(id)object
 {
-  v6.receiver = self;
-  v6.super_class = DAEventDevices;
+  v4.receiver = self;
+  v4.super_class = DAEventDevices;
   objectCopy = object;
-  [(DAEvent *)&v6 encodeWithXPCObject:objectCopy];
-  devices = self->_devices;
+  [(DAEvent *)&v4 encodeWithXPCObject:objectCopy];
   CUXPCEncodeNSArrayOfObjects();
 }
 
@@ -97,40 +96,42 @@
     v5 = 12;
   }
 
-  v16 = v5;
-  v15.receiver = self;
-  v15.super_class = DAEventDevices;
-  v6 = [(DAEvent *)&v15 descriptionWithLevel:?];
+  v19 = v5;
+  v18.receiver = self;
+  v18.super_class = DAEventDevices;
+  v6 = [(DAEvent *)&v18 descriptionWithLevel:?];
   v7 = [v6 mutableCopy];
 
   if ((level & 0x8000000) == 0)
   {
-    objc_opt_class();
-    CUAppendF();
-    v8 = v7;
+    v17 = v7;
+    v8 = objc_opt_class();
+    CUAppendF(&v17, &v19, "%@", v8);
+    v9 = v17;
 
-    v7 = v8;
+    v7 = v9;
   }
 
   devices = self->_devices;
   if (devices)
   {
-    v14 = devices;
-    CUAppendF();
-    v10 = v7;
+    v16 = v7;
+    v11 = devices;
+    CUAppendF(&v16, &v19, "devices %@", v11);
+    v12 = v16;
 
-    v7 = v10;
+    v7 = v12;
   }
 
-  v11 = &stru_285B4C350;
+  v13 = &stru_285B4C350;
   if (v7)
   {
-    v11 = v7;
+    v13 = v7;
   }
 
-  v12 = v11;
+  v14 = v13;
 
-  return v12;
+  return v14;
 }
 
 - (DAEventDevices)initWithXPCObject:(id)object error:(id *)error

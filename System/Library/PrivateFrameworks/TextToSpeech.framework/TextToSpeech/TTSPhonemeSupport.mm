@@ -11,10 +11,10 @@
 
 + (id)applebetPhonemesFromIPA:(id)a
 {
-  v4 = objc_msgSend_lhPhonemesFromIPA_language_(self, a2, a, @"en-US", v3);
-  v8 = objc_msgSend_convertLHToApplebet_(TTSLHPhonemeToApplebetPhonemeMapper, v5, v4, v6, v7);
+  v3 = [self lhPhonemesFromIPA:a language:@"en-US"];
+  v4 = [TTSLHPhonemeToApplebetPhonemeMapper convertLHToApplebet:v3];
 
-  return v8;
+  return v4;
 }
 
 + (id)_getPhonemeMapForSynth:(id)synth language:(id)language
@@ -26,63 +26,63 @@
     sub_1A95788B8();
   }
 
-  objc_msgSend_lock(qword_1EB390FE8, v6, v7, v8, v9);
-  v14 = objc_msgSend_objectForKeyedSubscript_(qword_1EB390FE0, v11, synthCopy, v12, v13);
-  v18 = objc_msgSend_objectForKeyedSubscript_(v14, v15, languageCopy, v16, v17);
+  [qword_1EB390FE8 lock];
+  v7 = [qword_1EB390FE0 objectForKeyedSubscript:synthCopy];
+  v8 = [v7 objectForKeyedSubscript:languageCopy];
 
-  if (!v18)
+  if (!v8)
   {
-    v18 = _TTSLoadIPAToNativePhonemeMapForLanguage(languageCopy, synthCopy, v20, v21, v22);
-    if (v18)
+    v8 = _TTSLoadIPAToNativePhonemeMapForLanguage(languageCopy, synthCopy);
+    if (v8)
     {
-      v23 = objc_msgSend_objectForKeyedSubscript_(qword_1EB390FE0, v19, synthCopy, v21, v22);
+      v9 = [qword_1EB390FE0 objectForKeyedSubscript:synthCopy];
 
-      if (!v23)
+      if (!v9)
       {
-        v28 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], v24, v25, v26, v27);
-        objc_msgSend_setObject_forKeyedSubscript_(qword_1EB390FE0, v29, v28, synthCopy, v30);
+        dictionary = [MEMORY[0x1E695DF90] dictionary];
+        [qword_1EB390FE0 setObject:dictionary forKeyedSubscript:synthCopy];
       }
 
-      v31 = objc_msgSend_objectForKeyedSubscript_(qword_1EB390FE0, v24, synthCopy, v26, v27);
-      objc_msgSend_setObject_forKeyedSubscript_(v31, v32, v18, languageCopy, v33);
+      v11 = [qword_1EB390FE0 objectForKeyedSubscript:synthCopy];
+      [v11 setObject:v8 forKeyedSubscript:languageCopy];
     }
   }
 
-  objc_msgSend_unlock(qword_1EB390FE8, v19, v20, v21, v22);
+  [qword_1EB390FE8 unlock];
 
-  return v18;
+  return v8;
 }
 
 + (id)_ipaVectorFromString:(id)string
 {
-  v4 = objc_msgSend_stringByReplacingOccurrencesOfString_withString_(string, a2, @"ˌ", &stru_1F1CFF8D8, v3);
-  v9 = objc_msgSend_length(v4, v5, v6, v7, v8);
-  v17 = objc_msgSend_array(MEMORY[0x1E695DF70], v10, v11, v12, v13);
-  if (v9 >= 1)
+  v3 = [string stringByReplacingOccurrencesOfString:@"ˌ" withString:&stru_1F1CFF8D8];
+  v4 = [v3 length];
+  array = [MEMORY[0x1E695DF70] array];
+  if (v4 >= 1)
   {
-    v18 = 0;
+    v6 = 0;
     do
     {
-      v19 = objc_msgSend_rangeOfComposedCharacterSequenceAtIndex_(v4, v14, v18, v15, v16);
-      v21 = v20;
-      v23 = objc_msgSend_substringWithRange_(v4, v20, v19, v20, v22);
-      v27 = v23;
-      if (v21 == 2 && objc_msgSend_characterAtIndex_(v23, v24, 1, v25, v26) == 865 && v9 >= v18 + 2)
+      v7 = [v3 rangeOfComposedCharacterSequenceAtIndex:v6];
+      v9 = v8;
+      v10 = [v3 substringWithRange:{v7, v8}];
+      v11 = v10;
+      if (v9 == 2 && [v10 characterAtIndex:1] == 865 && v4 >= v6 + 2)
       {
-        v28 = objc_msgSend_substringWithRange_(v4, v24, v19, 3, v26);
+        v12 = [v3 substringWithRange:{v7, 3}];
 
-        ++v18;
-        v27 = v28;
+        ++v6;
+        v11 = v12;
       }
 
-      objc_msgSend_addObject_(v17, v24, v27, v25, v26);
-      v18 += v21;
+      [array addObject:v11];
+      v6 += v9;
     }
 
-    while (v18 < v9);
+    while (v6 < v4);
   }
 
-  return v17;
+  return array;
 }
 
 + (id)_phonemesFromIPA:(id)a language:(id)language synth:(id)synth
@@ -95,135 +95,133 @@
     languageCopy = TTSPreferencesCopyDefaultOutputLanguageIdentifierForUserPreferences();
   }
 
-  v15 = objc_msgSend__getPhonemeMapForSynth_language_(TTSPhonemeSupport, v9, synthCopy, languageCopy, v10);
-  if (v15)
+  v10 = [TTSPhonemeSupport _getPhonemeMapForSynth:synthCopy language:languageCopy];
+  if (v10)
   {
-    v55 = synthCopy;
-    v56 = aCopy;
-    v16 = objc_msgSend__ipaVectorFromString_(TTSPhonemeSupport, v12, aCopy, v13, v14);
-    v17 = objc_alloc_init(MEMORY[0x1E696AD60]);
-    if (objc_msgSend_count(v16, v18, v19, v20, v21))
+    v24 = synthCopy;
+    v25 = aCopy;
+    v11 = [TTSPhonemeSupport _ipaVectorFromString:aCopy];
+    v12 = objc_alloc_init(MEMORY[0x1E696AD60]);
+    if ([v11 count])
     {
-      v25 = 0;
+      v13 = 0;
       do
       {
-        v26 = objc_msgSend_objectAtIndexedSubscript_(v16, v22, v25, v23, v24);
-        v30 = objc_msgSend_objectForKeyedSubscript_(v15, v27, v26, v28, v29);
-        v31 = v25 + 1;
-        if (v25 + 1 < objc_msgSend_count(v16, v32, v33, v34, v35))
+        v14 = [v11 objectAtIndexedSubscript:v13];
+        v15 = [v10 objectForKeyedSubscript:v14];
+        v16 = v13 + 1;
+        if (v13 + 1 < [v11 count])
         {
-          v39 = objc_msgSend_objectAtIndexedSubscript_(v16, v36, v25 + 1, v37, v38);
-          v43 = objc_msgSend_stringByAppendingString_(v26, v40, v39, v41, v42);
+          v17 = [v11 objectAtIndexedSubscript:v13 + 1];
+          v18 = [v14 stringByAppendingString:v17];
 
-          v47 = objc_msgSend_objectForKeyedSubscript_(v15, v44, v43, v45, v46);
-          v48 = v47;
-          if (v47)
+          v19 = [v10 objectForKeyedSubscript:v18];
+          v20 = v19;
+          if (v19)
           {
-            v49 = v47;
+            v21 = v19;
 
-            v30 = v49;
-            v25 = v31;
+            v15 = v21;
+            v13 = v16;
           }
         }
 
-        if (v30)
+        if (v15)
         {
-          objc_msgSend_appendString_(v17, v36, v30, v37, v38);
+          v22 = v15;
         }
 
         else
         {
-          objc_msgSend_appendString_(v17, v36, v26, v37, v38);
+          v22 = v14;
         }
 
-        ++v25;
+        [v12 appendString:v22];
+
+        ++v13;
       }
 
-      while (v25 < objc_msgSend_count(v16, v50, v51, v52, v53));
+      while (v13 < [v11 count]);
     }
 
-    synthCopy = v55;
-    aCopy = v56;
+    synthCopy = v24;
+    aCopy = v25;
   }
 
   else
   {
-    v17 = 0;
+    v12 = 0;
   }
 
-  return v17;
+  return v12;
 }
 
 + (id)eloquencePhonemesFromIPA:(id)a language:(id)language
 {
   aCopy = a;
   languageCopy = language;
-  if ((objc_msgSend_containsString_(aCopy, v8, @"ˈ", v9, v10) & 1) != 0 || objc_msgSend_containsString_(aCopy, v11, @"'", v12, v13))
+  if (([aCopy containsString:@"ˈ"] & 1) != 0 || objc_msgSend(aCopy, "containsString:", @"'"))
   {
-    v14 = objc_msgSend__phonemesFromIPA_language_synth_(self, v11, aCopy, languageCopy, @"Kona");
+    v8 = [self _phonemesFromIPA:aCopy language:languageCopy synth:@"Kona"];
   }
 
   else
   {
-    v14 = 0;
+    v8 = 0;
   }
 
-  return v14;
+  return v8;
 }
 
 + (id)supportedIPAPhonemeLanguages
 {
-  v51 = *MEMORY[0x1E69E9840];
-  v2 = MEMORY[0x1E696AAE8];
-  v3 = objc_opt_class();
-  v7 = objc_msgSend_bundleForClass_(v2, v4, v3, v5, v6);
-  v10 = objc_msgSend_pathsForResourcesOfType_inDirectory_(v7, v8, @"json", @"PhonemeMaps", v9);
+  v21 = *MEMORY[0x1E69E9840];
+  v2 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v3 = [v2 pathsForResourcesOfType:@"json" inDirectory:@"PhonemeMaps"];
 
-  v45 = objc_msgSend_set(MEMORY[0x1E695DFA8], v11, v12, v13, v14);
-  v46 = 0u;
-  v47 = 0u;
-  v48 = 0u;
-  v49 = 0u;
-  v15 = v10;
-  v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v16, &v46, v50, 16);
-  if (v17)
+  v15 = [MEMORY[0x1E695DFA8] set];
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v4 = v3;
+  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v5)
   {
-    v21 = v17;
-    v22 = *v47;
+    v6 = v5;
+    v7 = *v17;
     do
     {
-      for (i = 0; i != v21; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v47 != v22)
+        if (*v17 != v7)
         {
-          objc_enumerationMutation(v15);
+          objc_enumerationMutation(v4);
         }
 
-        v24 = *(*(&v46 + 1) + 8 * i);
-        if (objc_msgSend_rangeOfString_(v24, v18, @"Vocalizer", v19, v20) != 0x7FFFFFFFFFFFFFFFLL)
+        v9 = *(*(&v16 + 1) + 8 * i);
+        if ([v9 rangeOfString:@"Vocalizer"] != 0x7FFFFFFFFFFFFFFFLL)
         {
-          v25 = objc_msgSend_componentsSeparatedByString_(v24, v18, @"Vocalizer-", v19, v20);
-          v30 = objc_msgSend_lastObject(v25, v26, v27, v28, v29);
+          v10 = [v9 componentsSeparatedByString:@"Vocalizer-"];
+          lastObject = [v10 lastObject];
 
-          v34 = objc_msgSend_componentsSeparatedByString_(v30, v31, @".", v32, v33);
-          v39 = objc_msgSend_firstObject(v34, v35, v36, v37, v38);
+          v12 = [lastObject componentsSeparatedByString:@"."];
+          firstObject = [v12 firstObject];
 
-          if (v39)
+          if (firstObject)
           {
-            objc_msgSend_addObject_(v45, v40, v39, v41, v42);
+            [v15 addObject:firstObject];
           }
         }
       }
 
-      v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v18, &v46, v50, 16);
+      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
-    while (v21);
+    while (v6);
   }
 
-  v43 = *MEMORY[0x1E69E9840];
-
-  return v45;
+  return v15;
 }
 
 @end

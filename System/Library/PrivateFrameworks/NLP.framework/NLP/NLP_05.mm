@@ -1,3 +1,96 @@
+CFStringRef *NLDevanagariCharTokenizer::NLDevanagariCharTokenizer(CFStringRef *a1, uint64_t a2, const __CFString *a3, const __CFString *a4)
+{
+  *a1 = createCFStringFromString(a2);
+  a1[1] = a3;
+  a1[2] = a4;
+  Mutable = CFCharacterSetCreateMutable(0);
+  v9.location = 2325;
+  v9.length = 37;
+  CFCharacterSetAddCharactersInRange(Mutable, v9);
+  v10.location = 2392;
+  v10.length = 8;
+  CFCharacterSetAddCharactersInRange(Mutable, v10);
+  v11.location = 2424;
+  v11.length = 8;
+  CFCharacterSetAddCharactersInRange(Mutable, v11);
+  a1[3] = Mutable;
+  return a1;
+}
+
+void NLDevanagariCharTokenizer::~NLDevanagariCharTokenizer(NLDevanagariCharTokenizer *this)
+{
+  v2 = *this;
+  if (v2)
+  {
+    CFRelease(v2);
+  }
+
+  v3 = *(this + 3);
+  if (v3)
+  {
+    CFRelease(v3);
+  }
+
+  CFRelease(@"्");
+  CFRelease(@"ं");
+  CFRelease(@"़");
+}
+
+BOOL NLDevanagariCharTokenizer::advance(NLDevanagariCharTokenizer *this)
+{
+  v2 = *(this + 2);
+  Length = CFStringGetLength(*this);
+  if (v2 < Length)
+  {
+    v4 = *(this + 2);
+    *(this + 1) = v4;
+    v5 = CFStringGetLength(*this);
+    if (v4 < v5)
+    {
+      CharacterAtIndex = CFStringGetCharacterAtIndex(*this, v4);
+      v7 = v4 + 1;
+      if (!CFCharacterSetIsCharacterMember(*(this + 3), CharacterAtIndex))
+      {
+        goto LABEL_11;
+      }
+
+      v8 = v5;
+      if (v7 < v5)
+      {
+        v9 = CFStringGetCharacterAtIndex(*this, v4 + 1);
+        if (v9 == CFStringGetCharacterAtIndex(@"़", 0))
+        {
+          v7 = v4 + 2;
+        }
+      }
+
+      if (v7 < v8)
+      {
+        v10 = CFStringGetCharacterAtIndex(*this, v7);
+        if (v10 == CFStringGetCharacterAtIndex(@"्", 0))
+        {
+          v4 = v7 + 1;
+        }
+
+        else
+        {
+          v4 = v7;
+        }
+      }
+
+      else
+      {
+LABEL_11:
+        v4 = v7;
+      }
+    }
+
+    *(this + 2) = v4;
+  }
+
+  return v2 < Length;
+}
+
 uint64_t NLDevanagariCharTokenizer::currentTokenRange(NLDevanagariCharTokenizer *this)
 {
   if (*(this + 2) <= *(this + 1))
@@ -176,45 +269,45 @@ void sub_22CD6572C(_Unwind_Exception *a1)
 
 void *NLCompositeTransliteratorSeq2Seq::loadSeq2SeqModel(NLCompositeTransliteratorSeq2Seq *this, CFLocaleRef locale, const __CFURL *a3)
 {
-  v45[1] = *MEMORY[0x277D85DE8];
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x3812000000;
-  v41 = __Block_byref_object_copy__4;
-  v42 = __Block_byref_object_dispose__4;
-  v43 = &unk_22CDFE4D1;
-  v44 = 0;
+  v44[1] = *MEMORY[0x277D85DE8];
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x3812000000;
+  v40 = __Block_byref_object_copy__4;
+  v41 = __Block_byref_object_dispose__4;
+  v42 = &unk_22CDFE4D1;
+  v43 = 0;
   if (a3)
   {
     Value = CFLocaleGetValue(locale, *MEMORY[0x277CBEED0]);
     v6 = *MEMORY[0x277CBECE8];
     Mutable = CFStringCreateMutable(*MEMORY[0x277CBECE8], 0);
     v8 = Mutable;
-    v26[0] = Mutable;
+    v25[0] = Mutable;
     if (Mutable)
     {
       CFStringAppend(Mutable, Value);
       CFStringAppend(v8, @"_EMT_package");
-      v37 = CFURLCreateCopyAppendingPathComponent(v6, a3, v8, 1u);
-      getFileSystemRepresentationFromCFURL(v37);
+      v36 = CFURLCreateCopyAppendingPathComponent(v6, a3, v8, 1u);
+      getFileSystemRepresentationFromCFURL();
     }
   }
 
   else
   {
-    v30 = MEMORY[0x277D85DD0];
-    v31 = 3221225472;
-    v32 = ___ZN32NLCompositeTransliteratorSeq2Seq16loadSeq2SeqModelEPK10__CFLocalePK7__CFURL_block_invoke;
-    v33 = &unk_27873FFE0;
-    v34 = &v38;
+    v29 = MEMORY[0x277D85DD0];
+    v30 = 3221225472;
+    v31 = ___ZN32NLCompositeTransliteratorSeq2Seq16loadSeq2SeqModelEPK10__CFLocalePK7__CFURL_block_invoke;
+    v32 = &unk_27873FFE0;
+    v33 = &v37;
     LMEnumerateAssetDataItems();
   }
 
-  v9 = v39[6];
+  v9 = v38[6];
   if (v9)
   {
-    getUTF8StringFromCFString(v9, __p);
-    if (v36 >= 0)
+    getUTF8StringFromCFString(__p, v9);
+    if (v35 >= 0)
     {
       v10 = __p;
     }
@@ -226,32 +319,32 @@ void *NLCompositeTransliteratorSeq2Seq::loadSeq2SeqModel(NLCompositeTransliterat
 
     v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:v10];
     v12 = [objc_alloc(MEMORY[0x277CBEBC0]) initWithString:v11];
-    if (!v12 || (v13 = objc_alloc(MEMORY[0x277D07210]), v45[0] = v12, v14 = [v13 initWithModelURLs:objc_msgSend(MEMORY[0x277CBEA60] task:"arrayWithObjects:count:" skipNonFinalToCatchup:{v45, 1), @"siri", 0}], v15 = dispatch_queue_create("callbackQueue", 0), objc_msgSend(v14, "setCallbackQueue:", v15), dispatch_release(v15), v12, !v14))
+    if (!v12 || (v13 = objc_alloc(MEMORY[0x277D07210]), v44[0] = v12, v14 = [v13 initWithModelURLs:objc_msgSend(MEMORY[0x277CBEA60] task:"arrayWithObjects:count:" skipNonFinalToCatchup:{v44, 1), @"siri", 0}], v15 = dispatch_queue_create("callbackQueue", 0), objc_msgSend(v14, "setCallbackQueue:", v15), dispatch_release(v15), v12, !v14))
     {
-      std::string::basic_string[abi:ne200100]<0>(v24, "Failed to load Seq2Seq EMT model for: ");
-      composeErrorMessageForLocale(locale, v24, v26);
-      if (v25 < 0)
+      std::string::basic_string[abi:ne200100]<0>(v23, "Failed to load Seq2Seq EMT model for: ");
+      composeErrorMessageForLocale(v25, locale, v23);
+      if (v24 < 0)
       {
-        operator delete(v24[0]);
+        operator delete(v23[0]);
       }
 
       v17 = NL::CFLogger::sharedInstance(v16);
-      v18 = v26;
-      if (v27 < 0)
+      v18 = v25;
+      if (v26 < 0)
       {
-        v18 = v26[0];
+        v18 = v25[0];
       }
 
       (*(*v17 + 16))(v17, 3, "%s", v18);
-      if (v27 < 0)
+      if (v26 < 0)
       {
-        operator delete(v26[0]);
+        operator delete(v25[0]);
       }
 
       v14 = 0;
     }
 
-    if (v36 < 0)
+    if (v35 < 0)
     {
       operator delete(__p[0]);
     }
@@ -259,22 +352,22 @@ void *NLCompositeTransliteratorSeq2Seq::loadSeq2SeqModel(NLCompositeTransliterat
 
   else
   {
-    std::string::basic_string[abi:ne200100]<0>(v28, "Could not locate Seq2Seq EMT package for: ");
-    composeErrorMessageForLocale(locale, v28, __p);
-    if (v29 < 0)
+    std::string::basic_string[abi:ne200100]<0>(v27, "Could not locate Seq2Seq EMT package for: ");
+    composeErrorMessageForLocale(__p, locale, v27);
+    if (v28 < 0)
     {
-      operator delete(v28[0]);
+      operator delete(v27[0]);
     }
 
     v20 = NL::CFLogger::sharedInstance(v19);
     v21 = __p;
-    if (v36 < 0)
+    if (v35 < 0)
     {
       v21 = __p[0];
     }
 
     (*(*v20 + 16))(v20, 3, "%s", v21);
-    if (v36 < 0)
+    if (v35 < 0)
     {
       operator delete(__p[0]);
     }
@@ -282,13 +375,12 @@ void *NLCompositeTransliteratorSeq2Seq::loadSeq2SeqModel(NLCompositeTransliterat
     v14 = 0;
   }
 
-  _Block_object_dispose(&v38, 8);
-  if (v44)
+  _Block_object_dispose(&v37, 8);
+  if (v43)
   {
-    CFRelease(v44);
+    CFRelease(v43);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -328,9 +420,9 @@ void ___ZN32NLCompositeTransliteratorSeq2Seq16loadSeq2SeqModelEPK10__CFLocalePK7
   }
 }
 
-void sub_22CD65D1C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22CD65D1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -346,10 +438,10 @@ void NLCompositeTransliteratorSeq2Seq::~NLCompositeTransliteratorSeq2Seq(NLCompo
   nlp::CFScopedPtr<__CFLocale const*>::reset(this, 0);
 }
 
-void NLCompositeTransliteratorSeq2Seq::seq2SeqCandidatesForInput(uint64_t *a1@<X0>, uint64_t **a2@<X1>, void *a3@<X8>)
+void NLCompositeTransliteratorSeq2Seq::seq2SeqCandidatesForInput(uint64_t *a1@<X0>, uint64_t ***a2@<X1>, void *a3@<X8>)
 {
   v37 = *MEMORY[0x277D85DE8];
-  NLOSSignPostseq2SeqCandidatesForInput::NLOSSignPostseq2SeqCandidatesForInput(&v35);
+  NLOSSignPostseq2SeqCandidatesForInput::NLOSSignPostseq2SeqCandidatesForInput(&v35, a2);
   *a3 = 0;
   a3[1] = 0;
   a3[2] = 0;
@@ -362,86 +454,86 @@ void NLCompositeTransliteratorSeq2Seq::seq2SeqCandidatesForInput(uint64_t *a1@<X
         goto LABEL_19;
       }
 
-      v6 = *a2;
+      v7 = *a2;
     }
 
     else
     {
-      v6 = a2;
+      v7 = a2;
       if (!*(a2 + 23))
       {
         goto LABEL_19;
       }
     }
 
-    v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:v6];
-    v8 = [MEMORY[0x277CCAB68] string];
-    v9 = [v7 length];
+    v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:v7];
+    v9 = [MEMORY[0x277CCAB68] string];
+    v10 = [v8 length];
     v34[0] = MEMORY[0x277D85DD0];
     v34[1] = 3221225472;
     v34[2] = ___ZNK32NLCompositeTransliteratorSeq2Seq25seq2SeqCandidatesForInputERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE_block_invoke;
     v34[3] = &unk_278740008;
-    v34[4] = v8;
-    [v7 enumerateSubstringsInRange:0 options:v9 usingBlock:{2, v34}];
-    CFStringTrimWhitespace(v8);
-    v10 = dispatch_semaphore_create(0);
+    v34[4] = v9;
+    [v8 enumerateSubstringsInRange:0 options:v10 usingBlock:{2, v34}];
+    CFStringTrimWhitespace(v9);
+    v11 = dispatch_semaphore_create(0);
     v28 = 0;
     v29 = &v28;
     v30 = 0x3052000000;
     v31 = __Block_byref_object_copy__26_0;
     v32 = __Block_byref_object_dispose__27_0;
     v33 = 0;
-    v12 = a1[1];
-    v11 = a1[2];
-    v13 = *a1;
+    v13 = a1[1];
+    v12 = a1[2];
+    v14 = *a1;
     v27[0] = MEMORY[0x277D85DD0];
     v27[1] = 3221225472;
     v27[2] = ___ZNK32NLCompositeTransliteratorSeq2Seq25seq2SeqCandidatesForInputERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE_block_invoke_28;
     v27[3] = &unk_278740030;
-    v27[4] = v10;
+    v27[4] = v11;
     v27[5] = &v28;
-    [v11 translateString:v8 from:v13 to:v12 completion:v27];
-    v14 = dispatch_time(0, 60000000);
-    dispatch_semaphore_wait(v10, v14);
-    dispatch_release(v10);
-    v15 = [v29[5] count];
-    v16 = 5;
-    if (v15 < 5)
+    [v12 translateString:v9 from:v14 to:v13 completion:v27];
+    v15 = dispatch_time(0, 60000000);
+    dispatch_semaphore_wait(v11, v15);
+    dispatch_release(v11);
+    v16 = [v29[5] count];
+    v17 = 5;
+    if (v16 < 5)
     {
-      v16 = v15;
+      v17 = v16;
     }
 
-    if (v16)
+    if (v17)
     {
-      v17 = [MEMORY[0x277CBEB18] array];
-      v18 = [objc_msgSend(v29[5] objectAtIndexedSubscript:{0), "tokens"}];
+      v18 = [MEMORY[0x277CBEB18] array];
+      v19 = [objc_msgSend(v29[5] objectAtIndexedSubscript:{0), "tokens"}];
       v25 = 0u;
       v26 = 0u;
       v23 = 0u;
       v24 = 0u;
-      v19 = [v18 countByEnumeratingWithState:&v23 objects:v36 count:16];
-      if (v19)
+      v20 = [v19 countByEnumeratingWithState:&v23 objects:v36 count:16];
+      if (v20)
       {
-        v20 = *v24;
+        v21 = *v24;
         do
         {
-          for (i = 0; i != v19; ++i)
+          for (i = 0; i != v20; ++i)
           {
-            if (*v24 != v20)
+            if (*v24 != v21)
             {
-              objc_enumerationMutation(v18);
+              objc_enumerationMutation(v19);
             }
 
-            [v17 addObject:{objc_msgSend(*(*(&v23 + 1) + 8 * i), "text")}];
+            [v18 addObject:{objc_msgSend(*(*(&v23 + 1) + 8 * i), "text")}];
           }
 
-          v19 = [v18 countByEnumeratingWithState:&v23 objects:v36 count:16];
+          v20 = [v19 countByEnumeratingWithState:&v23 objects:v36 count:16];
         }
 
-        while (v19);
+        while (v20);
       }
 
-      [v17 componentsJoinedByString:&stru_284010170];
+      [v18 componentsJoinedByString:&stru_284010170];
       operator new();
     }
 
@@ -449,11 +541,10 @@ void NLCompositeTransliteratorSeq2Seq::seq2SeqCandidatesForInput(uint64_t *a1@<X
   }
 
 LABEL_19:
-  NLOSSignPostseq2SeqCandidatesForInput::~NLOSSignPostseq2SeqCandidatesForInput(&v35);
-  v22 = *MEMORY[0x277D85DE8];
+  NLOSSignPostseq2SeqCandidatesForInput::~NLOSSignPostseq2SeqCandidatesForInput(&v35, v6);
 }
 
-void sub_22CD661C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, os_signpost_id_t a41)
+void sub_22CD661C8(_Unwind_Exception *a1, uint64_t a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, os_signpost_id_t a41)
 {
   v43 = *v41;
   if (*v41)
@@ -462,7 +553,7 @@ void sub_22CD661C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(v43);
   }
 
-  NLOSSignPostseq2SeqCandidatesForInput::~NLOSSignPostseq2SeqCandidatesForInput(&a41);
+  NLOSSignPostseq2SeqCandidatesForInput::~NLOSSignPostseq2SeqCandidatesForInput(&a41, a2);
   _Unwind_Resume(a1);
 }
 
@@ -482,34 +573,35 @@ intptr_t ___ZNK32NLCompositeTransliteratorSeq2Seq25seq2SeqCandidatesForInputERKN
   return dispatch_semaphore_signal(v3);
 }
 
-void NLOSSignPostseq2SeqCandidatesForInput::NLOSSignPostseq2SeqCandidatesForInput(NLOSSignPostseq2SeqCandidatesForInput *this)
+void NLOSSignPostseq2SeqCandidatesForInput::NLOSSignPostseq2SeqCandidatesForInput(NLOSSignPostseq2SeqCandidatesForInput *this, uint64_t a2)
 {
-  v2 = _nlpSignpostLog();
-  *this = os_signpost_id_make_with_pointer(v2, this);
-  v3 = _nlpSignpostLog();
-  v4 = *this;
+  v3 = _nlpSignpostLog(this, a2);
+  v4 = os_signpost_id_make_with_pointer(v3, this);
+  *this = v4;
+  v6 = _nlpSignpostLog(v4, v5);
+  v7 = *this;
   if ((*this - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+  {
+    v8 = v6;
+    if (os_signpost_enabled(v6))
+    {
+      *v9 = 0;
+      _os_signpost_emit_with_name_impl(&dword_22CD0B000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v7, "seq2SeqCandidatesForInput", &unk_22CDFA99D, v9, 2u);
+    }
+  }
+}
+
+void NLOSSignPostseq2SeqCandidatesForInput::~NLOSSignPostseq2SeqCandidatesForInput(os_signpost_id_t *this, uint64_t a2)
+{
+  v3 = _nlpSignpostLog(this, a2);
+  v4 = *this;
+  if (*this - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
     v5 = v3;
     if (os_signpost_enabled(v3))
     {
       *v6 = 0;
-      _os_signpost_emit_with_name_impl(&dword_22CD0B000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v4, "seq2SeqCandidatesForInput", &unk_22CDFA99D, v6, 2u);
-    }
-  }
-}
-
-void NLOSSignPostseq2SeqCandidatesForInput::~NLOSSignPostseq2SeqCandidatesForInput(os_signpost_id_t *this)
-{
-  v2 = _nlpSignpostLog();
-  v3 = *this;
-  if (*this - 1 <= 0xFFFFFFFFFFFFFFFDLL)
-  {
-    v4 = v2;
-    if (os_signpost_enabled(v2))
-    {
-      *v5 = 0;
-      _os_signpost_emit_with_name_impl(&dword_22CD0B000, v4, OS_SIGNPOST_INTERVAL_END, v3, "seq2SeqCandidatesForInput", &unk_22CDFA99D, v5, 2u);
+      _os_signpost_emit_with_name_impl(&dword_22CD0B000, v5, OS_SIGNPOST_INTERVAL_END, v4, "seq2SeqCandidatesForInput", &unk_22CDFA99D, v6, 2u);
     }
   }
 }
@@ -526,7 +618,7 @@ void NLArabicWordAnalyzer::NLArabicWordAnalyzer(NLArabicWordAnalyzer *this)
 
 void sub_22CD664B4(_Unwind_Exception *a1)
 {
-  NLQamus::~NLQamus((v1 + 56));
+  NLQamus::~NLQamus(v1 + 7);
   NLWordAnalyzer::~NLWordAnalyzer(v1);
   _Unwind_Resume(a1);
 }
@@ -541,15 +633,15 @@ void NLWordAnalyzer::~NLWordAnalyzer(NLWordAnalyzer *this)
   std::vector<std::pair<std::string,std::string>>::__destroy_vector::operator()[abi:ne200100](&v2);
 }
 
-void NLArabicWordAnalyzer::~NLArabicWordAnalyzer(NLArabicWordAnalyzer *this)
+void NLArabicWordAnalyzer::~NLArabicWordAnalyzer(void **this)
 {
   *this = &unk_28400F2F0;
-  v2 = (this + 32);
-  NLQamus::~NLQamus((this + 56));
+  v2 = this + 4;
+  NLQamus::~NLQamus(this + 7);
   *this = &unk_28400F3B0;
   v3 = v2;
   std::vector<std::pair<std::string,std::string>>::__destroy_vector::operator()[abi:ne200100](&v3);
-  v3 = (this + 8);
+  v3 = this + 1;
   std::vector<std::pair<std::string,std::string>>::__destroy_vector::operator()[abi:ne200100](&v3);
 }
 
@@ -569,26 +661,26 @@ void sub_22CD666D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void NLArabicWordAnalyzer::analyzeWord(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+void NLArabicWordAnalyzer::analyzeWord(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a4@<X8>)
 {
-  *a3 = 0;
-  a3[1] = 0;
-  a3[2] = 0;
-  NLQamus::getBw2UTFConverter((a1 + 56), &v5);
+  *a4 = 0;
+  a4[1] = 0;
+  a4[2] = 0;
+  NLQamus::getBw2UTFConverter(&v6, (a1 + 56));
   if (*(a2 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v4, *a2, *(a2 + 8));
+    std::string::__init_copy_ctor_external(&v5, *a2, *(a2 + 8));
   }
 
   else
   {
-    v4 = *a2;
+    v5 = *a2;
   }
 
-  NLConvertBW2UTF::utf2bw(&v4, &v6);
+  NLConvertBW2UTF::utf2bw(&v5, &v7);
 }
 
-void sub_22CD66AB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *a34, uint64_t a35, int a36, __int16 a37, char a38, char a39, uint64_t a40, uint64_t a41, int a42, __int16 a43, char a44, char a45)
+void sub_22CD66AB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *a34, uint64_t a35, int a36, __int16 a37, char a38, char a39, uint64_t a40, uint64_t a41, int a42, __int16 a43, char a44, char a45)
 {
   if (a28 < 0)
   {
@@ -684,14 +776,12 @@ void std::vector<std::pair<std::string,std::string>>::push_back[abi:ne200100](ui
     v6 = *a2;
     *(v4 + 16) = *(a2 + 2);
     *v4 = v6;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v7 = *(a2 + 24);
     *(v4 + 40) = *(a2 + 5);
     *(v4 + 24) = v7;
-    *(a2 + 4) = 0;
-    *(a2 + 5) = 0;
+    a2[2] = 0uLL;
     *(a2 + 3) = 0;
     v8 = v4 + 48;
   }
@@ -764,7 +854,7 @@ void std::vector<std::pair<std::string,std::string>>::__vdeallocate(std::vector<
   }
 }
 
-uint64_t std::vector<std::pair<std::string,std::string>>::__init_with_size[abi:ne200100]<std::pair<std::string,std::string>*,std::pair<std::string,std::string>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::pair<std::string,std::string>>::__init_with_size[abi:ne200100]<std::pair<std::string,std::string>*,std::pair<std::string,std::string>*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -781,7 +871,7 @@ void sub_22CD66FC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::pair<std::string,std::string>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::pair<std::string,std::string>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x555555555555556)
   {
@@ -974,7 +1064,7 @@ uint64_t NLCompositeTransliteratorLexicon::loadLatinToIDMap(NLCompositeTranslite
       if (!v9)
       {
         std::string::basic_string[abi:ne200100]<0>(__p, "Could not load lexicon for: ");
-        composeErrorMessageForLocale(v6, __p, v16);
+        composeErrorMessageForLocale(v16, v6, __p);
         if (v15 < 0)
         {
           operator delete(__p[0]);
@@ -1042,7 +1132,7 @@ uint64_t NLCompositeTransliteratorLexicon::loadIDToNativeMap(NLCompositeTranslit
   if (!v5)
   {
     std::string::basic_string[abi:ne200100]<0>(__p, "Could not load lexicon for: ");
-    composeErrorMessageForLocale(a2, __p, v12);
+    composeErrorMessageForLocale(v12, a2, __p);
     if (v11 < 0)
     {
       operator delete(__p[0]);
@@ -1101,45 +1191,45 @@ uint64_t NLCompositeTransliteratorLexicon::getTokenIDForString(uint64_t a1, uint
   return FirstTokenIDForString;
 }
 
-void sub_22CD677D8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22CD677D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
 
-void NLCompositeTransliteratorLexicon::getStringForTokenID(void *a1@<X8>)
+void NLCompositeTransliteratorLexicon::getStringForTokenID(void *a3@<X8>)
 {
-  *a1 = 0;
-  a1[1] = 0;
-  a1[2] = 0;
-  v2 = LXLexiconCopyEntryForTokenID();
-  v10 = v2;
-  if (v2)
+  *a3 = 0;
+  a3[1] = 0;
+  a3[2] = 0;
+  v4 = LXLexiconCopyEntryForTokenID();
+  v12 = v4;
+  if (v4)
   {
-    v3 = v2;
-    v4 = LXEntryCopyString();
     v5 = v4;
-    v9 = v4;
-    if (v4)
+    v6 = LXEntryCopyString();
+    v7 = v6;
+    v11 = v6;
+    if (v6)
     {
-      v6 = convertToCString(v4);
-      std::string::basic_string[abi:ne200100]<0>(&v7, v6);
-      *a1 = v7;
-      a1[2] = v8;
-      free(v6);
-      CFRelease(v5);
+      v8 = convertToCString(v6);
+      std::string::basic_string[abi:ne200100]<0>(&v9, v8);
+      *a3 = v9;
+      a3[2] = v10;
+      free(v8);
+      CFRelease(v7);
     }
 
-    CFRelease(v3);
+    CFRelease(v5);
   }
 }
 
-void sub_22CD67894(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_22CD67894(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, const void *);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, const void *);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   nlp::CFScopedPtr<_LXEntry const*>::reset(va1, 0);
   _Unwind_Resume(a1);
@@ -1147,7 +1237,7 @@ void sub_22CD67894(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void NLCompositeTransliteratorLexicon::lexiconCandidatesForInput(uint64_t *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
-  NLOSSignPostlexiconCandidatesForInput::NLOSSignPostlexiconCandidatesForInput(&v13);
+  NLOSSignPostlexiconCandidatesForInput::NLOSSignPostlexiconCandidatesForInput(&v12, a2);
   *a3 = 0;
   a3[1] = 0;
   a3[2] = 0;
@@ -1162,21 +1252,20 @@ void NLCompositeTransliteratorLexicon::lexiconCandidatesForInput(uint64_t *a1@<X
 
     if (v8)
     {
-      memset(&v12, 0, sizeof(v12));
+      memset(&v11, 0, sizeof(v11));
       if (NLCompositeTransliteratorLexicon::getTokenIDForString(v6, v7, a2))
       {
-        v9 = a1[1];
         NLCompositeTransliteratorLexicon::getStringForTokenID(&__str);
-        std::string::operator=(&v12, &__str);
+        std::string::operator=(&v11, &__str);
         if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__str.__r_.__value_.__l.__data_);
         }
 
-        size = HIBYTE(v12.__r_.__value_.__r.__words[2]);
-        if ((v12.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        size = HIBYTE(v11.__r_.__value_.__r.__words[2]);
+        if ((v11.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
-          size = v12.__r_.__value_.__l.__size_;
+          size = v11.__r_.__value_.__l.__size_;
         }
 
         if (size)
@@ -1185,63 +1274,64 @@ void NLCompositeTransliteratorLexicon::lexiconCandidatesForInput(uint64_t *a1@<X
         }
       }
 
-      if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v12.__r_.__value_.__l.__data_);
+        operator delete(v11.__r_.__value_.__l.__data_);
       }
     }
   }
 
-  NLOSSignPostlexiconCandidatesForInput::~NLOSSignPostlexiconCandidatesForInput(&v13);
+  NLOSSignPostlexiconCandidatesForInput::~NLOSSignPostlexiconCandidatesForInput(&v12, v7);
 }
 
-void sub_22CD67A34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, os_signpost_id_t a22)
+void sub_22CD67A34(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, os_signpost_id_t a22)
 {
-  MEMORY[0x2318C0600](v23, 0x1012C40B0087DDBLL);
+  MEMORY[0x2318C0600](v23, 0x1012C40B0087DDBLL, a3, a4, a5, a6, a7, a8);
   if (a21 < 0)
   {
     operator delete(__p);
   }
 
-  v25 = *v22;
+  v26 = *v22;
   if (*v22)
   {
-    *(v22 + 8) = v25;
-    operator delete(v25);
+    *(v22 + 8) = v26;
+    operator delete(v26);
   }
 
-  NLOSSignPostlexiconCandidatesForInput::~NLOSSignPostlexiconCandidatesForInput(&a22);
+  NLOSSignPostlexiconCandidatesForInput::~NLOSSignPostlexiconCandidatesForInput(&a22, v25);
   _Unwind_Resume(a1);
 }
 
-void NLOSSignPostlexiconCandidatesForInput::NLOSSignPostlexiconCandidatesForInput(NLOSSignPostlexiconCandidatesForInput *this)
+void NLOSSignPostlexiconCandidatesForInput::NLOSSignPostlexiconCandidatesForInput(NLOSSignPostlexiconCandidatesForInput *this, uint64_t a2)
 {
-  v2 = _nlpSignpostLog();
-  *this = os_signpost_id_make_with_pointer(v2, this);
-  v3 = _nlpSignpostLog();
-  v4 = *this;
+  v3 = _nlpSignpostLog(this, a2);
+  v4 = os_signpost_id_make_with_pointer(v3, this);
+  *this = v4;
+  v6 = _nlpSignpostLog(v4, v5);
+  v7 = *this;
   if ((*this - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+  {
+    v8 = v6;
+    if (os_signpost_enabled(v6))
+    {
+      *v9 = 0;
+      _os_signpost_emit_with_name_impl(&dword_22CD0B000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v7, "lexiconCandidatesForInput", &unk_22CDFA99D, v9, 2u);
+    }
+  }
+}
+
+void NLOSSignPostlexiconCandidatesForInput::~NLOSSignPostlexiconCandidatesForInput(os_signpost_id_t *this, uint64_t a2)
+{
+  v3 = _nlpSignpostLog(this, a2);
+  v4 = *this;
+  if (*this - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
     v5 = v3;
     if (os_signpost_enabled(v3))
     {
       *v6 = 0;
-      _os_signpost_emit_with_name_impl(&dword_22CD0B000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v4, "lexiconCandidatesForInput", &unk_22CDFA99D, v6, 2u);
-    }
-  }
-}
-
-void NLOSSignPostlexiconCandidatesForInput::~NLOSSignPostlexiconCandidatesForInput(os_signpost_id_t *this)
-{
-  v2 = _nlpSignpostLog();
-  v3 = *this;
-  if (*this - 1 <= 0xFFFFFFFFFFFFFFFDLL)
-  {
-    v4 = v2;
-    if (os_signpost_enabled(v2))
-    {
-      *v5 = 0;
-      _os_signpost_emit_with_name_impl(&dword_22CD0B000, v4, OS_SIGNPOST_INTERVAL_END, v3, "lexiconCandidatesForInput", &unk_22CDFA99D, v5, 2u);
+      _os_signpost_emit_with_name_impl(&dword_22CD0B000, v5, OS_SIGNPOST_INTERVAL_END, v4, "lexiconCandidatesForInput", &unk_22CDFA99D, v6, 2u);
     }
   }
 }
@@ -1437,11 +1527,11 @@ LABEL_31:
   return v8;
 }
 
-void sub_22CD67FE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_22CD67FE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va1, a10);
-  va_start(va, a10);
-  v11 = va_arg(va1, const void *);
+  va_start(va1, a17);
+  va_start(va, a17);
+  v18 = va_arg(va1, const void *);
   nlp::CFScopedPtr<__CFCalendar *>::reset(va, 0);
   nlp::CFScopedPtr<__CFArray const*>::reset(va1, 0);
   _Unwind_Resume(a1);
@@ -1483,9 +1573,9 @@ const void *getHolidayValuesForLocale(const __CFDictionary *a1, CFLocaleRef loca
   return v8;
 }
 
-void sub_22CD68108(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22CD68108(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -1526,9 +1616,9 @@ const void *getHolidayDefaultValuesForLocale(const __CFDictionary *a1, const __C
   return v9;
 }
 
-void sub_22CD681F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_22CD681F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -1562,9 +1652,9 @@ const void *getHolidayDefaultValues(const __CFDictionary *a1)
   return v5;
 }
 
-void sub_22CD682B0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22CD682B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -1603,9 +1693,9 @@ const void *getHolidayValuesForLocaleAndCalendar(const __CFDictionary *a1, CFLoc
   return v8;
 }
 
-void sub_22CD68384(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_22CD68384(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -1638,14 +1728,14 @@ const void *getHolidayValuesForCalendar(const __CFDictionary *a1, const __CFStri
   return Value;
 }
 
-void sub_22CD68434(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22CD68434(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
 
-uint64_t updateTimeForHolidayReferenceValueWithYear(const __CFDictionary *a1, const __CFDictionary *a2, const __CFString *a3, __CFCalendar *a4, const __CFLocale *a5, double *a6, double *a7, int *a8, int *a9)
+uint64_t updateTimeForHolidayReferenceValueWithYear(const __CFDictionary *a1, const __CFDictionary *a2, const __CFString *a3, __CFCalendar *a4, const __CFLocale *a5, CFAbsoluteTime *a6, double *a7, int *a8, int *a9)
 {
   ValueAtIndex = a2;
   result = CFDictionaryGetValue(a2, @"Type");
@@ -1863,7 +1953,7 @@ LABEL_35:
             goto LABEL_25;
           }
 
-          v34 = v48[0] - v49;
+          v34 = (v48[0] - v49);
         }
 
         else
@@ -1908,9 +1998,9 @@ LABEL_47:
   return 1;
 }
 
-void sub_22CD68958(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_22CD68958(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -2830,7 +2920,7 @@ LABEL_87:
   std::string::basic_string[abi:ne200100]<0>(a5, 0);
 }
 
-void sub_22CD6A170(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, void *a43, uint64_t a44)
+void sub_22CD6A170(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, void *a43, uint64_t a44)
 {
   if (a19 < 0)
   {
@@ -4067,12 +4157,12 @@ void *NL::DateConverter::DateConverter(void *result, void *a2)
   return result;
 }
 
-void NL::DateConverter::datePeriodForValues(CFStringRef theString@<X1>, const __CFDictionary *a2@<X2>, void *a3@<X8>)
+void NL::DateConverter::datePeriodForValues(CFStringRef theString@<X1>, const __CFDictionary *a3@<X2>, NL::DatePeriod **a4@<X8>)
 {
   if (theString)
   {
     Length = CFStringGetLength(theString);
-    if (a2)
+    if (a3)
     {
       if (Length)
       {
@@ -4081,10 +4171,10 @@ void NL::DateConverter::datePeriodForValues(CFStringRef theString@<X1>, const __
     }
   }
 
-  *a3 = 0;
+  *a4 = 0;
 }
 
-uint64_t NL::DateConverter::updatePeriodForCalendarTime(const __CFDictionary ***this, const __CFLocale *a2, CFDictionaryRef theDict, const __CFString *a4, NL::DatePeriod *a5)
+const __CFString *NL::DateConverter::updatePeriodForCalendarTime(const __CFDictionary ***this, const __CFLocale *a2, CFDictionaryRef theDict, const __CFString *a4, NL::DatePeriod *a5)
 {
   Value = 0;
   if (a2)
@@ -4256,7 +4346,7 @@ void sub_22CD6C634(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t NL::DateConverter::updatePeriodForCalendarDate(const __CFDictionary ***this, const __CFLocale *a2, CFDictionaryRef theDict, const __CFString *a4, NL::DatePeriod *a5)
+const __CFString *NL::DateConverter::updatePeriodForCalendarDate(const __CFDictionary ***this, const __CFLocale *a2, CFDictionaryRef theDict, const __CFString *a4, NL::DatePeriod *a5)
 {
   Value = 0;
   if (a2)
@@ -4488,10 +4578,10 @@ void sub_22CD6CB6C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t NL::DateConverter::updatePeriodForHolidayCompoundDate(uint64_t **this, const __CFLocale *a2, CFDictionaryRef theDict, NL::DatePeriod *a4)
+uint64_t NL::DateConverter::updatePeriodForHolidayCompoundDate(std::__shared_weak_count **this, const __CFLocale *a2, CFDictionaryRef theDict, NL::DatePeriod *a4)
 {
   result = 0;
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     if (theDict)
@@ -4500,9 +4590,9 @@ uint64_t NL::DateConverter::updatePeriodForHolidayCompoundDate(uint64_t **this, 
       if (result)
       {
         Count = CFDictionaryGetCount(theDict);
-        v21[1] = v21;
+        v20[1] = v20;
         MEMORY[0x28223BE20]();
-        v11 = (v21 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
+        v11 = (v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
         if (v10 >= 0x200)
         {
           v12 = 512;
@@ -4513,7 +4603,7 @@ uint64_t NL::DateConverter::updatePeriodForHolidayCompoundDate(uint64_t **this, 
           v12 = v10;
         }
 
-        bzero(v21 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), v12);
+        bzero(v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), v12);
         CFDictionaryGetKeysAndValues(theDict, v11, 0);
         if (Count >= 1)
         {
@@ -4532,23 +4622,23 @@ uint64_t NL::DateConverter::updatePeriodForHolidayCompoundDate(uint64_t **this, 
                 Value = CFDictionaryGetValue(theDict, v13);
                 if (Value && (NL::DateConverter::updatePeriodForValueDate(this, v13, a2, Value, a4) & 1) == 0)
                 {
-                  goto LABEL_26;
+                  return 0;
                 }
               }
 
               else
               {
-                v24 = 0u;
-                v25 = 0u;
-                v22 = 0u;
                 v23 = 0u;
+                v24 = 0u;
+                v21 = 0u;
+                v22 = 0u;
                 v15 = this[1];
                 if (v15)
                 {
                   atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
                 }
 
-                updated = updateDateComponentsWithValues(&v22, a2, theDict, 0);
+                updated = updateDateComponentsWithValues(&v21, a2, theDict, 0);
                 if (v15)
                 {
                   std::__shared_weak_count::__release_shared[abi:ne200100](v15);
@@ -4556,16 +4646,14 @@ uint64_t NL::DateConverter::updatePeriodForHolidayCompoundDate(uint64_t **this, 
 
                 if ((updated & 1) == 0)
                 {
-LABEL_26:
-                  result = 0;
-                  goto LABEL_25;
+                  return 0;
                 }
 
-                v17 = v23;
-                *(a4 + 28) = v22;
+                v17 = v22;
+                *(a4 + 28) = v21;
                 *(a4 + 44) = v17;
-                v18 = v25;
-                *(a4 + 60) = v24;
+                v18 = v24;
+                *(a4 + 60) = v23;
                 *(a4 + 76) = v18;
                 *(a4 + 92) = 0u;
                 *(a4 + 108) = 0u;
@@ -4586,14 +4674,12 @@ LABEL_26:
         if (result)
         {
           NL::DatePeriod::setDisplayKey(a4, @"HOLIDAY");
-          result = 1;
+          return 1;
         }
       }
     }
   }
 
-LABEL_25:
-  v20 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4671,9 +4757,9 @@ LABEL_10:
   return updated;
 }
 
-void sub_22CD6CF9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_22CD6CF9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   nlp::CFScopedPtr<__CFCalendar *>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -4762,13 +4848,13 @@ void sub_22CD6D19C(_Unwind_Exception *a1)
 BOOL NL::DateConverter::updatePeriodForValueCompoundDate(NL::DateConverter *this, const __CFLocale *a2, CFDictionaryRef theDict, NL::DatePeriod *a4)
 {
   result = 0;
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (a2 && theDict)
   {
     Count = CFDictionaryGetCount(theDict);
-    v20[1] = v20;
+    v19[1] = v19;
     MEMORY[0x28223BE20]();
-    v11 = (v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
+    v11 = (v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
     if (v10 >= 0x200)
     {
       v12 = 512;
@@ -4779,7 +4865,7 @@ BOOL NL::DateConverter::updatePeriodForValueCompoundDate(NL::DateConverter *this
       v12 = v10;
     }
 
-    bzero(v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), v12);
+    bzero(v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), v12);
     CFDictionaryGetKeysAndValues(theDict, v11, 0);
     if (Count >= 1)
     {
@@ -4789,27 +4875,27 @@ BOOL NL::DateConverter::updatePeriodForValueCompoundDate(NL::DateConverter *this
         v14 = *v11;
         if (!CFStringHasSuffix(*v11, @"Date"))
         {
-          v23 = 0u;
-          v24 = 0u;
-          v21 = 0u;
           v22 = 0u;
+          v23 = 0u;
+          v20 = 0u;
+          v21 = 0u;
           v15 = *(this + 1);
           if (v15)
           {
             atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          updateDateComponentsWithValues(&v21, a2, theDict, 0);
+          updateDateComponentsWithValues(&v20, a2, theDict, 0);
           if (v15)
           {
             std::__shared_weak_count::__release_shared[abi:ne200100](v15);
           }
 
-          v16 = v22;
-          *(a4 + 28) = v21;
+          v16 = v21;
+          *(a4 + 28) = v20;
           *(a4 + 44) = v16;
-          v17 = v24;
-          *(a4 + 60) = v23;
+          v17 = v23;
+          *(a4 + 60) = v22;
           *(a4 + 76) = v17;
           *(a4 + 92) = 0u;
           *(a4 + 108) = 0u;
@@ -4831,29 +4917,26 @@ BOOL NL::DateConverter::updatePeriodForValueCompoundDate(NL::DateConverter *this
           result = NL::DateConverter::updatePeriodForRelativeDate(this, v14, a2, a4);
           if (!result)
           {
-            goto LABEL_22;
+            return result;
           }
 
-          goto LABEL_20;
+LABEL_20:
+          NL::DatePeriod::setDisplayKey(a4, @"FORMATTED");
+          *(a4 + 6) = 38;
+          return 1;
         }
 
         Value = CFDictionaryGetValue(theDict, v14);
         if (NL::DateConverter::updatePeriodForValueDate(this, v14, a2, Value, a4))
         {
-LABEL_20:
-          NL::DatePeriod::setDisplayKey(a4, @"FORMATTED");
-          *(a4 + 6) = 38;
-          result = 1;
-          goto LABEL_22;
+          goto LABEL_20;
         }
       }
     }
 
-    result = 0;
+    return 0;
   }
 
-LABEL_22:
-  v19 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5409,9 +5492,9 @@ LABEL_64:
   return v5;
 }
 
-void sub_22CD6DF88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_22CD6DF88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   nlp::CFScopedPtr<__CFCalendar *>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -5671,7 +5754,7 @@ uint64_t NL::DateConverter::updatePeriodForValueDate(const __CFDate ***this, con
   }
 
   v11 = copyCurrentCalendar(a3);
-  v116 = v11;
+  v117 = v11;
   if (!v11)
   {
     return 0;
@@ -5679,48 +5762,49 @@ uint64_t NL::DateConverter::updatePeriodForValueDate(const __CFDate ***this, con
 
   v12 = v11;
   v13 = MEMORY[0x2318BF5E0]();
-  getCurrentDateComponents(v12, **this, v115);
-  at = NL::DateComponents::getAbsoluteTime(v115, v12, **this);
+  getCurrentDateComponents(v12, **this, v116);
+  at = NL::DateComponents::getAbsoluteTime(v116, v12, **this);
   v14 = *(a5 + 44);
-  v110 = *(a5 + 28);
-  v111 = v14;
+  v111 = *(a5 + 28);
+  v112 = v14;
   v15 = *(a5 + 76);
-  v112 = *(a5 + 60);
-  v113 = v15;
+  v113 = *(a5 + 60);
+  v114 = v15;
   v16 = *(a5 + 172);
-  v106 = *(a5 + 156);
-  v107 = v16;
+  v107 = *(a5 + 156);
+  v108 = v16;
   v17 = *(a5 + 204);
-  v108 = *(a5 + 188);
-  v109 = v17;
-  v94 = *(a5 + 92);
+  v109 = *(a5 + 188);
+  v110 = v17;
+  v94 = *(a5 + 23);
+  v95 = *(a5 + 24);
   v18 = *(a5 + 25);
   v19 = *(a5 + 29);
-  v105 = *(a5 + 28);
+  v106 = *(a5 + 28);
   v20 = *(a5 + 13);
   v21 = *(a5 + 31);
   v92 = *(a5 + 30);
   v93 = v19;
   v22 = *(a5 + 32);
-  v103 = *(a5 + 132);
-  v104 = v20;
+  v104 = *(a5 + 132);
+  v105 = v20;
   v91 = *(a5 + 35);
   v89 = v22;
   v90 = *(a5 + 36);
-  v102 = *(a5 + 148);
-  v100 = -1;
-  memset(v101, 255, sizeof(v101));
-  v98 = -1;
+  v103 = *(a5 + 148);
+  v101 = -1;
+  memset(v102, 255, sizeof(v102));
   v99 = -1;
-  v97 = -1;
-  CFCalendarDecomposeAbsoluteTime(v12, at, "yMdEwHm", &v101[8], &v101[4], v101, &v100, &v99, &v98, &v97);
+  v100 = -1;
+  v98 = -1;
+  CFCalendarDecomposeAbsoluteTime(v12, at, "yMdEwHm", &v102[8], &v102[4], v102, &v101, &v100, &v99, &v98);
   v87 = v21;
   v88 = v13;
   v23 = intValueForNumberInValues(a3, a4);
   v24 = *(*this + 66);
   if (CFStringHasPrefix(a2, @"ThisFormattedDate"))
   {
-    v96 = @"FORMATTED";
+    v97 = @"FORMATTED";
     NL::DatePeriod::setDisplayKey(a5, @"FORMATTED");
     *(a5 + 6) = 38;
     if (CFDictionaryContainsKey(a4, @"FormattedDate") || CFDictionaryContainsKey(a4, @"FormattedAmbiguousDate"))
@@ -5737,7 +5821,7 @@ uint64_t NL::DateConverter::updatePeriodForValueDate(const __CFDate ***this, con
         atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      updated = updateDateComponentsWithValues(&v110, a3, Value, 0);
+      updated = updateDateComponentsWithValues(&v111, a3, Value, 0);
       if (v26)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v26);
@@ -5745,34 +5829,35 @@ uint64_t NL::DateConverter::updatePeriodForValueDate(const __CFDate ***this, con
 
       if (updated)
       {
-        resolveDateComponentsToDateWithOffset(v12, a3, **this, &v110, v24, 0, 0);
+        resolveDateComponentsToDateWithOffset(v12, a3, **this, &v111, v24, 0, 0);
         CFRelease(@"FORMATTED");
 LABEL_41:
         v5 = 1;
 LABEL_42:
-        v34 = v111;
-        *(a5 + 28) = v110;
+        v34 = v112;
+        *(a5 + 28) = v111;
         *(a5 + 44) = v34;
-        v35 = v113;
-        *(a5 + 60) = v112;
+        v35 = v114;
+        *(a5 + 60) = v113;
         *(a5 + 76) = v35;
-        v36 = v108;
-        *(a5 + 204) = v109;
+        v36 = v109;
+        *(a5 + 204) = v110;
         *(a5 + 188) = v36;
-        v37 = v106;
-        *(a5 + 172) = v107;
-        *(a5 + 92) = v94;
+        v37 = v107;
+        *(a5 + 172) = v108;
+        *(a5 + 23) = v94;
+        *(a5 + 24) = v95;
         *(a5 + 25) = v18;
-        *(a5 + 13) = v104;
-        *(a5 + 28) = v105;
+        *(a5 + 13) = v105;
+        *(a5 + 28) = v106;
         *(a5 + 29) = v93;
         *(a5 + 30) = v92;
         *(a5 + 31) = v87;
         *(a5 + 32) = v89;
-        *(a5 + 132) = v103;
+        *(a5 + 132) = v104;
         *(a5 + 35) = v91;
         *(a5 + 36) = v90;
-        *(a5 + 148) = v102;
+        *(a5 + 148) = v103;
         *(a5 + 156) = v37;
         NL::DatePeriod::setCalendarWithIdentifier(a5, v88);
         goto LABEL_102;
@@ -5788,7 +5873,7 @@ LABEL_101:
 
   if (CFStringHasPrefix(a2, @"LastFormattedDate"))
   {
-    v96 = @"FORMATTED";
+    v97 = @"FORMATTED";
     NL::DatePeriod::setDisplayKey(a5, @"FORMATTED");
     *(a5 + 6) = 38;
     if (CFDictionaryContainsKey(a4, @"FormattedDate") || CFDictionaryContainsKey(a4, @"FormattedAmbiguousDate"))
@@ -5805,7 +5890,7 @@ LABEL_101:
         atomic_fetch_add_explicit(&v29->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v30 = updateDateComponentsWithValues(&v110, a3, v28, 0);
+      v30 = updateDateComponentsWithValues(&v111, a3, v28, 0);
       if (v29)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v29);
@@ -5813,7 +5898,7 @@ LABEL_101:
 
       if (v30)
       {
-        resolveDateComponentsToDateWithOffset(v12, a3, **this, &v110, v24, -1, 0);
+        resolveDateComponentsToDateWithOffset(v12, a3, **this, &v111, v24, -1, 0);
         CFRelease(@"FORMATTED");
         goto LABEL_41;
       }
@@ -5824,7 +5909,7 @@ LABEL_101:
 
   if (CFStringHasPrefix(a2, @"NextFormattedDate"))
   {
-    v96 = @"FORMATTED";
+    v97 = @"FORMATTED";
     NL::DatePeriod::setDisplayKey(a5, @"FORMATTED");
     *(a5 + 6) = 38;
     if (CFDictionaryContainsKey(a4, @"FormattedDate") || CFDictionaryContainsKey(a4, @"FormattedAmbiguousDate"))
@@ -5841,7 +5926,7 @@ LABEL_101:
         atomic_fetch_add_explicit(&v32->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v33 = updateDateComponentsWithValues(&v110, a3, v31, 0);
+      v33 = updateDateComponentsWithValues(&v111, a3, v31, 0);
       if (v32)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v32);
@@ -5849,15 +5934,15 @@ LABEL_101:
 
       if (v33)
       {
-        resolveDateComponentsToDateWithOffset(v12, a3, **this, &v110, v24, 1, 0);
+        resolveDateComponentsToDateWithOffset(v12, a3, **this, &v111, v24, 1, 0);
 LABEL_40:
-        nlp::CFScopedPtr<__CFString const*>::reset(&v96, 0);
+        nlp::CFScopedPtr<__CFString const*>::reset(&v97, 0);
         goto LABEL_41;
       }
     }
 
 LABEL_100:
-    nlp::CFScopedPtr<__CFString const*>::reset(&v96, 0);
+    nlp::CFScopedPtr<__CFString const*>::reset(&v97, 0);
     goto LABEL_101;
   }
 
@@ -5873,15 +5958,16 @@ LABEL_100:
       *(a5 + 6) = 27;
       v38 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"VAL_%d-N_NEXT_MINUTES", v23);
       NL::DatePeriod::setDisplayKey(a5, v38);
-      *&v110 = *v101;
-      DWORD2(v110) = *&v101[8];
-      *(&v111 + 1) = __PAIR64__(v97, v98);
+      *&v111 = *v102;
+      DWORD2(v111) = *&v102[8];
+      *(&v112 + 1) = __PAIR64__(v98, v99);
       CFCalendarAddComponents(v12, &at, 0, "m", v23);
-      CFCalendarDecomposeAbsoluteTime(v12, at, "yMdEwHm", &v101[8], &v101[4], v101, &v100, &v99, &v98, &v97);
-      v94 = *v101;
-      v18 = *&v101[8];
-      v92 = v97;
-      v93 = v98;
+      CFCalendarDecomposeAbsoluteTime(v12, at, "yMdEwHm", &v102[8], &v102[4], v102, &v101, &v100, &v99, &v98);
+      v94 = *v102;
+      v95 = *&v102[4];
+      v18 = *&v102[8];
+      v92 = v98;
+      v93 = v99;
       goto LABEL_41;
     }
 
@@ -5890,15 +5976,16 @@ LABEL_100:
       *(a5 + 6) = 28;
       v42 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"VAL_%d-N_NEXT_HOURS", v23);
       NL::DatePeriod::setDisplayKey(a5, v42);
-      *&v110 = *v101;
-      DWORD2(v110) = *&v101[8];
-      DWORD2(v111) = v98;
+      *&v111 = *v102;
+      DWORD2(v111) = *&v102[8];
+      DWORD2(v112) = v99;
       CFCalendarAddComponents(v12, &at, 0, "h", v23);
-      CFCalendarDecomposeAbsoluteTime(v12, at, "yMdEwHm", &v101[8], &v101[4], v101, &v100, &v99, &v98, &v97);
-      v94 = *v101;
-      v18 = *&v101[8];
+      CFCalendarDecomposeAbsoluteTime(v12, at, "yMdEwHm", &v102[8], &v102[4], v102, &v101, &v100, &v99, &v98);
+      v94 = *v102;
+      v95 = *&v102[4];
+      v18 = *&v102[8];
       v5 = 1;
-      v93 = v98;
+      v93 = v99;
       goto LABEL_42;
     }
 
@@ -5907,11 +5994,11 @@ LABEL_100:
       *(a5 + 6) = 29;
       v45 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"VAL_%d-N_NEXT_DAYS", v23);
       NL::DatePeriod::setDisplayKey(a5, v45);
-      LODWORD(v110) = *v101;
-      *(&v110 + 4) = *&v101[4];
+      LODWORD(v111) = *v102;
+      *(&v111 + 4) = *&v102[4];
       CFCalendarAddComponents(v12, &at, 0, "d", v23);
-      CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v101[8], &v101[4], v101);
-      LODWORD(v94) = *v101;
+      CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v102[8], &v102[4], v102);
+      v94 = *v102;
       goto LABEL_74;
     }
 
@@ -5927,39 +6014,39 @@ LABEL_100:
         *(a5 + 6) = 33;
         v52 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"VAL_%d-N_NEXT_YEARS", v23);
         NL::DatePeriod::setDisplayKey(a5, v52);
-        LODWORD(v110) = *v101;
-        *(&v110 + 4) = *&v101[4];
+        LODWORD(v111) = *v102;
+        *(&v111 + 4) = *&v102[4];
         CFCalendarAddComponents(v12, &at, 0, "y", v23);
-        CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v101[8], &v101[4], v101);
+        CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v102[8], &v102[4], v102);
 LABEL_75:
         v5 = 1;
-        v18 = *&v101[8];
+        v18 = *&v102[8];
         goto LABEL_42;
       }
 
       *(a5 + 6) = 32;
       v49 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"VAL_%d-N_NEXT_MONTHS", v23);
       NL::DatePeriod::setDisplayKey(a5, v49);
-      LODWORD(v110) = *v101;
-      *(&v110 + 4) = *&v101[4];
+      LODWORD(v111) = *v102;
+      *(&v111 + 4) = *&v102[4];
       CFCalendarAddComponents(v12, &at, 0, "M", v23);
-      CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v101[8], &v101[4], v101);
+      CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v102[8], &v102[4], v102);
 LABEL_74:
-      HIDWORD(v94) = *&v101[4];
+      v95 = *&v102[4];
       goto LABEL_75;
     }
 
     *(a5 + 6) = 31;
     v47 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"VAL_%d-N_NEXT_WEEKS", v23);
     NL::DatePeriod::setDisplayKey(a5, v47);
-    LODWORD(v110) = *v101;
-    *(&v110 + 4) = *&v101[4];
+    LODWORD(v111) = *v102;
+    *(&v111 + 4) = *&v102[4];
     CFCalendarAddComponents(v12, &at, 0, "w", v23);
-    CFCalendarDecomposeAbsoluteTime(v12, at, "yw", &v101[8], &v99);
+    CFCalendarDecomposeAbsoluteTime(v12, at, "yw", &v102[8], &v100);
 LABEL_88:
     v5 = 1;
-    v90 = *&v101[8];
-    v91 = v99;
+    v90 = *&v102[8];
+    v91 = v100;
     goto LABEL_42;
   }
 
@@ -5976,13 +6063,13 @@ LABEL_88:
       v39 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"VAL_%d-N_MINUTES", v23);
       NL::DatePeriod::setDisplayKey(a5, v39);
       CFCalendarAddComponents(v12, &at, 0, "m", v23);
-      v95 = 0;
-      LODWORD(v96) = 0;
-      CFCalendarDecomposeAbsoluteTime(v12, at, "yMdHm", &v101[8], &v101[4], v101, &v96, &v95);
+      v96 = 0;
+      LODWORD(v97) = 0;
+      CFCalendarDecomposeAbsoluteTime(v12, at, "yMdHm", &v102[8], &v102[4], v102, &v97, &v96);
 LABEL_68:
-      *&v110 = *v101;
-      DWORD2(v110) = *&v101[8];
-      *(&v111 + 1) = __PAIR64__(v95, v96);
+      *&v111 = *v102;
+      DWORD2(v111) = *&v102[8];
+      *(&v112 + 1) = __PAIR64__(v96, v97);
       goto LABEL_41;
     }
 
@@ -5992,9 +6079,9 @@ LABEL_68:
       v43 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"VAL_%d-N_HOURS", v23);
       NL::DatePeriod::setDisplayKey(a5, v43);
       CFCalendarAddComponents(v12, &at, 0, "h", v23);
-      v95 = 0;
-      LODWORD(v96) = 0;
-      CFCalendarDecomposeAbsoluteTime(v12, at, "yMdHm", &v101[8], &v101[4], v101, &v96, &v95);
+      v96 = 0;
+      LODWORD(v97) = 0;
+      CFCalendarDecomposeAbsoluteTime(v12, at, "yMdHm", &v102[8], &v102[4], v102, &v97, &v96);
       goto LABEL_68;
     }
 
@@ -6004,13 +6091,13 @@ LABEL_68:
       NL::DatePeriod::setDisplayKey(a5, v46);
       *(a5 + 6) = 18;
       CFCalendarAddComponents(v12, &at, 0, "d", v23);
-      CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v101[8], &v101[4], v101);
+      CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v102[8], &v102[4], v102);
 LABEL_57:
-      *&v110 = *v101;
+      *&v111 = *v102;
 LABEL_58:
-      v41 = *&v101[8];
+      v41 = *&v102[8];
 LABEL_59:
-      DWORD2(v110) = v41;
+      DWORD2(v111) = v41;
       goto LABEL_41;
     }
 
@@ -6019,20 +6106,20 @@ LABEL_59:
       v48 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"VAL_%d-N_WEEKENDS", v23);
       NL::DatePeriod::setDisplayKey(a5, v48);
       *(a5 + 6) = 19;
-      if (v100 <= 6)
+      if (v101 <= 6)
       {
-        CFCalendarAddComponents(v12, &at, 0, "d", (7 - v100));
+        CFCalendarAddComponents(v12, &at, 0, "d", (7 - v101));
       }
 
       CFCalendarAddComponents(v12, &at, 0, "w", v23);
-      CFCalendarDecomposeAbsoluteTime(v12, at, "yEw", &v101[8], &v100, &v99);
-      *&v110 = 0;
-      DWORD2(v110) = 0;
-      DWORD1(v112) = v100;
-      *&v113 = __PAIR64__(*&v101[8], v99);
+      CFCalendarDecomposeAbsoluteTime(v12, at, "yEw", &v102[8], &v101, &v100);
+      *&v111 = 0;
+      DWORD2(v111) = 0;
+      DWORD1(v113) = v101;
+      *&v114 = __PAIR64__(*&v102[8], v100);
       CFCalendarAddComponents(v12, &at, 0, "d", 1);
-      CFCalendarDecomposeAbsoluteTime(v12, at, "yEw", &v101[8], &v100, &v99);
-      v89 = v100;
+      CFCalendarDecomposeAbsoluteTime(v12, at, "yEw", &v102[8], &v101, &v100);
+      v89 = v101;
       goto LABEL_88;
     }
 
@@ -6042,8 +6129,8 @@ LABEL_59:
       NL::DatePeriod::setDisplayKey(a5, v50);
       *(a5 + 6) = 20;
       CFCalendarAddComponents(v12, &at, 0, "w", v23);
-      CFCalendarDecomposeAbsoluteTime(v12, at, "wyMd", &v99, &v101[8], &v101[4], v101);
-      *&v113 = __PAIR64__(*&v101[8], v99);
+      CFCalendarDecomposeAbsoluteTime(v12, at, "wyMd", &v100, &v102[8], &v102[4], v102);
+      *&v114 = __PAIR64__(*&v102[8], v100);
       goto LABEL_41;
     }
 
@@ -6058,7 +6145,7 @@ LABEL_59:
       NL::DatePeriod::setDisplayKey(a5, v54);
       *(a5 + 6) = 22;
       CFCalendarAddComponents(v12, &at, 0, "y", v23);
-      CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v101[8], &v101[4], v101);
+      CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v102[8], &v102[4], v102);
       goto LABEL_58;
     }
 
@@ -6066,9 +6153,9 @@ LABEL_59:
     NL::DatePeriod::setDisplayKey(a5, v53);
     *(a5 + 6) = 21;
     CFCalendarAddComponents(v12, &at, 0, "M", v23);
-    CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v101[8], &v101[4], v101);
+    CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v102[8], &v102[4], v102);
 LABEL_109:
-    *(&v110 + 4) = *&v101[4];
+    *(&v111 + 4) = *&v102[4];
     goto LABEL_41;
   }
 
@@ -6083,17 +6170,18 @@ LABEL_109:
       goto LABEL_101;
     }
 
-    v94 = *v101;
-    v18 = *&v101[8];
+    v94 = *v102;
+    v95 = *&v102[4];
+    v18 = *&v102[8];
     CFCalendarAddComponents(v12, &at, 0, "d", v86);
-    CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v101[8], &v101[4], v101);
+    CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v102[8], &v102[4], v102);
     goto LABEL_57;
   }
 
   if (CFStringHasPrefix(a2, @"NumDays"))
   {
-    v96 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"VAL_%d-N_DAYS_AGO", v23);
-    NL::DatePeriod::setDisplayKey(a5, v96);
+    v97 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"VAL_%d-N_DAYS_AGO", v23);
+    NL::DatePeriod::setDisplayKey(a5, v97);
     *(a5 + 6) = 23;
     if ((v23 & 0x80000000) != 0)
     {
@@ -6101,80 +6189,82 @@ LABEL_109:
     }
 
     CFCalendarAddComponents(v12, &at, 0, "d", v86);
-    CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v101[8], &v101[4], v101);
-    *&v110 = *v101;
+    CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v102[8], &v102[4], v102);
+    *&v111 = *v102;
 LABEL_63:
-    DWORD2(v110) = *&v101[8];
+    DWORD2(v111) = *&v102[8];
     goto LABEL_40;
   }
 
   if (CFStringHasPrefix(a2, @"NumWeeksRange"))
   {
-    v96 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"VAL_%d-N_LAST_WEEKS", v23);
-    NL::DatePeriod::setDisplayKey(a5, v96);
+    v97 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"VAL_%d-N_LAST_WEEKS", v23);
+    NL::DatePeriod::setDisplayKey(a5, v97);
     *(a5 + 6) = 35;
     if ((v23 & 0x80000000) != 0)
     {
       goto LABEL_100;
     }
 
-    v94 = *v101;
-    v18 = *&v101[8];
-    v95 = 0;
-    CFCalendarDecomposeAbsoluteTime(v12, at, "w", &v95);
-    v44 = v95 - v23 + 1;
+    v94 = *v102;
+    v95 = *&v102[4];
+    v18 = *&v102[8];
+    v96 = 0;
+    CFCalendarDecomposeAbsoluteTime(v12, at, "w", &v96);
+    v44 = v96 - v23 + 1;
 LABEL_81:
-    *&v113 = __PAIR64__(*&v101[8], v44);
+    *&v114 = __PAIR64__(*&v102[8], v44);
     goto LABEL_40;
   }
 
   if (CFStringHasPrefix(a2, @"NumWeeks"))
   {
-    v96 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"VAL_%d-N_WEEKS_AGO", v23);
-    NL::DatePeriod::setDisplayKey(a5, v96);
+    v97 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"VAL_%d-N_WEEKS_AGO", v23);
+    NL::DatePeriod::setDisplayKey(a5, v97);
     *(a5 + 6) = 24;
     if ((v23 & 0x80000000) != 0)
     {
       goto LABEL_100;
     }
 
-    v95 = 0;
-    CFCalendarDecomposeAbsoluteTime(v12, at, "w", &v95);
-    v44 = v95 - v23;
+    v96 = 0;
+    CFCalendarDecomposeAbsoluteTime(v12, at, "w", &v96);
+    v44 = v96 - v23;
     goto LABEL_81;
   }
 
   if (CFStringHasPrefix(a2, @"NumMonthsRange"))
   {
-    v96 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"VAL_%d-N_LAST_MONTHS", v23);
-    NL::DatePeriod::setDisplayKey(a5, v96);
+    v97 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"VAL_%d-N_LAST_MONTHS", v23);
+    NL::DatePeriod::setDisplayKey(a5, v97);
     *(a5 + 6) = 36;
     if ((v23 & 0x80000000) != 0)
     {
       goto LABEL_100;
     }
 
-    v94 = *v101;
-    v18 = *&v101[8];
-    CFCalendarAddComponents(v12, &at, 0, "dM", (1 - *v101), v86);
-    CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v101[8], &v101[4], v101);
+    v94 = *v102;
+    v95 = *&v102[4];
+    v18 = *&v102[8];
+    CFCalendarAddComponents(v12, &at, 0, "dM", (1 - *v102), v86);
+    CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v102[8], &v102[4], v102);
 LABEL_99:
-    *(&v110 + 4) = *&v101[4];
+    *(&v111 + 4) = *&v102[4];
     goto LABEL_40;
   }
 
   if (CFStringHasPrefix(a2, @"NumMonths"))
   {
-    v96 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"VAL_%d-N_MONTHS_AGO", v23);
-    NL::DatePeriod::setDisplayKey(a5, v96);
+    v97 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"VAL_%d-N_MONTHS_AGO", v23);
+    NL::DatePeriod::setDisplayKey(a5, v97);
     *(a5 + 6) = 25;
     if ((v23 & 0x80000000) != 0)
     {
       goto LABEL_100;
     }
 
-    CFCalendarAddComponents(v12, &at, 0, "dM", (1 - *v101), v86);
-    CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v101[8], &v101[4], v101);
+    CFCalendarAddComponents(v12, &at, 0, "dM", (1 - *v102), v86);
+    CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v102[8], &v102[4], v102);
     goto LABEL_99;
   }
 
@@ -6183,19 +6273,19 @@ LABEL_99:
     if (CFStringHasPrefix(a2, @"NumYears"))
     {
       v5 = 0;
-      if (*&v101[8] >= v23 && (v23 & 0x80000000) == 0 && *&v101[8] - v23 >= *&v101[8] - 1970)
+      if (*&v102[8] >= v23 && (v23 & 0x80000000) == 0 && *&v102[8] - v23 >= *&v102[8] - 1970)
       {
-        v96 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"VAL_%d-N_YEARS_AGO", v23);
-        NL::DatePeriod::setDisplayKey(a5, v96);
+        v97 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"VAL_%d-N_YEARS_AGO", v23);
+        NL::DatePeriod::setDisplayKey(a5, v97);
         *(a5 + 6) = 26;
-        CFCalendarAddComponents(v12, &at, 0, "dM", (1 - *v101), (1 - *&v101[4]));
+        CFCalendarAddComponents(v12, &at, 0, "dM", (1 - *v102), (1 - *&v102[4]));
         CFCalendarAddComponents(v12, &at, 0, "y", v86);
-        if (SDWORD1(v110) >= 2)
+        if (SDWORD1(v111) >= 2)
         {
-          CFCalendarAddComponents(v12, &at, 0, "M", (DWORD1(v110) - 1));
+          CFCalendarAddComponents(v12, &at, 0, "M", (DWORD1(v111) - 1));
         }
 
-        CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v101[8], &v101[4], v101);
+        CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v102[8], &v102[4], v102);
         goto LABEL_63;
       }
 
@@ -6212,7 +6302,7 @@ LABEL_99:
         atomic_fetch_add_explicit(&v55->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v56 = updateDateComponentsWithValues(&v110, a3, a4, 0);
+      v56 = updateDateComponentsWithValues(&v111, a3, a4, 0);
       if (v55)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v55);
@@ -6224,25 +6314,25 @@ LABEL_99:
         length = MaximumRangeOfUnit.length;
         if (v24)
         {
-          if (SDWORD1(v112) <= v100)
+          if (SDWORD1(v113) <= v101)
           {
-            if (DWORD1(v112) != v100)
+            if (DWORD1(v113) != v101)
             {
-              if (SDWORD1(v112) >= v100)
+              if (SDWORD1(v113) >= v101)
               {
                 length = 0;
               }
 
               else
               {
-                length = MaximumRangeOfUnit.length - v100 + SDWORD1(v112);
+                length = MaximumRangeOfUnit.length - v101 + SDWORD1(v113);
               }
             }
           }
 
           else
           {
-            length = DWORD1(v112) - v100;
+            length = DWORD1(v113) - v101;
           }
 
           CFCalendarAddComponents(v12, &at, 0, "d", length);
@@ -6250,15 +6340,15 @@ LABEL_99:
 
         else
         {
-          CFCalendarAddComponents(v12, &at, 0, "d", (1 - v100));
-          CFCalendarAddComponents(v12, &at, 0, "d", (DWORD1(v112) - 1));
-          if (SDWORD1(v112) > v100)
+          CFCalendarAddComponents(v12, &at, 0, "d", (1 - v101));
+          CFCalendarAddComponents(v12, &at, 0, "d", (DWORD1(v113) - 1));
+          if (SDWORD1(v113) > v101)
           {
             CFCalendarAddComponents(v12, &at, 0, "d", -MaximumRangeOfUnit.length);
           }
         }
 
-        CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v101[8], &v101[4], v101);
+        CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v102[8], &v102[4], v102);
         goto LABEL_57;
       }
 
@@ -6275,7 +6365,7 @@ LABEL_99:
         atomic_fetch_add_explicit(&v59->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v60 = updateDateComponentsWithValues(&v110, a3, a4, 0);
+      v60 = updateDateComponentsWithValues(&v111, a3, a4, 0);
       if (v59)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v59);
@@ -6284,9 +6374,9 @@ LABEL_99:
       if (v60)
       {
         v61 = CFCalendarGetMaximumRangeOfUnit(v12, 0x200uLL);
-        CFCalendarAddComponents(v12, &at, 0, "d", SDWORD1(v112) - (v61.length + v100));
-        CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v101[8], &v101[4], v101);
-        CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v101[8], &v101[4], v101);
+        CFCalendarAddComponents(v12, &at, 0, "d", SDWORD1(v113) - (v61.length + v101));
+        CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v102[8], &v102[4], v102);
+        CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v102[8], &v102[4], v102);
         goto LABEL_57;
       }
 
@@ -6303,7 +6393,7 @@ LABEL_99:
         atomic_fetch_add_explicit(&v62->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v63 = updateDateComponentsWithValues(&v110, a3, a4, 0);
+      v63 = updateDateComponentsWithValues(&v111, a3, a4, 0);
       if (v62)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v62);
@@ -6312,9 +6402,9 @@ LABEL_99:
       if (v63)
       {
         v64 = CFCalendarGetMaximumRangeOfUnit(v12, 0x200uLL);
-        v65 = v100 % v64.length;
+        v65 = v101 % v64.length;
         v66 = (v64.length - v65) % v64.length;
-        if (v65 <= SDWORD1(v112))
+        if (v65 <= SDWORD1(v113))
         {
           v67 = 0;
         }
@@ -6324,8 +6414,8 @@ LABEL_99:
           v67 = v64.length;
         }
 
-        CFCalendarAddComponents(v12, &at, 0, "d", v66 + SDWORD1(v112) + v67);
-        CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v101[8], &v101[4], v101);
+        CFCalendarAddComponents(v12, &at, 0, "d", v66 + SDWORD1(v113) + v67);
+        CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v102[8], &v102[4], v102);
         goto LABEL_57;
       }
 
@@ -6342,7 +6432,7 @@ LABEL_99:
         atomic_fetch_add_explicit(&v68->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v69 = updateDateComponentsWithValues(&v110, a3, a4, 0);
+      v69 = updateDateComponentsWithValues(&v111, a3, a4, 0);
       if (v68)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v68);
@@ -6351,8 +6441,8 @@ LABEL_99:
       if (v69)
       {
         v70 = CFCalendarGetMaximumRangeOfUnit(v12, 0x200uLL);
-        CFCalendarAddComponents(v12, &at, 0, "d", SDWORD1(v112) - (v100 + 2 * v70.length));
-        CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v101[8], &v101[4], v101);
+        CFCalendarAddComponents(v12, &at, 0, "d", SDWORD1(v113) - (v101 + 2 * v70.length));
+        CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v102[8], &v102[4], v102);
         goto LABEL_57;
       }
 
@@ -6369,7 +6459,7 @@ LABEL_99:
         atomic_fetch_add_explicit(&v71->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v72 = updateDateComponentsWithValues(&v110, a3, a4, 0);
+      v72 = updateDateComponentsWithValues(&v111, a3, a4, 0);
       if (v71)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v71);
@@ -6377,7 +6467,7 @@ LABEL_99:
 
       if (v72)
       {
-        v41 = *&v101[8] + 1;
+        v41 = *&v102[8] + 1;
         goto LABEL_59;
       }
 
@@ -6390,14 +6480,14 @@ LABEL_99:
       {
         NL::DatePeriod::setDisplayKey(a5, @"FORMATTED");
         *(a5 + 6) = 38;
-        CFCalendarDecomposeAbsoluteTime(v12, at, "yMdE", &v101[8], &v101[4], v101, &v100);
+        CFCalendarDecomposeAbsoluteTime(v12, at, "yMdE", &v102[8], &v102[4], v102, &v101);
         v76 = this[1];
         if (v76)
         {
           atomic_fetch_add_explicit(&v76->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        v77 = updateDateComponentsWithValues(&v110, a3, a4, 0);
+        v77 = updateDateComponentsWithValues(&v111, a3, a4, 0);
         if (v76)
         {
           std::__shared_weak_count::__release_shared[abi:ne200100](v76);
@@ -6405,9 +6495,9 @@ LABEL_99:
 
         if (v77)
         {
-          CFCalendarAddComponents(v12, &at, 0, "dMy", (1 - *v101), (1 - *&v101[4]), 0xFFFFFFFFLL);
-          CFCalendarAddComponents(v12, &at, 0, "M", (DWORD1(v110) - 1));
-          CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v101[8], &v101[4], v101);
+          CFCalendarAddComponents(v12, &at, 0, "dMy", (1 - *v102), (1 - *&v102[4]), 0xFFFFFFFFLL);
+          CFCalendarAddComponents(v12, &at, 0, "M", (DWORD1(v111) - 1));
+          CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v102[8], &v102[4], v102);
           goto LABEL_109;
         }
       }
@@ -6422,7 +6512,7 @@ LABEL_99:
           atomic_fetch_add_explicit(&v78->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        v79 = updateDateComponentsWithValues(&v110, a3, a4, 0);
+        v79 = updateDateComponentsWithValues(&v111, a3, a4, 0);
         if (v78)
         {
           std::__shared_weak_count::__release_shared[abi:ne200100](v78);
@@ -6430,9 +6520,9 @@ LABEL_99:
 
         if (v79)
         {
-          CFCalendarAddComponents(v12, &at, 0, "dMy", (1 - *v101), (1 - *&v101[4]), 4294967294);
-          CFCalendarAddComponents(v12, &at, 0, "M", (DWORD1(v110) - 1));
-          CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v101[8], &v101[4], v101);
+          CFCalendarAddComponents(v12, &at, 0, "dMy", (1 - *v102), (1 - *&v102[4]), 4294967294);
+          CFCalendarAddComponents(v12, &at, 0, "M", (DWORD1(v111) - 1));
+          CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v102[8], &v102[4], v102);
           goto LABEL_109;
         }
       }
@@ -6447,7 +6537,7 @@ LABEL_99:
           atomic_fetch_add_explicit(&v80->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        v81 = updateDateComponentsWithValues(&v110, a3, a4, 0);
+        v81 = updateDateComponentsWithValues(&v111, a3, a4, 0);
         if (v80)
         {
           std::__shared_weak_count::__release_shared[abi:ne200100](v80);
@@ -6456,11 +6546,11 @@ LABEL_99:
         if (v81)
         {
           v82 = CFCalendarGetMaximumRangeOfUnit(v12, 0x200uLL);
-          CFCalendarAddComponents(v12, &at, 0, "d", SDWORD1(v112) - (v100 + v82.length * (SDWORD2(v113) - 1)));
-          CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v101[8], &v101[4], v101);
-          *&v110 = *v101;
-          DWORD2(v110) = *&v101[8];
-          DWORD1(v112) = -1;
+          CFCalendarAddComponents(v12, &at, 0, "d", SDWORD1(v113) - (v101 + v82.length * (SDWORD2(v114) - 1)));
+          CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v102[8], &v102[4], v102);
+          *&v111 = *v102;
+          DWORD2(v111) = *&v102[8];
+          DWORD1(v113) = -1;
           goto LABEL_41;
         }
       }
@@ -6480,7 +6570,7 @@ LABEL_99:
           atomic_fetch_add_explicit(&v83->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        v84 = updateDateComponentsWithValues(&v110, a3, a4, 0);
+        v84 = updateDateComponentsWithValues(&v111, a3, a4, 0);
         if (v83)
         {
           std::__shared_weak_count::__release_shared[abi:ne200100](v83);
@@ -6489,8 +6579,8 @@ LABEL_99:
         if (v84)
         {
           v85 = CFCalendarGetMaximumRangeOfUnit(v12, 8uLL);
-          CFCalendarAddComponents(v12, &at, 0, "dM", (1 - *v101), SDWORD1(v110) - (*&v101[4] + v85.length * (SHIDWORD(v113) - 1)));
-          CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v101[8], &v101[4], v101);
+          CFCalendarAddComponents(v12, &at, 0, "dM", (1 - *v102), SDWORD1(v111) - (*&v102[4] + v85.length * (SHIDWORD(v114) - 1)));
+          CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v102[8], &v102[4], v102);
           goto LABEL_109;
         }
       }
@@ -6508,7 +6598,7 @@ LABEL_213:
       atomic_fetch_add_explicit(&v73->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v74 = updateDateComponentsWithValues(&v110, a3, a4, 0);
+    v74 = updateDateComponentsWithValues(&v111, a3, a4, 0);
     if (v73)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v73);
@@ -6519,11 +6609,11 @@ LABEL_213:
       goto LABEL_213;
     }
 
-    CFCalendarAddComponents(v12, &at, 0, "dM", (1 - *v101), (1 - *&v101[4]));
-    CFCalendarAddComponents(v12, &at, 0, "M", (DWORD1(v110) - 1));
+    CFCalendarAddComponents(v12, &at, 0, "dM", (1 - *v102), (1 - *&v102[4]));
+    CFCalendarAddComponents(v12, &at, 0, "M", (DWORD1(v111) - 1));
     if (*(*this + 66) == 1)
     {
-      if (SDWORD1(v110) < *&v101[4])
+      if (SDWORD1(v111) < *&v102[4])
       {
         v75 = 1;
 LABEL_190:
@@ -6531,39 +6621,40 @@ LABEL_190:
       }
     }
 
-    else if (SDWORD1(v110) > *&v101[4])
+    else if (SDWORD1(v111) > *&v102[4])
     {
       v75 = 0xFFFFFFFFLL;
       goto LABEL_190;
     }
 
-    CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v101[8], &v101[4], v101);
+    CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v102[8], &v102[4], v102);
     goto LABEL_109;
   }
 
   v5 = 0;
-  if (*&v101[8] >= v23 && (v23 & 0x80000000) == 0 && *&v101[8] - v23 >= *&v101[8] - 1970)
+  if (*&v102[8] >= v23 && (v23 & 0x80000000) == 0 && *&v102[8] - v23 >= *&v102[8] - 1970)
   {
-    v96 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"VAL_%d-N_LAST_YEARS", v23);
-    NL::DatePeriod::setDisplayKey(a5, v96);
+    v97 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"VAL_%d-N_LAST_YEARS", v23);
+    NL::DatePeriod::setDisplayKey(a5, v97);
     *(a5 + 6) = 37;
-    v18 = *&v101[8];
-    v94 = *v101;
-    CFCalendarAddComponents(v12, &at, 0, "dMy", (1 - *v101), (1 - *&v101[4]), v86);
-    CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v101[8], &v101[4], v101);
+    v18 = *&v102[8];
+    v94 = *v102;
+    v95 = *&v102[4];
+    CFCalendarAddComponents(v12, &at, 0, "dMy", (1 - *v102), (1 - *&v102[4]), v86);
+    CFCalendarDecomposeAbsoluteTime(v12, at, "yMd", &v102[8], &v102[4], v102);
     goto LABEL_63;
   }
 
 LABEL_102:
-  if (v116)
+  if (v117)
   {
-    CFRelease(v116);
+    CFRelease(v117);
   }
 
   return v5;
 }
 
-uint64_t NL::DateConverter::updatePeriodForAppContext(uint64_t a1, int a2, uint64_t a3)
+uint64_t NL::DateConverter::updatePeriodForAppContext(uint64_t a1, int a2, void *a3)
 {
   v6 = *(a3 + 44);
   v26 = *(a3 + 28);
@@ -6577,37 +6668,37 @@ uint64_t NL::DateConverter::updatePeriodForAppContext(uint64_t a1, int a2, uint6
   v9 = *(a3 + 140);
   v24 = *(a3 + 124);
   v25 = v9;
-  getCurrentDateComponents(*(a3 + 8), *(a3 + 224), v21);
+  getCurrentDateComponents(a3[1], a3[28], v21);
   if ((a2 & 0xFFFFFFFB) != 0)
   {
     if (!NL::DateComponents::isEmpty(&v26))
     {
-      resolveDateComponentsToCurrentDate(*(a3 + 8), *(a3 + 16), *(a3 + 224), &v26, *(*a1 + 66));
+      resolveDateComponentsToCurrentDate(a3[1], a3[2], a3[28], &v26, *(*a1 + 66));
     }
 
     if (!NL::DateComponents::isEmpty(&v22))
     {
-      resolveDateComponentsToCurrentDate(*(a3 + 8), *(a3 + 16), *(a3 + 224), &v22, *(*a1 + 66));
+      resolveDateComponentsToCurrentDate(a3[1], a3[2], a3[28], &v22, *(*a1 + 66));
     }
   }
 
   v10 = *(*a1 + 66);
-  AbsoluteTime = NL::DateComponents::getAbsoluteTime(&v26, *(a3 + 8), *(a3 + 224));
-  v12 = NL::DateComponents::getAbsoluteTime(v21, *(a3 + 8), *(a3 + 224));
-  v13 = *(a3 + 24);
+  AbsoluteTime = NL::DateComponents::getAbsoluteTime(&v26, a3[1], a3[28]);
+  v12 = NL::DateComponents::getAbsoluteTime(v21, a3[1], a3[28]);
+  v13 = *(a3 + 6);
   if (v10)
   {
     if (AbsoluteTime < v12 && v13 == 40 && !CFStringsAreEqual(*a3, @"HOLIDAY"))
     {
       while (1)
       {
-        v14 = NL::DateComponents::getAbsoluteTime(&v26, *(a3 + 8), *(a3 + 224));
-        if (v14 >= NL::DateComponents::getAbsoluteTime(v21, *(a3 + 8), *(a3 + 224)))
+        v14 = NL::DateComponents::getAbsoluteTime(&v26, a3[1], a3[28]);
+        if (v14 >= NL::DateComponents::getAbsoluteTime(v21, a3[1], a3[28]))
         {
           break;
         }
 
-        if ((updateDateComponentsWithHolidayReference(*(*a1 + 24), *a3, *(a3 + 8), *(a3 + 224), *(a3 + 16), (DWORD2(v26) + 1), &v26, &v22) & 1) == 0)
+        if ((updateDateComponentsWithHolidayReference(*(*a1 + 24), *a3, a3[1], a3[28], a3[2], (DWORD2(v26) + 1), &v26, &v22) & 1) == 0)
         {
           return 0;
         }
@@ -6619,13 +6710,13 @@ uint64_t NL::DateConverter::updatePeriodForAppContext(uint64_t a1, int a2, uint6
   {
     while (1)
     {
-      v15 = NL::DateComponents::getAbsoluteTime(&v26, *(a3 + 8), *(a3 + 224));
-      if (v15 <= NL::DateComponents::getAbsoluteTime(v21, *(a3 + 8), *(a3 + 224)))
+      v15 = NL::DateComponents::getAbsoluteTime(&v26, a3[1], a3[28]);
+      if (v15 <= NL::DateComponents::getAbsoluteTime(v21, a3[1], a3[28]))
       {
         break;
       }
 
-      if ((updateDateComponentsWithHolidayReference(*(*a1 + 24), *a3, *(a3 + 8), *(a3 + 224), *(a3 + 16), (DWORD2(v26) - 1), &v26, &v22) & 1) == 0)
+      if ((updateDateComponentsWithHolidayReference(*(*a1 + 24), *a3, a3[1], a3[28], a3[2], (DWORD2(v26) - 1), &v26, &v22) & 1) == 0)
       {
         return 0;
       }
@@ -6660,17 +6751,17 @@ const void ***std::unique_ptr<NL::DatePeriod>::~unique_ptr[abi:ne200100](const v
   return a1;
 }
 
-void NL::DateConverter::datePeriodForRelativeDate(CFStringRef theString@<X1>, void *a2@<X8>)
+void NL::DateConverter::datePeriodForRelativeDate(CFStringRef theString@<X1>, NL::DatePeriod **a3@<X8>)
 {
   if (theString && CFStringGetLength(theString))
   {
     operator new();
   }
 
-  *a2 = 0;
+  *a3 = 0;
 }
 
-BOOL NL::DateConverter::updatePeriodForRelativeDate(uint64_t **this, const __CFString *a2, const __CFLocale *a3, NL::DatePeriod *a4)
+BOOL NL::DateConverter::updatePeriodForRelativeDate(const __CFDate ***this, const __CFString *a2, const __CFLocale *a3, NL::DatePeriod *a4)
 {
   v4 = 0;
   if (!a2)
@@ -7315,17 +7406,16 @@ void sub_22CD72174(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t updateDateComponentsWithValues(SInt32 *a1, uint64_t a2, CFDictionaryRef theDict, int a4)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if (!theDict)
   {
-    result = 0;
-    goto LABEL_92;
+    return 0;
   }
 
   LODWORD(v4) = a4;
   Count = CFDictionaryGetCount(theDict);
   MEMORY[0x28223BE20]();
-  v10 = &v29[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v10 = &v28[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
   if (v9 >= 0x200)
   {
     v11 = 512;
@@ -7336,7 +7426,7 @@ uint64_t updateDateComponentsWithValues(SInt32 *a1, uint64_t a2, CFDictionaryRef
     v11 = v9;
   }
 
-  bzero(&v29[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)], v11);
+  bzero(&v28[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)], v11);
   CFDictionaryGetKeysAndValues(theDict, v10, 0);
   if (Count < 1)
   {
@@ -7350,7 +7440,7 @@ LABEL_77:
     v25 = a1[4];
     if (!v25)
     {
-      goto LABEL_91;
+      return 1;
     }
 
     v26 = a1[6];
@@ -7358,7 +7448,7 @@ LABEL_77:
     {
       if (!v26 || v25 != 2 && v25 < 5)
       {
-        goto LABEL_91;
+        return 1;
       }
 
       v27 = v26 % 12 + 12;
@@ -7368,22 +7458,20 @@ LABEL_77:
     {
       if (v25 >= 8)
       {
-LABEL_91:
-        result = 1;
-        goto LABEL_92;
+        return 1;
       }
 
       v27 = dword_22CDDEB08[v25 - 1];
     }
 
     a1[6] = v27;
-    goto LABEL_91;
+    return 1;
   }
 
-  v31 = v29;
-  v30 = 1;
-  v32 = v4;
-  v33 = a2;
+  v30 = v28;
+  v29 = 1;
+  v31 = v4;
+  v32 = a2;
   do
   {
     v12 = *v10;
@@ -7397,7 +7485,7 @@ LABEL_91:
           v14 = intFromSpelledNumber(Value, a2);
           if (v14 < 0)
           {
-            goto LABEL_93;
+            return 0;
           }
 
           a1[2] = v14;
@@ -7414,12 +7502,10 @@ LABEL_91:
           if (CFDictionaryContainsKey(v16, @"NUMBERS"))
           {
             v17 = CFDictionaryGetValue(v4, @"NUMBERS");
-            IntValue = intFromSpelledNumber(v17, v33);
+            IntValue = intFromSpelledNumber(v17, v32);
             if (IntValue < 0)
             {
-LABEL_93:
-              result = 0;
-              goto LABEL_92;
+              return 0;
             }
           }
 
@@ -7450,8 +7536,8 @@ LABEL_93:
         if (CFStringHasPrefix(v12, @"d") || CFStringHasPrefix(v12, @"DAY_ORDINAL"))
         {
           *a1 = CFStringGetIntValue(v4);
-          a2 = v33;
-          LOBYTE(v4) = v32;
+          a2 = v32;
+          LOBYTE(v4) = v31;
           goto LABEL_9;
         }
 
@@ -7511,7 +7597,7 @@ LABEL_93:
               result = CFStringHasPrefix(v12, @"a");
               if (!result)
               {
-                goto LABEL_92;
+                return result;
               }
 
               if (CFStringHasPrefix(v4, @"am"))
@@ -7562,13 +7648,13 @@ LABEL_93:
           }
 
 LABEL_29:
-          a2 = v33;
-          LOBYTE(v4) = v32;
+          a2 = v32;
+          LOBYTE(v4) = v31;
           goto LABEL_9;
         }
 
         v20 = CFStringGetIntValue(v4);
-        v30 = (v20 < 2101) & v30;
+        v29 = (v20 < 2101) & v29;
         a1[2] = v20;
         if (CFStringCompare(v12, @"yy", 0))
         {
@@ -7576,8 +7662,8 @@ LABEL_29:
         }
 
         v21 = a1[2];
-        a2 = v33;
-        LOBYTE(v4) = v32;
+        a2 = v32;
+        LOBYTE(v4) = v31;
         if (v21 > 69)
         {
           v22 = v21 + 1000;
@@ -7598,15 +7684,12 @@ LABEL_9:
   }
 
   while (Count);
-  if (v30)
+  if (v29)
   {
     goto LABEL_77;
   }
 
-  result = 0;
-LABEL_92:
-  v28 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 uint64_t intValueForNumberInValues(const __CFLocale *a1, CFDictionaryRef theDict)
@@ -7647,7 +7730,7 @@ uint64_t intValueForNumberInValues(const __CFLocale *a1, CFDictionaryRef theDict
   return CFStringGetIntValue(v6);
 }
 
-void NL::DateConverter::mergeRange(NL::DateConverter *this@<X0>, const NL::DatePeriod *a2@<X1>, const NL::DatePeriod *a3@<X3>, int a4@<W2>, int a5@<W4>, int a6@<W5>, void *a7@<X8>)
+void NL::DateConverter::mergeRange(NL::DateConverter *this@<X0>, const NL::DatePeriod *a2@<X1>, const NL::DatePeriod *a3@<X3>, int a4@<W2>, int a5@<W4>, int a6@<W5>, uint64_t *a7@<X8>)
 {
   v9 = *(a2 + 1);
   v8 = *(a2 + 2);
@@ -7900,11 +7983,11 @@ LABEL_6:
   *a7 = 0;
 }
 
-void sub_22CD73178(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_22CD73178(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
-  std::unique_ptr<NL::DatePeriod>::~unique_ptr[abi:ne200100](v3);
+  std::unique_ptr<NL::DatePeriod>::~unique_ptr[abi:ne200100](v5);
   _Unwind_Resume(a1);
 }
 
@@ -8217,7 +8300,7 @@ void loadPlistFromFile(uint64_t a1@<X0>, uint64_t a2@<X8>)
   *(a2 + 16) = 0u;
   *(a2 + 32) = 1065353216;
   CFStringFromString = createCFStringFromString(a1);
-  getPathForResource(CFStringFromString, &v48);
+  getPathForResource(&v48, CFStringFromString);
   v3 = std::string::compare(&v48, "");
   if (!v3)
   {
@@ -8309,7 +8392,7 @@ LABEL_12:
         {
           v14 = *v13;
           Value = CFDictionaryGetValue(plist, *v13);
-          getUTF8StringFromCFString(v14, v41);
+          getUTF8StringFromCFString(v41, v14);
           v16 = CFDictionaryGetCount(Value);
           std::vector<__CFString const*>::vector[abi:ne200100](&v39, v16);
           v30 = v13;
@@ -8321,7 +8404,7 @@ LABEL_12:
             do
             {
               v19 = *v18;
-              getUTF8StringFromCFString(*v18, v37);
+              getUTF8StringFromCFString(v37, *v18);
               v20 = CFDictionaryGetValue(Value, v19);
               v21 = CFArrayGetCount(v20);
               v34 = 0;
@@ -8332,7 +8415,7 @@ LABEL_12:
                 for (i = 0; i != v21; ++i)
                 {
                   ValueAtIndex = CFArrayGetValueAtIndex(v20, i);
-                  getUTF8StringFromCFString(ValueAtIndex, __p);
+                  getUTF8StringFromCFString(__p, ValueAtIndex);
                   std::vector<std::string>::push_back[abi:ne200100](&v34, __p);
                   if (v33 < 0)
                   {
@@ -8341,10 +8424,10 @@ LABEL_12:
                 }
               }
 
-              v49 = v41;
-              v24 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a2, v41);
-              v49 = v37;
-              v25 = (std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v24 + 5, v37) + 5);
+              v50[0] = v41;
+              v24 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a2, v41, &std::piecewise_construct, v50, &v49);
+              v50[0] = v37;
+              v25 = (std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v24 + 5, v37, &std::piecewise_construct, v50, &v49) + 5);
               if (v25 != &v34)
               {
                 std::vector<std::string>::__assign_with_size[abi:ne200100]<std::string*,std::string*>(v25, v34, v35, 0xAAAAAAAAAAAAAAABLL * ((v35 - v34) >> 3));
@@ -8480,7 +8563,7 @@ void sub_22CD740A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void NLMessageIntentDomainDetector::getLemmatizedTextWithSurfaceform(const char *a1@<X0>, const char *a2@<X1>, void *a3@<X8>)
+void NLMessageIntentDomainDetector::getLemmatizedTextWithSurfaceform(const char *a1@<X0>, const char *a2@<X1>, uint64_t *a3@<X8>)
 {
   v5 = *MEMORY[0x277CBECE8];
   if (a2[23] < 0)
@@ -8551,12 +8634,13 @@ void NLMessageIntentDomainDetector::getLemmatizedTextWithSurfaceform(const char 
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v12);
 }
 
-void sub_22CD74380(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void **a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_22CD74380(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void **a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
+  va_start(va, a25);
   _Block_object_dispose(&a18, 8);
-  *(v27 - 72) = v26;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100]((v27 - 72));
-  _Block_object_dispose(&a26, 8);
+  *(v26 - 72) = v25;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100]((v26 - 72));
+  _Block_object_dispose(va, 8);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a18);
   _Unwind_Resume(a1);
 }
@@ -8578,43 +8662,41 @@ __n128 __Block_byref_object_copy__6(void *a1, uint64_t a2)
 void ___ZN29NLMessageIntentDomainDetector32getLemmatizedTextWithSurfaceformERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE_block_invoke(uint64_t a1, CFRange *a2)
 {
   v3 = CFStringCreateWithSubstring(*MEMORY[0x277CBECE8], *(a1 + 48), *a2);
-  getUTF8StringFromCFString(v3, v12);
-  v4 = *(a1 + 56);
-  v5 = *MEMORY[0x277D00390];
-  v6 = NLTaggerCopyTagForCurrentToken();
-  v7 = v6;
-  if (v6)
+  getUTF8StringFromCFString(v10, v3);
+  v4 = NLTaggerCopyTagForCurrentToken();
+  v5 = v4;
+  if (v4)
   {
-    getUTF8StringFromCFString(v6, &v8);
+    getUTF8StringFromCFString(&v6, v4);
   }
 
   else
   {
-    getUTF8StringFromCFString(v3, &v8);
+    getUTF8StringFromCFString(&v6, v3);
   }
 
-  *__p = v8;
-  v11 = v9;
+  *__p = v6;
+  v9 = v7;
   std::vector<std::string>::push_back[abi:ne200100](*(*(a1 + 32) + 8) + 40, __p);
-  std::vector<std::string>::push_back[abi:ne200100](*(*(a1 + 40) + 8) + 40, v12);
+  std::vector<std::string>::push_back[abi:ne200100](*(*(a1 + 40) + 8) + 40, v10);
   if (v3)
   {
     CFRelease(v3);
   }
 
-  if (v7)
+  if (v5)
   {
-    CFRelease(v7);
+    CFRelease(v5);
   }
 
-  if (SHIBYTE(v11) < 0)
+  if (SHIBYTE(v9) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v13 < 0)
+  if (v11 < 0)
   {
-    operator delete(v12[0]);
+    operator delete(v10[0]);
   }
 }
 
@@ -8630,104 +8712,104 @@ void sub_22CD7450C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void NLMessageIntentDomainDetector::hasPhotoSharingKeywords(std::string *this@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v137[2] = *MEMORY[0x277D85DE8];
+  v136[2] = *MEMORY[0x277D85DE8];
   if (*(a2 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v135, *a2, *(a2 + 8));
+    std::string::__init_copy_ctor_external(&v134, *a2, *(a2 + 8));
   }
 
   else
   {
-    v135 = *a2;
+    v134 = *a2;
   }
 
-  memset(&v134, 0, sizeof(v134));
   memset(&v133, 0, sizeof(v133));
-  *(v137 + 7) = 0;
-  v137[0] = 0;
-  *v99 = a3;
+  memset(&v132, 0, sizeof(v132));
+  *(v136 + 7) = 0;
+  v136[0] = 0;
+  *v98 = a3;
   if (!std::string::compare(this, "zh-Hans"))
   {
-    std::string::basic_string[abi:ne200100]<0>(&v120, " ");
-    std::string::basic_string[abi:ne200100]<0>(&v105, "");
-    replaceAll(&v135, &v120, &v105);
-    if (SHIBYTE(v105.__pregex_) < 0)
+    std::string::basic_string[abi:ne200100]<0>(&v119, " ");
+    std::string::basic_string[abi:ne200100]<0>(&v104, "");
+    replaceAll(&v134, &v119, &v104);
+    if (SHIBYTE(v104.__pregex_) < 0)
     {
-      operator delete(v105.__begin_.__i_);
+      operator delete(v104.__begin_.__i_);
     }
 
-    if (SHIBYTE(v120.__pregex_) < 0)
+    if (SHIBYTE(v119.__pregex_) < 0)
     {
-      operator delete(v120.__begin_.__i_);
+      operator delete(v119.__begin_.__i_);
     }
   }
 
   else
   {
-    NLMessageIntentDomainDetector::getLemmatizedTextWithSurfaceform(this, a2, &v120);
-    std::vector<std::string>::__assign_with_size[abi:ne200100]<std::string*,std::string*>(&v134, v120.__begin_.__i_, v120.__end_.__i_, 0xAAAAAAAAAAAAAAABLL * ((v120.__end_.__i_ - v120.__begin_.__i_) >> 3));
-    std::vector<std::string>::__assign_with_size[abi:ne200100]<std::string*,std::string*>(&v133, *&v120.__flags_, v120.__match_.__matches_.__begin_, 0xAAAAAAAAAAAAAAABLL * ((v120.__match_.__matches_.__begin_ - *&v120.__flags_) >> 3));
+    NLMessageIntentDomainDetector::getLemmatizedTextWithSurfaceform(this, a2, &v119);
+    std::vector<std::string>::__assign_with_size[abi:ne200100]<std::string*,std::string*>(&v133, v119.__begin_.__i_, v119.__end_.__i_, 0xAAAAAAAAAAAAAAABLL * ((v119.__end_.__i_ - v119.__begin_.__i_) >> 3));
+    std::vector<std::string>::__assign_with_size[abi:ne200100]<std::string*,std::string*>(&v132, *&v119.__flags_, v119.__match_.__matches_.__begin_, 0xAAAAAAAAAAAAAAABLL * ((v119.__match_.__matches_.__begin_ - *&v119.__flags_) >> 3));
     std::string::basic_string[abi:ne200100]<0>(__p, " ");
-    join(&v134, __p, &v105);
-    if (SHIBYTE(v135.__r_.__value_.__r.__words[2]) < 0)
+    join(&v133, __p, &v104);
+    if (SHIBYTE(v134.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v135.__r_.__value_.__l.__data_);
+      operator delete(v134.__r_.__value_.__l.__data_);
     }
 
-    *&v135.__r_.__value_.__l.__data_ = *&v105.__begin_.__i_;
-    v135.__r_.__value_.__r.__words[2] = v105.__pregex_;
-    HIBYTE(v105.__pregex_) = 0;
-    LOBYTE(v105.__begin_.__i_) = 0;
+    *&v134.__r_.__value_.__l.__data_ = *&v104.__begin_.__i_;
+    v134.__r_.__value_.__r.__words[2] = v104.__pregex_;
+    HIBYTE(v104.__pregex_) = 0;
+    LOBYTE(v104.__begin_.__i_) = 0;
     if (SHIBYTE(__p[0].__end_cap_.__value_) < 0)
     {
       operator delete(__p[0].__begin_);
     }
 
-    v105.__begin_.__i_ = &v120.__flags_;
-    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v105);
-    v105.__begin_.__i_ = &v120;
-    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v105);
+    v104.__begin_.__i_ = &v119.__flags_;
+    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v104);
+    v104.__begin_.__i_ = &v119;
+    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v104);
   }
 
-  v131 = 0uLL;
+  v130 = 0uLL;
   end = 0;
-  v129 = 0uLL;
-  v130 = 0;
-  std::regex_traits<char>::regex_traits(&v125);
-  v128 = 0;
-  v127 = 0u;
+  v128 = 0uLL;
+  v129 = 0;
+  std::regex_traits<char>::regex_traits(&v124);
+  v127 = 0;
   v126 = 0u;
-  std::regex_traits<char>::regex_traits(&v121);
-  v124 = 0;
-  v123 = 0u;
+  v125 = 0u;
+  std::regex_traits<char>::regex_traits(&v120);
+  v123 = 0;
   v122 = 0u;
+  v121 = 0u;
   if (NLMessageIntentDomainDetector::regExEvaluated(this))
   {
-    memset(&v105, 0, 24);
+    memset(&v104, 0, 24);
     memset(__p, 0, 24);
-    v136.__first_ = this;
-    v6 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&this[4].__r_.__value_.__l.__size_, &this->__r_.__value_.__l.__data_);
-    std::string::basic_string[abi:ne200100]<0>(&v120, "nouns");
-    v136.__first_ = &v120;
-    v7 = std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v6 + 5, &v120.__begin_.__i_);
+    v135.__first_ = this;
+    v6 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&this[4].__r_.__value_.__l.__size_, this, &std::piecewise_construct, &v135, v117);
+    std::string::basic_string[abi:ne200100]<0>(&v119, "nouns");
+    v135.__first_ = &v119;
+    v7 = std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v6 + 5, &v119, &std::piecewise_construct, &v135);
     v8 = v7[5];
     v9 = v7[6];
-    if (SHIBYTE(v120.__pregex_) < 0)
+    if (SHIBYTE(v119.__pregex_) < 0)
     {
-      operator delete(v120.__begin_.__i_);
+      operator delete(v119.__begin_.__i_);
     }
 
     v10 = MEMORY[0x277D82828];
     if (v8 != v9)
     {
-      v136.__first_ = this;
-      v11 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&this[4].__r_.__value_.__l.__size_, &this->__r_.__value_.__l.__data_);
-      std::string::basic_string[abi:ne200100]<0>(&v120, "nouns");
-      v136.__first_ = &v120;
-      v12 = std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v11 + 5, &v120.__begin_.__i_);
-      if (SHIBYTE(v120.__pregex_) < 0)
+      v135.__first_ = this;
+      v11 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&this[4].__r_.__value_.__l.__size_, this, &std::piecewise_construct, &v135, v117);
+      std::string::basic_string[abi:ne200100]<0>(&v119, "nouns");
+      v135.__first_ = &v119;
+      v12 = std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v11 + 5, &v119, &std::piecewise_construct, &v135);
+      if (SHIBYTE(v119.__pregex_) < 0)
       {
-        operator delete(v120.__begin_.__i_);
+        operator delete(v119.__begin_.__i_);
       }
 
       v13 = v12[5];
@@ -8736,41 +8818,41 @@ void NLMessageIntentDomainDetector::hasPhotoSharingKeywords(std::string *this@<X
       {
         if (v13[23] < 0)
         {
-          std::string::__init_copy_ctor_external(&v120, *v13, *(v13 + 1));
+          std::string::__init_copy_ctor_external(&v119, *v13, *(v13 + 1));
         }
 
         else
         {
           v15 = *v13;
-          v120.__pregex_ = *(v13 + 2);
-          *&v120.__begin_.__i_ = v15;
+          v119.__pregex_ = *(v13 + 2);
+          *&v119.__begin_.__i_ = v15;
         }
 
-        std::vector<std::string>::push_back[abi:ne200100](&v105, &v120);
-        if (SHIBYTE(v120.__pregex_) < 0)
+        std::vector<std::string>::push_back[abi:ne200100](&v104, &v119);
+        if (SHIBYTE(v119.__pregex_) < 0)
         {
-          operator delete(v120.__begin_.__i_);
+          operator delete(v119.__begin_.__i_);
         }
 
         v13 += 24;
       }
 
-      std::ostringstream::basic_ostringstream[abi:ne200100](&v120);
-      i = v105.__end_.__i_;
-      v17 = v105.__begin_.__i_;
-      v18 = v105.__end_.__i_ - 24;
-      v136.__first_ = &v120;
-      v136.__begin_ = "|";
-      if (v105.__end_.__i_ - 24 != v105.__begin_.__i_)
+      std::ostringstream::basic_ostringstream[abi:ne200100](&v119);
+      i = v104.__end_.__i_;
+      v17 = v104.__begin_.__i_;
+      v18 = v104.__end_.__i_ - 24;
+      v135.__first_ = &v119;
+      v135.__begin_ = "|";
+      if (v104.__end_.__i_ - 24 != v104.__begin_.__i_)
       {
         do
         {
-          std::ostream_iterator<std::string,char,std::char_traits<char>>::operator=[abi:ne200100](&v136, v17);
-          v17 += 24;
+          std::ostream_iterator<std::string,char,std::char_traits<char>>::operator=[abi:ne200100](&v135, v17);
+          v17 += 3;
         }
 
         while (v17 != v18);
-        i = v105.__end_.__i_;
+        i = v104.__end_.__i_;
       }
 
       v21 = *(i - 3);
@@ -8797,51 +8879,51 @@ void NLMessageIntentDomainDetector::hasPhotoSharingKeywords(std::string *this@<X
         v24 = *(v19 + 1);
       }
 
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v120, v23, v24);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v119, v23, v24);
       std::stringbuf::str();
       if (SHIBYTE(end) < 0)
       {
-        operator delete(v131);
+        operator delete(v130);
       }
 
-      v131 = *&v136.__first_;
-      end = v136.__end_;
-      v120.__begin_.__i_ = *v10;
-      *(&v120.__begin_.__i_ + *(v120.__begin_.__i_ - 3)) = *(v10 + 24);
-      v120.__end_.__i_ = (MEMORY[0x277D82878] + 16);
-      if (SHIBYTE(v120.__match_.__prefix_.second.__i_) < 0)
+      v130 = *&v135.__first_;
+      end = v135.__end_;
+      v119.__begin_.__i_ = *v10;
+      *(&v119.__begin_.__i_ + *(v119.__begin_.__i_ - 3)) = *(v10 + 24);
+      v119.__end_.__i_ = (MEMORY[0x277D82878] + 16);
+      if (SHIBYTE(v119.__match_.__prefix_.second.__i_) < 0)
       {
-        operator delete(*&v120.__match_.__unmatched_.matched);
+        operator delete(*&v119.__match_.__unmatched_.matched);
       }
 
-      v120.__end_.__i_ = (MEMORY[0x277D82868] + 16);
-      std::locale::~locale(&v120.__pregex_);
+      v119.__end_.__i_ = (MEMORY[0x277D82868] + 16);
+      std::locale::~locale(&v119.__pregex_);
       std::ostream::~ostream();
-      MEMORY[0x2318C0570](&v120.__match_.__suffix_.second);
+      MEMORY[0x2318C0570](&v119.__match_.__suffix_.second);
     }
 
-    v136.__first_ = this;
-    v25 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&this[4].__r_.__value_.__l.__size_, &this->__r_.__value_.__l.__data_);
-    std::string::basic_string[abi:ne200100]<0>(&v120, "verbs");
-    v136.__first_ = &v120;
-    v26 = std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v25 + 5, &v120.__begin_.__i_);
+    v135.__first_ = this;
+    v25 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&this[4].__r_.__value_.__l.__size_, this, &std::piecewise_construct, &v135, v117);
+    std::string::basic_string[abi:ne200100]<0>(&v119, "verbs");
+    v135.__first_ = &v119;
+    v26 = std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v25 + 5, &v119, &std::piecewise_construct, &v135);
     v27 = v26[5];
     v28 = v26[6];
-    if (SHIBYTE(v120.__pregex_) < 0)
+    if (SHIBYTE(v119.__pregex_) < 0)
     {
-      operator delete(v120.__begin_.__i_);
+      operator delete(v119.__begin_.__i_);
     }
 
     if (v27 != v28)
     {
-      v136.__first_ = this;
-      v29 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&this[4].__r_.__value_.__l.__size_, &this->__r_.__value_.__l.__data_);
-      std::string::basic_string[abi:ne200100]<0>(&v120, "verbs");
-      v136.__first_ = &v120;
-      v30 = std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v29 + 5, &v120.__begin_.__i_);
-      if (SHIBYTE(v120.__pregex_) < 0)
+      v135.__first_ = this;
+      v29 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&this[4].__r_.__value_.__l.__size_, this, &std::piecewise_construct, &v135, v117);
+      std::string::basic_string[abi:ne200100]<0>(&v119, "verbs");
+      v135.__first_ = &v119;
+      v30 = std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v29 + 5, &v119, &std::piecewise_construct, &v135);
+      if (SHIBYTE(v119.__pregex_) < 0)
       {
-        operator delete(v120.__begin_.__i_);
+        operator delete(v119.__begin_.__i_);
       }
 
       v31 = v30[5];
@@ -8850,36 +8932,37 @@ void NLMessageIntentDomainDetector::hasPhotoSharingKeywords(std::string *this@<X
       {
         if (v31[23] < 0)
         {
-          std::string::__init_copy_ctor_external(&v120, *v31, *(v31 + 1));
+          std::string::__init_copy_ctor_external(&v119, *v31, *(v31 + 1));
         }
 
         else
         {
           v33 = *v31;
-          v120.__pregex_ = *(v31 + 2);
-          *&v120.__begin_.__i_ = v33;
+          v119.__pregex_ = *(v31 + 2);
+          *&v119.__begin_.__i_ = v33;
         }
 
-        std::vector<std::string>::push_back[abi:ne200100](__p, &v120);
-        if (SHIBYTE(v120.__pregex_) < 0)
+        std::vector<std::string>::push_back[abi:ne200100](__p, &v119);
+        if (SHIBYTE(v119.__pregex_) < 0)
         {
-          operator delete(v120.__begin_.__i_);
+          operator delete(v119.__begin_.__i_);
         }
 
         v31 += 24;
       }
 
-      std::ostringstream::basic_ostringstream[abi:ne200100](&v120);
+      std::ostringstream::basic_ostringstream[abi:ne200100](&v119);
       v34 = __p[0].__end_;
       begin = __p[0].__begin_;
       v36 = __p[0].__end_ - 1;
-      v136.__first_ = &v120;
-      v136.__begin_ = "|";
+      v135.__first_ = &v119;
+      v135.__begin_ = "|";
       if (&__p[0].__end_[-1] != __p[0].__begin_)
       {
         do
         {
-          std::ostream_iterator<std::string,char,std::char_traits<char>>::operator=[abi:ne200100](&v136, begin++);
+          std::ostream_iterator<std::string,char,std::char_traits<char>>::operator=[abi:ne200100](&v135, begin);
+          begin += 3;
         }
 
         while (begin != v36);
@@ -8910,86 +8993,87 @@ void NLMessageIntentDomainDetector::hasPhotoSharingKeywords(std::string *this@<X
         v42 = v37->second.__i_;
       }
 
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v120, v41, v42);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v119, v41, v42);
       std::stringbuf::str();
-      if (SHIBYTE(v130) < 0)
+      if (SHIBYTE(v129) < 0)
       {
-        operator delete(v129);
+        operator delete(v128);
       }
 
-      v129 = *&v136.__first_;
-      v130 = v136.__end_;
-      v120.__begin_.__i_ = *v10;
-      *(&v120.__begin_.__i_ + *(v120.__begin_.__i_ - 3)) = *(v10 + 24);
-      v120.__end_.__i_ = (MEMORY[0x277D82878] + 16);
-      if (SHIBYTE(v120.__match_.__prefix_.second.__i_) < 0)
+      v128 = *&v135.__first_;
+      v129 = v135.__end_;
+      v119.__begin_.__i_ = *v10;
+      *(&v119.__begin_.__i_ + *(v119.__begin_.__i_ - 3)) = *(v10 + 24);
+      v119.__end_.__i_ = (MEMORY[0x277D82878] + 16);
+      if (SHIBYTE(v119.__match_.__prefix_.second.__i_) < 0)
       {
-        operator delete(*&v120.__match_.__unmatched_.matched);
+        operator delete(*&v119.__match_.__unmatched_.matched);
       }
 
-      v120.__end_.__i_ = (MEMORY[0x277D82868] + 16);
-      std::locale::~locale(&v120.__pregex_);
+      v119.__end_.__i_ = (MEMORY[0x277D82868] + 16);
+      std::locale::~locale(&v119.__pregex_);
       std::ostream::~ostream();
-      MEMORY[0x2318C0570](&v120.__match_.__suffix_.second);
+      MEMORY[0x2318C0570](&v119.__match_.__suffix_.second);
     }
 
     if (std::string::compare(this, "zh-Hans"))
     {
       std::operator+<char>();
-      v43 = std::string::append(&v136, ")\\b");
+      v43 = std::string::append(&v135, ")\\b");
       v44 = *&v43->__r_.__value_.__l.__data_;
-      v120.__pregex_ = v43->__r_.__value_.__r.__words[2];
-      *&v120.__begin_.__i_ = v44;
+      v119.__pregex_ = v43->__r_.__value_.__r.__words[2];
+      *&v119.__begin_.__i_ = v44;
       v43->__r_.__value_.__l.__size_ = 0;
       v43->__r_.__value_.__r.__words[2] = 0;
       v43->__r_.__value_.__r.__words[0] = 0;
-      pregex_high = HIBYTE(v120.__pregex_);
-      if (SHIBYTE(v120.__pregex_) >= 0)
+      pregex_high = HIBYTE(v119.__pregex_);
+      if (SHIBYTE(v119.__pregex_) >= 0)
       {
-        v46 = &v120;
+        v46 = &v119;
       }
 
       else
       {
-        v46 = v120.__begin_.__i_;
+        v46 = v119.__begin_.__i_;
       }
 
-      if (SHIBYTE(v120.__pregex_) < 0)
+      if (SHIBYTE(v119.__pregex_) < 0)
       {
-        pregex_high = v120.__end_.__i_;
+        pregex_high = v119.__end_.__i_;
       }
 
-      std::basic_regex<char,std::regex_traits<char>>::assign[abi:ne200100]<std::__wrap_iter<char const*>,0>(&v125, v46, &pregex_high[v46], 1);
+      std::basic_regex<char,std::regex_traits<char>>::assign[abi:ne200100]<std::__wrap_iter<char const*>,0>(&v124, v46, &pregex_high[v46], 1);
     }
 
     std::operator+<char>();
-    v47 = std::string::append(&v136, ")");
+    v47 = std::string::append(&v135, ")");
     v48 = *&v47->__r_.__value_.__l.__data_;
-    v120.__pregex_ = v47->__r_.__value_.__r.__words[2];
-    *&v120.__begin_.__i_ = v48;
+    v119.__pregex_ = v47->__r_.__value_.__r.__words[2];
+    *&v119.__begin_.__i_ = v48;
     v47->__r_.__value_.__l.__size_ = 0;
     v47->__r_.__value_.__r.__words[2] = 0;
     v47->__r_.__value_.__r.__words[0] = 0;
-    v49 = HIBYTE(v120.__pregex_);
-    if (SHIBYTE(v120.__pregex_) >= 0)
+    v49 = HIBYTE(v119.__pregex_);
+    if (SHIBYTE(v119.__pregex_) >= 0)
     {
-      v50 = &v120;
+      v50 = &v119;
     }
 
     else
     {
-      v50 = v120.__begin_.__i_;
+      v50 = v119.__begin_.__i_;
     }
 
-    if (SHIBYTE(v120.__pregex_) < 0)
+    if (SHIBYTE(v119.__pregex_) < 0)
     {
-      v49 = v120.__end_.__i_;
+      v49 = v119.__end_.__i_;
     }
 
-    std::basic_regex<char,std::regex_traits<char>>::assign[abi:ne200100]<std::__wrap_iter<char const*>,0>(&v125, v50, &v49[v50], 1);
+    std::basic_regex<char,std::regex_traits<char>>::assign[abi:ne200100]<std::__wrap_iter<char const*>,0>(&v124, v50, &v49[v50], 1);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(&v118, "");
+  std::string::basic_string[abi:ne200100]<0>(v117, "");
+  v109 = 0;
   v110 = 0;
   v111 = 0;
   v112 = 0;
@@ -8997,18 +9081,17 @@ void NLMessageIntentDomainDetector::hasPhotoSharingKeywords(std::string *this@<X
   v114 = 0;
   v115 = 0;
   v116 = 0;
-  v117 = 0;
   memset(__p, 0, 41);
-  v105.__begin_.__i_ = this;
-  v51 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&this[4].__r_.__value_.__l.__size_, &this->__r_.__value_.__l.__data_);
-  std::string::basic_string[abi:ne200100]<0>(&v120, "nouns");
-  v105.__begin_.__i_ = &v120;
-  v52 = std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v51 + 5, &v120.__begin_.__i_);
+  v104.__begin_.__i_ = this;
+  v51 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&this[4].__r_.__value_.__l.__size_, this, &std::piecewise_construct, &v104, &v135);
+  std::string::basic_string[abi:ne200100]<0>(&v119, "nouns");
+  v104.__begin_.__i_ = &v119;
+  v52 = std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v51 + 5, &v119, &std::piecewise_construct, &v104);
   v53 = v52[5];
   v54 = v52[6];
-  if (SHIBYTE(v120.__pregex_) < 0)
+  if (SHIBYTE(v119.__pregex_) < 0)
   {
-    operator delete(v120.__begin_.__i_);
+    operator delete(v119.__begin_.__i_);
   }
 
   if (v53 == v54)
@@ -9018,18 +9101,18 @@ void NLMessageIntentDomainDetector::hasPhotoSharingKeywords(std::string *this@<X
     goto LABEL_162;
   }
 
+  v105 = 0;
   v106 = 0;
   v107 = 0;
-  v108 = 0;
   if (!std::string::compare(this, "zh-Hans"))
   {
-    v69 = HIBYTE(v135.__r_.__value_.__r.__words[2]);
-    v70 = *&v135.__r_.__value_.__l.__data_;
-    v105.__begin_.__i_ = this;
-    v71 = std::__hash_table<std::__hash_value_type<std::string,std::basic_regex<char,std::regex_traits<char>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::basic_regex<char,std::regex_traits<char>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::basic_regex<char,std::regex_traits<char>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::basic_regex<char,std::regex_traits<char>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this[1].__r_.__value_.__r.__words, &this->__r_.__value_.__l.__data_);
+    v69 = HIBYTE(v134.__r_.__value_.__r.__words[2]);
+    v70 = *&v134.__r_.__value_.__l.__data_;
+    v104.__begin_.__i_ = this;
+    v71 = std::__hash_table<std::__hash_value_type<std::string,std::basic_regex<char,std::regex_traits<char>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::basic_regex<char,std::regex_traits<char>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::basic_regex<char,std::regex_traits<char>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::basic_regex<char,std::regex_traits<char>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this[1].__r_.__value_.__r.__words, this, &std::piecewise_construct, &v104, &v135);
     if ((v69 & 0x80u) == 0)
     {
-      v72.__i_ = &v135;
+      v72.__i_ = &v134;
     }
 
     else
@@ -9048,20 +9131,20 @@ void NLMessageIntentDomainDetector::hasPhotoSharingKeywords(std::string *this@<X
     }
 
     v74.__i_ = &v72.__i_[v73];
-    std::regex_iterator<std::__wrap_iter<char const*>,char,std::regex_traits<char>>::regex_iterator(&v120, v72, v74, (v71 + 5), match_default);
+    std::regex_iterator<std::__wrap_iter<char const*>,char,std::regex_traits<char>>::regex_iterator(&v119, v72, v74, (v71 + 5), match_default);
     for (j = 0; ; j = 1)
     {
-      memset(&v105.__match_.__prefix_, 0, 17);
-      memset(&v105.__match_.__suffix_, 0, 17);
-      v105.__match_.__ready_ = 0;
-      v105.__match_.__position_start_.__i_ = 0;
-      memset(&v105.__match_, 0, 41);
-      memset(&v105, 0, 28);
-      v75 = std::regex_iterator<std::__wrap_iter<char const*>,char,std::regex_traits<char>>::operator==(&v120, &v105);
-      if (v105.__match_.__matches_.__begin_)
+      memset(&v104.__match_.__prefix_, 0, 17);
+      memset(&v104.__match_.__suffix_, 0, 17);
+      v104.__match_.__ready_ = 0;
+      v104.__match_.__position_start_.__i_ = 0;
+      memset(&v104.__match_, 0, 41);
+      memset(&v104, 0, 28);
+      v75 = std::regex_iterator<std::__wrap_iter<char const*>,char,std::regex_traits<char>>::operator==(&v119, &v104);
+      if (v104.__match_.__matches_.__begin_)
       {
-        v105.__match_.__matches_.__end_ = v105.__match_.__matches_.__begin_;
-        operator delete(v105.__match_.__matches_.__begin_);
+        v104.__match_.__matches_.__end_ = v104.__match_.__matches_.__begin_;
+        operator delete(v104.__match_.__matches_.__begin_);
       }
 
       if (v75)
@@ -9069,31 +9152,31 @@ void NLMessageIntentDomainDetector::hasPhotoSharingKeywords(std::string *this@<X
         break;
       }
 
-      memset(&v105, 0, 24);
-      std::vector<std::sub_match<std::__wrap_iter<char const*>>>::__init_with_size[abi:ne200100]<std::sub_match<std::__wrap_iter<char const*>>*,std::sub_match<std::__wrap_iter<char const*>>*>(&v105, v120.__match_.__matches_.__begin_, v120.__match_.__matches_.__end_, 0xAAAAAAAAAAAAAAABLL * ((v120.__match_.__matches_.__end_ - v120.__match_.__matches_.__begin_) >> 3));
-      v105.__match_.__unmatched_.std::pair<std::__wrap_iter<const char *>, std::__wrap_iter<const char *>> = *&v120.__match_.__prefix_.second.__i_;
-      *&v105.__match_.__unmatched_.matched = v120.__match_.__suffix_.std::pair<std::__wrap_iter<const char *>, std::__wrap_iter<const char *>>;
-      *&v105.__match_.__prefix_.second.__i_ = *&v120.__match_.__suffix_.matched;
-      v105.__match_.__suffix_.first.__i_ = v120.__match_.__position_start_.__i_;
-      *&v105.__flags_ = v120.__match_.__unmatched_.std::pair<std::__wrap_iter<const char *>, std::__wrap_iter<const char *>>;
-      *&v105.__match_.__matches_.__end_ = *&v120.__match_.__unmatched_.matched;
-      std::match_results<std::__wrap_iter<char const*>>::str[abi:ne200100](&v105, 0, v103);
-      v76 = v107;
-      if (v107 >= v108)
+      memset(&v104, 0, 24);
+      std::vector<std::sub_match<std::__wrap_iter<char const*>>>::__init_with_size[abi:ne200100]<std::sub_match<std::__wrap_iter<char const*>>*,std::sub_match<std::__wrap_iter<char const*>>*>(&v104, v119.__match_.__matches_.__begin_, v119.__match_.__matches_.__end_, 0xAAAAAAAAAAAAAAABLL * ((v119.__match_.__matches_.__end_ - v119.__match_.__matches_.__begin_) >> 3));
+      v104.__match_.__unmatched_.std::pair<std::__wrap_iter<const char *>, std::__wrap_iter<const char *>> = *&v119.__match_.__prefix_.second.__i_;
+      *&v104.__match_.__unmatched_.matched = v119.__match_.__suffix_.std::pair<std::__wrap_iter<const char *>, std::__wrap_iter<const char *>>;
+      *&v104.__match_.__prefix_.second.__i_ = *&v119.__match_.__suffix_.matched;
+      v104.__match_.__suffix_.first.__i_ = v119.__match_.__position_start_.__i_;
+      *&v104.__flags_ = v119.__match_.__unmatched_.std::pair<std::__wrap_iter<const char *>, std::__wrap_iter<const char *>>;
+      *&v104.__match_.__matches_.__end_ = *&v119.__match_.__unmatched_.matched;
+      std::match_results<std::__wrap_iter<char const*>>::str[abi:ne200100](&v104, 0, v102);
+      v76 = v106;
+      if (v106 >= v107)
       {
-        v78 = 0xAAAAAAAAAAAAAAABLL * ((v107 - v106) >> 3);
+        v78 = 0xAAAAAAAAAAAAAAABLL * ((v106 - v105) >> 3);
         v79 = v78 + 1;
         if (v78 + 1 > 0xAAAAAAAAAAAAAAALL)
         {
           std::vector<NLExtendedString>::__throw_length_error[abi:ne200100]();
         }
 
-        if (0x5555555555555556 * ((v108 - v106) >> 3) > v79)
+        if (0x5555555555555556 * ((v107 - v105) >> 3) > v79)
         {
-          v79 = 0x5555555555555556 * ((v108 - v106) >> 3);
+          v79 = 0x5555555555555556 * ((v107 - v105) >> 3);
         }
 
-        if (0xAAAAAAAAAAAAAAABLL * ((v108 - v106) >> 3) >= 0x555555555555555)
+        if (0xAAAAAAAAAAAAAAABLL * ((v107 - v105) >> 3) >= 0x555555555555555)
         {
           v80 = 0xAAAAAAAAAAAAAAALL;
         }
@@ -9103,72 +9186,72 @@ void NLMessageIntentDomainDetector::hasPhotoSharingKeywords(std::string *this@<X
           v80 = v79;
         }
 
-        v136.__end_cap_.__value_ = &v106;
+        v135.__end_cap_.__value_ = &v105;
         if (v80)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<std::string>>(&v106, v80);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<std::string>>(&v105, v80);
         }
 
-        v81 = 8 * ((v107 - v106) >> 3);
-        v82 = *v103;
-        *(v81 + 16) = v104;
+        v81 = 8 * ((v106 - v105) >> 3);
+        v82 = *v102;
+        *(v81 + 16) = v103;
         *v81 = v82;
-        v103[1] = 0;
-        v104 = 0;
-        v103[0] = 0;
+        v102[1] = 0;
+        v103 = 0;
+        v102[0] = 0;
         v83 = 24 * v78 + 24;
-        v84 = (24 * v78 - (v107 - v106));
-        memcpy((v81 - (v107 - v106)), v106, v107 - v106);
-        v85 = v106;
-        v86 = v108;
-        v106 = v84;
-        v107 = v83;
-        v108 = 0;
-        v136.__end_ = v85;
-        v136.__end_cap_.__value_ = v86;
-        v136.__first_ = v85;
-        v136.__begin_ = v85;
-        std::__split_buffer<std::string>::~__split_buffer(&v136);
-        v107 = v83;
-        if (SHIBYTE(v104) < 0)
+        v84 = (24 * v78 - (v106 - v105));
+        memcpy((v81 - (v106 - v105)), v105, v106 - v105);
+        v85 = v105;
+        v86 = v107;
+        v105 = v84;
+        v106 = v83;
+        v107 = 0;
+        v135.__end_ = v85;
+        v135.__end_cap_.__value_ = v86;
+        v135.__first_ = v85;
+        v135.__begin_ = v85;
+        std::__split_buffer<std::string>::~__split_buffer(&v135);
+        v106 = v83;
+        if (SHIBYTE(v103) < 0)
         {
-          operator delete(v103[0]);
+          operator delete(v102[0]);
         }
       }
 
       else
       {
-        v77 = *v103;
-        *(v107 + 2) = v104;
+        v77 = *v102;
+        *(v106 + 2) = v103;
         *v76 = v77;
-        v107 = v76 + 24;
+        v106 = v76 + 24;
       }
 
-      if (v105.__begin_.__i_)
+      if (v104.__begin_.__i_)
       {
-        v105.__end_.__i_ = v105.__begin_.__i_;
-        operator delete(v105.__begin_.__i_);
+        v104.__end_.__i_ = v104.__begin_.__i_;
+        operator delete(v104.__begin_.__i_);
       }
 
-      std::regex_iterator<std::__wrap_iter<char const*>,char,std::regex_traits<char>>::operator++[abi:ne200100](&v120, v100);
-      if (v101)
+      std::regex_iterator<std::__wrap_iter<char const*>,char,std::regex_traits<char>>::operator++[abi:ne200100](&v119, v99);
+      if (v100)
       {
-        v102 = v101;
-        operator delete(v101);
+        v101 = v100;
+        operator delete(v100);
       }
     }
 
-    if (v120.__match_.__matches_.__begin_)
+    if (v119.__match_.__matches_.__begin_)
     {
-      v120.__match_.__matches_.__end_ = v120.__match_.__matches_.__begin_;
-      operator delete(v120.__match_.__matches_.__begin_);
+      v119.__match_.__matches_.__end_ = v119.__match_.__matches_.__begin_;
+      operator delete(v119.__match_.__matches_.__begin_);
     }
   }
 
   else
   {
-    v55 = v134.__begin_;
-    if (v134.__end_ == v134.__begin_)
+    v55 = v133.__begin_;
+    if (v133.__end_ == v133.__begin_)
     {
       j = 0;
     }
@@ -9183,92 +9266,92 @@ void NLMessageIntentDomainDetector::hasPhotoSharingKeywords(std::string *this@<X
         v59 = &v55[v56];
         if (SHIBYTE(v59->__r_.__value_.__r.__words[2]) < 0)
         {
-          std::string::__init_copy_ctor_external(&v105, v59->__r_.__value_.__l.__data_, v59->__r_.__value_.__l.__size_);
+          std::string::__init_copy_ctor_external(&v104, v59->__r_.__value_.__l.__data_, v59->__r_.__value_.__l.__size_);
         }
 
         else
         {
           v60 = *&v59->__r_.__value_.__l.__data_;
-          v105.__pregex_ = v59->__r_.__value_.__r.__words[2];
-          *&v105.__begin_.__i_ = v60;
+          v104.__pregex_ = v59->__r_.__value_.__r.__words[2];
+          *&v104.__begin_.__i_ = v60;
         }
 
-        v136.__first_ = this;
-        v61 = std::__hash_table<std::__hash_value_type<std::string,std::basic_regex<char,std::regex_traits<char>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::basic_regex<char,std::regex_traits<char>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::basic_regex<char,std::regex_traits<char>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::basic_regex<char,std::regex_traits<char>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this[1].__r_.__value_.__r.__words, &this->__r_.__value_.__l.__data_);
-        memset(&v120.__match_.__matches_.__end_cap_, 0, 17);
-        memset(&v120.__match_.__unmatched_.matched, 0, 17);
-        v120.__match_.__prefix_.matched = 0;
-        v120.__match_.__suffix_.first.__i_ = 0;
-        memset(&v120, 0, 41);
-        v62 = HIBYTE(v105.__pregex_);
-        if (SHIBYTE(v105.__pregex_) >= 0)
+        v135.__first_ = this;
+        v61 = std::__hash_table<std::__hash_value_type<std::string,std::basic_regex<char,std::regex_traits<char>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::basic_regex<char,std::regex_traits<char>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::basic_regex<char,std::regex_traits<char>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::basic_regex<char,std::regex_traits<char>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this[1].__r_.__value_.__r.__words, this, &std::piecewise_construct, &v135, v102);
+        memset(&v119.__match_.__matches_.__end_cap_, 0, 17);
+        memset(&v119.__match_.__unmatched_.matched, 0, 17);
+        v119.__match_.__prefix_.matched = 0;
+        v119.__match_.__suffix_.first.__i_ = 0;
+        memset(&v119, 0, 41);
+        v62 = HIBYTE(v104.__pregex_);
+        if (SHIBYTE(v104.__pregex_) >= 0)
         {
-          v63 = &v105;
-        }
-
-        else
-        {
-          v63 = v105.__begin_.__i_;
-        }
-
-        if (SHIBYTE(v105.__pregex_) < 0)
-        {
-          v62 = v105.__end_.__i_;
-        }
-
-        v64 = std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>((v61 + 5), v63, &v62[v63], &v120, 0);
-        v65 = HIBYTE(v105.__pregex_);
-        if (SHIBYTE(v105.__pregex_) >= 0)
-        {
-          v66 = &v105;
+          v63 = &v104;
         }
 
         else
         {
-          v66 = v105.__begin_.__i_;
+          v63 = v104.__begin_.__i_;
         }
 
-        if (SHIBYTE(v105.__pregex_) < 0)
+        if (SHIBYTE(v104.__pregex_) < 0)
         {
-          v65 = v105.__end_.__i_;
+          v62 = v104.__end_.__i_;
         }
 
-        std::match_results<std::__wrap_iter<char const*>>::__assign[abi:ne200100]<char const*,std::allocator<std::sub_match<char const*>>>(__p, v66, &v65[v66], &v120, 0);
-        if (v120.__begin_.__i_)
+        v64 = std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>((v61 + 5), v63, &v62[v63], &v119, 0);
+        v65 = HIBYTE(v104.__pregex_);
+        if (SHIBYTE(v104.__pregex_) >= 0)
         {
-          v120.__end_.__i_ = v120.__begin_.__i_;
-          operator delete(v120.__begin_.__i_);
+          v66 = &v104;
+        }
+
+        else
+        {
+          v66 = v104.__begin_.__i_;
+        }
+
+        if (SHIBYTE(v104.__pregex_) < 0)
+        {
+          v65 = v104.__end_.__i_;
+        }
+
+        std::match_results<std::__wrap_iter<char const*>>::__assign[abi:ne200100]<char const*,std::allocator<std::sub_match<char const*>>>(__p, v66, &v65[v66], &v119, 0);
+        if (v119.__begin_.__i_)
+        {
+          v119.__end_.__i_ = v119.__begin_.__i_;
+          operator delete(v119.__begin_.__i_);
         }
 
         if (v64)
         {
-          std::vector<std::string>::push_back[abi:ne200100](&v106, &v133.__begin_[v56]);
+          std::vector<std::string>::push_back[abi:ne200100](&v105, &v132.__begin_[v56]);
           j = 1;
         }
 
-        if (SHIBYTE(v105.__pregex_) < 0)
+        if (SHIBYTE(v104.__pregex_) < 0)
         {
-          operator delete(v105.__begin_.__i_);
+          operator delete(v104.__begin_.__i_);
         }
 
         ++v57;
-        v55 = v134.__begin_;
+        v55 = v133.__begin_;
         ++v56;
       }
 
-      while (0xAAAAAAAAAAAAAAABLL * ((v134.__end_ - v134.__begin_) >> 3) > v57);
+      while (0xAAAAAAAAAAAAAAABLL * ((v133.__end_ - v133.__begin_) >> 3) > v57);
     }
   }
 
-  std::string::basic_string[abi:ne200100]<0>(&v105, ",");
-  join(&v106, &v105, &v120);
-  v137[0] = v120.__end_.__i_;
-  v68 = v120.__begin_.__i_;
-  *(v137 + 7) = *(&v120.__end_.__i_ + 7);
-  v67 = HIBYTE(v120.__pregex_);
-  HIBYTE(v120.__pregex_) = 0;
-  LOBYTE(v120.__begin_.__i_) = 0;
-  if ((SHIBYTE(v105.__pregex_) & 0x80000000) == 0)
+  std::string::basic_string[abi:ne200100]<0>(&v104, ",");
+  join(&v105, &v104, &v119);
+  v136[0] = v119.__end_.__i_;
+  v68 = v119.__begin_.__i_;
+  *(v136 + 7) = *(&v119.__end_.__i_ + 7);
+  v67 = HIBYTE(v119.__pregex_);
+  HIBYTE(v119.__pregex_) = 0;
+  LOBYTE(v119.__begin_.__i_) = 0;
+  if ((SHIBYTE(v104.__pregex_) & 0x80000000) == 0)
   {
     if (j)
     {
@@ -9276,118 +9359,118 @@ void NLMessageIntentDomainDetector::hasPhotoSharingKeywords(std::string *this@<X
     }
 
 LABEL_161:
-    v120.__begin_.__i_ = &v106;
-    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v120);
+    v119.__begin_.__i_ = &v105;
+    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v119);
     goto LABEL_162;
   }
 
-  operator delete(v105.__begin_.__i_);
+  operator delete(v104.__begin_.__i_);
   if ((j & 1) == 0)
   {
     goto LABEL_161;
   }
 
 LABEL_141:
-  memset(&v105.__match_.__matches_.__end_cap_, 0, 17);
-  memset(&v105.__match_.__unmatched_.matched, 0, 17);
-  v105.__match_.__prefix_.matched = 0;
-  v105.__match_.__suffix_.first.__i_ = 0;
-  memset(&v105, 0, 41);
-  v136.__first_ = this;
-  v87 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&this[4].__r_.__value_.__l.__size_, &this->__r_.__value_.__l.__data_);
-  std::string::basic_string[abi:ne200100]<0>(&v120, "verbs");
-  v136.__first_ = &v120;
-  v88 = std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v87 + 5, &v120.__begin_.__i_);
+  memset(&v104.__match_.__matches_.__end_cap_, 0, 17);
+  memset(&v104.__match_.__unmatched_.matched, 0, 17);
+  v104.__match_.__prefix_.matched = 0;
+  v104.__match_.__suffix_.first.__i_ = 0;
+  memset(&v104, 0, 41);
+  v135.__first_ = this;
+  v87 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&this[4].__r_.__value_.__l.__size_, this, &std::piecewise_construct, &v135, v102);
+  std::string::basic_string[abi:ne200100]<0>(&v119, "verbs");
+  v135.__first_ = &v119;
+  v88 = std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v87 + 5, &v119, &std::piecewise_construct, &v135);
   v89 = v88[5];
   v90 = v88[6];
-  if (SHIBYTE(v120.__pregex_) < 0)
+  if (SHIBYTE(v119.__pregex_) < 0)
   {
-    operator delete(v120.__begin_.__i_);
+    operator delete(v119.__begin_.__i_);
   }
 
   if (v89 == v90)
   {
-    if (v105.__begin_.__i_)
+    if (v104.__begin_.__i_)
     {
-      v105.__end_.__i_ = v105.__begin_.__i_;
-      operator delete(v105.__begin_.__i_);
+      v104.__end_.__i_ = v104.__begin_.__i_;
+      operator delete(v104.__begin_.__i_);
     }
 
-    v120.__begin_.__i_ = &v106;
-    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v120);
+    v119.__begin_.__i_ = &v105;
+    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v119);
     goto LABEL_166;
   }
 
-  v136.__first_ = this;
-  v91 = std::__hash_table<std::__hash_value_type<std::string,std::basic_regex<char,std::regex_traits<char>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::basic_regex<char,std::regex_traits<char>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::basic_regex<char,std::regex_traits<char>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::basic_regex<char,std::regex_traits<char>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&this[2].__r_.__value_.__r.__words[2], &this->__r_.__value_.__l.__data_);
-  memset(&v120.__match_.__matches_.__end_cap_, 0, 17);
-  memset(&v120.__match_.__unmatched_.matched, 0, 17);
-  v120.__match_.__prefix_.matched = 0;
-  v120.__match_.__suffix_.first.__i_ = 0;
-  memset(&v120, 0, 41);
-  size = HIBYTE(v135.__r_.__value_.__r.__words[2]);
-  if ((v135.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  v135.__first_ = this;
+  v91 = std::__hash_table<std::__hash_value_type<std::string,std::basic_regex<char,std::regex_traits<char>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::basic_regex<char,std::regex_traits<char>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::basic_regex<char,std::regex_traits<char>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::basic_regex<char,std::regex_traits<char>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&this[2].__r_.__value_.__r.__words[2], this, &std::piecewise_construct, &v135, v102);
+  memset(&v119.__match_.__matches_.__end_cap_, 0, 17);
+  memset(&v119.__match_.__unmatched_.matched, 0, 17);
+  v119.__match_.__prefix_.matched = 0;
+  v119.__match_.__suffix_.first.__i_ = 0;
+  memset(&v119, 0, 41);
+  size = HIBYTE(v134.__r_.__value_.__r.__words[2]);
+  if ((v134.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v93 = &v135;
+    v93 = &v134;
   }
 
   else
   {
-    v93 = v135.__r_.__value_.__r.__words[0];
+    v93 = v134.__r_.__value_.__r.__words[0];
   }
 
-  if ((v135.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  if ((v134.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    size = v135.__r_.__value_.__l.__size_;
+    size = v134.__r_.__value_.__l.__size_;
   }
 
-  v94 = std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>((v91 + 5), v93, v93 + size, &v120, 0);
-  v95 = HIBYTE(v135.__r_.__value_.__r.__words[2]);
-  if ((v135.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  v94 = std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>((v91 + 5), v93, v93 + size, &v119, 0);
+  v95 = HIBYTE(v134.__r_.__value_.__r.__words[2]);
+  if ((v134.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v96 = &v135;
+    v96 = &v134;
   }
 
   else
   {
-    v96 = v135.__r_.__value_.__r.__words[0];
+    v96 = v134.__r_.__value_.__r.__words[0];
   }
 
-  if ((v135.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  if ((v134.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    v95 = v135.__r_.__value_.__l.__size_;
+    v95 = v134.__r_.__value_.__l.__size_;
   }
 
-  std::match_results<std::__wrap_iter<char const*>>::__assign[abi:ne200100]<char const*,std::allocator<std::sub_match<char const*>>>(&v105, v96, (v96 + v95), &v120, 0);
-  if (v120.__begin_.__i_)
+  std::match_results<std::__wrap_iter<char const*>>::__assign[abi:ne200100]<char const*,std::allocator<std::sub_match<char const*>>>(&v104, v96, (v96 + v95), &v119, 0);
+  if (v119.__begin_.__i_)
   {
-    v120.__end_.__i_ = v120.__begin_.__i_;
-    operator delete(v120.__begin_.__i_);
+    v119.__end_.__i_ = v119.__begin_.__i_;
+    operator delete(v119.__begin_.__i_);
   }
 
-  if (v105.__begin_.__i_)
+  if (v104.__begin_.__i_)
   {
-    v105.__end_.__i_ = v105.__begin_.__i_;
-    operator delete(v105.__begin_.__i_);
+    v104.__end_.__i_ = v104.__begin_.__i_;
+    operator delete(v104.__begin_.__i_);
   }
 
-  v120.__begin_.__i_ = &v106;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v120);
+  v119.__begin_.__i_ = &v105;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v119);
   if ((v94 & 1) == 0)
   {
 LABEL_162:
-    std::string::basic_string[abi:ne200100]<0>(*v99, "");
+    std::string::basic_string[abi:ne200100]<0>(*v98, "");
     goto LABEL_167;
   }
 
 LABEL_166:
-  v97 = v137[0];
-  **v99 = v68;
-  *(*v99 + 8) = v97;
-  *(*v99 + 15) = *(v137 + 7);
-  *(*v99 + 23) = v67;
-  v137[0] = 0;
-  *(v137 + 7) = 0;
+  v97 = v136[0];
+  **v98 = v68;
+  *(*v98 + 8) = v97;
+  *(*v98 + 15) = *(v136 + 7);
+  *(*v98 + 23) = v67;
+  v136[0] = 0;
+  *(v136 + 7) = 0;
   v67 = 0;
   v68 = 0;
 LABEL_167:
@@ -9397,31 +9480,31 @@ LABEL_167:
     operator delete(__p[0].__begin_);
   }
 
-  if (v119 < 0)
+  if (v118 < 0)
   {
-    operator delete(v118);
+    operator delete(v117[0]);
   }
 
-  if (*(&v123 + 1))
+  if (*(&v122 + 1))
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v123 + 1));
+    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v122 + 1));
   }
 
-  std::locale::~locale(&v121.__loc_);
-  if (*(&v127 + 1))
+  std::locale::~locale(&v120.__loc_);
+  if (*(&v126 + 1))
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v127 + 1));
+    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v126 + 1));
   }
 
-  std::locale::~locale(&v125.__loc_);
-  if (SHIBYTE(v130) < 0)
+  std::locale::~locale(&v124.__loc_);
+  if (SHIBYTE(v129) < 0)
   {
-    operator delete(v129);
+    operator delete(v128);
   }
 
   if (SHIBYTE(end) < 0)
   {
-    operator delete(v131);
+    operator delete(v130);
     if ((v67 & 0x80) == 0)
     {
       goto LABEL_179;
@@ -9435,16 +9518,14 @@ LABEL_167:
 
   operator delete(v68);
 LABEL_179:
-  v120.__begin_.__i_ = &v133;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v120);
-  v120.__begin_.__i_ = &v134;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v120);
-  if (SHIBYTE(v135.__r_.__value_.__r.__words[2]) < 0)
+  v119.__begin_.__i_ = &v132;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v119);
+  v119.__begin_.__i_ = &v133;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v119);
+  if (SHIBYTE(v134.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v135.__r_.__value_.__l.__data_);
+    operator delete(v134.__r_.__value_.__l.__data_);
   }
-
-  v98 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22CD75830(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, void *a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
@@ -9454,9 +9535,9 @@ void sub_22CD75830(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(__p);
   }
 
-  if (*(v71 - 137) < 0)
+  if (*(v65 - 137) < 0)
   {
-    operator delete(*(v71 - 160));
+    operator delete(*(v65 - 160));
   }
 
   __p = &a53;
@@ -9475,13 +9556,13 @@ void sub_22CD75830(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(STACK[0x3A0]);
   }
 
-  __p = (v71 - 240);
+  __p = (v65 - 240);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&__p);
-  __p = (v71 - 216);
+  __p = (v65 - 216);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&__p);
-  if (*(v71 - 169) < 0)
+  if (*(v65 - 169) < 0)
   {
-    operator delete(*(v71 - 192));
+    operator delete(*(v65 - 192));
   }
 
   _Unwind_Resume(a1);
@@ -9533,26 +9614,26 @@ uint64_t std::ostringstream::~ostringstream(uint64_t a1)
   return a1;
 }
 
-void *std::match_results<std::__wrap_iter<char const*>>::str[abi:ne200100]@<X0>(void *result@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
+void *std::match_results<std::__wrap_iter<char const*>>::str[abi:ne200100]@<X0>(void *result@<X0>, unint64_t a2@<X1>, void *a3@<X8>)
 {
   if (0xAAAAAAAAAAAAAAABLL * ((result[1] - *result) >> 3) <= a2)
   {
-    v3 = (result + 3);
+    v3 = result + 3;
   }
 
   else
   {
-    v3 = *result + 24 * a2;
+    v3 = (*result + 24 * a2);
   }
 
   if (*(v3 + 16) == 1)
   {
-    return std::string::__init_with_size[abi:ne200100]<char const*,char const*>(a3, *v3, *(v3 + 8), *(v3 + 8) - *v3);
+    return std::string::__init_with_size[abi:ne200100]<char const*,char const*>(a3, *v3, v3[1], v3[1] - *v3);
   }
 
   *a3 = 0;
-  *(a3 + 8) = 0;
-  *(a3 + 16) = 0;
+  a3[1] = 0;
+  a3[2] = 0;
   return result;
 }
 
@@ -9563,7 +9644,7 @@ std::regex_iterator<std::__wrap_iter<const char *>, char> *std::regex_iterator<s
   *(a2 + 32) = 0;
   *(a2 + 40) = 0;
   *(a2 + 48) = 0;
-  std::vector<std::sub_match<std::__wrap_iter<char const*>>>::__init_with_size[abi:ne200100]<std::sub_match<std::__wrap_iter<char const*>>*,std::sub_match<std::__wrap_iter<char const*>>*>(a2 + 32, *(a1 + 32), *(a1 + 40), 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 40) - *(a1 + 32)) >> 3));
+  std::vector<std::sub_match<std::__wrap_iter<char const*>>>::__init_with_size[abi:ne200100]<std::sub_match<std::__wrap_iter<char const*>>*,std::sub_match<std::__wrap_iter<char const*>>*>((a2 + 32), *(a1 + 32), *(a1 + 40), 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 40) - *(a1 + 32)) >> 3));
   *(a2 + 88) = *(a1 + 88);
   *(a2 + 104) = *(a1 + 104);
   *(a2 + 120) = *(a1 + 120);
@@ -9596,7 +9677,7 @@ void std::basic_regex<char,std::regex_traits<char>>::~basic_regex(std::locale *t
   std::locale::~locale(this);
 }
 
-void NLMessageIntentDomainDetector::getCandidateIntentTypes(std::string *a1@<X0>, uint64_t a2@<X1>, const void **a3@<X2>, void *a4@<X8>)
+void NLMessageIntentDomainDetector::getCandidateIntentTypes(std::string *a1@<X0>, uint64_t a2@<X1>, const void **a3@<X2>, uint64_t *a4@<X8>)
 {
   if (*(a2 + 23) < 0)
   {
@@ -9688,9 +9769,9 @@ void NLMessageIntentDomainDetector::getCandidateIntentTypes(std::string *a1@<X0>
   {
     memset(v24, 0, sizeof(v24));
     v25 = 1065353216;
-    getUTF8StringFromCFString(kNLMessageIntentAttributeKeywordsKey, &v23);
+    getUTF8StringFromCFString(&v23, kNLMessageIntentAttributeKeywordsKey);
     v28 = &v23;
-    v19 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v24, &v23.__r_.__value_.__l.__data_);
+    v19 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v24, &v23, &std::piecewise_construct, &v28);
     std::string::operator=((v19 + 5), &__str);
     if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -9743,81 +9824,4 @@ LABEL_35:
   {
     operator delete(v27.__r_.__value_.__l.__data_);
   }
-}
-
-void sub_22CD761E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *__p, uint64_t a30, int a31, __int16 a32, char a33, char a34)
-{
-  std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(&a16);
-  std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(&a24);
-  if (a34 < 0)
-  {
-    operator delete(__p);
-  }
-
-  std::vector<NLMessageIntentTypeWithMetadata>::__destroy_vector::operator()[abi:ne200100](&a15);
-  if (v35 < 0)
-  {
-    operator delete(v34);
-  }
-
-  if (*(v36 - 89) < 0)
-  {
-    operator delete(*(v36 - 112));
-  }
-
-  _Unwind_Resume(a1);
-}
-
-os_log_t ___ZL41LogHandleForNLMessageIntentDomainDetectorv_block_invoke()
-{
-  result = os_log_create("com.apple.NLP", "NLMessageIntentDomainDetector");
-  LogHandleForNLMessageIntentDomainDetector(void)::logHandle = result;
-  return result;
-}
-
-void *std::pair<std::vector<std::string>,std::vector<std::string>>::pair[abi:ne200100]<std::vector<std::string>&,std::vector<std::string>&,0>(void *a1, uint64_t *a2, uint64_t *a3)
-{
-  *a1 = 0;
-  a1[1] = 0;
-  a1[2] = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(a1, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3));
-  a1[3] = 0;
-  a1[4] = 0;
-  a1[5] = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>((a1 + 3), *a3, a3[1], 0xAAAAAAAAAAAAAAABLL * ((a3[1] - *a3) >> 3));
-  return a1;
-}
-
-void sub_22CD76358(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
-{
-  if (a4)
-  {
-    std::vector<std::string>::__vallocate[abi:ne200100](result, a4);
-  }
-
-  return result;
-}
-
-void sub_22CD763D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
-{
-  *(v9 + 8) = v10;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a9);
-  _Unwind_Resume(a1);
-}
-
-void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
-{
-  if (a2 < 0xAAAAAAAAAAAAAABLL)
-  {
-    std::__allocate_at_least[abi:ne200100]<std::allocator<std::string>>(a1, a2);
-  }
-
-  std::vector<NLExtendedString>::__throw_length_error[abi:ne200100]();
 }

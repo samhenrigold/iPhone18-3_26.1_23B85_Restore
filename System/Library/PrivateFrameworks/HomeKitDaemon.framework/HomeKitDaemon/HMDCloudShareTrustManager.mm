@@ -63,7 +63,7 @@
 
 - (void)timerDidFire:(id)fire
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   queue = [(HMDCloudShareTrustManager *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -79,9 +79,9 @@
     if (v10)
     {
       v12 = HMFGetLogIdentifier();
-      v22 = 138543362;
-      v23 = v12;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Request invite timer fired", &v22, 0xCu);
+      v21 = 138543362;
+      v22 = v12;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Request invite timer fired", &v21, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -101,20 +101,20 @@ LABEL_12:
 
       v16 = HMFGetLogIdentifier();
       v17 = HMDCloudShareTrustManagerConfigureStateAsString([(HMDCloudShareTrustManager *)v14 configureState]);
-      v22 = 138543618;
-      v23 = v16;
-      v24 = 2112;
-      v25 = v17;
-      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Canceling request invite timer due to trust manager configure state: %@", &v22, 0x16u);
+      v21 = 138543618;
+      v22 = v16;
+      v23 = 2112;
+      v24 = v17;
+      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Canceling request invite timer due to trust manager configure state: %@", &v21, 0x16u);
     }
 
     else
     {
       requestInviteTimer2 = [(HMDCloudShareTrustManager *)selfCopy requestInviteTimer];
       [requestInviteTimer2 timeInterval];
-      v21 = v20;
+      v20 = v19;
 
-      if (v21 < 86400.0)
+      if (v20 < 86400.0)
       {
         [(HMDCloudShareTrustManager *)selfCopy _configure];
         goto LABEL_13;
@@ -129,9 +129,9 @@ LABEL_12:
       }
 
       v16 = HMFGetLogIdentifier();
-      v22 = 138543362;
-      v23 = v16;
-      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Canceling request invite timer due to reaching max interval time", &v22, 0xCu);
+      v21 = 138543362;
+      v22 = v16;
+      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Canceling request invite timer due to reaching max interval time", &v21, 0xCu);
     }
 
     goto LABEL_12;
@@ -140,17 +140,15 @@ LABEL_12:
   if (v10)
   {
     v11 = HMFGetLogIdentifier();
-    v22 = 138543618;
-    v23 = v11;
-    v24 = 2112;
-    v25 = fireCopy;
-    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Received timer did fire call from unknown timer: %@", &v22, 0x16u);
+    v21 = 138543618;
+    v22 = v11;
+    v23 = 2112;
+    v24 = fireCopy;
+    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Received timer did fire call from unknown timer: %@", &v21, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
 LABEL_13:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cancelRequestInviteTimer
@@ -163,7 +161,7 @@ LABEL_13:
 
 - (void)_startRequestInviteTimer
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   queue = [(HMDCloudShareTrustManager *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -177,9 +175,9 @@ LABEL_13:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = HMFGetLogIdentifier();
-      v20 = 138543362;
-      v21 = v8;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Request invite timer already started", &v20, 0xCu);
+      v19 = 138543362;
+      v20 = v8;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Request invite timer already started", &v19, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -204,22 +202,20 @@ LABEL_13:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       v17 = HMFGetLogIdentifier();
-      v20 = 138543362;
-      v21 = v17;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@Starting request invite timer", &v20, 0xCu);
+      v19 = 138543362;
+      v20 = v17;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@Starting request invite timer", &v19, 0xCu);
     }
 
     objc_autoreleasePoolPop(v14);
     requestInviteTimer4 = [(HMDCloudShareTrustManager *)selfCopy2 requestInviteTimer];
     [requestInviteTimer4 resume];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)attributeDescriptions
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDCloudShareTrustManager *)self isOwnedTrust];
   v4 = HMFBooleanToString();
@@ -227,14 +223,12 @@ LABEL_13:
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   v7 = HMDCloudShareTrustManagerConfigureStateAsString([(HMDCloudShareTrustManager *)self configureState]);
   v8 = [v6 initWithName:@"configureState" value:v7];
-  v15[1] = v8;
+  v14[1] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   ownerCloudShareID = [(HMDCloudShareTrustManager *)self ownerCloudShareID];
   v11 = [v9 initWithName:@"ownerCloudShareID" value:ownerCloudShareID];
-  v15[2] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v14[2] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
 
   return v12;
 }
@@ -249,7 +243,7 @@ LABEL_13:
 
 - (void)_didRemoveZone
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   queue = [(HMDCloudShareTrustManager *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -259,9 +253,9 @@ LABEL_13:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Trust zone has been removed", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Trust zone has been removed", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -274,7 +268,6 @@ LABEL_13:
   [(HMDCloudShareTrustManager *)selfCopy setConfigureState:3];
   [(HMDCloudShareTrustManager *)selfCopy setCloudZone:0];
   [(HMDCloudShareTrustManager *)selfCopy setLocalZone:0];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)database:(id)database didRemoveZoneWithName:(id)name isPrivate:(BOOL)private
@@ -299,7 +292,7 @@ LABEL_13:
 
 - (void)_didCreateZone
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   queue = [(HMDCloudShareTrustManager *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -309,9 +302,9 @@ LABEL_13:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v14 = 138543362;
-    v15 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Trust zone has been created", &v14, 0xCu);
+    v13 = 138543362;
+    v14 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Trust zone has been created", &v13, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -326,9 +319,9 @@ LABEL_13:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v12 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v12;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Forcing trust from removed to unconfigured state due to a zone creation notification", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v12;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Forcing trust from removed to unconfigured state due to a zone creation notification", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -338,7 +331,6 @@ LABEL_13:
   }
 
   [(HMDCloudShareTrustManager *)selfCopy _configure];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)database:(id)database didCreateZoneWithName:(id)name isPrivate:(BOOL)private
@@ -371,40 +363,40 @@ LABEL_13:
 
 - (CloudShareTrustManagerTrustStatusCounts)trustStatusCounts
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDCloudShareTrustManager *)self dataSource];
   v5 = [dataSource homeForCloudShareTrustManager:self];
 
-  v37 = v5;
+  v36 = v5;
   users = [v5 users];
-  v36 = [users count];
+  v35 = [users count];
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   v7 = users;
-  v8 = [v7 countByEnumeratingWithState:&v46 objects:v50 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v45 objects:v49 count:16];
   if (v8)
   {
     v9 = v8;
+    v38 = 0;
     v39 = 0;
-    v40 = 0;
-    v43 = 0;
-    v44 = 0;
-    v10 = 0;
-    v41 = 0;
     v42 = 0;
-    v11 = *v47;
+    v43 = 0;
+    v10 = 0;
+    v40 = 0;
+    v41 = 0;
+    v11 = *v46;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v47 != v11)
+        if (*v46 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v46 + 1) + 8 * i);
+        v13 = *(*(&v45 + 1) + 8 * i);
         if (([v13 isOwner] & 1) == 0)
         {
           cloudShareParticipantsManager = [(HMDCloudShareTrustManager *)self cloudShareParticipantsManager];
@@ -420,32 +412,32 @@ LABEL_13:
 
             if (v18)
             {
-              ++v41;
+              ++v40;
               if (cloudShareID)
               {
-                ++v40;
+                ++v39;
               }
 
               else
               {
-                ++v39;
+                ++v38;
               }
             }
 
             else
             {
-              ++v44;
-              v20 = v42;
+              ++v43;
+              v20 = v41;
               if (cloudShareID)
               {
-                v20 = v42 + 1;
+                v20 = v41 + 1;
               }
 
-              v42 = v20;
+              v41 = v20;
               v21 = +[HMDHomeKitVersion version6];
               v22 = [v13 hasDeviceWithHomeKitVersionGreaterThanVersion:v21];
 
-              v43 += v22;
+              v42 += v22;
             }
           }
 
@@ -456,7 +448,7 @@ LABEL_13:
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v46 objects:v50 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v45 objects:v49 count:16];
     }
 
     while (v9);
@@ -464,19 +456,19 @@ LABEL_13:
 
   else
   {
+    v38 = 0;
     v39 = 0;
-    v40 = 0;
-    v43 = 0;
-    v44 = 0;
-    v10 = 0;
-    v41 = 0;
     v42 = 0;
+    v43 = 0;
+    v10 = 0;
+    v40 = 0;
+    v41 = 0;
   }
 
-  v23 = v36 - 1;
+  v23 = v35 - 1;
 
   v24 = 1;
-  if (v36 != 2)
+  if (v35 != 2)
   {
     v24 = 2;
   }
@@ -497,13 +489,13 @@ LABEL_13:
   aBlock[3] = &__block_descriptor_40_e11_Q24__0Q8Q16l;
   aBlock[4] = v23 & ~(v23 >> 63);
   v26 = _Block_copy(aBlock);
-  v27 = v26[2](v26, v41, 100);
-  v28 = v26[2](v26, v40, 100);
-  v29 = v26[2](v26, v42, 0);
-  v30 = v26[2](v26, v43, 0);
+  v27 = v26[2](v26, v40, 100);
+  v28 = v26[2](v26, v39, 100);
+  v29 = v26[2](v26, v41, 0);
+  v30 = v26[2](v26, v42, 0);
   v31 = v26[2](v26, v10, 0);
-  v32 = v26[2](v26, v44, 0);
-  v33 = v26[2](v26, v39, 0);
+  v32 = v26[2](v26, v43, 0);
+  v33 = v26[2](v26, v38, 0);
   retstr->var0 = v25;
   retstr->var1 = v27;
   retstr->var2 = v28;
@@ -513,7 +505,6 @@ LABEL_13:
   retstr->var6 = v32;
   retstr->var7 = v33;
 
-  v35 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -590,7 +581,7 @@ unint64_t __46__HMDCloudShareTrustManager_trustStatusCounts__block_invoke(uint64
 
 - (void)messenger:(id)messenger didReceiveInvitationData:(id)data completion:(id)completion
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   messengerCopy = messenger;
   dataCopy = data;
   completionCopy = completion;
@@ -604,16 +595,16 @@ unint64_t __46__HMDCloudShareTrustManager_trustStatusCounts__block_invoke(uint64
   {
     v15 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v46 = v15;
+    v45 = v15;
     _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Received trust zone invitation", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v12);
   v16 = MEMORY[0x277CCAAC8];
   v17 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
-  v44 = 0;
-  v18 = [v16 _strictlyUnarchivedObjectOfClasses:v17 fromData:dataCopy error:&v44];
-  v19 = v44;
+  v43 = 0;
+  v18 = [v16 _strictlyUnarchivedObjectOfClasses:v17 fromData:dataCopy error:&v43];
+  v19 = v43;
 
   if (v18)
   {
@@ -623,31 +614,31 @@ unint64_t __46__HMDCloudShareTrustManager_trustStatusCounts__block_invoke(uint64
     [(HMDCloudShareTrustManager *)selfCopy queue];
     v24 = v23 = completionCopy;
     [v22 schedulerWithDispatchQueue:v24];
-    v39 = v19;
+    v38 = v19;
     v25 = dataCopy;
     v27 = v26 = messengerCopy;
     v28 = [v21 reschedule:v27];
 
     completionCopy = v23;
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = __75__HMDCloudShareTrustManager_messenger_didReceiveInvitationData_completion___block_invoke;
-    v42[3] = &unk_278689A68;
-    v42[4] = selfCopy;
+    v41[0] = MEMORY[0x277D85DD0];
+    v41[1] = 3221225472;
+    v41[2] = __75__HMDCloudShareTrustManager_messenger_didReceiveInvitationData_completion___block_invoke;
+    v41[3] = &unk_278689A68;
+    v41[4] = selfCopy;
     v29 = v23;
-    v43 = v29;
-    v30 = [v28 addFailureBlock:v42];
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = __75__HMDCloudShareTrustManager_messenger_didReceiveInvitationData_completion___block_invoke_40;
-    v40[3] = &unk_2786727C0;
-    v40[4] = selfCopy;
+    v42 = v29;
+    v30 = [v28 addFailureBlock:v41];
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __75__HMDCloudShareTrustManager_messenger_didReceiveInvitationData_completion___block_invoke_40;
+    v39[3] = &unk_2786727C0;
+    v39[4] = selfCopy;
     v31 = v29;
     messengerCopy = v26;
     dataCopy = v25;
-    v19 = v39;
-    v41 = v31;
-    v32 = [v28 addSuccessBlock:v40];
+    v19 = v38;
+    v40 = v31;
+    v32 = [v28 addSuccessBlock:v39];
   }
 
   else
@@ -659,9 +650,9 @@ unint64_t __46__HMDCloudShareTrustManager_trustStatusCounts__block_invoke(uint64
     {
       v36 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v46 = v36;
-      v47 = 2112;
-      v48 = v19;
+      v45 = v36;
+      v46 = 2112;
+      v47 = v19;
       _os_log_impl(&dword_229538000, v35, OS_LOG_TYPE_ERROR, "%{public}@Failed to deserialize trust zone invitation data, error: %@", buf, 0x16u);
     }
 
@@ -671,13 +662,11 @@ unint64_t __46__HMDCloudShareTrustManager_trustStatusCounts__block_invoke(uint64
 
     (*(completionCopy + 2))(completionCopy, 0, v19);
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void __75__HMDCloudShareTrustManager_messenger_didReceiveInvitationData_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -685,11 +674,11 @@ void __75__HMDCloudShareTrustManager_messenger_didReceiveInvitationData_completi
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v10 = 138543618;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Trust zone invitation was not accepted: %@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Trust zone invitation was not accepted: %@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -697,12 +686,11 @@ void __75__HMDCloudShareTrustManager_messenger_didReceiveInvitationData_completi
   [v8 submitFailureEventWithEventErrorCode:11 error:v3];
 
   (*(*(a1 + 40) + 16))();
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __75__HMDCloudShareTrustManager_messenger_didReceiveInvitationData_completion___block_invoke_40(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -710,21 +698,19 @@ void __75__HMDCloudShareTrustManager_messenger_didReceiveInvitationData_completi
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Trust zone invitation was accepted", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Trust zone invitation was accepted", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
   [*(a1 + 32) _configure];
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messenger:(id)messenger didReceiveInvitationRequestFromUser:(id)user device:(id)device
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   messengerCopy = messenger;
   userCopy = user;
   deviceCopy = device;
@@ -739,25 +725,23 @@ void __75__HMDCloudShareTrustManager_messenger_didReceiveInvitationData_completi
     v15 = HMFGetLogIdentifier();
     shortDescription = [userCopy shortDescription];
     shortDescription2 = [deviceCopy shortDescription];
-    v20 = 138543874;
-    v21 = v15;
-    v22 = 2112;
-    v23 = shortDescription;
-    v24 = 2112;
-    v25 = shortDescription2;
-    _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Received invitation request from user %@ and device %@", &v20, 0x20u);
+    v19 = 138543874;
+    v20 = v15;
+    v21 = 2112;
+    v22 = shortDescription;
+    v23 = 2112;
+    v24 = shortDescription2;
+    _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Received invitation request from user %@ and device %@", &v19, 0x20u);
   }
 
   objc_autoreleasePoolPop(v12);
   cloudShareParticipantsManager = [(HMDCloudShareTrustManager *)selfCopy cloudShareParticipantsManager];
   [cloudShareParticipantsManager inviteUser:userCopy usingDevice:deviceCopy];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)localZone:(id)zone didProcessModelUpdate:(id)update
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   zoneCopy = zone;
   updateCopy = update;
   v8 = objc_autoreleasePoolPush();
@@ -766,23 +750,21 @@ void __75__HMDCloudShareTrustManager_messenger_didReceiveInvitationData_completi
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     v11 = HMFGetLogIdentifier();
-    v14 = 138543618;
-    v15 = v11;
-    v16 = 2112;
-    v17 = updateCopy;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Trust zone updated unknown model: %@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v11;
+    v15 = 2112;
+    v16 = updateCopy;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Trust zone updated unknown model: %@", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   metricsEventDispatcher = [(HMDCloudShareTrustManager *)selfCopy metricsEventDispatcher];
   [metricsEventDispatcher submitFailureEventWithEventErrorCode:8];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)localZone:(id)zone didProcessModelDeletion:(id)deletion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   zoneCopy = zone;
   deletionCopy = deletion;
   v8 = objc_autoreleasePoolPush();
@@ -791,23 +773,21 @@ void __75__HMDCloudShareTrustManager_messenger_didReceiveInvitationData_completi
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     v11 = HMFGetLogIdentifier();
-    v14 = 138543618;
-    v15 = v11;
-    v16 = 2112;
-    v17 = deletionCopy;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Trust zone deleted unknown model: %@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v11;
+    v15 = 2112;
+    v16 = deletionCopy;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Trust zone deleted unknown model: %@", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   metricsEventDispatcher = [(HMDCloudShareTrustManager *)selfCopy metricsEventDispatcher];
   [metricsEventDispatcher submitFailureEventWithEventErrorCode:7];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)localZone:(id)zone didProcessModelCreation:(id)creation
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   zoneCopy = zone;
   creationCopy = creation;
   v8 = objc_autoreleasePoolPush();
@@ -816,23 +796,21 @@ void __75__HMDCloudShareTrustManager_messenger_didReceiveInvitationData_completi
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     v11 = HMFGetLogIdentifier();
-    v14 = 138543618;
-    v15 = v11;
-    v16 = 2112;
-    v17 = creationCopy;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Trust zone created unknown model: %@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v11;
+    v15 = 2112;
+    v16 = creationCopy;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Trust zone created unknown model: %@", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   metricsEventDispatcher = [(HMDCloudShareTrustManager *)selfCopy metricsEventDispatcher];
   [metricsEventDispatcher submitFailureEventWithEventErrorCode:6];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cloudZone:(id)zone didRemoveParticipantWithClientIdentifier:(id)identifier
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   zoneCopy = zone;
   identifierCopy = identifier;
   v8 = objc_autoreleasePoolPush();
@@ -841,23 +819,21 @@ void __75__HMDCloudShareTrustManager_messenger_didReceiveInvitationData_completi
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v14 = 138543618;
-    v15 = v11;
-    v16 = 2112;
-    v17 = identifierCopy;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Trust zone removed participant with client identifier: %@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v11;
+    v15 = 2112;
+    v16 = identifierCopy;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Trust zone removed participant with client identifier: %@", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   delegate = [(HMDCloudShareTrustManager *)selfCopy delegate];
   [delegate cloudShareTrustManager:selfCopy didRemoveUserWithUUID:identifierCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cloudZone:(id)zone didUpdateParticipantWithClientIdentifier:(id)identifier
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   zoneCopy = zone;
   identifierCopy = identifier;
   v8 = objc_autoreleasePoolPush();
@@ -867,9 +843,9 @@ void __75__HMDCloudShareTrustManager_messenger_didReceiveInvitationData_completi
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v24 = v11;
-    v25 = 2112;
-    v26 = identifierCopy;
+    v23 = v11;
+    v24 = 2112;
+    v25 = identifierCopy;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Trust zone updated participant with client identifier: %@", buf, 0x16u);
   }
 
@@ -881,13 +857,13 @@ void __75__HMDCloudShareTrustManager_messenger_didReceiveInvitationData_completi
   if (v14)
   {
     queue = [(HMDCloudShareTrustManager *)selfCopy queue];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __80__HMDCloudShareTrustManager_cloudZone_didUpdateParticipantWithClientIdentifier___block_invoke;
-    v21[3] = &unk_27868A750;
-    v21[4] = selfCopy;
-    v22 = v14;
-    dispatch_async(queue, v21);
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __80__HMDCloudShareTrustManager_cloudZone_didUpdateParticipantWithClientIdentifier___block_invoke;
+    v20[3] = &unk_27868A750;
+    v20[4] = selfCopy;
+    v21 = v14;
+    dispatch_async(queue, v20);
   }
 
   else
@@ -899,21 +875,19 @@ void __75__HMDCloudShareTrustManager_messenger_didReceiveInvitationData_completi
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v24 = v19;
-      v25 = 2112;
-      v26 = identifierCopy;
+      v23 = v19;
+      v24 = 2112;
+      v25 = identifierCopy;
       _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Could not find user with UUID matching updated participant client identifier: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v16);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setConfigureState:(int64_t)state
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock_with_options();
   if (self->_configureState == 3)
   {
@@ -925,24 +899,21 @@ void __75__HMDCloudShareTrustManager_messenger_didReceiveInvitationData_completi
     {
       v8 = HMFGetLogIdentifier();
       v9 = HMDCloudShareTrustManagerConfigureStateAsString(state);
-      v13 = 138543618;
-      v14 = v8;
-      v15 = 2112;
-      v16 = v9;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Cannot change from removed state to: %@", &v13, 0x16u);
+      v11 = 138543618;
+      v12 = v8;
+      v13 = 2112;
+      v14 = v9;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Cannot change from removed state to: %@", &v11, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
     metricsEventDispatcher = [(HMDCloudShareTrustManager *)selfCopy metricsEventDispatcher];
     [metricsEventDispatcher submitFailureEventWithEventErrorCode:5];
-
-    v11 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     self->_configureState = state;
-    v12 = *MEMORY[0x277D85DE8];
 
     os_unfair_lock_unlock(&self->_lock);
   }
@@ -958,7 +929,7 @@ void __75__HMDCloudShareTrustManager_messenger_didReceiveInvitationData_completi
 
 - (void)_homeDidBecomeTrustZoneCapable:(id)capable
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   capableCopy = capable;
   queue = [(HMDCloudShareTrustManager *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -969,9 +940,9 @@ void __75__HMDCloudShareTrustManager_messenger_didReceiveInvitationData_completi
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v16 = 138543362;
-    v17 = v9;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Owner is now capable of establishing trust zones", &v16, 0xCu);
+    v15 = 138543362;
+    v16 = v9;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Owner is now capable of establishing trust zones", &v15, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -985,9 +956,9 @@ void __75__HMDCloudShareTrustManager_messenger_didReceiveInvitationData_completi
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       v14 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v14;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Skipping reconfigure since a request invite timer exists", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v14;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Skipping reconfigure since a request invite timer exists", &v15, 0xCu);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -997,8 +968,6 @@ void __75__HMDCloudShareTrustManager_messenger_didReceiveInvitationData_completi
   {
     [(HMDCloudShareTrustManager *)selfCopy _configure];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)homeDidBecomeTrustZoneCapable:(id)capable
@@ -1017,16 +986,16 @@ void __75__HMDCloudShareTrustManager_messenger_didReceiveInvitationData_completi
 
 - (void)sendShareInvitation:(id)invitation toUser:(id)user device:(id)device
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   invitationCopy = invitation;
   userCopy = user;
   deviceCopy = device;
   queue = [(HMDCloudShareTrustManager *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v41 = 0;
-  v12 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:invitationCopy requiringSecureCoding:1 error:&v41];
-  v13 = v41;
+  v40 = 0;
+  v12 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:invitationCopy requiringSecureCoding:1 error:&v40];
+  v13 = v40;
   if (v12)
   {
     aBlock[0] = MEMORY[0x277D85DD0];
@@ -1035,7 +1004,7 @@ void __75__HMDCloudShareTrustManager_messenger_didReceiveInvitationData_completi
     aBlock[3] = &unk_27867CBC8;
     aBlock[4] = self;
     v14 = userCopy;
-    v40 = v14;
+    v39 = v14;
     v15 = _Block_copy(aBlock);
     if (!(v14 | deviceCopy))
     {
@@ -1045,8 +1014,8 @@ void __75__HMDCloudShareTrustManager_messenger_didReceiveInvitationData_completi
     v16 = v15;
     if (v14)
     {
-      v36 = userCopy;
-      v37 = v13;
+      v35 = userCopy;
+      v36 = v13;
       v17 = objc_autoreleasePoolPush();
       selfCopy = self;
       v19 = HMFGetOSLogHandle();
@@ -1055,9 +1024,9 @@ void __75__HMDCloudShareTrustManager_messenger_didReceiveInvitationData_completi
         v20 = HMFGetLogIdentifier();
         shortDescription = [v14 shortDescription];
         *buf = 138543618;
-        v43 = v20;
-        v44 = 2112;
-        v45 = shortDescription;
+        v42 = v20;
+        v43 = 2112;
+        v44 = shortDescription;
         _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Sending trust zone invitation to user: %@", buf, 0x16u);
       }
 
@@ -1067,8 +1036,8 @@ void __75__HMDCloudShareTrustManager_messenger_didReceiveInvitationData_completi
       v24 = [MEMORY[0x277CBEB98] set];
       [cloudShareMessenger sendShareInvitationData:v12 toUser:v14 minimumHomeKitVersion:v23 requiredSupportedFeatures:v24 completion:v16];
 
-      userCopy = v36;
-      v13 = v37;
+      userCopy = v35;
+      v13 = v36;
     }
 
     else
@@ -1086,15 +1055,15 @@ LABEL_15:
       if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
       {
         HMFGetLogIdentifier();
-        v33 = v38 = v13;
+        v33 = v37 = v13;
         shortDescription2 = [deviceCopy shortDescription];
         *buf = 138543618;
-        v43 = v33;
-        v44 = 2112;
-        v45 = shortDescription2;
+        v42 = v33;
+        v43 = 2112;
+        v44 = shortDescription2;
         _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_INFO, "%{public}@Sending trust zone invitation to device: %@", buf, 0x16u);
 
-        v13 = v38;
+        v13 = v37;
       }
 
       objc_autoreleasePoolPop(v30);
@@ -1112,9 +1081,9 @@ LABEL_15:
   {
     v28 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v43 = v28;
-    v44 = 2112;
-    v45 = v13;
+    v42 = v28;
+    v43 = 2112;
+    v44 = v13;
     _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Failed to serialize trust zone invitation: %@", buf, 0x16u);
   }
 
@@ -1123,12 +1092,11 @@ LABEL_15:
   [metricsEventDispatcher submitFailureEventWithEventErrorCode:10 error:v13];
 
 LABEL_16:
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void __63__HMDCloudShareTrustManager_sendShareInvitation_toUser_device___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = objc_autoreleasePoolPush();
   v7 = *(a1 + 32);
@@ -1141,9 +1109,9 @@ void __63__HMDCloudShareTrustManager_sendShareInvitation_toUser_device___block_i
       v10 = HMFGetLogIdentifier();
       v11 = [*(a1 + 40) uuid];
       *buf = 138543618;
-      v34 = v10;
-      v35 = 2112;
-      v36 = v11;
+      v33 = v10;
+      v34 = 2112;
+      v35 = v11;
       _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Trust zone invitation was accepted by user with id: %@", buf, 0x16u);
     }
 
@@ -1160,9 +1128,9 @@ void __63__HMDCloudShareTrustManager_sendShareInvitation_toUser_device___block_i
         v16 = HMFGetLogIdentifier();
         v17 = [*(a1 + 40) uuid];
         *buf = 138543618;
-        v34 = v16;
-        v35 = 2112;
-        v36 = v17;
+        v33 = v16;
+        v34 = 2112;
+        v35 = v17;
         _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@User already has cloud share ID. Skip cloud pull. user id: %@", buf, 0x16u);
       }
 
@@ -1179,18 +1147,18 @@ void __63__HMDCloudShareTrustManager_sendShareInvitation_toUser_device___block_i
       v26 = [v24 schedulerWithDispatchQueue:v25];
       v27 = [v23 reschedule:v26];
 
-      v32[0] = MEMORY[0x277D85DD0];
-      v32[1] = 3221225472;
-      v32[2] = __63__HMDCloudShareTrustManager_sendShareInvitation_toUser_device___block_invoke_29;
-      v32[3] = &unk_27868A250;
-      v32[4] = *(a1 + 32);
-      v28 = [v27 addFailureBlock:v32];
       v31[0] = MEMORY[0x277D85DD0];
       v31[1] = 3221225472;
-      v31[2] = __63__HMDCloudShareTrustManager_sendShareInvitation_toUser_device___block_invoke_30;
-      v31[3] = &unk_27868A200;
+      v31[2] = __63__HMDCloudShareTrustManager_sendShareInvitation_toUser_device___block_invoke_29;
+      v31[3] = &unk_27868A250;
       v31[4] = *(a1 + 32);
-      v29 = [v27 addSuccessBlock:v31];
+      v28 = [v27 addFailureBlock:v31];
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = __63__HMDCloudShareTrustManager_sendShareInvitation_toUser_device___block_invoke_30;
+      v30[3] = &unk_27868A200;
+      v30[4] = *(a1 + 32);
+      v29 = [v27 addSuccessBlock:v30];
     }
   }
 
@@ -1201,11 +1169,11 @@ void __63__HMDCloudShareTrustManager_sendShareInvitation_toUser_device___block_i
       v18 = HMFGetLogIdentifier();
       v19 = [*(a1 + 40) uuid];
       *buf = 138543874;
-      v34 = v18;
-      v35 = 2112;
-      v36 = v19;
-      v37 = 2112;
-      v38 = v5;
+      v33 = v18;
+      v34 = 2112;
+      v35 = v19;
+      v36 = 2112;
+      v37 = v5;
       _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Trust zone invitation was not accepted by user with id: %@ error: %@", buf, 0x20u);
     }
 
@@ -1213,13 +1181,11 @@ void __63__HMDCloudShareTrustManager_sendShareInvitation_toUser_device___block_i
     v20 = [*(a1 + 32) metricsEventDispatcher];
     [v20 submitFailureEventWithEventErrorCode:11 error:v5];
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __63__HMDCloudShareTrustManager_sendShareInvitation_toUser_device___block_invoke_29(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -1227,23 +1193,21 @@ void __63__HMDCloudShareTrustManager_sendShareInvitation_toUser_device___block_i
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v10 = 138543618;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Cloud pull fail with error:%@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Cloud pull fail with error:%@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   v8 = [*(a1 + 32) metricsEventDispatcher];
   [v8 submitFailureEventWithEventErrorCode:12 error:v3];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __63__HMDCloudShareTrustManager_sendShareInvitation_toUser_device___block_invoke_30(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -1251,45 +1215,43 @@ void __63__HMDCloudShareTrustManager_sendShareInvitation_toUser_device___block_i
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Cloud pull was successful", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Cloud pull was successful", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
   [*(a1 + 32) updateCloudShareIDForAllUsers];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)discoverUntrustedUsers
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDCloudShareTrustManager *)self dataSource];
   selfCopy = self;
   v4 = [dataSource homeForCloudShareTrustManager:self];
 
   v5 = [MEMORY[0x277CBEB58] set];
+  v46 = 0u;
   v47 = 0u;
   v48 = 0u;
   v49 = 0u;
-  v50 = 0u;
   users = [v4 users];
-  v7 = [users countByEnumeratingWithState:&v47 objects:v57 count:16];
+  v7 = [users countByEnumeratingWithState:&v46 objects:v56 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v48;
+    v9 = *v47;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v48 != v9)
+        if (*v47 != v9)
         {
           objc_enumerationMutation(users);
         }
 
-        v11 = *(*(&v47 + 1) + 8 * i);
+        v11 = *(*(&v46 + 1) + 8 * i);
         cloudShareID = [v11 cloudShareID];
         if (cloudShareID)
         {
@@ -1303,34 +1265,34 @@ void __63__HMDCloudShareTrustManager_sendShareInvitation_toUser_device___block_i
         }
       }
 
-      v8 = [users countByEnumeratingWithState:&v47 objects:v57 count:16];
+      v8 = [users countByEnumeratingWithState:&v46 objects:v56 count:16];
     }
 
     while (v8);
   }
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   cloudZone = [(HMDCloudShareTrustManager *)selfCopy cloudZone];
   participants = [cloudZone participants];
 
-  v17 = [participants countByEnumeratingWithState:&v43 objects:v56 count:16];
+  v17 = [participants countByEnumeratingWithState:&v42 objects:v55 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v44;
+    v19 = *v43;
     do
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v44 != v19)
+        if (*v43 != v19)
         {
           objc_enumerationMutation(participants);
         }
 
-        clientIdentifier = [*(*(&v43 + 1) + 8 * j) clientIdentifier];
+        clientIdentifier = [*(*(&v42 + 1) + 8 * j) clientIdentifier];
         v22 = [v4 userWithUUID:clientIdentifier];
 
         if (v22)
@@ -1339,34 +1301,34 @@ void __63__HMDCloudShareTrustManager_sendShareInvitation_toUser_device___block_i
         }
       }
 
-      v18 = [participants countByEnumeratingWithState:&v43 objects:v56 count:16];
+      v18 = [participants countByEnumeratingWithState:&v42 objects:v55 count:16];
     }
 
     while (v18);
   }
 
-  v37 = v4;
+  v36 = v4;
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   v23 = v5;
-  v24 = [v23 countByEnumeratingWithState:&v39 objects:v55 count:16];
+  v24 = [v23 countByEnumeratingWithState:&v38 objects:v54 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v40;
+    v26 = *v39;
     do
     {
       for (k = 0; k != v25; ++k)
       {
-        if (*v40 != v26)
+        if (*v39 != v26)
         {
           objc_enumerationMutation(v23);
         }
 
-        v28 = *(*(&v39 + 1) + 8 * k);
+        v28 = *(*(&v38 + 1) + 8 * k);
         v29 = objc_autoreleasePoolPush();
         v30 = selfCopy;
         v31 = HMFGetOSLogHandle();
@@ -1375,9 +1337,9 @@ void __63__HMDCloudShareTrustManager_sendShareInvitation_toUser_device___block_i
           v32 = HMFGetLogIdentifier();
           uuid = [v28 uuid];
           *buf = 138543618;
-          v52 = v32;
-          v53 = 2112;
-          v54 = uuid;
+          v51 = v32;
+          v52 = 2112;
+          v53 = uuid;
           _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_INFO, "%{public}@Discovered untrusted user with id: %@", buf, 0x16u);
         }
 
@@ -1387,18 +1349,16 @@ void __63__HMDCloudShareTrustManager_sendShareInvitation_toUser_device___block_i
         [delegate cloudShareTrustManager:v30 didRemoveUserWithUUID:uuid2];
       }
 
-      v25 = [v23 countByEnumeratingWithState:&v39 objects:v55 count:16];
+      v25 = [v23 countByEnumeratingWithState:&v38 objects:v54 count:16];
     }
 
     while (v25);
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateCloudShareIDForUser:(id)user
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   userCopy = user;
   queue = [(HMDCloudShareTrustManager *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -1417,9 +1377,9 @@ void __63__HMDCloudShareTrustManager_sendShareInvitation_toUser_device___block_i
         v10 = HMFGetLogIdentifier();
         shortDescription = [userCopy shortDescription];
         *buf = 138543618;
-        v28 = v10;
-        v29 = 2112;
-        v30 = shortDescription;
+        v27 = v10;
+        v28 = 2112;
+        v29 = shortDescription;
         _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Fetching cloud share ID for shared user: %@", buf, 0x16u);
       }
 
@@ -1432,62 +1392,33 @@ void __63__HMDCloudShareTrustManager_sendShareInvitation_toUser_device___block_i
       v17 = [v15 schedulerWithDispatchQueue:queue2];
       v18 = [v14 reschedule:v17];
 
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __55__HMDCloudShareTrustManager_updateCloudShareIDForUser___block_invoke;
-      v25[3] = &unk_27868A1D8;
-      v25[4] = selfCopy;
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __55__HMDCloudShareTrustManager_updateCloudShareIDForUser___block_invoke;
+      v24[3] = &unk_27868A1D8;
+      v24[4] = selfCopy;
       v19 = userCopy;
-      v26 = v19;
-      v20 = [v18 addFailureBlock:v25];
-      v23[0] = MEMORY[0x277D85DD0];
-      v23[1] = 3221225472;
-      v23[2] = __55__HMDCloudShareTrustManager_updateCloudShareIDForUser___block_invoke_22;
-      v23[3] = &unk_278672798;
-      v23[4] = selfCopy;
-      v24 = v19;
-      v21 = [v18 addSuccessBlock:v23];
+      v25 = v19;
+      v20 = [v18 addFailureBlock:v24];
+      v22[0] = MEMORY[0x277D85DD0];
+      v22[1] = 3221225472;
+      v22[2] = __55__HMDCloudShareTrustManager_updateCloudShareIDForUser___block_invoke_22;
+      v22[3] = &unk_278672798;
+      v22[4] = selfCopy;
+      v23 = v19;
+      v21 = [v18 addSuccessBlock:v22];
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __55__HMDCloudShareTrustManager_updateCloudShareIDForUser___block_invoke(uint64_t a1, void *a2)
-{
-  v17 = *MEMORY[0x277D85DE8];
-  v3 = a2;
-  v4 = objc_autoreleasePoolPush();
-  v5 = *(a1 + 32);
-  v6 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-  {
-    v7 = HMFGetLogIdentifier();
-    v8 = [*(a1 + 40) shortDescription];
-    v11 = 138543874;
-    v12 = v7;
-    v13 = 2112;
-    v14 = v8;
-    v15 = 2112;
-    v16 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch cloud share ID for %@: %@", &v11, 0x20u);
-  }
-
-  objc_autoreleasePoolPop(v4);
-  v9 = [*(a1 + 32) metricsEventDispatcher];
-  [v9 submitFailureEventWithEventErrorCode:4 error:v3];
-
-  v10 = *MEMORY[0x277D85DE8];
-}
-
-void __55__HMDCloudShareTrustManager_updateCloudShareIDForUser___block_invoke_22(uint64_t a1, void *a2)
 {
   v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
   v6 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
     v8 = [*(a1 + 40) shortDescription];
@@ -1497,55 +1428,76 @@ void __55__HMDCloudShareTrustManager_updateCloudShareIDForUser___block_invoke_22
     v13 = v8;
     v14 = 2112;
     v15 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Received cloud share ID for %@: %@", &v10, 0x20u);
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch cloud share ID for %@: %@", &v10, 0x20u);
+  }
+
+  objc_autoreleasePoolPop(v4);
+  v9 = [*(a1 + 32) metricsEventDispatcher];
+  [v9 submitFailureEventWithEventErrorCode:4 error:v3];
+}
+
+void __55__HMDCloudShareTrustManager_updateCloudShareIDForUser___block_invoke_22(uint64_t a1, void *a2)
+{
+  v15 = *MEMORY[0x277D85DE8];
+  v3 = a2;
+  v4 = objc_autoreleasePoolPush();
+  v5 = *(a1 + 32);
+  v6 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  {
+    v7 = HMFGetLogIdentifier();
+    v8 = [*(a1 + 40) shortDescription];
+    v9 = 138543874;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Received cloud share ID for %@: %@", &v9, 0x20u);
   }
 
   objc_autoreleasePoolPop(v4);
   [*(a1 + 40) updateCloudShareID:v3];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateCloudShareIDForAllUsers
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   queue = [(HMDCloudShareTrustManager *)self queue];
   dispatch_assert_queue_V2(queue);
 
   dataSource = [(HMDCloudShareTrustManager *)self dataSource];
   v5 = [dataSource homeForCloudShareTrustManager:self];
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   users = [v5 users];
-  v7 = [users countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [users countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(users);
         }
 
-        [(HMDCloudShareTrustManager *)self updateCloudShareIDForUser:*(*(&v12 + 1) + 8 * v10++)];
+        [(HMDCloudShareTrustManager *)self updateCloudShareIDForUser:*(*(&v11 + 1) + 8 * v10++)];
       }
 
       while (v8 != v10);
-      v8 = [users countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [users countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateCurrentUserCloudShareID
@@ -1576,7 +1528,7 @@ void __55__HMDCloudShareTrustManager_updateCloudShareIDForUser___block_invoke_22
 
 void __58__HMDCloudShareTrustManager_updateCurrentUserCloudShareID__block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -1584,11 +1536,11 @@ void __58__HMDCloudShareTrustManager_updateCurrentUserCloudShareID__block_invoke
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v10 = 138543618;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Unable to fetch cloud share id for current user, error: %@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Unable to fetch cloud share id for current user, error: %@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -1597,13 +1549,11 @@ void __58__HMDCloudShareTrustManager_updateCurrentUserCloudShareID__block_invoke
   [*(a1 + 32) setCloudZone:0];
   v8 = [*(a1 + 32) metricsEventDispatcher];
   [v8 submitFailureEventWithEventErrorCode:4 error:v3];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __58__HMDCloudShareTrustManager_updateCurrentUserCloudShareID__block_invoke_21(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) dataSource];
   v5 = [v4 homeForCloudShareTrustManager:*(a1 + 32)];
@@ -1615,22 +1565,20 @@ void __58__HMDCloudShareTrustManager_updateCurrentUserCloudShareID__block_invoke
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = HMFGetLogIdentifier();
-    v12 = 138543618;
-    v13 = v10;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Received current user cloud share id: %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v10;
+    v13 = 2112;
+    v14 = v3;
+    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Received current user cloud share id: %@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
   [v6 updateCloudShareID:v3];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeTrust
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   queue = [(HMDCloudShareTrustManager *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -1644,9 +1592,9 @@ void __58__HMDCloudShareTrustManager_updateCurrentUserCloudShareID__block_invoke
       v7 = HMFGetLogIdentifier();
       v8 = HMDCloudShareTrustManagerConfigureStateAsString([(HMDCloudShareTrustManager *)selfCopy configureState]);
       *buf = 138543618;
-      v32 = v7;
-      v33 = 2112;
-      v34 = v8;
+      v31 = v7;
+      v32 = 2112;
+      v33 = v8;
       _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Skipping remove trust due to configure state: %@", buf, 0x16u);
     }
 
@@ -1673,7 +1621,7 @@ void __58__HMDCloudShareTrustManager_updateCurrentUserCloudShareID__block_invoke
       {
         v17 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v32 = v17;
+        v31 = v17;
         _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Removing owned cloud share trust", buf, 0xCu);
       }
 
@@ -1688,7 +1636,7 @@ void __58__HMDCloudShareTrustManager_updateCurrentUserCloudShareID__block_invoke
       {
         v20 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v32 = v20;
+        v31 = v20;
         _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Removing shared cloud share trust", buf, 0xCu);
       }
 
@@ -1703,26 +1651,24 @@ void __58__HMDCloudShareTrustManager_updateCurrentUserCloudShareID__block_invoke
     v24 = [v22 schedulerWithDispatchQueue:queue2];
     v25 = [v21 reschedule:v24];
 
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __40__HMDCloudShareTrustManager_removeTrust__block_invoke;
-    v30[3] = &unk_27868A250;
-    v30[4] = selfCopy2;
-    v26 = [v25 addFailureBlock:v30];
     v29[0] = MEMORY[0x277D85DD0];
     v29[1] = 3221225472;
-    v29[2] = __40__HMDCloudShareTrustManager_removeTrust__block_invoke_19;
-    v29[3] = &unk_27868A200;
+    v29[2] = __40__HMDCloudShareTrustManager_removeTrust__block_invoke;
+    v29[3] = &unk_27868A250;
     v29[4] = selfCopy2;
-    v27 = [v25 addSuccessBlock:v29];
+    v26 = [v25 addFailureBlock:v29];
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __40__HMDCloudShareTrustManager_removeTrust__block_invoke_19;
+    v28[3] = &unk_27868A200;
+    v28[4] = selfCopy2;
+    v27 = [v25 addSuccessBlock:v28];
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __40__HMDCloudShareTrustManager_removeTrust__block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -1730,23 +1676,21 @@ void __40__HMDCloudShareTrustManager_removeTrust__block_invoke(uint64_t a1, void
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v10 = 138543618;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed cloud share trust removal, error: %@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed cloud share trust removal, error: %@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   v8 = [*(a1 + 32) metricsEventDispatcher];
   [v8 submitFailureEventWithEventErrorCode:3 error:v3];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __40__HMDCloudShareTrustManager_removeTrust__block_invoke_19(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -1754,9 +1698,9 @@ void __40__HMDCloudShareTrustManager_removeTrust__block_invoke_19(uint64_t a1, v
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Cloud share trust has been removed", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Cloud share trust has been removed", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -1764,13 +1708,11 @@ void __40__HMDCloudShareTrustManager_removeTrust__block_invoke_19(uint64_t a1, v
   [*(a1 + 32) setLocalZone:0];
   v8 = [*(a1 + 32) delegate];
   [v8 didRemoveTrustZoneInCloudShareTrustManager:*(a1 + 32)];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_finishConfigure
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   queue = [(HMDCloudShareTrustManager *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -1784,9 +1726,9 @@ void __40__HMDCloudShareTrustManager_removeTrust__block_invoke_19(uint64_t a1, v
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Trust manager finished configuring", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Trust manager finished configuring", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -1800,13 +1742,11 @@ void __40__HMDCloudShareTrustManager_removeTrust__block_invoke_19(uint64_t a1, v
   {
     [(HMDCloudShareTrustManager *)selfCopy updateCurrentUserCloudShareID];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_configureOwnerCloudShareIDWithCloudZone:(id)zone
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   zoneCopy = zone;
   queue = [(HMDCloudShareTrustManager *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -1818,7 +1758,7 @@ void __40__HMDCloudShareTrustManager_removeTrust__block_invoke_19(uint64_t a1, v
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v21 = v9;
+    v20 = v9;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Fetching trust owner cloud share id", buf, 0xCu);
   }
 
@@ -1829,25 +1769,23 @@ void __40__HMDCloudShareTrustManager_removeTrust__block_invoke_19(uint64_t a1, v
   v13 = [v11 schedulerWithDispatchQueue:queue2];
   v14 = [fetchOwnerParticipantCloudShareID reschedule:v13];
 
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __70__HMDCloudShareTrustManager__configureOwnerCloudShareIDWithCloudZone___block_invoke;
-  v19[3] = &unk_27868A250;
-  v19[4] = selfCopy;
-  v15 = [v14 addFailureBlock:v19];
   v18[0] = MEMORY[0x277D85DD0];
   v18[1] = 3221225472;
-  v18[2] = __70__HMDCloudShareTrustManager__configureOwnerCloudShareIDWithCloudZone___block_invoke_17;
-  v18[3] = &unk_278672770;
+  v18[2] = __70__HMDCloudShareTrustManager__configureOwnerCloudShareIDWithCloudZone___block_invoke;
+  v18[3] = &unk_27868A250;
   v18[4] = selfCopy;
-  v16 = [v14 addSuccessBlock:v18];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = [v14 addFailureBlock:v18];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __70__HMDCloudShareTrustManager__configureOwnerCloudShareIDWithCloudZone___block_invoke_17;
+  v17[3] = &unk_278672770;
+  v17[4] = selfCopy;
+  v16 = [v14 addSuccessBlock:v17];
 }
 
 void __70__HMDCloudShareTrustManager__configureOwnerCloudShareIDWithCloudZone___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -1855,11 +1793,11 @@ void __70__HMDCloudShareTrustManager__configureOwnerCloudShareIDWithCloudZone___
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v10 = 138543618;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Could not read owner cloud share id in trust zone, error: %@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Could not read owner cloud share id in trust zone, error: %@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -1869,13 +1807,11 @@ void __70__HMDCloudShareTrustManager__configureOwnerCloudShareIDWithCloudZone___
   [*(a1 + 32) setCloudZone:0];
   v8 = [*(a1 + 32) metricsEventDispatcher];
   [v8 submitFailureEventWithEventErrorCode:4 error:v3];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __70__HMDCloudShareTrustManager__configureOwnerCloudShareIDWithCloudZone___block_invoke_17(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) delegate];
   [v4 cloudShareTrustManager:*(a1 + 32) didFetchOwnerCloudShareID:v3];
@@ -1886,23 +1822,21 @@ void __70__HMDCloudShareTrustManager__configureOwnerCloudShareIDWithCloudZone___
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543618;
-    v11 = v8;
-    v12 = 2112;
-    v13 = v3;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Read trust zone owner cloud share ID: %@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v8;
+    v11 = 2112;
+    v12 = v3;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Read trust zone owner cloud share ID: %@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   [*(a1 + 32) setOwnerCloudShareID:v3];
   [*(a1 + 32) _finishConfigure];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_configureWithFetchZoneResult:(id)result error:(id)error
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   errorCopy = error;
   queue = [(HMDCloudShareTrustManager *)self queue];
@@ -1917,9 +1851,9 @@ void __70__HMDCloudShareTrustManager__configureOwnerCloudShareIDWithCloudZone___
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v13 = HMFGetLogIdentifier();
-      *v39 = 138543362;
-      *&v39[4] = v13;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Did fetch trust cloud zone", v39, 0xCu);
+      *v38 = 138543362;
+      *&v38[4] = v13;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Did fetch trust cloud zone", v38, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -1946,9 +1880,9 @@ void __70__HMDCloudShareTrustManager__configureOwnerCloudShareIDWithCloudZone___
       if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
         v22 = HMFGetLogIdentifier();
-        *v39 = 138543362;
-        *&v39[4] = v22;
-        _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Starting participant manager to share trust zone", v39, 0xCu);
+        *v38 = 138543362;
+        *&v38[4] = v22;
+        _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Starting participant manager to share trust zone", v38, 0xCu);
       }
 
       objc_autoreleasePoolPop(v19);
@@ -1985,18 +1919,18 @@ void __70__HMDCloudShareTrustManager__configureOwnerCloudShareIDWithCloudZone___
       v34 = HMFGetLogIdentifier();
       isOwnedTrust = [(HMDCloudShareTrustManager *)selfCopy isOwnedTrust];
       v36 = @"Shared Zone";
-      *v39 = 138543874;
-      *&v39[4] = v34;
-      *&v39[12] = 2112;
+      *v38 = 138543874;
+      *&v38[4] = v34;
+      *&v38[12] = 2112;
       if (isOwnedTrust)
       {
         v36 = @"Owned Zone";
       }
 
-      *&v39[14] = v36;
-      v40 = 2112;
-      v41 = errorCopy;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to open trust zone: %@, error: %@", v39, 0x20u);
+      *&v38[14] = v36;
+      v39 = 2112;
+      v40 = errorCopy;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to open trust zone: %@, error: %@", v38, 0x20u);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -2012,15 +1946,13 @@ void __70__HMDCloudShareTrustManager__configureOwnerCloudShareIDWithCloudZone___
       v37 = 2;
     }
 
-    [cloudZone4 submitFailureEventWithEventErrorCode:v37 error:{errorCopy, *v39}];
+    [cloudZone4 submitFailureEventWithEventErrorCode:v37 error:{errorCopy, *v38, *&v38[8]}];
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_requestShareInvitationForSharedZone
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   queue = [(HMDCloudShareTrustManager *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -2037,9 +1969,9 @@ void __70__HMDCloudShareTrustManager__configureOwnerCloudShareIDWithCloudZone___
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         v9 = HMFGetLogIdentifier();
-        v22 = 138543362;
-        v23 = v9;
-        _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@We have a cloud share ID for the owner, but we aren't invited to the share", &v22, 0xCu);
+        v21 = 138543362;
+        v22 = v9;
+        _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@We have a cloud share ID for the owner, but we aren't invited to the share", &v21, 0xCu);
       }
 
       objc_autoreleasePoolPop(v6);
@@ -2054,11 +1986,11 @@ void __70__HMDCloudShareTrustManager__configureOwnerCloudShareIDWithCloudZone___
     {
       v14 = HMFGetLogIdentifier();
       uuid = [v10 uuid];
-      v22 = 138543618;
-      v23 = v14;
-      v24 = 2112;
-      v25 = uuid;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Requesting trust zone share invitation from trust owner with id: %@", &v22, 0x16u);
+      v21 = 138543618;
+      v22 = v14;
+      v23 = 2112;
+      v24 = uuid;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Requesting trust zone share invitation from trust owner with id: %@", &v21, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -2074,20 +2006,18 @@ void __70__HMDCloudShareTrustManager__configureOwnerCloudShareIDWithCloudZone___
     if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
       v20 = HMFGetLogIdentifier();
-      v22 = 138543362;
-      v23 = v20;
-      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Skipping request for trust invitation due to owner being incapable of setting up trust", &v22, 0xCu);
+      v21 = 138543362;
+      v22 = v20;
+      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Skipping request for trust invitation due to owner being incapable of setting up trust", &v21, 0xCu);
     }
 
     objc_autoreleasePoolPop(v17);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_configureWithSharedZone
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   queue = [(HMDCloudShareTrustManager *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -2109,18 +2039,18 @@ void __70__HMDCloudShareTrustManager__configureOwnerCloudShareIDWithCloudZone___
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v23 = v14;
-      v24 = 2112;
-      v25 = v9;
+      v22 = v14;
+      v23 = 2112;
+      v24 = v9;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Got zoneID for shared trust zone: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
     database3 = [(HMDCloudShareTrustManager *)selfCopy database];
     v16 = objc_alloc_init(MEMORY[0x277D17068]);
-    v21 = 0;
-    v17 = [database3 sharedZonesWithID:v9 configuration:v16 delegate:selfCopy error:&v21];
-    v18 = v21;
+    v20 = 0;
+    v17 = [database3 sharedZonesWithID:v9 configuration:v16 delegate:selfCopy error:&v20];
+    v18 = v20;
 
     [(HMDCloudShareTrustManager *)selfCopy _configureWithFetchZoneResult:v17 error:v18];
   }
@@ -2131,7 +2061,7 @@ void __70__HMDCloudShareTrustManager__configureOwnerCloudShareIDWithCloudZone___
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v23 = v19;
+      v22 = v19;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@No shared trust zone exists yet", buf, 0xCu);
     }
 
@@ -2139,8 +2069,6 @@ void __70__HMDCloudShareTrustManager__configureOwnerCloudShareIDWithCloudZone___
     [(HMDCloudShareTrustManager *)selfCopy _requestShareInvitationForSharedZone];
     [(HMDCloudShareTrustManager *)selfCopy setConfigureState:0];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_configureWithOwnedZone
@@ -2162,7 +2090,7 @@ void __70__HMDCloudShareTrustManager__configureOwnerCloudShareIDWithCloudZone___
 
 - (void)_configure
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   queue = [(HMDCloudShareTrustManager *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -2175,11 +2103,11 @@ void __70__HMDCloudShareTrustManager__configureOwnerCloudShareIDWithCloudZone___
     {
       v7 = HMFGetLogIdentifier();
       v8 = HMDCloudShareTrustManagerConfigureStateAsString([(HMDCloudShareTrustManager *)selfCopy configureState]);
-      v18 = 138543618;
-      v19 = v7;
-      v20 = 2112;
-      v21 = v8;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Skipping cloud share trust configure. Trust already in configure state: %@", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v7;
+      v19 = 2112;
+      v20 = v8;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Skipping cloud share trust configure. Trust already in configure state: %@", &v17, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -2201,9 +2129,9 @@ void __70__HMDCloudShareTrustManager__configureOwnerCloudShareIDWithCloudZone___
       if (v14)
       {
         v15 = HMFGetLogIdentifier();
-        v18 = 138543362;
-        v19 = v15;
-        _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Configuring cloud share trust with owned trust", &v18, 0xCu);
+        v17 = 138543362;
+        v18 = v15;
+        _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Configuring cloud share trust with owned trust", &v17, 0xCu);
       }
 
       objc_autoreleasePoolPop(v11);
@@ -2215,17 +2143,15 @@ void __70__HMDCloudShareTrustManager__configureOwnerCloudShareIDWithCloudZone___
       if (v14)
       {
         v16 = HMFGetLogIdentifier();
-        v18 = 138543362;
-        v19 = v16;
-        _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Configuring cloud share trust with shared trust", &v18, 0xCu);
+        v17 = 138543362;
+        v18 = v16;
+        _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Configuring cloud share trust with shared trust", &v17, 0xCu);
       }
 
       objc_autoreleasePoolPop(v11);
       [(HMDCloudShareTrustManager *)selfCopy2 _configureWithSharedZone];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configure
@@ -2315,10 +2241,9 @@ HMDCloudShareParticipantsManager *__131__HMDCloudShareTrustManager_initWithDatab
 
 void __40__HMDCloudShareTrustManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v55;
-  logCategory__hmf_once_v55 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v55;
+  logCategory__hmf_once_v55 = v0;
 }
 
 @end

@@ -170,57 +170,59 @@ void __56__WBSAppLink_getAppLinkAttributesWithCompletionHandler___block_invoke(u
 
 void __78__WBSAppLink_openExternallyWithWebBrowserState_referrerURL_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v5)
   {
-    v16 = 0;
-    v7 = [v5 setEnabled:1 error:&v16];
-    v8 = v16;
-    if ((v7 & 1) == 0)
+    v20 = 0;
+    v9 = [v5 setEnabled:1 error:&v20];
+    v10 = v20;
+    v12 = v10;
+    if ((v9 & 1) == 0)
     {
-      v9 = WBS_LOG_CHANNEL_PREFIXUniversalLinks();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v13 = WBS_LOG_CHANNEL_PREFIXUniversalLinks(v10, v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        __78__WBSAppLink_openExternallyWithWebBrowserState_referrerURL_completionHandler___block_invoke_2_cold_1(a1, v9);
+        __78__WBSAppLink_openExternallyWithWebBrowserState_referrerURL_completionHandler___block_invoke_2_cold_1(a1, v13);
       }
     }
 
     if (*(a1 + 40) || *(a1 + 48))
     {
-      v10 = objc_alloc_init(MEMORY[0x1E69636B8]);
-      [v10 setReferrerURL:*(a1 + 48)];
-      v11 = *(a1 + 40);
-      if (v11)
+      v14 = objc_alloc_init(MEMORY[0x1E69636B8]);
+      [v14 setReferrerURL:*(a1 + 48)];
+      v15 = *(a1 + 40);
+      if (v15)
       {
-        v17 = *MEMORY[0x1E699F900];
-        v18[0] = v11;
-        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
-        [v10 setFrontBoardOptions:v12];
+        v21 = *MEMORY[0x1E699F900];
+        v22[0] = v15;
+        v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+        [v14 setFrontBoardOptions:v16];
       }
     }
 
     else
     {
-      v10 = 0;
+      v14 = 0;
     }
 
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __78__WBSAppLink_openExternallyWithWebBrowserState_referrerURL_completionHandler___block_invoke_4;
-    v14[3] = &unk_1E82832F8;
-    v14[4] = *(a1 + 32);
-    v15 = *(a1 + 56);
-    [v5 openWithConfiguration:v10 completionHandler:v14];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __78__WBSAppLink_openExternallyWithWebBrowserState_referrerURL_completionHandler___block_invoke_4;
+    v18[3] = &unk_1E82832F8;
+    v18[4] = *(a1 + 32);
+    v19 = *(a1 + 56);
+    [v5 openWithConfiguration:v14 completionHandler:v18];
   }
 
   else
   {
-    v13 = WBS_LOG_CHANNEL_PREFIXUniversalLinks();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v17 = WBS_LOG_CHANNEL_PREFIXUniversalLinks(v6, v7);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      __78__WBSAppLink_openExternallyWithWebBrowserState_referrerURL_completionHandler___block_invoke_2_cold_2(a1, v13);
+      __78__WBSAppLink_openExternallyWithWebBrowserState_referrerURL_completionHandler___block_invoke_2_cold_2(a1, v17);
     }
 
     (*(*(a1 + 56) + 16))();
@@ -229,24 +231,24 @@ void __78__WBSAppLink_openExternallyWithWebBrowserState_referrerURL_completionHa
 
 void __78__WBSAppLink_openExternallyWithWebBrowserState_referrerURL_completionHandler___block_invoke_4(uint64_t a1, int a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = WBS_LOG_CHANNEL_PREFIXUniversalLinks();
-  v7 = v6;
+  v7 = WBS_LOG_CHANNEL_PREFIXUniversalLinks(v5, v6);
+  v8 = v7;
   if (a2)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v8 = *(*(a1 + 32) + 24);
-      v9 = 138739971;
-      v10 = v8;
-      _os_log_impl(&dword_1C6968000, v7, OS_LOG_TYPE_INFO, "Opened App Link externally for URL %{sensitive}@", &v9, 0xCu);
+      v9 = *(*(a1 + 32) + 24);
+      v10 = 138739971;
+      v11 = v9;
+      _os_log_impl(&dword_1C6968000, v8, OS_LOG_TYPE_INFO, "Opened App Link externally for URL %{sensitive}@", &v10, 0xCu);
     }
   }
 
-  else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __78__WBSAppLink_openExternallyWithWebBrowserState_referrerURL_completionHandler___block_invoke_4_cold_1(a1, v7);
+    __78__WBSAppLink_openExternallyWithWebBrowserState_referrerURL_completionHandler___block_invoke_4_cold_1(a1, v8);
   }
 
   (*(*(a1 + 40) + 16))();
@@ -268,29 +270,31 @@ void __78__WBSAppLink_openExternallyWithWebBrowserState_referrerURL_completionHa
 void __43__WBSAppLink_disableWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
+  v7 = v5;
   if (a2)
   {
-    v10 = 0;
-    v6 = [a2 setEnabled:0 error:&v10];
-    v7 = v10;
-    if ((v6 & 1) == 0)
+    v14 = 0;
+    v8 = [a2 setEnabled:0 error:&v14];
+    v9 = v14;
+    v11 = v9;
+    if ((v8 & 1) == 0)
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXUniversalLinks();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v12 = WBS_LOG_CHANNEL_PREFIXUniversalLinks(v9, v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        __78__WBSAppLink_openExternallyWithWebBrowserState_referrerURL_completionHandler___block_invoke_2_cold_1(a1, v8);
+        __78__WBSAppLink_openExternallyWithWebBrowserState_referrerURL_completionHandler___block_invoke_2_cold_1(a1, v12);
       }
     }
 
-    (*(*(a1 + 40) + 16))(*(a1 + 40), v7 == 0);
+    (*(*(a1 + 40) + 16))(*(a1 + 40), v11 == 0);
   }
 
   else
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXUniversalLinks();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v13 = WBS_LOG_CHANNEL_PREFIXUniversalLinks(v5, v6);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      __43__WBSAppLink_disableWithCompletionHandler___block_invoke_cold_2(a1, v9);
+      __43__WBSAppLink_disableWithCompletionHandler___block_invoke_cold_2(a1, v13);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -334,31 +338,32 @@ void __43__WBSAppLink_disableWithCompletionHandler___block_invoke(uint64_t a1, v
 
 void __57__WBSAppLink__getAppLinkForBanner_withCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (!v5)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXUniversalLinks();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v9 = WBS_LOG_CHANNEL_PREFIXUniversalLinks(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v8 = *(*(a1 + 32) + 24);
-      v9 = v7;
-      v10 = [v6 safari_privacyPreservingDescription];
-      v14 = 138740227;
-      v15 = v8;
-      v16 = 2114;
+      v10 = *(*(a1 + 32) + 24);
+      v11 = v9;
+      v12 = [v8 safari_privacyPreservingDescription];
+      v16 = 138740227;
       v17 = v10;
-      _os_log_impl(&dword_1C6968000, v9, OS_LOG_TYPE_INFO, "Failed to resolve App Link for URL %{sensitive}@ with error %{public}@", &v14, 0x16u);
+      v18 = 2114;
+      v19 = v12;
+      _os_log_impl(&dword_1C6968000, v11, OS_LOG_TYPE_INFO, "Failed to resolve App Link for URL %{sensitive}@ with error %{public}@", &v16, 0x16u);
     }
   }
 
   os_unfair_lock_lock((*(a1 + 32) + 8));
   *(*(a1 + 32) + 12) = 1;
-  v11 = *(a1 + 32);
-  v12 = *(v11 + 16);
-  *(v11 + 16) = v5;
-  v13 = v5;
+  v13 = *(a1 + 32);
+  v14 = *(v13 + 16);
+  *(v13 + 16) = v5;
+  v15 = v5;
 
   os_unfair_lock_unlock((*(a1 + 32) + 8));
   (*(*(a1 + 40) + 16))();
@@ -366,7 +371,7 @@ void __57__WBSAppLink__getAppLinkForBanner_withCompletionHandler___block_invoke(
 
 - (id)_synchronouslyFetchAppLinkWithError:(id *)error
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_ivarLock);
   v5 = self->_cachedAppLink;
   didResolveAppLink = self->_didResolveAppLink;
@@ -383,17 +388,17 @@ void __57__WBSAppLink__getAppLinkForBanner_withCompletionHandler___block_invoke(
 
     if (!firstObject)
     {
-      v9 = WBS_LOG_CHANNEL_PREFIXUniversalLinks();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v11 = WBS_LOG_CHANNEL_PREFIXUniversalLinks(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         url = self->_url;
-        v11 = v9;
+        v13 = v11;
         safari_privacyPreservingDescription = [0 safari_privacyPreservingDescription];
-        v14 = 138740227;
-        v15 = url;
-        v16 = 2114;
-        v17 = safari_privacyPreservingDescription;
-        _os_log_impl(&dword_1C6968000, v11, OS_LOG_TYPE_INFO, "Failed to synchronously resolve App Link for URL %{sensitive}@ with error %{public}@", &v14, 0x16u);
+        v16 = 138740227;
+        v17 = url;
+        v18 = 2114;
+        v19 = safari_privacyPreservingDescription;
+        _os_log_impl(&dword_1C6968000, v13, OS_LOG_TYPE_INFO, "Failed to synchronously resolve App Link for URL %{sensitive}@ with error %{public}@", &v16, 0x16u);
       }
     }
 
@@ -599,7 +604,7 @@ void __78__WBSAppLink_openExternallyWithWebBrowserState_referrerURL_completionHa
   OUTLINED_FUNCTION_2_2(a1, a2);
   v3 = [OUTLINED_FUNCTION_3() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1_1(&dword_1C6968000, v4, v5, "Unable to set App Link policy for URL %{sensitive}@ with error %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_1_1(&dword_1C6968000, v4, v5, "Unable to set App Link policy for URL %{sensitive}@ with error %{public}@", v6, v7, v8, v9);
 }
 
 void __78__WBSAppLink_openExternallyWithWebBrowserState_referrerURL_completionHandler___block_invoke_2_cold_2(uint64_t a1, NSObject *a2)
@@ -616,7 +621,7 @@ void __78__WBSAppLink_openExternallyWithWebBrowserState_referrerURL_completionHa
   OUTLINED_FUNCTION_2_2(a1, a2);
   v3 = [OUTLINED_FUNCTION_3() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1_1(&dword_1C6968000, v4, v5, "Unable to externally open App Link for URL %{sensitive}@ with error %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_1_1(&dword_1C6968000, v4, v5, "Unable to externally open App Link for URL %{sensitive}@ with error %{public}@", v6, v7, v8, v9);
 }
 
 void __43__WBSAppLink_disableWithCompletionHandler___block_invoke_cold_2(uint64_t a1, void *a2)
@@ -624,7 +629,7 @@ void __43__WBSAppLink_disableWithCompletionHandler___block_invoke_cold_2(uint64_
   OUTLINED_FUNCTION_2_2(a1, a2);
   v3 = [OUTLINED_FUNCTION_3() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1_1(&dword_1C6968000, v4, v5, "Unable to open URL '%{sensitive}@' in Safari because no LSAppLink was found: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_1_1(&dword_1C6968000, v4, v5, "Unable to open URL '%{sensitive}@' in Safari because no LSAppLink was found: %{public}@", v6, v7, v8, v9);
 }
 
 @end

@@ -57,15 +57,15 @@
 
 - (id)_countryFromTelephony
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E69650A0]) initWithQueue:0];
-  v35 = 0;
-  v3 = [v2 getSubscriptionInfoWithError:&v35];
-  v4 = v35;
+  v37 = 0;
+  v3 = [v2 getSubscriptionInfoWithError:&v37];
+  v4 = v37;
   if (v4)
   {
     v5 = v4;
-    v6 = _BYLoggingFacility();
+    v6 = _BYLoggingFacility(v4);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(BYLocationController *)v5 _countryFromTelephony:v6];
@@ -85,17 +85,17 @@
   }
 
   subscriptionsInUse2 = [v3 subscriptionsInUse];
-  v16 = [subscriptionsInUse2 objectAtIndexedSubscript:0];
-  v34 = 0;
-  v17 = [v2 copyMobileCountryCode:v16 error:&v34];
-  v5 = v34;
+  v17 = [subscriptionsInUse2 objectAtIndexedSubscript:0];
+  v36 = 0;
+  v18 = [v2 copyMobileCountryCode:v17 error:&v36];
+  v5 = v36;
 
   if (v5)
   {
-    v18 = _BYLoggingFacility();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v20 = _BYLoggingFacility(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      [(BYLocationController *)v5 _countryFromTelephony:v18];
+      [(BYLocationController *)v5 _countryFromTelephony:v20];
     }
 
     v13 = 0;
@@ -104,15 +104,16 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v33 = 0;
-  v13 = [v2 copyMobileSubscriberIsoCountryCode:v17 error:&v33];
-  v5 = v33;
-  if (v5)
+  v35 = 0;
+  v13 = [v2 copyMobileSubscriberIsoCountryCode:v18 error:&v35];
+  v27 = v35;
+  v5 = v27;
+  if (v27)
   {
-    v18 = _BYLoggingFacility();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v20 = _BYLoggingFacility(v27);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      [(BYLocationController *)v5 _countryFromTelephony:v18];
+      [(BYLocationController *)v5 _countryFromTelephony:v20];
     }
 
     goto LABEL_14;
@@ -121,17 +122,15 @@ LABEL_14:
 LABEL_15:
 
 LABEL_16:
-  v6 = _BYLoggingFacility();
+  v6 = _BYLoggingFacility(v15);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v37 = v13;
+    v39 = v13;
     _os_log_impl(&dword_1B862F000, v6, OS_LOG_TYPE_DEFAULT, "Country from Telephony: %@", buf, 0xCu);
   }
 
 LABEL_18:
-
-  v31 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -173,48 +172,47 @@ LABEL_18:
       {
         v11 = [aliasesCopy objectAtIndexedSubscript:{v10, v19}];
         v12 = [v6 objectForKey:v11];
+        v13 = v12;
         if (v12)
         {
-          v13 = _BYLoggingFacility();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          v14 = _BYLoggingFacility(v12);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
             *buf = v19;
             v22 = v11;
             v23 = 2112;
-            v24 = v12;
-            _os_log_impl(&dword_1B862F000, v13, OS_LOG_TYPE_DEFAULT, "Setup Assistant Location: Found country '%@', but this is an alias for '%@'", buf, 0x16u);
+            v24 = v13;
+            _os_log_impl(&dword_1B862F000, v14, OS_LOG_TYPE_DEFAULT, "Setup Assistant Location: Found country '%@', but this is an alias for '%@'", buf, 0x16u);
           }
 
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v14 = v12;
+            v15 = v13;
           }
 
           else
           {
-            v20 = v12;
-            v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
+            v20 = v13;
+            v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
           }
 
-          v16 = v14;
-          [aliasesCopy replaceObjectsInRange:v10 withObjectsFromArray:{1, v14}];
-          v15 = [v16 count];
+          v17 = v15;
+          [aliasesCopy replaceObjectsInRange:v10 withObjectsFromArray:{1, v15}];
+          v16 = [v17 count];
         }
 
         else
         {
-          v15 = 1;
+          v16 = 1;
         }
 
-        v10 += v15;
+        v10 += v16;
       }
 
       while (v10 < v9);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return aliasesCopy;
 }
@@ -291,19 +289,20 @@ LABEL_18:
         }
 
         v23 = *(*(&v28 + 1) + 8 * j);
-        if ([(NSSet *)self->_validCountries containsObject:v23])
+        v24 = [(NSSet *)self->_validCountries containsObject:v23];
+        if (v24)
         {
           [array addObject:v23];
         }
 
         else
         {
-          v24 = _BYLoggingFacility();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+          v25 = _BYLoggingFacility(v24);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
             v37 = v23;
-            _os_log_impl(&dword_1B862F000, v24, OS_LOG_TYPE_DEFAULT, "Setup Assistant Location: Found country '%@', but this is not a valid country code, ignoring", buf, 0xCu);
+            _os_log_impl(&dword_1B862F000, v25, OS_LOG_TYPE_DEFAULT, "Setup Assistant Location: Found country '%@', but this is not a valid country code, ignoring", buf, 0xCu);
           }
         }
       }
@@ -313,8 +312,6 @@ LABEL_18:
 
     while (v20);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -337,58 +334,61 @@ LABEL_18:
 
 - (id)_countriesFromDefaults
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
   v4 = [standardUserDefaults objectForKey:@"GuessedCountry"];
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v5 = v4;
+    isKindOfClass = v4;
+    v6 = isKindOfClass;
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  v6 = _BYLoggingFacility();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _BYLoggingFacility(isKindOfClass);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = "N";
+    v8 = "N";
     if (self->_fakeMode)
     {
-      v7 = "Y";
+      v8 = "Y";
     }
 
-    v13 = 138412546;
-    v14 = v5;
-    v15 = 2080;
-    v16 = v7;
-    _os_log_impl(&dword_1B862F000, v6, OS_LOG_TYPE_DEFAULT, "Setup Assistant Location: stored in defaults: countries = '%@' fake mode? %s", &v13, 0x16u);
+    v14 = 138412546;
+    v15 = v6;
+    v16 = 2080;
+    v17 = v8;
+    _os_log_impl(&dword_1B862F000, v7, OS_LOG_TYPE_DEFAULT, "Setup Assistant Location: stored in defaults: countries = '%@' fake mode? %s", &v14, 0x16u);
   }
 
-  if ([v5 count] && self->_fakeMode)
+  v9 = [v6 count];
+  if (v9 && self->_fakeMode)
   {
-    v8 = v5;
+    v9 = v6;
+    v10 = v9;
   }
 
   else
   {
-    v8 = 0;
+    v10 = 0;
   }
 
-  v9 = _BYLoggingFacility();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v11 = _BYLoggingFacility(v9);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412290;
-    v14 = v8;
-    _os_log_impl(&dword_1B862F000, v9, OS_LOG_TYPE_DEFAULT, "Setup Assistant Location: countries from defaults = '%@'", &v13, 0xCu);
+    v14 = 138412290;
+    v15 = v10;
+    _os_log_impl(&dword_1B862F000, v11, OS_LOG_TYPE_DEFAULT, "Setup Assistant Location: countries from defaults = '%@'", &v14, 0xCu);
   }
 
-  v10 = v8;
-  v11 = *MEMORY[0x1E69E9840];
-  return v8;
+  v12 = v10;
+  return v10;
 }
 
 - (void)_setGuessedCountryDefault:(id)default
@@ -414,12 +414,12 @@ LABEL_18:
 
     if (v5)
     {
-      v6 = _BYLoggingFacility();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = _BYLoggingFacility(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
         v15 = v5;
-        _os_log_impl(&dword_1B862F000, v6, OS_LOG_TYPE_DEFAULT, "Using override suggested countries: %@", buf, 0xCu);
+        _os_log_impl(&dword_1B862F000, v7, OS_LOG_TYPE_DEFAULT, "Using override suggested countries: %@", buf, 0xCu);
       }
 
       v3->forceGuessedCountries = 1;
@@ -458,7 +458,6 @@ LABEL_18:
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -497,29 +496,23 @@ LABEL_18:
 
 - (BOOL)getCountryFromNVRAM
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   if (getCountryFromNVRAM_onceToken != -1)
   {
     [BYLocationController getCountryFromNVRAM];
   }
 
-  if (getCountryFromNVRAM_nvramCountry)
+  if (!getCountryFromNVRAM_nvramCountry)
   {
-    v6[0] = getCountryFromNVRAM_nvramCountry;
-    v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-    [(BYLocationController *)self setGuessedCountries:v3];
-
-    [(BYLocationController *)self _setGuessedCountryDefault:self->_guessedCountries];
-    result = getCountryFromNVRAM_nvramCountry != 0;
+    return 0;
   }
 
-  else
-  {
-    result = 0;
-  }
+  v5[0] = getCountryFromNVRAM_nvramCountry;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
+  [(BYLocationController *)self setGuessedCountries:v3];
 
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  [(BYLocationController *)self _setGuessedCountryDefault:self->_guessedCountries];
+  return getCountryFromNVRAM_nvramCountry != 0;
 }
 
 uint64_t __43__BYLocationController_getCountryFromNVRAM__block_invoke()
@@ -569,102 +562,103 @@ LABEL_11:
 - (id)guessedLanguages
 {
   selfCopy = self;
-  v51 = *MEMORY[0x1E69E9840];
-  if ([(NSArray *)self->_guessedCountries count])
+  v52 = *MEMORY[0x1E69E9840];
+  v3 = [(NSArray *)self->_guessedCountries count];
+  if (v3)
   {
     array = [MEMORY[0x1E695DF70] array];
     array2 = [MEMORY[0x1E695DF70] array];
-    v4 = objc_alloc_init(BYSIMRegionService);
-    v5 = [(BYLocationController *)selfCopy _languagesForRegionsUsingSIMRegionService:v4];
+    v5 = objc_alloc_init(BYSIMRegionService);
+    v6 = [(BYLocationController *)selfCopy _languagesForRegionsUsingSIMRegionService:v5];
 
-    v43 = 0u;
     v44 = 0u;
-    v41 = 0u;
+    v45 = 0u;
     v42 = 0u;
-    v33 = selfCopy;
+    v43 = 0u;
+    v34 = selfCopy;
     obj = selfCopy->_guessedCountries;
-    v6 = [(NSArray *)obj countByEnumeratingWithState:&v41 objects:v50 count:16];
-    if (v6)
+    v7 = [(NSArray *)obj countByEnumeratingWithState:&v42 objects:v51 count:16];
+    if (v7)
     {
-      v7 = v6;
-      v35 = *v42;
+      v8 = v7;
+      v36 = *v43;
       do
       {
-        for (i = 0; i != v7; ++i)
+        for (i = 0; i != v8; ++i)
         {
-          if (*v42 != v35)
+          if (*v43 != v36)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v41 + 1) + 8 * i);
-          v10 = [MEMORY[0x1E69AAE08] preferredLanguagesForRegion:v9];
-          v11 = objc_alloc_init(MEMORY[0x1E695DFA0]);
-          v12 = [v5 objectForKeyedSubscript:v9];
-          if (v12)
+          v10 = *(*(&v42 + 1) + 8 * i);
+          v11 = [MEMORY[0x1E69AAE08] preferredLanguagesForRegion:v10];
+          v12 = objc_alloc_init(MEMORY[0x1E695DFA0]);
+          v13 = [v6 objectForKeyedSubscript:v10];
+          if (v13)
           {
-            v13 = v12;
-            v14 = [v5 objectForKeyedSubscript:v9];
-            v15 = [v14 count];
+            v14 = v13;
+            v15 = [v6 objectForKeyedSubscript:v10];
+            v16 = [v15 count];
 
-            if (v15)
+            if (v16)
             {
-              v16 = [v5 objectForKeyedSubscript:v9];
-              [v11 addObjectsFromArray:v16];
+              v17 = [v6 objectForKeyedSubscript:v10];
+              [v12 addObjectsFromArray:v17];
             }
           }
 
-          [v11 addObjectsFromArray:v10];
-          array3 = [v11 array];
+          [v12 addObjectsFromArray:v11];
+          array3 = [v12 array];
           reverseObjectEnumerator = [array3 reverseObjectEnumerator];
           allObjects = [reverseObjectEnumerator allObjects];
 
-          v20 = _BYLoggingFacility();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+          v22 = _BYLoggingFacility(v21);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v47 = v9;
-            v48 = 2112;
-            v49 = allObjects;
-            _os_log_impl(&dword_1B862F000, v20, OS_LOG_TYPE_DEFAULT, "Setup Assistant Location: Languages (in reverse order) for country %@ = %@", buf, 0x16u);
+            v48 = v10;
+            v49 = 2112;
+            v50 = allObjects;
+            _os_log_impl(&dword_1B862F000, v22, OS_LOG_TYPE_DEFAULT, "Setup Assistant Location: Languages (in reverse order) for country %@ = %@", buf, 0x16u);
           }
 
           [array2 addObject:allObjects];
         }
 
-        v7 = [(NSArray *)obj countByEnumeratingWithState:&v41 objects:v50 count:16];
+        v8 = [(NSArray *)obj countByEnumeratingWithState:&v42 objects:v51 count:16];
       }
 
-      while (v7);
+      while (v8);
     }
 
     while (1)
     {
-      v39 = 0u;
       v40 = 0u;
-      v37 = 0u;
+      v41 = 0u;
       v38 = 0u;
-      v21 = array2;
-      v22 = [v21 countByEnumeratingWithState:&v37 objects:v45 count:16];
-      if (!v22)
+      v39 = 0u;
+      v23 = array2;
+      v24 = [v23 countByEnumeratingWithState:&v38 objects:v46 count:16];
+      if (!v24)
       {
         break;
       }
 
-      v23 = v22;
-      v24 = 0;
-      v25 = *v38;
+      v25 = v24;
+      v26 = 0;
+      v27 = *v39;
       do
       {
-        for (j = 0; j != v23; ++j)
+        for (j = 0; j != v25; ++j)
         {
-          if (*v38 != v25)
+          if (*v39 != v27)
           {
-            objc_enumerationMutation(v21);
+            objc_enumerationMutation(v23);
           }
 
-          v27 = *(*(&v37 + 1) + 8 * j);
-          lastObject = [v27 lastObject];
+          v29 = *(*(&v38 + 1) + 8 * j);
+          lastObject = [v29 lastObject];
           if (lastObject)
           {
             if (([array containsObject:lastObject] & 1) == 0)
@@ -672,24 +666,24 @@ LABEL_11:
               [array addObject:lastObject];
             }
 
-            [v27 removeLastObject];
-            v24 = 1;
+            [v29 removeLastObject];
+            v26 = 1;
           }
         }
 
-        v23 = [v21 countByEnumeratingWithState:&v37 objects:v45 count:16];
+        v25 = [v23 countByEnumeratingWithState:&v38 objects:v46 count:16];
       }
 
-      while (v23);
+      while (v25);
 
-      if ((v24 & 1) == 0)
+      if ((v26 & 1) == 0)
       {
         goto LABEL_30;
       }
     }
 
 LABEL_30:
-    selfCopy = v33;
+    selfCopy = v34;
   }
 
   else
@@ -697,15 +691,15 @@ LABEL_30:
     array = 0;
   }
 
-  v29 = _BYLoggingFacility();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+  v31 = _BYLoggingFacility(v3);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
   {
     guessedCountries = selfCopy->_guessedCountries;
     *buf = 138412546;
-    v47 = guessedCountries;
-    v48 = 2112;
-    v49 = array;
-    _os_log_impl(&dword_1B862F000, v29, OS_LOG_TYPE_DEFAULT, "Setup Assistant Location: Languages for countries %@ = %@", buf, 0x16u);
+    v48 = guessedCountries;
+    v49 = 2112;
+    v50 = array;
+    _os_log_impl(&dword_1B862F000, v31, OS_LOG_TYPE_DEFAULT, "Setup Assistant Location: Languages for countries %@ = %@", buf, 0x16u);
   }
 
   if (!selfCopy->_firstGuessedLanguages)
@@ -713,38 +707,37 @@ LABEL_30:
     [(BYLocationController *)selfCopy setFirstGuessedLanguages:array];
   }
 
-  v31 = *MEMORY[0x1E69E9840];
-
   return array;
 }
 
 - (id)_languagesForRegionsUsingSIMRegionService:(id)service
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
   v5 = objc_opt_new();
-  v47 = 0u;
-  v48 = 0u;
-  v49 = 0u;
   v50 = 0u;
-  v40 = serviceCopy;
+  v51 = 0u;
+  v52 = 0u;
+  v53 = 0u;
+  v43 = serviceCopy;
   obj = [serviceCopy cellularNetworkInformation];
-  v6 = [obj countByEnumeratingWithState:&v47 objects:v54 count:16];
+  v6 = [obj countByEnumeratingWithState:&v50 objects:v57 count:16];
   if (v6)
   {
     v7 = v6;
-    v42 = *v48;
+    v45 = *v51;
     do
     {
-      for (i = 0; i != v7; ++i)
+      v8 = 0;
+      do
       {
-        if (*v48 != v42)
+        if (*v51 != v45)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v47 + 1) + 8 * i);
-        v10 = _BYLoggingFacility();
+        v9 = *(*(&v50 + 1) + 8 * v8);
+        v10 = _BYLoggingFacility(v6);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
@@ -755,111 +748,114 @@ LABEL_30:
         homeSubregionISOCodes = [v9 homeSubregionISOCodes];
         v13 = [(BYLocationController *)self _subregionLanguagesForRegion:homeCountryISOCode subregionsCodes:homeSubregionISOCodes];
 
-        v14 = _BYLoggingFacility();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v15 = _BYLoggingFacility(v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v53 = v13;
-          _os_log_impl(&dword_1B862F000, v14, OS_LOG_TYPE_DEFAULT, "Home subregion languages: %@", buf, 0xCu);
+          v56 = v13;
+          _os_log_impl(&dword_1B862F000, v15, OS_LOG_TYPE_DEFAULT, "Home subregion languages: %@", buf, 0xCu);
         }
 
-        v15 = [v5 objectForKeyedSubscript:homeCountryISOCode];
+        v16 = [v5 objectForKeyedSubscript:homeCountryISOCode];
 
-        if (!v15)
+        if (!v16)
         {
-          v16 = objc_opt_new();
-          [v5 setObject:v16 forKeyedSubscript:homeCountryISOCode];
+          v17 = objc_opt_new();
+          [v5 setObject:v17 forKeyedSubscript:homeCountryISOCode];
         }
 
-        v17 = [v5 objectForKeyedSubscript:homeCountryISOCode];
-        [v17 addObjectsFromArray:v13];
+        v18 = [v5 objectForKeyedSubscript:homeCountryISOCode];
+        [v18 addObjectsFromArray:v13];
 
-        v18 = _BYLoggingFacility();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v20 = _BYLoggingFacility(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1B862F000, v18, OS_LOG_TYPE_DEFAULT, "Getting subregion languages for Network Region", buf, 2u);
+          _os_log_impl(&dword_1B862F000, v20, OS_LOG_TYPE_DEFAULT, "Getting subregion languages for Network Region", buf, 2u);
         }
 
         networkCountryISOCode = [v9 networkCountryISOCode];
         networkSubregionISOCodes = [v9 networkSubregionISOCodes];
-        v21 = [(BYLocationController *)self _subregionLanguagesForRegion:networkCountryISOCode subregionsCodes:networkSubregionISOCodes];
+        v23 = [(BYLocationController *)self _subregionLanguagesForRegion:networkCountryISOCode subregionsCodes:networkSubregionISOCodes];
 
-        v22 = _BYLoggingFacility();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v25 = _BYLoggingFacility(v24);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v53 = v21;
-          _os_log_impl(&dword_1B862F000, v22, OS_LOG_TYPE_DEFAULT, "Network subregion languages: %@", buf, 0xCu);
+          v56 = v23;
+          _os_log_impl(&dword_1B862F000, v25, OS_LOG_TYPE_DEFAULT, "Network subregion languages: %@", buf, 0xCu);
         }
 
-        v23 = [v5 objectForKeyedSubscript:networkCountryISOCode];
+        v26 = [v5 objectForKeyedSubscript:networkCountryISOCode];
 
-        if (!v23)
+        if (!v26)
         {
-          v24 = objc_opt_new();
-          [v5 setObject:v24 forKeyedSubscript:networkCountryISOCode];
+          v27 = objc_opt_new();
+          [v5 setObject:v27 forKeyedSubscript:networkCountryISOCode];
         }
 
-        v25 = [v5 objectForKeyedSubscript:networkCountryISOCode];
-        [v25 addObjectsFromArray:v21];
+        v28 = [v5 objectForKeyedSubscript:networkCountryISOCode];
+        [v28 addObjectsFromArray:v23];
+
+        ++v8;
       }
 
-      v7 = [obj countByEnumeratingWithState:&v47 objects:v54 count:16];
+      while (v7 != v8);
+      v6 = [obj countByEnumeratingWithState:&v50 objects:v57 count:16];
+      v7 = v6;
     }
 
-    while (v7);
+    while (v6);
   }
 
-  v26 = objc_opt_new();
-  v43 = 0u;
-  v44 = 0u;
-  v45 = 0u;
+  v29 = objc_opt_new();
   v46 = 0u;
+  v47 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   allKeys = [v5 allKeys];
-  v28 = [allKeys countByEnumeratingWithState:&v43 objects:v51 count:16];
-  if (v28)
+  v31 = [allKeys countByEnumeratingWithState:&v46 objects:v54 count:16];
+  if (v31)
   {
-    v29 = v28;
-    v30 = *v44;
+    v32 = v31;
+    v33 = *v47;
     do
     {
-      for (j = 0; j != v29; ++j)
+      for (i = 0; i != v32; ++i)
       {
-        if (*v44 != v30)
+        if (*v47 != v33)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v32 = *(*(&v43 + 1) + 8 * j);
-        v33 = [v5 objectForKeyedSubscript:v32];
-        array = [v33 array];
-        uppercaseString = [v32 uppercaseString];
-        [v26 setObject:array forKeyedSubscript:uppercaseString];
+        v35 = *(*(&v46 + 1) + 8 * i);
+        v36 = [v5 objectForKeyedSubscript:v35];
+        array = [v36 array];
+        uppercaseString = [v35 uppercaseString];
+        [v29 setObject:array forKeyedSubscript:uppercaseString];
       }
 
-      v29 = [allKeys countByEnumeratingWithState:&v43 objects:v51 count:16];
+      v32 = [allKeys countByEnumeratingWithState:&v46 objects:v54 count:16];
     }
 
-    while (v29);
+    while (v32);
   }
 
-  if ([v26 count])
+  v39 = [v29 count];
+  if (v39)
   {
-    v36 = _BYLoggingFacility();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+    v40 = _BYLoggingFacility(v39);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v53 = v26;
-      _os_log_impl(&dword_1B862F000, v36, OS_LOG_TYPE_DEFAULT, "Subregion languages: %@", buf, 0xCu);
+      v56 = v29;
+      _os_log_impl(&dword_1B862F000, v40, OS_LOG_TYPE_DEFAULT, "Subregion languages: %@", buf, 0xCu);
     }
   }
 
-  v37 = [v26 copy];
+  v41 = [v29 copy];
 
-  v38 = *MEMORY[0x1E69E9840];
-
-  return v37;
+  return v41;
 }
 
 - (id)_subregionLanguagesForRegion:(id)region subregionsCodes:(id)codes
@@ -867,7 +863,7 @@ LABEL_30:
   v37 = *MEMORY[0x1E69E9840];
   regionCopy = region;
   codesCopy = codes;
-  v7 = _BYLoggingFacility();
+  v7 = _BYLoggingFacility(codesCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -875,67 +871,66 @@ LABEL_30:
     _os_log_impl(&dword_1B862F000, v7, OS_LOG_TYPE_DEFAULT, "Region ISO Code: %@", buf, 0xCu);
   }
 
-  v8 = _BYLoggingFacility();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = _BYLoggingFacility(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     v31 = codesCopy;
-    _os_log_impl(&dword_1B862F000, v8, OS_LOG_TYPE_DEFAULT, "Subregions ISO Codes: %@", buf, 0xCu);
+    _os_log_impl(&dword_1B862F000, v9, OS_LOG_TYPE_DEFAULT, "Subregions ISO Codes: %@", buf, 0xCu);
   }
 
-  v9 = objc_opt_new();
+  v10 = objc_opt_new();
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   obj = codesCopy;
-  v10 = [obj countByEnumeratingWithState:&v26 objects:v36 count:16];
-  if (v10)
+  v11 = [obj countByEnumeratingWithState:&v26 objects:v36 count:16];
+  if (v11)
   {
-    v12 = v10;
-    v13 = *v27;
-    *&v11 = 138412802;
-    v24 = v11;
+    v13 = v11;
+    v14 = *v27;
+    *&v12 = 138412802;
+    v24 = v12;
     do
     {
-      for (i = 0; i != v12; ++i)
+      for (i = 0; i != v13; ++i)
       {
-        if (*v27 != v13)
+        if (*v27 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v26 + 1) + 8 * i);
-        v16 = [v15 componentsSeparatedByString:{@"-", v24}];
-        lastObject = [v16 lastObject];
+        v16 = *(*(&v26 + 1) + 8 * i);
+        v17 = [v16 componentsSeparatedByString:{@"-", v24}];
+        lastObject = [v17 lastObject];
         lowercaseString = [lastObject lowercaseString];
 
-        v19 = [MEMORY[0x1E695DF58] languagesForRegion:regionCopy subdivision:lowercaseString withThreshold:2 filter:0];
-        v20 = _BYLoggingFacility();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v20 = [MEMORY[0x1E695DF58] languagesForRegion:regionCopy subdivision:lowercaseString withThreshold:2 filter:0];
+        v21 = _BYLoggingFacility(v20);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
           *buf = v24;
           v31 = regionCopy;
           v32 = 2112;
-          v33 = v15;
+          v33 = v16;
           v34 = 2112;
-          v35 = v19;
-          _os_log_impl(&dword_1B862F000, v20, OS_LOG_TYPE_DEFAULT, "Language codes for region %@, subregion %@: %@", buf, 0x20u);
+          v35 = v20;
+          _os_log_impl(&dword_1B862F000, v21, OS_LOG_TYPE_DEFAULT, "Language codes for region %@, subregion %@: %@", buf, 0x20u);
         }
 
-        [v9 addObjectsFromArray:v19];
+        [v10 addObjectsFromArray:v20];
       }
 
-      v12 = [obj countByEnumeratingWithState:&v26 objects:v36 count:16];
+      v13 = [obj countByEnumeratingWithState:&v26 objects:v36 count:16];
     }
 
-    while (v12);
+    while (v13);
   }
 
-  v21 = [v9 copy];
-  v22 = *MEMORY[0x1E69E9840];
+  v22 = [v10 copy];
 
-  return v21;
+  return v22;
 }
 
 - (void)setFakeMode:(BOOL)mode
@@ -955,24 +950,22 @@ LABEL_30:
 {
   self->fWifiManager = 0;
   self->fWifiDevice = 0;
-  v3 = *MEMORY[0x1E695E480];
-  v4 = WiFiManagerClientCreate();
-  self->fWifiManager = v4;
-  if (v4)
+  v3 = WiFiManagerClientCreate();
+  self->fWifiManager = v3;
+  if (v3)
   {
     CFRunLoopGetCurrent();
-    v5 = *MEMORY[0x1E695E8D0];
     WiFiManagerClientScheduleWithRunLoop();
     [(BYLocationController *)self _getWifiDevice];
   }
 
   else
   {
-    v6 = _BYLoggingFacility();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v4 = _BYLoggingFacility(0);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_1B862F000, v6, OS_LOG_TYPE_DEFAULT, "Setup Assistant Location: WiFiManagerClientCreate failed", v8, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_1B862F000, v4, OS_LOG_TYPE_DEFAULT, "Setup Assistant Location: WiFiManagerClientCreate failed", v5, 2u);
     }
   }
 
@@ -983,53 +976,52 @@ LABEL_30:
 
   else
   {
-    fWifiManager = self->fWifiManager;
     WiFiManagerClientRegisterDeviceAttachmentCallback();
   }
 }
 
 - (void)_getWifiDevice
 {
-  fWifiManager = self->fWifiManager;
-  v4 = WiFiManagerClientCopyDevices();
-  if (v4)
+  v3 = WiFiManagerClientCopyDevices();
+  if (v3)
   {
-    v5 = v4;
-    if (CFArrayGetCount(v4))
+    v4 = v3;
+    if (CFArrayGetCount(v3))
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(v5, 0);
+      ValueAtIndex = CFArrayGetValueAtIndex(v4, 0);
       self->fWifiDevice = ValueAtIndex;
       if (ValueAtIndex)
       {
-        v7 = CFGetTypeID(ValueAtIndex);
-        if (v7 == WiFiDeviceClientGetTypeID())
+        v6 = CFGetTypeID(ValueAtIndex);
+        ValueAtIndex = WiFiDeviceClientGetTypeID();
+        if (v6 == ValueAtIndex)
         {
           CFRetain(self->fWifiDevice);
 LABEL_15:
-          CFRelease(v5);
+          CFRelease(v4);
           return;
         }
       }
 
-      v9 = _BYLoggingFacility();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v8 = _BYLoggingFacility(ValueAtIndex);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 0;
-        v10 = "Setup Assistant Location: could not get wifi device";
-        v11 = &v12;
+        v11 = 0;
+        v9 = "Setup Assistant Location: could not get wifi device";
+        v10 = &v11;
 LABEL_13:
-        _os_log_impl(&dword_1B862F000, v9, OS_LOG_TYPE_DEFAULT, v10, v11, 2u);
+        _os_log_impl(&dword_1B862F000, v8, OS_LOG_TYPE_DEFAULT, v9, v10, 2u);
       }
     }
 
     else
     {
-      v9 = _BYLoggingFacility();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v8 = _BYLoggingFacility(0);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        *v13 = 0;
-        v10 = "Setup Assistant Location: no WiFi devices found";
-        v11 = v13;
+        *v12 = 0;
+        v9 = "Setup Assistant Location: no WiFi devices found";
+        v10 = v12;
         goto LABEL_13;
       }
     }
@@ -1037,11 +1029,11 @@ LABEL_13:
     goto LABEL_15;
   }
 
-  v8 = _BYLoggingFacility();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v7 = _BYLoggingFacility(0);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1B862F000, v8, OS_LOG_TYPE_DEFAULT, "Setup Assistant Location: WiFiManagerClientCopyDevices failed", buf, 2u);
+    _os_log_impl(&dword_1B862F000, v7, OS_LOG_TYPE_DEFAULT, "Setup Assistant Location: WiFiManagerClientCopyDevices failed", buf, 2u);
   }
 }
 
@@ -1064,8 +1056,8 @@ LABEL_13:
 
 - (void)_scanWifiList
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v3 = _BYLoggingFacility();
+  v15 = *MEMORY[0x1E69E9840];
+  v3 = _BYLoggingFacility(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1076,22 +1068,22 @@ LABEL_13:
   date = [MEMORY[0x1E695DF00] date];
   [(BYLocationController *)self setWirelessScanStartDate:date];
 
-  fWifiDevice = self->fWifiDevice;
-  v7 = WiFiDeviceClientScanAsync();
-  if (v7)
+  v6 = WiFiDeviceClientScanAsync();
+  if (v6)
   {
-    v8 = v7;
-    v9 = _BYLoggingFacility();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v7 = v6;
+    v8 = _BYLoggingFacility(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v15 = v8;
-      _os_log_impl(&dword_1B862F000, v9, OS_LOG_TYPE_DEFAULT, "Setup Assistant Location: Wi-Fi scan failed with error %d", buf, 8u);
+      v14 = v7;
+      _os_log_impl(&dword_1B862F000, v8, OS_LOG_TYPE_DEFAULT, "Setup Assistant Location: Wi-Fi scan failed with error %d", buf, 8u);
     }
 
-    if ([(BYLocationController *)self numberOfWiFiScanAttemptsRemaining])
+    numberOfWiFiScanAttemptsRemaining = [(BYLocationController *)self numberOfWiFiScanAttemptsRemaining];
+    if (numberOfWiFiScanAttemptsRemaining)
     {
-      v10 = _BYLoggingFacility();
+      v10 = _BYLoggingFacility(numberOfWiFiScanAttemptsRemaining);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -1113,33 +1105,31 @@ LABEL_13:
       [(BYLocationController *)self _closeWifiConnection];
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
-void __37__BYLocationController__scanWifiList__block_invoke(uint64_t a1)
+void __37__BYLocationController__scanWifiList__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  if (v2[2] || !v2[7])
+  v3 = *(a1 + 32);
+  if (v3[2] || !v3[7])
   {
-    v3 = _BYLoggingFacility();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = _BYLoggingFacility(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_1B862F000, v3, OS_LOG_TYPE_DEFAULT, "Setup Assistant Location: Wi-Fi scan re-attempt unnecessary", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_1B862F000, v4, OS_LOG_TYPE_DEFAULT, "Setup Assistant Location: Wi-Fi scan re-attempt unnecessary", v5, 2u);
     }
   }
 
   else
   {
 
-    [v2 _scanWifiList];
+    [v3 _scanWifiList];
   }
 }
 
 - (void)_scanComplete:(id)complete error:(BOOL)error
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   completeCopy = complete;
   v7 = completeCopy;
   if (!error && !self->_guessedCountries)
@@ -1158,14 +1148,14 @@ LABEL_46:
     v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v11 = objc_alloc_init(MEMORY[0x1E696AB50]);
     v12 = 0;
-    v58 = 3;
+    v57 = 3;
     do
     {
       [v7 objectAtIndexedSubscript:v12];
 
       if (WiFiNetworkGet11dCountryCodeFromIe())
       {
-        v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v59 length:2 encoding:1];
+        v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v58 length:2 encoding:1];
         [v10 addObject:v13];
       }
 
@@ -1174,65 +1164,65 @@ LABEL_46:
 
     while (v9 != v12);
     v14 = [(BYLocationController *)self _checkForAliasesOrInvalid:v10];
+    v53 = 0u;
     v54 = 0u;
     v55 = 0u;
     v56 = 0u;
-    v57 = 0u;
-    v15 = [v14 countByEnumeratingWithState:&v54 objects:v66 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v53 objects:v65 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v55;
+      v17 = *v54;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v55 != v17)
+          if (*v54 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          [v11 addObject:*(*(&v54 + 1) + 8 * i)];
+          [v11 addObject:*(*(&v53 + 1) + 8 * i)];
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v54 objects:v66 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v53 objects:v65 count:16];
       }
 
       while (v16);
     }
 
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
     v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
     v19 = v11;
-    array = [v19 countByEnumeratingWithState:&v50 objects:v65 count:16];
+    array = [v19 countByEnumeratingWithState:&v49 objects:v64 count:16];
     if (array)
     {
-      v42 = v14;
-      v43 = v10;
-      v44 = v7;
+      v41 = v14;
+      v42 = v10;
+      v43 = v7;
       selfCopy = self;
       v21 = 0;
-      v22 = *v51;
+      v22 = *v50;
       do
       {
         for (j = 0; j != array; j = j + 1)
         {
-          if (*v51 != v22)
+          if (*v50 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          v24 = *(*(&v50 + 1) + 8 * j);
-          v25 = [v19 countForObject:{v24, v42}];
-          v26 = _BYLoggingFacility();
+          v24 = *(*(&v49 + 1) + 8 * j);
+          v25 = [v19 countForObject:{v24, v41}];
+          v26 = _BYLoggingFacility(v25);
           if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134218242;
-            v62 = v25;
-            v63 = 2112;
-            v64 = v24;
+            v61 = v25;
+            v62 = 2112;
+            v63 = v24;
             _os_log_impl(&dword_1B862F000, v26, OS_LOG_TYPE_DEFAULT, "Setup Assistant Location: Wifi scan found %lu APs for '%@'", buf, 0x16u);
           }
 
@@ -1242,7 +1232,7 @@ LABEL_46:
           }
         }
 
-        array = [v19 countByEnumeratingWithState:&v50 objects:v65 count:16];
+        array = [v19 countByEnumeratingWithState:&v49 objects:v64 count:16];
       }
 
       while (array);
@@ -1250,61 +1240,61 @@ LABEL_46:
       if (!v21)
       {
         array = 0;
-        v7 = v44;
-        v14 = v42;
-        v10 = v43;
+        v7 = v43;
+        v14 = v41;
+        v10 = v42;
         goto LABEL_39;
       }
 
       array = [MEMORY[0x1E695DF70] array];
+      v45 = 0u;
       v46 = 0u;
       v47 = 0u;
       v48 = 0u;
-      v49 = 0u;
       v27 = v19;
-      v28 = [v27 countByEnumeratingWithState:&v46 objects:v60 count:16];
-      v10 = v43;
-      v7 = v44;
+      v28 = [v27 countByEnumeratingWithState:&v45 objects:v59 count:16];
+      v10 = v42;
+      v7 = v43;
       if (v28)
       {
         v29 = v28;
-        v30 = *v47;
+        v30 = *v46;
         do
         {
           for (k = 0; k != v29; ++k)
           {
-            if (*v47 != v30)
+            if (*v46 != v30)
             {
               objc_enumerationMutation(v27);
             }
 
-            v32 = *(*(&v46 + 1) + 8 * k);
+            v32 = *(*(&v45 + 1) + 8 * k);
             if ([v27 countForObject:v32] == v21)
             {
               [array addObject:v32];
             }
           }
 
-          v29 = [v27 countByEnumeratingWithState:&v46 objects:v60 count:16];
+          v29 = [v27 countByEnumeratingWithState:&v45 objects:v59 count:16];
         }
 
         while (v29);
       }
 
       self = selfCopy;
-      v14 = v42;
+      v14 = v41;
     }
 
 LABEL_39:
     v33 = [array count];
-    recommendedLocaleAnalyticsEvent2 = _BYLoggingFacility();
+    recommendedLocaleAnalyticsEvent2 = _BYLoggingFacility(v33);
     v35 = os_log_type_enabled(recommendedLocaleAnalyticsEvent2, OS_LOG_TYPE_DEFAULT);
     if (v33)
     {
       if (v35)
       {
         *buf = 138412290;
-        v62 = array;
+        v61 = array;
         _os_log_impl(&dword_1B862F000, recommendedLocaleAnalyticsEvent2, OS_LOG_TYPE_DEFAULT, "Setup Assistant Location: Wifi scan guessed countries: '%@'", buf, 0xCu);
       }
 
@@ -1332,8 +1322,6 @@ LABEL_39:
 
 LABEL_47:
   [(BYLocationController *)self _closeWifiConnection];
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_closeWifiConnection
@@ -1341,7 +1329,6 @@ LABEL_47:
   if (self->fWifiManager)
   {
     CFRunLoopGetCurrent();
-    v3 = *MEMORY[0x1E695E8D0];
     WiFiManagerClientUnscheduleFromRunLoop();
     CFRelease(self->fWifiManager);
     self->fWifiManager = 0;
@@ -1364,9 +1351,9 @@ LABEL_47:
 
 - (void)_countryFromTelephony
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3(&dword_1B862F000, a2, a3, "Failed to get country code from MCC: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_3(&dword_1B862F000, a2, a3, "Failed to get country code from MCC: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

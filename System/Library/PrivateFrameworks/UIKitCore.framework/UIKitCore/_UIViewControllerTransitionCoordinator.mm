@@ -42,7 +42,7 @@
   result = self->__mainContext;
   if (result)
   {
-    return [(CGAffineTransform *)result _affineTransform];
+    return objc_msgSend__affineTransform(result, a3);
   }
 
   *&retstr->c = 0u;
@@ -56,7 +56,7 @@
   result = self->__mainContext;
   if (result)
   {
-    return [(CGAffineTransform *)result targetTransform];
+    return objc_msgSend_targetTransform(result, a3);
   }
 
   *&retstr->c = 0u;

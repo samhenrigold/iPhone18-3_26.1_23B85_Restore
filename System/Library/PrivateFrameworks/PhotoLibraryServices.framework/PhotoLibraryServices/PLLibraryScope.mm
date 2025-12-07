@@ -289,7 +289,7 @@ LABEL_6:
   else
   {
     singleQueries = [queryCopy singleQueries];
-    if ([singleQueries count])
+    if (objc_msgSend_count(singleQueries))
     {
       v4 = 0;
     }
@@ -413,7 +413,7 @@ void __71__PLLibraryScope_resetLibraryScopeAssetStatesWithManagedObjectContext__
     if (!*(*(*(a1 + 48) + 8) + 40))
     {
       v22 = objc_alloc(MEMORY[0x1E695D560]);
-      v23 = +[PLPhotosHighlight entity];
+      v23 = objc_msgSend_entity(PLPhotosHighlight);
       v24 = [v22 initWithEntity:v23];
 
       [v24 setResultType:2];
@@ -541,7 +541,7 @@ void __71__PLLibraryScope_resetLibraryScopeAssetStatesWithManagedObjectContext__
   v6 = [MEMORY[0x1E696AE18] predicateWithValue:1];
   v7 = [self sharesWithPredicate:v6 fetchLimit:0 inManagedObjectContext:contextCopy];
 
-  if ([v7 count])
+  if (objc_msgSend_count(v7))
   {
     v13 = 0;
     v8 = [PLShare incrementallyDeleteAndSaveShares:v7 logMessagePrefix:@"local only" error:&v13];
@@ -587,7 +587,7 @@ void __71__PLLibraryScope_resetLibraryScopeAssetStatesWithManagedObjectContext__
 
   v11 = [objc_opt_class() sharesWithPredicate:v10 fetchLimit:0 inManagedObjectContext:contextCopy];
 
-  if ([v11 count])
+  if (objc_msgSend_count(v11))
   {
     [PLShare incrementallyDeleteAndSaveShares:v11 logMessagePrefix:@"preview" error:0];
   }
@@ -1808,7 +1808,7 @@ LABEL_17:
           personCondition = [v7 personCondition];
           personUUIDs = [personCondition personUUIDs];
 
-          if ([personUUIDs count])
+          if (objc_msgSend_count(personUUIDs))
           {
             v28 = v8;
             v29 = v6;
@@ -2888,7 +2888,7 @@ void __99__PLLibraryScope_confirmAllRemainingOnboardingPreviewAssetsWithProgress
     *a4 = 1;
   }
 
-  [*(a1 + 32) setCompletedUnitCount:{objc_msgSend(v6, "count") + objc_msgSend(*(a1 + 32), "completedUnitCount")}];
+  [*(a1 + 32) setCompletedUnitCount:{objc_msgSend_count(v6) + objc_msgSend(*(a1 + 32), "completedUnitCount")}];
 }
 
 void __99__PLLibraryScope_confirmAllRemainingOnboardingPreviewAssetsWithProgress_databaseContext_withError___block_invoke_4(void *a1)
@@ -2989,7 +2989,7 @@ LABEL_6:
         rulesData3 = [(PLLibraryScope *)self rulesData];
         v28 = [PLLibraryScopeRule libraryScopeRulesForLibraryScopeRulesData:rulesData3];
 
-        v29 = [v28 count] == 0;
+        v29 = objc_msgSend_count(v28) == 0;
         v30 = PLBackendSharingGetLog();
         v31 = v30;
         if (v29)
@@ -3017,7 +3017,7 @@ LABEL_6:
             _os_log_impl(&dword_19BF1F000, v31, OS_LOG_TYPE_DEFAULT, "MarkOnboardingPreviewAssets: Rule object being used for marking onboarding preview: %@", &buf, 0xCu);
           }
 
-          if ([dsCopy count])
+          if (objc_msgSend_count(dsCopy))
           {
             v32 = PLBackendSharingGetLog();
             if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
@@ -3357,7 +3357,7 @@ void __103__PLLibraryScope_markOnboardingPreviewAssetsByProcessingRulesWithExclu
     }
   }
 
-  [*(a1 + 48) setCompletedUnitCount:{objc_msgSend(v8, "count") + objc_msgSend(*(a1 + 48), "completedUnitCount")}];
+  [*(a1 + 48) setCompletedUnitCount:{objc_msgSend_count(v8) + objc_msgSend(*(a1 + 48), "completedUnitCount")}];
 }
 
 void __103__PLLibraryScope_markOnboardingPreviewAssetsByProcessingRulesWithExcludePersonUUIDs_completionHandler___block_invoke_271(uint64_t a1)
@@ -4567,7 +4567,7 @@ LABEL_10:
   participants = [(PLLibraryScope *)self participants];
   v9 = [participants valueForKey:@"uuid"];
 
-  if ([v9 count])
+  if (objc_msgSend_count(v9))
   {
     v10 = objc_opt_class();
     allObjects = [v9 allObjects];

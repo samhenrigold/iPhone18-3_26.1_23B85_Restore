@@ -272,7 +272,7 @@
   v11 = geometry;
   if (geometry)
   {
-    [geometry transform];
+    objc_msgSend_transform(geometry);
   }
 
   else
@@ -783,7 +783,7 @@ LABEL_12:
 {
   if (geometry)
   {
-    [geometry fullTransform];
+    objc_msgSend_fullTransform(geometry, a2);
   }
 
   else
@@ -1179,7 +1179,7 @@ LABEL_11:
     v8 = parent2;
     if (parent2)
     {
-      [parent2 transformInRoot];
+      objc_msgSend_transformInRoot(parent2);
     }
 
     else
@@ -1315,24 +1315,19 @@ LABEL_11:
       v11 = v10;
       if (v10)
       {
-        v12 = *&retstr->c;
-        v15[0] = *&retstr->a;
-        v15[1] = v12;
-        v15[2] = *&retstr->tx;
-        [v10 transformByConcatenatingTransformTo:v15];
+        objc_msgSend_transformByConcatenatingTransformTo_(v10, *&retstr->a, *&retstr->b, *&retstr->c, *&retstr->d, *&retstr->tx, *&retstr->ty);
       }
 
       else
       {
-        v17 = 0u;
-        v18 = 0u;
-        v16 = 0u;
+        v14 = 0u;
+        v15 = 0u;
+        v13 = 0u;
       }
 
-      v13 = v17;
-      *&retstr->a = v16;
-      *&retstr->c = v13;
-      *&retstr->tx = v18;
+      *&retstr->a = v13;
+      *&retstr->c = v14;
+      *&retstr->tx = v15;
 
       parent = [(CGAffineTransform *)v6 parent];
 
@@ -1363,7 +1358,7 @@ LABEL_11:
     v11 = originalPureGeometry;
     if (originalPureGeometry)
     {
-      [originalPureGeometry fullTransform];
+      objc_msgSend_fullTransform(originalPureGeometry);
     }
 
     else
@@ -1376,7 +1371,7 @@ LABEL_11:
     memset(&v18, 0, sizeof(v18));
     if (v7)
     {
-      [v7 fullTransform];
+      objc_msgSend_fullTransform(v7);
     }
 
     else
@@ -1417,7 +1412,7 @@ LABEL_11:
     v15 = 0u;
     if (trackerCopy)
     {
-      [trackerCopy rotateTransform];
+      objc_msgSend_rotateTransform(trackerCopy);
     }
 
     v10 = *(&self->mIsInRealTimeDynamicOperation + 2);
@@ -1549,16 +1544,18 @@ LABEL_9:
 
   if (trackerCopy)
   {
-    [trackerCopy transformForLayout:self];
+    objc_msgSend_transformForLayout_(trackerCopy);
   }
 
   else
   {
-    memset(v14, 0, sizeof(v14));
+    v15 = 0u;
+    v16 = 0u;
+    v14 = 0u;
   }
 
-  [(CRLCanvasLayout *)self layoutTransformInInfoSpace:v14];
-  [(CRLCanvasLayout *)self resizeWithTransform:v15];
+  objc_msgSend_layoutTransformInInfoSpace_(self, v14, v15, v16);
+  [(CRLCanvasLayout *)self resizeWithTransform:v17];
 }
 
 - (void)beginFreeTransformWithTracker:(id)tracker
@@ -1645,16 +1642,18 @@ LABEL_9:
 
   if (trackerCopy)
   {
-    [trackerCopy freeTransformForLayout:self];
+    objc_msgSend_freeTransformForLayout_(trackerCopy);
   }
 
   else
   {
-    memset(v21, 0, sizeof(v21));
+    v22 = 0u;
+    v23 = 0u;
+    v21 = 0u;
   }
 
-  [(CRLCanvasLayout *)self layoutTransformInInfoSpace:v21];
-  [(CRLCanvasLayout *)self resizeWithTransform:v22];
+  objc_msgSend_layoutTransformInInfoSpace_(self, v21, v22, v23);
+  [(CRLCanvasLayout *)self resizeWithTransform:v24];
 }
 
 - (BOOL)i_anyAncestorCurrentlyBeingFreeTransformedWantsNormalLayoutDuringDynamicFreeTransform
@@ -1713,7 +1712,7 @@ LABEL_9:
   v12 = originalGeometry;
   if (originalGeometry)
   {
-    [originalGeometry transform];
+    objc_msgSend_transform(originalGeometry);
   }
 
   else
@@ -1744,7 +1743,7 @@ LABEL_9:
   v12 = geometry;
   if (geometry)
   {
-    [geometry transform];
+    objc_msgSend_transform(geometry);
   }
 
   else
@@ -1781,7 +1780,7 @@ LABEL_9:
   v7 = geometry;
   if (geometry)
   {
-    [geometry transform];
+    objc_msgSend_transform(geometry);
   }
 
   else
@@ -1798,9 +1797,9 @@ LABEL_9:
 {
   pureGeometry = [(CRLCanvasLayout *)self pureGeometry];
   v4 = *&CGAffineTransformIdentity.c;
-  v25 = *&CGAffineTransformIdentity.a;
-  v26 = v4;
-  v27 = *&CGAffineTransformIdentity.tx;
+  v24 = *&CGAffineTransformIdentity.a;
+  v25 = v4;
+  v26 = *&CGAffineTransformIdentity.tx;
   parent = [(CRLCanvasAbstractLayout *)self parent];
   if (parent)
   {
@@ -1816,22 +1815,19 @@ LABEL_9:
       v8 = geometry;
       if (geometry)
       {
-        v21[0] = v25;
-        v21[1] = v26;
-        v21[2] = v27;
-        [geometry transformByConcatenatingTransformTo:v21];
+        objc_msgSend_transformByConcatenatingTransformTo_(geometry, v24, v25, v26);
       }
 
       else
       {
-        v23 = 0u;
-        v24 = 0u;
         v22 = 0u;
+        v23 = 0u;
+        v21 = 0u;
       }
 
+      v24 = v21;
       v25 = v22;
       v26 = v23;
-      v27 = v24;
 
       parent2 = [v6 parent];
 
@@ -1841,10 +1837,10 @@ LABEL_9:
     while (parent2);
   }
 
+  v21 = v24;
   v22 = v25;
   v23 = v26;
-  v24 = v27;
-  v10 = [pureGeometry geometryByTransformingBy:&v22];
+  v10 = [pureGeometry geometryByTransformingBy:&v21];
 
   layoutController = [(CRLCanvasLayout *)self layoutController];
   canvas = [layoutController canvas];
@@ -1853,16 +1849,16 @@ LABEL_9:
   if (isAnchoredAtRight)
   {
     [v10 frame];
-    x = v29.origin.x;
-    y = v29.origin.y;
-    width = v29.size.width;
-    height = v29.size.height;
-    MinX = CGRectGetMinX(v29);
-    v30.origin.x = x;
-    v30.origin.y = y;
-    v30.size.width = width;
-    v30.size.height = height;
-    v19 = [v10 geometryByTranslatingBy:{-(MinX + CGRectGetMaxX(v30)), 0.0}];
+    x = v28.origin.x;
+    y = v28.origin.y;
+    width = v28.size.width;
+    height = v28.size.height;
+    MinX = CGRectGetMinX(v28);
+    v29.origin.x = x;
+    v29.origin.y = y;
+    v29.size.width = width;
+    v29.size.height = height;
+    v19 = [v10 geometryByTranslatingBy:{-(MinX + CGRectGetMaxX(v29)), 0.0}];
 
     v10 = v19;
   }
@@ -1876,7 +1872,7 @@ LABEL_9:
   v3 = inspectorGeometry;
   if (inspectorGeometry)
   {
-    [inspectorGeometry transform];
+    objc_msgSend_transform(inspectorGeometry);
   }
 
   else
@@ -1907,7 +1903,7 @@ LABEL_9:
   v6 = pureGeometry;
   if (pureGeometry)
   {
-    [pureGeometry transform];
+    objc_msgSend_transform(pureGeometry);
   }
 
   else
@@ -1927,24 +1923,19 @@ LABEL_9:
       v10 = geometry;
       if (geometry)
       {
-        v11 = *&retstr->c;
-        v14[0] = *&retstr->a;
-        v14[1] = v11;
-        v14[2] = *&retstr->tx;
-        [geometry transformByConcatenatingTransformTo:v14];
+        objc_msgSend_transformByConcatenatingTransformTo_(geometry, *&retstr->a, *&retstr->b, *&retstr->c, *&retstr->d, *&retstr->tx, *&retstr->ty);
       }
 
       else
       {
-        v16 = 0u;
-        v17 = 0u;
-        v15 = 0u;
+        v13 = 0u;
+        v14 = 0u;
+        v12 = 0u;
       }
 
-      v12 = v16;
-      *&retstr->a = v15;
-      *&retstr->c = v12;
-      *&retstr->tx = v17;
+      *&retstr->a = v12;
+      *&retstr->c = v13;
+      *&retstr->tx = v14;
 
       parent = [(CGAffineTransform *)v8 parent];
 
@@ -1966,7 +1957,7 @@ LABEL_9:
   v6 = originalPureGeometry;
   if (originalPureGeometry)
   {
-    [originalPureGeometry transform];
+    objc_msgSend_transform(originalPureGeometry);
   }
 
   else
@@ -1986,24 +1977,19 @@ LABEL_9:
       v10 = geometry;
       if (geometry)
       {
-        v11 = *&retstr->c;
-        v14[0] = *&retstr->a;
-        v14[1] = v11;
-        v14[2] = *&retstr->tx;
-        [geometry transformByConcatenatingTransformTo:v14];
+        objc_msgSend_transformByConcatenatingTransformTo_(geometry, *&retstr->a, *&retstr->b, *&retstr->c, *&retstr->d, *&retstr->tx, *&retstr->ty);
       }
 
       else
       {
-        v16 = 0u;
-        v17 = 0u;
-        v15 = 0u;
+        v13 = 0u;
+        v14 = 0u;
+        v12 = 0u;
       }
 
-      v12 = v16;
-      *&retstr->a = v15;
-      *&retstr->c = v12;
-      *&retstr->tx = v17;
+      *&retstr->a = v12;
+      *&retstr->c = v13;
+      *&retstr->tx = v14;
 
       parent = [(CGAffineTransform *)v8 parent];
 
@@ -2046,7 +2032,7 @@ LABEL_9:
   v6 = geometryInRoot;
   if (geometryInRoot)
   {
-    [geometryInRoot transform];
+    objc_msgSend_transform(geometryInRoot);
   }
 
   else
@@ -2064,7 +2050,7 @@ LABEL_9:
   v11 = geometry;
   if (geometry)
   {
-    [geometry transform];
+    objc_msgSend_transform(geometry);
   }
 
   else
@@ -2111,32 +2097,32 @@ LABEL_9:
   v13 = sub_100345F44(2, v5, v7, v9, v11);
   v28 = v14;
   v32 = v13;
-  [(CRLCanvasAbstractLayout *)self transformInRoot];
+  objc_msgSend_transformInRoot(self);
   v15 = [[CRLCollaboratorCursorHUDPosition alloc] initWithPosition:[(CRLCanvasLayout *)self p_directionForCollaboratorCursorKnobTag:2] direction:vaddq_f64(v38, vmlaq_n_f64(vmulq_n_f64(v37, v28), v36, v32))];
   [v12 addObject:v15];
 
   v16 = sub_100345F44(4, v5, v7, v9, v11);
   v29 = v17;
   v33 = v16;
-  [(CRLCanvasAbstractLayout *)self transformInRoot];
+  objc_msgSend_transformInRoot(self);
   v18 = [[CRLCollaboratorCursorHUDPosition alloc] initWithPosition:[(CRLCanvasLayout *)self p_directionForCollaboratorCursorKnobTag:4] direction:vaddq_f64(v38, vmlaq_n_f64(vmulq_n_f64(v37, v29), v36, v33))];
   [v12 addObject:v18];
 
   v19 = sub_100345F44(6, v5, v7, v9, v11);
   v30 = v20;
   v34 = v19;
-  [(CRLCanvasAbstractLayout *)self transformInRoot];
+  objc_msgSend_transformInRoot(self);
   v21 = [[CRLCollaboratorCursorHUDPosition alloc] initWithPosition:[(CRLCanvasLayout *)self p_directionForCollaboratorCursorKnobTag:6] direction:vaddq_f64(v38, vmlaq_n_f64(vmulq_n_f64(v37, v30), v36, v34))];
   [v12 addObject:v21];
 
   v22 = sub_100345F44(8, v5, v7, v9, v11);
   v31 = v23;
   v35 = v22;
-  [(CRLCanvasAbstractLayout *)self transformInRoot];
+  objc_msgSend_transformInRoot(self);
   v24 = [[CRLCollaboratorCursorHUDPosition alloc] initWithPosition:[(CRLCanvasLayout *)self p_directionForCollaboratorCursorKnobTag:8] direction:vaddq_f64(v38, vmlaq_n_f64(vmulq_n_f64(v37, v31), v36, v35))];
   [v12 addObject:v24];
 
-  [(CRLCanvasAbstractLayout *)self transformInRoot];
+  objc_msgSend_transformInRoot(self);
   if (sub_100139B5C(v36.f64))
   {
     v25 = &stru_101859C38;
@@ -2406,7 +2392,7 @@ LABEL_9:
   v6 = v5;
   v8 = v7;
   v10 = v9;
-  [(CRLCanvasAbstractLayout *)self transform];
+  objc_msgSend_transform(self);
   v12.origin.x = v4;
   v12.origin.y = v6;
   v12.size.width = v8;
@@ -2433,7 +2419,7 @@ LABEL_9:
   v6 = geometry;
   if (geometry)
   {
-    [geometry transform];
+    objc_msgSend_transform(geometry);
     v7 = v15;
     v8 = v16;
     v9 = v17;
@@ -2462,7 +2448,7 @@ LABEL_9:
   v4 = geometry;
   if (geometry)
   {
-    [geometry transform];
+    objc_msgSend_transform(geometry);
     v5 = v11;
     v6 = v12;
     v7 = v13;
@@ -2491,7 +2477,7 @@ LABEL_9:
   v4 = geometry;
   if (geometry)
   {
-    [geometry transform];
+    objc_msgSend_transform(geometry);
     v5 = v11;
     v6 = v12;
     v7 = v13;
@@ -2520,7 +2506,7 @@ LABEL_9:
   v4 = geometry;
   if (geometry)
   {
-    [geometry transform];
+    objc_msgSend_transform(geometry);
     v5 = v11;
     v6 = v12;
     v7 = v13;
@@ -2549,7 +2535,7 @@ LABEL_9:
   v4 = geometry;
   if (geometry)
   {
-    [geometry transform];
+    objc_msgSend_transform(geometry);
     v5 = v11;
     v6 = v12;
     v7 = v13;
@@ -2620,7 +2606,7 @@ LABEL_8:
     v9 = geometryInRoot;
     if (geometryInRoot)
     {
-      [geometryInRoot transform];
+      objc_msgSend_transform(geometryInRoot);
     }
 
     else
@@ -2663,7 +2649,7 @@ LABEL_8:
       v25 = v24;
       if (layoutGeometryFromInfo)
       {
-        [layoutGeometryFromInfo transform];
+        objc_msgSend_transform(layoutGeometryFromInfo);
       }
 
       else
@@ -2685,7 +2671,7 @@ LABEL_8:
       v10 = v9;
       if (layoutGeometryFromInfo)
       {
-        [layoutGeometryFromInfo transform];
+        objc_msgSend_transform(layoutGeometryFromInfo);
       }
 
       else
@@ -2703,7 +2689,7 @@ LABEL_8:
       v18 = [CRLCanvasLayoutGeometry alloc];
       if (layoutGeometryFromInfo)
       {
-        [layoutGeometryFromInfo transform];
+        objc_msgSend_transform(layoutGeometryFromInfo);
       }
 
       else
@@ -3395,7 +3381,7 @@ LABEL_8:
 {
   y = canvas.y;
   x = canvas.x;
-  [(CRLCanvasAbstractLayout *)self transformInRoot];
+  objc_msgSend_transformInRoot(self, a2);
   CGAffineTransformInvert(&v8, &v7);
   v3 = vaddq_f64(*&v8.tx, vmlaq_n_f64(vmulq_n_f64(*&v8.c, y), *&v8.a, x));
   v4 = v3.f64[1];
@@ -3408,7 +3394,7 @@ LABEL_8:
 {
   y = canvas.y;
   x = canvas.x;
-  [(CRLCanvasAbstractLayout *)self transformInRoot];
+  objc_msgSend_transformInRoot(self, a2);
   v3 = vaddq_f64(v9, vmlaq_n_f64(vmulq_n_f64(v8, y), v7, x));
   v4 = v3.f64[1];
   result.x = v3.f64[0];
@@ -3422,7 +3408,7 @@ LABEL_8:
   width = canvas.size.width;
   y = canvas.origin.y;
   x = canvas.origin.x;
-  [(CRLCanvasAbstractLayout *)self transformInRoot];
+  objc_msgSend_transformInRoot(self, a2);
   CGAffineTransformInvert(&v8, &v7);
   v9.origin.x = x;
   v9.origin.y = y;
@@ -3437,7 +3423,7 @@ LABEL_8:
   width = canvas.size.width;
   y = canvas.origin.y;
   x = canvas.origin.x;
-  [(CRLCanvasAbstractLayout *)self transformInRoot];
+  objc_msgSend_transformInRoot(self, a2);
   v8.origin.x = x;
   v8.origin.y = y;
   v8.size.width = width;
@@ -3754,7 +3740,7 @@ LABEL_12:
     v16 = pureGeometry;
     if (pureGeometry)
     {
-      [pureGeometry fullTransform];
+      objc_msgSend_fullTransform(pureGeometry);
       v17 = v30;
       v18 = v31;
       v19 = v32;
@@ -3780,7 +3766,7 @@ LABEL_12:
     v16 = pureGeometry2;
     if (pureGeometry2)
     {
-      [pureGeometry2 fullTransform];
+      objc_msgSend_fullTransform(pureGeometry2);
       v23 = v30;
       v24 = v31;
       v25 = v32;
@@ -3826,7 +3812,7 @@ LABEL_12:
     v27 = pureGeometry;
     if (pureGeometry)
     {
-      [pureGeometry fullTransform];
+      objc_msgSend_fullTransform(pureGeometry);
       a = v136.a;
       b = v136.b;
       c = v136.c;
@@ -3856,7 +3842,7 @@ LABEL_12:
     v37 = v36;
     if (lineCopy)
     {
-      [lineCopy transform];
+      objc_msgSend_transform(lineCopy);
       v39 = v136.a;
       v38 = v136.b;
       v41 = v136.c;
@@ -3892,7 +3878,7 @@ LABEL_12:
     v55 = x;
     if (pureGeometry2)
     {
-      [pureGeometry2 fullTransform];
+      objc_msgSend_fullTransform(pureGeometry2);
       v57 = v136.a;
       v56 = v136.b;
       v59 = v136.c;
@@ -3923,7 +3909,7 @@ LABEL_12:
     v55 = x;
     if (lineCopy)
     {
-      [lineCopy transform];
+      objc_msgSend_transform(lineCopy);
       v67 = v136.a;
       v66 = v136.b;
       v69 = v136.c;
@@ -4033,7 +4019,7 @@ LABEL_12:
   v89 = geometry3;
   if (geometry3)
   {
-    [geometry3 transform];
+    objc_msgSend_transform(geometry3);
   }
 
   else
@@ -4047,7 +4033,7 @@ LABEL_12:
   v91 = geometry4;
   if (geometry4)
   {
-    [geometry4 transform];
+    objc_msgSend_transform(geometry4);
   }
 
   else
@@ -4138,7 +4124,7 @@ LABEL_12:
   v113 = geometry5;
   if (geometry5)
   {
-    [geometry5 transform];
+    objc_msgSend_transform(geometry5);
     v114 = *&v136.a;
     v115 = *&v136.c;
     v116 = *&v136.tx;
@@ -4236,7 +4222,7 @@ LABEL_12:
               v23 = pureGeometry;
               if (pureGeometry)
               {
-                [pureGeometry fullTransform];
+                objc_msgSend_fullTransform(pureGeometry);
                 v24 = v64;
                 v25 = v65;
                 v26 = v66;
@@ -4278,7 +4264,7 @@ LABEL_12:
               v40 = pureGeometry2;
               if (pureGeometry2)
               {
-                [pureGeometry2 fullTransform];
+                objc_msgSend_fullTransform(pureGeometry2);
                 v41 = v64;
                 v42 = v65;
                 v43 = v66;
@@ -4339,7 +4325,7 @@ LABEL_12:
   v8 = geometry;
   if (geometry)
   {
-    [geometry fullTransform];
+    objc_msgSend_fullTransform(geometry);
     a = v26.a;
     b = v26.b;
     c = v26.c;
@@ -4360,7 +4346,7 @@ LABEL_12:
 
   if (layoutCopy)
   {
-    [layoutCopy pureTransformInRoot];
+    objc_msgSend_pureTransformInRoot(layoutCopy);
   }
 
   else
@@ -4446,7 +4432,7 @@ LABEL_12:
   pathForClippingConnectionLines = [(CRLCanvasLayout *)self pathForClippingConnectionLines];
   v22 = 0.0;
   v23 = 0;
-  [(CRLCanvasAbstractLayout *)self transform];
+  objc_msgSend_transform(self);
   CGAffineTransformInvert(&v21, &v20);
   [pathForClippingConnectionLines distanceToPoint:&v23 elementIndex:&v22 tValue:1 threshold:vaddq_f64(*&v21.tx findClosestMatch:{vmlaq_n_f64(vmulq_n_f64(*&v21.c, y), *&v21.a, x)), threshold}];
   *toPoint = v9;
@@ -4460,7 +4446,7 @@ LABEL_12:
     [pathForClippingConnectionLines pointAt:v23 fromElement:v22];
     v16 = v11;
     v18 = v10;
-    [(CRLCanvasAbstractLayout *)self transform];
+    objc_msgSend_transform(self);
     v12 = vaddq_f64(*&v21.tx, vmlaq_n_f64(vmulq_n_f64(*&v21.c, v16), *&v21.a, v18));
   }
 

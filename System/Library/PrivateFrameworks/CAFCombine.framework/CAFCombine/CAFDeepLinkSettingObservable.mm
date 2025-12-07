@@ -1,7 +1,11 @@
 @interface CAFDeepLinkSettingObservable
 - (NSString)description;
 - (void)automakerSettingService:(id)service didUpdateCategory:(unsigned __int8)category;
+- (void)automakerSettingService:(id)service didUpdateDisabled:(BOOL)disabled;
+- (void)automakerSettingService:(id)service didUpdateHidden:(BOOL)hidden;
+- (void)automakerSettingService:(id)service didUpdateLimitableUIElement:(BOOL)element;
 - (void)automakerSettingService:(id)service didUpdateProminenceInfo:(id)info;
+- (void)automakerSettingService:(id)service didUpdateShowAudioBrandLogo:(BOOL)logo;
 - (void)automakerSettingService:(id)service didUpdateSortOrder:(unsigned __int8)order;
 - (void)deepLinkSettingService:(id)service didUpdateNotificationInfo:(id)info;
 - (void)deepLinkSettingService:(id)service didUpdateUserVisibleDetailedDescription:(id)description;
@@ -27,14 +31,46 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFDeepLinkSettingObservable.automakerSettingService(_:didUpdateSortOrder:)();
+  CAFDeepLinkSettingObservable.automakerSettingService(_:didUpdateSortOrder:)(selfCopy, order);
 }
 
 - (void)automakerSettingService:(id)service didUpdateCategory:(unsigned __int8)category
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFDeepLinkSettingObservable.automakerSettingService(_:didUpdateCategory:)();
+  CAFDeepLinkSettingObservable.automakerSettingService(_:didUpdateCategory:)(selfCopy, category);
+}
+
+- (void)automakerSettingService:(id)service didUpdateDisabled:(BOOL)disabled
+{
+  disabledCopy = disabled;
+  serviceCopy = service;
+  selfCopy = self;
+  CAFDeepLinkSettingObservable.automakerSettingService(_:didUpdateDisabled:)(selfCopy, disabledCopy);
+}
+
+- (void)automakerSettingService:(id)service didUpdateLimitableUIElement:(BOOL)element
+{
+  elementCopy = element;
+  serviceCopy = service;
+  selfCopy = self;
+  CAFDeepLinkSettingObservable.automakerSettingService(_:didUpdateLimitableUIElement:)(selfCopy, elementCopy);
+}
+
+- (void)automakerSettingService:(id)service didUpdateHidden:(BOOL)hidden
+{
+  hiddenCopy = hidden;
+  serviceCopy = service;
+  selfCopy = self;
+  CAFDeepLinkSettingObservable.automakerSettingService(_:didUpdateHidden:)(selfCopy, hiddenCopy);
+}
+
+- (void)automakerSettingService:(id)service didUpdateShowAudioBrandLogo:(BOOL)logo
+{
+  logoCopy = logo;
+  serviceCopy = service;
+  selfCopy = self;
+  CAFDeepLinkSettingObservable.automakerSettingService(_:didUpdateShowAudioBrandLogo:)(selfCopy, logoCopy);
 }
 
 - (void)automakerSettingService:(id)service didUpdateProminenceInfo:(id)info
